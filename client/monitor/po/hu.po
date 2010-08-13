@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-monitor 1.1Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "POT-Creation-Date: 2010-07-21 00:34+0200\n"
-"PO-Revision-Date: 2010-02-03 15:27+0100\n"
+"PO-Revision-Date: 2010-07-22 19:54+0200\n"
 "Last-Translator: Nagy Ákos <reg@pecska.ro>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -431,6 +431,6 @@ msgid "{daemon} thresholds configuration file"
 msgstr "{daemon} határérték beállító fájlja"
 
 #: src/EBox/Monitor.pm:147
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "{daemon} default configuration file"
-msgstr "A {daemon} fő beállító fájlja"
+msgstr "A(z) {daemon} fő beállító fájlja"

@@ -5,10 +5,11 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-ebackup 1.3.3Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
+"Project-Id-Version: ebox-ebackup 1.3.3Report-Msgid-Bugs-To: info@ebox-"
+"technologies.com\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "POT-Creation-Date: 2010-07-21 00:32+0200\n"
-"PO-Revision-Date: 2010-06-11 13:49+0200\n"
+"PO-Revision-Date: 2010-08-08 02:14+0200\n"
 "Last-Translator: Vasco Castelo Branco <vcbranco@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -113,11 +114,10 @@ msgid "Host or destination"
 msgstr "Máquina ou destino"
 
 #: src/EBox/Model/RemoteSettings.pm:169
-#, fuzzy
 msgid "If the selected method is file system, only set the target directory"
 msgstr ""
-"Se o método seleccionado é {brand}, seleccione somente o directório de "
-"destino"
+"Se o método seleccionado é sistema de ficheiros, seleccione somente o "
+"directório de destino"
 
 #: src/EBox/Model/RemoteSettings.pm:173
 msgid "User"
@@ -158,7 +158,7 @@ msgstr "Semanalmente"
 
 #: src/EBox/Model/RemoteSettings.pm:225
 msgid "Monthly"
-msgstr "Mendalmente"
+msgstr "Mensalmente"
 
 #: src/EBox/Model/RemoteSettings.pm:235
 msgid "Incremental Backup Frequency"

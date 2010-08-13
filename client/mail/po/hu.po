@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-mail 1.1Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "POT-Creation-Date: 2010-07-21 00:37+0200\n"
-"PO-Revision-Date: 2010-06-10 21:20+0200\n"
+"PO-Revision-Date: 2010-07-21 15:48+0200\n"
 "Last-Translator: Nagy Ákos <reg@pecska.ro>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -119,9 +119,8 @@ msgid "Mail virtual domain"
 msgstr "Virtuális levelező tartomány"
 
 #: src/EBox/CGI/Wizard/VirtualDomain.pm:47
-#, fuzzy
 msgid "Invalid virtual mail domain"
-msgstr "Virtuális levelező tartomány"
+msgstr "Érvénytelen virtuális levelező tartomány"
 
 #: src/EBox/CGI/DelAccount.pm:48
 msgid "user mail"
@@ -1129,19 +1128,16 @@ msgid "Delete"
 msgstr "Törlés"
 
 #: src/templates/Wizard/virtualdomain.mas:4
-#, fuzzy
 msgid "Virtual mail domain"
 msgstr "Virtuális levelező tartomány"
 
 #: src/templates/Wizard/virtualdomain.mas:7
-#, fuzzy
 msgid "Set up the default virtual mail domain"
-msgstr "Küldjön egy másolatot minden levelezőtartományról"
+msgstr "Alapértelmezett virtuális levelezőtartomány beállítása"
 
 #: src/templates/Wizard/virtualdomain.mas:8
-#, fuzzy
 msgid "This will be the domain for your mail accounts"
-msgstr "Ennek a felhasználónak van levelező fiókja"
+msgstr "Ez lesz az ön levelezőtartománya."
 
 #: src/templates/qmanager.mas:20
 msgid "Sender"

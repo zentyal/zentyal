@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-samba 1.1Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "POT-Creation-Date: 2010-07-21 00:42+0200\n"
-"PO-Revision-Date: 2010-06-10 21:31+0200\n"
+"PO-Revision-Date: 2010-07-22 20:29+0200\n"
 "Last-Translator: Nagy Ákos <reg@pecska.ro>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -22,7 +22,6 @@ msgid "File sharing (Samba) protocol"
 msgstr "Fájlmegosztó protokoll (Samba)"
 
 #: src/EBox/SambaLdapUser.pm:287
-#, fuzzy
 msgid "This user has a sharing directory associated which contains data."
 msgstr ""
 "A felhasználó társított egy megosztási könyvtárat, mely adatokat tartalmaz."
@@ -53,9 +52,8 @@ msgid "Group {g} is not a samba group"
 msgstr "A csoport {g} nem egy Samba csoport!"
 
 #: src/EBox/SambaLdapUser.pm:414
-#, fuzzy
 msgid "This group has a sharing directory associated that contains data."
-msgstr "Ennek a csoportnak van egy megosztott mappája, mely adatokat tartalmaz"
+msgstr "Ennek a csoportnak van egy megosztott mappája, mely adatokat tartalmaz."
 
 #: src/EBox/SambaLdapUser.pm:612
 #, perl-brace-format
@@ -69,9 +67,8 @@ msgid "group name"
 msgstr "csoportnév"
 
 #: src/EBox/SambaLdapUser.pm:729
-#, fuzzy
 msgid "A name should be provided for the share."
-msgstr "A megosztáshoz egy név szükséges!"
+msgstr "A megosztáshoz egy név szükséges."
 
 #: src/EBox/SambaLdapUser.pm:737
 msgid "sharing resource"
@@ -216,9 +213,8 @@ msgid "Guest access"
 msgstr "Vendég hozzáférés"
 
 #: src/EBox/Samba/Model/SambaShares.pm:135
-#, fuzzy
 msgid "This share will not require authentication."
-msgstr "Ez a megosztás nem igényel hitelesítést"
+msgstr "Ez a megosztás nem igényel hitelesítést."
 
 #: src/EBox/Samba/Model/SambaShares.pm:139
 msgid "Access control"
@@ -282,11 +278,10 @@ msgid "User/Group"
 msgstr "Felhasználó/Csoport"
 
 #: src/EBox/Samba/Model/SambaSharePermissions.pm:176
-#, fuzzy
 msgid "Any access control is disabled if the guest access is allowed."
 msgstr ""
 "Az összese hozzáférési szabály érvényét veszti ha a vendég hozzáférés "
-"engedélyezett"
+"engedélyezett."
 
 #: src/EBox/Samba/Model/SambaSharePermissions.pm:207 src/EBox/Samba.pm:631
 #: src/EBox/Samba.pm:1646 src/templates/ajax/viewer/shareViewer.mas:8
@@ -313,24 +308,21 @@ msgid "ACL"
 msgstr "ACL"
 
 #: src/EBox/Samba/Model/SambaSharePermissions.pm:250
-#, fuzzy
 msgid ""
 "Be careful if you grant <i>administrator</i> privileges.User will be able to "
 "read and write any file in the share."
 msgstr ""
-"Körültekintően bánjunk az <i> adminisztrátori</i> jogkörrel. Az \"átlagos, "
-"normál\" felhasználó is képes olvasni/írni a megfelelő módon megosztott "
-"fájlokat."
+"Körültekintően bánjunk az <i>adminisztrátori</i> jogkörrel. Ezen joggal "
+"felruházott felhasználók olvashatnak vagy írhatnak bármely fájlt a "
+"megosztásokban."
 
 #: src/EBox/Samba/Model/SambaSharePermissions.pm:260
-#, fuzzy
 msgid " (user))"
-msgstr "felhasználó"
+msgstr " (felhasználó))"
 
 #: src/EBox/Samba/Model/SambaSharePermissions.pm:262
-#, fuzzy
 msgid " (group))"
-msgstr "csoport"
+msgstr " (csoport))"
 
 #: src/EBox/Samba/Model/PDC.pm:77
 msgid "File sharing module is not enabled."
@@ -448,17 +440,15 @@ msgid "Antivirus"
 msgstr "Vírusirtó"
 
 #: src/EBox/Samba.pm:90
-#, fuzzy
 msgid "Create Samba home directory for shares and groups"
-msgstr "Samba home könyvtár létrehozása felhasználóknak és csoportoknak"
+msgstr "Samba home könyvtár létrehozása megosztásoknak és csoportoknak"
 
 #: src/EBox/Samba.pm:91
-#, fuzzy
 msgid ""
 "eBox will create the directories for Samba shares and groups under /home/"
 "samba."
 msgstr ""
-"Az eBox létrehozza a home könyvtárat a Samba felhasználóknak és csoportoknak "
+"Az eBox létrehozza a home könyvtárat a Samba megosztásoknak és csoportoknak "
 "a /home/samba alatt."
 
 #: src/EBox/Samba.pm:96
@@ -478,29 +468,25 @@ msgid "eBox will configure Samba to use the LDAP admin dn password."
 msgstr "Az eBox beállítja a Samba LDAP adminisztrátorának dn (?) jelszavát."
 
 #: src/EBox/Samba.pm:119
-#, fuzzy
 msgid "To set up Samba according to your configuration."
-msgstr "Samba beállításai, amennyiben akarod konfigurálni."
+msgstr "Samba beállításai, amennyiben be szeretné állítani."
 
 #: src/EBox/Samba.pm:124
-#, fuzzy
 msgid "To set up smbldap-tools according to your configuration."
-msgstr "'smbldap-tools' beállításai, amennyiben akarod konfigurálni."
+msgstr "'smbldap-tools' beállításai, amennyiben be szeretné állítani."
 
 #: src/EBox/Samba.pm:130
-#, fuzzy
 msgid "To set up smbldap-tools according to your LDAP configuration."
-msgstr "'smbldap-tools' beállításai, amennyiben akarod az LDP-t konfigurálni."
+msgstr ""
+"'smbldap-tools' beállításai, amennyiben be szeretné állítani az LDAP-ot."
 
 #: src/EBox/Samba.pm:136
-#, fuzzy
 msgid "To add quota support to /home partition."
-msgstr "Kvóta támogatás hozzáadása a /home partícióhoz"
+msgstr "Kvóta támogatás hozzáadása a /home mappához."
 
 #: src/EBox/Samba.pm:141
-#, fuzzy
 msgid "To set the antivirus settings for Samba."
-msgstr "Samba alapértelmezett vírusirtójának beállításai"
+msgstr "Samba alapértelmezett vírusirtójának beállításai."
 
 #: src/EBox/Samba.pm:610 src/EBox/Samba.pm:631
 msgid "Source machine"

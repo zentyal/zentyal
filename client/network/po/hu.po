@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-network 1.1Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "POT-Creation-Date: 2010-07-21 00:38+0200\n"
-"PO-Revision-Date: 2010-06-10 21:21+0200\n"
+"PO-Revision-Date: 2010-07-22 20:02+0200\n"
 "Last-Translator: Nagy Ákos <reg@pecska.ro>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -44,7 +44,7 @@ msgstr "jelszó"
 
 #: src/EBox/CGI/Iface.pm:108
 msgid "bridge"
-msgstr ""
+msgstr "bridge"
 
 #: src/EBox/CGI/Vlan.pm:45 src/EBox/Network.pm:1625 src/EBox/Network.pm:1654
 #: src/templates/ifaces.mas:229
@@ -901,7 +901,7 @@ msgstr "Trunk (802.1q)"
 
 #: src/templates/ifaces.mas:80 src/templates/ifaces.mas:82
 msgid "Bridged"
-msgstr ""
+msgstr "Bridged"
 
 #: src/templates/ifaces.mas:87 src/templates/ifaces.mas:89
 msgid "Not set"
@@ -921,7 +921,7 @@ msgstr ""
 
 #: src/templates/ifaces.mas:168
 msgid "Bridge"
-msgstr ""
+msgstr "Bridge"
 
 #: src/templates/ifaces.mas:189
 msgid "User name"
@@ -964,38 +964,33 @@ msgstr ""
 "használja ezt az interfészt."
 
 #: src/templates/Wizard/network.mas:18 src/templates/Wizard/interfaces.mas:7
-#, fuzzy
 msgid "Network interfaces"
-msgstr "Hálózati csatoló"
+msgstr "Hálózati csatolók"
 
 #: src/templates/Wizard/network.mas:21
-#, fuzzy
 msgid "Configure network for external interfaces"
-msgstr "Beállítható interfészek listája"
+msgstr "Külső interfész hálózati beállítása"
 
 #: src/templates/Wizard/network.mas:22
 msgid "Now you can set IP addresses and networks for each interface"
-msgstr ""
+msgstr "Most beállíthatja az IP címeket és a hálózatot minden interfészen"
 
 #: src/templates/Wizard/network.mas:30 src/templates/Wizard/network.mas:86
-#, fuzzy
 msgid "Don't configure"
-msgstr "DNS beállítva"
+msgstr "Ne állítsa be/át"
 
 #: src/templates/Wizard/network.mas:63
-#, fuzzy
 msgid "Gateway"
-msgstr "Átjárók"
+msgstr "Átjáró"
 
 #: src/templates/Wizard/interfaces.mas:10
-#, fuzzy
 msgid "Select external network interfaces"
-msgstr "hálózati interfész"
+msgstr "Válassza ki a külső hálózati csatolót"
 
 #: src/templates/Wizard/interfaces.mas:11
 msgid ""
 "You will not be able to connect to eBox administration page through them"
-msgstr ""
+msgstr "Ezen keresztül nem fog tudni csatlakozni az eBox beállító oldalához"
 
 #: src/templates/diag.mas:13 src/templates/diag.mas:18
 msgid "Ping"

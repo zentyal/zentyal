@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: EBox-monitor 0.1\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "POT-Creation-Date: 2010-07-21 00:34+0200\n"
-"PO-Revision-Date: 2010-04-16 18:31+0200\n"
+"PO-Revision-Date: 2010-08-08 02:18+0200\n"
 "Last-Translator: Vasco Castelo Branco <vcbranco@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -428,6 +428,6 @@ msgid "{daemon} thresholds configuration file"
 msgstr "Ficheiro de configuração de entrada {daemon}"
 
 #: src/EBox/Monitor.pm:147
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "{daemon} default configuration file"
-msgstr "Ficheiro de configuração principal {daemon}"
+msgstr "Ficheiro de configuração pré-definida {daemon}"

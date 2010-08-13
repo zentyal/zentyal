@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-ca 0.12\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "POT-Creation-Date: 2010-07-21 00:29+0200\n"
-"PO-Revision-Date: 2010-04-30 12:28+0200\n"
+"PO-Revision-Date: 2010-08-08 02:13+0200\n"
 "Last-Translator: Vasco Castelo Branco <vcbranco@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -112,7 +112,7 @@ msgid "Organization Name"
 msgstr "Nome da Organização"
 
 #: src/EBox/CGI/IssueCertificate.pm:146
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "The input contains invalid characters. All {ascii} alphanumeric characters, "
 "plus these non alphanumeric chars: .?&+:-@* and spaces are allowed."
@@ -436,7 +436,6 @@ msgid "Issue"
 msgstr "Emissão"
 
 #: src/templates/index.mas:77
-#, fuzzy
 msgid "Certificate changes will take effect immediately."
 msgstr "As alterações ao certificado entrarão em vigor imediatamente"
 

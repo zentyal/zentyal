@@ -7,83 +7,83 @@ msgstr ""
 "Project-Id-Version: ebox-squid 0.12\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "POT-Creation-Date: 2010-07-21 00:47+0200\n"
-"PO-Revision-Date: 2006-12-01 13:58+0100\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2010-07-24 15:42+0200\n"
+"Last-Translator: Maurice Mullenders <mmullenders@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Translate Toolkit 0.10.1\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/Squid.pm:70 src/EBox/Squid.pm:1077 src/EBox/Squid.pm:1154
 #: src/EBox/Squid/Composite/General.pm:77
 msgid "HTTP Proxy"
-msgstr ""
+msgstr "HTTP Proxy"
 
 #: src/EBox/Squid.pm:201
 msgid "HTTP Proxy configuration file"
-msgstr ""
+msgstr "HTTP Proxy configuratie bestand"
 
 #: src/EBox/Squid.pm:206
 msgid "Content filter configuration file"
-msgstr ""
+msgstr "Content filter configuratie bestand"
 
 #: src/EBox/Squid.pm:211
 msgid "Default filter group configuration"
-msgstr ""
+msgstr "Standaard filter groep configuratie"
 
 #: src/EBox/Squid.pm:216
 msgid "Filter groups membership"
-msgstr ""
+msgstr "Filter groepslidmaatschap"
 
 #: src/EBox/Squid.pm:221
 msgid "Content filter banned extension list"
-msgstr ""
+msgstr "Content filter uitgesloten extensie lijst"
 
 #: src/EBox/Squid.pm:226
 msgid "Content filter banned mime type list"
-msgstr ""
+msgstr "Content filter uitgesloten mime type lijst"
 
 #: src/EBox/Squid.pm:231
 msgid "Content filter exception site list"
-msgstr ""
+msgstr "Content filter uitgezonderde site lijst"
 
 #: src/EBox/Squid.pm:236
 msgid "Content filter grey site list"
-msgstr ""
+msgstr "Content filter grijze site lijst"
 
 #: src/EBox/Squid.pm:241
 msgid "Content filter banned site list"
-msgstr ""
+msgstr "Content filter uitgesloten site lijst"
 
 #: src/EBox/Squid.pm:246
 msgid "Content filter exception URL list"
-msgstr ""
+msgstr "Content filter uitgezonderde URL lijst"
 
 #: src/EBox/Squid.pm:251
 msgid "Content filter grey URL list"
-msgstr ""
+msgstr "Content filter grijze URL lijst"
 
 #: src/EBox/Squid.pm:256
 msgid "Content filter banned URL list"
-msgstr ""
+msgstr "Content filter uitgesloten URL lijst"
 
 #: src/EBox/Squid.pm:261
 msgid "Forbidden phrases list"
-msgstr ""
+msgstr "Verboden woorden lijst"
 
 #: src/EBox/Squid.pm:266
 msgid "Exception phrases list"
-msgstr ""
+msgstr "Uitgezonderde woorden lijst"
 
 #: src/EBox/Squid.pm:271
 msgid "PICS ratings configuration"
-msgstr ""
+msgstr "PICS waarderings lijst"
 
 #: src/EBox/Squid.pm:276
 msgid "Dansguardian's log rotation configuration"
-msgstr ""
+msgstr "Dansguardians logrotatie configuratie"
 
 #: src/EBox/Squid.pm:281
 msgid "Dansguardian's antivirus scanner configuration"

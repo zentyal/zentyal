@@ -6,11 +6,12 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-asterisk 1.1Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
+"Project-Id-Version: ebox-asterisk 1.1Report-Msgid-Bugs-To: info@ebox-"
+"technologies.com\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "POT-Creation-Date: 2010-07-21 00:28+0200\n"
-"PO-Revision-Date: 2009-12-10 13:55+0100\n"
-"Last-Translator: Adrian Munteanu <adrimunteanu@gmail.com>\n"
+"PO-Revision-Date: 2010-08-11 15:40+0200\n"
+"Last-Translator: Bogdan Chirica <bogdan.chirica@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -30,166 +31,171 @@ msgstr "VoIP"
 
 #: src/EBox/Asterisk.pm:130
 msgid "To configure enabled and disabled modules."
-msgstr "Configurare activare și dezactivare module"
+msgstr "Configurarea modulelor activate sau dezactivate."
 
+# "Realtime" este un nume in acest caz si nu cred ca trebuie tradus ci utilizat ca atare.
 #: src/EBox/Asterisk.pm:135
 msgid "To configure the Realtime interface."
-msgstr ""
+msgstr "Configurarea interfetei \"Realtime\"."
 
 #: src/EBox/Asterisk.pm:140
 msgid "To configure the LDAP Realtime driver."
-msgstr ""
+msgstr "Configurarea driverului \"Realtime\" pentru LDAP."
 
 #: src/EBox/Asterisk.pm:145
 msgid "To configure the common SIP and IAX users."
-msgstr ""
+msgstr "Configurarea utilizatorilor uzuali SIP si IAX."
 
 #: src/EBox/Asterisk.pm:150
 msgid "To configure the SIP trunk for local users and external providers."
 msgstr ""
+"Configurarea trunchiului SIP pentru utilizatori locali si pentru furnizorii "
+"externi."
 
 #: src/EBox/Asterisk.pm:155
 msgid "To configure the dialplan."
-msgstr ""
+msgstr "Configurarea planului de apelare."
 
 #: src/EBox/Asterisk.pm:160
 msgid "To configure the voicemail."
-msgstr ""
+msgstr "Configurarea mesageriei vocale."
 
 #: src/EBox/Asterisk.pm:165
 msgid "To configure the conferences."
-msgstr ""
+msgstr "Configurarea conferintelor."
 
 #: src/EBox/Asterisk.pm:169
 msgid "To configure the music on hold."
-msgstr ""
+msgstr "Configurarea melodiei in asteptare."
 
 #: src/EBox/Asterisk.pm:173
 msgid "To configure DTMF behaviour."
-msgstr ""
+msgstr "Configurarea actiunilor DTMF."
 
 #: src/EBox/Asterisk.pm:485
 msgid "General"
-msgstr ""
+msgstr "General"
 
 #: src/EBox/Asterisk.pm:489 src/EBox/Model/Meetings.pm:190
 msgid "Meetings"
-msgstr ""
+msgstr "Conferinte"
 
 #: src/EBox/Asterisk.pm:506
 msgid "Voicemail"
-msgstr ""
+msgstr "Mesagerie vocala"
 
 #: src/EBox/Asterisk.pm:516 src/EBox/Asterisk.pm:625
 msgid "User"
-msgstr ""
+msgstr "Utilizator"
 
 #: src/EBox/Asterisk.pm:516
 msgid "Address"
-msgstr ""
+msgstr "Adresa"
 
 #: src/EBox/Asterisk.pm:516
 msgid "NAT"
-msgstr ""
+msgstr "NAT"
 
 #: src/EBox/Asterisk.pm:516
 msgid "Status"
-msgstr ""
+msgstr "Stare"
 
 #: src/EBox/Asterisk.pm:530 src/EBox/Asterisk.pm:634
 msgid "No users connected."
-msgstr ""
+msgstr "Nu sunt utilizatori conectati."
 
 #: src/EBox/Asterisk.pm:622
 #, perl-brace-format
 msgid "Room {name} active for {rtime}"
-msgstr ""
+msgstr "Intalnire {nume} activa pentru {rtime}"
 
 #: src/EBox/Asterisk.pm:625
 msgid "Time Connected"
-msgstr ""
+msgstr "Timp Conectare"
 
+# se poate inlocui cu: Utilizatori VoIP activi
 #: src/EBox/Asterisk.pm:655
 msgid "VoIP Online Users"
-msgstr ""
+msgstr "Utilizatori VoIP online"
 
 #: src/EBox/Asterisk.pm:660
 msgid "VoIP Users in Meetings"
-msgstr ""
+msgstr "Utilizatori VoIP in conferinte"
 
 #: src/EBox/Asterisk.pm:692
 msgid "Date"
-msgstr ""
+msgstr "Data"
 
 #: src/EBox/Asterisk.pm:693
 msgid "From"
-msgstr ""
+msgstr "De la"
 
 #: src/EBox/Asterisk.pm:694
 msgid "To"
-msgstr ""
+msgstr "Catre"
 
 #: src/EBox/Asterisk.pm:695
 msgid "Duration"
-msgstr ""
+msgstr "Durata"
 
 #: src/EBox/Asterisk.pm:696
 msgid "Channel"
-msgstr ""
+msgstr "Canal"
 
 #: src/EBox/Asterisk.pm:697
 msgid "Destination Channel"
-msgstr ""
+msgstr "Canal destinatie"
 
 #: src/EBox/Asterisk.pm:698
 msgid "Application"
-msgstr ""
+msgstr "Aplicatie"
 
 #: src/EBox/Asterisk.pm:699
 msgid "Application Data"
-msgstr ""
+msgstr "Date aplicatie"
 
 #: src/EBox/Asterisk.pm:700
 msgid "Event"
-msgstr ""
+msgstr "Eveniment"
 
 #: src/EBox/Asterisk.pm:708
 msgid "Answered"
-msgstr ""
+msgstr "Raspunse"
 
 #: src/EBox/Asterisk.pm:709
 msgid "No Answer"
-msgstr ""
+msgstr "Fara raspuns"
 
 #: src/EBox/Asterisk.pm:710
 msgid "Busy"
-msgstr ""
+msgstr "Ocupat"
 
 #: src/EBox/Asterisk.pm:711
 msgid "Failed"
-msgstr ""
+msgstr "Ratate"
 
 #: src/EBox/Asterisk/Extensions.pm:230
 msgid "User extension"
-msgstr ""
+msgstr "Extensie utilizator"
 
 #: src/EBox/Asterisk/Extensions.pm:323 src/EBox/Asterisk/Extensions.pm:718
 #: src/EBox/Model/Meetings.pm:150 src/EBox/Model/Settings.pm:92
 #: src/templates/group.mas:41 src/templates/user.mas:38
 msgid "Extension"
-msgstr ""
+msgstr "Extensie"
 
+# Se refera la formarea cozilor pe o extensie specificata. 
 #: src/EBox/Asterisk/Extensions.pm:642
 msgid "Queue extension"
-msgstr ""
+msgstr "Extensie coada"
 
 #: src/EBox/CGI/AsteriskGroupOptions.pm:42
 msgid "group"
-msgstr ""
+msgstr "grup"
 
 #: src/EBox/CGI/AsteriskUserOptions.pm:43
 msgid "username"
-msgstr ""
+msgstr "nume utilizator"
 
 #: src/EBox/Model/Meetings.pm:94
 #, perl-brace-format
@@ -197,72 +203,74 @@ msgid ""
 "You must install dahdi and linux-headers packages to use Meetings.{br}Run "
 "the following command: sudo apt-get install {kernels} dahdi."
 msgstr ""
+"Trebuie instalate pachetele dahdi si linux-headers pentru a putea folosi "
+"modul conferinte.{br}Rulati comanda: sudo apt-get install {kernels} dahdi."
 
 #: src/EBox/Model/Meetings.pm:119 src/EBox/Model/Meetings.pm:127
 #: src/EBox/Model/Settings.pm:84
 msgid "extension"
-msgstr ""
+msgstr "extensie"
 
 #: src/EBox/Model/Meetings.pm:154
 #, perl-brace-format
 msgid "A number between {min} and {max}."
-msgstr ""
+msgstr "Un numar cuprins intre {min} si {max}."
 
 #: src/EBox/Model/Meetings.pm:170 src/EBox/Model/Provider.pm:111
 msgid "Password"
-msgstr ""
+msgstr "Parola"
 
 #: src/EBox/Model/Meetings.pm:178 src/EBox/Model/Localnets.pm:119
 msgid "Description"
-msgstr ""
+msgstr "Descriere"
 
 #: src/EBox/Model/Meetings.pm:189
 msgid "List of Meetings"
-msgstr ""
+msgstr "Lista conferintelor"
 
 #: src/EBox/Model/Meetings.pm:191
 msgid "meeting"
-msgstr ""
+msgstr "conferinta"
 
 #: src/EBox/Model/AsteriskUser.pm:50
 msgid "Asterisk Account"
-msgstr ""
+msgstr "Cont Asterisk"
 
 #: src/EBox/Model/AsteriskUser.pm:58
 msgid "Asterisk"
-msgstr ""
+msgstr "Asterisk"
 
 #: src/EBox/Model/Voicemail.pm:75 src/EBox/Model/Voicemail.pm:122
 msgid "Voicemail settings"
-msgstr ""
+msgstr "Setarile mesageriei vocale"
 
 #: src/EBox/Model/Voicemail.pm:94
 msgid "New password"
-msgstr ""
+msgstr "Parola noua"
 
 #: src/EBox/Model/Voicemail.pm:101
 msgid "Mail address"
-msgstr ""
+msgstr "Adresa de mail"
 
 #: src/EBox/Model/Voicemail.pm:108
 msgid "Attach messages"
-msgstr ""
+msgstr "Ataseaza mesaje"
 
 #: src/EBox/Model/Voicemail.pm:114
 msgid "Delete sent messages"
-msgstr ""
+msgstr "Sterge mesajele trimise"
 
 #: src/EBox/Model/Voicemail.pm:126
 msgid "Change your Voicemail settings"
-msgstr ""
+msgstr "Schimba setarile personale de mesagerie vocala"
 
 #: src/EBox/Model/Voicemail.pm:204
 msgid "Settings successfully updated"
-msgstr ""
+msgstr "Setari actualizate cu success"
 
 #: src/EBox/Model/Voicemail.pm:222
 msgid "You have not an VoIP account. Maybe VoIP is not enabled in this server"
-msgstr ""
+msgstr "Nu detineti un cont VoIP. Poate nu este activat VoIP in acest server"
 
 #: src/EBox/Model/Localnets.pm:88
 #, perl-brace-format
@@ -270,90 +278,92 @@ msgid ""
 "Networks attached directly to internal interfaces, like {net}, are always "
 "considered local networks so it is not neccessary to add them."
 msgstr ""
+"Retelele atasate direct la interfata interna, ca {net}, sunt considerate "
+"mereu retele locale si nu este necesar sa fie adaugate."
 
 #: src/EBox/Model/Localnets.pm:113
 msgid "Local network"
-msgstr ""
+msgstr "Retea locala"
 
 #: src/EBox/Model/Localnets.pm:130
 msgid "Local networks"
-msgstr ""
+msgstr "Retele locale"
 
 #: src/EBox/Model/Localnets.pm:131
 msgid "local network"
-msgstr ""
+msgstr "retea locala"
 
 #: src/EBox/Model/Settings.pm:117
 msgid "Enable demo extensions"
-msgstr ""
+msgstr "Activeaza extensiile demo"
 
 #: src/EBox/Model/Settings.pm:123
 msgid "Enable outgoing calls"
-msgstr ""
+msgstr "Permite apeluri catre exterior"
 
 #: src/EBox/Model/Settings.pm:129
 msgid "Voicemail extension"
-msgstr ""
+msgstr "Extensia mesageriei vocale"
 
 #: src/EBox/Model/Settings.pm:136
 msgid "VoIP domain"
-msgstr ""
+msgstr "Domeniul VoIP"
 
 #: src/EBox/Model/Settings.pm:145
 msgid "General configuration"
-msgstr ""
+msgstr "Configurare generala"
 
 #: src/EBox/Model/Settings.pm:149
 msgid "General Asterisk server configuration"
-msgstr ""
+msgstr "Configurare generala a serverului Asterisk"
 
 #: src/EBox/Model/Settings.pm:151
 msgid "General Asterisk server configuration updated."
-msgstr ""
+msgstr "Configurarea generala a serverului Asterisk actualizata."
 
 #: src/EBox/Model/Provider.pm:68
 msgid "Custom"
-msgstr ""
+msgstr "Particularizat"
 
 #: src/EBox/Model/Provider.pm:89
 msgid "Provider"
-msgstr ""
+msgstr "Furnizor"
 
 #: src/EBox/Model/Provider.pm:95
 msgid "Name"
-msgstr ""
+msgstr "Nume"
 
 #: src/EBox/Model/Provider.pm:100
 msgid "VoIP service provider name."
-msgstr ""
+msgstr "Numele furnizorului serviciului de VoIP."
 
 #: src/EBox/Model/Provider.pm:104
 msgid "Username"
-msgstr ""
+msgstr "Nume utilizator"
 
 #: src/EBox/Model/Provider.pm:118
 msgid "Server"
-msgstr ""
+msgstr "Server"
 
 #: src/EBox/Model/Provider.pm:126
 msgid "Recipient of incoming calls"
-msgstr ""
+msgstr "Receptionerul pentru preluarea apelurilor"
 
 #: src/EBox/Model/Provider.pm:130
 msgid "Extension recipient of incoming calls through the provider."
-msgstr ""
+msgstr "Extensia receptionerului pentru preluarea apelurilor de la furnizor."
 
 #: src/EBox/Model/Provider.pm:137
 msgid "SIP provider"
-msgstr ""
+msgstr "Furnizorul SIP"
 
 #: src/EBox/Model/Provider.pm:141
 msgid "SIP provider for outgoing calls configuration."
-msgstr ""
+msgstr "Furnizor SIP pentru configurarea apeluri spre exterior"
 
 #: src/EBox/Model/Provider.pm:143
 msgid "SIP provider configuration updated."
-msgstr ""
+msgstr "Configuratia furnizorului SIP a fost actualizata"
 
 #: src/EBox/Model/Provider.pm:195
 #, perl-brace-format
@@ -363,74 +373,81 @@ msgid ""
 "credit you need. All these services available for purchasing at the {ohref}"
 "eBox on-line store{chref}! "
 msgstr ""
+"{brand}: efectuati apeluri cu pret mic catre retele de telefonie mobila si "
+"fixa direct cu eBox. Dupa obtinerea unei {subs}, puteti cumpara creditul "
+"VoIP necesar dumneavoastra. Toate aceste servicii sunt disponibile pentru a "
+"fi achizitionate de la {ohref}magazinul on-line eBox{chref}!"
 
 #: src/EBox/Model/NAT.pm:96
 msgid "eBox is behind NAT"
-msgstr ""
+msgstr "eBox este dupa NAT"
 
 #: src/EBox/Model/NAT.pm:101
 msgid "No"
-msgstr ""
+msgstr "Nu"
 
 #: src/EBox/Model/NAT.pm:120
 msgid "NAT configuration"
-msgstr ""
+msgstr "Configurare NAT"
 
 #: src/EBox/Model/NAT.pm:124
 msgid "NAT Asterisk server configuration"
-msgstr ""
+msgstr "Configurare NAT a serverului Asterisk"
 
 #: src/EBox/Model/NAT.pm:126
 msgid "NAT Asterisk server configuration updated."
-msgstr ""
+msgstr "Configuratia NAT a serverului Asterisk a fost actualizata."
 
 #: src/EBox/Composite/General.pm:66
 msgid "Asterisk module"
-msgstr ""
+msgstr "Modul Asterisk"
 
 #: src/templates/group.mas:8
 msgid "Asterisk group queue"
-msgstr ""
+msgstr "Grup coada Asterisk"
 
 #: src/templates/group.mas:12
 msgid ""
 "There are no users in this group or the users do not have an Asterisk "
 "account, so a queue cannot be created."
 msgstr ""
+"Nu sunt utilizatori in acest grup sau utilizatorii nu au cont Asterisk, asa "
+"incat coada nu poate fi formata."
 
 #: src/templates/group.mas:24
 msgid "Group queue"
-msgstr ""
+msgstr "Grup coada"
 
 #: src/templates/group.mas:29 src/templates/group.mas:32
 #: src/templates/user.mas:26 src/templates/user.mas:29
 msgid "Disabled"
-msgstr ""
+msgstr "Dezactivat"
 
 #: src/templates/group.mas:30 src/templates/group.mas:33
 #: src/templates/user.mas:27 src/templates/user.mas:30
 msgid "Enabled"
-msgstr ""
+msgstr "Activat"
 
 #: src/templates/group.mas:52 src/templates/group.mas:53
 #: src/templates/user.mas:49 src/templates/user.mas:50
 msgid "Change"
-msgstr ""
+msgstr "Schimba"
 
 #: src/templates/moduleDisabled.mas:5
 msgid ""
 "The following settings only will take effect when the Asterisk module is "
 "enabled."
 msgstr ""
+"Urmatoarele setari vor avea efect numai cand modulul Asterisk va fi activat."
 
 #: src/templates/user.mas:8
 msgid "Asterisk account"
-msgstr ""
+msgstr "Cont Asterisk"
 
 #: src/templates/user.mas:10
 msgid "Password for Asterisk service is the user password"
-msgstr ""
+msgstr "Parola pentru serviciul Asterisk este parola utilizatorului"
 
 #: src/templates/user.mas:21
 msgid "User account"
-msgstr ""
+msgstr "Cont utilizator"

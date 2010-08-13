@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-remoteservices 1.1\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "POT-Creation-Date: 2010-07-21 00:42+0200\n"
-"PO-Revision-Date: 2010-06-15 23:55+0200\n"
+"PO-Revision-Date: 2010-08-10 23:08+0200\n"
 "Last-Translator: Vasco Castelo Branco <vcbranco@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -19,15 +19,15 @@ msgstr ""
 
 #: src/EBox/CGI/Backup/DeleteRemoteBackup.pm:65
 msgid "Backup deleted"
-msgstr "Segurança apagada"
+msgstr "Cópia de segurança apagada"
 
 #: src/EBox/CGI/Backup/MakeRemoteBackup.pm:70
 msgid "Making remote backup"
-msgstr "A efectuar segurança remota"
+msgstr "A efectuar cópia de segurança remota"
 
 #: src/EBox/CGI/Backup/MakeRemoteBackup.pm:71
 msgid "Backing up modules "
-msgstr "A efectuar segurança dos módulos"
+msgstr "A efectuar cópia de segurança dos módulos"
 
 #: src/EBox/CGI/Backup/MakeRemoteBackup.pm:72
 msgid "Operation"
@@ -35,21 +35,21 @@ msgstr "Operação"
 
 #: src/EBox/CGI/Backup/MakeRemoteBackup.pm:73
 msgid "operations left to finish backup"
-msgstr "operações restantes para finalizar a segurança"
+msgstr "operações restantes para finalizar a cópia de segurança"
 
 #: src/EBox/CGI/Backup/MakeRemoteBackup.pm:74
 msgid "Backup successful"
-msgstr "Segurança com sucesso"
+msgstr "A cópia de segurança foi efectuada com sucesso"
 
 #: src/EBox/CGI/Backup/RestoreProxyRemoteBackup.pm:81
 #: src/EBox/CGI/Backup/RestoreRemoteBackup.pm:72
 msgid "Restoring remote backup"
-msgstr "A restaurar segurança remota"
+msgstr "A restaurar cópia de segurança remota"
 
 #: src/EBox/CGI/Backup/RestoreProxyRemoteBackup.pm:82
 #: src/EBox/CGI/Backup/RestoreRemoteBackup.pm:73
 msgid "Restoring modules from remote backup"
-msgstr "A restaurar módulos a partir de segurança remota"
+msgstr "A restaurar módulos a partir de cópia de segurança remota"
 
 #: src/EBox/CGI/Backup/RestoreProxyRemoteBackup.pm:83
 #: src/EBox/CGI/Backup/RestoreRemoteBackup.pm:74
@@ -68,19 +68,19 @@ msgstr "Restauro com sucesso"
 
 #: src/EBox/CGI/Backup/Index.pm:36
 msgid "Remote system backups"
-msgstr "Seguranças de sistema remotas"
+msgstr "Cópias de segurança de sistema remotas"
 
 #: src/EBox/CGI/Backup/Confirm.pm:35
 msgid "Configuration backup"
-msgstr "Segurança da configuração"
+msgstr "Cópia de segurança da configuração"
 
 #: src/EBox/CGI/Backup/Confirm.pm:92 src/EBox/CGI/Backup/Confirm.pm:105
 msgid ""
 "Please confirm that you want to restore the configuraction using the "
 "following remote backup:"
 msgstr ""
-"Confirme que quer restaurar a configuração usando a seguinte segurança "
-"remota:"
+"Confirme que quer restaurar a configuração usando a seguinte cópia de "
+"segurança remota:"
 
 #: src/EBox/CGI/Backup/Confirm.pm:98 src/EBox/CGI/Backup/Confirm.pm:111
 msgid "Restore"
@@ -88,7 +88,7 @@ msgstr "Restaurar"
 
 #: src/EBox/CGI/Backup/Confirm.pm:119
 msgid "Please confirm that you want to delete the following remote backup:"
-msgstr "Confirme que quer apagar a seguinte segurança remota:"
+msgstr "Confirme que quer apagar a seguinte cópia de segurança remota:"
 
 #: src/EBox/CGI/Backup/Confirm.pm:125
 msgid "Delete"
@@ -101,7 +101,7 @@ msgstr "Acção inexistente: {a}"
 
 #: src/EBox/CGI/Backup/Proxy.pm:35
 msgid "Remote system backups proxy"
-msgstr "Proxy da seguranças de sistema remotas"
+msgstr "Proxy de cópias de segurança de sistema remotas"
 
 #: src/EBox/CGI/NoConnection.pm:31
 msgid "Connection error"
@@ -162,31 +162,30 @@ msgid "No domain key found for this service"
 msgstr "A chave do domínio para este serviço não foi encontrada "
 
 #: src/EBox/RemoteServices/Audit/Password.pm:224
-#, fuzzy
 msgid "system"
-msgstr "Sistema"
+msgstr "sistema"
 
 #: src/EBox/RemoteServices/Audit/Password.pm:290
 msgid "average"
-msgstr ""
+msgstr "média"
 
 #: src/EBox/RemoteServices/Audit/Password.pm:294
 msgid "weak"
-msgstr ""
+msgstr "fraco"
 
 #: src/EBox/RemoteServices/Audit/Password.pm:397
 #, perl-brace-format
 msgid "No {level} passwords were found in users"
-msgstr ""
+msgstr "Não foram encontradas palavras-passe {level} em utilizadores"
 
 #: src/EBox/RemoteServices/Audit/Password.pm:402
 #, perl-brace-format
 msgid "The following users have {level} passwords: {users}."
-msgstr ""
+msgstr "os seguintes utilizadores têm palavras-passe {level}: {users}"
 
 #: src/EBox/RemoteServices/SupportAccess.pm:67
 msgid "Cannot ger a the estricted addresses for remote support"
-msgstr ""
+msgstr "Não é possível gerir os endereços para o suporte remoto"
 
 #: src/EBox/RemoteServices/SupportAccess.pm:127
 #, perl-brace-format
@@ -220,14 +219,14 @@ msgid "Done"
 msgstr "Concluído"
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:237
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Subscribing an eBox will configure the {mods} and its dependencies "
-msgstr "Subscrever uma eBox activará o módulo OpenVPN e suas dependências "
+msgstr "Subscrever uma eBox configurará os {mods} e suas dependências "
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:246
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Subscribing an eBox will enable the {mods} and its dependencies.<br/>"
-msgstr "Subscrever uma eBox activará o módulo OpenVPN e suas dependências "
+msgstr "Subscrever uma eBox activará os {mods} e suas dependências<br/>"
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:254
 msgid ""
@@ -235,21 +234,19 @@ msgid ""
 "anything until subscribing process is done."
 msgstr ""
 "Tenho em atenção que subscrever uma eBox pode demorar alguns minutos. Não "
-"toque em qualquer coisa até o processo estar terminado"
+"toque em nada até o processo estar terminado"
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:302
-#, fuzzy
 msgid " module"
-msgstr "Módulo"
+msgstr " módulo"
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:308
 msgid " and "
-msgstr ""
+msgstr " e "
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:308
-#, fuzzy
 msgid " modules"
-msgstr "Módulo"
+msgstr " módulos"
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:340
 msgid ""
@@ -318,7 +315,7 @@ msgstr "Permitir acesso remoto ao colaboradores eBox"
 
 #: src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:81
 msgid "Allow access from any internet address"
-msgstr ""
+msgstr "Permitir acesso de qualquer endereço da internet"
 
 #: src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:85
 msgid ""
@@ -326,9 +323,12 @@ msgid ""
 "private network. If you enable this option access is granted from any "
 "address. Use this option only if you could not connect to the Control Center"
 msgstr ""
+"O acesso pré-definido só permite o acesso a máquinas dentro do Centro de "
+"Controle da rede privada. Se activar esta opção é permitido o acesso de "
+"qualquer endereço. Use esta opção somente se não conseguir ligar ao Centro "
+"de Controle"
 
 #: src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:91
-#, fuzzy
 msgid "Remote support accesss"
 msgstr "Acesso de suporte remoto"
 
@@ -336,12 +336,16 @@ msgstr "Acesso de suporte remoto"
 msgid ""
 "Remote access from any address requires that remote access support is enabled"
 msgstr ""
+"Acesso remoto a partir de qualquer endereço requer que o suporte a acesso "
+"remoto esteja activado"
 
 #: src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:129
 msgid ""
 "To restrict addresses you need that your eBox is subscribed to the Control "
 "Center. Either subscribe it or allow access from any addresse"
 msgstr ""
+"Para restringir os endereços que necessita para a eBox subscrever o Centro "
+"de controle. Subscreva ou permita o acesso a partir de qualquer endereço"
 
 #: src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:140
 #, perl-brace-format
@@ -354,21 +358,28 @@ msgid ""
 "To join the remote session, login in the shell as a user belonging to the "
 "'adm' group and use the command '{cmd}'."
 msgstr ""
+"Ao activar o suporte remoto permitirá que a equipa da eBox Tecnologies aceda "
+"ao seu computador.\n"
+"Pode usar o ecrã para aderir às opções. Para isso ser possível o bit SUID do "
+"programa está activo; esta alteração é desfeita quando a opção está "
+"desactivada\n"
+"Para aderir à sessão remota, entre na shell como utilizador pertencente ao "
+"grupo 'adm' e use o comando '{cmd}'"
 
 #: src/EBox/RemoteServices/Backup.pm:260
 #: src/EBox/RemoteServices/ProxyBackup.pm:208
 #, perl-brace-format
 msgid "Inexistent backup: {n}"
-msgstr "Seguranças inexistentes: {n}"
+msgstr "Cópia de seguranças inexistente: {n}"
 
 #: src/EBox/RemoteServices/ProxyBackup.pm:203
 #, perl-brace-format
 msgid "No backups in server for host: {h}"
-msgstr "Não há seguranças no servidor para o hospedeiro: {h}"
+msgstr "Não há Cópias de segurança no servidor para a máquina: {h}"
 
 #: src/EBox/RemoteServices/ProxyBackup.pm:243
 msgid "Key for proxy backup service not found"
-msgstr "A chave para o serviço de seguranças proxy não foi encontrada"
+msgstr "A chave para o serviço proxy de cópia de segurança não foi encontrada"
 
 #: src/EBox/RemoteServices/Composite/General.pm:70
 msgid "eBox Control Center"
@@ -381,8 +392,8 @@ msgid ""
 "have automatic configuration backup and much more"
 msgstr ""
 " {openhref}Subscrevendo{closehref} a sua eBox no Centro de Controle permite "
-"que tenha uma cópia de segurança automática da configuração além de outras "
-"coisas"
+"que tenha uma cópia de segurança automática da configuração além de muitas "
+"outras coisas"
 
 #: src/EBox/Event/Dispatcher/ControlCenter.pm:148
 msgid "Control panel"
@@ -425,16 +436,20 @@ msgid ""
 "The subscribed hostname is only available if the host is subscribed to eBox "
 "Control Center"
 msgstr ""
+"O nome de máquina subscrito só está disponível se a máquina estivar "
+"subscrita no Centro de controle eBox"
 
 #: src/EBox/RemoteServices.pm:458
 msgid ""
 "The monitor gatherer IP addresses are only available if the host is "
 "subscribed to eBox Control Center"
 msgstr ""
+"A monitorização de endereços IP só está disponível se a máquina tiver uma "
+"subscrição no Centro de controle eBox"
 
 #: src/EBox/RemoteServices.pm:603
 msgid "eBox must be subscribed to reload the bundle"
-msgstr ""
+msgstr "A Ebox tem que ser subscrita para poder carregar este sistema"
 
 #: src/EBox/RemoteServices.pm:991
 #, perl-brace-format

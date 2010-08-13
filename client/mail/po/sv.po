@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-mail 0.12\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "POT-Creation-Date: 2010-07-21 00:37+0200\n"
-"PO-Revision-Date: 2010-07-19 15:48+0200\n"
+"PO-Revision-Date: 2010-07-22 13:32+0200\n"
 "Last-Translator: Daniel Hedblom <daniel.hedblom@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -117,9 +117,8 @@ msgid "Mail virtual domain"
 msgstr "Virtuell domän för e-post"
 
 #: src/EBox/CGI/Wizard/VirtualDomain.pm:47
-#, fuzzy
 msgid "Invalid virtual mail domain"
-msgstr "Virtuell domän för e-post"
+msgstr "Felaktig virtuell domän för e-post"
 
 #: src/EBox/CGI/DelAccount.pm:48
 msgid "user mail"
@@ -1121,19 +1120,16 @@ msgid "Delete"
 msgstr "Ta bort"
 
 #: src/templates/Wizard/virtualdomain.mas:4
-#, fuzzy
 msgid "Virtual mail domain"
-msgstr "Virtuella e-postdomäner"
+msgstr "Virtuell e-post domän"
 
 #: src/templates/Wizard/virtualdomain.mas:7
-#, fuzzy
 msgid "Set up the default virtual mail domain"
-msgstr "Skicka en kopia av alla epost domäner"
+msgstr "Skapa standard virtuell epost domän"
 
 #: src/templates/Wizard/virtualdomain.mas:8
-#, fuzzy
 msgid "This will be the domain for your mail accounts"
-msgstr "Denna användare har ett mailkonto"
+msgstr "Detta blir domänen för dina epostkonton"
 
 #: src/templates/qmanager.mas:20
 msgid "Sender"

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-software 1.1Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "POT-Creation-Date: 2010-07-21 00:47+0200\n"
-"PO-Revision-Date: 2010-04-06 16:31+0200\n"
+"PO-Revision-Date: 2010-07-22 20:48+0200\n"
 "Last-Translator: Nagy Ákos <reg@pecska.ro>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -39,6 +39,9 @@ msgid ""
 "You cannot modify the automatic update using QA updates from Web UI. To "
 "disable automatic updates, edit {conf} and disable {key} key."
 msgstr ""
+"Nem módosíthatja az automatikus frissítési beállításokat ha QA frissítéseket "
+"használ a webfelületről. Az automatikus frissítéseket itt tudja "
+"kikapcsolni: {conf}"
 
 #: src/EBox/Software.pm:552
 msgid "eBox Components"
@@ -50,7 +53,7 @@ msgstr "Rendszerfrissítések"
 
 #: src/EBox/Software.pm:556 src/templates/config.mas:19
 msgid "Settings"
-msgstr ""
+msgstr "Beállítások"
 
 #: src/EBox/Software.pm:695
 #, perl-brace-format
@@ -62,34 +65,31 @@ msgstr ""
 
 #: src/EBox/Software.pm:832
 msgid "Welcome"
-msgstr ""
+msgstr "Üdvözöljük"
 
 #: src/EBox/Software.pm:834
 msgid "Package Selection"
-msgstr ""
+msgstr "Csomagok kiválasztása"
 
 #: src/EBox/Software.pm:835
 msgid "Confirmation"
-msgstr ""
+msgstr "Megerősítés"
 
 #: src/EBox/Software.pm:836
-#, fuzzy
 msgid "Installation"
 msgstr "Telepítés"
 
 #: src/EBox/Software.pm:837
-#, fuzzy
 msgid "Initial Configuration"
-msgstr "automatikus frissítések beállítása"
+msgstr "Alapértelmezett beállítások"
 
 #: src/EBox/Software.pm:838
 msgid "Save Changes"
-msgstr ""
+msgstr "Módosítások mentése"
 
 #: src/EBox/CGI/Config.pm:33
-#, fuzzy
 msgid "Software management settings"
-msgstr "Szoftvermenedzsment"
+msgstr "Szoftvermenedzsment beállítások"
 
 #: src/EBox/CGI/Config.pm:43
 msgid "Automatic software updates"
@@ -100,9 +100,8 @@ msgid "automatic updates configuration"
 msgstr "automatikus frissítések beállítása"
 
 #: src/EBox/CGI/EBox.pm:36
-#, fuzzy
 msgid "Choose eBox packages to install"
-msgstr "telepítendő csomag van hátra"
+msgstr "Válassza ki a telepítendő eBox csomagokat"
 
 #: src/EBox/CGI/EBox.pm:40
 msgid "eBox components"
@@ -125,27 +124,22 @@ msgid "There were no packages to update"
 msgstr "Nincsenek frissítendő csomagok"
 
 #: src/EBox/CGI/InstallPkgs.pm:166
-#, fuzzy
 msgid "Installing"
 msgstr "Telepítés"
 
 #: src/EBox/CGI/InstallPkgs.pm:167
-#, fuzzy
 msgid "Installing packages"
-msgstr "Csomagok frissítése"
+msgstr "Csomagok telepítése"
 
 #: src/EBox/CGI/InstallPkgs.pm:168 src/EBox/CGI/InstallPkgs.pm:192
-#, fuzzy
 msgid "Current operation"
-msgstr "Aktuális csomag"
+msgstr "Aktuális művelet"
 
 #: src/EBox/CGI/InstallPkgs.pm:169
-#, fuzzy
 msgid "packages installed"
-msgstr "telepítendő csomag van hátra"
+msgstr "telepített csomagok"
 
 #: src/EBox/CGI/InstallPkgs.pm:170
-#, fuzzy
 msgid ""
 "The packages installation has finished successfully. The administration "
 "interface may become unresponsive for a few seconds. Please wait patiently "
@@ -202,11 +196,11 @@ msgstr "Telepítés"
 
 #: src/templates/ebox.mas:167
 msgid "View advanced mode"
-msgstr ""
+msgstr "Haladó mód használata"
 
 #: src/templates/ebox.mas:481
 msgid "View basic mode"
-msgstr ""
+msgstr "Kezdő mód használata"
 
 #: src/templates/del.mas:96
 msgid "The following packages will be installed"
@@ -226,19 +220,19 @@ msgstr "Mégse"
 
 #: src/templates/del.mas:149
 msgid "You may want to install also the following recommended packages:"
-msgstr ""
+msgstr "Talán szeretné telepíteni a következő ajánlott csomagokat is:"
 
 #: src/templates/del.mas:152
 msgid "Layer 7 filtering for Traffic Shaping (ebox-l7-protocols)"
-msgstr ""
+msgstr "7. szintű csomagszűrés a Forgalomkorlátozáshoz (ebox-l7-protocols)"
 
 #: src/templates/del.mas:155
 msgid "Virus scanning for File Sharing (ebox-antivirus and samba-vscan)"
-msgstr ""
+msgstr "Vírusszűrés a fájlmegosztáshoz (ebox-antivirus and samba-vscan)"
 
 #: src/templates/del.mas:158
 msgid "VoIP meetings support (dahdi and linux-headers)"
-msgstr ""
+msgstr "VoIP hívástámogatás (dahdi és linux-headers)"
 
 #: src/templates/config.mas:8
 msgid "Perform automatic security updates"
@@ -246,18 +240,17 @@ msgstr "Automatikus szoftverfrissítések végrehajtása"
 
 #: src/templates/config.mas:14
 msgid "This eBox is configured to use automatic QA updates"
-msgstr ""
+msgstr "Ez eBox alapból engedélyezi a QA frissítéseket"
 
 #: src/templates/config.mas:26
 msgid "Automatic operations start time"
-msgstr ""
+msgstr "Automatikus műveletek indítási ideje"
 
 #: src/templates/updates.mas:24
 msgid "Updates are available for the following system components"
 msgstr "A következő rendszerkomponensekhez érhetők el frissítések"
 
 #: src/templates/updates.mas:26
-#, fuzzy
 msgid "Community updates are available for the following system components"
 msgstr "A következő rendszerkomponensekhez érhetők el frissítések"
 
@@ -274,13 +267,12 @@ msgid "Version"
 msgstr "Verzió"
 
 #: src/templates/updates.mas:52
-#, fuzzy
 msgid "Security update"
-msgstr "Rendszerfrissítések"
+msgstr "Biztonsági frissítések"
 
 #: src/templates/updates.mas:55
 msgid "eBox QA update"
-msgstr ""
+msgstr "eBox QA frissítés"
 
 #: src/templates/updates.mas:77
 msgid "Update all packages"
@@ -303,6 +295,8 @@ msgid ""
 "As you are enjoying a Commercial Server Subscription the updates are Quality "
 "Assured by the eBox Development Team."
 msgstr ""
+"Ha feliratkozik a Kereskedelmi Szerver Támogatásra akkor a frissítések "
+"átesnek az eBox minőség-ellenőrző (QA) rendszerén."
 
 #: src/templates/updateNote.mas:13
 #, perl-brace-format
@@ -314,6 +308,11 @@ msgid ""
 "extensively tested by the eBox Development Team and you won't be introducing "
 "any regressions on your already working system."
 msgstr ""
+"Figyelem: A frissítések a közösségtől származnak. Minőség-ellenőrzött "
+"frissítéseket kaphat ha előfizat a <a href='{proUrl}'>Professional</a>  vagy "
+"<a href='{entUrl}'>Enterprise</a> Szerver Támogatásra. A "
+"Minőség-ellenőrzött frissítések garantálják önnek a csomagok alapos "
+"tesztelését az eBox fejlesztő csapata által."
 
 #~ msgid ""
 #~ "eBox software will download the available updates from your configured "

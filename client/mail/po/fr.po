@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: ebox-mail 0.12\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "POT-Creation-Date: 2010-07-21 00:37+0200\n"
-"PO-Revision-Date: 2010-01-18 13:50+0100\n"
-"Last-Translator: Nicolas Liaudat <nliaudat@pompiers-chatel.ch>\n"
+"PO-Revision-Date: 2010-08-07 16:54+0200\n"
+"Last-Translator: Cyril MARTY <cyril_marty@yahoo.fr>\n"
 "Language-Team: Español <es@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -39,7 +39,6 @@ msgid "This user has a mail account"
 msgstr "Cet utilisateur a une compte de courrier"
 
 #: src/EBox/MailUserLdap.pm:813
-#, fuzzy
 msgid "Quota can only be a positive number or zero for unlimited quota"
 msgstr "Quota doit être un nombre positif ou zéro pour un quota illimité"
 
@@ -58,9 +57,10 @@ msgid "mail alias"
 msgstr "alias de courrier"
 
 #: src/EBox/MailAliasLdap.pm:115
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "{ac} is a mail alias. Alias of aliases are not allowed"
-msgstr "{ac} est un alias de messagerie. les alias d'alias ne sont pas permis"
+msgstr ""
+"{ac} est un alias de messagerie. Les alias d'alias ne sont pas autorisés."
 
 #: src/EBox/MailAliasLdap.pm:134
 msgid "group alias"
@@ -114,14 +114,12 @@ msgid "username"
 msgstr "nom d'utilisateur"
 
 #: src/EBox/CGI/Wizard/VirtualDomain.pm:43 src/EBox/Mail/Model/VDomains.pm:211
-#, fuzzy
 msgid "Mail virtual domain"
-msgstr "Domaines virtuels de courrier"
+msgstr "Domaine virtuel de courrier"
 
 #: src/EBox/CGI/Wizard/VirtualDomain.pm:47
-#, fuzzy
 msgid "Invalid virtual mail domain"
-msgstr "Domaines virtuels de courrier"
+msgstr "Domaine virtuel de courrier non valide"
 
 #: src/EBox/CGI/DelAccount.pm:48
 msgid "user mail"
@@ -231,7 +229,6 @@ msgid "Alias"
 msgstr "Alias"
 
 #: src/EBox/Mail/Model/ExternalAliases.pm:60
-#, fuzzy
 msgid "The mail domain is appended automatically"
 msgstr "Le domaine de courrier est ajouté automatiquement"
 
@@ -242,9 +239,8 @@ msgid "External account"
 msgstr "Compte externe"
 
 #: src/EBox/Mail/Model/ExternalAliases.pm:75
-#, fuzzy
 msgid "External Aliases"
-msgstr "Alias de comptes externes"
+msgstr "Alias externes"
 
 #: src/EBox/Mail/Model/ExternalAliases.pm:84
 msgid "External account alias"
@@ -303,9 +299,8 @@ msgid "TLS for SMTP server"
 msgstr "TLS pour serveur SMTP"
 
 #: src/EBox/Mail/Model/SMTPAuth.pm:73
-#, fuzzy
 msgid "Require authentication"
-msgstr "Authentification"
+msgstr "Authentification requise"
 
 #: src/EBox/Mail/Model/SMTPAuth.pm:76
 msgid ""
@@ -373,7 +368,7 @@ msgstr "Compte de courrier externe"
 
 #: src/EBox/Mail/Model/ExternalAccounts.pm:127
 msgid "Fetching mail is done every 10 minutes"
-msgstr ""
+msgstr "La récupération de mail est faite toute les 10 minutes"
 
 #: src/EBox/Mail/Model/ExternalAccounts.pm:144
 msgid "Secure POP3"
@@ -385,13 +380,12 @@ msgstr "IMAP sécurisé"
 
 #: src/EBox/Mail/Model/ExternalAccounts.pm:276
 #: src/EBox/Mail/Model/ExternalAccounts.pm:283
-#, fuzzy
 msgid "External account username"
-msgstr "Compte externe ajouté"
+msgstr "Nom d'utilisateur du compte externe"
 
 #: src/EBox/Mail/Model/ExternalAccounts.pm:278
 msgid "No spaces allowed"
-msgstr ""
+msgstr "Les espaces sont interdits"
 
 #: src/EBox/Mail/Model/ExternalAccounts.pm:317
 msgid "External account added"
@@ -403,13 +397,12 @@ msgid "External account {ac} removed"
 msgstr "Compte externe {ac} supprimé"
 
 #: src/EBox/Mail/Model/ExternalAccounts.pm:439
-#, fuzzy
 msgid ""
 "Cannot retrieve mail from external accounts because you do not have a email "
 "account in a local mail domain"
 msgstr ""
-"Impossible de retirer les courriels du compte externe, car vous n'avez pas "
-"de compte dans le domaine de messagerie local"
+"Impossible de récupérer les courriels du compte externe car vous n'avez pas "
+"de compte de messagerie dans le domaine local"
 
 #: src/EBox/Mail/Model/VDomainAliases.pm:57
 msgid "Aliases"
@@ -430,7 +423,7 @@ msgstr ""
 "utiliser ce domaine"
 
 #: src/EBox/Mail/Model/VDomainAliases.pm:101
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Cannot add {al} alias because there is already a virtual domain with the "
 "same name"
@@ -439,7 +432,7 @@ msgstr ""
 "déjà"
 
 #: src/EBox/Mail/Model/VDomainAliases.pm:108
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Cannot add alias {al} because it is already an identical alias for another "
 "virtual domain"
@@ -488,17 +481,15 @@ msgstr "Adresse \"Smarthost\" (serveur mail de relai)"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:138
 msgid "Address used to report mail problems"
-msgstr ""
+msgstr "Adresse utilisée pour signaler des problèmes de courrier"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:142
-#, fuzzy
 msgid "Local root account"
-msgstr "compte de courrier"
+msgstr "Compte administrateur local"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:146
-#, fuzzy
 msgid "Custom address"
-msgstr "Filtre d'adresse IP personnalisé"
+msgstr "Adresse personnalisée"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:154
 msgid "Maximum mailbox size allowed"
@@ -519,9 +510,8 @@ msgstr "Taille illimitée"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:164
 #: src/EBox/Mail/Model/SMTPOptions.pm:183
-#, fuzzy
 msgid "limited to"
-msgstr "Taille illimitée"
+msgstr "limitée à"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:175
 msgid "Maximum message size accepted"
@@ -539,7 +529,7 @@ msgstr "Jamais"
 #: src/EBox/Mail/Model/SMTPOptions.pm:203
 #: src/EBox/Mail/Model/SMTPOptions.pm:222
 msgid "expired in"
-msgstr ""
+msgstr "expire dans"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:204
 #: src/EBox/Mail/Model/SMTPOptions.pm:223
@@ -557,11 +547,11 @@ msgstr "Options"
 #: src/EBox/Mail/Model/SMTPOptions.pm:342
 #: src/EBox/Mail/Model/SMTPOptions.pm:346
 msgid "Smarthost's address"
-msgstr "Adresse \"Smarthost\" (serveur mail de relai)"
+msgstr "Adresse du \"Smarthost\" (serveur mail de relais)"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:343
 msgid "Smarthost's port"
-msgstr "Port \"Smarthost\" (serveur mail de relai)"
+msgstr "Port du \"Smarthost\" (serveur mail de relais)"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:421
 msgid ""

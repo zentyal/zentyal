@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox 0.12\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "POT-Creation-Date: 2010-07-21 00:37+0200\n"
-"PO-Revision-Date: 2010-07-16 14:01+0200\n"
+"PO-Revision-Date: 2010-07-21 07:25+0200\n"
 "Last-Translator: Daniel Hedblom <daniel.hedblom@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -436,9 +436,8 @@ msgstr ""
 "programfel. Relevant information kan hittas i loggarna."
 
 #: src/EBox/CGI/Wizard.pm:29
-#, fuzzy
 msgid "Initial configuration wizard"
-msgstr "Spara konfiguration"
+msgstr "Inledande konfigurationshjälp"
 
 #: src/EBox/CGI/Logs/Index.pm:37 src/EBox/Logs.pm:59
 msgid "Logs"
@@ -1464,12 +1463,12 @@ msgid "Writing backup file to hard disk"
 msgstr "Skriver filen för säkerhetskopia till hårddisk"
 
 #: src/EBox/Backup.pm:791
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Module {mod} has not saved changes. Before doing the backup you must save or "
 "discard them"
 msgstr ""
-"Några moduler har inte sparat ändringar. Innan du startar "
+"Modulen {mod}  har inte sparat ändringarna. Innan du startar "
 "säkerhetskopieringen måste du spara eller förkasta ändringarna"
 
 #: src/EBox/Backup.pm:849
@@ -1611,9 +1610,9 @@ msgid "eBox web server"
 msgstr "eBox webbserver"
 
 #: src/EBox/Global.pm:480
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Enabling {modName} module"
-msgstr "Sparar {modName} modul"
+msgstr "Aktiverar {modName} modul"
 
 #: src/EBox/Global.pm:510 src/EBox/Global.pm:537
 #, perl-brace-format
@@ -1658,25 +1657,23 @@ msgstr "Ändra"
 
 #: src/templates/wizard.mas:73 src/templates/wizard.mas:74
 msgid "Finish"
-msgstr ""
+msgstr "Färdigställ"
 
 #: src/templates/wizard.mas:131
-#, fuzzy
 msgid "Congratulations!"
-msgstr "Konfiguration"
+msgstr "Grattis!"
 
 #: src/templates/wizard.mas:132
 msgid "Now you are ready to save changes and start using your eBox"
-msgstr ""
+msgstr "Du är nu redo att spara ändringar och börja använda eBox"
 
 #: src/templates/wizard.mas:151 src/templates/wizard.mas:161
 msgid "Skip"
-msgstr ""
+msgstr "Hoppa över"
 
 #: src/templates/wizard.mas:152 src/templates/wizard.mas:162
-#, fuzzy
 msgid "Next"
-msgstr "nästa"
+msgstr "Nästa"
 
 #: src/templates/headTitle.mas:20
 msgid "Remote services control panel"

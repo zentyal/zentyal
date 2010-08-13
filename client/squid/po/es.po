@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: ebox-squid 0.12\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "POT-Creation-Date: 2010-07-21 00:47+0200\n"
-"PO-Revision-Date: 2010-01-29 18:11+0100\n"
+"PO-Revision-Date: 2010-08-02 01:07+0200\n"
 "Last-Translator: Javi Vázquez <javivazquez@ebox-technologies.com>\n"
 "Language-Team: <es@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -96,19 +96,20 @@ msgid "Dansguardian's antivirus scanner configuration"
 msgstr "Configuración del escáner antivirus de Dansguardian"
 
 #: src/EBox/Squid.pm:286
-#, fuzzy
 msgid "Filter groups per IP"
-msgstr "Filtrar grupo"
+msgstr "Filtrar grupos por IP"
 
 #: src/EBox/Squid.pm:301
 msgid "Overwrite blocked page templates"
-msgstr ""
+msgstr "Sobreescribir plantillas de páginas bloqueadas"
 
 #: src/EBox/Squid.pm:302
 msgid ""
 "Dansguardian blocked page templates will be overwritten with eBox customized "
 "templates."
 msgstr ""
+"Las plantillas de páginas bloqueadas por Dansguardian será sobreescritas con "
+"plantillas personalizadas de eBox."
 
 #: src/EBox/Squid.pm:342
 msgid "You must set the cache_mem variable in the ebox configuration file"
@@ -116,11 +117,11 @@ msgstr ""
 "Debe establecer la variable cache_mem en el fichero de configuración de eBox"
 
 #: src/EBox/Squid.pm:351
-#, fuzzy
 msgid ""
 "You must set the max_object_size variable in the ebox configuration file"
 msgstr ""
-"Debe establecer la variable cache_mem en el fichero de configuración de eBox"
+"Debes establecer la variable max_object_size en el fichero de configuración "
+"de eBox"
 
 #: src/EBox/Squid.pm:1049
 msgid "Enabled"
@@ -164,7 +165,7 @@ msgstr "General"
 
 #: src/EBox/Squid.pm:1100 src/EBox/Squid/Composite/DelayPools.pm:69
 msgid "Bandwidth Throttling"
-msgstr ""
+msgstr "Limitación de Ancho de Banda"
 
 #: src/EBox/Squid.pm:1103
 msgid "Objects' Policy"
@@ -500,6 +501,8 @@ msgid ""
 "Object {object} has no members. Please add at least one to add rules using "
 "this object."
 msgstr ""
+"El objeto {object} no tiene miembros. Por favor, añade al menos uno para "
+"agregar reglas a este objeto."
 
 #: src/EBox/Squid/Model/DelayPools2.pm:102
 #: src/EBox/Squid/Model/DelayPools1.pm:100
@@ -508,6 +511,8 @@ msgid ""
 "Object {object} has an enabled {row} in {table}. Delete it first from there "
 "to add it here"
 msgstr ""
+"El objeto {object} tiene una {row} en {table}. Bórrallo allí antes de "
+"añadirlo aquí"
 
 #: src/EBox/Squid/Model/DelayPools2.pm:119
 #: src/EBox/Squid/Model/DelayPools1.pm:116
@@ -515,29 +520,28 @@ msgstr ""
 msgid ""
 "If {first} is set unlimited, then {second} must be set to unlimited as well"
 msgstr ""
+"Si {first} está configurado como ilimitado, entonces {second} debe fijarse "
+"como ilimitado también"
 
 #: src/EBox/Squid/Model/DelayPools2.pm:134
 #, perl-brace-format
 msgid "{clt_rate} is greater than {net_rate}"
-msgstr ""
+msgstr "{clt_rate} es mayor que {net_rate}"
 
 #: src/EBox/Squid/Model/DelayPools2.pm:159
 #: src/EBox/Squid/Model/DelayPools1.pm:143
-#, fuzzy
 msgid "Network object"
-msgstr "Lista de objetos"
+msgstr "Objeto de red"
 
 #: src/EBox/Squid/Model/DelayPools2.pm:167
-#, fuzzy
 msgid "Rate"
-msgstr "Fecha"
+msgstr "Ratio"
 
 #: src/EBox/Squid/Model/DelayPools2.pm:170
 #: src/EBox/Squid/Model/DelayPools2.pm:190
 #: src/EBox/Squid/Model/DelayPools1.pm:154
-#, fuzzy
 msgid "Bytes/s"
-msgstr "Bytes"
+msgstr "Byte/s"
 
 #: src/EBox/Squid/Model/DelayPools2.pm:173
 #: src/EBox/Squid/Model/DelayPools1.pm:157
@@ -545,10 +549,12 @@ msgid ""
 "Maximum download bandwidth rate for this network. Use -1 to disable this "
 "option."
 msgstr ""
+"Máximo ratio de ancho de banda de bajada para esta red. Usa -1 to desactivar "
+"esta opción."
 
 #: src/EBox/Squid/Model/DelayPools2.pm:177
 msgid "Maximum Size"
-msgstr ""
+msgstr "Tamaño Máximo"
 
 #: src/EBox/Squid/Model/DelayPools2.pm:183
 #: src/EBox/Squid/Model/DelayPools1.pm:167
@@ -556,28 +562,34 @@ msgid ""
 "Maximum unthrottled download size for this network. Use -1 to disable this "
 "option."
 msgstr ""
+"Máximo tamaño no limitado para esta red. Usa -1 para desactivar esta opción."
 
 #: src/EBox/Squid/Model/DelayPools2.pm:187
 msgid "Client Rate"
-msgstr ""
+msgstr "Ratio del Cliente"
 
 #: src/EBox/Squid/Model/DelayPools2.pm:193
 msgid ""
 "Maximum download bandwidth rate per client. Use -1 to disable this option."
 msgstr ""
+"Máximo ratio de ancho de banda de bajada por cliente. Usa -1 to desactivar "
+"esta opción."
 
 #: src/EBox/Squid/Model/DelayPools2.pm:197
 msgid "Client Maximum Size"
-msgstr ""
+msgstr "Tamaño Máximo de Cliente"
 
 #: src/EBox/Squid/Model/DelayPools2.pm:203
 msgid ""
 "Maximum unthrottled download size per client. Use -1 to disable this option."
 msgstr ""
+"Tamaño máximo no limitado de bajada por cliente. Usa -1 para desactivar esta "
+"opción."
 
+# Textual, no hay traducción
 #: src/EBox/Squid/Model/DelayPools2.pm:209
 msgid "Delay Pools Class 2"
-msgstr ""
+msgstr "\"Delay Pools Class 2\""
 
 #: src/EBox/Squid/Model/DelayPools2.pm:216
 #, perl-brace-format
@@ -585,23 +597,28 @@ msgid ""
 "Once the request exceeds the {max} then the HTTP Proxy will throttle the "
 "download bandwidth to the given {rate}. The client number is limited to 256."
 msgstr ""
+"Una vez la petición exceda el {max}, entonces el Proxy HTTP limiltará el "
+"ancho de banda al {rate} prefijado. El número de clientes está limitado a "
+"256."
 
+# Literal
 #: src/EBox/Squid/Model/DelayPools2.pm:222
 #: src/EBox/Squid/Model/DelayPools1.pm:186
 msgid "pool"
-msgstr ""
+msgstr "\"pool\""
 
 #: src/EBox/Squid/Model/DelayPools1.pm:151
 msgid "Network Rate"
-msgstr ""
+msgstr "Ratio de Red"
 
 #: src/EBox/Squid/Model/DelayPools1.pm:161
 msgid "Network Maximum Size"
-msgstr ""
+msgstr "Máximo Tamaño de Red"
 
+# Literal, no hay traducción
 #: src/EBox/Squid/Model/DelayPools1.pm:173
 msgid "Delay Pools Class 1"
-msgstr ""
+msgstr "\"Delay Pools Class 1\""
 
 #: src/EBox/Squid/Model/DelayPools1.pm:180
 #, perl-brace-format
@@ -609,6 +626,8 @@ msgid ""
 "Once the request exceeds the {max} then the HTTP Proxy will throttle the "
 "download bandwidth to the given {rate}."
 msgstr ""
+"Una vez la petición exceda el {max}, entonces el proxy HTTP limitará el "
+"ancho de banda de descarga al {rate} dado."
 
 #: src/EBox/Squid/Model/UseDefaultDomainFilter.pm:58
 #: src/EBox/Squid/Model/UseDefaultMIMEFilter.pm:57
@@ -831,7 +850,7 @@ msgstr ""
 
 #: src/EBox/Squid/Model/ObjectPolicy.pm:265
 msgid "You can only use a custom profile with the 'Filter' policy"
-msgstr ""
+msgstr "Sólo puedes usar un perfil personalizado con la política 'Filtro'"
 
 #: src/EBox/Squid/Model/ObjectPolicy.pm:529
 #, perl-brace-format
@@ -857,9 +876,8 @@ msgid "Domain or URL"
 msgstr "Dominio o URL"
 
 #: src/EBox/Squid/Model/DomainFilterBase.pm:77
-#, fuzzy
 msgid "Domain or IP address part of URL"
-msgstr "Dominio o dirección IP"
+msgstr "Dominio o dirección IP parte de la URL"
 
 #: src/EBox/Squid/Model/DomainFilterBase.pm:87
 msgid "Domain"
@@ -1305,6 +1323,11 @@ msgid ""
 "match from the source is done. If a network object does not match any rule, "
 "then no bandwidth throttling is done to it"
 msgstr ""
+"'Pools' de clase 1 te permite registrir el ratio de ancho de banda para "
+"grandes descargas, mientras que 'pools' de clase 2 te permite fijar el uso "
+"de ancho de banda a un ratio constante. Las 'pools' de clase 1 tiene mayor "
+"prioridad que las de clase 2. Si un objeto de red not coincide con ninguna "
+"regla, entonces no se le limita el ancho de banda."
 
 #: src/EBox/Squid/Composite/FilterGroupDomains.pm:84
 msgid "Domains filtering for filter group"
@@ -1337,18 +1360,17 @@ msgid "Days of the week"
 msgstr "Días de la semana"
 
 #: stubs/template.html.mas:9
-#, fuzzy
 msgid "Access Denied"
-msgstr "Peticiones de acceso"
+msgstr "Acceso denegado"
 
 #: stubs/template.html.mas:30
 msgid "Access has been Denied"
-msgstr ""
+msgstr "El acceso ha sido Denegado"
 
 #: stubs/template.html.mas:37
 #, perl-brace-format
 msgid "Access to the page: {page} has been denied for the following reason"
-msgstr ""
+msgstr "El acceso a la página {page} ha sido denegado por la siguiente razón"
 
 #: stubs/template.html.mas:41
 msgid ""
@@ -1356,15 +1378,20 @@ msgid ""
 "contain, or is labeled as containing, material that has been deemed "
 "inappropriate."
 msgstr ""
+"Estás viendo este error porque el sitio al que estás intentando acceder "
+"parece contener, o está etiquetado como tal, material que ha sido calificado "
+"como inapropiado."
 
 #: stubs/template.html.mas:42
 msgid ""
 "If you have any queries contact your ICT Coordinator or Network Manager."
 msgstr ""
+"Si tienes alguna duda, contacta con tu coordinador de internet y "
+"comunicaciones o tu gestor de red."
 
 #: stubs/template.html.mas:47
 msgid "Powered by"
-msgstr ""
+msgstr "Proporcionado por"
 
 # Comprobar cadena original en inglés
 #~ msgid "Threshold a"

@@ -8,53 +8,54 @@ msgstr ""
 "Project-Id-Version: ebox-. 1.5\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "POT-Creation-Date: 2010-07-21 00:37+0200\n"
-"PO-Revision-Date: 2010-06-03 02:52+0200\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2010-07-26 03:07+0200\n"
+"Last-Translator: Jean Migisha <migisha_jean@yahoo.fr>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: migration/0001_add_firewall_services.pl:30
 msgid "eBox FTP Server"
-msgstr ""
+msgstr "Serveur FTP eBox"
 
 #: src/EBox/Model/Options.pm:48
 msgid "Disabled"
-msgstr ""
+msgstr "Inactif"
 
 #: src/EBox/Model/Options.pm:52
 msgid "Read only"
-msgstr ""
+msgstr "Lecture seul"
 
 #: src/EBox/Model/Options.pm:56
 msgid "Read/Write"
-msgstr ""
+msgstr "Lecture/Écriture"
 
 #: src/EBox/Model/Options.pm:69
 msgid "Anonymous access"
-msgstr ""
+msgstr "Accès anonyme"
 
 #: src/EBox/Model/Options.pm:73
 msgid "Sets the permissions for the /srv/ftp directory"
-msgstr ""
+msgstr "Configure les permissions d'accès du répertoire /srv/ftp"
 
 #: src/EBox/Model/Options.pm:77
 msgid "Personal directories"
-msgstr ""
+msgstr "Dossiers personnels"
 
 #: src/EBox/Model/Options.pm:80
 msgid "Enable FTP access for each user to its /home directory"
-msgstr ""
+msgstr "Autorise l'accès FTP pour chaque utilisateur à son dossier /home"
 
 #: src/EBox/Model/Options.pm:86
 msgid "General configuration settings"
-msgstr ""
+msgstr "Paramètres de configuration générale"
 
 #: src/EBox/Model/Options.pm:87
 msgid "FTP Server"
-msgstr ""
+msgstr "Serveur FTP"
 
 #: src/EBox/Model/Options.pm:91
 msgid ""
@@ -64,11 +65,16 @@ msgid ""
 "write permissions for everybody, for example: mkdir /srv/ftp/incoming ; "
 "chmod o+rwx /srv/ftp/incoming"
 msgstr ""
+"Le répertoire pour les accès anonyme est /srv/ftp, vérifier que les fichiers "
+"qui y sont placés aient des droits d'accès en lecture pour tous (chmod o+r "
+"/srv/ftp/*). Si vous souhaitez permettre un droit d'accès en écriture, vous "
+"devez créer un sous-répertoire avec des droits en écriture pour tous, par "
+"exemple: mkdir /srv/ftp/incoming ; chmod o+rwx /srv/ftp/incoming"
 
 #: src/EBox/FTP.pm:84
 msgid "To configure vsftpd"
-msgstr ""
+msgstr "Pour configurer vsftpd"
 
 #: src/EBox/FTP.pm:88
 msgid "To configure vsftpd with LDAP authentication"
-msgstr ""
+msgstr "Pour configurer vsftpd avec l'authentification LDAP"

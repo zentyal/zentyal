@@ -5,11 +5,11 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-webserver 0.12.99Report-Msgid-Bugs-To: info@ebox-technologies."
-"es\n"
+"Project-Id-Version: ebox-webserver 0.12.99Report-Msgid-Bugs-To: info@ebox-"
+"technologies.es\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "POT-Creation-Date: 2010-07-21 00:52+0200\n"
-"PO-Revision-Date: 2010-02-03 15:42+0100\n"
+"PO-Revision-Date: 2010-08-11 08:26+0200\n"
 "Last-Translator: Ronny Gonzales <gonzito@online.no>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -28,37 +28,32 @@ msgid "Web Server"
 msgstr "Web Server"
 
 #: src/EBox/WebServer.pm:101
-#, fuzzy
 msgid "To set webserver listening port."
-msgstr "For å sette web server lytte porten"
+msgstr "For å sette web server lytte porten."
 
 #: src/EBox/WebServer.pm:106
 msgid "To configure default virtual host."
-msgstr ""
+msgstr "For å konfigurere standard virtuell vert."
 
 #: src/EBox/WebServer.pm:111
 msgid "To configure default SSL virtual host."
-msgstr ""
+msgstr "For å konfigurere standard SSL virtuell vert."
 
 #: src/EBox/WebServer.pm:116
-#, fuzzy
 msgid "To configure the per-user public_html directory."
-msgstr "For å konfigurere per-bruker felles HTML mappe"
+msgstr "For å konfigurere per-bruker felles HTML mappe."
 
 #: src/EBox/WebServer.pm:141
-#, fuzzy
 msgid "Enable Apache LDAP user module"
-msgstr "Aktiver apache LDAP modul"
+msgstr "Aktiver Apache LDAP bruker modul"
 
 #: src/EBox/WebServer.pm:143
-#, fuzzy
 msgid "To fetch home directories from LDAP."
-msgstr "For å hente hjemme mapper fra LDAP"
+msgstr "For å hente hjemme mapper fra LDAP."
 
 #: src/EBox/WebServer.pm:146
-#, fuzzy
 msgid "Enable Apache SSL module"
-msgstr "Aktiver apache LDAP modul"
+msgstr "Aktiver Apache SSL modul"
 
 #: src/EBox/WebServer.pm:148
 msgid "To serve pages over HTTPS."
@@ -69,9 +64,9 @@ msgid "Web service status"
 msgstr "Web tjeneste status"
 
 #: src/EBox/WebServer.pm:442
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "The {userDirConfFile} is missing! Please recover it."
-msgstr "{userDirConfFile} mangler! Vennligst gjenopprett den"
+msgstr "{userDirConfFile} mangler! Vennligst gjenopprett den."
 
 #: src/EBox/WebServer/Model/GeneralSettings.pm:98
 #: src/EBox/WebServer/Model/GeneralSettings.pm:110
@@ -95,27 +90,24 @@ msgid ""
 msgstr ""
 
 #: src/EBox/WebServer/Model/GeneralSettings.pm:141
-#, fuzzy
 msgid ""
 "To allow HTML directories for users is needed to have the file sharing "
 "module is installed and configured."
 msgstr ""
 "For å tillate HTML mapper for brukere, er det nødvendig at fil delings "
-"modulen er installert og konfigurert"
+"modulen er installert og konfigurert."
 
 #: src/EBox/WebServer/Model/GeneralSettings.pm:147
-#, fuzzy
 msgid ""
 "To allow HTML directories for users is needed to have the file sharing "
 "module configured. To configure it enable it at least one time."
 msgstr ""
 "For å tillate HTML mapper for bruker, er det nødvendig at fil delings "
-"modulen er konfigurert. For å konfigurere den aktiver den minst en gang"
+"modulen er konfigurert. For å konfigurere den aktiver den minst en gang."
 
 #: src/EBox/WebServer/Model/GeneralSettings.pm:237
-#, fuzzy
 msgid "Listening SSL port"
-msgstr "Lytte port"
+msgstr "Lytte SSL port"
 
 #: src/EBox/WebServer/Model/GeneralSettings.pm:241
 #: src/EBox/WebServer/Model/VHostTable.pm:254
@@ -142,7 +134,7 @@ msgid "General configuration settings"
 msgstr "Generell konfigurasjons instillinger"
 
 #: src/EBox/WebServer/Model/GeneralSettings.pm:270
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "General Web server configuration. The listening port must not be got from "
 "another service. If you enable user to publish their own html pages, the "
@@ -152,21 +144,18 @@ msgstr ""
 "Generell Web server konfigurasjon. Lytte porten må ikke fremskaffes fra en "
 "annen tjeneste. Hvis du aktiverer bruker til å publiserer sin egne html "
 "sider, vil sidene bli lastet fra {dirName} mappen fra deres samba hjemme "
-"mapper"
+"mapper."
 
 #: src/EBox/WebServer/Model/GeneralSettings.pm:276
-#, fuzzy
 msgid "General Web server configuration settings updated."
-msgstr "Generell Web server konfigurasjon oppdater"
+msgstr "Generell Web server konfigurasjon oppdatert."
 
 #: src/EBox/WebServer/Model/VHostTable.pm:95
-#, fuzzy
 msgid "Virtual host name"
 msgstr "Virtuelt verts navn"
 
 #: src/EBox/WebServer/Model/VHostTable.pm:99
 #: src/EBox/WebServer/Model/VHostTable.pm:312
-#, fuzzy
 msgid "Virtual host"
 msgstr "Virtuell vert"
 
@@ -184,44 +173,44 @@ msgstr ""
 "kartleggings navn {name} - IP adresse {ip}. {noDnsWarning} "
 
 #: src/EBox/WebServer/Model/VHostTable.pm:190
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Virtual host {vhost} added. A mapping name {name} - IP address {ip} has been "
 "added to {domain} domain."
 msgstr ""
 "Virtuell vert {vhost} lagt til. Et kartleggings navn {name} - IP adresse "
-"{ip} har blitt lagt til {domain} domene"
+"{ip} har blitt lagt til {domain} domene."
 
 #: src/EBox/WebServer/Model/VHostTable.pm:204
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Virtual host {vhost} added as an alias {alias} to hostname {hostname}."
 msgstr ""
-"Virtuell vert {vhost} lagt til som et alias {alias} til verts navn {hostname}"
+"Virtuell vert {vhost} lagt til som et alias {alias} til verts navn "
+"{hostname}."
 
 #: src/EBox/WebServer/Model/VHostTable.pm:210
 #: src/EBox/WebServer/Model/VHostTable.pm:215
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Virtual host {vhost} added."
-msgstr "Verts navn {vhost} lagt til"
+msgstr "Verts navn {vhost} lagt til."
 
 #: src/EBox/WebServer/Model/VHostTable.pm:220
-#, fuzzy
 msgid "There is no static internal interface to set the Web server IP address."
 msgstr ""
 "Det er ikke noe statisk internt grensesnitt til å sette Web server IP "
-"adressen"
+"adressen."
 
 #: src/EBox/WebServer/Model/VHostTable.pm:255
 msgid "Allow SSL"
-msgstr ""
+msgstr "Tillat SSL"
 
 #: src/EBox/WebServer/Model/VHostTable.pm:256
 msgid "Force SSL"
-msgstr ""
+msgstr "Påbudt SSL"
 
 #: src/EBox/WebServer/Model/VHostTable.pm:281
 msgid "SSL support"
-msgstr ""
+msgstr "SSL støtte"
 
 #: src/EBox/WebServer/Model/VHostTable.pm:288
 msgid "Name"
@@ -229,10 +218,10 @@ msgstr "Navn"
 
 #: src/EBox/WebServer/Model/VHostTable.pm:298
 msgid "Virtual hosts"
-msgstr "Virtuell vert"
+msgstr "Virtuelle verter"
 
 #: src/EBox/WebServer/Model/VHostTable.pm:302
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Virtual hosts are a form of web hosting service where many instances of the "
 "same web server is hosted on a single physical server. Different host names "
@@ -245,7 +234,7 @@ msgstr ""
 "samme web server er vertet på en enslig fysisk server. Forskjellige verts "
 "navn vil peke til samme web server. DNS oppslaget vil automatisk bli "
 "opprettet hvis mulig. Inholdet må bli plassert under {docRoot} mappen. "
-"Enhver konfigurasjon du vil legge til må plasseres i {userConf} mappen"
+"Enhver konfigurasjon du vil legge til må plasseres i {userConf} mappen."
 
 #: src/EBox/WebServer/Model/VHostTable.pm:333
 #, perl-brace-format
@@ -261,13 +250,12 @@ msgid "Configuration"
 msgstr "Konfigurasjon"
 
 #: src/EBox/WebServer/Composite/General.pm:81
-#, fuzzy
 msgid ""
 "The eBox web service allows you to host Web pages in plain HTML within "
 "different virtual hosts."
 msgstr ""
 "eBox web tjenesten lar deg verte Web sider i ren HTML med forskjellige "
-"virtuelle verter"
+"virtuelle verter."
 
 #~ msgid "listening port"
 #~ msgstr "lytte port"

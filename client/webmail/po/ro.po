@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-webmail 1.3\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "POT-Creation-Date: 2010-07-21 00:52+0200\n"
-"PO-Revision-Date: 2010-07-05 11:10+0200\n"
+"PO-Revision-Date: 2010-08-03 08:27+0200\n"
 "Last-Translator: Harald Ersch <harald.ersch@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -84,15 +84,15 @@ msgstr "Parolă"
 
 #: src/EBox/WebMail/Model/RemoteServerConfiguration.pm:137
 msgid "Manage sieve enabled in IMAP server"
-msgstr ""
+msgstr "Administrare sită activată în serverul IMAP"
 
 #: src/EBox/WebMail/Model/RemoteServerConfiguration.pm:142
 msgid "Manage sieve port"
-msgstr ""
+msgstr "Port administrare sită"
 
 #: src/EBox/WebMail/Model/RemoteServerConfiguration.pm:149
 msgid "Manage sieve connection uses TLS"
-msgstr ""
+msgstr "Conectarea la administrarea sitei foloseşte TLS"
 
 #: src/EBox/WebMail/Model/RemoteServerConfiguration.pm:159
 msgid "External server connection"
@@ -134,13 +134,15 @@ msgstr ""
 
 #: src/EBox/WebMail/Model/Options.pm:56
 msgid "Virtual host"
-msgstr ""
+msgstr "Host virtual"
 
 #: src/EBox/WebMail/Model/Options.pm:62
 msgid ""
 "Virtual host where the webmail will be installed. This will disable the "
 "default /webmail url."
 msgstr ""
+"Hostul virtual unde va fi instalat webmail. Aceasta va dezactiva URL-ul "
+"implicit /webmail."
 
 #: src/EBox/WebMail/Model/Options.pm:68
 msgid "General configuration"
@@ -152,17 +154,19 @@ msgstr "Webmail"
 
 #: src/EBox/WebMail/Model/Options.pm:84
 msgid "Disabled"
-msgstr ""
+msgstr "Dezactivat"
 
 #: src/EBox/WebMail/Model/Options.pm:115
 msgid ""
 "The deleted virtual host was selected for Webmail. Maybe you want to select "
 "another one now."
 msgstr ""
+"Hostul virtual şters era selectat pentru webmail. Poate doriţi să selactaţi "
+"un alt host acum."
 
 #: src/EBox/WebMail/Composite/Backend.pm:64
 msgid "WebMail backend"
-msgstr ""
+msgstr "Backend WebMail "
 
 #: src/EBox/WebMail.pm:177
 msgid "Neither IMAP nor IMAPS service enabled."
@@ -170,19 +174,19 @@ msgstr "Nu sunt activate nici IMAP nici IMAPS"
 
 #: src/EBox/WebMail.pm:291
 msgid "To configure Roundcube webmail."
-msgstr ""
+msgstr "Pentru a configura webmail Roundcube."
 
 #: src/EBox/WebMail.pm:296
 msgid "To configure managesieve Roundcube webmail plugin."
-msgstr ""
+msgstr "Pentru a configura plugin-ul webmail managesieve Roundcube."
 
 #: src/EBox/WebMail.pm:322
 msgid "Create PostgreSQL Roundcube webmail database."
-msgstr ""
+msgstr "Creează baza de date PostgreSQL pt. webmail Roundcube."
 
 #: src/EBox/WebMail.pm:323
 msgid "This database will store the data needed by Roundcube."
-msgstr ""
+msgstr "Această bază de date va stoca datele necesare pentru Roundcube."
 
 #: src/EBox/WebMail.pm:327
 msgid "Add webmail link to www data directory."
@@ -198,9 +202,14 @@ msgid ""
 "Webmail module needs IMAP or IMAPS service enabled if using eBox mail "
 "service. You can enable it at {openurl}Mail -> General{closeurl}."
 msgstr ""
+"Modulul webmail necesită activarea serviciilor IMAP sau IMAPS în cazul "
+"folosirii serviciului mail eBox. Le puteţi activa la {openurl}Mail -> "
+"General{closeurl}."
 
 #: src/EBox/WebMail.pm:409
 msgid ""
 "You cannot disable both IMAP and IMAPS service because they are used by "
 "Webmail module."
 msgstr ""
+"Nu puteţi dezactiva simultan serviciile IMAP şi IMAPS pentru că sunt "
+"folosite de modului Webmail."

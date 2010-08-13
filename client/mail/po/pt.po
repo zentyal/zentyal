@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-mail 0.12\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "POT-Creation-Date: 2010-07-21 00:37+0200\n"
-"PO-Revision-Date: 2010-06-11 13:00+0200\n"
+"PO-Revision-Date: 2010-08-08 00:58+0200\n"
 "Last-Translator: Vasco Castelo Branco <vcbranco@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -102,7 +102,7 @@ msgstr "grupo"
 
 #: src/EBox/CGI/CreateGroupAlias.pm:51 src/EBox/CGI/CreateAlias.pm:51
 msgid "account name"
-msgstr "nome de conta"
+msgstr "nome da conta"
 
 #: src/EBox/CGI/CreateGroupAlias.pm:52 src/EBox/CGI/CreateAlias.pm:52
 msgid "domain name"
@@ -119,9 +119,8 @@ msgid "Mail virtual domain"
 msgstr "Domínio de correio electrónico virtual"
 
 #: src/EBox/CGI/Wizard/VirtualDomain.pm:47
-#, fuzzy
 msgid "Invalid virtual mail domain"
-msgstr "Domínio de correio electrónico virtual"
+msgstr "Domínio de correio electrónico virtual inválido"
 
 #: src/EBox/CGI/DelAccount.pm:48
 msgid "user mail"
@@ -274,7 +273,7 @@ msgstr ""
 #: src/EBox/Mail/Model/ExternalAliases.pm:146
 #, perl-brace-format
 msgid "They already exists an account or alias called {al}"
-msgstr ""
+msgstr "Já existe uma conta ou um pseudónimo chamado {al}"
 
 #: src/EBox/Mail/Model/ExternalAliases.pm:167
 msgid ""
@@ -1134,19 +1133,16 @@ msgid "Delete"
 msgstr "Apagar"
 
 #: src/templates/Wizard/virtualdomain.mas:4
-#, fuzzy
 msgid "Virtual mail domain"
 msgstr "Domínios de correio virtuais"
 
 #: src/templates/Wizard/virtualdomain.mas:7
-#, fuzzy
 msgid "Set up the default virtual mail domain"
-msgstr "Enviar uma cópia para todos os domínios de correio electrónico"
+msgstr "Definir o domínio virtual de correio pré-definido"
 
 #: src/templates/Wizard/virtualdomain.mas:8
-#, fuzzy
 msgid "This will be the domain for your mail accounts"
-msgstr "Este utilizador tem conta de correio electrónico"
+msgstr "este será o domínio para as suas contas de correio electrónico"
 
 #: src/templates/qmanager.mas:20
 msgid "Sender"

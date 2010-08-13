@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-firewall 0.12\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "POT-Creation-Date: 2010-07-21 00:37+0200\n"
-"PO-Revision-Date: 2010-06-03 16:22+0200\n"
+"PO-Revision-Date: 2010-08-08 02:16+0200\n"
 "Last-Translator: Vasco Castelo Branco <vcbranco@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -304,9 +304,8 @@ msgid "NAT prerouting"
 msgstr "Rota prévia NAT"
 
 #: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:42
-#, fuzzy
 msgid "NAT postrouting"
-msgstr "Rota "
+msgstr "Rota seguinte NAT"
 
 #: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:118
 msgid "Rule"

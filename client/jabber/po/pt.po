@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-jabber 0.12\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "POT-Creation-Date: 2010-07-21 00:33+0200\n"
-"PO-Revision-Date: 2010-04-15 20:02+0200\n"
+"PO-Revision-Date: 2010-08-08 02:20+0200\n"
 "Last-Translator: Vasco Castelo Branco <vcbranco@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -18,7 +18,6 @@ msgstr ""
 "X-Generator: Pootle 1.1.0\n"
 
 #: migration/0001_add_firewall_services.pl:30 src/EBox/Jabber.pm:221
-#, fuzzy
 msgid "Jabber Server"
 msgstr "Servidor Jabber"
 
@@ -35,14 +34,12 @@ msgid "Add Jabber LDAP schema"
 msgstr "Adicionar esquema LDAP Jabber"
 
 #: src/EBox/Jabber.pm:57
-#, fuzzy
 msgid "eBox will need this schema to store Jabber users."
 msgstr "A eBox necessita deste esquema para armazenar os utilizadores Jabber"
 
 #: src/EBox/Jabber.pm:73
-#, fuzzy
 msgid "To properly configure ejabberd."
-msgstr "Para configurar correctamente o jabberd2"
+msgstr "Para configurar correctamente o ejabberd"
 
 #: src/EBox/CGI/JabberUserOptions.pm:45
 msgid "username"
@@ -55,16 +52,15 @@ msgstr "Desactivado"
 
 #: src/EBox/Jabber/Model/GeneralSettings.pm:93
 msgid "Allow SSL"
-msgstr ""
+msgstr "Permitir SSL"
 
 #: src/EBox/Jabber/Model/GeneralSettings.pm:94
 msgid "Force SSL"
-msgstr ""
+msgstr "Forçar SSL"
 
 #: src/EBox/Jabber/Model/GeneralSettings.pm:113
-#, fuzzy
 msgid "Jabber domain"
-msgstr "Conta Jabber"
+msgstr "Domínio Jabber"
 
 #: src/EBox/Jabber/Model/GeneralSettings.pm:119
 msgid "SSL support"
@@ -79,13 +75,12 @@ msgid "Enable MUC (Multi User Chat)"
 msgstr "Activar MUC (conversa multi-utilizador)"
 
 #: src/EBox/Jabber/Model/GeneralSettings.pm:141
-#, fuzzy
 msgid "General configuration settings"
-msgstr "Configuração geral"
+msgstr "Definições da configuração geral"
 
 #: src/EBox/Jabber/Model/GeneralSettings.pm:146
 msgid "General Jabber server configuration settings updated."
-msgstr ""
+msgstr "As configuração foram actualizadas"
 
 #: src/EBox/Jabber/Model/JabberUser.pm:50
 msgid "Jabber Account"
@@ -97,12 +92,10 @@ msgid "Jabber"
 msgstr "Jabber"
 
 #: src/EBox/Jabber/Composite/General.pm:66
-#, fuzzy
 msgid "Configuration"
-msgstr "Configuração geral"
+msgstr "Configuração"
 
 #: src/templates/jabber.mas:8
-#, fuzzy
 msgid "Jabber account"
 msgstr "Conta Jabber"
 

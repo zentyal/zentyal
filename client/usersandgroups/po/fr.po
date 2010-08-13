@@ -10,8 +10,8 @@ msgstr ""
 "Project-Id-Version: ebox-usersandgroups 0.12\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "POT-Creation-Date: 2010-07-21 00:52+0200\n"
-"PO-Revision-Date: 2010-01-18 14:13+0100\n"
-"Last-Translator: Nicolas Liaudat <nliaudat@pompiers-chatel.ch>\n"
+"PO-Revision-Date: 2010-08-07 14:23+0200\n"
+"Last-Translator: Cyril MARTY <cyril_marty@yahoo.fr>\n"
 "Language-Team: <es@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -130,7 +130,6 @@ msgid "Required for usercorner access to configured modules"
 msgstr "configuration des modules requise pour l'accès à l'espace utilisateur"
 
 #: src/EBox/UserCornerWebServer.pm:171
-#, fuzzy
 msgid "User Corner web server"
 msgstr "Serveur web de l'espace utilisateur"
 
@@ -231,11 +230,13 @@ msgstr "Esclave Windows AD (Active Directory)"
 
 #: src/EBox/UsersAndGroups/Model/Mode.pm:80
 msgid "LDAP DN"
-msgstr ""
+msgstr "LDAP DN"
 
 #: src/EBox/UsersAndGroups/Model/Mode.pm:85
 msgid "Only for master and AD slave configuration"
 msgstr ""
+"Uniquement pour la configuration du maître et de l'esclave AD (Active "
+"Directory)"
 
 #: src/EBox/UsersAndGroups/Model/Mode.pm:89
 msgid "Master host"
@@ -287,9 +288,8 @@ msgstr ""
 "modules\" pour pouvoir l'utiliser."
 
 #: src/EBox/UsersAndGroups/Model/Groups.pm:136
-#, fuzzy
 msgid "There are no groups at the moment"
-msgstr "Il n'y a pas d'esclave pour le moment."
+msgstr "Il n'y a pas de groupe pour le moment."
 
 #: src/EBox/UsersAndGroups/Model/Groups.pm:139
 #, perl-brace-format
@@ -313,16 +313,15 @@ msgstr ""
 
 #: src/EBox/UsersAndGroups/Model/PAM.pm:61
 msgid "Enable PAM"
-msgstr ""
+msgstr "Activer PAM"
 
 #: src/EBox/UsersAndGroups/Model/PAM.pm:64
 msgid "Make LDAP users have system account."
-msgstr ""
+msgstr "Faire en sorte que les utilisateurs LDAP aient un compte système."
 
 #: src/EBox/UsersAndGroups/Model/PAM.pm:70
-#, fuzzy
 msgid "PAM settings"
-msgstr "Paramètres de synchronisation AD"
+msgstr "Paramètres de PAM"
 
 #: src/EBox/UsersAndGroups/Model/Password.pm:49
 msgid "Password management"
@@ -365,42 +364,38 @@ msgstr "Synchroniser maintenant"
 
 #: src/EBox/UsersAndGroups/Model/LdapInfo.pm:67
 msgid "Base DN"
-msgstr ""
+msgstr "Base DN"
 
 #: src/EBox/UsersAndGroups/Model/LdapInfo.pm:73
 msgid "Root DN"
-msgstr ""
+msgstr "Racine DN"
 
 #: src/EBox/UsersAndGroups/Model/LdapInfo.pm:85
-#, fuzzy
 msgid "Users DN"
-msgstr "Utilisateurs"
+msgstr "Utilisateurs DN"
 
 #: src/EBox/UsersAndGroups/Model/LdapInfo.pm:91
-#, fuzzy
 msgid "Groups DN"
-msgstr "Groupes"
+msgstr "Groupes DN"
 
 #: src/EBox/UsersAndGroups/Model/LdapInfo.pm:99
 msgid "LDAP information"
-msgstr ""
+msgstr "Information du LDAP"
 
 #: src/EBox/UsersAndGroups/Model/LdapInfo.pm:156
-#, fuzzy
 msgid ""
 "You must enable the Users and Groups module to access the LDAP information."
 msgstr ""
-"Vous devez activer le module \"Utilisateurs\" dans la section \"Statut des "
-"modules\" pour pouvoir l'utiliser."
+"Vous devez activer le module \"Utilisateurs et Groupes\" dans la section "
+"\"Statut des modules\" pour pouvoir utiliser les informations du LDAP."
 
 #: src/EBox/UsersAndGroups/Model/Users.pm:65
 msgid "Full name"
 msgstr "Nom complet"
 
 #: src/EBox/UsersAndGroups/Model/Users.pm:134
-#, fuzzy
 msgid "There are no users at the moment"
-msgstr "Il n'y a pas d'esclave pour le moment."
+msgstr "Il n'existe pas d'utilisateurs pour le moment."
 
 #: src/EBox/UsersAndGroups/Model/Users.pm:137
 #, perl-brace-format
@@ -458,113 +453,106 @@ msgstr ""
 "utilisateur est créé."
 
 #: src/EBox/UsersAndGroups/Composite/UserTemplate.pm:76
-#, fuzzy
 msgid "There isn't any configurable option."
-msgstr "Il n'y a pas une option configurable"
+msgstr "Il n'y a aucune option configurable"
 
 #: src/EBox/UsersAndGroups/Composite/UserTemplate.pm:87
 #: src/EBox/UsersAndGroups.pm:2363 src/EBox/UsersAndGroups.pm:2372
-#, fuzzy
 msgid "User Template"
-msgstr "Gabarit d'utilisateur par défaut"
+msgstr "Modèle utilisateur"
 
 #: src/EBox/UsersAndGroups/Composite/Settings.pm:71
 #: src/EBox/UsersAndGroups.pm:2377
-#, fuzzy
 msgid "LDAP Settings"
-msgstr "Paramètres de synchronisation AD"
+msgstr "Paramètres LDAP"
 
 #: src/EBox/UsersAndGroups.pm:82 src/templates/Wizard/users.mas:4
 msgid "Users and Groups"
 msgstr "Utilisateurs et Groupes"
 
 #: src/EBox/UsersAndGroups.pm:104
-#, fuzzy
 msgid ""
 "Your LDAP database will be populated with some basic organizational units"
 msgstr ""
-"Votre base de donnée openLDAP va être publiée avec une unité "
-"organisationnelle (organizational units) par défaut"
+"Votre base de donnée LDAP va être remplie avec quelques unités "
+"organisationnelles de base"
 
 #: src/EBox/UsersAndGroups.pm:105
-#, fuzzy
 msgid "eBox needs this organizational units to add users and groups into them."
 msgstr ""
-"eBox demande que vous ajoutiez des utilisateurs et groupes dans l'unité "
-"organisationnelle (organizational units)"
+"eBox a besoin de cette unité organisationnelle pour y ajouter des "
+"utilisateurs et des groupes dedans."
 
 #: src/EBox/UsersAndGroups.pm:109
-#, fuzzy
 msgid "Create directories for slave journals"
 msgstr "Créer des répertoires pour les journaux esclaves"
 
 #: src/EBox/UsersAndGroups.pm:110
-#, fuzzy
 msgid "eBox needs the directories to record pending slave actions."
 msgstr ""
-"eBox nécessite des répertoires pour consigner les actions esclaves en attente"
+"eBox a besoin de ces répertoires pour enregistrer les actions esclaves en "
+"attente."
 
 #: src/EBox/UsersAndGroups.pm:117
 msgid "Your eBox will be registered as a slave in the eBox master specified"
 msgstr "Votre eBox sera enregistré comme esclave dans l'eBox maître spécifié"
 
 #: src/EBox/UsersAndGroups.pm:118
-#, fuzzy
 msgid "This eBox needs to have remote access to the users in the eBox master."
 msgstr ""
-"Cette eBox a besoin d'un accès distant aux utilisateurs de l'eBox maître"
+"Cette eBox a besoin d'un accès distant aux utilisateurs de l'eBox maître."
 
 #: src/EBox/UsersAndGroups.pm:125
 msgid "Apparmor profile will be disabled"
 msgstr "Le profile AppArmor (Application Armor) sera désactivé"
 
 #: src/EBox/UsersAndGroups.pm:126
-#, fuzzy
 msgid "It is not ready to work with more than one slapd."
-msgstr "Ebox n'est pas prêt pour travailler avec plus d'un \"slapd\""
+msgstr ""
+"Ebox n'est pas prêt pour travailler avec plus d'un serveur LDAP (slapd)."
 
 #: src/EBox/UsersAndGroups.pm:134
 msgid "Install /etc/cron.d/ebox-ad-sync."
 msgstr "Installer /etc/cron.d/ebox-ad-sync."
 
 #: src/EBox/UsersAndGroups.pm:135
-#, fuzzy
 msgid "eBox will run a script every 5 minutes to sync with Windows AD."
 msgstr ""
-"eBox exécutera un script toute les 5 minutes pour se synchroniser avec "
-"Windows AD"
+"eBox exécutera un script toute les 5 minutes pour se synchroniser avec l'AD "
+"Windows."
 
 #: src/EBox/UsersAndGroups.pm:144
 msgid "Configure PAM."
-msgstr ""
+msgstr "Configurer PAM."
 
 #: src/EBox/UsersAndGroups.pm:145
+#, fuzzy
 msgid "eBox will give LDAP users system account."
-msgstr ""
+msgstr "eBox va fournir les utilisateurs LDAP du compte système."
 
 #: src/EBox/UsersAndGroups.pm:165
 msgid ""
 "To make NSS use LDAP resolution for user and group accounts. Needed for "
 "Samba PDC configuration."
 msgstr ""
+"Permettre à NSS d'utiliser la résolution LDAP pour les comptes utilisateurs "
+"et les groupes. Nécessaire à la configuration de Samba PDC."
 
 #: src/EBox/UsersAndGroups.pm:171
 msgid "To let NSS know how to access LDAP accounts."
-msgstr ""
+msgstr "Donner à NSS la façon d'accéder aux comptes LDAP."
 
 #: src/EBox/UsersAndGroups.pm:180
-#, fuzzy
 msgid "To make LDAP listen on TCP and Unix sockets."
-msgstr "Pour permettre openLDAP d'écouter les sockets TCP et Unix"
+msgstr "Pour permettre à LDAP d'écouter sur les sockets TCP et Unix."
 
 #: src/EBox/UsersAndGroups.pm:185
-#, fuzzy
 msgid ""
 "To copy LDAP admin password generated by eBox and allow other modules to "
 "access LDAP."
 msgstr ""
 "Pour copier le mot de passe administrateur de LDAP, généré par eBox et "
-"permettre aux autres modules d'accéder à LDAP"
+"permettre aux autres modules d'accéder à LDAP."
 
 #: src/EBox/UsersAndGroups.pm:806
 #, perl-brace-format
@@ -575,7 +563,7 @@ msgstr ""
 
 #: src/EBox/UsersAndGroups.pm:811
 msgid "Username already exists on the system"
-msgstr ""
+msgstr "Le nom d'utilisateur existe déjà dans le système"
 
 #: src/EBox/UsersAndGroups.pm:911 src/EBox/UsersAndGroups.pm:1527
 msgid "Maximum number of system users reached"
@@ -683,9 +671,8 @@ msgid "You are not logged in"
 msgstr "Vous n'êtes pas connecté"
 
 #: src/EBox/UserCornerWebServer/Model/Settings.pm:63
-#, fuzzy
 msgid "General configuration"
-msgstr "Configuration"
+msgstr "Configuration générale"
 
 #: src/EBox/UserCornerWebServer/Model/Settings.pm:97
 msgid "listening port"
@@ -723,21 +710,23 @@ msgstr "Annuler"
 
 #: src/templates/Wizard/users.mas:7
 msgid "Select the type of the server"
-msgstr ""
+msgstr "Sélectionner le type du serveur"
 
 #: src/templates/Wizard/users.mas:8
 msgid ""
 "Choose standalone unless you want LDAP replication or synchronization with "
 "Active Directory."
 msgstr ""
+"Choisissez le mode Autonome sauf dans le cas d'une réplication LDAP ou d'une "
+"synchronisation avec Active Directory."
 
 #: src/templates/Wizard/users.mas:10
 msgid "Standalone server"
-msgstr ""
+msgstr "Serveur Autonome"
 
 #: src/templates/Wizard/users.mas:11
 msgid "Advanced configuration (Master/Slave/AD Sync)"
-msgstr ""
+msgstr "Configuration avancée (Maître/Esclave/Synchro AD)"
 
 #: src/templates/groups.mas:10
 msgid "Add Group"
@@ -791,13 +780,12 @@ msgid "Group"
 msgstr "Groupe"
 
 #: src/templates/group.mas:14
-#, fuzzy
 msgid ""
 "There are no users at the moment. You need at least one to manage this group "
 "properly."
 msgstr ""
 "Il n'y a aucun utilisateur pour le moment. Vous en avez besoin d'au moins un "
-"pour contrôler ce groupe correctement"
+"pour gérer ce groupe correctement."
 
 #: src/templates/group.mas:25 src/templates/group.mas:26
 #: src/templates/user.mas:74 src/templates/user.mas:75
@@ -836,13 +824,12 @@ msgid "Delete group"
 msgstr "Effacer le groupe"
 
 #: src/templates/group.mas:110
-#, fuzzy
 msgid ""
 "This operation will cause the removal of the group and all dependent data "
 "such as shared directory, etc."
 msgstr ""
-"Cette opération causera la suppression de l'utilisateur et de toutes ses "
-"données liées; comme les comptes de courrier, fichiers utilisateurs, ..."
+"Cette opération entraînera la suppression du groupe et de toutes les données "
+"liées comme les répertoires partagés, etc."
 
 #: src/templates/user.mas:88
 msgid "User groups"
@@ -862,13 +849,12 @@ msgid "Delete user"
 msgstr "Supprimer l'utilisateur"
 
 #: src/templates/user.mas:161
-#, fuzzy
 msgid ""
 "This operation will cause the removal of the user and all dependent data "
 "such as mail accounts, user files, etc."
 msgstr ""
-"Cette opération causera la suppression de l'utilisateur et de toutes ses "
-"données liées; comme les comptes de courrier, fichiers utilisateurs, ..."
+"Cette opération entraînera la suppression de l'utilisateur et de toutes ses "
+"données liées comme les comptes de courrier, fichiers utilisateurs, etc."
 
 #: src/templates/usercorner/headTitle.mas:11
 msgid "Logout"

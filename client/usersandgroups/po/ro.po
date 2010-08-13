@@ -5,60 +5,61 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-usersandgroups 0.12.99Report-Msgid-Bugs-To: "
-"info@ebox-technologies.com\n"
+"Project-Id-Version: ebox-usersandgroups 0.12.99Report-Msgid-Bugs-To: info"
+"@ebox-technologies.com\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "POT-Creation-Date: 2010-07-21 00:52+0200\n"
-"PO-Revision-Date: 2008-09-01 08:34+0200\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2010-07-28 14:19+0200\n"
+"Last-Translator: Harald Ersch <harald.ersch@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n==1 ? 0 : (n==0 || (n%100 > 0 && n%100 < "
-"20)) ? 1 : 2;\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : (n==0 || (n%100 > 0 && n%100 < "
+"20)) ? 1 : 2);;\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: migration/0001_usercorner_add_webserver_service.pl:54
 msgid "User Corner Web Server"
-msgstr ""
+msgstr "Server Web pentru utilizatori"
 
 #: src/EBox/LdapUserImplementation.pm:44
 msgid "This group contains users"
-msgstr ""
+msgstr "Acest grup conţine utilizatorii"
 
 #: src/EBox/CGI/User.pm:44 src/EBox/CGI/User.pm:64 src/EBox/CGI/Groups.pm:54
 #: src/EBox/CGI/Users.pm:33 src/EBox/CGI/Users.pm:58
 #: src/EBox/UsersAndGroups/Model/Users.pm:78 src/EBox/UsersAndGroups.pm:2359
 #: src/EBox/UsersAndGroups.pm:2367
 msgid "Users"
-msgstr ""
+msgstr "Utilizatori"
 
 #: src/EBox/CGI/User.pm:48
 msgid "username"
-msgstr ""
+msgstr "Nume utilizator"
 
 #: src/EBox/CGI/AddGroupToUser.pm:45 src/EBox/CGI/AddUserToGroup.pm:51
 #: src/EBox/CGI/DelUserFromGroup.pm:52 src/EBox/CGI/DelGroupFromUser.pm:45
 #: src/EBox/UsersAndGroups/Model/Users.pm:85
 msgid "user"
-msgstr ""
+msgstr "utilizator"
 
 #: src/EBox/CGI/AddGroupToUser.pm:50 src/EBox/CGI/Group.pm:47
 #: src/EBox/CGI/AddUserToGroup.pm:46 src/EBox/CGI/DelUserFromGroup.pm:47
 #: src/EBox/CGI/DelGroupFromUser.pm:50
 #: src/EBox/UsersAndGroups/Model/Groups.pm:85
 msgid "group"
-msgstr ""
+msgstr "grup"
 
 #: src/EBox/CGI/Group.pm:32
 msgid "Edit group"
-msgstr ""
+msgstr "Editare grup"
 
 #: src/EBox/CGI/Group.pm:63 src/EBox/CGI/Groups.pm:45
 #: src/EBox/UsersAndGroups/Model/Groups.pm:77 src/EBox/UsersAndGroups.pm:2361
 #: src/EBox/UsersAndGroups.pm:2370
 msgid "Groups"
-msgstr ""
+msgstr "Grupuri"
 
 #: src/EBox/CGI/ModifyGroup.pm:42 src/EBox/CGI/AddGroup.pm:47
 #: src/EBox/UsersAndGroups.pm:1463 src/EBox/UsersAndGroups.pm:1468
@@ -66,12 +67,12 @@ msgstr ""
 #: src/EBox/UsersAndGroups.pm:1845 src/EBox/UsersAndGroups.pm:1962
 #: src/EBox/UsersAndGroups.pm:2065
 msgid "group name"
-msgstr ""
+msgstr "Nume grup"
 
 #: src/EBox/CGI/ModifyGroup.pm:49 src/EBox/CGI/ModifyUser.pm:50
 #: src/EBox/CGI/AddUser.pm:49
 msgid "comment"
-msgstr ""
+msgstr "Comentariu"
 
 #: src/EBox/CGI/ModifyUser.pm:44 src/EBox/CGI/AddUser.pm:47
 #: src/EBox/UsersAndGroups.pm:816 src/EBox/UsersAndGroups.pm:822
@@ -80,75 +81,75 @@ msgstr ""
 #: src/EBox/UsersAndGroups.pm:1705 src/EBox/UsersAndGroups.pm:1806
 #: src/EBox/UsersAndGroups.pm:1840 src/EBox/UsersAndGroups.pm:1911
 msgid "user name"
-msgstr ""
+msgstr "Nume utilizator"
 
 #: src/EBox/CGI/ModifyUser.pm:49 src/EBox/CGI/AddUser.pm:48
 msgid "last name"
-msgstr ""
+msgstr "Nume"
 
 #: src/EBox/CGI/ModifyUser.pm:51
 msgid "password"
-msgstr ""
+msgstr "Parola"
 
 #: src/EBox/CGI/ModifyUser.pm:52
 msgid "confirm password"
-msgstr ""
+msgstr "Confirmare parolă"
 
 #: src/EBox/CGI/ModifyUser.pm:78 src/EBox/CGI/AddUser.pm:75
 #: src/EBox/UsersAndGroups/Model/Password.pm:98
 msgid "Passwords do not match."
-msgstr ""
+msgstr "Parolele nu se potrivesc"
 
 #: src/EBox/CGI/Del.pm:67
 msgid "object name"
-msgstr ""
+msgstr "Nume obiect"
 
 #: src/EBox/CGI/Del.pm:72
 msgid "object type"
-msgstr ""
+msgstr "Tip obiect"
 
 #: src/EBox/CGI/Del.pm:92
 msgid "User removed successfully"
-msgstr ""
+msgstr "Utilizator şters cu succes"
 
 #: src/EBox/CGI/Del.pm:96
 msgid "Group removed successfully"
-msgstr ""
+msgstr "Grup şters cu succes"
 
 #: src/EBox/UserCornerWebServer.pm:37
 #: src/EBox/UserCornerWebServer/Model/Settings.pm:45
 msgid "User Corner"
-msgstr ""
+msgstr "Colţul utilizatorului"
 
 #: src/EBox/UserCornerWebServer.pm:63
 msgid "Migrate configured modules"
-msgstr ""
+msgstr "Migrează modulele configurate"
 
 #: src/EBox/UserCornerWebServer.pm:64
 msgid "Required for usercorner access to configured modules"
-msgstr ""
+msgstr "Obligatoriu pentru accesul utilizatorului la modulele configurate "
 
 #: src/EBox/UserCornerWebServer.pm:171
 msgid "User Corner web server"
-msgstr ""
+msgstr "Server WEB pentru utilizatori"
 
 #: src/EBox/UsersAndGroups/Model/PendingSync.pm:59
 #: src/EBox/UsersAndGroups/Model/Mode.pm:72
 #: src/EBox/UsersAndGroups/Model/Slaves.pm:55
 msgid "Slave"
-msgstr ""
+msgstr "Sclav"
 
 #: src/EBox/UsersAndGroups/Model/PendingSync.pm:64
 msgid "Operation"
-msgstr ""
+msgstr "Operaţiune"
 
 #: src/EBox/UsersAndGroups/Model/PendingSync.pm:69
 msgid "Parameter"
-msgstr ""
+msgstr "Parametru"
 
 #: src/EBox/UsersAndGroups/Model/PendingSync.pm:78
 msgid "List of pending operations on slaves"
-msgstr ""
+msgstr "Lista operaţiunilor în aşteptare la sclavi"
 
 #: src/EBox/UsersAndGroups/Model/PendingSync.pm:85
 msgid ""

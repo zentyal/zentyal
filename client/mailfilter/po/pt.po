@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-mailfilter 0.12\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "POT-Creation-Date: 2010-07-21 00:33+0200\n"
-"PO-Revision-Date: 2009-11-12 17:18+0100\n"
+"PO-Revision-Date: 2010-08-08 04:53+0200\n"
 "Last-Translator: Vasco Castelo Branco <vcbranco@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -109,9 +109,8 @@ msgid "Spam found"
 msgstr "Foi encontrado spam"
 
 #: src/EBox/MailFilter.pm:550
-#, fuzzy
 msgid "Forbidden attached file found"
-msgstr "Foi encontrado um anexo proibido"
+msgstr "Foi encontrado um ficheiro anexado proibido"
 
 #: src/EBox/MailFilter.pm:551
 msgid "Address in blacklist found"
@@ -306,9 +305,8 @@ msgstr "processo"
 
 #: src/EBox/MailFilter/Model/AntispamACL.pm:165
 #: src/EBox/MailFilter/Model/VDomains.pm:158
-#, fuzzy
 msgid "Virtual Domains"
-msgstr "domínio virtual"
+msgstr "Domínios virtuais"
 
 #: src/EBox/MailFilter/Model/MIMETypeACL.pm:68
 msgid "MIME Type"
@@ -362,7 +360,7 @@ msgstr "endereço de correio"
 
 #: src/EBox/MailFilter/Model/AmavisConfiguration.pm:110
 msgid "General"
-msgstr ""
+msgstr "Geral"
 
 #: src/EBox/MailFilter/Model/AmavisConfiguration.pm:141
 #, perl-brace-format
@@ -370,9 +368,8 @@ msgid "The port {port} is already used by module {mod}"
 msgstr "O porto {port} já está em uso pelo módulo {mod}"
 
 #: src/EBox/MailFilter/Model/AntispamVDomainACL.pm:77
-#, fuzzy
 msgid "Sender policy for virtual domain"
-msgstr "domínio virtual"
+msgstr "Politica de remetente para o domínio virtual"
 
 #: src/EBox/MailFilter/Model/FileExtensionACL.pm:68
 msgid "File extension"
@@ -392,7 +389,7 @@ msgstr "Servidor de correio externo"
 
 #: src/EBox/MailFilter/Model/ExternalMTA.pm:71
 msgid "IP address of the server"
-msgstr ""
+msgstr "Endereço IP do servidor"
 
 #: src/EBox/MailFilter/Model/ExternalMTA.pm:75
 #: src/EBox/MailFilter/Model/ExternalDomain.pm:76
@@ -439,7 +436,6 @@ msgid "Tag which will be added to the spam mail subject"
 msgstr "A etiqueta que será adicionada ao assunto da mensagem considerada spam"
 
 #: src/EBox/MailFilter/Model/AntispamConfiguration.pm:78
-#, fuzzy
 msgid "Use Bayesian classifier"
 msgstr "Usar o classificador bayesiano"
 
@@ -556,9 +552,8 @@ msgstr ""
 "  e processa o seu correio para o spam"
 
 #: src/EBox/MailFilter/Model/POPProxyConfiguration.pm:94
-#, fuzzy
 msgid "Configuration"
-msgstr "Configuração anti-spam"
+msgstr "Configuração"
 
 #: src/EBox/MailFilter/Model/POPProxyConfiguration.pm:114
 msgid ""
@@ -585,9 +580,8 @@ msgid "Bad header policy"
 msgstr "Politica de maus cabeçalhos"
 
 #: src/EBox/MailFilter/Model/AmavisPolicy.pm:91
-#, fuzzy
 msgid "Filter Policies"
-msgstr "Politicas de filtro SMTP"
+msgstr "Politicas de filtragem"
 
 #: src/EBox/MailFilter/Model/AntispamTraining.pm:60
 msgid "Mailbox"
@@ -599,7 +593,7 @@ msgstr "A Caixa de correio contém"
 
 #: src/EBox/MailFilter/Model/AntispamTraining.pm:76
 msgid "Train bayesian spam filter"
-msgstr "Filtro bayesiano de spam"
+msgstr "Filtro de spam bayesiano"
 
 #: src/EBox/MailFilter/Model/AntispamTraining.pm:81
 msgid "Learned from messages"

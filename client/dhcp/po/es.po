@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: ebox-dhcp 0.12\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "POT-Creation-Date: 2010-07-21 00:36+0200\n"
-"PO-Revision-Date: 2010-01-26 04:16+0100\n"
+"PO-Revision-Date: 2010-07-31 00:50+0200\n"
 "Last-Translator: José Antonio Calvo <jacalvo@ebox-platform.com>\n"
 "Language-Team: Español <ebox-devel@lists.warp.es>\n"
 "MIME-Version: 1.0\n"
@@ -509,9 +509,9 @@ msgid "range"
 msgstr "rango"
 
 #: src/EBox/DHCP.pm:119
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "{server} configuration file"
-msgstr "Configuración del servicio"
+msgstr "Fichero de configuración de {server}"
 
 #: src/EBox/DHCP.pm:432 src/EBox/DHCP.pm:468 src/EBox/DHCP.pm:518
 #: src/EBox/DHCP.pm:564 src/EBox/DHCP.pm:610 src/EBox/DHCP.pm:708

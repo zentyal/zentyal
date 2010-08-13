@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: ebox-software 0.12.1\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "POT-Creation-Date: 2010-07-21 00:47+0200\n"
-"PO-Revision-Date: 2010-01-25 21:05+0100\n"
+"PO-Revision-Date: 2010-08-01 14:01+0200\n"
 "Last-Translator: José Antonio Calvo <jacalvo@ebox-platform.com>\n"
 "Language-Team: <info@ebox-platform.com>\n"
 "MIME-Version: 1.0\n"
@@ -50,9 +50,8 @@ msgid "System Updates"
 msgstr "Actualizaciones del sistema"
 
 #: src/EBox/Software.pm:556 src/templates/config.mas:19
-#, fuzzy
 msgid "Settings"
-msgstr "Comenzando..."
+msgstr "Configuración"
 
 #: src/EBox/Software.pm:695
 #, perl-brace-format
@@ -64,35 +63,31 @@ msgstr ""
 
 #: src/EBox/Software.pm:832
 msgid "Welcome"
-msgstr ""
+msgstr "Bienvenido"
 
 #: src/EBox/Software.pm:834
 msgid "Package Selection"
-msgstr ""
+msgstr "Selección de paquetes"
 
 #: src/EBox/Software.pm:835
-#, fuzzy
 msgid "Confirmation"
-msgstr "Configuración"
+msgstr "Confirmación"
 
 #: src/EBox/Software.pm:836
-#, fuzzy
 msgid "Installation"
-msgstr "Instalar"
+msgstr "Instalación"
 
 #: src/EBox/Software.pm:837
-#, fuzzy
 msgid "Initial Configuration"
-msgstr "Configuración"
+msgstr "Configuración inicial"
 
 #: src/EBox/Software.pm:838
 msgid "Save Changes"
-msgstr ""
+msgstr "Guardar cambios"
 
 #: src/EBox/CGI/Config.pm:33
-#, fuzzy
 msgid "Software management settings"
-msgstr "Gestión de software"
+msgstr "Configuración de la gestión de software"
 
 #: src/EBox/CGI/Config.pm:43
 msgid "Automatic software updates"
@@ -103,9 +98,8 @@ msgid "automatic updates configuration"
 msgstr "configuración de las actualizaciones automáticas"
 
 #: src/EBox/CGI/EBox.pm:36
-#, fuzzy
 msgid "Choose eBox packages to install"
-msgstr "paquetes restantes a instalar"
+msgstr "Seleccione los paquetes de eBox a instalar"
 
 #: src/EBox/CGI/EBox.pm:40
 msgid "eBox components"
@@ -128,27 +122,22 @@ msgid "There were no packages to update"
 msgstr "No hay paquetes para actualizar"
 
 #: src/EBox/CGI/InstallPkgs.pm:166
-#, fuzzy
 msgid "Installing"
-msgstr "Instalar"
+msgstr "Instalando"
 
 #: src/EBox/CGI/InstallPkgs.pm:167
-#, fuzzy
 msgid "Installing packages"
-msgstr "Actualizando paquetes"
+msgstr "Instalando paquetes"
 
 #: src/EBox/CGI/InstallPkgs.pm:168 src/EBox/CGI/InstallPkgs.pm:192
-#, fuzzy
 msgid "Current operation"
-msgstr "Paquete actual"
+msgstr "Operación actual"
 
 #: src/EBox/CGI/InstallPkgs.pm:169
-#, fuzzy
 msgid "packages installed"
-msgstr "paquetes restantes a instalar"
+msgstr "paquetes instalados"
 
 #: src/EBox/CGI/InstallPkgs.pm:170
-#, fuzzy
 msgid ""
 "The packages installation has finished successfully. The administration "
 "interface may become unresponsive for a few seconds. Please wait patiently "
@@ -157,7 +146,8 @@ msgid ""
 msgstr ""
 "La instalación de los paquetes se ha completado con éxito. La interfaz de "
 "administración puede no responder durante unos pocos segundos. Por favor, "
-"espere pacientemente hasta que el sistema se haya reiniciado completamente"
+"espere pacientemente hasta que el sistema se haya configurado por completo. "
+"Se redirigirá automáticamente al siguiente paso"
 
 #: src/EBox/CGI/InstallPkgs.pm:175
 msgid ""
@@ -207,11 +197,11 @@ msgstr "Instalar"
 
 #: src/templates/ebox.mas:167
 msgid "View advanced mode"
-msgstr ""
+msgstr "Ver modo avanzado"
 
 #: src/templates/ebox.mas:481
 msgid "View basic mode"
-msgstr ""
+msgstr "Ver modo básico"
 
 #: src/templates/del.mas:96
 msgid "The following packages will be installed"
@@ -231,19 +221,20 @@ msgstr "Cancelar"
 
 #: src/templates/del.mas:149
 msgid "You may want to install also the following recommended packages:"
-msgstr ""
+msgstr "Quizá desee instalar también los siguientes paquetes recomendados:"
 
 #: src/templates/del.mas:152
 msgid "Layer 7 filtering for Traffic Shaping (ebox-l7-protocols)"
-msgstr ""
+msgstr "Filtrado de nivel 7 para el Moldeado de Tráfico (ebox-l7-protocols)"
 
 #: src/templates/del.mas:155
 msgid "Virus scanning for File Sharing (ebox-antivirus and samba-vscan)"
 msgstr ""
+"Antivirus para la Compartición de Ficheros (ebox-antivirus y samba-vscan)"
 
 #: src/templates/del.mas:158
 msgid "VoIP meetings support (dahdi and linux-headers)"
-msgstr ""
+msgstr "Soporte para conferencias VoIP (dahdi y linux-headers)"
 
 #: src/templates/config.mas:8
 msgid "Perform automatic security updates"
@@ -252,10 +243,12 @@ msgstr "Instalar automáticamente parches de seguridad"
 #: src/templates/config.mas:14
 msgid "This eBox is configured to use automatic QA updates"
 msgstr ""
+"Esta eBox está configurada para usar actualizaciones automáticas con "
+"Aseguramiento de la Calidad (QA)"
 
 #: src/templates/config.mas:26
 msgid "Automatic operations start time"
-msgstr ""
+msgstr "Hora de inicio de las operaciones automáticas"
 
 #: src/templates/updates.mas:24
 msgid "Updates are available for the following system components"
@@ -263,10 +256,10 @@ msgstr ""
 "Hay actualizaciones disponibles para los siguientes componentes del sistema"
 
 #: src/templates/updates.mas:26
-#, fuzzy
 msgid "Community updates are available for the following system components"
 msgstr ""
-"Hay actualizaciones disponibles para los siguientes componentes del sistema"
+"Hay actualizaciones de la comunidad disponibles para los siguientes "
+"componentes del sistema"
 
 #: src/templates/updates.mas:32
 msgid "Component"
@@ -281,14 +274,12 @@ msgid "Version"
 msgstr "Versión"
 
 #: src/templates/updates.mas:52
-#, fuzzy
 msgid "Security update"
-msgstr "Actualizaciones del sistema"
+msgstr "Actualización de seguridad"
 
 #: src/templates/updates.mas:55
-#, fuzzy
 msgid "eBox QA update"
-msgstr "Cortafuegos"
+msgstr "Actualización verificada por el equipo de QA de eBox"
 
 #: src/templates/updates.mas:77
 msgid "Update all packages"
@@ -311,6 +302,9 @@ msgid ""
 "As you are enjoying a Commercial Server Subscription the updates are Quality "
 "Assured by the eBox Development Team."
 msgstr ""
+"Como se está disfrutando de una Suscripción Comercial del servidor, la "
+"calidad de las actualizaciones está asegurada por el equipo de desarrollo de "
+"eBox"
 
 #: src/templates/updateNote.mas:13
 #, perl-brace-format

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-ca 1.1Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "POT-Creation-Date: 2010-07-21 00:29+0200\n"
-"PO-Revision-Date: 2010-05-27 15:58+0200\n"
+"PO-Revision-Date: 2010-07-21 15:29+0200\n"
 "Last-Translator: Nagy Ákos <reg@pecska.ro>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -449,7 +449,6 @@ msgid "Issue"
 msgstr "Kiállítás"
 
 #: src/templates/index.mas:77
-#, fuzzy
 msgid "Certificate changes will take effect immediately."
 msgstr "A tanúsítvány változtatásai azonnal életbe lépnek"
 

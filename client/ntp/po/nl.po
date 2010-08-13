@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: ebox-ntp 0.12\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "POT-Creation-Date: 2010-07-21 00:38+0200\n"
-"PO-Revision-Date: 2010-07-21 00:40+0200\n"
+"PO-Revision-Date: 2010-07-24 15:24+0200\n"
 "Last-Translator: Maurice Mullenders <mmullenders@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -18,21 +18,21 @@ msgstr ""
 
 #: src/EBox/CGI/AddServers.pm:44
 msgid "first ntp server"
-msgstr ""
+msgstr "Eerst ntp server"
 
 #: src/EBox/CGI/AddServers.pm:47 src/EBox/NTP.pm:223
 #: src/templates/servers.mas:16
 msgid "Primary server"
-msgstr ""
+msgstr "Eerste server"
 
 #: src/EBox/CGI/AddServers.pm:53 src/EBox/NTP.pm:237
 #: src/templates/servers.mas:27
 msgid "Secondary server"
-msgstr ""
+msgstr "Tweede server"
 
 #: src/EBox/CGI/AddServers.pm:57 src/templates/servers.mas:38
 msgid "Tertiary server"
-msgstr ""
+msgstr "Derde server"
 
 #: src/EBox/CGI/ChangeDate.pm:43
 msgid "Day"
@@ -84,27 +84,27 @@ msgstr "Verwijder ntp init script koppelingen"
 
 #: src/EBox/NTP.pm:70
 msgid "eBox will take care of starting and stopping the services."
-msgstr "eBox verzorgt het starten en stoppen van de services."
+msgstr "eBox zorgt voor het starten en stoppen van de services."
 
 #: src/EBox/NTP.pm:225
 msgid "primary server"
-msgstr "primaire server"
+msgstr "eerste server"
 
 #: src/EBox/NTP.pm:230 src/EBox/NTP.pm:249
 msgid "Primary and secondary server must be different"
-msgstr "De primaire en secundaire server moeten verschillend zijn"
+msgstr "De eerste en tweede server moeten verschillend zijn"
 
 #: src/EBox/NTP.pm:233
 msgid "secondary server"
-msgstr "secundaire server"
+msgstr "tweede server"
 
 #: src/EBox/NTP.pm:246
 msgid "Primary and tertiary server must be different"
-msgstr "Primaire en tertiaire server moeten verschillend zijn"
+msgstr "Eerste en derde server moeten verschillend zijn"
 
 #: src/EBox/NTP.pm:252
 msgid "tertiary server"
-msgstr "tertiaire server"
+msgstr "derde server"
 
 #: src/EBox/NTP.pm:268
 #, perl-brace-format

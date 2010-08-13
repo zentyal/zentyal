@@ -6,11 +6,12 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-asterisk 1.1Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
+"Project-Id-Version: ebox-asterisk 1.1Report-Msgid-Bugs-To: info@ebox-"
+"technologies.com\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "POT-Creation-Date: 2010-07-21 00:28+0200\n"
-"PO-Revision-Date: 2010-03-05 01:20+0100\n"
-"Last-Translator: José Antonio Calvo <jacalvo@ebox-platform.com>\n"
+"PO-Revision-Date: 2010-07-30 22:18+0200\n"
+"Last-Translator: Heidi Vilppola <hvilppola@ebox-technologies.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -112,12 +113,12 @@ msgstr "Tiempo conectado"
 
 #: src/EBox/Asterisk.pm:655
 msgid "VoIP Online Users"
-msgstr "Usarios on-line de VoIP"
+msgstr "Usarios on-line de Voz IP"
 
 # salas de reuniones?
 #: src/EBox/Asterisk.pm:660
 msgid "VoIP Users in Meetings"
-msgstr "Usuarios de VoIP en reuniones"
+msgstr "Usuarios de Voz IP en conferencias"
 
 #: src/EBox/Asterisk.pm:692
 msgid "Date"
@@ -199,6 +200,9 @@ msgid ""
 "You must install dahdi and linux-headers packages to use Meetings.{br}Run "
 "the following command: sudo apt-get install {kernels} dahdi."
 msgstr ""
+"Debe instalar dahdi y paquetes linux-headers para usar "
+"Conferencias.{br}Ejecute el siguiente comando: sudo apt-get install "
+"{kernels} dahdi."
 
 #: src/EBox/Model/Meetings.pm:119 src/EBox/Model/Meetings.pm:127
 #: src/EBox/Model/Settings.pm:84
@@ -265,8 +269,8 @@ msgstr "Configuración actualizada"
 #: src/EBox/Model/Voicemail.pm:222
 msgid "You have not an VoIP account. Maybe VoIP is not enabled in this server"
 msgstr ""
-"No dispone de una cuenta de VoIP. Tal vez el módulo de VoIP esté desactivado "
-"en este servidor"
+"No dispone de una cuenta de Voz IP. Tal vez el módulo de Voz IP esté "
+"desactivado en este servidor"
 
 #: src/EBox/Model/Localnets.pm:88
 #, perl-brace-format
@@ -315,7 +319,7 @@ msgstr "Configuración general del servidor Asterisk"
 
 #: src/EBox/Model/Settings.pm:151
 msgid "General Asterisk server configuration updated."
-msgstr "Configuración general del servidor Asterisk actualizada"
+msgstr "Configuración general del servidor Asterisk actualizada."
 
 #: src/EBox/Model/Provider.pm:68
 msgid "Custom"
@@ -331,7 +335,7 @@ msgstr "Nombre"
 
 #: src/EBox/Model/Provider.pm:100
 msgid "VoIP service provider name."
-msgstr "Nombre del proveedor del servicio VoIP"
+msgstr "Nombre del proveedor del servicio Voz IP."
 
 #: src/EBox/Model/Provider.pm:104
 msgid "Username"
@@ -355,23 +359,23 @@ msgstr "Proveedor SIP"
 
 #: src/EBox/Model/Provider.pm:141
 msgid "SIP provider for outgoing calls configuration."
-msgstr "Configuración del proveedor SIP para llamadas salientes"
+msgstr "Configuración del proveedor SIP para llamadas salientes."
 
 #: src/EBox/Model/Provider.pm:143
 msgid "SIP provider configuration updated."
-msgstr "Configuración del proveedor SIP actualizada"
+msgstr "Configuración del proveedor SIP actualizada."
 
 #: src/EBox/Model/Provider.pm:195
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "{brand}: make low-cost VoIP calls to mobile phones and landlines directly "
 "with eBox. Once you have obtained a {subs} , you can purchase the VoIP "
 "credit you need. All these services available for purchasing at the {ohref}"
 "eBox on-line store{chref}! "
 msgstr ""
-"Créditos VoIP eBox: realiza llamadas VoIP de bajo coste a fijos y móviles "
-"directamente con eBox. Compra los créditos de VoIP que necesites "
-"directamente en la {ohref}Tienda on-line de eBox{chref}!"
+"{brand}: realice llamadas Voz IP de bajo coste a teléfonos móviles y números "
+"fijos con eBox. Compre los créditos de Voz IP que necesite directamente en "
+"la {ohref}Tienda on-line de eBox{chref}!"
 
 #: src/EBox/Model/NAT.pm:96
 msgid "eBox is behind NAT"
@@ -391,7 +395,7 @@ msgstr "Configuración NAT del servidor Asterisk"
 
 #: src/EBox/Model/NAT.pm:126
 msgid "NAT Asterisk server configuration updated."
-msgstr "Configuración NAT del servidor Asterisk actualizada"
+msgstr "Configuración NAT del servidor Asterisk actualizada."
 
 #: src/EBox/Composite/General.pm:66
 msgid "Asterisk module"

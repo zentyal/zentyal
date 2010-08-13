@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: ebox-remoteservices 1.1\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "POT-Creation-Date: 2010-07-21 00:42+0200\n"
-"PO-Revision-Date: 2010-01-26 04:25+0100\n"
-"Last-Translator: José Antonio Calvo <jacalvo@ebox-platform.com>\n"
+"PO-Revision-Date: 2010-08-02 00:37+0200\n"
+"Last-Translator: Javi Vázquez <javivazquez@ebox-technologies.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -127,22 +127,22 @@ msgstr "No se puede contactar con {host}. Comprueba tu conexión a Internet"
 
 #: src/EBox/RemoteServices/Types/EBoxCommonName.pm:56
 msgid "It must be a valid subdomain name"
-msgstr ""
+msgstr "Debe ser un nombre válido de subdominio"
 
 #: src/EBox/RemoteServices/Types/EBoxCommonName.pm:58
 #, perl-brace-format
 msgid "It cannot contain \"{char}\" character"
-msgstr ""
+msgstr "No puede contener el carácter {char}"
 
 #: src/EBox/RemoteServices/Types/EBoxCommonName.pm:61
 #, perl-brace-format
 msgid "It cannot be greater than {n} characters"
-msgstr ""
+msgstr "No puede ser mayor de {n} caracteres"
 
 #: src/EBox/RemoteServices/CSV.pm:78
 #, perl-brace-format
 msgid "Skipping bad formed line: {l}"
-msgstr ""
+msgstr "Saltando línea mal formada: {l}"
 
 #: src/EBox/RemoteServices/Base.pm:214
 msgid "No ebox-services DNS key found"
@@ -163,25 +163,25 @@ msgstr "Clave de dominio para este servicio no encontrada"
 
 #: src/EBox/RemoteServices/Audit/Password.pm:224
 msgid "system"
-msgstr ""
+msgstr "sistema"
 
 #: src/EBox/RemoteServices/Audit/Password.pm:290
 msgid "average"
-msgstr ""
+msgstr "media"
 
 #: src/EBox/RemoteServices/Audit/Password.pm:294
 msgid "weak"
-msgstr ""
+msgstr "débil"
 
 #: src/EBox/RemoteServices/Audit/Password.pm:397
 #, perl-brace-format
 msgid "No {level} passwords were found in users"
-msgstr ""
+msgstr "No se han encontrado contraseñas de {level} en usuarios"
 
 #: src/EBox/RemoteServices/Audit/Password.pm:402
 #, perl-brace-format
 msgid "The following users have {level} passwords: {users}."
-msgstr ""
+msgstr "Los siguientes usuarios tienen contraseñas de {level}: {users}."
 
 #: src/EBox/RemoteServices/SupportAccess.pm:67
 msgid "Cannot ger a the estricted addresses for remote support"
@@ -194,6 +194,9 @@ msgid ""
 "this user is renamed or removed it would be impossible to set up remote "
 "support access"
 msgstr ""
+"Ya existe un usuario {u} y no parece creado por eBox. Hasta que el usuario "
+"sea renombrado o borrado, será imposible configurar el soporte para acceso "
+"remoto."
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:124
 msgid ""
@@ -216,14 +219,15 @@ msgid "Done"
 msgstr "Realizado"
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:237
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Subscribing an eBox will configure the {mods} and its dependencies "
-msgstr "Subscribir eBox habilitará el módulo OpenVPN y sus dependencias"
+msgstr "Subscribir una eBox habilitará los módulos {mods} y sus dependencias"
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:246
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Subscribing an eBox will enable the {mods} and its dependencies.<br/>"
-msgstr "Subscribir eBox habilitará el módulo OpenVPN y sus dependencias"
+msgstr ""
+"Subscribir una eBox habilitará los módulos {mods} y sus dependencias. <br/>"
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:254
 msgid ""
@@ -234,18 +238,16 @@ msgstr ""
 "hasta que el proceso de subscripción haya acabado."
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:302
-#, fuzzy
 msgid " module"
-msgstr "Módulo"
+msgstr "_módulo"
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:308
 msgid " and "
-msgstr ""
+msgstr "_y_"
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:308
-#, fuzzy
 msgid " modules"
-msgstr "Módulo"
+msgstr "_módulos"
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:340
 msgid ""
@@ -264,9 +266,8 @@ msgid "eBox Name"
 msgstr "Nombre de eBox"
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:373
-#, fuzzy
 msgid "Choose a name for your eBox which is a valid subdomain name"
-msgstr "Elije un nombre para tu eBox que sea un nombre de dominio válido"
+msgstr "Elige un nombre para tu eBox que sea un nombre de subdominio válido"
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:380
 msgid "Password"
@@ -311,11 +312,11 @@ msgstr "Opciones de acceso"
 
 #: src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:75
 msgid "Allow remote access to eBox staff"
-msgstr ""
+msgstr "Permite el acceso remoto al personal de eBox"
 
 #: src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:81
 msgid "Allow access from any internet address"
-msgstr ""
+msgstr "Permite el acceso desde cualquier dirección de internet"
 
 #: src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:85
 msgid ""
@@ -323,22 +324,29 @@ msgid ""
 "private network. If you enable this option access is granted from any "
 "address. Use this option only if you could not connect to the Control Center"
 msgstr ""
+"Por defecto, el acceso está sólo garantizado a hosts dentro de la red "
+"privada de eBox Control Center. Si se activa esta opción está permitido "
+"desde cualquier dirección. Usa esta opción sólo si no puedes conectarte a "
+"eBox Control Center."
 
 #: src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:91
-#, fuzzy
 msgid "Remote support accesss"
-msgstr "Servicios remotos"
+msgstr "Acceso de soporte remoto"
 
 #: src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:121
 msgid ""
 "Remote access from any address requires that remote access support is enabled"
 msgstr ""
+"El acceso remoto desde cualquier dirección requiere que el soporte de acceso "
+"remoto esté activado"
 
 #: src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:129
 msgid ""
 "To restrict addresses you need that your eBox is subscribed to the Control "
 "Center. Either subscribe it or allow access from any addresse"
 msgstr ""
+"Para restringir direcciones necesitas que tu eBox esté subscrita a eBox "
+"Control Center. Suscríbela o permite acceso desde cualquier dirección"
 
 #: src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:140
 #, perl-brace-format
@@ -405,13 +413,12 @@ msgid "Control Center"
 msgstr "Centro de Control"
 
 #: src/EBox/RemoteServices.pm:261
-#, fuzzy
 msgid "Remote Support Access"
-msgstr "Servicios remotos"
+msgstr "Acceso de soporte remoto"
 
 #: src/EBox/RemoteServices.pm:264
 msgid "System"
-msgstr ""
+msgstr "Sistema"
 
 #: src/EBox/RemoteServices.pm:316
 msgid "eBox Control Center Connection"
@@ -422,6 +429,8 @@ msgid ""
 "The subscribed hostname is only available if the host is subscribed to eBox "
 "Control Center"
 msgstr ""
+"El nombre de suscripción no está disponible si la máquina no está suscrita a "
+"eBox Control Center"
 
 #: src/EBox/RemoteServices.pm:458
 msgid ""
@@ -431,7 +440,7 @@ msgstr ""
 
 #: src/EBox/RemoteServices.pm:603
 msgid "eBox must be subscribed to reload the bundle"
-msgstr ""
+msgstr "eBox debe estar subscrita para recargar el paquete"
 
 #: src/EBox/RemoteServices.pm:991
 #, perl-brace-format

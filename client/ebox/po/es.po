@@ -15,8 +15,8 @@ msgstr ""
 "Project-Id-Version: ebox 0.12\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "POT-Creation-Date: 2010-07-21 00:37+0200\n"
-"PO-Revision-Date: 2010-03-05 01:16+0100\n"
-"Last-Translator: José Antonio Calvo <jacalvo@ebox-platform.com>\n"
+"PO-Revision-Date: 2010-07-31 00:26+0200\n"
+"Last-Translator: Heidi Vilppola <hvilppola@ebox-technologies.com>\n"
 "Language-Team: <es@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -73,7 +73,7 @@ msgid ""
 "happen. "
 msgstr ""
 "¡Cuidado! El observador de registros no está habilitado. Habilitalo para ser "
-"notificado cuando ocurra un registro"
+"notificado cuando ocurra un registro."
 
 #: src/EBox/Events/Model/Watcher/Log.pm:264
 #: src/EBox/Logs/Model/SelectLog.pm:143
@@ -204,7 +204,7 @@ msgid ""
 msgstr ""
 "¡Cuidado! No hay un observador de registros habilitados. Por favor, ve a "
 "'Configuración' para habilitar al menos uno de ellos para ser notificado "
-"cuando un registro en este dominio ocurra"
+"cuando un registro en este dominio ocurra."
 
 #: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:288
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:343
@@ -239,8 +239,8 @@ msgstr ""
 msgid ""
 "Events module configures eBox to help informing you about events that happen"
 msgstr ""
-"El módulo de eventos configura eBox para ayudarte a informarte sobre lo que "
-"ocurre en eBox"
+"El módulo de eventos configura eBox para ayudarte a informarte sobre los "
+"eventos que ocurren"
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:194
 msgid "Jabber server name"
@@ -439,12 +439,11 @@ msgid ""
 "relevant information can be found in the logs."
 msgstr ""
 "Un error interno relacionado con las plantillas ha ocurrido. Esto es un "
-"error, se puede encontrar información relevante en los logs"
+"error, se puede encontrar información relevante en los logs."
 
 #: src/EBox/CGI/Wizard.pm:29
-#, fuzzy
 msgid "Initial configuration wizard"
-msgstr "Configuración de eventos"
+msgstr "Wizard de configuración inicial"
 
 #: src/EBox/CGI/Logs/Index.pm:37 src/EBox/Logs.pm:59
 msgid "Logs"
@@ -523,11 +522,11 @@ msgstr "Contraseña"
 
 #: src/EBox/CGI/EBox/Password.pm:54
 msgid "Incorrect password."
-msgstr "Contraseña incorrecta"
+msgstr "Contraseña incorrecta."
 
 #: src/EBox/CGI/EBox/Password.pm:59
 msgid "New passwords do not match."
-msgstr "Las contraseñas no coinciden"
+msgstr "Las contraseñas nuevas no coinciden."
 
 #: src/EBox/CGI/EBox/Password.pm:64
 msgid "The password must be at least 6 characters long"
@@ -535,7 +534,7 @@ msgstr "La contraseña debe tener al menos 6 caracteres"
 
 #: src/EBox/CGI/EBox/Password.pm:68
 msgid "The password was changed successfully."
-msgstr "Se ha cambiado la contraseña correctamente"
+msgstr "Se ha cambiado la contraseña correctamente."
 
 #: src/EBox/CGI/EBox/ConfirmBackup.pm:35 src/templates/backup.mas:18
 msgid "Configuration Backup"
@@ -553,8 +552,7 @@ msgstr "Borrar"
 #: src/EBox/CGI/EBox/ConfirmBackup.pm:116
 #: src/EBox/CGI/EBox/ConfirmBackup.pm:132
 msgid "Please confirm that you want to restore using this backup file:"
-msgstr ""
-"Por favor, confirme que quiere restaurar usando  este fichero de backup:"
+msgstr "Por favor, confirme que quiere restaurar usando este fichero de backup:"
 
 #: src/EBox/CGI/EBox/ConfirmBackup.pm:118
 #: src/EBox/CGI/EBox/ConfirmBackup.pm:134 src/templates/backup.mas:93
@@ -608,11 +606,11 @@ msgstr "Modo de restauración desconocido: {mode}"
 
 #: src/EBox/CGI/EBox/Backup.pm:241
 msgid "Backing up"
-msgstr "Haciendo copia de respaldo"
+msgstr "Haciendo backup"
 
 #: src/EBox/CGI/EBox/Backup.pm:242
 msgid "Backing up modules"
-msgstr "Haciendo copia de respaldo de los módulos"
+msgstr "Haciendo backup de los módulos"
 
 #: src/EBox/CGI/EBox/Backup.pm:243
 msgid "Operation"
@@ -620,7 +618,7 @@ msgstr "Operación"
 
 #: src/EBox/CGI/EBox/Backup.pm:244
 msgid "operations left to finish backup"
-msgstr "operaciones que quedan para acabar la copia de respaldo"
+msgstr "operaciones que quedan para acabar el backup"
 
 #: src/EBox/CGI/EBox/Backup.pm:245
 msgid "Backup successful"
@@ -640,18 +638,16 @@ msgid "Module"
 msgstr "Módulo"
 
 #: src/EBox/CGI/EBox/Backup.pm:259
-#, fuzzy
 msgid "modules restored"
-msgstr "módulos revocados"
+msgstr "módulos restaurados"
 
 #: src/EBox/CGI/EBox/Backup.pm:260
 msgid "Restore successful"
 msgstr "Restauración exitosa"
 
 #: src/EBox/CGI/EBox/ConfigurationReport.pm:31
-#, fuzzy
 msgid "Configuration report"
-msgstr "Restauración de la configuración"
+msgstr "Informe de configuración"
 
 #: src/EBox/CGI/Report/RAID.pm:31 src/EBox/Event/Watcher/RAID.pm:183
 #: src/EBox/SysInfo.pm.in:266
@@ -796,13 +792,13 @@ msgstr ""
 #: src/EBox/Event/Watcher/RAID.pm:400
 #, perl-brace-format
 msgid "RAID device {name} has started operation {opName}."
-msgstr "Dispositivo RAID {name} ha comenzado la operación {opName}"
+msgstr "Dispositivo RAID {name} ha comenzado la operación {opName}."
 
 #: src/EBox/Event/Watcher/RAID.pm:406
 #, perl-brace-format
 msgid "RAID device {name} has finished operation {opName} or it was aborted."
 msgstr ""
-"Dispositivo RAID {name} ha terminado la operación {opName} o se ha abortado"
+"Dispositivo RAID {name} ha terminado la operación {opName} o se ha abortado."
 
 #: src/EBox/Event/Watcher/RAID.pm:412
 #, perl-brace-format
@@ -811,17 +807,17 @@ msgid ""
 "{newOpName}."
 msgstr ""
 "Dispositivo RAID {name} ha completado la operación {oldOpName} y ha "
-"comenzado {newOpName}"
+"comenzado {newOpName}."
 
 #: src/EBox/Event/Watcher/RAID.pm:437
 #, perl-brace-format
 msgid "Status: {percentage} completed."
-msgstr "Estado: {percentage} completado"
+msgstr "Estado: {percentage} completado."
 
 #: src/EBox/Event/Watcher/RAID.pm:440
 #, perl-brace-format
 msgid "Estimated finish time: {time}."
-msgstr "Tiempo estimado para finalizar: {time}"
+msgstr "Tiempo estimado para finalizar: {time}."
 
 #: src/EBox/Event/Watcher/RAID.pm:472
 #, perl-brace-format
@@ -1056,7 +1052,7 @@ msgstr "El evento ha ocurrido en eBox {hostname} desde {source}"
 #: src/EBox/Event/Dispatcher/RSS.pm:318
 #, perl-brace-format
 msgid "Go to your {url} to check its status."
-msgstr "Ve a tu {url} para comprobar el estado"
+msgstr "Ve a tu {url} para comprobar el estado."
 
 #: src/EBox/PgDBEngine.pm:53 src/EBox/PgDBEngine.pm:67
 #: src/EBox/PgDBEngine.pm:81
@@ -1108,14 +1104,12 @@ msgid "any"
 msgstr "cualquiera"
 
 #: src/EBox/Types/PortRange.pm:294
-#, fuzzy
 msgid "Single port"
-msgstr "Informe de selección"
+msgstr "Puerto único"
 
 #: src/EBox/Types/PortRange.pm:298
-#, fuzzy
 msgid "Port range"
-msgstr "Contraseña cambiada"
+msgstr "Rango de puertos"
 
 #: src/EBox/Types/PortRange.pm:415
 #, perl-brace-format
@@ -1141,7 +1135,7 @@ msgstr "Informe resumido"
 
 #: src/EBox/Logs/Model/SelectLog.pm:168
 msgid "Select report"
-msgstr "Informe de selección"
+msgstr "Selecciona informe"
 
 #: src/EBox/Logs/Model/SelectLog.pm:175
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:376
@@ -1374,7 +1368,7 @@ msgid ""
 "                    the following sections:"
 msgstr ""
 "Los datos que estás borrando están siendo usados por\n"
-"\t\t\tlas siguientes secciones:"
+"                    las siguientes secciones:"
 
 #: src/EBox/Model/ModelManager.pm:516
 msgid ""
@@ -1482,12 +1476,12 @@ msgid "Writing backup file to hard disk"
 msgstr "Escribiendo archivo de backup en disco duro"
 
 #: src/EBox/Backup.pm:791
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Module {mod} has not saved changes. Before doing the backup you must save or "
 "discard them"
 msgstr ""
-"Algunos módulos no han guardado sus cambios. Antes de hacer el backup debes "
+"Módulo {mod} no ha guardado cambios. Antes de hacer el backup debes "
 "guardarlos o descartarlos"
 
 #: src/EBox/Backup.pm:849
@@ -1496,7 +1490,7 @@ msgstr "Fichero de backup incorrecto o corrupto"
 
 #: src/EBox/Backup.pm:878
 msgid "The backup file is corrupt: could not open archive"
-msgstr "El fichero de backup está corrupto. "
+msgstr "El fichero de backup está corrupto: no se pudo abrir archivo"
 
 #: src/EBox/Backup.pm:890
 msgid "The backup file is corrupt: could not open backup checksum"
@@ -1505,14 +1499,14 @@ msgstr ""
 
 #: src/EBox/Backup.pm:897
 msgid "The backup file is corrupt."
-msgstr "El fichero de backup está corrupto"
+msgstr "El fichero de backup está corrupto."
 
 #: src/EBox/Backup.pm:915
 msgid ""
 "The backup archive has a invalid type. Maybe the file is corrupt or you are "
 "using a incompatible eBox version"
 msgstr ""
-"El archivo de backup tiene un tipo incorrecto. Es posible que el archivo "
+"El archivo de backup tiene un tipo incorrecto. Es posible que el fichero "
 "esté corrupto o que esté usando una versión de eBox incompatible"
 
 #: src/EBox/Backup.pm:921
@@ -1520,8 +1514,8 @@ msgid ""
 "The archive does not contain a full backup, that made a full restore "
 "impossibe. A configuration recovery  may be possible"
 msgstr ""
-"El archivo sólo contiene backup de la configuración, esto imposibilita una "
-"restauración completa. Restaurar la configuración puede ser posible."
+"El archivo no contiene backup completo, esto imposibilita una restauración "
+"completa. Restaurar la configuración puede ser posible."
 
 #: src/EBox/Backup.pm:956
 #, perl-brace-format
@@ -1580,14 +1574,12 @@ msgid "System load"
 msgstr "Carga del sistema"
 
 #: src/EBox/SysInfo.pm.in:109
-#, fuzzy
 msgid "Uptime"
-msgstr "Fecha y hora"
+msgstr "Tiempo de funcionamiento sin interrupciones"
 
 #: src/EBox/SysInfo.pm.in:110
-#, fuzzy
 msgid "Users"
-msgstr "Nombre de máquina"
+msgstr "Usuarios"
 
 #: src/EBox/SysInfo.pm.in:156 src/EBox/SysInfo.pm.in:249
 msgid "Module Status"
@@ -1614,9 +1606,8 @@ msgid "General"
 msgstr "General"
 
 #: src/EBox/SysInfo.pm.in:274
-#, fuzzy
 msgid "Configuration Report"
-msgstr "Restauración de la configuración"
+msgstr "Informe de configuración"
 
 #: src/EBox/SysInfo.pm.in:277
 msgid "Halt/Reboot"
@@ -1631,9 +1622,9 @@ msgid "eBox web server"
 msgstr "servidor web de eBox"
 
 #: src/EBox/Global.pm:480
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Enabling {modName} module"
-msgstr "Guardando módulo {modName}"
+msgstr "Habilitando módulo {modName}"
 
 #: src/EBox/Global.pm:510 src/EBox/Global.pm:537
 #, perl-brace-format
@@ -1656,8 +1647,8 @@ msgid ""
 "Invalid file system: {f}. Only regular and no removable media file systems "
 "are accepted"
 msgstr ""
-"Sistema de ficheros inválido: {f}. Solo se puede usar aquellos medios "
-"regulares y no extraíbles."
+"Sistema de ficheros inválido: {f}. Solo se puede usar medios regulares y no "
+"extraíbles"
 
 #: src/EBox/Report/DiskUsage.pm:349
 msgid "Free space"
@@ -1677,25 +1668,24 @@ msgstr "Modificar"
 
 #: src/templates/wizard.mas:73 src/templates/wizard.mas:74
 msgid "Finish"
-msgstr ""
+msgstr "Terminar"
 
 #: src/templates/wizard.mas:131
-#, fuzzy
 msgid "Congratulations!"
-msgstr "Configuración"
+msgstr "¡Enhorabuena!"
 
 #: src/templates/wizard.mas:132
 msgid "Now you are ready to save changes and start using your eBox"
 msgstr ""
+"Ahora está preparado para guardar cambios y comenzar a usar su servidor eBox"
 
 #: src/templates/wizard.mas:151 src/templates/wizard.mas:161
 msgid "Skip"
-msgstr ""
+msgstr "Saltar"
 
 #: src/templates/wizard.mas:152 src/templates/wizard.mas:162
-#, fuzzy
 msgid "Next"
-msgstr "siguiente"
+msgstr "Siguiente"
 
 #: src/templates/headTitle.mas:20
 msgid "Remote services control panel"
@@ -1749,7 +1739,7 @@ msgstr "Parado"
 
 #: src/templates/dashboard/index.mas:27 src/templates/dashboard/status.mas:23
 msgid "The service is enabled, but not running"
-msgstr "El servicio está habilitado pero no ejecutándose"
+msgstr "El servicio está habilitado, pero no está ejecutándose"
 
 # También podría ser ejecutándose sin gestión
 #: src/templates/dashboard/index.mas:31 src/templates/dashboard/status.mas:27
@@ -1758,7 +1748,7 @@ msgstr "Ejecutándose sin ser gestionado"
 
 #: src/templates/dashboard/index.mas:32 src/templates/dashboard/status.mas:28
 msgid "The service is running, but not enabled in eBox"
-msgstr "El servicio está ejecutándose pero no está habilitado en eBox"
+msgstr "El servicio está ejecutándose, pero no está habilitado en eBox"
 
 #: src/templates/dashboard/index.mas:36 src/templates/dashboard/status.mas:31
 msgid "Disabled"
@@ -2095,7 +2085,7 @@ msgstr "Descartar cambios"
 
 #: src/templates/finish.mas:141
 msgid "There are no unsaved changes."
-msgstr "No hay cambios sin guardar"
+msgstr "No hay cambios sin guardar."
 
 #: src/templates/backup.mas:17
 msgid "Full Backup"
@@ -2110,21 +2100,19 @@ msgid ""
 msgstr ""
 "Áquellos módulos que han sido habilitados por primera vez en la sección de "
 "{openref}estado de los módulos{closeref} serán ignorados tanto en las "
-"operaciones de backup como de restauración"
+"operaciones de backup como de restauración."
 
 #: src/templates/backup.mas:26
 msgid "Backup the Current State"
 msgstr "Backup del estado actual"
 
 #: src/templates/backup.mas:28
-#, fuzzy
 msgid ""
 "Backups will be stored in eBox and then you will be able to download them to "
 "your hard disk."
 msgstr ""
 "Los backups se almacenarán en eBox y posteriormente pueden ser descargados a "
-"su disco duro o grabados en CD o DVD. De todas formas, puedes grabar el "
-"backup guardado más tarde"
+"su disco duro."
 
 #: src/templates/backup.mas:29
 msgid ""
@@ -2132,6 +2120,9 @@ msgid ""
 "administration rights will be able to access the backup directory as a "
 "shared resource."
 msgstr ""
+"Si tiene configurado el módulo de compartición de ficheros, todos los "
+"usuarios con derechos de administración pueden acceder al directorio de "
+"backup como si fuera un recurso compartido."
 
 #: src/templates/backup.mas:33
 msgid ""
@@ -2161,7 +2152,7 @@ msgstr ""
 
 #: src/templates/backup.mas:82
 msgid "Backup file"
-msgstr "Archivo de backup"
+msgstr "Fichero de backup"
 
 #: src/templates/backup.mas:112
 msgid "Full"
@@ -2212,24 +2203,24 @@ msgid "delete"
 msgstr "borrar"
 
 #: src/templates/bug.mas:9
-#, fuzzy
 msgid ""
 "This page lets you generate a file with information about the state of your "
 "system. The file will be useful if you want to report a problem or seek "
 "support."
 msgstr ""
-"Esta página le permite generar un fichero con información acerca del estado "
-"de su sistema. El fichero puede ser útil si quiere informar de un bug en "
-"eBox."
+"Esta página permite generar un fichero con información acerca del estado del "
+"sistema. El fichero puede ser útil si quieres informar de un bug o buscas "
+"soporte."
 
 #: src/templates/bug.mas:13
 msgid "It may take several minutes to generate the report. Please be patient."
 msgstr ""
+"Se puede tardar varios minutos en generar el informe. Por favor, sea "
+"paciente."
 
 #: src/templates/bug.mas:19
-#, fuzzy
 msgid "Download configuration report file"
-msgstr "Descargar informe de error"
+msgstr "Descargar el fichero con el informe de configuración"
 
 #: src/templates/logout/index.mas:11
 msgid "There are unsaved changes, if you log out now they will be lost."
@@ -2237,7 +2228,7 @@ msgstr "Hay cambios sin guardar, si sale ahora los perderá"
 
 #: src/templates/logout/index.mas:15
 msgid "There are no unsaved changes in this session."
-msgstr "No hay cambios sin guardar en esta sesión"
+msgstr "No hay cambios sin guardar en esta sesión."
 
 #: src/templates/logout/index.mas:19
 msgid "Exit"
@@ -2261,7 +2252,7 @@ msgstr "Nueva contraseña"
 
 #: src/templates/password.mas:39
 msgid "Confirm password"
-msgstr "Confirmar nueva contraseña"
+msgstr "Confirmar contraseña"
 
 #: src/templates/login/index.mas:40
 msgid "Warning: Caps Lock is enabled"
@@ -2284,8 +2275,8 @@ msgid ""
 "while navigating on eBox UI."
 msgstr ""
 "Cuidado: Estás usando un navegador que no es {url}, que es el único "
-"oficialmente soportado. Por favor, ten en consideración que puedes "
-"encontrarte con algún problema usando el interfaz de eBox"
+"oficialmente soportado. Por favor, ten en cuenta que puedes encontrarte con "
+"algún problema usando el interfaz de eBox."
 
 #: src/templates/login/index.mas:58
 msgid "Enter"

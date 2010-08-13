@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-network 0.12\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "POT-Creation-Date: 2010-07-21 00:38+0200\n"
-"PO-Revision-Date: 2010-07-20 10:25+0200\n"
+"PO-Revision-Date: 2010-07-21 08:12+0200\n"
 "Last-Translator: Daniel Hedblom <daniel.hedblom@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -44,7 +44,7 @@ msgstr "Lösenord"
 
 #: src/EBox/CGI/Iface.pm:108
 msgid "bridge"
-msgstr ""
+msgstr "brygga"
 
 #: src/EBox/CGI/Vlan.pm:45 src/EBox/Network.pm:1625 src/EBox/Network.pm:1654
 #: src/templates/ifaces.mas:229
@@ -903,7 +903,7 @@ msgstr "Trunk (802.1q)"
 
 #: src/templates/ifaces.mas:80 src/templates/ifaces.mas:82
 msgid "Bridged"
-msgstr ""
+msgstr "Bryggad"
 
 #: src/templates/ifaces.mas:87 src/templates/ifaces.mas:89
 msgid "Not set"
@@ -923,7 +923,7 @@ msgstr ""
 
 #: src/templates/ifaces.mas:168
 msgid "Bridge"
-msgstr ""
+msgstr "Brygga"
 
 #: src/templates/ifaces.mas:189
 msgid "User name"
@@ -966,37 +966,33 @@ msgstr ""
 "eller flera moduler som refererar till detta nätverksgränssnitt."
 
 #: src/templates/Wizard/network.mas:18 src/templates/Wizard/interfaces.mas:7
-#, fuzzy
 msgid "Network interfaces"
 msgstr "Nätverksgränssnitt"
 
 #: src/templates/Wizard/network.mas:21
-#, fuzzy
 msgid "Configure network for external interfaces"
-msgstr "Konfigurera nätverksgränssnitt"
+msgstr "Konfigurera nätverk för externa gränssnitt"
 
 #: src/templates/Wizard/network.mas:22
 msgid "Now you can set IP addresses and networks for each interface"
-msgstr ""
+msgstr "Nu kan du ställa in IP adresser och nätverk för varje gränssnitt"
 
 #: src/templates/Wizard/network.mas:30 src/templates/Wizard/network.mas:86
-#, fuzzy
 msgid "Don't configure"
-msgstr "DNS konfigurerad"
+msgstr "Konfigurera ej"
 
 #: src/templates/Wizard/network.mas:63
 msgid "Gateway"
 msgstr "Gateway"
 
 #: src/templates/Wizard/interfaces.mas:10
-#, fuzzy
 msgid "Select external network interfaces"
-msgstr "nätverksgränssnitt"
+msgstr "Välj externa nätverksgränssnitt"
 
 #: src/templates/Wizard/interfaces.mas:11
 msgid ""
 "You will not be able to connect to eBox administration page through them"
-msgstr ""
+msgstr "Du kommer inte att kunna komma åt eBox administrationssida genom dem"
 
 #: src/templates/diag.mas:13 src/templates/diag.mas:18
 msgid "Ping"

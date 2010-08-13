@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-ebox 1.1Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "POT-Creation-Date: 2010-07-21 00:37+0200\n"
-"PO-Revision-Date: 2010-06-10 21:16+0200\n"
+"PO-Revision-Date: 2010-07-21 15:37+0200\n"
 "Last-Translator: Nagy Ákos <reg@pecska.ro>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -438,9 +438,8 @@ msgstr ""
 "megtalálod a hibanapló bejegyzések között."
 
 #: src/EBox/CGI/Wizard.pm:29
-#, fuzzy
 msgid "Initial configuration wizard"
-msgstr "Általános beállítások"
+msgstr "Kezdeti beállítás varázsló"
 
 #: src/EBox/CGI/Logs/Index.pm:37 src/EBox/Logs.pm:59
 msgid "Logs"
@@ -1472,7 +1471,7 @@ msgid "Writing backup file to hard disk"
 msgstr "Mentési fájl kiírása a merev lemezre"
 
 #: src/EBox/Backup.pm:791
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Module {mod} has not saved changes. Before doing the backup you must save or "
 "discard them"
@@ -1617,9 +1616,9 @@ msgid "eBox web server"
 msgstr "eBox webkiszolgáló"
 
 #: src/EBox/Global.pm:480
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Enabling {modName} module"
-msgstr "{modName} modul mentése"
+msgstr "{modName} modul engedélyezése"
 
 #: src/EBox/Global.pm:510 src/EBox/Global.pm:537
 #, perl-brace-format
@@ -1663,25 +1662,23 @@ msgstr "Módosítás"
 
 #: src/templates/wizard.mas:73 src/templates/wizard.mas:74
 msgid "Finish"
-msgstr ""
+msgstr "Vége"
 
 #: src/templates/wizard.mas:131
-#, fuzzy
 msgid "Congratulations!"
-msgstr "Beállítás"
+msgstr "Gratlálunk!"
 
 #: src/templates/wizard.mas:132
 msgid "Now you are ready to save changes and start using your eBox"
-msgstr ""
+msgstr "Készen áll a beállítások mentésére és elkezdheti az eBox használatát"
 
 #: src/templates/wizard.mas:151 src/templates/wizard.mas:161
 msgid "Skip"
-msgstr ""
+msgstr "Kihagy"
 
 #: src/templates/wizard.mas:152 src/templates/wizard.mas:162
-#, fuzzy
 msgid "Next"
-msgstr "következő"
+msgstr "Következő"
 
 #: src/templates/headTitle.mas:20
 msgid "Remote services control panel"

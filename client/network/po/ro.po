@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-network 0.12.99Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "POT-Creation-Date: 2010-07-21 00:38+0200\n"
-"PO-Revision-Date: 2010-07-20 14:56+0200\n"
+"PO-Revision-Date: 2010-07-28 14:10+0200\n"
 "Last-Translator: Harald Ersch <harald.ersch@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -45,7 +45,7 @@ msgstr "parolă"
 
 #: src/EBox/CGI/Iface.pm:108
 msgid "bridge"
-msgstr ""
+msgstr "bridge"
 
 #: src/EBox/CGI/Vlan.pm:45 src/EBox/Network.pm:1625 src/EBox/Network.pm:1654
 #: src/templates/ifaces.mas:229
@@ -903,7 +903,7 @@ msgstr "Trunk (802.1q)"
 
 #: src/templates/ifaces.mas:80 src/templates/ifaces.mas:82
 msgid "Bridged"
-msgstr ""
+msgstr "Bridged"
 
 #: src/templates/ifaces.mas:87 src/templates/ifaces.mas:89
 msgid "Not set"
@@ -966,37 +966,33 @@ msgstr ""
 "interfaţă de reţea."
 
 #: src/templates/Wizard/network.mas:18 src/templates/Wizard/interfaces.mas:7
-#, fuzzy
 msgid "Network interfaces"
 msgstr "Interfeţe de reţea"
 
 #: src/templates/Wizard/network.mas:21
-#, fuzzy
 msgid "Configure network for external interfaces"
-msgstr "{iface} (interfaţă externă)"
+msgstr "Configurare reţea pentru interfeţe externe"
 
 #: src/templates/Wizard/network.mas:22
 msgid "Now you can set IP addresses and networks for each interface"
-msgstr ""
+msgstr "Acum puteţi pune adrese IP şi reţele pe fiecare interfaţă"
 
 #: src/templates/Wizard/network.mas:30 src/templates/Wizard/network.mas:86
 msgid "Don't configure"
-msgstr ""
+msgstr "Nu configura"
 
 #: src/templates/Wizard/network.mas:63
-#, fuzzy
 msgid "Gateway"
-msgstr "Gateway-uri"
+msgstr "Gateway"
 
 #: src/templates/Wizard/interfaces.mas:10
-#, fuzzy
 msgid "Select external network interfaces"
-msgstr "interfaţă de reţea"
+msgstr "Selectaţi interfeţele către reţele externe"
 
 #: src/templates/Wizard/interfaces.mas:11
 msgid ""
 "You will not be able to connect to eBox administration page through them"
-msgstr ""
+msgstr "Nu veţi putea deschide paginile de administrare eBox prin ele"
 
 #: src/templates/diag.mas:13 src/templates/diag.mas:18
 msgid "Ping"

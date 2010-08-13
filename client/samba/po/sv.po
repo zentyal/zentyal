@@ -8,58 +8,56 @@ msgstr ""
 "Project-Id-Version: ebox-samba 0.12\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "POT-Creation-Date: 2010-07-21 00:42+0200\n"
-"PO-Revision-Date: 2007-06-06 09:40+0200\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2010-07-23 10:49+0200\n"
+"Last-Translator: Daniel Hedblom <daniel.hedblom@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: migration/0001_add_samba_service.pl:113
-#, fuzzy
 msgid "File sharing (Samba) protocol"
-msgstr "Fildelning"
+msgstr "Fildelning (Samba) protokoll"
 
 #: src/EBox/SambaLdapUser.pm:287
-#, fuzzy
 msgid "This user has a sharing directory associated which contains data."
 msgstr "Den här användaren har en delad katalog associerad som innehåller data"
 
 #: src/EBox/SambaLdapUser.pm:346 src/EBox/SambaLdapUser.pm:364
 #, perl-brace-format
 msgid "Incorrect SID: {s}"
-msgstr ""
+msgstr "Felaktigt SID: {s}"
 
 #: src/EBox/SambaLdapUser.pm:350
 #, perl-brace-format
 msgid "User {u} does not exists"
-msgstr ""
+msgstr "Användare {u} finns ej"
 
 #: src/EBox/SambaLdapUser.pm:354
 #, perl-brace-format
 msgid "User {u} is not a samba user"
-msgstr ""
+msgstr "Användare {u} är inte en samba användare"
 
 #: src/EBox/SambaLdapUser.pm:368
 #, perl-brace-format
 msgid "Group {g} does not exists"
-msgstr ""
+msgstr "Grupp {g} finns ej"
 
 #: src/EBox/SambaLdapUser.pm:372
 #, perl-brace-format
 msgid "Group {g} is not a samba group"
-msgstr ""
+msgstr "Grupp {g} är inte en samba grupp"
 
 #: src/EBox/SambaLdapUser.pm:414
-#, fuzzy
 msgid "This group has a sharing directory associated that contains data."
 msgstr "Den här gruppen har en delad katalog associerad som innehåller data"
 
 #: src/EBox/SambaLdapUser.pm:612
 #, perl-brace-format
 msgid "{g} group does not exist"
-msgstr ""
+msgstr "{g} gruppen finns ej"
 
 #: src/EBox/SambaLdapUser.pm:696 src/EBox/SambaLdapUser.pm:724
 #: src/EBox/SambaLdapUser.pm:773 src/EBox/CGI/ActivePrinting.pm:50
@@ -68,7 +66,6 @@ msgid "group name"
 msgstr "gruppnamn"
 
 #: src/EBox/SambaLdapUser.pm:729
-#, fuzzy
 msgid "A name should be provided for the share."
 msgstr "Ett namn bör anges för utdelningen"
 
@@ -93,43 +90,38 @@ msgid "active"
 msgstr "aktiv"
 
 #: src/EBox/CGI/ActiveSharing.pm:73
-#, fuzzy
 msgid "Disk quota limit"
-msgstr "Kvotgräns"
+msgstr "Disk Kvotgräns"
 
 #: src/EBox/Samba/Model/SambaUser.pm:50
-#, fuzzy
 msgid "File Sharing Account"
-msgstr "PDC/Fildelningskonto"
+msgstr "Fildelningskonto"
 
 #: src/EBox/Samba/Model/SambaUser.pm:58 src/EBox/Samba/Composite/General.pm:68
 #: src/EBox/Samba.pm:75
-#, fuzzy
 msgid "File Sharing"
 msgstr "Fildelning"
 
 #: src/EBox/Samba/Model/DeletedSambaShares.pm:114
 msgid "path"
-msgstr ""
+msgstr "sökväg"
 
 #: src/EBox/Samba/Model/DeletedSambaShares.pm:130
 #: src/EBox/Samba/Model/SambaShares.pm:157
 msgid "share"
-msgstr ""
+msgstr "utdelning"
 
 #: src/EBox/Samba/Model/GeneralSettings.pm:73
 msgid "Netbios and workgroup must have different names"
-msgstr ""
+msgstr "Netbios och workgroup måste ha olika namn"
 
 #: src/EBox/Samba/Model/GeneralSettings.pm:78
-#, fuzzy
 msgid "Netbios name cannot be longer than 15 characters"
-msgstr "Resursnamnet är längre än 12 tecken."
+msgstr "Netbios namnet kan inte vara längre än 15 tecken"
 
 #: src/EBox/Samba/Model/GeneralSettings.pm:88
-#, fuzzy
 msgid "Enable PDC"
-msgstr "Aktiverat"
+msgstr "Aktivera PDC"
 
 #: src/EBox/Samba/Model/GeneralSettings.pm:94
 msgid "Domain name"
@@ -150,11 +142,11 @@ msgstr "Kvotgräns"
 #: src/EBox/Samba/Model/GeneralSettings.pm:116 src/EBox/Samba/Model/PDC.pm:95
 #: src/EBox/Samba/Model/PDC.pm:113
 msgid "Limited to"
-msgstr ""
+msgstr "Begränsad till"
 
 #: src/EBox/Samba/Model/GeneralSettings.pm:118
 msgid "Mb"
-msgstr ""
+msgstr "Mb"
 
 #: src/EBox/Samba/Model/GeneralSettings.pm:124 src/EBox/Samba/Model/PDC.pm:91
 #: src/EBox/Samba/Model/PDC.pm:109 src/EBox/Samba/Model/PDC.pm:127
@@ -164,88 +156,84 @@ msgstr "Inaktiverat"
 
 #: src/EBox/Samba/Model/GeneralSettings.pm:130
 msgid "Enable roaming profiles"
-msgstr ""
+msgstr "Aktivera roaming profiles"
 
 #: src/EBox/Samba/Model/GeneralSettings.pm:136
-#, fuzzy
 msgid "Drive letter"
-msgstr "Ta bort"
+msgstr "Enhetsbokstav"
 
 #: src/EBox/Samba/Model/GeneralSettings.pm:142
-#, fuzzy
 msgid "Samba group"
-msgstr "grupp"
+msgstr "Sambagrupp"
 
 #: src/EBox/Samba/Model/GeneralSettings.pm:146
 msgid ""
 "Only users belonging to this group will have a samba account. Sync happens "
 "every hour"
 msgstr ""
+"Endast användare som tillhör denna grupp kommer att ha ett samba konto. "
+"Synkning sker varje timme."
 
 #: src/EBox/Samba/Model/GeneralSettings.pm:152
-#, fuzzy
 msgid "General settings"
 msgstr "Allmänna inställningar"
 
 #: src/EBox/Samba/Model/GeneralSettings.pm:156
 msgid "On this page you can set different general settings for Samba"
-msgstr ""
+msgstr "På denna sida kan du ställa in allmänna inställningar för Samba"
 
 #: src/EBox/Samba/Model/GeneralSettings.pm:209
-#, fuzzy
 msgid "All users"
-msgstr "användare"
+msgstr "Alla användare"
 
 #: src/EBox/Samba/Model/SambaShares.pm:101
-#, fuzzy
 msgid "Share name"
-msgstr "delningsnamn"
+msgstr "Utdelningsnamn"
 
 #: src/EBox/Samba/Model/SambaShares.pm:107
 msgid "Share path"
-msgstr ""
+msgstr "Sökväg för utdelning"
 
 #: src/EBox/Samba/Model/SambaShares.pm:113
-#, fuzzy
 msgid "Directory under eBox"
-msgstr "Katalognamn"
+msgstr "Katalog under eBox"
 
 #: src/EBox/Samba/Model/SambaShares.pm:119
 msgid "File system path"
-msgstr ""
+msgstr "Sökväg"
 
 #: src/EBox/Samba/Model/SambaShares.pm:127
 msgid "Comment"
-msgstr ""
+msgstr "Kommentar"
 
 #: src/EBox/Samba/Model/SambaShares.pm:132
 msgid "Guest access"
-msgstr ""
+msgstr "Gäståtkomst"
 
 #: src/EBox/Samba/Model/SambaShares.pm:135
 msgid "This share will not require authentication."
-msgstr ""
+msgstr "Denna utdelning kommer ej kräva inloggning"
 
 #: src/EBox/Samba/Model/SambaShares.pm:139
 msgid "Access control"
-msgstr ""
+msgstr "Åtkomststyrning"
 
 #: src/EBox/Samba/Model/SambaShares.pm:149
 #: src/EBox/Samba/Model/SambaSharePermissions.pm:166
 msgid "Shares"
-msgstr ""
+msgstr "Utdelningar"
 
 #: src/EBox/Samba/Model/SambaShares.pm:187
 msgid "Path not allowed"
-msgstr ""
+msgstr "Sökväg ej tillåten"
 
 #: src/EBox/Samba/Model/SambaShares.pm:195
 msgid "Only alphanumeric characters plus _ are valid for a path"
-msgstr ""
+msgstr "Endast alfanumeriska tecken plus _ är tillåtna för en sökväg"
 
 #: src/EBox/Samba/Model/SambaShares.pm:229
 msgid "The directory is not empty. Are you sure you want to remove it?"
-msgstr ""
+msgstr "Katalogen är inte tom. Är du säker på att du vill radera den?"
 
 #: src/EBox/Samba/Model/SambaShares.pm:319
 #, perl-brace-format
@@ -254,113 +242,115 @@ msgid ""
 "directory in /home/samba/shares {br}{openit}File system path{closeit} will "
 "allow you to share an existing directory within your file system"
 msgstr ""
+"{openit}Katalog under eBox{closeit} kommer automatiskt skapa katalogen i "
+"/home/samba/shares {br}{openit}Sökväg {closeit} tillåter dig att dela ut en "
+"redan existerande katalog i ditt filsystem"
 
 #: src/EBox/Samba/Model/SambaShares.pm:332
 msgid ""
 "Here you can create shares with more fine-grained permission control. You "
 "can use an existing directory or pick a name and let eBox create it for you."
 msgstr ""
+"Här kan du skapa utdelningar med mer finmaskiga rättigheter. Du kan använda "
+"en redan existerande katalog eller välja ett namn och låta eBox skapa den åt "
+"dig."
 
 #: src/EBox/Samba/Model/SambaSharePermissions.pm:94
 msgid "Read only"
-msgstr ""
+msgstr "Endast läsbar"
 
 #: src/EBox/Samba/Model/SambaSharePermissions.pm:98
 msgid "Read and write"
-msgstr ""
+msgstr "Läsa och skriva"
 
 #: src/EBox/Samba/Model/SambaSharePermissions.pm:102
-#, fuzzy
 msgid "Administrator"
-msgstr "Administratörsrättigheter"
+msgstr "Administratör"
 
 #: src/EBox/Samba/Model/SambaSharePermissions.pm:126
 #: src/EBox/Samba/Model/SambaSharePermissions.pm:202
 msgid "User/Group"
-msgstr ""
+msgstr "Användare/Grupp"
 
 #: src/EBox/Samba/Model/SambaSharePermissions.pm:176
 msgid "Any access control is disabled if the guest access is allowed."
-msgstr ""
+msgstr "All åtkomst är tillåten om gäståtkomst är aktiverad."
 
 #: src/EBox/Samba/Model/SambaSharePermissions.pm:207 src/EBox/Samba.pm:631
 #: src/EBox/Samba.pm:1646 src/templates/ajax/viewer/shareViewer.mas:8
-#, fuzzy
 msgid "User"
-msgstr "användare"
+msgstr "Användare"
 
 #: src/EBox/Samba/Model/SambaSharePermissions.pm:212
 #: src/EBox/Samba/Model/AntivirusExceptions.pm:103
 #: src/EBox/Samba/Model/RecycleExceptions.pm:103
 #: src/templates/ajax/viewer/shareViewer.mas:10
-#, fuzzy
 msgid "Group"
-msgstr "grupp"
+msgstr "Grupp"
 
 #: src/EBox/Samba/Model/SambaSharePermissions.pm:221
 msgid "Permissions"
-msgstr ""
+msgstr "Rättigheter"
 
 #: src/EBox/Samba/Model/SambaSharePermissions.pm:230
 msgid "Access Control"
-msgstr ""
+msgstr "Åtkomststyrning"
 
 #: src/EBox/Samba/Model/SambaSharePermissions.pm:237
 msgid "ACL"
-msgstr ""
+msgstr "ACL"
 
 #: src/EBox/Samba/Model/SambaSharePermissions.pm:250
 msgid ""
 "Be careful if you grant <i>administrator</i> privileges.User will be able to "
 "read and write any file in the share."
 msgstr ""
+"Var försiktig innan du ger <i>administrator</i> rättigheter. Användare kan "
+"läsa och skriva till alla filer i utdelningen."
 
 #: src/EBox/Samba/Model/SambaSharePermissions.pm:260
-#, fuzzy
 msgid " (user))"
-msgstr "användare"
+msgstr "(användare))"
 
 #: src/EBox/Samba/Model/SambaSharePermissions.pm:262
-#, fuzzy
 msgid " (group))"
-msgstr "grupp"
+msgstr "(grupp))"
 
 #: src/EBox/Samba/Model/PDC.pm:77
-#, fuzzy
 msgid "File sharing module is not enabled."
-msgstr "fildelning-modul"
+msgstr "Fildelnings-modul är inte aktiverad."
 
 #: src/EBox/Samba/Model/PDC.pm:78
 msgid "PDC is not enabled."
-msgstr ""
+msgstr "PDC är inte aktiverad."
 
 #: src/EBox/Samba/Model/PDC.pm:87
 msgid "Minimum password length"
-msgstr ""
+msgstr "Minsta längd på lösenord"
 
 #: src/EBox/Samba/Model/PDC.pm:96
 msgid "characters"
-msgstr ""
+msgstr "tecken"
 
 #: src/EBox/Samba/Model/PDC.pm:105
 msgid "Maximum password age"
-msgstr ""
+msgstr "Max ålder på lösenord"
 
 #: src/EBox/Samba/Model/PDC.pm:114
 msgid "days"
-msgstr ""
+msgstr "dagar"
 
 #: src/EBox/Samba/Model/PDC.pm:123
 msgid "Enforce password history"
-msgstr ""
+msgstr "Tvinga lösenordshistoria"
 
 #: src/EBox/Samba/Model/PDC.pm:131
 msgid "Keep history for"
-msgstr ""
+msgstr "Spara historia i"
 
 #: src/EBox/Samba/Model/PDC.pm:132
 msgid "passwords remebered"
-msgstr ""
+msgstr "Ihågkomna lösenord"
 
 #: src/EBox/Samba/Model/PDC.pm:143
 msgid "PDC"
@@ -368,146 +358,142 @@ msgstr "PDC"
 
 #: src/EBox/Samba/Model/PDC.pm:147
 msgid "On this page you can set different PDC related settings"
-msgstr ""
+msgstr "På denna sida kan du ställa in olika PDC relaterade inställningar"
 
 #: src/EBox/Samba/Model/AntivirusExceptions.pm:93
 #: src/EBox/Samba/Model/RecycleExceptions.pm:93
 msgid "User/Group/Share"
-msgstr ""
+msgstr "Användare/Grupp/Utdelning"
 
 #: src/EBox/Samba/Model/AntivirusExceptions.pm:99
 #: src/EBox/Samba/Model/RecycleExceptions.pm:99
-#, fuzzy
 msgid "User homes"
-msgstr "Användarens filer"
+msgstr "Användarens hemkatalog"
 
 #: src/EBox/Samba/Model/AntivirusExceptions.pm:110
 #: src/EBox/Samba/Model/RecycleExceptions.pm:110 src/EBox/Samba.pm:610
 #: src/templates/ajax/viewer/shareViewer.mas:12
-#, fuzzy
 msgid "Share"
-msgstr "delningsnamn"
+msgstr "Utdelning"
 
 #: src/EBox/Samba/Model/AntivirusExceptions.pm:121
 msgid "Samba shares antivirus exceptions"
-msgstr ""
+msgstr "Samba delar antivirus undantag"
 
 #: src/EBox/Samba/Model/AntivirusExceptions.pm:126
 msgid "Add exceptions to the default antivirus settings"
-msgstr ""
+msgstr "Lägg till undantag till standard antivirus inställningar"
 
 #: src/EBox/Samba/Model/AntivirusExceptions.pm:127
 #: src/EBox/Samba/Model/RecycleExceptions.pm:127
-#, fuzzy
 msgid "exception"
-msgstr "beskrivning"
+msgstr "undantag"
 
 #: src/EBox/Samba/Model/RecycleExceptions.pm:121
 msgid "Samba shares Recycle Bin exceptions"
-msgstr ""
+msgstr "Samba delar papperskorgens undantag"
 
 #: src/EBox/Samba/Model/RecycleExceptions.pm:126
 msgid "Add exceptions to the default Recycle Bin settings"
-msgstr ""
+msgstr "Lägg till undantag till papperskorgens  antivirus inställningar"
 
 #: src/EBox/Samba/Model/AntivirusDefault.pm:50
 msgid "Scan"
-msgstr ""
+msgstr "Skanna"
 
 #: src/EBox/Samba/Model/AntivirusDefault.pm:58
-#, fuzzy
 msgid "Antivirus default settings"
-msgstr "Allmänna inställningar"
+msgstr "Antivirus allmänna inställningar"
 
 #: src/EBox/Samba/Model/RecycleDefault.pm:45
-#, fuzzy
 msgid "Recycle default settings"
-msgstr "Allmänna inställningar"
+msgstr "Papperskorgens allmänna inställningar"
 
 #: src/EBox/Samba/Model/RecycleDefault.pm:55
 msgid "Enable Recycle Bin"
-msgstr ""
+msgstr "Aktivera papperskorgen"
 
 #: src/EBox/Samba/Model/RecycleDefault.pm:63
-#, fuzzy
 msgid "Recycle Bin default settings"
-msgstr "Allmänna inställningar"
+msgstr "Papperskorgens allmänna inställningar"
 
 #: src/EBox/Samba/Composite/RecycleBin.pm:64
 msgid "Recycle Bin"
-msgstr ""
+msgstr "Papperskorg"
 
 #: src/EBox/Samba/Composite/General.pm:69
-#, fuzzy
 msgid "File sharing options"
-msgstr "Fildelning"
+msgstr "Fildelningsinställningar"
 
 #: src/EBox/Samba/Composite/Antivirus.pm:64
 msgid "Antivirus"
-msgstr ""
+msgstr "Antivirus"
 
 #: src/EBox/Samba.pm:90
-#, fuzzy
 msgid "Create Samba home directory for shares and groups"
-msgstr "Delningskatalog för den här gruppen"
+msgstr "Skapa Samba hemkatalog för utdelningar och grupper"
 
 #: src/EBox/Samba.pm:91
 msgid ""
 "eBox will create the directories for Samba shares and groups under /home/"
 "samba."
 msgstr ""
+"eBox kommer att skapa katalogerna för Samba utdelningar och grupper under "
+"/home/samba."
 
 #: src/EBox/Samba.pm:96
 msgid "Add LDAP schemas"
-msgstr ""
+msgstr "Lägg till LDAP scheman"
 
 #: src/EBox/Samba.pm:97
 msgid "eBox will add two LDAP schemas to the LDAP directory: samba and ebox."
 msgstr ""
+"eBox kommer att lägga till två LDAP scheman till LDAP katalogen: samba och "
+"ebox"
 
 #: src/EBox/Samba.pm:102
 msgid "Set Samba LDAP admin dn password"
-msgstr ""
+msgstr "Ställ in Samba LDAP admin dn lösenord"
 
 #: src/EBox/Samba.pm:103
 msgid "eBox will configure Samba to use the LDAP admin dn password."
-msgstr ""
+msgstr "eBox kommer att konfigurera Samba att använda LDAP admin dn lösenord"
 
 #: src/EBox/Samba.pm:119
 msgid "To set up Samba according to your configuration."
-msgstr ""
+msgstr "För att ställa in Samba enligt din konfiguration"
 
 #: src/EBox/Samba.pm:124
 msgid "To set up smbldap-tools according to your configuration."
-msgstr ""
+msgstr "För att ställa in smbldap-tools enligt din konfiguration"
 
 #: src/EBox/Samba.pm:130
 msgid "To set up smbldap-tools according to your LDAP configuration."
-msgstr ""
+msgstr "För att ställa in smbldap-tools enligt din konfiguration"
 
 #: src/EBox/Samba.pm:136
 msgid "To add quota support to /home partition."
-msgstr ""
+msgstr "För att lägga till kvotmöjligheter till din /home partition."
 
 #: src/EBox/Samba.pm:141
 msgid "To set the antivirus settings for Samba."
-msgstr ""
+msgstr "För att ställa in antivirus inställningarna för Samba"
 
 #: src/EBox/Samba.pm:610 src/EBox/Samba.pm:631
 msgid "Source machine"
-msgstr ""
+msgstr "Källdator"
 
 #: src/EBox/Samba.pm:610 src/EBox/Samba.pm:631
 msgid "Connected since"
-msgstr ""
+msgstr "Ansluten sedan"
 
 #: src/EBox/Samba.pm:651
 msgid "Shares by user"
-msgstr ""
+msgstr "Utdelning efter användare"
 
 #: src/EBox/Samba.pm:656
 msgid "Users by share"
-msgstr ""
+msgstr "Användare efter utdelning"
 
 #: src/EBox/Samba.pm:1196 src/EBox/Samba.pm:1218
 msgid "user"
@@ -530,92 +516,88 @@ msgid "Group's files"
 msgstr "Gruppens filer"
 
 #: src/EBox/Samba.pm:1644 src/EBox/Samba.pm:1664 src/EBox/Samba.pm:1674
-#, fuzzy
 msgid "Date"
-msgstr "aktiv"
+msgstr "Datum"
 
 #: src/EBox/Samba.pm:1645 src/EBox/Samba.pm:1665
 msgid "Client address"
-msgstr ""
+msgstr "Klient adress"
 
 #: src/EBox/Samba.pm:1647
 msgid "Action"
-msgstr ""
+msgstr "Åtgärd"
 
 #: src/EBox/Samba.pm:1648
 msgid "Resource"
-msgstr ""
+msgstr "Resurs"
 
 #: src/EBox/Samba.pm:1652
 msgid "Connect"
-msgstr ""
+msgstr "Ansluta"
 
 #: src/EBox/Samba.pm:1653
 msgid "Access to directory"
-msgstr ""
+msgstr "Access till katalog"
 
 #: src/EBox/Samba.pm:1654
 msgid "Read file"
-msgstr ""
+msgstr "Läsa fil"
 
 #: src/EBox/Samba.pm:1655
 msgid "Write file"
-msgstr ""
+msgstr "Skriva fil"
 
 #: src/EBox/Samba.pm:1656
 msgid "Disconnect"
-msgstr ""
+msgstr "Koppla bort"
 
 #: src/EBox/Samba.pm:1657
 msgid "Remove"
-msgstr ""
+msgstr "Ta bort"
 
 #: src/EBox/Samba.pm:1658
 msgid "Create directory"
-msgstr ""
+msgstr "Skapa katalog"
 
 #: src/EBox/Samba.pm:1659
-#, fuzzy
 msgid "Remove directory"
-msgstr "Hemkataloger"
+msgstr "Ta bort katalog"
 
 #: src/EBox/Samba.pm:1660
-#, fuzzy
 msgid "Rename"
-msgstr "användarnamn"
+msgstr "Döpa om"
 
 #: src/EBox/Samba.pm:1666 src/EBox/Samba.pm:1675
-#, fuzzy
 msgid "File name"
-msgstr "användarnamn"
+msgstr "Filnamn"
 
 #: src/EBox/Samba.pm:1667 src/EBox/Samba.pm:1671
 msgid "Virus"
-msgstr ""
+msgstr "Virus"
 
 #: src/EBox/Samba.pm:1668
 msgid "Type"
-msgstr ""
+msgstr "Typ"
 
 #: src/EBox/Samba.pm:1676
 msgid "Quarantined file name"
-msgstr ""
+msgstr "Fil i karantän"
 
 #: src/EBox/Samba.pm:1677 src/EBox/Samba.pm:1680
 msgid "Quarantine"
-msgstr ""
+msgstr "Karantän"
 
 #: src/EBox/Samba.pm:1683
 msgid "Samba access"
-msgstr ""
+msgstr "Tillgång till Samba"
 
 #: src/EBox/Samba.pm:1694
 msgid "Samba virus"
-msgstr ""
+msgstr "Samba virus"
 
 #: src/EBox/Samba.pm:1705
 msgid "Samba quarantine"
-msgstr ""
+msgstr "Samba karantän"
 
 #: src/templates/delete.mas:11
 msgid ""
@@ -653,9 +635,8 @@ msgid "Administration rights"
 msgstr "Administratörsrättigheter"
 
 #: src/templates/samba.mas:44
-#, fuzzy
 msgid "Disk quota limit (MB)"
-msgstr "Kvotgräns"
+msgstr "Disk kvotgräns (MB)"
 
 #: src/templates/samba.mas:56 src/templates/samba.mas:57
 #: src/templates/samba.mas:86 src/templates/samba.mas:87
@@ -724,7 +705,7 @@ msgstr "Hemkataloger"
 #: stubs/smb.conf.mas:130
 #, perl-brace-format
 msgid "{group} share directory"
-msgstr ""
+msgstr "{group} delad katalog"
 
 #, fuzzy
 #~ msgid "file sharing"

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-jabber 0.12\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "POT-Creation-Date: 2010-07-21 00:33+0200\n"
-"PO-Revision-Date: 2010-07-19 09:42+0200\n"
+"PO-Revision-Date: 2010-07-21 07:54+0200\n"
 "Last-Translator: Daniel Hedblom <daniel.hedblom@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -18,7 +18,6 @@ msgstr ""
 "X-Generator: Pootle 1.1.0\n"
 
 #: migration/0001_add_firewall_services.pl:30 src/EBox/Jabber.pm:221
-#, fuzzy
 msgid "Jabber Server"
 msgstr "Jabber tjänst"
 
@@ -35,12 +34,10 @@ msgid "Add Jabber LDAP schema"
 msgstr "Lägg till Jabber LDAP schema"
 
 #: src/EBox/Jabber.pm:57
-#, fuzzy
 msgid "eBox will need this schema to store Jabber users."
-msgstr "eBox behöver detta schema för att spara jabberanvändare"
+msgstr "eBox behöver detta schema för att spara jabberanvändare."
 
 #: src/EBox/Jabber.pm:73
-#, fuzzy
 msgid "To properly configure ejabberd."
 msgstr "För att korrekt konfigurera jabberd2"
 
@@ -55,16 +52,15 @@ msgstr "Inaktiverad"
 
 #: src/EBox/Jabber/Model/GeneralSettings.pm:93
 msgid "Allow SSL"
-msgstr ""
+msgstr "Tillåt SSL"
 
 #: src/EBox/Jabber/Model/GeneralSettings.pm:94
 msgid "Force SSL"
-msgstr ""
+msgstr "Tvinga SSL"
 
 #: src/EBox/Jabber/Model/GeneralSettings.pm:113
-#, fuzzy
 msgid "Jabber domain"
-msgstr "Jabber-konto"
+msgstr "Jabber domän"
 
 #: src/EBox/Jabber/Model/GeneralSettings.pm:119
 msgid "SSL support"
@@ -79,13 +75,12 @@ msgid "Enable MUC (Multi User Chat)"
 msgstr "Aktivera MUC (Multi User Chat)"
 
 #: src/EBox/Jabber/Model/GeneralSettings.pm:141
-#, fuzzy
 msgid "General configuration settings"
 msgstr "Allmän konfiguration"
 
 #: src/EBox/Jabber/Model/GeneralSettings.pm:146
 msgid "General Jabber server configuration settings updated."
-msgstr ""
+msgstr "Allmänna Jabber server konfigurationsinställningar uppdaterade."
 
 #: src/EBox/Jabber/Model/JabberUser.pm:50
 msgid "Jabber Account"
@@ -97,12 +92,10 @@ msgid "Jabber"
 msgstr "Jabber"
 
 #: src/EBox/Jabber/Composite/General.pm:66
-#, fuzzy
 msgid "Configuration"
-msgstr "Allmän konfiguration"
+msgstr "konfiguration"
 
 #: src/templates/jabber.mas:8
-#, fuzzy
 msgid "Jabber account"
 msgstr "Jabber-konto"
 

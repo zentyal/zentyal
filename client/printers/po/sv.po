@@ -8,17 +8,18 @@ msgstr ""
 "Project-Id-Version: ebox-printers 0.12\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "POT-Creation-Date: 2010-07-21 00:42+0200\n"
-"PO-Revision-Date: 2007-06-06 09:40+0200\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2010-07-22 09:10+0200\n"
+"Last-Translator: Daniel Hedblom <daniel.hedblom@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: migration/0001_add_ipp_service.pl:102
 msgid "Cups printer server port"
-msgstr ""
+msgstr "Cups skrivarserver-port"
 
 #: src/EBox/CGI/Model.pm:43 src/EBox/CGI/LPDPrinterUI.pm:46
 #: src/EBox/CGI/NetworkPrinter.pm:42 src/EBox/CGI/SambaPrinterUI.pm:48
@@ -55,7 +56,7 @@ msgstr "Modell"
 #: src/EBox/CGI/Model.pm:55
 #, perl-brace-format
 msgid "Printer {printer} has no available drivers"
-msgstr ""
+msgstr "Skrivaren {printer} har inga tillgängliga drivrutiner"
 
 #: src/EBox/CGI/LPDPrinterUI.pm:30 src/EBox/CGI/SambaPrinterUI.pm:32
 #: src/EBox/CGI/USBPrinterUI.pm:32 src/EBox/CGI/ParallelPrinterUI.pm:32
@@ -94,11 +95,11 @@ msgstr "Port"
 
 #: src/EBox/CGI/GeneralSettings.pm:90
 msgid "Standalone cups enabled"
-msgstr ""
+msgstr "Fristående cups aktiverad"
 
 #: src/EBox/CGI/GeneralSettings.pm:92
 msgid "Standalone cups disabled"
-msgstr ""
+msgstr "Fristående cups inaktiverad"
 
 #: src/EBox/CGI/DrvoptsUI.pm:32
 msgid "Add a new printer (VI)"
@@ -213,48 +214,45 @@ msgid "Add a new printer (I)"
 msgstr "Lägg till en ny skrivare (I)"
 
 #: src/EBox/Printers.pm:59
-#, fuzzy
 msgid "Printer Sharing"
 msgstr "Skrivardelning"
 
 #: src/EBox/Printers.pm:74
-#, fuzzy
 msgid "Create spool directory for printers"
-msgstr "Välj en drivrutin för skrivaren"
+msgstr "Skapa köbibliotek för skrivare"
 
 #: src/EBox/Printers.pm:75
 msgid "eBox will create a spool directory under /var/spool/samba"
-msgstr ""
+msgstr "eBox kommer att skapa ett köbibliotek under /var/spool/samba"
 
 #: src/EBox/Printers.pm:80
 msgid "Add user ebox to lpadmin group"
-msgstr ""
+msgstr "Lägg till användaren ebox till lpadmin gruppen"
 
 #: src/EBox/Printers.pm:81
 msgid "In order to manage printers and queues from the eBox web interface"
-msgstr ""
+msgstr "För att kunna administrera skrivare och köer från eBox webgränssnitt"
 
 #: src/EBox/Printers.pm:86
-#, fuzzy
 msgid "Create log table"
-msgstr "Skapad den"
+msgstr "Skapa logg tabell"
 
 #: src/EBox/Printers.pm:87
 msgid ""
 "eBox will create a new table into its log database to store printers logs"
 msgstr ""
+"eBox kommer att skapa en ny tabell i logg databasen för att lagra printer "
+"loggarna"
 
 #: src/EBox/Printers.pm:103
-#, fuzzy
 msgid "To add and manage printers"
-msgstr "Hantera skrivare"
+msgstr "För att lägga till och hantera skrivare"
 
 #: src/EBox/Printers.pm:108
 msgid "To enable standalone cupsd listen on internal interfaces"
-msgstr ""
+msgstr "För att tillåta fristående cupsd att lyssna på interna gränssnitt"
 
 #: src/EBox/Printers.pm:293
-#, fuzzy
 msgid "Add Printer"
 msgstr "Lägg till skrivare"
 
@@ -297,14 +295,12 @@ msgid "It is not a samba printer"
 msgstr "Den är inte en samba-skrivare"
 
 #: src/EBox/Printers.pm:729
-#, fuzzy
 msgid "It is not a IPP printer"
-msgstr "Den är inte en usb-skrivare"
+msgstr "Den är inte en IPP skrivare"
 
 #: src/EBox/Printers.pm:757
-#, fuzzy
 msgid "It is not a LPD printer"
-msgstr "Den är inte en usb-skrivare"
+msgstr "Den är inte en LPD skrivare"
 
 #: src/EBox/Printers.pm:988 src/EBox/Printers.pm:1014
 msgid "is not a valid option"
@@ -353,7 +349,7 @@ msgstr "Parallellport"
 
 #: src/templates/addprinter.mas:29
 msgid "AppSocket"
-msgstr ""
+msgstr "AppSocket"
 
 #: src/templates/addprinter.mas:30
 msgid "Samba"
@@ -361,11 +357,11 @@ msgstr "Samba"
 
 #: src/templates/addprinter.mas:31
 msgid "IPP: Internet printing protocol"
-msgstr ""
+msgstr "IPP: Internet printing protocol"
 
 #: src/templates/addprinter.mas:32
 msgid "LPD: Line Printer Daemon"
-msgstr ""
+msgstr "LPD: Line Printer Daemon"
 
 #: src/templates/manufacturer.mas:12
 msgid "Choose manufacturer"
@@ -424,12 +420,11 @@ msgstr "Den här skrivaren har inga väntande jobb i kö för tillfället"
 
 #: src/templates/printer.mas:179
 msgid "You need to save changes in order to print a test page"
-msgstr ""
+msgstr "Du behöver spara ändringarna för att kunna skriva ut en testsida"
 
 #: src/templates/printer.mas:184 src/templates/printer.mas:185
-#, fuzzy
 msgid "Print Test Page"
-msgstr "Skrivarens namn"
+msgstr "Skriv testsida"
 
 #: src/templates/drvopts.mas:14 src/templates/printerback.mas:56
 msgid "Driver options"
@@ -440,18 +435,16 @@ msgid "Choose a printer model"
 msgstr "Välj en skrivarmodell"
 
 #: src/templates/ipp.mas:16
-#, fuzzy
 msgid "Configure IPP printer"
-msgstr "Konfigurera fjärrskrivare"
+msgstr "Konfigurera IPP skrivare"
 
 #: src/templates/driver.mas:12
 msgid "Choose a driver for the printer"
 msgstr "Välj en drivrutin för skrivaren"
 
 #: src/templates/lpd.mas:16
-#, fuzzy
 msgid "Configure LPD printer"
-msgstr "Konfigurera fjärrskrivare"
+msgstr "Konfigurera LPD skrivare"
 
 #: src/templates/drivers.mas:13
 msgid "Choose a dirver for the printer"
@@ -493,9 +486,8 @@ msgid "Remote printer configuration"
 msgstr "Konfiguration av fjärrskrivare"
 
 #: src/templates/network.mas:16
-#, fuzzy
 msgid "Configure AppSocket printer"
-msgstr "Konfigurera fjärrskrivare"
+msgstr "Konfigurera AppSocket skrivare"
 
 #: src/templates/samba.mas:17
 msgid "Samba shared printer configuration"
@@ -503,11 +495,11 @@ msgstr "Konfiguration för delad Samba-skrivare"
 
 #: src/templates/printers.mas:13
 msgid "Enable standalone CUPS"
-msgstr ""
+msgstr "Aktivera fristående CUPS"
 
 #: src/templates/printers.mas:25
 msgid "General settings"
-msgstr ""
+msgstr "Generella inställningar"
 
 #: src/templates/printers.mas:33
 msgid "List of printers"
@@ -530,9 +522,8 @@ msgid "Manage this printer"
 msgstr "Hantera den här skrivaren"
 
 #: src/templates/printers.mas:75
-#, fuzzy
 msgid "There is no printer configured yet"
-msgstr "Konfiguration av fjärrskrivare"
+msgstr "Det finns ingen konfigurerad skrivare ännu"
 
 #, fuzzy
 #~ msgid "printers"

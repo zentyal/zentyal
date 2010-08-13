@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: ebox-software 0.12.1\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "POT-Creation-Date: 2010-07-21 00:47+0200\n"
-"PO-Revision-Date: 2009-09-30 15:26+0200\n"
-"Last-Translator: Nicolas Liaudat <nliaudat@pompiers-chatel.ch>\n"
+"PO-Revision-Date: 2010-07-26 05:09+0200\n"
+"Last-Translator: Jean Migisha <migisha_jean@yahoo.fr>\n"
 "Language-Team: Español <es@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -49,9 +49,8 @@ msgid "System Updates"
 msgstr "Mises-à-jour du système"
 
 #: src/EBox/Software.pm:556 src/templates/config.mas:19
-#, fuzzy
 msgid "Settings"
-msgstr "Démarrage ..."
+msgstr "Paramètres"
 
 #: src/EBox/Software.pm:695
 #, perl-brace-format
@@ -63,35 +62,32 @@ msgstr ""
 
 #: src/EBox/Software.pm:832
 msgid "Welcome"
-msgstr ""
+msgstr "Bienvenue"
 
 #: src/EBox/Software.pm:834
+#, fuzzy
 msgid "Package Selection"
-msgstr ""
+msgstr "Sélection des paquets"
 
 #: src/EBox/Software.pm:835
-#, fuzzy
 msgid "Confirmation"
-msgstr "Configuration"
+msgstr "Confirmation"
 
 #: src/EBox/Software.pm:836
-#, fuzzy
 msgid "Installation"
-msgstr "Installer"
+msgstr "Installation"
 
 #: src/EBox/Software.pm:837
-#, fuzzy
 msgid "Initial Configuration"
-msgstr "Configuration"
+msgstr "Configuration initiale"
 
 #: src/EBox/Software.pm:838
 msgid "Save Changes"
-msgstr ""
+msgstr "Sauvegarder les changements"
 
 #: src/EBox/CGI/Config.pm:33
-#, fuzzy
 msgid "Software management settings"
-msgstr "Gestion des logiciels"
+msgstr "Paramètres de gestion des logiciels"
 
 #: src/EBox/CGI/Config.pm:43
 msgid "Automatic software updates"
@@ -102,9 +98,8 @@ msgid "automatic updates configuration"
 msgstr "configuration des mises-à-jour automatiques"
 
 #: src/EBox/CGI/EBox.pm:36
-#, fuzzy
 msgid "Choose eBox packages to install"
-msgstr "paquets restant à installer"
+msgstr "Choisissez les paquets eBox à installer"
 
 #: src/EBox/CGI/EBox.pm:40
 msgid "eBox components"
@@ -121,43 +116,39 @@ msgstr "Le système est à jour"
 
 #: src/EBox/CGI/CurrentPackage.pm:32
 msgid "Upgrading"
-msgstr "Mise-à-jour"
+msgstr "Mise-à-jour en cours"
 
 #: src/EBox/CGI/InstallPkgs.pm:102
 msgid "There were no packages to update"
 msgstr "Il n'y avait aucun paquet à mettre à jour"
 
 #: src/EBox/CGI/InstallPkgs.pm:166
-#, fuzzy
 msgid "Installing"
-msgstr "Installer"
+msgstr "Installation en cours"
 
 #: src/EBox/CGI/InstallPkgs.pm:167
-#, fuzzy
 msgid "Installing packages"
-msgstr "Mise-à-jour des paquets"
+msgstr "Installation des paquets en cours"
 
 #: src/EBox/CGI/InstallPkgs.pm:168 src/EBox/CGI/InstallPkgs.pm:192
-#, fuzzy
 msgid "Current operation"
-msgstr "Paquet actuel"
+msgstr "Opération courante"
 
 #: src/EBox/CGI/InstallPkgs.pm:169
-#, fuzzy
 msgid "packages installed"
-msgstr "paquets restant à installer"
+msgstr "paquets installer"
 
 #: src/EBox/CGI/InstallPkgs.pm:170
-#, fuzzy
 msgid ""
 "The packages installation has finished successfully. The administration "
 "interface may become unresponsive for a few seconds. Please wait patiently "
 "until the system has been fully configured. You will be automatically "
 "redirected to the next step"
 msgstr ""
-"L'installation de paquets c'est terminé avec succès. L'interface "
+"L'installation des paquets c'est terminé avec succès. L'interface "
 "d'administration peut se figer durant quelques secondes. Merci de patienter "
-"jusqu'à ce que le système ai redémarré complètement"
+"jusqu'à ce que le système soit entièrement configuré. Vous serez dirigé "
+"automatiquement vers l'étape suivante"
 
 #: src/EBox/CGI/InstallPkgs.pm:175
 msgid ""
@@ -207,11 +198,11 @@ msgstr "Installer"
 
 #: src/templates/ebox.mas:167
 msgid "View advanced mode"
-msgstr ""
+msgstr "Vue mode avancé"
 
 #: src/templates/ebox.mas:481
 msgid "View basic mode"
-msgstr ""
+msgstr "Vue mode basique"
 
 #: src/templates/del.mas:96
 msgid "The following packages will be installed"
@@ -231,7 +222,7 @@ msgstr "Annuler"
 
 #: src/templates/del.mas:149
 msgid "You may want to install also the following recommended packages:"
-msgstr ""
+msgstr "Vous pourriez aussi vouloir installer les paquet recommandés suivants:"
 
 #: src/templates/del.mas:152
 msgid "Layer 7 filtering for Traffic Shaping (ebox-l7-protocols)"
@@ -281,14 +272,12 @@ msgid "Version"
 msgstr "Version"
 
 #: src/templates/updates.mas:52
-#, fuzzy
 msgid "Security update"
-msgstr "Mise-à-jour du système"
+msgstr "Mise-à-jour de sécurité"
 
 #: src/templates/updates.mas:55
-#, fuzzy
 msgid "eBox QA update"
-msgstr "eBox - eGroupware"
+msgstr "Mise-à-jour d'Assurance Qualité (QA)"
 
 #: src/templates/updates.mas:77
 msgid "Update all packages"

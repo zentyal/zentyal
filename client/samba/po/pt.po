@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-samba 0.12\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "POT-Creation-Date: 2010-07-21 00:42+0200\n"
-"PO-Revision-Date: 2010-06-11 13:11+0200\n"
+"PO-Revision-Date: 2010-08-08 01:44+0200\n"
 "Last-Translator: Vasco Castelo Branco <vcbranco@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -22,9 +22,8 @@ msgid "File sharing (Samba) protocol"
 msgstr "Protocolo da partilha de ficheiros (samba)"
 
 #: src/EBox/SambaLdapUser.pm:287
-#, fuzzy
 msgid "This user has a sharing directory associated which contains data."
-msgstr "Este utilizador uma partilha associada que contém dados"
+msgstr "Este utilizador tem uma partilha associada que contém dados"
 
 #: src/EBox/SambaLdapUser.pm:346 src/EBox/SambaLdapUser.pm:364
 #, perl-brace-format
@@ -52,7 +51,6 @@ msgid "Group {g} is not a samba group"
 msgstr "O grupo {g} não é um grupo samba"
 
 #: src/EBox/SambaLdapUser.pm:414
-#, fuzzy
 msgid "This group has a sharing directory associated that contains data."
 msgstr "Este grupo está associado a um directório que contém dados"
 
@@ -68,7 +66,6 @@ msgid "group name"
 msgstr "nome do grupo"
 
 #: src/EBox/SambaLdapUser.pm:729
-#, fuzzy
 msgid "A name should be provided for the share."
 msgstr "Deve providenciar o nome para a partilha"
 
@@ -214,9 +211,8 @@ msgid "Guest access"
 msgstr "Acesso de convidado"
 
 #: src/EBox/Samba/Model/SambaShares.pm:135
-#, fuzzy
 msgid "This share will not require authentication."
-msgstr "Esta partilha não necessita de autenticação"
+msgstr "Esta partilha não necessitará de autenticação"
 
 #: src/EBox/Samba/Model/SambaShares.pm:139
 msgid "Access control"
@@ -278,7 +274,6 @@ msgid "User/Group"
 msgstr "Utilizador/Grupo"
 
 #: src/EBox/Samba/Model/SambaSharePermissions.pm:176
-#, fuzzy
 msgid "Any access control is disabled if the guest access is allowed."
 msgstr ""
 "Se o acesso de convidado estiver activo todos os controles de acesso serão "
@@ -309,7 +304,6 @@ msgid "ACL"
 msgstr "ACL"
 
 #: src/EBox/Samba/Model/SambaSharePermissions.pm:250
-#, fuzzy
 msgid ""
 "Be careful if you grant <i>administrator</i> privileges.User will be able to "
 "read and write any file in the share."
@@ -318,12 +312,10 @@ msgstr ""
 "poderá ler ou escrever em qualquer ficheiro da partilha"
 
 #: src/EBox/Samba/Model/SambaSharePermissions.pm:260
-#, fuzzy
 msgid " (user))"
 msgstr "utilizador"
 
 #: src/EBox/Samba/Model/SambaSharePermissions.pm:262
-#, fuzzy
 msgid " (group))"
 msgstr "grupo"
 
@@ -442,18 +434,16 @@ msgid "Antivirus"
 msgstr "Anti-vírus"
 
 #: src/EBox/Samba.pm:90
-#, fuzzy
 msgid "Create Samba home directory for shares and groups"
 msgstr "Criar directório de raiz Samba para utilizadores e grupos"
 
 #: src/EBox/Samba.pm:91
-#, fuzzy
 msgid ""
 "eBox will create the directories for Samba shares and groups under /home/"
 "samba."
 msgstr ""
-"a eBox vai criar o directório raiz para utilizadores Samba e grupos em /home/"
-"samba."
+"a eBox vai criar o directório raiz para utilizadores Samba e grupos em "
+"/home/samba"
 
 #: src/EBox/Samba.pm:96
 msgid "Add LDAP schemas"
@@ -472,28 +462,23 @@ msgid "eBox will configure Samba to use the LDAP admin dn password."
 msgstr "a eBox configurará o Samba para usar a palavra-passe LDAP admin dn"
 
 #: src/EBox/Samba.pm:119
-#, fuzzy
 msgid "To set up Samba according to your configuration."
 msgstr "Para definir o Samba de acordo com a sua configuração"
 
 #: src/EBox/Samba.pm:124
-#, fuzzy
 msgid "To set up smbldap-tools according to your configuration."
 msgstr "Para definir as ferramentas smbldap de acordo com a sua configuração"
 
 #: src/EBox/Samba.pm:130
-#, fuzzy
 msgid "To set up smbldap-tools according to your LDAP configuration."
 msgstr ""
 "Para definir as ferramentas smbldap de acordo com a sua configuração LDAP"
 
 #: src/EBox/Samba.pm:136
-#, fuzzy
 msgid "To add quota support to /home partition."
 msgstr "Para adicionar suporte de quota à partição /home"
 
 #: src/EBox/Samba.pm:141
-#, fuzzy
 msgid "To set the antivirus settings for Samba."
 msgstr "Para definir a configuração do anti-vírus Samba"
 

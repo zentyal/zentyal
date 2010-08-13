@@ -8,181 +8,184 @@ msgstr ""
 "Project-Id-Version: ebox-remoteservices 1.1\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "POT-Creation-Date: 2010-07-21 00:42+0200\n"
-"PO-Revision-Date: 2009-02-19 16:28+0100\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2010-07-22 13:21+0200\n"
+"Last-Translator: Daniel Hedblom <daniel.hedblom@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/CGI/Backup/DeleteRemoteBackup.pm:65
 msgid "Backup deleted"
-msgstr ""
+msgstr "Säkerhetskopia raderad"
 
 #: src/EBox/CGI/Backup/MakeRemoteBackup.pm:70
 msgid "Making remote backup"
-msgstr ""
+msgstr "Skapar fjärrsäkerhetskopia"
 
 #: src/EBox/CGI/Backup/MakeRemoteBackup.pm:71
 msgid "Backing up modules "
-msgstr ""
+msgstr "Säkerhetskopierar moduler"
 
 #: src/EBox/CGI/Backup/MakeRemoteBackup.pm:72
 msgid "Operation"
-msgstr ""
+msgstr "Åtgärd"
 
 #: src/EBox/CGI/Backup/MakeRemoteBackup.pm:73
 msgid "operations left to finish backup"
-msgstr ""
+msgstr "åtgärder kvar för att färdigställa säkerhetskopia"
 
 #: src/EBox/CGI/Backup/MakeRemoteBackup.pm:74
 msgid "Backup successful"
-msgstr ""
+msgstr "Säkerhetskopia lyckad"
 
 #: src/EBox/CGI/Backup/RestoreProxyRemoteBackup.pm:81
 #: src/EBox/CGI/Backup/RestoreRemoteBackup.pm:72
 msgid "Restoring remote backup"
-msgstr ""
+msgstr "Återställer fjärrsäkerhetskopia"
 
 #: src/EBox/CGI/Backup/RestoreProxyRemoteBackup.pm:82
 #: src/EBox/CGI/Backup/RestoreRemoteBackup.pm:73
 msgid "Restoring modules from remote backup"
-msgstr ""
+msgstr "Återställer moduler från fjärrsäkerhetskopia"
 
 #: src/EBox/CGI/Backup/RestoreProxyRemoteBackup.pm:83
 #: src/EBox/CGI/Backup/RestoreRemoteBackup.pm:74
 msgid "Module"
-msgstr ""
+msgstr "Modul"
 
 #: src/EBox/CGI/Backup/RestoreProxyRemoteBackup.pm:84
 #: src/EBox/CGI/Backup/RestoreRemoteBackup.pm:75
 msgid "modules left to restore"
-msgstr ""
+msgstr "moduler kvar att återställa"
 
 #: src/EBox/CGI/Backup/RestoreProxyRemoteBackup.pm:85
 #: src/EBox/CGI/Backup/RestoreRemoteBackup.pm:76
 msgid "Restore successful"
-msgstr ""
+msgstr "Återställning lyckad"
 
 #: src/EBox/CGI/Backup/Index.pm:36
 msgid "Remote system backups"
-msgstr ""
+msgstr "System-fjärrsäkerhetskopior"
 
 #: src/EBox/CGI/Backup/Confirm.pm:35
 msgid "Configuration backup"
-msgstr ""
+msgstr "Säkerhetskopia av konfiguration"
 
 #: src/EBox/CGI/Backup/Confirm.pm:92 src/EBox/CGI/Backup/Confirm.pm:105
 msgid ""
 "Please confirm that you want to restore the configuraction using the "
 "following remote backup:"
 msgstr ""
+"Vänligen bekräfta att du vill återställa konfigurationen med följande "
+"fjärrsäkerhetskopia:"
 
 #: src/EBox/CGI/Backup/Confirm.pm:98 src/EBox/CGI/Backup/Confirm.pm:111
 msgid "Restore"
-msgstr ""
+msgstr "Återställ"
 
 #: src/EBox/CGI/Backup/Confirm.pm:119
 msgid "Please confirm that you want to delete the following remote backup:"
-msgstr ""
+msgstr "Vänligen bekräfta att du vill radera följande fjärrsäkerhetskopia:"
 
 #: src/EBox/CGI/Backup/Confirm.pm:125
 msgid "Delete"
-msgstr ""
+msgstr "Radera"
 
 #: src/EBox/CGI/Backup/Confirm.pm:173
 #, perl-brace-format
 msgid "Inexistent action: {a}"
-msgstr ""
+msgstr "obefintlig åtgärd: {a}"
 
 #: src/EBox/CGI/Backup/Proxy.pm:35
 msgid "Remote system backups proxy"
-msgstr ""
+msgstr "Proxy för fjärrsäkerhetskopia av systemet"
 
 #: src/EBox/CGI/NoConnection.pm:31
 msgid "Connection error"
-msgstr ""
+msgstr "Anslutningsfel"
 
 #: src/EBox/RemoteServices/Auth.pm:125
 msgid "Key for service URN not found"
-msgstr ""
+msgstr "Nyckel för tjänst-URN ej funnen"
 
 #: src/EBox/RemoteServices/Auth.pm:161
 #, perl-brace-format
 msgid "Value for key {k} not found"
-msgstr ""
+msgstr "Värde för nyckel {k} ej funnet"
 
 #: src/EBox/RemoteServices/Subscription.pm:109
 msgid "Key for web subscription service not found"
-msgstr ""
+msgstr "Nyckel för webprenumerations service ej funnen"
 
 #: src/EBox/RemoteServices/Subscription.pm:410
 #, perl-brace-format
 msgid "Cannot contact to {host}. Check your connection to the Internet"
-msgstr ""
+msgstr "Kan inte ansluta till {host}. Kontrollera din anslutning till internet"
 
 #: src/EBox/RemoteServices/Types/EBoxCommonName.pm:56
 msgid "It must be a valid subdomain name"
-msgstr ""
+msgstr "Det måste vara ett giltigt underdomännamn"
 
 #: src/EBox/RemoteServices/Types/EBoxCommonName.pm:58
 #, perl-brace-format
 msgid "It cannot contain \"{char}\" character"
-msgstr ""
+msgstr "Det kan inte innehålla \"{char}\" tecken"
 
 #: src/EBox/RemoteServices/Types/EBoxCommonName.pm:61
 #, perl-brace-format
 msgid "It cannot be greater than {n} characters"
-msgstr ""
+msgstr "Det kan inte vara längre än {n} tecken"
 
 #: src/EBox/RemoteServices/CSV.pm:78
 #, perl-brace-format
 msgid "Skipping bad formed line: {l}"
-msgstr ""
+msgstr "Hoppar över felaktig rad: {l}"
 
 #: src/EBox/RemoteServices/Base.pm:214
 msgid "No ebox-services DNS key found"
-msgstr ""
+msgstr "Inga DNS-nycklar för eBox- tjänster kan hittas"
 
 #: src/EBox/RemoteServices/Base.pm:259
 #, perl-brace-format
 msgid "Server {s} not found via DNS server {d}"
-msgstr ""
+msgstr "Server {s} hittas ej genom DNS server {d}"
 
 #: src/EBox/RemoteServices/Base.pm:367
 msgid "Cannot create SOAP connection"
-msgstr ""
+msgstr "Kan inte skapa SOAP anslutning."
 
 #: src/EBox/RemoteServices/Base.pm:381
 msgid "No domain key found for this service"
-msgstr ""
+msgstr "Hittar ingen domän nyckel för denna tjänst"
 
 #: src/EBox/RemoteServices/Audit/Password.pm:224
 msgid "system"
-msgstr ""
+msgstr "system"
 
 #: src/EBox/RemoteServices/Audit/Password.pm:290
 msgid "average"
-msgstr ""
+msgstr "medel"
 
 #: src/EBox/RemoteServices/Audit/Password.pm:294
 msgid "weak"
-msgstr ""
+msgstr "svag"
 
 #: src/EBox/RemoteServices/Audit/Password.pm:397
 #, perl-brace-format
 msgid "No {level} passwords were found in users"
-msgstr ""
+msgstr "Inga {level} lösenord hittade i användare"
 
 #: src/EBox/RemoteServices/Audit/Password.pm:402
 #, perl-brace-format
 msgid "The following users have {level} passwords: {users}."
-msgstr ""
+msgstr "Dessa användare har {level} lösenord: {users}."
 
 #: src/EBox/RemoteServices/SupportAccess.pm:67
 msgid "Cannot ger a the estricted addresses for remote support"
-msgstr ""
+msgstr "Kan inte hämta de skyddade adresserna för fjärrsupport"
 
 #: src/EBox/RemoteServices/SupportAccess.pm:127
 #, perl-brace-format
@@ -191,119 +194,132 @@ msgid ""
 "this user is renamed or removed it would be impossible to set up remote "
 "support access"
 msgstr ""
+"Det finns redan en användare {u} och den verkar inte vara skapad av eBox. "
+"Tills denna användare är omdöpt eller raderad är det omöjligt att "
+"konfigurera fjärrsupport"
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:124
 msgid ""
 "Subscription was done correctly. Wait a minute to let the subscription be "
 "propagated throughout the system."
 msgstr ""
+"Prenumerationen lyckades. Vänta någon minut så att den hinner spridas genom "
+"systemet."
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:127
 msgid "Subscription data retrieved correctly."
-msgstr ""
+msgstr "Data för prenumeration mottogs korrekt."
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:129
 msgid "Please, save changes"
-msgstr ""
+msgstr "Vänligen spara ändringar"
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:156
 msgid "Done"
-msgstr ""
+msgstr "Färdig"
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:237
 #, perl-brace-format
 msgid "Subscribing an eBox will configure the {mods} and its dependencies "
 msgstr ""
+"Att börja prenumerera en eBox kommer att konfigurera {mods} och deras "
+"beroenden."
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:246
 #, perl-brace-format
 msgid "Subscribing an eBox will enable the {mods} and its dependencies.<br/>"
 msgstr ""
+"Att börja prenumerera en eBox kommer att aktivera {mods} och deras beroenden "
+"<br/>"
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:254
 msgid ""
 "Take into account that subscribing an eBox could take a minute. Do not touch "
 "anything until subscribing process is done."
 msgstr ""
+"Ta i beaktning att det kan ta nån minut att påbörja en prenumeration. Rör "
+"ingenting förrän prenumerationsprocessen är klar."
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:302
 msgid " module"
-msgstr ""
+msgstr "modul"
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:308
 msgid " and "
-msgstr ""
+msgstr "och"
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:308
 msgid " modules"
-msgstr ""
+msgstr "moduler"
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:340
 msgid ""
 "Prior to make a subscription on remote services, save or discard changes in "
 "the OpenVPN module"
 msgstr ""
+"Spara eller förkasta ändringar i OpenVPN modulen innan du påbörjar en "
+"prenumeration"
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:360
 msgid "User Name or Email Address"
-msgstr ""
+msgstr "Användarnamn eller epostadress"
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:368
 msgid "eBox Name"
-msgstr ""
+msgstr "eBox namn"
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:373
 msgid "Choose a name for your eBox which is a valid subdomain name"
-msgstr ""
+msgstr "Välj ett namn till din eBox som är ett giltigt underdomännamn"
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:380
 msgid "Password"
-msgstr ""
+msgstr "Lösenord"
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:388
 msgid "eBox subscription details"
-msgstr ""
+msgstr "Prenumerationsdetaljer för eBox"
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:389
 msgid "Delete data"
-msgstr ""
+msgstr "Radera data"
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:392
 msgid "Subscription to eBox Control Center"
-msgstr ""
+msgstr "Prenumeration till eBox Control Center"
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:393
 msgid "Subscribe"
-msgstr ""
+msgstr "Prenumerera"
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:512
 msgid "Action"
-msgstr ""
+msgstr "Åtgärd"
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:513
 #: src/EBox/RemoteServices/Model/Subscription.pm:534
 msgid "Reason"
-msgstr ""
+msgstr "Anledning"
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:533
 msgid "File"
-msgstr ""
+msgstr "Fil"
 
 #: src/EBox/RemoteServices/Model/AccessSettings.pm:79
 msgid "Access from control panel without password"
-msgstr ""
+msgstr "Tillgång från Control Panel utan lösenord"
 
 #: src/EBox/RemoteServices/Model/AccessSettings.pm:87
 msgid "Access settings"
-msgstr ""
+msgstr "Inställningar för rättigheter"
 
 #: src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:75
 msgid "Allow remote access to eBox staff"
-msgstr ""
+msgstr "TIllåt fjärråtkomst för eBox personal"
 
 #: src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:81
 msgid "Allow access from any internet address"
-msgstr ""
+msgstr "Tillåt åtkomst från vilken internetadress somhelst."
 
 #: src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:85
 msgid ""
@@ -311,21 +327,29 @@ msgid ""
 "private network. If you enable this option access is granted from any "
 "address. Use this option only if you could not connect to the Control Center"
 msgstr ""
+"Som standard har bara värdar i Control Centers privata nätverk åtkomst. Om "
+"du aktiverar denna inställning kan man komma åt det frå vilken adress "
+"somhelst. Använd denna inställning endast om du inte kan ansluta till "
+"Control Center"
 
 #: src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:91
 msgid "Remote support accesss"
-msgstr ""
+msgstr "Fjärrsupport åtkomst"
 
 #: src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:121
 msgid ""
 "Remote access from any address requires that remote access support is enabled"
 msgstr ""
+"Fjärråtkomst från vilken adress somhelst kräver att fjärrsupport åtkomst är "
+"aktiverat"
 
 #: src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:129
 msgid ""
 "To restrict addresses you need that your eBox is subscribed to the Control "
 "Center. Either subscribe it or allow access from any addresse"
 msgstr ""
+"För att begränsa adresser behöver din eBox prenumerera på Control Center. "
+"Prenumerera eller tillåt åtkomst från vilken adress somhelst"
 
 #: src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:140
 #, perl-brace-format
@@ -338,25 +362,31 @@ msgid ""
 "To join the remote session, login in the shell as a user belonging to the "
 "'adm' group and use the command '{cmd}'."
 msgstr ""
+"Att aktivera fjärrsupport kommer att låta personal från eBox technologies "
+"att fritt komma åt din dator.\n"
+"Du kan använda screen för att dela deras bash shell. För att kunna göra det "
+"ändra SUID bit för screen till aktiverad, detta reverseras när detta val "
+"inaktiveras.För att ansluta till fjärrsessionen, logga in till skalet som en "
+"användare tillhörande adm gruppen och använd kommandot: '{cmd}'."
 
 #: src/EBox/RemoteServices/Backup.pm:260
 #: src/EBox/RemoteServices/ProxyBackup.pm:208
 #, perl-brace-format
 msgid "Inexistent backup: {n}"
-msgstr ""
+msgstr "Frånvarande säkerhetskopia: {n}"
 
 #: src/EBox/RemoteServices/ProxyBackup.pm:203
 #, perl-brace-format
 msgid "No backups in server for host: {h}"
-msgstr ""
+msgstr "Inga säkerhetskopior i servern för värd: {h}"
 
 #: src/EBox/RemoteServices/ProxyBackup.pm:243
 msgid "Key for proxy backup service not found"
-msgstr ""
+msgstr "Proxynyckel för säkerhetskopietjänst ej hittad"
 
 #: src/EBox/RemoteServices/Composite/General.pm:70
 msgid "eBox Control Center"
-msgstr ""
+msgstr "eBox Control Center"
 
 #: src/EBox/RemoteServices/Composite/General.pm:83
 #, perl-brace-format
@@ -364,64 +394,70 @@ msgid ""
 " {openhref}Subscribing{closehref} your eBox to the Control Center lets you "
 "have automatic configuration backup and much more"
 msgstr ""
+"{openhref}Prenumerera{closehref}på eBox Control Center. Det låter dig få "
+"automatisk säkerhetskopiering av konfigurationer och mycket mer."
 
 #: src/EBox/Event/Dispatcher/ControlCenter.pm:148
 msgid "Control panel"
-msgstr ""
+msgstr "Kontrollpanel"
 
 #: src/EBox/Event/Dispatcher/ControlCenter.pm:161
 msgid "Control center"
-msgstr ""
+msgstr "Control center"
 
 #: src/EBox/RemoteServices.pm:82
 msgid "Control Center Client"
-msgstr ""
+msgstr "Klient för Control Center"
 
 #: src/EBox/RemoteServices.pm:219
 msgid "Not subscribed"
-msgstr ""
+msgstr "Prenumererar ej"
 
 #: src/EBox/RemoteServices.pm:221
 msgid "Subscribed"
-msgstr ""
+msgstr "Prenumererar"
 
 #: src/EBox/RemoteServices.pm:253 src/EBox/RemoteServices.pm:998
 msgid "Control Center"
-msgstr ""
+msgstr "Control Center"
 
 #: src/EBox/RemoteServices.pm:261
 msgid "Remote Support Access"
-msgstr ""
+msgstr "fjärraccess för support"
 
 #: src/EBox/RemoteServices.pm:264
 msgid "System"
-msgstr ""
+msgstr "System"
 
 #: src/EBox/RemoteServices.pm:316
 msgid "eBox Control Center Connection"
-msgstr ""
+msgstr "Anslutning för eBox Control Center"
 
 #: src/EBox/RemoteServices.pm:429
 msgid ""
 "The subscribed hostname is only available if the host is subscribed to eBox "
 "Control Center"
 msgstr ""
+"Det prenumererade värdnamnet är bara tillgängligt om värden prenumererar på "
+"eBox Control Center."
 
 #: src/EBox/RemoteServices.pm:458
 msgid ""
 "The monitor gatherer IP addresses are only available if the host is "
 "subscribed to eBox Control Center"
 msgstr ""
+"Övervakaren som samlar ip adresser är bara tillgänglig om värden "
+"prenumererar på eBox Control Center."
 
 #: src/EBox/RemoteServices.pm:603
 msgid "eBox must be subscribed to reload the bundle"
-msgstr ""
+msgstr "eBox måste prenumerera för att ladda om klientinställningarna"
 
 #: src/EBox/RemoteServices.pm:991
 #, perl-brace-format
 msgid "Not connected. Check VPN logs in {path}"
-msgstr ""
+msgstr "Inte ansluten. Undersök VPN loggarna i sökvägen: {path}"
 
 #: src/EBox/RemoteServices.pm:995
 msgid "Connected"
-msgstr ""
+msgstr "Ansluten"

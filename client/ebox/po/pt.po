@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox 0.12\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "POT-Creation-Date: 2010-07-21 00:37+0200\n"
-"PO-Revision-Date: 2010-06-11 13:29+0200\n"
+"PO-Revision-Date: 2010-08-08 01:27+0200\n"
 "Last-Translator: Vasco Castelo Branco <vcbranco@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -436,9 +436,8 @@ msgstr ""
 "provavelmente a um erro, pode encontrar mais informações nos registos."
 
 #: src/EBox/CGI/Wizard.pm:29
-#, fuzzy
 msgid "Initial configuration wizard"
-msgstr "Configurar logs"
+msgstr "Configurador inicial"
 
 #: src/EBox/CGI/Logs/Index.pm:37 src/EBox/Logs.pm:59
 msgid "Logs"
@@ -913,7 +912,7 @@ msgstr "defeituoso"
 
 #: src/EBox/Event/Watcher/RAID.pm:591 src/templates/report/raid.mas:233
 msgid "spare"
-msgstr "sobresselente"
+msgstr "reserva"
 
 #: src/EBox/Event/Watcher/Runit.pm:114
 #, perl-brace-format
@@ -1465,13 +1464,13 @@ msgid "Writing backup file to hard disk"
 msgstr "A escrever o ficheiro de cópia de segurança para o disco rígido."
 
 #: src/EBox/Backup.pm:791
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Module {mod} has not saved changes. Before doing the backup you must save or "
 "discard them"
 msgstr ""
-"Alguns módulos ainda não têm as alterações guardadas. Antes de executar a "
-"cópia de segurança deve grava-los ou descarta-los"
+"O módulom {mod} ainda não têm as alterações guardadas. Antes de executar a "
+"cópia de segurança deve gravá-los ou descartá-los"
 
 #: src/EBox/Backup.pm:849
 msgid "Incorrect or corrupt backup file"
@@ -1611,9 +1610,9 @@ msgid "eBox web server"
 msgstr "Servidor Web eBox"
 
 #: src/EBox/Global.pm:480
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Enabling {modName} module"
-msgstr "A guardar o módulo {modName}"
+msgstr "A activar o módulo {modName}"
 
 #: src/EBox/Global.pm:510 src/EBox/Global.pm:537
 #, perl-brace-format
@@ -1656,25 +1655,24 @@ msgstr "Modificar"
 
 #: src/templates/wizard.mas:73 src/templates/wizard.mas:74
 msgid "Finish"
-msgstr ""
+msgstr "A acabar"
 
 #: src/templates/wizard.mas:131
-#, fuzzy
 msgid "Congratulations!"
-msgstr "Configuração"
+msgstr "Parabens!"
 
 #: src/templates/wizard.mas:132
 msgid "Now you are ready to save changes and start using your eBox"
 msgstr ""
+"Agora está preparado para guardar as alterações e começar a usar a sua eBox"
 
 #: src/templates/wizard.mas:151 src/templates/wizard.mas:161
 msgid "Skip"
-msgstr ""
+msgstr "Saltar"
 
 #: src/templates/wizard.mas:152 src/templates/wizard.mas:162
-#, fuzzy
 msgid "Next"
-msgstr "próximo"
+msgstr "Próximo"
 
 #: src/templates/headTitle.mas:20
 msgid "Remote services control panel"

@@ -8,54 +8,55 @@ msgstr ""
 "Project-Id-Version: ebox-. 1.5\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "POT-Creation-Date: 2010-07-21 00:37+0200\n"
-"PO-Revision-Date: 2010-06-03 02:52+0200\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2010-07-28 13:25+0200\n"
+"Last-Translator: Harald Ersch <harald.ersch@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n==1 ? 0 : (n==0 || (n%100 > 0 && n%100 < "
-"20)) ? 1 : 2;\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : (n==0 || (n%100 > 0 && n%100 < "
+"20)) ? 1 : 2);;\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: migration/0001_add_firewall_services.pl:30
 msgid "eBox FTP Server"
-msgstr ""
+msgstr "Server FTP eBox"
 
 #: src/EBox/Model/Options.pm:48
 msgid "Disabled"
-msgstr ""
+msgstr "Dezactivat"
 
 #: src/EBox/Model/Options.pm:52
 msgid "Read only"
-msgstr ""
+msgstr "Numai citire"
 
 #: src/EBox/Model/Options.pm:56
 msgid "Read/Write"
-msgstr ""
+msgstr "Citire/Scriere"
 
 #: src/EBox/Model/Options.pm:69
 msgid "Anonymous access"
-msgstr ""
+msgstr "Acces anonim"
 
 #: src/EBox/Model/Options.pm:73
 msgid "Sets the permissions for the /srv/ftp directory"
-msgstr ""
+msgstr "Pune permisiuni pe directorul /srv/ftp"
 
 #: src/EBox/Model/Options.pm:77
 msgid "Personal directories"
-msgstr ""
+msgstr "Directoare personale"
 
 #: src/EBox/Model/Options.pm:80
 msgid "Enable FTP access for each user to its /home directory"
-msgstr ""
+msgstr "Activează accesul FTP la directorul /home pentru fiecare utilizator "
 
 #: src/EBox/Model/Options.pm:86
 msgid "General configuration settings"
-msgstr ""
+msgstr "Configurare generală"
 
 #: src/EBox/Model/Options.pm:87
 msgid "FTP Server"
-msgstr ""
+msgstr "Server FTP"
 
 #: src/EBox/Model/Options.pm:91
 msgid ""
@@ -65,11 +66,16 @@ msgid ""
 "write permissions for everybody, for example: mkdir /srv/ftp/incoming ; "
 "chmod o+rwx /srv/ftp/incoming"
 msgstr ""
+"Directorul anonim este /srv/ftp, asiguraţi-vă că fişierele create aici au "
+"drept de citire pentru toată lumea (chmod o+r /srv/ftp/*).Pentru a acorda "
+"drepturi de scriere trebuie să creaţi un subdirector cu drepturi de scriere "
+"pentru toată lumea, de exemplu: mkdir /srv/ftp/incoming ; chmod o+rwx "
+"/srv/ftp/incoming"
 
 #: src/EBox/FTP.pm:84
 msgid "To configure vsftpd"
-msgstr ""
+msgstr "Pentru a configura vsftpd"
 
 #: src/EBox/FTP.pm:88
 msgid "To configure vsftpd with LDAP authentication"
-msgstr ""
+msgstr "Pentru a configura vsftpd cu autentificare LDAP"

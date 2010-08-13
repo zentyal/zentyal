@@ -6,10 +6,11 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-asterisk 1.1Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
+"Project-Id-Version: ebox-asterisk 1.1Report-Msgid-Bugs-To: info@ebox-"
+"technologies.com\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "POT-Creation-Date: 2010-07-21 00:28+0200\n"
-"PO-Revision-Date: 2010-02-15 06:35+0100\n"
+"PO-Revision-Date: 2010-08-12 16:05+0200\n"
 "Last-Translator: Ronny Gonzales <gonzito@online.no>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -196,6 +197,8 @@ msgid ""
 "You must install dahdi and linux-headers packages to use Meetings.{br}Run "
 "the following command: sudo apt-get install {kernels} dahdi."
 msgstr ""
+"Du må installere dahdi og linux-headers pakkene for å bruke "
+"Meetings.{br}Kjør følgende kommando: sudo apt-get install {kernels} dahdi."
 
 #: src/EBox/Model/Meetings.pm:119 src/EBox/Model/Meetings.pm:127
 #: src/EBox/Model/Settings.pm:84
@@ -358,15 +361,16 @@ msgid "SIP provider configuration updated."
 msgstr "SIP leverandør konfigurasjon oppdatert."
 
 #: src/EBox/Model/Provider.pm:195
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "{brand}: make low-cost VoIP calls to mobile phones and landlines directly "
 "with eBox. Once you have obtained a {subs} , you can purchase the VoIP "
 "credit you need. All these services available for purchasing at the {ohref}"
 "eBox on-line store{chref}! "
 msgstr ""
-"eBox VoIP Kreditt: gjør lav-kostnads VoIP samtaler til mobiler og landlinjer "
-"direkte med eBox. Kjøp VoIP kreditten du trenger direkte på {ohref}eBox on-"
+"{brand}: gjør lav-kostnads VoIP samtaler til mobiler og landlinjer direkte "
+"med eBox. Når du har skaffed deg en {subs} , kan du kjøpe VoIP kreditten du "
+"trenger. Alle disse tjenestene er tilgjengelig for kjøp på {ohref}eBox on-"
 "line store{chref}! "
 
 #: src/EBox/Model/NAT.pm:96

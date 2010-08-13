@@ -13,8 +13,8 @@ msgstr ""
 "Project-Id-Version: ebox-ntp 0.12\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "POT-Creation-Date: 2010-07-21 00:38+0200\n"
-"PO-Revision-Date: 2010-01-23 16:52+0100\n"
-"Last-Translator: José Antonio Calvo <jacalvo@ebox-platform.com>\n"
+"PO-Revision-Date: 2010-08-02 00:40+0200\n"
+"Last-Translator: Javi Vázquez <javivazquez@ebox-technologies.com>\n"
 "Language-Team: <es@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -154,12 +154,10 @@ msgid "Change"
 msgstr "Cambiar"
 
 #: src/templates/datetime.mas:8
-#, fuzzy
 msgid "Time Synchronization with NTP Servers"
-msgstr "Sincronizarse con servidores NTP externos"
+msgstr "Sincronización de tiempo con servidores NTP"
 
 #: src/templates/datetime.mas:9
-#, fuzzy
 msgid "External NTP Servers"
 msgstr "Servidores NTP externos"
 

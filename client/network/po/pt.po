@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-network 0.12\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "POT-Creation-Date: 2010-07-21 00:38+0200\n"
-"PO-Revision-Date: 2010-06-11 13:13+0200\n"
+"PO-Revision-Date: 2010-08-09 15:01+0200\n"
 "Last-Translator: Vasco Castelo Branco <vcbranco@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -44,7 +44,7 @@ msgstr "palavra-passe"
 
 #: src/EBox/CGI/Iface.pm:108
 msgid "bridge"
-msgstr ""
+msgstr "ponte"
 
 #: src/EBox/CGI/Vlan.pm:45 src/EBox/Network.pm:1625 src/EBox/Network.pm:1654
 #: src/templates/ifaces.mas:229
@@ -365,11 +365,11 @@ msgstr "Nome do hospedeiro"
 
 #: src/EBox/Network.pm:3452
 msgid "down"
-msgstr "para baixo"
+msgstr "em baixo"
 
 #: src/EBox/Network.pm:3458
 msgid "up"
-msgstr "para cima"
+msgstr "em cima"
 
 #: src/EBox/Network.pm:3463
 msgid "external"
@@ -900,7 +900,7 @@ msgstr "Trunk (802.1q)"
 
 #: src/templates/ifaces.mas:80 src/templates/ifaces.mas:82
 msgid "Bridged"
-msgstr ""
+msgstr "Ligado"
 
 #: src/templates/ifaces.mas:87 src/templates/ifaces.mas:89
 msgid "Not set"
@@ -920,7 +920,7 @@ msgstr ""
 
 #: src/templates/ifaces.mas:168
 msgid "Bridge"
-msgstr ""
+msgstr "Ponte"
 
 #: src/templates/ifaces.mas:189
 msgid "User name"
@@ -963,37 +963,33 @@ msgstr ""
 "que usam referências deste interface de rede"
 
 #: src/templates/Wizard/network.mas:18 src/templates/Wizard/interfaces.mas:7
-#, fuzzy
 msgid "Network interfaces"
 msgstr "Interfaces de rede"
 
 #: src/templates/Wizard/network.mas:21
-#, fuzzy
 msgid "Configure network for external interfaces"
-msgstr "Configurar interfaces de rede"
+msgstr "Configurar rede para interface externo"
 
 #: src/templates/Wizard/network.mas:22
 msgid "Now you can set IP addresses and networks for each interface"
-msgstr ""
+msgstr "Agora pode definir endereços IP e redes para cada interface"
 
 #: src/templates/Wizard/network.mas:30 src/templates/Wizard/network.mas:86
-#, fuzzy
 msgid "Don't configure"
-msgstr "DNS configurado"
+msgstr "Não configurar"
 
 #: src/templates/Wizard/network.mas:63
 msgid "Gateway"
 msgstr "Gateway"
 
 #: src/templates/Wizard/interfaces.mas:10
-#, fuzzy
 msgid "Select external network interfaces"
-msgstr "interface de rede"
+msgstr "Seleccionar interface de rede externo"
 
 #: src/templates/Wizard/interfaces.mas:11
 msgid ""
 "You will not be able to connect to eBox administration page through them"
-msgstr ""
+msgstr "Não será capaz de ligar à página de administração da eBox através dele"
 
 #: src/templates/diag.mas:13 src/templates/diag.mas:18
 msgid "Ping"
