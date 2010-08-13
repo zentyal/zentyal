@@ -54,13 +54,11 @@ use EBox::Types::Text;
 #
 sub new
 {
+    my ($class, %opts) = @_;
+    my $self = $class->SUPER::new(%opts);
+    bless ($self, $class);
 
-      my ($class, %opts) = @_;
-      my $self = $class->SUPER::new(%opts);
-      bless ( $self, $class);
-
-      return $self;
-
+    return $self;
 }
 
 # Method: validateTypedRow
@@ -88,7 +86,6 @@ sub validateTypedRow
                                   gateway => $oldRow->printableValueByName('gateway') };
         }
     }
-
 }
 
 # Method: updatedRowNotify
@@ -111,7 +108,6 @@ sub updatedRowNotify
                              $self->{toDelete}->{gateway} );
         delete($self->{toDelete});
     }
-
 }
 
 # Method: deletedRowNotify
@@ -131,7 +127,6 @@ sub deletedRowNotify
     $netMod->gatewayDeleted($gw);
 
     $self->_addToDelete($net, $gw);
-
 }
 
 # Group: Protected methods
@@ -188,7 +183,6 @@ sub _table
                      };
 
       return $dataTable;
-
 }
 
 # Group: Private methods
@@ -210,8 +204,6 @@ sub _addToDelete
                            gateway => $gw,
                            deleted => 0);
     }
-
 }
-
 
 1;
