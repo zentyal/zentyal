@@ -3434,13 +3434,13 @@ sub interfacesWidget
     my $ifaces = $self->ifacesWithRemoved;
     my $linkstatus = {};
     root("/sbin/mii-tool > " . EBox::Config::tmp . "linkstatus || true");
-    if(open(LINKF, EBox::Config::tmp . "linkstatus")){
-        while (<LINKF>){
-            if(/link ok/){
+    if (open(LINKF, EBox::Config::tmp . "linkstatus")) {
+        while (<LINKF>) {
+            if (/link ok/) {
                 my $i = (split(" ",$_))[0];
                 chop($i);
                 $linkstatus->{$i} = 1;
-            }elsif(/no link/){
+            } elsif(/no link/) {
                 my $i = (split(" ",$_))[0];
                 chop($i);
                 $linkstatus->{$i} = 0;
@@ -3465,20 +3465,19 @@ sub interfacesWidget
             $externalStr = __('internal');
         }
 
-
         my $linkStatusStr;
-        if(defined($linkstatus->{$iface})){
+        if (defined($linkstatus->{$iface})) {
             if($linkstatus->{$iface}){
                 $linkStatusStr =  __("link ok");
             }else{
                 $linkStatusStr =  __("no link");
             }
         }
-        my $status = __x('{up}, {ext}, {link}',
-                         up =>$upStr,
-                         ext => $externalStr,
-                         link => $linkStatusStr
-                        );
+
+        my $status = "$upStr, $externalStr";
+        if ($linkStatusStr) {
+            $status .= ", $linkStatusStr";
+        }
 
         $section->add(new EBox::Dashboard::Value (__("Status"), $status));
 
