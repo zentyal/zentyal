@@ -61,5 +61,8 @@ newaliases
 # populate ldap
 /usr/share/ebox-mail/ebox-mail-ldap update
 
+# set a valid shell for fetchmail user
+chsh -s /bin/sh fetchmail
+
 # restart mail to generate configuration files
 invoke-rc.d ebox mail restart
