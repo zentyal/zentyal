@@ -1,0 +1,15 @@
+#!/bin/bash
+
+NEW=$1
+
+if [ -z $NEW ]
+then
+    echo "Usage: $0 <new_hostname>"
+    exit 1
+fi
+
+CURRENT=`hostname`
+
+sed -i "s/$CURRENT/$NEW/" /etc/hostname
+sed -i "s/$CURRENT/$NEW/g" /etc/hosts
+hostname $NEW

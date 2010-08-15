@@ -3,7 +3,9 @@
 <%args>
 	$lang
 	$port
+	$hostname
 </%args>
 <& password.mas &>
 <& language.mas, lang => $lang &>
 <& port.mas, port => $port &>
+<& hostname.mas, hostname => $hostname &>

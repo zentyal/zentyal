@@ -1,4 +1,5 @@
 HEAD
+	+ Added option to change hostname under System->General
 	+ Show option "return to dashboard" when save changes fails.
 1.5.11
 	+ Added more tries on redis reconnection

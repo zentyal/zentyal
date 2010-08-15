@@ -1,6 +1,4 @@
-# Copyright (C) 2005 Warp Networks S.L., DBS Servicios Informaticos S.L.
-# Copyright (C) 2006-2007 Warp Networks S.L.
-# Copyright (C) 2008-2010 eBox Technologies S.L.
+# Copyright (C) 2010 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -15,42 +13,40 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::CGI::EBox::General;
+package EBox::CGI::EBox::Hostname;
 
 use strict;
 use warnings;
 
 use base 'EBox::CGI::ClientBase';
 
-use EBox;
 use EBox::Global;
 use EBox::Gettext;
+use EBox::Sudo;
+use EBox::Validate;
 
-use Sys::Hostname;
-
-sub new # (error=?, msg=?, cgi=?)
+sub new # (cgi=?)
 {
 	my $class = shift;
-	my $self = $class->SUPER::new('title' => __('General Configuration'),
-				      'template' => '/general.mas',
-				      @_);
+	my $self = $class->SUPER::new(@_);
 	bless($self, $class);
+	$self->{errorchain} = "EBox/General";
+	$self->{redirect} = "EBox/General";
 	return $self;
 }
 
 sub _process
 {
-	my $self = shift;
+	my ($self) = @_;
 
-	my $global = EBox::Global->getInstance();
-	my $apache = $global->modInstance('apache');
-
-	my @array = ();
-	push(@array, 'port' => $apache->port());
-	push(@array, 'lang' => EBox::locale());
-	push(@array, 'hostname' => Sys::Hostname::hostname());
-
-	$self->{params} = \@array;
+	if (defined($self->param('sethostname'))) {
+        my $hostname = $self->param('hostname');
+        EBox::Validate::checkHost($hostname, __('hostname'));
+        EBox::Sudo::root(EBox::Config::share() .
+                         "ebox/ebox-change-hostname $hostname");
+	    my $global = EBox::Global->getInstance();
+	    $global->modChange('apache');
+	}
 }
 
 1;

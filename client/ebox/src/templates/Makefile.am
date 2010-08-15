@@ -3,12 +3,12 @@
 SUBDIRS = ajax common dashboard login logout logs report js
 
 templatedir = $(datadir)/ebox/templates
-template_DATA = backup.mas bug.mas confirm-backup.mas  backupTabs.mas \
-        finish.mas general.mas \
-	halt.mas password.mas port.mas progress.mas \
-	 header.mas headTitle.mas footer.mas headerWithRefresh.mas\
-	dataInUse.mas configurationFiles.mas  configureView.mas  moduleStatus.mas \
-	moduleStatusTable.mas notConfigured.mas wizard.mas
+template_DATA = backup.mas bug.mas confirm-backup.mas backupTabs.mas \
+ finish.mas general.mas hostname.mas \
+ halt.mas password.mas port.mas progress.mas \
+ header.mas headTitle.mas footer.mas headerWithRefresh.mas\
+ dataInUse.mas configurationFiles.mas configureView.mas moduleStatus.mas \
+ moduleStatusTable.mas notConfigured.mas wizard.mas
 
 EXTRA_DIST = $(template_DATA)
 
