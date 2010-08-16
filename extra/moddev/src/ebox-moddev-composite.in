@@ -33,6 +33,7 @@ sub _parseOptions
             destdir => undef,
             model => 'form',
             mainClass => undef,
+            modNameSpace => undef,
             );
     my $help;
     my $info;
@@ -40,6 +41,7 @@ sub _parseOptions
     my $optionsOk = GetOptions(
             'main-class=s' => \$options{mainClass},
             'name=s' => \$options{name},
+            'module-name-space=s' => \$options{modNameSpace},
             'destdir=s' => \$options{destdir},
             'help'  => \$help,
             'info'  => \$info,
@@ -79,31 +81,48 @@ sub _composites
     return \@models; 
 }
 
+
+
+
 sub _makefile
 {
     my ($interp, $output, $options) = @_;
 
-    my $dir = $options->{destdir} . '/src/EBox/Composite';
-    ( -d $dir ) or mkdir($dir);
+    my $modNameSpace =  $options->{modNameSpace} ;
+
+    my $dir = $options->{destdir} . '/src/EBox/' .
+              $modNameSpace . '/Composite';
+
+    my $perlDir = "/EBox/$modNameSpace/Composite";
+    my $perlData = _composites($dir);
 
    my $comp = $interp->make_component(
-            comp_file => STUBS_PATH .  '/src/Composite/Makefile.am.mas',
+            comp_file => STUBS_PATH .  '/src/Makefile.am.mas',
             );
     ${$output} = '';
     $interp->exec($comp,
-                    ( module => $options->{mainClass},
-                      composites => _composites($dir)));
+                    ( 
+                        perlDir => $perlDir,
+                        perlData => $perlData,
+                     )
+                   );
 
     write_file($dir . '/Makefile.am', ${$output});
 }
 
-sub _src_EBox_Composite
+sub _src_EBox_Module_Composite
 {
     my ($interp, $output, $options) = @_;
 
-    my $dir = $options->{destdir} . '/src/EBox/Composite';
-    my $mainClass = $options->{name} . '.pm';
+    my $modNameSpace = $options->{modNameSpace};
+    my $dir = $options->{destdir} . '/src/EBox/' .
+              $modNameSpace . '/Composite';
     mkdir ($dir) unless (-d $dir); 
+
+    my $compositeFile = $options->{name} . '.pm';
+
+    my $name = $options->{name};
+    my $package = "EBox::" . $modNameSpace . '::Composite::' . $name;
 
     my $template = '/src/Composite/Composite.pm.mas';
     my $comp = $interp->make_component(
@@ -112,11 +131,11 @@ sub _src_EBox_Composite
     ${$output} = '';
     $interp->exec($comp, 
             ( 
-              mainClass => $options->{mainClass},
-              name => $options->{name},
+              package => $package,              
+              name => $name,
               compositeDomain => $options->{mainClass},
               ));
-    write_file("$dir/$mainClass", ${$output});
+    write_file("$dir/$compositeFile", ${$output});
 
 }
 
@@ -126,7 +145,10 @@ sub _addCompositesToMainClass
 
     my $mainClass = $options->{mainClass};
     my $file = $options->{destdir} . "/src/EBox/$mainClass.pm";
-    my $dir = $options->{destdir} . "/src/EBox/Composite";
+    my $modNameSpace = $options->{modNameSpace};
+    my $dir = $options->{destdir} . '/src/EBox/' .
+              $modNameSpace . '/Composite';
+
 
     my $code = "    return [\n";
     for my $model (@{_composites($dir)}) {
@@ -179,7 +201,7 @@ sub _createComposite
     my $interp = HTML::Mason::Interp->new(comp_root => STUBS_PATH, 
             out_method => \$output);
 
-   _src_EBox_Composite($interp, \$output, $options);
+   _src_EBox_Module_Composite($interp, \$output, $options);
    _makefile($interp, \$output, $options);
    _addCompositesToMainClass($interp, \$output, $options);
    _runAutogen();

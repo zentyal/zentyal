@@ -35,6 +35,7 @@ sub _parseOptions
             parent => undef,
             destdir => undef,
             mainClass => undef,
+            modNameSpace => undef,
             );
     my $help;
     my $info;
@@ -44,6 +45,7 @@ sub _parseOptions
             'name=s' => \$options{name},
             'parent=s' => \$options{parent},
             'destdir=s' => \$options{destdir},
+            'module-name-space=s' => \$options{modNameSpace},
             'help'  => \$help,
             'info'  => \$info,
             );
@@ -86,25 +88,33 @@ sub _makefile
 {
     my ($interp, $output, $options) = @_;
 
-    my $dir = $options->{destdir} . '/src/EBox/Types';
-    ( -d $dir )  or mkdir $dir;
+    my $modNameSpace = $options->{modNameSpace};
+    my $dir = $options->{destdir} . '/src/EBox/' . $modNameSpace . '/Types';
+    mkdir ($dir) unless (-d $dir); 
+
+    my $perlDir = 'EBox/' . $modNameSpace . '/Types';
+    my $perlData =  _types($dir);
 
    my $comp = $interp->make_component(
-            comp_file => STUBS_PATH .  '/src/Types/Makefile.am.mas',
+            comp_file => STUBS_PATH .  '/src/Makefile.am.mas',
             );
     ${$output} = '';
     $interp->exec($comp,
-                    ( module => $options->{mainClass},
-                      types => _types($dir)));
+                  ( 
+                      perlDir => $perlDir,
+                      perlData => $perlData,
+                   )
+                 );
 
     write_file($dir . '/Makefile.am', ${$output});
 }
 
-sub _src_EBox_Types
+sub _src_EBox_Module_Types
 {
     my ($interp, $output, $options) = @_;
 
-    my $dir = $options->{destdir} . '/src/EBox/Types';
+    my $modNameSpace = $options->{modNameSpace};
+    my $dir = $options->{destdir} . '/src/EBox/' . $modNameSpace . '/Types';
     mkdir ($dir) unless (-d $dir); 
 
     my $template = '/src/Types/Type.pm.mas';
@@ -114,11 +124,12 @@ sub _src_EBox_Types
             );
     ${$output} = '';
     my $name = $options->{name};
+    my $package = 'EBox::' . $modNameSpace.  '::Types::' . $name;
     $interp->exec($comp, 
             ( 
                 name => $name,
                 parent => $options->{parent},
-                mainClass => $options->{mainClass},
+                package=> $package,
               ));
     write_file("$dir/$name.pm", ${$output});
 
@@ -145,7 +156,7 @@ sub _createType
             out_method => \$output);
 
     if ($options->{name}) {
-        _src_EBox_Types($interp, \$output, $options);
+        _src_EBox_Module_Types($interp, \$output, $options);
     }
    _makefile($interp, \$output, $options);
    _runAutogen();

@@ -1,14 +1,14 @@
 <%args>
-$mainClass
+$package
 $name
 $compositeDomain
 </%args>
-# Class: EBox::<% $compositeDomain %>::Composite::<% $name %>
+# Class: <% $package %>
 #
 #   TODO
 #
 
-package EBox::<% $compositeDomain %>::Composite::<% $name %>;
+package <% $package %>;
 
 use base 'EBox::Model::Composite';
 

@@ -1,6 +1,7 @@
 <%args>
     $module
     $mainClass
+    $modNameSpace    
     $version
 </%args>
 AC_INIT([EBox-<% $module %>], [<% $version %>])
@@ -60,9 +61,10 @@ AC_CONFIG_FILES([
 migration/Makefile
 src/Makefile
 src/EBox/Makefile
-src/EBox/Model/Makefile
-src/EBox/Composite/Makefile
-src/EBox/Types/Makefile
+src/EBox/<% $modNameSpace %>/Makefile
+src/EBox/<% $modNameSpace %>/Model/Makefile
+src/EBox/<% $modNameSpace %>/Composite/Makefile
+src/EBox/<% $modNameSpace %>/Types/Makefile
 schemas/Makefile
 stubs/Makefile
 Makefile

@@ -35,6 +35,7 @@ sub _parseOptions
             version => MODULE_VERSION,
             destdir => undef,
             model => 'form',
+            modNameSpace => undef
             );
     my $help;
     my $info;
@@ -75,6 +76,12 @@ sub _parseOptions
         die "$options{destdir} already exists!!";
     }
 
+    if (defined $options{mainClass}) {
+        my $modNameSpace = $options{mainClass};
+        $modNameSpace =~ s/\.pm$//;        
+        $options{modNameSpace} = $modNameSpace
+    }
+
     return \%options;
 }
 
@@ -87,6 +94,7 @@ sub _configure
     ${$output} = '';
     $interp->exec($comp,  
             (mainClass => $options->{mainClass},
+             modNameSpace => $options->{modNameSpace},
              module => $options->{moduleName},
              version => $options->{version}));
    write_file($options->{destdir} . '/configure.ac', ${$output});
@@ -110,7 +118,14 @@ sub _src
     my $dir = $options->{destdir} . '/src';
     mkdir ($dir) or die "Can't create $dir";
 
-     copy (STUBS_PATH . '/src/Makefile.am', $dir);
+    my $comp = $interp->make_component(
+            comp_file => STUBS_PATH .  '/src/Makefile.am.mas',
+            );
+    ${$output} = '';
+    $interp->exec($comp, ( 
+        subDirs  => ['EBox'],
+       ));
+    write_file($dir . '/Makefile.am', ${$output});
 }
 
 sub _src_EBox
@@ -125,7 +140,11 @@ sub _src_EBox
             comp_file => STUBS_PATH .  '/src/Makefile.am.mas',
             );
     ${$output} = '';
-    $interp->exec($comp, ( mainClass => $mainClass));
+    $interp->exec($comp, ( 
+        perlData => [$mainClass],
+        perlDir  => 'EBox',
+        subDirs  => [$options->{modNameSpace}],
+       ));
     write_file($dir . '/Makefile.am', ${$output});
     
     $comp = $interp->make_component(
@@ -143,37 +162,66 @@ sub _src_EBox
     write_file($dir . "/$mainClass", ${$output});
 }
 
-sub _src_EBox_Model
+sub _src_EBox_Module
+{
+    my ($interp, $output, $options) = @_;
+
+    # XXX add firewal land loghelper
+
+    my $modNameSpace = $options->{modNameSpace};
+    my $dir = $options->{destdir} . '/src/EBox/' . $modNameSpace;
+    mkdir ($dir) or die "Can't create $dir";
+
+    my $comp = $interp->make_component(
+            comp_file => STUBS_PATH .  '/src/Makefile.am.mas',
+            );
+    ${$output} = '';
+    $interp->exec($comp, (         
+        perlDir  => "/EBox/$modNameSpace",
+        subDirs  => ['Model', 'Composite', 'Types'],
+       ));
+
+    write_file($dir . "/Makefile.am", ${$output});    
+}
+
+
+sub _src_EBox_Module_Model
 {
     my ($interp, $output, $options) = @_;
 
     my $dir = $options->{destdir}; 
+    my $modNameSpace = $options->{modNameSpace};
     my $mainClass = $options->{mainClass}; 
     my $params = " --main-class $mainClass --name Settings" .
+                 " --module-name-space $modNameSpace" . 
                  " --field field1:Text --field field2:Text" .
                  " --destdir $dir";
     system("ebox-moddev-model $params"); 
 }
 
-sub _src_EBox_Composite
+sub _src_EBox_Module_Composite
 {
     my ($interp, $output, $options) = @_;
 
     my $dir = $options->{destdir}; 
+    my $modNameSpace = $options->{modNameSpace};
     my $mainClass = $options->{mainClass}; 
     my $params = " --main-class $mainClass --name Composite" .
+                 " --module-name-space $modNameSpace" . 
                  " --destdir $dir";
     system("ebox-moddev-composite $params"); 
 }
 
 
-sub _src_EBox_Types
+sub _src_EBox_Module_Types
 {
     my ($interp, $output, $options) = @_;
 
     my $dir = $options->{destdir}; 
     my $mainClass = $options->{mainClass}; 
+    my $modNameSpace = $options->{modNameSpace};
     my $params = " --main-class $mainClass " .
+                 " --module-name-space $modNameSpace" . 
                  " --destdir $dir";
     system("ebox-moddev-type$params"); 
 }
@@ -352,9 +400,10 @@ sub _createModule
    _makefile($interp, \$output, $options);
    _src($interp, \$output, $options);
    _src_EBox($interp, \$output, $options);
-   _src_EBox_Model($interp, \$output, $options);
-   _src_EBox_Composite($interp, \$output, $options);
-   _src_EBox_Types($interp, \$output, $options);
+   _src_EBox_Module($interp, \$output, $options);
+   _src_EBox_Module_Model($interp, \$output, $options);
+   _src_EBox_Module_Composite($interp, \$output, $options);
+   _src_EBox_Module_Types($interp, \$output, $options);
    _debian($interp, \$output, $options);
    _migration($interp, \$output, $options);
    _schemas($interp, \$output, $options);

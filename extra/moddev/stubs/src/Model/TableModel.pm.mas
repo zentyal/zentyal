@@ -1,5 +1,5 @@
 <%args>
-    $mainClass
+    $packageName
     $modelName
     $printableTableName
     $printableRowName
@@ -21,12 +21,12 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
-# Class: <% $mainClass %>::Model::<% $modelName %>
+# Class: <% $packageName %>
 #   
 #   TODO: Document class
 #
 
-package <% $mainClass %>::Model::<% $modelName %>;
+package <% $packageName %>;
 
 use EBox::Gettext;
 use EBox::Validate qw(:all);

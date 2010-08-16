@@ -33,21 +33,16 @@ stubsschemas_DATA = schemas/Makefile.am.mas  schemas/yaml.mas
 
 stubssrcdir = $(datadir)/emoddev/stubs/src
 
-stubssrc_DATA = src/Makefile.am.mas  src/MainClass.pm.mas src/Makefile.am
+stubssrc_DATA = src/Makefile.am.mas  src/MainClass.pm.mas 
 
 stubsmodeldir = $(datadir)/emoddev/stubs/src/Model
 
-stubsmodel_DATA = src/Model//Makefile.am.mas src/Model/TableModel.pm.mas  \
-	src/Model/FormModel.pm.mas
+stubsmodel_DATA =  src/Model/TableModel.pm.mas src/Model/FormModel.pm.mas
 
 stubscompositedir = $(datadir)/emoddev/stubs/src/Composite
 
-stubscomposite_DATA = src/Composite/Makefile.am.mas src/Composite/Composite.pm.mas
+stubscomposite_DATA =  src/Composite/Composite.pm.mas
 
-
-stubstypesdir = $(datadir)/emoddev/stubs/src/Types
-
-stubstypes_DATA = src/Types/Makefile.am.mas
 
 stubstypedir = $(datadir)/emoddev/stubs/src/Types
 

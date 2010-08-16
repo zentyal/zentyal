@@ -7,3 +7,6 @@ DISTCLEANFILES =
 EXTRA_DIST =
 
 MAINTAINERCLEANFILES = Makefile.in
+
+clean:
+	rm -f ${bin_SCRIPTS}

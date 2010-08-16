@@ -1,13 +1,13 @@
 <%args>
     $name    
     $parent
-    $mainClass
+    $package
 </%args>
-# Class: EBox::Types::<% $mainClass %>::<% $name %>;
+# Class: <% $package %>;
 #
 #   TODO
 #
-package EBox::<% $mainClass %>::Types::<% $name %>;
+package <% $package %>;
 use strict;
 use warnings;
 

@@ -1,15 +1,23 @@
 <%args>
-    $mainClass
+    $perlDir => undef
+    @perlData => ()
+    @subDirs  => ()
 </%args>
 ## Process this file with automake to produce Makefile.in
-SUBDIRS = Composite Model Types
+% if (@subDirs) {
+SUBDIRS = <% "@subDirs"  %>
+% }
 
-perldir = @PERLPATH@/EBox
+% if (defined $perlDir) {
+perldir = @PERLPATH@/<% $perlDir %>
+% }
 
-nobase_perl_DATA = <% $mainClass %> 
+% if (@perlData) {
+nobase_perl_DATA = <% "@perlData" %> 
 
 DISTCLEANFILES = 
 
 EXTRA_DIST = $(nobase_perl_DATA)
+% }
 
 MAINTAINERCLEANFILES = Makefile.in
