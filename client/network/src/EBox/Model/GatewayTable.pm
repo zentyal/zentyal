@@ -231,7 +231,6 @@ sub _table
         {
             'tableName' => 'GatewayTable',
             'printableTableName' => __('Gateways List'),
-            'pageTitle' => __('Gateways'),
             'automaticRemove' => 1,
             'enableProperty' => 1,
             'defaultEnabledValue' => 1,

@@ -1,3 +1,5 @@
+HEAD
+    + Add support for updates using the system wide defined proxy
 1.5.1
     + Avoid errors in ebox.log if /etc/cron.hourly/freshclam not exists
 1.5

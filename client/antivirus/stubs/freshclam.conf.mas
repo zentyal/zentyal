@@ -2,6 +2,8 @@
 $clamdConfFile
 $observerScript
 $databaseMirrorLocalCode => 'local'
+$proxyServer
+$proxyPort
 </%args>
 # Automatically created by the clamav-freshclam postinst
 # Comments will get lost when you reconfigure the clamav-freshclam package
@@ -34,3 +36,8 @@ NotifyClamd <% $clamdConfFile %>
 OnUpdateExecute  <% "$observerScript update" %>
 OnErrorExecute <% "$observerScript error" %>
 OnOutdatedExecute <% "$observerScript outdated %v" %>
+
+% if ($proxyServer && $proxyPort) {
+HTTPProxyServer <% $proxyServer %>
+HTTPProxyPort <% $proxyPort %>
+% }

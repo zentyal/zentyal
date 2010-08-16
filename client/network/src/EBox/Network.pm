@@ -39,6 +39,7 @@ use constant PPP_PROVIDER_FILE => '/etc/ppp/peers/ebox-ppp-';
 use constant CHAP_SECRETS_FILE => '/etc/ppp/chap-secrets';
 use constant PAP_SECRETS_FILE => '/etc/ppp/pap-secrets';
 use constant IFUP_LOCK_FILE => '/var/lib/ebox/tmp/ifup.lock';
+use constant APT_PROXY_FILE => '/etc/apt/apt.conf.d/99proxy.conf';
 
 use Net::IP;
 use IO::Interface::Simple;
@@ -163,6 +164,13 @@ sub usedFiles
                         'module' => 'network' });
     }
 
+    my $proxy = $self->model('Proxy');
+    if ($proxy->serverValue() && $proxy->portValue()) {
+        push (@files, { 'file' => APT_PROXY_FILE,
+                        'reason' => __('eBox will set HTTP proxy for APT'),
+                        'module' => 'network' });
+    }
+
     return \@files;
 }
 
@@ -205,6 +213,7 @@ sub modelClasses
           'EBox::Network::Model::DynDNS',
           'EBox::Network::Model::WANFailoverOptions',
           'EBox::Network::Model::WANFailoverRules',
+          'EBox::Network::Model::Proxy',
 
      ];
 }
@@ -216,6 +225,7 @@ sub compositeClasses
         'EBox::Network::Composite::MultiGw',
         'EBox::Network::Composite::DNS',
         'EBox::Network::Composite::WANFailover',
+        'EBox::Network::Composite::Gateway',
 
 # XXX uncomment when DynLoader bug with locales is fixed
 #          'EBox::Network::Composite::ByteRate',
@@ -2451,6 +2461,19 @@ sub _generateDNSConfig
                          [ request_nameservers => $request_nameservers ]);
 }
 
+sub _generateProxyConfig
+{
+    my ($self) = @_;
+
+    my $proxy = $self->model('Proxy');
+    if ($proxy->serverValue() && $proxy->portValue()) {
+        $self->writeConfFile(APT_PROXY_FILE,
+                            'network/99proxy.conf.mas',
+                            [ proxyServer => $proxy->serverValue(),
+                              proxyPort => $proxy->portValue() ]);
+    }
+}
+
 #
 sub isDDNSEnabled
 {
@@ -2900,6 +2923,7 @@ sub _setConf
     $self->_generatePPPConfig();
     $self->_generateDDClient();
     $self->_generateDNSConfig();
+    $self->_generateProxyConfig();
 }
 
 # Method: _enforceServiceState
@@ -3553,7 +3577,7 @@ sub menu
                       'text' => 'DNS'));
     $folder->add(new EBox::Menu::Item('url' => 'Network/View/DynDNS',
                       'text' => 'DynDNS'));
-    $folder->add(new EBox::Menu::Item('url' => 'Network/View/GatewayTable',
+    $folder->add(new EBox::Menu::Item('url' => 'Network/Composite/Gateway',
                       'text' => __('Gateways')));
     $folder->add(new EBox::Menu::Item('url' => 'Network/View/StaticRoute',
                       'text' => __('Static Routes')));

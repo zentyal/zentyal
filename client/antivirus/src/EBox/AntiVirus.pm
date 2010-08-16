@@ -244,8 +244,6 @@ sub localSocket
   return CLAMD_SOCKET;
 }
 
-
-
 sub _setConf
 {
   my ($self) = @_;
@@ -260,14 +258,16 @@ sub _setConf
 
   $self->disableApparmorProfile('usr.sbin.clamd');
 
+  my $observerScript = EBox::Config::share() . '/ebox-antivirus/' . FRESHCLAM_OBSERVER_SCRIPT;
 
-  my $observerScript = EBox::Config::share() . '/ebox-antivirus/' .  FRESHCLAM_OBSERVER_SCRIPT;
-
+  my $network = EBox::Global->modInstance('network');
+  my $proxy = $network->model('Proxy');
   my @freshclamParams = (
                          clamdConfFile   => CLAMD_CONF_FILE,
                          observerScript  => $observerScript,
+                         proxyServer => $proxy->serverValue(),
+                         proxyPort => $proxy->portValue(),
                         );
-
 
   $self->writeConfFile(FRESHCLAM_CONF_FILE,
                        "antivirus/freshclam.conf.mas", \@freshclamParams);
@@ -277,10 +277,6 @@ sub _setConf
                        "antivirus/freshclam-cron.mas",
                        [ enabled => $self->isEnabled() ]);
 }
-
-
-
-
 
 # Method: freshclamState
 #

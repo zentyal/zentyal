@@ -1,5 +1,6 @@
 HEAD
 	+ Do not show unreplaced {link} variable in dashboard if not available
+	+ Add support to define a system wide proxy
 1.5.5
 	+ New setup wizard
 1.5.4

@@ -1,0 +1,5 @@
+<%args>
+    $proxyServer
+    $proxyPort
+</%args>
+Acquire::http::Proxy "http://<% $proxyServer %>:<% $proxyPort %>/";
