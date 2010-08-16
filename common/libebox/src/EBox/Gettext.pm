@@ -174,6 +174,7 @@ $langs->{'pt_PT.UTF-8'} = 'Português';
 $langs->{'ru_RU.UTF-8'} = 'Русский';
 $langs->{'sv_SE.UTF-8'} = 'Svenska';
 $langs->{'tr_TR.UTF-8'} = 'Türkçe';
+$langs->{'uk_UA.UTF-8'} = 'украї́нська';
 $langs->{'zh_TW.UTF-8'} = '繁體中文';
 
 # Method:  langname

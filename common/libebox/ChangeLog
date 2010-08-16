@@ -1,4 +1,5 @@
 HEAD
+	+ Added Ukranian locale (uk_UA)
 	+ Added missing CIDR values between /16 and /8
 	+ New function orderRow(field, order) added to table_order.js
 	+ Fixed problem with icons in tableorderer header
