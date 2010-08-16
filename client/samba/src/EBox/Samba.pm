@@ -401,8 +401,17 @@ sub sambaInterfaces
     my $global = EBox::Global->getInstance();
 
     my $net = $global->modInstance('network');
-    my $internalIfaces = $net->InternalIfaces;
-    foreach my $iface (@{ $internalIfaces }) {
+
+    my $listen_external = EBox::Config::configkey('listen_external');
+
+    my $netIfaces;
+    if ($listen_external eq 'yes') {
+        $netIfaces = $net->allIfaces;
+    } else {
+        $netIfaces = $net->InternalIfaces;
+    }
+
+    foreach my $iface (@{ $netIfaces }) {
         push @ifaces, $iface;
 
         if ( $net->ifaceMethod($iface) eq 'bridged' ) {
