@@ -1,0 +1,11 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=Non-privileged User Console
+Name[es]=Consola con permisos de usuario
+Comment=Launch a shell without root privileges
+Comment[es]=Lanza una terminal sin permisos de administración
+TryExec=lxterminal
+Exec=lxterminal
+Icon=lxterminal
+Type=Application
+Categories=GTK;Utility;TerminalEmulator;

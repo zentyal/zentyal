@@ -12,7 +12,6 @@ chown $USER_NAME:$USER_NAME $DIR/.xsession
 
 mkdir $DIR/.mozilla
 cp -r /var/tmp/ebox/ebox-firefox-profile $DIR/.mozilla/firefox
-cp /var/tmp/ebox/ebox-blackbox-menu /etc/X11/blackbox/blackbox-menu
 chown -R $USER_NAME:$USER_NAME $DIR/.mozilla
 chmod -R +w $DIR/.mozilla
 
@@ -21,6 +20,9 @@ CERT=/var/lib/ebox/conf/ssl/ssl.cert
 ID='eBox Server'
 certutil -d $PROFILE -A -n "$ID" -t ',,' -i $CERT
 /var/tmp/ebox/ebox-cert-override > $PROFILE/cert_override.txt
+
+DESKTOP=`su $USER_NAME -c "xdg-user-dirs DESKTOP"`
+mv /var/tmp/ebox/Desktop/* $DESKTOP/
 
 mv /var/tmp/ebox/rc.local /etc/rc.local
 rm -rf /var/tmp/ebox

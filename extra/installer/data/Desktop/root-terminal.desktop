@@ -1,0 +1,11 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=Administrator Console
+Name[es]=Consola de administrador
+Comment=Executes a root shell
+Comment[es]=Ejecuta una consola de root
+TryExec=gksudo lxterminal
+Exec=gksudo lxterminal
+Icon=lxterminal
+Type=Application
+Categories=GTK;Utility;TerminalEmulator;
