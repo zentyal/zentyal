@@ -21,8 +21,12 @@ ID='eBox Server'
 certutil -d $PROFILE -A -n "$ID" -t ',,' -i $CERT
 /var/tmp/ebox/ebox-cert-override > $PROFILE/cert_override.txt
 
+mv /var/tmp/ebox/ebox.png /usr/share/pixmaps/
+
 DESKTOP=`su $USER_NAME -c "xdg-user-dir DESKTOP"`
+mkdir -p $DESKTOP
 mv /var/tmp/ebox/Desktop/* $DESKTOP/
+chown -R $USER_NAME:$USER_NAME $DESKTOP
 
 mv /var/tmp/ebox/rc.local /etc/rc.local
 rm -rf /var/tmp/ebox
