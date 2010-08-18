@@ -85,9 +85,20 @@ sub populate_<% $field->{name} %>
 sub _table
 {
 
-    my @tableHead = 
+    my @fields = 
     ( 
+#     Here you should add your instances of subclass of EBox::Types::Abstact to
+#     define the form's fields. For example to add a text field:
+#        new EBox::Types::Text(
+#            'fieldName' => 'ExampleField',
+#            'printableName' => __('Example text field'),
+#            'size' => '8',
+#            'unique' => 1,
+#            'editable' => 1,
+#            'help' => __('This field is a example'),
+#        ),
 % for my $field (@fields) {
+
 %   if ($field->{type} eq 'Select') {
         new EBox::Types::<% $field->{type} %>(
             'fieldName' => '<% $field->{name} %>',
@@ -114,7 +125,7 @@ sub _table
         'printableRowName' => __('<% $printableRowName %>'),
         'modelDomain' => '<% $modelDomain %>',
         'defaultActions' => ['add', 'del', 'editField', 'changeView' ],
-        'tableDescription' => \@tableHead,
+        'tableDescription' => \@fields,
         'help' => '', # FIXME
     };
 

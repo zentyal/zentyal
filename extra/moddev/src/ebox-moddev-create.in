@@ -194,7 +194,7 @@ sub _src_EBox_Module_Model
     my $mainClass = $options->{mainClass}; 
     my $params = " --main-class $mainClass --name Settings" .
                  " --module-name-space $modNameSpace" . 
-                 " --field field1:Text --field field2:Text" .
+#                 " --field field1:Text --field field2:Text" .
                  " --destdir $dir";
     system("ebox-moddev-model $params"); 
 }

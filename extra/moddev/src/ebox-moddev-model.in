@@ -82,7 +82,6 @@ sub _parseOptions
             );
     my $help;
     my $info;
-    my @fields;
     my $optionsOk = GetOptions(
             'main-class=s' => \$options{mainClass},
             'name=s' => \$options{name},
@@ -99,7 +98,6 @@ sub _parseOptions
     }
 
     unless (defined($options{name}) and 
-            defined($options{fields}) and
             defined($options{modNameSpace})
            ) {
         _printUsage();
