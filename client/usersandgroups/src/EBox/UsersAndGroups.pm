@@ -264,20 +264,22 @@ sub _setConf
         EBox::Sudo::root("install -m 0644 -o root -g root $cronFile /etc/cron.d/ebox-ad-sync");
     }
 
-    my $ldapconf = $ldap->ldapConf();
-    my @array = ();
-    push(@array, 'basedc'    => $ldapconf->{'dn'});
-    push(@array, 'ldap'     => $ldapconf->{'ldapi'});
-    push(@array, 'binddn'     => $ldapconf->{'rootdn'});
-    push(@array, 'bindpw'    => $ldap->getPassword());
-    push(@array, 'usersdn'   => $self->usersDn);
-    push(@array, 'groupsdn'  => $self->groupsDn);
-    push(@array, 'computersdn' => 'ou=Computers,' . $ldapconf->{'dn'});
+    if ( $mode eq 'master' ) {
+        my $ldapconf = $ldap->ldapConf();
+        my @array = ();
+        push(@array, 'basedc'    => $ldapconf->{'dn'});
+        push(@array, 'ldap'     => $ldapconf->{'ldapi'});
+        push(@array, 'binddn'     => $ldapconf->{'rootdn'});
+        push(@array, 'bindpw'    => $ldap->getPassword());
+        push(@array, 'usersdn'   => $self->usersDn);
+        push(@array, 'groupsdn'  => $self->groupsDn);
+        push(@array, 'computersdn' => 'ou=Computers,' . $ldapconf->{'dn'});
 
-    $self->writeConfFile(LIBNSSLDAPFILE, "usersandgroups/ldap.conf.mas",
-            \@array);
+        $self->writeConfFile(LIBNSSLDAPFILE, "usersandgroups/ldap.conf.mas",
+                \@array);
 
-    $self->_setupNSSPAM();
+        $self->_setupNSSPAM();
+    }
 }
 
 # Method: _daemons
