@@ -166,25 +166,20 @@ sub _processPOPProxyLine
         $p3scanVirus   = 0;
         $p3scanSpam    = 0;
         $p3scanAddress = undef;
-    }
-    elsif ($line =~ m/p3scan\[\d+\]: USER \'(.*?)\'/ ) {
+    } elsif ($line =~ m/p3scan\[\d+\]: USER \'(.*?)\'/ ) {
         $p3scanAddress = $1;
-    }
-    elsif ($line =~ m/p3scan\[\d+\]: .* contains a virus/) {
+    } elsif ($line =~ m/p3scan\[\d+\]: .* contains a virus/) {
         $p3scanVirus += 1;
-    }
-    elsif ($line =~ m/spamd: identified spam .* for p3scan/) {
+    } elsif ($line =~ m/spamd: identified spam .* for p3scan/) {
         $p3scanSpam += 1;
-    }
-    elsif ($line =~ m{p3scan\[\d+\]: Session done.*\((.*?)\).* Mails: (.*) Bytes:} ) {
+    } elsif ($line =~ m{p3scan\[\d+\]: Session done.*\((.*?)\).* Mails: (.*) Bytes:} ) {
         my $status = $1;
         my $mails  = $2;
 
         my $event;
         if ($status eq 'Clean Exit') {
             $event = 'pop3_fetch_ok';
-        }
-        else { # $status ~= m/abort/
+        } else {                # $status ~= m/abort/
             $event = 'pop3_fetch_failed';
 
         }
@@ -196,23 +191,23 @@ sub _processPOPProxyLine
         my $date = $self->_getDate($line);
 
         my $values = {
-                      event => $event,
-                      address => $p3scanAddress,
+            event => $event,
+            address => $p3scanAddress,
 
-                      mails  => $mails,
-                      clean   => $cleanMails,
-                      virus  => $p3scanVirus,
-                      spam   => $p3scanSpam,
+            mails  => $mails,
+            clean   => $cleanMails,
+            virus  => $p3scanVirus,
+            spam   => $p3scanSpam,
 
-                      clientConn => $p3scanClientConn,
-
-
-                      timestamp => $date,
-                     };
+            clientConn => $p3scanClientConn,
 
 
+            timestamp => $date,
+        };
 
-    $dbengine->insert(POP_PROXY_TABLE, $values);
+
+
+        $dbengine->insert(POP_PROXY_TABLE, $values);
     }
 
 }
