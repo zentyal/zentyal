@@ -1,4 +1,4 @@
-HEAD
+1.5.7
 	+ Avoid antivirus scan on large files to fix read problems
 	+ Add a keyconf to Samba listen on external interfaces
 	+ Added more report subsections
