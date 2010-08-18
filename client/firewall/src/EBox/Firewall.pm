@@ -59,60 +59,17 @@ sub _create
                                      domain => 'ebox-firewall',
                                      printableName => __n('Firewall'),
                                      @_);
-    $self->{'ToInternetRuleModel'} =
-        new EBox::Firewall::Model::ToInternetRuleTable(
-                                                       'gconfmodule' => $self,
-                                                       'directory' => 'ToInternetRuleTable',
-                                                      );
 
-    $self->{'InternalToEBoxRuleModel'} =
-        new EBox::Firewall::Model::InternalToEBoxRuleTable(
-                                                           'gconfmodule' => $self,
-                                                           'directory' => 'InternalToEBoxRuleTable',
-                                                          );
-
-    $self->{'ExternalToEBoxRuleModel'} =
-        new EBox::Firewall::Model::ExternalToEBoxRuleTable(
-                                                           'gconfmodule' => $self,
-                                                           'directory' => 'ExternalToEBoxRuleTable',
-                                                          );
-
-    $self->{'EBoxOutputRuleModel'} =
-        new EBox::Firewall::Model::EBoxOutputRuleTable(
-                                                       'gconfmodule' => $self,
-                                                       'directory' => 'EBoxOutputRuleTable',
-                                                      );
-    $self->{'ExternalToInternalRuleTable'} =
-        new EBox::Firewall::Model::ExternalToInternalRuleTable(
-                                                               'gconfmodule' => $self,
-                                                               'directory' => 'ExternalToInternalRuleTable',
-                                                              );
-    $self->{'EBoxServicesRuleTable'} =
-        new EBox::Firewall::Model::EBoxServicesRuleTable(
-                                                       'gconfmodule' => $self,
-                                                       'directory' => 'EBoxServicesRuleTable',
-                                                      );
-    $self->{'RedirectsTable'} =
-        new EBox::Firewall::Model::RedirectsTable(
-                                                     'gconfmodule' => $self,
-                                                     'directory' => 'RedirectsTable',
-                                                    );
-
-
-    $self->{'PacketTrafficDetails'} = new EBox::Firewall::Model::Report::PacketTrafficDetails (
-                                                                                               'gconfmodule' => $self,
-                                                                                               'directory' => 'PacketTrafficDetails',
-                                                                                              );
-
-    $self->{'PacketTrafficGraph'} = new EBox::Firewall::Model::Report::PacketTrafficGraph (
-                                                                                           'gconfmodule' => $self,
-                                                                                           'directory' => 'PacketTrafficGraph',
-                                                                                          );
-
-    $self->{'PacketTrafficReportOptions'} = new EBox::Firewall::Model::Report::PacketTrafficReportOptions (
-                                                                                                           'gconfmodule' => $self,
-                                                                                                           'directory' => 'PacketTrafficReportOptions',
-                                                                                                          );
+    $self->{'ToInternetRuleModel'} = $self->model('ToInternetRuleTable');
+    $self->{'InternalToEBoxRuleModel'} = $self->model('InternalToEBoxRuleTable');
+    $self->{'ExternalToEBoxRuleModel'} = $self->model('ExternalToEBoxRuleTable');
+    $self->{'EBoxOutputRuleModel'} = $self->model('EBoxOutputRuleTable');
+    $self->{'ExternalToInternalRuleTable'} = $self->model('ExternalToInternalRuleTable');
+    $self->{'EBoxServicesRuleTable'} = $self->model('EBoxServicesRuleTable');
+    $self->{'RedirectsTable'} = $self->model('RedirectsTable');
+    $self->{'PacketTrafficDetails'} = $self->model('PacketTrafficDetails');
+    $self->{'PacketTrafficGraph'} = $self->model('PacketTrafficGraph');
+    $self->{'PacketTrafficReportOptions'} = $self->model('PacketTrafficReportOptions');
 
     bless($self, $class);
     return $self;
@@ -144,26 +101,25 @@ sub actions
         ];
 }
 
-# Method: models
+# Method: modelClasses
 #
-#      Overrides <EBox::Model::ModelProvider::models>
+#      Overrides <EBox::Model::ModelProvider::modelClasses>
 #
-sub models
+sub modelClasses
 {
     my ($self) = @_;
 
     return [
-            $self->{'ToInternetRuleModel'},
-            $self->{'InternalToEBoxRuleModel'},
-            $self->{'ExternalToEBoxRuleModel'},
-            $self->{'EBoxOutputRuleModel'},
-            $self->{'ExternalToInternalRuleTable'},
-            $self->{'EBoxServicesRuleTable'},
-            $self->{'RedirectsTable'},
-
-            $self->{'PacketTrafficDetails'},
-            $self->{'PacketTrafficGraph'},
-            $self->{'PacketTrafficReportOptions'},
+            'EBox::Firewall::Model::ToInternetRuleTable',
+            'EBox::Firewall::Model::InternalToEBoxRuleTable',
+            'EBox::Firewall::Model::ExternalToEBoxRuleTable',
+            'EBox::Firewall::Model::EBoxOutputRuleTable',
+            'EBox::Firewall::Model::ExternalToInternalRuleTable',
+            'EBox::Firewall::Model::EBoxServicesRuleTable',
+            'EBox::Firewall::Model::RedirectsTable',
+            'EBox::Firewall::Model::Report::PacketTrafficDetails',
+            'EBox::Firewall::Model::Report::PacketTrafficGraph',
+            'EBox::Firewall::Model::Report::PacketTrafficReportOptions'
            ];
 }
 
