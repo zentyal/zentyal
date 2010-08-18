@@ -129,7 +129,7 @@ d-i grub-installer/only_debian boolean true
 ##
 
 # tasksel answers (don't install standard task)
-tasksel tasksel/skip-tasks  string standard
+#tasksel tasksel/skip-tasks  string standard
 tasksel tasksel/first multiselect
 
 # postfix answers

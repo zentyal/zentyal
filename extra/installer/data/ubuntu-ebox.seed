@@ -56,7 +56,7 @@ d-i user-setup/encrypt-home boolean false
 ##
 
 # tasksel answers (don't install standard task)
-tasksel tasksel/skip-tasks  string standard
+#tasksel tasksel/skip-tasks  string standard
 tasksel tasksel/first multiselect
 
 # postfix answers
