@@ -10,6 +10,12 @@ case "$1" in
         # Migrate data if needed
         /usr/share/ebox/ebox-migrate /usr/share/ebox-<% $module %>/migration/
 
+        # restart module
+        invoke-rc.d ebox <% $module %> restart
+
+        # uncomment if the module needs to restart logs
+        # invoke-rc.d ebox logs restart || true
+
         dpkg-trigger --no-await ebox
 
         # uncomment if the module provides usercorner pages
