@@ -58,6 +58,8 @@ AC_CONFIG_FILES([
 conf/Makefile
 src/Makefile
 src/EBox/Makefile
+src/EBox/Printers/Makefile
+src/EBox/Printers/t/Makefile
 src/EBox/CGI/Makefile
 src/templates/Makefile
 stubs/Makefile

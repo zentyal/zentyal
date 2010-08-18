@@ -71,13 +71,11 @@ sub generateReport
     $full_report->{'range'} = $options->{'range'};
 
     my @mods = @{EBox::Global->modInstances()};
-
-    # Check for support about reports in this version
-    unless ( $mods[0]->can('report') ) {
-        return $class->_soapResult('');
-    }
-
     for my $mod (@mods) {
+        if (not $mod->can('report')) {
+            next;
+        }
+
         my $name = $mod->name();
         my $report = $mod->report($options->{'range'}->{'start'},
             $options->{'range'}->{'end'}, $options->{$name});
@@ -89,6 +87,12 @@ sub generateReport
         }
         $full_report->{$name} = $report;
     }
+
+    if (keys %{$full_report} == 0) {
+        # no report support in any of the installed modules
+        return $class->_soapResult('');
+    }
+
 
     $yaml = YAML::Tiny->new();
     $yaml->[0] = $full_report;

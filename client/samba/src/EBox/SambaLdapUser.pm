@@ -655,7 +655,37 @@ sub _sharingResourceExists
     return ($result->count == 1)
 }
 
+
 # TODO Find another name more self-explanatory, this one is crap
+sub userShareDirectories
+{
+    my ($self) = @_;
+
+    my $ldap  = $self->{ldap};
+    my $users = EBox::Global->modInstance('users');
+
+    my $dn =  $users->usersDn;
+    my %attrs = (
+        base   => $dn,
+        filter => '(&(objectclass=posixAccount) (objectclass=sambaSamAccount))',
+        attrs  => [ 'uid', 'homedirectory'],
+        scope  => 'one'
+            );
+    my $result = $ldap->search(\%attrs);
+
+    my @share;
+    foreach my $entry ($result->entries) {
+        my $user = $entry->get_value('uid');
+        my $home = $entry->get_value('homeDirectory');
+        push (@share, { path      => $home,
+                        username => $user,
+                        sharename => $user
+                  });
+    }
+    return \@share;
+}
+
+# TODO Find another name more self-explanatory, this one is  crap
 sub groupShareDirectories
 {
     my ($self) = @_;

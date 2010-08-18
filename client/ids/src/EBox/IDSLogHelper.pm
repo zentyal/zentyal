@@ -105,7 +105,7 @@ sub processLine # (file, line, logger)
     $dataToInsert{protocol} = $protocol;
     $dataToInsert{event} = 'alert';
 
-	$dbengine->insert('ids', \%dataToInsert);
+	$dbengine->insert('ids_event', \%dataToInsert);
 }
 
 1;

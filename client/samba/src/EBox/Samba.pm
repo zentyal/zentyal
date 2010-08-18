@@ -43,6 +43,7 @@ use EBox::Exceptions::External;
 use EBox::Gettext;
 use EBox::Config;
 use EBox::Model::ModelManager;
+use EBox::DBEngineFactory;
 
 
 use File::Slurp qw(read_file write_file);
@@ -205,7 +206,13 @@ sub compositeClasses
 
 # Method: shares
 #
-#   It returns the custom shares added by the user.
+#   It returns the custom shares 8
+#
+# Parameters: 
+#
+#     all - return all shares regardless of their permission
+#           level. Otherwise shares without permssions or guset access are
+#           ignored. Default: false
 #
 # Returns:
 #
@@ -222,7 +229,7 @@ sub compositeClasses
 #   validUsers - readOnly + readWrite + administrators
 sub shares
 {
-    my ($self) = @_;
+    my ($self, $all) = @_;
     my $shares = $self->model('SambaShares');
     my @shares;
 
@@ -265,8 +272,10 @@ sub shares
             }
         }
 
-        next unless (@readOnly or @readWrite or @administrators
-                     or $shareConf->{'guest'});
+        if (not $all) {
+            next unless (@readOnly or @readWrite or @administrators
+                         or $shareConf->{'guest'});
+        }
 
         $shareConf->{'readOnly'} = join (', ', @readOnly);
         $shareConf->{'readWrite'} = join (', ', @readWrite);
@@ -671,7 +680,7 @@ sub widgets
 
 # Method: _daemons
 #
-#	Override EBox::Module::Service::_daemons
+#       Override EBox::Module::Service::_daemons
 #
 sub _daemons
 {
@@ -1739,9 +1748,19 @@ sub isAntivirusPresent
              and (-f '/usr/lib/samba/vfs/vscan-clamav.so'));
 }
 
+
+
+
+
+
+
 sub report
 {
     my ($self, $beg, $end, $options) = @_;
+    my $maxTopActivityUsers = $options->{'max_top_activity_users'};
+    my $maxTopActivityGroups =  $options->{'max_top_activity_groups'};
+    my $maxTopSizeShares =  $options->{'max_top_size_shares'};
+    my $maxTopVirusShares =  $options->{'max_top_virus_shares'};
 
     my $report = {};
 
@@ -1754,11 +1773,111 @@ sub report
         'select' => 'username, SUM(operations) AS operations',
         'from' => 'samba_access_report',
         'group' => 'username',
-        'limit' => $options->{'max_top_activity_users'},
+        'limit' => $maxTopActivityUsers,
         'order' => 'operations DESC'
     });
 
+
+    $report->{top_activity_groups} = _topActivityGroups($self, $beg, $end, $maxTopActivityGroups);
+
+    $report->{'top_size_shares'} = $self->runQuery($beg, $end, {
+        'select' => 'share, type, AVG(size) AS size',
+        'from' => 'samba_disk_usage_report',
+        'group' => 'share, type',
+        'limit' => $maxTopSizeShares,
+        'order' => 'size DESC',
+    });
+
+    $report->{'top_size_user_shares'} = $self->runQuery($beg, $end, {
+        'select' => 'share, AVG(size) AS size',
+        'from' => 'samba_disk_usage_report',
+        'group' => 'share',
+        'limit' => $maxTopSizeShares,
+        'order' => 'size DESC',
+        'where' => q{type = 'user'}
+    });
+
+    $report->{'top_size_group_shares'} = $self->runQuery($beg, $end, {
+        'select' => 'share, AVG(size) AS size',
+        'from' => 'samba_disk_usage_report',
+        'group' => 'share, type',
+        'limit' => $maxTopSizeShares,
+        'order' => 'size DESC',
+        'where' => q{type = 'group'}
+    });
+
+    $report->{'top_size_custom_shares'} = $self->runQuery($beg, $end, {
+        'select' => 'share, AVG(size) AS size',
+        'from' => 'samba_disk_usage_report',
+        'group' => 'share, type',
+        'limit' => $maxTopSizeShares,
+        'order' => 'size DESC',
+        'where' => q{type = 'custom'}
+    });
+
+    $report->{'top_virus_shares'} = $self->runQuery($beg, $end, {
+        'select' => 'share, SUM(virus) as virus',
+        'from' => 'samba_virus_share_report',
+        'group' => 'share',
+        'limit' => $maxTopVirusShares,
+        'order' => 'virus DESC',
+    });
+
+
     return $report;
+}
+
+
+sub _topActivityGroups
+{
+    my ($self, $beg, $end, $maxTopActivityGroups) = @_;
+    my $usersMod = EBox::Global->modInstance('users');
+
+    my $sqlResult = $self->runQuery($beg, $end, {
+        'select' => 'username, SUM(operations) AS operations',
+        'from' => 'samba_access_report',
+        'group' => 'username',
+    });
+    my %operationsByUser;
+    foreach my $i (0 .. $#{ $sqlResult->{username} } ) {
+        $operationsByUser{ $sqlResult->{username}->[$i] } =  $sqlResult->{operations}->[$i];
+    }
+
+    delete $sqlResult->{username};
+    delete $sqlResult->{operations};
+
+
+    my $min = -1;
+    my @groupsAndOperations;
+    foreach my $group_r ($usersMod->groups()) {
+        my $groupname = $group_r->{account};
+        my $operations = 0;
+
+        my @users = @{ $usersMod->usersInGroup($groupname) };
+        foreach my $user (@users) {
+            $operations += $operationsByUser{$user};
+        }
+
+
+        if (@groupsAndOperations <   $maxTopActivityGroups ) {
+            push @groupsAndOperations, [$groupname => $operations];
+        } elsif ($operations > $min) {
+            pop @groupsAndOperations;
+            push @groupsAndOperations, [$groupname => $operations];            
+        } else {
+            next;
+        }
+
+        @groupsAndOperations = sort { $b->[1] <=> $a->[1]  } @groupsAndOperations;
+        $min = $groupsAndOperations[-1]->[1];
+    }
+
+    my @topGroups     = map { $_->[0]  } @groupsAndOperations;
+    my @topOperations = map { $_->[1] } @groupsAndOperations;
+    return {
+            'groupname' => \@topGroups,
+            'operations' => \@topOperations,
+           };
 }
 
 sub consolidateReportQueries
@@ -1780,7 +1899,199 @@ sub consolidateReportQueries
                 'group' => 'client'
             }
         },
+        {
+            'target_table' => 'samba_disk_usage_report',
+            'query' => {
+                'select' => 'share, type, CAST (AVG(size) AS int) AS size',
+                'from' => 'samba_disk_usage',
+                'group' => 'share, type'
+                     
+            },
+        },
+        {
+            'target_table' => 'samba_virus_share_report',
+            'query' => {
+                'select' => 'filename, count(*) as virus',
+                'from' => 'samba_quarantine',
+                'where' => q{event='quarantine'},
+                'group' => 'filename'
+            },
+            'rowConversor' => \&_virusShareReportRowConversor,
+            'targetGroupFields' => ['share'],
+        },
     ];
 }
+
+
+
+
+
+my @sharesSortedByPathLen;
+
+sub _updatePathsByLen
+{
+    my ($self) = @_;
+
+    my $ldapInfo = EBox::SambaLdapUser->new();   
+    @sharesSortedByPathLen = map {
+         { path => $_->{path}, 
+           share => $_->{sharename} }
+    } ( @{ $ldapInfo->userShareDirectories },
+        @{ $ldapInfo->groupShareDirectories }
+      );
+
+    foreach my $sh_r (@{ $self->shares(1) }) {
+        push @sharesSortedByPathLen, {path => $sh_r->{path}, 
+                                      share =>  $sh_r->{share} };
+    }
+    
+    # add regexes
+    foreach my $share (@sharesSortedByPathLen) {
+        my $path = $share->{path};
+        $share->{pathRegex} = qr{^$path/};
+    }
+
+    @sharesSortedByPathLen = sort {
+        length($b->{path}) <=>  length($a->{path})
+    } @sharesSortedByPathLen;
+}
+
+sub _shareByFilename
+{
+    my ($filename) = @_;
+
+    if (not @sharesSortedByPathLen) {
+        my $samba =EBox::Global->modInstance('samba');
+        $samba->_updatePathsByLen();
+    }
+
+
+    foreach my $shareAndPath (@sharesSortedByPathLen) {
+        if ($filename =~ m/$shareAndPath->{pathRegex}/) {
+            return $shareAndPath->{share};
+        }
+    }
+
+
+    return undef;
+}
+
+
+sub _virusShareReportRowConversor
+{
+    my ($row) = @_;
+    my $filename = delete $row->{filename};
+    my $share = _shareByFilename($filename);
+    EBox::debug("COBV $filename -> $share");
+    if ($share) {
+        $row->{share} = $share;
+    } else {
+        return undef;
+    }
+
+    
+    return $row;
+}
+
+
+sub logReportInfo
+{
+    my ($self) = @_;
+
+    if ($self->_diskUsageAlreadyCheckedToday) {
+        return [];
+    }
+
+    my @reportData;
+
+    my %shareByPath;
+
+    my @shares = @{ $self->_sharesAndSizes() };
+
+
+    foreach my $share (@shares) {
+        # add info about disk usage by share
+        my $entry = {
+                     table => 'samba_disk_usage',
+                     values => {
+                                share => $share->{share},
+                                size  => $share->{size},
+                                type  => $share->{type},
+                               }
+                    };
+        push @reportData, $entry;
+    }  
+
+    return \@reportData;
+}
+
+
+sub _diskUsageAlreadyCheckedToday
+{
+    my ($self) = @_;
+
+    my $db = EBox::DBEngineFactory::DBEngine();
+    my $query = q{SELECT share FROM samba_disk_usage WHERE (timestamp >= (current_date + interval '0 day')) AND (timestamp < (current_date + interval '1 day'))};
+    my $results = $db->query($query);    
+    return @{ $results } > 0;
+}
+
+sub _sharesAndSizes
+{
+    my ($self) = @_;
+
+    my $ldapInfo = EBox::SambaLdapUser->new();    
+    my @shares;
+    
+    foreach my $sh_r ( @{  $ldapInfo->userShareDirectories }) {
+        my $share = {
+                     share => $sh_r->{sharename},
+                     path  => $sh_r->{path},
+                     type  => 'user',
+                    };
+        push @shares, $share;
+    }
+
+    foreach my $sh_r ( @{  $ldapInfo->groupShareDirectories }) {
+        my $share = {
+                     share => $sh_r->{sharename},
+                     path  => $sh_r->{path},
+                     type  => 'group',
+                    };
+        push @shares, $share;
+    }
+
+
+
+    # add no-account shares to share list
+    foreach my $sh_r (@{ $self->shares(1)  }) {
+        my $share = {
+                     share => $sh_r->{share},
+                     path  => $sh_r->{path},
+                     type  => 'custom',
+                    };
+        push @shares, $share;
+    }
+
+
+    foreach my $share (@shares) {
+        my $path = $share->{path};
+        if (EBox::Sudo::fileTest('-d', $path)) {
+            my $output = EBox::Sudo::root("du -ms '$path'");
+
+            my ($size) =  $output->[0] =~ m{^(\d+)};
+            if (not defined $size) {
+                EBox::error("Problem getting $path size: @{$output}");
+                $size = 0;
+            }
+
+            $share->{size} = $size;
+        }
+    }
+
+
+    return \@shares;
+}
+
 
 1;

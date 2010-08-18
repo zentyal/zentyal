@@ -31,10 +31,11 @@ use EBox::Exceptions::InvalidData;
 use EBox::Exceptions::DataExists;
 use EBox::Exceptions::External;
 use EBox::Exceptions::MissingArgument;
+use EBox::DBEngineFactory;
 use EBox::Validate qw( :all );
 use EBox::Sudo qw( :all );
 use EBox::PrinterFirewall;
-use EBox::PrinterLogHelper;
+use EBox::Printers::LogHelper;
 use Foomatic::DB;
 use HTML::Mason::Interp;
 use Net::CUPS::Destination;
@@ -1281,35 +1282,173 @@ sub _removeCacheDrvOptions # (id)
 
 # Impelment LogHelper interface
 
-sub tableInfo {
-	my $self = shift;
-	my $titles = { 'job' => __('Job ID'),
-		'printer' => __('Printer'),
-		'owner' => __('Owner'),
-		'timestamp' => __('Queued at'),
-		'event' => __('Event')
-	};
-	my @order = ('timestamp', 'job', 'printer', 'owner', 'event');
-	my $events = { 'queued' => __('Queued'), 'canceled' => __('Canceled') };
+sub tableInfo 
+{
+    my $self = shift;
+    my $titles = { 'job' => __('Job ID'),
+                   'printer' => __('Printer'),
+                   'username' => __('User'),
+                   'timestamp' => __('Date'),
+                   'event' => __('Event')
+                 };
+    my @order = ('timestamp', 'job', 'printer', 'username', 'event');
+    my $events = { 
+                      'queued' => __('Queued'), 
+                      'completed' => __('Completed'),
+                      'canceled' => __('Canceled'),
+                     };
 
-	return [{
-		'name' => __('Printers'),
-		'index' => 'printers',
-		'titles' => $titles,
-		'order' => \@order,
-		'tablename' => 'jobs',
-		'timecol' => 'timestamp',
-                'filter' => ['printer', 'owner'],
-                'events' => $events,
-                'eventcol' => 'event'
+    return [{
+             'name' => __('Printers'),
+             'index' => 'printers_jobs',
+             'titles' => $titles,
+             'order' => \@order,
+             'tablename' => 'printers_jobs',
+             'timecol' => 'timestamp',
+             'filter' => ['printer', 'username'],
+             'events' => $events,
+             'eventcol' => 'event'
 
-	}];
+            }];
 }
+
+sub consolidateReportQueries
+{
+    return [
+            {
+             'target_table' => 'printers_jobs_report',
+             'query' => {
+                         'select' => 'printer,event,count(*) as nJobs',
+                         'from' => 'printers_jobs',
+                         'group' => 'printer,event',
+                        },
+            },
+
+             {
+             'target_table' => 'printers_jobs_by_user_report',
+             'query' => {
+                         'select' => 'username,event,count(*) as nJobs',
+                         'from' => 'printers_jobs',
+                         'group' => 'username,event',
+                        },
+            },
+
+
+
+            {
+             target_table => 'printers_usage_report',
+             'query' => {
+                         'select' => 'printers_jobs.printer, SUM(pages) AS pages, COUNT(DISTINCT printers_jobs.username) AS users',
+                          'from' => 'printers_pages,printers_jobs',
+                          'group' => 'printers_jobs.printer',
+                          'where' => q{(printers_jobs.job = printers_pages.job) and(event='queued')}
+                        }
+            }
+
+
+#             {
+#              target_table => 'printers_usage_per_user_report',
+#              'query' => {
+#                          'select' => 'username, SUM(pages) AS used_pages, COUNT(DISTINCT printers_jobs.printer) AS used_printers',
+#                           'from' => 'printers_pages,printers_jobs',
+#                           'group' => 'username',
+#                           'where' => q{(printers_jobs.job = printers_pages.job) and(event='queued')}
+#                         }
+#             }
+
+           ];
+}
+
+# Method: report
+#
+# Overrides:
+#   <EBox::Module::Base::report>
+sub report
+{
+    my ($self, $beg, $end, $options) = @_;
+
+    my $report = {};
+
+    my $db = EBox::DBEngineFactory::DBEngine();
+
+
+    my @events = qw(queued canceled completed);
+    
+
+
+    my %eventsByPrinter;
+    foreach my $event  (@events) {
+        my $results = $self->runMonthlyQuery($beg, $end, {
+           'select' => q{printer, SUM(nJobs)},
+           'from' => 'printers_jobs_report',
+           'group' => 'printer', 
+           'where' => qq{event='$event'},
+                                                         },
+           { 'key' => 'printer' }
+                                            );    
+
+        while (my ($printer, $res) = each %{ $results }) {
+            if (not exists $eventsByPrinter{$printer}) {
+                $eventsByPrinter{$printer} = {};
+            }
+            $eventsByPrinter{$printer}->{$event} = $res->{sum};
+        }
+    }
+
+
+    $report->{eventsByPrinter} = \%eventsByPrinter;
+
+    my %eventsByUsername;
+    foreach my $event  (@events) {
+        my $results = $self->runMonthlyQuery($beg, $end, {
+           'select' => q{username, SUM(nJobs)},
+           'from' => 'printers_jobs_by_user_report',
+           'group' => 'username', 
+           'where' => qq{event='$event'},
+                                                         },
+           { 'key' => 'username' }
+                                            );  
+        while (my ($username, $res) = each %{ $results }) {
+            if (not exists $eventsByUsername{$username}) {
+                $eventsByUsername{$username} = {};
+            }
+            $eventsByUsername{$username}->{$event} = $res->{sum};
+        }
+
+    }
+
+    $report->{eventsByUser} = \%eventsByUsername;
+
+    my $printerUsage = $self->runMonthlyQuery($beg, $end, {
+           'select' => q{printer, pages, users},
+           'from' => 'printers_usage_report',
+#           'group' => 'printer', 
+                                                         },
+           { 'key' => 'printer' }
+                                                    );
+    # add job fields to usage report
+    foreach my $printer (keys %{ $printerUsage} ) {
+        if (not exists $eventsByPrinter{$printer}) {
+            next;
+        }
+
+        my @jobs = @{ $eventsByPrinter{$printer}->{queued} };
+        $printerUsage->{$printer}->{jobs} = \@jobs;
+    }
+
+
+
+    $report->{printerUsage} = $printerUsage;
+
+
+    return $report;
+}
+
 sub logHelper
 {
 	my $self = shift;
 
-	return (new EBox::PrinterLogHelper);
+	return (new EBox::Printers::LogHelper());
 }
 
 # Helper functions

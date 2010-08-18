@@ -312,7 +312,7 @@ sub tableInfo
             'index' => 'ids',
             'titles' => $titles,
             'order' => \@order,
-            'tablename' => 'ids',
+            'tablename' => 'ids_event',
             'timecol' => 'timestamp',
             'events' => { 'alert' => __('Alert') },
             'eventcol' => 'event',
@@ -347,16 +347,25 @@ sub report
     my $report = {};
 
     $report->{'alerts'} = $self->runMonthlyQuery($beg, $end, {
-        'select' => 'COALESCE(SUM(alerts), 0) AS alerts',
+        'select' => 'SUM(priority1) AS priority1, ' .
+                    'SUM(priority2) AS priority2, ' .
+                    'SUM(priority3) AS priority3, ' .
+                    'SUM(priority4) AS priority4, ' .
+                    'SUM(priority5) AS priority5',
         'from' => 'ids_report',
     }, { 'name' => 'alerts'});
 
     $report->{'top_alert_sources'} = $self->runQuery($beg, $end, {
-        'select' => 'source, SUM(alerts) AS alerts', 
+        'select' => 'source, '.
+                    'SUM(priority1) AS priority1, ' .
+                    'SUM(priority2) AS priority2, ' .
+                    'SUM(priority3) AS priority3, ' .
+                    'SUM(priority4) AS priority4, ' .
+                    'SUM(priority5) AS priority5', 
         'from' => 'ids_report',
         'group' => 'source',
         'limit' => $options->{'max_top_alert_sources'},
-        'order' => 'alerts DESC'
+        'order' => 'priority1,priority2,priority3,priority4,priority5 DESC'
     });
     return $report;
 }
@@ -367,8 +376,13 @@ sub consolidateReportQueries
         {
             'target_table' => 'ids_report',
             'query' => {
-                'select' => "split_part(source, ':', 1) AS source, COUNT(event) AS alerts",
-                'from' => 'ids',
+                'select' => "split_part(source, ':', 1) AS source," . 
+     ' COUNT(CASE WHEN priority=1 THEN 1 ELSE NULL END  ) AS priority1, ' .
+     ' COUNT(CASE WHEN priority=2 THEN 1 ELSE NULL END  ) AS priority2, ' .
+     ' COUNT(CASE WHEN priority=3 THEN 1 ELSE NULL END  ) AS priority3, ' .
+     ' COUNT(CASE WHEN priority=4 THEN 1 ELSE NULL END  ) AS priority4, ' .
+     ' COUNT(CASE WHEN priority=5 THEN 1 ELSE NULL END  ) AS priority5 ',
+                'from' => 'ids_event',
                 'group' => "source"
             }
         }

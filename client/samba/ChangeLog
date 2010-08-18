@@ -1,6 +1,7 @@
 HEAD
 	+ Avoid antivirus scan on large files to fix read problems
 	+ Add a keyconf to Samba listen on external interfaces
+	+ Added more report subsections
 1.5.6
 	+ Move NSS from ebox-samba to ebox-usersandgroups
 	+ Home directories are under /home now

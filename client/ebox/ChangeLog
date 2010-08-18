@@ -6,6 +6,7 @@ HEAD
 	+ Fixed user corner access problems with redis server
 	+ writeFile* methods reorganized
 	+ Added cron as dependency as cron.hourly was never executed with anacron
+	+ Improvements in consolidation of data for reports
 1.5.10
 	+ Fixed gconf to redis conversion for boolean values
 1.5.9

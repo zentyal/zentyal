@@ -21,7 +21,7 @@ Parameters:
 
 # Log general information in error_log - change "info" to "debug" for
 # troubleshooting...
-LogLevel warning
+LogLevel debug
 
 # Administrator user group...
 SystemGroup lpadmin

@@ -334,6 +334,16 @@ sub query
 sub query_hash
 {
     my ($self, $query) = @_;
+    my $sql = $self->query_hash_to_sql($query);
+    my @results = @{$self->query($sql)};
+    return \@results;
+}
+
+sub query_hash_to_sql
+{
+    my ($self, $query, $semicolon) = @_;
+    defined $semicolon or
+        $semicolon  = 1;
 
     my $sql = "SELECT ";
     if (defined($query->{'select'})) {
@@ -354,12 +364,15 @@ sub query_hash
     if (defined($query->{'limit'})) {
         $sql .= "LIMIT " . $query->{'limit'} . " ";
     }
-    $sql .= ';';
+    if ($semicolon) {
+        $sql .= ';';
+    }
 
-    my @results = @{$self->query($sql)};
 
-    return \@results;
+    return $sql;
 }
+
+
 
 # Method: do
 #

@@ -1,12 +1,13 @@
 ## Process this file with automake to produce Makefile.in
-SUBDIRS = CGI Printers
 
-perldir = @PERLPATH@/EBox
+perldir = @PERLPATH@/EBox/Printers
 
-nobase_perl_DATA = Printers.pm PrinterFirewall.pm 
+nobase_perl_DATA = LogHelper.pm
 
 DISTCLEANFILES =
 
 EXTRA_DIST = $(nobase_perl_DATA)
 
 MAINTAINERCLEANFILES = Makefile.in
+
+SUBDIRS = t

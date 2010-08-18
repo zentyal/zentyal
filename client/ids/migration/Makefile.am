@@ -2,7 +2,7 @@
 
 Migrationsdir = @DATADIR@/ebox-ids/migration
 
-nobase_Migrations_SCRIPTS =
+nobase_Migrations_SCRIPTS = 0001_migrate_logs_db_fields.pl
 
 EXTRA_DIST = $(nobase_Migrations_SCRIPTS)
 

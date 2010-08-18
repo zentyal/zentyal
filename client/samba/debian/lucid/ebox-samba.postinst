@@ -26,6 +26,9 @@ case "$1" in
         /usr/share/ebox/ebox-sql-table add samba_virus /usr/share/ebox/sqllog/samba_virus.sql
         /usr/share/ebox/ebox-sql-table add samba_virus_report /usr/share/ebox/sqllog/samba_virus_report.sql
         /usr/share/ebox/ebox-sql-table add samba_quarantine /usr/share/ebox/sqllog/samba_quarantine.sql
+        /usr/share/ebox/ebox-sql-table add samba_disk_usage /usr/share/ebox/sqllog/samba_disk_usage.sql
+        /usr/share/ebox/ebox-sql-table add samba_disk_usage_report /usr/share/ebox/sqllog/samba_disk_usage_report.sql
+        /usr/share/ebox/ebox-sql-table add samba_virus_share_report /usr/share/ebox/sqllog/samba_virus_share_report.sql
 
         dpkg-trigger --no-await ebox
     ;;
