@@ -1,9 +1,9 @@
 ## Process this file with automake to produce Makefile.in
-SUBDIRS = CGI Printers
+SUBDIRS = Printers Model Composite
 
 perldir = @PERLPATH@/EBox
 
-nobase_perl_DATA = Printers.pm PrinterFirewall.pm 
+nobase_perl_DATA = Printers.pm PrinterFirewall.pm
 
 DISTCLEANFILES =
 

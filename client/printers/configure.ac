@@ -60,8 +60,8 @@ src/Makefile
 src/EBox/Makefile
 src/EBox/Printers/Makefile
 src/EBox/Printers/t/Makefile
-src/EBox/CGI/Makefile
-src/templates/Makefile
+src/EBox/Model/Makefile
+src/EBox/Composite/Makefile
 stubs/Makefile
 schemas/Makefile
 tools/Makefile

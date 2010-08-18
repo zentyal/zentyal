@@ -9,8 +9,7 @@ Parameters:
   ifaces   - array the internal interface name array
 </%doc>
 <%args>
-        $standaloneCups => 0
-        @ifaces => ()
+        @addresses => ()
 </%args>
 #
 #
@@ -26,13 +25,12 @@ LogLevel debug
 # Administrator user group...
 SystemGroup lpadmin
 
-% if ( $standaloneCups ) {
-Listen *:631
-% } else {
-# Only listen for connections from the local machine.
 Listen localhost:631
-% }
 Listen /var/run/cups/cups.sock
+
+% foreach my $address (@addresses) {
+SSLListen <% $address %>:631
+% }
 
 # Show shared printers on the local network.
 Browsing Off
@@ -46,63 +44,66 @@ DefaultAuthType Basic
 # Restrict access to the server...
 <Location />
   Order allow,deny
-  Allow localhost
-  Allow @LOCAL
+  Allow from all
 </Location>
 
 # Restrict access to the admin pages...
 <Location /admin>
+  Encryption Required
+  Require group lpadmin
   Order allow,deny
-  Allow localhost
+  Allow from all
 </Location>
 
 # Restrict access to configuration files...
 <Location /admin/conf>
-  AuthType Default
-  Require user @SYSTEM
+  AuthType Basic
+  Require group lpadmin
   Order allow,deny
-  Allow localhost
+  Allow from all
 </Location>
 
-% if ( $standaloneCups ) {
-%     my @locations = qw(printers jobs);
-%     foreach my $location (@locations) {
-<Location /<% $location %>>
+<Location /printers>
   Order allow,deny
-%         foreach my $iface (@ifaces) {
-  Allow from @IF(<% $iface %>)
-%         }
+  Allow from all
 </Location>
 
-%     }
-% }
+<Location /jobs>
+  Order allow,deny
+  Allow from all
+</Location>
 
 # Set the default printer/job policies...
 <Policy default>
   # Job-related operations must be done by the owner or an administrator...
   <Limit Send-Document Send-URI Hold-Job Release-Job Restart-Job Purge-Jobs Set-Job-Attributes Create-Job-Subscription Renew-Subscription Cancel-Subscription Get-Notifications Reprocess-Job Cancel-Current-Job Suspend-Current-Job Resume-Job CUPS-Move-Job>
-    Require user @OWNER @SYSTEM
+    Require user @OWNER
+    Require group lpadmin
     Order deny,allow
+    Satisfy any
   </Limit>
 
   # All administration operations require an administrator to authenticate...
   <Limit CUPS-Add-Modify-Printer CUPS-Delete-Printer CUPS-Add-Modify-Class CUPS-Delete-Class CUPS-Set-Default>
-    AuthType Default
-    Require user @SYSTEM
+    AuthType Basic
+    Require group lpadmin
     Order deny,allow
+    Satisfy any
   </Limit>
 
   # All printer operations require a printer operator to authenticate...
   <Limit Pause-Printer Resume-Printer Enable-Printer Disable-Printer Pause-Printer-After-Current-Job Hold-New-Jobs Release-Held-New-Jobs Deactivate-Printer Activate-Printer Restart-Printer Shutdown-Printer Startup-Printer Promote-Job Schedule-Job-After CUPS-Accept-Jobs CUPS-Reject-Jobs>
-    AuthType Default
-    Require user @SYSTEM
+    AuthType Basic
+    Require group lpadmin
     Order deny,allow
   </Limit>
 
   # Only the owner or an administrator can cancel or authenticate a job...
   <Limit Cancel-Job CUPS-Authenticate-Job>
-    Require user @OWNER @SYSTEM
+    Require user @OWNER
+    Require group lpadmin
     Order deny,allow
+    Satisfy any
   </Limit>
 
   <Limit All>
