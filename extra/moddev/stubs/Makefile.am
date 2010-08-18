@@ -33,7 +33,7 @@ stubsschemas_DATA = schemas/Makefile.am.mas  schemas/yaml.mas
 
 stubssrcdir = $(datadir)/emoddev/stubs/src
 
-stubssrc_DATA = src/Makefile.am.mas  src/MainClass.pm.mas 
+stubssrc_DATA = src/Makefile.am.mas  src/MainClass.pm.mas src/FirewallHelper.pm.mas
 
 stubsmodeldir = $(datadir)/emoddev/stubs/src/Model
 

@@ -34,8 +34,10 @@ sub _parseOptions
             mainClass => undef ,
             version => MODULE_VERSION,
             destdir => undef,
+            menuSeparator => undef,
+            firewallHelper => undef,
             model => 'form',
-            modNameSpace => undef
+            modNameSpace => undef,
             );
     my $help;
     my $info;
@@ -46,6 +48,8 @@ sub _parseOptions
             'version=s' => \$options{version},
             'destdir=s' => \$options{destdir},
             'model=s' => \$options{model},
+            'menu-separator=s' => \$options{menuSeparator},
+            'firewall-helper' => \$options{firewallHelper},
             'help'  => \$help,
             'info'  => \$info,
             );
@@ -158,6 +162,8 @@ sub _src_EBox
               printableName => $options->{printableModuleName},
               domain => 'ebox-' . $options->{moduleName},
               modelDomain => $options->{mainClass},
+              menuSeparator => $options->{menuSeparator},
+              firewallHelper => $options->{firewallHelper}
               ));
     write_file($dir . "/$mainClass", ${$output});
 }
@@ -166,22 +172,44 @@ sub _src_EBox_Module
 {
     my ($interp, $output, $options) = @_;
 
-    # XXX add firewal land loghelper
-
     my $modNameSpace = $options->{modNameSpace};
     my $dir = $options->{destdir} . '/src/EBox/' . $modNameSpace;
     mkdir ($dir) or die "Can't create $dir";
 
-    my $comp = $interp->make_component(
+    my $comp;
+    my @perlData;
+
+   if ($options->{firewallHelper}) {
+        # add the firewall helper class
+       my $file = 'FirewallHelper.pm';
+       push @perlData, $file;
+
+       $comp = $interp->make_component(
+            comp_file => STUBS_PATH .  '/src/FirewallHelper.pm.mas',
+            );
+       ${$output} = '';
+       $interp->exec($comp, (         
+                             modNameSpace => $modNameSpace
+                            ));
+       
+       write_file($dir . "/$file", ${$output});   
+    }
+
+
+
+    $comp = $interp->make_component(
             comp_file => STUBS_PATH .  '/src/Makefile.am.mas',
             );
     ${$output} = '';
     $interp->exec($comp, (         
         perlDir  => "/EBox/$modNameSpace",
+        perlData => \@perlData,
         subDirs  => ['Model', 'Composite', 'Types'],
        ));
 
     write_file($dir . "/Makefile.am", ${$output});    
+
+ 
 }
 
 

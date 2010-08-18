@@ -4,6 +4,8 @@
     $printableName
     $domain
     $modelDomain
+    $menuSeparator
+    $firewallHelper
 </%args>
 # Copyright (C) 
 #
@@ -30,6 +32,9 @@ use strict;
 use warnings;
 
 use base qw(EBox::Module::Service EBox::Model::ModelProvider
+% if ($firewallHelper) {
+            EBox::FirewallObserver           
+% }
             EBox::Model::CompositeProvider);
 
 
@@ -44,6 +49,9 @@ use EBox::Exceptions::DataExists;
 use EBox::Exceptions::DataMissing;
 use EBox::Exceptions::DataNotFound;
 
+% if ($firewallHelper) {
+use <% $class %>::FirewallHelper;
+% }
 # Method: _create
 #
 # Overrides:
@@ -126,8 +134,54 @@ sub menu
     my $item = new EBox::Menu::Item(
     'url' => '<% $modelDomain %>/View/Settings',
     'text' => __('<% $printableName %>'),
+%   if ($menuSeparator) {
+      'separator' => '<% $menuSeparator %>',
+%   }
     'order' => 3);
     $root->add($item);
 }
+
+% if ($firewallHelper) {
+# Method: firewallHelper
+#
+#       All modules using any of the functions in FirewallHelper.pm
+#       should override this method to return the implementation
+#       of that interface.
+#
+# Returns:
+#
+#       An object implementing EBox::FirewallHelper
+sub firewallHelper
+{
+    my ($self) = @_;
+    my $fw = new <% $class %>::FirewallHelper();
+    return $fw;
+}
+
+# Method: usesPort
+#
+#       This method is used by the firewall to find out if a given port
+#       is available or not. So if your module implements the
+#       EBox::FirewallHelper to allow some ports for the service it manages,
+#       you must implement this method to inform about this when requested.
+#       This means you should check if the requested port is used by your
+#       service.
+#
+# Parameters:
+#
+#       protocol - protocol (tcp|udp)
+#       port - port number
+#       iface - interface
+#
+# Returns:
+#
+#       boolean - if the given port is used
+sub usesPort # (protocol, port, iface)
+{
+        return undef;
+}
+
+% }
+
 
 1;

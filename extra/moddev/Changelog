@@ -1,5 +1,7 @@
 1.4
 	+ Directory src/EBox mirrors perl namespaces
+        + Changed default fields
+        + Added FirewallHelper and menuSeparator options
 1.2
 	+ Add support to create types
 1.1
