@@ -1,0 +1,84 @@
+# Spanish translations for Subscription package.
+# Copyright (C) 2010 eBox Technologies S.L.
+# This file is distributed under the same license as the EBox package.
+# Automatically generated, 2010.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: subscription 1.5\n"
+"Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
+"POT-Creation-Date: 2010-08-19 15:47+0200\n"
+"PO-Revision-Date: 2010-08-19 15:48+0200\n"
+"Last-Translator: Enrique J. Hernández <ejhernandez@ebox-platform.com>\n"
+"Language-Team: none\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: ../asterisk/src/EBox/Model/Provider.pm:195
+#, perl-brace-format
+msgid ""
+"{brand}: make low-cost VoIP calls to mobile phones and landlines directly "
+"with eBox. Once you have obtained a Professional or Enterprise Server "
+"Subscription , you can purchase the VoIP credit you need. All these services "
+"available for purchasing at the {ohref}eBox on-line store{chref}! "
+msgstr "{brand}: Haz llamadas VoIP de bajo coste a teléfonos móviles y fijos directamente con eBox. Una vez hayas obtenido una Suscripción Profesional o Empresarial, puedes comprar el crédito VoIP que necesites. Todos estos servicios están disponibles en nuestra {ohref}tienda virtual{chref}!"
+
+#: ../remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:558
+#, perl-brace-format
+msgid ""
+"eBox Control Center services integrate Quality Assured software updates, "
+"alerts and centralized monitoring and administration of your eBox servers. "
+"You gain full access to these services by obtaining a {openhrefp}Professional"
+"{closehref} or {openhrefe}Enterprise Server Subscription{closehref}. You can "
+"also have a look to these services by getting the {openhrefb}Basic Server "
+"Subscription{closehref}, that also allows you to store your configuration "
+"backup remotely, receive alerts regarding the connectivity of your eBox "
+"server, available updates or failed automatic backup."
+msgstr "Los servicios de eBox Control Center integran actualizaciones de software con garantía de calidad, alertas, así como permiten la monitorización y actualización de sus servidores eBox. Puede obtener acceso completo a estos servicios adquiriendo una {openhrefp}Suscripción Profesional{closehref} o {openhrefe}Suscripción Empresarial{closehref}. Asimismo, puede ver estos servicios en funcionamiento obteniendo la {openhrefb}Suscripción Básica{closehref} que también permite almacenar su backup de configuración en remoto, reciibir alertas sobre la conectividad de sus servidores eBox, actualizaciones disponibles o backup automático fallido. "
+
+#: ../ebox/src/templates/links-widget.mas:8
+msgid "FREE Basic Subscription"
+msgstr ""
+
+#: ../ebox/src/templates/links-widget.mas:22
+msgid "Subscriptions & Services"
+msgstr "Suscripciones & Servicios"
+
+#: ../ebox/src/templates/links-widget.mas:25
+msgid "Commercial Subscriptions"
+msgstr ""
+
+#: ../ebox/src/templates/links-widget.mas:27
+msgid "Commercial Support"
+msgstr ""
+
+#: ../ebox/src/templates/links-widget.mas:29
+msgid "Administer and monitor multiple eBox servers from a central point."
+msgstr ""
+
+#: ../ebox/src/templates/links-widget.mas:31
+msgid "Certified Training"
+msgstr ""
+
+#: ../ebox/src/templates/links-widget.mas:33
+msgid "Online Store"
+msgstr ""
+
+#: ../software/src/templates/updateNote.mas:10
+msgid ""
+"As you are enjoying a Commercial Server Subscription the updates are Quality "
+"Assured by the eBox Development Team."
+msgstr ""
+
+#: ../software/src/templates/updateNote.mas:13
+#, perl-brace-format
+msgid ""
+"Warning: The updates are community based. You can now gain access to the "
+"Quality Assured Updates by purchasing the {ohpro}Professional{ch}  or {ohent}"
+"Enterprise{ch} Server Subscription. QA Updates guarantee that all the "
+"upgrades, bugfixes and security updates are extensively tested by the eBox "
+"Development Team and you won't be introducing any regressions on your "
+"already working system."
+msgstr ""

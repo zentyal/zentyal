@@ -13,3 +13,5 @@ find . \( -path ./tools -prune -path ./doc -prune -o -name "*.tmpl" -o -name "*.
 echo ""
 echo ""
 cat tools/po-am.footer
+# Only for core package DON'T COPY to other modules
+echo "SUBDIRS = ebox-subscription"

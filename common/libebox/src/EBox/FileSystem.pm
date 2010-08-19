@@ -201,13 +201,18 @@ sub dirDiskUsage
 
 # Function: staticFileSystems
 #
-#   return static file systems information as seen in /etc/fstab
+#      Return static file systems information as seen in /etc/fstab
+#      file
 #
 # Returns:
-#      a hash reference with the file system as key and a hash with his
+#
+#      Hash ref - with the file system as key and a hash with its
 #      properties as value.
+#
 #      The properties are: mountPoint, type, options, dump and pass
-#      The properties have the same format that the fields in the fstab file
+#      The properties have the same format that the fields in the
+#      fstab file.
+#
 sub staticFileSystems
 {
   return _fileSystems(FSTAB_PATH);
@@ -232,35 +237,35 @@ sub fileSystems
 
 sub _fileSystems
 {
-  my ($tabFile) = @_;
+    my ($tabFile) = @_;
 
-  my %fileSystems;
+    my %fileSystems;
 
-  my $FH;
-  open $FH, $tabFile or
-    throw EBox::Exceptions::Internal($tabFile . ' cannot be opened');
-  while (my $line = <$FH>) {
-    chomp $line;
+    my $FH;
+    open $FH, $tabFile or
+      throw EBox::Exceptions::Internal($tabFile . ' cannot be opened');
+    while (my $line = <$FH>) {
+        chomp $line;
 
-    my ($lineData) = split '#', $line, 2; # remove comments
+        my ($lineData) = split '#', $line, 2; # remove comments
 
-    next if not $lineData;
-    next if ($lineData =~ m/^\s*$/);      # discard empty lines
+        next if not $lineData;
+        next if ($lineData =~ m/^\s*$/); # discard empty lines
 
-    my ($fsys, $mpoint, $type, $options, $dump, $pass) = split '\s+', $lineData;
+        my ($fsys, $mpoint, $type, $options, $dump, $pass) = split '\s+', $lineData;
 
 
-    $fileSystems{$fsys}->{mountPoint} = $mpoint;
-    $fileSystems{$fsys}->{type} = $type;
-    $fileSystems{$fsys}->{options} = $options;
-    $fileSystems{$fsys}->{dump} = $dump;
-    $fileSystems{$fsys}->{pass} = $pass;
-  }
+        $fileSystems{$fsys}->{mountPoint} = $mpoint;
+        $fileSystems{$fsys}->{type} = $type;
+        $fileSystems{$fsys}->{options} = $options;
+        $fileSystems{$fsys}->{dump} = $dump;
+        $fileSystems{$fsys}->{pass} = $pass;
+    }
 
-  close $FH or
-    throw EBox::Exceptions::Internal('Cannot properly close ' . FSTAB_PATH);
+    close $FH or
+      throw EBox::Exceptions::Internal('Cannot properly close ' . FSTAB_PATH);
 
-  return \%fileSystems;
+    return \%fileSystems;
 }
 
 #  Function: dirFileSystem

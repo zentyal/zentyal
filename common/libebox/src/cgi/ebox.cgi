@@ -74,7 +74,11 @@ try {
     print '<div><div id="limewrap"><div id="content"><div><span class="title">';
     print __('Sorry, an unexpected error has ocurred');
     print '</span></div>' . "\n\t" . '<div class="error">';
-    print $ex->text();
+    if ( $ex->can('text') ) {
+        print $ex->text();
+    } elsif ( $ex->can('as_text') ) {
+        print $ex->as_text();
+    }
     print "\t" . '</div>' . "\n\t" . '<div><br>';
     print __('To show technical details click ');
     print '<a href="#" onclick="document.getElementById(\'details\').show()">';

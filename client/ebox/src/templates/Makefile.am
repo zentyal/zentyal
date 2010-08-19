@@ -8,7 +8,8 @@ template_DATA = backup.mas bug.mas confirm-backup.mas backupTabs.mas \
  halt.mas password.mas port.mas progress.mas \
  header.mas headTitle.mas footer.mas headerWithRefresh.mas\
  dataInUse.mas configurationFiles.mas configureView.mas moduleStatus.mas \
- moduleStatusTable.mas notConfigured.mas wizard.mas
+ moduleStatusTable.mas notConfigured.mas wizard.mas \
+ links-widget.mas
 
 EXTRA_DIST = $(template_DATA)
 

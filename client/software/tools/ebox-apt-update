@@ -21,10 +21,10 @@ my @packages            = @ARGV;
 
 my $dpkgOpts = '-o DPkg::Options::="--force-confold"';
 my ($retValue, $errorMsg) = (0, '');
-my $insPkgs = "";	
+my $insPkgs = "";
 
 my $fifo = '/var/lib/ebox/ebox-apt-update.pipe';
- 
+
 foreach my $pkg (@packages) {
 	$insPkgs .= " $pkg";
 }
@@ -58,8 +58,8 @@ while ($text = <$read>){
  	if ($text =~ /(^E:\s.*)/) {
 		$out = " $1\n";
         die("$1");
-	}   
-	if ($out) {		
+	}
+	if ($out) {
 		open ($write, '>', $fifo);
 		print $write $out;
 		close $write;

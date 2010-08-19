@@ -5,6 +5,7 @@ if [ -f Makefile ] ; then
 fi
 
 ./tools/po-am.generator > po/Makefile.am || exit 1
+./tools/po-subs-am.generator > po/ebox-subscription/Makefile.am || exit 1
 mkdir -p config
 aclocal -I m4 || exit 1
 autoconf || exit 1

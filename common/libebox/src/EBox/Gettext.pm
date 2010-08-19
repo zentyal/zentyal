@@ -25,7 +25,7 @@ BEGIN {
 	our ($VERSION, @ISA, @EXPORT, @EXPORT_OK, %EXPORT_TAGS);
 
 	@ISA = qw(Exporter);
-	@EXPORT = qw{ __ __n __x __d __dx settextdomain gettextdomain langs };
+	@EXPORT = qw{ __ __n __x __d __dx __s __sx settextdomain gettextdomain langs };
 	%EXPORT_TAGS = ( DEFAULT => \@EXPORT );
 	@EXPORT_OK = qw();
 	$VERSION = EBox::Config::version;
@@ -34,6 +34,8 @@ BEGIN {
 
 my $cur_domain = 'ebox';
 my $old_domain;
+
+use constant SUBS_DOMAIN => 'ebox-subscription';
 
 # Method: settextdomain
 #
@@ -109,6 +111,20 @@ sub __dx # (text,domain, %variables)
 	$string = gettext($string);
 	textdomain($cur_domain);
 	return __expand($string, %vars);
+}
+
+sub __s # (text)
+{
+    my ($text) = @_;
+    return __d($text, SUBS_DOMAIN);
+
+}
+
+sub __sx # (text, %variables)
+{
+    my ($text, %vars) = @_;
+
+    return __dx($text, SUBS_DOMAIN, %vars);
 }
 
 sub __expand # (translation, %arguments)

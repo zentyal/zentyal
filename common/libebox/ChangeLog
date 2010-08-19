@@ -1,3 +1,7 @@
+HEAD
+	+ Add new methods __s and __sx for official strings for
+	  subscriptions
+	+ Give support for HTML::Mason exceptions in error page
 1.5.8
 	+ Added Ukranian locale (uk_UA)
 	+ Added missing CIDR values between /16 and /8

@@ -1,3 +1,5 @@
+HEAD
+	+ Improve i18ned message for VoIP credit
 1.5.3
 	+ Bugfix: validatedTypedRow on Meetings model failed when making empty
 	  an existing field

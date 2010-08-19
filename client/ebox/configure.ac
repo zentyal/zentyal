@@ -192,4 +192,5 @@ Makefile
 ])
 
 AC_CONFIG_FILES([po/Makefile], [AM_POSTPROCESS_PO_MAKEFILE])
+AC_CONFIG_FILES([po/ebox-subscription/Makefile], [AM_POSTPROCESS_PO_MAKEFILE])
 AC_OUTPUT

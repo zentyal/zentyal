@@ -555,16 +555,20 @@ sub _filesStr
 # Return the commercial message
 sub _commercialMsg
 {
-    return 'eBox Control Center services integrate Quality Assured software updates, '
-           . 'alerts and centralized monitoring and administration of your eBox '
-           . 'servers. You gain full access to these services by obtaining a '
-           . '<a href="' . PROF_URL . '" target="_blank">Professional</a> '
-           . 'or <a href="' . ENTER_URL . '" target="_blank">Enterprise Server Subscription</a>. '
-           . 'You can also have a look to these services by getting the '
-           . '<a href="' . BASIC_URL . '" target="_blank">Basic Server Subscription</a>, '
-           . 'that also allows you to store your configuration backup remotely, receive alerts '
-           . 'regarding the connectivity of your eBox server, available updates or '
-           . 'failed automatic backup.';
+    return __sx('eBox Control Center services integrate Quality Assured software '
+                . 'updates, alerts and centralized monitoring and administration '
+                . 'of your eBox servers. You gain full access to these services '
+                . 'by obtaining a {openhrefp}Professional{closehref} or '
+                . '{openhrefe}Enterprise Server Subscription{closehref}. '
+                . 'You can also have a look to these services by getting the '
+                . '{openhrefb}Basic Server Subscription{closehref}, '
+                . 'that also allows you to store your configuration backup remotely, receive alerts '
+                . 'regarding the connectivity of your eBox server, available updates or '
+                . 'failed automatic backup.',
+                openhrefp  => '<a href="' . PROF_URL . '" target="_blank">',
+                openhrefe => '<a href="' . ENTER_URL . '" target="_blank">',
+                openhrefb => '<a href="' . BASIC_URL . '" target="_blank">',
+                closehref => '</a>');
 
 }
 

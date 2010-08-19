@@ -22,6 +22,7 @@ use warnings;
 
 use base qw(EBox::GConfModule EBox::Report::DiskUsageProvider);
 
+use HTML::Mason;
 use Sys::Hostname;
 use Sys::CpuLoad;
 use File::Slurp qw(read_file);
@@ -135,7 +136,15 @@ sub linksWidget
     my $section = new EBox::Dashboard::Section('links');
     $widget->add($section);
 
-    my $html = read_file(EBox::Config::share() . 'ebox/www/links-widget.html');
+    # Write the links widget using mason
+    my $html;
+    my $interp = new HTML::Mason::Interp(comp_root  => EBox::Config::templates(),
+                                         out_method => sub { $html .= $_[0] });
+    my $component = $interp->make_component(
+        comp_file => EBox::Config::templates() . 'links-widget.mas'
+       );
+    $interp->exec($component, ());
+
     $section->add(new EBox::Dashboard::HTML($html));
 }
 
