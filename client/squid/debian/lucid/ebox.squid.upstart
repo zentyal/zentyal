@@ -9,6 +9,10 @@ respawn
 pre-start script
     # Stop default squid daemon
     stop squid || true
+    if [ -f /var/run/squid.pid ]; then
+        kill `cat /var/run/squid.pid` || true
+        rm -f /var/run/squid.pid
+    fi
 
 	if [ -f /etc/default/squid ]; then
 		. /etc/default/squid

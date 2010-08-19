@@ -1,3 +1,6 @@
+HEAD
+	+ Running squid daemons are killed when starting ebox proxy if pidfile
+	exists
 1.5.10
 	+ Fixed dansguardian/squid crash when logrotate was daily executed
 1.5.9
