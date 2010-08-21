@@ -191,10 +191,11 @@ sub _setConf
 
                 # Write l7 filter upstart
                 @params = ();
+                my $realIface = $self->{network}->realIface($iface);
                 push (@params, iface => $iface);
                 push (@params, config => $confFile);
                 push (@params, mask => EBox::TrafficShaping::Filter::Fw->MARK_MASK);
-                push (@params, queue => $self->ifaceUniqueId($iface));
+                push (@params, queue => $self->ifaceUniqueId($realIface));
                 $self->writeConfFile(UPSTART_DIR . "ebox.l7filter-$iface.conf", 'trafficshaping/l7filter.upstart.mas', \@params);
             }
         }
