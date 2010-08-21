@@ -137,7 +137,10 @@ sub _load_from_file # (dir?, key?)
         $self->{redis}->import_dir_from_gconf($file);
     } else {
         # YAML file
-        $self->{redis}->import_dir_from_yaml($file);
+        # Import to /temp dir and convert paths to $key dest
+        $self->{redis}->import_dir_from_yaml($file, '/temp');
+        $self->{redis}->backup_dir('/temp/ebox/modules/' . $self->name, $key);
+        $self->{redis}->delete_dir('/temp');
     }
 
 

@@ -497,7 +497,8 @@ sub _redis_call
     my $response;
     my @response;
     my $wantarray = wantarray;
-    for my $i (1..5) {
+    my $tries = 5;
+    for my $i (1..$tries) {
         my $failure;
         try {
             if ($wantarray) {
@@ -515,10 +516,12 @@ sub _redis_call
 
         last unless ($failure);
 
-        if ($failure and $i < 5) {
-            warn 'Reconnecting to redis server...';
-        } elsif ($failure and $i == 1) {
-            die 'Cannot connect to redis server';
+        if ($failure) {
+            if ( $i < $tries) {
+                warn 'Reconnecting to redis server...';
+            } else {
+                die 'Cannot connect to redis server';
+            }
         }
     }
 
