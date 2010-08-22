@@ -233,6 +233,6 @@ use EBox::Gettext;
  read only = yes
  guest ok = no
  write list = @"Domain Admins"
- use client driver = yes
+ use client driver = no
  valid users = "@Domain Users"
 

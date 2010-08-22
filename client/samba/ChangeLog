@@ -1,3 +1,6 @@
+HEAD
+	+ On smb.conf.mas: use client driver = no to allow printer server
+	  to give clients the uploaded drivers.
 1.5.7
 	+ Avoid antivirus scan on large files to fix read problems
 	+ Add a keyconf to Samba listen on external interfaces
