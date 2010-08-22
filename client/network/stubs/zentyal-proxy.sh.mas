@@ -1,0 +1,8 @@
+<%args>
+    $proxyServer
+    $proxyPort
+</%args>
+#!/bin/sh -e
+
+# Zentyal defined HTTP Proxy
+export http_proxy="http://<% $proxyServer %>:<% $proxyPort %>/"

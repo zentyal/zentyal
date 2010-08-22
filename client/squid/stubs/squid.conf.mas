@@ -8,6 +8,10 @@
     @objectsDelayPools
     @groupsPolicies
     @notCachedDomains
+    $append_domain
+    $cache_host
+    $cache_port
+
     $memory
     $max_object_size
 
@@ -36,11 +40,11 @@ sub _timeAclsInPolicy
        $acls .= _aclName('timeHours_' . $id);
    }
 
-
    return $acls;
 }
 
-# this is needed because space scap deos nto  work in acl names
+
+# needed because space scape doesnt work in acl names
 sub _escapeWS
 {
     my ($string) = @_;
@@ -77,6 +81,9 @@ http_port <% $port %> <% $transKey %>
 # END_TAG #
 
 visible_hostname localhost
+% if ($append_domain) {
+append_domain .<% $append_domain %>
+% }
 hierarchy_stoplist cgi-bin ?
 acl QUERY urlpath_regex cgi-bin \?
 no_cache deny QUERY
@@ -91,6 +98,10 @@ maximum_object_size <% $max_object_size %> MB
 access_log /var/log/squid/access.log squid
 
 cache_dir ufs /var/spool/squid <% $cacheDirSize %> 16 256
+
+% if ($cache_host and $cache_port) {
+cache_peer <% $cache_host %> parent <% $cache_port %> 0 no-query no-digest never_direct allow all
+% }
 
 # windows updates
 refresh_pattern http://.*\.windowsupdate\.microsoft\.com/ 0 80% 20160 reload-into-ims
@@ -216,11 +227,8 @@ always_direct allow localhostdst
 @groupsPolicies
 </%args>
 % return if (@groupsPolicies == 0);
-
 %# if we use global group policies we must force always the authorization first
 http_access allow authorized all
-
-
 % foreach my $groupPol (@groupsPolicies) {
 %   my $group = $groupPol->{'group'};
 %   my $groupAcl = _aclName($group);
@@ -235,7 +243,6 @@ http_access allow  <% $timeAcls %> <% $groupAcl %>
 #   outsde of the time period we will slip to defualt policy
 http_access deny <% $groupAcl %> all
 %   }
-
 % }
 </%def>
 
@@ -250,20 +257,15 @@ $object
 %   my $objectAcl = _aclName($object);
 %   my $timeAcls = _timeAclsInPolicy($groupPol, $object, $group);
 %   my $allow = $groupPol->{'allow'};
-
 %   if ($allow) {
 http_access allow <% $timeAcls %> <% $groupAcl %> <% $objectAcl %>
 %    }
-
 %  if ((not $allow) or $timeAcls ) {
 #   in case of allow + time acl we have to deny otherwise
 #   outsde of the time period we will slip to defualt policy
 http_access deny  <% $groupAcl %> <% $objectAcl %>
 %   }
-
-
 % }
-
 </%def>
 
 
@@ -275,13 +277,10 @@ http_access deny  <% $groupAcl %> <% $objectAcl %>
 
 %   my $object = $objPol->{'object'};
 %   my $objectAcl = _aclName($object);
-
   <& .objectGroupsAccess,
            groupsPolicies =>  $objPol->{groupsPolicies},
            object => $object,
    &>
-
-
 %   if ($objPol->{'auth'}) {
   http_access allow  <% $objectAcl %>  authorized
 %   }
@@ -296,9 +295,7 @@ http_access deny <% $objectAcl %>
 % } else {
 http_access deny <% $objectAcl %>
 %   }
-
 % }
-
 </%def>
 
 
@@ -312,16 +309,12 @@ http_access deny <% $objectAcl %>
 my %groups = map {
         ($_ ->{group} => , $_->{users})
 } @groupsPolicies;
-
-
 # add group acls from object policies
 foreach my $obPol (@objectsPolicies) {
   foreach my $grPol (@{ $obPol->{groupsPolicies} } ) {
       $groups{ $grPol->{group} } =  $grPol->{users};
  }
 }
-
-
 # escape user names
 foreach my $users_r (values %groups) {
        my @users = map {
@@ -331,15 +324,11 @@ foreach my $users_r (values %groups) {
        } @{ $users_r  };
     $users_r =  \@users;
 }
-
-
 </%init>
 % while (my ($group, $users) = each %groups)  {
 %   my $groupAcl = _aclName($group);
 acl <% $groupAcl %> proxy_auth <% join ' ', @{ $users } %>
 % }
-
-
 % foreach my $groupPol (@groupsPolicies) {
      <& .timeACLs, policy => $groupPol, ids => [$groupPol->{group}] &>
 % }

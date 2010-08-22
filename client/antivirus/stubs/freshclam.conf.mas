@@ -37,7 +37,7 @@ OnUpdateExecute  <% "$observerScript update" %>
 OnErrorExecute <% "$observerScript error" %>
 OnOutdatedExecute <% "$observerScript outdated %v" %>
 
-% if ($proxyServer && $proxyPort) {
+% if ($proxyServer and $proxyPort) {
 HTTPProxyServer <% $proxyServer %>
 HTTPProxyPort <% $proxyPort %>
 % }

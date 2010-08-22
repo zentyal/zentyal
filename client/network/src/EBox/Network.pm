@@ -40,6 +40,7 @@ use constant CHAP_SECRETS_FILE => '/etc/ppp/chap-secrets';
 use constant PAP_SECRETS_FILE => '/etc/ppp/pap-secrets';
 use constant IFUP_LOCK_FILE => '/var/lib/ebox/tmp/ifup.lock';
 use constant APT_PROXY_FILE => '/etc/apt/apt.conf.d/99proxy.conf';
+use constant ENV_PROXY_FILE => '/etc/profile.d/zentyal-proxy.sh';
 
 use Net::IP;
 use IO::Interface::Simple;
@@ -165,7 +166,10 @@ sub usedFiles
     }
 
     my $proxy = $self->model('Proxy');
-    if ($proxy->serverValue() && $proxy->portValue()) {
+    if ($proxy->serverValue() and $proxy->portValue()) {
+        push (@files, { 'file' => ENV_PROXY_FILE,
+                        'reason' => __('Zentyal will set HTTP proxy for all users'),
+                        'module' => 'network' });
         push (@files, { 'file' => APT_PROXY_FILE,
                         'reason' => __('Zentyal will set HTTP proxy for APT'),
                         'module' => 'network' });
@@ -2466,7 +2470,12 @@ sub _generateProxyConfig
     my ($self) = @_;
 
     my $proxy = $self->model('Proxy');
-    if ($proxy->serverValue() && $proxy->portValue()) {
+    if ($proxy->serverValue() and $proxy->portValue()) {
+        $self->writeConfFile(ENV_PROXY_FILE,
+                            'network/zentyal-proxy.sh.mas',
+                            [ proxyServer => $proxy->serverValue(),
+                              proxyPort => $proxy->portValue() ],
+                            { 'uid' => 0, 'gid' => 0, mode => '755' });
         $self->writeConfFile(APT_PROXY_FILE,
                             'network/99proxy.conf.mas',
                             [ proxyServer => $proxy->serverValue(),

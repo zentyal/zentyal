@@ -682,6 +682,11 @@ sub _writeSquidConf
   my $cacheDirSize = $self->model('GeneralSettings')->cacheDirSizeValue();
 
   my $users = EBox::Global->modInstance('users');
+  my $network = EBox::Global->modInstance('network');
+
+  my $append_domain = $network->model('SearchDomain')->domainValue();
+  my $cache_host = $network->model('Proxy')->serverValue();
+  my $cache_port = $network->model('Proxy')->portValue();
 
   my @writeParam = ();
   push @writeParam, ('port'  => $self->port);
@@ -692,6 +697,9 @@ sub _writeSquidConf
   push @writeParam, ('groupsPolicies' => $groupsPolicies);
   push @writeParam, ('objectsPolicies' => $objectsPolicies);
   push @writeParam, ('objectsDelayPools' => $self->_objectsDelayPools);
+  push @writeParam, ('append_domain' => $append_domain);
+  push @writeParam, ('cache_host' => $cache_host);
+  push @writeParam, ('cache_port' => $cache_port);
   push @writeParam, ('memory' => $self->_cache_mem);
   push @writeParam, ('max_object_size' => $self->_max_object_size);
   push @writeParam, ('notCachedDomains'=> $self->_notCachedDomains());
@@ -759,6 +767,24 @@ sub _writeDgConf
 
   my $antivirus = $self->_antivirusNeeded(\@dgFilterGroups);
   push(@writeParam, 'antivirus' => $antivirus);
+
+  my $maxchildren = EBox::Config::configkey('maxchildren');
+  push(@writeParam, 'maxchildren' => $maxchildren);
+
+  my $minchildren = EBox::Config::configkey('minchildren');
+  push(@writeParam, 'minchildren' => $minchildren);
+
+  my $minsparechildren = EBox::Config::configkey('minsparechildren');
+  push(@writeParam, 'minsparechildren' => $minsparechildren);
+
+  my $preforkchildren = EBox::Config::configkey('preforkchildren');
+  push(@writeParam, 'preforkchildren' => $preforkchildren);
+
+  my $maxsparechildren = EBox::Config::configkey('maxsparechildren');
+  push(@writeParam, 'maxsparechildren' => $maxsparechildren);
+
+  my $maxagechildren = EBox::Config::configkey('maxagechildren');
+  push(@writeParam, 'maxagechildren' => $maxagechildren);
 
   $self->writeConfFile(DGDIR . "/dansguardian.conf",
                        "squid/dansguardian.conf.mas", \@writeParam);

@@ -7,6 +7,13 @@
     $nGroups
 
     $antivirus => 1
+
+    $maxchildren
+    $minchildren
+    $minsparechildren
+    $preforkchildren
+    $maxsparechildren
+    $maxagechildren
 </%args>
 
 reportinglevel = 3
@@ -23,7 +30,6 @@ logexceptionhits = 1
 # 1 = DansGuardian format        2 = CSV-style format
 # 3 = Squid Log File Format      4 = Tab delimited
 logfileformat = 3
-
 
 loglocation = '/var/log/dansguardian/access.log'
 
@@ -45,11 +51,8 @@ accessdeniedaddress = 'http://YOURSERVER.YOURDOMAIN/cgi-bin/dansguardian.pl'
 # Default is enabled but to go back to the original standard mode dissable it.
 nonstandarddelimiter = on
 
-
 usecustombannedimage = on
 custombannedimagefile = '/usr/share/dansguardian/transparent1x1.gif'
-
-
 
 filtergroups = <% $nGroups %>
 filtergroupslist = '/etc/dansguardian/lists/filtergroupslist'
@@ -89,7 +92,6 @@ maxuploadsize = -1
 
 maxcontentfiltersize = 256
 
-
 maxcontentramcachescansize = 2000
 
 # Auth plugins
@@ -124,9 +126,7 @@ maxcontentfilecachescansize = 20000
 
 filecachedir = '/tmp'
 
-
 deletedownloadedtempfiles = on
-
 
 initialtrickledelay = 20
 
@@ -148,16 +148,12 @@ downloadmanager = '/etc/dansguardian/downloadmanagers/default.conf'
 contentscanner = '/etc/dansguardian/contentscanners/clamdscan.conf'
 % }
 
-
-
 # Content scanner timeout
 # Some of the content scanners support using a timeout value to stop
 # processing (eg AV scanning) the file if it takes too long.
 # If supported this will be used.
 # The default of 60 seconds is probably reasonable.
 contentscannertimeout = 60
-
-
 
 # Content scan exceptions
 # If 'on' exception sites, urls, users etc will be scanned
@@ -167,10 +163,7 @@ contentscannertimeout = 60
 # (on|off) default = off
 contentscanexceptions = off
 
-
-
 preemptivebanning = off
-
 
 forwardedfor = on
 
@@ -178,34 +171,30 @@ usexforwardedfor = off
 
 logconnectionhandlingerrors = off
 
-maxchildren = 120
+maxchildren = <% $maxchildren %>
 
-minchildren = 8
+minchildren = <% $minchildren %>
 
-minsparechildren = 4
+minsparechildren = <% $minsparechildren %>
 
-preforkchildren = 6
+preforkchildren = <% $preforkchildren %>
 
-maxsparechildren = 32
+maxsparechildren = <% $maxsparechildren %>
 
-maxagechildren = 500
+maxagechildren = <% $maxagechildren %>
 
 maxips = 0
-ipcfilename = '/tmp/.dguardianipc'
 
+ipcfilename = '/tmp/.dguardianipc'
 urlipcfilename = '/tmp/.dguardianurlipc'
 
-# Defines process id directory and filename.
 #pidfilename = '/var/run/dansguardian.pid'
 
 nodaemon = off
 
 nologger = off
 
-# daemonuser = 'nobody'
-# daemongroup = 'nobody'
+#daemonuser = 'nobody'
+#daemongroup = 'nobody'
 
 softrestart = off
-
-
-
