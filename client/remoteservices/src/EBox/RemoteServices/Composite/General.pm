@@ -26,7 +26,6 @@ use base 'EBox::Model::Composite';
 use strict;
 use warnings;
 
-## eBox uses
 use EBox::Gettext;
 
 # Group: Public methods
@@ -60,7 +59,7 @@ sub new
 #
 sub _description
 {
-    my $printableName = __('eBox Control Center');
+    my $printableName = __('Zentyal Cloud');
 
     my $description =
       {

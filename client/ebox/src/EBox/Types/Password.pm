@@ -26,7 +26,6 @@ use base 'EBox::Types::Text';
 use strict;
 use warnings;
 
-# eBox uses
 use EBox::Exceptions::InvalidData;
 use EBox::Gettext;
 

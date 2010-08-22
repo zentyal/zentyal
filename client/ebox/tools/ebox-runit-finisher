@@ -22,7 +22,6 @@
 # It is called everytime a service fails/restart. As well as if it is
 # stopped
 
-# eBox uses
 use EBox;
 use EBox::Config;
 use EBox::Exceptions::Internal;

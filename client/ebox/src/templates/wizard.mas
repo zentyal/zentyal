@@ -15,7 +15,7 @@ var pages = new Array();
 var i=0;
 
 % for my $page ( @pages ) {
-pages[i++] = "./<% $page %>"; 
+pages[i++] = "./<% $page %>";
 % }
 
 
@@ -43,7 +43,7 @@ function loadPage(index) {
     hidden = "wizardPage" + hidden;
     showed = "wizardPage" + showed;
 
-    if ( index > 0 ) 
+    if ( index > 0 )
         Effect.SlideUp(hidden, { duration: DURATION } );
 //        $(hidden).fade({ duration: DURATION, from: 1, to: 0 });
 
@@ -68,18 +68,18 @@ function loadPage(index) {
         // Configure buttons
         $('wizard-next1').disabled = index == pages.length;
         $('wizard-next2').disabled = index == pages.length;
- 
+
         if ( index == pages.length-1 ) {
             $('wizard-next1').value = "<% __('Finish') %>";
             $('wizard-next2').value = "<% __('Finish') %>";
-        } 
+        }
     }
 
     new Ajax.Updater(showed,
                      pages[index],
                      {
                         method:'get',
-                        onComplete: loaded, 
+                        onComplete: loaded,
                         evalScripts: true
                      });
 
@@ -129,8 +129,8 @@ function finalPage() {
     content = '<div style="text-align: center; padding: 40px">';
     content += '<div><img src="/data/images/title.png" alt="title" /></div>';
     content += '<h4><% __('Congratulations!') %></h4>';
-    content += '<div><% __('Now you are ready to save changes and start using your eBox') %></div>';
-    content += '<form action="Finish" method="POST">'; 
+    content += '<div><% __('Now you are ready to save changes and start using your Zentyal server') %></div>';
+    content += '<form action="Finish" method="POST">';
     content += '<input style="margin: 20px; font-size: 1.4em" class="inputButton" type="submit" name="save" value="<% __('Save changes') %>" />';
     content += '</form>';
     content += '</div>';

@@ -16,7 +16,7 @@
 # Class: EBox::Network::Model::DeletedStaticRoute
 #
 #  This model is used to store those static routes that have been
-#  deleted by user. So those static routes that we may add from eBox
+#  deleted by user. So those static routes that we may add from Zentyal
 #  UI will be deleted without intrusing those ones which the user had
 #  added before.
 #
@@ -28,7 +28,6 @@ use base 'EBox::Model::DataTable';
 use strict;
 use warnings;
 
-# eBox uses
 use EBox::Gettext;
 use EBox::Global;
 use EBox::Types::Boolean;

@@ -31,7 +31,6 @@ use warnings;
 
 use base 'EBox::Types::Text';
 
-# eBox uses
 use EBox;
 
 # Group: Public methods

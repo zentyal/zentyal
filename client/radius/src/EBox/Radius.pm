@@ -98,8 +98,8 @@ sub actions
     return [
     {
         'action' => __('Create RADIUS certificates for TTLS'),
-        'reason' => __('eBox will create the needed certificates for TTLS ' .
-            'in /etc/freeradius/certs/.'),
+        'reason' => __('Zentyal will create the needed certificates for TTLS ' .
+                       'in /etc/freeradius/certs/.'),
         'module' => 'radius'
     },
     ];

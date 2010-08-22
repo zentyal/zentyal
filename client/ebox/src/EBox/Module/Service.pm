@@ -37,7 +37,7 @@ use constant INITDPATH => '/etc/init.d/';
 #
 #   This method is mainly used to show information to the user
 #   about the files which are going to be modified by the service
-#   managed  by eBox
+#   managed by Zentyal
 #
 # Returns:
 #
@@ -84,7 +84,7 @@ sub usedFiles
 #           {
 #             'action' => 'remove samba init script"
 #             'reason' =>
-#                   __('eBox will take care of start and stop the service')
+#                   __('Zentyal will take care of start and stop the service')
 #             'module' => samba
 #           }
 #       ]

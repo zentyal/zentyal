@@ -26,7 +26,6 @@ use base 'EBox::Event::Watcher::Base';
 use strict;
 use warnings;
 
-# eBox uses
 use EBox::Config;
 use EBox::Event;
 use EBox::Exceptions::Internal;

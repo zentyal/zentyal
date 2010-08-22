@@ -1,7 +1,7 @@
 Source: ebox-mailfilter
 Section: web
 Priority: optional
-Maintainer: José Antonio Calvo  <jacalvo@ebox-platform.com>
+Maintainer: José Antonio Calvo  <jacalvo@zentyal.org>
 Build-Depends: debhelper (>= 5.0.0), cdbs
 Standards-Version: 3.8.2
 
@@ -9,11 +9,11 @@ Package: ebox-mailfilter
 Architecture: all
 Depends: ebox (>= 1.5), ebox (<< 1.5.100), ebox-firewall, ebox-usersandgroups , ebox-mail (>= 0.11.99), ebox-antivirus, amavisd-new (>= 2.4.2), spamassassin, spamc, libnet-dns-perl, arj, lha, p3scan, renattach,  ${misc:Depends}
 Conflicts: ebox (<< 0.11.99)
-Description: eBox - Mail Filter
- eBox Platform is an open source small business server that can act as
- a Gateway, a Unified Threat Manager, an Office Server, an Infrastructure
+Description: Zentyal - Mail Filter
+ Zentyal is an open source small business server that can act as
+ a Gateway, Unified Threat Manager, Office Server, Infrastructure
  Manager, a Unified Communications Server or a combination of them. One
  single, easy-to-use platform to manage all your network services.
  .
- This module adds a mail filter server to your eBox installation, allowing to
+ This module adds a mail filter server to your Zentyal installation, allowing to
  scan mails to filter viruses and spam.

@@ -104,7 +104,7 @@ sub actions
         'module' => 'network'
     },
     {
-        'action' => __('Enable eBox DHCP hook'),
+        'action' => __('Enable Zentyal DHCP hook'),
         'reason' => __('It will take care of adding the default route' .
                 ' given by a DHCP server to the default route table. '),
         'module' => 'network'
@@ -123,51 +123,51 @@ sub usedFiles
     my @files = (
     {
         'file' => INTERFACES_FILE,
-        'reason' => __('eBox will set your network configuration'),
+        'reason' => __('Zentyal will set your network configuration'),
         'module' => 'network'
     },
     {
         'file' => RESOLV_FILE,
-        'reason' => __('eBox will set your DNS configuration'),
+        'reason' => __('Zentyal will set your DNS configuration'),
         'module' => 'network'
     },
     {
         'file' => DHCLIENTCONF_FILE,
-        'reason' => __('eBox will set your DHCP client configuration'),
+        'reason' => __('Zentyal will set your DHCP client configuration'),
         'module' => 'network'
     },
     {
         'file' => DEFAULT_DDCLIENT_FILE,
-        'reason' => __('eBox will set your ddclient configuration'),
+        'reason' => __('Zentyal will set your ddclient configuration'),
         'module' => 'network'
     },
     {
         'file' => DDCLIENT_FILE,
-        'reason' => __('eBox will set your ddclient configuration'),
+        'reason' => __('Zentyal will set your ddclient configuration'),
         'module' => 'network'
     },
     {
         'file' => CHAP_SECRETS_FILE,
-        'reason' => __('eBox will store your PPPoE passwords'),
+        'reason' => __('Zentyal will store your PPPoE passwords'),
         'module' => 'network'
     },
     {
         'file' => PAP_SECRETS_FILE,
-        'reason' => __('eBox will store your PPPoE passwords'),
+        'reason' => __('Zentyal will store your PPPoE passwords'),
         'module' => 'network'
     },
     );
 
     foreach my $iface (@{$self->pppIfaces()}) {
         push (@files, { 'file' => PPP_PROVIDER_FILE . $iface,
-                        'reason' => __('eBox will add a DSL provider configuration for PPPoE'),
+                        'reason' => __('Zentyal will add a DSL provider configuration for PPPoE'),
                         'module' => 'network' });
     }
 
     my $proxy = $self->model('Proxy');
     if ($proxy->serverValue() && $proxy->portValue()) {
         push (@files, { 'file' => APT_PROXY_FILE,
-                        'reason' => __('eBox will set HTTP proxy for APT'),
+                        'reason' => __('Zentyal will set HTTP proxy for APT'),
                         'module' => 'network' });
     }
 
@@ -2651,7 +2651,7 @@ sub _removeRoutes
 {
     my ($self, $storedRoutes) = @_;
 
-    # Delete those routes which are not defined by eBox
+    # Delete those routes which are not defined by Zentyal
     my @currentRoutes = list_routes('viaGateway');
     foreach my $currentRoute (@currentRoutes) {
         my $found = 0;
@@ -2681,7 +2681,7 @@ sub _removeRoutes
         if ( route_is_up($network, $gateway)) {
             root("/sbin/ip route del $network via $gateway");
         }
-        # Perform deletion in two phases to let eBox perform sync correctly
+        # Perform deletion in two phases to let Zentyal perform sync correctly
         if ( $row->elementByName('deleted')->value() ) {
             $deletedModel->removeRow($row->id(), 1);
         } else {

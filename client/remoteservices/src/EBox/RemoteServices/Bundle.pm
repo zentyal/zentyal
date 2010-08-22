@@ -18,10 +18,10 @@ use base 'EBox::RemoteServices::Auth';
 
 # Class: EBox::RemoteServices::Bundle
 #
-#      This class gathers the bundle sent by eBox CC while subscribing
+#      This class gathers the bundle sent by Zentyal Cloud while subscribing
 #      process is done.
 #
-#      This bundle can be obtained only when the eBox is subscribed
+#      This bundle can be obtained only when the server is subscribed
 #
 
 use strict;
@@ -47,12 +47,12 @@ sub new
 
 # Method: eBoxBundle
 #
-#     Get the eBox bundle for this eBox
+#     Get the Zentyal bundle for this Zentyal
 #
 # Parameters:
 #
 #     remoteServicesVersion
-#     bundleVersion - Int the eBox bundle version you have
+#     bundleVersion - Int the Zentyal bundle version you have
 #
 #     force - Boolean indicating the bundle must be reloaded, no
 #             matter the version you set in the previous parameter
@@ -60,8 +60,8 @@ sub eBoxBundle
 {
     my ($self, $remoteServicesVersion, $bundleVersion, $force) = @_;
 
-    return $self->soapCall('eBoxBundle', 
-                           version => $bundleVersion, 
+    return $self->soapCall('eBoxBundle',
+                           version => $bundleVersion,
                            remoteServicesVersion => $remoteServicesVersion,
                            force => $force
                           );

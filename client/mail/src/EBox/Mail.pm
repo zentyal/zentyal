@@ -140,14 +140,14 @@ sub actions
             {
               'action' => __('Generate mail aliases'),
               'reason' =>
-                __x('eBox will execute {cmd}', cmd => '/usr/sbin/postalias /etc/aliases'),
+                __x('Zentyal will execute {cmd}', cmd => '/usr/sbin/postalias /etc/aliases'),
 
               'module' => 'mail'
             },
             {
               'action' => __('Add LDAP schemas'),
               'reason' => __(
-                          'eBox will add two LDAP schemas: authldap.ldif and '
+                          'Zentyal will add two LDAP schemas: authldap.ldif and '
                             .'eboximail.ldif.'
               ),
               'module' => 'mail'
@@ -155,15 +155,14 @@ sub actions
             {
               'action' => __('Create certificates'),
               'reason' => __(
-                  'eBox will create certificates to use in mail services'
+                  'Zentyal will create certificates to use in mail services'
               ),
               'module' => 'mail'
             },
             {
               'action' => __('Add fetchmail update cron job'),
               'reason' => __(
- 'eBox will schedule a cron job to update fetchmail configuration when the user add external accounts'
-                            ),
+                  'Zentyal will schedule a cron job to update fetchmail configuration when the user add external accounts'),
               'module' => 'mail'
             },
 
@@ -514,7 +513,7 @@ sub _setAliasTable
 
     my $postmasterAddress = $self->postmasterAddress();
     my $aliasesContents = join '', @aliases;
-   $aliasesContents .= "#Added by eBox. Postmaster alias will be rewritten in each eBox's mail system restart but other aliases will be kept\n";
+   $aliasesContents .= "#Added by eBox. Postmaster alias will be rewritten in each Zentyal mail system restart but other aliases will be kept\n";
    $aliasesContents .=   "postmaster: $postmasterAddress\n";
 
     EBox::Module::Base::writeFile(
@@ -808,7 +807,7 @@ sub _fqdn
     my $fqdn = `hostname --fqdn`;
     if ($? != 0) {
         throw EBox::Exceptions::Internal(
-'eBox was unable to get the full qualified domain name (FQDN) for his host/'
+'Zentyal was unable to get the full qualified domain name (FQDN) for his host/'
               .'Please, check than your resolver and /etc/hosts file are properly configured.'
           );
     }
@@ -941,7 +940,7 @@ sub _postfixIsRunning
 
 # Method: externalFiltersFromModules
 #
-#  return a list with all the external filters provided by eBox's modules
+#  return a list with all the external filters provided by Zentyal modules
 #
 sub externalFiltersFromModules
 {
@@ -1573,7 +1572,7 @@ sub menu
 # Method: userMenu
 #
 #   This function returns is similar to EBox::Module::Base::menu but
-#   returns UserCorner CGIs for the eBox UserCorner. Override as needed.
+#   returns UserCorner CGIs for the Zentyal UserCorner. Override as needed.
 sub userMenu
 {
     my ($self, $root) = @_;

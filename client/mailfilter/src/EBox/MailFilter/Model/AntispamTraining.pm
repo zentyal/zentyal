@@ -24,7 +24,6 @@ use warnings;
 
 use Error qw(:try);
 
-# eBox classes
 use EBox::Global;
 use EBox::Gettext;
 use EBox::Types::File;
@@ -32,7 +31,6 @@ use EBox::Types::Select;
 use EBox::Config;
 use EBox::Sudo;
 
-# eBox exceptions used
 use EBox::Exceptions::External;
 
 sub new

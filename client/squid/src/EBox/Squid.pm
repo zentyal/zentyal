@@ -299,7 +299,7 @@ sub actions
     return [
             {
             'action' => __('Overwrite blocked page templates'),
-            'reason' => __('Dansguardian blocked page templates will be overwritten with eBox'
+            'reason' => __('Dansguardian blocked page templates will be overwritten with Zentyal'
                           . ' customized templates.'),
             'module' => 'squid'
             }

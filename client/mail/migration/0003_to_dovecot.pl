@@ -1,7 +1,7 @@
 #!/usr/bin/perl
 #
 # This is a migration script to add a service and firewall rules
-# for the eBox mail system
+# for the Zentyal mail system
 #
 # For next releases we should be able to enable/disable some ports
 # depening on if certain mail service is enabled or not
@@ -41,7 +41,7 @@ sub _dovecotMigration
         return;
     }
 
-    # ostfix don not longer need of membership of the sasl group
+    # postfix do not longer need of membership of the sasl group
     my ($name,$passwd,$gid,$members) = getgrnam('sasl');
     my $postfixIsMember;
     if (defined $members) {
@@ -53,8 +53,6 @@ sub _dovecotMigration
     if ($postfixIsMember) {
         EBox::Sudo::root("deluser postfix sasl");
     }
-
-
 
     # we will create the new certificates for dovecot
     # we donot use the old ones  from courier bz
@@ -124,7 +122,6 @@ sub _retrievalServicesMigration
     if ($oldImapValue and $tls) {
         $mail->set_bool($imapsKey, 1);
     }
-
 }
 
 

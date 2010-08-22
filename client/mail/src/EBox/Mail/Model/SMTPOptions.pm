@@ -21,7 +21,6 @@ use base 'EBox::Model::DataForm';
 use strict;
 use warnings;
 
-# eBox classes
 use EBox::Global;
 use EBox::Gettext;
 use EBox::Validate qw(:all);
@@ -36,7 +35,6 @@ use EBox::Types::Port;
 use EBox::Types::Composite;
 use EBox::Types::MailAddress;
 
-# eBox exceptions used
 use EBox::Exceptions::External;
 
 use constant MAX_MSG_SIZE                          => '100';

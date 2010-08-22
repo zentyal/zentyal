@@ -1,19 +1,19 @@
 Source: ebox-remoteservices
 Section: web
 Priority: optional
-Maintainer: José Antonio Calvo  <jacalvo@ebox-platform.com>
+Maintainer: José Antonio Calvo  <jacalvo@zentyal.org>
 Build-Depends: debhelper (>= 5.0.0), cdbs
 Standards-Version: 3.8.2
 
 Package: ebox-remoteservices
 Architecture: all
 Depends: ebox (>= 1.5), ebox (<< 1.5.100), ebox-monitor, ebox-openvpn, libarchive-tar-perl, libsoap-lite-perl, libnet-dns-perl, liblinux-inotify2-perl, libdigest-sha-perl, libdate-calc-perl, libtext-csv-perl, screen, john (>= 1.7.6), ${misc:Depends}
-Description: eBox - Control Center Client
- eBox Platform is an open source small business server that can act as
- a Gateway, a Unified Threat Manager, an Office Server, an Infrastructure
- Manager, a Unified Communications Server or a combination of them. One
+Description: Zentyal - Control Center Client
+ Zentyal is an open source small business server that can act as
+ a Gateway, Unified Threat Manager, Office Server, Infrastructure
+ Manager, Unified Communications Server or a combination of them. One
  single, easy-to-use platform to manage all your network services.
  .
- This module is the eBox side to perform remote services from Control
+ This module is the Zentyal side to perform remote services from Control
  Center system such as remote configuration backup, remote access, job execution
  in bulk (including security updates), remote alert and stats monitoring.

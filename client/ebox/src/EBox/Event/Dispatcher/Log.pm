@@ -27,7 +27,6 @@ use base 'EBox::Event::Dispatcher::Abstract';
 ################
 use Data::Dumper;
 
-# eBox uses
 use EBox;
 use EBox::Gettext;
 use EBox::Exceptions::MissingArgument;

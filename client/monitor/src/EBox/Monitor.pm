@@ -198,7 +198,6 @@ sub depends
     }
 
     return $dependsList;
-
 }
 
 # Method: measuredData
@@ -249,7 +248,6 @@ sub measuredData
     return $measure->fetchData(instance   => $instance,
                                resolution => $periodData->{resolution},
                                start      => 'end-' . $periodData->{timeValue});
-
 }
 
 # Method: allMeasuredData
@@ -350,7 +348,6 @@ sub measure
     $name or throw EBox::Exceptions::MissingArgument('name');
 
     return $self->{measureManager}->measure($name);
-
 }
 
 
@@ -400,7 +397,6 @@ sub thresholdConfigured
         throw EBox::Exceptions::DataNotFound(data  => 'measure name',
                                              value => $measure->name());
     }
-
 }
 
 # Method: stoppedServiceFilePath
@@ -459,7 +455,7 @@ sub _daemons
 
 # Method: _setDirs
 #
-#    Create and set the directories required to communicate eBox event
+#    Create and set the directories required to communicate Zentyal event
 #    daemon and monitor modules
 #
 sub _setDirs
@@ -469,7 +465,6 @@ sub _setDirs
     }
     my $eBoxUser = EBox::Config::user();
     EBox::Sudo::root("chown -R $eBoxUser.$eBoxUser " . EBox::Monitor::Configuration::MainVarRun());
-
 }
 
 # Method: _setMonitorConf
@@ -504,7 +499,6 @@ sub _setupMeasures
         # Catch exceptions since it is possible that the monitor
         # module has never been configured (enable once)
     };
-
 }
 
 # Write down the main configuration file
@@ -515,7 +509,7 @@ sub _setMainConf
     my $hostname       = hostname();
     my @networkServers = ();
 
-    # Send stats to eBox CC with the CC hostname if the host is subscribed
+    # Send stats to Zentyal Cloud with the server name if the host is subscribed
     my $global = EBox::Global->getInstance(1);
     if ( $global->modExists('remoteservices') ) {
         my $rs = $global->modInstance('remoteservices');
@@ -538,8 +532,6 @@ sub _setMainConf
                           (loadPerlPlugin => $self->_thresholdConfigured()),
                          ]
                         );
-
-
 }
 
 # Write down the threshold configuration file
@@ -607,8 +599,8 @@ sub _setThresholdConf
 
 }
 
-# Link to RRDs subscribed hostname to the real one created if eBox is
-# subscribed to CC in order to preserve the monitoring data prior to
+# Link to RRDs subscribed hostname to the real one created if Zentyal is
+# subscribed to the Cloud in order to preserve the monitoring data prior to
 # subscribe
 sub _linkRRDs
 {
@@ -668,7 +660,7 @@ sub _mountPointsToMonitor
 # not to check if the service must be running
 sub _notStoppedOnPurpose
 {
-    # Check if someone has written the file in the eBox tmp dir
+    # Check if someone has written the file in the Zentyal tmp dir
     return not (-e SERVICE_STOPPED_FILE);
 }
 

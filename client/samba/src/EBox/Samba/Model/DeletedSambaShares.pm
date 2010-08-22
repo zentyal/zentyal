@@ -16,7 +16,7 @@
 # Class: EBox::Samba::Model::DeletedSambaShares
 #
 #  This model is used to store the samba shares which are removed by the user.
-#  eBox configuration works as follows:
+#  Zentyal configuration works as follows:
 #
 #   - User add/remove stuff on the GUI
 #   - Once is done he saves changes and the changes take places
@@ -30,7 +30,6 @@ use base 'EBox::Model::DataTable';
 use strict;
 use warnings;
 
-# eBox uses
 use EBox::Gettext;
 use EBox::Global;
 use EBox::Types::Text;

@@ -15,7 +15,7 @@
 
 # Class: EBox::Collectd::Notificate
 #
-#    Add the eBox own notification plugin to collectd.
+#    Add the Zentyal own notification plugin to collectd.
 #
 #    Documentation is available on:
 #
@@ -37,7 +37,7 @@ use Collectd qw(:all);
 use Data::Dumper;
 
 # Constants
-# Set it fixed not to include eBox packages
+# Set it fixed not to include Zentyal packages
 use constant EVENTS_INCOMING_DIR       => '/var/run/ebox/events/incoming/';
 use constant EVENTS_INCOMING_READY_DIR => EVENTS_INCOMING_DIR . 'ready/';
 use constant EVENTS_FIFO               => '/var/lib/ebox/tmp/events-fifo';
@@ -47,7 +47,7 @@ plugin_register(TYPE_NOTIF, 'notificate', 'ebox_notify');
 
 # Procedure: ebox_notify
 #
-#     Dispatch a notification to the eBox system using FIFO, if
+#     Dispatch a notification to the Zentyal system using FIFO, if
 #     possible, if not, using a directory
 #
 # Parameters:
@@ -122,7 +122,7 @@ sub _notifyUsingFS
                                   DIR      => EVENTS_INCOMING_DIR,
                                   UNLINK   => 0);
     print $fileTemp $strEvt;
-    # Make files readable by eBox
+    # Make files readable by Zentyal
 #    my ($login, $pass, $uid, $gid) = getpwnam(EBox::Config::user());
     my ($login, $pass, $uid, $gid) = getpwnam(EBOX_USER);
     chown($uid, $gid , $fileTemp->filename());

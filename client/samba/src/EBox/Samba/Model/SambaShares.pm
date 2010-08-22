@@ -27,7 +27,6 @@ use warnings;
 
 use Cwd 'abs_path';
 
-# eBox uses
 use EBox::Gettext;
 use EBox::Global;
 use EBox::Types::Text;
@@ -110,7 +109,7 @@ sub _table
                                      new EBox::Types::Text(
                                        fieldName     => 'ebox',
                                        printableName =>
-                                            __('Directory under eBox'),
+                                            __('Directory under Zentyal'),
                                        editable      => 1,
                                        unique        => 1,
                                                         ),
@@ -316,7 +315,7 @@ sub createDirs
 # Private methods
 sub _pathHelp
 {
-    return __x( '{openit}Directory under eBox{closeit} will ' .
+    return __x( '{openit}Directory under Zentyal{closeit} will ' .
             'automatically create the share.' .
             'directory in /home/samba/shares {br}' .
             '{openit}File system path{closeit} will allow you to share '.
@@ -331,7 +330,7 @@ sub _sharesHelp
 {
     return __('Here you can create shares with more fine-grained permission ' .
               'control. ' .
-              'You can use an existing directory or pick a name and let eBox ' .
+              'You can use an existing directory or pick a name and let Zentyal ' .
               'create it for you.');
 }
 

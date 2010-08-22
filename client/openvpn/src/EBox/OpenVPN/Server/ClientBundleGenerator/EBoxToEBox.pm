@@ -129,7 +129,7 @@ sub initParamsFromBundle
         EBox::Sudo::root($extractCmd);
     } otherwise {
         throw EBox::Exceptions::External(
-__('This bundle is not a valid eBox-to-eBox configuration bundle. (Cannot unpack it)')
+__('This bundle is not a valid Zentyal-to-Zentyal configuration bundle. (Cannot unpack it)')
                                          );
     };
 
@@ -165,28 +165,28 @@ sub _checkBundleContents
     my $serverConfFile = $class->serverConfigurationFile($tmpDir);
     if (not -r $serverConfFile) {
         throw EBox::Exceptions::External(
-__('This bundle is not a valid eBox-to-eBox configuration bundle. (Missing server configuration file)')
+__('This bundle is not a valid Zentyal-to-Zentyal configuration bundle. (Missing server configuration file)')
                                         );
     }
 
     my $caCertificate = $class->caFile($tmpDir);
     if (not -r $caCertificate) {
         throw EBox::Exceptions::External(
-__('This bundle is not a valid eBox-to-eBox configuration bundle. (Missing CA certificate file)')
+__('This bundle is not a valid Zentyal-to-Zentyal configuration bundle. (Missing CA certificate file)')
                                         );
     }
 
     my $certificate   = $class->certFile($tmpDir);
     if (not -r $certificate) {
         throw EBox::Exceptions::External(
-__('This bundle is not a valid eBox-to-eBox configuration bundle. (Missing certificate file)')
+__('This bundle is not a valid Zentyal-to-Zentyal configuration bundle. (Missing certificate file)')
                                         );
     }
 
     my $certificateKey = $class->privateKeyFile($tmpDir);
     if (not -r $certificateKey) {
         throw EBox::Exceptions::External(
-__('This bundle is not a valid eBox-to-eBox configuration bundle. (Missing certificate private key file)')
+__('This bundle is not a valid Zentyal-to-Zentyal configuration bundle. (Missing certificate private key file)')
                                         );
     }
 

@@ -21,7 +21,6 @@ use warnings;
 
 use base 'EBox::Types::Basic';
 
-# eBox uses
 use EBox::Exceptions::External;
 use EBox::Gettext;
 

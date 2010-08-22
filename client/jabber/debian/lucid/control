@@ -1,7 +1,7 @@
 Source: ebox-jabber
 Section: web
 Priority: optional
-Maintainer: José Antonio Calvo  <jacalvo@ebox-platform.com>
+Maintainer: José Antonio Calvo  <jacalvo@zentyal.org>
 Build-Depends: debhelper (>= 5.0.0), cdbs
 Standards-Version: 3.8.2
 
@@ -9,11 +9,11 @@ Package: ebox-jabber
 Architecture: all
 Depends: ebox (>= 1.5), ebox (<< 1.5.100), ebox-usersandgroups (>= 0.7.0.99), ejabberd, ${misc:Depends}
 Conflicts: ebox (<< 0.11.99), jabberd2
-Description: eBox - Jabber (Instant Messaging)
- eBox Platform is an open source small business server that can act as
- a Gateway, a Unified Threat Manager, an Office Server, an Infrastructure
- Manager, a Unified Communications Server or a combination of them. One
+Description: Zentyal - Jabber (Instant Messaging)
+ Zentyal is an open source small business server that can act as
+ a Gateway, Unified Threat Manager, Office Server, Infrastructure
+ Manager, Unified Communications Server or a combination of them. One
  single, easy-to-use platform to manage all your network services.
  .
- This module adds a Jabber server to your eBox installation, providing your
+ This module adds a Jabber server to your Zentyal installation, providing your
  users with instant messaging.

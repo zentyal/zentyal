@@ -40,7 +40,6 @@ use warnings;
 # Dependencies
 ###################
 
-# eBox uses
 use EBox::Config;
 use EBox::Global;
 use EBox::DBEngineFactory;

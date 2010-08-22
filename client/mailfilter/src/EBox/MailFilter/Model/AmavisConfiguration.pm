@@ -21,7 +21,6 @@ use base 'EBox::Model::DataForm';
 use strict;
 use warnings;
 
-# eBox classes
 use EBox::Global;
 use EBox::Gettext;
 use EBox::Types::Port;
@@ -30,7 +29,6 @@ use EBox::Types::Union::Text;
 use EBox::Types::MailAddress;
 use EBox::View::Customizer;
 
-# eBox exceptions used
 use EBox::Exceptions::External;
 
 sub new

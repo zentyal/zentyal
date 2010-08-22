@@ -19,7 +19,6 @@ package EBox::MailFilter::Model::VDomains;
 use base 'EBox::Model::DataTable';
 
 
-# eBox uses
 use EBox;
 
 use EBox::Exceptions::Internal;

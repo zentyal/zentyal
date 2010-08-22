@@ -40,7 +40,7 @@ sub _makeConfBackup
             $lastBackupStamp = File::Slurp::read_file(LAST_BACKUP_TIMESTAMP_FILE);
             chomp($lastBackupstamp);
         }
-        # Make the conf backup if any change has been done to eBox
+        # Make the conf backup if any change has been done to Zentyal
         if ( $gl->lastModificationTime() > $lastBackupStamp ) {
             my $backupService = new EBox::RemoteServices::Backup();
             my $automatic = 1;

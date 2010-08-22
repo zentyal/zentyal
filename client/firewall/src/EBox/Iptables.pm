@@ -319,7 +319,7 @@ sub _setRemoteServices
             } catch EBox::Exceptions::External with {
                 # Cannot contact eBox CC
                 my ($exc) = @_;
-                EBox::error("Cannot contact eBox Control Center: $exc");
+                EBox::error("Cannot contact Zentyal Cloud: $exc");
             };
             # Allow communications between ns and www
             eval "use EBox::RemoteServices::Configuration";
@@ -599,7 +599,7 @@ sub start
 
 # Method: moduleRules
 #
-#       Get the rules added by the eBox modules through FirewallObserver
+#       Get the rules added by the Zentyal modules through FirewallObserver
 #
 # Returns:
 #
@@ -727,7 +727,7 @@ sub _iexternal
 # Method: _iglobal
 #
 #	Add rules to iglobal, that is the chain to control access
-#	from the internal networks to eBox
+#	from the internal networks to Zentyal
 sub _iglobal
 {
     my ($self) = @_;
@@ -744,7 +744,7 @@ sub _iglobal
 # Method: _oglobal
 #
 #   Add rules to iglobal, that is the chain to control access
-#   from eBox to external services
+#   from Zentyal to external services
 sub _oglobal
 {
     my ($self) = @_;

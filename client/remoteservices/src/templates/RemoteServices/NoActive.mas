@@ -2,10 +2,10 @@
 use EBox::Gettext;
 use EBox::Config;
 
-my $text = __x('This feature is only available if you get eBox '
-               . ' Services. You can contract them at '
+my $text = __x('This feature is only available if you get a Zentyal '
+               . ' Subscription. You can contract them at '
                . '{url1}. If you are already '
-               . 'registered, then subscribe this eBox at {url2}',
+               . 'registered, then subscribe this server at {url2}',
                url1 => '<a href="http://'
                        . EBox::Config::configkey('ebox_services_www')
                        . '">' . EBox::Config::configkey('ebox_services_www')

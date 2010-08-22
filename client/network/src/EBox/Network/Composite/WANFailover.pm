@@ -19,7 +19,6 @@ use warnings;
 package EBox::Network::Composite::WANFailover;
 use base 'EBox::Model::Composite';
 
-## eBox uses
 use EBox::Gettext;
 use EBox::Global;
 use EBox::Model::ModelManager;

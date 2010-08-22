@@ -2,7 +2,7 @@
     @ifaces
     $iface
     @vlans => ()
-    @bridges => () 
+    @bridges => ()
     $externalWarning
 </%args>
 <%init>
@@ -19,7 +19,7 @@ use EBox::NetWrappers qw(:all);
 <br/>
 % if ($externalWarning) {
 <div class='warning'>
- <% __x('You are connecting to eBox through this interface. If you set it as external the firewall will lock you out unless you add firewall rules to {openhref}Filtering rules from external networks to eBox{closehref} to allow access to the eBox administration port, SSH, ...',
+ <% __x('You are connecting to Zentyal through this interface. If you set it as external the firewall will lock you out unless you add firewall rules to {openhref}Filtering rules from external networks to Zentyal{closehref} to allow access to the Zentyal administration port, SSH, ...',
   openhref  => '<a href="/ebox/Firewall/View/ExternalToEBoxRuleTable">',
   closehref => '</a>') %>
 </div>
@@ -108,7 +108,7 @@ use EBox::NetWrappers qw(:all);
 %                   }
                 name="external" />
             <div class="field_help">
-            <% __('Check this if you are using eBox as a gateway and this interface is connected to your Internet router.') %>
+            <% __('Check this if you are using Zentyal as a gateway and this interface is connected to your Internet router.') %>
             </div>
         </td>
     </tr>

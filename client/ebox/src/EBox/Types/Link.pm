@@ -31,7 +31,6 @@ use warnings;
 
 use base 'EBox::Types::Text';
 
-# eBox uses
 use EBox::Exceptions::InvalidData;
 use EBox::Exceptions::NotImplemented;
 use EBox::Gettext;

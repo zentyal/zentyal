@@ -39,7 +39,6 @@ use warnings;
 
 use base 'EBox::Types::Abstract';
 
-# eBox uses
 use EBox::Model::ModelManager;
 use EBox::Model::CompositeManager;
 

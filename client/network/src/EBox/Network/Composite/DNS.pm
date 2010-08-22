@@ -19,7 +19,6 @@ use warnings;
 package EBox::Network::Composite::DNS;
 use base 'EBox::Model::Composite';
 
-## eBox uses
 use EBox::Gettext;
 use EBox::Global;
 

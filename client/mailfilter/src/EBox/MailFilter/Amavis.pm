@@ -14,7 +14,7 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 package EBox::MailFilter::Amavis;
-# package:
+
 use strict;
 use warnings;
 
@@ -34,7 +34,7 @@ use EBox::MailVDomainsLdap;
 use EBox::Ldap;
 
 use constant {
-  AMAVIS_SERVICE                 => 'ebox.amavisd-new',
+  AMAVIS_SERVICE                => 'ebox.amavisd-new',
   AMAVIS_CONF_FILE              => '/etc/amavis/conf.d/amavisd.conf',
   AMAVISPIDFILE                 => '/var/run/amavis/amavisd.pid',
   AMAVIS_INIT                   => '/etc/init.d/amavis',
@@ -46,12 +46,12 @@ use constant {
 
 sub new
 {
-  my $class = shift @_;
+    my $class = shift @_;
 
-  my $self = {};
-  bless $self, $class;
+    my $self = {};
+    bless $self, $class;
 
-  return $self;
+    return $self;
 }
 
 
@@ -68,32 +68,29 @@ sub usedFiles
     return \@usedFiles;
 }
 
-
 sub doDaemon
-    {
+{
     my ($self, $mailfilterService) = @_;
 
     if ($mailfilterService and $self->isEnabled() and $self->isRunning()) {
-      $self->_daemon('restart');
-    }
-    elsif ($mailfilterService and $self->isEnabled()) {
-      $self->_daemon('start');
-    }
-    elsif ($self->isRunning()) {
-      $self->_daemon('stop');
+        $self->_daemon('restart');
+    } elsif ($mailfilterService and $self->isEnabled()) {
+        $self->_daemon('start');
+    } elsif ($self->isRunning()) {
+        $self->_daemon('stop');
     }
 }
 
 sub _daemon
 {
     my ($self, $action) = @_;
-      EBox::Service::manage(AMAVIS_SERVICE, $action);
+    EBox::Service::manage(AMAVIS_SERVICE, $action);
 }
 
 sub isEnabled
 {
-  my ($self) = @_;
-  return $self->_confAttr('enabled');
+    my ($self) = @_;
+    return $self->_confAttr('enabled');
 }
 
 
@@ -104,7 +101,6 @@ sub isRunning
     return EBox::Service::running(AMAVIS_SERVICE);
 }
 
-
 sub stopService
 {
   my ($self) = @_;
@@ -113,12 +109,6 @@ sub stopService
     $self->_daemon('stop');
   }
 }
-
-
-
-
-
-
 
 sub writeConf
 {
@@ -181,7 +171,6 @@ sub writeConf
     EBox::Module::Base::writeConfFileNoCheck(AMAVIS_CONF_FILE, '/mailfilter/amavisd.conf.mas', \@masonParams, $fileAttrs);
 }
 
-
 sub antivirus
 {
     my ($self) = @_;
@@ -194,8 +183,6 @@ sub antispam
     return $self->_confAttr('antispam');
 }
 
-
-#
 # Method: port
 #
 # Returns:
@@ -207,8 +194,6 @@ sub port
     return $self->_confAttr('port');
 }
 
-
-#
 # Method: fwport
 #
 # Returns:
@@ -245,9 +230,9 @@ sub _domain
     my $domain = `hostname --domain`;
 
     if ($? != 0) {
-        throw EBox::Exceptions::Internal('eBox was unable to get the domain for its host/' .
+        throw EBox::Exceptions::Internal('Zentyal was unable to get the domain for its host/' .
                                          'Please, check than your resolver and /etc/hosts file are propely configured.'
-                                        )
+                                        );
     }
 
     chomp $domain;
@@ -266,9 +251,9 @@ sub _fqdn
 
     if ($? != 0) {
         throw EBox::Exceptions::Internal(
-   'eBox was unable to get the full qualified domain name (FQDN) for its host/' .
-  'Please, check than your resolver and /etc/hosts file are propely configured.'
-                                        )
+            'Zentyal was unable to get the full qualified domain name (FQDN) for its host/' .
+            'Please, check than your resolver and /etc/hosts file are propely configured.'
+                                        );
     }
 
     chomp $fqdn;
@@ -277,8 +262,6 @@ sub _fqdn
         my $domain = _domain();
         return "$fqdn.$domain";
     }
-
-
 
     return $fqdn;
 }
@@ -332,23 +315,22 @@ sub adminAddress
 
 sub bannedFilesRegexes
 {
-  my ($self) = @_;
+    my ($self) = @_;
 
-  my $mailfilter  = EBox::Global->modInstance('mailfilter');
+    my $mailfilter  = EBox::Global->modInstance('mailfilter');
 
-  my @bannedRegexes;
+    my @bannedRegexes;
 
-  my $extensionACL = $mailfilter->model('FileExtensionACL');
-  push @bannedRegexes, @{ $extensionACL->bannedRegexes() };
+    my $extensionACL = $mailfilter->model('FileExtensionACL');
+    push @bannedRegexes, @{ $extensionACL->bannedRegexes() };
 
 
-  my $mimeACL = $mailfilter->model('MIMETypeACL');
-  push @bannedRegexes, @{ $mimeACL->bannedRegexes() };
+    my $mimeACL = $mailfilter->model('MIMETypeACL');
+    push @bannedRegexes, @{ $mimeACL->bannedRegexes() };
 
-  return \@bannedRegexes;
+    return \@bannedRegexes;
 }
 
-#
 # Method: filterPolicy
 #
 #  Returns the policy of a filter type passed as parameter. The filter type
@@ -385,30 +367,30 @@ sub filterPolicy
 ## firewall method
 sub usesPort
 {
-  my ($self, $protocol, $port, $iface) = @_;
+    my ($self, $protocol, $port, $iface) = @_;
 
-  if ($protocol ne 'tcp') {
-    return undef;
-  }
-
-  # if we have a interface specified we can check if we don't use it.
-  if ((defined $iface) and ($iface ne 'lo')) {
-    # see if we need to listen in normal interfaces
-    my $externalMTAs = @{ $self->allowedExternalMTAs() } > 0;
-    if (not $externalMTAs) {
-      return undef;
+    if ($protocol ne 'tcp') {
+        return undef;
     }
-  }
+
+# if we have a interface specified we can check if we don't use it.
+    if ((defined $iface) and ($iface ne 'lo')) {
+# see if we need to listen in normal interfaces
+        my $externalMTAs = @{ $self->allowedExternalMTAs() } > 0;
+        if (not $externalMTAs) {
+            return undef;
+        }
+    }
 
 
-  if ($port == $self->port) {
-    return 1;
-  }
-  elsif ($port == $self->fwport) {
-    return 1;
-  }
+    if ($port == $self->port) {
+        return 1;
+    }
+    elsif ($port == $self->fwport) {
+        return 1;
+    }
 
-  return undef;
+    return undef;
 }
 
 
@@ -417,40 +399,38 @@ sub usesPort
 #   Implements the method needed for EBox::Mail::FilterProvider
 sub mailFilterName
 {
-  return MAILFILTER_NAME;
+    return MAILFILTER_NAME;
 }
-
-
 
 #  Method: mailFilter
 #
 #   Reimplements the method needed for EBox::Mail::FilterProvider
 sub mailFilter
 {
-  my ($self) = @_;
+    my ($self) = @_;
 
 
-  my $name       = $self->mailFilterName;
-  my $active;
+    my $name       = $self->mailFilterName;
+    my $active;
 
-  my $module = EBox::Global->modInstance('mailfilter');
-  if (not $module->isEnabled()) {
-      $active = 0;
-  }  else {
-      $active = $self->isEnabled() ? 1 : 0;
-  }
+    my $module = EBox::Global->modInstance('mailfilter');
+    if (not $module->isEnabled()) {
+        $active = 0;
+    }  else {
+        $active = $self->isEnabled() ? 1 : 0;
+    }
 
-  my %properties = (
-                     address     => '127.0.0.1',
-                     port        => $self->port(),
-                     forwardPort => $self->fwport,
-                     prettyName  => __('eBox internal mail filter'),
-                     module      => 'mailfilter',
-                     active      => $active,
-                    );
+    my %properties = (
+            address     => '127.0.0.1',
+            port        => $self->port(),
+            forwardPort => $self->fwport,
+            prettyName  => __('Zentyal internal mail filter'),
+            module      => 'mailfilter',
+            active      => $active,
+            );
 
 
-  return ($name, \%properties);
+    return ($name, \%properties);
 }
 
 
@@ -486,7 +466,5 @@ sub summary
        nobutton      => 1);
     $section->add($antispam);
 }
-
-
 
 1;

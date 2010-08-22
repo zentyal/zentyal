@@ -1,17 +1,17 @@
 Source: ebox-ca
 Section: web
 Priority: optional
-Maintainer: José Antonio Calvo  <jacalvo@ebox-platform.com>
+Maintainer: José Antonio Calvo  <jacalvo@zentyal.org>
 Build-Depends: debhelper (>= 5.0.0), cdbs
 Standards-Version: 3.8.2
 
 Package: ebox-ca
 Architecture: all
 Depends: ebox (>= 1.5), ebox (<< 1.5.100), libebox (>= 1.5.1), libdate-calc-perl, libfile-copy-recursive-perl, ${misc:Depends}
-Description: eBox - Certification Authority
- eBox Platform is an open source small business server that can act as
- a Gateway, a Unified Threat Manager, an Office Server, an Infrastructure
- Manager, a Unified Communications Server or a combination of them. One
+Description: Zentyal - Certification Authority
+ Zentyal is an open source small business server that can act as
+ a Gateway, Unified Threat Manager, Office Server, Infrastructure
+ Manager, Unified Communications Server or a combination of them. One
  single, easy-to-use platform to manage all your network services.
  .
  This module adds a Certification Authority Manager over OpenSSL to issue,

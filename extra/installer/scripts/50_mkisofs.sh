@@ -2,7 +2,7 @@
 
 . ../build_cd.conf
 
-mkisofs -r -V "eBox Platform $EBOX_VERSION$EBOX_APPEND $ARCH" \
+mkisofs -r -V "Zentyal $EBOX_VERSION$EBOX_APPEND $ARCH" \
             -cache-inodes \
             -J -l -b isolinux/isolinux.bin \
             -c isolinux/boot.cat -no-emul-boot \

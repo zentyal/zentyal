@@ -5,6 +5,7 @@ DIR=/home/$USER_NAME
 
 sed -i "s/#auto_login.*/auto_login\tyes/" /etc/slim.conf
 sed -i "s/#default_user.*/default_user\t$USER_NAME/" /etc/slim.conf
+sed -i "s/.*current_theme.*/current_theme\tslim-zentyal-simple/" /etc/slim.conf
 
 cp /var/tmp/ebox/ebox-xsession $DIR/.xsession
 chmod +x $DIR/.xsession
@@ -21,6 +22,7 @@ ID='eBox Server'
 certutil -d $PROFILE -A -n "$ID" -t ',,' -i $CERT
 /var/tmp/ebox/ebox-cert-override > $PROFILE/cert_override.txt
 
+mv /var/tmp/ebox/slim-zentyal-simple /usr/share/slim/themes/
 mv /var/tmp/ebox/ebox.png /usr/share/pixmaps/
 
 DESKTOP=`su $USER_NAME -c "xdg-user-dir DESKTOP"`

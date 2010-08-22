@@ -28,7 +28,6 @@ use base 'EBox::Squid::Model::DomainFilterFilesBase';
 use strict;
 use warnings;
 
-# eBox uses
 use EBox;
 
 use EBox::Exceptions::Internal;

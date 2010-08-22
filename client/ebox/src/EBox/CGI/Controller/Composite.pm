@@ -30,7 +30,6 @@ use base 'EBox::CGI::ClientRawBase';
 use strict;
 use warnings;
 
-# eBox uses
 use EBox::Gettext;
 
 # Constructor: new

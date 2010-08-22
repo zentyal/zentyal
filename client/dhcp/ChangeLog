@@ -1,3 +1,5 @@
+HEAD
+	+ Zentyal rebrand
 1.5.3
 	+ Added missing NetBIOS node type when setting the WINS server
 1.5.2
@@ -16,10 +18,10 @@
 	+ Added NTP server configuration setting to DHCP common options,
 	  you may use eBox or any other NTP server
 	+ Added Dynamic DNS update feature to set a domain for ranges and
- 	  a domain for fixed addresses when an IP address is leased. The
+	  a domain for fixed addresses when an IP address is leased. The
 	  hostname for ranges is set following a expression
 	  (dynamic-<IP_address>) and fixed addresses will use the declared
- 	  name from eBox interface.
+	  name from eBox interface.
 1.3.9
 	+ Bugfix: Do not set configuration for those interfaces which do
 	  not have ranges nor fixed address mapping configured

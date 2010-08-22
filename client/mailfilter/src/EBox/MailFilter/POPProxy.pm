@@ -180,7 +180,7 @@ sub _daemon
             $params = ' -k ';
         }
 
-        # this is a reimplemntation of eBox::Sudo::root to avoid the stdout pipe
+        # this is a reimplemntation of EBox::Sudo::root to avoid the stdout pipe
         my $outFile = EBox::Config::tmp() . 'p3scanstdout';
         my $errFile = EBox::Config::tmp() . 'stderr';
         my $cmd = 'sudo ' . P3SCAN_BIN . $params .

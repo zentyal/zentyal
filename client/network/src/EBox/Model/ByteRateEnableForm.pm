@@ -29,7 +29,6 @@ use EBox::Network::Report::ByteRate;
 use strict;
 use warnings;
 
-# eBox uses
 
 # Group: Public methods
 

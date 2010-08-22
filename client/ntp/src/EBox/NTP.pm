@@ -60,14 +60,14 @@ sub domain
 
 # Method: actions
 #
-# 	Override EBox::Module::Service::actions
+#	Override EBox::Module::Service::actions
 #
 sub actions
 {
 	return [
 	{
 		'action' => __('Remove ntp init script links'),
-		'reason' => __('eBox will take care of starting and stopping ' .
+		'reason' => __('Zentyal will take care of starting and stopping ' .
 						'the services.'),
 		'module' => 'ntp'
 	}
@@ -85,14 +85,14 @@ sub usedFiles
 		{
 		 'file' => NTPCONFFILE,
 		 'module' => 'ntp',
- 	 	 'reason' => 'ntp configuration file'
+		 'reason' => __('NTP configuration file')
 		}
 	       ];
 }
 
 # Method: enableActions
 #
-# 	Override EBox::Module::Service::enableActions
+#	Override EBox::Module::Service::enableActions
 #
 sub enableActions
 {
@@ -101,42 +101,42 @@ sub enableActions
 
 sub _enforceServiceState
 {
-   my $self = shift;
-	my $logger = EBox::logger();
+    my $self = shift;
+    my $logger = EBox::logger();
 
-  if (($self->isEnabled() or $self->synchronized) and $self->isRunning()) {
-      EBox::Service::manage('ebox.ntpd','stop');
-		sleep 2;
-		if ($self->synchronized) {
-			my $exserver = $self->get_string('server1');
-			try {
-				root("/usr/sbin/ntpdate $exserver");
-			} catch EBox::Exceptions::Internal with {
-				$logger->info("Couldn't execute ntpdata");
-			};
-		}
-      EBox::Service::manage('ebox.ntpd','start');
-   } elsif ($self->isEnabled() or $self->synchronized) {
-		if ($self->synchronized) {
-			my $exserver = $self->get_string('server1');
-			try {
-				root("/usr/sbin/ntpdate $exserver");
-			} catch EBox::Exceptions::Internal with {
-				$logger->info("Error no se pudo lanzar ntpdate");
-			};
-		}
-      EBox::Service::manage('ebox.ntpd','start');
-   } elsif ($self->isRunning) {
-      		EBox::Service::manage('ebox.ntpd','stop');
-		if ($self->synchronized) {
-      			EBox::Service::manage('ebox.ntpd','start');
-		}
-   }
+    if (($self->isEnabled() or $self->synchronized) and $self->isRunning()) {
+        EBox::Service::manage('ebox.ntpd','stop');
+        sleep 2;
+        if ($self->synchronized) {
+            my $exserver = $self->get_string('server1');
+            try {
+                root("/usr/sbin/ntpdate $exserver");
+            } catch EBox::Exceptions::Internal with {
+                $logger->info("Couldn't execute ntpdata");
+            };
+        }
+        EBox::Service::manage('ebox.ntpd','start');
+    } elsif ($self->isEnabled() or $self->synchronized) {
+        if ($self->synchronized) {
+            my $exserver = $self->get_string('server1');
+            try {
+                root("/usr/sbin/ntpdate $exserver");
+            } catch EBox::Exceptions::Internal with {
+                $logger->info("Error no se pudo lanzar ntpdate");
+            };
+        }
+        EBox::Service::manage('ebox.ntpd','start');
+    } elsif ($self->isRunning) {
+        EBox::Service::manage('ebox.ntpd','stop');
+        if ($self->synchronized) {
+            EBox::Service::manage('ebox.ntpd','start');
+        }
+    }
 }
 
 sub _stopService
 {
-      	EBox::Service::manage('ebox.ntpd','stop');
+    EBox::Service::manage('ebox.ntpd','stop');
 }
 
 sub _configureFirewall($){
@@ -217,47 +217,47 @@ sub synchronized
 #
 sub setServers # (server1, server2, server3)
 {
-        my ($self, $s1, $s2, $s3) = @_;
+    my ($self, $s1, $s2, $s3) = @_;
 
-	if (!(defined $s1 and ($s1 ne''))) {
-	  throw EBox::Exceptions::DataMissing (data => __('Primary server'));
-	}
-	_checkServer($s1, __('primary server'));
-
-
-	if (defined $s2 and ($s2 ne '')) {
-	  if ($s2 eq $s1) {
-	    throw EBox::Exceptions::External (__("Primary and secondary server must be different"))
-	  }
-
-	  _checkServer($s2, __('secondary server'));
-	}
-	else {
-	  if (defined($s3) and ($s3 ne "")) {
-	    throw EBox::Exceptions::DataMissing (data => __('Secondary server'));
-	  }
-
-	  $s2 = '';
-	}
+    if (!(defined $s1 and ($s1 ne''))) {
+        throw EBox::Exceptions::DataMissing (data => __('Primary server'));
+    }
+    _checkServer($s1, __('primary server'));
 
 
-	if (defined $s3 and ($s3 ne '')) {
-	  if ($s3 eq $s1) {
-	    throw EBox::Exceptions::External (__("Primary and tertiary server must be different"))
-	  }
-	  if ($s3 eq $s2) {
-	    throw EBox::Exceptions::External (__("Primary and secondary server must be different"))
-	  }
+    if (defined $s2 and ($s2 ne '')) {
+        if ($s2 eq $s1) {
+            throw EBox::Exceptions::External (__("Primary and secondary server must be different"))
+        }
 
-	  _checkServer($s3, __('tertiary server'));
-	}
-	else {
-	  $s3 = '';
-	}
+        _checkServer($s2, __('secondary server'));
+    }
+    else {
+        if (defined($s3) and ($s3 ne "")) {
+            throw EBox::Exceptions::DataMissing (data => __('Secondary server'));
+        }
 
-	$self->set_string('server1', $s1);
-	$self->set_string('server2', $s2);
-	$self->set_string('server3', $s3);
+        $s2 = '';
+    }
+
+
+    if (defined $s3 and ($s3 ne '')) {
+        if ($s3 eq $s1) {
+            throw EBox::Exceptions::External (__("Primary and tertiary server must be different"))
+        }
+        if ($s3 eq $s2) {
+            throw EBox::Exceptions::External (__("Primary and secondary server must be different"))
+        }
+
+        _checkServer($s3, __('tertiary server'));
+    }
+    else {
+        $s3 = '';
+    }
+
+    $self->set_string('server1', $s1);
+    $self->set_string('server2', $s2);
+    $self->set_string('server3', $s3);
 }
 
 sub _checkServer
@@ -284,8 +284,8 @@ sub _checkServer
 sub servers {
     my $self = shift;
     my @servers = ($self->get_string('server1'),
-                   $self->get_string('server2'),
-                   $self->get_string('server3'));
+            $self->get_string('server2'),
+            $self->get_string('server3'));
     foreach my $server (0..2) {
         unless(defined($servers[$server])) {
             $servers[$server] = "$server.pool.ntp.org";

@@ -6,7 +6,7 @@
     @localnets
     @objectsPolicies
     @objectsDelayPools
-    @groupsPolicies 
+    @groupsPolicies
     @notCachedDomains
     $memory
     $max_object_size
@@ -87,7 +87,7 @@ coredump_dir /var/spool/squid
 cache_effective_user proxy
 cache_effective_group proxy
 cache_mem <% $memory %> MB
-maximum_object_size <% $max_object_size %> MB 
+maximum_object_size <% $max_object_size %> MB
 access_log /var/log/squid/access.log squid
 
 cache_dir ufs /var/spool/squid <% $cacheDirSize %> 16 256
@@ -105,7 +105,7 @@ refresh_pattern http://.*\.archive\.ubuntu\.com/ 0 80% 20160 reload-into-ims
 refresh_pattern http://(ftp|http)[0-9]*\.[a-z]+\.debian\.org/ 0 80% 20160 reload-into-ims
 
 # <EBOX> TAG_ACL #
-auth_param basic realm eBox HTTP proxy
+auth_param basic realm Zentyal HTTP proxy
 auth_param basic program /usr/lib/squid/ldap_auth -v 3 -b  ou=Users,<% $dn %>  -u uid  -h ldap://127.0.0.1:<% $ldapport %>
 acl authorized  proxy_auth required
 

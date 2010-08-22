@@ -1,17 +1,17 @@
 Source: ebox-ftp
 Section: web
 Priority: optional
-Maintainer: José Antonio Calvo  <jacalvo@ebox-platform.com>
+Maintainer: José Antonio Calvo  <jacalvo@zentyal.org>
 Build-Depends: debhelper (>= 5.0.0), cdbs
 Standards-Version: 3.8.2
 
 Package: ebox-ftp
 Architecture: all
 Depends: ebox (>= 1.5), ebox (<= 1.5.100), ebox-network, ebox-firewall, ebox-usersandgroups, ${misc:Depends}, vsftpd (>= 2.2)
-Description: eBox - FTP
- eBox Platform is an open source small business server that can act as
- a Gateway, a Unified Threat Manager, an Office Server, an Infrastructure
- Manager, a Unified Communications Server or a combination of them. One
+Description: Zentyal - FTP
+ Zentyal is an open source small business server that can act as
+ a Gateway, Unified Threat Manager, Office Server, Infrastructure
+ Manager, Unified Communications Server or a combination of them. One
  single, easy-to-use platform to manage all your network services.
  .
  This module provides a FTP server.

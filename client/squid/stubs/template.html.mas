@@ -6,7 +6,7 @@ use EBox::Gettext;
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <title>
-      eBox Platform - <% __d('Access Denied', 'squid') %>
+      Zentyal - <% __d('Access Denied', 'squid') %>
     </title>
     <style type="text/css" media="screen">
     body {background: #fff url(http://static.ebox-platform.com/img/ebox-bg.png) repeat-x top left; font-family: Helvetica, Arial, sans-serif; color: #222;}
@@ -25,7 +25,7 @@ use EBox::Gettext;
       <table border="0" cellspacing="0" cellpadding="2" width="700">
         <tr>
           <td align="center" class="head">
-            <img src="http://static.ebox-platform.com/img/ebox.png" align="left" alt="eBox Platform" />
+            <img src="http://static.ebox-platform.com/img/ebox.png" align="left" alt="Zentyal" />
             <h1>
               <% __d('Access has been Denied', 'squid') %>
             </h1>
@@ -44,8 +44,8 @@ use EBox::Gettext;
           </td>
         </tr>
       </table>
-      <div class="foot"><% __d('Powered by', 'squid') %> <a href="http://www.ebox-platform.com/">eBox Platform</a></div>
-      
+      <div class="foot"><% __d('Powered by', 'squid') %> <a href="http://www.ebox-platform.com/">Zentyal</a></div>
+
 <!--
 The available variables are as follows:
 - URL- gives the URL the user was trying to get to.

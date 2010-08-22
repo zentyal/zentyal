@@ -97,8 +97,8 @@ sub DisabledByDefault
 #
 # Returns:
 #
-#        array ref - <EBox::Event> an info event is sent if eBox is up and
-#        running and a fatal event if eBox is down
+#        array ref - <EBox::Event> an info event is sent if Zentyal is up and
+#        running and a fatal event if Zentyal is down
 #
 sub run
 {
@@ -138,7 +138,7 @@ sub _name
 sub _description
 {
 
-    return __('Check if eBox backup was not successful.');
+    return __('Check if Zentyal backup was not successful.');
 
 }
 

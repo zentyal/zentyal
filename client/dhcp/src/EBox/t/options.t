@@ -139,10 +139,10 @@ diag(q{Nameservers' tests});
 lives_ok {
     $dhcp->setOption('eth0',
                      primary_ns => { eboxDNS => '' });
-} 'Setting eBox as primary NS';
+} 'Setting Zentyal as primary NS';
 
 cmp_ok( $dhcp->nameserver('eth0', 1), 'eq', '10.0.0.1',
-         'Getting eBox iface IP address as primary nameserver');
+         'Getting Zentyal iface IP address as primary nameserver');
 
 lives_ok {
     $dhcp->setOption('eth0',

@@ -20,7 +20,6 @@ use base 'EBox::Model::DataForm';
 use strict;
 use warnings;
 
-# eBox uses
 use EBox::Gettext;
 use EBox::Global;
 use EBox::Types::Host;
@@ -89,7 +88,7 @@ sub _table
                        tableDescription   => \@tableHeader,
                        class              => 'dataForm',
                        help               => __('This settings will be used to allow '
-                                               . 'eBox to access the Internet if an HTTP proxy '
+                                               . 'Zentyal to access the Internet if an HTTP proxy '
                                                . 'is needed.'),
                        modelDomain        => 'Network',
                      };

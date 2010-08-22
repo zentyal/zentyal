@@ -14,8 +14,8 @@ $dh
 $logFile
 $statusLogFile
 </%args>
-# eBox client-side OpenVPN 2.0 config file #
-# for connecting to multi-client server.     #
+# Zentyal client-side OpenVPN 2.0 config file #
+# for connecting to multi-client server.      #
 # Client name <% $name %>
 
 

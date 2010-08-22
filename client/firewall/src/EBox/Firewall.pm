@@ -84,7 +84,7 @@ sub actions
     return [
         {
                 'action' => __('Flush previous firewall rules'),
-                'reason' => __('The eBox firewall will flush any previous firewall '
+                'reason' => __('The Zentyal firewall will flush any previous firewall '
                                . 'rules which have been added manually or by another tool'),
                 'module' => 'firewall'
         },
@@ -605,13 +605,13 @@ sub addOutputRule # (protocol, port)
 
 # Method: setInternalService
 #
-#   This method adds a rule to the "internal networks to eBox services"
+#   This method adds a rule to the "internal networks to Zentyal services"
 #   table.
 #
 #   In case the service has already been configured with a custom
 #   rule by the user the adding operation is aborted.
 #
-#   Modules configuring internal services running on eBox should use
+#   Modules configuring internal services running on Zentyal should use
 #   this method if they wish to allow access from internal networks
 #   to the service by default.
 #
@@ -638,13 +638,13 @@ sub setInternalService
 
 # Method: setExternalService
 #
-#   This method adds a rule to the "external networks to eBox services"
+#   This method adds a rule to the "external networks to Zentyal services"
 #   table.
 #
 #   In case the service has already been configured with a custom
 #   rule by the user the adding operation is aborted.
 #
-#   Modules configuring internal services running on eBox should use
+#   Modules configuring internal services running on Zentyal should use
 #   this method if they wish to allow access from external networks
 #   to the service by default.
 #
@@ -736,7 +736,7 @@ sub enableLog
 #   This method is used to enable/disable the iptables logging facilities.
 #
 #   When enabled, it will log drop packets to syslog, and they will be
-#   introduced into the eBox log DB.
+#   introduced into the Zentyal log DB.
 #
 # Parameters:
 #

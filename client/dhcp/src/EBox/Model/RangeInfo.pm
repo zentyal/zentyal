@@ -29,7 +29,6 @@ package EBox::DHCP::Model::RangeInfo;
 
 use base 'EBox::Model::DataForm::ReadOnly';
 
-# eBox uses
 use EBox::Gettext;
 use EBox::Global;
 use EBox::NetWrappers;

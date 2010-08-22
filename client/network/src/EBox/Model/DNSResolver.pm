@@ -28,7 +28,6 @@ use base 'EBox::Model::DataTable';
 use strict;
 use warnings;
 
-# eBox uses
 use EBox::Gettext;
 use EBox::Global;
 use EBox::Types::IPAddr;
@@ -75,7 +74,7 @@ sub _table
 {
     my ($self) = @_;
 
-    my $helpHostIP = __('IP address of the DNS server that eBox'.
+    my $helpHostIP = __('IP address of the DNS server that Zentyal'.
                         ' will use to resolve names.');
     my @tableDesc =
       (
@@ -108,7 +107,7 @@ sub _table
 
 sub _help
 {
-    return (__('<p>Here you can add the name server resolvers that eBox will ' .
+    return (__('<p>Here you can add the name server resolvers that Zentyal will ' .
                'use.</p>' .
                '<p>Note that these settings may be overriden if you have any ' .
                'network interface configured via DHCP</p>'));

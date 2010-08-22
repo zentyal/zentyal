@@ -21,7 +21,6 @@ use base 'EBox::Model::DataForm';
 use strict;
 use warnings;
 
-# eBox classes
 use EBox::Global;
 use EBox::Gettext;
 use EBox::Types::Text;
@@ -32,8 +31,6 @@ use EBox::Types::Union;
 use EBox::Types::Union::Text;
 use EBox::Types::Port;
 use EBox::Types::Composite;
-
-# eBox exceptions used
 use EBox::Exceptions::External;
 
 sub new
@@ -149,9 +146,6 @@ sub _table
                                   __('Manage sieve connection uses TLS'),
                                   editable => 1,
                                  ),
-         
-
-
         );
 
       my $dataForm = {
@@ -172,22 +166,21 @@ sub _table
 sub _connectionTypePopulate
 {
     return [
-        { 
-            value => 'unencrypted', 
+        {
+            value => 'unencrypted',
             printableValue =>__('unencrypted'),
         },
-        { 
-            value => 'ssl', 
+        {
+            value => 'ssl',
             printableValue =>__('SSL'),
         },
-        { 
-            value => 'tls', 
+        {
+            value => 'tls',
             printableValue =>__('TLS'),
         },
 
        ];
 }
-
 
 sub _urlForConnection
 {
@@ -210,25 +203,25 @@ sub getConfiguration
     my @params;
 
     my $imapServer = $row->elementByName('imapServer')->value();
-    my $imapConnection = 
+    my $imapConnection =
         $row->elementByName('imapConnection')->value();
     my $imapUrl = _urlForConnection($imapServer, $imapConnection);
-    
+
     my $imapPort = $row->elementByName('imapPort')->value();
     push @params, (
                    imapServer => $imapUrl,
-                   imapPort   => $imapPort,                   
+                   imapPort   => $imapPort,
                   );
 
     my $smtpServer = $row->elementByName('smtpServer')->value();
-    my $smtpConnection = 
+    my $smtpConnection =
         $row->elementByName('smtpConnection')->value();
     my $smtpUrl = _urlForConnection($smtpServer, $smtpConnection);
 
     my $smtpPort = $row->elementByName('smtpPort')->value();
     push @params, (
                    smtpServer => $smtpUrl,
-                   smtpPort   => $smtpPort,                   
+                   smtpPort   => $smtpPort,
                   );
 
 
@@ -245,7 +238,6 @@ sub getConfiguration
                        smtpPassword => $credentials->{password},
                       );
     }
-    
 
     return \@params;
 }
@@ -290,9 +282,7 @@ sub precondition
 
 sub preconditionFailMsg
 {
-    return __(
-q{No need to configure the connection to a remote server beacuse WebMail is configured to use eBox's mail service'} 
-);
+    return __(q{No need to configure the connection to a remote server beacuse WebMail is configured to use Zentyal mail service'});
 }
 
 sub headTitle

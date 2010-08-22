@@ -10,7 +10,7 @@ use EBox::Global;
 use EBox::MailVDomainsLdap;
 use Error qw(:try);
 
-diag "This test uses the eBox's LDAP.  Don't use ot in production environments!!";
+diag "This test uses the Zentyal LDAP. Don't use it in production environments!!";
 
 
 use_ok('EBox::MailFilter::VDomainsLdap');

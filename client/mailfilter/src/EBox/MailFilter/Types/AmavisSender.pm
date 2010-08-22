@@ -20,7 +20,6 @@ use warnings;
 
 use base 'EBox::Types::Text';
 
-# eBox uses
 use EBox;
 use EBox::Validate;
 use EBox::Gettext;

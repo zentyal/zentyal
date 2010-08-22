@@ -1,7 +1,7 @@
 #!/usr/bin/perl
 #
 # This is a migration script to add a service and firewall rules
-# for the eBox mail system
+# for the Zentyal mail system
 #
 # For next releases we should be able to enable/disable some ports
 # depening on if certain mail service is enabled or not
@@ -29,7 +29,6 @@ sub runGConf
         # enable script would take care of all of this
         return;
     }
-    
 
     $self->_createDatabase();
     $self->_migrateDatabase();
@@ -58,11 +57,11 @@ sub _migrateDatabase
     my $backupFile = '/tmp/bayes.backup';
     # to better execute backup command
     print "Dumping old bayes database\n";
-    EBox::Sudo::root("chown -R ebox.ebox $dbPath"); 
-    my $dumpCmd = 
+    EBox::Sudo::root("chown -R ebox.ebox $dbPath");
+    my $dumpCmd =
           "sa-learn --siteconfigpath=/dev/null  --local --dbpath=$dbPath  --backup > $backupFile";
     system $dumpCmd;
-              
+
     # we had to overwrite the SA config otherwise it will fail the rsotre
     # process i am not very fond of this protion of the migration bz is fragile,
     # changes in the API could broke it easily
@@ -72,7 +71,7 @@ sub _migrateDatabase
     # restore old database
     print "Importing old bayes database to PostgreSQL database. This will take several minutes. Please wait\n";
     EBox::Sudo::root('chown ' . DB_USER . '.' . DB_USER . " $backupFile");
-    my $restoreCmd = 
+    my $restoreCmd =
        'su ' . DB_USER . qq{ -c'sa-learn --local -p /etc/spamassassin/local.cf --restore $backupFile'};
     EBox::Sudo::root($restoreCmd);
 

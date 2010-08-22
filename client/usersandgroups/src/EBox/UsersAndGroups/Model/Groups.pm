@@ -136,11 +136,11 @@ sub preconditionFailMsg
             return __x('There are no groups at the moment');
         } elsif ($mode eq 'slave') {
             my $master = $users->model('Mode')->remoteValue();
-            return __x('This eBox is configured as slave and there are no groups at the moment. You may want to add some in the {openhref}master{closehref}.',
+            return __x('Zentyal is configured as slave and there are no groups at the moment. You may want to add some in the {openhref}master{closehref}.',
                        openhref => "<a href='https://$master/ebox/UsersAndGroups/Groups'>",
                        closehref => '</a>');
         } elsif ($mode eq 'ad-slave') {
-            return __('This eBox is configured as Windows AD slave and there are no groups at the moment. If there are groups in your Domain Controller, maybe the synchronization process has failed or has not finished yet.');
+            return __('Zentyal is configured as Windows AD slave and there are no groups at the moment. If there are groups in your Domain Controller, maybe the synchronization process has failed or has not finished yet.');
         }
     }
 }

@@ -52,10 +52,10 @@ sub _sendEvent
                 my $msg;
                 my $level;
                 if ($success) {
-                    $msg = 'eBox backup succeeded';
+                    $msg = 'Zentyal backup succeeded';
                     $level = 'info';
                 } else {
-                    $msg = "eBox backup failed $msgError";
+                    $msg = "Zentyal backup failed $msgError";
                     $level = 'error';
                 }
                 $events->sendEvent(message => $msg,

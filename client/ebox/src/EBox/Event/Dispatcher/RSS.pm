@@ -18,7 +18,7 @@ package EBox::Event::Dispatcher::RSS;
 
 # Class: EBox::Dispatcher::RSS
 #
-# This class is a dispatcher which stores the eBox events in a single
+# This class is a dispatcher which stores the Zentyal events in a single
 # file within the channel
 #
 
@@ -27,7 +27,6 @@ use base 'EBox::Event::Dispatcher::Abstract';
 use strict;
 use warnings;
 
-# eBox uses
 use EBox::Config;
 use EBox::Exceptions::MissingArgument;
 use EBox::Exceptions::External;
@@ -288,21 +287,21 @@ sub _addEventToRSS
 
     if ($create) {
         # Create the channel if it does not exist
-        $rss->channel(title         => __x('eBox alerts channel for {hostname}',
+        $rss->channel(title         => __x('Zentyal alerts channel for {hostname}',
                                          hostname => hostname()),
                       link          => $confModel->linkValue(),
                       description   => __('This channel tracks what happens on '
-                                          . 'this eBox machine along the time'),
+                                          . 'this Zentyal machine along the time'),
                       language      => $self->_currentLanguage(),
 #                      pubDate       => $rssComplaintDate,
                       lastBuildDate => $rssComplaintDate,
                       ttl           => CHANNEL_TTL,
                      );
-        $rss->image(title       => 'eBox platform',
+        $rss->image(title       => 'Zentyal',
                     url         => 'http://trac.ebox-platform.com/chrome/common/ebox-logo.png',
                     link        => 'http://ebox-platform.com',
-                    description => 'eBox platform',
-                    alt         => 'eBox platform',
+                    description => 'Zentyal',
+                    alt         => 'Zentyal',
                    );
 
     }
@@ -311,13 +310,13 @@ sub _addEventToRSS
                   lastBuildDate => $rssComplaintDate
                  );
 
-    my $descriptionStr = __x('The event has happened in eBox {hostname} '
+    my $descriptionStr = __x('The event has happened in Zentyal {hostname} '
                              . 'from {source}',
                              hostname => hostname(),
                              source   => $event->source());
     $descriptionStr .= '<br><br>' . __x('Go to your {url} to check its status.',
                                     url => '<a href="' . $confModel->linkValue()
-                                    . '">eBox</a>');
+                                    . '">Zentyal</a>');
     $rss->add_item(
                    description => $descriptionStr,
                    title       => ($event->level() . ' : ' . $event->message()),

@@ -19,7 +19,6 @@ package EBox::MailFilter::Model::AntispamVDomainACL;
 use base 'EBox::Model::DataTable';
 
 
-# eBox uses
 use EBox;
 
 use EBox::Exceptions::Internal;

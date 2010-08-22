@@ -35,7 +35,6 @@ use warnings;
 
 use base 'EBox::Model::DataTable';
 
-# eBox uses
 use EBox::Exceptions::MissingArgument;
 use EBox::Gettext;
 use EBox::Types::Select;

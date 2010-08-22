@@ -63,17 +63,17 @@ sub _create
 
 # Method: listEBoxPkgs
 #
-#       Get the list of the eBox packages with information about them.
+#       Get the list of the Zentyal packages with information about them.
 #
 # Parameters:
 #
-#       clear - Boolean set to true to retrieve the list of eBox
+#       clear - Boolean set to true to retrieve the list of Zentyal
 #               packages from esofttool utility or false to get from
 #               cache
 #
 # Returns:
 #
-# 	array ref of hashes holding the following keys:
+#	array ref of hashes holding the following keys:
 #
 #	name - name of the package
 #	description - short description of the package
@@ -454,15 +454,15 @@ sub _packageDepends
 
 # Method: isInstalled
 #
-#	Checks if the package is installed 
+#	Checks if the package is installed
 #
 # Parameters:
 #
-# 	name - name of the package
+#	name - name of the package
 #
 # Returns:
 #
-#	1 is package is intalled otherwise returns 0 
+#	1 is package is intalled otherwise returns 0
 #
 # Exceptions:
 #
@@ -596,7 +596,7 @@ sub menu
                                            'order' => 100);
 
         $folder->add(new EBox::Menu::Item('url' => 'Software/EBox',
-                                          'text' => __('eBox Components')));
+                                          'text' => __('Zentyal Components')));
         $folder->add(new EBox::Menu::Item('url' => 'Software/Updates',
                                           'text' => __('System Updates')));
         $folder->add(new EBox::Menu::Item('url' => 'Software/Config',
@@ -923,7 +923,7 @@ sub _installCronFile
 
 # Method: firstTimeMenu
 #
-#   Prints first time menu instead of eBox default menu.
+#   Prints first time menu instead of Zentyal default menu.
 #   This method is intended to be used by first time wizard pages
 #
 # Params:

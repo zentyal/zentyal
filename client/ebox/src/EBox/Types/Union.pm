@@ -27,7 +27,6 @@ use warnings;
 
 use base 'EBox::Types::Abstract';
 
-# eBox uses
 use EBox;
 use EBox::Exceptions::Internal;
 

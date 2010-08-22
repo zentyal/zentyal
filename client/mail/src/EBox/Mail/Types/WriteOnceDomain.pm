@@ -16,10 +16,10 @@
 # Class: EBox::Mail::Types::WriteOnceDomain
 #
 # Class that inherits from <EBox::Type::Domain>
-# to add a needed feature due to the eBox mail  module design.
+# to add a needed feature due to the Zentyal mail module design.
 #
 # Text can only be written once, this is related to the way that
-# the module manages the virtua domains. To avoid nasty stuff, we don't
+# the module manages the virtual domains. To avoid nasty stuff, we don't
 # allow to change the name of the domain
 #
 package EBox::Mail::Types::WriteOnceDomain;
@@ -29,20 +29,19 @@ use warnings;
 
 use base 'EBox::Types::DomainName';
 
-# eBox uses
 use EBox;
 
 # Group: Public methods
 
 sub new
 {
-        my $class = shift;
-        my %opts = @_;
+    my $class = shift;
+    my %opts = @_;
 
-        my $self = $class->SUPER::new(%opts);
+    my $self = $class->SUPER::new(%opts);
 
-        bless($self, $class);
-        return $self;
+    bless($self, $class);
+    return $self;
 }
 
 # Method: editable

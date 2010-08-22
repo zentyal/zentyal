@@ -12,6 +12,6 @@ auth	required	pam_listfile.so item=user sense=deny file=/etc/ftpusers onerr=succ
 @include common-session
 @include common-auth
 
-# Commented by eBox as users do not have a valid shell by default
+# Commented by Zentyal as users do not have a valid shell by default
 #auth	required	pam_shells.so
 % }

@@ -36,7 +36,7 @@ automatically as scheduled') %>
 			</tr>
 		</thead>
 		<tbody>
-% 	foreach my $pkg (@upgradables) {
+%	foreach my $pkg (@upgradables) {
 			<tr class='border'>
 				<td>
 %         if ( $pkg->{security} or $pkg->{'ebox-qa'} ) {
@@ -52,14 +52,14 @@ automatically as scheduled') %>
                                  <em><% __('Security update') %></em>
 %                                }
 %                               elsif ( $pkg->{'ebox-qa'} ) {
-                                 <em><% __('eBox QA update') %></em>
+                                 <em><% __('Zentyal QA update') %></em>
 %                                }
 
                                 </td>
 				<td><%$pkg->{description}%></td>
 				<td><%$pkg->{version}%></td>
 				<td class='tcenter'>
-					<input type='checkbox' value='yes' 
+					<input type='checkbox' value='yes'
 						name='pkg-<%$pkg->{name}%>'/>
 				</td>
 			</tr>
@@ -85,12 +85,12 @@ automatically as scheduled') %>
 		</tbody>
 		</table>
 		<div class="note">
-		<% __("This operation can take some time, don't worry if eBox looks unresponsive after pressing the Upgrade button.") %>
+		<% __("This operation can take some time, don't worry if Zentyal looks unresponsive after pressing the Upgrade button.") %>
 		</div>
 		<input type='hidden' name='upgrade' value="yes"/>
 	</form>
 	<form name='updateList' action='Updates' method='post'>
-		<input type='hidden' name='updatePkgs' value="yes"/>		
+		<input type='hidden' name='updatePkgs' value="yes"/>
 	</form>
 	<button class='inputButton' onclick='document.updates.submit()'><img src="/data/images/down.gif"> <%__('Upgrade')%></button>
 % }

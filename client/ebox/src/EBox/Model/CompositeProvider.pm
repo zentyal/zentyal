@@ -30,7 +30,6 @@ use warnings;
 
 use constant TYPE => 'composite';
 
-# eBox uses
 
 # Method: composite
 #

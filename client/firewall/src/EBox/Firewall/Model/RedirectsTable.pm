@@ -258,7 +258,7 @@ sub _fieldDescription
             [
             new EBox::Types::Union::Text(
                 'fieldName' => 'origDest_ebox',
-                'printableName' => __('eBox')),
+                'printableName' => 'Zentyal'),
             new EBox::Types::IPAddr(
                 'fieldName' => 'origDest_ipaddr',
                 'printableName' => __('IP Address'),

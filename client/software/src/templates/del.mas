@@ -79,14 +79,14 @@ var check = new Array();
 
 <style>
 #row0{
-   width: 270px;   
+   width: 270px;
    float:right;
 }
 
 #row1{
     padding: 4 4 4 4px;
     margin-right: 270px;
-} 
+}
 
 
 </style>
@@ -103,12 +103,13 @@ var check = new Array();
 %       my $row0 = '';
 %       my $row1 = '';
 %       foreach my $pkg (@descactpackages) {
-%           $pkg =~ s/^eBox - //;
+%           $pkg =~ s/^Zentyal - //;
+%           $pkg =~ s/^eBox - //; # FIXME: Remove this after 2.0
 %           if ($r) {
 %               $row0 .= "       <tr class='border'><td>$pkg</td></tr>\n";
 %               $r = 0;
 %           } else {
-%               $row1 .= "       <tr class='border'><td>$pkg</td></tr>\n"; 
+%               $row1 .= "       <tr class='border'><td>$pkg</td></tr>\n";
 %               $r = 1;
 %           }
 %       }
@@ -136,7 +137,7 @@ var check = new Array();
 %       my @pkg_auto = split(',', $packages_auto);
 %       for my $pkg (@pkg_auto) {
     <input type='hidden' name='pkg-<% $pkg %>' value='yes'/>
-%       }    
+%       }
 %   }
     <input type='hidden' name='go' value='yes'/>
     <input type='hidden' name='ebox-<% $action %>' value="1" />

@@ -36,7 +36,7 @@
 #header img {
     <% $header_img_padding %>
     padding-bottom: 0;
-    margin:0;
+    margin: 2px 0px 0px -5px;
 }
 
 #hmenu {
@@ -888,6 +888,8 @@ a.changed:hover {
         left: 0pt;
         top: 0pt;
         z-index: 1;
+        border-radius: 5px 5px 0 0;
+        -moz-border-radius: 5px 5px 0 0;
 }
 
 .widgetName {
@@ -937,6 +939,8 @@ a.minBox, a.maxBox {
 
 .widgetBoxIn {
         border:1px solid <% $third_color %>;
+        border-radius: 0 0 5px 5px;
+        -moz-border-radius: 0 0 5px 5px;
 }
 
 .sectionContent {
@@ -1039,6 +1043,8 @@ a.minBox, a.minBox:hover, a.maxBox, a.maxBox:hover {
     background: <% $third_color %>;
     padding: 3px 18px 3px 10px;
     margin-left: -10px;
+    border-radius: 0 5px 5px 0;
+    -moz-border-radius: 0 5px 5px 0;
 }
 
 .linksBlock {

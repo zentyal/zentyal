@@ -24,7 +24,6 @@ package EBox::Monitor::Configuration;
 use strict;
 use warnings;
 
-# eBox uses
 use EBox::Config;
 use EBox::Gettext;
 
@@ -44,7 +43,7 @@ use constant RRD_BASE_DIR     => EBox::Config::var() . 'lib/collectd/rrd/';
 #
 # Returns:
 #
-#    String - the main /var/run directory for eBox
+#    String - the main /var/run directory for Zentyal
 #
 sub MainVarRun
 {

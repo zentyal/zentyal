@@ -30,7 +30,6 @@ use base 'EBox::Model::DataTable';
 use strict;
 use warnings;
 
-## eBox uses
 use EBox::Gettext;
 use EBox::Types::Boolean;
 use EBox::Types::HasMany;

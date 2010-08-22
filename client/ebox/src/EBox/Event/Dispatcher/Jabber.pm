@@ -29,7 +29,6 @@ use base 'EBox::Event::Dispatcher::Abstract';
 use strict;
 use warnings;
 
-# eBox uses
 use EBox::Exceptions::MissingArgument;
 use EBox::Exceptions::External;
 use EBox::Gettext;
@@ -291,7 +290,7 @@ sub _createEventMessage # (event)
       $msg->SetMessage(
                        to      => $self->{adminJID},
                        type    => 'normal',
-                       subject => 'eBox event',
+                       subject => 'Zentyal event',
                        body    => $event->level() . ' : ' . $event->message(),
                       );
 
@@ -345,8 +344,8 @@ sub _register
       my @registerResult = $self->{connection}->RegisterSend(
                                      username => $self->{user},
                                      password => $self->{password},
-                                     name     => 'eBox de Platform',
-                                     email => 'ebox@eboxplatform.com',
+                                     name     => 'Zentyal',
+                                     email => 'zentyal@zentyal.org',
                                                             );
 
       unless ( defined ( $registerResult[0] )) {

@@ -32,8 +32,6 @@ use EBox::Config;
 use strict;
 use warnings;
 
-# eBox uses
-
 # Group: Public methods
 
 # Constructor: new
@@ -88,20 +86,20 @@ sub _table
             fieldName => 'remote',
             printableName => __('Master host'),
             editable => 1,
-            help => __('Only for slave configuration: IP of the master eBox or Windows AD')
+            help => __('Only for slave configuration: IP of the master Zentyal or Windows AD')
         ),
         new EBox::Types::Password (
             fieldName => 'password',
             printableName => __('LDAP password'),
             editable => 1,
-            help => __('Master eBox LDAP password')
+            help => __('Master Zentyal LDAP password')
         ),
     );
 
     my $dataForm = {
         tableName           => 'Mode',
         printableTableName  => __('Configuration'),
-        pageTitle           => __('eBox Users Mode'),
+        pageTitle           => __('Zentyal Users Mode'),
         defaultActions      => [ 'editField', 'changeView' ],
         tableDescription    => \@tableDesc,
         modelDomain         => 'Users',

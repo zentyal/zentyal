@@ -1,7 +1,7 @@
 Source: ebox-samba
 Section: web
 Priority: optional
-Maintainer: José Antonio Calvo  <jacalvo@ebox-platform.com>
+Maintainer: José Antonio Calvo  <jacalvo@zentyal.org>
 Build-Depends: debhelper (>= 5.0.0), cdbs
 Standards-Version: 3.8.2
 
@@ -10,11 +10,11 @@ Architecture: all
 Depends: ebox (>= 1.5), ebox (<< 1.5.100), ebox-network, ebox-firewall, ebox-usersandgroups, samba, samba-common-bin, quota, libquota-perl, smbldap-tools, bzip2, acl, ${misc:Depends}
 Conflicts: ebox (<< 0.9.99)
 Replaces: ebox (<< 0.9.99)
-Description: eBox - File Sharing
- eBox Platform is an open source small business server that can act as
- a Gateway, a Unified Threat Manager, an Office Server, an Infrastructure
- Manager, a Unified Communications Server or a combination of them. One
+Description: Zentyal - File Sharing
+ Zentyal is an open source small business server that can act as
+ a Gateway, Unified Threat Manager, Office Server, Infrastructure
+ Manager, Unified Communications Server or a combination of them. One
  single, easy-to-use platform to manage all your network services.
  .
- This module adds a Samba server to your eBox installation, allowing your
- users to authenticate against eBox and have shared network storage device.
+ This module adds a Samba server to your Zentyal installation, allowing your
+ users to authenticate against Zentyal and have shared network storage device.

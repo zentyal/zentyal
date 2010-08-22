@@ -1,3 +1,5 @@
+HEAD
+	+ Zentyal rebrand
 1.5.1
 	+ Use CUPS interface instead of eBox to add and manage printers
 1.5
@@ -18,7 +20,7 @@
 0.12.101
 	+ Bug fix: Use isEnabled() instead of deprecated service()
 0.12.1
-	+ Add support for external printers configured with CUPS 
+	+ Add support for external printers configured with CUPS
 0.12
 	+ Bugfix: Create the `job` table when installing. This readds a
 	bunch of lost lines from ubuntu merging.

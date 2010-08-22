@@ -22,7 +22,6 @@ package EBox::Monitor::Model::MeasureWatchers;
 
 use base 'EBox::Model::DataTable';
 
-# eBox uses
 use EBox::Exceptions::DataNotFound;
 use EBox::Gettext;
 use EBox::Global;

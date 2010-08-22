@@ -16,7 +16,7 @@
 
 # Class: EBox::Firewall::Model::EBoxOutputRuleTable
 #
-# This class describes the model used to store rules to allow eBox to
+# This class describes the model used to store rules to allow Zentyal to
 # access external services
 #
 # Inherits from <EBox::Firewall::Model::BaseRuleTable> to fetch
@@ -66,7 +66,7 @@ sub _table
     {
         'tableName' => 'EBoxOutputRuleTable',
         'printableTableName' =>
-          __('Traffic coming out from eBox'),
+          __('Traffic coming out from Zentyal'),
         'automaticRemove' => 1,
         'defaultController' =>
             '/ebox/Firewall/Controller/EBoxOutputRuleTable',

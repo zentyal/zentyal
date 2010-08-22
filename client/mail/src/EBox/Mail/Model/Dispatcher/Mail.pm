@@ -23,13 +23,12 @@
 #     - subject
 #     - to
 #
-# The mail is sent using eBox mail SMTP.
+# The mail is sent using Zentyal mail SMTP.
 
 package EBox::Mail::Model::Dispatcher::Mail;
 
 use base 'EBox::Model::DataForm';
 
-# eBox uses
 use EBox::Exceptions::InvalidData;
 use EBox::Gettext;
 use EBox::Global;
@@ -146,7 +145,7 @@ sub _table
                       tableDescription   => \@tableDesc,
                       class              => 'dataForm',
                       help               => __('In order to configure the Mail event dispatcher '
-                                               . 'is required to enable the mail service from eBox'),
+                                               . 'is required to enable the mail service from Zentyal'),
                       messages           => {
                                              update => __('Mail dispatcher configuration updated'),
                                             },

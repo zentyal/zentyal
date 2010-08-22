@@ -17,7 +17,7 @@
 # Class: EBox::Firewall::Model::ExternalToEBoxRuleTable
 #
 # This class describes the model used to store rules to access
-# services running on eBox from internal networks.
+# services running on Zentyal from internal networks.
 #
 # Inherits from <EBox::Firewall::Model::BaseRuleTable> to fetch
 # the field description
@@ -66,7 +66,7 @@ sub _table
     {
         'tableName' => 'ExternalToEBoxRuleTable',
         'printableTableName' =>
-          __('External networks to eBox'),
+          __('External networks to Zentyal'),
         'automaticRemove' => 1,
         'defaultController' =>
             '/ebox/Firewall/Controller/ExternalToEBoxRuleTable',

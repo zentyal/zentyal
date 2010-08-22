@@ -617,7 +617,7 @@ sub winsServer # (iface)
 
 # Method: staticRoutes
 #
-#	Get the static routes. It polls the eBox modules which
+#	Get the static routes. It polls the Zentyal modules which
 #	implements <EBox::DHCP::StaticRouteProvider>
 #
 # Returns:

@@ -118,7 +118,7 @@ connect_from_port_20=YES
 #ascii_download_enable=YES
 #
 # You may fully customise the login banner string:
-#ftpd_banner=Welcome to eBox FTP service.
+#ftpd_banner=Welcome to Zentyal FTP service.
 #
 # You may specify a file of disallowed anonymous e-mail addresses. Apparently
 # useful for combatting certain DoS attacks.

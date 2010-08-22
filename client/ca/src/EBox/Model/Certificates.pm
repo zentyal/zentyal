@@ -161,7 +161,7 @@ sub setServiceRO
     }
 }
 
-# Method: updateCN 
+# Method: updateCN
 #
 #       Updates the CN in the certificate for the given service.
 #
@@ -285,7 +285,7 @@ sub _table
         sortedBy           => 'module',
         modelDomain        => 'CA',
         help               => __('Here you may set certificates from this CA for those '
-                                 . 'secure services managed by eBox'),
+                                 . 'secure services managed by Zentyal'),
     };
 
     return $dataTable;

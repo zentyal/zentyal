@@ -64,8 +64,7 @@ sub prepareMakeRemoteBackup
 
 # Method: makeRemoteBackup
 #
-#      Make a configuration backup and send it to the eBox Control
-#      Center
+#      Make a configuration backup and send it to Zentyal Cloud
 #
 # Parameters:
 #
@@ -96,7 +95,7 @@ sub makeRemoteBackup
 
 # Method: sendRemoteBackup
 #
-#      Send a configuration backup to the eBox Control Center
+#      Send a configuration backup to Zentyal Cloud
 #
 # Parameters:
 #
@@ -219,7 +218,7 @@ sub removeRemoteBackup
 #       hash ref - the list of backups indexed by name with the following values:
 #
 #           Automatic - 1/0 indicating whether the backup is automatic or not
-#           Canonical Name - String the eBox's name
+#           Canonical Name - String with the server name
 #           Comment - String the description for the backup
 #           Date - String the date in printable format
 #           sortableDate - Int the date in seconds from epoch

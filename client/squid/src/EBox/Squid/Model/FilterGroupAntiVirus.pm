@@ -21,14 +21,12 @@ use base 'EBox::Squid::Model::AntiVirusBase';
 use strict;
 use warnings;
 
-# eBox classes
 use EBox::Global;
 use EBox::Gettext;
 
 
 
 
-# eBox exceptions used
 use EBox::Exceptions::External;
 
 sub new

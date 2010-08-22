@@ -31,7 +31,6 @@ package EBox::Events::Model::Watcher::DiskFreeSpace;
 
 use base 'EBox::Model::DataForm';
 
-# eBox uses
 use EBox::Exceptions::External;
 use EBox::Gettext;
 use EBox::Types::Int;

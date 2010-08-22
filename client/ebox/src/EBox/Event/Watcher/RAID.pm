@@ -45,7 +45,6 @@ package EBox::Event::Watcher::RAID;
 
 use base 'EBox::Event::Watcher::Base';
 
-# eBox uses
 use EBox::Event;
 use EBox::Gettext;
 use EBox::Global;

@@ -223,15 +223,15 @@ sub serviceConfiguration
 #
 #   name        - service's name
 #   description - service's description
-#       protocol    - it can take one of these: any, tcp, udp, tcp/udp, grep, icmp
-#       sourcePort  - it can take:
+#   protocol    - it can take one of these: any, tcp, udp, tcp/udp, grep, icmp
+#   sourcePort  - it can take:
 #                   "any"
-#                    An integer from 1 to 65536 -> 22
+#                   An integer from 1 to 65536 -> 22
 #                   Two integers separated by colons -> 22:25
-#       destinationPort - same as source
+#   destinationPort - same as source
 #   internal - boolean, internal services can't be modified from the UI
 #   readOnly - boolean, set the row unremovable from the UI
-#   translationDomain - eBox module domain for i18n
+#   translationDomain - Zentyal module domain for i18n
 #
 #       Example:
 #
@@ -400,7 +400,7 @@ sub setAdministrationPort
     checkPort($port, __("port"));
 
         $self->setService('name' => __d('eBox administration'),
-                'description' => __d('eBox Administration port'),
+                'description' => __d('Zentyal Administration port'),
                 'domain' => __d('ebox-services'),
                 'protocol' => 'tcp',
                 'sourcePort' => 'any',
@@ -545,7 +545,7 @@ sub serviceId
     if (not defined $row) {
         return undef;
     }
-    
+
 
     return $row->id();
 }

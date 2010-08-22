@@ -42,7 +42,6 @@ package EBox::Monitor::Model::ThresholdConfiguration;
 
 use base 'EBox::Model::DataTable';
 
-# eBox uses
 use EBox::Exceptions::DataExists;
 use EBox::Exceptions::DataNotFound;
 use EBox::Exceptions::External;

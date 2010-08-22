@@ -32,7 +32,6 @@ use base 'EBox::Model::DataTable';
 use strict;
 use warnings;
 
-# eBox uses
 use EBox;
 use EBox::Config;
 use EBox::Exceptions::Internal;

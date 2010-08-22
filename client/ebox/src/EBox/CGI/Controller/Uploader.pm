@@ -21,7 +21,6 @@ use warnings;
 
 use base 'EBox::CGI::ClientRawBase';
 
-# eBox uses
 use EBox::Gettext;
 use EBox::Global;
 use EBox::Exceptions::NotImplemented;

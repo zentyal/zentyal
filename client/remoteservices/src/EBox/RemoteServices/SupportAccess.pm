@@ -28,7 +28,7 @@ use File::Slurp;
 use EBox::Module::Base;
 
 use constant USER_NAME => 'ebox-remote-support';
-use constant USER_COMMENT => 'user for eBox remote support';
+use constant USER_COMMENT => 'user for Zentyal remote support';
 use constant SCREEN_BIN => '/usr/bin/screen';
 use constant SCREEN_RUN_DIR => '/var/run/screen';
 
@@ -125,7 +125,7 @@ sub userCheck
 
     if ($gcos ne USER_COMMENT) {
         throw EBox::Exceptions::External(__x(
-'There exists already a user {u} and it does not seem created by eBox. Until this user is renamed or removed it would be impossible to set up remote support access',
+'There exists already a user {u} and it does not seem created by Zentyal. Until this user is renamed or removed it would be impossible to set up remote support access',
                                     u => $user ));
     }
 }
@@ -203,7 +203,7 @@ sub _writeScreenConf
     $conf .= "\n";
     $conf .= qq{aclchg $userStr -w "#"\n};
     $conf .= "defwritelock on\n";
-    $conf .= q{caption always 'eBox support - %H'};
+    $conf .= q{caption always 'Zentyal support - %H'};
     $conf .= "\n";
     $conf .= "screen\n";
     $conf .= "logfile $logFile\n";

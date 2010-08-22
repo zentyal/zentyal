@@ -27,7 +27,6 @@ use base 'EBox::Model::DataTable';
 use strict;
 use warnings;
 
-# eBox uses
 use EBox::Model::Row;
 use EBox::Exceptions::Internal;
 use EBox::Gettext;

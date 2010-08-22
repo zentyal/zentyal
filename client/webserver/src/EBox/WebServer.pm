@@ -16,8 +16,8 @@
 
 # Class: EBox::WebServer
 #
-#      This eBox module is responsible for handling the web service
-#      within the local network manage by eBox.
+#      This Zentyal module is responsible for handling the web service
+#      within the local network manage by Zentyal.
 #
 package EBox::WebServer;
 
@@ -29,7 +29,6 @@ use base qw(EBox::Module::Service
             EBox::Model::CompositeProvider
             );
 
-# eBox uses
 use EBox::Common::Model::EnableForm;
 use EBox::Exceptions::External;
 use EBox::Exceptions::Sudo::Command;
@@ -295,7 +294,7 @@ sub virtualHosts
 # Method: VHostPrefix
 #
 #     Get the virtual host prefix used by all virtual host created by
-#     eBox.
+#     Zentyal.
 #
 # Returns:
 #
@@ -569,7 +568,7 @@ sub _setVHosts
     }
 }
 
-# Return current eBox available sites from actual dir
+# Return current Zentyal available sites from actual dir
 sub _availableSites
 {
     my $vhostPrefixPath = SITES_AVAILABLE_DIR . VHOST_PREFIX;

@@ -30,7 +30,6 @@ package EBox::Events::Model::Dispatcher::RSS;
 
 use base 'EBox::Model::DataForm';
 
-# eBox uses
 use EBox::Config;
 use EBox::Event::Dispatcher::RSS;
 use EBox::Gettext;

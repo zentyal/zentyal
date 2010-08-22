@@ -84,7 +84,7 @@ sub _table
             fieldName => 'secret',
             printableName => __('AD Secret Key'),
             editable => 1,
-            help => __('Secret key to be shared between Windows and eBox (16 chars)')
+            help => __('Secret key to be shared between Windows and Zentyal (16 chars)')
         )
     );
 

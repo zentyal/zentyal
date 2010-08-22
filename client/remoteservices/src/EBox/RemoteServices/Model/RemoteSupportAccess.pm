@@ -72,7 +72,7 @@ sub _table
       (
        new EBox::Types::Boolean(
                                 fieldName     => 'allowRemote',
-                                printableName => __('Allow remote access to eBox staff'),
+                                printableName => __('Allow remote access to Zentyal staff'),
                                 editable      => 1,
                                 default       => 0,
                                ),
@@ -82,7 +82,7 @@ sub _table
                                 editable      => 1,
                                 default       => 0,
                                 help =>
-__('By default the acces is only granted to hosts inside the Control Center private network. If you enable this option access is granted from any address. Use this option only if you could not connect to the Control Center')
+__('By default the acces is only granted to hosts inside the Zentyal Cloud private network. If you enable this option access is granted from any address. Use this option only if you could not connect to the Zentyal Cloud')
                                ),
       );
 
@@ -126,7 +126,7 @@ __('Remote access from any address requires that remote access support is enable
             my $rs = EBox::Global->modInstance('remoteservices');
             if (not $rs->eBoxSubscribed()) {
             throw EBox::Exceptions::External(
-__('To restrict addresses you need that your eBox is subscribed to the Control Center. Either subscribe it or allow access from any address')
+__('To restrict addresses you need that your Zentyal Server is subscribed to Zentyal Cloud. Either subscribe it or allow access from any address')
                                             );
             }
         }
@@ -137,7 +137,7 @@ __('To restrict addresses you need that your eBox is subscribed to the Control C
 sub _message
 {
     my $msg =  __x(
- "Enabling remote support will allow staff from eBox technologies to freely access your computer.\n" .
+ "Enabling remote support will allow staff from Zentyal to freely access your computer.\n" .
  "You could use the 'screen' command to join their shell option. To allow that, the SUID bit of the 'screen' program is enabled. This change is undone when this option is disabled\n" .
  q[To join the remote session, login in the shell as a user belonging to the 'adm' group and use the command: '{cmd}'.],
    cmd => 'screen -x ebox-remote-support/'

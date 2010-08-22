@@ -26,7 +26,6 @@ use base 'EBox::Model::Composite';
 use strict;
 use warnings;
 
-# eBox uses
 use EBox::Gettext;
 use EBox::Global;
 
@@ -54,7 +53,7 @@ sub new
 
 # Method: precondition
 #
-#    Check there are enough interfaces to shape the traffic in eBox
+#    Check there are enough interfaces to shape the traffic in Zentyal
 #
 # Overrides:
 #
@@ -82,7 +81,7 @@ sub preconditionFailMsg
     my $tsMod = EBox::Global->modInstance('trafficshaping');
     my $enough = $tsMod->enoughInterfaces();
     if ( not $enough ) {
-        return __x('Traffic Shaping is applied when eBox is acting as '
+        return __x('Traffic Shaping is applied when Zentyal is acting as '
                    . 'a gateway. To achieve this, you need at least an internal '
                    . 'and an external interface. Check your interface '
                    . 'configuration to match, at '

@@ -4,7 +4,7 @@
 #
 #
 #   This migration script just tries to add a rule to allow outcoming
-#   connections by eBox and also connections from internal to external.
+#   connections by Zentyal and also connections from internal to external.
 #
 #   There's no migration from previous data as we only need to add a rule.
 #

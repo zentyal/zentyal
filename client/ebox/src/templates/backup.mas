@@ -25,13 +25,13 @@ my $disabledAttr = $modulesChanged ? 'disabled' : '';
 </div>
 <h3><% __('Backup the Current State') %></h3>
 <div class='help'>
-	<% __("Backups will be stored in eBox and then you will be able to download them to your hard disk.") %><br/>
+	<% __("Backups will be stored in Zentyal and then you will be able to download them to your hard disk.") %><br/>
         <% __("If you have the file sharing module configured, all users having administration rights will be able to access the backup directory as a shared resource.") %>
-</div>	
+</div>
 % if ($modulesChanged) {
   <div class='warning'>
 	<% __(q{Backup is disabled because there are unsaved configuration changes. Please, save or discard them to be able to backup the configuration}) %>
-  </div>   
+  </div>
 % }
 <p>
 <table class='formTable'>
@@ -50,15 +50,15 @@ my $disabledAttr = $modulesChanged ? 'disabled' : '';
 				<span class='ftitle'><% __('Backup mode') %>:</span>
 			</td>
 			<td>
-	                	<& /input/select.mas, name => 'mode', value => 'configurationBackup', options => $modeOptions &>
+		                <& /input/select.mas, name => 'mode', value => 'configurationBackup', options => $modeOptions &>
 			</td>
                 </tr>
 		<tr>
-			<td class='tright'> 	
+			<td class='tright'>
 						<span class='ftitle'></span>
-                       </td>						
+                       </td>
 			<td>
-				<input class='inputButton' type='submit' 
+				<input class='inputButton' type='submit'
 				<% $disabledAttr %> name='backup' value="<% __('Backup') %>" />
 			</td>
                 </tr>
@@ -73,7 +73,7 @@ my $disabledAttr = $modulesChanged ? 'disabled' : '';
 <div class='help'>
 	<% __('You can upload a backup file from your computer. When uploading files you should be warned that some web browsers cannot handle huge files (>= 1 Gb).') %>
 </div>
- 
+
   <table class='formTable'>
     <tbody>
      <form action='ConfirmBackup' method='POST' enctype="multipart/form-data">
@@ -86,11 +86,11 @@ my $disabledAttr = $modulesChanged ? 'disabled' : '';
 			</td>
 		</tr>
 		<tr>
-			<td class='tright'> 	
+			<td class='tright'>
 						<span class='ftitle'></span>
                        </td>
 			<td>
-                  <input class='inputButton' type='submit' name='restoreFromFile' value="<% __('Restore') %>" /> 
+                  <input class='inputButton' type='submit' name='restoreFromFile' value="<% __('Restore') %>" />
 			</td>
 		</tr>
 
@@ -133,7 +133,7 @@ my %printableTypeById = (
 		<tr class='border'>
 
 				<td class="tleft">
-					<% $backup->{'description'} %> 
+					<% $backup->{'description'} %>
 				</td>
 				<td>
 %                                 my $typeId  = $backup->{type};
@@ -169,7 +169,7 @@ my %printableTypeById = (
 						value="Delete"
 						title="<%__('Delete')%>"
 						alt="<%__('Delete')%>"/>
-              			</form>
+                </form>
 				</td>
 
 		</tr>

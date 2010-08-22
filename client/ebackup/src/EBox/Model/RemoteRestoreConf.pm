@@ -101,7 +101,7 @@ sub _table
     my $dataTable =
     {
         tableName          => 'RemoteRestoreConf',
-        printableTableName => __('Restore eBox configuration from backup'),
+        printableTableName => __('Restore Zentyal configuration from backup'),
         defaultActions     => ['editField', 'changeView' ],
         tableDescription   => \@tableHeader,
         class              => 'dataTable',
@@ -145,7 +145,7 @@ sub formSubmitted
     my $backupFile = $self->_backupFile($date);
 
     my $url = '/ebox/EBox/Backup?restoreFromFile=1&mode=configurationRestore&backupfile=' . $backupFile  ;
-    
+
     $self->pushRedirection($url)
 
 }

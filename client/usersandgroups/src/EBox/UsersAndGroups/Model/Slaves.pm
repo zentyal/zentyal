@@ -71,7 +71,7 @@ sub _table
             ['changeView', 'del'],
         'tableDescription' => \@tableHead,
         'menuNamespace' => 'UsersAndGroups/Slaves',
-        'help' => __x('This is a list of those eBox slaves which are subscribed to this eBox.'),
+        'help' => __x('This is a list of those Zentyal slaves which are subscribed to this Zentyal.'),
         'printableRowName' => __('slave'),
         'sortedBy' => 'name',
     };
@@ -167,7 +167,7 @@ sub row
 
 # Method: removeRow
 #
-#   Override <EBox::Model::DataTable::removeRow> 
+#   Override <EBox::Model::DataTable::removeRow>
 #   to remove a slave
 #
 sub removeRow

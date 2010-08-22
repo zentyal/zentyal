@@ -32,7 +32,6 @@ use warnings;
 
 use base 'EBox::Model::DataTable';
 
-# eBox uses
 use EBox::Exceptions::DataNotFound;
 use EBox::Events::Model::Watcher::LogFiltering;
 use EBox::Gettext;

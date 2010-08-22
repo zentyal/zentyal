@@ -1,4 +1,4 @@
-# The regexp are disabled by eBox due to the great number of false positives
+# The regexp are disabled by Zentyal due to the great number of false positives
 # If you want to enable them uncomment the appropiates lines in
 # /usr/share/ebox/stubs/squid/bannedregexpurllist.mas and restart the proxy
 # module with the command '/etc/init.d/ebox/squid restart'
@@ -54,7 +54,7 @@
 #(picsearch.com\/is)
 
 #Block images and video on google
-#(images.google)+.*(\.jpg|\.wmv|\.mpg|\.mpeg|\.gif|\.mov) 
+#(images.google)+.*(\.jpg|\.wmv|\.mpg|\.mpeg|\.gif|\.mov)
 #(google.com\/video) #block all video
 #(google.com\/ThumbnailServer) #block video thumbnails
 #(google.com\/videoplay) #block only playing the video

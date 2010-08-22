@@ -28,7 +28,6 @@ use base 'EBox::Model::DataForm::Action';
 use strict;
 use warnings;
 
-# eBox uses
 use EBox::Exceptions::MissingArgument;
 use EBox::Gettext;
 use EBox::Types::Boolean;

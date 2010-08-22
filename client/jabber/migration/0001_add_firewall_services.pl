@@ -2,7 +2,7 @@
 
 #
 # This is a migration script to add a service and firewall rules
-# for the eBox Jabber server
+# for the Zentyal Jabber server
 #
 
 package EBox::Migration;

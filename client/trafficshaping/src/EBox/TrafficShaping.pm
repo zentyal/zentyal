@@ -19,7 +19,7 @@
 
 # Class: EBox::TrafficShaping
 #
-#      This eBox module is intended to manage traffic shaping rules
+#      This Zentyal module is intended to manage traffic shaping rules
 #      set by user per real interface. Each rule may represent a bunch
 #      of iptables and tc commands to tell the kernel how to manage
 #      the traffic flows.
@@ -78,7 +78,7 @@ use Error qw(:try);
 use List::Util;
 use Perl6::Junction qw(none);
 
-# Using the brand new eBox types
+# Types
 use EBox::Types::IPAddr;
 use EBox::Types::MACAddr;
 
@@ -444,7 +444,7 @@ sub summary
 
 # Method: menu
 #
-#       Add Traffic Shaping module to eBox menu
+#       Add Traffic Shaping module to Zentyal menu
 #
 # Parameters:
 #

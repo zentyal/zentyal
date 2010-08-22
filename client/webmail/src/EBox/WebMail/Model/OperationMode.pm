@@ -20,13 +20,9 @@ use base 'EBox::Model::DataForm';
 use strict;
 use warnings;
 
-# eBox classes
 use EBox::Global;
 use EBox::Gettext;
 use EBox::Types::Select;
-
-
-# eBox exceptions used
 use EBox::Exceptions::External;
 
 sub new
@@ -84,7 +80,7 @@ sub _populateMode
 
     my $eboxOption = {
                       value => 'ebox',
-                      printableValue => __('eBox mail service'),
+                      printableValue => __('Zentyal mail service'),
                      };
     if (not $mailEnabled) {
         $eboxOption->{disabled} = 'disabled';

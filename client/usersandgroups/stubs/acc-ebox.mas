@@ -3,8 +3,8 @@
 </%args>
 #
 # this configuration is for using ldap to authenticate and authorize
-# eBox LDAP users and groups on the system.
-# 
+# Zentyal LDAP users and groups on the system.
+#
 [ebox]
 nss_passwd=passwd: compat ldap
 nss_group=group: compat ldap

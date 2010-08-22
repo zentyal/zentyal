@@ -20,7 +20,6 @@ use base 'EBox::Squid::Model::MIMEFilterBase';
 use strict;
 use warnings;
 
-# eBox uses
 use EBox;
 
 use EBox::Exceptions::Internal;

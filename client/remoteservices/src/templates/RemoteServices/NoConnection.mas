@@ -1,7 +1,7 @@
 <%init>
 use EBox::Gettext;
 
-my $text = __( 
+my $text = __(
              'Cannot proceed with your request because it was a connection problem. Possible causes are:'
           );
 
@@ -10,7 +10,7 @@ my @causes = (
     __(q{Firewall is blocking the connection. Try to restart firewall module}),
     __(q{Your computer has not a correct system date}),
     __(q{You are using the wrong certificates}),
-    __(q{This eBox has been removed from your registered eBoxes}),
+    __(q{This server has been removed from your registered ones}),
 );
 </%init>
 <div class="warning">

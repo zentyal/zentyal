@@ -11,7 +11,7 @@ my ($hour, $minutes) = split ':', $automaticTime;
 </%init>
 % if ($QAUpdates) {
 <div class='note'>
-<% __('This eBox is configured to use automatic QA updates') %>
+<% __('Zentyal is configured to use automatic QA updates') %>
 </div>
 % }
 <& enable.mas, title => $enableTitle, active => $automatic &>
@@ -41,7 +41,7 @@ $value
 $maxValue
 </%args>
 <%init>
-my @timeOptions = map {  
+my @timeOptions = map {
     my $number = $_;
     if($number < 10) {
         $number = '0' . $number;

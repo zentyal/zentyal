@@ -17,8 +17,8 @@
 
 # Description:
 #
-#  This script is intended to reload the bundle from eBox Control
-#  Center if the host is subscribed to
+#  This script is intended to reload the bundle from Zentyal Cloud
+#  if the host is subscribed to
 
 use EBox;
 use EBox::Gettext;
@@ -43,14 +43,14 @@ my $rs = EBox::Global->modInstance('remoteservices');
 try {
     my $rv = $rs->reloadBundle($force);
     if ( $rv == 0 ) {
-        print STDERR __('Cannot reload the bundle since eBox is not connected but subscribed') . "\n";
+        print STDERR __('Cannot reload the bundle since Zentyal is not connected but subscribed') . "\n";
     } elsif ( $rv == 1 ) {
         print STDOUT __('Bundle reload successfully') . "\n";
     } elsif ( $rv == 2 ) {
         print STDERR __('Bundle reload was not possible either because is already the latest available version or because the ebox-remoteservices module is outdated') . "\n";
     }
 } catch EBox::Exceptions::External with {
-    # Bundle reload it is only possible with a subscribed eBox
+    # Bundle reload it is only possible with a subscribed Zentyal
     ;
 };
 
@@ -60,7 +60,7 @@ __END__
 
 =head1 NAME
 
-ebox-reload-bundle - Reload bundle sent by eBox Control Center
+ebox-reload-bundle - Reload bundle sent by Zentyal Cloud
 
 =head1 SYNOPSIS
 
@@ -69,7 +69,7 @@ ebox-reload-bundle [--usage|help] [--force]
  Options:
    -- usage|help  Print this help and exit
 
-   -- force       Force to reload the bundle although eBox may have the latest available version
+   -- force       Force to reload the bundle although Zentyal may have the latest available version
 
 This script "must" be called only from the post-installation script and crontab
 

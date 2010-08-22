@@ -59,7 +59,7 @@ sub _process
 
 	my $reason;
 	if ( (defined ($envre) ) and ($envre eq 'Script active') ) {
-	  $reason = __('There is a script which has asked to run in eBox exclusively. ' .
+	  $reason = __('There is a script which has asked to run in Zentyal exclusively. ' .
 		       'Please, wait patiently until it is done');
 	}
 	elsif ((defined $authreason) and ($authreason  eq 'bad_credentials')){

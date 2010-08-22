@@ -122,7 +122,7 @@ sub _table
         modelDomain        => 'EBackup',
         defaultEnabledValue => 1,
         customFilter       => 1,
-        help => __('Restores the eBox logs found in the selected backup'),
+        help => __('Restores the Zentyal logs found in the selected backup'),
     };
 
     return $dataTable;
@@ -152,7 +152,7 @@ sub formSubmitted
     my ($self, $row) = @_;
     my $date = $row->valueByName('date');
     EBox::EBackup::DBRestore::restoreEBoxLogs($date);
-    
+
 }
 
 1;

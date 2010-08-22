@@ -127,17 +127,22 @@ sub _clientTypeOptions
     my @options = (
                    {
                     value => 'windows',
-                    printableValue =>'Windows',
+                    printableValue => 'Windows',
 #                    $EBoxToEBoxTunnel ? @disabledAttr : (),
                    },
                    {
                     value => 'linux',
-                    printableValue =>'Linux',
+                    printableValue => 'Linux',
+#                    $EBoxToEBoxTunnel ? @disabledAttr : (),
+                   } ,
+                   {
+                    value => 'mac',
+                    printableValue => 'Mac OS X',
 #                    $EBoxToEBoxTunnel ? @disabledAttr : (),
                    } ,
                    {
                     value => 'EBoxToEBox',
-                    printableValue => __('eBox to eBox tunnel') ,
+                    printableValue => __('Zentyal to Zentyal tunnel') ,
 #                    $EBoxToEBoxTunnel ? () : @disabledAttr,
                    },
 
@@ -206,7 +211,7 @@ sub _validateClientType
     if ($clientType eq 'EBoxToEBox') {
         if (not $pullRoutes) {
             throw EBox::Exceptions::External(
-       __('Invalid client type: the server does not allow eBox-to-eBox tunnels')
+       __('Invalid client type: the server does not allow Zentyal-to-Zentyal tunnels')
                                             );
         }
         return;
@@ -215,7 +220,7 @@ sub _validateClientType
 
     if ($pullRoutes) {
             throw EBox::Exceptions::External(
-       __('Invalid client type: the server is intended for eBox-to-eBox tunnels')
+       __('Invalid client type: the server is intended for Zentyal-to-Zentyal tunnels')
                                             );
     }
 

@@ -30,7 +30,6 @@ use base 'EBox::Model::DataForm';
 use strict;
 use warnings;
 
-# eBox uses
 use EBox::Exceptions::External;
 use EBox::Exceptions::InvalidData;
 use EBox::Exceptions::MissingArgument;

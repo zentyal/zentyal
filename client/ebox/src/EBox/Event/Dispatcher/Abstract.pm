@@ -29,7 +29,6 @@ use warnings;
 
 use base 'EBox::Event::Component';
 
-# eBox uses
 use EBox::Exceptions::NotImplemented;
 use EBox::Exceptions::MissingArgument;
 use EBox::Event;

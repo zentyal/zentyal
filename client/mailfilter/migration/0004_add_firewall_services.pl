@@ -1,7 +1,7 @@
 #!/usr/bin/perl
 #
 # This is a migration script to add a service and firewall rules
-# for the eBox mail system
+# for the Zentyal mail system
 #
 # For next releases we should be able to enable/disable some ports
 # depening on if certain mail service is enabled or not

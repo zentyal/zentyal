@@ -1,6 +1,6 @@
 # Copyright (C) 2005 Warp Networks S.L., DBS Servicios Informaticos S.L.
 # Copyright (C) 2006-2007 Warp Networks S.L.
-# Copyright (C) 2008-2010 eBox Technologies S.L.
+# Copyright (C) 2008-2010 Zentyal Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -53,19 +53,19 @@ sub _create
 #
 sub actions
 {
-	return [
-	{
-		'action' => __('Create spool directory for printers'),
-		'reason' => __('eBox will create a spool directory ' .
-						'under /var/spool/samba'),
-		'module' => 'printers'
-	},
-	{
-		'action' => __('Create log table'),
-		'reason' => __('eBox will create a new table into its log database ' .
-					   'to store printers logs'),
-		'module' => 'printers'
-	}
+    return [
+    {
+        'action' => __('Create spool directory for printers'),
+        'reason' => __('Zentyal will create a spool directory ' .
+                       'under /var/spool/samba'),
+        'module' => 'printers'
+    },
+    {
+        'action' => __('Create log table'),
+        'reason' => __('Zentyal will create a new table into its log database ' .
+                       'to store printers logs'),
+        'module' => 'printers'
+    }
     ];
 }
 

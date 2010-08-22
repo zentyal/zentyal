@@ -31,7 +31,6 @@ package EBox::Logs::Model::ConfigureLogDataTable;
 use strict;
 use warnings;
 
-# eBox classes
 use EBox::Global;
 use EBox::Gettext;
 use EBox::Model::ModelManager;
@@ -44,7 +43,6 @@ use EBox::Types::Select;
 use EBox::Types::Text;
 use EBox::Types::Union;
 use EBox::Sudo;
-# eBox exceptions used
 use EBox::Exceptions::External;
 
 # Core modules

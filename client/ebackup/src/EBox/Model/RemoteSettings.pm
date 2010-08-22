@@ -442,15 +442,15 @@ sub _method
     return ([
             # {
             # value => 'ebox_eu',
-            # printableValue => 'eBox Backup Storage (EU)',
+            # printableValue => 'Zentyal Backup Storage (EU)',
             # },
             # {
             # value => 'ebox_us_denver',
-            # printableValue => 'eBox Backup Storage (US Denver)',
+            # printableValue => 'Zentyal Backup Storage (US Denver)',
             # },
             # {
             # value => 'ebox_us_w',
-            # printableValue => 'eBox Backup Storage (US West Coast)',
+            # printableValue => 'Zentyal Backup Storage (US West Coast)',
             # },
             {
             value => 'file',
@@ -492,12 +492,12 @@ sub _message
     my $backupmsg =  __x(
 
         '{oi}{brand}{ci} is a quick and safe remote location to store the data ' .
-        'you keep on your eBox servers. Purchase the backup storage ' .
-        'space you need at the {ohref}eBox on-line store{chref}.',
+        'you keep on your Zentyal servers. Purchase the backup storage ' .
+        'space you need at the {ohref}Zentyal on-line store{chref}.',
          oi => '<i>',
          ci => '</i>',
          ohref => '<a href="http://store.ebox-technologies.com/?utm_source=ebox&utm_medium=ebox&utm_campaign=ebackup">',
-         brand => 'eBox Backup Storage',
+         brand => 'Zentyal Backup Storage',
          chref => '</a>'
     );
     return $backupmsg;
@@ -707,13 +707,7 @@ sub _validateTargetForRsync
     } else {
         EBox::Validate::checkFilePath($dir, __('relative directory'));
     }
-
-
-
 }
-
-
-
 
 sub _validateTargetForFile
 {
@@ -738,7 +732,6 @@ __('File system method needs a target parameter that should be a directory path'
 
                                            );
     }
-
 }
 
 
@@ -771,7 +764,6 @@ sub formSubmitted
                          );
 
     }
-
 }
 
 sub _actualValues

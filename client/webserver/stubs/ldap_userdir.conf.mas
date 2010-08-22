@@ -1,5 +1,5 @@
 <%doc>
-   Template to configure the LDAP user directory configuration in eBox
+   Template to configure the LDAP user directory configuration in Zentyal
    WebServer. The username and home directory search is done under
    LDAP database. To do so, the module mod_ldap_userdir to Apache2 is
    installed.

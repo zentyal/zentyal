@@ -30,7 +30,6 @@ use base 'EBox::Model::Composite';
 use strict;
 use warnings;
 
-## eBox uses
 use EBox::Gettext;
 
 # Group: Public methods
@@ -78,7 +77,7 @@ sub _description
          pageTitle => __('Events'),
          headTitle => undef,
          compositeDomain => 'Events',
-         help            => __('Events module configures eBox to help ' .
+         help            => __('Events module configures Zentyal to help ' .
                                'informing you about events that happen'),
         };
 

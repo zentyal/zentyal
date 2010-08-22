@@ -126,7 +126,7 @@ sub _table
             'editable' => 1,
             'help'  => __('Tick this field if there is actually a service ' .
                 'on the machine using the ports configured for this service. ' .
-                'This helps eBox to know what ports are already busy')
+                'This helps Zentyal to know what ports are already busy')
 #            'hidden' => 1,
         ),
         new EBox::Types::HasMany (
@@ -262,17 +262,17 @@ sub serviceFromPort
 # Parameters:
 #
 #   (NAMED)
-#   name       - service's name
+#   name        - service's name
 #   description - service's description
-#   protocol   - it can take one of these: any, tcp, udp, tcp/udp, grep, icmp
-#   sourcePort - it can take:
-#               "any"
-#               An integer from 1 to 65536 -> 22
-#               Two integers separated by colons -> 22:25
+#   protocol    - it can take one of these: any, tcp, udp, tcp/udp, grep, icmp
+#   sourcePort  - it can take:
+#                   "any"
+#                   An integer from 1 to 65536 -> 22
+#                   Two integers separated by colons -> 22:25
 #   destinationPort - same as source
 #   internal - booelan, to indicate if the service is internal or not
 #   readOnly - the service can't be deleted or modified
-#   translationDomain - eBox module domain for i18
+#   translationDomain - Zentyal module domain for i18
 #
 #   Example:
 #

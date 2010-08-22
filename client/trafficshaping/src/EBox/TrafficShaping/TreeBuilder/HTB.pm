@@ -865,7 +865,7 @@ sub _createExternalStructure  # (defaultClass)
 #
 #      Build the HTB classes used by *internal* interface. It is the
 #      complex one. Its structure relies on the traffic flow
-#      origin. If it is eBox, the traffic flow must not be
+#      origin. If it is Zentyal, the traffic flow must not be
 #      shaped. Otherwise the traffic must be shaped by the total
 #      download rate.
 #
@@ -877,7 +877,7 @@ sub _createExternalStructure  # (defaultClass)
 #                             |
 #       -----------------------------------------
 #       |                                        |
-#  Class 1:FF00 (eBox -> Int)             Class 1:2 (Ext -> Int)
+#  Class 1:FF00 (Zentyal -> Int)        Class 1:2 (Ext -> Int)
 #    (Default)                        (rate DOWNLOAD ceil DOWNLOAD)
 #  (rate inf ceil inf)                           |
 #       |                                        |----------------------------

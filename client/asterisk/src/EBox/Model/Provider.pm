@@ -66,7 +66,7 @@ sub providers
 {
       my @providers;
       push @providers, { 'value' => 'custom', printableValue => __('Custom') };
-      push @providers, { 'value' => 'ebox', printableValue => 'eBox VoIP Credit' };
+      push @providers, { 'value' => 'ebox', printableValue => 'Zentyal VoIP Credit' };
       return \@providers;
 }
 
@@ -193,11 +193,11 @@ sub _message
 {
     my $voipmsg =  __sx(
         '{brand}: make low-cost VoIP calls to mobile phones and ' .
-        'landlines directly with eBox. Once you have obtained a ' .
+        'landlines directly with Zentyal. Once you have obtained a ' .
         'Professional or Enterprise Server Subscription ' .
         ', you can purchase the VoIP credit you need. All these services ' .
-        'available for purchasing at the {ohref}eBox on-line store{chref}! ',
-         brand => 'eBox VoIP Credit',
+        'available for purchasing at the {ohref}Zentyal on-line store{chref}! ',
+         brand => 'Zentyal VoIP Credit',
          ohref => '<a href="http://store.ebox-technologies.com/?utm_source=ebox&utm_medium=ebox&utm_campaign=asterisk">',
          chref => '</a>'
     );

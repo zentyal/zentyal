@@ -27,7 +27,7 @@ sub runGConf
     if (not $service->serviceExists(name => $serviceName)) {
         $service->addMultipleService(
                 'name' => $serviceName,
-                'description' => __d('eBox Mail System'),
+                'description' => __d('Zentyal Mail System'),
                 'translationDomain' => 'ebox-mail',
                 'internal' => 1,
                 'services' => [

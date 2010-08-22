@@ -69,7 +69,7 @@ sub _table
                                         __('Manual Configuration'),
                                      },
                                      { value => 'bundle',
-                                      printableValue => __('eBox bundle')
+                                      printableValue => __('Zentyal bundle')
                                      }]
                                  ),
          new EBox::Types::File(

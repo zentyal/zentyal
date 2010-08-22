@@ -912,7 +912,7 @@ sub _checkArchiveType
   close($TYPE_F);
 
   if ($type ne all($FULL_BACKUP_ID, $CONFIGURATION_BACKUP_ID, $BUGREPORT_BACKUP_ID)) {
-    throw EBox::Exceptions::External(__("The backup archive has a invalid type. Maybe the file is corrupt or you are using a incompatible eBox version"));
+    throw EBox::Exceptions::External(__("The backup archive has a invalid type. Maybe the file is corrupt or you are using a incompatible Zentyal version"));
   }
 
 
@@ -1266,10 +1266,10 @@ sub _modInstancesForRestore
     }
 
   }
-  
+
   my $sortedModules = EBox::Global->sortModulesByDependencies(
                                               \@modules,
-                                             'restoreDependencies', 
+                                             'restoreDependencies',
                                              );
   return $sortedModules;
 }

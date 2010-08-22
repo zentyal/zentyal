@@ -31,7 +31,6 @@ use warnings;
 
 use base 'EBox::CGI::ClientBase';
 
-# eBox uses
 use EBox::Global;
 
 # Constructor: new

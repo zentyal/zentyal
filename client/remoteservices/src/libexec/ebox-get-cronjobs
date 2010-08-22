@@ -15,7 +15,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-# This script is intended to get the cron jobs available for this eBox
+# This script is intended to get the cron jobs available for this Zentyal
 
 use EBox;
 use EBox::Config;
@@ -67,7 +67,7 @@ sub _getCronJobs
 
     my $cronPrefix = EBox::RemoteServices::Configuration::CronJobPrefix();
     my $baseDir    = EBox::RemoteServices::Configuration::JobsDir();
-    # Delete those cron jobs that no longer lives in eBox CC
+    # Delete those cron jobs that no longer lives in Zentyal Cloud
     my @currentJobIds = map { $_->{jobId} } @{$cronJobs};
     my @allJobIds     = <$baseDir/$cronPrefix*>;
     @allJobIds = map { m/([0-9]+)/ } @allJobIds;
@@ -107,7 +107,7 @@ __END__
 
 =head1 NAME
 
-ebox-get-cronjobs - Utility to get available cronjobs for this eBox.
+ebox-get-cronjobs - Utility to get available cronjobs for this Zentyal.
                     Its usage is completely internal
 
 =head1 SYNOPSIS

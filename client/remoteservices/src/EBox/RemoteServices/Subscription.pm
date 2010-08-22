@@ -17,8 +17,7 @@ package EBox::RemoteServices::Subscription;
 
 # Class: EBox::RemoteServices::Subscription
 #
-#       Class to manage the eBox subscription to the eBox remote
-#       services
+#       Class to manage the Zentyal subscription to Zentyal Cloud
 #
 
 use base 'EBox::RemoteServices::Base';
@@ -231,9 +230,9 @@ sub extractBundle
 
     File::Slurp::write_file($tmp->filename(), $bundleContent);
 
-    # debug!!    
- #   EBox::Sudo::root('cp ' . $tmp->filename . ' /tmp/bundle.tar'); 
-#    EBox::Sudo::root('cp /tmp/input.tar ' . $tmp->filename ); 
+    # debug!!
+ #   EBox::Sudo::root('cp ' . $tmp->filename . ' /tmp/bundle.tar');
+#    EBox::Sudo::root('cp /tmp/input.tar ' . $tmp->filename );
 
     my $tar = new Archive::Tar($tmp->filename(), 1);
     my @files = $tar->list_files();
@@ -590,7 +589,7 @@ sub _setQAAptPreferences
 #         } else {
 #             EBox::Sudo::root("touch '$bakFile'"); # create a empty preferences
 #                                                   # file to make ebox-software
-#                                                   # easier to revert configuration 
+#                                                   # easier to revert configuration
 #         }
 #     }
 

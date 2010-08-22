@@ -106,7 +106,7 @@ sub _addBaseServices
         $apachePort = 443;
     };
     my %adminService = ('name' => __d('eBox administration'),
-                        'description' => __d('eBox Administration Web Server'),
+                        'description' => __d('Zentyal Administration Web Server'),
                         'domain' => __d('ebox-services'),
                         'protocol' => 'tcp',
                         'sourcePort' => 'any',

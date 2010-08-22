@@ -33,7 +33,6 @@ use base 'EBox::Model::DataForm';
 use strict;
 use warnings;
 
-# eBox uses
 use EBox::Config;
 use EBox::DHCP;
 use EBox::Exceptions::External;
@@ -138,14 +137,14 @@ sub validateTypedRow
               -f $changedFields->{filename}->tmpPath() and
               $changedFields->{filename}->userPath())) {
             throw EBox::Exceptions::External(__('You need to upload a boot '
-                . 'image to eBox if you set it as next server'));
+                . 'image to Zentyal if you set it as next server'));
         }
     } else {
         if ( $changedFields->{filename} and
              $changedFields->{filename}->userPath() and
              -f $changedFields->{filename}->tmpPath()) {
                 throw EBox::Exceptions::External(__('In order to upload a boot '
-                    . 'image to eBox, you need to set eBox as next server'));
+                    . 'image to Zentyal, you need to set Zentyal as next server'));
         }
     }
     if ( $allFields->{nextServer}->selectedType() eq 'nextServerIP' or
@@ -157,7 +156,7 @@ sub validateTypedRow
     } else {
         if ( $allFields->{remoteFilename}->value() ne '') {
             throw EBox::Exceptions::External(__('You can only specify a file '
-             . 'name if you have a next server and it is not eBox'));
+             . 'name if you have a next server and it is not Zentyal'));
         }
     }
 }
@@ -208,7 +207,7 @@ sub formSubmitted
     if ( $oldRow->elementByName('nextServer')->selectedType() eq 'nextServerEBox'
          and $self->row()->elementByName('nextServer')->selectedType() ne 'nextServerEBox') {
         $self->setMessage(__x('Removing previously uploaded boot image since next server option'
-                             . ' has been changed from eBox to {option}',
+                             . ' has been changed from Zentyal to {option}',
                              option => $self->row()->elementByName('nextServer')->printableValue()));
     }
 }
@@ -237,7 +236,7 @@ sub _table
                                                             printableName => __('None'),
                                                            ),
                                new EBox::Types::Union::Text(fieldName     => 'nextServerEBox',
-                                                            printableName => __('eBox'),
+                                                            printableName => 'Zentyal',
                                                            ),
                                new EBox::Types::HostIP(fieldName     => 'nextServerIP',
                                                        printableName => __('IP address'),

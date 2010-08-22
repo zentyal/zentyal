@@ -107,7 +107,7 @@ sub _backupService
   return $self->{backupService}
 }
 
-# Check this eBox is subscribed
+# Check if this Zentyal is subscribed
 sub _subscribed
 {
     my ($self) = @_;

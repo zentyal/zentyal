@@ -42,7 +42,7 @@ use constant INCOMING_DIR => JOBS_DIR . 'incoming/';
 
 # Method: runJob
 #
-#     Control panel will send jobs to the eBoxes to be run in the
+#     Control panel will send jobs to the Zentyal servers to be run in the
 #     host. The request is completely asynchronous, therefore this WS
 #     only ask to a daemon to run this job some time in the future. If there
 #     is a job with the same identifier, new script and arguments are
@@ -109,9 +109,9 @@ sub runJob
     # Dump the data file if is supplied, if otherwise create the noDataFile
     # file as mark
     if ($dataFile) {
-        File::Slurp::write_file( "$jobDirPath/dataFile", $dataFile);        
+        File::Slurp::write_file( "$jobDirPath/dataFile", $dataFile);
     } else {
-        File::Slurp::write_file( "$jobDirPath/noDataFile", '');                
+        File::Slurp::write_file( "$jobDirPath/noDataFile", '');
     }
 
     # Create the symlink to incoming directory to make it notify to

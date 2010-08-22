@@ -25,7 +25,6 @@ use base 'EBox::Model::DataTable';
 #   It subclasses <EBox::Model::DataTable>
 #
 
-# eBox uses
 use EBox;
 use EBox::Global;
 use EBox::Exceptions::Internal;

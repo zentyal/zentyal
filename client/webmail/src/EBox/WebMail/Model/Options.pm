@@ -20,13 +20,10 @@ use base 'EBox::Model::DataForm';
 use strict;
 use warnings;
 
-# eBox classes
 use EBox::Global;
 use EBox::Gettext;
 use EBox::Types::Text;
 use EBox::Types::Select;
-
-# eBox exceptions used
 use EBox::Exceptions::External;
 
 sub new
@@ -47,7 +44,7 @@ sub _table
                                fieldName => 'productName',
                                printableName => __('Name'),
                                editable => 1,
-                               defaultValue => __('eBox webmail'),
+                               defaultValue => __('Zentyal webmail'),
                                help =>
 __('The name of the webmail will be used in the login screen and page titles.')
                               ),

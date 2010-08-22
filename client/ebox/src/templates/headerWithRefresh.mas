@@ -7,7 +7,7 @@ $destination
 		      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<title>eBox - <% $title %></title>
+<title>Zentyal - <% $title %></title>
 <link href="/dynamic-data/css/public.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="/data/js/common.js">//</script>
 <script type="text/javascript" src="/data/js/prototype.js">//</script>

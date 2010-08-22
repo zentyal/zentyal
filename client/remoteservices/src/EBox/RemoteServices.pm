@@ -79,7 +79,7 @@ sub _create
 
     my $self = $class->SUPER::_create( name => 'remoteservices',
                                        domain => 'ebox-remoteservices',
-                                       printableName => __n('Control Center Client'),
+                                       printableName => __n('Zentyal Cloud Client'),
                                        @_
                                       );
 
@@ -162,7 +162,7 @@ sub _setRemoteSupportAccessConf
 
 
     if ($supportAccess and (not $fromAnyAddress) and (not  $self->eBoxSubscribed() )) {
-        EBox::error('Cannot restrict access for remote support if eBox server is not subscribed');
+        EBox::error('Cannot restrict access for remote support if Zentyal server is not subscribed');
         return;
     }
 
@@ -248,7 +248,7 @@ sub menu
     my ($self, $root) = @_;
     $root->add(new EBox::Menu::Item('url'  => 'RemoteServices/Composite/General',
                                     'name' => 'Subscription',
-                                    'text' => __('Control Center'),
+                                    'text' => __('Subscription'),
                                     'order' => 105,
                                    )
               );
@@ -266,8 +266,6 @@ sub menu
 }
 
 # Method: modelClasses
-#
-#       Return the model classes used by events eBox module
 #
 # Overrides:
 #
@@ -311,7 +309,7 @@ sub widgets
 
     return {
         'cc_connection' => {
-            'title'   => __('eBox Control Center Connection'),
+            'title'   => __('Zentyal Cloud Connection'),
             'widget'  => \&_ccConnectionWidget,
             'default' => 1,
         }
@@ -321,11 +319,11 @@ sub widgets
 
 # Method: eBoxSubscribed
 #
-#        Test if current eBox is subscribed to remote services
+#        Test if current Zentyal is subscribed to remote services
 #
 # Returns:
 #
-#        true - if the current eBox is subscribed
+#        true - if the current Zentyal is subscribed
 #
 #        false - otherwise
 #
@@ -339,14 +337,14 @@ sub eBoxSubscribed
 
 # Method: unsubscribe
 #
-#        Delete every data related to the eBox subscription and stop any
+#        Delete every data related to the Zentyal subscription and stop any
 #        related service associated with it
 #
 # Returns:
 #
-#        True  - if the eBox is subscribed and now it is not
+#        True  - if the Zentyal is subscribed and now it is not
 #
-#        False - if the eBox was not subscribed before
+#        False - if the Zentyal was not subscribed before
 #
 sub unsubscribe
 {
@@ -358,12 +356,12 @@ sub unsubscribe
 # Method: eBoxCommonName
 #
 #        The common name to be used as unique which is subscribed by
-#        this eBox. It has sense only when
+#        this Zentyal. It has sense only when
 #        <EBox::RemoteServices::eBoxSubscribed> returns true.
 #
 # Returns:
 #
-#        String - the subscribed eBox common name
+#        String - the subscribed Zentyal common name
 #
 #        undef - if <EBox::RemoteServices::eBoxSubscribed> returns
 #        false
@@ -406,8 +404,8 @@ sub subscriberUsername
 
 # Method: subscribedHostname
 #
-#        Return the hostname within the eBox Control Center cloud if
-#        the host is subscribed to eBox Control Center
+#        Return the hostname within the Zentyal Cloud if
+#        the host is subscribed to it
 #
 # Returns:
 #
@@ -416,7 +414,7 @@ sub subscriberUsername
 # Exceptions:
 #
 #        <EBox::Exceptions::External> - thrown if the host is not
-#        subscribed to the eBox Control Center
+#        subscribed to Zentyal Cloud
 #
 sub subscribedHostname
 {
@@ -424,7 +422,7 @@ sub subscribedHostname
 
     unless ( $self->eBoxSubscribed() ) {
         throw EBox::Exceptions::External(
-            __('The subscribed hostname is only available if the host is subscribed to eBox Control Center')
+            __('The subscribed hostname is only available if the host is subscribed to Zentyal Cloud')
            );
     }
 
@@ -445,7 +443,7 @@ sub subscribedHostname
 # Exceptions:
 #
 #        <EBox::Exceptions::External> - thrown if the host is not
-#        subscribed to eBox Control Center
+#        subscribed to Zentyal Cloud
 #
 sub monitorGathererIPAddresses
 {
@@ -453,7 +451,7 @@ sub monitorGathererIPAddresses
 
     unless ( $self->eBoxSubscribed() ) {
         throw EBox::Exceptions::External(
-            __('The monitor gatherer IP addresses are only available if the host is subscribed to eBox Control Center'));
+            __('The monitor gatherer IP addresses are only available if the host is subscribed to Zentyal Cloud'));
     }
 
     my $monGatherers = [];
@@ -490,7 +488,7 @@ sub controlPanelURL
 # Method: ifaceVPN
 #
 #        Return the virtual VPN interface for the secure connection
-#        between this eBox and remote services
+#        between this Zentyal and Zentyal Cloud
 #
 # Return:
 #
@@ -509,7 +507,7 @@ sub ifaceVPN
 # Method: vpnSettings
 #
 #        Return the virtual VPN settings for the secure connection
-#        between this eBox and remote services
+#        between this Zentyal and Zentyal Cloud
 #
 # Return:
 #
@@ -534,9 +532,9 @@ sub vpnSettings
 
 # Method: isConnected
 #
-#         Check whether eBox is connected to the Control Center or not
+#         Check whether the server is connected to Zentyal Cloud or not
 #
-#         If the eBox is not subscribed, it returns false too
+#         If the server is not subscribed, it returns false too
 #
 # Return:
 #
@@ -554,7 +552,7 @@ sub isConnected
 
 # Method: reloadBundle
 #
-#    Reload the bundle from eBox Control Center using the Web Service
+#    Reload the bundle from Zentyal Cloud using the Web Service
 #    to do so.
 #
 #    This method must be called only from post-installation script
@@ -574,7 +572,7 @@ sub isConnected
 #
 # Exceptions:
 #
-#    <EBox::Exceptions::External> - thrown if the eBox is not
+#    <EBox::Exceptions::External> - thrown if the Zentyal is not
 #    subscribed
 #
 sub reloadBundle
@@ -598,7 +596,7 @@ sub reloadBundle
     } elsif ( $self->eBoxSubscribed() ) {
         return 0;
     } else {
-        throw EBox::Exceptions::External(__('eBox must be subscribed to reload the bundle'));
+        throw EBox::Exceptions::External(__('Zentyal must be subscribed to reload the bundle'));
     }
     return 1;
 }
@@ -608,7 +606,7 @@ sub reloadBundle
 #
 # Returns:
 #
-#      Int - the bundle version if the eBox is subscribed
+#      Int - the bundle version if Zentyal is subscribed
 #
 #      0 - otherwise
 #
@@ -898,7 +896,7 @@ sub _establishVPNConnection
             $authConnection->connection();
         } catch EBox::Exceptions::External with {
             my ($exc) = @_;
-            EBox::error("Cannot contact to Control Center: $exc");
+            EBox::error("Cannot contact to Zentyal Cloud: $exc");
         };
     }
 
@@ -999,7 +997,7 @@ sub _ccConnectionWidget
             $msg = __('Connected');
             $valueType = 'info';
         }
-        $section->add(new EBox::Dashboard::Value(__('Control Center'), $msg, $valueType));
+        $section->add(new EBox::Dashboard::Value(__('Zentyal Cloud'), $msg, $valueType));
     }
 
 }

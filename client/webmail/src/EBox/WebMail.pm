@@ -63,14 +63,14 @@ use constant {
 #
 sub _create
 {
-        my $class = shift;
-        my $self = $class->SUPER::_create(
-                                          name => 'webmail',
-                                          printableName => __n('Webmail'),
-                                          domain => 'ebox-webmail',
-                                         );
-        bless($self, $class);
-        return $self;
+    my $class = shift;
+    my $self = $class->SUPER::_create(
+            name => 'webmail',
+            printableName => __n('Webmail'),
+            domain => 'ebox-webmail',
+            );
+    bless($self, $class);
+    return $self;
 }
 
 # Method: _setConf
@@ -173,9 +173,7 @@ sub _confFromMail
                  imapPort => 993,
                 );
     } else {
-        throw EBox::Exceptions::External(
-__('Neither IMAP nor IMAPS service enabled.')
-                                        );
+        throw EBox::Exceptions::External(__('Neither IMAP nor IMAPS service enabled.'));
     }
 
     push @conf, (
@@ -347,12 +345,11 @@ sub enableActions
     if ($self->_usesEBoxMail()) {
         my $mail = EBox::Global->modInstance('mail');
         if ((not $mail->imap())and (not $mail->imaps()) ) {
-            throw EBox::Exceptions::External( __x(
-q{Webmail module needs IMAP or IMAPS service enabled if using eBox mail service. You can enable it at {openurl}Mail -> General{closeurl}.},
-openurl => q{<a href='/ebox/Mail/Composite/General'>},
-closeurl => q{</a>}
-
-                                                ) );
+            throw EBox::Exceptions::External(__x('Webmail module needs IMAP or IMAPS service enabled if ' .
+                                                 'using Zentyal mail service. You can enable it at ' .
+                                                 '{openurl}Mail -> General{closeurl}.',
+                                                 openurl => q{<a href='/ebox/Mail/Composite/General'>},
+                                                 closeurl => q{</a>}));
         }
     }
 
@@ -405,10 +402,7 @@ sub validateIMAPChanges
     if ($imap or $imaps) {
         $self->setAsChanged();
     } else {
-        throw EBox::Exceptions::External( __(
-'You cannot disable both IMAP and IMAPS service because they are used by Webmail module.'
-                                            )
-                                        );
+        throw EBox::Exceptions::External(__('You cannot disable both IMAP and IMAPS service because they are used by Webmail module.'));
     }
 }
 

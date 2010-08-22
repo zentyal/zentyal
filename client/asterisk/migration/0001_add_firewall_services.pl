@@ -2,7 +2,7 @@
 
 #
 # This is a migration script to add a service and firewall rules
-# for the eBox Asterisk system
+# for the Zentyal Asterisk system
 #
 
 package EBox::Migration;
@@ -27,7 +27,7 @@ sub runGConf
     if (not $service->serviceExists(name => $serviceName)) {
         $service->addMultipleService(
                 'name' => $serviceName,
-                'description' => __d('eBox VoIP system'),
+                'description' => __d('Zentyal VoIP system'),
                 'translationDomain' => 'ebox-asterisk',
                 'internal' => 1,
                 'readOnly' => 1,

@@ -51,7 +51,7 @@ __END__
 
 =head1 NAME
 
-password-checker.pl - Utility to perform a security audit (password checker) over your eBoxes
+password-checker.pl - Utility to perform a security audit (password checker) over your Zentyal servers
 
 =head1 SYNOPSIS
 

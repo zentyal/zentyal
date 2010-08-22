@@ -19,7 +19,6 @@ use base 'EBox::Model::DataForm';
 use strict;
 use warnings;
 
-# eBox uses
 use EBox;
 
 use EBox::Exceptions::Internal;

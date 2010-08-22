@@ -21,7 +21,7 @@ rm $CD_BUILD_DIR/pool/main/p/ppp/ppp-udeb*
 
 # rebranding FIXME
 cp images/* $CD_BUILD_DIR/isolinux/
-sed -i "s/Ubuntu Server/eBox Platform $EBOX_VERSION/g" $CD_BUILD_DIR/isolinux/isolinux.cfg
+sed -i "s/Ubuntu Server/Zentyal $EBOX_VERSION/g" $CD_BUILD_DIR/isolinux/isolinux.cfg
 
 sudo umount $CD_MOUNT_DIR || exit 1
 rmdir $CD_MOUNT_DIR

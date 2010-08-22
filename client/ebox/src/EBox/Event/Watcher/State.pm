@@ -26,7 +26,6 @@ use base 'EBox::Event::Watcher::Base';
 #
 use IO::Socket;
 
-# eBox uses
 use EBox::Event;
 use EBox::Service;
 use EBox::Global;
@@ -124,13 +123,13 @@ sub run
       my $event;
       if ( $up ) {
           $event = new EBox::Event(
-                                   message => __('eBox is up and running'),
+                                   message => __('Zentyal is up and running'),
                                    level   => 'info',
                                    source  => $self->name(),
                                   );
       } else {
           $event = new EBox::Event(
-                                   message => __('eBox is critically down'),
+                                   message => __('Zentyal is critically down'),
                                    level   => 'fatal',
                                    source  => $self->name(),
                                   );
@@ -172,7 +171,7 @@ sub _name
 sub _description
   {
 
-      return __('Check if eBox is currently up or down');
+      return __('Check if Zentyal is currently up or down');
 
   }
 

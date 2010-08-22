@@ -28,7 +28,6 @@ use EBox::Types::Text;
 use strict;
 use warnings;
 
-# eBox uses
 
 # Group: Public methods
 

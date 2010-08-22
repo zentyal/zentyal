@@ -5,7 +5,7 @@
 # Required-Stop:     $network
 # Default-Start:     2 3 4 5
 # Default-Stop:      0 1 6
-# Short-Description: eBox platform (network services framework) 
+# Short-Description: eBox platform (network services framework)
 ### END INIT INFO
 
 use strict;
@@ -139,7 +139,7 @@ sub status
 sub _logActionFunction
 {
 	my ($action, $success) = @_;
-	system(". /lib/lsb/init-functions; " . 
+	system(". /lib/lsb/init-functions; " .
 	       " log_begin_msg \"$action\"; log_end_msg $success");
 }
 
@@ -147,10 +147,10 @@ sub printModuleMessage
 {
     my ($modname, $action, $success, $errorMsg) = @_;
 
-    my %actions = ( 'start' => 'Starting', 'stop' => 'Stopping', 
+    my %actions = ( 'start' => 'Starting', 'stop' => 'Stopping',
             'restart' => 'Restarting' );
 
-    my $msg = $actions{$action} . " eBox module: $modname";
+    my $msg = $actions{$action} . " Zentyal module: $modname";
     _logActionFunction($msg, $success);
     if ($errorMsg) {
         print STDERR $errorMsg, "\n";
@@ -175,7 +175,7 @@ sub main
     if (@ARGV == 1) {
         if ($ARGV[0] eq 'start') {
             start();
-        } 
+        }
         elsif ($ARGV[0] eq 'restart') {
             stop();
             start();
@@ -183,20 +183,20 @@ sub main
         elsif ($ARGV[0] eq 'force-reload') {
             stop();
             start();
-        } 
+        }
         elsif ($ARGV[0] eq 'stop') {
             stop();
         } else {
             usage();
         }
-    } 
+    }
     elsif (@ARGV == 2) {
         # action upon one module mode
         my ($modName, $action) = @ARGV;
 
         if (($action eq 'restart') or ($action eq 'start')) {
             moduleRestart($modName);
-        } 
+        }
         elsif ($action eq 'stop') {
             moduleStop($modName);
         } elsif ($action eq 'status' or $action eq 'enabled') {

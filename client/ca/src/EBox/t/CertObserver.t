@@ -21,7 +21,7 @@ use EBox::TestStubs;
 use Data::Dumper;
 use EBox::Global;
 
-# Activating eBox test stubs to fake a module
+# Activating Zentyal test stubs to fake a module
 EBox::TestStubs::activateTestStubs();
 
 # Fake a CA observer

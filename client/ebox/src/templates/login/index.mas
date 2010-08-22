@@ -9,7 +9,7 @@
 use EBox::Gettext;
 </%init>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html xmlns="http://www.w3.org/1999/xhtml"><HEAD><TITLE>eBox Platform</TITLE>
+<html xmlns="http://www.w3.org/1999/xhtml"><HEAD><TITLE>Zentyal</TITLE>
 <meta http-equiv=Content-Type content="text/html; charset=utf-8">
 <link href="/dynamic-data/css/login.css" type="text/css" rel="stylesheet">
 <script src="/data/js/common.js" type="text/javascript">//</SCRIPT>
@@ -40,10 +40,10 @@ function checkBrowser() {
             <% __('Warning: Caps Lock is enabled')%>
         </div>
         <div class="warning" id="ieWarning" style="display: none">
-            <% __x('Warning: Unfortunately Internet Explorer is not yet supported on eBox. Please use {url} instead.', url => '<a href="http://getfirefox.com">Firefox</a>')%>
+            <% __x('Warning: Unfortunately Internet Explorer is not yet supported on Zentyal. Please use {url} instead.', url => '<a href="http://getfirefox.com">Firefox</a>')%>
         </div>
         <div class="warning" id="ffWarning" style="display: none">
-            <% __x('Warning: You are using a browser which is not {url}, the only one officially supported. Please, take into consideration that you might face some issues while navigating on eBox UI.', url => '<a href="http://getfirefox.com">Firefox</a>')%>
+            <% __x('Warning: You are using a browser which is not {url}, the only one officially supported. Please, take into consideration that you might face some issues while navigating on Zentyal UI.', url => '<a href="http://getfirefox.com">Firefox</a>')%>
         </div>
 		<dl>
 			<dt><% __('Password') %>:</dt>

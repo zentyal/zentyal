@@ -13,22 +13,14 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-
-
 package EBox::Squid::Model::DefaultAntiVirus;
 use base 'EBox::Squid::Model::AntiVirusBase';
 
 use strict;
 use warnings;
 
-# eBox classes
 use EBox::Global;
 use EBox::Gettext;
-
-
-
-
-# eBox exceptions used
 use EBox::Exceptions::External;
 
 sub new
@@ -41,20 +33,16 @@ sub new
     return $self;
 }
 
-
 # Method:  _table
 #
 # This method overrides <EBox::Model::DataTable::_table> to return
 # a table model description.
-#
-
 #
 sub _table
 {
     my ($self) = @_;
 
     my $tableDescription = $self->_tableDescription();
-
 
     my $dataForm = {
         tableName          => 'DefaultAntiVirus',
@@ -65,19 +53,7 @@ sub _table
         class              => 'dataForm',
     };
 
-
-
     return $dataForm;
 }
 
-
-
-
-
-
-
-
-
-
 1;
-

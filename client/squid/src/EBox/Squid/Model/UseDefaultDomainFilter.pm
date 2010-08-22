@@ -28,7 +28,6 @@ use EBox::Types::Boolean;
 
 
 
-# eBox exceptions used
 use EBox::Exceptions::External;
 
 sub new

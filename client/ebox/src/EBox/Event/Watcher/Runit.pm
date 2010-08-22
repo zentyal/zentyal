@@ -30,7 +30,6 @@ use base 'EBox::Event::Watcher::Base';
 
 use constant WILD_SERVICES => EBox::Config::log() . 'runit/wild-services.log';
 
-# eBox uses
 use EBox::Event;
 use EBox::Event::Watcher::Base;
 use EBox::Exceptions::Internal;
@@ -157,7 +156,7 @@ sub _name
 sub _description
   {
 
-      return __('Check if any eBox service is not running when it is enabled');
+      return __('Check if any Zentyal service is not running when it is enabled');
 
   }
 

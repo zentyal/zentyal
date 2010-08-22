@@ -29,12 +29,12 @@ var status_str = {
     },
     'unmanaged': {
         'text': '<% __("Running unmanaged") %>',
-        'tip': '<% __("The service is running, but not enabled in eBox") %>',
+        'tip': '<% __("The service is running, but not enabled in Zentyal") %>',
         'class': 'summaryDisabled'
     },
     'disabled': {
         'text': '<% __("Disabled") %>',
-        'tip': '<% __("The service is not enabled in eBox") %>',
+        'tip': '<% __("The service is not enabled in Zentyal") %>',
         'class': 'summaryDisabled'
     }
 };
@@ -163,23 +163,23 @@ function toggleClicked(element) {
         toggler.removeClassName('maxBox');
         toggler.addClassName('minBox');
     }
-    new Ajax.Request("/ebox/Dashboard/Toggle", {  
-        method: "post",  
+    new Ajax.Request("/ebox/Dashboard/Toggle", {
+        method: "post",
         parameters: { element: element }
     });
 }
 
 % foreach my $i (1..2) {
 Sortable.create("dashboard<% $i %>", {
-    tag: "div", 
+    tag: "div",
     handle: "widgetHandle",
     dropOnEmpty: true,
     constraint: false,
     scroll: window,
     containment: ["dashboard1","dashboard2"],
     onUpdate: function() {
-        new Ajax.Request("/ebox/Dashboard/Update", {  
-            method: "post",  
+        new Ajax.Request("/ebox/Dashboard/Update", {
+            method: "post",
             parameters: { dashboard: "dashboard<% $i %>", widgets: Sortable.sequence("dashboard<% $i %>").join(',') }
         });
     }
@@ -297,10 +297,10 @@ function updateWidget(widget) {
                         var button = restart;
                         if (item.enabled && item.running) {
                             status = 'running';
-                        } else if (item.enabled && !item.running) { 
+                        } else if (item.enabled && !item.running) {
                             status = 'stopped';
                             button = start;
-                        } else if (!item.enabled && item.running) { 
+                        } else if (!item.enabled && item.running) {
                             status = 'unmanaged';
                         } else {
                             status = 'disabled';

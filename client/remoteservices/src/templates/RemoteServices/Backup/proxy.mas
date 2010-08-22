@@ -9,7 +9,6 @@
 use EBox::Gettext;
 </%init>
 
-
 % if (not $remoteServicesActive) {
 <& /RemoteServices/NoActive.mas &>
 % return
@@ -18,16 +17,13 @@ use EBox::Gettext;
 <& .listSection,
          user     => $user,
          password => $password,
-         backups => \%backups 
+         backups => \%backups
 &>
 % }
 % else {
  <& .encode64JS &>
  <& .passwdSection &>
 % }
-
-
-
 
 <%def .listSection>
 <%args>
@@ -37,19 +33,17 @@ $password
 </%args>
 <%init>
 
-
 my @columnTitles = (
-                    __('eBox host'),
+            __('Zentyal host'),
 		    __('Name'),
 		    __('Date'),
 		    __('Description'),
-                    __('Archive size'),
+            __('Archive size'),
 		    __('Actions'),
 		   );
 
 my $downloadImg  = "/data/images/down.gif";
 my $applyImg = "/data/images/apply.gif";
-
 
 my @orderedCN = sort keys %backups;
 
@@ -62,15 +56,15 @@ foreach my $eboxCN (@orderedCN) {
 
     my @row;
     push @row, (
-		$eboxCN, 
-		$name, 
-		$properties->{Date}, 
+		$eboxCN,
+		$name,
+		$properties->{Date},
 		$properties->{Comment},
                 $properties->{printableSize},
 	       );
     # action element
 
-    my $autenticateParams = "cn=$eboxCN&name=$name&user=$user&password=$password";         
+    my $autenticateParams = "cn=$eboxCN&name=$name&user=$user&password=$password";
     push @row, [
 		{
 		 name => __('Restore'),
@@ -91,14 +85,12 @@ foreach my $eboxCN (@orderedCN) {
 
 }
 
-
-
 my @legendElements = (
-		      { 
+		      {
 		       imgFile => $applyImg,
 		       imgName => __('restore') ,
 		      },
-		      { 
+		      {
 		       imgFile => $downloadImg,
 		       imgName => __('download'),
 		      },
@@ -126,21 +118,21 @@ my @legendElements = (
 <%def .passwdSection>
 <%init>
 my @rows = (
-        [ 
-          name => 'user',
-          input => 'text',
-	  printableName => __('User or Email Address'),
-        ],
-        [ 
-          name => 'password',
-          id    => 'password',
-          input => 'password',
-	  printableName => __('Password'),
-        ],
-	[ 
-           name => 'submitAuth',
+    [
+       name => 'user',
+       input => 'text',
+	   printableName => __('User or Email Address'),
+    ],
+    [
+       name => 'password',
+       id    => 'password',
+       input => 'password',
+	   printableName => __('Password'),
+    ],
+	[
+       name => 'submitAuth',
 	   input => 'submit',
-           value => __('Submit'),
+       value => __('Submit'),
 	],
 );
 </%init>

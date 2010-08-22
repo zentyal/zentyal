@@ -38,7 +38,7 @@ gen_locales() {
     # load LANG variable with default locale
     . /etc/default/locale
 
-    # Append eBox support languages to generate to current supported
+    # Append Zentyal support languages to generate to current supported
     # locales
     LOCALES_FILE=/var/lib/locales/supported.d/local
     TMP=/tmp/local.tmp
@@ -46,7 +46,7 @@ gen_locales() {
     sort $TMP | uniq > $LOCALES_FILE
     rm -f $TMP
 
-    # Regenerate locales to update the new messages from eBox
+    # Regenerate locales to update the new messages from Zentyal
     /usr/sbin/locale-gen
 
     /usr/share/ebox/ebox-set-locale $LANG > /dev/null 2>&1

@@ -34,7 +34,7 @@ js = js/base64.js js/csshover.htc js/common.js \
 
 css = css/modalbox.css
 
-nobase_www_DATA =  $(images) $(js) $(css)
+nobase_www_DATA =  $(images) $(js) $(css) favicon.ico
 
 EXTRA_DIST = $(nobase_www_DATA)
 

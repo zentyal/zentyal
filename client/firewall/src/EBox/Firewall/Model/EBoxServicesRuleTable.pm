@@ -150,7 +150,7 @@ sub _table
     {
         'tableName' => 'EBoxServicesRuleTable',
         'printableTableName' =>
-          __('Rules added by eBox services (Advanced)'),
+          __('Rules added by Zentyal services (Advanced)'),
         'automaticRemove' => 1,
         'sortedBy' => 'type',
         'defaultController' =>

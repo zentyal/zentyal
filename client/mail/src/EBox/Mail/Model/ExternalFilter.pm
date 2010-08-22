@@ -29,7 +29,6 @@ use base 'EBox::Model::DataForm';
 use strict;
 use warnings;
 
-# eBox classes
 use EBox::Global;
 use EBox::Gettext;
 
@@ -44,7 +43,6 @@ use EBox::Types::HostIP;
 
 # XXX TODO: disable custom filter controls when custom filter is not selected
 
-# eBox exceptions used
 use EBox::Exceptions::External;
 
 sub new

@@ -17,23 +17,21 @@ use warnings;
 
 package EBox::MailFilter::Model::ExternalDomain;
 use base 'EBox::Model::DataTable';
+
 # Class:
 #
-#    EBox::Mail::Model::ObjectPolicy
+#    EBox::MailFilter::Model::ExternalDomain
 #
 #
-#   It subclasses <EBox::Model::DataTable>
+#    It subclasses <EBox::Model::DataTable>
 #
 
-# eBox uses
 use EBox;
-
 use EBox::Exceptions::Internal;
 use EBox::Gettext;
 use EBox::Types::Boolean;
 use EBox::Types::DomainName;
-
-use  EBox::MailVDomainsLdap;
+use EBox::MailVDomainsLdap;
 
 # Group: Public methods
 
@@ -64,7 +62,7 @@ sub new
 sub _table
 {
   my @tableHeader =
-    (
+   (
      new EBox::Types::DomainName(
                              fieldName     => 'domain',
                              printableName => __('External mail domain'),
@@ -112,7 +110,7 @@ sub validateTypedRow
 
   if ($mailVDomains->vdomainExists($domain)) {
       throw EBox::Exceptions::External(
-            __x(q|{d} is a internal eBox's virtual main domain|,
+            __x(q|{d} is a internal Zentyal virtual main domain|,
                 d => $domain
                )
                                       );

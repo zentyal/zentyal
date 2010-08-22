@@ -30,7 +30,6 @@ use base 'EBox::Model::Composite';
 use strict;
 use warnings;
 
-## eBox uses
 use EBox::Gettext;
 use EBox::Global;
 
@@ -78,7 +77,7 @@ sub _description
        printableName   => __('Configuration'),
        pageTitle       => __('Web Server'),
        compositeDomain => 'Web',
-       help            => __('The eBox web service allows you ' .
+       help            => __('The Zentyal web service allows you ' .
                              'to host Web pages in plain HTML ' .
                              'within different virtual hosts.'),
       };

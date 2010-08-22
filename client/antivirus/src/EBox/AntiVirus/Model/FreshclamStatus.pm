@@ -21,7 +21,6 @@ use base 'EBox::Model::DataForm::ReadOnly';
 use strict;
 use warnings;
 
-# eBox classes
 use EBox::Global;
 use EBox::Gettext;
 use EBox::Types::Int;
@@ -30,7 +29,6 @@ use EBox::Types::Boolean;
 
 
 
-# eBox exceptions used
 use EBox::Exceptions::External;
 
 sub new

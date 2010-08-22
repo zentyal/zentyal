@@ -54,7 +54,7 @@ sub actions
     return [
         {
             'action' => __('Add Jabber LDAP schema'),
-            'reason' => __('eBox will need this schema to store Jabber users.'),
+            'reason' => __('Zentyal will need this schema to store Jabber users.'),
             'module' => 'jabber'
         },
     ];

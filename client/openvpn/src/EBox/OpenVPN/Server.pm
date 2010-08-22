@@ -541,6 +541,9 @@ sub clientBundle
     my %params = @p;
 
     my $clientType = delete $params{clientType};
+    if ($clientType eq 'mac') {
+        $clientType = 'linux';
+    }
     if ( !($clientType eq any('windows',  'linux', 'EBoxToEBox')) ) {
         throw EBox::Exceptions::External(
                       __x('Unsupported client type: {ct}', ct => $clientType) );

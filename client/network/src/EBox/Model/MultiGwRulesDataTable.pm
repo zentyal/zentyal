@@ -127,7 +127,7 @@ sub _table
                     'editable' => 1),
                 new EBox::Types::Union::Text(
                     'fieldName' => 'source_ebox',
-                    'printableName' => __('eBox'))
+                    'printableName' => 'Zentyal')
                 ],
             'size' => '16',
             'unique' => 1,

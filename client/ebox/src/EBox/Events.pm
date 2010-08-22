@@ -34,7 +34,6 @@ use base qw(EBox::Module::Service
 use strict;
 use warnings;
 
-# eBox uses
 use EBox::Common::Model::EnableForm;
 use EBox::Config;
 use EBox::Event;

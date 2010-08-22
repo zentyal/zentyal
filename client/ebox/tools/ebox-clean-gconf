@@ -6,7 +6,7 @@ use EBox::Config;
 use EBox::Global;
 
 my ($module) = @ARGV;
-$module or die "You must supply the name of an eBox's module";
+$module or die "You must supply the name of a Zentyal module";
 
 EBox::init();
 

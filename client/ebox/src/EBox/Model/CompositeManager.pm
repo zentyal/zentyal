@@ -28,7 +28,6 @@ package EBox::Model::CompositeManager;
 use strict;
 use warnings;
 
-# eBox uses
 use EBox::Exceptions::DataNotFound;
 use EBox::Global;
 

@@ -42,10 +42,10 @@ sub _process
 
 	if (defined($self->param('halt'))) {
 		root("/sbin/halt");
-		$self->{'msg'} = __("eBox is going down for halt");
+		$self->{'msg'} = __("Zentyal is going down for halt");
 	} elsif (defined($self->param('reboot'))) {
 		root("/sbin/reboot");
-		$self->{'msg'} = __("eBox is going down for reboot");
+		$self->{'msg'} = __("Zentyal is going down for reboot");
 	}
 }
 

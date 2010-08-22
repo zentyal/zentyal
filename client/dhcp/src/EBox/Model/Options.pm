@@ -32,7 +32,6 @@ use base 'EBox::Model::DataForm';
 use strict;
 use warnings;
 
-# eBox uses
 use EBox::Exceptions::External;
 use EBox::Exceptions::InvalidData;
 use EBox::Exceptions::MissingArgument;
@@ -167,7 +166,7 @@ sub validateTypedRow
         if ( $changedFields->{primary_ns}->selectedType() eq 'eboxDNS' ) {
             my $dns = EBox::Global->modInstance('dns');
             unless ( $dns->isEnabled() ) {
-                throw EBox::Exceptions::External(__('DNS module must be enabled to be able to select eBox as primary DNS server'));
+                throw EBox::Exceptions::External(__('DNS module must be enabled to be able to select Zentyal as primary DNS server'));
             }
         }
     }
@@ -177,7 +176,7 @@ sub validateTypedRow
         if ( $changedFields->{ntp_server}->selectedType() eq 'eboxNTP' ) {
             my $ntp = EBox::Global->modInstance('ntp');
             unless ( $ntp->isEnabled() ) {
-                throw EBox::Exceptions::External(__('NTP module must be enabled to be able to select eBox as NTP server'));
+                throw EBox::Exceptions::External(__('NTP module must be enabled to be able to select Zentyal as NTP server'));
             }
         }
     }
@@ -188,7 +187,7 @@ sub validateTypedRow
             my $sambaMod = EBox::Global->modInstance('samba');
             unless ( $sambaMod->isEnabled() ) {
                 throw EBox::Exceptions::External(
-                    __('Samba module must be enabled to be able to select eBox as WINS server')
+                    __('Samba module must be enabled to be able to select Zentyal as WINS server')
                    );
             }
         }
@@ -382,7 +381,7 @@ sub _table
         push( @searchDomainSubtypes,
               new EBox::Types::Select(
                                       fieldName     => 'ebox',
-                                      printableName => __(q{eBox's domain}),
+                                      printableName => __(q{Zentyal domain}),
                                       editable      => 1,
                                       foreignModel  => \&_domainModel,
                                       foreignField  => 'domain',
@@ -390,7 +389,7 @@ sub _table
         push ( @primaryNSSubtypes,
                new EBox::Types::Union::Text(
                                             fieldName => 'eboxDNS',
-                                            printableName => __('local eBox DNS')
+                                            printableName => __('local Zentyal DNS')
                                            ));
 
     }
@@ -412,7 +411,7 @@ sub _table
     if ( $gl->modExists('ntp') ) {
         push(@ntpSubtypes,
              new EBox::Types::Union::Text(fieldName     => 'eboxNTP',
-                                          printableName => __('local eBox NTP')));
+                                          printableName => __('local Zentyal NTP')));
     }
     push(@ntpSubtypes,
          new EBox::Types::HostIP(fieldName     => 'custom_ntp',
@@ -426,7 +425,7 @@ sub _table
     if ( $gl->modExists('samba') ) {
         push(@winsSubtypes,
              new EBox::Types::Union::Text(fieldName     => 'eboxWINS',
-                                          printableName => __('local eBox')));
+                                          printableName => __('local Zentyal')));
     }
     push(@winsSubtypes,
          new EBox::Types::HostIP(fieldName     => 'custom_wins',
@@ -444,7 +443,7 @@ sub _table
                               [
                                new EBox::Types::Union::Text(
                                                             fieldName => 'ebox',
-                                                            printableName => __('eBox'),
+                                                            printableName => 'Zentyal',
                                                            ),
                                new EBox::Types::HostIP(
                                                        fieldName     => 'ip',
@@ -464,7 +463,7 @@ sub _table
                                                        foreignField  => 'name'
                                                       ),
                               ],
-                              help          => __('Setting "eBox" as default gateway will set the interface '
+                              help          => __('Setting "Zentyal" as default gateway will set the interface '
                                                   . 'IP address as gateway'),
 
                              ),
@@ -481,7 +480,7 @@ sub _table
                               printableName  => __('Primary nameserver'),
                               editable       => 1,
                               subtypes       => \@primaryNSSubtypes,
-                              help           => __('If "eBox DNS" is present and selected, the eBox server will act '
+                              help           => __('If "Zentyal DNS" is present and selected, the Zentyal server will act '
                                                    . 'as cache DNS server'),
                              ),
        new EBox::Types::HostIP(
@@ -495,16 +494,16 @@ sub _table
                               printableName  => __('NTP server'),
                               editable       => 1,
                               subtypes       => \@ntpSubtypes,
-                              help           => __('If "eBox NTP" is present and selected, '
-                                                   . 'eBox will be the NTP server for DHCP clients'),
+                              help           => __('If "Zentyal NTP" is present and selected, '
+                                                   . 'Zentyal will be the NTP server for DHCP clients'),
                               ),
        new EBox::Types::Union(
                               fieldName      => 'wins_server',
                               printableName  => __('WINS server'),
                               editable       => 1,
                               subtypes       => \@winsSubtypes,
-                              help           => __('If "eBox Samba" is present and selected, '
-                                                   . 'eBox will be the WINS server for DHCP clients'),
+                              help           => __('If "Zentyal Samba" is present and selected, '
+                                                   . 'Zentyal will be the WINS server for DHCP clients'),
                              ),
       );
 
@@ -518,7 +517,7 @@ sub _table
                       help               => __('If you set a "configured ones" as default gateway, '
                                                . 'you may choose one the configured gateways. As '
                                                . '"search domain" value, one of the configured '
-                                               . 'DNS domains on eBox might be chosen. '
+                                               . 'DNS domains on Zentyal might be chosen. '
                                                . 'All fields are optionals setting '
                                                . 'its value as "None" or leaving blank.'),
                      };

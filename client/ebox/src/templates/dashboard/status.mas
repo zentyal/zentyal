@@ -25,11 +25,11 @@ if ( $item->{statusStr} ) {
         $restart = __('Start');
     } elsif ((not $item->{enabled}) and $item->{running}) {
         $status_str = __('Running unmanaged');
-        $status_tip_str = __('The service is running, but not enabled in eBox');
+        $status_tip_str = __('The service is running, but not enabled in Zentyal');
         $status_class = 'summaryDisabled';
     } else {
         $status_str = __('Disabled');
-        $status_tip_str = __('The service is not enabled in eBox');
+        $status_tip_str = __('The service is not enabled in Zentyal');
         $status_class = 'summaryDisabled';
     }
 }

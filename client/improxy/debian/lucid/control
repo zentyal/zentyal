@@ -1,7 +1,7 @@
 Source: ebox-improxy
 Section: web
 Priority: optional
-Maintainer: José Antonio Calvo  <jacalvo@ebox-platform.com>
+Maintainer: José Antonio Calvo  <jacalvo@zentyal.org>
 Build-Depends: debhelper (>= 5.0.0), cdbs
 Standards-Version: 3.8.2
 
@@ -9,11 +9,11 @@ Package: ebox-improxy
 Architecture: all
 Depends: ebox (>= 1.5), ebox (<< 1.5.100), ${misc:Depends}
 Conflicts: ebox (<< 0.11.99)
-Description: eBox - Instant Messaging Proxy
- eBox Platform is an open source small business server that can act as
- a Gateway, a Unified Threat Manager, an Office Server, an Infrastructure
- Manager, a Unified Communications Server or a combination of them. One
+Description: Zentyal - Instant Messaging Proxy
+ Zentyal is an open source small business server that can act as
+ a Gateway, Unified Threat Manager, Office Server, Infrastructure
+ Manager, Unified Communications Server or a combination of them. One
  single, easy-to-use platform to manage all your network services.
  .
- This module adds an IM proxy to your eBox installation, enabling you to
+ This module adds an IM proxy to your Zentyal installation, enabling you to
  filter IM traffic.

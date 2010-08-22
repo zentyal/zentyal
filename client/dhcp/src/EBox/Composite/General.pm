@@ -28,7 +28,6 @@ use base 'EBox::Model::Composite';
 use strict;
 use warnings;
 
-## eBox uses
 use EBox::Gettext;
 use EBox::Global;
 

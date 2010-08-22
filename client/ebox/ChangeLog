@@ -1,4 +1,6 @@
 HEAD
+	+ Zentyal rebrand
+	+ Added web page favicon
 	+ Fixed already seen wizards apparition
 	+ Fixed ro module creation with redis backend
 	+ Use mason for links widgets

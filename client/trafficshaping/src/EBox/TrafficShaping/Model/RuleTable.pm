@@ -19,7 +19,7 @@
 #   This class describes a model which contains rule to do traffic
 #   shaping on a given interface. It serves as a model template which
 #   has as many instances as interfaces have the machine managed by
-#   eBox. It is a quite complicated model and it is highly coupled to
+#   Zentyal. It is a quite complicated model and it is highly coupled to
 #   <EBox::TrafficShaping> module itself.
 #
 
@@ -37,13 +37,9 @@ use Error qw(:try);
 
 use EBox::Gettext;
 use EBox::Global;
-
 use EBox::Model::ModelManager;
-
-# eBox types! wow
 use EBox::Types::Int;
 use EBox::Types::Select;
-# use EBox::Types::Service;
 use EBox::Types::MACAddr;
 use EBox::Types::IPAddr;
 use EBox::Types::Union;

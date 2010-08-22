@@ -576,7 +576,7 @@ sub setErrorFromException
     }
     else {
 	$self->{error} = __("You have just hit a bug ".
-			    "in eBox. Please seek technical ".
+			    "in Zentyal. Please seek technical ".
 			    "support.");
     }
 }

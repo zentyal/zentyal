@@ -26,7 +26,6 @@ use strict;
 
 use base 'EBox::RemoteServices::Base';
 
-# eBox uses
 use EBox::Config;
 use EBox::Gettext;
 use EBox::Global;
@@ -252,7 +251,7 @@ sub vpnLocation
 
 # Method: isConnected
 #
-#    Check whether the auth service is connected to the eBox CC or not
+#    Check whether the auth service is connected to Zentyal Cloud or not
 #
 # Returns:
 #
@@ -456,7 +455,7 @@ sub _newClientToken
   my $username = $self->_userName();
   my $hostname = $self->_cn();
   if ( not $hostname or not $username ) {
-      throw EBox::Exceptions::Internal('eBox is not subscribed to perform '
+      throw EBox::Exceptions::Internal('Zentyal is not subscribed to perform '
                                        . 'operations which require authentication');
   }
 

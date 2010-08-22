@@ -1,7 +1,7 @@
 #!/usr/bin/perl
 #
 # This is a migration script to add a service and firewall rules
-# for the eBox FTP service
+# for the Zentyal FTP service
 #
 # For next releases we should be able to enable/disable some ports
 # depening on if certain mail service is enabled or not
@@ -27,7 +27,7 @@ sub runGConf
     if (not $service->serviceExists(name => $serviceName)) {
         $service->addMultipleService(
                 'name' => $serviceName,
-                'description' => __d('eBox FTP Server'),
+                'description' => __d('Zentyal FTP Server'),
                 'translationDomain' => 'ebox-ftp',
                 'internal' => 1,
                 'services' => [

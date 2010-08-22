@@ -20,7 +20,7 @@
 # as we use the libquota-perl module. In order to use an API that must be run
 # as root and not as ebox user
 #
-# It's meant to be run by eBox.
+# It's meant to be run by Zentyal.
 #
 # Parameters are:
 #

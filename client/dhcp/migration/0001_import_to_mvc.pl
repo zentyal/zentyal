@@ -15,7 +15,6 @@ use warnings;
 
 use base 'EBox::Migration::Base';
 
-# eBox uses
 use EBox;
 use EBox::Global;
 

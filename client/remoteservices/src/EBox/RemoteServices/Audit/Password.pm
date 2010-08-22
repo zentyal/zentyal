@@ -93,7 +93,7 @@ sub reportUserCheck
 
 # Procedure: userCheck
 #
-#     Check the password strength from users in eBox. Those users may
+#     Check the password strength from users in Zentyal. Those users may
 #     system or LDAP users. We use "john the ripper" to do so.
 #
 #     If any user has an easy-to-crack password, then an alert is sent

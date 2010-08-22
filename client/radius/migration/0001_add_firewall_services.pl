@@ -2,7 +2,7 @@
 
 #
 # This is a migration script to add a service and firewall rules
-# for the eBox RADIUS system
+# for the Zentyal RADIUS system
 #
 
 package EBox::Migration;
@@ -27,7 +27,7 @@ sub runGConf
     if (not $service->serviceExists(name => $serviceName)) {
         $service->addMultipleService(
                 'name' => $serviceName,
-                'description' => __d('eBox RADIUS system'),
+                'description' => __d('Zentyal RADIUS system'),
                 'translationDomain' => 'ebox-radius',
                 'internal' => 1,
                 'services' => [

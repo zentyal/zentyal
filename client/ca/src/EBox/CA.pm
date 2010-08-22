@@ -1781,7 +1781,7 @@ sub getCurrentCRL
 
 # Method: menu
 #
-#       Add CA module to eBox menu
+#       Add CA module to Zentyal menu
 #
 # Parameters:
 #
@@ -2502,7 +2502,7 @@ sub _filterErrorFromOpenSSL # (input)
 
   }
 
-# Check none of other eBox modules uses the certificate
+# Check none of other Zentyal modules uses the certificate
 # Return true if there's any module using it
 sub _certsInUse # (cn?, isCACert?)
   {

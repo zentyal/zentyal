@@ -24,7 +24,6 @@ use warnings;
 
 use base 'EBox::Types::Text';
 
-# eBox uses
 use EBox::Validate;
 
 # Dependencies

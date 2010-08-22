@@ -20,7 +20,6 @@ use base 'EBox::Model::DataForm';
 use strict;
 use warnings;
 
-# eBox classes
 use EBox::Global;
 use EBox::Gettext;
 use EBox::Validate qw(:all);
@@ -29,7 +28,6 @@ use EBox::Types::Select;
 
 
 
-# eBox exceptions used
 use EBox::Exceptions::External;
 
 

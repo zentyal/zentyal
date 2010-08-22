@@ -15,7 +15,7 @@
 
 # Class: EBox::RemoteServices::Model::Subscription
 #
-# This class is the model to subscribe an eBox to the remote services
+# This class is the model to subscribe a Zentyal to the remote services
 # offered. The following elements are required:
 #
 #     - user (volatile)
@@ -24,9 +24,9 @@
 #
 # The model has itself two states:
 #
-#     - eBox not subscribed. Default state. Prior an eBox subscription
+#     - Zentyal not subscribed. Default state. Prior to a Zentyal subscription
 #
-#     - eBox subscribed. After an eBox subscription
+#     - Zentyal subscribed. After a Zentyal subscription
 #
 
 package EBox::RemoteServices::Model::Subscription;
@@ -167,7 +167,7 @@ sub setTypedRow
             # Establish VPN connection after subscribing and store data in backend
             EBox::RemoteServices::Backup->new()->connection();
         } catch EBox::Exceptions::External with {
-            EBox::warn("Impossible to establish the connection to the name server. Firewall is not restarted yet");
+            EBox::warn('Impossible to establish the connection to the name server. Firewall is not restarted yet');
         };
     }
 
@@ -175,11 +175,11 @@ sub setTypedRow
 
 # Method: eBoxSubscribed
 #
-#      Check if the current eBox is subscribed or not
+#      Check if the current Zentyal is subscribed or not
 #
 # Returns:
 #
-#      boolean - indicating if the eBox is subscribed or not
+#      boolean - indicating if the Zentyal is subscribed or not
 #
 sub eBoxSubscribed
 {
@@ -193,25 +193,23 @@ sub eBoxSubscribed
 
 # Method: unsubscribe
 #
-#      Delete every data related to the eBox subscription and stop any
+#      Delete every data related to the Zentyal subscription and stop any
 #      related service associated with it
 #
 # Returns:
 #
-#      True  - if the eBox is subscribed and now it is not
+#      True  - if Zentyal is subscribed and now it is not
 #
-#      False - if the eBox was not subscribed before
+#      False - if Zentyal was not subscribed before
 #
 sub unsubscribe
 {
     my ($self) = @_;
 
-    if ( $self->eBoxSubscribed() ) {
-
-
+    if ($self->eBoxSubscribed()) {
         my $row = $self->row();
         # Storing again make subscription if it is already done and
-        # unsubscribing if the eBox is subscribed
+        # unsubscribing if Zentyal is subscribed
         $row->store();
         return 1;
     } else {
@@ -257,19 +255,19 @@ sub help
         my $modChanges = $self->_modulesToChange();
         if (exists $modChanges->{configure}) {
             $msg .= __x(
-                'Subscribing an eBox will configure the {mods} and its dependencies ',
+                'Subscribing Zentyal will configure the {mods} and its dependencies ',
                 mods =>  $modChanges->{configure},
                );
 
         }
 
         if (exists $modChanges->{enable}) {
-            $msg .= __x('Subscribing an eBox will enable the {mods} and its dependencies.<br/>',
+            $msg .= __x('Subscribing Zentyal will enable the {mods} and its dependencies.<br/>',
                         mods => $modChanges->{enable}
                        );
         }
 
-        $msg .= __('Take into account that subscribing an eBox could take a '
+        $msg .= __('Take into account that subscribing Zentyal could take a '
                      . 'minute. Do not touch anything until subscribing process is done.');
     }
 
@@ -333,12 +331,12 @@ sub _table
                              ),
        new EBox::RemoteServices::Types::EBoxCommonName(
                              fieldName      => 'eboxCommonName',
-                             printableName  => __('eBox Name'),
+                             printableName  => __('Server Name'),
                              editable       => (not $self->eBoxSubscribed()),
                              volatile       => 1,
                              acquirer       => \&_acquireFromGConfState,
                              storer         => \&_storeInGConfState,
-                             help           => __('Choose a name for your eBox which is '
+                             help           => __('Choose a name for your server which is '
                                                   . 'a valid subdomain name'),
                             ),
       );
@@ -353,11 +351,11 @@ sub _table
 
     my ($actionName, $printableTableName);
     if ( $self->eBoxSubscribed() ) {
-        $printableTableName = __('eBox subscription details');
+        $printableTableName = __('Zentyal subscription details');
         $actionName = __('Delete data');
     } else {
         splice(@tableDesc, 1, 0, $passType);
-        $printableTableName = __('Subscription to eBox Control Center');
+        $printableTableName = __('Subscription to Zentyal Cloud');
         $actionName = __('Subscribe');
     }
 
@@ -555,7 +553,7 @@ sub _filesStr
 # Return the commercial message
 sub _commercialMsg
 {
-    return __sx('eBox Control Center services integrate Quality Assured software '
+    return __sx('Zentyal Cloud services integrate Quality Assured software '
                 . 'updates, alerts and centralized monitoring and administration '
                 . 'of your eBox servers. You gain full access to these services '
                 . 'by obtaining a {openhrefp}Professional{closehref} or '
@@ -569,7 +567,6 @@ sub _commercialMsg
                 openhrefe => '<a href="' . ENTER_URL . '" target="_blank">',
                 openhrefb => '<a href="' . BASIC_URL . '" target="_blank">',
                 closehref => '</a>');
-
 }
 
 1;

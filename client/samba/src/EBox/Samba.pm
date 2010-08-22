@@ -89,20 +89,20 @@ sub actions
     return [
     {
         'action' => __('Create Samba home directory for shares and groups'),
-        'reason' => __('eBox will create the directories for Samba ' .
-            'shares and groups under /home/samba.'),
+        'reason' => __('Zentyal will create the directories for Samba ' .
+                       'shares and groups under /home/samba.'),
         'module' => 'samba'
     },
     {
         'action' => __('Add LDAP schemas'),
-        'reason' => __('eBox will add two LDAP schemas to the LDAP directory:' .
-            ' samba and ebox.'),
+        'reason' => __('Zentyal will add two LDAP schemas to the LDAP directory:' .
+                       ' samba and ebox.'),
         'module' => 'samba'
     },
     {
         'action' => __('Set Samba LDAP admin dn password'),
-        'reason' => __('eBox will configure Samba to use the LDAP admin dn ' .
-            'password.'),
+        'reason' => __('Zentyal will configure Samba to use the LDAP admin dn ' .
+                       'password.'),
         'module' => 'samba'
     },
     ];
@@ -208,7 +208,7 @@ sub compositeClasses
 #
 #   It returns the custom shares 8
 #
-# Parameters: 
+# Parameters:
 #
 #     all - return all shares regardless of their permission
 #           level. Otherwise shares without permssions or guset access are
@@ -1863,7 +1863,7 @@ sub _topActivityGroups
             push @groupsAndOperations, [$groupname => $operations];
         } elsif ($operations > $min) {
             pop @groupsAndOperations;
-            push @groupsAndOperations, [$groupname => $operations];            
+            push @groupsAndOperations, [$groupname => $operations];
         } else {
             next;
         }
@@ -1905,7 +1905,7 @@ sub consolidateReportQueries
                 'select' => 'share, type, CAST (AVG(size) AS int) AS size',
                 'from' => 'samba_disk_usage',
                 'group' => 'share, type'
-                     
+
             },
         },
         {
@@ -1932,19 +1932,19 @@ sub _updatePathsByLen
 {
     my ($self) = @_;
 
-    my $ldapInfo = EBox::SambaLdapUser->new();   
+    my $ldapInfo = EBox::SambaLdapUser->new();
     @sharesSortedByPathLen = map {
-         { path => $_->{path}, 
+         { path => $_->{path},
            share => $_->{sharename} }
     } ( @{ $ldapInfo->userShareDirectories },
         @{ $ldapInfo->groupShareDirectories }
       );
 
     foreach my $sh_r (@{ $self->shares(1) }) {
-        push @sharesSortedByPathLen, {path => $sh_r->{path}, 
+        push @sharesSortedByPathLen, {path => $sh_r->{path},
                                       share =>  $sh_r->{share} };
     }
-    
+
     # add regexes
     foreach my $share (@sharesSortedByPathLen) {
         my $path = $share->{path};
@@ -1989,7 +1989,7 @@ sub _virusShareReportRowConversor
         return undef;
     }
 
-    
+
     return $row;
 }
 
@@ -2020,7 +2020,7 @@ sub logReportInfo
                                }
                     };
         push @reportData, $entry;
-    }  
+    }
 
     return \@reportData;
 }
@@ -2032,7 +2032,7 @@ sub _diskUsageAlreadyCheckedToday
 
     my $db = EBox::DBEngineFactory::DBEngine();
     my $query = q{SELECT share FROM samba_disk_usage WHERE (timestamp >= (current_date + interval '0 day')) AND (timestamp < (current_date + interval '1 day'))};
-    my $results = $db->query($query);    
+    my $results = $db->query($query);
     return @{ $results } > 0;
 }
 
@@ -2040,9 +2040,9 @@ sub _sharesAndSizes
 {
     my ($self) = @_;
 
-    my $ldapInfo = EBox::SambaLdapUser->new();    
+    my $ldapInfo = EBox::SambaLdapUser->new();
     my @shares;
-    
+
     foreach my $sh_r ( @{  $ldapInfo->userShareDirectories }) {
         my $share = {
                      share => $sh_r->{sharename},

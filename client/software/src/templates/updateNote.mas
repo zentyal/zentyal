@@ -7,10 +7,10 @@ my $msg = "";
 my $class = "note";
 
 if ($qa) {
-    $msg = __s('As you are enjoying a Commercial Server Subscription the updates are Quality Assured by the eBox Development Team.');
+    $msg = __s('As you are enjoying a Commercial Server Subscription the updates are Quality Assured by the Zentyal Development Team.');
     $class = 'note';
 } else {
-    $msg =  __sx("Warning: The updates are community based. You can now gain access to the Quality Assured Updates by purchasing the {ohpro}Professional{ch}  or {ohent}Enterprise{ch} Server Subscription. QA Updates guarantee that all the upgrades, bugfixes and security updates are extensively tested by the eBox Development Team and you won't be introducing any regressions on your already working system.",
+    $msg =  __sx("Warning: The updates are community based. You can now gain access to the Quality Assured Updates by purchasing the {ohpro}Professional{ch}  or {ohent}Enterprise{ch} Server Subscription. QA Updates guarantee that all the upgrades, bugfixes and security updates are extensively tested by the Zentyal Development Team and you won't be introducing any regressions on your already working system.",
             ohpro => '<a href="http://store.ebox-technologies.com/serversubscriptions/subscription-professional.html" target="_blank">',
             ohent => '<a href="http://store.ebox-technologies.com/serversubscriptions/subscription-enterprise.html" target="_blank">',
             ch    => '</a>',

@@ -38,8 +38,8 @@ use YAML::Tiny;
 
 # Method: generateReport
 #
-#     Control panel will ask eBoxes for the information required for the
-#     report.
+#     Control panel will ask Zentyal servers for the information required
+#     for the report.
 #
 # Parameters:
 #
@@ -47,7 +47,7 @@ use YAML::Tiny;
 #
 # Returns:
 #
-#     '' - if the report thing is not yet supported by eBox
+#     '' - if the report thing is not yet supported by Zentyal
 #     YAML - a YAML encoded string with report results
 #
 # Exceptions:
