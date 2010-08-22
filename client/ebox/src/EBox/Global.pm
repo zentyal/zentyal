@@ -517,11 +517,15 @@ sub saveAllModules
 
                 my $mod = $self->modInstance($name);
                 my $class = 'EBox::Module::Service';
-                if ($mod->isa($class) and not $mod->configured()) {
-                        $mod->setInstalled();
+
+                if ($mod->isa($class)) {
+                    $mod->setInstalled();
+
+                    if (not $mod->configured()) {
                         $mod->_saveConfig();
                         $self->modRestarted($name);
                         next;
+                    }
                 }
 
                 try {

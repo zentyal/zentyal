@@ -1,4 +1,5 @@
 HEAD
+	+ Fixed already seen wizards apparition
 	+ Fixed ro module creation with redis backend
 	+ Use mason for links widgets
 	+ Use new domain to official strings for subscriptions
