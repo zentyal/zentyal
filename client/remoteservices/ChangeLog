@@ -1,6 +1,6 @@
 HEAD
 	+ Mark squid as changed, if enabled, when subscription process is
-  	  done
+	  done
 	+ Add installer script execution after saving changes to make sure
 	  VPN is up and running
 	+ Bugfix: Speed up the subscription process when VPN is not set up
