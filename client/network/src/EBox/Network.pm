@@ -2470,17 +2470,15 @@ sub _generateProxyConfig
     my ($self) = @_;
 
     my $proxy = $self->model('Proxy');
-    if ($proxy->serverValue() and $proxy->portValue()) {
-        $self->writeConfFile(ENV_PROXY_FILE,
-                            'network/zentyal-proxy.sh.mas',
-                            [ proxyServer => $proxy->serverValue(),
-                              proxyPort => $proxy->portValue() ],
-                            { 'uid' => 0, 'gid' => 0, mode => '755' });
-        $self->writeConfFile(APT_PROXY_FILE,
-                            'network/99proxy.conf.mas',
-                            [ proxyServer => $proxy->serverValue(),
-                              proxyPort => $proxy->portValue() ]);
-    }
+    $self->writeConfFile(ENV_PROXY_FILE,
+                        'network/zentyal-proxy.sh.mas',
+                        [ proxyServer => $proxy->serverValue(),
+                          proxyPort => $proxy->portValue() ],
+                        { 'uid' => 0, 'gid' => 0, mode => '755' });
+    $self->writeConfFile(APT_PROXY_FILE,
+                        'network/99proxy.conf.mas',
+                        [ proxyServer => $proxy->serverValue(),
+                          proxyPort => $proxy->portValue() ]);
 }
 
 #

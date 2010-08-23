@@ -1,3 +1,5 @@
+HEAD
+	+ Bug fix: disabling global proxy configuration didn't work
 1.5.7
 	+ More global proxy configuration and domain configuration improvements.
 	+ Zentyal rebrand

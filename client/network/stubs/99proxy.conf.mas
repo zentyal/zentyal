@@ -2,4 +2,7 @@
     $proxyServer
     $proxyPort
 </%args>
+# Zentyal defined HTTP Proxy
+% if ($proxyServer and $proxyPort) {
 Acquire::http::Proxy "http://<% $proxyServer %>:<% $proxyPort %>/";
+% }
