@@ -128,7 +128,7 @@ Description: Zentyal - Network Infrastructure Suite
 
 Package: ebox-office
 Architecture: all
-Depends:ebox-samba, ebox-printers, ebox-egroupware, ebox-antivirus, ebox-ebackup, ebox-software, ebox-monitor, ebox-remoteservices
+Depends:ebox-samba, ebox-printers, ebox-antivirus, ebox-ebackup, ebox-software, ebox-monitor, ebox-remoteservices
 Description: Zentyal - Office Suite
  Zentyal is an open source small business server that can act as
  a Gateway, Unified Threat Manager, Office Server, Infrastructure
