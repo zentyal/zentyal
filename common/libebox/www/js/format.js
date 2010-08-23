@@ -58,6 +58,38 @@ function getDegrees(degrees) {
     return degrees + "°";
 }
 
+function getTimeDiff(milliseconds) {
+    var pos = 0;
+    var base = 1000;
+    var timeDiff = milliseconds;
+    while ( timeDiff > base ) {
+        timeDiff /= base;
+        pos++;
+        if ( pos >= 1 ) {
+            base = 60;
+        }
+        if ( pos > 2 ) {
+            break;
+        }
+    }
+    var num = Math.pow(10, 2);
+    return ( Math.round( timeDiff * num) / num) + ' ' + getTimeDiffSuffix(pos);
+    
+}
+
+function getTimeDiffSuffix(pos) {
+    switch (pos) {
+    case 0 : return "ms";
+    case 1 : return "s";
+    case 2 : return "min";
+    default: return "h";
+    }
+}
+
+function getBytesPerSec(bps) {
+    return getBytes(bps) + '/s';
+}
+
 function getTime(seconds) {
     var d = new Date(seconds * 1000);
     return d.toLocaleTimeString();

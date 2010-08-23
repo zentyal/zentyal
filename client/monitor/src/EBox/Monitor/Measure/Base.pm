@@ -32,7 +32,7 @@ use EBox::Monitor::Configuration;
 use EBox::Sudo;
 
 # Constants
-use constant TYPES => qw(int percentage byte degree);
+use constant TYPES => qw(int percentage byte degree millisecond bps);
 
 # Constructor: new
 #
@@ -80,20 +80,20 @@ sub printableName
     return $self->{printableName};
 }
 
-# Method: simpleName
+# Method: plugin
 #
-#      Get the simple measure's name, that is, the one used in
-#      configuration files
+#      Get the measure's plugin, that is, the one used by collectd to
+#      get the measure data from
 #
 # Returns:
 #
-#      String - the simple measure's name
+#      String - the measure's plugin name
 #
-sub simpleName
+sub plugin
 {
     my ($self) = @_;
 
-    return $self->{simpleName};
+    return $self->{plugin};
 
 }
 
@@ -194,7 +194,7 @@ sub fetchData
             push(@rrds, $type . '.rrd');
         }
     }
-    my $prefix = $self->{simpleName};
+    my $prefix = $self->{plugin};
     if ( defined($instance) ) {
         $prefix .= "-$instance";
     }
@@ -227,8 +227,9 @@ sub fetchData
                     }
                 } else {
                     for (my $valIdx = 0; $valIdx < scalar(@values); $valIdx++) {
+                        my $scaledValue = $self->scale($values[$valIdx]);
                         push( @{$returnData[$valIdx + $rrdIdx]},
-                              [ $time, $values[$valIdx] + 0]);
+                              [ $time, $scaledValue + 0]);
                     }
                 }
             }
@@ -300,7 +301,7 @@ sub printableInstance
             if ( $self->{printableName}) {
                 return $self->{printableName};
             } else {
-                return $self->{simpleName};
+                return $self->{plugin};
             }
         }
     }
@@ -503,6 +504,60 @@ sub enabled
     return 1;
 }
 
+# Method: scale
+#
+#     Given a value for the measure, this method returns the scaled
+#     version for the desired value.
+#
+#     For instance, the measure traffic is done in KB but we need
+#     Bytes to depict the graph, then the scale will multiply current
+#     value for 1024 to return bytes
+#
+# Parameters:
+#
+#     value - Float the current value
+#
+# Return:
+#
+#     Float - the scaled value
+#
+sub scale
+{
+    my ($self, $value) = @_;
+    return $value;
+}
+
+# Method: formattedGaugeType
+#
+#    Return the measure for this gauge.
+#
+#    If the gauge type is 'int', then it returns nothing.
+#
+# Returns:
+#
+#    String - the measure in human readable format
+#
+sub formattedGaugeType
+{
+    my ($self) = @_;
+
+    # TODO: use switch statement when dropping off hardy
+    if ( $self->{type} eq 'int' ) {
+        return '';
+    } elsif ( $self->{type} eq 'percentage' ) {
+        return '%';
+    } elsif ( $self->{type} eq 'bps' ) {
+        return 'B/s';
+    } elsif ( $self->{type} eq 'degree' ) {
+        return 'º';
+    } elsif ( $self->{type} eq 'millisecond' ) {
+        return 'ms';
+    } else {
+        return $self->{type} . 's';
+    }
+
+}
+
 # Group: Class methods
 
 # Method: Types
@@ -533,6 +588,9 @@ sub Types
 #         name - String the measure's name *(Optional)* Default value:
 #         class name
 #
+#         plugin - String the measure's plugin name *(Optional)*
+#         Default value: lc(name)
+#
 #         printableName - String the measure's localisated name
 #         +(Optional)* Default value: empty string
 #
@@ -541,7 +599,7 @@ sub Types
 #         *(Optional)*
 #
 #         types - array ref the measure's types as defined by collectd
-#         *(Optional)* Default value: [ $self->simpleName ]
+#         *(Optional)* Default value: [ $self->plugin() ]
 #
 #         dataSources - array ref the data name for each CDP (consolidated
 #         data point) *(Optional)* Default value: [ 'value' ]
@@ -605,8 +663,13 @@ sub _setDescription
     my ($self, $description) = @_;
 
     $self->{name} = ref( $self );
-    ($self->{simpleName}) = $self->{name} =~ m/.*::(.*?)$/g;
-    $self->{simpleName} = lc($self->{simpleName});
+    if ( exists( $description->{plugin} ) ) {
+        $self->{plugin} = $description->{plugin};
+    } else {
+        # Guess plugin using the measure's name
+        ($self->{plugin}) = $self->{name} =~ m/.*::(.*?)$/g;
+        $self->{plugin} = lc($self->{plugin});
+    }
     $self->{help} = exists($description->{help}) ? $description->{help} : '';
     $self->{printableName} =
       exists($description->{printableName}) ? $description->{printableName} : '';
@@ -627,7 +690,7 @@ sub _setDescription
     }
 
     my $baseDir = EBox::Monitor::Configuration->RRDBaseDirPath();
-    my $prefix = $self->{simpleName};
+    my $prefix = $self->plugin();
     $self->{instances} = [];
     if ( exists($description->{instances}) ) {
         unless ( ref($description->{instances}) eq 'ARRAY' ) {
@@ -648,7 +711,7 @@ sub _setDescription
 #         }
     }
 
-    $self->{types} = [ $self->simpleName() ];
+    $self->{types} = [ $self->plugin() ];
     if ( exists($description->{types}) ) {
         unless( ref($description->{types}) eq 'ARRAY' ) {
             throw EBox::Exceptions::InvalidType($description->{types}, 'array ref');

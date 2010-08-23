@@ -564,7 +564,7 @@ sub isConnected
 #
 # Returns:
 #
-#    1- if the reload was done successfully
+#    1 - if the reload was done successfully
 #
 #    2 - no reload is needed (force is false)
 #

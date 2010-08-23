@@ -162,13 +162,13 @@ sub validateTypedRow
                              and $allFields->{dataSource}->value() eq 'value'))
                         ) {
                     throw EBox::Monitor::Exceptions::ThresholdOverride($excStr);
-                } elsif ( $row->elementByName('typeInstance')->isEqualTo($allFields->{typeInstance})
-                            and $row->elementByName('measureInstance')->isEqualTo($allFields->{measureInstance})) {
-                    # TODO: with collectd 4.4 onwards this check must be removed
-                    throw EBox::Exceptions::External(
-                        __('Current monitoring tool version does not support distinction among data sources')
-                       );
                 }
+                # elsif ( $row->elementByName('typeInstance')->isEqualTo($allFields->{typeInstance})
+                #             and $row->elementByName('measureInstance')->isEqualTo($allFields->{measureInstance})) {
+                #     throw EBox::Exceptions::External(
+                #         __('Current monitoring tool version does not support distinction among data sources')
+                #        );
+                # }
             }
         }
     }

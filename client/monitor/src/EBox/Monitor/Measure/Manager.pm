@@ -64,6 +64,14 @@ sub Instance
 #
 #     className - String the class name to register
 #
+# Returns:
+#
+#     1 - if the register was not done due to two reasons:
+#         the measure was already registered
+#         the measure is not enabled (because it cannot collect data)
+#
+#     0 - the registration was done sucessfully
+#
 # Exceptions:
 #
 #     <EBox::Exceptions::Internal> - thrown if the class cannot be
@@ -81,8 +89,8 @@ sub register
         throw EBox::Exceptions::Internal("Cannot load $measureToRegister: $@");
     }
     if ( exists($self->{measures}->{$measureToRegister}) ) {
-        EBox::warn("Loading $measureToRegister measure again");
-        return 0;
+        # EBox::warn("Loading $measureToRegister measure again");
+        return 1;
     }
     unless ( $measureToRegister->isa('EBox::Monitor::Measure::Base') ) {
         throw EBox::Exceptions::InvalidType(arg => $measureToRegister,
@@ -92,9 +100,9 @@ sub register
     if ( $measureInstance->enabled() ) {
         $self->{measures}->{$measureToRegister} = $measureInstance;
         push(@{$self->{order}}, $measureToRegister);
-        return 1;
-    } else {
         return 0;
+    } else {
+        return 1;
     }
 
 }

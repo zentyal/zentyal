@@ -139,6 +139,7 @@ sub setTypedRow
     $self->_manageEvents(not $subs);
     $self->_manageMonitor(not $subs);
     $self->_manageLogs(not $subs);
+    $self->_manageSquid(not $subs);
 
     # Call the parent method to store data in GConf and such
     $self->SUPER::setTypedRow($id, $paramsRef, %optParams);
@@ -446,7 +447,21 @@ sub _manageLogs
     }
 }
 
+# Manage ebox-squid, if installed, to be marked as changed
+sub _manageSquid
+{
+    my ($self, $subscribing) = @_;
 
+    # It does change the behaviour depending if subscribing/unsubscribing
+    my $gl = EBox::Global->getInstance();
+    if ( $gl->modExists('squid') ) {
+        my $squidMod = $gl->modInstance('squid');
+        if ( $squidMod->isEnabled() ) {
+            $squidMod->setAsChanged();
+        }
+    }
+
+}
 
 
 sub _configureAndEnable

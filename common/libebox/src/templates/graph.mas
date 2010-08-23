@@ -32,6 +32,10 @@ if($type eq 'int') {
     $formatter = 'getBytes';
 } elsif($type eq 'degree') {
     $formatter = 'getDegrees';
+} elsif($type eq 'millisecond' ) {
+    $formatter = 'getTimeDiff';
+} elsif($type eq 'bps' ) {
+    $formatter = 'getBytesPerSec';
 }
 if($timetype eq 'time') {
     $timeformatter = 'getTime';

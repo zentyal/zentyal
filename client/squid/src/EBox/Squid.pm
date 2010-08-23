@@ -710,6 +710,11 @@ sub _writeSquidConf
   } else {
       push @writeParam, ('ldapport' => $users->ldap()->ldapConf()->{'replicaport'});
   }
+  my $global = EBox::Global->getInstance(1);
+  if ( $global->modExists('remoteservices') ) {
+      my $rs = EBox::Global->modInstance('remoteservices');
+      push(@writeParam, ('snmpEnabled' => $rs->eBoxSubscribed() ));
+  }
 
   $self->writeConfFile(SQUIDCONFFILE, "squid/squid.conf.mas", \@writeParam);
 }

@@ -37,6 +37,7 @@ FQDNLookup false
 #BaseDir "/var/lib/collectd"
 #PluginDir "/usr/lib/collectd"
 #TypesDB "/usr/lib/collectd/types.db" "/etc/collectd/my_types.db"
+Include "/etc/collectd/conf.d"
 Interval <% $interval %>
 #ReadThreads 5
 
@@ -78,7 +79,7 @@ LoadPlugin network
 LoadPlugin perl
 % }
 #LoadPlugin ping
-LoadPlugin processes
+#LoadPlugin processes
 LoadPlugin rrdtool
 #LoadPlugin sensors
 #LoadPlugin serial

@@ -1,3 +1,10 @@
+<%doc>
+    Main configuration file for Squid daemon
+
+  Parameters:
+
+    snmpEnabled - Boolean indicating if SNMP is enabled or not
+</%doc>
 <%args>
     $port
     $transparent
@@ -401,3 +408,14 @@ delay_access <% $id %> allow <% $objPool->{object} %>
 delay_access <% $id %> deny all
 % }
 </%def>
+
+<%def .snmp>
+<%doc>
+Define the SNMP configuration as SNMP agent
+</%doc>
+acl snmppublic snmp_community public
+snmp_port 3401
+snmp_access allow snmppublic localhost
+snmp_access deny all
+</%def>
+

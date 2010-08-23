@@ -270,25 +270,30 @@ sub _i18n
             $printableDataSource = $measure->printableLabel($typeInstance, $dataSource);
         }
 
-        $printableMsg .= __x('{what} "{dS}" is currently {value}.',
+        $printableMsg .= __x('{what} "{dS}" is currently {value}{formattedGaugeType}.',
                              what => $what, dS => $printableDataSource,
-                             value => $currentValue);
+                             value => sprintf('%.3f', $currentValue),
+                             formattedGaugeType => $measure->formattedGaugeType());
         $printableMsg .= ' ';
 
         if ( $message =~ m:region of:g ) {
             my ($minBound, $maxBound) = $message =~ m:region of (.*?) and (.*)\.$:;
-            $printableMsg .= __x('That is within the {severity} region of {minBound} and {maxBound}.',
-                                 severity => $severity, minBound => $minBound,
-                                 maxBound => $maxBound);
+            $printableMsg .= __x('That is within the {severity} region of {minBound}{formattedGaugeType} '
+                                 . 'and {maxBound}{formattedGaugeType}.',
+                                 severity => $severity, minBound => sprintf('%.3f', $minBound),
+                                 maxBound => sprintf('%.3f', $maxBound),
+                                 formattedGaugeType => $measure->formattedGaugeType() );
         }
         if ( $message =~ m:threshold of:g ) {
             my ($adverb, $bound) = $message =~ m:That is (.*?) the.*threshold of (.*)\.$:;
             if ( $adverb eq 'above') {
-                $printableMsg .= __x('That is above the {severity} threshold of {bound}.',
-                                     severity => $severity, bound => $bound);
+                $printableMsg .= __x('That is above the {severity} threshold of {bound}{formattedGaugeType}.',
+                                     severity => $severity, bound => sprintf('%.3f', $bound),
+                                     formattedGaugeType => $measure->formattedGaugeType() );
             } elsif ( $adverb eq 'below') {
-                $printableMsg .= __x('That is below the {severity} threshold of {bound}.',
-                                     severity => $severity, bound => $bound);
+                $printableMsg .= __x('That is below the {severity} threshold of {bound}{formattedGaugeType}.',
+                                     severity => $severity, bound => sprintf('%.3f', $bound),
+                                     formattedGaugeType => $measure->formattedGaugeType() );
             }
         }
     }

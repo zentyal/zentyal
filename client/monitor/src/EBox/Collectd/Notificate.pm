@@ -70,7 +70,7 @@ sub ebox_notify
     my $src = 'monitor-' . $not->{plugin};
     $src .= '-' . $not->{plugin_instance} if (defined($not->{plugin_instance})
                                               and $not->{plugin_instance} ne '');
-    $src .= '-' . $not->{type};
+    $src .= '-' . $not->{type} if ( $not->{type} ne $not->{plugin} );
     $src .= '-' . $not->{type_instance} if ($not->{type_instance} ne '');
 
     my $level = 'fatal';

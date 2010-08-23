@@ -75,6 +75,10 @@ sub syncRows
 {
     my ($self, $currentRows) = @_;
 
+    # If the module is readonly, return current rows
+    if ( $self->{'gconfmodule'}->isReadOnly() ) {
+        return undef;
+    }
     # Fetch current measures stored in GConf
     my %storedMeasures =
       map { $self->row($_)->valueByName('measure') => 1 } @{$currentRows};

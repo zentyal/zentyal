@@ -47,6 +47,7 @@ use constant {
     SERV_CONF_DIR => 'remoteservices',
     SERV_SUBDIR => 'remoteservices/subscription',
     SERV_CONF_FILE => '78remoteservices.conf',
+    PROF_PKG       => 'ebox-cloud-prof',
 };
 
 # Group: Public methods
@@ -218,6 +219,7 @@ sub subscribeEBox
 #          QASources - String path to the QA source list mason template
 #          QAAptPubKey - String path to the QA apt repository public key
 #          QAAptPreferences - String path to the QA preferences file
+#          installCloudProf - String the install script for Professional add-ons
 #          scripts - Array ref containing the scripts to run after extracting the bundle
 #
 sub extractBundle
@@ -253,7 +255,7 @@ sub extractBundle
         chdir($dirPath);
     }
 
-    my ($confFile, $keyFile, $certFile, $qaSources, $qaGpg, $qaPreferences);
+    my ($confFile, $keyFile, $certFile, $qaSources, $qaGpg, $qaPreferences, $installCloudProf);
     my @scripts;
     foreach my $filePath (@files) {
         $tar->extract_file($filePath)
@@ -269,7 +271,9 @@ sub extractBundle
         } elsif ($filePath =~ /ebox-qa\.preferences$/) {
             $qaPreferences = $filePath;
         } elsif ($filePath =~ m{exec\-\d+\-}) {
-            push @scripts, $filePath;
+            push(@scripts, $filePath);
+        } elsif ( $filePath =~ /install-cloud-prof\.pl$/) {
+            $installCloudProf = $filePath;
         } elsif ( $filePath ne 'cacert.pem' ) {
             $certFile = $filePath;
         }
@@ -294,6 +298,9 @@ sub extractBundle
     }
     if (defined $qaPreferences) {
         $bundle->{QAAptPreferences} = "$dirPath/$qaPreferences";
+    }
+    if (defined $installCloudProf) {
+        $bundle->{installCloudProf} = "$dirPath/$installCloudProf";
     }
 
     if (@scripts) {
@@ -328,6 +335,7 @@ sub executeBundle
 
     $self->_setUpAuditEnvironment();
     $self->_setQAUpdates($params, $confKeys);
+    $self->_installCloudProf($params, $confKeys);
     $self->_executeBundleScripts($params, $confKeys);
 }
 
@@ -378,6 +386,7 @@ sub deleteData
     # FIXME: Do by alertAutoconfiguration script?
     my $events = EBox::Global->modInstance('events');
     $events->unset('alert_autoconfiguration');
+    # TODO: Remove ebox-cloud-prof package
 
 }
 
@@ -493,6 +502,30 @@ sub _setQAUpdates
 
 }
 
+# Install ebox-cloud-prof package in a hour to avoid problems with dpkg
+sub _installCloudProf
+{
+    my ($self, $params, $confKeys) = @_;
+
+    return unless ( exists $params->{installCloudProf} );
+
+    return if ( $self->_cloudProfInstalled() );
+
+    my $fh = new File::Temp(DIR => EBox::Config::tmp());
+    $fh->unlink_on_destroy(0);
+    print $fh "exec " . $params->{installCloudProf} . " \n";
+    close($fh);
+
+    try {
+        EBox::Sudo::command("chmod a+x '" . $params->{installCloudProf} . "'");
+        # Delay the ebox-cloud-prof installation for an hour
+        EBox::Sudo::root('at -f "' . $fh->filename() . '" now+1hour');
+    } catch EBox::Exceptions::Command with {
+        # Ignore installation errors
+    };
+
+}
+
 
 sub _executeBundleScripts
 {
@@ -603,12 +636,13 @@ sub _repositoryAddr
     my ($self, $confKeys) = @_;
 
     my $retVal = '';
-    try {
+    my $rs = EBox::Global->modInstance('remoteservices');
+    if ( $rs->isConnected() ) {
         $retVal = $self->_queryServicesNameserver($confKeys->{repositoryHost},
                                                   [$confKeys->{'dnsServer'}]);
-    } catch EBox::Exceptions::External with {
+    } else {
         $retVal = $confKeys->{repositoryAddress};
-    };
+    }
 
     return $retVal;
 }
@@ -657,5 +691,17 @@ sub _removeAptQAPreferences
     }
 }
 
+# Check if the ebox-cloud-prof is already installed
+sub _cloudProfInstalled
+{
+    my $installed = 0;
+    try {
+        my @output = @{EBox::Sudo::root("dpkg -l " . PROF_PKG . ' | grep ' . PROF_PKG )};
+        $installed = $output[0] =~ m:^ii\s:;
+    } catch EBox::Exceptions::Sudo::Command with {
+        $installed = 0;
+    };
+    return $installed;
+}
 
 1;

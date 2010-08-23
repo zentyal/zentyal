@@ -182,8 +182,6 @@ sub _root
             }
             _rootError($sudocmd, $commands, $ret, \@output, \@error);
         }
-    } else {
-        unlink($cmdFile);
     }
 
     return \@output;

@@ -1,3 +1,10 @@
+HEAD
+	+ Mark squid as changed, if enabled, when subscription process is
+  	  done
+	+ Add installer script execution after saving changes to make sure
+	  VPN is up and running
+	+ Bugfix: Speed up the subscription process when VPN is not set up
+	  yet
 1.5.7
 	+ Zentyal rebrand
 	+ I18n the commercial message

@@ -68,7 +68,7 @@ cmp_ok( $measure->{printableName}, 'eq', '');
 is_deeply( $measure->{dataSources}, ['value']);
 is_deeply( $measure->{printableLabels}, [ __('value') ]);
 cmp_ok( $measure->{type}, 'eq', 'int');
-is_deeply( $measure->{types}, [ $measure->simpleName() ]);
+is_deeply( $measure->{types}, [ $measure->plugin() ]);
 cmp_ok( $measure->printableInstance(), 'eq', 'base',
         'Checking default value for printable instance without printableName neither instances');
 cmp_ok( $measure->printableDataSource(), 'eq', 'value',

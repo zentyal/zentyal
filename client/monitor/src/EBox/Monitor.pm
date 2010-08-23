@@ -54,6 +54,7 @@ use EBox::Monitor::Measure::Manager;
 # Core modules
 use Error qw(:try);
 use File::Spec;
+use File::Slurp;
 
 # Constants
 use constant COLLECTD_INIT        => 'collectd';
@@ -62,6 +63,7 @@ use constant COLLECTD_CONF_FILE   => '/etc/collectd/collectd.conf';
 use constant THRESHOLDS_CONF_FILE => '/etc/collectd/thresholds.conf';
 use constant SERVICE_STOPPED_FILE => EBox::Config::tmp() . 'monitor_stopped';
 use constant DEFAULT_COLLECTD_FILE => '/etc/default/collectd';
+use constant RUNTIME_MEASURES     => EBox::Config::conf() . 'monitor/plugins';
 
 # Method: _create
 #
@@ -495,6 +497,7 @@ sub _setupMeasures
         $self->{measureManager}->register('EBox::Monitor::Measure::Df');
         $self->{measureManager}->register('EBox::Monitor::Measure::Memory');
         $self->{measureManager}->register('EBox::Monitor::Measure::Thermal');
+        $self->_registerRuntimeMeasures();
     } catch EBox::Exceptions::Internal with {
         # Catch exceptions since it is possible that the monitor
         # module has never been configured (enable once)
@@ -542,44 +545,49 @@ sub _setThresholdConf
     my $measureWatchersModel = $self->model('MeasureWatchers');
     my %thresholds = ();
 
-    my $gl = EBox::Global->getInstance();
+    my $gl = EBox::Global->getInstance(1);
     if ( $gl->modExists('events') ) {
         my $evtsMod = $gl->modInstance('events');
         if ( $evtsMod->isEnabled() and $evtsMod->isEnabledWatcher('EBox::Event::Watcher::Monitor')->value() ) {
             foreach my $id (@{$measureWatchersModel->ids()}) {
                 my $measureWatcher = $measureWatchersModel->row($id);
                 my $confModel = $measureWatcher->subModel('thresholds');
-                my $measureInstance = $self->{measureManager}->measure($measureWatcher->valueByName('measure'));
-                foreach my $confRow (@{$confModel->findDumpThresholds()}) {
-                    my %threshold = ( measure => $measureInstance->simpleName(),
-                                      type    => $measureInstance->simpleName(),
-                                      invert  => $confRow->valueByName('invert'),
-                                      persist => $confRow->valueByName('persist'),
-                                     );
-                    if ( $confRow->valueByName('measureInstance') ne 'none' ) {
-                        $threshold{instance} = $confRow->valueByName('measureInstance');
-                    }
-                    if ( $confRow->valueByName('typeInstance') ne 'none' ) {
-                        $threshold{typeInstance} = $confRow->valueByName('typeInstance');
-                    }
-                    if ( $confRow->valueByName('dataSource') ne 'none' ) {
-                        $threshold{dataSource} = $confRow->valueByName('dataSource');
-                    }
-                    foreach my $bound (qw(warningMin failureMin warningMax failureMax)) {
-                        my $boundValue = $confRow->valueByName($bound);
-                        if (defined($boundValue)) {
-                            $threshold{$bound} = $boundValue;
+                try {
+                    my $measureInstance = $self->{measureManager}->measure($measureWatcher->valueByName('measure'));
+                    foreach my $confRow (@{$confModel->findDumpThresholds()}) {
+                        my %threshold = ( measure => $measureInstance->plugin(),
+                                          type    => $measureInstance->plugin(),
+                                          invert  => $confRow->valueByName('invert'),
+                                          persist => $confRow->valueByName('persist'),
+                                         );
+                        if ( $confRow->valueByName('measureInstance') ne 'none' ) {
+                            $threshold{instance} = $confRow->valueByName('measureInstance');
                         }
+                        if ( $confRow->valueByName('typeInstance') ne 'none' ) {
+                            $threshold{typeInstance} = $confRow->valueByName('typeInstance');
+                        }
+                        if ( $confRow->valueByName('dataSource') ne 'none' ) {
+                            $threshold{dataSource} = $confRow->valueByName('dataSource');
+                        }
+                        foreach my $bound (qw(warningMin failureMin warningMax failureMax)) {
+                            my $boundValue = $confRow->valueByName($bound);
+                            if (defined($boundValue)) {
+                                $threshold{$bound} = $boundValue;
+                            }
+                        }
+                        my $key = $measureInstance->plugin();
+                        if ( exists($threshold{instance}) ) {
+                            $key .= '-' . $threshold{instance};
+                        }
+                        unless (exists ( $thresholds{key} )) {
+                            $thresholds{$key} = [];
+                        }
+                        push(@{$thresholds{$key}}, \%threshold);
                     }
-                    my $key = $measureInstance->simpleName();
-                    if ( exists($threshold{instance}) ) {
-                        $key .= '-' . $threshold{instance};
-                    }
-                    unless (exists ( $thresholds{key} )) {
-                        $thresholds{$key} = [];
-                    }
-                    push(@{$thresholds{$key}}, \%threshold);
-                }
+                } catch EBox::Exceptions::DataNotFound with {
+                    # The measure has disappear in some moment, we ignore their thresholds them
+                    ;
+                };
             }
         } else {
             EBox::warn('No threshold configuration is saved since monitor watcher '
@@ -663,5 +671,25 @@ sub _notStoppedOnPurpose
     # Check if someone has written the file in the Zentyal tmp dir
     return not (-e SERVICE_STOPPED_FILE);
 }
+
+# Load and register those measures that are installed in special directory
+sub _registerRuntimeMeasures
+{
+    my ($self) = @_;
+
+    if ( -r RUNTIME_MEASURES ) {
+        my @lines = File::Slurp::read_file(RUNTIME_MEASURES);
+        foreach my $line (@lines) {
+            chomp($line);
+            $line =~ s/\s//g;
+            try {
+                $self->{measureManager}->register($line);
+            } otherwise {
+                # Cannot load the runtime measure
+            };
+        }
+    }
+}
+
 
 1;
