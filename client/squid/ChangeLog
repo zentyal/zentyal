@@ -1,4 +1,4 @@
-HEAD
+1.5.11
 	+ More global proxy configuration and domain configuration improvements
 	+ Zentyal rebrand
 	+ Running squid daemons are killed when starting ebox proxy if pidfile
