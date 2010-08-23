@@ -92,7 +92,7 @@ sub _table
         new EBox::Types::DomainName(
             'fieldName' => 'workgroup',
             'printableName' => __('Domain name'),
-            'defaultValue' => 'EBOX',
+            'defaultValue' => 'ZENTYAL-DOMAIN',
             'editable' => 1,
         ),
         new EBox::Types::Text(
@@ -104,7 +104,7 @@ sub _table
         new EBox::Types::Text(
             'fieldName' => 'description',
             'printableName' => __('Description'),
-            'defaultValue' => 'EBox Samba Server',
+            'defaultValue' => 'Zentyal File Server',
             'editable' => 1,
         ),
         new EBox::Types::Union(
