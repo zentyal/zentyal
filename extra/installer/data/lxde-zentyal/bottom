@@ -1,0 +1,101 @@
+# lxpanel <profile> config file. Manually editing is not recommended.
+# Use preference dialog in lxpanel to adjust config when you can.
+
+Global {
+    edge=bottom
+    allign=center
+    margin=0
+    widthtype=percent
+    width=100
+    height=32
+    transparent=0
+    tintcolor=#ffffff
+    alpha=255
+    autohide=0
+    heightwhenhidden=2
+    setdocktype=1
+    setpartialstrut=1
+    usefontcolor=0
+    fontcolor=#000000
+    background=0
+    backgroundfile=/usr/share/lxpanel/images/capslock-off.png
+    iconsize=32
+}
+
+Plugin {
+    type = menu
+    Config {
+        image=/usr/share/lxpanel/images/my-computer.png
+        system {
+        }
+        separator {
+        }
+        item {
+            command=run
+        }
+        separator {
+        }
+        item {
+            image=gnome-logout
+            command=logout
+        }
+    }
+}
+
+Plugin {
+    type = wincmd
+    Config {
+        image=window-manager
+        Button1=iconify
+        Button2=shade
+        Toggle=1
+    }
+}
+
+Plugin {
+    type = launchbar
+    Config {
+        Button {
+            id=DESKTOP_PATH/zentyal.desktop
+        }
+        Button {
+            id=/usr/share/applications/lxterminal.desktop
+        }
+        Button {
+            id=/usr/share/applications/pcmanfm.desktop
+        }
+    }
+}
+
+Plugin {
+    type = taskbar
+    expand=1
+    Config {
+        tooltips=1
+        IconsOnly=0
+        ShowAllDesks=0
+        UseMouseWheel=1
+        UseUrgencyHint=1
+        FlatButton=0
+        MaxTaskWidth=200
+        spacing=1
+        GroupedTasks=0
+    }
+}
+
+Plugin {
+    type = tray
+}
+
+Plugin {
+    type = cpu
+}
+
+Plugin {
+    type = dclock
+    Config {
+        BoldFont=0
+        IconOnly=0
+    }
+}
+

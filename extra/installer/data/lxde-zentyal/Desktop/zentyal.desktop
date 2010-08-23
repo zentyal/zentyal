@@ -1,14 +1,14 @@
 [Desktop Entry]
 Version=1.0
-Name=eBox Administration Interface
-Name[es]=Interfaz de administración de eBox
-Comment=Launch a browser with the eBox Control Panel
-Comment[es]=Lanza un navegador con el panel de control de eBox
+Name=Zentyal Administration
+Name[es]=Panel de control Zentyal
+Comment=Launch a browser with the Zentyal Control Panel
+Comment[es]=Lanza un navegador con el panel de control de Zentyal
 Exec=firefox https://localhost
 Terminal=false
 X-MultipleArgs=false
 Type=Application
-Icon=ebox
+Icon=zentyal
 Categories=Application;Internet;Network;WebBrowser;
 MimeType=text/html;text/xml;application/xhtml+xml;application/xml;application/vnd.mozilla.xul+xml;application/rss+xml;application/rdf+xml;image/gif;image/jpeg;image/png;
 StartupWMClass=Firefox

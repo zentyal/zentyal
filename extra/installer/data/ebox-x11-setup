@@ -23,12 +23,20 @@ certutil -d $PROFILE -A -n "$ID" -t ',,' -i $CERT
 /var/tmp/ebox/ebox-cert-override > $PROFILE/cert_override.txt
 
 mv /var/tmp/ebox/slim-zentyal-simple /usr/share/slim/themes/
-mv /var/tmp/ebox/ebox.png /usr/share/pixmaps/
+# Copy icon and wallpaper
+mv /var/tmp/ebox/lxde-zentyal/*.png /usr/share/pixmaps/
 
+# lxde setup
 DESKTOP=`su $USER_NAME -c "xdg-user-dir DESKTOP"`
 mkdir -p $DESKTOP
-mv /var/tmp/ebox/Desktop/* $DESKTOP/
+mv /var/tmp/ebox/lxde-zentyal/Desktop/* $DESKTOP/
 chown -R $USER_NAME:$USER_NAME $DESKTOP
+PANELS_DIR=$DIR/.config/lxpanel/LXDE/panels
+mkdir -p $PANELS_DIR
+mv /var/tmp/ebox/lxde-zentyal/bottom $PANELS_DIR/
+PCMANFM_DIR=$DIR/.config/pcmanfm
+mkdir -p $PCMANFM_DIR
+mv /var/tmp/ebox/lxde-zentyal/main.lxde $PCMANFM_DIR/
 
 mv /var/tmp/ebox/rc.local /etc/rc.local
 rm -rf /var/tmp/ebox
