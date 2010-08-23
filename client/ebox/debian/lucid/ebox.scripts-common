@@ -6,11 +6,11 @@ PORT=443
 # Usage: port=$(fetch_ebox_port)
 fetch_ebox_port()
 {
-    set +e 
+    set +e
 
     ret=$(perl -e '
-            use EBox; 
-            use EBox::Global; 
+            use EBox;
+            use EBox::Global;
             EBox::init();
 
             my $apache = EBox::Global->modInstance('apache');
@@ -37,8 +37,8 @@ check_port_available()
     set +e
 
     perl -e '
-        use IO::Socket; 
-        my $port = $ARGV[0];			
+        use IO::Socket;
+        my $port = $ARGV[0];
         IO::Socket::INET->new(
             PeerAddr => "127.0.0.1",
             PeerPort => $port,
@@ -58,7 +58,7 @@ check_port_available()
 # modifying the current value.
 #
 # We have to do two things to set the port:
-#   
+#
 #   Tell apache module its new port
 #   Save changes in apache and services
 #
@@ -74,11 +74,11 @@ set_ebox_port()
         return 0;
     fi
 
-    set +e 
+    set +e
 
     ret=$(perl -e '
-            use EBox; 
-            use EBox::Global; 
+            use EBox;
+            use EBox::Global;
 
             EBox::init();
             my $port = $ARGV[0];
@@ -95,7 +95,7 @@ set_ebox_port()
 }
 
 store_password() {
-    local pass1 
+    local pass1
 
     db_get ebox/password1
     pass1="$RET"
@@ -110,7 +110,4 @@ store_password() {
     echo -n "$pass1"| md5sum - | cut -d' ' -f1 > /var/lib/ebox/conf/ebox.passwd
     chown ebox:ebox /var/lib/ebox/conf/ebox.passwd
     chmod 600 /var/lib/ebox/conf/ebox.passwd
-
 }
-
-
