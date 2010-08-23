@@ -7,7 +7,7 @@ Global {
     margin=0
     widthtype=percent
     width=100
-    height=32
+    height=24
     transparent=0
     tintcolor=#ffffff
     alpha=255
@@ -19,7 +19,7 @@ Global {
     fontcolor=#000000
     background=0
     backgroundfile=/usr/share/lxpanel/images/capslock-off.png
-    iconsize=32
+    iconsize=24
 }
 
 Plugin {
@@ -56,7 +56,7 @@ Plugin {
     type = launchbar
     Config {
         Button {
-            id=DESKTOP_PATH/zentyal.desktop
+            id=/usr/share/applications/zentyal.desktop
         }
         Button {
             id=/usr/share/applications/lxterminal.desktop
