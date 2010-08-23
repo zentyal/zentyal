@@ -30,13 +30,13 @@ mv /var/tmp/ebox/lxde-zentyal/*.png /usr/share/pixmaps/
 DESKTOP=`su $USER_NAME -c "xdg-user-dir DESKTOP"`
 mkdir -p $DESKTOP
 mv /var/tmp/ebox/lxde-zentyal/Desktop/* $DESKTOP/
-chown -R $USER_NAME:$USER_NAME $DESKTOP
 PANELS_DIR=$DIR/.config/lxpanel/LXDE/panels
 mkdir -p $PANELS_DIR
 mv /var/tmp/ebox/lxde-zentyal/bottom $PANELS_DIR/
 PCMANFM_DIR=$DIR/.config/pcmanfm
 mkdir -p $PCMANFM_DIR
 mv /var/tmp/ebox/lxde-zentyal/main.lxde $PCMANFM_DIR/
+chown -R $USER_NAME:$USER_NAME $DESKTOP $PANELS_DIR $PCMANFM_DIR
 
 mv /var/tmp/ebox/rc.local /etc/rc.local
 rm -rf /var/tmp/ebox
