@@ -92,10 +92,21 @@ Plugin {
 }
 
 Plugin {
+    type = launchbar
+    Config {
+        Button {
+            id=lxde-screenlock.desktop
+        }
+        Button {
+            id=lxde-logout.desktop
+        }
+    }
+}
+
+Plugin {
     type = dclock
     Config {
         BoldFont=0
         IconOnly=0
     }
 }
-
