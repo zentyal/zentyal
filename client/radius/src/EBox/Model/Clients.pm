@@ -30,8 +30,6 @@ use EBox::Types::Text;
 use EBox::Types::IPAddr;
 use EBox::Types::Password;
 
-use Net::IP;
-
 # Group: Public methods
 
 # Constructor: new
@@ -81,11 +79,6 @@ sub getClients
 	$client{'name'} = $row->valueByName('name');
         $client{'secret'} = $row->valueByName('secret');
         $client{'ipaddr'} = $row->printableValueByName('ipaddr');
-        my $net = new Net::IP($row->printableValueByName('ipaddr'));
-        if ($net->mask() eq '255.255.255.255') {
-             $client{'ipaddr'} = $net->ip();
-        }
-
         push (@clients, \%client);
 
     }

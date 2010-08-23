@@ -12,7 +12,6 @@
 
 # <% $client->{'name'} %>
 client <% $client->{'ipaddr'} %> {
-        ipaddr = <% $client->{'ipaddr'} %>
         secret = <% $client->{'secret'} %>
         nastype = other
 }

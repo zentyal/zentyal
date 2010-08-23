@@ -7,7 +7,7 @@ Standards-Version: 3.8.2
 
 Package: ebox-radius
 Architecture: all
-Depends: ebox (>= 1.5), ebox (<< 1.5.100), ebox-usersandgroups, freeradius (>= 2.1.0+dfsg-0ubuntu7~hardy1), freeradius-ldap (>= 2.1.0+dfsg-0ubuntu7~hardy1), make, ${misc:Depends}
+Depends: ebox (>= 1.5), ebox (<< 1.5.100), ebox-usersandgroups, freeradius (>= 2.1.8+dfsg-1ubuntu1), freeradius-ldap (>= 2.1.8+dfsg-1ubuntu1), make, ${misc:Depends}
 Description: Zentyal - RADIUS
  Zentyal is an open source small business server that can act as
  a Gateway, Unified Threat Manager, Office Server, Infrastructure
