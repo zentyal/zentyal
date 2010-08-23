@@ -5,7 +5,7 @@
     $isOffice
     $isUtm
     $isGateway
-    $isSecurity
+    $isInfrastructure
     $isCommunication
 </%args>
 <%init>
@@ -81,8 +81,6 @@ my $upgpkgs = 0;
 		document.getElementById(id+'_image').show();
 		document.getElementById(id+'_check').checked = false;
 	}
-
-
 </script>
 
 <style type="text/css">
@@ -91,7 +89,7 @@ my $upgpkgs = 0;
 	  display:inline;
 	  float:left;
 	  padding-left:10px;
-	  width: 375px;
+	  width: 355px;
 	  height: 250px;
 }
 
@@ -112,6 +110,9 @@ my $upgpkgs = 0;
 
 .info {
 	background-color:#ecf5da;
+    padding: 15px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
 }
 
 .selected {
@@ -124,6 +125,9 @@ my $upgpkgs = 0;
 	font-weight:normal;
 }
 
+h3 {
+    margin-top: 0;
+}
 
 </style>
 
@@ -172,7 +176,7 @@ var pkgTable = new Array(
 <div style="padding: 15px 0">
 <div id="basic">
     <a href='#' onclick="Effect.Fade('basic', { duration: 0.3 }); Effect.Appear('advanced', { duration: 0.3, queue: 'end' })"><%__('View advanced mode')%></a>
-	<div style="margin-top: 10px">
+	<div style="margin: 10px 0">
 		<div id="Gateway_head">
 % unless ($isGateway) {
 			<div class="image" id="Gateway_image" onclick="tick('Gateway')">
@@ -241,7 +245,7 @@ var pkgTable = new Array(
 		</div>
 	</div>
 
-	<div>
+	<div style="margin: 10px 0">
 		<div  id="UTM_head">
 % unless ($isUtm) {
 			<div class="image" id="UTM_image" onclick="tick('UTM')">
@@ -307,9 +311,9 @@ var pkgTable = new Array(
 		</div>
 	</div>
 
-	<div>
+	<div style="margin: 10px 0">
 		<div id="Infrastructure_head">
-% unless ($isSecurity) {
+% unless ($isInfrastructure) {
 			<div class="image" id="Infrastructure_image" onclick="tick('Infrastructure')">
 				<img src="/data/software/images/icon_infra.png" alt="Zentyal Infrastructure" />
 			</div>
@@ -373,7 +377,7 @@ var pkgTable = new Array(
 		</div>
 	</div>
 
-	<div>
+	<div style="margin: 10px 0">
 		<div id="Office_head">
 % unless (	$isOffice) {
 			<div class="image" id="Office_image" onclick="tick('Office')">
@@ -440,7 +444,7 @@ var pkgTable = new Array(
 		</div>
 	</div>
 
-	<div>
+	<div style="margin: 10px 0">
 		<div id="Communications_head">
 % unless ($isCommunication) {
 			<div class="image" id="Communications_image" onclick="tick('Communications')">
@@ -505,7 +509,7 @@ var pkgTable = new Array(
 	<div id="Install_head">
 		<button onclick="sendFormBasic()"><img src="/data/images/install.gif"> <% __('Install') %></button>
 % if (-f $file) {
-		<button onclick="document.location.href='/ebox/Finish?save=yes'"><img src="/data/images/right.gif"> <% __('Skip install') %> </button>
+		<button onclick="document.location.href='/ebox/Dashboard/Index'"><img src="/data/images/right.gif"> <% __('Skip install') %> </button>
 % }
 	</div>
 	<div style="display: none">

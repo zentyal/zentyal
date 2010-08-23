@@ -101,13 +101,25 @@ my $progressIn = EBox::ProgressIndicator->retrieve($progressId);
 						html += "<span><a onclick='window.open(" + '"' + ads[nAds].links[i] + '"' + ")'>" + ads[nAds].links[i] + "</a></span><br/>";
 				}
 				html += "<div>";
-				document.getElementById('dFrame').innerHTML = html;
+
+                if ( nAds % 2 == 1 ) {
+                    $('adsFrame2').hide();
+				    document.getElementById('adsFrame2').innerHTML = html;
+                    Effect.DropOut('adsFrame1', { duration: 1 });
+                    Effect.Appear('adsFrame2', { duration: 1, delay: 0.8 });
+                }
+                else {
+                    $('adsFrame1').hide();
+				    document.getElementById('adsFrame1').innerHTML = html;
+                    Effect.DropOut('adsFrame2', { duration: 1 });
+                    Effect.Appear('adsFrame1', { duration: 1, delay: 0.8 });
+                }
+
 			}
 		}
 % } else {
 		return;
 % }
-
 	}
 
 </script>
@@ -129,7 +141,12 @@ my $progressIn = EBox::ProgressIndicator->retrieve($progressId);
 </style>
 
 
-<div id="dFrame"></div>
+% unless ( $adsJson eq '""' ) {
+<div style="height: 200px"><div>
+    <div id="adsFrame1"></div>
+    <div id="adsFrame2"></div>
+</div></div>
+% }
 <div id='progressing'>
 <p> <% $text %> </p>
 <% $currentItemCaption %>: <strong><span id="currentItem"><% __("Starting...")%></span></strong>
@@ -155,7 +172,6 @@ my $progressIn = EBox::ProgressIndicator->retrieve($progressId);
    <p id="error-progress-message"></p>
    <a href="<% $nextStepUrl %>"> <%__($nextStepText) %></a>
 </div>
-
 
 <script>
 	showAds();

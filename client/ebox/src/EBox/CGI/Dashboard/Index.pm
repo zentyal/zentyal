@@ -46,6 +46,13 @@ sub new # (error=?, msg=?, cgi=?)
 sub masonParameters
 {
     my ($self) = @_;
+
+    # Delete first install file if it exists
+    my $file = '/var/lib/ebox/.first';
+    if ( -f $file ) {
+        unlink $file;
+    }
+
     my $global = EBox::Global->getInstance(1);
     my $sysinfo = $global->modInstance('sysinfo');
     my @modNames = @{$global->modNames};

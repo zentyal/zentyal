@@ -105,7 +105,7 @@ sub listEBoxPkgs
 #
 # Parameters:
 #
-# 	array -  holding the package names
+#	array -  holding the package names
 #
 # Returns:
 #
@@ -143,7 +143,7 @@ sub installPkgs # (@pkgs)
 #
 # Parameters:
 #
-# 	array -  holding the package names
+#	array -  holding the package names
 #
 # Returns:
 #
@@ -377,7 +377,6 @@ sub listPackageDescription
 	my @list;
 	for my $pack ( @$packages) {
 		my $pkgCache = $cache->packages()->lookup($pack) or next;
-		EBox::info("desc $pkgCache->{ShortDesc}");
 		push(@list, $pkgCache->{ShortDesc});
 	}
 	return \@list;
@@ -474,10 +473,8 @@ sub isInstalled
     my ($self, $name) = @_;
     my $cache = AptPkg::Cache->new;
     if ($cache->{$name}{CurrentState} eq 'Installed'){
-	EBox::info("Package: $name is installed");
         return 1;
     }
-    EBox::info("Package: $name is not installed");
     return 0;
 }
 
@@ -736,11 +733,6 @@ sub _getUpgradablePkgs
 			}
 			$data{'security'} = $security;
 			$data{'ebox-qa'} = $ebox_qa;
-			if ($security or $ebox_qa) {
-				EBox::info("fixme: $pack");
-				EBox::info("fixme: $cache->{$pack}{FileName}");
-
-			}
 
 			push(@list, \%data);
 		}
@@ -759,10 +751,8 @@ sub _getDistroId
 	close(FILE);
 	chop($distro);
 	if ($distro =~ /.*=(.*)/) {
-		EBox::info("distro id: $1");
 		return $1;
 	} else {
-		EBox::info("distro id: unknown");
 		return '';
 	}
 }
