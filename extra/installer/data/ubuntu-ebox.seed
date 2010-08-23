@@ -11,7 +11,7 @@ d-i pkgsel/language-pack-patterns string
 # no language support packages
 d-i pkgsel/install-language-support boolean false
 # install ssh, bc, ebox and X environment
-d-i pkgsel/include string ssh bc ebox xorg firefox slim lxde xdg-user-dirs gksu libnss3-tools nano xscreensaver
+d-i pkgsel/include string ssh bc ebox xorg firefox slim lxde xdg-user-dirs gksu libnss3-tools nano xscreensaver plymouth-theme-ubuntu-logo
 
 # disable automatic updates, eBox will take care of that
 d-i pkgsel/update-policy select none
@@ -66,7 +66,7 @@ postfix postfix/main_mailer_type select No configuration
 ebox ebox/port string 443
 
 # No boot splash screen.
-d-i debian-installer/splash boolean false
+#d-i debian-installer/splash boolean false
 
 d-i pkgsel/language-packs string
 
