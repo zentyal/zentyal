@@ -27,9 +27,6 @@ function loadPage(index) {
     $('wizard-next1').disabled = true;
     $('wizard-next2').disabled = true;
 
-    $('wizard-skip1').hide();
-    $('wizard-skip2').hide();
-
     $('wizard_error').hide();
 
     var hidden = visible;
@@ -45,9 +42,6 @@ function loadPage(index) {
 
     if ( index > 0 )
         Effect.SlideUp(hidden, { duration: DURATION } );
-//        $(hidden).fade({ duration: DURATION, from: 1, to: 0 });
-
-
 
     // Final stage?
     if ( index == pages.length ) {
@@ -57,13 +51,14 @@ function loadPage(index) {
         return;
     }
 
-
     var loaded = function() {
-//        $(showed).appear({
-//                duration: DURATION,
-//                from: 0, to: 1,
-//                queue: 'end' });
         Effect.SlideDown(showed, { duration: DURATION, queue: 'end' } );
+
+        var form = $$('#' + showed + ' form')[0];
+        // avoid automatic form submition (by enter press)
+        if ( form ) {
+            form.onsubmit = function() { return false; };
+        }
 
         // Configure buttons
         $('wizard-next1').disabled = index == pages.length;
@@ -101,15 +96,10 @@ function nextStep() {
 
     var onFail = function(response) {
         failed = true;
-        //$('wizardPage' + visible).update(response.responseText);
         $('wizard_error').update(response.responseText);
         $('wizard_error').appear({
                 duration: 0.5,
                 from: 0, to: 1 });
-
-        // Show skip buttons
-        $('wizard-skip1').show();
-        $('wizard-skip2').show();
     };
 
     form.request({
@@ -136,6 +126,9 @@ function finalPage() {
     content += '</div>';
     $(showed).update(content);
     Effect.SlideDown(showed, { duration: DURATION, queue: 'end' } );
+
+    $('wizard-skip1').hide();
+    $('wizard-skip2').hide();
 }
 
 // Load first page
@@ -148,7 +141,7 @@ Event.observe(window, 'load', function() {
 
 <div id="wizard_error" class="error" style="display: none; margin-bottom: 20px"></div>
 <div style="text-align: right; clear: right">
-    <input style="display: none" type="button" id="wizard-skip1" value="<% __('Skip') %>" onclick="skipStep()" />
+    <input type="button" id="wizard-skip1" value="<% __('Skip') %>" onclick="skipStep()" />
     <input type="button" id="wizard-next1" value="<% __('Next') %>" onclick="nextStep()" />
 </div>
 
@@ -158,7 +151,7 @@ Event.observe(window, 'load', function() {
 </div>
 
 <div style="text-align: right">
-    <input style="display: none" type="button" id="wizard-skip2" value="<% __('Skip') %>" onclick="skipStep()" />
+    <input type="button" id="wizard-skip2" value="<% __('Skip') %>" onclick="skipStep()" />
     <input type="button" id="wizard-next2" value="<% __('Next') %>" onclick="nextStep()" />
 </div>
 
