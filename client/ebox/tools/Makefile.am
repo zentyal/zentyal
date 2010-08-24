@@ -9,7 +9,7 @@ pkgdata_SCRIPTS = ebox-apache2ctl ebox-apache-restart ebox-migrate \
  ebox-update-file-digest ebox-import-gconf \
  ebox-consolidate-reportinfo ebox-gather-reportinfo \
  ebox-purge-logs ebox-configuration-report ebox-create-db \
- ebox-change-hostname
+ ebox-change-hostname zentyal-conf
 
 MAINTAINERCLEANFILES = Makefile.in
 

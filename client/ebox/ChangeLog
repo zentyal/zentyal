@@ -2,6 +2,7 @@ HEAD
 	+ Avoid auto submit wizard forms
 	+ Wizard skip buttons always available
 	+ Rebranded post-installation questions
+	+ Added zentyal-conf script to get/set redis config keys
 1.5.13
 	+ Added transition effect on first install slides
 	+ Zentyal rebrand
