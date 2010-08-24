@@ -23,10 +23,11 @@ VALUE=$2
 
 case $# in
     1)
-        COMMAND="get $KEY"
+        COMMAND="get $KEY\r\n"
         ;;
     2)
-        COMMAND="set $KEY $VALUE"
+        LEN=`echo -n $VALUE | wc -c`
+        COMMAND="set $KEY $LEN\r\n$VALUE\r\n"
         ;;
     default)
         echo "Usage: $0 key [value]"
@@ -35,4 +36,4 @@ case $# in
         ;;
 esac
 
-(echo "auth $PASS"; sleep 1.5; echo "$COMMAND") | nc $HOST $PORT
+(echo -e "auth $PASS\r\n"; sleep 1.5; echo -e "$COMMAND") | nc $HOST $PORT
