@@ -98,7 +98,7 @@ sub QueryInterval
 sub RRDBaseDirPath
 {
     my $baseDir = RRD_BASE_DIR;
-    return "$baseDir/" . hostname() . '/';
+    return "$baseDir" . hostname() . '/';
 }
 
 # Method: TimePeriods

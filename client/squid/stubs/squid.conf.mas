@@ -25,6 +25,7 @@
     $cacheDirSize
     $dn
     $ldapport
+    $snmpEnabled => 0
 </%args>
 <%perl>
 our $maxAclNameLength = 31;
@@ -223,9 +224,14 @@ http_access deny all
 % }
 
 
-
 # END_TAG #
 
+# <EBOX> TAG SNMP #
+% if ( $snmpEnabled ) {
+<& .snmp &>
+% }
+
+# END_TAG #
 
 always_direct allow localhostdst
 
