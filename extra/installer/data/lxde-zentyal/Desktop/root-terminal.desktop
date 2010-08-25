@@ -1,7 +1,7 @@
 [Desktop Entry]
 Encoding=UTF-8
 Name=Administrator Console
-Name[es]=Consola de administrador
+Name[es]=Consola de Administrador
 Comment=Executes a root shell
 Comment[es]=Ejecuta una consola de root
 TryExec=gksudo lxterminal

@@ -1,7 +1,7 @@
 [Desktop Entry]
 Encoding=UTF-8
-Name=Non-privileged User Console
-Name[es]=Consola con permisos de usuario
+Name=User Console
+Name[es]=Consola de Usuario
 Comment=Launch a shell without root privileges
 Comment[es]=Lanza una terminal sin permisos de administración
 TryExec=lxterminal
