@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-ebackup 1.3.3Report-Msgid-Bugs-To: info@ebox-"
 "technologies.com\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
-"POT-Creation-Date: 2010-08-25 17:32+0200\n"
+"POT-Creation-Date: 2010-08-26 00:53+0200\n"
 "PO-Revision-Date: 2010-08-19 09:08+0200\n"
 "Last-Translator: jaume ponsa <jaume@calidae.net>\n"
 "Language-Team: none\n"
@@ -17,52 +17,38 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: src/EBox/EBackup.pm:72 src/EBox/Event/Watcher/EBackup.pm:123
+#: src/EBox/Event/Watcher/EBackup.pm:123 src/EBox/EBackup.pm:72
 #: src/EBox/Composite/Remote.pm:65
 msgid "Backup"
 msgstr "Còpia de seguretat"
-
-#: src/EBox/EBackup.pm:197
-#, perl-brace-format
-msgid "File {f} not found in backup for {d}, try a later date"
-msgstr "L'arxiu {f} no es troba al backup per {d}, prova una data més actual"
-
-#: src/EBox/EBackup.pm:204
-msgid ""
-"No backup archives found. Maybe they were deleted?. Run '/etc/init.d/ebox "
-"ebackup restart' to refresh backup's information."
-msgstr ""
-"No s'ha trobat arxius de còpia. Potser s'han esborrat?. Executa '/etc/init.d/"
-"ebox ebackup restart' per refrescar la informació de les còpies."
 
 #: src/EBox/Event/Watcher/EBackup.pm:141
 #, fuzzy
 msgid "Check if Zentyal backup was not successful."
 msgstr "Comprova si la còpia de l'eBox ha fallat."
 
-#: src/EBox/EBackup/DBRestore.pm:46
-#, perl-brace-format
-msgid ""
-"Logs backup data not found in backup for {d}. Maybe you could try another "
-"date?"
-msgstr ""
-"No es troben registres de còpies de seguretat per {d}. Pot probar una altra "
-"data?"
-
-#: src/EBox/Model/RemoteFileList.pm:143 src/EBox/Model/RemoteStatus.pm:119
-#: src/EBox/Model/RemoteRestoreConf.pm:74
-#: src/EBox/Model/RemoteRestoreLogs.pm:88
+#: src/EBox/Model/RemoteRestoreLogs.pm:88 src/EBox/Model/RemoteFileList.pm:143
+#: src/EBox/Model/RemoteStatus.pm:119 src/EBox/Model/RemoteRestoreConf.pm:74
 msgid "There are not backed up files yet"
 msgstr "No hi ha arxius copiats encara"
+
+#: src/EBox/Model/RemoteRestoreLogs.pm:107
+#: src/EBox/Model/RemoteFileList.pm:166 src/EBox/Model/RemoteRestoreConf.pm:93
+msgid "Backup Date"
+msgstr "Data de la còpia"
+
+#: src/EBox/Model/RemoteRestoreLogs.pm:118
+msgid "Restore logs database"
+msgstr "Restaura la base de dades de logs"
+
+#: src/EBox/Model/RemoteRestoreLogs.pm:125
+#, fuzzy
+msgid "Restores the Zentyal logs found in the selected backup"
+msgstr "Restaura els logs de l'eBox trobats a la còpia seleccionada"
 
 #: src/EBox/Model/RemoteFileList.pm:162
 msgid "File"
 msgstr "Arxiu"
-
-#: src/EBox/Model/RemoteFileList.pm:166 src/EBox/Model/RemoteRestoreConf.pm:93
-#: src/EBox/Model/RemoteRestoreLogs.pm:107
-msgid "Backup Date"
-msgstr "Data de la còpia"
 
 #: src/EBox/Model/RemoteFileList.pm:177
 msgid "Restore Files"
@@ -101,6 +87,78 @@ msgstr "Estat de la còpia remota"
 #: src/EBox/Model/RemoteStatus.pm:150
 msgid "backup"
 msgstr "còpia de seguretat"
+
+#: src/EBox/Model/RemoteRestoreConf.pm:104
+#, fuzzy
+msgid "Restore Zentyal configuration from backup"
+msgstr "Restaura la configuració de l'eBox des de la còpia de seguretat"
+
+#: src/EBox/Model/RemoteRestoreConf.pm:111
+msgid "Loads the configuration found in the backup"
+msgstr "Carrega la configuració trobada a la còpia de seguretat"
+
+#: src/EBox/Model/RemoteRestoreConf.pm:113
+msgid "Please wait..."
+msgstr "Si us plau, esperi..."
+
+#: src/EBox/Model/RemoteRestoreConf.pm:169
+#, perl-brace-format
+msgid ""
+"Configuration backup not found in backup for {d}. Maybe you could try "
+"another date?"
+msgstr ""
+"No es troba la còpia de la configuració a la còpia de {d}. Pot provar una "
+"altra data?"
+
+#: src/EBox/Model/RemoteExcludes.pm:82
+msgid "Exclude or Include"
+msgstr "Excloure o incloure "
+
+#: src/EBox/Model/RemoteExcludes.pm:93
+msgid "Includes and Excludes"
+msgstr "Inclusions i exclusions "
+
+#: src/EBox/Model/RemoteExcludes.pm:94
+msgid "exclude or include"
+msgstr "excloure o incloure"
+
+#: src/EBox/Model/RemoteExcludes.pm:102
+msgid ""
+"A file or directory is included or excluded according the first match. A "
+"directory match is applied to all it contents. Files not explicitly excluded "
+"or included are included"
+msgstr ""
+"Un arxiu o directori es inclòs o exclòs a partir de la primera coincidència. "
+"Una coincidència de directori s'aplica a tot el seu contingut. Els arxius no "
+"exclosos o inclosos explícitament son inclosos"
+
+#: src/EBox/Model/RemoteExcludes.pm:117
+msgid "Exclude path"
+msgstr "Ruta d'exclusió"
+
+#: src/EBox/Model/RemoteExcludes.pm:121
+msgid "Exclude by regular expression"
+msgstr "Exclòs per l'expressió regular"
+
+#: src/EBox/Model/RemoteExcludes.pm:125
+msgid "Include Path"
+msgstr "Ruta a Incloure"
+
+#: src/EBox/Model/RemoteExcludes.pm:147
+msgid "exclude path"
+msgstr "Ruta a Excloure"
+
+#: src/EBox/Model/RemoteExcludes.pm:160
+msgid "exclude path regular expression"
+msgstr "expressió regular de la ruta a excloure"
+
+#: src/EBox/Model/RemoteExcludes.pm:162
+msgid "Incorrect regular expression"
+msgstr "Expressió regular incorrecta "
+
+#: src/EBox/Model/RemoteExcludes.pm:183
+msgid "include path"
+msgstr "ruta inclosa"
 
 #: src/EBox/Model/RemoteSettings.pm:161
 msgid "Method"
@@ -365,86 +423,27 @@ msgstr ""
 "seleccionat; <em>recordi</em> afegir el host de destí a la llista de hosts "
 "coneguts per l'SSH"
 
-#: src/EBox/Model/RemoteExcludes.pm:82
-msgid "Exclude or Include"
-msgstr "Excloure o incloure "
+#: src/EBox/EBackup.pm:197
+#, perl-brace-format
+msgid "File {f} not found in backup for {d}, try a later date"
+msgstr "L'arxiu {f} no es troba al backup per {d}, prova una data més actual"
 
-#: src/EBox/Model/RemoteExcludes.pm:93
-msgid "Includes and Excludes"
-msgstr "Inclusions i exclusions "
-
-#: src/EBox/Model/RemoteExcludes.pm:94
-msgid "exclude or include"
-msgstr "excloure o incloure"
-
-#: src/EBox/Model/RemoteExcludes.pm:102
+#: src/EBox/EBackup.pm:204
 msgid ""
-"A file or directory is included or excluded according the first match. A "
-"directory match is applied to all it contents. Files not explicitly excluded "
-"or included are included"
+"No backup archives found. Maybe they were deleted?. Run '/etc/init.d/ebox "
+"ebackup restart' to refresh backup's information."
 msgstr ""
-"Un arxiu o directori es inclòs o exclòs a partir de la primera coincidència. "
-"Una coincidència de directori s'aplica a tot el seu contingut. Els arxius no "
-"exclosos o inclosos explícitament son inclosos"
+"No s'ha trobat arxius de còpia. Potser s'han esborrat?. Executa '/etc/init.d/"
+"ebox ebackup restart' per refrescar la informació de les còpies."
 
-#: src/EBox/Model/RemoteExcludes.pm:117
-msgid "Exclude path"
-msgstr "Ruta d'exclusió"
-
-#: src/EBox/Model/RemoteExcludes.pm:121
-msgid "Exclude by regular expression"
-msgstr "Exclòs per l'expressió regular"
-
-#: src/EBox/Model/RemoteExcludes.pm:125
-msgid "Include Path"
-msgstr "Ruta a Incloure"
-
-#: src/EBox/Model/RemoteExcludes.pm:147
-msgid "exclude path"
-msgstr "Ruta a Excloure"
-
-#: src/EBox/Model/RemoteExcludes.pm:160
-msgid "exclude path regular expression"
-msgstr "expressió regular de la ruta a excloure"
-
-#: src/EBox/Model/RemoteExcludes.pm:162
-msgid "Incorrect regular expression"
-msgstr "Expressió regular incorrecta "
-
-#: src/EBox/Model/RemoteExcludes.pm:183
-msgid "include path"
-msgstr "ruta inclosa"
-
-#: src/EBox/Model/RemoteRestoreConf.pm:104
-#, fuzzy
-msgid "Restore Zentyal configuration from backup"
-msgstr "Restaura la configuració de l'eBox des de la còpia de seguretat"
-
-#: src/EBox/Model/RemoteRestoreConf.pm:111
-msgid "Loads the configuration found in the backup"
-msgstr "Carrega la configuració trobada a la còpia de seguretat"
-
-#: src/EBox/Model/RemoteRestoreConf.pm:113
-msgid "Please wait..."
-msgstr "Si us plau, esperi..."
-
-#: src/EBox/Model/RemoteRestoreConf.pm:169
+#: src/EBox/EBackup/DBRestore.pm:46
 #, perl-brace-format
 msgid ""
-"Configuration backup not found in backup for {d}. Maybe you could try "
-"another date?"
+"Logs backup data not found in backup for {d}. Maybe you could try another "
+"date?"
 msgstr ""
-"No es troba la còpia de la configuració a la còpia de {d}. Pot provar una "
-"altra data?"
-
-#: src/EBox/Model/RemoteRestoreLogs.pm:118
-msgid "Restore logs database"
-msgstr "Restaura la base de dades de logs"
-
-#: src/EBox/Model/RemoteRestoreLogs.pm:125
-#, fuzzy
-msgid "Restores the Zentyal logs found in the selected backup"
-msgstr "Restaura els logs de l'eBox trobats a la còpia seleccionada"
+"No es troben registres de còpies de seguretat per {d}. Pot probar una altra "
+"data?"
 
 #: src/EBox/Composite/ServicesRestore.pm:64
 msgid "Services restore"

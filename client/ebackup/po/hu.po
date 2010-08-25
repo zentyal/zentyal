@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-ebackup 1.3.3Report-Msgid-Bugs-To: info@ebox-"
 "technologies.com\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
-"POT-Creation-Date: 2010-08-25 17:32+0200\n"
+"POT-Creation-Date: 2010-08-26 00:53+0200\n"
 "PO-Revision-Date: 2010-07-21 15:30+0200\n"
 "Last-Translator: Nagy Ákos <reg@pecska.ro>\n"
 "Language-Team: none\n"
@@ -18,52 +18,38 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n !=1);\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: src/EBox/EBackup.pm:72 src/EBox/Event/Watcher/EBackup.pm:123
+#: src/EBox/Event/Watcher/EBackup.pm:123 src/EBox/EBackup.pm:72
 #: src/EBox/Composite/Remote.pm:65
 msgid "Backup"
 msgstr "Biztonsági mentés"
-
-#: src/EBox/EBackup.pm:197
-#, perl-brace-format
-msgid "File {f} not found in backup for {d}, try a later date"
-msgstr ""
-"A(z) {f} fájl nem található a {d} mentésben, próbálja későbbi időponttal"
-
-#: src/EBox/EBackup.pm:204
-msgid ""
-"No backup archives found. Maybe they were deleted?. Run '/etc/init.d/ebox "
-"ebackup restart' to refresh backup's information."
-msgstr ""
-"Nem találhatók biztonsági mentések. Talán törölve lettek? Esetleg próbálja "
-"újraindítani a szolgáltatást: /etc/init.d/ebox ebackup restart"
 
 #: src/EBox/Event/Watcher/EBackup.pm:141
 #, fuzzy
 msgid "Check if Zentyal backup was not successful."
 msgstr "Ellenőrizze, hogy az eBox biztonsági mentés hibás-e."
 
-#: src/EBox/EBackup/DBRestore.pm:46
-#, perl-brace-format
-msgid ""
-"Logs backup data not found in backup for {d}. Maybe you could try another "
-"date?"
-msgstr ""
-"A mentés adatai nem találhatók a {d} mentésben. Talán próbálja más dátumon."
-
-#: src/EBox/Model/RemoteFileList.pm:143 src/EBox/Model/RemoteStatus.pm:119
-#: src/EBox/Model/RemoteRestoreConf.pm:74
-#: src/EBox/Model/RemoteRestoreLogs.pm:88
+#: src/EBox/Model/RemoteRestoreLogs.pm:88 src/EBox/Model/RemoteFileList.pm:143
+#: src/EBox/Model/RemoteStatus.pm:119 src/EBox/Model/RemoteRestoreConf.pm:74
 msgid "There are not backed up files yet"
 msgstr "Jelenleg nincsenek mentett fájlok"
+
+#: src/EBox/Model/RemoteRestoreLogs.pm:107
+#: src/EBox/Model/RemoteFileList.pm:166 src/EBox/Model/RemoteRestoreConf.pm:93
+msgid "Backup Date"
+msgstr "Biztonsági mentés ideje"
+
+#: src/EBox/Model/RemoteRestoreLogs.pm:118
+msgid "Restore logs database"
+msgstr "Naplóadatbázisok visszaállítása"
+
+#: src/EBox/Model/RemoteRestoreLogs.pm:125
+#, fuzzy
+msgid "Restores the Zentyal logs found in the selected backup"
+msgstr "eBox naplózások visszaállítása a kiválasztott mentésből"
 
 #: src/EBox/Model/RemoteFileList.pm:162
 msgid "File"
 msgstr "Fájl"
-
-#: src/EBox/Model/RemoteFileList.pm:166 src/EBox/Model/RemoteRestoreConf.pm:93
-#: src/EBox/Model/RemoteRestoreLogs.pm:107
-msgid "Backup Date"
-msgstr "Biztonsági mentés ideje"
 
 #: src/EBox/Model/RemoteFileList.pm:177
 msgid "Restore Files"
@@ -102,6 +88,78 @@ msgstr "A távoli mentés állapota."
 #: src/EBox/Model/RemoteStatus.pm:150
 msgid "backup"
 msgstr "Biztonsági mentés"
+
+#: src/EBox/Model/RemoteRestoreConf.pm:104
+#, fuzzy
+msgid "Restore Zentyal configuration from backup"
+msgstr "eBox beállítások visszaállítása mentésből"
+
+#: src/EBox/Model/RemoteRestoreConf.pm:111
+msgid "Loads the configuration found in the backup"
+msgstr "A mentésben található beállítások betöltése"
+
+#: src/EBox/Model/RemoteRestoreConf.pm:113
+msgid "Please wait..."
+msgstr "Kérem várjon..."
+
+#: src/EBox/Model/RemoteRestoreConf.pm:169
+#, perl-brace-format
+msgid ""
+"Configuration backup not found in backup for {d}. Maybe you could try "
+"another date?"
+msgstr ""
+"A beállítások mentése nem található a {d} mentésben. Talán próbáljon más "
+"dátumot."
+
+#: src/EBox/Model/RemoteExcludes.pm:82
+msgid "Exclude or Include"
+msgstr "Kizárva vagy beleértve"
+
+#: src/EBox/Model/RemoteExcludes.pm:93
+msgid "Includes and Excludes"
+msgstr "Beleértve vagy kizárva"
+
+#: src/EBox/Model/RemoteExcludes.pm:94
+msgid "exclude or include"
+msgstr "kizárva vagy beleértve"
+
+#: src/EBox/Model/RemoteExcludes.pm:102
+msgid ""
+"A file or directory is included or excluded according the first match. A "
+"directory match is applied to all it contents. Files not explicitly excluded "
+"or included are included"
+msgstr ""
+"A fájlok vagy mappák beleértése vagy kizárása az első találattól függ. "
+"Mappák esetén a teljes tartalmára vonatkozik a szabály. A fájlok "
+"alapértelmezetten nincsenek kizárva vagy beleértve a mentésbe"
+
+#: src/EBox/Model/RemoteExcludes.pm:117
+msgid "Exclude path"
+msgstr "Kizárási útvonal"
+
+#: src/EBox/Model/RemoteExcludes.pm:121
+msgid "Exclude by regular expression"
+msgstr "Kizárás reguláris kifejezéssel"
+
+#: src/EBox/Model/RemoteExcludes.pm:125
+msgid "Include Path"
+msgstr "A mentésbe belefoglalt útvonal"
+
+#: src/EBox/Model/RemoteExcludes.pm:147
+msgid "exclude path"
+msgstr "kizárási útvonal"
+
+#: src/EBox/Model/RemoteExcludes.pm:160
+msgid "exclude path regular expression"
+msgstr "reguláris kifejezések kizárási útvonala"
+
+#: src/EBox/Model/RemoteExcludes.pm:162
+msgid "Incorrect regular expression"
+msgstr "Hibás reguláris kifejezések"
+
+#: src/EBox/Model/RemoteExcludes.pm:183
+msgid "include path"
+msgstr "mentésbe foglalt útvonal"
 
 #: src/EBox/Model/RemoteSettings.pm:161
 msgid "Method"
@@ -364,86 +422,27 @@ msgstr ""
 "<em>megjegyzendő</em>, hogy adja hozzá a célgépet az SSH known_host "
 "listájához"
 
-#: src/EBox/Model/RemoteExcludes.pm:82
-msgid "Exclude or Include"
-msgstr "Kizárva vagy beleértve"
-
-#: src/EBox/Model/RemoteExcludes.pm:93
-msgid "Includes and Excludes"
-msgstr "Beleértve vagy kizárva"
-
-#: src/EBox/Model/RemoteExcludes.pm:94
-msgid "exclude or include"
-msgstr "kizárva vagy beleértve"
-
-#: src/EBox/Model/RemoteExcludes.pm:102
-msgid ""
-"A file or directory is included or excluded according the first match. A "
-"directory match is applied to all it contents. Files not explicitly excluded "
-"or included are included"
+#: src/EBox/EBackup.pm:197
+#, perl-brace-format
+msgid "File {f} not found in backup for {d}, try a later date"
 msgstr ""
-"A fájlok vagy mappák beleértése vagy kizárása az első találattól függ. "
-"Mappák esetén a teljes tartalmára vonatkozik a szabály. A fájlok "
-"alapértelmezetten nincsenek kizárva vagy beleértve a mentésbe"
+"A(z) {f} fájl nem található a {d} mentésben, próbálja későbbi időponttal"
 
-#: src/EBox/Model/RemoteExcludes.pm:117
-msgid "Exclude path"
-msgstr "Kizárási útvonal"
+#: src/EBox/EBackup.pm:204
+msgid ""
+"No backup archives found. Maybe they were deleted?. Run '/etc/init.d/ebox "
+"ebackup restart' to refresh backup's information."
+msgstr ""
+"Nem találhatók biztonsági mentések. Talán törölve lettek? Esetleg próbálja "
+"újraindítani a szolgáltatást: /etc/init.d/ebox ebackup restart"
 
-#: src/EBox/Model/RemoteExcludes.pm:121
-msgid "Exclude by regular expression"
-msgstr "Kizárás reguláris kifejezéssel"
-
-#: src/EBox/Model/RemoteExcludes.pm:125
-msgid "Include Path"
-msgstr "A mentésbe belefoglalt útvonal"
-
-#: src/EBox/Model/RemoteExcludes.pm:147
-msgid "exclude path"
-msgstr "kizárási útvonal"
-
-#: src/EBox/Model/RemoteExcludes.pm:160
-msgid "exclude path regular expression"
-msgstr "reguláris kifejezések kizárási útvonala"
-
-#: src/EBox/Model/RemoteExcludes.pm:162
-msgid "Incorrect regular expression"
-msgstr "Hibás reguláris kifejezések"
-
-#: src/EBox/Model/RemoteExcludes.pm:183
-msgid "include path"
-msgstr "mentésbe foglalt útvonal"
-
-#: src/EBox/Model/RemoteRestoreConf.pm:104
-#, fuzzy
-msgid "Restore Zentyal configuration from backup"
-msgstr "eBox beállítások visszaállítása mentésből"
-
-#: src/EBox/Model/RemoteRestoreConf.pm:111
-msgid "Loads the configuration found in the backup"
-msgstr "A mentésben található beállítások betöltése"
-
-#: src/EBox/Model/RemoteRestoreConf.pm:113
-msgid "Please wait..."
-msgstr "Kérem várjon..."
-
-#: src/EBox/Model/RemoteRestoreConf.pm:169
+#: src/EBox/EBackup/DBRestore.pm:46
 #, perl-brace-format
 msgid ""
-"Configuration backup not found in backup for {d}. Maybe you could try "
-"another date?"
+"Logs backup data not found in backup for {d}. Maybe you could try another "
+"date?"
 msgstr ""
-"A beállítások mentése nem található a {d} mentésben. Talán próbáljon más "
-"dátumot."
-
-#: src/EBox/Model/RemoteRestoreLogs.pm:118
-msgid "Restore logs database"
-msgstr "Naplóadatbázisok visszaállítása"
-
-#: src/EBox/Model/RemoteRestoreLogs.pm:125
-#, fuzzy
-msgid "Restores the Zentyal logs found in the selected backup"
-msgstr "eBox naplózások visszaállítása a kiválasztott mentésből"
+"A mentés adatai nem találhatók a {d} mentésben. Talán próbálja más dátumon."
 
 #: src/EBox/Composite/ServicesRestore.pm:64
 msgid "Services restore"

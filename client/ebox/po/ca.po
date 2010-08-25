@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox 0.12\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
-"POT-Creation-Date: 2010-08-25 17:46+0200\n"
+"POT-Creation-Date: 2010-08-26 00:53+0200\n"
 "PO-Revision-Date: 2010-08-25 17:39+0200\n"
 "Last-Translator: jaume ponsa <jaume@calidae.net>\n"
 "Language-Team: <es@li.org>\n"
@@ -20,720 +20,133 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: src/EBox/ProgressIndicator.pm:42
-msgid "Total ticks"
-msgstr "Total d'avisos"
+#: src/EBox/Apache.pm:277 src/EBox/Apache.pm:286
+msgid "port"
+msgstr "port"
 
-#: src/EBox/ProgressIndicator.pm:44
-msgid "It must be a non-zero positive number"
-msgstr "Ha de ser un número positiu diferent de zero"
+#: src/EBox/Apache.pm:600
+#, fuzzy
+msgid "Zentyal web server"
+msgstr "servidor web de l'eBox"
 
-#: src/EBox/ProgressIndicator.pm:49
-msgid "To solve it you can try to execute the following commands:"
-msgstr "Per solucionar-ho prova a executar les següents comandes:"
+#: src/EBox/Event/Dispatcher/Jabber.pm:166
+msgid "Admin Jabber account"
+msgstr "Compte d'administració del Jabber"
 
-#: src/EBox/ProgressIndicator.pm:56
+#: src/EBox/Event/Dispatcher/Jabber.pm:179
+msgid "Jabber"
+msgstr "Jabber"
+
+#: src/EBox/Event/Dispatcher/Jabber.pm:229
 #, perl-brace-format
-msgid "Cannot execute {exe}"
-msgstr "No es pot executar {exe}"
+msgid "Jabber server {serverName} is down or connection is not allowed"
+msgstr ""
+"El servidor de Jabber {serverName} esta aturat o la conexió no està permesa"
 
-#: src/EBox/ProgressIndicator.pm:106
+#: src/EBox/Event/Dispatcher/Jabber.pm:259
 #, perl-brace-format
-msgid "Progress indicator with id {id} not found"
-msgstr "L'indicador de progrés amb id {id} no es troba"
+msgid "Subscription failed: {message}"
+msgstr "subscripció fallida: {message}"
 
-#: src/EBox/ProgressIndicator.pm:144
-msgid "Number of ticks to notify"
-msgstr "Número de avisos per notificar"
-
-#: src/EBox/ProgressIndicator.pm:146
-msgid "must be greater than zero"
-msgstr "ha de ser més gran de zero"
-
-#: src/EBox/ProgressIndicator.pm:152
-msgid "Executable has not been run"
-msgstr "L'executable no ha estat llançat"
-
-#: src/EBox/ProgressIndicator.pm:275
-msgid "The executable has not run"
-msgstr "L'executable no es llença"
-
-#: src/EBox/ProgressIndicator.pm:408
-msgid "The executable has already been started"
-msgstr "L'executable ja s'ha començat"
-
-#: src/EBox/ProgressIndicator.pm:412
-msgid "The executable has already finished"
-msgstr "L'executable ja s'ha acabat"
-
-#: src/EBox/Events/Model/Watcher/Log.pm:215
-#: src/EBox/Events/Model/Watcher/Log.pm:239
-msgid ""
-"Warning! The log watcher is not enabled. Enable to be notified when logs "
-"happen. "
-msgstr ""
-"Atenció! El registre de log's no està habilitat. Habilita'l per ser "
-"notificat dels logs."
-
-#: src/EBox/Events/Model/Watcher/Log.pm:263
-#: src/EBox/Logs/Model/SelectLog.pm:143
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:333
-msgid "Domain"
-msgstr "Domini"
-
-#: src/EBox/Events/Model/Watcher/Log.pm:268
-msgid "Filtering"
-msgstr "Filtrat de paquets"
-
-#: src/EBox/Events/Model/Watcher/Log.pm:276
-msgid "Configure log watchers"
-msgstr "Configura el registre de logs"
-
-#: src/EBox/Events/Model/Watcher/Log.pm:278
-msgid "Log watcher"
-msgstr "Registre de logs"
-
-#: src/EBox/Events/Model/Watcher/Log.pm:386
-#: src/EBox/Events/Model/Watcher/LogFiltering.pm:212
-#: src/EBox/Events/Model/Watcher/DiskFreeSpace.pm:137
-#: src/EBox/Events/Model/GeneralComposite.pm:76
-#: src/EBox/Events/Model/GeneralComposite.pm:77
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:273
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:325 src/EBox/Events.pm:95
-#: src/EBox/Events.pm:822
-msgid "Events"
-msgstr "Esdeveniment"
-
-#: src/EBox/Events/Model/Watcher/Log.pm:390
-#: src/EBox/Events/Model/Watcher/LogFiltering.pm:216
-msgid "Log Observer Watcher"
-msgstr "Observador del registre de logs"
-
-#: src/EBox/Events/Model/Watcher/LogFiltering.pm:109
+#: src/EBox/Event/Dispatcher/Jabber.pm:266
 #, perl-brace-format
-msgid "Log domain {logDomain}"
-msgstr "Logs del Domini{logDomain}"
+msgid "Authorization failed: {result} - {message}"
+msgstr "Autorització fallida: {result} - {message}"
 
-#: src/EBox/Events/Model/Watcher/LogFiltering.pm:150
-#: src/EBox/Types/PortRange.pm:290 src/EBox/Types/Service.pm:213
-#: src/templates/logs/index.mas:185
-msgid "Any"
-msgstr "Qualsevol"
-
-#: src/EBox/Events/Model/Watcher/LogFiltering.pm:169
-#: src/templates/logs/index.mas:183
-msgid "Event"
-msgstr "Esdeveniment"
-
-#: src/EBox/Events/Model/Watcher/LogFiltering.pm:177
+#: src/EBox/Event/Dispatcher/RSS.pm:219
 #, perl-brace-format
-msgid "Filters to apply to notify logs from {logDomain}"
-msgstr "Filtres a aplicar per notificar logs de {logDomain}"
+msgid "RSS file: {path}"
+msgstr "Arxiu RSS: {path}"
 
-#: src/EBox/Events/Model/Watcher/LogFiltering.pm:185
-msgid ""
-"Every filter added is cumulative.Then every log line which matches with any "
-"filter given will be notified"
-msgstr ""
-"Qualsevol filtre afegist s'acumula.Aleshores cada línia de log que "
-"coincideixi amb qulsevol filtre establert serà notificat."
+#: src/EBox/Event/Dispatcher/RSS.pm:233
+msgid "RSS"
+msgstr "RSS"
 
-#: src/EBox/Events/Model/Watcher/LogFiltering.pm:189
-msgid "filter"
-msgstr "filtre"
+#: src/EBox/Event/Dispatcher/RSS.pm:290
+#, fuzzy, perl-brace-format
+msgid "Zentyal alerts channel for {hostname}"
+msgstr "eBox canal d'alertes per {hostname}"
 
-#: src/EBox/Events/Model/Watcher/DiskFreeSpace.pm:101
-msgid "Minimum free disk space per filesystem"
-msgstr "Espai lliure mínim per al sistema d'arxius"
-
-#: src/EBox/Events/Model/Watcher/DiskFreeSpace.pm:106
-msgid ""
-"When the free space percentage of any disk partition is under this value the "
-"event is triggered."
-msgstr ""
-"Quan el percentatge d'espai lliure de qualsevol disk estigui per sota aquest "
-"valor l'esdeveniment serà processat"
-
-#: src/EBox/Events/Model/Watcher/DiskFreeSpace.pm:113
-msgid "Configure disk free space watcher"
-msgstr "Configura el control de espai al disc"
-
-#: src/EBox/Events/Model/Watcher/DiskFreeSpace.pm:141
-msgid "Free Disk Space Watcher"
-msgstr "Controlador d'espai lliure al disc"
-
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:267
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:301
-msgid "Name"
-msgstr "Nom"
-
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:275
-#: src/templates/backup.mas:42 src/templates/backup.mas:124
-#: src/templates/confirm-backup.mas:36
-msgid "Description"
-msgstr "Descripció"
-
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:284
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:323
-msgid "Configuration"
-msgstr "Configuració"
-
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:300
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:343
-msgid "None"
-msgstr "Cap"
-
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:309
-msgid "Configure Events"
-msgstr "Configuració d'esdeveniments"
-
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:317
-#: src/EBox/Events/Model/Report/EventsDetails.pm:109
-msgid "event"
-msgstr "Esdeveniments"
-
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:318
-msgid "Enable/Disable each event watcher monitoring"
-msgstr "Habilita/deshabilita cada monitorització de control d'esdeveniments"
-
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:506
-msgid ""
-"Warning! There is no log domain watcher enabled. Please, go to "
-"'Configuration' to enable at least one to be notified when a log in this "
-"domain happens. "
-msgstr ""
-"Atenció! No hi ha cap log de control de domini habilitat. Si us plau, ves a "
-"'Configuració' per habilitar-ne almenys un per ser notificat quan hi hagi un "
-"log en aquest domini."
-
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:287
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:341
-#: src/EBox/Model/DataTable.pm:4541
-msgid "Enabled"
-msgstr "Habilitat"
-
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:311
-msgid "Receiver"
-msgstr "Receptor"
-
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:352
-msgid "Configure Dispatchers"
-msgstr "Configura els missatgers"
-
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:361
-msgid "dispatcher"
-msgstr "missatger"
-
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:362
-msgid "Enable/Disable each event dispatcher"
-msgstr "Habilita/deshabitia cada missatge d'esdeveniment"
-
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:551
-msgid ""
-"In order to enable a configurable event dispatcher, you need to configure it "
-"first"
-msgstr ""
-"per tal de habilitar un missatge d'esdeveniment configurable, primer l'has "
-"de configurar."
-
-#: src/EBox/Events/Model/GeneralComposite.pm:80
+#: src/EBox/Event/Dispatcher/RSS.pm:293
 #, fuzzy
-msgid ""
-"Events module configures Zentyal to help informing you about events that "
-"happen"
+msgid "This channel tracks what happens on this Zentyal machine along the time"
 msgstr ""
-"El módul de esdeveniments configura l' eBox per tal d'ajudar-te amb els "
-"esdeniments que hi han."
+"Aquest canal condueix al que ha passat en aquesta màquina eBox durant el "
+"temps."
 
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:193
-msgid "Jabber server name"
-msgstr "Nom del servidor de Jabber"
+#: src/EBox/Event/Dispatcher/RSS.pm:313
+#, fuzzy, perl-brace-format
+msgid "The event has happened in Zentyal {hostname} from {source}"
+msgstr "L'esdeveniment ha passat a l'eBox {hostname} de {source}"
 
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:196
-msgid "Jabber server to send the messages"
-msgstr "Servidor de Jabber per enviar missatges"
-
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:200
-msgid "Port"
-msgstr "Port"
-
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:207
-msgid "Jabber user name"
-msgstr "Nom d'usuari de Jabber"
-
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:210
-msgid ""
-"Jabber ID of the account that will send the messages. Hint: do not introduce "
-"@domain, only the user name"
-msgstr ""
-"ID del compte de que enviarà el missatge. Ajuda: no introdueixis @domini, "
-"nomès el nom d'usuari"
-
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:216
-msgid "User password"
-msgstr "Contrasenya d'usuari"
-
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:224
-msgid "Subscribe"
-msgstr "Registra"
-
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:226
-#, fuzzy
-msgid ""
-"Tick this option if you want Zentyal to create an account for the above user"
-msgstr ""
-"Marca aquesta opció si vols que l'eBox crei el compte per l'usuari de sobre."
-
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:233
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:300
-msgid "Administrator Jabber Identifier"
-msgstr "Identificador de l'Administrador de Jabber"
-
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:236
-#, fuzzy
-msgid ""
-"Destination Jabber ID of the messages generated by Zentyal,  i.e: you, the "
-"Zentyal admin. Note that you need to register this  account manually in any "
-"jabber server"
-msgstr ""
-"ID del Jabber de destinació per als missatges generats per l'eBox. p.ex: tu "
-"el administrador de eBox, observa que es necessita registrar aquest compte "
-"manualment en qualsevol servidor de jabber"
-
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:245
-msgid "Configure Jabber dispatcher"
-msgstr "Configura els missatges de Jabber"
-
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:250
-msgid "This dispatcher will send events to an Jabber account"
-msgstr "Els gestor de missatges enviarà esdeveniments a la compta de Jabber"
-
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:253
-msgid "Jabber dispatcher configuration updated"
-msgstr "Configuració del gestor de missatges actualitzat"
-
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:277
-msgid "Jabber Dispatcher"
-msgstr "Missatges de Jabber"
-
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:302
-msgid "It should follow the pattern 'user@domain[/resource]'"
-msgstr "Hauries de seguir el model 'usuari@domini[/recurs]'"
-
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:150
-msgid "Nobody"
-msgstr "Ningú"
-
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:154
-msgid "IP address"
-msgstr "Adreça IP"
-
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:161
-msgid "Object"
-msgstr "Objecte"
-
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:170
-msgid "Public"
-msgstr "Política"
-
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:177
-msgid "Channel link"
-msgstr "Link del canal"
-
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:184
-msgid "Allowed readers"
-msgstr "Lectors permesos"
-
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:187
-msgid "Use this field to set the access control for the channel"
-msgstr "Usa aquest camp per establir el control d'accés per el canal"
-
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:192
-msgid "Syndicate this RSS"
-msgstr "Afilia't a aquest RSS"
-
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:202
-msgid "Configure RSS dispatcher"
-msgstr "Configura el missatger de RSS"
-
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:207
-msgid ""
-"The channel link is the link which is used to syndicate the content to your "
-"favourite RSS. "
-msgstr ""
-"El link de canal es el link que es fa servir per afiliar-se al contingut del "
-"teu RSS preferit"
-
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:210
-msgid "RSS dispatcher configuration updated"
-msgstr "Configuració del missatger de RSS actualitzada"
-
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:329
-msgid "RSS Dispatcher"
-msgstr "Missatger de RSS"
-
-#: src/EBox/Events/Model/Report/EventsDetails.pm:50
-#: src/EBox/Events/Model/Report/EventsDetails.pm:74 src/EBox/Events.pm:807
-msgid "Source"
-msgstr "Font"
-
-#: src/EBox/Events/Model/Report/EventsDetails.pm:51
-#: src/EBox/Events/Model/Report/EventsDetails.pm:80
-#: src/EBox/Events/Model/Report/EventsGraph.pm:51 src/EBox/Events.pm:814
-msgid "Informative"
-msgstr "Informatiu"
-
-#: src/EBox/Events/Model/Report/EventsDetails.pm:52
-#: src/EBox/Events/Model/Report/EventsDetails.pm:84
-#: src/EBox/Events/Model/Report/EventsGraph.pm:52 src/EBox/Events.pm:815
-#: src/templates/finish.mas:83
-msgid "Warning"
-msgstr "Atenció"
-
-#: src/EBox/Events/Model/Report/EventsDetails.pm:53
-#: src/EBox/Events/Model/Report/EventsDetails.pm:88
-#: src/EBox/Events/Model/Report/EventsGraph.pm:53 src/EBox/Events.pm:816
-msgid "Error"
-msgstr "Error"
-
-#: src/EBox/Events/Model/Report/EventsDetails.pm:54
-#: src/EBox/Events/Model/Report/EventsDetails.pm:92
-#: src/EBox/Events/Model/Report/EventsGraph.pm:54 src/EBox/Events.pm:817
-msgid "Fatal error"
-msgstr "Error fatal"
-
-#: src/EBox/Events/Model/Report/EventsDetails.pm:68 src/EBox/Logs.pm:719
-#: src/templates/finish.mas:116 src/templates/backup.mas:126
-#: src/templates/confirm-backup.mas:28
-msgid "Date"
-msgstr "Data"
-
-#: src/EBox/Events/Model/Report/EventsDetails.pm:101
-msgid "Events details"
-msgstr "Detall d'esdeveniments"
-
-#: src/EBox/Events/Model/Report/EventsGraph.pm:60
-msgid "Events summarized chart"
-msgstr "Resum gràfic d'esdeveniments "
-
-#: src/EBox/Events/Model/Report/EventsGraph.pm:77
-msgid "Events summarized graph"
-msgstr "Resum diagrama d'esdeveniments"
-
-#: src/EBox/Events/Composite/Report/EventsReport.pm:69
-msgid "Events reports"
-msgstr "Informes d'errors"
-
-#: src/EBox/Events/Composite/Report/EventsReport.pm:70
-msgid "Events report"
-msgstr "Informes d'error"
-
-#: src/EBox/EventDaemon.pm:450
+#: src/EBox/Event/Dispatcher/RSS.pm:317
 #, perl-brace-format
-msgid "Dispatcher {name} disabled since it is not able to send events"
-msgstr "Missatger {name} deshabilitat perque no pot enviar esdeveniments"
+msgid "Go to your {url} to check its status."
+msgstr "Ves a la teva {url} per comprovar l'estat"
 
-#: src/EBox/Auth.pm:135
-msgid "Password changed"
-msgstr "Contrassenya actualitzada"
+#: src/EBox/Event/Dispatcher/Log.pm:136
+msgid "Log file"
+msgstr "Arxiu de log"
 
-#: src/EBox/CGI/ClientRawBase.pm:213 src/EBox/CGI/WizardPage.pm:155
-msgid ""
-"An internal error related to a template has occurred. This is a bug, "
-"relevant information can be found in the logs."
-msgstr ""
-"S'ha produït un error relacionat amb una plantilla. Això és una errada, "
-"informació relevant pot ser trobada als logs."
+#: src/EBox/Event/Dispatcher/Log.pm:149
+msgid "Log"
+msgstr "Log"
 
-#: src/EBox/CGI/Wizard.pm:29
-msgid "Initial configuration wizard"
-msgstr "Assistent per a la configuració inicial"
-
-#: src/EBox/CGI/Logs/Index.pm:37 src/EBox/Logs.pm:59
-msgid "Logs"
-msgstr "Registres"
-
-#: src/EBox/CGI/Logs/Index.pm:328 src/EBox/Logs.pm:703
-msgid "Query Logs"
-msgstr "Consultes de registres"
-
-#: src/EBox/CGI/Logs/Index.pm:331
-msgid "Full Reports"
-msgstr "Informes complets"
-
-#: src/EBox/CGI/Dashboard/Index.pm:34 src/EBox/SysInfo.pm.in:253
-msgid "Dashboard"
-msgstr "Taula de Control"
-
-#: src/EBox/CGI/Dashboard/ConfigureWidgets.pm:30
-#: src/templates/dashboard/index.mas:79
-msgid "Configure Widgets"
-msgstr "Configura els Widgets"
-
-#: src/EBox/CGI/Progress.pm:82 src/EBox/CGI/Progress.pm:108
-#: src/EBox/CGI/Finish.pm:79
-msgid "Saving changes"
-msgstr "Guradant els canvis"
-
-#: src/EBox/CGI/Login/Index.pm:65
-#, fuzzy
-msgid ""
-"There is a script which has asked to run in Zentyal exclusively. Please, "
-"wait patiently until it is done"
-msgstr ""
-"Hi ha un script que ha demanat corre a l'eBox sol. Siusplau, espera fins que "
-"s'acabi."
-
-#: src/EBox/CGI/Login/Index.pm:69
-msgid "Incorrect password"
-msgstr "Contrasenya incorrecta."
-
-#: src/EBox/CGI/Login/Index.pm:72
-msgid "For security reasons your session has expired due to inactivity"
-msgstr "Per raons de seguretat, la vostra sessió ha caducat per inactivitat"
-
-#: src/EBox/CGI/Login/Index.pm:75
-msgid "You have been logged out because a new session has been opened"
-msgstr "Heu sortit perque s'ha iniciat una nova sessió"
-
-#: src/EBox/CGI/ServiceModule/StatusView.pm:39
-msgid "Module Status Configuration"
-msgstr "Configuració de l'estat dels móduls"
-
-#: src/EBox/CGI/Logout/Index.pm:31 src/EBox/Html.pm:42
-msgid "Logout"
-msgstr "Surt"
-
-#: src/EBox/CGI/EBox/General.pm:34
-msgid "General Configuration"
-msgstr "Configuració general"
-
-#: src/EBox/CGI/EBox/Halt.pm:32
-msgid "Halt or Reboot"
-msgstr "Apaga o reinicia"
-
-#: src/EBox/CGI/EBox/Halt.pm:45
-#, fuzzy
-msgid "Zentyal is going down for halt"
-msgstr "l'eBox s'està aturant"
-
-#: src/EBox/CGI/EBox/Halt.pm:48
-#, fuzzy
-msgid "Zentyal is going down for reboot"
-msgstr "l'eBox s'està reiniciant"
-
-#: src/EBox/CGI/EBox/Password.pm:45 src/templates/password.mas:11
-#: src/templates/login/index.mas:49
-#, fuzzy
-msgid "Username"
-msgstr "Nom del servidor"
-
-#: src/EBox/CGI/EBox/Password.pm:50 src/templates/login/index.mas:54
-msgid "Password"
-msgstr "Contrasenya"
-
-#: src/EBox/CGI/EBox/Password.pm:59
-msgid "Incorrect password."
-msgstr "Contrasenya incorrecta."
-
-#: src/EBox/CGI/EBox/Password.pm:64
-msgid "New passwords do not match."
-msgstr "Les contrasenyes noves no coincideixen."
-
-#: src/EBox/CGI/EBox/Password.pm:69
-msgid "The password must be at least 6 characters long"
-msgstr "La contrasenya ha de tenir almenys 6 caràcters"
-
-#: src/EBox/CGI/EBox/Password.pm:73
-msgid "The password was changed successfully."
-msgstr "S'ha canviat la contrasenya amb èxit."
-
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:35 src/templates/backup.mas:18
-msgid "Configuration Backup"
-msgstr "Còpies de seguretat de la configuració"
-
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:107
-msgid "Please confirm that you want to delete the following backup file:"
-msgstr "Confirmeu que voleu eliminar el següent fitxer de còpia de seguretat:"
-
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:109 src/templates/backup.mas:170
-#: src/templates/backup.mas:171
-msgid "Delete"
-msgstr "Elimina"
-
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:116
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:132
-msgid "Please confirm that you want to restore using this backup file:"
-msgstr ""
-"Confirmeu que voleu restaurar la configuració des d'aquest fitxer de còpia "
-"de seguretat:"
-
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:118
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:134 src/templates/backup.mas:93
-msgid "Restore"
-msgstr "Restaura"
-
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:149 src/EBox/CGI/EBox/Backup.pm:194
-#: src/EBox/CGI/EBox/Backup.pm:275 src/EBox/CGI/EBox/Backup.pm:288
-#: src/EBox/Backup.pm:1334
-msgid "The input contains invalid characters"
-msgstr "L'entrada conté caràcters invàlids"
-
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:178
-msgid "Configuration backup"
-msgstr "Còpies de seguretat de la configuració"
-
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:181
-msgid "Full data and configuration backup"
-msgstr "Llista de còpies de seguretat de la configuració"
-
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:184
-msgid "Bug-report configuration dump"
-msgstr "Restaura la configuració"
-
-#: src/EBox/CGI/EBox/RestartService.pm:50
-msgid "module name"
-msgstr "Nom del servidor"
-
-#: src/EBox/CGI/EBox/RestartService.pm:54
-msgid "The module was restarted correctly."
-msgstr "El mòdul s'ha reiniciat correctament"
-
-#: src/EBox/CGI/EBox/Hostname.pm:44
-#, fuzzy
-msgid "hostname"
-msgstr "Nom del host"
-
-#: src/EBox/CGI/EBox/CurrentProgress.pm:37
-msgid "Upgrading"
-msgstr "Actualitzant"
-
-#: src/EBox/CGI/EBox/Backup.pm:36 src/EBox/Backup.pm:728
-#: src/EBox/SysInfo.pm.in:280 src/templates/backup.mas:62
-msgid "Backup"
-msgstr "Còpia de seguretat"
-
-#: src/EBox/CGI/EBox/Backup.pm:162
+#: src/EBox/Event/Dispatcher/Abstract.pm:141
 #, perl-brace-format
-msgid "Unknown backup mode: {mode}"
-msgstr "Mode de backup desconegut: {mode}"
+msgid "Dispatcher {name} is not configured to be enabled"
+msgstr "Missatger {name} no ha estat habilitat"
 
-#: src/EBox/CGI/EBox/Backup.pm:228
+#: src/EBox/Event/Watcher/DiskFreeSpace.pm:134
 #, perl-brace-format
-msgid "Unknown restore mode: {mode}"
-msgstr "Mode de recuperació desconegut: {mode}"
+msgid "The file system {fs}, mounted on {mp}, has no space left"
+msgstr "El sistema d'arxius {fs}, muntat a {mp}, no te espai lliure"
 
-#: src/EBox/CGI/EBox/Backup.pm:241
-msgid "Backing up"
-msgstr "Fent la còpia de seguretat"
+#: src/EBox/Event/Watcher/DiskFreeSpace.pm:168
+msgid "Free storage space"
+msgstr "Espai lliure d'enmagatzematge"
 
-#: src/EBox/CGI/EBox/Backup.pm:242
-msgid "Backing up modules"
-msgstr "Fent la còpia de seguretat dels mòduls"
+#: src/EBox/Event/Watcher/DiskFreeSpace.pm:185
+msgid "Check if any disk partition has no storage space left"
+msgstr "Comprova si hi ha alguna partició de disc sense espai lliure"
 
-#: src/EBox/CGI/EBox/Backup.pm:243
-msgid "Operation"
-msgstr "Operació"
+#: src/EBox/Event/Watcher/Runit.pm:113
+#, perl-brace-format
+msgid "The following modules are not running but they are enabled: {modules}\n"
+msgstr ""
+"Els següents móduls no estan funcionant però estan habilitats: {modules}\n"
 
-#: src/EBox/CGI/EBox/Backup.pm:244
-msgid "operations left to finish backup"
-msgstr "Operacions que resten per acabar la còpia"
+#: src/EBox/Event/Watcher/Runit.pm:142
+msgid "Service"
+msgstr "Servei"
 
-#: src/EBox/CGI/EBox/Backup.pm:245
-msgid "Backup successful"
-msgstr "Còpia de seguretat"
+#: src/EBox/Event/Watcher/Runit.pm:159
+#, fuzzy
+msgid "Check if any Zentyal service is not running when it is enabled"
+msgstr "Comprova si hi ha cap servei d'eBox aturat quan estigui habititat"
 
-#: src/EBox/CGI/EBox/Backup.pm:256
-msgid "Restoring backup"
-msgstr "Restaurant la còpia de seguretat"
+#: src/EBox/Event/Watcher/Runit.pm:229
+#, perl-brace-format
+msgid ""
+"The service {service} has been restarted {restart} times in {time} seconds "
+"and it has been stopped"
+msgstr ""
+"El servei {service} ha estat reiniciat {restart} vegades en {time} segons i "
+"ha estat aturat"
 
-#: src/EBox/CGI/EBox/Backup.pm:257
-msgid "Restoring modules"
-msgstr "Restaurant els moduls"
+#: src/EBox/Event/Watcher/Log.pm:203
+msgid "Log observer"
+msgstr "Observador de Logs"
 
-#: src/EBox/CGI/EBox/Backup.pm:258 src/EBox/Logs.pm:721
-#: src/templates/moduleStatusTable.mas:58 src/templates/finish.mas:117
-msgid "Module"
-msgstr "Módul"
+#: src/EBox/Event/Watcher/Log.pm:241
+#, perl-brace-format
+msgid "Notify when a logger ({loggers}) has logged something"
+msgstr "Reporta quan ({loggers}) ha reportat alguna cosa"
 
-#: src/EBox/CGI/EBox/Backup.pm:259
-msgid "modules restored"
-msgstr "Móduls restaurats"
-
-#: src/EBox/CGI/EBox/Backup.pm:260
-msgid "Restore successful"
-msgstr "Restauració satisfactòria"
-
-#: src/EBox/CGI/EBox/ConfigurationReport.pm:31
-msgid "Configuration report"
-msgstr "Informe de configuració"
-
-#: src/EBox/CGI/Report/RAID.pm:31 src/EBox/Event/Watcher/RAID.pm:182
-#: src/EBox/SysInfo.pm.in:275
+#: src/EBox/Event/Watcher/RAID.pm:182 src/EBox/SysInfo.pm.in:275
+#: src/EBox/CGI/Report/RAID.pm:31
 msgid "RAID"
 msgstr "RAID"
-
-#: src/EBox/CGI/Report/DiskUsage.pm:32 src/EBox/SysInfo.pm.in:271
-msgid "Disk Usage"
-msgstr "Ús de disc"
-
-#: src/EBox/CGI/Finish.pm:34
-msgid "Save configuration"
-msgstr "Desa la configuració"
-
-#: src/EBox/CGI/Finish.pm:80
-msgid "Saving changes in modules"
-msgstr "Guardant canvis en mòduls"
-
-#: src/EBox/CGI/Finish.pm:81 src/templates/report/raid.mas:213
-msgid "Current operation"
-msgstr "Operació actual"
-
-#: src/EBox/CGI/Finish.pm:82
-msgid "operations performed"
-msgstr "Operacions realitzades"
-
-#: src/EBox/CGI/Finish.pm:83
-msgid "Changes saved"
-msgstr "Cambis guardats"
-
-#: src/EBox/CGI/Finish.pm:84
-#, perl-brace-format
-msgid ""
-"Some modules reported error when saving changes . More information on the "
-"logs in {dir}"
-msgstr ""
-"Alguns móduls han informat d'un errror quan es guardaven els canvis. Mes "
-"informació al log a {dir}"
-
-#: src/EBox/CGI/Finish.pm:103
-msgid "Revoking changes"
-msgstr "Descartant els canvis"
-
-#: src/EBox/CGI/Finish.pm:104
-msgid "Revoking changes in modules"
-msgstr "Descartant els canvis en els mòduls"
-
-#: src/EBox/CGI/Finish.pm:105
-msgid "Current module"
-msgstr "Mòdul actual"
-
-#: src/EBox/CGI/Finish.pm:106
-msgid "modules revoked"
-msgstr "Mòduls revocats"
-
-#: src/EBox/CGI/Finish.pm:107
-msgid "Changes revoked"
-msgstr "Canvis revocats"
-
-#: src/EBox/CGI/Finish.pm:108
-#, perl-brace-format
-msgid ""
-"Some modules reported error when discarding changes . More information on "
-"the logs in {dir}"
-msgstr ""
-"Alguns mòduls han informat un error quan es descartaven els canvis. Més "
-"informació al directori de logs {dir}"
 
 #: src/EBox/Event/Watcher/RAID.pm:199
 msgid "Check if any event has happened in RAID subsystem"
@@ -941,30 +354,6 @@ msgstr "erroni"
 msgid "spare"
 msgstr "lliure"
 
-#: src/EBox/Event/Watcher/Runit.pm:113
-#, perl-brace-format
-msgid "The following modules are not running but they are enabled: {modules}\n"
-msgstr ""
-"Els següents móduls no estan funcionant però estan habilitats: {modules}\n"
-
-#: src/EBox/Event/Watcher/Runit.pm:142
-msgid "Service"
-msgstr "Servei"
-
-#: src/EBox/Event/Watcher/Runit.pm:159
-#, fuzzy
-msgid "Check if any Zentyal service is not running when it is enabled"
-msgstr "Comprova si hi ha cap servei d'eBox aturat quan estigui habititat"
-
-#: src/EBox/Event/Watcher/Runit.pm:229
-#, perl-brace-format
-msgid ""
-"The service {service} has been restarted {restart} times in {time} seconds "
-"and it has been stopped"
-msgstr ""
-"El servei {service} ha estat reiniciat {restart} vegades en {time} segons i "
-"ha estat aturat"
-
 #: src/EBox/Event/Watcher/State.pm:126
 #, fuzzy
 msgid "Zentyal is up and running"
@@ -984,111 +373,127 @@ msgstr "Estat"
 msgid "Check if Zentyal is currently up or down"
 msgstr "Comprova si l'eBox esta engegat o parat"
 
-#: src/EBox/Event/Watcher/Log.pm:203
-msgid "Log observer"
-msgstr "Observador de Logs"
-
-#: src/EBox/Event/Watcher/Log.pm:241
+#: src/EBox/Model/DataTable.pm:328
 #, perl-brace-format
-msgid "Notify when a logger ({loggers}) has logged something"
-msgstr "Reporta quan ({loggers}) ha reportat alguna cosa"
+msgid "{model} in {module} module"
+msgstr "{model} al {module} módul"
 
-#: src/EBox/Event/Watcher/DiskFreeSpace.pm:134
+#: src/EBox/Model/DataTable.pm:332
+msgid "at"
+msgstr "a"
+
+#: src/EBox/Model/DataTable.pm:543
+msgid "field"
+msgstr "camp"
+
+#: src/EBox/Model/DataTable.pm:1469
+msgid "page"
+msgstr "pàgina"
+
+#: src/EBox/Model/DataTable.pm:1472
+msgid "Page must be a number equal or greater than zero"
+msgstr "La pàgina ha de ser un nombre igual o més gran que zero"
+
+#: src/EBox/Model/DataTable.pm:2132 src/EBox/Model/DataMultiTable.pm:169
+#: src/EBox/Model/Composite.pm:654 src/EBox/Model/Composite.pm:669
+#: src/EBox/Logs.pm:722
+msgid "Action"
+msgstr "Acció"
+
+#: src/EBox/Model/DataTable.pm:2834
 #, perl-brace-format
-msgid "The file system {fs}, mounted on {mp}, has no space left"
-msgstr "El sistema d'arxius {fs}, muntat a {mp}, no te espai lliure"
+msgid "Remove {num} rows of {rowName} from {model}{br}"
+msgstr "Elimina {num} de linies de {rowName} del {model}{br}"
 
-#: src/EBox/Event/Watcher/DiskFreeSpace.pm:168
-msgid "Free storage space"
-msgstr "Espai lliure d'enmagatzematge"
+#: src/EBox/Model/DataTable.pm:2905
+msgid "Page size"
+msgstr "Tamany de la pàgina"
 
-#: src/EBox/Event/Watcher/DiskFreeSpace.pm:185
-msgid "Check if any disk partition has no storage space left"
-msgstr "Comprova si hi ha alguna partició de disc sense espai lliure"
+#: src/EBox/Model/DataTable.pm:2908
+msgid "Must be either a positive number or zero"
+msgstr "Ha de ser o un nombre positiu o zero"
 
-#: src/EBox/Event/Dispatcher/Jabber.pm:166
-msgid "Admin Jabber account"
-msgstr "Compte d'administració del Jabber"
-
-#: src/EBox/Event/Dispatcher/Jabber.pm:179
-msgid "Jabber"
-msgstr "Jabber"
-
-#: src/EBox/Event/Dispatcher/Jabber.pm:229
+#: src/EBox/Model/DataTable.pm:3215
 #, perl-brace-format
-msgid "Jabber server {serverName} is down or connection is not allowed"
-msgstr ""
-"El servidor de Jabber {serverName} esta aturat o la conexió no està permesa"
+msgid "{row} added"
+msgstr "{row} afegida"
 
-#: src/EBox/Event/Dispatcher/Jabber.pm:259
+#: src/EBox/Model/DataTable.pm:3216
 #, perl-brace-format
-msgid "Subscription failed: {message}"
-msgstr "subscripció fallida: {message}"
+msgid "{row} deleted"
+msgstr "{row} Eliminada"
 
-#: src/EBox/Event/Dispatcher/Jabber.pm:266
+#: src/EBox/Model/DataTable.pm:3217
 #, perl-brace-format
-msgid "Authorization failed: {result} - {message}"
-msgstr "Autorització fallida: {result} - {message}"
+msgid "{row} updated"
+msgstr "{row} Actualitzada"
 
-#: src/EBox/Event/Dispatcher/Abstract.pm:141
+#: src/EBox/Model/DataTable.pm:3218
 #, perl-brace-format
-msgid "Dispatcher {name} is not configured to be enabled"
-msgstr "Missatger {name} no ha estat habilitat"
+msgid "{row} moved up"
+msgstr "{row} moguda amunt"
 
-#: src/EBox/Event/Dispatcher/Log.pm:136
-msgid "Log file"
-msgstr "Arxiu de log"
-
-#: src/EBox/Event/Dispatcher/Log.pm:149
-msgid "Log"
-msgstr "Log"
-
-#: src/EBox/Event/Dispatcher/RSS.pm:219
+#: src/EBox/Model/DataTable.pm:3219
 #, perl-brace-format
-msgid "RSS file: {path}"
-msgstr "Arxiu RSS: {path}"
+msgid "{row} moved down"
+msgstr "{row} moguda avall"
 
-#: src/EBox/Event/Dispatcher/RSS.pm:233
-msgid "RSS"
-msgstr "RSS"
+#: src/EBox/Model/DataTable.pm:4541
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:287
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:341
+msgid "Enabled"
+msgstr "Habilitat"
 
-#: src/EBox/Event/Dispatcher/RSS.pm:290
-#, fuzzy, perl-brace-format
-msgid "Zentyal alerts channel for {hostname}"
-msgstr "eBox canal d'alertes per {hostname}"
+#: src/EBox/Model/ProviderBase.pm:247
+#, perl-brace-format
+msgid "Provided object with index {i} does not exist"
+msgstr "L'objecte oferit amb l'index {i} no existeix."
 
-#: src/EBox/Event/Dispatcher/RSS.pm:293
+#: src/EBox/Model/Composite.pm:372
+#, perl-brace-format
+msgid "It should be one of following values: {values}"
+msgstr "Hauria de ser un dels següents valors: {values}"
+
+#: src/EBox/Model/Composite.pm:656
+#, perl-brace-format
+msgid "Actions to be taken allowed are: {view} and {cView}"
+msgstr "Les accions permeses son: {view} i {cView}"
+
+#: src/EBox/Model/Composite.pm:779
+msgid "Choose one of the following:"
+msgstr "Escull una de les següents:"
+
+#: src/EBox/Model/ModelManager.pm:469
 #, fuzzy
-msgid "This channel tracks what happens on this Zentyal machine along the time"
+msgid ""
+"The data you are removing is being used by\n"
+"                    the following sections:"
 msgstr ""
-"Aquest canal condueix al que ha passat en aquesta màquina eBox durant el "
-"temps."
+"Les dades que vols esborrar estan siguent utilitzades per\n"
+"\\n\n"
 
-#: src/EBox/Event/Dispatcher/RSS.pm:313
-#, fuzzy, perl-brace-format
-msgid "The event has happened in Zentyal {hostname} from {source}"
-msgstr "L'esdeveniment ha passat a l'eBox {hostname} de {source}"
+#: src/EBox/Model/ModelManager.pm:516
+msgid ""
+"The data you are modifying is being used by\n"
+"\t\t\tthe following sections:"
+msgstr ""
+"Les dades que estas modificant estan siguen utilitzades per\n"
+" \t\t\t les següents seccions:"
 
-#: src/EBox/Event/Dispatcher/RSS.pm:317
+#: src/EBox/Model/DataForm.pm:555
 #, perl-brace-format
-msgid "Go to your {url} to check its status."
-msgstr "Ves a la teva {url} per comprovar l'estat"
+msgid "Remove data from {model}{br}"
+msgstr "Elimina les dades del {model} {br}"
 
-#: src/EBox/PgDBEngine.pm:53 src/EBox/PgDBEngine.pm:67
-#: src/EBox/PgDBEngine.pm:81
-#, perl-brace-format
-msgid "You must set the {variable} variable in the ebox configuration file"
-msgstr "Heu d'establir la variable {variable} al fitxer de configuració d'ebox"
+#: src/EBox/Model/DataForm.pm:604 src/templates/dataInUse.mas:25
+#: src/templates/dataInUse.mas:34 src/templates/password.mas:67
+#: src/templates/hostname.mas:15 src/templates/port.mas:14
+msgid "Change"
+msgstr "Canvia"
 
-#: src/EBox/PgDBEngine.pm:435
-#, perl-brace-format
-msgid "Error dumping the postgresql database {name}"
-msgstr "Error volcant la BBDD de postgresql {name}"
-
-#: src/EBox/PgDBEngine.pm:453
-#, perl-brace-format
-msgid "DB dump file {file} is not readable"
-msgstr "El volcat de BBDD {file} no es llegible"
+#: src/EBox/Model/DataForm.pm:709 src/templates/progress.mas:26
+msgid "Done"
+msgstr "Fet"
 
 #: src/EBox/Types/Int.pm:155
 msgid "Enter an integer number"
@@ -1104,6 +509,25 @@ msgstr "El valor no hauria de ser major que {m}"
 msgid "The value shouldn't be less than {m}"
 msgstr "El valor no hauria de ser menor de {m}"
 
+#: src/EBox/Types/DomainName.pm:118
+msgid "IP addresses are not allowed"
+msgstr "Les adreçes IP no estan permeses"
+
+#: src/EBox/Types/Float.pm:112
+msgid "Enter a float number"
+msgstr "Entra un nombre float"
+
+#: src/EBox/Types/Select.pm:341
+#, perl-brace-format
+msgid "Choose a value within the value set: {set}"
+msgstr "Escull un valor amb el parametre de: {set}"
+
+#: src/EBox/Types/Service.pm:213 src/EBox/Types/PortRange.pm:290
+#: src/EBox/Events/Model/Watcher/LogFiltering.pm:150
+#: src/templates/logs/index.mas:185
+msgid "Any"
+msgstr "Qualsevol"
+
 #: src/EBox/Types/Password.pm:134
 #, perl-brace-format
 msgid "The password should have at least {minLength} characters"
@@ -1113,10 +537,6 @@ msgstr "La contrasenya ha de tenir almenys {minLength} caràcters"
 #, perl-brace-format
 msgid "The password should have at most {maxLength} characters"
 msgstr "La contrasenya ha de tenir almenys {maxLength} caràcters"
-
-#: src/EBox/Types/DomainName.pm:118
-msgid "IP addresses are not allowed"
-msgstr "Les adreçes IP no estan permeses"
 
 #: src/EBox/Types/PortRange.pm:139
 msgid "any"
@@ -1135,14 +555,505 @@ msgstr "Rang de ports"
 msgid "\"From\" {from} must be greater than \"To\" {to}"
 msgstr "\"From\" {from} ha de ser mes gran que \"To\" {to}"
 
-#: src/EBox/Types/Float.pm:112
-msgid "Enter a float number"
-msgstr "Entra un nombre float"
+#: src/EBox/Html.pm:41 src/templates/wizard.mas:124
+msgid "Save changes"
+msgstr "Desa els canvis"
 
-#: src/EBox/Types/Select.pm:341
+#: src/EBox/Html.pm:42 src/EBox/CGI/Logout/Index.pm:31
+msgid "Logout"
+msgstr "Surt"
+
+#: src/EBox/SysInfo.pm.in:52
+msgid "System Information"
+msgstr "Informació del sistema"
+
+#: src/EBox/SysInfo.pm.in:97
+msgid "available"
+msgstr "Disponible"
+
+#: src/EBox/SysInfo.pm.in:105
+msgid "Time"
+msgstr "Temps"
+
+#: src/EBox/SysInfo.pm.in:106
+msgid "Hostname"
+msgstr "Nom del host"
+
+#: src/EBox/SysInfo.pm.in:107
+msgid "Core version"
+msgstr "Versió d'Ebox"
+
+#: src/EBox/SysInfo.pm.in:109
+msgid "System load"
+msgstr "Càrrega del sistema"
+
+#: src/EBox/SysInfo.pm.in:110
+msgid "Uptime"
+msgstr "Temps engegat"
+
+#: src/EBox/SysInfo.pm.in:111
+msgid "Users"
+msgstr "Usuaris"
+
+#: src/EBox/SysInfo.pm.in:165 src/EBox/SysInfo.pm.in:258
+msgid "Module Status"
+msgstr "Estat del módul"
+
+#: src/EBox/SysInfo.pm.in:170
+msgid "General Information"
+msgstr "Informació general"
+
+#: src/EBox/SysInfo.pm.in:175
+msgid "Process List"
+msgstr "Llist de processos"
+
+#: src/EBox/SysInfo.pm.in:182
+msgid "Resources & Services"
+msgstr "Recursos i Serveis"
+
+#: src/EBox/SysInfo.pm.in:253 src/EBox/CGI/Dashboard/Index.pm:34
+msgid "Dashboard"
+msgstr "Taula de Control"
+
+#: src/EBox/SysInfo.pm.in:264 src/EBox/Report/DiskUsage.pm:352
+msgid "System"
+msgstr "Sistema"
+
+#: src/EBox/SysInfo.pm.in:268
+msgid "General"
+msgstr "General"
+
+#: src/EBox/SysInfo.pm.in:271 src/EBox/CGI/Report/DiskUsage.pm:32
+msgid "Disk Usage"
+msgstr "Ús de disc"
+
+#: src/EBox/SysInfo.pm.in:280 src/EBox/CGI/EBox/Backup.pm:36
+#: src/EBox/Backup.pm:728 src/templates/backup.mas:62
+msgid "Backup"
+msgstr "Còpia de seguretat"
+
+#: src/EBox/SysInfo.pm.in:283
+msgid "Configuration Report"
+msgstr "Informe de configuració"
+
+#: src/EBox/SysInfo.pm.in:286
+msgid "Halt/Reboot"
+msgstr "Atura / Reinicia"
+
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:301
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:267
+msgid "Name"
+msgstr "Nom"
+
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:311
+msgid "Receiver"
+msgstr "Receptor"
+
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:323
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:284
+msgid "Configuration"
+msgstr "Configuració"
+
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:343
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:300
+msgid "None"
+msgstr "Cap"
+
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:352
+msgid "Configure Dispatchers"
+msgstr "Configura els missatgers"
+
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:361
+msgid "dispatcher"
+msgstr "missatger"
+
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:362
+msgid "Enable/Disable each event dispatcher"
+msgstr "Habilita/deshabitia cada missatge d'esdeveniment"
+
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:551
+msgid ""
+"In order to enable a configurable event dispatcher, you need to configure it "
+"first"
+msgstr ""
+"per tal de habilitar un missatge d'esdeveniment configurable, primer l'has "
+"de configurar."
+
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:193
+msgid "Jabber server name"
+msgstr "Nom del servidor de Jabber"
+
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:196
+msgid "Jabber server to send the messages"
+msgstr "Servidor de Jabber per enviar missatges"
+
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:200
+msgid "Port"
+msgstr "Port"
+
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:207
+msgid "Jabber user name"
+msgstr "Nom d'usuari de Jabber"
+
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:210
+msgid ""
+"Jabber ID of the account that will send the messages. Hint: do not introduce "
+"@domain, only the user name"
+msgstr ""
+"ID del compte de que enviarà el missatge. Ajuda: no introdueixis @domini, "
+"nomès el nom d'usuari"
+
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:216
+msgid "User password"
+msgstr "Contrasenya d'usuari"
+
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:224
+msgid "Subscribe"
+msgstr "Registra"
+
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:226
+#, fuzzy
+msgid ""
+"Tick this option if you want Zentyal to create an account for the above user"
+msgstr ""
+"Marca aquesta opció si vols que l'eBox crei el compte per l'usuari de sobre."
+
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:233
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:300
+msgid "Administrator Jabber Identifier"
+msgstr "Identificador de l'Administrador de Jabber"
+
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:236
+#, fuzzy
+msgid ""
+"Destination Jabber ID of the messages generated by Zentyal,  i.e: you, the "
+"Zentyal admin. Note that you need to register this  account manually in any "
+"jabber server"
+msgstr ""
+"ID del Jabber de destinació per als missatges generats per l'eBox. p.ex: tu "
+"el administrador de eBox, observa que es necessita registrar aquest compte "
+"manualment en qualsevol servidor de jabber"
+
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:245
+msgid "Configure Jabber dispatcher"
+msgstr "Configura els missatges de Jabber"
+
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:250
+msgid "This dispatcher will send events to an Jabber account"
+msgstr "Els gestor de missatges enviarà esdeveniments a la compta de Jabber"
+
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:253
+msgid "Jabber dispatcher configuration updated"
+msgstr "Configuració del gestor de missatges actualitzat"
+
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:273
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:325
+#: src/EBox/Events/Model/GeneralComposite.pm:76
+#: src/EBox/Events/Model/GeneralComposite.pm:77
+#: src/EBox/Events/Model/Watcher/LogFiltering.pm:212
+#: src/EBox/Events/Model/Watcher/DiskFreeSpace.pm:137
+#: src/EBox/Events/Model/Watcher/Log.pm:386 src/EBox/Events.pm:95
+#: src/EBox/Events.pm:822
+msgid "Events"
+msgstr "Esdeveniment"
+
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:277
+msgid "Jabber Dispatcher"
+msgstr "Missatges de Jabber"
+
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:302
+msgid "It should follow the pattern 'user@domain[/resource]'"
+msgstr "Hauries de seguir el model 'usuari@domini[/recurs]'"
+
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:150
+msgid "Nobody"
+msgstr "Ningú"
+
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:154
+msgid "IP address"
+msgstr "Adreça IP"
+
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:161
+msgid "Object"
+msgstr "Objecte"
+
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:170
+msgid "Public"
+msgstr "Política"
+
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:177
+msgid "Channel link"
+msgstr "Link del canal"
+
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:184
+msgid "Allowed readers"
+msgstr "Lectors permesos"
+
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:187
+msgid "Use this field to set the access control for the channel"
+msgstr "Usa aquest camp per establir el control d'accés per el canal"
+
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:192
+msgid "Syndicate this RSS"
+msgstr "Afilia't a aquest RSS"
+
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:202
+msgid "Configure RSS dispatcher"
+msgstr "Configura el missatger de RSS"
+
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:207
+msgid ""
+"The channel link is the link which is used to syndicate the content to your "
+"favourite RSS. "
+msgstr ""
+"El link de canal es el link que es fa servir per afiliar-se al contingut del "
+"teu RSS preferit"
+
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:210
+msgid "RSS dispatcher configuration updated"
+msgstr "Configuració del missatger de RSS actualitzada"
+
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:329
+msgid "RSS Dispatcher"
+msgstr "Missatger de RSS"
+
+#: src/EBox/Events/Model/GeneralComposite.pm:80
+#, fuzzy
+msgid ""
+"Events module configures Zentyal to help informing you about events that "
+"happen"
+msgstr ""
+"El módul de esdeveniments configura l' eBox per tal d'ajudar-te amb els "
+"esdeniments que hi han."
+
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:275
+#: src/templates/backup.mas:42 src/templates/backup.mas:124
+#: src/templates/confirm-backup.mas:36
+msgid "Description"
+msgstr "Descripció"
+
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:309
+msgid "Configure Events"
+msgstr "Configuració d'esdeveniments"
+
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:317
+#: src/EBox/Events/Model/Report/EventsDetails.pm:109
+msgid "event"
+msgstr "Esdeveniments"
+
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:318
+msgid "Enable/Disable each event watcher monitoring"
+msgstr "Habilita/deshabilita cada monitorització de control d'esdeveniments"
+
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:506
+msgid ""
+"Warning! There is no log domain watcher enabled. Please, go to "
+"'Configuration' to enable at least one to be notified when a log in this "
+"domain happens. "
+msgstr ""
+"Atenció! No hi ha cap log de control de domini habilitat. Si us plau, ves a "
+"'Configuració' per habilitar-ne almenys un per ser notificat quan hi hagi un "
+"log en aquest domini."
+
+#: src/EBox/Events/Model/Watcher/LogFiltering.pm:109
 #, perl-brace-format
-msgid "Choose a value within the value set: {set}"
-msgstr "Escull un valor amb el parametre de: {set}"
+msgid "Log domain {logDomain}"
+msgstr "Logs del Domini{logDomain}"
+
+#: src/EBox/Events/Model/Watcher/LogFiltering.pm:169
+#: src/templates/logs/index.mas:183
+msgid "Event"
+msgstr "Esdeveniment"
+
+#: src/EBox/Events/Model/Watcher/LogFiltering.pm:177
+#, perl-brace-format
+msgid "Filters to apply to notify logs from {logDomain}"
+msgstr "Filtres a aplicar per notificar logs de {logDomain}"
+
+#: src/EBox/Events/Model/Watcher/LogFiltering.pm:185
+msgid ""
+"Every filter added is cumulative.Then every log line which matches with any "
+"filter given will be notified"
+msgstr ""
+"Qualsevol filtre afegist s'acumula.Aleshores cada línia de log que "
+"coincideixi amb qulsevol filtre establert serà notificat."
+
+#: src/EBox/Events/Model/Watcher/LogFiltering.pm:189
+msgid "filter"
+msgstr "filtre"
+
+#: src/EBox/Events/Model/Watcher/LogFiltering.pm:216
+#: src/EBox/Events/Model/Watcher/Log.pm:390
+msgid "Log Observer Watcher"
+msgstr "Observador del registre de logs"
+
+#: src/EBox/Events/Model/Watcher/DiskFreeSpace.pm:101
+msgid "Minimum free disk space per filesystem"
+msgstr "Espai lliure mínim per al sistema d'arxius"
+
+#: src/EBox/Events/Model/Watcher/DiskFreeSpace.pm:106
+msgid ""
+"When the free space percentage of any disk partition is under this value the "
+"event is triggered."
+msgstr ""
+"Quan el percentatge d'espai lliure de qualsevol disk estigui per sota aquest "
+"valor l'esdeveniment serà processat"
+
+#: src/EBox/Events/Model/Watcher/DiskFreeSpace.pm:113
+msgid "Configure disk free space watcher"
+msgstr "Configura el control de espai al disc"
+
+#: src/EBox/Events/Model/Watcher/DiskFreeSpace.pm:141
+msgid "Free Disk Space Watcher"
+msgstr "Controlador d'espai lliure al disc"
+
+#: src/EBox/Events/Model/Watcher/Log.pm:215
+#: src/EBox/Events/Model/Watcher/Log.pm:239
+msgid ""
+"Warning! The log watcher is not enabled. Enable to be notified when logs "
+"happen. "
+msgstr ""
+"Atenció! El registre de log's no està habilitat. Habilita'l per ser "
+"notificat dels logs."
+
+#: src/EBox/Events/Model/Watcher/Log.pm:263
+#: src/EBox/Logs/Model/SelectLog.pm:143
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:333
+msgid "Domain"
+msgstr "Domini"
+
+#: src/EBox/Events/Model/Watcher/Log.pm:268
+msgid "Filtering"
+msgstr "Filtrat de paquets"
+
+#: src/EBox/Events/Model/Watcher/Log.pm:276
+msgid "Configure log watchers"
+msgstr "Configura el registre de logs"
+
+#: src/EBox/Events/Model/Watcher/Log.pm:278
+msgid "Log watcher"
+msgstr "Registre de logs"
+
+#: src/EBox/Events/Model/Report/EventsGraph.pm:51
+#: src/EBox/Events/Model/Report/EventsDetails.pm:51
+#: src/EBox/Events/Model/Report/EventsDetails.pm:80 src/EBox/Events.pm:814
+msgid "Informative"
+msgstr "Informatiu"
+
+#: src/EBox/Events/Model/Report/EventsGraph.pm:52
+#: src/EBox/Events/Model/Report/EventsDetails.pm:52
+#: src/EBox/Events/Model/Report/EventsDetails.pm:84 src/EBox/Events.pm:815
+#: src/templates/finish.mas:83
+msgid "Warning"
+msgstr "Atenció"
+
+#: src/EBox/Events/Model/Report/EventsGraph.pm:53
+#: src/EBox/Events/Model/Report/EventsDetails.pm:53
+#: src/EBox/Events/Model/Report/EventsDetails.pm:88 src/EBox/Events.pm:816
+msgid "Error"
+msgstr "Error"
+
+#: src/EBox/Events/Model/Report/EventsGraph.pm:54
+#: src/EBox/Events/Model/Report/EventsDetails.pm:54
+#: src/EBox/Events/Model/Report/EventsDetails.pm:92 src/EBox/Events.pm:817
+msgid "Fatal error"
+msgstr "Error fatal"
+
+#: src/EBox/Events/Model/Report/EventsGraph.pm:60
+msgid "Events summarized chart"
+msgstr "Resum gràfic d'esdeveniments "
+
+#: src/EBox/Events/Model/Report/EventsGraph.pm:77
+msgid "Events summarized graph"
+msgstr "Resum diagrama d'esdeveniments"
+
+#: src/EBox/Events/Model/Report/EventsDetails.pm:50
+#: src/EBox/Events/Model/Report/EventsDetails.pm:74 src/EBox/Events.pm:807
+msgid "Source"
+msgstr "Font"
+
+#: src/EBox/Events/Model/Report/EventsDetails.pm:68 src/EBox/Logs.pm:719
+#: src/templates/backup.mas:126 src/templates/finish.mas:116
+#: src/templates/confirm-backup.mas:28
+msgid "Date"
+msgstr "Data"
+
+#: src/EBox/Events/Model/Report/EventsDetails.pm:101
+msgid "Events details"
+msgstr "Detall d'esdeveniments"
+
+#: src/EBox/Events/Composite/Report/EventsReport.pm:69
+msgid "Events reports"
+msgstr "Informes d'errors"
+
+#: src/EBox/Events/Composite/Report/EventsReport.pm:70
+msgid "Events report"
+msgstr "Informes d'error"
+
+#: src/EBox/ProgressIndicator.pm:42
+msgid "Total ticks"
+msgstr "Total d'avisos"
+
+#: src/EBox/ProgressIndicator.pm:44
+msgid "It must be a non-zero positive number"
+msgstr "Ha de ser un número positiu diferent de zero"
+
+#: src/EBox/ProgressIndicator.pm:49
+msgid "To solve it you can try to execute the following commands:"
+msgstr "Per solucionar-ho prova a executar les següents comandes:"
+
+#: src/EBox/ProgressIndicator.pm:56
+#, perl-brace-format
+msgid "Cannot execute {exe}"
+msgstr "No es pot executar {exe}"
+
+#: src/EBox/ProgressIndicator.pm:106
+#, perl-brace-format
+msgid "Progress indicator with id {id} not found"
+msgstr "L'indicador de progrés amb id {id} no es troba"
+
+#: src/EBox/ProgressIndicator.pm:144
+msgid "Number of ticks to notify"
+msgstr "Número de avisos per notificar"
+
+#: src/EBox/ProgressIndicator.pm:146
+msgid "must be greater than zero"
+msgstr "ha de ser més gran de zero"
+
+#: src/EBox/ProgressIndicator.pm:152
+msgid "Executable has not been run"
+msgstr "L'executable no ha estat llançat"
+
+#: src/EBox/ProgressIndicator.pm:275
+msgid "The executable has not run"
+msgstr "L'executable no es llença"
+
+#: src/EBox/ProgressIndicator.pm:408
+msgid "The executable has already been started"
+msgstr "L'executable ja s'ha començat"
+
+#: src/EBox/ProgressIndicator.pm:412
+msgid "The executable has already finished"
+msgstr "L'executable ja s'ha acabat"
+
+#: src/EBox/Auth.pm:135
+msgid "Password changed"
+msgstr "Contrassenya actualitzada"
+
+#: src/EBox/Global.pm:484
+#, perl-brace-format
+msgid "Enabling {modName} module"
+msgstr "Activant el módul {modName}"
+
+#: src/EBox/Global.pm:514 src/EBox/Global.pm:545
+#, perl-brace-format
+msgid "Saving {modName} module"
+msgstr "Guardant el módul {modName}"
+
+#: src/EBox/Global.pm:1062
+#, perl-brace-format
+msgid "running {scriptName} script"
+msgstr "arrencant l'escript {scriptName}"
 
 #: src/EBox/Logs/Model/SelectLog.pm:151
 msgid "Full report"
@@ -1161,54 +1072,62 @@ msgstr "Escull l'informe"
 msgid "logs"
 msgstr "logs"
 
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:229
-msgid "never purge"
-msgstr "mai netegis"
+#: src/EBox/Logs/Model/ForcePurge.pm:100
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:348
+msgid "Purge logs older than"
+msgstr "Neteja els logs mes antics que"
 
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:233
+#: src/EBox/Logs/Model/ForcePurge.pm:109
+msgid "Force log purge"
+msgstr "Força la neteja de logs"
+
+#: src/EBox/Logs/Model/ForcePurge.pm:112
+msgid "Purge"
+msgstr "Neteja"
+
 #: src/EBox/Logs/Model/ForcePurge.pm:126
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:233
 msgid "one hour"
 msgstr "una hora"
 
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:237
 #: src/EBox/Logs/Model/ForcePurge.pm:130
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:237
 msgid "twelve hours"
 msgstr "dotze hores"
 
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:241
 #: src/EBox/Logs/Model/ForcePurge.pm:134
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:241
 msgid "one day"
 msgstr "un dia"
 
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:245
 #: src/EBox/Logs/Model/ForcePurge.pm:138
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:245
 msgid "three days"
 msgstr "tres dies"
 
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:249
 #: src/EBox/Logs/Model/ForcePurge.pm:142
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:249
 msgid "one week"
 msgstr "una setmana"
 
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:253
 #: src/EBox/Logs/Model/ForcePurge.pm:146
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:253
 msgid "fifteeen days"
 msgstr "quinze dies"
 
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:257
 #: src/EBox/Logs/Model/ForcePurge.pm:150
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:257
 msgid "thirty days"
 msgstr "trenta dies"
 
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:261
 #: src/EBox/Logs/Model/ForcePurge.pm:154
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:261
 msgid "ninety days"
 msgstr "noranta dies"
 
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:348
-#: src/EBox/Logs/Model/ForcePurge.pm:100
-msgid "Purge logs older than"
-msgstr "Neteja els logs mes antics que"
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:229
+msgid "never purge"
+msgstr "mai netegis"
 
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:365
 msgid "Current configuration"
@@ -1221,20 +1140,6 @@ msgstr "Configuració de logs"
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:372
 msgid "Enable/disable logging per-module basis"
 msgstr "Habilita / deshabilita el log per moduls bàsics"
-
-#: src/EBox/Logs/Model/ForcePurge.pm:109
-msgid "Force log purge"
-msgstr "Força la neteja de logs"
-
-#: src/EBox/Logs/Model/ForcePurge.pm:112
-msgid "Purge"
-msgstr "Neteja"
-
-#: src/EBox/Logs/Model/Report/Details.pm:226
-#: src/EBox/Logs/Model/Report/Details.pm:234
-#: src/EBox/Logs/Model/Report/Details.pm:269
-msgid "All"
-msgstr "tots"
 
 #: src/EBox/Logs/Model/Report/OptionsBase.pm:40
 msgid "hour"
@@ -1259,6 +1164,92 @@ msgstr "Temps entre informes"
 #: src/EBox/Logs/Model/Report/OptionsBase.pm:101
 msgid "Report options"
 msgstr "Opcions d'informes"
+
+#: src/EBox/Logs/Model/Report/Details.pm:226
+#: src/EBox/Logs/Model/Report/Details.pm:234
+#: src/EBox/Logs/Model/Report/Details.pm:269
+msgid "All"
+msgstr "tots"
+
+#: src/EBox/Report/DiskUsage.pm:77
+#, perl-brace-format
+msgid "No usage data for {d}. Are you sure is a valid disk?"
+msgstr "No hi ha dades útil per {d}. Esta segur si un disc vàlid?"
+
+#: src/EBox/Report/DiskUsage.pm:226
+#, perl-brace-format
+msgid ""
+"Invalid file system: {f}. Only regular and no removable media file systems "
+"are accepted"
+msgstr ""
+"Sistema d'arxius invalid: {f}. Només s'accepten sistemes d'arxius de mitjans "
+"regulars i no removibles."
+
+#: src/EBox/Report/DiskUsage.pm:349
+msgid "Free space"
+msgstr "Espai lliure"
+
+#: src/EBox/PgDBEngine.pm:53 src/EBox/PgDBEngine.pm:67
+#: src/EBox/PgDBEngine.pm:81
+#, perl-brace-format
+msgid "You must set the {variable} variable in the ebox configuration file"
+msgstr "Heu d'establir la variable {variable} al fitxer de configuració d'ebox"
+
+#: src/EBox/PgDBEngine.pm:435
+#, perl-brace-format
+msgid "Error dumping the postgresql database {name}"
+msgstr "Error volcant la BBDD de postgresql {name}"
+
+#: src/EBox/PgDBEngine.pm:453
+#, perl-brace-format
+msgid "DB dump file {file} is not readable"
+msgstr "El volcat de BBDD {file} no es llegible"
+
+#: src/EBox/Logs.pm:59 src/EBox/CGI/Logs/Index.pm:37
+msgid "Logs"
+msgstr "Registres"
+
+#: src/EBox/Logs.pm:452
+#, perl-brace-format
+msgid "Table {table} does not exist"
+msgstr "La taula {table} no existeix."
+
+#: src/EBox/Logs.pm:703 src/EBox/CGI/Logs/Index.pm:328
+msgid "Query Logs"
+msgstr "Consultes de registres"
+
+#: src/EBox/Logs.pm:706
+msgid "Configure Logs"
+msgstr "Configura els Logs"
+
+#: src/EBox/Logs.pm:720
+msgid "Client Address"
+msgstr "Adreça del client"
+
+#: src/EBox/Logs.pm:721 src/EBox/CGI/EBox/Backup.pm:258
+#: src/templates/moduleStatusTable.mas:58 src/templates/finish.mas:117
+msgid "Module"
+msgstr "Módul"
+
+#: src/EBox/Logs.pm:723
+msgid "Params"
+msgstr "Parametres"
+
+#: src/EBox/Logs.pm:724
+msgid "Committed"
+msgstr "Fet"
+
+#: src/EBox/Logs.pm:729
+msgid "Admin"
+msgstr "Admin"
+
+#: src/EBox/Logs.pm:823
+msgid "Log messages"
+msgstr "missatges de log"
+
+#: src/EBox/Logs.pm:850
+msgid "Lifetime parameter must be a positive number of hours"
+msgstr "El paràmetre de temps ha de ser un nombre positiu d'hores"
 
 #: src/EBox/Common/Model/EnableForm.pm:100
 msgid "Service enabled"
@@ -1308,158 +1299,273 @@ msgstr "Nivell"
 msgid "Message"
 msgstr "Missatge"
 
-#: src/EBox/Logs.pm:452
+#: src/EBox/EventDaemon.pm:450
 #, perl-brace-format
-msgid "Table {table} does not exist"
-msgstr "La taula {table} no existeix."
+msgid "Dispatcher {name} disabled since it is not able to send events"
+msgstr "Missatger {name} deshabilitat perque no pot enviar esdeveniments"
 
-#: src/EBox/Logs.pm:706
-msgid "Configure Logs"
-msgstr "Configura els Logs"
+#: src/EBox/CGI/ClientRawBase.pm:213 src/EBox/CGI/WizardPage.pm:155
+msgid ""
+"An internal error related to a template has occurred. This is a bug, "
+"relevant information can be found in the logs."
+msgstr ""
+"S'ha produït un error relacionat amb una plantilla. Això és una errada, "
+"informació relevant pot ser trobada als logs."
 
-#: src/EBox/Logs.pm:720
-msgid "Client Address"
-msgstr "Adreça del client"
+#: src/EBox/CGI/Wizard.pm:29
+msgid "Initial configuration wizard"
+msgstr "Assistent per a la configuració inicial"
 
-#: src/EBox/Logs.pm:722 src/EBox/Model/Composite.pm:654
-#: src/EBox/Model/Composite.pm:669 src/EBox/Model/DataMultiTable.pm:169
-#: src/EBox/Model/DataTable.pm:2132
-msgid "Action"
-msgstr "Acció"
+#: src/EBox/CGI/ServiceModule/StatusView.pm:39
+msgid "Module Status Configuration"
+msgstr "Configuració de l'estat dels móduls"
 
-#: src/EBox/Logs.pm:723
-msgid "Params"
-msgstr "Parametres"
+#: src/EBox/CGI/Dashboard/ConfigureWidgets.pm:30
+#: src/templates/dashboard/index.mas:79
+msgid "Configure Widgets"
+msgstr "Configura els Widgets"
 
-#: src/EBox/Logs.pm:724
-msgid "Committed"
-msgstr "Fet"
+#: src/EBox/CGI/Finish.pm:34
+msgid "Save configuration"
+msgstr "Desa la configuració"
 
-#: src/EBox/Logs.pm:729
-msgid "Admin"
-msgstr "Admin"
+#: src/EBox/CGI/Finish.pm:79 src/EBox/CGI/Progress.pm:82
+#: src/EBox/CGI/Progress.pm:108
+msgid "Saving changes"
+msgstr "Guradant els canvis"
 
-#: src/EBox/Logs.pm:823
-msgid "Log messages"
-msgstr "missatges de log"
+#: src/EBox/CGI/Finish.pm:80
+msgid "Saving changes in modules"
+msgstr "Guardant canvis en mòduls"
 
-#: src/EBox/Logs.pm:850
-msgid "Lifetime parameter must be a positive number of hours"
-msgstr "El paràmetre de temps ha de ser un nombre positiu d'hores"
+#: src/EBox/CGI/Finish.pm:81 src/templates/report/raid.mas:213
+msgid "Current operation"
+msgstr "Operació actual"
 
-#: src/EBox/Model/ProviderBase.pm:247
+#: src/EBox/CGI/Finish.pm:82
+msgid "operations performed"
+msgstr "Operacions realitzades"
+
+#: src/EBox/CGI/Finish.pm:83
+msgid "Changes saved"
+msgstr "Cambis guardats"
+
+#: src/EBox/CGI/Finish.pm:84
 #, perl-brace-format
-msgid "Provided object with index {i} does not exist"
-msgstr "L'objecte oferit amb l'index {i} no existeix."
+msgid ""
+"Some modules reported error when saving changes . More information on the "
+"logs in {dir}"
+msgstr ""
+"Alguns móduls han informat d'un errror quan es guardaven els canvis. Mes "
+"informació al log a {dir}"
 
-#: src/EBox/Model/DataForm.pm:555
+#: src/EBox/CGI/Finish.pm:103
+msgid "Revoking changes"
+msgstr "Descartant els canvis"
+
+#: src/EBox/CGI/Finish.pm:104
+msgid "Revoking changes in modules"
+msgstr "Descartant els canvis en els mòduls"
+
+#: src/EBox/CGI/Finish.pm:105
+msgid "Current module"
+msgstr "Mòdul actual"
+
+#: src/EBox/CGI/Finish.pm:106
+msgid "modules revoked"
+msgstr "Mòduls revocats"
+
+#: src/EBox/CGI/Finish.pm:107
+msgid "Changes revoked"
+msgstr "Canvis revocats"
+
+#: src/EBox/CGI/Finish.pm:108
 #, perl-brace-format
-msgid "Remove data from {model}{br}"
-msgstr "Elimina les dades del {model} {br}"
+msgid ""
+"Some modules reported error when discarding changes . More information on "
+"the logs in {dir}"
+msgstr ""
+"Alguns mòduls han informat un error quan es descartaven els canvis. Més "
+"informació al directori de logs {dir}"
 
-#: src/EBox/Model/DataForm.pm:604 src/templates/password.mas:67
-#: src/templates/dataInUse.mas:25 src/templates/dataInUse.mas:34
-#: src/templates/port.mas:14 src/templates/hostname.mas:15
-msgid "Change"
-msgstr "Canvia"
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:35 src/templates/backup.mas:18
+msgid "Configuration Backup"
+msgstr "Còpies de seguretat de la configuració"
 
-#: src/EBox/Model/DataForm.pm:709 src/templates/progress.mas:26
-msgid "Done"
-msgstr "Fet"
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:107
+msgid "Please confirm that you want to delete the following backup file:"
+msgstr "Confirmeu que voleu eliminar el següent fitxer de còpia de seguretat:"
 
-#: src/EBox/Model/Composite.pm:372
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:109 src/templates/backup.mas:170
+#: src/templates/backup.mas:171
+msgid "Delete"
+msgstr "Elimina"
+
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:116
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:132
+msgid "Please confirm that you want to restore using this backup file:"
+msgstr ""
+"Confirmeu que voleu restaurar la configuració des d'aquest fitxer de còpia "
+"de seguretat:"
+
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:118
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:134 src/templates/backup.mas:93
+msgid "Restore"
+msgstr "Restaura"
+
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:149 src/EBox/CGI/EBox/Backup.pm:194
+#: src/EBox/CGI/EBox/Backup.pm:275 src/EBox/CGI/EBox/Backup.pm:288
+#: src/EBox/Backup.pm:1334
+msgid "The input contains invalid characters"
+msgstr "L'entrada conté caràcters invàlids"
+
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:178
+msgid "Configuration backup"
+msgstr "Còpies de seguretat de la configuració"
+
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:181
+msgid "Full data and configuration backup"
+msgstr "Llista de còpies de seguretat de la configuració"
+
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:184
+msgid "Bug-report configuration dump"
+msgstr "Restaura la configuració"
+
+#: src/EBox/CGI/EBox/Hostname.pm:44
+#, fuzzy
+msgid "hostname"
+msgstr "Nom del host"
+
+#: src/EBox/CGI/EBox/CurrentProgress.pm:37
+msgid "Upgrading"
+msgstr "Actualitzant"
+
+#: src/EBox/CGI/EBox/General.pm:34
+msgid "General Configuration"
+msgstr "Configuració general"
+
+#: src/EBox/CGI/EBox/Halt.pm:32
+msgid "Halt or Reboot"
+msgstr "Apaga o reinicia"
+
+#: src/EBox/CGI/EBox/Halt.pm:45
+#, fuzzy
+msgid "Zentyal is going down for halt"
+msgstr "l'eBox s'està aturant"
+
+#: src/EBox/CGI/EBox/Halt.pm:48
+#, fuzzy
+msgid "Zentyal is going down for reboot"
+msgstr "l'eBox s'està reiniciant"
+
+#: src/EBox/CGI/EBox/RestartService.pm:50
+msgid "module name"
+msgstr "Nom del servidor"
+
+#: src/EBox/CGI/EBox/RestartService.pm:54
+msgid "The module was restarted correctly."
+msgstr "El mòdul s'ha reiniciat correctament"
+
+#: src/EBox/CGI/EBox/Password.pm:45 src/templates/password.mas:11
+#: src/templates/login/index.mas:49
+#, fuzzy
+msgid "Username"
+msgstr "Nom del servidor"
+
+#: src/EBox/CGI/EBox/Password.pm:50 src/templates/login/index.mas:54
+msgid "Password"
+msgstr "Contrasenya"
+
+#: src/EBox/CGI/EBox/Password.pm:59
+msgid "Incorrect password."
+msgstr "Contrasenya incorrecta."
+
+#: src/EBox/CGI/EBox/Password.pm:64
+msgid "New passwords do not match."
+msgstr "Les contrasenyes noves no coincideixen."
+
+#: src/EBox/CGI/EBox/Password.pm:69
+msgid "The password must be at least 6 characters long"
+msgstr "La contrasenya ha de tenir almenys 6 caràcters"
+
+#: src/EBox/CGI/EBox/Password.pm:73
+msgid "The password was changed successfully."
+msgstr "S'ha canviat la contrasenya amb èxit."
+
+#: src/EBox/CGI/EBox/ConfigurationReport.pm:31
+msgid "Configuration report"
+msgstr "Informe de configuració"
+
+#: src/EBox/CGI/EBox/Backup.pm:162
 #, perl-brace-format
-msgid "It should be one of following values: {values}"
-msgstr "Hauria de ser un dels següents valors: {values}"
+msgid "Unknown backup mode: {mode}"
+msgstr "Mode de backup desconegut: {mode}"
 
-#: src/EBox/Model/Composite.pm:656
+#: src/EBox/CGI/EBox/Backup.pm:228
 #, perl-brace-format
-msgid "Actions to be taken allowed are: {view} and {cView}"
-msgstr "Les accions permeses son: {view} i {cView}"
+msgid "Unknown restore mode: {mode}"
+msgstr "Mode de recuperació desconegut: {mode}"
 
-#: src/EBox/Model/Composite.pm:779
-msgid "Choose one of the following:"
-msgstr "Escull una de les següents:"
+#: src/EBox/CGI/EBox/Backup.pm:241
+msgid "Backing up"
+msgstr "Fent la còpia de seguretat"
 
-#: src/EBox/Model/ModelManager.pm:469
+#: src/EBox/CGI/EBox/Backup.pm:242
+msgid "Backing up modules"
+msgstr "Fent la còpia de seguretat dels mòduls"
+
+#: src/EBox/CGI/EBox/Backup.pm:243
+msgid "Operation"
+msgstr "Operació"
+
+#: src/EBox/CGI/EBox/Backup.pm:244
+msgid "operations left to finish backup"
+msgstr "Operacions que resten per acabar la còpia"
+
+#: src/EBox/CGI/EBox/Backup.pm:245
+msgid "Backup successful"
+msgstr "Còpia de seguretat"
+
+#: src/EBox/CGI/EBox/Backup.pm:256
+msgid "Restoring backup"
+msgstr "Restaurant la còpia de seguretat"
+
+#: src/EBox/CGI/EBox/Backup.pm:257
+msgid "Restoring modules"
+msgstr "Restaurant els moduls"
+
+#: src/EBox/CGI/EBox/Backup.pm:259
+msgid "modules restored"
+msgstr "Móduls restaurats"
+
+#: src/EBox/CGI/EBox/Backup.pm:260
+msgid "Restore successful"
+msgstr "Restauració satisfactòria"
+
+#: src/EBox/CGI/Login/Index.pm:65
 #, fuzzy
 msgid ""
-"The data you are removing is being used by\n"
-"                    the following sections:"
+"There is a script which has asked to run in Zentyal exclusively. Please, "
+"wait patiently until it is done"
 msgstr ""
-"Les dades que vols esborrar estan siguent utilitzades per\n"
-"\\n\n"
+"Hi ha un script que ha demanat corre a l'eBox sol. Siusplau, espera fins que "
+"s'acabi."
 
-#: src/EBox/Model/ModelManager.pm:516
-msgid ""
-"The data you are modifying is being used by\n"
-"\t\t\tthe following sections:"
-msgstr ""
-"Les dades que estas modificant estan siguen utilitzades per\n"
-" \t\t\t les següents seccions:"
+#: src/EBox/CGI/Login/Index.pm:69
+msgid "Incorrect password"
+msgstr "Contrasenya incorrecta."
 
-#: src/EBox/Model/DataTable.pm:328
-#, perl-brace-format
-msgid "{model} in {module} module"
-msgstr "{model} al {module} módul"
+#: src/EBox/CGI/Login/Index.pm:72
+msgid "For security reasons your session has expired due to inactivity"
+msgstr "Per raons de seguretat, la vostra sessió ha caducat per inactivitat"
 
-#: src/EBox/Model/DataTable.pm:332
-msgid "at"
-msgstr "a"
+#: src/EBox/CGI/Login/Index.pm:75
+msgid "You have been logged out because a new session has been opened"
+msgstr "Heu sortit perque s'ha iniciat una nova sessió"
 
-#: src/EBox/Model/DataTable.pm:543
-msgid "field"
-msgstr "camp"
-
-#: src/EBox/Model/DataTable.pm:1469
-msgid "page"
-msgstr "pàgina"
-
-#: src/EBox/Model/DataTable.pm:1472
-msgid "Page must be a number equal or greater than zero"
-msgstr "La pàgina ha de ser un nombre igual o més gran que zero"
-
-#: src/EBox/Model/DataTable.pm:2834
-#, perl-brace-format
-msgid "Remove {num} rows of {rowName} from {model}{br}"
-msgstr "Elimina {num} de linies de {rowName} del {model}{br}"
-
-#: src/EBox/Model/DataTable.pm:2905
-msgid "Page size"
-msgstr "Tamany de la pàgina"
-
-#: src/EBox/Model/DataTable.pm:2908
-msgid "Must be either a positive number or zero"
-msgstr "Ha de ser o un nombre positiu o zero"
-
-#: src/EBox/Model/DataTable.pm:3215
-#, perl-brace-format
-msgid "{row} added"
-msgstr "{row} afegida"
-
-#: src/EBox/Model/DataTable.pm:3216
-#, perl-brace-format
-msgid "{row} deleted"
-msgstr "{row} Eliminada"
-
-#: src/EBox/Model/DataTable.pm:3217
-#, perl-brace-format
-msgid "{row} updated"
-msgstr "{row} Actualitzada"
-
-#: src/EBox/Model/DataTable.pm:3218
-#, perl-brace-format
-msgid "{row} moved up"
-msgstr "{row} moguda amunt"
-
-#: src/EBox/Model/DataTable.pm:3219
-#, perl-brace-format
-msgid "{row} moved down"
-msgstr "{row} moguda avall"
-
-#: src/EBox/Html.pm:41 src/templates/wizard.mas:124
-msgid "Save changes"
-msgstr "Desa els canvis"
+#: src/EBox/CGI/Logs/Index.pm:331
+msgid "Full Reports"
+msgstr "Informes complets"
 
 #: src/EBox/Backup.pm:98
 msgid "Creating backup archive"
@@ -1571,123 +1677,44 @@ msgstr ""
 msgid "Backup's archives"
 msgstr "Còpia de seguretat dels Arxius"
 
-#: src/EBox/SysInfo.pm.in:52
-msgid "System Information"
-msgstr "Informació del sistema"
+#: src/templates/dataInUse.mas:41 src/templates/confirm-backup.mas:74
+msgid "Cancel"
+msgstr "Cancel·la"
 
-#: src/EBox/SysInfo.pm.in:97
-msgid "available"
-msgstr "Disponible"
-
-#: src/EBox/SysInfo.pm.in:105
-msgid "Time"
-msgstr "Temps"
-
-#: src/EBox/SysInfo.pm.in:106
-msgid "Hostname"
-msgstr "Nom del host"
-
-#: src/EBox/SysInfo.pm.in:107
-msgid "Core version"
-msgstr "Versió d'Ebox"
-
-#: src/EBox/SysInfo.pm.in:109
-msgid "System load"
-msgstr "Càrrega del sistema"
-
-#: src/EBox/SysInfo.pm.in:110
-msgid "Uptime"
-msgstr "Temps engegat"
-
-#: src/EBox/SysInfo.pm.in:111
-msgid "Users"
-msgstr "Usuaris"
-
-#: src/EBox/SysInfo.pm.in:165 src/EBox/SysInfo.pm.in:258
-msgid "Module Status"
-msgstr "Estat del módul"
-
-#: src/EBox/SysInfo.pm.in:170
-msgid "General Information"
-msgstr "Informació general"
-
-#: src/EBox/SysInfo.pm.in:175
-msgid "Process List"
-msgstr "Llist de processos"
-
-#: src/EBox/SysInfo.pm.in:182
-msgid "Resources & Services"
-msgstr "Recursos i Serveis"
-
-#: src/EBox/SysInfo.pm.in:264 src/EBox/Report/DiskUsage.pm:352
-msgid "System"
-msgstr "Sistema"
-
-#: src/EBox/SysInfo.pm.in:268
-msgid "General"
-msgstr "General"
-
-#: src/EBox/SysInfo.pm.in:283
-msgid "Configuration Report"
-msgstr "Informe de configuració"
-
-#: src/EBox/SysInfo.pm.in:286
-msgid "Halt/Reboot"
-msgstr "Atura / Reinicia"
-
-#: src/EBox/Apache.pm:277 src/EBox/Apache.pm:286
-msgid "port"
-msgstr "port"
-
-#: src/EBox/Apache.pm:600
+#: src/templates/links-widget.mas:5
 #, fuzzy
-msgid "Zentyal web server"
-msgstr "servidor web de l'eBox"
+msgid "Community Resources"
+msgstr "Configuració de la restauració"
 
-#: src/EBox/Global.pm:484
-#, perl-brace-format
-msgid "Enabling {modName} module"
-msgstr "Activant el módul {modName}"
+#: src/templates/links-widget.mas:10
+#, fuzzy
+msgid "Documentation"
+msgstr "Domini"
 
-#: src/EBox/Global.pm:514 src/EBox/Global.pm:545
-#, perl-brace-format
-msgid "Saving {modName} module"
-msgstr "Guardant el módul {modName}"
-
-#: src/EBox/Global.pm:1062
-#, perl-brace-format
-msgid "running {scriptName} script"
-msgstr "arrencant l'escript {scriptName}"
-
-#: src/EBox/Report/DiskUsage.pm:77
-#, perl-brace-format
-msgid "No usage data for {d}. Are you sure is a valid disk?"
-msgstr "No hi ha dades útil per {d}. Esta segur si un disc vàlid?"
-
-#: src/EBox/Report/DiskUsage.pm:226
-#, perl-brace-format
-msgid ""
-"Invalid file system: {f}. Only regular and no removable media file systems "
-"are accepted"
+#: src/templates/links-widget.mas:12
+msgid "Forum"
 msgstr ""
-"Sistema d'arxius invalid: {f}. Només s'accepten sistemes d'arxius de mitjans "
-"regulars i no removibles."
 
-#: src/EBox/Report/DiskUsage.pm:349
-msgid "Free space"
-msgstr "Espai lliure"
+#: src/templates/links-widget.mas:14
+msgid "Report a bug"
+msgstr ""
 
-#: src/templates/configurationFiles.mas:12
-msgid "Do you wish to overwrite these files?"
-msgstr "Vols sobreescriure aquests arxius?"
+#: src/templates/links-widget.mas:16
+msgid "How to Contribute"
+msgstr ""
 
-#: src/templates/configurationFiles.mas:19
-msgid "Keep current file"
-msgstr "Mantenir l'arxiu actual"
+#: src/templates/moduleStatusTable.mas:59
+msgid "Depends"
+msgstr "Depen"
 
-#: src/templates/configurationFiles.mas:23
-msgid "Modify"
-msgstr "Modificar"
+#: src/templates/moduleStatusTable.mas:60 src/templates/report/raid.mas:104
+msgid "Status"
+msgstr "Estat"
+
+#: src/templates/moduleStatusTable.mas:85
+#, perl-brace-format
+msgid "Configure module: {module}"
+msgstr "Configura el módul: {module}"
 
 #: src/templates/wizard.mas:68 src/templates/wizard.mas:69
 msgid "Finish"
@@ -1711,121 +1738,160 @@ msgstr "Salta"
 msgid "Next"
 msgstr "Següent"
 
-#: src/templates/headTitle.mas:20
-msgid "Remote services control panel"
-msgstr "Panell de control de serveis remots"
+#: src/templates/logs/dbtable.mas:87 src/templates/logs/dbtable.mas:88
+msgid "first"
+msgstr "primer"
 
-#: src/templates/backupTabs.mas:13
-msgid "Local Backup"
-msgstr "Còpia de seguretat local"
+#: src/templates/logs/dbtable.mas:91 src/templates/logs/dbtable.mas:92
+msgid "prev"
+msgstr "anterior"
 
-#: src/templates/backupTabs.mas:18
-msgid "Remote Backup"
-msgstr "Còpia de seguretat remota"
+#: src/templates/logs/dbtable.mas:111 src/templates/logs/dbtable.mas:112
+msgid "next"
+msgstr "següent"
 
-#: src/templates/backupTabs.mas:23
-msgid "Remote Backup from Other Subscribed Hosts"
-msgstr "Còpies de seguretat remotes d'altres hosts subscrits."
+#: src/templates/logs/dbtable.mas:115 src/templates/logs/dbtable.mas:116
+msgid "last"
+msgstr "últim"
 
-#: src/templates/configureView.mas:12
+#: src/templates/logs/index.mas:20
 #, fuzzy
-msgid ""
-"Enabling this module will cause Zentyal to perform the actions and file "
-"modifications listed below. You must explicitly accept these changes to "
-"enable the module."
+msgid "Log Domain"
+msgstr "Domini de logs"
+
+#: src/templates/logs/index.mas:22
+msgid "Last hour logs will be showed when selecting a component"
 msgstr ""
-"Habilitant aquest módul farà que l'eBox realitzi les accions i modificacions "
-"llistades més avall. Hauria de acceptar explicitament auqests canvis per "
-"habilitar el módul"
+"Els logs de la última hora seràn mostrats quan es seleccioni un component"
 
-#: src/templates/configureView.mas:16
+#: src/templates/logs/index.mas:23
+msgid "Select available full reports"
+msgstr "Seleccioni informes disponibles"
+
+#: src/templates/logs/index.mas:35 src/templates/logs/index.mas:36
+#: src/templates/logs/index.mas:37
+msgid "View"
+msgstr "Vista"
+
+#: src/templates/logs/index.mas:44
+msgid "Custom query"
+msgstr "Consulta personalitzada"
+
+#: src/templates/logs/index.mas:50
+msgid "From date:"
+msgstr "Data desde:"
+
+#: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
+msgid "January"
+msgstr "Gener"
+
+#: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
 #, fuzzy
-msgid "Actions to perform by Zentyal"
-msgstr "Accions a realitzar per l'eBox"
+msgid "February"
+msgstr "Febrer"
 
-#: src/templates/configureView.mas:31
+#: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
+msgid "March"
+msgstr "Març"
+
+#: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
+msgid "April"
+msgstr "Abril"
+
+#: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
+msgid "May"
+msgstr "Maig"
+
+#: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
+msgid "June"
+msgstr "Juny"
+
+#: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
+msgid "July"
+msgstr "Juliol"
+
+#: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
+msgid "August"
+msgstr "Agost"
+
+#: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
+msgid "September"
+msgstr "Setembre"
+
+#: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
+msgid "October"
+msgstr "Octubre"
+
+#: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
+msgid "November"
+msgstr "Novembre"
+
+#: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
+msgid "December"
+msgstr "Desembre"
+
+#: src/templates/logs/index.mas:108
+msgid "Refresh logs"
+msgstr "Actualitza logs"
+
+#: src/templates/logs/index.mas:116
+msgid "To date:"
+msgstr "a la Data:"
+
+#: src/templates/logs/index.mas:203 src/templates/logs/index.mas:204
 #, fuzzy
-msgid "Files to modify by Zentyal"
-msgstr "Arxius a modificar per l'eBox"
+msgid "Search"
+msgstr "Cerca"
 
-#: src/templates/configureView.mas:50
-msgid "Accept"
-msgstr "Acceptar"
+#: src/templates/logs/index.mas:208 src/templates/logs/index.mas:209
+msgid "Save as event"
+msgstr "Guarda com esdeveniment"
 
-#: src/templates/dashboard/index.mas:21 src/templates/dashboard/status.mas:18
-msgid "Running"
-msgstr "Corrent"
+#: src/templates/logs/index.mas:235
+msgid "No logs matching current criterion"
+msgstr "No hi ha logs que coincideixin amb el criteri actual"
 
-#: src/templates/dashboard/index.mas:22 src/templates/dashboard/status.mas:19
-msgid "The service is enabled and running"
-msgstr "El servei està habilitat i corrent"
+#: src/templates/logs/index.mas:239
+msgid "There are no logs for this domain"
+msgstr "No hi ha canvis sense desar."
 
-#: src/templates/dashboard/index.mas:26 src/templates/dashboard/status.mas:22
-msgid "Stopped"
-msgstr "Parat"
+#: src/templates/password.mas:4
+msgid "Change Password"
+msgstr "Canvia la contrasenya"
 
-#: src/templates/dashboard/index.mas:27 src/templates/dashboard/status.mas:23
-msgid "The service is enabled, but not running"
-msgstr "El servei està habilitat, pero no corrent."
+#: src/templates/password.mas:5
+msgid "Your password must be at least 6 characters long."
+msgstr "La contrasenya ha de tenir almenys 6 caràcters"
 
-#: src/templates/dashboard/index.mas:31 src/templates/dashboard/status.mas:27
-msgid "Running unmanaged"
-msgstr "Corrent sense supervisió"
+#: src/templates/password.mas:25
+msgid "Current password"
+msgstr "Contrasenya actual"
 
-#: src/templates/dashboard/index.mas:32 src/templates/dashboard/status.mas:28
+#: src/templates/password.mas:39
+msgid "New password"
+msgstr "Nova contrasenya"
+
+#: src/templates/password.mas:53
+msgid "Confirm password"
+msgstr "Confirma la contrasenya"
+
+#: src/templates/progress.mas:24
+msgid "Item"
+msgstr "Unitat"
+
+#: src/templates/progress.mas:25
+msgid "items left"
+msgstr "Unitats que queden"
+
+#: src/templates/progress.mas:27
 #, fuzzy
-msgid "The service is running, but not enabled in Zentyal"
-msgstr "El servei està corren tperò no habilitat al eBox"
+msgid "Some error has happened in Zentyal: "
+msgstr "Hi ha hagut alguns errors a l'eBox"
 
-#: src/templates/dashboard/index.mas:36 src/templates/dashboard/status.mas:31
-msgid "Disabled"
-msgstr "Deshabilitat"
-
-#: src/templates/dashboard/index.mas:37 src/templates/dashboard/status.mas:32
+#: src/templates/progress.mas:152
 #, fuzzy
-msgid "The service is not enabled in Zentyal"
-msgstr "El servei no està habilitat a l'eBox"
-
-#: src/templates/dashboard/index.mas:42 src/templates/dashboard/status.mas:25
-msgid "Start"
-msgstr "Inicia"
-
-#: src/templates/dashboard/index.mas:43 src/templates/dashboard/status.mas:12
-msgid "Restart"
-msgstr "Reinicia"
-
-#: src/templates/dashboard/index.mas:115
-msgid "Configure widgets"
-msgstr "Configura els Widgets"
-
-#: src/templates/dashboard/list.mas:43
-msgid "No entries in this list"
-msgstr "Sense entrades en aquesta llista"
-
-#: src/templates/halt.mas:10
-msgid "You might lose your Internet connection if this machine is halted."
-msgstr "Perderàs la teva conexió a internet si atures aquesta conexió"
-
-#: src/templates/halt.mas:14
-msgid "Halt"
-msgstr "Atura"
-
-#: src/templates/halt.mas:16
-msgid "Reboot"
-msgstr "Reinicia"
-
-#: src/templates/moduleStatusTable.mas:59
-msgid "Depends"
-msgstr "Depen"
-
-#: src/templates/moduleStatusTable.mas:60 src/templates/report/raid.mas:104
-msgid "Status"
-msgstr "Estat"
-
-#: src/templates/moduleStatusTable.mas:85
-#, perl-brace-format
-msgid "Configure module: {module}"
-msgstr "Configura el módul: {module}"
+msgid "Starting..."
+msgstr "Iniciant.."
 
 #: src/templates/report/raid.mas:20
 #, perl-brace-format
@@ -1948,181 +2014,6 @@ msgstr "Opcions"
 msgid "Partition Properties"
 msgstr "Propietats de la partició"
 
-#: src/templates/progress.mas:24
-msgid "Item"
-msgstr "Unitat"
-
-#: src/templates/progress.mas:25
-msgid "items left"
-msgstr "Unitats que queden"
-
-#: src/templates/progress.mas:27
-#, fuzzy
-msgid "Some error has happened in Zentyal: "
-msgstr "Hi ha hagut alguns errors a l'eBox"
-
-#: src/templates/progress.mas:152
-#, fuzzy
-msgid "Starting..."
-msgstr "Iniciant.."
-
-#: src/templates/logs/index.mas:20
-#, fuzzy
-msgid "Log Domain"
-msgstr "Domini de logs"
-
-#: src/templates/logs/index.mas:22
-msgid "Last hour logs will be showed when selecting a component"
-msgstr ""
-"Els logs de la última hora seràn mostrats quan es seleccioni un component"
-
-#: src/templates/logs/index.mas:23
-msgid "Select available full reports"
-msgstr "Seleccioni informes disponibles"
-
-#: src/templates/logs/index.mas:35 src/templates/logs/index.mas:36
-#: src/templates/logs/index.mas:37
-msgid "View"
-msgstr "Vista"
-
-#: src/templates/logs/index.mas:44
-msgid "Custom query"
-msgstr "Consulta personalitzada"
-
-#: src/templates/logs/index.mas:50
-msgid "From date:"
-msgstr "Data desde:"
-
-#: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
-msgid "January"
-msgstr "Gener"
-
-#: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
-#, fuzzy
-msgid "February"
-msgstr "Febrer"
-
-#: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
-msgid "March"
-msgstr "Març"
-
-#: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
-msgid "April"
-msgstr "Abril"
-
-#: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
-msgid "May"
-msgstr "Maig"
-
-#: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
-msgid "June"
-msgstr "Juny"
-
-#: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
-msgid "July"
-msgstr "Juliol"
-
-#: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
-msgid "August"
-msgstr "Agost"
-
-#: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
-msgid "September"
-msgstr "Setembre"
-
-#: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
-msgid "October"
-msgstr "Octubre"
-
-#: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
-msgid "November"
-msgstr "Novembre"
-
-#: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
-msgid "December"
-msgstr "Desembre"
-
-#: src/templates/logs/index.mas:108
-msgid "Refresh logs"
-msgstr "Actualitza logs"
-
-#: src/templates/logs/index.mas:116
-msgid "To date:"
-msgstr "a la Data:"
-
-#: src/templates/logs/index.mas:203 src/templates/logs/index.mas:204
-#, fuzzy
-msgid "Search"
-msgstr "Cerca"
-
-#: src/templates/logs/index.mas:208 src/templates/logs/index.mas:209
-msgid "Save as event"
-msgstr "Guarda com esdeveniment"
-
-#: src/templates/logs/index.mas:235
-msgid "No logs matching current criterion"
-msgstr "No hi ha logs que coincideixin amb el criteri actual"
-
-#: src/templates/logs/index.mas:239
-msgid "There are no logs for this domain"
-msgstr "No hi ha canvis sense desar."
-
-#: src/templates/logs/dbtable.mas:87 src/templates/logs/dbtable.mas:88
-msgid "first"
-msgstr "primer"
-
-#: src/templates/logs/dbtable.mas:91 src/templates/logs/dbtable.mas:92
-msgid "prev"
-msgstr "anterior"
-
-#: src/templates/logs/dbtable.mas:111 src/templates/logs/dbtable.mas:112
-msgid "next"
-msgstr "següent"
-
-#: src/templates/logs/dbtable.mas:115 src/templates/logs/dbtable.mas:116
-msgid "last"
-msgstr "últim"
-
-#: src/templates/finish.mas:99
-#, perl-brace-format
-msgid ""
-"The following modules have unsaved changes but are <b>disabled</b>. If you "
-"need to enable them go to {openref}Module Status{closeref}."
-msgstr ""
-"Els móduls següents tenen canvis no desats però estan  <b>deshabilitats</b>. "
-"Si necessites habilitar-los aleshores ves a {openref}Estat del mòdul"
-"{closeref}."
-
-#: src/templates/finish.mas:106
-msgid ""
-"There are unsaved changes in one or more modules, you can save or discard "
-"those changes."
-msgstr ""
-"Hi ha canvis no desats en un o més dels vostres mòduls. Podeu desar o "
-"descartar aquests canvis."
-
-#: src/templates/finish.mas:110
-msgid ""
-"If you made changes to the network interfaces or the administration port, "
-"you may need to manually rewrite the url in order to access this "
-"administration interface again."
-msgstr ""
-"Si heu fet canvis a les interfícies de xarxa o al port d'administració, és "
-"possible que necessiteu reescriure la url per a poder accedir a aquesta "
-"interfície d'administració una altra vegada."
-
-#: src/templates/finish.mas:134
-msgid "Save"
-msgstr "Desa"
-
-#: src/templates/finish.mas:136
-msgid "Discard changes"
-msgstr "Descarta els canvis"
-
-#: src/templates/finish.mas:141
-msgid "There are no unsaved changes."
-msgstr "No hi ha canvis sense desar."
-
 #: src/templates/backup.mas:17
 msgid "Full Backup"
 msgstr "Còpia de seguretat completa."
@@ -2236,45 +2127,130 @@ msgstr "Restaura"
 msgid "delete"
 msgstr "Elimina"
 
-#: src/templates/links-widget.mas:5
+#: src/templates/configurationFiles.mas:12
+msgid "Do you wish to overwrite these files?"
+msgstr "Vols sobreescriure aquests arxius?"
+
+#: src/templates/configurationFiles.mas:19
+msgid "Keep current file"
+msgstr "Mantenir l'arxiu actual"
+
+#: src/templates/configurationFiles.mas:23
+msgid "Modify"
+msgstr "Modificar"
+
+#: src/templates/dashboard/list.mas:43
+msgid "No entries in this list"
+msgstr "Sense entrades en aquesta llista"
+
+#: src/templates/dashboard/index.mas:21 src/templates/dashboard/status.mas:18
+msgid "Running"
+msgstr "Corrent"
+
+#: src/templates/dashboard/index.mas:22 src/templates/dashboard/status.mas:19
+msgid "The service is enabled and running"
+msgstr "El servei està habilitat i corrent"
+
+#: src/templates/dashboard/index.mas:26 src/templates/dashboard/status.mas:22
+msgid "Stopped"
+msgstr "Parat"
+
+#: src/templates/dashboard/index.mas:27 src/templates/dashboard/status.mas:23
+msgid "The service is enabled, but not running"
+msgstr "El servei està habilitat, pero no corrent."
+
+#: src/templates/dashboard/index.mas:31 src/templates/dashboard/status.mas:27
+msgid "Running unmanaged"
+msgstr "Corrent sense supervisió"
+
+#: src/templates/dashboard/index.mas:32 src/templates/dashboard/status.mas:28
 #, fuzzy
-msgid "Community Resources"
+msgid "The service is running, but not enabled in Zentyal"
+msgstr "El servei està corren tperò no habilitat al eBox"
+
+#: src/templates/dashboard/index.mas:36 src/templates/dashboard/status.mas:31
+msgid "Disabled"
+msgstr "Deshabilitat"
+
+#: src/templates/dashboard/index.mas:37 src/templates/dashboard/status.mas:32
+#, fuzzy
+msgid "The service is not enabled in Zentyal"
+msgstr "El servei no està habilitat a l'eBox"
+
+#: src/templates/dashboard/index.mas:42 src/templates/dashboard/status.mas:25
+msgid "Start"
+msgstr "Inicia"
+
+#: src/templates/dashboard/index.mas:43 src/templates/dashboard/status.mas:12
+msgid "Restart"
+msgstr "Reinicia"
+
+#: src/templates/dashboard/index.mas:115
+msgid "Configure widgets"
+msgstr "Configura els Widgets"
+
+#: src/templates/finish.mas:99
+#, perl-brace-format
+msgid ""
+"The following modules have unsaved changes but are <b>disabled</b>. If you "
+"need to enable them go to {openref}Module Status{closeref}."
+msgstr ""
+"Els móduls següents tenen canvis no desats però estan  <b>deshabilitats</b>. "
+"Si necessites habilitar-los aleshores ves a {openref}Estat del mòdul"
+"{closeref}."
+
+#: src/templates/finish.mas:106
+msgid ""
+"There are unsaved changes in one or more modules, you can save or discard "
+"those changes."
+msgstr ""
+"Hi ha canvis no desats en un o més dels vostres mòduls. Podeu desar o "
+"descartar aquests canvis."
+
+#: src/templates/finish.mas:110
+msgid ""
+"If you made changes to the network interfaces or the administration port, "
+"you may need to manually rewrite the url in order to access this "
+"administration interface again."
+msgstr ""
+"Si heu fet canvis a les interfícies de xarxa o al port d'administració, és "
+"possible que necessiteu reescriure la url per a poder accedir a aquesta "
+"interfície d'administració una altra vegada."
+
+#: src/templates/finish.mas:134
+msgid "Save"
+msgstr "Desa"
+
+#: src/templates/finish.mas:136
+msgid "Discard changes"
+msgstr "Descarta els canvis"
+
+#: src/templates/finish.mas:141
+msgid "There are no unsaved changes."
+msgstr "No hi ha canvis sense desar."
+
+#: src/templates/hostname.mas:9
+#, fuzzy
+msgid "Change Hostname"
+msgstr "Cambis guardats"
+
+#: src/templates/hostname.mas:10
+msgid ""
+"You will need to restart all the services or reboot the system to apply the "
+"hostname change."
+msgstr ""
+
+#: src/templates/confirm-backup.mas:110
+msgid "Full Restore"
+msgstr "Restauració completa"
+
+#: src/templates/confirm-backup.mas:111
+msgid "Configuration Restore"
 msgstr "Configuració de la restauració"
 
-#: src/templates/links-widget.mas:10
-#, fuzzy
-msgid "Documentation"
-msgstr "Domini"
-
-#: src/templates/links-widget.mas:12
-msgid "Forum"
-msgstr ""
-
-#: src/templates/links-widget.mas:14
-msgid "Report a bug"
-msgstr ""
-
-#: src/templates/links-widget.mas:16
-msgid "How to Contribute"
-msgstr ""
-
-#: src/templates/bug.mas:9
-msgid ""
-"This page lets you generate a file with information about the state of your "
-"system. The file will be useful if you want to report a problem or seek "
-"support."
-msgstr ""
-"Aquesta pàgina vos permet generar un fitxer amb la informació sobre l'estat "
-"del vostre sistema. El fitxer serà útil si voleu informar d'una errada en "
-"EBox."
-
-#: src/templates/bug.mas:13
-msgid "It may take several minutes to generate the report. Please be patient."
-msgstr "Pot trigar varis minuts generar l'informe, siusplau sigueu pacients"
-
-#: src/templates/bug.mas:19
-msgid "Download configuration report file"
-msgstr "Descarrega un fitxer d'informe de configuració"
+#: src/templates/confirm-backup.mas:116
+msgid "Restore mode"
+msgstr "Mode de restauració"
 
 #: src/templates/logout/index.mas:11
 msgid "There are unsaved changes, if you log out now they will be lost."
@@ -2288,25 +2264,17 @@ msgstr "No hi ha canvis sense desar en aquestes sessions"
 msgid "Exit"
 msgstr "Surt"
 
-#: src/templates/password.mas:4
-msgid "Change Password"
-msgstr "Canvia la contrasenya"
+#: src/templates/backupTabs.mas:13
+msgid "Local Backup"
+msgstr "Còpia de seguretat local"
 
-#: src/templates/password.mas:5
-msgid "Your password must be at least 6 characters long."
-msgstr "La contrasenya ha de tenir almenys 6 caràcters"
+#: src/templates/backupTabs.mas:18
+msgid "Remote Backup"
+msgstr "Còpia de seguretat remota"
 
-#: src/templates/password.mas:25
-msgid "Current password"
-msgstr "Contrasenya actual"
-
-#: src/templates/password.mas:39
-msgid "New password"
-msgstr "Nova contrasenya"
-
-#: src/templates/password.mas:53
-msgid "Confirm password"
-msgstr "Confirma la contrasenya"
+#: src/templates/backupTabs.mas:23
+msgid "Remote Backup from Other Subscribed Hosts"
+msgstr "Còpies de seguretat remotes d'altres hosts subscrits."
 
 #: src/templates/login/index.mas:40
 msgid "Warning: Caps Lock is enabled"
@@ -2336,36 +2304,68 @@ msgstr ""
 msgid "Enter"
 msgstr "Entrar"
 
-#: src/templates/dataInUse.mas:41 src/templates/confirm-backup.mas:74
-msgid "Cancel"
-msgstr "Cancel·la"
+#: src/templates/headTitle.mas:20
+msgid "Remote services control panel"
+msgstr "Panell de control de serveis remots"
 
-#: src/templates/confirm-backup.mas:110
-msgid "Full Restore"
-msgstr "Restauració completa"
+#: src/templates/configureView.mas:12
+#, fuzzy
+msgid ""
+"Enabling this module will cause Zentyal to perform the actions and file "
+"modifications listed below. You must explicitly accept these changes to "
+"enable the module."
+msgstr ""
+"Habilitant aquest módul farà que l'eBox realitzi les accions i modificacions "
+"llistades més avall. Hauria de acceptar explicitament auqests canvis per "
+"habilitar el módul"
 
-#: src/templates/confirm-backup.mas:111
-msgid "Configuration Restore"
-msgstr "Configuració de la restauració"
+#: src/templates/configureView.mas:16
+#, fuzzy
+msgid "Actions to perform by Zentyal"
+msgstr "Accions a realitzar per l'eBox"
 
-#: src/templates/confirm-backup.mas:116
-msgid "Restore mode"
-msgstr "Mode de restauració"
+#: src/templates/configureView.mas:31
+#, fuzzy
+msgid "Files to modify by Zentyal"
+msgstr "Arxius a modificar per l'eBox"
+
+#: src/templates/configureView.mas:50
+msgid "Accept"
+msgstr "Acceptar"
 
 #: src/templates/port.mas:9
 msgid "Administration Interface TCP Port"
 msgstr "Port TCP per a la interfície d'administració"
 
-#: src/templates/hostname.mas:9
-#, fuzzy
-msgid "Change Hostname"
-msgstr "Cambis guardats"
+#: src/templates/halt.mas:10
+msgid "You might lose your Internet connection if this machine is halted."
+msgstr "Perderàs la teva conexió a internet si atures aquesta conexió"
 
-#: src/templates/hostname.mas:10
+#: src/templates/halt.mas:14
+msgid "Halt"
+msgstr "Atura"
+
+#: src/templates/halt.mas:16
+msgid "Reboot"
+msgstr "Reinicia"
+
+#: src/templates/bug.mas:9
 msgid ""
-"You will need to restart all the services or reboot the system to apply the "
-"hostname change."
+"This page lets you generate a file with information about the state of your "
+"system. The file will be useful if you want to report a problem or seek "
+"support."
 msgstr ""
+"Aquesta pàgina vos permet generar un fitxer amb la informació sobre l'estat "
+"del vostre sistema. El fitxer serà útil si voleu informar d'una errada en "
+"EBox."
+
+#: src/templates/bug.mas:13
+msgid "It may take several minutes to generate the report. Please be patient."
+msgstr "Pot trigar varis minuts generar l'informe, siusplau sigueu pacients"
+
+#: src/templates/bug.mas:19
+msgid "Download configuration report file"
+msgstr "Descarrega un fitxer d'informe de configuració"
 
 #~ msgid "Bug report"
 #~ msgstr "Informe d'error"

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-ebackup 1.3.3Report-Msgid-Bugs-To: info@ebox-"
 "technologies.com\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
-"POT-Creation-Date: 2010-08-25 17:32+0200\n"
+"POT-Creation-Date: 2010-08-26 00:53+0200\n"
 "PO-Revision-Date: 2010-08-17 17:37+0200\n"
 "Last-Translator: Chang Chih-Wei <coldnight.tw@yahoo.com.tw>\n"
 "Language-Team: none\n"
@@ -17,51 +17,38 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: src/EBox/EBackup.pm:72 src/EBox/Event/Watcher/EBackup.pm:123
+#: src/EBox/Event/Watcher/EBackup.pm:123 src/EBox/EBackup.pm:72
 #: src/EBox/Composite/Remote.pm:65
 msgid "Backup"
 msgstr "備份"
-
-#: src/EBox/EBackup.pm:197
-#, perl-brace-format
-msgid "File {f} not found in backup for {d}, try a later date"
-msgstr ""
-
-#: src/EBox/EBackup.pm:204
-msgid ""
-"No backup archives found. Maybe they were deleted?. Run '/etc/init.d/ebox "
-"ebackup restart' to refresh backup's information."
-msgstr ""
-"未發現備份結構。也許已被刪除，請執行'/etc/init.d/ebox ebackup restart'以更新"
-"備份資訊。"
 
 #: src/EBox/Event/Watcher/EBackup.pm:141
 #, fuzzy
 msgid "Check if Zentyal backup was not successful."
 msgstr "檢查 eBox 備份是否成功。"
 
-#: src/EBox/EBackup/DBRestore.pm:46
-#, perl-brace-format
-msgid ""
-"Logs backup data not found in backup for {d}. Maybe you could try another "
-"date?"
-msgstr "{d}未發現備份紀錄。是否要查詢其他日期？"
-
-#: src/EBox/Model/RemoteFileList.pm:143 src/EBox/Model/RemoteStatus.pm:119
-#: src/EBox/Model/RemoteRestoreConf.pm:74
-#: src/EBox/Model/RemoteRestoreLogs.pm:88
+#: src/EBox/Model/RemoteRestoreLogs.pm:88 src/EBox/Model/RemoteFileList.pm:143
+#: src/EBox/Model/RemoteStatus.pm:119 src/EBox/Model/RemoteRestoreConf.pm:74
 msgid "There are not backed up files yet"
 msgstr "沒有備份檔案"
+
+#: src/EBox/Model/RemoteRestoreLogs.pm:107
+#: src/EBox/Model/RemoteFileList.pm:166 src/EBox/Model/RemoteRestoreConf.pm:93
+#, fuzzy
+msgid "Backup Date"
+msgstr "備份日期"
+
+#: src/EBox/Model/RemoteRestoreLogs.pm:118
+msgid "Restore logs database"
+msgstr "還原紀錄資料庫"
+
+#: src/EBox/Model/RemoteRestoreLogs.pm:125
+msgid "Restores the Zentyal logs found in the selected backup"
+msgstr ""
 
 #: src/EBox/Model/RemoteFileList.pm:162
 msgid "File"
 msgstr "檔案"
-
-#: src/EBox/Model/RemoteFileList.pm:166 src/EBox/Model/RemoteRestoreConf.pm:93
-#: src/EBox/Model/RemoteRestoreLogs.pm:107
-#, fuzzy
-msgid "Backup Date"
-msgstr "備份日期"
 
 #: src/EBox/Model/RemoteFileList.pm:177
 msgid "Restore Files"
@@ -100,6 +87,75 @@ msgstr "遠端備份狀態"
 #, fuzzy
 msgid "backup"
 msgstr "備份"
+
+#: src/EBox/Model/RemoteRestoreConf.pm:104
+#, fuzzy
+msgid "Restore Zentyal configuration from backup"
+msgstr "從備份中還原eBox設定"
+
+#: src/EBox/Model/RemoteRestoreConf.pm:111
+msgid "Loads the configuration found in the backup"
+msgstr ""
+
+#: src/EBox/Model/RemoteRestoreConf.pm:113
+msgid "Please wait..."
+msgstr "請等待..."
+
+#: src/EBox/Model/RemoteRestoreConf.pm:169
+#, perl-brace-format
+msgid ""
+"Configuration backup not found in backup for {d}. Maybe you could try "
+"another date?"
+msgstr "{d}的備份中未發現備份設定。是否要尋找另一個日期？"
+
+#: src/EBox/Model/RemoteExcludes.pm:82
+msgid "Exclude or Include"
+msgstr "排除或包含"
+
+#: src/EBox/Model/RemoteExcludes.pm:93
+msgid "Includes and Excludes"
+msgstr "包含和排除"
+
+#: src/EBox/Model/RemoteExcludes.pm:94
+msgid "exclude or include"
+msgstr "排除或包含"
+
+#: src/EBox/Model/RemoteExcludes.pm:102
+msgid ""
+"A file or directory is included or excluded according the first match. A "
+"directory match is applied to all it contents. Files not explicitly excluded "
+"or included are included"
+msgstr ""
+"排除或包含任一檔案或目錄是根據第一順位規則。目錄規則會包含整個目錄。檔案若明"
+"確指定將會包含。"
+
+#: src/EBox/Model/RemoteExcludes.pm:117
+msgid "Exclude path"
+msgstr "排除路徑"
+
+#: src/EBox/Model/RemoteExcludes.pm:121
+msgid "Exclude by regular expression"
+msgstr ""
+
+#: src/EBox/Model/RemoteExcludes.pm:125
+msgid "Include Path"
+msgstr "包含路徑"
+
+#: src/EBox/Model/RemoteExcludes.pm:147
+msgid "exclude path"
+msgstr "排除路徑"
+
+#: src/EBox/Model/RemoteExcludes.pm:160
+msgid "exclude path regular expression"
+msgstr ""
+
+#: src/EBox/Model/RemoteExcludes.pm:162
+msgid "Incorrect regular expression"
+msgstr ""
+
+#: src/EBox/Model/RemoteExcludes.pm:183
+msgid "include path"
+msgstr "包含路徑"
 
 #: src/EBox/Model/RemoteSettings.pm:161
 msgid "Method"
@@ -357,82 +413,25 @@ msgid ""
 "<em>remember</em> to add your target host to the list of known hosts by SSH"
 msgstr ""
 
-#: src/EBox/Model/RemoteExcludes.pm:82
-msgid "Exclude or Include"
-msgstr "排除或包含"
+#: src/EBox/EBackup.pm:197
+#, perl-brace-format
+msgid "File {f} not found in backup for {d}, try a later date"
+msgstr ""
 
-#: src/EBox/Model/RemoteExcludes.pm:93
-msgid "Includes and Excludes"
-msgstr "包含和排除"
-
-#: src/EBox/Model/RemoteExcludes.pm:94
-msgid "exclude or include"
-msgstr "排除或包含"
-
-#: src/EBox/Model/RemoteExcludes.pm:102
+#: src/EBox/EBackup.pm:204
 msgid ""
-"A file or directory is included or excluded according the first match. A "
-"directory match is applied to all it contents. Files not explicitly excluded "
-"or included are included"
+"No backup archives found. Maybe they were deleted?. Run '/etc/init.d/ebox "
+"ebackup restart' to refresh backup's information."
 msgstr ""
-"排除或包含任一檔案或目錄是根據第一順位規則。目錄規則會包含整個目錄。檔案若明"
-"確指定將會包含。"
+"未發現備份結構。也許已被刪除，請執行'/etc/init.d/ebox ebackup restart'以更新"
+"備份資訊。"
 
-#: src/EBox/Model/RemoteExcludes.pm:117
-msgid "Exclude path"
-msgstr "排除路徑"
-
-#: src/EBox/Model/RemoteExcludes.pm:121
-msgid "Exclude by regular expression"
-msgstr ""
-
-#: src/EBox/Model/RemoteExcludes.pm:125
-msgid "Include Path"
-msgstr "包含路徑"
-
-#: src/EBox/Model/RemoteExcludes.pm:147
-msgid "exclude path"
-msgstr "排除路徑"
-
-#: src/EBox/Model/RemoteExcludes.pm:160
-msgid "exclude path regular expression"
-msgstr ""
-
-#: src/EBox/Model/RemoteExcludes.pm:162
-msgid "Incorrect regular expression"
-msgstr ""
-
-#: src/EBox/Model/RemoteExcludes.pm:183
-msgid "include path"
-msgstr "包含路徑"
-
-#: src/EBox/Model/RemoteRestoreConf.pm:104
-#, fuzzy
-msgid "Restore Zentyal configuration from backup"
-msgstr "從備份中還原eBox設定"
-
-#: src/EBox/Model/RemoteRestoreConf.pm:111
-msgid "Loads the configuration found in the backup"
-msgstr ""
-
-#: src/EBox/Model/RemoteRestoreConf.pm:113
-msgid "Please wait..."
-msgstr "請等待..."
-
-#: src/EBox/Model/RemoteRestoreConf.pm:169
+#: src/EBox/EBackup/DBRestore.pm:46
 #, perl-brace-format
 msgid ""
-"Configuration backup not found in backup for {d}. Maybe you could try "
-"another date?"
-msgstr "{d}的備份中未發現備份設定。是否要尋找另一個日期？"
-
-#: src/EBox/Model/RemoteRestoreLogs.pm:118
-msgid "Restore logs database"
-msgstr "還原紀錄資料庫"
-
-#: src/EBox/Model/RemoteRestoreLogs.pm:125
-msgid "Restores the Zentyal logs found in the selected backup"
-msgstr ""
+"Logs backup data not found in backup for {d}. Maybe you could try another "
+"date?"
+msgstr "{d}未發現備份紀錄。是否要查詢其他日期？"
 
 #: src/EBox/Composite/ServicesRestore.pm:64
 msgid "Services restore"

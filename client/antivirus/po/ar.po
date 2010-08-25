@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-antivirus 0.1\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
-"POT-Creation-Date: 2010-08-25 16:23+0200\n"
+"POT-Creation-Date: 2010-08-26 00:52+0200\n"
 "PO-Revision-Date: 2010-01-27 23:43+0100\n"
 "Last-Translator: Mostafa Salem <m@isalem.net>\n"
 "Language-Team: none\n"
@@ -15,23 +15,6 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Pootle 1.1.0\n"
-
-#: src/EBox/AntiVirus.pm:69 src/EBox/AntiVirus.pm:385
-#: src/EBox/AntiVirus.pm:390 src/EBox/AntiVirus/Model/FreshclamStatus.pm:70
-msgid "Antivirus"
-msgstr "مضاد الفيروسات"
-
-#: src/EBox/AntiVirus.pm:212
-msgid " To configure clamd daemon"
-msgstr "لتهيئة مترقب الclamd"
-
-#: src/EBox/AntiVirus.pm:217
-msgid "To configure freshclam updater"
-msgstr "لتهيئة محدث الfreshclam"
-
-#: src/EBox/AntiVirus.pm:222
-msgid "To schedule the launch of the updater"
-msgstr "لجدولة عملية إنطلاق المحدِِث."
 
 #: src/EBox/AntiVirus/Model/FreshclamStatus.pm:57
 msgid "Status"
@@ -44,6 +27,11 @@ msgstr "التاريخ"
 #: src/EBox/AntiVirus/Model/FreshclamStatus.pm:69
 msgid "Database Update Status"
 msgstr "حالة تحديث قاعدة البيانات"
+
+#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:70 src/EBox/AntiVirus.pm:69
+#: src/EBox/AntiVirus.pm:385 src/EBox/AntiVirus.pm:390
+msgid "Antivirus"
+msgstr "مضاد الفيروسات"
 
 #: src/EBox/AntiVirus/Model/FreshclamStatus.pm:125
 msgid ""
@@ -63,6 +51,18 @@ msgstr "تم التحديث بنجاح"
 #, perl-brace-format
 msgid "Unknown event {event}."
 msgstr "الحدث {event} غير معرًف."
+
+#: src/EBox/AntiVirus.pm:212
+msgid " To configure clamd daemon"
+msgstr "لتهيئة مترقب الclamd"
+
+#: src/EBox/AntiVirus.pm:217
+msgid "To configure freshclam updater"
+msgstr "لتهيئة محدث الfreshclam"
+
+#: src/EBox/AntiVirus.pm:222
+msgid "To schedule the launch of the updater"
+msgstr "لجدولة عملية إنطلاق المحدِِث."
 
 #~ msgid ""
 #~ "Update successful but your freshclam version is outdated.\n"

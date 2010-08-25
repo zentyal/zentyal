@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-ebackup 1.3.3Report-Msgid-Bugs-To: info@ebox-"
 "technologies.com\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
-"POT-Creation-Date: 2010-08-25 17:32+0200\n"
+"POT-Creation-Date: 2010-08-26 00:53+0200\n"
 "PO-Revision-Date: 2010-01-17 21:53+0100\n"
 "Last-Translator: Ersan YILDIRIM <yakazan@gmail.com>\n"
 "Language-Team: none\n"
@@ -18,49 +18,38 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: src/EBox/EBackup.pm:72 src/EBox/Event/Watcher/EBackup.pm:123
+#: src/EBox/Event/Watcher/EBackup.pm:123 src/EBox/EBackup.pm:72
 #: src/EBox/Composite/Remote.pm:65
 msgid "Backup"
 msgstr "Yedekleme"
-
-#: src/EBox/EBackup.pm:197
-#, perl-brace-format
-msgid "File {f} not found in backup for {d}, try a later date"
-msgstr ""
-
-#: src/EBox/EBackup.pm:204
-msgid ""
-"No backup archives found. Maybe they were deleted?. Run '/etc/init.d/ebox "
-"ebackup restart' to refresh backup's information."
-msgstr ""
 
 #: src/EBox/Event/Watcher/EBackup.pm:141
 #, fuzzy
 msgid "Check if Zentyal backup was not successful."
 msgstr "eBox yedeklemesi başarılı olamadı kontrol edin."
 
-#: src/EBox/EBackup/DBRestore.pm:46
-#, perl-brace-format
-msgid ""
-"Logs backup data not found in backup for {d}. Maybe you could try another "
-"date?"
-msgstr ""
-
-#: src/EBox/Model/RemoteFileList.pm:143 src/EBox/Model/RemoteStatus.pm:119
-#: src/EBox/Model/RemoteRestoreConf.pm:74
-#: src/EBox/Model/RemoteRestoreLogs.pm:88
+#: src/EBox/Model/RemoteRestoreLogs.pm:88 src/EBox/Model/RemoteFileList.pm:143
+#: src/EBox/Model/RemoteStatus.pm:119 src/EBox/Model/RemoteRestoreConf.pm:74
 #, fuzzy
 msgid "There are not backed up files yet"
 msgstr "Yedeklenen dosyaları hakkında henüz bilgi yok."
 
+#: src/EBox/Model/RemoteRestoreLogs.pm:107
+#: src/EBox/Model/RemoteFileList.pm:166 src/EBox/Model/RemoteRestoreConf.pm:93
+msgid "Backup Date"
+msgstr "Yedekleme Tarihi"
+
+#: src/EBox/Model/RemoteRestoreLogs.pm:118
+msgid "Restore logs database"
+msgstr ""
+
+#: src/EBox/Model/RemoteRestoreLogs.pm:125
+msgid "Restores the Zentyal logs found in the selected backup"
+msgstr ""
+
 #: src/EBox/Model/RemoteFileList.pm:162
 msgid "File"
 msgstr "Dosya"
-
-#: src/EBox/Model/RemoteFileList.pm:166 src/EBox/Model/RemoteRestoreConf.pm:93
-#: src/EBox/Model/RemoteRestoreLogs.pm:107
-msgid "Backup Date"
-msgstr "Yedekleme Tarihi"
 
 #: src/EBox/Model/RemoteFileList.pm:177
 msgid "Restore Files"
@@ -98,6 +87,79 @@ msgstr "Uzaktan Yedekleme Durumu"
 #: src/EBox/Model/RemoteStatus.pm:150
 msgid "backup"
 msgstr "yedek"
+
+#: src/EBox/Model/RemoteRestoreConf.pm:104
+msgid "Restore Zentyal configuration from backup"
+msgstr ""
+
+#: src/EBox/Model/RemoteRestoreConf.pm:111
+msgid "Loads the configuration found in the backup"
+msgstr ""
+
+#: src/EBox/Model/RemoteRestoreConf.pm:113
+msgid "Please wait..."
+msgstr ""
+
+#: src/EBox/Model/RemoteRestoreConf.pm:169
+#, perl-brace-format
+msgid ""
+"Configuration backup not found in backup for {d}. Maybe you could try "
+"another date?"
+msgstr ""
+
+#: src/EBox/Model/RemoteExcludes.pm:82
+#, fuzzy
+msgid "Exclude or Include"
+msgstr "Dahil et veya dışında tut"
+
+#: src/EBox/Model/RemoteExcludes.pm:93
+#, fuzzy
+msgid "Includes and Excludes"
+msgstr "Dahil etmek ve Dışında Tutmak"
+
+#: src/EBox/Model/RemoteExcludes.pm:94
+#, fuzzy
+msgid "exclude or include"
+msgstr "Dahil et veya dışında tut"
+
+#: src/EBox/Model/RemoteExcludes.pm:102
+msgid ""
+"A file or directory is included or excluded according the first match. A "
+"directory match is applied to all it contents. Files not explicitly excluded "
+"or included are included"
+msgstr ""
+
+#: src/EBox/Model/RemoteExcludes.pm:117
+#, fuzzy
+msgid "Exclude path"
+msgstr "Dış yol"
+
+#: src/EBox/Model/RemoteExcludes.pm:121
+#, fuzzy
+msgid "Exclude by regular expression"
+msgstr "Dış yol"
+
+#: src/EBox/Model/RemoteExcludes.pm:125
+msgid "Include Path"
+msgstr ""
+
+#: src/EBox/Model/RemoteExcludes.pm:147
+#, fuzzy
+msgid "exclude path"
+msgstr "Dış yol"
+
+#: src/EBox/Model/RemoteExcludes.pm:160
+msgid "exclude path regular expression"
+msgstr ""
+
+#: src/EBox/Model/RemoteExcludes.pm:162
+msgid "Incorrect regular expression"
+msgstr ""
+
+#: src/EBox/Model/RemoteExcludes.pm:183
+#, fuzzy
+msgid "include path"
+msgstr "Dış yol"
 
 #: src/EBox/Model/RemoteSettings.pm:161
 msgid "Method"
@@ -351,85 +413,22 @@ msgid ""
 "<em>remember</em> to add your target host to the list of known hosts by SSH"
 msgstr ""
 
-#: src/EBox/Model/RemoteExcludes.pm:82
-#, fuzzy
-msgid "Exclude or Include"
-msgstr "Dahil et veya dışında tut"
+#: src/EBox/EBackup.pm:197
+#, perl-brace-format
+msgid "File {f} not found in backup for {d}, try a later date"
+msgstr ""
 
-#: src/EBox/Model/RemoteExcludes.pm:93
-#, fuzzy
-msgid "Includes and Excludes"
-msgstr "Dahil etmek ve Dışında Tutmak"
-
-#: src/EBox/Model/RemoteExcludes.pm:94
-#, fuzzy
-msgid "exclude or include"
-msgstr "Dahil et veya dışında tut"
-
-#: src/EBox/Model/RemoteExcludes.pm:102
+#: src/EBox/EBackup.pm:204
 msgid ""
-"A file or directory is included or excluded according the first match. A "
-"directory match is applied to all it contents. Files not explicitly excluded "
-"or included are included"
+"No backup archives found. Maybe they were deleted?. Run '/etc/init.d/ebox "
+"ebackup restart' to refresh backup's information."
 msgstr ""
 
-#: src/EBox/Model/RemoteExcludes.pm:117
-#, fuzzy
-msgid "Exclude path"
-msgstr "Dış yol"
-
-#: src/EBox/Model/RemoteExcludes.pm:121
-#, fuzzy
-msgid "Exclude by regular expression"
-msgstr "Dış yol"
-
-#: src/EBox/Model/RemoteExcludes.pm:125
-msgid "Include Path"
-msgstr ""
-
-#: src/EBox/Model/RemoteExcludes.pm:147
-#, fuzzy
-msgid "exclude path"
-msgstr "Dış yol"
-
-#: src/EBox/Model/RemoteExcludes.pm:160
-msgid "exclude path regular expression"
-msgstr ""
-
-#: src/EBox/Model/RemoteExcludes.pm:162
-msgid "Incorrect regular expression"
-msgstr ""
-
-#: src/EBox/Model/RemoteExcludes.pm:183
-#, fuzzy
-msgid "include path"
-msgstr "Dış yol"
-
-#: src/EBox/Model/RemoteRestoreConf.pm:104
-msgid "Restore Zentyal configuration from backup"
-msgstr ""
-
-#: src/EBox/Model/RemoteRestoreConf.pm:111
-msgid "Loads the configuration found in the backup"
-msgstr ""
-
-#: src/EBox/Model/RemoteRestoreConf.pm:113
-msgid "Please wait..."
-msgstr ""
-
-#: src/EBox/Model/RemoteRestoreConf.pm:169
+#: src/EBox/EBackup/DBRestore.pm:46
 #, perl-brace-format
 msgid ""
-"Configuration backup not found in backup for {d}. Maybe you could try "
-"another date?"
-msgstr ""
-
-#: src/EBox/Model/RemoteRestoreLogs.pm:118
-msgid "Restore logs database"
-msgstr ""
-
-#: src/EBox/Model/RemoteRestoreLogs.pm:125
-msgid "Restores the Zentyal logs found in the selected backup"
+"Logs backup data not found in backup for {d}. Maybe you could try another "
+"date?"
 msgstr ""
 
 #: src/EBox/Composite/ServicesRestore.pm:64

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-antivirus 1.4Report-Msgid-Bugs-To: info@ebox-"
 "technologies.com\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
-"POT-Creation-Date: 2010-08-25 16:23+0200\n"
+"POT-Creation-Date: 2010-08-26 00:52+0200\n"
 "PO-Revision-Date: 2010-03-25 17:23+0100\n"
 "Last-Translator: Priit-A. Heinsalu <priit.heinsalu@gmail.com>\n"
 "Language-Team: none\n"
@@ -17,24 +17,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 1.1.0\n"
-
-#: src/EBox/AntiVirus.pm:69 src/EBox/AntiVirus.pm:385
-#: src/EBox/AntiVirus.pm:390 src/EBox/AntiVirus/Model/FreshclamStatus.pm:70
-msgid "Antivirus"
-msgstr "Viirusetõrje"
-
-# deemon sobib?
-#: src/EBox/AntiVirus.pm:212
-msgid " To configure clamd daemon"
-msgstr "clamd deemoni seadistamiseks"
-
-#: src/EBox/AntiVirus.pm:217
-msgid "To configure freshclam updater"
-msgstr "freshclam uuendaja seadistamiseks"
-
-#: src/EBox/AntiVirus.pm:222
-msgid "To schedule the launch of the updater"
-msgstr "Uuendaja käivitamise aegade planeerimiseks"
 
 #: src/EBox/AntiVirus/Model/FreshclamStatus.pm:57
 msgid "Status"
@@ -47,6 +29,11 @@ msgstr "Kuupäev"
 #: src/EBox/AntiVirus/Model/FreshclamStatus.pm:69
 msgid "Database Update Status"
 msgstr "Andmebaasi uuendamise olek"
+
+#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:70 src/EBox/AntiVirus.pm:69
+#: src/EBox/AntiVirus.pm:385 src/EBox/AntiVirus.pm:390
+msgid "Antivirus"
+msgstr "Viirusetõrje"
 
 #: src/EBox/AntiVirus/Model/FreshclamStatus.pm:125
 msgid ""
@@ -66,3 +53,16 @@ msgstr "Viimane uuendamine edukalt lõpetatud."
 #, perl-brace-format
 msgid "Unknown event {event}."
 msgstr "Tundmatu sündmus {event}."
+
+# deemon sobib?
+#: src/EBox/AntiVirus.pm:212
+msgid " To configure clamd daemon"
+msgstr "clamd deemoni seadistamiseks"
+
+#: src/EBox/AntiVirus.pm:217
+msgid "To configure freshclam updater"
+msgstr "freshclam uuendaja seadistamiseks"
+
+#: src/EBox/AntiVirus.pm:222
+msgid "To schedule the launch of the updater"
+msgstr "Uuendaja käivitamise aegade planeerimiseks"

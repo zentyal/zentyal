@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-ca 0.12\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
-"POT-Creation-Date: 2010-08-25 17:29+0200\n"
+"POT-Creation-Date: 2010-08-26 00:53+0200\n"
 "PO-Revision-Date: 2010-08-17 14:34+0200\n"
 "Last-Translator: jaume ponsa <jaume@calidae.net>\n"
 "Language-Team: none\n"
@@ -17,146 +17,93 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: src/EBox/CGI/CreateCA.pm:44 src/EBox/CGI/RevokeCertificate.pm:43
-#: src/EBox/CGI/RenewCertificate.pm:43 src/EBox/CGI/IssueCertificate.pm:50
-#: src/EBox/CGI/ShowForm.pm:42 src/EBox/CGI/Index.pm:40
-#: src/EBox/CGI/DownloadFiles.pm:43 src/EBox/CA.pm:123
-msgid "Certification Authority"
-msgstr "Entitat certificadora"
-
-#: src/EBox/CGI/CreateCA.pm:111 src/EBox/CGI/IssueCertificate.pm:120
-msgid "CA passphrases do NOT match"
-msgstr "Les claus CA no coincideixen"
-
-#: src/EBox/CGI/CreateCA.pm:121 src/EBox/CGI/IssueCertificate.pm:128
-#, perl-brace-format
-msgid "CA Passphrase should be at least {length} characters"
-msgstr "Les claus CA han de tenir al menys {length} caràcters"
-
-#: src/EBox/CGI/CreateCA.pm:126 src/EBox/CGI/RenewCertificate.pm:97
-#: src/EBox/CGI/IssueCertificate.pm:138
-#, perl-brace-format
-msgid "Days to expire ({days}) must be a positive number"
-msgstr "Els dies de caducitat ({days}) han de ser positius"
-
-#: src/EBox/CGI/CreateCA.pm:140
-msgid "Problems creating Certification Authority has happened"
-msgstr "Hi ha hagut roblemes creant el certificat CA"
-
-#: src/EBox/CGI/RevokeCertificate.pm:65
-msgid "The certificate has NOT been revoked."
-msgstr "El certificat no ha estat revocat"
-
-#: src/EBox/CGI/RevokeCertificate.pm:72 src/EBox/CGI/RenewCertificate.pm:70
-msgid "Boolean indicating Certification Authority Certificate"
-msgstr "Booleà indicant el el certificat de l'entitat certificadora CA"
-
-#: src/EBox/CGI/RevokeCertificate.pm:73 src/templates/formRevoke.mas:67
-msgid "Reason"
-msgstr "Raó"
-
-#: src/EBox/CGI/RevokeCertificate.pm:78 src/EBox/CGI/RenewCertificate.pm:76
-#: src/EBox/CGI/IssueCertificate.pm:105 src/EBox/CGI/ShowForm.pm:65
-#: src/EBox/CGI/DownloadFiles.pm:70 src/EBox/CA.pm:766 src/EBox/CA.pm:939
-#: src/EBox/CA.pm:1287 src/EBox/CA.pm:1359 src/EBox/CA.pm:1455
-#: src/EBox/Model/Certificates.pm:264 src/EBox/CA/TestStub.pm:439
-#: src/EBox/CA/TestStub.pm:517 src/EBox/CA/TestStub.pm:643
-#: src/templates/formRenew.mas:43 src/templates/formRevoke.mas:28
-#: src/templates/index.mas:23
-msgid "Common Name"
-msgstr "Nom comú"
-
-#: src/EBox/CGI/RevokeCertificate.pm:82 src/EBox/CGI/RenewCertificate.pm:80
-#: src/EBox/CGI/ShowForm.pm:69
-msgid ""
-"The input contains invalid characters. All alphanumeric characters, plus "
-"these non alphanumeric chars: .?&+:-@* and spaces are allowed."
-msgstr ""
-"L'entrada conté caràcters invàlids. Tots els caràcters alfanumèrics, més "
-"aquests no alfanumèrics: .?&+:-@*  i espais són permesos."
-
-#: src/EBox/CGI/RevokeCertificate.pm:140
-msgid "The certificate has been revoked"
-msgstr "El certificat ha estat revocat"
-
-#: src/EBox/CGI/RevokeCertificate.pm:141
-msgid "The CA certificate has been revoked"
-msgstr "El certificat CA ha estat revocat"
-
-#: src/EBox/CGI/RenewCertificate.pm:65
-msgid "The certificate has NOT been renewed"
-msgstr "El certificat NO ha estat renovat"
-
-#: src/EBox/CGI/RenewCertificate.pm:71 src/templates/formRenew.mas:13
-#: src/templates/index.mas:52 src/templates/createCA.mas:19
-msgid "Days to expire"
-msgstr "Dies per caducar"
-
-#: src/EBox/CGI/RenewCertificate.pm:144
-msgid "The certificate CANNOT be renewed"
-msgstr "El certificat NO es pot renovar"
-
-#: src/EBox/CGI/RenewCertificate.pm:146
-msgid "The certificate has been renewed"
-msgstr "El certificat ha estat renovat"
-
-#: src/EBox/CGI/RenewCertificate.pm:147
-msgid "The new CA certificate has been renewed"
-msgstr "El nou certificat CA ha estat renovat"
-
-#: src/EBox/CGI/IssueCertificate.pm:103 src/EBox/CA.pm:260 src/EBox/CA.pm:538
-#: src/EBox/CA/TestStub.pm:155 src/EBox/CA/TestStub.pm:255
-#: src/templates/formRenew.mas:37 src/templates/formRevoke.mas:22
-#: src/templates/index.mas:22 src/templates/createCA.mas:7
+#: src/EBox/CA/TestStub.pm:155 src/EBox/CA/TestStub.pm:255 src/EBox/CA.pm:260
+#: src/EBox/CA.pm:538 src/EBox/CGI/IssueCertificate.pm:103
+#: src/templates/createCA.mas:7 src/templates/index.mas:22
+#: src/templates/formRevoke.mas:22 src/templates/formRenew.mas:37
 msgid "Organization Name"
 msgstr "Nom de l'organització"
 
-#: src/EBox/CGI/IssueCertificate.pm:146
+#: src/EBox/CA/TestStub.pm:260 src/EBox/CA.pm:552
+msgid ""
+"The CA certificates should be revoked  or has expired before issuing a new "
+"certificate"
+msgstr ""
+"Els certificats CA s'han de revocar o han expirat abans d'expedir un nou "
+"certificat"
+
+#: src/EBox/CA/TestStub.pm:439 src/EBox/CA/TestStub.pm:517
+#: src/EBox/CA/TestStub.pm:643 src/EBox/Model/Certificates.pm:264
+#: src/EBox/CA.pm:766 src/EBox/CA.pm:939 src/EBox/CA.pm:1287
+#: src/EBox/CA.pm:1359 src/EBox/CA.pm:1455
+#: src/EBox/CGI/RevokeCertificate.pm:78 src/EBox/CGI/IssueCertificate.pm:105
+#: src/EBox/CGI/ShowForm.pm:65 src/EBox/CGI/RenewCertificate.pm:76
+#: src/EBox/CGI/DownloadFiles.pm:70 src/templates/index.mas:23
+#: src/templates/formRevoke.mas:28 src/templates/formRenew.mas:43
+msgid "Common Name"
+msgstr "Nom comú"
+
+#: src/EBox/CA/TestStub.pm:655
+#, perl-brace-format
+msgid "The user {commonName} does NOT exist"
+msgstr "L'usuari {commonName} no existeix"
+
+#: src/EBox/CA/TestStub.pm:721
+msgid "Days set to the maximum allowed: Year 2038 Bug"
+msgstr "Dies configurats al màxim permès: Bug de l'any 2038"
+
+#: src/EBox/CA/TestStub.pm:730 src/EBox/CA.pm:2609
+msgid "Expiration date later than CA certificate expiration date"
+msgstr "La data de caducitat es anterior que la del certificat CA"
+
+#: src/EBox/Model/Certificates.pm:92
 #, perl-brace-format
 msgid ""
-"The input contains invalid characters. All {ascii} alphanumeric characters, "
-"plus these non alphanumeric chars: .?&+:-@* and spaces are allowed."
+"You must create a Certification Authority first. Go to {openhref}"
+"Certification Authority{closehref} to do so"
 msgstr ""
-"L'entrada conté caràcters invàlids. Tots els caràcters alfanumèrics "
-"{ascii} , mes aquests no alfanumèrics: .?&+:-@* i els espais son permesos."
+"Primer has de crear el CA. Ves a {openhref}Certification Authority"
+"{closehref} per a fer-ho"
 
-#: src/EBox/CGI/IssueCertificate.pm:178 src/EBox/CA.pm:2639
-#, perl-brace-format
-msgid "Only {dns}, {ip} and {email} are valid subject alternative name types"
-msgstr "Només {dns}, {ip} i {email} son tipus de noms alternatius vàlids"
+#: src/EBox/Model/Certificates.pm:246
+msgid "Module"
+msgstr "Mòdul"
 
-#: src/EBox/CGI/IssueCertificate.pm:185
+#: src/EBox/Model/Certificates.pm:258
+msgid "Service"
+msgstr "Servei"
+
+#: src/EBox/Model/Certificates.pm:270
+msgid "Enable"
+msgstr "Activar"
+
+#: src/EBox/Model/Certificates.pm:272
+msgid "Generate the certificate using CA with the common name set above"
+msgstr "Generar el certificat usant el CA com a nom comú definit a dalt"
+
+#: src/EBox/Model/Certificates.pm:280 src/EBox/CA.pm:1803
+msgid "Services Certificates"
+msgstr "Serveis de certificats"
+
+#: src/EBox/Model/Certificates.pm:281
+msgid "certificate"
+msgstr "certificat"
+
+#: src/EBox/Model/Certificates.pm:287
+#, fuzzy
 msgid ""
-"The Subject Alternative Name parameter must follow this pattern: type:value, "
-"type:value"
+"Here you may set certificates from this CA for those secure services managed "
+"by Zentyal"
 msgstr ""
-"El paràmetre del títol del nom alternatiu  ha de seguir el patró: valor, "
-"tipus:valor"
+"Aqui pot expedir certificats d'aquest CA pels serveis segurs configurats a "
+"l'eBox"
 
-#: src/EBox/CGI/IssueCertificate.pm:207
-msgid "The certificate has been issued."
-msgstr "El certificat ha estat expedit."
-
-#: src/EBox/CGI/IssueCertificate.pm:208
-msgid "The new CA certificate has been issued."
-msgstr "El nou certificat CA ha estat expedit."
-
-#: src/EBox/CGI/ShowForm.pm:75
-msgid "Action"
-msgstr "Acció"
-
-#: src/EBox/CGI/ShowForm.pm:84
-msgid "Only revoke and renew actions are performed"
-msgstr "Només les accions de revocar o renovar estan contemplades."
-
-#: src/EBox/CGI/ShowForm.pm:92 src/EBox/CGI/DownloadFiles.pm:80
-#, perl-brace-format
-msgid "Common name: {cn} does NOT exist in database"
-msgstr "El nom comú: {cn} no existeix a la base de dades"
-
-#: src/EBox/CGI/DownloadFiles.pm:134
-msgid "Error creating file"
-msgstr "Error creant l'arxiu"
+#: src/EBox/CA.pm:123 src/EBox/CGI/RevokeCertificate.pm:43
+#: src/EBox/CGI/Index.pm:40 src/EBox/CGI/IssueCertificate.pm:50
+#: src/EBox/CGI/ShowForm.pm:42 src/EBox/CGI/RenewCertificate.pm:43
+#: src/EBox/CGI/DownloadFiles.pm:43 src/EBox/CGI/CreateCA.pm:44
+msgid "Certification Authority"
+msgstr "Entitat certificadora"
 
 #: src/EBox/CA.pm:302 src/EBox/CA.pm:783 src/EBox/CA.pm:1434
 #, perl-brace-format
@@ -166,14 +113,6 @@ msgstr "Dies establerts al màxim permès {days}: Bug de l'any 2038"
 #: src/EBox/CA.pm:397
 msgid "The remove operation cannot be finished. Reason: "
 msgstr "La operació d'esborrar no pot finalitzar. Raó: _"
-
-#: src/EBox/CA.pm:552 src/EBox/CA/TestStub.pm:260
-msgid ""
-"The CA certificates should be revoked  or has expired before issuing a new "
-"certificate"
-msgstr ""
-"Els certificats CA s'han de revocar o han expirat abans d'expedir un nou "
-"certificat"
 
 #: src/EBox/CA.pm:952 src/EBox/CA.pm:1298
 #, perl-brace-format
@@ -220,10 +159,6 @@ msgstr "El certificat amb el nom comú {cn} NO existeix en aquest CA"
 #: src/EBox/CA.pm:1800
 msgid "General"
 msgstr "General"
-
-#: src/EBox/CA.pm:1803 src/EBox/Model/Certificates.pm:280
-msgid "Services Certificates"
-msgstr "Serveis de certificats"
 
 #: src/EBox/CA.pm:1890
 msgid "Not created"
@@ -321,109 +256,226 @@ msgstr ""
 "Actualitzada la base de dades de certificats. {number} certificats han "
 "caducat"
 
-#: src/EBox/CA.pm:2609 src/EBox/CA/TestStub.pm:730
-msgid "Expiration date later than CA certificate expiration date"
-msgstr "La data de caducitat es anterior que la del certificat CA"
+#: src/EBox/CA.pm:2639 src/EBox/CGI/IssueCertificate.pm:178
+#, perl-brace-format
+msgid "Only {dns}, {ip} and {email} are valid subject alternative name types"
+msgstr "Només {dns}, {ip} i {email} son tipus de noms alternatius vàlids"
 
 #: src/EBox/CA.pm:2739
 #, perl-brace-format
 msgid "Cannot start OpenSSL shell. ({errval})"
 msgstr "No es pot iniciar la consola OpenSSL. ({errval})"
 
-#: src/EBox/Model/Certificates.pm:92
+#: src/EBox/CGI/RevokeCertificate.pm:65
+msgid "The certificate has NOT been revoked."
+msgstr "El certificat no ha estat revocat"
+
+#: src/EBox/CGI/RevokeCertificate.pm:72 src/EBox/CGI/RenewCertificate.pm:70
+msgid "Boolean indicating Certification Authority Certificate"
+msgstr "Booleà indicant el el certificat de l'entitat certificadora CA"
+
+#: src/EBox/CGI/RevokeCertificate.pm:73 src/templates/formRevoke.mas:67
+msgid "Reason"
+msgstr "Raó"
+
+#: src/EBox/CGI/RevokeCertificate.pm:82 src/EBox/CGI/ShowForm.pm:69
+#: src/EBox/CGI/RenewCertificate.pm:80
+msgid ""
+"The input contains invalid characters. All alphanumeric characters, plus "
+"these non alphanumeric chars: .?&+:-@* and spaces are allowed."
+msgstr ""
+"L'entrada conté caràcters invàlids. Tots els caràcters alfanumèrics, més "
+"aquests no alfanumèrics: .?&+:-@*  i espais són permesos."
+
+#: src/EBox/CGI/RevokeCertificate.pm:140
+msgid "The certificate has been revoked"
+msgstr "El certificat ha estat revocat"
+
+#: src/EBox/CGI/RevokeCertificate.pm:141
+msgid "The CA certificate has been revoked"
+msgstr "El certificat CA ha estat revocat"
+
+#: src/EBox/CGI/IssueCertificate.pm:120 src/EBox/CGI/CreateCA.pm:111
+msgid "CA passphrases do NOT match"
+msgstr "Les claus CA no coincideixen"
+
+#: src/EBox/CGI/IssueCertificate.pm:128 src/EBox/CGI/CreateCA.pm:121
+#, perl-brace-format
+msgid "CA Passphrase should be at least {length} characters"
+msgstr "Les claus CA han de tenir al menys {length} caràcters"
+
+#: src/EBox/CGI/IssueCertificate.pm:138 src/EBox/CGI/RenewCertificate.pm:97
+#: src/EBox/CGI/CreateCA.pm:126
+#, perl-brace-format
+msgid "Days to expire ({days}) must be a positive number"
+msgstr "Els dies de caducitat ({days}) han de ser positius"
+
+#: src/EBox/CGI/IssueCertificate.pm:146
 #, perl-brace-format
 msgid ""
-"You must create a Certification Authority first. Go to {openhref}"
-"Certification Authority{closehref} to do so"
+"The input contains invalid characters. All {ascii} alphanumeric characters, "
+"plus these non alphanumeric chars: .?&+:-@* and spaces are allowed."
 msgstr ""
-"Primer has de crear el CA. Ves a {openhref}Certification Authority"
-"{closehref} per a fer-ho"
+"L'entrada conté caràcters invàlids. Tots els caràcters alfanumèrics "
+"{ascii} , mes aquests no alfanumèrics: .?&+:-@* i els espais son permesos."
 
-#: src/EBox/Model/Certificates.pm:246
-msgid "Module"
-msgstr "Mòdul"
-
-#: src/EBox/Model/Certificates.pm:258
-msgid "Service"
-msgstr "Servei"
-
-#: src/EBox/Model/Certificates.pm:270
-msgid "Enable"
-msgstr "Activar"
-
-#: src/EBox/Model/Certificates.pm:272
-msgid "Generate the certificate using CA with the common name set above"
-msgstr "Generar el certificat usant el CA com a nom comú definit a dalt"
-
-#: src/EBox/Model/Certificates.pm:281
-msgid "certificate"
-msgstr "certificat"
-
-#: src/EBox/Model/Certificates.pm:287
-#, fuzzy
+#: src/EBox/CGI/IssueCertificate.pm:185
 msgid ""
-"Here you may set certificates from this CA for those secure services managed "
-"by Zentyal"
+"The Subject Alternative Name parameter must follow this pattern: type:value, "
+"type:value"
 msgstr ""
-"Aqui pot expedir certificats d'aquest CA pels serveis segurs configurats a "
-"l'eBox"
+"El paràmetre del títol del nom alternatiu  ha de seguir el patró: valor, "
+"tipus:valor"
 
-#: src/EBox/CA/TestStub.pm:655
+#: src/EBox/CGI/IssueCertificate.pm:207
+msgid "The certificate has been issued."
+msgstr "El certificat ha estat expedit."
+
+#: src/EBox/CGI/IssueCertificate.pm:208
+msgid "The new CA certificate has been issued."
+msgstr "El nou certificat CA ha estat expedit."
+
+#: src/EBox/CGI/ShowForm.pm:75
+msgid "Action"
+msgstr "Acció"
+
+#: src/EBox/CGI/ShowForm.pm:84
+msgid "Only revoke and renew actions are performed"
+msgstr "Només les accions de revocar o renovar estan contemplades."
+
+#: src/EBox/CGI/ShowForm.pm:92 src/EBox/CGI/DownloadFiles.pm:80
 #, perl-brace-format
-msgid "The user {commonName} does NOT exist"
-msgstr "L'usuari {commonName} no existeix"
+msgid "Common name: {cn} does NOT exist in database"
+msgstr "El nom comú: {cn} no existeix a la base de dades"
 
-#: src/EBox/CA/TestStub.pm:721
-msgid "Days set to the maximum allowed: Year 2038 Bug"
-msgstr "Dies configurats al màxim permès: Bug de l'any 2038"
+#: src/EBox/CGI/RenewCertificate.pm:65
+msgid "The certificate has NOT been renewed"
+msgstr "El certificat NO ha estat renovat"
 
-#: src/templates/formRenew.mas:17 src/templates/formRevoke.mas:75
-msgid "CA Passphrase"
-msgstr "Clau CA"
+#: src/EBox/CGI/RenewCertificate.pm:71 src/templates/createCA.mas:19
+#: src/templates/index.mas:52 src/templates/formRenew.mas:13
+msgid "Days to expire"
+msgstr "Dies per caducar"
 
-#: src/templates/formRenew.mas:23 src/templates/index.mas:184
-#: src/templates/index.mas:201 src/templates/forceRenew.mas:27
-msgid "Renew"
-msgstr "Renovar"
+#: src/EBox/CGI/RenewCertificate.pm:144
+msgid "The certificate CANNOT be renewed"
+msgstr "El certificat NO es pot renovar"
 
-#: src/templates/formRenew.mas:28
-msgid "Renew a certificate"
-msgstr "Renovar un certificat"
+#: src/EBox/CGI/RenewCertificate.pm:146
+msgid "The certificate has been renewed"
+msgstr "El certificat ha estat renovat"
 
-#: src/templates/formRenew.mas:48 src/templates/formRevoke.mas:33
-msgid "Expiration Date"
-msgstr "Data de caducitat"
+#: src/EBox/CGI/RenewCertificate.pm:147
+msgid "The new CA certificate has been renewed"
+msgstr "El nou certificat CA ha estat renovat"
 
-#: src/templates/formRenew.mas:61 src/templates/formRevoke.mas:46
-#: src/templates/index.mas:57
-msgid "Subject Alternative Names"
-msgstr "Títol Noms Alternatius"
+#: src/EBox/CGI/DownloadFiles.pm:134
+msgid "Error creating file"
+msgstr "Error creant l'arxiu"
 
-#: src/templates/formRevoke.mas:10
-msgid "Revoke a Certificate"
-msgstr "Eliminar un certificat"
+#: src/EBox/CGI/CreateCA.pm:140
+msgid "Problems creating Certification Authority has happened"
+msgstr "Hi ha hagut roblemes creant el certificat CA"
 
-#: src/templates/formRevoke.mas:18
-msgid "Revoke the selected certificate"
-msgstr "Eliminar el certificat seleccionat"
+#: src/templates/forceRevoke.mas:13
+msgid "Revoking CA certificate"
+msgstr "Eliminar el certificat CA"
 
-#: src/templates/formRevoke.mas:81 src/templates/index.mas:165
-#: src/templates/index.mas:197 src/templates/forceRevoke.mas:42
+#: src/templates/forceRevoke.mas:15
+msgid "Revoking certificate"
+msgstr "Eliminant el certificat"
+
+#: src/templates/forceRevoke.mas:21
+#, perl-brace-format
+msgid ""
+"This revokation can affect the functionality from other modules, please "
+"confirm you are very sure to revoke the whole certification authority from "
+"{on} and leave the service(s) unstable or disabled"
+msgstr ""
+"L'eliminació pot afectar al funcionament d'altres mòduls, si us plau "
+"confirma que estas segur d'eliminar el CA sencer desde {on} i deixar el "
+"servei(s) inestables o desactivats"
+
+#: src/templates/forceRevoke.mas:24
+#, perl-brace-format
+msgid ""
+"The certificate whose common name is {cn} you tried to revoke is being used "
+"by some module, please confirm you are sure to revoke and leave the service"
+"(s) unstable or disabled"
+msgstr ""
+"El certificat que el nom comú es {cn} i intentes eliminar s'està fent servir "
+"en algun mòdul, si us plau confirma que estàs segur de deixar algun servei "
+"inestable o desactivat"
+
+#: src/templates/forceRevoke.mas:42 src/templates/index.mas:165
+#: src/templates/index.mas:197 src/templates/formRevoke.mas:81
 msgid "Revoke"
 msgstr "Eliminar"
 
-#: src/templates/index.mas:41 src/templates/createCA.mas:9
+#: src/templates/forceRevoke.mas:45
+msgid "Cancel"
+msgstr "Cancel·lar"
+
+#: src/templates/createCA.mas:9 src/templates/index.mas:41
 msgid "Country code"
 msgstr "Codi de país "
 
-#: src/templates/index.mas:44 src/templates/createCA.mas:13
+#: src/templates/createCA.mas:13 src/templates/index.mas:44
 msgid "City"
 msgstr "Ciutat"
 
-#: src/templates/index.mas:47 src/templates/index.mas:99
-#: src/templates/createCA.mas:16
+#: src/templates/createCA.mas:16 src/templates/index.mas:47
+#: src/templates/index.mas:99
 msgid "State"
 msgstr "Estat"
+
+#: src/templates/createCA.mas:26
+msgid "Create"
+msgstr "Crear"
+
+#: src/templates/createCA.mas:34
+msgid "Create Certification Authority Certificate"
+msgstr "Crear el certificat CA"
+
+#: src/templates/forceRenew.mas:27 src/templates/index.mas:184
+#: src/templates/index.mas:201 src/templates/formRenew.mas:23
+msgid "Renew"
+msgstr "Renovar"
+
+#: src/templates/forceRenew.mas:42
+msgid "Renewing CA certificate"
+msgstr "Renovant el certificat CA"
+
+#: src/templates/forceRenew.mas:44
+msgid "Renewing certificate"
+msgstr "Renovant el certificat"
+
+#: src/templates/forceRenew.mas:50
+#, perl-brace-format
+msgid ""
+"This renewal can affect the functionality from other modules, please confirm "
+"you are very sure to renew the whole certification authority from {on} and "
+"leave the service(s) unstable or disabled"
+msgstr ""
+"La renovació pot afectar al funcionament d'altres mòduls, si us plau "
+"confirma que estas segur d'eliminar el CA sencer desde {on} i deixar el "
+"servei(s) inestables o desactivats"
+
+#: src/templates/forceRenew.mas:53
+#, perl-brace-format
+msgid ""
+"The certificate whose common name is {cn} you tried to renew is being used "
+"by some module, please confirm you are sure to renew and leave the service"
+"(s) unstable or disabled"
+msgstr ""
+"El certificat amb nom comú {cn} que intentes renovar s'està usant en algún "
+"mòdul, confirma que estàs segur de renovar i deixar algun servei inestable o "
+"desactivat"
+
+#: src/templates/index.mas:57 src/templates/formRevoke.mas:46
+#: src/templates/formRenew.mas:61
+msgid "Subject Alternative Names"
+msgstr "Títol Noms Alternatius"
 
 #: src/templates/index.mas:58
 #, perl-brace-format
@@ -503,74 +555,22 @@ msgstr "Raó: {reason}"
 msgid "Download Key(s) and Certificate"
 msgstr "Descarrega  clau(s) i Certificat"
 
-#: src/templates/createCA.mas:26
-msgid "Create"
-msgstr "Crear"
+#: src/templates/formRevoke.mas:10
+msgid "Revoke a Certificate"
+msgstr "Eliminar un certificat"
 
-#: src/templates/createCA.mas:34
-msgid "Create Certification Authority Certificate"
-msgstr "Crear el certificat CA"
+#: src/templates/formRevoke.mas:18
+msgid "Revoke the selected certificate"
+msgstr "Eliminar el certificat seleccionat"
 
-#: src/templates/forceRevoke.mas:13
-msgid "Revoking CA certificate"
-msgstr "Eliminar el certificat CA"
+#: src/templates/formRevoke.mas:33 src/templates/formRenew.mas:48
+msgid "Expiration Date"
+msgstr "Data de caducitat"
 
-#: src/templates/forceRevoke.mas:15
-msgid "Revoking certificate"
-msgstr "Eliminant el certificat"
+#: src/templates/formRevoke.mas:75 src/templates/formRenew.mas:17
+msgid "CA Passphrase"
+msgstr "Clau CA"
 
-#: src/templates/forceRevoke.mas:21
-#, perl-brace-format
-msgid ""
-"This revokation can affect the functionality from other modules, please "
-"confirm you are very sure to revoke the whole certification authority from "
-"{on} and leave the service(s) unstable or disabled"
-msgstr ""
-"L'eliminació pot afectar al funcionament d'altres mòduls, si us plau "
-"confirma que estas segur d'eliminar el CA sencer desde {on} i deixar el "
-"servei(s) inestables o desactivats"
-
-#: src/templates/forceRevoke.mas:24
-#, perl-brace-format
-msgid ""
-"The certificate whose common name is {cn} you tried to revoke is being used "
-"by some module, please confirm you are sure to revoke and leave the service"
-"(s) unstable or disabled"
-msgstr ""
-"El certificat que el nom comú es {cn} i intentes eliminar s'està fent servir "
-"en algun mòdul, si us plau confirma que estàs segur de deixar algun servei "
-"inestable o desactivat"
-
-#: src/templates/forceRevoke.mas:45
-msgid "Cancel"
-msgstr "Cancel·lar"
-
-#: src/templates/forceRenew.mas:42
-msgid "Renewing CA certificate"
-msgstr "Renovant el certificat CA"
-
-#: src/templates/forceRenew.mas:44
-msgid "Renewing certificate"
-msgstr "Renovant el certificat"
-
-#: src/templates/forceRenew.mas:50
-#, perl-brace-format
-msgid ""
-"This renewal can affect the functionality from other modules, please confirm "
-"you are very sure to renew the whole certification authority from {on} and "
-"leave the service(s) unstable or disabled"
-msgstr ""
-"La renovació pot afectar al funcionament d'altres mòduls, si us plau "
-"confirma que estas segur d'eliminar el CA sencer desde {on} i deixar el "
-"servei(s) inestables o desactivats"
-
-#: src/templates/forceRenew.mas:53
-#, perl-brace-format
-msgid ""
-"The certificate whose common name is {cn} you tried to renew is being used "
-"by some module, please confirm you are sure to renew and leave the service"
-"(s) unstable or disabled"
-msgstr ""
-"El certificat amb nom comú {cn} que intentes renovar s'està usant en algún "
-"mòdul, confirma que estàs segur de renovar i deixar algun servei inestable o "
-"desactivat"
+#: src/templates/formRenew.mas:28
+msgid "Renew a certificate"
+msgstr "Renovar un certificat"

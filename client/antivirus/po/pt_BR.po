@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-antivirus 0.1\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
-"POT-Creation-Date: 2010-08-25 16:23+0200\n"
+"POT-Creation-Date: 2010-08-26 00:52+0200\n"
 "PO-Revision-Date: 2010-02-03 05:12+0100\n"
 "Last-Translator: Ronie B. Camilo <roniecamilo@gmail.com>\n"
 "Language-Team: none\n"
@@ -16,23 +16,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Generator: Pootle 1.1.0\n"
-
-#: src/EBox/AntiVirus.pm:69 src/EBox/AntiVirus.pm:385
-#: src/EBox/AntiVirus.pm:390 src/EBox/AntiVirus/Model/FreshclamStatus.pm:70
-msgid "Antivirus"
-msgstr "Antivírus"
-
-#: src/EBox/AntiVirus.pm:212
-msgid " To configure clamd daemon"
-msgstr "Configuração do Clamd daemon"
-
-#: src/EBox/AntiVirus.pm:217
-msgid "To configure freshclam updater"
-msgstr "Configuração de atualização do freshclam"
-
-#: src/EBox/AntiVirus.pm:222
-msgid "To schedule the launch of the updater"
-msgstr "Agendar o início da atualização"
 
 #: src/EBox/AntiVirus/Model/FreshclamStatus.pm:57
 msgid "Status"
@@ -45,6 +28,11 @@ msgstr "Data"
 #: src/EBox/AntiVirus/Model/FreshclamStatus.pm:69
 msgid "Database Update Status"
 msgstr "Data da última atualização do Antivírus"
+
+#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:70 src/EBox/AntiVirus.pm:69
+#: src/EBox/AntiVirus.pm:385 src/EBox/AntiVirus.pm:390
+msgid "Antivirus"
+msgstr "Antivírus"
 
 #: src/EBox/AntiVirus/Model/FreshclamStatus.pm:125
 msgid ""
@@ -65,6 +53,18 @@ msgstr "Atualização bem sucedida."
 #, perl-brace-format
 msgid "Unknown event {event}."
 msgstr "Evento desconhecido : {event}"
+
+#: src/EBox/AntiVirus.pm:212
+msgid " To configure clamd daemon"
+msgstr "Configuração do Clamd daemon"
+
+#: src/EBox/AntiVirus.pm:217
+msgid "To configure freshclam updater"
+msgstr "Configuração de atualização do freshclam"
+
+#: src/EBox/AntiVirus.pm:222
+msgid "To schedule the launch of the updater"
+msgstr "Agendar o início da atualização"
 
 #~ msgid ""
 #~ "Update successful but your freshclam version is outdated.\n"

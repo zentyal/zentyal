@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-ebackup 1.3.3Report-Msgid-Bugs-To: info@ebox-"
 "technologies.com\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
-"POT-Creation-Date: 2010-08-25 17:32+0200\n"
+"POT-Creation-Date: 2010-08-26 00:53+0200\n"
 "PO-Revision-Date: 2010-08-08 02:14+0200\n"
 "Last-Translator: Vasco Castelo Branco <vcbranco@gmail.com>\n"
 "Language-Team: none\n"
@@ -18,55 +18,39 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: src/EBox/EBackup.pm:72 src/EBox/Event/Watcher/EBackup.pm:123
+#: src/EBox/Event/Watcher/EBackup.pm:123 src/EBox/EBackup.pm:72
 #: src/EBox/Composite/Remote.pm:65
 msgid "Backup"
 msgstr "Cópia de Segurança"
-
-#: src/EBox/EBackup.pm:197
-#, perl-brace-format
-msgid "File {f} not found in backup for {d}, try a later date"
-msgstr ""
-"O ficheiro {f} não foi encontrado na cópia de segurança de {d}, tente uma "
-"data posterior"
-
-#: src/EBox/EBackup.pm:204
-msgid ""
-"No backup archives found. Maybe they were deleted?. Run '/etc/init.d/ebox "
-"ebackup restart' to refresh backup's information."
-msgstr ""
-"Não foram encontrados ficheiros de cópia de segurança. Poderão ter sido "
-"apagados? Corra '/etc/init.d/ebox ebackup restart' para actualizar a "
-"informação das cópias de segurança"
 
 #: src/EBox/Event/Watcher/EBackup.pm:141
 #, fuzzy
 msgid "Check if Zentyal backup was not successful."
 msgstr "Marque se a cópia de segurança eBox não foi efectuada com sucesso"
 
-#: src/EBox/EBackup/DBRestore.pm:46
-#, perl-brace-format
-msgid ""
-"Logs backup data not found in backup for {d}. Maybe you could try another "
-"date?"
-msgstr ""
-"Os dados de registo das cópias de segurança não foram encontrados na cópia "
-"de segurança {d}. Quer tentar outra data?"
-
-#: src/EBox/Model/RemoteFileList.pm:143 src/EBox/Model/RemoteStatus.pm:119
-#: src/EBox/Model/RemoteRestoreConf.pm:74
-#: src/EBox/Model/RemoteRestoreLogs.pm:88
+#: src/EBox/Model/RemoteRestoreLogs.pm:88 src/EBox/Model/RemoteFileList.pm:143
+#: src/EBox/Model/RemoteStatus.pm:119 src/EBox/Model/RemoteRestoreConf.pm:74
 msgid "There are not backed up files yet"
 msgstr "Ainda não existem ficheiros de cópia de segurança."
+
+#: src/EBox/Model/RemoteRestoreLogs.pm:107
+#: src/EBox/Model/RemoteFileList.pm:166 src/EBox/Model/RemoteRestoreConf.pm:93
+msgid "Backup Date"
+msgstr "Data da Cópia de Segurança"
+
+#: src/EBox/Model/RemoteRestoreLogs.pm:118
+msgid "Restore logs database"
+msgstr "Restaurar base de dados de registo"
+
+#: src/EBox/Model/RemoteRestoreLogs.pm:125
+#, fuzzy
+msgid "Restores the Zentyal logs found in the selected backup"
+msgstr ""
+"Restaura os registos eBox encontrados na cópia de segurança seleccionada"
 
 #: src/EBox/Model/RemoteFileList.pm:162
 msgid "File"
 msgstr "Ficheiro"
-
-#: src/EBox/Model/RemoteFileList.pm:166 src/EBox/Model/RemoteRestoreConf.pm:93
-#: src/EBox/Model/RemoteRestoreLogs.pm:107
-msgid "Backup Date"
-msgstr "Data da Cópia de Segurança"
 
 #: src/EBox/Model/RemoteFileList.pm:177
 msgid "Restore Files"
@@ -105,6 +89,79 @@ msgstr "Estado da Cópia de Segurança Remota"
 #: src/EBox/Model/RemoteStatus.pm:150
 msgid "backup"
 msgstr "cópia de Segurança"
+
+#: src/EBox/Model/RemoteRestoreConf.pm:104
+#, fuzzy
+msgid "Restore Zentyal configuration from backup"
+msgstr "Restaurar configuração da eBox a partir de uma cópia de segurança"
+
+#: src/EBox/Model/RemoteRestoreConf.pm:111
+msgid "Loads the configuration found in the backup"
+msgstr "Carrega a configuração encontrada na cópia de segurança"
+
+#: src/EBox/Model/RemoteRestoreConf.pm:113
+msgid "Please wait..."
+msgstr "Por favor, espere..."
+
+#: src/EBox/Model/RemoteRestoreConf.pm:169
+#, perl-brace-format
+msgid ""
+"Configuration backup not found in backup for {d}. Maybe you could try "
+"another date?"
+msgstr ""
+"O ficheiro de configuração não foi encontrado na cópia de segurança para "
+"{d}. Quer tentar encontrar noutra data?"
+
+#: src/EBox/Model/RemoteExcludes.pm:82
+msgid "Exclude or Include"
+msgstr "Excluir ou incluir"
+
+#: src/EBox/Model/RemoteExcludes.pm:93
+msgid "Includes and Excludes"
+msgstr "Inclusões ou exclusões"
+
+#: src/EBox/Model/RemoteExcludes.pm:94
+msgid "exclude or include"
+msgstr "excluir ou incluir"
+
+#: src/EBox/Model/RemoteExcludes.pm:102
+msgid ""
+"A file or directory is included or excluded according the first match. A "
+"directory match is applied to all it contents. Files not explicitly excluded "
+"or included are included"
+msgstr ""
+"Um ficheiro ou directório está incluído ou excluído de acordo com a primeira "
+"correspondência. uma correspondência de um directório é aplicada a todos os "
+"dados contidos. Ficheiros que não sejam excluído ou incluídos explicitamente "
+"são incluídos"
+
+#: src/EBox/Model/RemoteExcludes.pm:117
+msgid "Exclude path"
+msgstr "Caminho da exclusão"
+
+#: src/EBox/Model/RemoteExcludes.pm:121
+msgid "Exclude by regular expression"
+msgstr "Exclusão por expressão regular"
+
+#: src/EBox/Model/RemoteExcludes.pm:125
+msgid "Include Path"
+msgstr "Caminho da inclusão"
+
+#: src/EBox/Model/RemoteExcludes.pm:147
+msgid "exclude path"
+msgstr "caminho da exclusão"
+
+#: src/EBox/Model/RemoteExcludes.pm:160
+msgid "exclude path regular expression"
+msgstr "Caminho da expressão regular da exclusão"
+
+#: src/EBox/Model/RemoteExcludes.pm:162
+msgid "Incorrect regular expression"
+msgstr "Expressão regular incorrecta"
+
+#: src/EBox/Model/RemoteExcludes.pm:183
+msgid "include path"
+msgstr "caminho da inclusão"
 
 #: src/EBox/Model/RemoteSettings.pm:161
 msgid "Method"
@@ -370,88 +427,30 @@ msgstr ""
 "SCP seleccionado; <em>lembre-se</em> para adicionar a máquina de destino à "
 "lista de máquinas conhecidas através de SSH"
 
-#: src/EBox/Model/RemoteExcludes.pm:82
-msgid "Exclude or Include"
-msgstr "Excluir ou incluir"
-
-#: src/EBox/Model/RemoteExcludes.pm:93
-msgid "Includes and Excludes"
-msgstr "Inclusões ou exclusões"
-
-#: src/EBox/Model/RemoteExcludes.pm:94
-msgid "exclude or include"
-msgstr "excluir ou incluir"
-
-#: src/EBox/Model/RemoteExcludes.pm:102
-msgid ""
-"A file or directory is included or excluded according the first match. A "
-"directory match is applied to all it contents. Files not explicitly excluded "
-"or included are included"
+#: src/EBox/EBackup.pm:197
+#, perl-brace-format
+msgid "File {f} not found in backup for {d}, try a later date"
 msgstr ""
-"Um ficheiro ou directório está incluído ou excluído de acordo com a primeira "
-"correspondência. uma correspondência de um directório é aplicada a todos os "
-"dados contidos. Ficheiros que não sejam excluído ou incluídos explicitamente "
-"são incluídos"
+"O ficheiro {f} não foi encontrado na cópia de segurança de {d}, tente uma "
+"data posterior"
 
-#: src/EBox/Model/RemoteExcludes.pm:117
-msgid "Exclude path"
-msgstr "Caminho da exclusão"
+#: src/EBox/EBackup.pm:204
+msgid ""
+"No backup archives found. Maybe they were deleted?. Run '/etc/init.d/ebox "
+"ebackup restart' to refresh backup's information."
+msgstr ""
+"Não foram encontrados ficheiros de cópia de segurança. Poderão ter sido "
+"apagados? Corra '/etc/init.d/ebox ebackup restart' para actualizar a "
+"informação das cópias de segurança"
 
-#: src/EBox/Model/RemoteExcludes.pm:121
-msgid "Exclude by regular expression"
-msgstr "Exclusão por expressão regular"
-
-#: src/EBox/Model/RemoteExcludes.pm:125
-msgid "Include Path"
-msgstr "Caminho da inclusão"
-
-#: src/EBox/Model/RemoteExcludes.pm:147
-msgid "exclude path"
-msgstr "caminho da exclusão"
-
-#: src/EBox/Model/RemoteExcludes.pm:160
-msgid "exclude path regular expression"
-msgstr "Caminho da expressão regular da exclusão"
-
-#: src/EBox/Model/RemoteExcludes.pm:162
-msgid "Incorrect regular expression"
-msgstr "Expressão regular incorrecta"
-
-#: src/EBox/Model/RemoteExcludes.pm:183
-msgid "include path"
-msgstr "caminho da inclusão"
-
-#: src/EBox/Model/RemoteRestoreConf.pm:104
-#, fuzzy
-msgid "Restore Zentyal configuration from backup"
-msgstr "Restaurar configuração da eBox a partir de uma cópia de segurança"
-
-#: src/EBox/Model/RemoteRestoreConf.pm:111
-msgid "Loads the configuration found in the backup"
-msgstr "Carrega a configuração encontrada na cópia de segurança"
-
-#: src/EBox/Model/RemoteRestoreConf.pm:113
-msgid "Please wait..."
-msgstr "Por favor, espere..."
-
-#: src/EBox/Model/RemoteRestoreConf.pm:169
+#: src/EBox/EBackup/DBRestore.pm:46
 #, perl-brace-format
 msgid ""
-"Configuration backup not found in backup for {d}. Maybe you could try "
-"another date?"
+"Logs backup data not found in backup for {d}. Maybe you could try another "
+"date?"
 msgstr ""
-"O ficheiro de configuração não foi encontrado na cópia de segurança para "
-"{d}. Quer tentar encontrar noutra data?"
-
-#: src/EBox/Model/RemoteRestoreLogs.pm:118
-msgid "Restore logs database"
-msgstr "Restaurar base de dados de registo"
-
-#: src/EBox/Model/RemoteRestoreLogs.pm:125
-#, fuzzy
-msgid "Restores the Zentyal logs found in the selected backup"
-msgstr ""
-"Restaura os registos eBox encontrados na cópia de segurança seleccionada"
+"Os dados de registo das cópias de segurança não foram encontrados na cópia "
+"de segurança {d}. Quer tentar outra data?"
 
 #: src/EBox/Composite/ServicesRestore.pm:64
 msgid "Services restore"

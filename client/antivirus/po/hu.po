@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-antivirus 1.1\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
-"POT-Creation-Date: 2010-08-25 16:23+0200\n"
+"POT-Creation-Date: 2010-08-26 00:52+0200\n"
 "PO-Revision-Date: 2010-01-15 14:26+0100\n"
 "Last-Translator: Gabor Kelemen <kelemeng@gnome.hu>\n"
 "Language-Team: none\n"
@@ -16,23 +16,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n !=1);\n"
 "X-Generator: Pootle 1.1.0\n"
-
-#: src/EBox/AntiVirus.pm:69 src/EBox/AntiVirus.pm:385
-#: src/EBox/AntiVirus.pm:390 src/EBox/AntiVirus/Model/FreshclamStatus.pm:70
-msgid "Antivirus"
-msgstr "Vírusirtó"
-
-#: src/EBox/AntiVirus.pm:212
-msgid " To configure clamd daemon"
-msgstr "Clamd démon beállítása"
-
-#: src/EBox/AntiVirus.pm:217
-msgid "To configure freshclam updater"
-msgstr "Freshclam frissítő beállítása"
-
-#: src/EBox/AntiVirus.pm:222
-msgid "To schedule the launch of the updater"
-msgstr "Frissítő indításának időzítése"
 
 #: src/EBox/AntiVirus/Model/FreshclamStatus.pm:57
 msgid "Status"
@@ -45,6 +28,11 @@ msgstr "Dátum"
 #: src/EBox/AntiVirus/Model/FreshclamStatus.pm:69
 msgid "Database Update Status"
 msgstr "Adatbázis-frissítés állapota"
+
+#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:70 src/EBox/AntiVirus.pm:69
+#: src/EBox/AntiVirus.pm:385 src/EBox/AntiVirus.pm:390
+msgid "Antivirus"
+msgstr "Vírusirtó"
 
 #: src/EBox/AntiVirus/Model/FreshclamStatus.pm:125
 msgid ""
@@ -66,6 +54,18 @@ msgstr "Az utolsó frissítés sikerült."
 #, perl-brace-format
 msgid "Unknown event {event}."
 msgstr "Ismeretlen esemény: {event}."
+
+#: src/EBox/AntiVirus.pm:212
+msgid " To configure clamd daemon"
+msgstr "Clamd démon beállítása"
+
+#: src/EBox/AntiVirus.pm:217
+msgid "To configure freshclam updater"
+msgstr "Freshclam frissítő beállítása"
+
+#: src/EBox/AntiVirus.pm:222
+msgid "To schedule the launch of the updater"
+msgstr "Frissítő indításának időzítése"
 
 #~ msgid ""
 #~ "Update successful but your freshclam version is outdated.\n"

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-ebackup 1.3.3Report-Msgid-Bugs-To: info@ebox-"
 "technologies.com\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
-"POT-Creation-Date: 2010-08-25 17:32+0200\n"
+"POT-Creation-Date: 2010-08-26 00:53+0200\n"
 "PO-Revision-Date: 2010-07-22 13:29+0200\n"
 "Last-Translator: Daniel Hedblom <daniel.hedblom@gmail.com>\n"
 "Language-Team: none\n"
@@ -18,53 +18,38 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: src/EBox/EBackup.pm:72 src/EBox/Event/Watcher/EBackup.pm:123
+#: src/EBox/Event/Watcher/EBackup.pm:123 src/EBox/EBackup.pm:72
 #: src/EBox/Composite/Remote.pm:65
 msgid "Backup"
 msgstr "Säkerhetskopiera"
-
-#: src/EBox/EBackup.pm:197
-#, perl-brace-format
-msgid "File {f} not found in backup for {d}, try a later date"
-msgstr "Filen {f} fanns inte i säkerhetskopian {d}, prova ett senare datum."
-
-#: src/EBox/EBackup.pm:204
-msgid ""
-"No backup archives found. Maybe they were deleted?. Run '/etc/init.d/ebox "
-"ebackup restart' to refresh backup's information."
-msgstr ""
-"Kunde inte hitta några säkerhetsarkiv. Har någon raderat dem? Kör \"/etc/"
-"init.d/ebox ebackup restart\" för att uppdatera informationen för "
-"säkerhetskopieringen."
 
 #: src/EBox/Event/Watcher/EBackup.pm:141
 #, fuzzy
 msgid "Check if Zentyal backup was not successful."
 msgstr "Kontrollera om eBox backup inte var lyckad"
 
-#: src/EBox/EBackup/DBRestore.pm:46
-#, perl-brace-format
-msgid ""
-"Logs backup data not found in backup for {d}. Maybe you could try another "
-"date?"
-msgstr ""
-"Loggens säkerhetskopiedata kunde inte hittas i säkerhetskopia för {d}. "
-"Kanske kan du prova ett annat datum?"
-
-#: src/EBox/Model/RemoteFileList.pm:143 src/EBox/Model/RemoteStatus.pm:119
-#: src/EBox/Model/RemoteRestoreConf.pm:74
-#: src/EBox/Model/RemoteRestoreLogs.pm:88
+#: src/EBox/Model/RemoteRestoreLogs.pm:88 src/EBox/Model/RemoteFileList.pm:143
+#: src/EBox/Model/RemoteStatus.pm:119 src/EBox/Model/RemoteRestoreConf.pm:74
 msgid "There are not backed up files yet"
 msgstr "Det finns inga säkerhetskopierade filer ännu."
+
+#: src/EBox/Model/RemoteRestoreLogs.pm:107
+#: src/EBox/Model/RemoteFileList.pm:166 src/EBox/Model/RemoteRestoreConf.pm:93
+msgid "Backup Date"
+msgstr "Datum för säkerhetskopia"
+
+#: src/EBox/Model/RemoteRestoreLogs.pm:118
+msgid "Restore logs database"
+msgstr "Återställ databas för loggar"
+
+#: src/EBox/Model/RemoteRestoreLogs.pm:125
+#, fuzzy
+msgid "Restores the Zentyal logs found in the selected backup"
+msgstr "Återställ loggar för eBox funna i den valda säkerhetskopian."
 
 #: src/EBox/Model/RemoteFileList.pm:162
 msgid "File"
 msgstr "Fil"
-
-#: src/EBox/Model/RemoteFileList.pm:166 src/EBox/Model/RemoteRestoreConf.pm:93
-#: src/EBox/Model/RemoteRestoreLogs.pm:107
-msgid "Backup Date"
-msgstr "Datum för säkerhetskopia"
 
 #: src/EBox/Model/RemoteFileList.pm:177
 msgid "Restore Files"
@@ -102,6 +87,78 @@ msgstr "Status på extern säkerhetskopia "
 #: src/EBox/Model/RemoteStatus.pm:150
 msgid "backup"
 msgstr "säkerhetskopia"
+
+#: src/EBox/Model/RemoteRestoreConf.pm:104
+#, fuzzy
+msgid "Restore Zentyal configuration from backup"
+msgstr "Återställ eBox konfiguration från säkerhetskopia."
+
+#: src/EBox/Model/RemoteRestoreConf.pm:111
+msgid "Loads the configuration found in the backup"
+msgstr "Laddar konfigurationen funnen i säkerhetskopia"
+
+#: src/EBox/Model/RemoteRestoreConf.pm:113
+msgid "Please wait..."
+msgstr "Var vänlig vänta..."
+
+#: src/EBox/Model/RemoteRestoreConf.pm:169
+#, perl-brace-format
+msgid ""
+"Configuration backup not found in backup for {d}. Maybe you could try "
+"another date?"
+msgstr ""
+"Säkerhetskopia på konfigurationen hittas ej i säkerhetskopia för  {d}. "
+"Kanske kan du prova ett annat datum?"
+
+#: src/EBox/Model/RemoteExcludes.pm:82
+msgid "Exclude or Include"
+msgstr "Exkludera eller inkludera"
+
+#: src/EBox/Model/RemoteExcludes.pm:93
+msgid "Includes and Excludes"
+msgstr "Inkluderar eller exkluderar"
+
+#: src/EBox/Model/RemoteExcludes.pm:94
+msgid "exclude or include"
+msgstr "exkludera eller inkludera"
+
+#: src/EBox/Model/RemoteExcludes.pm:102
+msgid ""
+"A file or directory is included or excluded according the first match. A "
+"directory match is applied to all it contents. Files not explicitly excluded "
+"or included are included"
+msgstr ""
+"En fil eller en sökväg är inkluderad eller exkluderad anligt första träffen. "
+"En träff på sökvägen appliceras på allt i densamma. Filer som inte explicit "
+"inkluderats eller exkluderats kommer att följa med."
+
+#: src/EBox/Model/RemoteExcludes.pm:117
+msgid "Exclude path"
+msgstr "Exkludera sökväg"
+
+#: src/EBox/Model/RemoteExcludes.pm:121
+msgid "Exclude by regular expression"
+msgstr "Exkludera efter regulärt uttryck."
+
+#: src/EBox/Model/RemoteExcludes.pm:125
+msgid "Include Path"
+msgstr "Inkludera sökväg"
+
+#: src/EBox/Model/RemoteExcludes.pm:147
+msgid "exclude path"
+msgstr "exkludera sökväg"
+
+#: src/EBox/Model/RemoteExcludes.pm:160
+msgid "exclude path regular expression"
+msgstr "reguljärt uttryck för exkludering av sökväg"
+
+#: src/EBox/Model/RemoteExcludes.pm:162
+msgid "Incorrect regular expression"
+msgstr "Felaktigt reguljärt uttryck"
+
+#: src/EBox/Model/RemoteExcludes.pm:183
+msgid "include path"
+msgstr "Inkludera sökväg"
 
 #: src/EBox/Model/RemoteSettings.pm:161
 msgid "Method"
@@ -363,86 +420,28 @@ msgstr ""
 "Generell säkerhetskopierings konfiguration uppdaterad. SCP metod vald. "
 "<em>Kom ihåg</em> att lägga till ditt mål till kända värdar i SSH."
 
-#: src/EBox/Model/RemoteExcludes.pm:82
-msgid "Exclude or Include"
-msgstr "Exkludera eller inkludera"
+#: src/EBox/EBackup.pm:197
+#, perl-brace-format
+msgid "File {f} not found in backup for {d}, try a later date"
+msgstr "Filen {f} fanns inte i säkerhetskopian {d}, prova ett senare datum."
 
-#: src/EBox/Model/RemoteExcludes.pm:93
-msgid "Includes and Excludes"
-msgstr "Inkluderar eller exkluderar"
-
-#: src/EBox/Model/RemoteExcludes.pm:94
-msgid "exclude or include"
-msgstr "exkludera eller inkludera"
-
-#: src/EBox/Model/RemoteExcludes.pm:102
+#: src/EBox/EBackup.pm:204
 msgid ""
-"A file or directory is included or excluded according the first match. A "
-"directory match is applied to all it contents. Files not explicitly excluded "
-"or included are included"
+"No backup archives found. Maybe they were deleted?. Run '/etc/init.d/ebox "
+"ebackup restart' to refresh backup's information."
 msgstr ""
-"En fil eller en sökväg är inkluderad eller exkluderad anligt första träffen. "
-"En träff på sökvägen appliceras på allt i densamma. Filer som inte explicit "
-"inkluderats eller exkluderats kommer att följa med."
+"Kunde inte hitta några säkerhetsarkiv. Har någon raderat dem? Kör \"/etc/"
+"init.d/ebox ebackup restart\" för att uppdatera informationen för "
+"säkerhetskopieringen."
 
-#: src/EBox/Model/RemoteExcludes.pm:117
-msgid "Exclude path"
-msgstr "Exkludera sökväg"
-
-#: src/EBox/Model/RemoteExcludes.pm:121
-msgid "Exclude by regular expression"
-msgstr "Exkludera efter regulärt uttryck."
-
-#: src/EBox/Model/RemoteExcludes.pm:125
-msgid "Include Path"
-msgstr "Inkludera sökväg"
-
-#: src/EBox/Model/RemoteExcludes.pm:147
-msgid "exclude path"
-msgstr "exkludera sökväg"
-
-#: src/EBox/Model/RemoteExcludes.pm:160
-msgid "exclude path regular expression"
-msgstr "reguljärt uttryck för exkludering av sökväg"
-
-#: src/EBox/Model/RemoteExcludes.pm:162
-msgid "Incorrect regular expression"
-msgstr "Felaktigt reguljärt uttryck"
-
-#: src/EBox/Model/RemoteExcludes.pm:183
-msgid "include path"
-msgstr "Inkludera sökväg"
-
-#: src/EBox/Model/RemoteRestoreConf.pm:104
-#, fuzzy
-msgid "Restore Zentyal configuration from backup"
-msgstr "Återställ eBox konfiguration från säkerhetskopia."
-
-#: src/EBox/Model/RemoteRestoreConf.pm:111
-msgid "Loads the configuration found in the backup"
-msgstr "Laddar konfigurationen funnen i säkerhetskopia"
-
-#: src/EBox/Model/RemoteRestoreConf.pm:113
-msgid "Please wait..."
-msgstr "Var vänlig vänta..."
-
-#: src/EBox/Model/RemoteRestoreConf.pm:169
+#: src/EBox/EBackup/DBRestore.pm:46
 #, perl-brace-format
 msgid ""
-"Configuration backup not found in backup for {d}. Maybe you could try "
-"another date?"
+"Logs backup data not found in backup for {d}. Maybe you could try another "
+"date?"
 msgstr ""
-"Säkerhetskopia på konfigurationen hittas ej i säkerhetskopia för  {d}. "
+"Loggens säkerhetskopiedata kunde inte hittas i säkerhetskopia för {d}. "
 "Kanske kan du prova ett annat datum?"
-
-#: src/EBox/Model/RemoteRestoreLogs.pm:118
-msgid "Restore logs database"
-msgstr "Återställ databas för loggar"
-
-#: src/EBox/Model/RemoteRestoreLogs.pm:125
-#, fuzzy
-msgid "Restores the Zentyal logs found in the selected backup"
-msgstr "Återställ loggar för eBox funna i den valda säkerhetskopian."
 
 #: src/EBox/Composite/ServicesRestore.pm:64
 msgid "Services restore"

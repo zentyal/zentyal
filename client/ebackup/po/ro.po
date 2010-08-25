@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-ebackup 1.3.3Report-Msgid-Bugs-To: info@ebox-"
 "technologies.com\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
-"POT-Creation-Date: 2010-08-25 17:32+0200\n"
+"POT-Creation-Date: 2010-08-26 00:53+0200\n"
 "PO-Revision-Date: 2010-08-11 22:12+0200\n"
 "Last-Translator: Bogdan Chirica <bogdan.chirica@gmail.com>\n"
 "Language-Team: none\n"
@@ -19,54 +19,40 @@ msgstr ""
 "20)) ? 1 : 2);;\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: src/EBox/EBackup.pm:72 src/EBox/Event/Watcher/EBackup.pm:123
+#: src/EBox/Event/Watcher/EBackup.pm:123 src/EBox/EBackup.pm:72
 #: src/EBox/Composite/Remote.pm:65
 msgid "Backup"
 msgstr "Backup"
-
-#: src/EBox/EBackup.pm:197
-#, perl-brace-format
-msgid "File {f} not found in backup for {d}, try a later date"
-msgstr ""
-"Fisierul {f} nu a fost gasit in backup-ul pentru {d}, incercati o alta data "
-"mai veche"
-
-#: src/EBox/EBackup.pm:204
-msgid ""
-"No backup archives found. Maybe they were deleted?. Run '/etc/init.d/ebox "
-"ebackup restart' to refresh backup's information."
-msgstr ""
-"Nu au fost gasite arhive de backup. Poate au fost sterse?. Rulati '/etc/init."
-"d/ebox ebackup restart' pentru a inprospata informatiile de backup"
 
 #: src/EBox/Event/Watcher/EBackup.pm:141
 #, fuzzy
 msgid "Check if Zentyal backup was not successful."
 msgstr "Verificati daca backup-ul eBox nu a fost efectuat cu success"
 
-#: src/EBox/EBackup/DBRestore.pm:46
-#, fuzzy, perl-brace-format
-msgid ""
-"Logs backup data not found in backup for {d}. Maybe you could try another "
-"date?"
-msgstr ""
-"Backup-ul jurnalelor nu a fost gasit in backup-ul pentru {d}. Poate "
-"incercati o alta data?"
-
-#: src/EBox/Model/RemoteFileList.pm:143 src/EBox/Model/RemoteStatus.pm:119
-#: src/EBox/Model/RemoteRestoreConf.pm:74
-#: src/EBox/Model/RemoteRestoreLogs.pm:88
+#: src/EBox/Model/RemoteRestoreLogs.pm:88 src/EBox/Model/RemoteFileList.pm:143
+#: src/EBox/Model/RemoteStatus.pm:119 src/EBox/Model/RemoteRestoreConf.pm:74
 msgid "There are not backed up files yet"
 msgstr "Inca nu sunt fisiere de backup salvate"
+
+#: src/EBox/Model/RemoteRestoreLogs.pm:107
+#: src/EBox/Model/RemoteFileList.pm:166 src/EBox/Model/RemoteRestoreConf.pm:93
+msgid "Backup Date"
+msgstr "Data backup-ului"
+
+# se refera la jurnale sau la restaurari ???
+#: src/EBox/Model/RemoteRestoreLogs.pm:118
+#, fuzzy
+msgid "Restore logs database"
+msgstr "Restaureaza baza de date jurnal"
+
+#: src/EBox/Model/RemoteRestoreLogs.pm:125
+#, fuzzy
+msgid "Restores the Zentyal logs found in the selected backup"
+msgstr "Restaureaza jurnalele gasite in backup-ul selectat"
 
 #: src/EBox/Model/RemoteFileList.pm:162
 msgid "File"
 msgstr "Fisier"
-
-#: src/EBox/Model/RemoteFileList.pm:166 src/EBox/Model/RemoteRestoreConf.pm:93
-#: src/EBox/Model/RemoteRestoreLogs.pm:107
-msgid "Backup Date"
-msgstr "Data backup-ului"
 
 #: src/EBox/Model/RemoteFileList.pm:177
 msgid "Restore Files"
@@ -106,6 +92,78 @@ msgstr "Starea backup-ului la distanta"
 #: src/EBox/Model/RemoteStatus.pm:150
 msgid "backup"
 msgstr "backup"
+
+#: src/EBox/Model/RemoteRestoreConf.pm:104
+#, fuzzy
+msgid "Restore Zentyal configuration from backup"
+msgstr "Restaureaza configuratia eBox din backup"
+
+#: src/EBox/Model/RemoteRestoreConf.pm:111
+msgid "Loads the configuration found in the backup"
+msgstr "Incarca configuratia gasita in backup"
+
+#: src/EBox/Model/RemoteRestoreConf.pm:113
+msgid "Please wait..."
+msgstr "Asteptati va rog..."
+
+#: src/EBox/Model/RemoteRestoreConf.pm:169
+#, perl-brace-format
+msgid ""
+"Configuration backup not found in backup for {d}. Maybe you could try "
+"another date?"
+msgstr ""
+"Backup-ul configuratiei nu a fost gasit in backup pentru {d}. Poate "
+"incercati o alta data?"
+
+#: src/EBox/Model/RemoteExcludes.pm:82
+msgid "Exclude or Include"
+msgstr "Exclude sau Include"
+
+#: src/EBox/Model/RemoteExcludes.pm:93
+msgid "Includes and Excludes"
+msgstr "Include si Exclude"
+
+#: src/EBox/Model/RemoteExcludes.pm:94
+msgid "exclude or include"
+msgstr "excude sau include"
+
+#: src/EBox/Model/RemoteExcludes.pm:102
+msgid ""
+"A file or directory is included or excluded according the first match. A "
+"directory match is applied to all it contents. Files not explicitly excluded "
+"or included are included"
+msgstr ""
+"Un fisier sau director este inclus sau exclus in functie de prima potrivire. "
+"O potrivire a unui director se aplica si continutului acestuia. Fisierele "
+"care nu sunt excluse sau incluse explicit vor fi incluse"
+
+#: src/EBox/Model/RemoteExcludes.pm:117
+msgid "Exclude path"
+msgstr "Calea ce urmeaza a fi exclusa"
+
+#: src/EBox/Model/RemoteExcludes.pm:121
+msgid "Exclude by regular expression"
+msgstr "Exclude dupa expresie regulata"
+
+#: src/EBox/Model/RemoteExcludes.pm:125
+msgid "Include Path"
+msgstr "Calea ce urmeaza a fi inclusa"
+
+#: src/EBox/Model/RemoteExcludes.pm:147
+msgid "exclude path"
+msgstr "cale exclusa"
+
+#: src/EBox/Model/RemoteExcludes.pm:160
+msgid "exclude path regular expression"
+msgstr "excludere dupa expresia regulata"
+
+#: src/EBox/Model/RemoteExcludes.pm:162
+msgid "Incorrect regular expression"
+msgstr "Expresie regulata incorecta"
+
+#: src/EBox/Model/RemoteExcludes.pm:183
+msgid "include path"
+msgstr "cale includere"
 
 #: src/EBox/Model/RemoteSettings.pm:161
 msgid "Method"
@@ -371,88 +429,29 @@ msgstr ""
 "selectata metoda SCP <em>nu uitati</em> sa adaugati gazda tinta, la lista de "
 "gazde cunoscute de SSH"
 
-#: src/EBox/Model/RemoteExcludes.pm:82
-msgid "Exclude or Include"
-msgstr "Exclude sau Include"
-
-#: src/EBox/Model/RemoteExcludes.pm:93
-msgid "Includes and Excludes"
-msgstr "Include si Exclude"
-
-#: src/EBox/Model/RemoteExcludes.pm:94
-msgid "exclude or include"
-msgstr "excude sau include"
-
-#: src/EBox/Model/RemoteExcludes.pm:102
-msgid ""
-"A file or directory is included or excluded according the first match. A "
-"directory match is applied to all it contents. Files not explicitly excluded "
-"or included are included"
-msgstr ""
-"Un fisier sau director este inclus sau exclus in functie de prima potrivire. "
-"O potrivire a unui director se aplica si continutului acestuia. Fisierele "
-"care nu sunt excluse sau incluse explicit vor fi incluse"
-
-#: src/EBox/Model/RemoteExcludes.pm:117
-msgid "Exclude path"
-msgstr "Calea ce urmeaza a fi exclusa"
-
-#: src/EBox/Model/RemoteExcludes.pm:121
-msgid "Exclude by regular expression"
-msgstr "Exclude dupa expresie regulata"
-
-#: src/EBox/Model/RemoteExcludes.pm:125
-msgid "Include Path"
-msgstr "Calea ce urmeaza a fi inclusa"
-
-#: src/EBox/Model/RemoteExcludes.pm:147
-msgid "exclude path"
-msgstr "cale exclusa"
-
-#: src/EBox/Model/RemoteExcludes.pm:160
-msgid "exclude path regular expression"
-msgstr "excludere dupa expresia regulata"
-
-#: src/EBox/Model/RemoteExcludes.pm:162
-msgid "Incorrect regular expression"
-msgstr "Expresie regulata incorecta"
-
-#: src/EBox/Model/RemoteExcludes.pm:183
-msgid "include path"
-msgstr "cale includere"
-
-#: src/EBox/Model/RemoteRestoreConf.pm:104
-#, fuzzy
-msgid "Restore Zentyal configuration from backup"
-msgstr "Restaureaza configuratia eBox din backup"
-
-#: src/EBox/Model/RemoteRestoreConf.pm:111
-msgid "Loads the configuration found in the backup"
-msgstr "Incarca configuratia gasita in backup"
-
-#: src/EBox/Model/RemoteRestoreConf.pm:113
-msgid "Please wait..."
-msgstr "Asteptati va rog..."
-
-#: src/EBox/Model/RemoteRestoreConf.pm:169
+#: src/EBox/EBackup.pm:197
 #, perl-brace-format
-msgid ""
-"Configuration backup not found in backup for {d}. Maybe you could try "
-"another date?"
+msgid "File {f} not found in backup for {d}, try a later date"
 msgstr ""
-"Backup-ul configuratiei nu a fost gasit in backup pentru {d}. Poate "
+"Fisierul {f} nu a fost gasit in backup-ul pentru {d}, incercati o alta data "
+"mai veche"
+
+#: src/EBox/EBackup.pm:204
+msgid ""
+"No backup archives found. Maybe they were deleted?. Run '/etc/init.d/ebox "
+"ebackup restart' to refresh backup's information."
+msgstr ""
+"Nu au fost gasite arhive de backup. Poate au fost sterse?. Rulati '/etc/init."
+"d/ebox ebackup restart' pentru a inprospata informatiile de backup"
+
+#: src/EBox/EBackup/DBRestore.pm:46
+#, fuzzy, perl-brace-format
+msgid ""
+"Logs backup data not found in backup for {d}. Maybe you could try another "
+"date?"
+msgstr ""
+"Backup-ul jurnalelor nu a fost gasit in backup-ul pentru {d}. Poate "
 "incercati o alta data?"
-
-# se refera la jurnale sau la restaurari ???
-#: src/EBox/Model/RemoteRestoreLogs.pm:118
-#, fuzzy
-msgid "Restore logs database"
-msgstr "Restaureaza baza de date jurnal"
-
-#: src/EBox/Model/RemoteRestoreLogs.pm:125
-#, fuzzy
-msgid "Restores the Zentyal logs found in the selected backup"
-msgstr "Restaureaza jurnalele gasite in backup-ul selectat"
 
 #: src/EBox/Composite/ServicesRestore.pm:64
 msgid "Services restore"

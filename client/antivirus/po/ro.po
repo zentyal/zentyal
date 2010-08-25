@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-antivirus 0.1\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
-"POT-Creation-Date: 2010-08-25 16:23+0200\n"
+"POT-Creation-Date: 2010-08-26 00:52+0200\n"
 "PO-Revision-Date: 2010-05-04 12:27+0200\n"
 "Last-Translator: Harald Ersch <harald.ersch@gmail.com>\n"
 "Language-Team: none\n"
@@ -15,23 +15,6 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Pootle 1.1.0\n"
-
-#: src/EBox/AntiVirus.pm:69 src/EBox/AntiVirus.pm:385
-#: src/EBox/AntiVirus.pm:390 src/EBox/AntiVirus/Model/FreshclamStatus.pm:70
-msgid "Antivirus"
-msgstr "Antivirus"
-
-#: src/EBox/AntiVirus.pm:212
-msgid " To configure clamd daemon"
-msgstr "Pentru a configura clamd daemon"
-
-#: src/EBox/AntiVirus.pm:217
-msgid "To configure freshclam updater"
-msgstr "Pentru a configura actualizarea freshclam"
-
-#: src/EBox/AntiVirus.pm:222
-msgid "To schedule the launch of the updater"
-msgstr "Pentru a programa lansarea a actualizarii"
 
 # src/EBox/AntiVirus/Model/FreshclamStatus.pm:59
 #: src/EBox/AntiVirus/Model/FreshclamStatus.pm:57
@@ -45,6 +28,11 @@ msgstr "Data"
 #: src/EBox/AntiVirus/Model/FreshclamStatus.pm:69
 msgid "Database Update Status"
 msgstr "Starea actualizării bazei de date a antivirusului"
+
+#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:70 src/EBox/AntiVirus.pm:69
+#: src/EBox/AntiVirus.pm:385 src/EBox/AntiVirus.pm:390
+msgid "Antivirus"
+msgstr "Antivirus"
 
 #: src/EBox/AntiVirus/Model/FreshclamStatus.pm:125
 msgid ""
@@ -66,6 +54,18 @@ msgstr "Ultima actualizare a fost făcută cu succes"
 #, perl-brace-format
 msgid "Unknown event {event}."
 msgstr "Eveniment necunoscut {event}"
+
+#: src/EBox/AntiVirus.pm:212
+msgid " To configure clamd daemon"
+msgstr "Pentru a configura clamd daemon"
+
+#: src/EBox/AntiVirus.pm:217
+msgid "To configure freshclam updater"
+msgstr "Pentru a configura actualizarea freshclam"
+
+#: src/EBox/AntiVirus.pm:222
+msgid "To schedule the launch of the updater"
+msgstr "Pentru a programa lansarea a actualizarii"
 
 #, fuzzy
 #~ msgid ""
