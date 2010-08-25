@@ -128,8 +128,8 @@ sub execute # (tcCommands_ref)
     my ($self, $tcCommands_ref) = @_;
 
     foreach my $tcCommand (@{$tcCommands_ref}) {
-      EBox::info("tc $tcCommand");
-      $self->tc( $tcCommand );
+        # EBox::info("tc $tcCommand");
+        $self->tc( $tcCommand );
     }
 
   }

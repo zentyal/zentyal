@@ -1,4 +1,4 @@
-# Copyright (C) 2005 Warp Networks S.L., DBS Servicios Informaticos S.L.
+# Copyright (C) 2005 Warp Networks S.L.
 # Copyright (C) 2006-2007 Warp Networks S.L.
 # Copyright (C) 2008-2010 eBox Technologies S.L.
 #
@@ -1618,7 +1618,7 @@ sub tableInfo
     my $events = {
                    'msgsent' => __('Successful messages'),
                    'maxmsgsize' => __('Maximum message size exceeded'),
-                   'maxusrsize' => __('User quote exceeded'),
+                   'maxusrsize' => __('User quota exceeded'),
                    'norelay' => __('Relay access denied'),
                    'noaccount' => __('Account does not exist'),
                    'nohost' => __('Host unreachable'),

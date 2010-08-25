@@ -1,4 +1,4 @@
-# Copyright (C) 2005 Warp Networks S.L., DBS Servicios Informaticos S.L.
+# Copyright (C) 2005 Warp Networks S.L.
 # Copyright (C) 2006-2007 Warp Networks S.L.
 # Copyright (C) 2008-2010 Zentyal Technologies S.L.
 #
