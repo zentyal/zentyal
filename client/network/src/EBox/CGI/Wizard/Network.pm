@@ -69,35 +69,29 @@ sub _processWizard
     foreach my $iface ( @{$net->ifaces} ) {
         my $method = $self->param($iface . '_method');
 
-        if ( $net->ifaceIsExternal($iface) ) {
-            if ( $method eq 'dhcp' ) {
-                $net->setIfaceDHCP($iface, 1, 1);
-            }
-            elsif ( $method eq 'static' ) {
-                my $addr = $self->param($iface . '_address');
-                my $nmask = $self->param($iface . '_netmask');
-                my $gw  = $self->param($iface . '_gateway');
-                my $dns1 = $self->param($iface . '_dns1');
-                my $dns2 = $self->param($iface . '_dns2');
-                $net->setIfaceStatic($iface, $addr, $nmask, undef, 1);
+        if ( $method eq 'dhcp' ) {
+            $net->setIfaceDHCP($iface, 1, 1);
 
+        } elsif ( $method eq 'static' ) {
+            my $addr = $self->param($iface . '_address');
+            my $nmask = $self->param($iface . '_netmask');
+            my $gw  = $self->param($iface . '_gateway');
+            my $dns1 = $self->param($iface . '_dns1');
+            my $dns2 = $self->param($iface . '_dns2');
+            $net->setIfaceStatic($iface, $addr, $nmask, undef, 1);
+
+            if ($gw ne '') {
                 my $gwModel = $net->model('GatewayTable');
                 $gwModel->add(name      => 'default',
-                              ip        => $gw,
-                              interface => $iface,
-                              weight    => 1,
-                              default   => 1);
+                        ip        => $gw,
+                        interface => $iface,
+                        weight    => 1,
+                        default   => 1);
+            }
 
-                my $dnsModel = $net->model('DNSResolver');
-                $dnsModel->add(nameserver => $dns1);
-                $dnsModel->add(nameserver => $dns2);
-            }
-        } else {
-            if ( $method eq 'static' ) {
-                my $addr = $self->param($iface . '_address');
-                my $nmask = $self->param($iface . '_netmask');
-                $net->setIfaceStatic($iface, $addr, $nmask, undef, 1);
-            }
+            my $dnsModel = $net->model('DNSResolver');
+            if ($dns1 ne '') { $dnsModel->add(nameserver => $dns1); }
+            if ($dns2 ne '') { $dnsModel->add(nameserver => $dns2); }
         }
     }
 }

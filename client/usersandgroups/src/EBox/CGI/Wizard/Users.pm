@@ -47,6 +47,10 @@ sub _processWizard
         my $global = EBox::Global->getInstance();
 
         my $module = $global->modInstance('users');
+
+        # don't enable if already configured
+        return if ($module->configured());
+
         $module->setConfigured(1);
         $module->enableService(1);
         try {
