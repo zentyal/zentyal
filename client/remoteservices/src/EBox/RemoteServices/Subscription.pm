@@ -35,6 +35,7 @@ use EBox::Global;
 use EBox::RemoteServices::Configuration;
 use EBox::Sudo;
 
+use AptPkg::Cache;
 use Archive::Tar;
 use Cwd;
 use Error qw(:try);
@@ -695,12 +696,13 @@ sub _removeAptQAPreferences
 sub _cloudProfInstalled
 {
     my $installed = 0;
-    try {
-        my @output = @{EBox::Sudo::root("dpkg -l " . PROF_PKG . ' | grep ' . PROF_PKG )};
-        $installed = $output[0] =~ m:^ii\s:;
-    } catch EBox::Exceptions::Sudo::Command with {
-        $installed = 0;
-    };
+    my $cache = new AptPkg::Cache();
+    if ( $cache->exists(PROF_PKG) ) {
+        my $pkg = $cache->get(PROF_PKG);
+        $installed = ( $pkg->{SelectedState} == AptPkg::State::Install
+                       and $pkg->{InstState} == AptPkg::State::Ok
+                       and $pkg->{CurrentState} == AptPkg::State::Installed );
+    }
     return $installed;
 }
 

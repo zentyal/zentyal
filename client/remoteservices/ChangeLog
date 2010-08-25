@@ -1,4 +1,5 @@
 HEAD
+	+ Check package installed with libapt-pkg-perl
 	+ Mark squid as changed, if enabled, when subscription process is
 	  done
 	+ Add installer script execution after saving changes to make sure
