@@ -9,8 +9,8 @@ msgstr ""
 "technologies.com\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "POT-Creation-Date: 2010-07-21 00:28+0200\n"
-"PO-Revision-Date: 2010-08-13 12:56+0200\n"
-"Last-Translator: Nagy Ákos <reg@pecska.ro>\n"
+"PO-Revision-Date: 2010-08-16 13:01+0200\n"
+"Last-Translator: Nagy Ákos <nagy.akos@akos.ro>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -364,7 +364,7 @@ msgid "SIP provider configuration updated."
 msgstr "A SIP szolgáltató beállításai frissültek."
 
 #: src/EBox/Model/Provider.pm:195
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "{brand}: make low-cost VoIP calls to mobile phones and landlines directly "
 "with eBox. Once you have obtained a {subs} , you can purchase the VoIP "
@@ -372,8 +372,8 @@ msgid ""
 "eBox on-line store{chref}! "
 msgstr ""
 "eBox VoIP Egységek: hívjon olcsón VoIP-n keresztül mobil és vezetékes "
-"számokat direkt az eBoxból. {subs} Vegyen VoIP egységeket innen: {ohref}eBox "
-"on-line store{chref}! "
+"számokat direkt az eBoxból. Amint kapott egy {subs}-t, vehet VoIP egységeket "
+"innen: {ohref}eBox on-line store{chref}!"
 
 #: src/EBox/Model/NAT.pm:96
 msgid "eBox is behind NAT"

@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: ebox-objects 0.12\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "POT-Creation-Date: 2010-08-13 13:41+0200\n"
-"PO-Revision-Date: 2007-04-03 09:12+0000\n"
-"Last-Translator: Mariusz Zawadzki <majdom@gmail.com>\n"
+"PO-Revision-Date: 2010-08-24 20:02+0200\n"
+"Last-Translator: Robert Brzozowski <gnutar1@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n==0 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2);\n"
-"X-Generator: Pootle 0.10.1\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/Objects.pm:41 src/EBox/Model/ObjectTable.pm:83
 #: src/EBox/Model/MemberTable.pm:94
@@ -58,7 +58,7 @@ msgstr "Nazwa"
 
 #: src/EBox/Model/ObjectTable.pm:72 src/EBox/Model/MemberTable.pm:88
 msgid "Members"
-msgstr ""
+msgstr "Członkowie"
 
 #: src/EBox/Model/ObjectTable.pm:84
 #, fuzzy
@@ -72,7 +72,7 @@ msgstr "Obiekt"
 
 #: src/EBox/Model/ObjectTable.pm:114
 msgid "This object is being used by another module"
-msgstr ""
+msgstr "Obiekt jest używany przez inny moduł"
 
 #: src/EBox/Model/ObjectTable.pm:198
 msgid ""
@@ -85,7 +85,7 @@ msgstr ""
 msgid ""
 "'Any' is a reserved word that could not be used as object name to avoid "
 "confusions"
-msgstr ""
+msgstr "Słowo 'Any' jest zarezerwowane i nie może być użyte jako nazwa obiektu"
 
 #: src/EBox/Model/MemberTable.pm:71
 msgid "IP address"
@@ -94,11 +94,11 @@ msgstr "Adresy IP"
 #: src/EBox/Model/MemberTable.pm:77
 #, fuzzy
 msgid "MAC address"
-msgstr "Adresy IP"
+msgstr "Adresy MAC"
 
 #: src/EBox/Model/MemberTable.pm:95
 msgid "member"
-msgstr ""
+msgstr "członek"
 
 #: src/EBox/Model/MemberTable.pm:117
 msgid "You can only use MAC addresses with hosts"
@@ -106,7 +106,7 @@ msgstr ""
 
 #: src/EBox/Model/MemberTable.pm:120 src/EBox/Model/MemberTable.pm:121
 msgid "network address"
-msgstr "adres sieci"
+msgstr "adresy sieci"
 
 #: src/EBox/Model/MemberTable.pm:127
 #, perl-brace-format

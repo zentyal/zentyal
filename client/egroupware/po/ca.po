@@ -8,100 +8,107 @@ msgstr ""
 "Project-Id-Version: ebox-egroupware 1.1\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "POT-Creation-Date: 2010-06-02 20:31+0200\n"
-"PO-Revision-Date: 2009-03-04 16:07+0100\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2010-08-20 10:38+0200\n"
+"Last-Translator: jaume ponsa <jaume@calidae.net>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/EGroupware.pm:49
 msgid "Groupware"
-msgstr ""
+msgstr "Treball en grup"
 
 #: src/EBox/EGroupware.pm:97
 msgid "Create PostgreSQL user egroupware"
-msgstr ""
+msgstr "Crear un usuari de PostgreSQL egroupware"
 
 #: src/EBox/EGroupware.pm:98
 msgid "This user will be the owner of the egroupware database"
-msgstr ""
+msgstr "Aquest usuari serà el propietari de la base de dades egroupware"
 
 #: src/EBox/EGroupware.pm:102
 msgid "Create PostgreSQL egroupware database"
-msgstr ""
+msgstr "Crear la base de dades PostgreSQL egroupware"
 
 #: src/EBox/EGroupware.pm:103
 msgid "This database will store the data needed by eGroupware"
 msgstr ""
+"Aquesta base de dades emmagatzemarà les dades necessàries per l'eGroupware"
 
 #: src/EBox/EGroupware.pm:120
 msgid "To configure eGroupware access settings"
-msgstr ""
+msgstr "Per configurar les opcions d'accés de l'eGroupware"
 
 #: src/EBox/EGroupware.pm:125
 msgid "To allow local access to egroupware database"
-msgstr ""
+msgstr "Per pemetre accés a la base de dades egroupware"
 
 #: src/EBox/CGI/EGroupwareUserOptions.pm:43
 msgid "username"
-msgstr ""
+msgstr "nom d'usuari"
 
 #: src/EBox/CGI/EGroupwareGroupOptions.pm:43
 msgid "groupname"
-msgstr ""
+msgstr "nom del grup"
 
 #: src/EBox/Model/Applications.pm:139
 msgid "Application"
-msgstr ""
+msgstr "Aplicació"
 
 #: src/EBox/Model/Applications.pm:145
 msgid "Enabled"
-msgstr ""
+msgstr "Activat"
 
 #: src/EBox/Model/Applications.pm:152
 msgid "Applications"
-msgstr ""
+msgstr "Aplicacions"
 
 #: src/EBox/Model/Applications.pm:153
 msgid "application"
-msgstr ""
+msgstr "aplicacions"
 
 #: src/EBox/Model/DefaultApplications.pm:50
 msgid "Default Applications"
-msgstr ""
+msgstr "Aplicacions per defecte"
 
 #: src/EBox/Model/DefaultApplications.pm:51
 msgid ""
 "These are the default application permissions that are given to the new "
 "created users or existing ones before enabling eGroupware module."
 msgstr ""
+"Aquests son els permisos de les aplicacions per defecte que se li otorguen "
+"als nous usuaris creats, o als que ja existeixen quan s'activa el mòdul "
+"eGroupware"
 
 #: src/EBox/Model/PermissionTemplates.pm:66
 msgid "Name"
-msgstr ""
+msgstr "Nom"
 
 #: src/EBox/Model/PermissionTemplates.pm:72
 msgid "Allowed Applications"
-msgstr ""
+msgstr "Aplicacions permeses"
 
 #: src/EBox/Model/PermissionTemplates.pm:81
 msgid "User Defined Permission Templates"
-msgstr ""
+msgstr "Plantilla de permisos per un usuari"
 
 #: src/EBox/Model/PermissionTemplates.pm:85
 msgid "template"
-msgstr ""
+msgstr "plantilla"
 
 #: src/EBox/Model/PermissionTemplates.pm:86
 msgid ""
 "Edit the permission templates with the allowed applications that can be "
 "assigned to users or groups."
 msgstr ""
+"Editar els permisos de la plantilla amb les aplicacions permeses que son "
+"asignades a grups i usuaris."
 
 #: src/EBox/Model/VMailDomain.pm:54
 msgid "No domain selected"
-msgstr ""
+msgstr "No s'ha seleccionat cap domini"
 
 #: src/EBox/Model/VMailDomain.pm:100
 #, perl-brace-format
@@ -109,6 +116,8 @@ msgid ""
 "You must have at least one virtual mail domain defined. You can define the "
 "at {ohref}Virtual Domains section{chref}"
 msgstr ""
+"Ha de tenir al menys un domini de correu virtual definit. El pot definir a "
+"{ohref}secció de Dominis Virtuals{chref}"
 
 #: src/EBox/Model/VMailDomain.pm:109
 #, perl-brace-format
@@ -116,63 +125,69 @@ msgid ""
 "You must have IMAP service enabled. You can enable it at {ohref} Mail "
 "General Configuration{chref}."
 msgstr ""
+"Ha de tenir el servei IMAP activat. El pot activar a {ohref} Configuració "
+"General del correu{chref}"
 
 #: src/EBox/Model/VMailDomain.pm:137
 msgid ""
 "The deleted virtual domain was selected for eGroupware. Maybe you want to "
 "select another one now."
 msgstr ""
+"El domini virtual eliminat estava seleccionat per l'eGroupware. Potser en "
+"vol seleccionar un altre ara."
 
 #: src/EBox/Model/VMailDomain.pm:152
 msgid "Virtual Domain"
-msgstr ""
+msgstr "Domini Virtual"
 
 #: src/EBox/Model/VMailDomain.pm:161
 msgid "Virtual Mail Domain"
-msgstr ""
+msgstr "Domini Virtual de Correu"
 
 #: src/EBox/Model/VMailDomain.pm:166
 msgid "Select the virtual mail domain to be used for eGroupware"
-msgstr ""
+msgstr "Selecciona el domini virtual de correu que farà servir l'eGroupware"
 
 #: src/EBox/Composite/General.pm:76
 msgid "eGroupware"
-msgstr ""
+msgstr "eGroupware"
 
 #: src/EBox/Composite/General.pm:78
 msgid ""
 "Once the module is enabled and you have created a user account, you can "
 "access the eGroupware web interface at http://<ebox_ip>/egroupware"
 msgstr ""
+"Un cop el mòdul està activat i ha creat un compte d'usuari, pot accedir a "
+"l'interfície de l'eGroupware a http://<ebox_ip>/egroupware"
 
 #: src/EBox/Composite/General.pm:89
 msgid "EGroupware"
-msgstr ""
+msgstr "EGroupware"
 
 #: src/templates/egroupware.mas:9
 msgid "eGroupware account"
-msgstr ""
+msgstr "compte d'eGroupware"
 
 #: src/templates/egroupware.mas:10
 msgid "Password for eGroupware service is the user password"
-msgstr ""
+msgstr "La clau d'accés a l'eGroupware es la mateixa que la de l'usuari"
 
 #: src/templates/egroupware.mas:12
 msgid "eGroupware group"
-msgstr ""
+msgstr "grup d'eGroupware"
 
 #: src/templates/egroupware.mas:28
 msgid "Permissions template"
-msgstr ""
+msgstr "Plantilla de permisos"
 
 #: src/templates/egroupware.mas:39
 msgid "Default"
-msgstr ""
+msgstr "Defecte"
 
 #: src/templates/egroupware.mas:52 src/templates/egroupware.mas:53
 msgid "Change"
-msgstr ""
+msgstr "Canvi"
 
 #: src/templates/egroupware.mas:85
 msgid "Click here to select a virtual domain"
-msgstr ""
+msgstr "Clica aquí per seleccionar un domini virtual"

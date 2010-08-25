@@ -10,7 +10,7 @@ msgstr ""
 "technologies.com\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "POT-Creation-Date: 2010-07-21 00:28+0200\n"
-"PO-Revision-Date: 2010-08-07 11:39+0200\n"
+"PO-Revision-Date: 2010-08-22 11:52+0200\n"
 "Last-Translator: Cyril MARTY <cyril_marty@yahoo.fr>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -66,15 +66,13 @@ msgstr "Configurer les conférences."
 
 # dial plan: comporte les numéro d'extentions des poste, la façon dont on accède aux lignes externes, etc...
 #: src/EBox/Asterisk.pm:169
-#, fuzzy
 msgid "To configure the music on hold."
 msgstr "Configurer la musique d'attente."
 
 # dial plan: comporte les numéro d'extentions des poste, la façon dont on accède aux lignes externes, etc...
 #: src/EBox/Asterisk.pm:173
-#, fuzzy
 msgid "To configure DTMF behaviour."
-msgstr "Configurer le DTMF."
+msgstr "Configurer le comportement DTMF."
 
 #: src/EBox/Asterisk.pm:485
 msgid "General"
@@ -138,12 +136,10 @@ msgid "To"
 msgstr "A"
 
 #: src/EBox/Asterisk.pm:695
-#, fuzzy
 msgid "Duration"
 msgstr "Durée"
 
 #: src/EBox/Asterisk.pm:696
-#, fuzzy
 msgid "Channel"
 msgstr "Canal"
 
@@ -156,7 +152,6 @@ msgid "Application"
 msgstr "Application"
 
 #: src/EBox/Asterisk.pm:699
-#, fuzzy
 msgid "Application Data"
 msgstr "Donnée de l'application"
 
@@ -177,12 +172,10 @@ msgid "Busy"
 msgstr "Occupé"
 
 #: src/EBox/Asterisk.pm:711
-#, fuzzy
 msgid "Failed"
-msgstr "Manqué"
+msgstr "Échoué"
 
 #: src/EBox/Asterisk/Extensions.pm:230
-#, fuzzy
 msgid "User extension"
 msgstr "Extension de l'utilisateur"
 
@@ -193,9 +186,8 @@ msgid "Extension"
 msgstr "Extension"
 
 #: src/EBox/Asterisk/Extensions.pm:642
-#, fuzzy
 msgid "Queue extension"
-msgstr "extension"
+msgstr "Extension de la File"
 
 #: src/EBox/CGI/AsteriskGroupOptions.pm:42
 msgid "group"
@@ -221,7 +213,7 @@ msgid "extension"
 msgstr "extension"
 
 #: src/EBox/Model/Meetings.pm:154
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "A number between {min} and {max}."
 msgstr "Un nombre compris entre {min} et {max}."
 
@@ -330,17 +322,14 @@ msgid "General Asterisk server configuration"
 msgstr "Configuration générale du serveur Asterisk"
 
 #: src/EBox/Model/Settings.pm:151
-#, fuzzy
 msgid "General Asterisk server configuration updated."
-msgstr ""
-"Mise à jour de la configuration générale du serveur Asterisk effectuées"
+msgstr "Configuration générale du serveur Asterisk mise à jour."
 
 #: src/EBox/Model/Provider.pm:68
 msgid "Custom"
 msgstr "Personaliser"
 
 #: src/EBox/Model/Provider.pm:89
-#, fuzzy
 msgid "Provider"
 msgstr "Fournisseur"
 
@@ -365,9 +354,8 @@ msgid "Recipient of incoming calls"
 msgstr "Destinataire des appels entrants"
 
 #: src/EBox/Model/Provider.pm:130
-#, fuzzy
 msgid "Extension recipient of incoming calls through the provider."
-msgstr "Destinataire des appels entrants"
+msgstr "Extension du destinataire pour les appels entrants via le fournisseur."
 
 #: src/EBox/Model/Provider.pm:137
 msgid "SIP provider"
@@ -378,9 +366,8 @@ msgid "SIP provider for outgoing calls configuration."
 msgstr "Configuration des fournisseurs SIP pour les appels sortants."
 
 #: src/EBox/Model/Provider.pm:143
-#, fuzzy
 msgid "SIP provider configuration updated."
-msgstr "Mise à jour de la configuration des fournisseurs SIP effectuée."
+msgstr "Configuration du fournisseur SIP mise à jour."
 
 #: src/EBox/Model/Provider.pm:195
 #, perl-brace-format
@@ -413,19 +400,16 @@ msgid "NAT Asterisk server configuration"
 msgstr "Configuration générale NAT du serveur Asterisk"
 
 #: src/EBox/Model/NAT.pm:126
-#, fuzzy
 msgid "NAT Asterisk server configuration updated."
-msgstr ""
-"Mise à jour de la configuration générale NAT du serveur Asterisk effectuées."
+msgstr "Configuration NAT du serveur Asterisk mise à jour."
 
 #: src/EBox/Composite/General.pm:66
 msgid "Asterisk module"
 msgstr "Module d'Asterisk"
 
 #: src/templates/group.mas:8
-#, fuzzy
 msgid "Asterisk group queue"
-msgstr "Module d'Asterisk"
+msgstr "File d'attente des groupes Asterisk"
 
 #: src/templates/group.mas:12
 msgid ""
@@ -437,7 +421,7 @@ msgstr ""
 
 #: src/templates/group.mas:24
 msgid "Group queue"
-msgstr ""
+msgstr "Groupe en file d'attente"
 
 #: src/templates/group.mas:29 src/templates/group.mas:32
 #: src/templates/user.mas:26 src/templates/user.mas:29

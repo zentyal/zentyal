@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: ebox 0.12\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "POT-Creation-Date: 2010-08-13 13:39+0200\n"
-"PO-Revision-Date: 2010-08-07 12:08+0200\n"
+"PO-Revision-Date: 2010-08-22 11:59+0200\n"
 "Last-Translator: Cyril MARTY <cyril_marty@yahoo.fr>\n"
 "Language-Team: <es@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -27,11 +27,10 @@ msgid "It must be a non-zero positive number"
 msgstr "Cela doit être un nombre positif non égal à zéro"
 
 #: src/EBox/ProgressIndicator.pm:49
-#, fuzzy
 msgid "To solve it you can try to execute the following commands:"
 msgstr ""
-"Veuillez confirmer votre intention d'effacer le fichier de sauvegarde "
-"suivant :"
+"Pour résoudre le problème, vous pouvez essayer d’exécuter les commandes "
+"suivantes: "
 
 #: src/EBox/ProgressIndicator.pm:56
 #, perl-brace-format

@@ -9,8 +9,8 @@ msgstr ""
 "technologies.com\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "POT-Creation-Date: 2010-07-21 00:29+0200\n"
-"PO-Revision-Date: 2009-08-04 00:26+0200\n"
-"Last-Translator: Chao-Hsiung Liao <j_h_liau@yahoo.com.tw>\n"
+"PO-Revision-Date: 2010-08-20 15:42+0200\n"
+"Last-Translator: Yaochiu Huang <taiwuco@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -71,9 +71,7 @@ msgstr "一般名稱"
 msgid ""
 "The input contains invalid characters. All alphanumeric characters, plus "
 "these non alphanumeric chars: .?&+:-@* and spaces are allowed."
-msgstr ""
-"輸入包含無效的字元。只能使用所有的英文字母與數字，和這些非字母與數字的字"
-"元：.?&+:-@* 和空白。"
+msgstr "輸入包含無效的字元。所有的英文字母與數字字元，加這些非字母與數字字元：.?&+:-@* 和空白是可用的"
 
 #: src/EBox/CGI/RevokeCertificate.pm:140
 msgid "The certificate has been revoked"
@@ -123,13 +121,13 @@ msgstr ""
 #: src/EBox/CGI/IssueCertificate.pm:178 src/EBox/CA.pm:2639
 #, perl-brace-format
 msgid "Only {dns}, {ip} and {email} are valid subject alternative name types"
-msgstr ""
+msgstr "只有{dns}, {ip}, 和{email}為正確的主語(subject)替換名稱型態."
 
 #: src/EBox/CGI/IssueCertificate.pm:185
 msgid ""
 "The Subject Alternative Name parameter must follow this pattern: type:value, "
 "type:value"
-msgstr ""
+msgstr "主語替換名稱(Subject Alternative Name)參數必須符合此類型:  型:值, 型:值"
 
 #: src/EBox/CGI/IssueCertificate.pm:207
 msgid "The certificate has been issued."
@@ -159,7 +157,7 @@ msgstr "建立檔案時發生錯誤"
 #: src/EBox/CA.pm:302 src/EBox/CA.pm:783 src/EBox/CA.pm:1434
 #, perl-brace-format
 msgid "Days set to the maximum allowed {days}: Year 2038 Bug"
-msgstr "日期允許最大的設定值 {days}: Year 2038 Bug"
+msgstr "日數設為最大允許的 {days}: Year 2038 Bug"
 
 #: src/EBox/CA.pm:397
 msgid "The remove operation cannot be finished. Reason: "
@@ -169,7 +167,7 @@ msgstr "移除操作無法完成.原因是: "
 msgid ""
 "The CA certificates should be revoked  or has expired before issuing a new "
 "certificate"
-msgstr "CA 憑證應該撤銷或是在發出新的憑證前已過期"
+msgstr "CA 憑證應該已撤銷__或是在發出新的憑證前已過期"
 
 #: src/EBox/CA.pm:952 src/EBox/CA.pm:1298
 #, perl-brace-format
@@ -188,11 +186,11 @@ msgstr ""
 #: src/EBox/CA.pm:1103
 msgid ""
 "The Certification Authority Infrastructure is not available, create it first"
-msgstr ""
+msgstr "這Certification Authority Infrastructure並不可用, 先建立它."
 
 #: src/EBox/CA.pm:1202
 msgid "Either common name, distinguished name or serial number has been passed"
-msgstr "一般名稱、易記名稱或序號之一已通過"
+msgstr "一般名稱、易記名稱或序號任一已通過"
 
 #: src/EBox/CA.pm:1456
 msgid "or"

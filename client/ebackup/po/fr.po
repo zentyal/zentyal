@@ -9,8 +9,8 @@ msgstr ""
 "technologies.com\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "POT-Creation-Date: 2010-07-21 00:32+0200\n"
-"PO-Revision-Date: 2010-08-09 07:54+0200\n"
-"Last-Translator: Bernard Gibout <bgibout@neoptera.com>\n"
+"PO-Revision-Date: 2010-08-22 11:19+0200\n"
+"Last-Translator: Cyril MARTY <cyril_marty@yahoo.fr>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -56,7 +56,7 @@ msgstr ""
 #: src/EBox/Model/RemoteRestoreConf.pm:74
 #: src/EBox/Model/RemoteRestoreLogs.pm:88
 msgid "There are not backed up files yet"
-msgstr "Il n'existe pas encore de sauvegardés"
+msgstr "Il n'existe pas encore de fichiers sauvegardés"
 
 #: src/EBox/Model/RemoteFileList.pm:162
 msgid "File"
@@ -82,7 +82,7 @@ msgstr ""
 
 #: src/EBox/Model/RemoteFileList.pm:220
 msgid "File restored successfully"
-msgstr "Le fichier à été restauré"
+msgstr "Le fichier a été restauré"
 
 #: src/EBox/Model/RemoteFileList.pm:269
 #, perl-brace-format
@@ -373,18 +373,16 @@ msgstr ""
 "connus par SSH."
 
 #: src/EBox/Model/RemoteExcludes.pm:82
-#, fuzzy
 msgid "Exclude or Include"
-msgstr "Exclu ou inclu"
+msgstr "Exclure ou Inclure"
 
 #: src/EBox/Model/RemoteExcludes.pm:93
 msgid "Includes and Excludes"
-msgstr "Inclus et exclus"
+msgstr "Inclus et Exclus"
 
 #: src/EBox/Model/RemoteExcludes.pm:94
-#, fuzzy
 msgid "exclude or include"
-msgstr "Exclu ou inclu"
+msgstr "exclure ou inclure"
 
 #: src/EBox/Model/RemoteExcludes.pm:102
 msgid ""
@@ -392,6 +390,10 @@ msgid ""
 "directory match is applied to all it contents. Files not explicitly excluded "
 "or included are included"
 msgstr ""
+"Un fichier ou un répertoire est inclus ou exclus selon la première "
+"correspondance. Une correspondance de répertoire est appliquée à tous les "
+"contenus du répertoire. Les fichiers qui ne sont pas explicitement exclus ou "
+"inclus seront inclus par défaut."
 
 #: src/EBox/Model/RemoteExcludes.pm:117
 msgid "Exclude path"
@@ -399,31 +401,28 @@ msgstr "Chemin exclu"
 
 # ou fichier d'exclusion regexp ?
 #: src/EBox/Model/RemoteExcludes.pm:121
-#, fuzzy
 msgid "Exclude by regular expression"
-msgstr "Regexp d'exclusion de fichiers"
+msgstr "Exclure à l'aide d'une expression régulière"
 
 #: src/EBox/Model/RemoteExcludes.pm:125
 msgid "Include Path"
-msgstr "Chemin inclu"
+msgstr "Inclure le chemin"
 
 #: src/EBox/Model/RemoteExcludes.pm:147
-#, fuzzy
 msgid "exclude path"
-msgstr "Chemin exclu"
+msgstr "Exclure le chemin"
 
 #: src/EBox/Model/RemoteExcludes.pm:160
 msgid "exclude path regular expression"
-msgstr "Chemin exclu (expression régulière)"
+msgstr "Exclure le chemin à l'aide de l'expression régulière"
 
 #: src/EBox/Model/RemoteExcludes.pm:162
 msgid "Incorrect regular expression"
 msgstr "Expression régulière incorrecte"
 
 #: src/EBox/Model/RemoteExcludes.pm:183
-#, fuzzy
 msgid "include path"
-msgstr "Chemin exclu"
+msgstr "Inclure le chemin"
 
 #: src/EBox/Model/RemoteRestoreConf.pm:104
 msgid "Restore eBox configuration from backup"
@@ -456,7 +455,7 @@ msgstr "Restaure les journaux d'eBox trouvés dans la sauvegarde sélectionnée"
 
 #: src/EBox/Composite/ServicesRestore.pm:64
 msgid "Services restore"
-msgstr ""
+msgstr "Services restaurer"
 
 #: src/EBox/Composite/RemoteGeneral.pm:65
 msgid "Configuration and Status"

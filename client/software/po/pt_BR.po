@@ -7,8 +7,8 @@ msgstr ""
 "Project-Id-Version: ebox-software 0.12.1\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "POT-Creation-Date: 2010-08-13 13:42+0200\n"
-"PO-Revision-Date: 2010-06-14 13:18+0200\n"
-"Last-Translator: Flávio Veras <flaviove@gmail.com>\n"
+"PO-Revision-Date: 2010-08-16 22:28+0200\n"
+"Last-Translator: Jorge Eduardo Quintao <jorge@netsol.com.br>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -38,10 +38,13 @@ msgid ""
 "You cannot modify the automatic update using QA updates from Web UI. To "
 "disable automatic updates, edit {conf} and disable {key} key."
 msgstr ""
+"Você não pode modificar a atualização automática usando atualizações QA da "
+"interface web. Para desabilitar atualizações automáticas, edite {conf} e "
+"desabilite {key} chave."
 
 #: src/EBox/Software.pm:537
 msgid "eBox Components"
-msgstr "Componentes do eBox"
+msgstr "Componentes eBox"
 
 #: src/EBox/Software.pm:539
 msgid "System Updates"
@@ -49,7 +52,7 @@ msgstr "Atualizações do Sistema"
 
 #: src/EBox/Software.pm:541 src/templates/config.mas:19
 msgid "Settings"
-msgstr ""
+msgstr "Configurações"
 
 #: src/EBox/Software.pm:680
 #, perl-brace-format
@@ -61,34 +64,31 @@ msgstr ""
 
 #: src/EBox/Software.pm:843
 msgid "Welcome"
-msgstr ""
+msgstr "Bem vindo"
 
 #: src/EBox/Software.pm:845
 msgid "Package Selection"
-msgstr ""
+msgstr "Seleção de Pacotes"
 
 #: src/EBox/Software.pm:846
 msgid "Confirmation"
-msgstr ""
+msgstr "Confirmação"
 
 #: src/EBox/Software.pm:847
-#, fuzzy
 msgid "Installation"
-msgstr "Instalar"
+msgstr "Instalação"
 
 #: src/EBox/Software.pm:848
-#, fuzzy
 msgid "Initial Configuration"
-msgstr "configuração das atualizações automáticas"
+msgstr "Configuração inicial"
 
 #: src/EBox/Software.pm:849
 msgid "Save Changes"
-msgstr ""
+msgstr "Salvar alterações"
 
 #: src/EBox/CGI/Config.pm:33
-#, fuzzy
 msgid "Software management settings"
-msgstr "Gerenciamento de software"
+msgstr "Configurações de gerenciamento de software"
 
 #: src/EBox/CGI/Config.pm:43
 msgid "Automatic software updates"
@@ -99,9 +99,8 @@ msgid "automatic updates configuration"
 msgstr "configuração das atualizações automáticas"
 
 #: src/EBox/CGI/EBox.pm:36
-#, fuzzy
 msgid "Choose eBox packages to install"
-msgstr "pacotes restantes"
+msgstr "Escolhar pacotes eBox para instalar"
 
 #: src/EBox/CGI/EBox.pm:40
 msgid "eBox components"
@@ -124,27 +123,22 @@ msgid "There were no packages to update"
 msgstr "Não existem pacotes a serem atualizados"
 
 #: src/EBox/CGI/InstallPkgs.pm:165
-#, fuzzy
 msgid "Installing"
-msgstr "Instalar"
+msgstr "Instalando"
 
 #: src/EBox/CGI/InstallPkgs.pm:166
-#, fuzzy
 msgid "Installing packages"
-msgstr "Atualizando pacotes"
+msgstr "Instalando pacotes"
 
 #: src/EBox/CGI/InstallPkgs.pm:167 src/EBox/CGI/InstallPkgs.pm:191
-#, fuzzy
 msgid "Current operation"
-msgstr "Pacote atual"
+msgstr "Operação atual"
 
 #: src/EBox/CGI/InstallPkgs.pm:168
-#, fuzzy
 msgid "actions done"
-msgstr "Ações"
+msgstr "ações realizadas"
 
 #: src/EBox/CGI/InstallPkgs.pm:169
-#, fuzzy
 msgid ""
 "The packages installation has finished successfully. The administration "
 "interface may become unresponsive for a few seconds. Please wait patiently "
@@ -153,7 +147,8 @@ msgid ""
 msgstr ""
 "A instalação dos pacotes foi finalizada com sucesso. A interface "
 "administrativa pode ficar sem resposta por alguns segundos. Por favor "
-"aguarde pacientemente até que o sistema tenha sido reiniciado totalmente"
+"aguarde pacientemente até que o sistema tenha sido completamente "
+"configurado. Você será automaticamente redirecionado para o próximo passo"
 
 #: src/EBox/CGI/InstallPkgs.pm:174
 msgid ""
@@ -203,11 +198,11 @@ msgstr "Instalar"
 
 #: src/templates/ebox.mas:168
 msgid "View advanced mode"
-msgstr ""
+msgstr "Visualizar modo avançado"
 
 #: src/templates/ebox.mas:482
 msgid "View basic mode"
-msgstr ""
+msgstr "Visualizar modo básico"
 
 #: src/templates/del.mas:96
 msgid "The following packages will be installed"
@@ -227,19 +222,21 @@ msgstr "Cancelar"
 
 #: src/templates/del.mas:149
 msgid "You may want to install also the following recommended packages:"
-msgstr ""
+msgstr "É recomendável você instalar também os seguintes pacotes:"
 
 #: src/templates/del.mas:152
 msgid "Layer 7 filtering for Traffic Shaping (ebox-l7-protocols)"
-msgstr ""
+msgstr "Filtragem da camada 7 para controle de tráfego (ebox-l7-protocols)"
 
 #: src/templates/del.mas:155
 msgid "Virus scanning for File Sharing (ebox-antivirus and samba-vscan)"
 msgstr ""
+"Procura de vírus para Compartilhamento de Arquivos (ebox-antivirus e samba-"
+"vscan)"
 
 #: src/templates/del.mas:158
 msgid "VoIP meetings support (dahdi and linux-headers)"
-msgstr ""
+msgstr "Suporte a salas VoIP (dahdi e linux-headers) "
 
 #: src/templates/config.mas:8
 msgid "Perform automatic security updates"
@@ -247,20 +244,21 @@ msgstr "Executar atualização automática segura"
 
 #: src/templates/config.mas:14
 msgid "This eBox is configured to use automatic QA updates"
-msgstr ""
+msgstr "Este eBox está configurado para usar atualizações automáticas eBox QA"
 
 #: src/templates/config.mas:26
 msgid "Automatic operations start time"
-msgstr ""
+msgstr "Hora de início das operações automáticas"
 
 #: src/templates/updates.mas:24
 msgid "Updates are available for the following system components"
 msgstr "Atualizações disponíveis para os seguintes componentes do sistema"
 
 #: src/templates/updates.mas:26
-#, fuzzy
 msgid "Community updates are available for the following system components"
-msgstr "Atualizações disponíveis para os seguintes componentes do sistema"
+msgstr ""
+"Atualizações da comunidade disponíveis para os seguintes componentes do "
+"sistema"
 
 #: src/templates/updates.mas:32
 msgid "Component"
@@ -275,14 +273,12 @@ msgid "Version"
 msgstr "Versão"
 
 #: src/templates/updates.mas:52
-#, fuzzy
 msgid "Security update"
-msgstr "Atualizações do sistema"
+msgstr "Atualizações de segurança"
 
 #: src/templates/updates.mas:55
-#, fuzzy
 msgid "eBox QA update"
-msgstr "eBox - Firewall"
+msgstr "Atualização eBox QA"
 
 #: src/templates/updates.mas:77
 msgid "Update all packages"
@@ -301,15 +297,16 @@ msgid "Upgrade"
 msgstr "Atualizar"
 
 #: src/templates/updates.mas:96
-#, fuzzy
 msgid "Update list"
-msgstr "Atualizar"
+msgstr "Atualizar lista"
 
 #: src/templates/updateNote.mas:10
 msgid ""
 "As you are enjoying a Commercial Server Subscription the updates are Quality "
 "Assured by the eBox Development Team."
 msgstr ""
+"Como você tem uma subscrição comercial as atualizações tem Qualidade "
+"Assegurada (QA) pelo time de desenvolvimento eBox."
 
 #: src/templates/updateNote.mas:13
 #, perl-brace-format
@@ -321,6 +318,12 @@ msgid ""
 "extensively tested by the eBox Development Team and you won't be introducing "
 "any regressions on your already working system."
 msgstr ""
+"Aviso: As atualizações são baseadas na comunidade. Você pode garantir "
+"atualizações de Qualidade Assegurada (QA) comprando uma subscrição <a "
+"href='{proUrl}'>Professional</a>  ou <a href='{entUrl}'>Enterprise</a>. "
+"Atualizações eBox QA garantem que todos os upgrades, bugfixes e atualizações "
+"de segurança  são cuidadosamente testadas pela time de desenvolvimento eBox "
+"e você não irá introduzir nenhuma falha em seu sistema."
 
 #, fuzzy
 #~ msgid "packages installed"

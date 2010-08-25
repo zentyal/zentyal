@@ -9,8 +9,8 @@ msgstr ""
 "technologies.com\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "POT-Creation-Date: 2010-08-13 13:42+0200\n"
-"PO-Revision-Date: 2010-08-13 13:44+0200\n"
-"Last-Translator: Nagy Ákos <reg@pecska.ro>\n"
+"PO-Revision-Date: 2010-08-16 13:21+0200\n"
+"Last-Translator: Nagy Ákos <nagy.akos@akos.ro>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -137,9 +137,8 @@ msgid "Current operation"
 msgstr "Aktuális művelet"
 
 #: src/EBox/CGI/InstallPkgs.pm:168
-#, fuzzy
 msgid "actions done"
-msgstr "Műveletek"
+msgstr "Műveletek befejezve"
 
 #: src/EBox/CGI/InstallPkgs.pm:169
 msgid ""
@@ -293,9 +292,8 @@ msgid "Upgrade"
 msgstr "Frissítés"
 
 #: src/templates/updates.mas:96
-#, fuzzy
 msgid "Update list"
-msgstr "Frissítés"
+msgstr "Lista frissítése"
 
 #: src/templates/updateNote.mas:10
 msgid ""

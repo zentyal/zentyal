@@ -9,32 +9,36 @@ msgstr ""
 "technologies.com\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "POT-Creation-Date: 2010-07-21 00:32+0200\n"
-"PO-Revision-Date: 2009-07-31 13:14+0100\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2010-08-19 09:08+0200\n"
+"Last-Translator: jaume ponsa <jaume@calidae.net>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/EBackup.pm:72 src/EBox/Event/Watcher/EBackup.pm:123
 #: src/EBox/Composite/Remote.pm:65
 msgid "Backup"
-msgstr ""
+msgstr "Còpia de seguretat"
 
 #: src/EBox/EBackup.pm:197
 #, perl-brace-format
 msgid "File {f} not found in backup for {d}, try a later date"
-msgstr ""
+msgstr "L'arxiu {f} no es troba al backup per {d}, prova una data més actual"
 
 #: src/EBox/EBackup.pm:204
 msgid ""
 "No backup archives found. Maybe they were deleted?. Run '/etc/init.d/ebox "
 "ebackup restart' to refresh backup's information."
 msgstr ""
+"No s'ha trobat arxius de còpia. Potser s'han esborrat?. Executa "
+"'/etc/init.d/ebox ebackup restart' per refrescar la informació de les "
+"còpies."
 
 #: src/EBox/Event/Watcher/EBackup.pm:141
 msgid "Check if eBox backup was not successful."
-msgstr ""
+msgstr "Comprova si la còpia de l'eBox ha fallat."
 
 #: src/EBox/EBackup/DBRestore.pm:46
 #, perl-brace-format
@@ -42,176 +46,181 @@ msgid ""
 "Logs backup data not found in backup for {d}. Maybe you could try another "
 "date?"
 msgstr ""
+"No es troben registres de còpies de seguretat per {d}. Pot probar una altra "
+"data?"
 
 #: src/EBox/Model/RemoteFileList.pm:143 src/EBox/Model/RemoteStatus.pm:119
 #: src/EBox/Model/RemoteRestoreConf.pm:74
 #: src/EBox/Model/RemoteRestoreLogs.pm:88
 msgid "There are not backed up files yet"
-msgstr ""
+msgstr "No hi ha arxius copiats encara"
 
 #: src/EBox/Model/RemoteFileList.pm:162
 msgid "File"
-msgstr ""
+msgstr "Arxiu"
 
 #: src/EBox/Model/RemoteFileList.pm:166 src/EBox/Model/RemoteRestoreConf.pm:93
 #: src/EBox/Model/RemoteRestoreLogs.pm:107
 msgid "Backup Date"
-msgstr ""
+msgstr "Data de la còpia"
 
 #: src/EBox/Model/RemoteFileList.pm:177
 msgid "Restore Files"
-msgstr ""
+msgstr "Recuperar arxius"
 
 #: src/EBox/Model/RemoteFileList.pm:178
 msgid "file restore operation"
-msgstr ""
+msgstr "procés de recuperació d'arxius"
 
 #: src/EBox/Model/RemoteFileList.pm:204
 msgid "File already exists if you continue the current will be deleted"
-msgstr ""
+msgstr "L'arxiu ja existeix, si continua l'actual serà eliminat"
 
 #: src/EBox/Model/RemoteFileList.pm:220
 msgid "File restored successfully"
-msgstr ""
+msgstr "L'arxiu s'ha recuperat correctament"
 
 #: src/EBox/Model/RemoteFileList.pm:269
 #, perl-brace-format
 msgid "Remote URL to be used with duplicity for manual restores: {url}"
 msgstr ""
+"URL remota per fer servir amb el duplicity per restauracions manuals: {url}"
 
 #: src/EBox/Model/RemoteStatus.pm:138 src/EBox/Model/RemoteExcludes.pm:76
 msgid "Type"
-msgstr ""
+msgstr "Tipus"
 
 #: src/EBox/Model/RemoteStatus.pm:142
 msgid "Date"
-msgstr ""
+msgstr "Data"
 
 #: src/EBox/Model/RemoteStatus.pm:149
 msgid "Remote Backup Status"
-msgstr ""
+msgstr "Estat de la còpia remota"
 
 #: src/EBox/Model/RemoteStatus.pm:150
 msgid "backup"
-msgstr ""
+msgstr "còpia de seguretat"
 
 #: src/EBox/Model/RemoteSettings.pm:161
 msgid "Method"
-msgstr ""
+msgstr "Mètode"
 
 #: src/EBox/Model/RemoteSettings.pm:167
 msgid "Host or destination"
-msgstr ""
+msgstr "Host o destí"
 
 #: src/EBox/Model/RemoteSettings.pm:169
 msgid "If the selected method is file system, only set the target directory"
 msgstr ""
+"Si el mètode seleccionat es sistema d'arxius, només ha d'establir el "
+"directori de destí"
 
 #: src/EBox/Model/RemoteSettings.pm:173
 msgid "User"
-msgstr ""
+msgstr "Usuari"
 
 #: src/EBox/Model/RemoteSettings.pm:178
 msgid "Password"
-msgstr ""
+msgstr "Clau d'accés"
 
 #: src/EBox/Model/RemoteSettings.pm:183
 msgid "Encryption"
-msgstr ""
+msgstr "Encriptació"
 
 #: src/EBox/Model/RemoteSettings.pm:188 src/EBox/Model/RemoteSettings.pm:240
 #: src/EBox/Model/RemoteSettings.pm:477
 msgid "Disabled"
-msgstr ""
+msgstr "Desactivat"
 
 #: src/EBox/Model/RemoteSettings.pm:193
 msgid "Symmetric Key"
-msgstr ""
+msgstr "Clau simètrica"
 
 #: src/EBox/Model/RemoteSettings.pm:198
 msgid "GPG Key"
-msgstr ""
+msgstr "Clau GPG"
 
 #: src/EBox/Model/RemoteSettings.pm:209
 msgid "Full Backup Frequency"
-msgstr ""
+msgstr "Freqüència de còpia completa "
 
 #: src/EBox/Model/RemoteSettings.pm:214 src/EBox/Model/RemoteSettings.pm:245
 msgid "Daily"
-msgstr ""
+msgstr "Diària "
 
 #: src/EBox/Model/RemoteSettings.pm:219 src/EBox/Model/RemoteSettings.pm:250
 msgid "Weekly"
-msgstr ""
+msgstr "Setmanal "
 
 #: src/EBox/Model/RemoteSettings.pm:225
 msgid "Monthly"
-msgstr ""
+msgstr "Mensual"
 
 #: src/EBox/Model/RemoteSettings.pm:235
 msgid "Incremental Backup Frequency"
-msgstr ""
+msgstr "Freqüència de la còpia incremental"
 
 #: src/EBox/Model/RemoteSettings.pm:261
 msgid "Backup process starts at"
-msgstr ""
+msgstr "El procés de còpia comença a"
 
 #: src/EBox/Model/RemoteSettings.pm:267
 msgid "Keep previous full copies"
-msgstr ""
+msgstr "Guarda les còpies completes anteriors"
 
 #: src/EBox/Model/RemoteSettings.pm:272
 msgid "maximum number"
-msgstr ""
+msgstr "número màxim"
 
 #: src/EBox/Model/RemoteSettings.pm:280
 msgid "no older than"
-msgstr ""
+msgstr "no anterior a"
 
 #: src/EBox/Model/RemoteSettings.pm:294
 msgid "General Configuration"
-msgstr ""
+msgstr "Configuració general"
 
 #: src/EBox/Model/RemoteSettings.pm:299
 msgid "General backup server configuration updated"
-msgstr ""
+msgstr "Configuració general de la còpia de seguretat actualitzada."
 
 #: src/EBox/Model/RemoteSettings.pm:312
 msgid "on Monday"
-msgstr ""
+msgstr "el dilluns"
 
 #: src/EBox/Model/RemoteSettings.pm:313
 msgid "on Tuesday"
-msgstr ""
+msgstr "el dimarts"
 
 #: src/EBox/Model/RemoteSettings.pm:314
 msgid "on Wednesday"
-msgstr ""
+msgstr "el dimecres"
 
 #: src/EBox/Model/RemoteSettings.pm:315
 msgid "on Thursday"
-msgstr ""
+msgstr "el dijous"
 
 #: src/EBox/Model/RemoteSettings.pm:316
 msgid "on Friday"
-msgstr ""
+msgstr "el divendres"
 
 #: src/EBox/Model/RemoteSettings.pm:317
 msgid "on Saturday"
-msgstr ""
+msgstr "el dissabte"
 
 #: src/EBox/Model/RemoteSettings.pm:318
 msgid "on Sunday"
-msgstr ""
+msgstr "el diumenge"
 
 #: src/EBox/Model/RemoteSettings.pm:331
 #, perl-brace-format
 msgid "on the {mday}th"
-msgstr ""
+msgstr "el dia {mday}"
 
 #: src/EBox/Model/RemoteSettings.pm:339
 msgid "on the last day"
-msgstr ""
+msgstr "l'últim dia"
 
 #: src/EBox/Model/RemoteSettings.pm:494
 #, perl-brace-format
@@ -220,141 +229,154 @@ msgid ""
 "keep on your eBox servers. Purchase the backup storage space you need at the "
 "{ohref}eBox on-line store{chref}."
 msgstr ""
+"{oi}{brand}{ci} és un lloc d'emmagatzematge de dades de l'eBox remot ràpid i "
+"segur. Compri l'espai de còpia necessari a {ohref}eBox on-line "
+"store{chref}."
 
 #: src/EBox/Model/RemoteSettings.pm:511
 msgid "1 week"
-msgstr ""
+msgstr "1 setmana"
 
 #: src/EBox/Model/RemoteSettings.pm:515
 msgid "2 weeks"
-msgstr ""
+msgstr "2 setmanes"
 
 #: src/EBox/Model/RemoteSettings.pm:519
 msgid "3 weeks"
-msgstr ""
+msgstr "3 setmanes"
 
 #: src/EBox/Model/RemoteSettings.pm:523
 msgid "1 month"
-msgstr ""
+msgstr "1 mes"
 
 #: src/EBox/Model/RemoteSettings.pm:527
 msgid "2 months"
-msgstr ""
+msgstr "2 mesos"
 
 #: src/EBox/Model/RemoteSettings.pm:531
 msgid "3 months"
-msgstr ""
+msgstr "3 mesos"
 
 #: src/EBox/Model/RemoteSettings.pm:535
 msgid "4 months"
-msgstr ""
+msgstr "4 mesos"
 
 #: src/EBox/Model/RemoteSettings.pm:539
 msgid "6 months"
-msgstr ""
+msgstr "6 mesos"
 
 #: src/EBox/Model/RemoteSettings.pm:543
 msgid "9 months"
-msgstr ""
+msgstr "9 mesos"
 
 #: src/EBox/Model/RemoteSettings.pm:547
 msgid "1 year"
-msgstr ""
+msgstr "1 any"
 
 #: src/EBox/Model/RemoteSettings.pm:551
 msgid "1 year and half"
-msgstr ""
+msgstr "1 any i mig"
 
 #: src/EBox/Model/RemoteSettings.pm:555
 msgid "2 years"
-msgstr ""
+msgstr "2 anys"
 
 #: src/EBox/Model/RemoteSettings.pm:559
 msgid "3 years"
-msgstr ""
+msgstr "3 anys"
 
 #: src/EBox/Model/RemoteSettings.pm:591
 msgid "Destination must be a relative directory"
-msgstr ""
+msgstr "El directori de destí ha de ser relatiu"
 
 #: src/EBox/Model/RemoteSettings.pm:646
 msgid "The target parameter that must be like 'other.host[:port]/some_dir"
-msgstr ""
+msgstr "El paràmetre de destí ha de ser com 'other.host[:port]/some_dir"
 
 #: src/EBox/Model/RemoteSettings.pm:657 src/EBox/Model/RemoteSettings.pm:691
 msgid "target"
-msgstr ""
+msgstr "destí"
 
 #: src/EBox/Model/RemoteSettings.pm:659
 msgid "Must be a like 'other.host[:port]/some_dir'"
-msgstr ""
+msgstr "Ha de ser com 'other.host[:port]/some_dir'"
 
 #: src/EBox/Model/RemoteSettings.pm:666 src/EBox/Model/RemoteSettings.pm:701
 msgid "host"
-msgstr ""
+msgstr "host"
 
 #: src/EBox/Model/RemoteSettings.pm:668 src/EBox/Model/RemoteSettings.pm:703
 msgid "port"
-msgstr ""
+msgstr "port"
 
 #: src/EBox/Model/RemoteSettings.pm:670
 msgid "directory"
-msgstr ""
+msgstr "directori"
 
 #: src/EBox/Model/RemoteSettings.pm:680
 msgid ""
 "The RSYNC target parameter that must be like 'other.host[:port]/"
 "relative_path' or 'other.host[:port]/absolute_path'"
 msgstr ""
+"El paràmetre de destí de l'RSYNC ha de ser com "
+"'other.host[:port]/relative_path' o 'other.host[:port]/absolute_path'"
 
 #: src/EBox/Model/RemoteSettings.pm:694
 msgid ""
 "Must be a like 'other.host[:port]/relative_path' or 'other.host[:port]/"
 "absolute_path'"
 msgstr ""
+"Ha de ser com 'other.host[:port]/relative_path' o "
+"'other.host[:port]/absolute_path'"
 
 #: src/EBox/Model/RemoteSettings.pm:706
 msgid "absolute directory"
-msgstr ""
+msgstr "directori absolut"
 
 #: src/EBox/Model/RemoteSettings.pm:708
 msgid "relative directory"
-msgstr ""
+msgstr "directori relatiu"
 
 #: src/EBox/Model/RemoteSettings.pm:725
 msgid ""
 "File system method needs a target parameter that should be a directory path"
 msgstr ""
+"El mètode de sistema d'arxius necessita un paràmetre de destí que ha de ser "
+"la ruta del directori"
 
 #: src/EBox/Model/RemoteSettings.pm:730 src/EBox/Model/RemoteSettings.pm:734
 msgid "Directory for backup"
-msgstr ""
+msgstr "Directori per la còpia de seguretat"
 
 #: src/EBox/Model/RemoteSettings.pm:737
 msgid "File exists and it is not a directory"
-msgstr ""
+msgstr "L'arxiu existeix i no es un directori"
 
 #: src/EBox/Model/RemoteSettings.pm:758
 msgid "Incremental backup must be more frequent than full backup"
 msgstr ""
+"La còpia incremental ha de tenir major freqüència que la còpia complerta "
 
 #: src/EBox/Model/RemoteSettings.pm:770
 msgid ""
 "General backup server configuration updated. SCP method selected; "
 "<em>remember</em> to add your target host to the list of known hosts by SSH"
 msgstr ""
+"La configuració de còpia general ha estat actualitzada. El mètode SCP s'ha "
+"seleccionat; <em>recordi</em> afegir el host de destí a la llista de hosts "
+"coneguts per l'SSH"
 
 #: src/EBox/Model/RemoteExcludes.pm:82
 msgid "Exclude or Include"
-msgstr ""
+msgstr "Excloure o incloure "
 
 #: src/EBox/Model/RemoteExcludes.pm:93
 msgid "Includes and Excludes"
-msgstr ""
+msgstr "Inclusions i exclusions "
 
 #: src/EBox/Model/RemoteExcludes.pm:94
 msgid "exclude or include"
-msgstr ""
+msgstr "excloure o incloure"
 
 #: src/EBox/Model/RemoteExcludes.pm:102
 msgid ""
@@ -362,46 +384,49 @@ msgid ""
 "directory match is applied to all it contents. Files not explicitly excluded "
 "or included are included"
 msgstr ""
+"Un arxiu o directori es inclòs o exclòs a partir de la primera coincidència. "
+"Una coincidència de directori s'aplica a tot el seu contingut. Els arxius "
+"no exclosos o inclosos explícitament son inclosos"
 
 #: src/EBox/Model/RemoteExcludes.pm:117
 msgid "Exclude path"
-msgstr ""
+msgstr "Ruta d'exclusió"
 
 #: src/EBox/Model/RemoteExcludes.pm:121
 msgid "Exclude by regular expression"
-msgstr ""
+msgstr "Exclòs per l'expressió regular"
 
 #: src/EBox/Model/RemoteExcludes.pm:125
 msgid "Include Path"
-msgstr ""
+msgstr "Ruta a Incloure"
 
 #: src/EBox/Model/RemoteExcludes.pm:147
 msgid "exclude path"
-msgstr ""
+msgstr "Ruta a Excloure"
 
 #: src/EBox/Model/RemoteExcludes.pm:160
 msgid "exclude path regular expression"
-msgstr ""
+msgstr "expressió regular de la ruta a excloure"
 
 #: src/EBox/Model/RemoteExcludes.pm:162
 msgid "Incorrect regular expression"
-msgstr ""
+msgstr "Expressió regular incorrecta "
 
 #: src/EBox/Model/RemoteExcludes.pm:183
 msgid "include path"
-msgstr ""
+msgstr "ruta inclosa"
 
 #: src/EBox/Model/RemoteRestoreConf.pm:104
 msgid "Restore eBox configuration from backup"
-msgstr ""
+msgstr "Restaura la configuració de l'eBox des de la còpia de seguretat"
 
 #: src/EBox/Model/RemoteRestoreConf.pm:111
 msgid "Loads the configuration found in the backup"
-msgstr ""
+msgstr "Carrega la configuració trobada a la còpia de seguretat"
 
 #: src/EBox/Model/RemoteRestoreConf.pm:113
 msgid "Please wait..."
-msgstr ""
+msgstr "Si us plau, esperi..."
 
 #: src/EBox/Model/RemoteRestoreConf.pm:169
 #, perl-brace-format
@@ -409,19 +434,21 @@ msgid ""
 "Configuration backup not found in backup for {d}. Maybe you could try "
 "another date?"
 msgstr ""
+"No es troba la còpia de la configuració a la còpia de {d}. Pot provar una "
+"altra data?"
 
 #: src/EBox/Model/RemoteRestoreLogs.pm:118
 msgid "Restore logs database"
-msgstr ""
+msgstr "Restaura la base de dades de logs"
 
 #: src/EBox/Model/RemoteRestoreLogs.pm:125
 msgid "Restores the eBox logs found in the selected backup"
-msgstr ""
+msgstr "Restaura els logs de l'eBox trobats a la còpia seleccionada"
 
 #: src/EBox/Composite/ServicesRestore.pm:64
 msgid "Services restore"
-msgstr ""
+msgstr "Restauració de serveis"
 
 #: src/EBox/Composite/RemoteGeneral.pm:65
 msgid "Configuration and Status"
-msgstr ""
+msgstr "Configuració i estat"

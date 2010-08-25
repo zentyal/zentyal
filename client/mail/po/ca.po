@@ -7,72 +7,74 @@ msgstr ""
 "Project-Id-Version: ebox-mail 0.12\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "POT-Creation-Date: 2010-08-13 13:40+0200\n"
-"PO-Revision-Date: 2005-10-26 18:53+0200\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2010-08-23 17:44+0200\n"
+"Last-Translator: josefa <jgonza24@xtec.cat>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural= (n != 1);\n"
-"X-Generator: Translate Toolkit 0.10.1\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: migration/0005_add_managesieve_firewall_services.pl:28
 msgid "protocol for editing SIEVE filters"
-msgstr ""
+msgstr "protocol per editar filtres SIEVE"
 
 #: migration/0001_add_firewall_services.pl:30
 msgid "eBox Mail System"
-msgstr ""
+msgstr "Sistema de Correu eBox"
 
 #: src/EBox/MailUserLdap.pm:85 src/EBox/MailUserLdap.pm:90
 #: src/EBox/MailAliasLdap.pm:107 src/EBox/MailAliasLdap.pm:137
 msgid "mail account"
-msgstr ""
+msgstr "compte de correu"
 
 #: src/EBox/MailUserLdap.pm:432
 msgid "This group has a mail alias"
-msgstr ""
+msgstr "Aquest grup té un compte àlies de correu"
 
 #: src/EBox/MailUserLdap.pm:459
 msgid "This user has a mail account"
-msgstr ""
+msgstr "Aquest usuari té un compte de correu"
 
 #: src/EBox/MailUserLdap.pm:813
 msgid "Quota can only be a positive number or zero for unlimited quota"
 msgstr ""
+"La quota només pot ser un nombre positiu o zero per a una quota il·limitada"
 
 #: src/EBox/MailAliasLdap.pm:64
 #, perl-brace-format
 msgid "{ac} is not a internal account"
-msgstr ""
+msgstr "{ac} no és un compte intern"
 
 #: src/EBox/MailAliasLdap.pm:81
 #, perl-brace-format
 msgid "{ac} is not a external account"
-msgstr ""
+msgstr "{ac} no és un compte extern"
 
 #: src/EBox/MailAliasLdap.pm:103 src/EBox/CGI/DelAlias.pm:48
 msgid "mail alias"
-msgstr ""
+msgstr "Àlies de correu"
 
 #: src/EBox/MailAliasLdap.pm:115
 #, perl-brace-format
 msgid "{ac} is a mail alias. Alias of aliases are not allowed"
 msgstr ""
+"{ac} ja és un àlies de correu. No està permès fer un àlies d'altre àlies."
 
 #: src/EBox/MailAliasLdap.pm:134
 msgid "group alias"
-msgstr ""
+msgstr "àlies de grup"
 
 #: src/EBox/MailAliasLdap.pm:173 src/EBox/MailAliasLdap.pm:193
 msgid "Domain alias"
-msgstr ""
+msgstr "Àlies de domini"
 
 #: src/EBox/MailAliasLdap.pm:178 src/EBox/MailAliasLdap.pm:217
 #: src/EBox/MailAliasLdap.pm:244
 #, perl-brace-format
 msgid "Mail domain {d} does not exists"
-msgstr ""
+msgstr "El domini de correu {d} no existeix"
 
 #: src/EBox/MailAliasLdap.pm:185
 #, perl-brace-format
@@ -80,129 +82,135 @@ msgid ""
 "Cannot use {d} as alias for a mail domain because a domain which this name "
 "already exists"
 msgstr ""
+"No pot usar {d} com un àlies de domini de correu, perquè ja existeix un "
+"domini amb aquest nom"
 
 #: src/EBox/MailAliasLdap.pm:327 src/EBox/MailAliasLdap.pm:356
 #: src/EBox/MailAliasLdap.pm:391
 msgid "mail alias account"
-msgstr ""
+msgstr "àlies de compte de correu"
 
 #: src/EBox/CGI/MQRequeue.pm:44 src/EBox/CGI/MQRemove.pm:44
 #: src/templates/qmanager.mas:17
 msgid "Queue ID"
-msgstr ""
+msgstr "ID de la cua"
 
 #: src/EBox/CGI/CreateGroupAlias.pm:45 src/EBox/CGI/DelGroupAlias.pm:44
 msgid "group"
-msgstr ""
+msgstr "grup"
 
 #: src/EBox/CGI/CreateGroupAlias.pm:51 src/EBox/CGI/CreateAlias.pm:51
 msgid "account name"
-msgstr ""
+msgstr "nom del compte"
 
 #: src/EBox/CGI/CreateGroupAlias.pm:52 src/EBox/CGI/CreateAlias.pm:52
 msgid "domain name"
-msgstr ""
+msgstr "nom del domini"
 
 #: src/EBox/CGI/DelAlias.pm:44 src/EBox/CGI/DelAccount.pm:44
 #: src/EBox/CGI/SetAccountMaildirQuota.pm:41 src/EBox/CGI/CreateAccount.pm:44
 #: src/EBox/CGI/CreateAlias.pm:44
 msgid "username"
-msgstr ""
+msgstr "nom d'usuari"
 
 #: src/EBox/CGI/Wizard/VirtualDomain.pm:43 src/EBox/Mail/Model/VDomains.pm:211
 msgid "Mail virtual domain"
-msgstr ""
+msgstr "Domini virtual de correu"
 
 #: src/EBox/CGI/Wizard/VirtualDomain.pm:47
 msgid "Invalid virtual mail domain"
-msgstr ""
+msgstr "Domini virtual de correu no vàlid"
 
 #: src/EBox/CGI/DelAccount.pm:48
 msgid "user mail"
-msgstr ""
+msgstr "correu de l'usuari"
 
 #: src/EBox/CGI/SetAccountMaildirQuota.pm:60
 msgid "Quota must be a amount of MB greter than zero"
-msgstr ""
+msgstr "La quota ha de ser un nombre més gran que zero"
 
 #: src/EBox/CGI/CreateAccount.pm:50 src/EBox/MailVDomainsLdap.pm:66
 #: src/EBox/MailVDomainsLdap.pm:119 src/EBox/Mail/Model/VDomains.pm:101
 msgid "virtual domain"
-msgstr ""
+msgstr "domini virtual"
 
 #: src/EBox/CGI/CreateAccount.pm:52
 msgid "Mail address"
-msgstr ""
+msgstr "Adreça de correu"
 
 #: src/EBox/CGI/DelGroupAlias.pm:47
 msgid "alias"
-msgstr ""
+msgstr "àlies"
 
 #: src/EBox/CGI/DelGroupAlias.pm:52
 msgid "group alias mail"
-msgstr ""
+msgstr "àlies de correu de grup"
 
 #: src/EBox/CGI/CreateAlias.pm:50
 msgid "maildrop"
-msgstr ""
+msgstr "maildrop"
 
 #: src/EBox/CGI/QueueManager.pm:36 src/EBox/CGI/QueueManager.pm:54
 #: src/EBox/Mail.pm:1555
 msgid "Queue Management"
-msgstr ""
+msgstr "Gestió de la Cua"
 
 #: src/EBox/Event/Dispatcher/Mail.pm:156
 msgid "Admin mail recipient"
-msgstr ""
+msgstr "Compte de correu d'Admin"
 
 #: src/EBox/Event/Dispatcher/Mail.pm:169 src/EBox/Mail/Model/MailUser.pm:68
 #: src/EBox/Mail.pm:94 src/EBox/Mail.pm:1472 src/EBox/Mail.pm:1632
 msgid "Mail"
-msgstr ""
+msgstr "Correu"
 
 #: src/EBox/Event/Dispatcher/Mail.pm:190
 #, perl-brace-format
 msgid "Cannot connect to {smtp} mail server"
-msgstr ""
+msgstr "No es pot connectar amb el servidor de correu {smtp}"
 
 #: src/EBox/Event/Dispatcher/Mail.pm:233
 #, perl-brace-format
 msgid "Cannot connect to the server {hostname} to send the event through SMTP"
 msgstr ""
+"No es pot connectar amb el servidor {hostname}, per a enviar l'esdeveniment "
+"per SMTP"
 
 #: src/EBox/Mail/Greylist.pm:53
 msgid "To configure whitelist for greylisting"
-msgstr ""
+msgstr "Configurar llista blanca per a llistat gris"
 
 #: src/EBox/Mail/Greylist.pm:277
 msgid "Greylist service"
-msgstr ""
+msgstr "Servei de llista grisa"
 
 #: src/EBox/Mail/Model/ObjectPolicy.pm:90
 msgid "Object"
-msgstr ""
+msgstr "Objecte"
 
 #: src/EBox/Mail/Model/ObjectPolicy.pm:96
 msgid "Allow relay"
-msgstr ""
+msgstr "Permetre retransmissió"
 
 #: src/EBox/Mail/Model/ObjectPolicy.pm:99
 msgid ""
 "Tick this to allow the machines within the above object to send mails "
 "through this server."
 msgstr ""
+"Marcar aquesta opció per permetre a les màquines de dins de l'objecte "
+"anterior, enviar correus a través d'aquest servidor."
 
 #: src/EBox/Mail/Model/ObjectPolicy.pm:108
 msgid "Relay policy for network objects"
-msgstr ""
+msgstr "Política de retransmissió per a objectes de xarxa"
 
 #: src/EBox/Mail/Model/ObjectPolicy.pm:120
 msgid "object's relay policy"
-msgstr ""
+msgstr "política de retransmissió d'objectes"
 
 #: src/EBox/Mail/Model/ObjectPolicy.pm:121
 msgid "You may allow mail relay per network object"
-msgstr ""
+msgstr "Pots permetre la retransmissió de correus per a objectes de xarxa"
 
 #: src/EBox/Mail/Model/ObjectPolicy.pm:222
 #, perl-brace-format
@@ -210,32 +218,36 @@ msgid ""
 "There are not network objects in the system. You can create them in the "
 "{openurl}Object's page{closeurl}"
 msgstr ""
+"No hi ha objectes de xarxa en el sistema. Pots crear-los en {openurl}Pàgina "
+"d'objectes{closeurl}"
 
 #: src/EBox/Mail/Model/ExternalAliases.pm:54
 msgid "Alias"
-msgstr ""
+msgstr "Àlies"
 
 #: src/EBox/Mail/Model/ExternalAliases.pm:60
 msgid "The mail domain is appended automatically"
-msgstr ""
+msgstr "El domini de correu s'afegeix automàticament"
 
 #: src/EBox/Mail/Model/ExternalAliases.pm:64
 #: src/EBox/Mail/Model/ExternalAccounts.pm:87
 #: src/EBox/Mail/Model/ExternalAccounts.pm:270
 msgid "External account"
-msgstr ""
+msgstr "Compte extern"
 
 #: src/EBox/Mail/Model/ExternalAliases.pm:75
 msgid "External Aliases"
-msgstr ""
+msgstr "Àlies externs"
 
 #: src/EBox/Mail/Model/ExternalAliases.pm:84
 msgid "External account alias"
-msgstr ""
+msgstr "Àlies de compte extern"
 
 #: src/EBox/Mail/Model/ExternalAliases.pm:86
 msgid "External account alias added. You must save changes to use this alias"
 msgstr ""
+"Àlies de compte extern afegit. Ha de desar els canvis per a utilitzar aquest "
+"àlies."
 
 #: src/EBox/Mail/Model/ExternalAliases.pm:127
 #, perl-brace-format
@@ -244,6 +256,9 @@ msgid ""
 "virtual domain aliases are not supported. Please add the alias belonging to "
 "a real domain"
 msgstr ""
+"No es pot afegir l'àlies perquè el domini{vd} és ja un àlies, i els àlies "
+"pertanyents a àlies de dominis virtuals no estan suportats. Si us plau, "
+"afegeixi l'àlies pertanyent a un domini real"
 
 #: src/EBox/Mail/Model/ExternalAliases.pm:134
 #, perl-brace-format
@@ -251,6 +266,8 @@ msgid ""
 "Cannot add alias because domain {vd} is not a virtual domain managed by this "
 "server"
 msgstr ""
+"No es pot afegir l'àlies perquè el domini{vd} no és un domini virtual "
+"gestionat per aquest servidor"
 
 #: src/EBox/Mail/Model/ExternalAliases.pm:146
 #, perl-brace-format

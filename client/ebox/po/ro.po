@@ -9,7 +9,7 @@ msgstr ""
 "technologies.com\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "POT-Creation-Date: 2010-08-13 13:39+0200\n"
-"PO-Revision-Date: 2010-08-11 23:12+0200\n"
+"PO-Revision-Date: 2010-08-21 13:47+0200\n"
 "Last-Translator: Bogdan Chirica <bogdan.chirica@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -28,9 +28,8 @@ msgid "It must be a non-zero positive number"
 msgstr "Trebuie sa fie un numar pozitiv diferit de zero"
 
 #: src/EBox/ProgressIndicator.pm:49
-#, fuzzy
 msgid "To solve it you can try to execute the following commands:"
-msgstr "Va rog confirmati ca doriti sa stergeti urmatorul fisier de backup:"
+msgstr "Pentru a remedia problema puteti incerca sa rulati urmatoarele comenzi:"
 
 #: src/EBox/ProgressIndicator.pm:56
 #, perl-brace-format
@@ -91,7 +90,7 @@ msgstr "Configurare supraveghere log"
 
 #: src/EBox/Events/Model/Watcher/Log.pm:279
 msgid "Log watcher"
-msgstr "Supraveghere log"
+msgstr "Supraveghetor jurnal"
 
 #: src/EBox/Events/Model/Watcher/Log.pm:387
 #: src/EBox/Events/Model/Watcher/LogFiltering.pm:213
@@ -128,7 +127,7 @@ msgstr "Eveniment"
 #: src/EBox/Events/Model/Watcher/LogFiltering.pm:178
 #, perl-brace-format
 msgid "Filters to apply to notify logs from {logDomain}"
-msgstr "Filtre de aplicat la notificări de la {logDomain}"
+msgstr "Filtre aplicabile pentru notificări de la {logDomain}"
 
 #: src/EBox/Events/Model/Watcher/LogFiltering.pm:186
 msgid ""
@@ -410,7 +409,7 @@ msgstr "Detalii evenimente"
 
 #: src/EBox/Events/Model/Report/EventsGraph.pm:60
 msgid "Events summarized chart"
-msgstr "Harta sumar a evenimentelor"
+msgstr "Harta sumara a evenimentelor"
 
 #: src/EBox/Events/Model/Report/EventsGraph.pm:77
 msgid "Events summarized graph"
@@ -427,7 +426,7 @@ msgstr "Raport evenimente"
 #: src/EBox/EventDaemon.pm:451
 #, perl-brace-format
 msgid "Dispatcher {name} disabled since it is not able to send events"
-msgstr "Dispecerul {name} deyactivat pt. că nu poate trimite evenimente"
+msgstr "Dispecerul {name} dezactivat pt. că nu poate trimite evenimente"
 
 #: src/EBox/Auth.pm:156
 msgid "Password changed"
@@ -438,13 +437,12 @@ msgid ""
 "An internal error related to a template has occurred. This is a bug, "
 "relevant information can be found in the logs."
 msgstr ""
-"A apărut o eroare la o matriţă. Acesta este un gândac (bug :-), informaţii "
-"relevante sunt în jurnal."
+"A apărut o eroare interna cu referire la un sablon. Acesta este un gândac "
+"(bug :-), informaţii relevante sunt în jurnal."
 
 #: src/EBox/CGI/Wizard.pm:29
-#, fuzzy
 msgid "Initial configuration wizard"
-msgstr "Configurare generală"
+msgstr "Asistent pentru configurare initială"
 
 #: src/EBox/CGI/Logs/Index.pm:37 src/EBox/Logs.pm:59
 msgid "Logs"
@@ -506,7 +504,7 @@ msgstr "Configurare generală"
 
 #: src/EBox/CGI/EBox/Halt.pm:32
 msgid "Halt or Reboot"
-msgstr "Oprire sau repornire calculator"
+msgstr "Oprire sau repornire sistem"
 
 #: src/EBox/CGI/EBox/Halt.pm:45
 msgid "eBox is going down for halt"
@@ -526,7 +524,7 @@ msgstr "Parolă incorectă"
 
 #: src/EBox/CGI/EBox/Password.pm:59
 msgid "New passwords do not match."
-msgstr "Parolele sunt diferite"
+msgstr "Noile parole sunt diferite"
 
 #: src/EBox/CGI/EBox/Password.pm:64
 msgid "The password must be at least 6 characters long"
@@ -534,7 +532,7 @@ msgstr "Parola trebuie să conţină minim 6 caractere"
 
 #: src/EBox/CGI/EBox/Password.pm:68
 msgid "The password was changed successfully."
-msgstr "Scnimbarea parolei a reuşit."
+msgstr "Schimbarea parolei a reuşit."
 
 #: src/EBox/CGI/EBox/ConfirmBackup.pm:35 src/templates/backup.mas:18
 msgid "Configuration Backup"
@@ -542,7 +540,7 @@ msgstr "Configurare Backup"
 
 #: src/EBox/CGI/EBox/ConfirmBackup.pm:107
 msgid "Please confirm that you want to delete the following backup file:"
-msgstr "Va rog confirmati ca doriti sa stergeti urmatorul fisier de backup:"
+msgstr "Va rog confirmati stergerea urmatorului fisier de backup:"
 
 #: src/EBox/CGI/EBox/ConfirmBackup.pm:109 src/templates/backup.mas:170
 #: src/templates/backup.mas:171
@@ -567,13 +565,12 @@ msgid "The input contains invalid characters"
 msgstr "Informatia introdusa contine caractere invalide"
 
 #: src/EBox/CGI/EBox/ConfirmBackup.pm:178
-#, fuzzy
 msgid "Configuration backup"
 msgstr "Configurare Backup"
 
 #: src/EBox/CGI/EBox/ConfirmBackup.pm:181
 msgid "Full data and configuration backup"
-msgstr "Backup[ complet date si configuratie"
+msgstr "Backup complet, date si configuratie"
 
 #: src/EBox/CGI/EBox/ConfirmBackup.pm:184
 msgid "Bug-report configuration dump"
@@ -702,7 +699,7 @@ msgstr "Modul curent"
 
 #: src/EBox/CGI/Finish.pm:106
 msgid "modules revoked"
-msgstr "Morule revocate"
+msgstr "Module revocate"
 
 #: src/EBox/CGI/Finish.pm:107
 msgid "Changes revoked"
@@ -724,7 +721,7 @@ msgstr "Verifica daca s-a produs vreun eveniment in subsistemul RAID"
 #: src/EBox/Event/Watcher/RAID.pm:266
 #, perl-brace-format
 msgid "New array RAID device {devName} information:"
-msgstr "O noua informatie despre matricea RAID {devName}:"
+msgstr "Informatii despre noua matrice RAID {devName}:"
 
 #: src/EBox/Event/Watcher/RAID.pm:268
 #, perl-brace-format
@@ -826,6 +823,8 @@ msgid ""
 "Active component {compName} from RAID array {arrayName} has been marked as "
 "faulty"
 msgstr ""
+"Componenta activa {compName} din matricea RAID {arrayName} a fost marcat ca "
+"defect"
 
 #: src/EBox/Event/Watcher/RAID.pm:481
 #, perl-brace-format
@@ -833,6 +832,8 @@ msgid ""
 "Spare component {compName} from RAID array {arrayName} which was being "
 "rebuilt to replace a faulty device has failed"
 msgstr ""
+"Compnenta de rezerva {compName} din matricea RAID {arrayName} care a fost "
+"reconstruita, pentru a inlocui un echipament defect, a cedat"
 
 #: src/EBox/Event/Watcher/RAID.pm:491
 #, perl-brace-format
@@ -841,6 +842,9 @@ msgid ""
 "rebuilt to replace a faulty device has been successfully rebuilt and has "
 "been made active"
 msgstr ""
+"Compnenta de rezerva {compName} din matricea RAID {arrayName} care a fost "
+"reconstruita, pentru a inlocui un echipament defect, a fost reconstituita cu "
+"succes si a fost facuta activa"
 
 #: src/EBox/Event/Watcher/RAID.pm:504
 #, perl-brace-format
@@ -848,6 +852,8 @@ msgid ""
 "A new component {compName} has been hot added to RAID device {arrayName} "
 "with status {status}"
 msgstr ""
+"O noua componenta {compName} a fost adaugata \"din mers\" (hot added) in "
+"echipamentul RAID {arrayName}, cu starea {status}"
 
 #: src/EBox/Event/Watcher/RAID.pm:517
 #, perl-brace-format
@@ -855,6 +861,8 @@ msgid ""
 "A component {compName} has been hot removed from RAID array {arrayName} when "
 "its status was {status}"
 msgstr ""
+"O noua componenta {compName} a fost indepartata \"din mers\" (hot removed) din "
+"echipamentul RAID {arrayName}, cand avea starea {status}"
 
 #: src/EBox/Event/Watcher/RAID.pm:543 src/EBox/Event/Watcher/RAID.pm:587
 #: src/templates/report/raid.mas:111
@@ -907,7 +915,7 @@ msgstr "verifică"
 
 #: src/EBox/Event/Watcher/RAID.pm:589
 msgid "faulty"
-msgstr "stricat"
+msgstr "defect"
 
 #: src/EBox/Event/Watcher/RAID.pm:591 src/templates/report/raid.mas:233
 msgid "spare"
@@ -925,6 +933,7 @@ msgstr "Serviciu"
 #: src/EBox/Event/Watcher/Runit.pm:160
 msgid "Check if any eBox service is not running when it is enabled"
 msgstr ""
+"verifica daca oricare dintre serviciile eBox nu ruleaza cand este activat"
 
 #: src/EBox/Event/Watcher/Runit.pm:230
 #, perl-brace-format
@@ -932,6 +941,8 @@ msgid ""
 "The service {service} has been restarted {restart} times in {time} seconds "
 "and it has been stopped"
 msgstr ""
+"Serviciul {service} a fost restartat de {restart} ori in {time} secunde si a "
+"fost oprit "
 
 #: src/EBox/Event/Watcher/State.pm:127
 msgid "eBox is up and running"
@@ -939,7 +950,7 @@ msgstr "eBox a pornit şi rulează"
 
 #: src/EBox/Event/Watcher/State.pm:133
 msgid "eBox is critically down"
-msgstr "ebox e în stare critică"
+msgstr "ebox este în stare critică"
 
 #: src/EBox/Event/Watcher/State.pm:158 src/templates/report/raid.mas:226
 msgid "State"
@@ -947,16 +958,16 @@ msgstr "Stare"
 
 #: src/EBox/Event/Watcher/State.pm:175
 msgid "Check if eBox is currently up or down"
-msgstr ""
+msgstr "Verifica daca eBox este pornit sau oprit"
 
 #: src/EBox/Event/Watcher/Log.pm:204
 msgid "Log observer"
-msgstr ""
+msgstr "Observator jurnale"
 
 #: src/EBox/Event/Watcher/Log.pm:242
 #, perl-brace-format
 msgid "Notify when a logger ({loggers}) has logged something"
-msgstr ""
+msgstr "Anunta cand un jurnal ({loggers}) a inregistrat ceva"
 
 #: src/EBox/Event/Watcher/DiskFreeSpace.pm:134
 #, perl-brace-format
@@ -970,10 +981,12 @@ msgstr "Spaţiu de stocare liber"
 #: src/EBox/Event/Watcher/DiskFreeSpace.pm:185
 msgid "Check if any disk partition has no storage space left"
 msgstr ""
+"Verifica daca pe oricare dintre partitii nu mai este spatiu de stocare "
+"disponibil"
 
 #: src/EBox/Event/Dispatcher/Jabber.pm:167
 msgid "Admin Jabber account"
-msgstr ""
+msgstr "Contul Jabber al Administratorului"
 
 #: src/EBox/Event/Dispatcher/Jabber.pm:180
 msgid "Jabber"
@@ -982,22 +995,22 @@ msgstr "Jabber"
 #: src/EBox/Event/Dispatcher/Jabber.pm:230
 #, perl-brace-format
 msgid "Jabber server {serverName} is down or connection is not allowed"
-msgstr ""
+msgstr "Serverul Jabber {serverName} este oprit sau conectarea nu este permisa"
 
 #: src/EBox/Event/Dispatcher/Jabber.pm:260
 #, perl-brace-format
 msgid "Subscription failed: {message}"
-msgstr ""
+msgstr "Subscriptie esuata: {message}"
 
 #: src/EBox/Event/Dispatcher/Jabber.pm:267
 #, perl-brace-format
 msgid "Authorization failed: {result} - {message}"
-msgstr ""
+msgstr "Autorizare esuata : {result} - {message}"
 
 #: src/EBox/Event/Dispatcher/Abstract.pm:142
 #, perl-brace-format
 msgid "Dispatcher {name} is not configured to be enabled"
-msgstr ""
+msgstr "Dispecerul {name} nu este configurat pentru a fi activat"
 
 #: src/EBox/Event/Dispatcher/Log.pm:137
 msgid "Log file"
@@ -1024,22 +1037,23 @@ msgstr "canal alerte eBox pentru {hostname}"
 #: src/EBox/Event/Dispatcher/RSS.pm:294
 msgid "This channel tracks what happens on this eBox machine along the time"
 msgstr ""
+"Acest canal tine evidenta in timp, cu ce se intampla pe aceasta masina eBox"
 
 #: src/EBox/Event/Dispatcher/RSS.pm:314
 #, perl-brace-format
 msgid "The event has happened in eBox {hostname} from {source}"
-msgstr ""
+msgstr "Evenimentul a avut loc in eBox {hostname} din sursa {source}"
 
 #: src/EBox/Event/Dispatcher/RSS.pm:318
 #, perl-brace-format
 msgid "Go to your {url} to check its status."
-msgstr ""
+msgstr "Mergi la adresa {url} pentru a verifica starea."
 
 #: src/EBox/PgDBEngine.pm:53 src/EBox/PgDBEngine.pm:67
 #: src/EBox/PgDBEngine.pm:81
 #, perl-brace-format
 msgid "You must set the {variable} variable in the ebox configuration file"
-msgstr ""
+msgstr "Trebuie sa setati variabila {variable} in fisierul configuratie eBox "
 
 #: src/EBox/PgDBEngine.pm:422
 #, perl-brace-format
@@ -1181,7 +1195,7 @@ msgstr "Configurare jurnale"
 
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:374
 msgid "Enable/disable logging per-module basis"
-msgstr ""
+msgstr "Activeaza/dezactiveaza jurnalizarea per-modul"
 
 #: src/EBox/Logs/Model/ForcePurge.pm:110
 msgid "Force log purge"
@@ -1215,7 +1229,7 @@ msgstr "lună"
 
 #: src/EBox/Logs/Model/Report/OptionsBase.pm:79
 msgid "Report time period"
-msgstr ""
+msgstr "Raport in intervalul de timp "
 
 #: src/EBox/Logs/Model/Report/OptionsBase.pm:101
 msgid "Report options"
@@ -1239,15 +1253,15 @@ msgstr "Iniţializare tabel dispeceri de evenimente"
 
 #: src/EBox/Events.pm:201
 msgid "Enable default log dispatcher"
-msgstr ""
+msgstr "Activeaza dispecerul jurnalului implicit"
 
 #: src/EBox/Events.pm:499
 msgid "The events module is not enabled to send events"
-msgstr ""
+msgstr "Modulul evenimente, nu este activ pentru a putea trimite evenimente"
 
 #: src/EBox/Events.pm:732
 msgid "Event service status"
-msgstr ""
+msgstr "Starea serviciului Evenimente"
 
 #: src/EBox/Events.pm:804
 msgid "Date of first event"
@@ -1306,112 +1320,116 @@ msgstr "Mesaje jurnalizate"
 
 #: src/EBox/Logs.pm:850
 msgid "Lifetime parameter must be a positive number of hours"
-msgstr ""
+msgstr "Parametrul duratei de viata trebuie sa fie un numar de ore, pozitiv"
 
 #: src/EBox/Model/ProviderBase.pm:247
 #, perl-brace-format
 msgid "Provided object with index {i} does not exist"
-msgstr ""
+msgstr "Obiectul furnizat, cu indexul {i}, nu exista"
 
 #: src/EBox/Model/DataForm.pm:556
 #, perl-brace-format
 msgid "Remove data from {model}{br}"
-msgstr ""
+msgstr "Sterge date din {model}{br}"
 
 #: src/EBox/Model/DataForm.pm:605 src/templates/password.mas:53
 #: src/templates/dataInUse.mas:25 src/templates/dataInUse.mas:34
 #: src/templates/port.mas:14
 msgid "Change"
-msgstr ""
+msgstr "Modifica"
 
 #: src/EBox/Model/DataForm.pm:710 src/templates/progress.mas:26
 msgid "Done"
-msgstr ""
+msgstr "Gata"
 
 #: src/EBox/Model/Composite.pm:372
 #, perl-brace-format
 msgid "It should be one of following values: {values}"
-msgstr ""
+msgstr "Trebuie sa fie una dintre valorile urmatoare: {values}"
 
 #: src/EBox/Model/Composite.pm:656
 #, perl-brace-format
 msgid "Actions to be taken allowed are: {view} and {cView}"
-msgstr ""
+msgstr "Actiunile permise, ce se pot efectua, sunt: {view} si {cView}"
 
 #: src/EBox/Model/Composite.pm:779
 msgid "Choose one of the following:"
-msgstr ""
+msgstr "Alegeti una dintre urmatoarele:"
 
 #: src/EBox/Model/ModelManager.pm:469
 msgid ""
 "The data you are removing is being used by\n"
 "                    the following sections:"
 msgstr ""
+"Datele pe care le stergeti, sunt folosite de catre\n"
+" urmatoarele sectiuni:"
 
 #: src/EBox/Model/ModelManager.pm:516
 msgid ""
 "The data you are modifying is being used by\n"
 "\t\t\tthe following sections:"
 msgstr ""
+"Datele pe care le modificati, sunt folosite de catre\n"
+"\t\t\t urmatoarele sectiuni:"
 
 #: src/EBox/Model/DataTable.pm:328
 #, perl-brace-format
 msgid "{model} in {module} module"
-msgstr ""
+msgstr "{model} in {module} modul"
 
 #: src/EBox/Model/DataTable.pm:332
 msgid "at"
-msgstr ""
+msgstr "la"
 
 #: src/EBox/Model/DataTable.pm:543
 msgid "field"
-msgstr ""
+msgstr "camp"
 
 #: src/EBox/Model/DataTable.pm:1469
 msgid "page"
-msgstr ""
+msgstr "pagina"
 
 #: src/EBox/Model/DataTable.pm:1472
 msgid "Page must be a number equal or greater than zero"
-msgstr ""
+msgstr "Pagina trebuie sa fie un numar egal sau mai mare cu zero"
 
 #: src/EBox/Model/DataTable.pm:2834
 #, perl-brace-format
 msgid "Remove {num} rows of {rowName} from {model}{br}"
-msgstr ""
+msgstr "Sterge {num} randuri de {rowName} din {model}{br}"
 
 #: src/EBox/Model/DataTable.pm:2905
 msgid "Page size"
-msgstr ""
+msgstr "Marime pagina"
 
 #: src/EBox/Model/DataTable.pm:2908
 msgid "Must be either a positive number or zero"
-msgstr ""
+msgstr "Trebuie sa fie un numar pozitiv sau zero"
 
 #: src/EBox/Model/DataTable.pm:3215
 #, perl-brace-format
 msgid "{row} added"
-msgstr ""
+msgstr "{row} adaugat"
 
 #: src/EBox/Model/DataTable.pm:3216
 #, perl-brace-format
 msgid "{row} deleted"
-msgstr ""
+msgstr "{row} sters(e)"
 
 #: src/EBox/Model/DataTable.pm:3217
 #, perl-brace-format
 msgid "{row} updated"
-msgstr ""
+msgstr "{row} actualizat(e)"
 
 #: src/EBox/Model/DataTable.pm:3218
 #, perl-brace-format
 msgid "{row} moved up"
-msgstr ""
+msgstr "{row} urcat(e)"
 
 #: src/EBox/Model/DataTable.pm:3219
 #, perl-brace-format
 msgid "{row} moved down"
-msgstr ""
+msgstr "{row} coborat(e)"
 
 #: src/EBox/Html.pm:41 src/templates/wizard.mas:134
 msgid "Save changes"
@@ -1419,37 +1437,37 @@ msgstr "Înregistrare modificări"
 
 #: src/EBox/Backup.pm:98
 msgid "Creating backup archive"
-msgstr ""
+msgstr "Creare arhiva backup"
 
 #: src/EBox/Backup.pm:142
 #, perl-brace-format
 msgid "Dumping configuration of module {m}"
-msgstr ""
+msgstr "Varsare configuratie modul {m}"
 
 #: src/EBox/Backup.pm:301
 msgid "Could not create backup archive"
-msgstr ""
+msgstr "Nu a putut fi creata arhiva backup"
 
 #: src/EBox/Backup.pm:308
 msgid "Could not append data to backup archive"
-msgstr ""
+msgstr "Nu am putut adauga date la arhiva de backup"
 
 #: src/EBox/Backup.pm:443
 msgid "Unknown"
-msgstr ""
+msgstr "Necunoscut"
 
 #: src/EBox/Backup.pm:496
 #, perl-brace-format
 msgid "Could not extract the requested backup files: {files}"
-msgstr ""
+msgstr "Nu am putut extrage fisierele backup cerute: {files}"
 
 #: src/EBox/Backup.pm:499 src/EBox/Backup.pm:1150
 msgid "Could not unpack the backup"
-msgstr ""
+msgstr "Nu am putut desface backup-ul"
 
 #: src/EBox/Backup.pm:765
 msgid "Writing backup file to hard disk"
-msgstr ""
+msgstr "Scriu fisierul backup pe hard disc"
 
 #: src/EBox/Backup.pm:791
 #, perl-brace-format
@@ -1457,34 +1475,42 @@ msgid ""
 "Module {mod} has not saved changes. Before doing the backup you must save or "
 "discard them"
 msgstr ""
+"Modulul {mod} nu a salvat modificarile. Inainte de a efectua backup-ul "
+"trebuie sa salvati sau sa anulati modificarile"
 
 #: src/EBox/Backup.pm:849
 msgid "Incorrect or corrupt backup file"
-msgstr ""
+msgstr "Fisier de backup incorect sau corupt"
 
 #: src/EBox/Backup.pm:878
 msgid "The backup file is corrupt: could not open archive"
-msgstr ""
+msgstr "Fisierul de backup este corupt: nu am putut desface arhiva"
 
 #: src/EBox/Backup.pm:890
 msgid "The backup file is corrupt: could not open backup checksum"
 msgstr ""
+"Fisierul de backup este corupt: nu am putut desface suma de control a "
+"arhivei"
 
 #: src/EBox/Backup.pm:897
 msgid "The backup file is corrupt."
-msgstr ""
+msgstr "Fisierul de backup este corupt."
 
 #: src/EBox/Backup.pm:915
 msgid ""
 "The backup archive has a invalid type. Maybe the file is corrupt or you are "
 "using a incompatible eBox version"
 msgstr ""
+"Arhiva backup este de tip invalid. Poate fisierul este corupt sau folositi o "
+"versiune incompatibila de eBox"
 
 #: src/EBox/Backup.pm:921
 msgid ""
 "The archive does not contain a full backup, that made a full restore "
 "impossibe. A configuration recovery  may be possible"
 msgstr ""
+"Arhiva nu contine un backup complet, ceea ce a impiedicat efectuarea unei "
+"restaurari complete. Poate fi posibila o restaurare a configuratiei"
 
 #: src/EBox/Backup.pm:956
 #, perl-brace-format
@@ -1492,15 +1518,18 @@ msgid ""
 "There in not enough space left in the hard disk to complete the restore "
 "proccess. {size} Kb required. Free sufficient space and retry"
 msgstr ""
+"Nu exista suficient spatiu disponibil pe disc pentru a completa procesul de "
+"restaurare. {size} Kb sunt necesari. Eliberati spatiu necesar si incercati "
+"iar"
 
 #: src/EBox/Backup.pm:1235
 #, perl-brace-format
 msgid "No module {m} found in backup"
-msgstr ""
+msgstr "Modulul {m} nu se gaseste in backup"
 
 #: src/EBox/Backup.pm:1258
 msgid "No modules to restore"
-msgstr ""
+msgstr "Nu exista module a fi restaurate"
 
 #: src/EBox/Backup.pm:1313
 #, perl-brace-format
@@ -1508,26 +1537,28 @@ msgid ""
 "Unresolved restore dependency for module {topModule}: {modName} is not "
 "installed"
 msgstr ""
+"O dependenta nerezolvata pentru modulul {topModule}: {modName} nu este "
+"instalata"
 
 #: src/EBox/Backup.pm:1356
 msgid "Backup's archives"
-msgstr ""
+msgstr "Arhive Backup"
 
 #: src/EBox/SysInfo.pm.in:51
 msgid "System Information"
-msgstr ""
+msgstr "Informatii despre sistem"
 
 #: src/EBox/SysInfo.pm.in:96
 msgid "available"
-msgstr ""
+msgstr "disponibil"
 
 #: src/EBox/SysInfo.pm.in:104
 msgid "Time"
-msgstr ""
+msgstr "Timp"
 
 #: src/EBox/SysInfo.pm.in:105
 msgid "Hostname"
-msgstr "Hostname"
+msgstr "Numegazda"
 
 #: src/EBox/SysInfo.pm.in:106
 msgid "Core version"
@@ -1570,9 +1601,8 @@ msgid "General"
 msgstr "General"
 
 #: src/EBox/SysInfo.pm.in:274
-#, fuzzy
 msgid "Configuration Report"
-msgstr "Raport de configurare"
+msgstr "Raport configuratie"
 
 #: src/EBox/SysInfo.pm.in:277
 msgid "Halt/Reboot"
@@ -1587,24 +1617,25 @@ msgid "eBox web server"
 msgstr "Web server eBox"
 
 #: src/EBox/Global.pm:484
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Enabling {modName} module"
-msgstr "Înregistrez modulul {modName}"
+msgstr "Activare modul {modName}"
 
 #: src/EBox/Global.pm:514 src/EBox/Global.pm:541
 #, perl-brace-format
 msgid "Saving {modName} module"
-msgstr "Înregistrez modulul {modName}"
+msgstr "Înregistrez modul {modName}"
 
 #: src/EBox/Global.pm:1058
 #, perl-brace-format
 msgid "running {scriptName} script"
-msgstr "execut scriptul {scriptName}"
+msgstr "rulez scriptul {scriptName}"
 
 #: src/EBox/Report/DiskUsage.pm:77
 #, perl-brace-format
 msgid "No usage data for {d}. Are you sure is a valid disk?"
 msgstr ""
+"Nu sunt date despre utilizarea {d}. Sunteti sigur ca este un disc valid?"
 
 #: src/EBox/Report/DiskUsage.pm:226
 #, perl-brace-format
@@ -1612,6 +1643,8 @@ msgid ""
 "Invalid file system: {f}. Only regular and no removable media file systems "
 "are accepted"
 msgstr ""
+"Sistem de fisiere invalid: {f}. Numai sisteme de fisiere de medii normale si "
+"detasabile sunt acceptate"
 
 #: src/EBox/Report/DiskUsage.pm:349
 msgid "Free space"
@@ -1631,23 +1664,23 @@ msgstr "Modifică"
 
 #: src/templates/wizard.mas:73 src/templates/wizard.mas:74
 msgid "Finish"
-msgstr ""
+msgstr "Terminat"
 
 #: src/templates/wizard.mas:131
-#, fuzzy
 msgid "Congratulations!"
-msgstr "Configuraţie"
+msgstr "Felicitari !"
 
 #: src/templates/wizard.mas:132
 msgid "Now you are ready to save changes and start using your eBox"
 msgstr ""
+"Acum sunteti gata sa salvati modificarile si puteti incepe sa utilizati "
+"serverul eBox"
 
 #: src/templates/wizard.mas:151 src/templates/wizard.mas:161
 msgid "Skip"
-msgstr ""
+msgstr "Sari peste"
 
 #: src/templates/wizard.mas:152 src/templates/wizard.mas:162
-#, fuzzy
 msgid "Next"
 msgstr "următor"
 
@@ -1673,14 +1706,17 @@ msgid ""
 "modifications listed below. You must explicitly accept these changes to "
 "enable the module."
 msgstr ""
+"Activarea acestui modul va permite serverului eBox sa efectueze actiunile si "
+"modificarile listate mai jos. Trebuie sa accesptati explicit aceste "
+"modificari pentru a activa modulul"
 
 #: src/templates/configureView.mas:20
 msgid "Actions to perform by eBox"
-msgstr ""
+msgstr "Actiuni ce vor fi efectuate de eBox"
 
 #: src/templates/configureView.mas:35
 msgid "Files to modify by eBox"
-msgstr ""
+msgstr "Fisiere ce vor fi modificate de eBox"
 
 #: src/templates/configureView.mas:54
 msgid "Accept"
@@ -1859,11 +1895,11 @@ msgstr "eşuat"
 
 #: src/templates/report/raid.mas:261
 msgid "No unused RAID devices"
-msgstr ""
+msgstr "Nu sunt echipamente RAID folosite"
 
 #: src/templates/report/raid.mas:264
 msgid "Unused RAID arrays"
-msgstr ""
+msgstr "Echipamente RAID folosite"
 
 #: src/templates/report/diskUsage.mas:29
 msgid "Mounted on"
@@ -1879,15 +1915,15 @@ msgstr "Proprietăţi partiţii"
 
 #: src/templates/progress.mas:24
 msgid "Item"
-msgstr ""
+msgstr "Element"
 
 #: src/templates/progress.mas:25
 msgid "items left"
-msgstr ""
+msgstr "elemente ramase"
 
 #: src/templates/progress.mas:27
 msgid "Some error has happened in eBox: "
-msgstr ""
+msgstr "S-au produs erori in eBox: _"
 
 #: src/templates/progress.mas:137
 msgid "Starting..."
@@ -1895,15 +1931,15 @@ msgstr "Pornire..."
 
 #: src/templates/logs/index.mas:20
 msgid "Log Domain"
-msgstr ""
+msgstr "Domeniu jurnal"
 
 #: src/templates/logs/index.mas:22
 msgid "Last hour logs will be showed when selecting a component"
-msgstr ""
+msgstr "Jurnelele ultimei ore vor fi afisate cand selectati o componenta"
 
 #: src/templates/logs/index.mas:23
 msgid "Select available full reports"
-msgstr ""
+msgstr "Selectati rapoarte complete disponibile"
 
 #: src/templates/logs/index.mas:35 src/templates/logs/index.mas:36
 #: src/templates/logs/index.mas:37
@@ -1912,7 +1948,7 @@ msgstr "Vizualizare"
 
 #: src/templates/logs/index.mas:44
 msgid "Custom query"
-msgstr ""
+msgstr "Interogare particularizata"
 
 #: src/templates/logs/index.mas:50
 msgid "From date:"
@@ -1984,11 +2020,11 @@ msgstr "Înregistrează ca eveniment"
 
 #: src/templates/logs/index.mas:235
 msgid "No logs matching current criterion"
-msgstr ""
+msgstr "Nu exista jurnale care se potrivesc criteriului curent"
 
 #: src/templates/logs/index.mas:239
 msgid "There are no logs for this domain"
-msgstr ""
+msgstr "Nu exista jurnale pentru acest domeniu"
 
 #: src/templates/logs/dbtable.mas:87 src/templates/logs/dbtable.mas:88
 msgid "first"
@@ -2047,7 +2083,7 @@ msgstr "Nu sunt modificări neînregistrate."
 
 #: src/templates/backup.mas:17
 msgid "Full Backup"
-msgstr ""
+msgstr "Backup complet"
 
 #: src/templates/backup.mas:24
 #, perl-brace-format
@@ -2056,16 +2092,21 @@ msgid ""
 "Module Status{closeref} section will be ignored in both backup and restore "
 "operations."
 msgstr ""
+"Acele module care nu au fost activate pentru prima oara in {openhref}Stare "
+"Module{closehref} vor fi ignorate in ambele moduri de backup si in operatia "
+"de restaurare."
 
 #: src/templates/backup.mas:26
 msgid "Backup the Current State"
-msgstr ""
+msgstr "Backup al starii actuale"
 
 #: src/templates/backup.mas:28
 msgid ""
 "Backups will be stored in eBox and then you will be able to download them to "
 "your hard disk."
 msgstr ""
+"Backup-urile vor fi stocate in eBox si apoi vor fi disponibile sa le "
+"descarcati pe discurile dumneavoastra."
 
 #: src/templates/backup.mas:29
 msgid ""
@@ -2073,30 +2114,39 @@ msgid ""
 "administration rights will be able to access the backup directory as a "
 "shared resource."
 msgstr ""
+"Daca aveti modulul de partajare fisiere configurat, atunci toti utilizatorii "
+"cu drepturi de administrare vor putea sa acceseze directorul de backup ca "
+"si resursa partajata."
 
 #: src/templates/backup.mas:33
 msgid ""
 "Backup is disabled because there are unsaved configuration changes. Please, "
 "save or discard them to be able to backup the configuration"
 msgstr ""
+"Backup-ul este dezactivat pentru ca sunt modificari ne-salvate in "
+"configuratie. Va rog, salvati sau anulati acele modificari pentru a putea "
+"efectua backup-ul configuratiei"
 
 #: src/templates/backup.mas:50
 msgid "Backup mode"
-msgstr ""
+msgstr "Modul Backup"
 
 #: src/templates/backup.mas:72
 msgid "Restore Backup from File"
-msgstr ""
+msgstr "Restaureaza backup din fisier"
 
 #: src/templates/backup.mas:74
 msgid ""
 "You can upload a backup file from your computer. When uploading files you "
 "should be warned that some web browsers cannot handle huge files (>= 1 Gb)."
 msgstr ""
+"Puteti incarca un fisier de backup din calculatorul dumneavoastra. Cand "
+"incarcati fisiere trebuie sa stiti ca unele browsere de web nu pot manipula "
+"fisiere mari ( mai mari sau egale cu 1 Gb)."
 
 #: src/templates/backup.mas:82
 msgid "Backup file"
-msgstr ""
+msgstr "Fisier backup"
 
 #: src/templates/backup.mas:112
 msgid "Full"
@@ -2104,15 +2154,15 @@ msgstr "Complet"
 
 #: src/templates/backup.mas:113
 msgid "Configuration only"
-msgstr "Numai configurarea"
+msgstr "Numai configuratie"
 
 #: src/templates/backup.mas:114
 msgid "Unknown type"
-msgstr ""
+msgstr "Tip necunoscut"
 
 #: src/templates/backup.mas:120
 msgid "Backups' list"
-msgstr ""
+msgstr "Lista backup-uri"
 
 #: src/templates/backup.mas:127 src/templates/confirm-backup.mas:53
 msgid "Archive size"
@@ -2124,11 +2174,11 @@ msgstr "Acţiuni"
 
 #: src/templates/backup.mas:158
 msgid "Restore configuration using this file"
-msgstr ""
+msgstr "Restaureaza configuratia folosind acest fisier"
 
 #: src/templates/backup.mas:159
 msgid "Restore from backup"
-msgstr ""
+msgstr "Restaureaza din backup"
 
 #: src/templates/backup.mas:164 src/templates/backup.mas:165
 msgid "Download"
@@ -2152,22 +2202,26 @@ msgid ""
 "system. The file will be useful if you want to report a problem or seek "
 "support."
 msgstr ""
+"Aceasta pagina va permite sa generati un fisier cu starea sistemului "
+"dumneavoastra. Fisierul va fi util daca doriti sa raportati o problema sau "
+"sa cautati ajutor."
 
 #: src/templates/bug.mas:13
 msgid "It may take several minutes to generate the report. Please be patient."
 msgstr ""
+"Generarea raportului poate sa dureze cateva minute. Va rog aveti rabdare."
 
 #: src/templates/bug.mas:19
 msgid "Download configuration report file"
-msgstr ""
+msgstr "Descarca fisierul cu raportul configuratiei"
 
 #: src/templates/logout/index.mas:11
 msgid "There are unsaved changes, if you log out now they will be lost."
-msgstr ""
+msgstr "Sunt modificari ne-salvate, daca iesiti acum acestea se vor pierde."
 
 #: src/templates/logout/index.mas:15
 msgid "There are no unsaved changes in this session."
-msgstr "Nu sunt modificări neînregistrate în această sesiune."
+msgstr "Nu sunt modificări ne-salvate în această sesiune."
 
 #: src/templates/logout/index.mas:19
 msgid "Exit"

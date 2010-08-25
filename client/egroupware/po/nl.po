@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: ebox-egroupware 1.1\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "POT-Creation-Date: 2010-06-02 20:31+0200\n"
-"PO-Revision-Date: 2009-08-13 14:25+0200\n"
-"Last-Translator: Michel Daggelinckx <michel@allmarketingmaroc.com>\n"
+"PO-Revision-Date: 2010-08-20 03:57+0200\n"
+"Last-Translator: Indra Pharazijn <indra6oc@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -18,17 +18,16 @@ msgstr ""
 "X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/EGroupware.pm:49
-#, fuzzy
 msgid "Groupware"
-msgstr "eGroupware"
+msgstr "Groupware"
 
 #: src/EBox/EGroupware.pm:97
 msgid "Create PostgreSQL user egroupware"
-msgstr "Maak PostgreSQL gebruiker egroupware aan"
+msgstr "Maak PostgreSQL gebruiker 'egroupware' aan"
 
 #: src/EBox/EGroupware.pm:98
 msgid "This user will be the owner of the egroupware database"
-msgstr "Deze gebruiker  zal de eigenaar zijn van de egroupware database"
+msgstr "Deze gebruiker zal de eigenaar zijn van de egroupware database"
 
 #: src/EBox/EGroupware.pm:102
 msgid "Create PostgreSQL egroupware database"
@@ -36,15 +35,15 @@ msgstr "Maak PostgreSQL egroupware database aan"
 
 #: src/EBox/EGroupware.pm:103
 msgid "This database will store the data needed by eGroupware"
-msgstr "Deze database zal de gegevens nodig voor eGroupware bevatten"
+msgstr "Deze database zal de gegevens bevatten die nodig zijn voor eGroupware"
 
 #: src/EBox/EGroupware.pm:120
 msgid "To configure eGroupware access settings"
-msgstr ""
+msgstr "Om de eGroupware toegangs configuratie in te stellen"
 
 #: src/EBox/EGroupware.pm:125
 msgid "To allow local access to egroupware database"
-msgstr ""
+msgstr "Om lokale toegang te verlenen aan de egroupware database"
 
 #: src/EBox/CGI/EGroupwareUserOptions.pm:43
 msgid "username"
@@ -54,9 +53,12 @@ msgstr "gebruikersnaam"
 msgid "groupname"
 msgstr "groepnaam"
 
+# voor een gemakkelijker onderscheid : 
+# applicatie - toegesta(a)n(e) - machtigingen - sjabloon
+# vermijd : toepassing - toegestaan - toestemmingen - ...
 #: src/EBox/Model/Applications.pm:139
 msgid "Application"
-msgstr "Toepassing"
+msgstr "Applicatie"
 
 #: src/EBox/Model/Applications.pm:145
 msgid "Enabled"
@@ -64,59 +66,64 @@ msgstr "Ingeschakeld"
 
 #: src/EBox/Model/Applications.pm:152
 msgid "Applications"
-msgstr "Toepassingen"
+msgstr "Applicaties"
 
 #: src/EBox/Model/Applications.pm:153
 msgid "application"
-msgstr "toepassing"
+msgstr "applicatie"
 
 #: src/EBox/Model/DefaultApplications.pm:50
 msgid "Default Applications"
-msgstr "Standaard Toepassingen"
+msgstr "Standaard Applicaties"
 
 #: src/EBox/Model/DefaultApplications.pm:51
 msgid ""
 "These are the default application permissions that are given to the new "
 "created users or existing ones before enabling eGroupware module."
 msgstr ""
+"Dit zijn de standaard applicatie machtigingen die gegeven worden aan nieuwe "
+"leden of aan bestaande voordat de eGroupware module ingeschakeld werd."
 
 #: src/EBox/Model/PermissionTemplates.pm:66
 msgid "Name"
 msgstr "Naam"
 
 #: src/EBox/Model/PermissionTemplates.pm:72
-#, fuzzy
 msgid "Allowed Applications"
-msgstr "Toepassingen"
+msgstr "Toegestane Applicaties"
 
 # vertaling voor templates ????
 #: src/EBox/Model/PermissionTemplates.pm:81
-#, fuzzy
 msgid "User Defined Permission Templates"
-msgstr "Gebruiker gedefinieerde toelatings Templates"
+msgstr "Gebruiker Gedefinieerde Machtiging Sjablonen"
 
 # zie vorige
 #: src/EBox/Model/PermissionTemplates.pm:85
-#, fuzzy
 msgid "template"
-msgstr "template"
+msgstr "Sjabloon"
 
 #: src/EBox/Model/PermissionTemplates.pm:86
 msgid ""
 "Edit the permission templates with the allowed applications that can be "
 "assigned to users or groups."
 msgstr ""
+"Pas het machtiging sjabloon aan met de toegestane applicaties die toegewezen "
+"kunnen worden aan gebruikers of groepen "
 
+# selecteren = nieuwe spelling
+# http://woordenlijst.org/zoek/?q=selecteren&w=w
 #: src/EBox/Model/VMailDomain.pm:54
 msgid "No domain selected"
-msgstr "Geen domein geselekteerd"
+msgstr "Geen domein geselecteerd"
 
 #: src/EBox/Model/VMailDomain.pm:100
 #, fuzzy, perl-brace-format
 msgid ""
 "You must have at least one virtual mail domain defined. You can define the "
 "at {ohref}Virtual Domains section{chref}"
-msgstr "U dient minstens 1 virtueel domein te definieren"
+msgstr ""
+"U moet minstens 1 virtueel post domein gedefinieerd hebben. U kan dit "
+"definiëren in de {ohref}Virtuele Domeinen sectie{chref}"
 
 #: src/EBox/Model/VMailDomain.pm:109
 #, perl-brace-format
@@ -124,12 +131,16 @@ msgid ""
 "You must have IMAP service enabled. You can enable it at {ohref} Mail "
 "General Configuration{chref}."
 msgstr ""
+"U moet IMAP diensten ingeschakeld hebben. U kan deze inschakelen in de "
+"{ohref} Algemene Post Configuratie{chref}."
 
 #: src/EBox/Model/VMailDomain.pm:137
 msgid ""
 "The deleted virtual domain was selected for eGroupware. Maybe you want to "
 "select another one now."
 msgstr ""
+"Het verwijderde virtuele domein was geselecteerd voor eGroupware. Mogelijk "
+"wilt u nu een ander selecteren."
 
 #: src/EBox/Model/VMailDomain.pm:152
 msgid "Virtual Domain"
@@ -137,14 +148,13 @@ msgstr "Virtueel Domein"
 
 #: src/EBox/Model/VMailDomain.pm:161
 msgid "Virtual Mail Domain"
-msgstr "Virtueel Mail Domein"
+msgstr "Virtueel Post Domein"
 
 #: src/EBox/Model/VMailDomain.pm:166
 msgid "Select the virtual mail domain to be used for eGroupware"
-msgstr "Selecteer het virtueel mail domein voor gebruik met eGroupware"
+msgstr "Selecteer het virtueel post domein voor gebruik met eGroupware"
 
 #: src/EBox/Composite/General.pm:76
-#, fuzzy
 msgid "eGroupware"
 msgstr "eGroupware"
 
@@ -153,6 +163,8 @@ msgid ""
 "Once the module is enabled and you have created a user account, you can "
 "access the eGroupware web interface at http://<ebox_ip>/egroupware"
 msgstr ""
+"Eens de module ingeschakeld is en U heeft een gebruikers account gecreëerd, "
+"kunt U de eGroupware web interface bereiken via http://<ebox_ip>/egroupware"
 
 #: src/EBox/Composite/General.pm:89
 #, fuzzy
@@ -162,34 +174,34 @@ msgstr "eGroupware"
 #: src/templates/egroupware.mas:9
 #, fuzzy
 msgid "eGroupware account"
-msgstr "eGroupware"
+msgstr "eGroupware account"
 
 #: src/templates/egroupware.mas:10
 msgid "Password for eGroupware service is the user password"
-msgstr ""
+msgstr "Paswoord voor de eGroupware dienst is het gebruikers paswoord"
 
 #: src/templates/egroupware.mas:12
 #, fuzzy
 msgid "eGroupware group"
-msgstr "eGroupware"
+msgstr "eGroupware groep"
 
 # vertaling voor templates ????
 #: src/templates/egroupware.mas:28
 #, fuzzy
 msgid "Permissions template"
-msgstr "Gebruiker gedefinieerde toelatings Templates"
+msgstr "Machtigings sjabloon"
 
 #: src/templates/egroupware.mas:39
 msgid "Default"
-msgstr ""
+msgstr "Standaard"
 
 #: src/templates/egroupware.mas:52 src/templates/egroupware.mas:53
 msgid "Change"
-msgstr ""
+msgstr "Verander"
 
 #: src/templates/egroupware.mas:85
 msgid "Click here to select a virtual domain"
-msgstr ""
+msgstr "Klik hier om een virtueel domein te selecteren"
 
 #~ msgid "DefaultApplications"
 #~ msgstr "Standaard Toepassingen"

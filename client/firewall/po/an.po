@@ -7,14 +7,14 @@ msgstr ""
 "Project-Id-Version: ebox-firewall 0.12\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "POT-Creation-Date: 2010-08-13 13:40+0200\n"
-"PO-Revision-Date: 2007-02-27 22:38+0000\n"
-"Last-Translator: Guillermo Frías Marín <espanyoldebarna@hotmail.com>\n"
+"PO-Revision-Date: 2010-08-23 17:39+0200\n"
+"Last-Translator: Nacho Correas <icorreas@eboxplatform.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Pootle 0.10.1\n"
-"Plural-Forms: nplurals=2; plural= (n != 1);\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/Iptables.pm:840 src/EBox/Iptables.pm:877
 #: src/EBox/Firewall/IptablesRedirectRule.pm:78
@@ -272,7 +272,6 @@ msgstr ""
 
 #: src/EBox/Firewall/Model/BaseRuleTable.pm:228
 #: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:194
-#, fuzzy
 msgid "Configure Rules"
 msgstr "Confegurar regles"
 
@@ -317,9 +316,8 @@ msgid "NAT postrouting"
 msgstr ""
 
 #: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:118
-#, fuzzy
 msgid "Rule"
-msgstr "Regles"
+msgstr "Regle"
 
 #: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:123
 msgid "Enabled"

@@ -9,51 +9,52 @@ msgstr ""
 "technologies.com\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "POT-Creation-Date: 2010-07-21 00:32+0200\n"
-"PO-Revision-Date: 2010-01-09 16:07+0100\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2010-08-24 15:03+0200\n"
+"Last-Translator: Mochammad Kholil <cakkholil@yahoo.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/DNS.pm.in:265 src/EBox/Model/DomainTable.pm:249
 msgid "domain"
-msgstr ""
+msgstr "domain"
 
 #: src/EBox/DNS.pm.in:518
 msgid "main bind9 configuration file"
-msgstr ""
+msgstr "file konfigurasi utama bind9"
 
 #: src/EBox/DNS.pm.in:523
 msgid "bind9 options configuration file"
-msgstr ""
+msgstr "file opsi konfigurasi bind9"
 
 #: src/EBox/DNS.pm.in:528
 msgid "local bind9 configuration file"
-msgstr ""
+msgstr "file lokal konfigurasi bind9 "
 
 #: src/EBox/DNS.pm.in:533
 msgid "Keys configuration file"
-msgstr ""
+msgstr "file konfigurasi \"Keys\""
 
 #: src/EBox/DNS.pm.in:550
 #, perl-brace-format
 msgid "configuration file for zone {zone}"
-msgstr ""
+msgstr "file konfigurasi untuk zona {zone}"
 
 #: src/EBox/DNS.pm.in:566
 #, perl-brace-format
 msgid "configuration file for reverse resolution zone {zone}"
-msgstr ""
+msgstr "file konfigurasi untuk zona reverse resolusi {zone}"
 
 #: src/EBox/DNS.pm.in:584
 #, perl-brace-format
 msgid "Change the permissions for {dir} to allow writing to bind group"
-msgstr ""
+msgstr "Merubah permisi {dir} untuk diperbolehkan menulis pada group bind"
 
 #: src/EBox/DNS.pm.in:586
 msgid "Let the bind daemon to be dynamically updated"
-msgstr ""
+msgstr "mengijinkan \"bind daemon\" menjadi terupdate secara dinamis"
 
 #: src/EBox/Model/HostnameTable.pm:136
 #, perl-brace-format

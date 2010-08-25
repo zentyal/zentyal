@@ -10,7 +10,7 @@ msgstr ""
 "technologies.com\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "POT-Creation-Date: 2010-07-21 00:28+0200\n"
-"PO-Revision-Date: 2010-08-13 12:56+0200\n"
+"PO-Revision-Date: 2010-08-24 01:47+0200\n"
 "Last-Translator: Vasco Castelo Branco <vcbranco@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -363,14 +363,14 @@ msgid "SIP provider configuration updated."
 msgstr "Definições do Fornecedor SIP Actualizadas"
 
 #: src/EBox/Model/Provider.pm:195
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "{brand}: make low-cost VoIP calls to mobile phones and landlines directly "
 "with eBox. Once you have obtained a {subs} , you can purchase the VoIP "
 "credit you need. All these services available for purchasing at the {ohref}"
 "eBox on-line store{chref}! "
 msgstr ""
-"{brand}: faça chamadas VoIP de baixo custo para telefones móveis e linhas "
+"{brand}: Faça chamadas VoIP de baixo custo para telefones móveis e linhas "
 "fixas directamente com a eBox. {subs} Pode comprar o crédito VoIP de que "
 "necessita directamente em {ohref}Loja on-line eBox{chref}! "
 

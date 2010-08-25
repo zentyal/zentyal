@@ -7,8 +7,8 @@ msgstr ""
 "Project-Id-Version: ebox-firewall 0.12\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "POT-Creation-Date: 2010-08-13 13:40+0200\n"
-"PO-Revision-Date: 2009-11-15 17:01+0100\n"
-"Last-Translator: gabriele <g.garis@inwind.it>\n"
+"PO-Revision-Date: 2010-08-18 22:50+0200\n"
+"Last-Translator: andrea biasi <info@andreabiasi.it>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -88,7 +88,6 @@ msgid "Packet Filter"
 msgstr "Filtro Pacchetti"
 
 #: src/EBox/Firewall.pm:831 src/EBox/Firewall/Model/RedirectsTable.pm:362
-#, fuzzy
 msgid "Port Forwarding"
 msgstr "Regole di inoltro"
 
@@ -141,7 +140,7 @@ msgstr "LOG"
 
 #: src/EBox/Firewall.pm:855
 msgid "REDIRECT"
-msgstr ""
+msgstr "REINDIRIZZA"
 
 #: src/EBox/Firewall/Model/EBoxOutputRuleTable.pm:69
 #, fuzzy
@@ -158,7 +157,6 @@ msgid "rule"
 msgstr "regola"
 
 #: src/EBox/Firewall/Model/ExternalToInternalRuleTable.pm:69
-#, fuzzy
 msgid "External networks to internal networks"
 msgstr "Regole di filtro da reti esterne ad interne"
 
@@ -171,7 +169,6 @@ msgid "Interface"
 msgstr "Interfaccia"
 
 #: src/EBox/Firewall/Model/RedirectsTable.pm:256
-#, fuzzy
 msgid "Original destination"
 msgstr "Destinazione"
 
@@ -227,7 +224,7 @@ msgstr "Altro"
 
 #: src/EBox/Firewall/Model/RedirectsTable.pm:337
 msgid "Log"
-msgstr ""
+msgstr "Log"
 
 #: src/EBox/Firewall/Model/RedirectsTable.pm:339
 msgid "Log new forwarded connections"
@@ -273,7 +270,6 @@ msgstr ""
 
 #: src/EBox/Firewall/Model/BaseRuleTable.pm:228
 #: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:194
-#, fuzzy
 msgid "Configure Rules"
 msgstr "Configura regole"
 
@@ -282,12 +278,10 @@ msgid "'any service' cannot have a inverse march"
 msgstr ""
 
 #: src/EBox/Firewall/Model/ExternalToEBoxRuleTable.pm:69
-#, fuzzy
 msgid "External networks to eBox"
 msgstr "Regole di filtro dalle reti esterne ad eBox"
 
 #: src/EBox/Firewall/Model/InternalToEBoxRuleTable.pm:69
-#, fuzzy
 msgid "Internal networks to eBox"
 msgstr "Regole di filtro da reti interne ad eBox"
 
@@ -318,9 +312,8 @@ msgid "NAT postrouting"
 msgstr ""
 
 #: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:118
-#, fuzzy
 msgid "Rule"
-msgstr "Regole"
+msgstr "Regola"
 
 #: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:123
 msgid "Enabled"
@@ -328,26 +321,24 @@ msgstr "Abilitato"
 
 #: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:129
 msgid "Type"
-msgstr ""
+msgstr "Tipo"
 
 #: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:134
-#, fuzzy
 msgid "Module"
-msgstr "regola"
+msgstr "Modulo"
 
 #: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:139
 msgid "Condition"
-msgstr ""
+msgstr "Condizione"
 
 #: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:153
 #: src/templates/filter.mas:51
 msgid "Rules added by eBox services (Advanced)"
-msgstr ""
+msgstr "Regole aggiunte da eBox Services (Advanced)"
 
 #: src/EBox/Firewall/Model/ToInternetRuleTable.pm:66
-#, fuzzy
 msgid "Internal networks"
-msgstr "Porta esterna"
+msgstr "Reti interne"
 
 #: src/EBox/Firewall/Model/Report/PacketTrafficGraph.pm:52
 #: src/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:46
@@ -387,7 +378,6 @@ msgid "Filtering rules from internal networks to eBox"
 msgstr "Regole di filtro da reti interne ad eBox"
 
 #: src/templates/filter.mas:8
-#, fuzzy
 msgid ""
 "These rules allow you to control access from internal networks to services "
 "running on your eBox machine."
@@ -406,7 +396,6 @@ msgid "Filtering rules for internal networks"
 msgstr "Regole di filtro per reti interne"
 
 #: src/templates/filter.mas:15
-#, fuzzy
 msgid ""
 "These rules allow you to control access from internal networks to the "
 "Internet and traffic between internal networks. If you wish to provide "
@@ -465,13 +454,15 @@ msgstr ""
 
 #: src/templates/filter.mas:53
 msgid "These rules are automatically added by the eBox services."
-msgstr ""
+msgstr "Queste regole sono aggiunte automaticamente da eBox Services"
 
 #: src/templates/filter.mas:56
 msgid ""
 "You can disable these rules, but make sure you know what you are doing or "
 "otherwise some services could stop working."
 msgstr ""
+"Puoi disabilitare queste regole, ma assicurati di sapere cosa stai facendo, "
+"alcuni servizi potrebbero fermarsi"
 
 #, fuzzy
 #~ msgid "Port Forwading"

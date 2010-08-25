@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: ebox-squid 0.12\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "POT-Creation-Date: 2010-08-13 13:45+0200\n"
-"PO-Revision-Date: 2010-01-28 18:26+0100\n"
-"Last-Translator: Alexander Kuzmenko <alex@engp.su>\n"
+"PO-Revision-Date: 2010-08-20 18:38+0200\n"
+"Last-Translator: Dmitry Salynin <dsalynin@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
-"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/Squid.pm:70 src/EBox/Squid.pm:1077 src/EBox/Squid.pm:1154
@@ -33,19 +33,19 @@ msgstr "Конфигурационный файл контентного фил�
 
 #: src/EBox/Squid.pm:211
 msgid "Default filter group configuration"
-msgstr "Настройка по умолчанию фильтр группы"
+msgstr "Настройка группы фильтрации по умолчанию"
 
 #: src/EBox/Squid.pm:216
 msgid "Filter groups membership"
-msgstr "Членство в фильтр группе"
+msgstr "Членство в группе фильтрации"
 
 #: src/EBox/Squid.pm:221
 msgid "Content filter banned extension list"
-msgstr "Список запрещенных расширений фильтра содержимого "
+msgstr "Список запрещенных расширений в фильтре содержимого"
 
 #: src/EBox/Squid.pm:226
 msgid "Content filter banned mime type list"
-msgstr "Список запрещенных MIME типов фильтра содержимого"
+msgstr "Список запрещенных MIME-типов фильтра содержимого"
 
 #: src/EBox/Squid.pm:231
 msgid "Content filter exception site list"
@@ -77,52 +77,52 @@ msgstr "Список запрещённых фраз"
 
 #: src/EBox/Squid.pm:266
 msgid "Exception phrases list"
-msgstr "Список фраз исключений"
+msgstr "Список фраз-исключений"
 
 #: src/EBox/Squid.pm:271
 msgid "PICS ratings configuration"
-msgstr "Конфигурация оценок PICS"
+msgstr "Настройка оценок PICS"
 
 #: src/EBox/Squid.pm:276
 msgid "Dansguardian's log rotation configuration"
-msgstr "Конфигурация ротации журналов Dansguardian"
+msgstr "Настройка ротации журналов Dansguardian"
 
 #: src/EBox/Squid.pm:281
 msgid "Dansguardian's antivirus scanner configuration"
-msgstr "Конфигурация антивирусного сканера Dansguardian"
+msgstr "Настройка антивирусного сканера Dansguardian"
 
 #: src/EBox/Squid.pm:286
-#, fuzzy
 msgid "Filter groups per IP"
-msgstr "Фильтр группы"
+msgstr "Группы фильтрации по IP"
 
 #: src/EBox/Squid.pm:301
 msgid "Overwrite blocked page templates"
-msgstr ""
+msgstr "Перезаписать шаблоны заблокированных страниц"
 
 #: src/EBox/Squid.pm:302
 msgid ""
 "Dansguardian blocked page templates will be overwritten with eBox customized "
 "templates."
 msgstr ""
+"Шаблоны заблокированных страниц Dansguardian будут перезаписаны изменёнными "
+"с помощью eBox шаблонами."
 
 #: src/EBox/Squid.pm:342
 msgid "You must set the cache_mem variable in the ebox configuration file"
-msgstr "Установите переменную cache_mem файле конфигурации ebox"
+msgstr "Установите переменную cache_mem конфигурационном файле ebox"
 
 #: src/EBox/Squid.pm:351
-#, fuzzy
 msgid ""
 "You must set the max_object_size variable in the ebox configuration file"
-msgstr "Установите переменную cache_mem файле конфигурации ebox"
+msgstr "Установите переменную max_object_size конфигурационном файле ebox"
 
 #: src/EBox/Squid.pm:1049
 msgid "Enabled"
-msgstr "Включен"
+msgstr "Включено"
 
 #: src/EBox/Squid.pm:1051 src/EBox/Squid/Types/WeightedPhrasesThreshold.pm:55
 msgid "Disabled"
-msgstr "Отключен"
+msgstr "Отключено"
 
 #: src/EBox/Squid.pm:1053
 msgid "Transparent proxy"
@@ -142,7 +142,7 @@ msgstr "Запретить"
 #: src/EBox/Squid/Types/Policy.pm:81
 #: src/EBox/Squid/Model/DomainFilterCategoriesBase.pm:104
 msgid "Filter"
-msgstr "Фильтр"
+msgstr "Фильтровать"
 
 #: src/EBox/Squid.pm:1063
 msgid "Global policy"
@@ -150,7 +150,7 @@ msgstr "Глобальная политика"
 
 #: src/EBox/Squid.pm:1065
 msgid "Listening port"
-msgstr "Слушающий порт"
+msgstr "Порт"
 
 #: src/EBox/Squid.pm:1097
 msgid "General"
@@ -158,7 +158,7 @@ msgstr "Общие"
 
 #: src/EBox/Squid.pm:1100 src/EBox/Squid/Composite/DelayPools.pm:69
 msgid "Bandwidth Throttling"
-msgstr ""
+msgstr "Управление полосой пропускания"
 
 #: src/EBox/Squid.pm:1103
 msgid "Objects' Policy"
@@ -182,7 +182,7 @@ msgstr "Дата"
 
 #: src/EBox/Squid.pm:1140
 msgid "Host"
-msgstr "Узел"
+msgstr "Хост"
 
 #: src/EBox/Squid.pm:1141 src/EBox/Squid/Model/Report/TrafficDetails.pm:51
 #: src/EBox/Squid/Model/Report/TrafficDetails.pm:99
@@ -201,7 +201,7 @@ msgstr "Байт"
 
 #: src/EBox/Squid.pm:1144
 msgid "Mime/type"
-msgstr "Mime/type"
+msgstr "Mime/тип"
 
 #: src/EBox/Squid.pm:1145
 msgid "Event"
@@ -221,11 +221,11 @@ msgstr "Отфильтровано"
 
 #: src/EBox/Squid.pm:1229
 msgid "HTTP Proxy's cache files"
-msgstr "HTTP прокси файлы в кеше "
+msgstr "Кэш-файлы HTTP прокси"
 
 #: src/EBox/Squid/Types/WeightedPhrasesThreshold.pm:56
 msgid "Very permissive"
-msgstr "Сильно разрешающий"
+msgstr "Очень разрешающий"
 
 #: src/EBox/Squid/Types/WeightedPhrasesThreshold.pm:57
 msgid "Permissive"
@@ -245,7 +245,7 @@ msgstr "Очень строгий"
 
 #: src/EBox/Squid/Types/WeightedPhrasesThreshold.pm:67
 msgid "This specifies how strict the content filter is."
-msgstr "Здесь определяется насколько строг фильтр содержимого."
+msgstr "Здесь определяется строгость фильтра содержимого."
 
 #: src/EBox/Squid/Types/DomainPolicy.pm:50 src/EBox/Squid/Types/Policy.pm:80
 #: src/EBox/Squid/Model/DomainFilterCategoriesBase.pm:103
@@ -263,15 +263,15 @@ msgstr "Доменная политика squid"
 
 #: src/EBox/Squid/Types/Policy.pm:83
 msgid "Authorize and allow"
-msgstr "Авторизация и разрешения"
+msgstr "Авторизовать и разрешить"
 
 #: src/EBox/Squid/Types/Policy.pm:84
 msgid "Authorize and filter"
-msgstr "Авторизация и фильтры"
+msgstr "Авторизовать и фильтровать"
 
 #: src/EBox/Squid/Types/Policy.pm:85
 msgid "Authorize and deny"
-msgstr "Авторизация и запрещения"
+msgstr "Авторизовать и запретить"
 
 #: src/EBox/Squid/Types/Policy.pm:105
 msgid "Squid's policy"
@@ -388,7 +388,7 @@ msgstr "Конец диапазона больше начала"
 
 #: src/EBox/Squid/Types/TimePeriod.pm:569
 msgid "The time period must be at least active on one day"
-msgstr "Временной период должен быть активен хотябы в один день"
+msgstr "Временной период должен быть активен хотя бы в один день"
 
 #: src/EBox/Squid/Model/DomainFilterFiles.pm:84
 msgid "Domains lists files"
@@ -401,17 +401,17 @@ msgstr "Список интернет доменов"
 
 #: src/EBox/Squid/Model/DomainFilterFiles.pm:98
 msgid "You can upload files with lists of domains"
-msgstr "Можно загрузить файлы со списками доменов"
+msgstr "Вы можете загрузить файлы со списками доменов"
 
 #: src/EBox/Squid/Model/DomainFilterFiles.pm:100
 #: src/EBox/Squid/Model/FilterGroupDomainFilterFiles.pm:94
 msgid "Domain list added"
-msgstr "Домен добавлен в список"
+msgstr "Список доменов добавлен"
 
 #: src/EBox/Squid/Model/DomainFilterFiles.pm:101
 #: src/EBox/Squid/Model/FilterGroupDomainFilterFiles.pm:95
 msgid "Domain list removed"
-msgstr "Домен удален из списока"
+msgstr "Список доменов удалён"
 
 #: src/EBox/Squid/Model/DomainFilterFiles.pm:102
 #: src/EBox/Squid/Model/FilterGroupDomainFilterFiles.pm:96
@@ -420,7 +420,7 @@ msgstr "Список доменов обновлен"
 
 #: src/EBox/Squid/Model/FilterGroupContentFilterThreshold.pm:68
 msgid "Use default profile threshold"
-msgstr "Использовать профиль по умолчанию порога"
+msgstr "Использовать порог профиля по умолчанию"
 
 #: src/EBox/Squid/Model/FilterGroupContentFilterThreshold.pm:74
 #: src/EBox/Squid/Model/ContentFilterThreshold.pm:70
@@ -435,7 +435,7 @@ msgstr "Порог фильтра содержимого"
 #: src/EBox/Squid/Model/FilterGroupContentFilterThreshold.pm:87
 #: src/EBox/Squid/Model/ContentFilterThreshold.pm:85
 msgid "Content filter threshold changed"
-msgstr "Порог фильтра содержимого изменен"
+msgstr "Порог фильтра содержимого изменён"
 
 #: src/EBox/Squid/Model/GroupsFilterPolicy.pm:60
 #: src/EBox/Squid/Model/GroupPolicyBase.pm:76
@@ -444,11 +444,11 @@ msgstr "Группа"
 
 #: src/EBox/Squid/Model/GroupsFilterPolicy.pm:75
 msgid "Filter configuration"
-msgstr "Конфигурация фильтра"
+msgstr "Настройка фильтра"
 
 #: src/EBox/Squid/Model/GroupsFilterPolicy.pm:86
 msgid "User groups configuration"
-msgstr "Конфигурация группы пользователей"
+msgstr "Настройка группы пользователей"
 
 #: src/EBox/Squid/Model/GroupsFilterPolicy.pm:97
 msgid "group"
@@ -460,11 +460,11 @@ msgstr "Адрес доменного имени"
 
 #: src/EBox/Squid/Model/NoCacheDomains.pm:80
 msgid "Exempt address from caching"
-msgstr "Исключенные из кэширования адреса"
+msgstr "Запретить кэширование для адреса"
 
 #: src/EBox/Squid/Model/NoCacheDomains.pm:89
 msgid "Cache exemptions"
-msgstr "Исключенные из кэша"
+msgstr "Кэширование запрещено"
 
 #: src/EBox/Squid/Model/NoCacheDomains.pm:102
 msgid "domain name address"
@@ -472,7 +472,7 @@ msgstr "адрес доменного имени"
 
 #: src/EBox/Squid/Model/NoCacheDomains.pm:103
 msgid "You can exempt some addresses from caching"
-msgstr "Вы можете исключить несколько адресов из кэширования"
+msgstr "Вы можете запретить кэширование для некоторых адресов"
 
 #: src/EBox/Squid/Model/NoCacheDomains.pm:105
 msgid "Address added"
@@ -493,6 +493,8 @@ msgid ""
 "Object {object} has no members. Please add at least one to add rules using "
 "this object."
 msgstr ""
+"Объект {object} не содержит членов. Добавьте хотя бы одного для применения "
+"правил с использованием этого объекта."
 
 #: src/EBox/Squid/Model/DelayPools2.pm:102
 #: src/EBox/Squid/Model/DelayPools1.pm:100
@@ -501,6 +503,8 @@ msgid ""
 "Object {object} has an enabled {row} in {table}. Delete it first from there "
 "to add it here"
 msgstr ""
+"Объект {object} содержит включенный {row} в {table}. Удалите его оттуда для "
+"добавления здесь"
 
 #: src/EBox/Squid/Model/DelayPools2.pm:119
 #: src/EBox/Squid/Model/DelayPools1.pm:116
@@ -508,29 +512,28 @@ msgstr ""
 msgid ""
 "If {first} is set unlimited, then {second} must be set to unlimited as well"
 msgstr ""
+"Если {first} \"неограниченно\", тогда {second} также должно быть установлено в "
+"\"неограниченно\""
 
 #: src/EBox/Squid/Model/DelayPools2.pm:134
 #, perl-brace-format
 msgid "{clt_rate} is greater than {net_rate}"
-msgstr ""
+msgstr "{clt_rate} больше чем {net_rate}"
 
 #: src/EBox/Squid/Model/DelayPools2.pm:159
 #: src/EBox/Squid/Model/DelayPools1.pm:143
-#, fuzzy
 msgid "Network object"
-msgstr "Список объектов"
+msgstr "Сетевой объект"
 
 #: src/EBox/Squid/Model/DelayPools2.pm:167
-#, fuzzy
 msgid "Rate"
-msgstr "Дата"
+msgstr "Скорость"
 
 #: src/EBox/Squid/Model/DelayPools2.pm:170
 #: src/EBox/Squid/Model/DelayPools2.pm:190
 #: src/EBox/Squid/Model/DelayPools1.pm:154
-#, fuzzy
 msgid "Bytes/s"
-msgstr "Байт"
+msgstr "Байт/с"
 
 #: src/EBox/Squid/Model/DelayPools2.pm:173
 #: src/EBox/Squid/Model/DelayPools1.pm:157
@@ -538,10 +541,12 @@ msgid ""
 "Maximum download bandwidth rate for this network. Use -1 to disable this "
 "option."
 msgstr ""
+"Максимальная скорость загрузки для этой сети. Используйте -1 для отключения "
+"этой опции."
 
 #: src/EBox/Squid/Model/DelayPools2.pm:177
 msgid "Maximum Size"
-msgstr ""
+msgstr "Максимальный размер"
 
 #: src/EBox/Squid/Model/DelayPools2.pm:183
 #: src/EBox/Squid/Model/DelayPools1.pm:167
@@ -549,28 +554,34 @@ msgid ""
 "Maximum unthrottled download size for this network. Use -1 to disable this "
 "option."
 msgstr ""
+"Максимальный неограниченный размер загружаемого файла для этой сети. "
+"Используйте -1 чтобы отключить эту опцию."
 
 #: src/EBox/Squid/Model/DelayPools2.pm:187
 msgid "Client Rate"
-msgstr ""
+msgstr "Скорость Клиента"
 
 #: src/EBox/Squid/Model/DelayPools2.pm:193
 msgid ""
 "Maximum download bandwidth rate per client. Use -1 to disable this option."
 msgstr ""
+"Максимальная скорость трафика загружаемых файлов на одного клиента. "
+"Используйте -1 чтобы отключить эту опцию."
 
 #: src/EBox/Squid/Model/DelayPools2.pm:197
 msgid "Client Maximum Size"
-msgstr ""
+msgstr "Максимальный размер для клиента"
 
 #: src/EBox/Squid/Model/DelayPools2.pm:203
 msgid ""
 "Maximum unthrottled download size per client. Use -1 to disable this option."
 msgstr ""
+"Максимальный неограниченный размер загружаемых файлов на одного клиента. "
+"Используйте -1 чтобы отключить эту опцию."
 
 #: src/EBox/Squid/Model/DelayPools2.pm:209
 msgid "Delay Pools Class 2"
-msgstr ""
+msgstr "Пулы Ограничения 2-ого класса"
 
 #: src/EBox/Squid/Model/DelayPools2.pm:216
 #, perl-brace-format
@@ -578,23 +589,25 @@ msgid ""
 "Once the request exceeds the {max} then the HTTP Proxy will throttle the "
 "download bandwidth to the given {rate}. The client number is limited to 256."
 msgstr ""
+"После того как запрос превысит {max}, HTTP прокси ограничит трафик загрузки "
+"до заданной {rate}. Номер клиента ограничен 256."
 
 #: src/EBox/Squid/Model/DelayPools2.pm:222
 #: src/EBox/Squid/Model/DelayPools1.pm:186
 msgid "pool"
-msgstr ""
+msgstr "пул"
 
 #: src/EBox/Squid/Model/DelayPools1.pm:151
 msgid "Network Rate"
-msgstr ""
+msgstr "Скорость сети"
 
 #: src/EBox/Squid/Model/DelayPools1.pm:161
 msgid "Network Maximum Size"
-msgstr ""
+msgstr "Максимальный размер сети"
 
 #: src/EBox/Squid/Model/DelayPools1.pm:173
 msgid "Delay Pools Class 1"
-msgstr ""
+msgstr "Пулы Ограничения 1-ого класса"
 
 #: src/EBox/Squid/Model/DelayPools1.pm:180
 #, perl-brace-format
@@ -602,6 +615,8 @@ msgid ""
 "Once the request exceeds the {max} then the HTTP Proxy will throttle the "
 "download bandwidth to the given {rate}."
 msgstr ""
+"После того как запрос превысит {max}, HTTP прокси ограничит трафик загрузки "
+"до заданной {rate}."
 
 #: src/EBox/Squid/Model/UseDefaultDomainFilter.pm:58
 #: src/EBox/Squid/Model/UseDefaultMIMEFilter.pm:57
@@ -663,7 +678,7 @@ msgstr ""
 
 #: src/EBox/Squid/Model/DomainFilterSettingsBase.pm:52
 msgid "Block sites specified only as IP"
-msgstr "Блокировать сайты определеные только, как IP"
+msgstr "Блокировать сайты определеные только как IP"
 
 #: src/EBox/Squid/Model/ApplyAllowToAllBase.pm:72
 msgid "elements"
@@ -821,6 +836,7 @@ msgstr ""
 #: src/EBox/Squid/Model/ObjectPolicy.pm:265
 msgid "You can only use a custom profile with the 'Filter' policy"
 msgstr ""
+"Пользовательский профиль можно использовать только с политикой \"Фильтрация\""
 
 #: src/EBox/Squid/Model/ObjectPolicy.pm:529
 #, perl-brace-format
@@ -846,9 +862,8 @@ msgid "Domain or URL"
 msgstr "Домен или адрес"
 
 #: src/EBox/Squid/Model/DomainFilterBase.pm:77
-#, fuzzy
 msgid "Domain or IP address part of URL"
-msgstr "Домен или IP-адрес"
+msgstr "Домен или IP-адрес часть URL"
 
 #: src/EBox/Squid/Model/DomainFilterBase.pm:87
 msgid "Domain"
@@ -890,7 +905,7 @@ msgstr "Вы должны указать список доменов"
 
 #: src/EBox/Squid/Model/DomainFilterFilesBase.pm:221
 msgid "Inexistent archive file"
-msgstr "В файле архива"
+msgstr "Несуществующий файл архива"
 
 #: src/EBox/Squid/Model/DomainFilterFilesBase.pm:286
 msgid ""
@@ -1059,7 +1074,7 @@ msgstr "Игнорировать"
 
 #: src/EBox/Squid/Model/DomainFilterCategoriesBase.pm:120
 msgid "This list has not categories"
-msgstr "Список не относится ни к одной  категории"
+msgstr "Список не содержит ни одной категории"
 
 #: src/EBox/Squid/Model/FilterGroupMIMEFilter.pm:87
 #: src/EBox/Squid/Model/FilterGroupExtensionFilter.pm:94
@@ -1291,6 +1306,12 @@ msgid ""
 "match from the source is done. If a network object does not match any rule, "
 "then no bandwidth throttling is done to it"
 msgstr ""
+"Пулы 1-ого класса позволяют ограничивать скорость трафика крупных файлов "
+"загрузки, в то время как пулы 2-ого класса позволяют задать постоянную "
+"скорость трафика. Пулы 1-ого класса иммеют более высокий приоритет, чем пулы "
+"2-ого класса, и девствует правило первого совпадении от источника. Если "
+"сетевой объект не соответствует ни одному правилу, то никаких ограничений "
+"трафика не происходит"
 
 #: src/EBox/Squid/Composite/FilterGroupDomains.pm:84
 msgid "Domains filtering for filter group"
@@ -1323,18 +1344,17 @@ msgid "Days of the week"
 msgstr "Рабочие дни"
 
 #: stubs/template.html.mas:9
-#, fuzzy
 msgid "Access Denied"
-msgstr "Запросы доступа"
+msgstr "Доступ запрещен"
 
 #: stubs/template.html.mas:30
 msgid "Access has been Denied"
-msgstr ""
+msgstr "Доступ был запрещен"
 
 #: stubs/template.html.mas:37
 #, perl-brace-format
 msgid "Access to the page: {page} has been denied for the following reason"
-msgstr ""
+msgstr "Доступ к странице: {page} невозможен по следующей причине"
 
 #: stubs/template.html.mas:41
 msgid ""
@@ -1342,15 +1362,19 @@ msgid ""
 "contain, or is labeled as containing, material that has been deemed "
 "inappropriate."
 msgstr ""
+"Вы видите эту ошибку, потому-что то к чему вы пытаетесь получить доступ, "
+"содержит, или помечено как содержащее материал, который является неуместным."
 
 #: stubs/template.html.mas:42
 msgid ""
 "If you have any queries contact your ICT Coordinator or Network Manager."
 msgstr ""
+"Если у вас есть какие-либо вопросы обратитесь к своему ИКТ координатору или "
+"Менеджеру по сетям."
 
 #: stubs/template.html.mas:47
 msgid "Powered by"
-msgstr ""
+msgstr "Работает на "
 
 #~ msgid "Threshold a"
 #~ msgstr "Порог"

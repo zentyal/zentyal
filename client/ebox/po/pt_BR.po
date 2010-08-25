@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: ebox 0.12\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "POT-Creation-Date: 2010-08-13 13:39+0200\n"
-"PO-Revision-Date: 2010-06-12 21:57+0200\n"
-"Last-Translator: Flávio Veras <flaviove@gmail.com>\n"
+"PO-Revision-Date: 2010-08-16 15:56+0200\n"
+"Last-Translator: Jorge Eduardo Quintao <jorge@netsol.com.br>\n"
 "Language-Team: <es@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -26,10 +26,8 @@ msgid "It must be a non-zero positive number"
 msgstr "Deve ser um número positivo diferente de zero"
 
 #: src/EBox/ProgressIndicator.pm:49
-#, fuzzy
 msgid "To solve it you can try to execute the following commands:"
-msgstr ""
-"Por Favor, confirme que você quer deletar os seguintes arquivos de backup:"
+msgstr "Para resolver isto você pode tentar executar os seguintes comandos:"
 
 #: src/EBox/ProgressIndicator.pm:56
 #, perl-brace-format
@@ -443,9 +441,8 @@ msgstr ""
 "informações pertinentes podem ser encontradas nos registros."
 
 #: src/EBox/CGI/Wizard.pm:29
-#, fuzzy
 msgid "Initial configuration wizard"
-msgstr "Salvar a configuração"
+msgstr "Assistente de configuração inicial"
 
 #: src/EBox/CGI/Logs/Index.pm:37 src/EBox/Logs.pm:59
 msgid "Logs"
@@ -601,7 +598,7 @@ msgstr "Backup"
 #: src/EBox/CGI/EBox/Backup.pm:162
 #, perl-brace-format
 msgid "Unknown backup mode: {mode}"
-msgstr "Modo Desconhecido de Backup: {mode}"
+msgstr "Modo desconhecido de backup: {mode}"
 
 #: src/EBox/CGI/EBox/Backup.pm:228
 #, perl-brace-format
@@ -1482,13 +1479,13 @@ msgid "Writing backup file to hard disk"
 msgstr "Salvando o arquivo de backup em disco"
 
 #: src/EBox/Backup.pm:791
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Module {mod} has not saved changes. Before doing the backup you must save or "
 "discard them"
 msgstr ""
-"Alguns módulos ainda não têm as alterações salvas. Antes de executar o "
-"backup é necessário gravá-los ou descartá-los"
+"Módulo {mod} não teve suas alterações salvas. Antes de executar o backup é "
+"necessário gravar ou descartar estas alterações."
 
 #: src/EBox/Backup.pm:849
 msgid "Incorrect or corrupt backup file"
@@ -1627,9 +1624,9 @@ msgid "eBox web server"
 msgstr "Servidor de web do eBox"
 
 #: src/EBox/Global.pm:484
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Enabling {modName} module"
-msgstr "Salvando módulo {modName}"
+msgstr "Habilitando o módulo {modName}"
 
 #: src/EBox/Global.pm:514 src/EBox/Global.pm:541
 #, perl-brace-format
@@ -1673,25 +1670,25 @@ msgstr "Alterar"
 
 #: src/templates/wizard.mas:73 src/templates/wizard.mas:74
 msgid "Finish"
-msgstr ""
+msgstr "Finalizar"
 
 #: src/templates/wizard.mas:131
-#, fuzzy
 msgid "Congratulations!"
-msgstr "Configuração"
+msgstr "Parabéns!"
 
 #: src/templates/wizard.mas:132
 msgid "Now you are ready to save changes and start using your eBox"
 msgstr ""
+"Agora você está pronto para salvar suas alterações e iniciar o uso do seu "
+"eBox."
 
 #: src/templates/wizard.mas:151 src/templates/wizard.mas:161
 msgid "Skip"
-msgstr ""
+msgstr "Saltar"
 
 #: src/templates/wizard.mas:152 src/templates/wizard.mas:162
-#, fuzzy
 msgid "Next"
-msgstr "próximo"
+msgstr "Próximo"
 
 #: src/templates/headTitle.mas:20
 msgid "Remote services control panel"

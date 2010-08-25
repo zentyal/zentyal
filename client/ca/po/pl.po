@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: ebox-ca 0.12\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "POT-Creation-Date: 2010-07-21 00:29+0200\n"
-"PO-Revision-Date: 2009-04-02 04:20+0200\n"
-"Last-Translator: Piotr Kirklewski <pkirklewski@gabaedevelopment.com>\n"
+"PO-Revision-Date: 2010-08-24 22:29+0200\n"
+"Last-Translator: Robert Brzozowski <gnutar1@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -22,39 +22,37 @@ msgstr ""
 #: src/EBox/CGI/RenewCertificate.pm:43 src/EBox/CGI/IssueCertificate.pm:50
 #: src/EBox/CGI/ShowForm.pm:42 src/EBox/CGI/Index.pm:40
 #: src/EBox/CGI/DownloadFiles.pm:43 src/EBox/CA.pm:123
-#, fuzzy
 msgid "Certification Authority"
-msgstr "Zarządzanie ważnością certyfikatów"
+msgstr "Zarządzanie certyfikatami"
 
 #: src/EBox/CGI/CreateCA.pm:111 src/EBox/CGI/IssueCertificate.pm:120
 msgid "CA passphrases do NOT match"
-msgstr "Hasla CA nie zgadzaja sie "
+msgstr "Hasła CA nie zgadzają się"
 
 #: src/EBox/CGI/CreateCA.pm:121 src/EBox/CGI/IssueCertificate.pm:128
 #, perl-brace-format
 msgid "CA Passphrase should be at least {length} characters"
-msgstr "Haslo CA powinno miec dlugosc co najmniej {length}"
+msgstr "Hasło CA powinno mieć długość co najmniej {length}"
 
 #: src/EBox/CGI/CreateCA.pm:126 src/EBox/CGI/RenewCertificate.pm:97
 #: src/EBox/CGI/IssueCertificate.pm:138
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Days to expire ({days}) must be a positive number"
-msgstr "Pole 'Dni do wygaśnięcia' musi zawierać liczbę całkowitą dodatnią."
+msgstr ""
+"Pole 'Dni do wygaśnięcia' {days} musi zawierać liczbę całkowitą dodatnią."
 
 #: src/EBox/CGI/CreateCA.pm:140
 msgid "Problems creating Certification Authority has happened"
 msgstr ""
-"Wystąpiły problemy przy dodawaniu urzędu certyfikacji (Certification "
-"Authority)"
+"Wystąpiły problemy podczas tworzenia certyfikatów urzędu certyfikacji CA"
 
 #: src/EBox/CGI/RevokeCertificate.pm:65
-#, fuzzy
 msgid "The certificate has NOT been revoked."
 msgstr "Certyfikat nie został odwołany"
 
 #: src/EBox/CGI/RevokeCertificate.pm:72 src/EBox/CGI/RenewCertificate.pm:70
 msgid "Boolean indicating Certification Authority Certificate"
-msgstr "wartość logiczna oznaczająca certyfikat urzędu certyfikacji (CA)"
+msgstr "Wartość logiczna oznaczająca certyfikat urzędu certyfikacji (CA)"
 
 #: src/EBox/CGI/RevokeCertificate.pm:73 src/templates/formRevoke.mas:67
 msgid "Reason"
@@ -73,7 +71,6 @@ msgstr "Nazwa powszechna"
 
 #: src/EBox/CGI/RevokeCertificate.pm:82 src/EBox/CGI/RenewCertificate.pm:80
 #: src/EBox/CGI/ShowForm.pm:69
-#, fuzzy
 msgid ""
 "The input contains invalid characters. All alphanumeric characters, plus "
 "these non alphanumeric chars: .?&+:-@* and spaces are allowed."
@@ -90,9 +87,8 @@ msgid "The CA certificate has been revoked"
 msgstr "Certyfikat urzędu certyfikacji (CA) został odwołany"
 
 #: src/EBox/CGI/RenewCertificate.pm:65
-#, fuzzy
 msgid "The certificate has NOT been renewed"
-msgstr "Certyfikat został odnowiony"
+msgstr "Certyfikat nie został odnowiony"
 
 #: src/EBox/CGI/RenewCertificate.pm:71 src/templates/formRenew.mas:13
 #: src/templates/index.mas:52 src/templates/createCA.mas:19
@@ -119,7 +115,7 @@ msgid "Organization Name"
 msgstr "Nazwa organizacji"
 
 #: src/EBox/CGI/IssueCertificate.pm:146
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "The input contains invalid characters. All {ascii} alphanumeric characters, "
 "plus these non alphanumeric chars: .?&+:-@* and spaces are allowed."
@@ -131,26 +127,27 @@ msgstr ""
 #, perl-brace-format
 msgid "Only {dns}, {ip} and {email} are valid subject alternative name types"
 msgstr ""
+"Tylko {dns}, {ip} i {email} są właściwymi typami subject alternative name"
 
 #: src/EBox/CGI/IssueCertificate.pm:185
 msgid ""
 "The Subject Alternative Name parameter must follow this pattern: type:value, "
 "type:value"
 msgstr ""
+"Parametr Subject Alternative Name musi być zgodny ze schematem: type:value, "
+"type:value"
 
 #: src/EBox/CGI/IssueCertificate.pm:207
-#, fuzzy
 msgid "The certificate has been issued."
 msgstr "Certyfikat został wydany"
 
 #: src/EBox/CGI/IssueCertificate.pm:208
-#, fuzzy
 msgid "The new CA certificate has been issued."
 msgstr "Nowy certyfikat CA został wydany"
 
 #: src/EBox/CGI/ShowForm.pm:75
 msgid "Action"
-msgstr "Działanie"
+msgstr "Działania"
 
 #: src/EBox/CGI/ShowForm.pm:84
 msgid "Only revoke and renew actions are performed"
@@ -168,7 +165,7 @@ msgstr "Błąd przy tworzeniu pliku"
 #: src/EBox/CA.pm:302 src/EBox/CA.pm:783 src/EBox/CA.pm:1434
 #, perl-brace-format
 msgid "Days set to the maximum allowed {days}: Year 2038 Bug"
-msgstr "Dni ustawiono na  dozwolone maksimum {days}: błąd roku 2038"
+msgstr "Dni ustawiono na dozwolone maksimum {days}: błąd roku 2038"
 
 #: src/EBox/CA.pm:397
 msgid "The remove operation cannot be finished. Reason: "
@@ -179,7 +176,7 @@ msgid ""
 "The CA certificates should be revoked  or has expired before issuing a new "
 "certificate"
 msgstr ""
-"Certyfikaty urzędów certyfikacji (CA) powinny zostać odwołane lub wygasły "
+"Certyfikaty urzędu certyfikacji (CA) powinny zostać odwołane lub wygasły "
 "przed wydaniem nowego certyfikatu"
 
 #: src/EBox/CA.pm:952 src/EBox/CA.pm:1298
@@ -199,13 +196,12 @@ msgstr ""
 #: src/EBox/CA.pm:1103
 msgid ""
 "The Certification Authority Infrastructure is not available, create it first"
-msgstr ""
+msgstr "Nie istnieje Certification Authority Infrastructure, utwórz ją najpierw"
 
 #: src/EBox/CA.pm:1202
 msgid "Either common name, distinguished name or serial number has been passed"
 msgstr ""
-"Wprowadzono nazwę powszechną (cn), nazwę unikalną (dn) lub numer seryjny "
-"certyfikatu."
+"Wprowadzono nazwę powszechną, nazwę unikalną lub numer seryjny certyfikatu."
 
 #: src/EBox/CA.pm:1456
 msgid "or"
@@ -228,28 +224,27 @@ msgstr ""
 
 #: src/EBox/CA.pm:1800
 msgid "General"
-msgstr ""
+msgstr "Ogólne"
 
 #: src/EBox/CA.pm:1803 src/EBox/Model/Certificates.pm:280
-#, fuzzy
 msgid "Services Certificates"
-msgstr "Odwoływanie certyfikatu"
+msgstr "Certyfikaty usług"
 
 #: src/EBox/CA.pm:1890
 msgid "Not created"
-msgstr ""
+msgstr "Nie utworzono"
 
 #: src/EBox/CA.pm:1892
 msgid "Available"
-msgstr ""
+msgstr "Dostępny"
 
 #: src/EBox/CA.pm:1894
 msgid "Created but not available"
-msgstr ""
+msgstr "Utworzony lecz niedostępny"
 
 #: src/EBox/CA.pm:2487
 msgid "Unable to sign. Wrong CA passphrase or has CA private key dissappeared?"
-msgstr "Nie mogę podpisać. Błędne haslo CA lub klucz prywatny CA zaginął."
+msgstr "Nie mogę podpisać. Błędne hasło CA lub klucz prywatny CA zniknął."
 
 #: src/EBox/CA.pm:2489
 msgid "Database corruption"
@@ -277,13 +272,13 @@ msgid ""
 "Created Certification Authority with organization name {orgName} and "
 "validity for {days} days"
 msgstr ""
-"Utworzono Urząd Certyfikacji (CA) z nazwą organizacji {orgName} oraz "
-"ważnością na {days} dni."
+"Utworzono urząd certyfikacji (CA) z nazwą organizacji {orgName} oraz okresem "
+"ważności {days} dni."
 
 #: src/EBox/CA.pm:2575
 #, perl-brace-format
 msgid "Destroyed Certification Authority with organization name {orgName}"
-msgstr "Zniszczono Urząd Certyfikacji (CA) z nazwą organizacji {orgName}"
+msgstr "Zniszczono urząd certyfikacji (CA) z nazwą organizacji {orgName}"
 
 #: src/EBox/CA.pm:2577
 #, perl-brace-format
@@ -296,7 +291,7 @@ msgid ""
 "Issued CA certificate with organization name {orgName} and validity for "
 "{days} days"
 msgstr ""
-"Wydano certyfikat CA z nazwą organizacji {orgName} oraz ważnością na {days} "
+"Wydano certyfikat CA z nazwą organizacji {orgName} i okresem ważności {days} "
 "dni."
 
 #: src/EBox/CA.pm:2581
@@ -305,14 +300,14 @@ msgid ""
 "Renewed CA certificate with organization name {orgName} and validity for "
 "{days} days"
 msgstr ""
-"Odnowiono certyfikat CA z nazwą organizacji {orgName} oraz ważnością na "
+"Odnowiono certyfikat CA z nazwą organizacji {orgName} i okresem ważności "
 "{days} dni."
 
 #: src/EBox/CA.pm:2583
 #, perl-brace-format
 msgid "Issued certificate with common name {cn} and validity for {days} days"
 msgstr ""
-"Wydano certyfikat z nazwą powszechną {cn} oraz ważnością na {days} dni."
+"Wydano certyfikat z nazwą powszechną {cn} i okresem ważności {days} dni."
 
 #: src/EBox/CA.pm:2585
 #, perl-brace-format
@@ -326,13 +321,14 @@ msgstr ""
 #, perl-brace-format
 msgid "Renewed certificate with common name {cn} and validity for {days} days"
 msgstr ""
-"Odnowiono certyfikat z nazwą powszechną {cn} oraz ważnością na {days} dni."
+"Odnowiono certyfikat z nazwą powszechną {cn} i okresem ważności {days} dni."
 
 #: src/EBox/CA.pm:2589
 #, perl-brace-format
 msgid "Updated certificate database. {number} certificates have expired"
 msgstr ""
-"Zaktualizowano bazę certyfikatów. Dla {number} certyfikatów wygasła ważność. "
+"Zaktualizowano bazę certyfikatów. Dla  certyfikatów {number} wygasła "
+"ważność."
 
 #: src/EBox/CA.pm:2609 src/EBox/CA/TestStub.pm:730
 msgid "Expiration date later than CA certificate expiration date"
@@ -351,33 +347,34 @@ msgid ""
 "You must create a Certification Authority first. Go to {openhref}"
 "Certification Authority{closehref} to do so"
 msgstr ""
+"Musisz najpierw utworzyć certyfikat CA. Aby to zrobić przejdź do "
+"{openhref}Zarządzaj certyfikatami{closehref}"
 
 #: src/EBox/Model/Certificates.pm:246
 msgid "Module"
-msgstr ""
+msgstr "Moduł"
 
 #: src/EBox/Model/Certificates.pm:258
 msgid "Service"
-msgstr ""
+msgstr "Usługa"
 
 #: src/EBox/Model/Certificates.pm:270
 msgid "Enable"
-msgstr ""
+msgstr "Włączony"
 
 #: src/EBox/Model/Certificates.pm:272
 msgid "Generate the certificate using CA with the common name set above"
-msgstr ""
+msgstr "Utwórz certyfikat CA używając nazwy powszechnej podanej powyżej"
 
 #: src/EBox/Model/Certificates.pm:281
-#, fuzzy
 msgid "certificate"
-msgstr "Plik certyfikatu"
+msgstr "Certyfikat"
 
 #: src/EBox/Model/Certificates.pm:287
 msgid ""
 "Here you may set certificates from this CA for those secure services managed "
 "by eBox"
-msgstr ""
+msgstr "Tutaj możesz utworzyć certyfikaty CA dla usług zarządzanych przez eBox"
 
 #: src/EBox/CA/TestStub.pm:655
 #, perl-brace-format
@@ -408,10 +405,9 @@ msgstr "Data wygaśnięcia"
 #: src/templates/formRenew.mas:61 src/templates/formRevoke.mas:46
 #: src/templates/index.mas:57
 msgid "Subject Alternative Names"
-msgstr ""
+msgstr "Subject Alternative Names"
 
 #: src/templates/formRevoke.mas:10
-#, fuzzy
 msgid "Revoke a Certificate"
 msgstr "Odwołaj certyfikat"
 
@@ -426,11 +422,11 @@ msgstr "Odwołaj"
 
 #: src/templates/index.mas:41 src/templates/createCA.mas:9
 msgid "Country code"
-msgstr ""
+msgstr "Kod Państwa"
 
 #: src/templates/index.mas:44 src/templates/createCA.mas:13
 msgid "City"
-msgstr ""
+msgstr "Miasto"
 
 #: src/templates/index.mas:47 src/templates/index.mas:99
 #: src/templates/createCA.mas:16
@@ -443,26 +439,26 @@ msgid ""
 "Multi-value separated by commas, only valid types are: {dns}, {ip} and "
 "{email}. For instance, {example}"
 msgstr ""
+"Wartości oddzielone cudzysłowami są właściwymi typami: {dns}, {ip} i "
+"{email}, np. {example}"
 
 #: src/templates/index.mas:72
 msgid "Issue"
 msgstr "Wydaj"
 
 #: src/templates/index.mas:77
-#, fuzzy
 msgid "Certificate changes will take effect immediately."
-msgstr "Zmiany w certyfikacie będą skutkowały natychmiast"
+msgstr "Zmiany certyfikatu zostaną wykonane natychmiast"
 
 #: src/templates/index.mas:79
 msgid "The CA passphrase is optional"
-msgstr "Haslo CA jest opcjonale"
+msgstr "Hasło CA jest opcjonalne"
 
 #: src/templates/index.mas:83
 msgid "Issue the Certification Authority Certificate"
-msgstr "Wydaj certyfikat Urzędu Certyfikacji (CA)"
+msgstr "Wydaj certyfikat urzędu certyfikacji (CA)"
 
 #: src/templates/index.mas:85
-#, fuzzy
 msgid "Issue a New Certificate"
 msgstr "Wydaj nowy certyfikat"
 
@@ -475,8 +471,8 @@ msgid ""
 "Date refers to Expiration Date in Valid/Expired and to Revokation Date in "
 "Revoked certificates respectively"
 msgstr ""
-"Data odnosi się do terminu wygaśnięcia w poprawnym, wygaszonych certyfikacie "
-"lub terminu odwołania w odwołanych certyfikatach"
+"Data odnosi się do daty wygaśnięcia certyfikatu w Ważny/Wygasły i terminu "
+"odwołania w Odwołany"
 
 #: src/templates/index.mas:98
 msgid "Name"
@@ -509,7 +505,7 @@ msgstr "Odwołany"
 #: src/templates/index.mas:137
 #, perl-brace-format
 msgid "Reason: {reason}"
-msgstr ""
+msgstr "Powód: {reason}"
 
 #: src/templates/index.mas:174 src/templates/index.mas:199
 msgid "Download Key(s) and Certificate"
@@ -521,7 +517,7 @@ msgstr "Utwórz"
 
 #: src/templates/createCA.mas:34
 msgid "Create Certification Authority Certificate"
-msgstr "Utwórz certyfikat Urzędu Certyfikacji (CA)"
+msgstr "Utwórz certyfikat urzędu certyfikacji (CA)"
 
 #: src/templates/forceRevoke.mas:13
 msgid "Revoking CA certificate"
@@ -539,7 +535,7 @@ msgid ""
 "{on} and leave the service(s) unstable or disabled"
 msgstr ""
 "To odwołanie może mieć wpływ na funkcjonalność innych modułów. Potwierdź, że "
-"jesteś absolutnie pewien odwołania Urzędu Certyfikacji (CA) z  {on} oraz "
+"jesteś absolutnie pewien odwołania Urzędu Certyfikacji (CA) od {on} oraz "
 "pozostawienia usług niestabilnych lub niedziałających."
 
 #: src/templates/forceRevoke.mas:24
@@ -549,8 +545,8 @@ msgid ""
 "by some module, please confirm you are sure to revoke and leave the service"
 "(s) unstable or disabled"
 msgstr ""
-"Certyfikat o nazwie powszechnej (cn) {cn}, który próbowałeś odwołać jest "
-"używany przez inny moduł. Potwierdź, że jesteś pewien tego odwołania i w "
+"Certyfikat o nazwie powszechnej {cn}, który próbowałeś odwołać jest używany "
+"przez inny moduł. Potwierdź, że jesteś pewien tego odwołania i w "
 "konsekwencji pozostawienia usługi niestabilnej lub wyłączonej."
 
 #: src/templates/forceRevoke.mas:45
@@ -558,14 +554,12 @@ msgid "Cancel"
 msgstr "Anuluj"
 
 #: src/templates/forceRenew.mas:42
-#, fuzzy
 msgid "Renewing CA certificate"
-msgstr "Odwoływanie certyfikatu CA"
+msgstr "Odnawianie certyfikatu CA"
 
 #: src/templates/forceRenew.mas:44
-#, fuzzy
 msgid "Renewing certificate"
-msgstr "Odnów certyfikat"
+msgstr "Odnawianie certyfikat"
 
 #: src/templates/forceRenew.mas:50
 #, perl-brace-format
@@ -574,8 +568,8 @@ msgid ""
 "you are very sure to renew the whole certification authority from {on} and "
 "leave the service(s) unstable or disabled"
 msgstr ""
-"To odwołanie może mieć wpływ na funkcjonalność innych modułów. Potwierdź, że "
-"jesteś absolutnie pewien odwołania Urzędu Certyfikacji (CA) z  {on} oraz "
+"To odnawianie może mieć wpływ na funkcjonalność innych modułów. Potwierdź, "
+"że jesteś absolutnie pewien odwołania Urzędu Certyfikacji (CA) od {on} oraz "
 "pozostawienia usług niestabilnych lub niedziałających."
 
 #: src/templates/forceRenew.mas:53
@@ -585,8 +579,8 @@ msgid ""
 "by some module, please confirm you are sure to renew and leave the service"
 "(s) unstable or disabled"
 msgstr ""
-"Certyfikat o nazwie powszechnej (cn) {cn}, który próbowałeś odwołać jest "
-"używany przez inny moduł. Potwierdź, że jesteś pewien tego odwołania i w "
+"Certyfikat o nazwie powszechnej {cn}, który próbowałeś odwołać jest używany "
+"przez inny moduł. Potwierdź, że jesteś pewien tego odwołania i w "
 "konsekwencji pozostawienia usługi niestabilnej lub wyłączonej."
 
 #~ msgid ""

@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: ebox-usersandgroups 0.12\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "POT-Creation-Date: 2010-08-13 13:46+0200\n"
-"PO-Revision-Date: 2010-08-07 14:23+0200\n"
+"PO-Revision-Date: 2010-08-22 17:03+0200\n"
 "Last-Translator: Cyril MARTY <cyril_marty@yahoo.fr>\n"
 "Language-Team: <es@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -427,10 +427,8 @@ msgid "List of slaves"
 msgstr "Liste des esclaves"
 
 #: src/EBox/UsersAndGroups/Model/Slaves.pm:74
-#, fuzzy
 msgid "This is a list of those eBox slaves which are subscribed to this eBox."
-msgstr ""
-"Ceci est la liste des eBox esclaves qui sont enregistrés sur cet machine"
+msgstr "Ceci est la liste des esclaves eBox qui sont enregistrés sur cet eBox."
 
 #: src/EBox/UsersAndGroups/Model/Slaves.pm:75
 msgid "slave"
@@ -526,7 +524,6 @@ msgid "Configure PAM."
 msgstr "Configurer PAM."
 
 #: src/EBox/UsersAndGroups.pm:146
-#, fuzzy
 msgid "eBox will give LDAP users system account."
 msgstr "eBox va fournir les utilisateurs LDAP du compte système."
 

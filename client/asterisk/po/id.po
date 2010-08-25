@@ -9,8 +9,8 @@ msgstr ""
 "technologies.com\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "POT-Creation-Date: 2010-07-21 00:28+0200\n"
-"PO-Revision-Date: 2010-02-19 13:04+0100\n"
-"Last-Translator: damar <damar@damar.web.id>\n"
+"PO-Revision-Date: 2010-08-18 19:08+0200\n"
+"Last-Translator: Prasetya Nugraha <calintz.atomice@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -28,7 +28,7 @@ msgstr "VoIP"
 
 #: src/EBox/Asterisk.pm:130
 msgid "To configure enabled and disabled modules."
-msgstr "Untuk mengkonfigurasi modul diaktifkan dan dinonaktifkan."
+msgstr "Untuk mengkonfigurasi modul yang telah diaktifkan dan dinonaktifkan."
 
 #: src/EBox/Asterisk.pm:135
 msgid "To configure the Realtime interface."
@@ -36,7 +36,7 @@ msgstr "Untuk mengkonfigurasi antarmuka Realtime."
 
 #: src/EBox/Asterisk.pm:140
 msgid "To configure the LDAP Realtime driver."
-msgstr "Untuk mengkonfigurasi LDAP Realtime driver."
+msgstr "Untuk mengkonfigurasi driver Realtime LDAP."
 
 #: src/EBox/Asterisk.pm:145
 msgid "To configure the common SIP and IAX users."
@@ -78,7 +78,7 @@ msgstr "Rapat"
 
 #: src/EBox/Asterisk.pm:506
 msgid "Voicemail"
-msgstr "Voicemail"
+msgstr "Pesan Suara"
 
 #: src/EBox/Asterisk.pm:516 src/EBox/Asterisk.pm:625
 msgid "User"
@@ -103,7 +103,7 @@ msgstr "Tidak ada pengguna terhubung."
 #: src/EBox/Asterisk.pm:622
 #, perl-brace-format
 msgid "Room {name} active for {rtime}"
-msgstr "Room {name} active for {rtime}"
+msgstr "Ruangan {name} aktif selama {rtime}"
 
 #: src/EBox/Asterisk.pm:625
 msgid "Time Connected"
@@ -111,7 +111,7 @@ msgstr "Waktu terhubung"
 
 #: src/EBox/Asterisk.pm:655
 msgid "VoIP Online Users"
-msgstr "VoIP Online Users"
+msgstr "Pengguna VoIP yang sedang Online"
 
 #: src/EBox/Asterisk.pm:660
 msgid "VoIP Users in Meetings"
@@ -147,49 +147,49 @@ msgstr "Aplikasi"
 
 #: src/EBox/Asterisk.pm:699
 msgid "Application Data"
-msgstr "Aplikasi data"
+msgstr "Data Aplikasi"
 
 #: src/EBox/Asterisk.pm:700
 msgid "Event"
-msgstr ""
+msgstr "Event"
 
 #: src/EBox/Asterisk.pm:708
 msgid "Answered"
-msgstr ""
+msgstr "Terjawab"
 
 #: src/EBox/Asterisk.pm:709
 msgid "No Answer"
-msgstr ""
+msgstr "Tidak ada jawaban"
 
 #: src/EBox/Asterisk.pm:710
 msgid "Busy"
-msgstr ""
+msgstr "Sibuk"
 
 #: src/EBox/Asterisk.pm:711
 msgid "Failed"
-msgstr ""
+msgstr "Gagal"
 
 #: src/EBox/Asterisk/Extensions.pm:230
 msgid "User extension"
-msgstr ""
+msgstr "Extension pengguna"
 
 #: src/EBox/Asterisk/Extensions.pm:323 src/EBox/Asterisk/Extensions.pm:718
 #: src/EBox/Model/Meetings.pm:150 src/EBox/Model/Settings.pm:92
 #: src/templates/group.mas:41 src/templates/user.mas:38
 msgid "Extension"
-msgstr ""
+msgstr "Extension"
 
 #: src/EBox/Asterisk/Extensions.pm:642
 msgid "Queue extension"
-msgstr ""
+msgstr "Antrian extension"
 
 #: src/EBox/CGI/AsteriskGroupOptions.pm:42
 msgid "group"
-msgstr ""
+msgstr "Grup"
 
 #: src/EBox/CGI/AsteriskUserOptions.pm:43
 msgid "username"
-msgstr ""
+msgstr "Nama Pengguna"
 
 #: src/EBox/Model/Meetings.pm:94
 #, perl-brace-format
@@ -197,72 +197,76 @@ msgid ""
 "You must install dahdi and linux-headers packages to use Meetings.{br}Run "
 "the following command: sudo apt-get install {kernels} dahdi."
 msgstr ""
+"Anda harus menginstalasikan paket dahdi dan linux-headers untuk dapat "
+"menggunakan pertemuan.{br} Silahkan jalankan perintah berikut: sudo apt-get "
+"install {kernels} dahdi."
 
 #: src/EBox/Model/Meetings.pm:119 src/EBox/Model/Meetings.pm:127
 #: src/EBox/Model/Settings.pm:84
 msgid "extension"
-msgstr ""
+msgstr "extension"
 
 #: src/EBox/Model/Meetings.pm:154
 #, perl-brace-format
 msgid "A number between {min} and {max}."
-msgstr ""
+msgstr "Sebuah bilangan diantara {min} dan {max}"
 
 #: src/EBox/Model/Meetings.pm:170 src/EBox/Model/Provider.pm:111
 msgid "Password"
-msgstr ""
+msgstr "Kata sandi"
 
 #: src/EBox/Model/Meetings.pm:178 src/EBox/Model/Localnets.pm:119
 msgid "Description"
-msgstr ""
+msgstr "Deskripsi"
 
 #: src/EBox/Model/Meetings.pm:189
 msgid "List of Meetings"
-msgstr ""
+msgstr "Daftar pertemuan"
 
 #: src/EBox/Model/Meetings.pm:191
 msgid "meeting"
-msgstr ""
+msgstr "pertemuan"
 
 #: src/EBox/Model/AsteriskUser.pm:50
 msgid "Asterisk Account"
-msgstr ""
+msgstr "Akun Asterisk"
 
 #: src/EBox/Model/AsteriskUser.pm:58
 msgid "Asterisk"
-msgstr ""
+msgstr "Asterisk"
 
 #: src/EBox/Model/Voicemail.pm:75 src/EBox/Model/Voicemail.pm:122
 msgid "Voicemail settings"
-msgstr ""
+msgstr "Pengaturan pesan suara"
 
 #: src/EBox/Model/Voicemail.pm:94
 msgid "New password"
-msgstr ""
+msgstr "Kata sandi baru"
 
 #: src/EBox/Model/Voicemail.pm:101
 msgid "Mail address"
-msgstr ""
+msgstr "Alamat pesan"
 
 #: src/EBox/Model/Voicemail.pm:108
 msgid "Attach messages"
-msgstr ""
+msgstr "Lampirkan pesan"
 
 #: src/EBox/Model/Voicemail.pm:114
 msgid "Delete sent messages"
-msgstr ""
+msgstr "Hapus pesan terkirim"
 
 #: src/EBox/Model/Voicemail.pm:126
 msgid "Change your Voicemail settings"
-msgstr ""
+msgstr "Ubah pengaturan pesan suara anda"
 
 #: src/EBox/Model/Voicemail.pm:204
 msgid "Settings successfully updated"
-msgstr ""
+msgstr "Pengaturan telah berhasil diubah"
 
 #: src/EBox/Model/Voicemail.pm:222
 msgid "You have not an VoIP account. Maybe VoIP is not enabled in this server"
 msgstr ""
+"Anda tidak memiliki akun VoIP. Mungkin VoIP tidak diaktifkan di server ini"
 
 #: src/EBox/Model/Localnets.pm:88
 #, perl-brace-format
@@ -270,90 +274,93 @@ msgid ""
 "Networks attached directly to internal interfaces, like {net}, are always "
 "considered local networks so it is not neccessary to add them."
 msgstr ""
+"Jaringan yang terhubung secara langsung ke alamat internal, seperti {net}, "
+"selalu dianggap sebagai jaringan lokal sehingga tidaklah diperlukan untuk "
+"menambahkan jaringan tersebut."
 
 #: src/EBox/Model/Localnets.pm:113
 msgid "Local network"
-msgstr ""
+msgstr "Jaringan lokal"
 
 #: src/EBox/Model/Localnets.pm:130
 msgid "Local networks"
-msgstr ""
+msgstr "Jaringan - jaringan lokal"
 
 #: src/EBox/Model/Localnets.pm:131
 msgid "local network"
-msgstr ""
+msgstr "jaringan lokal"
 
 #: src/EBox/Model/Settings.pm:117
 msgid "Enable demo extensions"
-msgstr ""
+msgstr "Aktifkan demo extension"
 
 #: src/EBox/Model/Settings.pm:123
 msgid "Enable outgoing calls"
-msgstr ""
+msgstr "Aktifkan panggilan keluar"
 
 #: src/EBox/Model/Settings.pm:129
 msgid "Voicemail extension"
-msgstr ""
+msgstr "Extension pesan suara"
 
 #: src/EBox/Model/Settings.pm:136
 msgid "VoIP domain"
-msgstr ""
+msgstr "domain VoIP"
 
 #: src/EBox/Model/Settings.pm:145
 msgid "General configuration"
-msgstr ""
+msgstr "konfigurasi umum"
 
 #: src/EBox/Model/Settings.pm:149
 msgid "General Asterisk server configuration"
-msgstr ""
+msgstr "Konfigurasi umum server Asterisk"
 
 #: src/EBox/Model/Settings.pm:151
 msgid "General Asterisk server configuration updated."
-msgstr ""
+msgstr "Konfigurasi umum server Asterisk telah diubah"
 
 #: src/EBox/Model/Provider.pm:68
 msgid "Custom"
-msgstr ""
+msgstr "custom"
 
 #: src/EBox/Model/Provider.pm:89
 msgid "Provider"
-msgstr ""
+msgstr "Penyedia"
 
 #: src/EBox/Model/Provider.pm:95
 msgid "Name"
-msgstr ""
+msgstr "Nama"
 
 #: src/EBox/Model/Provider.pm:100
 msgid "VoIP service provider name."
-msgstr ""
+msgstr "Nama penyedia layanan VoIP"
 
 #: src/EBox/Model/Provider.pm:104
 msgid "Username"
-msgstr ""
+msgstr "Nama pengguna"
 
 #: src/EBox/Model/Provider.pm:118
 msgid "Server"
-msgstr ""
+msgstr "Server"
 
 #: src/EBox/Model/Provider.pm:126
 msgid "Recipient of incoming calls"
-msgstr ""
+msgstr "Penerima panggilan masuk"
 
 #: src/EBox/Model/Provider.pm:130
 msgid "Extension recipient of incoming calls through the provider."
-msgstr ""
+msgstr "Extension penerima panggilan masuk melalui penyedia layanan"
 
 #: src/EBox/Model/Provider.pm:137
 msgid "SIP provider"
-msgstr ""
+msgstr "Penyedia SIP"
 
 #: src/EBox/Model/Provider.pm:141
 msgid "SIP provider for outgoing calls configuration."
-msgstr ""
+msgstr "Penyedia SIP untuk pengaturan panggilan keluar"
 
 #: src/EBox/Model/Provider.pm:143
 msgid "SIP provider configuration updated."
-msgstr ""
+msgstr "Konfigurasi penyedia SIP telah diubah"
 
 #: src/EBox/Model/Provider.pm:195
 #, perl-brace-format
@@ -363,77 +370,85 @@ msgid ""
 "credit you need. All these services available for purchasing at the {ohref}"
 "eBox on-line store{chref}! "
 msgstr ""
+"{brand} Melakukan panggilan VoIP murah ke telepon seluler dan telepon rumah "
+"langsung menggunakan eBox. Setelah anda mendapatkan {subs}, anda bisa "
+"membeli voucher VoIP yang anda butuhkan. Semua layanan ini dapat anda beli "
+"di {ohref} Toko Online eBox {chref}!"
 
 #: src/EBox/Model/NAT.pm:96
 msgid "eBox is behind NAT"
-msgstr ""
+msgstr "eBox berada di belakang NAT "
 
 #: src/EBox/Model/NAT.pm:101
 msgid "No"
-msgstr ""
+msgstr "Tidak"
 
 #: src/EBox/Model/NAT.pm:120
 msgid "NAT configuration"
-msgstr ""
+msgstr "Pengaturan NAT"
 
 #: src/EBox/Model/NAT.pm:124
 msgid "NAT Asterisk server configuration"
-msgstr ""
+msgstr "Konfigurasi NAT server Asterisk"
 
 #: src/EBox/Model/NAT.pm:126
 msgid "NAT Asterisk server configuration updated."
-msgstr ""
+msgstr "Konfigurasi NAT server Asterisk telah diubah."
 
 #: src/EBox/Composite/General.pm:66
 msgid "Asterisk module"
-msgstr ""
+msgstr "Modul Asterisk"
 
 #: src/templates/group.mas:8
 msgid "Asterisk group queue"
-msgstr ""
+msgstr "Antrian grup asterisk"
 
 #: src/templates/group.mas:12
 msgid ""
 "There are no users in this group or the users do not have an Asterisk "
 "account, so a queue cannot be created."
 msgstr ""
+"Tidak ada pengguna ditemukan di grup ini atau pengguna tidak memiliki akun "
+"Asterisk, sehingga antrian tidak dapat dibuat"
 
 #: src/templates/group.mas:24
 msgid "Group queue"
-msgstr ""
+msgstr "Antrian grup"
 
 #: src/templates/group.mas:29 src/templates/group.mas:32
 #: src/templates/user.mas:26 src/templates/user.mas:29
 msgid "Disabled"
-msgstr ""
+msgstr "Dinonaktifkan"
 
 #: src/templates/group.mas:30 src/templates/group.mas:33
 #: src/templates/user.mas:27 src/templates/user.mas:30
 msgid "Enabled"
-msgstr ""
+msgstr "Diaktifkan"
 
 #: src/templates/group.mas:52 src/templates/group.mas:53
 #: src/templates/user.mas:49 src/templates/user.mas:50
 msgid "Change"
-msgstr ""
+msgstr "Ubah"
 
 #: src/templates/moduleDisabled.mas:5
 msgid ""
 "The following settings only will take effect when the Asterisk module is "
 "enabled."
 msgstr ""
+"Pengaturan berikut hanya akan berpengaruh jika modul Asterisk telah "
+"diaktifkan."
 
 #: src/templates/user.mas:8
 msgid "Asterisk account"
-msgstr ""
+msgstr "Akun Asterisk"
 
 #: src/templates/user.mas:10
 msgid "Password for Asterisk service is the user password"
-msgstr ""
+msgstr "Password untuk servis Asterisk adalah password milik pengguna"
 
 #: src/templates/user.mas:21
 msgid "User account"
-msgstr ""
+msgstr "Akun pengguna"
 
 #~ msgid "To configure the RTP port ranges."
 #~ msgstr "Untuk mengkonfigurasi rentang port RTP."

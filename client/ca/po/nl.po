@@ -7,8 +7,8 @@ msgstr ""
 "Project-Id-Version: ebox-ca 0.12\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "POT-Creation-Date: 2010-07-21 00:29+0200\n"
-"PO-Revision-Date: 2009-07-16 01:28+0200\n"
-"Last-Translator: Michel Daggelinckx <michel@allmarketingmaroc.com>\n"
+"PO-Revision-Date: 2010-08-19 21:51+0200\n"
+"Last-Translator: Willy Geerts <willy@willygeerts.be>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -22,34 +22,34 @@ msgstr ""
 #: src/EBox/CGI/DownloadFiles.pm:43 src/EBox/CA.pm:123
 #, fuzzy
 msgid "Certification Authority"
-msgstr "Uitgever Certificaten Management"
+msgstr "CA"
 
 #: src/EBox/CGI/CreateCA.pm:111 src/EBox/CGI/IssueCertificate.pm:120
 msgid "CA passphrases do NOT match"
-msgstr ""
+msgstr "De CA wachtwoorden zijn NIET gelijk"
 
 #: src/EBox/CGI/CreateCA.pm:121 src/EBox/CGI/IssueCertificate.pm:128
 #, perl-brace-format
 msgid "CA Passphrase should be at least {length} characters"
-msgstr ""
+msgstr "De CA wachtwoorden horen minstens {length} karakters lang zijn"
 
 #: src/EBox/CGI/CreateCA.pm:126 src/EBox/CGI/RenewCertificate.pm:97
 #: src/EBox/CGI/IssueCertificate.pm:138
 #, perl-brace-format
 msgid "Days to expire ({days}) must be a positive number"
-msgstr ""
+msgstr "Dagen voor verloop ({days}) moet een positief getal zijn"
 
 #: src/EBox/CGI/CreateCA.pm:140
 msgid "Problems creating Certification Authority has happened"
-msgstr ""
+msgstr "Er waren problemen bij het aanmaken van de CA"
 
 #: src/EBox/CGI/RevokeCertificate.pm:65
 msgid "The certificate has NOT been revoked."
-msgstr "Het certificaat werd niet ingetrokken."
+msgstr "Het certificaat werd NIET ingetrokken."
 
 #: src/EBox/CGI/RevokeCertificate.pm:72 src/EBox/CGI/RenewCertificate.pm:70
 msgid "Boolean indicating Certification Authority Certificate"
-msgstr ""
+msgstr "Boolean wijzend op een CA Certificaat"
 
 #: src/EBox/CGI/RevokeCertificate.pm:73 src/templates/formRevoke.mas:67
 msgid "Reason"
@@ -90,11 +90,11 @@ msgstr "Het certificaat werd NIET vernieuwd"
 #: src/EBox/CGI/RenewCertificate.pm:71 src/templates/formRenew.mas:13
 #: src/templates/index.mas:52 src/templates/createCA.mas:19
 msgid "Days to expire"
-msgstr ""
+msgstr "Dagen tot verloop"
 
 #: src/EBox/CGI/RenewCertificate.pm:144
 msgid "The certificate CANNOT be renewed"
-msgstr "Het certificaat KAN NIET vernieuwd worden"
+msgstr "Het certificaat kan NIET vernieuwd worden"
 
 #: src/EBox/CGI/RenewCertificate.pm:146
 msgid "The certificate has been renewed"
@@ -112,7 +112,7 @@ msgid "Organization Name"
 msgstr "Organizatie Naam"
 
 #: src/EBox/CGI/IssueCertificate.pm:146
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "The input contains invalid characters. All {ascii} alphanumeric characters, "
 "plus these non alphanumeric chars: .?&+:-@* and spaces are allowed."
@@ -124,16 +124,19 @@ msgstr ""
 #, perl-brace-format
 msgid "Only {dns}, {ip} and {email} are valid subject alternative name types"
 msgstr ""
+"Enkel {dns}, {ip} en {email} zijn geldige Onderwerp Alternatieve Naam types"
 
 #: src/EBox/CGI/IssueCertificate.pm:185
 msgid ""
 "The Subject Alternative Name parameter must follow this pattern: type:value, "
 "type:value"
 msgstr ""
+"De Onderwerp Alternatieve Naam moet als volgt opgebouwd zijn: type:waarde, "
+"type:waarde"
 
 #: src/EBox/CGI/IssueCertificate.pm:207
 msgid "The certificate has been issued."
-msgstr "Het certificaat werd uitgegeven"
+msgstr "Het certificaat werd uitgegeven."
 
 #: src/EBox/CGI/IssueCertificate.pm:208
 msgid "The new CA certificate has been issued."
@@ -141,16 +144,17 @@ msgstr "Het nieuwe CA certificaat werd uitgegeven."
 
 #: src/EBox/CGI/ShowForm.pm:75
 msgid "Action"
-msgstr "Aktie"
+msgstr "Actie"
 
 #: src/EBox/CGI/ShowForm.pm:84
 msgid "Only revoke and renew actions are performed"
-msgstr ""
+msgstr "Enkel intrekken en vernieuwen zijn geldige acties"
 
+# Algemene naam: {cn} bestaat niet in de database
 #: src/EBox/CGI/ShowForm.pm:92 src/EBox/CGI/DownloadFiles.pm:80
 #, perl-brace-format
 msgid "Common name: {cn} does NOT exist in database"
-msgstr ""
+msgstr "Algemene naam: {cn} bestaat NIET in de database"
 
 #: src/EBox/CGI/DownloadFiles.pm:134
 msgid "Error creating file"
@@ -159,7 +163,7 @@ msgstr "Fout bij het aanmaken van bestand"
 #: src/EBox/CA.pm:302 src/EBox/CA.pm:783 src/EBox/CA.pm:1434
 #, perl-brace-format
 msgid "Days set to the maximum allowed {days}: Year 2038 Bug"
-msgstr "Dagen ingesteld tot het maximum toegestane {days}: 2038 bug"
+msgstr "Dagen ingesteld tot het maximum toegestane {days}: Jaar 2038 bug"
 
 #: src/EBox/CA.pm:397
 msgid "The remove operation cannot be finished. Reason: "
@@ -170,8 +174,8 @@ msgid ""
 "The CA certificates should be revoked  or has expired before issuing a new "
 "certificate"
 msgstr ""
-"De CA certificaten zouden herroepen moeten worden_ _of zijn verlopen voor de "
-"aanvraag van een nieuw certificaat"
+"De CA certificaten zouden herroepen moeten worden_ _of zijn verlopen "
+"vooraleer het uitvaardigen van een nieuw certificaat"
 
 #: src/EBox/CA.pm:952 src/EBox/CA.pm:1298
 #, perl-brace-format
@@ -190,12 +194,11 @@ msgstr ""
 #: src/EBox/CA.pm:1103
 msgid ""
 "The Certification Authority Infrastructure is not available, create it first"
-msgstr ""
+msgstr "De CA infrastructuur bestaat niet, maak deze eerst aan"
 
 #: src/EBox/CA.pm:1202
-#, fuzzy
 msgid "Either common name, distinguished name or serial number has been passed"
-msgstr "Zowel algemene naam, volledige naam of serienummer is verlopen"
+msgstr "Algemene naam of Volledige naam of Serienummer is doorgegeven"
 
 #: src/EBox/CA.pm:1456
 msgid "or"
@@ -212,7 +215,7 @@ msgstr "Het certificaat om te vernieuwen bestaat niet"
 #: src/EBox/CA.pm:1519
 #, perl-brace-format
 msgid "Certificate with this common name {cn} does NOT exist in this CA"
-msgstr "Een Certificaat met deze algemene naam {cn} bestaat NIET in deze CA"
+msgstr "Het Certificaat met algemene naam {cn} bestaat NIET in de CA"
 
 #: src/EBox/CA.pm:1800
 msgid "General"

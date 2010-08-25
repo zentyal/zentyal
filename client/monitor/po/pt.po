@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: EBox-monitor 0.1\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "POT-Creation-Date: 2010-08-13 13:11+0200\n"
-"PO-Revision-Date: 2010-08-08 02:18+0200\n"
+"PO-Revision-Date: 2010-08-24 01:35+0200\n"
 "Last-Translator: Vasco Castelo Branco <vcbranco@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -58,7 +58,7 @@ msgstr ""
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:243
 msgid "Warning minimum"
-msgstr "Aviso Mínimo"
+msgstr "Aviso mínimo"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:246
 #, perl-brace-format
@@ -399,7 +399,7 @@ msgstr "Avisar quando o determinado valor atingir um certo limite"
 
 #: src/EBox/Event/Watcher/Monitor.pm:264
 msgid "All data sources are within range again"
-msgstr ""
+msgstr "Todas as fontes de dados estão novamente dentro do âmbito "
 
 #: src/EBox/Event/Watcher/Monitor.pm:274
 #, perl-brace-format

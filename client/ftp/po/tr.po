@@ -8,54 +8,57 @@ msgstr ""
 "Project-Id-Version: ebox-. 1.5\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "POT-Creation-Date: 2010-08-13 13:40+0200\n"
-"PO-Revision-Date: 2010-06-03 02:52+0200\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2010-08-13 23:02+0200\n"
+"Last-Translator: Haluk <khaluk@yahoo.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: migration/0001_add_firewall_services.pl:30
 msgid "eBox FTP Server"
-msgstr ""
+msgstr "eBox FTP Sunucusu"
 
 #: src/EBox/Model/Options.pm:48
 msgid "Disabled"
-msgstr ""
+msgstr "Etkin Değil"
 
 #: src/EBox/Model/Options.pm:52
 msgid "Read only"
-msgstr ""
+msgstr "Salt Okunur"
 
 #: src/EBox/Model/Options.pm:56
 msgid "Read/Write"
-msgstr ""
+msgstr "Okuma/Yazma"
 
 #: src/EBox/Model/Options.pm:69
 msgid "Anonymous access"
-msgstr ""
+msgstr "Misafir Erişimi"
 
+# permissions için Erişim Hakları yerine daha uygun bir cümle bulamadım
 #: src/EBox/Model/Options.pm:73
 msgid "Sets the permissions for the /srv/ftp directory"
-msgstr ""
+msgstr "/srv/ftp klasörü erişim haklarını ayarla"
 
 #: src/EBox/Model/Options.pm:77
 msgid "Personal directories"
-msgstr ""
+msgstr "Kişisel Klasörler"
 
 #: src/EBox/Model/Options.pm:80
 msgid "Enable FTP access for each user to its /home directory"
-msgstr ""
+msgstr "Her bir kullanıcının kendi /home klasörü erişimine izin ver"
 
 #: src/EBox/Model/Options.pm:86
 msgid "General configuration settings"
-msgstr ""
+msgstr "Genel yapılandırma ayarları"
 
 #: src/EBox/Model/Options.pm:87
 msgid "FTP Server"
-msgstr ""
+msgstr "FTP Sunucu"
 
+# Birebir çeviri yerine yapılması gerekenlerden bahsedildi.
 #: src/EBox/Model/Options.pm:91
 msgid ""
 "The anonymous directory is /srv/ftp, make sure that the files you create "
@@ -64,11 +67,16 @@ msgid ""
 "write permissions for everybody, for example: mkdir /srv/ftp/incoming ; "
 "chmod o+rwx /srv/ftp/incoming"
 msgstr ""
+"Misafir kullanıcıların erişim klasörü /srv/ftp klasörüdür. Bu klasör içinde "
+"oluşturacağınız dosyaların herkes için salt okunur olduğundan emin olunuz "
+"(chmod o+r /srv/ftp/*). Yazma hakkı vermek isterseniz yeni bir alt klasör "
+"oluşturun ve bu klasöre yazma hakkı verin. örneğin mkdir /srv/ftp/incoming ; "
+"chmod o+rwx /srv/ftp/incoming"
 
 #: src/EBox/FTP.pm:84
 msgid "To configure vsftpd"
-msgstr ""
+msgstr "vsftpd konfigürasyonu için"
 
 #: src/EBox/FTP.pm:88
 msgid "To configure vsftpd with LDAP authentication"
-msgstr ""
+msgstr "vsftpd yi LDAP kimlik kontrolü ile konfigüre etmek için"

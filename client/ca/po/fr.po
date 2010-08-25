@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: ebox-ca 0.12\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "POT-Creation-Date: 2010-07-21 00:29+0200\n"
-"PO-Revision-Date: 2010-08-07 11:37+0200\n"
+"PO-Revision-Date: 2010-08-22 17:10+0200\n"
 "Last-Translator: Cyril MARTY <cyril_marty@yahoo.fr>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -125,12 +125,17 @@ msgstr ""
 #, perl-brace-format
 msgid "Only {dns}, {ip} and {email} are valid subject alternative name types"
 msgstr ""
+"Seuls {dns}, {ip} et {email} sont des types de nom valide pour remplacer le "
+"sujet"
 
 #: src/EBox/CGI/IssueCertificate.pm:185
+#, fuzzy
 msgid ""
 "The Subject Alternative Name parameter must follow this pattern: type:value, "
 "type:value"
 msgstr ""
+"Les paramètres du certificat SAN doit suivre se modèle: Type: valeur, "
+"type:valeur"
 
 #: src/EBox/CGI/IssueCertificate.pm:207
 msgid "The certificate has been issued."
@@ -407,8 +412,9 @@ msgstr "Date d'expiration"
 
 #: src/templates/formRenew.mas:61 src/templates/formRevoke.mas:46
 #: src/templates/index.mas:57
+#, fuzzy
 msgid "Subject Alternative Names"
-msgstr ""
+msgstr "Certificat SAN"
 
 #: src/templates/formRevoke.mas:10
 msgid "Revoke a Certificate"

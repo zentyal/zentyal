@@ -7,8 +7,8 @@ msgstr ""
 "Project-Id-Version: ebox-dhcp 0.12\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "POT-Creation-Date: 2010-08-13 13:39+0200\n"
-"PO-Revision-Date: 2010-07-05 23:41+0200\n"
-"Last-Translator: josefa <jgonza24@ieslaferreria.net>\n"
+"PO-Revision-Date: 2010-08-18 11:27+0200\n"
+"Last-Translator: jaume ponsa <jaume@calidae.net>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -88,15 +88,20 @@ msgstr ""
 msgid ""
 "In order to upload a boot image to eBox, you need to set eBox as next server"
 msgstr ""
+"Per carregar una imatge d'arrencada a l'eBox, necessita definir l'eBox com a "
+"servidor següent"
 
 #: src/EBox/Model/ThinClientOptions.pm:154
 msgid "You need to specify a path to the boot image in the remote server"
 msgstr ""
+"Necessita especificar la ruta de la imatge d'arrencada al servidor remot"
 
 #: src/EBox/Model/ThinClientOptions.pm:159
 msgid ""
 "You can only specify a file name if you have a next server and it is not eBox"
 msgstr ""
+"Només pot especificar un nom d'arxiu si té un servidor següent i aquest no "
+"es l'eBox"
 
 #: src/EBox/Model/ThinClientOptions.pm:210
 #, perl-brace-format
@@ -104,36 +109,38 @@ msgid ""
 "Removing previously uploaded boot image since next server option has been "
 "changed from eBox to {option}"
 msgstr ""
+"Eliminant la imatge d'arrencada carregada anteriorment ja que el següent "
+"servidor ha canviat de eBox a {option}"
 
 #: src/EBox/Model/ThinClientOptions.pm:233
 msgid "Next server"
-msgstr ""
+msgstr "Següent servidor"
 
 #: src/EBox/Model/ThinClientOptions.pm:237 src/EBox/Model/Options.pm:372
 #: src/EBox/Model/Options.pm:406 src/EBox/Model/Options.pm:410
 #: src/EBox/Model/Options.pm:424 src/EBox/Model/Options.pm:457
 msgid "None"
-msgstr ""
+msgstr "Cap"
 
 #: src/EBox/Model/ThinClientOptions.pm:240 src/EBox/Model/Options.pm:447
 msgid "eBox"
-msgstr ""
+msgstr "eBox"
 
 #: src/EBox/Model/ThinClientOptions.pm:247
 msgid "name"
-msgstr ""
+msgstr "nom"
 
 #: src/EBox/Model/ThinClientOptions.pm:253
 msgid "File name"
-msgstr ""
+msgstr "Nom de l'arxiu"
 
 #: src/EBox/Model/ThinClientOptions.pm:262
 msgid "File path in next server"
-msgstr ""
+msgstr "Ruta de l'arxiu al següent servidor"
 
 #: src/EBox/Model/ThinClientOptions.pm:270
 msgid "Thin client"
-msgstr ""
+msgstr "Client lleuger"
 
 #: src/EBox/Model/ThinClientOptions.pm:275
 #, perl-brace-format
@@ -141,68 +148,76 @@ msgid ""
 "You may want to customise your thin client options.To do so, you may include "
 "all the files you require under {path} directory"
 msgstr ""
+"Vol personalitzar les opcions de terminals lleugers. Per fer-ho, ha "
+"d'incloure tots els arxius requerits sota el directori a la ruta {path}"
 
 #: src/EBox/Model/LeaseTimes.pm:133
 msgid "Default leased time must be higher than 0 seconds"
-msgstr ""
+msgstr "El temps per defecte ha de ser mes gran de 0 segons"
 
 #: src/EBox/Model/LeaseTimes.pm:139
 #, perl-brace-format
 msgid "Default leased time {default} must be lower than maximum one {max}"
-msgstr ""
+msgstr "El temps per defecte {default} ha de ser menor que el màxim {max}"
 
 #: src/EBox/Model/LeaseTimes.pm:151
 msgid "Maximum leased time must be higher than 0 seconds"
-msgstr ""
+msgstr "El temps màxim ha de ser mes gran de 0 segons"
 
 #: src/EBox/Model/LeaseTimes.pm:157
 #, perl-brace-format
 msgid "Maximum leased time {max} must be higher than default one {default}"
 msgstr ""
+"El temps màxim {max} ha de ser mes gran que el que hi ha definit per defecte "
+"{default}"
 
 #: src/EBox/Model/LeaseTimes.pm:201
 msgid "Default leased time"
-msgstr ""
+msgstr "Temps per defecte"
 
 #: src/EBox/Model/LeaseTimes.pm:204 src/EBox/Model/LeaseTimes.pm:211
 msgid "seconds"
-msgstr ""
+msgstr "segons"
 
 #: src/EBox/Model/LeaseTimes.pm:208
 msgid "Maximum leased time"
-msgstr ""
+msgstr "Màxim temps"
 
 #: src/EBox/Model/LeaseTimes.pm:217
 msgid "Lease times"
-msgstr ""
+msgstr "Temps d'arrendament"
 
 #: src/EBox/Model/LeaseTimes.pm:222
 msgid ""
 "Leased time is the time which a given IP address is valid by the DHCP server"
 msgstr ""
+"El temps d'arrendament es el temps que una IP assignada pel servidor DHCP es "
+"vàlida"
 
 #: src/EBox/Model/FixedAddressTable.pm:124
 #, perl-brace-format
 msgid "IP address {ip} is not in network {net}"
-msgstr ""
+msgstr "L'adreça IP {ip} no es troba a la xarxa {net}"
 
 #: src/EBox/Model/FixedAddressTable.pm:135
 #, perl-brace-format
 msgid "The selected IP is the interface IP address: {ifaceIP}"
 msgstr ""
+"L'adreça IP seleccionada {ip} es la mateixa que la de la interfície "
+"{ifaceIP}"
 
 #: src/EBox/Model/FixedAddressTable.pm:152
 #, perl-brace-format
 msgid "IP address {ip} is in range '{range}': {from}-{to}"
-msgstr ""
+msgstr "L'adreça IP {ip} es troba en el rang '{range}': {from}-{to}"
 
 #: src/EBox/Model/FixedAddressTable.pm:177
 msgid "update"
-msgstr ""
+msgstr "actualitzar"
 
 #: src/EBox/Model/FixedAddressTable.pm:179
 msgid "add"
-msgstr ""
+msgstr "afegir"
 
 #: src/EBox/Model/FixedAddressTable.pm:181
 #, perl-brace-format
@@ -210,210 +225,235 @@ msgid ""
 "You cannot {action} a fixed address with a name which is already used in "
 "other fixed address table"
 msgstr ""
+"No pot {action} una adreça fixe amb un nom que s'estigui fent servir en una "
+"altra taula d'adreces fixes"
 
 #: src/EBox/Model/FixedAddressTable.pm:224
 msgid "You cannot use an IP address contained in the above ranges."
-msgstr ""
+msgstr "No pot usar una IP fixe continguda en els rangs definits"
 
 #: src/EBox/Model/FixedAddressTable.pm:229
 msgid "Description"
-msgstr ""
+msgstr "Descripcio"
 
 #: src/EBox/Model/FixedAddressTable.pm:237 src/templates/fixed.mas:5
 msgid "Fixed addresses"
-msgstr ""
+msgstr "Adreces fixes"
 
 #: src/EBox/Model/FixedAddressTable.pm:244
 msgid "fixed address"
-msgstr ""
+msgstr "adreça fixa"
 
 #: src/EBox/Model/DynamicDNS.pm:132 src/EBox/Model/DynamicDNS.pm:140
 #: src/EBox/Model/DynamicDNS.pm:387
 #, perl-brace-format
 msgid "Domain {domain} has already been defined manually in DNS section"
-msgstr ""
+msgstr "El domini {domain} ha estat ja definit manualment a la secció DNS"
 
 #: src/EBox/Model/DynamicDNS.pm:241
 msgid "DNS module must be configured to work with this feature"
 msgstr ""
+"El mòdul DNS ha d'estar configurat per treballar amb aquesta funcionalitat"
 
 #: src/EBox/Model/DynamicDNS.pm:244
 #, perl-brace-format
 msgid "{pkg} must be installed to use this feature"
-msgstr ""
+msgstr "{pkg} ha d'estar instal·lat per fer servir aquesta funcionalitat"
 
 #: src/EBox/Model/DynamicDNS.pm:266
 msgid ""
 "Domains will be added/set automatically in DNS section in read-only mode."
 msgstr ""
+"Els dominis d'afegiran automàticament a la secció DNS en mode només lectura."
 
 #: src/EBox/Model/DynamicDNS.pm:268
 msgid "DNS module must be enabled to make this feature work. "
-msgstr ""
+msgstr "S'ha d'activar el mòdul DNS per a que aquesta funcionalitat funcioni. "
 
 #: src/EBox/Model/DynamicDNS.pm:332
 msgid "Dynamic domain"
-msgstr ""
+msgstr "Domini dinamic"
 
 #: src/EBox/Model/DynamicDNS.pm:334
 msgid ""
 "Domain name appended to the hostname from those clients whose leased IP "
 "address comes from a range"
 msgstr ""
+"Nom del domini adjunt al nom del host del clients els quals la seva IP "
+"assignada prové d'un rang establert."
 
 #: src/EBox/Model/DynamicDNS.pm:339
 msgid "Static domain"
-msgstr ""
+msgstr "Domini estàtic"
 
 #: src/EBox/Model/DynamicDNS.pm:341
 msgid ""
 "Domain name appended to the hostname from those clients with a fixed address "
 "mapping"
 msgstr ""
+"Nom del domini adjunt al nom del host del clients els quals tenen una IP "
+"fixa reservada."
 
 #: src/EBox/Model/DynamicDNS.pm:346
 msgid "Same as Dynamic Domain"
-msgstr ""
+msgstr "Igual que un domini dinpamic"
 
 #: src/EBox/Model/DynamicDNS.pm:350 src/EBox/Model/Options.pm:377
 #: src/EBox/Model/Options.pm:400 src/EBox/Model/Options.pm:419
 #: src/EBox/Model/Options.pm:433
 msgid "Custom"
-msgstr ""
+msgstr "Personalitzar"
 
 #: src/EBox/Model/DynamicDNS.pm:358
 msgid "Dynamic DNS Options"
-msgstr ""
+msgstr "Opcions del DNS dinàmic"
 
 #: src/EBox/Model/DynamicDNS.pm:363
 msgid "The domains will be added automatically to DNS module in read-only mode"
 msgstr ""
+"Els dominis s'afegiran automàticament al mòdul DNS en mode només lectura"
 
 #: src/EBox/Model/DynamicDNS.pm:395
 #, perl-brace-format
 msgid "Domain \"{domain}\" added to DNS section"
-msgstr ""
+msgstr "El domini \"{domain}\" s'ha afegit a la secció DNS."
 
 #: src/EBox/Model/DynamicDNS.pm:406
 #, perl-brace-format
 msgid "Domain \"{domain}\" removed from DNS section"
-msgstr ""
+msgstr "El domini \"{domain}\" s'ha eliminat de la secció DNS"
 
 #: src/EBox/Model/RangeInfo.pm:144
 msgid "Interface IP address"
-msgstr ""
+msgstr "Adreça IP de la interfície"
 
 #: src/EBox/Model/RangeInfo.pm:148 src/templates/ranges.mas:20
 msgid "Subnet"
-msgstr ""
+msgstr "Subxarxa"
 
 #: src/EBox/Model/RangeInfo.pm:152 src/templates/ranges.mas:40
 msgid "Available range"
-msgstr ""
+msgstr "Rang disponible"
 
 #: src/EBox/Model/RangeInfo.pm:158 src/templates/ranges.mas:15
 msgid "DHCP ranges"
-msgstr ""
+msgstr "Rangs DHCP"
 
 #: src/EBox/Model/Options.pm:158
 #, perl-brace-format
 msgid "{gateway} is not in the current network"
-msgstr ""
+msgstr "{gateway}  no es troba a la xarxa actual"
 
 #: src/EBox/Model/Options.pm:170
 msgid ""
 "DNS module must be enabled to be able to select eBox as primary DNS server"
 msgstr ""
+"El mòdul DNS ha d'estar activat per permetre seleccionar eBox com a DNS "
+"primari"
 
 #: src/EBox/Model/Options.pm:180
 msgid "NTP module must be enabled to be able to select eBox as NTP server"
 msgstr ""
+"El mòdul NTP ha d'estar activat per permetre seleccionar eBox com a servidor "
+"NTP "
 
 #: src/EBox/Model/Options.pm:191
 msgid "Samba module must be enabled to be able to select eBox as WINS server"
 msgstr ""
+"El mòdul Samba ha d'estar activat per permetre seleccionar eBox com a "
+"servidor WINS"
 
 #: src/EBox/Model/Options.pm:385
 msgid "eBox's domain"
-msgstr ""
+msgstr "Domini eBox"
 
 #: src/EBox/Model/Options.pm:393
 msgid "local eBox DNS"
-msgstr ""
+msgstr "DNS local de l'eBox"
 
 #: src/EBox/Model/Options.pm:415
 msgid "local eBox NTP"
-msgstr ""
+msgstr "NTP local de l'eBox"
 
 #: src/EBox/Model/Options.pm:429
 msgid "local eBox"
-msgstr ""
+msgstr "eBox local"
 
 #: src/EBox/Model/Options.pm:441 src/templates/options.mas:18
 msgid "Default gateway"
-msgstr ""
+msgstr "Porta d'enllaç per defecte"
 
 #: src/EBox/Model/Options.pm:451
 msgid "Custom IP address"
-msgstr ""
+msgstr "Adreça IP personalitzada"
 
 #: src/EBox/Model/Options.pm:461
 msgid "Configured ones"
-msgstr ""
+msgstr "Configurats"
 
 #: src/EBox/Model/Options.pm:467
 msgid ""
 "Setting \"eBox\" as default gateway will set the interface IP address as "
 "gateway"
 msgstr ""
+"Si es configura \"eBox\" com a porta d'enllaç per defecte es posarà l'adreça "
+"IP de la interfície de xarxa com a porta d'enllaç"
 
 #: src/EBox/Model/Options.pm:473 src/templates/options.mas:29
 msgid "Search domain"
-msgstr ""
+msgstr "Cerca el domini"
 
 #: src/EBox/Model/Options.pm:476
 msgid ""
 "The selected domain will complete on your clients those DNS queries which "
 "are not fully qualified"
 msgstr ""
+"El domini seleccionat completarà als clients les cerques de DNS que no tenen "
+"un domini qualificat "
 
 #: src/EBox/Model/Options.pm:481 src/templates/options.mas:41
 msgid "Primary nameserver"
-msgstr ""
+msgstr "Servidor de noms primari"
 
 #: src/EBox/Model/Options.pm:484
 msgid ""
 "If \"eBox DNS\" is present and selected, the eBox server will act as cache "
 "DNS server"
 msgstr ""
+"Si \"eBox DNS\" està present i seleccionat, el servidor eBox actuarà com a "
+"servidor de caché de DNS"
 
 #: src/EBox/Model/Options.pm:489 src/templates/options.mas:52
 msgid "Secondary nameserver"
-msgstr ""
+msgstr "Servidor de noms secundari"
 
 #: src/EBox/Model/Options.pm:495
 msgid "NTP server"
-msgstr ""
+msgstr "Servidor NTP"
 
 #: src/EBox/Model/Options.pm:498
 msgid ""
 "If \"eBox NTP\" is present and selected, eBox will be the NTP server for "
 "DHCP clients"
 msgstr ""
+"Si \"eBox NTP\" està present i seleccionat, el servidor eBox serà el servidor "
+"NTP pels clients DHCP"
 
 #: src/EBox/Model/Options.pm:503
 msgid "WINS server"
-msgstr ""
+msgstr "Servidor WINS"
 
 #: src/EBox/Model/Options.pm:506
 msgid ""
 "If \"eBox Samba\" is present and selected, eBox will be the WINS server for "
 "DHCP clients"
 msgstr ""
+"Si \"eBox Samba\" està present i seleccionat, el servidor eBox serà el "
+"servidor WINS pels clients DHCP"
 
 #: src/EBox/Model/Options.pm:513
 msgid "Common options"
-msgstr ""
+msgstr "Opcions comunes"
 
 #: src/EBox/Model/Options.pm:518
 msgid ""
@@ -422,60 +462,65 @@ msgid ""
 "domains on eBox might be chosen. All fields are optionals setting its value "
 "as \"None\" or leaving blank."
 msgstr ""
+"Si selecciones \"configurats\" com a porta d'enllaç predeterminada, has "
+"d'escollir una porta d'enllaç configurada. Com a valor de \"cerca de domini\", "
+"s'ha de triar un dels dominis de DNS configurats a l'eBox. En tots els "
+"camps es opcional definir-los com a \"None\" o deixar-los en blanc."
 
 #: src/EBox/Model/RangeTable.pm:118
 #, perl-brace-format
 msgid "{from} - {to} is an invalid range"
-msgstr ""
+msgstr "{from} - {to} no es un rang vàlid"
 
 #: src/EBox/Model/RangeTable.pm:129
 #, perl-brace-format
 msgid "Range {from}-{to} is not in network {net}"
-msgstr ""
+msgstr "El rang {from} - {to} no es troba a la xarxa {net}"
 
 #: src/EBox/Model/RangeTable.pm:142
 #, perl-brace-format
 msgid "Range {from}-{to} includes interface with IP address: {ifaceIP}"
-msgstr ""
+msgstr "El rang {from} - {to} inclou la interfície amb adreça IP: {ifaceIP}"
 
 #: src/EBox/Model/RangeTable.pm:165
 #, perl-brace-format
 msgid ""
 "Range {newFrom}-{newTo} overlaps with range '{range}': {oldFrom}-{oldTo}"
 msgstr ""
+"El Rang {newFrom}-{newTo} es solapa amb el rang '{range}': {oldFrom}-{oldTo}"
 
 #: src/EBox/Model/RangeTable.pm:183
 #, perl-brace-format
 msgid "Range {from}-{to} includes fixed address '{name}': {fixedIP}"
-msgstr ""
+msgstr "El rang {from} - {to} inclou una adreça fixa '{name}': {fixedIP}"
 
 #: src/EBox/Model/RangeTable.pm:234 src/templates/ranges.mas:49
 msgid "Ranges"
-msgstr ""
+msgstr "Rangs"
 
 #: src/EBox/Model/RangeTable.pm:241
 msgid "range"
-msgstr ""
+msgstr "rang"
 
 #: src/EBox/DHCP.pm:119
 #, perl-brace-format
 msgid "{server} configuration file"
-msgstr ""
+msgstr "Arxiu de configuració {server} "
 
 #: src/EBox/DHCP.pm:432 src/EBox/DHCP.pm:468 src/EBox/DHCP.pm:518
 #: src/EBox/DHCP.pm:564 src/EBox/DHCP.pm:610 src/EBox/DHCP.pm:708
 #: src/EBox/DHCP.pm:823 src/EBox/DHCP.pm:879
 #, perl-brace-format
 msgid "{iface} is not static"
-msgstr ""
+msgstr "{iface} no es estatic"
 
 #: src/EBox/DHCP.pm:694
 msgid "Not a valid action: add, set and del are available"
-msgstr ""
+msgstr "Acció no vàlida: només es pot afegir, seleccionar i esborrar{server}"
 
 #: src/EBox/DHCP.pm:809
 msgid "No valid action. Available ones are: add, set and del"
-msgstr ""
+msgstr "Acció no vàlida: només es pot afegir, seleccionar i esborrar{server}"
 
 #: src/EBox/DHCP.pm:1048
 #, perl-brace-format
@@ -484,6 +529,9 @@ msgid ""
 "used by the DHCP range '{range}' in the interface '{iface}'. Please, remove "
 "it before trying to add a virtual interface using it."
 msgstr ""
+"L'adreça IP de la interfície virtual que intenta afegir ja s'està fent "
+"servir pel rang DHCP '{range}' a la interfície '{iface}'. Si us plau, "
+"elimini-la abans per poder afegir una interfície virtual que la faci servir."
 
 #: src/EBox/DHCP.pm:1067
 #, perl-brace-format
@@ -492,38 +540,42 @@ msgid ""
 "used by the DHCP fixed address '{fixed}' in the interface '{iface}'. Please, "
 "remove it before trying to add a virtual interface using it."
 msgstr ""
+"L'adreça IP de la interfície virtual que intenta afegir ja s'està fent "
+"servir per l'adreça fixa '{fixed}' definida al DHCP a la interfície "
+"'{iface}'. Si us plau, elimini-la abans per poder afegir una interfície "
+"virtual que la faci servir."
 
 #: src/EBox/DHCP.pm:1263
 msgid "Date"
-msgstr ""
+msgstr "Data"
 
 #: src/EBox/DHCP.pm:1266
 msgid "IP"
-msgstr ""
+msgstr "IP"
 
 #: src/EBox/DHCP.pm:1267
 msgid "Event"
-msgstr ""
+msgstr "Event"
 
 #: src/EBox/DHCP.pm:1270
 msgid "Leased"
-msgstr ""
+msgstr "Concedida"
 
 #: src/EBox/DHCP.pm:1270
 msgid "Released"
-msgstr ""
+msgstr "Alliberat"
 
 #: src/EBox/DHCP.pm:1273
 msgid "DHCP"
-msgstr ""
+msgstr "DHCP"
 
 #: src/EBox/DHCP.pm:1333
 msgid "Host name"
-msgstr ""
+msgstr "Nom del host"
 
 #: src/EBox/DHCP.pm:1360
 msgid "DHCP leases"
-msgstr ""
+msgstr "Concessions del DHCP"
 
 #: src/EBox/Composite/General.pm:80
 #, perl-brace-format
@@ -531,20 +583,25 @@ msgid ""
 "An interface must set as static to configure the DHCP service on it. To do "
 "so, change {openhref}interfaces configuration{closehref} in network module"
 msgstr ""
+"La interfície ha d'estar configurada en mode estàtic per configurar-li el "
+"servei DHCP sobre ella. Per fer-ho, {openhref}configuració "
+"d'interfícies{closehref} al mòdul de xarxa"
 
 #: src/EBox/Composite/Interfaces.pm:109
 msgid "Choose a static interface to configure:"
-msgstr ""
+msgstr "Escull una interfície estàtica a configurar:"
 
 #: src/EBox/Composite/Interfaces.pm:110
 msgid "Service configuration"
-msgstr ""
+msgstr "Configuració dels serveis"
 
 #: src/EBox/Composite/Interfaces.pm:111
 msgid ""
 "In order to serve IP addresses on an interface, it is required to set at "
 "least a range or a fixed address."
 msgstr ""
+"Per a servir adreces IP sobre la interfície, es requereix al menys que "
+"estigui definit un rang o una adreça fixa"
 
 #: src/EBox/Composite/InterfaceConfiguration.pm:113
 #, perl-brace-format
@@ -552,45 +609,49 @@ msgid ""
 "In order to serve IP addresses on a external interface, you must open the "
 "service on {openhref}firewall module{closehref}"
 msgstr ""
+"Per a servir adreces IP sobre una interfície externa, ha d'estar obert el "
+"servei  al {openhref}mòdul de tallafocs{closehref}"
 
 #: src/EBox/Composite/AdvancedOptions.pm:134
 msgid "Advanced options"
-msgstr ""
+msgstr "Opcions avançades"
 
 #: src/templates/fixed.mas:11 src/templates/ranges.mas:56
 msgid "Action"
-msgstr ""
+msgstr "Acció"
 
 #: src/templates/fixed.mas:34 src/templates/fixed.mas:37
 #: src/templates/fixed.mas:38 src/templates/ranges.mas:74
 #: src/templates/ranges.mas:75 src/templates/ranges.mas:76
 msgid "Add"
-msgstr ""
+msgstr "Afegir"
 
 #: src/templates/fixed.mas:51 src/templates/fixed.mas:53
 #: src/templates/fixed.mas:54
 msgid "Remove"
-msgstr ""
+msgstr "Eliminar"
 
 #: src/templates/ranges.mas:30
 msgid "Subnet netmask"
-msgstr ""
+msgstr "Mascara de xarxa"
 
 #: src/templates/ranges.mas:91 src/templates/ranges.mas:92
 #: src/templates/ranges.mas:93
 msgid "Delete"
-msgstr ""
+msgstr "Esborrar"
 
 #: src/templates/options.mas:8
 msgid "Options"
-msgstr ""
+msgstr "Opcions"
 
 #: src/templates/options.mas:10
 msgid ""
 "You can leave empty the Default Gateway field to use eBox as default gateway "
 "for this subnet"
 msgstr ""
+"Pot deixar buit el camp de porta d'enllaç per defecte per fer servir l'eBox "
+"com a porta d'enllaç per defecte d'aquesta subxarxa"
 
 #: src/templates/options.mas:64
 msgid "Apply"
-msgstr ""
+msgstr "Aplicar"

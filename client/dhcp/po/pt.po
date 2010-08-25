@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-dhcp 0.12\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "POT-Creation-Date: 2010-08-13 13:39+0200\n"
-"PO-Revision-Date: 2010-04-16 18:56+0200\n"
+"PO-Revision-Date: 2010-08-24 22:07+0200\n"
 "Last-Translator: Vasco Castelo Branco <vcbranco@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -274,7 +274,7 @@ msgstr "O módulo DNS deve estar activo para fazer este recurso funcionar."
 
 #: src/EBox/Model/DynamicDNS.pm:332
 msgid "Dynamic domain"
-msgstr "Domínio dinâmico "
+msgstr "Domínio dinâmico"
 
 #: src/EBox/Model/DynamicDNS.pm:334
 msgid ""
@@ -575,7 +575,7 @@ msgstr "DHCP"
 
 #: src/EBox/DHCP.pm:1333
 msgid "Host name"
-msgstr "Nome do hospedeiro"
+msgstr "Nome da máquina"
 
 #: src/EBox/DHCP.pm:1360
 msgid "DHCP leases"

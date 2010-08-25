@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: ebox-samba 0.12\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "POT-Creation-Date: 2010-07-21 00:42+0200\n"
-"PO-Revision-Date: 2010-01-22 15:11+0100\n"
-"Last-Translator: Stasiak Krzysztof <stasiakk@gmail.com>\n"
+"PO-Revision-Date: 2010-08-25 11:13+0200\n"
+"Last-Translator: Robert Brzozowski <gnutar1@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -21,18 +21,17 @@ msgstr ""
 #: migration/0001_add_samba_service.pl:113
 #, fuzzy
 msgid "File sharing (Samba) protocol"
-msgstr "współdzielenie plików"
+msgstr "Współdzielenie plików"
 
 #: src/EBox/SambaLdapUser.pm:287
 #, fuzzy
 msgid "This user has a sharing directory associated which contains data."
-msgstr ""
-"Ten użytkownik ma powiązany z nim katalog współdzielony, który zawiera dane."
+msgstr "Ten użytkownik posiada własny katalog z danymi"
 
 #: src/EBox/SambaLdapUser.pm:346 src/EBox/SambaLdapUser.pm:364
 #, perl-brace-format
 msgid "Incorrect SID: {s}"
-msgstr ""
+msgstr "Błędny SID: {s}"
 
 #: src/EBox/SambaLdapUser.pm:350
 #, perl-brace-format
@@ -57,8 +56,7 @@ msgstr "Grupa {g} nie jest grupą samby"
 #: src/EBox/SambaLdapUser.pm:414
 #, fuzzy
 msgid "This group has a sharing directory associated that contains data."
-msgstr ""
-"Ten użytkownik ma powiązany z nim katalog współdzielony, który zawiera dane."
+msgstr "Ta grupa posiada współdzielony katalog z danymi"
 
 #: src/EBox/SambaLdapUser.pm:612
 #, perl-brace-format
@@ -110,30 +108,30 @@ msgstr "Konto typu PDC/współdzielenia plików"
 #: src/EBox/Samba.pm:75
 #, fuzzy
 msgid "File Sharing"
-msgstr "współdzielenie plików"
+msgstr "Współdzielenie plików"
 
 #: src/EBox/Samba/Model/DeletedSambaShares.pm:114
 msgid "path"
-msgstr ""
+msgstr "ścieżka"
 
 #: src/EBox/Samba/Model/DeletedSambaShares.pm:130
 #: src/EBox/Samba/Model/SambaShares.pm:157
 msgid "share"
-msgstr ""
+msgstr "udział"
 
 #: src/EBox/Samba/Model/GeneralSettings.pm:73
 msgid "Netbios and workgroup must have different names"
-msgstr ""
+msgstr "Nazwa zasobu i grupy roboczej muszą być różne."
 
 #: src/EBox/Samba/Model/GeneralSettings.pm:78
 #, fuzzy
 msgid "Netbios name cannot be longer than 15 characters"
-msgstr "Nazwa zasobu jest dłuższa niż 12 znaków"
+msgstr "Nazwa zasobu jest dłuższa niż 15 znaków"
 
 #: src/EBox/Samba/Model/GeneralSettings.pm:88
 #, fuzzy
 msgid "Enable PDC"
-msgstr "Aktywne"
+msgstr "Włącz PDC"
 
 #: src/EBox/Samba/Model/GeneralSettings.pm:94
 msgid "Domain name"
@@ -154,7 +152,7 @@ msgstr "Limit Przestrzeni"
 #: src/EBox/Samba/Model/GeneralSettings.pm:116 src/EBox/Samba/Model/PDC.pm:95
 #: src/EBox/Samba/Model/PDC.pm:113
 msgid "Limited to"
-msgstr ""
+msgstr "Ograniczony do"
 
 #: src/EBox/Samba/Model/GeneralSettings.pm:118
 msgid "Mb"
@@ -164,21 +162,21 @@ msgstr ""
 #: src/EBox/Samba/Model/PDC.pm:109 src/EBox/Samba/Model/PDC.pm:127
 #: src/templates/samba.mas:21 src/templates/samba.mas:24
 msgid "Disabled"
-msgstr "Nieaktywne"
+msgstr "Wyłączony"
 
 #: src/EBox/Samba/Model/GeneralSettings.pm:130
 msgid "Enable roaming profiles"
-msgstr ""
+msgstr "Włącz profile mobilne"
 
 #: src/EBox/Samba/Model/GeneralSettings.pm:136
 #, fuzzy
 msgid "Drive letter"
-msgstr "Usuń"
+msgstr "Wybierz literę dysku"
 
 #: src/EBox/Samba/Model/GeneralSettings.pm:142
 #, fuzzy
 msgid "Samba group"
-msgstr "grupa"
+msgstr "Wybierz grupę"
 
 #: src/EBox/Samba/Model/GeneralSettings.pm:146
 msgid ""
@@ -189,7 +187,7 @@ msgstr ""
 #: src/EBox/Samba/Model/GeneralSettings.pm:152
 #, fuzzy
 msgid "General settings"
-msgstr "Ustawienia globalne"
+msgstr "Ustawienia ogólne"
 
 #: src/EBox/Samba/Model/GeneralSettings.pm:156
 msgid "On this page you can set different general settings for Samba"
@@ -198,16 +196,16 @@ msgstr ""
 #: src/EBox/Samba/Model/GeneralSettings.pm:209
 #, fuzzy
 msgid "All users"
-msgstr "użytkownik"
+msgstr "Wszyscy użytkownicy"
 
 #: src/EBox/Samba/Model/SambaShares.pm:101
 #, fuzzy
 msgid "Share name"
-msgstr "nazwa współdzielona"
+msgstr "Współdzielona nazwa"
 
 #: src/EBox/Samba/Model/SambaShares.pm:107
 msgid "Share path"
-msgstr ""
+msgstr "Współdzielona ścieżka"
 
 #: src/EBox/Samba/Model/SambaShares.pm:113
 #, fuzzy
@@ -220,24 +218,24 @@ msgstr ""
 
 #: src/EBox/Samba/Model/SambaShares.pm:127
 msgid "Comment"
-msgstr ""
+msgstr "Komentarz"
 
 #: src/EBox/Samba/Model/SambaShares.pm:132
 msgid "Guest access"
-msgstr ""
+msgstr "Dostęp anonimowy"
 
 #: src/EBox/Samba/Model/SambaShares.pm:135
 msgid "This share will not require authentication."
-msgstr ""
+msgstr "Ten udział nie potrzebuje autoryzacji"
 
 #: src/EBox/Samba/Model/SambaShares.pm:139
 msgid "Access control"
-msgstr ""
+msgstr "Kontrola dostępu"
 
 #: src/EBox/Samba/Model/SambaShares.pm:149
 #: src/EBox/Samba/Model/SambaSharePermissions.pm:166
 msgid "Shares"
-msgstr ""
+msgstr "Udziały sieciowe"
 
 #: src/EBox/Samba/Model/SambaShares.pm:187
 msgid "Path not allowed"
@@ -249,7 +247,7 @@ msgstr ""
 
 #: src/EBox/Samba/Model/SambaShares.pm:229
 msgid "The directory is not empty. Are you sure you want to remove it?"
-msgstr ""
+msgstr "Katalog nie jest pusty. Czy jesteś pewien, że chcesz go usunąć?"
 
 #: src/EBox/Samba/Model/SambaShares.pm:319
 #, perl-brace-format
@@ -267,31 +265,31 @@ msgstr ""
 
 #: src/EBox/Samba/Model/SambaSharePermissions.pm:94
 msgid "Read only"
-msgstr ""
+msgstr "Tylko do odczytu"
 
 #: src/EBox/Samba/Model/SambaSharePermissions.pm:98
 msgid "Read and write"
-msgstr ""
+msgstr "Odczyt i Zapis"
 
 #: src/EBox/Samba/Model/SambaSharePermissions.pm:102
 #, fuzzy
 msgid "Administrator"
-msgstr "Prawa administracyjne"
+msgstr "Administrator"
 
 #: src/EBox/Samba/Model/SambaSharePermissions.pm:126
 #: src/EBox/Samba/Model/SambaSharePermissions.pm:202
 msgid "User/Group"
-msgstr ""
+msgstr "Użytkownik/Grupa"
 
 #: src/EBox/Samba/Model/SambaSharePermissions.pm:176
 msgid "Any access control is disabled if the guest access is allowed."
-msgstr ""
+msgstr "Jeśli włączono dostęp anonimowy, kontrola dostępu została wyłączona"
 
 #: src/EBox/Samba/Model/SambaSharePermissions.pm:207 src/EBox/Samba.pm:631
 #: src/EBox/Samba.pm:1646 src/templates/ajax/viewer/shareViewer.mas:8
 #, fuzzy
 msgid "User"
-msgstr "użytkownik"
+msgstr "Użytkownik"
 
 #: src/EBox/Samba/Model/SambaSharePermissions.pm:212
 #: src/EBox/Samba/Model/AntivirusExceptions.pm:103
@@ -299,15 +297,16 @@ msgstr "użytkownik"
 #: src/templates/ajax/viewer/shareViewer.mas:10
 #, fuzzy
 msgid "Group"
-msgstr "grupa"
+msgstr "Grupa"
 
 #: src/EBox/Samba/Model/SambaSharePermissions.pm:221
 msgid "Permissions"
-msgstr ""
+msgstr "Uprawnienia"
 
 #: src/EBox/Samba/Model/SambaSharePermissions.pm:230
+#, fuzzy
 msgid "Access Control"
-msgstr ""
+msgstr "Kontrola dostępu"
 
 #: src/EBox/Samba/Model/SambaSharePermissions.pm:237
 msgid "ACL"
@@ -322,37 +321,38 @@ msgstr ""
 #: src/EBox/Samba/Model/SambaSharePermissions.pm:260
 #, fuzzy
 msgid " (user))"
-msgstr "użytkownik"
+msgstr " (użytkownik))"
 
 #: src/EBox/Samba/Model/SambaSharePermissions.pm:262
 #, fuzzy
 msgid " (group))"
-msgstr "grupa"
+msgstr " (grupa))"
 
 #: src/EBox/Samba/Model/PDC.pm:77
 #, fuzzy
 msgid "File sharing module is not enabled."
-msgstr "współdzielenie plików"
+msgstr "Moduł współdzielenia plików jest wyłączony"
 
 #: src/EBox/Samba/Model/PDC.pm:78
+#, fuzzy
 msgid "PDC is not enabled."
-msgstr ""
+msgstr "Wyłączony PDC"
 
 #: src/EBox/Samba/Model/PDC.pm:87
 msgid "Minimum password length"
-msgstr ""
+msgstr "Minimalna długość hasła"
 
 #: src/EBox/Samba/Model/PDC.pm:96
 msgid "characters"
-msgstr ""
+msgstr "znaki"
 
 #: src/EBox/Samba/Model/PDC.pm:105
 msgid "Maximum password age"
-msgstr ""
+msgstr "Maksymalny okres ważności"
 
 #: src/EBox/Samba/Model/PDC.pm:114
 msgid "days"
-msgstr ""
+msgstr "dni"
 
 #: src/EBox/Samba/Model/PDC.pm:123
 msgid "Enforce password history"
@@ -368,7 +368,7 @@ msgstr ""
 
 #: src/EBox/Samba/Model/PDC.pm:143
 msgid "PDC"
-msgstr "PDC"
+msgstr "Podstawowy kontroler domeny"
 
 #: src/EBox/Samba/Model/PDC.pm:147
 msgid "On this page you can set different PDC related settings"
@@ -377,20 +377,20 @@ msgstr ""
 #: src/EBox/Samba/Model/AntivirusExceptions.pm:93
 #: src/EBox/Samba/Model/RecycleExceptions.pm:93
 msgid "User/Group/Share"
-msgstr ""
+msgstr "Użytkownik/Grupa/Udział"
 
 #: src/EBox/Samba/Model/AntivirusExceptions.pm:99
 #: src/EBox/Samba/Model/RecycleExceptions.pm:99
 #, fuzzy
 msgid "User homes"
-msgstr "nazwa użytkownika"
+msgstr "Katalog użytkownika"
 
 #: src/EBox/Samba/Model/AntivirusExceptions.pm:110
 #: src/EBox/Samba/Model/RecycleExceptions.pm:110 src/EBox/Samba.pm:610
 #: src/templates/ajax/viewer/shareViewer.mas:12
 #, fuzzy
 msgid "Share"
-msgstr "nazwa współdzielona"
+msgstr "Udział"
 
 #: src/EBox/Samba/Model/AntivirusExceptions.pm:121
 msgid "Samba shares antivirus exceptions"
@@ -404,7 +404,7 @@ msgstr ""
 #: src/EBox/Samba/Model/RecycleExceptions.pm:127
 #, fuzzy
 msgid "exception"
-msgstr "opis"
+msgstr "wyjątek"
 
 #: src/EBox/Samba/Model/RecycleExceptions.pm:121
 msgid "Samba shares Recycle Bin exceptions"
@@ -416,44 +416,45 @@ msgstr ""
 
 #: src/EBox/Samba/Model/AntivirusDefault.pm:50
 msgid "Scan"
-msgstr ""
+msgstr "Skanuj"
 
 #: src/EBox/Samba/Model/AntivirusDefault.pm:58
 #, fuzzy
 msgid "Antivirus default settings"
-msgstr "Ustawienia globalne"
+msgstr "Domyślne ustawienia Antywirusa"
 
 #: src/EBox/Samba/Model/RecycleDefault.pm:45
 #, fuzzy
 msgid "Recycle default settings"
-msgstr "Ustawienia globalne"
+msgstr "Domyślne ustawienia Kosza"
 
 #: src/EBox/Samba/Model/RecycleDefault.pm:55
 msgid "Enable Recycle Bin"
-msgstr ""
+msgstr "Włącz Kosz"
 
 #: src/EBox/Samba/Model/RecycleDefault.pm:63
 #, fuzzy
 msgid "Recycle Bin default settings"
-msgstr "Ustawienia globalne"
+msgstr "Domyślne ustawienia kosza"
 
 #: src/EBox/Samba/Composite/RecycleBin.pm:64
 msgid "Recycle Bin"
-msgstr ""
+msgstr "Kosz"
 
 #: src/EBox/Samba/Composite/General.pm:69
 #, fuzzy
 msgid "File sharing options"
-msgstr "współdzielenie plików"
+msgstr "Opcje współdzielenia plików"
 
 #: src/EBox/Samba/Composite/Antivirus.pm:64
+#, fuzzy
 msgid "Antivirus"
-msgstr ""
+msgstr "Antywirus"
 
 #: src/EBox/Samba.pm:90
 #, fuzzy
 msgid "Create Samba home directory for shares and groups"
-msgstr "Katalog współdzielony grupy"
+msgstr "Utwórz katalog współdzielony dla udziałów i grup"
 
 #: src/EBox/Samba.pm:91
 msgid ""
@@ -463,7 +464,7 @@ msgstr ""
 
 #: src/EBox/Samba.pm:96
 msgid "Add LDAP schemas"
-msgstr ""
+msgstr "Dodaj schematy LDAP"
 
 #: src/EBox/Samba.pm:97
 msgid "eBox will add two LDAP schemas to the LDAP directory: samba and ebox."

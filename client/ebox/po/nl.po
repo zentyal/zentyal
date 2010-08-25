@@ -7,8 +7,8 @@ msgstr ""
 "Project-Id-Version: ebox 0.12\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "POT-Creation-Date: 2010-08-13 13:39+0200\n"
-"PO-Revision-Date: 2009-10-05 23:14+0200\n"
-"Last-Translator: Marco Luken <marcoluken@kabelfoon.net>\n"
+"PO-Revision-Date: 2010-08-23 14:25+0200\n"
+"Last-Translator: Tom Mylle <tom@design-electronics.be>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -46,11 +46,11 @@ msgstr ""
 
 #: src/EBox/ProgressIndicator.pm:146
 msgid "must be greater than zero"
-msgstr ""
+msgstr "Moet groter zijn dan nul"
 
 #: src/EBox/ProgressIndicator.pm:152
 msgid "Executable has not been run"
-msgstr ""
+msgstr "Uitvoerbaar bestand is niet uitgevoerd"
 
 #: src/EBox/ProgressIndicator.pm:275
 msgid "The executable has not run"
@@ -76,20 +76,20 @@ msgstr ""
 #: src/EBox/Logs/Model/SelectLog.pm:143
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:335
 msgid "Domain"
-msgstr ""
+msgstr "Domein"
 
 #: src/EBox/Events/Model/Watcher/Log.pm:269
 msgid "Filtering"
-msgstr ""
+msgstr "Filteren"
 
 #: src/EBox/Events/Model/Watcher/Log.pm:277
 #, fuzzy
 msgid "Configure log watchers"
-msgstr "Wijzigingen negeren"
+msgstr "Stel log opvolging in"
 
 #: src/EBox/Events/Model/Watcher/Log.pm:279
 msgid "Log watcher"
-msgstr ""
+msgstr "Log opvolger"
 
 #: src/EBox/Events/Model/Watcher/Log.pm:387
 #: src/EBox/Events/Model/Watcher/LogFiltering.pm:213
@@ -99,9 +99,8 @@ msgstr ""
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:274
 #: src/EBox/Events/Model/Dispatcher/RSS.pm:326 src/EBox/Events.pm:96
 #: src/EBox/Events.pm:823
-#, fuzzy
 msgid "Events"
-msgstr "Gebeurtenis"
+msgstr "Gebeurtenissen"
 
 #: src/EBox/Events/Model/Watcher/Log.pm:391
 #: src/EBox/Events/Model/Watcher/LogFiltering.pm:217
@@ -111,7 +110,7 @@ msgstr ""
 #: src/EBox/Events/Model/Watcher/LogFiltering.pm:110
 #, perl-brace-format
 msgid "Log domain {logDomain}"
-msgstr ""
+msgstr "Log domein {logDomain}"
 
 #: src/EBox/Events/Model/Watcher/LogFiltering.pm:151
 #: src/EBox/Types/PortRange.pm:290 src/EBox/Types/Service.pm:213
@@ -127,42 +126,47 @@ msgstr "Gebeurtenis"
 #: src/EBox/Events/Model/Watcher/LogFiltering.pm:178
 #, perl-brace-format
 msgid "Filters to apply to notify logs from {logDomain}"
-msgstr ""
+msgstr "Filters van toepassing op de logs van {logDomain}"
 
 #: src/EBox/Events/Model/Watcher/LogFiltering.pm:186
+#, fuzzy
 msgid ""
 "Every filter added is cumulative.Then every log line which matches with any "
 "filter given will be notified"
 msgstr ""
+"Elk filter is cumulatief toegevoegd. Zo zal elke log regel die overeenkomt "
+"met de gegeven filter worden aangemeld "
 
 #: src/EBox/Events/Model/Watcher/LogFiltering.pm:190
 msgid "filter"
-msgstr ""
+msgstr "filter"
 
 #: src/EBox/Events/Model/Watcher/DiskFreeSpace.pm:102
 msgid "Minimum free disk space per filesystem"
-msgstr ""
+msgstr "Minimum vrije disk ruimte per schijfpartitie"
 
 #: src/EBox/Events/Model/Watcher/DiskFreeSpace.pm:107
 msgid ""
 "When the free space percentage of any disk partition is under this value the "
 "event is triggered."
 msgstr ""
+"Wanneer de vrije ruimte percentage van elke schijfpartitie is kleinerdan "
+"deze waarde zal het evenement geactiveerd worden. "
 
 #: src/EBox/Events/Model/Watcher/DiskFreeSpace.pm:114
 #, fuzzy
 msgid "Configure disk free space watcher"
-msgstr "Wijzigingen negeren"
+msgstr "Configureren van vrije schijfruimte monitor"
 
 #: src/EBox/Events/Model/Watcher/DiskFreeSpace.pm:142
 #, fuzzy
 msgid "Free Disk Space Watcher"
-msgstr "Wijzigingen negeren"
+msgstr "Vrije schijfruimte monitor"
 
 #: src/EBox/Events/Model/ConfigureEventDataTable.pm:268
 #: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:302
 msgid "Name"
-msgstr ""
+msgstr "Naam"
 
 #: src/EBox/Events/Model/ConfigureEventDataTable.pm:276
 #: src/templates/backup.mas:42 src/templates/backup.mas:124
@@ -179,12 +183,12 @@ msgstr "Configuratie herstellen"
 #: src/EBox/Events/Model/ConfigureEventDataTable.pm:301
 #: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:344
 msgid "None"
-msgstr ""
+msgstr "Niets"
 
 #: src/EBox/Events/Model/ConfigureEventDataTable.pm:310
 #, fuzzy
 msgid "Configure Events"
-msgstr "Configuratie herstellen"
+msgstr "Configuratie gebeurtenissen"
 
 #: src/EBox/Events/Model/ConfigureEventDataTable.pm:318
 #: src/EBox/Events/Model/Report/EventsDetails.pm:109
@@ -193,8 +197,9 @@ msgid "event"
 msgstr "Gebeurtenis"
 
 #: src/EBox/Events/Model/ConfigureEventDataTable.pm:319
+#, fuzzy
 msgid "Enable/Disable each event watcher monitoring"
-msgstr ""
+msgstr "Inschakelen / Uitschakelen gebeurtenis monitor"
 
 #: src/EBox/Events/Model/ConfigureEventDataTable.pm:507
 msgid ""
@@ -206,34 +211,35 @@ msgstr ""
 #: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:288
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:343
 #: src/EBox/Model/DataTable.pm:4541
-#, fuzzy
 msgid "Enabled"
-msgstr "Uitgeschakeld"
+msgstr "Ingeschakeld"
 
 #: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:312
 #, fuzzy
 msgid "Receiver"
-msgstr "December"
+msgstr "Ontvanger"
 
 #: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:353
 #, fuzzy
 msgid "Configure Dispatchers"
-msgstr "Wijzigingen negeren"
+msgstr "Configureer Verzenders"
 
 #: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:362
 #, fuzzy
 msgid "dispatcher"
-msgstr "Wijzigingen negeren"
+msgstr "verzender"
 
 #: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:363
+#, fuzzy
 msgid "Enable/Disable each event dispatcher"
-msgstr ""
+msgstr "Inschakelen / Uitschakelen elke gebeurtenis verzender"
 
 #: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:552
+#, fuzzy
 msgid ""
 "In order to enable a configurable event dispatcher, you need to configure it "
 "first"
-msgstr ""
+msgstr "Om in te schakelen moet eerst een gebeurtenis verzender configureren"
 
 #: src/EBox/Events/Model/GeneralComposite.pm:81
 msgid ""
@@ -242,11 +248,11 @@ msgstr ""
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:194
 msgid "Jabber server name"
-msgstr ""
+msgstr "Jabber server naam"
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:197
 msgid "Jabber server to send the messages"
-msgstr ""
+msgstr "Jabber server om bericht te sturen"
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:201
 #, fuzzy
@@ -255,32 +261,35 @@ msgstr "poort"
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:208
 msgid "Jabber user name"
-msgstr ""
+msgstr "Jabber gebruikersnaam"
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:211
 msgid ""
 "Jabber ID of the account that will send the messages. Hint: do not introduce "
 "@domain, only the user name"
 msgstr ""
+"Jabber ID van de account die de berichten verstuurd. Hint: geef enkel de "
+"gebruikersnaam in, niet @domein"
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:217
-#, fuzzy
 msgid "User password"
-msgstr "Paswoord instellen"
+msgstr "Gebruikerspaswoord "
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:225
 msgid "Subscribe"
-msgstr ""
+msgstr "Inschrijven"
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:227
 msgid ""
 "Tick this option if you want eBox to create an account for the above user"
 msgstr ""
+"Markeer deze optie als u wil dat Ebox een account moet worden aangemaakt "
+"voor bovenstaande gebruiker"
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:234
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:301
 msgid "Administrator Jabber Identifier"
-msgstr ""
+msgstr "Administrator Jabber naam"
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:237
 msgid ""
@@ -294,59 +303,58 @@ msgid "Configure Jabber dispatcher"
 msgstr ""
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:251
+#, fuzzy
 msgid "This dispatcher will send events to an Jabber account"
-msgstr ""
+msgstr "De verzender zal de gebeurtenissen verzenden naar een Jabber account"
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:254
 msgid "Jabber dispatcher configuration updated"
-msgstr ""
+msgstr "Configuratie Jabber verzender is aangepast"
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:278
 #, fuzzy
 msgid "Jabber Dispatcher"
-msgstr "Wijzigingen negeren"
+msgstr "Jabber verzender"
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:303
 msgid "It should follow the pattern 'user@domain[/resource]'"
-msgstr ""
+msgstr "Het moet het volgende patroon volgen 'gebruiker@domein[/resource]"
 
 #: src/EBox/Events/Model/Dispatcher/RSS.pm:151
 msgid "Nobody"
-msgstr ""
+msgstr "Niemand"
 
 #: src/EBox/Events/Model/Dispatcher/RSS.pm:155
-#, fuzzy
 msgid "IP address"
-msgstr "Client adres"
+msgstr "IP adres"
 
 #: src/EBox/Events/Model/Dispatcher/RSS.pm:162
 msgid "Object"
-msgstr ""
+msgstr "Object"
 
 #: src/EBox/Events/Model/Dispatcher/RSS.pm:171
 msgid "Public"
-msgstr ""
+msgstr "Publiek"
 
 #: src/EBox/Events/Model/Dispatcher/RSS.pm:178
 msgid "Channel link"
-msgstr ""
+msgstr "Kanaal link"
 
 #: src/EBox/Events/Model/Dispatcher/RSS.pm:185
 msgid "Allowed readers"
-msgstr ""
+msgstr "Toegestane lezers"
 
 #: src/EBox/Events/Model/Dispatcher/RSS.pm:188
 msgid "Use this field to set the access control for the channel"
-msgstr ""
+msgstr "Gebruik dit veld om de toegang te geven voor het kanaal"
 
 #: src/EBox/Events/Model/Dispatcher/RSS.pm:193
 msgid "Syndicate this RSS"
-msgstr ""
+msgstr "Aanmelden voor deze RSS"
 
 #: src/EBox/Events/Model/Dispatcher/RSS.pm:203
-#, fuzzy
 msgid "Configure RSS dispatcher"
-msgstr "Wijzigingen negeren"
+msgstr "Configureer RSS verzender"
 
 #: src/EBox/Events/Model/Dispatcher/RSS.pm:208
 msgid ""

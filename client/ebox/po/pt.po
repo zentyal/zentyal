@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox 0.12\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "POT-Creation-Date: 2010-08-13 13:39+0200\n"
-"PO-Revision-Date: 2010-08-08 01:27+0200\n"
+"PO-Revision-Date: 2010-08-24 02:22+0200\n"
 "Last-Translator: Vasco Castelo Branco <vcbranco@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -26,9 +26,8 @@ msgid "It must be a non-zero positive number"
 msgstr "Deve ser um número positivo diferente de zero"
 
 #: src/EBox/ProgressIndicator.pm:49
-#, fuzzy
 msgid "To solve it you can try to execute the following commands:"
-msgstr "Confirme se quer apagar o seguinte ficheiro de backup:"
+msgstr "Para resolvê-lo pode executar os seguintes comandos:"
 
 #: src/EBox/ProgressIndicator.pm:56
 #, perl-brace-format

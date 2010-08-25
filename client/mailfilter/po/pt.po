@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-mailfilter 0.12\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "POT-Creation-Date: 2010-07-21 00:33+0200\n"
-"PO-Revision-Date: 2010-08-08 04:53+0200\n"
+"PO-Revision-Date: 2010-08-24 02:39+0200\n"
 "Last-Translator: Vasco Castelo Branco <vcbranco@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -51,12 +51,13 @@ msgstr ""
 
 #: src/EBox/MailFilter.pm:92
 msgid "Add spam and ham system users"
-msgstr ""
+msgstr "Adicionar utilizadores aos sistema spam e ham"
 
 #: src/EBox/MailFilter.pm:94
 msgid ""
 "This users are for the email accounts used for training the bayesian filter"
 msgstr ""
+"Estes são os utilizadores das contas usadas para treinar o filtro bayesiano"
 
 #: src/EBox/MailFilter.pm:99
 msgid "Update LDAP"
@@ -336,7 +337,7 @@ msgstr "Activado"
 
 #: src/EBox/MailFilter/Model/AmavisConfiguration.pm:71
 msgid "Antivirus enabled"
-msgstr "Anti-vírus activado"
+msgstr "Anti-vírus activo"
 
 #: src/EBox/MailFilter/Model/AmavisConfiguration.pm:77
 msgid "Antispam enabled"
@@ -344,7 +345,7 @@ msgstr "Anti-spam activado"
 
 #: src/EBox/MailFilter/Model/AmavisConfiguration.pm:84
 msgid "Service's port"
-msgstr "Porto de serviço"
+msgstr "Porto do serviço"
 
 #: src/EBox/MailFilter/Model/AmavisConfiguration.pm:91
 msgid "Notify of non-spam problematic messages"
@@ -476,6 +477,8 @@ msgid ""
 "Ham messages with a score below this threshold will be added to the learning "
 "system"
 msgstr ""
+"Mensagens ham com um resultado abaixo deste limite serão adicionadas ao "
+"sistema de auto-aprendizagem"
 
 #: src/EBox/MailFilter/Model/AntispamConfiguration.pm:116
 msgid "Antispam configuration"
@@ -491,6 +494,8 @@ msgstr ""
 #: src/EBox/MailFilter/Model/AntispamConfiguration.pm:174
 msgid "You must define autolearn ham threshold when autolearn option is active"
 msgstr ""
+"Deve definir um limite de auto-aprendizagem ham quando a opção auto-"
+"aprendizagem estiver activa"
 
 #: src/EBox/MailFilter/Model/AntispamConfiguration.pm:180
 msgid ""
@@ -505,6 +510,8 @@ msgid ""
 "The ham's autolearn threshold canot be higher or equal than the default spam "
 "level"
 msgstr ""
+"O limite de aprendizagem do ham não pode ser mais igual ou mais alto que o "
+"nível de spam pré-definido"
 
 #: src/EBox/MailFilter/Model/ExternalDomain.pm:70
 msgid "External mail domain"
@@ -612,7 +619,7 @@ msgstr "spam"
 
 #: src/EBox/MailFilter/Model/AntispamTraining.pm:99
 msgid "ham"
-msgstr ""
+msgstr "ham"
 
 #: src/EBox/MailFilter/Model/AntispamTraining.pm:131
 #, perl-brace-format
@@ -641,17 +648,19 @@ msgstr "limite personalizado"
 
 #: src/EBox/MailFilter/Model/VDomains.pm:114
 msgid "Learn from accounts' Spam IMAP folders"
-msgstr ""
+msgstr "Aprender a partir das contas IMAP de spam"
 
 #: src/EBox/MailFilter/Model/VDomains.pm:116
 msgid ""
 "Every time that a email moved into or out of the IMAP spam folder the filter "
 "will be trained with it"
 msgstr ""
+"Sempre que uma mensagem seja movida para ou de uma pasta de spam IMAP o "
+"filtro será treinado"
 
 #: src/EBox/MailFilter/Model/VDomains.pm:123
 msgid "Learning ham account"
-msgstr ""
+msgstr "Conta de aprendizagem ham"
 
 #: src/EBox/MailFilter/Model/VDomains.pm:124
 msgid ""
@@ -659,6 +668,9 @@ msgid ""
 "incorrectly classified as spam may be forwarded to this addres to train the "
 "filter"
 msgstr ""
+"Será criado o endereço (ham@domain) para este domínio, as mensagens ham "
+"incorrectamente classificadas serão reencaminhadas para este endereço para "
+"treinar o filtro"
 
 #: src/EBox/MailFilter/Model/VDomains.pm:135
 msgid "Learning spam account"
@@ -670,6 +682,9 @@ msgid ""
 "incorrectly classified as ham may be forwarded to this addres to train the "
 "filter"
 msgstr ""
+"Será criado o endereço (spam@domain) para este domínio, as mensagens de spam "
+"incorrectamente classificadas serão reencaminhadas para este endereço para "
+"treinar o filtro"
 
 #: src/EBox/MailFilter/Model/VDomains.pm:147
 msgid "Antispam sender policy"
@@ -685,6 +700,8 @@ msgid ""
 "There are no virtual mail domains managed by this server. You can create "
 "some in the {openA}virtual domains mail page{closeA}."
 msgstr ""
+"Não existem domínios virtuais geridos por este servidor. Pode cria-los na "
+"{openA}página de domínios virtuais{closeA}"
 
 #: src/EBox/MailFilter/Model/Report/FilterGraph.pm:51
 msgid "Mail filter graph"
@@ -806,6 +823,8 @@ msgid ""
 "The spam's threshold cannot be lower or equal than its ham's autolearn "
 "threshold"
 msgstr ""
+"O limite de spam não pode ser igual ou mais baixo que o limite de auto-"
+"aprendizagem ham"
 
 #: src/EBox/MailFilter/SpamAssassin.pm:391
 msgid ""
@@ -819,14 +838,13 @@ msgstr ""
 #: src/EBox/MailFilter/SpamAssassin.pm:405
 #, perl-brace-format
 msgid "Accounts from the domain {d} cannot train the bayesian filter"
-msgstr ""
+msgstr "As contas do domínio {d} não podem treinar o filtro bayseano"
 
 #: src/EBox/MailFilter/Composite/ExternalConnections.pm:60
 msgid "External connections"
 msgstr "Ligações exteriores"
 
 #: src/EBox/MailFilter/Composite/FileFilter.pm:59
-#, fuzzy
 msgid "Attached Files Filter"
 msgstr "Filtro de ficheiros anexados"
 
@@ -849,7 +867,7 @@ msgstr "Relatório do filtro de correio"
 
 #: src/EBox/MailFilter/Composite/Report/POPProxyReport.pm:71
 msgid "Transparent POP proxy report"
-msgstr "relatório do proxy transparente POP"
+msgstr "Relatório do proxy transparente POP"
 
 #: stubs/p3scan.conf.mas:15
 msgid "[Virus] found in a mail to you:"

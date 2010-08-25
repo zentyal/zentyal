@@ -9,8 +9,8 @@ msgstr ""
 "technologies.com\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "POT-Creation-Date: 2010-07-21 00:32+0200\n"
-"PO-Revision-Date: 2010-01-30 18:24+0100\n"
-"Last-Translator: andrea biasi <info@andreabiasi.it>\n"
+"PO-Revision-Date: 2010-08-17 00:19+0200\n"
+"Last-Translator: Alessandro Bolletta <alex@alessandrobolletta.it>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -27,15 +27,18 @@ msgstr "Backup"
 #, perl-brace-format
 msgid "File {f} not found in backup for {d}, try a later date"
 msgstr ""
+"File {f} non trovato nel backup per la data {d}, prova a inserire una data "
+"successiva"
 
 #: src/EBox/EBackup.pm:204
 msgid ""
 "No backup archives found. Maybe they were deleted?. Run '/etc/init.d/ebox "
 "ebackup restart' to refresh backup's information."
 msgstr ""
+"Non è stato trovato nessun backup. Potrebbe essere stato cancellato? Esegui "
+"\"/etc/init.d/ebox ebackup restart\" per aggiornare le informazioni di backup."
 
 #: src/EBox/Event/Watcher/EBackup.pm:141
-#, fuzzy
 msgid "Check if eBox backup was not successful."
 msgstr "Controlla se il backup di ebox non è andato a buon fine."
 
@@ -51,7 +54,7 @@ msgstr ""
 #: src/EBox/Model/RemoteRestoreLogs.pm:88
 #, fuzzy
 msgid "There are not backed up files yet"
-msgstr "Non ci sono ancora informazioni sui file archiviati"
+msgstr "Non ci sono ancora files backuppati"
 
 #: src/EBox/Model/RemoteFileList.pm:162
 msgid "File"
@@ -60,7 +63,7 @@ msgstr "File"
 #: src/EBox/Model/RemoteFileList.pm:166 src/EBox/Model/RemoteRestoreConf.pm:93
 #: src/EBox/Model/RemoteRestoreLogs.pm:107
 msgid "Backup Date"
-msgstr "Data backup"
+msgstr "Data del backup"
 
 #: src/EBox/Model/RemoteFileList.pm:177
 msgid "Restore Files"
@@ -68,7 +71,7 @@ msgstr "Ripristina files"
 
 #: src/EBox/Model/RemoteFileList.pm:178
 msgid "file restore operation"
-msgstr "operazione di riprinstino"
+msgstr "operazione di ripristino"
 
 #: src/EBox/Model/RemoteFileList.pm:204
 msgid "File already exists if you continue the current will be deleted"
@@ -110,6 +113,8 @@ msgstr "Host o destinazione"
 #: src/EBox/Model/RemoteSettings.pm:169
 msgid "If the selected method is file system, only set the target directory"
 msgstr ""
+"Se il metodo selezionato è \"file system\", imposta solo la cartella di "
+"destinazione"
 
 #: src/EBox/Model/RemoteSettings.pm:173
 msgid "User"
@@ -162,15 +167,15 @@ msgstr "Partenza processo di backup alle"
 
 #: src/EBox/Model/RemoteSettings.pm:267
 msgid "Keep previous full copies"
-msgstr ""
+msgstr "Mantieni le copie complete precedenti"
 
 #: src/EBox/Model/RemoteSettings.pm:272
 msgid "maximum number"
-msgstr ""
+msgstr "numero massimo"
 
 #: src/EBox/Model/RemoteSettings.pm:280
 msgid "no older than"
-msgstr ""
+msgstr "non più vecchio di"
 
 #: src/EBox/Model/RemoteSettings.pm:294
 msgid "General Configuration"
@@ -178,44 +183,44 @@ msgstr "Configurazione generale"
 
 #: src/EBox/Model/RemoteSettings.pm:299
 msgid "General backup server configuration updated"
-msgstr ""
+msgstr "Configurazione generale del server aggiornata"
 
 #: src/EBox/Model/RemoteSettings.pm:312
 msgid "on Monday"
-msgstr ""
+msgstr "di Lunedì"
 
 #: src/EBox/Model/RemoteSettings.pm:313
 msgid "on Tuesday"
-msgstr ""
+msgstr "di Martedì"
 
 #: src/EBox/Model/RemoteSettings.pm:314
 msgid "on Wednesday"
-msgstr ""
+msgstr "di Mercoledì"
 
 #: src/EBox/Model/RemoteSettings.pm:315
 msgid "on Thursday"
-msgstr ""
+msgstr "di Giovedì"
 
 #: src/EBox/Model/RemoteSettings.pm:316
 msgid "on Friday"
-msgstr ""
+msgstr "di Venerdì"
 
 #: src/EBox/Model/RemoteSettings.pm:317
 msgid "on Saturday"
-msgstr ""
+msgstr "di Sabato"
 
 #: src/EBox/Model/RemoteSettings.pm:318
 msgid "on Sunday"
-msgstr ""
+msgstr "di Domenica"
 
 #: src/EBox/Model/RemoteSettings.pm:331
 #, perl-brace-format
 msgid "on the {mday}th"
-msgstr ""
+msgstr "il {mday} giorno"
 
 #: src/EBox/Model/RemoteSettings.pm:339
 msgid "on the last day"
-msgstr ""
+msgstr "nell'ultimo giorno"
 
 #: src/EBox/Model/RemoteSettings.pm:494
 #, perl-brace-format
@@ -224,58 +229,62 @@ msgid ""
 "keep on your eBox servers. Purchase the backup storage space you need at the "
 "{ohref}eBox on-line store{chref}."
 msgstr ""
+"{oi}{brand}{ci} è uno spazio remoto dedicato veloce e sicuro dove puoi "
+"archiviare i dati presenti nei tuoi server eBox. Acquista lo spazio sul sito "
+"di cui hai bisogno per i tuoi backups online su {ohref}eBox on-line "
+"store{chref}."
 
 #: src/EBox/Model/RemoteSettings.pm:511
 msgid "1 week"
-msgstr ""
+msgstr "1 settimana"
 
 #: src/EBox/Model/RemoteSettings.pm:515
 msgid "2 weeks"
-msgstr ""
+msgstr "2 settimane"
 
 #: src/EBox/Model/RemoteSettings.pm:519
 msgid "3 weeks"
-msgstr ""
+msgstr "3 settimane"
 
 #: src/EBox/Model/RemoteSettings.pm:523
 msgid "1 month"
-msgstr ""
+msgstr "1 mese"
 
 #: src/EBox/Model/RemoteSettings.pm:527
 msgid "2 months"
-msgstr ""
+msgstr "2 mesi"
 
 #: src/EBox/Model/RemoteSettings.pm:531
 msgid "3 months"
-msgstr ""
+msgstr "3 mesi"
 
 #: src/EBox/Model/RemoteSettings.pm:535
 msgid "4 months"
-msgstr ""
+msgstr "4 mesi"
 
 #: src/EBox/Model/RemoteSettings.pm:539
 msgid "6 months"
-msgstr ""
+msgstr "6 mesi"
 
 #: src/EBox/Model/RemoteSettings.pm:543
 msgid "9 months"
-msgstr ""
+msgstr "9 mesi"
 
 #: src/EBox/Model/RemoteSettings.pm:547
 msgid "1 year"
-msgstr ""
+msgstr "1 anno"
 
 #: src/EBox/Model/RemoteSettings.pm:551
 msgid "1 year and half"
-msgstr ""
+msgstr "1 anno e mezzo"
 
 #: src/EBox/Model/RemoteSettings.pm:555
 msgid "2 years"
-msgstr ""
+msgstr "2 anni"
 
 #: src/EBox/Model/RemoteSettings.pm:559
 msgid "3 years"
-msgstr ""
+msgstr "3 anni"
 
 #: src/EBox/Model/RemoteSettings.pm:591
 msgid "Destination must be a relative directory"
@@ -283,7 +292,7 @@ msgstr "La destinazione deve essere un percorso relativo"
 
 #: src/EBox/Model/RemoteSettings.pm:646
 msgid "The target parameter that must be like 'other.host[:port]/some_dir"
-msgstr ""
+msgstr "La destinazione deve essere nel formato: \"altro.host[:port]/cartella\""
 
 #: src/EBox/Model/RemoteSettings.pm:657 src/EBox/Model/RemoteSettings.pm:691
 msgid "target"
@@ -291,11 +300,11 @@ msgstr "Obiettivo"
 
 #: src/EBox/Model/RemoteSettings.pm:659
 msgid "Must be a like 'other.host[:port]/some_dir'"
-msgstr ""
+msgstr "Deve essere nel formato: \"altro.host[:port]/cartella\""
 
 #: src/EBox/Model/RemoteSettings.pm:666 src/EBox/Model/RemoteSettings.pm:701
 msgid "host"
-msgstr ""
+msgstr "host"
 
 #: src/EBox/Model/RemoteSettings.pm:668 src/EBox/Model/RemoteSettings.pm:703
 msgid "port"
@@ -310,12 +319,17 @@ msgid ""
 "The RSYNC target parameter that must be like 'other.host[:port]/"
 "relative_path' or 'other.host[:port]/absolute_path'"
 msgstr ""
+"Il parametro con cui specificare il server RSYNC di destinazione deve "
+"rispettare la seguente sintassi: 'altro.host[:porta]/relativo_percorso' "
+"oppure 'altro.host[:porta]/percorso_assoluto'"
 
 #: src/EBox/Model/RemoteSettings.pm:694
 msgid ""
 "Must be a like 'other.host[:port]/relative_path' or 'other.host[:port]/"
 "absolute_path'"
 msgstr ""
+"Deve rispettare la seguente sintassi: 'altro.host[:porta]/relativo_percorso' "
+"oppure 'altro.host[:porta]/percorso_assoluto'"
 
 #: src/EBox/Model/RemoteSettings.pm:706
 msgid "absolute directory"
@@ -341,14 +355,16 @@ msgstr "Il file esiste e non è una directory"
 #: src/EBox/Model/RemoteSettings.pm:758
 #, fuzzy
 msgid "Incremental backup must be more frequent than full backup"
-msgstr ""
-"Il backup completo non può essere più frequente del backup incrementale"
+msgstr "Il backup incrementale deve essere più frequente del backup completo"
 
 #: src/EBox/Model/RemoteSettings.pm:770
 msgid ""
 "General backup server configuration updated. SCP method selected; "
 "<em>remember</em> to add your target host to the list of known hosts by SSH"
 msgstr ""
+"La configurazione dei backup dell'intero server eBox è stata aggiornata. Hai "
+"scelto il metodo SCP; <em>ricorda</em> di aggiungere l'host di destinazione "
+"alla lista degli hosts conosciuti da SSH"
 
 #: src/EBox/Model/RemoteExcludes.pm:82
 msgid "Exclude or Include"
@@ -369,6 +385,10 @@ msgid ""
 "directory match is applied to all it contents. Files not explicitly excluded "
 "or included are included"
 msgstr ""
+"Files e cartelle sono escluse alla prima esclusione nella lista. "
+"L'esclusione di una cartella è applicata a tutti i suoi contenuti (è "
+"ricorsiva). I files non esplicitamente esclusi o inclusi saranno inclusi nel "
+"backup"
 
 #: src/EBox/Model/RemoteExcludes.pm:117
 msgid "Exclude path"
@@ -377,7 +397,7 @@ msgstr "Escludi percorso"
 #: src/EBox/Model/RemoteExcludes.pm:121
 #, fuzzy
 msgid "Exclude by regular expression"
-msgstr "Espressione regolare no corretta"
+msgstr "Escludi in base a una espressione regolare"
 
 #: src/EBox/Model/RemoteExcludes.pm:125
 msgid "Include Path"
@@ -389,11 +409,11 @@ msgstr "escludi percorso"
 
 #: src/EBox/Model/RemoteExcludes.pm:160
 msgid "exclude path regular expression"
-msgstr ""
+msgstr "escludi l'espressione regolare relativa al percorso"
 
 #: src/EBox/Model/RemoteExcludes.pm:162
 msgid "Incorrect regular expression"
-msgstr "Espressione regolare no corretta"
+msgstr "Espressione regolare non corretta"
 
 #: src/EBox/Model/RemoteExcludes.pm:183
 msgid "include path"
@@ -401,15 +421,15 @@ msgstr "includi percorso"
 
 #: src/EBox/Model/RemoteRestoreConf.pm:104
 msgid "Restore eBox configuration from backup"
-msgstr ""
+msgstr "Ripristina la configurazione del server eBox da un backup"
 
 #: src/EBox/Model/RemoteRestoreConf.pm:111
 msgid "Loads the configuration found in the backup"
-msgstr ""
+msgstr "Attiva la configurazione archiviata nel backup"
 
 #: src/EBox/Model/RemoteRestoreConf.pm:113
 msgid "Please wait..."
-msgstr ""
+msgstr "Attendere prego..."
 
 #: src/EBox/Model/RemoteRestoreConf.pm:169
 #, perl-brace-format
@@ -417,18 +437,20 @@ msgid ""
 "Configuration backup not found in backup for {d}. Maybe you could try "
 "another date?"
 msgstr ""
+"Il backup della configurazione di eBox non è stata trovata nel backup del "
+"{d}. Vuoi provare con un'altra data?"
 
 #: src/EBox/Model/RemoteRestoreLogs.pm:118
 msgid "Restore logs database"
-msgstr ""
+msgstr "Ripristina il database dei logs"
 
 #: src/EBox/Model/RemoteRestoreLogs.pm:125
 msgid "Restores the eBox logs found in the selected backup"
-msgstr ""
+msgstr "Ripristina i log di eBox archiviati nel backup selezionato"
 
 #: src/EBox/Composite/ServicesRestore.pm:64
 msgid "Services restore"
-msgstr ""
+msgstr "Ripristino dei servizi"
 
 #: src/EBox/Composite/RemoteGeneral.pm:65
 msgid "Configuration and Status"

@@ -9,8 +9,8 @@ msgstr ""
 "technologies.com\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "POT-Creation-Date: 2010-07-21 00:32+0200\n"
-"PO-Revision-Date: 2010-01-22 15:02+0100\n"
-"Last-Translator: Stasiak Krzysztof <stasiakk@gmail.com>\n"
+"PO-Revision-Date: 2010-08-24 19:47+0200\n"
+"Last-Translator: Robert Brzozowski <gnutar1@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -108,7 +108,7 @@ msgstr ""
 
 #: src/EBox/Model/RemoteSettings.pm:169
 msgid "If the selected method is file system, only set the target directory"
-msgstr ""
+msgstr "Jeśli wybrano metodę System plików, wskaż tylko katalog docelowy"
 
 #: src/EBox/Model/RemoteSettings.pm:173
 msgid "User"
@@ -120,12 +120,12 @@ msgstr "Hasło"
 
 #: src/EBox/Model/RemoteSettings.pm:183
 msgid "Encryption"
-msgstr ""
+msgstr "Szyfrowanie"
 
 #: src/EBox/Model/RemoteSettings.pm:188 src/EBox/Model/RemoteSettings.pm:240
 #: src/EBox/Model/RemoteSettings.pm:477
 msgid "Disabled"
-msgstr ""
+msgstr "Wyłączono"
 
 #: src/EBox/Model/RemoteSettings.pm:193
 msgid "Symmetric Key"
@@ -137,43 +137,43 @@ msgstr ""
 
 #: src/EBox/Model/RemoteSettings.pm:209
 msgid "Full Backup Frequency"
-msgstr ""
+msgstr "Częstotliwość pełnego backupu"
 
 #: src/EBox/Model/RemoteSettings.pm:214 src/EBox/Model/RemoteSettings.pm:245
 msgid "Daily"
-msgstr ""
+msgstr "Dziennie"
 
 #: src/EBox/Model/RemoteSettings.pm:219 src/EBox/Model/RemoteSettings.pm:250
 msgid "Weekly"
-msgstr ""
+msgstr "Tygodniowo"
 
 #: src/EBox/Model/RemoteSettings.pm:225
 msgid "Monthly"
-msgstr ""
+msgstr "Miesięcznie"
 
 #: src/EBox/Model/RemoteSettings.pm:235
 msgid "Incremental Backup Frequency"
-msgstr ""
+msgstr "Częstotliwość backupu przyrostowego"
 
 #: src/EBox/Model/RemoteSettings.pm:261
 msgid "Backup process starts at"
-msgstr ""
+msgstr "Godzina rozpoczęcia backupu"
 
 #: src/EBox/Model/RemoteSettings.pm:267
 msgid "Keep previous full copies"
-msgstr ""
+msgstr "Pozostaw wcześniejsze pełne kopie zapasowe"
 
 #: src/EBox/Model/RemoteSettings.pm:272
 msgid "maximum number"
-msgstr ""
+msgstr "maksymalna liczba kopii pełnych"
 
 #: src/EBox/Model/RemoteSettings.pm:280
 msgid "no older than"
-msgstr ""
+msgstr "nie starsze niż"
 
 #: src/EBox/Model/RemoteSettings.pm:294
 msgid "General Configuration"
-msgstr ""
+msgstr "Konfiguracja ogólna"
 
 #: src/EBox/Model/RemoteSettings.pm:299
 msgid "General backup server configuration updated"
@@ -181,31 +181,31 @@ msgstr ""
 
 #: src/EBox/Model/RemoteSettings.pm:312
 msgid "on Monday"
-msgstr ""
+msgstr "Poniedziałek"
 
 #: src/EBox/Model/RemoteSettings.pm:313
 msgid "on Tuesday"
-msgstr ""
+msgstr "Wtorek"
 
 #: src/EBox/Model/RemoteSettings.pm:314
 msgid "on Wednesday"
-msgstr ""
+msgstr "Środa"
 
 #: src/EBox/Model/RemoteSettings.pm:315
 msgid "on Thursday"
-msgstr ""
+msgstr "Czwartek"
 
 #: src/EBox/Model/RemoteSettings.pm:316
 msgid "on Friday"
-msgstr ""
+msgstr "Piątek"
 
 #: src/EBox/Model/RemoteSettings.pm:317
 msgid "on Saturday"
-msgstr ""
+msgstr "Sobota"
 
 #: src/EBox/Model/RemoteSettings.pm:318
 msgid "on Sunday"
-msgstr ""
+msgstr "Niedziela"
 
 #: src/EBox/Model/RemoteSettings.pm:331
 #, perl-brace-format
@@ -214,7 +214,7 @@ msgstr ""
 
 #: src/EBox/Model/RemoteSettings.pm:339
 msgid "on the last day"
-msgstr ""
+msgstr "ostatniego dnia"
 
 #: src/EBox/Model/RemoteSettings.pm:494
 #, perl-brace-format
@@ -223,58 +223,61 @@ msgid ""
 "keep on your eBox servers. Purchase the backup storage space you need at the "
 "{ohref}eBox on-line store{chref}."
 msgstr ""
+"{oi}{brand}{ci} jest szybkim i bezpiecznym zdalnym miejscem do tworzenia "
+"kopii zapasowej. Możesz kupić miejsce, którego potrzebujesz na {ohref}eBox "
+"on-line store{chref}"
 
 #: src/EBox/Model/RemoteSettings.pm:511
 msgid "1 week"
-msgstr ""
+msgstr "1 tydzień"
 
 #: src/EBox/Model/RemoteSettings.pm:515
 msgid "2 weeks"
-msgstr ""
+msgstr "2 tygodnie"
 
 #: src/EBox/Model/RemoteSettings.pm:519
 msgid "3 weeks"
-msgstr ""
+msgstr "3 tygodnie"
 
 #: src/EBox/Model/RemoteSettings.pm:523
 msgid "1 month"
-msgstr ""
+msgstr "1 miesiąc"
 
 #: src/EBox/Model/RemoteSettings.pm:527
 msgid "2 months"
-msgstr ""
+msgstr "2 miesiące"
 
 #: src/EBox/Model/RemoteSettings.pm:531
 msgid "3 months"
-msgstr ""
+msgstr "3 miesiące"
 
 #: src/EBox/Model/RemoteSettings.pm:535
 msgid "4 months"
-msgstr ""
+msgstr "4 miesiące"
 
 #: src/EBox/Model/RemoteSettings.pm:539
 msgid "6 months"
-msgstr ""
+msgstr "6 miesięcy"
 
 #: src/EBox/Model/RemoteSettings.pm:543
 msgid "9 months"
-msgstr ""
+msgstr "9 miesięcy"
 
 #: src/EBox/Model/RemoteSettings.pm:547
 msgid "1 year"
-msgstr ""
+msgstr "1 rok"
 
 #: src/EBox/Model/RemoteSettings.pm:551
 msgid "1 year and half"
-msgstr ""
+msgstr "1,5 roku"
 
 #: src/EBox/Model/RemoteSettings.pm:555
 msgid "2 years"
-msgstr ""
+msgstr "2 lata"
 
 #: src/EBox/Model/RemoteSettings.pm:559
 msgid "3 years"
-msgstr ""
+msgstr "3 lata"
 
 #: src/EBox/Model/RemoteSettings.pm:591
 msgid "Destination must be a relative directory"
@@ -294,15 +297,15 @@ msgstr ""
 
 #: src/EBox/Model/RemoteSettings.pm:666 src/EBox/Model/RemoteSettings.pm:701
 msgid "host"
-msgstr ""
+msgstr "Komputer"
 
 #: src/EBox/Model/RemoteSettings.pm:668 src/EBox/Model/RemoteSettings.pm:703
 msgid "port"
-msgstr ""
+msgstr "port"
 
 #: src/EBox/Model/RemoteSettings.pm:670
 msgid "directory"
-msgstr ""
+msgstr "katalog"
 
 #: src/EBox/Model/RemoteSettings.pm:680
 msgid ""
@@ -339,7 +342,7 @@ msgstr ""
 
 #: src/EBox/Model/RemoteSettings.pm:758
 msgid "Incremental backup must be more frequent than full backup"
-msgstr ""
+msgstr "Kopia przyrostowa musi być wykonywana częściej niż kopia pełna"
 
 #: src/EBox/Model/RemoteSettings.pm:770
 msgid ""

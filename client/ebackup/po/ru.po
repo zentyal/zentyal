@@ -9,20 +9,20 @@ msgstr ""
 "technologies.com\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "POT-Creation-Date: 2010-07-21 00:32+0200\n"
-"PO-Revision-Date: 2010-03-04 12:54+0100\n"
-"Last-Translator: Ilya Balzovskiy <ambi85@mail.ru>\n"
+"PO-Revision-Date: 2010-08-18 13:50+0200\n"
+"Last-Translator: Dmitry Salynin <dsalynin@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
-"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/EBackup.pm:72 src/EBox/Event/Watcher/EBackup.pm:123
 #: src/EBox/Composite/Remote.pm:65
 msgid "Backup"
-msgstr "Бэкап"
+msgstr "Резервное Копирование"
 
 #: src/EBox/EBackup.pm:197
 #, perl-brace-format
@@ -46,6 +46,8 @@ msgid ""
 "Logs backup data not found in backup for {d}. Maybe you could try another "
 "date?"
 msgstr ""
+"Логи резервного копирования данных не найдены в архиве для {d}. Попробуйте "
+"выбрать другую дату."
 
 #: src/EBox/Model/RemoteFileList.pm:143 src/EBox/Model/RemoteStatus.pm:119
 #: src/EBox/Model/RemoteRestoreConf.pm:74
@@ -77,12 +79,12 @@ msgstr "Файл уже существует, если вы продолжите
 
 #: src/EBox/Model/RemoteFileList.pm:220
 msgid "File restored successfully"
-msgstr "Файлы востановленны успешно"
+msgstr "Файлы успешно восстановлены"
 
 #: src/EBox/Model/RemoteFileList.pm:269
 #, perl-brace-format
 msgid "Remote URL to be used with duplicity for manual restores: {url}"
-msgstr "Удаленный URL  используемый для ручного восстановления: {url}"
+msgstr "Удаленный URL используемый для ручного восстановления: {url}"
 
 #: src/EBox/Model/RemoteStatus.pm:138 src/EBox/Model/RemoteExcludes.pm:76
 msgid "Type"
@@ -168,7 +170,7 @@ msgstr ""
 
 #: src/EBox/Model/RemoteSettings.pm:272
 msgid "maximum number"
-msgstr ""
+msgstr "Максимальный номер"
 
 #: src/EBox/Model/RemoteSettings.pm:280
 msgid "no older than"
@@ -184,31 +186,31 @@ msgstr "Общие настройки сервера бэкапа обновле
 
 #: src/EBox/Model/RemoteSettings.pm:312
 msgid "on Monday"
-msgstr ""
+msgstr "по понедельникам"
 
 #: src/EBox/Model/RemoteSettings.pm:313
 msgid "on Tuesday"
-msgstr ""
+msgstr "по вторникам"
 
 #: src/EBox/Model/RemoteSettings.pm:314
 msgid "on Wednesday"
-msgstr ""
+msgstr "по средам"
 
 #: src/EBox/Model/RemoteSettings.pm:315
 msgid "on Thursday"
-msgstr ""
+msgstr "по четвергам"
 
 #: src/EBox/Model/RemoteSettings.pm:316
 msgid "on Friday"
-msgstr ""
+msgstr "по пятницам"
 
 #: src/EBox/Model/RemoteSettings.pm:317
 msgid "on Saturday"
-msgstr ""
+msgstr "по субботам"
 
 #: src/EBox/Model/RemoteSettings.pm:318
 msgid "on Sunday"
-msgstr ""
+msgstr "по воскресеньям"
 
 #: src/EBox/Model/RemoteSettings.pm:331
 #, perl-brace-format

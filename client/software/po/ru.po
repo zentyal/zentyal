@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: ebox-software 0.12.1\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "POT-Creation-Date: 2010-08-13 13:42+0200\n"
-"PO-Revision-Date: 2010-01-28 16:12+0100\n"
+"PO-Revision-Date: 2010-08-23 17:51+0200\n"
 "Last-Translator: Vadim Glyshkov <plusv@yandex.ru>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
-"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Pootle 1.1.0\n"
 
 #: migration/0001_add_http_software_rule.pl:24
@@ -51,7 +51,7 @@ msgstr "Системные обновления"
 
 #: src/EBox/Software.pm:541 src/templates/config.mas:19
 msgid "Settings"
-msgstr ""
+msgstr "Настройки"
 
 #: src/EBox/Software.pm:680
 #, perl-brace-format
@@ -63,47 +63,43 @@ msgstr ""
 
 #: src/EBox/Software.pm:843
 msgid "Welcome"
-msgstr ""
+msgstr "Приветствуем"
 
 #: src/EBox/Software.pm:845
 msgid "Package Selection"
-msgstr ""
+msgstr "Выбор пакетов"
 
 #: src/EBox/Software.pm:846
 msgid "Confirmation"
-msgstr ""
+msgstr "Подтверждение"
 
 #: src/EBox/Software.pm:847
-#, fuzzy
 msgid "Installation"
 msgstr "Установка"
 
 #: src/EBox/Software.pm:848
-#, fuzzy
 msgid "Initial Configuration"
-msgstr "автоматическое обновление конфигурации"
+msgstr "Первоначальная конфигурация"
 
 #: src/EBox/Software.pm:849
 msgid "Save Changes"
-msgstr ""
+msgstr "Записать изменения"
 
 #: src/EBox/CGI/Config.pm:33
-#, fuzzy
 msgid "Software management settings"
-msgstr "Управление программным обеспечением"
+msgstr "Настройки управления ПО"
 
 #: src/EBox/CGI/Config.pm:43
 msgid "Automatic software updates"
-msgstr "Автоматическое обновление программного обеспечения"
+msgstr "Автоматическое обновление ПО"
 
 #: src/EBox/CGI/Enable.pm:43
 msgid "automatic updates configuration"
 msgstr "автоматическое обновление конфигурации"
 
 #: src/EBox/CGI/EBox.pm:36
-#, fuzzy
 msgid "Choose eBox packages to install"
-msgstr "пакеты отмечены для установки"
+msgstr "Выберите пакеты eBox для установки"
 
 #: src/EBox/CGI/EBox.pm:40
 msgid "eBox components"
@@ -126,27 +122,22 @@ msgid "There were no packages to update"
 msgstr "Нет пакетов для обновления"
 
 #: src/EBox/CGI/InstallPkgs.pm:165
-#, fuzzy
 msgid "Installing"
-msgstr "Установка"
+msgstr "Уставливается"
 
 #: src/EBox/CGI/InstallPkgs.pm:166
-#, fuzzy
 msgid "Installing packages"
-msgstr "Обновляемые пакеты"
+msgstr "Устанавливаются пакеты"
 
 #: src/EBox/CGI/InstallPkgs.pm:167 src/EBox/CGI/InstallPkgs.pm:191
-#, fuzzy
 msgid "Current operation"
-msgstr "Текущий пакет"
+msgstr "Текущая операция"
 
 #: src/EBox/CGI/InstallPkgs.pm:168
-#, fuzzy
 msgid "actions done"
-msgstr "Действия"
+msgstr "Произведённые действия"
 
 #: src/EBox/CGI/InstallPkgs.pm:169
-#, fuzzy
 msgid ""
 "The packages installation has finished successfully. The administration "
 "interface may become unresponsive for a few seconds. Please wait patiently "
@@ -154,7 +145,8 @@ msgid ""
 "redirected to the next step"
 msgstr ""
 "Установка пакетов завершена успешно. Интерфейс администрирования может не "
-"отвечать несколько секунд. Пожалуйста, дождитесь полного перезапуска"
+"отвечать несколько секунд. Пожалуйста, дождитесь полного перезапуска. Вы "
+"автоматически будете перенаправлены на следующий шаг."
 
 #: src/EBox/CGI/InstallPkgs.pm:174
 msgid ""
@@ -203,11 +195,11 @@ msgstr "Установка"
 
 #: src/templates/ebox.mas:168
 msgid "View advanced mode"
-msgstr ""
+msgstr "Переключить в расширенный режим."
 
 #: src/templates/ebox.mas:482
 msgid "View basic mode"
-msgstr ""
+msgstr "Переключить в основной режим."
 
 #: src/templates/del.mas:96
 msgid "The following packages will be installed"
@@ -228,10 +220,12 @@ msgstr "Отмена"
 #: src/templates/del.mas:149
 msgid "You may want to install also the following recommended packages:"
 msgstr ""
+"Рекомендуем вам установить следующие пакеты, необходимые для корректной "
+"работы:"
 
 #: src/templates/del.mas:152
 msgid "Layer 7 filtering for Traffic Shaping (ebox-l7-protocols)"
-msgstr ""
+msgstr "Layer 7 filtering for Traffic Shaping (ebox-l7-protocols)"
 
 #: src/templates/del.mas:155
 msgid "Virus scanning for File Sharing (ebox-antivirus and samba-vscan)"
@@ -259,9 +253,10 @@ msgid "Updates are available for the following system components"
 msgstr "Возможно обновление нескольких системных компонент"
 
 #: src/templates/updates.mas:26
-#, fuzzy
 msgid "Community updates are available for the following system components"
-msgstr "Возможно обновление нескольких системных компонент"
+msgstr ""
+"Обновление предоставляемые сообществом доступно для следующих системных "
+"компонент"
 
 #: src/templates/updates.mas:32
 msgid "Component"
@@ -276,14 +271,12 @@ msgid "Version"
 msgstr "Версия"
 
 #: src/templates/updates.mas:52
-#, fuzzy
 msgid "Security update"
-msgstr "Системные обновления"
+msgstr "Обновления безопасности"
 
 #: src/templates/updates.mas:55
-#, fuzzy
 msgid "eBox QA update"
-msgstr "eBox - eGroupware"
+msgstr "Обновления QA eBox"
 
 #: src/templates/updates.mas:77
 msgid "Update all packages"
@@ -299,12 +292,11 @@ msgstr ""
 
 #: src/templates/updates.mas:95
 msgid "Upgrade"
-msgstr "Обновление"
+msgstr "Обновить"
 
 #: src/templates/updates.mas:96
-#, fuzzy
 msgid "Update list"
-msgstr "Обновление"
+msgstr "Список обновлений"
 
 #: src/templates/updateNote.mas:10
 msgid ""

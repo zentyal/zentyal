@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-webserver 0.12\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "POT-Creation-Date: 2010-08-13 13:47+0200\n"
-"PO-Revision-Date: 2010-08-07 14:44+0200\n"
+"PO-Revision-Date: 2010-08-22 13:32+0200\n"
 "Last-Translator: Cyril MARTY <cyril_marty@yahoo.fr>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -97,12 +97,17 @@ msgid ""
 "Having installed and configured the Users and Groups module is required to "
 "allow HTML directories for users."
 msgstr ""
+"Le module \"Utilisateurs et Groupes\" doit être installé et configuré pour "
+"autoriser les répertoires HTML des utilisateurs."
 
 #: src/EBox/WebServer/Model/GeneralSettings.pm:147
 msgid ""
 "A properly configured Users and Groups module is required to allow HTML "
 "directories for users. To configure it, please enable it at least one time."
 msgstr ""
+"Le module \"Utilisateurs et Groupes\" doit être correctement configuré pour "
+"autoriser les répertoires HTML des utilisateurs. Pour configurer ce module, "
+"vous devez l'activer au moins une première fois."
 
 #: src/EBox/WebServer/Model/GeneralSettings.pm:237
 msgid "Listening SSL port"
@@ -135,16 +140,16 @@ msgid "General configuration settings"
 msgstr "Paramètres de configuration générale"
 
 #: src/EBox/WebServer/Model/GeneralSettings.pm:270
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "General Web server configuration. The listening port must not be used by "
 "another service. If you enable user to publish their own html pages, those "
 "should be loaded from {dirName} directory from their home directories."
 msgstr ""
 "Configuration générale du serveur Web. Le port d'écoute ne doit pas être "
-"utilisé par un autre service. Si vous autoriser les utilisateurs à publier "
-"leurs propres pages html, elles seront chargées depuis le répertoire "
-"{dirName} de leur répertoire personnel samba."
+"utilisé par un autre service. Si vous autorisez les utilisateurs à publier "
+"leurs propres pages html, elles devront être déposées dans le répertoire "
+"{dirName} de leur répertoire personnel."
 
 #: src/EBox/WebServer/Model/GeneralSettings.pm:276
 msgid "General Web server configuration settings updated."
@@ -222,7 +227,7 @@ msgid "Virtual hosts"
 msgstr "Hôtes virtuels"
 
 #: src/EBox/WebServer/Model/VHostTable.pm:302
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Virtual hosts are a form of web hosting service where many instances of the "
 "same web server are hosted on a single physical server. Different host names "
@@ -231,12 +236,13 @@ msgid ""
 "particular configuration you want to add must be placed in the {userConf} "
 "directory."
 msgstr ""
-"Les hôtes virtuels sont une forme de service d'hébergement Web sur lesquels "
-"plusieurs instances du même serveur sont hébergées dans le même serveur "
-"physique. Différents noms d'hôtes pointeront sur le même serveur Web. Les "
-"entrées DNS seront créées automatiquement si possible. Le contenu doit être "
-"placé dans le dossier {docRoot}. Quelconque configuration particulière doit "
-"être placée dans le dossier {userConf}."
+"Les hôtes virtuels sont une forme de service d'hébergement où plusieurs "
+"instances d'un même serveur Web sont hébergées sur un seul serveur physique. "
+"Les différents noms d'hôtes virtuels pointent vers le même serveur Web. Si "
+"possible, l'entrée DNS doit être créée automatiquement. Les pages Web "
+"doivent être placées sous le dossier {docRoot}. Toute configuration "
+"particulière que vous souhaiteriez ajouter, doit être placée dans le dossier "
+"{userConf}."
 
 #: src/EBox/WebServer/Model/VHostTable.pm:333
 #, perl-brace-format

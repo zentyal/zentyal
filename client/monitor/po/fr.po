@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: EBox-monitor 1.1\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "POT-Creation-Date: 2010-08-13 13:11+0200\n"
-"PO-Revision-Date: 2009-09-30 15:53+0200\n"
-"Last-Translator: Nicolas Liaudat <nliaudat@pompiers-chatel.ch>\n"
+"PO-Revision-Date: 2010-08-22 15:52+0200\n"
+"Last-Translator: Cyril MARTY <cyril_marty@yahoo.fr>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -380,7 +380,7 @@ msgid "Monitoring"
 msgstr "Monitorage"
 
 #: src/EBox/CGI/Index.pm:70
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "You must enable monitor module to see monitor graphs in {openhref}Module "
 "Status{closehref} section."
@@ -411,7 +411,7 @@ msgstr "Notifie lorsqu'une certaine valeur à atteint un certain seuil"
 
 #: src/EBox/Event/Watcher/Monitor.pm:264
 msgid "All data sources are within range again"
-msgstr ""
+msgstr "Toutes les sources de données sont à nouveau joignables"
 
 #: src/EBox/Event/Watcher/Monitor.pm:274
 #, perl-brace-format
@@ -436,16 +436,16 @@ msgid "That is below the {severity} threshold of {bound}."
 msgstr "C'est en-dessous de {severity} seuil de {bound}."
 
 #: src/EBox/Monitor.pm:148
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "{daemon} main configuration file"
-msgstr "Fichier de configuration principal Collectd"
+msgstr "Fichier principal de configuration de {daemon}"
 
 #: src/EBox/Monitor.pm:153
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "{daemon} thresholds configuration file"
-msgstr "Fichier de configuration des seuils Collectd"
+msgstr "Fichier de configuration des seuils de {daemon}"
 
 #: src/EBox/Monitor.pm:158
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "{daemon} default configuration file"
-msgstr "Fichier de configuration principal Collectd"
+msgstr "Fichier de configuration par défaut de {daemon}"

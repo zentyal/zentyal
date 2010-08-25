@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-software 0.12.1\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "POT-Creation-Date: 2010-08-13 13:42+0200\n"
-"PO-Revision-Date: 2010-08-08 02:11+0200\n"
+"PO-Revision-Date: 2010-08-24 02:24+0200\n"
 "Last-Translator: Vasco Castelo Branco <vcbranco@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -135,9 +135,8 @@ msgid "Current operation"
 msgstr "Operação actual"
 
 #: src/EBox/CGI/InstallPkgs.pm:168
-#, fuzzy
 msgid "actions done"
-msgstr "Acções"
+msgstr "Acções terminadas"
 
 #: src/EBox/CGI/InstallPkgs.pm:169
 msgid ""
@@ -299,9 +298,8 @@ msgid "Upgrade"
 msgstr "Actualização"
 
 #: src/templates/updates.mas:96
-#, fuzzy
 msgid "Update list"
-msgstr "Actualizar"
+msgstr "Lista de actualizações"
 
 #: src/templates/updateNote.mas:10
 msgid ""

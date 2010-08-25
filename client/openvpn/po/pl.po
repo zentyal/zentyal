@@ -8,20 +8,20 @@ msgstr ""
 "Project-Id-Version: ebox-openvpn 0.12\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "POT-Creation-Date: 2010-08-13 13:11+0200\n"
-"PO-Revision-Date: 2007-04-12 07:43+0000\n"
-"Last-Translator: Mariusz Zawadzki <majdom@gmail.com>\n"
+"PO-Revision-Date: 2010-08-25 15:09+0200\n"
+"Last-Translator: Robert Brzozowski <gnutar1@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n==0 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2);\n"
-"X-Generator: Pootle 0.10.1\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/OpenVPN/Server.pm:101
 #, perl-brace-format
 msgid "The port {p}/{pro} is already in use"
-msgstr ""
+msgstr "Port {p}/{pro} jest w użyciu"
 
 #: src/EBox/OpenVPN/Server.pm:200
 #, perl-brace-format
@@ -59,12 +59,12 @@ msgstr "Nie znaleziono adresu IP na interfejsie {iface}"
 
 #: src/EBox/OpenVPN/Server.pm:522
 msgid "OpenVPN servers cannot be used for internal services"
-msgstr ""
+msgstr "Nie można używać serwera OpenVPN do wewnętrznych usług"
 
 #: src/EBox/OpenVPN/Server.pm:546
 #, perl-brace-format
 msgid "Unsupported client type: {ct}"
-msgstr ""
+msgstr "Nieobsługiwany rodzaj klienta: {ct}"
 
 #: src/EBox/OpenVPN/Server.pm:742
 #, perl-brace-format
@@ -113,59 +113,58 @@ msgid "VPN subnet"
 msgstr "podsieć VPN"
 
 #: src/EBox/OpenVPN/Server.pm:763
-#, fuzzy
 msgid "VPN network interface"
-msgstr "maska podsieci prywatnej"
+msgstr "Interfejs sieci VPN"
 
 #: src/EBox/OpenVPN/Server.pm:767 src/EBox/OpenVPN/Server.pm:769
 #: src/EBox/OpenVPN/Client.pm:418 src/EBox/OpenVPN/Client.pm:420
 #, fuzzy
 msgid "VPN interface address"
-msgstr "adres sieciowy"
+msgstr "adres interfejsu VPN"
 
 #: src/EBox/OpenVPN/Server.pm:769 src/EBox/OpenVPN/Client.pm:420
 #, fuzzy
 msgid "No active"
-msgstr "Atywny"
+msgstr "Nieaktywny"
 
 #: src/EBox/OpenVPN/Client/ValidateCertificate.pm:47
 #, fuzzy, perl-brace-format
 msgid "Inexistent CA's certificate file {p}"
-msgstr "Nieistniejący plik {path}"
+msgstr "Nieistniejący plik certyfikatu CA {p}"
 
 #: src/EBox/OpenVPN/Client/ValidateCertificate.pm:54
 #, fuzzy, perl-brace-format
 msgid "Inexistent client's certificate file {p}"
-msgstr "Zmień certyfikat klienta"
+msgstr "Nieistniejący plik certyfikatu klienta  {p}"
 
 #: src/EBox/OpenVPN/Client/ValidateCertificate.pm:61
 #, perl-brace-format
 msgid "Inexistent certificate's private key file {p}"
-msgstr ""
+msgstr "Nieistniejący plik certyfikatu klucza prywatnego {p}"
 
 #: src/EBox/OpenVPN/Client/ValidateCertificate.pm:84
 msgid "File supplied as CA's certificate is not valid"
-msgstr ""
+msgstr "Plik dostarczony jako certyfikat CA jest nieważny"
 
 #: src/EBox/OpenVPN/Client/ValidateCertificate.pm:100
 msgid "File supplied as client's certificate is not valid"
-msgstr ""
+msgstr "Plik dostarczony jako certyfikat klienta jest nieważny"
 
 #: src/EBox/OpenVPN/Client/ValidateCertificate.pm:115
 msgid "File supplied as client's private key is not valid"
-msgstr ""
+msgstr "Plik dostarczony jako prywatny certyfikat klienta jest nieważny"
 
 #: src/EBox/OpenVPN/Client/ValidateCertificate.pm:128
 msgid ""
 "File supplied as client's certificate doesn't match with file supplied as "
 "CA's certificate"
-msgstr ""
+msgstr "Certyfikat klienta nie pasuje do certyfikatu urzędu certyfikacji CA"
 
 #: src/EBox/OpenVPN/Client/ValidateCertificate.pm:157
 msgid ""
 "File supplied as client's certificate doesn't match with file supplied as "
 "certificate's private key"
-msgstr ""
+msgstr "Certyfikat klienta nie pasuje do prywatnego klucza"
 
 #: src/EBox/OpenVPN/Types/TlsRemote.pm:52
 msgid "disabled"
@@ -177,6 +176,8 @@ msgid ""
 "VPN client should not be configured to connect to the address {addr} because "
 "is a address of the localhost itsef"
 msgstr ""
+"Nie można skonfigurować klienta VPN do łączenia z adresem {addr}, gdyż jest "
+"to adres lokalnego hosta"
 
 #: src/EBox/OpenVPN/Client.pm:261
 #, perl-brace-format
@@ -184,6 +185,8 @@ msgid ""
 "VPN client should not be configured to connect to the address {addr} because "
 "is a address of a local network interface"
 msgstr ""
+"Nie można skonfigurować klienta VPN do łączenia z adresem {addr}, gdyż jest "
+"to adres lokalnego interfejsu"
 
 #: src/EBox/OpenVPN/Client.pm:400
 #, perl-brace-format
@@ -203,16 +206,16 @@ msgstr "Port serwera"
 #: src/EBox/OpenVPN/Model/ServerConfiguration.pm:79
 #, fuzzy
 msgid "VPN address"
-msgstr "Adres sieciowy"
+msgstr "Adres sieci VPN"
 
 #: src/EBox/OpenVPN/Model/ServerConfiguration.pm:81
 msgid "Use a network address which is not used by this machine"
-msgstr ""
+msgstr "Użyj adres sieci, który nie jest używany przez ten komputer"
 
 #: src/EBox/OpenVPN/Model/ServerConfiguration.pm:87
 #, fuzzy
 msgid "Server certificate"
-msgstr "Certyfikat"
+msgstr "Certyfikat serwera"
 
 #: src/EBox/OpenVPN/Model/ServerConfiguration.pm:94
 msgid "Client authorization by common name"
@@ -224,15 +227,18 @@ msgid ""
 "connect. If enabled, only certificates whose common name begins with the "
 "selected value will be able to connect."
 msgstr ""
+"Jeśli wyłączysz tę opcję, każdy klient z certyfikatem wygenerowanym przez "
+"eBox będzie mógł się połączyć. Po włączeniu, tylko klienci z certyfikatem "
+"którego nazwa powszechna rozpoczyna się od zaznaczonej wartości uzyskają "
+"połączenie."
 
 #: src/EBox/OpenVPN/Model/ServerConfiguration.pm:105
-#, fuzzy
 msgid "Network Address Translation"
-msgstr "adres sieciowy"
+msgstr "Network Address Translation"
 
 #: src/EBox/OpenVPN/Model/ServerConfiguration.pm:108
 msgid "Enable it if you only have one network interface"
-msgstr ""
+msgstr "Włącz tą opcję, jeśli masz tylko jedną kartę sieciową"
 
 #: src/EBox/OpenVPN/Model/ServerConfiguration.pm:112
 msgid "Allow client-to-client connections"
@@ -241,6 +247,7 @@ msgstr "Zezwalaj na połączenia między klientami"
 #: src/EBox/OpenVPN/Model/ServerConfiguration.pm:115
 msgid "Enable it to allow client machines of this VPN to see each other"
 msgstr ""
+"Zaznacz, jeśli chcesz żeby komputery klienckie VPN widziały się wzajemnie"
 
 #: src/EBox/OpenVPN/Model/ServerConfiguration.pm:120
 msgid "Allow eBox-to-eBox tunnels"
@@ -248,12 +255,12 @@ msgstr "Zezwalaj na tunele eBox-do-eBox"
 
 #: src/EBox/OpenVPN/Model/ServerConfiguration.pm:123
 msgid "Enable it if this VPN is used to connect to another eBox"
-msgstr ""
+msgstr "Włącz to, jeśli VPN serwer łączy się z innym serwerem eBox"
 
 #: src/EBox/OpenVPN/Model/ServerConfiguration.pm:128
 #, fuzzy
 msgid "eBox-to-eBox tunnel password"
-msgstr "Zezwalaj na tunele eBox-do-eBox"
+msgstr "Hasło tunelu eBox-do-eBox"
 
 #: src/EBox/OpenVPN/Model/ServerConfiguration.pm:136
 msgid "Interface to listen on"
@@ -273,65 +280,71 @@ msgstr "Serwer"
 #: src/EBox/OpenVPN/Model/ServerConfiguration.pm:206
 #, fuzzy
 msgid "All network interfaces"
-msgstr "Wszystkie zewnętrzne interfejsy"
+msgstr "Wszystkie interfejsy sieciowe"
 
 #: src/EBox/OpenVPN/Model/ServerConfiguration.pm:259
 #, fuzzy
 msgid "eBox to eBox tunel option requieres a RIP password"
-msgstr "Zezwalaj na tunele eBox-do-eBox"
+msgstr "Opcja tunele eBox-do-eBox wymaga hasła RIP"
 
 #: src/EBox/OpenVPN/Model/ServerConfiguration.pm:279
 msgid ""
 "The VPN address could not be the same than one of its advertised networks"
-msgstr ""
+msgstr "Adres VPN nie może być taki sam jak adres Rozgłaszanych sieci"
 
 #: src/EBox/OpenVPN/Model/ServerConfiguration.pm:308
 msgid "Other server is listening on the same port"
-msgstr ""
+msgstr "Inny serwer nasłuchuje na tym porcie"
 
 #: src/EBox/OpenVPN/Model/ServerConfiguration.pm:355
 #, perl-brace-format
 msgid "Port {p} is not available"
-msgstr ""
+msgstr "Port {p} jest niedostępny"
 
 #: src/EBox/OpenVPN/Model/ServerConfiguration.pm:414
 #, fuzzy, perl-brace-format
 msgid "The interface {iface} does not exist"
-msgstr "Certyfikat {cn} nie istnieje."
+msgstr "Interfejs {iface} nie istnieje."
 
 #: src/EBox/OpenVPN/Model/ServerConfiguration.pm:419
 #, perl-brace-format
 msgid "The interface {iface} is not configured"
-msgstr ""
+msgstr "Interfejs {iface} nie jest skonfigurowany"
 
 #: src/EBox/OpenVPN/Model/ServerConfiguration.pm:440
 msgid ""
 "Cannot use Network Address translation because it requires the firewall "
 "module. The module is neither installed or activated"
 msgstr ""
+"Do poprawnej pracy NAT wymagany jest moduł firewall. Nie jest on "
+"zainstalowany ani uruchomiony."
 
 #: src/EBox/OpenVPN/Model/ServerConfiguration.pm:447
 msgid ""
 "Cannot use Network Address translation because it requires the firewall "
 "module enabled. Please activate it and try again"
 msgstr ""
+"Do poprawnej pracy NAT wymagany jest moduł firewall. Uruchom go i spróbuj "
+"ponownie."
 
 #: src/EBox/OpenVPN/Model/ServerConfiguration.pm:479
 msgid ""
 "At least one external interface is needed to connect to the server unless "
 "network address translation option is enabled"
 msgstr ""
+"Do połączenia z serwerem, przy włączonym NAT, wymagany jest przynajmniej "
+"jeden interfejs zewnętrzny"
 
 #: src/EBox/OpenVPN/Model/ServerConfiguration.pm:488
 msgid ""
 "The interface must be a external interface, unless Network Address "
 "Translation option is on"
-msgstr ""
+msgstr "Przy włączonym NAT interfejs musi być interfejsem zewnętrznym"
 
 #: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:59
 #, fuzzy
 msgid "Client's type"
-msgstr "Klienty"
+msgstr "Typ klienta"
 
 #: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:68
 #: src/EBox/OpenVPN/Model/ClientConfiguration.pm:111
@@ -340,11 +353,11 @@ msgstr "Certyfikat klienta"
 
 #: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:74
 msgid "Add OpenVPN's installer to bundle"
-msgstr ""
+msgstr "Dodaj instalator OpenVPN"
 
 #: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:76
 msgid "OpenVPN installer for Microsoft Windows"
-msgstr ""
+msgstr "Instalator OpenVPN dla systemu Windows"
 
 #: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:80
 #, fuzzy
@@ -356,57 +369,63 @@ msgid ""
 "This is the address that will be used by your clients to connect to the "
 "server. Typically, this will be a public IP or host name"
 msgstr ""
+"Publiczny adres IP lub nazwa serwera VPN, służące do łączenia z serwerem"
 
 #: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:88
 #: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:94
 #, fuzzy
 msgid "Additional server address (optional)"
-msgstr "Adres serwera"
+msgstr "Dodatkowy adres serwera (opcjonalnie)"
 
 #: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:103
 msgid "Download Client Bundle"
-msgstr ""
+msgstr "Pobierz paczkę dla klienta"
 
 #: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:140
 #, fuzzy
 msgid "eBox to eBox tunnel"
-msgstr "Zezwalaj na tunele eBox-do-eBox"
+msgstr "Tunel eBox-do-eBox"
 
 #: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:174
 msgid ""
 "Cannot make a bundle because the server  is not fully configured; please "
 "edit the configuration and retry"
 msgstr ""
+"Nie można utworzyć paczki, gdyż serwer nie jest całkowicie skonfigurowany, "
+"dokończ konfigurację"
 
 #: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:189
-#, fuzzy
 msgid "Cannot use for the bundle the server's certificate"
-msgstr ""
-"Kluczy prywatny, który został użyty do wystawienia certyfikatu klienta."
+msgstr "Nie można użyć certyfikatu serwera"
 
 #: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:209
 msgid "Invalid client type: the server does not allow eBox-to-eBox tunnels"
-msgstr ""
+msgstr "Niewłaściwy typ klienta: nie można utworzyć tunelu eBox-do-eBox"
 
 #: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:218
 msgid "Invalid client type: the server is intended for eBox-to-eBox tunnels"
 msgstr ""
+"Niewłaściwy typ klienta: serwer jest skonfigurowany do tunelu eBox-do-eBox"
 
 #: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:246
 msgid "Installer is only available for Windows clients"
-msgstr ""
+msgstr "Instalator tylko dla systemu Windows"
 
 #: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:296
 msgid ""
 "A client bundle is a file which contains a ready to use configuration for "
 "your clients"
 msgstr ""
+"Paczka dla klienta zawiera komplet certyfikatów, potrzebnych do "
+"skonfigurowania VPN na komputerze klienta"
 
 #: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:344
 msgid ""
 "Cannot make a bundle because the server  is not fully configured; please "
 "complete the configuration and retry"
 msgstr ""
+"Nie można utworzyć paczki, gdyż serwer nie jest całkowicie skonfigurowany, "
+"dokończ konfigurację i spróbuj ponownie"
 
 #: src/EBox/OpenVPN/Model/ExposedNetworks.pm:60
 #: src/EBox/OpenVPN/Model/ExposedNetworks.pm:75
@@ -417,13 +436,13 @@ msgstr "Rozgłaszane sieci"
 #: src/EBox/OpenVPN/Model/ExposedNetworks.pm:69
 #, fuzzy
 msgid "List of Advertised Networks"
-msgstr "Rozgłaszane sieci"
+msgstr "Lista rozgłaszanych sieci"
 
 #: src/EBox/OpenVPN/Model/ExposedNetworks.pm:101
 #, fuzzy
 msgid ""
 "The advertised network address could not be the same than the VPN address"
-msgstr "Nazwa klienta nie może być identyczna z nazwą serwera"
+msgstr "Adresy IP rozgłaszanej sieci nie mogą pokrywać się z adresami sieci VPN"
 
 #: src/EBox/OpenVPN/Model/ExposedNetworks.pm:126
 #, perl-brace-format
@@ -437,21 +456,21 @@ msgstr ""
 #: src/EBox/OpenVPN/Model/Clients.pm:75 src/EBox/OpenVPN/Model/Servers.pm:84
 #, fuzzy
 msgid "Configuration"
-msgstr "Konfiguracja klienta {name}"
+msgstr "Konfiguracja"
 
 #: src/EBox/OpenVPN/Model/ClientConfiguration.pm:69
 #, fuzzy
 msgid "Manual Configuration"
-msgstr "Konfiguracja klienta {name}"
+msgstr "Konfiguracja manualna"
 
 #: src/EBox/OpenVPN/Model/ClientConfiguration.pm:72
 msgid "eBox bundle"
-msgstr ""
+msgstr "Paczka eBox"
 
 #: src/EBox/OpenVPN/Model/ClientConfiguration.pm:78
 #, fuzzy
 msgid "Upload configuration's bundle"
-msgstr "Konfiguracja klienta {name} zaktualizowana."
+msgstr "Prześlij paczkę z konfiguracją"
 
 #: src/EBox/OpenVPN/Model/ClientConfiguration.pm:87
 msgid "Server"
@@ -468,12 +487,12 @@ msgstr "Klucz prywatny klienta"
 #: src/EBox/OpenVPN/Model/ClientConfiguration.pm:133
 #, fuzzy
 msgid "Server tunnel password"
-msgstr "Zezwalaj na tunele eBox-do-eBox"
+msgstr "Hasło tunelu serwera"
 
 #: src/EBox/OpenVPN/Model/ClientConfiguration.pm:144
 #, fuzzy
 msgid "Client configuration"
-msgstr "Konfiguracja klienta {name}"
+msgstr "Konfiguracja klienta"
 
 #: src/EBox/OpenVPN/Model/ClientConfiguration.pm:150
 #: src/EBox/OpenVPN/Model/Clients.pm:102
@@ -494,11 +513,11 @@ msgstr "Nazwa"
 #: src/EBox/OpenVPN/Model/DeletedDaemons.pm:57
 #, fuzzy
 msgid "Deleted daemons"
-msgstr "demony OpenVPN"
+msgstr "Usunięte demony"
 
 #: src/EBox/OpenVPN/Model/DeletedDaemons.pm:63
 msgid "daemon"
-msgstr ""
+msgstr "daemon"
 
 #: src/EBox/OpenVPN/Model/Clients.pm:67
 #, fuzzy
@@ -508,18 +527,20 @@ msgstr "Włączony"
 #: src/EBox/OpenVPN/Model/Clients.pm:94
 #, fuzzy
 msgid "List of Clients"
-msgstr "Rozgłaszane sieci"
+msgstr "Lista klientów"
 
 #: src/EBox/OpenVPN/Model/Clients.pm:95
 #, fuzzy
 msgid "VPN Clients"
-msgstr "Klienty"
+msgstr "Klienci VPN"
 
 #: src/EBox/OpenVPN/Model/Clients.pm:145
 msgid ""
 "Cannot activate the client because is not fully configured; please edit the "
 "configuration and retry"
 msgstr ""
+"Nie można aktywować klienta gdyż nie jest całkowicie skonfigurowany, dokończ "
+"konfigurację i spróbuj ponownie"
 
 #: src/EBox/OpenVPN/Model/Clients.pm:182
 msgid "RIP password is mandatory"
@@ -530,18 +551,19 @@ msgid "Advertised networks"
 msgstr "Rozgłaszane sieci"
 
 #: src/EBox/OpenVPN/Model/Servers.pm:102
+#, fuzzy
 msgid "Download client bundle"
-msgstr ""
+msgstr "Pobierz paczkę klienta"
 
 #: src/EBox/OpenVPN/Model/Servers.pm:114
 #, fuzzy
 msgid "List of servers"
-msgstr "usługa OpenVPN"
+msgstr "Lista serwerów"
 
 #: src/EBox/OpenVPN/Model/Servers.pm:115
 #, fuzzy
 msgid "VPN servers"
-msgstr "usługa OpenVPN"
+msgstr "Serwery VPN"
 
 #: src/EBox/OpenVPN/Model/Servers.pm:165
 #, perl-brace-format
@@ -554,20 +576,22 @@ msgstr ""
 #: src/EBox/OpenVPN/Model/Servers.pm:179
 #, fuzzy
 msgid "Server creation"
-msgstr "Tworzenie serwera OpenVPN"
+msgstr "Tworzenie serwera VPN"
 
 #: src/EBox/OpenVPN/Model/Servers.pm:284
 msgid ""
 "Cannot activate the server because  is not fully configured; please edit the "
 "configuration and retry"
 msgstr ""
+"Nie można aktywować serwera , gdyż nie jest całkowicie skonfigurowany, "
+"dokończ konfigurację i spróbuj ponownie"
 
 #: src/EBox/OpenVPN/Model/Servers.pm:292
 #, fuzzy
 msgid "Cannot create a server because there is not a CA certificate"
 msgstr ""
-"Nie mogę pobrać klucza serwera {name} ponieważ nie ma on przypisanego "
-"certyfikatu."
+"Nie mogę utworzyć serwera ponieważ nie istnieje certyfikat urzędu "
+"certyfikacji CA"
 
 #: src/EBox/OpenVPN/Model/Servers.pm:318
 #, perl-brace-format
@@ -575,6 +599,8 @@ msgid ""
 "{act} not possible because there aren't any available certificate. Please, "
 "go to the certificate authority module and create new certificates"
 msgstr ""
+"Nie można wykonać {act}, gdyż brak certyfikatów. Utwórz nowe certyfikaty w "
+"module urzędu certyfikacji CA"
 
 #: src/EBox/OpenVPN/Model/Servers.pm:331
 #, perl-brace-format
@@ -591,31 +617,32 @@ msgstr ""
 msgid ""
 "This bundle is not a valid eBox-to-eBox configuration bundle. (Cannot unpack "
 "it)"
-msgstr ""
+msgstr "Uszkodzona paczka, nie mogę rozpakować"
 
 #: src/EBox/OpenVPN/Server/ClientBundleGenerator/EBoxToEBox.pm:168
 msgid ""
 "This bundle is not a valid eBox-to-eBox configuration bundle. (Missing "
 "server configuration file)"
-msgstr ""
+msgstr "Ta paczka nie jest kompletna. Brakuje pliku konfiguracji serwera."
 
 #: src/EBox/OpenVPN/Server/ClientBundleGenerator/EBoxToEBox.pm:175
 msgid ""
 "This bundle is not a valid eBox-to-eBox configuration bundle. (Missing CA "
 "certificate file)"
 msgstr ""
+"Ta paczka nie jest kompletna. Brakuje certyfikatu urzędu certyfikacji CA."
 
 #: src/EBox/OpenVPN/Server/ClientBundleGenerator/EBoxToEBox.pm:182
 msgid ""
 "This bundle is not a valid eBox-to-eBox configuration bundle. (Missing "
 "certificate file)"
-msgstr ""
+msgstr "Ta paczka nie jest kompletna. Brakuje certyfikatu."
 
 #: src/EBox/OpenVPN/Server/ClientBundleGenerator/EBoxToEBox.pm:189
 msgid ""
 "This bundle is not a valid eBox-to-eBox configuration bundle. (Missing "
 "certificate private key file)"
-msgstr ""
+msgstr "Ta paczka nie jest kompletna. Brakuje certyfikatu klucza prywatnego."
 
 #: src/EBox/OpenVPN/Server/ClientBundleGenerator.pm:49
 msgid "Server's address"
@@ -633,7 +660,9 @@ msgstr "Nie można uzyskać adresu tego serwera: brak zewnętrznych interfejsów
 #: src/EBox/OpenVPN/Server/ClientBundleGenerator.pm:215
 #, fuzzy
 msgid "The client certificate can't be the same than the server's one"
-msgstr "Nazwa klienta nie może być identyczna z nazwą serwera"
+msgstr ""
+"Nazwa certyfikatu klienta nie może być identyczna z nazwą certyfikatu "
+"serwera"
 
 #: src/EBox/OpenVPN.pm:73
 #, fuzzy
@@ -642,16 +671,16 @@ msgstr "OpenVPN"
 
 #: src/EBox/OpenVPN.pm:158
 msgid "To configure Quagga to run ripd and zebra"
-msgstr ""
+msgstr "W celu skonfigurowania Quagga musisz włączyć ripd i zebra."
 
 #: src/EBox/OpenVPN.pm:164
 msgid "To configure Quagga to listen on the given interfaces"
-msgstr ""
+msgstr "Skonfiguruj Quagga do nasłuchiwania na podanych interfejsach."
 
 #: src/EBox/OpenVPN.pm:169
 #, fuzzy
 msgid "Main zebra configuration file"
-msgstr "Konfiguracja klienta {name}"
+msgstr "Główny plik konfiguracyjny zebra"
 
 #: src/EBox/OpenVPN.pm:175
 msgid "To configure ripd to exchange routes with client to client connections"
@@ -663,18 +692,18 @@ msgid ""
 "Invalid name {name}. Only alpahanumeric  and '-', '_', '.' characters are "
 "allowed"
 msgstr ""
-"Nazwa {name} jest niedozwolona dla demona OpenVPN. Dozwolone są znaki "
-"alfanumeryczne oraz podkreślenia."
+"Nazwa {name} zawiera niedozwolone znaki. Użyj znaków alfanumerycznych oraz "
+"'-', '_', '.'"
 
 #: src/EBox/OpenVPN.pm:689
 #, perl-brace-format
 msgid "Cannot use the name {n} because there is a client with the same name"
-msgstr ""
+msgstr "Nie mogę użyć nazwy {n}, gdyż istnieje klient o tej samej nazwie"
 
 #: src/EBox/OpenVPN.pm:700
 #, perl-brace-format
 msgid "Cannot use the name {n} because there is a server with the same name"
-msgstr ""
+msgstr "Nie mogę użyć nazwy {n}, gdyż istnieje serwer o tej samej nazwie"
 
 #: src/EBox/OpenVPN.pm:722
 #, perl-brace-format
@@ -682,6 +711,8 @@ msgid ""
 "Invalid name {name}. Name which begins with the prefix {pf} are reserved for "
 "internal use"
 msgstr ""
+"Niedozwolona nazwa {name}. Nazwy rozpoczynające się prefiksem {pf} są "
+"zarezerwowane przez system"
 
 #: src/EBox/OpenVPN.pm:731
 #, perl-brace-format
@@ -689,11 +720,12 @@ msgid ""
 "Invalid name {name}. A internal daemon must have a name which begins with "
 "the prefix {pf}"
 msgstr ""
+"Niedozwolona nazwa {name}. Nazwa daemona musi zaczynać się prefiksem {pf}"
 
 #: src/EBox/OpenVPN.pm:1457
 #, fuzzy, perl-brace-format
 msgid "Client {c} does not exists"
-msgstr "Certyfikat {cn} nie istnieje."
+msgstr "Certyfikat {c} nie istnieje."
 
 #: src/EBox/OpenVPN.pm:1485
 msgid "Servers"
@@ -701,12 +733,12 @@ msgstr "Serwery"
 
 #: src/EBox/OpenVPN.pm:1491
 msgid "Clients"
-msgstr "Klienty"
+msgstr "Klienci"
 
 #: src/EBox/OpenVPN.pm:1504
 #, fuzzy
 msgid "Common name"
-msgstr "Nazwa klienta"
+msgstr "Nazwa powszechna"
 
 #: src/EBox/OpenVPN.pm:1504
 #, fuzzy
@@ -716,11 +748,11 @@ msgstr "Adres sieciowy"
 #: src/EBox/OpenVPN.pm:1504
 #, fuzzy
 msgid "Connected since"
-msgstr "Cel połączenia"
+msgstr "Czas rozpoczęcia połączenia"
 
 #: src/EBox/OpenVPN.pm:1531
 msgid "No users connected to the VPN"
-msgstr ""
+msgstr "Brak połączonych użytkowników"
 
 #: src/EBox/OpenVPN.pm:1572
 msgid "OpenVPN daemons"
@@ -729,64 +761,61 @@ msgstr "demony OpenVPN"
 #: src/EBox/OpenVPN.pm:1634
 #, fuzzy
 msgid "Date"
-msgstr "Stwórz"
+msgstr "Data"
 
 #: src/EBox/OpenVPN.pm:1635
+#, fuzzy
 msgid "Event"
-msgstr ""
+msgstr "Zdarzenie"
 
 #: src/EBox/OpenVPN.pm:1637
+#, fuzzy
 msgid "Type"
-msgstr ""
+msgstr "Typ"
 
 #: src/EBox/OpenVPN.pm:1638
 msgid "Remote IP"
-msgstr ""
+msgstr "Zdalny IP"
 
 #: src/EBox/OpenVPN.pm:1639
-#, fuzzy
 msgid "Remote Certificate"
-msgstr "Certyfikat"
+msgstr "Zdalny certyfikat"
 
 #: src/EBox/OpenVPN.pm:1644
 msgid "Initialization sequence completed"
-msgstr ""
+msgstr "Połączenie zostało zrealizowane"
 
 #: src/EBox/OpenVPN.pm:1646
 msgid "Certificate issuer not authorized"
-msgstr ""
+msgstr "Nieautoryzowany wydawca certyfikatu"
 
 #: src/EBox/OpenVPN.pm:1647
 msgid "Certificate common name not authorized"
-msgstr ""
+msgstr "Brak autoryzacji certyfikatu po nazwie powszechnej "
 
 #: src/EBox/OpenVPN.pm:1648
 msgid "Certificate verification failed"
-msgstr ""
+msgstr "Weryfikacja certyfikatu zakończona niepowodzeniem"
 
 #: src/EBox/OpenVPN.pm:1650
-#, fuzzy
 msgid "Client connection initiated"
-msgstr "Certyfikat klienta"
+msgstr "Zainicjowano połączenie klienta"
 
 #: src/EBox/OpenVPN.pm:1651
-#, fuzzy
 msgid "Client connection terminated"
-msgstr "Certyfikat klienta"
+msgstr "Połączenie klienta zostało przerwane"
 
 #: src/EBox/OpenVPN.pm:1653
-#, fuzzy
 msgid "Connection to server initiated"
-msgstr "Cel połączenia"
+msgstr "Zainicjowano połączenie serwera"
 
 #: src/EBox/OpenVPN.pm:1654
-#, fuzzy
 msgid "Server connection terminated"
-msgstr "Konfiguracja serwera {name} zaktualizowana."
+msgstr "Połączenia serwera zostało przerwane"
 
 #: src/EBox/OpenVPN.pm:1683
 msgid "You must set insecure_rip_conf to yes or no"
-msgstr ""
+msgstr "Musisz ustawić insecure_rip_conf na Tak lub Nie"
 
 #~ msgid "OpenVPN"
 #~ msgstr "OpenVPN"

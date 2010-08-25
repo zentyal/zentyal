@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-remoteservices 1.1\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "POT-Creation-Date: 2010-08-13 13:41+0200\n"
-"PO-Revision-Date: 2010-08-10 23:08+0200\n"
+"PO-Revision-Date: 2010-08-24 01:46+0200\n"
 "Last-Translator: Vasco Castelo Branco <vcbranco@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -184,9 +184,8 @@ msgid "The following users have {level} passwords: {users}."
 msgstr "os seguintes utilizadores têm palavras-passe {level}: {users}"
 
 #: src/EBox/RemoteServices/SupportAccess.pm:68
-#, fuzzy
 msgid "Cannot get the restricted addresses for remote support"
-msgstr "Não é possível gerir os endereços para o suporte remoto"
+msgstr "Não é possível obter os endereços restritos para o suporte remoto"
 
 #: src/EBox/RemoteServices/SupportAccess.pm:128
 #, perl-brace-format
@@ -342,7 +341,6 @@ msgstr ""
 "remoto esteja activado"
 
 #: src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:129
-#, fuzzy
 msgid ""
 "To restrict addresses you need that your eBox is subscribed to the Control "
 "Center. Either subscribe it or allow access from any address"
@@ -351,7 +349,7 @@ msgstr ""
 "de controle. Subscreva ou permita o acesso a partir de qualquer endereço"
 
 #: src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:140
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Enabling remote support will allow staff from eBox technologies to freely "
 "access your computer.\n"

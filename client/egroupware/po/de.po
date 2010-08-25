@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: ebox-egroupware 1.1\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "POT-Creation-Date: 2010-06-02 20:31+0200\n"
-"PO-Revision-Date: 2009-06-21 19:11+0200\n"
-"Last-Translator: stefan gerstl <ebox@gerstl.cc>\n"
+"PO-Revision-Date: 2010-08-18 01:03+0200\n"
+"Last-Translator: Private <jkmakowka@yahoo.de>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -17,10 +17,10 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 1.1.0\n"
 
+# maybe just Groupware
 #: src/EBox/EGroupware.pm:49
-#, fuzzy
 msgid "Groupware"
-msgstr "eGroupware"
+msgstr "Gruppensoftware"
 
 #: src/EBox/EGroupware.pm:97
 msgid "Create PostgreSQL user egroupware"
@@ -71,17 +71,16 @@ msgid "application"
 msgstr "Anwendung"
 
 #: src/EBox/Model/DefaultApplications.pm:50
-#, fuzzy
 msgid "Default Applications"
-msgstr "Standartanwendungen"
+msgstr "Standardanwendungen"
 
 #: src/EBox/Model/DefaultApplications.pm:51
 msgid ""
 "These are the default application permissions that are given to the new "
 "created users or existing ones before enabling eGroupware module."
 msgstr ""
-"Dies sind die Standart Benutzerrechte die neu Angelegten Benutzern oder "
-"vorhandenen Benutzern gegeben werden, bevor die eGroupware Module Aktiviert "
+"Dies sind die Standardbenutzerrechte die neu angelegten Benutzern oder "
+"vorhandenen Benutzern gegeben werden, bevor die eGroupware Module aktiviert "
 "werden."
 
 #: src/EBox/Model/PermissionTemplates.pm:66
@@ -89,13 +88,12 @@ msgid "Name"
 msgstr "Name"
 
 #: src/EBox/Model/PermissionTemplates.pm:72
-#, fuzzy
 msgid "Allowed Applications"
-msgstr "Anwendungen"
+msgstr "Erlaubte Anwendungen"
 
 #: src/EBox/Model/PermissionTemplates.pm:81
 msgid "User Defined Permission Templates"
-msgstr ""
+msgstr "Nutzerdefinierte Berechtigungsvorlagen"
 
 # ggf. auch Schablone
 #: src/EBox/Model/PermissionTemplates.pm:85
@@ -103,24 +101,25 @@ msgid "template"
 msgstr "Vorlage"
 
 #: src/EBox/Model/PermissionTemplates.pm:86
-#, fuzzy
 msgid ""
 "Edit the permission templates with the allowed applications that can be "
 "assigned to users or groups."
 msgstr ""
-"Bearbeite die Berechtigungs-Vorlagen mit den erlaubten Anwendungen, damit "
-"diese Gruppen oder Benutzern zugewiesen werden können."
+"Bearbeite die Berechtigungsvorlagen um die erlaubten Anwendungen den Gruppen "
+"oder Benutzern zuzuweisen."
 
 #: src/EBox/Model/VMailDomain.pm:54
 msgid "No domain selected"
 msgstr "Keine Domäne ausgewählt"
 
 #: src/EBox/Model/VMailDomain.pm:100
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "You must have at least one virtual mail domain defined. You can define the "
 "at {ohref}Virtual Domains section{chref}"
-msgstr "Sie müssen mindestens eine virutelle Domäne definieren."
+msgstr ""
+"Sie müssen mindestens eine virtuelle Domäne definieren. Sie können diese "
+"definieren in {ohref}Virtual Domains section{chref}"
 
 #: src/EBox/Model/VMailDomain.pm:109
 #, perl-brace-format
@@ -128,13 +127,15 @@ msgid ""
 "You must have IMAP service enabled. You can enable it at {ohref} Mail "
 "General Configuration{chref}."
 msgstr ""
+"Sie müssen den IMAP Service aktiviert haben. Aktivieren Sie ihn hier:  "
+"{ohref} Mail General Configuration{chref}."
 
 #: src/EBox/Model/VMailDomain.pm:137
 msgid ""
 "The deleted virtual domain was selected for eGroupware. Maybe you want to "
 "select another one now."
 msgstr ""
-"Die gelösche virtuelle Domäne war für eGroupware ausgewählt. Eventuell "
+"Die gelöschte virtuelle Domäne war für eGroupware ausgewählt. Eventuell "
 "möchten Sie nun eine andere auswählen. "
 
 #: src/EBox/Model/VMailDomain.pm:152
@@ -143,14 +144,13 @@ msgstr "Virtuelle Domäne"
 
 #: src/EBox/Model/VMailDomain.pm:161
 msgid "Virtual Mail Domain"
-msgstr "Virtuelle Mail Domäne"
+msgstr "Virtuelle Maildomäne"
 
 #: src/EBox/Model/VMailDomain.pm:166
 msgid "Select the virtual mail domain to be used for eGroupware"
-msgstr "Wählen Sie die virtuelle Mail Domäne, die Egroupware nutzen soll."
+msgstr "Wählen Sie die virtuelle Maildomäne, die eGroupware nutzen soll."
 
 #: src/EBox/Composite/General.pm:76
-#, fuzzy
 msgid "eGroupware"
 msgstr "eGroupware"
 
@@ -159,42 +159,42 @@ msgid ""
 "Once the module is enabled and you have created a user account, you can "
 "access the eGroupware web interface at http://<ebox_ip>/egroupware"
 msgstr ""
+"Sobald das Modul aktiviert ist und Sie einen Benutzerzugang erstellt haben, "
+"können Sie auf die eGroupware Weboberfläche zugreifen: "
+"http://<ebox_ip>/egroupware "
 
 #: src/EBox/Composite/General.pm:89
-#, fuzzy
 msgid "EGroupware"
-msgstr "eGroupware"
+msgstr "EGroupware"
 
 #: src/templates/egroupware.mas:9
-#, fuzzy
 msgid "eGroupware account"
-msgstr "eGroupware"
+msgstr "eGroupware Benutzerzugang"
 
 #: src/templates/egroupware.mas:10
 msgid "Password for eGroupware service is the user password"
-msgstr ""
+msgstr "Das Passwort für den eGroupware Service ist das Benutzerpasswort"
 
 #: src/templates/egroupware.mas:12
-#, fuzzy
 msgid "eGroupware group"
-msgstr "eGroupware"
+msgstr "eGroupware Gruppe"
 
 #: src/templates/egroupware.mas:28
-#, fuzzy
 msgid "Permissions template"
-msgstr "Zugriffsberechtigungs Vorlagen festgelegt vom Benutzer"
+msgstr "Berechtigungsvorlage"
 
 #: src/templates/egroupware.mas:39
 msgid "Default"
-msgstr ""
+msgstr "Standard"
 
+# Maybe "wechseln"?
 #: src/templates/egroupware.mas:52 src/templates/egroupware.mas:53
 msgid "Change"
-msgstr ""
+msgstr "Ändern"
 
 #: src/templates/egroupware.mas:85
 msgid "Click here to select a virtual domain"
-msgstr ""
+msgstr "Klicken Sie hier um eine virtuelle Domäne auszuwählen"
 
 #~ msgid "DefaultApplications"
 #~ msgstr "Standartanwendungen"

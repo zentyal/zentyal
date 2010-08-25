@@ -3,8 +3,8 @@ msgstr ""
 "Project-Id-Version: ebox-samba 0.12\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "POT-Creation-Date: 2010-07-21 00:42+0200\n"
-"PO-Revision-Date: 2010-02-04 11:57+0100\n"
-"Last-Translator: Daniel F <sek@daniel2k.de>\n"
+"PO-Revision-Date: 2010-08-15 12:01+0200\n"
+"Last-Translator: J. Schwieder <j.schwieder@gmx.de>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -17,9 +17,8 @@ msgid "File sharing (Samba) protocol"
 msgstr "Dateifreigabe-Protokoll (Samba)"
 
 #: src/EBox/SambaLdapUser.pm:287
-#, fuzzy
 msgid "This user has a sharing directory associated which contains data."
-msgstr "Dieser Benutzer hat eine Freigabe zugeordnet, welche Daten enthält"
+msgstr "Diesem Benutzer ist eine Freigabe zugeordnet, welche Daten enthält."
 
 #: src/EBox/SambaLdapUser.pm:346 src/EBox/SambaLdapUser.pm:364
 #, perl-brace-format
@@ -47,9 +46,8 @@ msgid "Group {g} is not a samba group"
 msgstr "Gruppe {g} ist keine Samba-Gruppe"
 
 #: src/EBox/SambaLdapUser.pm:414
-#, fuzzy
 msgid "This group has a sharing directory associated that contains data."
-msgstr "Diese Gruppe hat eine Freigabe, welche Daten enthält"
+msgstr "Dieser Gruppe ist eine Freigabe zugeordnet, welche Daten enthält."
 
 #: src/EBox/SambaLdapUser.pm:612
 #, perl-brace-format
@@ -63,9 +61,8 @@ msgid "group name"
 msgstr "Gruppenname"
 
 #: src/EBox/SambaLdapUser.pm:729
-#, fuzzy
 msgid "A name should be provided for the share."
-msgstr "Ein Name sollte für die Freigabe angegeben werden"
+msgstr "Für die Freigabe sollte ein Name angegeben werden."
 
 #: src/EBox/SambaLdapUser.pm:737
 msgid "sharing resource"
@@ -208,11 +205,11 @@ msgstr "Kommentar"
 
 #: src/EBox/Samba/Model/SambaShares.pm:132
 msgid "Guest access"
-msgstr ""
+msgstr "Gast-Zugriff"
 
 #: src/EBox/Samba/Model/SambaShares.pm:135
 msgid "This share will not require authentication."
-msgstr ""
+msgstr "Diese Freigabe erfordert keine Authentifizierung."
 
 #: src/EBox/Samba/Model/SambaShares.pm:139
 msgid "Access control"
@@ -277,6 +274,7 @@ msgstr "Benutzer/Gruppe"
 #: src/EBox/Samba/Model/SambaSharePermissions.pm:176
 msgid "Any access control is disabled if the guest access is allowed."
 msgstr ""
+"Jede Zugriffkontrolle ist deaktiviert, wenn der Gast-Zugriff erlaubt ist."
 
 #: src/EBox/Samba/Model/SambaSharePermissions.pm:207 src/EBox/Samba.pm:631
 #: src/EBox/Samba.pm:1646 src/templates/ajax/viewer/shareViewer.mas:8
@@ -303,14 +301,13 @@ msgid "ACL"
 msgstr "ACL"
 
 #: src/EBox/Samba/Model/SambaSharePermissions.pm:250
-#, fuzzy
 msgid ""
 "Be careful if you grant <i>administrator</i> privileges.User will be able to "
 "read and write any file in the share."
 msgstr ""
 "Seien Sie vorsichtig beim Vergeben von <i>Administrator</i> Privilegien. "
-"Benutzer sind dann in der Lage jede Datei in der Freigabe zu lesen und zu "
-"schreiben"
+"Benutzer sind dann in der Lage, jede Datei in der Freigabe zu lesen und zu "
+"schreiben."
 
 #: src/EBox/Samba/Model/SambaSharePermissions.pm:260
 #, fuzzy
@@ -438,12 +435,10 @@ msgid "Antivirus"
 msgstr "Antivirus"
 
 #: src/EBox/Samba.pm:90
-#, fuzzy
 msgid "Create Samba home directory for shares and groups"
 msgstr "Erstelle Samba Home-Verzeichnis für Benutzer und Gruppen"
 
 #: src/EBox/Samba.pm:91
-#, fuzzy
 msgid ""
 "eBox will create the directories for Samba shares and groups under /home/"
 "samba."
@@ -468,33 +463,28 @@ msgstr "Setze das Passwort des DN LDAP-Admin"
 #: src/EBox/Samba.pm:103
 msgid "eBox will configure Samba to use the LDAP admin dn password."
 msgstr ""
-"ebox wird Samba so konfigurieren, dass es Passwort der DN \"LDAP admin\"  "
-"verwendet"
+"ebox wird Samba so konfigurieren, dass es das Passwort der DN \"LDAP admin\"  "
+"verwendet."
 
 #: src/EBox/Samba.pm:119
-#, fuzzy
 msgid "To set up Samba according to your configuration."
-msgstr "Um Samba gemäß Ihrer Konfiguration einzurichten"
+msgstr "Um Samba gemäß Ihrer Konfiguration einzurichten."
 
 #: src/EBox/Samba.pm:124
-#, fuzzy
 msgid "To set up smbldap-tools according to your configuration."
-msgstr "Um smbldap-tools gemäß Ihrer Konfiguration einzurichten"
+msgstr "Um smbldap-tools gemäß Ihrer Konfiguration einzurichten."
 
 #: src/EBox/Samba.pm:130
-#, fuzzy
 msgid "To set up smbldap-tools according to your LDAP configuration."
-msgstr "Um smbldap-tools gemäß Ihrer LDAP-Konfiguration einzurichten"
+msgstr "Um smbldap-tools gemäß Ihrer LDAP-Konfiguration einzurichten."
 
 #: src/EBox/Samba.pm:136
-#, fuzzy
 msgid "To add quota support to /home partition."
-msgstr "Um Speicherplatzbegrenzung für die /home-Partition hinzuzufügen"
+msgstr "Um Speicherplatzbegrenzung für die /home-Partition hinzuzufügen."
 
 #: src/EBox/Samba.pm:141
-#, fuzzy
 msgid "To set the antivirus settings for Samba."
-msgstr "Die Antivirus-Einstellungen für Samba erstellen"
+msgstr "Die Antivirus-Einstellungen für Samba erstellen."
 
 #: src/EBox/Samba.pm:610 src/EBox/Samba.pm:631
 msgid "Source machine"

@@ -9,8 +9,8 @@ msgstr ""
 "technologies.com\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "POT-Creation-Date: 2010-07-21 00:32+0200\n"
-"PO-Revision-Date: 2009-08-04 05:39+0200\n"
-"Last-Translator: Chao-Hsiung Liao <j_h_liau@yahoo.com.tw>\n"
+"PO-Revision-Date: 2010-08-17 17:37+0200\n"
+"Last-Translator: Chang Chih-Wei <coldnight.tw@yahoo.com.tw>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -31,7 +31,7 @@ msgstr ""
 msgid ""
 "No backup archives found. Maybe they were deleted?. Run '/etc/init.d/ebox "
 "ebackup restart' to refresh backup's information."
-msgstr ""
+msgstr "未發現備份結構。也許已被刪除，請執行'/etc/init.d/ebox ebackup restart'以更新備份資訊。"
 
 #: src/EBox/Event/Watcher/EBackup.pm:141
 #, fuzzy
@@ -43,39 +43,39 @@ msgstr "檢查 eBox 備份是否成功。"
 msgid ""
 "Logs backup data not found in backup for {d}. Maybe you could try another "
 "date?"
-msgstr ""
+msgstr "{d}未發現備份紀錄。是否要查詢其他日期？"
 
 #: src/EBox/Model/RemoteFileList.pm:143 src/EBox/Model/RemoteStatus.pm:119
 #: src/EBox/Model/RemoteRestoreConf.pm:74
 #: src/EBox/Model/RemoteRestoreLogs.pm:88
 msgid "There are not backed up files yet"
-msgstr ""
+msgstr "沒有備份檔案"
 
 #: src/EBox/Model/RemoteFileList.pm:162
 msgid "File"
-msgstr ""
+msgstr "檔案"
 
 #: src/EBox/Model/RemoteFileList.pm:166 src/EBox/Model/RemoteRestoreConf.pm:93
 #: src/EBox/Model/RemoteRestoreLogs.pm:107
 #, fuzzy
 msgid "Backup Date"
-msgstr "備份"
+msgstr "備份日期"
 
 #: src/EBox/Model/RemoteFileList.pm:177
 msgid "Restore Files"
-msgstr ""
+msgstr "還原備份檔"
 
 #: src/EBox/Model/RemoteFileList.pm:178
 msgid "file restore operation"
-msgstr ""
+msgstr "備份案還原作業"
 
 #: src/EBox/Model/RemoteFileList.pm:204
 msgid "File already exists if you continue the current will be deleted"
-msgstr ""
+msgstr "備份檔已存在，繼續將會刪除現存備份檔"
 
 #: src/EBox/Model/RemoteFileList.pm:220
 msgid "File restored successfully"
-msgstr ""
+msgstr "備份檔還原成功"
 
 #: src/EBox/Model/RemoteFileList.pm:269
 #, perl-brace-format
@@ -84,15 +84,15 @@ msgstr ""
 
 #: src/EBox/Model/RemoteStatus.pm:138 src/EBox/Model/RemoteExcludes.pm:76
 msgid "Type"
-msgstr ""
+msgstr "類型"
 
 #: src/EBox/Model/RemoteStatus.pm:142
 msgid "Date"
-msgstr ""
+msgstr "日期"
 
 #: src/EBox/Model/RemoteStatus.pm:149
 msgid "Remote Backup Status"
-msgstr ""
+msgstr "遠端備份狀態"
 
 #: src/EBox/Model/RemoteStatus.pm:150
 #, fuzzy
@@ -101,7 +101,7 @@ msgstr "備份"
 
 #: src/EBox/Model/RemoteSettings.pm:161
 msgid "Method"
-msgstr ""
+msgstr "方式"
 
 #: src/EBox/Model/RemoteSettings.pm:167
 #, fuzzy
@@ -110,68 +110,68 @@ msgstr "備份目的地"
 
 #: src/EBox/Model/RemoteSettings.pm:169
 msgid "If the selected method is file system, only set the target directory"
-msgstr ""
+msgstr "如果選擇以檔案系統備份，只能設定在目標目錄"
 
 #: src/EBox/Model/RemoteSettings.pm:173
 msgid "User"
-msgstr ""
+msgstr "使用者"
 
 #: src/EBox/Model/RemoteSettings.pm:178
 msgid "Password"
-msgstr ""
+msgstr "密碼"
 
 #: src/EBox/Model/RemoteSettings.pm:183
 msgid "Encryption"
-msgstr ""
+msgstr "加密"
 
 #: src/EBox/Model/RemoteSettings.pm:188 src/EBox/Model/RemoteSettings.pm:240
 #: src/EBox/Model/RemoteSettings.pm:477
 msgid "Disabled"
-msgstr ""
+msgstr "停用"
 
 #: src/EBox/Model/RemoteSettings.pm:193
 msgid "Symmetric Key"
-msgstr ""
+msgstr "對稱金鑰"
 
 #: src/EBox/Model/RemoteSettings.pm:198
 msgid "GPG Key"
-msgstr ""
+msgstr "GPG金鑰"
 
 #: src/EBox/Model/RemoteSettings.pm:209
 msgid "Full Backup Frequency"
-msgstr ""
+msgstr "完整備份頻率"
 
 #: src/EBox/Model/RemoteSettings.pm:214 src/EBox/Model/RemoteSettings.pm:245
 msgid "Daily"
-msgstr ""
+msgstr "每天"
 
 #: src/EBox/Model/RemoteSettings.pm:219 src/EBox/Model/RemoteSettings.pm:250
 msgid "Weekly"
-msgstr ""
+msgstr "每週"
 
 #: src/EBox/Model/RemoteSettings.pm:225
 msgid "Monthly"
-msgstr ""
+msgstr "每月"
 
 #: src/EBox/Model/RemoteSettings.pm:235
 msgid "Incremental Backup Frequency"
-msgstr ""
+msgstr "增量備份頻率"
 
 #: src/EBox/Model/RemoteSettings.pm:261
 msgid "Backup process starts at"
-msgstr ""
+msgstr "自動備份開始於"
 
 #: src/EBox/Model/RemoteSettings.pm:267
 msgid "Keep previous full copies"
-msgstr ""
+msgstr "保留先前完整備份"
 
 #: src/EBox/Model/RemoteSettings.pm:272
 msgid "maximum number"
-msgstr ""
+msgstr "最大備份數"
 
 #: src/EBox/Model/RemoteSettings.pm:280
 msgid "no older than"
-msgstr ""
+msgstr "不早於"
 
 #: src/EBox/Model/RemoteSettings.pm:294
 msgid "General Configuration"
@@ -183,40 +183,40 @@ msgstr "一般備份伺服器組態已更新"
 
 #: src/EBox/Model/RemoteSettings.pm:312
 msgid "on Monday"
-msgstr ""
+msgstr "週一"
 
 #: src/EBox/Model/RemoteSettings.pm:313
 msgid "on Tuesday"
-msgstr ""
+msgstr "週二"
 
 #: src/EBox/Model/RemoteSettings.pm:314
 msgid "on Wednesday"
-msgstr ""
+msgstr "週三"
 
 #: src/EBox/Model/RemoteSettings.pm:315
 msgid "on Thursday"
-msgstr ""
+msgstr "週四"
 
 #: src/EBox/Model/RemoteSettings.pm:316
 msgid "on Friday"
-msgstr ""
+msgstr "週五"
 
 #: src/EBox/Model/RemoteSettings.pm:317
 msgid "on Saturday"
-msgstr ""
+msgstr "週六"
 
 #: src/EBox/Model/RemoteSettings.pm:318
 msgid "on Sunday"
-msgstr ""
+msgstr "週日"
 
 #: src/EBox/Model/RemoteSettings.pm:331
 #, perl-brace-format
 msgid "on the {mday}th"
-msgstr ""
+msgstr "{mday}日"
 
 #: src/EBox/Model/RemoteSettings.pm:339
 msgid "on the last day"
-msgstr ""
+msgstr "最後一天"
 
 #: src/EBox/Model/RemoteSettings.pm:494
 #, perl-brace-format
@@ -225,74 +225,76 @@ msgid ""
 "keep on your eBox servers. Purchase the backup storage space you need at the "
 "{ohref}eBox on-line store{chref}."
 msgstr ""
+"{oi}{brand}{ci}是安全且快速的遠端資料存放位置，如須購買備份儲存空間，您可以上{ohref}eBox on-line "
+"store{chref}"
 
 #: src/EBox/Model/RemoteSettings.pm:511
 msgid "1 week"
-msgstr ""
+msgstr "一週"
 
 #: src/EBox/Model/RemoteSettings.pm:515
 msgid "2 weeks"
-msgstr ""
+msgstr "兩週"
 
 #: src/EBox/Model/RemoteSettings.pm:519
 msgid "3 weeks"
-msgstr ""
+msgstr "三週"
 
 #: src/EBox/Model/RemoteSettings.pm:523
 msgid "1 month"
-msgstr ""
+msgstr "一個月"
 
 #: src/EBox/Model/RemoteSettings.pm:527
 msgid "2 months"
-msgstr ""
+msgstr "兩個月"
 
 #: src/EBox/Model/RemoteSettings.pm:531
 msgid "3 months"
-msgstr ""
+msgstr "三個月"
 
 #: src/EBox/Model/RemoteSettings.pm:535
 msgid "4 months"
-msgstr ""
+msgstr "四個月"
 
 #: src/EBox/Model/RemoteSettings.pm:539
 msgid "6 months"
-msgstr ""
+msgstr "六個月"
 
 #: src/EBox/Model/RemoteSettings.pm:543
 msgid "9 months"
-msgstr ""
+msgstr "九個月"
 
 #: src/EBox/Model/RemoteSettings.pm:547
 msgid "1 year"
-msgstr ""
+msgstr "一年"
 
 #: src/EBox/Model/RemoteSettings.pm:551
 msgid "1 year and half"
-msgstr ""
+msgstr "一年半"
 
 #: src/EBox/Model/RemoteSettings.pm:555
 msgid "2 years"
-msgstr ""
+msgstr "兩年"
 
 #: src/EBox/Model/RemoteSettings.pm:559
 msgid "3 years"
-msgstr ""
+msgstr "三年"
 
 #: src/EBox/Model/RemoteSettings.pm:591
 msgid "Destination must be a relative directory"
-msgstr ""
+msgstr "目的地必須是相對目錄"
 
 #: src/EBox/Model/RemoteSettings.pm:646
 msgid "The target parameter that must be like 'other.host[:port]/some_dir"
-msgstr ""
+msgstr "目標位置必須以這種格式表示'other.host[:port]/some_dir'"
 
 #: src/EBox/Model/RemoteSettings.pm:657 src/EBox/Model/RemoteSettings.pm:691
 msgid "target"
-msgstr ""
+msgstr "目標"
 
 #: src/EBox/Model/RemoteSettings.pm:659
 msgid "Must be a like 'other.host[:port]/some_dir'"
-msgstr ""
+msgstr "必須以這種格式表示'other.host[:port]/some_dir'"
 
 #: src/EBox/Model/RemoteSettings.pm:666 src/EBox/Model/RemoteSettings.pm:701
 msgid "host"
@@ -304,44 +306,47 @@ msgstr ""
 
 #: src/EBox/Model/RemoteSettings.pm:670
 msgid "directory"
-msgstr ""
+msgstr "目錄"
 
 #: src/EBox/Model/RemoteSettings.pm:680
 msgid ""
 "The RSYNC target parameter that must be like 'other.host[:port]/"
 "relative_path' or 'other.host[:port]/absolute_path'"
 msgstr ""
+"RSYNC目標位置必須以'other.host[:port]/relative_path'或'other.host[:port]/absolute_pa"
+"th'格式表示"
 
 #: src/EBox/Model/RemoteSettings.pm:694
 msgid ""
 "Must be a like 'other.host[:port]/relative_path' or 'other.host[:port]/"
 "absolute_path'"
 msgstr ""
+"必須以'other.host[:port]/relative_path'或'other.host[:port]/absolute_path'格式表示"
 
 #: src/EBox/Model/RemoteSettings.pm:706
 msgid "absolute directory"
-msgstr ""
+msgstr "絕對目錄"
 
 #: src/EBox/Model/RemoteSettings.pm:708
 msgid "relative directory"
-msgstr ""
+msgstr "相對目錄"
 
 #: src/EBox/Model/RemoteSettings.pm:725
 msgid ""
 "File system method needs a target parameter that should be a directory path"
-msgstr ""
+msgstr "檔案系統模式須以目錄路徑表示"
 
 #: src/EBox/Model/RemoteSettings.pm:730 src/EBox/Model/RemoteSettings.pm:734
 msgid "Directory for backup"
-msgstr ""
+msgstr "備份檔目錄"
 
 #: src/EBox/Model/RemoteSettings.pm:737
 msgid "File exists and it is not a directory"
-msgstr ""
+msgstr "檔案存在，這不是目錄"
 
 #: src/EBox/Model/RemoteSettings.pm:758
 msgid "Incremental backup must be more frequent than full backup"
-msgstr ""
+msgstr "增量備份必須比完整備份頻繁"
 
 #: src/EBox/Model/RemoteSettings.pm:770
 msgid ""
@@ -351,26 +356,26 @@ msgstr ""
 
 #: src/EBox/Model/RemoteExcludes.pm:82
 msgid "Exclude or Include"
-msgstr ""
+msgstr "排除或包含"
 
 #: src/EBox/Model/RemoteExcludes.pm:93
 msgid "Includes and Excludes"
-msgstr ""
+msgstr "包含和排除"
 
 #: src/EBox/Model/RemoteExcludes.pm:94
 msgid "exclude or include"
-msgstr ""
+msgstr "排除或包含"
 
 #: src/EBox/Model/RemoteExcludes.pm:102
 msgid ""
 "A file or directory is included or excluded according the first match. A "
 "directory match is applied to all it contents. Files not explicitly excluded "
 "or included are included"
-msgstr ""
+msgstr "排除或包含任一檔案或目錄是根據第一順位規則。目錄規則會包含整個目錄。檔案若明確指定將會包含。"
 
 #: src/EBox/Model/RemoteExcludes.pm:117
 msgid "Exclude path"
-msgstr ""
+msgstr "排除路徑"
 
 #: src/EBox/Model/RemoteExcludes.pm:121
 msgid "Exclude by regular expression"
@@ -378,11 +383,11 @@ msgstr ""
 
 #: src/EBox/Model/RemoteExcludes.pm:125
 msgid "Include Path"
-msgstr ""
+msgstr "包含路徑"
 
 #: src/EBox/Model/RemoteExcludes.pm:147
 msgid "exclude path"
-msgstr ""
+msgstr "排除路徑"
 
 #: src/EBox/Model/RemoteExcludes.pm:160
 msgid "exclude path regular expression"
@@ -394,11 +399,11 @@ msgstr ""
 
 #: src/EBox/Model/RemoteExcludes.pm:183
 msgid "include path"
-msgstr ""
+msgstr "包含路徑"
 
 #: src/EBox/Model/RemoteRestoreConf.pm:104
 msgid "Restore eBox configuration from backup"
-msgstr ""
+msgstr "從備份中還原eBox設定"
 
 #: src/EBox/Model/RemoteRestoreConf.pm:111
 msgid "Loads the configuration found in the backup"
@@ -406,18 +411,18 @@ msgstr ""
 
 #: src/EBox/Model/RemoteRestoreConf.pm:113
 msgid "Please wait..."
-msgstr ""
+msgstr "請等待..."
 
 #: src/EBox/Model/RemoteRestoreConf.pm:169
 #, perl-brace-format
 msgid ""
 "Configuration backup not found in backup for {d}. Maybe you could try "
 "another date?"
-msgstr ""
+msgstr "{d}的備份中未發現備份設定。是否要尋找另一個日期？"
 
 #: src/EBox/Model/RemoteRestoreLogs.pm:118
 msgid "Restore logs database"
-msgstr ""
+msgstr "還原紀錄資料庫"
 
 #: src/EBox/Model/RemoteRestoreLogs.pm:125
 msgid "Restores the eBox logs found in the selected backup"

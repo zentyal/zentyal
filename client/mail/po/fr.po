@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-mail 0.12\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "POT-Creation-Date: 2010-08-13 13:40+0200\n"
-"PO-Revision-Date: 2010-08-07 16:54+0200\n"
+"PO-Revision-Date: 2010-08-22 15:49+0200\n"
 "Last-Translator: Cyril MARTY <cyril_marty@yahoo.fr>\n"
 "Language-Team: Español <es@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -475,9 +475,8 @@ msgid "FQDN hostname"
 msgstr "Du nom d'hôte FQDN"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:136
-#, fuzzy
 msgid "Postmaster address"
-msgstr "Adresse \"Smarthost\" (serveur mail de relai)"
+msgstr "Adresse de votre administrateur de messagerie"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:138
 msgid "Address used to report mail problems"
@@ -558,25 +557,30 @@ msgid ""
 "The mailname is set to the server's hostname and the hostname is not fully "
 "qualified. "
 msgstr ""
+"Le nom de messagerie utilise le nom d'hôte du serveur et ce nom d'hôte n'est "
+"pas certifié (FQHN)."
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:425
 msgid "The selected mailname is not a fully qualified hostname. "
 msgstr ""
+"Le nom de messagerie sélectionné n'est pas un nom d'hôte certifié (FQHN)"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:429
 msgid ""
 "Not having a fully qualified hostname could lead to some mail servers to "
 "reject the mail and incorrect reply addresses from system users"
 msgstr ""
+"Ne pas avoir de nom d'hôte certifié (FQHN) peut entraîner le refus des "
+"courriers par certains serveurs de messagerie et de mauvaises adresses de "
+"réponse pour les utilisateurs"
 
 #: src/EBox/Mail/Model/VDomainSettings.pm:58
 msgid "Send a copy of all mail domains"
 msgstr "Envoyer une copie de tous les domaines de messagerie"
 
 #: src/EBox/Mail/Model/VDomainSettings.pm:60
-#, fuzzy
 msgid "The mail will be a Blind Carbon Copy (BCC)."
-msgstr "Le message sera envoyé en copie cachée (bcc)"
+msgstr "Le message sera envoyé en Copie Carbone Cachée (BCC)"
 
 #: src/EBox/Mail/Model/VDomainSettings.pm:64
 msgid "Disabled"
@@ -621,18 +625,17 @@ msgstr ""
 "être configurés dans la section utilisateurs"
 
 #: src/EBox/Mail/Model/RetrievalServices.pm:97
-#, fuzzy
 msgid "Manage Sieve scripts"
-msgstr "Gérer les scripts SIEVE"
+msgstr "Gérer les scripts Sieve"
 
 #: src/EBox/Mail/Model/RetrievalServices.pm:99
-#, fuzzy
 msgid ""
 "This service allows to a user to manage his Sieve mail filtering scripts "
 "from a local client which speaks the ManageSieve protocol"
 msgstr ""
-"Ce service permet l'usage de ses scripts de filtrage de courrier SIEVE par "
-"un client local"
+"Ce service permet à l'utilisateur de gérer ces propres scripts de filtrage "
+"de messagerie Sieve depuis un client local compatible avec le protocole "
+"\"ManageSieve\""
 
 #: src/EBox/Mail/Model/RetrievalServices.pm:107
 msgid "Mail retrieval services"
@@ -732,19 +735,22 @@ msgstr ""
 #: src/EBox/Mail/Model/VDomains.pm:204
 msgid "'sieve' is a reserved name in this context, please choose another name"
 msgstr ""
+"'sieve' est un mot clé réservé dans cette section, merci de choisir un autre "
+"nom"
 
 #: src/EBox/Mail/Model/VDomains.pm:214
 msgid "The virtual domain name cannot be equal to the mailname"
 msgstr ""
+"Le nom de domaine virtuel ne peut pas être le même que le nom de messagerie"
 
 #: src/EBox/Mail/Model/VDomains.pm:255
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Cannot add virtual domain {vd} because it appears as external domain in the "
 "account referenced by the alias {al}"
 msgstr ""
-"Impossible d'ajouter le domaine virtuel {vd}, car il apparaît en tant que "
-"domaine externe dans le compte référencé par l'alias {al}"
+"Impossible d'ajouter le domaine virtuel {vd}, car il existe en tant que "
+"domaine externe pour le compte référencé par l'alias {al}"
 
 #: src/EBox/Mail/Model/Dispatcher/Mail.pm:127
 msgid "Subject"
@@ -836,9 +842,8 @@ msgid "Mail traffic report"
 msgstr "Rapport de trafic de messagerie"
 
 #: src/EBox/Mail/FetchmailLdap.pm:347
-#, fuzzy
 msgid "External retrieval service"
-msgstr "Service de recherche de mails"
+msgstr "Service de récupération des mails externes"
 
 #: src/EBox/Mail.pm:141
 msgid "Generate mail aliases"
@@ -872,13 +877,13 @@ msgid "Add fetchmail update cron job"
 msgstr "Ajouter la tâche planifiée de mise-à-jour de fetchmail"
 
 #: src/EBox/Mail.pm:165
-#, fuzzy
 msgid ""
 "eBox will schedule a cron job to update fetchmail configuration when the "
 "user add external accounts"
 msgstr ""
-"eBox va agender une tâche planifiée pour mettre-à-jour la configuration de "
-"fetchmail, lorsque l'utilisateur ajoute des comptes externes"
+"eBox va programmer une tâche planifiée pour mettre à jour la configuration "
+"de fetchmail (service de récupération), lorsque l'utilisateur ajoutera des "
+"comptes externes"
 
 #: src/EBox/Mail.pm:186
 msgid "To configure postfix"
@@ -895,9 +900,8 @@ msgid "To configure host mail name"
 msgstr "Pour configurer le nom d'hôte de messagerie"
 
 #: src/EBox/Mail.pm:204
-#, fuzzy
 msgid "To configure postfix aliases"
-msgstr "Pour configurer \"postfix\""
+msgstr "Pour configurer les alias du service \"postfix\""
 
 #: src/EBox/Mail.pm:211
 msgid "To configure dovecot"
@@ -917,19 +921,20 @@ msgid ""
 "Cannot use the hostname as mailname because it is not a fully qualified "
 "name. Please, define a custom server mailname"
 msgstr ""
+"Impossible d'utiliser le nom d'hôte comme nom de messagerie car ce nom n'est "
+"pas certifié (FQHN). Merci de définir un nom de messagerie différent"
 
 #: src/EBox/Mail.pm:690
 msgid "The mail name must be a fully qualified name"
-msgstr ""
+msgstr "Le nom de messagerie doit être certifié (FQHN)"
 
 #: src/EBox/Mail.pm:695 src/EBox/Mail.pm:706 src/EBox/Mail.pm:715
-#, fuzzy
 msgid "Host mail name"
-msgstr "Nom de domaine"
+msgstr "Nom d'hôte de messagerie"
 
 #: src/EBox/Mail.pm:709
 msgid "The mail name and virtual mail domain name are equal"
-msgstr ""
+msgstr "Le nom de messagerie et le domaine virtuel sont identiques"
 
 #: src/EBox/Mail.pm:978
 msgid "Cannot change this parameter for a non-custom filter"
@@ -1059,9 +1064,8 @@ msgid "Maximum message size exceeded"
 msgstr "Taille maximale de message dépassée"
 
 #: src/EBox/Mail.pm:1622
-#, fuzzy
 msgid "User quota exceeded"
-msgstr "Quota utisateur dépassé"
+msgstr "Le quota utilisateur a été dépassé"
 
 #: src/EBox/Mail.pm:1623
 msgid "Relay access denied"
@@ -1093,12 +1097,11 @@ msgstr "Boîtes aux lettres"
 
 #: src/EBox/Mail.pm:1843
 msgid "Mail SMTP server"
-msgstr "Serveur SMTP"
+msgstr "Serveur SMTP de messagerie"
 
 #: src/EBox/Mail.pm:1850
-#, fuzzy
 msgid "Mail POP/IMAP server"
-msgstr "Serveur SMTP"
+msgstr "Serveur POP/IMAP de messagerie"
 
 #: src/EBox/MailQueue.pm:81
 msgid "This message is being delivered"
@@ -1140,19 +1143,16 @@ msgid "Delete"
 msgstr "Effacer"
 
 #: src/templates/Wizard/virtualdomain.mas:4
-#, fuzzy
 msgid "Virtual mail domain"
-msgstr "domaines virtuels de courrier"
+msgstr "Domaine virtuel de messagerie"
 
 #: src/templates/Wizard/virtualdomain.mas:7
-#, fuzzy
 msgid "Set up the default virtual mail domain"
-msgstr "Envoyer une copie de tous les domaines de messagerie"
+msgstr "Paramétrer le domaine virtuel de messagerie par défaut"
 
 #: src/templates/Wizard/virtualdomain.mas:8
-#, fuzzy
 msgid "This will be the domain for your mail accounts"
-msgstr "Cet utilisateur a une compte de courrier"
+msgstr "Ceci va être votre domaine pour tous vos comptes de messagerie"
 
 #: src/templates/qmanager.mas:20
 msgid "Sender"
@@ -1244,7 +1244,6 @@ msgid "Custom quota"
 msgstr "Quota personnalisé"
 
 #: src/templates/alias.mas:133
-#, fuzzy
 msgid "Quota type"
 msgstr "Type de quota"
 

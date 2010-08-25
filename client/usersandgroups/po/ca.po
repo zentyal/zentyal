@@ -7,56 +7,56 @@ msgstr ""
 "Project-Id-Version: ebox-usersandgroups 0.12\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "POT-Creation-Date: 2010-08-13 13:46+0200\n"
-"PO-Revision-Date: 2006-11-17 17:38+0100\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2010-08-25 13:49+0200\n"
+"Last-Translator: jaume ponsa <jaume@calidae.net>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural= (n != 1);\n"
-"X-Generator: Translate Toolkit 0.10.1\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: migration/0001_usercorner_add_webserver_service.pl:54
 msgid "User Corner Web Server"
-msgstr ""
+msgstr "Servidor Web del Racó de l'usuari"
 
 #: src/EBox/LdapUserImplementation.pm:44
 msgid "This group contains users"
-msgstr ""
+msgstr "Aquest grup conté usuaris"
 
 #: src/EBox/CGI/User.pm:44 src/EBox/CGI/User.pm:64 src/EBox/CGI/Groups.pm:54
 #: src/EBox/CGI/Users.pm:33 src/EBox/CGI/Users.pm:58
 #: src/EBox/UsersAndGroups/Model/Users.pm:78 src/EBox/UsersAndGroups.pm:2362
 #: src/EBox/UsersAndGroups.pm:2370
 msgid "Users"
-msgstr ""
+msgstr "Usuaris"
 
 #: src/EBox/CGI/User.pm:48
 msgid "username"
-msgstr ""
+msgstr "nom d'usuari"
 
 #: src/EBox/CGI/AddGroupToUser.pm:45 src/EBox/CGI/AddUserToGroup.pm:51
 #: src/EBox/CGI/DelUserFromGroup.pm:52 src/EBox/CGI/DelGroupFromUser.pm:45
 #: src/EBox/UsersAndGroups/Model/Users.pm:85
 msgid "user"
-msgstr ""
+msgstr "usuari"
 
 #: src/EBox/CGI/AddGroupToUser.pm:50 src/EBox/CGI/Group.pm:47
 #: src/EBox/CGI/AddUserToGroup.pm:46 src/EBox/CGI/DelUserFromGroup.pm:47
 #: src/EBox/CGI/DelGroupFromUser.pm:50
 #: src/EBox/UsersAndGroups/Model/Groups.pm:85
 msgid "group"
-msgstr ""
+msgstr "grup"
 
 #: src/EBox/CGI/Group.pm:32
 msgid "Edit group"
-msgstr ""
+msgstr "Editar grup"
 
 #: src/EBox/CGI/Group.pm:63 src/EBox/CGI/Groups.pm:45
 #: src/EBox/UsersAndGroups/Model/Groups.pm:77 src/EBox/UsersAndGroups.pm:2364
 #: src/EBox/UsersAndGroups.pm:2373
 msgid "Groups"
-msgstr ""
+msgstr "Grups"
 
 #: src/EBox/CGI/ModifyGroup.pm:42 src/EBox/CGI/AddGroup.pm:47
 #: src/EBox/UsersAndGroups.pm:1466 src/EBox/UsersAndGroups.pm:1471
@@ -64,12 +64,12 @@ msgstr ""
 #: src/EBox/UsersAndGroups.pm:1848 src/EBox/UsersAndGroups.pm:1965
 #: src/EBox/UsersAndGroups.pm:2068
 msgid "group name"
-msgstr ""
+msgstr "nom del grup"
 
 #: src/EBox/CGI/ModifyGroup.pm:49 src/EBox/CGI/ModifyUser.pm:50
 #: src/EBox/CGI/AddUser.pm:49
 msgid "comment"
-msgstr ""
+msgstr "comentari"
 
 #: src/EBox/CGI/ModifyUser.pm:44 src/EBox/CGI/AddUser.pm:47
 #: src/EBox/UsersAndGroups.pm:819 src/EBox/UsersAndGroups.pm:825
@@ -78,126 +78,132 @@ msgstr ""
 #: src/EBox/UsersAndGroups.pm:1708 src/EBox/UsersAndGroups.pm:1809
 #: src/EBox/UsersAndGroups.pm:1843 src/EBox/UsersAndGroups.pm:1914
 msgid "user name"
-msgstr ""
+msgstr "nom de l'usuari"
 
 #: src/EBox/CGI/ModifyUser.pm:49 src/EBox/CGI/AddUser.pm:48
 msgid "last name"
-msgstr ""
+msgstr "cognom"
 
 #: src/EBox/CGI/ModifyUser.pm:51
 msgid "password"
-msgstr ""
+msgstr "clau d'accés"
 
 #: src/EBox/CGI/ModifyUser.pm:52
 msgid "confirm password"
-msgstr ""
+msgstr "confirma la clau d'accés"
 
 #: src/EBox/CGI/ModifyUser.pm:78 src/EBox/CGI/AddUser.pm:75
 #: src/EBox/UsersAndGroups/Model/Password.pm:98
 msgid "Passwords do not match."
-msgstr ""
+msgstr "Les claus d'accés no coincideixen."
 
 #: src/EBox/CGI/Del.pm:67
 msgid "object name"
-msgstr ""
+msgstr "nom de l'objecte"
 
 #: src/EBox/CGI/Del.pm:72
 msgid "object type"
-msgstr ""
+msgstr "tipus d'objecte"
 
 #: src/EBox/CGI/Del.pm:92
 msgid "User removed successfully"
-msgstr ""
+msgstr "Usuari eliminat correctament"
 
 #: src/EBox/CGI/Del.pm:96
 msgid "Group removed successfully"
-msgstr ""
+msgstr "Grup eliminat correctament"
 
 #: src/EBox/UserCornerWebServer.pm:39
 #: src/EBox/UserCornerWebServer/Model/Settings.pm:45
 msgid "User Corner"
-msgstr ""
+msgstr "Racó d'usuari"
 
 #: src/EBox/UserCornerWebServer.pm:65
 msgid "Migrate configured modules"
-msgstr ""
+msgstr "Migrar els mòduls configurats"
 
 #: src/EBox/UserCornerWebServer.pm:66
 msgid "Required for usercorner access to configured modules"
-msgstr ""
+msgstr "Requerit per l'accés al racó de l'usuari als mòduls configurats"
 
 #: src/EBox/UserCornerWebServer.pm:179
 msgid "User Corner web server"
-msgstr ""
+msgstr "Servidor web del racó de l'usuari"
 
 #: src/EBox/UsersAndGroups/Model/PendingSync.pm:59
 #: src/EBox/UsersAndGroups/Model/Mode.pm:72
 #: src/EBox/UsersAndGroups/Model/Slaves.pm:55
 msgid "Slave"
-msgstr ""
+msgstr "Esclau"
 
 #: src/EBox/UsersAndGroups/Model/PendingSync.pm:64
 msgid "Operation"
-msgstr ""
+msgstr "Operació"
 
 #: src/EBox/UsersAndGroups/Model/PendingSync.pm:69
 msgid "Parameter"
-msgstr ""
+msgstr "Paràmetre"
 
 #: src/EBox/UsersAndGroups/Model/PendingSync.pm:78
 msgid "List of pending operations on slaves"
-msgstr ""
+msgstr "Llistat d'operacions pendents als esclaus"
 
 #: src/EBox/UsersAndGroups/Model/PendingSync.pm:85
 msgid ""
 "This is a list those operations that need to be run by the slaves because "
 "the master failed to contact them."
 msgstr ""
+"Aquest es un llistat de les operacions necessàries que s'han d'executar als "
+"esclaus, perquè el principal ha fallat al contactar amb ells."
 
 #: src/EBox/UsersAndGroups/Model/PendingSync.pm:87
 msgid "operation"
-msgstr ""
+msgstr "operació"
 
 #: src/EBox/UsersAndGroups/Model/PendingSync.pm:129
 #: src/EBox/UsersAndGroups/Model/Slaves.pm:118
 msgid "You must enable the module Users in master mode."
-msgstr ""
+msgstr "Ha d'activar el mòdul d'Usuaris al servidor principal."
 
 #: src/EBox/UsersAndGroups/Model/PendingSync.pm:131
 msgid "There are no pending operations at the moment."
-msgstr ""
+msgstr "No hi ha operacions pendents."
 
 #: src/EBox/UsersAndGroups/Model/ADSyncSettings.pm:65
 msgid "AD user"
-msgstr ""
+msgstr "usuari AD"
 
 #: src/EBox/UsersAndGroups/Model/ADSyncSettings.pm:68
 msgid "Username for binding to Windows AD (it has to be created in the AD)"
-msgstr ""
+msgstr "usuari per unir al AD Windows  (ha d'estar creat al AD)"
 
 #: src/EBox/UsersAndGroups/Model/ADSyncSettings.pm:72
 msgid "AD password"
-msgstr ""
+msgstr "clau d'accés AD"
 
 #: src/EBox/UsersAndGroups/Model/ADSyncSettings.pm:74
 msgid "Password for the above user"
-msgstr ""
+msgstr "Clau d'accés per l'usuari de sobre"
 
 #: src/EBox/UsersAndGroups/Model/ADSyncSettings.pm:78
 msgid "Listen port"
-msgstr ""
+msgstr "Port d'escolta"
 
 #: src/EBox/UsersAndGroups/Model/ADSyncSettings.pm:81
 msgid "Port for listening password sync notifications from Windows"
 msgstr ""
+"Port per escoltar la notificació de sincronització de claus d'accés des del "
+"Windows"
 
 #: src/EBox/UsersAndGroups/Model/ADSyncSettings.pm:85
 msgid "AD Secret Key"
-msgstr ""
+msgstr "Clau secreta AD"
 
 #: src/EBox/UsersAndGroups/Model/ADSyncSettings.pm:87
 msgid "Secret key to be shared between Windows and eBox (16 chars)"
 msgstr ""
+"La clau secreta ha d'estar compartida entre el Windows i l'ebox (16 "
+"caràcters)"
 
 #: src/EBox/UsersAndGroups/Model/ADSyncSettings.pm:93
 msgid "Windows AD Sync Settings"

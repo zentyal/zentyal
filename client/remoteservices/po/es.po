@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: ebox-remoteservices 1.1\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "POT-Creation-Date: 2010-08-13 13:41+0200\n"
-"PO-Revision-Date: 2010-08-02 00:37+0200\n"
-"Last-Translator: Javi Vázquez <javivazquez@ebox-technologies.com>\n"
+"PO-Revision-Date: 2010-08-23 10:29+0200\n"
+"Last-Translator: Raimundo Jiménez <rjimenez@comunicaciones.es>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -19,7 +19,7 @@ msgstr ""
 
 #: src/EBox/CGI/Backup/DeleteRemoteBackup.pm:65
 msgid "Backup deleted"
-msgstr "Backup borrado"
+msgstr "Backup eliminado"
 
 #: src/EBox/CGI/Backup/MakeRemoteBackup.pm:70
 msgid "Making remote backup"
@@ -39,7 +39,7 @@ msgstr "operaciones que quedan para terminar la copia de seguridad"
 
 #: src/EBox/CGI/Backup/MakeRemoteBackup.pm:74
 msgid "Backup successful"
-msgstr "El backup ha tenido éxito"
+msgstr "Backup exitoso"
 
 #: src/EBox/CGI/Backup/RestoreProxyRemoteBackup.pm:81
 #: src/EBox/CGI/Backup/RestoreRemoteBackup.pm:72
@@ -185,7 +185,7 @@ msgstr "Los siguientes usuarios tienen contraseñas de {level}: {users}."
 
 #: src/EBox/RemoteServices/SupportAccess.pm:68
 msgid "Cannot get the restricted addresses for remote support"
-msgstr ""
+msgstr "No se puede obtener las direcciones restringudas para el soporte remoto"
 
 #: src/EBox/RemoteServices/SupportAccess.pm:128
 #, perl-brace-format
@@ -342,13 +342,13 @@ msgstr ""
 "remoto esté activado"
 
 #: src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:129
-#, fuzzy
 msgid ""
 "To restrict addresses you need that your eBox is subscribed to the Control "
 "Center. Either subscribe it or allow access from any address"
 msgstr ""
-"Para restringir direcciones necesitas que tu eBox esté subscrita a eBox "
-"Control Center. Suscríbela o permite acceso desde cualquier dirección"
+"Para restringir direcciones necesitas que tu eBox esté suscrita a eBox "
+"Control Center. Puedes suscribirla o permitir acceso desde cualquier "
+"dirección"
 
 #: src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:140
 #, perl-brace-format
@@ -361,6 +361,13 @@ msgid ""
 "To join the remote session, login in the shell as a user belonging to the "
 "'adm' group and use the command: '{cmd}'."
 msgstr ""
+"Habilitar el soporte remoto permitirá al personal de eBox technologies "
+"acceder libremente a tu ordenador.\n"
+"Podrás utilizar el comando 'screen' para unirte a su opción de shell. Para "
+"permitir eso, se activa el bit SUID del programa 'screen'. Este cambio es "
+"deshecho cuando se deshabilita esta opción.\n"
+"Para unirte a la sesión remota, regístrate en el shell como un usuario "
+"perteneciente al grupo 'adm' y utiliza el comando: '{cmd}'."
 
 #: src/EBox/RemoteServices/Backup.pm:260
 #: src/EBox/RemoteServices/ProxyBackup.pm:208
@@ -426,6 +433,8 @@ msgid ""
 "The monitor gatherer IP addresses are only available if the host is "
 "subscribed to eBox Control Center"
 msgstr ""
+"Las direcciones IP del monitor están disponibles únicamente si el host está "
+"suscrito al eBox Control Center"
 
 #: src/EBox/RemoteServices.pm:601
 msgid "eBox must be subscribed to reload the bundle"

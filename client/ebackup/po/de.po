@@ -9,8 +9,8 @@ msgstr ""
 "technologies.com\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "POT-Creation-Date: 2010-07-21 00:32+0200\n"
-"PO-Revision-Date: 2010-03-17 00:08+0100\n"
-"Last-Translator: \n"
+"PO-Revision-Date: 2010-08-18 01:25+0200\n"
+"Last-Translator: Private <jkmakowka@yahoo.de>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -27,17 +27,21 @@ msgstr "Sicherung"
 #, perl-brace-format
 msgid "File {f} not found in backup for {d}, try a later date"
 msgstr ""
+"Datei {f} wurde in der Sicherung vom {d} nicht gefunden. Versuchen sie ein "
+"späteres Datum."
 
 #: src/EBox/EBackup.pm:204
 msgid ""
 "No backup archives found. Maybe they were deleted?. Run '/etc/init.d/ebox "
 "ebackup restart' to refresh backup's information."
 msgstr ""
+"Keine Sicherungarchive gefunden. Vielleicht würden Sie gelöscht. Starten Sie "
+"'/etc/init.d/ebox ebackup restart' um die Sicherungsinformationen zu "
+"aktualisieren."
 
 #: src/EBox/Event/Watcher/EBackup.pm:141
-#, fuzzy
 msgid "Check if eBox backup was not successful."
-msgstr "Überprüfe, ob die eBox-Sicherung fehlgeschlagen ist."
+msgstr "Überprüfe ob die eBox Sicherung fehlgeschlagen ist."
 
 #: src/EBox/EBackup/DBRestore.pm:46
 #, perl-brace-format
@@ -45,13 +49,14 @@ msgid ""
 "Logs backup data not found in backup for {d}. Maybe you could try another "
 "date?"
 msgstr ""
+"Protokolliert nicht gefundene Sicherungsdaten in der Sicherung vom {d}. "
+"Verscuhen Sie ein anderes Datum."
 
 #: src/EBox/Model/RemoteFileList.pm:143 src/EBox/Model/RemoteStatus.pm:119
 #: src/EBox/Model/RemoteRestoreConf.pm:74
 #: src/EBox/Model/RemoteRestoreLogs.pm:88
-#, fuzzy
 msgid "There are not backed up files yet"
-msgstr "Keine Information über bereits gesicherte Dateien vorhanden"
+msgstr "Keine bereits gesicherte Dateien vorhanden"
 
 #: src/EBox/Model/RemoteFileList.pm:162
 msgid "File"
@@ -80,12 +85,13 @@ msgstr ""
 msgid "File restored successfully"
 msgstr "Datei erfolgreich wiederhergestellt"
 
+# Fern-URL, welche mit Duplizität für manuelle Wiederherstellungen verwendet wird {url}
 #: src/EBox/Model/RemoteFileList.pm:269
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Remote URL to be used with duplicity for manual restores: {url}"
 msgstr ""
-"Fern-URL, welche mit Duplizität für manuelle Wiederherstellungen verwendet "
-"wird {url}"
+"Fern-URL, welche für Redundanz bei der manuelle Wiederherstellungen "
+"verwendet wird {url}"
 
 #: src/EBox/Model/RemoteStatus.pm:138 src/EBox/Model/RemoteExcludes.pm:76
 msgid "Type"
@@ -112,11 +118,10 @@ msgid "Host or destination"
 msgstr "Host oder Ziel"
 
 #: src/EBox/Model/RemoteSettings.pm:169
-#, fuzzy
 msgid "If the selected method is file system, only set the target directory"
 msgstr ""
-"wenn die ausgewählte Methode {brand} ist, wählen Sie nur das Zielverzeichnis "
-"aus"
+"Wenn die ausgewählte Methode ein Dateisystem ist, wählen Sie nur das "
+"Zielverzeichnis aus"
 
 #: src/EBox/Model/RemoteSettings.pm:173
 msgid "User"
@@ -165,19 +170,19 @@ msgstr "Häufigkeit inkrementeller Sicherungen"
 
 #: src/EBox/Model/RemoteSettings.pm:261
 msgid "Backup process starts at"
-msgstr "Backup startet zum Zeitpunkt"
+msgstr "Sicherung startet um"
 
 #: src/EBox/Model/RemoteSettings.pm:267
 msgid "Keep previous full copies"
-msgstr ""
+msgstr "Behalte frühere Vollkopien"
 
 #: src/EBox/Model/RemoteSettings.pm:272
 msgid "maximum number"
-msgstr ""
+msgstr "Maximale Nummer"
 
 #: src/EBox/Model/RemoteSettings.pm:280
 msgid "no older than"
-msgstr ""
+msgstr "nicht älter als"
 
 #: src/EBox/Model/RemoteSettings.pm:294
 msgid "General Configuration"
@@ -189,40 +194,40 @@ msgstr "Allgemeine Server-Sicherungs-Einstellungen aktualisiert"
 
 #: src/EBox/Model/RemoteSettings.pm:312
 msgid "on Monday"
-msgstr ""
+msgstr "am Montag"
 
 #: src/EBox/Model/RemoteSettings.pm:313
 msgid "on Tuesday"
-msgstr ""
+msgstr "am Dienstag"
 
 #: src/EBox/Model/RemoteSettings.pm:314
 msgid "on Wednesday"
-msgstr ""
+msgstr "am Mittwoch"
 
 #: src/EBox/Model/RemoteSettings.pm:315
 msgid "on Thursday"
-msgstr ""
+msgstr "am Donnerstag"
 
 #: src/EBox/Model/RemoteSettings.pm:316
 msgid "on Friday"
-msgstr ""
+msgstr "am Freitag"
 
 #: src/EBox/Model/RemoteSettings.pm:317
 msgid "on Saturday"
-msgstr ""
+msgstr "am Samstag"
 
 #: src/EBox/Model/RemoteSettings.pm:318
 msgid "on Sunday"
-msgstr ""
+msgstr "am Sonntag"
 
 #: src/EBox/Model/RemoteSettings.pm:331
 #, perl-brace-format
 msgid "on the {mday}th"
-msgstr ""
+msgstr "am {mday}"
 
 #: src/EBox/Model/RemoteSettings.pm:339
 msgid "on the last day"
-msgstr ""
+msgstr "am letzten Tag"
 
 #: src/EBox/Model/RemoteSettings.pm:494
 #, perl-brace-format
@@ -231,61 +236,61 @@ msgid ""
 "keep on your eBox servers. Purchase the backup storage space you need at the "
 "{ohref}eBox on-line store{chref}."
 msgstr ""
-"{oi}{brand}{ci} ist ein sicherer und einfacher Fernspeicherplatz um Ihre "
-"Daten vom eBox Server. Kaufen Sie sich Sicherungs-Speicherplatz im {ohref}"
-"eBox Online Shop{chref}."
+"{oi}{brand}{ci} ist ein schneller und sicherer Fernspeicherplatz um die "
+"Daten auf Ihrem eBox Server zu speichern. Kaufen Sie sich die benötigte "
+"Menge Absicherungsspeicherplatz im {ohref}eBox Online Shop{chref}."
 
 #: src/EBox/Model/RemoteSettings.pm:511
 msgid "1 week"
-msgstr ""
+msgstr "1 Woche"
 
 #: src/EBox/Model/RemoteSettings.pm:515
 msgid "2 weeks"
-msgstr ""
+msgstr "2 Wochen"
 
 #: src/EBox/Model/RemoteSettings.pm:519
 msgid "3 weeks"
-msgstr ""
+msgstr "3 Wochen"
 
 #: src/EBox/Model/RemoteSettings.pm:523
 msgid "1 month"
-msgstr ""
+msgstr "1 Monat"
 
 #: src/EBox/Model/RemoteSettings.pm:527
 msgid "2 months"
-msgstr ""
+msgstr "2 Monate"
 
 #: src/EBox/Model/RemoteSettings.pm:531
 msgid "3 months"
-msgstr ""
+msgstr "3 Monate"
 
 #: src/EBox/Model/RemoteSettings.pm:535
 msgid "4 months"
-msgstr ""
+msgstr "4 Monate"
 
 #: src/EBox/Model/RemoteSettings.pm:539
 msgid "6 months"
-msgstr ""
+msgstr "6 Monate"
 
 #: src/EBox/Model/RemoteSettings.pm:543
 msgid "9 months"
-msgstr ""
+msgstr "9 Monate"
 
 #: src/EBox/Model/RemoteSettings.pm:547
 msgid "1 year"
-msgstr ""
+msgstr "1 Jahr"
 
 #: src/EBox/Model/RemoteSettings.pm:551
 msgid "1 year and half"
-msgstr ""
+msgstr "1 1/2 Jahre"
 
 #: src/EBox/Model/RemoteSettings.pm:555
 msgid "2 years"
-msgstr ""
+msgstr "2 Jahre"
 
 #: src/EBox/Model/RemoteSettings.pm:559
 msgid "3 years"
-msgstr ""
+msgstr "3 Jahre"
 
 #: src/EBox/Model/RemoteSettings.pm:591
 msgid "Destination must be a relative directory"
@@ -344,30 +349,29 @@ msgstr "relativer Pfad"
 msgid ""
 "File system method needs a target parameter that should be a directory path"
 msgstr ""
-"Die Dateisystem-Methode benötigt einen Verzeichnis-Pfad als Ziel-Parameter"
+"Die Dateisystem-Methode benötigt einen Verzeichnispfad als Zielparameter"
 
 #: src/EBox/Model/RemoteSettings.pm:730 src/EBox/Model/RemoteSettings.pm:734
 msgid "Directory for backup"
-msgstr "Verzeichnis für Sicherung"
+msgstr "Verzeichnis für Absicherung"
 
 #: src/EBox/Model/RemoteSettings.pm:737
 msgid "File exists and it is not a directory"
 msgstr "Datei existiert bereits und ist kein Verzeichnis"
 
 #: src/EBox/Model/RemoteSettings.pm:758
-#, fuzzy
 msgid "Incremental backup must be more frequent than full backup"
 msgstr ""
-"Vollsicherungen können nicht häufiger als inkrementielle Sicherungen "
-"definiert sein"
+"Stufenweise Absicherungen müssen häufiger als Komplettabsicherungen sein"
 
 #: src/EBox/Model/RemoteSettings.pm:770
 msgid ""
 "General backup server configuration updated. SCP method selected; "
 "<em>remember</em> to add your target host to the list of known hosts by SSH"
 msgstr ""
-"Allgemeine Sicherungs-Server Konfiguration aktualisiert; <em>Bitte daran "
-"denken</em> den Ziel-Host zur Liste der bekannten Hosts für SSH hinzuzufügen"
+"Allgemeine Absicherungsserverkonfiguration aktualisiert. SCP Methode "
+"ausgewählt; <em>Bitte daran denken</em> den Zielhost zur Liste der bekannten "
+"Hosts für SSH hinzuzufügen"
 
 #: src/EBox/Model/RemoteExcludes.pm:82
 msgid "Exclude or Include"
@@ -378,9 +382,8 @@ msgid "Includes and Excludes"
 msgstr "Einbeziehung oder Ausschluss"
 
 #: src/EBox/Model/RemoteExcludes.pm:94
-#, fuzzy
 msgid "exclude or include"
-msgstr "Ausschließen oder einbeziehen"
+msgstr "ausschließen oder einbeziehen"
 
 #: src/EBox/Model/RemoteExcludes.pm:102
 msgid ""
@@ -388,27 +391,31 @@ msgid ""
 "directory match is applied to all it contents. Files not explicitly excluded "
 "or included are included"
 msgstr ""
+"Eine Datei oder Verzeichnis is Einbezogen oder Ausgeschlossen gemäss der "
+"ersten Übereinstimmung. Bei einem Verzeichnis wird alles auf den Inhalt "
+"übertragen. Dateien die nicht explizit ausgeschlossen oder Einbezogen sind "
+"werden automatisch einbezogen.  "
 
 #: src/EBox/Model/RemoteExcludes.pm:117
 msgid "Exclude path"
 msgstr "Ausgeschlossener Pfad"
 
 #: src/EBox/Model/RemoteExcludes.pm:121
-#, fuzzy
 msgid "Exclude by regular expression"
-msgstr "Auschluss-Pfad - regulärer Ausdruck"
+msgstr "Ausschließen anhand regulärem Ausdruck"
 
 #: src/EBox/Model/RemoteExcludes.pm:125
 msgid "Include Path"
-msgstr "Einbezogener Pfad"
+msgstr "Pfad einbeziehen"
 
 #: src/EBox/Model/RemoteExcludes.pm:147
 msgid "exclude path"
-msgstr "Ausgeschlossener Pfad"
+msgstr "Pfad ausschließen"
 
+# Not sure what is ment by the english text, thus german one is strage too
 #: src/EBox/Model/RemoteExcludes.pm:160
 msgid "exclude path regular expression"
-msgstr "Auschluss-Pfad - regulärer Ausdruck"
+msgstr "Auschlusspfad regulärer Ausdruck"
 
 #: src/EBox/Model/RemoteExcludes.pm:162
 msgid "Incorrect regular expression"
@@ -416,19 +423,19 @@ msgstr "Fehlerhafter regulärer Ausdruck"
 
 #: src/EBox/Model/RemoteExcludes.pm:183
 msgid "include path"
-msgstr "Einbezogener Pfad"
+msgstr "Pfad einbeziehen"
 
 #: src/EBox/Model/RemoteRestoreConf.pm:104
 msgid "Restore eBox configuration from backup"
-msgstr ""
+msgstr "Stelle die eBox Sicherungskonfiguration wieder her"
 
 #: src/EBox/Model/RemoteRestoreConf.pm:111
 msgid "Loads the configuration found in the backup"
-msgstr ""
+msgstr "Lädt die Konfiguration aus der Absicherung"
 
 #: src/EBox/Model/RemoteRestoreConf.pm:113
 msgid "Please wait..."
-msgstr ""
+msgstr "Bitte warten ..."
 
 #: src/EBox/Model/RemoteRestoreConf.pm:169
 #, perl-brace-format
@@ -436,18 +443,20 @@ msgid ""
 "Configuration backup not found in backup for {d}. Maybe you could try "
 "another date?"
 msgstr ""
+"Keine Konfiguration in der Absicherung vom {d} gefunden. Versuchen Sie ein "
+"anderes Datum."
 
 #: src/EBox/Model/RemoteRestoreLogs.pm:118
 msgid "Restore logs database"
-msgstr ""
+msgstr "Stelle Protokollierungsdatenbank wieder her"
 
 #: src/EBox/Model/RemoteRestoreLogs.pm:125
 msgid "Restores the eBox logs found in the selected backup"
-msgstr ""
+msgstr "Stelle die gefunde EBox Protokollierung aus der Sicherung wieder her"
 
 #: src/EBox/Composite/ServicesRestore.pm:64
 msgid "Services restore"
-msgstr ""
+msgstr "Wiederherstellungsdienst"
 
 #: src/EBox/Composite/RemoteGeneral.pm:65
 msgid "Configuration and Status"

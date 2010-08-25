@@ -8,116 +8,117 @@ msgstr ""
 "Project-Id-Version: ebox-ids 1.1\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "POT-Creation-Date: 2010-08-13 13:40+0200\n"
-"PO-Revision-Date: 2009-03-08 15:17+0000\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2010-08-24 16:21+0200\n"
+"Last-Translator: Robert Brzozowski <gnutar1@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2);\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/IDS.pm:62 src/EBox/IDS.pm:169 src/EBox/IDS.pm:311
 msgid "IDS"
-msgstr ""
+msgstr "IDS (system wykrywania i zapobiegania włamaniom)"
 
 #: src/EBox/IDS.pm:299 src/EBox/Model/Report/AlertDetails.pm:52
 msgid "Date"
-msgstr ""
+msgstr "Data"
 
 #: src/EBox/IDS.pm:300
 msgid "Priority"
-msgstr ""
+msgstr "Priorytet"
 
 #: src/EBox/IDS.pm:301
 msgid "Description"
-msgstr ""
+msgstr "Opis"
 
 #: src/EBox/IDS.pm:302
 msgid "Source"
-msgstr ""
+msgstr "Skąd"
 
 #: src/EBox/IDS.pm:303
 msgid "Destination"
-msgstr ""
+msgstr "Dokąd"
 
 #: src/EBox/IDS.pm:304
 msgid "Protocol"
-msgstr ""
+msgstr "Protokół"
 
 #: src/EBox/IDS.pm:305
 msgid "Event"
-msgstr ""
+msgstr "Zdarzenie"
 
 #: src/EBox/IDS.pm:317
 msgid "Alert"
-msgstr ""
+msgstr "Ostrzeżenie"
 
 #: src/EBox/Model/Interfaces.pm:129
 msgid "Interface"
-msgstr ""
+msgstr "Interfejs"
 
 #: src/EBox/Model/Interfaces.pm:134 src/EBox/Model/Rules.pm:158
 msgid "Enabled"
-msgstr ""
+msgstr "Włączony"
 
 #: src/EBox/Model/Interfaces.pm:143
 msgid "Interfaces"
-msgstr ""
+msgstr "Interfejsy"
 
 #: src/EBox/Model/Interfaces.pm:149
 msgid "interface"
-msgstr ""
+msgstr "interfejs"
 
 #: src/EBox/Model/Interfaces.pm:151
 msgid "Select in which interfaces IDS system will be enabled"
-msgstr ""
+msgstr "Wybierz interfejs, na którym chcesz uruchomić IDS"
 
 #: src/EBox/Model/Rules.pm:153
 msgid "Rule Set"
-msgstr ""
+msgstr "Ustaw regułę"
 
 #: src/EBox/Model/Rules.pm:167
 msgid "Rules"
-msgstr ""
+msgstr "Reguły"
 
 #: src/EBox/Model/Rules.pm:172
 msgid "rule"
-msgstr ""
+msgstr "reguła"
 
 #: src/EBox/Model/Rules.pm:173
 msgid "help message"
-msgstr ""
+msgstr "pomoc"
 
 #: src/EBox/Model/Report/AlertDetails.pm:41
 #: src/EBox/Model/Report/AlertGraph.pm:47
 msgid "number of alerts"
-msgstr ""
+msgstr "liczba ostrzeżeń"
 
 #: src/EBox/Model/Report/AlertDetails.pm:58
 msgid "Number of alerts"
-msgstr ""
+msgstr "Liczba ostrzeżeń"
 
 #: src/EBox/Model/Report/AlertDetails.pm:66
 msgid "Alert details"
-msgstr ""
+msgstr "Szczegóły ostrzeżenia"
 
 #: src/EBox/Model/Report/AlertDetails.pm:73
 msgid "alerts"
-msgstr ""
+msgstr "ostrzeżenia"
 
 #: src/EBox/Model/Report/AlertGraph.pm:52
 msgid "Alerts chart"
-msgstr ""
+msgstr "Tabela ostrzeżeń"
 
 #: src/EBox/Model/Report/AlertGraph.pm:68
 msgid "Alert Graph"
-msgstr ""
+msgstr "Wykres ostrzeżeń"
 
 #: src/EBox/Composite/General.pm:71
 msgid "Intrusion Detection System"
-msgstr ""
+msgstr "IDS (system wykrywania i zapobiegania włamaniom)"
 
 #: src/EBox/Composite/Report/AlertReport.pm:66
 msgid "IDS Alerts report"
-msgstr ""
+msgstr "Zestawienie ostrzeżeń"

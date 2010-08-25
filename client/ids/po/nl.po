@@ -8,115 +8,129 @@ msgstr ""
 "Project-Id-Version: ebox-ids 1.1\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "POT-Creation-Date: 2010-08-13 13:40+0200\n"
-"PO-Revision-Date: 2009-03-08 15:17+0000\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2010-08-20 16:12+0200\n"
+"Last-Translator: Indra Pharazijn <indra6oc@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/IDS.pm:62 src/EBox/IDS.pm:169 src/EBox/IDS.pm:311
 msgid "IDS"
-msgstr ""
+msgstr "IDS"
 
 #: src/EBox/IDS.pm:299 src/EBox/Model/Report/AlertDetails.pm:52
 msgid "Date"
-msgstr ""
+msgstr "Datum"
 
+# of Prioriteit
 #: src/EBox/IDS.pm:300
 msgid "Priority"
-msgstr ""
+msgstr "Voorkeur"
 
 #: src/EBox/IDS.pm:301
 msgid "Description"
-msgstr ""
+msgstr "Beschrijving"
 
+# Vertrekpunt
 #: src/EBox/IDS.pm:302
 msgid "Source"
-msgstr ""
+msgstr "Bron"
 
+# Bestemming
 #: src/EBox/IDS.pm:303
 msgid "Destination"
-msgstr ""
+msgstr "Doel"
 
 #: src/EBox/IDS.pm:304
 msgid "Protocol"
-msgstr ""
+msgstr "Protocol"
 
 #: src/EBox/IDS.pm:305
 msgid "Event"
-msgstr ""
+msgstr "Gebeurtenis"
 
+# of Verwittiging
 #: src/EBox/IDS.pm:317
 msgid "Alert"
-msgstr ""
+msgstr "Melding"
 
 #: src/EBox/Model/Interfaces.pm:129
 msgid "Interface"
-msgstr ""
+msgstr "Interface"
 
 #: src/EBox/Model/Interfaces.pm:134 src/EBox/Model/Rules.pm:158
 msgid "Enabled"
-msgstr ""
+msgstr "Ingeschakeld"
 
 #: src/EBox/Model/Interfaces.pm:143
 msgid "Interfaces"
-msgstr ""
+msgstr "Interfaces"
 
 #: src/EBox/Model/Interfaces.pm:149
 msgid "interface"
-msgstr ""
+msgstr "interface"
 
 #: src/EBox/Model/Interfaces.pm:151
 msgid "Select in which interfaces IDS system will be enabled"
-msgstr ""
+msgstr "Selecteer in welke interfaces IDS ingeschakeld word."
 
+# Regel Verzameling
+# Regel Set
 #: src/EBox/Model/Rules.pm:153
+#, fuzzy
 msgid "Rule Set"
-msgstr ""
+msgstr "Regel Groep"
 
 #: src/EBox/Model/Rules.pm:167
 msgid "Rules"
-msgstr ""
+msgstr "Regels"
 
 #: src/EBox/Model/Rules.pm:172
 msgid "rule"
-msgstr ""
+msgstr "regel"
 
+# informatie boodschap
 #: src/EBox/Model/Rules.pm:173
 msgid "help message"
-msgstr ""
+msgstr "help bericht"
 
 #: src/EBox/Model/Report/AlertDetails.pm:41
 #: src/EBox/Model/Report/AlertGraph.pm:47
 msgid "number of alerts"
-msgstr ""
+msgstr "aantal meldingen"
 
 #: src/EBox/Model/Report/AlertDetails.pm:58
 msgid "Number of alerts"
-msgstr ""
+msgstr "Aantal meldingen"
 
+# Melding bijzonderheden 
 #: src/EBox/Model/Report/AlertDetails.pm:66
+#, fuzzy
 msgid "Alert details"
-msgstr ""
+msgstr "Melding details"
 
 #: src/EBox/Model/Report/AlertDetails.pm:73
 msgid "alerts"
-msgstr ""
+msgstr "meldingen"
 
+# Meldingen kaart
+# Meldingen diagram
 #: src/EBox/Model/Report/AlertGraph.pm:52
+#, fuzzy
 msgid "Alerts chart"
-msgstr ""
+msgstr "Meldingen lijst"
 
 #: src/EBox/Model/Report/AlertGraph.pm:68
 msgid "Alert Graph"
-msgstr ""
+msgstr "Meldingen Grafiek"
 
 #: src/EBox/Composite/General.pm:71
 msgid "Intrusion Detection System"
-msgstr ""
+msgstr "Indringing Detectie Systeem"
 
 #: src/EBox/Composite/Report/AlertReport.pm:66
 msgid "IDS Alerts report"
-msgstr ""
+msgstr "IDS Meldingen rapport"

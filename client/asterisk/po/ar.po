@@ -10,8 +10,8 @@ msgstr ""
 "technologies.com\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "POT-Creation-Date: 2010-07-21 00:28+0200\n"
-"PO-Revision-Date: 2010-01-28 00:00+0100\n"
-"Last-Translator: Mostafa Salem <m@isalem.net>\n"
+"PO-Revision-Date: 2010-08-22 11:49+0200\n"
+"Last-Translator: Ahmad Yehia Osman <ahmadiman@msn.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -27,11 +27,11 @@ msgstr "نظام VoIP للeBox"
 #: src/EBox/Asterisk.pm:74 src/EBox/Asterisk.pm:715
 #: src/EBox/Composite/General.pm:67
 msgid "VoIP"
-msgstr ""
+msgstr "VOIP"
 
 #: src/EBox/Asterisk.pm:130
 msgid "To configure enabled and disabled modules."
-msgstr "لتفعيل أو إبطال الوحدات."
+msgstr "إعداد و لتفعيل أو إبطال الوحدات."
 
 #: src/EBox/Asterisk.pm:135
 msgid "To configure the Realtime interface."
@@ -99,7 +99,7 @@ msgstr ""
 
 #: src/EBox/Asterisk.pm:516
 msgid "Status"
-msgstr ""
+msgstr "الحالة"
 
 #: src/EBox/Asterisk.pm:530 src/EBox/Asterisk.pm:634
 msgid "No users connected."
@@ -142,19 +142,19 @@ msgstr "المدة"
 
 #: src/EBox/Asterisk.pm:696
 msgid "Channel"
-msgstr ""
+msgstr "قناة"
 
 #: src/EBox/Asterisk.pm:697
 msgid "Destination Channel"
-msgstr ""
+msgstr "القناة الوجهة"
 
 #: src/EBox/Asterisk.pm:698
 msgid "Application"
-msgstr "البرنامج"
+msgstr "التطبيق"
 
 #: src/EBox/Asterisk.pm:699
 msgid "Application Data"
-msgstr ""
+msgstr "بيانات التطبيق"
 
 #: src/EBox/Asterisk.pm:700
 #, fuzzy
@@ -205,6 +205,8 @@ msgid ""
 "You must install dahdi and linux-headers packages to use Meetings.{br}Run "
 "the following command: sudo apt-get install {kernels} dahdi."
 msgstr ""
+"يجب عليك تثبيت باكجات  dahdi و  linux-headers لاستخدام خدمة اللقاء الإجتماع "
+"{br} -   نفذ الأمر التالي : sudo apt-get install {kernels} dahdi ."
 
 #: src/EBox/Model/Meetings.pm:119 src/EBox/Model/Meetings.pm:127
 #: src/EBox/Model/Settings.pm:84
@@ -278,6 +280,8 @@ msgid ""
 "Networks attached directly to internal interfaces, like {net}, are always "
 "considered local networks so it is not neccessary to add them."
 msgstr ""
+"الشبكات المتصلة بشكل مباشر مقابس الشبكة الداخلية مثل {net} تعامل دوما على "
+"انها شبكة محلية لذلك ليس من الضروري إضافتها"
 
 #: src/EBox/Model/Localnets.pm:113
 msgid "Local network"
@@ -321,12 +325,12 @@ msgstr "تم تحديث إعدادات خادم Asterisk العامة بنجاح
 
 #: src/EBox/Model/Provider.pm:68
 msgid "Custom"
-msgstr ""
+msgstr "الزبون"
 
 #: src/EBox/Model/Provider.pm:89
 #, fuzzy
 msgid "Provider"
-msgstr "مزود خدمة SIP"
+msgstr "مزود الخدمة"
 
 #: src/EBox/Model/Provider.pm:95
 msgid "Name"
@@ -334,7 +338,7 @@ msgstr "اﻹسم"
 
 #: src/EBox/Model/Provider.pm:100
 msgid "VoIP service provider name."
-msgstr ""
+msgstr "إسم مذود خدمة ال VOIP"
 
 #: src/EBox/Model/Provider.pm:104
 msgid "Username"
@@ -409,10 +413,12 @@ msgid ""
 "There are no users in this group or the users do not have an Asterisk "
 "account, so a queue cannot be created."
 msgstr ""
+"لا يوجد مستخدمين في هذه المجموعة أو أن المستخدمين لا يملكون حساب على "
+"Asterisk لذا لا يمكن خلق صف انتظار "
 
 #: src/templates/group.mas:24
 msgid "Group queue"
-msgstr ""
+msgstr "مجموعة صف إنتظار"
 
 #: src/templates/group.mas:29 src/templates/group.mas:32
 #: src/templates/user.mas:26 src/templates/user.mas:29

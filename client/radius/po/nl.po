@@ -10,92 +10,94 @@ msgstr ""
 "technologies.com\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "POT-Creation-Date: 2010-07-21 00:42+0200\n"
-"PO-Revision-Date: 2009-12-03 13:02+0000\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2010-08-20 16:15+0200\n"
+"Last-Translator: Indra Pharazijn <indra6oc@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: migration/0001_add_firewall_services.pl:30
 msgid "eBox RADIUS system"
-msgstr ""
+msgstr "eBox RADIUS systeem"
 
 #: src/EBox/Model/Auth.pm:103
 msgid "All users"
-msgstr ""
+msgstr "Alle gebruikers"
 
 #: src/EBox/Model/Auth.pm:128
 msgid "Group allowed to authenticate"
-msgstr ""
+msgstr "Groep toegestaan te authenticeren"
 
 #: src/EBox/Model/Auth.pm:138
 msgid "General configuration"
-msgstr ""
+msgstr "Algemene configuratie"
 
 #: src/EBox/Model/Auth.pm:142
 msgid "RADIUS server configuration"
-msgstr ""
+msgstr "RADIUS server configuratie"
 
 #: src/EBox/Model/Auth.pm:144
 msgid "RADIUS server configuration updated"
-msgstr ""
+msgstr "RADIUS server configuratie aangepast"
 
 #: src/EBox/Model/Clients.pm:112
 msgid "Client"
-msgstr ""
+msgstr "Cliënt"
 
 #: src/EBox/Model/Clients.pm:119
 msgid "IP Address"
-msgstr ""
+msgstr "IP Adres"
 
 #: src/EBox/Model/Clients.pm:125
 msgid "Shared Secret"
-msgstr ""
+msgstr "Gedeeld Geheim"
 
 #: src/EBox/Model/Clients.pm:133
 msgid "RADIUS Clients"
-msgstr ""
+msgstr "RADIUS Cliënten"
 
 #: src/EBox/Model/Clients.pm:134
 msgid "client"
-msgstr ""
+msgstr "cliënt"
 
 #: src/EBox/Radius.pm:100
 msgid "Create RADIUS certificates for TTLS"
-msgstr ""
+msgstr "RADIUS certificaten aanmaken voor TTLS"
 
 #: src/EBox/Radius.pm:101
 msgid ""
 "eBox will create the needed certificates for TTLS in /etc/freeradius/certs/."
 msgstr ""
+"eBox maakt de nodige certificaten voor TTLS aan in /etc/freeradius/certs/."
 
 #: src/EBox/Radius.pm:121
 msgid "To configure allowed LDAP group."
-msgstr ""
+msgstr "Toegestane LDAP groep instellen."
 
 #: src/EBox/Radius.pm:125
 msgid "To configure RADIUS LDAP module."
-msgstr ""
+msgstr "RADIUS LDAP module instellen."
 
 #: src/EBox/Radius.pm:129
 msgid "To configure RADIUS clients."
-msgstr ""
+msgstr "RADIUS cliënten instellen."
 
 #: src/EBox/Radius.pm:133
 msgid "To configure RADIUS EAP."
-msgstr ""
+msgstr "RADIUS EAP instellen."
 
 #: src/EBox/Radius.pm:137
 msgid "To configure default RADIUS vhost."
-msgstr ""
+msgstr "Standaard RADIUS vhost instellen."
 
 #: src/EBox/Radius.pm:141
 msgid "To configure RADIUS inner-tunnel vhost."
-msgstr ""
+msgstr "RADIUS binnen-tunnel vhost instellen."
 
 #: src/EBox/Radius.pm:304 src/EBox/Radius.pm:328
 #: src/EBox/Composite/General.pm:64
 msgid "RADIUS"
-msgstr ""
+msgstr "RADIUS"

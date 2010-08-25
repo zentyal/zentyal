@@ -9,8 +9,8 @@ msgstr ""
 "technologies.com\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "POT-Creation-Date: 2010-08-13 13:11+0200\n"
-"PO-Revision-Date: 2010-07-22 19:54+0200\n"
-"Last-Translator: Nagy Ákos <reg@pecska.ro>\n"
+"PO-Revision-Date: 2010-08-16 13:05+0200\n"
+"Last-Translator: Nagy Ákos <nagy.akos@akos.ro>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -402,7 +402,7 @@ msgstr "Értesít mikor egyes érték(ek) elérnek bizonyos határérték(ek)et.
 
 #: src/EBox/Event/Watcher/Monitor.pm:264
 msgid "All data sources are within range again"
-msgstr ""
+msgstr "Az adatok ismét határértéken belül vannak"
 
 #: src/EBox/Event/Watcher/Monitor.pm:274
 #, perl-brace-format

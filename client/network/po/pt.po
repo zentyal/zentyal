@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-network 0.12\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "POT-Creation-Date: 2010-08-13 13:41+0200\n"
-"PO-Revision-Date: 2010-08-09 15:01+0200\n"
+"PO-Revision-Date: 2010-08-24 22:04+0200\n"
 "Last-Translator: Vasco Castelo Branco <vcbranco@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -77,11 +77,11 @@ msgstr "Ferramentas de diagnóstico de rede"
 #: src/EBox/Model/WANFailoverRules.pm:97 src/templates/diag.mas:14
 #: src/templates/diag.mas:23
 msgid "Host"
-msgstr "Hospedeiro"
+msgstr "Máquina"
 
 #: src/EBox/CGI/Diag.pm:67 src/EBox/Network.pm:3422
 msgid "host name"
-msgstr "nome do hospedeiro"
+msgstr "nome da máquina"
 
 #: src/EBox/CGI/Ifaces.pm:31 src/EBox/Network.pm:3530
 msgid "Network Interfaces"
@@ -102,7 +102,7 @@ msgid ""
 "Gateway {gw} disconnected ({failRatio}% of '{type}' tests to host '{host}' "
 "failed, max={maxFailRatio}%)"
 msgstr ""
-"Gateway {gw} desligada. ({failRatio}% of '{type}' teste para o hospedeiro "
+"Gateway {gw} desligada. ({failRatio}% of '{type}' teste para a máquina "
 "'{host}' falharam, max={maxFailRatio}%)"
 
 #: src/EBox/Event/Watcher/Gateways.pm:370
@@ -421,7 +421,7 @@ msgstr "Endereço IP ou de rede"
 
 #: src/EBox/Model/StaticRoute.pm:157
 msgid "Gateway used to reach the above network  address"
-msgstr "Gateway usada para encontrar o endereço de rede acima"
+msgstr "Gateway usada para encontrar o endereço de rede  acima"
 
 #: src/EBox/Model/StaticRoute.pm:162 src/templates/ifaces.mas:230
 msgid "Description"
@@ -637,7 +637,7 @@ msgstr "Palavra-passe"
 
 #: src/EBox/Model/DynDNS.pm:108
 msgid "Hostname"
-msgstr "Nome do hospedeiro"
+msgstr "Nome da máquina"
 
 #: src/EBox/Model/DynDNS.pm:116
 msgid "Configuration"
@@ -674,7 +674,7 @@ msgstr "Ping para a gateway"
 
 #: src/EBox/Model/WANFailoverRules.pm:59
 msgid "Ping to host"
-msgstr "Ping para o hospedeiro"
+msgstr "Ping para a máquina"
 
 #: src/EBox/Model/WANFailoverRules.pm:63
 msgid "DNS resolve"
@@ -927,7 +927,7 @@ msgstr "Modificar"
 
 #: src/templates/ifaces.mas:224
 msgid "VLAN List"
-msgstr "Lista VLAN"
+msgstr "Lista de VLAN"
 
 #: src/templates/ifaces.mas:231 src/templates/ifaces.mas:289
 msgid "Action"

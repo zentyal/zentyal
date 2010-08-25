@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: ebox-software 0.12.1\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "POT-Creation-Date: 2010-08-13 13:42+0200\n"
-"PO-Revision-Date: 2007-04-03 14:25+0000\n"
-"Last-Translator: Mariusz Zawadzki <majdom@gmail.com>\n"
+"PO-Revision-Date: 2010-08-24 19:58+0200\n"
+"Last-Translator: Robert Brzozowski <gnutar1@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n==0 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2);\n"
-"X-Generator: Pootle 0.10.1\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: migration/0001_add_http_software_rule.pl:24
 msgid "HTTP software"
@@ -56,26 +56,28 @@ msgstr "Aktualizacje systemu"
 #: src/EBox/Software.pm:541 src/templates/config.mas:19
 #, fuzzy
 msgid "Settings"
-msgstr "Startuaje..."
+msgstr "Ustawienia"
 
 #: src/EBox/Software.pm:680
 #, perl-brace-format
 msgid ""
 "Software management is currently  locked by {locker}. Please, try again later"
 msgstr ""
+"Zarządzanie oprogramowanie jest obecnie zablokowane przez {locker}. Proszę "
+"spróbować później"
 
 #: src/EBox/Software.pm:843
 msgid "Welcome"
-msgstr ""
+msgstr "Witamy"
 
 #: src/EBox/Software.pm:845
 msgid "Package Selection"
-msgstr ""
+msgstr "Wybór pakietu"
 
 #: src/EBox/Software.pm:846
 #, fuzzy
 msgid "Confirmation"
-msgstr "Konfiguracja"
+msgstr "Zatwierdzenie"
 
 #: src/EBox/Software.pm:847
 #, fuzzy
@@ -85,16 +87,16 @@ msgstr "Zainstaluj"
 #: src/EBox/Software.pm:848
 #, fuzzy
 msgid "Initial Configuration"
-msgstr "Konfiguracja"
+msgstr "Konfiguracja wstępna"
 
 #: src/EBox/Software.pm:849
 msgid "Save Changes"
-msgstr ""
+msgstr "Zapisz zmiany"
 
 #: src/EBox/CGI/Config.pm:33
 #, fuzzy
 msgid "Software management settings"
-msgstr "Zarządzanie Oprogramowaniem"
+msgstr "Zarządzanie oprogramowaniem "
 
 #: src/EBox/CGI/Config.pm:43
 msgid "Automatic software updates"
@@ -133,7 +135,7 @@ msgstr "Nie było pakietów do aktualizacji"
 #: src/EBox/CGI/InstallPkgs.pm:165
 #, fuzzy
 msgid "Installing"
-msgstr "Zainstaluj"
+msgstr "Instaluję"
 
 #: src/EBox/CGI/InstallPkgs.pm:166
 #, fuzzy
@@ -148,7 +150,7 @@ msgstr "Aktualny pakiet"
 #: src/EBox/CGI/InstallPkgs.pm:168
 #, fuzzy
 msgid "actions done"
-msgstr "Czynności"
+msgstr "Czynności wykonane"
 
 #: src/EBox/CGI/InstallPkgs.pm:169
 msgid ""
@@ -157,25 +159,31 @@ msgid ""
 "until the system has been fully configured. You will be automatically "
 "redirected to the next step"
 msgstr ""
+"Instalacja pakietów została zakończona pomyślnie. Interfejs administracyjny "
+"może nie odpowiadać przez kilka sekund. Proszę czekać cierpliwie dopóki "
+"system się nie zrestartuje. Zostanie automatycznie przekierowany do "
+"następnej strony."
 
 #: src/EBox/CGI/InstallPkgs.pm:174
 msgid ""
 "The packages installation has not finished correctly . More information on "
 "the logs"
 msgstr ""
+"Instalacja pakietów nie została ukończona pomyślnie. Więcej informacji w "
+"logach."
 
 #: src/EBox/CGI/InstallPkgs.pm:189
 #, fuzzy
 msgid "Removing package"
-msgstr "Uaktualniam"
+msgstr "Usuwam pakiety"
 
 #: src/EBox/CGI/InstallPkgs.pm:190
 msgid "Removing the selected package and its dependent packages"
-msgstr ""
+msgstr "Usuwam zaznaczone pakiety"
 
 #: src/EBox/CGI/InstallPkgs.pm:192
 msgid "packages left to remove"
-msgstr ""
+msgstr "pakiety pozostałe do usunięcia"
 
 #: src/EBox/CGI/InstallPkgs.pm:193
 msgid ""
@@ -183,12 +191,16 @@ msgid ""
 "may become unresponsive for a few seconds. Please wait patiently until the "
 "system has been fully restarted"
 msgstr ""
+"Usuwanie pakietów zakończono pomyślnie. Interfejs administracyjny może nie "
+"odpowiadać przez kilka sekund. Proszę czekać cierpliwie dopóki system się "
+"nie zrestartuje."
 
 #: src/EBox/CGI/InstallPkgs.pm:197
 msgid ""
 "The packages removal has not finished correctly . More information on the "
 "logs"
 msgstr ""
+"Usuwanie pakietów nie zakończyło się pomyślnie. Więcej informacji w logach."
 
 #: src/templates/ebox.mas:140 src/templates/updates.mas:35
 msgid "Update"
@@ -200,11 +212,11 @@ msgstr "Zainstaluj"
 
 #: src/templates/ebox.mas:168
 msgid "View advanced mode"
-msgstr ""
+msgstr "Tryb zaawansowany"
 
 #: src/templates/ebox.mas:482
 msgid "View basic mode"
-msgstr ""
+msgstr "Tryb podstawowy"
 
 #: src/templates/del.mas:96
 msgid "The following packages will be installed"
@@ -224,7 +236,7 @@ msgstr "Anuluj"
 
 #: src/templates/del.mas:149
 msgid "You may want to install also the following recommended packages:"
-msgstr ""
+msgstr "Możesz również zainstalować polecane poniżej pakiety:"
 
 #: src/templates/del.mas:152
 msgid "Layer 7 filtering for Traffic Shaping (ebox-l7-protocols)"
@@ -244,11 +256,11 @@ msgstr "Automatycznie wykonuj aktualizacje zabezpieczeń"
 
 #: src/templates/config.mas:14
 msgid "This eBox is configured to use automatic QA updates"
-msgstr ""
+msgstr "eBox jest skonfigurowany do używania automatycznej aktualizacji QA"
 
 #: src/templates/config.mas:26
 msgid "Automatic operations start time"
-msgstr ""
+msgstr "Czas rozpoczęcia aktualizacji automatycznej"
 
 #: src/templates/updates.mas:24
 msgid "Updates are available for the following system components"
@@ -261,7 +273,7 @@ msgstr "Dostępne są aktualizacje dla następujących komponentów"
 
 #: src/templates/updates.mas:32
 msgid "Component"
-msgstr "Komponenty"
+msgstr "Komponent"
 
 #: src/templates/updates.mas:33
 msgid "Description"
@@ -269,7 +281,7 @@ msgstr "Opis"
 
 #: src/templates/updates.mas:34
 msgid "Version"
-msgstr ""
+msgstr "Wersja"
 
 #: src/templates/updates.mas:52
 #, fuzzy
@@ -300,7 +312,7 @@ msgstr "Zaktualizuj"
 #: src/templates/updates.mas:96
 #, fuzzy
 msgid "Update list"
-msgstr "Uaktualnij"
+msgstr "Uaktualnij listę"
 
 #: src/templates/updateNote.mas:10
 msgid ""

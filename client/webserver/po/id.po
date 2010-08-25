@@ -9,12 +9,13 @@ msgstr ""
 "technologies.com\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "POT-Creation-Date: 2010-08-13 13:47+0200\n"
-"PO-Revision-Date: 2009-12-21 17:06+0100\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2010-08-24 11:43+0200\n"
+"Last-Translator: Mochammad Kholil <cakkholil@yahoo.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: migration/0001_add_service_and_port.pl:147
 msgid "HyperText Transport Protocol"
@@ -23,27 +24,27 @@ msgstr ""
 #: src/EBox/WebServer.pm:81 src/EBox/WebServer.pm:619
 #: src/EBox/WebServer/Composite/General.pm:79
 msgid "Web Server"
-msgstr ""
+msgstr "Server Web"
 
 #: src/EBox/WebServer.pm:101
 msgid "To set webserver listening port."
-msgstr ""
+msgstr "Untuk mensetting port listening webserver"
 
 #: src/EBox/WebServer.pm:106
 msgid "To configure default virtual host."
-msgstr ""
+msgstr "Untuk mengkonfigurasi default virtual host"
 
 #: src/EBox/WebServer.pm:111
 msgid "To configure default SSL virtual host."
-msgstr ""
+msgstr "Untuk mengkonfigurasi default virtual host SSL"
 
 #: src/EBox/WebServer.pm:116
 msgid "To configure the per-user public_html directory."
-msgstr ""
+msgstr "Untuk mengkonfigurasi direktori public_html setiap pengguna"
 
 #: src/EBox/WebServer.pm:141
 msgid "Enable Apache LDAP user module"
-msgstr ""
+msgstr "Memungkinkan modul Apache LDAP user"
 
 #: src/EBox/WebServer.pm:143
 msgid "To fetch home directories from LDAP."

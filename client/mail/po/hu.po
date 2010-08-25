@@ -9,8 +9,8 @@ msgstr ""
 "technologies.com\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "POT-Creation-Date: 2010-08-13 13:40+0200\n"
-"PO-Revision-Date: 2010-07-21 15:48+0200\n"
-"Last-Translator: Nagy Ákos <reg@pecska.ro>\n"
+"PO-Revision-Date: 2010-08-16 13:03+0200\n"
+"Last-Translator: Nagy Ákos <nagy.akos@akos.ro>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -272,9 +272,9 @@ msgstr ""
 "által kezelt virtuális tartomány"
 
 #: src/EBox/Mail/Model/ExternalAliases.pm:146
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "An account or alias called {al} already exists"
-msgstr "Már létezik egy felhasználói fiók vagy egy álnév {al} névvel"
+msgstr "Már létezik {al} névvel egy felhasználói fiók vagy egy álnév"
 
 #: src/EBox/Mail/Model/ExternalAliases.pm:167
 msgid ""

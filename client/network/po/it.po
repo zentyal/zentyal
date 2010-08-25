@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: ebox-network 0.12\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "POT-Creation-Date: 2010-08-13 13:41+0200\n"
-"PO-Revision-Date: 2010-01-30 08:39+0100\n"
+"PO-Revision-Date: 2010-08-18 22:40+0200\n"
 "Last-Translator: andrea biasi <info@andreabiasi.it>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -34,18 +34,16 @@ msgid "netmask"
 msgstr "maschera di rete"
 
 #: src/EBox/CGI/Iface.pm:97
-#, fuzzy
 msgid "user name"
-msgstr "Nome utente"
+msgstr "nome utente"
 
 #: src/EBox/CGI/Iface.pm:98
-#, fuzzy
 msgid "password"
-msgstr "Password"
+msgstr "password"
 
 #: src/EBox/CGI/Iface.pm:108
 msgid "bridge"
-msgstr ""
+msgstr "bridge"
 
 #: src/EBox/CGI/Vlan.pm:45 src/EBox/Network.pm:1625 src/EBox/Network.pm:1654
 #: src/templates/ifaces.mas:229
@@ -71,9 +69,8 @@ msgid "virtual interface name"
 msgstr "nome interfaccia virtuale"
 
 #: src/EBox/CGI/Diag.pm:31 src/EBox/CGI/Diag.pm:43
-#, fuzzy
 msgid "Network Diagnostic Tools"
-msgstr "Diagnosi rete"
+msgstr "Utilità di diagnostica rete"
 
 #: src/EBox/CGI/Diag.pm:53 src/EBox/CGI/Diag.pm:60
 #: src/EBox/Model/WANFailoverRules.pm:97 src/templates/diag.mas:14
@@ -94,9 +91,9 @@ msgid "traffic balance"
 msgstr "bilanciamento traffico"
 
 #: src/EBox/Event/Watcher/Gateways.pm:150
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Gateway {gw} connected"
-msgstr "Gateway {gw} non raggiungibile"
+msgstr "Gateway {gw} connesso"
 
 #: src/EBox/Event/Watcher/Gateways.pm:289
 #, perl-brace-format
@@ -108,7 +105,7 @@ msgstr ""
 #: src/EBox/Event/Watcher/Gateways.pm:370
 #: src/EBox/Network/Composite/WANFailover.pm:62 src/EBox/Network.pm:3563
 msgid "WAN Failover"
-msgstr ""
+msgstr "WAN Failover"
 
 #: src/EBox/Event/Watcher/Gateways.pm:386
 msgid "Check if gateways are connected or disconnected."
@@ -136,17 +133,14 @@ msgstr ""
 "parte."
 
 #: src/EBox/Network/Composite/DNS.pm:61
-#, fuzzy
 msgid "Domain Name Server Resolver"
 msgstr "Name server resolver"
 
 #: src/EBox/Network/Composite/MultiGw.pm:63 src/EBox/Network.pm:3561
-#, fuzzy
 msgid "Balance Traffic"
 msgstr "Bilancia traffico"
 
 #: src/EBox/Network/Composite/MultiGw.pm:83
-#, fuzzy
 msgid ""
 "To be able to use this feature you need at least two enabled gateways. You "
 "can add them <a href=\"/ebox/Network/View/GatewayTable\">here</a> first."
@@ -281,23 +275,20 @@ msgid "eBox will set your DNS configuration"
 msgstr "eBox imposterà la configurazione DNS"
 
 #: src/EBox/Network.pm:135
-#, fuzzy
 msgid "eBox will set your DHCP client configuration"
-msgstr "eBox imposterà la configurazione di rete"
+msgstr "eBox imposterà la configurazione del client DHCP"
 
 #: src/EBox/Network.pm:140 src/EBox/Network.pm:145
-#, fuzzy
 msgid "eBox will set your ddclient configuration"
-msgstr "eBox imposterà la configurazione di rete"
+msgstr "eBox imposterà la configurazione del ddclient "
 
 #: src/EBox/Network.pm:150 src/EBox/Network.pm:155
 msgid "eBox will store your PPPoE passwords"
-msgstr ""
+msgstr "ebox salverà le tue PPPoE password"
 
 #: src/EBox/Network.pm:162
-#, fuzzy
 msgid "eBox will add a DSL provider configuration for PPPoE"
-msgstr "eBox imposterà la configurazione di rete"
+msgstr "eBox aggiungerà la configurazione PPPoE del tuo provider"
 
 #: src/EBox/Network.pm:890 src/EBox/Network.pm:894
 msgid "Virtual interface name"
@@ -347,7 +338,6 @@ msgstr ""
 "vlan."
 
 #: src/EBox/Network.pm:3032
-#, fuzzy
 msgid ""
 "The requested operation will cause one of the configured gateways to become "
 "unreachable. Please remove it first if you really want to make this change."
@@ -382,14 +372,12 @@ msgid "up"
 msgstr "su"
 
 #: src/EBox/Network.pm:3463
-#, fuzzy
 msgid "external"
-msgstr "Esterna"
+msgstr "esterna"
 
 #: src/EBox/Network.pm:3465
-#, fuzzy
 msgid "internal"
-msgstr "Esterna"
+msgstr "interna"
 
 #: src/EBox/Network.pm:3471
 msgid "link ok"
@@ -424,9 +412,8 @@ msgid "Static Routes"
 msgstr "Route statiche"
 
 #: src/EBox/Network.pm:3565
-#, fuzzy
 msgid "Diagnostic Tools"
-msgstr "Diagnosi"
+msgstr "Utilità di diagnostica"
 
 #: src/EBox/Model/StaticRoute.pm:151
 msgid "IP or network address"
@@ -591,12 +578,10 @@ msgstr "Indirizzi IP del server DNS che eBox utilizza per recuperare i nomi"
 
 #: src/EBox/Model/DNSResolver.pm:84 src/templates/Wizard/network.mas:67
 #: src/templates/Wizard/network.mas:71
-#, fuzzy
 msgid "Domain Name Server"
 msgstr "Name server"
 
 #: src/EBox/Model/DNSResolver.pm:93
-#, fuzzy
 msgid "Domain Name Server Resolver List"
 msgstr "Lista name server resolver"
 

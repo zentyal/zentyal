@@ -10,8 +10,8 @@ msgstr ""
 "technologies.com\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "POT-Creation-Date: 2010-07-21 00:28+0200\n"
-"PO-Revision-Date: 2010-02-09 00:40+0100\n"
-"Last-Translator: Michel Daggelinckx <michel@allmarketingmaroc.com>\n"
+"PO-Revision-Date: 2010-08-19 21:31+0200\n"
+"Last-Translator: Willy Geerts <willy@willygeerts.be>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -21,7 +21,7 @@ msgstr ""
 
 #: migration/0001_add_firewall_services.pl:30
 msgid "eBox VoIP system"
-msgstr "eBox VoIP systeem"
+msgstr "Zentyal VoIP systeem"
 
 #: src/EBox/Asterisk.pm:74 src/EBox/Asterisk.pm:715
 #: src/EBox/Composite/General.pm:67
@@ -30,45 +30,44 @@ msgstr "VoIP"
 
 #: src/EBox/Asterisk.pm:130
 msgid "To configure enabled and disabled modules."
-msgstr "Om in en uitgeschakelde modules te beheren"
+msgstr "Configureer modules (in- of uitgeschakeld)."
 
 #: src/EBox/Asterisk.pm:135
 msgid "To configure the Realtime interface."
-msgstr "Om de Realtime Interface te configureren"
+msgstr "Configureer de Realtime interface."
 
 #: src/EBox/Asterisk.pm:140
 msgid "To configure the LDAP Realtime driver."
-msgstr "Om de LDAP Realtime driver te beheren."
+msgstr "Configureer de LDAP Realtime driver."
 
 #: src/EBox/Asterisk.pm:145
 msgid "To configure the common SIP and IAX users."
-msgstr "Om de gewone SIP en IAX gebruikers te configureren."
+msgstr "Configureer de standaard SIP en IAX gebruikers."
 
 #: src/EBox/Asterisk.pm:150
 msgid "To configure the SIP trunk for local users and external providers."
 msgstr ""
-"Om de SIP trunk voor lokale gebruikers en externe leveranciers te "
-"configureren."
+"Configureer de SIP trunk voor de lokale gebruikers en de externe providers."
 
 #: src/EBox/Asterisk.pm:155
 msgid "To configure the dialplan."
-msgstr "Om het belplan te configureren."
+msgstr "Configureer het belplan."
 
 #: src/EBox/Asterisk.pm:160
 msgid "To configure the voicemail."
-msgstr "Om het antwoordapparaat in te stellen"
+msgstr "Configureer de voicemail."
 
 #: src/EBox/Asterisk.pm:165
 msgid "To configure the conferences."
-msgstr "Om conferenties te configureren."
+msgstr "Configureer de vergaderingen."
 
 #: src/EBox/Asterisk.pm:169
 msgid "To configure the music on hold."
-msgstr "Om de wachtmuziek in te stellen"
+msgstr "Configureer de wachtmuziek."
 
 #: src/EBox/Asterisk.pm:173
 msgid "To configure DTMF behaviour."
-msgstr "Om het antwoordapparaat in te stellen"
+msgstr "Configureer de DTMF functionaliteiten."
 
 #: src/EBox/Asterisk.pm:485
 msgid "General"
@@ -88,7 +87,7 @@ msgstr "Gebruiker"
 
 #: src/EBox/Asterisk.pm:516
 msgid "Address"
-msgstr "Adress"
+msgstr "Adres"
 
 #: src/EBox/Asterisk.pm:516
 msgid "NAT"
@@ -100,12 +99,12 @@ msgstr "Status"
 
 #: src/EBox/Asterisk.pm:530 src/EBox/Asterisk.pm:634
 msgid "No users connected."
-msgstr "Geen Gebruikers verbonden."
+msgstr "Geen gebruikers verbonden."
 
 #: src/EBox/Asterisk.pm:622
 #, perl-brace-format
 msgid "Room {name} active for {rtime}"
-msgstr "Zaal {name} aktief sinds {rtime}"
+msgstr "Zaal {name} in gebruik sinds {rtime}"
 
 #: src/EBox/Asterisk.pm:625
 msgid "Time Connected"
@@ -188,7 +187,7 @@ msgstr "Wachtlijst Toestel"
 
 #: src/EBox/CGI/AsteriskGroupOptions.pm:42
 msgid "group"
-msgstr ""
+msgstr "groep"
 
 #: src/EBox/CGI/AsteriskUserOptions.pm:43
 msgid "username"
@@ -200,12 +199,15 @@ msgid ""
 "You must install dahdi and linux-headers packages to use Meetings.{br}Run "
 "the following command: sudo apt-get install {kernels} dahdi."
 msgstr ""
+"Je moet de dahdi en linux-headers pakketten installeren om Meetings te "
+"kunnen gebruiken. {br}Voer het volgende commando uit: sudo apt-get install "
+"{kernels} dahdi."
 
 # very fuzzy as toestel also means device as in hardware
 #: src/EBox/Model/Meetings.pm:119 src/EBox/Model/Meetings.pm:127
 #: src/EBox/Model/Settings.pm:84
 msgid "extension"
-msgstr "Toestel"
+msgstr "toestel"
 
 #: src/EBox/Model/Meetings.pm:154
 #, perl-brace-format
@@ -229,9 +231,8 @@ msgid "meeting"
 msgstr "vergadering"
 
 #: src/EBox/Model/AsteriskUser.pm:50
-#, fuzzy
 msgid "Asterisk Account"
-msgstr "Asterisk gebruiker"
+msgstr "Asterisk Login"
 
 #: src/EBox/Model/AsteriskUser.pm:58
 msgid "Asterisk"
@@ -239,7 +240,7 @@ msgstr "Asterisk"
 
 #: src/EBox/Model/Voicemail.pm:75 src/EBox/Model/Voicemail.pm:122
 msgid "Voicemail settings"
-msgstr "Antwoordapparaat instellingen"
+msgstr "Instellingen antwoordapparaat"
 
 #: src/EBox/Model/Voicemail.pm:94
 msgid "New password"
@@ -247,7 +248,7 @@ msgstr "Nieuw wachtwoord"
 
 #: src/EBox/Model/Voicemail.pm:101
 msgid "Mail address"
-msgstr "E-mail Adress"
+msgstr "E-mail adres"
 
 #: src/EBox/Model/Voicemail.pm:108
 msgid "Attach messages"
@@ -268,7 +269,7 @@ msgstr "Instellingen bewaard"
 #: src/EBox/Model/Voicemail.pm:222
 msgid "You have not an VoIP account. Maybe VoIP is not enabled in this server"
 msgstr ""
-"U hebt geen VoIP rekening. Misschien is VoIP niet ingeschakeld op deze server"
+"U hebt geen VoIP profiel. Misschien is VoIP niet ingeschakeld op deze server"
 
 #: src/EBox/Model/Localnets.pm:88
 #, perl-brace-format
@@ -299,7 +300,7 @@ msgstr "Activeer demo nummers"
 
 #: src/EBox/Model/Settings.pm:123
 msgid "Enable outgoing calls"
-msgstr "Aktiveer uitgaande gesprekken"
+msgstr "Activeer uitgaande gesprekken"
 
 #: src/EBox/Model/Settings.pm:129
 msgid "Voicemail extension"
@@ -319,7 +320,7 @@ msgstr "Algemene Asterisk server configuratie"
 
 #: src/EBox/Model/Settings.pm:151
 msgid "General Asterisk server configuration updated."
-msgstr "Algemene Asterisk server configuratie opgeslagen"
+msgstr "Algemene Asterisk server configuratie bijgewerkt."
 
 #: src/EBox/Model/Provider.pm:68
 msgid "Custom"
@@ -350,44 +351,40 @@ msgid "Recipient of incoming calls"
 msgstr "Ontvanger van inkomende gesprekken"
 
 #: src/EBox/Model/Provider.pm:130
-#, fuzzy
 msgid "Extension recipient of incoming calls through the provider."
-msgstr "Ontvanger van inkomende gesprekken"
+msgstr "Toestelnummer ontvanger van inkomende gesprekken"
 
 #: src/EBox/Model/Provider.pm:137
 msgid "SIP provider"
 msgstr "SIP leverancier"
 
 #: src/EBox/Model/Provider.pm:141
-#, fuzzy
 msgid "SIP provider for outgoing calls configuration."
-msgstr "SIP leverancier voor uitgaande gesprekken configuratie"
+msgstr "Configuratie SIP leverancier voor uitgaande gesprekken"
 
 #: src/EBox/Model/Provider.pm:143
-#, fuzzy
 msgid "SIP provider configuration updated."
-msgstr "SIP leverancier configuratie aangepast"
+msgstr "Configuratie SIP leverancier aangepast"
 
 #: src/EBox/Model/Provider.pm:195
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "{brand}: make low-cost VoIP calls to mobile phones and landlines directly "
 "with eBox. Once you have obtained a {subs} , you can purchase the VoIP "
 "credit you need. All these services available for purchasing at the {ohref}"
 "eBox on-line store{chref}! "
 msgstr ""
-"eBox VoIP Krediet: maak goedkope VoIP gesprekken naar vaste en mobiele "
-"telefoons met eBox. Koop uw beltegoed direkt biin de {ohref}eBox on-line "
+"{brand}: maak goedkope VoIP gesprekken naar vaste en mobiele telefoons met "
+"Zentyal. Koop uw beltegoed direkt op de {ohref}Zentyal on-line "
 "winkel{chref}!"
 
 #: src/EBox/Model/NAT.pm:96
-#, fuzzy
 msgid "eBox is behind NAT"
-msgstr "Asterisk bevindt zich achter NAT"
+msgstr "De server bevindt zich achter NAT"
 
 #: src/EBox/Model/NAT.pm:101
 msgid "No"
-msgstr "Neen"
+msgstr "Nee"
 
 #: src/EBox/Model/NAT.pm:120
 msgid "NAT configuration"
@@ -398,18 +395,17 @@ msgid "NAT Asterisk server configuration"
 msgstr "NAT Asterisk server configuratie"
 
 #: src/EBox/Model/NAT.pm:126
-#, fuzzy
 msgid "NAT Asterisk server configuration updated."
-msgstr "NAT Asterisk server configuratie bewaard"
+msgstr "NAT Asterisk server configuratie bijgewerkt."
 
 #: src/EBox/Composite/General.pm:66
 msgid "Asterisk module"
 msgstr "Asterisk module"
 
+# a queue is a row, but in what context is it used here? 
 #: src/templates/group.mas:8
-#, fuzzy
 msgid "Asterisk group queue"
-msgstr "Asterisk module"
+msgstr "Asterisk groep wachtrij"
 
 #: src/templates/group.mas:12
 msgid ""
@@ -417,7 +413,7 @@ msgid ""
 "account, so a queue cannot be created."
 msgstr ""
 "Er zijn geen gebruikers in deze groep of de gebruikers hebben geen asterisk "
-"rekening, de wachtrij kan niet gekreëerd worden."
+"login, de wachtrij kan niet aangemaakt worden."
 
 #: src/templates/group.mas:24
 msgid "Group queue"
@@ -443,6 +439,8 @@ msgid ""
 "The following settings only will take effect when the Asterisk module is "
 "enabled."
 msgstr ""
+"De volgende instellingen hebben alleen effect als de module Asterisk is "
+"ingeschakeld."
 
 #: src/templates/user.mas:8
 msgid "Asterisk account"
@@ -454,9 +452,8 @@ msgstr "Wachtwoord voor Asterisk dienst is het gebruiker wachtwoord"
 
 # need more context to translate
 #: src/templates/user.mas:21
-#, fuzzy
 msgid "User account"
-msgstr "Gebruiker rekening"
+msgstr "Gebruikersaccount"
 
 # meetings = vergaderingen but most dutch/flemish teens also use meetings
 #~ msgid ""

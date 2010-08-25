@@ -8,53 +8,58 @@ msgstr ""
 "Project-Id-Version: ebox-. 1.5\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "POT-Creation-Date: 2010-08-13 13:40+0200\n"
-"PO-Revision-Date: 2010-06-03 02:52+0200\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2010-08-20 15:45+0200\n"
+"Last-Translator: Indra Pharazijn <indra6oc@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: migration/0001_add_firewall_services.pl:30
 msgid "eBox FTP Server"
-msgstr ""
+msgstr "eBox FTP Server"
 
 #: src/EBox/Model/Options.pm:48
 msgid "Disabled"
-msgstr ""
+msgstr "Uitgeschakeld"
 
 #: src/EBox/Model/Options.pm:52
 msgid "Read only"
-msgstr ""
+msgstr "Enkel lezen"
 
 #: src/EBox/Model/Options.pm:56
 msgid "Read/Write"
-msgstr ""
+msgstr "Lezen/Schrijven"
 
 #: src/EBox/Model/Options.pm:69
 msgid "Anonymous access"
-msgstr ""
+msgstr "Naamloze toegang"
 
 #: src/EBox/Model/Options.pm:73
 msgid "Sets the permissions for the /srv/ftp directory"
-msgstr ""
+msgstr "Stel de rechten voor de /srv/ftp folder in"
 
 #: src/EBox/Model/Options.pm:77
 msgid "Personal directories"
-msgstr ""
+msgstr "Persoonlijke folders"
 
+# respectievelijke nodig?
 #: src/EBox/Model/Options.pm:80
+#, fuzzy
 msgid "Enable FTP access for each user to its /home directory"
 msgstr ""
+"FTP toegang verlenen aan elke gebruiker voor zijn respectievelijke /home "
+"folder"
 
 #: src/EBox/Model/Options.pm:86
 msgid "General configuration settings"
-msgstr ""
+msgstr "Algemene configuratie instellingen"
 
 #: src/EBox/Model/Options.pm:87
 msgid "FTP Server"
-msgstr ""
+msgstr "FTP Server"
 
 #: src/EBox/Model/Options.pm:91
 msgid ""
@@ -64,11 +69,16 @@ msgid ""
 "write permissions for everybody, for example: mkdir /srv/ftp/incoming ; "
 "chmod o+rwx /srv/ftp/incoming"
 msgstr ""
+"De anonieme folder is /srv/ftp, zorg ervoor dat de bestanden die u daar "
+"aanmaakt lees rechten hebben voor iedereen (chmod o+r /srv/ftp/*). Als u ook "
+"schrijf rechten wil toekennen dient u een subfolder te maken met schrijf "
+"rechten voor iedereen, bijvoorbeeld: mkdir /srv/ftp/incoming ; chmod o+rwx "
+"/srv/ftp/incoming"
 
 #: src/EBox/FTP.pm:84
 msgid "To configure vsftpd"
-msgstr ""
+msgstr "Vsftpd instellen"
 
 #: src/EBox/FTP.pm:88
 msgid "To configure vsftpd with LDAP authentication"
-msgstr ""
+msgstr "Vsftpd met LDAP authenticatie instellen"

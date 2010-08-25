@@ -9,12 +9,13 @@ msgstr ""
 "technologies.com\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "POT-Creation-Date: 2010-07-21 00:52+0200\n"
-"PO-Revision-Date: 2009-12-21 17:06+0100\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2010-08-19 17:49+0200\n"
+"Last-Translator: othman hendy suseno <othman.suseno@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/WebMail/Model/OperationMode.pm:50
 msgid "Mode"
@@ -22,170 +23,181 @@ msgstr ""
 
 #: src/EBox/WebMail/Model/OperationMode.pm:59
 msgid "Operation mode"
-msgstr ""
+msgstr "Mode Operasi"
 
 #: src/EBox/WebMail/Model/OperationMode.pm:87
 msgid "eBox mail service"
-msgstr ""
+msgstr "Servis mail eBox"
 
 #: src/EBox/WebMail/Model/OperationMode.pm:98
 msgid "Remote server"
-msgstr ""
+msgstr "Server remote"
 
 #: src/EBox/WebMail/Model/RemoteServerConfiguration.pm:57
 msgid "IMAP Server"
-msgstr ""
+msgstr "Server IMAP"
 
 #: src/EBox/WebMail/Model/RemoteServerConfiguration.pm:63
 msgid "IMAP connection type"
-msgstr ""
+msgstr "Tipe koneksi IMAP"
 
 #: src/EBox/WebMail/Model/RemoteServerConfiguration.pm:70
 msgid "IMAP server port"
-msgstr ""
+msgstr "Port server IMAP"
 
 #: src/EBox/WebMail/Model/RemoteServerConfiguration.pm:76
 msgid "SMTP Server"
-msgstr ""
+msgstr "Server SMTP"
 
 #: src/EBox/WebMail/Model/RemoteServerConfiguration.pm:82
 msgid "SMTP connection type"
-msgstr ""
+msgstr "Tipe koneksi SMTP"
 
 #: src/EBox/WebMail/Model/RemoteServerConfiguration.pm:89
 msgid "SMTP server port"
-msgstr ""
+msgstr "Port server SMTP"
 
 #: src/EBox/WebMail/Model/RemoteServerConfiguration.pm:96
 msgid "SMTP authentication"
-msgstr ""
+msgstr "Authentikasi SMTP"
 
 #: src/EBox/WebMail/Model/RemoteServerConfiguration.pm:104
+#, fuzzy
 msgid "None"
-msgstr ""
+msgstr "Tidak tersedia"
 
 #: src/EBox/WebMail/Model/RemoteServerConfiguration.pm:108
+#, fuzzy
 msgid "Same user and password than IMAP"
-msgstr ""
+msgstr "Nama pengguna dan kata kunci yang sama seperti IMAP"
 
 #: src/EBox/WebMail/Model/RemoteServerConfiguration.pm:112
 msgid "User and password"
-msgstr ""
+msgstr "Nama pengguna dan kata kunci"
 
 #: src/EBox/WebMail/Model/RemoteServerConfiguration.pm:118
 msgid "User"
-msgstr ""
+msgstr "Pengguna"
 
 #: src/EBox/WebMail/Model/RemoteServerConfiguration.pm:124
 msgid "Password"
-msgstr ""
+msgstr "Kata kunci"
 
 #: src/EBox/WebMail/Model/RemoteServerConfiguration.pm:137
 msgid "Manage sieve enabled in IMAP server"
-msgstr ""
+msgstr "Mengatur sieve teraktivasi di server IMAP"
 
 #: src/EBox/WebMail/Model/RemoteServerConfiguration.pm:142
 msgid "Manage sieve port"
-msgstr ""
+msgstr "Mengatur port sieve"
 
 #: src/EBox/WebMail/Model/RemoteServerConfiguration.pm:149
 msgid "Manage sieve connection uses TLS"
-msgstr ""
+msgstr "Mengatur koneksi sieve menggunakan TLS"
 
 #: src/EBox/WebMail/Model/RemoteServerConfiguration.pm:159
 msgid "External server connection"
-msgstr ""
+msgstr "koneksi server eksternal"
 
 #: src/EBox/WebMail/Model/RemoteServerConfiguration.pm:177
 msgid "unencrypted"
-msgstr ""
+msgstr "tidak terenkripsi"
 
 #: src/EBox/WebMail/Model/RemoteServerConfiguration.pm:181
+#, fuzzy
 msgid "SSL"
-msgstr ""
+msgstr "SSL"
 
 #: src/EBox/WebMail/Model/RemoteServerConfiguration.pm:185
+#, fuzzy
 msgid "TLS"
-msgstr ""
+msgstr "TLS"
 
 #: src/EBox/WebMail/Model/RemoteServerConfiguration.pm:294
 msgid ""
 "No need to configure the connection to a remote server beacuse WebMail is "
 "configured to use eBox's mail service'"
 msgstr ""
+"Tidak perlu untuk mengkonfigurasi koneksi ke server remote karena WebMail "
+"dikonfigur untuk menggunakan servis mail eBox"
 
 #: src/EBox/WebMail/Model/Options.pm:48
 msgid "Name"
-msgstr ""
+msgstr "Nama"
 
 #: src/EBox/WebMail/Model/Options.pm:50
 msgid "eBox webmail"
-msgstr ""
+msgstr "WebMail eBox"
 
 #: src/EBox/WebMail/Model/Options.pm:52
 msgid ""
 "The name of the webmail will be used in the login screen and page titles."
-msgstr ""
+msgstr "Nama webmail yang akan digunakan untuk halaman login dan halaman judul."
 
 #: src/EBox/WebMail/Model/Options.pm:56
 msgid "Virtual host"
-msgstr ""
+msgstr "Host virtual"
 
 #: src/EBox/WebMail/Model/Options.pm:62
 msgid ""
 "Virtual host where the webmail will be installed. This will disable the "
 "default /webmail url."
 msgstr ""
+"Host virtual dimana webmail akan di installasi. Ini akan menonaktifkan url "
+"/webmail default."
 
 #: src/EBox/WebMail/Model/Options.pm:68
 msgid "General configuration"
-msgstr ""
+msgstr "Konfigurasi umum"
 
 #: src/EBox/WebMail/Model/Options.pm:69 src/EBox/WebMail.pm:69
+#, fuzzy
 msgid "Webmail"
-msgstr ""
+msgstr "Webmail"
 
 #: src/EBox/WebMail/Model/Options.pm:84
 msgid "Disabled"
-msgstr ""
+msgstr "nonaktifkan"
 
 #: src/EBox/WebMail/Model/Options.pm:115
 msgid ""
 "The deleted virtual host was selected for Webmail. Maybe you want to select "
 "another one now."
 msgstr ""
+"Virtual host yang dihapus telah dipilih untuk Webmail, mungkin anda ingin "
+"memilih salah satu yang lainnya sekarang."
 
 #: src/EBox/WebMail/Composite/Backend.pm:64
 msgid "WebMail backend"
-msgstr ""
+msgstr "Interface webmail belakang layar"
 
 #: src/EBox/WebMail.pm:177
 msgid "Neither IMAP nor IMAPS service enabled."
-msgstr ""
+msgstr "Tidak ada salah satu dari servis IMAP maupun IMAPS yang diaktifkan."
 
 #: src/EBox/WebMail.pm:291
 msgid "To configure Roundcube webmail."
-msgstr ""
+msgstr "Untuk mengkonfigurasi webmail Roundcube."
 
 #: src/EBox/WebMail.pm:296
 msgid "To configure managesieve Roundcube webmail plugin."
-msgstr ""
+msgstr "Untuk mengkonfigurasi pengaturan sieve plugin webmail Roundcube."
 
 #: src/EBox/WebMail.pm:322
 msgid "Create PostgreSQL Roundcube webmail database."
-msgstr ""
+msgstr "Buat database PostgreSQL webmail Roundcube."
 
 #: src/EBox/WebMail.pm:323
 msgid "This database will store the data needed by Roundcube."
-msgstr ""
+msgstr "Database ini akan menyimpan semua data yang dibutuhkan oleh Roundcube."
 
 #: src/EBox/WebMail.pm:327
 msgid "Add webmail link to www data directory."
-msgstr ""
+msgstr "Tambahkan link webmail ke direktori data www."
 
 #: src/EBox/WebMail.pm:328
 msgid "Webmail will be accesible at http://ip/webmail/."
-msgstr ""
+msgstr "Webmail bisa diakses melalui alamat http://ip/webmail/."
 
 #: src/EBox/WebMail.pm:351
 #, perl-brace-format
@@ -193,9 +205,14 @@ msgid ""
 "Webmail module needs IMAP or IMAPS service enabled if using eBox mail "
 "service. You can enable it at {openurl}Mail -> General{closeurl}."
 msgstr ""
+"Modul webmail membutuhkan servis IMAP atau IMAPS diaktifkan jika menggunakan "
+"mail servis eBox. Anda dapat mengaktifkannya di {openurl}Mail -> "
+"General{closeurl}."
 
 #: src/EBox/WebMail.pm:409
 msgid ""
 "You cannot disable both IMAP and IMAPS service because they are used by "
 "Webmail module."
 msgstr ""
+"Anda tidak dapat menonaktifkan sevis IMAP dan IMAPS sekaligus karena servis "
+"ini digunakan oleh modul Webmail."

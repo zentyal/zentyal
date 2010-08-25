@@ -10,7 +10,7 @@ msgstr ""
 "technologies.com\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "POT-Creation-Date: 2010-07-21 00:28+0200\n"
-"PO-Revision-Date: 2010-01-29 23:19+0100\n"
+"PO-Revision-Date: 2010-08-16 23:14+0200\n"
 "Last-Translator: andrea biasi <info@andreabiasi.it>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -206,6 +206,9 @@ msgid ""
 "You must install dahdi and linux-headers packages to use Meetings.{br}Run "
 "the following command: sudo apt-get install {kernels} dahdi."
 msgstr ""
+"È necessario installare dahdi e linux-headers per usare "
+"Meetings.{br}Eseguire il seguente comando: sudo apt-get install {kernel} "
+"dahdi."
 
 #: src/EBox/Model/Meetings.pm:119 src/EBox/Model/Meetings.pm:127
 #: src/EBox/Model/Settings.pm:84
@@ -327,11 +330,11 @@ msgid "General Asterisk server configuration updated."
 msgstr "Aggiornate le impostazioni generali del server Asterisk"
 
 #: src/EBox/Model/Provider.pm:68
+#, fuzzy
 msgid "Custom"
-msgstr ""
+msgstr "Personalizzato"
 
 #: src/EBox/Model/Provider.pm:89
-#, fuzzy
 msgid "Provider"
 msgstr "Provider SIP"
 
@@ -341,7 +344,7 @@ msgstr "Nome"
 
 #: src/EBox/Model/Provider.pm:100
 msgid "VoIP service provider name."
-msgstr ""
+msgstr "Nome del provider del servizio VoIP."
 
 #: src/EBox/Model/Provider.pm:104
 msgid "Username"

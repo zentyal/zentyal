@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: ebox-network 0.12\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "POT-Creation-Date: 2010-08-13 13:41+0200\n"
-"PO-Revision-Date: 2010-01-18 11:12+0100\n"
-"Last-Translator: Nicolas Liaudat <nliaudat@pompiers-chatel.ch>\n"
+"PO-Revision-Date: 2010-08-16 11:48+0200\n"
+"Last-Translator: Olivier Marquis <olivier.marquis@eccm.ch>\n"
 "Language-Team: Español <es@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -44,7 +44,7 @@ msgstr "Mot de passe"
 
 #: src/EBox/CGI/Iface.pm:108
 msgid "bridge"
-msgstr ""
+msgstr "router"
 
 #: src/EBox/CGI/Vlan.pm:45 src/EBox/Network.pm:1625 src/EBox/Network.pm:1654
 #: src/templates/ifaces.mas:229
@@ -283,7 +283,7 @@ msgstr "eBox configurera votre DNS"
 #: src/EBox/Network.pm:135
 #, fuzzy
 msgid "eBox will set your DHCP client configuration"
-msgstr "eBox configurera votre \"ddclient\""
+msgstr "eBox configurera votre configuration DHCP client"
 
 #: src/EBox/Network.pm:140 src/EBox/Network.pm:145
 msgid "eBox will set your ddclient configuration"
@@ -384,14 +384,12 @@ msgid "up"
 msgstr "actif"
 
 #: src/EBox/Network.pm:3463
-#, fuzzy
 msgid "external"
-msgstr "Externe"
+msgstr "externe"
 
 #: src/EBox/Network.pm:3465
-#, fuzzy
 msgid "internal"
-msgstr "Externe"
+msgstr "interne"
 
 #: src/EBox/Network.pm:3471
 msgid "link ok"
@@ -806,12 +804,16 @@ msgid "gateway"
 msgstr "passerelle"
 
 #: src/EBox/Model/GatewayTable.pm:285
+#, fuzzy
 msgid "You can not manually add a gateway for DHCP or PPPoE interfaces"
 msgstr ""
+"Vous ne pouvez pas ajouter de passerelle comme DHCP ou comme interfaces "
+"PPPoE"
 
 #: src/EBox/Model/GatewayTable.pm:344
 msgid "Automatically added gateways can not be manually deleted"
 msgstr ""
+"Les passerelles ajoutées automatiquement ne peuvent pas être supprimées."
 
 #: src/EBox/Model/ByteRateGraphControl.pm:47
 msgid "Select traffic graphic"
@@ -925,14 +927,18 @@ msgid "External (WAN)"
 msgstr "Externe (WAN)"
 
 #: src/templates/ifaces.mas:111
+#, fuzzy
 msgid ""
 "Check this if you are using eBox as a gateway and this interface is "
 "connected to your Internet router."
 msgstr ""
+"Vérifiez si vous utilisez eBox comme passerelle et si son interface réseau "
+"est connectée à votre routeur internet."
 
 #: src/templates/ifaces.mas:168
+#, fuzzy
 msgid "Bridge"
-msgstr ""
+msgstr "Passerelle"
 
 #: src/templates/ifaces.mas:189
 msgid "User name"
@@ -986,8 +992,11 @@ msgid "Configure network for external interfaces"
 msgstr "Configurer les cartes réseau"
 
 #: src/templates/Wizard/network.mas:22
+#, fuzzy
 msgid "Now you can set IP addresses and networks for each interface"
 msgstr ""
+"Maintenant, vous pouvez définir des adresses IP et des réseaux pour chaque "
+"interface"
 
 #: src/templates/Wizard/network.mas:30 src/templates/Wizard/network.mas:86
 #, fuzzy
@@ -1004,9 +1013,12 @@ msgid "Select external network interfaces"
 msgstr "interface réseau"
 
 #: src/templates/Wizard/interfaces.mas:11
+#, fuzzy
 msgid ""
 "You will not be able to connect to eBox administration page through them"
 msgstr ""
+"Vous ne pourrez pas vous connecter à la page d'administration eBox à travers "
+"eux"
 
 #: src/templates/diag.mas:13 src/templates/diag.mas:18
 msgid "Ping"

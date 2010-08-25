@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: ebox-remoteservices 1.1\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "POT-Creation-Date: 2010-08-13 13:41+0200\n"
-"PO-Revision-Date: 2010-03-04 12:44+0100\n"
-"Last-Translator: Ilya Balzovskiy <ambi85@mail.ru>\n"
+"PO-Revision-Date: 2010-08-17 10:30+0200\n"
+"Last-Translator: Alexander Kuznetsov <smithaV@yandex.ru>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
-"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/CGI/Backup/DeleteRemoteBackup.pm:65
@@ -144,7 +144,7 @@ msgstr "Значение не может быть больше {n} символ�
 #: src/EBox/RemoteServices/CSV.pm:78
 #, perl-brace-format
 msgid "Skipping bad formed line: {l}"
-msgstr ""
+msgstr "Пропущена неправильно оформленная строка"
 
 #: src/EBox/RemoteServices/Base.pm:214
 msgid "No ebox-services DNS key found"
@@ -196,6 +196,9 @@ msgid ""
 "this user is renamed or removed it would be impossible to set up remote "
 "support access"
 msgstr ""
+"Такой пользователь {u} уже существует и он создан не eBox. До тех пор пока "
+"он не будет переименован или удален установить доступ для удаленного "
+"сопровождения будет невозможно"
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:130
 msgid ""
@@ -211,7 +214,7 @@ msgstr "Данные подписки получены правильно"
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:135
 msgid "Please, save changes"
-msgstr "Пожалуйста, запишите изменения"
+msgstr "Пожалуйста, сохраните изменения"
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:162
 msgid "Done"
@@ -317,7 +320,7 @@ msgstr ""
 
 #: src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:81
 msgid "Allow access from any internet address"
-msgstr ""
+msgstr "Разрешить доступ с любого Internet адреса"
 
 #: src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:85
 msgid ""
@@ -325,6 +328,10 @@ msgid ""
 "private network. If you enable this option access is granted from any "
 "address. Use this option only if you could not connect to the Control Center"
 msgstr ""
+"По умолчанию предоставляется доступ только доверенным хостам из  Control "
+"Center private network. Если эта опция включена  - доступ предоставляется с "
+"любого адреса Internet. Используйте эту опцию только если невозможно "
+"подключиться к Control Center"
 
 #: src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:91
 #: src/EBox/RemoteServices.pm:259
@@ -336,12 +343,16 @@ msgstr "Удаленные службы"
 msgid ""
 "Remote access from any address requires that remote access support is enabled"
 msgstr ""
+"Для удаленного доступа  с любого адреса Internet необходимо чтобы была "
+"активирована  поддержка через удаленный доступ  "
 
 #: src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:129
 msgid ""
 "To restrict addresses you need that your eBox is subscribed to the Control "
 "Center. Either subscribe it or allow access from any address"
 msgstr ""
+"Чтобы запретить адреса необходимо, чтобы eBox был указан в Control Center. "
+"Или укажите eBox в Control Center или разрешите доступ с любых адресов"
 
 #: src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:140
 #, perl-brace-format
@@ -429,7 +440,7 @@ msgstr "Нет подключения. Проверьте журналы VPN в 
 
 #: src/EBox/RemoteServices.pm:999
 msgid "Connected"
-msgstr "Подключение"
+msgstr "Подключено"
 
 #, fuzzy
 #~ msgid "Remote support accesss"

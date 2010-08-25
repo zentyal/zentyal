@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-webserver 0.12\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "POT-Creation-Date: 2010-08-13 13:47+0200\n"
-"PO-Revision-Date: 2010-08-08 01:40+0200\n"
+"PO-Revision-Date: 2010-08-24 01:44+0200\n"
 "Last-Translator: Vasco Castelo Branco <vcbranco@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -97,12 +97,17 @@ msgid ""
 "Having installed and configured the Users and Groups module is required to "
 "allow HTML directories for users."
 msgstr ""
+"A configuração do módulo de Utilizadores e grupos é necessária para permitir "
+"directórios HTML para utilizadores"
 
 #: src/EBox/WebServer/Model/GeneralSettings.pm:147
 msgid ""
 "A properly configured Users and Groups module is required to allow HTML "
 "directories for users. To configure it, please enable it at least one time."
 msgstr ""
+"É necessário que o módulo de Utilizadores e grupos esteja correctamente "
+"configurado para permitir directórios HTML aos utilizadores. Para "
+"configurá-lo active-o pelo menos uma vez"
 
 #: src/EBox/WebServer/Model/GeneralSettings.pm:237
 msgid "Listening SSL port"
@@ -135,16 +140,16 @@ msgid "General configuration settings"
 msgstr "Definições das configurações gerais"
 
 #: src/EBox/WebServer/Model/GeneralSettings.pm:270
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "General Web server configuration. The listening port must not be used by "
 "another service. If you enable user to publish their own html pages, those "
 "should be loaded from {dirName} directory from their home directories."
 msgstr ""
-"Configuração geral do servidor Web. O porto a ser usado não pode estar "
-"associado a outro serviço. Se permitir que o utilizador publique as suas "
-"páginas HTML, as páginas serão carregadas a partir do directório {dirName} "
-"da raiz do directório samba"
+"Configuração geral do servidor Web. O porto a ser usado não pode ser usado "
+"por outro serviço. Se permitir que o utilizador publique as suas páginas "
+"HTML, as páginas serão carregadas a partir do directório {dirName} da raiz "
+"do directório pessoal samba"
 
 #: src/EBox/WebServer/Model/GeneralSettings.pm:276
 msgid "General Web server configuration settings updated."
@@ -222,7 +227,7 @@ msgid "Virtual hosts"
 msgstr "Servidores virtuais"
 
 #: src/EBox/WebServer/Model/VHostTable.pm:302
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Virtual hosts are a form of web hosting service where many instances of the "
 "same web server are hosted on a single physical server. Different host names "
@@ -231,12 +236,12 @@ msgid ""
 "particular configuration you want to add must be placed in the {userConf} "
 "directory."
 msgstr ""
-"Hospedeiros virtuais são uma forma de hospedar várias instâncias de servidor "
-"web num único servidor físico. Nomes de hospedeiro diferentes apontarão para "
-"o mesmo servidor web. A entrada DNS é criada automáticamente sempre que "
-"possível. Os conteúdos devem ser colocados em {docRoot}/Directório vHostName."
-"{userConf}. Qualquer configuração particular que queira adicionar deve ser "
-"colocada no directório {userConf}"
+"Máquinas virtuais são uma forma de hospedar várias instâncias de um servidor "
+"web num único servidor físico. Nomes de máquina diferentes apontarão para o "
+"mesmo servidor web. A entrada DNS é criada automáticamente sempre que "
+"possível. Os conteúdos devem ser colocados no directório {docRoot}. Qualquer "
+"configuração particular que queira adicionar deve ser colocada no "
+"directório {userConf}"
 
 #: src/EBox/WebServer/Model/VHostTable.pm:333
 #, perl-brace-format
