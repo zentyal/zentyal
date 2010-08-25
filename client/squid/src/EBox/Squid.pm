@@ -340,7 +340,7 @@ sub _cache_mem
     my $cache_mem = EBox::Config::configkey('cache_mem');
     ($cache_mem) or
         throw EBox::Exceptions::External(__('You must set the '.
-                        'cache_mem variable in the ebox configuration file'));
+                        'cache_mem variable in the Zentyal configuration file'));
     return $cache_mem;
 }
 
@@ -349,7 +349,7 @@ sub _max_object_size
     my $max_object_size = EBox::Config::configkey('maximum_object_size');
     ($max_object_size) or
         throw EBox::Exceptions::External(__('You must set the '.
-                        'max_object_size variable in the ebox configuration file'));
+                        'max_object_size variable in the Zentyal configuration file'));
     return $max_object_size;
 }
 
