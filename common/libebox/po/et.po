@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: libebox 1.4.1Report-Msgid-Bugs-To: info@ebox-"
 "technologies.com\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
-"POT-Creation-Date: 2010-08-25 17:53+0200\n"
+"POT-Creation-Date: 2010-08-26 00:38+0200\n"
 "PO-Revision-Date: 2010-05-06 16:37+0200\n"
 "Last-Translator: Priit-A. Heinsalu <priit.heinsalu@gmail.com>\n"
 "Language-Team: none\n"
@@ -17,6 +17,25 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 1.1.0\n"
+
+#: src/EBox/Config.pm.in:76
+#, perl-brace-format
+msgid "Could not open the config file {file}."
+msgstr "Seadistusfaili {file} avamine nurjus"
+
+#: src/EBox/Config.pm.in:171
+msgid "The ebox user has not been set in the config file."
+msgstr "Eboxi kasutajat ei ole seadistusfailis määratud."
+
+#: src/EBox/Exceptions/DataNotFound.pm:37
+#, perl-brace-format
+msgid "{data} {value} does not exist."
+msgstr "{data} {value} ei ole olemas."
+
+#: src/EBox/Exceptions/DataExists.pm:38
+#, perl-brace-format
+msgid "{data} {value} already exists."
+msgstr "{data} {value} on juba olemas."
 
 #: src/EBox/Exceptions/InvalidData.pm:39
 #, perl-brace-format
@@ -28,20 +47,55 @@ msgstr "{data} vigane väärtus: {value}"
 msgid "{data} is empty."
 msgstr "{data} on tühi"
 
-#: src/EBox/Exceptions/DataExists.pm:38
-#, perl-brace-format
-msgid "{data} {value} already exists."
-msgstr "{data} {value} on juba olemas."
+#: src/EBox/Validate.pm:398 src/EBox/Validate.pm:412
+msgid "Must be a number between 1 and 4096"
+msgstr "Peab olema number vahemikus 1 kuni 4096"
 
-#: src/EBox/Exceptions/DataNotFound.pm:37
+#: src/EBox/Validate.pm:702
 #, perl-brace-format
-msgid "{data} {value} does not exist."
-msgstr "{data} {value} ei ole olemas."
+msgid ""
+"Cannot stat dir: {dir}. This may mean that the directory does not exist or "
+"the permissions forbid access to it"
+msgstr ""
+"Kataloogi {dir} kohta ei saadud infot. See tähendab seda, et kataloogi ei "
+"ole olemas või puuduvad vastavad õigused."
+
+#: src/EBox/Validate.pm:707
+#, perl-brace-format
+msgid "The directory {dir} is not private; because it is owned by another user"
+msgstr "Kataloog {dir} ei ole privaatne; kuna see kuulub teisele kasutajale"
+
+#  
+#: src/EBox/Validate.pm:782
+msgid ""
+"The file path supplied is not valid. (Currently not all of the valid file's  "
+"characters are supported) "
+msgstr ""
+"Pakutud faili asukoht on vigane. (Hetkel ei toetata kahjuks kõiki failinimes "
+"lubatud märke)"
+
+#: src/EBox/Validate.pm:810
+msgid "The file path must be absolute"
+msgstr "Faili asukoht peab olema absoluutne"
+
+#: src/EBox/Sudo.pm:267
+#, perl-brace-format
+msgid "Running command '{cmd}' as {user} failed"
+msgstr "Käsu '{cmd}' käivitamine kasutajana {user} nurjus"
+
+#: src/EBox/FileSystem.pm:191 src/EBox/FileSystem.pm:283
+#, perl-brace-format
+msgid "Directory not found: {d}"
+msgstr "Kataloogi ei leitud: {d}"
 
 #: src/EBox/NetWrappers.pm:107 src/EBox/NetWrappers.pm:136
 #: src/EBox/NetWrappers.pm:167 src/EBox/NetWrappers.pm:269
 msgid "Interface"
 msgstr "Liides"
+
+#: src/EBox/CGI/EBox/PageNotFound.pm:28
+msgid "Page not found"
+msgstr "Lehekülge ei leitud"
 
 #: src/EBox/CGI/Base.pm:198
 msgid ""
@@ -102,76 +156,85 @@ msgstr "Vigane üleslaaditud fail."
 msgid "Cannot create a temporally file for the upload"
 msgstr "Ajutise faili loomine üleslaadimiseks nurjus"
 
-#: src/EBox/CGI/EBox/PageNotFound.pm:28
-msgid "Page not found"
-msgstr "Lehekülge ei leitud"
+#: src/templates/language.mas:10
+msgid "Language Selection"
+msgstr "Keele valimine"
 
-#: src/EBox/Config.pm.in:76
-#, perl-brace-format
-msgid "Could not open the config file {file}."
-msgstr "Seadistusfaili {file} avamine nurjus"
-
-#: src/EBox/Config.pm.in:171
-msgid "The ebox user has not been set in the config file."
-msgstr "Eboxi kasutajat ei ole seadistusfailis määratud."
-
-#: src/EBox/Sudo.pm:267
-#, perl-brace-format
-msgid "Running command '{cmd}' as {user} failed"
-msgstr "Käsu '{cmd}' käivitamine kasutajana {user} nurjus"
-
-#: src/EBox/FileSystem.pm:191 src/EBox/FileSystem.pm:283
-#, perl-brace-format
-msgid "Directory not found: {d}"
-msgstr "Kataloogi ei leitud: {d}"
-
-#: src/EBox/Validate.pm:398 src/EBox/Validate.pm:412
-msgid "Must be a number between 1 and 4096"
-msgstr "Peab olema number vahemikus 1 kuni 4096"
-
-#: src/EBox/Validate.pm:702
-#, perl-brace-format
+#: src/templates/language.mas:11
 msgid ""
-"Cannot stat dir: {dir}. This may mean that the directory does not exist or "
-"the permissions forbid access to it"
+"Language changes happen automatically, saving the configuration it's not "
+"needed."
 msgstr ""
-"Kataloogi {dir} kohta ei saadud infot. See tähendab seda, et kataloogi ei "
-"ole olemas või puuduvad vastavad õigused."
+"Keele muutmine toimub automaatselt, seadistuste salvestamine ei ole vajalik."
 
-#: src/EBox/Validate.pm:707
-#, perl-brace-format
-msgid "The directory {dir} is not private; because it is owned by another user"
-msgstr "Kataloog {dir} ei ole privaatne; kuna see kuulub teisele kasutajale"
-
-#  
-#: src/EBox/Validate.pm:782
-msgid ""
-"The file path supplied is not valid. (Currently not all of the valid file's  "
-"characters are supported) "
-msgstr ""
-"Pakutud faili asukoht on vigane. (Hetkel ei toetata kahjuks kõiki failinimes "
-"lubatud märke)"
-
-#: src/EBox/Validate.pm:810
-msgid "The file path must be absolute"
-msgstr "Faili asukoht peab olema absoluutne"
-
-#: src/templates/enable.mas:9
-msgid "Service configuration"
-msgstr "Teenuse seadistamine"
-
-#: src/templates/enable.mas:21 src/templates/enable.mas:24
-msgid "Disabled"
-msgstr "Keelatud"
-
-#: src/templates/enable.mas:22 src/templates/enable.mas:25
-msgid "Enabled"
-msgstr "Lubatud"
-
+#: src/templates/language.mas:23 src/templates/ajax/tableBody.mas:348
 #: src/templates/enable.mas:29 src/templates/enable.mas:30
-#: src/templates/ajax/tableBody.mas:348 src/templates/language.mas:23
 msgid "Change"
 msgstr "Muuda"
+
+#: src/templates/title.mas:24
+msgid "show help"
+msgstr "abiteabe näitamine"
+
+#: src/templates/title.mas:25
+msgid "hide help"
+msgstr "abiteabe peitmine"
+
+#: src/templates/ebox/pageNotFound.mas:3
+#, fuzzy
+msgid "Zentyal homepage"
+msgstr "eBoxi kodulehekülg"
+
+# Kontrolli palun URLi, kui see on käsitsi sisestatud
+#: src/templates/ebox/pageNotFound.mas:7
+msgid "If you typed the URL manually, please check it"
+msgstr "Kui kirjutasid URLi käsitsi, palun kontrolli seda"
+
+# kuvatakse kui 'page not found'
+#: src/templates/ebox/pageNotFound.mas:8
+#, fuzzy
+msgid ""
+"Maybe a change in the Zentyal configuration or software made no longer "
+"available the requested page"
+msgstr ""
+"Võimalik, et eBoxi seadistuste või tarkvara muutmise tõttu ei ole küsitud "
+"lehekülg enam saadaval"
+
+#  
+#: src/templates/ebox/pageNotFound.mas:9
+#, perl-brace-format
+msgid ""
+"If you need more help, you may want visit {homepage} for documentation and "
+"mailing lists"
+msgstr ""
+"Kui vajad rohkem abi võid tutvuda dokumentatsiooniga kodulehel {homepage} "
+"või külastada e-posti listi."
+
+#: src/templates/ebox/pageNotFound.mas:12
+msgid "we're sorry"
+msgstr "meil on kahju"
+
+#: src/templates/ebox/pageNotFound.mas:13
+msgid "The page cannot be found"
+msgstr "Lehekülge ei leitud"
+
+# Vastupidine vastavus
+#: src/templates/ajax/setter/inverseMatchUnionSetter.mas:9
+#: src/templates/ajax/setter/inverseMatchSelectSetter.mas:13
+msgid "Inverse match"
+msgstr "Vastupidine sobivus"
+
+#: src/templates/ajax/setter/portRangeSetter.mas:23
+msgid "From"
+msgstr "Alates"
+
+#: src/templates/ajax/setter/portRangeSetter.mas:29
+msgid "To"
+msgstr "Kuni"
+
+#: src/templates/ajax/setter/serviceSetter.mas:25
+msgid "port"
+msgstr "port"
 
 #: src/templates/ajax/viewer/file.mas:22 src/templates/ajax/viewer/file.mas:33
 msgid "Download"
@@ -180,6 +243,46 @@ msgstr "Laadi alla"
 #: src/templates/ajax/viewer/file.mas:26
 msgid "Remove"
 msgstr "Eemalda"
+
+# või "valikuline"
+#: src/templates/ajax/modelViewer.mas:256 src/templates/formTable.mas:85
+msgid "Optional"
+msgstr "Valikuline"
+
+#: src/templates/ajax/tablePager.mas:46
+msgid "Page"
+msgstr "Lehekülg"
+
+#: src/templates/ajax/tablePager.mas:47
+msgid "of"
+msgstr "/"
+
+#: src/templates/ajax/tablePager.mas:60 src/templates/ajax/tablePager.mas:66
+msgid "first"
+msgstr "esimene"
+
+#: src/templates/ajax/tablePager.mas:62 src/templates/ajax/tablePager.mas:67
+msgid "prev"
+msgstr "eelmine"
+
+#: src/templates/ajax/tablePager.mas:73 src/templates/ajax/tablePager.mas:74
+#: src/templates/ajax/tablePager.mas:85 src/templates/ajax/tablePager.mas:86
+msgid "next"
+msgstr "järgmine"
+
+#: src/templates/ajax/tablePager.mas:79 src/templates/ajax/tablePager.mas:80
+#: src/templates/ajax/tablePager.mas:89 src/templates/ajax/tablePager.mas:90
+msgid "last"
+msgstr "viimane"
+
+# Määra üks valik, et kuvataks sellega seotud tabel
+#: src/templates/ajax/tableSelector.mas:14
+msgid "Choose one of the options to show the associated table"
+msgstr "Määra valik tabeli kuvamiseks"
+
+#: src/templates/ajax/tableSelector.mas:32
+msgid "Choose one..."
+msgstr "Vali üks..."
 
 #: src/templates/ajax/tableBody.mas:117
 msgid "Add new"
@@ -223,117 +326,14 @@ msgstr "Kirjutuskaitsega rida: redigeerimine keelatud"
 msgid "Read-only row: delete disabled"
 msgstr "Kirjutuskaitsega rida: kustutamine keelatud"
 
-# Määra üks valik, et kuvataks sellega seotud tabel
-#: src/templates/ajax/tableSelector.mas:14
-msgid "Choose one of the options to show the associated table"
-msgstr "Määra valik tabeli kuvamiseks"
+#: src/templates/enable.mas:9
+msgid "Service configuration"
+msgstr "Teenuse seadistamine"
 
-#: src/templates/ajax/tableSelector.mas:32
-msgid "Choose one..."
-msgstr "Vali üks..."
+#: src/templates/enable.mas:21 src/templates/enable.mas:24
+msgid "Disabled"
+msgstr "Keelatud"
 
-#: src/templates/ajax/setter/serviceSetter.mas:25
-msgid "port"
-msgstr "port"
-
-# Vastupidine vastavus
-#: src/templates/ajax/setter/inverseMatchUnionSetter.mas:9
-#: src/templates/ajax/setter/inverseMatchSelectSetter.mas:13
-msgid "Inverse match"
-msgstr "Vastupidine sobivus"
-
-#: src/templates/ajax/setter/portRangeSetter.mas:23
-msgid "From"
-msgstr "Alates"
-
-#: src/templates/ajax/setter/portRangeSetter.mas:29
-msgid "To"
-msgstr "Kuni"
-
-# või "valikuline"
-#: src/templates/ajax/modelViewer.mas:256 src/templates/formTable.mas:85
-msgid "Optional"
-msgstr "Valikuline"
-
-#: src/templates/ajax/tablePager.mas:46
-msgid "Page"
-msgstr "Lehekülg"
-
-#: src/templates/ajax/tablePager.mas:47
-msgid "of"
-msgstr "/"
-
-#: src/templates/ajax/tablePager.mas:60 src/templates/ajax/tablePager.mas:66
-msgid "first"
-msgstr "esimene"
-
-#: src/templates/ajax/tablePager.mas:62 src/templates/ajax/tablePager.mas:67
-msgid "prev"
-msgstr "eelmine"
-
-#: src/templates/ajax/tablePager.mas:73 src/templates/ajax/tablePager.mas:74
-#: src/templates/ajax/tablePager.mas:85 src/templates/ajax/tablePager.mas:86
-msgid "next"
-msgstr "järgmine"
-
-#: src/templates/ajax/tablePager.mas:79 src/templates/ajax/tablePager.mas:80
-#: src/templates/ajax/tablePager.mas:89 src/templates/ajax/tablePager.mas:90
-msgid "last"
-msgstr "viimane"
-
-#: src/templates/ebox/pageNotFound.mas:3
-#, fuzzy
-msgid "Zentyal homepage"
-msgstr "eBoxi kodulehekülg"
-
-# Kontrolli palun URLi, kui see on käsitsi sisestatud
-#: src/templates/ebox/pageNotFound.mas:7
-msgid "If you typed the URL manually, please check it"
-msgstr "Kui kirjutasid URLi käsitsi, palun kontrolli seda"
-
-# kuvatakse kui 'page not found'
-#: src/templates/ebox/pageNotFound.mas:8
-#, fuzzy
-msgid ""
-"Maybe a change in the Zentyal configuration or software made no longer "
-"available the requested page"
-msgstr ""
-"Võimalik, et eBoxi seadistuste või tarkvara muutmise tõttu ei ole küsitud "
-"lehekülg enam saadaval"
-
-#  
-#: src/templates/ebox/pageNotFound.mas:9
-#, perl-brace-format
-msgid ""
-"If you need more help, you may want visit {homepage} for documentation and "
-"mailing lists"
-msgstr ""
-"Kui vajad rohkem abi võid tutvuda dokumentatsiooniga kodulehel {homepage} "
-"või külastada e-posti listi."
-
-#: src/templates/ebox/pageNotFound.mas:12
-msgid "we're sorry"
-msgstr "meil on kahju"
-
-#: src/templates/ebox/pageNotFound.mas:13
-msgid "The page cannot be found"
-msgstr "Lehekülge ei leitud"
-
-#: src/templates/title.mas:24
-msgid "show help"
-msgstr "abiteabe näitamine"
-
-#: src/templates/title.mas:25
-msgid "hide help"
-msgstr "abiteabe peitmine"
-
-#: src/templates/language.mas:10
-msgid "Language Selection"
-msgstr "Keele valimine"
-
-#: src/templates/language.mas:11
-msgid ""
-"Language changes happen automatically, saving the configuration it's not "
-"needed."
-msgstr ""
-"Keele muutmine toimub automaatselt, seadistuste salvestamine ei ole vajalik."
+#: src/templates/enable.mas:22 src/templates/enable.mas:25
+msgid "Enabled"
+msgstr "Lubatud"
