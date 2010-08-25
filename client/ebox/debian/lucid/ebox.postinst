@@ -11,8 +11,6 @@ set -e
 
 #DEBHELPER#
 
-
-
 case "$1" in
 	configure)
 
@@ -37,6 +35,8 @@ case "$1" in
                 --disabled-password --ingroup ebox ebox
             adduser ebox adm
         fi
+        # To allow PAM authentication
+        adduser ebox shadow > /dev/null 2>&1
 
         chown ebox:adm /var/log/ebox
         chown -R ebox:adm /var/lib/ebox/tmp
@@ -58,7 +58,7 @@ case "$1" in
         chown ebox:ebox ${STDERR_FILE}
 
         # add the dynamic-www- and downloads directories
-        DYNAMIC_WWW_DIRS=$(perl -MEBox::Config -e'print EBox::Config::dynamicwww() ; print " " ; print join(" ", @{EBox::Config::dynamicwwwSubdirs()}); print " "; print EBox::Config::downloads;  1;'); 
+        DYNAMIC_WWW_DIRS=$(perl -MEBox::Config -e'print EBox::Config::dynamicwww() ; print " " ; print join(" ", @{EBox::Config::dynamicwwwSubdirs()}); print " "; print EBox::Config::downloads;  1;');
         for DIR in $DYNAMIC_WWW_DIRS; do
             mkdir -p $DIR
             chown -R ebox:ebox $DIR
@@ -66,11 +66,6 @@ case "$1" in
 
         #change the /var/lib/ebox/ user
         chown  ebox:ebox /var/lib/ebox
-
-        # Set default passwd if it does not exist yet
-        if [ ! -f /var/lib/ebox/conf/ebox.passwd ]; then
-            store_password;
-        fi
 
         # Setup random redis password
         REDIS_PASS="/var/lib/ebox/conf/redis.passwd"

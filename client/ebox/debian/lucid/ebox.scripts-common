@@ -93,21 +93,3 @@ set_ebox_port()
 
     set -e
 }
-
-store_password() {
-    local pass1
-
-    db_get ebox/password1
-    pass1="$RET"
-
-    if [ -z $pass1 ]; then
-        pass1="ebox"
-    fi
-
-    db_set ebox/password1 ""
-    db_set ebox/password2 ""
-
-    echo -n "$pass1"| md5sum - | cut -d' ' -f1 > /var/lib/ebox/conf/ebox.passwd
-    chown ebox:ebox /var/lib/ebox/conf/ebox.passwd
-    chmod 600 /var/lib/ebox/conf/ebox.passwd
-}

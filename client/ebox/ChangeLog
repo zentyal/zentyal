@@ -1,4 +1,6 @@
 HEAD
+	+ New login method using PAM instead of password file
+	+ Allow to change admin passwords under System->General
 	+ Avoid auto submit wizard forms
 	+ Wizard skip buttons always available
 	+ Rebranded post-installation questions

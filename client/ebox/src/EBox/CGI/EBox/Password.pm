@@ -37,9 +37,14 @@ sub new # (cgi=?)
 
 sub _process
 {
-    my $self = shift;
+    my ($self) = @_;
 
     if (defined($self->param('password'))) {
+        my $username = $self->unsafeParam('username');
+        if (not $username) {
+            throw EBox::Exceptions::DataMissing(data =>  __('Username'));
+        }
+
         my $curpwd = $self->unsafeParam('currentpwd');
         if (not $curpwd) {
             throw EBox::Exceptions::DataMissing(data =>  __('Password'));
@@ -50,21 +55,21 @@ sub _process
         defined($newpwd1) or $newpwd1 = "";
         defined($newpwd2) or $newpwd2 = "";
 
-        unless (EBox::Auth->checkPassword($curpwd)) {
+        unless (EBox::Auth->checkValidUser($username, $curpwd)) {
             throw EBox::Exceptions::External(__('Incorrect '.
-                                                    'password.'));
+                        'password.'));
         }
 
         unless ($newpwd1 eq $newpwd2) {
             throw EBox::Exceptions::External(__('New passwords do'.
-                                                    ' not match.'));
+                        ' not match.'));
         }
 
         unless (length($newpwd1) > 5) {
             throw EBox::Exceptions::External(__('The password must'.
-                                                    ' be at least 6 characters long'));
+                        ' be at least 6 characters long'));
         }
-        EBox::Auth->setPassword($newpwd1);
+        EBox::Auth->setPassword($username, $newpwd1);
         $self->{msg} = __('The password was changed successfully.');
     }
 }

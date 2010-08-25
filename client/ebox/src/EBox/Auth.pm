@@ -33,6 +33,7 @@ use EBox::LogAdmin;
 use Apache2::Connection;
 use Apache2::Const qw(:common HTTP_FORBIDDEN HTTP_MOVED_TEMPORARILY);
 
+use Authen::Simple::PAM;
 use Digest::MD5;
 use Fcntl qw(:flock);
 
@@ -46,136 +47,113 @@ use constant CC_DOMAIN => 'dynamic.ebox-services.com';
 
 sub new
 {
-	my $class = shift;
-	my $self = {};
-	bless($self, $class);
-	return $self;
+    my $class = shift;
+    my $self = {};
+    bless($self, $class);
+    return $self;
 }
 
 # Parameters:
 #
 #   - session id : if the id is undef, it truncates the session file
 # Exceptions:
-# 	- Internal
-# 		- When session file cannot be opened to write
+#   - Internal
+#       - When session file cannot be opened to write
 sub _savesession # (session_id)
 {
-	my $sid = shift;
-	my $sidFile;
-        my $openMode = '>';
-        if ( -f EBox::Config->sessionid() ) {
-            $openMode = '+<';
-        }
-	unless  ( open ( $sidFile, $openMode, EBox::Config->sessionid() )){
-            throw EBox::Exceptions::Internal(
-         		      "Could not open to write ".
-	                      EBox::Config->sessionid);
-      	}
-        # Lock the file in exclusive mode
-        flock($sidFile, LOCK_EX)
-          or throw EBox::Exceptions::Lock('EBox::Auth');
-        # Truncate the file after locking
-        truncate($sidFile, 0);
-	print $sidFile $sid . "\t" . time if defined $sid;
-        # Release the lock
-        flock($sidFile, LOCK_UN);
-	close($sidFile);
+    my ($sid) = @_;
+    my $sidFile;
+    my $openMode = '>';
+    if ( -f EBox::Config->sessionid() ) {
+        $openMode = '+<';
+    }
+    unless  ( open ( $sidFile, $openMode, EBox::Config->sessionid() )){
+        throw EBox::Exceptions::Internal(
+                "Could not open to write ".
+                EBox::Config->sessionid);
+    }
+    # Lock the file in exclusive mode
+    flock($sidFile, LOCK_EX)
+        or throw EBox::Exceptions::Lock('EBox::Auth');
+    # Truncate the file after locking
+    truncate($sidFile, 0);
+    print $sidFile $sid . "\t" . time if defined $sid;
+    # Release the lock
+    flock($sidFile, LOCK_UN);
+    close($sidFile);
 }
 
-# Method: checkPassword
+# Method: checkValidUser
 #
-#   	Check if a given password matches the stored one after md5 it
+#       Check with PAM if the user/password provided is of a valid admin
 #
 # Parameters:
 #
+#       username - string containing the user name
 #       password - string containing the plain password
 #
 # Returns:
 #
 #       boolean - true if it's correct, otherwise false
 #
-# Exceptions:
-#
-#       <EBox::Exceptions::Internal> - when password's file cannot be opened
-sub checkPassword # (password)
+sub checkValidUser
 {
-    my ($self, $passwd) = @_;
+    my ($self, $username, $password) = @_;
 
-    open(my $PASSWD_F, EBox::Config->passwd) or
-	throw EBox::Exceptions::Internal('Could not open passwd file');
+    my $pam = new Authen::Simple::PAM(service => 'zentyal');
 
-    my @lines = <$PASSWD_F>;
-    close($PASSWD_F);
-
-    my $filepasswd = $lines[0];
-    $filepasswd =~ s/[\n\r]//g;
-
-    my $md5 = Digest::MD5->new;
-    $md5->add($passwd);
-
-    my $encpasswd = $md5->hexdigest;
-    if ($encpasswd eq $filepasswd) {
-	return 1;
-    } else {
-	return undef;
-    }
+    return $pam->authenticate($username, $password);
 }
-
 
 # Method: setPassword
 #
-#   	Store the given password
+#       Changes the password of the given username
 #
 # Parameters:
 #
+#       username - username to change the password
 #       password - string containing the plain password
 #
 # Exceptions:
 #
-#       <EBox::Exceptions::Internal> - when password's file cannot be
-#       opened
-#	<EBox::Exceptions::External> - when password length is no
-#	longer than 6 characters
-sub setPassword # (password)
+#   <EBox::Exceptions::Internal> - when password cannot be changed
+#   <EBox::Exceptions::External> - when password length is no
+#                                  longer than 6 characters
+sub setPassword
 {
-    my ($self, $passwd) = @_;
+    my ($self, $username, $password) = @_;
 
-    unless (length($passwd) > 5) {
-	throw EBox::Exceptions::External('The password must be at least 6 characters long');
+    unless (length($password) > 5) {
+        throw EBox::Exceptions::External('The password must be at least 6 characters long');
     }
 
-    open(my $PASSWD_F, "> ". EBox::Config->passwd) or
-	throw EBox::Exceptions::Internal('Could not open passwd file');
+    open(my $pipe, "|/usr/bin/sudo /usr/sbin/chpasswd") or
+        throw EBox::Exceptions::Internal("Could not change password: $!");
 
-    my $md5 = Digest::MD5->new;
-    $md5->add($passwd);
-    my $encpasswd = $md5->hexdigest;
-
-    print $PASSWD_F $encpasswd;
-    close($PASSWD_F);
+    print $pipe "$username:$password\n";
+    close($pipe);
     EBox::LogAdmin::logAdminNow('ebox',__n('Password changed'),'');
 }
 
-
 # Method: authen_cred
 #
-#   	Overriden method from <Apache2::AuthCookie>.
+#       Overriden method from <Apache2::AuthCookie>.
 #
-sub authen_cred  # (request, password, fromCC)
+sub authen_cred  # (request, $user, password, fromCC)
 {
-    my ($self, $r, $passwd, $fromCC) = @_;
+    my ($self, $r, $user, $passwd, $fromCC) = @_;
 
     # If there's a script session opened, give it priority to the
     # Web interface session
     if ( $self->_actionScriptSession() ){
-      EBox::warn('Failed login since a script session is opened');
-      $r->subprocess_env(LoginReason => 'Script active');
-      return;
+        EBox::warn('Failed login since a script session is opened');
+        $r->subprocess_env(LoginReason => 'Script active');
+        return;
     }
 
     # Unless it is a CC session or password does
     if ( not (defined($fromCC) and $fromCC) ) {
-        unless ($self->checkPassword($passwd)) {
+        unless ($self->checkValidUser($user, $passwd)) {
             my $log = EBox->logger();
             my $ip  = $r->connection->remote_ip();
             $log->warn("Failed login from: $ip");
@@ -201,7 +179,7 @@ sub authen_cred  # (request, password, fromCC)
 
 # Method: authen_ses_key
 #
-#   	Overriden method from <Apache2::AuthCookie>.
+#       Overriden method from <Apache2::AuthCookie>.
 #
 sub authen_ses_key  # (request, session_key)
 {
@@ -212,19 +190,19 @@ sub authen_ses_key  # (request, session_key)
     my $expired =  _timeExpired($lastime);
 
     if ( $self->_actionScriptSession() ) {
-      $r->subprocess_env(LoginReason => 'Script active');
-      _savesession(undef);
+        $r->subprocess_env(LoginReason => 'Script active');
+        _savesession(undef);
     }
     elsif(($session_key eq $sid) and (!$expired )){
-	_savesession($sid);
-	return "admin";
+        _savesession($sid);
+        return "admin";
     }
     elsif ($expired) {
-	$r->subprocess_env(LoginReason => "Expired");
-	_savesession(undef);
+        $r->subprocess_env(LoginReason => "Expired");
+        _savesession(undef);
     }
     else {
-	$r->subprocess_env(LoginReason => "Already");
+        $r->subprocess_env(LoginReason => "Already");
     }
 
     return;
@@ -253,7 +231,7 @@ sub loginCC
         if ( EBox::Global->modExists('remoteservices') ) {
             my $remoteServMod = EBox::Global->modInstance('remoteservices');
             if ( $remoteServMod->eBoxSubscribed()
-                   and $remoteServMod->model('AccessSettings')->passwordlessValue()) {
+                 and $remoteServMod->model('AccessSettings')->passwordlessValue()) {
                 # Do what login does
                 my $sessionKey = $self->authen_cred($req,'',1);
                 $self->send_cookie($req, $sessionKey);
@@ -264,7 +242,6 @@ sub loginCC
         }
         return EBox::CGI::Run->run('/Login/Index', 'EBox');
     }
-
 }
 
 # XXX not sure if this will be useful, if not remove
@@ -279,44 +256,29 @@ sub alreadyLogged
     return 1;
 }
 
-#
-# Method: defaultPasswdChanged
-#
-# Returns:
-#
-#     boolean - signal whether the default eBox password were
-#               changed or not
-#
-sub defaultPasswdChanged
-{
-  my ($self) = @_;
-  return EBox::Auth->checkPassword('ebox') ? undef : 1;
-}
-
 # scalar mode: return the sessionid
 # list mode:   return (sessionid, lastime)
 sub _currentSessionId
 {
     my $SID_F; # sid file handle
 
-    unless( -e EBox::Config->sessionid()){
-	unless  (open ($SID_F,  ">". EBox::Config->sessionid())){
-	    throw EBox::Exceptions::Internal(
-					     "Could not create  ".
-					     EBox::Config->sessionid);
-	}
-	close($SID_F);
-	return;
+    unless(-e EBox::Config->sessionid()) {
+        unless (open ($SID_F,  ">". EBox::Config->sessionid())) {
+            throw EBox::Exceptions::Internal("Could not create  " .
+                                             EBox::Config->sessionid);
+        }
+        close($SID_F);
+        return;
     }
-    unless   (open ($SID_F,  EBox::Config->sessionid())){
-	throw EBox::Exceptions::Internal(
-					 "Could not open ".
-					 EBox::Config->sessionid);
+    unless (open ($SID_F,  EBox::Config->sessionid())) {
+        throw EBox::Exceptions::Internal(
+                "Could not open ".
+                EBox::Config->sessionid);
     }
 
     # Lock in shared mode for reading
     flock($SID_F, LOCK_SH)
-      or throw EBox::Exceptions::Lock('EBox::Auth');
+        or throw EBox::Exceptions::Lock('EBox::Auth');
 
     $_ = <$SID_F>;
     my ($sid, $lastime);
@@ -327,13 +289,12 @@ sub _currentSessionId
     close($SID_F);
 
     if (wantarray()) {
-	return ($sid, $lastime) ;
+        return ($sid, $lastime) ;
     }
     else {
-	return $sid;
+        return $sid;
     }
 }
-
 
 sub _timeExpired
 {
@@ -387,7 +348,6 @@ sub _actionScriptSession
 
     my $expireTime = $timeStamp + MAX_SCRIPT_SESSION;
     return ( $expireTime >= time() );
-
 }
 
 1;

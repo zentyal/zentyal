@@ -1,20 +1,3 @@
-Template: ebox/password1
-Type: password
-_Description: Zentyal administrator password:
- Please enter the password which will be used to log into the Zentyal web
- interface.
-
-Template: ebox/password2
-Type: password
-_Description: Confirm password:
- Please enter the password which will be used to log into the Zentyal web
- interface.
-
-Template: ebox/password_mismatch
-Type: note
-_Description: Password mismatch
- The two passwords you entered were not the same. Please try again
-
 Template: ebox/port
 Type: string
 Default: 443
