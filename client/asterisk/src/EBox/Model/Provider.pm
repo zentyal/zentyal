@@ -184,7 +184,8 @@ sub viewCustomizer
                     },
                 }
             });
-    $customizer->setPermanentMessage(_message());
+    # Commercial message commented until service available again
+    #$customizer->setPermanentMessage(_message());
     return $customizer;
 }
 
