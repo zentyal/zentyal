@@ -22,6 +22,7 @@ package EBox::Monitor::Measure::Base;
 
 use strict;
 use warnings;
+use feature ":5.10";
 
 use EBox::Exceptions::DataNotFound;
 use EBox::Exceptions::Internal;
@@ -533,27 +534,26 @@ sub scale
 #
 #    If the gauge type is 'int', then it returns nothing.
 #
+# Parameters:
+#
+#    count - Int the count number to Kilo/Mega if required
+#
 # Returns:
 #
 #    String - the measure in human readable format
 #
 sub formattedGaugeType
 {
-    my ($self) = @_;
+    my ($self, $count) = @_;
 
-    # TODO: use switch statement when dropping off hardy
-    if ( $self->{type} eq 'int' ) {
-        return '';
-    } elsif ( $self->{type} eq 'percentage' ) {
-        return '%';
-    } elsif ( $self->{type} eq 'bps' ) {
-        return 'B/s';
-    } elsif ( $self->{type} eq 'degree' ) {
-        return 'º';
-    } elsif ( $self->{type} eq 'millisecond' ) {
-        return 'ms';
-    } else {
-        return $self->{type} . 's';
+    given ( $self->{type} ) {
+        when ( 'int' ) { return $count; }
+        when ( 'percentage' ) { return "$count%"; }
+        when ( 'bps' ) { return (_formatSize($count) . '/s'); }
+        when ( 'millisecond' ) { return _formatTimeDiff($count); }
+        when ( 'degree' ) { return "$count°"; }
+        when ( 'byte' ) { return _formatSize($count) }
+        default { return "$count " . $self->{type} . 's' }
     }
 
 }
@@ -819,5 +819,84 @@ sub _setDescription
 
 }
 
+# These functions may be available in libebox package
+
+# Gauge type formatters
+sub _formatTimeDiff
+{
+    my ($ms) = @_;
+
+    my ($pos, $base, $timeDiff) = (0, 1000, $ms);
+    while ( $timeDiff > $base ) {
+        $timeDiff = $timeDiff / $base;
+        $pos++;
+        if ( $pos >= 1 ) {
+            $base = 60;
+        }
+        if ( $pos > 2 ) {
+            last;
+        }
+    }
+    my $num = 10 ** 2;
+
+    my $numStr = sprintf( '%.3f', ($timeDiff * $num / $num));
+    # Remove trailing zeroes if there are any
+    $numStr =~ s:0+$::;
+    $numStr =~ s:\.$::;
+
+    return ( $numStr . ' ' . _timeDiffSuffix($pos) );
+}
+
+# Start using perl 5.10
+sub _timeDiffSuffix
+{
+    my ($pos) = @_;
+
+    given ( $pos ) {
+        when ( 0 ) { return 'ms'; }
+        when ( 1 ) { return 's'; }
+        when ( 2 ) { return 'min'; }
+        default { return 'h'; }
+    }
+}
+
+# Format byte
+sub _formatSize
+{
+    my ($size) = @_;
+
+    my ($pos, $base) = (0, 1024);
+
+    while ( ($size > $base) and ($pos < 10 ) ) {
+        $size = $size / $base;
+        $pos++;
+    }
+    my $num = 10 ** 2;
+
+    my $numStr = sprintf( '%.3f', ($size * $num / $num));
+    # Remove trailing zeroes if there are any
+    $numStr =~ s:0+$::;
+    $numStr =~ s:\.$::;
+    return ( $numStr . ' ' . _sizeSuffix($pos) );
+
+}
+
+sub _sizeSuffix
+{
+    my ($pos) = @_;
+
+    given ( $pos ) {
+        when ( 0 ) { return 'B'; }
+        when ( 1 ) { return 'KB'; }
+        when ( 2 ) { return 'MB'; }
+        when ( 3 ) { return 'GB'; }
+        when ( 4 ) { return 'TB'; }
+        when ( 5 ) { return 'PB'; }
+        when ( 6 ) { return 'EB'; }
+        when ( 7 ) { return 'ZB'; }
+        when ( 8 ) { return 'YB'; }
+        default    { return 'XB'; }
+    }
+}
 
 1;

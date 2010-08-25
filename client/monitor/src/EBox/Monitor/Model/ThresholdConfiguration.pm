@@ -84,6 +84,36 @@ sub new
 
 }
 
+# Method: viewCustomizer
+#
+#     Provide a custom HTML title with breadcrumbs
+#
+# Overrides:
+#
+#     <EBox::Model::DataTable::viewCustomizer>
+#
+sub viewCustomizer
+{
+    my ($self) = @_;
+
+    my $custom = $self->SUPER::viewCustomizer();
+    $custom->setHTMLTitle( [
+        {
+         title => __('Events'),
+         link  => '/ebox/Events/Composite/GeneralComposite',
+        },
+        {
+         title => __('Monitor Watcher'),
+         link  => '/ebox/Monitor/View/MeasureWatchers',
+        },
+        {
+         title => __('Threshold Configuration'),
+         link  => '',
+        }
+       ]);
+    return $custom;
+}
+
 # Method: validateTypedRow
 #
 # Overrides:
@@ -102,13 +132,12 @@ sub validateTypedRow
                 $anyThresholdSet = 1;
                 last;
             }
-            if ($allFields->{$th}->value()) {
-                $anyThresholdSet = 1;
-                last;
-            }
+        }
+        if ($allFields->{$th}->value()) {
+            $anyThresholdSet = 1;
+            last;
         }
     }
-
 
     unless($anyThresholdSet) {
         throw EBox::Exceptions::External(
@@ -177,11 +206,7 @@ sub validateTypedRow
 
 # Method: findDumpThresholds
 #
-#     Return those thresholds which are enabled and it does not
-#     overlap in threshold configuration file
-#
-#     This happens because of collectd 4.3 does not support DataSource
-#     filter in notification system. Newer releases does support that
+#     Return those thresholds which are enabled
 #
 # Returns:
 #
@@ -192,24 +217,9 @@ sub findDumpThresholds
 {
     my ($self) = @_;
 
-    my $enabledRows = $self->findAll(enabled => 1);
+    my $enabledRows = $self->enabledRows();
 
-    my @dumpedRows = ();
-    foreach my $id (@{$enabledRows}) {
-        my $aRow = $self->row($id);
-        my $dump = 1;
-        foreach my $anotherRow (@dumpedRows) {
-            next if ($id eq $anotherRow->id());
-            if ( $aRow->elementByName('measureInstance')->isEqualTo($anotherRow->elementByName('measureInstance'))
-                 and $aRow->elementByName('typeInstance')->isEqualTo($anotherRow->elementByName('typeInstance'))) {
-                $dump = 0;
-                last;
-            }
-        }
-        if ($dump) {
-            push(@dumpedRows, $aRow);
-        }
-    }
+    my @dumpedRows = map { $self->row($_) } @{$enabledRows};
 
     return \@dumpedRows;
 
@@ -305,7 +315,6 @@ sub _table
 
     my $dataTable = {
         tableName           => 'ThresholdConfiguration',
-        pageTitle           => __('Threshold configuration'),
         printableTableName  => __(q{Threshold's list}),
         modelDomain         => 'Monitor',
         printableRowName    => __('Threshold'),

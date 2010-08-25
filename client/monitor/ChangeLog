@@ -1,8 +1,13 @@
 HEAD
+	+ Bugfix: Several thresholds for the same measure now works
+	+ Bugfix: Removing a maximum/minimum when updating a threshold
+	  works again
+	+ Added titles with breadcrumbs for threshold configuration and
+	  monitor watchers
 	+ Allow to create thresholds differencing them only in the data
 	  source
-	+ Monitor alerts now shows the measure and prints only 3 decimal
-	  points
+	+ Monitor alerts now shows the gauge measure including several
+	  suffixes and prints only, if required, 3 decimal points
 	+ Bugfix threshold configuration when a measure has been removed
 	+ Add millisecond and bps gauge types
 	+ Add include for more configuration files

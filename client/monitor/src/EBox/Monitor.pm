@@ -579,14 +579,15 @@ sub _setThresholdConf
                         if ( exists($threshold{instance}) ) {
                             $key .= '-' . $threshold{instance};
                         }
-                        unless (exists ( $thresholds{key} )) {
+                        unless (exists ( $thresholds{$key} )) {
                             $thresholds{$key} = [];
                         }
                         push(@{$thresholds{$key}}, \%threshold);
                     }
                 } catch EBox::Exceptions::DataNotFound with {
                     # The measure has disappear in some moment, we ignore their thresholds them
-                    ;
+                    my ($exc) = @_;
+                    EBox::warn($exc);
                 };
             }
         } else {

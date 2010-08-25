@@ -9,7 +9,7 @@
                  elements:
        measure  - String the measure's simple name
        instance - String the measure's instance if any *(Optional)*
-       type    - String the type's name
+       type    - String the type s name
        typeInstance - String the type instance if any *(Optional)*
        dataSource - String the data source if any *(Optional)*
        warningMin - Float the warning minimum value *(Optional)*

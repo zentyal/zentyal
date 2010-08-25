@@ -59,6 +59,32 @@ sub new
 
 }
 
+# Method: viewCustomizer
+#
+#     Provide a custom HTML title with breadcrumbs
+#
+# Overrides:
+#
+#     <EBox::Model::DataTable::viewCustomizer>
+#
+sub viewCustomizer
+{
+    my ($self) = @_;
+
+    my $custom = $self->SUPER::viewCustomizer();
+    $custom->setHTMLTitle( [
+        {
+         title => __('Events'),
+         link  => '/ebox/Events/Composite/GeneralComposite',
+        },
+        {
+         title => __('Monitor Watcher'),
+         link  => ''
+        }
+       ]);
+    return $custom;
+}
+
 # Method: syncRows
 #
 #   It is overriden because this table is kind of different in
