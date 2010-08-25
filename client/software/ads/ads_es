@@ -4,7 +4,7 @@
 "text": "",
 "items": [
 	"¡Gracias por haber elegido Zentyal!",
-	"Está usando la versión 2.0-rc1 de Zentyal: una versión beta que precede a la próxima versión estable, Zentyal 2.0",
+	"Está usando la versión 2.0-rc2 de Zentyal: la última que precede a la próxima versión estable, Zentyal 2.0",
 	"Esperamos que Zentyal le parezca fácil y útil! Sin embargo, si se encuentra con problemas, ¡rogamos consulte en el Foro de Zentyal!",
 	"¡Mientras se instalan los paquetes de Zentyal que haya elegido, esta presentación le enseñará qué más ofrecemos además del software de servidor Zentyal!"],
 "links": ["http://forum.ebox-platform.com/"]},
@@ -45,7 +45,7 @@
 	"¡Ahora es posible! Le ofrecemos soporte técnico remoto adaptado a su presupuesto: paquetes de soporte anuales y soporte para una incidencia única!",
 	"¡Únicamente debe obtener la Suscripción Profesional o Empresarial y adquirir el paquete de soporte que mejor se adapta a sus necesidades!"],
 "links":["http://www.ebox-technologies.com/services/support/"]},
-{"title": "6. Recuperación de Desastres (disponible en Q3)",
+{"title": "6. Recuperación de Desastres (disponible en Q4)",
 "image":"/data/software/images/05_icon_disaster_recovery.png",
 "text": "",
 "items": [
@@ -54,15 +54,15 @@
 	"Este servicio se ofrece en cooperación con uno de los proveedores de backup más fiables del mercado.",
 	"¡Únicamente debe obtener la Suscripción Profesional o Empresarial y adquirir la suscripción de Recuperación de Desastres!"],
 "links":[""]},
-{"title": "Llamadas Voz IP de bajo coste",
+{"title": "Llamadas Voz IP de bajo coste (próximamente disponible)",
 "image":"/data/software/images/06_icon_voip_calls.png",
 "text": "",
 "items": [
 	"¡Haga llamadas Voz IP de bajo coste a móviles y números fijos con Zentyal!",
-	"¡Mire a los precios! Llamada a EEUU desde los 0.0131EUR por minuto, España 0.0090EUR, Alemania 0.0101EUR, Reino Unido 0.0075EUR, Rusia 0.0287EUR...",
+	"Actualmente estamos trabajando con nuestro proveedor de Voz IP para ofrecer mejores tarifas que serán publicadas en breve.",
 	"¡Únicamente debe obtener la Suscripción Profesional o Empresarial y el crédito Voz IP necesario!"],
 "links":["http://store.ebox-technologies.com/voip-rates"]},
-{"title": "Actualizaciones de Listas de Seguridad ((disponible en Q3)",
+{"title": "Actualizaciones de Listas de Seguridad (disponible en Q3)",
 "image":"/data/software/images/07_icon_security.png",
 "text": "",
 "items": [
@@ -76,7 +76,7 @@
 "text": "",
 "items": [
 	"¡Aprenda fácilmente gestión de redes basada en Linux con Zentyal",
-	"eBox Technologies le ofrece cursos presenciales, personalizados y on-line en Zentyal.",
+	"Le ofrecemos cursos presenciales, personalizados y on-line sobre Zentyal.",
 	"¡Los Instructores Certificados garantizan que aprenderá las más novedosas técnicas de gestión de redes, localización y resolución de problemas y mejores prácticas basados en Zentyal!"],
 "links":["http://www.ebox-technologies.com/training/"]},
 {"title": "Manual \"Zentyal para Administradores de Redes\"",
