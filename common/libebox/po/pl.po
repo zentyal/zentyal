@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: libebox 0.12.1\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "POT-Creation-Date: 2010-07-21 00:53+0200\n"
-"PO-Revision-Date: 2007-04-05 10:50+0000\n"
-"Last-Translator: Krzysztof Kubanek <krzysztof.kubanek@gmail.com>\n"
+"PO-Revision-Date: 2010-08-24 16:38+0200\n"
+"Last-Translator: Robert Brzozowski <gnutar1@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n==0 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2);\n"
-"X-Generator: Pootle 0.10.1\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/Exceptions/InvalidData.pm:39
 #, perl-brace-format
@@ -65,7 +65,7 @@ msgid ""
 "An internal error has occurred. This is most probably a bug, relevant "
 "information can be found in the logs."
 msgstr ""
-"Wystąpił błąd zewnętrzny. Związane z nim komunikaty można znaleźć w logach."
+"Wystąpił błąd wewnętrzny. Związane z nim komunikaty można znaleźć w logach."
 
 #: src/EBox/CGI/Base.pm:572
 #, fuzzy
@@ -79,35 +79,35 @@ msgstr ""
 #: src/EBox/CGI/Base.pm:578
 msgid "You have just hit a bug in eBox. Please seek technical support."
 msgstr ""
-"Właśnie trafiłaś na błąd w eBoxsie. Prosimy odwołaj się do wsparcia "
-"technicznego."
+"Trafiłeś na błąd serwera eBox. Prosimy skontaktuj się ze wsparciem "
+"technicznym."
 
 #: src/EBox/CGI/Base.pm:664
 msgid ""
 "Your request could not be processed because it had some incorrect parameters"
 msgstr ""
-"Twoje żądanie nie mogło zostać przetworzone ponieważ miało nieprawidłowe "
-"parametry."
+"Twoje żądanie nie mogło zostać przetworzone ponieważ zawierało  "
+"nieprawidłowe parametry."
 
 #: src/EBox/CGI/Base.pm:697
 msgid "Wrong HTTP referer detected, operation cancelled for security reasons"
-msgstr ""
+msgstr "Błędny odsyłacz HTTP. Operację przerwano ze względów bezpieczeństwa."
 
 #: src/EBox/CGI/Base.pm:709
 msgid ""
 "Your request could not be processed because it lacked some required "
 "parameters"
 msgstr ""
-"Twoje żądanie nie mogło zostać przetworzone ponieważ brakło w nim niektórych "
-"wymaganych parametrów."
+"Twoje żądanie nie mogło zostać przetworzone ponieważ brakowało w nim "
+"niektórych wymaganych parametrów."
 
 #: src/EBox/CGI/Base.pm:860
 msgid "Invalid uploaded file."
-msgstr "Wgrano nieprawidłowy plik."
+msgstr "Nieprawidłowy plik"
 
 #: src/EBox/CGI/Base.pm:866
 msgid "Cannot create a temporally file for the upload"
-msgstr ""
+msgstr "Nie można utworzyć tymczasowego pliku."
 
 #: src/EBox/CGI/EBox/PageNotFound.pm:28
 msgid "Page not found"
@@ -130,11 +130,11 @@ msgstr "Uruchomienie komendy '{cmd}' jako użytkownik {user} nie powiodło się.
 #: src/EBox/FileSystem.pm:191 src/EBox/FileSystem.pm:283
 #, perl-brace-format
 msgid "Directory not found: {d}"
-msgstr ""
+msgstr "Nie odnaleziono katalogu: {d}"
 
 #: src/EBox/Validate.pm:398 src/EBox/Validate.pm:412
 msgid "Must be a number between 1 and 4096"
-msgstr ""
+msgstr "Należy wybrać wartość z przedziału 1 do 4096."
 
 #: src/EBox/Validate.pm:702
 #, perl-brace-format
@@ -149,7 +149,8 @@ msgstr ""
 #, perl-brace-format
 msgid "The directory {dir} is not private; because it is owned by another user"
 msgstr ""
-"Katalog {dir} nie jest katalogiem prywatnym ponieważ należy do innej osoby."
+"Katalog {dir} nie jest katalogiem prywatnym, ponieważ należy do innego "
+"użytkownika."
 
 #: src/EBox/Validate.pm:782
 msgid ""
@@ -161,11 +162,11 @@ msgstr ""
 
 #: src/EBox/Validate.pm:810
 msgid "The file path must be absolute"
-msgstr "Ścieżka do pliku nie może być względna."
+msgstr "Należy podać pełną ścieżkę."
 
 #: src/templates/enable.mas:9
 msgid "Service configuration"
-msgstr "Konfiguracja serwisowa"
+msgstr "Konfiguracja usługi"
 
 #: src/templates/enable.mas:21 src/templates/enable.mas:24
 msgid "Disabled"
@@ -182,11 +183,11 @@ msgstr "Zmień"
 
 #: src/templates/ajax/viewer/file.mas:22 src/templates/ajax/viewer/file.mas:33
 msgid "Download"
-msgstr ""
+msgstr "Pobierz"
 
 #: src/templates/ajax/viewer/file.mas:26
 msgid "Remove"
-msgstr ""
+msgstr "Usuń"
 
 #: src/templates/ajax/tableBody.mas:117
 msgid "Add new"
@@ -204,33 +205,33 @@ msgstr "Edytuję {row}"
 
 #: src/templates/ajax/tableBody.mas:190
 msgid "Search"
-msgstr ""
+msgstr "Szukaj"
 
 #: src/templates/ajax/tableBody.mas:336
 #, fuzzy
 msgid "Add"
-msgstr "Dodaj nowy"
+msgstr "Dodaj"
 
 #: src/templates/ajax/tableBody.mas:360
 #, fuzzy
 msgid "Cancel"
-msgstr "Zmień"
+msgstr "Przerwij"
 
 #: src/templates/ajax/tableBody.mas:440
 msgid "Edit"
-msgstr ""
+msgstr "Edytuj"
 
 #: src/templates/ajax/tableBody.mas:442
 msgid "Delete"
-msgstr ""
+msgstr "Usuń"
 
 #: src/templates/ajax/tableBody.mas:447
 msgid "Read-only row: edit disabled"
-msgstr ""
+msgstr "Tylko do odczytu: edycja wyłączona."
 
 #: src/templates/ajax/tableBody.mas:448
 msgid "Read-only row: delete disabled"
-msgstr ""
+msgstr "Tylko do odczytu: nie można usunąć."
 
 #: src/templates/ajax/tableSelector.mas:14
 msgid "Choose one of the options to show the associated table"
@@ -242,7 +243,7 @@ msgstr "Wybierz jedną..."
 
 #: src/templates/ajax/setter/serviceSetter.mas:25
 msgid "port"
-msgstr ""
+msgstr "port"
 
 #: src/templates/ajax/setter/inverseMatchUnionSetter.mas:9
 #: src/templates/ajax/setter/inverseMatchSelectSetter.mas:13
@@ -251,46 +252,46 @@ msgstr ""
 
 #: src/templates/ajax/setter/portRangeSetter.mas:23
 msgid "From"
-msgstr ""
+msgstr "Z"
 
 #: src/templates/ajax/setter/portRangeSetter.mas:29
 msgid "To"
-msgstr ""
+msgstr "Do"
 
 #: src/templates/ajax/modelViewer.mas:256 src/templates/formTable.mas:85
 msgid "Optional"
-msgstr ""
+msgstr "Opcja"
 
 #: src/templates/ajax/tablePager.mas:46
 #, fuzzy
 msgid "Page"
-msgstr "Zmień"
+msgstr "Strona"
 
 #: src/templates/ajax/tablePager.mas:47
 msgid "of"
-msgstr ""
+msgstr "z"
 
 #: src/templates/ajax/tablePager.mas:60 src/templates/ajax/tablePager.mas:66
 msgid "first"
-msgstr ""
+msgstr "pierwsza"
 
 #: src/templates/ajax/tablePager.mas:62 src/templates/ajax/tablePager.mas:67
 msgid "prev"
-msgstr ""
+msgstr "poprzednia"
 
 #: src/templates/ajax/tablePager.mas:73 src/templates/ajax/tablePager.mas:74
 #: src/templates/ajax/tablePager.mas:85 src/templates/ajax/tablePager.mas:86
 msgid "next"
-msgstr ""
+msgstr "następna"
 
 #: src/templates/ajax/tablePager.mas:79 src/templates/ajax/tablePager.mas:80
 #: src/templates/ajax/tablePager.mas:89 src/templates/ajax/tablePager.mas:90
 msgid "last"
-msgstr ""
+msgstr "ostatnia"
 
 #: src/templates/ebox/pageNotFound.mas:3
 msgid "eBox's homepage"
-msgstr ""
+msgstr "Strona główna eBox"
 
 #: src/templates/ebox/pageNotFound.mas:7
 msgid "If you typed the URL manually, please check it"
@@ -324,7 +325,7 @@ msgstr "Pokaż pomoc"
 
 #: src/templates/title.mas:25
 msgid "hide help"
-msgstr "Schowaj pomoc"
+msgstr "Ukryj pomoc"
 
 #: src/templates/language.mas:10
 #, fuzzy
