@@ -125,7 +125,7 @@ sub _table
                                fieldName        => 'subject',
                                printableName    => __('Subject'),
                                editable         => 1,
-                               defaultValue     => __x('[EBox-event] An event has happened at {hostName}',
+                               defaultValue     => __x('[Zentyal-event] An event has happened at {hostName}',
                                                        hostName => hostname()),
                                size             => 70,
                                allowUnsafeChars => 1,
