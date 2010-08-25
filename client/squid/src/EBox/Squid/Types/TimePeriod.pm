@@ -523,7 +523,7 @@ sub _hoursParamsAreValid
         }
         else {
             throw EBox::Exceptions::External(
-                   __x('Bad minutes  format: {mi}', 'mi' => $minutes)
+                   __x('Bad minutes format: {mi}', 'mi' => $minutes)
                                             );
         }
     }
