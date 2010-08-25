@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: ebox-samba 0.12\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "POT-Creation-Date: 2010-08-25 17:48+0200\n"
-"PO-Revision-Date: 2010-08-25 11:13+0200\n"
+"PO-Revision-Date: 2010-08-25 17:41+0200\n"
 "Last-Translator: Robert Brzozowski <gnutar1@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -157,7 +157,7 @@ msgstr "Ograniczony do"
 
 #: src/EBox/Samba/Model/GeneralSettings.pm:118
 msgid "Mb"
-msgstr ""
+msgstr "Mb"
 
 #: src/EBox/Samba/Model/GeneralSettings.pm:124 src/EBox/Samba/Model/PDC.pm:91
 #: src/EBox/Samba/Model/PDC.pm:109 src/EBox/Samba/Model/PDC.pm:127
@@ -184,6 +184,8 @@ msgid ""
 "Only users belonging to this group will have a samba account. Sync happens "
 "every hour"
 msgstr ""
+"Tylko użytkownicy należący do tej grupy będę mieli konto na serwerze Samba. "
+"Synchronizacja co godzina."
 
 #: src/EBox/Samba/Model/GeneralSettings.pm:152
 #, fuzzy
@@ -192,7 +194,7 @@ msgstr "Ustawienia ogólne"
 
 #: src/EBox/Samba/Model/GeneralSettings.pm:156
 msgid "On this page you can set different general settings for Samba"
-msgstr ""
+msgstr "Ustawienia ogólne dotyczące serwera plików Samba"
 
 #: src/EBox/Samba/Model/GeneralSettings.pm:209
 #, fuzzy
@@ -215,11 +217,11 @@ msgstr "Nazwa katalogu"
 
 #: src/EBox/Samba/Model/SambaShares.pm:118
 msgid "File system path"
-msgstr ""
+msgstr "Twój folder"
 
 #: src/EBox/Samba/Model/SambaShares.pm:126
 msgid "Comment"
-msgstr "Komentarz"
+msgstr "Opis"
 
 #: src/EBox/Samba/Model/SambaShares.pm:131
 msgid "Guest access"
@@ -240,11 +242,11 @@ msgstr "Udziały sieciowe"
 
 #: src/EBox/Samba/Model/SambaShares.pm:186
 msgid "Path not allowed"
-msgstr ""
+msgstr "Ścieżka niedostępna"
 
 #: src/EBox/Samba/Model/SambaShares.pm:194
 msgid "Only alphanumeric characters plus _ are valid for a path"
-msgstr ""
+msgstr "Użyj znaków alfanumerycznych oraz _"
 
 #: src/EBox/Samba/Model/SambaShares.pm:228
 msgid "The directory is not empty. Are you sure you want to remove it?"
@@ -257,6 +259,9 @@ msgid ""
 "directory in /home/samba/shares {br}{openit}File system path{closeit} will "
 "allow you to share an existing directory within your file system"
 msgstr ""
+"{openit}Folder eBox{closeit} zostanie utworzony automatycznie w katalogu "
+"/home/samba/shares {br}{openit}Twój folder{closeit} pozwala na wskazanie "
+"istniejącego katalogu"
 
 #: src/EBox/Samba/Model/SambaShares.pm:331
 msgid ""
@@ -264,6 +269,9 @@ msgid ""
 "can use an existing directory or pick a name and let Zentyal create it for "
 "you."
 msgstr ""
+"Utwórz współdzielone foldery i zabezpiecz je odpowiednimi uprawnieniami. "
+"Możesz skorzystać z folderu utworzonego automatycznie przez eBox lub podać "
+"ścieżkę do istniejącego folderu"
 
 #: src/EBox/Samba/Model/SambaSharePermissions.pm:93
 msgid "Read only"
@@ -312,13 +320,15 @@ msgstr "Kontrola dostępu"
 
 #: src/EBox/Samba/Model/SambaSharePermissions.pm:236
 msgid "ACL"
-msgstr ""
+msgstr "ACL"
 
 #: src/EBox/Samba/Model/SambaSharePermissions.pm:249
 msgid ""
 "Be careful if you grant <i>administrator</i> privileges.User will be able to "
 "read and write any file in the share."
 msgstr ""
+"Nadając uprawnienia administratora, użytkownik będzie miał nieograniczony "
+"dostęp do udziału sieciowego"
 
 #: src/EBox/Samba/Model/SambaSharePermissions.pm:259
 #, fuzzy
@@ -358,23 +368,23 @@ msgstr "dni"
 
 #: src/EBox/Samba/Model/PDC.pm:123
 msgid "Enforce password history"
-msgstr ""
+msgstr "Pamiętaj poprzednie hasła"
 
 #: src/EBox/Samba/Model/PDC.pm:131
 msgid "Keep history for"
-msgstr ""
+msgstr "Zapamiętaj historię ostatnich"
 
 #: src/EBox/Samba/Model/PDC.pm:132
 msgid "passwords remebered"
-msgstr ""
+msgstr "haseł"
 
 #: src/EBox/Samba/Model/PDC.pm:143
 msgid "PDC"
-msgstr "Podstawowy kontroler domeny"
+msgstr "Kontroler domeny"
 
 #: src/EBox/Samba/Model/PDC.pm:147
 msgid "On this page you can set different PDC related settings"
-msgstr ""
+msgstr "Tu możesz zmienić ustawienia dotyczące kontrolera domeny"
 
 #: src/EBox/Samba/Model/AntivirusExceptions.pm:92
 #: src/EBox/Samba/Model/RecycleExceptions.pm:92
@@ -396,11 +406,11 @@ msgstr "Udział"
 
 #: src/EBox/Samba/Model/AntivirusExceptions.pm:120
 msgid "Samba shares antivirus exceptions"
-msgstr ""
+msgstr "Wykluczenia dotyczące Antywirusa"
 
 #: src/EBox/Samba/Model/AntivirusExceptions.pm:125
 msgid "Add exceptions to the default antivirus settings"
-msgstr ""
+msgstr "Dodaj wykluczenia do domyślnych ustawień Antywirusa"
 
 #: src/EBox/Samba/Model/AntivirusExceptions.pm:126
 #: src/EBox/Samba/Model/RecycleExceptions.pm:126
@@ -410,11 +420,11 @@ msgstr "wyjątek"
 
 #: src/EBox/Samba/Model/RecycleExceptions.pm:120
 msgid "Samba shares Recycle Bin exceptions"
-msgstr ""
+msgstr "Wykluczenia dotyczące Kosza"
 
 #: src/EBox/Samba/Model/RecycleExceptions.pm:125
 msgid "Add exceptions to the default Recycle Bin settings"
-msgstr ""
+msgstr "Dodaj wykluczenie do domyślnych ustawień Kosza"
 
 #: src/EBox/Samba/Model/AntivirusDefault.pm:50
 msgid "Scan"
@@ -462,7 +472,7 @@ msgstr "Utwórz katalog współdzielony dla udziałów i grup"
 msgid ""
 "Zentyal will create the directories for Samba shares and groups under /home/"
 "samba."
-msgstr ""
+msgstr "eBox utworzy foldery dla udziałów i grup Samby w katalogu /home/samba"
 
 #: src/EBox/Samba.pm:97
 msgid "Add LDAP schemas"
@@ -471,7 +481,7 @@ msgstr "Dodaj schematy LDAP"
 #: src/EBox/Samba.pm:98
 msgid ""
 "Zentyal will add two LDAP schemas to the LDAP directory: samba and ebox."
-msgstr ""
+msgstr "eBox utworzy 2 schematy LDAP do folderu LDAP: samba i ebox"
 
 #: src/EBox/Samba.pm:103
 msgid "Set Samba LDAP admin dn password"
@@ -479,7 +489,7 @@ msgstr ""
 
 #: src/EBox/Samba.pm:104
 msgid "Zentyal will configure Samba to use the LDAP admin dn password."
-msgstr ""
+msgstr "eBox skonfiguruje Sambę do używania autoryzacji LDAP"
 
 #: src/EBox/Samba.pm:120
 msgid "To set up Samba according to your configuration."
@@ -495,27 +505,27 @@ msgstr ""
 
 #: src/EBox/Samba.pm:137
 msgid "To add quota support to /home partition."
-msgstr ""
+msgstr "Włącz quotę dla katalogu /home"
 
 #: src/EBox/Samba.pm:142
 msgid "To set the antivirus settings for Samba."
-msgstr ""
+msgstr "Dostosuj ustawienia Antywirusa dla serwera Samba"
 
 #: src/EBox/Samba.pm:628 src/EBox/Samba.pm:649
 msgid "Source machine"
-msgstr ""
+msgstr "Komputer źródłowy"
 
 #: src/EBox/Samba.pm:628 src/EBox/Samba.pm:649
 msgid "Connected since"
-msgstr ""
+msgstr "Czas rozpoczęcia połączenia"
 
 #: src/EBox/Samba.pm:669
 msgid "Shares by user"
-msgstr ""
+msgstr "Udziały użytkowników"
 
 #: src/EBox/Samba.pm:674
 msgid "Users by share"
-msgstr ""
+msgstr "Udziały"
 
 #: src/EBox/Samba.pm:1214 src/EBox/Samba.pm:1236
 msgid "user"
@@ -531,91 +541,91 @@ msgstr "quota"
 
 #: src/EBox/Samba.pm:1644
 msgid "User's files"
-msgstr ""
+msgstr "Pliki użytkownika"
 
 #: src/EBox/Samba.pm:1646
 msgid "Group's files"
-msgstr ""
+msgstr "Pliki grupy"
 
 #: src/EBox/Samba.pm:1662 src/EBox/Samba.pm:1682 src/EBox/Samba.pm:1692
 #, fuzzy
 msgid "Date"
-msgstr "aktywne"
+msgstr "Data"
 
 #: src/EBox/Samba.pm:1663 src/EBox/Samba.pm:1683
 msgid "Client address"
-msgstr ""
+msgstr "Adres klienta"
 
 #: src/EBox/Samba.pm:1665
 msgid "Action"
-msgstr ""
+msgstr "Działania"
 
 #: src/EBox/Samba.pm:1666
 msgid "Resource"
-msgstr ""
+msgstr "Zasoby"
 
 #: src/EBox/Samba.pm:1670
 msgid "Connect"
-msgstr ""
+msgstr "Połącz"
 
 #: src/EBox/Samba.pm:1671
 msgid "Access to directory"
-msgstr ""
+msgstr "Dostęp do folderu"
 
 #: src/EBox/Samba.pm:1672
 msgid "Read file"
-msgstr ""
+msgstr "Czytaj plik"
 
 #: src/EBox/Samba.pm:1673
 msgid "Write file"
-msgstr ""
+msgstr "Zapisz plik"
 
 #: src/EBox/Samba.pm:1674
 msgid "Disconnect"
-msgstr ""
+msgstr "Rozłącz"
 
 #: src/EBox/Samba.pm:1675
 msgid "Remove"
-msgstr ""
+msgstr "Usuń"
 
 #: src/EBox/Samba.pm:1676
 msgid "Create directory"
-msgstr ""
+msgstr "Utwórz folder"
 
 #: src/EBox/Samba.pm:1677
 #, fuzzy
 msgid "Remove directory"
-msgstr "Katalogi Domowe"
+msgstr "Usuń folder"
 
 #: src/EBox/Samba.pm:1678
 #, fuzzy
 msgid "Rename"
-msgstr "nazwa użytkownika"
+msgstr "Zmień nazwę"
 
 #: src/EBox/Samba.pm:1684 src/EBox/Samba.pm:1693
 #, fuzzy
 msgid "File name"
-msgstr "nazwa użytkownika"
+msgstr "Nazwa pliku"
 
 #: src/EBox/Samba.pm:1685 src/EBox/Samba.pm:1689
 msgid "Virus"
-msgstr ""
+msgstr "Wirus"
 
 #: src/EBox/Samba.pm:1686
 msgid "Type"
-msgstr ""
+msgstr "Typ"
 
 #: src/EBox/Samba.pm:1694
 msgid "Quarantined file name"
-msgstr ""
+msgstr "Kwarantanna pliku"
 
 #: src/EBox/Samba.pm:1695 src/EBox/Samba.pm:1698
 msgid "Quarantine"
-msgstr ""
+msgstr "Kwarantanna"
 
 #: src/EBox/Samba.pm:1701
 msgid "Samba access"
-msgstr ""
+msgstr "Dostęp do Samby"
 
 #: src/EBox/Samba.pm:1712
 msgid "Samba virus"
@@ -623,7 +633,7 @@ msgstr ""
 
 #: src/EBox/Samba.pm:1723
 msgid "Samba quarantine"
-msgstr ""
+msgstr "Kwarantanna"
 
 #: src/templates/delete.mas:11
 msgid ""
@@ -732,7 +742,7 @@ msgstr "Katalogi Domowe"
 #: stubs/smb.conf.mas:130
 #, perl-brace-format
 msgid "{group} share directory"
-msgstr ""
+msgstr "Współdzielony folder grupy {group}"
 
 #~ msgid "Incoorect SID: {s}"
 #~ msgstr "Nieprawidłowy SID: {s}"

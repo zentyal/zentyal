@@ -10,8 +10,8 @@ msgstr ""
 "technologies.com\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "POT-Creation-Date: 2010-08-25 17:32+0200\n"
-"PO-Revision-Date: 2010-08-02 00:39+0200\n"
-"Last-Translator: Javi Vázquez <javivazquez@ebox-technologies.com>\n"
+"PO-Revision-Date: 2010-08-25 21:54+0200\n"
+"Last-Translator: José Antonio Calvo <jacalvo@ebox-platform.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -40,10 +40,9 @@ msgstr ""
 "copias de seguridad."
 
 #: src/EBox/Event/Watcher/EBackup.pm:141
-#, fuzzy
 msgid "Check if Zentyal backup was not successful."
 msgstr ""
-"Comprobar si la copia de seguridad de eBox no se realizó correctamente."
+"Comprobar si la copia de seguridad de Zentyal no se realizó correctamente."
 
 #: src/EBox/EBackup/DBRestore.pm:46
 #, perl-brace-format
@@ -51,7 +50,7 @@ msgid ""
 "Logs backup data not found in backup for {d}. Maybe you could try another "
 "date?"
 msgstr ""
-"No se han encontrado data de logs de copias de seguridad para {d}. Podrías  "
+"No se han encontrado data de logs de copias de seguridad para {d}. Podrías "
 "probar con otra fecha?"
 
 #: src/EBox/Model/RemoteFileList.pm:143 src/EBox/Model/RemoteStatus.pm:119
@@ -228,15 +227,15 @@ msgid "on the last day"
 msgstr "el último día"
 
 #: src/EBox/Model/RemoteSettings.pm:494
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "{oi}{brand}{ci} is a quick and safe remote location to store the data you "
 "keep on your Zentyal servers. Purchase the backup storage space you need at "
 "the {ohref}Zentyal on-line store{chref}."
 msgstr ""
 "{oi}{brand}{ci} es un espacio remoto, rápido y seguro para almacenar los "
-"datos de tus servidores eBox. Compra el espacio de backup que necesites en "
-"la {ohref}tienda on-line de eBox{chref}"
+"datos de tus servidores Zentyal. Compra el espacio de backup que necesites "
+"en la {ohref}tienda on-line de Zentyal{chref}"
 
 #: src/EBox/Model/RemoteSettings.pm:511
 msgid "1 week"
@@ -423,9 +422,8 @@ msgid "include path"
 msgstr "ruta de inclusión"
 
 #: src/EBox/Model/RemoteRestoreConf.pm:104
-#, fuzzy
 msgid "Restore Zentyal configuration from backup"
-msgstr "Restaurar la configuración eBox de la copia de seguridad"
+msgstr "Restaurar la configuración Zentyal de la copia de seguridad"
 
 #: src/EBox/Model/RemoteRestoreConf.pm:111
 msgid "Loads the configuration found in the backup"
@@ -449,10 +447,10 @@ msgid "Restore logs database"
 msgstr "Restaurar la base de datos de logs"
 
 #: src/EBox/Model/RemoteRestoreLogs.pm:125
-#, fuzzy
 msgid "Restores the Zentyal logs found in the selected backup"
 msgstr ""
-"Restaura los logs de eBox encontrados en la copia de seguridad seleccionada"
+"Restaura los logs de Zentyal encontrados en la copia de seguridad "
+"seleccionada"
 
 #: src/EBox/Composite/ServicesRestore.pm:64
 msgid "Services restore"

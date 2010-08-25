@@ -9,7 +9,7 @@ msgstr ""
 "technologies.com\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "POT-Creation-Date: 2010-08-25 17:32+0200\n"
-"PO-Revision-Date: 2010-08-24 19:47+0200\n"
+"PO-Revision-Date: 2010-08-25 17:02+0200\n"
 "Last-Translator: Robert Brzozowski <gnutar1@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -22,22 +22,26 @@ msgstr ""
 #: src/EBox/EBackup.pm:72 src/EBox/Event/Watcher/EBackup.pm:123
 #: src/EBox/Composite/Remote.pm:65
 msgid "Backup"
-msgstr ""
+msgstr "Kopia zapasowa"
 
 #: src/EBox/EBackup.pm:197
 #, perl-brace-format
 msgid "File {f} not found in backup for {d}, try a later date"
 msgstr ""
+"Nie znaleziono pliku {f} w kopii z dnia {d}, poszukaj w archiwum  z inną "
+"datą"
 
 #: src/EBox/EBackup.pm:204
 msgid ""
 "No backup archives found. Maybe they were deleted?. Run '/etc/init.d/ebox "
 "ebackup restart' to refresh backup's information."
 msgstr ""
+"Nie znaleziono archiwów kopii zapasowej. Mogły zostać usunięte. Uruchom "
+"ponownie kopię zapasową poleceniem '/etc/init.d/ebox ebackup restart'"
 
 #: src/EBox/Event/Watcher/EBackup.pm:141
 msgid "Check if Zentyal backup was not successful."
-msgstr ""
+msgstr "Sprawdź czy kopia zapasowa została wykonana poprawnie"
 
 #: src/EBox/EBackup/DBRestore.pm:46
 #, perl-brace-format
@@ -45,12 +49,14 @@ msgid ""
 "Logs backup data not found in backup for {d}. Maybe you could try another "
 "date?"
 msgstr ""
+"Nie znaleziono logów kopii zapasowej w archiwum z datą {d}. Poszukaj w "
+"archiwum z inną datą"
 
 #: src/EBox/Model/RemoteFileList.pm:143 src/EBox/Model/RemoteStatus.pm:119
 #: src/EBox/Model/RemoteRestoreConf.pm:74
 #: src/EBox/Model/RemoteRestoreLogs.pm:88
 msgid "There are not backed up files yet"
-msgstr ""
+msgstr "Nie wszystkie pliki zostały zarchiwizowane"
 
 #: src/EBox/Model/RemoteFileList.pm:162
 msgid "File"
@@ -67,11 +73,11 @@ msgstr "Przywróć pliki"
 
 #: src/EBox/Model/RemoteFileList.pm:178
 msgid "file restore operation"
-msgstr ""
+msgstr "przywracanie pliku"
 
 #: src/EBox/Model/RemoteFileList.pm:204
 msgid "File already exists if you continue the current will be deleted"
-msgstr ""
+msgstr "Plik już istnieje, w razie kontynuacji plik zostanie nadpisany"
 
 #: src/EBox/Model/RemoteFileList.pm:220
 msgid "File restored successfully"
@@ -96,7 +102,7 @@ msgstr "Status Kopii Zdalnej"
 
 #: src/EBox/Model/RemoteStatus.pm:150
 msgid "backup"
-msgstr "Kopia"
+msgstr "kopia"
 
 #: src/EBox/Model/RemoteSettings.pm:161
 msgid "Method"
@@ -104,11 +110,11 @@ msgstr "Metoda"
 
 #: src/EBox/Model/RemoteSettings.pm:167
 msgid "Host or destination"
-msgstr ""
+msgstr "Nazwa hosta lub destynacja"
 
 #: src/EBox/Model/RemoteSettings.pm:169
 msgid "If the selected method is file system, only set the target directory"
-msgstr "Jeśli wybrano metodę System plików, wskaż tylko katalog docelowy"
+msgstr "Jeśli wybrano metodę System plików, wskaż katalog docelowy"
 
 #: src/EBox/Model/RemoteSettings.pm:173
 msgid "User"
@@ -129,11 +135,11 @@ msgstr "Wyłączono"
 
 #: src/EBox/Model/RemoteSettings.pm:193
 msgid "Symmetric Key"
-msgstr ""
+msgstr "Klucz symetryczny"
 
 #: src/EBox/Model/RemoteSettings.pm:198
 msgid "GPG Key"
-msgstr ""
+msgstr "Klucz GPG"
 
 #: src/EBox/Model/RemoteSettings.pm:209
 msgid "Full Backup Frequency"
@@ -177,7 +183,7 @@ msgstr "Konfiguracja ogólna"
 
 #: src/EBox/Model/RemoteSettings.pm:299
 msgid "General backup server configuration updated"
-msgstr ""
+msgstr "Zaktualizowano konfigurację kopii zapasowej"
 
 #: src/EBox/Model/RemoteSettings.pm:312
 msgid "on Monday"
@@ -210,7 +216,7 @@ msgstr "Niedziela"
 #: src/EBox/Model/RemoteSettings.pm:331
 #, perl-brace-format
 msgid "on the {mday}th"
-msgstr ""
+msgstr "{mday}"
 
 #: src/EBox/Model/RemoteSettings.pm:339
 msgid "on the last day"
@@ -289,11 +295,11 @@ msgstr ""
 
 #: src/EBox/Model/RemoteSettings.pm:657 src/EBox/Model/RemoteSettings.pm:691
 msgid "target"
-msgstr ""
+msgstr "miejsce przechowywania kopii"
 
 #: src/EBox/Model/RemoteSettings.pm:659
 msgid "Must be a like 'other.host[:port]/some_dir'"
-msgstr ""
+msgstr "Zgodnie z 'komputer[:port]/katalog'"
 
 #: src/EBox/Model/RemoteSettings.pm:666 src/EBox/Model/RemoteSettings.pm:701
 msgid "host"
@@ -321,11 +327,11 @@ msgstr ""
 
 #: src/EBox/Model/RemoteSettings.pm:706
 msgid "absolute directory"
-msgstr ""
+msgstr "pełna ścieżka (absolutna)"
 
 #: src/EBox/Model/RemoteSettings.pm:708
 msgid "relative directory"
-msgstr ""
+msgstr "ścieżka względna (relatywna)"
 
 #: src/EBox/Model/RemoteSettings.pm:719
 msgid ""
@@ -334,11 +340,11 @@ msgstr ""
 
 #: src/EBox/Model/RemoteSettings.pm:724 src/EBox/Model/RemoteSettings.pm:728
 msgid "Directory for backup"
-msgstr ""
+msgstr "Katalog dla kopii zapasowej"
 
 #: src/EBox/Model/RemoteSettings.pm:731
 msgid "File exists and it is not a directory"
-msgstr ""
+msgstr "Plik istnieje i nie jest to katalog"
 
 #: src/EBox/Model/RemoteSettings.pm:751
 msgid "Incremental backup must be more frequent than full backup"
@@ -352,15 +358,15 @@ msgstr ""
 
 #: src/EBox/Model/RemoteExcludes.pm:82
 msgid "Exclude or Include"
-msgstr ""
+msgstr "Uwzględnij lub wyklucz"
 
 #: src/EBox/Model/RemoteExcludes.pm:93
 msgid "Includes and Excludes"
-msgstr ""
+msgstr "Foldery uwzględnione oraz wykluczenia"
 
 #: src/EBox/Model/RemoteExcludes.pm:94
 msgid "exclude or include"
-msgstr ""
+msgstr "uwzględnij lub wyklucz"
 
 #: src/EBox/Model/RemoteExcludes.pm:102
 msgid ""
@@ -371,43 +377,43 @@ msgstr ""
 
 #: src/EBox/Model/RemoteExcludes.pm:117
 msgid "Exclude path"
-msgstr ""
+msgstr "Podaj ścieżkę wykluczenia"
 
 #: src/EBox/Model/RemoteExcludes.pm:121
 msgid "Exclude by regular expression"
-msgstr ""
+msgstr "Wyklucz używając wyrażenia regularnego"
 
 #: src/EBox/Model/RemoteExcludes.pm:125
 msgid "Include Path"
-msgstr ""
+msgstr "Podaj ścieżkę uwzględnienia"
 
 #: src/EBox/Model/RemoteExcludes.pm:147
 msgid "exclude path"
-msgstr ""
+msgstr "ścieżka wykluczenia"
 
 #: src/EBox/Model/RemoteExcludes.pm:160
 msgid "exclude path regular expression"
-msgstr ""
+msgstr "ścieżka wykluczenia dla wyrażenia regularnego"
 
 #: src/EBox/Model/RemoteExcludes.pm:162
 msgid "Incorrect regular expression"
-msgstr ""
+msgstr "Błędne wyrażenie regularne"
 
 #: src/EBox/Model/RemoteExcludes.pm:183
 msgid "include path"
-msgstr ""
+msgstr "ścieżka uwzględnienia"
 
 #: src/EBox/Model/RemoteRestoreConf.pm:104
 msgid "Restore Zentyal configuration from backup"
-msgstr ""
+msgstr "Przywróć ustawienia eBox z plików kopii zapasowej"
 
 #: src/EBox/Model/RemoteRestoreConf.pm:111
 msgid "Loads the configuration found in the backup"
-msgstr ""
+msgstr "Załaduj konfigurację z kopii zapasowej"
 
 #: src/EBox/Model/RemoteRestoreConf.pm:113
 msgid "Please wait..."
-msgstr ""
+msgstr "Proszę czekać..."
 
 #: src/EBox/Model/RemoteRestoreConf.pm:169
 #, perl-brace-format
@@ -415,19 +421,21 @@ msgid ""
 "Configuration backup not found in backup for {d}. Maybe you could try "
 "another date?"
 msgstr ""
+"Nie znaleziono konfiguracji eBox w plikach kopii z dnia {d}. Spróbuj z inną "
+"datą."
 
 #: src/EBox/Model/RemoteRestoreLogs.pm:118
 msgid "Restore logs database"
-msgstr ""
+msgstr "Przywróć bazę logów"
 
 #: src/EBox/Model/RemoteRestoreLogs.pm:125
 msgid "Restores the Zentyal logs found in the selected backup"
-msgstr ""
+msgstr "Przywróć logi eBox-a z zaznaczonej kopii zapasowej"
 
 #: src/EBox/Composite/ServicesRestore.pm:64
 msgid "Services restore"
-msgstr ""
+msgstr "Przywróć usługi"
 
 #: src/EBox/Composite/RemoteGeneral.pm:65
 msgid "Configuration and Status"
-msgstr ""
+msgstr "Konfiguracja i Status"

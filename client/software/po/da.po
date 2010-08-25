@@ -9,13 +9,14 @@ msgstr ""
 "Project-Id-Version: ebox-software 0.12.1\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "POT-Creation-Date: 2010-08-25 17:48+0200\n"
-"PO-Revision-Date: 2007-07-24 12:13+0200\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2010-08-26 00:12+0200\n"
+"Last-Translator: Bo Dalbjerg <bo@dalbjerg.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: migration/0001_add_http_software_rule.pl:24
 msgid "HTTP software"
@@ -23,12 +24,12 @@ msgstr ""
 
 #: migration/0001_add_http_software_rule.pl:26
 msgid "software service to update packages via apt"
-msgstr ""
+msgstr "software service til opdatering af programpakker via apt"
 
 #: migration/0001_add_http_software_rule.pl:45
 #, fuzzy
 msgid "rule to allow apt updates"
-msgstr "Automatisk software opdatering"
+msgstr "Regler for automatisk software opdatering"
 
 #: src/EBox/Software.pm:57
 #, fuzzy
@@ -41,11 +42,13 @@ msgid ""
 "You cannot modify the automatic update using QA updates from Web UI. To "
 "disable automatic updates, edit {conf} and disable {key} key."
 msgstr ""
+"Du kan ikke modificere automatisk opdatering fra Web interfacet. For at "
+"stoppe automatisk opdatering, editer {conf} og deaktiver {key} nøglen."
 
 #: src/EBox/Software.pm:596
 #, fuzzy
 msgid "Zentyal Components"
-msgstr "eBox komponenter"
+msgstr "Zentyal komponenter"
 
 #: src/EBox/Software.pm:598
 #, fuzzy
@@ -55,26 +58,27 @@ msgstr "System opdatering"
 #: src/EBox/Software.pm:600 src/templates/config.mas:19
 #, fuzzy
 msgid "Settings"
-msgstr "Starter..."
+msgstr "Indstillinger"
 
 #: src/EBox/Software.pm:769
 #, perl-brace-format
+#, fuzzy
 msgid ""
 "Software management is currently  locked by {locker}. Please, try again later"
-msgstr ""
+msgstr "Software kontrol er låst af  {locker}. Prøv igen senere."
 
 #: src/EBox/Software.pm:932
 msgid "Welcome"
-msgstr ""
+msgstr "Velkommen"
 
 #: src/EBox/Software.pm:934
 msgid "Package Selection"
-msgstr ""
+msgstr "Programpakke udvalg"
 
 #: src/EBox/Software.pm:935
 #, fuzzy
 msgid "Confirmation"
-msgstr "Indstillinger"
+msgstr "Bekræftelse"
 
 #: src/EBox/Software.pm:936
 #, fuzzy
@@ -88,7 +92,7 @@ msgstr "Indstillinger"
 
 #: src/EBox/Software.pm:938
 msgid "Save Changes"
-msgstr ""
+msgstr "Gem ændringer"
 
 #: src/EBox/CGI/Config.pm:33
 #, fuzzy
@@ -106,12 +110,12 @@ msgstr "Indstillinger for automatisk opdatering."
 #: src/EBox/CGI/EBox.pm:36
 #, fuzzy
 msgid "Choose Zentyal packages to install"
-msgstr "Softwarepakker der mangler at blive installeret"
+msgstr "Vælg Zentyal programpakker der skal installeres"
 
 #: src/EBox/CGI/EBox.pm:40
 #, fuzzy
 msgid "Zentyal components"
-msgstr "eBox komponenter"
+msgstr "Zentyal komponenter"
 
 #: src/EBox/CGI/Updates.pm:32 src/EBox/CGI/Updates.pm:50
 msgid "System updates"
@@ -138,17 +142,17 @@ msgstr "Installér"
 #: src/EBox/CGI/InstallPkgs.pm:170
 #, fuzzy
 msgid "Installing packages"
-msgstr "Opgradere softwarepakker"
+msgstr "Installerer softwarepakker"
 
 #: src/EBox/CGI/InstallPkgs.pm:171 src/EBox/CGI/InstallPkgs.pm:195
 #, fuzzy
 msgid "Current operation"
-msgstr "Aktuel softwarepakke"
+msgstr "Aktuel operation"
 
 #: src/EBox/CGI/InstallPkgs.pm:172
 #, fuzzy
 msgid "actions done"
-msgstr "Funktioner"
+msgstr "Udførte funktioner"
 
 #: src/EBox/CGI/InstallPkgs.pm:173
 msgid ""
@@ -157,26 +161,31 @@ msgid ""
 "until the system has been fully configured. You will be automatically "
 "redirected to the next step"
 msgstr ""
+"Pakke installationen er færdig. Administrations interfacet kan være ud af "
+"funktion i et øjeblik. Hav tålmodighed indtil systemet er blevet fuldt "
+"konfigureret. Du vil automatisk blive viderestillet til næste trin."
 
 #: src/EBox/CGI/InstallPkgs.pm:178
 msgid ""
 "The packages installation has not finished correctly . More information on "
 "the logs"
 msgstr ""
+"Pakke installationen er ikke fuldført korrekt. Der er mere information i "
+"logen."
 
 #: src/EBox/CGI/InstallPkgs.pm:193
 #, fuzzy
 msgid "Removing package"
-msgstr "Opgradere softwarepakker"
+msgstr "Fjerner softwarepakke"
 
 #: src/EBox/CGI/InstallPkgs.pm:194
 msgid "Removing the selected package and its dependent packages"
-msgstr ""
+msgstr "Fjerner den valgte softwarepakke og dens afhængige pakker"
 
 #: src/EBox/CGI/InstallPkgs.pm:196
 #, fuzzy
 msgid "packages left to remove"
-msgstr "Softwarepakker der mangler at blive installeret"
+msgstr "Softwarepakker der mangler at blive fjernet"
 
 #: src/EBox/CGI/InstallPkgs.pm:197
 msgid ""
@@ -184,12 +193,17 @@ msgid ""
 "may become unresponsive for a few seconds. Please wait patiently until the "
 "system has been fully restarted"
 msgstr ""
+"Fjernelse af pakker er afsluttet. Administrations interfacet kan være ude af "
+"funktion et par sekunder. Hav tålmodighed indtil systemet er blevet "
+"genstartet."
 
 #: src/EBox/CGI/InstallPkgs.pm:201
 msgid ""
 "The packages removal has not finished correctly . More information on the "
 "logs"
 msgstr ""
+"Fjernelse af pakker er ikke blevet afsluttet korrekt. Der er mere "
+"information i logen."
 
 #: src/templates/ebox.mas:150 src/templates/ebox.mas:536
 #: src/templates/ebox.mas:560 src/templates/updates.mas:35
@@ -203,39 +217,39 @@ msgstr "Installér"
 
 #: src/templates/ebox.mas:178
 msgid "View advanced mode"
-msgstr ""
+msgstr "Vis avanceret indstillinger"
 
 #: src/templates/ebox.mas:512
 #, fuzzy
 msgid "Skip install"
-msgstr "Installér"
+msgstr "Stop installering"
 
 #: src/templates/ebox.mas:525
 msgid "View basic mode"
-msgstr ""
+msgstr "Vis normale indstillinger"
 
 #: src/templates/ebox.mas:543 src/templates/ebox.mas:572
 msgid "Delete"
-msgstr ""
+msgstr "Fjern/Slet"
 
 #: src/templates/ebox.mas:552 src/templates/ebox.mas:561
 #: src/templates/updates.mas:97
 #, fuzzy
 msgid "Update list"
-msgstr "Opdatér"
+msgstr "Opdatér liste"
 
 #: src/templates/ebox.mas:553 src/templates/ebox.mas:562
 #: src/templates/ebox.mas:573
 msgid "Deselect All"
-msgstr ""
+msgstr "Fravælg alt"
 
 #: src/templates/ebox.mas:554 src/templates/ebox.mas:574
 msgid "Select All"
-msgstr ""
+msgstr "Vælg alt"
 
 #: src/templates/ebox.mas:563
 msgid "Select Al"
-msgstr ""
+msgstr "Vælg alt"
 
 #: src/templates/del.mas:97
 msgid "The following packages will be installed"
@@ -255,36 +269,43 @@ msgstr "Afbryd"
 
 #: src/templates/del.mas:152
 msgid "You may want to install also the following recommended packages:"
-msgstr ""
+msgstr "Du kan vælge at installere de følgende pakker (Anbefales)"
 
 #: src/templates/del.mas:155
+#, fuzzy
 msgid "Layer 7 filtering for Traffic Shaping (ebox-l7-protocols)"
 msgstr ""
+"Layer 7 filtering for Traffic Shaping (ebox-l7-protocols) Trafik "
+"kontrol(net)"
 
 #: src/templates/del.mas:158
+#, fuzzy
 msgid "Virus scanning for File Sharing (ebox-antivirus and samba-vscan)"
-msgstr ""
+msgstr "Virus scanning for delete filer (ebox-antivirus og samba-vscan)"
 
 #: src/templates/del.mas:161
+#, fuzzy
 msgid "VoIP meetings support (dahdi and linux-headers)"
-msgstr ""
+msgstr "VoIP møde understøttelse (dahdi og linux-headers)"
 
 #: src/templates/config.mas:8
 #, fuzzy
 msgid "Perform automatic security updates"
-msgstr "Automatisk software opdatering"
+msgstr "Udfør automatisk software opdatering"
 
 #: src/templates/config.mas:14
+#, fuzzy
 msgid "Zentyal is configured to use automatic QA updates"
-msgstr ""
+msgstr "Zentyal er konfigureret til at benytte automatisk opdateringer"
 
 #: src/templates/config.mas:26
+#, fuzzy
 msgid "Automatic operations start time"
-msgstr ""
+msgstr "Start tid for automatiske operationer"
 
 #: src/templates/updates.mas:24
 msgid "Updates are available for the following system components"
-msgstr "Opdateringer er tilgængelige for følgende systemkomponenter."
+msgstr "Opdateringer er tilgængelige for følgende systemkomponenter"
 
 #: src/templates/updates.mas:26
 #, fuzzy
@@ -301,17 +322,16 @@ msgstr "Beskrivelse"
 
 #: src/templates/updates.mas:34
 msgid "Version"
-msgstr ""
+msgstr "Version"
 
 #: src/templates/updates.mas:52
-#, fuzzy
 msgid "Security update"
-msgstr "System opdatering"
+msgstr "Sikkerheds opdatering"
 
 #: src/templates/updates.mas:55
 #, fuzzy
 msgid "Zentyal QA update"
-msgstr "Firewall"
+msgstr "Zentyal QA opdateringer"
 
 #: src/templates/updates.mas:77
 msgid "Update all packages"

@@ -9,33 +9,36 @@ msgstr ""
 "technologies.com\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "POT-Creation-Date: 2010-08-25 17:32+0200\n"
-"PO-Revision-Date: 2009-07-31 13:14+0100\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2010-08-25 19:40+0200\n"
+"Last-Translator: Bo Dalbjerg <bo@dalbjerg.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/EBackup.pm:72 src/EBox/Event/Watcher/EBackup.pm:123
 #: src/EBox/Composite/Remote.pm:65
 msgid "Backup"
-msgstr ""
+msgstr "Backup"
 
 #: src/EBox/EBackup.pm:197
 #, perl-brace-format
 msgid "File {f} not found in backup for {d}, try a later date"
-msgstr ""
+msgstr "Filen {f} er ikke fundet i backup for {d}, prøv en senere dato."
 
 #: src/EBox/EBackup.pm:204
 msgid ""
 "No backup archives found. Maybe they were deleted?. Run '/etc/init.d/ebox "
 "ebackup restart' to refresh backup's information."
 msgstr ""
+"Ingen backup arkiver fundet. Måske er de slettet?. Kør '/etc/init.d/ebox "
+"ebackup restart' for at opdatere backuppens information."
 
 #: src/EBox/Event/Watcher/EBackup.pm:141
 msgid "Check if Zentyal backup was not successful."
-msgstr ""
+msgstr "Undersøg om backuppen af eBox er fejlet."
 
 #: src/EBox/EBackup/DBRestore.pm:46
 #, perl-brace-format
@@ -43,176 +46,182 @@ msgid ""
 "Logs backup data not found in backup for {d}. Maybe you could try another "
 "date?"
 msgstr ""
+"Backup af Logs data er ikke fundet i backup for {d}. Måske kunne du prøve en "
+"anden dato?"
 
 #: src/EBox/Model/RemoteFileList.pm:143 src/EBox/Model/RemoteStatus.pm:119
 #: src/EBox/Model/RemoteRestoreConf.pm:74
 #: src/EBox/Model/RemoteRestoreLogs.pm:88
 msgid "There are not backed up files yet"
-msgstr ""
+msgstr "Der er ingen backup filer endnu."
 
 #: src/EBox/Model/RemoteFileList.pm:162
 msgid "File"
-msgstr ""
+msgstr "File"
 
 #: src/EBox/Model/RemoteFileList.pm:166 src/EBox/Model/RemoteRestoreConf.pm:93
 #: src/EBox/Model/RemoteRestoreLogs.pm:107
 msgid "Backup Date"
-msgstr ""
+msgstr "Backup Dato"
 
 #: src/EBox/Model/RemoteFileList.pm:177
 msgid "Restore Files"
-msgstr ""
+msgstr "Genskab Filer"
 
 #: src/EBox/Model/RemoteFileList.pm:178
 msgid "file restore operation"
-msgstr ""
+msgstr "genskab filer operation"
 
 #: src/EBox/Model/RemoteFileList.pm:204
 msgid "File already exists if you continue the current will be deleted"
 msgstr ""
+"Filen eksister i forvejen, hvis du fortsætter vil den eksisterende fil blive "
+"slettet"
 
 #: src/EBox/Model/RemoteFileList.pm:220
 msgid "File restored successfully"
-msgstr ""
+msgstr "Filen er genskabt med succes."
 
 #: src/EBox/Model/RemoteFileList.pm:269
 #, perl-brace-format
 msgid "Remote URL to be used with duplicity for manual restores: {url}"
-msgstr ""
+msgstr "Fjern URL som skal bruges med dubletter for manuel genskabelse: {url} "
 
 #: src/EBox/Model/RemoteStatus.pm:138 src/EBox/Model/RemoteExcludes.pm:76
 msgid "Type"
-msgstr ""
+msgstr "Type"
 
 #: src/EBox/Model/RemoteStatus.pm:142
 msgid "Date"
-msgstr ""
+msgstr "Dato"
 
 #: src/EBox/Model/RemoteStatus.pm:149
 msgid "Remote Backup Status"
-msgstr ""
+msgstr "Fjern Backup Status"
 
 #: src/EBox/Model/RemoteStatus.pm:150
 msgid "backup"
-msgstr ""
+msgstr "backup"
 
 #: src/EBox/Model/RemoteSettings.pm:161
 msgid "Method"
-msgstr ""
+msgstr "Metode"
 
 #: src/EBox/Model/RemoteSettings.pm:167
 msgid "Host or destination"
-msgstr ""
+msgstr "Vært eller destination"
 
 #: src/EBox/Model/RemoteSettings.pm:169
 msgid "If the selected method is file system, only set the target directory"
 msgstr ""
+"Hvis den valgte metode er \"file system\", udfyld kun \"target directory\" (mål "
+"kataloget)"
 
 #: src/EBox/Model/RemoteSettings.pm:173
 msgid "User"
-msgstr ""
+msgstr "User (Bruger)"
 
 #: src/EBox/Model/RemoteSettings.pm:178
 msgid "Password"
-msgstr ""
+msgstr "Password"
 
 #: src/EBox/Model/RemoteSettings.pm:183
 msgid "Encryption"
-msgstr ""
+msgstr "Kryptering"
 
 #: src/EBox/Model/RemoteSettings.pm:188 src/EBox/Model/RemoteSettings.pm:240
 #: src/EBox/Model/RemoteSettings.pm:477
 msgid "Disabled"
-msgstr ""
+msgstr "Disabled"
 
 #: src/EBox/Model/RemoteSettings.pm:193
 msgid "Symmetric Key"
-msgstr ""
+msgstr "Symmetric Key"
 
 #: src/EBox/Model/RemoteSettings.pm:198
 msgid "GPG Key"
-msgstr ""
+msgstr "GPG Key"
 
 #: src/EBox/Model/RemoteSettings.pm:209
 msgid "Full Backup Frequency"
-msgstr ""
+msgstr "Fuld backup hyppighed"
 
 #: src/EBox/Model/RemoteSettings.pm:214 src/EBox/Model/RemoteSettings.pm:245
 msgid "Daily"
-msgstr ""
+msgstr "Daglig"
 
 #: src/EBox/Model/RemoteSettings.pm:219 src/EBox/Model/RemoteSettings.pm:250
 msgid "Weekly"
-msgstr ""
+msgstr "Ugentlig"
 
 #: src/EBox/Model/RemoteSettings.pm:225
 msgid "Monthly"
-msgstr ""
+msgstr "Måndesvis"
 
 #: src/EBox/Model/RemoteSettings.pm:235
 msgid "Incremental Backup Frequency"
-msgstr ""
+msgstr "Opdaterings backup hyppighed"
 
 #: src/EBox/Model/RemoteSettings.pm:261
 msgid "Backup process starts at"
-msgstr ""
+msgstr "Backup proces starter d."
 
 #: src/EBox/Model/RemoteSettings.pm:267
 msgid "Keep previous full copies"
-msgstr ""
+msgstr "Behold tidligere komplette backups"
 
 #: src/EBox/Model/RemoteSettings.pm:272
 msgid "maximum number"
-msgstr ""
+msgstr "maksimalt antal"
 
 #: src/EBox/Model/RemoteSettings.pm:280
 msgid "no older than"
-msgstr ""
+msgstr "ikke ældre end"
 
 #: src/EBox/Model/RemoteSettings.pm:294
 msgid "General Configuration"
-msgstr ""
+msgstr "General opsætning"
 
 #: src/EBox/Model/RemoteSettings.pm:299
 msgid "General backup server configuration updated"
-msgstr ""
+msgstr "Generel opsætning af server konfigurationen opdateret"
 
 #: src/EBox/Model/RemoteSettings.pm:312
 msgid "on Monday"
-msgstr ""
+msgstr "om Mandagen"
 
 #: src/EBox/Model/RemoteSettings.pm:313
 msgid "on Tuesday"
-msgstr ""
+msgstr "om Tirsdagen"
 
 #: src/EBox/Model/RemoteSettings.pm:314
 msgid "on Wednesday"
-msgstr ""
+msgstr "om Onsdagen"
 
 #: src/EBox/Model/RemoteSettings.pm:315
 msgid "on Thursday"
-msgstr ""
+msgstr "om Torsdagen"
 
 #: src/EBox/Model/RemoteSettings.pm:316
 msgid "on Friday"
-msgstr ""
+msgstr "om Fredagen"
 
 #: src/EBox/Model/RemoteSettings.pm:317
 msgid "on Saturday"
-msgstr ""
+msgstr "om Lørdagen"
 
 #: src/EBox/Model/RemoteSettings.pm:318
 msgid "on Sunday"
-msgstr ""
+msgstr "om Søndagen"
 
 #: src/EBox/Model/RemoteSettings.pm:331
 #, perl-brace-format
 msgid "on the {mday}th"
-msgstr ""
+msgstr "på den {mday}"
 
 #: src/EBox/Model/RemoteSettings.pm:339
 msgid "on the last day"
-msgstr ""
+msgstr "på den sidste dag"
 
 #: src/EBox/Model/RemoteSettings.pm:494
 #, perl-brace-format
@@ -221,141 +230,153 @@ msgid ""
 "keep on your Zentyal servers. Purchase the backup storage space you need at "
 "the {ohref}Zentyal on-line store{chref}."
 msgstr ""
+"{oi}{brand}{ci} er en hurtig og sikker fjern location, til at gemme de data "
+"du har på din eBox server. Køb den backup plads du behøver hos {ohref}eBox "
+"on-line store{chref}."
 
 #: src/EBox/Model/RemoteSettings.pm:511
 msgid "1 week"
-msgstr ""
+msgstr "1 uge"
 
 #: src/EBox/Model/RemoteSettings.pm:515
 msgid "2 weeks"
-msgstr ""
+msgstr "2 uger"
 
 #: src/EBox/Model/RemoteSettings.pm:519
 msgid "3 weeks"
-msgstr ""
+msgstr "3 uger"
 
 #: src/EBox/Model/RemoteSettings.pm:523
 msgid "1 month"
-msgstr ""
+msgstr "1 måned"
 
 #: src/EBox/Model/RemoteSettings.pm:527
 msgid "2 months"
-msgstr ""
+msgstr "2 måneder"
 
 #: src/EBox/Model/RemoteSettings.pm:531
 msgid "3 months"
-msgstr ""
+msgstr "3 måneder"
 
 #: src/EBox/Model/RemoteSettings.pm:535
 msgid "4 months"
-msgstr ""
+msgstr "4 måneder"
 
 #: src/EBox/Model/RemoteSettings.pm:539
 msgid "6 months"
-msgstr ""
+msgstr "6 måneder"
 
 #: src/EBox/Model/RemoteSettings.pm:543
 msgid "9 months"
-msgstr ""
+msgstr "9 måneder"
 
 #: src/EBox/Model/RemoteSettings.pm:547
 msgid "1 year"
-msgstr ""
+msgstr "1 år"
 
 #: src/EBox/Model/RemoteSettings.pm:551
 msgid "1 year and half"
-msgstr ""
+msgstr "1 år og 6 måneder"
 
 #: src/EBox/Model/RemoteSettings.pm:555
 msgid "2 years"
-msgstr ""
+msgstr "2 år"
 
 #: src/EBox/Model/RemoteSettings.pm:559
 msgid "3 years"
-msgstr ""
+msgstr "3 år"
 
 #: src/EBox/Model/RemoteSettings.pm:591
 msgid "Destination must be a relative directory"
-msgstr ""
+msgstr "Destinationen skal være et \"relative\" directory (katalog)"
 
 #: src/EBox/Model/RemoteSettings.pm:646
 msgid "The target parameter that must be like 'other.host[:port]/some_dir"
-msgstr ""
+msgstr "Parameteren for placeringen skal være som 'other.host[:port]/some_dir"
 
 #: src/EBox/Model/RemoteSettings.pm:657 src/EBox/Model/RemoteSettings.pm:691
 msgid "target"
-msgstr ""
+msgstr "Placeringen (target)"
 
 #: src/EBox/Model/RemoteSettings.pm:659
 msgid "Must be a like 'other.host[:port]/some_dir'"
-msgstr ""
+msgstr "Skal være som 'other.host[:port]/some_dir'"
 
 #: src/EBox/Model/RemoteSettings.pm:666 src/EBox/Model/RemoteSettings.pm:701
 msgid "host"
-msgstr ""
+msgstr "vært (host)"
 
 #: src/EBox/Model/RemoteSettings.pm:668 src/EBox/Model/RemoteSettings.pm:703
 msgid "port"
-msgstr ""
+msgstr "port"
 
 #: src/EBox/Model/RemoteSettings.pm:670
 msgid "directory"
-msgstr ""
+msgstr "filkatalog (directory)"
 
 #: src/EBox/Model/RemoteSettings.pm:680
 msgid ""
 "The RSYNC target parameter that must be like 'other.host[:port]/"
 "relative_path' or 'other.host[:port]/absolute_path'"
 msgstr ""
+"RSYNC placerings parameteren skal være af typen "
+"'other.host[:port]/relative_path' or 'other.host[:port]/absolute_path'"
 
 #: src/EBox/Model/RemoteSettings.pm:694
 msgid ""
 "Must be a like 'other.host[:port]/relative_path' or 'other.host[:port]/"
 "absolute_path'"
 msgstr ""
+"Skal være af typen 'other.host[:port]/relative_path' or "
+"'other.host[:port]/absolute_path'"
 
 #: src/EBox/Model/RemoteSettings.pm:706
 msgid "absolute directory"
-msgstr ""
+msgstr "absolute directory (absolut katalog)"
 
 #: src/EBox/Model/RemoteSettings.pm:708
 msgid "relative directory"
-msgstr ""
+msgstr "relative directory (relativt katalog)"
 
 #: src/EBox/Model/RemoteSettings.pm:719
 msgid ""
 "File system method needs a target parameter that should be a directory path"
-msgstr ""
+msgstr "Fil system metoden(type) skal være en katalog sti. (directory path)"
 
 #: src/EBox/Model/RemoteSettings.pm:724 src/EBox/Model/RemoteSettings.pm:728
 msgid "Directory for backup"
-msgstr ""
+msgstr "Katalog for backup"
 
 #: src/EBox/Model/RemoteSettings.pm:731
 msgid "File exists and it is not a directory"
-msgstr ""
+msgstr "Filen eksisterer og er ikke et katalog"
 
 #: src/EBox/Model/RemoteSettings.pm:751
 msgid "Incremental backup must be more frequent than full backup"
 msgstr ""
+"Hyppigheden for opdaterings backup skal være større end for den fulde "
+"backup."
 
 #: src/EBox/Model/RemoteSettings.pm:763
 msgid ""
 "General backup server configuration updated. SCP method selected; "
 "<em>remember</em> to add your target host to the list of known hosts by SSH"
 msgstr ""
+"Generel konfiguration for backup serveren er opdateret. SPC metoden er "
+"valgt;<em>husk</em> at tilføje værten (host) på din backup, til SSH listen "
+"af kendte værter."
 
 #: src/EBox/Model/RemoteExcludes.pm:82
 msgid "Exclude or Include"
-msgstr ""
+msgstr "Ekskluder eller inkluder"
 
 #: src/EBox/Model/RemoteExcludes.pm:93
 msgid "Includes and Excludes"
-msgstr ""
+msgstr "Indludringer og ekskluderinger"
 
 #: src/EBox/Model/RemoteExcludes.pm:94
 msgid "exclude or include"
-msgstr ""
+msgstr "ekskluder eller inkluder"
 
 #: src/EBox/Model/RemoteExcludes.pm:102
 msgid ""
@@ -363,46 +384,49 @@ msgid ""
 "directory match is applied to all it contents. Files not explicitly excluded "
 "or included are included"
 msgstr ""
+"En fil eller et katalog er inkluderet i henhold til det første "
+"sammentræf(match). Et katalog sammentræf gælder for hele kataloget. Dette "
+"gælder for alle filer som ikke specifikt er inkluderet eller ekskluderet."
 
 #: src/EBox/Model/RemoteExcludes.pm:117
 msgid "Exclude path"
-msgstr ""
+msgstr "Ekskluderet sti"
 
 #: src/EBox/Model/RemoteExcludes.pm:121
 msgid "Exclude by regular expression"
-msgstr ""
+msgstr "Ekskluderet ved et regulært udtryk (regular expression)"
 
 #: src/EBox/Model/RemoteExcludes.pm:125
 msgid "Include Path"
-msgstr ""
+msgstr "Inkluderet sti"
 
 #: src/EBox/Model/RemoteExcludes.pm:147
 msgid "exclude path"
-msgstr ""
+msgstr "Ekskluderet sti"
 
 #: src/EBox/Model/RemoteExcludes.pm:160
 msgid "exclude path regular expression"
-msgstr ""
+msgstr "Regulært udtryk for ekskluderet sti"
 
 #: src/EBox/Model/RemoteExcludes.pm:162
 msgid "Incorrect regular expression"
-msgstr ""
+msgstr "Forkert regulært udtryk (regular expression)"
 
 #: src/EBox/Model/RemoteExcludes.pm:183
 msgid "include path"
-msgstr ""
+msgstr "inkluderet sti"
 
 #: src/EBox/Model/RemoteRestoreConf.pm:104
 msgid "Restore Zentyal configuration from backup"
-msgstr ""
+msgstr "Genskab (restore) eBox konfiguration fra backup"
 
 #: src/EBox/Model/RemoteRestoreConf.pm:111
 msgid "Loads the configuration found in the backup"
-msgstr ""
+msgstr "Indlæser konfigurationen fundet i backuppen"
 
 #: src/EBox/Model/RemoteRestoreConf.pm:113
 msgid "Please wait..."
-msgstr ""
+msgstr "Vent venligst....."
 
 #: src/EBox/Model/RemoteRestoreConf.pm:169
 #, perl-brace-format
@@ -410,19 +434,21 @@ msgid ""
 "Configuration backup not found in backup for {d}. Maybe you could try "
 "another date?"
 msgstr ""
+"Konfigurations backup er ikke fundet i backup for {d}, Måske kunne du prøve "
+"en anden dato?"
 
 #: src/EBox/Model/RemoteRestoreLogs.pm:118
 msgid "Restore logs database"
-msgstr ""
+msgstr "Genskabelses log's database (restore logs)"
 
 #: src/EBox/Model/RemoteRestoreLogs.pm:125
 msgid "Restores the Zentyal logs found in the selected backup"
-msgstr ""
+msgstr "Genskaber Zentyal logs fundet i den valgte backup"
 
 #: src/EBox/Composite/ServicesRestore.pm:64
 msgid "Services restore"
-msgstr ""
+msgstr "Genskabelse af services "
 
 #: src/EBox/Composite/RemoteGeneral.pm:65
 msgid "Configuration and Status"
-msgstr ""
+msgstr "Konfiguration og Status"

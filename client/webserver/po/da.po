@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: ebox-webserver 0.12\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "POT-Creation-Date: 2010-08-25 17:50+0200\n"
-"PO-Revision-Date: 2010-08-16 18:40+0200\n"
-"Last-Translator: Martin Nissen <ubernissen@gmail.com>\n"
+"PO-Revision-Date: 2010-08-26 00:26+0200\n"
+"Last-Translator: Bo Dalbjerg <bo@dalbjerg.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -20,7 +20,7 @@ msgstr ""
 
 #: migration/0001_add_service_and_port.pl:147
 msgid "HyperText Transport Protocol"
-msgstr ""
+msgstr "HyperText Transport Protokol"
 
 #: src/EBox/WebServer.pm:80 src/EBox/WebServer.pm:618
 #: src/EBox/WebServer/Composite/General.pm:78
@@ -29,58 +29,63 @@ msgstr "Web Server"
 
 #: src/EBox/WebServer.pm:100
 msgid "To set webserver listening port."
-msgstr ""
+msgstr "Indstil webserver port (indkomne)"
 
 #: src/EBox/WebServer.pm:105
 msgid "To configure default virtual host."
-msgstr ""
+msgstr "Konfigurer normal virtuel vært (host)"
 
 #: src/EBox/WebServer.pm:110
 msgid "To configure default SSL virtual host."
-msgstr ""
+msgstr "Konfigurer normal SSL virtuel vært (host)"
 
 #: src/EBox/WebServer.pm:115
 msgid "To configure the per-user public_html directory."
 msgstr ""
+"Konfigurer per-user public_html directory (offentlig bruger html katalog)."
 
 #: src/EBox/WebServer.pm:140
 msgid "Enable Apache LDAP user module"
-msgstr ""
+msgstr "Aktiver Apache LDAP bruger modul (user module)"
 
 #: src/EBox/WebServer.pm:142
 msgid "To fetch home directories from LDAP."
-msgstr ""
+msgstr "Hent hjemme kataloger (home directories) fra LDAP."
 
 #: src/EBox/WebServer.pm:145
 msgid "Enable Apache SSL module"
-msgstr ""
+msgstr "Aktiver Apache SSL modul"
 
 #: src/EBox/WebServer.pm:147
 msgid "To serve pages over HTTPS."
-msgstr ""
+msgstr "Web sider gennem HTTPS"
 
 #: src/EBox/WebServer.pm:185
 msgid "Web service status"
-msgstr ""
+msgstr "Web service status"
 
 #: src/EBox/WebServer.pm:441
 #, perl-brace-format
+#, fuzzy
 msgid "The {userDirConfFile} is missing! Please recover it."
-msgstr ""
+msgstr "{userDirConfFile} mangler. Genskab denne."
 
 #: src/EBox/WebServer/Model/GeneralSettings.pm:97
 #: src/EBox/WebServer/Model/GeneralSettings.pm:109
 #: src/EBox/WebServer/Model/GeneralSettings.pm:120
 #: src/EBox/WebServer/Model/GeneralSettings.pm:230
 msgid "Listening port"
-msgstr ""
+msgstr "Indkomne port"
 
 #: src/EBox/WebServer/Model/GeneralSettings.pm:115
 #, perl-brace-format
+#, fuzzy
 msgid ""
 "Zentyal Administration is running on this port, change it on {ohref}System -"
 "> General{chref}."
 msgstr ""
+"Zentyal Administrationen kører på denne port, du kan ændre den på "
+"{ohref}System -> General{chref}."
 
 #: src/EBox/WebServer/Model/GeneralSettings.pm:128
 #, perl-brace-format

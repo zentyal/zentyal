@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-mail 0.12\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "POT-Creation-Date: 2010-08-25 17:47+0200\n"
-"PO-Revision-Date: 2010-08-23 17:44+0200\n"
+"PO-Revision-Date: 2010-08-25 23:57+0200\n"
 "Last-Translator: josefa <jgonza24@xtec.cat>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -274,13 +274,15 @@ msgstr ""
 #: src/EBox/Mail/Model/ExternalAliases.pm:146
 #, perl-brace-format
 msgid "An account or alias called {al} already exists"
-msgstr ""
+msgstr "Ja existeix un compte o àlies anomenat {al}"
 
 #: src/EBox/Mail/Model/ExternalAliases.pm:167
 msgid ""
 "The alias account should be provided without domain portion. It will be "
 "appended automatically"
 msgstr ""
+"El compte d'àlies s'ha de lliurar sense la part del domini. S'afegirà "
+"automàticament."
 
 #: src/EBox/Mail/Model/ExternalAliases.pm:245
 #: src/EBox/Mail/Model/VDomainAliases.pm:137
@@ -288,127 +290,135 @@ msgstr ""
 msgid ""
 "You must enable the mail module in module status section in order to use it."
 msgstr ""
+"Has d'habilitar el mòdul de correu a la secció d'estat del mòdul per tal d"
+"'utilitzar-lo."
 
 #: src/EBox/Mail/Model/SMTPAuth.pm:65
 msgid "TLS for SMTP server"
-msgstr ""
+msgstr "TLS per al servidor SMTP"
 
 #: src/EBox/Mail/Model/SMTPAuth.pm:71
 msgid "Require authentication"
-msgstr ""
+msgstr "Requereix autentificació"
 
 #: src/EBox/Mail/Model/SMTPAuth.pm:74
 msgid ""
 "Users will have to authenticate to be able to send mails through this server"
 msgstr ""
+"Els usuaris s'hauran d'autenticar per poder enviar correus a través d'aquest "
+"servidor"
 
 #: src/EBox/Mail/Model/SMTPAuth.pm:82
 msgid "Authentication"
-msgstr ""
+msgstr "Autentificació"
 
 #: src/EBox/Mail/Model/SMTPAuth.pm:112
 msgid "Cannot require authentication when TLS is inactive"
-msgstr ""
+msgstr "No es pot exigir autentificació  quan TLS és inactiu"
 
 #: src/EBox/Mail/Model/ExternalFilter.pm:87
 msgid "Filter in use"
-msgstr ""
+msgstr "Filtre en ús"
 
 #: src/EBox/Mail/Model/ExternalFilter.pm:95
 msgid "Custom filter's mail forward port"
-msgstr ""
+msgstr "﻿Port de retransmissió de correu per al filtre personalitzat"
 
 #: src/EBox/Mail/Model/ExternalFilter.pm:101
 msgid "Custom filter's IP address"
-msgstr ""
+msgstr "Adreça IP del filtre personalitzat"
 
 #: src/EBox/Mail/Model/ExternalFilter.pm:107
 msgid "Custom filter's Port"
-msgstr ""
+msgstr "Port del filtre personalitzat"
 
 #: src/EBox/Mail/Model/ExternalFilter.pm:116
 msgid "Mail filter options"
-msgstr ""
+msgstr "Opcions del filtre de correu"
 
 #: src/EBox/Mail/Model/ExternalFilter.pm:159
 msgid "none"
-msgstr ""
+msgstr "cap"
 
 #: src/EBox/Mail/Model/ExternalFilter.pm:160
 #: src/EBox/Mail/Model/SMTPOptions.pm:126
 msgid "custom"
-msgstr ""
+msgstr "personalitzat"
 
 #: src/EBox/Mail/Model/ExternalAccounts.pm:68
 #: src/EBox/Mail/Model/ExternalAccounts.pm:120
 msgid "External mail accounts"
-msgstr ""
+msgstr "Comptes de correu externs"
 
 #: src/EBox/Mail/Model/ExternalAccounts.pm:94
 #: src/EBox/Mail/Model/SMTPOptions.pm:105
 msgid "Password"
-msgstr ""
+msgstr "Contrasenya"
 
 #: src/EBox/Mail/Model/ExternalAccounts.pm:101
 #: src/EBox/Mail/Composite/General.pm:77
 msgid "Mail server"
-msgstr ""
+msgstr "Servidor de correu"
 
 #: src/EBox/Mail/Model/ExternalAccounts.pm:121
 msgid "external mail account"
-msgstr ""
+msgstr "compte de correu extern"
 
 #: src/EBox/Mail/Model/ExternalAccounts.pm:127
 msgid "Fetching mail is done every 10 minutes"
-msgstr ""
+msgstr "L'obtenció del correu es fa cada 10 minuts"
 
 #: src/EBox/Mail/Model/ExternalAccounts.pm:144
 msgid "Secure POP3"
-msgstr ""
+msgstr "POP3 segur"
 
 #: src/EBox/Mail/Model/ExternalAccounts.pm:152
 msgid "Secure IMAP"
-msgstr ""
+msgstr "IMAP segur"
 
 #: src/EBox/Mail/Model/ExternalAccounts.pm:276
 #: src/EBox/Mail/Model/ExternalAccounts.pm:283
 msgid "External account username"
-msgstr ""
+msgstr "Nom d'usuari de compte extern"
 
 #: src/EBox/Mail/Model/ExternalAccounts.pm:278
 msgid "No spaces allowed"
-msgstr ""
+msgstr "No es permeten espais"
 
 #: src/EBox/Mail/Model/ExternalAccounts.pm:317
 msgid "External account added"
-msgstr ""
+msgstr "Compte extern afegit"
 
 #: src/EBox/Mail/Model/ExternalAccounts.pm:341
 #, perl-brace-format
 msgid "External account {ac} removed"
-msgstr ""
+msgstr "Compte extern {ac} eliminat"
 
 #: src/EBox/Mail/Model/ExternalAccounts.pm:439
 msgid ""
 "Cannot retrieve mail from external accounts because you do not have a email "
 "account in a local mail domain"
 msgstr ""
+"No es pot recuperar el correu de comptes externs, perquè no tens un compte "
+"de correu en un domini de correu local"
 
 #: src/EBox/Mail/Model/VDomainAliases.pm:57
 msgid "Aliases"
-msgstr ""
+msgstr "Àlies"
 
 #: src/EBox/Mail/Model/VDomainAliases.pm:69
 msgid "List of Aliases"
-msgstr ""
+msgstr "Llista d'Àlies"
 
 #: src/EBox/Mail/Model/VDomainAliases.pm:78
 msgid "virtual domain alias"
-msgstr ""
+msgstr "àlies de domini virtual"
 
 #: src/EBox/Mail/Model/VDomainAliases.pm:80
 msgid "Virtual domain alias added. You must save changes to use this domain"
 msgstr ""
+"Àlies de domini virtual afegit. Has de desar els canvis per a utilitzar "
+"aquest domini"
 
 #: src/EBox/Mail/Model/VDomainAliases.pm:101
 #, perl-brace-format
@@ -416,6 +426,8 @@ msgid ""
 "Cannot add {al} alias because there is already a virtual domain with the "
 "same name"
 msgstr ""
+"No es pot afegir l'àlies {al} perquè ja existeix un domini virtual amb el "
+"mateix nom"
 
 #: src/EBox/Mail/Model/VDomainAliases.pm:108
 #, perl-brace-format
@@ -423,30 +435,33 @@ msgid ""
 "Cannot add alias {al} because it is already an identical alias for another "
 "virtual domain"
 msgstr ""
+"No es pot afegir l'àlies {al} perquè ja existeix un àlies idèntic per a un "
+"altre domini virtual"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:72
 msgid "Smarthost to send mail"
-msgstr ""
+msgstr "Smarthost per enviar correu"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:75
 msgid "The format is host[:port] being port set to 25 if none is supplied"
 msgstr ""
+"El format és amfitrió[:port], establint-se al port 25 si no s'indica cap"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:81
 msgid "Smarthost authentication"
-msgstr ""
+msgstr "Autentificació  per al smarthost"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:89
 msgid "None"
-msgstr ""
+msgstr "Cap"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:93
 msgid "User and password"
-msgstr ""
+msgstr "Usuari i contrasenya"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:99
 msgid "User"
-msgstr ""
+msgstr "Usuari"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:118
 msgid "Server mailname"

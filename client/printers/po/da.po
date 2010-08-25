@@ -9,13 +9,14 @@ msgstr ""
 "Project-Id-Version: ebox-printers 0.12\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "POT-Creation-Date: 2010-08-25 17:48+0200\n"
-"PO-Revision-Date: 2007-07-24 12:13+0200\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2010-08-25 19:58+0200\n"
+"Last-Translator: Bo Dalbjerg <bo@dalbjerg.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: migration/0001_add_ipp_service.pl:102
 msgid "Cups printer server port"
@@ -29,26 +30,26 @@ msgstr "Printer deling"
 #: src/EBox/Printers.pm:58
 #, fuzzy
 msgid "Create spool directory for printers"
-msgstr "Vælg en driver til printeren"
+msgstr "Laver et arbejdes katalog (spool directory) for printerne"
 
 #: src/EBox/Printers.pm:59
 msgid "Zentyal will create a spool directory under /var/spool/samba"
-msgstr ""
+msgstr "Zentyal vil lave et arbejdskatalog i stien: /var/spool/samba"
 
 #: src/EBox/Printers.pm:64
 #, fuzzy
 msgid "Create log table"
-msgstr "Oprettet kl. "
+msgstr "Udfærdiger log tabel"
 
 #: src/EBox/Printers.pm:65
 msgid ""
 "Zentyal will create a new table into its log database to store printers logs"
 msgstr ""
+"Zentyal vil lave en ny tabel i dens log database, for at gemme printer log's"
 
 #: src/EBox/Printers.pm:81
-#, fuzzy
 msgid "To configure cupsd"
-msgstr "Printeren er ikke sat op"
+msgstr "Konfigurer printer opsætning"
 
 #: src/EBox/Printers.pm:223
 msgid "Job ID"
@@ -69,7 +70,7 @@ msgstr "Slet"
 
 #: src/EBox/Printers.pm:227
 msgid "Event"
-msgstr "begivenhed"
+msgstr "Begivenhed"
 
 #: src/EBox/Printers.pm:231
 msgid "Queued"
@@ -77,7 +78,7 @@ msgstr "Lagt i kø"
 
 #: src/EBox/Printers.pm:232
 msgid "Completed"
-msgstr ""
+msgstr "Gennemført"
 
 #: src/EBox/Printers.pm:233
 msgid "Canceled"
@@ -93,23 +94,25 @@ msgid ""
 "Prior to configure printers you need to enable the module in the {openref}"
 "Module Status{closeref}  section and save changes after that."
 msgstr ""
+"Før du konfigurer printerne skal du tænde(enable) modulet i {openref}Module "
+"Status{closeref}  sektionen, og gemme ændringer derefter."
 
 #: src/EBox/Model/CUPS.pm:156
 msgid "Interface"
-msgstr ""
+msgstr "Interface"
 
 #: src/EBox/Model/CUPS.pm:161
 msgid "Listen"
-msgstr ""
+msgstr "Lytter.."
 
 #: src/EBox/Model/CUPS.pm:170
 msgid "Select CUPS Interfaces"
-msgstr ""
+msgstr "Vælg printer (CUPS) interface."
 
 #: src/EBox/Model/CUPS.pm:175
 #, fuzzy
 msgid "interface"
-msgstr "Printer"
+msgstr "interface (port/ip adresse)"
 
 #: src/EBox/Model/CUPS.pm:176
 msgid ""
@@ -117,6 +120,9 @@ msgid ""
 "account that is not probably a good idea to listen on external interfaces. "
 "If none are selected, it will be listening only at localhost"
 msgstr ""
+"Vælg hvilket interface printer (CUPS) webserveren vil benytte. Tag i "
+"betragtning at det sandsynligvis ikke er en god ide at benytte eksterne "
+"interfaces. Hvis ingen er valgt vil den kun benytte den lokale vært (host)"
 
 #: src/EBox/Model/CUPS.pm:187
 #, perl-brace-format
@@ -124,6 +130,8 @@ msgid ""
 "To add or manage printers you have to use the {open_href}CUPS Web Interface"
 "{close_href}"
 msgstr ""
+"For at tilføje elle styre printere skal du bruge {open_href}CUPS Web "
+"Interface{close_href}"
 
 #~ msgid "Model"
 #~ msgstr "Model"
