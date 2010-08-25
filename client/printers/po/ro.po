@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-printers 0.12.99Report-Msgid-Bugs-To: info@ebox-"
 "technologies.com\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
-"POT-Creation-Date: 2010-08-13 13:41+0200\n"
+"POT-Creation-Date: 2010-08-25 17:48+0200\n"
 "PO-Revision-Date: 2010-07-05 14:02+0200\n"
 "Last-Translator: Harald Ersch <harald.ersch@gmail.com>\n"
 "Language-Team: none\n"
@@ -23,506 +23,394 @@ msgstr ""
 msgid "Cups printer server port"
 msgstr "Portul serverului de tipărire CUPS"
 
-#: src/EBox/CGI/Model.pm:43 src/EBox/CGI/LPDPrinterUI.pm:46
-#: src/EBox/CGI/NetworkPrinter.pm:42 src/EBox/CGI/SambaPrinterUI.pm:48
-#: src/EBox/CGI/DrvoptsUI.pm:48 src/EBox/CGI/USBPrinterUI.pm:48
-#: src/EBox/CGI/Driver.pm:41 src/EBox/CGI/ManagePrinter.pm:42
-#: src/EBox/CGI/ParallelPrinterUI.pm:48 src/EBox/CGI/SambaPrinter.pm:42
-#: src/EBox/CGI/NetworkPrinterUI.pm:48 src/EBox/CGI/ManagePrinterUI.pm:48
-#: src/EBox/CGI/IPPPrinterUI.pm:46 src/EBox/CGI/ModelUI.pm:48
-#: src/EBox/CGI/USBPrinter.pm:42 src/EBox/CGI/DeleteUI.pm:48
-#: src/EBox/CGI/DriverUI.pm:48 src/EBox/CGI/LPDPrinter.pm:41
-#: src/EBox/CGI/IPPPrinter.pm:42 src/EBox/CGI/Manufacturer.pm:41
-#: src/EBox/CGI/ManufacturerUI.pm:48 src/EBox/CGI/Drvopts.pm:41
-#: src/EBox/CGI/PrintTest.pm:39 src/EBox/CGI/ParallelPrinter.pm:42
-#: src/EBox/Printers.pm:250 src/EBox/Printers.pm:385 src/EBox/Printers.pm:398
-#: src/EBox/Printers.pm:415 src/EBox/Printers.pm:471 src/EBox/Printers.pm:523
-#: src/EBox/Printers.pm:565 src/EBox/Printers.pm:582 src/EBox/Printers.pm:604
-#: src/EBox/Printers.pm:630 src/EBox/Printers.pm:657 src/EBox/Printers.pm:689
-#: src/EBox/Printers.pm:719 src/EBox/Printers.pm:747 src/EBox/Printers.pm:788
-#: src/EBox/Printers.pm:802 src/EBox/Printers.pm:828 src/EBox/Printers.pm:842
-#: src/EBox/Printers.pm:868 src/EBox/Printers.pm:882 src/EBox/Printers.pm:907
-#: src/EBox/Printers.pm:930 src/EBox/Printers.pm:955 src/EBox/Printers.pm:1027
-#: src/EBox/Printers.pm:1076 src/EBox/Printers.pm:1121
-#: src/EBox/Printers.pm:1149 src/EBox/Printers.pm:1181
-#: src/EBox/Printers.pm:1241 src/EBox/Printers.pm:1256
-#: src/EBox/Printers.pm:1287
-msgid "Printer"
-msgstr "Imprimantă"
-
-#: src/EBox/CGI/Model.pm:44 src/EBox/Printers.pm:846 src/EBox/Printers.pm:886
-#: src/templates/printer.mas:151 src/templates/printerback.mas:29
-msgid "Model"
-msgstr "Model"
-
-#: src/EBox/CGI/Model.pm:55
-#, perl-brace-format
-msgid "Printer {printer} has no available drivers"
-msgstr "Imprimanta {printer}nu are drivere disponibile"
-
-#: src/EBox/CGI/LPDPrinterUI.pm:30 src/EBox/CGI/SambaPrinterUI.pm:32
-#: src/EBox/CGI/USBPrinterUI.pm:32 src/EBox/CGI/ParallelPrinterUI.pm:32
-#: src/EBox/CGI/NetworkPrinterUI.pm:32 src/EBox/CGI/IPPPrinterUI.pm:30
-msgid "Add a new printer (II)"
-msgstr "Adaugă o imprimantă nouă (II)"
-
-#: src/EBox/CGI/LPDPrinterUI.pm:53 src/EBox/CGI/SambaPrinterUI.pm:56
-#: src/EBox/CGI/DrvoptsUI.pm:55 src/EBox/CGI/USBPrinterUI.pm:56
-#: src/EBox/CGI/ParallelPrinterUI.pm:56 src/EBox/CGI/NetworkPrinterUI.pm:55
-#: src/EBox/CGI/IPPPrinterUI.pm:53 src/templates/addprinter.mas:40
-#: src/templates/addprinter.mas:41 src/templates/manufacturer.mas:21
-#: src/templates/manufacturer.mas:22 src/templates/models.mas:21
-#: src/templates/models.mas:22 src/templates/driver.mas:21
-#: src/templates/driver.mas:22 src/templates/drivers.mas:34
-#: src/templates/drivers.mas:35 src/templates/printerback.mas:167
-#: src/templates/printerback.mas:168
-msgid "Next"
-msgstr "Următor"
-
-#: src/EBox/CGI/NetworkPrinter.pm:43 src/EBox/CGI/LPDPrinter.pm:42
-#: src/EBox/CGI/IPPPrinter.pm:43 src/EBox/Printers.pm:661
-#: src/EBox/Printers.pm:723 src/EBox/Printers.pm:751 src/templates/ipp.mas:23
-#: src/templates/lpd.mas:23 src/templates/printerback.mas:182
-#: src/templates/network.mas:23
-msgid "IP"
-msgstr "IP"
-
-#: src/EBox/CGI/NetworkPrinter.pm:44 src/EBox/CGI/LPDPrinter.pm:43
-#: src/EBox/CGI/IPPPrinter.pm:44 src/EBox/Printers.pm:662
-#: src/EBox/Printers.pm:724 src/EBox/Printers.pm:752 src/templates/ipp.mas:31
-#: src/templates/lpd.mas:31 src/templates/printerback.mas:190
-#: src/templates/network.mas:31
-msgid "Port"
-msgstr "Port"
-
-#: src/EBox/CGI/GeneralSettings.pm:90
-msgid "Standalone cups enabled"
-msgstr "CUPS independent activat"
-
-#: src/EBox/CGI/GeneralSettings.pm:92
-msgid "Standalone cups disabled"
-msgstr "CUPS independent DEZactivat"
-
-#: src/EBox/CGI/DrvoptsUI.pm:32
-msgid "Add a new printer (VI)"
-msgstr "Adaugă o imprimantă nouă (VI)"
-
-#: src/EBox/CGI/Driver.pm:42 src/templates/printer.mas:159
-#: src/templates/printerback.mas:37
-msgid "Driver"
-msgstr "Driver"
-
-#: src/EBox/CGI/ManagePrinter.pm:53
-msgid "The printer has been deleted successfully"
-msgstr "Imprimanta a fost ştearsă cu succes"
-
-#: src/EBox/CGI/SambaPrinter.pm:54
-msgid "Shared resource"
-msgstr "Resursă partajată"
-
-#: src/EBox/CGI/SambaPrinter.pm:55 src/templates/printerback.mas:120
-#: src/templates/samba.mas:32
-msgid "Authentication"
-msgstr "Autentificare"
-
-#: src/EBox/CGI/SambaPrinter.pm:63 src/templates/printerback.mas:148
-#: src/templates/samba.mas:60
-msgid "User"
-msgstr "Utilizator"
-
-#: src/EBox/CGI/SambaPrinter.pm:64 src/templates/printerback.mas:157
-#: src/templates/samba.mas:69
-msgid "Password"
-msgstr "Parolă"
-
-#: src/EBox/CGI/ManagePrinterUI.pm:32
-msgid "Manage printer"
-msgstr "Administrare imprimantă"
-
-#: src/EBox/CGI/ManagePrinterUI.pm:60
-msgid "Printer details"
-msgstr "Detalii imprimantă"
-
-#: src/EBox/CGI/ManagePrinterUI.pm:61
-msgid "Driver Options"
-msgstr "Opţiuni driver"
-
-#: src/EBox/CGI/ManagePrinterUI.pm:62
-msgid "Configuration options"
-msgstr "Opţiuni configurare"
-
-#: src/EBox/CGI/ManagePrinterUI.pm:63
-msgid "Jobs Queue"
-msgstr "Coadă de imprimare"
-
-#: src/EBox/CGI/CancelJob.pm:42 src/EBox/CGI/AddPrinter.pm:42
-msgid "Printer's name"
-msgstr "Numele imprimantei"
-
-#: src/EBox/CGI/CancelJob.pm:43
-msgid "Printer's id"
-msgstr "ID-ul imprimantei"
-
-#: src/EBox/CGI/CancelJob.pm:44
-msgid "Job id"
-msgstr "ID-ul imprimării"
-
-#: src/EBox/CGI/CancelJob.pm:56
-msgid "Job was successfully canceled"
-msgstr "Imprimarea a fost anulată cu succes"
-
-#: src/EBox/CGI/ModelUI.pm:32
-msgid "Add a new printer (IV)"
-msgstr "Adaugă o imprimantă nouă (IV)"
-
-#: src/EBox/CGI/USBPrinter.pm:43 src/EBox/CGI/ParallelPrinter.pm:43
-#: src/EBox/Printers.pm:610 src/EBox/Printers.pm:636
-#: src/templates/parallel.mas:18 src/templates/usb.mas:18
-msgid "Device"
-msgstr "Dispozitiv"
-
-#: src/EBox/CGI/ShowPrintersUI.pm:32 src/EBox/Printers.pm:355
-msgid "Manage printers"
-msgstr "Administrare imprimante"
-
-#: src/EBox/CGI/DeleteUI.pm:32
-msgid "Delete printer"
-msgstr "Ştergere imprimantă"
-
-#: src/EBox/CGI/DriverUI.pm:32
-msgid "Add a new printer (V)"
-msgstr "Adaugă o imprimantă nouă (V)"
-
-#: src/EBox/CGI/AddPrinter.pm:43 src/EBox/Printers.pm:494
-#: src/EBox/Printers.pm:586 src/templates/addprinter.mas:23
-msgid "Method"
-msgstr "Metodă"
-
-#: src/EBox/CGI/AddPrinter.pm:45
-msgid "Printer description"
-msgstr "Descriere imprimantă"
-
-#: src/EBox/CGI/Manufacturer.pm:42 src/EBox/Printers.pm:807
-#: src/templates/printer.mas:143 src/templates/printerback.mas:21
-msgid "Manufacturer"
-msgstr "Producător"
-
-#: src/EBox/CGI/ManufacturerUI.pm:32
-msgid "Add a new printer (III)"
-msgstr "Adaugă o imprimantă nouă (III)"
-
-#: src/EBox/CGI/AddPrinterUI.pm:32
-msgid "Add a new printer (I)"
-msgstr "Adaugă o imprimantă nouă (I)"
-
-#: src/EBox/Printers.pm:59
+#: src/EBox/Printers.pm:43 src/EBox/Composite/General.pm:60
 msgid "Printer Sharing"
 msgstr "Partajare imprimante"
 
-#: src/EBox/Printers.pm:74
+#: src/EBox/Printers.pm:58
 msgid "Create spool directory for printers"
 msgstr "Creare director de lucru pentru imprimante"
 
-#: src/EBox/Printers.pm:75
-msgid "eBox will create a spool directory under /var/spool/samba"
+#: src/EBox/Printers.pm:59
+#, fuzzy
+msgid "Zentyal will create a spool directory under /var/spool/samba"
 msgstr "eBox va crea un director de lucru în /var/spool/samba"
 
-#: src/EBox/Printers.pm:80
-msgid "Add user ebox to lpadmin group"
-msgstr "Adaugă utilizatorul eBox la grupul lpadmin"
-
-#: src/EBox/Printers.pm:81
-msgid "In order to manage printers and queues from the eBox web interface"
-msgstr "Pentru a administra imprimantele şi cozile din interfaţa web a eBox"
-
-#: src/EBox/Printers.pm:86
+#: src/EBox/Printers.pm:64
 msgid "Create log table"
 msgstr "Creare tabel jurnal"
 
-#: src/EBox/Printers.pm:87
+#: src/EBox/Printers.pm:65
+#, fuzzy
 msgid ""
-"eBox will create a new table into its log database to store printers logs"
+"Zentyal will create a new table into its log database to store printers logs"
 msgstr ""
 "eBox va crea un tabel nou în baza de date jurnal pentru a păstra jurnalul de "
 "imprimare"
 
-#: src/EBox/Printers.pm:103
-msgid "To add and manage printers"
-msgstr "Pentru adaugarea şi administrarea imprimantelor"
-
-#: src/EBox/Printers.pm:108
-msgid "To enable standalone cupsd listen on internal interfaces"
-msgstr "Pentru activarea ascultării cupsd independent pe interfeţele interne"
-
-#: src/EBox/Printers.pm:293
-msgid "Add Printer"
-msgstr "Adaugă imprimantă"
-
-#: src/EBox/Printers.pm:490
-msgid ""
-"The printer's name contains characters not valid.Only alphanumeric "
-"characters are allowed"
-msgstr ""
-"Numele imprimantei conţine caractere incorecte. Sunt permise numai "
-"caracterele alfanumerice"
-
-#: src/EBox/Printers.pm:499 src/templates/addprinter.mas:15
-#: src/templates/printer.mas:79 src/templates/printers.mas:37
-msgid "Name"
-msgstr "Nume"
-
-#: src/EBox/Printers.pm:506
-msgid "The given name is alreaday used as "
-msgstr "Numele dat este utilizat deja de "
-
-#: src/EBox/Printers.pm:527 src/EBox/Printers.pm:1080
-#: src/EBox/Printers.pm:1125 src/EBox/Printers.pm:1185
-msgid "Printer not configured"
+#: src/EBox/Printers.pm:81
+#, fuzzy
+msgid "To configure cupsd"
 msgstr "Imprimanta nu este configurată"
 
-#: src/EBox/Printers.pm:615
-msgid "It is not a usb printer"
-msgstr "Nu e o imprimantă USB"
-
-#: src/EBox/Printers.pm:641
-msgid "It is not a parallel printer"
-msgstr "Nu e o imprimantă paralelă"
-
-#: src/EBox/Printers.pm:667
-msgid "It is not a network printer"
-msgstr "Nu e o imprimantă de reţea"
-
-#: src/EBox/Printers.pm:696
-msgid "It is not a samba printer"
-msgstr "Nu e o imprimantă samba"
-
-#: src/EBox/Printers.pm:729
-msgid "It is not a IPP printer"
-msgstr "Nu e o imprimantă IPP"
-
-#: src/EBox/Printers.pm:757
-msgid "It is not a LPD printer"
-msgstr "Nu e o imprimantă LPD"
-
-#: src/EBox/Printers.pm:988 src/EBox/Printers.pm:1014
-msgid "is not a valid option"
-msgstr "nu e opţiune validă"
-
-#: src/EBox/Printers.pm:1105
-#, perl-brace-format
-msgid "Parameter '{name}' does not exist"
-msgstr "Parametrul '{name}' nu există"
-
-#: src/EBox/Printers.pm:1286 src/templates/printer.mas:77
+#: src/EBox/Printers.pm:223
 msgid "Job ID"
 msgstr "ID imprimare"
 
-#: src/EBox/Printers.pm:1288 src/templates/printer.mas:78
-msgid "Owner"
-msgstr "Proprietar"
+#: src/EBox/Printers.pm:224
+msgid "Printer"
+msgstr "Imprimantă"
 
-#: src/EBox/Printers.pm:1289
-msgid "Queued at"
-msgstr "În coadă din:"
+#: src/EBox/Printers.pm:225
+msgid "User"
+msgstr "Utilizator"
 
-#: src/EBox/Printers.pm:1290
+#: src/EBox/Printers.pm:226
+#, fuzzy
+msgid "Date"
+msgstr "Ştergere"
+
+#: src/EBox/Printers.pm:227
 msgid "Event"
 msgstr "Eveniment"
 
-#: src/EBox/Printers.pm:1293
+#: src/EBox/Printers.pm:231
 msgid "Queued"
 msgstr "În coadă"
 
-#: src/EBox/Printers.pm:1293
+#: src/EBox/Printers.pm:232
+msgid "Completed"
+msgstr ""
+
+#: src/EBox/Printers.pm:233
 msgid "Canceled"
 msgstr "Anulat"
 
-#: src/EBox/Printers.pm:1296
+#: src/EBox/Printers.pm:237
 msgid "Printers"
 msgstr "Imprimante"
 
-#: src/templates/addprinter.mas:10
-msgid "Set printer name and method"
-msgstr "Configurare nume imprimantă şi metodă"
-
-#: src/templates/addprinter.mas:28
-msgid "Parallel"
-msgstr "Paralelă"
-
-#: src/templates/addprinter.mas:29
-msgid "AppSocket"
-msgstr "AppSocket"
-
-#: src/templates/addprinter.mas:30
-msgid "Samba"
-msgstr "Samba"
-
-#: src/templates/addprinter.mas:31
-msgid "IPP: Internet printing protocol"
-msgstr "IPP: Internet printing protocol"
-
-#: src/templates/addprinter.mas:32
-msgid "LPD: Line Printer Daemon"
-msgstr "LPD: Line Printer Daemon"
-
-#: src/templates/manufacturer.mas:12
-msgid "Choose manufacturer"
-msgstr "Alegeţi producătorul"
-
-#: src/templates/parallel.mas:15
-msgid "Local parallel printer configuration"
-msgstr "Configurare imprimantă paralelă locală"
-
-#: src/templates/del.mas:12
+#: src/EBox/Model/CUPS.pm:142
 #, perl-brace-format
-msgid "Are you sure you want to delete the printer '{name}'?"
-msgstr "Chiar doriţi ştergerea impimantei  '{name}'?"
+msgid ""
+"Prior to configure printers you need to enable the module in the {openref}"
+"Module Status{closeref}  section and save changes after that."
+msgstr ""
 
-#: src/templates/del.mas:21 src/templates/printer.mas:121
-#: src/templates/printer.mas:122 src/templates/printer.mas:123
-#: src/templates/printers.mas:64 src/templates/printers.mas:65
-#: src/templates/printers.mas:66
-msgid "Delete"
-msgstr "Ştergere"
+#: src/EBox/Model/CUPS.pm:156
+msgid "Interface"
+msgstr ""
 
-#: src/templates/del.mas:24
-msgid "Cancel"
-msgstr "Anulare"
+#: src/EBox/Model/CUPS.pm:161
+msgid "Listen"
+msgstr ""
 
-#: src/templates/usb.mas:15
-msgid "Local USB printer configuration"
-msgstr "Configurare imprimantă USB locală"
+#: src/EBox/Model/CUPS.pm:170
+msgid "Select CUPS Interfaces"
+msgstr ""
 
-#: src/templates/printer.mas:33 src/templates/printer.mas:169
-#: src/templates/printer.mas:170 src/templates/printerback.mas:96
-#: src/templates/printerback.mas:97 src/templates/printerback.mas:200
-#: src/templates/printerback.mas:201 src/templates/printers.mas:19
-msgid "Change"
-msgstr "Modificare"
+#: src/EBox/Model/CUPS.pm:175
+#, fuzzy
+msgid "interface"
+msgstr "Imprimantă"
 
-#: src/templates/printer.mas:71
-msgid "Job queue"
-msgstr "Coada de imprimare"
+#: src/EBox/Model/CUPS.pm:176
+msgid ""
+"Select in which interfaces the CUPS webserver will listen on. Take into "
+"account that is not probably a good idea to listen on external interfaces. "
+"If none are selected, it will be listening only at localhost"
+msgstr ""
 
-#: src/templates/printer.mas:80
-msgid "Size(KB)"
-msgstr "Mărime (kB)"
+#: src/EBox/Model/CUPS.pm:187
+#, perl-brace-format
+msgid ""
+"To add or manage printers you have to use the {open_href}CUPS Web Interface"
+"{close_href}"
+msgstr ""
 
-#: src/templates/printer.mas:81
-msgid "Creation time"
-msgstr "Data creării"
+#~ msgid "Model"
+#~ msgstr "Model"
 
-#: src/templates/printer.mas:82
-msgid "Action"
-msgstr "Acţiune"
+#~ msgid "Printer {printer} has no available drivers"
+#~ msgstr "Imprimanta {printer}nu are drivere disponibile"
 
-#: src/templates/printer.mas:131
-msgid "This printer has no pending job in queue at the moment"
-msgstr "Această imprimantă nu are imprimări în curs în acest moment"
+#~ msgid "Add a new printer (II)"
+#~ msgstr "Adaugă o imprimantă nouă (II)"
 
-#: src/templates/printer.mas:179
-msgid "You need to save changes in order to print a test page"
-msgstr "Trebuie să salvaţi modificările pentru a tipări o pagină de test"
+#~ msgid "Next"
+#~ msgstr "Următor"
 
-#: src/templates/printer.mas:184 src/templates/printer.mas:185
-msgid "Print Test Page"
-msgstr "Imprimare pagină de test"
+#~ msgid "IP"
+#~ msgstr "IP"
 
-#: src/templates/drvopts.mas:14 src/templates/printerback.mas:56
-msgid "Driver options"
-msgstr "Opţiuni driver"
+#~ msgid "Port"
+#~ msgstr "Port"
 
-#: src/templates/models.mas:13
-msgid "Choose a printer model"
-msgstr "Alegeţi un model de imprimantă"
+#~ msgid "Standalone cups enabled"
+#~ msgstr "CUPS independent activat"
 
-#: src/templates/ipp.mas:16
-msgid "Configure IPP printer"
-msgstr "Configurare imprimantă IPP"
+#~ msgid "Standalone cups disabled"
+#~ msgstr "CUPS independent DEZactivat"
 
-#: src/templates/driver.mas:12
-msgid "Choose a driver for the printer"
-msgstr "Alegeţi un driver pt. imprimantă"
+#~ msgid "Add a new printer (VI)"
+#~ msgstr "Adaugă o imprimantă nouă (VI)"
 
-#: src/templates/lpd.mas:16
-msgid "Configure LPD printer"
-msgstr "Configurare imprimantă LPD"
+#~ msgid "Driver"
+#~ msgstr "Driver"
 
-#: src/templates/drivers.mas:13
-msgid "Choose a dirver for the printer"
-msgstr "Alegeţi un driver pt. imprimantă"
+#~ msgid "The printer has been deleted successfully"
+#~ msgstr "Imprimanta a fost ştearsă cu succes"
 
-#: src/templates/drivers.mas:20
-msgid "driver"
-msgstr "driver"
+#~ msgid "Shared resource"
+#~ msgstr "Resursă partajată"
 
-#: src/templates/printerback.mas:47 src/templates/printerback.mas:48
-msgid "Go"
-msgstr "Porneşte"
+#~ msgid "Authentication"
+#~ msgstr "Autentificare"
 
-#: src/templates/printerback.mas:106
-msgid "Samba shared printer configurationr"
-msgstr "Configurare imprimantă samba partajată"
+#~ msgid "Password"
+#~ msgstr "Parolă"
 
-#: src/templates/printerback.mas:112 src/templates/samba.mas:24
-msgid "Share resource"
-msgstr "Partajare resursă"
+#~ msgid "Manage printer"
+#~ msgstr "Administrare imprimantă"
 
-#: src/templates/printerback.mas:126 src/templates/printerback.mas:128
-#: src/templates/samba.mas:38 src/templates/samba.mas:40
-msgid "Anonymous"
-msgstr "Anonim"
+#~ msgid "Printer details"
+#~ msgstr "Detalii imprimantă"
 
-#: src/templates/printerback.mas:132 src/templates/printerback.mas:134
-#: src/templates/samba.mas:44 src/templates/samba.mas:46
-msgid "Guest"
-msgstr "Oaspete"
+#~ msgid "Driver Options"
+#~ msgstr "Opţiuni driver"
 
-#: src/templates/printerback.mas:138 src/templates/printerback.mas:140
-#: src/templates/samba.mas:50 src/templates/samba.mas:52
-msgid "User/Password"
-msgstr "Utilizator/parolă"
+#~ msgid "Configuration options"
+#~ msgstr "Opţiuni configurare"
 
-#: src/templates/printerback.mas:176
-msgid "Remote printer configuration"
-msgstr "Configurare imprimantă la distanţă"
+#~ msgid "Jobs Queue"
+#~ msgstr "Coadă de imprimare"
 
-#: src/templates/network.mas:16
-msgid "Configure AppSocket printer"
-msgstr "Configurare imprimantă AppSocket"
+#~ msgid "Printer's name"
+#~ msgstr "Numele imprimantei"
 
-#: src/templates/samba.mas:17
-msgid "Samba shared printer configuration"
-msgstr "Configurare imprimantă samba partajată"
+#~ msgid "Printer's id"
+#~ msgstr "ID-ul imprimantei"
 
-#: src/templates/printers.mas:13
-msgid "Enable standalone CUPS"
-msgstr "Activare CUPS independent"
+#~ msgid "Job id"
+#~ msgstr "ID-ul imprimării"
 
-#: src/templates/printers.mas:25
-msgid "General settings"
-msgstr "Configurare generală"
+#~ msgid "Job was successfully canceled"
+#~ msgstr "Imprimarea a fost anulată cu succes"
 
-#: src/templates/printers.mas:33
-msgid "List of printers"
-msgstr "Lista imprimantelor"
+#~ msgid "Add a new printer (IV)"
+#~ msgstr "Adaugă o imprimantă nouă (IV)"
 
-#: src/templates/printers.mas:38
-msgid "Description"
-msgstr "Descriere"
+#~ msgid "Device"
+#~ msgstr "Dispozitiv"
 
-#: src/templates/printers.mas:39
-msgid "Actions"
-msgstr "Acţiuni"
+#~ msgid "Manage printers"
+#~ msgstr "Administrare imprimante"
 
-#: src/templates/printers.mas:58
-msgid "Manage"
-msgstr "Administrează"
+#~ msgid "Delete printer"
+#~ msgstr "Ştergere imprimantă"
 
-#: src/templates/printers.mas:59 src/templates/printers.mas:60
-msgid "Manage this printer"
-msgstr "Administrează această imprimantă"
+#~ msgid "Add a new printer (V)"
+#~ msgstr "Adaugă o imprimantă nouă (V)"
 
-#: src/templates/printers.mas:75
-msgid "There is no printer configured yet"
-msgstr "Încă nu e configurată nici o imprimantă"
+#~ msgid "Method"
+#~ msgstr "Metodă"
+
+#~ msgid "Printer description"
+#~ msgstr "Descriere imprimantă"
+
+#~ msgid "Manufacturer"
+#~ msgstr "Producător"
+
+#~ msgid "Add a new printer (III)"
+#~ msgstr "Adaugă o imprimantă nouă (III)"
+
+#~ msgid "Add a new printer (I)"
+#~ msgstr "Adaugă o imprimantă nouă (I)"
+
+#~ msgid "Add user ebox to lpadmin group"
+#~ msgstr "Adaugă utilizatorul eBox la grupul lpadmin"
+
+#~ msgid "In order to manage printers and queues from the eBox web interface"
+#~ msgstr "Pentru a administra imprimantele şi cozile din interfaţa web a eBox"
+
+#~ msgid "To add and manage printers"
+#~ msgstr "Pentru adaugarea şi administrarea imprimantelor"
+
+#~ msgid "To enable standalone cupsd listen on internal interfaces"
+#~ msgstr ""
+#~ "Pentru activarea ascultării cupsd independent pe interfeţele interne"
+
+#~ msgid "Add Printer"
+#~ msgstr "Adaugă imprimantă"
+
+#~ msgid ""
+#~ "The printer's name contains characters not valid.Only alphanumeric "
+#~ "characters are allowed"
+#~ msgstr ""
+#~ "Numele imprimantei conţine caractere incorecte. Sunt permise numai "
+#~ "caracterele alfanumerice"
+
+#~ msgid "Name"
+#~ msgstr "Nume"
+
+#~ msgid "The given name is alreaday used as "
+#~ msgstr "Numele dat este utilizat deja de "
+
+#~ msgid "It is not a usb printer"
+#~ msgstr "Nu e o imprimantă USB"
+
+#~ msgid "It is not a parallel printer"
+#~ msgstr "Nu e o imprimantă paralelă"
+
+#~ msgid "It is not a network printer"
+#~ msgstr "Nu e o imprimantă de reţea"
+
+#~ msgid "It is not a samba printer"
+#~ msgstr "Nu e o imprimantă samba"
+
+#~ msgid "It is not a IPP printer"
+#~ msgstr "Nu e o imprimantă IPP"
+
+#~ msgid "It is not a LPD printer"
+#~ msgstr "Nu e o imprimantă LPD"
+
+#~ msgid "is not a valid option"
+#~ msgstr "nu e opţiune validă"
+
+#~ msgid "Parameter '{name}' does not exist"
+#~ msgstr "Parametrul '{name}' nu există"
+
+#~ msgid "Owner"
+#~ msgstr "Proprietar"
+
+#~ msgid "Queued at"
+#~ msgstr "În coadă din:"
+
+#~ msgid "Set printer name and method"
+#~ msgstr "Configurare nume imprimantă şi metodă"
+
+#~ msgid "Parallel"
+#~ msgstr "Paralelă"
+
+#~ msgid "AppSocket"
+#~ msgstr "AppSocket"
+
+#~ msgid "Samba"
+#~ msgstr "Samba"
+
+#~ msgid "IPP: Internet printing protocol"
+#~ msgstr "IPP: Internet printing protocol"
+
+#~ msgid "LPD: Line Printer Daemon"
+#~ msgstr "LPD: Line Printer Daemon"
+
+#~ msgid "Choose manufacturer"
+#~ msgstr "Alegeţi producătorul"
+
+#~ msgid "Local parallel printer configuration"
+#~ msgstr "Configurare imprimantă paralelă locală"
+
+#~ msgid "Are you sure you want to delete the printer '{name}'?"
+#~ msgstr "Chiar doriţi ştergerea impimantei  '{name}'?"
+
+#~ msgid "Cancel"
+#~ msgstr "Anulare"
+
+#~ msgid "Local USB printer configuration"
+#~ msgstr "Configurare imprimantă USB locală"
+
+#~ msgid "Change"
+#~ msgstr "Modificare"
+
+#~ msgid "Job queue"
+#~ msgstr "Coada de imprimare"
+
+#~ msgid "Size(KB)"
+#~ msgstr "Mărime (kB)"
+
+#~ msgid "Creation time"
+#~ msgstr "Data creării"
+
+#~ msgid "Action"
+#~ msgstr "Acţiune"
+
+#~ msgid "This printer has no pending job in queue at the moment"
+#~ msgstr "Această imprimantă nu are imprimări în curs în acest moment"
+
+#~ msgid "You need to save changes in order to print a test page"
+#~ msgstr "Trebuie să salvaţi modificările pentru a tipări o pagină de test"
+
+#~ msgid "Print Test Page"
+#~ msgstr "Imprimare pagină de test"
+
+#~ msgid "Driver options"
+#~ msgstr "Opţiuni driver"
+
+#~ msgid "Choose a printer model"
+#~ msgstr "Alegeţi un model de imprimantă"
+
+#~ msgid "Configure IPP printer"
+#~ msgstr "Configurare imprimantă IPP"
+
+#~ msgid "Choose a driver for the printer"
+#~ msgstr "Alegeţi un driver pt. imprimantă"
+
+#~ msgid "Configure LPD printer"
+#~ msgstr "Configurare imprimantă LPD"
+
+#~ msgid "Choose a dirver for the printer"
+#~ msgstr "Alegeţi un driver pt. imprimantă"
+
+#~ msgid "driver"
+#~ msgstr "driver"
+
+#~ msgid "Go"
+#~ msgstr "Porneşte"
+
+#~ msgid "Samba shared printer configurationr"
+#~ msgstr "Configurare imprimantă samba partajată"
+
+#~ msgid "Share resource"
+#~ msgstr "Partajare resursă"
+
+#~ msgid "Anonymous"
+#~ msgstr "Anonim"
+
+#~ msgid "Guest"
+#~ msgstr "Oaspete"
+
+#~ msgid "User/Password"
+#~ msgstr "Utilizator/parolă"
+
+#~ msgid "Remote printer configuration"
+#~ msgstr "Configurare imprimantă la distanţă"
+
+#~ msgid "Configure AppSocket printer"
+#~ msgstr "Configurare imprimantă AppSocket"
+
+#~ msgid "Samba shared printer configuration"
+#~ msgstr "Configurare imprimantă samba partajată"
+
+#~ msgid "Enable standalone CUPS"
+#~ msgstr "Activare CUPS independent"
+
+#~ msgid "General settings"
+#~ msgstr "Configurare generală"
+
+#~ msgid "List of printers"
+#~ msgstr "Lista imprimantelor"
+
+#~ msgid "Description"
+#~ msgstr "Descriere"
+
+#~ msgid "Actions"
+#~ msgstr "Acţiuni"
+
+#~ msgid "Manage"
+#~ msgstr "Administrează"
+
+#~ msgid "Manage this printer"
+#~ msgstr "Administrează această imprimantă"
+
+#~ msgid "There is no printer configured yet"
+#~ msgstr "Încă nu e configurată nici o imprimantă"

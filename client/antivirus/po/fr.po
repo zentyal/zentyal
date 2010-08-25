@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-antivirus 0.1\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
-"POT-Creation-Date: 2010-07-21 00:28+0200\n"
+"POT-Creation-Date: 2010-08-25 16:23+0200\n"
 "PO-Revision-Date: 2010-01-18 11:13+0100\n"
 "Last-Translator: Nicolas Liaudat <nliaudat@pompiers-chatel.ch>\n"
 "Language-Team: none\n"
@@ -17,8 +17,8 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: src/EBox/AntiVirus.pm:69 src/EBox/AntiVirus.pm:389
-#: src/EBox/AntiVirus.pm:394 src/EBox/AntiVirus/Model/FreshclamStatus.pm:72
+#: src/EBox/AntiVirus.pm:69 src/EBox/AntiVirus.pm:385
+#: src/EBox/AntiVirus.pm:390 src/EBox/AntiVirus/Model/FreshclamStatus.pm:70
 msgid "Antivirus"
 msgstr "Antivirus"
 
@@ -34,35 +34,35 @@ msgstr "Configurer l'outil de mise à jour freshclam"
 msgid "To schedule the launch of the updater"
 msgstr "Planifier l'exécution de l'outil de mise à jour"
 
-#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:59
+#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:57
 msgid "Status"
 msgstr "Etat"
 
-#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:63
+#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:61
 msgid "Date"
 msgstr "Date"
 
-#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:71
+#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:69
 msgid "Database Update Status"
 msgstr "État de la mise à jour des bases antivirus"
 
-#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:127
+#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:125
 msgid ""
 "The antivirus database has not been updated since the module was enabled."
 msgstr ""
 "La base de données antivirus n'a pas été actualisée depuis l'installation du "
 "module."
 
-#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:130
+#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:128
 msgid "The last update failed."
 msgstr "La dernière mise à jour a échouée."
 
-#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:133
-#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:136
+#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:131
+#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:134
 msgid "Last update successful."
 msgstr "La dernière mise à jour a réussie."
 
-#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:139
+#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:137
 #, perl-brace-format
 msgid "Unknown event {event}."
 msgstr "Évènement inconnu {event}."

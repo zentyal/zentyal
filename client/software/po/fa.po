@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-software 0.12.100Report-Msgid-Bugs-To: info@ebox-"
 "technologies.com\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
-"POT-Creation-Date: 2010-08-13 13:42+0200\n"
+"POT-Creation-Date: 2010-08-25 17:48+0200\n"
 "PO-Revision-Date: 2009-02-10 18:49+0330\n"
 "Last-Translator: Saied Taghavi <s.taghavi@gmail.com>\n"
 "Language-Team: none\n"
@@ -33,28 +33,28 @@ msgstr "قانون برای اجازه به‌روزرسانی‌های apt"
 msgid "Software Management"
 msgstr "مدیریت نرم‌افزار"
 
-#: src/EBox/Software.pm:472
+#: src/EBox/Software.pm:531
 #, perl-brace-format
 msgid ""
 "You cannot modify the automatic update using QA updates from Web UI. To "
 "disable automatic updates, edit {conf} and disable {key} key."
 msgstr ""
 
-#: src/EBox/Software.pm:537
+#: src/EBox/Software.pm:596
 #, fuzzy
-msgid "eBox Components"
+msgid "Zentyal Components"
 msgstr "مولفه‌های ای‌باکس"
 
-#: src/EBox/Software.pm:539
+#: src/EBox/Software.pm:598
 #, fuzzy
 msgid "System Updates"
 msgstr "به‌روزرسانی‌های سامانه"
 
-#: src/EBox/Software.pm:541 src/templates/config.mas:19
+#: src/EBox/Software.pm:600 src/templates/config.mas:19
 msgid "Settings"
 msgstr ""
 
-#: src/EBox/Software.pm:680
+#: src/EBox/Software.pm:769
 #, perl-brace-format
 msgid ""
 "Software management is currently  locked by {locker}. Please, try again later"
@@ -62,29 +62,29 @@ msgstr ""
 "مدیریت نرم‌افزار هم‌اکنون توسط {locker} قفل شده است. لطفا، بعدا مجددا تلاش "
 "نمایید"
 
-#: src/EBox/Software.pm:843
+#: src/EBox/Software.pm:932
 msgid "Welcome"
 msgstr ""
 
-#: src/EBox/Software.pm:845
+#: src/EBox/Software.pm:934
 msgid "Package Selection"
 msgstr ""
 
-#: src/EBox/Software.pm:846
+#: src/EBox/Software.pm:935
 msgid "Confirmation"
 msgstr ""
 
-#: src/EBox/Software.pm:847
+#: src/EBox/Software.pm:936
 #, fuzzy
 msgid "Installation"
 msgstr "نصب"
 
-#: src/EBox/Software.pm:848
+#: src/EBox/Software.pm:937
 #, fuzzy
 msgid "Initial Configuration"
 msgstr "پیکربندی به‌روزرسانی‌های خودکار"
 
-#: src/EBox/Software.pm:849
+#: src/EBox/Software.pm:938
 msgid "Save Changes"
 msgstr ""
 
@@ -103,11 +103,12 @@ msgstr "پیکربندی به‌روزرسانی‌های خودکار"
 
 #: src/EBox/CGI/EBox.pm:36
 #, fuzzy
-msgid "Choose eBox packages to install"
+msgid "Choose Zentyal packages to install"
 msgstr "بسته‌های باقیمانده برای نصب"
 
 #: src/EBox/CGI/EBox.pm:40
-msgid "eBox components"
+#, fuzzy
+msgid "Zentyal components"
 msgstr "مولفه‌های ای‌باکس"
 
 #: src/EBox/CGI/Updates.pm:32 src/EBox/CGI/Updates.pm:50
@@ -127,27 +128,27 @@ msgstr "ارتقا"
 msgid "There were no packages to update"
 msgstr "بسته‌هایی برای به‌روزرسانی باقی نمانده است"
 
-#: src/EBox/CGI/InstallPkgs.pm:165
+#: src/EBox/CGI/InstallPkgs.pm:169
 #, fuzzy
 msgid "Installing"
 msgstr "نصب"
 
-#: src/EBox/CGI/InstallPkgs.pm:166
+#: src/EBox/CGI/InstallPkgs.pm:170
 #, fuzzy
 msgid "Installing packages"
 msgstr "بسته‌های ارتقا"
 
-#: src/EBox/CGI/InstallPkgs.pm:167 src/EBox/CGI/InstallPkgs.pm:191
+#: src/EBox/CGI/InstallPkgs.pm:171 src/EBox/CGI/InstallPkgs.pm:195
 #, fuzzy
 msgid "Current operation"
 msgstr "بسته کنونی"
 
-#: src/EBox/CGI/InstallPkgs.pm:168
+#: src/EBox/CGI/InstallPkgs.pm:172
 #, fuzzy
 msgid "actions done"
 msgstr "اقدامات"
 
-#: src/EBox/CGI/InstallPkgs.pm:169
+#: src/EBox/CGI/InstallPkgs.pm:173
 #, fuzzy
 msgid ""
 "The packages installation has finished successfully. The administration "
@@ -158,25 +159,25 @@ msgstr ""
 "نصب بسته‌ها باموفقیت خاتمه یافت. رابط مدیریت ممکن است برای چند لحظه پاسخگو "
 "نباشد. لطفا تا زمانیکه سامانه کاملا راه‌اندازی مجدد شود صبر نمایید"
 
-#: src/EBox/CGI/InstallPkgs.pm:174
+#: src/EBox/CGI/InstallPkgs.pm:178
 msgid ""
 "The packages installation has not finished correctly . More information on "
 "the logs"
 msgstr "نصب بسته‌ها به‌درستی خاتمه نیافت. اطلاعات بیشتر در وقایع ثبت‌شده"
 
-#: src/EBox/CGI/InstallPkgs.pm:189
+#: src/EBox/CGI/InstallPkgs.pm:193
 msgid "Removing package"
 msgstr "حذف بسته"
 
-#: src/EBox/CGI/InstallPkgs.pm:190
+#: src/EBox/CGI/InstallPkgs.pm:194
 msgid "Removing the selected package and its dependent packages"
 msgstr "حذف بسته انتخاب شده و بسته‌های وابسته آن"
 
-#: src/EBox/CGI/InstallPkgs.pm:192
+#: src/EBox/CGI/InstallPkgs.pm:196
 msgid "packages left to remove"
 msgstr "بسته‌های باقیمانده برای حذف"
 
-#: src/EBox/CGI/InstallPkgs.pm:193
+#: src/EBox/CGI/InstallPkgs.pm:197
 msgid ""
 "The packages removal has finished successfully. The administration interface "
 "may become unresponsive for a few seconds. Please wait patiently until the "
@@ -185,57 +186,87 @@ msgstr ""
 "حذف بسته‌ها باموفقیت خاتمه یافت. رابط مدیریت ممکن است برای چند لحظه پاسخگو "
 "نباشد. لطفا تا زمانیکه سامانه کاملا راه‌اندازی مجدد شود صبر نمایید"
 
-#: src/EBox/CGI/InstallPkgs.pm:197
+#: src/EBox/CGI/InstallPkgs.pm:201
 msgid ""
 "The packages removal has not finished correctly . More information on the "
 "logs"
 msgstr "حذف بسته‌ها به‌درستی خاتمه نیافت. اطلاعات بیشتر در وقایع ثبت شده"
 
-#: src/templates/ebox.mas:140 src/templates/updates.mas:35
+#: src/templates/ebox.mas:150 src/templates/ebox.mas:536
+#: src/templates/ebox.mas:560 src/templates/updates.mas:35
 msgid "Update"
 msgstr "به‌روزرسانی"
 
-#: src/templates/ebox.mas:146
+#: src/templates/ebox.mas:156 src/templates/ebox.mas:510
+#: src/templates/ebox.mas:551
 msgid "Install"
 msgstr "نصب"
 
-#: src/templates/ebox.mas:168
+#: src/templates/ebox.mas:178
 msgid "View advanced mode"
 msgstr ""
 
-#: src/templates/ebox.mas:482
+#: src/templates/ebox.mas:512
+#, fuzzy
+msgid "Skip install"
+msgstr "نصب"
+
+#: src/templates/ebox.mas:525
 msgid "View basic mode"
 msgstr ""
 
-#: src/templates/del.mas:96
+#: src/templates/ebox.mas:543 src/templates/ebox.mas:572
+msgid "Delete"
+msgstr ""
+
+#: src/templates/ebox.mas:552 src/templates/ebox.mas:561
+#: src/templates/updates.mas:97
+#, fuzzy
+msgid "Update list"
+msgstr "به‌روزرسانی"
+
+#: src/templates/ebox.mas:553 src/templates/ebox.mas:562
+#: src/templates/ebox.mas:573
+msgid "Deselect All"
+msgstr ""
+
+#: src/templates/ebox.mas:554 src/templates/ebox.mas:574
+msgid "Select All"
+msgstr ""
+
+#: src/templates/ebox.mas:563
+msgid "Select Al"
+msgstr ""
+
+#: src/templates/del.mas:97
 msgid "The following packages will be installed"
 msgstr "بسته‌های زیر نصب خواهند شد"
 
-#: src/templates/del.mas:98
+#: src/templates/del.mas:99
 msgid "The following packages will be removed"
 msgstr "بسته‌های زیر حذف خواهند شد"
 
-#: src/templates/del.mas:141
+#: src/templates/del.mas:144
 msgid "Ok"
 msgstr "صحیح"
 
-#: src/templates/del.mas:142
+#: src/templates/del.mas:145
 msgid "Cancel"
 msgstr "لغو"
 
-#: src/templates/del.mas:149
+#: src/templates/del.mas:152
 msgid "You may want to install also the following recommended packages:"
 msgstr ""
 
-#: src/templates/del.mas:152
+#: src/templates/del.mas:155
 msgid "Layer 7 filtering for Traffic Shaping (ebox-l7-protocols)"
 msgstr ""
 
-#: src/templates/del.mas:155
+#: src/templates/del.mas:158
 msgid "Virus scanning for File Sharing (ebox-antivirus and samba-vscan)"
 msgstr ""
 
-#: src/templates/del.mas:158
+#: src/templates/del.mas:161
 msgid "VoIP meetings support (dahdi and linux-headers)"
 msgstr ""
 
@@ -245,7 +276,7 @@ msgid "Perform automatic security updates"
 msgstr "به‌روزرسانی‌های خودکار نرم‌افزار"
 
 #: src/templates/config.mas:14
-msgid "This eBox is configured to use automatic QA updates"
+msgid "Zentyal is configured to use automatic QA updates"
 msgstr ""
 
 #: src/templates/config.mas:26
@@ -280,7 +311,7 @@ msgstr "به‌روزرسانی‌های سامانه"
 
 #: src/templates/updates.mas:55
 #, fuzzy
-msgid "eBox QA update"
+msgid "Zentyal QA update"
 msgstr "ای‌باکس - دیواره آتش"
 
 #: src/templates/updates.mas:77
@@ -288,8 +319,9 @@ msgid "Update all packages"
 msgstr "به‌روزرسانی "
 
 #: src/templates/updates.mas:88
+#, fuzzy
 msgid ""
-"This operation can take some time, don't worry if eBox looks unresponsive "
+"This operation can take some time, don't worry if Zentyal looks unresponsive "
 "after pressing the Upgrade button."
 msgstr ""
 "این اقدام مقداری زمان می‌گیرد، اگر پس از فشار دادن دکمه ارتقا ای‌باکس "
@@ -298,28 +330,6 @@ msgstr ""
 #: src/templates/updates.mas:95
 msgid "Upgrade"
 msgstr "ارتقا"
-
-#: src/templates/updates.mas:96
-#, fuzzy
-msgid "Update list"
-msgstr "به‌روزرسانی"
-
-#: src/templates/updateNote.mas:10
-msgid ""
-"As you are enjoying a Commercial Server Subscription the updates are Quality "
-"Assured by the eBox Development Team."
-msgstr ""
-
-#: src/templates/updateNote.mas:13
-#, perl-brace-format
-msgid ""
-"Warning: The updates are community based. You can now gain access to the "
-"Quality Assured Updates by purchasing the <a href='{proUrl}'>Professional</"
-"a>  or <a href='{entUrl}'>Enterprise</a> Server Subscription. QA Updates "
-"guarantee that all the upgrades, bugfixes and security updates are "
-"extensively tested by the eBox Development Team and you won't be introducing "
-"any regressions on your already working system."
-msgstr ""
 
 #, fuzzy
 #~ msgid "packages installed"

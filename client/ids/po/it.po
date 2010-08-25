@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-ids 1.1\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
-"POT-Creation-Date: 2010-08-13 13:40+0200\n"
+"POT-Creation-Date: 2010-08-25 17:47+0200\n"
 "PO-Revision-Date: 2010-08-20 12:37+0200\n"
 "Last-Translator: Fabrizio Porcu <fabrizioporcu@tiscali.it>\n"
 "Language-Team: none\n"
@@ -114,7 +114,7 @@ msgstr "Diagramma segnalazioni"
 msgid "Alert Graph"
 msgstr "Grafico segnalazione "
 
-#: src/EBox/Composite/General.pm:71
+#: src/EBox/Composite/General.pm:70
 msgid "Intrusion Detection System"
 msgstr "Sistema di rilevamento intrusioni"
 

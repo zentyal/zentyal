@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-. 1.5\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
-"POT-Creation-Date: 2010-08-13 13:40+0200\n"
+"POT-Creation-Date: 2010-08-25 17:47+0200\n"
 "PO-Revision-Date: 2010-08-13 23:02+0200\n"
 "Last-Translator: Haluk <khaluk@yahoo.com>\n"
 "Language-Team: none\n"
@@ -18,48 +18,49 @@ msgstr ""
 "X-Generator: Pootle 1.1.0\n"
 
 #: migration/0001_add_firewall_services.pl:30
-msgid "eBox FTP Server"
+#, fuzzy
+msgid "Zentyal FTP Server"
 msgstr "eBox FTP Sunucusu"
 
-#: src/EBox/Model/Options.pm:48
+#: src/EBox/Model/Options.pm:45
 msgid "Disabled"
 msgstr "Etkin Değil"
 
-#: src/EBox/Model/Options.pm:52
+#: src/EBox/Model/Options.pm:49
 msgid "Read only"
 msgstr "Salt Okunur"
 
-#: src/EBox/Model/Options.pm:56
+#: src/EBox/Model/Options.pm:53
 msgid "Read/Write"
 msgstr "Okuma/Yazma"
 
-#: src/EBox/Model/Options.pm:69
+#: src/EBox/Model/Options.pm:66
 msgid "Anonymous access"
 msgstr "Misafir Erişimi"
 
 # permissions için Erişim Hakları yerine daha uygun bir cümle bulamadım
-#: src/EBox/Model/Options.pm:73
+#: src/EBox/Model/Options.pm:70
 msgid "Sets the permissions for the /srv/ftp directory"
 msgstr "/srv/ftp klasörü erişim haklarını ayarla"
 
-#: src/EBox/Model/Options.pm:77
+#: src/EBox/Model/Options.pm:74
 msgid "Personal directories"
 msgstr "Kişisel Klasörler"
 
-#: src/EBox/Model/Options.pm:80
+#: src/EBox/Model/Options.pm:77
 msgid "Enable FTP access for each user to its /home directory"
 msgstr "Her bir kullanıcının kendi /home klasörü erişimine izin ver"
 
-#: src/EBox/Model/Options.pm:86
+#: src/EBox/Model/Options.pm:83
 msgid "General configuration settings"
 msgstr "Genel yapılandırma ayarları"
 
-#: src/EBox/Model/Options.pm:87
+#: src/EBox/Model/Options.pm:84
 msgid "FTP Server"
 msgstr "FTP Sunucu"
 
 # Birebir çeviri yerine yapılması gerekenlerden bahsedildi.
-#: src/EBox/Model/Options.pm:91
+#: src/EBox/Model/Options.pm:88
 msgid ""
 "The anonymous directory is /srv/ftp, make sure that the files you create "
 "there have read permissions for everybody (chmod o+r /srv/ftp/*). If you "

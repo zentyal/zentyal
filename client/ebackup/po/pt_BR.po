@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-ebackup 1.3.3Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
-"POT-Creation-Date: 2010-07-21 00:32+0200\n"
+"POT-Creation-Date: 2010-08-25 17:32+0200\n"
 "PO-Revision-Date: 2010-08-16 15:58+0200\n"
 "Last-Translator: Jorge Eduardo Quintao <jorge@netsol.com.br>\n"
 "Language-Team: none\n"
@@ -37,7 +37,8 @@ msgstr ""
 "backup."
 
 #: src/EBox/Event/Watcher/EBackup.pm:141
-msgid "Check if eBox backup was not successful."
+#, fuzzy
+msgid "Check if Zentyal backup was not successful."
 msgstr "Verifica se o backup do eBox não foi concluído com sucesso"
 
 #: src/EBox/EBackup/DBRestore.pm:46
@@ -114,8 +115,7 @@ msgstr "Host ou destino"
 #: src/EBox/Model/RemoteSettings.pm:169
 msgid "If the selected method is file system, only set the target directory"
 msgstr ""
-"Se o método selecionado for file system, apenas defina o diretório de "
-"destino"
+"Se o método selecionado for file system, apenas defina o diretório de destino"
 
 #: src/EBox/Model/RemoteSettings.pm:173
 msgid "User"
@@ -224,11 +224,11 @@ msgid "on the last day"
 msgstr "no último dia"
 
 #: src/EBox/Model/RemoteSettings.pm:494
-#, perl-brace-format
+#, fuzzy, perl-brace-format
 msgid ""
 "{oi}{brand}{ci} is a quick and safe remote location to store the data you "
-"keep on your eBox servers. Purchase the backup storage space you need at the "
-"{ohref}eBox on-line store{chref}."
+"keep on your Zentyal servers. Purchase the backup storage space you need at "
+"the {ohref}Zentyal on-line store{chref}."
 msgstr ""
 "{oi}{brand}{ci} é um local remoto rápido e seguro para armazenar os dados "
 "que você quiser dos seus servidores eBox. Compre espaço de armazenamento de "
@@ -338,26 +338,26 @@ msgstr "Diretório absoluto"
 msgid "relative directory"
 msgstr "Diretório relativo"
 
-#: src/EBox/Model/RemoteSettings.pm:725
+#: src/EBox/Model/RemoteSettings.pm:719
 msgid ""
 "File system method needs a target parameter that should be a directory path"
 msgstr ""
 "O método do sistema de arquivo precisa que o parâmetro seja o caminho de um "
 "diretório"
 
-#: src/EBox/Model/RemoteSettings.pm:730 src/EBox/Model/RemoteSettings.pm:734
+#: src/EBox/Model/RemoteSettings.pm:724 src/EBox/Model/RemoteSettings.pm:728
 msgid "Directory for backup"
 msgstr "Diretório para backup"
 
-#: src/EBox/Model/RemoteSettings.pm:737
+#: src/EBox/Model/RemoteSettings.pm:731
 msgid "File exists and it is not a directory"
 msgstr "Existe um arquivo e não um diretório"
 
-#: src/EBox/Model/RemoteSettings.pm:758
+#: src/EBox/Model/RemoteSettings.pm:751
 msgid "Incremental backup must be more frequent than full backup"
 msgstr "Backup incremental deve ser mais freqüente do que backup completo"
 
-#: src/EBox/Model/RemoteSettings.pm:770
+#: src/EBox/Model/RemoteSettings.pm:763
 msgid ""
 "General backup server configuration updated. SCP method selected; "
 "<em>remember</em> to add your target host to the list of known hosts by SSH"
@@ -417,7 +417,8 @@ msgid "include path"
 msgstr "Incluir caminho"
 
 #: src/EBox/Model/RemoteRestoreConf.pm:104
-msgid "Restore eBox configuration from backup"
+#, fuzzy
+msgid "Restore Zentyal configuration from backup"
 msgstr "Restaurar a configuração do eBox do backup"
 
 #: src/EBox/Model/RemoteRestoreConf.pm:111
@@ -442,7 +443,8 @@ msgid "Restore logs database"
 msgstr "Restauração do banco de dados de logs"
 
 #: src/EBox/Model/RemoteRestoreLogs.pm:125
-msgid "Restores the eBox logs found in the selected backup"
+#, fuzzy
+msgid "Restores the Zentyal logs found in the selected backup"
 msgstr ""
 "Restaura os logs do eBox encontrados na cópia de segurança seleccionada"
 

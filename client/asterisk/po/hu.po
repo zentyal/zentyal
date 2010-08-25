@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-asterisk 1.1Report-Msgid-Bugs-To: info@ebox-"
 "technologies.com\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
-"POT-Creation-Date: 2010-07-21 00:28+0200\n"
+"POT-Creation-Date: 2010-08-25 16:23+0200\n"
 "PO-Revision-Date: 2010-08-16 13:01+0200\n"
 "Last-Translator: Nagy Ákos <nagy.akos@akos.ro>\n"
 "Language-Team: none\n"
@@ -19,7 +19,8 @@ msgstr ""
 "X-Generator: Pootle 1.1.0\n"
 
 #: migration/0001_add_firewall_services.pl:30
-msgid "eBox VoIP system"
+#, fuzzy
+msgid "Zentyal VoIP system"
 msgstr "eBox VoIP rendszer"
 
 #: src/EBox/Asterisk.pm:74 src/EBox/Asterisk.pm:715
@@ -363,20 +364,9 @@ msgstr "SIP szolgáltató a kimenő hívások beállításához."
 msgid "SIP provider configuration updated."
 msgstr "A SIP szolgáltató beállításai frissültek."
 
-#: src/EBox/Model/Provider.pm:195
-#, perl-brace-format
-msgid ""
-"{brand}: make low-cost VoIP calls to mobile phones and landlines directly "
-"with eBox. Once you have obtained a {subs} , you can purchase the VoIP "
-"credit you need. All these services available for purchasing at the {ohref}"
-"eBox on-line store{chref}! "
-msgstr ""
-"eBox VoIP Egységek: hívjon olcsón VoIP-n keresztül mobil és vezetékes "
-"számokat direkt az eBoxból. Amint kapott egy {subs}-t, vehet VoIP egységeket "
-"innen: {ohref}eBox on-line store{chref}!"
-
 #: src/EBox/Model/NAT.pm:96
-msgid "eBox is behind NAT"
+#, fuzzy
+msgid "Zentyal is behind NAT"
 msgstr "Az eBox NAT mögött található"
 
 #: src/EBox/Model/NAT.pm:101
@@ -448,6 +438,16 @@ msgstr "Az Asterisk szolgáltatás jelszava a felhasználói jelszó"
 #: src/templates/user.mas:21
 msgid "User account"
 msgstr "Felhasználói fiók"
+
+#~ msgid ""
+#~ "{brand}: make low-cost VoIP calls to mobile phones and landlines directly "
+#~ "with eBox. Once you have obtained a {subs} , you can purchase the VoIP "
+#~ "credit you need. All these services available for purchasing at the "
+#~ "{ohref}eBox on-line store{chref}! "
+#~ msgstr ""
+#~ "eBox VoIP Egységek: hívjon olcsón VoIP-n keresztül mobil és vezetékes "
+#~ "számokat direkt az eBoxból. Amint kapott egy {subs}-t, vehet VoIP "
+#~ "egységeket innen: {ohref}eBox on-line store{chref}!"
 
 #~ msgid ""
 #~ "You must install dahdi and dahdi-modules-ebox packages to use Meetings."

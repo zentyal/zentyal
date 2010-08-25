@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-printers 0.12\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
-"POT-Creation-Date: 2010-08-13 13:41+0200\n"
+"POT-Creation-Date: 2010-08-25 17:48+0200\n"
 "PO-Revision-Date: 2008-01-08 15:50+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -20,513 +20,386 @@ msgstr ""
 msgid "Cups printer server port"
 msgstr "CUPSプリンタサーバポート"
 
-#: src/EBox/CGI/Model.pm:43 src/EBox/CGI/LPDPrinterUI.pm:46
-#: src/EBox/CGI/NetworkPrinter.pm:42 src/EBox/CGI/SambaPrinterUI.pm:48
-#: src/EBox/CGI/DrvoptsUI.pm:48 src/EBox/CGI/USBPrinterUI.pm:48
-#: src/EBox/CGI/Driver.pm:41 src/EBox/CGI/ManagePrinter.pm:42
-#: src/EBox/CGI/ParallelPrinterUI.pm:48 src/EBox/CGI/SambaPrinter.pm:42
-#: src/EBox/CGI/NetworkPrinterUI.pm:48 src/EBox/CGI/ManagePrinterUI.pm:48
-#: src/EBox/CGI/IPPPrinterUI.pm:46 src/EBox/CGI/ModelUI.pm:48
-#: src/EBox/CGI/USBPrinter.pm:42 src/EBox/CGI/DeleteUI.pm:48
-#: src/EBox/CGI/DriverUI.pm:48 src/EBox/CGI/LPDPrinter.pm:41
-#: src/EBox/CGI/IPPPrinter.pm:42 src/EBox/CGI/Manufacturer.pm:41
-#: src/EBox/CGI/ManufacturerUI.pm:48 src/EBox/CGI/Drvopts.pm:41
-#: src/EBox/CGI/PrintTest.pm:39 src/EBox/CGI/ParallelPrinter.pm:42
-#: src/EBox/Printers.pm:250 src/EBox/Printers.pm:385 src/EBox/Printers.pm:398
-#: src/EBox/Printers.pm:415 src/EBox/Printers.pm:471 src/EBox/Printers.pm:523
-#: src/EBox/Printers.pm:565 src/EBox/Printers.pm:582 src/EBox/Printers.pm:604
-#: src/EBox/Printers.pm:630 src/EBox/Printers.pm:657 src/EBox/Printers.pm:689
-#: src/EBox/Printers.pm:719 src/EBox/Printers.pm:747 src/EBox/Printers.pm:788
-#: src/EBox/Printers.pm:802 src/EBox/Printers.pm:828 src/EBox/Printers.pm:842
-#: src/EBox/Printers.pm:868 src/EBox/Printers.pm:882 src/EBox/Printers.pm:907
-#: src/EBox/Printers.pm:930 src/EBox/Printers.pm:955 src/EBox/Printers.pm:1027
-#: src/EBox/Printers.pm:1076 src/EBox/Printers.pm:1121
-#: src/EBox/Printers.pm:1149 src/EBox/Printers.pm:1181
-#: src/EBox/Printers.pm:1241 src/EBox/Printers.pm:1256
-#: src/EBox/Printers.pm:1287
-msgid "Printer"
-msgstr "プリンタ"
-
-#: src/EBox/CGI/Model.pm:44 src/EBox/Printers.pm:846 src/EBox/Printers.pm:886
-#: src/templates/printer.mas:151 src/templates/printerback.mas:29
-msgid "Model"
-msgstr "モデル"
-
-#: src/EBox/CGI/Model.pm:55
-#, perl-brace-format
-msgid "Printer {printer} has no available drivers"
-msgstr ""
-
-#: src/EBox/CGI/LPDPrinterUI.pm:30 src/EBox/CGI/SambaPrinterUI.pm:32
-#: src/EBox/CGI/USBPrinterUI.pm:32 src/EBox/CGI/ParallelPrinterUI.pm:32
-#: src/EBox/CGI/NetworkPrinterUI.pm:32 src/EBox/CGI/IPPPrinterUI.pm:30
-msgid "Add a new printer (II)"
-msgstr "新しいプリンタ (II) を追加"
-
-#: src/EBox/CGI/LPDPrinterUI.pm:53 src/EBox/CGI/SambaPrinterUI.pm:56
-#: src/EBox/CGI/DrvoptsUI.pm:55 src/EBox/CGI/USBPrinterUI.pm:56
-#: src/EBox/CGI/ParallelPrinterUI.pm:56 src/EBox/CGI/NetworkPrinterUI.pm:55
-#: src/EBox/CGI/IPPPrinterUI.pm:53 src/templates/addprinter.mas:40
-#: src/templates/addprinter.mas:41 src/templates/manufacturer.mas:21
-#: src/templates/manufacturer.mas:22 src/templates/models.mas:21
-#: src/templates/models.mas:22 src/templates/driver.mas:21
-#: src/templates/driver.mas:22 src/templates/drivers.mas:34
-#: src/templates/drivers.mas:35 src/templates/printerback.mas:167
-#: src/templates/printerback.mas:168
-msgid "Next"
-msgstr "次"
-
-#: src/EBox/CGI/NetworkPrinter.pm:43 src/EBox/CGI/LPDPrinter.pm:42
-#: src/EBox/CGI/IPPPrinter.pm:43 src/EBox/Printers.pm:661
-#: src/EBox/Printers.pm:723 src/EBox/Printers.pm:751 src/templates/ipp.mas:23
-#: src/templates/lpd.mas:23 src/templates/printerback.mas:182
-#: src/templates/network.mas:23
-msgid "IP"
-msgstr "IP"
-
-#: src/EBox/CGI/NetworkPrinter.pm:44 src/EBox/CGI/LPDPrinter.pm:43
-#: src/EBox/CGI/IPPPrinter.pm:44 src/EBox/Printers.pm:662
-#: src/EBox/Printers.pm:724 src/EBox/Printers.pm:752 src/templates/ipp.mas:31
-#: src/templates/lpd.mas:31 src/templates/printerback.mas:190
-#: src/templates/network.mas:31
-msgid "Port"
-msgstr "ポート"
-
-#: src/EBox/CGI/GeneralSettings.pm:90
-msgid "Standalone cups enabled"
-msgstr "スタンドアロンCUPSは有効です"
-
-#: src/EBox/CGI/GeneralSettings.pm:92
-msgid "Standalone cups disabled"
-msgstr "スタンドアロンCUPSは無効です"
-
-#: src/EBox/CGI/DrvoptsUI.pm:32
-msgid "Add a new printer (VI)"
-msgstr "新しいプリンタ (VI) を追加"
-
-#: src/EBox/CGI/Driver.pm:42 src/templates/printer.mas:159
-#: src/templates/printerback.mas:37
-msgid "Driver"
-msgstr "ドライバ"
-
-#: src/EBox/CGI/ManagePrinter.pm:53
-msgid "The printer has been deleted successfully"
-msgstr "プリンタは削除されました"
-
-#: src/EBox/CGI/SambaPrinter.pm:54
-msgid "Shared resource"
-msgstr "共有リソース"
-
-#: src/EBox/CGI/SambaPrinter.pm:55 src/templates/printerback.mas:120
-#: src/templates/samba.mas:32
-msgid "Authentication"
-msgstr "認証"
-
-#: src/EBox/CGI/SambaPrinter.pm:63 src/templates/printerback.mas:148
-#: src/templates/samba.mas:60
-msgid "User"
-msgstr "ユーザ"
-
-#: src/EBox/CGI/SambaPrinter.pm:64 src/templates/printerback.mas:157
-#: src/templates/samba.mas:69
-msgid "Password"
-msgstr "パスワード"
-
-#: src/EBox/CGI/ManagePrinterUI.pm:32
-msgid "Manage printer"
-msgstr "プリンタの管理"
-
-#: src/EBox/CGI/ManagePrinterUI.pm:60
-msgid "Printer details"
-msgstr "プリンタの詳細"
-
-#: src/EBox/CGI/ManagePrinterUI.pm:61
-msgid "Driver Options"
-msgstr "ドライバオプション"
-
-#: src/EBox/CGI/ManagePrinterUI.pm:62
-msgid "Configuration options"
-msgstr "設定オプション"
-
-#: src/EBox/CGI/ManagePrinterUI.pm:63
-msgid "Jobs Queue"
-msgstr "ジョブキュー"
-
-#: src/EBox/CGI/CancelJob.pm:42 src/EBox/CGI/AddPrinter.pm:42
-msgid "Printer's name"
-msgstr "プリンタ名"
-
-#: src/EBox/CGI/CancelJob.pm:43
-msgid "Printer's id"
-msgstr "プリンタID"
-
-#: src/EBox/CGI/CancelJob.pm:44
-msgid "Job id"
-msgstr "ジョブID"
-
-#: src/EBox/CGI/CancelJob.pm:56
-msgid "Job was successfully canceled"
-msgstr "ジョブはキャンセルされました"
-
-#: src/EBox/CGI/ModelUI.pm:32
-msgid "Add a new printer (IV)"
-msgstr "新しいプリンタ (IV) を追加"
-
-#: src/EBox/CGI/USBPrinter.pm:43 src/EBox/CGI/ParallelPrinter.pm:43
-#: src/EBox/Printers.pm:610 src/EBox/Printers.pm:636
-#: src/templates/parallel.mas:18 src/templates/usb.mas:18
-msgid "Device"
-msgstr "デバイス"
-
-#: src/EBox/CGI/ShowPrintersUI.pm:32 src/EBox/Printers.pm:355
-msgid "Manage printers"
-msgstr "プリンタの管理"
-
-#: src/EBox/CGI/DeleteUI.pm:32
-msgid "Delete printer"
-msgstr "プリンタを削除"
-
-#: src/EBox/CGI/DriverUI.pm:32
-msgid "Add a new printer (V)"
-msgstr "新しいプリンタ (V) を追加"
-
-#: src/EBox/CGI/AddPrinter.pm:43 src/EBox/Printers.pm:494
-#: src/EBox/Printers.pm:586 src/templates/addprinter.mas:23
-msgid "Method"
-msgstr "方法"
-
-#: src/EBox/CGI/AddPrinter.pm:45
-msgid "Printer description"
-msgstr "プリンタの内容"
-
-#: src/EBox/CGI/Manufacturer.pm:42 src/EBox/Printers.pm:807
-#: src/templates/printer.mas:143 src/templates/printerback.mas:21
-msgid "Manufacturer"
-msgstr "メーカー"
-
-#: src/EBox/CGI/ManufacturerUI.pm:32
-msgid "Add a new printer (III)"
-msgstr "新しいプリンタ (III) を追加"
-
-#: src/EBox/CGI/AddPrinterUI.pm:32
-msgid "Add a new printer (I)"
-msgstr "新しいプリンタ (I) を追加"
-
-#: src/EBox/Printers.pm:59
+#: src/EBox/Printers.pm:43 src/EBox/Composite/General.pm:60
 #, fuzzy
 msgid "Printer Sharing"
 msgstr "プリンタ共有"
 
-#: src/EBox/Printers.pm:74
+#: src/EBox/Printers.pm:58
 msgid "Create spool directory for printers"
 msgstr "プリンタのスプールディレクトリを作成"
 
-#: src/EBox/Printers.pm:75
-msgid "eBox will create a spool directory under /var/spool/samba"
+#: src/EBox/Printers.pm:59
+#, fuzzy
+msgid "Zentyal will create a spool directory under /var/spool/samba"
 msgstr "eBoxは/var/spool/sambaにスプールディレクトリを作成します"
 
-#: src/EBox/Printers.pm:80
-msgid "Add user ebox to lpadmin group"
-msgstr "lpadminグループにユーザeboxを追加"
-
-#: src/EBox/Printers.pm:81
-msgid "In order to manage printers and queues from the eBox web interface"
-msgstr "eBoxウェブインタフェースからプリンタとキューを管理するため"
-
-#: src/EBox/Printers.pm:86
+#: src/EBox/Printers.pm:64
 msgid "Create log table"
 msgstr "ログテーブルを作成"
 
-#: src/EBox/Printers.pm:87
+#: src/EBox/Printers.pm:65
+#, fuzzy
 msgid ""
-"eBox will create a new table into its log database to store printers logs"
+"Zentyal will create a new table into its log database to store printers logs"
 msgstr "eBoxはプリンタログのためにログデータベースに新規テーブルを作成します"
 
-#: src/EBox/Printers.pm:103
-msgid "To add and manage printers"
-msgstr "プリンタの追加・管理"
-
-#: src/EBox/Printers.pm:108
-msgid "To enable standalone cupsd listen on internal interfaces"
-msgstr "スタンドアロンcupsdを内部インタフェースに応答"
-
-#: src/EBox/Printers.pm:293
+#: src/EBox/Printers.pm:81
 #, fuzzy
-msgid "Add Printer"
-msgstr "プリンタを追加"
-
-#: src/EBox/Printers.pm:490
-msgid ""
-"The printer's name contains characters not valid.Only alphanumeric "
-"characters are allowed"
-msgstr "プリンタ名に無効な文字が含まれています。半角英数字のみ使用できます。"
-
-#: src/EBox/Printers.pm:499 src/templates/addprinter.mas:15
-#: src/templates/printer.mas:79 src/templates/printers.mas:37
-msgid "Name"
-msgstr "名前"
-
-#: src/EBox/Printers.pm:506
-msgid "The given name is alreaday used as "
-msgstr "名前はすでに次のところで使われています"
-
-#: src/EBox/Printers.pm:527 src/EBox/Printers.pm:1080
-#: src/EBox/Printers.pm:1125 src/EBox/Printers.pm:1185
-msgid "Printer not configured"
+msgid "To configure cupsd"
 msgstr "プリンタが設定されていません"
 
-#: src/EBox/Printers.pm:615
-msgid "It is not a usb printer"
-msgstr "USBプリンタではありません"
-
-#: src/EBox/Printers.pm:641
-msgid "It is not a parallel printer"
-msgstr "パラレルプリンタではありません"
-
-#: src/EBox/Printers.pm:667
-msgid "It is not a network printer"
-msgstr "ネットワークプリンタではありません"
-
-#: src/EBox/Printers.pm:696
-msgid "It is not a samba printer"
-msgstr "Sambaプリンタではありません"
-
-#: src/EBox/Printers.pm:729
-#, fuzzy
-msgid "It is not a IPP printer"
-msgstr "USBプリンタではありません"
-
-#: src/EBox/Printers.pm:757
-#, fuzzy
-msgid "It is not a LPD printer"
-msgstr "USBプリンタではありません"
-
-#: src/EBox/Printers.pm:988 src/EBox/Printers.pm:1014
-msgid "is not a valid option"
-msgstr "無効なオプションです"
-
-#: src/EBox/Printers.pm:1105
-#, perl-brace-format
-msgid "Parameter '{name}' does not exist"
-msgstr "パラメタ '{name}' は存在しません"
-
-#: src/EBox/Printers.pm:1286 src/templates/printer.mas:77
+#: src/EBox/Printers.pm:223
 msgid "Job ID"
 msgstr "ジョブID"
 
-#: src/EBox/Printers.pm:1288 src/templates/printer.mas:78
-msgid "Owner"
-msgstr "所有者"
+#: src/EBox/Printers.pm:224
+msgid "Printer"
+msgstr "プリンタ"
 
-#: src/EBox/Printers.pm:1289
-msgid "Queued at"
-msgstr "次の時間にキューに入力"
+#: src/EBox/Printers.pm:225
+msgid "User"
+msgstr "ユーザ"
 
-#: src/EBox/Printers.pm:1290
+#: src/EBox/Printers.pm:226
+#, fuzzy
+msgid "Date"
+msgstr "削除"
+
+#: src/EBox/Printers.pm:227
 msgid "Event"
 msgstr "イベント"
 
-#: src/EBox/Printers.pm:1293
+#: src/EBox/Printers.pm:231
 msgid "Queued"
 msgstr "キューに入力"
 
-#: src/EBox/Printers.pm:1293
+#: src/EBox/Printers.pm:232
+msgid "Completed"
+msgstr ""
+
+#: src/EBox/Printers.pm:233
 msgid "Canceled"
 msgstr "キャンセル"
 
-#: src/EBox/Printers.pm:1296
+#: src/EBox/Printers.pm:237
 msgid "Printers"
 msgstr "プリンタ"
 
-#: src/templates/addprinter.mas:10
-msgid "Set printer name and method"
-msgstr "プリンタ名と共有方法を選択してください"
-
-#: src/templates/addprinter.mas:28
-msgid "Parallel"
-msgstr "パラレル"
-
-#: src/templates/addprinter.mas:29
-msgid "AppSocket"
-msgstr ""
-
-#: src/templates/addprinter.mas:30
-msgid "Samba"
-msgstr "Samba"
-
-#: src/templates/addprinter.mas:31
-msgid "IPP: Internet printing protocol"
-msgstr ""
-
-#: src/templates/addprinter.mas:32
-msgid "LPD: Line Printer Daemon"
-msgstr ""
-
-#: src/templates/manufacturer.mas:12
-msgid "Choose manufacturer"
-msgstr "製造メーカーを選択してください"
-
-#: src/templates/parallel.mas:15
-msgid "Local parallel printer configuration"
-msgstr "パラレルプリンタの設定"
-
-#: src/templates/del.mas:12
+#: src/EBox/Model/CUPS.pm:142
 #, perl-brace-format
-msgid "Are you sure you want to delete the printer '{name}'?"
-msgstr "本当にプリンタ '{name}' を削除しますか？"
-
-#: src/templates/del.mas:21 src/templates/printer.mas:121
-#: src/templates/printer.mas:122 src/templates/printer.mas:123
-#: src/templates/printers.mas:64 src/templates/printers.mas:65
-#: src/templates/printers.mas:66
-msgid "Delete"
-msgstr "削除"
-
-#: src/templates/del.mas:24
-msgid "Cancel"
-msgstr "キャンセル"
-
-#: src/templates/usb.mas:15
-msgid "Local USB printer configuration"
-msgstr "USBプリンタの設定"
-
-#: src/templates/printer.mas:33 src/templates/printer.mas:169
-#: src/templates/printer.mas:170 src/templates/printerback.mas:96
-#: src/templates/printerback.mas:97 src/templates/printerback.mas:200
-#: src/templates/printerback.mas:201 src/templates/printers.mas:19
-msgid "Change"
-msgstr "変更"
-
-#: src/templates/printer.mas:71
-msgid "Job queue"
-msgstr "ジョブキュー"
-
-#: src/templates/printer.mas:80
-msgid "Size(KB)"
-msgstr "サイズ(KB)"
-
-#: src/templates/printer.mas:81
-msgid "Creation time"
-msgstr "作成時刻"
-
-#: src/templates/printer.mas:82
-msgid "Action"
-msgstr "アクション"
-
-#: src/templates/printer.mas:131
-msgid "This printer has no pending job in queue at the moment"
-msgstr "プリンタは現在ジョブをキューに抱えていません"
-
-#: src/templates/printer.mas:179
-msgid "You need to save changes in order to print a test page"
+msgid ""
+"Prior to configure printers you need to enable the module in the {openref}"
+"Module Status{closeref}  section and save changes after that."
 msgstr ""
 
-#: src/templates/printer.mas:184 src/templates/printer.mas:185
+#: src/EBox/Model/CUPS.pm:156
+msgid "Interface"
+msgstr ""
+
+#: src/EBox/Model/CUPS.pm:161
+msgid "Listen"
+msgstr ""
+
+#: src/EBox/Model/CUPS.pm:170
+msgid "Select CUPS Interfaces"
+msgstr ""
+
+#: src/EBox/Model/CUPS.pm:175
 #, fuzzy
-msgid "Print Test Page"
-msgstr "プリンタ名"
+msgid "interface"
+msgstr "プリンタ"
 
-#: src/templates/drvopts.mas:14 src/templates/printerback.mas:56
-msgid "Driver options"
-msgstr "ドライバオプション"
+#: src/EBox/Model/CUPS.pm:176
+msgid ""
+"Select in which interfaces the CUPS webserver will listen on. Take into "
+"account that is not probably a good idea to listen on external interfaces. "
+"If none are selected, it will be listening only at localhost"
+msgstr ""
 
-#: src/templates/models.mas:13
-msgid "Choose a printer model"
-msgstr "プリンタモデルを選んでください"
+#: src/EBox/Model/CUPS.pm:187
+#, perl-brace-format
+msgid ""
+"To add or manage printers you have to use the {open_href}CUPS Web Interface"
+"{close_href}"
+msgstr ""
 
-#: src/templates/ipp.mas:16
+#~ msgid "Model"
+#~ msgstr "モデル"
+
+#~ msgid "Add a new printer (II)"
+#~ msgstr "新しいプリンタ (II) を追加"
+
+#~ msgid "Next"
+#~ msgstr "次"
+
+#~ msgid "IP"
+#~ msgstr "IP"
+
+#~ msgid "Port"
+#~ msgstr "ポート"
+
+#~ msgid "Standalone cups enabled"
+#~ msgstr "スタンドアロンCUPSは有効です"
+
+#~ msgid "Standalone cups disabled"
+#~ msgstr "スタンドアロンCUPSは無効です"
+
+#~ msgid "Add a new printer (VI)"
+#~ msgstr "新しいプリンタ (VI) を追加"
+
+#~ msgid "Driver"
+#~ msgstr "ドライバ"
+
+#~ msgid "The printer has been deleted successfully"
+#~ msgstr "プリンタは削除されました"
+
+#~ msgid "Shared resource"
+#~ msgstr "共有リソース"
+
+#~ msgid "Authentication"
+#~ msgstr "認証"
+
+#~ msgid "Password"
+#~ msgstr "パスワード"
+
+#~ msgid "Manage printer"
+#~ msgstr "プリンタの管理"
+
+#~ msgid "Printer details"
+#~ msgstr "プリンタの詳細"
+
+#~ msgid "Driver Options"
+#~ msgstr "ドライバオプション"
+
+#~ msgid "Configuration options"
+#~ msgstr "設定オプション"
+
+#~ msgid "Jobs Queue"
+#~ msgstr "ジョブキュー"
+
+#~ msgid "Printer's name"
+#~ msgstr "プリンタ名"
+
+#~ msgid "Printer's id"
+#~ msgstr "プリンタID"
+
+#~ msgid "Job id"
+#~ msgstr "ジョブID"
+
+#~ msgid "Job was successfully canceled"
+#~ msgstr "ジョブはキャンセルされました"
+
+#~ msgid "Add a new printer (IV)"
+#~ msgstr "新しいプリンタ (IV) を追加"
+
+#~ msgid "Device"
+#~ msgstr "デバイス"
+
+#~ msgid "Manage printers"
+#~ msgstr "プリンタの管理"
+
+#~ msgid "Delete printer"
+#~ msgstr "プリンタを削除"
+
+#~ msgid "Add a new printer (V)"
+#~ msgstr "新しいプリンタ (V) を追加"
+
+#~ msgid "Method"
+#~ msgstr "方法"
+
+#~ msgid "Printer description"
+#~ msgstr "プリンタの内容"
+
+#~ msgid "Manufacturer"
+#~ msgstr "メーカー"
+
+#~ msgid "Add a new printer (III)"
+#~ msgstr "新しいプリンタ (III) を追加"
+
+#~ msgid "Add a new printer (I)"
+#~ msgstr "新しいプリンタ (I) を追加"
+
+#~ msgid "Add user ebox to lpadmin group"
+#~ msgstr "lpadminグループにユーザeboxを追加"
+
+#~ msgid "In order to manage printers and queues from the eBox web interface"
+#~ msgstr "eBoxウェブインタフェースからプリンタとキューを管理するため"
+
+#~ msgid "To add and manage printers"
+#~ msgstr "プリンタの追加・管理"
+
+#~ msgid "To enable standalone cupsd listen on internal interfaces"
+#~ msgstr "スタンドアロンcupsdを内部インタフェースに応答"
+
 #, fuzzy
-msgid "Configure IPP printer"
-msgstr "リモートプリンタを設定"
+#~ msgid "Add Printer"
+#~ msgstr "プリンタを追加"
 
-#: src/templates/driver.mas:12
-msgid "Choose a driver for the printer"
-msgstr "プリンタのためにドライバを選択してください"
+#~ msgid ""
+#~ "The printer's name contains characters not valid.Only alphanumeric "
+#~ "characters are allowed"
+#~ msgstr ""
+#~ "プリンタ名に無効な文字が含まれています。半角英数字のみ使用できます。"
 
-#: src/templates/lpd.mas:16
+#~ msgid "Name"
+#~ msgstr "名前"
+
+#~ msgid "The given name is alreaday used as "
+#~ msgstr "名前はすでに次のところで使われています"
+
+#~ msgid "It is not a usb printer"
+#~ msgstr "USBプリンタではありません"
+
+#~ msgid "It is not a parallel printer"
+#~ msgstr "パラレルプリンタではありません"
+
+#~ msgid "It is not a network printer"
+#~ msgstr "ネットワークプリンタではありません"
+
+#~ msgid "It is not a samba printer"
+#~ msgstr "Sambaプリンタではありません"
+
 #, fuzzy
-msgid "Configure LPD printer"
-msgstr "リモートプリンタを設定"
+#~ msgid "It is not a IPP printer"
+#~ msgstr "USBプリンタではありません"
 
-#: src/templates/drivers.mas:13
-msgid "Choose a dirver for the printer"
-msgstr "プリンタドライバを選択してください"
-
-#: src/templates/drivers.mas:20
-msgid "driver"
-msgstr "ドライバ"
-
-#: src/templates/printerback.mas:47 src/templates/printerback.mas:48
-msgid "Go"
-msgstr "進む"
-
-#: src/templates/printerback.mas:106
-msgid "Samba shared printer configurationr"
-msgstr "Samba共有プリンタ設定"
-
-#: src/templates/printerback.mas:112 src/templates/samba.mas:24
-msgid "Share resource"
-msgstr "共有リソース"
-
-#: src/templates/printerback.mas:126 src/templates/printerback.mas:128
-#: src/templates/samba.mas:38 src/templates/samba.mas:40
-msgid "Anonymous"
-msgstr "匿名"
-
-#: src/templates/printerback.mas:132 src/templates/printerback.mas:134
-#: src/templates/samba.mas:44 src/templates/samba.mas:46
-msgid "Guest"
-msgstr "ゲスト"
-
-#: src/templates/printerback.mas:138 src/templates/printerback.mas:140
-#: src/templates/samba.mas:50 src/templates/samba.mas:52
-msgid "User/Password"
-msgstr "ユーザ/パスワード"
-
-#: src/templates/printerback.mas:176
-msgid "Remote printer configuration"
-msgstr "プリンタ設定を削除"
-
-#: src/templates/network.mas:16
 #, fuzzy
-msgid "Configure AppSocket printer"
-msgstr "リモートプリンタを設定"
+#~ msgid "It is not a LPD printer"
+#~ msgstr "USBプリンタではありません"
 
-#: src/templates/samba.mas:17
-msgid "Samba shared printer configuration"
-msgstr "Samba共有プリンタ設定"
+#~ msgid "is not a valid option"
+#~ msgstr "無効なオプションです"
 
-#: src/templates/printers.mas:13
-msgid "Enable standalone CUPS"
-msgstr "スタンドアロンCUPSを有効化"
+#~ msgid "Parameter '{name}' does not exist"
+#~ msgstr "パラメタ '{name}' は存在しません"
 
-#: src/templates/printers.mas:25
-msgid "General settings"
-msgstr "一般設定"
+#~ msgid "Owner"
+#~ msgstr "所有者"
 
-#: src/templates/printers.mas:33
-msgid "List of printers"
-msgstr "プリンタ一覧"
+#~ msgid "Queued at"
+#~ msgstr "次の時間にキューに入力"
 
-#: src/templates/printers.mas:38
-msgid "Description"
-msgstr "内容"
+#~ msgid "Set printer name and method"
+#~ msgstr "プリンタ名と共有方法を選択してください"
 
-#: src/templates/printers.mas:39
-msgid "Actions"
-msgstr "アクション"
+#~ msgid "Parallel"
+#~ msgstr "パラレル"
 
-#: src/templates/printers.mas:58
-msgid "Manage"
-msgstr "管理"
+#~ msgid "Samba"
+#~ msgstr "Samba"
 
-#: src/templates/printers.mas:59 src/templates/printers.mas:60
-msgid "Manage this printer"
-msgstr "このプリンタの管理"
+#~ msgid "Choose manufacturer"
+#~ msgstr "製造メーカーを選択してください"
 
-#: src/templates/printers.mas:75
-msgid "There is no printer configured yet"
-msgstr "設定済みのプリンタはありません"
+#~ msgid "Local parallel printer configuration"
+#~ msgstr "パラレルプリンタの設定"
+
+#~ msgid "Are you sure you want to delete the printer '{name}'?"
+#~ msgstr "本当にプリンタ '{name}' を削除しますか？"
+
+#~ msgid "Cancel"
+#~ msgstr "キャンセル"
+
+#~ msgid "Local USB printer configuration"
+#~ msgstr "USBプリンタの設定"
+
+#~ msgid "Change"
+#~ msgstr "変更"
+
+#~ msgid "Job queue"
+#~ msgstr "ジョブキュー"
+
+#~ msgid "Size(KB)"
+#~ msgstr "サイズ(KB)"
+
+#~ msgid "Creation time"
+#~ msgstr "作成時刻"
+
+#~ msgid "Action"
+#~ msgstr "アクション"
+
+#~ msgid "This printer has no pending job in queue at the moment"
+#~ msgstr "プリンタは現在ジョブをキューに抱えていません"
+
+#, fuzzy
+#~ msgid "Print Test Page"
+#~ msgstr "プリンタ名"
+
+#~ msgid "Driver options"
+#~ msgstr "ドライバオプション"
+
+#~ msgid "Choose a printer model"
+#~ msgstr "プリンタモデルを選んでください"
+
+#, fuzzy
+#~ msgid "Configure IPP printer"
+#~ msgstr "リモートプリンタを設定"
+
+#~ msgid "Choose a driver for the printer"
+#~ msgstr "プリンタのためにドライバを選択してください"
+
+#, fuzzy
+#~ msgid "Configure LPD printer"
+#~ msgstr "リモートプリンタを設定"
+
+#~ msgid "Choose a dirver for the printer"
+#~ msgstr "プリンタドライバを選択してください"
+
+#~ msgid "driver"
+#~ msgstr "ドライバ"
+
+#~ msgid "Go"
+#~ msgstr "進む"
+
+#~ msgid "Samba shared printer configurationr"
+#~ msgstr "Samba共有プリンタ設定"
+
+#~ msgid "Share resource"
+#~ msgstr "共有リソース"
+
+#~ msgid "Anonymous"
+#~ msgstr "匿名"
+
+#~ msgid "Guest"
+#~ msgstr "ゲスト"
+
+#~ msgid "User/Password"
+#~ msgstr "ユーザ/パスワード"
+
+#~ msgid "Remote printer configuration"
+#~ msgstr "プリンタ設定を削除"
+
+#, fuzzy
+#~ msgid "Configure AppSocket printer"
+#~ msgstr "リモートプリンタを設定"
+
+#~ msgid "Samba shared printer configuration"
+#~ msgstr "Samba共有プリンタ設定"
+
+#~ msgid "Enable standalone CUPS"
+#~ msgstr "スタンドアロンCUPSを有効化"
+
+#~ msgid "General settings"
+#~ msgstr "一般設定"
+
+#~ msgid "List of printers"
+#~ msgstr "プリンタ一覧"
+
+#~ msgid "Description"
+#~ msgstr "内容"
+
+#~ msgid "Actions"
+#~ msgstr "アクション"
+
+#~ msgid "Manage"
+#~ msgstr "管理"
+
+#~ msgid "Manage this printer"
+#~ msgstr "このプリンタの管理"
+
+#~ msgid "There is no printer configured yet"
+#~ msgstr "設定済みのプリンタはありません"
 
 #~ msgid "printers"
 #~ msgstr "プリンタ"

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
-"POT-Creation-Date: 2010-07-21 00:43+0200\n"
+"POT-Creation-Date: 2010-08-25 17:48+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -55,7 +55,7 @@ msgid "eBox administration"
 msgstr ""
 
 #: migration/0001_import_services_from_firewall.pl:109
-msgid "eBox Administration Web Server"
+msgid "Zentyal Administration Web Server"
 msgstr ""
 
 #: src/EBox/Services.pm:48 src/EBox/Model/ServiceTable.pm:145
@@ -67,7 +67,7 @@ msgid "port"
 msgstr ""
 
 #: src/EBox/Services.pm:403
-msgid "eBox Administration port"
+msgid "Zentyal Administration port"
 msgstr ""
 
 #: src/EBox/Model/ServiceTable.pm:103
@@ -89,7 +89,7 @@ msgstr ""
 #: src/EBox/Model/ServiceTable.pm:127
 msgid ""
 "Tick this field if there is actually a service on the machine using the "
-"ports configured for this service. This helps eBox to know what ports are "
+"ports configured for this service. This helps Zentyal to know what ports are "
 "already busy"
 msgstr ""
 

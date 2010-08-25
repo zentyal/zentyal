@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-egroupware 1.1Report-Msgid-Bugs-To: info@ebox-"
 "technologies.com\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
-"POT-Creation-Date: 2010-06-02 20:31+0200\n"
+"POT-Creation-Date: 2010-08-25 17:41+0200\n"
 "PO-Revision-Date: 2010-04-06 16:21+0200\n"
 "Last-Translator: Nagy Ákos <reg@pecska.ro>\n"
 "Language-Team: none\n"
@@ -149,11 +149,11 @@ msgstr "Virtuális levelezőtartomány"
 msgid "Select the virtual mail domain to be used for eGroupware"
 msgstr "Válassza ki az eGroupwareben használt virtuális levelezőtartományt"
 
-#: src/EBox/Composite/General.pm:76
+#: src/EBox/Composite/General.pm:75
 msgid "eGroupware"
 msgstr "eGroupware"
 
-#: src/EBox/Composite/General.pm:78
+#: src/EBox/Composite/General.pm:77
 msgid ""
 "Once the module is enabled and you have created a user account, you can "
 "access the eGroupware web interface at http://<ebox_ip>/egroupware"
@@ -161,7 +161,7 @@ msgstr ""
 "A modul aktiválása és egy felhasználói fiók létrehozása után az eGroupware "
 "webes kezelőfelülete elérhetővé válik a http://<ebox_ip>/egroupware címen."
 
-#: src/EBox/Composite/General.pm:89
+#: src/EBox/Composite/General.pm:88
 msgid "EGroupware"
 msgstr "EGroupware"
 

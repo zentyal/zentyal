@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-firewall 0.12.100Report-Msgid-Bugs-To: info@ebox-"
 "technologies.com\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
-"POT-Creation-Date: 2010-08-13 13:40+0200\n"
+"POT-Creation-Date: 2010-08-25 17:46+0200\n"
 "PO-Revision-Date: 2009-02-04 05:14+0000\n"
 "Last-Translator: Zahra Khani <belendax@gmail.com>\n"
 "Language-Team: none\n"
@@ -31,27 +31,28 @@ msgid ""
 "You must set the iptables_log_burst variable in the ebox configuration file"
 msgstr "شما باید متغیر iptables_log_burst را در فایل پیکربندی ebox تنظیم کنید"
 
-#: src/EBox/Firewall.pm:60 src/EBox/Firewall.pm:858
+#: src/EBox/Firewall.pm:60 src/EBox/Firewall.pm:814
 msgid "Firewall"
 msgstr "دیواره آتش"
 
-#: src/EBox/Firewall.pm:129
+#: src/EBox/Firewall.pm:86
 msgid "Flush previous firewall rules"
 msgstr "تراز کردن قوانین قبلی دیواره آتش"
 
-#: src/EBox/Firewall.pm:130
+#: src/EBox/Firewall.pm:87
+#, fuzzy
 msgid ""
-"The eBox firewall will flush any previous firewall rules which have been "
+"The Zentyal firewall will flush any previous firewall rules which have been "
 "added manually or by another tool"
 msgstr ""
 "دیواره آتش eBox تمامی قوانین پیشین را که به طور دستی یا با استفاده از ابزار "
 "دیگری اضافه شده اند، تراز خواهد کرد "
 
-#: src/EBox/Firewall.pm:135
+#: src/EBox/Firewall.pm:92
 msgid "Secure by default"
 msgstr "به طور پیش فرض امن"
 
-#: src/EBox/Firewall.pm:136
+#: src/EBox/Firewall.pm:93
 msgid ""
 "Just a few connections are allowed by default. Make sure you add the proper "
 "incoming and outcoming rules to make your system work as expected. Usually, "
@@ -63,87 +64,87 @@ msgstr ""
 "عمل کند، اضافه کرده اید. معمولا تمامی ارتباطات خروجی به طور پیش فرض رد شده و "
 "تنها ارتباطات ورودی SSH و HTTPS اجازه داده می شوند."
 
-#: src/EBox/Firewall.pm:314
+#: src/EBox/Firewall.pm:270
 msgid "action"
 msgstr "عمل"
 
-#: src/EBox/Firewall.pm:435 src/EBox/Firewall.pm:480 src/EBox/Firewall.pm:504
+#: src/EBox/Firewall.pm:391 src/EBox/Firewall.pm:436 src/EBox/Firewall.pm:460
 #, perl-brace-format
 msgid "Name '{name}' is invalid"
 msgstr "نام '{name}' نامعتبر می باشد"
 
-#: src/EBox/Firewall.pm:436 src/EBox/Firewall.pm:615 src/EBox/Firewall.pm:640
+#: src/EBox/Firewall.pm:392 src/EBox/Firewall.pm:571 src/EBox/Firewall.pm:596
 msgid "port"
 msgstr "پورت"
 
-#: src/EBox/Firewall.pm:614 src/EBox/Firewall.pm:639
+#: src/EBox/Firewall.pm:570 src/EBox/Firewall.pm:595
 msgid "protocol"
 msgstr "پروتکل"
 
-#: src/EBox/Firewall.pm:828 src/EBox/CGI/Filter.pm:30
+#: src/EBox/Firewall.pm:784 src/EBox/CGI/Filter.pm:30
 #: src/EBox/Firewall/Model/BaseRuleTable.pm:214
 #: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:180
 msgid "Packet Filter"
 msgstr "فیلتر کردن بسته"
 
-#: src/EBox/Firewall.pm:831 src/EBox/Firewall/Model/RedirectsTable.pm:362
+#: src/EBox/Firewall.pm:787 src/EBox/Firewall/Model/RedirectsTable.pm:362
 msgid "Port Forwarding"
 msgstr ""
 
-#: src/EBox/Firewall.pm:842
+#: src/EBox/Firewall.pm:798
 #: src/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:60
 msgid "Date"
 msgstr "تاریخ"
 
-#: src/EBox/Firewall.pm:843
+#: src/EBox/Firewall.pm:799
 msgid "Input interface"
 msgstr "واسط ورودی"
 
-#: src/EBox/Firewall.pm:844
+#: src/EBox/Firewall.pm:800
 msgid "Output interface"
 msgstr "واسط خروجی"
 
-#: src/EBox/Firewall.pm:845 src/EBox/Firewall/Model/RedirectsTable.pm:292
+#: src/EBox/Firewall.pm:801 src/EBox/Firewall/Model/RedirectsTable.pm:292
 #: src/EBox/Firewall/Model/BaseRuleTable.pm:122
 msgid "Source"
 msgstr "مبدأ"
 
-#: src/EBox/Firewall.pm:846 src/EBox/Firewall/Model/BaseRuleTable.pm:148
+#: src/EBox/Firewall.pm:802 src/EBox/Firewall/Model/BaseRuleTable.pm:148
 msgid "Destination"
 msgstr "مقصد"
 
-#: src/EBox/Firewall.pm:847 src/EBox/Firewall/Model/RedirectsTable.pm:285
+#: src/EBox/Firewall.pm:803 src/EBox/Firewall/Model/RedirectsTable.pm:285
 msgid "Protocol"
 msgstr "پروتکل"
 
-#: src/EBox/Firewall.pm:848
+#: src/EBox/Firewall.pm:804
 msgid "Source port"
 msgstr "پورت مبدأ"
 
-#: src/EBox/Firewall.pm:849
+#: src/EBox/Firewall.pm:805
 msgid "Destination port"
 msgstr "پورت مقصد"
 
-#: src/EBox/Firewall.pm:850 src/EBox/Firewall/Model/BaseRuleTable.pm:113
+#: src/EBox/Firewall.pm:806 src/EBox/Firewall/Model/BaseRuleTable.pm:113
 #: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:144
 msgid "Decision"
 msgstr "تصمیم"
 
-#: src/EBox/Firewall.pm:855
+#: src/EBox/Firewall.pm:811
 msgid "DROP"
 msgstr "رد کردن بدون پاسخ"
 
-#: src/EBox/Firewall.pm:855 src/EBox/Firewall/Model/BaseRuleTable.pm:71
+#: src/EBox/Firewall.pm:811 src/EBox/Firewall/Model/BaseRuleTable.pm:71
 msgid "LOG"
 msgstr "ثبت رخداد"
 
-#: src/EBox/Firewall.pm:855
+#: src/EBox/Firewall.pm:811
 msgid "REDIRECT"
 msgstr ""
 
 #: src/EBox/Firewall/Model/EBoxOutputRuleTable.pm:69
 #, fuzzy
-msgid "Traffic coming out from eBox"
+msgid "Traffic coming out from Zentyal"
 msgstr "قوانین فیلترینگ برای ترافیکی که از eBox منتشر می شوند"
 
 #: src/EBox/Firewall/Model/EBoxOutputRuleTable.pm:78
@@ -172,10 +173,6 @@ msgstr "واسط"
 #, fuzzy
 msgid "Original destination"
 msgstr "مقصد"
-
-#: src/EBox/Firewall/Model/RedirectsTable.pm:261
-msgid "eBox"
-msgstr ""
 
 #: src/EBox/Firewall/Model/RedirectsTable.pm:264
 msgid "IP Address"
@@ -280,12 +277,12 @@ msgstr ""
 
 #: src/EBox/Firewall/Model/ExternalToEBoxRuleTable.pm:69
 #, fuzzy
-msgid "External networks to eBox"
+msgid "External networks to Zentyal"
 msgstr "قوانین فیلترینگ از شبکه های خارجی به eBox"
 
 #: src/EBox/Firewall/Model/InternalToEBoxRuleTable.pm:69
 #, fuzzy
-msgid "Internal networks to eBox"
+msgid "Internal networks to Zentyal"
 msgstr "قوانین فیلترینگ از شبکه های داخلی به eBox"
 
 #: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:37
@@ -336,7 +333,7 @@ msgstr ""
 
 #: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:153
 #: src/templates/filter.mas:51
-msgid "Rules added by eBox services (Advanced)"
+msgid "Rules added by Zentyal services (Advanced)"
 msgstr ""
 
 #: src/EBox/Firewall/Model/ToInternetRuleTable.pm:66
@@ -369,23 +366,24 @@ msgstr "جزئیات ترافیک بسته ها"
 msgid "traffic"
 msgstr "ترافیک"
 
-#: src/EBox/Firewall/Composite/Report/PacketTrafficReport.pm:70
+#: src/EBox/Firewall/Composite/Report/PacketTrafficReport.pm:69
 msgid "Packet traffic report"
 msgstr "گزارش ترافیک بسته"
 
-#: src/EBox/Firewall/Composite/Report/PacketTrafficReport.pm:71
+#: src/EBox/Firewall/Composite/Report/PacketTrafficReport.pm:70
 msgid "Firewall packet traffic report"
 msgstr "گزارش ترافیک بسته دیواره آتش"
 
 #: src/templates/filter.mas:6
-msgid "Filtering rules from internal networks to eBox"
+#, fuzzy
+msgid "Filtering rules from internal networks to Zentyal"
 msgstr "قوانین فیلترینگ از شبکه های داخلی به eBox"
 
 #: src/templates/filter.mas:8
 #, fuzzy
 msgid ""
 "These rules allow you to control access from internal networks to services "
-"running on your eBox machine."
+"running on your Zentyal machine."
 msgstr ""
 "این قوانین به شما اجازه می دهند که دسترسی از شبکه های خارجی به سرویس های در "
 "حال اجرا روی ماشین eBox خود را کنترل کنید"
@@ -405,32 +403,36 @@ msgstr "قوانین فیلترینگ برای شبکه های داخلی"
 msgid ""
 "These rules allow you to control access from internal networks to the "
 "Internet and traffic between internal networks. If you wish to provide "
-"access to your eBox services, you must use the above section."
+"access to your Zentyal services, you must use the above section."
 msgstr ""
 "این قوانین به شما اجازه می دهند که دسترسی از شبکه های داخلی خود به اینترنت و "
 "ترافیک میان شبکه های داخلی خود را کنترل کنید. اگر می خواهید دسترسی به سرویس "
 "های eBox خود را میسر سازید، باید از بخش بالا استفاده کنید"
 
 #: src/templates/filter.mas:21
-msgid "Filtering rules for traffic coming out from eBox"
+#, fuzzy
+msgid "Filtering rules for traffic coming out from Zentyal"
 msgstr "قوانین فیلترینگ برای ترافیکی که از eBox منتشر می شوند"
 
 #: src/templates/filter.mas:23
 #, fuzzy
 msgid ""
-"These rules allow you to control access from your eBox to external services."
+"These rules allow you to control access from your Zentyal to external "
+"services."
 msgstr ""
 "این قوانین به شما اجازه می دهند که دسترسی از eBox به سرویس های خارجی را "
 "کنترل کنید"
 
 #: src/templates/filter.mas:29
-msgid "Filtering rules from external networks to eBox"
+#, fuzzy
+msgid "Filtering rules from external networks to Zentyal"
 msgstr "قوانین فیلترینگ از شبکه های خارجی به eBox"
 
 #: src/templates/filter.mas:31
+#, fuzzy
 msgid ""
 "These rules allow you to control access from external networks to sevices "
-"running on your eBox machine."
+"running on your Zentyal machine."
 msgstr ""
 "این قوانین به شما اجازه می دهند که دسترسی از شبکه های خارجی به سرویس های در "
 "حال اجرا روی ماشین eBox خود را کنترل کنید"
@@ -460,8 +462,11 @@ msgstr ""
 "را کنترل کنید"
 
 #: src/templates/filter.mas:53
-msgid "These rules are automatically added by the eBox services."
+#, fuzzy
+msgid "These rules are automatically added by the Zentyal services."
 msgstr ""
+"این قوانین به شما اجازه می دهند که دسترسی از eBox به سرویس های خارجی را "
+"کنترل کنید"
 
 #: src/templates/filter.mas:56
 msgid ""

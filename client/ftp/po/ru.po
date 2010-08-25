@@ -7,58 +7,59 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-. 1.5\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
-"POT-Creation-Date: 2010-08-13 13:40+0200\n"
+"POT-Creation-Date: 2010-08-25 17:47+0200\n"
 "PO-Revision-Date: 2010-08-16 13:12+0200\n"
 "Last-Translator: Val Budkin <valentin@ktc-ua.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
+"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Pootle 1.1.0\n"
 
 #: migration/0001_add_firewall_services.pl:30
-msgid "eBox FTP Server"
+#, fuzzy
+msgid "Zentyal FTP Server"
 msgstr "Ebox FTP сервер"
 
-#: src/EBox/Model/Options.pm:48
+#: src/EBox/Model/Options.pm:45
 msgid "Disabled"
 msgstr "Отключен"
 
-#: src/EBox/Model/Options.pm:52
+#: src/EBox/Model/Options.pm:49
 msgid "Read only"
 msgstr "Только для чтения"
 
-#: src/EBox/Model/Options.pm:56
+#: src/EBox/Model/Options.pm:53
 msgid "Read/Write"
 msgstr "Чтение/запись"
 
-#: src/EBox/Model/Options.pm:69
+#: src/EBox/Model/Options.pm:66
 msgid "Anonymous access"
 msgstr "Анонимный доступ"
 
-#: src/EBox/Model/Options.pm:73
+#: src/EBox/Model/Options.pm:70
 msgid "Sets the permissions for the /srv/ftp directory"
 msgstr "Установить разрешения для каталога /srv/ftp"
 
-#: src/EBox/Model/Options.pm:77
+#: src/EBox/Model/Options.pm:74
 msgid "Personal directories"
 msgstr "Личные каталоги"
 
-#: src/EBox/Model/Options.pm:80
+#: src/EBox/Model/Options.pm:77
 msgid "Enable FTP access for each user to its /home directory"
 msgstr "Включить FTP доступ пользователям к их каталогам /home"
 
-#: src/EBox/Model/Options.pm:86
+#: src/EBox/Model/Options.pm:83
 msgid "General configuration settings"
 msgstr "Общии параметры конфигурации"
 
-#: src/EBox/Model/Options.pm:87
+#: src/EBox/Model/Options.pm:84
 msgid "FTP Server"
 msgstr "Сервер FTP"
 
-#: src/EBox/Model/Options.pm:91
+#: src/EBox/Model/Options.pm:88
 msgid ""
 "The anonymous directory is /srv/ftp, make sure that the files you create "
 "there have read permissions for everybody (chmod o+r /srv/ftp/*). If you "
@@ -69,8 +70,8 @@ msgstr ""
 "Анонимным каталогом является /srv/ftp, убедитесь, что файлы, которые вы там "
 "создаёте имеют разрешение на чтение для всех (chmod o+r /srv/ftp/*). Если вы "
 "хотите дать разрешение на запись, вам необходимо сделать подкаталог с с "
-"разрешениями на запись для всех, например: mkdir /srv/ftp/incoming ; chmod "
-"o+rwx /srv/ftp/incoming"
+"разрешениями на запись для всех, например: mkdir /srv/ftp/incoming ; chmod o"
+"+rwx /srv/ftp/incoming"
 
 #: src/EBox/FTP.pm:84
 msgid "To configure vsftpd"

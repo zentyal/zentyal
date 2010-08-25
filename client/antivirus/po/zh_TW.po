@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-antivirus 0.1\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
-"POT-Creation-Date: 2010-07-21 00:28+0200\n"
+"POT-Creation-Date: 2010-08-25 16:23+0200\n"
 "PO-Revision-Date: 2010-05-03 05:11+0200\n"
 "Last-Translator: Chao-Hsiung Liao <j_h_liau@yahoo.com.tw>\n"
 "Language-Team: none\n"
@@ -17,8 +17,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: src/EBox/AntiVirus.pm:69 src/EBox/AntiVirus.pm:389
-#: src/EBox/AntiVirus.pm:394 src/EBox/AntiVirus/Model/FreshclamStatus.pm:72
+#: src/EBox/AntiVirus.pm:69 src/EBox/AntiVirus.pm:385
+#: src/EBox/AntiVirus.pm:390 src/EBox/AntiVirus/Model/FreshclamStatus.pm:70
 msgid "Antivirus"
 msgstr "防毒"
 
@@ -34,33 +34,33 @@ msgstr "設定 freshclam 更新程式"
 msgid "To schedule the launch of the updater"
 msgstr "設定更新程式執行的時程"
 
-#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:59
+#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:57
 msgid "Status"
 msgstr "狀態"
 
-#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:63
+#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:61
 msgid "Date"
 msgstr "日期"
 
-#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:71
+#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:69
 msgid "Database Update Status"
 msgstr "資料庫更新狀態"
 
-#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:127
+#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:125
 msgid ""
 "The antivirus database has not been updated since the module was enabled."
 msgstr "防毒資料庫從這個模組啟用後都沒有更新。"
 
-#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:130
+#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:128
 msgid "The last update failed."
 msgstr "上次的更新失敗了。"
 
-#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:133
-#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:136
+#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:131
+#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:134
 msgid "Last update successful."
 msgstr "最近更新成功。"
 
-#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:139
+#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:137
 #, perl-brace-format
 msgid "Unknown event {event}."
 msgstr "不明的事件 {event}。"

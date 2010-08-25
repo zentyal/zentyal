@@ -5,9 +5,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-ca 1.5.3"
+"Project-Id-Version: ebox-ca 1.5.3Report-Msgid-Bugs-To: info@ebox-"
+"technologies.com\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
-"POT-Creation-Date: 2010-07-21 00:29+0200\n"
+"POT-Creation-Date: 2010-08-25 17:29+0200\n"
 "PO-Revision-Date: 2010-07-21 00:29+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -340,7 +341,7 @@ msgstr ""
 #: src/EBox/Model/Certificates.pm:287
 msgid ""
 "Here you may set certificates from this CA for those secure services managed "
-"by eBox"
+"by Zentyal"
 msgstr ""
 
 #: src/EBox/CA/TestStub.pm:655

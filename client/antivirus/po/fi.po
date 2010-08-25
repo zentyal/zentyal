@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-antivirus 0.1\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
-"POT-Creation-Date: 2010-07-21 00:28+0200\n"
+"POT-Creation-Date: 2010-08-25 16:23+0200\n"
 "PO-Revision-Date: 2009-05-14 10:04+0200\n"
 "Last-Translator: Alexander Elo <alexander.elo@gmail.com>\n"
 "Language-Team: none\n"
@@ -17,8 +17,8 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: src/EBox/AntiVirus.pm:69 src/EBox/AntiVirus.pm:389
-#: src/EBox/AntiVirus.pm:394 src/EBox/AntiVirus/Model/FreshclamStatus.pm:72
+#: src/EBox/AntiVirus.pm:69 src/EBox/AntiVirus.pm:385
+#: src/EBox/AntiVirus.pm:390 src/EBox/AntiVirus/Model/FreshclamStatus.pm:70
 msgid "Antivirus"
 msgstr "Antivirus"
 
@@ -36,20 +36,20 @@ msgstr "Konfiguroimaan freshclam updater"
 msgid "To schedule the launch of the updater"
 msgstr "Ajasta päivitys"
 
-#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:59
+#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:57
 msgid "Status"
 msgstr "Tila"
 
-#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:63
+#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:61
 msgid "Date"
 msgstr "Päivämäärä"
 
-#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:71
+#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:69
 #, fuzzy
 msgid "Database Update Status"
 msgstr "Antivirus tietokannan päivityksen tila"
 
-#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:127
+#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:125
 #, fuzzy
 msgid ""
 "The antivirus database has not been updated since the module was enabled."
@@ -57,18 +57,18 @@ msgstr ""
 "Antiviruksen tietokantaa ei päivitetty, koska  mailfilter eBox moduuli on "
 "asennettu"
 
-#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:130
+#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:128
 #, fuzzy
 msgid "The last update failed."
 msgstr "Viime päivitys epäonnistui"
 
-#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:133
-#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:136
+#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:131
+#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:134
 #, fuzzy
 msgid "Last update successful."
 msgstr "Viime päivitys onnistui"
 
-#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:139
+#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:137
 #, fuzzy, perl-brace-format
 msgid "Unknown event {event}."
 msgstr "Tuntematon tapahtuma {event}"

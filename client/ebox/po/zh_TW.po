@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-ebox 0.12.99Report-Msgid-Bugs-To: info@ebox-"
 "technologies.com\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
-"POT-Creation-Date: 2010-08-13 13:39+0200\n"
+"POT-Creation-Date: 2010-08-25 17:46+0200\n"
 "PO-Revision-Date: 2009-08-04 05:57+0200\n"
 "Last-Translator: Chao-Hsiung Liao <j_h_liau@yahoo.com.tw>\n"
 "Language-Team: none\n"
@@ -64,133 +64,133 @@ msgstr "可執行檔已經啟動"
 msgid "The executable has already finished"
 msgstr "可執行檔已經結束"
 
-#: src/EBox/Events/Model/Watcher/Log.pm:216
-#: src/EBox/Events/Model/Watcher/Log.pm:240
+#: src/EBox/Events/Model/Watcher/Log.pm:215
+#: src/EBox/Events/Model/Watcher/Log.pm:239
 msgid ""
 "Warning! The log watcher is not enabled. Enable to be notified when logs "
 "happen. "
 msgstr "警告!日誌監視未啟用.當日誌發生時可以啟用通知."
 
-#: src/EBox/Events/Model/Watcher/Log.pm:264
+#: src/EBox/Events/Model/Watcher/Log.pm:263
 #: src/EBox/Logs/Model/SelectLog.pm:143
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:335
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:333
 msgid "Domain"
 msgstr "網域"
 
-#: src/EBox/Events/Model/Watcher/Log.pm:269
+#: src/EBox/Events/Model/Watcher/Log.pm:268
 msgid "Filtering"
 msgstr "過濾"
 
-#: src/EBox/Events/Model/Watcher/Log.pm:277
+#: src/EBox/Events/Model/Watcher/Log.pm:276
 msgid "Configure log watchers"
 msgstr "設置日誌監視"
 
-#: src/EBox/Events/Model/Watcher/Log.pm:279
+#: src/EBox/Events/Model/Watcher/Log.pm:278
 msgid "Log watcher"
 msgstr "日誌監視"
 
-#: src/EBox/Events/Model/Watcher/Log.pm:387
-#: src/EBox/Events/Model/Watcher/LogFiltering.pm:213
-#: src/EBox/Events/Model/Watcher/DiskFreeSpace.pm:138
+#: src/EBox/Events/Model/Watcher/Log.pm:386
+#: src/EBox/Events/Model/Watcher/LogFiltering.pm:212
+#: src/EBox/Events/Model/Watcher/DiskFreeSpace.pm:137
+#: src/EBox/Events/Model/GeneralComposite.pm:76
 #: src/EBox/Events/Model/GeneralComposite.pm:77
-#: src/EBox/Events/Model/GeneralComposite.pm:78
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:274
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:326 src/EBox/Events.pm:96
-#: src/EBox/Events.pm:823
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:273
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:325 src/EBox/Events.pm:95
+#: src/EBox/Events.pm:822
 msgid "Events"
 msgstr "事件"
 
-#: src/EBox/Events/Model/Watcher/Log.pm:391
-#: src/EBox/Events/Model/Watcher/LogFiltering.pm:217
+#: src/EBox/Events/Model/Watcher/Log.pm:390
+#: src/EBox/Events/Model/Watcher/LogFiltering.pm:216
 #, fuzzy
 msgid "Log Observer Watcher"
 msgstr "日誌觀察者"
 
-#: src/EBox/Events/Model/Watcher/LogFiltering.pm:110
+#: src/EBox/Events/Model/Watcher/LogFiltering.pm:109
 #, perl-brace-format
 msgid "Log domain {logDomain}"
 msgstr "網域日誌 {logDomain}"
 
-#: src/EBox/Events/Model/Watcher/LogFiltering.pm:151
+#: src/EBox/Events/Model/Watcher/LogFiltering.pm:150
 #: src/EBox/Types/PortRange.pm:290 src/EBox/Types/Service.pm:213
 #: src/templates/logs/index.mas:185
 msgid "Any"
 msgstr "任何"
 
-#: src/EBox/Events/Model/Watcher/LogFiltering.pm:170
+#: src/EBox/Events/Model/Watcher/LogFiltering.pm:169
 #: src/templates/logs/index.mas:183
 msgid "Event"
 msgstr "事件"
 
-#: src/EBox/Events/Model/Watcher/LogFiltering.pm:178
+#: src/EBox/Events/Model/Watcher/LogFiltering.pm:177
 #, perl-brace-format
 msgid "Filters to apply to notify logs from {logDomain}"
 msgstr "從 {logDomain} 過濾套用要通知的日誌"
 
-#: src/EBox/Events/Model/Watcher/LogFiltering.pm:186
+#: src/EBox/Events/Model/Watcher/LogFiltering.pm:185
 msgid ""
 "Every filter added is cumulative.Then every log line which matches with any "
 "filter given will be notified"
 msgstr "加入的每個過濾條件是累加的。而每一行符合過濾條件的紀錄都會被通知"
 
-#: src/EBox/Events/Model/Watcher/LogFiltering.pm:190
+#: src/EBox/Events/Model/Watcher/LogFiltering.pm:189
 msgid "filter"
 msgstr "過濾"
 
-#: src/EBox/Events/Model/Watcher/DiskFreeSpace.pm:102
+#: src/EBox/Events/Model/Watcher/DiskFreeSpace.pm:101
 msgid "Minimum free disk space per filesystem"
 msgstr "每個檔案系統最小剩餘空間"
 
-#: src/EBox/Events/Model/Watcher/DiskFreeSpace.pm:107
+#: src/EBox/Events/Model/Watcher/DiskFreeSpace.pm:106
 msgid ""
 "When the free space percentage of any disk partition is under this value the "
 "event is triggered."
 msgstr "當磁碟可用空間百分比在任何磁碟分割區低於這個值的時候事件會觸發."
 
-#: src/EBox/Events/Model/Watcher/DiskFreeSpace.pm:114
+#: src/EBox/Events/Model/Watcher/DiskFreeSpace.pm:113
 msgid "Configure disk free space watcher"
 msgstr "設置監視磁碟可用空間"
 
-#: src/EBox/Events/Model/Watcher/DiskFreeSpace.pm:142
+#: src/EBox/Events/Model/Watcher/DiskFreeSpace.pm:141
 #, fuzzy
 msgid "Free Disk Space Watcher"
 msgstr "設置監視磁碟可用空間"
 
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:268
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:302
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:267
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:301
 msgid "Name"
 msgstr "名稱"
 
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:276
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:275
 #: src/templates/backup.mas:42 src/templates/backup.mas:124
 #: src/templates/confirm-backup.mas:36
 msgid "Description"
 msgstr "說明"
 
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:285
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:324
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:284
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:323
 msgid "Configuration"
 msgstr "設置"
 
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:301
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:344
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:300
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:343
 msgid "None"
 msgstr "沒有"
 
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:310
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:309
 msgid "Configure Events"
 msgstr "設定事件"
 
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:318
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:317
 #: src/EBox/Events/Model/Report/EventsDetails.pm:109
 msgid "event"
 msgstr "事件"
 
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:319
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:318
 msgid "Enable/Disable each event watcher monitoring"
 msgstr "啟用/停用事件監視器"
 
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:507
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:506
 msgid ""
 "Warning! There is no log domain watcher enabled. Please, go to "
 "'Configuration' to enable at least one to be notified when a log in this "
@@ -198,189 +198,193 @@ msgid ""
 msgstr ""
 "警告!這裡沒有啟用網域日誌監視.請到 '設置' 啟用至少一個通知當網域日誌發生時. "
 
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:288
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:343
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:287
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:341
 #: src/EBox/Model/DataTable.pm:4541
 msgid "Enabled"
 msgstr "已啟用"
 
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:312
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:311
 msgid "Receiver"
 msgstr "接收者"
 
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:353
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:352
 msgid "Configure Dispatchers"
 msgstr "設定調整"
 
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:362
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:361
 msgid "dispatcher"
 msgstr "調整"
 
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:363
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:362
 msgid "Enable/Disable each event dispatcher"
 msgstr "啟用/停用事件調整"
 
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:552
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:551
 msgid ""
 "In order to enable a configurable event dispatcher, you need to configure it "
 "first"
 msgstr "為了啟用設置事件,您需要先設置"
 
-#: src/EBox/Events/Model/GeneralComposite.pm:81
+#: src/EBox/Events/Model/GeneralComposite.pm:80
+#, fuzzy
 msgid ""
-"Events module configures eBox to help informing you about events that happen"
+"Events module configures Zentyal to help informing you about events that "
+"happen"
 msgstr "eBox 的事件模組設置幫助通知您有關事件的發生"
 
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:194
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:193
 msgid "Jabber server name"
 msgstr "Jabber 伺服器名稱"
 
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:197
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:196
 msgid "Jabber server to send the messages"
 msgstr "Jabber 伺服器來傳送訊息"
 
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:201
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:200
 msgid "Port"
 msgstr "連接埠"
 
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:208
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:207
 msgid "Jabber user name"
 msgstr "Jabber 使用者名稱"
 
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:211
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:210
 msgid ""
 "Jabber ID of the account that will send the messages. Hint: do not introduce "
 "@domain, only the user name"
 msgstr "Jabber 帳號的 ID 將可以傳送訊息.提示:不要使用@domain,只有使用者名稱"
 
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:217
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:216
 msgid "User password"
 msgstr "使用者密碼"
 
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:225
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:224
 msgid "Subscribe"
 msgstr "訂閱"
 
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:227
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:226
+#, fuzzy
 msgid ""
-"Tick this option if you want eBox to create an account for the above user"
+"Tick this option if you want Zentyal to create an account for the above user"
 msgstr "假如您想要 eBox 去建立帳號給以下的使用者請勾選這個選項"
 
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:234
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:301
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:233
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:300
 msgid "Administrator Jabber Identifier"
 msgstr "Jabber 管理員標誌"
 
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:237
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:236
+#, fuzzy
 msgid ""
-"Destination Jabber ID of the messages generated by eBox,  i.e: you, the eBox "
-"admin. Note that you need to register this  account manually in any jabber "
-"server"
+"Destination Jabber ID of the messages generated by Zentyal,  i.e: you, the "
+"Zentyal admin. Note that you need to register this  account manually in any "
+"jabber server"
 msgstr ""
 "用 eBox 產生 Jabber ID 的訊息目的,例如:您, eBox 管理者.提示您需要在任何 "
 "jabber 伺服器上手動註冊這個帳號"
 
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:246
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:245
 msgid "Configure Jabber dispatcher"
 msgstr "設置 Jabber"
 
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:251
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:250
 msgid "This dispatcher will send events to an Jabber account"
 msgstr "這個調整將會傳送事件到 jabber 帳號"
 
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:254
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:253
 msgid "Jabber dispatcher configuration updated"
 msgstr "Jabber 設置已更新"
 
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:278
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:277
 #, fuzzy
 msgid "Jabber Dispatcher"
 msgstr "設置 Jabber"
 
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:303
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:302
 msgid "It should follow the pattern 'user@domain[/resource]'"
 msgstr "應該用以下的樣式 'user@domain[/resource]'"
 
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:151
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:150
 msgid "Nobody"
 msgstr "Nobody"
 
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:155
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:154
 msgid "IP address"
 msgstr "IP 位址"
 
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:162
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:161
 msgid "Object"
 msgstr "單位"
 
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:171
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:170
 msgid "Public"
 msgstr "公開"
 
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:178
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:177
 msgid "Channel link"
 msgstr "頻道連結"
 
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:185
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:184
 msgid "Allowed readers"
 msgstr "已允許的讀取者"
 
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:188
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:187
 msgid "Use this field to set the access control for the channel"
 msgstr "使用這個功能去設定此頻道的存取控制"
 
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:193
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:192
 msgid "Syndicate this RSS"
 msgstr "同步這個 RSS"
 
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:203
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:202
 msgid "Configure RSS dispatcher"
 msgstr "設置 RSS"
 
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:208
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:207
 msgid ""
 "The channel link is the link which is used to syndicate the content to your "
 "favourite RSS. "
 msgstr "頻道連結是同步您最愛的 RSS 內容連結"
 
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:211
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:210
 msgid "RSS dispatcher configuration updated"
 msgstr "RSS 設置已更新"
 
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:330
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:329
 #, fuzzy
 msgid "RSS Dispatcher"
 msgstr "調整"
 
 #: src/EBox/Events/Model/Report/EventsDetails.pm:50
-#: src/EBox/Events/Model/Report/EventsDetails.pm:74 src/EBox/Events.pm:808
+#: src/EBox/Events/Model/Report/EventsDetails.pm:74 src/EBox/Events.pm:807
 #, fuzzy
 msgid "Source"
 msgstr "服務"
 
 #: src/EBox/Events/Model/Report/EventsDetails.pm:51
 #: src/EBox/Events/Model/Report/EventsDetails.pm:80
-#: src/EBox/Events/Model/Report/EventsGraph.pm:51 src/EBox/Events.pm:815
+#: src/EBox/Events/Model/Report/EventsGraph.pm:51 src/EBox/Events.pm:814
 #, fuzzy
 msgid "Informative"
 msgstr "RAID 資訊"
 
 #: src/EBox/Events/Model/Report/EventsDetails.pm:52
 #: src/EBox/Events/Model/Report/EventsDetails.pm:84
-#: src/EBox/Events/Model/Report/EventsGraph.pm:52 src/EBox/Events.pm:816
+#: src/EBox/Events/Model/Report/EventsGraph.pm:52 src/EBox/Events.pm:815
 #: src/templates/finish.mas:83
 msgid "Warning"
 msgstr "警告"
 
 #: src/EBox/Events/Model/Report/EventsDetails.pm:53
 #: src/EBox/Events/Model/Report/EventsDetails.pm:88
-#: src/EBox/Events/Model/Report/EventsGraph.pm:53 src/EBox/Events.pm:817
+#: src/EBox/Events/Model/Report/EventsGraph.pm:53 src/EBox/Events.pm:816
 msgid "Error"
 msgstr "錯誤"
 
 #: src/EBox/Events/Model/Report/EventsDetails.pm:54
 #: src/EBox/Events/Model/Report/EventsDetails.pm:92
-#: src/EBox/Events/Model/Report/EventsGraph.pm:54 src/EBox/Events.pm:818
+#: src/EBox/Events/Model/Report/EventsGraph.pm:54 src/EBox/Events.pm:817
 msgid "Fatal error"
 msgstr ""
 
@@ -405,22 +409,22 @@ msgstr "事件服務狀態"
 msgid "Events summarized graph"
 msgstr "摘要報告"
 
-#: src/EBox/Events/Composite/Report/EventsReport.pm:70
+#: src/EBox/Events/Composite/Report/EventsReport.pm:69
 #, fuzzy
 msgid "Events reports"
 msgstr "選擇報告"
 
-#: src/EBox/Events/Composite/Report/EventsReport.pm:71
+#: src/EBox/Events/Composite/Report/EventsReport.pm:70
 #, fuzzy
 msgid "Events report"
 msgstr "選擇報告"
 
-#: src/EBox/EventDaemon.pm:451
+#: src/EBox/EventDaemon.pm:450
 #, perl-brace-format
 msgid "Dispatcher {name} disabled since it is not able to send events"
 msgstr "儲存變更 {name}"
 
-#: src/EBox/Auth.pm:156
+#: src/EBox/Auth.pm:135
 msgid "Password changed"
 msgstr "密碼已變更"
 
@@ -448,7 +452,7 @@ msgstr "查詢日誌"
 msgid "Full Reports"
 msgstr "完整報告"
 
-#: src/EBox/CGI/Dashboard/Index.pm:34 src/EBox/SysInfo.pm.in:244
+#: src/EBox/CGI/Dashboard/Index.pm:34 src/EBox/SysInfo.pm.in:253
 msgid "Dashboard"
 msgstr "儀表板"
 
@@ -463,9 +467,10 @@ msgid "Saving changes"
 msgstr "儲存變更"
 
 #: src/EBox/CGI/Login/Index.pm:65
+#, fuzzy
 msgid ""
-"There is a script which has asked to run in eBox exclusively. Please, wait "
-"patiently until it is done"
+"There is a script which has asked to run in Zentyal exclusively. Please, "
+"wait patiently until it is done"
 msgstr "還有命令稿要求在 eBox 中執行。請耐心等候它完成"
 
 #: src/EBox/CGI/Login/Index.pm:69
@@ -488,7 +493,7 @@ msgstr "模組狀態組態"
 msgid "Logout"
 msgstr "登出"
 
-#: src/EBox/CGI/EBox/General.pm:32
+#: src/EBox/CGI/EBox/General.pm:34
 msgid "General Configuration"
 msgstr "一般組態"
 
@@ -497,30 +502,38 @@ msgid "Halt or Reboot"
 msgstr "關機或重新開機"
 
 #: src/EBox/CGI/EBox/Halt.pm:45
-msgid "eBox is going down for halt"
+#, fuzzy
+msgid "Zentyal is going down for halt"
 msgstr "eBox 正要準備關機"
 
 #: src/EBox/CGI/EBox/Halt.pm:48
-msgid "eBox is going down for reboot"
+#, fuzzy
+msgid "Zentyal is going down for reboot"
 msgstr "eBox 正要準備重新開機"
 
-#: src/EBox/CGI/EBox/Password.pm:45 src/templates/login/index.mas:49
+#: src/EBox/CGI/EBox/Password.pm:45 src/templates/password.mas:11
+#: src/templates/login/index.mas:49
+#, fuzzy
+msgid "Username"
+msgstr "使用者名稱"
+
+#: src/EBox/CGI/EBox/Password.pm:50 src/templates/login/index.mas:54
 msgid "Password"
 msgstr "密碼"
 
-#: src/EBox/CGI/EBox/Password.pm:54
+#: src/EBox/CGI/EBox/Password.pm:59
 msgid "Incorrect password."
 msgstr "不正確的密碼。"
 
-#: src/EBox/CGI/EBox/Password.pm:59
+#: src/EBox/CGI/EBox/Password.pm:64
 msgid "New passwords do not match."
 msgstr "新的密碼不符。"
 
-#: src/EBox/CGI/EBox/Password.pm:64
+#: src/EBox/CGI/EBox/Password.pm:69
 msgid "The password must be at least 6 characters long"
 msgstr "密碼長度必須至少有 6 個字元"
 
-#: src/EBox/CGI/EBox/Password.pm:68
+#: src/EBox/CGI/EBox/Password.pm:73
 msgid "The password was changed successfully."
 msgstr "密碼已經成功的改變。"
 
@@ -573,12 +586,17 @@ msgstr "模組名稱"
 msgid "The module was restarted correctly."
 msgstr "該模組已正確的還原。"
 
+#: src/EBox/CGI/EBox/Hostname.pm:44
+#, fuzzy
+msgid "hostname"
+msgstr "主機名稱"
+
 #: src/EBox/CGI/EBox/CurrentProgress.pm:37
 msgid "Upgrading"
 msgstr "正在更新"
 
 #: src/EBox/CGI/EBox/Backup.pm:36 src/EBox/Backup.pm:728
-#: src/EBox/SysInfo.pm.in:271 src/templates/backup.mas:62
+#: src/EBox/SysInfo.pm.in:280 src/templates/backup.mas:62
 msgid "Backup"
 msgstr "備份"
 
@@ -639,12 +657,12 @@ msgstr "還原成功"
 msgid "Configuration report"
 msgstr "組態還原"
 
-#: src/EBox/CGI/Report/RAID.pm:31 src/EBox/Event/Watcher/RAID.pm:183
-#: src/EBox/SysInfo.pm.in:266
+#: src/EBox/CGI/Report/RAID.pm:31 src/EBox/Event/Watcher/RAID.pm:182
+#: src/EBox/SysInfo.pm.in:275
 msgid "RAID"
 msgstr "磁碟陣列"
 
-#: src/EBox/CGI/Report/DiskUsage.pm:32 src/EBox/SysInfo.pm.in:262
+#: src/EBox/CGI/Report/DiskUsage.pm:32 src/EBox/SysInfo.pm.in:271
 msgid "Disk Usage"
 msgstr "磁碟使用量"
 
@@ -702,109 +720,109 @@ msgid ""
 "the logs in {dir}"
 msgstr "當放棄變更時一些模組回報有錯誤.更多的資訊在 {dir} 的日誌上"
 
-#: src/EBox/Event/Watcher/RAID.pm:200
+#: src/EBox/Event/Watcher/RAID.pm:199
 msgid "Check if any event has happened in RAID subsystem"
 msgstr "假如任何事件發生在磁碟陣列子系統時檢查"
 
-#: src/EBox/Event/Watcher/RAID.pm:266
+#: src/EBox/Event/Watcher/RAID.pm:265
 #, perl-brace-format
 msgid "New array RAID device {devName} information:"
 msgstr "新的磁碟陣列裝置 {devName} 資訊:"
 
-#: src/EBox/Event/Watcher/RAID.pm:268
+#: src/EBox/Event/Watcher/RAID.pm:267
 #, perl-brace-format
 msgid "State: {state}"
 msgstr "狀態: {state}"
 
-#: src/EBox/Event/Watcher/RAID.pm:269
+#: src/EBox/Event/Watcher/RAID.pm:268
 #, perl-brace-format
 msgid "Type: {type}"
 msgstr "類型: {type}"
 
-#: src/EBox/Event/Watcher/RAID.pm:270
+#: src/EBox/Event/Watcher/RAID.pm:269
 #, perl-brace-format
 msgid "Active devices needed: {nb}"
 msgstr "需要啟動的裝置: {nb}"
 
-#: src/EBox/Event/Watcher/RAID.pm:271
+#: src/EBox/Event/Watcher/RAID.pm:270
 #, perl-brace-format
 msgid "Active devices: {nb}"
 msgstr "啟動裝置: {nb}"
 
-#: src/EBox/Event/Watcher/RAID.pm:273
+#: src/EBox/Event/Watcher/RAID.pm:272
 #, perl-brace-format
 msgid "Operation in progress: {operation}"
 msgstr "正在執行的動作: {operation}"
 
-#: src/EBox/Event/Watcher/RAID.pm:275
+#: src/EBox/Event/Watcher/RAID.pm:274
 #, perl-brace-format
 msgid "Completed operation percentage: {per}"
 msgstr "操作完成百分比: {per}"
 
-#: src/EBox/Event/Watcher/RAID.pm:277
+#: src/EBox/Event/Watcher/RAID.pm:276
 #, perl-brace-format
 msgid "Operation estimated finish time: {time}"
 msgstr "估計操作完成時間: {time}"
 
-#: src/EBox/Event/Watcher/RAID.pm:281
+#: src/EBox/Event/Watcher/RAID.pm:280
 #, perl-brace-format
 msgid "Raid component {nb}: device {device} state {state}"
 msgstr "磁碟陣列元件 {nb}: 裝置 {device} 狀態 {state}"
 
-#: src/EBox/Event/Watcher/RAID.pm:336
+#: src/EBox/Event/Watcher/RAID.pm:335
 #, perl-brace-format
 msgid ""
 "RAID device {name} has dissappeared: A RAID array which previously was "
 "configured appears to no longer be configured"
 msgstr "磁碟陣列裝置 {name} 已不存在: 磁碟陣列在之前的設置似乎已不存在"
 
-#: src/EBox/Event/Watcher/RAID.pm:356
+#: src/EBox/Event/Watcher/RAID.pm:355
 #, perl-brace-format
 msgid "RAID device {name} has changed its state from {oldState} to {newState}"
 msgstr "磁碟陣列裝置 {name} 已改變狀態從 {oldState} 到 {newState}"
 
-#: src/EBox/Event/Watcher/RAID.pm:376
+#: src/EBox/Event/Watcher/RAID.pm:375
 #, perl-brace-format
 msgid ""
 "RAID device {name} has changed its number of active components from {oldNum} "
 "to {newNum}"
 msgstr "磁碟陣列裝置 {name} 已改變啟動的元件數量從 {oldNum} 到 {newNum}"
 
-#: src/EBox/Event/Watcher/RAID.pm:400
+#: src/EBox/Event/Watcher/RAID.pm:399
 #, perl-brace-format
 msgid "RAID device {name} has started operation {opName}."
 msgstr "磁碟陣列裝置 {name} 已經開始動作 {opName}。"
 
-#: src/EBox/Event/Watcher/RAID.pm:406
+#: src/EBox/Event/Watcher/RAID.pm:405
 #, perl-brace-format
 msgid "RAID device {name} has finished operation {opName} or it was aborted."
 msgstr "磁碟陣列裝置 {name} 已經完成動作 {opName} 或是已取消。"
 
-#: src/EBox/Event/Watcher/RAID.pm:412
+#: src/EBox/Event/Watcher/RAID.pm:411
 #, perl-brace-format
 msgid ""
 "RAID device {name} has finished operation {oldOpName} and started "
 "{newOpName}."
 msgstr "磁碟陣列裝置 {name} 已經完成動作 {oldOpName} 以及啟動 {newOpName}。"
 
-#: src/EBox/Event/Watcher/RAID.pm:437
+#: src/EBox/Event/Watcher/RAID.pm:436
 #, perl-brace-format
 msgid "Status: {percentage} completed."
 msgstr "狀態：{percentage} 已完成。"
 
-#: src/EBox/Event/Watcher/RAID.pm:440
+#: src/EBox/Event/Watcher/RAID.pm:439
 #, perl-brace-format
 msgid "Estimated finish time: {time}."
 msgstr "估計完成時間：{time}。"
 
-#: src/EBox/Event/Watcher/RAID.pm:472
+#: src/EBox/Event/Watcher/RAID.pm:471
 #, perl-brace-format
 msgid ""
 "Active component {compName} from RAID array {arrayName} has been marked as "
 "faulty"
 msgstr "在磁碟陣列 {arrayName} 的啟動元件 {compName} 已被標記為故障"
 
-#: src/EBox/Event/Watcher/RAID.pm:481
+#: src/EBox/Event/Watcher/RAID.pm:480
 #, perl-brace-format
 msgid ""
 "Spare component {compName} from RAID array {arrayName} which was being "
@@ -812,7 +830,7 @@ msgid ""
 msgstr ""
 "在磁碟陣列 {arrayName} 的備用元件 {compName} 正在重建並置換已故障的裝置"
 
-#: src/EBox/Event/Watcher/RAID.pm:491
+#: src/EBox/Event/Watcher/RAID.pm:490
 #, perl-brace-format
 msgid ""
 "Spare component {compName} from RAID array {arrayName} which was being "
@@ -822,7 +840,7 @@ msgstr ""
 "在磁碟陣列 {arrayName} 的備用元件 {compName} 重建並置換故障裝置已經完成且使之"
 "啟動"
 
-#: src/EBox/Event/Watcher/RAID.pm:504
+#: src/EBox/Event/Watcher/RAID.pm:503
 #, perl-brace-format
 msgid ""
 "A new component {compName} has been hot added to RAID device {arrayName} "
@@ -830,7 +848,7 @@ msgid ""
 msgstr ""
 "新的元件 {compName} 已經新增到磁碟陣列裝置 {arrayName} 且狀態為 {status}"
 
-#: src/EBox/Event/Watcher/RAID.pm:517
+#: src/EBox/Event/Watcher/RAID.pm:516
 #, perl-brace-format
 msgid ""
 "A component {compName} has been hot removed from RAID array {arrayName} when "
@@ -838,105 +856,108 @@ msgid ""
 msgstr ""
 "當狀態為 {status} 時此元件 {compName} 已經從磁碟陣列 {arrayName} 中移除了"
 
-#: src/EBox/Event/Watcher/RAID.pm:543 src/EBox/Event/Watcher/RAID.pm:587
+#: src/EBox/Event/Watcher/RAID.pm:542 src/EBox/Event/Watcher/RAID.pm:586
 #: src/templates/report/raid.mas:111
 msgid "active"
 msgstr "啟動"
 
-#: src/EBox/Event/Watcher/RAID.pm:545 src/templates/report/raid.mas:113
+#: src/EBox/Event/Watcher/RAID.pm:544 src/templates/report/raid.mas:113
 msgid "degraded"
 msgstr "降級"
 
-#: src/EBox/Event/Watcher/RAID.pm:547 src/templates/report/raid.mas:115
+#: src/EBox/Event/Watcher/RAID.pm:546 src/templates/report/raid.mas:115
 msgid "recovering"
 msgstr "回覆"
 
-#: src/EBox/Event/Watcher/RAID.pm:549 src/templates/report/raid.mas:117
+#: src/EBox/Event/Watcher/RAID.pm:548 src/templates/report/raid.mas:117
 msgid "resyncing"
 msgstr "重新同步"
 
-#: src/EBox/Event/Watcher/RAID.pm:551 src/templates/report/raid.mas:121
+#: src/EBox/Event/Watcher/RAID.pm:550 src/templates/report/raid.mas:121
 msgid "rebuilding"
 msgstr "重建"
 
-#: src/EBox/Event/Watcher/RAID.pm:553 src/templates/report/raid.mas:119
+#: src/EBox/Event/Watcher/RAID.pm:552 src/templates/report/raid.mas:119
 msgid "reshaping"
 msgstr "重整"
 
-#: src/EBox/Event/Watcher/RAID.pm:555 src/templates/report/raid.mas:123
+#: src/EBox/Event/Watcher/RAID.pm:554 src/templates/report/raid.mas:123
 msgid "failed"
 msgstr "失敗"
 
-#: src/EBox/Event/Watcher/RAID.pm:567
+#: src/EBox/Event/Watcher/RAID.pm:566
 msgid "resync"
 msgstr "重新同步"
 
-#: src/EBox/Event/Watcher/RAID.pm:569
+#: src/EBox/Event/Watcher/RAID.pm:568
 msgid "rebuild"
 msgstr "重建"
 
-#: src/EBox/Event/Watcher/RAID.pm:571
+#: src/EBox/Event/Watcher/RAID.pm:570
 msgid "reshape"
 msgstr "重整"
 
-#: src/EBox/Event/Watcher/RAID.pm:573
+#: src/EBox/Event/Watcher/RAID.pm:572
 msgid "recovery"
 msgstr "回覆"
 
-#: src/EBox/Event/Watcher/RAID.pm:575
+#: src/EBox/Event/Watcher/RAID.pm:574
 msgid "check"
 msgstr "檢查"
 
-#: src/EBox/Event/Watcher/RAID.pm:589
+#: src/EBox/Event/Watcher/RAID.pm:588
 msgid "faulty"
 msgstr "故障"
 
-#: src/EBox/Event/Watcher/RAID.pm:591 src/templates/report/raid.mas:233
+#: src/EBox/Event/Watcher/RAID.pm:590 src/templates/report/raid.mas:233
 msgid "spare"
 msgstr "備用"
 
-#: src/EBox/Event/Watcher/Runit.pm:114
+#: src/EBox/Event/Watcher/Runit.pm:113
 #, fuzzy, perl-brace-format
 msgid "The following modules are not running but they are enabled: {modules}\n"
 msgstr "以下的模組沒有啟動: {modules}\n"
 
-#: src/EBox/Event/Watcher/Runit.pm:143
+#: src/EBox/Event/Watcher/Runit.pm:142
 msgid "Service"
 msgstr "服務"
 
-#: src/EBox/Event/Watcher/Runit.pm:160
+#: src/EBox/Event/Watcher/Runit.pm:159
 #, fuzzy
-msgid "Check if any eBox service is not running when it is enabled"
+msgid "Check if any Zentyal service is not running when it is enabled"
 msgstr "假如任何 eBox 服務應該啟動時沒有啟動時檢查"
 
-#: src/EBox/Event/Watcher/Runit.pm:230
+#: src/EBox/Event/Watcher/Runit.pm:229
 #, perl-brace-format
 msgid ""
 "The service {service} has been restarted {restart} times in {time} seconds "
 "and it has been stopped"
 msgstr "服務 {service} 已經重新啟動 {restart} 時間在 {time} 秒中且這個已停止"
 
-#: src/EBox/Event/Watcher/State.pm:127
-msgid "eBox is up and running"
+#: src/EBox/Event/Watcher/State.pm:126
+#, fuzzy
+msgid "Zentyal is up and running"
 msgstr "eBox 已啟動並執行中"
 
-#: src/EBox/Event/Watcher/State.pm:133
-msgid "eBox is critically down"
+#: src/EBox/Event/Watcher/State.pm:132
+#, fuzzy
+msgid "Zentyal is critically down"
 msgstr "eBox 正緊急停止"
 
-#: src/EBox/Event/Watcher/State.pm:158 src/templates/report/raid.mas:226
+#: src/EBox/Event/Watcher/State.pm:157 src/templates/report/raid.mas:226
 msgid "State"
 msgstr "狀態"
 
-#: src/EBox/Event/Watcher/State.pm:175
-msgid "Check if eBox is currently up or down"
+#: src/EBox/Event/Watcher/State.pm:174
+#, fuzzy
+msgid "Check if Zentyal is currently up or down"
 msgstr "假如 eBox 目前是啟動或停止時檢查"
 
-#: src/EBox/Event/Watcher/Log.pm:204
+#: src/EBox/Event/Watcher/Log.pm:203
 msgid "Log observer"
 msgstr "日誌觀察者"
 
-#: src/EBox/Event/Watcher/Log.pm:242
+#: src/EBox/Event/Watcher/Log.pm:241
 #, perl-brace-format
 msgid "Notify when a logger ({loggers}) has logged something"
 msgstr "當日誌 ({loggers}) 有紀錄到任何事情時通知我"
@@ -954,66 +975,67 @@ msgstr "剩餘儲存空間"
 msgid "Check if any disk partition has no storage space left"
 msgstr "假如磁碟分割區沒有儲存空間時檢查"
 
-#: src/EBox/Event/Dispatcher/Jabber.pm:167
+#: src/EBox/Event/Dispatcher/Jabber.pm:166
 msgid "Admin Jabber account"
 msgstr "管理 Jabber 帳戶"
 
-#: src/EBox/Event/Dispatcher/Jabber.pm:180
+#: src/EBox/Event/Dispatcher/Jabber.pm:179
 msgid "Jabber"
 msgstr "Jabber"
 
-#: src/EBox/Event/Dispatcher/Jabber.pm:230
+#: src/EBox/Event/Dispatcher/Jabber.pm:229
 #, perl-brace-format
 msgid "Jabber server {serverName} is down or connection is not allowed"
 msgstr "Jabber 伺服器 {serverName} 已離線或是不允許連線"
 
-#: src/EBox/Event/Dispatcher/Jabber.pm:260
+#: src/EBox/Event/Dispatcher/Jabber.pm:259
 #, perl-brace-format
 msgid "Subscription failed: {message}"
 msgstr "訂閱失敗: {message}"
 
-#: src/EBox/Event/Dispatcher/Jabber.pm:267
+#: src/EBox/Event/Dispatcher/Jabber.pm:266
 #, perl-brace-format
 msgid "Authorization failed: {result} - {message}"
 msgstr "驗證失敗: {result} - {message}"
 
-#: src/EBox/Event/Dispatcher/Abstract.pm:142
+#: src/EBox/Event/Dispatcher/Abstract.pm:141
 #, perl-brace-format
 msgid "Dispatcher {name} is not configured to be enabled"
 msgstr "調整 {name} 未設置為啟動"
 
-#: src/EBox/Event/Dispatcher/Log.pm:137
+#: src/EBox/Event/Dispatcher/Log.pm:136
 msgid "Log file"
 msgstr "日誌檔案"
 
-#: src/EBox/Event/Dispatcher/Log.pm:150
+#: src/EBox/Event/Dispatcher/Log.pm:149
 msgid "Log"
 msgstr "日誌"
 
-#: src/EBox/Event/Dispatcher/RSS.pm:220
+#: src/EBox/Event/Dispatcher/RSS.pm:219
 #, perl-brace-format
 msgid "RSS file: {path}"
 msgstr "RSS 檔案: {path}"
 
-#: src/EBox/Event/Dispatcher/RSS.pm:234
+#: src/EBox/Event/Dispatcher/RSS.pm:233
 msgid "RSS"
 msgstr "RSS"
 
-#: src/EBox/Event/Dispatcher/RSS.pm:291
-#, perl-brace-format
-msgid "eBox alerts channel for {hostname}"
+#: src/EBox/Event/Dispatcher/RSS.pm:290
+#, fuzzy, perl-brace-format
+msgid "Zentyal alerts channel for {hostname}"
 msgstr "eBox 警告頻道 {hostname}"
 
-#: src/EBox/Event/Dispatcher/RSS.pm:294
-msgid "This channel tracks what happens on this eBox machine along the time"
+#: src/EBox/Event/Dispatcher/RSS.pm:293
+#, fuzzy
+msgid "This channel tracks what happens on this Zentyal machine along the time"
 msgstr "這個頻道追蹤隨著時間發生在這個 eBox 上的事"
 
-#: src/EBox/Event/Dispatcher/RSS.pm:314
-#, perl-brace-format
-msgid "The event has happened in eBox {hostname} from {source}"
+#: src/EBox/Event/Dispatcher/RSS.pm:313
+#, fuzzy, perl-brace-format
+msgid "The event has happened in Zentyal {hostname} from {source}"
 msgstr "此事件已發生在 eBox {hostname} 的 {source}"
 
-#: src/EBox/Event/Dispatcher/RSS.pm:318
+#: src/EBox/Event/Dispatcher/RSS.pm:317
 #, perl-brace-format
 msgid "Go to your {url} to check its status."
 msgstr "到您的 {url} 來確認狀態."
@@ -1024,41 +1046,41 @@ msgstr "到您的 {url} 來確認狀態."
 msgid "You must set the {variable} variable in the ebox configuration file"
 msgstr "您必須在 ebox 組態檔案中設定 {variable} 變數"
 
-#: src/EBox/PgDBEngine.pm:422
+#: src/EBox/PgDBEngine.pm:435
 #, perl-brace-format
 msgid "Error dumping the postgresql database {name}"
 msgstr "傾印 postgresql 資料庫 {name} 時發生錯誤"
 
-#: src/EBox/PgDBEngine.pm:440
+#: src/EBox/PgDBEngine.pm:453
 #, perl-brace-format
 msgid "DB dump file {file} is not readable"
 msgstr "DB 傾印檔案 {file} 無法讀取"
 
-#: src/EBox/Types/Int.pm:156
+#: src/EBox/Types/Int.pm:155
 msgid "Enter an integer number"
 msgstr "請輸入整數值"
 
-#: src/EBox/Types/Int.pm:163 src/EBox/Types/Float.pm:121
+#: src/EBox/Types/Int.pm:162 src/EBox/Types/Float.pm:120
 #, perl-brace-format
 msgid "The value shouldn't be greater than {m}"
 msgstr "這個值不應該大過 {m}"
 
-#: src/EBox/Types/Int.pm:173 src/EBox/Types/Float.pm:130
+#: src/EBox/Types/Int.pm:172 src/EBox/Types/Float.pm:129
 #, perl-brace-format
 msgid "The value shouldn't be less than {m}"
 msgstr "這個值不應該小於 {m}"
 
-#: src/EBox/Types/Password.pm:135
+#: src/EBox/Types/Password.pm:134
 #, perl-brace-format
 msgid "The password should have at least {minLength} characters"
 msgstr "密碼應該有至少 {minLength} 字元"
 
-#: src/EBox/Types/Password.pm:146
+#: src/EBox/Types/Password.pm:145
 #, perl-brace-format
 msgid "The password should have at most {maxLength} characters"
 msgstr "密碼應該不超過 {maxLength} 字元"
 
-#: src/EBox/Types/DomainName.pm:119
+#: src/EBox/Types/DomainName.pm:118
 msgid "IP addresses are not allowed"
 msgstr "IP 位址不允許"
 
@@ -1081,11 +1103,11 @@ msgstr "密碼已變更"
 msgid "\"From\" {from} must be greater than \"To\" {to}"
 msgstr "\"從\" {from} 必須大於 \"到\" {to}"
 
-#: src/EBox/Types/Float.pm:113
+#: src/EBox/Types/Float.pm:112
 msgid "Enter a float number"
 msgstr "請輸入浮點數"
 
-#: src/EBox/Types/Select.pm:342
+#: src/EBox/Types/Select.pm:341
 #, perl-brace-format
 msgid "Choose a value within the value set: {set}"
 msgstr "選擇一個值並設定: {set}"
@@ -1103,76 +1125,76 @@ msgid "Select report"
 msgstr "選擇報告"
 
 #: src/EBox/Logs/Model/SelectLog.pm:175
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:376
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:374
 msgid "logs"
 msgstr "日誌"
 
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:231
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:229
 msgid "never purge"
 msgstr "從不清除"
 
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:235
-#: src/EBox/Logs/Model/ForcePurge.pm:127
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:233
+#: src/EBox/Logs/Model/ForcePurge.pm:126
 msgid "one hour"
 msgstr "一小時"
 
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:239
-#: src/EBox/Logs/Model/ForcePurge.pm:131
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:237
+#: src/EBox/Logs/Model/ForcePurge.pm:130
 msgid "twelve hours"
 msgstr "12小時"
 
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:243
-#: src/EBox/Logs/Model/ForcePurge.pm:135
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:241
+#: src/EBox/Logs/Model/ForcePurge.pm:134
 msgid "one day"
 msgstr "一天"
 
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:247
-#: src/EBox/Logs/Model/ForcePurge.pm:139
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:245
+#: src/EBox/Logs/Model/ForcePurge.pm:138
 msgid "three days"
 msgstr "三天"
 
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:251
-#: src/EBox/Logs/Model/ForcePurge.pm:143
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:249
+#: src/EBox/Logs/Model/ForcePurge.pm:142
 msgid "one week"
 msgstr "一星期"
 
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:255
-#: src/EBox/Logs/Model/ForcePurge.pm:147
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:253
+#: src/EBox/Logs/Model/ForcePurge.pm:146
 msgid "fifteeen days"
 msgstr "15天"
 
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:259
-#: src/EBox/Logs/Model/ForcePurge.pm:151
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:257
+#: src/EBox/Logs/Model/ForcePurge.pm:150
 msgid "thirty days"
 msgstr "30天"
 
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:263
-#: src/EBox/Logs/Model/ForcePurge.pm:155
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:261
+#: src/EBox/Logs/Model/ForcePurge.pm:154
 msgid "ninety days"
 msgstr "90天"
 
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:350
-#: src/EBox/Logs/Model/ForcePurge.pm:101
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:348
+#: src/EBox/Logs/Model/ForcePurge.pm:100
 msgid "Purge logs older than"
 msgstr "清除舊的日誌超過"
 
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:367
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:365
 msgid "Current configuration"
 msgstr "目前設置"
 
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:368
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:366
 msgid "Logs configuration"
 msgstr "日誌設置"
 
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:374
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:372
 msgid "Enable/disable logging per-module basis"
 msgstr "啟用/停用每一個模組基本日誌"
 
-#: src/EBox/Logs/Model/ForcePurge.pm:110
+#: src/EBox/Logs/Model/ForcePurge.pm:109
 msgid "Force log purge"
 msgstr "強制清除日誌"
 
-#: src/EBox/Logs/Model/ForcePurge.pm:113
+#: src/EBox/Logs/Model/ForcePurge.pm:112
 msgid "Purge"
 msgstr "清除"
 
@@ -1206,58 +1228,58 @@ msgstr "報告時間週期"
 msgid "Report options"
 msgstr "報告選項"
 
-#: src/EBox/Common/Model/EnableForm.pm:101
+#: src/EBox/Common/Model/EnableForm.pm:100
 msgid "Service enabled"
 msgstr "服務啟動"
 
-#: src/EBox/Common/Model/EnableForm.pm:103
+#: src/EBox/Common/Model/EnableForm.pm:102
 msgid "Service disabled"
 msgstr "服務停止"
 
-#: src/EBox/Common/Model/EnableForm.pm:147
+#: src/EBox/Common/Model/EnableForm.pm:146
 msgid "Enable service"
 msgstr "啟用服務"
 
-#: src/EBox/Events.pm:200
+#: src/EBox/Events.pm:199
 #, fuzzy
 msgid "Initialize event dispatchers table"
 msgstr "啟用/停用事件調整"
 
-#: src/EBox/Events.pm:201
+#: src/EBox/Events.pm:200
 #, fuzzy
 msgid "Enable default log dispatcher"
 msgstr "啟用/停用事件調整"
 
-#: src/EBox/Events.pm:499
+#: src/EBox/Events.pm:498
 #, fuzzy
 msgid "The events module is not enabled to send events"
 msgstr "儲存變更 {name}"
 
-#: src/EBox/Events.pm:732
+#: src/EBox/Events.pm:731
 msgid "Event service status"
 msgstr "事件服務狀態"
 
-#: src/EBox/Events.pm:804
+#: src/EBox/Events.pm:803
 #, fuzzy
 msgid "Date of first event"
 msgstr "儲存為事件"
 
-#: src/EBox/Events.pm:805
+#: src/EBox/Events.pm:804
 #, fuzzy
 msgid "Date of last event"
 msgstr "儲存為事件"
 
-#: src/EBox/Events.pm:806
+#: src/EBox/Events.pm:805
 #, fuzzy
 msgid "Repetitions"
 msgstr "報告選項"
 
-#: src/EBox/Events.pm:807
+#: src/EBox/Events.pm:806
 #, fuzzy
 msgid "Level"
 msgstr "事件"
 
-#: src/EBox/Events.pm:809 src/templates/finish.mas:118
+#: src/EBox/Events.pm:808 src/templates/finish.mas:118
 msgid "Message"
 msgstr "訊息"
 
@@ -1305,18 +1327,18 @@ msgstr "上線參數必須是小時的整數"
 msgid "Provided object with index {i} does not exist"
 msgstr "索引 {i} 所提供單位不存在"
 
-#: src/EBox/Model/DataForm.pm:556
+#: src/EBox/Model/DataForm.pm:555
 #, perl-brace-format
 msgid "Remove data from {model}{br}"
 msgstr "移除資料從 {model}{br}"
 
-#: src/EBox/Model/DataForm.pm:605 src/templates/password.mas:53
+#: src/EBox/Model/DataForm.pm:604 src/templates/password.mas:67
 #: src/templates/dataInUse.mas:25 src/templates/dataInUse.mas:34
-#: src/templates/port.mas:14
+#: src/templates/port.mas:14 src/templates/hostname.mas:15
 msgid "Change"
 msgstr "改變"
 
-#: src/EBox/Model/DataForm.pm:710 src/templates/progress.mas:26
+#: src/EBox/Model/DataForm.pm:709 src/templates/progress.mas:26
 msgid "Done"
 msgstr "完成"
 
@@ -1409,7 +1431,7 @@ msgstr "{row} 已往上移"
 msgid "{row} moved down"
 msgstr "{row} 已往下移"
 
-#: src/EBox/Html.pm:41 src/templates/wizard.mas:134
+#: src/EBox/Html.pm:41 src/templates/wizard.mas:124
 msgid "Save changes"
 msgstr "儲存變更"
 
@@ -1471,9 +1493,10 @@ msgid "The backup file is corrupt."
 msgstr "此備份檔是損毀的."
 
 #: src/EBox/Backup.pm:915
+#, fuzzy
 msgid ""
 "The backup archive has a invalid type. Maybe the file is corrupt or you are "
-"using a incompatible eBox version"
+"using a incompatible Zentyal version"
 msgstr "此備份壓縮是無效的類型.可能檔案已損毀或是您使用不相容的 eBox 版本"
 
 #: src/EBox/Backup.pm:921
@@ -1511,72 +1534,72 @@ msgstr "模組 {topModule} 有未解決的還原相依性問題：{modName} 並�
 msgid "Backup's archives"
 msgstr "備份的壓縮檔"
 
-#: src/EBox/SysInfo.pm.in:51
+#: src/EBox/SysInfo.pm.in:52
 msgid "System Information"
 msgstr "系統資訊"
 
-#: src/EBox/SysInfo.pm.in:96
+#: src/EBox/SysInfo.pm.in:97
 msgid "available"
 msgstr ""
 
-#: src/EBox/SysInfo.pm.in:104
+#: src/EBox/SysInfo.pm.in:105
 msgid "Time"
 msgstr "時刻"
 
-#: src/EBox/SysInfo.pm.in:105
+#: src/EBox/SysInfo.pm.in:106
 msgid "Hostname"
 msgstr "主機名稱"
 
-#: src/EBox/SysInfo.pm.in:106
+#: src/EBox/SysInfo.pm.in:107
 #, fuzzy
 msgid "Core version"
 msgstr "eBox 版本"
 
-#: src/EBox/SysInfo.pm.in:108
+#: src/EBox/SysInfo.pm.in:109
 msgid "System load"
 msgstr "系統負載"
 
-#: src/EBox/SysInfo.pm.in:109
+#: src/EBox/SysInfo.pm.in:110
 #, fuzzy
 msgid "Uptime"
 msgstr "時刻"
 
-#: src/EBox/SysInfo.pm.in:110
+#: src/EBox/SysInfo.pm.in:111
 #, fuzzy
 msgid "Users"
 msgstr "使用者"
 
-#: src/EBox/SysInfo.pm.in:156 src/EBox/SysInfo.pm.in:249
+#: src/EBox/SysInfo.pm.in:165 src/EBox/SysInfo.pm.in:258
 msgid "Module Status"
 msgstr "模組狀態"
 
-#: src/EBox/SysInfo.pm.in:161
+#: src/EBox/SysInfo.pm.in:170
 msgid "General Information"
 msgstr "一般資訊"
 
-#: src/EBox/SysInfo.pm.in:166
+#: src/EBox/SysInfo.pm.in:175
 msgid "Process List"
 msgstr "程序清單"
 
-#: src/EBox/SysInfo.pm.in:173
+#: src/EBox/SysInfo.pm.in:182
 #, fuzzy
 msgid "Resources & Services"
 msgstr "遠端服務"
 
-#: src/EBox/SysInfo.pm.in:255 src/EBox/Report/DiskUsage.pm:352
+#: src/EBox/SysInfo.pm.in:264 src/EBox/Report/DiskUsage.pm:352
 msgid "System"
 msgstr "系統"
 
-#: src/EBox/SysInfo.pm.in:259
+#: src/EBox/SysInfo.pm.in:268
 msgid "General"
 msgstr "一般"
 
-#: src/EBox/SysInfo.pm.in:274
+#: src/EBox/SysInfo.pm.in:283
 #, fuzzy
 msgid "Configuration Report"
 msgstr "組態還原"
 
-#: src/EBox/SysInfo.pm.in:277
+#: src/EBox/SysInfo.pm.in:286
 msgid "Halt/Reboot"
 msgstr "關機/重新開機"
 
@@ -1586,7 +1609,7 @@ msgstr "連接埠"
 
 #: src/EBox/Apache.pm:600
 #, fuzzy
-msgid "eBox web server"
+msgid "Zentyal web server"
 msgstr "eBox 內部網頁伺服器"
 
 #: src/EBox/Global.pm:484
@@ -1594,12 +1617,12 @@ msgstr "eBox 內部網頁伺服器"
 msgid "Enabling {modName} module"
 msgstr "儲存 {modName} 模組中"
 
-#: src/EBox/Global.pm:514 src/EBox/Global.pm:541
+#: src/EBox/Global.pm:514 src/EBox/Global.pm:545
 #, perl-brace-format
 msgid "Saving {modName} module"
 msgstr "儲存 {modName} 模組中"
 
-#: src/EBox/Global.pm:1058
+#: src/EBox/Global.pm:1062
 #, perl-brace-format
 msgid "running {scriptName} script"
 msgstr "執行 {scriptName} script中"
@@ -1620,36 +1643,36 @@ msgstr "無效的檔案系統: {f}.只有標準的和非移動式媒體檔案系
 msgid "Free space"
 msgstr "可用空間"
 
-#: src/templates/configurationFiles.mas:28
+#: src/templates/configurationFiles.mas:12
 msgid "Do you wish to overwrite these files?"
 msgstr "是否要覆蓋這些檔案？"
 
-#: src/templates/configurationFiles.mas:35
+#: src/templates/configurationFiles.mas:19
 msgid "Keep current file"
 msgstr "保留目前的檔案"
 
-#: src/templates/configurationFiles.mas:39
+#: src/templates/configurationFiles.mas:23
 msgid "Modify"
 msgstr "修改"
 
-#: src/templates/wizard.mas:73 src/templates/wizard.mas:74
+#: src/templates/wizard.mas:68 src/templates/wizard.mas:69
 msgid "Finish"
 msgstr ""
 
-#: src/templates/wizard.mas:131
+#: src/templates/wizard.mas:121
 #, fuzzy
 msgid "Congratulations!"
 msgstr "設置"
 
-#: src/templates/wizard.mas:132
-msgid "Now you are ready to save changes and start using your eBox"
+#: src/templates/wizard.mas:122
+msgid "Now you are ready to save changes and start using your Zentyal server"
 msgstr ""
 
-#: src/templates/wizard.mas:151 src/templates/wizard.mas:161
+#: src/templates/wizard.mas:144 src/templates/wizard.mas:154
 msgid "Skip"
 msgstr ""
 
-#: src/templates/wizard.mas:152 src/templates/wizard.mas:162
+#: src/templates/wizard.mas:145 src/templates/wizard.mas:155
 #, fuzzy
 msgid "Next"
 msgstr "後一項"
@@ -1670,24 +1693,27 @@ msgstr "遠端備份"
 msgid "Remote Backup from Other Subscribed Hosts"
 msgstr "從其他訂閱的主機遠端備份"
 
-#: src/templates/configureView.mas:16
+#: src/templates/configureView.mas:12
+#, fuzzy
 msgid ""
-"Enabling this module will cause eBox to perform the actions and file "
+"Enabling this module will cause Zentyal to perform the actions and file "
 "modifications listed below. You must explicitly accept these changes to "
 "enable the module."
 msgstr ""
 "啟用這個模組會使 eBox 進行下面列出的動作與檔案的修改。您必須明確的接受這些變"
 "更才能啟用這個模組。"
 
-#: src/templates/configureView.mas:20
-msgid "Actions to perform by eBox"
+#: src/templates/configureView.mas:16
+#, fuzzy
+msgid "Actions to perform by Zentyal"
 msgstr "eBox 要進行的動作"
 
-#: src/templates/configureView.mas:35
-msgid "Files to modify by eBox"
+#: src/templates/configureView.mas:31
+#, fuzzy
+msgid "Files to modify by Zentyal"
 msgstr "eBox 要修改的檔案"
 
-#: src/templates/configureView.mas:54
+#: src/templates/configureView.mas:50
 msgid "Accept"
 msgstr "接受"
 
@@ -1713,16 +1739,18 @@ msgid "Running unmanaged"
 msgstr ""
 
 #: src/templates/dashboard/index.mas:32 src/templates/dashboard/status.mas:28
-msgid "The service is running, but not enabled in eBox"
-msgstr ""
+#, fuzzy
+msgid "The service is running, but not enabled in Zentyal"
+msgstr "eBox 已啟動並執行中"
 
 #: src/templates/dashboard/index.mas:36 src/templates/dashboard/status.mas:31
 msgid "Disabled"
 msgstr "停用"
 
 #: src/templates/dashboard/index.mas:37 src/templates/dashboard/status.mas:32
-msgid "The service is not enabled in eBox"
-msgstr ""
+#, fuzzy
+msgid "The service is not enabled in Zentyal"
+msgstr "eBox 已啟動並執行中"
 
 #: src/templates/dashboard/index.mas:42 src/templates/dashboard/status.mas:25
 msgid "Start"
@@ -1892,10 +1920,11 @@ msgid "items left"
 msgstr "剩餘項目"
 
 #: src/templates/progress.mas:27
-msgid "Some error has happened in eBox: "
+#, fuzzy
+msgid "Some error has happened in Zentyal: "
 msgstr "在 eBox 中發生了某些錯誤： "
 
-#: src/templates/progress.mas:137
+#: src/templates/progress.mas:152
 msgid "Starting..."
 msgstr "正在啟動..."
 
@@ -2067,8 +2096,8 @@ msgstr "備份目前的狀態"
 
 #: src/templates/backup.mas:28
 msgid ""
-"Backups will be stored in eBox and then you will be able to download them to "
-"your hard disk."
+"Backups will be stored in Zentyal and then you will be able to download them "
+"to your hard disk."
 msgstr ""
 
 #: src/templates/backup.mas:29
@@ -2152,6 +2181,28 @@ msgstr "還原"
 msgid "delete"
 msgstr "刪除"
 
+#: src/templates/links-widget.mas:5
+#, fuzzy
+msgid "Community Resources"
+msgstr "組態還原"
+
+#: src/templates/links-widget.mas:10
+#, fuzzy
+msgid "Documentation"
+msgstr "網域"
+
+#: src/templates/links-widget.mas:12
+msgid "Forum"
+msgstr ""
+
+#: src/templates/links-widget.mas:14
+msgid "Report a bug"
+msgstr ""
+
+#: src/templates/links-widget.mas:16
+msgid "How to Contribute"
+msgstr ""
+
 #: src/templates/bug.mas:9
 #, fuzzy
 msgid ""
@@ -2191,15 +2242,15 @@ msgstr "改變密碼"
 msgid "Your password must be at least 6 characters long."
 msgstr "您的密碼長度必須至少有 6 個字元。"
 
-#: src/templates/password.mas:11
+#: src/templates/password.mas:25
 msgid "Current password"
 msgstr "目前的密碼"
 
-#: src/templates/password.mas:25
+#: src/templates/password.mas:39
 msgid "New password"
 msgstr "新的密碼"
 
-#: src/templates/password.mas:39
+#: src/templates/password.mas:53
 msgid "Confirm password"
 msgstr "確認密碼"
 
@@ -2210,7 +2261,7 @@ msgstr "警告：已開啟 Caps Lock"
 #: src/templates/login/index.mas:43
 #, perl-brace-format
 msgid ""
-"Warning: Unfortunately Internet Explorer is not yet supported on eBox. "
+"Warning: Unfortunately Internet Explorer is not yet supported on Zentyal. "
 "Please use {url} instead."
 msgstr ""
 
@@ -2219,10 +2270,10 @@ msgstr ""
 msgid ""
 "Warning: You are using a browser which is not {url}, the only one officially "
 "supported. Please, take into consideration that you might face some issues "
-"while navigating on eBox UI."
+"while navigating on Zentyal UI."
 msgstr ""
 
-#: src/templates/login/index.mas:58
+#: src/templates/login/index.mas:63
 msgid "Enter"
 msgstr ""
 
@@ -2245,6 +2296,17 @@ msgstr "還原模式"
 #: src/templates/port.mas:9
 msgid "Administration Interface TCP Port"
 msgstr "管理介面 TCP 連接埠"
+
+#: src/templates/hostname.mas:9
+#, fuzzy
+msgid "Change Hostname"
+msgstr "變更已儲存"
+
+#: src/templates/hostname.mas:10
+msgid ""
+"You will need to restart all the services or reboot the system to apply the "
+"hostname change."
+msgstr ""
 
 #~ msgid "modules left to restore"
 #~ msgstr "剩下要還原的模組"
@@ -2358,9 +2420,6 @@ msgstr "管理介面 TCP 連接埠"
 #~ "Prior to make a subscription on remote services, enable the OpenVPN "
 #~ "module and save or discard its changes"
 #~ msgstr "在遠端服務進行訂閱之前，請先啟用 OpenVPN 模組並儲存或放棄它的變更"
-
-#~ msgid "User name"
-#~ msgstr "使用者名稱"
 
 #~ msgid "eBox common name"
 #~ msgstr "eBox 一般名稱"

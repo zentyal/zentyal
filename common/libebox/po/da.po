@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libebox 0.12.1\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
-"POT-Creation-Date: 2010-07-21 00:53+0200\n"
+"POT-Creation-Date: 2010-08-25 17:53+0200\n"
 "PO-Revision-Date: 2007-09-28 10:49+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -76,7 +76,8 @@ msgstr ""
 "kan findes i dine logs."
 
 #: src/EBox/CGI/Base.pm:578
-msgid "You have just hit a bug in eBox. Please seek technical support."
+#, fuzzy
+msgid "You have just hit a bug in Zentyal. Please seek technical support."
 msgstr "Du har fundet en fejl i eBox. Kontakt venligst teknisk support."
 
 #: src/EBox/CGI/Base.pm:664
@@ -118,7 +119,7 @@ msgstr "Kunne ikke åbne konfigurationsfilen {file}."
 msgid "The ebox user has not been set in the config file."
 msgstr "eBox brugeren er ikke blevet defineret i konfigurationsfilen."
 
-#: src/EBox/Sudo.pm:269
+#: src/EBox/Sudo.pm:267
 #, perl-brace-format
 msgid "Running command '{cmd}' as {user} failed"
 msgstr "Dit forsøg med kommandoen '{cmd}' som {user} mislykkedes."
@@ -283,7 +284,8 @@ msgid "last"
 msgstr "Sidste"
 
 #: src/templates/ebox/pageNotFound.mas:3
-msgid "eBox's homepage"
+#, fuzzy
+msgid "Zentyal homepage"
 msgstr "eBox's hjemmeside"
 
 #: src/templates/ebox/pageNotFound.mas:7
@@ -291,9 +293,10 @@ msgid "If you typed the URL manually, please check it"
 msgstr "Tjek venligst din adresselinje hvis du skrev URL'en manuelt."
 
 #: src/templates/ebox/pageNotFound.mas:8
+#, fuzzy
 msgid ""
-"Maybe a change in eBox's configuration or software made no longer available "
-"the requested page"
+"Maybe a change in the Zentyal configuration or software made no longer "
+"available the requested page"
 msgstr ""
 "Måske er siden ikke tilgængelig længere på grund af en ændring i eBoxs "
 "opsætning eller software"

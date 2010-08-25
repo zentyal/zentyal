@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-dhcp 0.12\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
-"POT-Creation-Date: 2010-08-13 13:39+0200\n"
+"POT-Creation-Date: 2010-08-25 17:46+0200\n"
 "PO-Revision-Date: 2010-08-18 21:47+0200\n"
 "Last-Translator: Cyril MARTY <cyril_marty@yahoo.fr>\n"
 "Language-Team: <es@li.org>\n"
@@ -46,7 +46,7 @@ msgstr "Interface"
 msgid "MAC address"
 msgstr "Adresse MAC"
 
-#: src/EBox/CGI/AddFixed.pm:46 src/EBox/Model/ThinClientOptions.pm:243
+#: src/EBox/CGI/AddFixed.pm:46 src/EBox/Model/ThinClientOptions.pm:242
 #: src/EBox/Model/FixedAddressTable.pm:221 src/EBox/DHCP.pm:1333
 #: src/templates/fixed.mas:10
 msgid "IP address"
@@ -72,81 +72,82 @@ msgstr "À"
 msgid "module status"
 msgstr "statut du module"
 
-#: src/EBox/Model/ThinClientOptions.pm:119 src/EBox/Model/LeaseTimes.pm:113
-#: src/EBox/Model/FixedAddressTable.pm:98 src/EBox/Model/DynamicDNS.pm:111
-#: src/EBox/Model/RangeInfo.pm:109 src/EBox/Model/Options.pm:120
-#: src/EBox/Model/RangeTable.pm:96 src/EBox/Composite/OptionsTab.pm:88
-#: src/EBox/Composite/InterfaceConfiguration.pm:88
-#: src/EBox/Composite/AdvancedOptions.pm:89
+#: src/EBox/Model/ThinClientOptions.pm:118 src/EBox/Model/LeaseTimes.pm:112
+#: src/EBox/Model/FixedAddressTable.pm:98 src/EBox/Model/DynamicDNS.pm:110
+#: src/EBox/Model/RangeInfo.pm:108 src/EBox/Model/Options.pm:119
+#: src/EBox/Model/RangeTable.pm:96 src/EBox/Composite/OptionsTab.pm:87
+#: src/EBox/Composite/InterfaceConfiguration.pm:87
+#: src/EBox/Composite/AdvancedOptions.pm:88
 #, perl-brace-format
 msgid "interface {iface}"
 msgstr "interface {iface}"
 
-#: src/EBox/Model/ThinClientOptions.pm:140
-msgid "You need to upload a boot image to eBox if you set it as next server"
+#: src/EBox/Model/ThinClientOptions.pm:139
+#, fuzzy
+msgid "You need to upload a boot image to Zentyal if you set it as next server"
 msgstr ""
 "Vous devez envoyer une image de boot à eBox si vous le sélectionné comme "
 "serveur suivant"
 
-#: src/EBox/Model/ThinClientOptions.pm:147
+#: src/EBox/Model/ThinClientOptions.pm:146
+#, fuzzy
 msgid ""
-"In order to upload a boot image to eBox, you need to set eBox as next server"
+"In order to upload a boot image to Zentyal, you need to set Zentyal as next "
+"server"
 msgstr ""
 "Pour pouvoir envoyer une image de boot depuis eBox, vous devez définir eBox "
 "en tant que serveur suivant"
 
-#: src/EBox/Model/ThinClientOptions.pm:154
+#: src/EBox/Model/ThinClientOptions.pm:153
 msgid "You need to specify a path to the boot image in the remote server"
 msgstr ""
 "Vous devez spécifier le chemin de l'image de boot sur le serveur distant"
 
-#: src/EBox/Model/ThinClientOptions.pm:159
+#: src/EBox/Model/ThinClientOptions.pm:158
+#, fuzzy
 msgid ""
-"You can only specify a file name if you have a next server and it is not eBox"
+"You can only specify a file name if you have a next server and it is not "
+"Zentyal"
 msgstr ""
 "Vous pouvez seulement spécifier un nom de fichiersi vous possédez un serveur "
 "suivant et que ce dernier n'est pas un eBox"
 
-#: src/EBox/Model/ThinClientOptions.pm:210
-#, perl-brace-format
+#: src/EBox/Model/ThinClientOptions.pm:209
+#, fuzzy, perl-brace-format
 msgid ""
 "Removing previously uploaded boot image since next server option has been "
-"changed from eBox to {option}"
+"changed from Zentyal to {option}"
 msgstr ""
 "Suppression de l'image de boot existante tant que l'option du serveur "
 "suivant sera de {option} au lieu de eBox"
 
-#: src/EBox/Model/ThinClientOptions.pm:233
+#: src/EBox/Model/ThinClientOptions.pm:232
 msgid "Next server"
 msgstr "Prochain serveur"
 
-#: src/EBox/Model/ThinClientOptions.pm:237 src/EBox/Model/Options.pm:372
-#: src/EBox/Model/Options.pm:406 src/EBox/Model/Options.pm:410
-#: src/EBox/Model/Options.pm:424 src/EBox/Model/Options.pm:457
+#: src/EBox/Model/ThinClientOptions.pm:236 src/EBox/Model/Options.pm:371
+#: src/EBox/Model/Options.pm:405 src/EBox/Model/Options.pm:409
+#: src/EBox/Model/Options.pm:423 src/EBox/Model/Options.pm:456
 msgid "None"
 msgstr "Aucun"
 
-#: src/EBox/Model/ThinClientOptions.pm:240 src/EBox/Model/Options.pm:447
-msgid "eBox"
-msgstr "eBox"
-
-#: src/EBox/Model/ThinClientOptions.pm:247
+#: src/EBox/Model/ThinClientOptions.pm:246
 msgid "name"
 msgstr "nom"
 
-#: src/EBox/Model/ThinClientOptions.pm:253
+#: src/EBox/Model/ThinClientOptions.pm:252
 msgid "File name"
 msgstr "Nom de fichier"
 
-#: src/EBox/Model/ThinClientOptions.pm:262
+#: src/EBox/Model/ThinClientOptions.pm:261
 msgid "File path in next server"
 msgstr "Chemin d'accès au prochain serveur"
 
-#: src/EBox/Model/ThinClientOptions.pm:270
+#: src/EBox/Model/ThinClientOptions.pm:269
 msgid "Thin client"
 msgstr "Client léger"
 
-#: src/EBox/Model/ThinClientOptions.pm:275
+#: src/EBox/Model/ThinClientOptions.pm:274
 #, perl-brace-format
 msgid ""
 "You may want to customise your thin client options.To do so, you may include "
@@ -156,45 +157,45 @@ msgstr ""
 "faire, vous pouvez inclure tous les fichiers dont vous avez besoin sous "
 "{path}"
 
-#: src/EBox/Model/LeaseTimes.pm:133
+#: src/EBox/Model/LeaseTimes.pm:132
 msgid "Default leased time must be higher than 0 seconds"
 msgstr "Le temps alloué par défaut doit être supérieur à 0 secondes"
 
-#: src/EBox/Model/LeaseTimes.pm:139
+#: src/EBox/Model/LeaseTimes.pm:138
 #, perl-brace-format
 msgid "Default leased time {default} must be lower than maximum one {max}"
 msgstr ""
 "Le temps alloué par défaut {default} doit être inférieur au temps maximum "
 "{max}"
 
-#: src/EBox/Model/LeaseTimes.pm:151
+#: src/EBox/Model/LeaseTimes.pm:150
 msgid "Maximum leased time must be higher than 0 seconds"
 msgstr "Le temps alloué maximum doit être supérieur à 0 secondes"
 
-#: src/EBox/Model/LeaseTimes.pm:157
+#: src/EBox/Model/LeaseTimes.pm:156
 #, perl-brace-format
 msgid "Maximum leased time {max} must be higher than default one {default}"
 msgstr ""
 "Le temps alloué maximum {max} doit être supérieur au temps par défaut "
 "{default}"
 
-#: src/EBox/Model/LeaseTimes.pm:201
+#: src/EBox/Model/LeaseTimes.pm:200
 msgid "Default leased time"
 msgstr "Temps alloué par défaut"
 
-#: src/EBox/Model/LeaseTimes.pm:204 src/EBox/Model/LeaseTimes.pm:211
+#: src/EBox/Model/LeaseTimes.pm:203 src/EBox/Model/LeaseTimes.pm:210
 msgid "seconds"
 msgstr "secondes"
 
-#: src/EBox/Model/LeaseTimes.pm:208
+#: src/EBox/Model/LeaseTimes.pm:207
 msgid "Maximum leased time"
 msgstr "Temps alloué maximum"
 
-#: src/EBox/Model/LeaseTimes.pm:217
+#: src/EBox/Model/LeaseTimes.pm:216
 msgid "Lease times"
 msgstr "Temps alloués"
 
-#: src/EBox/Model/LeaseTimes.pm:222
+#: src/EBox/Model/LeaseTimes.pm:221
 msgid ""
 "Leased time is the time which a given IP address is valid by the DHCP server"
 msgstr ""
@@ -251,38 +252,38 @@ msgstr "Adresses fixes"
 msgid "fixed address"
 msgstr "adresse fixe"
 
-#: src/EBox/Model/DynamicDNS.pm:132 src/EBox/Model/DynamicDNS.pm:140
-#: src/EBox/Model/DynamicDNS.pm:387
+#: src/EBox/Model/DynamicDNS.pm:131 src/EBox/Model/DynamicDNS.pm:139
+#: src/EBox/Model/DynamicDNS.pm:386
 #, perl-brace-format
 msgid "Domain {domain} has already been defined manually in DNS section"
 msgstr "Le domaine {domain} a déjà été défini manuellement dans la section DNS"
 
-#: src/EBox/Model/DynamicDNS.pm:241
+#: src/EBox/Model/DynamicDNS.pm:240
 msgid "DNS module must be configured to work with this feature"
 msgstr "Le module DNS doit être configuré pour travailler avec cette option"
 
-#: src/EBox/Model/DynamicDNS.pm:244
+#: src/EBox/Model/DynamicDNS.pm:243
 #, perl-brace-format
 msgid "{pkg} must be installed to use this feature"
 msgstr "{pkg} doit être installé pour utiliser cette option"
 
-#: src/EBox/Model/DynamicDNS.pm:266
+#: src/EBox/Model/DynamicDNS.pm:265
 msgid ""
 "Domains will be added/set automatically in DNS section in read-only mode."
 msgstr ""
 "Les domaines vont être ajoutés/configurés automatiquement dans la section "
 "DNS en mode lecture-seule"
 
-#: src/EBox/Model/DynamicDNS.pm:268
+#: src/EBox/Model/DynamicDNS.pm:267
 msgid "DNS module must be enabled to make this feature work. "
 msgstr "Le module DNS doit être activé pour que cette option fonctionne."
 
-#: src/EBox/Model/DynamicDNS.pm:332
+#: src/EBox/Model/DynamicDNS.pm:331
 msgid "Dynamic domain"
 msgstr "Domaine dynamique"
 
 # A voir dans son contexte ?
-#: src/EBox/Model/DynamicDNS.pm:334
+#: src/EBox/Model/DynamicDNS.pm:333
 msgid ""
 "Domain name appended to the hostname from those clients whose leased IP "
 "address comes from a range"
@@ -290,11 +291,11 @@ msgstr ""
 "Nom de domaine concaténé au nom d'hôte des clients dont les adresses IP "
 "allouées proviennent d'une plage"
 
-#: src/EBox/Model/DynamicDNS.pm:339
+#: src/EBox/Model/DynamicDNS.pm:338
 msgid "Static domain"
 msgstr "Domaine statique"
 
-#: src/EBox/Model/DynamicDNS.pm:341
+#: src/EBox/Model/DynamicDNS.pm:340
 msgid ""
 "Domain name appended to the hostname from those clients with a fixed address "
 "mapping"
@@ -302,117 +303,126 @@ msgstr ""
 "Nom de domaine concaténé au nom d'hôte des clients dont les adresses IP fixe "
 "proviennent d'une plage"
 
-#: src/EBox/Model/DynamicDNS.pm:346
+#: src/EBox/Model/DynamicDNS.pm:345
 msgid "Same as Dynamic Domain"
 msgstr "Identique au domaine dynamique"
 
-#: src/EBox/Model/DynamicDNS.pm:350 src/EBox/Model/Options.pm:377
-#: src/EBox/Model/Options.pm:400 src/EBox/Model/Options.pm:419
-#: src/EBox/Model/Options.pm:433
+#: src/EBox/Model/DynamicDNS.pm:349 src/EBox/Model/Options.pm:376
+#: src/EBox/Model/Options.pm:399 src/EBox/Model/Options.pm:418
+#: src/EBox/Model/Options.pm:432
 msgid "Custom"
 msgstr "Personnalisé"
 
-#: src/EBox/Model/DynamicDNS.pm:358
+#: src/EBox/Model/DynamicDNS.pm:357
 msgid "Dynamic DNS Options"
 msgstr "Options de DNS dynamique"
 
-#: src/EBox/Model/DynamicDNS.pm:363
+#: src/EBox/Model/DynamicDNS.pm:362
 msgid "The domains will be added automatically to DNS module in read-only mode"
 msgstr ""
 "Les domaines vont être automatiquement ajoutés au module DNS en mode lecture-"
 "seule"
 
-#: src/EBox/Model/DynamicDNS.pm:395
+#: src/EBox/Model/DynamicDNS.pm:394
 #, perl-brace-format
 msgid "Domain \"{domain}\" added to DNS section"
 msgstr "Domaine \"{domain}\" ajouté à la section DNS"
 
-#: src/EBox/Model/DynamicDNS.pm:406
+#: src/EBox/Model/DynamicDNS.pm:405
 #, perl-brace-format
 msgid "Domain \"{domain}\" removed from DNS section"
 msgstr "Domaine \"{domain}\" supprimé de la section DNS"
 
-#: src/EBox/Model/RangeInfo.pm:144
+#: src/EBox/Model/RangeInfo.pm:143
 msgid "Interface IP address"
 msgstr "Adresse IP de l'interface"
 
-#: src/EBox/Model/RangeInfo.pm:148 src/templates/ranges.mas:20
+#: src/EBox/Model/RangeInfo.pm:147 src/templates/ranges.mas:20
 msgid "Subnet"
 msgstr "Sous-réseau"
 
-#: src/EBox/Model/RangeInfo.pm:152 src/templates/ranges.mas:40
+#: src/EBox/Model/RangeInfo.pm:151 src/templates/ranges.mas:40
 msgid "Available range"
 msgstr "Plage disponible"
 
-#: src/EBox/Model/RangeInfo.pm:158 src/templates/ranges.mas:15
+#: src/EBox/Model/RangeInfo.pm:157 src/templates/ranges.mas:15
 msgid "DHCP ranges"
 msgstr "Plage DHCP"
 
-#: src/EBox/Model/Options.pm:158
+#: src/EBox/Model/Options.pm:157
 #, perl-brace-format
 msgid "{gateway} is not in the current network"
 msgstr "{gateway} n'est pas dans le réseau actuel"
 
-#: src/EBox/Model/Options.pm:170
+#: src/EBox/Model/Options.pm:169
+#, fuzzy
 msgid ""
-"DNS module must be enabled to be able to select eBox as primary DNS server"
+"DNS module must be enabled to be able to select Zentyal as primary DNS server"
 msgstr ""
 "Le module DNS doit être activé pour permettre de définir eBox en tant que "
 "serveur DNS primaire"
 
-#: src/EBox/Model/Options.pm:180
-msgid "NTP module must be enabled to be able to select eBox as NTP server"
+#: src/EBox/Model/Options.pm:179
+#, fuzzy
+msgid "NTP module must be enabled to be able to select Zentyal as NTP server"
 msgstr ""
 "Le module NTP doit être activé pour permettre de définir eBox en tant que "
 "serveur NTP"
 
-#: src/EBox/Model/Options.pm:191
-msgid "Samba module must be enabled to be able to select eBox as WINS server"
+#: src/EBox/Model/Options.pm:190
+#, fuzzy
+msgid ""
+"Samba module must be enabled to be able to select Zentyal as WINS server"
 msgstr ""
 "Le module Samba doit être activé pour permettre de définir Bbox en tant que "
 "serveur WINS"
 
-#: src/EBox/Model/Options.pm:385
-msgid "eBox's domain"
-msgstr "Domaine d'eBox"
+#: src/EBox/Model/Options.pm:384
+#, fuzzy
+msgid "Zentyal domain"
+msgstr "Domaine statique"
 
-#: src/EBox/Model/Options.pm:393
-msgid "local eBox DNS"
+#: src/EBox/Model/Options.pm:392
+#, fuzzy
+msgid "local Zentyal DNS"
 msgstr "DNS locale d'eBox"
 
-#: src/EBox/Model/Options.pm:415
-msgid "local eBox NTP"
+#: src/EBox/Model/Options.pm:414
+#, fuzzy
+msgid "local Zentyal NTP"
 msgstr "NTP locale d'eBox"
 
-#: src/EBox/Model/Options.pm:429
-msgid "local eBox"
+#: src/EBox/Model/Options.pm:428
+#, fuzzy
+msgid "local Zentyal"
 msgstr "eBox local"
 
-#: src/EBox/Model/Options.pm:441 src/templates/options.mas:18
+#: src/EBox/Model/Options.pm:440 src/templates/options.mas:18
 msgid "Default gateway"
 msgstr "Passerelle par défaut"
 
-#: src/EBox/Model/Options.pm:451
+#: src/EBox/Model/Options.pm:450
 msgid "Custom IP address"
 msgstr "Adresse IP personnalisée"
 
-#: src/EBox/Model/Options.pm:461
+#: src/EBox/Model/Options.pm:460
 msgid "Configured ones"
 msgstr "Configuré"
 
-#: src/EBox/Model/Options.pm:467
+#: src/EBox/Model/Options.pm:466
+#, fuzzy
 msgid ""
-"Setting \"eBox\" as default gateway will set the interface IP address as "
+"Setting \"Zentyal\" as default gateway will set the interface IP address as "
 "gateway"
 msgstr ""
 "Régler \"ebox\" comme passerelle par défaut définira l'adresse IP de "
 "l'interface comme passerelle"
 
-#: src/EBox/Model/Options.pm:473 src/templates/options.mas:29
+#: src/EBox/Model/Options.pm:472 src/templates/options.mas:29
 msgid "Search domain"
 msgstr "Recherche d'un domaine"
 
-#: src/EBox/Model/Options.pm:476
+#: src/EBox/Model/Options.pm:475
 msgid ""
 "The selected domain will complete on your clients those DNS queries which "
 "are not fully qualified"
@@ -420,56 +430,60 @@ msgstr ""
 "Le domaine sélectionné fonctionnera sur vos clients pour lesquels les "
 "requêtes DNS qui ne sont pas pleinement qualifiées  "
 
-#: src/EBox/Model/Options.pm:481 src/templates/options.mas:41
+#: src/EBox/Model/Options.pm:480 src/templates/options.mas:41
 msgid "Primary nameserver"
 msgstr "Serveur de nom primaire"
 
-#: src/EBox/Model/Options.pm:484
+#: src/EBox/Model/Options.pm:483
+#, fuzzy
 msgid ""
-"If \"eBox DNS\" is present and selected, the eBox server will act as cache "
-"DNS server"
+"If \"Zentyal DNS\" is present and selected, the Zentyal server will act as "
+"cache DNS server"
 msgstr ""
 "Si \"eBox DNS\" est présent et sélectionné, le serveur eBox agira en tant "
 "que serveur de cache DNS"
 
-#: src/EBox/Model/Options.pm:489 src/templates/options.mas:52
+#: src/EBox/Model/Options.pm:488 src/templates/options.mas:52
 msgid "Secondary nameserver"
 msgstr "Serveur de nom secondaire"
 
-#: src/EBox/Model/Options.pm:495
+#: src/EBox/Model/Options.pm:494
 msgid "NTP server"
 msgstr "Serveur NTP"
 
-#: src/EBox/Model/Options.pm:498
+#: src/EBox/Model/Options.pm:497
+#, fuzzy
 msgid ""
-"If \"eBox NTP\" is present and selected, eBox will be the NTP server for "
-"DHCP clients"
+"If \"Zentyal NTP\" is present and selected, Zentyal will be the NTP server "
+"for DHCP clients"
 msgstr ""
 "Si \"eBox NTP\" est présent et sélectionné, le serveur eBox agira en tant "
 "que serveur de temps pour les clients DHCP"
 
-#: src/EBox/Model/Options.pm:503
+#: src/EBox/Model/Options.pm:502
 msgid "WINS server"
 msgstr "Serveur WINS"
 
-#: src/EBox/Model/Options.pm:506
+#: src/EBox/Model/Options.pm:505
+#, fuzzy
 msgid ""
-"If \"eBox Samba\" is present and selected, eBox will be the WINS server for "
-"DHCP clients"
+"If \"Zentyal Samba\" is present and selected, Zentyal will be the WINS "
+"server for DHCP clients"
 msgstr ""
 "Si \"eBox Samba\" est présent et sélectionné, le serveur eBox agira en tant "
 "que serveur WINS pour les clients DHCP"
 
-#: src/EBox/Model/Options.pm:513
+#: src/EBox/Model/Options.pm:512
 msgid "Common options"
 msgstr "Options communes"
 
-#: src/EBox/Model/Options.pm:518
+#: src/EBox/Model/Options.pm:517
+#, fuzzy
 msgid ""
 "If you set a \"configured ones\" as default gateway, you may choose one the "
 "configured gateways. As \"search domain\" value, one of the configured DNS "
-"domains on eBox might be chosen. All fields are optionals setting its value "
-"as \"None\" or leaving blank."
+"domains on Zentyal might be chosen. All fields are optionals setting its "
+"value as \"None\" or leaving blank."
 msgstr ""
 "Si vous définissez la passerelle par défaut comme \"configurée une fois\", "
 "vous pouvez choisir parmi une des passerelles configurées. Vous pouvez "
@@ -588,7 +602,7 @@ msgstr "Nom d'hôte"
 msgid "DHCP leases"
 msgstr "Baux DHCP"
 
-#: src/EBox/Composite/General.pm:80
+#: src/EBox/Composite/General.pm:79
 #, perl-brace-format
 msgid ""
 "An interface must set as static to configure the DHCP service on it. To do "
@@ -598,15 +612,15 @@ msgstr ""
 "service DHCP. Pour le faire, modifier {openhref}la configuration des "
 "interfaces{closehref} dans le module réseau"
 
-#: src/EBox/Composite/Interfaces.pm:109
+#: src/EBox/Composite/Interfaces.pm:108
 msgid "Choose a static interface to configure:"
 msgstr "Choisir une interface statique à configurer :"
 
-#: src/EBox/Composite/Interfaces.pm:110
+#: src/EBox/Composite/Interfaces.pm:109
 msgid "Service configuration"
 msgstr "Configuration du service"
 
-#: src/EBox/Composite/Interfaces.pm:111
+#: src/EBox/Composite/Interfaces.pm:110
 msgid ""
 "In order to serve IP addresses on an interface, it is required to set at "
 "least a range or a fixed address."
@@ -614,7 +628,7 @@ msgstr ""
 "Afin de fournir les adresses IP sur une interface, vous devez définir au "
 "moins une plage ou une adresse fixe"
 
-#: src/EBox/Composite/InterfaceConfiguration.pm:113
+#: src/EBox/Composite/InterfaceConfiguration.pm:112
 #, perl-brace-format
 msgid ""
 "In order to serve IP addresses on a external interface, you must open the "
@@ -623,7 +637,7 @@ msgstr ""
 "Afin de fournir des adresses IP sur une interface externe, vous devez ouvrir "
 "le service sur {openhref}le module pare-feu{closehref}"
 
-#: src/EBox/Composite/AdvancedOptions.pm:134
+#: src/EBox/Composite/AdvancedOptions.pm:133
 msgid "Advanced options"
 msgstr "Options avancées"
 
@@ -656,9 +670,10 @@ msgid "Options"
 msgstr "Options"
 
 #: src/templates/options.mas:10
+#, fuzzy
 msgid ""
-"You can leave empty the Default Gateway field to use eBox as default gateway "
-"for this subnet"
+"You can leave empty the Default Gateway field to use Zentyal as default "
+"gateway for this subnet"
 msgstr ""
 "Vous pouvez laisser vide le champ \"Passerelle par Défaut\" pour utiliser "
 "eBox comme passerelle par défaut pour ce sous-réseau"
@@ -666,6 +681,12 @@ msgstr ""
 #: src/templates/options.mas:64
 msgid "Apply"
 msgstr "Appliquer"
+
+#~ msgid "eBox"
+#~ msgstr "eBox"
+
+#~ msgid "eBox's domain"
+#~ msgstr "Domaine d'eBox"
 
 #~ msgid "{name} cannot contain spaces"
 #~ msgstr "{name} ne doit pas contenir d'espace"

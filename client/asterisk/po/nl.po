@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: ebox-asterisk 1.1Report-Msgid-Bugs-To: info@ebox-"
 "technologies.com\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
-"POT-Creation-Date: 2010-07-21 00:28+0200\n"
+"POT-Creation-Date: 2010-08-25 16:23+0200\n"
 "PO-Revision-Date: 2010-08-19 21:31+0200\n"
 "Last-Translator: Willy Geerts <willy@willygeerts.be>\n"
 "Language-Team: none\n"
@@ -20,7 +20,8 @@ msgstr ""
 "X-Generator: Pootle 1.1.0\n"
 
 #: migration/0001_add_firewall_services.pl:30
-msgid "eBox VoIP system"
+#, fuzzy
+msgid "Zentyal VoIP system"
 msgstr "Zentyal VoIP systeem"
 
 #: src/EBox/Asterisk.pm:74 src/EBox/Asterisk.pm:715
@@ -366,20 +367,9 @@ msgstr "Configuratie SIP leverancier voor uitgaande gesprekken"
 msgid "SIP provider configuration updated."
 msgstr "Configuratie SIP leverancier aangepast"
 
-#: src/EBox/Model/Provider.pm:195
-#, perl-brace-format
-msgid ""
-"{brand}: make low-cost VoIP calls to mobile phones and landlines directly "
-"with eBox. Once you have obtained a {subs} , you can purchase the VoIP "
-"credit you need. All these services available for purchasing at the {ohref}"
-"eBox on-line store{chref}! "
-msgstr ""
-"{brand}: maak goedkope VoIP gesprekken naar vaste en mobiele telefoons met "
-"Zentyal. Koop uw beltegoed direkt op de {ohref}Zentyal on-line "
-"winkel{chref}!"
-
 #: src/EBox/Model/NAT.pm:96
-msgid "eBox is behind NAT"
+#, fuzzy
+msgid "Zentyal is behind NAT"
 msgstr "De server bevindt zich achter NAT"
 
 #: src/EBox/Model/NAT.pm:101
@@ -454,6 +444,16 @@ msgstr "Wachtwoord voor Asterisk dienst is het gebruiker wachtwoord"
 #: src/templates/user.mas:21
 msgid "User account"
 msgstr "Gebruikersaccount"
+
+#~ msgid ""
+#~ "{brand}: make low-cost VoIP calls to mobile phones and landlines directly "
+#~ "with eBox. Once you have obtained a {subs} , you can purchase the VoIP "
+#~ "credit you need. All these services available for purchasing at the "
+#~ "{ohref}eBox on-line store{chref}! "
+#~ msgstr ""
+#~ "{brand}: maak goedkope VoIP gesprekken naar vaste en mobiele telefoons "
+#~ "met Zentyal. Koop uw beltegoed direkt op de {ohref}Zentyal on-line winkel"
+#~ "{chref}!"
 
 # meetings = vergaderingen but most dutch/flemish teens also use meetings
 #~ msgid ""

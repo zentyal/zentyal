@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-egroupware 1.3.3Report-Msgid-Bugs-To: info@ebox-"
 "technologies.com\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
-"POT-Creation-Date: 2010-06-02 20:31+0200\n"
+"POT-Creation-Date: 2010-08-25 17:41+0200\n"
 "PO-Revision-Date: 2010-05-05 14:29+0200\n"
 "Last-Translator: Bokor Pavol <bokor@4enzo.net>\n"
 "Language-Team: none\n"
@@ -148,11 +148,11 @@ msgstr "Virtuálne Poštové Domény"
 msgid "Select the virtual mail domain to be used for eGroupware"
 msgstr "Vyberte virtuálnu poštovú doménu, ktorá sa bude používať s eGroupware."
 
-#: src/EBox/Composite/General.pm:76
+#: src/EBox/Composite/General.pm:75
 msgid "eGroupware"
 msgstr "eGroupware"
 
-#: src/EBox/Composite/General.pm:78
+#: src/EBox/Composite/General.pm:77
 msgid ""
 "Once the module is enabled and you have created a user account, you can "
 "access the eGroupware web interface at http://<ebox_ip>/egroupware"
@@ -160,7 +160,7 @@ msgstr ""
 "Ak je modul povolený a máte vytvorené užívateľské konto, môžete pristúpiť k "
 "eGroupware web rozhraniu na http://<ebox_ip>/egroupware"
 
-#: src/EBox/Composite/General.pm:89
+#: src/EBox/Composite/General.pm:88
 msgid "EGroupware"
 msgstr "EGroupware"
 

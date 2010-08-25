@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-asterisk 1.4Report-Msgid-Bugs-To: info@ebox-"
 "technologies.com\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
-"POT-Creation-Date: 2010-07-21 00:28+0200\n"
+"POT-Creation-Date: 2010-08-25 16:23+0200\n"
 "PO-Revision-Date: 2010-05-14 18:43+0200\n"
 "Last-Translator: Priit-A. Heinsalu <priit.heinsalu@gmail.com>\n"
 "Language-Team: none\n"
@@ -19,7 +19,8 @@ msgstr ""
 "X-Generator: Pootle 1.1.0\n"
 
 #: migration/0001_add_firewall_services.pl:30
-msgid "eBox VoIP system"
+#, fuzzy
+msgid "Zentyal VoIP system"
 msgstr "eBoxi VoIP süsteem"
 
 #: src/EBox/Asterisk.pm:74 src/EBox/Asterisk.pm:715
@@ -371,20 +372,9 @@ msgstr "Väljuvate kõnede jaoks SIP pakkuja seadistamine"
 msgid "SIP provider configuration updated."
 msgstr "SIP pakkuja seadistused on uuendatud"
 
-#: src/EBox/Model/Provider.pm:195
-#, fuzzy, perl-brace-format
-msgid ""
-"{brand}: make low-cost VoIP calls to mobile phones and landlines directly "
-"with eBox. Once you have obtained a {subs} , you can purchase the VoIP "
-"credit you need. All these services available for purchasing at the {ohref}"
-"eBox on-line store{chref}! "
-msgstr ""
-"eBox VoIP krediit: helista eBoxi VoIP-i kasutades odavalt mobiil- ja "
-"tavatelefonidele. Vajadusel osta VoIP krediiti otse {ohref}eBoxi veebipoest"
-"{chref}! "
-
 #: src/EBox/Model/NAT.pm:96
-msgid "eBox is behind NAT"
+#, fuzzy
+msgid "Zentyal is behind NAT"
 msgstr "eBox on NATi taga"
 
 #: src/EBox/Model/NAT.pm:101
@@ -456,6 +446,17 @@ msgstr "Asteriski teenuse parool on sama kui kasutaja parool"
 #: src/templates/user.mas:21
 msgid "User account"
 msgstr "Kasutajakonto"
+
+#, fuzzy
+#~ msgid ""
+#~ "{brand}: make low-cost VoIP calls to mobile phones and landlines directly "
+#~ "with eBox. Once you have obtained a {subs} , you can purchase the VoIP "
+#~ "credit you need. All these services available for purchasing at the "
+#~ "{ohref}eBox on-line store{chref}! "
+#~ msgstr ""
+#~ "eBox VoIP krediit: helista eBoxi VoIP-i kasutades odavalt mobiil- ja "
+#~ "tavatelefonidele. Vajadusel osta VoIP krediiti otse {ohref}eBoxi "
+#~ "veebipoest{chref}! "
 
 #~ msgid ""
 #~ "You must install dahdi and dahdi-modules-ebox packages to use Meetings."

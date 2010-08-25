@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-webmail 1.3\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
-"POT-Creation-Date: 2010-07-21 00:52+0200\n"
+"POT-Creation-Date: 2010-08-25 17:50+0200\n"
 "PO-Revision-Date: 2010-08-20 15:07+0200\n"
 "Last-Translator: Indra Pharazijn <indra6oc@gmail.com>\n"
 "Language-Team: none\n"
@@ -18,121 +18,123 @@ msgstr ""
 "X-Generator: Pootle 1.1.0\n"
 
 # Manier
-#: src/EBox/WebMail/Model/OperationMode.pm:50
+#: src/EBox/WebMail/Model/OperationMode.pm:46
 #, fuzzy
 msgid "Mode"
 msgstr "Wijze"
 
-#: src/EBox/WebMail/Model/OperationMode.pm:59
+#: src/EBox/WebMail/Model/OperationMode.pm:55
 msgid "Operation mode"
 msgstr "Werkwijze"
 
-#: src/EBox/WebMail/Model/OperationMode.pm:87
-msgid "eBox mail service"
+#: src/EBox/WebMail/Model/OperationMode.pm:83
+#, fuzzy
+msgid "Zentyal mail service"
 msgstr "eBox post bediening"
 
-#: src/EBox/WebMail/Model/OperationMode.pm:98
+#: src/EBox/WebMail/Model/OperationMode.pm:94
 msgid "Remote server"
 msgstr "Externe server"
 
-#: src/EBox/WebMail/Model/RemoteServerConfiguration.pm:57
+#: src/EBox/WebMail/Model/RemoteServerConfiguration.pm:54
 msgid "IMAP Server"
 msgstr "IMAP Server"
 
 # wijze - manier - type
-#: src/EBox/WebMail/Model/RemoteServerConfiguration.pm:63
+#: src/EBox/WebMail/Model/RemoteServerConfiguration.pm:60
 #, fuzzy
 msgid "IMAP connection type"
 msgstr "IMAP verbindings wijze"
 
-#: src/EBox/WebMail/Model/RemoteServerConfiguration.pm:70
+#: src/EBox/WebMail/Model/RemoteServerConfiguration.pm:67
 msgid "IMAP server port"
 msgstr "IMAP server poort"
 
-#: src/EBox/WebMail/Model/RemoteServerConfiguration.pm:76
+#: src/EBox/WebMail/Model/RemoteServerConfiguration.pm:73
 msgid "SMTP Server"
 msgstr "SMTP Server"
 
 # wijze - manier - type?
-#: src/EBox/WebMail/Model/RemoteServerConfiguration.pm:82
+#: src/EBox/WebMail/Model/RemoteServerConfiguration.pm:79
 #, fuzzy
 msgid "SMTP connection type"
 msgstr "SMTP verbindings wijze"
 
-#: src/EBox/WebMail/Model/RemoteServerConfiguration.pm:89
+#: src/EBox/WebMail/Model/RemoteServerConfiguration.pm:86
 msgid "SMTP server port"
 msgstr "SMTP server poort"
 
-#: src/EBox/WebMail/Model/RemoteServerConfiguration.pm:96
+#: src/EBox/WebMail/Model/RemoteServerConfiguration.pm:93
 msgid "SMTP authentication"
 msgstr "SMTP aanmelding"
 
-#: src/EBox/WebMail/Model/RemoteServerConfiguration.pm:104
+#: src/EBox/WebMail/Model/RemoteServerConfiguration.pm:101
 msgid "None"
 msgstr "Geen"
 
-#: src/EBox/WebMail/Model/RemoteServerConfiguration.pm:108
+#: src/EBox/WebMail/Model/RemoteServerConfiguration.pm:105
 msgid "Same user and password than IMAP"
 msgstr "Zelfde gebruiker en wachtwoord als bij IMAP"
 
-#: src/EBox/WebMail/Model/RemoteServerConfiguration.pm:112
+#: src/EBox/WebMail/Model/RemoteServerConfiguration.pm:109
 msgid "User and password"
 msgstr "Gebruiker en wachtwoord"
 
-#: src/EBox/WebMail/Model/RemoteServerConfiguration.pm:118
+#: src/EBox/WebMail/Model/RemoteServerConfiguration.pm:115
 msgid "User"
 msgstr "Gebruiker"
 
-#: src/EBox/WebMail/Model/RemoteServerConfiguration.pm:124
+#: src/EBox/WebMail/Model/RemoteServerConfiguration.pm:121
 msgid "Password"
 msgstr "Wachtwoord"
 
-#: src/EBox/WebMail/Model/RemoteServerConfiguration.pm:137
+#: src/EBox/WebMail/Model/RemoteServerConfiguration.pm:134
 msgid "Manage sieve enabled in IMAP server"
 msgstr "Beheer sieve geactiveerd op de IMAP server"
 
-#: src/EBox/WebMail/Model/RemoteServerConfiguration.pm:142
+#: src/EBox/WebMail/Model/RemoteServerConfiguration.pm:139
 msgid "Manage sieve port"
 msgstr "Beheer seive poort"
 
-#: src/EBox/WebMail/Model/RemoteServerConfiguration.pm:149
+#: src/EBox/WebMail/Model/RemoteServerConfiguration.pm:146
 msgid "Manage sieve connection uses TLS"
 msgstr "Beheer seive verbinding TLS gebruik"
 
-#: src/EBox/WebMail/Model/RemoteServerConfiguration.pm:159
+#: src/EBox/WebMail/Model/RemoteServerConfiguration.pm:153
 msgid "External server connection"
 msgstr "Externe server verbinding"
 
-#: src/EBox/WebMail/Model/RemoteServerConfiguration.pm:177
+#: src/EBox/WebMail/Model/RemoteServerConfiguration.pm:171
 msgid "unencrypted"
 msgstr "onbeveiligd"
 
-#: src/EBox/WebMail/Model/RemoteServerConfiguration.pm:181
+#: src/EBox/WebMail/Model/RemoteServerConfiguration.pm:175
 msgid "SSL"
 msgstr "SSL"
 
-#: src/EBox/WebMail/Model/RemoteServerConfiguration.pm:185
+#: src/EBox/WebMail/Model/RemoteServerConfiguration.pm:179
 msgid "TLS"
 msgstr "TLS"
 
-#: src/EBox/WebMail/Model/RemoteServerConfiguration.pm:294
+#: src/EBox/WebMail/Model/RemoteServerConfiguration.pm:285
+#, fuzzy
 msgid ""
 "No need to configure the connection to a remote server beacuse WebMail is "
-"configured to use eBox's mail service'"
+"configured to use Zentyal mail service'"
 msgstr ""
 "Het is niet nodig om de verbinding met een externe server in te stellen "
 "aangezien Webpost is ingesteld om de eBox post bediening te gebruiken"
 
-#: src/EBox/WebMail/Model/Options.pm:48
+#: src/EBox/WebMail/Model/Options.pm:45
 msgid "Name"
 msgstr "Naam"
 
-#: src/EBox/WebMail/Model/Options.pm:50
+#: src/EBox/WebMail/Model/Options.pm:47
 #, fuzzy
-msgid "eBox webmail"
+msgid "Zentyal webmail"
 msgstr "eBox webpost"
 
-#: src/EBox/WebMail/Model/Options.pm:52
+#: src/EBox/WebMail/Model/Options.pm:49
 #, fuzzy
 msgid ""
 "The name of the webmail will be used in the login screen and page titles."
@@ -140,32 +142,32 @@ msgstr ""
 "De naam van de webpost zal gebruikt worden op het aanmeldscherm en bij de "
 "pagina titels."
 
-#: src/EBox/WebMail/Model/Options.pm:56
+#: src/EBox/WebMail/Model/Options.pm:53
 msgid "Virtual host"
 msgstr "Virtuele host"
 
-#: src/EBox/WebMail/Model/Options.pm:62
+#: src/EBox/WebMail/Model/Options.pm:59
 msgid ""
 "Virtual host where the webmail will be installed. This will disable the "
 "default /webmail url."
 msgstr ""
-"Virtuele host waar de webmail zal geïnstalleerd worden. Dit zal de standaard "
-"/webmail url onbruikbaar maken."
+"Virtuele host waar de webmail zal geïnstalleerd worden. Dit zal de "
+"standaard /webmail url onbruikbaar maken."
 
-#: src/EBox/WebMail/Model/Options.pm:68
+#: src/EBox/WebMail/Model/Options.pm:65
 msgid "General configuration"
 msgstr "Algemene instellingen"
 
-#: src/EBox/WebMail/Model/Options.pm:69 src/EBox/WebMail.pm:69
+#: src/EBox/WebMail/Model/Options.pm:66 src/EBox/WebMail.pm:69
 #, fuzzy
 msgid "Webmail"
 msgstr "Webpost"
 
-#: src/EBox/WebMail/Model/Options.pm:84
+#: src/EBox/WebMail/Model/Options.pm:81
 msgid "Disabled"
 msgstr "Uitgeschakeld"
 
-#: src/EBox/WebMail/Model/Options.pm:115
+#: src/EBox/WebMail/Model/Options.pm:112
 msgid ""
 "The deleted virtual host was selected for Webmail. Maybe you want to select "
 "another one now."
@@ -173,49 +175,49 @@ msgstr ""
 "De verwijderde virtuele host was ingesteld voor de Webpost. Mogelijk wil je "
 "nu een andere selecteren."
 
-#: src/EBox/WebMail/Composite/Backend.pm:64
+#: src/EBox/WebMail/Composite/Backend.pm:63
 msgid "WebMail backend"
 msgstr "WebPost beheer pagina"
 
-#: src/EBox/WebMail.pm:177
+#: src/EBox/WebMail.pm:176
 msgid "Neither IMAP nor IMAPS service enabled."
 msgstr "Noch de IMAP, noch de IMAPS dienst zijn geactiveerd."
 
-#: src/EBox/WebMail.pm:291
+#: src/EBox/WebMail.pm:289
 msgid "To configure Roundcube webmail."
 msgstr "Roundcube webpost instellen."
 
-#: src/EBox/WebMail.pm:296
+#: src/EBox/WebMail.pm:294
 msgid "To configure managesieve Roundcube webmail plugin."
 msgstr "Managesieve Roundcube webpost uitbreiding instellen."
 
-#: src/EBox/WebMail.pm:322
+#: src/EBox/WebMail.pm:320
 msgid "Create PostgreSQL Roundcube webmail database."
 msgstr "Maak PostgresSQL Roundcube webpost gegevensbank."
 
-#: src/EBox/WebMail.pm:323
+#: src/EBox/WebMail.pm:321
 msgid "This database will store the data needed by Roundcube."
 msgstr "Deze gegevensbank zal de gegevens voor Roundcube opslaan."
 
-#: src/EBox/WebMail.pm:327
+#: src/EBox/WebMail.pm:325
 msgid "Add webmail link to www data directory."
 msgstr "Voeg Webpost koppeling aan de www folder toe."
 
-#: src/EBox/WebMail.pm:328
+#: src/EBox/WebMail.pm:326
 msgid "Webmail will be accesible at http://ip/webmail/."
 msgstr "Webpost zal beschikbaar zijn via http://ip/webmail/."
 
-#: src/EBox/WebMail.pm:351
-#, perl-brace-format
+#: src/EBox/WebMail.pm:348
+#, fuzzy, perl-brace-format
 msgid ""
-"Webmail module needs IMAP or IMAPS service enabled if using eBox mail "
+"Webmail module needs IMAP or IMAPS service enabled if using Zentyal mail "
 "service. You can enable it at {openurl}Mail -> General{closeurl}."
 msgstr ""
 "De Webpost module heeft de IMAP of IMAPS dienst nodig als de eBox post "
-"bediening gebruikt wordt. U kan deze activeren via {openurl}Mail -> "
-"General{closeurl}."
+"bediening gebruikt wordt. U kan deze activeren via {openurl}Mail -> General"
+"{closeurl}."
 
-#: src/EBox/WebMail.pm:409
+#: src/EBox/WebMail.pm:405
 msgid ""
 "You cannot disable both IMAP and IMAPS service because they are used by "
 "Webmail module."

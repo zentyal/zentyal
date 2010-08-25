@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-egroupware 1.1\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
-"POT-Creation-Date: 2010-06-02 20:31+0200\n"
+"POT-Creation-Date: 2010-08-25 17:41+0200\n"
 "PO-Revision-Date: 2010-04-16 19:51+0200\n"
 "Last-Translator: Vasco Castelo Branco <vcbranco@gmail.com>\n"
 "Language-Team: none\n"
@@ -148,11 +148,11 @@ msgid "Select the virtual mail domain to be used for eGroupware"
 msgstr ""
 "Seleccionar o domínio virtual de correio para ser usado pelo eGroupware"
 
-#: src/EBox/Composite/General.pm:76
+#: src/EBox/Composite/General.pm:75
 msgid "eGroupware"
 msgstr "eGroupware"
 
-#: src/EBox/Composite/General.pm:78
+#: src/EBox/Composite/General.pm:77
 msgid ""
 "Once the module is enabled and you have created a user account, you can "
 "access the eGroupware web interface at http://<ebox_ip>/egroupware"
@@ -160,7 +160,7 @@ msgstr ""
 "Logo que o módulo esteja activo e que tenha criado uma conta de utilizador, "
 "poderá aceder ao interface web do eGroupware em http://<ebox_ip>/egroupware"
 
-#: src/EBox/Composite/General.pm:89
+#: src/EBox/Composite/General.pm:88
 msgid "EGroupware"
 msgstr "EGroupware"
 

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-ntp 0.12\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
-"POT-Creation-Date: 2010-08-13 13:11+0200\n"
+"POT-Creation-Date: 2010-08-25 17:44+0200\n"
 "PO-Revision-Date: 2008-01-08 15:50+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -84,8 +84,13 @@ msgid "Remove ntp init script links"
 msgstr "NTP起動スクリプトのリンクを削除"
 
 #: src/EBox/NTP.pm:70
-msgid "eBox will take care of starting and stopping the services."
+#, fuzzy
+msgid "Zentyal will take care of starting and stopping the services."
 msgstr "eBoxがサービスの開始と停止をします"
+
+#: src/EBox/NTP.pm:88
+msgid "NTP configuration file"
+msgstr ""
 
 #: src/EBox/NTP.pm:225
 msgid "primary server"
@@ -173,7 +178,7 @@ msgstr "有効"
 #: src/templates/date.mas:10
 #, fuzzy
 msgid ""
-"A change in the date or time will cause all eBox services to be restarted."
+"A change in the date or time will cause all Zentyal services to be restarted."
 msgstr "日時を変更するとeBoxサービスを再起動する必要があります"
 
 #: src/templates/date.mas:15

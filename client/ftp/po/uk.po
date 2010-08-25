@@ -5,9 +5,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-ftp 1.5.1"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-06-03 02:52+0200\n"
+"Project-Id-Version: ebox-ftp 1.5.1Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
+"POT-Creation-Date: 2010-08-25 17:47+0200\n"
 "PO-Revision-Date: 2010-06-03 02:52+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -17,10 +17,59 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
 "10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
-#: src/EBox/FTP.pm:54
+#: migration/0001_add_firewall_services.pl:30
+msgid "Zentyal FTP Server"
+msgstr ""
+
+#: src/EBox/Model/Options.pm:45
+msgid "Disabled"
+msgstr ""
+
+#: src/EBox/Model/Options.pm:49
+msgid "Read only"
+msgstr ""
+
+#: src/EBox/Model/Options.pm:53
+msgid "Read/Write"
+msgstr ""
+
+#: src/EBox/Model/Options.pm:66
+msgid "Anonymous access"
+msgstr ""
+
+#: src/EBox/Model/Options.pm:70
+msgid "Sets the permissions for the /srv/ftp directory"
+msgstr ""
+
+#: src/EBox/Model/Options.pm:74
+msgid "Personal directories"
+msgstr ""
+
+#: src/EBox/Model/Options.pm:77
+msgid "Enable FTP access for each user to its /home directory"
+msgstr ""
+
+#: src/EBox/Model/Options.pm:83
+msgid "General configuration settings"
+msgstr ""
+
+#: src/EBox/Model/Options.pm:84
+msgid "FTP Server"
+msgstr ""
+
+#: src/EBox/Model/Options.pm:88
+msgid ""
+"The anonymous directory is /srv/ftp, make sure that the files you create "
+"there have read permissions for everybody (chmod o+r /srv/ftp/*). If you "
+"also want to grant write permissions you need to create a subdirectory with "
+"write permissions for everybody, for example: mkdir /srv/ftp/incoming ; "
+"chmod o+rwx /srv/ftp/incoming"
+msgstr ""
+
+#: src/EBox/FTP.pm:84
 msgid "To configure vsftpd"
 msgstr ""
 
-#: src/EBox/FTP.pm:58
+#: src/EBox/FTP.pm:88
 msgid "To configure vsftpd with LDAP authentication"
 msgstr ""

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-egroupware 1.4Report-Msgid-Bugs-To: info@ebox-"
 "technologies.com\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
-"POT-Creation-Date: 2010-06-02 20:31+0200\n"
+"POT-Creation-Date: 2010-08-25 17:41+0200\n"
 "PO-Revision-Date: 2010-05-06 16:33+0200\n"
 "Last-Translator: Priit-A. Heinsalu <priit.heinsalu@gmail.com>\n"
 "Language-Team: none\n"
@@ -153,12 +153,12 @@ msgstr "Virtuaalne e-posti domeen"
 msgid "Select the virtual mail domain to be used for eGroupware"
 msgstr "Vali virtuaalne e-posti domeen, mida eGroupware poolt kasutatakse"
 
-#: src/EBox/Composite/General.pm:76
+#: src/EBox/Composite/General.pm:75
 msgid "eGroupware"
 msgstr "eGroupware"
 
 #  
-#: src/EBox/Composite/General.pm:78
+#: src/EBox/Composite/General.pm:77
 msgid ""
 "Once the module is enabled and you have created a user account, you can "
 "access the eGroupware web interface at http://<ebox_ip>/egroupware"
@@ -166,7 +166,7 @@ msgstr ""
 "Peale mooduli lubamist ja kasutajakonto loomist, saab eGroupware "
 "veebiliidesse siseneda aadresilt http://<ebox_ip_aadress>/egroupware"
 
-#: src/EBox/Composite/General.pm:89
+#: src/EBox/Composite/General.pm:88
 msgid "EGroupware"
 msgstr "eGroupware"
 

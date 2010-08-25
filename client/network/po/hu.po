@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-network 1.1Report-Msgid-Bugs-To: info@ebox-"
 "technologies.com\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
-"POT-Creation-Date: 2010-08-13 13:41+0200\n"
+"POT-Creation-Date: 2010-08-25 17:47+0200\n"
 "PO-Revision-Date: 2010-07-22 20:02+0200\n"
 "Last-Translator: Nagy Ákos <reg@pecska.ro>\n"
 "Language-Team: none\n"
@@ -47,7 +47,7 @@ msgstr "jelszó"
 msgid "bridge"
 msgstr "bridge"
 
-#: src/EBox/CGI/Vlan.pm:45 src/EBox/Network.pm:1625 src/EBox/Network.pm:1654
+#: src/EBox/CGI/Vlan.pm:45 src/EBox/Network.pm:1639 src/EBox/Network.pm:1668
 #: src/templates/ifaces.mas:229
 msgid "VLAN Id"
 msgstr "VLAN azonosító (ID)"
@@ -56,13 +56,12 @@ msgstr "VLAN azonosító (ID)"
 msgid "virtual interface action"
 msgstr "virtuális interfész művelet"
 
-#: src/EBox/CGI/VIface.pm:64 src/EBox/Network.pm:893 src/EBox/Network.pm:898
-#: src/EBox/Network.pm:1212 src/EBox/Network.pm:1233 src/EBox/Network.pm:3142
-#: src/EBox/Network.pm:3158 src/EBox/Network.pm:3184 src/EBox/Network.pm:3339
-#: src/EBox/Network.pm:3493 src/EBox/Model/GatewayTable.pm:198
-#: src/EBox/Model/GatewayTable.pm:274 src/templates/ifaces.mas:119
-#: src/templates/ifaces.mas:287 src/templates/Wizard/network.mas:37
-#: src/templates/Wizard/network.mas:92
+#: src/EBox/CGI/VIface.pm:64 src/EBox/Network.pm:907 src/EBox/Network.pm:912
+#: src/EBox/Network.pm:1226 src/EBox/Network.pm:1247 src/EBox/Network.pm:3173
+#: src/EBox/Network.pm:3189 src/EBox/Network.pm:3215 src/EBox/Network.pm:3370
+#: src/EBox/Network.pm:3524 src/EBox/Model/GatewayTable.pm:198
+#: src/EBox/Model/GatewayTable.pm:273 src/templates/ifaces.mas:119
+#: src/templates/ifaces.mas:287 src/templates/Wizard/network.mas:40
 msgid "IP address"
 msgstr "IP cím"
 
@@ -80,11 +79,11 @@ msgstr "Hálózati diagnosztikai eszközök"
 msgid "Host"
 msgstr "Gép"
 
-#: src/EBox/CGI/Diag.pm:67 src/EBox/Network.pm:3422
+#: src/EBox/CGI/Diag.pm:67 src/EBox/Network.pm:3453
 msgid "host name"
 msgstr "gép neve"
 
-#: src/EBox/CGI/Ifaces.pm:31 src/EBox/Network.pm:3530
+#: src/EBox/CGI/Ifaces.pm:31 src/EBox/Network.pm:3561
 msgid "Network Interfaces"
 msgstr "Hálózati csatoló"
 
@@ -107,7 +106,7 @@ msgstr ""
 "'{host}' failed, max={maxFailRatio}%)"
 
 #: src/EBox/Event/Watcher/Gateways.pm:370
-#: src/EBox/Network/Composite/WANFailover.pm:62 src/EBox/Network.pm:3563
+#: src/EBox/Network/Composite/WANFailover.pm:61 src/EBox/Network.pm:3594
 msgid "WAN Failover"
 msgstr "WAN feladatátvétel"
 
@@ -115,12 +114,17 @@ msgstr "WAN feladatátvétel"
 msgid "Check if gateways are connected or disconnected."
 msgstr "Ellenőrzi az átjáró állapotát (csatlakozott-e vagy sem)."
 
-#: src/EBox/Network/Composite/ByteRate.pm:75
+#: src/EBox/Network/Composite/ByteRate.pm:74
 #: src/EBox/Network/Report/ByteRate.pm:135
 msgid "Traffic rate monitoring"
 msgstr "Forgalom monitorizálás"
 
-#: src/EBox/Network/Composite/WANFailover.pm:78
+#: src/EBox/Network/Composite/Gateway.pm:56
+#, fuzzy
+msgid "Gateways and Proxy"
+msgstr "Átjárók"
+
+#: src/EBox/Network/Composite/WANFailover.pm:77
 msgid ""
 "Events module is not enabled. You have to enable it and also enable the WAN "
 "Failover event in order to use this feature."
@@ -128,7 +132,7 @@ msgstr ""
 "Az Esemény modul nincs bekapcsolva. Ha bekapcsolod, akkor a WAN Failover "
 "(átterhelés[t]?) szintén be kell kapcsolni."
 
-#: src/EBox/Network/Composite/WANFailover.pm:82
+#: src/EBox/Network/Composite/WANFailover.pm:81
 msgid ""
 "WAN Failover event is not enabled. You have to enable it in order to use "
 "this feature"
@@ -136,15 +140,15 @@ msgstr ""
 "A WAN Failover eseménykövetés nincs bekapcsolva. Kapcsolja be a funkció "
 "használatához"
 
-#: src/EBox/Network/Composite/DNS.pm:61
+#: src/EBox/Network/Composite/DNS.pm:60
 msgid "Domain Name Server Resolver"
 msgstr "Domain Name Server (megoldó?) feloldó"
 
-#: src/EBox/Network/Composite/MultiGw.pm:63 src/EBox/Network.pm:3561
+#: src/EBox/Network/Composite/MultiGw.pm:62 src/EBox/Network.pm:3592
 msgid "Balance Traffic"
 msgstr "Forgalom kiegyenlítés"
 
-#: src/EBox/Network/Composite/MultiGw.pm:83
+#: src/EBox/Network/Composite/MultiGw.pm:82
 msgid ""
 "To be able to use this feature you need at least two enabled gateways. You "
 "can add them <a href=\"/ebox/Network/View/GatewayTable\">here</a> first."
@@ -152,7 +156,7 @@ msgstr ""
 "A funkció használatához szükség van két beállított átjáróra. Ezt előbb <a "
 "href=\"/ebox/Network/View/GatewayTable\">itt</a> adja hozzá."
 
-#: src/EBox/Network/Report/ByteRate.pm:137 src/EBox/Network.pm:3482
+#: src/EBox/Network/Report/ByteRate.pm:137 src/EBox/Network.pm:3513
 msgid "Status"
 msgstr "Státusz"
 
@@ -241,16 +245,16 @@ msgstr "A {service} teljes forgalma"
 msgid "Traffic rate from {src} for {service}"
 msgstr "A {src}-től eredő {service} szolgáltatás teljes forgalma"
 
-#: src/EBox/Network.pm:81 src/EBox/Network.pm:3546
-#: src/EBox/Model/StaticRoute.pm:148
+#: src/EBox/Network.pm:83 src/EBox/Network.pm:3577
+#: src/EBox/Model/StaticRoute.pm:147
 msgid "Network"
 msgstr "Hálózat"
 
-#: src/EBox/Network.pm:99
+#: src/EBox/Network.pm:101
 msgid "Add default routers to the default table"
 msgstr "Adja hozzá az alapértelmezett útvonalakat az alapértelmezett táblához"
 
-#: src/EBox/Network.pm:100
+#: src/EBox/Network.pm:102
 msgid ""
 "This is needed to work with a multigateway configuration. Note that to list "
 "the default routes you must execute: "
@@ -258,11 +262,12 @@ msgstr ""
 "Ez szükséges a többátjárós működéshez. Az alapértelmezett útvonalak "
 "megjelenítéséhez le kell futtatni: _"
 
-#: src/EBox/Network.pm:106
-msgid "Enable eBox DHCP hook"
+#: src/EBox/Network.pm:108
+#, fuzzy
+msgid "Enable Zentyal DHCP hook"
 msgstr "A DHCP (horgony?) hook bekapcsolása"
 
-#: src/EBox/Network.pm:107
+#: src/EBox/Network.pm:109
 msgid ""
 "It will take care of adding the default route given by a DHCP server to the "
 "default route table. "
@@ -270,62 +275,76 @@ msgstr ""
 "Figyeljen oda a DHCP által kiosztott alapértelmezett átjáró hozzáadásához az "
 "alapértelmezett route táblához. "
 
-#: src/EBox/Network.pm:125
-msgid "eBox will set your network configuration"
+#: src/EBox/Network.pm:127
+#, fuzzy
+msgid "Zentyal will set your network configuration"
 msgstr "Az eBox beállítja a hálózati beállításokat"
 
-#: src/EBox/Network.pm:130
-msgid "eBox will set your DNS configuration"
+#: src/EBox/Network.pm:132
+#, fuzzy
+msgid "Zentyal will set your DNS configuration"
 msgstr "Az eBox beállítja a DNS beállításokat"
 
-#: src/EBox/Network.pm:135
-msgid "eBox will set your DHCP client configuration"
+#: src/EBox/Network.pm:137
+#, fuzzy
+msgid "Zentyal will set your DHCP client configuration"
 msgstr "Az eBox beállítja a DHCP kliens beállításokat"
 
-#: src/EBox/Network.pm:140 src/EBox/Network.pm:145
-msgid "eBox will set your ddclient configuration"
+#: src/EBox/Network.pm:142 src/EBox/Network.pm:147
+#, fuzzy
+msgid "Zentyal will set your ddclient configuration"
 msgstr "Az eBox beállítja a ddclient beállításokat"
 
-#: src/EBox/Network.pm:150 src/EBox/Network.pm:155
-msgid "eBox will store your PPPoE passwords"
+#: src/EBox/Network.pm:152 src/EBox/Network.pm:157
+#, fuzzy
+msgid "Zentyal will store your PPPoE passwords"
 msgstr "Az eBox eltárolta a PPPoE jelszavát."
 
-#: src/EBox/Network.pm:162
-msgid "eBox will add a DSL provider configuration for PPPoE"
+#: src/EBox/Network.pm:164
+#, fuzzy
+msgid "Zentyal will add a DSL provider configuration for PPPoE"
 msgstr "Az eBox hozzáadja a DSL szolgáltató adatai a PPPoE beállításaihoz"
 
-#: src/EBox/Network.pm:890 src/EBox/Network.pm:894
+#: src/EBox/Network.pm:171
+msgid "Zentyal will set HTTP proxy for all users"
+msgstr ""
+
+#: src/EBox/Network.pm:174
+msgid "Zentyal will set HTTP proxy for APT"
+msgstr ""
+
+#: src/EBox/Network.pm:904 src/EBox/Network.pm:908
 msgid "Virtual interface name"
 msgstr "Virtuális interfész neve"
 
-#: src/EBox/Network.pm:893 src/EBox/Network.pm:1212 src/EBox/Network.pm:3142
+#: src/EBox/Network.pm:907 src/EBox/Network.pm:1226 src/EBox/Network.pm:3173
 #: src/templates/ifaces.mas:132 src/templates/ifaces.mas:288
-#: src/templates/Wizard/network.mas:41 src/templates/Wizard/network.mas:96
+#: src/templates/Wizard/network.mas:44
 msgid "Netmask"
 msgstr "Hálózati maszk"
 
-#: src/EBox/Network.pm:986 src/EBox/Network.pm:1018 src/EBox/Network.pm:1063
-#: src/EBox/Network.pm:1099 src/EBox/Network.pm:1124 src/EBox/Network.pm:1208
-#: src/EBox/Network.pm:1346 src/EBox/Network.pm:1437 src/EBox/Network.pm:1525
-#: src/EBox/Network.pm:1531 src/EBox/Network.pm:1858 src/EBox/Network.pm:1928
-#: src/EBox/Network.pm:1961 src/EBox/Network.pm:1988 src/EBox/Network.pm:2015
-#: src/EBox/Network.pm:2043 src/EBox/Network.pm:2105 src/EBox/Network.pm:2144
-#: src/EBox/Network.pm:2177 src/EBox/Network.pm:3140 src/EBox/Network.pm:3160
-#: src/EBox/Network.pm:3180 src/EBox/Network.pm:3201 src/EBox/Network.pm:3220
-#: src/EBox/Network.pm:3274 src/EBox/Network.pm:3295 src/EBox/Network.pm:3315
-#: src/EBox/Network.pm:3336 src/EBox/Network.pm:3359
+#: src/EBox/Network.pm:1000 src/EBox/Network.pm:1032 src/EBox/Network.pm:1077
+#: src/EBox/Network.pm:1113 src/EBox/Network.pm:1138 src/EBox/Network.pm:1222
+#: src/EBox/Network.pm:1360 src/EBox/Network.pm:1451 src/EBox/Network.pm:1539
+#: src/EBox/Network.pm:1545 src/EBox/Network.pm:1872 src/EBox/Network.pm:1942
+#: src/EBox/Network.pm:1975 src/EBox/Network.pm:2002 src/EBox/Network.pm:2029
+#: src/EBox/Network.pm:2057 src/EBox/Network.pm:2119 src/EBox/Network.pm:2158
+#: src/EBox/Network.pm:2191 src/EBox/Network.pm:3171 src/EBox/Network.pm:3191
+#: src/EBox/Network.pm:3211 src/EBox/Network.pm:3232 src/EBox/Network.pm:3251
+#: src/EBox/Network.pm:3305 src/EBox/Network.pm:3326 src/EBox/Network.pm:3346
+#: src/EBox/Network.pm:3367 src/EBox/Network.pm:3390
 #: src/EBox/Model/MultiGwRulesDataTable.pm:102
 #: src/EBox/Model/GatewayTable.pm:205
 msgid "Interface"
 msgstr "Interfész"
 
-#: src/EBox/Network.pm:1442
+#: src/EBox/Network.pm:1456
 msgid "This interface cannot be put in trunk mode, it is an vlan interface."
 msgstr ""
 "Ezt az interfészt nem lehet trunk módba állítani, mivel ez virtuális "
 "interfész."
 
-#: src/EBox/Network.pm:1497
+#: src/EBox/Network.pm:1511
 msgid ""
 "This interface is in trunk mode, you should unconfigure all the vlan "
 "interfaces in this trunk before changing its configuration mode."
@@ -333,14 +352,14 @@ msgstr ""
 "Ez az interfész trunk módban van, ami előtt megváltoztatná a beállításait, "
 "le kell kapcsolja róla a virtuális interfészeket."
 
-#: src/EBox/Network.pm:1634
+#: src/EBox/Network.pm:1648
 msgid ""
 "Network interfaces need to be in trunk mode before adding vlans to them."
 msgstr ""
 "A hálózati interfészeket virtuális hálózatok hozzáadása előtt, trunk módba "
 "kell helyezni."
 
-#: src/EBox/Network.pm:3032
+#: src/EBox/Network.pm:3063
 msgid ""
 "The requested operation will cause one of the configured gateways to become "
 "unreachable. Please remove it first if you really want to make this change."
@@ -349,12 +368,12 @@ msgstr ""
 "egy a beállított átjárók közül elérhetetlen lesz. Kérem a beállítások "
 "mentése előtt előbb ezt távolítsa el."
 
-#: src/EBox/Network.pm:3097 src/EBox/NetworkUtil.pm:56
+#: src/EBox/Network.pm:3128 src/EBox/NetworkUtil.pm:56
 #, perl-brace-format
 msgid "Gateway {gw} not reachable"
 msgstr "A következő átjáró nem érhető el: {gw}"
 
-#: src/EBox/Network.pm:3100
+#: src/EBox/Network.pm:3131
 #, perl-brace-format
 msgid ""
 "Gateway {gw} must be reachable by a static interface. Currently it is "
@@ -363,83 +382,83 @@ msgstr ""
 "A {gw} átjáró egy statikus interfészen keresztül kell elérhető legyen. "
 "Jelenleg ez a {iface} nem statikus interfészen keresztül van elérve"
 
-#: src/EBox/Network.pm:3381 src/EBox/Network.pm:3402
+#: src/EBox/Network.pm:3412 src/EBox/Network.pm:3433
 msgid "Host name"
 msgstr "Host neve"
 
-#: src/EBox/Network.pm:3452
+#: src/EBox/Network.pm:3483
 msgid "down"
 msgstr "down"
 
-#: src/EBox/Network.pm:3458
+#: src/EBox/Network.pm:3489
 msgid "up"
 msgstr "up"
 
-#: src/EBox/Network.pm:3463
+#: src/EBox/Network.pm:3494
 msgid "external"
 msgstr "külső"
 
-#: src/EBox/Network.pm:3465
+#: src/EBox/Network.pm:3496
 msgid "internal"
 msgstr "belső"
 
-#: src/EBox/Network.pm:3471
+#: src/EBox/Network.pm:3502
 msgid "link ok"
 msgstr "link ok"
 
-#: src/EBox/Network.pm:3473
+#: src/EBox/Network.pm:3504
 msgid "no link"
 msgstr "nincs link"
 
-#: src/EBox/Network.pm:3487
+#: src/EBox/Network.pm:3518
 msgid "MAC address"
 msgstr "MAC cím"
 
-#: src/EBox/Network.pm:3504
+#: src/EBox/Network.pm:3535
 msgid "Tx bytes"
 msgstr "Tx bájtok"
 
-#: src/EBox/Network.pm:3513
+#: src/EBox/Network.pm:3544
 msgid "Rx bytes"
 msgstr "Rx bájtok"
 
-#: src/EBox/Network.pm:3551
+#: src/EBox/Network.pm:3582
 msgid "Interfaces"
 msgstr "Interfészek"
 
-#: src/EBox/Network.pm:3557 src/EBox/Model/GatewayTable.pm:234
+#: src/EBox/Network.pm:3588
 msgid "Gateways"
 msgstr "Átjárók"
 
-#: src/EBox/Network.pm:3559 src/EBox/Model/StaticRoute.pm:172
+#: src/EBox/Network.pm:3590 src/EBox/Model/StaticRoute.pm:171
 msgid "Static Routes"
 msgstr "Statikus route-ok"
 
-#: src/EBox/Network.pm:3565
+#: src/EBox/Network.pm:3596
 msgid "Diagnostic Tools"
 msgstr "Diagnosztikai eszközök"
 
-#: src/EBox/Model/StaticRoute.pm:151
+#: src/EBox/Model/StaticRoute.pm:150
 msgid "IP or network address"
 msgstr "IP vagy hálózati cím"
 
-#: src/EBox/Model/StaticRoute.pm:157
+#: src/EBox/Model/StaticRoute.pm:156
 msgid "Gateway used to reach the above network  address"
 msgstr "A fenti hálózat eléréséhez használt átjáró"
 
-#: src/EBox/Model/StaticRoute.pm:162 src/templates/ifaces.mas:230
+#: src/EBox/Model/StaticRoute.pm:161 src/templates/ifaces.mas:230
 msgid "Description"
 msgstr "Leírás"
 
-#: src/EBox/Model/StaticRoute.pm:165
+#: src/EBox/Model/StaticRoute.pm:164
 msgid "Optional description for this route"
 msgstr "A route opcionális leírása"
 
-#: src/EBox/Model/StaticRoute.pm:171
+#: src/EBox/Model/StaticRoute.pm:170
 msgid "Static Routes List"
 msgstr "Statikus route-ok listája"
 
-#: src/EBox/Model/StaticRoute.pm:177
+#: src/EBox/Model/StaticRoute.pm:176
 msgid ""
 "All gateways you enter here must be reachable through one of the network "
 "interfaces currently configured."
@@ -447,19 +466,19 @@ msgstr ""
 "Minden itt feltüntetett átjáró elérhető valamelyik beállított hálózati "
 "interfészen keresztül."
 
-#: src/EBox/Model/StaticRoute.pm:180
+#: src/EBox/Model/StaticRoute.pm:179
 msgid "static route"
 msgstr "statikus route"
 
-#: src/EBox/Model/SearchDomain.pm:72
+#: src/EBox/Model/SearchDomain.pm:71
 msgid "Domain"
 msgstr "Tartomány"
 
-#: src/EBox/Model/SearchDomain.pm:80
+#: src/EBox/Model/SearchDomain.pm:79
 msgid "Search Domain"
 msgstr "Keresett tartomány"
 
-#: src/EBox/Model/SearchDomain.pm:84
+#: src/EBox/Model/SearchDomain.pm:83
 msgid ""
 "This domain will be appended when trying to resolve hosts if the first "
 "attempt without appending it has failed."
@@ -527,10 +546,6 @@ msgstr "Forrás IP"
 msgid "Source object"
 msgstr "Forrás objektum"
 
-#: src/EBox/Model/MultiGwRulesDataTable.pm:130
-msgid "eBox"
-msgstr "eBox"
-
 #: src/EBox/Model/MultiGwRulesDataTable.pm:138
 msgid "Destination"
 msgstr "Cél"
@@ -543,7 +558,7 @@ msgstr "Cél IP"
 msgid "Destination object"
 msgstr "Cél objektum"
 
-#: src/EBox/Model/MultiGwRulesDataTable.pm:162 src/EBox/Model/DynDNS.pm:92
+#: src/EBox/Model/MultiGwRulesDataTable.pm:162 src/EBox/Model/DynDNS.pm:91
 #: src/EBox/Model/ByteRateGraphControl.pm:118
 msgid "Service"
 msgstr "Szolgáltatás"
@@ -570,84 +585,86 @@ msgstr ""
 "lefele, és hozzáadás után át lehet őket rendezni. Ha nem állít be egy portot "
 "vagy egy IP címet, a szabály mindre fog vonatkozni."
 
-#: src/EBox/Model/DNSResolver.pm:78
-msgid "IP address of the DNS server that eBox will use to resolve names."
+#: src/EBox/Model/DNSResolver.pm:77
+#, fuzzy
+msgid "IP address of the DNS server that Zentyal will use to resolve names."
 msgstr "A DNS szerver IP címei, amelyeket az eBox a nevek feloldására használ."
 
-#: src/EBox/Model/DNSResolver.pm:84 src/templates/Wizard/network.mas:67
-#: src/templates/Wizard/network.mas:71
+#: src/EBox/Model/DNSResolver.pm:83 src/templates/Wizard/network.mas:70
+#: src/templates/Wizard/network.mas:74
 msgid "Domain Name Server"
 msgstr "Domain Name Server"
 
-#: src/EBox/Model/DNSResolver.pm:93
+#: src/EBox/Model/DNSResolver.pm:92
 msgid "Domain Name Server Resolver List"
 msgstr "Domain Name Server feoldási lista"
 
-#: src/EBox/Model/DNSResolver.pm:99
+#: src/EBox/Model/DNSResolver.pm:98
 msgid "name server"
 msgstr "névszerver"
 
-#: src/EBox/Model/DNSResolver.pm:111
+#: src/EBox/Model/DNSResolver.pm:110
+#, fuzzy
 msgid ""
-"<p>Here you can add the name server resolvers that eBox will use.</p><p>Note "
-"that these settings may be overriden if you have any network interface "
-"configured via DHCP</p>"
+"<p>Here you can add the name server resolvers that Zentyal will use.</"
+"p><p>Note that these settings may be overriden if you have any network "
+"interface configured via DHCP</p>"
 msgstr ""
 "<p>Itt kell megadni az eBox által használ névszervereket.</"
 "p><p>Megjegyzendő, hogy ezek a beállítások felülíródnak, amennyiben van DHCP-"
 "re beállított interfész</p>"
 
-#: src/EBox/Model/ByteRateSettings.pm:81
+#: src/EBox/Model/ByteRateSettings.pm:80
 msgid "Interface to listen"
 msgstr "Aktív interfész"
 
-#: src/EBox/Model/ByteRateSettings.pm:90
+#: src/EBox/Model/ByteRateSettings.pm:89
 msgid "Traffic rate monitor settings"
 msgstr "Forgalom sebességellenőrzőjének beállítása"
 
-#: src/EBox/Model/ByteRateSettings.pm:94
+#: src/EBox/Model/ByteRateSettings.pm:93
 msgid "Changes will be applied immediately to the traffic rate monitor"
 msgstr "A forgalomi sebességellenőrző beállításai azonnal érvénybe lépnek"
 
-#: src/EBox/Model/ByteRateSettings.pm:97
+#: src/EBox/Model/ByteRateSettings.pm:96
 msgid "Settings changed"
 msgstr "Beállítások megváltoztatva"
 
-#: src/EBox/Model/ByteRateSettings.pm:116
+#: src/EBox/Model/ByteRateSettings.pm:115
 #, perl-brace-format
 msgid "{iface} (internal interface)"
 msgstr "{iface} (belső interfész)"
 
-#: src/EBox/Model/ByteRateSettings.pm:123
+#: src/EBox/Model/ByteRateSettings.pm:122
 #, perl-brace-format
 msgid "{iface} (external interface)"
 msgstr "{iface} (külső interfész)"
 
-#: src/EBox/Model/ByteRateSettings.pm:130
+#: src/EBox/Model/ByteRateSettings.pm:129
 msgid "all"
 msgstr "mind"
 
-#: src/EBox/Model/DynDNS.pm:87
+#: src/EBox/Model/DynDNS.pm:86
 msgid "Enable Dynamic DNS"
 msgstr "Dinamikus DNS bekapcsolása"
 
-#: src/EBox/Model/DynDNS.pm:98
+#: src/EBox/Model/DynDNS.pm:97
 msgid "Username"
 msgstr "Felhasználónév"
 
-#: src/EBox/Model/DynDNS.pm:103 src/templates/ifaces.mas:202
+#: src/EBox/Model/DynDNS.pm:102 src/templates/ifaces.mas:202
 msgid "Password"
 msgstr "Jelszó"
 
-#: src/EBox/Model/DynDNS.pm:108
+#: src/EBox/Model/DynDNS.pm:107
 msgid "Hostname"
 msgstr "Hostnév"
 
-#: src/EBox/Model/DynDNS.pm:116
+#: src/EBox/Model/DynDNS.pm:115
 msgid "Configuration"
 msgstr "Beállítás"
 
-#: src/EBox/Model/DynDNS.pm:120
+#: src/EBox/Model/DynDNS.pm:119
 msgid ""
 "All gateways you enter here must be reachable through one of the network "
 "interfaces currently configured"
@@ -655,18 +672,18 @@ msgstr ""
 "Minden ide beírt átjáró elérhető kell legyen valamelyik már beállított "
 "interfészen keresztül"
 
-#: src/EBox/Model/ByteRateEnableForm.pm:71
+#: src/EBox/Model/ByteRateEnableForm.pm:70
 msgid ""
 "Starting traffic rate monitoring. Wait patiently until the graph appears"
 msgstr ""
 "Hálózati forgalom monitorizálásának elkezdése. Várjon türelemmel, ameddig a "
 "grafikonok megjelennek"
 
-#: src/EBox/Model/ByteRateEnableForm.pm:74
+#: src/EBox/Model/ByteRateEnableForm.pm:73
 msgid "Stopping traffic rate monitoring"
 msgstr "Hálózati forgalom monitorizálásának befejezése."
 
-#: src/EBox/Model/ByteRateEnableForm.pm:87
+#: src/EBox/Model/ByteRateEnableForm.pm:86
 msgid ""
 "The traffic rate monitor is start/stop on demand without requiring to save "
 "changes first"
@@ -724,19 +741,19 @@ msgstr "A WAN Failover szolgáltatás csak statikus csatolók számára elérhet
 msgid "Invalid value for Host"
 msgstr "Érvénytelen Host érték"
 
-#: src/EBox/Model/WANFailoverOptions.pm:72
+#: src/EBox/Model/WANFailoverOptions.pm:71
 msgid "Time between checks"
 msgstr "Ellenőrzések közötti idő"
 
-#: src/EBox/Model/WANFailoverOptions.pm:73
+#: src/EBox/Model/WANFailoverOptions.pm:72
 msgid "seconds"
 msgstr "másodpercek"
 
-#: src/EBox/Model/WANFailoverOptions.pm:83
+#: src/EBox/Model/WANFailoverOptions.pm:82
 msgid "Global options"
 msgstr "Általános beállítások"
 
-#: src/EBox/Model/WANFailoverOptions.pm:87
+#: src/EBox/Model/WANFailoverOptions.pm:86
 msgid "These options affect to all the tests."
 msgstr "Ezek a beállítások befolyásolják az összes többit."
 
@@ -773,7 +790,7 @@ msgstr "Alapértelmezett"
 msgid "Gateways List"
 msgstr "Átjárók listája"
 
-#: src/EBox/Model/GatewayTable.pm:250
+#: src/EBox/Model/GatewayTable.pm:249
 msgid ""
 "You can add as many gateways as you want. This is very useful if you want to "
 "split your Internet traffic through several links. Note that if you "
@@ -785,15 +802,15 @@ msgstr ""
 "csatolót DHCP vagy PPPoE kapcsolattal állítja be az átjárók automatikusan be "
 "lesznek állítva."
 
-#: src/EBox/Model/GatewayTable.pm:252
+#: src/EBox/Model/GatewayTable.pm:251
 msgid "gateway"
 msgstr "átjáró"
 
-#: src/EBox/Model/GatewayTable.pm:285
+#: src/EBox/Model/GatewayTable.pm:284
 msgid "You can not manually add a gateway for DHCP or PPPoE interfaces"
 msgstr "DHCP vagy PPPoE csatolók esetében kézileg nem állíthatja be az átjárót"
 
-#: src/EBox/Model/GatewayTable.pm:344
+#: src/EBox/Model/GatewayTable.pm:343
 msgid "Automatically added gateways can not be manually deleted"
 msgstr "Automatikusan hozzáadott átjárók nem törölhető kézileg"
 
@@ -835,6 +852,25 @@ msgstr "Kiválasztott szolgáltatás szerinti forgalom"
 #: src/EBox/Model/ByteRateGraphControl.pm:106
 msgid "Traffic by source and service"
 msgstr "Forrás és szolgáltatás szerinti forgalom"
+
+#: src/EBox/Model/Proxy.pm:72
+#, fuzzy
+msgid "Proxy server"
+msgstr "névszerver"
+
+#: src/EBox/Model/Proxy.pm:78
+msgid "Proxy port"
+msgstr ""
+
+#: src/EBox/Model/Proxy.pm:86
+msgid "Proxy"
+msgstr ""
+
+#: src/EBox/Model/Proxy.pm:90
+msgid ""
+"This settings will be used to allow Zentyal to access the Internet if an "
+"HTTP proxy is needed."
+msgstr ""
 
 #: src/templates/confirmremove.mas:11 src/templates/confirm.mas:16
 msgid ""
@@ -882,8 +918,7 @@ msgstr ""
 "NATolva lesz.  Tehát azok a szolgáltatások, amelyek a LAN felhasználóinak "
 "vannak, nem lesznek elérhetők."
 
-#: src/templates/ifaces.mas:45 src/templates/Wizard/network.mas:28
-#: src/templates/Wizard/network.mas:84
+#: src/templates/ifaces.mas:45 src/templates/Wizard/network.mas:31
 msgid "Method"
 msgstr "Metódus"
 
@@ -908,8 +943,9 @@ msgid "External (WAN)"
 msgstr "Külső (WAN)"
 
 #: src/templates/ifaces.mas:111
+#, fuzzy
 msgid ""
-"Check this if you are using eBox as a gateway and this interface is "
+"Check this if you are using Zentyal as a gateway and this interface is "
 "connected to your Internet router."
 msgstr ""
 "Jelölje be ezt, ha az eBoxot átjáróként használja és ez a csatoló az "
@@ -959,23 +995,23 @@ msgstr ""
 "A vlan interfész eltávolításával befolyásolhat egy vagy több modult, amely "
 "használja ezt az interfészt."
 
-#: src/templates/Wizard/network.mas:18 src/templates/Wizard/interfaces.mas:7
+#: src/templates/Wizard/network.mas:21 src/templates/Wizard/interfaces.mas:7
 msgid "Network interfaces"
 msgstr "Hálózati csatolók"
 
-#: src/templates/Wizard/network.mas:21
+#: src/templates/Wizard/network.mas:24
 msgid "Configure network for external interfaces"
 msgstr "Külső interfész hálózati beállítása"
 
-#: src/templates/Wizard/network.mas:22
+#: src/templates/Wizard/network.mas:25
 msgid "Now you can set IP addresses and networks for each interface"
 msgstr "Most beállíthatja az IP címeket és a hálózatot minden interfészen"
 
-#: src/templates/Wizard/network.mas:30 src/templates/Wizard/network.mas:86
+#: src/templates/Wizard/network.mas:33
 msgid "Don't configure"
 msgstr "Ne állítsa be/át"
 
-#: src/templates/Wizard/network.mas:63
+#: src/templates/Wizard/network.mas:66
 msgid "Gateway"
 msgstr "Átjáró"
 
@@ -984,8 +1020,9 @@ msgid "Select external network interfaces"
 msgstr "Válassza ki a külső hálózati csatolót"
 
 #: src/templates/Wizard/interfaces.mas:11
+#, fuzzy
 msgid ""
-"You will not be able to connect to eBox administration page through them"
+"You will not be able to connect to Zentyal administration page through them"
 msgstr "Ezen keresztül nem fog tudni csatlakozni az eBox beállító oldalához"
 
 #: src/templates/diag.mas:13 src/templates/diag.mas:18
@@ -1025,6 +1062,9 @@ msgstr ""
 "Ha úgy dönt, hogy folytatja, minden modulban amely erre az interfészre "
 "hivatkozik, törlésre kerül a hivatkozott konfiguráció. Ha nem biztos a "
 "dolgában válassza a \"Mégsem\" gombot."
+
+#~ msgid "eBox"
+#~ msgstr "eBox"
 
 #~ msgid "{up}, {ext}, {link}"
 #~ msgstr "{up}, {ext}, {link}"

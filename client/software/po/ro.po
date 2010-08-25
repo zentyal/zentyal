@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-software 0.12.99Report-Msgid-Bugs-To: info@ebox-"
 "technologies.com\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
-"POT-Creation-Date: 2010-08-13 13:42+0200\n"
+"POT-Creation-Date: 2010-08-25 17:48+0200\n"
 "PO-Revision-Date: 2010-08-03 08:15+0200\n"
 "Last-Translator: Harald Ersch <harald.ersch@gmail.com>\n"
 "Language-Team: none\n"
@@ -35,7 +35,7 @@ msgstr "regulă pentru a permite actualizările prin apt"
 msgid "Software Management"
 msgstr "Administrare Software"
 
-#: src/EBox/Software.pm:472
+#: src/EBox/Software.pm:531
 #, perl-brace-format
 msgid ""
 "You cannot modify the automatic update using QA updates from Web UI. To "
@@ -45,46 +45,47 @@ msgstr ""
 "interfaţa Web. Pentru a dezactiva actualizările automate, editaţi  {conf} şi "
 "dezactivaţi cheia  {key}."
 
-#: src/EBox/Software.pm:537
-msgid "eBox Components"
+#: src/EBox/Software.pm:596
+#, fuzzy
+msgid "Zentyal Components"
 msgstr "Componente eBox"
 
-#: src/EBox/Software.pm:539
+#: src/EBox/Software.pm:598
 msgid "System Updates"
 msgstr "Actualizări sistem"
 
-#: src/EBox/Software.pm:541 src/templates/config.mas:19
+#: src/EBox/Software.pm:600 src/templates/config.mas:19
 msgid "Settings"
 msgstr "Configurări"
 
-#: src/EBox/Software.pm:680
+#: src/EBox/Software.pm:769
 #, perl-brace-format
 msgid ""
 "Software management is currently  locked by {locker}. Please, try again later"
 msgstr ""
 "Actualizarea software este blocată de  {locker}. Încercaţi din nou mai târziu"
 
-#: src/EBox/Software.pm:843
+#: src/EBox/Software.pm:932
 msgid "Welcome"
 msgstr "Bun venit"
 
-#: src/EBox/Software.pm:845
+#: src/EBox/Software.pm:934
 msgid "Package Selection"
 msgstr "Selectare pachete"
 
-#: src/EBox/Software.pm:846
+#: src/EBox/Software.pm:935
 msgid "Confirmation"
 msgstr "Confirmare"
 
-#: src/EBox/Software.pm:847
+#: src/EBox/Software.pm:936
 msgid "Installation"
 msgstr "Instalare"
 
-#: src/EBox/Software.pm:848
+#: src/EBox/Software.pm:937
 msgid "Initial Configuration"
 msgstr "Configurare iniţială"
 
-#: src/EBox/Software.pm:849
+#: src/EBox/Software.pm:938
 msgid "Save Changes"
 msgstr "Înregistrare modificări"
 
@@ -101,11 +102,13 @@ msgid "automatic updates configuration"
 msgstr "configurarea actualizărilor automate"
 
 #: src/EBox/CGI/EBox.pm:36
-msgid "Choose eBox packages to install"
+#, fuzzy
+msgid "Choose Zentyal packages to install"
 msgstr "Alegeţi pachetele eBox de instalat"
 
 #: src/EBox/CGI/EBox.pm:40
-msgid "eBox components"
+#, fuzzy
+msgid "Zentyal components"
 msgstr "componente eBox"
 
 #: src/EBox/CGI/Updates.pm:32 src/EBox/CGI/Updates.pm:50
@@ -124,24 +127,24 @@ msgstr "In curs de actualizare"
 msgid "There were no packages to update"
 msgstr "Nu au fost pachete de actualizat"
 
-#: src/EBox/CGI/InstallPkgs.pm:165
+#: src/EBox/CGI/InstallPkgs.pm:169
 msgid "Installing"
 msgstr "Se instalează"
 
-#: src/EBox/CGI/InstallPkgs.pm:166
+#: src/EBox/CGI/InstallPkgs.pm:170
 msgid "Installing packages"
 msgstr "Se instalează pachetele"
 
-#: src/EBox/CGI/InstallPkgs.pm:167 src/EBox/CGI/InstallPkgs.pm:191
+#: src/EBox/CGI/InstallPkgs.pm:171 src/EBox/CGI/InstallPkgs.pm:195
 msgid "Current operation"
 msgstr "Operaţiune curentă"
 
-#: src/EBox/CGI/InstallPkgs.pm:168
+#: src/EBox/CGI/InstallPkgs.pm:172
 #, fuzzy
 msgid "actions done"
 msgstr "Acţiuni"
 
-#: src/EBox/CGI/InstallPkgs.pm:169
+#: src/EBox/CGI/InstallPkgs.pm:173
 msgid ""
 "The packages installation has finished successfully. The administration "
 "interface may become unresponsive for a few seconds. Please wait patiently "
@@ -152,25 +155,25 @@ msgstr ""
 "poate părea blocată pentru câteva secunde. Aşteptaţi cu răbdare finalizarea  "
 "configurării sistemului. Veţi fi redirectat automat către pasul următor."
 
-#: src/EBox/CGI/InstallPkgs.pm:174
+#: src/EBox/CGI/InstallPkgs.pm:178
 msgid ""
 "The packages installation has not finished correctly . More information on "
 "the logs"
 msgstr "Instalarea pachetelor nu a reuşit. Detalii în jurnal."
 
-#: src/EBox/CGI/InstallPkgs.pm:189
+#: src/EBox/CGI/InstallPkgs.pm:193
 msgid "Removing package"
 msgstr "Dezinstalare pachet"
 
-#: src/EBox/CGI/InstallPkgs.pm:190
+#: src/EBox/CGI/InstallPkgs.pm:194
 msgid "Removing the selected package and its dependent packages"
 msgstr "Dezinstalare pachet şi pachete dependente"
 
-#: src/EBox/CGI/InstallPkgs.pm:192
+#: src/EBox/CGI/InstallPkgs.pm:196
 msgid "packages left to remove"
 msgstr "pachete rămase de dezinstalat"
 
-#: src/EBox/CGI/InstallPkgs.pm:193
+#: src/EBox/CGI/InstallPkgs.pm:197
 msgid ""
 "The packages removal has finished successfully. The administration interface "
 "may become unresponsive for a few seconds. Please wait patiently until the "
@@ -180,59 +183,89 @@ msgstr ""
 "poate părea blocată pentru câteva secunde.Aşteptaţi cu răbdare finalizarea "
 "restartării sistemului."
 
-#: src/EBox/CGI/InstallPkgs.pm:197
+#: src/EBox/CGI/InstallPkgs.pm:201
 msgid ""
 "The packages removal has not finished correctly . More information on the "
 "logs"
 msgstr "Dezinstalarea pachetelor nu a reuşit. Detalii în jurnal."
 
-#: src/templates/ebox.mas:140 src/templates/updates.mas:35
+#: src/templates/ebox.mas:150 src/templates/ebox.mas:536
+#: src/templates/ebox.mas:560 src/templates/updates.mas:35
 msgid "Update"
 msgstr "Actualizare"
 
-#: src/templates/ebox.mas:146
+#: src/templates/ebox.mas:156 src/templates/ebox.mas:510
+#: src/templates/ebox.mas:551
 msgid "Install"
 msgstr "Instalare"
 
-#: src/templates/ebox.mas:168
+#: src/templates/ebox.mas:178
 msgid "View advanced mode"
 msgstr "Vizualizare mod avansat"
 
-#: src/templates/ebox.mas:482
+#: src/templates/ebox.mas:512
+#, fuzzy
+msgid "Skip install"
+msgstr "Instalare"
+
+#: src/templates/ebox.mas:525
 msgid "View basic mode"
 msgstr "Vizualizare mod succint"
 
-#: src/templates/del.mas:96
+#: src/templates/ebox.mas:543 src/templates/ebox.mas:572
+msgid "Delete"
+msgstr ""
+
+#: src/templates/ebox.mas:552 src/templates/ebox.mas:561
+#: src/templates/updates.mas:97
+#, fuzzy
+msgid "Update list"
+msgstr "Actualizare"
+
+#: src/templates/ebox.mas:553 src/templates/ebox.mas:562
+#: src/templates/ebox.mas:573
+msgid "Deselect All"
+msgstr ""
+
+#: src/templates/ebox.mas:554 src/templates/ebox.mas:574
+msgid "Select All"
+msgstr ""
+
+#: src/templates/ebox.mas:563
+msgid "Select Al"
+msgstr ""
+
+#: src/templates/del.mas:97
 msgid "The following packages will be installed"
 msgstr "Următoarele pachete vor fi instalate"
 
-#: src/templates/del.mas:98
+#: src/templates/del.mas:99
 msgid "The following packages will be removed"
 msgstr "Următoarele pachete vor fi DEZinstalate"
 
-#: src/templates/del.mas:141
+#: src/templates/del.mas:144
 msgid "Ok"
 msgstr "Ok"
 
-#: src/templates/del.mas:142
+#: src/templates/del.mas:145
 msgid "Cancel"
 msgstr "Anulare"
 
-#: src/templates/del.mas:149
+#: src/templates/del.mas:152
 msgid "You may want to install also the following recommended packages:"
 msgstr "Poate doriţi instalarea şi a următoarelor pachete recomandate:"
 
-#: src/templates/del.mas:152
+#: src/templates/del.mas:155
 msgid "Layer 7 filtering for Traffic Shaping (ebox-l7-protocols)"
 msgstr "Filtrare Layer 7 pentru Prioritizare Trafic (ebox-l7-protocols)"
 
-#: src/templates/del.mas:155
+#: src/templates/del.mas:158
 msgid "Virus scanning for File Sharing (ebox-antivirus and samba-vscan)"
 msgstr ""
 "Scanare de viruşi pentru partajarea fişierelor (ebox-antivirus şi samba-"
 "vscan)"
 
-#: src/templates/del.mas:158
+#: src/templates/del.mas:161
 msgid "VoIP meetings support (dahdi and linux-headers)"
 msgstr "Suport pentru conferinţe VoIP (dahdi şi linux-headers)"
 
@@ -241,7 +274,8 @@ msgid "Perform automatic security updates"
 msgstr "Execută actualizări de securitate automate "
 
 #: src/templates/config.mas:14
-msgid "This eBox is configured to use automatic QA updates"
+#, fuzzy
+msgid "Zentyal is configured to use automatic QA updates"
 msgstr "Acest eBox este configurat să utilizeze actualizări automate QA"
 
 #: src/templates/config.mas:26
@@ -273,7 +307,8 @@ msgid "Security update"
 msgstr "Actualizări de securitate"
 
 #: src/templates/updates.mas:55
-msgid "eBox QA update"
+#, fuzzy
+msgid "Zentyal QA update"
 msgstr "Actualizare eBox QA (Asigurarea calităţii)"
 
 #: src/templates/updates.mas:77
@@ -281,8 +316,9 @@ msgid "Update all packages"
 msgstr "Actualizarea tuturor pachetelor"
 
 #: src/templates/updates.mas:88
+#, fuzzy
 msgid ""
-"This operation can take some time, don't worry if eBox looks unresponsive "
+"This operation can take some time, don't worry if Zentyal looks unresponsive "
 "after pressing the Upgrade button."
 msgstr ""
 "Această operaţiune poate dura, nu vă îngrijoraţi dacă eBox pare blocat după "
@@ -292,36 +328,29 @@ msgstr ""
 msgid "Upgrade"
 msgstr "Actualizare"
 
-#: src/templates/updates.mas:96
-#, fuzzy
-msgid "Update list"
-msgstr "Actualizare"
+#~ msgid ""
+#~ "As you are enjoying a Commercial Server Subscription the updates are "
+#~ "Quality Assured by the eBox Development Team."
+#~ msgstr ""
+#~ "De vreme ce vă bucuraţi de o subscripţie Server Comercial, actualizările "
+#~ "sunt verificate calitativ de către echipa de dezvoltatori eBox."
 
-#: src/templates/updateNote.mas:10
-msgid ""
-"As you are enjoying a Commercial Server Subscription the updates are Quality "
-"Assured by the eBox Development Team."
-msgstr ""
-"De vreme ce vă bucuraţi de o subscripţie Server Comercial, actualizările "
-"sunt verificate calitativ de către echipa de dezvoltatori eBox."
-
-#: src/templates/updateNote.mas:13
-#, perl-brace-format
-msgid ""
-"Warning: The updates are community based. You can now gain access to the "
-"Quality Assured Updates by purchasing the <a href='{proUrl}'>Professional</"
-"a>  or <a href='{entUrl}'>Enterprise</a> Server Subscription. QA Updates "
-"guarantee that all the upgrades, bugfixes and security updates are "
-"extensively tested by the eBox Development Team and you won't be introducing "
-"any regressions on your already working system."
-msgstr ""
-"Atenţie: Actualizările sunt făcute de către comunitate. Puteţi accesa "
-"actualizări verificate calitativ (QA) cumpărând subscripţii de tip <a "
-"href='{proUrl}'>Profesional</a> sau <a href='{entUrl}'>Enterprise</a> "
-"Server. Actualizările verificate calitativ garantează că actualizările "
-"programelor, repararea erorilor de programare şi de securitate fiind testate "
-"la greu de echipa de dezvoltatori eBox nu vor introduce probleme prin "
-"regresie în sistemul dvs. funcţional."
+#~ msgid ""
+#~ "Warning: The updates are community based. You can now gain access to the "
+#~ "Quality Assured Updates by purchasing the <a "
+#~ "href='{proUrl}'>Professional</a>  or <a href='{entUrl}'>Enterprise</a> "
+#~ "Server Subscription. QA Updates guarantee that all the upgrades, bugfixes "
+#~ "and security updates are extensively tested by the eBox Development Team "
+#~ "and you won't be introducing any regressions on your already working "
+#~ "system."
+#~ msgstr ""
+#~ "Atenţie: Actualizările sunt făcute de către comunitate. Puteţi accesa "
+#~ "actualizări verificate calitativ (QA) cumpărând subscripţii de tip <a "
+#~ "href='{proUrl}'>Profesional</a> sau <a href='{entUrl}'>Enterprise</a> "
+#~ "Server. Actualizările verificate calitativ garantează că actualizările "
+#~ "programelor, repararea erorilor de programare şi de securitate fiind "
+#~ "testate la greu de echipa de dezvoltatori eBox nu vor introduce probleme "
+#~ "prin regresie în sistemul dvs. funcţional."
 
 #~ msgid "packages installed"
 #~ msgstr "pachete instalate"

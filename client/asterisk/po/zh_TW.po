@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: ebox-asterisk 1.1Report-Msgid-Bugs-To: info@ebox-"
 "technologies.com\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
-"POT-Creation-Date: 2010-07-21 00:28+0200\n"
+"POT-Creation-Date: 2010-08-25 16:23+0200\n"
 "PO-Revision-Date: 2010-08-20 15:28+0200\n"
 "Last-Translator: Yaochiu Huang <taiwuco@gmail.com>\n"
 "Language-Team: none\n"
@@ -20,7 +20,8 @@ msgstr ""
 "X-Generator: Pootle 1.1.0\n"
 
 #: migration/0001_add_firewall_services.pl:30
-msgid "eBox VoIP system"
+#, fuzzy
+msgid "Zentyal VoIP system"
 msgstr "eBox VoIP 系統"
 
 #: src/EBox/Asterisk.pm:74 src/EBox/Asterisk.pm:715
@@ -204,8 +205,8 @@ msgid ""
 "You must install dahdi and linux-headers packages to use Meetings.{br}Run "
 "the following command: sudo apt-get install {kernels} dahdi."
 msgstr ""
-"您必需安裝dahdi和linux-headers套件以使用Meetings(會議). {br}執行以下命令: sudo apt-get install "
-"{kernels} dahdi."
+"您必需安裝dahdi和linux-headers套件以使用Meetings(會議). {br}執行以下命令: "
+"sudo apt-get install {kernels} dahdi."
 
 #: src/EBox/Model/Meetings.pm:119 src/EBox/Model/Meetings.pm:127
 #: src/EBox/Model/Settings.pm:84
@@ -279,7 +280,8 @@ msgstr "您沒有VoIP帳號. 也許這主機上並未啟用VoIP"
 msgid ""
 "Networks attached directly to internal interfaces, like {net}, are always "
 "considered local networks so it is not neccessary to add them."
-msgstr "直接介入內置介面的網路, 如 {net}, 永遠當做是本地端網路, 所以不必加入這些網路."
+msgstr ""
+"直接介入內置介面的網路, 如 {net}, 永遠當做是本地端網路, 所以不必加入這些網路."
 
 #: src/EBox/Model/Localnets.pm:113
 msgid "Local network"
@@ -371,19 +373,9 @@ msgstr "作為外線設定的 SIP 供應商"
 msgid "SIP provider configuration updated."
 msgstr "SIP 供應商組態已更新"
 
-#: src/EBox/Model/Provider.pm:195
-#, perl-brace-format
-msgid ""
-"{brand}: make low-cost VoIP calls to mobile phones and landlines directly "
-"with eBox. Once you have obtained a {subs} , you can purchase the VoIP "
-"credit you need. All these services available for purchasing at the {ohref}"
-"eBox on-line store{chref}! "
-msgstr ""
-"{brand}: 以eBox直接撥低價VoIP到手機和市話. 一旦您已建立一個{subs}, 您可以購買您需要的VoIP帳戶金額.  "
-"所有這些服務都可以在{ohref}eBox網上商店{chref}購買!"
-
 #: src/EBox/Model/NAT.pm:96
-msgid "eBox is behind NAT"
+#, fuzzy
+msgid "Zentyal is behind NAT"
 msgstr "eBox在 NAT 後"
 
 #: src/EBox/Model/NAT.pm:101
@@ -453,6 +445,16 @@ msgstr "Asterisk伺服器的密碼就是使用的密碼"
 #: src/templates/user.mas:21
 msgid "User account"
 msgstr "使用者帳號"
+
+#~ msgid ""
+#~ "{brand}: make low-cost VoIP calls to mobile phones and landlines directly "
+#~ "with eBox. Once you have obtained a {subs} , you can purchase the VoIP "
+#~ "credit you need. All these services available for purchasing at the "
+#~ "{ohref}eBox on-line store{chref}! "
+#~ msgstr ""
+#~ "{brand}: 以eBox直接撥低價VoIP到手機和市話. 一旦您已建立一個{subs}, 您可以"
+#~ "購買您需要的VoIP帳戶金額.  所有這些服務都可以在{ohref}eBox網上商店{chref}"
+#~ "購買!"
 
 #, fuzzy
 #~ msgid ""

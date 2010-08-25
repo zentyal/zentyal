@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-jabber 1.4.1Report-Msgid-Bugs-To: info@ebox-"
 "technologies.com\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
-"POT-Creation-Date: 2010-08-13 13:10+0200\n"
+"POT-Creation-Date: 2010-08-25 17:41+0200\n"
 "PO-Revision-Date: 2010-05-06 16:48+0200\n"
 "Last-Translator: Priit-A. Heinsalu <priit.heinsalu@gmail.com>\n"
 "Language-Team: none\n"
@@ -39,7 +39,7 @@ msgstr "Jabberi lisamine LDAP skeemi"
 
 #: src/EBox/Jabber.pm:57
 #, fuzzy
-msgid "eBox will need this schema to store Jabber users."
+msgid "Zentyal will need this schema to store Jabber users."
 msgstr "eBoxi vajab seda skeemi jabberi kasutajate hoidmiseks"
 
 #: src/EBox/Jabber.pm:73

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-remoteservices 1.1\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
-"POT-Creation-Date: 2010-08-13 13:41+0200\n"
+"POT-Creation-Date: 2010-08-25 17:45+0200\n"
 "PO-Revision-Date: 2010-08-20 18:06+0200\n"
 "Last-Translator: Indra Pharazijn <indra6oc@gmail.com>\n"
 "Language-Team: none\n"
@@ -109,21 +109,21 @@ msgstr "Systeem reservekopie op afstand proxy"
 msgid "Connection error"
 msgstr "Verbindings fout"
 
-#: src/EBox/RemoteServices/Auth.pm:125
+#: src/EBox/RemoteServices/Auth.pm:124
 msgid "Key for service URN not found"
 msgstr "Sleutel voor dienst URN niet gevonden"
 
-#: src/EBox/RemoteServices/Auth.pm:161
+#: src/EBox/RemoteServices/Auth.pm:160
 #, perl-brace-format
 msgid "Value for key {k} not found"
 msgstr "Waarde van sleutel {k} niet gevonden"
 
-#: src/EBox/RemoteServices/Subscription.pm:109
+#: src/EBox/RemoteServices/Subscription.pm:110
 #, fuzzy
 msgid "Key for web subscription service not found"
 msgstr "Sleutel voor web inschrijving dienst niet gevonden"
 
-#: src/EBox/RemoteServices/Subscription.pm:412
+#: src/EBox/RemoteServices/Subscription.pm:421
 #, perl-brace-format
 msgid "Cannot contact to {host}. Check your connection to the Internet"
 msgstr "Kan {host} niet contacteren. Controleer U verbinding met het Internet"
@@ -191,11 +191,11 @@ msgid "Cannot get the restricted addresses for remote support"
 msgstr "Kan het beperkt adres niet bereiken voor ondersteuning op afstand"
 
 #: src/EBox/RemoteServices/SupportAccess.pm:128
-#, perl-brace-format
+#, fuzzy, perl-brace-format
 msgid ""
-"There exists already a user {u} and it does not seem created by eBox. Until "
-"this user is renamed or removed it would be impossible to set up remote "
-"support access"
+"There exists already a user {u} and it does not seem created by Zentyal. "
+"Until this user is renamed or removed it would be impossible to set up "
+"remote support access"
 msgstr ""
 "Er bestaat al een gebruiker {u} en die blijkt niet aangemaakt te zijn door "
 "eBox. Zolang deze gebruiker niet wordt hernoemd of verwijderd is het "
@@ -217,86 +217,86 @@ msgstr ""
 msgid "Please, save changes"
 msgstr ""
 
-#: src/EBox/RemoteServices/Model/Subscription.pm:162
+#: src/EBox/RemoteServices/Model/Subscription.pm:163
 msgid "Done"
 msgstr ""
 
-#: src/EBox/RemoteServices/Model/Subscription.pm:260
+#: src/EBox/RemoteServices/Model/Subscription.pm:259
 #, perl-brace-format
-msgid "Subscribing an eBox will configure the {mods} and its dependencies "
+msgid "Subscribing Zentyal will configure the {mods} and its dependencies "
 msgstr ""
 
-#: src/EBox/RemoteServices/Model/Subscription.pm:267
+#: src/EBox/RemoteServices/Model/Subscription.pm:266
 #, perl-brace-format
-msgid "Subscribing an eBox will enable the {mods} and its dependencies.<br/>"
+msgid "Subscribing Zentyal will enable the {mods} and its dependencies.<br/>"
 msgstr ""
 
-#: src/EBox/RemoteServices/Model/Subscription.pm:272
+#: src/EBox/RemoteServices/Model/Subscription.pm:271
 msgid ""
-"Take into account that subscribing an eBox could take a minute. Do not touch "
+"Take into account that subscribing Zentyal could take a minute. Do not touch "
 "anything until subscribing process is done."
 msgstr ""
 
-#: src/EBox/RemoteServices/Model/Subscription.pm:308
+#: src/EBox/RemoteServices/Model/Subscription.pm:307
 msgid ""
 "Prior to make a subscription on remote services, save or discard changes in "
 "the OpenVPN module"
 msgstr ""
 
-#: src/EBox/RemoteServices/Model/Subscription.pm:328
+#: src/EBox/RemoteServices/Model/Subscription.pm:327
 msgid "User Name or Email Address"
 msgstr ""
 
-#: src/EBox/RemoteServices/Model/Subscription.pm:336
-msgid "eBox Name"
+#: src/EBox/RemoteServices/Model/Subscription.pm:335
+msgid "Server Name"
 msgstr ""
 
-#: src/EBox/RemoteServices/Model/Subscription.pm:341
-msgid "Choose a name for your eBox which is a valid subdomain name"
+#: src/EBox/RemoteServices/Model/Subscription.pm:340
+msgid "Choose a name for your server which is a valid subdomain name"
 msgstr ""
 
-#: src/EBox/RemoteServices/Model/Subscription.pm:348
+#: src/EBox/RemoteServices/Model/Subscription.pm:347
 msgid "Password"
 msgstr ""
 
-#: src/EBox/RemoteServices/Model/Subscription.pm:356
-msgid "eBox subscription details"
+#: src/EBox/RemoteServices/Model/Subscription.pm:355
+msgid "Zentyal subscription details"
 msgstr ""
 
-#: src/EBox/RemoteServices/Model/Subscription.pm:357
+#: src/EBox/RemoteServices/Model/Subscription.pm:356
 msgid "Delete data"
 msgstr ""
 
-#: src/EBox/RemoteServices/Model/Subscription.pm:360
-msgid "Subscription to eBox Control Center"
+#: src/EBox/RemoteServices/Model/Subscription.pm:359
+msgid "Subscription to Zentyal Cloud"
 msgstr ""
 
-#: src/EBox/RemoteServices/Model/Subscription.pm:361
+#: src/EBox/RemoteServices/Model/Subscription.pm:360
 msgid "Subscribe"
 msgstr ""
 
-#: src/EBox/RemoteServices/Model/Subscription.pm:503
+#: src/EBox/RemoteServices/Model/Subscription.pm:516
 msgid " module"
 msgstr ""
 
-#: src/EBox/RemoteServices/Model/Subscription.pm:509
+#: src/EBox/RemoteServices/Model/Subscription.pm:522
 msgid " and "
 msgstr ""
 
-#: src/EBox/RemoteServices/Model/Subscription.pm:509
+#: src/EBox/RemoteServices/Model/Subscription.pm:522
 msgid " modules"
 msgstr ""
 
-#: src/EBox/RemoteServices/Model/Subscription.pm:526
+#: src/EBox/RemoteServices/Model/Subscription.pm:539
 msgid "Action"
 msgstr ""
 
-#: src/EBox/RemoteServices/Model/Subscription.pm:527
-#: src/EBox/RemoteServices/Model/Subscription.pm:548
+#: src/EBox/RemoteServices/Model/Subscription.pm:540
+#: src/EBox/RemoteServices/Model/Subscription.pm:561
 msgid "Reason"
 msgstr ""
 
-#: src/EBox/RemoteServices/Model/Subscription.pm:547
+#: src/EBox/RemoteServices/Model/Subscription.pm:560
 msgid "File"
 msgstr ""
 
@@ -309,7 +309,7 @@ msgid "Access settings"
 msgstr ""
 
 #: src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:75
-msgid "Allow remote access to eBox staff"
+msgid "Allow remote access to Zentyal staff"
 msgstr ""
 
 #: src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:81
@@ -318,9 +318,9 @@ msgstr ""
 
 #: src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:85
 msgid ""
-"By default the acces is only granted to hosts inside the Control Center "
+"By default the acces is only granted to hosts inside the Zentyal Cloud "
 "private network. If you enable this option access is granted from any "
-"address. Use this option only if you could not connect to the Control Center"
+"address. Use this option only if you could not connect to the Zentyal Cloud"
 msgstr ""
 
 #: src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:91
@@ -335,15 +335,15 @@ msgstr ""
 
 #: src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:129
 msgid ""
-"To restrict addresses you need that your eBox is subscribed to the Control "
-"Center. Either subscribe it or allow access from any address"
+"To restrict addresses you need that your Zentyal Server is subscribed to "
+"Zentyal Cloud. Either subscribe it or allow access from any address"
 msgstr ""
 
 #: src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:140
 #, perl-brace-format
 msgid ""
-"Enabling remote support will allow staff from eBox technologies to freely "
-"access your computer.\n"
+"Enabling remote support will allow staff from Zentyal to freely access your "
+"computer.\n"
 "You could use the 'screen' command to join their shell option. To allow "
 "that, the SUID bit of the 'screen' program is enabled. This change is undone "
 "when this option is disabled\n"
@@ -351,7 +351,7 @@ msgid ""
 "'adm' group and use the command: '{cmd}'."
 msgstr ""
 
-#: src/EBox/RemoteServices/Backup.pm:260
+#: src/EBox/RemoteServices/Backup.pm:259
 #: src/EBox/RemoteServices/ProxyBackup.pm:208
 #, perl-brace-format
 msgid "Inexistent backup: {n}"
@@ -366,20 +366,18 @@ msgstr ""
 msgid "Key for proxy backup service not found"
 msgstr ""
 
-#: src/EBox/RemoteServices/Composite/General.pm:63
-msgid "eBox Control Center"
+#: src/EBox/RemoteServices/Composite/General.pm:62
+#: src/EBox/Event/Dispatcher/ControlCenter.pm:160
+#: src/EBox/RemoteServices.pm:1000
+msgid "Zentyal Cloud"
 msgstr ""
 
-#: src/EBox/Event/Dispatcher/ControlCenter.pm:148
+#: src/EBox/Event/Dispatcher/ControlCenter.pm:147
 msgid "Control panel"
 msgstr ""
 
-#: src/EBox/Event/Dispatcher/ControlCenter.pm:161
-msgid "Control center"
-msgstr ""
-
 #: src/EBox/RemoteServices.pm:82
-msgid "Control Center Client"
+msgid "Zentyal Cloud Client"
 msgstr ""
 
 #: src/EBox/RemoteServices.pm:217
@@ -390,39 +388,39 @@ msgstr ""
 msgid "Subscribed"
 msgstr ""
 
-#: src/EBox/RemoteServices.pm:251 src/EBox/RemoteServices.pm:1002
-msgid "Control Center"
+#: src/EBox/RemoteServices.pm:251
+msgid "Subscription"
 msgstr ""
 
 #: src/EBox/RemoteServices.pm:262
 msgid "System"
 msgstr ""
 
-#: src/EBox/RemoteServices.pm:314
-msgid "eBox Control Center Connection"
+#: src/EBox/RemoteServices.pm:312
+msgid "Zentyal Cloud Connection"
 msgstr ""
 
-#: src/EBox/RemoteServices.pm:427
+#: src/EBox/RemoteServices.pm:425
 msgid ""
-"The subscribed hostname is only available if the host is subscribed to eBox "
-"Control Center"
+"The subscribed hostname is only available if the host is subscribed to "
+"Zentyal Cloud"
 msgstr ""
 
-#: src/EBox/RemoteServices.pm:456
+#: src/EBox/RemoteServices.pm:454
 msgid ""
 "The monitor gatherer IP addresses are only available if the host is "
-"subscribed to eBox Control Center"
+"subscribed to Zentyal Cloud"
 msgstr ""
 
-#: src/EBox/RemoteServices.pm:601
-msgid "eBox must be subscribed to reload the bundle"
+#: src/EBox/RemoteServices.pm:599
+msgid "Zentyal must be subscribed to reload the bundle"
 msgstr ""
 
-#: src/EBox/RemoteServices.pm:995
+#: src/EBox/RemoteServices.pm:993
 #, perl-brace-format
 msgid "Not connected. Check VPN logs in {path}"
 msgstr ""
 
-#: src/EBox/RemoteServices.pm:999
+#: src/EBox/RemoteServices.pm:997
 msgid "Connected"
 msgstr ""

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-. 1.5\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
-"POT-Creation-Date: 2010-08-13 13:40+0200\n"
+"POT-Creation-Date: 2010-08-25 17:47+0200\n"
 "PO-Revision-Date: 2010-08-16 15:03+0200\n"
 "Last-Translator: Jorge Eduardo Quintao <jorge@netsol.com.br>\n"
 "Language-Team: none\n"
@@ -18,46 +18,47 @@ msgstr ""
 "X-Generator: Pootle 1.1.0\n"
 
 #: migration/0001_add_firewall_services.pl:30
-msgid "eBox FTP Server"
+#, fuzzy
+msgid "Zentyal FTP Server"
 msgstr "Servidor FTP eBox"
 
-#: src/EBox/Model/Options.pm:48
+#: src/EBox/Model/Options.pm:45
 msgid "Disabled"
 msgstr "Desabilitado"
 
-#: src/EBox/Model/Options.pm:52
+#: src/EBox/Model/Options.pm:49
 msgid "Read only"
 msgstr "Somente leitura"
 
-#: src/EBox/Model/Options.pm:56
+#: src/EBox/Model/Options.pm:53
 msgid "Read/Write"
 msgstr "Leitura/Escrita"
 
-#: src/EBox/Model/Options.pm:69
+#: src/EBox/Model/Options.pm:66
 msgid "Anonymous access"
 msgstr "Acesso anônimo"
 
-#: src/EBox/Model/Options.pm:73
+#: src/EBox/Model/Options.pm:70
 msgid "Sets the permissions for the /srv/ftp directory"
 msgstr "Altera as permissões para o diretório /srv/ftp"
 
-#: src/EBox/Model/Options.pm:77
+#: src/EBox/Model/Options.pm:74
 msgid "Personal directories"
 msgstr "Diretórios pessoais"
 
-#: src/EBox/Model/Options.pm:80
+#: src/EBox/Model/Options.pm:77
 msgid "Enable FTP access for each user to its /home directory"
 msgstr "Habilitar o acesso FTP de cada usuário para seu diretório /home"
 
-#: src/EBox/Model/Options.pm:86
+#: src/EBox/Model/Options.pm:83
 msgid "General configuration settings"
 msgstr "Opções de configurações gerais"
 
-#: src/EBox/Model/Options.pm:87
+#: src/EBox/Model/Options.pm:84
 msgid "FTP Server"
 msgstr "Servidor FTP"
 
-#: src/EBox/Model/Options.pm:91
+#: src/EBox/Model/Options.pm:88
 msgid ""
 "The anonymous directory is /srv/ftp, make sure that the files you create "
 "there have read permissions for everybody (chmod o+r /srv/ftp/*). If you "
@@ -68,8 +69,8 @@ msgstr ""
 "O diretório anônimo é /srv/ftp, esteja certo de que os arquivos que você "
 "criar lá tenham permissões de leitura para todos (chmod o+r /srv/ftp/*). Se "
 "você também desejar dar permissões de escrita você precisa criar um "
-"subdiretório com permissão de escrita para todos, por exemplo: mkdir "
-"/srv/ftp/incoming ; chmod o+rwx /srv/ftp/incoming"
+"subdiretório com permissão de escrita para todos, por exemplo: mkdir /srv/"
+"ftp/incoming ; chmod o+rwx /srv/ftp/incoming"
 
 #: src/EBox/FTP.pm:84
 msgid "To configure vsftpd"

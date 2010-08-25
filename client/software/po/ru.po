@@ -7,15 +7,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-software 0.12.1\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
-"POT-Creation-Date: 2010-08-13 13:42+0200\n"
+"POT-Creation-Date: 2010-08-25 17:48+0200\n"
 "PO-Revision-Date: 2010-08-23 17:51+0200\n"
 "Last-Translator: Vadim Glyshkov <plusv@yandex.ru>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
+"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Pootle 1.1.0\n"
 
 #: migration/0001_add_http_software_rule.pl:24
@@ -34,26 +34,27 @@ msgstr "правило разрешающее обновления apt"
 msgid "Software Management"
 msgstr "Управление программным обеспечением"
 
-#: src/EBox/Software.pm:472
+#: src/EBox/Software.pm:531
 #, perl-brace-format
 msgid ""
 "You cannot modify the automatic update using QA updates from Web UI. To "
 "disable automatic updates, edit {conf} and disable {key} key."
 msgstr ""
 
-#: src/EBox/Software.pm:537
-msgid "eBox Components"
+#: src/EBox/Software.pm:596
+#, fuzzy
+msgid "Zentyal Components"
 msgstr "Компоненты eBox"
 
-#: src/EBox/Software.pm:539
+#: src/EBox/Software.pm:598
 msgid "System Updates"
 msgstr "Системные обновления"
 
-#: src/EBox/Software.pm:541 src/templates/config.mas:19
+#: src/EBox/Software.pm:600 src/templates/config.mas:19
 msgid "Settings"
 msgstr "Настройки"
 
-#: src/EBox/Software.pm:680
+#: src/EBox/Software.pm:769
 #, perl-brace-format
 msgid ""
 "Software management is currently  locked by {locker}. Please, try again later"
@@ -61,27 +62,27 @@ msgstr ""
 "Управление программным обеспечением сейчас заблокировано {locker}. "
 "Пожалуйста, попробуйте позже"
 
-#: src/EBox/Software.pm:843
+#: src/EBox/Software.pm:932
 msgid "Welcome"
 msgstr "Приветствуем"
 
-#: src/EBox/Software.pm:845
+#: src/EBox/Software.pm:934
 msgid "Package Selection"
 msgstr "Выбор пакетов"
 
-#: src/EBox/Software.pm:846
+#: src/EBox/Software.pm:935
 msgid "Confirmation"
 msgstr "Подтверждение"
 
-#: src/EBox/Software.pm:847
+#: src/EBox/Software.pm:936
 msgid "Installation"
 msgstr "Установка"
 
-#: src/EBox/Software.pm:848
+#: src/EBox/Software.pm:937
 msgid "Initial Configuration"
 msgstr "Первоначальная конфигурация"
 
-#: src/EBox/Software.pm:849
+#: src/EBox/Software.pm:938
 msgid "Save Changes"
 msgstr "Записать изменения"
 
@@ -98,11 +99,13 @@ msgid "automatic updates configuration"
 msgstr "автоматическое обновление конфигурации"
 
 #: src/EBox/CGI/EBox.pm:36
-msgid "Choose eBox packages to install"
+#, fuzzy
+msgid "Choose Zentyal packages to install"
 msgstr "Выберите пакеты eBox для установки"
 
 #: src/EBox/CGI/EBox.pm:40
-msgid "eBox components"
+#, fuzzy
+msgid "Zentyal components"
 msgstr "Компоненты eBox"
 
 #: src/EBox/CGI/Updates.pm:32 src/EBox/CGI/Updates.pm:50
@@ -121,23 +124,23 @@ msgstr "Обновление"
 msgid "There were no packages to update"
 msgstr "Нет пакетов для обновления"
 
-#: src/EBox/CGI/InstallPkgs.pm:165
+#: src/EBox/CGI/InstallPkgs.pm:169
 msgid "Installing"
 msgstr "Уставливается"
 
-#: src/EBox/CGI/InstallPkgs.pm:166
+#: src/EBox/CGI/InstallPkgs.pm:170
 msgid "Installing packages"
 msgstr "Устанавливаются пакеты"
 
-#: src/EBox/CGI/InstallPkgs.pm:167 src/EBox/CGI/InstallPkgs.pm:191
+#: src/EBox/CGI/InstallPkgs.pm:171 src/EBox/CGI/InstallPkgs.pm:195
 msgid "Current operation"
 msgstr "Текущая операция"
 
-#: src/EBox/CGI/InstallPkgs.pm:168
+#: src/EBox/CGI/InstallPkgs.pm:172
 msgid "actions done"
 msgstr "Произведённые действия"
 
-#: src/EBox/CGI/InstallPkgs.pm:169
+#: src/EBox/CGI/InstallPkgs.pm:173
 msgid ""
 "The packages installation has finished successfully. The administration "
 "interface may become unresponsive for a few seconds. Please wait patiently "
@@ -148,7 +151,7 @@ msgstr ""
 "отвечать несколько секунд. Пожалуйста, дождитесь полного перезапуска. Вы "
 "автоматически будете перенаправлены на следующий шаг."
 
-#: src/EBox/CGI/InstallPkgs.pm:174
+#: src/EBox/CGI/InstallPkgs.pm:178
 msgid ""
 "The packages installation has not finished correctly . More information on "
 "the logs"
@@ -156,19 +159,19 @@ msgstr ""
 "Установка пакета прошла не успешна. Дополнительную информацию смотрите в "
 "журналах системы"
 
-#: src/EBox/CGI/InstallPkgs.pm:189
+#: src/EBox/CGI/InstallPkgs.pm:193
 msgid "Removing package"
 msgstr "Удаление пакета"
 
-#: src/EBox/CGI/InstallPkgs.pm:190
+#: src/EBox/CGI/InstallPkgs.pm:194
 msgid "Removing the selected package and its dependent packages"
 msgstr "Удаление выбранных пакетов и зависимых пакетов"
 
-#: src/EBox/CGI/InstallPkgs.pm:192
+#: src/EBox/CGI/InstallPkgs.pm:196
 msgid "packages left to remove"
 msgstr "пакеты отмечены для удаления"
 
-#: src/EBox/CGI/InstallPkgs.pm:193
+#: src/EBox/CGI/InstallPkgs.pm:197
 msgid ""
 "The packages removal has finished successfully. The administration interface "
 "may become unresponsive for a few seconds. Please wait patiently until the "
@@ -177,7 +180,7 @@ msgstr ""
 "Удаление пакетов завершено успешно. Интерфейс администрирования будет "
 "недоступен несколько секунд. Пожалуйста дождитесь полного перезапуска системы"
 
-#: src/EBox/CGI/InstallPkgs.pm:197
+#: src/EBox/CGI/InstallPkgs.pm:201
 msgid ""
 "The packages removal has not finished correctly . More information on the "
 "logs"
@@ -185,53 +188,82 @@ msgstr ""
 "Удаление пакетов завершено некорректно. Дополнительную информацию смотрите в "
 "журналах системы"
 
-#: src/templates/ebox.mas:140 src/templates/updates.mas:35
+#: src/templates/ebox.mas:150 src/templates/ebox.mas:536
+#: src/templates/ebox.mas:560 src/templates/updates.mas:35
 msgid "Update"
 msgstr "Обновление"
 
-#: src/templates/ebox.mas:146
+#: src/templates/ebox.mas:156 src/templates/ebox.mas:510
+#: src/templates/ebox.mas:551
 msgid "Install"
 msgstr "Установка"
 
-#: src/templates/ebox.mas:168
+#: src/templates/ebox.mas:178
 msgid "View advanced mode"
 msgstr "Переключить в расширенный режим."
 
-#: src/templates/ebox.mas:482
+#: src/templates/ebox.mas:512
+#, fuzzy
+msgid "Skip install"
+msgstr "Установка"
+
+#: src/templates/ebox.mas:525
 msgid "View basic mode"
 msgstr "Переключить в основной режим."
 
-#: src/templates/del.mas:96
+#: src/templates/ebox.mas:543 src/templates/ebox.mas:572
+msgid "Delete"
+msgstr ""
+
+#: src/templates/ebox.mas:552 src/templates/ebox.mas:561
+#: src/templates/updates.mas:97
+msgid "Update list"
+msgstr "Список обновлений"
+
+#: src/templates/ebox.mas:553 src/templates/ebox.mas:562
+#: src/templates/ebox.mas:573
+msgid "Deselect All"
+msgstr ""
+
+#: src/templates/ebox.mas:554 src/templates/ebox.mas:574
+msgid "Select All"
+msgstr ""
+
+#: src/templates/ebox.mas:563
+msgid "Select Al"
+msgstr ""
+
+#: src/templates/del.mas:97
 msgid "The following packages will be installed"
 msgstr "Выбранный пакет уже установлен"
 
-#: src/templates/del.mas:98
+#: src/templates/del.mas:99
 msgid "The following packages will be removed"
 msgstr "Выбранный пакет уже удален"
 
-#: src/templates/del.mas:141
+#: src/templates/del.mas:144
 msgid "Ok"
 msgstr "Ok"
 
-#: src/templates/del.mas:142
+#: src/templates/del.mas:145
 msgid "Cancel"
 msgstr "Отмена"
 
-#: src/templates/del.mas:149
+#: src/templates/del.mas:152
 msgid "You may want to install also the following recommended packages:"
 msgstr ""
 "Рекомендуем вам установить следующие пакеты, необходимые для корректной "
 "работы:"
 
-#: src/templates/del.mas:152
+#: src/templates/del.mas:155
 msgid "Layer 7 filtering for Traffic Shaping (ebox-l7-protocols)"
 msgstr "Layer 7 filtering for Traffic Shaping (ebox-l7-protocols)"
 
-#: src/templates/del.mas:155
+#: src/templates/del.mas:158
 msgid "Virus scanning for File Sharing (ebox-antivirus and samba-vscan)"
 msgstr ""
 
-#: src/templates/del.mas:158
+#: src/templates/del.mas:161
 msgid "VoIP meetings support (dahdi and linux-headers)"
 msgstr ""
 
@@ -241,7 +273,7 @@ msgid "Perform automatic security updates"
 msgstr "Автоматическое обновление программного обеспечения"
 
 #: src/templates/config.mas:14
-msgid "This eBox is configured to use automatic QA updates"
+msgid "Zentyal is configured to use automatic QA updates"
 msgstr ""
 
 #: src/templates/config.mas:26
@@ -275,7 +307,8 @@ msgid "Security update"
 msgstr "Обновления безопасности"
 
 #: src/templates/updates.mas:55
-msgid "eBox QA update"
+#, fuzzy
+msgid "Zentyal QA update"
 msgstr "Обновления QA eBox"
 
 #: src/templates/updates.mas:77
@@ -283,8 +316,9 @@ msgid "Update all packages"
 msgstr "Обновить все пакеты"
 
 #: src/templates/updates.mas:88
+#, fuzzy
 msgid ""
-"This operation can take some time, don't worry if eBox looks unresponsive "
+"This operation can take some time, don't worry if Zentyal looks unresponsive "
 "after pressing the Upgrade button."
 msgstr ""
 "Эта операция может занять некоторое время, не беспокойтесь, если eBox "
@@ -293,27 +327,6 @@ msgstr ""
 #: src/templates/updates.mas:95
 msgid "Upgrade"
 msgstr "Обновить"
-
-#: src/templates/updates.mas:96
-msgid "Update list"
-msgstr "Список обновлений"
-
-#: src/templates/updateNote.mas:10
-msgid ""
-"As you are enjoying a Commercial Server Subscription the updates are Quality "
-"Assured by the eBox Development Team."
-msgstr ""
-
-#: src/templates/updateNote.mas:13
-#, perl-brace-format
-msgid ""
-"Warning: The updates are community based. You can now gain access to the "
-"Quality Assured Updates by purchasing the <a href='{proUrl}'>Professional</"
-"a>  or <a href='{entUrl}'>Enterprise</a> Server Subscription. QA Updates "
-"guarantee that all the upgrades, bugfixes and security updates are "
-"extensively tested by the eBox Development Team and you won't be introducing "
-"any regressions on your already working system."
-msgstr ""
 
 #, fuzzy
 #~ msgid "packages installed"

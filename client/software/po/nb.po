@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-software 0.12.99Report-Msgid-Bugs-To: info@ebox-"
 "technologies.com\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
-"POT-Creation-Date: 2010-08-13 13:42+0200\n"
+"POT-Creation-Date: 2010-08-25 17:48+0200\n"
 "PO-Revision-Date: 2010-02-01 10:43+0100\n"
 "Last-Translator: Ronny Gonzales <gonzito@online.no>\n"
 "Language-Team: none\n"
@@ -34,26 +34,27 @@ msgstr "regel for å tillate apt oppdateringer"
 msgid "Software Management"
 msgstr "Programvare behandling"
 
-#: src/EBox/Software.pm:472
+#: src/EBox/Software.pm:531
 #, perl-brace-format
 msgid ""
 "You cannot modify the automatic update using QA updates from Web UI. To "
 "disable automatic updates, edit {conf} and disable {key} key."
 msgstr ""
 
-#: src/EBox/Software.pm:537
-msgid "eBox Components"
+#: src/EBox/Software.pm:596
+#, fuzzy
+msgid "Zentyal Components"
 msgstr "eBox Komponenter"
 
-#: src/EBox/Software.pm:539
+#: src/EBox/Software.pm:598
 msgid "System Updates"
 msgstr "System Oppdateringer"
 
-#: src/EBox/Software.pm:541 src/templates/config.mas:19
+#: src/EBox/Software.pm:600 src/templates/config.mas:19
 msgid "Settings"
 msgstr ""
 
-#: src/EBox/Software.pm:680
+#: src/EBox/Software.pm:769
 #, perl-brace-format
 msgid ""
 "Software management is currently  locked by {locker}. Please, try again later"
@@ -61,29 +62,29 @@ msgstr ""
 "Programmvare behandling er for øyeblikket låst av {locker}. Vennligst prøv "
 "igjen senere"
 
-#: src/EBox/Software.pm:843
+#: src/EBox/Software.pm:932
 msgid "Welcome"
 msgstr ""
 
-#: src/EBox/Software.pm:845
+#: src/EBox/Software.pm:934
 msgid "Package Selection"
 msgstr ""
 
-#: src/EBox/Software.pm:846
+#: src/EBox/Software.pm:935
 msgid "Confirmation"
 msgstr ""
 
-#: src/EBox/Software.pm:847
+#: src/EBox/Software.pm:936
 #, fuzzy
 msgid "Installation"
 msgstr "Installer"
 
-#: src/EBox/Software.pm:848
+#: src/EBox/Software.pm:937
 #, fuzzy
 msgid "Initial Configuration"
 msgstr "Oppsett for automatiske oppdateringer"
 
-#: src/EBox/Software.pm:849
+#: src/EBox/Software.pm:938
 msgid "Save Changes"
 msgstr ""
 
@@ -102,11 +103,12 @@ msgstr "Oppsett for automatiske oppdateringer"
 
 #: src/EBox/CGI/EBox.pm:36
 #, fuzzy
-msgid "Choose eBox packages to install"
+msgid "Choose Zentyal packages to install"
 msgstr "pakker igjen å installere"
 
 #: src/EBox/CGI/EBox.pm:40
-msgid "eBox components"
+#, fuzzy
+msgid "Zentyal components"
 msgstr "eBox komponenter"
 
 #: src/EBox/CGI/Updates.pm:32 src/EBox/CGI/Updates.pm:50
@@ -125,27 +127,27 @@ msgstr "Oppgraderer"
 msgid "There were no packages to update"
 msgstr "Ingen pakker å oppdatere"
 
-#: src/EBox/CGI/InstallPkgs.pm:165
+#: src/EBox/CGI/InstallPkgs.pm:169
 #, fuzzy
 msgid "Installing"
 msgstr "Installer"
 
-#: src/EBox/CGI/InstallPkgs.pm:166
+#: src/EBox/CGI/InstallPkgs.pm:170
 #, fuzzy
 msgid "Installing packages"
 msgstr "Oppgraderer pakker"
 
-#: src/EBox/CGI/InstallPkgs.pm:167 src/EBox/CGI/InstallPkgs.pm:191
+#: src/EBox/CGI/InstallPkgs.pm:171 src/EBox/CGI/InstallPkgs.pm:195
 #, fuzzy
 msgid "Current operation"
 msgstr "Gjeldende pakke"
 
-#: src/EBox/CGI/InstallPkgs.pm:168
+#: src/EBox/CGI/InstallPkgs.pm:172
 #, fuzzy
 msgid "actions done"
 msgstr "Handlinger"
 
-#: src/EBox/CGI/InstallPkgs.pm:169
+#: src/EBox/CGI/InstallPkgs.pm:173
 #, fuzzy
 msgid ""
 "The packages installation has finished successfully. The administration "
@@ -156,25 +158,25 @@ msgstr ""
 "Pakke installasjonen er fullført. Administrasjons grensesnittet kan være "
 "utilgjengelig en periode. Vennligs vent til systemet er fullstendig restartet"
 
-#: src/EBox/CGI/InstallPkgs.pm:174
+#: src/EBox/CGI/InstallPkgs.pm:178
 msgid ""
 "The packages installation has not finished correctly . More information on "
 "the logs"
 msgstr "Pakke installasjonen feilet. Mer informasjon i loggene"
 
-#: src/EBox/CGI/InstallPkgs.pm:189
+#: src/EBox/CGI/InstallPkgs.pm:193
 msgid "Removing package"
 msgstr "Fjerner pakke"
 
-#: src/EBox/CGI/InstallPkgs.pm:190
+#: src/EBox/CGI/InstallPkgs.pm:194
 msgid "Removing the selected package and its dependent packages"
 msgstr "Fjerner valgt pakke og dens relaterte pakker"
 
-#: src/EBox/CGI/InstallPkgs.pm:192
+#: src/EBox/CGI/InstallPkgs.pm:196
 msgid "packages left to remove"
 msgstr "pakker igjen å fjerne"
 
-#: src/EBox/CGI/InstallPkgs.pm:193
+#: src/EBox/CGI/InstallPkgs.pm:197
 msgid ""
 "The packages removal has finished successfully. The administration interface "
 "may become unresponsive for a few seconds. Please wait patiently until the "
@@ -183,57 +185,87 @@ msgstr ""
 "Pakkene er fjernet. Administrasjons grensesnittet kan være utilgjengelig en "
 "periode. Vennligs vent til systemet er fullstendig restartet"
 
-#: src/EBox/CGI/InstallPkgs.pm:197
+#: src/EBox/CGI/InstallPkgs.pm:201
 msgid ""
 "The packages removal has not finished correctly . More information on the "
 "logs"
 msgstr "Pakke fjerningen feilet. Mer informasjon i loggene"
 
-#: src/templates/ebox.mas:140 src/templates/updates.mas:35
+#: src/templates/ebox.mas:150 src/templates/ebox.mas:536
+#: src/templates/ebox.mas:560 src/templates/updates.mas:35
 msgid "Update"
 msgstr "Oppdater"
 
-#: src/templates/ebox.mas:146
+#: src/templates/ebox.mas:156 src/templates/ebox.mas:510
+#: src/templates/ebox.mas:551
 msgid "Install"
 msgstr "Installer"
 
-#: src/templates/ebox.mas:168
+#: src/templates/ebox.mas:178
 msgid "View advanced mode"
 msgstr ""
 
-#: src/templates/ebox.mas:482
+#: src/templates/ebox.mas:512
+#, fuzzy
+msgid "Skip install"
+msgstr "Installer"
+
+#: src/templates/ebox.mas:525
 msgid "View basic mode"
 msgstr ""
 
-#: src/templates/del.mas:96
+#: src/templates/ebox.mas:543 src/templates/ebox.mas:572
+msgid "Delete"
+msgstr ""
+
+#: src/templates/ebox.mas:552 src/templates/ebox.mas:561
+#: src/templates/updates.mas:97
+#, fuzzy
+msgid "Update list"
+msgstr "Oppdater"
+
+#: src/templates/ebox.mas:553 src/templates/ebox.mas:562
+#: src/templates/ebox.mas:573
+msgid "Deselect All"
+msgstr ""
+
+#: src/templates/ebox.mas:554 src/templates/ebox.mas:574
+msgid "Select All"
+msgstr ""
+
+#: src/templates/ebox.mas:563
+msgid "Select Al"
+msgstr ""
+
+#: src/templates/del.mas:97
 msgid "The following packages will be installed"
 msgstr "Følgende pakker vil bli installert"
 
-#: src/templates/del.mas:98
+#: src/templates/del.mas:99
 msgid "The following packages will be removed"
 msgstr "Følgende pakker vil bli fjernet"
 
-#: src/templates/del.mas:141
+#: src/templates/del.mas:144
 msgid "Ok"
 msgstr "Ok"
 
-#: src/templates/del.mas:142
+#: src/templates/del.mas:145
 msgid "Cancel"
 msgstr "Avbryt"
 
-#: src/templates/del.mas:149
+#: src/templates/del.mas:152
 msgid "You may want to install also the following recommended packages:"
 msgstr ""
 
-#: src/templates/del.mas:152
+#: src/templates/del.mas:155
 msgid "Layer 7 filtering for Traffic Shaping (ebox-l7-protocols)"
 msgstr ""
 
-#: src/templates/del.mas:155
+#: src/templates/del.mas:158
 msgid "Virus scanning for File Sharing (ebox-antivirus and samba-vscan)"
 msgstr ""
 
-#: src/templates/del.mas:158
+#: src/templates/del.mas:161
 msgid "VoIP meetings support (dahdi and linux-headers)"
 msgstr ""
 
@@ -243,7 +275,7 @@ msgid "Perform automatic security updates"
 msgstr "Automatiske programmvare oppdateringer"
 
 #: src/templates/config.mas:14
-msgid "This eBox is configured to use automatic QA updates"
+msgid "Zentyal is configured to use automatic QA updates"
 msgstr ""
 
 #: src/templates/config.mas:26
@@ -278,7 +310,7 @@ msgstr "System oppdateringer"
 
 #: src/templates/updates.mas:55
 #, fuzzy
-msgid "eBox QA update"
+msgid "Zentyal QA update"
 msgstr "eBox - eGroupware"
 
 #: src/templates/updates.mas:77
@@ -286,8 +318,9 @@ msgid "Update all packages"
 msgstr "Oppdater alle pakker"
 
 #: src/templates/updates.mas:88
+#, fuzzy
 msgid ""
-"This operation can take some time, don't worry if eBox looks unresponsive "
+"This operation can take some time, don't worry if Zentyal looks unresponsive "
 "after pressing the Upgrade button."
 msgstr ""
 "Denne operasjonen vil ta tid, ikke bekymre deg hvis eBox ser uresponsiv ut "
@@ -296,28 +329,6 @@ msgstr ""
 #: src/templates/updates.mas:95
 msgid "Upgrade"
 msgstr "Oppgrader"
-
-#: src/templates/updates.mas:96
-#, fuzzy
-msgid "Update list"
-msgstr "Oppdater"
-
-#: src/templates/updateNote.mas:10
-msgid ""
-"As you are enjoying a Commercial Server Subscription the updates are Quality "
-"Assured by the eBox Development Team."
-msgstr ""
-
-#: src/templates/updateNote.mas:13
-#, perl-brace-format
-msgid ""
-"Warning: The updates are community based. You can now gain access to the "
-"Quality Assured Updates by purchasing the <a href='{proUrl}'>Professional</"
-"a>  or <a href='{entUrl}'>Enterprise</a> Server Subscription. QA Updates "
-"guarantee that all the upgrades, bugfixes and security updates are "
-"extensively tested by the eBox Development Team and you won't be introducing "
-"any regressions on your already working system."
-msgstr ""
 
 #, fuzzy
 #~ msgid "packages installed"

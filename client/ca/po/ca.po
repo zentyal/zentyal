@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-ca 0.12\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
-"POT-Creation-Date: 2010-07-21 00:29+0200\n"
+"POT-Creation-Date: 2010-08-25 17:29+0200\n"
 "PO-Revision-Date: 2010-08-17 14:34+0200\n"
 "Last-Translator: jaume ponsa <jaume@calidae.net>\n"
 "Language-Team: none\n"
@@ -116,8 +116,8 @@ msgid ""
 "The input contains invalid characters. All {ascii} alphanumeric characters, "
 "plus these non alphanumeric chars: .?&+:-@* and spaces are allowed."
 msgstr ""
-"L'entrada conté caràcters invàlids. Tots els caràcters alfanumèrics {ascii} "
-", mes aquests no alfanumèrics: .?&+:-@* i els espais son permesos."
+"L'entrada conté caràcters invàlids. Tots els caràcters alfanumèrics "
+"{ascii} , mes aquests no alfanumèrics: .?&+:-@* i els espais son permesos."
 
 #: src/EBox/CGI/IssueCertificate.pm:178 src/EBox/CA.pm:2639
 #, perl-brace-format
@@ -286,8 +286,7 @@ msgid ""
 "Issued CA certificate with organization name {orgName} and validity for "
 "{days} days"
 msgstr ""
-"Expedit el certificat CA amb nom organitzatiu {orgName} vàlid per {days} "
-"dies"
+"Expedit el certificat CA amb nom organitzatiu {orgName} vàlid per {days} dies"
 
 #: src/EBox/CA.pm:2581
 #, perl-brace-format
@@ -295,8 +294,7 @@ msgid ""
 "Renewed CA certificate with organization name {orgName} and validity for "
 "{days} days"
 msgstr ""
-"Renovat el certificat CA amb nom organitzatiu {orgName} vàlid per {days} "
-"dies"
+"Renovat el certificat CA amb nom organitzatiu {orgName} vàlid per {days} dies"
 
 #: src/EBox/CA.pm:2583
 #, perl-brace-format
@@ -337,8 +335,8 @@ msgid ""
 "You must create a Certification Authority first. Go to {openhref}"
 "Certification Authority{closehref} to do so"
 msgstr ""
-"Primer has de crear el CA. Ves a {openhref}Certification "
-"Authority{closehref} per a fer-ho"
+"Primer has de crear el CA. Ves a {openhref}Certification Authority"
+"{closehref} per a fer-ho"
 
 #: src/EBox/Model/Certificates.pm:246
 msgid "Module"
@@ -361,9 +359,10 @@ msgid "certificate"
 msgstr "certificat"
 
 #: src/EBox/Model/Certificates.pm:287
+#, fuzzy
 msgid ""
 "Here you may set certificates from this CA for those secure services managed "
-"by eBox"
+"by Zentyal"
 msgstr ""
 "Aqui pot expedir certificats d'aquest CA pels serveis segurs configurats a "
 "l'eBox"

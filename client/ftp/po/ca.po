@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-. 1.5\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
-"POT-Creation-Date: 2010-08-13 13:40+0200\n"
+"POT-Creation-Date: 2010-08-25 17:47+0200\n"
 "PO-Revision-Date: 2010-08-19 12:46+0200\n"
 "Last-Translator: jaume ponsa <jaume@calidae.net>\n"
 "Language-Team: none\n"
@@ -17,46 +17,47 @@ msgstr ""
 "X-Generator: Pootle 1.1.0\n"
 
 #: migration/0001_add_firewall_services.pl:30
-msgid "eBox FTP Server"
+#, fuzzy
+msgid "Zentyal FTP Server"
 msgstr "Servidor FTP d'eBox"
 
-#: src/EBox/Model/Options.pm:48
+#: src/EBox/Model/Options.pm:45
 msgid "Disabled"
 msgstr "Desactivat"
 
-#: src/EBox/Model/Options.pm:52
+#: src/EBox/Model/Options.pm:49
 msgid "Read only"
 msgstr "Només lectura"
 
-#: src/EBox/Model/Options.pm:56
+#: src/EBox/Model/Options.pm:53
 msgid "Read/Write"
 msgstr "Lectura/Escriptura"
 
-#: src/EBox/Model/Options.pm:69
+#: src/EBox/Model/Options.pm:66
 msgid "Anonymous access"
 msgstr "Accés anònim"
 
-#: src/EBox/Model/Options.pm:73
+#: src/EBox/Model/Options.pm:70
 msgid "Sets the permissions for the /srv/ftp directory"
 msgstr "Estableix permisos pel directori /srv/ftp"
 
-#: src/EBox/Model/Options.pm:77
+#: src/EBox/Model/Options.pm:74
 msgid "Personal directories"
 msgstr "Directoris personals"
 
-#: src/EBox/Model/Options.pm:80
+#: src/EBox/Model/Options.pm:77
 msgid "Enable FTP access for each user to its /home directory"
 msgstr "Activa l'accés FTP per cada usuari dins el seu directori /home"
 
-#: src/EBox/Model/Options.pm:86
+#: src/EBox/Model/Options.pm:83
 msgid "General configuration settings"
 msgstr "Configuració general"
 
-#: src/EBox/Model/Options.pm:87
+#: src/EBox/Model/Options.pm:84
 msgid "FTP Server"
 msgstr "Servidor FTP"
 
-#: src/EBox/Model/Options.pm:91
+#: src/EBox/Model/Options.pm:88
 msgid ""
 "The anonymous directory is /srv/ftp, make sure that the files you create "
 "there have read permissions for everybody (chmod o+r /srv/ftp/*). If you "
@@ -65,10 +66,10 @@ msgid ""
 "chmod o+rwx /srv/ftp/incoming"
 msgstr ""
 "El directori anònim es /srv/ftp, ha d'estar segur que els arxius creats dins "
-"tenen permisos de lectura per tothom (chmod o+r /srv/ftp/*). Si vol donar-"
-"li permisos d'escriptura necessitarà crear un subdirectori amb permisos "
-"d'escriptura per tothom, per exemple: mkdir /srv/ftp/incoming ; chmod o+rwx "
-"/srv/ftp/incoming"
+"tenen permisos de lectura per tothom (chmod o+r /srv/ftp/*). Si vol donar-li "
+"permisos d'escriptura necessitarà crear un subdirectori amb permisos "
+"d'escriptura per tothom, per exemple: mkdir /srv/ftp/incoming ; chmod o+rwx /"
+"srv/ftp/incoming"
 
 #: src/EBox/FTP.pm:84
 msgid "To configure vsftpd"

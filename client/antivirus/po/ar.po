@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-antivirus 0.1\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
-"POT-Creation-Date: 2010-07-21 00:28+0200\n"
+"POT-Creation-Date: 2010-08-25 16:23+0200\n"
 "PO-Revision-Date: 2010-01-27 23:43+0100\n"
 "Last-Translator: Mostafa Salem <m@isalem.net>\n"
 "Language-Team: none\n"
@@ -16,8 +16,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: src/EBox/AntiVirus.pm:69 src/EBox/AntiVirus.pm:389
-#: src/EBox/AntiVirus.pm:394 src/EBox/AntiVirus/Model/FreshclamStatus.pm:72
+#: src/EBox/AntiVirus.pm:69 src/EBox/AntiVirus.pm:385
+#: src/EBox/AntiVirus.pm:390 src/EBox/AntiVirus/Model/FreshclamStatus.pm:70
 msgid "Antivirus"
 msgstr "مضاد الفيروسات"
 
@@ -33,33 +33,33 @@ msgstr "لتهيئة محدث الfreshclam"
 msgid "To schedule the launch of the updater"
 msgstr "لجدولة عملية إنطلاق المحدِِث."
 
-#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:59
+#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:57
 msgid "Status"
 msgstr "الحالة"
 
-#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:63
+#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:61
 msgid "Date"
 msgstr "التاريخ"
 
-#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:71
+#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:69
 msgid "Database Update Status"
 msgstr "حالة تحديث قاعدة البيانات"
 
-#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:127
+#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:125
 msgid ""
 "The antivirus database has not been updated since the module was enabled."
 msgstr "لم تتم أي عملية تحديث منذ تشغيل الخدمة."
 
-#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:130
+#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:128
 msgid "The last update failed."
 msgstr "فشلت آخر عملية تحديث"
 
-#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:133
-#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:136
+#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:131
+#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:134
 msgid "Last update successful."
 msgstr "تم التحديث بنجاح"
 
-#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:139
+#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:137
 #, perl-brace-format
 msgid "Unknown event {event}."
 msgstr "الحدث {event} غير معرًف."

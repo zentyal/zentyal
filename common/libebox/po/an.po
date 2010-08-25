@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libebox 0.12.1\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
-"POT-Creation-Date: 2010-07-21 00:53+0200\n"
+"POT-Creation-Date: 2010-08-25 17:53+0200\n"
 "PO-Revision-Date: 2006-11-23 16:39+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -66,7 +66,7 @@ msgid ""
 msgstr ""
 
 #: src/EBox/CGI/Base.pm:578
-msgid "You have just hit a bug in eBox. Please seek technical support."
+msgid "You have just hit a bug in Zentyal. Please seek technical support."
 msgstr ""
 
 #: src/EBox/CGI/Base.pm:664
@@ -105,7 +105,7 @@ msgstr ""
 msgid "The ebox user has not been set in the config file."
 msgstr ""
 
-#: src/EBox/Sudo.pm:269
+#: src/EBox/Sudo.pm:267
 #, perl-brace-format
 msgid "Running command '{cmd}' as {user} failed"
 msgstr ""
@@ -264,7 +264,7 @@ msgid "last"
 msgstr ""
 
 #: src/templates/ebox/pageNotFound.mas:3
-msgid "eBox's homepage"
+msgid "Zentyal homepage"
 msgstr ""
 
 #: src/templates/ebox/pageNotFound.mas:7
@@ -273,8 +273,8 @@ msgstr ""
 
 #: src/templates/ebox/pageNotFound.mas:8
 msgid ""
-"Maybe a change in eBox's configuration or software made no longer available "
-"the requested page"
+"Maybe a change in the Zentyal configuration or software made no longer "
+"available the requested page"
 msgstr ""
 
 #: src/templates/ebox/pageNotFound.mas:9

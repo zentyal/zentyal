@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-asterisk 1.3.3Report-Msgid-Bugs-To: info@ebox-"
 "technologies.com\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
-"POT-Creation-Date: 2010-07-21 00:28+0200\n"
+"POT-Creation-Date: 2010-08-25 16:23+0200\n"
 "PO-Revision-Date: 2009-06-28 00:02+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 
 #: migration/0001_add_firewall_services.pl:30
-msgid "eBox VoIP system"
+msgid "Zentyal VoIP system"
 msgstr ""
 
 #: src/EBox/Asterisk.pm:74 src/EBox/Asterisk.pm:715
@@ -353,17 +353,8 @@ msgstr ""
 msgid "SIP provider configuration updated."
 msgstr ""
 
-#: src/EBox/Model/Provider.pm:195
-#, perl-brace-format
-msgid ""
-"{brand}: make low-cost VoIP calls to mobile phones and landlines directly "
-"with eBox. Once you have obtained a {subs} , you can purchase the VoIP "
-"credit you need. All these services available for purchasing at the {ohref}"
-"eBox on-line store{chref}! "
-msgstr ""
-
 #: src/EBox/Model/NAT.pm:96
-msgid "eBox is behind NAT"
+msgid "Zentyal is behind NAT"
 msgstr ""
 
 #: src/EBox/Model/NAT.pm:101

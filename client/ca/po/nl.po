@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-ca 0.12\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
-"POT-Creation-Date: 2010-07-21 00:29+0200\n"
-"PO-Revision-Date: 2010-08-19 21:51+0200\n"
+"POT-Creation-Date: 2010-08-25 17:29+0200\n"
+"PO-Revision-Date: 2010-08-25 17:30+0200\n"
 "Last-Translator: Willy Geerts <willy@willygeerts.be>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -117,8 +117,8 @@ msgid ""
 "The input contains invalid characters. All {ascii} alphanumeric characters, "
 "plus these non alphanumeric chars: .?&+:-@* and spaces are allowed."
 msgstr ""
-"De invoer bevat ongeldige tekens. Alle alphanumerieke tekens, plus deze niet "
-"alphanumerieke tekens: .?&+;-@* en spaties zijn toegelaten."
+"De invoer bevat ongeldige tekens. Alle {ascii} alphanumerieke tekens, plus "
+"deze niet alphanumerieke tekens: .?&+;-@* en spaties zijn toegelaten."
 
 #: src/EBox/CGI/IssueCertificate.pm:178 src/EBox/CA.pm:2639
 #, perl-brace-format
@@ -357,7 +357,7 @@ msgstr "Certificaat bestand"
 #: src/EBox/Model/Certificates.pm:287
 msgid ""
 "Here you may set certificates from this CA for those secure services managed "
-"by eBox"
+"by Zentyal"
 msgstr ""
 
 #: src/EBox/CA/TestStub.pm:655

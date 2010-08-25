@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-ntp 0.12.99Report-Msgid-Bugs-To: info@ebox-"
 "technologies.com\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
-"POT-Creation-Date: 2010-08-13 13:11+0200\n"
+"POT-Creation-Date: 2010-08-25 17:44+0200\n"
 "PO-Revision-Date: 2009-12-05 10:12+0100\n"
 "Last-Translator: Enrique Estévez <keko.gl@gmail.com>\n"
 "Language-Team: none\n"
@@ -86,8 +86,14 @@ msgid "Remove ntp init script links"
 msgstr "Eliminar as ligazóns aos script init ntp"
 
 #: src/EBox/NTP.pm:70
-msgid "eBox will take care of starting and stopping the services."
+#, fuzzy
+msgid "Zentyal will take care of starting and stopping the services."
 msgstr "eBox encargarase de iniciar e deter os servizos."
+
+#: src/EBox/NTP.pm:88
+#, fuzzy
+msgid "NTP configuration file"
+msgstr "Configuración do fuso horario"
 
 #: src/EBox/NTP.pm:225
 msgid "primary server"
@@ -176,7 +182,7 @@ msgstr "Habilitado"
 #: src/templates/date.mas:10
 #, fuzzy
 msgid ""
-"A change in the date or time will cause all eBox services to be restarted."
+"A change in the date or time will cause all Zentyal services to be restarted."
 msgstr ""
 "Un cambio na data ou hora fará que todos os servizos eBox sexa reiniciados"
 

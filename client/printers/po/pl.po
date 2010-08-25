@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-printers 0.12\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
-"POT-Creation-Date: 2010-08-13 13:41+0200\n"
+"POT-Creation-Date: 2010-08-25 17:48+0200\n"
 "PO-Revision-Date: 2010-08-24 16:05+0200\n"
 "Last-Translator: Robert Brzozowski <gnutar1@gmail.com>\n"
 "Language-Team: none\n"
@@ -22,521 +22,382 @@ msgstr ""
 msgid "Cups printer server port"
 msgstr ""
 
-#: src/EBox/CGI/Model.pm:43 src/EBox/CGI/LPDPrinterUI.pm:46
-#: src/EBox/CGI/NetworkPrinter.pm:42 src/EBox/CGI/SambaPrinterUI.pm:48
-#: src/EBox/CGI/DrvoptsUI.pm:48 src/EBox/CGI/USBPrinterUI.pm:48
-#: src/EBox/CGI/Driver.pm:41 src/EBox/CGI/ManagePrinter.pm:42
-#: src/EBox/CGI/ParallelPrinterUI.pm:48 src/EBox/CGI/SambaPrinter.pm:42
-#: src/EBox/CGI/NetworkPrinterUI.pm:48 src/EBox/CGI/ManagePrinterUI.pm:48
-#: src/EBox/CGI/IPPPrinterUI.pm:46 src/EBox/CGI/ModelUI.pm:48
-#: src/EBox/CGI/USBPrinter.pm:42 src/EBox/CGI/DeleteUI.pm:48
-#: src/EBox/CGI/DriverUI.pm:48 src/EBox/CGI/LPDPrinter.pm:41
-#: src/EBox/CGI/IPPPrinter.pm:42 src/EBox/CGI/Manufacturer.pm:41
-#: src/EBox/CGI/ManufacturerUI.pm:48 src/EBox/CGI/Drvopts.pm:41
-#: src/EBox/CGI/PrintTest.pm:39 src/EBox/CGI/ParallelPrinter.pm:42
-#: src/EBox/Printers.pm:250 src/EBox/Printers.pm:385 src/EBox/Printers.pm:398
-#: src/EBox/Printers.pm:415 src/EBox/Printers.pm:471 src/EBox/Printers.pm:523
-#: src/EBox/Printers.pm:565 src/EBox/Printers.pm:582 src/EBox/Printers.pm:604
-#: src/EBox/Printers.pm:630 src/EBox/Printers.pm:657 src/EBox/Printers.pm:689
-#: src/EBox/Printers.pm:719 src/EBox/Printers.pm:747 src/EBox/Printers.pm:788
-#: src/EBox/Printers.pm:802 src/EBox/Printers.pm:828 src/EBox/Printers.pm:842
-#: src/EBox/Printers.pm:868 src/EBox/Printers.pm:882 src/EBox/Printers.pm:907
-#: src/EBox/Printers.pm:930 src/EBox/Printers.pm:955 src/EBox/Printers.pm:1027
-#: src/EBox/Printers.pm:1076 src/EBox/Printers.pm:1121
-#: src/EBox/Printers.pm:1149 src/EBox/Printers.pm:1181
-#: src/EBox/Printers.pm:1241 src/EBox/Printers.pm:1256
-#: src/EBox/Printers.pm:1287
-msgid "Printer"
-msgstr "Drukarka"
-
-#: src/EBox/CGI/Model.pm:44 src/EBox/Printers.pm:846 src/EBox/Printers.pm:886
-#: src/templates/printer.mas:151 src/templates/printerback.mas:29
-msgid "Model"
-msgstr "Model"
-
-#: src/EBox/CGI/Model.pm:55
-#, perl-brace-format
-msgid "Printer {printer} has no available drivers"
-msgstr "Brak sterowników do drukarki {printer}."
-
-#: src/EBox/CGI/LPDPrinterUI.pm:30 src/EBox/CGI/SambaPrinterUI.pm:32
-#: src/EBox/CGI/USBPrinterUI.pm:32 src/EBox/CGI/ParallelPrinterUI.pm:32
-#: src/EBox/CGI/NetworkPrinterUI.pm:32 src/EBox/CGI/IPPPrinterUI.pm:30
-msgid "Add a new printer (II)"
-msgstr "Dodaj nową drukarkę"
-
-#: src/EBox/CGI/LPDPrinterUI.pm:53 src/EBox/CGI/SambaPrinterUI.pm:56
-#: src/EBox/CGI/DrvoptsUI.pm:55 src/EBox/CGI/USBPrinterUI.pm:56
-#: src/EBox/CGI/ParallelPrinterUI.pm:56 src/EBox/CGI/NetworkPrinterUI.pm:55
-#: src/EBox/CGI/IPPPrinterUI.pm:53 src/templates/addprinter.mas:40
-#: src/templates/addprinter.mas:41 src/templates/manufacturer.mas:21
-#: src/templates/manufacturer.mas:22 src/templates/models.mas:21
-#: src/templates/models.mas:22 src/templates/driver.mas:21
-#: src/templates/driver.mas:22 src/templates/drivers.mas:34
-#: src/templates/drivers.mas:35 src/templates/printerback.mas:167
-#: src/templates/printerback.mas:168
-msgid "Next"
-msgstr "Dalej"
-
-#: src/EBox/CGI/NetworkPrinter.pm:43 src/EBox/CGI/LPDPrinter.pm:42
-#: src/EBox/CGI/IPPPrinter.pm:43 src/EBox/Printers.pm:661
-#: src/EBox/Printers.pm:723 src/EBox/Printers.pm:751 src/templates/ipp.mas:23
-#: src/templates/lpd.mas:23 src/templates/printerback.mas:182
-#: src/templates/network.mas:23
-msgid "IP"
-msgstr "Adres IP"
-
-#: src/EBox/CGI/NetworkPrinter.pm:44 src/EBox/CGI/LPDPrinter.pm:43
-#: src/EBox/CGI/IPPPrinter.pm:44 src/EBox/Printers.pm:662
-#: src/EBox/Printers.pm:724 src/EBox/Printers.pm:752 src/templates/ipp.mas:31
-#: src/templates/lpd.mas:31 src/templates/printerback.mas:190
-#: src/templates/network.mas:31
-msgid "Port"
-msgstr "Port"
-
-#: src/EBox/CGI/GeneralSettings.pm:90
-msgid "Standalone cups enabled"
-msgstr ""
-
-#: src/EBox/CGI/GeneralSettings.pm:92
-msgid "Standalone cups disabled"
-msgstr ""
-
-#: src/EBox/CGI/DrvoptsUI.pm:32
-msgid "Add a new printer (VI)"
-msgstr "Dodaj nową drukarkę"
-
-#: src/EBox/CGI/Driver.pm:42 src/templates/printer.mas:159
-#: src/templates/printerback.mas:37
-msgid "Driver"
-msgstr "Sterownik"
-
-#: src/EBox/CGI/ManagePrinter.pm:53
-msgid "The printer has been deleted successfully"
-msgstr "Drukarka została pomyślnie usunięta"
-
-#: src/EBox/CGI/SambaPrinter.pm:54
-msgid "Shared resource"
-msgstr "Zasób współdzielony"
-
-#: src/EBox/CGI/SambaPrinter.pm:55 src/templates/printerback.mas:120
-#: src/templates/samba.mas:32
-msgid "Authentication"
-msgstr "Autoryzacja"
-
-#: src/EBox/CGI/SambaPrinter.pm:63 src/templates/printerback.mas:148
-#: src/templates/samba.mas:60
-msgid "User"
-msgstr "Użytkownik"
-
-#: src/EBox/CGI/SambaPrinter.pm:64 src/templates/printerback.mas:157
-#: src/templates/samba.mas:69
-msgid "Password"
-msgstr "Hasło"
-
-#: src/EBox/CGI/ManagePrinterUI.pm:32
-msgid "Manage printer"
-msgstr "Zarządzaj drukarką"
-
-#: src/EBox/CGI/ManagePrinterUI.pm:60
-msgid "Printer details"
-msgstr "Informacje o drukarce"
-
-#: src/EBox/CGI/ManagePrinterUI.pm:61
-msgid "Driver Options"
-msgstr "Ustawienia sterownika"
-
-#: src/EBox/CGI/ManagePrinterUI.pm:62
-msgid "Configuration options"
-msgstr "Ustawienia drukarki"
-
-#: src/EBox/CGI/ManagePrinterUI.pm:63
-msgid "Jobs Queue"
-msgstr "Kolejka zadań"
-
-#: src/EBox/CGI/CancelJob.pm:42 src/EBox/CGI/AddPrinter.pm:42
-msgid "Printer's name"
-msgstr "Nazwa drukarki"
-
-#: src/EBox/CGI/CancelJob.pm:43
-msgid "Printer's id"
-msgstr "Drukarka"
-
-#: src/EBox/CGI/CancelJob.pm:44
-msgid "Job id"
-msgstr "ID zadania"
-
-#: src/EBox/CGI/CancelJob.pm:56
-msgid "Job was successfully canceled"
-msgstr "Zadanie zostało anulowane"
-
-#: src/EBox/CGI/ModelUI.pm:32
-msgid "Add a new printer (IV)"
-msgstr "Dodaj nową drukarkę"
-
-#: src/EBox/CGI/USBPrinter.pm:43 src/EBox/CGI/ParallelPrinter.pm:43
-#: src/EBox/Printers.pm:610 src/EBox/Printers.pm:636
-#: src/templates/parallel.mas:18 src/templates/usb.mas:18
-msgid "Device"
-msgstr "Urządzenie"
-
-#: src/EBox/CGI/ShowPrintersUI.pm:32 src/EBox/Printers.pm:355
-msgid "Manage printers"
-msgstr "Zarządzaj drukarkami"
-
-#: src/EBox/CGI/DeleteUI.pm:32
-msgid "Delete printer"
-msgstr "Usuń drukarkę"
-
-#: src/EBox/CGI/DriverUI.pm:32
-msgid "Add a new printer (V)"
-msgstr "Dodaj nową drukarkę"
-
-#: src/EBox/CGI/AddPrinter.pm:43 src/EBox/Printers.pm:494
-#: src/EBox/Printers.pm:586 src/templates/addprinter.mas:23
-msgid "Method"
-msgstr "Metoda"
-
-#: src/EBox/CGI/AddPrinter.pm:45
-msgid "Printer description"
-msgstr "Opis drukarki"
-
-#: src/EBox/CGI/Manufacturer.pm:42 src/EBox/Printers.pm:807
-#: src/templates/printer.mas:143 src/templates/printerback.mas:21
-msgid "Manufacturer"
-msgstr "Producent"
-
-#: src/EBox/CGI/ManufacturerUI.pm:32
-msgid "Add a new printer (III)"
-msgstr "Dodaj nową drukarkę"
-
-#: src/EBox/CGI/AddPrinterUI.pm:32
-msgid "Add a new printer (I)"
-msgstr "Dodaj nową drukarkę"
-
-#: src/EBox/Printers.pm:59
+#: src/EBox/Printers.pm:43 src/EBox/Composite/General.pm:60
 #, fuzzy
 msgid "Printer Sharing"
 msgstr "Udostępnianie drukarki"
 
-#: src/EBox/Printers.pm:74
+#: src/EBox/Printers.pm:58
 #, fuzzy
 msgid "Create spool directory for printers"
 msgstr "Utwórz katalog na wydruki"
 
-#: src/EBox/Printers.pm:75
-msgid "eBox will create a spool directory under /var/spool/samba"
+#: src/EBox/Printers.pm:59
+#, fuzzy
+msgid "Zentyal will create a spool directory under /var/spool/samba"
 msgstr "eBox utworzy katalog na wydruki w /var/spool/samba"
 
-#: src/EBox/Printers.pm:80
-msgid "Add user ebox to lpadmin group"
-msgstr "Dodaj użytkownika do Administratorów drukowania"
-
-#: src/EBox/Printers.pm:81
-msgid "In order to manage printers and queues from the eBox web interface"
-msgstr ""
-
-#: src/EBox/Printers.pm:86
+#: src/EBox/Printers.pm:64
 #, fuzzy
 msgid "Create log table"
 msgstr "Utwórz historię"
 
-#: src/EBox/Printers.pm:87
+#: src/EBox/Printers.pm:65
+#, fuzzy
 msgid ""
-"eBox will create a new table into its log database to store printers logs"
+"Zentyal will create a new table into its log database to store printers logs"
 msgstr "eBox utworzy nowy plik z historią drukowania"
 
-#: src/EBox/Printers.pm:103
+#: src/EBox/Printers.pm:81
 #, fuzzy
-msgid "To add and manage printers"
-msgstr "Zarządzaj drukarkami"
-
-#: src/EBox/Printers.pm:108
-msgid "To enable standalone cupsd listen on internal interfaces"
-msgstr ""
-
-#: src/EBox/Printers.pm:293
-#, fuzzy
-msgid "Add Printer"
-msgstr "Dodaj drukarkę"
-
-#: src/EBox/Printers.pm:490
-msgid ""
-"The printer's name contains characters not valid.Only alphanumeric "
-"characters are allowed"
-msgstr ""
-"Nazwa drukarki zawiera niedozwolone znaki. Dozwolone są wyłącznie znaki "
-"alfanumeryczne (litery oraz cyfry)."
-
-#: src/EBox/Printers.pm:499 src/templates/addprinter.mas:15
-#: src/templates/printer.mas:79 src/templates/printers.mas:37
-msgid "Name"
-msgstr "Nazwa"
-
-#: src/EBox/Printers.pm:506
-msgid "The given name is alreaday used as "
-msgstr "Podana nazwa została wcześniej użyta jako"
-
-#: src/EBox/Printers.pm:527 src/EBox/Printers.pm:1080
-#: src/EBox/Printers.pm:1125 src/EBox/Printers.pm:1185
-msgid "Printer not configured"
+msgid "To configure cupsd"
 msgstr "Drukarka nieskonfigurowana"
 
-#: src/EBox/Printers.pm:615
-msgid "It is not a usb printer"
-msgstr "Urządzenie nie jest drukarką USB"
-
-#: src/EBox/Printers.pm:641
-msgid "It is not a parallel printer"
-msgstr "Urządzenia/drukarki nie można podłączyć do portu równoległego (LPT)."
-
-#: src/EBox/Printers.pm:667
-msgid "It is not a network printer"
-msgstr "Urządzenie nie jest drukarką sieciową"
-
-#: src/EBox/Printers.pm:696
-msgid "It is not a samba printer"
-msgstr "Urządzenie nie jest drukarką podłączoną przez SAMBA"
-
-#: src/EBox/Printers.pm:729
-#, fuzzy
-msgid "It is not a IPP printer"
-msgstr ""
-"Nie można skonfigurować drukarki do pracy poprzez Internet Printing Protocl "
-"(LPP)"
-
-#: src/EBox/Printers.pm:757
-#, fuzzy
-msgid "It is not a LPD printer"
-msgstr "Urządzenie nie jest drukarką USB"
-
-#: src/EBox/Printers.pm:988 src/EBox/Printers.pm:1014
-msgid "is not a valid option"
-msgstr "jest niedozwoloną opcją "
-
-#: src/EBox/Printers.pm:1105
-#, perl-brace-format
-msgid "Parameter '{name}' does not exist"
-msgstr "Parametr '{name}' nie istnieje"
-
-#: src/EBox/Printers.pm:1286 src/templates/printer.mas:77
+#: src/EBox/Printers.pm:223
 msgid "Job ID"
 msgstr "ID zadania"
 
-#: src/EBox/Printers.pm:1288 src/templates/printer.mas:78
-msgid "Owner"
-msgstr "Właściciel"
+#: src/EBox/Printers.pm:224
+msgid "Printer"
+msgstr "Drukarka"
 
-#: src/EBox/Printers.pm:1289
-msgid "Queued at"
-msgstr "Zakolejkowano w"
+#: src/EBox/Printers.pm:225
+msgid "User"
+msgstr "Użytkownik"
 
-#: src/EBox/Printers.pm:1290
+#: src/EBox/Printers.pm:226
+#, fuzzy
+msgid "Date"
+msgstr "Usuń"
+
+#: src/EBox/Printers.pm:227
 msgid "Event"
 msgstr "Zdarzenie"
 
-#: src/EBox/Printers.pm:1293
+#: src/EBox/Printers.pm:231
 msgid "Queued"
 msgstr "Zakolejkowano"
 
-#: src/EBox/Printers.pm:1293
+#: src/EBox/Printers.pm:232
+msgid "Completed"
+msgstr ""
+
+#: src/EBox/Printers.pm:233
 msgid "Canceled"
 msgstr "Anulowano"
 
-#: src/EBox/Printers.pm:1296
+#: src/EBox/Printers.pm:237
 msgid "Printers"
 msgstr "Drukarki"
 
-#: src/templates/addprinter.mas:10
-msgid "Set printer name and method"
-msgstr "Ustaw nazwę i sposób podłączenia drukarki"
-
-#: src/templates/addprinter.mas:28
-msgid "Parallel"
-msgstr "Port równoległy (LPT)"
-
-#: src/templates/addprinter.mas:29
-msgid "AppSocket"
-msgstr ""
-
-#: src/templates/addprinter.mas:30
-msgid "Samba"
-msgstr "Samba"
-
-#: src/templates/addprinter.mas:31
-msgid "IPP: Internet printing protocol"
-msgstr ""
-
-#: src/templates/addprinter.mas:32
-msgid "LPD: Line Printer Daemon"
-msgstr ""
-
-#: src/templates/manufacturer.mas:12
-msgid "Choose manufacturer"
-msgstr "Wybierz producenta drukarki"
-
-#: src/templates/parallel.mas:15
-msgid "Local parallel printer configuration"
-msgstr "Konfiguracja lokalnej drukarki na porcie równoległym (LPT)"
-
-#: src/templates/del.mas:12
+#: src/EBox/Model/CUPS.pm:142
 #, perl-brace-format
-msgid "Are you sure you want to delete the printer '{name}'?"
-msgstr "Na pewno usunąć drukarkę '{name}'?"
-
-#: src/templates/del.mas:21 src/templates/printer.mas:121
-#: src/templates/printer.mas:122 src/templates/printer.mas:123
-#: src/templates/printers.mas:64 src/templates/printers.mas:65
-#: src/templates/printers.mas:66
-msgid "Delete"
-msgstr "Usuń"
-
-#: src/templates/del.mas:24
-msgid "Cancel"
-msgstr "Anuluj"
-
-#: src/templates/usb.mas:15
-msgid "Local USB printer configuration"
-msgstr "Konfiguracja lokalnej drukarki USB"
-
-#: src/templates/printer.mas:33 src/templates/printer.mas:169
-#: src/templates/printer.mas:170 src/templates/printerback.mas:96
-#: src/templates/printerback.mas:97 src/templates/printerback.mas:200
-#: src/templates/printerback.mas:201 src/templates/printers.mas:19
-msgid "Change"
-msgstr "Zmień"
-
-#: src/templates/printer.mas:71
-msgid "Job queue"
-msgstr "Kolejka zadań"
-
-#: src/templates/printer.mas:80
-msgid "Size(KB)"
-msgstr "Rozmiar (KB)"
-
-#: src/templates/printer.mas:81
-msgid "Creation time"
-msgstr "Czas utworzenia"
-
-#: src/templates/printer.mas:82
-msgid "Action"
-msgstr "Działanie"
-
-#: src/templates/printer.mas:131
-msgid "This printer has no pending job in queue at the moment"
-msgstr "Drukarka nie wykonuje w tej chwili żadnego zadania."
-
-#: src/templates/printer.mas:179
-msgid "You need to save changes in order to print a test page"
+msgid ""
+"Prior to configure printers you need to enable the module in the {openref}"
+"Module Status{closeref}  section and save changes after that."
 msgstr ""
 
-#: src/templates/printer.mas:184 src/templates/printer.mas:185
-#, fuzzy
-msgid "Print Test Page"
-msgstr "Wydrukuj stronę testową"
-
-#: src/templates/drvopts.mas:14 src/templates/printerback.mas:56
-msgid "Driver options"
-msgstr "Ustawienia sterownika"
-
-#: src/templates/models.mas:13
-msgid "Choose a printer model"
-msgstr "Wybierz model drukarki"
-
-#: src/templates/ipp.mas:16
-#, fuzzy
-msgid "Configure IPP printer"
-msgstr "Konfiguruj drukarkę sieciową"
-
-#: src/templates/driver.mas:12
-msgid "Choose a driver for the printer"
-msgstr "Wybierz sterownik dla drukarki"
-
-#: src/templates/lpd.mas:16
-#, fuzzy
-msgid "Configure LPD printer"
-msgstr "Konfiguruj drukarkę USB"
-
-#: src/templates/drivers.mas:13
-msgid "Choose a dirver for the printer"
-msgstr "Wybierz sterownik dla drukarki"
-
-#: src/templates/drivers.mas:20
-msgid "driver"
-msgstr "sterownik"
-
-#: src/templates/printerback.mas:47 src/templates/printerback.mas:48
-msgid "Go"
-msgstr "Dalej"
-
-#: src/templates/printerback.mas:106
-msgid "Samba shared printer configurationr"
-msgstr "Konfiguracja drukarek udostępnionych przez SAMBA"
-
-#: src/templates/printerback.mas:112 src/templates/samba.mas:24
-msgid "Share resource"
-msgstr "Udostępnij zasób"
-
-#: src/templates/printerback.mas:126 src/templates/printerback.mas:128
-#: src/templates/samba.mas:38 src/templates/samba.mas:40
-msgid "Anonymous"
-msgstr "Anonimowy"
-
-#: src/templates/printerback.mas:132 src/templates/printerback.mas:134
-#: src/templates/samba.mas:44 src/templates/samba.mas:46
-msgid "Guest"
-msgstr "Gość"
-
-#: src/templates/printerback.mas:138 src/templates/printerback.mas:140
-#: src/templates/samba.mas:50 src/templates/samba.mas:52
-msgid "User/Password"
-msgstr "Użytkownik/Hasło"
-
-#: src/templates/printerback.mas:176
-msgid "Remote printer configuration"
-msgstr "Konfiguracja drukarek zdalnych"
-
-#: src/templates/network.mas:16
-#, fuzzy
-msgid "Configure AppSocket printer"
-msgstr "Konfiguruj drukarkę zdalną"
-
-#: src/templates/samba.mas:17
-msgid "Samba shared printer configuration"
-msgstr "Konfiguracja drukarki współdzielonej przez SAMBA"
-
-#: src/templates/printers.mas:13
-msgid "Enable standalone CUPS"
+#: src/EBox/Model/CUPS.pm:156
+msgid "Interface"
 msgstr ""
 
-#: src/templates/printers.mas:25
-msgid "General settings"
-msgstr "Ustawienia ogólne"
+#: src/EBox/Model/CUPS.pm:161
+msgid "Listen"
+msgstr ""
 
-#: src/templates/printers.mas:33
-msgid "List of printers"
-msgstr "Lista drukarek"
+#: src/EBox/Model/CUPS.pm:170
+msgid "Select CUPS Interfaces"
+msgstr ""
 
-#: src/templates/printers.mas:38
-msgid "Description"
-msgstr "Opis"
-
-#: src/templates/printers.mas:39
-msgid "Actions"
-msgstr "Działania"
-
-#: src/templates/printers.mas:58
-msgid "Manage"
-msgstr "Zarządzaj"
-
-#: src/templates/printers.mas:59 src/templates/printers.mas:60
-msgid "Manage this printer"
-msgstr "Zarządzaj tą drukarką"
-
-#: src/templates/printers.mas:75
+#: src/EBox/Model/CUPS.pm:175
 #, fuzzy
-msgid "There is no printer configured yet"
-msgstr "Nie ma jeszcze skonfigurowanej drukarki."
+msgid "interface"
+msgstr "Drukarka"
+
+#: src/EBox/Model/CUPS.pm:176
+msgid ""
+"Select in which interfaces the CUPS webserver will listen on. Take into "
+"account that is not probably a good idea to listen on external interfaces. "
+"If none are selected, it will be listening only at localhost"
+msgstr ""
+
+#: src/EBox/Model/CUPS.pm:187
+#, perl-brace-format
+msgid ""
+"To add or manage printers you have to use the {open_href}CUPS Web Interface"
+"{close_href}"
+msgstr ""
+
+#~ msgid "Model"
+#~ msgstr "Model"
+
+#~ msgid "Printer {printer} has no available drivers"
+#~ msgstr "Brak sterowników do drukarki {printer}."
+
+#~ msgid "Add a new printer (II)"
+#~ msgstr "Dodaj nową drukarkę"
+
+#~ msgid "Next"
+#~ msgstr "Dalej"
+
+#~ msgid "IP"
+#~ msgstr "Adres IP"
+
+#~ msgid "Port"
+#~ msgstr "Port"
+
+#~ msgid "Add a new printer (VI)"
+#~ msgstr "Dodaj nową drukarkę"
+
+#~ msgid "Driver"
+#~ msgstr "Sterownik"
+
+#~ msgid "The printer has been deleted successfully"
+#~ msgstr "Drukarka została pomyślnie usunięta"
+
+#~ msgid "Shared resource"
+#~ msgstr "Zasób współdzielony"
+
+#~ msgid "Authentication"
+#~ msgstr "Autoryzacja"
+
+#~ msgid "Password"
+#~ msgstr "Hasło"
+
+#~ msgid "Manage printer"
+#~ msgstr "Zarządzaj drukarką"
+
+#~ msgid "Printer details"
+#~ msgstr "Informacje o drukarce"
+
+#~ msgid "Driver Options"
+#~ msgstr "Ustawienia sterownika"
+
+#~ msgid "Configuration options"
+#~ msgstr "Ustawienia drukarki"
+
+#~ msgid "Jobs Queue"
+#~ msgstr "Kolejka zadań"
+
+#~ msgid "Printer's name"
+#~ msgstr "Nazwa drukarki"
+
+#~ msgid "Printer's id"
+#~ msgstr "Drukarka"
+
+#~ msgid "Job id"
+#~ msgstr "ID zadania"
+
+#~ msgid "Job was successfully canceled"
+#~ msgstr "Zadanie zostało anulowane"
+
+#~ msgid "Add a new printer (IV)"
+#~ msgstr "Dodaj nową drukarkę"
+
+#~ msgid "Device"
+#~ msgstr "Urządzenie"
+
+#~ msgid "Manage printers"
+#~ msgstr "Zarządzaj drukarkami"
+
+#~ msgid "Delete printer"
+#~ msgstr "Usuń drukarkę"
+
+#~ msgid "Add a new printer (V)"
+#~ msgstr "Dodaj nową drukarkę"
+
+#~ msgid "Method"
+#~ msgstr "Metoda"
+
+#~ msgid "Printer description"
+#~ msgstr "Opis drukarki"
+
+#~ msgid "Manufacturer"
+#~ msgstr "Producent"
+
+#~ msgid "Add a new printer (III)"
+#~ msgstr "Dodaj nową drukarkę"
+
+#~ msgid "Add a new printer (I)"
+#~ msgstr "Dodaj nową drukarkę"
+
+#~ msgid "Add user ebox to lpadmin group"
+#~ msgstr "Dodaj użytkownika do Administratorów drukowania"
+
+#, fuzzy
+#~ msgid "To add and manage printers"
+#~ msgstr "Zarządzaj drukarkami"
+
+#, fuzzy
+#~ msgid "Add Printer"
+#~ msgstr "Dodaj drukarkę"
+
+#~ msgid ""
+#~ "The printer's name contains characters not valid.Only alphanumeric "
+#~ "characters are allowed"
+#~ msgstr ""
+#~ "Nazwa drukarki zawiera niedozwolone znaki. Dozwolone są wyłącznie znaki "
+#~ "alfanumeryczne (litery oraz cyfry)."
+
+#~ msgid "Name"
+#~ msgstr "Nazwa"
+
+#~ msgid "The given name is alreaday used as "
+#~ msgstr "Podana nazwa została wcześniej użyta jako"
+
+#~ msgid "It is not a usb printer"
+#~ msgstr "Urządzenie nie jest drukarką USB"
+
+#~ msgid "It is not a parallel printer"
+#~ msgstr ""
+#~ "Urządzenia/drukarki nie można podłączyć do portu równoległego (LPT)."
+
+#~ msgid "It is not a network printer"
+#~ msgstr "Urządzenie nie jest drukarką sieciową"
+
+#~ msgid "It is not a samba printer"
+#~ msgstr "Urządzenie nie jest drukarką podłączoną przez SAMBA"
+
+#, fuzzy
+#~ msgid "It is not a IPP printer"
+#~ msgstr ""
+#~ "Nie można skonfigurować drukarki do pracy poprzez Internet Printing "
+#~ "Protocl (LPP)"
+
+#, fuzzy
+#~ msgid "It is not a LPD printer"
+#~ msgstr "Urządzenie nie jest drukarką USB"
+
+#~ msgid "is not a valid option"
+#~ msgstr "jest niedozwoloną opcją "
+
+#~ msgid "Parameter '{name}' does not exist"
+#~ msgstr "Parametr '{name}' nie istnieje"
+
+#~ msgid "Owner"
+#~ msgstr "Właściciel"
+
+#~ msgid "Queued at"
+#~ msgstr "Zakolejkowano w"
+
+#~ msgid "Set printer name and method"
+#~ msgstr "Ustaw nazwę i sposób podłączenia drukarki"
+
+#~ msgid "Parallel"
+#~ msgstr "Port równoległy (LPT)"
+
+#~ msgid "Samba"
+#~ msgstr "Samba"
+
+#~ msgid "Choose manufacturer"
+#~ msgstr "Wybierz producenta drukarki"
+
+#~ msgid "Local parallel printer configuration"
+#~ msgstr "Konfiguracja lokalnej drukarki na porcie równoległym (LPT)"
+
+#~ msgid "Are you sure you want to delete the printer '{name}'?"
+#~ msgstr "Na pewno usunąć drukarkę '{name}'?"
+
+#~ msgid "Cancel"
+#~ msgstr "Anuluj"
+
+#~ msgid "Local USB printer configuration"
+#~ msgstr "Konfiguracja lokalnej drukarki USB"
+
+#~ msgid "Change"
+#~ msgstr "Zmień"
+
+#~ msgid "Job queue"
+#~ msgstr "Kolejka zadań"
+
+#~ msgid "Size(KB)"
+#~ msgstr "Rozmiar (KB)"
+
+#~ msgid "Creation time"
+#~ msgstr "Czas utworzenia"
+
+#~ msgid "Action"
+#~ msgstr "Działanie"
+
+#~ msgid "This printer has no pending job in queue at the moment"
+#~ msgstr "Drukarka nie wykonuje w tej chwili żadnego zadania."
+
+#, fuzzy
+#~ msgid "Print Test Page"
+#~ msgstr "Wydrukuj stronę testową"
+
+#~ msgid "Driver options"
+#~ msgstr "Ustawienia sterownika"
+
+#~ msgid "Choose a printer model"
+#~ msgstr "Wybierz model drukarki"
+
+#, fuzzy
+#~ msgid "Configure IPP printer"
+#~ msgstr "Konfiguruj drukarkę sieciową"
+
+#~ msgid "Choose a driver for the printer"
+#~ msgstr "Wybierz sterownik dla drukarki"
+
+#, fuzzy
+#~ msgid "Configure LPD printer"
+#~ msgstr "Konfiguruj drukarkę USB"
+
+#~ msgid "Choose a dirver for the printer"
+#~ msgstr "Wybierz sterownik dla drukarki"
+
+#~ msgid "driver"
+#~ msgstr "sterownik"
+
+#~ msgid "Go"
+#~ msgstr "Dalej"
+
+#~ msgid "Samba shared printer configurationr"
+#~ msgstr "Konfiguracja drukarek udostępnionych przez SAMBA"
+
+#~ msgid "Share resource"
+#~ msgstr "Udostępnij zasób"
+
+#~ msgid "Anonymous"
+#~ msgstr "Anonimowy"
+
+#~ msgid "Guest"
+#~ msgstr "Gość"
+
+#~ msgid "User/Password"
+#~ msgstr "Użytkownik/Hasło"
+
+#~ msgid "Remote printer configuration"
+#~ msgstr "Konfiguracja drukarek zdalnych"
+
+#, fuzzy
+#~ msgid "Configure AppSocket printer"
+#~ msgstr "Konfiguruj drukarkę zdalną"
+
+#~ msgid "Samba shared printer configuration"
+#~ msgstr "Konfiguracja drukarki współdzielonej przez SAMBA"
+
+#~ msgid "General settings"
+#~ msgstr "Ustawienia ogólne"
+
+#~ msgid "List of printers"
+#~ msgstr "Lista drukarek"
+
+#~ msgid "Description"
+#~ msgstr "Opis"
+
+#~ msgid "Actions"
+#~ msgstr "Działania"
+
+#~ msgid "Manage"
+#~ msgstr "Zarządzaj"
+
+#~ msgid "Manage this printer"
+#~ msgstr "Zarządzaj tą drukarką"
+
+#, fuzzy
+#~ msgid "There is no printer configured yet"
+#~ msgstr "Nie ma jeszcze skonfigurowanej drukarki."
 
 #, fuzzy
 #~ msgid "printers"

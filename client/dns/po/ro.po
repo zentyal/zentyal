@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-dns 0.12.99Report-Msgid-Bugs-To: info@ebox-"
 "technologies.com\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
-"POT-Creation-Date: 2010-07-21 00:32+0200\n"
+"POT-Creation-Date: 2010-08-25 17:32+0200\n"
 "PO-Revision-Date: 2010-08-11 17:35+0200\n"
 "Last-Translator: Bogdan Chirica <bogdan.chirica@gmail.com>\n"
 "Language-Team: none\n"
@@ -123,12 +123,12 @@ msgstr "Un domeniu este dinamic cand serverul DHCP actualizeaza domeniul"
 msgid "List of Domains"
 msgstr "Lista de domenii"
 
-#: src/EBox/Model/DomainTable.pm:242 src/EBox/Model/DNSComposite.pm:76
-#: src/EBox/Model/DNSComposite.pm:77
+#: src/EBox/Model/DomainTable.pm:242 src/EBox/Model/DNSComposite.pm:75
+#: src/EBox/Model/DNSComposite.pm:76
 msgid "DNS"
 msgstr "DNS"
 
-#: src/EBox/Model/DNSComposite.pm:79
+#: src/EBox/Model/DNSComposite.pm:78
 msgid "The DNS server allows you to resolve names for your own domains."
 msgstr "Serverul de DNS permite sa rezolvi numele pentru domeniile proprii"
 

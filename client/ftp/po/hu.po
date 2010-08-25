@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-. 1.5\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
-"POT-Creation-Date: 2010-08-13 13:40+0200\n"
+"POT-Creation-Date: 2010-08-25 17:47+0200\n"
 "PO-Revision-Date: 2010-07-21 15:28+0200\n"
 "Last-Translator: Nagy Ákos <reg@pecska.ro>\n"
 "Language-Team: none\n"
@@ -18,46 +18,47 @@ msgstr ""
 "X-Generator: Pootle 1.1.0\n"
 
 #: migration/0001_add_firewall_services.pl:30
-msgid "eBox FTP Server"
+#, fuzzy
+msgid "Zentyal FTP Server"
 msgstr "eBox FTP szerver"
 
-#: src/EBox/Model/Options.pm:48
+#: src/EBox/Model/Options.pm:45
 msgid "Disabled"
 msgstr "Kikapcsolva"
 
-#: src/EBox/Model/Options.pm:52
+#: src/EBox/Model/Options.pm:49
 msgid "Read only"
 msgstr "Csak olvasható"
 
-#: src/EBox/Model/Options.pm:56
+#: src/EBox/Model/Options.pm:53
 msgid "Read/Write"
 msgstr "Olvas/Ír"
 
-#: src/EBox/Model/Options.pm:69
+#: src/EBox/Model/Options.pm:66
 msgid "Anonymous access"
 msgstr "Anonymous hozzáférés"
 
-#: src/EBox/Model/Options.pm:73
+#: src/EBox/Model/Options.pm:70
 msgid "Sets the permissions for the /srv/ftp directory"
 msgstr "A /srv/ftp mappa jogainak beállítása"
 
-#: src/EBox/Model/Options.pm:77
+#: src/EBox/Model/Options.pm:74
 msgid "Personal directories"
 msgstr "Személyes mappák"
 
-#: src/EBox/Model/Options.pm:80
+#: src/EBox/Model/Options.pm:77
 msgid "Enable FTP access for each user to its /home directory"
 msgstr "FTP hozzáférés engedélyezése minden felhasználónak a /home mappájához"
 
-#: src/EBox/Model/Options.pm:86
+#: src/EBox/Model/Options.pm:83
 msgid "General configuration settings"
 msgstr "Általános beállítások"
 
-#: src/EBox/Model/Options.pm:87
+#: src/EBox/Model/Options.pm:84
 msgid "FTP Server"
 msgstr "FTP szerver"
 
-#: src/EBox/Model/Options.pm:91
+#: src/EBox/Model/Options.pm:88
 msgid ""
 "The anonymous directory is /srv/ftp, make sure that the files you create "
 "there have read permissions for everybody (chmod o+r /srv/ftp/*). If you "

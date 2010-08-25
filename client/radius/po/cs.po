@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-radius 1.4Report-Msgid-Bugs-To: info@ebox-"
 "technologies.com\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
-"POT-Creation-Date: 2010-07-21 00:42+0200\n"
+"POT-Creation-Date: 2010-08-25 17:45+0200\n"
 "PO-Revision-Date: 2010-04-16 17:00+0200\n"
 "Last-Translator: Michal Formánek <formi@seznam.cz>\n"
 "Language-Team: none\n"
@@ -19,7 +19,8 @@ msgstr ""
 "X-Generator: Pootle 1.1.0\n"
 
 #: migration/0001_add_firewall_services.pl:30
-msgid "eBox RADIUS system"
+#, fuzzy
+msgid "Zentyal RADIUS system"
 msgstr "eBox RADIUS systém"
 
 #: src/EBox/Model/Auth.pm:103
@@ -42,24 +43,24 @@ msgstr "Nastavení RADIUS serveru"
 msgid "RADIUS server configuration updated"
 msgstr "Aktualizováno nastavení RADIUS serveru"
 
-#: src/EBox/Model/Clients.pm:112
+#: src/EBox/Model/Clients.pm:105
 msgid "Client"
 msgstr "Klient"
 
-#: src/EBox/Model/Clients.pm:119
+#: src/EBox/Model/Clients.pm:112
 msgid "IP Address"
 msgstr "IP adresa"
 
-#: src/EBox/Model/Clients.pm:125
+#: src/EBox/Model/Clients.pm:118
 #, fuzzy
 msgid "Shared Secret"
 msgstr "Shared Secret"
 
-#: src/EBox/Model/Clients.pm:133
+#: src/EBox/Model/Clients.pm:126
 msgid "RADIUS Clients"
 msgstr "RADIUS klienti"
 
-#: src/EBox/Model/Clients.pm:134
+#: src/EBox/Model/Clients.pm:127
 msgid "client"
 msgstr "klient"
 
@@ -68,8 +69,10 @@ msgid "Create RADIUS certificates for TTLS"
 msgstr "Vytvořit RADIUS certifikáty pro TTLS"
 
 #: src/EBox/Radius.pm:101
+#, fuzzy
 msgid ""
-"eBox will create the needed certificates for TTLS in /etc/freeradius/certs/."
+"Zentyal will create the needed certificates for TTLS in /etc/freeradius/"
+"certs/."
 msgstr "eBox vytvoří potřebné certifikáty pro TTLS v /etc/freeradius/certs/."
 
 #: src/EBox/Radius.pm:121

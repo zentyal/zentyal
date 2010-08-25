@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-ebackup 1.3.3Report-Msgid-Bugs-To: info@ebox-"
 "technologies.com\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
-"POT-Creation-Date: 2010-07-21 00:32+0200\n"
+"POT-Creation-Date: 2010-08-25 17:32+0200\n"
 "PO-Revision-Date: 2010-07-22 13:29+0200\n"
 "Last-Translator: Daniel Hedblom <daniel.hedblom@gmail.com>\n"
 "Language-Team: none\n"
@@ -38,7 +38,8 @@ msgstr ""
 "säkerhetskopieringen."
 
 #: src/EBox/Event/Watcher/EBackup.pm:141
-msgid "Check if eBox backup was not successful."
+#, fuzzy
+msgid "Check if Zentyal backup was not successful."
 msgstr "Kontrollera om eBox backup inte var lyckad"
 
 #: src/EBox/EBackup/DBRestore.pm:46
@@ -221,11 +222,11 @@ msgid "on the last day"
 msgstr "på den sista dagen"
 
 #: src/EBox/Model/RemoteSettings.pm:494
-#, perl-brace-format
+#, fuzzy, perl-brace-format
 msgid ""
 "{oi}{brand}{ci} is a quick and safe remote location to store the data you "
-"keep on your eBox servers. Purchase the backup storage space you need at the "
-"{ohref}eBox on-line store{chref}."
+"keep on your Zentyal servers. Purchase the backup storage space you need at "
+"the {ohref}Zentyal on-line store{chref}."
 msgstr ""
 "{oi}{brand}{ci} är en snabb och säker plats att lagra den data du lagrar på "
 "eBox servrar. Köp plats för säkerhetskopiering du behöver på {ohref}eBox on-"
@@ -335,26 +336,26 @@ msgstr "absolut sökväg"
 msgid "relative directory"
 msgstr "relativ sökväg"
 
-#: src/EBox/Model/RemoteSettings.pm:725
+#: src/EBox/Model/RemoteSettings.pm:719
 msgid ""
 "File system method needs a target parameter that should be a directory path"
 msgstr "Metod för filsystem behöver ett mål som är en sökväg"
 
-#: src/EBox/Model/RemoteSettings.pm:730 src/EBox/Model/RemoteSettings.pm:734
+#: src/EBox/Model/RemoteSettings.pm:724 src/EBox/Model/RemoteSettings.pm:728
 msgid "Directory for backup"
 msgstr "Sökväg för säkehretskopiering"
 
-#: src/EBox/Model/RemoteSettings.pm:737
+#: src/EBox/Model/RemoteSettings.pm:731
 msgid "File exists and it is not a directory"
 msgstr "Filen finns och är inte en sökväg"
 
-#: src/EBox/Model/RemoteSettings.pm:758
+#: src/EBox/Model/RemoteSettings.pm:751
 msgid "Incremental backup must be more frequent than full backup"
 msgstr ""
 "Inkrementell säkerhetskopiering måste schemaläggas oftare än full "
 "säkerhetskopiering."
 
-#: src/EBox/Model/RemoteSettings.pm:770
+#: src/EBox/Model/RemoteSettings.pm:763
 msgid ""
 "General backup server configuration updated. SCP method selected; "
 "<em>remember</em> to add your target host to the list of known hosts by SSH"
@@ -413,7 +414,8 @@ msgid "include path"
 msgstr "Inkludera sökväg"
 
 #: src/EBox/Model/RemoteRestoreConf.pm:104
-msgid "Restore eBox configuration from backup"
+#, fuzzy
+msgid "Restore Zentyal configuration from backup"
 msgstr "Återställ eBox konfiguration från säkerhetskopia."
 
 #: src/EBox/Model/RemoteRestoreConf.pm:111
@@ -438,7 +440,8 @@ msgid "Restore logs database"
 msgstr "Återställ databas för loggar"
 
 #: src/EBox/Model/RemoteRestoreLogs.pm:125
-msgid "Restores the eBox logs found in the selected backup"
+#, fuzzy
+msgid "Restores the Zentyal logs found in the selected backup"
 msgstr "Återställ loggar för eBox funna i den valda säkerhetskopian."
 
 #: src/EBox/Composite/ServicesRestore.pm:64

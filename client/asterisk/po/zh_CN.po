@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: ebox-asterisk 1.1Report-Msgid-Bugs-To: info@ebox-"
 "technologies.com\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
-"POT-Creation-Date: 2010-07-21 00:28+0200\n"
+"POT-Creation-Date: 2010-08-25 16:23+0200\n"
 "PO-Revision-Date: 2010-07-12 08:06+0200\n"
 "Last-Translator: zhoumeng <zhourimeng@gmail.com>\n"
 "Language-Team: none\n"
@@ -20,7 +20,8 @@ msgstr ""
 "X-Generator: Pootle 1.1.0\n"
 
 #: migration/0001_add_firewall_services.pl:30
-msgid "eBox VoIP system"
+#, fuzzy
+msgid "Zentyal VoIP system"
 msgstr "eBox VoIP 系统"
 
 #: src/EBox/Asterisk.pm:74 src/EBox/Asterisk.pm:715
@@ -355,17 +356,9 @@ msgstr "呼出通话配置的SIP提供商"
 msgid "SIP provider configuration updated."
 msgstr "SIP提供商配置已更新"
 
-#: src/EBox/Model/Provider.pm:195
-#, perl-brace-format
-msgid ""
-"{brand}: make low-cost VoIP calls to mobile phones and landlines directly "
-"with eBox. Once you have obtained a {subs} , you can purchase the VoIP "
-"credit you need. All these services available for purchasing at the {ohref}"
-"eBox on-line store{chref}! "
-msgstr ""
-
 #: src/EBox/Model/NAT.pm:96
-msgid "eBox is behind NAT"
+#, fuzzy
+msgid "Zentyal is behind NAT"
 msgstr "eBox处于NAT网络模式下"
 
 #: src/EBox/Model/NAT.pm:101

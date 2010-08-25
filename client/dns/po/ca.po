@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-dns 0.12\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
-"POT-Creation-Date: 2010-07-21 00:32+0200\n"
+"POT-Creation-Date: 2010-08-25 17:32+0200\n"
 "PO-Revision-Date: 2010-08-18 12:08+0200\n"
 "Last-Translator: jaume ponsa <jaume@calidae.net>\n"
 "Language-Team: none\n"
@@ -62,12 +62,13 @@ msgid ""
 "There is an alias with the same name \"{name}\" for \"{hostname}\" in the "
 "same domain"
 msgstr ""
-"Existeix un àlies amb el mateix nom \"{name}\" pel \"{hostname}\" en el mateix "
-"domini"
+"Existeix un àlies amb el mateix nom \"{name}\" pel \"{hostname}\" en el "
+"mateix domini"
 
 #: src/EBox/Model/HostnameTable.pm:170
 msgid "The domain is set as read only. You cannot add host names"
-msgstr "El domini està definit com a només lectura. No pots afegir noms de host"
+msgstr ""
+"El domini està definit com a només lectura. No pots afegir noms de host"
 
 #: src/EBox/Model/HostnameTable.pm:188 src/EBox/Model/MailExchanger.pm:151
 #: src/EBox/Model/NameServer.pm:130 src/templates/edit.mas:20
@@ -120,12 +121,12 @@ msgstr "Un domini és dinàmic quan el servidor DHCP l'actualitza"
 msgid "List of Domains"
 msgstr "Llistat de dominis"
 
-#: src/EBox/Model/DomainTable.pm:242 src/EBox/Model/DNSComposite.pm:76
-#: src/EBox/Model/DNSComposite.pm:77
+#: src/EBox/Model/DomainTable.pm:242 src/EBox/Model/DNSComposite.pm:75
+#: src/EBox/Model/DNSComposite.pm:76
 msgid "DNS"
 msgstr "DNS"
 
-#: src/EBox/Model/DNSComposite.pm:79
+#: src/EBox/Model/DNSComposite.pm:78
 msgid "The DNS server allows you to resolve names for your own domains."
 msgstr "El servidor DNS permet resoldre els noms del seu propi domini"
 
@@ -140,8 +141,8 @@ msgid ""
 "The given host name is not a fully qualified domain name (FQDN). Do you mean "
 "mx.{name}?"
 msgstr ""
-"El nom de host donat no es un nom de domini qualificat (FQDN). Vol dir "
-"mx.{name}?"
+"El nom de host donat no es un nom de domini qualificat (FQDN). Vol dir mx."
+"{name}?"
 
 #: src/EBox/Model/MailExchanger.pm:132
 msgid "The domain is set as read only. You cannot add mail exchangers"
@@ -190,7 +191,8 @@ msgstr "Camp d'intercanviador de correu"
 #, perl-brace-format
 msgid ""
 "An alias cannot be the nameserver host name \"{ns}\". Use a hostname instead"
-msgstr "Un àlies no pot ser un nom de host \"{ns}\". Fes servir el nom del host."
+msgstr ""
+"Un àlies no pot ser un nom de host \"{ns}\". Fes servir el nom del host."
 
 #: src/EBox/Model/AliasTable.pm:94
 #, perl-brace-format
@@ -216,8 +218,8 @@ msgid ""
 "The given host name is not a fully qualified domain name (FQDN). Do you mean "
 "ns.{name}?"
 msgstr ""
-"El nom del host donat no es un nom de domini qualificat (FQDN). Vol dir "
-"ns.{name}?"
+"El nom del host donat no es un nom de domini qualificat (FQDN). Vol dir ns."
+"{name}?"
 
 #: src/EBox/Model/NameServer.pm:111
 msgid "The domain is set as read only. You cannot add name servers"

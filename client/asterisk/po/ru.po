@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: ebox-asterisk 1.1Report-Msgid-Bugs-To: info@ebox-"
 "technologies.com\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
-"POT-Creation-Date: 2010-07-21 00:28+0200\n"
+"POT-Creation-Date: 2010-08-25 16:23+0200\n"
 "PO-Revision-Date: 2010-08-13 12:58+0200\n"
 "Last-Translator: Val Budkin <valentin@ktc-ua.com>\n"
 "Language-Team: none\n"
@@ -21,7 +21,8 @@ msgstr ""
 "X-Generator: Pootle 1.1.0\n"
 
 #: migration/0001_add_firewall_services.pl:30
-msgid "eBox VoIP system"
+#, fuzzy
+msgid "Zentyal VoIP system"
 msgstr "Система eBox VoIP "
 
 #: src/EBox/Asterisk.pm:74 src/EBox/Asterisk.pm:715
@@ -362,20 +363,9 @@ msgstr "Настройки провайдера SIP для исходящих в
 msgid "SIP provider configuration updated."
 msgstr "Настройки провайдера SIP обновлены"
 
-#: src/EBox/Model/Provider.pm:195
-#, fuzzy, perl-brace-format
-msgid ""
-"{brand}: make low-cost VoIP calls to mobile phones and landlines directly "
-"with eBox. Once you have obtained a {subs} , you can purchase the VoIP "
-"credit you need. All these services available for purchasing at the {ohref}"
-"eBox on-line store{chref}! "
-msgstr ""
-"Пополните свой счет и совершайте дешёвые VoIP звонки на мобильные и "
-"стационарные телефоны, с помощью eBox. {subs} Пополнить свой счет вы можете "
-"напрямую в {ohref}интернет-магазине eBox{chref}!"
-
 #: src/EBox/Model/NAT.pm:96
-msgid "eBox is behind NAT"
+#, fuzzy
+msgid "Zentyal is behind NAT"
 msgstr "eBox за NAT"
 
 #: src/EBox/Model/NAT.pm:101
@@ -448,6 +438,17 @@ msgstr "Пароль для службы Asterisk это пароль польз
 #: src/templates/user.mas:21
 msgid "User account"
 msgstr "Учетная запись пользователя"
+
+#, fuzzy
+#~ msgid ""
+#~ "{brand}: make low-cost VoIP calls to mobile phones and landlines directly "
+#~ "with eBox. Once you have obtained a {subs} , you can purchase the VoIP "
+#~ "credit you need. All these services available for purchasing at the "
+#~ "{ohref}eBox on-line store{chref}! "
+#~ msgstr ""
+#~ "Пополните свой счет и совершайте дешёвые VoIP звонки на мобильные и "
+#~ "стационарные телефоны, с помощью eBox. {subs} Пополнить свой счет вы "
+#~ "можете напрямую в {ohref}интернет-магазине eBox{chref}!"
 
 #~ msgid ""
 #~ "You must install dahdi and dahdi-modules-ebox packages to use Meetings."

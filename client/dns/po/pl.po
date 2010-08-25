@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-dns 0.12\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
-"POT-Creation-Date: 2010-07-21 00:32+0200\n"
+"POT-Creation-Date: 2010-08-25 17:32+0200\n"
 "PO-Revision-Date: 2010-08-17 18:53+0200\n"
 "Last-Translator: Michal Markiewka <bruno@supermedia.pl>\n"
 "Language-Team: none\n"
@@ -66,12 +66,13 @@ msgid ""
 "There is an alias with the same name \"{name}\" for \"{hostname}\" in the "
 "same domain"
 msgstr ""
-"Istnieje już alias o tej samej nazwie \"{name}\" dla \"{hostname}\" w tej samej "
-"domenie"
+"Istnieje już alias o tej samej nazwie \"{name}\" dla \"{hostname}\" w tej "
+"samej domenie"
 
 #: src/EBox/Model/HostnameTable.pm:170
 msgid "The domain is set as read only. You cannot add host names"
-msgstr "Domena ustawiona w tryb tylko do odczytu. Nie można dodawać nazw hostów"
+msgstr ""
+"Domena ustawiona w tryb tylko do odczytu. Nie można dodawać nazw hostów"
 
 #: src/EBox/Model/HostnameTable.pm:188 src/EBox/Model/MailExchanger.pm:151
 #: src/EBox/Model/NameServer.pm:130 src/templates/edit.mas:20
@@ -127,12 +128,12 @@ msgstr "Domena należy do grupy dynamicznych jeśli aktualizuje ją serwer DHCP"
 msgid "List of Domains"
 msgstr "Lista domen"
 
-#: src/EBox/Model/DomainTable.pm:242 src/EBox/Model/DNSComposite.pm:76
-#: src/EBox/Model/DNSComposite.pm:77
+#: src/EBox/Model/DomainTable.pm:242 src/EBox/Model/DNSComposite.pm:75
+#: src/EBox/Model/DNSComposite.pm:76
 msgid "DNS"
 msgstr "DNS"
 
-#: src/EBox/Model/DNSComposite.pm:79
+#: src/EBox/Model/DNSComposite.pm:78
 msgid "The DNS server allows you to resolve names for your own domains."
 msgstr "Serwer DNS umożliwia translację nazw w twoich domenach."
 

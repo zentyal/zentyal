@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-ebackup 1.3.3Report-Msgid-Bugs-To: info@ebox-"
 "technologies.com\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
-"POT-Creation-Date: 2010-07-21 00:32+0200\n"
+"POT-Creation-Date: 2010-08-25 17:32+0200\n"
 "PO-Revision-Date: 2010-08-11 22:12+0200\n"
 "Last-Translator: Bogdan Chirica <bogdan.chirica@gmail.com>\n"
 "Language-Team: none\n"
@@ -41,7 +41,7 @@ msgstr ""
 
 #: src/EBox/Event/Watcher/EBackup.pm:141
 #, fuzzy
-msgid "Check if eBox backup was not successful."
+msgid "Check if Zentyal backup was not successful."
 msgstr "Verificati daca backup-ul eBox nu a fost efectuat cu success"
 
 #: src/EBox/EBackup/DBRestore.pm:46
@@ -228,11 +228,11 @@ msgid "on the last day"
 msgstr "in ultima zi"
 
 #: src/EBox/Model/RemoteSettings.pm:494
-#, perl-brace-format
+#, fuzzy, perl-brace-format
 msgid ""
 "{oi}{brand}{ci} is a quick and safe remote location to store the data you "
-"keep on your eBox servers. Purchase the backup storage space you need at the "
-"{ohref}eBox on-line store{chref}."
+"keep on your Zentyal servers. Purchase the backup storage space you need at "
+"the {ohref}Zentyal on-line store{chref}."
 msgstr ""
 "{oi}{brand}{ci} este o locatie sigura si rapida in care sa stocati datele pe "
 "care le aveti pe serverele eBox. Cumparati spatiu de stocare necesar "
@@ -343,26 +343,26 @@ msgstr "director absolut"
 msgid "relative directory"
 msgstr "director relativ"
 
-#: src/EBox/Model/RemoteSettings.pm:725
+#: src/EBox/Model/RemoteSettings.pm:719
 msgid ""
 "File system method needs a target parameter that should be a directory path"
 msgstr ""
 "Metoda Sistem de fisiere, trebuie sa aiba parametru tinta, o cale de director"
 
-#: src/EBox/Model/RemoteSettings.pm:730 src/EBox/Model/RemoteSettings.pm:734
+#: src/EBox/Model/RemoteSettings.pm:724 src/EBox/Model/RemoteSettings.pm:728
 msgid "Directory for backup"
 msgstr "Director pentru backup"
 
-#: src/EBox/Model/RemoteSettings.pm:737
+#: src/EBox/Model/RemoteSettings.pm:731
 msgid "File exists and it is not a directory"
 msgstr "Fisierul exista si nu este un director"
 
-#: src/EBox/Model/RemoteSettings.pm:758
+#: src/EBox/Model/RemoteSettings.pm:751
 msgid "Incremental backup must be more frequent than full backup"
 msgstr ""
 "Backup-ul incremental trebuie sa fie mai frecvent decat un backup complet"
 
-#: src/EBox/Model/RemoteSettings.pm:770
+#: src/EBox/Model/RemoteSettings.pm:763
 msgid ""
 "General backup server configuration updated. SCP method selected; "
 "<em>remember</em> to add your target host to the list of known hosts by SSH"
@@ -422,7 +422,8 @@ msgid "include path"
 msgstr "cale includere"
 
 #: src/EBox/Model/RemoteRestoreConf.pm:104
-msgid "Restore eBox configuration from backup"
+#, fuzzy
+msgid "Restore Zentyal configuration from backup"
 msgstr "Restaureaza configuratia eBox din backup"
 
 #: src/EBox/Model/RemoteRestoreConf.pm:111
@@ -449,7 +450,8 @@ msgid "Restore logs database"
 msgstr "Restaureaza baza de date jurnal"
 
 #: src/EBox/Model/RemoteRestoreLogs.pm:125
-msgid "Restores the eBox logs found in the selected backup"
+#, fuzzy
+msgid "Restores the Zentyal logs found in the selected backup"
 msgstr "Restaureaza jurnalele gasite in backup-ul selectat"
 
 #: src/EBox/Composite/ServicesRestore.pm:64

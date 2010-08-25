@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-mail 0.12.99Report-Msgid-Bugs-To: info@ebox-"
 "technologies.com\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
-"POT-Creation-Date: 2010-08-13 13:40+0200\n"
+"POT-Creation-Date: 2010-08-25 17:47+0200\n"
 "PO-Revision-Date: 2010-03-10 10:44+0100\n"
 "Last-Translator: Ronny Gonzales <gonzito@online.no>\n"
 "Language-Team: none\n"
@@ -23,7 +23,8 @@ msgid "protocol for editing SIEVE filters"
 msgstr "protokoll for redigering av SIEVE-filter"
 
 #: migration/0001_add_firewall_services.pl:30
-msgid "eBox Mail System"
+#, fuzzy
+msgid "Zentyal Mail System"
 msgstr "eBox Epostsystem"
 
 #: src/EBox/MailUserLdap.pm:85 src/EBox/MailUserLdap.pm:90
@@ -152,25 +153,25 @@ msgid "maildrop"
 msgstr "epost tap"
 
 #: src/EBox/CGI/QueueManager.pm:36 src/EBox/CGI/QueueManager.pm:54
-#: src/EBox/Mail.pm:1555
+#: src/EBox/Mail.pm:1554
 msgid "Queue Management"
 msgstr "Købehandling"
 
-#: src/EBox/Event/Dispatcher/Mail.pm:156
+#: src/EBox/Event/Dispatcher/Mail.pm:155
 msgid "Admin mail recipient"
 msgstr "Administrator epostmottager"
 
-#: src/EBox/Event/Dispatcher/Mail.pm:169 src/EBox/Mail/Model/MailUser.pm:68
-#: src/EBox/Mail.pm:94 src/EBox/Mail.pm:1472 src/EBox/Mail.pm:1632
+#: src/EBox/Event/Dispatcher/Mail.pm:168 src/EBox/Mail/Model/MailUser.pm:68
+#: src/EBox/Mail.pm:94 src/EBox/Mail.pm:1471 src/EBox/Mail.pm:1631
 msgid "Mail"
 msgstr "Epost"
 
-#: src/EBox/Event/Dispatcher/Mail.pm:190
+#: src/EBox/Event/Dispatcher/Mail.pm:189
 #, perl-brace-format
 msgid "Cannot connect to {smtp} mail server"
 msgstr "Kan ikke koble til {smtp} epostserver"
 
-#: src/EBox/Event/Dispatcher/Mail.pm:233
+#: src/EBox/Event/Dispatcher/Mail.pm:232
 #, perl-brace-format
 msgid "Cannot connect to the server {hostname} to send the event through SMTP"
 msgstr "Kan ikke koble til serveren {hostname} for å sende hendelsen via SMTP"
@@ -183,15 +184,15 @@ msgstr "For å konfigurer hvit listing for grå listing"
 msgid "Greylist service"
 msgstr "Grålistetjeneste"
 
-#: src/EBox/Mail/Model/ObjectPolicy.pm:90
+#: src/EBox/Mail/Model/ObjectPolicy.pm:89
 msgid "Object"
 msgstr "Objekt"
 
-#: src/EBox/Mail/Model/ObjectPolicy.pm:96
+#: src/EBox/Mail/Model/ObjectPolicy.pm:95
 msgid "Allow relay"
 msgstr "Tillat videresending"
 
-#: src/EBox/Mail/Model/ObjectPolicy.pm:99
+#: src/EBox/Mail/Model/ObjectPolicy.pm:98
 msgid ""
 "Tick this to allow the machines within the above object to send mails "
 "through this server."
@@ -199,19 +200,19 @@ msgstr ""
 "Huk av dette valget for å tillate maskiner innenfor objektet over å sende "
 "epost gjennom denne serveren."
 
-#: src/EBox/Mail/Model/ObjectPolicy.pm:108
+#: src/EBox/Mail/Model/ObjectPolicy.pm:107
 msgid "Relay policy for network objects"
 msgstr "Videresendingsregler for nettverksobjekter"
 
-#: src/EBox/Mail/Model/ObjectPolicy.pm:120
+#: src/EBox/Mail/Model/ObjectPolicy.pm:119
 msgid "object's relay policy"
 msgstr "objekters videresendingsregler"
 
-#: src/EBox/Mail/Model/ObjectPolicy.pm:121
+#: src/EBox/Mail/Model/ObjectPolicy.pm:120
 msgid "You may allow mail relay per network object"
 msgstr "Du kan tillate videresending av epost per nettverks objekt"
 
-#: src/EBox/Mail/Model/ObjectPolicy.pm:222
+#: src/EBox/Mail/Model/ObjectPolicy.pm:221
 #, perl-brace-format
 msgid ""
 "There are not network objects in the system. You can create them in the "
@@ -286,55 +287,55 @@ msgid ""
 "You must enable the mail module in module status section in order to use it."
 msgstr "Du må aktivere epost modulen i modulstatusseksjonen for å bruke den."
 
-#: src/EBox/Mail/Model/SMTPAuth.pm:67
+#: src/EBox/Mail/Model/SMTPAuth.pm:65
 #, fuzzy
 msgid "TLS for SMTP server"
 msgstr "Epost SMTP-server"
 
-#: src/EBox/Mail/Model/SMTPAuth.pm:73
+#: src/EBox/Mail/Model/SMTPAuth.pm:71
 #, fuzzy
 msgid "Require authentication"
 msgstr "Autentisering"
 
-#: src/EBox/Mail/Model/SMTPAuth.pm:76
+#: src/EBox/Mail/Model/SMTPAuth.pm:74
 msgid ""
 "Users will have to authenticate to be able to send mails through this server"
 msgstr "Brukere vil måtte autentisere seg for å sende epost via denne serveren"
 
-#: src/EBox/Mail/Model/SMTPAuth.pm:84
+#: src/EBox/Mail/Model/SMTPAuth.pm:82
 msgid "Authentication"
 msgstr "Autentisering"
 
-#: src/EBox/Mail/Model/SMTPAuth.pm:114
+#: src/EBox/Mail/Model/SMTPAuth.pm:112
 msgid "Cannot require authentication when TLS is inactive"
 msgstr "Kan ikke kreve autentisering når TLS er deaktivert"
 
-#: src/EBox/Mail/Model/ExternalFilter.pm:89
+#: src/EBox/Mail/Model/ExternalFilter.pm:87
 msgid "Filter in use"
 msgstr "Filter i bruk"
 
-#: src/EBox/Mail/Model/ExternalFilter.pm:97
+#: src/EBox/Mail/Model/ExternalFilter.pm:95
 msgid "Custom filter's mail forward port"
 msgstr "Tilpasset filters epostvideresendingsport"
 
-#: src/EBox/Mail/Model/ExternalFilter.pm:103
+#: src/EBox/Mail/Model/ExternalFilter.pm:101
 msgid "Custom filter's IP address"
 msgstr "Tilpasset filters IP-adresse"
 
-#: src/EBox/Mail/Model/ExternalFilter.pm:109
+#: src/EBox/Mail/Model/ExternalFilter.pm:107
 msgid "Custom filter's Port"
 msgstr "Tilpasset filters Port"
 
-#: src/EBox/Mail/Model/ExternalFilter.pm:118
+#: src/EBox/Mail/Model/ExternalFilter.pm:116
 msgid "Mail filter options"
 msgstr "Epostfilter alternativer"
 
-#: src/EBox/Mail/Model/ExternalFilter.pm:161
+#: src/EBox/Mail/Model/ExternalFilter.pm:159
 msgid "none"
 msgstr "ingen"
 
-#: src/EBox/Mail/Model/ExternalFilter.pm:162
-#: src/EBox/Mail/Model/SMTPOptions.pm:128
+#: src/EBox/Mail/Model/ExternalFilter.pm:160
+#: src/EBox/Mail/Model/SMTPOptions.pm:126
 msgid "custom"
 msgstr "tilpasset"
 
@@ -344,12 +345,12 @@ msgid "External mail accounts"
 msgstr "Eksterne epostkontoer"
 
 #: src/EBox/Mail/Model/ExternalAccounts.pm:94
-#: src/EBox/Mail/Model/SMTPOptions.pm:107
+#: src/EBox/Mail/Model/SMTPOptions.pm:105
 msgid "Password"
 msgstr "Passord"
 
 #: src/EBox/Mail/Model/ExternalAccounts.pm:101
-#: src/EBox/Mail/Composite/General.pm:78
+#: src/EBox/Mail/Composite/General.pm:77
 msgid "Mail server"
 msgstr "Eposttjener"
 
@@ -430,59 +431,59 @@ msgstr ""
 "Kan ikke legge til alias {al} fordi det allerede finnes et identisk alias "
 "for et annet virtuelt domene"
 
-#: src/EBox/Mail/Model/SMTPOptions.pm:74
+#: src/EBox/Mail/Model/SMTPOptions.pm:72
 msgid "Smarthost to send mail"
 msgstr "Smarthost for sending av epost"
 
-#: src/EBox/Mail/Model/SMTPOptions.pm:77
+#: src/EBox/Mail/Model/SMTPOptions.pm:75
 msgid "The format is host[:port] being port set to 25 if none is supplied"
 msgstr "Formatet er vert[:port] hvor port er satt til 25 hvis blank"
 
-#: src/EBox/Mail/Model/SMTPOptions.pm:83
+#: src/EBox/Mail/Model/SMTPOptions.pm:81
 msgid "Smarthost authentication"
 msgstr "Smarthostautentisering"
 
-#: src/EBox/Mail/Model/SMTPOptions.pm:91
+#: src/EBox/Mail/Model/SMTPOptions.pm:89
 msgid "None"
 msgstr "Ingen"
 
-#: src/EBox/Mail/Model/SMTPOptions.pm:95
+#: src/EBox/Mail/Model/SMTPOptions.pm:93
 msgid "User and password"
 msgstr "Bruker og passord"
 
-#: src/EBox/Mail/Model/SMTPOptions.pm:101
+#: src/EBox/Mail/Model/SMTPOptions.pm:99
 msgid "User"
 msgstr "Bruker"
 
-#: src/EBox/Mail/Model/SMTPOptions.pm:120
+#: src/EBox/Mail/Model/SMTPOptions.pm:118
 msgid "Server mailname"
 msgstr "Tjener epostnavn"
 
-#: src/EBox/Mail/Model/SMTPOptions.pm:124
+#: src/EBox/Mail/Model/SMTPOptions.pm:122
 msgid "FQDN hostname"
 msgstr "FQDN vertsnavn"
 
-#: src/EBox/Mail/Model/SMTPOptions.pm:136
+#: src/EBox/Mail/Model/SMTPOptions.pm:134
 msgid "Postmaster address"
 msgstr "Postmasteradresse"
 
-#: src/EBox/Mail/Model/SMTPOptions.pm:138
+#: src/EBox/Mail/Model/SMTPOptions.pm:136
 msgid "Address used to report mail problems"
 msgstr "Adresse for rapportering av epostproblemer"
 
-#: src/EBox/Mail/Model/SMTPOptions.pm:142
+#: src/EBox/Mail/Model/SMTPOptions.pm:140
 msgid "Local root account"
 msgstr "Lokal rootkonto"
 
-#: src/EBox/Mail/Model/SMTPOptions.pm:146
+#: src/EBox/Mail/Model/SMTPOptions.pm:144
 msgid "Custom address"
 msgstr "Tilpasset adresse"
 
-#: src/EBox/Mail/Model/SMTPOptions.pm:154
+#: src/EBox/Mail/Model/SMTPOptions.pm:152
 msgid "Maximum mailbox size allowed"
 msgstr "Maksimum postboks størrelse tillatt"
 
-#: src/EBox/Mail/Model/SMTPOptions.pm:156
+#: src/EBox/Mail/Model/SMTPOptions.pm:154
 msgid ""
 "When a mailbox reaches this size futher messages will be rejected. This can "
 "be overidden by account"
@@ -490,57 +491,57 @@ msgstr ""
 "Når en postboks når denne størrelsen vil videre meldinger bli avvist. Dette "
 "kan bli overstyrt av konto"
 
-#: src/EBox/Mail/Model/SMTPOptions.pm:160
-#: src/EBox/Mail/Model/SMTPOptions.pm:179 src/templates/createaccount.mas:79
+#: src/EBox/Mail/Model/SMTPOptions.pm:158
+#: src/EBox/Mail/Model/SMTPOptions.pm:177 src/templates/createaccount.mas:79
 msgid "Unlimited size"
 msgstr "Ubegrenset størrelse"
 
-#: src/EBox/Mail/Model/SMTPOptions.pm:164
-#: src/EBox/Mail/Model/SMTPOptions.pm:183
+#: src/EBox/Mail/Model/SMTPOptions.pm:162
+#: src/EBox/Mail/Model/SMTPOptions.pm:181
 msgid "limited to"
 msgstr "begrenset til"
 
-#: src/EBox/Mail/Model/SMTPOptions.pm:175
+#: src/EBox/Mail/Model/SMTPOptions.pm:173
 msgid "Maximum message size accepted"
 msgstr "Maksimal meldingsstørrelse tillatt"
 
-#: src/EBox/Mail/Model/SMTPOptions.pm:195
+#: src/EBox/Mail/Model/SMTPOptions.pm:193
 msgid "Expiration period for deleted mails"
 msgstr "Utløpsdato på slettede epost"
 
-#: src/EBox/Mail/Model/SMTPOptions.pm:199
-#: src/EBox/Mail/Model/SMTPOptions.pm:218
+#: src/EBox/Mail/Model/SMTPOptions.pm:197
+#: src/EBox/Mail/Model/SMTPOptions.pm:216
 msgid "Never"
 msgstr "Aldri"
 
-#: src/EBox/Mail/Model/SMTPOptions.pm:203
-#: src/EBox/Mail/Model/SMTPOptions.pm:222
+#: src/EBox/Mail/Model/SMTPOptions.pm:201
+#: src/EBox/Mail/Model/SMTPOptions.pm:220
 msgid "expired in"
 msgstr "utløper om"
 
-#: src/EBox/Mail/Model/SMTPOptions.pm:204
-#: src/EBox/Mail/Model/SMTPOptions.pm:223
+#: src/EBox/Mail/Model/SMTPOptions.pm:202
+#: src/EBox/Mail/Model/SMTPOptions.pm:221
 msgid "days"
 msgstr "dager"
 
-#: src/EBox/Mail/Model/SMTPOptions.pm:214
+#: src/EBox/Mail/Model/SMTPOptions.pm:212
 msgid "Expiration period for spam mails"
 msgstr "Utløpsdato for søppelmeldinger"
 
-#: src/EBox/Mail/Model/SMTPOptions.pm:235
+#: src/EBox/Mail/Model/SMTPOptions.pm:233
 msgid "Options"
 msgstr "Alternativer"
 
-#: src/EBox/Mail/Model/SMTPOptions.pm:342
-#: src/EBox/Mail/Model/SMTPOptions.pm:346
+#: src/EBox/Mail/Model/SMTPOptions.pm:340
+#: src/EBox/Mail/Model/SMTPOptions.pm:344
 msgid "Smarthost's address"
 msgstr "Smarthosts adresse"
 
-#: src/EBox/Mail/Model/SMTPOptions.pm:343
+#: src/EBox/Mail/Model/SMTPOptions.pm:341
 msgid "Smarthost's port"
 msgstr "Smarthosts port"
 
-#: src/EBox/Mail/Model/SMTPOptions.pm:421
+#: src/EBox/Mail/Model/SMTPOptions.pm:419
 msgid ""
 "The mailname is set to the server's hostname and the hostname is not fully "
 "qualified. "
@@ -548,11 +549,11 @@ msgstr ""
 "Epost navnet er satt til serverens vertsnavn og vertsnavnet er ikke helt "
 "gyldig."
 
-#: src/EBox/Mail/Model/SMTPOptions.pm:425
+#: src/EBox/Mail/Model/SMTPOptions.pm:423
 msgid "The selected mailname is not a fully qualified hostname. "
 msgstr "Valgt epostnavn er ikke et kvalifisert vertsnavn."
 
-#: src/EBox/Mail/Model/SMTPOptions.pm:429
+#: src/EBox/Mail/Model/SMTPOptions.pm:427
 msgid ""
 "Not having a fully qualified hostname could lead to some mail servers to "
 "reject the mail and incorrect reply addresses from system users"
@@ -560,47 +561,47 @@ msgstr ""
 "Fullt kvalifisert tjenernavn er påkrevd for å unngå avviste meldinger og "
 "feilaktige returadresser for systembrukere."
 
-#: src/EBox/Mail/Model/VDomainSettings.pm:58
+#: src/EBox/Mail/Model/VDomainSettings.pm:56
 msgid "Send a copy of all mail domains"
 msgstr "Send en kopi av alle epostdomener"
 
-#: src/EBox/Mail/Model/VDomainSettings.pm:60
+#: src/EBox/Mail/Model/VDomainSettings.pm:58
 msgid "The mail will be a Blind Carbon Copy (BCC)."
 msgstr "Eposten vil bli en blindkopi (BCC)."
 
-#: src/EBox/Mail/Model/VDomainSettings.pm:64
+#: src/EBox/Mail/Model/VDomainSettings.pm:62
 msgid "Disabled"
 msgstr "Deaktivert"
 
-#: src/EBox/Mail/Model/VDomainSettings.pm:68
+#: src/EBox/Mail/Model/VDomainSettings.pm:66
 msgid "Address to sent the copy"
 msgstr "Adressen kopien skal sendes til"
 
-#: src/EBox/Mail/Model/VDomainSettings.pm:79
+#: src/EBox/Mail/Model/VDomainSettings.pm:77
 msgid "Virtual domain settings"
 msgstr "Innstillinger for virtuelt domene"
 
-#: src/EBox/Mail/Model/RetrievalServices.pm:66
+#: src/EBox/Mail/Model/RetrievalServices.pm:64
 msgid "POP3 service enabled"
 msgstr "POP3-tjeneste aktivert"
 
-#: src/EBox/Mail/Model/RetrievalServices.pm:72
+#: src/EBox/Mail/Model/RetrievalServices.pm:70
 msgid "Secure POP3S service enabled"
 msgstr "Sikker POP3S-tjeneste aktivert"
 
-#: src/EBox/Mail/Model/RetrievalServices.pm:78
+#: src/EBox/Mail/Model/RetrievalServices.pm:76
 msgid "IMAP service enabled"
 msgstr "IMAP-tjeneste aktivert"
 
-#: src/EBox/Mail/Model/RetrievalServices.pm:84
+#: src/EBox/Mail/Model/RetrievalServices.pm:82
 msgid "Secure IMAPS service enabled"
 msgstr "Sikker IMAPS-tjeneste aktivert"
 
-#: src/EBox/Mail/Model/RetrievalServices.pm:90
+#: src/EBox/Mail/Model/RetrievalServices.pm:88
 msgid "Retrieve mail for external accounts"
 msgstr "Hente epost for eksterne kontoer"
 
-#: src/EBox/Mail/Model/RetrievalServices.pm:92
+#: src/EBox/Mail/Model/RetrievalServices.pm:90
 msgid ""
 "This allow users to retrieve mail for external accounts, the mail would be "
 "delivered to their local account. External account can be configured in the "
@@ -609,11 +610,11 @@ msgstr ""
 "Dette lar brukere å hente epost for eksterne kontoer, eposten vil bli levert "
 "til deres lokale konto. Eksterne kontoer kan konfigureres i brukerhjørne."
 
-#: src/EBox/Mail/Model/RetrievalServices.pm:97
+#: src/EBox/Mail/Model/RetrievalServices.pm:95
 msgid "Manage Sieve scripts"
 msgstr "Behandle Sieve skript"
 
-#: src/EBox/Mail/Model/RetrievalServices.pm:99
+#: src/EBox/Mail/Model/RetrievalServices.pm:97
 msgid ""
 "This service allows to a user to manage his Sieve mail filtering scripts "
 "from a local client which speaks the ManageSieve protocol"
@@ -621,7 +622,7 @@ msgstr ""
 "Denne tjenesten tillater en bruker å behandle sine Sieve epost filtrerings "
 "skript fra en lokal klient som snakker med ManageSieve protokollen"
 
-#: src/EBox/Mail/Model/RetrievalServices.pm:107
+#: src/EBox/Mail/Model/RetrievalServices.pm:105
 msgid "Mail retrieval services"
 msgstr "Epost hentetjenester"
 
@@ -641,37 +642,37 @@ msgstr "Standard Domene"
 msgid "You haven't create a mail domain yet"
 msgstr "Du har ikke opprettet et epostdomene enda"
 
-#: src/EBox/Mail/Model/GreylistConfiguration.pm:77
+#: src/EBox/Mail/Model/GreylistConfiguration.pm:75
 msgid "Enabled"
 msgstr "Aktivert"
 
-#: src/EBox/Mail/Model/GreylistConfiguration.pm:83
+#: src/EBox/Mail/Model/GreylistConfiguration.pm:81
 msgid "Greylist duration (seconds)"
 msgstr "Grålistingsvarighet (sekunder)"
 
-#: src/EBox/Mail/Model/GreylistConfiguration.pm:84
+#: src/EBox/Mail/Model/GreylistConfiguration.pm:82
 msgid "During this interval, the mail sender is deferred"
 msgstr "I løpet av dette intervallet, er epostsenderen utsatt"
 
-#: src/EBox/Mail/Model/GreylistConfiguration.pm:92
+#: src/EBox/Mail/Model/GreylistConfiguration.pm:90
 msgid "Retry window (hours)"
 msgstr "Prøv igjen innen (timer)"
 
-#: src/EBox/Mail/Model/GreylistConfiguration.pm:93
+#: src/EBox/Mail/Model/GreylistConfiguration.pm:91
 msgid ""
 "Time that mail sender has to retry to be added before it will be greylisted "
 "again"
 msgstr "Tiden epostsenderen må prøve igjen før den blir grålistet igjen"
 
-#: src/EBox/Mail/Model/GreylistConfiguration.pm:102
+#: src/EBox/Mail/Model/GreylistConfiguration.pm:100
 msgid "Entries time to live (days)"
 msgstr "Levetid på innlegg (dager)"
 
-#: src/EBox/Mail/Model/GreylistConfiguration.pm:103
+#: src/EBox/Mail/Model/GreylistConfiguration.pm:101
 msgid "Period till unseen entries will be deleted"
 msgstr "Periode til usett innlegg vil bli slettet"
 
-#: src/EBox/Mail/Model/GreylistConfiguration.pm:111
+#: src/EBox/Mail/Model/GreylistConfiguration.pm:109
 msgid "Greylist configuration"
 msgstr "Grålistingskonfigurasjon"
 
@@ -731,32 +732,33 @@ msgstr ""
 "Kan ikke legge til virtuelt domene {vd} fordi det ser ut som at det eksterne "
 "domenet i kontoen er referert til av alias {al}"
 
-#: src/EBox/Mail/Model/Dispatcher/Mail.pm:127
+#: src/EBox/Mail/Model/Dispatcher/Mail.pm:126
 msgid "Subject"
 msgstr "Emne"
 
-#: src/EBox/Mail/Model/Dispatcher/Mail.pm:129
+#: src/EBox/Mail/Model/Dispatcher/Mail.pm:128
 #, perl-brace-format
 msgid "[EBox-event] An event has happened at {hostName}"
 msgstr "[EBox-event] En hendelse har oppstått på {hostName}"
 
-#: src/EBox/Mail/Model/Dispatcher/Mail.pm:136 src/EBox/Mail.pm:1601
+#: src/EBox/Mail/Model/Dispatcher/Mail.pm:135 src/EBox/Mail.pm:1600
 msgid "To"
 msgstr "Til"
 
-#: src/EBox/Mail/Model/Dispatcher/Mail.pm:143
+#: src/EBox/Mail/Model/Dispatcher/Mail.pm:142
 msgid "Configure mail dispatcher"
 msgstr "Konfigurer eposttildeler"
 
-#: src/EBox/Mail/Model/Dispatcher/Mail.pm:148
+#: src/EBox/Mail/Model/Dispatcher/Mail.pm:147
+#, fuzzy
 msgid ""
 "In order to configure the Mail event dispatcher is required to enable the "
-"mail service from eBox"
+"mail service from Zentyal"
 msgstr ""
 "For å konfigurere eposthandlingstildeler må e-post tjenesten aktiveres fra "
 "eBox"
 
-#: src/EBox/Mail/Model/Dispatcher/Mail.pm:151
+#: src/EBox/Mail/Model/Dispatcher/Mail.pm:150
 msgid "Mail dispatcher configuration updated"
 msgstr "Eposttildelerkonfigurasjonen oppdatert"
 
@@ -782,7 +784,7 @@ msgstr "Mottatte meldinger"
 msgid "Rejected messages"
 msgstr "Avviste meldinger"
 
-#: src/EBox/Mail/Model/Report/TrafficDetails.pm:62 src/EBox/Mail.pm:1598
+#: src/EBox/Mail/Model/Report/TrafficDetails.pm:62 src/EBox/Mail.pm:1597
 #: src/templates/qmanager.mas:19
 msgid "Date"
 msgstr "Dato"
@@ -807,16 +809,16 @@ msgstr "Trafikksammendragsoversikt"
 msgid "Traffic summary graph"
 msgstr "Trafikksammendragsgraf"
 
-#: src/EBox/Mail/Composite/General.pm:77
-#: src/EBox/Mail/Composite/ServiceConfiguration.pm:88
+#: src/EBox/Mail/Composite/General.pm:76
+#: src/EBox/Mail/Composite/ServiceConfiguration.pm:87
 msgid "Mail server options"
 msgstr "Epostserver alternativer"
 
-#: src/EBox/Mail/Composite/Report/TrafficReport.pm:70
+#: src/EBox/Mail/Composite/Report/TrafficReport.pm:69
 msgid "Mail traffic reports"
 msgstr "Epost trafikkrapporter"
 
-#: src/EBox/Mail/Composite/Report/TrafficReport.pm:71
+#: src/EBox/Mail/Composite/Report/TrafficReport.pm:70
 msgid "Mail traffic report"
 msgstr "Epost trafikkrapport"
 
@@ -829,8 +831,8 @@ msgid "Generate mail aliases"
 msgstr "Generer epostaliaser"
 
 #: src/EBox/Mail.pm:143
-#, perl-brace-format
-msgid "eBox will execute {cmd}"
+#, fuzzy, perl-brace-format
+msgid "Zentyal will execute {cmd}"
 msgstr "eBox vil kjøre {cmd}"
 
 #: src/EBox/Mail.pm:148
@@ -838,7 +840,8 @@ msgid "Add LDAP schemas"
 msgstr "Legg til LDAP-skjemaer"
 
 #: src/EBox/Mail.pm:150
-msgid "eBox will add two LDAP schemas: authldap.ldif and eboximail.ldif."
+#, fuzzy
+msgid "Zentyal will add two LDAP schemas: authldap.ldif and eboximail.ldif."
 msgstr "eBox vil legge til to LDAP-skjemaer: authldap.ldif og eboximail.ldif."
 
 #: src/EBox/Mail.pm:156
@@ -846,7 +849,8 @@ msgid "Create certificates"
 msgstr "Opprett sertifikater"
 
 #: src/EBox/Mail.pm:158
-msgid "eBox will create certificates to use in mail services"
+#, fuzzy
+msgid "Zentyal will create certificates to use in mail services"
 msgstr "eBox vil opprette sertifikater for bruk i eposttjenester"
 
 #: src/EBox/Mail.pm:163
@@ -854,43 +858,44 @@ msgid "Add fetchmail update cron job"
 msgstr "Legg til fetchmail oppdateringsjobb i cron"
 
 #: src/EBox/Mail.pm:165
+#, fuzzy
 msgid ""
-"eBox will schedule a cron job to update fetchmail configuration when the "
+"Zentyal will schedule a cron job to update fetchmail configuration when the "
 "user add external accounts"
 msgstr ""
 "eBox vil planlegge en jobb i cron, for å oppdatere fetchmail konfigurasjonen "
 "når brukeren legger til eksterne kontoer"
 
-#: src/EBox/Mail.pm:186
+#: src/EBox/Mail.pm:185
 msgid "To configure postfix"
 msgstr "For å konfigurere postfix"
 
-#: src/EBox/Mail.pm:192
+#: src/EBox/Mail.pm:191
 msgid "To define how client programs connect to services in  postfix"
 msgstr ""
 "For å definere hvordan klientprogrammer kobler til tjenester i  postfix"
 
-#: src/EBox/Mail.pm:199
+#: src/EBox/Mail.pm:198
 msgid "To configure host mail name"
 msgstr "For å konfigurere vertens epostnavn"
 
-#: src/EBox/Mail.pm:204
+#: src/EBox/Mail.pm:203
 msgid "To configure postfix aliases"
 msgstr "For å konfigurere postfix aliaser"
 
-#: src/EBox/Mail.pm:211
+#: src/EBox/Mail.pm:210
 msgid "To configure dovecot"
 msgstr "For å konfigurere dovecot"
 
-#: src/EBox/Mail.pm:216
+#: src/EBox/Mail.pm:215
 msgid "To configure dovecot to authenticate against LDAP"
 msgstr "For å konfigurere dovecot til å autentisere mot LDAP"
 
-#: src/EBox/Mail.pm:221
+#: src/EBox/Mail.pm:220
 msgid "To configure smart host authentication"
 msgstr "For å konfigurere smarthost-autentisering"
 
-#: src/EBox/Mail.pm:685
+#: src/EBox/Mail.pm:684
 msgid ""
 "Cannot use the hostname as mailname because it is not a fully qualified "
 "name. Please, define a custom server mailname"
@@ -898,30 +903,30 @@ msgstr ""
 "Kan ikke bruke vertsnavn som epostnavn, fordi det ikke er et fullt "
 "kvalifisert navn. Vennligst, legg til et tilpasset epostnavn for tjeneren"
 
-#: src/EBox/Mail.pm:690
+#: src/EBox/Mail.pm:689
 msgid "The mail name must be a fully qualified name"
 msgstr "Epostnavnet må vært et fullt kvalifisert navn"
 
-#: src/EBox/Mail.pm:695 src/EBox/Mail.pm:706 src/EBox/Mail.pm:715
+#: src/EBox/Mail.pm:694 src/EBox/Mail.pm:705 src/EBox/Mail.pm:714
 msgid "Host mail name"
 msgstr "Verts epost navn"
 
-#: src/EBox/Mail.pm:709
+#: src/EBox/Mail.pm:708
 msgid "The mail name and virtual mail domain name are equal"
 msgstr "Epostnavn og virtuelt epostdomenenavn er like"
 
-#: src/EBox/Mail.pm:978
+#: src/EBox/Mail.pm:977
 msgid "Cannot change this parameter for a non-custom filter"
 msgstr "Kan ikke endre dette parameteret for et ikketilpasset filter"
 
-#: src/EBox/Mail.pm:994 src/EBox/Mail.pm:1014
+#: src/EBox/Mail.pm:993 src/EBox/Mail.pm:1013
 msgid ""
 "The mail filter does not exist. Please set another mail filter or disable it"
 msgstr ""
 "Epostfilteret eksisterer ikke. Vennligst sett et annet epostfilter eller "
 "deaktiver det"
 
-#: src/EBox/Mail.pm:1021
+#: src/EBox/Mail.pm:1020
 msgid ""
 "The mail filter $name is not active. Please set another mail filter or "
 "disable it"
@@ -929,152 +934,152 @@ msgstr ""
 "Epostfilter $name er ikke aktiv. Vennligs sett et annet epostfilter eller "
 "deaktiver det"
 
-#: src/EBox/Mail.pm:1418
+#: src/EBox/Mail.pm:1417
 msgid "SMTP service"
 msgstr "SMTP-tjeneste"
 
-#: src/EBox/Mail.pm:1425
+#: src/EBox/Mail.pm:1424
 msgid "POP3 service"
 msgstr "POP3-tjeneste"
 
-#: src/EBox/Mail.pm:1431
+#: src/EBox/Mail.pm:1430
 msgid "POP3S service"
 msgstr "POP3S-tjeneste"
 
-#: src/EBox/Mail.pm:1437
+#: src/EBox/Mail.pm:1436
 msgid "IMAP service"
 msgstr "IMAP-tjeneste"
 
-#: src/EBox/Mail.pm:1443
+#: src/EBox/Mail.pm:1442
 msgid "IMAPS service"
 msgstr "IMAPS-tjeneste"
 
-#: src/EBox/Mail.pm:1486
+#: src/EBox/Mail.pm:1485
 msgid "enabled"
 msgstr "aktivert"
 
-#: src/EBox/Mail.pm:1486
+#: src/EBox/Mail.pm:1485
 msgid "disabled"
 msgstr "deaktivert"
 
-#: src/EBox/Mail.pm:1488 src/EBox/Mail.pm:1607 src/templates/qmanager.mas:22
+#: src/EBox/Mail.pm:1487 src/EBox/Mail.pm:1606 src/templates/qmanager.mas:22
 msgid "Status"
 msgstr "Status"
 
-#: src/EBox/Mail.pm:1491
+#: src/EBox/Mail.pm:1490
 msgid "Mail server's filter"
 msgstr "Epostservers filter"
 
-#: src/EBox/Mail.pm:1500 src/EBox/Mail.pm:1507
+#: src/EBox/Mail.pm:1499 src/EBox/Mail.pm:1506
 msgid "Filter type"
 msgstr "Filter type"
 
-#: src/EBox/Mail.pm:1501
+#: src/EBox/Mail.pm:1500
 msgid "Custom"
 msgstr "Tilpasset"
 
-#: src/EBox/Mail.pm:1503
+#: src/EBox/Mail.pm:1502
 msgid "Address"
 msgstr "Adresse"
 
-#: src/EBox/Mail.pm:1536
+#: src/EBox/Mail.pm:1535
 msgid "General"
 msgstr "Generell"
 
-#: src/EBox/Mail.pm:1543
+#: src/EBox/Mail.pm:1542
 msgid "Virtual Mail Domains"
 msgstr "Virtuelle Epostdomener"
 
-#: src/EBox/Mail.pm:1549
+#: src/EBox/Mail.pm:1548
 msgid "Greylist"
 msgstr "Gråliste"
 
-#: src/EBox/Mail.pm:1582
+#: src/EBox/Mail.pm:1581
 msgid "Mail retrieval from external accounts"
 msgstr "Eposthenting fra eksterne kontoer"
 
-#: src/EBox/Mail.pm:1599
+#: src/EBox/Mail.pm:1598
 msgid "Message ID"
 msgstr "Meldings-ID"
 
-#: src/EBox/Mail.pm:1600
+#: src/EBox/Mail.pm:1599
 msgid "From"
 msgstr "Fra"
 
-#: src/EBox/Mail.pm:1602
+#: src/EBox/Mail.pm:1601
 msgid "From hostname"
 msgstr "Fra vertsnavn"
 
-#: src/EBox/Mail.pm:1603
+#: src/EBox/Mail.pm:1602
 msgid "From host ip"
 msgstr "Fra verts-ip"
 
-#: src/EBox/Mail.pm:1604 src/templates/qmanager.mas:18
+#: src/EBox/Mail.pm:1603 src/templates/qmanager.mas:18
 msgid "Size (bytes)"
 msgstr "Størrelse (bytes)"
 
-#: src/EBox/Mail.pm:1605
+#: src/EBox/Mail.pm:1604
 msgid "Relay"
 msgstr "Videresende"
 
-#: src/EBox/Mail.pm:1606
+#: src/EBox/Mail.pm:1605
 msgid "Message type"
 msgstr "Meldingstype"
 
-#: src/EBox/Mail.pm:1608
+#: src/EBox/Mail.pm:1607
 msgid "Event"
 msgstr "Hendelse"
 
-#: src/EBox/Mail.pm:1609
+#: src/EBox/Mail.pm:1608
 msgid "Additional Info"
 msgstr "Tilleggsinformasjon"
 
-#: src/EBox/Mail.pm:1620
+#: src/EBox/Mail.pm:1619
 msgid "Successful messages"
 msgstr "Fullførte meldinger"
 
-#: src/EBox/Mail.pm:1621
+#: src/EBox/Mail.pm:1620
 msgid "Maximum message size exceeded"
 msgstr "Maksimal meldingsstørrelse overskredet"
 
-#: src/EBox/Mail.pm:1622
+#: src/EBox/Mail.pm:1621
 #, fuzzy
 msgid "User quota exceeded"
 msgstr "Brukerkvote overskredet"
 
-#: src/EBox/Mail.pm:1623
+#: src/EBox/Mail.pm:1622
 msgid "Relay access denied"
 msgstr "Videresendingstilgang avvist"
 
-#: src/EBox/Mail.pm:1624
+#: src/EBox/Mail.pm:1623
 msgid "Account does not exist"
 msgstr "Kontoen eksisterer ikke"
 
-#: src/EBox/Mail.pm:1625
+#: src/EBox/Mail.pm:1624
 msgid "Host unreachable"
 msgstr "Kan ikke nå vert"
 
-#: src/EBox/Mail.pm:1626
+#: src/EBox/Mail.pm:1625
 msgid "Authentication error"
 msgstr "Autentiseringsfeil"
 
-#: src/EBox/Mail.pm:1627
+#: src/EBox/Mail.pm:1626
 msgid "Greylisted"
 msgstr "Grå listet"
 
-#: src/EBox/Mail.pm:1628
+#: src/EBox/Mail.pm:1627
 msgid "Other events"
 msgstr "Andre hendelser"
 
-#: src/EBox/Mail.pm:1815
+#: src/EBox/Mail.pm:1814
 msgid "Mailboxes"
 msgstr "Epostbokser"
 
-#: src/EBox/Mail.pm:1843
+#: src/EBox/Mail.pm:1842
 msgid "Mail SMTP server"
 msgstr "Epost SMTP-server"
 
-#: src/EBox/Mail.pm:1850
+#: src/EBox/Mail.pm:1849
 msgid "Mail POP/IMAP server"
 msgstr "E-post POP/IMAP server"
 

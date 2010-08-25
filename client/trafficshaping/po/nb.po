@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-trafficshaping 0.12.99Report-Msgid-Bugs-To: "
 "info@ebox-technologies.com\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
-"POT-Creation-Date: 2010-08-13 13:45+0200\n"
+"POT-Creation-Date: 2010-08-25 17:50+0200\n"
 "PO-Revision-Date: 2009-09-04 14:01+0200\n"
 "Last-Translator: Ronny Gonzales <gonzito@online.no>\n"
 "Language-Team: none\n"
@@ -71,25 +71,25 @@ msgstr "Blad klasse identifikator"
 msgid "Address"
 msgstr "Adresse"
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:186
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:182
 #, perl-brace-format
 msgid "{iface} (internal interface)"
 msgstr "{iface} (internt grensesnitt)"
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:189
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:185
 #, perl-brace-format
 msgid "{iface} (external interface)"
 msgstr "{iface} (eksternt grensesnitt)"
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:216
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:212
 msgid "Guaranteed rate"
 msgstr "Garantert rate"
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:221
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:217
 msgid "Limited rate"
 msgstr "Begrenset rate"
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:232
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:228
 #, perl-brace-format
 msgid ""
 "Object {object} has no members. Please add at least one to add rules using "
@@ -98,68 +98,68 @@ msgstr ""
 "Objekt {object} har ingen medlemmer. Vennligst legg til minst en for å legge "
 "til regler med dette objektet"
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:259
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:255
 msgid "If service is any, some source or destination should be provided"
 msgstr ""
 "Hvis tjenesten er hvilken som helst, bør kilde eller destinasjon oppgis"
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:394
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:390
 msgid "Service"
 msgstr "Tjeneste"
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:399
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:395
 msgid "Port based service"
 msgstr "Port basert tjeneste"
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:411
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:407
 msgid "Source"
 msgstr "Kilde"
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:416
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:446
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:412
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:442
 msgid "Any"
 msgstr "Hvilken som helst"
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:419
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:415
 msgid "Source IP"
 msgstr "Kilde IP"
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:431
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:427
 msgid "Source object"
 msgstr "Kilde objekt"
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:441
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:437
 msgid "Destination"
 msgstr "Destinasjon"
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:449
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:445
 msgid "Destination IP"
 msgstr "Destinasjons IP"
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:454
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:450
 msgid "Destination object"
 msgstr "Destinasjons objekt"
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:464
-#: src/EBox/TrafficShaping.pm:1699
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:460
+#: src/EBox/TrafficShaping.pm:1700
 msgid "Priority"
 msgstr "Prioritet"
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:468
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:464
 msgid "Lowest priotiry: 7 Highest priority: 0"
 msgstr "Laveste prioritet: 7 Høyeste prioritet: 0"
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:472
-#: src/EBox/TrafficShaping.pm:1697
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:468
+#: src/EBox/TrafficShaping.pm:1698
 msgid "Guaranteed Rate"
 msgstr "Garantert Rate"
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:475
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:489
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:471
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:485
 msgid "Kbit/s"
 msgstr "Kbit/s"
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:477
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:473
 msgid ""
 "Note that The sum of all guaranteed rates cannot exceed your total "
 "bandwidth. 0 means unguaranteed rate."
@@ -167,21 +167,21 @@ msgstr ""
 "NB. Summen av alle garanterte rater kan ikke overstige din totale båndvidde. "
 "0 betyr ikke garantert rate."
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:484
-#: src/EBox/TrafficShaping.pm:1698
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:480
+#: src/EBox/TrafficShaping.pm:1699
 msgid "Limited Rate"
 msgstr "Begrenset Rate"
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:491
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:487
 msgid "Traffic will not exceed this rate. 0 means unlimited rate."
 msgstr "Trafikk vil ikke overstige denne raten. 0 betyr ubegrenset rate."
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:498
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:494
 #, perl-brace-format
 msgid "Rules list for {printableIndex}"
 msgstr "Regel liste for {printableIndex}"
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:507
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:503
 msgid ""
 "Note that if the interface is internal, the traffic flow comes from Internet "
 "to inside and the external is the other way around"
@@ -189,16 +189,16 @@ msgstr ""
 "NB. Hvis grensesnittet er internt, flyter trafikken fra Internett til "
 "innsiden og eksternt er motsatt"
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:512
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:508
 msgid "rule"
 msgstr "regel"
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:573
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:569
 #, perl-brace-format
 msgid "Remove {num} rules at {modelName}"
 msgstr "Fjern {num} regler på {modelName}"
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:620
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:616
 #, perl-brace-format
 msgid ""
 "Normalizing rates: {limitNum} rules have decreased its limit rate to "
@@ -211,7 +211,7 @@ msgstr ""
 "opprettholde samme forhold den tidligere hadde og {removeNum} have har blitt "
 "slettet fordi den garanterte rate var lavere en minste tillatt"
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:677
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:673
 msgid ""
 "Port based protocols use the port number to match a service, while "
 "Application based protocols are slower but more effective as they check the "
@@ -221,13 +221,13 @@ msgstr ""
 "applikasjons basert protokoller er tregere men mer effektive fordi de "
 "sjekker innholdet av enhver pakke for å treffe en tjeneste."
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:693
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:710
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:689
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:706
 msgid "Application based service"
 msgstr "Applikasjons basert tjeneste"
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:701
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:717
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:697
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:713
 msgid "Application based service group"
 msgstr "Applikasjons basert tjeneste gruppe"
 
@@ -265,10 +265,10 @@ msgstr "rate"
 msgid "You need at least one internal interface and one external interface"
 msgstr "Du trenger minst et internt grensesnitt og et eksternt grensesnitt"
 
-#: src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:85
-#, perl-brace-format
+#: src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:84
+#, fuzzy, perl-brace-format
 msgid ""
-"Traffic Shaping is applied when eBox is acting as a gateway. To achieve "
+"Traffic Shaping is applied when Zentyal is acting as a gateway. To achieve "
 "this, you need at least an internal and an external interface. Check your "
 "interface configuration to match, at {openhref}Network->Interfaces{closehref}"
 msgstr ""
@@ -276,7 +276,7 @@ msgstr ""
 "trenger du minst et intert og et ekstern grensesnitt. Kontroller din "
 "grensesnitt konfigurasjon på {openhref}Netverk->Grensesnitt{closehref}"
 
-#: src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:94
+#: src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:93
 #, perl-brace-format
 msgid ""
 "Traffic Shaping is applied only if there are gateways with an upload rate "
@@ -289,11 +289,11 @@ msgstr ""
 "gateway på {openhref}Network->Gatewayer{closehref} og set somm eksternt "
 "grensesnitt."
 
-#: src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:117
+#: src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:116
 msgid "Rules list per interface"
 msgstr "Regel liste per grensesnitt"
 
-#: src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:128
+#: src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:127
 msgid ""
 "Select an interface to add traffic shaping rules. Keep in mind that if you "
 "are shaping an internal interface, you are doing ingress shaping."
@@ -301,7 +301,7 @@ msgstr ""
 "Velg et grensesnitt for å legge til trafikk formings regler. NB, hvis du "
 "former et internt grensesnitt, gjør du en ingress forming."
 
-#: src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:130
+#: src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:129
 msgid "Choose an interface to shape"
 msgstr "Velg grensesnitt til forming"
 
@@ -325,20 +325,20 @@ msgstr "Legg til tc regler"
 msgid "To implement the traffic shaping rules"
 msgstr "For å implementere trafikk formings regler"
 
-#: src/EBox/TrafficShaping.pm:462
+#: src/EBox/TrafficShaping.pm:463
 msgid "Rules"
 msgstr "Regeler"
 
-#: src/EBox/TrafficShaping.pm:464
+#: src/EBox/TrafficShaping.pm:465
 msgid "Interface Rates"
 msgstr "Grensesnitt Rater"
 
-#: src/EBox/TrafficShaping.pm:538 src/EBox/TrafficShaping.pm:690
-#: src/EBox/TrafficShaping.pm:1108 src/EBox/TC.pm:108
+#: src/EBox/TrafficShaping.pm:539 src/EBox/TrafficShaping.pm:691
+#: src/EBox/TrafficShaping.pm:1109 src/EBox/TC.pm:108
 msgid "Interface"
 msgstr "Grensesnitt"
 
-#: src/EBox/TrafficShaping.pm:552
+#: src/EBox/TrafficShaping.pm:553
 #, perl-brace-format
 msgid ""
 "The maximum rule account {max} is reached, please delete at least one in "
@@ -347,11 +347,11 @@ msgstr ""
 "Maksimum regel kotno {max} er nådd, vennligst slett minst en for å kunne "
 "legge til en ny"
 
-#: src/EBox/TrafficShaping.pm:1198
+#: src/EBox/TrafficShaping.pm:1199
 msgid "type"
 msgstr "type"
 
-#: src/EBox/TrafficShaping.pm:1221
+#: src/EBox/TrafficShaping.pm:1222
 #, perl-brace-format
 msgid ""
 "Interface {iface} should have a maximum bandwidth rate in order to do "
@@ -360,11 +360,11 @@ msgstr ""
 "Grensesnitt {iface} bør ha maksimum båndbredde rate for å utføre trafikk "
 "forming"
 
-#: src/EBox/TrafficShaping.pm:1695
+#: src/EBox/TrafficShaping.pm:1696
 msgid "Protocol"
 msgstr "Protokoll"
 
-#: src/EBox/TrafficShaping.pm:1696
+#: src/EBox/TrafficShaping.pm:1697
 msgid "Port"
 msgstr "Port"
 

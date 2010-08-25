@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: libebox 0.12.99Report-Msgid-Bugs-To: info@ebox-"
 "technologies.com\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
-"POT-Creation-Date: 2010-07-21 00:53+0200\n"
+"POT-Creation-Date: 2010-08-25 17:53+0200\n"
 "PO-Revision-Date: 2010-02-03 21:34+0100\n"
 "Last-Translator: John Martin <john.martin@musicus.no>\n"
 "Language-Team: none\n"
@@ -76,7 +76,8 @@ msgstr ""
 "informasjon kan bli funnet i loggene."
 
 #: src/EBox/CGI/Base.pm:578
-msgid "You have just hit a bug in eBox. Please seek technical support."
+#, fuzzy
+msgid "You have just hit a bug in Zentyal. Please seek technical support."
 msgstr "Du har truffet en feil i eBox. Vennligst oppsøkt teknisk brukerstøtte."
 
 #: src/EBox/CGI/Base.pm:664
@@ -118,7 +119,7 @@ msgstr "Kunne ikke åpne konfigurasjons filen {file}."
 msgid "The ebox user has not been set in the config file."
 msgstr "eBox brukeren har ikke blitt satt i konfigurasjons filen."
 
-#: src/EBox/Sudo.pm:269
+#: src/EBox/Sudo.pm:267
 #, perl-brace-format
 msgid "Running command '{cmd}' as {user} failed"
 msgstr "Kjøring av kommando '{cmd}' som {user} feilet"
@@ -282,7 +283,8 @@ msgid "last"
 msgstr "siste"
 
 #: src/templates/ebox/pageNotFound.mas:3
-msgid "eBox's homepage"
+#, fuzzy
+msgid "Zentyal homepage"
 msgstr "eBox sin hjemmeside"
 
 #: src/templates/ebox/pageNotFound.mas:7
@@ -290,9 +292,10 @@ msgid "If you typed the URL manually, please check it"
 msgstr "Hvis du skre inn URL manuelt, vennligst sjekk den"
 
 #: src/templates/ebox/pageNotFound.mas:8
+#, fuzzy
 msgid ""
-"Maybe a change in eBox's configuration or software made no longer available "
-"the requested page"
+"Maybe a change in the Zentyal configuration or software made no longer "
+"available the requested page"
 msgstr ""
 "Kansje en endring i eBox sin konfigurasjon eller en programvare stoppet "
 "tilgangen til forespurt side"

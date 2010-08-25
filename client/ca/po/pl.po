@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-ca 0.12\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
-"POT-Creation-Date: 2010-07-21 00:29+0200\n"
-"PO-Revision-Date: 2010-08-24 22:29+0200\n"
+"POT-Creation-Date: 2010-08-25 17:29+0200\n"
+"PO-Revision-Date: 2010-08-25 17:30+0200\n"
 "Last-Translator: Robert Brzozowski <gnutar1@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -115,13 +115,13 @@ msgid "Organization Name"
 msgstr "Nazwa organizacji"
 
 #: src/EBox/CGI/IssueCertificate.pm:146
-#, perl-brace-format
+#, fuzzy, perl-brace-format
 msgid ""
 "The input contains invalid characters. All {ascii} alphanumeric characters, "
 "plus these non alphanumeric chars: .?&+:-@* and spaces are allowed."
 msgstr ""
-"Pole zawiera niedozwolone znaki. Dozwolone są litery, cyfry oraz znaki: .?&+:"
-"\\@ oraz spacje."
+"Pole zawiera niedozwolone znaki. {ascii} Dozwolone są litery, cyfry oraz "
+"znaki: .?&+:\\@ oraz spacje."
 
 #: src/EBox/CGI/IssueCertificate.pm:178 src/EBox/CA.pm:2639
 #, perl-brace-format
@@ -196,7 +196,8 @@ msgstr ""
 #: src/EBox/CA.pm:1103
 msgid ""
 "The Certification Authority Infrastructure is not available, create it first"
-msgstr "Nie istnieje Certification Authority Infrastructure, utwórz ją najpierw"
+msgstr ""
+"Nie istnieje Certification Authority Infrastructure, utwórz ją najpierw"
 
 #: src/EBox/CA.pm:1202
 msgid "Either common name, distinguished name or serial number has been passed"
@@ -327,8 +328,7 @@ msgstr ""
 #, perl-brace-format
 msgid "Updated certificate database. {number} certificates have expired"
 msgstr ""
-"Zaktualizowano bazę certyfikatów. Dla  certyfikatów {number} wygasła "
-"ważność."
+"Zaktualizowano bazę certyfikatów. Dla  certyfikatów {number} wygasła ważność."
 
 #: src/EBox/CA.pm:2609 src/EBox/CA/TestStub.pm:730
 msgid "Expiration date later than CA certificate expiration date"
@@ -347,8 +347,8 @@ msgid ""
 "You must create a Certification Authority first. Go to {openhref}"
 "Certification Authority{closehref} to do so"
 msgstr ""
-"Musisz najpierw utworzyć certyfikat CA. Aby to zrobić przejdź do "
-"{openhref}Zarządzaj certyfikatami{closehref}"
+"Musisz najpierw utworzyć certyfikat CA. Aby to zrobić przejdź do {openhref}"
+"Zarządzaj certyfikatami{closehref}"
 
 #: src/EBox/Model/Certificates.pm:246
 msgid "Module"
@@ -371,9 +371,10 @@ msgid "certificate"
 msgstr "Certyfikat"
 
 #: src/EBox/Model/Certificates.pm:287
+#, fuzzy
 msgid ""
 "Here you may set certificates from this CA for those secure services managed "
-"by eBox"
+"by Zentyal"
 msgstr "Tutaj możesz utworzyć certyfikaty CA dla usług zarządzanych przez eBox"
 
 #: src/EBox/CA/TestStub.pm:655

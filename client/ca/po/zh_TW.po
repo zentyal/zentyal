@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-ca 0.12.99Report-Msgid-Bugs-To: info@ebox-"
 "technologies.com\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
-"POT-Creation-Date: 2010-07-21 00:29+0200\n"
+"POT-Creation-Date: 2010-08-25 17:29+0200\n"
 "PO-Revision-Date: 2010-08-20 15:42+0200\n"
 "Last-Translator: Yaochiu Huang <taiwuco@gmail.com>\n"
 "Language-Team: none\n"
@@ -71,7 +71,9 @@ msgstr "一般名稱"
 msgid ""
 "The input contains invalid characters. All alphanumeric characters, plus "
 "these non alphanumeric chars: .?&+:-@* and spaces are allowed."
-msgstr "輸入包含無效的字元。所有的英文字母與數字字元，加這些非字母與數字字元：.?&+:-@* 和空白是可用的"
+msgstr ""
+"輸入包含無效的字元。所有的英文字母與數字字元，加這些非字母與數字字元：.?&+:-"
+"@* 和空白是可用的"
 
 #: src/EBox/CGI/RevokeCertificate.pm:140
 msgid "The certificate has been revoked"
@@ -127,7 +129,8 @@ msgstr "只有{dns}, {ip}, 和{email}為正確的主語(subject)替換名稱型�
 msgid ""
 "The Subject Alternative Name parameter must follow this pattern: type:value, "
 "type:value"
-msgstr "主語替換名稱(Subject Alternative Name)參數必須符合此類型:  型:值, 型:值"
+msgstr ""
+"主語替換名稱(Subject Alternative Name)參數必須符合此類型:  型:值, 型:值"
 
 #: src/EBox/CGI/IssueCertificate.pm:207
 msgid "The certificate has been issued."
@@ -344,7 +347,7 @@ msgstr "憑證"
 #: src/EBox/Model/Certificates.pm:287
 msgid ""
 "Here you may set certificates from this CA for those secure services managed "
-"by eBox"
+"by Zentyal"
 msgstr ""
 
 #: src/EBox/CA/TestStub.pm:655

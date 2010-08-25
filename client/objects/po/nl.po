@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-objects 0.12\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
-"POT-Creation-Date: 2010-08-13 13:41+0200\n"
+"POT-Creation-Date: 2010-08-25 17:47+0200\n"
 "PO-Revision-Date: 2010-08-20 15:34+0200\n"
 "Last-Translator: Indra Pharazijn <indra6oc@gmail.com>\n"
 "Language-Team: none\n"
@@ -110,7 +110,6 @@ msgid "network address"
 msgstr "netwerk adres"
 
 #: src/EBox/Model/MemberTable.pm:127
-#, perl-brace-format
-#, fuzzy
+#, fuzzy, perl-brace-format
 msgid "{ip} overlaps with the address or another object's member"
 msgstr "{ip} overlapt met het adres of een ander object lid."

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-services 0.12.100\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
-"POT-Creation-Date: 2010-07-21 00:43+0200\n"
+"POT-Creation-Date: 2010-08-25 17:48+0200\n"
 "PO-Revision-Date: 2009-02-14 18:19+0330\n"
 "Last-Translator: Zahra Khani <belendax@gmail.com>\n"
 "Language-Team: none\n"
@@ -55,7 +55,7 @@ msgstr "مدیریت eBox"
 
 #: migration/0001_import_services_from_firewall.pl:109
 #, fuzzy
-msgid "eBox Administration Web Server"
+msgid "Zentyal Administration Web Server"
 msgstr "مدیریت پورت eBox"
 
 #: src/EBox/Services.pm:48 src/EBox/Model/ServiceTable.pm:145
@@ -67,7 +67,8 @@ msgid "port"
 msgstr "پورت"
 
 #: src/EBox/Services.pm:403
-msgid "eBox Administration port"
+#, fuzzy
+msgid "Zentyal Administration port"
 msgstr "مدیریت پورت eBox"
 
 #: src/EBox/Model/ServiceTable.pm:103
@@ -87,9 +88,10 @@ msgid "Internal"
 msgstr "اینترنت"
 
 #: src/EBox/Model/ServiceTable.pm:127
+#, fuzzy
 msgid ""
 "Tick this field if there is actually a service on the machine using the "
-"ports configured for this service. This helps eBox to know what ports are "
+"ports configured for this service. This helps Zentyal to know what ports are "
 "already busy"
 msgstr ""
 "اگر سرویسی روی ماشینی که از پورت های پیکربندی شده برای این سرویس استفاده می "
