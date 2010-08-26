@@ -1,4 +1,5 @@
 HEAD
+	+ Fixed redis bug with dir keys prefix
 	+ Improved login page style
 	+ New login method using PAM instead of password file
 	+ Allow to change admin passwords under System->General

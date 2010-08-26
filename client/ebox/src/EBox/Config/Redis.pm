@@ -152,7 +152,7 @@ sub all_dirs
 
     my $length = length $key;
     my %dir;
-    for my $path ($self->_redis_call('keys', "$key*")) {
+    for my $path ($self->_redis_call('keys', "$key/*")) {
         my $index = index($path, '/', $length + 1);
         if ($index > 0) {
             my $directory = substr($path, 0, $index);
@@ -172,7 +172,7 @@ sub all_entries
 
     my $length = length $key;
     my @dirs;
-    for my $path ($self->_redis_call('keys', "$key*")) {
+    for my $path ($self->_redis_call('keys', "$key/*")) {
         push (@dirs, $path) if (index($path, '/', $length + 1) == -1);
     }
     return \@dirs;
