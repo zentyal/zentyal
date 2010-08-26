@@ -69,6 +69,8 @@ dd {
     padding: <% $loginin_padding_style %>;
     background: #fff;
     text-align: left;
+    border-radius: 20px;
+    -moz-border-radius: 20px;
 }
 
 #footer {
