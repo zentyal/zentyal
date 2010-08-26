@@ -1,4 +1,4 @@
-HEAD
+1.5.14
 	+ Fixed redis bug with dir keys prefix
 	+ Improved login page style
 	+ New login method using PAM instead of password file

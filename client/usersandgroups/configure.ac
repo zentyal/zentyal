@@ -1,4 +1,4 @@
-AC_INIT([EBox-usersandgroups], [1.5.8])
+AC_INIT([EBox-usersandgroups], [1.5.9])
 
 AC_CONFIG_AUX_DIR([config])
 AC_CONFIG_SRCDIR([src/EBox/UsersAndGroups.pm])
