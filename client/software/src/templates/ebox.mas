@@ -7,6 +7,7 @@
     $isGateway
     $isInfrastructure
     $isCommunication
+    $updateList
 </%args>
 <%init>
 use EBox::Gettext;
@@ -15,114 +16,114 @@ my $upgpkgs = 0;
 </%init>
 
 <script type="text/javascript">
-	function tab1(){
-		document.getElementById('installTab').className = 'current';
-		document.getElementById('updateTab').className='';
-		document.getElementById('deleteTab').className='';
-		document.getElementById('installBox').show();
-		document.getElementById('updateBox').hide();
-		document.getElementById('deleteBox').hide();
-	}
+    function tab1(){
+        document.getElementById('installTab').className = 'current';
+        document.getElementById('updateTab').className='';
+        document.getElementById('deleteTab').className='';
+        document.getElementById('installBox').show();
+        document.getElementById('updateBox').hide();
+        document.getElementById('deleteBox').hide();
+    }
 
-	function tab2(){
-		document.getElementById('installTab').className = '';
-		document.getElementById('updateTab').className='current';
-		document.getElementById('deleteTab').className='';
-		document.getElementById('installBox').hide();
-		document.getElementById('updateBox').show();
-		document.getElementById('deleteBox').hide();
-	}
+    function tab2(){
+        document.getElementById('installTab').className = '';
+        document.getElementById('updateTab').className='current';
+        document.getElementById('deleteTab').className='';
+        document.getElementById('installBox').hide();
+        document.getElementById('updateBox').show();
+        document.getElementById('deleteBox').hide();
+    }
 
-	function tab3(){
-		document.getElementById('installTab').className = '';
-		document.getElementById('updateTab').className='';
-		document.getElementById('deleteTab').className='current';
-		document.getElementById('installBox').hide();
-		document.getElementById('updateBox').hide();
-		document.getElementById('deleteBox').show();
-	}
+    function tab3(){
+        document.getElementById('installTab').className = '';
+        document.getElementById('updateTab').className='';
+        document.getElementById('deleteTab').className='current';
+        document.getElementById('installBox').hide();
+        document.getElementById('updateBox').hide();
+        document.getElementById('deleteBox').show();
+    }
 
-	var suites = ['Gateway', 'UTM', 'Infrastructure', 'Office', 'Communications'];
+    var suites = ['Gateway', 'UTM', 'Infrastructure', 'Office', 'Communications'];
 
-	function showInfo(id){
-		var items = ['Gateway', 'UTM', 'Infrastructure', 'Office', 'Communications', 'Install'];
-		for (var i = 0; i < items.length; i++) {
-			if (items[i] == id) {
-				Effect.SlideDown(id);
-				document.getElementById(id+'_down').hide();
-				document.getElementById(id+'_up').show();
-			} else {
-				Effect.SlideUp(items[i]+ '_head');
-			}
-		}
-	}
+    function showInfo(id){
+        var items = ['Gateway', 'UTM', 'Infrastructure', 'Office', 'Communications', 'Install'];
+        for (var i = 0; i < items.length; i++) {
+            if (items[i] == id) {
+                Effect.SlideDown(id);
+                document.getElementById(id+'_down').hide();
+                document.getElementById(id+'_up').show();
+            } else {
+                Effect.SlideUp(items[i]+ '_head');
+            }
+        }
+    }
 
-	function hideInfo(id) {
-		var items = ['Gateway', 'UTM', 'Infrastructure', 'Office', 'Communications', 'Install'];
-		for (var i = 0; i < items.length; i++) {
-			if (items[i] == id) {
-				Effect.SlideUp(id);
-				document.getElementById(id+'_down').show();
-				document.getElementById(id+'_up').hide();
-			} else {
-				Effect.SlideDown(items[i]+ '_head');
-			}
-		}
-	}
+    function hideInfo(id) {
+        var items = ['Gateway', 'UTM', 'Infrastructure', 'Office', 'Communications', 'Install'];
+        for (var i = 0; i < items.length; i++) {
+            if (items[i] == id) {
+                Effect.SlideUp(id);
+                document.getElementById(id+'_down').show();
+                document.getElementById(id+'_up').hide();
+            } else {
+                Effect.SlideDown(items[i]+ '_head');
+            }
+        }
+    }
 
-	function tick(id){
-		document.getElementById(id+'_image_tick').show();
-		document.getElementById(id+'_image').hide();
-		document.getElementById(id+'_check').checked = true;
-	}
+    function tick(id){
+        document.getElementById(id+'_image_tick').show();
+        document.getElementById(id+'_image').hide();
+        document.getElementById(id+'_check').checked = true;
+    }
 
-	function untick(id){
-		document.getElementById(id+'_image_tick').hide();
-		document.getElementById(id+'_image').show();
-		document.getElementById(id+'_check').checked = false;
-	}
+    function untick(id){
+        document.getElementById(id+'_image_tick').hide();
+        document.getElementById(id+'_image').show();
+        document.getElementById(id+'_check').checked = false;
+    }
 </script>
 
 <style type="text/css">
 
 .feature {
-	  display:inline;
-	  float:left;
-	  padding-left:10px;
-	  width: 355px;
-	  height: 250px;
+      display:inline;
+      float:left;
+      padding-left:10px;
+      width: 355px;
+      height: 250px;
 }
 
 .image {
-	float: left;
-	width: 115px;
+    float: left;
+    width: 115px;
 }
 
 .image:hover {
-	filter: alpha(opacity=50);
-	-moz-opacity: 0.5;
-	KhtmlOpacity: .5;
-	opacity: .5;
+    filter: alpha(opacity=50);
+    -moz-opacity: 0.5;
+    KhtmlOpacity: .5;
+    opacity: .5;
     cursor: pointer;
 }
 
 
 
 .info {
-	background-color:#ecf5da;
+    background-color:#ecf5da;
     padding: 15px;
     -moz-border-radius: 10px;
     border-radius: 10px;
 }
 
 .selected {
-	background:none repeat scroll 0 0 #FFFFFF;
-	border-color:#787878 #787878 #FFFFFF;
-	border-style:solid;
-	border-width:1px;
-	color:#000000;
-	padding:5px 10px;
-	font-weight:normal;
+    background:none repeat scroll 0 0 #FFFFFF;
+    border-color:#787878 #787878 #FFFFFF;
+    border-style:solid;
+    border-width:1px;
+    color:#000000;
+    padding:5px 10px;
+    font-weight:normal;
 }
 
 h3 {
@@ -131,8 +132,8 @@ h3 {
 
 </style>
 
-	<link href="/dynamic-data/css/tableorderer.css" rel="stylesheet" type="text/css" />
-	<script type="text/javascript" src="/data/js/table_orderer.js">//</script>
+    <link href="/dynamic-data/css/tableorderer.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="/data/js/table_orderer.js">//</script>
 
 
 <script type="text/javascript" src="/data/js/table-helper.js">//</script>
@@ -144,7 +145,7 @@ var pkgTable = new Array(
 %       my $eboxupg = 'no';
 %       $pkg->{description} =~ s/^Zentyal - //;
 %       $pkg->{description} =~ s/^eBox - //; # FIXME: Remove this after 2.0
-		{"Component":"<%__($pkg->{description})%>",
+        {"Component":"<%__($pkg->{description})%>",
 %       if ($pkg->{version}) {
 %           if ($pkg->{version} ne $pkg->{avail}) {
 %               $eboxupg = __('Update');
@@ -157,630 +158,640 @@ var pkgTable = new Array(
 %           $eboxupgbutton = 'yes';
             "Installed Version":"",
 %      }
-		"Latest Version":"<%$pkg->{avail}%>",
-		"Name": "<%$pkg->{name}%>",
-		"Removable": "<%$pkg->{removable}%>"
-%	if ($pkg == $eboxpkgs[-1]) {
-		}
-%	} else {
-		},
-%	}
+        "Latest Version":"<%$pkg->{avail}%>",
+        "Name": "<%$pkg->{name}%>",
+        "Removable": "<%$pkg->{removable}%>"
+%   if ($pkg == $eboxpkgs[-1]) {
+        }
+%   } else {
+        },
 %   }
-	);
+%   }
+    );
 </script>
 
 % my $file = '/var/lib/ebox/.first';
 % unless (-f $file) {
 <& /software/updateNote.mas, status => $updateStatus, qa => $QAUpdates &>
 % }
+
+
+% if ($updateList == 1) {
+<div class='note'>
+<% __('Package list updated successfully') %>
+</div>
+% } elsif ($updateList == 2) {
+<div class='error'>
+<% __('Error updating package list. Please try to execute the following command in a console to see the problem: sudo apt-get update') %>
+</div>
+% }
+
+
 <div style="padding: 15px 0">
 <div id="basic">
     <a href='#' onclick="Effect.Fade('basic', { duration: 0.3 }); Effect.Appear('advanced', { duration: 0.3, queue: 'end' })"><%__('View advanced mode')%></a>
-	<div style="margin: 10px 0">
-		<div id="Gateway_head">
+    <div style="margin: 10px 0">
+        <div id="Gateway_head">
 % unless ($isGateway) {
-			<div class="image" id="Gateway_image" onclick="tick('Gateway')">
-				<img src="/data/software/images/icon_gw.png" alt="Zentyal Gateway"/>
-			</div>
-			<div class="image" id="Gateway_image_tick" style="display: none" onclick="untick('Gateway')">
-				<img src="/data/software/images/icon_gw_tick.png" alt="Zentyal Gateway" />
-			</div>
+            <div class="image" id="Gateway_image" onclick="tick('Gateway')">
+                <img src="/data/software/images/icon_gw.png" alt="Zentyal Gateway"/>
+            </div>
+            <div class="image" id="Gateway_image_tick" style="display: none" onclick="untick('Gateway')">
+                <img src="/data/software/images/icon_gw_tick.png" alt="Zentyal Gateway" />
+            </div>
 % } else {
-			<div class="image" id="Gateway_image_tick">
-				<img src="/data/software/images/icon_gw_tick.png" alt="Zentyal Gateway" />
-			</div>
+            <div class="image" id="Gateway_image_tick">
+                <img src="/data/software/images/icon_gw_tick.png" alt="Zentyal Gateway" />
+            </div>
 %}
-			<div>
-				&nbsp;</br>
-				<h3>Gateway - Your access to Internet</h3>
-				<p>Zentyal Gateway can make your network more reliable, optimize your bandwidth and help you to control what is coming in to your network. Waste no more time on inefficient networks.</p>
-				<div>
-					<a id="Gateway_down" href="#" onclick="showInfo('Gateway')">More info <img src="/data/images/down.gif"> </a>
-					<a id="Gateway_up" href="#" onclick="hideInfo('Gateway');" style="display:none">Back <img src="/data/images/up.gif"> </a>
-				</div>
-			</div>
-			<br><br>
-		</div>
+            <div>
+                &nbsp;</br>
+                <h3><% __s('Gateway - Your access to Internet') %></h3>
+                <p><% __s('Zentyal Gateway can make your network more reliable, optimize your bandwidth and help you to control what is coming in to your network. Waste no more time on inefficient networks.')%></p>
+                <div>
+                    <a id="Gateway_down" href="#" onclick="showInfo('Gateway')">More info <img src="/data/images/down.gif"> </a>
+                    <a id="Gateway_up" href="#" onclick="hideInfo('Gateway');" style="display:none">Back <img src="/data/images/up.gif"> </a>
+                </div>
+            </div>
+            <br><br>
+        </div>
 
-		<div id="Gateway" class="info" style="display:none">
-			<h3>Zentyal Gateway features</h3>
-			<div class='feature'>
-				<img src='/data/software/images/cache.png' alt='Transparent caching' />
-				<h4>Transparent caching</h4>
-				<p><strong>Make your connection faster!</strong><br />
-				If your employees visit the same sites, the data will be downloaded only once, freeing your connection for more important tasks.</p>
-			</div>
-			<div class='feature'>
-				<img src='/data/software/images/qos.png' alt='Traffic control' />
-				<h4>Traffic control</h4>
-				<p><strong>Business class for data.</strong><br />
-				An overloaded Internet connection is a thing of the past. Make sure your most critical traffic is served properly, regardless of network load.</p>
-			</div>
-			<div class='feature'>
-				<img src='/data/software/images/loadbalance.png' alt='Load balancing and availability' />
-				<h4>Load balancing and availability</h4>
-				<p><strong>Your connection can&#8217;t fail.</strong><br />
-				If you have more than one connection to the Internet, Zentyal can distribute transparently your clients and make sure you are connected, even if one of the connections is down.</p>
-			</div>
-			<div class='feature'>
-				<img src='/data/software/images/filter.png' alt='Content Filter' />
-				<h4>Content Filter</h4>
-				<p><strong>Don&#8217;t waste time at your office.</strong><br />
-				You can restrict access to certain sites, or allow access only to sites you specify. This feature allows you to restrict inappropriate surfing and enforce Internet usage policies in your organization.</p>
-			</div>
+        <div id="Gateway" class="info" style="display:none">
+            <h3><% __s('Zentyal Gateway features') %></h3>
+            <div class='feature'>
+                <img src='/data/software/images/cache.png' alt='Transparent caching' />
+                <h4><% __s('Transparent caching') %></h4>
+                <p><strong><% __s('Make your connection faster!') %></strong><br />
+                <% __s('If your employees visit the same sites, the data will be downloaded only once, freeing your connection for more important tasks.') %></p>
+            </div>
+            <div class='feature'>
+                <img src='/data/software/images/qos.png' alt='Traffic control' />
+                <h4><% __s('Traffic control') %></h4>
+                <p><strong><% __s('Business class for data.</strong><br>') %> />
+                <% __s('An overloaded Internet connection is a thing of the past. Make sure your most critical traffic is served properly, regardless of network load.') %></p>
+            </div>
+            <div class='feature'>
+                <img src='/data/software/images/loadbalance.png' alt='Load balancing and availability' />
+                <h4><% __s('Load balancing and availability') %> </h4>
+                <p><strong><% __s("Your connection can't fail.") %></strong><br />
+                <% __s('If you have more than one connection to the Internet, Zentyal can distribute transparently your clients and make sure you are connected, even if one of the connections is down.') %></p>
+            </div>
+            <div class='feature'>
+                <img src='/data/software/images/filter.png' alt='Content Filter' />
+                <h4><% __s('Content Filter') %></h4>
+                <p><strong><% __s("Don't waste time at your office.") %></strong><br />
+                <% __s('You can restrict access to certain sites, or allow access only to sites you specify. This feature allows you to restrict inappropriate surfing and enforce Internet usage policies in your organization.') %></p>
+            </div>
 
-			<div class="full-features">
-				<h3>Full feature list</h3>
-				<ul>
-					<li>Configurable network interfaces (Ethernet, Wi-Fi, PPPoE and VLAN)</li>
-					<li>Advanced firewall (NAT, redirections, DMZ, etc.)</li>
-					<li>Advanced Routing</li>
-					<li>QoS through traffic shaping (application layer L7) and load balance</li>
-					<li>Multi-gateway with WAN fail-over</li>
-					<li>HTTP proxy with cache, content filtering and anti-virus</li>
-					<li>Policies according to users, groups and sub-networks</li>
-					<li>RADIUS authentication server</li>
-				</ul>
-			</div>
-		</div>
-	</div>
+            <div class="full-features">
+                <h3><% __s('Full feature list') %></h3>
+                <ul>
+                    <li><% __s('Configurable network interfaces (Ethernet, Wi-Fi, PPPoE and VLAN)') %></li>
+                    <li><% __s('Advanced firewall (NAT, redirections, DMZ, etc.)') %></li>
+                    <li><% __s('Advanced Routing') %></li>
+                    <li><% __s('QoS through traffic shaping (application layer L7) and load balance') %></li>
+                    <li><% __s('Multi-gateway with WAN fail-over') %></li>
+                    <li><% __s('HTTP proxy with cache, content filtering and anti-virus') %></li>
+                    <li><% __s('Policies according to users, groups and sub-networks') %></li>
+                    <li><% __s('RADIUS authentication server') %></li>
+                </ul>
+            </div>
+        </div>
+    </div>
 
-	<div style="margin: 10px 0">
-		<div  id="UTM_head">
+    <div style="margin: 10px 0">
+        <div  id="UTM_head">
 % unless ($isUtm) {
-			<div class="image" id="UTM_image" onclick="tick('UTM')">
-				<img src="/data/software/images/icon_utm.png" alt="Zentyal UTM" />
-			</div>
-			<div class="image" id="UTM_image_tick" style="display: none" onclick="untick('UTM')">
-				<img src="/data/software/images/icon_utm_tick.png" alt="Zentyal UTM" />
-			</div>
+            <div class="image" id="UTM_image" onclick="tick('UTM')">
+                <img src="/data/software/images/icon_utm.png" alt="Zentyal UTM" />
+            </div>
+            <div class="image" id="UTM_image_tick" style="display: none" onclick="untick('UTM')">
+                <img src="/data/software/images/icon_utm_tick.png" alt="Zentyal UTM" />
+            </div>
 % } else {
-			<div class="image" id="UTM_image_tick">
-				<img src="/data/software/images/icon_utm_tick.png" alt="Zentyal UTM" />
-			</div>
+            <div class="image" id="UTM_image_tick">
+                <img src="/data/software/images/icon_utm_tick.png" alt="Zentyal UTM" />
+            </div>
 % }
-			<div>
-				&nbsp;</br>
-				<h3>UTM - Leave the bad guys out</h3>
-				<p>Internet is a hostile environment, but we can make it more friendly. Zentyal UTM protects your computer networks against any external attacks, intrusions and internal security threats.</p>
-				<div>
-					<a id="UTM_down" href="#" onclick="showInfo('UTM')">More info <img src="/data/images/down.gif"></a>
-					<a id="UTM_up" href="#" onclick="hideInfo('UTM')" style="display:none">Back <img src="/data/images/up.gif"></a>
-				</div>
-			</div>
-			<br><br>
-		</div>
+            <div>
+                &nbsp;</br>
+                <h3><% __s('UTM - Leave the bad guys out') %></h3>
+                <p><% __s('Internet is a hostile environment, but we can make it more friendly. Zentyal UTM protects your computer networks against any external attacks, intrusions and internal security threats.') %></p>
+                <div>
+                    <a id="UTM_down" href="#" onclick="showInfo('UTM')"><% __s('More info') %> <img src="/data/images/down.gif"></a>
+                    <a id="UTM_up" href="#" onclick="hideInfo('UTM')" style="display:none"><% __s('Back') %> <img src="/data/images/up.gif"></a>
+                </div>
+            </div>
+            <br><br>
+        </div>
 
-		<div id="UTM" class="info" style="display:none">
-			<h3>Zentyal UTM features</h3>
-			<div class='feature'>
-				<img src='/data/software/images/filter.png' alt='Content Filtering' />
-				<h4>Content Filtering</h4>
-				<p><strong>Let the badware out.</strong><br />
-				Internet is a wonderful thing, and it&#8217;s filled with great and useful content. But there are tons of threats, like spam, viruses, phising... Our content filter acts on your email, web visits and shared files so you only get the content you want.</p>
-				</div>
-			<div class='feature'>
-				<img src='/data/software/images/vpn.png' alt='Virtual Private Networks' />
-				<h4>Virtual Private Networks</h4>
-				<p><strong>Your office everywhere you go.</strong><br />
-				Enjoy the same level of security in your communications wherever you are. You will be in your office network even at home or when traveling. If you have multiple offices around the world, you can also connect them securely, and have only one virtual office.</p>
-			</div>
-			<div class='feature'>
-				<img src='/data/software/images/firewall.png' alt='Firewall' />
-				<h4>Firewall</h4>
-				<p><strong>Security starts at the front desk.</strong><br />
-				There are different layers of security, but all starts with a good firewall. Allowing only the traffic you need makes a great first sieve against unwanted attackers.</p>
-			</div>
-			<div class='feature'>
-				<img src='/data/software/images/ids.png' alt='Intruder detection' />
-				<h4>Intruder detection</h4>
-				<p><strong>Be one step ahead.</strong><br />
-				We hope you never need to detect an intrusion, but no security system is perfect. If yours is broken you need to know, and fast. Our IDS will inform you of any suspicious attempts, and let you analyze them afterwards to evaluate possible damages.</p>
-			</div>
-			<div class="full-features">
-				<h3>Full feature list</h3>
-				<ul>
-					<li>Advanced firewall</li>
-					<li>Mailfilter (antivirus, antispam, greylisting)</li>
-					<li>Web filtering (content analysis, white lists and black lists, antivirus)</li>
-					<li>Virtual Private Networks (VPN)</li>
+        <div id="UTM" class="info" style="display:none">
+            <h3><% __s('Zentyal UTM features') %></h3>
+            <div class='feature'>
+                <img src='/data/software/images/filter.png' alt='Content Filtering' />
+                <h4><% __s('Content Filtering') %></h4>
+                <p><strong><% __s('Let the badware out.') %></strong><br />
+                <% __s("Internet is a wonderful thing, and it's filled with great and useful content. But there are tons of threats, like spam, viruses, phising... Our content filter acts on your email, web visits and shared files so you only get the content you want.") %></p>
+                </div>
+            <div class='feature'>
+                <img src='/data/software/images/vpn.png' alt='Virtual Private Networks' />
+                <h4><% __s('Virtual Private Networks') %></h4>
+                <p><strong><% __s('Your office everywhere you go.') %></strong><br />
+                <% __s('Enjoy the same level of security in your communications wherever you are. You will be in your office network even at home or when traveling. If you have multiple offices around the world, you can also connect them securely, and have only one virtual office.') %></p>
+            </div>
+            <div class='feature'>
+                <img src='/data/software/images/firewall.png' alt='Firewall' />
+                <h4><% __s('Firewall') %></h4>
+                <p><strong><% __s('Security starts at the front desk.</strong>') %><br />
+                <% __s('There are different layers of security, but all starts with a good firewall. Allowing only the traffic you need makes a great first sieve against unwanted attackers.') %></p>
+            </div>
+            <div class='feature'>
+                <img src='/data/software/images/ids.png' alt='Intruder detection' />
+                <h4><% __s('Intruder detection') %></h4>
+                <p><strong><% __s('Be one step ahead.') %></strong><br />
+                <% __s('We hope you never need to detect an intrusion, but no security system is perfect. If yours is broken you need to know, and fast. Our IDS will inform you of any suspicious attempts, and let you analyze them afterwards to evaluate possible damages.') %></p>
+            </div>
+            <div class="full-features">
+                <h3><% __s('Full feature list') %></h3>
+                <ul>
+                    <li><% __s('Advanced firewall') %></li>
+                    <li><% __s('Mailfilter (antivirus, antispam, greylisting)') %></li>
+                    <li><% __s('Web filtering (content analysis, white lists and black lists, antivirus)') %></li>
+                    <li><% __s('Virtual Private Networks (VPN)') %></li>
 
-			<li>Intrusion Detection System (IDS)</li>
-				</ul>
-			</div>
-		</div>
-	</div>
+            <li><% __s('Intrusion Detection System (IDS)') %></li>
+                </ul>
+            </div>
+        </div>
+    </div>
 
-	<div style="margin: 10px 0">
-		<div id="Infrastructure_head">
+    <div style="margin: 10px 0">
+        <div id="Infrastructure_head">
 % unless ($isInfrastructure) {
-			<div class="image" id="Infrastructure_image" onclick="tick('Infrastructure')">
-				<img src="/data/software/images/icon_infra.png" alt="Zentyal Infrastructure" />
-			</div>
-			<div class="image" id="Infrastructure_image_tick" style="display: none" onclick="untick('Infrastructure')">
-				<img src="/data/software/images/icon_infra_tick.png" alt="Zentyal Infrastructure" />
-			</div>
+            <div class="image" id="Infrastructure_image" onclick="tick('Infrastructure')">
+                <img src="/data/software/images/icon_infra.png" alt="Zentyal Infrastructure" />
+            </div>
+            <div class="image" id="Infrastructure_image_tick" style="display: none" onclick="untick('Infrastructure')">
+                <img src="/data/software/images/icon_infra_tick.png" alt="Zentyal Infrastructure" />
+            </div>
 % } else {
-			<div class="image" id="Infrastructure_image_tick">
-				<img src="/data/software/images/icon_infra_tick.png" alt="Zentyal Infrastructure" />
-			</div>
+            <div class="image" id="Infrastructure_image_tick">
+                <img src="/data/software/images/icon_infra_tick.png" alt="Zentyal Infrastructure" />
+            </div>
 % }
-			<div>
-				&nbsp;</br>
-				<h3>Infrastructure - Manage your network infrastructure</h3>
-				<p>Zentyal Infrastructure manages and optimizes internal traffic in your computer network, including the configuration of domain server and the management of machines and digital certificates.</p>
-				<div>
-					<a id="Infrastructure_down" href="#" onclick="showInfo('Infrastructure')">More info <img src="/data/images/down.gif"></a>
-					<a id="Infrastructure_up" href="#" onclick="hideInfo('Infrastructure')" style="display:none">Back <img src="/data/images/up.gif"></a>
-				</div>
-			</div>
-			<br><br>
-		</div>
+            <div>
+                &nbsp;</br>
+                <h3><% __s('Infrastructure - Manage your network infrastructure') %></h3>
+                <p><% __s('Zentyal Infrastructure manages and optimizes internal traffic in your computer network, including the configuration of domain server and the management of machines and digital certificates.') %></p>
+                <div>
+                    <a id="Infrastructure_down" href="#" onclick="showInfo('Infrastructure')"><% __s('More info') %> <img src="/data/images/down.gif"></a>
+                    <a id="Infrastructure_up" href="#" onclick="hideInfo('Infrastructure')" style="display:none"><% __s('Back') %> <img src="/data/images/up.gif"></a>
+                </div>
+            </div>
+            <br><br>
+        </div>
 
-		<div id="Infrastructure" class="info" style="display:none">
-			<h3>Zentyal Infrastructure features</h3>
-			<div class='feature'>
-				<img src='/data/software/images/objects.png' alt='Network objects' />
-				<h4>Network objects</h4>
-				<p><strong>One or many, manage them.</strong><br />
-				You choose the level of detail that you want when managing your network with Zentyal. You can change a setting for the whole network, one department, or just a single computer.</p>
-			</div>
-			<div class='feature'>
-				<img src='/data/software/images/dns.png' alt='DNS server' />
-				<h4>DNS server</h4>
-				<p><strong>People remember names better.</strong><br />
-				You can assign every computer in your network a fixed address and name, so everyone can remember what to put in their browsers when they want to browse the Intranet. It&#8217;s much easier to remember calendar.mycompany.com than 10.0.13.27</p>
-			</div>
-			<div class='feature'>
-				<img src='/data/software/images/www.png' alt='Web Server' />
-				<h4>Web Server</h4>
-				<p><strong>Powered by Apache.</strong><br />
-				Zentyal includes the Apache web server, used by more than half of the known websites. You can use it as the perfect ground for all your Intranet applications.</p>
-			</div>
-			<div class='feature'>
-				<img src='/data/software/images/cert.png' alt='Enterprise-grade SSL' />
-				<h4>Enterprise-grade SSL</h4>
-				<p><strong>Create your own certificates.</strong><br />
-				When you are dealing with your customers, you might need an external certification authority to build trust. But internally, you don&#8217;t need to spend hundreds of dollars every year to have security. With Zentyal you can create your own SSL certificates and use them for internal email or websites.</p>
-			</div>
-			<div class="full-features">
-				<h3>Full feature list</h3>
-				<ul>
-					<li>Network interfaces on several VLANs</li>
-					<li>DHCP server</li>
-					<li>DNS server</li>
-					<li>Certification Authority and Virtual Private Networks</li>
-					<li>Web server</li>
-					<li>NTP server</li>
-				</ul>
-			</div>
-		</div>
-	</div>
+        <div id="Infrastructure" class="info" style="display:none">
+            <h3><% __s('Zentyal Infrastructure features') %></h3>
+            <div class='feature'>
+                <img src='/data/software/images/objects.png' alt='Network objects' />
+                <h4><% __s('Network objects') %></h4>
+                <p><strong><% __s('One or many, manage them.') %></strong><br />
+                <% __s('You choose the level of detail that you want when managing your network with Zentyal. You can change a setting for the whole network, one department, or just a single computer.') %></p>
+            </div>
+            <div class='feature'>
+                <img src='/data/software/images/dns.png' alt='DNS server' />
+                <h4><% __s('DNS server') %></h4>
+                <p><strong><% __s('People remember names better.') %></strong><br />
+                <% __s("You can assign every computer in your network a fixed address and name, so everyone can remember what to put in their browsers when they want to browse the Intranet. It's much easier to remember calendar.mycompany.com than 10.0.13.27") %></p>
+            </div>
+            <div class='feature'>
+                <img src='/data/software/images/www.png' alt='Web Server' />
+                <h4><% __s('Web Server') %></h4>
+                <p><strong><% __s('Powered by Apache.') %></strong><br />
+                <% __s('Zentyal includes the Apache web server, used by more than half of the known websites. You can use it as the perfect ground for all your Intranet applications.') %></p>
+            </div>
+            <div class='feature'>
+                <img src='/data/software/images/cert.png' alt='Enterprise-grade SSL' />
+                <h4><% __s('Enterprise-grade SSL') %></h4>
+                <p><strong><% __s('Create your own certificates.') %></strong><br />
+                <% __s("When you are dealing with your customers, you might need an external certification authority to build trust. But internally, you don't need to spend hundreds of dollars every year to have security. With Zentyal you can create your own SSL certificates and use them for internal email or websites.") %></p>
+            </div>
+            <div class="full-features">
+                <h3><% __s('Full feature list') %></h3>
+                <ul>
+                    <li><% __s('Network interfaces on several VLANs') %></li>
+                    <li><% __s('DHCP server') %></li>
+                    <li><% __s('DNS server') %></li>
+                    <li><% __s('Certification Authority and Virtual Private Networks') %></li>
+                    <li><% __s('Web server') %></li>
+                    <li><% __s('NTP server') %></li>
+                </ul>
+            </div>
+        </div>
+    </div>
 
-	<div style="margin: 10px 0">
-		<div id="Office_head">
-% unless (	$isOffice) {
-			<div class="image" id="Office_image" onclick="tick('Office')">
-				<img src="/data/software/images/icon_office.png" alt="Zentyal Office" />
-			</div>
-			<div class="image" id="Office_image_tick" style="display: none" onclick="untick('Office')">
-				<img src="/data/software/images/icon_office_tick.png" alt="Zentyal Office" />
-			</div>
+    <div style="margin: 10px 0">
+        <div id="Office_head">
+% unless (  $isOffice) {
+            <div class="image" id="Office_image" onclick="tick('Office')">
+                <img src="/data/software/images/icon_office.png" alt="Zentyal Office" />
+            </div>
+            <div class="image" id="Office_image_tick" style="display: none" onclick="untick('Office')">
+                <img src="/data/software/images/icon_office_tick.png" alt="Zentyal Office" />
+            </div>
 % } else {
-			<div class="image" id="Office_image_tick">
-				<img src="/data/software/images/icon_office_tick.png" alt="Zentyal Office" />
-			</div>
+            <div class="image" id="Office_image_tick">
+                <img src="/data/software/images/icon_office_tick.png" alt="Zentyal Office" />
+            </div>
 % }
-			<div>
-				&nbsp;</br>
-				<h3>Office - Share your office resources</h3>
-				<p>Zentyal Office allows office resources to be managed and shared, including user profiles and group accounts, files, printers, calendars, contacts and tasks, and backup of data.</p>
-				<div>
-					<a id="Office_down" href="#" onclick="showInfo('Office')">More info <img src="/data/images/down.gif"></a>
-					<a id="Office_up" href="#" onclick="hideInfo('Office')" style="display:none">Back <img src="/data/images/up.gif"></a>
-				</div>
-			</div>
-			<br><br>
-		</div>
+            <div>
+                &nbsp;</br>
+                <h3><% __s('Office - Share your office resources') %></h3>
+                <p><% __s('Zentyal Office allows office resources to be managed and shared, including user profiles and group accounts, files, printers, calendars, contacts and tasks, and backup of data.') %></p>
+                <div>
+                    <a id="Office_down" href="#" onclick="showInfo('Office')">More info <img src="/data/images/down.gif"></a>
+                    <a id="Office_up" href="#" onclick="hideInfo('Office')" style="display:none">Back <img src="/data/images/up.gif"></a>
+                </div>
+            </div>
+            <br><br>
+        </div>
 
-		<div id="Office" class="info" style="display:none">
-			<h3>Zentyal Office features</h3>
-			<div class='feature'>
-				<img src='/data/software/images/directory.png' alt='Open Directory' />
-				<h4>Open Directory</h4>
-				<p><strong>Your users in one place.</strong><br />
-				Zentyal Office lets you manage all your users and resources from a central point. You can decide who gets access to what. Zentyal is based in open standards like LDAP, so you can easily integrate current applications and services.</p>
-			</div>
-			<div class='feature'>
-				<img src='/data/software/images/cal.png' alt='Calendar, contacts and tasks' />
-				<h4>Calendar, contacts and tasks</h4>
-				<p><strong>Easy collaboration tools.</strong><br />
-				Zentyal includes a groupware solution to share your calendar, contacts and tasks with the rest of your team. Don't waste time trying to find customers phone number, or if the meeting room is available on Friday morning.</p>
-			</div>
-			<div class='feature'>
-				<img src='/data/software/images/sharing.png' alt='File and printer sharing' />
-				<h4>File and printer sharing</h4>
-				<p><strong>Sharing is easy.</strong><br />
-				Are you still exchanging files by email? It's a solution, but having a shared document repository is more efficient. You can easily share folders with Zentyal and use them whether you are Windows, Linux or Mac user.</p>
-			</div>
-			<div class='feature'>
-				<img src='/data/software/images/backup.png' alt='Data Backup' />
-				<h4>Data Backup</h4>
-				<p><strong>Some catastrophes you can prevent.</strong><br />
-				Centralized document storage and sharing can be really useful, but it also offers a single point of failure. You can automatize backups of your data so you don't have to worry about failing disks or users deleting a file by mistake.</p>
-			</div>
-			<div class="full-features">
-				<h3>Full feature list</h3>
-				<ul>
-					<li>LDAP server (centralized administration of users and groups, master/slave architecture)</li>
-					<li>Centralized authentication including Primary Domain Controller (PDC) and Active Directory synchronization (AD)</li>
-					<li>Calendar, contacts and tasks sharing (Groupware)</li>
-					<li>Files and folders sharing</li>
-					<li>Printers sharing</li>
-					<li>Roaming profiles</li>
-					<li>Data backup</li>
-				</ul>
-			</div>
-		</div>
-	</div>
+        <div id="Office" class="info" style="display:none">
+            <h3><% __s('Zentyal Infrastructure features') %></h3>
+            <div class='feature'>
+                <img src='/data/software/images/directory.png' alt='Open Directory' />
+                <h4><% __s('Open Directory') %></h4>
+                <p><strong><% __s('Your users in one place.') %></strong><br />
+                <% __s('Zentyal Office lets you manage all your users and resources from a central point. You can decide who gets access to what. Zentyal is based in open standards like LDAP, so you can easily integrate current applications and services.') %></p>
+            </div>
+            <div class='feature'>
+                <img src='/data/software/images/cal.png' alt='Calendar, contacts and tasks' />
+                <h4><% __s('Calendar, contacts and tasks') %></h4>
+                <p><strong><% __s('Easy collaboration tools.') %></strong><br />
+                <% __s("Zentyal includes a groupware solution to share your calendar, contacts and tasks with the rest of your team. Don't waste time trying to find customers phone number, or if the meeting room is available on Friday morning.") %></p>
+            </div>
+            <div class='feature'>
+                <img src='/data/software/images/sharing.png' alt='File and printer sharing' />
+                <h4><% __s('File and printer sharing') %></h4>
+                <p><strong><% __s('Sharing is easy.') %></strong><br />
+                <% __s("Are you still exchanging files by email? It's a solution, but having a shared document repository is more efficient. You can easily share folders with Zentyal and use them whether you are Windows, Linux or Mac user.") %></p>
+            </div>
+            <div class='feature'>
+                <img src='/data/software/images/backup.png' alt='Data Backup' />
+                <h4><% __s('Data Backup') %></h4>
+                <p><strong><% __s('Some catastrophes you can prevent.') %></strong><br />
+                <% __s("Centralized document storage and sharing can be really useful, but it also offers a single point of failure. You can automatize backups of your data so you don't have to worry about failing disks or users deleting a file by mistake.") %></p>
+            </div>
+            <div class="full-features">
+                <h3><% __s('Full feature list') %></h3>
+                <ul>
+                    <li><% __s('LDAP server (centralized administration of users and groups, master/slave architecture)') %></li>
+                    <li><% __s('Centralized authentication including Primary Domain Controller (PDC) and Active Directory synchronization (AD)') %></li>
+                    <li><% __s('Calendar, contacts and tasks sharing (Groupware)') %></li>
+                    <li><% __s('Files and folders sharing') %></li>
+                    <li><% __s('Printers sharing') %></li>
+                    <li><% __s('Roaming profiles') %></li>
+                    <li><% __s('Data backup') %></li>
+                </ul>
+            </div>
+        </div>
+    </div>
 
-	<div style="margin: 10px 0">
-		<div id="Communications_head">
+    <div style="margin: 10px 0">
+        <div id="Communications_head">
 % unless ($isCommunication) {
-			<div class="image" id="Communications_image" onclick="tick('Communications')">
-				<img src="/data/software/images/icon_comm.png" alt="Zentyal Unified Communications" />
-			</div>
-			<div class="image" id="Communications_image_tick" style="display: none" onclick="untick('Communications')">
-				<img src="/data/software/images/icon_comm_tick.png" alt="Zentyal Unified Communications" />
-			</div>
+            <div class="image" id="Communications_image" onclick="tick('Communications')">
+                <img src="/data/software/images/icon_comm.png" alt="Zentyal Unified Communications" />
+            </div>
+            <div class="image" id="Communications_image_tick" style="display: none" onclick="untick('Communications')">
+                <img src="/data/software/images/icon_comm_tick.png" alt="Zentyal Unified Communications" />
+            </div>
 % } else {
-			<div class="image" id="Communications_image_tick">
-				<img src="/data/software/images/icon_comm_tick.png" alt="Zentyal Unified Communications" />
-			</div>
+            <div class="image" id="Communications_image_tick">
+                <img src="/data/software/images/icon_comm_tick.png" alt="Zentyal Unified Communications" />
+            </div>
 %}
-			<div>
-				&nbsp;</br>
-				<h3>Unified Communications - Centralize all your communications</h3>
-				<p>Zentyal Unified Communications Server manages all your communications, including email, instant messaging and VoIP switchboard.</p>
-				<div>
-					<a id="Communications_down" href="#" onclick="showInfo('Communications')">More info <img src="/data/images/down.gif"></a>
-					<a id="Communications_up" href="#" onclick="hideInfo('Communications')" style="display:none">Back <img src="/data/images/up.gif"></a>
-				</div>
-			</div>
-			<br><br>
-		</div>
+            <div>
+                &nbsp;</br>
+                <h3><% __s('Unified Communications - Centralize all your communications') %></h3>
+                <p><% __s('Zentyal Unified Communications Server manages all your communications, including email, instant messaging and VoIP switchboard.') %></p>
+                <div>
+                    <a id="Communications_down" href="#" onclick="showInfo('Communications')">More info <img src="/data/images/down.gif"></a>
+                    <a id="Communications_up" href="#" onclick="hideInfo('Communications')" style="display:none">Back <img src="/data/images/up.gif"></a>
+                </div>
+            </div>
+            <br><br>
+        </div>
 
-		<div id="Communications" class="info" style="display:none">
-			<h3>Zentyal Unified Communications features</h3>
-			<div class='feature'>
-				<img src='/data/software/images/users.png' alt='User management' />
-				<h4>User management</h4>
-				<p><strong>One user name, one password.</strong><br />
-				Zentyal lets you manage all your users and resources from a central point. They won't have to remember different user names and passwords for every service. Also, providing a user with an email, IM or VoIP account is easy and fast.</p>
-			</div>
-			<div class='feature'>
-				<img src='/data/software/images/email.png' alt='Email' />
-				<h4>Email</h4>
-				<p><strong>With your favorite email client.</strong><br />
-				Zentyal provides an integrated email solution, with antispam and antivirus technologies. It supports all the usual standards so you can keep using your favorite email clients.</p>
-			</div>
-			<div class='feature'>
-				<img src='/data/software/images/im.png' alt='Instant messaging' />
-				<h4>Instant messaging</h4>
-				<p><strong>When email is not enough.</strong><br />
-				Sometimes you just need more fluid conversations. Zentyal provides instant messaging based on the Jabber/XMPP protocol, so you can use any of the existing clients on any platform, even on cell phones.</p>
-			</div>
-			<div class='feature'>
-				<img src='/data/software/images/backup.png' alt='VoIP' />
-				<h4>VoIP</h4>
-				<p><strong>When you need to call.</strong><br />
-				With Zentyal you can provide your employees with their own extension and make internal calls and conferences easily. With third-party providers, you can also get real phone numbers and route them to your Zentyal to make and receive calls at very low prices.</p>
-			</div>
-			<div class="full-features">
-				<h3>Full feature list</h3>
-				<ul>
-					<li>E-mail: SMTP and POP3/IMAP4 with SSL/TLS. Antispam, antivirus and relay policies. Webmail. SIEVE server-side filters.</li>
-					<li>Instant Messaging (IM)</li>
-					<li>VoIP: Internet based calls to mobile phones and landlines, call transfers, call parking, voicemail, conference rooms, etc.</li>
-				</ul>
-			</div>
-		</div>
-	</div>
-	<div id="Install_head">
-		<button onclick="sendFormBasic()"><img src="/data/images/install.gif"> <% __('Install') %></button>
+        <div id="Communications" class="info" style="display:none">
+            <h3><% __s('Zentyal Unified Communications features') %></h3>
+            <div class='feature'>
+                <img src='/data/software/images/users.png' alt='User management' />
+                <h4><% __s('User management') %></h4>
+                <p><strong><% __s('One user name, one password.') %></strong><br />
+                <% __s("Zentyal lets you manage all your users and resources from a central point. They won't have to remember different user names and passwords for every service. Also, providing a user with an email, IM or VoIP account is easy and fast.") %></p>
+            </div>
+            <div class='feature'>
+                <img src='/data/software/images/email.png' alt='Email' />
+                <h4><% __s('Email') %></h4>
+                <p><strong><% __s('With your favorite email client.') %></strong><br />
+                <% __s('Zentyal provides an integrated email solution, with antispam and antivirus technologies. It supports all the usual standards so you can keep using your favorite email clients.') %></p>
+            </div>
+            <div class='feature'>
+                <img src='/data/software/images/im.png' alt='Instant messaging' />
+                <h4><% __s('Instant messaging') %></h4>
+                <p><strong><% __s('When email is not enough.</strong>') %><br />
+                <% __s('Sometimes you just need more fluid conversations. Zentyal provides instant messaging based on the Jabber/XMPP protocol, so you can use any of the existing clients on any platform, even on cell phones.') %></p>
+            </div>
+            <div class='feature'>
+                <img src='/data/software/images/backup.png' alt='VoIP' />
+                <h4><% __s('VoIP') %></h4>
+                <p><strong><% __s('When you need to call.') %></strong><br />
+                <% __s('With Zentyal you can provide your employees with their own extension and make internal calls and conferences easily. With third-party providers, you can also get real phone numbers and route them to your Zentyal to make and receive calls at very low prices.') %></p>
+            </div>
+            <div class="full-features">
+                <h3><% __s('Full feature list') %></h3>
+                <ul>
+                    <li><% __s('E-mail: SMTP and POP3/IMAP4 with SSL/TLS. Antispam, antivirus and relay policies. Webmail. SIEVE server-side filters.') %></li>
+                    <li><% __s('Instant Messaging (IM)') %></li>
+                    <li><% __s('VoIP: Internet based calls to mobile phones and landlines, call transfers, call parking, voicemail, conference rooms, etc.') %></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div id="Install_head">
+        <button onclick="sendFormBasic()"><img src="/data/images/install.gif"> <% __('Install') %></button>
 % if (-f $file) {
-		<button onclick="document.location.href='/ebox/Dashboard/Index'"><img src="/data/images/right.gif"> <% __('Skip install') %> </button>
+        <button onclick="document.location.href='/ebox/Dashboard/Index'"><img src="/data/images/right.gif"> <% __('Skip install') %> </button>
 % }
-	</div>
-	<div style="display: none">
-		<input type='checkbox' id='Gateway_check'>
-		<input type='checkbox' id='UTM_check'>
-		<input type='checkbox' id='Infrastructure_check'>
-		<input type='checkbox' id='Office_check'>
-		<input type='checkbox' id='Communications_check'>
-	</div>
+    </div>
+    <div style="display: none">
+        <input type='checkbox' id='Gateway_check'>
+        <input type='checkbox' id='UTM_check'>
+        <input type='checkbox' id='Infrastructure_check'>
+        <input type='checkbox' id='Office_check'>
+        <input type='checkbox' id='Communications_check'>
+    </div>
 </div>
 
 <div id="advanced">
-	<a href='#' onclick="Effect.Fade('advanced', { duration: 0.3 }); Effect.Appear('basic', { duration: 0.3, queue: 'end' })"><% __('View basic mode') %></a>
-	<div style="margin-top: 10px" id="tabs">
-		<ul id="tabMenu_ConfigurationComposite" class="tabs">
-			<li>
-			    <a id="installTab" href="#" class="current" onclick="tab1()"> Install </a>
-			</li>
+    <a href='#' onclick="Effect.Fade('advanced', { duration: 0.3 }); Effect.Appear('basic', { duration: 0.3, queue: 'end' })"><% __('View basic mode') %></a>
+    <div style="margin-top: 10px" id="tabs">
+        <ul id="tabMenu_ConfigurationComposite" class="tabs">
+            <li>
+                <a id="installTab" href="#" class="current" onclick="tab1()"> Install </a>
+            </li>
 % if (-f $file) {
-			<li style="display:none">
+            <li style="display:none">
 % } else {
-			<li>
+            <li>
 % }
-			   <a id="updateTab" href="#" onclick="tab2()"> <% __('Update') %><span id="updNumber">(0)</span>  </a>
-			</li>
+               <a id="updateTab" href="#" onclick="tab2()"> <% __('Update') %><span id="updNumber">(0)</span>  </a>
+            </li>
 % if (-f $file) {
-			<li style="display:none">
+            <li style="display:none">
 % } else {
-			<li>
+            <li>
 % }
-				<a id="deleteTab" href="#" onclick="tab3()"><% __('Delete') %></a>
-			</li>
-		</ul>
-	</div>
-	<div class="insideTab">
-		<div id="installBox">
-			<div id="installTable"></div>
-			<div id="installButtons">
-				<button onclick="sendForm('install', insHtmlId)"><img src="/data/images/install.gif"> <% __('Install') %></button>
-				<button onclick='document.updateList.submit()'><img src="/data/images/reload.gif"> <% __('Update list') %></button>
-				<button style="float:right" onclick="deselectAll(insTable, insHtmlId)"><img src="/data/images/deny-active.gif"> <% __('Deselect All') %></button>
-				<button style="float:right" onclick="selectAll(insTable, insHtmlId)"><img src="/data/images/apply.gif"> <% __('Select All') %></button>
-			</div>
-		</div>
-		<div id="updateBox">
-			<div id="updateTable"></div>
-			<div id="updateButtons">
-				<button onclick="sendForm('install', updHtmlId)"><img src="/data/images/install.gif"> <% __('Update') %></button>
-				<button onclick='document.updateList.submit()'><img src="/data/images/reload.gif"> <% __('Update list') %></button>
-				<button style="float:right" onclick="deselectAll(updTable, updHtmlId)"><img src="/data/images/deny-active.gif"> <% __('Deselect All') %></button>
-				<button style="float:right" onclick="selectAll(updTable, updHtmlId)"><img src="/data/images/apply.gif"> <% __('Select All') %></button>
-				<form name='updateList' action='EBox' method='post'>
-						<input type='hidden' name='updatePkgs' value="yes"/>
-				</form>
-			</div>
-		</div>
-		<div id="deleteBox">
-			<div id="deleteTable"></div>
-			<div id="deleteButtons">
-				<button onclick="sendForm('remove', delHtmlId)"><img src="/data/images/delete.gif"> <% __('Delete') %></button>
-				<button style="float:right" onclick="deselectAll(delTable, delHtmlId)"><img src="/data/images/deny-active.gif"> <% __('Deselect All') %></button>
-				<button style="float:right" onclick="selectAll(delTable, delHtmlId)"><img src="/data/images/apply.gif"> <%  __('Select All') %></button>
-			</div>
-		</div>
-		<form name="formPkg" action='InstallPkgs' method='post' style="display: none"></form>
-	</div>
+                <a id="deleteTab" href="#" onclick="tab3()"><% __('Delete') %></a>
+            </li>
+        </ul>
+    </div>
+    <div class="insideTab">
+        <div id="installBox">
+            <div id="installTable"></div>
+            <div id="installButtons">
+                <button onclick="sendForm('install', insHtmlId)"><img src="/data/images/install.gif"> <% __('Install') %></button>
+                <button onclick='document.updateList.submit()'><img src="/data/images/reload.gif"> <% __('Update list') %></button>
+                <button style="float:right" onclick="deselectAll(insTable, insHtmlId)"><img src="/data/images/deny-active.gif"> <% __('Deselect All') %></button>
+                <button style="float:right" onclick="selectAll(insTable, insHtmlId)"><img src="/data/images/apply.gif"> <% __('Select All') %></button>
+            </div>
+        </div>
+        <div id="updateBox">
+            <div id="updateTable"></div>
+            <div id="updateButtons">
+                <button onclick="sendForm('install', updHtmlId)"><img src="/data/images/install.gif"> <% __('Update') %></button>
+                <button onclick='document.updateList.submit()'><img src="/data/images/reload.gif"> <% __('Update list') %></button>
+                <button style="float:right" onclick="deselectAll(updTable, updHtmlId)"><img src="/data/images/deny-active.gif"> <% __('Deselect All') %></button>
+                <button style="float:right" onclick="selectAll(updTable, updHtmlId)"><img src="/data/images/apply.gif"> <% __('Select All') %></button>
+                <form name='updateList' action='EBox' method='post'>
+                        <input type='hidden' name='updatePkgs' value="yes"/>
+                </form>
+            </div>
+        </div>
+        <div id="deleteBox">
+            <div id="deleteTable"></div>
+            <div id="deleteButtons">
+                <button onclick="sendForm('remove', delHtmlId)"><img src="/data/images/delete.gif"> <% __('Delete') %></button>
+                <button style="float:right" onclick="deselectAll(delTable, delHtmlId)"><img src="/data/images/deny-active.gif"> <% __('Deselect All') %></button>
+                <button style="float:right" onclick="selectAll(delTable, delHtmlId)"><img src="/data/images/apply.gif"> <%  __('Select All') %></button>
+            </div>
+        </div>
+        <form name="formPkg" action='InstallPkgs' method='post' style="display: none"></form>
+    </div>
 </div>
 </div>
 
 <script>
-	var insTable = new Array();
-	var updTable = new Array();
-	var delTable = new Array();
-	var insHtmlId = new Array();
-	var updHtmlId = new Array();
-	var delHtmlId = new Array();
+    var insTable = new Array();
+    var updTable = new Array();
+    var delTable = new Array();
+    var insHtmlId = new Array();
+    var updHtmlId = new Array();
+    var delHtmlId = new Array();
 
-	var obj;
+    var obj;
 
-	for(var i = 0; i< pkgTable.length; i++){
-		if(pkgTable[i]['Component'] .indexOf("Suite") != -1){
-			continue;
-		}
-		if(pkgTable[i]['Component'] .indexOf("All Modules") != -1){
-			continue;
-		}
-		if (pkgTable[i]['Installed Version'] == ""){
-			obj = new Object();
-			obj['Component'] = pkgTable[i]['Component'];
-			obj['Latest Version'] = pkgTable[i]['Latest Version'];
-% 	if (-f $file) {
-			if (pkgTable[i]['Name'] == 'ebox-remoteservices')
-				obj['Select'] = "<center><input type='checkbox' checked id='"+'ins_'+pkgTable[i]['Name']+"' onclick='changeCheck(\"insTableOrderer\", \""+'ins_'+pkgTable[i]['Name']+"\")'></center>";
-			else
-				obj['Select'] = "<center><input type='checkbox' id='"+'ins_'+pkgTable[i]['Name']+"' onclick='changeCheck(\"insTableOrderer\", \""+'ins_'+pkgTable[i]['Name']+"\")'></center>";
-% 	} else {
-			obj['Select'] = "<center><input type='checkbox' id='"+'ins_'+pkgTable[i]['Name']+"' onclick='changeCheck(\"insTableOrderer\", \""+'ins_'+pkgTable[i]['Name']+"\")'></center>";
-%	}
-			insHtmlId[insHtmlId.length] = 'ins_'+pkgTable[i]['Name'];
-			insTable[insTable.length] = obj;
-		}else{
-			if(pkgTable[i]['Removable'] == "1"){
-				if (pkgTable[i]['Name'] != 'ebox-software'){
-					obj = new Object();
-					obj['Component'] = pkgTable[i]['Component'];
-					obj['Installed Version'] = pkgTable[i]['Latest Version'];
-					obj['Select'] = "<center><input type='checkbox' id='"+'del_'+pkgTable[i]['Name']+"' onclick='changeCheck(\"delTableOrderer\", \""+'del_'+pkgTable[i]['Name']+"\")'></center>";
-					delHtmlId[delHtmlId.length]  = 'del_'+pkgTable[i]['Name'];
-					delTable[delTable.length] = obj;
-				}
-			}
-			if((pkgTable[i]['Latest Version'] != "")&&(pkgTable[i]['Latest Version'] != pkgTable[i]['Installed Version'])){
-				obj = new Object();
-				obj['Component'] = pkgTable[i]['Component'];
-				obj['Installed Version'] = pkgTable[i]['Installed Version'];
-				obj['Latest Version'] = pkgTable[i]['Latest Version'];
-				obj['Select'] = "<center><input type='checkbox' id='"+'upd_'+pkgTable[i]['Name']+"' onclick='changeCheck(\"updTableOrderer\", \""+'upd_'+pkgTable[i]['Name']+"\")'></center>";
-				updHtmlId[updHtmlId.length]  = 'upd_'+pkgTable[i]['Name'];
-				updTable[updTable.length] = obj;
-			}
-		}
-	}
+    for(var i = 0; i< pkgTable.length; i++){
+        if(pkgTable[i]['Component'] .indexOf("Suite") != -1){
+            continue;
+        }
+        if(pkgTable[i]['Component'] .indexOf("All Modules") != -1){
+            continue;
+        }
+        if (pkgTable[i]['Installed Version'] == ""){
+            obj = new Object();
+            obj['Component'] = pkgTable[i]['Component'];
+            obj['Latest Version'] = pkgTable[i]['Latest Version'];
+%   if (-f $file) {
+            if (pkgTable[i]['Name'] == 'ebox-remoteservices')
+                obj['Select'] = "<center><input type='checkbox' checked id='"+'ins_'+pkgTable[i]['Name']+"' onclick='changeCheck(\"insTableOrderer\", \""+'ins_'+pkgTable[i]['Name']+"\")'></center>";
+            else
+                obj['Select'] = "<center><input type='checkbox' id='"+'ins_'+pkgTable[i]['Name']+"' onclick='changeCheck(\"insTableOrderer\", \""+'ins_'+pkgTable[i]['Name']+"\")'></center>";
+%   } else {
+            obj['Select'] = "<center><input type='checkbox' id='"+'ins_'+pkgTable[i]['Name']+"' onclick='changeCheck(\"insTableOrderer\", \""+'ins_'+pkgTable[i]['Name']+"\")'></center>";
+%   }
+            insHtmlId[insHtmlId.length] = 'ins_'+pkgTable[i]['Name'];
+            insTable[insTable.length] = obj;
+        }else{
+            if(pkgTable[i]['Removable'] == "1"){
+                if (pkgTable[i]['Name'] != 'ebox-software'){
+                    obj = new Object();
+                    obj['Component'] = pkgTable[i]['Component'];
+                    obj['Installed Version'] = pkgTable[i]['Latest Version'];
+                    obj['Select'] = "<center><input type='checkbox' id='"+'del_'+pkgTable[i]['Name']+"' onclick='changeCheck(\"delTableOrderer\", \""+'del_'+pkgTable[i]['Name']+"\")'></center>";
+                    delHtmlId[delHtmlId.length]  = 'del_'+pkgTable[i]['Name'];
+                    delTable[delTable.length] = obj;
+                }
+            }
+            if((pkgTable[i]['Latest Version'] != "")&&(pkgTable[i]['Latest Version'] != pkgTable[i]['Installed Version'])){
+                obj = new Object();
+                obj['Component'] = pkgTable[i]['Component'];
+                obj['Installed Version'] = pkgTable[i]['Installed Version'];
+                obj['Latest Version'] = pkgTable[i]['Latest Version'];
+                obj['Select'] = "<center><input type='checkbox' id='"+'upd_'+pkgTable[i]['Name']+"' onclick='changeCheck(\"updTableOrderer\", \""+'upd_'+pkgTable[i]['Name']+"\")'></center>";
+                updHtmlId[updHtmlId.length]  = 'upd_'+pkgTable[i]['Name'];
+                updTable[updTable.length] = obj;
+            }
+        }
+    }
 
 
 
-	var insTableOrderer = new TableOrderer('installTable',{data: insTable, search:'top', unsortedColumn : ['Select']});
-	var updTableOrderer = new TableOrderer('updateTable',{data: updTable, search:'top', unsortedColumn : ['Select']});
-	var delTableOrderer = new TableOrderer('deleteTable',{data: delTable, search:'top', unsortedColumn : ['Select']});
+    var insTableOrderer = new TableOrderer('installTable',{data: insTable, search:'top', unsortedColumn : ['Select']});
+    var updTableOrderer = new TableOrderer('updateTable',{data: updTable, search:'top', unsortedColumn : ['Select']});
+    var delTableOrderer = new TableOrderer('deleteTable',{data: delTable, search:'top', unsortedColumn : ['Select']});
 
-	document.getElementById('updNumber').innerHTML = '(' +updTable.length +')';
+    document.getElementById('updNumber').innerHTML = '(' +updTable.length +')';
 % if (-f $file) {
     document.getElementById('advanced').hide();
 % } else {
     document.getElementById('basic').hide();
 % }
-	document.getElementById('updateBox').hide();
-	document.getElementById('deleteBox').hide();
-	insTableOrderer.orderRow('Component', 'asc');
-	updTableOrderer.orderRow('Component', 'asc');
-	delTableOrderer.orderRow('Component', 'asc');
+    document.getElementById('updateBox').hide();
+    document.getElementById('deleteBox').hide();
+    insTableOrderer.orderRow('Component', 'asc');
+    updTableOrderer.orderRow('Component', 'asc');
+    delTableOrderer.orderRow('Component', 'asc');
 
-	function selectAll(items, htmlIds){
-		if(!isArray(items)||!isArray(htmlIds))
-			return;
+    function selectAll(items, htmlIds){
+        if(!isArray(items)||!isArray(htmlIds))
+            return;
 
-		for(var i = 0; i < items.length; i++){
-			document.getElementById(htmlIds[i]).checked = true;
-		}
-	}
+        for(var i = 0; i < items.length; i++){
+            document.getElementById(htmlIds[i]).checked = true;
+        }
+    }
 
-	function deselectAll(items, htmlIds){
-		if(!isArray(items))
-			return;
+    function deselectAll(items, htmlIds){
+        if(!isArray(items))
+            return;
 
-		for(var i = 0; i < items.length; i++){
-			document.getElementById(htmlIds[i]).checked = false;
-		}
-	}
+        for(var i = 0; i < items.length; i++){
+            document.getElementById(htmlIds[i]).checked = false;
+        }
+    }
 
-	function isArray(obj) {
-		if (obj.constructor.toString().indexOf("Array") == -1)
-			return false;
-		else
-			return true;
-	}
+    function isArray(obj) {
+        if (obj.constructor.toString().indexOf("Array") == -1)
+            return false;
+        else
+            return true;
+    }
 
-	function sendForm(action, htmlIds) {
-		var send = false;
-		if(!isArray(htmlIds))
-			return;
+    function sendForm(action, htmlIds) {
+        var send = false;
+        if(!isArray(htmlIds))
+            return;
 
-		for(var i = 0; i < htmlIds.length; i++){
-			if(document.getElementById(htmlIds[i]).checked){
-				var inputPkg = document.createElement('input');
-				inputPkg.setAttribute('type', 'text');
-				inputPkg.setAttribute('name', 'pkg-'+htmlIds[i].substring(4));
-				inputPkg.setAttribute('value', 'yes');
-				document.formPkg.appendChild(inputPkg);
-				send = true;
-			}
-		}
+        for(var i = 0; i < htmlIds.length; i++){
+            if(document.getElementById(htmlIds[i]).checked){
+                var inputPkg = document.createElement('input');
+                inputPkg.setAttribute('type', 'text');
+                inputPkg.setAttribute('name', 'pkg-'+htmlIds[i].substring(4));
+                inputPkg.setAttribute('value', 'yes');
+                document.formPkg.appendChild(inputPkg);
+                send = true;
+            }
+        }
 
-		if (send) {
-			var inputAct = document.createElement('input');
-			inputAct.setAttribute('type', 'text');
-			inputAct.setAttribute('name', 'ebox-'+action);
-			inputAct.setAttribute('value', action);
-			document.formPkg.appendChild(inputAct);
-			document.formPkg.submit();
-		}
-	}
+        if (send) {
+            var inputAct = document.createElement('input');
+            inputAct.setAttribute('type', 'text');
+            inputAct.setAttribute('name', 'ebox-'+action);
+            inputAct.setAttribute('value', action);
+            document.formPkg.appendChild(inputAct);
+            document.formPkg.submit();
+        }
+    }
 
-	function sendFormBasic(){
-		var send = false;
-		if (document.getElementById('Gateway_check').checked) {
-			var inputPkg = document.createElement('input');
-			inputPkg.setAttribute('type', 'text');
-			inputPkg.setAttribute('name', 'pkg-ebox-gateway');
-			inputPkg.setAttribute('value', 'yes');
-			document.formPkg.appendChild(inputPkg);
-			send = true;
-		}
-		if (document.getElementById('UTM_check').checked) {
-			var inputPkg = document.createElement('input');
-			inputPkg.setAttribute('type', 'text');
-			inputPkg.setAttribute('name', 'pkg-ebox-security');
-			inputPkg.setAttribute('value', 'yes');
-			document.formPkg.appendChild(inputPkg);
-			send = true;
-		}
-		if (document.getElementById('Office_check').checked) {
-			var inputPkg = document.createElement('input');
-			inputPkg.setAttribute('type', 'text');
-			inputPkg.setAttribute('name', 'pkg-ebox-office');
-			inputPkg.setAttribute('value', 'yes');
-			document.formPkg.appendChild(inputPkg);
-			send = true;
-		}
-		if (document.getElementById('Communications_check').checked) {
-			var inputPkg = document.createElement('input');
-			inputPkg.setAttribute('type', 'text');
-			inputPkg.setAttribute('name', 'pkg-ebox-communication');
-			inputPkg.setAttribute('value', 'yes');
-			document.formPkg.appendChild(inputPkg);
-			send = true;
-		}
-		if (document.getElementById('Infrastructure_check').checked) {
-			var inputPkg = document.createElement('input');
-			inputPkg.setAttribute('type', 'text');
-			inputPkg.setAttribute('name', 'pkg-ebox-infrastructure');
-			inputPkg.setAttribute('value', 'yes');
-			document.formPkg.appendChild(inputPkg);
-			send = true;
-		}
-		if (send) {
-			var inputAct = document.createElement('input');
-			inputAct.setAttribute('type', 'text');
-			inputAct.setAttribute('name', 'ebox-install');
-			inputAct.setAttribute('value', 'install');
-			document.formPkg.appendChild(inputAct);
-			document.formPkg.submit();
-		}
-	}
+    function sendFormBasic(){
+        var send = false;
+        if (document.getElementById('Gateway_check').checked) {
+            var inputPkg = document.createElement('input');
+            inputPkg.setAttribute('type', 'text');
+            inputPkg.setAttribute('name', 'pkg-ebox-gateway');
+            inputPkg.setAttribute('value', 'yes');
+            document.formPkg.appendChild(inputPkg);
+            send = true;
+        }
+        if (document.getElementById('UTM_check').checked) {
+            var inputPkg = document.createElement('input');
+            inputPkg.setAttribute('type', 'text');
+            inputPkg.setAttribute('name', 'pkg-ebox-security');
+            inputPkg.setAttribute('value', 'yes');
+            document.formPkg.appendChild(inputPkg);
+            send = true;
+        }
+        if (document.getElementById('Office_check').checked) {
+            var inputPkg = document.createElement('input');
+            inputPkg.setAttribute('type', 'text');
+            inputPkg.setAttribute('name', 'pkg-ebox-office');
+            inputPkg.setAttribute('value', 'yes');
+            document.formPkg.appendChild(inputPkg);
+            send = true;
+        }
+        if (document.getElementById('Communications_check').checked) {
+            var inputPkg = document.createElement('input');
+            inputPkg.setAttribute('type', 'text');
+            inputPkg.setAttribute('name', 'pkg-ebox-communication');
+            inputPkg.setAttribute('value', 'yes');
+            document.formPkg.appendChild(inputPkg);
+            send = true;
+        }
+        if (document.getElementById('Infrastructure_check').checked) {
+            var inputPkg = document.createElement('input');
+            inputPkg.setAttribute('type', 'text');
+            inputPkg.setAttribute('name', 'pkg-ebox-infrastructure');
+            inputPkg.setAttribute('value', 'yes');
+            document.formPkg.appendChild(inputPkg);
+            send = true;
+        }
+        if (send) {
+            var inputAct = document.createElement('input');
+            inputAct.setAttribute('type', 'text');
+            inputAct.setAttribute('name', 'ebox-install');
+            inputAct.setAttribute('value', 'install');
+            document.formPkg.appendChild(inputAct);
+            document.formPkg.submit();
+        }
+    }
 
-	function changeCheck (nameList, id){
-		var indexC = -1;
-		var indexD = -1;
-		var list;
-		eval("list = "+nameList);
-		for (var i = 0; i < list.cache.length; i ++) {
-			if (list.cache[i].Select.indexOf(id) > 0) {
-				indexC = i;
-				break;
-			}
-		}
-		for (var i = 0; i < list.cache.length; i ++) {
-			if (list.data[i].Select.indexOf(id) > 0) {
-				indexD = i;
-				break;
-			}
-		}
-		if (document.getElementById(id).checked) {
-			list.cache[indexC].Select = "<center><input type='checkbox' checked id='"+id+"' onclick='changeCheck(\""+nameList+"\", \""+id+"\")'></center>";
-			list.data[indexD].Select = "<center><input type='checkbox' checked id='"+id+"' onclick='changeCheck(\""+nameList+"\", \""+id+"\")'></center>";
-		} else {
-			list.cache[indexC].Select = "<center><input type='checkbox' id='"+id+"' onclick='changeCheck(\""+nameList+"\", \""+id+"\")'></center>";
-			list.data[indexD].Select = "<center><input type='checkbox' id='"+id+"' onclick='changeCheck(\""+nameList+"\", \""+id+"\")'></center>";
-		}
-	}
+    function changeCheck (nameList, id){
+        var indexC = -1;
+        var indexD = -1;
+        var list;
+        eval("list = "+nameList);
+        for (var i = 0; i < list.cache.length; i ++) {
+            if (list.cache[i].Select.indexOf(id) > 0) {
+                indexC = i;
+                break;
+            }
+        }
+        for (var i = 0; i < list.cache.length; i ++) {
+            if (list.data[i].Select.indexOf(id) > 0) {
+                indexD = i;
+                break;
+            }
+        }
+        if (document.getElementById(id).checked) {
+            list.cache[indexC].Select = "<center><input type='checkbox' checked id='"+id+"' onclick='changeCheck(\""+nameList+"\", \""+id+"\")'></center>";
+            list.data[indexD].Select = "<center><input type='checkbox' checked id='"+id+"' onclick='changeCheck(\""+nameList+"\", \""+id+"\")'></center>";
+        } else {
+            list.cache[indexC].Select = "<center><input type='checkbox' id='"+id+"' onclick='changeCheck(\""+nameList+"\", \""+id+"\")'></center>";
+            list.data[indexD].Select = "<center><input type='checkbox' id='"+id+"' onclick='changeCheck(\""+nameList+"\", \""+id+"\")'></center>";
+        }
+    }
 
 </script>
-
-
-

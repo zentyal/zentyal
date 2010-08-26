@@ -3,15 +3,29 @@
     $updateStatus => undef
     $automaticUpdates
     $QAUpdates
+    $updateList
 </%args>
 <%init>
 use EBox::Gettext;
+unless (defined $updateList) {
+	$updateList = 0;
+}
 </%init>
 
 % if ($automaticUpdates) {
 <div class='note'>
 <% __('Software updates are being handled automatically. They will be installed
 automatically as scheduled') %>
+</div>
+% }
+
+% if ($updateList == 1) {
+<div class='note'>
+<% __('Package list updated successfully') %>
+</div>
+% } elsif ($updateList == 2) {
+<div class='error'>
+<% __('Error updating package list. Please try to execute the following command in a console to see the problem: sudo apt-get update') %>
 </div>
 % }
 
@@ -89,9 +103,9 @@ automatically as scheduled') %>
 		</div>
 		<input type='hidden' name='upgrade' value="yes"/>
 	</form>
+	<button class='inputButton' onclick='document.updates.submit()'><img src="/data/images/down.gif"> <%__('Upgrade')%></button>
+% }
 	<form name='updateList' action='Updates' method='post'>
 		<input type='hidden' name='updatePkgs' value="yes"/>
 	</form>
-	<button class='inputButton' onclick='document.updates.submit()'><img src="/data/images/down.gif"> <%__('Upgrade')%></button>
-% }
 	<button class='inputButton' onclick='document.updateList.submit()'><img src="/data/images/reload.gif"> <%__('Update list')%></button>

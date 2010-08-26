@@ -42,16 +42,17 @@ sub _process($) {
 
     my $software = EBox::Global->modInstance('software');
 
+    my $updateList = 0;
     if (defined($self->param('updatePkgs'))) {
         EBox::info("Update packages list");
-        $software->updatePkgList();
+        if ($software->updatePkgList()) {
+            $updateList = 1;
+        } else {
+            $updateList = 2;
+        }
     }
 
     $self->{title} = __('System updates');
-    if (defined($self->param('updatePkgs'))) {
-        EBox::info("Update packages list");
-        $software->updatePkgList();
-    }
 
     my @array = ();
     my $upg = $software->listUpgradablePkgs(0, 1);
@@ -61,10 +62,12 @@ sub _process($) {
             updateStatus => $software->updateStatus(0),
             automaticUpdates => 0,
             QAUpdates => $software->QAUpdates(),
+            updateList => $updateList,
         ];
         return;
     }
     push(@array, 'upgradables' => $upg);
+    push(@array, 'updateList' => $updateList);
     push(@array, 'updateStatus' => $software->updateStatus(0));
     push(@array, 'automaticUpdates' => $software->getAutomaticUpdates());
     push(@array, 'QAUpdates' => $software->QAUpdates());

@@ -52,8 +52,13 @@ sub _process
 
     my $software = EBox::Global->modInstance('software');
 
+    my $updateList = 0;
     if (defined($self->param('updatePkgs'))) {
-        $software->updatePkgList();
+       if ($software->updatePkgList()) {
+        $updateList = 1;
+       } else {
+        $updateList = 2;
+       }
     }
 
     my @array = ();
@@ -65,6 +70,7 @@ sub _process
     push(@array, 'isInfrastructure'    => $software->isInstalled('ebox-infrastructure'));
     push(@array, 'isGateway'    => $software->isInstalled('ebox-gateway'));
     push(@array, 'isCommunication'    => $software->isInstalled('ebox-communication'));
+    push(@array, 'updateList'    => $updateList);
 
     $self->{params} = \@array;
 }

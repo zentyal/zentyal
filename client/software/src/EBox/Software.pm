@@ -195,8 +195,11 @@ sub updatePkgList
 	my $cmd ='/usr/bin/apt-get update -q';
 	try {
 		root($cmd);
-	} catch EBox::Exceptions::Internal with {
-	};
+        return 1;
+    } catch EBox::Exceptions::Internal with {
+        EBox::error("Error updating package list");
+        return 0;
+    };
 }
 
 # Method: fetchAllPkgs
