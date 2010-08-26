@@ -37,7 +37,7 @@ echo Label: Ubuntu >> $RELEASE_FILE
 echo Architecture: $ARCH >> $RELEASE_FILE
 
 rm -rf pool/extras/*
-cp -r $EXTRAS_DIR/* pool/extras
+cp $EXTRAS_DIR/*.deb pool/extras/
 
 apt-ftparchive -c $APTCONF generate $APTCONF_DIR/apt-ftparchive-deb.conf || exit 1
 apt-ftparchive -c $APTCONF generate $APTCONF_DIR/apt-ftparchive-udeb.conf || exit 1

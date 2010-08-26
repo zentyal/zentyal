@@ -13,5 +13,7 @@ test -d $CD_EBOX_DIR || mkdir -p $CD_EBOX_DIR
 
 rm -rf $CD_EBOX_DIR/*
 
-cp -r $DATA_DIR/* $CD_EBOX_DIR/
-#FIXME: find $CD_EBOX_DIR/ -type d -name .svn -exec rm -fr \{\} \; 2>&1 >/dev/null
+TMPDIR=/tmp/zentyal-installer-data-$$
+svn export $DATA_DIR $TMPDIR
+cp -r $TMPDIR/* $CD_EBOX_DIR/
+rm -rf $TMPDIR
