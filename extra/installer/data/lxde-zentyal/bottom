@@ -92,6 +92,14 @@ Plugin {
 }
 
 Plugin {
+    type = dclock
+    Config {
+        BoldFont=0
+        IconOnly=0
+    }
+}
+
+Plugin {
     type = launchbar
     Config {
         Button {
@@ -103,10 +111,3 @@ Plugin {
     }
 }
 
-Plugin {
-    type = dclock
-    Config {
-        BoldFont=0
-        IconOnly=0
-    }
-}
