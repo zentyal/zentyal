@@ -106,7 +106,7 @@ Plugin {
             id=lxde-screenlock.desktop
         }
         Button {
-            id=lxde-logout.desktop
+            id=zentyal-logout.desktop
         }
     }
 }

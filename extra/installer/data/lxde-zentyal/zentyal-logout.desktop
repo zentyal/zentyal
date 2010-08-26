@@ -1,0 +1,8 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=Shutdown
+Name[zh_TW]=關機
+Comment=Shutdown or Reboot
+Icon=stock_exit
+Exec=zentyal-logout
+NoDisplay=true

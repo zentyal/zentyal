@@ -1,0 +1,2 @@
+#!/bin/sh
+lxsession-logout --prompt "" --banner "/usr/share/pixmaps/zentyal-logout-banner.png" --side=top
