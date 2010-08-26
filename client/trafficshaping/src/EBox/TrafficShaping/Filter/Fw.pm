@@ -29,6 +29,7 @@ use EBox::TrafficShaping;
 use Perl6::Junction qw( any );
 
 use constant MARK_MASK => '0xFF00';
+use constant UNKNOWN_PROTO_MARK => '0x200';
 
 # Mark shift, last 8 bits
 use constant MARK_SHIFT => 8;
@@ -416,6 +417,12 @@ sub dumpIptablesCommands
             $ipTablesRule->setDecision("NFQUEUE --queue $queue");
             push(@ipTablesCommands, @{$ipTablesRule->strings()});
 
+            # Set the mark to remove l7filter mark when the result is
+            # 2 (unknown protocol)
+            push(@ipTablesCommands, "-t mangle -A $shaperChain "
+                                    . '-m mark --mark '
+                                    . UNKNOWN_PROTO_MARK . '/' . MARK_MASK
+                                    . ' -j MARK --set-mark 0x0');
 
             # Set final mark for l7 matched packages (remove outside mask marks)
             push(@ipTablesCommands, "-t mangle -A $shaperChain " .

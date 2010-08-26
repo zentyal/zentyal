@@ -108,7 +108,7 @@ sub reset
     throw EBox::Exceptions::MissingArgument( __('Interface') )
       unless ($interface);
 
-    $self->tc("qdisc del dev $interface root");
+    EBox::Sudo::silentRoot(TC_CMD . " qdisc del dev $interface root");
 
   }
 

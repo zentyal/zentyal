@@ -83,9 +83,10 @@ use EBox::Types::IPAddr;
 use EBox::Types::MACAddr;
 
 # We set rule identifiers among 0100 and FF00
-use constant MIN_ID_VALUE => 256; # 0x100
-use constant MAX_ID_VALUE => 65280; # 0xFF00
-use constant MAX_RULE_NUM => 256; # FF rules
+use constant STEP_ID_VALUE => 256; # 0x100
+use constant MIN_ID_VALUE  => 768; # 0x300
+use constant MAX_ID_VALUE  => 65280; # 0xFF00
+use constant MAX_RULE_NUM  => 256; # FF rules
 use constant DEFAULT_CLASS_ID => 21;
 
 use constant L7_MODULE => 'ip_conntrack_netlink';
@@ -1604,31 +1605,31 @@ sub _updateRule # (iface, ruleId, ruleParams_ref?, test?)
 # (Ticket #481)
 # Returns a Int among MIN_ID_VALUE and MAX_ID_VALUE
 sub _nextMap # (ruleId?, test?)
-  {
+{
 
     my ($self, $ruleId, $test) = @_;
 
     if ( not defined ( $self->{nextIdentifier} ) ) {
-      $self->{nextIdentifier} = MIN_ID_VALUE;
-      $self->{classIdMap} = {};
+        $self->{nextIdentifier} = MIN_ID_VALUE;
+        $self->{classIdMap} = {};
     }
 
     my $retValue = $self->{nextIdentifier};
 
     if ( defined ( $ruleId ) and not $test ) {
-      # We store at a hash the ruleId vs. class id
-      $self->{classIdMap}->{$ruleId} = $retValue;
+        # We store at a hash the ruleId vs. class id
+        $self->{classIdMap}->{$ruleId} = $retValue;
     }
 
     if ( $self->{nextIdentifier} < MAX_ID_VALUE and
-        (not $test)) {
-      # Sums min id value -> 0x100
-      $self->{nextIdentifier} += MIN_ID_VALUE;
+           (not $test)) {
+        # Sums step value -> 0x100
+        $self->{nextIdentifier} += STEP_ID_VALUE;
     }
 
     return $retValue;
 
-  }
+}
 
 # Returns the class id mapped at a rule identifier
 # Undef if no map has been created
@@ -1743,21 +1744,13 @@ sub _deleteChains # (iface)
 
     my ( $self, $iface ) = @_;
 
-    try {
-        $self->_pf( "-t mangle -F EBOX-SHAPER-$iface" );
-        $self->_pf( "-t mangle -X EBOX-SHAPER-$iface" );
-        $self->_pf( "-t mangle -F EBOX-L7SHAPER-$iface" );
-        $self->_pf( "-t mangle -X EBOX-L7SHAPER-$iface" );
-    } catch EBox::Exceptions::Sudo::Command with {
-        my $exception = shift;
-        if ($exception->exitValue() == 2 or
-                $exception->exitValue() == 1) {
-            # The chain does not exist, ignore
-            ;
-        } else {
-            $exception->throw();
-        }
-    };
+    my @cmds;
+    my $iptablesCmd = '/sbin/iptables';
+    push(@cmds, "$iptablesCmd -t mangle -F EBOX-SHAPER-$iface");
+    push(@cmds, "$iptablesCmd -t mangle -X EBOX-SHAPER-$iface");
+    push(@cmds, "$iptablesCmd -t mangle -F EBOX-L7SHAPER-$iface");
+    push(@cmds, "$iptablesCmd -t mangle -X EBOX-L7SHAPER-$iface");
+    EBox::Sudo::silentRoot(@cmds);
 
 }
 
@@ -1885,24 +1878,26 @@ sub _resetChain # (iface)
 
 # Execute an array of iptables commands
 sub _executeIptablesCmds # (iptablesCmds_ref)
-  {
+{
 
     my ($self, $iptablesCmds_ref) = @_;
 
-    foreach my $ipTablesCmd (@{$iptablesCmds_ref}) {
-      #EBox::info("iptables $ipTablesCmd");
-      $self->_pf($ipTablesCmd);
-    }
+    # foreach my $ipTablesCmd (@{$iptablesCmds_ref}) {
+    #   #EBox::info("iptables $ipTablesCmd");
+    #   $self->_pf($ipTablesCmd);
+    # }
+    my @cmds = map { "/sbin/iptables $_" } @{$iptablesCmds_ref};
+    EBox::Sudo::root(@cmds);
 
-  }
+}
 
 
- # Run a iptables command
- sub _pf
-   {
-      my ($self, $cmd) = @_;
-      EBox::Sudo::root("/sbin/iptables $cmd");
-   }
+# Run a iptables command
+sub _pf
+{
+    my ($self, $cmd) = @_;
+    EBox::Sudo::root("/sbin/iptables $cmd");
+}
 
 # Fetch configured interfaces in this module
 sub _configuredInterfaces

@@ -163,8 +163,16 @@ sub dumpIptablesCommands
       push (@iptCommands,  @newIptCommands);
     }
 
+    # Remove duplicated iptables commands
+    my @uniqueIPTCommands = ();
+    my %seen = ();
+    foreach my $elem (@iptCommands) {
+        next if $seen{$elem}++;
+        push(@uniqueIPTCommands, $elem);
+    }
+
     # Return the reference
-    return \@iptCommands;
+    return \@uniqueIPTCommands;
 
   }
 

@@ -1,3 +1,9 @@
+HEAD
+	+ Bugfix: l7-based rules can now be combined with port-based rules
+	+ Bugfix: There is no more duplicated iptables commands
+	+ Start class identifiers in 0x300
+	+ Flush previous rules does not launch a misleading exception
+	  anymore
 1.5.3
 	+ Zentyal rebrand
 	+ Fixed l7 chains creation for virtual ifaces
