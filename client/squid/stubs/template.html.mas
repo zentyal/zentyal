@@ -9,12 +9,12 @@ use EBox::Gettext;
       Zentyal - <% __d('Access Denied', 'squid') %>
     </title>
     <style type="text/css" media="screen">
-    body {background: #fff url(http://static.ebox-platform.com/img/ebox-bg.png) repeat-x top left; font-family: Helvetica, Arial, sans-serif; color: #222;}
+    body {background: #fff url(http://www.zentyal.org/img/zentyal-bg.png) repeat-x top left; font-family: Helvetica, Arial, sans-serif; color: #222;}
     h1 {height: 65px; line-height: 65px; margin: 0; vertical-align: middle;}
     a {color: #578427;}
     #content {border-top: 1px solid #FFE7BA; padding: 0;}
     #main {border-top: 1px solid #FFF3DF; padding: 10px 25px; font-family: Georgia, serif; font-size: 1.2em;}
-    .blockedurl {font-size: 1.5em; color: #B64C18; padding: 0 0.5em; font-weight: bold; text-decoration: none;}
+    .blockedurl {font-size: 1.2em; color: #B64C18; padding: 0 0.5em; font-weight: bold; text-decoration: none;}
     .reason, .categories {background: #eee; margin: 1em; padding: 1em;}
     .head {padding-bottom: 15px;}
     .foot {font-size: 0.8em; width: 700px; text-align: right; border-top: 1px solid #eee; padding-top: 5px; color: #666;}
@@ -25,7 +25,7 @@ use EBox::Gettext;
       <table border="0" cellspacing="0" cellpadding="2" width="700">
         <tr>
           <td align="center" class="head">
-            <img src="http://static.ebox-platform.com/img/ebox.png" align="left" alt="Zentyal" />
+            <img src="http://www.zentyal.org/img/zentyal.png" align="left" alt="Zentyal" />
             <h1>
               <% __d('Access has been Denied', 'squid') %>
             </h1>
@@ -34,7 +34,7 @@ use EBox::Gettext;
         <tr>
           <td width="550" bgcolor="#FFFFFF" align="left" valign="top" id="content">
             <div id="main">
-              <p><% __dx("Access to the page: {page} has been denied for the following reason", 'squid', page => '<a href=\"-URL-\" class=\"blockedurl\">-URL-</a>') %>:</p>
+              <p><% __dx("Access to the page: {page} has been denied for the following reason", 'squid', page => '<a href="-URL-" class="blockedurl">-URL-</a>') %>:</p>
               <p class="reason">-REASONGIVEN-</p>
               <p><% __d('Categories', 'squid') %>:</p>
               <p class="categories">-CATEGORIES-</p>
@@ -44,7 +44,7 @@ use EBox::Gettext;
           </td>
         </tr>
       </table>
-      <div class="foot"><% __d('Powered by', 'squid') %> <a href="http://www.ebox-platform.com/">Zentyal</a></div>
+      <div class="foot"><% __d('Powered by', 'squid') %> <a href="http://www.zentyal.org/">Zentyal</a></div>
 
 <!--
 The available variables are as follows:
