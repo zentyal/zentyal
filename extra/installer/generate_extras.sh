@@ -3,6 +3,8 @@
 test -r build_cd.conf || exit 1
 . ./build_cd.conf
 
+test -d $EXTRAS_DIR || mkdir $EXTRAS_DIR
+
 sudo rm -fr $CHROOT
 mkdir $CHROOT
 
