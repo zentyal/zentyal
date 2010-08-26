@@ -11,7 +11,7 @@ d-i pkgsel/language-pack-patterns string
 # no language support packages
 d-i pkgsel/install-language-support boolean false
 # install ssh, bc, ebox and X environment
-d-i pkgsel/include string ssh bc ebox xorg firefox slim lxde xdg-user-dirs gksu libnss3-tools nano xscreensaver plymouth-theme-ubuntu-logo
+d-i pkgsel/include string ssh bc ebox xorg firefox slim lxde xdg-user-dirs gksu libnss3-tools nano xscreensaver policykit-1 plymouth-theme-ubuntu-logo
 
 # disable automatic updates, eBox will take care of that
 d-i pkgsel/update-policy select none
