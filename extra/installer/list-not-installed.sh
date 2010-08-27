@@ -11,6 +11,7 @@ generic
 mdadm
 kpartx
 multipath
+raid
 lilo
 xfs
 jfs"
