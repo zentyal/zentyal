@@ -385,6 +385,14 @@ sub _setSpellChecking
     }
 }
 
+# Method: addModuleStatus
+#
+#   Overrides EBox::Module::Service::addModuleStatus
+#
+sub addModuleStatus
+{
+}
+
 # Method: menu
 #
 #       Overrides EBox::Module method.

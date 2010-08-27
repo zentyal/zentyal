@@ -67,7 +67,7 @@ sub _description
        printableName   => __('Configuration'),
        pageTitle       => __('Groupware (Zarafa)'),
        compositeDomain => 'Zarafa',
-       help            => __('Once the module is enabled and you have created an user account, you can access the Zarafa web interface at http://<zentyal_ip>/webaccess'),
+       help            => __('Once the module is enabled and you have created an user account, you can access the Zarafa web interface at http://zentyal_ip/webaccess'),
       };
 
     return $description;
