@@ -1,4 +1,3 @@
-# Copyright (C) 2006-2007 Warp Networks S.L.
 # Copyright (C) 2008-2010 eBox Technologies S.L.
 #
 # This program is free softwa re; you can redistribute it and/or modify
