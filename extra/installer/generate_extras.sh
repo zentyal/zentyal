@@ -14,6 +14,7 @@ echo "deb http://archive.ubuntu.com/ubuntu lucid main restricted universe multiv
 echo "deb http://archive.ubuntu.com/ubuntu lucid-updates main restricted universe multiverse" >> sources.list
 echo "deb http://security.ubuntu.com/ubuntu lucid-security main restricted universe" >> sources.list
 echo "deb http://ppa.launchpad.net/ebox/1.5/ubuntu lucid main" >> sources.list
+echo "deb http://archive.canonical.com/ubuntu lucid partner" >> sources.list
 sudo mv sources.list $CHROOT/etc/apt/sources.list
 
 sudo chroot $CHROOT apt-get update

@@ -4,6 +4,7 @@ export LOG=/tmp/ebox-installer.log
 SOURCES_LIST=/etc/apt/sources.list
 PPA_URL="http://ppa.launchpad.net/ebox/1.5/ubuntu"
 EBOX_SOURCES="deb $PPA_URL lucid main"
+ZARAFA_SOURCES="deb http://archive.canonical.com/ubuntu lucid partner"
 PKG_DIR=/var/tmp/ebox-packages
 LOCAL_SOURCES="deb file:$PKG_DIR ./"
 
@@ -71,6 +72,7 @@ done
 create_repository # Set up local package repository
 
 echo ${LOCAL_SOURCES} >> ${SOURCES_LIST} # add local sources
+echo ${ZARAFA_SOURCES} >> ${SOURCES_LIST} # add canonical/partner sources
 echo ${EBOX_SOURCES} >> ${SOURCES_LIST} # add ppa sources
 
 update_if_network # apt-get update if we are connected to the internet
