@@ -113,7 +113,7 @@ sub ldapCon
 
     if ((not defined $self->{ldap}) or $reconnect) {
         $self->{ldap} = $self->anonymousLdapCon();
-  
+
         my $global = EBox::Global->getInstance();
         my ($dn, $pass);
         my $auth_type = undef;
@@ -137,7 +137,7 @@ sub ldapCon
         } else {
             throw EBox::Exceptions::Internal("Unknown auth_type: $auth_type");
         }
-        $self->{ldap}->bind($dn, password => $pass);
+        safeBind($self->{ldap}, $dn, $pass);
     }
     return $self->{ldap};
 }
@@ -149,7 +149,7 @@ sub ldapCon
 #
 # Returns:
 #
-#       An object of class Net::LDAP 
+#       An object of class Net::LDAP
 #
 # Exceptions:
 #
@@ -157,28 +157,7 @@ sub ldapCon
 sub anonymousLdapCon
 {
     my ($self) = @_;
-    # We try to connect 5 times in 5 seconds, as we might need to
-    # give slapd some time to accept connections after a
-    # slapd restart
-
-    my $ldap;
-
-    my $connected = undef;
-    for (0..4) {
-        $ldap = Net::LDAP->new (LDAPI);
-        if ($ldap) {
-            $connected = 1;
-            last;
-        } else {
-            sleep (1);
-        }
-    }
-
-    unless ($connected) {
-        throw EBox::Exceptions::Internal("Can't create ldapi connection");
-    }
-
-
+    my $ldap = EBox::Ldap::safeConnect(LDAPI);
     return $ldap;
 }
 
@@ -306,7 +285,8 @@ sub rootPw
 #
 sub slapdConfFile
 {
-    return SLAPDCONFFILE;}
+    return SLAPDCONFFILE;
+}
 
 # Method: ldapConf
 #
@@ -702,7 +682,7 @@ sub lastModificationTime
     my $lastStamp = $sortedEntries[-1]->get_value('modifyTimestamp');
 
     # Convert to seconds since epoch
-    my ($year, $month, $day, $h, $m, $s) = 
+    my ($year, $month, $day, $h, $m, $s) =
       $lastStamp =~ /([0-9]{4})([0-9]{2})([0-9]{2})([0-9]{2})([0-9]{2})([0-9]{2})Z/;
     return POSIX::mktime( $s, $m, $h, $day, $month -1, $year - 1900 );
 
@@ -767,20 +747,14 @@ sub dataDir
 sub stop
 {
     my ($self) = @_;
-
     EBox::Sudo::root(INIT_SCRIPT . ' stop');
-
-    sleep 1;
     return  $self->refreshLdap();
 }
 
 sub  start
 {
     my ($self) = @_;
-
     EBox::Sudo::root(INIT_SCRIPT . ' start');
-
-    sleep 1;
     return  $self->refreshLdap();
 }
 
@@ -817,9 +791,10 @@ sub _dumpLdap
     my $ldifFile = $self->ldifFile($dir, $slapd, $type);
 
     my $slapcatCommand = $self->_slapcatCmd($ldifFile, $slapd, $type);
-    my $chownCommand = "/bin/chown $user.$group $ldifFile";
+    my $chownCommand = "/bin/chown $user:$group $ldifFile";
 
-    $self->_pauseAndExecute(cmds => [$slapcatCommand, $chownCommand]);
+    $self->_execute(1, # With pause
+        cmds => [$slapcatCommand, $chownCommand]);
 }
 
 sub _dumpLdapData
@@ -882,10 +857,9 @@ sub _loadLdap
     my $chownConfCommand = $self->_chownConfDir($slapd);
     my $chownDataCommand = $self->_chownDataDir($slapd);
 
-    $self->_execute(
-                cmds => [$backupCommand, $mkCommand, $rmCommand,
-                         $slapaddCommand, $chownConfCommand, $chownDataCommand
-                        ]);
+    $self->_execute(0, # Without pause
+        cmds => [$backupCommand, $mkCommand, $rmCommand, $slapaddCommand,
+            $chownConfCommand, $chownDataCommand]);
 }
 
 sub _loadLdapData
@@ -1043,17 +1017,17 @@ sub _backupSystemDirectory
     return EBox::Config::share() . '/ebox-usersandgroups/slapd.backup';
 }
 
-sub _pauseAndExecute
+sub _execute
 {
-    my ($self, %params) = @_;
-    my @cmds = @{ $params{cmds}  };
+    my ($self, $pause, %params) = @_;
+    my @cmds = @{ $params{cmds} };
     my $onError = $params{onError};
 
-    $self->stop();
+    if ($pause) {
+        $self->stop();
+    }
     try {
-        foreach my $cmd (@cmds) {
-            EBox::Sudo::root($cmd);
-        }
+        EBox::Sudo::root(@cmds);
     }
     otherwise {
         my $ex = shift;
@@ -1065,30 +1039,44 @@ sub _pauseAndExecute
         throw $ex;
     }
     finally {
-        $self->start();
+        if ($pause) {
+            self->start();
+        }
     };
 }
 
-sub _execute
+sub safeConnect
 {
-    my ($self, %params) = @_;
-    my @cmds = @{ $params{cmds}  };
-    my $onError = $params{onError};
+    my ($ldapurl) = @_;
+    my $retries = 4;
+    my $ldap;
 
-    try {
-        foreach my $cmd (@cmds) {
-            EBox::Sudo::root($cmd);
-        }
+    while (not $ldap = Net::LDAP->new($ldapurl) and $retries--) {
+        EBox::error(
+            "Couldn't connect to LDAP server $ldapurl, retrying");
+        sleep(1);
     }
-    otherwise {
-        my $ex = shift;
 
-        if ($onError) {
-            $onError->($self);
-        }
+    unless ($ldap) {
+        throw EBox::Exceptions::Internal(
+            "FATAL: Couldn't connect to LDAP server");
+    }
 
-        throw $ex;
-    };
+    return $ldap;
+}
+
+sub safeBind
+{
+    my ($ldap, $dn, $password) = @_;
+
+    my $bind = $ldap->bind($dn, password => $password);
+    unless ($bind->{resultCode} == 0) {
+        throw EBox::Exceptions::Internal(
+            'Couldn\'t bind to LDAP server, result code: ' .
+            $bind->{resultCode});
+    }
+
+    return $bind;
 }
 
 1;

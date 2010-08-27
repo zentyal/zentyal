@@ -27,6 +27,8 @@ use EBox::Ldap;
 
 use Error qw(:try);
 
+use constant ROOT_CONFIG_DN => 'cn=admin,cn=config';
+
 sub new
 {
 	my $class = shift;
@@ -37,8 +39,8 @@ sub new
 
 # Method: _ldapModImplementation
 #
-#      	All modules using any of the functions in LdapUserBase.pm
-#   	should override this method to return the implementation
+#	All modules using any of the functions in LdapUserBase.pm
+#	should override this method to return the implementation
 #	of that interface.
 #
 # Returns:
@@ -77,8 +79,8 @@ sub masterLdap
     } else {
         my $remote = $users->remoteLdap();
         my $password = $users->remotePassword();
-        $ldap = Net::LDAP->new("ldap://$remote");
-        $ldap->bind($self->ldap->rootDn(), password => $password);
+        $ldap = EBox::Ldap::safeConnect("ldap://$remote");
+        EBox::Ldap::safeBind($ldap, $self->ldap->rootDn(), $password);
     }
     return $ldap;
 }
@@ -96,24 +98,24 @@ sub _loadSchema
 
     my $users = EBox::Global->modInstance('users');
 
-    unless ($users->mode() eq 'slave') {
+    my $mode = $users->mode();
+    if ($mode eq 'master' or $mode eq 'ad-sync') {
         $self->ldap->ldapCon();
         my $ldap = $self->ldap->{ldap};
         $self->_loadSchemaDirectory($ldap, $ldiffile);
-    } else {
+    } elsif ($mode eq 'slave') {
         my $password = $self->ldap->getPassword();
         my $ldap;
+        my $bind;
         my @ports = (389, 1389, 1390);
         for my $port (@ports) {
-            for (0..4) {
-                $ldap = Net::LDAP->new("127.0.0.1:$port");
-                last if defined($ldap);
-                sleep(1);
-            }
-            defined($ldap) or throw EBox::Exceptions::Internal("Can't connect to LDAP on port $port");
-            $ldap->bind('cn=admin,cn=config', 'password' => $password);
+            $ldap = EBox::Ldap::safeConnect("127.0.0.1:$port");
+            EBox::safeBind($ldap, ROOT_CONFIG_DN, $password);
             $self->_loadSchemaDirectory($ldap, $ldiffile);
         }
+    } else {
+         throw EBox::Exceptions::Internal(
+            "Trying to load schema with unknown LDAP mode: $mode");
     }
 }
 
@@ -162,25 +164,24 @@ sub _loadACL
     my ($self, $acl) = @_;
 
     my $users = EBox::Global->modInstance('users');
+    my $mode = $users->mode();
 
-    unless ($users->mode() eq 'slave') {
+    if ($mode eq 'master' or $mode eq 'ad-sync') {
         $self->ldap->ldapCon();
         my $ldap = $self->ldap->{ldap};
         $self->_loadACLDirectory($ldap, $acl);
-    } else {
+    } elsif ($mode eq 'slave') {
         my $password = $self->ldap->getPassword();
         my $ldap;
         my @ports = (389, 1389, 1390);
         for my $port (@ports) {
-            for (0..4) {
-                $ldap = Net::LDAP->new("127.0.0.1:$port");
-                last if defined($ldap);
-                sleep(1);
-            }
-            defined($ldap) or throw EBox::Exceptions::Internal("Can't connect to LDAP on port $port");
-            $ldap->bind('cn=admin,cn=config', 'password' => $password);
+            $ldap = EBox::Ldap::safeConnect("127.0.0.1:$port");
+            EBox::safeBind($ldap, ROOT_CONFIG_DN, $password);
             $self->_loadACLDirectory($ldap, $acl);
         }
+    } else {
+        throw EBox::Exceptions::Internal(
+            "Loading ACL with unknown LDAP mode: $mode");
     }
 }
 

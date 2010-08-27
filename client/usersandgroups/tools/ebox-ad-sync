@@ -2,7 +2,7 @@
 
 use EBox;
 use EBox::Global;
-use Net::LDAP;
+use EBox::Ldap;
 use Error qw(:try);
 
 EBox::init();
@@ -14,8 +14,9 @@ my $settings = $usersMod->model('ADSyncSettings');
 my $username = $settings->usernameValue();
 my $password = $settings->adpassValue();
 
-my $ldapAD = Net::LDAP->new($host, 'onerror' => undef);
-unless ($ldapAD) {
+try {
+    my $ldapAD = EBox::Ldap::safeConnect($host);
+} catch Error with {
     EBox::error("[ad-sync] Can't connect to $host\n");
     exit 1;
 }

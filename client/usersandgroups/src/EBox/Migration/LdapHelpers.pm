@@ -17,7 +17,9 @@ package EBox::Migration::LdapHelpers;
 
 use EBox;
 use EBox::Global;
+use EBox::Ldap;
 use EBox::UsersAndGroups;
+use EBox::Exceptions::Internal;
 use EBox::Sudo;
 use Net::LDAP;
 use Net::LDAP::LDIF;
@@ -103,11 +105,11 @@ sub updateSchema
     my ($module, $schemaname, $oldaclattrs, $map) = @_;
 
     my $users = EBox::Global->modInstance('users');
-    my $ldap = Net::LDAP->new("ldap://127.0.0.1");
+    my $ldap = EBox::Ldap::safeConnect('ldap://127.0.0.1');
     my $dn = EBox::UsersAndGroups::baseDn($ldap);
     my $rootdn = $users->ldap->rootDn($dn);
     my $password = $users->ldap->getPassword();
-    $ldap->bind($rootdn, password => $password);
+    EBox::Ldap::safeBind($ldap, $rootdn, $password);
 
     #1: get schema number
     my $schemas = $users->listSchemas($ldap);
@@ -159,24 +161,33 @@ sub updateSchema
         }
     }
 
+    my @commands;
     #3: stop slapd
-    EBox::Sudo::root('/etc/init.d/slapd stop');
+    push (@commands, '/etc/init.d/slapd stop');
 
     #4: replace schema with new schema
-    EBox::Sudo::root("rm -f /etc/ldap/slapd.d/cn=config/cn=schema/cn=$schema.ldif");
-    EBox::Sudo::root("cp /usr/share/ebox-$module/$schemaname.ldif /etc/ldap/slapd.d/cn=config/cn=schema/cn=$schema.ldif");
-    EBox::Sudo::root("sed -i -e 's/,cn=schema,cn=config//' /etc/ldap/slapd.d/cn=config/cn=schema/cn=$schema.ldif");
+    push (@commands,
+        "rm -f /etc/ldap/slapd.d/cn=config/cn=schema/cn=$schema.ldif");
+    push (@commands,
+        "cp /usr/share/ebox-$module/$schemaname.ldif " .
+        "/etc/ldap/slapd.d/cn=config/cn=schema/cn=$schema.ldif");
+    push (@commands,
+        "sed -i -e 's/,cn=schema,cn=config//' " .
+        "/etc/ldap/slapd.d/cn=config/cn=schema/cn=$schema.ldif");
     # Set proper permissions and owner
-    EBox::Sudo::root("chown openldap:openldap /etc/ldap/slapd.d/cn=config/cn=schema/cn=$schema.ldif");
-    EBox::Sudo::root("chmod go-r /etc/ldap/slapd.d/cn=config/cn=schema/cn=$schema.ldif");
+    push (@commands,
+        "chown openldap:openldap " .
+        "/etc/ldap/slapd.d/cn=config/cn=schema/cn=$schema.ldif");
+    push (@commands,
+        "chmod go-r /etc/ldap/slapd.d/cn=config/cn=schema/cn=$schema.ldif");
 
     #5: start slapd
-    EBox::Sudo::root('/etc/init.d/slapd start');
+    push (@commands, '/etc/init.d/slapd start');
 
-    sleep(1);
+    EBox::Sudo::root(@commands);
 
-    $ldap = Net::LDAP->new("ldap://127.0.0.1");
-    $ldap->bind($rootdn, password => $password);
+    $ldap = EBox::Ldap::safeConnect('ldap://127.0.0.1');
+    EBox::Ldap::safeBind($ldap, $rootdn, $password);
 
     #6: go through all the objects that have the given objectclass
     #   and update their attributes
@@ -188,8 +199,7 @@ sub updateSchema
         $ldap->modify($dn, %args);
     }
 
-    #7: pray
-    #8: introduce the new ACLs
+    #7: introduce the new ACLs
     my $mod = EBox::Global->modInstance($module);
     my $ldapuser = $mod->_ldapModImplementation();
     my @acls = @{ $ldapuser->acls() };

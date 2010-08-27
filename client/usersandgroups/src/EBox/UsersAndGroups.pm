@@ -32,7 +32,7 @@ use EBox::Ldap;
 use EBox::Gettext;
 use EBox::Menu::Folder;
 use EBox::Menu::Item;
-use EBox::Sudo qw( :all );
+use EBox::Sudo;
 use EBox::FileSystem;
 use EBox::LdapUserImplementation;
 use EBox::Config;
@@ -44,7 +44,6 @@ use Digest::SHA1;
 use Digest::MD5;
 use Crypt::SmbHash;
 use Sys::Hostname;
-use Net::LDAP;
 
 use Error qw(:try);
 use File::Copy;
@@ -200,6 +199,7 @@ sub usedFiles
 sub enableActions
 {
     my ($self) = @_;
+    my $share = EBox::Config::share();
 
     my $mode = mode();
 
@@ -207,17 +207,21 @@ sub enableActions
         $self->disableApparmorProfile('usr.sbin.slapd');
 
         EBox::Sudo::root("invoke-rc.d slapd stop");
-        EBox::Sudo::root("cp " . EBox::Config::share() . "/ebox-usersandgroups/slapd.default.no /etc/default/slapd");
+        EBox::Sudo::root("cp $share/ebox-usersandgroups/slapd.default.no " .
+            '/etc/default/slapd');
 
         $self->_setupSlaveLDAP();
-    } else { # Same setup for 'master' and 'ad-slave' modes
+    } elsif ($mode eq 'master' or $mode eq 'ad-sync') {
         my $password = remotePassword();
 
         EBox::UsersAndGroups::Setup::master($password);
 
         $self->performLDAPActions();
+    } else {
+        throw EBox::Exceptions::Internal(
+            "Trying to enable users with unknown LDAP mode: $mode");
     }
-    root(EBox::Config::share() . '/ebox-usersandgroups/ebox-usersandgroups-enable');
+    EBox::Sudo::root("$share/ebox-usersandgroups/ebox-usersandgroups-enable");
 }
 
 
@@ -338,15 +342,15 @@ sub _loadCertificates
     $cert = read_file(SSL_DIR . "ssl.cert");
     $ca = $cert;
 
-    EBox::Sudo::root('chown -R ebox.ebox /etc/ldap/ssl');
+    EBox::Sudo::root('chown -R ebox:ebox /etc/ldap/ssl');
     $ldapca = read_file("/etc/ldap/ssl/ssl.cert");
-    EBox::Sudo::root('chown -R openldap.openldap /etc/ldap/ssl');
+    EBox::Sudo::root('chown -R openldap:openldap /etc/ldap/ssl');
 
     my $dn = $self->masterDn();
 
     # delete old certs and add new ones
     try {
-    $self->ldap->delete($dn);
+        $self->ldap->delete($dn);
     } otherwise {};
 
     my %args = ('attr' => [
@@ -659,8 +663,10 @@ sub rewriteObjectClasses
 {
     my ($self, $dn) = @_;
 
-    my $ldap = Net::LDAP->new("ldap://127.0.0.1:1389");
-    $ldap->bind($self->ldap->rootDn(), password => remotePassword());
+    my $ldap = EBox::Ldap::safeConnect('ldap://127.0.0.1:1389');
+    EBox::Ldap::safeBind(
+        $ldap, $self->ldap->rootDn(), remotePassword());
+
     my %attrs = (
             base   => $dn,
             filter => "(objectclass=*)",
@@ -683,8 +689,8 @@ sub rewriteObjectClasses
 sub rewriteObjectClassesTree
 {
     my ($self, $dn) = @_;
-    my $ldap = Net::LDAP->new("ldap://127.0.0.1:1389");
-    $ldap->bind($self->ldap->rootDn(), password => remotePassword());
+    my $ldap = EBox::Ldap::safeConnect('ldap://127.0.0.1:1389');
+    EBox::Ldap::safeBind($ldap, $self->ldap->rootDn(), remotePassword());
     my %attrs = (
             base   => $dn,
             filter => "(objectclass=*)",
@@ -2423,7 +2429,7 @@ sub dumpConfig
 
     my $mode = mode();
 
-    if ($mode eq 'master') {
+    if ($mode eq 'master' or $mode eq 'ad-sync') {
         $self->ldap->dumpLdapMaster($dir);
         if ($options{bug}) {
             my $file = $self->ldap->ldifFile($dir, 'master', 'data');
@@ -2433,14 +2439,18 @@ sub dumpConfig
         $self->ldap->dumpLdapReplica($dir);
         $self->ldap->dumpLdapTranslucent($dir);
         $self->ldap->dumpLdapFrontend($dir);
+    } else {
+        throw EBox::Exceptions::Internal(
+            "Trying to dump configuration of unknown LDAP mode: $mode");
     }
 }
 
 sub restoreConfig
 {
     my ($self, $dir) = @_;
+    my $mode = mode();
 
-    unless (mode() eq 'slave') {
+    if ($mode eq 'master' or $mode eq 'ad-sync') {
         EBox::Sudo::root('/etc/init.d/slapd stop');
         $self->ldap->restoreLdapMaster($dir);
         EBox::Sudo::root('/etc/init.d/slapd start');
@@ -2448,7 +2458,7 @@ sub restoreConfig
         for my $user ($self->users()) {
             $self->initUser($user->{'username'});
         }
-    } else {
+    } elsif ($mode eq 'slave') {
         $self->_manageService('stop');
         $self->ldap->restoreLdapReplica($dir);
         $self->ldap->restoreLdapTranslucent($dir);
@@ -2460,6 +2470,9 @@ sub restoreConfig
             $self->initUser($user->{'username'});
         }
         $self->_enforceServiceState();
+    } else {
+        throw EBox::Exceptions::Internal(
+            "Trying to restore configuration of unknown LDAP mode: $mode");
     }
 }
 
@@ -2523,10 +2536,9 @@ sub defaultGroup
 sub authUser
 {
     my ($self, $user, $password) = @_;
-    my $ldap = Net::LDAP->new(EBox::Ldap::LDAPI);
-    $ldap or return undef;
-    my $res = $ldap->bind($self->userDn($user), password => $password);
-    return ($res->{'resultCode'} == 0);
+    my $ldap = EBox::Ldap::safeConnect(EBox::Ldap::LDAPI);
+    EBox::Ldap::safeBind($ldap, $self->userDn($user), $password);
+    return 1;
 }
 
 sub shaHasher
@@ -2621,17 +2633,9 @@ sub _connRemoteLDAP
     my $remote = $model->remoteValue();
     my $password = $model->passwordValue();
 
-    my $ldap = Net::LDAP->new("ldap://$remote");
-    if (not defined($ldap)) {
-        throw EBox::Exceptions::External(__x("Can't connect to master Zentyal at {remote}", remote => $remote));
-    }
-
+    my $ldap = EBox::Ldap::safeConnect("ldap://$remote");
     my $dn = baseDn($ldap);
-
-    my $result = $ldap->bind($self->ldap->rootDn($dn), password => $password);
-    if ($result->is_error()) {
-        throw EBox::Exceptions::External(__x("Can't connect to master Zentyal at {remote} with the provided LDAP password", remote => $remote));
-    }
+    EBox::Ldap::safeBind($ldap, $self->ldap->rootDn($dn), $password);
 
     return ($ldap, $dn);
 }
@@ -2752,8 +2756,7 @@ sub waitSync
     }
 
     my $times = 10;
-    while(1) {
-        sleep(3);
+    while (1) {
         my $master_users = $self->listMasterUsers();
         my $replica_users = $self->listReplicaUsers();
 
@@ -2773,6 +2776,7 @@ sub waitSync
         if ($times == 0) {
             throw EBox::Exceptions::Internal(__('Replication failed'));
         }
+        sleep (3);
     }
 }
 
@@ -2825,11 +2829,10 @@ sub listMasterUsers
     my $remote = $model->remoteValue();
     my $password = $model->passwordValue();
 
-    my $ldap = Net::LDAP->new("ldap://$remote");
+    my $ldap = EBox::Ldap::safeConnect("ldap://$remote");
     my $dn = baseDn($ldap);
     my $rootdn = $self->ldap->rootDn($dn);
-
-    $ldap->bind($rootdn, password => $password);
+    EBox::Ldap::safeBind($ldap, $rootdn, $password);
 
     return $self->listUsers($ldap, $dn);
 }
@@ -2841,11 +2844,10 @@ sub listReplicaUsers
     my $model = EBox::Model::ModelManager->instance()->model('Mode');
     my $password = $model->passwordValue();
 
-    my $ldap = Net::LDAP->new("ldap://127.0.0.1:1389");
+    my $ldap = EBox::Ldap::safeConnect('ldap://127.0.0.1:1389');
     my $dn = baseDn($ldap);
     my $rootdn = $self->ldap->rootDn($dn);
-
-    $ldap->bind($rootdn, password => $password);
+    EBox::Ldap::safeBind($ldap, $rootdn, $password);
 
     return $self->listUsers($ldap, $dn);
 }
@@ -2875,10 +2877,10 @@ sub listMasterGroups
     my $password = $model->passwordValue();
 
 
-    my $ldap = Net::LDAP->new("ldap://$remote");
+    my $ldap = EBox::Ldap::safeConnect("ldap://$remote");
     my $dn = baseDn($ldap);
     my $rootdn = $self->ldap->rootDn($dn);
-    $ldap->bind($rootdn, password => $password);
+    EBox::Ldap::safeBind($ldap, $rootdn, $password);
 
     return $self->listGroups($ldap, $dn);
 }
@@ -2891,10 +2893,10 @@ sub listReplicaGroups
 
     my $password = $model->passwordValue();
 
-    my $ldap = Net::LDAP->new("ldap://127.0.0.1:1389");
+    my $ldap = EBox::Ldap::safeConnect('ldap://127.0.0.1:1389');
     my $dn = baseDn($ldap);
     my $rootdn = $self->ldap->rootDn($dn);
-    $ldap->bind($rootdn, password => $password);
+    EBox::Ldap::safeBind($ldap, $rootdn, $password);
 
     return $self->listGroups($ldap, $dn);
 }
@@ -2923,9 +2925,9 @@ sub listMasterSchemas
     my $remote = $model->remoteValue();
     my $password = $model->passwordValue();
 
-    my $ldap = Net::LDAP->new("ldap://$remote");
+    my $ldap = EBox::Ldap::safeConnect("ldap://$remote");
     my $dn = baseDn($ldap);
-    $ldap->bind($self->ldap->rootDn($dn), password => $password);
+    EBox::Ldap::safeBind($ldap, $self->ldap->rootDn($dn), $password);
 
     return $self->listSchemas($ldap);
 }
@@ -2937,10 +2939,10 @@ sub listReplicaSchemas
     my $model = EBox::Model::ModelManager->instance()->model('Mode');
     my $password = $model->passwordValue();
 
-    my $ldap = Net::LDAP->new("ldap://127.0.0.1:$port");
+    my $ldap = EBox::Ldap::safeConnect("ldap://127.0.0.1:$port");
     my $dn = baseDn($ldap);
     my $rootdn = $self->ldap->rootDn($dn);
-    $ldap->bind($rootdn, password => $password);
+    EBox::Ldap::safeBind($ldap, $rootdn, $password);
 
     return $self->listSchemas($ldap);
 }
@@ -3075,12 +3077,18 @@ sub _setupNSSPAM
 
     EBox::Sudo::root('auth-client-config -t nss -p ebox');
 
-    if ($self->model('PAM')->enable_pamValue()) {
-        EBox::Sudo::root('auth-client-config -t pam-password pam-auth pam-session pam-account -p ebox');
-    } else {
-        try {
-            EBox::Sudo::root('auth-client-config -t pam-password pam-auth pam-session pam-account -p ebox -r');
-        } otherwise {};
+    my $typeFiles = 'pam-password pam-auth pam-session pam-account';
+
+    system("auth-client-config -t $typeFiles -p ebox -s");
+    my $pamEnabled = not $?;
+    my $enablePam = $self->model('PAM')->enable_pamValue();
+
+    if ($pamEnabled != $enablePam) {
+        if ($enablePam) {
+            EBox::Sudo::root("auth-client-config -t $typeFiles -p ebox");
+        } else {
+            EBox::Sudo::root("auth-client-config -t $typeFiles -p ebox -r");
+        }
     }
 }
 
