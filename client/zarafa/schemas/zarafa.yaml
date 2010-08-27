@@ -4,3 +4,4 @@ enabledepends:
     - webserver
 depends:
     - mail
+    - webserver
