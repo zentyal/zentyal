@@ -34,9 +34,6 @@ use EBox::Config;
 
 # Dependencies
 use File::Slurp;
-use Fcntl ':mode'; 
-use File::Path;
-use YAML::Tiny;
 
 use constant JOBS_DIR     => EBox::Config::conf() . 'remoteservices/jobs/';
 use constant INCOMING_DIR => JOBS_DIR . 'incoming/';
@@ -79,25 +76,6 @@ sub runJob
     my ($jobId, $script, $arguments, $dataFile) =
       @{$class->_gatherParams([ qw(jobId script arguments dataFile) ], @_)};
 
-    my $retValue = _addJob($jobId, $script, $arguments, $dataFile, 0);
-    return $class->_soapResult($retValue);
-
-}
-
-
-sub runInternalJob
-{
-    my ($class, $jobId, $script, $arguments, $dataFile) = @_;
-    my $retValue = _addJob($jobId, $script, $arguments, $dataFile, 1);
-    return $retValue    
-}
-
-
-sub _addJob
-{
-    my ($jobId, $script, $arguments, $dataFile, $internal) = @_;
-
-
     unless (defined($jobId)) {
         throw EBox::Exceptions::MissingArgument('jobId');
     }
@@ -136,89 +114,13 @@ sub _addJob
         File::Slurp::write_file( "$jobDirPath/noDataFile", '');
     }
 
-
-    if ($internal) {
-        # add the internal file to signal its status
-        File::Slurp::write_file( "$jobDirPath/internal", '');    
-    }
-
-
     # Create the symlink to incoming directory to make it notify to
     # the ebox-runnerd
     symlink( $jobDirPath, INCOMING_DIR . $jobId);
 
-
-
-    return $retValue;
-}
-
-# XXX todo change _addJobs so addCronJobs could use it
-# XXX make starting hour for first time execution choosable  (via lastTimestamp ?)
-sub addCronJobs
-{
-    my ($class, $cronJobs) = @_;
-
-    foreach my $cronJob (@{$cronJobs}) {
-        my $jobId    = $cronJob->{jobId};
-        my $dirName  = EBox::RemoteServices::Configuration::CronJobPrefix() . $jobId;
-        my $dirPath  = EBox::RemoteServices::Configuration::JobsDir() . $dirName;
-
-        # Write down the YAML cron job metadata file
-        my $yaml;
-        if ( -d $dirPath and -f "$dirPath/conf.yaml") {
-            $yaml = YAML::Tiny->read("$dirPath/conf.yaml");
-        } else {
-            unless ( -d $dirPath ) {
-                File::Path::mkpath($dirPath);
-            }
-            $yaml = new YAML::Tiny();
-            $yaml->[0]->{lastTimestamp} = 0;
-        }
-
-        $yaml->[0]->{period} = $cronJob->{period};
-
-
-
-        $yaml->[0]->{fromControlCenter} = exists $cronJob->{fromControlCenter} ?
-                                                 $cronJob->{fromControlCenter} :
-                                                 1  ;
-        $yaml->write("$dirPath/conf.yaml");
-
-        if (exists $cronJob->{internal} and $cronJob->{internal}) {
-            # add internal file flag
-            File::Slurp::write_file( "$dirPath/internal", '');   
-        }
-
-
-        # Write down the script
-        File::Slurp::write_file( "$dirPath/script", $cronJob->{script});
-        # Make the script executable to everyone
-        my $perm = (stat("$dirPath/script"))[2];
-        chmod($perm | S_IXUSR | S_IXGRP | S_IXOTH , "$dirPath/script");
-        # No arguments yet
-        File::Slurp::write_file( "$dirPath/args",  '');
-    }
+    return $class->_soapResult($retValue);
 
 }
-
-sub removeJob
-{
-    my ($id) = @_;
-
-    my $incomingDirLink = EBox::RemoteServices::Configuration::IncomingJobDir() . $id;
-    if (-e $incomingDirLink) {
-        unlink $incomingDirLink;
-    }
-
-    my $outcomingDirLink = EBox::RemoteServices::Configuration::OutcomingJobDir() . $id;
-    if (-e $outcomingDirLink) {
-        unlink $outcomingDirLink;
-    }
-
-    my $dirPath  = EBox::RemoteServices::Configuration::JobsDir() . $id;
-    system "rm -rf $dirPath";
-}
-
 
 # Method: URI
 #
