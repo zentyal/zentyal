@@ -10,7 +10,8 @@ nobase_Stub_DATA = main.cf.mas master.cf.mas \
                    dovecot.conf.mas dovecot-ldap.conf.mas \
 	           archivemail.mas \
 		   helo_checks.pcre.mas \
-		   fetchmail.rc.mas fetchmail-update.cron.mas
+		   fetchmail.rc.mas fetchmail-update.cron.mas \
+                   transport.mas
 
 
 EXTRA_DIST = $(nobase_Stub_DATA)

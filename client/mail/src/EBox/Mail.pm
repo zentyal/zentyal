@@ -68,6 +68,8 @@ use constant {
 
  DOVECOT_SERVICE                    => 'ebox.dovecot',
 
+ TRANSPORT_FILE                     => '/etc/postfix/transport',
+
  SASL_PASSWD_FILE                   => '/etc/postfix/sasl_passwd',
 
  MAILNAME_FILE                      => '/etc/mailname',
@@ -400,6 +402,7 @@ sub _setMailConf
     push(@array, 'filter', $self->service('filter'));
     push(@array, 'ipfilter', $self->ipfilter());
     push(@array, 'portfilter', $self->portfilter());
+    push(@array, 'zarafa', $self->zarafaModPrecondition());
     my $alwaysBcc = $self->_alwaysBcc();
     push(@array, 'bccMaps' => $alwaysBcc);
     # greylist parameters
@@ -414,6 +417,7 @@ sub _setMailConf
     push(@array, 'filter', $self->service('filter'));
     push(@array, 'fwport', $self->fwport());
     push(@array, 'ipfilter', $self->ipfilter());
+    push(@array, 'zarafa', $self->zarafaModPrecondition());
     $self->writeConfFile(MAILMASTERCONFFILE, "mail/master.cf.mas", \@array);
 
     $self->_setHeloChecks();
@@ -455,6 +459,44 @@ sub _setMailConf
     }
 
     $self->{fetchmail}->writeConf();
+
+    $self->_setZarafaConf();
+}
+
+
+sub zarafaModPrecondition
+{
+    my ($self) = @_;
+
+    my $gl = EBox::Global->getInstance();
+    if ( $gl->modExists('zarafa') ) {
+        my $zarafa = $gl->modInstance('zarafa');
+        return $zarafa->configured();
+    }
+    return 0;
+}
+
+
+sub _setZarafaConf
+{
+    my ($self) = @_;
+
+    return unless $self->zarafaModPrecondition();
+
+    my $gl = EBox::Global->getInstance();
+    my $zarafa = $gl->modInstance('zarafa');
+    my $domain = $zarafa->model('VMailDomain')->vdomainValue();
+
+    $domain = '' if ($domain eq '_none_');
+
+    $self->writeConfFile(TRANSPORT_FILE, 'mail/transport.mas',
+                         [ domain => $domain, ],
+                         { uid  => 0, gid  => 0, mode => '0600', },
+                        );
+    my $manager = new EBox::ServiceManager;
+    unless ($manager->skipModification('mail', TRANSPORT_FILE)) {
+        EBox::Sudo::root('/usr/sbin/postmap ' . TRANSPORT_FILE);
+    }
 }
 
 
@@ -735,7 +777,7 @@ sub _retrievalProtocols
     my ($self) = @_;
 
     my $model = $self->model('RetrievalServices');
-    return $model->activeProtocos();
+    return $model->activeProtocols();
 }
 
 

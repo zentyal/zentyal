@@ -782,6 +782,7 @@ sub setMaildirQuotaUsesDefault
         my $defaultQuota = $mail->defaultMailboxQuota();
         $self->setUserLdapValue($user, 'quota', $defaultQuota);
     }
+    $self->setUserZarafaQuotaDefault($user, $isDefault);
 }
 
 
@@ -789,7 +790,7 @@ sub setMaildirQuotaUsesDefault
 #  Method: setMaildirQuota
 #
 #     sets the quota value for a user. Do not use it with users which use
-#     default quota; in this  case use only setMaildirQuotaUsesDefault
+#     default quota; in this case use only setMaildirQuotaUsesDefault
 #
 #   Parameters:
 #        user - name of the user
@@ -815,7 +816,7 @@ sub setMaildirQuota
     }
 
     $self->setUserLdapValue($user, 'quota', $quota);
-
+    $self->setUserZarafaQuota($user, $quota);
 }
 
 #  Method: regenMaildirQuotas
@@ -839,6 +840,66 @@ sub regenMaildirQuotas
             $self->setMaildirQuota($userName, $defaultQuota);
         }
     }
+}
+
+# FIXME make a listener-observer for this new code and move it to ebox-zarafa
+sub _userZarafaAccount
+{
+    my ($self, $username) = @_;
+
+    my $mail = EBox::Global->modInstance('mail');
+    my $users = EBox::Global->modInstance('users');
+
+    my %args = (
+                base => $users->usersDn,
+                filter => "&(objectclass=zarafa-user)(uid=$username)",
+                scope => 'one',
+                attrs => ['zarafaAccount'],
+               );
+
+    my $result = $self->{ldap}->search(\%args);
+    if ($result->count() == 0) {
+        return undef;
+    }
+
+    my $entry = $result->entry(0);
+
+    my $useraccount = $entry->get_value('zarafaAccount');
+
+    return $useraccount;
+}
+
+sub setUserZarafaQuota
+{
+    my ($self, $user, $quota) = @_;
+
+    my $mail = EBox::Global->modInstance('mail');
+    return unless $mail->zarafaModPrecondition();
+    return unless $self->_userZarafaAccount($user);
+
+    my $gl = EBox::Global->getInstance();
+    my $zarafa = $gl->modInstance('zarafa');
+    my $warn = $zarafa->model('Quota')->warnQuotaValue();
+    my $soft = $zarafa->model('Quota')->softQuotaValue();
+
+    my $quota_warn = int($quota * $warn / 100);
+    my $quota_soft = int($quota * $soft / 100);
+
+    $self->setUserLdapValue($user, 'zarafaQuotaWarn', $quota_warn);
+    $self->setUserLdapValue($user, 'zarafaQuotaSoft', $quota_soft);
+    $self->setUserLdapValue($user, 'zarafaQuotaHard', $quota);
+}
+
+sub setUserZarafaQuotaDefault
+{
+    my ($self, $user, $isDefault) = @_;
+
+    my $mail = EBox::Global->modInstance('mail');
+    return unless $mail->zarafaModPrecondition();
+    return unless $self->_userZarafaAccount($user);
+
+    my $userMaildirSizeValue = $isDefault ? 0 : 1;
+    $self->setUserLdapValue($user, 'zarafaQuotaOverride', $userMaildirSizeValue);
 }
 
 # Method: gidvmail

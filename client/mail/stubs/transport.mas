@@ -1,0 +1,6 @@
+<%args>
+    $domain
+</%args>
+% if ($domain) {
+<% $domain %>    zarafa:
+% }

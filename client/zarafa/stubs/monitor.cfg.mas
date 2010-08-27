@@ -1,0 +1,70 @@
+<%args>
+</%args>
+##############################################################
+# ZARAFA MONITOR SETTINGS
+
+# Server unix socket location
+server_socket	=	file:///var/run/zarafa
+
+# drop privileges and run the process as this user
+run_as_user = 
+
+# drop privileges and run the process as this group
+run_as_group = 
+
+# create a pid file for stopping the service via the init.d scripts
+pid_file = /var/run/zarafa-monitor.pid
+
+# run server in this path (when not using the -F switch)
+running_path = /
+
+##############################################################
+# ZARAFA MONITOR LOG SETTINGS
+
+# Logging method (syslog, file)
+log_method	=	file
+
+# Loglevel (0=no logging, 5=full logging)
+log_level	=	2
+
+# Logfile for log_method = file, use '-' for stderr
+log_file	=	/var/log/zarafa/monitor.log
+
+# Log timestamp - prefix each log line with timestamp in 'file' logging mode
+log_timestamp	=	1
+
+##############################################################
+# MONITOR SSL LOGIN SETTINGS
+# 
+# Note: server_socket must be set to https://servername:portname/zarafa
+#       to use this type of login method
+
+# Login to the Zarafa server using this SSL Key
+sslkey_file = /etc/zarafa/ssl/monitor.pem
+
+# The password of the SSL Key
+sslkey_pass = replace-with-monitor-cert-password
+
+##############################################################
+# ZARAFA MONITOR INTERVAL SETTINGS
+
+# Quota check interval (in minutes)
+quota_check_interval = 15
+
+##############################################################
+# ZARAFA MONITOR MAIL QUOTA SETTINGS
+
+# Quota mail interval in days
+mailquota_resend_interval = 1
+
+# Templates to be used for quota emails which are send to the user
+# when the various user quota levels have been exceeded.
+userquota_warning_template  =   /etc/zarafa/quotamail/userwarning.mail
+userquota_soft_template     =   /etc/zarafa/quotamail/usersoft.mail
+userquota_hard_template     =   /etc/zarafa/quotamail/userhard.mail
+
+# Templates to be used for quota emails which are send to the company administrators
+# when the various company quota levels have been exceeded.
+companyquota_warning_template   =   /etc/zarafa/quotamail/companywarning.mail
+companyquota_soft_template      =   /etc/zarafa/quotamail/companysoft.mail
+companyquota_hard_template      =   /etc/zarafa/quotamail/companyhard.mail

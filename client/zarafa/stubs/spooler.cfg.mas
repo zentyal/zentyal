@@ -1,0 +1,109 @@
+<%args>
+</%args>
+##############################################################
+# SPOOLER SETTINGS
+
+# Outgoing mailserver name or IP address
+smtp_server	=	localhost
+
+# Server unix socket location
+server_socket	=	file:///var/run/zarafa
+
+# drop privileges and run the process as this user
+run_as_user = 
+
+# drop privileges and run the process as this group
+run_as_group = 
+
+# create a pid file for stopping the service via the init.d scripts
+pid_file = /var/run/zarafa-spooler.pid
+
+# run server in this path (when not using the -F switch)
+running_path = /
+
+##############################################################
+# SPOOLER LOG SETTINGS
+
+# Logging method (syslog, file)
+log_method	=	file
+
+# Loglevel (0=no logging, 5=full logging)
+log_level	=	3
+
+# Logfile for log_method = file, use '-' for stderr
+log_file	=	/var/log/zarafa/spooler.log
+
+# Log timestamp - prefix each log line with timestamp in 'file' logging mode
+log_timestamp	=	1
+
+
+##############################################################
+# SPOOLER SSL LOGIN SETTINGS
+# 
+# Note: server_socket must be set to https://servername:portname/zarafa
+#       to use this type of login method
+
+# Login to the Zarafa server using this SSL Key
+sslkey_file = /etc/zarafa/ssl/spooler.pem
+
+# The password of the SSL Key
+sslkey_pass = replace-with-server-cert-password
+
+##############################################################
+# SPOOLER THREAD SETTINGS
+
+# Maximum number of threads used to send outgoing messages
+# Default: 5
+max_threads = 5
+
+##############################################################
+# SPOOLER FAXING SETTINGS
+
+# When sending an email that must go to a fax address, the address
+# will be rewritten to <phonenumber>@<fax_domain>
+fax_domain = fax.local
+
+# If the received number starts with a '+', it will be replaced by
+# the fax_international value.
+# eg. +3112345678@fax.local will be rewritten to 003112345678@fax.local
+fax_international = 00
+
+##############################################################
+# SPOOLER DELEGATE SETTINGS
+
+# Set this value to 'yes' to let the spooler always send emails with
+# delegates (other user than yourself in the From: header)
+# In installations before 6.20, this value was always 'yes'
+always_send_delegates = no
+
+# Set this value to 'no' if you do NOT want to allow redirected e-mails
+# being sent with their original 'FROM' header
+allow_redirect_spoofing = yes
+
+# Copies the sent mail of delegates and send-as mails in the
+# "Sent Items" folder of the representer.
+copy_delegate_mails = yes
+
+# Allow to forward and sent a meeting request as delegate Zarafa and
+# SMTP user.
+allow_delegate_meeting_request = yes
+
+##############################################################
+# SPOOLER MEETING REQUEST SETTINGS
+
+# Set this value to 'yes' to always send meeting request information
+# using TNEF method (winmail.dat attachments)
+# Otherwise, the meeting request information is sent using
+# iCalendar (calendar.ics attachment).
+always_send_tnef = no
+
+##############################################################
+# SPOOLER GROUP EXPANSION
+
+# Set this value to 'yes' if groups should be expanded to their
+# members; This means that the receiving party will see the names
+# of the group members in the To: header for example. If set to
+# 'no', the name of the group will appear in the headers.
+#
+# Note: groups with email addresses are never expanded
+expand_groups = no

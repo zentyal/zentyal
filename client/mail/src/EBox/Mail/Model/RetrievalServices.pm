@@ -25,9 +25,6 @@ use EBox::Gettext;
 use EBox::Validate qw(:all);
 use EBox::Types::Boolean;
 use EBox::Types::Select;
-
-
-
 use EBox::Exceptions::External;
 
 
@@ -109,13 +106,11 @@ sub _table
 
                      };
 
-
-
     return $dataForm;
 }
 
 
-sub activeProtocos
+sub activeProtocols
 {
     my ($self) = @_;
     my @protocols;
@@ -149,25 +144,51 @@ sub validateTypedRow
 {
     my ($self, $action, $params_r, $actual_r) = @_;
 
-    # validate IMAP services changes
-    if ((not exists $params_r->{imap}) and (not exists $params_r->{imaps}) ) {
-        return;
-    }
+    my $global = EBox::Global->getInstance();
 
+    my $pop3 = exists $params_r->{pop3} ? $params_r->{pop3}->value() :
+                                          $actual_r->{pop3}->value();
+    my $pop3s = exists $params_r->{pop3s} ? $params_r->{pop3s}->value() :
+                                          $actual_r->{pop3s}->value();
     my $imap = exists $params_r->{imap} ? $params_r->{imap}->value() :
                                           $actual_r->{imap}->value();
     my $imaps = exists $params_r->{imaps} ? $params_r->{imaps}->value() :
                                           $actual_r->{imaps}->value();
 
-    my $global = EBox::Global->getInstance();
+    if ($global->modExists('zarafa')) {
+        my $zarafa = $global->modInstance('zarafa');
+        my $gws = $zarafa->model('Gateways');
 
-    foreach my $mod (@{ $global->modInstances()  }) {
+        my $serviceConflict = undef;
+
+        if ($pop3 and $gws->pop3Value()) {
+            $serviceConflict = 'POP3';
+        } elsif ($pop3s and $gws->pop3sValue()) {
+            $serviceConflict = 'POP3S';
+        } elsif ($imap and $gws->imapValue()) {
+            $serviceConflict = 'IMAP';
+        } elsif ($imaps and $gws->imapsValue()) {
+            $serviceConflict = 'IMAPS';
+        }
+
+        if (defined $serviceConflict) {
+            throw EBox::Exceptions::External(__x('To enable {service} mail retrieval service you must disable {service} gateway for Zarafa. You can do it at {ohref}Zarafa gateways configuration settings{chref}.',
+            service => $serviceConflict,
+            ohref => q{<a href='/ebox/Zarafa/Composite/General/'>},
+            chref => q{</a>}));
+        }
+    }
+
+    # validate IMAP services changes
+    if ((not exists $params_r->{imap}) and (not exists $params_r->{imaps})) {
+        return;
+    }
+
+    foreach my $mod (@{ $global->modInstances() }) {
         if ($mod->can('validateIMAPChanges') and $mod->isEnabled()) {
             $mod->validateIMAPChanges($imap, $imaps);
         }
     }
 }
 
-
 1;
-

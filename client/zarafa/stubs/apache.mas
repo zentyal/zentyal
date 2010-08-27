@@ -1,0 +1,23 @@
+<%args>
+</%args>
+Alias /webaccess /usr/share/zarafa-webaccess
+
+<Directory /usr/share/zarafa-webaccess/>
+    DirectoryIndex index.php
+    Options -Indexes +FollowSymLinks
+    AllowOverride Options
+
+    Order allow,deny
+    Allow from all
+</Directory>
+
+Alias /webaccess-mobile /usr/share/zarafa-webaccess-mobile
+
+<Directory /usr/share/zarafa-webaccess-mobile/>
+    DirectoryIndex index.php
+    Options -Indexes +FollowSymLinks
+    AllowOverride Options
+
+    Order allow,deny
+    Allow from all
+</Directory>

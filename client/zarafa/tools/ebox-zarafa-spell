@@ -1,0 +1,14 @@
+#!/bin/sh
+
+CONFIG='/etc/zarafa/webaccess-ajax/config.php'
+
+# define('FCKEDITOR_SPELLCHECKER_ENABLED', false);
+
+if [ "x$1" = "xenable" ]
+then
+    sed -i "s/define('FCKEDITOR_SPELLCHECKER_ENABLED', FALSE);/define('FCKEDITOR_SPELLCHECKER_ENABLED', TRUE);/g" $CONFIG
+    sed -i "s/define('FCKEDITOR_SPELLCHECKER_ENABLED', false);/define('FCKEDITOR_SPELLCHECKER_ENABLED', TRUE);/g" $CONFIG
+else
+    sed -i "s/define('FCKEDITOR_SPELLCHECKER_ENABLED', TRUE);/define('FCKEDITOR_SPELLCHECKER_ENABLED', FALSE);/g" $CONFIG
+    sed -i "s/define('FCKEDITOR_SPELLCHECKER_ENABLED', true);/define('FCKEDITOR_SPELLCHECKER_ENABLED', FALSE);/g" $CONFIG
+fi
