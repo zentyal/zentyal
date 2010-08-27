@@ -12,6 +12,8 @@
 1.5.6
 	+ More robust report method
 	+ New commercial messages
+	+ Fixed bug cleaning CC control jobs, added facilities for
+	internal and no-CC job
 1.5.5
 	+ Bugfix: Test if /var/run/screen exists before changing its
 	  permissions
