@@ -72,7 +72,6 @@ use constant CONFLDIF       => '/etc/ldap/eboxldap.ldif';
 use constant CA_DIR         => EBox::Config::conf() . 'ssl-ca/';
 use constant SSL_DIR        => EBox::Config::conf() . 'ssl/';
 use constant CERT           => SSL_DIR . 'master.cert';
-use constant DEFAULT_SHELL  => '/bin/false';
 use constant AUTHCONFIGTMPL => '/etc/auth-client-config/profile.d/acc-ebox';
 
 sub _create
@@ -881,7 +880,7 @@ sub addUser # (user, system)
         'cn'            => $user->{'fullname'},
         'uid'           => $user->{'user'},
         'sn'            => $user->{'surname'},
-        'loginShell'    => _loginShell(),
+        'loginShell'    => $self->_loginShell(),
         'uidNumber'     => $uid,
         'gidNumber'     => $gid,
         'homeDirectory' => _homeDirectory($user->{'user'}),
@@ -3047,13 +3046,9 @@ sub baseDn
 
 sub _loginShell
 {
-    my $shell = EBox::Config::configkey('login_shell');
+    my ($self) = @_;
 
-    if (defined($shell)) {
-        return $shell;
-    } else {
-        return DEFAULT_SHELL;
-    }
+    return $self->model('PAM')->login_shellValue();
 }
 
 sub _homeDirectory

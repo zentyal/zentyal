@@ -22,9 +22,13 @@ use base 'EBox::Model::DataForm';
 
 use EBox::Gettext;
 use EBox::Types::Boolean;
+use EBox::Types::Select;
+use File::Basename;
 
 use strict;
 use warnings;
+
+use constant DEFAULT_SHELL => '/usr/sbin/nologin';
 
 # Group: Public methods
 
@@ -46,6 +50,28 @@ sub new
     return $self;
 }
 
+sub validShells
+{
+    my @shells;
+
+    push (@shells, { value => DEFAULT_SHELL,
+                    printableValue => basename(DEFAULT_SHELL) });
+
+    open (my $FH, '<', '/etc/shells') or return \@shells;
+
+    foreach my $line (<$FH>) {
+        next if $line =~ /^#/;
+        next if $line eq DEFAULT_SHELL;
+
+        chomp ($line);
+        push (@shells, { value => $line,
+                         printableValue => basename($line) });
+    }
+    close ($FH);
+
+    return \@shells;
+}
+
 # Method: _table
 #
 #	Overrides <EBox::Model::DataForm::_table to change its name
@@ -62,6 +88,14 @@ sub _table
             defaultValue => 0,
             editable => 1,
             help => __('Make LDAP users have system account.')
+        ),
+        new EBox::Types::Select(
+            fieldName => 'login_shell',
+            printableName => __('Default login shell'),
+            disableCache => 1,
+            populate => \&validShells,
+            editable => 1,
+            help => __('This will apply only to new users from now on.')
         ),
     );
 
