@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: libebox 0.12.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-08-28 19:44+0200\n"
-"PO-Revision-Date: 2010-08-27 16:52+0200\n"
+"PO-Revision-Date: 2010-08-28 23:06+0200\n"
 "Last-Translator: Robert Brzozowski <gnutar1@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
@@ -169,8 +169,7 @@ msgstr "Wybór języka"
 msgid ""
 "Language changes happen automatically, saving the configuration it's not "
 "needed."
-msgstr ""
-"Wybór języka następuje automatycznie. Zapis konfiguracji nie jest konieczny."
+msgstr "Zmiana języka następuje automatycznie, nie potrzebujesz zapisu zmian"
 
 #: src/templates/language.mas:23 src/templates/ajax/tableBody.mas:348
 #: src/templates/enable.mas:29 src/templates/enable.mas:30
@@ -187,7 +186,7 @@ msgstr "Ukryj pomoc"
 
 #: src/templates/ebox/pageNotFound.mas:3
 msgid "Zentyal homepage"
-msgstr "Strona główna Zentyal"
+msgstr "Strona główna Zentyala"
 
 #: src/templates/ebox/pageNotFound.mas:7
 msgid "If you typed the URL manually, please check it"
