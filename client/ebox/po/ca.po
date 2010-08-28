@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox 0.12\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-08-28 23:35+0200\n"
+"POT-Creation-Date: 2010-08-29 01:24+0200\n"
 "PO-Revision-Date: 2010-08-28 23:07+0200\n"
 "Last-Translator: josefa <jgonza24@xtec.cat>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
@@ -90,8 +90,7 @@ msgid "Log"
 msgstr "Registre"
 
 #: src/EBox/Event/Dispatcher/Abstract.pm:140
-#, perl-brace-format
-#, fuzzy
+#, fuzzy, perl-brace-format
 msgid "Dispatcher {name} is not configured to be enabled"
 msgstr "Missatger {name} no ha estat habilitat"
 
@@ -111,7 +110,8 @@ msgstr "Comprova si hi ha alguna partició de disc sense espai lliure"
 #: src/EBox/Event/Watcher/Runit.pm:112
 #, perl-brace-format
 msgid "The following modules are not running but they are enabled: {modules}\n"
-msgstr "Els següents mòduls no estan funcionant però estan habilitats: {modules}\n"
+msgstr ""
+"Els següents mòduls no estan funcionant però estan habilitats: {modules}\n"
 
 #: src/EBox/Event/Watcher/Runit.pm:141
 msgid "Service"
@@ -136,8 +136,7 @@ msgid "Log observer"
 msgstr "Observador de registres"
 
 #: src/EBox/Event/Watcher/Log.pm:240
-#, perl-brace-format
-#, fuzzy
+#, fuzzy, perl-brace-format
 msgid "Notify when a logger ({loggers}) has logged something"
 msgstr "Reporta quan ({loggers}) ha reportat alguna cosa"
 

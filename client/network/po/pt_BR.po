@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-network 0.12\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-08-28 23:37+0200\n"
+"POT-Creation-Date: 2010-08-29 01:25+0200\n"
 "PO-Revision-Date: 2010-08-27 04:40+0200\n"
 "Last-Translator: Jorge Eduardo Quintao <jorge@netsol.com.br>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
@@ -256,7 +256,7 @@ msgstr "Nome"
 #: src/EBox/Network.pm:905 src/EBox/Network.pm:910 src/EBox/Network.pm:1224
 #: src/EBox/Network.pm:1245 src/EBox/Network.pm:3171 src/EBox/Network.pm:3187
 #: src/EBox/Network.pm:3213 src/EBox/Network.pm:3368 src/EBox/Network.pm:3522
-#: src/EBox/CGI/VIface.pm:62 src/templates/Wizard/network.mas:40
+#: src/EBox/CGI/VIface.pm:62 src/templates/Wizard/network.mas:53
 #: src/templates/ifaces.mas:119 src/templates/ifaces.mas:287
 msgid "IP address"
 msgstr "Endereço IP"
@@ -430,8 +430,8 @@ msgstr "rota estática"
 msgid "IP address of the DNS server that Zentyal will use to resolve names."
 msgstr "O endereço IP do servidor DNS que o Zentyal usará para resolver nomes."
 
-#: src/EBox/Model/DNSResolver.pm:83 src/templates/Wizard/network.mas:70
-#: src/templates/Wizard/network.mas:74
+#: src/EBox/Model/DNSResolver.pm:83 src/templates/Wizard/network.mas:86
+#: src/templates/Wizard/network.mas:90
 msgid "Domain Name Server"
 msgstr "Servidor de Nomes de Domínio"
 
@@ -575,7 +575,7 @@ msgid "Virtual interface name"
 msgstr "Nome da interface virtual"
 
 #: src/EBox/Network.pm:905 src/EBox/Network.pm:1224 src/EBox/Network.pm:3171
-#: src/templates/Wizard/network.mas:44 src/templates/ifaces.mas:132
+#: src/templates/Wizard/network.mas:57 src/templates/ifaces.mas:132
 #: src/templates/ifaces.mas:288
 msgid "Netmask"
 msgstr "Máscara de rede"
@@ -863,7 +863,7 @@ msgstr "ação da interface virtual"
 msgid "virtual interface name"
 msgstr "nome da interface virtual"
 
-#: src/templates/Wizard/interfaces.mas:7 src/templates/Wizard/network.mas:21
+#: src/templates/Wizard/interfaces.mas:7 src/templates/Wizard/network.mas:23
 msgid "Network interfaces"
 msgstr "Interfaces de rede"
 
@@ -878,25 +878,24 @@ msgstr ""
 "Você não está habilitado para conectar a página de administração do Zentyal "
 "através deles"
 
-#: src/templates/Wizard/network.mas:24
-#, fuzzy
-msgid "Configure network"
-msgstr "Configuração"
+#: src/templates/Wizard/network.mas:26
+msgid "Configure network for external interfaces"
+msgstr "Configurar rede para interfaces externas"
 
-#: src/templates/Wizard/network.mas:25
+#: src/templates/Wizard/network.mas:27
 msgid "Now you can set IP addresses and networks for each interface"
 msgstr ""
 "Agora você pode configurar endereços IP e faixa de rede para cada interface"
 
-#: src/templates/Wizard/network.mas:31 src/templates/ifaces.mas:45
+#: src/templates/Wizard/network.mas:40 src/templates/ifaces.mas:45
 msgid "Method"
 msgstr "Método"
 
-#: src/templates/Wizard/network.mas:33
+#: src/templates/Wizard/network.mas:43
 msgid "Don't configure"
 msgstr "Não configurar"
 
-#: src/templates/Wizard/network.mas:66
+#: src/templates/Wizard/network.mas:82
 msgid "Gateway"
 msgstr "Gateway"
 
@@ -1057,5 +1056,6 @@ msgstr "Excluir"
 msgid "Virtual Interfaces"
 msgstr "Interfaces virtuais"
 
-#~ msgid "Configure network for external interfaces"
-#~ msgstr "Configurar rede para interfaces externas"
+#, fuzzy
+#~ msgid "Configure network"
+#~ msgstr "Configuração"

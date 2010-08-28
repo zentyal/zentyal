@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-network 0.12.99\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-08-28 23:37+0200\n"
+"POT-Creation-Date: 2010-08-29 01:25+0200\n"
 "PO-Revision-Date: 2009-08-04 07:12+0200\n"
 "Last-Translator: Chao-Hsiung Liao <j_h_liau@yahoo.com.tw>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
@@ -244,7 +244,7 @@ msgstr "名稱"
 #: src/EBox/Network.pm:905 src/EBox/Network.pm:910 src/EBox/Network.pm:1224
 #: src/EBox/Network.pm:1245 src/EBox/Network.pm:3171 src/EBox/Network.pm:3187
 #: src/EBox/Network.pm:3213 src/EBox/Network.pm:3368 src/EBox/Network.pm:3522
-#: src/EBox/CGI/VIface.pm:62 src/templates/Wizard/network.mas:40
+#: src/EBox/CGI/VIface.pm:62 src/templates/Wizard/network.mas:53
 #: src/templates/ifaces.mas:119 src/templates/ifaces.mas:287
 msgid "IP address"
 msgstr "IP 位址"
@@ -410,8 +410,8 @@ msgstr "靜態路由"
 msgid "IP address of the DNS server that Zentyal will use to resolve names."
 msgstr "eBox 將會使用 DNS 伺服器的 IP 位址來解析名稱。"
 
-#: src/EBox/Model/DNSResolver.pm:83 src/templates/Wizard/network.mas:70
-#: src/templates/Wizard/network.mas:74
+#: src/EBox/Model/DNSResolver.pm:83 src/templates/Wizard/network.mas:86
+#: src/templates/Wizard/network.mas:90
 msgid "Domain Name Server"
 msgstr "名稱伺服器"
 
@@ -555,7 +555,7 @@ msgid "Virtual interface name"
 msgstr "虛擬介面名稱"
 
 #: src/EBox/Network.pm:905 src/EBox/Network.pm:1224 src/EBox/Network.pm:3171
-#: src/templates/Wizard/network.mas:44 src/templates/ifaces.mas:132
+#: src/templates/Wizard/network.mas:57 src/templates/ifaces.mas:132
 #: src/templates/ifaces.mas:288
 msgid "Netmask"
 msgstr "子網路遮罩"
@@ -839,7 +839,7 @@ msgstr "虛擬介面動作"
 msgid "virtual interface name"
 msgstr "虛擬介面名稱"
 
-#: src/templates/Wizard/interfaces.mas:7 src/templates/Wizard/network.mas:21
+#: src/templates/Wizard/interfaces.mas:7 src/templates/Wizard/network.mas:23
 #, fuzzy
 msgid "Network interfaces"
 msgstr "網路介面"
@@ -854,24 +854,25 @@ msgid ""
 "You will not be able to connect to Zentyal administration page through them"
 msgstr ""
 
-#: src/templates/Wizard/network.mas:24
-msgid "Configure network"
-msgstr ""
+#: src/templates/Wizard/network.mas:26
+#, fuzzy
+msgid "Configure network for external interfaces"
+msgstr "設置網路介面"
 
-#: src/templates/Wizard/network.mas:25
+#: src/templates/Wizard/network.mas:27
 msgid "Now you can set IP addresses and networks for each interface"
 msgstr ""
 
-#: src/templates/Wizard/network.mas:31 src/templates/ifaces.mas:45
+#: src/templates/Wizard/network.mas:40 src/templates/ifaces.mas:45
 msgid "Method"
 msgstr "方法"
 
-#: src/templates/Wizard/network.mas:33
+#: src/templates/Wizard/network.mas:43
 #, fuzzy
 msgid "Don't configure"
 msgstr "DNS 已設置"
 
-#: src/templates/Wizard/network.mas:66
+#: src/templates/Wizard/network.mas:82
 msgid "Gateway"
 msgstr "通訊閘"
 
@@ -1023,7 +1024,3 @@ msgstr "刪除"
 #: src/templates/ifaces.mas:281
 msgid "Virtual Interfaces"
 msgstr "虛擬介面"
-
-#, fuzzy
-#~ msgid "Configure network for external interfaces"
-#~ msgstr "設置網路介面"

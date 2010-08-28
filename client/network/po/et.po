@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-network 1.4.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-08-28 23:37+0200\n"
+"POT-Creation-Date: 2010-08-29 01:25+0200\n"
 "PO-Revision-Date: 2010-05-25 15:35+0200\n"
 "Last-Translator: Priit-A. Heinsalu <priit.heinsalu@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
@@ -259,7 +259,7 @@ msgstr "Nimi"
 #: src/EBox/Network.pm:905 src/EBox/Network.pm:910 src/EBox/Network.pm:1224
 #: src/EBox/Network.pm:1245 src/EBox/Network.pm:3171 src/EBox/Network.pm:3187
 #: src/EBox/Network.pm:3213 src/EBox/Network.pm:3368 src/EBox/Network.pm:3522
-#: src/EBox/CGI/VIface.pm:62 src/templates/Wizard/network.mas:40
+#: src/EBox/CGI/VIface.pm:62 src/templates/Wizard/network.mas:53
 #: src/templates/ifaces.mas:119 src/templates/ifaces.mas:287
 msgid "IP address"
 msgstr "IP aadress"
@@ -437,8 +437,8 @@ msgstr "staatiline marsruut"
 msgid "IP address of the DNS server that Zentyal will use to resolve names."
 msgstr "DNS serveri IP aadress, mida eBox kasutab nimede lahendamiseks."
 
-#: src/EBox/Model/DNSResolver.pm:83 src/templates/Wizard/network.mas:70
-#: src/templates/Wizard/network.mas:74
+#: src/EBox/Model/DNSResolver.pm:83 src/templates/Wizard/network.mas:86
+#: src/templates/Wizard/network.mas:90
 msgid "Domain Name Server"
 msgstr "Nimeserver"
 
@@ -591,7 +591,7 @@ msgid "Virtual interface name"
 msgstr "Virtuaalse liidese nimi"
 
 #: src/EBox/Network.pm:905 src/EBox/Network.pm:1224 src/EBox/Network.pm:3171
-#: src/templates/Wizard/network.mas:44 src/templates/ifaces.mas:132
+#: src/templates/Wizard/network.mas:57 src/templates/ifaces.mas:132
 #: src/templates/ifaces.mas:288
 msgid "Netmask"
 msgstr "Võrgumask"
@@ -884,7 +884,7 @@ msgstr "virtuaalse liidese toiming"
 msgid "virtual interface name"
 msgstr "virtuaalse liidese nimi"
 
-#: src/templates/Wizard/interfaces.mas:7 src/templates/Wizard/network.mas:21
+#: src/templates/Wizard/interfaces.mas:7 src/templates/Wizard/network.mas:23
 #, fuzzy
 msgid "Network interfaces"
 msgstr "Võrguliidesed"
@@ -899,24 +899,24 @@ msgid ""
 "You will not be able to connect to Zentyal administration page through them"
 msgstr ""
 
-#: src/templates/Wizard/network.mas:24
+#: src/templates/Wizard/network.mas:26
 #, fuzzy
-msgid "Configure network"
-msgstr "Seadistamine"
+msgid "Configure network for external interfaces"
+msgstr "{iface} (väline liides)"
 
-#: src/templates/Wizard/network.mas:25
+#: src/templates/Wizard/network.mas:27
 msgid "Now you can set IP addresses and networks for each interface"
 msgstr ""
 
-#: src/templates/Wizard/network.mas:31 src/templates/ifaces.mas:45
+#: src/templates/Wizard/network.mas:40 src/templates/ifaces.mas:45
 msgid "Method"
 msgstr "Meetod"
 
-#: src/templates/Wizard/network.mas:33
+#: src/templates/Wizard/network.mas:43
 msgid "Don't configure"
 msgstr ""
 
-#: src/templates/Wizard/network.mas:66
+#: src/templates/Wizard/network.mas:82
 #, fuzzy
 msgid "Gateway"
 msgstr "Lüüsid"
@@ -1079,5 +1079,5 @@ msgid "Virtual Interfaces"
 msgstr "Virtuaalsed liidesed"
 
 #, fuzzy
-#~ msgid "Configure network for external interfaces"
-#~ msgstr "{iface} (väline liides)"
+#~ msgid "Configure network"
+#~ msgstr "Seadistamine"
