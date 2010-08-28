@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: ebox 0.12\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-08-28 23:35+0200\n"
-"PO-Revision-Date: 2010-08-25 17:39+0200\n"
-"Last-Translator: jaume ponsa <jaume@calidae.net>\n"
+"PO-Revision-Date: 2010-08-28 23:07+0200\n"
+"Last-Translator: josefa <jgonza24@xtec.cat>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -23,9 +23,8 @@ msgid "port"
 msgstr "port"
 
 #: src/EBox/Apache.pm:598
-#, fuzzy
 msgid "Zentyal web server"
-msgstr "servidor web de l'eBox"
+msgstr "servidor web de Zentyal"
 
 #: src/EBox/Event/Dispatcher/Jabber.pm:165
 msgid "Admin Jabber account"
@@ -73,36 +72,37 @@ msgstr ""
 "temps."
 
 #: src/EBox/Event/Dispatcher/RSS.pm:312
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "The event has happened in Zentyal {hostname} from {source}"
-msgstr "L'esdeveniment ha passat a l'eBox {hostname} de {source}"
+msgstr "L'esdeveniment ha passat a Zentyal {hostname} de {source}"
 
 #: src/EBox/Event/Dispatcher/RSS.pm:316
 #, perl-brace-format
 msgid "Go to your {url} to check its status."
-msgstr "Ves a la teva {url} per comprovar l'estat"
+msgstr "Ves a la teva {url} per comprovar l'estat."
 
 #: src/EBox/Event/Dispatcher/Log.pm:135
 msgid "Log file"
-msgstr "Arxiu de log"
+msgstr "Arxiu de registre"
 
 #: src/EBox/Event/Dispatcher/Log.pm:148
 msgid "Log"
-msgstr "Log"
+msgstr "Registre"
 
 #: src/EBox/Event/Dispatcher/Abstract.pm:140
 #, perl-brace-format
+#, fuzzy
 msgid "Dispatcher {name} is not configured to be enabled"
 msgstr "Missatger {name} no ha estat habilitat"
 
 #: src/EBox/Event/Watcher/DiskFreeSpace.pm:133
 #, perl-brace-format
 msgid "The file system {fs}, mounted on {mp}, has no space left"
-msgstr "El sistema d'arxius {fs}, muntat a {mp}, no te espai lliure"
+msgstr "El sistema d'arxius {fs}, muntat a {mp}, no té espai lliure"
 
 #: src/EBox/Event/Watcher/DiskFreeSpace.pm:167
 msgid "Free storage space"
-msgstr "Espai lliure d'enmagatzematge"
+msgstr "Espai lliure d'emmagatzematge"
 
 #: src/EBox/Event/Watcher/DiskFreeSpace.pm:184
 msgid "Check if any disk partition has no storage space left"
@@ -111,8 +111,7 @@ msgstr "Comprova si hi ha alguna partició de disc sense espai lliure"
 #: src/EBox/Event/Watcher/Runit.pm:112
 #, perl-brace-format
 msgid "The following modules are not running but they are enabled: {modules}\n"
-msgstr ""
-"Els següents móduls no estan funcionant però estan habilitats: {modules}\n"
+msgstr "Els següents mòduls no estan funcionant però estan habilitats: {modules}\n"
 
 #: src/EBox/Event/Watcher/Runit.pm:141
 msgid "Service"
@@ -121,7 +120,7 @@ msgstr "Servei"
 #: src/EBox/Event/Watcher/Runit.pm:158
 #, fuzzy
 msgid "Check if any Zentyal service is not running when it is enabled"
-msgstr "Comprova si hi ha cap servei d'eBox aturat quan estigui habititat"
+msgstr "Comprova si hi ha cap servei de Zentyal aturat quan estigui habilitat"
 
 #: src/EBox/Event/Watcher/Runit.pm:228
 #, perl-brace-format
@@ -134,10 +133,11 @@ msgstr ""
 
 #: src/EBox/Event/Watcher/Log.pm:202
 msgid "Log observer"
-msgstr "Observador de Logs"
+msgstr "Observador de registres"
 
 #: src/EBox/Event/Watcher/Log.pm:240
 #, perl-brace-format
+#, fuzzy
 msgid "Notify when a logger ({loggers}) has logged something"
 msgstr "Reporta quan ({loggers}) ha reportat alguna cosa"
 
@@ -445,7 +445,7 @@ msgstr "Habilitat"
 #: src/EBox/Model/ProviderBase.pm:246
 #, perl-brace-format
 msgid "Provided object with index {i} does not exist"
-msgstr "L'objecte oferit amb l'index {i} no existeix."
+msgstr "L'objecte oferit amb l'index {i} no existeix"
 
 #: src/EBox/Model/Composite.pm:371
 #, perl-brace-format
@@ -675,7 +675,7 @@ msgid ""
 "first"
 msgstr ""
 "per tal de habilitar un missatge d'esdeveniment configurable, primer l'has "
-"de configurar."
+"de configurar"
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:192
 msgid "Jabber server name"
@@ -714,7 +714,7 @@ msgstr "Registra"
 msgid ""
 "Tick this option if you want Zentyal to create an account for the above user"
 msgstr ""
-"Marca aquesta opció si vols que l'eBox crei el compte per l'usuari de sobre."
+"Marca aquesta opció si vols que Zentyal crei el compte per l'usuari de sobre"
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:232
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:299
@@ -821,8 +821,8 @@ msgid ""
 "Events module configures Zentyal to help informing you about events that "
 "happen"
 msgstr ""
-"El módul de esdeveniments configura l' eBox per tal d'ajudar-te amb els "
-"esdeniments que hi han."
+"El mòdul de esdeveniments configura Zentyal per tal d'ajudar-te amb els "
+"esdeveniments que hi han"
 
 #: src/EBox/Events/Model/ConfigureEventDataTable.pm:274
 #: src/templates/backup.mas:42 src/templates/backup.mas:124
@@ -873,8 +873,8 @@ msgid ""
 "Every filter added is cumulative.Then every log line which matches with any "
 "filter given will be notified"
 msgstr ""
-"Qualsevol filtre afegist s'acumula.Aleshores cada línia de log que "
-"coincideixi amb qulsevol filtre establert serà notificat."
+"Qualsevol filtre afegits s'acumula. Aleshores cada línia del registre que "
+"coincideixi amb qualsevol filtre establert serà notificat"
 
 #: src/EBox/Events/Model/Watcher/LogFiltering.pm:188
 msgid "filter"
@@ -894,7 +894,7 @@ msgid ""
 "When the free space percentage of any disk partition is under this value the "
 "event is triggered."
 msgstr ""
-"Quan el percentatge d'espai lliure de qualsevol disk estigui per sota aquest "
+"Quan el percentatge d'espai lliure de qualsevol disc estigui per sota aquest "
 "valor l'esdeveniment serà processat"
 
 #: src/EBox/Events/Model/Watcher/DiskFreeSpace.pm:112
@@ -1181,7 +1181,7 @@ msgid ""
 "are accepted"
 msgstr ""
 "Sistema d'arxius invalid: {f}. Només s'accepten sistemes d'arxius de mitjans "
-"regulars i no removibles."
+"regulars i no removibles"
 
 #: src/EBox/Report/DiskUsage.pm:348
 msgid "Free space"
@@ -1210,7 +1210,7 @@ msgstr "Registres"
 #: src/EBox/Logs.pm:450
 #, perl-brace-format
 msgid "Table {table} does not exist"
-msgstr "La taula {table} no existeix."
+msgstr "La taula {table} no existeix"
 
 #: src/EBox/Logs.pm:701 src/EBox/CGI/Logs/Index.pm:326
 msgid "Query Logs"
@@ -1271,7 +1271,7 @@ msgstr "Habilita el missatger per defecte de logs"
 
 #: src/EBox/Events.pm:497
 msgid "The events module is not enabled to send events"
-msgstr "El módul d'esdeveniments no està haibilitat per enviar."
+msgstr "El mòdul d'esdeveniments no està habilitat per enviar."
 
 #: src/EBox/Events.pm:730
 msgid "Event service status"
@@ -1462,7 +1462,7 @@ msgstr "Nom del servidor"
 
 #: src/EBox/CGI/EBox/RestartService.pm:52
 msgid "The module was restarted correctly."
-msgstr "El mòdul s'ha reiniciat correctament"
+msgstr "El mòdul s'ha reiniciat correctament."
 
 #: src/EBox/CGI/EBox/Password.pm:43 src/templates/password.mas:11
 #: src/templates/login/index.mas:49
@@ -1546,12 +1546,12 @@ msgid ""
 "There is a script which has asked to run in Zentyal exclusively. Please, "
 "wait patiently until it is done"
 msgstr ""
-"Hi ha un script que ha demanat corre a l'eBox sol. Siusplau, espera fins que "
-"s'acabi."
+"Hi ha un script que ha demanat exclusivament corre en Zentyal. Si us plau, "
+"espera fins que s'acabi."
 
 #: src/EBox/CGI/Login/Index.pm:67
 msgid "Incorrect password"
-msgstr "Contrasenya incorrecta."
+msgstr "Contrasenya incorrecta"
 
 #: src/EBox/CGI/Login/Index.pm:70
 msgid "For security reasons your session has expired due to inactivity"
@@ -1605,8 +1605,8 @@ msgid ""
 "Module {mod} has not saved changes. Before doing the backup you must save or "
 "discard them"
 msgstr ""
-"El módul {mod} no ha desat els canvis- Abans de fer el backup els hauries de "
-"guradar o descartar."
+"El mòdul {mod} no ha desat els canvis. Abans de fer el backup els hauries de "
+"desar o descartar."
 
 #: src/EBox/Backup.pm:847
 msgid "Incorrect or corrupt backup file"
@@ -1614,7 +1614,7 @@ msgstr "El fitxer de còpia de seguretat és incorrecte o corromput"
 
 #: src/EBox/Backup.pm:876
 msgid "The backup file is corrupt: could not open archive"
-msgstr "El fitxer de còpia de seguretat és corrupte: No es pot obrir l'arxiu."
+msgstr "El fitxer de còpia de seguretat és corrupte: no es pot obrir l'arxiu"
 
 #: src/EBox/Backup.pm:888
 msgid "The backup file is corrupt: could not open backup checksum"
@@ -1632,17 +1632,17 @@ msgid ""
 "The backup archive has a invalid type. Maybe the file is corrupt or you are "
 "using a incompatible Zentyal version"
 msgstr ""
-"L'arxiu de backup es d'un tipus invalid. Potser l'arxiu està corrompit o bé "
-"estàs fent servir una versió d'eBox incompatible"
+"L'arxiu de backup es d'un tipus invalid. Potser l'arxiu està corromput o bé "
+"estàs fent servir una versió de Zentyal incompatible"
 
 #: src/EBox/Backup.pm:919
 msgid ""
 "The archive does not contain a full backup, that made a full restore "
 "impossibe. A configuration recovery  may be possible"
 msgstr ""
-"L'arxiu no conté un backup complet, aixó farà que sigui impossible una "
+"L'arxiu no conté un backup complet, això farà que sigui impossible una "
 "restauració completa. Una recuperació de la configuració hauria de ser "
-"posssible."
+"possible"
 
 #: src/EBox/Backup.pm:954
 #, perl-brace-format
@@ -1650,17 +1650,18 @@ msgid ""
 "There in not enough space left in the hard disk to complete the restore "
 "proccess. {size} Kb required. Free sufficient space and retry"
 msgstr ""
-"No hi ha espai lliure suficient al disc dur per completar el procès de "
-"recuperació. {size} kb. Allibera espai suficient i torna-ho a provar."
+"No hi ha espai lliure suficient al disc dur per completar el procés de "
+"recuperació. {size} Kb requerida. Allibera espai suficient i torna-ho a "
+"provar."
 
 #: src/EBox/Backup.pm:1233
 #, perl-brace-format
 msgid "No module {m} found in backup"
-msgstr "No s'ha trobat cap módul {m} al backup"
+msgstr "No s'ha trobat cap mòdul {m} al backup"
 
 #: src/EBox/Backup.pm:1256
 msgid "No modules to restore"
-msgstr "No hi ha móduls per restaurar"
+msgstr "No hi ha mòduls per restaurar"
 
 #: src/EBox/Backup.pm:1311
 #, perl-brace-format
@@ -1668,7 +1669,7 @@ msgid ""
 "Unresolved restore dependency for module {topModule}: {modName} is not "
 "installed"
 msgstr ""
-"Dependencia no resolta al restaurar per el módul {topModule}: {modName} no "
+"Dependència no resolta al restaurar per el mòdul {topModule}: {modName} no "
 "està instal.lat."
 
 #: src/EBox/Backup.pm:1354
@@ -1685,13 +1686,12 @@ msgid "Community Resources"
 msgstr "Configuració de la restauració"
 
 #: src/templates/links-widget.mas:10
-#, fuzzy
 msgid "Documentation"
-msgstr "Domini"
+msgstr "Documentació"
 
 #: src/templates/links-widget.mas:12
 msgid "Forum"
-msgstr ""
+msgstr "Fòrum"
 
 #: src/templates/links-widget.mas:14
 msgid "Report a bug"
@@ -1702,8 +1702,9 @@ msgid "How to Contribute"
 msgstr ""
 
 #: src/templates/moduleStatusTable.mas:59
+#, fuzzy
 msgid "Depends"
-msgstr "Depen"
+msgstr "Depèn"
 
 #: src/templates/moduleStatusTable.mas:60 src/templates/report/raid.mas:104
 msgid "Status"

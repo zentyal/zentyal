@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-dhcp 0.12\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-08-28 23:34+0200\n"
-"PO-Revision-Date: 2010-08-27 13:27+0200\n"
+"PO-Revision-Date: 2010-08-28 23:24+0200\n"
 "Last-Translator: Robert Brzozowski <gnutar1@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
@@ -34,7 +34,7 @@ msgstr "Protokół DHCP"
 #: src/EBox/Composite/OptionsTab.pm:86
 #, perl-brace-format
 msgid "interface {iface}"
-msgstr "Interfejs {iface}"
+msgstr "interfejs {iface}"
 
 #: src/EBox/Model/DynamicDNS.pm:131 src/EBox/Model/DynamicDNS.pm:139
 #: src/EBox/Model/DynamicDNS.pm:386
@@ -221,7 +221,7 @@ msgstr "Następny serwer"
 #: src/EBox/Model/Options.pm:404 src/EBox/Model/Options.pm:408
 #: src/EBox/Model/Options.pm:422 src/EBox/Model/Options.pm:455
 msgid "None"
-msgstr "Żaden"
+msgstr "Żadne"
 
 #: src/EBox/Model/ThinClientOptions.pm:245
 msgid "name"
@@ -370,6 +370,8 @@ msgid ""
 "The selected domain will complete on your clients those DNS queries which "
 "are not fully qualified"
 msgstr ""
+"Wskazana domena zostanie ustawiona dla klientów, których kwerendy DNS nie są "
+"w pełni kwalifikowane"
 
 #: src/EBox/Model/Options.pm:479 src/templates/options.mas:41
 msgid "Primary nameserver"
@@ -421,6 +423,10 @@ msgid ""
 "domains on Zentyal might be chosen. All fields are optionals setting its "
 "value as \"None\" or leaving blank."
 msgstr ""
+"Jeśli zaznaczysz \"skonfigurowane\" jako brama domyślna, możesz wybrać jedną "
+"ze skonfigurowanych bram. Dla opcji \"wyszukaj domenę\" możesz wybrać jedną ze "
+"skonfigurowanych domen. Wszystkie pola są domyślnie ustawione jako \"żadne\" "
+"lub pozostają puste."
 
 #: src/EBox/Model/RangeTable.pm:117
 #, perl-brace-format
