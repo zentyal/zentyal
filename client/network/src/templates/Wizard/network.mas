@@ -21,7 +21,7 @@ my @ifaces = ( @extifaces, @intifaces );
 <h3><% __('Network interfaces') %></h3>
 <form method="post" action="./Network/Wizard/Network" style="text-align: center">
         <div><img src="/data/images/interfaces.png" /></div>
-        <h4><% __('Configure network for external interfaces') %></h4>
+        <h4><% __('Configure network') %></h4>
         <div><% __('Now you can set IP addresses and networks for each interface') %></div>
 % foreach my $iface ( @ifaces ) {
         <div style="margin: 30px">
