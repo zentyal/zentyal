@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-zarafa 0.12\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-07-21 00:33+0200\n"
+"POT-Creation-Date: 2010-08-28 20:28+0200\n"
 "PO-Revision-Date: 2010-01-27 18:26+0100\n"
 "Last-Translator: Vadim Glyshkov <plusv@yandex.ru>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
@@ -17,125 +17,315 @@ msgstr ""
 "10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: migration/0001_add_firewall_services.pl:30 src/EBox/Jabber.pm:221
+#: migration/0001_add_firewall_services.pl:30
 #, fuzzy
-msgid "Jabber Server"
+msgid "Zarafa Server"
 msgstr "Jabber сервер"
 
-#: src/EBox/JabberLdapUser.pm:263
+#: src/EBox/ZarafaLdapUser.pm:239
+#, fuzzy
 msgid ""
-"This user has a jabber account. If the user currently connected it will "
-"continue connected until jabber authorization is again required."
+"This user has a Zarafa account. If the user currently connected it will "
+"continue connected until Zarafa authorization is again required."
 msgstr ""
 "Этот пользователь имеет учетную запись jabber. Если пользователь сейчас "
 "подключен, он будет продолжать оставаться на связи пока не потребуется "
 "заново авторизоваться."
 
-#: src/EBox/Jabber.pm:56
-msgid "Add Jabber LDAP schema"
+#: src/EBox/Zarafa.pm:64
+#, fuzzy
+msgid "Add Zarafa LDAP schema"
 msgstr "Добавить схему Jabber LDAP"
 
-#: src/EBox/Jabber.pm:57
+#: src/EBox/Zarafa.pm:65
 #, fuzzy
-msgid "eBox will need this schema to store Jabber users."
+msgid "Zentyal will need this schema to store Zarafa users."
 msgstr "eBox необходима данная схема для хранения пользователей jabber"
 
-#: src/EBox/Jabber.pm:73
+#: src/EBox/Zarafa.pm:69
+msgid "Add vmail system user"
+msgstr ""
+
+#: src/EBox/Zarafa.pm:70
+msgid "Zentyal will need this to deliver mail to Zarafa."
+msgstr ""
+
+#: src/EBox/Zarafa.pm:74
+msgid "Create MySQL Zarafa database."
+msgstr ""
+
+#: src/EBox/Zarafa.pm:75
+msgid "This database will store the data needed by Zarafa."
+msgstr ""
+
+#: src/EBox/Zarafa.pm:79
+msgid "Create default SSL key/certificates."
+msgstr ""
+
+#: src/EBox/Zarafa.pm:80
+msgid ""
+"This self-signed default certificates will be used by Zarafa POP3/IMAP "
+"gateway."
+msgstr ""
+
+#: src/EBox/Zarafa.pm:84
+msgid "Add zarafa link to www data directory."
+msgstr ""
+
+#: src/EBox/Zarafa.pm:85
+msgid "Zarafa will be accesible at http://ip/webaccess/."
+msgstr ""
+
+#: src/EBox/Zarafa.pm:103
 #, fuzzy
-msgid "To properly configure ejabberd."
+msgid "To properly configure Zarafa."
 msgstr "Правильно настроить jabberd2"
 
-#: src/EBox/CGI/JabberUserOptions.pm:45
-msgid "username"
-msgstr "имя пользователя"
-
-#: src/EBox/Jabber/Model/GeneralSettings.pm:92 src/templates/jabber.mas:22
-#: src/templates/jabber.mas:25
-msgid "Disabled"
-msgstr "Отключено"
-
-#: src/EBox/Jabber/Model/GeneralSettings.pm:93
-msgid "Allow SSL"
-msgstr ""
-
-#: src/EBox/Jabber/Model/GeneralSettings.pm:94
-msgid "Force SSL"
-msgstr ""
-
-#: src/EBox/Jabber/Model/GeneralSettings.pm:113
+#: src/EBox/Zarafa.pm:108
 #, fuzzy
-msgid "Jabber domain"
+msgid "To properly configure Zarafa LDAP connection."
+msgstr "Правильно настроить jabberd2"
+
+#: src/EBox/Zarafa.pm:113
+#, fuzzy
+msgid "To properly configure Zarafa webaccess."
+msgstr "Правильно настроить jabberd2"
+
+#: src/EBox/Zarafa.pm:118
+#, fuzzy
+msgid "To properly configure Zarafa gateway server."
+msgstr "Правильно настроить jabberd2"
+
+#: src/EBox/Zarafa.pm:123
+#, fuzzy
+msgid "To properly configure Zarafa quota monitoring server."
+msgstr "Правильно настроить jabberd2"
+
+#: src/EBox/Zarafa.pm:128
+#, fuzzy
+msgid "To properly configure Zarafa mail delivering server."
+msgstr "Правильно настроить jabberd2"
+
+#: src/EBox/Zarafa.pm:133
+#, fuzzy
+msgid "To properly configure Zarafa ical server."
+msgstr "Правильно настроить jabberd2"
+
+#: src/EBox/Zarafa.pm:138
+#, fuzzy
+msgid "To properly configure Zarafa indexing server."
+msgstr "Правильно настроить jabberd2"
+
+#: src/EBox/Zarafa.pm:452
+msgid "Zarafa Gateway Server"
+msgstr ""
+
+#: src/EBox/Zarafa/Model/Quota.pm:75
+msgid "Maximum mailbox size"
+msgstr ""
+
+#: src/EBox/Zarafa/Model/Quota.pm:77
+msgid "When a mailbox reaches this size futher messages will be rejected."
+msgstr ""
+
+#: src/EBox/Zarafa/Model/Quota.pm:81
+msgid "Unlimited size"
+msgstr ""
+
+#: src/EBox/Zarafa/Model/Quota.pm:85
+msgid "Limited to"
+msgstr ""
+
+#: src/EBox/Zarafa/Model/Quota.pm:96
+msgid "Warn user over"
+msgstr ""
+
+#: src/EBox/Zarafa/Model/Quota.pm:109
+msgid "Stop user sending mails over"
+msgstr ""
+
+#: src/EBox/Zarafa/Model/Quota.pm:124
+#, fuzzy
+msgid "Quota configuration settings"
+msgstr "Общая конфигурация"
+
+#: src/EBox/Zarafa/Model/Quota.pm:129
+#, fuzzy
+msgid "Zarafa server quota configuration settings updated."
+msgstr "Общая конфигурация"
+
+#: src/EBox/Zarafa/Model/ZarafaUser.pm:49
+#, fuzzy
+msgid "Groupware Account"
 msgstr "Аккаунт Jabber"
 
-#: src/EBox/Jabber/Model/GeneralSettings.pm:119
-msgid "SSL support"
-msgstr "Поддержка SSL"
+#: src/EBox/Zarafa/Model/ZarafaUser.pm:57
+msgid "Zarafa"
+msgstr ""
 
-#: src/EBox/Jabber/Model/GeneralSettings.pm:126
-msgid "Connect to other servers"
-msgstr "Соединиться с другими серверами"
+#: src/EBox/Zarafa/Model/Gateways.pm:95
+#, perl-brace-format
+msgid ""
+"To enable Zarafa {service} gateway you must disable {service} mail retrieval "
+"service. You can do it at {ohref}Mail General Configuration{chref}."
+msgstr ""
 
-#: src/EBox/Jabber/Model/GeneralSettings.pm:132
-msgid "Enable MUC (Multi User Chat)"
-msgstr "Включить MUC (Multi User Chat)"
+#: src/EBox/Zarafa/Model/Gateways.pm:129
+#, perl-brace-format
+msgid ""
+"To enable Zarafa POP3 and IMAP gateways you need at least one virtual "
+"domain. You can do it at {ohref}Virtual Mail Domains{chref}."
+msgstr ""
 
-#: src/EBox/Jabber/Model/GeneralSettings.pm:141
+#: src/EBox/Zarafa/Model/Gateways.pm:151
+msgid "Enable POP3 gateway"
+msgstr ""
+
+#: src/EBox/Zarafa/Model/Gateways.pm:157
+msgid "Enable POP3S gateway"
+msgstr ""
+
+#: src/EBox/Zarafa/Model/Gateways.pm:163
+msgid "Enable IMAP gateway"
+msgstr ""
+
+#: src/EBox/Zarafa/Model/Gateways.pm:169
+msgid "Enable IMAPS gateway"
+msgstr ""
+
+#: src/EBox/Zarafa/Model/Gateways.pm:180
+#, fuzzy
+msgid "Zarafa gateways configuration settings"
+msgstr "Общая конфигурация"
+
+#: src/EBox/Zarafa/Model/Gateways.pm:185
+#, fuzzy
+msgid "Zarafa gateways configuration settings updated."
+msgstr "Общая конфигурация"
+
+#: src/EBox/Zarafa/Model/Gateways.pm:188
+msgid ""
+"Zarafa gateways allow access to users mailboxes using POP3 and IMAP "
+"protocols."
+msgstr ""
+
+#: src/EBox/Zarafa/Model/VMailDomain.pm:50
+msgid "No domain selected"
+msgstr ""
+
+#: src/EBox/Zarafa/Model/VMailDomain.pm:95
+#, perl-brace-format
+msgid ""
+"To configure Zarafa you must have at least one virtual mail domain. You can "
+"define one at {ohref}Virtual Domains{chref}."
+msgstr ""
+
+#: src/EBox/Zarafa/Model/VMailDomain.pm:122
+msgid ""
+"The deleted virtual domain was selected for Zarafa. Maybe you want to select "
+"another one now."
+msgstr ""
+
+#: src/EBox/Zarafa/Model/VMailDomain.pm:149
+msgid "Virtual domain"
+msgstr ""
+
+#: src/EBox/Zarafa/Model/VMailDomain.pm:158
+msgid "Virtual mail domain"
+msgstr ""
+
+#: src/EBox/Zarafa/Model/VMailDomain.pm:163
+msgid "Select the virtual mail domain to be used for Zarafa."
+msgstr ""
+
+#: src/EBox/Zarafa/Model/GeneralSettings.pm:74
+msgid "Enable Spell Checking"
+msgstr ""
+
+#: src/EBox/Zarafa/Model/GeneralSettings.pm:77
+msgid "Enable spell checking on Zarafa Webaccess."
+msgstr ""
+
+#: src/EBox/Zarafa/Model/GeneralSettings.pm:81
+msgid "Enable Active Sync"
+msgstr ""
+
+#: src/EBox/Zarafa/Model/GeneralSettings.pm:85
+msgid "Enable Active Sync (Microsoft Exchange syncronization protocol)."
+msgstr ""
+
+#: src/EBox/Zarafa/Model/GeneralSettings.pm:89
+msgid "Virtual host"
+msgstr ""
+
+#: src/EBox/Zarafa/Model/GeneralSettings.pm:95
+msgid ""
+"Enable Zarafa access only on this virtual host under /webaccess and /"
+"webaccess-mobile."
+msgstr ""
+
+#: src/EBox/Zarafa/Model/GeneralSettings.pm:102
 #, fuzzy
 msgid "General configuration settings"
 msgstr "Общая конфигурация"
 
-#: src/EBox/Jabber/Model/GeneralSettings.pm:146
-msgid "General Jabber server configuration settings updated."
+#: src/EBox/Zarafa/Model/GeneralSettings.pm:107
+#, fuzzy
+msgid "General Zarafa server configuration settings updated."
+msgstr "Общая конфигурация"
+
+#: src/EBox/Zarafa/Model/GeneralSettings.pm:119 src/templates/zarafa.mas:22
+#: src/templates/zarafa.mas:25
+msgid "Disabled"
+msgstr "Отключено"
+
+#: src/EBox/Zarafa/Model/GeneralSettings.pm:149
+msgid ""
+"The deleted virtual host was selected for Zarafa. Maybe you want to select "
+"another one now."
 msgstr ""
 
-#: src/EBox/Jabber/Model/JabberUser.pm:50
-msgid "Jabber Account"
-msgstr "Аккаунт Jabber"
-
-#: src/EBox/Jabber/Model/JabberUser.pm:58
-#: src/EBox/Jabber/Composite/General.pm:67
-msgid "Jabber"
-msgstr "Jabber"
-
-#: src/EBox/Jabber/Composite/General.pm:66
+#: src/EBox/Zarafa/Composite/General.pm:67
 #, fuzzy
 msgid "Configuration"
 msgstr "Общая конфигурация"
 
-#: src/templates/jabber.mas:8
+#: src/EBox/Zarafa/Composite/General.pm:68
+msgid "Groupware (Zarafa)"
+msgstr ""
+
+#: src/EBox/Zarafa/Composite/General.pm:70
+msgid ""
+"You can access the Zarafa web interface at http://zentyal_ip/webaccess and "
+"the mobile version at http://zentyal_ip/webaccess-mobile."
+msgstr ""
+
+#: src/EBox/CGI/ZarafaUserOptions.pm:46
+msgid "username"
+msgstr "имя пользователя"
+
+#: src/templates/zarafa.mas:8
 #, fuzzy
-msgid "Jabber account"
+msgid "Zarafa account"
 msgstr "Аккаунт Jabber"
 
-#: src/templates/jabber.mas:17
+#: src/templates/zarafa.mas:17
 msgid "User account"
 msgstr "Аккаунт пользователя"
 
-#: src/templates/jabber.mas:23 src/templates/jabber.mas:26
+#: src/templates/zarafa.mas:23 src/templates/zarafa.mas:26
 msgid "Enabled"
 msgstr "Включено"
 
-#: src/templates/jabber.mas:33
+#: src/templates/zarafa.mas:34
 msgid "Administration rights"
 msgstr "Административные права"
 
-#: src/templates/jabber.mas:47 src/templates/jabber.mas:48
+#: src/templates/zarafa.mas:46
+msgid "Zarafa takes quota settings from mail account settings."
+msgstr ""
+
+#: src/templates/zarafa.mas:54 src/templates/zarafa.mas:55
 msgid "Change"
 msgstr "Изменить"
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
