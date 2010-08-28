@@ -1,5 +1,5 @@
 HEAD
-	+ Fixed network wizard string
+	+ Fixed network wizard interface and logic
 1.5.8
 	+ Added options for internal ifaces in wizard configuration
 	+ Bug fix: disabling global proxy configuration didn't work

@@ -81,17 +81,30 @@ sub _processWizard
             $net->setIfaceStatic($iface, $addr, $nmask, undef, 1);
 
             if ($gw ne '') {
-                my $gwModel = $net->model('GatewayTable');
-                $gwModel->add(name      => 'default',
-                        ip        => $gw,
-                        interface => $iface,
-                        weight    => 1,
-                        default   => 1);
+                try {
+                    my $gwModel = $net->model('GatewayTable');
+                    $gwModel->add(name      => $gw,
+                            ip        => $gw,
+                            interface => $iface,
+                            weight    => 1,
+                            default   => 1);
+                }
+                # ignore errors (probably gateway already exists)
+                otherwise {};
             }
 
+
             my $dnsModel = $net->model('DNSResolver');
-            if ($dns1 ne '') { $dnsModel->add(nameserver => $dns1); }
-            if ($dns2 ne '') { $dnsModel->add(nameserver => $dns2); }
+            if ($dns1 ne '') {
+                try {
+                    $dnsModel->add(nameserver => $dns1);
+                } otherwise {};
+            }
+            if ($dns2 ne '') {
+                try {
+                    $dnsModel->add(nameserver => $dns2);
+                } otherwise {};
+            }
         }
     }
 }
