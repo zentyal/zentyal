@@ -2533,9 +2533,16 @@ sub defaultGroup
 sub authUser
 {
     my ($self, $user, $password) = @_;
+
+    my $authorized = 0;
     my $ldap = EBox::Ldap::safeConnect(EBox::Ldap::LDAPI);
-    EBox::Ldap::safeBind($ldap, $self->userDn($user), $password);
-    return 1;
+    try {
+        EBox::Ldap::safeBind($ldap, $self->userDn($user), $password);
+        $authorized = 1; # auth ok
+    } otherwise {
+        $authorized = 0; # auth failed
+    };
+    return $authorized;
 }
 
 sub shaHasher
