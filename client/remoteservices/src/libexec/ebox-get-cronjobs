@@ -25,60 +25,53 @@ use EBox::RemoteServices::Jobs;
 use EBox::Sudo;
 use Fcntl ':mode';
 use File::Glob ':globally';
-use File::Path;
+use File::Basename;
 use File::Slurp;
 use Getopt::Long;
 use Pod::Usage;
 use YAML::Tiny;
+use EBox::RemoteServices::Server::JobReceiver;
+
 
 # Get the cron jobs from the CC
 sub _getCronJobs
 {
-    # Notify CC
+    # get cronjobs from CC
     my $getter = new EBox::RemoteServices::Jobs();
     my $cronJobs = $getter->cronJobs();
-    foreach my $cronJob (@{$cronJobs}) {
-        my $jobId    = $cronJob->{jobId};
-        my $dirName  = EBox::RemoteServices::Configuration::CronJobPrefix() . $jobId;
-        my $dirPath  = EBox::RemoteServices::Configuration::JobsDir() . $dirName;
+    EBox::RemoteServices::Server::JobReceiver->addCronJobs($cronJobs);
 
-        # Write down the YAML cron job metadata file
-        my $yaml;
-        if ( -d $dirPath and -f "$dirPath/conf.yaml") {
-            $yaml = YAML::Tiny->read("$dirPath/conf.yaml");
-        } else {
-            unless ( -d $dirPath ) {
-                File::Path::mkpath($dirPath);
-            }
-            $yaml = new YAML::Tiny();
-            $yaml->[0]->{lastTimestamp} = 0;
-        }
-        $yaml->[0]->{period} = $cronJob->{period};
-        $yaml->write("$dirPath/conf.yaml");
-
-        # Write down the script
-        File::Slurp::write_file( "$dirPath/script", $cronJob->{script});
-        # Make the script executable to everyone
-        my $perm = (stat("$dirPath/script"))[2];
-        chmod($perm | S_IXUSR | S_IXGRP | S_IXOTH , "$dirPath/script");
-        # No arguments yet
-        File::Slurp::write_file( "$dirPath/args",  '');
-    }
 
     my $cronPrefix = EBox::RemoteServices::Configuration::CronJobPrefix();
     my $baseDir    = EBox::RemoteServices::Configuration::JobsDir();
-    # Delete those cron jobs that no longer lives in Zentyal Cloud
-    my @currentJobIds = map { $_->{jobId} } @{$cronJobs};
-    my @allJobIds     = <$baseDir/$cronPrefix*>;
-    @allJobIds = map { m/([0-9]+)/ } @allJobIds;
 
-    my %currentCount;
-    foreach my $id (@currentJobIds) {
-        $currentCount{$id}++;
-    }
+    # Delete those cron jobs that no longer lives in Zentyal Cloud
+
+    my %currentJob = map { $_->{jobId} => 1 } @{$cronJobs};
+
+
+    my @allJobIds     = <$baseDir$cronPrefix*>;
+    @allJobIds = map { 
+                         my ($basename) = fileparse($_);
+                         $basename =~ m{^$cronPrefix(.*)$};
+                         $1
+                     } @allJobIds;
+
+
     foreach my $id (@allJobIds) {
-        unless ( exists $currentCount{$id} ) {
-            EBox::Sudo::root("rm -rf $baseDir/${cronPrefix}$id");
+        unless ( exists $currentJob{$id} ) {
+            my $dirPath = "$baseDir/${cronPrefix}$id";
+
+            # check that is a no-cc job, if it is not leave it alone
+            if (  -f "$dirPath/conf.yaml") {
+                $yaml = YAML::Tiny->read("$dirPath/conf.yaml");
+                if (exists $yaml->[0]->{fromControlCenter}) {
+                    $yaml->[0]->{fromControlCenter} or
+                        next;
+                }
+            }
+
+            EBox::Sudo::root("rm -rf $dirPath");
         }
     }
 

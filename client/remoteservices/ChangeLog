@@ -1,3 +1,6 @@
+HEAD
+	+ Fixed bug cleaning CC control jobs, added facilities for
+	internal and no-CC job
 1.5.8
 	+ Check package installed with libapt-pkg-perl
 	+ Mark squid as changed, if enabled, when subscription process is

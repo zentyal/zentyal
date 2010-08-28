@@ -97,6 +97,23 @@ sub IncomingJobDir
 
 }
 
+
+# Method: OutcomingJobDir
+#
+#      Get where the job instances leave its results
+#
+# Returns:
+#
+#      String - the outcoming job directory path
+#
+sub OutcomingJobDir
+{
+
+    return JobsDir() . 'outcoming/';
+
+}
+
+
 # Method: CronJobPrefix
 #
 #      Return the cron job prefix directory to difference from the
