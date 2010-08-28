@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libebox 0.12.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-08-26 00:38+0200\n"
+"POT-Creation-Date: 2010-08-28 19:44+0200\n"
 "PO-Revision-Date: 2010-07-21 07:56+0200\n"
 "Last-Translator: Daniel Hedblom <daniel.hedblom@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
@@ -17,40 +17,40 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: src/EBox/Config.pm.in:76
+#: src/EBox/Config.pm.in:74
 #, perl-brace-format
 msgid "Could not open the config file {file}."
 msgstr "Kunde inte öppna konfigurationsfilen {file}."
 
-#: src/EBox/Config.pm.in:171
+#: src/EBox/Config.pm.in:169
 msgid "The ebox user has not been set in the config file."
 msgstr "eBox-användaren har inte ställts in i konfigurationsfilen."
 
-#: src/EBox/Exceptions/DataNotFound.pm:37
+#: src/EBox/Exceptions/DataNotFound.pm:35
 #, perl-brace-format
 msgid "{data} {value} does not exist."
 msgstr "{data} {value} finns inte."
 
-#: src/EBox/Exceptions/DataExists.pm:38
+#: src/EBox/Exceptions/DataExists.pm:36
 #, perl-brace-format
 msgid "{data} {value} already exists."
 msgstr "{data} {value} finns redan."
 
-#: src/EBox/Exceptions/InvalidData.pm:39
+#: src/EBox/Exceptions/InvalidData.pm:37
 #, perl-brace-format
 msgid "Invalid value for {data}: {value}."
 msgstr "Ogiltigt värde för {data}: {value}."
 
-#: src/EBox/Exceptions/DataMissing.pm:38
+#: src/EBox/Exceptions/DataMissing.pm:36
 #, perl-brace-format
 msgid "{data} is empty."
 msgstr "{data} är tom."
 
-#: src/EBox/Validate.pm:398 src/EBox/Validate.pm:412
+#: src/EBox/Validate.pm:396 src/EBox/Validate.pm:410
 msgid "Must be a number between 1 and 4096"
 msgstr "Måste vara ett nummer mellan 1 och 4096"
 
-#: src/EBox/Validate.pm:702
+#: src/EBox/Validate.pm:700
 #, perl-brace-format
 msgid ""
 "Cannot stat dir: {dir}. This may mean that the directory does not exist or "
@@ -59,13 +59,13 @@ msgstr ""
 "Kan inte läsa status på katalog: {dir}. Det kan betyda att katalogen inte "
 "finns eller att rättigheterna inte tillåter åtkomst till den"
 
-#: src/EBox/Validate.pm:707
+#: src/EBox/Validate.pm:705
 #, perl-brace-format
 msgid "The directory {dir} is not private; because it is owned by another user"
 msgstr ""
 "Katalogen {dir} är inte privat; därför att den ägs av en annan användare"
 
-#: src/EBox/Validate.pm:782
+#: src/EBox/Validate.pm:780
 msgid ""
 "The file path supplied is not valid. (Currently not all of the valid file's  "
 "characters are supported) "
@@ -73,30 +73,30 @@ msgstr ""
 "Filsökvägen som angavs är inte giltig. (För närvarande stöds inte alla av "
 "den giltiga filens tecken) "
 
-#: src/EBox/Validate.pm:810
+#: src/EBox/Validate.pm:808
 msgid "The file path must be absolute"
 msgstr "Filsökvägen måste vara absolut"
 
-#: src/EBox/Sudo.pm:267
+#: src/EBox/Sudo.pm:265
 #, perl-brace-format
 msgid "Running command '{cmd}' as {user} failed"
 msgstr "Körning av kommandot \"{cmd}\" som {user} misslyckades"
 
-#: src/EBox/FileSystem.pm:191 src/EBox/FileSystem.pm:283
+#: src/EBox/FileSystem.pm:190 src/EBox/FileSystem.pm:282
 #, perl-brace-format
 msgid "Directory not found: {d}"
 msgstr "Katalogen hittades inte: {d}"
 
-#: src/EBox/NetWrappers.pm:107 src/EBox/NetWrappers.pm:136
-#: src/EBox/NetWrappers.pm:167 src/EBox/NetWrappers.pm:269
+#: src/EBox/NetWrappers.pm:105 src/EBox/NetWrappers.pm:134
+#: src/EBox/NetWrappers.pm:165 src/EBox/NetWrappers.pm:267
 msgid "Interface"
 msgstr "Nätverksgränssnitt"
 
-#: src/EBox/CGI/EBox/PageNotFound.pm:28
+#: src/EBox/CGI/EBox/PageNotFound.pm:27
 msgid "Page not found"
 msgstr "Sidan kunde inte hittas"
 
-#: src/EBox/CGI/Base.pm:198
+#: src/EBox/CGI/Base.pm:196
 msgid ""
 "The input contains invalid characters. All alphanumeric characters, plus "
 "these non alphanumeric chars: /.?&+:-@ and spaces are allowed."
@@ -104,7 +104,7 @@ msgstr ""
 "Inmatningen innehåller ogiltiga tecken. Alla alfanumeriska tecken plus dessa "
 "icke-alfabetiska tecknen: /.?&+:-@ och blanksteg tillåts."
 
-#: src/EBox/CGI/Base.pm:349
+#: src/EBox/CGI/Base.pm:347
 msgid ""
 "An internal error related to a template has occurred. This is a bug, "
 "relevant information can be found in the logs."
@@ -112,7 +112,7 @@ msgstr ""
 "Ett internt fel relaterat till en mall har inträffat. Det här är ett "
 "programfel. Relevant information kan hittas i loggarna."
 
-#: src/EBox/CGI/Base.pm:566
+#: src/EBox/CGI/Base.pm:564
 msgid ""
 "An internal error has occurred. This is most probably a bug, relevant "
 "information can be found in the logs."
@@ -120,7 +120,7 @@ msgstr ""
 "Ett internt fel har inträffat. Det här är antagligen ett programfel. "
 "Relevant information kan hittas i loggarna."
 
-#: src/EBox/CGI/Base.pm:572
+#: src/EBox/CGI/Base.pm:570
 msgid ""
 "An unexpected internal error has occurred. This is a bug, relevant "
 "information can be found in the logs."
@@ -128,34 +128,34 @@ msgstr ""
 "Ett oväntat internt fel har inträffat. Det här är ett programfel. Relevant "
 "information kan hittas i loggarna."
 
-#: src/EBox/CGI/Base.pm:578
+#: src/EBox/CGI/Base.pm:576
 #, fuzzy
 msgid "You have just hit a bug in Zentyal. Please seek technical support."
 msgstr ""
 "Du har precis påträffat ett programfel i eBox. Kontakta teknisk support."
 
-#: src/EBox/CGI/Base.pm:664
+#: src/EBox/CGI/Base.pm:662
 msgid ""
 "Your request could not be processed because it had some incorrect parameters"
 msgstr ""
 "Din begäran kunde inte behandlas eftersom den innehöll felaktiga parametrar"
 
-#: src/EBox/CGI/Base.pm:697
+#: src/EBox/CGI/Base.pm:695
 msgid "Wrong HTTP referer detected, operation cancelled for security reasons"
 msgstr "Felaktig HTTP referer detekterad, åtgärd avbruten av säkerhhetsskäl"
 
-#: src/EBox/CGI/Base.pm:709
+#: src/EBox/CGI/Base.pm:707
 msgid ""
 "Your request could not be processed because it lacked some required "
 "parameters"
 msgstr ""
 "Din begäran kunde inte behandlas eftersom den saknade nödvändiga parametrar"
 
-#: src/EBox/CGI/Base.pm:860
+#: src/EBox/CGI/Base.pm:858
 msgid "Invalid uploaded file."
 msgstr "Ogiltig uppskickad fil."
 
-#: src/EBox/CGI/Base.pm:866
+#: src/EBox/CGI/Base.pm:864
 msgid "Cannot create a temporally file for the upload"
 msgstr "Kan inte skapa en temporärfil för sändningen"
 
@@ -334,4 +334,3 @@ msgstr "Inaktiverad"
 #: src/templates/enable.mas:22 src/templates/enable.mas:25
 msgid "Enabled"
 msgstr "Aktiverad"
-

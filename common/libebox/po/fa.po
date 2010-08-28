@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libebox 0.12.100\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-08-26 00:38+0200\n"
+"POT-Creation-Date: 2010-08-28 19:44+0200\n"
 "PO-Revision-Date: 2009-02-04 06:31+0000\n"
 "Last-Translator: Zahra Khani <belendax@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
@@ -16,40 +16,40 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: src/EBox/Config.pm.in:76
+#: src/EBox/Config.pm.in:74
 #, perl-brace-format
 msgid "Could not open the config file {file}."
 msgstr "نمی توان فایل پیکربندی {file} را باز کرد."
 
-#: src/EBox/Config.pm.in:171
+#: src/EBox/Config.pm.in:169
 msgid "The ebox user has not been set in the config file."
 msgstr "کاربر ebox در فایل پیکربندی تنظیم نشده است"
 
-#: src/EBox/Exceptions/DataNotFound.pm:37
+#: src/EBox/Exceptions/DataNotFound.pm:35
 #, perl-brace-format
 msgid "{data} {value} does not exist."
 msgstr "{data} {value} موجود نمی باشند"
 
-#: src/EBox/Exceptions/DataExists.pm:38
+#: src/EBox/Exceptions/DataExists.pm:36
 #, perl-brace-format
 msgid "{data} {value} already exists."
 msgstr "{data} {value} از قبل وجود دارند"
 
-#: src/EBox/Exceptions/InvalidData.pm:39
+#: src/EBox/Exceptions/InvalidData.pm:37
 #, perl-brace-format
 msgid "Invalid value for {data}: {value}."
 msgstr "ارزش برای {data}: {value} نامعتبر می باشد"
 
-#: src/EBox/Exceptions/DataMissing.pm:38
+#: src/EBox/Exceptions/DataMissing.pm:36
 #, perl-brace-format
 msgid "{data} is empty."
 msgstr "{data} خالی می باشد"
 
-#: src/EBox/Validate.pm:398 src/EBox/Validate.pm:412
+#: src/EBox/Validate.pm:396 src/EBox/Validate.pm:410
 msgid "Must be a number between 1 and 4096"
 msgstr ""
 
-#: src/EBox/Validate.pm:702
+#: src/EBox/Validate.pm:700
 #, fuzzy, perl-brace-format
 msgid ""
 "Cannot stat dir: {dir}. This may mean that the directory does not exist or "
@@ -58,12 +58,12 @@ msgstr ""
 "Cannot stat dir: {dir} این ممکن است به این معنی باشد که دایرکتوری موجود نمی "
 "باشد یا مجوزها دسترسی به آن را منع کرده اند"
 
-#: src/EBox/Validate.pm:707
+#: src/EBox/Validate.pm:705
 #, perl-brace-format
 msgid "The directory {dir} is not private; because it is owned by another user"
 msgstr "دایرکتوری {dir} خصوصی نمی باشد؛ زیرا توسط کاربر دیگری شخصی شده است"
 
-#: src/EBox/Validate.pm:782
+#: src/EBox/Validate.pm:780
 msgid ""
 "The file path supplied is not valid. (Currently not all of the valid file's  "
 "characters are supported) "
@@ -71,30 +71,30 @@ msgstr ""
 "مسیر تعیین شده برای فایل معتبر نمی باشد. (در حال حاضر تمام کاراکتر های معتبر "
 "فایل پشتیبانی نمی شوند)"
 
-#: src/EBox/Validate.pm:810
+#: src/EBox/Validate.pm:808
 msgid "The file path must be absolute"
 msgstr "مسیر فایل باید کامل باشد"
 
-#: src/EBox/Sudo.pm:267
+#: src/EBox/Sudo.pm:265
 #, perl-brace-format
 msgid "Running command '{cmd}' as {user} failed"
 msgstr "اجرای فرمان '{cmd}' به عنوان {user} با شکست مواجه شده است"
 
-#: src/EBox/FileSystem.pm:191 src/EBox/FileSystem.pm:283
+#: src/EBox/FileSystem.pm:190 src/EBox/FileSystem.pm:282
 #, perl-brace-format
 msgid "Directory not found: {d}"
 msgstr "دایرکتوری پیدا نشد: {d}"
 
-#: src/EBox/NetWrappers.pm:107 src/EBox/NetWrappers.pm:136
-#: src/EBox/NetWrappers.pm:167 src/EBox/NetWrappers.pm:269
+#: src/EBox/NetWrappers.pm:105 src/EBox/NetWrappers.pm:134
+#: src/EBox/NetWrappers.pm:165 src/EBox/NetWrappers.pm:267
 msgid "Interface"
 msgstr "واسط"
 
-#: src/EBox/CGI/EBox/PageNotFound.pm:28
+#: src/EBox/CGI/EBox/PageNotFound.pm:27
 msgid "Page not found"
 msgstr "صفحه مورد نظر یافت نشد"
 
-#: src/EBox/CGI/Base.pm:198
+#: src/EBox/CGI/Base.pm:196
 msgid ""
 "The input contains invalid characters. All alphanumeric characters, plus "
 "these non alphanumeric chars: /.?&+:-@ and spaces are allowed."
@@ -102,7 +102,7 @@ msgstr ""
 "ورودی شامل کاراکتر های نامعتبر می باشد. تمامی حروف الفبا و اعداد به علاوه "
 "کاراکتر های : /.?&+:-@ و فاصله ها مجاز می باشند"
 
-#: src/EBox/CGI/Base.pm:349
+#: src/EBox/CGI/Base.pm:347
 msgid ""
 "An internal error related to a template has occurred. This is a bug, "
 "relevant information can be found in the logs."
@@ -110,7 +110,7 @@ msgstr ""
 "یک خطای داخلی مرتبط به یک قالب رخ داده است. این یک اشکال است، اطلاعات مرتبط "
 "می تواند در فایل های ثبت وقایع یافت شود"
 
-#: src/EBox/CGI/Base.pm:566
+#: src/EBox/CGI/Base.pm:564
 #, fuzzy
 msgid ""
 "An internal error has occurred. This is most probably a bug, relevant "
@@ -119,7 +119,7 @@ msgstr ""
 "یک خطای داخلی رخ داده است. این مساله ممکن است یک اشکال باشد، اطلاعات مرتبط "
 "می تواند در فایل های ثبت وقایع یافت شود"
 
-#: src/EBox/CGI/Base.pm:572
+#: src/EBox/CGI/Base.pm:570
 #, fuzzy
 msgid ""
 "An unexpected internal error has occurred. This is a bug, relevant "
@@ -128,23 +128,23 @@ msgstr ""
 "یک خطای غیر منتظره رخ داده است. این یک اشکال است، اطلاعات مرتبط می تواند در "
 "فایل های ثبت وقایع یافت شود"
 
-#: src/EBox/CGI/Base.pm:578
+#: src/EBox/CGI/Base.pm:576
 #, fuzzy
 msgid "You have just hit a bug in Zentyal. Please seek technical support."
 msgstr ""
 "شما تنها به یک مشکل در eBox برخورده اید. لطفا پشتیبانی فنی را جستجو کنید"
 
-#: src/EBox/CGI/Base.pm:664
+#: src/EBox/CGI/Base.pm:662
 msgid ""
 "Your request could not be processed because it had some incorrect parameters"
 msgstr ""
 "تقاضای شما نمی تواند پردازش شود زیرا شامل تعدادی از پارامترهای نادرست می باشد"
 
-#: src/EBox/CGI/Base.pm:697
+#: src/EBox/CGI/Base.pm:695
 msgid "Wrong HTTP referer detected, operation cancelled for security reasons"
 msgstr ""
 
-#: src/EBox/CGI/Base.pm:709
+#: src/EBox/CGI/Base.pm:707
 msgid ""
 "Your request could not be processed because it lacked some required "
 "parameters"
@@ -152,11 +152,11 @@ msgstr ""
 "تقاضای شما نمی تواند پردازش شود زیرا فاقد تعدادی از پارامترهای مورد نیاز می "
 "باشد"
 
-#: src/EBox/CGI/Base.pm:860
+#: src/EBox/CGI/Base.pm:858
 msgid "Invalid uploaded file."
 msgstr "فایل آپلود شده نامعتبر می باشد."
 
-#: src/EBox/CGI/Base.pm:866
+#: src/EBox/CGI/Base.pm:864
 msgid "Cannot create a temporally file for the upload"
 msgstr "نمی توان یک فایل موقتی برای آپلود ساخت"
 

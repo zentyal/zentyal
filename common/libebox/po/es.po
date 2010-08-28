@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libebox 0.12.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-08-26 00:38+0200\n"
+"POT-Creation-Date: 2010-08-28 19:44+0200\n"
 "PO-Revision-Date: 2010-08-25 23:04+0200\n"
 "Last-Translator: José Antonio Calvo <jacalvo@ebox-platform.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
@@ -15,41 +15,41 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: src/EBox/Config.pm.in:76
+#: src/EBox/Config.pm.in:74
 #, perl-brace-format
 msgid "Could not open the config file {file}."
 msgstr "No se pudo abrir el fichero de configuración {file}"
 
-#: src/EBox/Config.pm.in:171
+#: src/EBox/Config.pm.in:169
 msgid "The ebox user has not been set in the config file."
 msgstr ""
 "El usuario de ebox no ha sido establecido en el fichero de configuración."
 
-#: src/EBox/Exceptions/DataNotFound.pm:37
+#: src/EBox/Exceptions/DataNotFound.pm:35
 #, perl-brace-format
 msgid "{data} {value} does not exist."
 msgstr "{data} no existente: {value}."
 
-#: src/EBox/Exceptions/DataExists.pm:38
+#: src/EBox/Exceptions/DataExists.pm:36
 #, perl-brace-format
 msgid "{data} {value} already exists."
 msgstr "{data} ya existente: {value}."
 
-#: src/EBox/Exceptions/InvalidData.pm:39
+#: src/EBox/Exceptions/InvalidData.pm:37
 #, perl-brace-format
 msgid "Invalid value for {data}: {value}."
 msgstr "{data} inválido, valor: {value}."
 
-#: src/EBox/Exceptions/DataMissing.pm:38
+#: src/EBox/Exceptions/DataMissing.pm:36
 #, perl-brace-format
 msgid "{data} is empty."
 msgstr "Dato vacío: {data}"
 
-#: src/EBox/Validate.pm:398 src/EBox/Validate.pm:412
+#: src/EBox/Validate.pm:396 src/EBox/Validate.pm:410
 msgid "Must be a number between 1 and 4096"
 msgstr "Debe ser un número entre 1 y 4096"
 
-#: src/EBox/Validate.pm:702
+#: src/EBox/Validate.pm:700
 #, perl-brace-format
 msgid ""
 "Cannot stat dir: {dir}. This may mean that the directory does not exist or "
@@ -58,13 +58,13 @@ msgstr ""
 "No se puede leer {dir}. Es posible que el directorio no exista o que existan "
 "permisos que impiden acceder a él"
 
-#: src/EBox/Validate.pm:707
+#: src/EBox/Validate.pm:705
 #, perl-brace-format
 msgid "The directory {dir} is not private; because it is owned by another user"
 msgstr ""
 "El directorio {dir} no es privado; debido a que pertenece a otro usuario"
 
-#: src/EBox/Validate.pm:782
+#: src/EBox/Validate.pm:780
 msgid ""
 "The file path supplied is not valid. (Currently not all of the valid file's  "
 "characters are supported) "
@@ -72,30 +72,30 @@ msgstr ""
 "La ruta de archivo no es valida. (Actualmente no están soportados todos los "
 "caracteres validos para un nombre de archivo)"
 
-#: src/EBox/Validate.pm:810
+#: src/EBox/Validate.pm:808
 msgid "The file path must be absolute"
 msgstr "La ruta de archivo debe ser absoluta"
 
-#: src/EBox/Sudo.pm:267
+#: src/EBox/Sudo.pm:265
 #, perl-brace-format
 msgid "Running command '{cmd}' as {user} failed"
 msgstr "El comando '{cmd}', ejecutado como {user}, falló"
 
-#: src/EBox/FileSystem.pm:191 src/EBox/FileSystem.pm:283
+#: src/EBox/FileSystem.pm:190 src/EBox/FileSystem.pm:282
 #, perl-brace-format
 msgid "Directory not found: {d}"
 msgstr "Directorio no encontrado: {d}"
 
-#: src/EBox/NetWrappers.pm:107 src/EBox/NetWrappers.pm:136
-#: src/EBox/NetWrappers.pm:167 src/EBox/NetWrappers.pm:269
+#: src/EBox/NetWrappers.pm:105 src/EBox/NetWrappers.pm:134
+#: src/EBox/NetWrappers.pm:165 src/EBox/NetWrappers.pm:267
 msgid "Interface"
 msgstr "Interfaz"
 
-#: src/EBox/CGI/EBox/PageNotFound.pm:28
+#: src/EBox/CGI/EBox/PageNotFound.pm:27
 msgid "Page not found"
 msgstr "La página no pudo encontrarse"
 
-#: src/EBox/CGI/Base.pm:198
+#: src/EBox/CGI/Base.pm:196
 msgid ""
 "The input contains invalid characters. All alphanumeric characters, plus "
 "these non alphanumeric chars: /.?&+:-@ and spaces are allowed."
@@ -103,7 +103,7 @@ msgstr ""
 "La entrada contiene caracteres inválidos. Todos los caracteres alfanuméricos "
 "más los caracteres /.?'&+:-@ y los espacios están permitidos."
 
-#: src/EBox/CGI/Base.pm:349
+#: src/EBox/CGI/Base.pm:347
 msgid ""
 "An internal error related to a template has occurred. This is a bug, "
 "relevant information can be found in the logs."
@@ -111,7 +111,7 @@ msgstr ""
 "Se ha producido un error interno relacionado con una plantilla. Se trata de "
 "un bug, puede encontrar más información en los logs."
 
-#: src/EBox/CGI/Base.pm:566
+#: src/EBox/CGI/Base.pm:564
 msgid ""
 "An internal error has occurred. This is most probably a bug, relevant "
 "information can be found in the logs."
@@ -119,7 +119,7 @@ msgstr ""
 "Se ha producido un error interno. Probablemente se trate de un bug, puede "
 "encontrar más información en los logs."
 
-#: src/EBox/CGI/Base.pm:572
+#: src/EBox/CGI/Base.pm:570
 msgid ""
 "An unexpected internal error has occurred. This is a bug, relevant "
 "information can be found in the logs."
@@ -127,26 +127,26 @@ msgstr ""
 "Se ha producido un error interno. Se trata de un bug, puede encontrar más "
 "información en los logs."
 
-#: src/EBox/CGI/Base.pm:578
+#: src/EBox/CGI/Base.pm:576
 msgid "You have just hit a bug in Zentyal. Please seek technical support."
 msgstr ""
 "Acaba de encontrar un bug en Zentyal. Por favor, consulte a su soporte "
 "técnico."
 
-#: src/EBox/CGI/Base.pm:664
+#: src/EBox/CGI/Base.pm:662
 msgid ""
 "Your request could not be processed because it had some incorrect parameters"
 msgstr ""
 "Su petición no pudo ser procesada debido a que contenia parametros "
 "incorrectos"
 
-#: src/EBox/CGI/Base.pm:697
+#: src/EBox/CGI/Base.pm:695
 msgid "Wrong HTTP referer detected, operation cancelled for security reasons"
 msgstr ""
 "Detectada una referencia HTTP incorrecta, operación cancelada por motivos de "
 "seguridad"
 
-#: src/EBox/CGI/Base.pm:709
+#: src/EBox/CGI/Base.pm:707
 msgid ""
 "Your request could not be processed because it lacked some required "
 "parameters"
@@ -154,11 +154,11 @@ msgstr ""
 "Su petición no pudo ser procesada debido a que carece de algún parametro "
 "necesario"
 
-#: src/EBox/CGI/Base.pm:860
+#: src/EBox/CGI/Base.pm:858
 msgid "Invalid uploaded file."
 msgstr "Fichero subido inválido"
 
-#: src/EBox/CGI/Base.pm:866
+#: src/EBox/CGI/Base.pm:864
 msgid "Cannot create a temporally file for the upload"
 msgstr "No se pudo crear un fichero temporal para la subida"
 
@@ -336,4 +336,3 @@ msgstr "Deshabilitado"
 #: src/templates/enable.mas:22 src/templates/enable.mas:25
 msgid "Enabled"
 msgstr "Habilitado"
-
