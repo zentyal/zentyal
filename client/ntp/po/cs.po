@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-ntp 1.5\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-08-25 17:44+0200\n"
+"POT-Creation-Date: 2010-08-28 23:28+0200\n"
 "PO-Revision-Date: 2010-04-10 14:19+0200\n"
 "Last-Translator: tomas volse <tomas.volse@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
@@ -17,123 +17,123 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: src/EBox/CGI/AddServers.pm:44
-msgid "first ntp server"
-msgstr "první NTP server"
-
-#: src/EBox/CGI/AddServers.pm:47 src/EBox/NTP.pm:223
-#: src/templates/servers.mas:16
-msgid "Primary server"
-msgstr "Primární server"
-
-#: src/EBox/CGI/AddServers.pm:53 src/EBox/NTP.pm:237
-#: src/templates/servers.mas:27
-msgid "Secondary server"
-msgstr "Sekundární server"
-
-#: src/EBox/CGI/AddServers.pm:57 src/templates/servers.mas:38
-msgid "Tertiary server"
-msgstr "Terciární server"
-
-#: src/EBox/CGI/ChangeDate.pm:43
-msgid "Day"
-msgstr "Den"
-
-#: src/EBox/CGI/ChangeDate.pm:44
-msgid "Month"
-msgstr "Měsíc"
-
-#: src/EBox/CGI/ChangeDate.pm:45
-msgid "Year"
-msgstr "Rok"
-
-#: src/EBox/CGI/ChangeDate.pm:46
-msgid "Hour"
-msgstr "Hodina"
-
-#: src/EBox/CGI/ChangeDate.pm:47
-msgid "Minutes"
-msgstr "Minuty"
-
-#: src/EBox/CGI/ChangeDate.pm:48
-msgid "Seconds"
-msgstr "Sekundy"
-
-#: src/EBox/CGI/ChangeTimeZone.pm:43
-msgid "country"
-msgstr "země"
-
-#: src/EBox/CGI/ChangeTimeZone.pm:44
-msgid "continent"
-msgstr "kontinent"
-
-#: src/EBox/CGI/Datetime.pm:32
-msgid "Date and Time Configuration"
-msgstr "Datum a čas konfigurace"
-
-#: src/EBox/CGI/Timezone.pm:32
-msgid "Time Zone Configuration"
-msgstr "Časové pásmo konfigurace"
-
-#: src/EBox/CGI/Synch.pm:43
-msgid "external synchronize status"
-msgstr "stav externí synchronizace"
-
-#: src/EBox/NTP.pm:69
+#: src/EBox/NTP.pm:67
 msgid "Remove ntp init script links"
 msgstr "Odstranit ntp odkazy init skriptu"
 
-#: src/EBox/NTP.pm:70
+#: src/EBox/NTP.pm:68
 #, fuzzy
 msgid "Zentyal will take care of starting and stopping the services."
 msgstr "eBox se bude starat o spouštění a zastavování služeb."
 
-#: src/EBox/NTP.pm:88
+#: src/EBox/NTP.pm:86
 #, fuzzy
 msgid "NTP configuration file"
 msgstr "Časové pásmo konfigurace"
 
-#: src/EBox/NTP.pm:225
+#: src/EBox/NTP.pm:221 src/EBox/CGI/AddServers.pm:45
+#: src/templates/servers.mas:16
+msgid "Primary server"
+msgstr "Primární server"
+
+#: src/EBox/NTP.pm:223
 msgid "primary server"
 msgstr "primární server"
 
-#: src/EBox/NTP.pm:230 src/EBox/NTP.pm:249
+#: src/EBox/NTP.pm:228 src/EBox/NTP.pm:247
 msgid "Primary and secondary server must be different"
 msgstr "Primární a sekundární servery musí být odlišné"
 
-#: src/EBox/NTP.pm:233
+#: src/EBox/NTP.pm:231
 msgid "secondary server"
 msgstr "sekundární server"
 
-#: src/EBox/NTP.pm:246
+#: src/EBox/NTP.pm:235 src/EBox/CGI/AddServers.pm:51
+#: src/templates/servers.mas:27
+msgid "Secondary server"
+msgstr "Sekundární server"
+
+#: src/EBox/NTP.pm:244
 msgid "Primary and tertiary server must be different"
 msgstr "Primární a terciární servery musí být odlišné"
 
-#: src/EBox/NTP.pm:252
+#: src/EBox/NTP.pm:250
 msgid "tertiary server"
 msgstr "terciární server"
 
-#: src/EBox/NTP.pm:268
+#: src/EBox/NTP.pm:266
 #, perl-brace-format
 msgid "{name} IP address"
 msgstr "{name} IP adresa"
 
-#: src/EBox/NTP.pm:271
+#: src/EBox/NTP.pm:269
 #, perl-brace-format
 msgid "{name} host name"
 msgstr "{name} jméno počítače"
 
-#: src/EBox/NTP.pm:403
+#: src/EBox/NTP.pm:401
 msgid "System"
 msgstr "Systém"
 
-#: src/EBox/NTP.pm:406
+#: src/EBox/NTP.pm:404
 msgid "Date/Time"
 msgstr "Datum a čas"
 
-#: src/EBox/NTP.pm:409
+#: src/EBox/NTP.pm:407
 msgid "Time Zone"
 msgstr "Časové pásmo"
+
+#: src/EBox/CGI/Timezone.pm:30
+msgid "Time Zone Configuration"
+msgstr "Časové pásmo konfigurace"
+
+#: src/EBox/CGI/AddServers.pm:42
+msgid "first ntp server"
+msgstr "první NTP server"
+
+#: src/EBox/CGI/AddServers.pm:55 src/templates/servers.mas:38
+msgid "Tertiary server"
+msgstr "Terciární server"
+
+#: src/EBox/CGI/Datetime.pm:30
+msgid "Date and Time Configuration"
+msgstr "Datum a čas konfigurace"
+
+#: src/EBox/CGI/Synch.pm:41
+msgid "external synchronize status"
+msgstr "stav externí synchronizace"
+
+#: src/EBox/CGI/ChangeDate.pm:41
+msgid "Day"
+msgstr "Den"
+
+#: src/EBox/CGI/ChangeDate.pm:42
+msgid "Month"
+msgstr "Měsíc"
+
+#: src/EBox/CGI/ChangeDate.pm:43
+msgid "Year"
+msgstr "Rok"
+
+#: src/EBox/CGI/ChangeDate.pm:44
+msgid "Hour"
+msgstr "Hodina"
+
+#: src/EBox/CGI/ChangeDate.pm:45
+msgid "Minutes"
+msgstr "Minuty"
+
+#: src/EBox/CGI/ChangeDate.pm:46
+msgid "Seconds"
+msgstr "Sekundy"
+
+#: src/EBox/CGI/ChangeTimeZone.pm:41
+msgid "country"
+msgstr "země"
+
+#: src/EBox/CGI/ChangeTimeZone.pm:42
+msgid "continent"
+msgstr "kontinent"
 
 #: src/templates/servers.mas:7
 msgid "NTP servers"
@@ -147,10 +147,10 @@ msgstr ""
 "Měli byste si nastavit své časové pásmo, aby se synchronizace chovala "
 "správně."
 
-#: src/templates/servers.mas:50 src/templates/timezone.mas:33
-#: src/templates/timezone.mas:34 src/templates/synch.mas:19
+#: src/templates/servers.mas:50 src/templates/synch.mas:19
 #: src/templates/synch.mas:20 src/templates/date.mas:96
-#: src/templates/date.mas:97
+#: src/templates/date.mas:97 src/templates/timezone.mas:33
+#: src/templates/timezone.mas:34
 msgid "Change"
 msgstr "Změna"
 

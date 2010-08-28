@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-printers 0.12\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-08-25 17:48+0200\n"
+"POT-Creation-Date: 2010-08-28 23:38+0200\n"
 "PO-Revision-Date: 2007-04-22 09:45+0000\n"
 "Last-Translator: Alper orus <alperor@linux-sevenler.org>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
@@ -17,75 +17,9 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Pootle 0.10.1\n"
 
-#: migration/0001_add_ipp_service.pl:102
+#: migration/0001_add_ipp_service.pl:117
 msgid "Cups printer server port"
 msgstr ""
-
-#: src/EBox/Printers.pm:43 src/EBox/Composite/General.pm:60
-#, fuzzy
-msgid "Printer Sharing"
-msgstr "Yazıcı paylaşımı"
-
-#: src/EBox/Printers.pm:58
-#, fuzzy
-msgid "Create spool directory for printers"
-msgstr "Yazıcı için bir sürücü seçin"
-
-#: src/EBox/Printers.pm:59
-msgid "Zentyal will create a spool directory under /var/spool/samba"
-msgstr ""
-
-#: src/EBox/Printers.pm:64
-#, fuzzy
-msgid "Create log table"
-msgstr "Yaratma zamanı"
-
-#: src/EBox/Printers.pm:65
-msgid ""
-"Zentyal will create a new table into its log database to store printers logs"
-msgstr ""
-
-#: src/EBox/Printers.pm:81
-#, fuzzy
-msgid "To configure cupsd"
-msgstr "Yazıcı yapılandırılmadı"
-
-#: src/EBox/Printers.pm:223
-msgid "Job ID"
-msgstr "İş Seri No"
-
-#: src/EBox/Printers.pm:224
-msgid "Printer"
-msgstr "Yazıcı"
-
-#: src/EBox/Printers.pm:225
-msgid "User"
-msgstr "Kullanıcı"
-
-#: src/EBox/Printers.pm:226
-#, fuzzy
-msgid "Date"
-msgstr "Sil"
-
-#: src/EBox/Printers.pm:227
-msgid "Event"
-msgstr "Olay"
-
-#: src/EBox/Printers.pm:231
-msgid "Queued"
-msgstr "Sıraya atıldı"
-
-#: src/EBox/Printers.pm:232
-msgid "Completed"
-msgstr ""
-
-#: src/EBox/Printers.pm:233
-msgid "Canceled"
-msgstr "İptal edildi"
-
-#: src/EBox/Printers.pm:237
-msgid "Printers"
-msgstr "Yazıcılar"
 
 #: src/EBox/Model/CUPS.pm:142
 #, perl-brace-format
@@ -125,98 +59,68 @@ msgid ""
 "{close_href}"
 msgstr ""
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+#: src/EBox/Printers.pm:41 src/EBox/Composite/General.pm:60
 #, fuzzy
+msgid "Printer Sharing"
+msgstr "Yazıcı paylaşımı"
 
+#: src/EBox/Printers.pm:56
 #, fuzzy
+msgid "Create spool directory for printers"
+msgstr "Yazıcı için bir sürücü seçin"
 
+#: src/EBox/Printers.pm:57
+msgid "Zentyal will create a spool directory under /var/spool/samba"
+msgstr ""
 
-
-
-
-
-
-
+#: src/EBox/Printers.pm:62
 #, fuzzy
+msgid "Create log table"
+msgstr "Yaratma zamanı"
 
+#: src/EBox/Printers.pm:63
+msgid ""
+"Zentyal will create a new table into its log database to store printers logs"
+msgstr ""
+
+#: src/EBox/Printers.pm:79
 #, fuzzy
+msgid "To configure cupsd"
+msgstr "Yazıcı yapılandırılmadı"
 
+#: src/EBox/Printers.pm:221
+msgid "Job ID"
+msgstr "İş Seri No"
 
+#: src/EBox/Printers.pm:222
+msgid "Printer"
+msgstr "Yazıcı"
 
+#: src/EBox/Printers.pm:223
+msgid "User"
+msgstr "Kullanıcı"
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+#: src/EBox/Printers.pm:224
 #, fuzzy
+msgid "Date"
+msgstr "Sil"
 
+#: src/EBox/Printers.pm:225
+msgid "Event"
+msgstr "Olay"
 
+#: src/EBox/Printers.pm:229
+msgid "Queued"
+msgstr "Sıraya atıldı"
 
-#, fuzzy
+#: src/EBox/Printers.pm:230
+msgid "Completed"
+msgstr ""
 
+#: src/EBox/Printers.pm:231
+msgid "Canceled"
+msgstr "İptal edildi"
 
-#, fuzzy
-
-
-
-
-
-
-
-
-
-
-#, fuzzy
-
-
-
-
-
-
-
-#, fuzzy
-
-#, fuzzy
-
-
-
+#: src/EBox/Printers.pm:235
+msgid "Printers"
+msgstr "Yazıcılar"

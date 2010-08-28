@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-. 1.5\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-08-25 17:47+0200\n"
+"POT-Creation-Date: 2010-08-28 23:35+0200\n"
 "PO-Revision-Date: 2010-08-17 14:31+0200\n"
 "Last-Translator: Luca Erre <LUCA.etrusco@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
@@ -17,10 +17,18 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: migration/0001_add_firewall_services.pl:30
+#: migration/0001_add_firewall_services.pl:45
 #, fuzzy
 msgid "Zentyal FTP Server"
 msgstr "Server FTP eBox"
+
+#: src/EBox/FTP.pm:84
+msgid "To configure vsftpd"
+msgstr "Per configurare vsftpd"
+
+#: src/EBox/FTP.pm:88
+msgid "To configure vsftpd with LDAP authentication"
+msgstr "Per configurare vsftpd con autenticazione LDAP"
 
 #: src/EBox/Model/Options.pm:45
 msgid "Disabled"
@@ -71,11 +79,3 @@ msgstr ""
 "+r /srv/ftp/* ). Se lo vuoi puoi anche creare una sottocartella con i "
 "permessi in scrittura per \"tutti\" ( mkdir /srv/ftp/incoming ) ( chmod o"
 "+rwx /srv/ftp/incoming )"
-
-#: src/EBox/FTP.pm:84
-msgid "To configure vsftpd"
-msgstr "Per configurare vsftpd"
-
-#: src/EBox/FTP.pm:88
-msgid "To configure vsftpd with LDAP authentication"
-msgstr "Per configurare vsftpd con autenticazione LDAP"

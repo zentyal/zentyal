@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-ca 0.12\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-08-26 00:53+0200\n"
+"POT-Creation-Date: 2010-08-28 23:34+0200\n"
 "PO-Revision-Date: 2010-05-06 22:58+0200\n"
 "Last-Translator: Pedro Ugartemendia <pedro@ugartemendia.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
@@ -16,14 +16,14 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: src/EBox/CA/TestStub.pm:155 src/EBox/CA/TestStub.pm:255 src/EBox/CA.pm:260
-#: src/EBox/CA.pm:538 src/EBox/CGI/IssueCertificate.pm:103
+#: src/EBox/CA/TestStub.pm:154 src/EBox/CA/TestStub.pm:254 src/EBox/CA.pm:259
+#: src/EBox/CA.pm:537 src/EBox/CGI/IssueCertificate.pm:102
 #: src/templates/createCA.mas:7 src/templates/index.mas:22
 #: src/templates/formRevoke.mas:22 src/templates/formRenew.mas:37
 msgid "Organization Name"
 msgstr "Elkartearen izena"
 
-#: src/EBox/CA/TestStub.pm:260 src/EBox/CA.pm:552
+#: src/EBox/CA/TestStub.pm:259 src/EBox/CA.pm:551
 msgid ""
 "The CA certificates should be revoked  or has expired before issuing a new "
 "certificate"
@@ -31,27 +31,27 @@ msgstr ""
 "ZA ziurtagiriek deuseztatua beharko lukete  edo iraungi egin da berria "
 "ezarri baino lehenago"
 
-#: src/EBox/CA/TestStub.pm:439 src/EBox/CA/TestStub.pm:517
-#: src/EBox/CA/TestStub.pm:643 src/EBox/Model/Certificates.pm:264
-#: src/EBox/CA.pm:766 src/EBox/CA.pm:939 src/EBox/CA.pm:1287
-#: src/EBox/CA.pm:1359 src/EBox/CA.pm:1455
-#: src/EBox/CGI/RevokeCertificate.pm:78 src/EBox/CGI/IssueCertificate.pm:105
-#: src/EBox/CGI/ShowForm.pm:65 src/EBox/CGI/RenewCertificate.pm:76
-#: src/EBox/CGI/DownloadFiles.pm:70 src/templates/index.mas:23
+#: src/EBox/CA/TestStub.pm:438 src/EBox/CA/TestStub.pm:516
+#: src/EBox/CA/TestStub.pm:642 src/EBox/Model/Certificates.pm:264
+#: src/EBox/CA.pm:765 src/EBox/CA.pm:938 src/EBox/CA.pm:1286
+#: src/EBox/CA.pm:1358 src/EBox/CA.pm:1454
+#: src/EBox/CGI/RevokeCertificate.pm:77 src/EBox/CGI/IssueCertificate.pm:104
+#: src/EBox/CGI/ShowForm.pm:64 src/EBox/CGI/RenewCertificate.pm:75
+#: src/EBox/CGI/DownloadFiles.pm:69 src/templates/index.mas:23
 #: src/templates/formRevoke.mas:28 src/templates/formRenew.mas:43
 msgid "Common Name"
 msgstr "Izen arrunta"
 
-#: src/EBox/CA/TestStub.pm:655
+#: src/EBox/CA/TestStub.pm:654
 #, perl-brace-format
 msgid "The user {commonName} does NOT exist"
 msgstr "{commonName} erabiltzailea EZ da exisititzen"
 
-#: src/EBox/CA/TestStub.pm:721
+#: src/EBox/CA/TestStub.pm:720
 msgid "Days set to the maximum allowed: Year 2038 Bug"
 msgstr "Egunak onartutako gehienera ezarrita: 2038 Urtea akatsa"
 
-#: src/EBox/CA/TestStub.pm:730 src/EBox/CA.pm:2609
+#: src/EBox/CA/TestStub.pm:729 src/EBox/CA.pm:2608
 msgid "Expiration date later than CA certificate expiration date"
 msgstr "Iraungitze-data ZA ziurtagiriaren iraungitze-data baino beranduago"
 
@@ -80,7 +80,7 @@ msgstr "Ahalbidetu"
 msgid "Generate the certificate using CA with the common name set above"
 msgstr "Sortu ziurtagiria goian ezarritako izen arrunta duen ZA erabilita"
 
-#: src/EBox/Model/Certificates.pm:280 src/EBox/CA.pm:1803
+#: src/EBox/Model/Certificates.pm:280 src/EBox/CA.pm:1802
 msgid "Services Certificates"
 msgstr "Zerbitzu Ziurtagiriak"
 
@@ -97,28 +97,28 @@ msgstr ""
 "Hementxe sortu daitezke ziurtagiriak ZA honekin, eBox-k kudeatzen dituen "
 "zerbitzu seguruentzat"
 
-#: src/EBox/CA.pm:123 src/EBox/CGI/RevokeCertificate.pm:43
-#: src/EBox/CGI/Index.pm:40 src/EBox/CGI/IssueCertificate.pm:50
-#: src/EBox/CGI/ShowForm.pm:42 src/EBox/CGI/RenewCertificate.pm:43
-#: src/EBox/CGI/DownloadFiles.pm:43 src/EBox/CGI/CreateCA.pm:44
+#: src/EBox/CA.pm:122 src/EBox/CGI/RevokeCertificate.pm:42
+#: src/EBox/CGI/Index.pm:39 src/EBox/CGI/IssueCertificate.pm:49
+#: src/EBox/CGI/ShowForm.pm:41 src/EBox/CGI/RenewCertificate.pm:42
+#: src/EBox/CGI/DownloadFiles.pm:42 src/EBox/CGI/CreateCA.pm:43
 msgid "Certification Authority"
 msgstr "Ziurtagiri Agintaritza"
 
-#: src/EBox/CA.pm:302 src/EBox/CA.pm:783 src/EBox/CA.pm:1434
+#: src/EBox/CA.pm:301 src/EBox/CA.pm:782 src/EBox/CA.pm:1433
 #, perl-brace-format
 msgid "Days set to the maximum allowed {days}: Year 2038 Bug"
 msgstr "Egun kopurua onartutako gehinera ipinita {days}: 2038 Urtea Errorea"
 
-#: src/EBox/CA.pm:397
+#: src/EBox/CA.pm:396
 msgid "The remove operation cannot be finished. Reason: "
 msgstr "Ezabatzeko eragiketa ezin da burutu. Zergatia:"
 
-#: src/EBox/CA.pm:952 src/EBox/CA.pm:1298
+#: src/EBox/CA.pm:951 src/EBox/CA.pm:1297
 #, perl-brace-format
 msgid "Certificate with common name {cn} does NOT exist"
 msgstr "Izen arruntadun ziurtagiria {cn} ez da existitzen"
 
-#: src/EBox/CA.pm:956
+#: src/EBox/CA.pm:955
 #, perl-brace-format
 msgid ""
 "Reason {reason} is NOT an applicable reason.\n"
@@ -127,78 +127,78 @@ msgstr ""
 "Arrazoia {reason} EZ da arrazoi onargarria.\n"
 " Aukerak:"
 
-#: src/EBox/CA.pm:1103
+#: src/EBox/CA.pm:1102
 msgid ""
 "The Certification Authority Infrastructure is not available, create it first"
 msgstr ""
 "Ziurtagiri Autoritate Azpiegitura ez dago eskuragarri, lehenik eta behin "
 "sortu ezazu"
 
-#: src/EBox/CA.pm:1202
+#: src/EBox/CA.pm:1201
 #, fuzzy
 msgid "Either common name, distinguished name or serial number has been passed"
 msgstr "Izen arrunta, izen berezia edota serie-zenbakia ez da ezarri"
 
-#: src/EBox/CA.pm:1456
+#: src/EBox/CA.pm:1455
 msgid "or"
 msgstr "edo"
 
-#: src/EBox/CA.pm:1457
+#: src/EBox/CA.pm:1456
 msgid "Certificate file"
 msgstr "Ziurtagiri fitxategia"
 
-#: src/EBox/CA.pm:1479
+#: src/EBox/CA.pm:1478
 msgid "The certificate to renew does NOT exist"
 msgstr "Berritu behar den ziurtagiria EZ da existitzen"
 
-#: src/EBox/CA.pm:1519
+#: src/EBox/CA.pm:1518
 #, perl-brace-format
 msgid "Certificate with this common name {cn} does NOT exist in this CA"
 msgstr "Izen arrunt honekin {cn} ziurtagiririk EZ da existitzen ZA honetan"
 
-#: src/EBox/CA.pm:1800
+#: src/EBox/CA.pm:1799
 msgid "General"
 msgstr "Orokorra"
 
-#: src/EBox/CA.pm:1890
+#: src/EBox/CA.pm:1889
 msgid "Not created"
 msgstr "Ez sortua"
 
-#: src/EBox/CA.pm:1892
+#: src/EBox/CA.pm:1891
 msgid "Available"
 msgstr "Eskuragarri"
 
-#: src/EBox/CA.pm:1894
+#: src/EBox/CA.pm:1893
 msgid "Created but not available"
 msgstr "Sortua baina ez dago eskuragarri"
 
-#: src/EBox/CA.pm:2487
+#: src/EBox/CA.pm:2486
 #, fuzzy
 msgid "Unable to sign. Wrong CA passphrase or has CA private key dissappeared?"
 msgstr ""
 "Ezin izan da sinatu. ZA kode okerra edo ZA giltza pribatua desagertu egin da?"
 
-#: src/EBox/CA.pm:2489
+#: src/EBox/CA.pm:2488
 msgid "Database corruption"
 msgstr "Datubase akatsa"
 
-#: src/EBox/CA.pm:2491
+#: src/EBox/CA.pm:2490
 msgid "Identifier duplicated in Database"
 msgstr "Identifikatzaile bikoiztua datubasean"
 
-#: src/EBox/CA.pm:2493
+#: src/EBox/CA.pm:2492
 msgid "Certificate already revoked"
 msgstr "Ziurtagiria dagoeneko deuseztatua"
 
-#: src/EBox/CA.pm:2496
+#: src/EBox/CA.pm:2495
 msgid "ASN1 field length too long. Maximum Size:"
 msgstr "ASN1 eremua luzeegia. Gehienezko luzera:"
 
-#: src/EBox/CA.pm:2498
+#: src/EBox/CA.pm:2497
 msgid "Unknown error. Given the OpenSSL output:"
 msgstr "Akats ezezaguna. OpenSSL-k emandakoa:"
 
-#: src/EBox/CA.pm:2573
+#: src/EBox/CA.pm:2572
 #, perl-brace-format
 msgid ""
 "Created Certification Authority with organization name {orgName} and "
@@ -207,18 +207,18 @@ msgstr ""
 "Ziurtagiri Autoritatea sortua honako izenarekin {orgName} eta erabilgarria "
 "{days} egunetarako"
 
-#: src/EBox/CA.pm:2575
+#: src/EBox/CA.pm:2574
 #, perl-brace-format
 msgid "Destroyed Certification Authority with organization name {orgName}"
 msgstr "Erakunde izenarekin {orgName} Ziurtagiri Autoritatea suntsitua izan da"
 
-#: src/EBox/CA.pm:2577
+#: src/EBox/CA.pm:2576
 #, perl-brace-format
 msgid "Revoked CA certificate because of {reason} forced: {force}"
 msgstr ""
 "ZA ziurtagiria ezabatua honako arrazoia dela eta {reason} behartuta: {force}"
 
-#: src/EBox/CA.pm:2579
+#: src/EBox/CA.pm:2578
 #, perl-brace-format
 msgid ""
 "Issued CA certificate with organization name {orgName} and validity for "
@@ -227,7 +227,7 @@ msgstr ""
 "Erakunde izenarekin {orgName} ZA ziurtagiria sortua eta {days} egunetarako "
 "baliagarria da"
 
-#: src/EBox/CA.pm:2581
+#: src/EBox/CA.pm:2580
 #, perl-brace-format
 msgid ""
 "Renewed CA certificate with organization name {orgName} and validity for "
@@ -236,14 +236,14 @@ msgstr ""
 "Erakunde izenarekin {orgName} ZA ziurtagiria berritua eta {days} egunetarako "
 "baliagarria da"
 
-#: src/EBox/CA.pm:2583
+#: src/EBox/CA.pm:2582
 #, perl-brace-format
 msgid "Issued certificate with common name {cn} and validity for {days} days"
 msgstr ""
 "Izen arruntarekin {cn} ziurtagiria sortua eta {days} egunetarako baliagarria "
 "da"
 
-#: src/EBox/CA.pm:2585
+#: src/EBox/CA.pm:2584
 #, perl-brace-format
 msgid ""
 "Revoked certificate with common name {cn} because of {reason} forced: {force}"
@@ -251,45 +251,45 @@ msgstr ""
 "Izen arruntarekin {cn} ziurtagiria ezabatua honelako arrazoia dela medio "
 "{reason} behartuta: {force}"
 
-#: src/EBox/CA.pm:2587
+#: src/EBox/CA.pm:2586
 #, perl-brace-format
 msgid "Renewed certificate with common name {cn} and validity for {days} days"
 msgstr ""
 "Izen arruntarekin {cn} ziurtagiria berritua eta {days} egunetarako "
 "baliagarria da"
 
-#: src/EBox/CA.pm:2589
+#: src/EBox/CA.pm:2588
 #, perl-brace-format
 msgid "Updated certificate database. {number} certificates have expired"
 msgstr ""
 "Ziurtagiri datubasea eguneratua izan da. {number} ziurtagiri iraungi egin "
 "dira"
 
-#: src/EBox/CA.pm:2639 src/EBox/CGI/IssueCertificate.pm:178
+#: src/EBox/CA.pm:2638 src/EBox/CGI/IssueCertificate.pm:177
 #, perl-brace-format
 msgid "Only {dns}, {ip} and {email} are valid subject alternative name types"
 msgstr "{dns}, {ip} eta {email} baino ez dira ordezko izen aukerazkoak"
 
-#: src/EBox/CA.pm:2739
+#: src/EBox/CA.pm:2738
 #, perl-brace-format
 msgid "Cannot start OpenSSL shell. ({errval})"
 msgstr "Ezi da OpenSSL geruza abiarazi. ({errval})"
 
-#: src/EBox/CGI/RevokeCertificate.pm:65
+#: src/EBox/CGI/RevokeCertificate.pm:64
 msgid "The certificate has NOT been revoked."
 msgstr "Ziurtagiria EZ da baliogabetua izan"
 
-#: src/EBox/CGI/RevokeCertificate.pm:72 src/EBox/CGI/RenewCertificate.pm:70
+#: src/EBox/CGI/RevokeCertificate.pm:71 src/EBox/CGI/RenewCertificate.pm:69
 #, fuzzy
 msgid "Boolean indicating Certification Authority Certificate"
 msgstr "Boolean Ziurtapen Autoritarearen Ziurtagiria agertuz"
 
-#: src/EBox/CGI/RevokeCertificate.pm:73 src/templates/formRevoke.mas:67
+#: src/EBox/CGI/RevokeCertificate.pm:72 src/templates/formRevoke.mas:67
 msgid "Reason"
 msgstr "Arrazoia"
 
-#: src/EBox/CGI/RevokeCertificate.pm:82 src/EBox/CGI/ShowForm.pm:69
-#: src/EBox/CGI/RenewCertificate.pm:80
+#: src/EBox/CGI/RevokeCertificate.pm:81 src/EBox/CGI/ShowForm.pm:68
+#: src/EBox/CGI/RenewCertificate.pm:79
 msgid ""
 "The input contains invalid characters. All alphanumeric characters, plus "
 "these non alphanumeric chars: .?&+:-@* and spaces are allowed."
@@ -297,30 +297,30 @@ msgstr ""
 "Sarrerak karaktere okerrak dauzka. Karaktere alfanumeriko denak eta "
 "hautxek: .?&+:-@* gehi hutsuneak onartuak dira."
 
-#: src/EBox/CGI/RevokeCertificate.pm:140
+#: src/EBox/CGI/RevokeCertificate.pm:139
 msgid "The certificate has been revoked"
 msgstr "Ziurtagiria deuseztatua izan da"
 
-#: src/EBox/CGI/RevokeCertificate.pm:141
+#: src/EBox/CGI/RevokeCertificate.pm:140
 msgid "The CA certificate has been revoked"
 msgstr "ZA ziurtagiria deuseztatua izan da"
 
-#: src/EBox/CGI/IssueCertificate.pm:120 src/EBox/CGI/CreateCA.pm:111
+#: src/EBox/CGI/IssueCertificate.pm:119 src/EBox/CGI/CreateCA.pm:110
 msgid "CA passphrases do NOT match"
 msgstr "ZA esaldi-gakoak EZ datoz bat"
 
-#: src/EBox/CGI/IssueCertificate.pm:128 src/EBox/CGI/CreateCA.pm:121
+#: src/EBox/CGI/IssueCertificate.pm:127 src/EBox/CGI/CreateCA.pm:120
 #, perl-brace-format
 msgid "CA Passphrase should be at least {length} characters"
 msgstr "ZA esaldi-gakoak gutxienik {length} karaktere eduki beharko luke"
 
-#: src/EBox/CGI/IssueCertificate.pm:138 src/EBox/CGI/RenewCertificate.pm:97
-#: src/EBox/CGI/CreateCA.pm:126
+#: src/EBox/CGI/IssueCertificate.pm:137 src/EBox/CGI/RenewCertificate.pm:96
+#: src/EBox/CGI/CreateCA.pm:125
 #, perl-brace-format
 msgid "Days to expire ({days}) must be a positive number"
 msgstr "Iraungitze-arteko egunek ({days}) balio positiboa behar du izan"
 
-#: src/EBox/CGI/IssueCertificate.pm:146
+#: src/EBox/CGI/IssueCertificate.pm:145
 #, perl-brace-format
 msgid ""
 "The input contains invalid characters. All {ascii} alphanumeric characters, "
@@ -329,7 +329,7 @@ msgstr ""
 "Sarrerak karaktere okerrak dauzka. Karaktere alfanumeriko {ascii} denak gehi "
 "hautxek: .?&+:-@* gehi hustarteak onartzen dira."
 
-#: src/EBox/CGI/IssueCertificate.pm:185
+#: src/EBox/CGI/IssueCertificate.pm:184
 #, fuzzy
 msgid ""
 "The Subject Alternative Name parameter must follow this pattern: type:value, "
@@ -338,54 +338,54 @@ msgstr ""
 "Ordezko Gaiaren Izenaren izaerak honelakoa behar du izan: mota:balioa, mota:"
 "balioa"
 
-#: src/EBox/CGI/IssueCertificate.pm:207
+#: src/EBox/CGI/IssueCertificate.pm:206
 msgid "The certificate has been issued."
 msgstr "Ziurtagiria martxan jarri da."
 
-#: src/EBox/CGI/IssueCertificate.pm:208
+#: src/EBox/CGI/IssueCertificate.pm:207
 msgid "The new CA certificate has been issued."
 msgstr "ZA ziurtagiri berria martxan jarri da."
 
-#: src/EBox/CGI/ShowForm.pm:75
+#: src/EBox/CGI/ShowForm.pm:74
 msgid "Action"
 msgstr "Ekintza"
 
-#: src/EBox/CGI/ShowForm.pm:84
+#: src/EBox/CGI/ShowForm.pm:83
 #, fuzzy
 msgid "Only revoke and renew actions are performed"
 msgstr "Ezabapen eta berriztapen ekintza baino ez dira egiten"
 
-#: src/EBox/CGI/ShowForm.pm:92 src/EBox/CGI/DownloadFiles.pm:80
+#: src/EBox/CGI/ShowForm.pm:91 src/EBox/CGI/DownloadFiles.pm:79
 #, perl-brace-format
 msgid "Common name: {cn} does NOT exist in database"
 msgstr "Izen arrunta: {cn} EZ dago datubasean"
 
-#: src/EBox/CGI/RenewCertificate.pm:65
+#: src/EBox/CGI/RenewCertificate.pm:64
 msgid "The certificate has NOT been renewed"
 msgstr "Ziurtagiria EZ da berritu"
 
-#: src/EBox/CGI/RenewCertificate.pm:71 src/templates/createCA.mas:19
+#: src/EBox/CGI/RenewCertificate.pm:70 src/templates/createCA.mas:19
 #: src/templates/index.mas:52 src/templates/formRenew.mas:13
 msgid "Days to expire"
 msgstr "Iraungitze-arteko egun kopurua"
 
-#: src/EBox/CGI/RenewCertificate.pm:144
+#: src/EBox/CGI/RenewCertificate.pm:143
 msgid "The certificate CANNOT be renewed"
 msgstr "Ziurtagiria EZIN da berritu"
 
-#: src/EBox/CGI/RenewCertificate.pm:146
+#: src/EBox/CGI/RenewCertificate.pm:145
 msgid "The certificate has been renewed"
 msgstr "Ziurtagiria berritua izan da"
 
-#: src/EBox/CGI/RenewCertificate.pm:147
+#: src/EBox/CGI/RenewCertificate.pm:146
 msgid "The new CA certificate has been renewed"
 msgstr "ZA ziurtagiri berria berritua izan da"
 
-#: src/EBox/CGI/DownloadFiles.pm:134
+#: src/EBox/CGI/DownloadFiles.pm:133
 msgid "Error creating file"
 msgstr "Akatsa fitxategia sortzerakoan"
 
-#: src/EBox/CGI/CreateCA.pm:140
+#: src/EBox/CGI/CreateCA.pm:139
 msgid "Problems creating Certification Authority has happened"
 msgstr "Ziurtagiri Autoritatea sortzeko arazoak gertatu dira"
 
@@ -588,5 +588,3 @@ msgstr "ZA kodea"
 #: src/templates/formRenew.mas:28
 msgid "Renew a certificate"
 msgstr "Ziurtagiria berritu"
-
-#, fuzzy

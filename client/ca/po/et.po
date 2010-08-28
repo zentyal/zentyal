@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-ca 1.4\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-08-26 00:53+0200\n"
+"POT-Creation-Date: 2010-08-28 23:34+0200\n"
 "PO-Revision-Date: 2010-05-06 15:59+0200\n"
 "Last-Translator: Priit-A. Heinsalu <priit.heinsalu@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
@@ -17,14 +17,14 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: src/EBox/CA/TestStub.pm:155 src/EBox/CA/TestStub.pm:255 src/EBox/CA.pm:260
-#: src/EBox/CA.pm:538 src/EBox/CGI/IssueCertificate.pm:103
+#: src/EBox/CA/TestStub.pm:154 src/EBox/CA/TestStub.pm:254 src/EBox/CA.pm:259
+#: src/EBox/CA.pm:537 src/EBox/CGI/IssueCertificate.pm:102
 #: src/templates/createCA.mas:7 src/templates/index.mas:22
 #: src/templates/formRevoke.mas:22 src/templates/formRenew.mas:37
 msgid "Organization Name"
 msgstr "Organisatsiooni nimi"
 
-#: src/EBox/CA/TestStub.pm:260 src/EBox/CA.pm:552
+#: src/EBox/CA/TestStub.pm:259 src/EBox/CA.pm:551
 msgid ""
 "The CA certificates should be revoked  or has expired before issuing a new "
 "certificate"
@@ -33,29 +33,29 @@ msgstr ""
 "väljastamist"
 
 # või nimetus?
-#: src/EBox/CA/TestStub.pm:439 src/EBox/CA/TestStub.pm:517
-#: src/EBox/CA/TestStub.pm:643 src/EBox/Model/Certificates.pm:264
-#: src/EBox/CA.pm:766 src/EBox/CA.pm:939 src/EBox/CA.pm:1287
-#: src/EBox/CA.pm:1359 src/EBox/CA.pm:1455
-#: src/EBox/CGI/RevokeCertificate.pm:78 src/EBox/CGI/IssueCertificate.pm:105
-#: src/EBox/CGI/ShowForm.pm:65 src/EBox/CGI/RenewCertificate.pm:76
-#: src/EBox/CGI/DownloadFiles.pm:70 src/templates/index.mas:23
+#: src/EBox/CA/TestStub.pm:438 src/EBox/CA/TestStub.pm:516
+#: src/EBox/CA/TestStub.pm:642 src/EBox/Model/Certificates.pm:264
+#: src/EBox/CA.pm:765 src/EBox/CA.pm:938 src/EBox/CA.pm:1286
+#: src/EBox/CA.pm:1358 src/EBox/CA.pm:1454
+#: src/EBox/CGI/RevokeCertificate.pm:77 src/EBox/CGI/IssueCertificate.pm:104
+#: src/EBox/CGI/ShowForm.pm:64 src/EBox/CGI/RenewCertificate.pm:75
+#: src/EBox/CGI/DownloadFiles.pm:69 src/templates/index.mas:23
 #: src/templates/formRevoke.mas:28 src/templates/formRenew.mas:43
 msgid "Common Name"
 msgstr "Üldine nimi (CN)"
 
-#: src/EBox/CA/TestStub.pm:655
+#: src/EBox/CA/TestStub.pm:654
 #, perl-brace-format
 msgid "The user {commonName} does NOT exist"
 msgstr "Kasutajat {commonName} EI ole olemas"
 
 # ma ei taipa ka seda
-#: src/EBox/CA/TestStub.pm:721
+#: src/EBox/CA/TestStub.pm:720
 #, fuzzy
 msgid "Days set to the maximum allowed: Year 2038 Bug"
 msgstr "Maksimaalselt lubatud määratud päevi: Year 2038 Bug"
 
-#: src/EBox/CA/TestStub.pm:730 src/EBox/CA.pm:2609
+#: src/EBox/CA/TestStub.pm:729 src/EBox/CA.pm:2608
 msgid "Expiration date later than CA certificate expiration date"
 msgstr "Aegumise kuupäev on hilisem kui SK sertifikaadi aegumise kuupäev"
 
@@ -87,7 +87,7 @@ msgstr ""
 "Sertifitseerimiskeskuses ülalmainitud üldise nimega sertifikaadi "
 "genereerimine"
 
-#: src/EBox/Model/Certificates.pm:280 src/EBox/CA.pm:1803
+#: src/EBox/Model/Certificates.pm:280 src/EBox/CA.pm:1802
 msgid "Services Certificates"
 msgstr "Teenuste sertifikaadid"
 
@@ -104,29 +104,29 @@ msgstr ""
 "Siin saad eBoxi poolt hallatavatele turvalistele teenustele määrata SK "
 "sertifikaate"
 
-#: src/EBox/CA.pm:123 src/EBox/CGI/RevokeCertificate.pm:43
-#: src/EBox/CGI/Index.pm:40 src/EBox/CGI/IssueCertificate.pm:50
-#: src/EBox/CGI/ShowForm.pm:42 src/EBox/CGI/RenewCertificate.pm:43
-#: src/EBox/CGI/DownloadFiles.pm:43 src/EBox/CGI/CreateCA.pm:44
+#: src/EBox/CA.pm:122 src/EBox/CGI/RevokeCertificate.pm:42
+#: src/EBox/CGI/Index.pm:39 src/EBox/CGI/IssueCertificate.pm:49
+#: src/EBox/CGI/ShowForm.pm:41 src/EBox/CGI/RenewCertificate.pm:42
+#: src/EBox/CGI/DownloadFiles.pm:42 src/EBox/CGI/CreateCA.pm:43
 msgid "Certification Authority"
 msgstr "Sertifitseerimiskeskus"
 
 # ei saa lausest aru
-#: src/EBox/CA.pm:302 src/EBox/CA.pm:783 src/EBox/CA.pm:1434
+#: src/EBox/CA.pm:301 src/EBox/CA.pm:782 src/EBox/CA.pm:1433
 #, fuzzy, perl-brace-format
 msgid "Days set to the maximum allowed {days}: Year 2038 Bug"
 msgstr "Maksimaalselt lubatud päevade määramine {days}: Year 2038 Bug"
 
-#: src/EBox/CA.pm:397
+#: src/EBox/CA.pm:396
 msgid "The remove operation cannot be finished. Reason: "
 msgstr "Eemaldamine ei ole lõpetatud. Selle põhjuseks on: "
 
-#: src/EBox/CA.pm:952 src/EBox/CA.pm:1298
+#: src/EBox/CA.pm:951 src/EBox/CA.pm:1297
 #, perl-brace-format
 msgid "Certificate with common name {cn} does NOT exist"
 msgstr "Üldise nimega sertifikaati {cn} EI ole olemas"
 
-#: src/EBox/CA.pm:956
+#: src/EBox/CA.pm:955
 #, perl-brace-format
 msgid ""
 "Reason {reason} is NOT an applicable reason.\n"
@@ -135,7 +135,7 @@ msgstr ""
 "Põhjus {reason} EI ole sobiv põhjus.\n"
 "Valikud:"
 
-#: src/EBox/CA.pm:1103
+#: src/EBox/CA.pm:1102
 msgid ""
 "The Certification Authority Infrastructure is not available, create it first"
 msgstr ""
@@ -143,69 +143,69 @@ msgstr ""
 "looma"
 
 #  
-#: src/EBox/CA.pm:1202
+#: src/EBox/CA.pm:1201
 msgid "Either common name, distinguished name or serial number has been passed"
 msgstr "Üldist nime (CN), eraldusnime (DN) või seerianumbrit ei võetud vastu"
 
-#: src/EBox/CA.pm:1456
+#: src/EBox/CA.pm:1455
 msgid "or"
 msgstr "või"
 
-#: src/EBox/CA.pm:1457
+#: src/EBox/CA.pm:1456
 msgid "Certificate file"
 msgstr "Sertifikaadi fail"
 
-#: src/EBox/CA.pm:1479
+#: src/EBox/CA.pm:1478
 msgid "The certificate to renew does NOT exist"
 msgstr "Uuendatavaid sertifikaate EI ole olemas"
 
-#: src/EBox/CA.pm:1519
+#: src/EBox/CA.pm:1518
 #, perl-brace-format
 msgid "Certificate with this common name {cn} does NOT exist in this CA"
 msgstr "Selle üldise nimega {cn} sertifikaati EI ole SKs olemas"
 
-#: src/EBox/CA.pm:1800
+#: src/EBox/CA.pm:1799
 msgid "General"
 msgstr "Üldine"
 
-#: src/EBox/CA.pm:1890
+#: src/EBox/CA.pm:1889
 msgid "Not created"
 msgstr "Ei ole loodud"
 
-#: src/EBox/CA.pm:1892
+#: src/EBox/CA.pm:1891
 msgid "Available"
 msgstr "Saadaval"
 
-#: src/EBox/CA.pm:1894
+#: src/EBox/CA.pm:1893
 msgid "Created but not available"
 msgstr "Loodud, kuid mitte saadaval"
 
-#: src/EBox/CA.pm:2487
+#: src/EBox/CA.pm:2486
 msgid "Unable to sign. Wrong CA passphrase or has CA private key dissappeared?"
 msgstr ""
 "Signeerimine nurjus. Vale SK paroolifraas või on SK privaatvõti kadunud?"
 
-#: src/EBox/CA.pm:2489
+#: src/EBox/CA.pm:2488
 msgid "Database corruption"
 msgstr "Andmebaasi rike"
 
-#: src/EBox/CA.pm:2491
+#: src/EBox/CA.pm:2490
 msgid "Identifier duplicated in Database"
 msgstr "Identifikaator on andmebaasis dubleeritud"
 
-#: src/EBox/CA.pm:2493
+#: src/EBox/CA.pm:2492
 msgid "Certificate already revoked"
 msgstr "Sertifikaat on juba tühistatud"
 
-#: src/EBox/CA.pm:2496
+#: src/EBox/CA.pm:2495
 msgid "ASN1 field length too long. Maximum Size:"
 msgstr "ASN1 väli on liiga pikk. Maksimaalne suurus on:"
 
-#: src/EBox/CA.pm:2498
+#: src/EBox/CA.pm:2497
 msgid "Unknown error. Given the OpenSSL output:"
 msgstr "Tundmatu viga. Antud OpenSSL väljund:"
 
-#: src/EBox/CA.pm:2573
+#: src/EBox/CA.pm:2572
 #, perl-brace-format
 msgid ""
 "Created Certification Authority with organization name {orgName} and "
@@ -214,17 +214,17 @@ msgstr ""
 "Loodud on sertifitseerimiskeskus organisatsiooninimega {orgName} ja "
 "kehtivusega {days} päeva"
 
-#: src/EBox/CA.pm:2575
+#: src/EBox/CA.pm:2574
 #, perl-brace-format
 msgid "Destroyed Certification Authority with organization name {orgName}"
 msgstr "Hävitatud on sertifitseerimiskeskus organisatsiooninimega {orgName}"
 
-#: src/EBox/CA.pm:2577
+#: src/EBox/CA.pm:2576
 #, fuzzy, perl-brace-format
 msgid "Revoked CA certificate because of {reason} forced: {force}"
 msgstr "SK sertifikaat on tühistatud, kuna {reason} sundis: {force}"
 
-#: src/EBox/CA.pm:2579
+#: src/EBox/CA.pm:2578
 #, perl-brace-format
 msgid ""
 "Issued CA certificate with organization name {orgName} and validity for "
@@ -233,7 +233,7 @@ msgstr ""
 "Väljastatud on SK sertifikaat organisatsiooninimega {orgName} ja kehtivusega "
 "{days} päeva"
 
-#: src/EBox/CA.pm:2581
+#: src/EBox/CA.pm:2580
 #, perl-brace-format
 msgid ""
 "Renewed CA certificate with organization name {orgName} and validity for "
@@ -242,57 +242,57 @@ msgstr ""
 "Uuendatud on SK sertifikaat organisatsiooninimega {orgName} ja kehtivusega "
 "{days} päeva"
 
-#: src/EBox/CA.pm:2583
+#: src/EBox/CA.pm:2582
 #, perl-brace-format
 msgid "Issued certificate with common name {cn} and validity for {days} days"
 msgstr ""
 "Väljastatud on sertifikaat üldise nimega {cn} ja kehtivusega {days} päeva"
 
-#: src/EBox/CA.pm:2585
+#: src/EBox/CA.pm:2584
 #, fuzzy, perl-brace-format
 msgid ""
 "Revoked certificate with common name {cn} because of {reason} forced: {force}"
 msgstr ""
 "Tühistatud on sertifikaat üldise nimega {cn}, kuna {reason} sundis: {force}"
 
-#: src/EBox/CA.pm:2587
+#: src/EBox/CA.pm:2586
 #, perl-brace-format
 msgid "Renewed certificate with common name {cn} and validity for {days} days"
 msgstr ""
 "Uuendatud on sertifikaat üldise nimega {cn} ja kehtivusega {days} päeva"
 
-#: src/EBox/CA.pm:2589
+#: src/EBox/CA.pm:2588
 #, perl-brace-format
 msgid "Updated certificate database. {number} certificates have expired"
 msgstr ""
 "Sertifikaatide andmebaas on uuendatud. {number} sertifikaati on aegunud"
 
-#: src/EBox/CA.pm:2639 src/EBox/CGI/IssueCertificate.pm:178
+#: src/EBox/CA.pm:2638 src/EBox/CGI/IssueCertificate.pm:177
 #, perl-brace-format
 msgid "Only {dns}, {ip} and {email} are valid subject alternative name types"
 msgstr ""
 "Ainult {dns}, {ip} ja {email} on sobivad subjekti alternatiivse nime tüübid"
 
-#: src/EBox/CA.pm:2739
+#: src/EBox/CA.pm:2738
 #, perl-brace-format
 msgid "Cannot start OpenSSL shell. ({errval})"
 msgstr "OpenSSL shelli ei ole võimalik käivitada. ({errval})"
 
-#: src/EBox/CGI/RevokeCertificate.pm:65
+#: src/EBox/CGI/RevokeCertificate.pm:64
 msgid "The certificate has NOT been revoked."
 msgstr "Sertifikaati EI ole tühistatud."
 
-#: src/EBox/CGI/RevokeCertificate.pm:72 src/EBox/CGI/RenewCertificate.pm:70
+#: src/EBox/CGI/RevokeCertificate.pm:71 src/EBox/CGI/RenewCertificate.pm:69
 #, fuzzy
 msgid "Boolean indicating Certification Authority Certificate"
 msgstr "Tõeväärtust tähistav sertifitseerimiskeskuse sertifikaat"
 
-#: src/EBox/CGI/RevokeCertificate.pm:73 src/templates/formRevoke.mas:67
+#: src/EBox/CGI/RevokeCertificate.pm:72 src/templates/formRevoke.mas:67
 msgid "Reason"
 msgstr "Põhjus"
 
-#: src/EBox/CGI/RevokeCertificate.pm:82 src/EBox/CGI/ShowForm.pm:69
-#: src/EBox/CGI/RenewCertificate.pm:80
+#: src/EBox/CGI/RevokeCertificate.pm:81 src/EBox/CGI/ShowForm.pm:68
+#: src/EBox/CGI/RenewCertificate.pm:79
 msgid ""
 "The input contains invalid characters. All alphanumeric characters, plus "
 "these non alphanumeric chars: .?&+:-@* and spaces are allowed."
@@ -300,30 +300,30 @@ msgstr ""
 "Sisendis on sobimatud märgid. Lubatud on kõik tähe- ja numbrimärgid, tühikud "
 "ja märgid: .?&+:-@*"
 
-#: src/EBox/CGI/RevokeCertificate.pm:140
+#: src/EBox/CGI/RevokeCertificate.pm:139
 msgid "The certificate has been revoked"
 msgstr "Sertifikaat on tühistatud"
 
-#: src/EBox/CGI/RevokeCertificate.pm:141
+#: src/EBox/CGI/RevokeCertificate.pm:140
 msgid "The CA certificate has been revoked"
 msgstr "SK sertifikaat on tühistatud"
 
-#: src/EBox/CGI/IssueCertificate.pm:120 src/EBox/CGI/CreateCA.pm:111
+#: src/EBox/CGI/IssueCertificate.pm:119 src/EBox/CGI/CreateCA.pm:110
 msgid "CA passphrases do NOT match"
 msgstr "SK paroolifraasid EI kattu"
 
-#: src/EBox/CGI/IssueCertificate.pm:128 src/EBox/CGI/CreateCA.pm:121
+#: src/EBox/CGI/IssueCertificate.pm:127 src/EBox/CGI/CreateCA.pm:120
 #, perl-brace-format
 msgid "CA Passphrase should be at least {length} characters"
 msgstr "SK paroolifraas peab olema vähemalt {length} märki pikk"
 
-#: src/EBox/CGI/IssueCertificate.pm:138 src/EBox/CGI/RenewCertificate.pm:97
-#: src/EBox/CGI/CreateCA.pm:126
+#: src/EBox/CGI/IssueCertificate.pm:137 src/EBox/CGI/RenewCertificate.pm:96
+#: src/EBox/CGI/CreateCA.pm:125
 #, perl-brace-format
 msgid "Days to expire ({days}) must be a positive number"
 msgstr "Kehtivusaeg ({days}) peab olema positiivne arv"
 
-#: src/EBox/CGI/IssueCertificate.pm:146
+#: src/EBox/CGI/IssueCertificate.pm:145
 #, fuzzy, perl-brace-format
 msgid ""
 "The input contains invalid characters. All {ascii} alphanumeric characters, "
@@ -332,7 +332,7 @@ msgstr ""
 "Sisendis on sobimatud märgid. Lubatud on kõik {ascii} tähe- ja numbrimärgid, "
 "tühikud ja märgid: .?&+:-@*"
 
-#: src/EBox/CGI/IssueCertificate.pm:185
+#: src/EBox/CGI/IssueCertificate.pm:184
 msgid ""
 "The Subject Alternative Name parameter must follow this pattern: type:value, "
 "type:value"
@@ -340,54 +340,54 @@ msgstr ""
 "Subjekti alternatiivse nime parameeter peab olema kujul: tüüp:väärtus, tüüp:"
 "väärtus"
 
-#: src/EBox/CGI/IssueCertificate.pm:207
+#: src/EBox/CGI/IssueCertificate.pm:206
 msgid "The certificate has been issued."
 msgstr "Sertifikaat on väljastatud."
 
-#: src/EBox/CGI/IssueCertificate.pm:208
+#: src/EBox/CGI/IssueCertificate.pm:207
 msgid "The new CA certificate has been issued."
 msgstr "Uus SK sertifikaat on väljastatud."
 
-#: src/EBox/CGI/ShowForm.pm:75
+#: src/EBox/CGI/ShowForm.pm:74
 msgid "Action"
 msgstr "Toiming"
 
-#: src/EBox/CGI/ShowForm.pm:84
+#: src/EBox/CGI/ShowForm.pm:83
 msgid "Only revoke and renew actions are performed"
 msgstr "Sooritatakse ainult tühistamise ja uuendamise toiminguid"
 
 # või üldine nimetus`?
-#: src/EBox/CGI/ShowForm.pm:92 src/EBox/CGI/DownloadFiles.pm:80
+#: src/EBox/CGI/ShowForm.pm:91 src/EBox/CGI/DownloadFiles.pm:79
 #, perl-brace-format
 msgid "Common name: {cn} does NOT exist in database"
 msgstr "Üldist nime (CN): {cn} EI OLE andmebaasis"
 
-#: src/EBox/CGI/RenewCertificate.pm:65
+#: src/EBox/CGI/RenewCertificate.pm:64
 msgid "The certificate has NOT been renewed"
 msgstr "Sertifikaati EI ole uuendatud"
 
-#: src/EBox/CGI/RenewCertificate.pm:71 src/templates/createCA.mas:19
+#: src/EBox/CGI/RenewCertificate.pm:70 src/templates/createCA.mas:19
 #: src/templates/index.mas:52 src/templates/formRenew.mas:13
 msgid "Days to expire"
 msgstr "Aegumiseni jäänud päevi"
 
-#: src/EBox/CGI/RenewCertificate.pm:144
+#: src/EBox/CGI/RenewCertificate.pm:143
 msgid "The certificate CANNOT be renewed"
 msgstr "Sertifikaati EI OLNUD võimalik uuendada"
 
-#: src/EBox/CGI/RenewCertificate.pm:146
+#: src/EBox/CGI/RenewCertificate.pm:145
 msgid "The certificate has been renewed"
 msgstr "Sertifikaat on uuendatud"
 
-#: src/EBox/CGI/RenewCertificate.pm:147
+#: src/EBox/CGI/RenewCertificate.pm:146
 msgid "The new CA certificate has been renewed"
 msgstr "Uus SK sertifikaat on uuendatud"
 
-#: src/EBox/CGI/DownloadFiles.pm:134
+#: src/EBox/CGI/DownloadFiles.pm:133
 msgid "Error creating file"
 msgstr "Faili loomisel tekkis viga"
 
-#: src/EBox/CGI/CreateCA.pm:140
+#: src/EBox/CGI/CreateCA.pm:139
 msgid "Problems creating Certification Authority has happened"
 msgstr "Sertifitseerimiskeskuse loomisel tekkisid probleemid"
 
@@ -593,4 +593,3 @@ msgstr "SK paroolifraas"
 #: src/templates/formRenew.mas:28
 msgid "Renew a certificate"
 msgstr "Sertifikaadi uuendamine"
-

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-asterisk 1.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-08-26 00:52+0200\n"
+"POT-Creation-Date: 2010-08-28 23:07+0200\n"
 "PO-Revision-Date: 2010-08-25 17:28+0200\n"
 "Last-Translator: andrea biasi <info@andreabiasi.it>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: migration/0001_add_firewall_services.pl:30
+#: migration/0001_add_firewall_services.pl:45
 #, fuzzy
 msgid "Zentyal VoIP system"
 msgstr "eBox sistema Voip"
@@ -456,9 +456,3 @@ msgstr ""
 #, fuzzy
 msgid "Group queue"
 msgstr "Coda di gruppo"
-
-
-#, fuzzy
-
-
-

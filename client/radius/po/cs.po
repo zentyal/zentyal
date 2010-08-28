@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-radius 1.4\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-08-25 17:45+0200\n"
+"POT-Creation-Date: 2010-08-28 23:38+0200\n"
 "PO-Revision-Date: 2010-04-16 17:00+0200\n"
 "Last-Translator: Michal Formánek <formi@seznam.cz>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
@@ -17,30 +17,10 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: migration/0001_add_firewall_services.pl:30
+#: migration/0001_add_firewall_services.pl:45
 #, fuzzy
 msgid "Zentyal RADIUS system"
 msgstr "eBox RADIUS systém"
-
-#: src/EBox/Model/Auth.pm:103
-msgid "All users"
-msgstr "Všichni uživatelé"
-
-#: src/EBox/Model/Auth.pm:128
-msgid "Group allowed to authenticate"
-msgstr "Skupina nemá právo ověřovat"
-
-#: src/EBox/Model/Auth.pm:138
-msgid "General configuration"
-msgstr "Obecné nastavení"
-
-#: src/EBox/Model/Auth.pm:142
-msgid "RADIUS server configuration"
-msgstr "Nastavení RADIUS serveru"
-
-#: src/EBox/Model/Auth.pm:144
-msgid "RADIUS server configuration updated"
-msgstr "Aktualizováno nastavení RADIUS serveru"
 
 #: src/EBox/Model/Clients.pm:105
 msgid "Client"
@@ -62,6 +42,26 @@ msgstr "RADIUS klienti"
 #: src/EBox/Model/Clients.pm:127
 msgid "client"
 msgstr "klient"
+
+#: src/EBox/Model/Auth.pm:103
+msgid "All users"
+msgstr "Všichni uživatelé"
+
+#: src/EBox/Model/Auth.pm:128
+msgid "Group allowed to authenticate"
+msgstr "Skupina nemá právo ověřovat"
+
+#: src/EBox/Model/Auth.pm:138
+msgid "General configuration"
+msgstr "Obecné nastavení"
+
+#: src/EBox/Model/Auth.pm:142
+msgid "RADIUS server configuration"
+msgstr "Nastavení RADIUS serveru"
+
+#: src/EBox/Model/Auth.pm:144
+msgid "RADIUS server configuration updated"
+msgstr "Aktualizováno nastavení RADIUS serveru"
 
 #: src/EBox/Radius.pm:100
 msgid "Create RADIUS certificates for TTLS"

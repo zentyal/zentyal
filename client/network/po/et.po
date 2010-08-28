@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-network 1.4.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-08-25 17:47+0200\n"
+"POT-Creation-Date: 2010-08-28 23:37+0200\n"
 "PO-Revision-Date: 2010-05-25 15:35+0200\n"
 "Last-Translator: Priit-A. Heinsalu <priit.heinsalu@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
@@ -16,79 +16,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 1.1.0\n"
-
-#: src/EBox/CGI/Iface.pm:44 src/EBox/CGI/Iface.pm:61 src/EBox/CGI/Vlan.pm:43
-#: src/EBox/CGI/VIface.pm:45
-msgid "network interface"
-msgstr "võrguliides"
-
-#: src/EBox/CGI/Iface.pm:60
-msgid "method"
-msgstr "meetod"
-
-#: src/EBox/CGI/Iface.pm:90
-msgid "ip address"
-msgstr "ip aadress"
-
-#: src/EBox/CGI/Iface.pm:91 src/EBox/CGI/VIface.pm:65
-msgid "netmask"
-msgstr "võrgumask"
-
-#: src/EBox/CGI/Iface.pm:97
-msgid "user name"
-msgstr "kasutajanimi"
-
-#: src/EBox/CGI/Iface.pm:98
-msgid "password"
-msgstr "parool"
-
-#: src/EBox/CGI/Iface.pm:108
-msgid "bridge"
-msgstr ""
-
-#: src/EBox/CGI/Vlan.pm:45 src/EBox/Network.pm:1639 src/EBox/Network.pm:1668
-#: src/templates/ifaces.mas:229
-msgid "VLAN Id"
-msgstr "VLAN ID"
-
-#: src/EBox/CGI/VIface.pm:46
-msgid "virtual interface action"
-msgstr "virtuaalse liidese toiming"
-
-#: src/EBox/CGI/VIface.pm:64 src/EBox/Network.pm:907 src/EBox/Network.pm:912
-#: src/EBox/Network.pm:1226 src/EBox/Network.pm:1247 src/EBox/Network.pm:3173
-#: src/EBox/Network.pm:3189 src/EBox/Network.pm:3215 src/EBox/Network.pm:3370
-#: src/EBox/Network.pm:3524 src/EBox/Model/GatewayTable.pm:198
-#: src/EBox/Model/GatewayTable.pm:273 src/templates/ifaces.mas:119
-#: src/templates/ifaces.mas:287 src/templates/Wizard/network.mas:40
-msgid "IP address"
-msgstr "IP aadress"
-
-#: src/EBox/CGI/VIface.pm:66 src/EBox/CGI/VIface.pm:72
-msgid "virtual interface name"
-msgstr "virtuaalse liidese nimi"
-
-#: src/EBox/CGI/Diag.pm:31 src/EBox/CGI/Diag.pm:43
-msgid "Network Diagnostic Tools"
-msgstr "Võrgudiagnostika tööriistad"
-
-#: src/EBox/CGI/Diag.pm:53 src/EBox/CGI/Diag.pm:60
-#: src/EBox/Model/WANFailoverRules.pm:97 src/templates/diag.mas:14
-#: src/templates/diag.mas:23
-msgid "Host"
-msgstr "Masin"
-
-#: src/EBox/CGI/Diag.pm:67 src/EBox/Network.pm:3453
-msgid "host name"
-msgstr "masinanimi"
-
-#: src/EBox/CGI/Ifaces.pm:31 src/EBox/Network.pm:3561
-msgid "Network Interfaces"
-msgstr "Võrguliidesed"
-
-#: src/EBox/CGI/EnableBalanceTraffic.pm:43
-msgid "traffic balance"
-msgstr "liikluse tasakaal"
 
 #: src/EBox/Event/Watcher/Gateways.pm:150
 #, perl-brace-format
@@ -104,374 +31,14 @@ msgstr ""
 "Lüüs {gw} on ühendamata. ({failRatio}% '{type}' testidest masinasse '{host}' "
 "nurjusid, max={maxFailRatio}%)"
 
-#: src/EBox/Event/Watcher/Gateways.pm:370
-#: src/EBox/Network/Composite/WANFailover.pm:61 src/EBox/Network.pm:3594
+#: src/EBox/Event/Watcher/Gateways.pm:370 src/EBox/Network.pm:3592
+#: src/EBox/Network/Composite/WANFailover.pm:61
 msgid "WAN Failover"
 msgstr "WAN tõrkesiire"
 
 #: src/EBox/Event/Watcher/Gateways.pm:386
 msgid "Check if gateways are connected or disconnected."
 msgstr "Kontrolli kas lüüsid on ühendatud või mitte."
-
-#: src/EBox/Network/Composite/ByteRate.pm:74
-#: src/EBox/Network/Report/ByteRate.pm:135
-msgid "Traffic rate monitoring"
-msgstr "Liikluskiiruse monitooring"
-
-#: src/EBox/Network/Composite/Gateway.pm:56
-#, fuzzy
-msgid "Gateways and Proxy"
-msgstr "Lüüsid"
-
-#: src/EBox/Network/Composite/WANFailover.pm:77
-msgid ""
-"Events module is not enabled. You have to enable it and also enable the WAN "
-"Failover event in order to use this feature."
-msgstr ""
-"Sündmuste moodul ei ole lubatud. Sa pead selle ja ka WAN tõrkesiirde "
-"sündmuse lubama, et seda võimalust kasutada."
-
-#: src/EBox/Network/Composite/WANFailover.pm:81
-msgid ""
-"WAN Failover event is not enabled. You have to enable it in order to use "
-"this feature"
-msgstr ""
-"WAN tõrkesiire ei ole hetkel lubatud. Tõrkesiirde kasutamiseks peab see "
-"olema eelnevalt lubatud sündmuste moodulis."
-
-#: src/EBox/Network/Composite/DNS.pm:60
-msgid "Domain Name Server Resolver"
-msgstr "Nimeserveri nimelahendaja"
-
-#: src/EBox/Network/Composite/MultiGw.pm:62 src/EBox/Network.pm:3592
-msgid "Balance Traffic"
-msgstr "Liikluse tasakaalustamine"
-
-#: src/EBox/Network/Composite/MultiGw.pm:82
-msgid ""
-"To be able to use this feature you need at least two enabled gateways. You "
-"can add them <a href=\"/ebox/Network/View/GatewayTable\">here</a> first."
-msgstr ""
-"Liikluse tasakaalustamise kasutamiseks läheb sul vaja vähemalt kahte lubatud "
-"lüüsi. Sa saad neid lisada <a href=\"/ebox/Network/View/GatewayTable\">siin</"
-"a>."
-
-#: src/EBox/Network/Report/ByteRate.pm:137 src/EBox/Network.pm:3513
-msgid "Status"
-msgstr "Olek"
-
-#: src/EBox/Network/Report/ByteRate.pm:137
-msgid "Running"
-msgstr "Töötab"
-
-#: src/EBox/Network/Report/ByteRate.pm:757
-msgid "bytes/second"
-msgstr "baiti/sekundis"
-
-#: src/EBox/Network/Report/ByteRate.pm:824
-#: src/EBox/Network/Report/ByteRate.pm:930
-msgid "Traffic data for source"
-msgstr "Liikluse andmed lähtekoha jaoks"
-
-#: src/EBox/Network/Report/ByteRate.pm:844
-#, perl-brace-format
-msgid "Network traffic from {src}"
-msgstr "{src} võrguliiklus"
-
-#: src/EBox/Network/Report/ByteRate.pm:878
-msgid "Traffic data not found for service"
-msgstr "Liikluse andmeid teenuse jaoks ei leitud"
-
-#: src/EBox/Network/Report/ByteRate.pm:888
-#, perl-brace-format
-msgid "Network traffic for {service}"
-msgstr "Võrguliiklus {service} jaoks"
-
-#: src/EBox/Network/Report/ByteRate.pm:938
-msgid "Traffic data for service"
-msgstr "Liikluse andmed teenuse jaoks"
-
-#: src/EBox/Network/Report/ByteRate.pm:947
-msgid "Traffic data not found for source and service pair"
-msgstr "Liikluse andmeid lähtekoha ja teenuse paari jaoks ei leitud"
-
-#: src/EBox/Network/Report/ByteRate.pm:949
-#, perl-brace-format
-msgid "source {src} and service {service}"
-msgstr "lähtekoht {src} ja teenus {service}"
-
-#: src/EBox/Network/Report/ByteRate.pm:963
-#, perl-brace-format
-msgid "Network traffic from source {src} and for service {service}"
-msgstr "Võrguliiklus lähtekohast {src} ja teenuse {service} jaoks"
-
-#: src/EBox/Network/Report/ByteRate.pm:990
-msgid "All active services"
-msgstr "Kõik aktiivsed teenused"
-
-# vt koodi
-#: src/EBox/Network/Report/ByteRate.pm:995
-msgid "Traffic data for "
-msgstr "Liikluse andmed"
-
-# vt koodi
-#: src/EBox/Network/Report/ByteRate.pm:996
-msgid "all services"
-msgstr "kõikide teenuste kohta"
-
-#: src/EBox/Network/Report/ByteRate.pm:1041
-msgid "All active sources"
-msgstr "Kõik aktiivsed lähtekohad"
-
-# vt koodi
-#: src/EBox/Network/Report/ByteRate.pm:1046
-msgid "Traffic data for"
-msgstr "Liikluse andmed"
-
-# vt koodi
-#: src/EBox/Network/Report/ByteRate.pm:1047
-msgid "all sources"
-msgstr "kõikide allikate kohta"
-
-#: src/EBox/Network/Report/ByteRate.pm:1085
-#, perl-brace-format
-msgid "Total traffic rate from {src}"
-msgstr "{src} liikluskiirus kokku"
-
-#: src/EBox/Network/Report/ByteRate.pm:1100
-#, perl-brace-format
-msgid "Total traffic rate for {service}"
-msgstr "Liikluskiirus kokku {service} jaoks"
-
-#: src/EBox/Network/Report/ByteRate.pm:1124
-#, perl-brace-format
-msgid "Traffic rate from {src} for {service}"
-msgstr "{src} liikluskiirus {service} jaoks"
-
-#: src/EBox/Network.pm:83 src/EBox/Network.pm:3577
-#: src/EBox/Model/StaticRoute.pm:147
-msgid "Network"
-msgstr "Võrk"
-
-#  
-#: src/EBox/Network.pm:101
-msgid "Add default routers to the default table"
-msgstr "Vaikimisi marsruutide lisamine vaikimisi tabelisse"
-
-#: src/EBox/Network.pm:102
-msgid ""
-"This is needed to work with a multigateway configuration. Note that to list "
-"the default routes you must execute: "
-msgstr ""
-"See on vajalik mitme lüüsi seadistamiseks. Pea meeles, et vaikimisi "
-"marsruutide loendi kuvamiseks pead sa käivitama: "
-
-#: src/EBox/Network.pm:108
-#, fuzzy
-msgid "Enable Zentyal DHCP hook"
-msgstr "Luba eBoxi DHCP haakimine"
-
-#: src/EBox/Network.pm:109
-msgid ""
-"It will take care of adding the default route given by a DHCP server to the "
-"default route table. "
-msgstr ""
-"See lisab DHCP serveri poolt pakutavad vaikimisi marsruudid vaikimisi "
-"marsruuditabelisse."
-
-#: src/EBox/Network.pm:127
-#, fuzzy
-msgid "Zentyal will set your network configuration"
-msgstr "eBox määrab sinu võrgu seadistused"
-
-#: src/EBox/Network.pm:132
-#, fuzzy
-msgid "Zentyal will set your DNS configuration"
-msgstr "eBox määrab sinu DNS seadistused"
-
-#: src/EBox/Network.pm:137
-#, fuzzy
-msgid "Zentyal will set your DHCP client configuration"
-msgstr "eBox määrab sinu DHCP kliendi seadistused"
-
-#: src/EBox/Network.pm:142 src/EBox/Network.pm:147
-#, fuzzy
-msgid "Zentyal will set your ddclient configuration"
-msgstr "eBox määrab sinu ddclient seadistused"
-
-#: src/EBox/Network.pm:152 src/EBox/Network.pm:157
-#, fuzzy
-msgid "Zentyal will store your PPPoE passwords"
-msgstr "eBox salvestab sinu PPPoE paroolid"
-
-#: src/EBox/Network.pm:164
-#, fuzzy
-msgid "Zentyal will add a DSL provider configuration for PPPoE"
-msgstr "eBox lisab DSL pakkuja seadistused PPPoE jaoks"
-
-#: src/EBox/Network.pm:171
-msgid "Zentyal will set HTTP proxy for all users"
-msgstr ""
-
-#: src/EBox/Network.pm:174
-msgid "Zentyal will set HTTP proxy for APT"
-msgstr ""
-
-#: src/EBox/Network.pm:904 src/EBox/Network.pm:908
-msgid "Virtual interface name"
-msgstr "Virtuaalse liidese nimi"
-
-#: src/EBox/Network.pm:907 src/EBox/Network.pm:1226 src/EBox/Network.pm:3173
-#: src/templates/ifaces.mas:132 src/templates/ifaces.mas:288
-#: src/templates/Wizard/network.mas:44
-msgid "Netmask"
-msgstr "Võrgumask"
-
-#: src/EBox/Network.pm:1000 src/EBox/Network.pm:1032 src/EBox/Network.pm:1077
-#: src/EBox/Network.pm:1113 src/EBox/Network.pm:1138 src/EBox/Network.pm:1222
-#: src/EBox/Network.pm:1360 src/EBox/Network.pm:1451 src/EBox/Network.pm:1539
-#: src/EBox/Network.pm:1545 src/EBox/Network.pm:1872 src/EBox/Network.pm:1942
-#: src/EBox/Network.pm:1975 src/EBox/Network.pm:2002 src/EBox/Network.pm:2029
-#: src/EBox/Network.pm:2057 src/EBox/Network.pm:2119 src/EBox/Network.pm:2158
-#: src/EBox/Network.pm:2191 src/EBox/Network.pm:3171 src/EBox/Network.pm:3191
-#: src/EBox/Network.pm:3211 src/EBox/Network.pm:3232 src/EBox/Network.pm:3251
-#: src/EBox/Network.pm:3305 src/EBox/Network.pm:3326 src/EBox/Network.pm:3346
-#: src/EBox/Network.pm:3367 src/EBox/Network.pm:3390
-#: src/EBox/Model/MultiGwRulesDataTable.pm:102
-#: src/EBox/Model/GatewayTable.pm:205
-msgid "Interface"
-msgstr "Liides"
-
-#: src/EBox/Network.pm:1456
-msgid "This interface cannot be put in trunk mode, it is an vlan interface."
-msgstr "Seda liidest ei saa kasutada trunk režiimis, sest see on vlan liides."
-
-#: src/EBox/Network.pm:1511
-msgid ""
-"This interface is in trunk mode, you should unconfigure all the vlan "
-"interfaces in this trunk before changing its configuration mode."
-msgstr ""
-"See liides on trunk režiimis, sa peaksid kõik vlan liidesed selles trunkis "
-"uuesti seadistama, enne kui muudad seadistamise režiimi."
-
-#: src/EBox/Network.pm:1648
-msgid ""
-"Network interfaces need to be in trunk mode before adding vlans to them."
-msgstr "Võrguliidesed peavad olema trunk režiimis enne vlan liideste lisamist."
-
-#: src/EBox/Network.pm:3063
-msgid ""
-"The requested operation will cause one of the configured gateways to become "
-"unreachable. Please remove it first if you really want to make this change."
-msgstr ""
-"Päritud operatsioon võib muuta ühe seadistatud lüüsi kättesaamatuks. Kui sa "
-"soovid seda muudatust teha, siis palun eemalda see esmalt."
-
-#: src/EBox/Network.pm:3128 src/EBox/NetworkUtil.pm:56
-#, perl-brace-format
-msgid "Gateway {gw} not reachable"
-msgstr "Lüüs {gw} ei ole kättesaadav"
-
-#: src/EBox/Network.pm:3131
-#, perl-brace-format
-msgid ""
-"Gateway {gw} must be reachable by a static interface. Currently it is "
-"reachable by {iface} which is not static"
-msgstr ""
-"Lüüs {gw} peab olema kättesaadav staatilisele liidesele. Hetkel on see "
-"kättesaadav liidesele {iface}, mis ei ole staatiline"
-
-#: src/EBox/Network.pm:3412 src/EBox/Network.pm:3433
-msgid "Host name"
-msgstr "Masinanimi"
-
-#: src/EBox/Network.pm:3483
-msgid "down"
-msgstr "ei tööta"
-
-#: src/EBox/Network.pm:3489
-msgid "up"
-msgstr "töötab"
-
-#: src/EBox/Network.pm:3494
-#, fuzzy
-msgid "external"
-msgstr "Väline (WAN)"
-
-#: src/EBox/Network.pm:3496
-msgid "internal"
-msgstr ""
-
-# või "link korras" ?
-#: src/EBox/Network.pm:3502
-msgid "link ok"
-msgstr "link on korras"
-
-#: src/EBox/Network.pm:3504
-msgid "no link"
-msgstr "link ei ole korras"
-
-#: src/EBox/Network.pm:3518
-msgid "MAC address"
-msgstr "MAC aadress"
-
-# Tx baiti v Tx baite
-#: src/EBox/Network.pm:3535
-msgid "Tx bytes"
-msgstr "Tx baidid"
-
-# Rx baiti v Rx baite
-#: src/EBox/Network.pm:3544
-msgid "Rx bytes"
-msgstr "Rx baidid"
-
-#: src/EBox/Network.pm:3582
-msgid "Interfaces"
-msgstr "Liidesed"
-
-#: src/EBox/Network.pm:3588
-msgid "Gateways"
-msgstr "Lüüsid"
-
-#: src/EBox/Network.pm:3590 src/EBox/Model/StaticRoute.pm:171
-msgid "Static Routes"
-msgstr "Staatilised marsruudid"
-
-#: src/EBox/Network.pm:3596
-msgid "Diagnostic Tools"
-msgstr "Diagnostika tööriistad"
-
-#: src/EBox/Model/StaticRoute.pm:150
-msgid "IP or network address"
-msgstr "IP või võrguaadress"
-
-#: src/EBox/Model/StaticRoute.pm:156
-msgid "Gateway used to reach the above network  address"
-msgstr "Lüüsi kasutatakse selleks, et jõuda ülal näidatud võrguaadressideni"
-
-#: src/EBox/Model/StaticRoute.pm:161 src/templates/ifaces.mas:230
-msgid "Description"
-msgstr "Kirjeldus"
-
-#: src/EBox/Model/StaticRoute.pm:164
-msgid "Optional description for this route"
-msgstr "Valikuline kirjeldus selle marsruudi jaoks"
-
-#: src/EBox/Model/StaticRoute.pm:170
-msgid "Static Routes List"
-msgstr "Staatiliste marsruutide loend"
-
-#: src/EBox/Model/StaticRoute.pm:176
-msgid ""
-"All gateways you enter here must be reachable through one of the network "
-"interfaces currently configured."
-msgstr ""
-"Kõik sisestatud lüüsid peavad olema kättesaadavad läbi ühe seadistatud "
-"aktiivse võrguliidese."
-
-#: src/EBox/Model/StaticRoute.pm:179
-msgid "static route"
-msgstr "staatiline marsruut"
 
 #: src/EBox/Model/SearchDomain.pm:71
 msgid "Domain"
@@ -490,169 +57,118 @@ msgstr ""
 "Seda domeeni kasutatakse nimede lahendamisel juhul kui esimene "
 "nimelahendamise katse ei õnnestunud."
 
-#: src/EBox/Model/MultiGwRulesOptions.pm:43
-msgid "Enable"
-msgstr "Lubatud"
+#: src/EBox/Model/WANFailoverRules.pm:55
+msgid "Ping to gateway"
+msgstr "Lüüsi pingimine"
 
-#: src/EBox/Model/MultiGwRulesOptions.pm:53
-msgid "Traffic balancing"
-msgstr "Liikluse tasakaalustamine"
+#: src/EBox/Model/WANFailoverRules.pm:59
+msgid "Ping to host"
+msgstr "Masina pingimine"
 
-#  
-#: src/EBox/Model/MultiGwRulesOptions.pm:64
-#, perl-brace-format
+#: src/EBox/Model/WANFailoverRules.pm:63
+msgid "DNS resolve"
+msgstr "DNS lahendamine"
+
+#: src/EBox/Model/WANFailoverRules.pm:67
+msgid "HTTP Request"
+msgstr "HTTP päring"
+
+#: src/EBox/Model/WANFailoverRules.pm:91
+msgid "Test type"
+msgstr "Testi tüüp"
+
+#: src/EBox/Model/WANFailoverRules.pm:97 src/EBox/CGI/Diag.pm:51
+#: src/EBox/CGI/Diag.pm:58 src/templates/diag.mas:14 src/templates/diag.mas:23
+msgid "Host"
+msgstr "Masin"
+
+# Proovimiste arv
+#: src/EBox/Model/WANFailoverRules.pm:103
+#, fuzzy
+msgid "Number of probes"
+msgstr "Sondide arv"
+
+#: src/EBox/Model/WANFailoverRules.pm:112
+msgid "Required success ratio"
+msgstr "Nõutud õnnestumise suhe"
+
+#: src/EBox/Model/WANFailoverRules.pm:125
+msgid "Test rules"
+msgstr "Testimisreeglid"
+
+#: src/EBox/Model/WANFailoverRules.pm:132
 msgid ""
-"By enabling this feature, your traffic will be balanced amongst your "
-"gateways. That is, every new connection will be sent by a different gateway. "
-"You can choose which proportion of traffic goes through each gateway using "
-"the weight parameter of the gateway. You can change that value {openref}here"
-"{closeref}.{br}If you want to explicitily route traffic by a certain "
-"gateway, use the multigateway rules below"
+"You can define different rules to test if a gateway is working properly. If "
+"one of the test fails the gateway will be disabled. It will be enabled again "
+"when all tests are passed."
 msgstr ""
-"Valikut lubades tasakaalustatakse võrguliiklus lüüside vahel. Iga uus loodav "
-"ühendus kasutab erinevat lüüsi. Liikluse jagunemist lüüside vahel saab "
-"määrata, kasutades lüüsi kaalu parameetrit, mille väärtust saad muuta "
-"{openref}siin{closeref}.{br}Kui soovid mingit tüüpi liiklust marsruutida "
-"läbi kindla lüüsi, kasuta allpool olevaid mitme lüüsi reegleid."
+"Siin saab lüüsi testimiseks koostada erinevaid reegleid. Lüüs keelatakse, "
+"kui testid ebaõnnestuvad ja lubatakse uuesti, kui testid õnnestuvad. "
 
-#: src/EBox/Model/MultiGwRulesOptions.pm:68
-#: src/EBox/Model/MultiGwRulesDataTable.pm:196
 #: src/EBox/Model/WANFailoverRules.pm:133
+#: src/EBox/Model/MultiGwRulesDataTable.pm:195
+#: src/EBox/Model/MultiGwRulesOptions.pm:68
 msgid "rule"
 msgstr "reegel"
 
-#: src/EBox/Model/MultiGwRulesDataTable.pm:78
-msgid "any"
-msgstr "suvaline"
+#: src/EBox/Model/WANFailoverRules.pm:192
+msgid "WAN Failover is only available for static interfaces"
+msgstr "WAN tõrkesiire on saadaval ainult staatiliste liideste jaoks"
+
+#: src/EBox/Model/WANFailoverRules.pm:198
+msgid "Invalid value for Host"
+msgstr "Vigane väärtus masina jaoks"
+
+#: src/EBox/Model/ByteRateGraphControl.pm:46
+msgid "Select traffic graphic"
+msgstr "Vali liikluse graafik"
 
 #  
-#: src/EBox/Model/MultiGwRulesDataTable.pm:105
+#: src/EBox/Model/ByteRateGraphControl.pm:57
 #, fuzzy
 msgid ""
-"Incoming interface to match packets. If you  want to match a whole subnet "
-"you can  select the interface of that subnet"
+"Several views are showed depending on the parameter selection. An host IP "
+"address and a service, which must match the text given by the graphs legend "
+"based on /etc/services, may be required by the graph type. The flow view "
+"will change accordingly"
 msgstr ""
-"Sisenevate pakettide liides. Kui tahad reeglit kehtestada kogu alamvõrgule, "
-"siis vali selle alamvõrgu liides."
+"Vastavalt parameetrite valikule on võimalik näidata erinevaid vaateid. Mõne "
+"graafikutüübi poolt on nõutav masina IP aadress ja teenus, mis peab sobima "
+"graafiku legendi tekstiga."
 
-#: src/EBox/Model/MultiGwRulesDataTable.pm:111
-#: src/EBox/Model/ByteRateGraphControl.pm:112
+#: src/EBox/Model/ByteRateGraphControl.pm:78
+msgid "Graph type"
+msgstr "Graafiku tüüp"
+
+#: src/EBox/Model/ByteRateGraphControl.pm:85
+msgid "All active traffic by source"
+msgstr "Aktiivne liiklus kokku, lähtekoha järgi"
+
+#: src/EBox/Model/ByteRateGraphControl.pm:89
+msgid "All active traffic by service"
+msgstr "Aktiivne liiklus kokku, teenuse järgi"
+
+#: src/EBox/Model/ByteRateGraphControl.pm:93
+msgid "Traffic by selected source"
+msgstr "Valitud lähtekoha liiklus"
+
+#: src/EBox/Model/ByteRateGraphControl.pm:99
+msgid "Traffic by selected service"
+msgstr "Valitud teenuse liiklus"
+
+#: src/EBox/Model/ByteRateGraphControl.pm:105
+msgid "Traffic by source and service"
+msgstr "Lähtekoha ja teenuse liiklus"
+
+#: src/EBox/Model/ByteRateGraphControl.pm:111
+#: src/EBox/Model/MultiGwRulesDataTable.pm:110
 msgid "Source"
 msgstr "Lähtekoht"
 
-#: src/EBox/Model/MultiGwRulesDataTable.pm:116
-#: src/EBox/Model/MultiGwRulesDataTable.pm:143
-msgid "Any"
-msgstr "Suvaline"
-
-#: src/EBox/Model/MultiGwRulesDataTable.pm:119
-msgid "Source IP"
-msgstr "IP lähteaadress"
-
-#: src/EBox/Model/MultiGwRulesDataTable.pm:124
-msgid "Source object"
-msgstr "Lähteobjekt"
-
-#: src/EBox/Model/MultiGwRulesDataTable.pm:138
-msgid "Destination"
-msgstr "Sihtkoht"
-
-#: src/EBox/Model/MultiGwRulesDataTable.pm:146
-msgid "Destination IP"
-msgstr "IP sihtaadress"
-
-#: src/EBox/Model/MultiGwRulesDataTable.pm:151
-msgid "Destination object"
-msgstr "Sihtobjekt"
-
-#: src/EBox/Model/MultiGwRulesDataTable.pm:162 src/EBox/Model/DynDNS.pm:91
-#: src/EBox/Model/ByteRateGraphControl.pm:118
+#: src/EBox/Model/ByteRateGraphControl.pm:117 src/EBox/Model/DynDNS.pm:91
+#: src/EBox/Model/MultiGwRulesDataTable.pm:161
 msgid "Service"
 msgstr "Teenus"
-
-#: src/EBox/Model/MultiGwRulesDataTable.pm:173
-msgid "Gateway to route packets matching this rule"
-msgstr "Lüüs reegliga sobivate pakettide marsruutimise jaoks"
-
-# Multilüüsi
-#: src/EBox/Model/MultiGwRulesDataTable.pm:181
-msgid "Multigateway rules"
-msgstr "Mitme lüüsi reeglid"
-
-#  
-#: src/EBox/Model/MultiGwRulesDataTable.pm:194
-msgid ""
-"You can decide what kind of traffic goes out by each gateway. This way, you "
-"can force a subnet, service, destination and so forth  to use the router you "
-"choose. Please, bear in mind that rules will be applied in order, from top "
-"to bottom, you can reorder them once they are added. If you do not set a "
-"port or an IP address, then the rule will match all of them"
-msgstr ""
-"Siin saab erinevate liiklustüüpide jaoks valida kindla lüüsi. Nõnda sunnid "
-"mingit kindlat alamvõrku, teenust, sihtkohta jne kasutama eelnevalt valitud "
-"lüüsi. Palun pea meeles, et reegleid rakendatakse järjekorras ülevalt alla. "
-"Lisatud reegleid võib ka ümber järjestada. Kui port või IP aadress ei ole "
-"määratud, kehtib reegel kõigi jaoks."
-
-#  
-#: src/EBox/Model/DNSResolver.pm:77
-#, fuzzy
-msgid "IP address of the DNS server that Zentyal will use to resolve names."
-msgstr "DNS serveri IP aadress, mida eBox kasutab nimede lahendamiseks."
-
-#: src/EBox/Model/DNSResolver.pm:83 src/templates/Wizard/network.mas:70
-#: src/templates/Wizard/network.mas:74
-msgid "Domain Name Server"
-msgstr "Nimeserver"
-
-#: src/EBox/Model/DNSResolver.pm:92
-msgid "Domain Name Server Resolver List"
-msgstr "Nimeserveri nimelahendajate loend"
-
-#: src/EBox/Model/DNSResolver.pm:98
-msgid "name server"
-msgstr "nimeserver"
-
-#: src/EBox/Model/DNSResolver.pm:110
-#, fuzzy
-msgid ""
-"<p>Here you can add the name server resolvers that Zentyal will use.</"
-"p><p>Note that these settings may be overriden if you have any network "
-"interface configured via DHCP</p>"
-msgstr ""
-"<p>Siin saad sa lisada nimeserveri nimelahendajaid, mida eBox kasutab.</"
-"p><p>Pea meeles, et need seadistused tühistatakse, kui sul on mõni "
-"võrguliides DHCP kaudu seadistatud</p>"
-
-#: src/EBox/Model/ByteRateSettings.pm:80
-msgid "Interface to listen"
-msgstr "Kuulatavad liidesed"
-
-#: src/EBox/Model/ByteRateSettings.pm:89
-msgid "Traffic rate monitor settings"
-msgstr "Liikluskiiruse monitooringu seadistused"
-
-#: src/EBox/Model/ByteRateSettings.pm:93
-msgid "Changes will be applied immediately to the traffic rate monitor"
-msgstr "Muudatused rakendatakse liikluskiiruse monitoorijale koheselt"
-
-#: src/EBox/Model/ByteRateSettings.pm:96
-msgid "Settings changed"
-msgstr "Seadistused muudetud"
-
-#: src/EBox/Model/ByteRateSettings.pm:115
-#, perl-brace-format
-msgid "{iface} (internal interface)"
-msgstr "{iface} (sisemine liides)"
-
-#: src/EBox/Model/ByteRateSettings.pm:122
-#, perl-brace-format
-msgid "{iface} (external interface)"
-msgstr "{iface} (väline liides)"
-
-#: src/EBox/Model/ByteRateSettings.pm:129
-msgid "all"
-msgstr "kõik"
 
 #: src/EBox/Model/DynDNS.pm:86
 msgid "Enable Dynamic DNS"
@@ -700,56 +216,250 @@ msgid ""
 msgstr ""
 "Liikluskiiruse monitoorija on töökorras ka ilma muudatuste salvestamiseta"
 
-#: src/EBox/Model/WANFailoverRules.pm:55
-msgid "Ping to gateway"
-msgstr "Lüüsi pingimine"
+#: src/EBox/Model/ByteRateSettings.pm:79
+msgid "Interface to listen"
+msgstr "Kuulatavad liidesed"
 
-#: src/EBox/Model/WANFailoverRules.pm:59
-msgid "Ping to host"
-msgstr "Masina pingimine"
+#: src/EBox/Model/ByteRateSettings.pm:88
+msgid "Traffic rate monitor settings"
+msgstr "Liikluskiiruse monitooringu seadistused"
 
-#: src/EBox/Model/WANFailoverRules.pm:63
-msgid "DNS resolve"
-msgstr "DNS lahendamine"
+#: src/EBox/Model/ByteRateSettings.pm:92
+msgid "Changes will be applied immediately to the traffic rate monitor"
+msgstr "Muudatused rakendatakse liikluskiiruse monitoorijale koheselt"
 
-#: src/EBox/Model/WANFailoverRules.pm:67
-msgid "HTTP Request"
-msgstr "HTTP päring"
+#: src/EBox/Model/ByteRateSettings.pm:95
+msgid "Settings changed"
+msgstr "Seadistused muudetud"
 
-#: src/EBox/Model/WANFailoverRules.pm:91
-msgid "Test type"
-msgstr "Testi tüüp"
+#: src/EBox/Model/ByteRateSettings.pm:114
+#, perl-brace-format
+msgid "{iface} (internal interface)"
+msgstr "{iface} (sisemine liides)"
 
-# Proovimiste arv
-#: src/EBox/Model/WANFailoverRules.pm:103
-#, fuzzy
-msgid "Number of probes"
-msgstr "Sondide arv"
+#: src/EBox/Model/ByteRateSettings.pm:121
+#, perl-brace-format
+msgid "{iface} (external interface)"
+msgstr "{iface} (väline liides)"
 
-#: src/EBox/Model/WANFailoverRules.pm:112
-msgid "Required success ratio"
-msgstr "Nõutud õnnestumise suhe"
+#: src/EBox/Model/ByteRateSettings.pm:128
+msgid "all"
+msgstr "kõik"
 
-#: src/EBox/Model/WANFailoverRules.pm:125
-msgid "Test rules"
-msgstr "Testimisreeglid"
+#: src/EBox/Model/GatewayTable.pm:184
+msgid "Auto"
+msgstr "Automaatne"
 
-#: src/EBox/Model/WANFailoverRules.pm:132
+#: src/EBox/Model/GatewayTable.pm:190 src/templates/ifaces.mas:34
+#: src/templates/ifaces.mas:286
+msgid "Name"
+msgstr "Nimi"
+
+#: src/EBox/Model/GatewayTable.pm:197 src/EBox/Model/GatewayTable.pm:272
+#: src/EBox/Network.pm:905 src/EBox/Network.pm:910 src/EBox/Network.pm:1224
+#: src/EBox/Network.pm:1245 src/EBox/Network.pm:3171 src/EBox/Network.pm:3187
+#: src/EBox/Network.pm:3213 src/EBox/Network.pm:3368 src/EBox/Network.pm:3522
+#: src/EBox/CGI/VIface.pm:62 src/templates/Wizard/network.mas:40
+#: src/templates/ifaces.mas:119 src/templates/ifaces.mas:287
+msgid "IP address"
+msgstr "IP aadress"
+
+#: src/EBox/Model/GatewayTable.pm:204
+#: src/EBox/Model/MultiGwRulesDataTable.pm:101 src/EBox/Network.pm:998
+#: src/EBox/Network.pm:1030 src/EBox/Network.pm:1075 src/EBox/Network.pm:1111
+#: src/EBox/Network.pm:1136 src/EBox/Network.pm:1220 src/EBox/Network.pm:1358
+#: src/EBox/Network.pm:1449 src/EBox/Network.pm:1537 src/EBox/Network.pm:1543
+#: src/EBox/Network.pm:1870 src/EBox/Network.pm:1940 src/EBox/Network.pm:1973
+#: src/EBox/Network.pm:2000 src/EBox/Network.pm:2027 src/EBox/Network.pm:2055
+#: src/EBox/Network.pm:2117 src/EBox/Network.pm:2156 src/EBox/Network.pm:2189
+#: src/EBox/Network.pm:3169 src/EBox/Network.pm:3189 src/EBox/Network.pm:3209
+#: src/EBox/Network.pm:3230 src/EBox/Network.pm:3249 src/EBox/Network.pm:3303
+#: src/EBox/Network.pm:3324 src/EBox/Network.pm:3344 src/EBox/Network.pm:3365
+#: src/EBox/Network.pm:3388
+msgid "Interface"
+msgstr "Liides"
+
+#: src/EBox/Model/GatewayTable.pm:207
+msgid "Interface connected to this gateway"
+msgstr "Selle lüüsiga ühendatud liides"
+
+#: src/EBox/Model/GatewayTable.pm:211
+msgid "Weight"
+msgstr "Kaal"
+
+#: src/EBox/Model/GatewayTable.pm:216
 msgid ""
-"You can define different rules to test if a gateway is working properly. If "
-"one of the test fails the gateway will be disabled. It will be enabled again "
-"when all tests are passed."
+"This field is only useful if you have more than one router and  the balance "
+"traffic feature is enabled."
 msgstr ""
-"Siin saab lüüsi testimiseks koostada erinevaid reegleid. Lüüs keelatakse, "
-"kui testid ebaõnnestuvad ja lubatakse uuesti, kui testid õnnestuvad. "
+"See väli on kasulik juhul, kui kasutuses on rohkem kui üks lüüs ja liikluse "
+"tasakaalustamine on lubatud."
 
-#: src/EBox/Model/WANFailoverRules.pm:192
-msgid "WAN Failover is only available for static interfaces"
-msgstr "WAN tõrkesiire on saadaval ainult staatiliste liideste jaoks"
+#: src/EBox/Model/GatewayTable.pm:222
+msgid "Default"
+msgstr "Vaikimisi"
 
-#: src/EBox/Model/WANFailoverRules.pm:198
-msgid "Invalid value for Host"
-msgstr "Vigane väärtus masina jaoks"
+#: src/EBox/Model/GatewayTable.pm:232
+msgid "Gateways List"
+msgstr "Lüüside loend"
+
+#: src/EBox/Model/GatewayTable.pm:248
+msgid ""
+"You can add as many gateways as you want. This is very useful if you want to "
+"split your Internet traffic through several links. Note that if you "
+"configure interfaces as DHCP or PPPoE their gateways are added here "
+"automatically."
+msgstr ""
+"Lüüse saad lisada vastavalt vajadusele. Lüüside lisamise on kasulik juhul, "
+"kui soovid oma Interneti liiklust jagada mitme lingi vahel. Pea meeles, et "
+"kui seadistad liideseid DHCP või PPPoEga, siis nende lüüsid lisatakse siia "
+"automaatselt."
+
+#: src/EBox/Model/GatewayTable.pm:250
+msgid "gateway"
+msgstr "lüüs"
+
+#: src/EBox/Model/GatewayTable.pm:283
+msgid "You can not manually add a gateway for DHCP or PPPoE interfaces"
+msgstr "Sa ei saa DHCP või PPPoE liidestele käsitsi lüüsi lisada"
+
+#: src/EBox/Model/GatewayTable.pm:342
+msgid "Automatically added gateways can not be manually deleted"
+msgstr "Automaatselt lisatud lüüse ei saa käsitsi kustutada"
+
+#: src/EBox/Model/MultiGwRulesDataTable.pm:77
+msgid "any"
+msgstr "suvaline"
+
+#  
+#: src/EBox/Model/MultiGwRulesDataTable.pm:104
+#, fuzzy
+msgid ""
+"Incoming interface to match packets. If you  want to match a whole subnet "
+"you can  select the interface of that subnet"
+msgstr ""
+"Sisenevate pakettide liides. Kui tahad reeglit kehtestada kogu alamvõrgule, "
+"siis vali selle alamvõrgu liides."
+
+#: src/EBox/Model/MultiGwRulesDataTable.pm:115
+#: src/EBox/Model/MultiGwRulesDataTable.pm:142
+msgid "Any"
+msgstr "Suvaline"
+
+#: src/EBox/Model/MultiGwRulesDataTable.pm:118
+msgid "Source IP"
+msgstr "IP lähteaadress"
+
+#: src/EBox/Model/MultiGwRulesDataTable.pm:123
+msgid "Source object"
+msgstr "Lähteobjekt"
+
+#: src/EBox/Model/MultiGwRulesDataTable.pm:137
+msgid "Destination"
+msgstr "Sihtkoht"
+
+#: src/EBox/Model/MultiGwRulesDataTable.pm:145
+msgid "Destination IP"
+msgstr "IP sihtaadress"
+
+#: src/EBox/Model/MultiGwRulesDataTable.pm:150
+msgid "Destination object"
+msgstr "Sihtobjekt"
+
+#: src/EBox/Model/MultiGwRulesDataTable.pm:172
+msgid "Gateway to route packets matching this rule"
+msgstr "Lüüs reegliga sobivate pakettide marsruutimise jaoks"
+
+# Multilüüsi
+#: src/EBox/Model/MultiGwRulesDataTable.pm:180
+msgid "Multigateway rules"
+msgstr "Mitme lüüsi reeglid"
+
+#  
+#: src/EBox/Model/MultiGwRulesDataTable.pm:193
+msgid ""
+"You can decide what kind of traffic goes out by each gateway. This way, you "
+"can force a subnet, service, destination and so forth  to use the router you "
+"choose. Please, bear in mind that rules will be applied in order, from top "
+"to bottom, you can reorder them once they are added. If you do not set a "
+"port or an IP address, then the rule will match all of them"
+msgstr ""
+"Siin saab erinevate liiklustüüpide jaoks valida kindla lüüsi. Nõnda sunnid "
+"mingit kindlat alamvõrku, teenust, sihtkohta jne kasutama eelnevalt valitud "
+"lüüsi. Palun pea meeles, et reegleid rakendatakse järjekorras ülevalt alla. "
+"Lisatud reegleid võib ka ümber järjestada. Kui port või IP aadress ei ole "
+"määratud, kehtib reegel kõigi jaoks."
+
+#: src/EBox/Model/StaticRoute.pm:147 src/EBox/Network.pm:81
+#: src/EBox/Network.pm:3575
+msgid "Network"
+msgstr "Võrk"
+
+#: src/EBox/Model/StaticRoute.pm:150
+msgid "IP or network address"
+msgstr "IP või võrguaadress"
+
+#: src/EBox/Model/StaticRoute.pm:156
+msgid "Gateway used to reach the above network  address"
+msgstr "Lüüsi kasutatakse selleks, et jõuda ülal näidatud võrguaadressideni"
+
+#: src/EBox/Model/StaticRoute.pm:161 src/templates/ifaces.mas:230
+msgid "Description"
+msgstr "Kirjeldus"
+
+#: src/EBox/Model/StaticRoute.pm:164
+msgid "Optional description for this route"
+msgstr "Valikuline kirjeldus selle marsruudi jaoks"
+
+#: src/EBox/Model/StaticRoute.pm:170
+msgid "Static Routes List"
+msgstr "Staatiliste marsruutide loend"
+
+#: src/EBox/Model/StaticRoute.pm:171 src/EBox/Network.pm:3588
+msgid "Static Routes"
+msgstr "Staatilised marsruudid"
+
+#: src/EBox/Model/StaticRoute.pm:176
+msgid ""
+"All gateways you enter here must be reachable through one of the network "
+"interfaces currently configured."
+msgstr ""
+"Kõik sisestatud lüüsid peavad olema kättesaadavad läbi ühe seadistatud "
+"aktiivse võrguliidese."
+
+#: src/EBox/Model/StaticRoute.pm:179
+msgid "static route"
+msgstr "staatiline marsruut"
+
+#  
+#: src/EBox/Model/DNSResolver.pm:77
+#, fuzzy
+msgid "IP address of the DNS server that Zentyal will use to resolve names."
+msgstr "DNS serveri IP aadress, mida eBox kasutab nimede lahendamiseks."
+
+#: src/EBox/Model/DNSResolver.pm:83 src/templates/Wizard/network.mas:70
+#: src/templates/Wizard/network.mas:74
+msgid "Domain Name Server"
+msgstr "Nimeserver"
+
+#: src/EBox/Model/DNSResolver.pm:92
+msgid "Domain Name Server Resolver List"
+msgstr "Nimeserveri nimelahendajate loend"
+
+#: src/EBox/Model/DNSResolver.pm:98
+msgid "name server"
+msgstr "nimeserver"
+
+#: src/EBox/Model/DNSResolver.pm:110
+#, fuzzy
+msgid ""
+"<p>Here you can add the name server resolvers that Zentyal will use.</"
+"p><p>Note that these settings may be overriden if you have any network "
+"interface configured via DHCP</p>"
+msgstr ""
+"<p>Siin saad sa lisada nimeserveri nimelahendajaid, mida eBox kasutab.</"
+"p><p>Pea meeles, et need seadistused tühistatakse, kui sul on mõni "
+"võrguliides DHCP kaudu seadistatud</p>"
 
 #: src/EBox/Model/WANFailoverOptions.pm:71
 msgid "Time between checks"
@@ -767,104 +477,6 @@ msgstr "Üldised valikud"
 #: src/EBox/Model/WANFailoverOptions.pm:86
 msgid "These options affect to all the tests."
 msgstr "Seda valikut rakendatakse kõikidele testidele."
-
-#: src/EBox/Model/GatewayTable.pm:185
-msgid "Auto"
-msgstr "Automaatne"
-
-#: src/EBox/Model/GatewayTable.pm:191 src/templates/ifaces.mas:34
-#: src/templates/ifaces.mas:286
-msgid "Name"
-msgstr "Nimi"
-
-#: src/EBox/Model/GatewayTable.pm:208
-msgid "Interface connected to this gateway"
-msgstr "Selle lüüsiga ühendatud liides"
-
-#: src/EBox/Model/GatewayTable.pm:212
-msgid "Weight"
-msgstr "Kaal"
-
-#: src/EBox/Model/GatewayTable.pm:217
-msgid ""
-"This field is only useful if you have more than one router and  the balance "
-"traffic feature is enabled."
-msgstr ""
-"See väli on kasulik juhul, kui kasutuses on rohkem kui üks lüüs ja liikluse "
-"tasakaalustamine on lubatud."
-
-#: src/EBox/Model/GatewayTable.pm:223
-msgid "Default"
-msgstr "Vaikimisi"
-
-#: src/EBox/Model/GatewayTable.pm:233
-msgid "Gateways List"
-msgstr "Lüüside loend"
-
-#: src/EBox/Model/GatewayTable.pm:249
-msgid ""
-"You can add as many gateways as you want. This is very useful if you want to "
-"split your Internet traffic through several links. Note that if you "
-"configure interfaces as DHCP or PPPoE their gateways are added here "
-"automatically."
-msgstr ""
-"Lüüse saad lisada vastavalt vajadusele. Lüüside lisamise on kasulik juhul, "
-"kui soovid oma Interneti liiklust jagada mitme lingi vahel. Pea meeles, et "
-"kui seadistad liideseid DHCP või PPPoEga, siis nende lüüsid lisatakse siia "
-"automaatselt."
-
-#: src/EBox/Model/GatewayTable.pm:251
-msgid "gateway"
-msgstr "lüüs"
-
-#: src/EBox/Model/GatewayTable.pm:284
-msgid "You can not manually add a gateway for DHCP or PPPoE interfaces"
-msgstr "Sa ei saa DHCP või PPPoE liidestele käsitsi lüüsi lisada"
-
-#: src/EBox/Model/GatewayTable.pm:343
-msgid "Automatically added gateways can not be manually deleted"
-msgstr "Automaatselt lisatud lüüse ei saa käsitsi kustutada"
-
-#: src/EBox/Model/ByteRateGraphControl.pm:47
-msgid "Select traffic graphic"
-msgstr "Vali liikluse graafik"
-
-#  
-#: src/EBox/Model/ByteRateGraphControl.pm:58
-#, fuzzy
-msgid ""
-"Several views are showed depending on the parameter selection. An host IP "
-"address and a service, which must match the text given by the graphs legend "
-"based on /etc/services, may be required by the graph type. The flow view "
-"will change accordingly"
-msgstr ""
-"Vastavalt parameetrite valikule on võimalik näidata erinevaid vaateid. Mõne "
-"graafikutüübi poolt on nõutav masina IP aadress ja teenus, mis peab sobima "
-"graafiku legendi tekstiga."
-
-#: src/EBox/Model/ByteRateGraphControl.pm:79
-msgid "Graph type"
-msgstr "Graafiku tüüp"
-
-#: src/EBox/Model/ByteRateGraphControl.pm:86
-msgid "All active traffic by source"
-msgstr "Aktiivne liiklus kokku, lähtekoha järgi"
-
-#: src/EBox/Model/ByteRateGraphControl.pm:90
-msgid "All active traffic by service"
-msgstr "Aktiivne liiklus kokku, teenuse järgi"
-
-#: src/EBox/Model/ByteRateGraphControl.pm:94
-msgid "Traffic by selected source"
-msgstr "Valitud lähtekoha liiklus"
-
-#: src/EBox/Model/ByteRateGraphControl.pm:100
-msgid "Traffic by selected service"
-msgstr "Valitud teenuse liiklus"
-
-#: src/EBox/Model/ByteRateGraphControl.pm:106
-msgid "Traffic by source and service"
-msgstr "Lähtekoha ja teenuse liiklus"
 
 #: src/EBox/Model/Proxy.pm:72
 #, fuzzy
@@ -885,15 +497,439 @@ msgid ""
 "HTTP proxy is needed."
 msgstr ""
 
-#: src/templates/confirmremove.mas:11 src/templates/confirm.mas:16
+#: src/EBox/Model/MultiGwRulesOptions.pm:43
+msgid "Enable"
+msgstr "Lubatud"
+
+#: src/EBox/Model/MultiGwRulesOptions.pm:53
+msgid "Traffic balancing"
+msgstr "Liikluse tasakaalustamine"
+
+#  
+#: src/EBox/Model/MultiGwRulesOptions.pm:64
+#, perl-brace-format
 msgid ""
-"The change you are trying to make will affect the configuration of one or "
+"By enabling this feature, your traffic will be balanced amongst your "
+"gateways. That is, every new connection will be sent by a different gateway. "
+"You can choose which proportion of traffic goes through each gateway using "
+"the weight parameter of the gateway. You can change that value {openref}here"
+"{closeref}.{br}If you want to explicitily route traffic by a certain "
+"gateway, use the multigateway rules below"
+msgstr ""
+"Valikut lubades tasakaalustatakse võrguliiklus lüüside vahel. Iga uus loodav "
+"ühendus kasutab erinevat lüüsi. Liikluse jagunemist lüüside vahel saab "
+"määrata, kasutades lüüsi kaalu parameetrit, mille väärtust saad muuta "
+"{openref}siin{closeref}.{br}Kui soovid mingit tüüpi liiklust marsruutida "
+"läbi kindla lüüsi, kasuta allpool olevaid mitme lüüsi reegleid."
+
+#  
+#: src/EBox/Network.pm:99
+msgid "Add default routers to the default table"
+msgstr "Vaikimisi marsruutide lisamine vaikimisi tabelisse"
+
+#: src/EBox/Network.pm:100
+msgid ""
+"This is needed to work with a multigateway configuration. Note that to list "
+"the default routes you must execute: "
+msgstr ""
+"See on vajalik mitme lüüsi seadistamiseks. Pea meeles, et vaikimisi "
+"marsruutide loendi kuvamiseks pead sa käivitama: "
+
+#: src/EBox/Network.pm:106
+#, fuzzy
+msgid "Enable Zentyal DHCP hook"
+msgstr "Luba eBoxi DHCP haakimine"
+
+#: src/EBox/Network.pm:107
+msgid ""
+"It will take care of adding the default route given by a DHCP server to the "
+"default route table. "
+msgstr ""
+"See lisab DHCP serveri poolt pakutavad vaikimisi marsruudid vaikimisi "
+"marsruuditabelisse."
+
+#: src/EBox/Network.pm:125
+#, fuzzy
+msgid "Zentyal will set your network configuration"
+msgstr "eBox määrab sinu võrgu seadistused"
+
+#: src/EBox/Network.pm:130
+#, fuzzy
+msgid "Zentyal will set your DNS configuration"
+msgstr "eBox määrab sinu DNS seadistused"
+
+#: src/EBox/Network.pm:135
+#, fuzzy
+msgid "Zentyal will set your DHCP client configuration"
+msgstr "eBox määrab sinu DHCP kliendi seadistused"
+
+#: src/EBox/Network.pm:140 src/EBox/Network.pm:145
+#, fuzzy
+msgid "Zentyal will set your ddclient configuration"
+msgstr "eBox määrab sinu ddclient seadistused"
+
+#: src/EBox/Network.pm:150 src/EBox/Network.pm:155
+#, fuzzy
+msgid "Zentyal will store your PPPoE passwords"
+msgstr "eBox salvestab sinu PPPoE paroolid"
+
+#: src/EBox/Network.pm:162
+#, fuzzy
+msgid "Zentyal will add a DSL provider configuration for PPPoE"
+msgstr "eBox lisab DSL pakkuja seadistused PPPoE jaoks"
+
+#: src/EBox/Network.pm:169
+msgid "Zentyal will set HTTP proxy for all users"
+msgstr ""
+
+#: src/EBox/Network.pm:172
+msgid "Zentyal will set HTTP proxy for APT"
+msgstr ""
+
+#: src/EBox/Network.pm:902 src/EBox/Network.pm:906
+msgid "Virtual interface name"
+msgstr "Virtuaalse liidese nimi"
+
+#: src/EBox/Network.pm:905 src/EBox/Network.pm:1224 src/EBox/Network.pm:3171
+#: src/templates/Wizard/network.mas:44 src/templates/ifaces.mas:132
+#: src/templates/ifaces.mas:288
+msgid "Netmask"
+msgstr "Võrgumask"
+
+#: src/EBox/Network.pm:1454
+msgid "This interface cannot be put in trunk mode, it is an vlan interface."
+msgstr "Seda liidest ei saa kasutada trunk režiimis, sest see on vlan liides."
+
+#: src/EBox/Network.pm:1509
+msgid ""
+"This interface is in trunk mode, you should unconfigure all the vlan "
+"interfaces in this trunk before changing its configuration mode."
+msgstr ""
+"See liides on trunk režiimis, sa peaksid kõik vlan liidesed selles trunkis "
+"uuesti seadistama, enne kui muudad seadistamise režiimi."
+
+#: src/EBox/Network.pm:1637 src/EBox/Network.pm:1666 src/EBox/CGI/Vlan.pm:43
+#: src/templates/ifaces.mas:229
+msgid "VLAN Id"
+msgstr "VLAN ID"
+
+#: src/EBox/Network.pm:1646
+msgid ""
+"Network interfaces need to be in trunk mode before adding vlans to them."
+msgstr "Võrguliidesed peavad olema trunk režiimis enne vlan liideste lisamist."
+
+#: src/EBox/Network.pm:3061
+msgid ""
+"The requested operation will cause one of the configured gateways to become "
+"unreachable. Please remove it first if you really want to make this change."
+msgstr ""
+"Päritud operatsioon võib muuta ühe seadistatud lüüsi kättesaamatuks. Kui sa "
+"soovid seda muudatust teha, siis palun eemalda see esmalt."
+
+#: src/EBox/Network.pm:3126 src/EBox/NetworkUtil.pm:55
+#, perl-brace-format
+msgid "Gateway {gw} not reachable"
+msgstr "Lüüs {gw} ei ole kättesaadav"
+
+#: src/EBox/Network.pm:3129
+#, perl-brace-format
+msgid ""
+"Gateway {gw} must be reachable by a static interface. Currently it is "
+"reachable by {iface} which is not static"
+msgstr ""
+"Lüüs {gw} peab olema kättesaadav staatilisele liidesele. Hetkel on see "
+"kättesaadav liidesele {iface}, mis ei ole staatiline"
+
+#: src/EBox/Network.pm:3410 src/EBox/Network.pm:3431
+msgid "Host name"
+msgstr "Masinanimi"
+
+#: src/EBox/Network.pm:3451 src/EBox/CGI/Diag.pm:65
+msgid "host name"
+msgstr "masinanimi"
+
+#: src/EBox/Network.pm:3481
+msgid "down"
+msgstr "ei tööta"
+
+#: src/EBox/Network.pm:3487
+msgid "up"
+msgstr "töötab"
+
+#: src/EBox/Network.pm:3492
+#, fuzzy
+msgid "external"
+msgstr "Väline (WAN)"
+
+#: src/EBox/Network.pm:3494
+msgid "internal"
+msgstr ""
+
+# või "link korras" ?
+#: src/EBox/Network.pm:3500
+msgid "link ok"
+msgstr "link on korras"
+
+#: src/EBox/Network.pm:3502
+msgid "no link"
+msgstr "link ei ole korras"
+
+#: src/EBox/Network.pm:3511 src/EBox/Network/Report/ByteRate.pm:136
+msgid "Status"
+msgstr "Olek"
+
+#: src/EBox/Network.pm:3516
+msgid "MAC address"
+msgstr "MAC aadress"
+
+# Tx baiti v Tx baite
+#: src/EBox/Network.pm:3533
+msgid "Tx bytes"
+msgstr "Tx baidid"
+
+# Rx baiti v Rx baite
+#: src/EBox/Network.pm:3542
+msgid "Rx bytes"
+msgstr "Rx baidid"
+
+#: src/EBox/Network.pm:3559 src/EBox/CGI/Ifaces.pm:29
+msgid "Network Interfaces"
+msgstr "Võrguliidesed"
+
+#: src/EBox/Network.pm:3580
+msgid "Interfaces"
+msgstr "Liidesed"
+
+#: src/EBox/Network.pm:3586
+msgid "Gateways"
+msgstr "Lüüsid"
+
+#: src/EBox/Network.pm:3590 src/EBox/Network/Composite/MultiGw.pm:62
+msgid "Balance Traffic"
+msgstr "Liikluse tasakaalustamine"
+
+#: src/EBox/Network.pm:3594
+msgid "Diagnostic Tools"
+msgstr "Diagnostika tööriistad"
+
+#: src/EBox/Network/Composite/ByteRate.pm:73
+#: src/EBox/Network/Report/ByteRate.pm:134
+msgid "Traffic rate monitoring"
+msgstr "Liikluskiiruse monitooring"
+
+#: src/EBox/Network/Composite/Gateway.pm:56
+#, fuzzy
+msgid "Gateways and Proxy"
+msgstr "Lüüsid"
+
+#: src/EBox/Network/Composite/WANFailover.pm:77
+msgid ""
+"Events module is not enabled. You have to enable it and also enable the WAN "
+"Failover event in order to use this feature."
+msgstr ""
+"Sündmuste moodul ei ole lubatud. Sa pead selle ja ka WAN tõrkesiirde "
+"sündmuse lubama, et seda võimalust kasutada."
+
+#: src/EBox/Network/Composite/WANFailover.pm:81
+msgid ""
+"WAN Failover event is not enabled. You have to enable it in order to use "
+"this feature"
+msgstr ""
+"WAN tõrkesiire ei ole hetkel lubatud. Tõrkesiirde kasutamiseks peab see "
+"olema eelnevalt lubatud sündmuste moodulis."
+
+#: src/EBox/Network/Composite/MultiGw.pm:82
+msgid ""
+"To be able to use this feature you need at least two enabled gateways. You "
+"can add them <a href=\"/ebox/Network/View/GatewayTable\">here</a> first."
+msgstr ""
+"Liikluse tasakaalustamise kasutamiseks läheb sul vaja vähemalt kahte lubatud "
+"lüüsi. Sa saad neid lisada <a href=\"/ebox/Network/View/GatewayTable\">siin</"
+"a>."
+
+#: src/EBox/Network/Composite/DNS.pm:60
+msgid "Domain Name Server Resolver"
+msgstr "Nimeserveri nimelahendaja"
+
+#: src/EBox/Network/Report/ByteRate.pm:136
+msgid "Running"
+msgstr "Töötab"
+
+#: src/EBox/Network/Report/ByteRate.pm:756
+msgid "bytes/second"
+msgstr "baiti/sekundis"
+
+#: src/EBox/Network/Report/ByteRate.pm:823
+#: src/EBox/Network/Report/ByteRate.pm:929
+msgid "Traffic data for source"
+msgstr "Liikluse andmed lähtekoha jaoks"
+
+#: src/EBox/Network/Report/ByteRate.pm:843
+#, perl-brace-format
+msgid "Network traffic from {src}"
+msgstr "{src} võrguliiklus"
+
+#: src/EBox/Network/Report/ByteRate.pm:877
+msgid "Traffic data not found for service"
+msgstr "Liikluse andmeid teenuse jaoks ei leitud"
+
+#: src/EBox/Network/Report/ByteRate.pm:887
+#, perl-brace-format
+msgid "Network traffic for {service}"
+msgstr "Võrguliiklus {service} jaoks"
+
+#: src/EBox/Network/Report/ByteRate.pm:937
+msgid "Traffic data for service"
+msgstr "Liikluse andmed teenuse jaoks"
+
+#: src/EBox/Network/Report/ByteRate.pm:946
+msgid "Traffic data not found for source and service pair"
+msgstr "Liikluse andmeid lähtekoha ja teenuse paari jaoks ei leitud"
+
+#: src/EBox/Network/Report/ByteRate.pm:948
+#, perl-brace-format
+msgid "source {src} and service {service}"
+msgstr "lähtekoht {src} ja teenus {service}"
+
+#: src/EBox/Network/Report/ByteRate.pm:962
+#, perl-brace-format
+msgid "Network traffic from source {src} and for service {service}"
+msgstr "Võrguliiklus lähtekohast {src} ja teenuse {service} jaoks"
+
+#: src/EBox/Network/Report/ByteRate.pm:989
+msgid "All active services"
+msgstr "Kõik aktiivsed teenused"
+
+# vt koodi
+#: src/EBox/Network/Report/ByteRate.pm:994
+msgid "Traffic data for "
+msgstr "Liikluse andmed"
+
+# vt koodi
+#: src/EBox/Network/Report/ByteRate.pm:995
+msgid "all services"
+msgstr "kõikide teenuste kohta"
+
+#: src/EBox/Network/Report/ByteRate.pm:1040
+msgid "All active sources"
+msgstr "Kõik aktiivsed lähtekohad"
+
+# vt koodi
+#: src/EBox/Network/Report/ByteRate.pm:1045
+msgid "Traffic data for"
+msgstr "Liikluse andmed"
+
+# vt koodi
+#: src/EBox/Network/Report/ByteRate.pm:1046
+msgid "all sources"
+msgstr "kõikide allikate kohta"
+
+#: src/EBox/Network/Report/ByteRate.pm:1084
+#, perl-brace-format
+msgid "Total traffic rate from {src}"
+msgstr "{src} liikluskiirus kokku"
+
+#: src/EBox/Network/Report/ByteRate.pm:1099
+#, perl-brace-format
+msgid "Total traffic rate for {service}"
+msgstr "Liikluskiirus kokku {service} jaoks"
+
+#: src/EBox/Network/Report/ByteRate.pm:1123
+#, perl-brace-format
+msgid "Traffic rate from {src} for {service}"
+msgstr "{src} liikluskiirus {service} jaoks"
+
+#: src/EBox/CGI/Iface.pm:42 src/EBox/CGI/Iface.pm:59 src/EBox/CGI/Vlan.pm:41
+#: src/EBox/CGI/VIface.pm:43
+msgid "network interface"
+msgstr "võrguliides"
+
+#: src/EBox/CGI/Iface.pm:58
+msgid "method"
+msgstr "meetod"
+
+#: src/EBox/CGI/Iface.pm:88
+msgid "ip address"
+msgstr "ip aadress"
+
+#: src/EBox/CGI/Iface.pm:89 src/EBox/CGI/VIface.pm:63
+msgid "netmask"
+msgstr "võrgumask"
+
+#: src/EBox/CGI/Iface.pm:95
+msgid "user name"
+msgstr "kasutajanimi"
+
+#: src/EBox/CGI/Iface.pm:96
+msgid "password"
+msgstr "parool"
+
+#: src/EBox/CGI/Iface.pm:106
+msgid "bridge"
+msgstr ""
+
+#: src/EBox/CGI/EnableBalanceTraffic.pm:42
+msgid "traffic balance"
+msgstr "liikluse tasakaal"
+
+#: src/EBox/CGI/Diag.pm:29 src/EBox/CGI/Diag.pm:41
+msgid "Network Diagnostic Tools"
+msgstr "Võrgudiagnostika tööriistad"
+
+#: src/EBox/CGI/VIface.pm:44
+msgid "virtual interface action"
+msgstr "virtuaalse liidese toiming"
+
+#: src/EBox/CGI/VIface.pm:64 src/EBox/CGI/VIface.pm:70
+msgid "virtual interface name"
+msgstr "virtuaalse liidese nimi"
+
+#: src/templates/Wizard/interfaces.mas:7 src/templates/Wizard/network.mas:21
+#, fuzzy
+msgid "Network interfaces"
+msgstr "Võrguliidesed"
+
+#: src/templates/Wizard/interfaces.mas:10
+#, fuzzy
+msgid "Select external network interfaces"
+msgstr "võrguliides"
+
+#: src/templates/Wizard/interfaces.mas:11
+msgid ""
+"You will not be able to connect to Zentyal administration page through them"
+msgstr ""
+
+#: src/templates/Wizard/network.mas:24
+#, fuzzy
+msgid "Configure network"
+msgstr "Seadistamine"
+
+#: src/templates/Wizard/network.mas:25
+msgid "Now you can set IP addresses and networks for each interface"
+msgstr ""
+
+#: src/templates/Wizard/network.mas:31 src/templates/ifaces.mas:45
+msgid "Method"
+msgstr "Meetod"
+
+#: src/templates/Wizard/network.mas:33
+msgid "Don't configure"
+msgstr ""
+
+#: src/templates/Wizard/network.mas:66
+#, fuzzy
+msgid "Gateway"
+msgstr "Lüüsid"
+
+#: src/templates/confirmVlanDel.mas:9
+msgid ""
+"The removal of the vlan interface will affect the configuration of one or "
 "more modules that use references to this network interface."
 msgstr ""
-"Muudatus mida kavatsed teha, mõjutab ühe või mitme mooduli seadistusi, mis "
-"kasutavad viiteid sellele võrguliidesele."
+"vlan liidese eemaldamine võib mõjuda ühe või mitme mooduli seadistustele, "
+"mis kasutavad viiteid sellele võrguliidesele."
 
-#: src/templates/confirmremove.mas:14 src/templates/confirmVlanDel.mas:12
+#: src/templates/confirmVlanDel.mas:12 src/templates/confirmremove.mas:14
 msgid ""
 "If you choose to continue, all modules that make use of this network "
 "interface will delete the relevant parts of their configuration. Choose "
@@ -903,15 +939,61 @@ msgstr ""
 "sellega seotud osa oma seadistustes. Vali \"Loobu\" kui sa ei ole selles "
 "kindel."
 
-#: src/templates/confirmremove.mas:24 src/templates/confirmVlanDel.mas:22
+#: src/templates/confirmVlanDel.mas:22 src/templates/confirmremove.mas:24
 #: src/templates/confirm.mas:35
 msgid "Ok"
 msgstr "Ok"
 
-#: src/templates/confirmremove.mas:26 src/templates/confirmVlanDel.mas:24
+#: src/templates/confirmVlanDel.mas:24 src/templates/confirmremove.mas:26
 #: src/templates/confirm.mas:37
 msgid "Cancel"
 msgstr "Loobu"
+
+#: src/templates/confirmremove.mas:11 src/templates/confirm.mas:16
+msgid ""
+"The change you are trying to make will affect the configuration of one or "
+"more modules that use references to this network interface."
+msgstr ""
+"Muudatus mida kavatsed teha, mõjutab ühe või mitme mooduli seadistusi, mis "
+"kasutavad viiteid sellele võrguliidesele."
+
+#: src/templates/confirm.mas:19
+msgid ""
+"If you choose to continue, all modules that make use of the current "
+"configuration of this network interface will delete the relevant parts of "
+"their configuration. Choose \"Cancel\" if you are not sure about this."
+msgstr ""
+"Kui jätkad siis kõik moodulid, mis kasutavad selle võrguliidese aktiivseid "
+"seadistusi, kustutavad sellega seotud osa oma seadistustes. Vali \"Loobu\" "
+"kui sa ei ole selles kindel."
+
+#: src/templates/diag.mas:13 src/templates/diag.mas:18
+msgid "Ping"
+msgstr "Ping"
+
+#: src/templates/diag.mas:22
+msgid "Traceroute"
+msgstr "Traceroute"
+
+#: src/templates/diag.mas:27
+msgid "Trace"
+msgstr "Trace"
+
+#: src/templates/diag.mas:31
+msgid "Domain Name Resolution"
+msgstr "Domeeninime lahendamine"
+
+#: src/templates/diag.mas:32
+msgid "Domain name"
+msgstr "Domeeninimi"
+
+#: src/templates/diag.mas:36
+msgid "Lookup"
+msgstr "Otsing"
+
+#: src/templates/diag.mas:38
+msgid "Output"
+msgstr "Väljund"
 
 #: src/templates/ifaces.mas:13
 msgid ""
@@ -930,10 +1012,6 @@ msgstr ""
 "Liiklus mida marsruuditakse läbi välisteks märgitud liideste NATitakse. "
 "Samuti ei ole teenused mis mõeldud LANi kasutajatele, kättesaadavad "
 "välistele liidestele."
-
-#: src/templates/ifaces.mas:45 src/templates/Wizard/network.mas:31
-msgid "Method"
-msgstr "Meetod"
 
 #: src/templates/ifaces.mas:51 src/templates/ifaces.mas:53
 msgid "Static"
@@ -1000,82 +1078,6 @@ msgstr "Kustuta"
 msgid "Virtual Interfaces"
 msgstr "Virtuaalsed liidesed"
 
-#: src/templates/confirmVlanDel.mas:9
-msgid ""
-"The removal of the vlan interface will affect the configuration of one or "
-"more modules that use references to this network interface."
-msgstr ""
-"vlan liidese eemaldamine võib mõjuda ühe või mitme mooduli seadistustele, "
-"mis kasutavad viiteid sellele võrguliidesele."
-
-#: src/templates/Wizard/network.mas:21 src/templates/Wizard/interfaces.mas:7
 #, fuzzy
-msgid "Network interfaces"
-msgstr "Võrguliidesed"
-
-#: src/templates/Wizard/network.mas:24
-#, fuzzy
-msgid "Configure network for external interfaces"
-msgstr "{iface} (väline liides)"
-
-#: src/templates/Wizard/network.mas:25
-msgid "Now you can set IP addresses and networks for each interface"
-msgstr ""
-
-#: src/templates/Wizard/network.mas:33
-msgid "Don't configure"
-msgstr ""
-
-#: src/templates/Wizard/network.mas:66
-#, fuzzy
-msgid "Gateway"
-msgstr "Lüüsid"
-
-#: src/templates/Wizard/interfaces.mas:10
-#, fuzzy
-msgid "Select external network interfaces"
-msgstr "võrguliides"
-
-#: src/templates/Wizard/interfaces.mas:11
-msgid ""
-"You will not be able to connect to Zentyal administration page through them"
-msgstr ""
-
-#: src/templates/diag.mas:13 src/templates/diag.mas:18
-msgid "Ping"
-msgstr "Ping"
-
-#: src/templates/diag.mas:22
-msgid "Traceroute"
-msgstr "Traceroute"
-
-#: src/templates/diag.mas:27
-msgid "Trace"
-msgstr "Trace"
-
-#: src/templates/diag.mas:31
-msgid "Domain Name Resolution"
-msgstr "Domeeninime lahendamine"
-
-#: src/templates/diag.mas:32
-msgid "Domain name"
-msgstr "Domeeninimi"
-
-#: src/templates/diag.mas:36
-msgid "Lookup"
-msgstr "Otsing"
-
-#: src/templates/diag.mas:38
-msgid "Output"
-msgstr "Väljund"
-
-#: src/templates/confirm.mas:19
-msgid ""
-"If you choose to continue, all modules that make use of the current "
-"configuration of this network interface will delete the relevant parts of "
-"their configuration. Choose \"Cancel\" if you are not sure about this."
-msgstr ""
-"Kui jätkad siis kõik moodulid, mis kasutavad selle võrguliidese aktiivseid "
-"seadistusi, kustutavad sellega seotud osa oma seadistustes. Vali \"Loobu\" "
-"kui sa ei ole selles kindel."
-
+#~ msgid "Configure network for external interfaces"
+#~ msgstr "{iface} (väline liides)"

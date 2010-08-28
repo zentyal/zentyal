@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-services 0.12\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-08-25 17:48+0200\n"
+"POT-Creation-Date: 2010-08-28 23:41+0200\n"
 "PO-Revision-Date: 2010-08-20 02:44+0200\n"
 "Last-Translator: Indra Pharazijn <indra6oc@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
@@ -17,79 +17,66 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: migration/0001_import_services_from_firewall.pl:69
+#: migration/0001_import_services_from_firewall.pl:84
 msgid "any"
 msgstr "een of ander"
 
-#: migration/0001_import_services_from_firewall.pl:70
+#: migration/0001_import_services_from_firewall.pl:85
 msgid "any protocol and port"
 msgstr "een of ander protocol en poort"
 
-#: migration/0001_import_services_from_firewall.pl:71
-#: migration/0001_import_services_from_firewall.pl:82
-#: migration/0001_import_services_from_firewall.pl:94
-#: migration/0001_import_services_from_firewall.pl:110
+#: migration/0001_import_services_from_firewall.pl:86
+#: migration/0001_import_services_from_firewall.pl:97
+#: migration/0001_import_services_from_firewall.pl:109
 #: migration/0001_import_services_from_firewall.pl:125
-#: src/EBox/Services.pm:404
+#: migration/0001_import_services_from_firewall.pl:140
+#: src/EBox/Services.pm:403
 msgid "ebox-services"
 msgstr "ebox-diensten"
 
-#: migration/0001_import_services_from_firewall.pl:80
+#: migration/0001_import_services_from_firewall.pl:95
 msgid "any UDP"
 msgstr "een of ander UDP"
 
-#: migration/0001_import_services_from_firewall.pl:81
+#: migration/0001_import_services_from_firewall.pl:96
 msgid "any UDP port"
 msgstr "ene of andere UDP poort"
 
-#: migration/0001_import_services_from_firewall.pl:92
+#: migration/0001_import_services_from_firewall.pl:107
 msgid "any TCP"
 msgstr "een of ander TCP"
 
-#: migration/0001_import_services_from_firewall.pl:93
+#: migration/0001_import_services_from_firewall.pl:108
 msgid "any TCP port"
 msgstr "ene of andere TCP poort"
 
-#: migration/0001_import_services_from_firewall.pl:108
-#: src/EBox/Services.pm:402
+#: migration/0001_import_services_from_firewall.pl:123
+#: src/EBox/Services.pm:401
 msgid "eBox administration"
 msgstr "eBox beheer"
 
-#: migration/0001_import_services_from_firewall.pl:109
+#: migration/0001_import_services_from_firewall.pl:124
 #, fuzzy
 msgid "Zentyal Administration Web Server"
 msgstr "eBox Beheer Web Server "
 
-#: src/EBox/Services.pm:48 src/EBox/Model/ServiceTable.pm:145
-msgid "Services"
-msgstr "Diensten"
-
-#: src/EBox/Services.pm:400
-msgid "port"
-msgstr "Poort"
-
-#: src/EBox/Services.pm:403
-#, fuzzy
-msgid "Zentyal Administration port"
-msgstr "eBox Beheer poort"
-
-#: src/EBox/Model/ServiceTable.pm:103
+#: src/EBox/Model/ServiceTable.pm:102
 msgid "Domain"
 msgstr "Domein"
 
-#: src/EBox/Model/ServiceTable.pm:110
+#: src/EBox/Model/ServiceTable.pm:109
 msgid "Service name"
 msgstr "Dienst naam"
 
-#: src/EBox/Model/ServiceTable.pm:118
+#: src/EBox/Model/ServiceTable.pm:117
 msgid "Description"
 msgstr "Beschrijving"
 
-#: src/EBox/Model/ServiceTable.pm:125
+#: src/EBox/Model/ServiceTable.pm:124
 msgid "Internal"
 msgstr "Intern"
 
-#: src/EBox/Model/ServiceTable.pm:127
+#: src/EBox/Model/ServiceTable.pm:126
 #, fuzzy
 msgid ""
 "Tick this field if there is actually a service on the machine using the "
@@ -100,20 +87,24 @@ msgstr ""
 "van de ingestelde poorten voor deze dienst. Dit helpt eBox om te weten welke "
 "poorten reeds in gebruik zijn."
 
-#: src/EBox/Model/ServiceTable.pm:134
+#: src/EBox/Model/ServiceTable.pm:133
 msgid "Configuration"
 msgstr "Instellingen"
 
-#: src/EBox/Model/ServiceTable.pm:144
+#: src/EBox/Model/ServiceTable.pm:143
 msgid "List of services"
 msgstr "Diensten lijst"
 
-#: src/EBox/Model/ServiceTable.pm:155
-#: src/EBox/Model/ServiceConfigurationTable.pm:173
+#: src/EBox/Model/ServiceTable.pm:144 src/EBox/Services.pm:47
+msgid "Services"
+msgstr "Diensten"
+
+#: src/EBox/Model/ServiceTable.pm:154
+#: src/EBox/Model/ServiceConfigurationTable.pm:172
 msgid "service"
 msgstr "dienst"
 
-#: src/EBox/Model/ServiceTable.pm:653
+#: src/EBox/Model/ServiceTable.pm:652
 msgid ""
 "A service is an abstraction of one or more network protocols which can be "
 "used in other modules such as: firewall, traffic shaping..."
@@ -122,26 +113,35 @@ msgstr ""
 "gebruikt kunnen worden in andere modules zoals : vuurmuur, "
 "verkeersvorming ..."
 
-#: src/EBox/Model/ServiceConfigurationTable.pm:140
+#: src/EBox/Model/ServiceConfigurationTable.pm:139
 msgid "Protocol"
 msgstr "Protocol"
 
-#: src/EBox/Model/ServiceConfigurationTable.pm:146
+#: src/EBox/Model/ServiceConfigurationTable.pm:145
 msgid "Source port"
 msgstr "Bron poort"
 
-#: src/EBox/Model/ServiceConfigurationTable.pm:148
+#: src/EBox/Model/ServiceConfigurationTable.pm:147
 msgid "This field is usually set to any"
 msgstr "Dit veld is gewoonlijk ingesteld op een of ander"
 
-#: src/EBox/Model/ServiceConfigurationTable.pm:152
+#: src/EBox/Model/ServiceConfigurationTable.pm:151
 msgid "Destination port"
 msgstr "Bestemming poort"
 
-#: src/EBox/Model/ServiceConfigurationTable.pm:162
+#: src/EBox/Model/ServiceConfigurationTable.pm:161
 msgid "Service configuration"
 msgstr "Service configuratie"
 
-#: src/EBox/Model/ServiceConfigurationTable.pm:197
+#: src/EBox/Model/ServiceConfigurationTable.pm:196
 msgid "This protocol does not use ports"
 msgstr "Dit protocol gebruikt geen poorten"
+
+#: src/EBox/Services.pm:399
+msgid "port"
+msgstr "Poort"
+
+#: src/EBox/Services.pm:402
+#, fuzzy
+msgid "Zentyal Administration port"
+msgstr "eBox Beheer poort"

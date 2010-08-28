@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-jabber 0.12\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-08-25 17:41+0200\n"
+"POT-Creation-Date: 2010-08-28 23:36+0200\n"
 "PO-Revision-Date: 2010-08-22 12:12+0200\n"
 "Last-Translator: Cyril MARTY <cyril_marty@yahoo.fr>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
@@ -16,11 +16,11 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: migration/0001_add_firewall_services.pl:30 src/EBox/Jabber.pm:221
+#: migration/0001_add_firewall_services.pl:45 src/EBox/Jabber.pm:221
 msgid "Jabber Server"
 msgstr "Serveur Jabber"
 
-#: src/EBox/JabberLdapUser.pm:263
+#: src/EBox/JabberLdapUser.pm:261
 msgid ""
 "This user has a jabber account. If the user currently connected it will "
 "continue connected until jabber authorization is again required."
@@ -43,9 +43,14 @@ msgstr ""
 msgid "To properly configure ejabberd."
 msgstr "Pour configurer correctement le service \"ejabberd\"."
 
-#: src/EBox/CGI/JabberUserOptions.pm:45
-msgid "username"
-msgstr "nom d'utilisateur"
+#: src/EBox/Jabber/Model/JabberUser.pm:50
+msgid "Jabber Account"
+msgstr "Compte Jabber"
+
+#: src/EBox/Jabber/Model/JabberUser.pm:58
+#: src/EBox/Jabber/Composite/General.pm:67
+msgid "Jabber"
+msgstr "Jabber"
 
 #: src/EBox/Jabber/Model/GeneralSettings.pm:92 src/templates/jabber.mas:22
 #: src/templates/jabber.mas:25
@@ -84,18 +89,13 @@ msgstr "Paramètres de configuration générale"
 msgid "General Jabber server configuration settings updated."
 msgstr "Paramètres de configuration générale du serveur Jabber mis à jour."
 
-#: src/EBox/Jabber/Model/JabberUser.pm:50
-msgid "Jabber Account"
-msgstr "Compte Jabber"
-
-#: src/EBox/Jabber/Model/JabberUser.pm:58
-#: src/EBox/Jabber/Composite/General.pm:67
-msgid "Jabber"
-msgstr "Jabber"
-
 #: src/EBox/Jabber/Composite/General.pm:66
 msgid "Configuration"
 msgstr "Configuration"
+
+#: src/EBox/CGI/JabberUserOptions.pm:43
+msgid "username"
+msgstr "nom d'utilisateur"
 
 #: src/templates/jabber.mas:8
 msgid "Jabber account"
@@ -116,20 +116,3 @@ msgstr "Droits d'administration"
 #: src/templates/jabber.mas:49 src/templates/jabber.mas:50
 msgid "Change"
 msgstr "Changer"
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

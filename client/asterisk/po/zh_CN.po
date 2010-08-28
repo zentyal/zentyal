@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-asterisk 1.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-08-26 00:52+0200\n"
+"POT-Creation-Date: 2010-08-28 23:07+0200\n"
 "PO-Revision-Date: 2010-07-12 08:06+0200\n"
 "Last-Translator: zhoumeng <zhourimeng@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: migration/0001_add_firewall_services.pl:30
+#: migration/0001_add_firewall_services.pl:45
 #, fuzzy
 msgid "Zentyal VoIP system"
 msgstr "eBox VoIP 系统"
@@ -426,4 +426,3 @@ msgstr "队列不能创建，因为该组中没有用户或用户没有Asterisk�
 #: src/templates/group.mas:24
 msgid "Group queue"
 msgstr "组队列"
-

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-software 0.12.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-08-25 17:48+0200\n"
+"POT-Creation-Date: 2010-08-28 23:41+0200\n"
 "PO-Revision-Date: 2010-08-22 14:29+0200\n"
 "Last-Translator: Cyril MARTY <cyril_marty@yahoo.fr>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
@@ -16,23 +16,23 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: migration/0001_add_http_software_rule.pl:24
+#: migration/0001_add_http_software_rule.pl:39
 msgid "HTTP software"
 msgstr "Logiciel HTTP"
 
-#: migration/0001_add_http_software_rule.pl:26
+#: migration/0001_add_http_software_rule.pl:41
 msgid "software service to update packages via apt"
 msgstr "service logiciel pour la mise à jour des paquets avec apt"
 
-#: migration/0001_add_http_software_rule.pl:45
+#: migration/0001_add_http_software_rule.pl:60
 msgid "rule to allow apt updates"
 msgstr "Règles pour permettre les mises-à-jour (apt)"
 
-#: src/EBox/Software.pm:57
+#: src/EBox/Software.pm:55
 msgid "Software Management"
 msgstr "Gestion des logiciels"
 
-#: src/EBox/Software.pm:531
+#: src/EBox/Software.pm:532
 #, perl-brace-format
 msgid ""
 "You cannot modify the automatic update using QA updates from Web UI. To "
@@ -42,20 +42,20 @@ msgstr ""
 "mises à jour QA depuis l'interface web. Pour désactiver les mises à jour "
 "automatiques, éditez {conf} et désactivez la clé {key}."
 
-#: src/EBox/Software.pm:596
+#: src/EBox/Software.pm:597
 #, fuzzy
 msgid "Zentyal Components"
 msgstr "Composants d'eBox"
 
-#: src/EBox/Software.pm:598
+#: src/EBox/Software.pm:599
 msgid "System Updates"
 msgstr "Mises-à-jour du système"
 
-#: src/EBox/Software.pm:600 src/templates/config.mas:19
+#: src/EBox/Software.pm:601 src/templates/config.mas:19
 msgid "Settings"
 msgstr "Paramètres"
 
-#: src/EBox/Software.pm:769
+#: src/EBox/Software.pm:770
 #, perl-brace-format
 msgid ""
 "Software management is currently  locked by {locker}. Please, try again later"
@@ -63,85 +63,81 @@ msgstr ""
 "La gestion des logiciels est actuellement _ _ bloqué par {locker}. Réessayer "
 "plus tard."
 
-#: src/EBox/Software.pm:932
+#: src/EBox/Software.pm:933
 msgid "Welcome"
 msgstr "Bienvenue"
 
-#: src/EBox/Software.pm:934
+#: src/EBox/Software.pm:935
 msgid "Package Selection"
 msgstr "Sélection de paquet"
 
-#: src/EBox/Software.pm:935
+#: src/EBox/Software.pm:936
 msgid "Confirmation"
 msgstr "Confirmation"
 
-#: src/EBox/Software.pm:936
+#: src/EBox/Software.pm:937
 msgid "Installation"
 msgstr "Installation"
 
-#: src/EBox/Software.pm:937
+#: src/EBox/Software.pm:938
 msgid "Initial Configuration"
 msgstr "Configuration initiale"
 
-#: src/EBox/Software.pm:938
+#: src/EBox/Software.pm:939
 msgid "Save Changes"
 msgstr "Sauvegarder les changements"
 
-#: src/EBox/CGI/Config.pm:33
-msgid "Software management settings"
-msgstr "Paramètres de gestion des logiciels"
-
-#: src/EBox/CGI/Config.pm:43
-msgid "Automatic software updates"
-msgstr "Mise-à-jour logicielle automatique"
-
-#: src/EBox/CGI/Enable.pm:43
+#: src/EBox/CGI/Enable.pm:41
 msgid "automatic updates configuration"
 msgstr "configuration des mises-à-jour automatiques"
 
-#: src/EBox/CGI/EBox.pm:36
+#: src/EBox/CGI/EBox.pm:34
 #, fuzzy
 msgid "Choose Zentyal packages to install"
 msgstr "Choisissez les paquets eBox à installer"
 
-#: src/EBox/CGI/EBox.pm:40
+#: src/EBox/CGI/EBox.pm:38
 #, fuzzy
 msgid "Zentyal components"
 msgstr "Composantes d'eBox"
 
-#: src/EBox/CGI/Updates.pm:32 src/EBox/CGI/Updates.pm:50
+#: src/EBox/CGI/Config.pm:31
+msgid "Software management settings"
+msgstr "Paramètres de gestion des logiciels"
+
+#: src/EBox/CGI/Config.pm:41
+msgid "Automatic software updates"
+msgstr "Mise-à-jour logicielle automatique"
+
+#: src/EBox/CGI/Updates.pm:30 src/EBox/CGI/Updates.pm:53
 msgid "System updates"
 msgstr "Mise-à-jour du système"
 
-#: src/EBox/CGI/Updates.pm:59
+#: src/EBox/CGI/Updates.pm:58
 msgid "The system components are up to date."
 msgstr "Les composants système sont à jour."
 
-#: src/EBox/CGI/CurrentPackage.pm:32
-msgid "Upgrading"
-msgstr "Mise-à-jour en cours"
-
-#: src/EBox/CGI/InstallPkgs.pm:102
+#: src/EBox/CGI/InstallPkgs.pm:100
 msgid "There were no packages to update"
 msgstr "Il n'y avait aucun paquet à mettre à jour"
 
-#: src/EBox/CGI/InstallPkgs.pm:169
+#: src/EBox/CGI/InstallPkgs.pm:167
 msgid "Installing"
 msgstr "Installation en cours"
 
-#: src/EBox/CGI/InstallPkgs.pm:170
+#: src/EBox/CGI/InstallPkgs.pm:168
 msgid "Installing packages"
 msgstr "Installation des paquets en cours"
 
-#: src/EBox/CGI/InstallPkgs.pm:171 src/EBox/CGI/InstallPkgs.pm:195
+#: src/EBox/CGI/InstallPkgs.pm:169 src/EBox/CGI/InstallPkgs.pm:193
 msgid "Current operation"
 msgstr "Opération courante"
 
-#: src/EBox/CGI/InstallPkgs.pm:172
+#: src/EBox/CGI/InstallPkgs.pm:170
 msgid "actions done"
 msgstr "actions effectuées"
 
-#: src/EBox/CGI/InstallPkgs.pm:173
+#: src/EBox/CGI/InstallPkgs.pm:171
 msgid ""
 "The packages installation has finished successfully. The administration "
 "interface may become unresponsive for a few seconds. Please wait patiently "
@@ -153,7 +149,7 @@ msgstr ""
 "jusqu'à ce que le système soit entièrement configuré. Vous serez dirigé "
 "automatiquement vers l'étape suivante"
 
-#: src/EBox/CGI/InstallPkgs.pm:178
+#: src/EBox/CGI/InstallPkgs.pm:176
 msgid ""
 "The packages installation has not finished correctly . More information on "
 "the logs"
@@ -161,19 +157,19 @@ msgstr ""
 "L'installation des paquets ne s'est pas terminée correctement. Plus "
 "d'informations dans le journal d'événements"
 
-#: src/EBox/CGI/InstallPkgs.pm:193
+#: src/EBox/CGI/InstallPkgs.pm:191
 msgid "Removing package"
 msgstr "Suppression du paquet"
 
-#: src/EBox/CGI/InstallPkgs.pm:194
+#: src/EBox/CGI/InstallPkgs.pm:192
 msgid "Removing the selected package and its dependent packages"
 msgstr "Suppression du paquet sélectionné et de ces dépendances"
 
-#: src/EBox/CGI/InstallPkgs.pm:196
+#: src/EBox/CGI/InstallPkgs.pm:194
 msgid "packages left to remove"
 msgstr "Paquets restant à supprimer"
 
-#: src/EBox/CGI/InstallPkgs.pm:197
+#: src/EBox/CGI/InstallPkgs.pm:195
 msgid ""
 "The packages removal has finished successfully. The administration interface "
 "may become unresponsive for a few seconds. Please wait patiently until the "
@@ -183,7 +179,7 @@ msgstr ""
 "d'administration ne devrait plus répondre pendant quelques secondes. Merci "
 "de patienter pendant que le système redémarre complètement."
 
-#: src/EBox/CGI/InstallPkgs.pm:201
+#: src/EBox/CGI/InstallPkgs.pm:199
 msgid ""
 "The packages removal has not finished correctly . More information on the "
 "logs"
@@ -191,49 +187,109 @@ msgstr ""
 "La suppression des paquets a rencontré des problèmes. Plus d'information "
 "disponible dans les logs."
 
-#: src/templates/ebox.mas:150 src/templates/ebox.mas:536
-#: src/templates/ebox.mas:560 src/templates/updates.mas:35
+#: src/EBox/CGI/CurrentPackage.pm:31
+msgid "Upgrading"
+msgstr "Mise-à-jour en cours"
+
+#: src/templates/updates.mas:24 src/templates/ebox.mas:181
+msgid "Package list updated successfully"
+msgstr ""
+
+#: src/templates/updates.mas:28 src/templates/ebox.mas:185
+msgid ""
+"Error updating package list. Please try to execute the following command in "
+"a console to see the problem: sudo apt-get update"
+msgstr ""
+
+#: src/templates/updates.mas:38
+msgid "Updates are available for the following system components"
+msgstr ""
+"Des mises-à-jour sont disponibles pour les composants suivants du système"
+
+#: src/templates/updates.mas:40
+msgid "Community updates are available for the following system components"
+msgstr ""
+"Les mises à jour Community sont disponibles pour les composants systèmes "
+"suivants"
+
+#: src/templates/updates.mas:46
+msgid "Component"
+msgstr "Composant"
+
+#: src/templates/updates.mas:47
+msgid "Description"
+msgstr "Description"
+
+#: src/templates/updates.mas:48
+msgid "Version"
+msgstr "Version"
+
+#: src/templates/updates.mas:49 src/templates/ebox.mas:151
+#: src/templates/ebox.mas:550 src/templates/ebox.mas:574
 msgid "Update"
 msgstr "Actualiser"
 
-#: src/templates/ebox.mas:156 src/templates/ebox.mas:510
-#: src/templates/ebox.mas:551
+#: src/templates/updates.mas:66
+msgid "Security update"
+msgstr "Mise-à-jour de sécurité"
+
+#: src/templates/updates.mas:69
+#, fuzzy
+msgid "Zentyal QA update"
+msgstr "Mise-à-jour d'Assurance Qualité (QA)"
+
+#: src/templates/updates.mas:91
+msgid "Update all packages"
+msgstr "Actualiser tous les paquets"
+
+#: src/templates/updates.mas:102
+#, fuzzy
+msgid ""
+"This operation can take some time, don't worry if Zentyal looks unresponsive "
+"after pressing the Upgrade button."
+msgstr ""
+"Cette opération peut prendre un certain temps, ne vous inquiétez pas si eBox "
+"semble ne plus répondre après avoir appuyé sur le bouton de mise-à-jour."
+
+#: src/templates/updates.mas:106
+msgid "Upgrade"
+msgstr "Mise à niveau"
+
+#: src/templates/updates.mas:111 src/templates/ebox.mas:566
+#: src/templates/ebox.mas:575
+msgid "Update list"
+msgstr "Mise à jour de la liste"
+
+#: src/templates/ebox.mas:157 src/templates/ebox.mas:524
+#: src/templates/ebox.mas:565
 msgid "Install"
 msgstr "Installer"
 
-#: src/templates/ebox.mas:178
+#: src/templates/ebox.mas:192
 msgid "View advanced mode"
 msgstr "Vue mode avancé"
 
-#: src/templates/ebox.mas:512
+#: src/templates/ebox.mas:526
 #, fuzzy
 msgid "Skip install"
 msgstr "Installer"
 
-#: src/templates/ebox.mas:525
+#: src/templates/ebox.mas:539
 msgid "View basic mode"
 msgstr "Vue mode basique"
 
-#: src/templates/ebox.mas:543 src/templates/ebox.mas:572
+#: src/templates/ebox.mas:557 src/templates/ebox.mas:586
 msgid "Delete"
 msgstr ""
 
-#: src/templates/ebox.mas:552 src/templates/ebox.mas:561
-#: src/templates/updates.mas:97
-msgid "Update list"
-msgstr "Mise à jour de la liste"
-
-#: src/templates/ebox.mas:553 src/templates/ebox.mas:562
-#: src/templates/ebox.mas:573
+#: src/templates/ebox.mas:567 src/templates/ebox.mas:576
+#: src/templates/ebox.mas:587
 msgid "Deselect All"
 msgstr ""
 
-#: src/templates/ebox.mas:554 src/templates/ebox.mas:574
+#: src/templates/ebox.mas:568 src/templates/ebox.mas:577
+#: src/templates/ebox.mas:588
 msgid "Select All"
-msgstr ""
-
-#: src/templates/ebox.mas:563
-msgid "Select Al"
 msgstr ""
 
 #: src/templates/del.mas:97
@@ -284,134 +340,3 @@ msgstr "Cet eBox est configuré pour appliquer les mises à jour QA automatiques
 #: src/templates/config.mas:26
 msgid "Automatic operations start time"
 msgstr "Heure du début des opérations automatiques"
-
-#: src/templates/updates.mas:24
-msgid "Updates are available for the following system components"
-msgstr ""
-"Des mises-à-jour sont disponibles pour les composants suivants du système"
-
-#: src/templates/updates.mas:26
-msgid "Community updates are available for the following system components"
-msgstr ""
-"Les mises à jour Community sont disponibles pour les composants systèmes "
-"suivants"
-
-#: src/templates/updates.mas:32
-msgid "Component"
-msgstr "Composant"
-
-#: src/templates/updates.mas:33
-msgid "Description"
-msgstr "Description"
-
-#: src/templates/updates.mas:34
-msgid "Version"
-msgstr "Version"
-
-#: src/templates/updates.mas:52
-msgid "Security update"
-msgstr "Mise-à-jour de sécurité"
-
-#: src/templates/updates.mas:55
-#, fuzzy
-msgid "Zentyal QA update"
-msgstr "Mise-à-jour d'Assurance Qualité (QA)"
-
-#: src/templates/updates.mas:77
-msgid "Update all packages"
-msgstr "Actualiser tous les paquets"
-
-#: src/templates/updates.mas:88
-#, fuzzy
-msgid ""
-"This operation can take some time, don't worry if Zentyal looks unresponsive "
-"after pressing the Upgrade button."
-msgstr ""
-"Cette opération peut prendre un certain temps, ne vous inquiétez pas si eBox "
-"semble ne plus répondre après avoir appuyé sur le bouton de mise-à-jour."
-
-#: src/templates/updates.mas:95
-msgid "Upgrade"
-msgstr "Mise à niveau"
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#, fuzzy
-
-
-#, fuzzy
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#, fuzzy
-
-#, fuzzy
-
-#, fuzzy
-
-
-#, fuzzy
-

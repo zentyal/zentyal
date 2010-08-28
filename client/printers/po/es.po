@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-printers 0.12\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-08-25 17:48+0200\n"
+"POT-Creation-Date: 2010-08-28 23:38+0200\n"
 "PO-Revision-Date: 2010-08-25 20:52+0200\n"
 "Last-Translator: José Antonio Calvo <jacalvo@ebox-platform.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
@@ -16,72 +16,9 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: migration/0001_add_ipp_service.pl:102
+#: migration/0001_add_ipp_service.pl:117
 msgid "Cups printer server port"
 msgstr "Puerto del servidor de impresión Cups"
-
-#: src/EBox/Printers.pm:43 src/EBox/Composite/General.pm:60
-msgid "Printer Sharing"
-msgstr "Compartir Impresoras"
-
-#: src/EBox/Printers.pm:58
-msgid "Create spool directory for printers"
-msgstr "Crear directorio spool para impresoras"
-
-#: src/EBox/Printers.pm:59
-msgid "Zentyal will create a spool directory under /var/spool/samba"
-msgstr "Zentyal creará un directorio spool bajo /var/spool/samba"
-
-#: src/EBox/Printers.pm:64
-msgid "Create log table"
-msgstr "Crear tabla de log"
-
-#: src/EBox/Printers.pm:65
-msgid ""
-"Zentyal will create a new table into its log database to store printers logs"
-msgstr ""
-"Zentyal creará una nueva tabla en su base de datos para guardar los logs de "
-"impresoras"
-
-#: src/EBox/Printers.pm:81
-msgid "To configure cupsd"
-msgstr "Para configurar cupsd"
-
-#: src/EBox/Printers.pm:223
-msgid "Job ID"
-msgstr "ID de trabajo"
-
-#: src/EBox/Printers.pm:224
-msgid "Printer"
-msgstr "Impresora"
-
-#: src/EBox/Printers.pm:225
-msgid "User"
-msgstr "Usuario"
-
-#: src/EBox/Printers.pm:226
-msgid "Date"
-msgstr "Fecha"
-
-#: src/EBox/Printers.pm:227
-msgid "Event"
-msgstr "Evento"
-
-#: src/EBox/Printers.pm:231
-msgid "Queued"
-msgstr "Puesto en cola"
-
-#: src/EBox/Printers.pm:232
-msgid "Completed"
-msgstr "Completado"
-
-#: src/EBox/Printers.pm:233
-msgid "Canceled"
-msgstr "Cancelado"
-
-#: src/EBox/Printers.pm:237
-msgid "Printers"
-msgstr "Impresoras"
 
 #: src/EBox/Model/CUPS.pm:142
 #, perl-brace-format
@@ -128,101 +65,65 @@ msgstr ""
 "Para añadir o gestionar impresoras se debe usar la {open_href}Interfaz web "
 "de CUPS{close_href}"
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#, fuzzy
-
-
-
+#: src/EBox/Printers.pm:41 src/EBox/Composite/General.pm:60
+msgid "Printer Sharing"
+msgstr "Compartir Impresoras"
+
+#: src/EBox/Printers.pm:56
+msgid "Create spool directory for printers"
+msgstr "Crear directorio spool para impresoras"
+
+#: src/EBox/Printers.pm:57
+msgid "Zentyal will create a spool directory under /var/spool/samba"
+msgstr "Zentyal creará un directorio spool bajo /var/spool/samba"
+
+#: src/EBox/Printers.pm:62
+msgid "Create log table"
+msgstr "Crear tabla de log"
+
+#: src/EBox/Printers.pm:63
+msgid ""
+"Zentyal will create a new table into its log database to store printers logs"
+msgstr ""
+"Zentyal creará una nueva tabla en su base de datos para guardar los logs de "
+"impresoras"
+
+#: src/EBox/Printers.pm:79
+msgid "To configure cupsd"
+msgstr "Para configurar cupsd"
+
+#: src/EBox/Printers.pm:221
+msgid "Job ID"
+msgstr "ID de trabajo"
+
+#: src/EBox/Printers.pm:222
+msgid "Printer"
+msgstr "Impresora"
+
+#: src/EBox/Printers.pm:223
+msgid "User"
+msgstr "Usuario"
+
+#: src/EBox/Printers.pm:224
+msgid "Date"
+msgstr "Fecha"
+
+#: src/EBox/Printers.pm:225
+msgid "Event"
+msgstr "Evento"
+
+#: src/EBox/Printers.pm:229
+msgid "Queued"
+msgstr "Puesto en cola"
+
+#: src/EBox/Printers.pm:230
+msgid "Completed"
+msgstr "Completado"
+
+#: src/EBox/Printers.pm:231
+msgid "Canceled"
+msgstr "Cancelado"
+
+#: src/EBox/Printers.pm:235
+msgid "Printers"
+msgstr "Impresoras"

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-printers 0.12\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-08-25 17:48+0200\n"
+"POT-Creation-Date: 2010-08-28 23:38+0200\n"
 "PO-Revision-Date: 2010-08-22 12:29+0200\n"
 "Last-Translator: Cyril MARTY <cyril_marty@yahoo.fr>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
@@ -16,76 +16,9 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: migration/0001_add_ipp_service.pl:102
+#: migration/0001_add_ipp_service.pl:117
 msgid "Cups printer server port"
 msgstr "Port du serveur d'impression"
-
-#: src/EBox/Printers.pm:43 src/EBox/Composite/General.pm:60
-msgid "Printer Sharing"
-msgstr "Partage d'imprimantes"
-
-#: src/EBox/Printers.pm:58
-msgid "Create spool directory for printers"
-msgstr "Créer un répertoire tampon pour les imprimantes"
-
-#: src/EBox/Printers.pm:59
-#, fuzzy
-msgid "Zentyal will create a spool directory under /var/spool/samba"
-msgstr "eBox va créer un répertoire tampon sous /var/spool/samba"
-
-#: src/EBox/Printers.pm:64
-msgid "Create log table"
-msgstr "Créer un historique"
-
-#: src/EBox/Printers.pm:65
-#, fuzzy
-msgid ""
-"Zentyal will create a new table into its log database to store printers logs"
-msgstr ""
-"eBox créera une nouvelle table dans sa base de données des historiques pour "
-"conserver ceux des imprimantes"
-
-#: src/EBox/Printers.pm:81
-#, fuzzy
-msgid "To configure cupsd"
-msgstr "L'imprimante n'est pas configurée"
-
-#: src/EBox/Printers.pm:223
-msgid "Job ID"
-msgstr "ID de travail"
-
-#: src/EBox/Printers.pm:224
-msgid "Printer"
-msgstr "Imprimante"
-
-#: src/EBox/Printers.pm:225
-msgid "User"
-msgstr "Utilisateur"
-
-#: src/EBox/Printers.pm:226
-#, fuzzy
-msgid "Date"
-msgstr "Effacer"
-
-#: src/EBox/Printers.pm:227
-msgid "Event"
-msgstr "Evénement"
-
-#: src/EBox/Printers.pm:231
-msgid "Queued"
-msgstr "Placé en queue"
-
-#: src/EBox/Printers.pm:232
-msgid "Completed"
-msgstr ""
-
-#: src/EBox/Printers.pm:233
-msgid "Canceled"
-msgstr "Annulé"
-
-#: src/EBox/Printers.pm:237
-msgid "Printers"
-msgstr "Imprimantes"
 
 #: src/EBox/Model/CUPS.pm:142
 #, perl-brace-format
@@ -125,104 +58,69 @@ msgid ""
 "{close_href}"
 msgstr ""
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# lpadmin est le groupe d'administration d'imprimante
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# The AppSocket protocol (sometimes also called the JetDirect protocol, because of its origins with the HP JetDirect network interfaces). AppSocket printing normally happens over port 9100 and uses socket URIs
-
-
-
-# Line Printer Daemon protocol (aussi connu sous le nom de Line Printer Remote protocol ou de Berkeley printing system, abrégé en LPD/LPR) désigne un protocole d'impression communément utilisé sur les systèmes de type UNIX, bien que CUPS soit aujourd'hui plus répandu. Le protocole LPD est défini dans la RFC 1179.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# "AppSocket" =~ HP JetDirect
-
-
-
-
-
-
-
-
-
-
-
-
-
+#: src/EBox/Printers.pm:41 src/EBox/Composite/General.pm:60
+msgid "Printer Sharing"
+msgstr "Partage d'imprimantes"
+
+#: src/EBox/Printers.pm:56
+msgid "Create spool directory for printers"
+msgstr "Créer un répertoire tampon pour les imprimantes"
+
+#: src/EBox/Printers.pm:57
+#, fuzzy
+msgid "Zentyal will create a spool directory under /var/spool/samba"
+msgstr "eBox va créer un répertoire tampon sous /var/spool/samba"
+
+#: src/EBox/Printers.pm:62
+msgid "Create log table"
+msgstr "Créer un historique"
+
+#: src/EBox/Printers.pm:63
+#, fuzzy
+msgid ""
+"Zentyal will create a new table into its log database to store printers logs"
+msgstr ""
+"eBox créera une nouvelle table dans sa base de données des historiques pour "
+"conserver ceux des imprimantes"
+
+#: src/EBox/Printers.pm:79
+#, fuzzy
+msgid "To configure cupsd"
+msgstr "L'imprimante n'est pas configurée"
+
+#: src/EBox/Printers.pm:221
+msgid "Job ID"
+msgstr "ID de travail"
+
+#: src/EBox/Printers.pm:222
+msgid "Printer"
+msgstr "Imprimante"
+
+#: src/EBox/Printers.pm:223
+msgid "User"
+msgstr "Utilisateur"
+
+#: src/EBox/Printers.pm:224
+#, fuzzy
+msgid "Date"
+msgstr "Effacer"
+
+#: src/EBox/Printers.pm:225
+msgid "Event"
+msgstr "Evénement"
+
+#: src/EBox/Printers.pm:229
+msgid "Queued"
+msgstr "Placé en queue"
+
+#: src/EBox/Printers.pm:230
+msgid "Completed"
+msgstr ""
+
+#: src/EBox/Printers.pm:231
+msgid "Canceled"
+msgstr "Annulé"
+
+#: src/EBox/Printers.pm:235
+msgid "Printers"
+msgstr "Imprimantes"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-webserver 1.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-08-25 17:50+0200\n"
+"POT-Creation-Date: 2010-08-28 23:42+0200\n"
 "PO-Revision-Date: 2010-08-28 09:28+0200\n"
 "Last-Translator: Nagy Ákos <nagy.akos@akos.ro>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
@@ -17,161 +17,26 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n !=1);\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: migration/0001_add_service_and_port.pl:147
+#: migration/0001_add_service_and_port.pl:162
 msgid "HyperText Transport Protocol"
 msgstr "HyperText Transport Protocol (HTTP)"
 
-#: src/EBox/WebServer.pm:80 src/EBox/WebServer.pm:618
-#: src/EBox/WebServer/Composite/General.pm:78
-msgid "Web Server"
-msgstr "Webszerver"
-
-#: src/EBox/WebServer.pm:100
-msgid "To set webserver listening port."
-msgstr "Beállítja a webszerver figyelő portját"
-
-#: src/EBox/WebServer.pm:105
-msgid "To configure default virtual host."
-msgstr "Hogy beállítsa az alapértelmezett Virtuális tartományt."
-
-#: src/EBox/WebServer.pm:110
-msgid "To configure default SSL virtual host."
-msgstr "Hogy beállítsa az alapértelmezett SSL Virtuális tartományt."
-
-#: src/EBox/WebServer.pm:115
-msgid "To configure the per-user public_html directory."
-msgstr "Hogy beállítsa a felhasználónkénti public_html mappát."
-
-#: src/EBox/WebServer.pm:140
-msgid "Enable Apache LDAP user module"
-msgstr "Bekapcsolja az Apache LDAP felhasználói modult"
-
-#: src/EBox/WebServer.pm:142
-msgid "To fetch home directories from LDAP."
-msgstr "Hogy összevesse a saját mappákat az LDAPpal."
-
-#: src/EBox/WebServer.pm:145
-msgid "Enable Apache SSL module"
-msgstr "Bekapcsolja az Apache SSL modulját"
-
-#: src/EBox/WebServer.pm:147
-msgid "To serve pages over HTTPS."
-msgstr "HTTPS-en történő kiszolgálás engedélyezése."
-
-#: src/EBox/WebServer.pm:185
-msgid "Web service status"
-msgstr "Web szolgáltatás állapota"
-
-#: src/EBox/WebServer.pm:441
-#, perl-brace-format
-msgid "The {userDirConfFile} is missing! Please recover it."
-msgstr "A {userDirConfFile} hiányzik! Kérem visszaállítani!"
-
-#: src/EBox/WebServer/Model/GeneralSettings.pm:97
-#: src/EBox/WebServer/Model/GeneralSettings.pm:109
-#: src/EBox/WebServer/Model/GeneralSettings.pm:120
-#: src/EBox/WebServer/Model/GeneralSettings.pm:230
-msgid "Listening port"
-msgstr "Figyelő port"
-
-#: src/EBox/WebServer/Model/GeneralSettings.pm:115
-#, perl-brace-format
-msgid ""
-"Zentyal Administration is running on this port, change it on {ohref}System -"
-"> General{chref}."
-msgstr ""
-"A Zentyal Adminisztrációs oldala fut ezen a porton, kérem változtassa meg: "
-"{ohref}System -> General{chref}."
-
-#: src/EBox/WebServer/Model/GeneralSettings.pm:128
-#, perl-brace-format
-msgid ""
-"You need a Service Certificate for the Web Server module, enable it on "
-"{ohref}Certification Authority -> Service Certificates{chref}."
-msgstr ""
-"Szüksége van egy Szolgáltatás Tanúsítványra a Web Szerver modulhoz, ezt "
-"engedélyeznie kell a {ohref}Tanúsítvány Kiszolgáló -> Szolgáltatás "
-"Tanúsítvány{chref} lapon."
-
-#: src/EBox/WebServer/Model/GeneralSettings.pm:140
-msgid ""
-"Having installed and configured the Users and Groups module is required to "
-"allow HTML directories for users."
-msgstr ""
-"A felhasználók HTML mappájának engedélyezéséhez fel kell legyen telepítve és "
-"be kell legyen állítva a Felhasználók és Csoportok modul."
-
-#: src/EBox/WebServer/Model/GeneralSettings.pm:146
-msgid ""
-"A properly configured Users and Groups module is required to allow HTML "
-"directories for users. To configure it, please enable it at least one time."
-msgstr ""
-"A felhasználók HTML mappájának engedélyezéséhez fel kell legyen telepítve és "
-"be kell legyen állítva a Felhasználók és Csoportok modul. A beállításához "
-"kérem aktiválja legalább egyszer a modult."
-
-#: src/EBox/WebServer/Model/GeneralSettings.pm:236
-msgid "Listening SSL port"
-msgstr "SSL port"
-
-#: src/EBox/WebServer/Model/GeneralSettings.pm:240
-#: src/EBox/WebServer/Model/VHostTable.pm:253
-msgid "Disabled"
-msgstr "Kikapcsolva"
-
-#: src/EBox/WebServer/Model/GeneralSettings.pm:245
-msgid "Enabled"
-msgstr "Bekapcsolva"
-
-#: src/EBox/WebServer/Model/GeneralSettings.pm:253
-#, perl-brace-format
-msgid "Enable per user {dirName}"
-msgstr "Felhasználónként engedélyezett {dirName}"
-
-#: src/EBox/WebServer/Model/GeneralSettings.pm:257
-msgid ""
-"Allow users to publish web documents using the public_html directory on "
-"their home."
-msgstr ""
-"Engedélyezi a felhasználók számára weblapok közzétételét a home mappában "
-"található public_html mappából."
-
-#: src/EBox/WebServer/Model/GeneralSettings.pm:265
-msgid "General configuration settings"
-msgstr "Általános konfigurációs beállítások"
-
-#: src/EBox/WebServer/Model/GeneralSettings.pm:269
-#, perl-brace-format
-msgid ""
-"General Web server configuration. The listening port must not be used by "
-"another service. If you enable user to publish their own html pages, those "
-"should be loaded from {dirName} directory from their home directories."
-msgstr ""
-"Általános webszerver beállítások. A figyelő port nem lehet azonos egy másik "
-"szolgáltatáséval. Ha engedélyezi a felhasználóknak egyéni weblapok "
-"közzétételét, a weblapok a {dirName} mappából töltődnek be, a felhasználók "
-"saját mappáikból."
-
-#: src/EBox/WebServer/Model/GeneralSettings.pm:275
-msgid "General Web server configuration settings updated."
-msgstr "Általános webszerver konfigurációs beállítások frissítése."
-
-#: src/EBox/WebServer/Model/VHostTable.pm:94
+#: src/EBox/WebServer/Model/VHostTable.pm:93
 msgid "Virtual host name"
 msgstr "Virtuális tartománynév"
 
-#: src/EBox/WebServer/Model/VHostTable.pm:98
-#: src/EBox/WebServer/Model/VHostTable.pm:311
+#: src/EBox/WebServer/Model/VHostTable.pm:97
+#: src/EBox/WebServer/Model/VHostTable.pm:310
 msgid "Virtual host"
 msgstr "Virtuális tartomány"
 
-#: src/EBox/WebServer/Model/VHostTable.pm:105
+#: src/EBox/WebServer/Model/VHostTable.pm:104
 msgid "SSL support is disabled. Enable it before adding a SSL virtual host."
 msgstr ""
 "Az SSL támogatás kikapcsolva. Engedélyezze mielőtt SSL virtuális "
 "tartományokat hoz létre."
 
-#: src/EBox/WebServer/Model/VHostTable.pm:170
+#: src/EBox/WebServer/Model/VHostTable.pm:169
 #, perl-brace-format
 msgid ""
 "Virtual host {vhost} added. A domain {domain} has been created with the "
@@ -180,7 +45,7 @@ msgstr ""
 "A {vhost} virtuális név hozzáadva. A {domain} tartomány létre lett hozva "
 "{name} néven - IP címe: {ip}. {noDnsWarning}  "
 
-#: src/EBox/WebServer/Model/VHostTable.pm:189
+#: src/EBox/WebServer/Model/VHostTable.pm:188
 #, perl-brace-format
 msgid ""
 "Virtual host {vhost} added. A mapping name {name} - IP address {ip} has been "
@@ -189,46 +54,51 @@ msgstr ""
 "Virtuális kiszolgáló {vhost} hozzáadva. A felismert név {name} és IP cím "
 "{ip} hozzáadva a(z) {domain} domainhez."
 
-#: src/EBox/WebServer/Model/VHostTable.pm:203
+#: src/EBox/WebServer/Model/VHostTable.pm:202
 #, perl-brace-format
 msgid "Virtual host {vhost} added as an alias {alias} to hostname {hostname}."
 msgstr ""
 "Virtuális kiszolgáló {vhost} hozzáadva aliasként {alias} kiszolgálóhoz "
 "{hostname}."
 
-#: src/EBox/WebServer/Model/VHostTable.pm:209
-#: src/EBox/WebServer/Model/VHostTable.pm:214
+#: src/EBox/WebServer/Model/VHostTable.pm:208
+#: src/EBox/WebServer/Model/VHostTable.pm:213
 #, perl-brace-format
 msgid "Virtual host {vhost} added."
 msgstr "virtuális kiszolgáló {vhost} hozzáadva."
 
-#: src/EBox/WebServer/Model/VHostTable.pm:219
+#: src/EBox/WebServer/Model/VHostTable.pm:218
 msgid "There is no static internal interface to set the Web server IP address."
 msgstr ""
 "Nem található egy belső statikus csatoló a webkiszolgáló IP címének "
 "beállítására."
 
-#: src/EBox/WebServer/Model/VHostTable.pm:254
+#: src/EBox/WebServer/Model/VHostTable.pm:252
+#: src/EBox/WebServer/Model/GeneralSettings.pm:239
+msgid "Disabled"
+msgstr "Kikapcsolva"
+
+#: src/EBox/WebServer/Model/VHostTable.pm:253
 msgid "Allow SSL"
 msgstr "SSL engedélyezése"
 
-#: src/EBox/WebServer/Model/VHostTable.pm:255
+#: src/EBox/WebServer/Model/VHostTable.pm:254
 msgid "Force SSL"
 msgstr "SSL kötelezővé tétele"
 
-#: src/EBox/WebServer/Model/VHostTable.pm:280
+#: src/EBox/WebServer/Model/VHostTable.pm:279
 msgid "SSL support"
 msgstr "SSL támogatás"
 
-#: src/EBox/WebServer/Model/VHostTable.pm:287
+#: src/EBox/WebServer/Model/VHostTable.pm:286
 msgid "Name"
 msgstr "Név"
 
-#: src/EBox/WebServer/Model/VHostTable.pm:297
+#: src/EBox/WebServer/Model/VHostTable.pm:296
 msgid "Virtual hosts"
 msgstr "Virtuális kiszolgálók"
 
-#: src/EBox/WebServer/Model/VHostTable.pm:301
+#: src/EBox/WebServer/Model/VHostTable.pm:300
 #, perl-brace-format
 msgid ""
 "Virtual hosts are a form of web hosting service where many instances of the "
@@ -244,7 +114,7 @@ msgstr ""
 "ha ez lehetséges. A tartalmat a {docRoot} mappa alá kell helyezni. Bármely "
 "egyéni beállítást a {userConf} mappába kell helyezni."
 
-#: src/EBox/WebServer/Model/VHostTable.pm:332
+#: src/EBox/WebServer/Model/VHostTable.pm:331
 #, perl-brace-format
 msgid ""
 "{open}The DNS module is disabled. The added mapping or domains will not have "
@@ -253,11 +123,100 @@ msgstr ""
 "{open} A DNS modul ki van kapcsolva. A hozzáadott beállítások nem lesznek "
 "alkalmazva a modul bekapcsolásáig"
 
-#: src/EBox/WebServer/Composite/General.pm:77
+#: src/EBox/WebServer/Model/GeneralSettings.pm:96
+#: src/EBox/WebServer/Model/GeneralSettings.pm:108
+#: src/EBox/WebServer/Model/GeneralSettings.pm:119
+#: src/EBox/WebServer/Model/GeneralSettings.pm:229
+msgid "Listening port"
+msgstr "Figyelő port"
+
+#: src/EBox/WebServer/Model/GeneralSettings.pm:114
+#, perl-brace-format
+msgid ""
+"Zentyal Administration is running on this port, change it on {ohref}System -"
+"> General{chref}."
+msgstr ""
+"A Zentyal Adminisztrációs oldala fut ezen a porton, kérem változtassa meg: "
+"{ohref}System -> General{chref}."
+
+#: src/EBox/WebServer/Model/GeneralSettings.pm:127
+#, perl-brace-format
+msgid ""
+"You need a Service Certificate for the Web Server module, enable it on "
+"{ohref}Certification Authority -> Service Certificates{chref}."
+msgstr ""
+"Szüksége van egy Szolgáltatás Tanúsítványra a Web Szerver modulhoz, ezt "
+"engedélyeznie kell a {ohref}Tanúsítvány Kiszolgáló -> Szolgáltatás "
+"Tanúsítvány{chref} lapon."
+
+#: src/EBox/WebServer/Model/GeneralSettings.pm:139
+msgid ""
+"Having installed and configured the Users and Groups module is required to "
+"allow HTML directories for users."
+msgstr ""
+"A felhasználók HTML mappájának engedélyezéséhez fel kell legyen telepítve és "
+"be kell legyen állítva a Felhasználók és Csoportok modul."
+
+#: src/EBox/WebServer/Model/GeneralSettings.pm:145
+msgid ""
+"A properly configured Users and Groups module is required to allow HTML "
+"directories for users. To configure it, please enable it at least one time."
+msgstr ""
+"A felhasználók HTML mappájának engedélyezéséhez fel kell legyen telepítve és "
+"be kell legyen állítva a Felhasználók és Csoportok modul. A beállításához "
+"kérem aktiválja legalább egyszer a modult."
+
+#: src/EBox/WebServer/Model/GeneralSettings.pm:235
+msgid "Listening SSL port"
+msgstr "SSL port"
+
+#: src/EBox/WebServer/Model/GeneralSettings.pm:244
+msgid "Enabled"
+msgstr "Bekapcsolva"
+
+#: src/EBox/WebServer/Model/GeneralSettings.pm:252
+#, perl-brace-format
+msgid "Enable per user {dirName}"
+msgstr "Felhasználónként engedélyezett {dirName}"
+
+#: src/EBox/WebServer/Model/GeneralSettings.pm:256
+msgid ""
+"Allow users to publish web documents using the public_html directory on "
+"their home."
+msgstr ""
+"Engedélyezi a felhasználók számára weblapok közzétételét a home mappában "
+"található public_html mappából."
+
+#: src/EBox/WebServer/Model/GeneralSettings.pm:264
+msgid "General configuration settings"
+msgstr "Általános konfigurációs beállítások"
+
+#: src/EBox/WebServer/Model/GeneralSettings.pm:268
+#, perl-brace-format
+msgid ""
+"General Web server configuration. The listening port must not be used by "
+"another service. If you enable user to publish their own html pages, those "
+"should be loaded from {dirName} directory from their home directories."
+msgstr ""
+"Általános webszerver beállítások. A figyelő port nem lehet azonos egy másik "
+"szolgáltatáséval. Ha engedélyezi a felhasználóknak egyéni weblapok "
+"közzétételét, a weblapok a {dirName} mappából töltődnek be, a felhasználók "
+"saját mappáikból."
+
+#: src/EBox/WebServer/Model/GeneralSettings.pm:274
+msgid "General Web server configuration settings updated."
+msgstr "Általános webszerver konfigurációs beállítások frissítése."
+
+#: src/EBox/WebServer/Composite/General.pm:76
 msgid "Configuration"
 msgstr "Beállítások"
 
-#: src/EBox/WebServer/Composite/General.pm:80
+#: src/EBox/WebServer/Composite/General.pm:77 src/EBox/WebServer.pm:79
+#: src/EBox/WebServer.pm:617
+msgid "Web Server"
+msgstr "Webszerver"
+
+#: src/EBox/WebServer/Composite/General.pm:79
 msgid ""
 "The Zentyal web service allows you to host Web pages in plain HTML within "
 "different virtual hosts."
@@ -265,9 +224,43 @@ msgstr ""
 "A Zentyal webszolgáltatása megengedi a weblapok sima HTML-ben tárolását "
 "virtuális nevek nélkül."
 
+#: src/EBox/WebServer.pm:99
+msgid "To set webserver listening port."
+msgstr "Beállítja a webszerver figyelő portját"
 
+#: src/EBox/WebServer.pm:104
+msgid "To configure default virtual host."
+msgstr "Hogy beállítsa az alapértelmezett Virtuális tartományt."
 
+#: src/EBox/WebServer.pm:109
+msgid "To configure default SSL virtual host."
+msgstr "Hogy beállítsa az alapértelmezett SSL Virtuális tartományt."
 
+#: src/EBox/WebServer.pm:114
+msgid "To configure the per-user public_html directory."
+msgstr "Hogy beállítsa a felhasználónkénti public_html mappát."
 
+#: src/EBox/WebServer.pm:139
+msgid "Enable Apache LDAP user module"
+msgstr "Bekapcsolja az Apache LDAP felhasználói modult"
 
+#: src/EBox/WebServer.pm:141
+msgid "To fetch home directories from LDAP."
+msgstr "Hogy összevesse a saját mappákat az LDAPpal."
 
+#: src/EBox/WebServer.pm:144
+msgid "Enable Apache SSL module"
+msgstr "Bekapcsolja az Apache SSL modulját"
+
+#: src/EBox/WebServer.pm:146
+msgid "To serve pages over HTTPS."
+msgstr "HTTPS-en történő kiszolgálás engedélyezése."
+
+#: src/EBox/WebServer.pm:184
+msgid "Web service status"
+msgstr "Web szolgáltatás állapota"
+
+#: src/EBox/WebServer.pm:440
+#, perl-brace-format
+msgid "The {userDirConfFile} is missing! Please recover it."
+msgstr "A {userDirConfFile} hiányzik! Kérem visszaállítani!"

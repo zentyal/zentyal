@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-dns 0.12\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-08-26 00:53+0200\n"
+"POT-Creation-Date: 2010-08-28 23:34+0200\n"
 "PO-Revision-Date: 2010-01-17 11:26+0100\n"
 "Last-Translator: Vadim Glyshkov <plusv@yandex.ru>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
@@ -18,44 +18,44 @@ msgstr ""
 "10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: src/EBox/Model/DomainTable.pm:178
+#: src/EBox/Model/DomainTable.pm:177
 msgid "Domain"
 msgstr "Домен"
 
-#: src/EBox/Model/DomainTable.pm:186 src/EBox/Model/HostnameTable.pm:223
+#: src/EBox/Model/DomainTable.pm:185 src/EBox/Model/HostnameTable.pm:222
 msgid "Hostnames"
 msgstr "Имена узлов"
 
-#: src/EBox/Model/DomainTable.pm:195
+#: src/EBox/Model/DomainTable.pm:194
 msgid "Mail Exchangers"
 msgstr "Почтовый обменник"
 
-#: src/EBox/Model/DomainTable.pm:203
+#: src/EBox/Model/DomainTable.pm:202
 msgid "Name Servers"
 msgstr "Сервера имен"
 
-#: src/EBox/Model/DomainTable.pm:211 src/EBox/Model/HostnameTable.pm:196
+#: src/EBox/Model/DomainTable.pm:210 src/EBox/Model/HostnameTable.pm:195
 msgid "IP Address"
 msgstr "IP-адрес"
 
-#: src/EBox/Model/DomainTable.pm:219
+#: src/EBox/Model/DomainTable.pm:218
 msgid "Dynamic"
 msgstr "Динамический"
 
-#: src/EBox/Model/DomainTable.pm:223
+#: src/EBox/Model/DomainTable.pm:222
 msgid "A domain is dynamic when the DHCP server updates the domain"
 msgstr "Домен является динамическим, когда сервер DHCP обновляет домен"
 
-#: src/EBox/Model/DomainTable.pm:241
+#: src/EBox/Model/DomainTable.pm:240
 msgid "List of Domains"
 msgstr "Список доменов"
 
-#: src/EBox/Model/DomainTable.pm:242 src/EBox/Model/DNSComposite.pm:75
-#: src/EBox/Model/DNSComposite.pm:76
+#: src/EBox/Model/DomainTable.pm:241 src/EBox/Model/DNSComposite.pm:74
+#: src/EBox/Model/DNSComposite.pm:75
 msgid "DNS"
 msgstr "DNS"
 
-#: src/EBox/Model/DomainTable.pm:249 src/EBox/DNS.pm.in:265
+#: src/EBox/Model/DomainTable.pm:248 src/EBox/DNS.pm.in:263
 msgid "domain"
 msgstr "домен"
 
@@ -79,7 +79,7 @@ msgstr ""
 "Домен установлен только для чтения. вы не можете добавлять почтовую запись"
 
 #: src/EBox/Model/MailExchanger.pm:151 src/EBox/Model/NameServer.pm:130
-#: src/EBox/Model/HostnameTable.pm:188 src/templates/edit.mas:20
+#: src/EBox/Model/HostnameTable.pm:187 src/templates/edit.mas:20
 msgid "Host name"
 msgstr "Имя узла"
 
@@ -120,32 +120,32 @@ msgstr ""
 msgid "Mail exchanger record"
 msgstr "Запись почтового обменника"
 
-#: src/EBox/Model/AliasTable.pm:81
+#: src/EBox/Model/AliasTable.pm:80
 #, perl-brace-format
 msgid ""
 "An alias cannot be the nameserver host name \"{ns}\". Use a hostname instead"
 msgstr ""
 "Псевдоним не может быть именем сервера имен \"{ns}\". Используйте имя узла"
 
-#: src/EBox/Model/AliasTable.pm:94
+#: src/EBox/Model/AliasTable.pm:93
 #, perl-brace-format
 msgid "There is a hostname with the same name \"{name}\" in the same domain"
 msgstr "В этом домене уже существует узел с этим именем \"{name}\""
 
-#: src/EBox/Model/AliasTable.pm:103
+#: src/EBox/Model/AliasTable.pm:102
 #, perl-brace-format
 msgid ""
 "There is an alias for {hostname} hostname with the same name \"{name}\" in "
 "the same domain"
 msgstr "Псевдним для {hostname} с таким именем \"{name}\" в этой же домене"
 
-#: src/EBox/Model/AliasTable.pm:131 src/EBox/Model/AliasTable.pm:141
-#: src/EBox/Model/AliasTable.pm:147 src/EBox/Model/HostnameTable.pm:204
+#: src/EBox/Model/AliasTable.pm:130 src/EBox/Model/AliasTable.pm:140
+#: src/EBox/Model/AliasTable.pm:146 src/EBox/Model/HostnameTable.pm:203
 #: src/templates/edit.mas:64 src/templates/edit.mas:85
 msgid "Alias"
 msgstr "Псевдоним"
 
-#: src/EBox/Model/AliasTable.pm:148
+#: src/EBox/Model/AliasTable.pm:147
 msgid "alias"
 msgstr "псевдоним"
 
@@ -176,62 +176,62 @@ msgstr "Управление записями серверов имен (NS)"
 msgid "name server record"
 msgstr "Запись сервера имен"
 
-#: src/EBox/Model/HostnameTable.pm:136
+#: src/EBox/Model/HostnameTable.pm:135
 #, perl-brace-format
 msgid ""
 "There is an alias with the same name \"{name}\" for \"{hostname}\" in the "
 "same domain"
 msgstr "В этом домене уже существует псевдоним \"{name}\" для \"{hostname}\""
 
-#: src/EBox/Model/HostnameTable.pm:170
+#: src/EBox/Model/HostnameTable.pm:169
 msgid "The domain is set as read only. You cannot add host names"
 msgstr ""
 "Домен имеет разрешение только для чтения. Вы не можете добавлять имена узлов"
 
-#: src/EBox/Model/HostnameTable.pm:216
+#: src/EBox/Model/HostnameTable.pm:215
 msgid "Host names"
 msgstr "Имена узлов"
 
-#: src/EBox/Model/HostnameTable.pm:224
+#: src/EBox/Model/HostnameTable.pm:223
 msgid "host name"
 msgstr "имя узла"
 
-#: src/EBox/Model/DNSComposite.pm:78
+#: src/EBox/Model/DNSComposite.pm:77
 msgid "The DNS server allows you to resolve names for your own domains."
 msgstr "Сервер DNS обеспечивает разрешение имен для ваших доменов."
 
-#: src/EBox/DNS.pm.in:518
+#: src/EBox/DNS.pm.in:516
 msgid "main bind9 configuration file"
 msgstr "Основной файл конфигурации bind9"
 
-#: src/EBox/DNS.pm.in:523
+#: src/EBox/DNS.pm.in:521
 msgid "bind9 options configuration file"
 msgstr "Файл конфигурации настроек bind9"
 
-#: src/EBox/DNS.pm.in:528
+#: src/EBox/DNS.pm.in:526
 msgid "local bind9 configuration file"
 msgstr "локальный файл конфигурации bind9"
 
-#: src/EBox/DNS.pm.in:533
+#: src/EBox/DNS.pm.in:531
 msgid "Keys configuration file"
 msgstr "Файл конфигурации ключей"
 
-#: src/EBox/DNS.pm.in:550
+#: src/EBox/DNS.pm.in:548
 #, perl-brace-format
 msgid "configuration file for zone {zone}"
 msgstr "файл конфигурации для зоны {zone}"
 
-#: src/EBox/DNS.pm.in:566
+#: src/EBox/DNS.pm.in:564
 #, perl-brace-format
 msgid "configuration file for reverse resolution zone {zone}"
 msgstr "файл конфигурации для обратной зоны {zone}"
 
-#: src/EBox/DNS.pm.in:584
+#: src/EBox/DNS.pm.in:582
 #, perl-brace-format
 msgid "Change the permissions for {dir} to allow writing to bind group"
 msgstr "Поменяйте права доступа к {dir} разрешив запись для группы bind"
 
-#: src/EBox/DNS.pm.in:586
+#: src/EBox/DNS.pm.in:584
 msgid "Let the bind daemon to be dynamically updated"
 msgstr "Разрешить демону bind автоматическ обновляться"
 
@@ -281,25 +281,3 @@ msgstr "Редактировать"
 #: src/templates/index.mas:65
 msgid "edit"
 msgstr "редактировать"
-
-
-
-
-
-
-
-
-
-
-#, fuzzy
-
-
-
-
-
-
-
-
-
-
-

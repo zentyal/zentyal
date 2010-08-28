@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-dns 1.5\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-08-26 00:53+0200\n"
+"POT-Creation-Date: 2010-08-28 23:34+0200\n"
 "PO-Revision-Date: 2010-04-16 12:42+0200\n"
 "Last-Translator: Michal Formánek <formi@seznam.cz>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
@@ -17,44 +17,44 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: src/EBox/Model/DomainTable.pm:178
+#: src/EBox/Model/DomainTable.pm:177
 msgid "Domain"
 msgstr "Doména"
 
-#: src/EBox/Model/DomainTable.pm:186 src/EBox/Model/HostnameTable.pm:223
+#: src/EBox/Model/DomainTable.pm:185 src/EBox/Model/HostnameTable.pm:222
 msgid "Hostnames"
 msgstr "Názvy hostitele"
 
-#: src/EBox/Model/DomainTable.pm:195
+#: src/EBox/Model/DomainTable.pm:194
 msgid "Mail Exchangers"
 msgstr "Mail Exchangers"
 
-#: src/EBox/Model/DomainTable.pm:203
+#: src/EBox/Model/DomainTable.pm:202
 msgid "Name Servers"
 msgstr "Jmenné servery"
 
-#: src/EBox/Model/DomainTable.pm:211 src/EBox/Model/HostnameTable.pm:196
+#: src/EBox/Model/DomainTable.pm:210 src/EBox/Model/HostnameTable.pm:195
 msgid "IP Address"
 msgstr "IP adresa"
 
-#: src/EBox/Model/DomainTable.pm:219
+#: src/EBox/Model/DomainTable.pm:218
 msgid "Dynamic"
 msgstr "Dynamický"
 
-#: src/EBox/Model/DomainTable.pm:223
+#: src/EBox/Model/DomainTable.pm:222
 msgid "A domain is dynamic when the DHCP server updates the domain"
 msgstr "Doména je dynamická, když DHCP server aktualizuje doménu"
 
-#: src/EBox/Model/DomainTable.pm:241
+#: src/EBox/Model/DomainTable.pm:240
 msgid "List of Domains"
 msgstr "Seznam domén"
 
-#: src/EBox/Model/DomainTable.pm:242 src/EBox/Model/DNSComposite.pm:75
-#: src/EBox/Model/DNSComposite.pm:76
+#: src/EBox/Model/DomainTable.pm:241 src/EBox/Model/DNSComposite.pm:74
+#: src/EBox/Model/DNSComposite.pm:75
 msgid "DNS"
 msgstr "DNS"
 
-#: src/EBox/Model/DomainTable.pm:249 src/EBox/DNS.pm.in:265
+#: src/EBox/Model/DomainTable.pm:248 src/EBox/DNS.pm.in:263
 msgid "domain"
 msgstr "doména"
 
@@ -77,7 +77,7 @@ msgid "The domain is set as read only. You cannot add mail exchangers"
 msgstr "Doména je nastavena jen pro čtení. Nemůžete přidávat mail exchangers"
 
 #: src/EBox/Model/MailExchanger.pm:151 src/EBox/Model/NameServer.pm:130
-#: src/EBox/Model/HostnameTable.pm:188 src/templates/edit.mas:20
+#: src/EBox/Model/HostnameTable.pm:187 src/templates/edit.mas:20
 msgid "Host name"
 msgstr "Jméno hosta"
 
@@ -118,18 +118,18 @@ msgstr ""
 msgid "Mail exchanger record"
 msgstr "Mail exchanger záznam"
 
-#: src/EBox/Model/AliasTable.pm:81
+#: src/EBox/Model/AliasTable.pm:80
 #, perl-brace-format
 msgid ""
 "An alias cannot be the nameserver host name \"{ns}\". Use a hostname instead"
 msgstr "Alias nemůže být jméno nameserveru \"{ns}\". Použijte raději hostname"
 
-#: src/EBox/Model/AliasTable.pm:94
+#: src/EBox/Model/AliasTable.pm:93
 #, perl-brace-format
 msgid "There is a hostname with the same name \"{name}\" in the same domain"
 msgstr "Tam je hostname se stejným názvem \"{name}\" ve stejné doméně"
 
-#: src/EBox/Model/AliasTable.pm:103
+#: src/EBox/Model/AliasTable.pm:102
 #, perl-brace-format
 msgid ""
 "There is an alias for {hostname} hostname with the same name \"{name}\" in "
@@ -138,13 +138,13 @@ msgstr ""
 "Tam je alias pro {hostname} hostname se stejným názvem \"{name}\" ve stejné "
 "doméně"
 
-#: src/EBox/Model/AliasTable.pm:131 src/EBox/Model/AliasTable.pm:141
-#: src/EBox/Model/AliasTable.pm:147 src/EBox/Model/HostnameTable.pm:204
+#: src/EBox/Model/AliasTable.pm:130 src/EBox/Model/AliasTable.pm:140
+#: src/EBox/Model/AliasTable.pm:146 src/EBox/Model/HostnameTable.pm:203
 #: src/templates/edit.mas:64 src/templates/edit.mas:85
 msgid "Alias"
 msgstr "Alias"
 
-#: src/EBox/Model/AliasTable.pm:148
+#: src/EBox/Model/AliasTable.pm:147
 msgid "alias"
 msgstr "alias"
 
@@ -173,7 +173,7 @@ msgstr "Spravuje jmennému serveru (NS) záznamy pro tuto doménu"
 msgid "name server record"
 msgstr "name server záznam"
 
-#: src/EBox/Model/HostnameTable.pm:136
+#: src/EBox/Model/HostnameTable.pm:135
 #, perl-brace-format
 msgid ""
 "There is an alias with the same name \"{name}\" for \"{hostname}\" in the "
@@ -181,54 +181,54 @@ msgid ""
 msgstr ""
 "Tam je alias se stejným jménem \"{name}\" pro \"{hostname}\" ve stejné doméně"
 
-#: src/EBox/Model/HostnameTable.pm:170
+#: src/EBox/Model/HostnameTable.pm:169
 msgid "The domain is set as read only. You cannot add host names"
 msgstr "Doména je nastavena jen pro čtení. Nemůžete přidávat názvy hostitelů"
 
-#: src/EBox/Model/HostnameTable.pm:216
+#: src/EBox/Model/HostnameTable.pm:215
 msgid "Host names"
 msgstr "Host names"
 
-#: src/EBox/Model/HostnameTable.pm:224
+#: src/EBox/Model/HostnameTable.pm:223
 msgid "host name"
 msgstr "jméno hosta"
 
-#: src/EBox/Model/DNSComposite.pm:78
+#: src/EBox/Model/DNSComposite.pm:77
 msgid "The DNS server allows you to resolve names for your own domains."
 msgstr "Server DNS umožňuje přeložit jména pro své vlastní domény."
 
-#: src/EBox/DNS.pm.in:518
+#: src/EBox/DNS.pm.in:516
 msgid "main bind9 configuration file"
 msgstr "Hlavní bind9 konfigurační soubor"
 
-#: src/EBox/DNS.pm.in:523
+#: src/EBox/DNS.pm.in:521
 msgid "bind9 options configuration file"
 msgstr "bind9 volby konfiguračního souboru"
 
-#: src/EBox/DNS.pm.in:528
+#: src/EBox/DNS.pm.in:526
 msgid "local bind9 configuration file"
 msgstr "lokální bind9 konfigurační soubor"
 
-#: src/EBox/DNS.pm.in:533
+#: src/EBox/DNS.pm.in:531
 msgid "Keys configuration file"
 msgstr "Keys konfigurační soubor"
 
-#: src/EBox/DNS.pm.in:550
+#: src/EBox/DNS.pm.in:548
 #, perl-brace-format
 msgid "configuration file for zone {zone}"
 msgstr "konfigurační soubor pro zónu {zone}"
 
-#: src/EBox/DNS.pm.in:566
+#: src/EBox/DNS.pm.in:564
 #, perl-brace-format
 msgid "configuration file for reverse resolution zone {zone}"
 msgstr "konfigurační soubor pro reverzní rozlišovací zónu {zone}"
 
-#: src/EBox/DNS.pm.in:584
+#: src/EBox/DNS.pm.in:582
 #, perl-brace-format
 msgid "Change the permissions for {dir} to allow writing to bind group"
 msgstr "Změna oprávnění pro {dir} povolit zapisovat bind skupině"
 
-#: src/EBox/DNS.pm.in:586
+#: src/EBox/DNS.pm.in:584
 #, fuzzy
 msgid "Let the bind daemon to be dynamically updated"
 msgstr "Nechť se bind démon updatuje dynamicky"

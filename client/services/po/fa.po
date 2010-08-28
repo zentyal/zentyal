@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-services 0.12.100\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-08-25 17:48+0200\n"
+"POT-Creation-Date: 2010-08-28 23:41+0200\n"
 "PO-Revision-Date: 2009-02-14 18:19+0330\n"
 "Last-Translator: Zahra Khani <belendax@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
@@ -15,79 +15,66 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: migration/0001_import_services_from_firewall.pl:69
+#: migration/0001_import_services_from_firewall.pl:84
 msgid "any"
 msgstr "هر"
 
-#: migration/0001_import_services_from_firewall.pl:70
+#: migration/0001_import_services_from_firewall.pl:85
 msgid "any protocol and port"
 msgstr "هر پروتکل و پورت "
 
-#: migration/0001_import_services_from_firewall.pl:71
-#: migration/0001_import_services_from_firewall.pl:82
-#: migration/0001_import_services_from_firewall.pl:94
-#: migration/0001_import_services_from_firewall.pl:110
+#: migration/0001_import_services_from_firewall.pl:86
+#: migration/0001_import_services_from_firewall.pl:97
+#: migration/0001_import_services_from_firewall.pl:109
 #: migration/0001_import_services_from_firewall.pl:125
-#: src/EBox/Services.pm:404
+#: migration/0001_import_services_from_firewall.pl:140
+#: src/EBox/Services.pm:403
 msgid "ebox-services"
 msgstr "سرویس های-ebox"
 
-#: migration/0001_import_services_from_firewall.pl:80
+#: migration/0001_import_services_from_firewall.pl:95
 msgid "any UDP"
 msgstr "هرUDP"
 
-#: migration/0001_import_services_from_firewall.pl:81
+#: migration/0001_import_services_from_firewall.pl:96
 msgid "any UDP port"
 msgstr "هر پورت UDP "
 
-#: migration/0001_import_services_from_firewall.pl:92
+#: migration/0001_import_services_from_firewall.pl:107
 msgid "any TCP"
 msgstr "هر TCP"
 
-#: migration/0001_import_services_from_firewall.pl:93
+#: migration/0001_import_services_from_firewall.pl:108
 msgid "any TCP port"
 msgstr "هر پورت TCP"
 
-#: migration/0001_import_services_from_firewall.pl:108
-#: src/EBox/Services.pm:402
+#: migration/0001_import_services_from_firewall.pl:123
+#: src/EBox/Services.pm:401
 msgid "eBox administration"
 msgstr "مدیریت eBox"
 
-#: migration/0001_import_services_from_firewall.pl:109
+#: migration/0001_import_services_from_firewall.pl:124
 #, fuzzy
 msgid "Zentyal Administration Web Server"
 msgstr "مدیریت پورت eBox"
 
-#: src/EBox/Services.pm:48 src/EBox/Model/ServiceTable.pm:145
-msgid "Services"
-msgstr "سرویس ها"
-
-#: src/EBox/Services.pm:400
-msgid "port"
-msgstr "پورت"
-
-#: src/EBox/Services.pm:403
-#, fuzzy
-msgid "Zentyal Administration port"
-msgstr "مدیریت پورت eBox"
-
-#: src/EBox/Model/ServiceTable.pm:103
+#: src/EBox/Model/ServiceTable.pm:102
 msgid "Domain"
 msgstr "دامنه"
 
-#: src/EBox/Model/ServiceTable.pm:110
+#: src/EBox/Model/ServiceTable.pm:109
 msgid "Service name"
 msgstr "نام سرویس"
 
-#: src/EBox/Model/ServiceTable.pm:118
+#: src/EBox/Model/ServiceTable.pm:117
 msgid "Description"
 msgstr "شرح"
 
-#: src/EBox/Model/ServiceTable.pm:125
+#: src/EBox/Model/ServiceTable.pm:124
 msgid "Internal"
 msgstr "اینترنت"
 
-#: src/EBox/Model/ServiceTable.pm:127
+#: src/EBox/Model/ServiceTable.pm:126
 #, fuzzy
 msgid ""
 "Tick this field if there is actually a service on the machine using the "
@@ -98,20 +85,24 @@ msgstr ""
 "کند، وجود دارد؛ این فیلد را علامت بزنید. این کار به eBox کمک می کند که بداند "
 "چه پورت هایی پیش از این مشغول بوده اند"
 
-#: src/EBox/Model/ServiceTable.pm:134
+#: src/EBox/Model/ServiceTable.pm:133
 msgid "Configuration"
 msgstr "پیکربندی"
 
-#: src/EBox/Model/ServiceTable.pm:144
+#: src/EBox/Model/ServiceTable.pm:143
 msgid "List of services"
 msgstr "لیست سرویس ها"
 
-#: src/EBox/Model/ServiceTable.pm:155
-#: src/EBox/Model/ServiceConfigurationTable.pm:173
+#: src/EBox/Model/ServiceTable.pm:144 src/EBox/Services.pm:47
+msgid "Services"
+msgstr "سرویس ها"
+
+#: src/EBox/Model/ServiceTable.pm:154
+#: src/EBox/Model/ServiceConfigurationTable.pm:172
 msgid "service"
 msgstr "سرویس"
 
-#: src/EBox/Model/ServiceTable.pm:653
+#: src/EBox/Model/ServiceTable.pm:652
 msgid ""
 "A service is an abstraction of one or more network protocols which can be "
 "used in other modules such as: firewall, traffic shaping..."
@@ -119,26 +110,35 @@ msgstr ""
 "یک سرویس خلاصه ای از یک یا تعداد بیشتری از پروتکل های شبکه است که می تواند "
 "در ماژول های دیگر مانند دیواره آتش، شکل دهی ترافیک و ... استفاده شود"
 
-#: src/EBox/Model/ServiceConfigurationTable.pm:140
+#: src/EBox/Model/ServiceConfigurationTable.pm:139
 msgid "Protocol"
 msgstr "پروتکل"
 
-#: src/EBox/Model/ServiceConfigurationTable.pm:146
+#: src/EBox/Model/ServiceConfigurationTable.pm:145
 msgid "Source port"
 msgstr "پورت مبدأ"
 
-#: src/EBox/Model/ServiceConfigurationTable.pm:148
+#: src/EBox/Model/ServiceConfigurationTable.pm:147
 msgid "This field is usually set to any"
 msgstr "این فیلد معمولا به عنوان هر تنظیم می شود"
 
-#: src/EBox/Model/ServiceConfigurationTable.pm:152
+#: src/EBox/Model/ServiceConfigurationTable.pm:151
 msgid "Destination port"
 msgstr "پورت مقصد"
 
-#: src/EBox/Model/ServiceConfigurationTable.pm:162
+#: src/EBox/Model/ServiceConfigurationTable.pm:161
 msgid "Service configuration"
 msgstr "پیکربندی سرویس"
 
-#: src/EBox/Model/ServiceConfigurationTable.pm:197
+#: src/EBox/Model/ServiceConfigurationTable.pm:196
 msgid "This protocol does not use ports"
 msgstr "این پروتکل از پورت ها استفاده نمی کند"
+
+#: src/EBox/Services.pm:399
+msgid "port"
+msgstr "پورت"
+
+#: src/EBox/Services.pm:402
+#, fuzzy
+msgid "Zentyal Administration port"
+msgstr "مدیریت پورت eBox"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-printers 0.12\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-08-25 17:48+0200\n"
+"POT-Creation-Date: 2010-08-28 23:38+0200\n"
 "PO-Revision-Date: 2010-08-25 19:58+0200\n"
 "Last-Translator: Bo Dalbjerg <bo@dalbjerg.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
@@ -17,75 +17,9 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: migration/0001_add_ipp_service.pl:102
+#: migration/0001_add_ipp_service.pl:117
 msgid "Cups printer server port"
 msgstr ""
-
-#: src/EBox/Printers.pm:43 src/EBox/Composite/General.pm:60
-#, fuzzy
-msgid "Printer Sharing"
-msgstr "Printer deling"
-
-#: src/EBox/Printers.pm:58
-#, fuzzy
-msgid "Create spool directory for printers"
-msgstr "Laver et arbejdes katalog (spool directory) for printerne"
-
-#: src/EBox/Printers.pm:59
-msgid "Zentyal will create a spool directory under /var/spool/samba"
-msgstr "Zentyal vil lave et arbejdskatalog i stien: /var/spool/samba"
-
-#: src/EBox/Printers.pm:64
-#, fuzzy
-msgid "Create log table"
-msgstr "Udfærdiger log tabel"
-
-#: src/EBox/Printers.pm:65
-msgid ""
-"Zentyal will create a new table into its log database to store printers logs"
-msgstr ""
-"Zentyal vil lave en ny tabel i dens log database, for at gemme printer log's"
-
-#: src/EBox/Printers.pm:81
-msgid "To configure cupsd"
-msgstr "Konfigurer printer opsætning"
-
-#: src/EBox/Printers.pm:223
-msgid "Job ID"
-msgstr "Job ID"
-
-#: src/EBox/Printers.pm:224
-msgid "Printer"
-msgstr "Printer"
-
-#: src/EBox/Printers.pm:225
-msgid "User"
-msgstr "Bruger"
-
-#: src/EBox/Printers.pm:226
-#, fuzzy
-msgid "Date"
-msgstr "Slet"
-
-#: src/EBox/Printers.pm:227
-msgid "Event"
-msgstr "Begivenhed"
-
-#: src/EBox/Printers.pm:231
-msgid "Queued"
-msgstr "Lagt i kø"
-
-#: src/EBox/Printers.pm:232
-msgid "Completed"
-msgstr "Gennemført"
-
-#: src/EBox/Printers.pm:233
-msgid "Canceled"
-msgstr "Afbrudt"
-
-#: src/EBox/Printers.pm:237
-msgid "Printers"
-msgstr "Printere"
 
 #: src/EBox/Model/CUPS.pm:142
 #, perl-brace-format
@@ -132,97 +66,68 @@ msgstr ""
 "For at tilføje elle styre printere skal du bruge {open_href}CUPS Web "
 "Interface{close_href}"
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+#: src/EBox/Printers.pm:41 src/EBox/Composite/General.pm:60
 #, fuzzy
+msgid "Printer Sharing"
+msgstr "Printer deling"
 
+#: src/EBox/Printers.pm:56
 #, fuzzy
+msgid "Create spool directory for printers"
+msgstr "Laver et arbejdes katalog (spool directory) for printerne"
 
+#: src/EBox/Printers.pm:57
+msgid "Zentyal will create a spool directory under /var/spool/samba"
+msgstr "Zentyal vil lave et arbejdskatalog i stien: /var/spool/samba"
 
-
-
-
-
-
-
+#: src/EBox/Printers.pm:62
 #, fuzzy
+msgid "Create log table"
+msgstr "Udfærdiger log tabel"
 
+#: src/EBox/Printers.pm:63
+msgid ""
+"Zentyal will create a new table into its log database to store printers logs"
+msgstr ""
+"Zentyal vil lave en ny tabel i dens log database, for at gemme printer log's"
+
+#: src/EBox/Printers.pm:79
+msgid "To configure cupsd"
+msgstr "Konfigurer printer opsætning"
+
+#: src/EBox/Printers.pm:221
+msgid "Job ID"
+msgstr "Job ID"
+
+#: src/EBox/Printers.pm:222
+msgid "Printer"
+msgstr "Printer"
+
+#: src/EBox/Printers.pm:223
+msgid "User"
+msgstr "Bruger"
+
+#: src/EBox/Printers.pm:224
 #, fuzzy
+msgid "Date"
+msgstr "Slet"
 
+#: src/EBox/Printers.pm:225
+msgid "Event"
+msgstr "Begivenhed"
 
+#: src/EBox/Printers.pm:229
+msgid "Queued"
+msgstr "Lagt i kø"
 
+#: src/EBox/Printers.pm:230
+msgid "Completed"
+msgstr "Gennemført"
 
+#: src/EBox/Printers.pm:231
+msgid "Canceled"
+msgstr "Afbrudt"
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#, fuzzy
-
-
-
-#, fuzzy
-
-
-#, fuzzy
-
-
-
-
-
-
-
-
-
-
-#, fuzzy
-
-
-
-
-
-
-
-#, fuzzy
-
-#, fuzzy
-
-
+#: src/EBox/Printers.pm:235
+msgid "Printers"
+msgstr "Printere"

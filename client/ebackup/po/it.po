@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-ebackup 1.3.3\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-08-26 00:53+0200\n"
+"POT-Creation-Date: 2010-08-28 23:34+0200\n"
 "PO-Revision-Date: 2010-08-26 18:03+0200\n"
 "Last-Translator: Claudio Brocco <claudiob@ethicalsoftware.it>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
@@ -65,8 +65,7 @@ msgid "File restored successfully"
 msgstr "Ripristino file completato"
 
 #: src/EBox/Model/RemoteFileList.pm:269
-#, perl-brace-format
-#, fuzzy
+#, fuzzy, perl-brace-format
 msgid "Remote URL to be used with duplicity for manual restores: {url}"
 msgstr ""
 "Indirizzo remoto da usare con duplicity per il ripristino manuale: {url}"
@@ -458,7 +457,3 @@ msgstr "Ripristino dei servizi"
 #: src/EBox/Composite/RemoteGeneral.pm:65
 msgid "Configuration and Status"
 msgstr "Configurazione e Stato"
-
-
-
-

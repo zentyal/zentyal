@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-printers 0.12.99\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-08-25 17:48+0200\n"
+"POT-Creation-Date: 2010-08-28 23:38+0200\n"
 "PO-Revision-Date: 2010-02-01 10:37+0100\n"
 "Last-Translator: Ronny Gonzales <gonzito@online.no>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
@@ -17,76 +17,9 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: migration/0001_add_ipp_service.pl:102
+#: migration/0001_add_ipp_service.pl:117
 msgid "Cups printer server port"
 msgstr "Cups skriver server port"
-
-#: src/EBox/Printers.pm:43 src/EBox/Composite/General.pm:60
-msgid "Printer Sharing"
-msgstr "Printers Deling"
-
-#: src/EBox/Printers.pm:58
-msgid "Create spool directory for printers"
-msgstr "Opprett mellomlagrings mappe for skrivere"
-
-#: src/EBox/Printers.pm:59
-#, fuzzy
-msgid "Zentyal will create a spool directory under /var/spool/samba"
-msgstr "eBox vil lager mellomlagrings mappe under /var/spool/samba"
-
-#: src/EBox/Printers.pm:64
-msgid "Create log table"
-msgstr "Opprett logg tabell"
-
-#: src/EBox/Printers.pm:65
-#, fuzzy
-msgid ""
-"Zentyal will create a new table into its log database to store printers logs"
-msgstr ""
-"eBox vil opprette en ny tabell i sin logg database for å oppbevare skriver "
-"logger"
-
-#: src/EBox/Printers.pm:81
-#, fuzzy
-msgid "To configure cupsd"
-msgstr "Skriveren er ikke konfigurert"
-
-#: src/EBox/Printers.pm:223
-msgid "Job ID"
-msgstr "Jobb ID"
-
-#: src/EBox/Printers.pm:224
-msgid "Printer"
-msgstr "Skriver"
-
-#: src/EBox/Printers.pm:225
-msgid "User"
-msgstr "Bruker"
-
-#: src/EBox/Printers.pm:226
-#, fuzzy
-msgid "Date"
-msgstr "Slett"
-
-#: src/EBox/Printers.pm:227
-msgid "Event"
-msgstr "Hendelse"
-
-#: src/EBox/Printers.pm:231
-msgid "Queued"
-msgstr "Køet"
-
-#: src/EBox/Printers.pm:232
-msgid "Completed"
-msgstr ""
-
-#: src/EBox/Printers.pm:233
-msgid "Canceled"
-msgstr "Avbrutt"
-
-#: src/EBox/Printers.pm:237
-msgid "Printers"
-msgstr "Skrivere"
 
 #: src/EBox/Model/CUPS.pm:142
 #, perl-brace-format
@@ -126,98 +59,69 @@ msgid ""
 "{close_href}"
 msgstr ""
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+#: src/EBox/Printers.pm:41 src/EBox/Composite/General.pm:60
+msgid "Printer Sharing"
+msgstr "Printers Deling"
+
+#: src/EBox/Printers.pm:56
+msgid "Create spool directory for printers"
+msgstr "Opprett mellomlagrings mappe for skrivere"
+
+#: src/EBox/Printers.pm:57
+#, fuzzy
+msgid "Zentyal will create a spool directory under /var/spool/samba"
+msgstr "eBox vil lager mellomlagrings mappe under /var/spool/samba"
+
+#: src/EBox/Printers.pm:62
+msgid "Create log table"
+msgstr "Opprett logg tabell"
+
+#: src/EBox/Printers.pm:63
+#, fuzzy
+msgid ""
+"Zentyal will create a new table into its log database to store printers logs"
+msgstr ""
+"eBox vil opprette en ny tabell i sin logg database for å oppbevare skriver "
+"logger"
+
+#: src/EBox/Printers.pm:79
+#, fuzzy
+msgid "To configure cupsd"
+msgstr "Skriveren er ikke konfigurert"
+
+#: src/EBox/Printers.pm:221
+msgid "Job ID"
+msgstr "Jobb ID"
+
+#: src/EBox/Printers.pm:222
+msgid "Printer"
+msgstr "Skriver"
+
+#: src/EBox/Printers.pm:223
+msgid "User"
+msgstr "Bruker"
+
+#: src/EBox/Printers.pm:224
+#, fuzzy
+msgid "Date"
+msgstr "Slett"
+
+#: src/EBox/Printers.pm:225
+msgid "Event"
+msgstr "Hendelse"
+
+#: src/EBox/Printers.pm:229
+msgid "Queued"
+msgstr "Køet"
+
+#: src/EBox/Printers.pm:230
+msgid "Completed"
+msgstr ""
+
+#: src/EBox/Printers.pm:231
+msgid "Canceled"
+msgstr "Avbrutt"
+
+#: src/EBox/Printers.pm:235
+msgid "Printers"
+msgstr "Skrivere"

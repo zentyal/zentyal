@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-webserver 0.12\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-08-25 17:50+0200\n"
+"POT-Creation-Date: 2010-08-28 23:42+0200\n"
 "PO-Revision-Date: 2010-04-30 13:38+0200\n"
 "Last-Translator: Bulent SENER <bulent.sener@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
@@ -17,126 +17,159 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: migration/0001_add_service_and_port.pl:147
+#: migration/0001_add_service_and_port.pl:162
 msgid "HyperText Transport Protocol"
 msgstr "HTTP"
 
-#: src/EBox/WebServer.pm:80 src/EBox/WebServer.pm:618
-#: src/EBox/WebServer/Composite/General.pm:78
-msgid "Web Server"
-msgstr "Web Sunucu"
-
-#: src/EBox/WebServer.pm:100
+#: src/EBox/WebServer/Model/VHostTable.pm:93
 #, fuzzy
-msgid "To set webserver listening port."
-msgstr "Web Sunucunun dinleme portunu ayarla"
+msgid "Virtual host name"
+msgstr "Sanal sunucu adı"
 
-#: src/EBox/WebServer.pm:105
+#: src/EBox/WebServer/Model/VHostTable.pm:97
+#: src/EBox/WebServer/Model/VHostTable.pm:310
 #, fuzzy
-msgid "To configure default virtual host."
-msgstr "Öntanımlı Sanal Kank olarak ayarla"
+msgid "Virtual host"
+msgstr "Sanal sunucu adı"
 
-#: src/EBox/WebServer.pm:110
-#, fuzzy
-msgid "To configure default SSL virtual host."
-msgstr "Öntanımlı Sanal Kank olarak ayarla"
-
-#: src/EBox/WebServer.pm:115
-#, fuzzy
-msgid "To configure the per-user public_html directory."
-msgstr "Her kullanıcı için public_html dizinini HTML dizini olarak ayarla"
-
-#: src/EBox/WebServer.pm:140
-#, fuzzy
-msgid "Enable Apache LDAP user module"
-msgstr "Apache LDAP kullanıcı modülünü etkinleştir"
-
-#: src/EBox/WebServer.pm:142
-#, fuzzy
-msgid "To fetch home directories from LDAP."
-msgstr "Ev dizinlerini LDAP'tan al"
-
-#: src/EBox/WebServer.pm:145
-#, fuzzy
-msgid "Enable Apache SSL module"
-msgstr "Apache LDAP kullanıcı modülünü etkinleştir"
-
-#: src/EBox/WebServer.pm:147
-msgid "To serve pages over HTTPS."
+#: src/EBox/WebServer/Model/VHostTable.pm:104
+msgid "SSL support is disabled. Enable it before adding a SSL virtual host."
 msgstr ""
 
-#: src/EBox/WebServer.pm:185
-msgid "Web service status"
-msgstr "Web hizmeti durumu"
+#: src/EBox/WebServer/Model/VHostTable.pm:169
+#, perl-brace-format
+msgid ""
+"Virtual host {vhost} added. A domain {domain} has been created with the "
+"mapping name {name} - IP address {ip}. {noDnsWarning} "
+msgstr ""
+"{vhost} sanal sunucusu eklendi. A domain {domain} has been created with the "
+"mapping name {name} - IP adres: {ip}. {noDnsWarning} "
 
-#: src/EBox/WebServer.pm:441
+#: src/EBox/WebServer/Model/VHostTable.pm:188
 #, fuzzy, perl-brace-format
-msgid "The {userDirConfFile} is missing! Please recover it."
-msgstr "{userDirConfFile} kayıp! Lütfen geri yükleyin"
+msgid ""
+"Virtual host {vhost} added. A mapping name {name} - IP address {ip} has been "
+"added to {domain} domain."
+msgstr ""
+"{vhost} sanal sunucusu eklendi. A domain {domain} has been created with the "
+"mapping name {name} - IP adres: {ip}. {noDnsWarning} "
 
-#: src/EBox/WebServer/Model/GeneralSettings.pm:97
-#: src/EBox/WebServer/Model/GeneralSettings.pm:109
-#: src/EBox/WebServer/Model/GeneralSettings.pm:120
-#: src/EBox/WebServer/Model/GeneralSettings.pm:230
+#: src/EBox/WebServer/Model/VHostTable.pm:202
+#, perl-brace-format
+msgid "Virtual host {vhost} added as an alias {alias} to hostname {hostname}."
+msgstr ""
+
+#: src/EBox/WebServer/Model/VHostTable.pm:208
+#: src/EBox/WebServer/Model/VHostTable.pm:213
+#, fuzzy, perl-brace-format
+msgid "Virtual host {vhost} added."
+msgstr "Sanal sunucu {vhost} eklendi"
+
+#: src/EBox/WebServer/Model/VHostTable.pm:218
+msgid "There is no static internal interface to set the Web server IP address."
+msgstr ""
+
+#: src/EBox/WebServer/Model/VHostTable.pm:252
+#: src/EBox/WebServer/Model/GeneralSettings.pm:239
+msgid "Disabled"
+msgstr ""
+
+#: src/EBox/WebServer/Model/VHostTable.pm:253
+msgid "Allow SSL"
+msgstr ""
+
+#: src/EBox/WebServer/Model/VHostTable.pm:254
+msgid "Force SSL"
+msgstr ""
+
+#: src/EBox/WebServer/Model/VHostTable.pm:279
+msgid "SSL support"
+msgstr ""
+
+#: src/EBox/WebServer/Model/VHostTable.pm:286
+msgid "Name"
+msgstr ""
+
+#: src/EBox/WebServer/Model/VHostTable.pm:296
+msgid "Virtual hosts"
+msgstr ""
+
+#: src/EBox/WebServer/Model/VHostTable.pm:300
+#, perl-brace-format
+msgid ""
+"Virtual hosts are a form of web hosting service where many instances of the "
+"same web server are hosted on a single physical server. Different host names "
+"point to the same web server. If feasible, the DNS entry is automatically "
+"created. The content must be placed under the {docRoot} directory. Any "
+"particular configuration you want to add must be placed in the {userConf} "
+"directory."
+msgstr ""
+
+#: src/EBox/WebServer/Model/VHostTable.pm:331
+#, perl-brace-format
+msgid ""
+"{open}The DNS module is disabled. The added mapping or domains will not have "
+"any effect until you enable it"
+msgstr ""
+
+#: src/EBox/WebServer/Model/GeneralSettings.pm:96
+#: src/EBox/WebServer/Model/GeneralSettings.pm:108
+#: src/EBox/WebServer/Model/GeneralSettings.pm:119
+#: src/EBox/WebServer/Model/GeneralSettings.pm:229
 msgid "Listening port"
 msgstr "Dinleme portu"
 
-#: src/EBox/WebServer/Model/GeneralSettings.pm:115
+#: src/EBox/WebServer/Model/GeneralSettings.pm:114
 #, perl-brace-format
 msgid ""
 "Zentyal Administration is running on this port, change it on {ohref}System -"
 "> General{chref}."
 msgstr ""
 
-#: src/EBox/WebServer/Model/GeneralSettings.pm:128
+#: src/EBox/WebServer/Model/GeneralSettings.pm:127
 #, perl-brace-format
 msgid ""
 "You need a Service Certificate for the Web Server module, enable it on "
 "{ohref}Certification Authority -> Service Certificates{chref}."
 msgstr ""
 
-#: src/EBox/WebServer/Model/GeneralSettings.pm:140
+#: src/EBox/WebServer/Model/GeneralSettings.pm:139
 msgid ""
 "Having installed and configured the Users and Groups module is required to "
 "allow HTML directories for users."
 msgstr ""
 
-#: src/EBox/WebServer/Model/GeneralSettings.pm:146
+#: src/EBox/WebServer/Model/GeneralSettings.pm:145
 msgid ""
 "A properly configured Users and Groups module is required to allow HTML "
 "directories for users. To configure it, please enable it at least one time."
 msgstr ""
 
-#: src/EBox/WebServer/Model/GeneralSettings.pm:236
+#: src/EBox/WebServer/Model/GeneralSettings.pm:235
 #, fuzzy
 msgid "Listening SSL port"
 msgstr "Dinleme portu"
 
-#: src/EBox/WebServer/Model/GeneralSettings.pm:240
-#: src/EBox/WebServer/Model/VHostTable.pm:253
-msgid "Disabled"
-msgstr ""
-
-#: src/EBox/WebServer/Model/GeneralSettings.pm:245
+#: src/EBox/WebServer/Model/GeneralSettings.pm:244
 msgid "Enabled"
 msgstr ""
 
-#: src/EBox/WebServer/Model/GeneralSettings.pm:253
+#: src/EBox/WebServer/Model/GeneralSettings.pm:252
 #, perl-brace-format
 msgid "Enable per user {dirName}"
 msgstr "Her kullanıcı için {dirName}'yi etkinleştir."
 
-#: src/EBox/WebServer/Model/GeneralSettings.pm:257
+#: src/EBox/WebServer/Model/GeneralSettings.pm:256
 msgid ""
 "Allow users to publish web documents using the public_html directory on "
 "their home."
 msgstr ""
 
-#: src/EBox/WebServer/Model/GeneralSettings.pm:265
+#: src/EBox/WebServer/Model/GeneralSettings.pm:264
 msgid "General configuration settings"
 msgstr "Genel konfigürasyon ayarları"
 
-#: src/EBox/WebServer/Model/GeneralSettings.pm:269
+#: src/EBox/WebServer/Model/GeneralSettings.pm:268
 #, fuzzy, perl-brace-format
 msgid ""
 "General Web server configuration. The listening port must not be used by "
@@ -148,102 +181,21 @@ msgstr ""
 "Bu sayfalar kullanıcıların samba kök dizinlerinde {dirName} dizininden "
 "yüklenecektir."
 
-#: src/EBox/WebServer/Model/GeneralSettings.pm:275
+#: src/EBox/WebServer/Model/GeneralSettings.pm:274
 #, fuzzy
 msgid "General Web server configuration settings updated."
 msgstr "Genel Web sunucu konfigürasyon ayarları güncellendi"
 
-#: src/EBox/WebServer/Model/VHostTable.pm:94
-#, fuzzy
-msgid "Virtual host name"
-msgstr "Sanal sunucu adı"
-
-#: src/EBox/WebServer/Model/VHostTable.pm:98
-#: src/EBox/WebServer/Model/VHostTable.pm:311
-#, fuzzy
-msgid "Virtual host"
-msgstr "Sanal sunucu adı"
-
-#: src/EBox/WebServer/Model/VHostTable.pm:105
-msgid "SSL support is disabled. Enable it before adding a SSL virtual host."
-msgstr ""
-
-#: src/EBox/WebServer/Model/VHostTable.pm:170
-#, perl-brace-format
-msgid ""
-"Virtual host {vhost} added. A domain {domain} has been created with the "
-"mapping name {name} - IP address {ip}. {noDnsWarning} "
-msgstr ""
-"{vhost} sanal sunucusu eklendi. A domain {domain} has been created with the "
-"mapping name {name} - IP adres: {ip}. {noDnsWarning} "
-
-#: src/EBox/WebServer/Model/VHostTable.pm:189
-#, fuzzy, perl-brace-format
-msgid ""
-"Virtual host {vhost} added. A mapping name {name} - IP address {ip} has been "
-"added to {domain} domain."
-msgstr ""
-"{vhost} sanal sunucusu eklendi. A domain {domain} has been created with the "
-"mapping name {name} - IP adres: {ip}. {noDnsWarning} "
-
-#: src/EBox/WebServer/Model/VHostTable.pm:203
-#, perl-brace-format
-msgid "Virtual host {vhost} added as an alias {alias} to hostname {hostname}."
-msgstr ""
-
-#: src/EBox/WebServer/Model/VHostTable.pm:209
-#: src/EBox/WebServer/Model/VHostTable.pm:214
-#, fuzzy, perl-brace-format
-msgid "Virtual host {vhost} added."
-msgstr "Sanal sunucu {vhost} eklendi"
-
-#: src/EBox/WebServer/Model/VHostTable.pm:219
-msgid "There is no static internal interface to set the Web server IP address."
-msgstr ""
-
-#: src/EBox/WebServer/Model/VHostTable.pm:254
-msgid "Allow SSL"
-msgstr ""
-
-#: src/EBox/WebServer/Model/VHostTable.pm:255
-msgid "Force SSL"
-msgstr ""
-
-#: src/EBox/WebServer/Model/VHostTable.pm:280
-msgid "SSL support"
-msgstr ""
-
-#: src/EBox/WebServer/Model/VHostTable.pm:287
-msgid "Name"
-msgstr ""
-
-#: src/EBox/WebServer/Model/VHostTable.pm:297
-msgid "Virtual hosts"
-msgstr ""
-
-#: src/EBox/WebServer/Model/VHostTable.pm:301
-#, perl-brace-format
-msgid ""
-"Virtual hosts are a form of web hosting service where many instances of the "
-"same web server are hosted on a single physical server. Different host names "
-"point to the same web server. If feasible, the DNS entry is automatically "
-"created. The content must be placed under the {docRoot} directory. Any "
-"particular configuration you want to add must be placed in the {userConf} "
-"directory."
-msgstr ""
-
-#: src/EBox/WebServer/Model/VHostTable.pm:332
-#, perl-brace-format
-msgid ""
-"{open}The DNS module is disabled. The added mapping or domains will not have "
-"any effect until you enable it"
-msgstr ""
-
-#: src/EBox/WebServer/Composite/General.pm:77
+#: src/EBox/WebServer/Composite/General.pm:76
 msgid "Configuration"
 msgstr ""
 
-#: src/EBox/WebServer/Composite/General.pm:80
+#: src/EBox/WebServer/Composite/General.pm:77 src/EBox/WebServer.pm:79
+#: src/EBox/WebServer.pm:617
+msgid "Web Server"
+msgstr "Web Sunucu"
+
+#: src/EBox/WebServer/Composite/General.pm:79
 #, fuzzy
 msgid ""
 "The Zentyal web service allows you to host Web pages in plain HTML within "
@@ -252,9 +204,50 @@ msgstr ""
 "eBox web hizmeti Web sayfalarını düz HTML biçiminde farklı sanal sunucularda "
 "barındırmanıza izin verir"
 
+#: src/EBox/WebServer.pm:99
 #, fuzzy
+msgid "To set webserver listening port."
+msgstr "Web Sunucunun dinleme portunu ayarla"
 
+#: src/EBox/WebServer.pm:104
 #, fuzzy
+msgid "To configure default virtual host."
+msgstr "Öntanımlı Sanal Kank olarak ayarla"
 
+#: src/EBox/WebServer.pm:109
+#, fuzzy
+msgid "To configure default SSL virtual host."
+msgstr "Öntanımlı Sanal Kank olarak ayarla"
 
+#: src/EBox/WebServer.pm:114
+#, fuzzy
+msgid "To configure the per-user public_html directory."
+msgstr "Her kullanıcı için public_html dizinini HTML dizini olarak ayarla"
 
+#: src/EBox/WebServer.pm:139
+#, fuzzy
+msgid "Enable Apache LDAP user module"
+msgstr "Apache LDAP kullanıcı modülünü etkinleştir"
+
+#: src/EBox/WebServer.pm:141
+#, fuzzy
+msgid "To fetch home directories from LDAP."
+msgstr "Ev dizinlerini LDAP'tan al"
+
+#: src/EBox/WebServer.pm:144
+#, fuzzy
+msgid "Enable Apache SSL module"
+msgstr "Apache LDAP kullanıcı modülünü etkinleştir"
+
+#: src/EBox/WebServer.pm:146
+msgid "To serve pages over HTTPS."
+msgstr ""
+
+#: src/EBox/WebServer.pm:184
+msgid "Web service status"
+msgstr "Web hizmeti durumu"
+
+#: src/EBox/WebServer.pm:440
+#, fuzzy, perl-brace-format
+msgid "The {userDirConfFile} is missing! Please recover it."
+msgstr "{userDirConfFile} kayıp! Lütfen geri yükleyin"

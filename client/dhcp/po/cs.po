@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-dhcp 1.5\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-08-26 00:53+0200\n"
+"POT-Creation-Date: 2010-08-28 23:34+0200\n"
 "PO-Revision-Date: 2010-04-10 15:16+0200\n"
 "Last-Translator: tomas volse <tomas.volse@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
@@ -17,20 +17,20 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: migration/0002_add_services.pl:117
+#: migration/0002_add_services.pl:132
 msgid "Trivial File Transfer Protocol"
 msgstr "Trivial File Transfer Protocol"
 
-#: migration/0002_add_services.pl:126
+#: migration/0002_add_services.pl:141
 msgid "Dynamic Host Configuration Protocol"
 msgstr "Dynamic Host Configuration Protocol"
 
-#: src/EBox/Model/DynamicDNS.pm:110 src/EBox/Model/FixedAddressTable.pm:98
-#: src/EBox/Model/ThinClientOptions.pm:118 src/EBox/Model/RangeInfo.pm:108
-#: src/EBox/Model/LeaseTimes.pm:112 src/EBox/Model/Options.pm:119
-#: src/EBox/Model/RangeTable.pm:96 src/EBox/Composite/AdvancedOptions.pm:88
-#: src/EBox/Composite/InterfaceConfiguration.pm:87
-#: src/EBox/Composite/OptionsTab.pm:87
+#: src/EBox/Model/DynamicDNS.pm:110 src/EBox/Model/FixedAddressTable.pm:97
+#: src/EBox/Model/ThinClientOptions.pm:117 src/EBox/Model/RangeInfo.pm:107
+#: src/EBox/Model/LeaseTimes.pm:111 src/EBox/Model/Options.pm:118
+#: src/EBox/Model/RangeTable.pm:95 src/EBox/Composite/AdvancedOptions.pm:87
+#: src/EBox/Composite/InterfaceConfiguration.pm:86
+#: src/EBox/Composite/OptionsTab.pm:86
 #, perl-brace-format
 msgid "interface {iface}"
 msgstr "rozhraní {iface}"
@@ -85,9 +85,9 @@ msgstr ""
 msgid "Same as Dynamic Domain"
 msgstr ""
 
-#: src/EBox/Model/DynamicDNS.pm:349 src/EBox/Model/Options.pm:376
-#: src/EBox/Model/Options.pm:399 src/EBox/Model/Options.pm:418
-#: src/EBox/Model/Options.pm:432
+#: src/EBox/Model/DynamicDNS.pm:349 src/EBox/Model/Options.pm:375
+#: src/EBox/Model/Options.pm:398 src/EBox/Model/Options.pm:417
+#: src/EBox/Model/Options.pm:431
 msgid "Custom"
 msgstr "Uživatelský  "
 
@@ -109,30 +109,30 @@ msgstr ""
 msgid "Domain \"{domain}\" removed from DNS section"
 msgstr ""
 
-#: src/EBox/Model/FixedAddressTable.pm:124
+#: src/EBox/Model/FixedAddressTable.pm:123
 #, perl-brace-format
 msgid "IP address {ip} is not in network {net}"
 msgstr "IP adresa {ip} není v síti {net}"
 
-#: src/EBox/Model/FixedAddressTable.pm:135
+#: src/EBox/Model/FixedAddressTable.pm:134
 #, perl-brace-format
 msgid "The selected IP is the interface IP address: {ifaceIP}"
 msgstr "Vybraná IP je rozhraní IP adresy: {ifaceIP}"
 
-#: src/EBox/Model/FixedAddressTable.pm:152
+#: src/EBox/Model/FixedAddressTable.pm:151
 #, perl-brace-format
 msgid "IP address {ip} is in range '{range}': {from}-{to}"
 msgstr "IP adresa {ip} je v rozsahu '{range}': {from}-{to}"
 
-#: src/EBox/Model/FixedAddressTable.pm:177
+#: src/EBox/Model/FixedAddressTable.pm:176
 msgid "update"
 msgstr "aktualizovat"
 
-#: src/EBox/Model/FixedAddressTable.pm:179
+#: src/EBox/Model/FixedAddressTable.pm:178
 msgid "add"
 msgstr "přidat"
 
-#: src/EBox/Model/FixedAddressTable.pm:181
+#: src/EBox/Model/FixedAddressTable.pm:180
 #, perl-brace-format
 msgid ""
 "You cannot {action} a fixed address with a name which is already used in "
@@ -141,47 +141,47 @@ msgstr ""
 "Nemůžete {action} pevnou adresu s názvem, která se již používá v jiné pevné "
 "adrese tabulky"
 
-#: src/EBox/Model/FixedAddressTable.pm:209 src/EBox/Model/RangeTable.pm:214
-#: src/EBox/CGI/AddFixed.pm:47 src/EBox/CGI/AddRange.pm:45
+#: src/EBox/Model/FixedAddressTable.pm:208 src/EBox/Model/RangeTable.pm:213
+#: src/EBox/CGI/AddFixed.pm:45 src/EBox/CGI/AddRange.pm:43
 #: src/templates/fixed.mas:8 src/templates/ranges.mas:53
 msgid "Name"
 msgstr "Jméno"
 
-#: src/EBox/Model/FixedAddressTable.pm:215 src/EBox/DHCP.pm:1265
-#: src/EBox/DHCP.pm:1333 src/EBox/CGI/AddFixed.pm:45 src/templates/fixed.mas:9
+#: src/EBox/Model/FixedAddressTable.pm:214 src/EBox/DHCP.pm:1263
+#: src/EBox/DHCP.pm:1331 src/EBox/CGI/AddFixed.pm:43 src/templates/fixed.mas:9
 msgid "MAC address"
 msgstr "MAC adresa"
 
-#: src/EBox/Model/FixedAddressTable.pm:221
-#: src/EBox/Model/ThinClientOptions.pm:242 src/EBox/DHCP.pm:1333
-#: src/EBox/CGI/AddFixed.pm:46 src/templates/fixed.mas:10
+#: src/EBox/Model/FixedAddressTable.pm:220
+#: src/EBox/Model/ThinClientOptions.pm:241 src/EBox/DHCP.pm:1331
+#: src/EBox/CGI/AddFixed.pm:44 src/templates/fixed.mas:10
 msgid "IP address"
 msgstr "IP adresa"
 
-#: src/EBox/Model/FixedAddressTable.pm:224
+#: src/EBox/Model/FixedAddressTable.pm:223
 msgid "You cannot use an IP address contained in the above ranges."
 msgstr "Nemůžete použít IP adresu obsažených ve výše uvedených řadách."
 
-#: src/EBox/Model/FixedAddressTable.pm:229
+#: src/EBox/Model/FixedAddressTable.pm:228
 msgid "Description"
 msgstr ""
 
-#: src/EBox/Model/FixedAddressTable.pm:237 src/templates/fixed.mas:5
+#: src/EBox/Model/FixedAddressTable.pm:236 src/templates/fixed.mas:5
 msgid "Fixed addresses"
 msgstr "Pevné adresy"
 
-#: src/EBox/Model/FixedAddressTable.pm:244
+#: src/EBox/Model/FixedAddressTable.pm:243
 msgid "fixed address"
 msgstr "pevná adresa"
 
-#: src/EBox/Model/ThinClientOptions.pm:139
+#: src/EBox/Model/ThinClientOptions.pm:138
 #, fuzzy
 msgid "You need to upload a boot image to Zentyal if you set it as next server"
 msgstr ""
 "Aby bylo možné nahrát firmware pro zavedení počítačů do eBoxu, musíte "
 "nastavit eBox jako další server"
 
-#: src/EBox/Model/ThinClientOptions.pm:146
+#: src/EBox/Model/ThinClientOptions.pm:145
 #, fuzzy
 msgid ""
 "In order to upload a boot image to Zentyal, you need to set Zentyal as next "
@@ -190,17 +190,17 @@ msgstr ""
 "Aby bylo možné nahrát firmware pro zavedení počítačů do eBoxu, musíte "
 "nastavit eBox jako další server"
 
-#: src/EBox/Model/ThinClientOptions.pm:153
+#: src/EBox/Model/ThinClientOptions.pm:152
 msgid "You need to specify a path to the boot image in the remote server"
 msgstr ""
 
-#: src/EBox/Model/ThinClientOptions.pm:158
+#: src/EBox/Model/ThinClientOptions.pm:157
 msgid ""
 "You can only specify a file name if you have a next server and it is not "
 "Zentyal"
 msgstr ""
 
-#: src/EBox/Model/ThinClientOptions.pm:209
+#: src/EBox/Model/ThinClientOptions.pm:208
 #, fuzzy, perl-brace-format
 msgid ""
 "Removing previously uploaded boot image since next server option has been "
@@ -209,33 +209,33 @@ msgstr ""
 "Nepropojení předchozího nahraného firmware, od příště je server volba "
 "změněna z eBoxu na {option}"
 
-#: src/EBox/Model/ThinClientOptions.pm:232
+#: src/EBox/Model/ThinClientOptions.pm:231
 msgid "Next server"
 msgstr "Další server"
 
-#: src/EBox/Model/ThinClientOptions.pm:236 src/EBox/Model/Options.pm:371
-#: src/EBox/Model/Options.pm:405 src/EBox/Model/Options.pm:409
-#: src/EBox/Model/Options.pm:423 src/EBox/Model/Options.pm:456
+#: src/EBox/Model/ThinClientOptions.pm:235 src/EBox/Model/Options.pm:370
+#: src/EBox/Model/Options.pm:404 src/EBox/Model/Options.pm:408
+#: src/EBox/Model/Options.pm:422 src/EBox/Model/Options.pm:455
 msgid "None"
 msgstr "Žádný"
 
-#: src/EBox/Model/ThinClientOptions.pm:246
+#: src/EBox/Model/ThinClientOptions.pm:245
 msgid "name"
 msgstr "jméno"
 
-#: src/EBox/Model/ThinClientOptions.pm:252
+#: src/EBox/Model/ThinClientOptions.pm:251
 msgid "File name"
 msgstr "Název souboru"
 
-#: src/EBox/Model/ThinClientOptions.pm:261
+#: src/EBox/Model/ThinClientOptions.pm:260
 msgid "File path in next server"
 msgstr ""
 
-#: src/EBox/Model/ThinClientOptions.pm:269
+#: src/EBox/Model/ThinClientOptions.pm:268
 msgid "Thin client"
 msgstr "Tenký klient"
 
-#: src/EBox/Model/ThinClientOptions.pm:274
+#: src/EBox/Model/ThinClientOptions.pm:273
 #, perl-brace-format
 msgid ""
 "You may want to customise your thin client options.To do so, you may include "
@@ -244,171 +244,171 @@ msgstr ""
 "Možná budete chtít přizpůsobit své thin client options. Můžete tak učinit, "
 "že zahrnete všechny soubory do cesty {path} adresáře"
 
-#: src/EBox/Model/RangeInfo.pm:143
+#: src/EBox/Model/RangeInfo.pm:142
 msgid "Interface IP address"
 msgstr "Rozhraní IP adresy"
 
-#: src/EBox/Model/RangeInfo.pm:147 src/templates/ranges.mas:20
+#: src/EBox/Model/RangeInfo.pm:146 src/templates/ranges.mas:20
 msgid "Subnet"
 msgstr "Podsítě"
 
-#: src/EBox/Model/RangeInfo.pm:151 src/templates/ranges.mas:40
+#: src/EBox/Model/RangeInfo.pm:150 src/templates/ranges.mas:40
 msgid "Available range"
 msgstr "K dispozici rozsah"
 
-#: src/EBox/Model/RangeInfo.pm:157 src/templates/ranges.mas:15
+#: src/EBox/Model/RangeInfo.pm:156 src/templates/ranges.mas:15
 msgid "DHCP ranges"
 msgstr "DHCP rozsahy"
 
-#: src/EBox/Model/LeaseTimes.pm:132
+#: src/EBox/Model/LeaseTimes.pm:131
 msgid "Default leased time must be higher than 0 seconds"
 msgstr "Výchozí pronajaté doby musí být vyšší než 0 sekund"
 
-#: src/EBox/Model/LeaseTimes.pm:138
+#: src/EBox/Model/LeaseTimes.pm:137
 #, perl-brace-format
 msgid "Default leased time {default} must be lower than maximum one {max}"
 msgstr ""
 "Výchozí pronajatý čas {default} musí být nižší než maximálně jeden {max}"
 
-#: src/EBox/Model/LeaseTimes.pm:150
+#: src/EBox/Model/LeaseTimes.pm:149
 msgid "Maximum leased time must be higher than 0 seconds"
 msgstr "Maximální doba pronájmu musí být vyšší než 0 sekund"
 
-#: src/EBox/Model/LeaseTimes.pm:156
+#: src/EBox/Model/LeaseTimes.pm:155
 #, perl-brace-format
 msgid "Maximum leased time {max} must be higher than default one {default}"
 msgstr "Maximální doba pronájmu {max} musí být vyšší než výchozí {default}"
 
-#: src/EBox/Model/LeaseTimes.pm:200
+#: src/EBox/Model/LeaseTimes.pm:199
 msgid "Default leased time"
 msgstr "Výchozí pronajatý čas"
 
-#: src/EBox/Model/LeaseTimes.pm:203 src/EBox/Model/LeaseTimes.pm:210
+#: src/EBox/Model/LeaseTimes.pm:202 src/EBox/Model/LeaseTimes.pm:209
 msgid "seconds"
 msgstr "sekundy"
 
-#: src/EBox/Model/LeaseTimes.pm:207
+#: src/EBox/Model/LeaseTimes.pm:206
 msgid "Maximum leased time"
 msgstr "Maximální doba pronájmu"
 
-#: src/EBox/Model/LeaseTimes.pm:216
+#: src/EBox/Model/LeaseTimes.pm:215
 msgid "Lease times"
 msgstr "Pronajatý čas"
 
-#: src/EBox/Model/LeaseTimes.pm:221
+#: src/EBox/Model/LeaseTimes.pm:220
 msgid ""
 "Leased time is the time which a given IP address is valid by the DHCP server"
 msgstr ""
 "Pronajatý čas je doba, po kterou je daná adresa IP platná na serveru DHCP"
 
-#: src/EBox/Model/Options.pm:157
+#: src/EBox/Model/Options.pm:156
 #, perl-brace-format
 msgid "{gateway} is not in the current network"
 msgstr "{gateway} není v této síti"
 
-#: src/EBox/Model/Options.pm:169
+#: src/EBox/Model/Options.pm:168
 msgid ""
 "DNS module must be enabled to be able to select Zentyal as primary DNS server"
 msgstr ""
 
-#: src/EBox/Model/Options.pm:179
+#: src/EBox/Model/Options.pm:178
 msgid "NTP module must be enabled to be able to select Zentyal as NTP server"
 msgstr ""
 
-#: src/EBox/Model/Options.pm:190
+#: src/EBox/Model/Options.pm:189
 msgid ""
 "Samba module must be enabled to be able to select Zentyal as WINS server"
 msgstr ""
 
-#: src/EBox/Model/Options.pm:384
+#: src/EBox/Model/Options.pm:383
 #, fuzzy
 msgid "Zentyal domain"
 msgstr "Hledat domény"
 
-#: src/EBox/Model/Options.pm:392
+#: src/EBox/Model/Options.pm:391
 #, fuzzy
 msgid "local Zentyal DNS"
 msgstr "lokální eBox DNS"
 
-#: src/EBox/Model/Options.pm:414
+#: src/EBox/Model/Options.pm:413
 #, fuzzy
 msgid "local Zentyal NTP"
 msgstr "lokální eBox DNS"
 
-#: src/EBox/Model/Options.pm:428
+#: src/EBox/Model/Options.pm:427
 #, fuzzy
 msgid "local Zentyal"
 msgstr "lokální eBox DNS"
 
-#: src/EBox/Model/Options.pm:440 src/templates/options.mas:18
+#: src/EBox/Model/Options.pm:439 src/templates/options.mas:18
 msgid "Default gateway"
 msgstr "Výchozí brána"
 
-#: src/EBox/Model/Options.pm:450
+#: src/EBox/Model/Options.pm:449
 msgid "Custom IP address"
 msgstr "Vlastní IP adresa"
 
-#: src/EBox/Model/Options.pm:460
+#: src/EBox/Model/Options.pm:459
 msgid "Configured ones"
 msgstr "Nakonfigurován jeden"
 
-#: src/EBox/Model/Options.pm:466
+#: src/EBox/Model/Options.pm:465
 msgid ""
 "Setting \"Zentyal\" as default gateway will set the interface IP address as "
 "gateway"
 msgstr ""
 
-#: src/EBox/Model/Options.pm:472 src/templates/options.mas:29
+#: src/EBox/Model/Options.pm:471 src/templates/options.mas:29
 msgid "Search domain"
 msgstr "Hledat domény"
 
-#: src/EBox/Model/Options.pm:475
+#: src/EBox/Model/Options.pm:474
 msgid ""
 "The selected domain will complete on your clients those DNS queries which "
 "are not fully qualified"
 msgstr ""
 
-#: src/EBox/Model/Options.pm:480 src/templates/options.mas:41
+#: src/EBox/Model/Options.pm:479 src/templates/options.mas:41
 msgid "Primary nameserver"
 msgstr "Primární nameserver"
 
-#: src/EBox/Model/Options.pm:483
+#: src/EBox/Model/Options.pm:482
 msgid ""
 "If \"Zentyal DNS\" is present and selected, the Zentyal server will act as "
 "cache DNS server"
 msgstr ""
 
-#: src/EBox/Model/Options.pm:488 src/templates/options.mas:52
+#: src/EBox/Model/Options.pm:487 src/templates/options.mas:52
 msgid "Secondary nameserver"
 msgstr "Sekundární nameserver"
 
-#: src/EBox/Model/Options.pm:494
+#: src/EBox/Model/Options.pm:493
 #, fuzzy
 msgid "NTP server"
 msgstr "Další server"
 
-#: src/EBox/Model/Options.pm:497
+#: src/EBox/Model/Options.pm:496
 msgid ""
 "If \"Zentyal NTP\" is present and selected, Zentyal will be the NTP server "
 "for DHCP clients"
 msgstr ""
 
-#: src/EBox/Model/Options.pm:502
+#: src/EBox/Model/Options.pm:501
 #, fuzzy
 msgid "WINS server"
 msgstr "Další server"
 
-#: src/EBox/Model/Options.pm:505
+#: src/EBox/Model/Options.pm:504
 msgid ""
 "If \"Zentyal Samba\" is present and selected, Zentyal will be the WINS "
 "server for DHCP clients"
 msgstr ""
 
-#: src/EBox/Model/Options.pm:512
+#: src/EBox/Model/Options.pm:511
 msgid "Common options"
 msgstr "Časté volby"
 
-#: src/EBox/Model/Options.pm:517
+#: src/EBox/Model/Options.pm:516
 #, fuzzy
 msgid ""
 "If you set a \"configured ones\" as default gateway, you may choose one the "
@@ -424,52 +424,52 @@ msgstr ""
 "server DNS cache. Všechna pole jsou Volitelná použijte hodnoty  \"None\" "
 "nebo je nechte nevyplněné."
 
-#: src/EBox/Model/RangeTable.pm:118
+#: src/EBox/Model/RangeTable.pm:117
 #, perl-brace-format
 msgid "{from} - {to} is an invalid range"
 msgstr "{from} - {to} je neplatný rozsah"
 
-#: src/EBox/Model/RangeTable.pm:129
+#: src/EBox/Model/RangeTable.pm:128
 #, perl-brace-format
 msgid "Range {from}-{to} is not in network {net}"
 msgstr "Rozsah {from}-{to} není v síti {net}"
 
-#: src/EBox/Model/RangeTable.pm:142
+#: src/EBox/Model/RangeTable.pm:141
 #, perl-brace-format
 msgid "Range {from}-{to} includes interface with IP address: {ifaceIP}"
 msgstr "Rozsah {from}-{to} obsahuje rozhraní s IP adresou: {ifaceIP}"
 
-#: src/EBox/Model/RangeTable.pm:165
+#: src/EBox/Model/RangeTable.pm:164
 #, perl-brace-format
 msgid ""
 "Range {newFrom}-{newTo} overlaps with range '{range}': {oldFrom}-{oldTo}"
 msgstr ""
 "Rozsah {newFrom}-{newTo} se překrývá s rozsahem '{range}': {oldFrom}-{oldTo}"
 
-#: src/EBox/Model/RangeTable.pm:183
+#: src/EBox/Model/RangeTable.pm:182
 #, perl-brace-format
 msgid "Range {from}-{to} includes fixed address '{name}': {fixedIP}"
 msgstr "Rozsah {from}-{to} zahrnuje pevnou adresu '{name}': {fixedIP}"
 
-#: src/EBox/Model/RangeTable.pm:220 src/EBox/CGI/AddRange.pm:46
+#: src/EBox/Model/RangeTable.pm:219 src/EBox/CGI/AddRange.pm:44
 #: src/templates/ranges.mas:54
 msgid "From"
 msgstr "Od"
 
-#: src/EBox/Model/RangeTable.pm:226 src/EBox/CGI/AddRange.pm:47
+#: src/EBox/Model/RangeTable.pm:225 src/EBox/CGI/AddRange.pm:45
 #: src/templates/ranges.mas:55
 msgid "To"
 msgstr "Na"
 
-#: src/EBox/Model/RangeTable.pm:234 src/templates/ranges.mas:49
+#: src/EBox/Model/RangeTable.pm:233 src/templates/ranges.mas:49
 msgid "Ranges"
 msgstr "Rozsahy"
 
-#: src/EBox/Model/RangeTable.pm:241
+#: src/EBox/Model/RangeTable.pm:240
 msgid "range"
 msgstr "rozsah"
 
-#: src/EBox/Composite/General.pm:79
+#: src/EBox/Composite/General.pm:78
 #, perl-brace-format
 msgid ""
 "An interface must set as static to configure the DHCP service on it. To do "
@@ -479,19 +479,19 @@ msgstr ""
 "Provedete to tak, že změníte{openhref}konfigurace rozhraní{closehref} v "
 "sítovém modulu"
 
-#: src/EBox/Composite/AdvancedOptions.pm:133
+#: src/EBox/Composite/AdvancedOptions.pm:132
 msgid "Advanced options"
 msgstr "Pokročilé volby"
 
-#: src/EBox/Composite/Interfaces.pm:108
+#: src/EBox/Composite/Interfaces.pm:107
 msgid "Choose a static interface to configure:"
 msgstr "Vyberte statické rozhraní pro konfiguraci:"
 
-#: src/EBox/Composite/Interfaces.pm:109
+#: src/EBox/Composite/Interfaces.pm:108
 msgid "Service configuration"
 msgstr "Konfigurace služby"
 
-#: src/EBox/Composite/Interfaces.pm:110
+#: src/EBox/Composite/Interfaces.pm:109
 msgid ""
 "In order to serve IP addresses on an interface, it is required to set at "
 "least a range or a fixed address."
@@ -499,7 +499,7 @@ msgstr ""
 "V zájmu dosažení IP adresy na rozhraní, je nutné nastavit minimálně rozsah "
 "nebo pevnou adresu."
 
-#: src/EBox/Composite/InterfaceConfiguration.pm:112
+#: src/EBox/Composite/InterfaceConfiguration.pm:111
 #, perl-brace-format
 msgid ""
 "In order to serve IP addresses on a external interface, you must open the "
@@ -508,36 +508,36 @@ msgstr ""
 "V zájmu dosažení IP adresy na vnější rozhraní, musíte otevřít službu "
 "{openhref} firewall modul{closehref}"
 
-#: src/EBox/DHCP.pm:119
+#: src/EBox/DHCP.pm:117
 #, fuzzy, perl-brace-format
 msgid "{server} configuration file"
 msgstr "Konfigurace služby"
 
-#: src/EBox/DHCP.pm:426 src/EBox/DHCP.pm:462 src/EBox/DHCP.pm:512
-#: src/EBox/DHCP.pm:558 src/EBox/DHCP.pm:604 src/EBox/DHCP.pm:702
-#: src/EBox/DHCP.pm:756 src/EBox/DHCP.pm:817 src/EBox/DHCP.pm:873
-#: src/EBox/DHCP.pm:1264 src/EBox/CGI/AddFixed.pm:41
-#: src/EBox/CGI/AddRange.pm:41 src/EBox/CGI/SetIfaceOptions.pm:41
-#: src/EBox/CGI/RemoveFixed.pm:41 src/EBox/CGI/RemoveRange.pm:41
+#: src/EBox/DHCP.pm:424 src/EBox/DHCP.pm:460 src/EBox/DHCP.pm:510
+#: src/EBox/DHCP.pm:556 src/EBox/DHCP.pm:602 src/EBox/DHCP.pm:700
+#: src/EBox/DHCP.pm:754 src/EBox/DHCP.pm:815 src/EBox/DHCP.pm:871
+#: src/EBox/DHCP.pm:1262 src/EBox/CGI/AddFixed.pm:39
+#: src/EBox/CGI/AddRange.pm:39 src/EBox/CGI/SetIfaceOptions.pm:39
+#: src/EBox/CGI/RemoveFixed.pm:39 src/EBox/CGI/RemoveRange.pm:39
 msgid "Interface"
 msgstr "Rozhraní"
 
-#: src/EBox/DHCP.pm:432 src/EBox/DHCP.pm:468 src/EBox/DHCP.pm:518
-#: src/EBox/DHCP.pm:564 src/EBox/DHCP.pm:610 src/EBox/DHCP.pm:708
-#: src/EBox/DHCP.pm:823 src/EBox/DHCP.pm:879
+#: src/EBox/DHCP.pm:430 src/EBox/DHCP.pm:466 src/EBox/DHCP.pm:516
+#: src/EBox/DHCP.pm:562 src/EBox/DHCP.pm:608 src/EBox/DHCP.pm:706
+#: src/EBox/DHCP.pm:821 src/EBox/DHCP.pm:877
 #, perl-brace-format
 msgid "{iface} is not static"
 msgstr "{iface} není statický"
 
-#: src/EBox/DHCP.pm:694
+#: src/EBox/DHCP.pm:692
 msgid "Not a valid action: add, set and del are available"
 msgstr "Není platná akce: add, set a del jsou k dispozici"
 
-#: src/EBox/DHCP.pm:809
+#: src/EBox/DHCP.pm:807
 msgid "No valid action. Available ones are: add, set and del"
 msgstr "Není platná akce: k dispozici jsou add, set a del"
 
-#: src/EBox/DHCP.pm:1048
+#: src/EBox/DHCP.pm:1046
 #, perl-brace-format
 msgid ""
 "The IP address of the virtual interface you are trying to add is already "
@@ -548,7 +548,7 @@ msgstr ""
 "rozsahu '{range}' v rozhraní '{iface}'. Prosím, odstraňte ji před pokusem "
 "přidat virtuální rozhraní."
 
-#: src/EBox/DHCP.pm:1067
+#: src/EBox/DHCP.pm:1065
 #, perl-brace-format
 msgid ""
 "The IP address of the virtual interface you are trying to add is already "
@@ -559,45 +559,45 @@ msgstr ""
 "jako pevná adresa '{fixed}' v rozhraní '{iface}'. Prosím, odstraňte ji před "
 "pokusem přidat virtuální rozhraní."
 
-#: src/EBox/DHCP.pm:1263
+#: src/EBox/DHCP.pm:1261
 msgid "Date"
 msgstr "Datum"
 
-#: src/EBox/DHCP.pm:1266
+#: src/EBox/DHCP.pm:1264
 msgid "IP"
 msgstr "IP"
 
-#: src/EBox/DHCP.pm:1267
+#: src/EBox/DHCP.pm:1265
 msgid "Event"
 msgstr "Událost"
 
-#: src/EBox/DHCP.pm:1270
+#: src/EBox/DHCP.pm:1268
 msgid "Leased"
 msgstr "Pronajaté"
 
-#: src/EBox/DHCP.pm:1270
+#: src/EBox/DHCP.pm:1268
 msgid "Released"
 msgstr "Uvolněné"
 
-#: src/EBox/DHCP.pm:1273
+#: src/EBox/DHCP.pm:1271
 msgid "DHCP"
 msgstr "DHCP"
 
-#: src/EBox/DHCP.pm:1333
+#: src/EBox/DHCP.pm:1331
 #, fuzzy
 msgid "Host name"
 msgstr "jméno"
 
-#: src/EBox/DHCP.pm:1360
+#: src/EBox/DHCP.pm:1358
 #, fuzzy
 msgid "DHCP leases"
 msgstr "DHCP rozsahy"
 
-#: src/EBox/CGI/Enable.pm:41
+#: src/EBox/CGI/Enable.pm:39
 msgid "module status"
 msgstr "Stav modulu"
 
-#: src/EBox/CGI/Status.pm:44
+#: src/EBox/CGI/Status.pm:42
 msgid "Module Status"
 msgstr "Stav modulu"
 
@@ -641,7 +641,3 @@ msgstr "Maska podsítě"
 #: src/templates/ranges.mas:93
 msgid "Delete"
 msgstr "Vymazat"
-
-
-
-

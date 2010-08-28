@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-webmail 1.3\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-08-25 17:50+0200\n"
+"POT-Creation-Date: 2010-08-28 23:32+0200\n"
 "PO-Revision-Date: 2010-02-10 09:56+0100\n"
 "Last-Translator: Bokor Pavol <bokor@4enzo.net>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
@@ -33,6 +33,49 @@ msgstr "eBox poštový servis"
 #: src/EBox/WebMail/Model/OperationMode.pm:94
 msgid "Remote server"
 msgstr "Vzdialený server"
+
+#: src/EBox/WebMail/Model/Options.pm:45
+msgid "Name"
+msgstr "Meno"
+
+#: src/EBox/WebMail/Model/Options.pm:47
+#, fuzzy
+msgid "Zentyal webmail"
+msgstr "eBox webmail"
+
+#: src/EBox/WebMail/Model/Options.pm:49
+msgid ""
+"The name of the webmail will be used in the login screen and page titles."
+msgstr ""
+"Meno webmail-u sa bude používať na prihlasovacej obrazovke a v názve stránky."
+
+#: src/EBox/WebMail/Model/Options.pm:53
+msgid "Virtual host"
+msgstr ""
+
+#: src/EBox/WebMail/Model/Options.pm:59
+msgid ""
+"Virtual host where the webmail will be installed. This will disable the "
+"default /webmail url."
+msgstr ""
+
+#: src/EBox/WebMail/Model/Options.pm:65
+msgid "General configuration"
+msgstr "Hlavné nastavenia"
+
+#: src/EBox/WebMail/Model/Options.pm:66 src/EBox/WebMail.pm:69
+msgid "Webmail"
+msgstr "Webmail"
+
+#: src/EBox/WebMail/Model/Options.pm:81
+msgid "Disabled"
+msgstr ""
+
+#: src/EBox/WebMail/Model/Options.pm:112
+msgid ""
+"The deleted virtual host was selected for Webmail. Maybe you want to select "
+"another one now."
+msgstr ""
 
 #: src/EBox/WebMail/Model/RemoteServerConfiguration.pm:54
 msgid "IMAP Server"
@@ -118,49 +161,6 @@ msgid ""
 msgstr ""
 "Nie je potrebné nastaviť spojenie s remote serverom, pretože WebMail používa "
 "eBox poštový servis"
-
-#: src/EBox/WebMail/Model/Options.pm:45
-msgid "Name"
-msgstr "Meno"
-
-#: src/EBox/WebMail/Model/Options.pm:47
-#, fuzzy
-msgid "Zentyal webmail"
-msgstr "eBox webmail"
-
-#: src/EBox/WebMail/Model/Options.pm:49
-msgid ""
-"The name of the webmail will be used in the login screen and page titles."
-msgstr ""
-"Meno webmail-u sa bude používať na prihlasovacej obrazovke a v názve stránky."
-
-#: src/EBox/WebMail/Model/Options.pm:53
-msgid "Virtual host"
-msgstr ""
-
-#: src/EBox/WebMail/Model/Options.pm:59
-msgid ""
-"Virtual host where the webmail will be installed. This will disable the "
-"default /webmail url."
-msgstr ""
-
-#: src/EBox/WebMail/Model/Options.pm:65
-msgid "General configuration"
-msgstr "Hlavné nastavenia"
-
-#: src/EBox/WebMail/Model/Options.pm:66 src/EBox/WebMail.pm:69
-msgid "Webmail"
-msgstr "Webmail"
-
-#: src/EBox/WebMail/Model/Options.pm:81
-msgid "Disabled"
-msgstr ""
-
-#: src/EBox/WebMail/Model/Options.pm:112
-msgid ""
-"The deleted virtual host was selected for Webmail. Maybe you want to select "
-"another one now."
-msgstr ""
 
 #: src/EBox/WebMail/Composite/Backend.pm:63
 msgid "WebMail backend"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-services 1.3.3\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-08-25 17:48+0200\n"
+"POT-Creation-Date: 2010-08-28 23:41+0200\n"
 "PO-Revision-Date: 2010-04-19 12:06+0200\n"
 "Last-Translator: Bokor Pavol <bokor@4enzo.net>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
@@ -17,79 +17,66 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: migration/0001_import_services_from_firewall.pl:69
+#: migration/0001_import_services_from_firewall.pl:84
 msgid "any"
 msgstr "hocijaký"
 
-#: migration/0001_import_services_from_firewall.pl:70
+#: migration/0001_import_services_from_firewall.pl:85
 msgid "any protocol and port"
 msgstr "hocijaký protokol a port"
 
-#: migration/0001_import_services_from_firewall.pl:71
-#: migration/0001_import_services_from_firewall.pl:82
-#: migration/0001_import_services_from_firewall.pl:94
-#: migration/0001_import_services_from_firewall.pl:110
+#: migration/0001_import_services_from_firewall.pl:86
+#: migration/0001_import_services_from_firewall.pl:97
+#: migration/0001_import_services_from_firewall.pl:109
 #: migration/0001_import_services_from_firewall.pl:125
-#: src/EBox/Services.pm:404
+#: migration/0001_import_services_from_firewall.pl:140
+#: src/EBox/Services.pm:403
 msgid "ebox-services"
 msgstr "ebox-služby"
 
-#: migration/0001_import_services_from_firewall.pl:80
+#: migration/0001_import_services_from_firewall.pl:95
 msgid "any UDP"
 msgstr "hocijaký UDP"
 
-#: migration/0001_import_services_from_firewall.pl:81
+#: migration/0001_import_services_from_firewall.pl:96
 msgid "any UDP port"
 msgstr "hocijaký UDP port"
 
-#: migration/0001_import_services_from_firewall.pl:92
+#: migration/0001_import_services_from_firewall.pl:107
 msgid "any TCP"
 msgstr "hocijaký TCP"
 
-#: migration/0001_import_services_from_firewall.pl:93
+#: migration/0001_import_services_from_firewall.pl:108
 msgid "any TCP port"
 msgstr "hocijaký TCP port"
 
-#: migration/0001_import_services_from_firewall.pl:108
-#: src/EBox/Services.pm:402
+#: migration/0001_import_services_from_firewall.pl:123
+#: src/EBox/Services.pm:401
 msgid "eBox administration"
 msgstr "Správa eBox-u"
 
-#: migration/0001_import_services_from_firewall.pl:109
+#: migration/0001_import_services_from_firewall.pl:124
 #, fuzzy
 msgid "Zentyal Administration Web Server"
 msgstr "Web server pre správu eBox-u "
 
-#: src/EBox/Services.pm:48 src/EBox/Model/ServiceTable.pm:145
-msgid "Services"
-msgstr "Služby"
-
-#: src/EBox/Services.pm:400
-msgid "port"
-msgstr "port"
-
-#: src/EBox/Services.pm:403
-#, fuzzy
-msgid "Zentyal Administration port"
-msgstr "Port správy eBox-u"
-
-#: src/EBox/Model/ServiceTable.pm:103
+#: src/EBox/Model/ServiceTable.pm:102
 msgid "Domain"
 msgstr "Doména"
 
-#: src/EBox/Model/ServiceTable.pm:110
+#: src/EBox/Model/ServiceTable.pm:109
 msgid "Service name"
 msgstr "Názov služby"
 
-#: src/EBox/Model/ServiceTable.pm:118
+#: src/EBox/Model/ServiceTable.pm:117
 msgid "Description"
 msgstr "Popis"
 
-#: src/EBox/Model/ServiceTable.pm:125
+#: src/EBox/Model/ServiceTable.pm:124
 msgid "Internal"
 msgstr "Interný"
 
-#: src/EBox/Model/ServiceTable.pm:127
+#: src/EBox/Model/ServiceTable.pm:126
 #, fuzzy
 msgid ""
 "Tick this field if there is actually a service on the machine using the "
@@ -100,20 +87,24 @@ msgstr ""
 "nastavené pre túto službu. Toto napomáha eBox-u rozoznať, ktoré porty sa "
 "práve používajú."
 
-#: src/EBox/Model/ServiceTable.pm:134
+#: src/EBox/Model/ServiceTable.pm:133
 msgid "Configuration"
 msgstr "Konfigurácia"
 
-#: src/EBox/Model/ServiceTable.pm:144
+#: src/EBox/Model/ServiceTable.pm:143
 msgid "List of services"
 msgstr "Zoznam služieb"
 
-#: src/EBox/Model/ServiceTable.pm:155
-#: src/EBox/Model/ServiceConfigurationTable.pm:173
+#: src/EBox/Model/ServiceTable.pm:144 src/EBox/Services.pm:47
+msgid "Services"
+msgstr "Služby"
+
+#: src/EBox/Model/ServiceTable.pm:154
+#: src/EBox/Model/ServiceConfigurationTable.pm:172
 msgid "service"
 msgstr "služba"
 
-#: src/EBox/Model/ServiceTable.pm:653
+#: src/EBox/Model/ServiceTable.pm:652
 msgid ""
 "A service is an abstraction of one or more network protocols which can be "
 "used in other modules such as: firewall, traffic shaping..."
@@ -121,26 +112,35 @@ msgstr ""
 "Služba je pojem pre jeden alebo viac sieťových protokolov, ktoré môžu byť "
 "použité v ostatných moduloch, ako napríklad: firewall, traffic shaping..."
 
-#: src/EBox/Model/ServiceConfigurationTable.pm:140
+#: src/EBox/Model/ServiceConfigurationTable.pm:139
 msgid "Protocol"
 msgstr "Protokol"
 
-#: src/EBox/Model/ServiceConfigurationTable.pm:146
+#: src/EBox/Model/ServiceConfigurationTable.pm:145
 msgid "Source port"
 msgstr "Východiskový port"
 
-#: src/EBox/Model/ServiceConfigurationTable.pm:148
+#: src/EBox/Model/ServiceConfigurationTable.pm:147
 msgid "This field is usually set to any"
 msgstr "Toto pole je zvyčajne nastavené na hodnotu hocijaký (any)"
 
-#: src/EBox/Model/ServiceConfigurationTable.pm:152
+#: src/EBox/Model/ServiceConfigurationTable.pm:151
 msgid "Destination port"
 msgstr "Cieľový port"
 
-#: src/EBox/Model/ServiceConfigurationTable.pm:162
+#: src/EBox/Model/ServiceConfigurationTable.pm:161
 msgid "Service configuration"
 msgstr "Nastavenie služby"
 
-#: src/EBox/Model/ServiceConfigurationTable.pm:197
+#: src/EBox/Model/ServiceConfigurationTable.pm:196
 msgid "This protocol does not use ports"
 msgstr "Tento protokol nevyužíva porty"
+
+#: src/EBox/Services.pm:399
+msgid "port"
+msgstr "port"
+
+#: src/EBox/Services.pm:402
+#, fuzzy
+msgid "Zentyal Administration port"
+msgstr "Port správy eBox-u"

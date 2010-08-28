@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-dns 0.12\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-08-26 00:53+0200\n"
+"POT-Creation-Date: 2010-08-28 23:34+0200\n"
 "PO-Revision-Date: 2010-08-26 18:00+0200\n"
 "Last-Translator: Claudio Brocco <claudiob@ethicalsoftware.it>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
@@ -16,44 +16,44 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: src/EBox/Model/DomainTable.pm:178
+#: src/EBox/Model/DomainTable.pm:177
 msgid "Domain"
 msgstr "Dominio"
 
-#: src/EBox/Model/DomainTable.pm:186 src/EBox/Model/HostnameTable.pm:223
+#: src/EBox/Model/DomainTable.pm:185 src/EBox/Model/HostnameTable.pm:222
 msgid "Hostnames"
 msgstr "Nomi host"
 
-#: src/EBox/Model/DomainTable.pm:195
+#: src/EBox/Model/DomainTable.pm:194
 msgid "Mail Exchangers"
 msgstr "Mail Exchangers"
 
-#: src/EBox/Model/DomainTable.pm:203
+#: src/EBox/Model/DomainTable.pm:202
 msgid "Name Servers"
 msgstr "Server DNS"
 
-#: src/EBox/Model/DomainTable.pm:211 src/EBox/Model/HostnameTable.pm:196
+#: src/EBox/Model/DomainTable.pm:210 src/EBox/Model/HostnameTable.pm:195
 msgid "IP Address"
 msgstr "indirizzo IP"
 
-#: src/EBox/Model/DomainTable.pm:219
+#: src/EBox/Model/DomainTable.pm:218
 msgid "Dynamic"
 msgstr "Dinamico"
 
-#: src/EBox/Model/DomainTable.pm:223
+#: src/EBox/Model/DomainTable.pm:222
 msgid "A domain is dynamic when the DHCP server updates the domain"
 msgstr "Un dominio è dinamico quando il server DHCP aggiorna il dominio"
 
-#: src/EBox/Model/DomainTable.pm:241
+#: src/EBox/Model/DomainTable.pm:240
 msgid "List of Domains"
 msgstr "Lista dei Domini"
 
-#: src/EBox/Model/DomainTable.pm:242 src/EBox/Model/DNSComposite.pm:75
-#: src/EBox/Model/DNSComposite.pm:76
+#: src/EBox/Model/DomainTable.pm:241 src/EBox/Model/DNSComposite.pm:74
+#: src/EBox/Model/DNSComposite.pm:75
 msgid "DNS"
 msgstr "DNS"
 
-#: src/EBox/Model/DomainTable.pm:249 src/EBox/DNS.pm.in:265
+#: src/EBox/Model/DomainTable.pm:248 src/EBox/DNS.pm.in:263
 msgid "domain"
 msgstr "dominio"
 
@@ -63,14 +63,13 @@ msgid "Invalid preference number. Allowed range: ({min}, {max})"
 msgstr "Numero non valido. Intervallo ammesso: ({min}, {max})"
 
 #: src/EBox/Model/MailExchanger.pm:96
-#, perl-brace-format
-#, fuzzy
+#, fuzzy, perl-brace-format
 msgid ""
 "The given host name is not a fully qualified domain name (FQDN). Do you mean "
 "mx.{name}?"
 msgstr ""
-"Il nome host fornito non è un fully qualified domain name (FQDN). Intendi "
-"mx.{name}?"
+"Il nome host fornito non è un fully qualified domain name (FQDN). Intendi mx."
+"{name}?"
 
 #: src/EBox/Model/MailExchanger.pm:132
 msgid "The domain is set as read only. You cannot add mail exchangers"
@@ -79,7 +78,7 @@ msgstr ""
 "exchangers"
 
 #: src/EBox/Model/MailExchanger.pm:151 src/EBox/Model/NameServer.pm:130
-#: src/EBox/Model/HostnameTable.pm:188 src/templates/edit.mas:20
+#: src/EBox/Model/HostnameTable.pm:187 src/templates/edit.mas:20
 msgid "Host name"
 msgstr "Nome host"
 
@@ -121,7 +120,7 @@ msgstr ""
 msgid "Mail exchanger record"
 msgstr "Record Mail exchanger"
 
-#: src/EBox/Model/AliasTable.pm:81
+#: src/EBox/Model/AliasTable.pm:80
 #, perl-brace-format
 msgid ""
 "An alias cannot be the nameserver host name \"{ns}\". Use a hostname instead"
@@ -129,27 +128,27 @@ msgstr ""
 "Un alias non può essere il nome host del nameserver \"{ns}\". Usa invece un "
 "nome host"
 
-#: src/EBox/Model/AliasTable.pm:94
+#: src/EBox/Model/AliasTable.pm:93
 #, perl-brace-format
 msgid "There is a hostname with the same name \"{name}\" in the same domain"
 msgstr "C'è un nome host con lo stesso nome \"{name}\" nello stesso dominio"
 
-#: src/EBox/Model/AliasTable.pm:103
+#: src/EBox/Model/AliasTable.pm:102
 #, perl-brace-format
 msgid ""
 "There is an alias for {hostname} hostname with the same name \"{name}\" in "
 "the same domain"
 msgstr ""
-"C'è un nome host di tipo alias con lo stesso nome \"{name}\" nello stesso "
-"dominio"
+"C'è un nome host {hostname} di tipo alias con lo stesso nome \"{name}\" "
+"nello stesso dominio"
 
-#: src/EBox/Model/AliasTable.pm:131 src/EBox/Model/AliasTable.pm:141
-#: src/EBox/Model/AliasTable.pm:147 src/EBox/Model/HostnameTable.pm:204
+#: src/EBox/Model/AliasTable.pm:130 src/EBox/Model/AliasTable.pm:140
+#: src/EBox/Model/AliasTable.pm:146 src/EBox/Model/HostnameTable.pm:203
 #: src/templates/edit.mas:64 src/templates/edit.mas:85
 msgid "Alias"
 msgstr "Alias"
 
-#: src/EBox/Model/AliasTable.pm:148
+#: src/EBox/Model/AliasTable.pm:147
 msgid "alias"
 msgstr "alias"
 
@@ -159,8 +158,8 @@ msgid ""
 "The given host name is not a fully qualified domain name (FQDN). Do you mean "
 "ns.{name}?"
 msgstr ""
-"Il nome host fornito non è un fully qualified domain name (FQDN). Intendi "
-"ns.{name}?"
+"Il nome host fornito non è un fully qualified domain name (FQDN). Intendi ns."
+"{name}?"
 
 #: src/EBox/Model/NameServer.pm:111
 #, fuzzy
@@ -180,7 +179,7 @@ msgstr "Gestisce il registro name server (NS) per questo dominio"
 msgid "name server record"
 msgstr "voce name server"
 
-#: src/EBox/Model/HostnameTable.pm:136
+#: src/EBox/Model/HostnameTable.pm:135
 #, perl-brace-format
 msgid ""
 "There is an alias with the same name \"{name}\" for \"{hostname}\" in the "
@@ -189,60 +188,60 @@ msgstr ""
 "C'è un alias con lo stesso nome \"{name}\" per \"{hostname}\" nello stesso "
 "dominio"
 
-#: src/EBox/Model/HostnameTable.pm:170
+#: src/EBox/Model/HostnameTable.pm:169
 msgid "The domain is set as read only. You cannot add host names"
 msgstr ""
 "Questo dominio è configurato in sola lettura. Non è possibile aggiungere "
 "host names"
 
-#: src/EBox/Model/HostnameTable.pm:216
+#: src/EBox/Model/HostnameTable.pm:215
 msgid "Host names"
 msgstr "Nomi host"
 
-#: src/EBox/Model/HostnameTable.pm:224
+#: src/EBox/Model/HostnameTable.pm:223
 msgid "host name"
 msgstr "nome host"
 
-#: src/EBox/Model/DNSComposite.pm:78
+#: src/EBox/Model/DNSComposite.pm:77
 msgid "The DNS server allows you to resolve names for your own domains."
 msgstr ""
 "Il server DNS permette la risoluzione dei nomi all'interno del dominio."
 
-#: src/EBox/DNS.pm.in:518
+#: src/EBox/DNS.pm.in:516
 msgid "main bind9 configuration file"
 msgstr "file di configurazione principale di bind9"
 
-#: src/EBox/DNS.pm.in:523
+#: src/EBox/DNS.pm.in:521
 msgid "bind9 options configuration file"
 msgstr "file di configurazione delle opzioni di bind9"
 
-#: src/EBox/DNS.pm.in:528
+#: src/EBox/DNS.pm.in:526
 msgid "local bind9 configuration file"
 msgstr "file delle configurazioni locali di bind9"
 
-#: src/EBox/DNS.pm.in:533
+#: src/EBox/DNS.pm.in:531
 #, fuzzy
 msgid "Keys configuration file"
 msgstr "configurazione file per zona {zone}"
 
-#: src/EBox/DNS.pm.in:550
+#: src/EBox/DNS.pm.in:548
 #, perl-brace-format
 msgid "configuration file for zone {zone}"
 msgstr "configurazione file per zona {zone}"
 
-#: src/EBox/DNS.pm.in:566
+#: src/EBox/DNS.pm.in:564
 #, perl-brace-format
 msgid "configuration file for reverse resolution zone {zone}"
 msgstr "configuratzione file per reverse resolution zone {zone}"
 
-#: src/EBox/DNS.pm.in:584
+#: src/EBox/DNS.pm.in:582
 #, perl-brace-format
 msgid "Change the permissions for {dir} to allow writing to bind group"
 msgstr ""
 "Cambia i permessi per la directory {dir} per consentire la scrittura al "
 "gruppo bind"
 
-#: src/EBox/DNS.pm.in:586
+#: src/EBox/DNS.pm.in:584
 msgid "Let the bind daemon to be dynamically updated"
 msgstr "Consenti al deamon bind di essere aggiornato dinamicamente"
 
@@ -292,25 +291,3 @@ msgstr "Modifica"
 #: src/templates/index.mas:65
 msgid "edit"
 msgstr "modifica"
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
