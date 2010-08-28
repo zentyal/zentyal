@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-antivirus 0.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-08-26 00:52+0200\n"
+"POT-Creation-Date: 2010-08-28 22:50+0200\n"
 "PO-Revision-Date: 2010-04-03 06:06+0200\n"
 "Last-Translator: Ruslan Khissamov <ruslan.khissamov@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
@@ -65,6 +65,3 @@ msgstr "Настройка обновлений freshclam"
 #: src/EBox/AntiVirus.pm:222
 msgid "To schedule the launch of the updater"
 msgstr "Планирование запуска обновлений"
-
-
-

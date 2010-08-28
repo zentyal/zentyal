@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-antivirus 0.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-08-26 00:52+0200\n"
+"POT-Creation-Date: 2010-08-28 22:50+0200\n"
 "PO-Revision-Date: 2010-01-23 17:39+0100\n"
 "Last-Translator: Javi Vázquez <javivazquez@ebox-technologies.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
@@ -67,5 +67,3 @@ msgstr "Configurar actualización freshclam"
 #: src/EBox/AntiVirus.pm:222
 msgid "To schedule the launch of the updater"
 msgstr "Programar el inicio de la actualización"
-
-
