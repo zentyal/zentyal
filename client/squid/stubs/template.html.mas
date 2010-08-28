@@ -9,7 +9,7 @@ use EBox::Gettext;
       Zentyal - <% __d('Access Denied', 'squid') %>
     </title>
     <style type="text/css" media="screen">
-    body {background: #fff url(http://www.zentyal.org/img/zentyal-bg.png) repeat-x top left; font-family: Helvetica, Arial, sans-serif; color: #222;}
+    body {background: #fff url(http://static.zentyal.org/img/ebox-bg.png) repeat-x top left; font-family: Helvetica, Arial, sans-serif; color: #222;}
     h1 {height: 65px; line-height: 65px; margin: 0; vertical-align: middle;}
     a {color: #578427;}
     #content {border-top: 1px solid #FFE7BA; padding: 0;}
@@ -25,7 +25,7 @@ use EBox::Gettext;
       <table border="0" cellspacing="0" cellpadding="2" width="700">
         <tr>
           <td align="center" class="head">
-            <img src="http://www.zentyal.org/img/zentyal.png" align="left" alt="Zentyal" />
+            <img src="http://static.zentyal.org/img/zentyal.png" align="left" alt="Zentyal" />
             <h1>
               <% __d('Access has been Denied', 'squid') %>
             </h1>
