@@ -91,7 +91,7 @@ sub generalWidget
     chomp($lastVersion);
     close ($fh);
     if (EBox::Util::Version::compare($lastVersion,$version) == 1) {
-        my $url = "http://www.ebox-platform.com/ebox-update";
+        my $url = "http://update.zentyal.org/update";
         my $available = __('available');
         $version .=
            " (<a target='_blank' href='$url'>$lastVersion $available</a>)";
