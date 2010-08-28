@@ -564,25 +564,9 @@ msgstr "CAパスフレーズ"
 msgid "Renew a certificate"
 msgstr "証明書を更新"
 
-#~ msgid ""
-#~ "The private key passpharse needed to create a new request. No renewal was "
-#~ "made. Issue a new certificate with new keys"
-#~ msgstr ""
-#~ "新規リクエストを作成するにはプライベート鍵パスフレーズが必要です。更新は行"
-#~ "われませんでした。新しい鍵とともに証明書を発行してください"
 
 #, fuzzy
-#~ msgid "You must create a Certification Authority."
-#~ msgstr "CA証明書新規作成"
 
-#~ msgid "Certificate Manager"
-#~ msgstr "証明書管理"
 
-#~ msgid "Re CA Passphrase"
-#~ msgstr "CAパスフレーズ(再入力)"
 
-#~ msgid "Passphrase"
-#~ msgstr "パスフレーズ"
 
-#~ msgid "Re-passphrase"
-#~ msgstr "パスフレーズ(再入力)"

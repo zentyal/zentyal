@@ -132,270 +132,97 @@ msgstr ""
 "For at tilføje elle styre printere skal du bruge {open_href}CUPS Web "
 "Interface{close_href}"
 
-#~ msgid "Model"
-#~ msgstr "Model"
 
-#~ msgid "Add a new printer (II)"
-#~ msgstr "Tilføj ny printer (II)"
 
-#~ msgid "Next"
-#~ msgstr "Næste"
 
-#~ msgid "IP"
-#~ msgstr "IP"
 
-#~ msgid "Port"
-#~ msgstr "Port"
 
-#~ msgid "Add a new printer (VI)"
-#~ msgstr "Tilføj ny printer (VI)"
 
-#~ msgid "Driver"
-#~ msgstr "Driver"
 
-#~ msgid "The printer has been deleted successfully"
-#~ msgstr "Printeren er successfuldt blevet slettet"
 
-#~ msgid "Shared resource"
-#~ msgstr "Delt ressource"
 
-#~ msgid "Authentication"
-#~ msgstr "Godkendelse"
 
-#~ msgid "Password"
-#~ msgstr "Kodeord"
 
-#~ msgid "Manage printer"
-#~ msgstr "Håndtér printer"
 
-#~ msgid "Printer details"
-#~ msgstr "Printer detaljer"
 
-#~ msgid "Driver Options"
-#~ msgstr "Driver Options"
 
-#~ msgid "Configuration options"
-#~ msgstr "Konfigurationsmuligheder"
 
-#~ msgid "Jobs Queue"
-#~ msgstr "Job kø"
 
-#~ msgid "Printer's name"
-#~ msgstr "Printernavn"
 
-#~ msgid "Printer's id"
-#~ msgstr "Printer-id"
 
-#~ msgid "Job id"
-#~ msgstr "Job-id"
 
-#~ msgid "Job was successfully canceled"
-#~ msgstr "Jobbet var successfuldt afbrudt"
 
-#~ msgid "Add a new printer (IV)"
-#~ msgstr "Tilføj ny printer (IV)"
 
-#~ msgid "Device"
-#~ msgstr "Enhed"
 
-#~ msgid "Manage printers"
-#~ msgstr "Håndtér printere"
 
-#~ msgid "Delete printer"
-#~ msgstr "Slet printer"
 
-#~ msgid "Add a new printer (V)"
-#~ msgstr "Tilføj ny printer (V)"
 
-#~ msgid "Method"
-#~ msgstr "Metode"
 
-#~ msgid "Printer description"
-#~ msgstr "Printer beskrivelse"
 
-#~ msgid "Manufacturer"
-#~ msgstr "Fabrikant"
 
-#~ msgid "Add a new printer (III)"
-#~ msgstr "Tilføj ny printer (III)"
 
-#~ msgid "Add a new printer (I)"
-#~ msgstr "Tilføj ny printer (I)"
 
 #, fuzzy
-#~ msgid "To add and manage printers"
-#~ msgstr "Håndtér printere"
 
 #, fuzzy
-#~ msgid "Add Printer"
-#~ msgstr "Tilføj printer"
 
-#~ msgid ""
-#~ "The printer's name contains characters not valid.Only alphanumeric "
-#~ "characters are allowed"
-#~ msgstr ""
-#~ "Printerens navn indeholder ugyldige tegn. Kun alfabetiske tegn er tilladt."
 
-#~ msgid "Name"
-#~ msgstr "Navn"
 
-#~ msgid "The given name is alreaday used as "
-#~ msgstr "Navnet er allerede brugt som "
 
-#~ msgid "It is not a usb printer"
-#~ msgstr "Dette er ikke en USB printer"
 
-#~ msgid "It is not a parallel printer"
-#~ msgstr "Dette er ikke en parallel printer"
 
-#~ msgid "It is not a network printer"
-#~ msgstr "Dette er ikke en netværksprinter"
 
-#~ msgid "It is not a samba printer"
-#~ msgstr "Dette er ikke en samba printer"
 
 #, fuzzy
-#~ msgid "It is not a IPP printer"
-#~ msgstr "Dette er ikke en USB printer"
 
 #, fuzzy
-#~ msgid "It is not a LPD printer"
-#~ msgstr "Dette er ikke en USB printer"
 
-#~ msgid "is not a valid option"
-#~ msgstr "er ikke en mulig valgmulighed"
 
-#~ msgid "Parameter '{name}' does not exist"
-#~ msgstr "Parameteren '{name}' findes ikke"
 
-#~ msgid "Owner"
-#~ msgstr "Ejer"
 
-#~ msgid "Queued at"
-#~ msgstr "Lagt i kø kl. "
 
-#~ msgid "Set printer name and method"
-#~ msgstr "Sæt printernavn og metode"
 
-#~ msgid "Parallel"
-#~ msgstr "Parallel"
 
-#~ msgid "Samba"
-#~ msgstr "Samba"
 
-#~ msgid "Choose manufacturer"
-#~ msgstr "Vælg fabrikant"
 
-#~ msgid "Local parallel printer configuration"
-#~ msgstr "Lokal parallel printer konfiguration"
 
-#~ msgid "Are you sure you want to delete the printer '{name}'?"
-#~ msgstr "Er du sikker på at du vil slette printeren med navnet '{name}'?"
 
-#~ msgid "Cancel"
-#~ msgstr "Fortryd"
 
-#~ msgid "Local USB printer configuration"
-#~ msgstr "Lokal USB printer indtillinger"
 
-#~ msgid "Change"
-#~ msgstr "Skift"
 
-#~ msgid "Job queue"
-#~ msgstr "Job kø"
 
-#~ msgid "Size(KB)"
-#~ msgstr "Størrelse(KB)"
 
-#~ msgid "Creation time"
-#~ msgstr "Oprettet kl. "
 
-#~ msgid "Action"
-#~ msgstr "Begivenhed"
 
-#~ msgid "This printer has no pending job in queue at the moment"
-#~ msgstr "Printeren har ingen jobs i køen i øjeblikket"
 
 #, fuzzy
-#~ msgid "Print Test Page"
-#~ msgstr "Printernavn"
 
-#~ msgid "Driver options"
-#~ msgstr "Driver options"
 
-#~ msgid "Choose a printer model"
-#~ msgstr "Vælg en printermodel"
 
 #, fuzzy
-#~ msgid "Configure IPP printer"
-#~ msgstr "Opsætning af netværksprinter"
 
-#~ msgid "Choose a driver for the printer"
-#~ msgstr "Vælg en driver til printeren"
 
 #, fuzzy
-#~ msgid "Configure LPD printer"
-#~ msgstr "Opsætning af netværksprinter"
 
-#~ msgid "Choose a dirver for the printer"
-#~ msgstr "Vælg en driver til printeren"
 
-#~ msgid "driver"
-#~ msgstr "driver"
 
-#~ msgid "Go"
-#~ msgstr "Ja"
 
-#~ msgid "Samba shared printer configurationr"
-#~ msgstr "Samba delt printer konfiguration"
 
-#~ msgid "Share resource"
-#~ msgstr "Del resourcen"
 
-#~ msgid "Anonymous"
-#~ msgstr "Anonym"
 
-#~ msgid "Guest"
-#~ msgstr "Gæst"
 
-#~ msgid "User/Password"
-#~ msgstr "Bruger/Kodeord"
 
-#~ msgid "Remote printer configuration"
-#~ msgstr "Netværksprinter konfiguration"
 
 #, fuzzy
-#~ msgid "Configure AppSocket printer"
-#~ msgstr "Opsætning af netværksprinter"
 
-#~ msgid "Samba shared printer configuration"
-#~ msgstr "Samba delt printer konfiguration"
 
-#~ msgid "List of printers"
-#~ msgstr "Liste over printere"
 
-#~ msgid "Description"
-#~ msgstr "Beskrivelse"
 
-#~ msgid "Actions"
-#~ msgstr "Begivenheder"
 
-#~ msgid "Manage"
-#~ msgstr "Håndtér"
 
-#~ msgid "Manage this printer"
-#~ msgstr "Håndtér denne printer"
 
 #, fuzzy
-#~ msgid "There is no printer configured yet"
-#~ msgstr "Netværksprinter konfiguration"
 
 #, fuzzy
-#~ msgid "printers"
-#~ msgstr "Printere"
 
-#~ msgid "module status"
-#~ msgstr "Modulstatus"
 
-#~ msgid "Network printer"
-#~ msgstr "Netværksprinter"

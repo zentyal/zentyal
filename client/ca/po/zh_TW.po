@@ -550,21 +550,7 @@ msgstr "CA 密語"
 msgid "Renew a certificate"
 msgstr "換新憑證"
 
-#~ msgid ""
-#~ "The private key passpharse needed to create a new request. No renewal was "
-#~ "made. Issue a new certificate with new keys"
-#~ msgstr ""
-#~ "建立新的申請需要私密金鑰密語。沒有做任何換新的動作。使用新的金鑰簽發新的憑"
-#~ "證"
 
-#~ msgid "You must create a Certification Authority."
-#~ msgstr "您必須建立憑證中心。"
 
-#~ msgid "Infrastructure"
-#~ msgstr "基礎建設"
 
-#~ msgid "Certificate Manager"
-#~ msgstr "憑證管理程式"
 
-#~ msgid "Re CA Passphrase"
-#~ msgstr "再次輸入 CA 密語"

@@ -452,89 +452,25 @@ msgstr "Serviços de restauração"
 msgid "Configuration and Status"
 msgstr "Configurações e Status"
 
-#~ msgid ""
-#~ "If you choose {brand} or file system methods , then the destination field "
-#~ "may be the target directory in the backup server"
-#~ msgstr ""
-#~ "Se você escolher {brand} ou método de sistema de arquivos, então o campo "
-#~ "destino precisa ser o diretório alvo no servidor de backup"
 
-#~ msgid "There is no information about the backuped files yet"
-#~ msgstr "Não há ainda informações sobre os arquivos de backup"
 
-#~ msgid "Number of full copies to keep"
-#~ msgstr "Número de cópias completas para manter"
 
-#~ msgid "exclude"
-#~ msgstr "excluir"
 
-#~ msgid "Exclude regexp"
-#~ msgstr "Excluir regexp"
 
-#~ msgid "General remote backup server configuration"
-#~ msgstr "Configuração geral do servidor remoto de backup"
 
-#~ msgid ""
-#~ "You can create your <i>eBox Remote Storage</i> account in our {ohref}on-"
-#~ "line store{chref}. Use this service to have a quick and safe remote "
-#~ "location to store your data"
-#~ msgstr ""
-#~ "Você pode criar sua conta <i>eBox Remote Storage</i> em seu {ohref}on-"
-#~ "line store{chref}. Use este serviço para ter um rápido e seguro local "
-#~ "remoto para guardar seus dados"
 
-#~ msgid ""
-#~ "By creating the iBackup account through this {ohref}link{chref} you "
-#~ "support the development of eBox with no extra charge"
-#~ msgstr ""
-#~ "Ao criar a conta iBackup  através deste {ohref}link{chref} você apoia o "
-#~ "desenvolvimento do eBox sem nenhum custo adicional"
 
-#~ msgid "Backup module"
-#~ msgstr "Módulo de backup"
 
-#~ msgid "Hostname"
-#~ msgstr "Nome do host"
 
-#~ msgid "Status"
-#~ msgstr "Status"
 
-#~ msgid "Last Update"
-#~ msgstr "Última atualização"
 
-#~ msgid "Days to Keep"
-#~ msgstr "Dias a manter"
 
-#~ msgid "Size"
-#~ msgstr "Tamanho"
 
-#~ msgid "Hosts"
-#~ msgstr "Hosts"
 
-#~ msgid "Local backup directory {p} does not exist"
-#~ msgstr "Diretório de backup local {p} não existe"
 
-#~ msgid "Days to keep"
-#~ msgstr "Dias a manter"
 
-#~ msgid "Local Backup Configuration"
-#~ msgstr "Configuração do Backup Local"
 
-#~ msgid ""
-#~ "Local backup configuration. If the module is enabled the backup will be "
-#~ "scheduled to be done daily"
-#~ msgstr ""
-#~ "Configuração de backup local. Se o módulo estiver habilitado, o backup "
-#~ "será agendado para execução diária"
 
-#~ msgid "Local backup configuration updated."
-#~ msgstr "Configuração de backup local atualizada"
 
-#~ msgid "Install /etc/cron.daily/ebox-ebackup-cron."
-#~ msgstr "Instalar /etc/cron.daily/ebox-ebackup-cron."
 
-#~ msgid "eBox will run a nightly script to backup your system."
-#~ msgstr "eBox executará um script noturno para fazer backup do sistema."
 
-#~ msgid "Local backup configuration."
-#~ msgstr "Configuração do backup local"

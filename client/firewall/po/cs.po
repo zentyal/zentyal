@@ -473,191 +473,53 @@ msgid ""
 "otherwise some services could stop working."
 msgstr ""
 
-#~ msgid "Filtering rules from  external networks to eBox"
-#~ msgstr "Filtrovací pravidla z vnějších sítí do eBoxu"
 
-#~ msgid "Port redirections"
-#~ msgstr "Přesměrování portů"
 
-#~ msgid "Global firewall configuration"
-#~ msgstr "Globální konfigurace firewallu"
 
-#~ msgid "Firewall configuration: {desc}"
-#~ msgstr "Firewall konfigurace: {desc}"
 
-#~ msgid "policy"
-#~ msgstr "politika"
 
-#~ msgid "Global services' filtering rules"
-#~ msgstr "Globální filtrovací pravidla služeb"
 
-#~ msgid "Services' filtering rules {desc}"
-#~ msgstr "Filtrovací pravidla služeb {desc}"
 
-#~ msgid "network interface"
-#~ msgstr "síťové rozhraní"
 
-#~ msgid "destination address"
-#~ msgstr "cílová adresa"
 
-#~ msgid "service"
-#~ msgstr "služba"
 
-#~ msgid "Edit rule"
-#~ msgstr "Upravit pravidlo"
 
-#~ msgid "firewall"
-#~ msgstr "firewall"
 
-#~ msgid "Port {port} is being used by a service or port redirection."
-#~ msgstr "Port {port} je použit službou či přesměrováním portů."
 
-#~ msgid "Redirects"
-#~ msgstr "Přesměrování"
 
-#~ msgid "Actions"
-#~ msgstr "Akce"
 
-#~ msgid "Add"
-#~ msgstr "Přidat"
 
-#~ msgid "Change"
-#~ msgstr "Změna"
 
-#~ msgid "Delete"
-#~ msgstr "Vymazat"
 
-#~ msgid ""
-#~ "These rules are meant to control access from internal network interfaces "
-#~ "to services running on your eBox machine"
-#~ msgstr ""
-#~ "Tato pravidla jsou určeny pro kontrolu přístupu z rozhraní vnitřní sítě "
-#~ "pro služby běžící na vašem počítači eBox"
 
-#~ msgid ""
-#~ "Protocol, port and destination address are optional. The rules will be "
-#~ "applied in order, from top to bottom, you can reorder them once they are "
-#~ "added. Rules can also be disabled without deleting them."
-#~ msgstr ""
-#~ "Protokol, port a cílová adresa jsou volitelné. Tato pravidla budou "
-#~ "použita v pořadí od shora dolů, můžete změnit pořadí po jejich přidání. "
-#~ "Pravidla mohou být také vypnutá, aniž by došlo k jejich smazání."
 
-#~ msgid ""
-#~ "Rules without an explicit destination address will be applied to packets "
-#~ "that leave eBox through an external network interface. You may flag "
-#~ "network interfaces as external in the <a href='../Network/Ifaces'>Network "
-#~ "Interfaces</a> configuration page."
-#~ msgstr ""
-#~ "Pravidla bez výslovné cílové adresy budou použity na pakety, které "
-#~ "opuštějí eBox přes externí síťové rozhraní. Můžete označit síťová "
-#~ "rozhraních jako externí v <a href='../Network/Ifaces'> síťová rozhraní </ "
-#~ "a> konfigurační stránky."
 
-#~ msgid "Destination address"
-#~ msgstr "Cílovou adresu"
 
-#~ msgid "Action"
-#~ msgstr "Akce"
 
-#~ msgid "Active"
-#~ msgstr "Aktivní"
 
-#~ msgid "Allow"
-#~ msgstr "Povolit"
 
-#~ msgid "Deny"
-#~ msgstr "Odmítnout"
 
-#~ msgid "Up"
-#~ msgstr "Nahoru"
 
-#~ msgid "Down"
-#~ msgstr "Dolů"
 
-#~ msgid "Policy"
-#~ msgstr "Politika"
 
-#~ msgid ""
-#~ "The policy states what to do on network packets not explicitly matched "
-#~ "below. The policy is applied to connections that leave eBox through an "
-#~ "external network interface. If you want to allow traffic between internal "
-#~ "networks you need to create explicit rules for that."
-#~ msgstr ""
-#~ "Policy states, říká co mají dělat síťové pakety, které nejsou výslovně "
-#~ "přizpůsobené níže. Tato politika je aplikována na připojení, které "
-#~ "opouštějí eBox přes externí síťové rozhraní. Pokud chcete povolit provoz "
-#~ "mezi vnitřní sítí, musíte si vytvořit jasná pravidla pro to."
 
-#~ msgid ""
-#~ "Choosing global will make the firewall fall back to the <a href='Object?"
-#~ "object=_global'>default configuration</a>."
-#~ msgstr ""
-#~ "Globální výběr provede firewall zpět na <a href='Object?object=_global'> "
-#~ "Výchozí konfigurace</a>."
 
-#~ msgid "Global"
-#~ msgstr "Globální"
 
-#~ msgid "Services"
-#~ msgstr "Služby"
 
-#~ msgid ""
-#~ "Protocol, ports and addresses are optional. The rules will be applied in "
-#~ "order, from top to bottom, you can reorder them once they are added. "
-#~ "Rules can also be disabled without deleting them."
-#~ msgstr ""
-#~ "Protokol, porty a adresy jsou nepovinné. Tato pravidla budou použita v "
-#~ "pořadí od shora dolů, můžete změnit pořadí je po jejich přidání. Pravidla "
-#~ "mohou také být vypnutá, aniž by došlo k jejich smazání."
 
-#~ msgid "New rule"
-#~ msgstr "Nové pravidlo"
 
-#~ msgid "Source address"
-#~ msgstr "Zdrojová adresa"
 
-#~ msgid "is not"
-#~ msgstr "není"
 
-#~ msgid "is"
-#~ msgstr "je"
 
-#~ msgid "to"
-#~ msgstr "na"
 
-#~ msgid "Rule list"
-#~ msgstr "Seznam pravidel"
 
-#~ msgid "allow"
-#~ msgstr "povolit"
 
-#~ msgid "allow (disabled)"
-#~ msgstr "povolit (vypnuto)"
 
-#~ msgid "deny"
-#~ msgstr "odmítnout"
 
-#~ msgid "deny (disabled)"
-#~ msgstr "odmítnout (vypnuto)"
 
-#~ msgid "inverse match"
-#~ msgstr "inverzní srovnání"
 
-#~ msgid "Edit"
-#~ msgstr "Upravit"
 
-#~ msgid "delete"
-#~ msgstr "vymazat"
 
-#~ msgid "edit"
-#~ msgstr "Upravit"
 
-#~ msgid "move up"
-#~ msgstr "nahoru"
 
-#~ msgid "move down"
-#~ msgstr "Dolů"
 
-#~ msgid "any"
-#~ msgstr "jakýkoli"

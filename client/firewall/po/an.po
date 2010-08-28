@@ -462,300 +462,82 @@ msgid ""
 msgstr ""
 
 #, fuzzy
-#~ msgid "Port Forwading"
-#~ msgstr "Regles de colato"
 
 #, fuzzy
-#~ msgid "redirect"
-#~ msgstr "Reendrezeras"
 
-#~ msgid "Packet filtering"
-#~ msgstr "Colato de paquez"
 
-#~ msgid "Redirects"
-#~ msgstr "Reendrezeras"
 
-#~ msgid "Port redirections"
-#~ msgstr "Reendrezeras de puertos"
 
 #, fuzzy
-#~ msgid "Filtering rules from  external networks to eBox"
-#~ msgstr "Regles de filtrato ta l'azeso á Internet"
 
 #, fuzzy
-#~ msgid "firewall"
-#~ msgstr "Cortafuegos"
 
-#~ msgid "Global services' filtering rules"
-#~ msgstr "Regles globals de filtrato  de serbizios"
 
-#~ msgid "Services' filtering rules {desc}"
-#~ msgstr "Regles de filtrato  de serbizios {desc}"
 
-#~ msgid "Edit rule"
-#~ msgstr "Editar regles"
 
-#~ msgid "Global firewall configuration"
-#~ msgstr "Confegurazión global d'o firewall"
 
-#~ msgid "Firewall configuration: {desc}"
-#~ msgstr "Confegurazión d'o firewall: {desc}"
 
-#~ msgid "service"
-#~ msgstr "serbizio"
 
-#~ msgid "policy"
-#~ msgstr "politica"
 
-#~ msgid "network interface"
-#~ msgstr "entrefaz de rete"
 
-#~ msgid "destination address"
-#~ msgstr "adreza de destín"
 
-#~ msgid "Port {port} is being used by a service or port redirection."
-#~ msgstr ""
-#~ "O puerto {port} ye estando emplegato por un serbizio u por una "
-#~ "reendrezera de puerto."
 
-#~ msgid "Actions"
-#~ msgstr "Aizions"
 
-#~ msgid "Add"
-#~ msgstr "Adibir"
 
-#~ msgid "Change"
-#~ msgstr "Cambiar"
 
-#~ msgid "Delete"
-#~ msgstr "Borrar"
 
-#~ msgid ""
-#~ "Protocol, ports and addresses are optional. The rules will be applied in "
-#~ "order, from top to bottom, you can reorder them once they are added. "
-#~ "Rules can also be disabled without deleting them."
-#~ msgstr ""
-#~ "O protocolo, os puertos y as adrezas son ozionals. Os regles s'aplicarán "
-#~ "en orden, d'alto enta abaxo, puede reordenar-los dimpués de aber-los "
-#~ "adibito. Os regles tamién pueden estar desautibatos sin aber menester de "
-#~ "borrar-los."
 
-#~ msgid "New rule"
-#~ msgstr "Nuebo regle"
 
-#~ msgid "Action"
-#~ msgstr "Aizión"
 
-#~ msgid "Allow"
-#~ msgstr "Premitir"
 
-#~ msgid "Deny"
-#~ msgstr "Denegar"
 
-#~ msgid "Source address"
-#~ msgstr "Adreza d'orichen"
 
-#~ msgid "is not"
-#~ msgstr "no ye"
 
-#~ msgid "is"
-#~ msgstr "ye"
 
-#~ msgid "to"
-#~ msgstr "ta"
 
-#~ msgid "Destination address"
-#~ msgstr "Adreza destín"
 
-#~ msgid "Rule list"
-#~ msgstr "Lista de Regles"
 
-#~ msgid "allow"
-#~ msgstr "premitir"
 
-#~ msgid "allow (disabled)"
-#~ msgstr "premitir (abilitato)"
 
-#~ msgid "deny"
-#~ msgstr "denegar"
 
-#~ msgid "deny (disabled)"
-#~ msgstr "denegar (desabilitato)"
 
-#~ msgid "inverse match"
-#~ msgstr "coinzidenzia imbersa"
-
-#~ msgid "Edit"
-#~ msgstr "Editar"
-
-#~ msgid "Up"
-#~ msgstr "Alto"
-
-#~ msgid "Down"
-#~ msgstr "Abaxo"
-
-#~ msgid "delete"
-#~ msgstr "borrar"
-
-#~ msgid "edit"
-#~ msgstr "editar"
-
-#~ msgid "move up"
-#~ msgstr "puyar"
-
-#~ msgid "move down"
-#~ msgstr "baxar"
-
-#~ msgid "any"
-#~ msgstr "cualsiquiera"
-
-#~ msgid "Services"
-#~ msgstr "Serbizios"
-
-#~ msgid "Policy"
-#~ msgstr "Politica"
-
-#~ msgid ""
-#~ "Protocol, port and destination address are optional. The rules will be "
-#~ "applied in order, from top to bottom, you can reorder them once they are "
-#~ "added. Rules can also be disabled without deleting them."
-#~ msgstr ""
-#~ "L'adreza de destín, o protocolo y o puerto son ozionals. Os regles "
-#~ "s'aplicarán en orden, d'alto enta abaxo, puede reordenar-los dimpués de "
-#~ "aber-los adibito. Os regles también pueden estar desautibatos sin aber "
-#~ "menester de borrar-los."
-
-#~ msgid ""
-#~ "Rules without an explicit destination address will be applied to packets "
-#~ "that leave eBox through an external network interface. You may flag "
-#~ "network interfaces as external in the <a href='../Network/Ifaces'>Network "
-#~ "Interfaces</a> configuration page."
-#~ msgstr ""
-#~ "Os regles sin una adreza de destín esplízita s'aplicarán ta os paquez "
-#~ "que'n salen d'a eBox por una entrefaz de rete esterno. Puede marcar as "
-#~ "enterfazes de rete como esternas en a pachina de confegurazión de <a "
-#~ "href='../Network/Ifaces'>Entrefazes de Rete</a>."
-
-#~ msgid "Active"
-#~ msgstr "Autiba"
-
-#~ msgid ""
-#~ "The policy states what to do on network packets not explicitly matched "
-#~ "below. The policy is applied to connections that leave eBox through an "
-#~ "external network interface. If you want to allow traffic between internal "
-#~ "networks you need to create explicit rules for that."
-#~ msgstr ""
-#~ "A politica determina l'aizión á tomar sobre os paquez de rete no "
-#~ "espezificatos dezaga esplizitamén. A politica s'aplica á las coneusions "
-#~ "que'n salen d'a eBox á trabiés d'una entrefaz de rete esterno. Si deseya "
-#~ "premitir trafico entre retes internos debe creyar regles esplizitos ta "
-#~ "ixo."
-
-#~ msgid ""
-#~ "Choosing global will make the firewall fall back to the <a href='Object?"
-#~ "object=_global'>default configuration</a>."
-#~ msgstr ""
-#~ "Si eslixe global o cortafuegos usará la <a href='Object?"
-#~ "object=_global'>confegurazión por defeuto</a>."
-
-#~ msgid "Global"
-#~ msgstr "Global"
-
-#~ msgid "object"
-#~ msgstr "ocheto"
-
-#~ msgid "Port cannot be set if no protocol is selected."
-#~ msgstr "Si no se triga un protocolo no se puede establir o puerto."
-
-#~ msgid "address"
-#~ msgstr "adreza"
-
-#~ msgid "source port"
-#~ msgstr "puerto d'orichen"
-
-#~ msgid "source address"
-#~ msgstr "adreza d'orichen"
-
-#~ msgid "Rule not found"
-#~ msgstr "Regle no trobato"
-
-#~ msgid "Deny action"
-#~ msgstr "Denegar aizión"
-
-#~ msgid ""
-#~ "This will tell the firewall what to do when discarding network packets.  "
-#~ "If you choose Reject, a packet will be sent back to the sender, choosing "
-#~ "Drop will make the firewall drop the packet silently."
-#~ msgstr ""
-#~ "Isto determina o comportamiento d'o firewall cuan escarta paquez. Si "
-#~ "triga Refusar, se nimbiará un paquet á lo remitén d'o paquet á escartar. "
-#~ "Si triga Innorar o firewall escartará os paquez de traza silenziosa."
-
-#~ msgid "Drop packets"
-#~ msgstr "Innorar paquez"
-
-#~ msgid "Reject packets"
-#~ msgstr "Refusar paquez"
-
-#~ msgid "Apply"
-#~ msgstr "Aplicar"
-
-#~ msgid "Filtering rules for internet access"
-#~ msgstr "Regles ta l'azeso á internet"
-
-#~ msgid ""
-#~ "The link below will let you set up the default behavior of the packet "
-#~ "filter.  These rules are meant to control access from internal network "
-#~ "interfaces to external ones, they provide a simpler way to control access "
-#~ "to the internet. You may also choose an object and set up its own rules"
-#~ msgstr ""
-#~ "O siguient enrastre li premitirá confegurar o comportamiento por defeuto "
-#~ "d'o firewall. Tamién puede trigar un ocheto e confegurar os regles e os "
-#~ "serbizios á los que podrá azeder. Istos regles son pensatos ta controlar "
-#~ "l'azeso dende os interfazes d'o rete interno ta os d'o esterno. Istos "
-#~ "ofrexen una traza más simpla de controlar l'azeso á internet."
-
-#~ msgid "Configure default rules"
-#~ msgstr "Confegurar regles por defeuto"
-
-#~ msgid "Filtering Rules between internal networks"
-#~ msgstr "Regles de filtrato ta l'azeso á Internet"
-
-#~ msgid "Configure default rules related to eBox services"
-#~ msgstr "Confegurar regles por defeuto relazionatos con os serbizios d'eBox"
-
-#~ msgid "Configure rules for a particular object"
-#~ msgstr "Confegurar os regles ta un ocheto concreto"
-
-#~ msgid "Go"
-#~ msgstr "Ir-ie"
-
-#~ msgid ""
-#~ "The link below will let you set up the default behavior of the packet "
-#~ "filter. You may also choose an object and set up rules and the services "
-#~ "it may access. These rules are meant to control access from internal "
-#~ "network interfaces to external ones, they provide a simpler way to "
-#~ "control access to the internet."
-#~ msgstr ""
-#~ "O siguién enrastre li premitirá confegurar o comportamiento por defeuto "
-#~ "d'o firewall. Tamién puede trigar un ocheto y confegurar regles y os "
-#~ "serbizios á los que podrá azeder. Istos regles son pensatas ta controlar "
-#~ "l'azeso dende os enterfazes d'o rete interno ta os d'o esterna. Istos "
-#~ "furnen d'una traza más simpla de controlar l'azeso á internet."
-
-#~ msgid "Filtering Rules"
-#~ msgstr "Regles de colato"
-
-#~ msgid ""
-#~ "This link will let you set up filtering rules that will take precedence "
-#~ "over the ones you set up for network objects further below."
-#~ msgstr ""
-#~ "Iste enrastre li premitirá establir regles de colato que abrán "
-#~ "preferencia sobre as que confegure ta os ochetos de rete más abaxo."
-
-#~ msgid "Rules for internet access"
-#~ msgstr "Regles ta l'azeso á internet"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 #, fuzzy
-#~ msgid "Filtering rules for eBox's services"
-#~ msgstr "Regles ta l'azeso á internet"

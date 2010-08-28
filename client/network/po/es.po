@@ -1070,202 +1070,55 @@ msgstr ""
 "esta interfaz de red borrarán las partes mas relevantes de su configuración. "
 "Elija \"Cancelar\" si no está seguro."
 
-#~ msgid "eBox"
-#~ msgstr "eBox"
 
-#~ msgid "{up}, {ext}, {link}"
-#~ msgstr "{up}, {ext}, {link}"
 
-#~ msgid "Physical interface"
-#~ msgstr "Interfaz físico"
 
-#~ msgid "Vlan interface list"
-#~ msgstr "Lista de interfaces VLAN"
 
-#~ msgid "These are the vlan interfaces which are available in your system."
-#~ msgstr "Estos son los interfaces VLAN que están disponibles en tu sistema"
 
-#~ msgid "interface"
-#~ msgstr "interfaz"
 
-#~ msgid "Configurable interface list"
-#~ msgstr "Lista de interfaces configurables"
 
-#~ msgid "These are the interfaces which can be configured"
-#~ msgstr "Estos son los interfaces que se pueden configurar"
 
-#~ msgid "Physical interface list"
-#~ msgstr "Lista de interfaces físicos"
 
-#~ msgid ""
-#~ "These are the physical interfaces which are available in your system."
-#~ msgstr ""
-#~ "Estos son los interfaces físicos que están disponibles en tu sistema"
 
-#~ msgid "Set default gateway"
-#~ msgstr "Establecer ruta por defecto"
 
-#~ msgid "You can change later the gateway at Network/Routes menus item"
-#~ msgstr ""
-#~ "Puede cambiar más tarde la ruta por defecto a través del menú Red/Rutas"
 
-#~ msgid ""
-#~ "After the initial config you can revisit this page at Network/Interfaces "
-#~ "in the menu"
-#~ msgstr ""
-#~ "Tras la configuración inicial puede volver a visitar esta página en el "
-#~ "menú Red/Interfaces"
 
-#~ msgid "Gateway configured"
-#~ msgstr "Ruta por defecto configurada"
 
-#~ msgid "You can revisit this page at Network/DNS in the menu"
-#~ msgstr "Puede volver a visitar esta página en el menú a través de Red/DNS"
 
-#~ msgid "Network interface configured"
-#~ msgstr "Interfaces de red configurados"
 
-#~ msgid "Configure name servers"
-#~ msgstr "Configurar los servidores de nombre"
 
-#~ msgid "Configure default gateway"
-#~ msgstr "Configurar gateway por defecto"
 
-#~ msgid "Upload"
-#~ msgstr "Subida"
 
-#~ msgid "Download"
-#~ msgstr "Bajada"
 
-#~ msgid ""
-#~ "You can add as many gateways as you want. This is very useful if you want "
-#~ "to split your Internet traffic through several links.{br}The download and "
-#~ "upload fields must be set as much rate as you have to your connection "
-#~ "towards the gateway. The correct value of these fields is critical to "
-#~ "ensure a correct functionality of the traffic shaping module"
-#~ msgstr ""
-#~ "Puedes añadir tantos routers como quieras. Esto es muy útil si quieres "
-#~ "dividir tu tráfico de Internet a través de varios enlaces.{br}Los campos "
-#~ "de subida y bajada deben ser rellenados con la máxima tasa que tenga tu "
-#~ "conexión a través del router. El correcto valor de estos campos es "
-#~ "crítico para asegurar el funcionamiento del módulo de moldeado de red"
 
 #, fuzzy
-#~ msgid "Core"
-#~ msgstr "Origen"
 
-#~ msgid "Balance traffic and multigateway rules"
-#~ msgstr "Balanceo de tráfico y reglas multi-rutas"
 
-#~ msgid "IP Address"
-#~ msgstr "Dirección IP "
 
-#~ msgid "Protocol"
-#~ msgstr "Protocolo"
 
-#~ msgid "Port"
-#~ msgstr "Puerto"
 
-#~ msgid "Destination port"
-#~ msgstr "Puerto destino"
 
-#~ msgid "Source port"
-#~ msgstr "Puerto origen"
 
-#~ msgid "Port cannot be set if no protocol is selected"
-#~ msgstr ""
-#~ "El puerto no puede ser asignado si no se ha seleccionado un protocolo"
 
-#~ msgid "Routes"
-#~ msgstr "Rutas"
 
-#~ msgid ""
-#~ "Having network interfaces configured via DHCP may cause this settings to "
-#~ "be overriden."
-#~ msgstr ""
-#~ "Esta configuración podría ser ignorada si tiene interfaces de red "
-#~ "configurados por DHCP."
 
-#~ msgid ""
-#~ "Gateway {gw} must be reacheable by a static interface. Currently is "
-#~ "reacheable by {iface} which is not static"
-#~ msgstr ""
-#~ "El router {gw} debe ser accesible desde un interfaz estático. Actualmente "
-#~ "es alcanzable por {iface} que no lo es"
 
-#~ msgid ""
-#~ "To be able to use this feature, you need, at least, two gateways. You can "
-#~ "add them <a href=\"/ebox/Network/View/GatewayDataTable\">here</a> first"
-#~ msgstr ""
-#~ "Para poder usar esta funcionalidad, necesitará al menos dos puertas de "
-#~ "enlace. Puede añadirlas <a href=\"/ebox/Network/View/GatewayDataTable"
-#~ "\">aquí</a>"
 
-#~ msgid "There is already a default gateway"
-#~ msgstr "Ya existe un router por defecto"
 
-#~ msgid "gateway address"
-#~ msgstr "dirección del router"
 
-#~ msgid "Primary"
-#~ msgstr "Primario"
 
-#~ msgid "Secondary"
-#~ msgstr "Secundario"
 
-#~ msgid "Apply"
-#~ msgstr "Aplicar"
 
 #, fuzzy
-#~ msgid "Source traffic"
-#~ msgstr "Balanceo de tráfico"
 
 #, fuzzy
-#~ msgid "Service traffic"
-#~ msgstr "Balanceo de tráfico"
 
-#~ msgid ""
-#~ "Having network interfaces configured via DHCP may cause the default "
-#~ "gateway to be overriden."
-#~ msgstr ""
-#~ "Teniendo interfaces de red configurados vía DHCP quizá causen que la "
-#~ "gateway por defecto sea sobreescrita."
 
-#~ msgid ""
-#~ "To be able to use this feature, you need, at least, two gateways. You can "
-#~ "add them <a href="
-#~ msgstr ""
-#~ "Para poder usar esta parte de la aplicación, necesitará, al menos, dos "
-#~ "routers"
 
-#~ msgid ""
-#~ "If you choose to continue, all modules that make use of the current "
-#~ "configuration of this network interface will delete the relevant parts of "
-#~ "their configuration. Choose "
-#~ msgstr ""
-#~ "Si elige continuar, todos los módulos que usan la configuración actual de "
-#~ "este interfaz de red borrarán las partes mas relevantes de su "
-#~ "configuración. Elija"
 
 #, fuzzy
-#~ msgid "Rule"
-#~ msgstr "Rutas"
 
-#~ msgid "Default gateway"
-#~ msgstr "Ruta por defecto"
 
-#~ msgid "Activate traffic rate monitor"
-#~ msgstr "Activar la monitorización de tasa de tráfico"
 
-#~ msgid "Traffic rate monitor"
-#~ msgstr "Monitor de tasa de tráfico"
 
-#~ msgid ""
-#~ "All routers you enter here must be reachable through one of the network "
-#~ "interfaces currently configured."
-#~ msgstr ""
-#~ "Todos los routers que introduzca en esta página deben ser alcanzables "
-#~ "desde uno de los interfaces de red que haya configurado."
 
-#~ msgid "network address"
-#~ msgstr "dirección de red"

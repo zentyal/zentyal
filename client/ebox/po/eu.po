@@ -2300,205 +2300,69 @@ msgstr ""
 msgid "Download configuration report file"
 msgstr "Programa errore txosten konfigurazio iraulia"
 
-#~ msgid "Bug report"
-#~ msgstr "Programa errore berri ematea"
 
-#~ msgid "System backups"
-#~ msgstr "Sistema babeskopiak "
 
 #, fuzzy
-#~ msgid "RAID report"
-#~ msgstr "Programa errore berri ematea"
 
 #, fuzzy
-#~ msgid "Day"
-#~ msgstr "Edozein"
 
-#~ msgid ""
-#~ "An internal error has ocurred. This is most probably a bug, relevant "
-#~ "information can be found in the logs."
-#~ msgstr ""
-#~ "Barne errore bat gertatu da. Hau ziurrenik programa errore bat da, "
-#~ "informazio gehigarria erregistroetan aurkitu daiteke."
 
 #, fuzzy
-#~ msgid "Backup deleted"
-#~ msgstr "Babeskopia modua"
 
 #, fuzzy
-#~ msgid "Restoring remote backup"
-#~ msgstr "Konfigurazio babeskopia"
 
 #, fuzzy
-#~ msgid "Restoring modules from remote backup"
-#~ msgstr "Konfigurazio babeskopia"
 
 #, fuzzy
-#~ msgid "Remote system backups"
-#~ msgstr "Sistema babeskopiak "
 
 #, fuzzy
-#~ msgid ""
-#~ "Please confirm that you want to restore the configuraction using the "
-#~ "following remote backup:"
-#~ msgstr ""
-#~ "Mesedez berretsi ondorengo babeskopia fitxategia ezabatu nahi duzula:"
 
 #, fuzzy
-#~ msgid "Backing up modules "
-#~ msgstr "Babeskopia modua"
 
 #, fuzzy
-#~ msgid "Remote system backups proxy"
-#~ msgstr "Sistema babeskopiak "
 
 #, fuzzy
-#~ msgid "Delete data"
-#~ msgstr "Ezabatu"
 
 #, fuzzy
-#~ msgid "Enter user and password"
-#~ msgstr "Pasahitza ezarri"
 
 #, fuzzy
-#~ msgid "Configuration backups' list"
-#~ msgstr "Konfigurazio babeskopiak"
 
-#~ msgid "Welcome to eBox"
-#~ msgstr "Ongietorri eBox-era"
 
-#~ msgid "eBox was already initialized"
-#~ msgstr "eBox dagoeneko abiarazirik dago"
 
-#~ msgid "Default password was already changed"
-#~ msgstr "Lehenetsiko pasahitza aldatu zen"
 
-#~ msgid "New passwords do not match"
-#~ msgstr "Pasahitz berriak ez dira berdinak"
 
 #, fuzzy
-#~ msgid "modules saved"
-#~ msgstr "moduloaren izena"
 
 #, fuzzy
-#~ msgid "Static test form"
-#~ msgstr "Berreskuratu"
 
 #, fuzzy
-#~ msgid "Optional Password"
-#~ msgstr "Pasahitza ezarri"
 
 #, fuzzy
-#~ msgid "Test model"
-#~ msgstr "Berreskuratu"
 
 #, fuzzy
-#~ msgid "Test form"
-#~ msgstr "Berreskuratu"
 
 #, fuzzy
-#~ msgid "Active"
-#~ msgstr "Ekintza"
 
-#~ msgid ""
-#~ "Unable to find a correct backup disk. Please insert a backup disk and "
-#~ "retry"
-#~ msgstr ""
-#~ "Ezin da babeskopia disko zuzena aurkitu. Mesedez babeskopia diskoa sartu "
-#~ "eta berriz saiatu"
 
-#~ msgid "Please confirm that you want to restore using this backup disk:"
-#~ msgstr ""
-#~ "Mesedez berretsi babeskopia disko hau erabiliaz berreskuraketa egion nahi "
-#~ "duzula:"
 
-#~ msgid ""
-#~ "Please confirm that you want to write this backup file to a CD or DVD "
-#~ "disk:"
-#~ msgstr ""
-#~ "Mesedez berretsi babeskopia fitxategia CD edo DVD diskoan idatzi nahi "
-#~ "duzula:"
 
-#~ msgid "Write to disk"
-#~ msgstr "Diskoan idatzi"
 
-#~ msgid "Backup was written to CD/DVD disk"
-#~ msgstr "Babeskopia CD/DVD diskoan gordeko da"
 
-#~ msgid "Unable to recognize the mounted DVD media"
-#~ msgstr "Ez da muntaturiko DVD medioa ezagutzen"
 
-#~ msgid "Unable to recognize the mounted CD media"
-#~ msgstr "Ez da muntaturiko CD medioa ezagutzen"
 
-#~ msgid ""
-#~ "This system need {program} installed to perform the requested action. "
-#~ "Please install it and retry"
-#~ msgstr ""
-#~ "Sistemak {program} instalaturik egotea behar du ekintza aurrera "
-#~ "eramateko. Mesedez instalatu ezazu eta berriz saiatu"
 
-#~ msgid ""
-#~ "Unable to find {path}. Make sure that the cdrom driver is compiled in "
-#~ "your kerner or loaded as module"
-#~ msgstr ""
-#~ "Ezin da {path} aurkitu. Ziurtatu zaitez cdrom kontrolagailua kernelan "
-#~ "konpilaturik edo modulu bezala kargaturik dagoela"
 
-#~ msgid "Unable to read {path}."
-#~ msgstr "Ezin da {path} irakurri."
 
-#~ msgid "This system does not have a recorder drive"
-#~ msgstr "Sistemak ez du gailu grabatzailerik"
 
-#~ msgid "No disk found. Please insert disk and retry"
-#~ msgstr "Ez da diskorik aurkitu. Diskoa sartu eta berriz saiatu"
 
-#~ msgid "{media } is a unsupported media type"
-#~ msgstr "{media } onartzen ez den media mota bat da"
 
-#~ msgid "{device} cannot be found"
-#~ msgstr "{device} ezin da aurkitu"
 
-#~ msgid "{device} is mounted. Please, remove the disk"
-#~ msgstr "{device} muntaturik dago, Mesedez diska atera"
 
-#~ msgid "Device {dev} cannot write media of type {media}"
-#~ msgstr "{dev} gailua ez da {media} motako  medioak idazteko gai"
 
-#~ msgid "The media has not sufficient capabilty for the data"
-#~ msgstr "Medioak ez du datu guztientzat behar adina kapazitate"
 
-#~ msgid "No blanking method for {media}  defined. Cannot erase it"
-#~ msgstr ""
-#~ "Ez dago garbitze metodo ezarririk {media}-rentzat. Ezin da berau ezabatu"
 
-#~ msgid ""
-#~ "Full backup restored succesfully. You should now review your "
-#~ "configuration and save it if you want to keep it."
-#~ msgstr ""
-#~ "Babeskopia osoa behar bezala berreskuratu da. Orain zure konfigurazioa "
-#~ "begiratu eta mantendu nahi izanez gero gorde egin beharko zenuke."
 
-#~ msgid ""
-#~ "Configuration restored succesfully, you should now review it and save it "
-#~ "if you want to keep it."
-#~ msgstr ""
-#~ "Konfigurazioa behar bezala berreskuratu da. Orain berau begiratu eta "
-#~ "mantendu nahi izanez gero gorde egin beharko zenuke."
 
 #, fuzzy
-#~ msgid ""
-#~ "Full backup restored successfully. You should now review your "
-#~ "configuration and save it if you want to keep it."
-#~ msgstr ""
-#~ "Babeskopia osoa behar bezala berreskuratu da. Orain zure konfigurazioa "
-#~ "begiratu eta mantendu nahi izanez gero gorde egin beharko zenuke."
 
 #, fuzzy
-#~ msgid ""
-#~ "Configuration restored successfully, you should now review it and save it "
-#~ "if you want to keep it."
-#~ msgstr ""
-#~ "Konfigurazioa behar bezala berreskuratu da. Orain berau begiratu eta "
-#~ "mantendu nahi izanez gero gorde egin beharko zenuke."

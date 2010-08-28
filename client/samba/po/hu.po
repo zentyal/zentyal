@@ -720,15 +720,5 @@ msgstr "Saját mappák"
 msgid "{group} share directory"
 msgstr "{group} megosztási könyvtár"
 
-#~ msgid ""
-#~ "To make NSS use LDAP resolution for user and group accounts. Needed for "
-#~ "Samba PDC configuration."
-#~ msgstr ""
-#~ "Hogy az NSS az LDAP-ot használja felhasználói és csoport hitelesítésre. "
-#~ "Ez szükséges a Samba PDC beállításhoz."
 
-#~ msgid "To let NSS know how to access LDAP accounts"
-#~ msgstr "Hogy az NSS tudja hol találja az LDAP felhasználói fiókokat"
 
-#~ msgid "Incoorect SID: {s}"
-#~ msgstr "Érvénytelen SID: {s}"

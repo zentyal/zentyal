@@ -667,39 +667,10 @@ msgstr "Subnet netmaske"
 msgid "Delete"
 msgstr "Slet"
 
-#~ msgid "eBox"
-#~ msgstr "eBox"
 
-#~ msgid "eBox's domain"
-#~ msgstr "eBox's domæne"
 
-#~ msgid "{name} cannot contain spaces"
-#~ msgstr "{name} må ikke indeholde mellemrum"
 
-#~ msgid "DHCP service status"
-#~ msgstr "DHCP service status"
 
-#~ msgid ""
-#~ "DHCP server cannot activated because there are not any network interface "
-#~ "with a static address. {openhref}Configure one{closehref} first"
-#~ msgstr ""
-#~ "DHCP server kan ikke aktiveres fordi der ikke er et netværk interface med "
-#~ "en statisk adresse. {openhref}Konfigurer en{closehref} først"
 
-#~ msgid ""
-#~ "At least, an interface must set as staticto configure the DHCP service on "
-#~ "it. To do so, change {openhref}interfaces configuration{closehref} in "
-#~ "network module"
-#~ msgstr ""
-#~ "Et interface skal sættes til statisk for at konfigurere DHCP services på "
-#~ "det. Du skal derfor ændre {openhref}interface konfiguration{closehref} i "
-#~ "netværk modulet"
 
-#~ msgid "Advanced Options"
-#~ msgstr "Avancerede muligheder"
 
-#~ msgid ""
-#~ "Unlinked previous uploaded firmware since next server optionhas been "
-#~ "changed from eBox to {option}"
-#~ msgstr ""
-#~ "Slettet gammel firmware da næste server er ændret fra eBox til {option}"

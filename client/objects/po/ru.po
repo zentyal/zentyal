@@ -115,84 +115,24 @@ msgstr "сетевой адрес"
 msgid "{ip} overlaps with the address or another object's member"
 msgstr "{ip} совпадает с другим адресом или членом других объектов"
 
-#~ msgid "Core"
-#~ msgstr "Ядро"
 
-#~ msgid "IP Address"
-#~ msgstr "IP-адрес"
 
-#~ msgid "Object name"
-#~ msgstr "Имя объекта"
 
-#~ msgid ""
-#~ "The name '{name}' is already used to identify another object. Please "
-#~ "choose another name"
-#~ msgstr ""
-#~ "Имя '{name}' уже используется для идентификации другого объекта. Выберите "
-#~ "другое имя"
 
-#~ msgid "Edit Object"
-#~ msgstr "Редактировать объект"
 
-#~ msgid "Netmask"
-#~ msgstr "Маска подсети"
 
-#~ msgid "Deleting object"
-#~ msgstr "Удаление объекта"
 
-#~ msgid ""
-#~ "The object you tried to delete is being used by some modules, please "
-#~ "confirm that you want to delete it."
-#~ msgstr ""
-#~ "Объект, который Вы пытаетесь удалить используется некоторыми модулями. "
-#~ "Пожалуйста, подтвердите Ваше намерение удалить объект."
 
-#~ msgid "Delete"
-#~ msgstr "Удалить"
 
-#~ msgid "Cancel"
-#~ msgstr "Отмена"
 
-#~ msgid "Edit <span class='stitle'>{description}</span> members"
-#~ msgstr "Редактировать <span class='stitle'>{description}</span> членов"
 
-#~ msgid "MAC"
-#~ msgstr "MAC"
 
-#~ msgid "Action"
-#~ msgstr "Действие"
 
-#~ msgid "Add"
-#~ msgstr "Добавить"
 
-#~ msgid "Delete Object"
-#~ msgstr "Удалить Объект"
 
-#~ msgid ""
-#~ "If you delete this object, all the information about its members will be "
-#~ "lost."
-#~ msgstr ""
-#~ "Если Вы удалите этот объект, вся информация о его членах будет утеряна."
 
-#~ msgid "Delete object"
-#~ msgstr "Удалить объект"
 
-#~ msgid "Create new object"
-#~ msgstr "Создать новый объект"
 
-#~ msgid ""
-#~ "The objects that you create here can be used in the rest of the system. "
-#~ "Remember that an IP address cannot belong to more than one object."
-#~ msgstr ""
-#~ "Объекты, которые Вы здесь создали могут быть использованы при простое "
-#~ "системы. Помните, что IP-адрес не может быть связанным более чем с одним "
-#~ "объектом."
 
-#~ msgid "Edit"
-#~ msgstr "Редактировать"
 
-#~ msgid "edit"
-#~ msgstr "редактировать"
 
-#~ msgid "delete"
-#~ msgstr "удалить"

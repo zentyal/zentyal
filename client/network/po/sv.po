@@ -1064,133 +1064,45 @@ msgstr ""
 "att radera relaterade delar av deras konfiguration. Välj avbryt om du inte "
 "är säker på detta."
 
-#~ msgid "eBox"
-#~ msgstr "eBox"
 
-#~ msgid "{up}, {ext}, {link}"
-#~ msgstr "{up}, {ext}, {link}"
 
-#~ msgid "Physical interface"
-#~ msgstr "Fysiskt gränssnitt"
 
-#~ msgid "Vlan interface list"
-#~ msgstr "Lista över VLAN-gränssnitt"
 
-#~ msgid "These are the vlan interfaces which are available in your system."
-#~ msgstr "Dessa är de VLAN-gränssnitt som finns tillgängliga på ditt system."
 
-#~ msgid "interface"
-#~ msgstr "gränssnitt"
 
-#~ msgid "Configurable interface list"
-#~ msgstr "Lista över konfigurerbara gränssnitt"
 
-#~ msgid "These are the interfaces which can be configured"
-#~ msgstr "Dessa är gränssnitten som kan konfigureras"
 
-#~ msgid "Physical interface list"
-#~ msgstr "Lista över fysiska gränssnitt"
 
-#~ msgid ""
-#~ "These are the physical interfaces which are available in your system."
-#~ msgstr ""
-#~ "Dessa är de fysiska gränssnitten som finns tillgängliga på ditt system."
 
-#~ msgid "Dynamic DNS"
-#~ msgstr "Dynamisk DNS"
 
-#~ msgid "Set default gateway"
-#~ msgstr "Ange standardgateway"
 
-#~ msgid "You can change later the gateway at Network/Routes menus item"
-#~ msgstr "Du kan ändra gateway i Nätverk/Rutter menyn"
 
-#~ msgid ""
-#~ "After the initial config you can revisit this page at Network/Interfaces "
-#~ "in the menu"
-#~ msgstr ""
-#~ "Efter den första konfigureringen kan du återvända till denna sida genom "
-#~ "Nätverksgränssnitt menyn"
 
-#~ msgid "Gateway configured"
-#~ msgstr "Gateway konfigurerad"
 
-#~ msgid "You can revisit this page at Network/DNS in the menu"
-#~ msgstr "Du kan återkomma till denna sida i Nätverk/DNS på menyn"
 
-#~ msgid "Network interface configured"
-#~ msgstr "Nätverksgränssnitt konfigurerat"
 
-#~ msgid "Configure name servers"
-#~ msgstr "Konfigurera namnservrar"
 
-#~ msgid "Configure default gateway"
-#~ msgstr "Konfigurera standardgateway"
 
-#~ msgid "Upload"
-#~ msgstr "Sändning"
 
-#~ msgid "Upload rate in Kbits/s for this gateway."
-#~ msgstr "Sändningshastighet i Kbit/s för denna gateway"
 
-#~ msgid "Download"
-#~ msgstr "Hämtning"
 
-#~ msgid "Download rate in Kbits/s for this gateway."
-#~ msgstr "Nedladdningshastighet  i Kbit/s för denna gateway."
 
 #, fuzzy
-#~ msgid "Core"
-#~ msgstr "Kärna"
 
-#~ msgid "Balance traffic and multigateway rules"
-#~ msgstr "Regler för trafikbalansering och multigateway"
 
-#~ msgid "IP Address"
-#~ msgstr "IP-adress"
 
-#~ msgid "Protocol"
-#~ msgstr "Protokoll"
 
-#~ msgid "Port"
-#~ msgstr "Port"
 
-#~ msgid "Leave it blank  to select any port"
-#~ msgstr "Lämna tomt för att välja vilken port somhelst."
 
-#~ msgid "Leave it blank if to select any port"
-#~ msgstr "Lämna tomt för att välja vilken port somhelst."
 
-#~ msgid "Destination port"
-#~ msgstr "Målport"
 
-#~ msgid "Source port"
-#~ msgstr "Källport"
 
-#~ msgid "Port cannot be set if no protocol is selected"
-#~ msgstr "Porten kan inte anges om inget protokoll har valts"
 
-#~ msgid "Routes"
-#~ msgstr "Rutter"
 
-#~ msgid "There is already a default gateway"
-#~ msgstr "Det finns redan en standardgateway"
 
-#~ msgid "gateway address"
-#~ msgstr "gatewayadress"
 
-#~ msgid "Primary"
-#~ msgstr "Primär"
 
-#~ msgid "Secondary"
-#~ msgstr "Sekundär"
 
-#~ msgid "Apply"
-#~ msgstr "Verkställ"
 
 #, fuzzy
-#~ msgid "Source traffic"
-#~ msgstr "Källa"
 
-#~ msgid "network address"
-#~ msgstr "nätverksadress"

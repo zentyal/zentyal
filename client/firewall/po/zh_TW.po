@@ -452,177 +452,56 @@ msgid ""
 "otherwise some services could stop working."
 msgstr ""
 
-#~ msgid "eBox"
-#~ msgstr "eBox"
 
-#~ msgid "redirect"
-#~ msgstr "轉送"
 
-#~ msgid "Packet filtering"
-#~ msgstr "封包過濾"
 
-#~ msgid ""
-#~ "These rules are meant to control access from internal network interfaces "
-#~ "to services running on your eBox machine"
-#~ msgstr "這些規則是控制您的 ebox 機器上的內網介面到執行的服務規則"
 
-#~ msgid "Redirects"
-#~ msgstr "轉送"
 
-#~ msgid "Port redirections"
-#~ msgstr "連接埠轉送"
 
-#~ msgid "Filtering rules from  external networks to eBox"
-#~ msgstr "過濾從外部網路連到 eBox 的規則"
 
-#~ msgid "firewall"
-#~ msgstr "防火牆"
 
-#~ msgid "UTM"
-#~ msgstr "UTM"
 
-#~ msgid "Global firewall configuration"
-#~ msgstr "全域防火牆設置"
 
-#~ msgid "Firewall configuration: {desc}"
-#~ msgstr "防火牆設置: {desc}"
 
-#~ msgid "policy"
-#~ msgstr "政策"
 
-#~ msgid "Global services' filtering rules"
-#~ msgstr "全域服務' 過濾規則"
 
-#~ msgid "Services' filtering rules {desc}"
-#~ msgstr "服務' 過濾規則 {desc}"
 
-#~ msgid "network interface"
-#~ msgstr "網路介面"
 
-#~ msgid "destination address"
-#~ msgstr "目的位址"
 
-#~ msgid "service"
-#~ msgstr "服務"
 
-#~ msgid "Edit rule"
-#~ msgstr "編輯規則"
 
-#~ msgid "Port {port} is being used by a service or port redirection."
-#~ msgstr "連接埠 {port} 已被服務或是連接埠轉送所使用了."
 
-#~ msgid "Actions"
-#~ msgstr "動作"
 
-#~ msgid "Add"
-#~ msgstr "新增"
 
-#~ msgid "Change"
-#~ msgstr "改變"
 
-#~ msgid "Delete"
-#~ msgstr "刪除"
 
 #, fuzzy
-#~ msgid ""
-#~ "Protocol, port and destination address are optional. The rules will be "
-#~ "applied in order, from top to bottom, you can reorder them once they are "
-#~ "added. Rules can also be disabled without deleting them."
-#~ msgstr ""
-#~ "通訊協定,連接埠和目的位址是選擇性的.此規則將會排序,從最上到最下,您可以新增"
-#~ "後重新排序.規則也可以不用刪除只是關閉它."
 
-#~ msgid "Destination address"
-#~ msgstr "目的位址"
 
-#~ msgid "Action"
-#~ msgstr "動作"
 
-#~ msgid "Active"
-#~ msgstr "啟用"
 
-#~ msgid "Allow"
-#~ msgstr "允許"
 
-#~ msgid "Deny"
-#~ msgstr "拒絕"
 
-#~ msgid "Up"
-#~ msgstr "上"
 
-#~ msgid "Down"
-#~ msgstr "下"
 
-#~ msgid "Policy"
-#~ msgstr "政策"
 
-#~ msgid ""
-#~ "Choosing global will make the firewall fall back to the <a href='Object?"
-#~ "object=_global'>default configuration</a>."
-#~ msgstr ""
-#~ "選擇全域將會使防火牆將回復到 <a href='Object?object=_global'>預設設置</a>."
 
-#~ msgid "Global"
-#~ msgstr "全域"
 
-#~ msgid "Services"
-#~ msgstr "服務"
 
-#~ msgid ""
-#~ "Protocol, ports and addresses are optional. The rules will be applied in "
-#~ "order, from top to bottom, you can reorder them once they are added. "
-#~ "Rules can also be disabled without deleting them."
-#~ msgstr ""
-#~ "通訊協定,連接埠和目的位址是選擇性的.此規則將會排序,從最上到最下,您可以新增"
-#~ "後重新排序.規則也可以不用刪除只是關閉它."
 
-#~ msgid "New rule"
-#~ msgstr "新規則"
 
-#~ msgid "Source address"
-#~ msgstr "來源位址"
 
-#~ msgid "is not"
-#~ msgstr "不是"
 
-#~ msgid "is"
-#~ msgstr "是"
 
-#~ msgid "to"
-#~ msgstr "到"
 
-#~ msgid "Rule list"
-#~ msgstr "規則列表"
 
-#~ msgid "allow"
-#~ msgstr "允許"
 
-#~ msgid "allow (disabled)"
-#~ msgstr "允許 (停用)"
 
-#~ msgid "deny"
-#~ msgstr "拒絕"
 
-#~ msgid "deny (disabled)"
-#~ msgstr "拒絕 (停用)"
 
-#~ msgid "inverse match"
-#~ msgstr "反向符合"
 
-#~ msgid "Edit"
-#~ msgstr "編輯"
 
-#~ msgid "delete"
-#~ msgstr "刪除"
 
-#~ msgid "edit"
-#~ msgstr "編輯"
 
-#~ msgid "move up"
-#~ msgstr "上移"
 
-#~ msgid "move down"
-#~ msgstr "下移"
 
-#~ msgid "any"
-#~ msgstr "任何"

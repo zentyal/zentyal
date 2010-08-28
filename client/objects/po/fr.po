@@ -112,85 +112,24 @@ msgstr "adresse réseau"
 msgid "{ip} overlaps with the address or another object's member"
 msgstr "{ip} chevauche avec l'adresse ou un autre membre d'objet"
 
-#~ msgid "Core"
-#~ msgstr "Core"
 
-#~ msgid "IP Address"
-#~ msgstr "Adresse IP"
 
-#~ msgid "Object name"
-#~ msgstr "Nom de l'objet"
 
-#~ msgid ""
-#~ "The name '{name}' is already used to identify another object. Please "
-#~ "choose another name"
-#~ msgstr ""
-#~ "le nom '{name}' est déjà utilisé pour identifier un autre objet. Veuillez "
-#~ "en choisir un autre"
 
-#~ msgid "Edit Object"
-#~ msgstr "Éditer Objet"
 
-#~ msgid "Netmask"
-#~ msgstr "Masque de sous-réseau"
 
-#~ msgid "Deleting object"
-#~ msgstr "En supprimant l'objet"
 
-#~ msgid ""
-#~ "The object you tried to delete is being used by some modules, please "
-#~ "confirm that you want to delete it."
-#~ msgstr ""
-#~ "L'objet que vous tentez de supprimer est utilisé par un modules, veuillez "
-#~ "confimer votre intention de l'effacer."
 
-#~ msgid "Delete"
-#~ msgstr "Effacer"
 
-#~ msgid "Cancel"
-#~ msgstr "Annuler"
 
-#~ msgid "Edit <span class='stitle'>{description}</span> members"
-#~ msgstr "Éditer <span class='stitle'>{description}</span> membres"
 
-#~ msgid "MAC"
-#~ msgstr "MAC"
 
-#~ msgid "Action"
-#~ msgstr "Action"
 
-#~ msgid "Add"
-#~ msgstr "Ajouter"
 
-#~ msgid "Delete Object"
-#~ msgstr "Supprimer l'Objet"
 
-#~ msgid ""
-#~ "If you delete this object, all the information about its members will be "
-#~ "lost."
-#~ msgstr ""
-#~ "Si vous effacez cet objet, toutes les informations sur ses membres seront "
-#~ "perdues."
 
-#~ msgid "Delete object"
-#~ msgstr "Supprimer l'objet"
 
-#~ msgid "Create new object"
-#~ msgstr "Créer nouvel objet"
 
-#~ msgid ""
-#~ "The objects that you create here can be used in the rest of the system. "
-#~ "Remember that an IP address cannot belong to more than one object."
-#~ msgstr ""
-#~ "Les objets que vous créez ici peuvent être utilisés pour le reste du "
-#~ "système. Souvenez-vous qu'une adresse IP peut appartenir à plus d'un "
-#~ "objet."
 
-#~ msgid "Edit"
-#~ msgstr "Éditer"
 
-#~ msgid "edit"
-#~ msgstr "éditer"
 
-#~ msgid "delete"
-#~ msgstr "effacer"

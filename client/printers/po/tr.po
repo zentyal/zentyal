@@ -125,274 +125,98 @@ msgid ""
 "{close_href}"
 msgstr ""
 
-#~ msgid "Model"
-#~ msgstr "Model"
 
-#~ msgid "Add a new printer (II)"
-#~ msgstr "Yeni bir yazıcı ekleme (II)"
 
-#~ msgid "Next"
-#~ msgstr "Sonraki"
 
-#~ msgid "IP"
-#~ msgstr "IP"
 
-#~ msgid "Port"
-#~ msgstr "Bağlantı Noktası"
 
-#~ msgid "Add a new printer (VI)"
-#~ msgstr "Yeni bir yazıcı ekleme (VI)"
 
-#~ msgid "Driver"
-#~ msgstr "Sürücü"
 
-#~ msgid "The printer has been deleted successfully"
-#~ msgstr "Yazıcı başarılı bir şekilde silindi"
 
-#~ msgid "Shared resource"
-#~ msgstr "Paylaşılan kaynak"
 
-#~ msgid "Authentication"
-#~ msgstr "Doğrulama"
 
-#~ msgid "Password"
-#~ msgstr "Şifre"
 
-#~ msgid "Manage printer"
-#~ msgstr "Yazıcıyı düzenle"
 
-#~ msgid "Printer details"
-#~ msgstr "Yazıcı detayları"
 
-#~ msgid "Driver Options"
-#~ msgstr "Sürücü Seçenekleri"
 
-#~ msgid "Configuration options"
-#~ msgstr "Yapılandırma seçenekleri"
 
-#~ msgid "Jobs Queue"
-#~ msgstr "İşlerin Sırası"
 
-#~ msgid "Printer's name"
-#~ msgstr "Yazıcının Adı"
 
-#~ msgid "Printer's id"
-#~ msgstr "Yazıcı Seri No"
 
-#~ msgid "Job id"
-#~ msgstr "İş Seri No"
 
-#~ msgid "Job was successfully canceled"
-#~ msgstr "İş başarıyla iptal edildi"
 
-#~ msgid "Add a new printer (IV)"
-#~ msgstr "Yeni bir yazıcı ekleme (IV)"
 
-#~ msgid "Device"
-#~ msgstr "Aygıt"
 
-#~ msgid "Manage printers"
-#~ msgstr "Yazıcıları Düzenle"
 
-#~ msgid "Delete printer"
-#~ msgstr "Yazıcıyı Sil"
 
-#~ msgid "Add a new printer (V)"
-#~ msgstr "Yeni bir yazıcı ekleme (V)"
 
-#~ msgid "Method"
-#~ msgstr "Yöntem"
 
-#~ msgid "Printer description"
-#~ msgstr "Yazıcı tanımı"
 
-#~ msgid "Manufacturer"
-#~ msgstr "Üretici"
 
-#~ msgid "Add a new printer (III)"
-#~ msgstr "Yeni bir yazıcı ekleme (III)"
 
-#~ msgid "Add a new printer (I)"
-#~ msgstr "Yeni bir yazıcı ekleme (I)"
 
 #, fuzzy
-#~ msgid "To add and manage printers"
-#~ msgstr "Yazıcıları Düzenle"
 
 #, fuzzy
-#~ msgid "Add Printer"
-#~ msgstr "Yazıcı Ekle"
 
-#~ msgid ""
-#~ "The printer's name contains characters not valid.Only alphanumeric "
-#~ "characters are allowed"
-#~ msgstr ""
-#~ "Yazıcının isminde kullanılan karakterler geçerli değildir. Sadece metin "
-#~ "ve rakamların birlikte kullanıldığı karakterlere izin verilmektedir."
 
-#~ msgid "Name"
-#~ msgstr "İsim"
 
-#~ msgid "The given name is alreaday used as "
-#~ msgstr "Verilen isim zaten kullanılmaktadır."
 
-#~ msgid "It is not a usb printer"
-#~ msgstr "Bu bir usb yazıcı değildir"
 
-#~ msgid "It is not a parallel printer"
-#~ msgstr "Bu bir paralel yazıcı değildir"
 
-#~ msgid "It is not a network printer"
-#~ msgstr "Bu bir ağ yazıcısı değildir"
 
-#~ msgid "It is not a samba printer"
-#~ msgstr "Bu bir samba yazıcısı değildir"
 
 #, fuzzy
-#~ msgid "It is not a IPP printer"
-#~ msgstr "Bu bir usb yazıcı değildir"
 
 #, fuzzy
-#~ msgid "It is not a LPD printer"
-#~ msgstr "Bu bir usb yazıcı değildir"
 
-#~ msgid "is not a valid option"
-#~ msgstr "geçerli bir seçenek değildir"
 
-#~ msgid "Parameter '{name}' does not exist"
-#~ msgstr "'{name}' parametresi bulunmamaktadır"
 
-#~ msgid "Owner"
-#~ msgstr "Sahibi"
 
-#~ msgid "Queued at"
-#~ msgstr "Sıradadır"
 
-#~ msgid "Set printer name and method"
-#~ msgstr "Yazıcı adını ve yöntemini belirleyin"
 
-#~ msgid "Parallel"
-#~ msgstr "Paralel"
 
-#~ msgid "Samba"
-#~ msgstr "Samba"
 
-#~ msgid "Choose manufacturer"
-#~ msgstr "Üretici Firma seçin"
 
-#~ msgid "Local parallel printer configuration"
-#~ msgstr "Yerel paralel yazıcı yapılandırması"
 
-#~ msgid "Are you sure you want to delete the printer '{name}'?"
-#~ msgstr "Yazıcıyı '{name}' silmek istediğinize emin misiniz?"
 
-#~ msgid "Cancel"
-#~ msgstr "İptal"
 
-#~ msgid "Local USB printer configuration"
-#~ msgstr "Yerel USB yazıcı yapılandırması"
 
-#~ msgid "Change"
-#~ msgstr "Değiştir"
 
-#~ msgid "Job queue"
-#~ msgstr "İş kuyruğu"
 
-#~ msgid "Size(KB)"
-#~ msgstr "Boyut(KB)"
 
-#~ msgid "Creation time"
-#~ msgstr "Yaratma zamanı"
 
-#~ msgid "Action"
-#~ msgstr "Faaliyet"
 
-#~ msgid "This printer has no pending job in queue at the moment"
-#~ msgstr "Şu an için yazıcının kuyrukta bekleyen işi yoktur"
 
 #, fuzzy
-#~ msgid "Print Test Page"
-#~ msgstr "Yazıcının Adı"
 
-#~ msgid "Driver options"
-#~ msgstr "Sürücü seçenekleri"
 
-#~ msgid "Choose a printer model"
-#~ msgstr "Bir yazıcı modeli seçin"
 
 #, fuzzy
-#~ msgid "Configure IPP printer"
-#~ msgstr "Uzaktaki yazıcıyı yapılandır"
 
-#~ msgid "Choose a driver for the printer"
-#~ msgstr "Yazıcı için bir sürücü seçin"
 
 #, fuzzy
-#~ msgid "Configure LPD printer"
-#~ msgstr "Uzaktaki yazıcıyı yapılandır"
 
-#~ msgid "Choose a dirver for the printer"
-#~ msgstr "Yazıcı için bir sürücü seçin"
 
-#~ msgid "driver"
-#~ msgstr "sürücü"
 
-#~ msgid "Go"
-#~ msgstr "Git"
 
-#~ msgid "Samba shared printer configurationr"
-#~ msgstr "Samba paylaşımlı yazıcı yapılandırması"
 
-#~ msgid "Share resource"
-#~ msgstr "Kaynağı paylaş"
 
-#~ msgid "Anonymous"
-#~ msgstr "İsimsiz"
 
-#~ msgid "Guest"
-#~ msgstr "Konuk"
 
-#~ msgid "User/Password"
-#~ msgstr "Kullanıcı/Şifre"
 
-#~ msgid "Remote printer configuration"
-#~ msgstr "Uzaktaki yazıcı yapılandırması"
 
 #, fuzzy
-#~ msgid "Configure AppSocket printer"
-#~ msgstr "Uzaktaki yazıcıyı yapılandır"
 
-#~ msgid "Samba shared printer configuration"
-#~ msgstr "Samba paylaşımlı yazıcı yapılandırması"
 
-#~ msgid "List of printers"
-#~ msgstr "Yazıcıların listesi"
 
-#~ msgid "Description"
-#~ msgstr "Tanım"
 
-#~ msgid "Actions"
-#~ msgstr "Faaliyetler"
 
-#~ msgid "Manage"
-#~ msgstr "Düzenle"
 
-#~ msgid "Manage this printer"
-#~ msgstr "Bu yazıcıyı düzenle"
 
 #, fuzzy
-#~ msgid "There is no printer configured yet"
-#~ msgstr "Uzaktaki yazıcı yapılandırması"
 
 #, fuzzy
-#~ msgid "printers"
-#~ msgstr "Yazıcılar"
 
-#~ msgid "module status"
-#~ msgstr "modül durumu"
 
-#~ msgid "Network printer"
-#~ msgstr "Ağ yazıcısı"
 
-#~ msgid "Printer sharing status"
-#~ msgstr "Yazıcı paylaşım durumu"

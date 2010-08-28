@@ -34,10 +34,6 @@ use lib '../../..';
 
 use EBox::MailFilter;
 
-
-
-
-
 sub modNameAndClass
 {
     return ('mailfilter', 'EBox::MailFilter');
@@ -51,7 +47,7 @@ sub _standardDbContent
                date => '2008-08-25 09:59:40',
                event => 'CLEAN',
                action => 'Passed',
-               from_address => 'spam@warp.es',
+               from_address => 'spam@zentyal.org',
                to_address => 'macaco@monos.org',
                spam_hits => 3.564,
               },
@@ -59,7 +55,7 @@ sub _standardDbContent
                date => '2008-08-25 09:59:40',
                event => 'CLEAN',
                action => 'Passed',
-               from_address => 'spam@warp.es',
+               from_address => 'spam@zentyal.org',
                to_address => 'macaco@monos.org',
                spam_hits => 3.564
               },
@@ -67,7 +63,7 @@ sub _standardDbContent
                date => '2008-08-25 10:01:06',
                event => 'INFECTED',
                action => 'Blocked',
-               from_address => 'spam@warp.es',
+               from_address => 'spam@zentyal.org',
                to_address => 'macaco@monos.org',
                spam_hits =>  '',
               },
@@ -75,7 +71,7 @@ sub _standardDbContent
                date => '2008-08-25 10:01:06',
                event => 'INFECTED',
                action => 'Blocked',
-               from_address => 'spam@warp.es',
+               from_address => 'spam@zentyal.org',
                to_address => 'macaco@monos.org',
                spam_hits => '',
               },
@@ -83,7 +79,7 @@ sub _standardDbContent
                date => '2008-08-25 10:01:09',
                event => 'CLEAN',
                action => 'Passed',
-               from_address => 'spam@warp.es',
+               from_address => 'spam@zentyal.org',
                to_address => 'macaco@monos.org',
                spam_hits => 2.836
               },
@@ -91,7 +87,7 @@ sub _standardDbContent
                date => '2008-08-25 10:01:09',
                event => 'CLEAN',
                action => 'Passed',
-               from_address => 'spam@warp.es',
+               from_address => 'spam@zentyal.org',
                to_address => 'macaco@monos.org',
                spam_hits => 2.836
               },
@@ -99,7 +95,7 @@ sub _standardDbContent
                date => '2008-08-25 10:01:36',
                event => 'SPAM',
                action => 'Passed',
-               from_address => 'spam@warp.es',
+               from_address => 'spam@zentyal.org',
                to_address => 'macaco@monos.org',
                spam_hits => 6.786
               },
@@ -107,7 +103,7 @@ sub _standardDbContent
                date => '2008-08-25 10:01:36',
                event => 'SPAM',
                action => 'Passed',
-               from_address => 'spam@warp.es',
+               from_address => 'spam@zentyal.org',
                to_address => 'macaco@monos.org',
                spam_hits => 6.786
               },
@@ -115,8 +111,8 @@ sub _standardDbContent
                date => '2008-08-25 10:17:48',
                event => 'CLEAN',
                action => 'Passed',
-               from_address => 'root@intrepid.lan.hq.warp.es',
-               to_address => 'root@intrepid.lan.hq.warp.es',
+               from_address => 'root@foo.bar.baz.zentyal.org',
+               to_address => 'root@foo.bar.baz.zentyal.org',
                spam_hits => 1.406
               },
 

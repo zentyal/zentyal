@@ -274,64 +274,20 @@ msgid "edit"
 msgstr "Düzenle"
 
 #, fuzzy
-#~ msgid "Owner domain"
-#~ msgstr "Alan"
 
 #, fuzzy
-#~ msgid "Domain Name System"
-#~ msgstr "Alan ismi"
 
-#~ msgid "Hostname"
-#~ msgstr "Makine ismi"
 
-#~ msgid "hostname"
-#~ msgstr "Makine ismi"
 
-#~ msgid "IP address"
-#~ msgstr "IP adresi"
 
-#~ msgid "Alias name"
-#~ msgstr "Takma ad"
 
-#~ msgid "module status"
-#~ msgstr "Modul durumu"
 
-#~ msgid "domain name"
-#~ msgstr "Alan ismi"
 
-#~ msgid ""
-#~ "The domain '{name}' is already used. Please choose another domain name"
-#~ msgstr "'{name}' alan ismi kullanımda. Lütfen farklı bir alan ismi girin"
 
-#~ msgid "Host name can't contain dots"
-#~ msgstr "Makina isminde nokta kullanamazsınız"
 
-#~ msgid ""
-#~ "The host name '{name}' is already used. Please choose another host name"
-#~ msgstr ""
-#~ "'{name}' makina ismi kullanımda. Lütfen farklı bir makina ismi girin"
 
-#~ msgid ""
-#~ "The IP address '{ip}' is already used. Please choose another IP address"
-#~ msgstr "'{ip}' IP adresi kullanımda. Lütfen farklı bir IP adresi girin"
 
-#~ msgid "An alias can't contain dots"
-#~ msgstr "Takma isimlerde nokta kullanamazsınız"
 
-#~ msgid ""
-#~ "The alias '{name}' is already used as a host name. Please choose another "
-#~ "alias"
-#~ msgstr "'{name}' takma ismi kullanımda. Lütfen farklı bir takma isim girin"
 
-#~ msgid ""
-#~ "The alias '{name}' is already used as alias in the host '{host}'. Please "
-#~ "choose another alias"
-#~ msgstr ""
-#~ "'{name}' takma ismi '{host}' makina ile eşleşmiş durumda. Lütfen farklı "
-#~ "bir takma isim girin "
 
-#~ msgid "DNS service status"
-#~ msgstr "DNS servis durumu"
 
-#~ msgid "Domain name"
-#~ msgstr "Alan ismi"

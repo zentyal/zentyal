@@ -440,92 +440,26 @@ msgstr ""
 msgid "Configuration and Status"
 msgstr "Konfigurering og Status"
 
-#~ msgid ""
-#~ "If you choose {brand} or file system methods , then the destination field "
-#~ "may be the target directory in the backup server"
-#~ msgstr ""
-#~ "Hvis du velger {brand} eller fil system metoder, vil mål feltet bli mål "
-#~ "mappe på sikkerhetskopi serveren"
 
-#~ msgid "There is no information about the backuped files yet"
-#~ msgstr "Det er ingen informasjon om sikkerhetskopierte filer enda"
 
-#~ msgid "Number of full copies to keep"
-#~ msgstr "Antall fulle kopier som skal beholdes"
 
-#~ msgid "exclude"
-#~ msgstr "eksluder"
 
-#~ msgid "Exclude regexp"
-#~ msgstr "Eksluder regxp"
 
-#~ msgid "General remote backup server configuration"
-#~ msgstr "Generell ekstern sikkerhetskopi server konfigurering"
 
-#~ msgid ""
-#~ "You can create your <i>eBox Remote Storage</i> account in our {ohref}on-"
-#~ "line store{chref}. Use this service to have a quick and safe remote "
-#~ "location to store your data"
-#~ msgstr ""
-#~ "Du kan opprette din <i>eBox Remote Storage</i> konto i vår {ohref}on-line "
-#~ "store{chref}. Bruk denne tjenesten for å ha en rask og sikker ekstern "
-#~ "kilde å lagre dine data"
 
-#~ msgid ""
-#~ "By creating the iBackup account through this {ohref}link{chref} you "
-#~ "support the development of eBox with no extra charge"
-#~ msgstr ""
-#~ "Ved å opprette iBackup kontoen gjennom dette {ohref}link{chref} Støtter "
-#~ "du utviklingen av eBox uten ekstra kostnad"
 
-#~ msgid "Backup module"
-#~ msgstr "Sikkerhetskopi module"
 
-#~ msgid "Hostname"
-#~ msgstr "Vertsnavn"
 
-#~ msgid "Status"
-#~ msgstr "Status"
 
-#~ msgid "Last Update"
-#~ msgstr "Siste Oppdatering"
 
-#~ msgid "Days to Keep"
-#~ msgstr "Beholde antall dager"
 
-#~ msgid "Size"
-#~ msgstr "Størrelse"
 
-#~ msgid "Hosts"
-#~ msgstr "Verter"
 
-#~ msgid "Local backup directory {p} does not exist"
-#~ msgstr "Lokal sikkerhetskopi mappe {p} eksisterer ikke"
 
-#~ msgid "Days to keep"
-#~ msgstr "Beholde antall dager"
 
-#~ msgid "Local Backup Configuration"
-#~ msgstr "Lokal Sikkerhetskopi Konfigurering"
 
-#~ msgid ""
-#~ "Local backup configuration. If the module is enabled the backup will be "
-#~ "scheduled to be done daily"
-#~ msgstr ""
-#~ "Lokal sikkerhetskopi konfigurering. Hvis modulen er aktivert vil "
-#~ "sikkerhetskopien bli utført daglig"
 
-#~ msgid "Local backup configuration updated."
-#~ msgstr "Lokal sikkerhetskopi konfigurasjon oppdatert."
 
-#~ msgid "Install /etc/cron.daily/ebox-ebackup-cron."
-#~ msgstr "Installer /etc/cron.daily/ebox-ebackup-cron."
 
-#~ msgid "eBox will run a nightly script to backup your system."
-#~ msgstr "eBox vil kjøre et natt skript for å sikkerhetskopiere ditt system."
 
-#~ msgid "Local backup configuration."
-#~ msgstr "Lokal sikkerhetskopi konfigurasjon."
 
-#~ msgid "Core"
-#~ msgstr "Kjerne"

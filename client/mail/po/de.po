@@ -1319,306 +1319,95 @@ msgstr ""
 msgid "Change"
 msgstr "Ändern"
 
-#~ msgid "External mail address"
-#~ msgstr "Externe Mail-Adresse"
 
-#~ msgid "size in Mb"
-#~ msgstr "Größe in MB"
 
-#~ msgid "Create alias mail account to group"
-#~ msgstr "Ein E-Mail-Alias für eine Gruppe generieren"
 
-#~ msgid ""
-#~ "When the last member of a group is removed, the mail alias account will "
-#~ "be deleted"
-#~ msgstr ""
-#~ "Wenn das letzte Mitglied einer Gruppe entfernt wurde, wird das E-Mail-"
-#~ "Alias gelöscht"
 
-#~ msgid "Message"
-#~ msgstr "Nachricht"
 
-#~ msgid "Operate"
-#~ msgstr "Verarbeiten"
 
-#~ msgid "maildir size"
-#~ msgstr "Grösse des Postfachs"
 
-#~ msgid "Default maildir size (MB)"
-#~ msgstr "Grösse des Standardpostfachs (MB)"
 
-#~ msgid "mail"
-#~ msgstr "Mail"
 
-#~ msgid "To add the LDAP schemas used by eBox mail"
-#~ msgstr "Um LDAP-Schemas hinzuzufügen, welche von eBox Mail verwendet werden"
 
 #, fuzzy
-#~ msgid "Communications"
-#~ msgstr "Authentifizierung"
 
-#~ msgid "SSL Support"
-#~ msgstr "SSL-Unterstützung"
 
-#~ msgid "No"
-#~ msgstr "Nein"
 
-#~ msgid "Optional"
-#~ msgstr "Optional"
 
-#~ msgid "Required"
-#~ msgstr "Erforderlich"
 
-#~ msgid "Add {user} to {group} group"
-#~ msgstr "Füge {user} zur Gruppe {group} hinzu"
 
-#~ msgid "To allow {daemon} to connect with {otherDaemon} via unix socket"
-#~ msgstr ""
-#~ "Um {daemon} die Verbindung zu {otherDaemon} über unix socket zu erlauben"
 
-#~ msgid "To let courier know how to access LDAP"
-#~ msgstr "Um courier mitzuteilen, wie es auf LDAP zugreift"
 
-#~ msgid "To configure courier POP3"
-#~ msgstr "Um courier POP3 zu konfigurieren"
 
-#~ msgid "To configure POP3 with SSL support"
-#~ msgstr "Um courier POP3 mit SSL-Unterstützung zu konfigurieren"
 
-#~ msgid "To configure IMAP with SSL support"
-#~ msgstr "Um IMAP mit SSL-Unterstützung zu konfigurieren"
 
-#~ msgid "To configure saslauthd to authenticate against LDAP "
-#~ msgstr ""
-#~ "Um saslauthd so zu konfigurieren, dass es sich am LDAP authentifiziert"
 
-#~ msgid "To configure saslauthd to use LDAP"
-#~ msgstr "Um saslauthd so zu konfigurieren, dass es LDAP verwendet"
 
-#~ msgid "Relay denied by the smarthost"
-#~ msgstr "Weiterleitung vom Smarthost verweigert"
 
-#~ msgid "Add postfix to sasl group"
-#~ msgstr "Füge postfix zur Gruppe sasl hinzu"
 
-#~ msgid "eBox will execute /usr/sbin/postalias /etc/aliases "
-#~ msgstr "eBox wird /usr/sbin/postalias /etc/aliases  ausführen"
 
-#~ msgid "Mail system"
-#~ msgstr "E-Mail-System"
 
-#~ msgid "vdomain"
-#~ msgstr "Virtuelle Domäne"
 
-#~ msgid "Message size limit"
-#~ msgstr "Beschränkung der Nachrichtengrösse"
 
-#~ msgid "relay"
-#~ msgstr "Weiterleitung"
 
-#~ msgid "remote IP"
-#~ msgstr "IP der Gegenstelle"
 
-#~ msgid "{ip} is not a valid ip address"
-#~ msgstr "{ip} ist keine gültige IP-Adresse"
 
-#~ msgid "{ip} cannot be reached by any configured interface"
-#~ msgstr ""
-#~ "{ip} kann durch keine der konfigurierten Netzwerkkarten erreicht werden"
 
-#~ msgid "{ip} can be reached by more than one configured interface"
-#~ msgstr ""
-#~ "{ip} kann durch mehr als eine konfigurierte Netzwerkkarte erreicht werden"
 
-#~ msgid "port"
-#~ msgstr "Port"
 
-#~ msgid "message size"
-#~ msgstr "Grösse der Nachricht"
 
-#~ msgid "Yes"
-#~ msgstr "Ja"
 
-#~ msgid "TLS support is required by the authentication system"
-#~ msgstr "TLS-Unterstützung wird vom Anmelde-System vorausgesetzt"
 
-#~ msgid "Services"
-#~ msgstr "Dienste"
 
-#~ msgid "Service"
-#~ msgstr "Dienst"
 
-#~ msgid "Apply Changes"
-#~ msgstr "Änderungen anwenden"
 
-#~ msgid ""
-#~ "A value of 0 for the maximum message size and maximum mail account size "
-#~ "stands for no size limitation."
-#~ msgstr ""
-#~ "Der Wert \"0\" für die Nachrichtengrösse oder Grösse des E-Mail-Konto "
-#~ "hebt die Beschränkung auf"
 
-#~ msgid "Maximum message size accepted by the mail server"
-#~ msgstr "Maximale Grösse der Nachrichten, die vom Server akzeptiert werden"
 
-#~ msgid "Size (MB)"
-#~ msgstr "Grösse (in MB)"
 
-#~ msgid ""
-#~ "You should move to allowed column those objects you want to allow sending "
-#~ "mail through this module."
-#~ msgstr ""
-#~ "Sie sollten die Objekte, welche E-Mails mit diesem Modul versenden "
-#~ "dürfen, in die Spalte \"Erlaubt\" veschieben"
 
-#~ msgid ""
-#~ "Choose the object whose state you want to change and click on the arrow "
-#~ "to move it to the desired column."
-#~ msgstr ""
-#~ "Wählen Sie das Objekt, dessen Status Sie ändern möchten und klicken Sie "
-#~ "auf die Pfeile, um es in die gewünschte Spalte zu verschieben"
 
-#~ msgid "Denied"
-#~ msgstr "Verweigert"
 
-#~ msgid "Empty list"
-#~ msgstr "Liste ist leer"
 
-#~ msgid "Allow"
-#~ msgstr "Erlauben"
 
-#~ msgid "Move selected objects to the allowed column"
-#~ msgstr "Bewegen Sie die gewählten Objekte in die Spalte \"Erlaubt\""
 
-#~ msgid "Deny"
-#~ msgstr "Verweigern"
 
-#~ msgid "Move selected objects to the denied column"
-#~ msgstr "Bewegen Sie die gewählten Objekte in die Spalte \"Verweigert\""
 
-#~ msgid "Apply"
-#~ msgstr "Anwenden"
 
-#~ msgid "Default maximum mail account size"
-#~ msgstr "Standardwert für Postfachgrösse"
 
-#~ msgid "Force the change to the existing accounts"
-#~ msgstr "Die Änderungen auf die vorhandenen Konten anwenden"
 
-#~ msgid "Maildir size for {vdomain} virtual domain"
-#~ msgstr "Postfachgrösse für die virtuelle Domäne {vdomain}"
 
-#~ msgid "Add a new virtual domain"
-#~ msgstr "Eine virtuelle Domäne hinzufügen"
 
-#~ msgid "Default maildir size"
-#~ msgstr "Grösse des Standardpostfachs"
 
-#~ msgid "(MB)"
-#~ msgstr "(MB)"
 
-#~ msgid "Add"
-#~ msgstr "Hinzufügen"
 
 #, fuzzy
-#~ msgid "Unlimited"
-#~ msgstr "Uneingeschränkt"
 
-#~ msgid "Maildir Size"
-#~ msgstr "Postfachgrösse"
 
-#~ msgid "Edit"
-#~ msgstr "Bearbeiten"
 
-#~ msgid "smarthost ip"
-#~ msgstr "P des Smarthost"
 
-#~ msgid "IP address of smarthost to send mail"
-#~ msgstr "IP-Adresse eines Smarthost, der E-Mails versendet"
 
-#~ msgid "mail system status"
-#~ msgstr "Status des E-Mail Systems"
 
-#~ msgid "Unknown filter {filter}"
-#~ msgstr "Unbekannter Filter {filter}"
 
-#~ msgid "Service status"
-#~ msgstr "Status des Dienstes"
 
-#~ msgid "Deleting virtual domain"
-#~ msgstr "Lösche virtuelle Domäne"
 
 #, fuzzy
-#~ msgid "There are no users in the group or the users do not "
-#~ msgstr ""
-#~ "#-#-#-#-#  de.po (ebox-mail 0.9)  #-#-#-#-#\n"
-#~ "#-#-#-#-#  de.po (ebox-mail 0.8.99)  #-#-#-#-#\n"
-#~ "Entweder sind keine Benutzer in dieser Gruppe oder die Benutzer gibt es "
-#~ "nicht"
 
-#~ msgid "POP3"
-#~ msgstr "POP3"
 
-#~ msgid "IMAP"
-#~ msgstr "IMAP"
 
-#~ msgid "Changing maildir size of"
-#~ msgstr "Ändern der Postfachgrösse von"
 
-#~ msgid "Page"
-#~ msgstr "Seite"
 
-#~ msgid "of"
-#~ msgstr "von"
 
-#~ msgid "module status"
-#~ msgstr "Status des Moduls"
 
-#~ msgid "External Filter"
-#~ msgstr "Externer Filter"
 
-#~ msgid "Local port"
-#~ msgstr "Lokaler Port"
 
-#~ msgid "Remote IP address"
-#~ msgstr "IP-Adresse der Gegenstelle"
 
-#~ msgid "Remote Port"
-#~ msgstr "Port der Gegenstelle"
 
-#~ msgid " is not a valid ip address"
-#~ msgstr "ist keine gültige IP-Adresse"
 
-#~ msgid " cannot be reached by any configured interface"
-#~ msgstr "Kann durch keines der konfigurierten Netzwerkkarten erreicht werden"
 
-#~ msgid " can be reached by more than one configured interface"
-#~ msgstr ""
-#~ "Kann durch mehr als eine konfigurierte Netzwerkkarte erreicht werden"
 
-#~ msgid ""
-#~ "The following settings only will take effect when the mail module will be "
-#~ "enabled"
-#~ msgstr ""
-#~ "Die folgenden Einstellungen werden nur angewendet, wenn das Modul "
-#~ "aktiviert ist"
 
-#~ msgid "There is not any message at the queue or the service is stopped"
-#~ msgstr ""
-#~ "In dieser Warteschlange hat es keine Nachrichten oder der Dienst ist "
-#~ "gestoppt"
 
-#~ msgid "Account do not exists"
-#~ msgstr "Konto gibt es nicht"
 
-#~ msgid "Relay policy for objects"
-#~ msgstr "Weiterleitungspolitik für Objekte"
 
-#~ msgid "Allowed"
-#~ msgstr "Erlaubt"
 
-#~ msgid "Filter's IP address"
-#~ msgstr "IP-Adresse des Filters"
 
-#~ msgid "Filter's Port"
-#~ msgstr "Filterport"

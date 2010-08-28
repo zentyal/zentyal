@@ -451,143 +451,46 @@ msgid "Connected"
 msgstr "Verbindungsfehler"
 
 #, fuzzy
-#~ msgid "eBox Control Center"
-#~ msgstr "Zentrale Einstellungen"
 
-#~ msgid "Control center"
-#~ msgstr "Zentrale Einstellungen"
 
 #, fuzzy
-#~ msgid "Control Center Client"
-#~ msgstr "Zentrale Einstellungen"
 
 #, fuzzy
-#~ msgid "Control Center"
-#~ msgstr "Zentrale Einstellungen"
 
 #, fuzzy
-#~ msgid "Remote support accesss"
-#~ msgstr "Fernwartung"
 
 #, fuzzy
-#~ msgid "eBox Control Center is paid services to enhance your eBox experience"
-#~ msgstr ""
-#~ "Bei der Fernwartungs Funktion der eBox handelt es sich um einen Bezahl "
-#~ "Service zur Erweiterung Ihres eBox Erlebnisses"
 
-#~ msgid "User name"
-#~ msgstr "Benutzername"
 
-#~ msgid "field1"
-#~ msgstr "Feld1"
 
-#~ msgid "field2"
-#~ msgstr "Feld2"
 
-#~ msgid "Settings"
-#~ msgstr "Einstellungen"
 
-#~ msgid "Composite"
-#~ msgstr "Zusammenfassung"
 
-#~ msgid "eBox remote services"
-#~ msgstr "eBOX Remote Funktionen"
 
 #, fuzzy
-#~ msgid "Remote Services Subscription"
-#~ msgstr "Indexierung des Fernwartungs Service"
 
-#~ msgid "Key for service proxy not found"
-#~ msgstr "Kein Schlüssel für den Proxy Dienst vorhanden"
 
-#~ msgid ""
-#~ "Cannot proceed with your request because it was a connection problem. "
-#~ "Possible causes are:"
-#~ msgstr ""
-#~ "Ihre Anfrage konnte nicht bearbeitet werden da es ein Verbindungsproblem "
-#~ "gab. Mögliche Ursachen sind:"
 
-#~ msgid "Your computer has not internet connection"
-#~ msgstr "Ihr Computer verfügt über keine Internet Anbindung"
 
-#~ msgid "Firewall is blocking the connection. Try to restart firewall module"
-#~ msgstr ""
-#~ "Die Verbindung wird von der Firewall verhindert. Versuchen Sie den "
-#~ "Firewall Dienst neu zu Starten."
 
-#~ msgid "Your computer has not a correct system date"
-#~ msgstr "Die Datums Einstellungen Ihres Computers sind nicht in Ordnung"
 
-#~ msgid "You are using the wrong certificates"
-#~ msgstr "Sie benutzen die falschen Certificate"
 
-#~ msgid "This eBox has been removed from your registered eBoxes"
-#~ msgstr "Diese eBox wurden von Ihren registrieten eBoxes gelöscht"
 
-#~ msgid "Name"
-#~ msgstr "Name"
 
-#~ msgid "Date"
-#~ msgstr "Datum"
 
-#~ msgid "Archive size"
-#~ msgstr "Größe des Archives"
 
-#~ msgid "Cancel"
-#~ msgstr "Abbrechen"
 
-#~ msgid "eBox host"
-#~ msgstr "eBox Host"
 
-#~ msgid "Download"
-#~ msgstr "Herunterladen"
 
-#~ msgid "restore"
-#~ msgstr "Wiederherstellen"
 
-#~ msgid "download"
-#~ msgstr "herunterladen"
 
-#~ msgid "Backups' list"
-#~ msgstr "Liste aller Sicherungen"
 
-#~ msgid "User"
-#~ msgstr "Benutzer"
 
-#~ msgid "Submit"
-#~ msgstr "Übermitteln"
 
-#~ msgid "Enter user and password"
-#~ msgstr "Benutzer und Passwort eingeben"
 
-#~ msgid "Back up"
-#~ msgstr "Daten sichern"
 
-#~ msgid "Back up the current configuration state"
-#~ msgstr "Momentane Einstellungen werden gesichert"
 
-#~ msgid ""
-#~ "Backup is disabled because there are unsaved configuration changes. "
-#~ "Please, save or discard them to be able to backup the configuration"
-#~ msgstr ""
-#~ "Die Sicherung der Konfiguration ist deaktiviert, weil es ungespeicherte "
-#~ "Änderungen der Konfiguration gibt. Bitte speichern oder verwerfen Sie die "
-#~ "Änderungen"
 
-#~ msgid "delete"
-#~ msgstr "Löschen"
 
-#~ msgid "Configuration backups' list"
-#~ msgstr "Liste der gesicherten Einstellungen"
 
-#~ msgid ""
-#~ "This feature is only available if you get eBox  Services. You can "
-#~ "contract them at {url1}. If you are already registered, then subscribe "
-#~ "this eBox at {url2}"
-#~ msgstr ""
-#~ "Dieses Feature ist nur dann verfügbar, wenn Sie eBox  Services beziehen. "
-#~ "Sie können diese hier {url1} bestellen. Sollten Sie schon registriert "
-#~ "sein, melden Sie diese ebox hier {url2}"
 
-#~ msgid "subscription page"
-#~ msgstr "Einstellungen der Indexierung"

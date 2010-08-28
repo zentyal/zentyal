@@ -448,85 +448,25 @@ msgstr "Восстановление служб"
 msgid "Configuration and Status"
 msgstr "Конфигурация и состояние"
 
-#~ msgid "There is no information about the backuped files yet"
-#~ msgstr "Пока не существует какой-либо информации о файлах бэкапа"
 
-#~ msgid "Number of full copies to keep"
-#~ msgstr "Число хранимых полных копий"
 
-#~ msgid "exclude"
-#~ msgstr "исключить"
 
-#~ msgid "Exclude regexp"
-#~ msgstr "Исключить по регулярному выражению"
 
-#~ msgid "General remote backup server configuration"
-#~ msgstr "Общие настройки сервера удаленного бэкапа"
 
-#~ msgid ""
-#~ "You can create your <i>eBox Remote Storage</i> account in our {ohref}on-"
-#~ "line store{chref}. Use this service to have a quick and safe remote "
-#~ "location to store your data"
-#~ msgstr ""
-#~ "Вы можете создать <i>eBox Remote Storage</i> акаунт в нашей {ohref}on-"
-#~ "line store{chref}. Используйте этот сервис чтобы иметь быстрое и "
-#~ "безапасное хранилище"
 
-#~ msgid ""
-#~ "By creating the iBackup account through this {ohref}link{chref} you "
-#~ "support the development of eBox with no extra charge"
-#~ msgstr ""
-#~ "Создав аккаунт iBackup используя ссылку {ohref}link{chref} вы оказываете "
-#~ "поддержку разработчикам eBox"
 
-#~ msgid "Backup module"
-#~ msgstr "Модуль резервного копирования"
 
-#~ msgid "Hostname"
-#~ msgstr "Имя хост-машины"
 
-#~ msgid "Status"
-#~ msgstr "Состояние"
 
-#~ msgid "Last Update"
-#~ msgstr "Последнее обновление"
 
-#~ msgid "Days to Keep"
-#~ msgstr "Длительность хранения (дней)"
 
-#~ msgid "Size"
-#~ msgstr "Размер"
 
-#~ msgid "Hosts"
-#~ msgstr "Хосты"
 
-#~ msgid "Local backup directory {p} does not exist"
-#~ msgstr "Локальный каталог резервного копирования {p} не существует"
 
-#~ msgid "Days to keep"
-#~ msgstr "Хранить (дней)"
 
-#~ msgid "Local Backup Configuration"
-#~ msgstr "Локальные настройки резервного копирования"
 
-#~ msgid ""
-#~ "Local backup configuration. If the module is enabled the backup will be "
-#~ "scheduled to be done daily"
-#~ msgstr ""
-#~ "Настройка локальных резервных копий. Если модуль включен резервирование "
-#~ "будет происходить ежедневно."
 
-#~ msgid "Local backup configuration updated."
-#~ msgstr "Локальные настройки резервного копирования обновлены"
 
-#~ msgid "Install /etc/cron.daily/ebox-ebackup-cron."
-#~ msgstr "Установка /etc/cron.daily/ebox-ebackup-cron."
 
-#~ msgid "eBox will run a nightly script to backup your system."
-#~ msgstr "eBox запустит ночью скрипт резервного копирования вашей системы"
 
-#~ msgid "Local backup configuration."
-#~ msgstr "Локальные настройки резервного копирования"
 
-#~ msgid "Core"
-#~ msgstr "Ядро"

@@ -797,505 +797,153 @@ msgstr "Окончание подключения к серверу"
 msgid "You must set insecure_rip_conf to yes or no"
 msgstr "Вы должны установить insecure_rip_conf в yes или no"
 
-#~ msgid "eBox to eBox tunnel"
-#~ msgstr "EBox to EBox туннель"
 
-#~ msgid "OpenVPN"
-#~ msgstr "OpenVPN"
 
-#~ msgid "Server activation"
-#~ msgstr "Активация сервера"
 
-#~ msgid "Configure bundle"
-#~ msgstr "Настройка пакета"
 
-#~ msgid "openVPN"
-#~ msgstr "openVPN"
 
-#~ msgid "OpenVPN service"
-#~ msgstr "Служба OpenVPN"
 
-#~ msgid "Create"
-#~ msgstr "Создать"
 
-#~ msgid "OpenVPN client creation"
-#~ msgstr "Создание клиента OpenVPN"
 
 #, fuzzy
-#~ msgid "Connection parameters"
-#~ msgstr "Объект подключения"
 
 #, fuzzy
-#~ msgid ""
-#~ "Are you sure you want delete the {type} {name}?\n"
-#~ "This action cannot be undone."
-#~ msgstr ""
-#~ "Вы уверены что хотите удалить {type} {name}.?\n"
-#~ "Это действие не может быть незавершено."
 
 #, fuzzy
-#~ msgid "Are you sure you want delete the {type} {name}?"
-#~ msgstr ""
-#~ "Вы уверены что хотите удалить {type} {name}.?\n"
-#~ "Это действие не может быть незавершено."
 
-#~ msgid "Deleting OpenVPN {type}"
-#~ msgstr "Удаление OpenVPN {type}"
 
 #, fuzzy
-#~ msgid "Are you sure you want delete the {type} {name}.?"
-#~ msgstr ""
-#~ "Вы уверены что хотите удалить {type} {name}.?\n"
-#~ "Это действие не может быть незавершено."
 
-#~ msgid "Delete"
-#~ msgstr "Удалить"
 
-#~ msgid "Cancel"
-#~ msgstr "Отмена"
 
-#~ msgid "OpenVPN server creation"
-#~ msgstr "Создание сервера OpenVPN"
 
-#~ msgid "Certificate"
-#~ msgstr "Сертификат"
 
-#~ msgid "This certificate will be used by the server to authenticate itself"
-#~ msgstr "Этот сертификат будет использован сервером для самоаутентификации"
 
-#~ msgid ""
-#~ "Only clients with this value as full common name's prefix will be "
-#~ "authorized"
-#~ msgstr ""
-#~ "Только клиенты с этим значением как префикс полного имени будут "
-#~ "авторизованы"
 
 #, fuzzy
-#~ msgid ""
-#~ "The server will listen only in all external interfaces or only in the "
-#~ "interface selected"
-#~ msgstr ""
-#~ "Сервер будет только внешние интерфейсы, либо только выбранные интерфейсы"
 
-#~ msgid "Active"
-#~ msgstr "Активный"
 
 #, fuzzy
-#~ msgid "VPN network address"
-#~ msgstr "адрес сети"
 
 #, fuzzy
-#~ msgid "VPN network netmask"
-#~ msgstr "маска VPN-подсети"
 
-#~ msgid "Protocol"
-#~ msgstr "Протокол"
 
-#~ msgid "Allow clients to connect each other within the VPN"
-#~ msgstr "Разрешить клиентам подключаться к любому узлу внутри VPN"
 
 #, fuzzy
-#~ msgid ""
-#~ "If you want to create a tunnel between two eBox, you will need this "
-#~ "option to allow connections from clients to this server"
-#~ msgstr ""
-#~ "Если Вы хотите создать туннель между двумя системами eBox, Вам нужна эта "
-#~ "опция для подключения к сети на стороне клиента"
 
-#~ msgid "Server name"
-#~ msgstr "Имя сервера"
 
-#~ msgid ""
-#~ "OpenVPN servers require at least one client certificate. Create it first"
-#~ msgstr ""
-#~ "Сервера OpenVPN требуют минимум одного клиентского сертификата. Создайте "
-#~ "его сначала."
 
 #, fuzzy
-#~ msgid ""
-#~ "OpenVPN servers require a certification\n"
-#~ "authority and at least one client certificate. Create them first"
-#~ msgstr ""
-#~ "Сервера OpenVPN требуют минимум одного клиентского сертификата. Создайте "
-#~ "его сначала."
 
-#~ msgid "Change CA's certificate"
-#~ msgstr "Изменить CA-сертификат"
 
-#~ msgid "Change client's certificate"
-#~ msgstr "Изменить клиентский сертификат"
 
-#~ msgid "Change client's private key"
-#~ msgstr "Изменить секретный ключ клиента"
 
-#~ msgid "Change"
-#~ msgstr "Изменить"
 
-#~ msgid "Client {name} configuration"
-#~ msgstr "Конфигурация клиента {name}"
 
-#~ msgid "Server {name} configuration"
-#~ msgstr "Конфигурация сервера {name}"
 
 #, fuzzy
-#~ msgid ""
-#~ "This section manages which networks will be made accessible to connecting "
-#~ "clients"
-#~ msgstr "Вы можете управлять доступом клиентов к сетям"
 
-#~ msgid "Net address"
-#~ msgstr "Адрес сети"
 
-#~ msgid "Netmask"
-#~ msgstr "Маска сети"
 
-#~ msgid "Action"
-#~ msgstr "Действие"
 
-#~ msgid "Network"
-#~ msgstr "Сеть"
 
-#~ msgid "Add network"
-#~ msgstr "Добавить сеть"
 
-#~ msgid "Actions"
-#~ msgstr "Действия"
 
-#~ msgid "Edit"
-#~ msgstr "Редактировать"
 
-#~ msgid "Create new server"
-#~ msgstr "Создать новый сервер"
 
-#~ msgid "Create new client"
-#~ msgstr "Создать нового клиента"
 
-#~ msgid "edit"
-#~ msgstr "редактировать"
 
-#~ msgid "delete"
-#~ msgstr "удалить"
 
-#~ msgid ""
-#~ "This certificate will be used by the client to authenticate itself to the "
-#~ "server"
-#~ msgstr ""
-#~ "Этот сертификат будет использован клиентом для аутентификации его на "
-#~ "сервере"
 
 #, fuzzy
-#~ msgid "Server's IP address"
-#~ msgstr "Адрес сервера"
 
 #, fuzzy
-#~ msgid "Additional server's IP address (optional)"
-#~ msgstr "Адрес сервера"
 
-#~ msgid "An additional address to reach the server can be specified here"
-#~ msgstr "Здесь может быть определен доп. адрес для сервера"
 
-#~ msgid "Client files for server {name}"
-#~ msgstr "Файлы клиента для сервера {name}"
 
-#~ msgid "Client {name} configuration updated"
-#~ msgstr "Настройки клиента {name} обновлены"
 
-#~ msgid "Client"
-#~ msgstr "Клиент"
 
-#~ msgid "Server's port"
-#~ msgstr "Порт сервера"
 
-#~ msgid "There are no changes to be saved"
-#~ msgstr "Нет изменений для сохранения"
 
-#~ msgid "Server {name} configuration updated"
-#~ msgstr "Настройки сервера {name} обновлены"
 
 #, fuzzy
-#~ msgid "A eBox-to-eBox tunnel's password is required"
-#~ msgstr "Разрешить eBox-to-eBox туннели"
 
-#~ msgid "active parameter"
-#~ msgstr "активный параметр"
 
-#~ msgid "It only may be 'yes' or 'no'"
-#~ msgstr "Здесь может быть только 'да' или 'нет'"
 
-#~ msgid "Server now grants access to {network}"
-#~ msgstr "Сервер дает доступ к {network}"
 
-#~ msgid "Server no longer grants access to {network}"
-#~ msgstr "Сервер больше не дает доступа к {network}"
 
-#~ msgid "Client {name} removed"
-#~ msgstr "Клиент {name} удален"
 
-#~ msgid "New client {name} created"
-#~ msgstr "Новый клиент {name} создан"
 
-#~ msgid "Server {name} removed"
-#~ msgstr "Сервер {name} удален"
 
-#~ msgid "The protocol only may be TCP or UDP."
-#~ msgstr "Протокол может быть только TCP или UDP."
 
-#~ msgid "The port must be a non-privileged port"
-#~ msgstr "Порт должен быть непривилегированным"
 
 #, fuzzy
-#~ msgid ""
-#~ "OpenVPN server {name} cannot be activated because there is not any "
-#~ "network interface available"
-#~ msgstr ""
-#~ "OpenVPN-сервер {name} не может быть активирован т.к. нет доступных "
-#~ "сетевых интерфейсов"
 
-#~ msgid "network address"
-#~ msgstr "адрес сети"
 
-#~ msgid "network mask"
-#~ msgstr "маска сети"
 
 #, fuzzy
-#~ msgid "Network {net} is already advertised in this server"
-#~ msgstr "Сеть {net} уже оглашена на этом сервере"
 
 #, fuzzy
-#~ msgid "Network {net} is not advertised in this server"
-#~ msgstr "Сеть {net} не оглашена на этом сервере"
 
 #, fuzzy
-#~ msgid "The server requires a network address for the VPN"
-#~ msgstr "Серверу требуется маска подсети для VPN"
 
 #, fuzzy
-#~ msgid "The server requires a netmask for its VPN network"
-#~ msgstr "Серверу требуется маска подсети для его VPN-сети"
 
 #, fuzzy
-#~ msgid "The server requires a port number"
-#~ msgstr "Серверу требуется номер порта"
 
-#~ msgid "A IP protocol must be specified for the server"
-#~ msgstr "IP-протокол должен быть определен для сервера"
 
-#~ msgid "A  server certificate must be specified"
-#~ msgstr "Сертификат сервера должен быть определен"
 
 #, fuzzy
-#~ msgid "The masquerade parameter must be specified"
-#~ msgstr "Секретный ключ клиента должен быть определен"
 
 #, fuzzy
-#~ msgid ""
-#~ "Cannot create the OpenVPN server because there is neither any external "
-#~ "network interface available or network address  translation active"
-#~ msgstr ""
-#~ "OpenVPN-сервер {name} не может быть активирован т.к. нет доступных "
-#~ "сетевых интерфейсов"
 
-#~ msgid "The protocol only may be tcp or udp."
-#~ msgstr "Протокол может быть только TCP или UDP"
 
-#~ msgid "You must supply at least one server for the client"
-#~ msgstr "Вы должны определить минимум один сервер для клиента"
 
 #, fuzzy
-#~ msgid "A IP protocol must be specified for the client"
-#~ msgstr "IP-протокол должен быть определен для сервера"
 
-#~ msgid "The CA certificate is needed"
-#~ msgstr "Нужен CA-сертификат"
 
-#~ msgid "The client certificate must be specified"
-#~ msgstr "Сертификат клиента должен быть определен"
 
-#~ msgid "The client private key must be specified"
-#~ msgstr "Секретный ключ клиента должен быть определен"
 
 #, fuzzy
-#~ msgid ""
-#~ "Invalid name {name}. Only alphanumerics and underscores characters are "
-#~ "allowed with a maximum length of 20 characters"
-#~ msgstr ""
-#~ "{name} - неверное имя для демона OpenVPN. Только буквенно-цифровые "
-#~ "символы и символ подчеркивания разрешены"
 
-#~ msgid ""
-#~ "OpenVPN can only listen on a external interface. The interface {iface} "
-#~ "does not exist"
-#~ msgstr ""
-#~ "OpenVPN может прослушивать только внешний интерфейс. Интерфейс {iface} не "
-#~ "существует"
 
-#~ msgid ""
-#~ "OpenVPN can only listen on a external interface. The interface {iface} "
-#~ "is  internal"
-#~ msgstr ""
-#~ "OpenVPN может прослушивать только внешний интерфейс. {iface} - внутренний"
 
 #, fuzzy
-#~ msgid "Client's operative system"
-#~ msgstr "Секретный ключ клиента"
 
-#~ msgid "Server's protocol"
-#~ msgstr "Протокол сервера"
 
-#~ msgid "Server's Port"
-#~ msgstr "Порт сервера"
 
 #, fuzzy
-#~ msgid ""
-#~ "Certificate of the Certification Authority. Must be the same used by the "
-#~ "server"
-#~ msgstr ""
-#~ "Сертификат Службы Сертификации Полномочий (CA). Такой же должен "
-#~ "использоваться на сервере"
 
-#~ msgid ""
-#~ "Certificate used by the client to identify itself. It must be signed by "
-#~ "the Certification Authority"
-#~ msgstr ""
-#~ "Сертификат используется клиентом для его идентификации. Он должен быть "
-#~ "подписан Службой Сертификации Полномочий (CA)"
 
 #, fuzzy
-#~ msgid ""
-#~ "OpenVPN servers require at leat one external network\n"
-#~ "interface available. Configure one first"
-#~ msgstr ""
-#~ "Сервера OpenVPN требуют минимум одного клиентского сертификата. Создайте "
-#~ "его сначала."
 
-#~ msgid "OpenVPN service status changed"
-#~ msgstr "Статус службы OpenVPN изменен"
 
-#~ msgid ""
-#~ "OpenVPN server {name} can not be activated because there is not any "
-#~ "network interfaces available"
-#~ msgstr ""
-#~ "OpenVPN-сервер {name} не может быть активирован т.к. нет доступных "
-#~ "сетевых интерфейсов"
 
-#~ msgid "Net {net} is already advertised in this server"
-#~ msgstr "Сеть {net} уже оглашена на этом сервере"
 
-#~ msgid ""
-#~ "eBox must be configured as gateway to be able to give client access to "
-#~ "networks via OpenVPN"
-#~ msgstr ""
-#~ "eBox должен быть настроен как шлюз для возможности клиентского доступа к "
-#~ "сетям по OpenVPN"
 
-#~ msgid ""
-#~ "The OpenVPN server can not grant access to a network which can not be "
-#~ "reached by eBox"
-#~ msgstr ""
-#~ "Сервер OpenVPN не может дать доступ к сети, которая недоступна с eBox"
 
-#~ msgid "Net {net} is not advertised in this server"
-#~ msgstr "Сеть {net} не оглашена на этом сервере"
 
-#~ msgid "The server needs a subnet address for the VPN"
-#~ msgstr "Серверу требуется маска подсети для VPN"
 
-#~ msgid "The server needs a submask for his VPN net"
-#~ msgstr "Серверу требуется маска подсети для его VPN-сети"
 
-#~ msgid "The server needs a port number"
-#~ msgstr "Серверу требуется номер порта"
 
-#~ msgid ""
-#~ "Unable to remove daemon {name} of type {type} because it does not exist"
-#~ msgstr "Невозможно удалить демон {name} типа {type} т.к. его не существует"
 
-#~ msgid ""
-#~ "{name} is a invalid name for a OpenVPN daemon. Only alphanumerics and "
-#~ "underscores are allowed"
-#~ msgstr ""
-#~ "{name} - неверное имя для демона OpenVPN. Только буквенно-цифровые "
-#~ "символы и символ подчеркивания разрешены"
 
-#~ msgid ""
-#~ "Are you sure you want delete the {type} {name}.?\n"
-#~ "This action can not be undone."
-#~ msgstr ""
-#~ "Вы уверены что хотите удалить {type} {name}.?\n"
-#~ "Это действие не может быть незавершено."
 
-#~ msgid ""
-#~ "The server will be listen only in all external interfaces or only in the "
-#~ "interface selected"
-#~ msgstr ""
-#~ "Сервер будет только внешние интерфейсы, либо только выбранные интерфейсы"
 
-#~ msgid "VPN subnet netmask"
-#~ msgstr "маска VPN-подсети"
 
-#~ msgid ""
-#~ "If you want to create a tunnel between two eBox, you will need this "
-#~ "option to be able to connect to the network in the client side"
-#~ msgstr ""
-#~ "Если Вы хотите создать туннель между двумя системами eBox, Вам нужна эта "
-#~ "опция для подключения к сети на стороне клиента"
 
-#~ msgid "Changes in certificates and key files can not be discarded."
-#~ msgstr "Изменения в сертификатах и key-файлах не могут быть отменены."
 
-#~ msgid "You can manage which networks will be made accessible to clients"
-#~ msgstr "Вы можете управлять доступом клиентов к сетям"
 
-#~ msgid "OpenVPN service status"
-#~ msgstr "Статус службы OpenVPN"
 
-#~ msgid ""
-#~ "You can download an archive with all the required files to set up an "
-#~ "OpenVPN client. Remember to copy these files to the client machine "
-#~ "configuration directory"
-#~ msgstr ""
-#~ "Вы можете скачать архив со всеми требуемыми файлами для настройки клиента "
-#~ "OpenVPN. Не забудьте скопировать эти файлы в каталог конфигурации "
-#~ "клиентской машины"
 
-#~ msgid ""
-#~ "Certificate of the Certification Authority. Must be the same used in the "
-#~ "server"
-#~ msgstr ""
-#~ "Сертификат Службы Сертификации Полномочий (CA). Такой же должен "
-#~ "использоваться на сервере"
 
-#~ msgid "Private key used to create the client's certificate"
-#~ msgstr "Секретный ключ использован для создания клиентского сертификата"
 
 #, fuzzy
-#~ msgid ""
-#~ "The OpenVPN server cannot grant access to a network which is not reachable"
-#~ msgstr ""
-#~ "Сервер OpenVPN не может дать доступ к сети, которая недоступна с eBox"
 
-#~ msgid "New server {name} created"
-#~ msgstr "Новый сервер {name} создан"
 
 #, fuzzy
-#~ msgid ""
-#~ "Cannot create the OpenVPN server because thre is not any external network "
-#~ "interface available"
-#~ msgstr ""
-#~ "OpenVPN-сервер {name} не может быть активирован т.к. нет доступных "
-#~ "сетевых интерфейсов"
 
 #, fuzzy
-#~ msgid ""
-#~ "Are you sure you want delete the {type} {name}?\n"
-#~ "This action can not be undone."
-#~ msgstr ""
-#~ "Вы уверены что хотите удалить {type} {name}.?\n"
-#~ "Это действие не может быть незавершено."
 
 #, fuzzy
-#~ msgid "Private key used to unlock the client's certificate"
-#~ msgstr "Секретный ключ использован для создания клиентского сертификата"
 
-#~ msgid "Inexistent file {path}"
-#~ msgstr "Несуществующий файл {path}"

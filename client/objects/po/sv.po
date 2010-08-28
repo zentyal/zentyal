@@ -115,84 +115,24 @@ msgid "{ip} overlaps with the address or another object's member"
 msgstr "{ip} överlappar med adressen av ett annat objekts medlem"
 
 #, fuzzy
-#~ msgid "Core"
-#~ msgstr "Kärna"
 
-#~ msgid "IP Address"
-#~ msgstr "IP adress"
 
-#~ msgid "Object name"
-#~ msgstr "Objektnamn"
 
-#~ msgid ""
-#~ "The name '{name}' is already used to identify another object. Please "
-#~ "choose another name"
-#~ msgstr ""
-#~ "Namnet \"{name}\" används redan för att identifiera ett annat objekt. "
-#~ "Välj ett annat namn"
 
-#~ msgid "Edit Object"
-#~ msgstr "Redigera objekt"
 
-#~ msgid "Netmask"
-#~ msgstr "Nätmask"
 
-#~ msgid "Deleting object"
-#~ msgstr "Tar bort objekt"
 
-#~ msgid ""
-#~ "The object you tried to delete is being used by some modules, please "
-#~ "confirm that you want to delete it."
-#~ msgstr ""
-#~ "Objektet som du försökte att ta bort används av några moduler. Bekräfta "
-#~ "att du vill ta bort det."
 
-#~ msgid "Delete"
-#~ msgstr "Ta bort"
 
-#~ msgid "Cancel"
-#~ msgstr "Avbryt"
 
-#~ msgid "Edit <span class='stitle'>{description}</span> members"
-#~ msgstr "Redigera medlemmar i <span class='stitle'>{description}</span>"
 
-#~ msgid "MAC"
-#~ msgstr "MAC"
 
-#~ msgid "Action"
-#~ msgstr "Åtgärd"
 
-#~ msgid "Add"
-#~ msgstr "Lägg till"
 
-#~ msgid "Delete Object"
-#~ msgstr "Ta bort objekt"
 
-#~ msgid ""
-#~ "If you delete this object, all the information about its members will be "
-#~ "lost."
-#~ msgstr ""
-#~ "Om du tar bort det här objektet kommer all information om dess medlemmar "
-#~ "att förloras."
 
-#~ msgid "Delete object"
-#~ msgstr "Ta bort objekt"
 
-#~ msgid "Create new object"
-#~ msgstr "Skapa nytt objekt"
 
-#~ msgid ""
-#~ "The objects that you create here can be used in the rest of the system. "
-#~ "Remember that an IP address cannot belong to more than one object."
-#~ msgstr ""
-#~ "Objekten som du skapar här kan användas av andra delar i systemet. Kom "
-#~ "ihåg att en IP-adress inte kan tillhöra fler än ett objekt."
 
-#~ msgid "Edit"
-#~ msgstr "Redigera"
 
-#~ msgid "edit"
-#~ msgstr "redigera"
 
-#~ msgid "delete"
-#~ msgstr "ta bort"

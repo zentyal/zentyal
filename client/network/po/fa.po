@@ -1043,98 +1043,33 @@ msgid ""
 "their configuration. Choose \"Cancel\" if you are not sure about this."
 msgstr ""
 
-#~ msgid "Physical interface"
-#~ msgstr "واسط فیزیکی"
 
-#~ msgid "Vlan interface list"
-#~ msgstr "لیست واسط Vlan"
 
-#~ msgid "These are the vlan interfaces which are available in your system."
-#~ msgstr "اینها واسط های vlan هستند که در سیستم شما قابل دسترس هستند"
 
-#~ msgid "interface"
-#~ msgstr "واسط"
 
-#~ msgid "Configurable interface list"
-#~ msgstr "پیکربندی لیست واسط"
 
-#~ msgid "These are the interfaces which can be configured"
-#~ msgstr "اینها واسط هایی هستند که می توانند پیکربندی شوند"
 
-#~ msgid "Physical interface list"
-#~ msgstr "لیست واسط فیزیکی"
 
-#~ msgid ""
-#~ "These are the physical interfaces which are available in your system."
-#~ msgstr "اینها واسط های فیزیکی هستند که در سیستم شما قابل دسترس هستند"
 
-#~ msgid "Set default gateway"
-#~ msgstr "گذرگاه پیش فرض را تنظیم کن"
 
-#~ msgid "You can change later the gateway at Network/Routes menus item"
-#~ msgstr "شما بعدا می توانید گذرگاه را در آیتم شبکه/مسیر ها از منو تغییر دهید"
 
-#~ msgid ""
-#~ "After the initial config you can revisit this page at Network/Interfaces "
-#~ "in the menu"
-#~ msgstr ""
-#~ "بعد از پیکربندی اولیه شما می توانید در بخش شبکه/واسط ها در منو از این "
-#~ "صفحه دوباره بازدید کنید"
 
-#~ msgid "Gateway configured"
-#~ msgstr "گذرگاه پیکربندی شد"
 
-#~ msgid "You can revisit this page at Network/DNS in the menu"
-#~ msgstr "شما می توانید در بخش شبکه/DNS در منو از این صفحه دوباره بازدید کنید"
 
-#~ msgid "Network interface configured"
-#~ msgstr "واسط شبکه پیکربندی شد"
 
-#~ msgid "Configure name servers"
-#~ msgstr "سرویس دهنده های نام را پیکربندی کن"
 
-#~ msgid "Configure default gateway"
-#~ msgstr "گذرگاه پیش فرض را پیکربندی کن"
 
-#~ msgid "Upload"
-#~ msgstr "آپلود"
 
-#~ msgid "Upload rate in Kbits/s for this gateway."
-#~ msgstr "نرخ آپلود برحسب کیلوبیت بر ثانیه برای این گذرگاه"
 
-#~ msgid "Download"
-#~ msgstr "دانلود"
 
-#~ msgid "Download rate in Kbits/s for this gateway."
-#~ msgstr "نرخ دانلود برحسب کیلوبیت بر ثانیه برای این گذرگاه"
 
 #, fuzzy
-#~ msgid "Core"
-#~ msgstr "مبدأ"
 
-#~ msgid "Balance traffic and multigateway rules"
-#~ msgstr "قوانین تراز ترافیک و چند گذرگاهی"
 
-#~ msgid "IP Address"
-#~ msgstr "آدرس آی‌پی"
 
-#~ msgid "Protocol"
-#~ msgstr "پروتکل"
 
-#~ msgid "Port"
-#~ msgstr "پورت"
 
-#~ msgid "Leave it blank  to select any port"
-#~ msgstr "برای انتخاب هر پورتی آن را خالی بگذارید"
 
-#~ msgid "Destination port"
-#~ msgstr "پورت مقصد"
 
-#~ msgid "Source port"
-#~ msgstr "پورت مبدأ"
 
-#~ msgid "Port cannot be set if no protocol is selected"
-#~ msgstr "اگر پروتکلی انتخاب نشده است پورت نمی تواند تنظیم شود "
 
-#~ msgid "Routes"
-#~ msgstr "مسیرها"

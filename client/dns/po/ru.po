@@ -282,77 +282,24 @@ msgstr "Редактировать"
 msgid "edit"
 msgstr "редактировать"
 
-#~ msgid "Infrastructure"
-#~ msgstr "Инфраструктура"
 
-#~ msgid "Owner domain"
-#~ msgstr "Владелец домена"
 
-#~ msgid "Service enabled"
-#~ msgstr "Служба включена"
 
-#~ msgid "Service disabled"
-#~ msgstr "Служба отключена"
 
-#~ msgid "Domain Name System"
-#~ msgstr "Система доменных имен"
 
-#~ msgid "There is an alias with the same name \"{name}\" in the same domain"
-#~ msgstr "В этом домене уже существует псевдоним с этим именем \"{name}\""
 
-#~ msgid "Hostname"
-#~ msgstr "Имя узла"
 
-#~ msgid "hostname"
-#~ msgstr "имя узла"
 
-#~ msgid "IP address"
-#~ msgstr "IP-адрес"
 
 #, fuzzy
-#~ msgid "Alias name"
-#~ msgstr "Псевдоним"
 
-#~ msgid "module status"
-#~ msgstr "статус модуля"
 
-#~ msgid "domain name"
-#~ msgstr "доменное имя"
 
-#~ msgid ""
-#~ "The domain '{name}' is already used. Please choose another domain name"
-#~ msgstr "Домен '{name}' уже используется. Выберите другое доменное имя"
 
-#~ msgid "Host name can't contain dots"
-#~ msgstr "Имя узла не может содержать точек"
 
-#~ msgid ""
-#~ "The host name '{name}' is already used. Please choose another host name"
-#~ msgstr "Имя узла '{name}' уже используется. Выберите другое имя узла"
 
-#~ msgid ""
-#~ "The IP address '{ip}' is already used. Please choose another IP address"
-#~ msgstr "IP-адрес '{ip}' уже используется. Выберите другой IP-адрес"
 
-#~ msgid "An alias can't contain dots"
-#~ msgstr "Псевдоним не может содержать точек"
 
-#~ msgid ""
-#~ "The alias '{name}' is already used as a host name. Please choose another "
-#~ "alias"
-#~ msgstr ""
-#~ "Псевдоним '{name}' уже используется как имя узла. Выберите другой "
-#~ "псевдоним"
 
-#~ msgid ""
-#~ "The alias '{name}' is already used as alias in the host '{host}'. Please "
-#~ "choose another alias"
-#~ msgstr ""
-#~ "Псевдоним '{name}' уже используется как псевдоним узла '{host}'. Выберите "
-#~ "другой псевдоним"
 
-#~ msgid "DNS service status"
-#~ msgstr "Статус службы DNS"
 
-#~ msgid "Domain name"
-#~ msgstr "Доменное имя"

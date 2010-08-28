@@ -816,556 +816,163 @@ msgstr "Conexión a servidor terminada"
 msgid "You must set insecure_rip_conf to yes or no"
 msgstr "El valor de insecure_rip_conf debe ser 'yes' o 'no'"
 
-#~ msgid "eBox to eBox tunnel"
-#~ msgstr "Túnel eBox a eBox"
 
-#~ msgid "OpenVPN"
-#~ msgstr "OpenVPN"
 
-#~ msgid "Server activation"
-#~ msgstr "Activación de servidor"
 
 #, fuzzy
-#~ msgid "Configure bundle"
-#~ msgstr "La configuración del cliente {name} ha sido actualizada"
 
 #, fuzzy
-#~ msgid "openVPN"
-#~ msgstr "OpenVPN"
 
-#~ msgid "OpenVPN service"
-#~ msgstr "Servicio OpenVPN"
 
-#~ msgid "Create"
-#~ msgstr "Crear"
 
-#~ msgid "OpenVPN client creation"
-#~ msgstr "Creación del cliente OpenVPN"
 
 #, fuzzy
-#~ msgid "Connection parameters"
-#~ msgstr "Blanco de la conexión"
 
 #, fuzzy
-#~ msgid ""
-#~ "Are you sure you want delete the {type} {name}?\n"
-#~ "This action cannot be undone."
-#~ msgstr ""
-#~ "Esta seguro de desear borrar el {type} {name}?<br>Esta acción no se puede "
-#~ "deshacer"
 
-#~ msgid "Are you sure you want delete the {type} {name}?"
-#~ msgstr ""
-#~ "Esta seguro de desear borrar el {type} {name}?<br>Esta acción no se puede "
-#~ "deshacer"
 
-#~ msgid "Deleting OpenVPN {type}"
-#~ msgstr "Borrando {type} OpenVPN"
 
 #, fuzzy
-#~ msgid "Are you sure you want delete the {type} {name}.?"
-#~ msgstr ""
-#~ "Esta seguro de desear borrar el {type} {name}?<br>Esta acción no se puede "
-#~ "deshacer"
 
-#~ msgid "Delete"
-#~ msgstr "Borrar"
 
-#~ msgid "Cancel"
-#~ msgstr "Cancelar"
 
-#~ msgid "OpenVPN server creation"
-#~ msgstr "Creación de servidor OpenVPN"
 
-#~ msgid "Certificate"
-#~ msgstr "Certificado"
 
-#~ msgid "This certificate will be used by the server to authenticate itself"
-#~ msgstr "Este certificado sera usado por el servidor para identificarse"
 
-#~ msgid ""
-#~ "Only clients with this value as full common name's prefix will be "
-#~ "authorized"
-#~ msgstr ""
-#~ "Sólo clientes que tengan este valor como prefijo de su nombre común serán "
-#~ "autorizados."
 
 #, fuzzy
-#~ msgid ""
-#~ "The server will listen only in all external interfaces or only in the "
-#~ "interface selected"
-#~ msgstr ""
-#~ "El servidor escuchara en todas las interfaces externas o solo en la "
-#~ "interfaz seleccionada"
 
-#~ msgid "Active"
-#~ msgstr "Activo"
 
 #, fuzzy
-#~ msgid "VPN network address"
-#~ msgstr "dirección de red"
 
 #, fuzzy
-#~ msgid "VPN network netmask"
-#~ msgstr "Mascara de red de la VPN"
 
-#~ msgid "Protocol"
-#~ msgstr "Protocolo"
 
-#~ msgid "Allow clients to connect each other within the VPN"
-#~ msgstr "Permite a los clientes conectarse entre si mediante la VPN"
 
 #, fuzzy
-#~ msgid ""
-#~ "If you want to create a tunnel between two eBox, you will need this "
-#~ "option to allow connections from clients to this server"
-#~ msgstr ""
-#~ "Si quieres crear un túnel entre dos eBox, necesitas esta opción para "
-#~ "poder conectar con la red en el lado del cliente"
 
-#~ msgid "Server name"
-#~ msgstr "Nombre del servidor"
 
-#~ msgid ""
-#~ "OpenVPN servers require at least one client certificate. Create it first"
-#~ msgstr ""
-#~ "OpenVPN requiere al menos un certificado de cliente. Crea uno primero."
 
 #, fuzzy
-#~ msgid ""
-#~ "OpenVPN servers require a certification\n"
-#~ "authority and at least one client certificate. Create them first"
-#~ msgstr ""
-#~ "OpenVPN requiere al menos un certificado de cliente. Crea uno primero."
 
-#~ msgid "Change CA's certificate"
-#~ msgstr "Cambiar certificado de CA"
 
-#~ msgid "Change client's certificate"
-#~ msgstr "Cambiar certificado del cliente"
 
-#~ msgid "Change client's private key"
-#~ msgstr "Cambiar clave privada del cliente"
 
-#~ msgid "Change"
-#~ msgstr "Cambiar"
 
-#~ msgid "Client {name} configuration"
-#~ msgstr "Configuración del cliente {name}"
 
-#~ msgid "Server {name} configuration"
-#~ msgstr "Configuración del servidor {name} "
 
 #, fuzzy
-#~ msgid ""
-#~ "This section manages which networks will be made accessible to connecting "
-#~ "clients"
-#~ msgstr "Puedes administrar que redes seran accesibles por los clientes"
 
-#~ msgid "Net address"
-#~ msgstr "Dirección de red"
 
-#~ msgid "Netmask"
-#~ msgstr "Mascara de red"
 
-#~ msgid "Action"
-#~ msgstr "Acción"
 
-#~ msgid "Network"
-#~ msgstr "Red"
 
-#~ msgid "Add network"
-#~ msgstr "Añadir red"
 
-#~ msgid "Actions"
-#~ msgstr "Acciones"
 
-#~ msgid "Edit"
-#~ msgstr "Editar"
 
-#~ msgid "Create new server"
-#~ msgstr "Crear nuevo servidor"
 
-#~ msgid "Create new client"
-#~ msgstr "Crear nuevo cliente"
 
-#~ msgid "edit"
-#~ msgstr "editar"
 
-#~ msgid "delete"
-#~ msgstr "borrar"
 
-#~ msgid ""
-#~ "This certificate will be used by the client to authenticate itself to the "
-#~ "server"
-#~ msgstr ""
-#~ "Este certificado será usado por el cliente para identificarse ante el "
-#~ "servidor"
 
 #, fuzzy
-#~ msgid "Server's IP address"
-#~ msgstr "Dirección del servidor"
 
-#~ msgid "This address should be the one used to reach the server."
-#~ msgstr "Esta dirección debe ser la que se use para alcanzar al servidor"
 
 #, fuzzy
-#~ msgid "Additional server's IP address (optional)"
-#~ msgstr "Dirección del servidor"
 
-#~ msgid "An additional address to reach the server can be specified here"
-#~ msgstr ""
-#~ "Una dirección adicional para alcanzar al servidor se puede especificar "
-#~ "aquí"
 
-#~ msgid "Client files for server {name}"
-#~ msgstr "Ficheros cliente para el servidor {name}"
 
-#~ msgid "Client {name} configuration updated"
-#~ msgstr "La configuración del cliente {name} ha sido actualizada"
 
-#~ msgid "Client"
-#~ msgstr "Cliente"
 
-#~ msgid "Server's port"
-#~ msgstr "Puerto del servidor"
 
-#~ msgid "There are no changes to be saved"
-#~ msgstr "No hay cambios que guardar"
 
-#~ msgid "Server {name} configuration updated"
-#~ msgstr "Configuración del servidor {name} actualizada"
 
 #, fuzzy
-#~ msgid "A eBox-to-eBox tunnel's password is required"
-#~ msgstr "Permitir túneles eBox a eBox"
 
-#~ msgid "active parameter"
-#~ msgstr "parámetro activo"
 
-#~ msgid "It only may be 'yes' or 'no'"
-#~ msgstr "Solo puede ser \"yes\" o \"no\""
 
-#~ msgid "Server now grants access to {network}"
-#~ msgstr "El servidor ahora ofrece el acceso a {network}"
 
-#~ msgid "Server no longer grants access to {network}"
-#~ msgstr "El servidor ya no concede acceso a {network}"
 
-#~ msgid "Client {name} removed"
-#~ msgstr "Cliente {name} eliminado"
 
-#~ msgid "New client {name} created"
-#~ msgstr "Nuevo cliente {name} creado"
 
-#~ msgid "Server {name} removed"
-#~ msgstr "Servidor {name} eliminado"
 
-#~ msgid "The protocol only may be TCP or UDP."
-#~ msgstr "El protocolo sólo puede ser TCP o UDP"
 
-#~ msgid "The port must be a non-privileged port"
-#~ msgstr "El puerto debe ser un puerto sin privilegios"
 
-#~ msgid "Network address {net} with netmask {mask} is not a valid network"
-#~ msgstr ""
-#~ "La dirección de red {net} combinada con la mascara {mask} no es una red "
-#~ "valida"
 
-#~ msgid ""
-#~ "OpenVPN server {name} cannot be activated because there is not any "
-#~ "network interface available"
-#~ msgstr ""
-#~ "El servidor OpenVPN {name} no puede ser activado debido a que no hay "
-#~ "ninguna interfaz de red disponible"
 
-#~ msgid "network address"
-#~ msgstr "dirección de red"
 
-#~ msgid "network mask"
-#~ msgstr "mascara de red"
 
-#~ msgid "Network {net} is already advertised in this server"
-#~ msgstr "LA red {net} ya esta siendo anunciada por este servidor"
 
-#~ msgid "Network {net} is not advertised in this server"
-#~ msgstr "La red {net} no esta anunciada en este servidor"
 
 #, fuzzy
-#~ msgid "The server requires a network address for the VPN"
-#~ msgstr "El servidor necesita una dirección de red para la VPN"
 
 #, fuzzy
-#~ msgid "The server requires a netmask for its VPN network"
-#~ msgstr "El servidor necesita una mascara de red para su VPN"
 
 #, fuzzy
-#~ msgid "The server requires a port number"
-#~ msgstr "El servidor necesita un numero de puerto"
 
-#~ msgid "A IP protocol must be specified for the server"
-#~ msgstr "Se debe establecer un protocolo IP para el servidor"
 
-#~ msgid "A  server certificate must be specified"
-#~ msgstr "Un certificado de servidor debe ser establecido"
 
 #, fuzzy
-#~ msgid "The masquerade parameter must be specified"
-#~ msgstr "LA clave privada del cliente debe ser establecido"
 
 #, fuzzy
-#~ msgid ""
-#~ "Cannot create the OpenVPN server because there is neither any external "
-#~ "network interface available or network address  translation active"
-#~ msgstr ""
-#~ "El servidor OpenVPN {name} no puede ser activado debido a que no hay "
-#~ "ninguna interfaz de red disponible"
 
-#~ msgid "The protocol only may be tcp or udp."
-#~ msgstr "El protocolo solo puede ser TCP o UDP"
 
-#~ msgid "You must supply at least one server for the client"
-#~ msgstr "Debes suministrar al menos un servidor para el cliente"
 
 #, fuzzy
-#~ msgid "A IP protocol must be specified for the client"
-#~ msgstr "Se debe establecer un protocolo IP para el servidor"
 
-#~ msgid "The CA certificate is needed"
-#~ msgstr "El certificado de la CA es necesario"
 
-#~ msgid "The client certificate must be specified"
-#~ msgstr "Un certificado de cliente debe ser establecido"
 
-#~ msgid "The client private key must be specified"
-#~ msgstr "LA clave privada del cliente debe ser establecido"
 
-#~ msgid "Servers must be supplied to the client"
-#~ msgstr "Se debe suministrar servidores al cliente"
 
 #, fuzzy
-#~ msgid ""
-#~ "Invalid name {name}. Only alphanumerics and underscores characters are "
-#~ "allowed with a maximum length of 20 characters"
-#~ msgstr ""
-#~ "{name} es un nombre incorrecto para un demonio OpenVPN. Solo "
-#~ "alfanuméricos y guiones bajos están permitidos."
 
-#~ msgid ""
-#~ "OpenVPN can only listen on a external interface. The interface {iface} "
-#~ "does not exist"
-#~ msgstr ""
-#~ "OpenVPN solo puede escuchar en interfaces externas. La interfaz {iface} "
-#~ "no existe."
 
-#~ msgid ""
-#~ "OpenVPN can only listen on a external interface. The interface {iface} "
-#~ "is  internal"
-#~ msgstr ""
-#~ "OpenVPN solo puede escuchar en interfaces externas. La interfaz {iface} "
-#~ "es interna"
 
 #, fuzzy
-#~ msgid "Client's operative system"
-#~ msgstr "Llave privada del cliente"
 
 #, fuzzy
-#~ msgid "Server's protocol"
-#~ msgstr "Puerto del servidor"
 
-#~ msgid "Server's Port"
-#~ msgstr "Puerto del servidor"
 
 #, fuzzy
-#~ msgid ""
-#~ "Certificate of the Certification Authority. Must be the same used by the "
-#~ "server"
-#~ msgstr ""
-#~ "Certificado de la Autoridad de Certificación. Debe ser el mismo  usado en "
-#~ "el servidor."
 
-#~ msgid ""
-#~ "Certificate used by the client to identify itself. It must be signed by "
-#~ "the Certification Authority"
-#~ msgstr ""
-#~ "Certificado usado por el cliente para identificarse. Debe estar firmado "
-#~ "por la autoridad de certificación"
 
 #, fuzzy
-#~ msgid ""
-#~ "OpenVPN servers require at leat one external network\n"
-#~ "interface available. Configure one first"
-#~ msgstr ""
-#~ "OpenVPN requiere al menos un certificado de cliente. Crea uno primero."
 
-#~ msgid "OpenVPN service status changed"
-#~ msgstr "Estado del servicio OpenVPN cambiado"
 
-#~ msgid "Net address {net} with netmask {mask} is not a valid net"
-#~ msgstr ""
-#~ "La dirección de red {net} combinada con la mascara {mask} no es una red "
-#~ "valida"
 
-#~ msgid ""
-#~ "OpenVPN server {name} can not be activated because there is not any "
-#~ "network interfaces available"
-#~ msgstr ""
-#~ "El servidor OpenVPN {name} no puede ser activado debido a que no hay "
-#~ "ninguna interfaz de red disponible"
 
-#~ msgid "Net {net} is already advertised in this server"
-#~ msgstr "LA red {net} ya esta siendo anunciada por este servidor"
 
-#~ msgid ""
-#~ "eBox must be configured as gateway to be able to give client access to "
-#~ "networks via OpenVPN"
-#~ msgstr ""
-#~ "eBox debe ser configurado como puerta de enlace para poder dar acceso "
-#~ "conOpenVPn  a los clientes a las redes"
 
-#~ msgid ""
-#~ "The OpenVPN server can not grant access to a network which can not be "
-#~ "reached by eBox"
-#~ msgstr ""
-#~ "El servidor OpenVPN no puede conceder acceso a una red que sea "
-#~ "inaccesible para eBox"
 
-#~ msgid "Net {net} is not advertised in this server"
-#~ msgstr "La red {net} no esta anunciada en este servidor"
 
-#~ msgid "The server needs a subnet address for the VPN"
-#~ msgstr "El servidor necesita una dirección de red para la VPN"
 
-#~ msgid "The server needs a submask for his VPN net"
-#~ msgstr "El servidor necesita una mascara de red para su VPN"
 
-#~ msgid "The server needs a port number"
-#~ msgstr "El servidor necesita un numero de puerto"
 
-#~ msgid ""
-#~ "Unable to remove daemon {name} of type {type} because it does not exist"
-#~ msgstr ""
-#~ "No se puede borrar el demonio {name} del tipo {type} porque no existe"
 
-#~ msgid ""
-#~ "{name} is a invalid name for a OpenVPN daemon. Only alphanumerics and "
-#~ "underscores are allowed"
-#~ msgstr ""
-#~ "{name} es un nombre incorrecto para un demonio OpenVPN. Solo "
-#~ "alfanuméricos y guiones bajos están permitidos."
 
-#~ msgid ""
-#~ "Are you sure you want delete the {type} {name}.?\n"
-#~ "This action can not be undone."
-#~ msgstr ""
-#~ "Esta seguro de desear borrar el {type} {name}?<br>Esta acción no se puede "
-#~ "deshacer"
 
-#~ msgid ""
-#~ "The server will be listen only in all external interfaces or only in the "
-#~ "interface selected"
-#~ msgstr ""
-#~ "El servidor escuchara en todas las interfaces externas o solo en la "
-#~ "interfaz seleccionada"
 
-#~ msgid "VPN subnet netmask"
-#~ msgstr "Mascara de red de la VPN"
 
-#~ msgid ""
-#~ "If you want to create a tunnel between two eBox, you will need this "
-#~ "option to be able to connect to the network in the client side"
-#~ msgstr ""
-#~ "Si quieres crear un túnel entre dos eBox, necesitas esta opción para "
-#~ "poder conectar con la red en el lado del cliente"
 
-#~ msgid "Changes in certificates and key files can not be discarded."
-#~ msgstr "Los cambios en certificados y claves no pueden ser descartados"
 
-#~ msgid "You can manage which networks will be made accessible to clients"
-#~ msgstr "Puedes administrar que redes seran accesibles por los clientes"
 
-#~ msgid "OpenVPN service status"
-#~ msgstr "Estado de l servicio OpenVPN"
 
-#~ msgid ""
-#~ "You can download an archive with all the required files to set up an "
-#~ "OpenVPN client. Remember to copy these files to the client machine "
-#~ "configuration directory"
-#~ msgstr ""
-#~ "Puedes descargar un archivo con todos los ficheros requeridos para poner "
-#~ "en marcha un cliente OpenVPN. Recuerda copiar estos ficheros al "
-#~ "directorio de configuración de la máquina cliente"
 
-#~ msgid ""
-#~ "Certificate of the Certification Authority. Must be the same used in the "
-#~ "server"
-#~ msgstr ""
-#~ "Certificado de la Autoridad de Certificación. Debe ser el mismo  usado en "
-#~ "el servidor."
 
-#~ msgid "Private key used to create the client's certificate"
-#~ msgstr "Clave privada usada para crear el certificado del cliente"
 
 #, fuzzy
-#~ msgid ""
-#~ "The OpenVPN server cannot grant access to a network which is not reachable"
-#~ msgstr ""
-#~ "El servidor OpenVPN no puede conceder acceso a una red que sea "
-#~ "inaccesible para eBox"
 
-#~ msgid "New server {name} created"
-#~ msgstr "Nuevo servidor {name} creado"
 
-#~ msgid "The server {name} has not certificate assigned"
-#~ msgstr "El servidor {name} no tiene ningún certificado asignado"
 
-#~ msgid "Can't get address for this server"
-#~ msgstr "No se puede obtener la dirección para este servidor"
 
-#~ msgid ""
-#~ "You must type in the folder in the client machine where the configuration "
-#~ "and certificates files will be placed"
-#~ msgstr ""
-#~ "Debes escribir en la carpeta de la máquina cliente donde los ficheros de "
-#~ "configuración y certificación se almacenarán"
 
-#~ msgid "Invalid file."
-#~ msgstr "Archivo incorrecto"
 
-#~ msgid "Unable to remove server {name} because it does not exist"
-#~ msgstr "No se puede eliminar el servidor {name} debido a que no existe"
 
-#~ msgid "Unable to remove client {name} because it does not exist"
-#~ msgstr "No se puede eliminar el cliente {name} debido a que no existe"
 
-#~ msgid "Pull routes from eBox clients"
-#~ msgstr "Obtener rutas de clientes eBox"
 
-#~ msgid ""
-#~ "Only clients with this value as full common name's prefix will will be "
-#~ "authorized"
-#~ msgstr ""
-#~ "Solo clientes que tengan este valor como nombre común o como prefijo de "
-#~ "este serán autorizados."
 
 #, fuzzy
-#~ msgid ""
-#~ "Cannot create the OpenVPN server because thre is not any external network "
-#~ "interface available"
-#~ msgstr ""
-#~ "El servidor OpenVPN {name} no puede ser activado debido a que no hay "
-#~ "ninguna interfaz de red disponible"
 
-#~ msgid ""
-#~ "Are you sure you want delete the {type} {name}?\n"
-#~ "This action can not be undone."
-#~ msgstr ""
-#~ "Esta seguro de desear borrar el {type} {name}?<br>Esta acción no se puede "
-#~ "deshacer"
 
 #, fuzzy
-#~ msgid "Private key used to unlock the client's certificate"
-#~ msgstr "Clave privada usada para crear el certificado del cliente"
 
-#~ msgid "Inexistent file {path}"
-#~ msgstr "Archivo inexistente {path}"

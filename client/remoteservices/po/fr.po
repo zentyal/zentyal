@@ -438,154 +438,45 @@ msgid "Connected"
 msgstr "Connecté"
 
 #, fuzzy
-#~ msgid "eBox Control Center"
-#~ msgstr "Centre de contrôle"
 
-#~ msgid "Control center"
-#~ msgstr "Centre de contrôle"
 
-#~ msgid "Control Center Client"
-#~ msgstr "Centre de contrôle client"
 
-#~ msgid "Control Center"
-#~ msgstr "Centre de contrôle"
 
 #, fuzzy
-#~ msgid "Remote support accesss"
-#~ msgstr "Services distants"
 
 #, fuzzy
-#~ msgid ""
-#~ "Subscribing an eBox will configure OpenVPN module and its dependencies by "
-#~ "running these actions and modifying these files: "
-#~ msgstr ""
-#~ "L'inscription d'un serveur eBox configurera le module OpenVPN en "
-#~ "effectuant ces actions et en modifiant ces fichiers:"
 
-#~ msgid ""
-#~ "In order to subscribe an eBox remote services {url}. You will have remote "
-#~ "backup facilities and much more"
-#~ msgstr ""
-#~ "En vous inscrivant au services distant d'eBox {url}. Vous aurez la "
-#~ "possibilité de faire des sauvegardes à distances et bien d'autres choses"
 
-#~ msgid "eBox Control Center is paid services to enhance your eBox experience"
-#~ msgstr ""
-#~ "Le \"Centre de contrôle\" d'eBox est un service payant destiné à "
-#~ "améliorer votre expérience d'eBox"
 
-#~ msgid "User name"
-#~ msgstr "Nom d'utilisateur"
 
-#~ msgid "field1"
-#~ msgstr "Champ1"
 
-#~ msgid "field2"
-#~ msgstr "Champ2"
 
-#~ msgid "Settings"
-#~ msgstr "Configurations"
 
-#~ msgid "Composite"
-#~ msgstr "Composite"
 
-#~ msgid "eBox remote services"
-#~ msgstr "Services distant d'eBox"
 
-#~ msgid "Remote Services Subscription"
-#~ msgstr "Inscription au services distants"
 
-#~ msgid "Key for service proxy not found"
-#~ msgstr "La clé pour le service proxy n'a pas été trouvée"
 
-#~ msgid ""
-#~ "Cannot proceed with your request because it was a connection problem. "
-#~ "Possible causes are:"
-#~ msgstr ""
-#~ "Votre requête ne peut être exécutée à cause d'un problème de connexion. "
-#~ "Les causes possible sont:"
 
-#~ msgid "Your computer has not internet connection"
-#~ msgstr "Votre ordinateur n'a pas de connexion vers internet"
 
-#~ msgid "Firewall is blocking the connection. Try to restart firewall module"
-#~ msgstr ""
-#~ "Le pare-feu bloque la connexion. Essayer de redémarrer le module du pare-"
-#~ "feu"
 
-#~ msgid "Your computer has not a correct system date"
-#~ msgstr "Votre ordinateur n'a pas une bonne configuration de date"
 
-#~ msgid "You are using the wrong certificates"
-#~ msgstr "Vous utilisez un mauvais certificat"
 
-#~ msgid "This eBox has been removed from your registered eBoxes"
-#~ msgstr "Cet eBox à été retiré de vos eBoxs enregisté"
 
-#~ msgid "Name"
-#~ msgstr "Nom"
 
-#~ msgid "Date"
-#~ msgstr "Date"
 
-#~ msgid "Archive size"
-#~ msgstr "Taille d'archive"
 
-#~ msgid "Cancel"
-#~ msgstr "Annuler"
 
-#~ msgid "eBox host"
-#~ msgstr "Hôte eBox"
 
-#~ msgid "Download"
-#~ msgstr "Télécharger"
 
-#~ msgid "restore"
-#~ msgstr "restaurer"
 
-#~ msgid "download"
-#~ msgstr "télécharger"
 
-#~ msgid "Backups' list"
-#~ msgstr "Liste des sauvegardes"
 
-#~ msgid "User"
-#~ msgstr "Utilisateur"
 
-#~ msgid "Submit"
-#~ msgstr "Soumettre"
 
-#~ msgid "Enter user and password"
-#~ msgstr "Entrer nom d'utilisateur et mot de passe"
 
-#~ msgid "Back up"
-#~ msgstr "Sauvegarde"
 
-#~ msgid "Back up the current configuration state"
-#~ msgstr "Sauvegarder l'état de la configuration actuelle"
 
-#~ msgid ""
-#~ "Backup is disabled because there are unsaved configuration changes. "
-#~ "Please, save or discard them to be able to backup the configuration"
-#~ msgstr ""
-#~ "La sauvegarde n'est pas accessible car certains changements de "
-#~ "configuration n'ont pas été enregistrés. Veuillez les enregistrer ou les "
-#~ "supprimer afin de pouvoir sauvegarder le configuration"
 
-#~ msgid "delete"
-#~ msgstr "effacer"
 
-#~ msgid "Configuration backups' list"
-#~ msgstr "Liste des sauvegardes de configuration"
 
-#~ msgid ""
-#~ "This feature is only available if you get eBox  Services. You can "
-#~ "contract them at {url1}. If you are already registered, then subscribe "
-#~ "this eBox at {url2}"
-#~ msgstr ""
-#~ "Cette fonction n'est disponible que si vous avez souscrit aux services  "
-#~ "eBox. Vous pouvez y souscrire à {url1}. Si vous êtes déjà enregistré, "
-#~ "alors inscrivez cette version d'eBox à {url2}"
 
-#~ msgid "subscription page"
-#~ msgstr "Page d'inscription"

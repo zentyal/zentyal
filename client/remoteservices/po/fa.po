@@ -426,87 +426,33 @@ msgid "Connected"
 msgstr "ﺦﻃﺍی ﺎﺘﺻﺎﻟ"
 
 #, fuzzy
-#~ msgid "eBox Control Center"
-#~ msgstr "ﻡﺭکﺯ کﻦﺗﺮﻟ"
 
-#~ msgid "Control center"
-#~ msgstr "ﻡﺭکﺯ کﻦﺗﺮﻟ"
 
 #, fuzzy
-#~ msgid "Control Center Client"
-#~ msgstr "ﻡﺭکﺯ کﻦﺗﺮﻟ"
 
 #, fuzzy
-#~ msgid "Control Center"
-#~ msgstr "ﻡﺭکﺯ کﻦﺗﺮﻟ"
 
 #, fuzzy
-#~ msgid "Remote support accesss"
-#~ msgstr "ﺱﺭﻭیﺱ<200c>ﻫﺍی ﺭﺎﻫ ﺩﻭﺭ"
 
-#~ msgid "User name"
-#~ msgstr "ﻥﺎﻣ کﺍﺮﺑﺭی"
 
-#~ msgid "eBox remote services"
-#~ msgstr "ﺥﺭﻮﺟ"
 
 #, fuzzy
-#~ msgid "Remote Services Subscription"
-#~ msgstr "ﺱﺭﻭیﺱ<200c>ﻫﺍی ﺭﺎﻫ ﺩﻭﺭ"
 
-#~ msgid "Key for service proxy not found"
-#~ msgstr "کﻝیﺩ ﺏﺭﺍی ﺱﺭﻭیﺱ پﺭﻭکﺱی یﺎﻔﺗ ﻦﺷﺩ"
 
-#~ msgid "Your computer has not a correct system date"
-#~ msgstr "ﺭﺍیﺎﻨﻫ ﺶﻣﺍ ﺕﺍﺭیﺥ ﺱیﺲﺘﻣی ﺩﺮﺴﺗی ﻥﺩﺍﺭﺩ"
 
-#~ msgid "You are using the wrong certificates"
-#~ msgstr "ﺶﻣﺍ ﺍﺯ گﻭﺎﻫیﻥﺎﻤﻫ<200c>ﻫﺍی ﺎﺸﺘﺑﺎﻫ ﺎﺴﺘﻓﺍﺪﻫ ﻡی<200c>کﻥیﺩ"
 
-#~ msgid "Name"
-#~ msgstr "ﻥﺎﻣ"
 
-#~ msgid "Date"
-#~ msgstr "ﺕﺍﺭیﺥ"
 
-#~ msgid "Archive size"
-#~ msgstr "ﺎﻧﺩﺍﺰﻫ ﺏﺍیگﺎﻧی"
 
-#~ msgid "Cancel"
-#~ msgstr "ﻞﻏﻭ"
 
-#~ msgid "eBox host"
-#~ msgstr "ﻡیﺰﺑﺎﻧ ﺍی<200c>ﺏﺍکﺱ"
 
-#~ msgid "Download"
-#~ msgstr "ﺩﺎﻨﻟﻭﺩ"
 
-#~ msgid "restore"
-#~ msgstr "ﺏﺍﺯیﺎﺑی"
 
-#~ msgid "download"
-#~ msgstr "ﺩﺎﻨﻟﻭﺩ"
 
-#~ msgid "Backups' list"
-#~ msgstr "ﻒﻫﺮﺴﺗ پﺶﺗیﺏﺎﻧ<200c>ﻫﺍ"
 
-#~ msgid "User"
-#~ msgstr "کﺍﺮﺑﺭ"
 
-#~ msgid "Submit"
-#~ msgstr "ﺍﺮﺳﺎﻟ"
 
-#~ msgid "Enter user and password"
-#~ msgstr "ﻥﺎﻣ کﺍﺮﺑﺭی ﻭ گﺫﺭﻭﺍژﻩ ﺭﺍ ﻭﺍﺭﺩ ﻦﻣﺍییﺩ"
 
-#~ msgid "Back up"
-#~ msgstr "پﺶﺗیﺏﺎﻧ"
 
-#~ msgid "Back up the current configuration state"
-#~ msgstr "پﺶﺗیﺏﺎﻧ<200c>گیﺭی ﻮﻀﻋیﺕ ﻒﻌﻟی پیکﺮﺒﻧﺩی"
 
-#~ msgid "delete"
-#~ msgstr "ﺡﺬﻓ"
 
-#~ msgid "Configuration backups' list"
-#~ msgstr "ﻒﻫﺮﺴﺗ پﺶﺗیﺏﺎﻧ<200c>ﻫﺍی پیکﺮﺒﻧﺩی"

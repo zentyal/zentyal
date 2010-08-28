@@ -332,121 +332,44 @@ msgid "Upgrade"
 msgstr "ارتقا"
 
 #, fuzzy
-#~ msgid "packages installed"
-#~ msgstr "بسته‌های باقیمانده برای نصب"
 
-#~ msgid ""
-#~ "eBox software will download the available updates from your configured "
-#~ "apt sources. "
-#~ msgstr ""
-#~ "نرم‌افزار ای‌باکس به‌روزرسانی‌ها را از مخازن پیکربندی apt شما دانلود می‌کند."
 
-#~ msgid "Enable cron script to download updates"
-#~ msgstr "فعال‌سازی اسکریپت‌های کرون برای دانلود به‌روزرسانی‌ها"
 
 #, fuzzy
-#~ msgid "Automatic Updates"
-#~ msgstr "به‌روزرسانی‌های خودکار"
 
-#~ msgid "Software updates are being handled automatically"
-#~ msgstr "به‌روزرسانی‌های نرم‌افزاری به‌صورت خودکار انجام‌شد"
 
-#~ msgid "Installed version "
-#~ msgstr "نسخه نصب‌شده"
 
-#~ msgid "Latest version"
-#~ msgstr "آخرین نسخه"
 
-#~ msgid "none"
-#~ msgstr "هیچ کدام"
 
-#~ msgid "Remove"
-#~ msgstr "حذف"
 
 #, fuzzy
-#~ msgid "eBox - Antivirus module"
-#~ msgstr "ای‌باکس - ماجول فیلتر نامه"
 
 #, fuzzy
-#~ msgid "eBox - Asterisk"
-#~ msgstr "ای‌باکس - سرور DNS"
 
-#~ msgid "eBox - Certificate Authority Manager for eBox"
-#~ msgstr "ای‌باکس - مدیر صدور گواهینامه برای ای‌باکس"
 
 #, fuzzy
-#~ msgid "eBox - captive portal module"
-#~ msgstr "ای‌باکس - ماجول فیلتر نامه"
 
-#~ msgid "eBox - DHCP server module"
-#~ msgstr "ای‌باکس - ماجول سرور DHCP"
 
-#~ msgid "eBox - DNS server"
-#~ msgstr "ای‌باکس - سرور DNS"
 
-#~ msgid "the eBox platform - Base framework"
-#~ msgstr "پلتفرم ای‌باکس - چارچوب پایه"
 
-#~ msgid "eBox - Firewall"
-#~ msgstr "ای‌باکس - دیواره آتش"
 
 #, fuzzy
-#~ msgid "eBox - Instant messaging proxy"
-#~ msgstr "ای‌باکس - پیام‌رسانی لحظه‌ای (Jabber)"
 
-#~ msgid "eBox - Instant messaging (Jabber)"
-#~ msgstr "ای‌باکس - پیام‌رسانی لحظه‌ای (Jabber)"
 
-#~ msgid "eBox - layer 7 protocols"
-#~ msgstr "ای‌باکس - پروتکل‌های لایه ۷"
 
-#~ msgid "eBox - Mail server"
-#~ msgstr "ای‌باکس - سرور نامه"
 
-#~ msgid "eBox - Mail filter module"
-#~ msgstr "ای‌باکس - ماجول فیلتر نامه"
 
-#~ msgid "eBox - Monitoring module  "
-#~ msgstr "ای‌باکس - ماجول دیده‌بانی"
 
-#~ msgid "eBox - Network configuration module"
-#~ msgstr "ای‌باکس - ماجول پیکربندی شبکه"
 
-#~ msgid "eBox - NTP server"
-#~ msgstr "ای‌باکس - سرور NTP"
 
-#~ msgid "eBox - Object management"
-#~ msgstr "ای‌باکس - مدیریت شی"
 
-#~ msgid "eBox - OpenVPN server module"
-#~ msgstr "ای‌باکس - ماجول سرور OpenVPN"
 
-#~ msgid "eBox - Printer sharing"
-#~ msgstr "ای‌باکس - اشتراک‌گذاری چاپگر"
 
-#~ msgid "eBox - File sharing"
-#~ msgstr "ای‌باکس - اشتراک‌گذاری فایل"
 
-#~ msgid "eBox - Services management"
-#~ msgstr "ای‌باکس - مدیریت سرویس"
 
-#~ msgid "eBox - Software management"
-#~ msgstr "ای‌باکس - مدیریت نرم‌افزار"
 
-#~ msgid "eBox - Proxy cache and content filter"
-#~ msgstr "ای‌باکس - کش پروکسی و فیلتر محتوا"
 
-#~ msgid "eBox - Traffic shaper for eBox"
-#~ msgstr "ای‌باکس - شکل‌دهنده ترافیک برای ای‌باکس"
 
-#~ msgid "eBox - User and Group management"
-#~ msgstr "ای‌باکس - مدیریت کاربر و گروه"
 
-#~ msgid "eBox - Web Server"
-#~ msgstr "ای‌باکس - سرور وب"
 
-#~ msgid "IPsec VPNs"
-#~ msgstr "وی پی ان‌ های IPsec"
 
-#~ msgid "SOAP server to communicate with eBox control center"
-#~ msgstr "سرور SOAP برای ارتباط با مرکز کنترل ای‌باکس"

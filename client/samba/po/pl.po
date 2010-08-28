@@ -706,59 +706,20 @@ msgstr "Katalogi Domowe"
 msgid "{group} share directory"
 msgstr "Współdzielony folder grupy {group}"
 
-#~ msgid "Incoorect SID: {s}"
-#~ msgstr "Nieprawidłowy SID: {s}"
 
 #, fuzzy
-#~ msgid "file sharing"
-#~ msgstr "współdzielenie plików"
 
-#~ msgid "module status"
-#~ msgstr "stan modułu"
 
-#~ msgid "netbios"
-#~ msgstr "netbios"
 
-#~ msgid "working group"
-#~ msgstr "grupa robocza"
 
-#~ msgid "working mode"
-#~ msgstr "tryb pracy"
 
-#~ msgid "user quota"
-#~ msgstr "ograniczenie przestrzeni użytkownika"
 
-#~ msgid "General Settings"
-#~ msgstr "Ustawienia globalne"
 
-#~ msgid ""
-#~ "To allow unlimited disk usage to users, just set zero as user quota limit."
-#~ msgstr ""
-#~ "Aby wyłączyć ograniczenie przestrzeni dla użytkownika, wstaw 0 (zero) w "
-#~ "polu ograniczenie przestrzeni użytkownika"
 
-#~ msgid "Working mode"
-#~ msgstr "Tryb pracy"
 
-#~ msgid "File server"
-#~ msgstr "Serwer Plików"
 
-#~ msgid "Working group"
-#~ msgstr "Grupa robocza"
 
-#~ msgid "listening port"
-#~ msgstr "port nasłuchu"
 
-#~ msgid "Domain Name"
-#~ msgstr "Nazwa Domeny"
 
-#~ msgid "Deleting group"
-#~ msgstr "Kasowanie grupy"
 
-#~ msgid "PDC/File sharing service status"
-#~ msgstr "Stan usług współdzielenia plików/PDC"
 
-#~ msgid "This user has a sharing directory associated which conatins data"
-#~ msgstr ""
-#~ "Ten użytkownik ma powiązany z nim katalog współdzielony, który zawiera "
-#~ "dane."

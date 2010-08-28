@@ -474,293 +474,80 @@ msgstr ""
 "Вы можете отменить эти правила, однако вы должны быть уверены в том, что вы "
 "делаете иначе некоторые службы будут остановлены"
 
-#~ msgid "eBox"
-#~ msgstr "eBox"
 
-#~ msgid "Port Forwading"
-#~ msgstr "Перенаправление портов"
 
-#~ msgid "redirect"
-#~ msgstr "перенаправления"
 
-#~ msgid "Packet filtering"
-#~ msgstr "Фильтрация пакетов"
 
-#~ msgid ""
-#~ "These rules are meant to control access from internal network interfaces "
-#~ "to services running on your eBox machine"
-#~ msgstr ""
-#~ "Эти правила разрешают контролировать доступ с интерфейса внутренней сети  "
-#~ "на  службы eBox"
 
-#~ msgid "Redirects"
-#~ msgstr "Перенаправления"
 
-#~ msgid "Port redirections"
-#~ msgstr "Перенаправление портов"
 
-#~ msgid "Filtering rules from  external networks to eBox"
-#~ msgstr "Правила фильтрации из  внешних сетей на eBox"
 
-#~ msgid "firewall"
-#~ msgstr "Файервол"
 
-#~ msgid "UTM"
-#~ msgstr "UTM"
 
-#~ msgid "Global services' filtering rules"
-#~ msgstr "Глобальные правила фильтрации служб"
 
-#~ msgid "Services' filtering rules {desc}"
-#~ msgstr "Правила фильтрации служб: {desc}"
 
-#~ msgid "Edit rule"
-#~ msgstr "Редактировать правило"
 
-#~ msgid "Global firewall configuration"
-#~ msgstr "Глобальные настройки файрвола"
 
-#~ msgid "Firewall configuration: {desc}"
-#~ msgstr "Настройка файрвола: {desc}"
 
-#~ msgid "service"
-#~ msgstr "служба"
 
-#~ msgid "policy"
-#~ msgstr "политика"
 
-#~ msgid "network interface"
-#~ msgstr "сетевой интерфейс"
 
-#~ msgid "destination address"
-#~ msgstr "адрес назначения"
 
-#~ msgid "Port {port} is being used by a service or port redirection."
-#~ msgstr "Порт {port} используется службой или перенаправлением портов"
 
-#~ msgid "Actions"
-#~ msgstr "Действия"
 
-#~ msgid "Add"
-#~ msgstr "Добавить"
 
-#~ msgid "Change"
-#~ msgstr "Изменить"
 
-#~ msgid "Delete"
-#~ msgstr "Удалить"
 
-#~ msgid ""
-#~ "Protocol, ports and addresses are optional. The rules will be applied in "
-#~ "order, from top to bottom, you can reorder them once they are added. "
-#~ "Rules can also be disabled without deleting them."
-#~ msgstr ""
-#~ "Протокол, порты и адреса опциональны. Правила будут применятся в порядке "
-#~ "'сверху вниз'. Вы также можете изменить порядок уже существующих правил. "
-#~ "Вы также можете отключать правила без их удаления."
 
-#~ msgid "New rule"
-#~ msgstr "Новое правило"
 
-#~ msgid "Action"
-#~ msgstr "Действие"
 
-#~ msgid "Allow"
-#~ msgstr "Разрешено"
 
-#~ msgid "Deny"
-#~ msgstr "Запрещено"
 
-#~ msgid "Source address"
-#~ msgstr "Исходный адрес"
 
-#~ msgid "is not"
-#~ msgstr "если не"
-
-#~ msgid "is"
-#~ msgstr "если"
-
-#~ msgid "to"
-#~ msgstr "к"
 
-#~ msgid "Destination address"
-#~ msgstr "Адрес назначения"
 
-#~ msgid "Rule list"
-#~ msgstr "Список правил"
 
-#~ msgid "allow"
-#~ msgstr "разрешить"
 
-#~ msgid "allow (disabled)"
-#~ msgstr "разрешить (отключено)"
 
-#~ msgid "deny"
-#~ msgstr "запретить"
 
-#~ msgid "deny (disabled)"
-#~ msgstr "запретить (отключено)"
 
-#~ msgid "inverse match"
-#~ msgstr "обратное соответствие"
 
-#~ msgid "Edit"
-#~ msgstr "Редактировать"
 
-#~ msgid "Up"
-#~ msgstr "Поднять"
 
-#~ msgid "Down"
-#~ msgstr "Опустить"
 
-#~ msgid "delete"
-#~ msgstr "удалить"
 
-#~ msgid "edit"
-#~ msgstr "редактировать"
 
-#~ msgid "move up"
-#~ msgstr "переместить вверх"
 
-#~ msgid "move down"
-#~ msgstr "переместить вниз"
 
-#~ msgid "any"
-#~ msgstr "любой"
-
-#~ msgid "Services"
-#~ msgstr "Службы"
-
-#~ msgid "Policy"
-#~ msgstr "Политика"
-
-#~ msgid ""
-#~ "Protocol, port and destination address are optional. The rules will be "
-#~ "applied in order, from top to bottom, you can reorder them once they are "
-#~ "added. Rules can also be disabled without deleting them."
-#~ msgstr ""
-#~ "Протокол, порт и адрес назначения опциональны. Правила будут применятся в "
-#~ "порядке 'сверху вниз'. Вы также можете изменить порядок уже существующих "
-#~ "правил. Вы также можете отключать правила без их удаления."
 
-#~ msgid ""
-#~ "Rules without an explicit destination address will be applied to packets "
-#~ "that leave eBox through an external network interface. You may flag "
-#~ "network interfaces as external in the <a href='../Network/Ifaces'>Network "
-#~ "Interfaces</a> configuration page."
-#~ msgstr ""
-#~ "Правила без точного адреса назначения будут применяться к пакетам, "
-#~ "которые покидают eBox через внешний сетевой интерфейс. Вы можете "
-#~ "обозначить сетевой интерфейс как внешний на <a href='../Network/"
-#~ "Ifaces'>странице настройки</a> сетевых интерфейсов"
 
-#~ msgid "Active"
-#~ msgstr "Активное"
 
-#~ msgid ""
-#~ "The policy states what to do on network packets not explicitly matched "
-#~ "below. The policy is applied to connections that leave eBox through an "
-#~ "external network interface. If you want to allow traffic between internal "
-#~ "networks you need to create explicit rules for that."
-#~ msgstr ""
-#~ "Политика определяет что нужно делать с пакетами, которые не совпадают с "
-#~ "описанными ниже. Политика применяется к соединениям проходящим через "
-#~ "внешний сетевой интерфейс eBox. Если Вы хотите разрешить траффик между "
-#~ "внутренними сетями, Вы должны создать точные правила для этого"
 
-#~ msgid ""
-#~ "Choosing global will make the firewall fall back to the <a href='Object?"
-#~ "object=_global'>default configuration</a>."
-#~ msgstr ""
-#~ "Выберите для глобального отката файрвола на <a href='Object?"
-#~ "object=_global'>стандартные настройки</a>."
 
-#~ msgid "Global"
-#~ msgstr "Глобальные"
 
-#~ msgid "object"
-#~ msgstr "объект"
 
-#~ msgid "Port cannot be set if no protocol is selected."
-#~ msgstr "Порт не может быть установлен без выбора протокола."
 
-#~ msgid "address"
-#~ msgstr "адрес"
 
-#~ msgid "source port"
-#~ msgstr "исходный порт"
 
-#~ msgid "source address"
-#~ msgstr "исходный адрес"
 
-#~ msgid "Rule not found"
-#~ msgstr "Правило не найдено"
 
-#~ msgid "Deny action"
-#~ msgstr "Запретить действие"
 
-#~ msgid ""
-#~ "This will tell the firewall what to do when discarding network packets.  "
-#~ "If you choose Reject, a packet will be sent back to the sender, choosing "
-#~ "Drop will make the firewall drop the packet silently."
-#~ msgstr ""
-#~ "Это сообщает файрволу что он должен делать с запрещенными пакетами. Если "
-#~ "Вы выберите Отклонить - пакет будет возвращен отправителю. Если Вы "
-#~ "выберите Сборсить - пакет будет удален."
 
-#~ msgid "Drop packets"
-#~ msgstr "Сбрасывать пакеты"
 
-#~ msgid "Reject packets"
-#~ msgstr "Отклонять пакеты"
 
-#~ msgid "Apply"
-#~ msgstr "Применить"
 
-#~ msgid "Filtering rules for internet access"
-#~ msgstr "Правила фильтрации для доступа в Интернет"
 
-#~ msgid ""
-#~ "The link below will let you set up the default behavior of the packet "
-#~ "filter.  These rules are meant to control access from internal network "
-#~ "interfaces to external ones, they provide a simpler way to control access "
-#~ "to the internet. You may also choose an object and set up its own rules"
-#~ msgstr ""
-#~ "Ссылка ниже предлагает Вам установить действие по умолчанию для фильтра "
-#~ "пакетов. Эти правила предназначены для контроля доступа с внутренних "
-#~ "сетевых интерфейсов на внешние. Они обеспечивают более простой путь к "
-#~ "контролю над доступом в Интернет. Вы также можете выбрать объект и "
-#~ "установить свои собственные правила"
 
-#~ msgid "Configure default rules"
-#~ msgstr "Настроить стандартные правила"
 
-#~ msgid "Filtering Rules between internal networks"
-#~ msgstr "Правила Фильтрации между внутренними сетями"
 
-#~ msgid "Configure default rules related to eBox services"
-#~ msgstr "Настроить стандартные правила связанные со службами eBox"
 
-#~ msgid "Configure rules for a particular object"
-#~ msgstr "Настроить правила для отдельных объектов"
 
-#~ msgid "Go"
-#~ msgstr "Запуск"
+
+
+
+
+
 
 #, fuzzy
-#~ msgid ""
-#~ "The link below will let you set up the default behavior of the packet "
-#~ "filter. You may also choose an object and set up rules and the services "
-#~ "it may access. These rules are meant to control access from internal "
-#~ "network interfaces to external ones, they provide a simpler way to "
-#~ "control access to the internet."
-#~ msgstr ""
-#~ "Ссылка ниже предлагает Вам установить действие по умолчанию для фильтра "
-#~ "пакетов. Эти правила предназначены для контроля доступа с внутренних "
-#~ "сетевых интерфейсов на внешние. Они обеспечивают более простой путь к "
-#~ "контролю над доступом в Интернет. Вы также можете выбрать объект и "
-#~ "установить свои собственные правила"
 
 #, fuzzy
-#~ msgid "Filtering rules for eBox's services"
-#~ msgstr "Правила фильтрации для доступа в Интернет"

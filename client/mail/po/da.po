@@ -1312,208 +1312,66 @@ msgid "Change"
 msgstr "Ret"
 
 #, fuzzy
-#~ msgid "External mail address"
-#~ msgstr "mail adresse"
 
-#~ msgid "Create alias mail account to group"
-#~ msgstr "Opret alias mail konto til gruppen"
 
-#~ msgid ""
-#~ "When the last member of a group is removed, the mail alias account will "
-#~ "be deleted"
-#~ msgstr ""
-#~ "Når det sidste medlem af en gruppe slettes, vil mail alias kontoen blive "
-#~ "slettet"
 
-#~ msgid "Message"
-#~ msgstr "Meddelelse"
 
-#~ msgid "Operate"
-#~ msgstr "Betjen"
 
-#~ msgid "maildir size"
-#~ msgstr "maildir størrelse"
 
-#~ msgid "Default maildir size (MB)"
-#~ msgstr "Default maildir størrelse (MB)"
 
 #, fuzzy
-#~ msgid "mail"
-#~ msgstr "Mail"
 
 #, fuzzy
-#~ msgid "Communications"
-#~ msgstr "Godkendelses fejl"
 
-#~ msgid "SSL Support"
-#~ msgstr "SSL Support"
 
-#~ msgid "No"
-#~ msgstr "Nej"
 
-#~ msgid "Optional"
-#~ msgstr "Optional/mulig"
 
-#~ msgid "Required"
-#~ msgstr "Krævet"
 
-#~ msgid "Mail system"
-#~ msgstr "Mail system"
 
-#~ msgid "vdomain"
-#~ msgstr "vdomain"
 
-#~ msgid "Message size limit"
-#~ msgstr "Meddelelse størrelses grænse"
 
-#~ msgid "relay"
-#~ msgstr "videresende"
 
-#~ msgid "remote IP"
-#~ msgstr "remote IP"
 
-#~ msgid "{ip} is not a valid ip address"
-#~ msgstr "{ip} er ikke en gyldig ip adresse"
 
-#~ msgid "{ip} cannot be reached by any configured interface"
-#~ msgstr "{ip} kan ikke findes af noget konfigureret interface"
 
-#~ msgid "{ip} can be reached by more than one configured interface"
-#~ msgstr "{ip} kan nås af mere end et konfigureret interface"
 
-#~ msgid "port"
-#~ msgstr "port"
 
-#~ msgid "message size"
-#~ msgstr "meddelelses størrelse"
 
-#~ msgid "Yes"
-#~ msgstr "Ja"
 
-#~ msgid "TLS support is required by the authentication system"
-#~ msgstr "TLS support er krævet af godkendelses systemet"
 
-#~ msgid "Services"
-#~ msgstr "Services"
 
-#~ msgid "Service"
-#~ msgstr "Service"
 
-#~ msgid "Apply Changes"
-#~ msgstr "Anvend ændringer"
 
-#~ msgid ""
-#~ "A value of 0 for the maximum message size and maximum mail account size "
-#~ "stands for no size limitation."
-#~ msgstr ""
-#~ "Værdien 0 som maximum meddelelses størrelse og maximum mail konto "
-#~ "størrelse betyder ingen størrelses grænse"
 
-#~ msgid "Maximum message size accepted by the mail server"
-#~ msgstr "Maximum meddelelses størrelse godkendt af mail server"
 
-#~ msgid "Size (MB)"
-#~ msgstr "Størrelse (MB)"
 
-#~ msgid ""
-#~ "You should move to allowed column those objects you want to allow sending "
-#~ "mail through this module."
-#~ msgstr ""
-#~ "De objekter du ønsker at tillade at sende mail gennem dette modul, skal "
-#~ "flyttes til tilladt kolonne."
 
-#~ msgid ""
-#~ "Choose the object whose state you want to change and click on the arrow "
-#~ "to move it to the desired column."
-#~ msgstr ""
-#~ "Vælg de objekter du ønsker at ændre status på, og klik på pilen for at "
-#~ "flytte dem til den ønskede kolonne."
 
-#~ msgid "Denied"
-#~ msgstr "Afvist"
 
-#~ msgid "Empty list"
-#~ msgstr "Tom liste"
 
-#~ msgid "Allow"
-#~ msgstr "Tillad"
 
-#~ msgid "Move selected objects to the allowed column"
-#~ msgstr "Flyt valgte objekter til tilladt kolonne"
 
-#~ msgid "Deny"
-#~ msgstr "Afvis"
 
-#~ msgid "Move selected objects to the denied column"
-#~ msgstr "Flyt valgte objekter til afvist kolonne"
 
-#~ msgid "Apply"
-#~ msgstr "Anvend"
 
-#~ msgid "Default maximum mail account size"
-#~ msgstr "Default maximum mail konto størrelse"
 
-#~ msgid "Force the change to the existing accounts"
-#~ msgstr "Tving ændringen til eksisterende konti"
 
-#~ msgid "Maildir size for {vdomain} virtual domain"
-#~ msgstr "Maildir størrelse for {vdomain} virtuelt domæne"
 
-#~ msgid "Add a new virtual domain"
-#~ msgstr "Tilføj et nyt virtuelt domæne"
 
-#~ msgid "(MB)"
-#~ msgstr "(MB)"
 
-#~ msgid "Add"
-#~ msgstr "Tilføj"
 
 #, fuzzy
-#~ msgid "Unlimited"
-#~ msgstr "Ubegrænset størrelse"
 
-#~ msgid "Maildir Size"
-#~ msgstr "Maildir Størrelse"
 
-#~ msgid "Edit"
-#~ msgstr "Rediger"
 
-#~ msgid "smarthost ip"
-#~ msgstr "smarthost ip"
 
-#~ msgid "IP address of smarthost to send mail"
-#~ msgstr "IP adresse fra smarthost til send mail"
 
-#~ msgid "mail system status"
-#~ msgstr "mail system status"
 
-#~ msgid "Unknown filter {filter}"
-#~ msgstr "Ukendt filter {filter}"
 
-#~ msgid "Service status"
-#~ msgstr "Service status"
 
-#~ msgid ""
-#~ "The following settings only will take effect when the mail module will be "
-#~ "enabled"
-#~ msgstr ""
-#~ "De følgende indstillinger vil kun træde i kraft når mail modulet bliver "
-#~ "aktiveret"
 
-#~ msgid "There is not any message at the queue or the service is stopped"
-#~ msgstr "Der er ingen meddelelser i køen eller servicen er stoppet"
 
-#~ msgid "Account do not exists"
-#~ msgstr "Konto eksisterer ikke"
 
-#~ msgid "Relay policy for objects"
-#~ msgstr "Videresendelses politik for objekter"
 
-#~ msgid "Allowed"
-#~ msgstr "Tilladt"
 
-#~ msgid "Filter's IP address"
-#~ msgstr "Filter's IP adresse"
 
-#~ msgid "Filter's Port"
-#~ msgstr "Filter's Port"

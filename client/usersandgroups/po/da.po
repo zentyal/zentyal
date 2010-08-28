@@ -850,105 +850,25 @@ msgid "Enter"
 msgstr ""
 
 #, fuzzy
-#~ msgid "User corner"
-#~ msgstr "Brugernavn"
 
-#~ msgid ""
-#~ "If you remove this group all its data within its shared directory will be "
-#~ "deleted"
-#~ msgstr ""
-#~ "Hvis du sletter gruppen vil alle data i dens delte folder bliver slettet"
 
 #, fuzzy
-#~ msgid ""
-#~ "There are no users at the moment. You may want to add some in {openhref}"
-#~ "Add user section{closehref}."
-#~ msgstr ""
-#~ "Der er ingen brugere i øjeblikket. De har brug for mindst en for at kunne "
-#~ "håndtere denne gruppe ordentlig"
 
-#~ msgid "Edit User"
-#~ msgstr "Rediger bruger"
 
-#~ msgid "Edit Group"
-#~ msgstr "Rediger gruppe"
 
-#~ msgid ""
-#~ "Changes in user accounts take effect inmediately, they do not need to be "
-#~ "saved."
-#~ msgstr ""
-#~ "Ændringer i brugerkonti sker med det samme, de behøver ikke at blive gemt"
 
-#~ msgid ""
-#~ "Changes related to printing, file sharing and Jabber service do need to "
-#~ "be saved in order to be effective."
-#~ msgstr ""
-#~ "Ændringer med hensyn til print, fildeling og Jabber service behøver ikke "
-#~ "at blive gemt for at blive aktive"
 
-#~ msgid "Create"
-#~ msgstr "Opret"
 
-#~ msgid "Actions"
-#~ msgstr "Handlinger"
 
 #, fuzzy
-#~ msgid ""
-#~ "There are no groups at the moment. You may want to add some in the master "
-#~ "eBox"
-#~ msgstr ""
-#~ "Der er ingen brugere i øjeblikket. De har brug for mindst en for at kunne "
-#~ "håndtere denne gruppe ordentlig"
 
 #, fuzzy
-#~ msgid ""
-#~ "There are no groups at the moment. You may want to add some in the Domain "
-#~ "Controller"
-#~ msgstr ""
-#~ "Der er ingen brugere i øjeblikket. De har brug for mindst en for at kunne "
-#~ "håndtere denne gruppe ordentlig"
 
 #, fuzzy
-#~ msgid ""
-#~ "Your current openLDAP database will be replaced and backed up in /var/"
-#~ "backups/slapd"
-#~ msgstr ""
-#~ "Din nuværende openLDAP databse vil blive erstattet, og gemt som backup "
-#~ "under /ar/backups/slapd"
 
-#~ msgid ""
-#~ "eBox will initialize openLDAP to store its database. It will also "
-#~ "overwrite your current configuration"
-#~ msgstr ""
-#~ "eBox vil initialisere openLDAP for at gemme sin database. Den vil også "
-#~ "overskrive din nuværende opsætning."
 
-#~ msgid ""
-#~ "To configure the openLDAP database with dc  entry, rootpw, rootdn, "
-#~ "schemas and ACLs used by  the LDAP based eBox modules"
-#~ msgstr ""
-#~ "For at konfigurere openLDAP databsen med dc__ input, root password, root "
-#~ "dn, scemas og ACLer der skal bruges af LDAP baserede moduler"
 
-#~ msgid "full name"
-#~ msgstr "fuldt navn"
 
-#~ msgid "foo"
-#~ msgstr "foo"
 
-#~ msgid ""
-#~ "Your current openLDAP database will be replaced and backuped in /var/"
-#~ "backups/slapd"
-#~ msgstr ""
-#~ "Din nuværende openLDAP databse vil blive erstattet, og gemt som backup "
-#~ "under /ar/backups/slapd"
 
-#~ msgid "Edit user"
-#~ msgstr "Rediger en bruger"
 
-#~ msgid ""
-#~ "This operation will cause the removal of the user and all his "
-#~ "dependences; such as mail accounts, user data..."
-#~ msgstr ""
-#~ "Denne handling vil slette brugeren og alle dens  data, som mail konto, "
-#~ "filer etc."

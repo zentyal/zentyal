@@ -653,21 +653,7 @@ msgstr "サブネットマスク"
 msgid "Delete"
 msgstr "削除"
 
-#~ msgid "eBox"
-#~ msgstr "eBox"
 
-#~ msgid "eBox's domain"
-#~ msgstr "eBoxのドメイン"
 
-#~ msgid "{name} cannot contain spaces"
-#~ msgstr "{name} には空白文字を入力できません"
 
-#~ msgid "DHCP service status"
-#~ msgstr "DHCPサービスの状態"
 
-#~ msgid ""
-#~ "DHCP server cannot activated because there are not any network interface "
-#~ "with a static address. {openhref}Configure one{closehref} first"
-#~ msgstr ""
-#~ "静的なアドレスを持つネットワークインタフェースが存在しないため、DHCPサーバ"
-#~ "を開始できません。{openhref}Configure one{closehref} "

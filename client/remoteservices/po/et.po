@@ -437,34 +437,12 @@ msgstr "Ühendus puudub, palun vaata VPN logisid: {path}"
 msgid "Connected"
 msgstr "Ühendatud"
 
-#~ msgid "eBox Control Center"
-#~ msgstr "eBoxi juhtimiskeskus"
 
-#~ msgid "Control center"
-#~ msgstr "Juhtimiskeskus"
 
-#~ msgid "Control Center Client"
-#~ msgstr "Juhtimiskeskuse klient"
 
-#~ msgid "Control Center"
-#~ msgstr "Juhtimiskeskus"
 
 #, fuzzy
-#~ msgid "Remote support accesss"
-#~ msgstr "Kaugsüsteemi varundused"
 
 #  
-#~ msgid ""
-#~ " {openhref}Subscribing{closehref} your eBox to the Control Center lets "
-#~ "you have automatic configuration backup and much more"
-#~ msgstr ""
-#~ "Sinu eBoxi juhtimiskeskuse {openhref}tellimine{closehref} võimaldab "
-#~ "automaatse seadistuste varundamise ja palju muud"
 
 # Kas eBox tellis või eBoxi telliti?
-#~ msgid ""
-#~ "Subscribing an eBox will configure OpenVPN module and its dependencies by "
-#~ "running these actions and modifying these files: "
-#~ msgstr ""
-#~ "eBoxi tellimisel seadistatakse OpenVPN moodul ja selle sõltuvused. Selle "
-#~ "käigus käivitatakse järgmised toimingud ning muudetakse järgnevaid faile: "

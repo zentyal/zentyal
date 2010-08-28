@@ -128,303 +128,100 @@ msgid ""
 "{close_href}"
 msgstr ""
 
-#~ msgid "Model"
-#~ msgstr "Modell"
 
-#~ msgid "Printer {printer} has no available drivers"
-#~ msgstr "Drucker {printer} hat keine vorhandenen Treiber"
 
-#~ msgid "Add a new printer (II)"
-#~ msgstr "Drucker hinzufügen (II)"
 
-#~ msgid "Next"
-#~ msgstr "Weiter"
 
-#~ msgid "IP"
-#~ msgstr "IP-Adresse"
 
-#~ msgid "Port"
-#~ msgstr "Port"
 
-#~ msgid "Standalone cups enabled"
-#~ msgstr "eigenständiger CUPS aktiviert"
 
-#~ msgid "Standalone cups disabled"
-#~ msgstr "eigenständiger CUPS deaktiviert"
 
-#~ msgid "Add a new printer (VI)"
-#~ msgstr "Drucker hinzufügen (VI)"
 
-#~ msgid "Driver"
-#~ msgstr "Treiber"
 
-#~ msgid "The printer has been deleted successfully"
-#~ msgstr "Der Drucker wurde erfolgreich gelöscht"
 
-#~ msgid "Shared resource"
-#~ msgstr "Geteilte Ressource"
 
-#~ msgid "Authentication"
-#~ msgstr "Anmeldung"
 
-#~ msgid "Password"
-#~ msgstr "Passwort"
 
-#~ msgid "Manage printer"
-#~ msgstr "Drucker verwalten"
 
-#~ msgid "Printer details"
-#~ msgstr "Details zu diesem Drucker"
 
-#~ msgid "Driver Options"
-#~ msgstr "Treiberoptionen"
 
-#~ msgid "Configuration options"
-#~ msgstr "Konfigurationsoptionen"
 
-#~ msgid "Jobs Queue"
-#~ msgstr "Druckwarteschlange"
 
-#~ msgid "Printer's name"
-#~ msgstr "Name des Druckers"
 
-#~ msgid "Printer's id"
-#~ msgstr "ID des Druckers"
 
-#~ msgid "Job id"
-#~ msgstr "ID des Druckauftrags"
 
-#~ msgid "Job was successfully canceled"
-#~ msgstr "Druckauftrag wurde erfolgreich abgebrochen"
 
-#~ msgid "Add a new printer (IV)"
-#~ msgstr "Drucker hinzufügen (IV)"
 
-#~ msgid "Device"
-#~ msgstr "Gerät"
 
-#~ msgid "Manage printers"
-#~ msgstr "Drucker verwalten"
 
-#~ msgid "Delete printer"
-#~ msgstr "Drucker löschen"
 
-#~ msgid "Add a new printer (V)"
-#~ msgstr "Drucker hinzufügen (V)"
 
-#~ msgid "Method"
-#~ msgstr "Methode"
 
-#~ msgid "Printer description"
-#~ msgstr "Beschreibung des Druckers"
 
-#~ msgid "Manufacturer"
-#~ msgstr "Hersteller"
 
-#~ msgid "Add a new printer (III)"
-#~ msgstr "Drucker hinzufügen (III)"
 
-#~ msgid "Add a new printer (I)"
-#~ msgstr "Drucker hinzufügen (I)"
 
-#~ msgid "Add user ebox to lpadmin group"
-#~ msgstr "Benutzer ebox zur Gruppe lpadmin hinzufügen"
 
-#~ msgid "In order to manage printers and queues from the eBox web interface"
-#~ msgstr "Um Drucker und Wartenschlangen vom eBox Webinterface zu verwalten"
 
-#~ msgid "To add and manage printers"
-#~ msgstr "Um Drucker zu erstellen und zu verwalten"
 
-#~ msgid "To enable standalone cupsd listen on internal interfaces"
-#~ msgstr ""
-#~ "Um selbstständigen cupsd zu aktivieren, welcher die interne Netzwerk-"
-#~ "Schnittstelle abhört"
 
-#~ msgid "Add Printer"
-#~ msgstr "Drucker hinzufügen"
 
-#~ msgid ""
-#~ "The printer's name contains characters not valid.Only alphanumeric "
-#~ "characters are allowed"
-#~ msgstr ""
-#~ "Der Name des Druckers enthält ungültige Zeichen. Nur die Buchstaben A-z "
-#~ "sind erlaubt"
 
-#~ msgid "Name"
-#~ msgstr "Name"
 
-#~ msgid "The given name is alreaday used as "
-#~ msgstr "Der angegebene Name wird bereits verwendet als"
 
-#~ msgid "It is not a usb printer"
-#~ msgstr "Das ist kein USB-Drucker"
 
-#~ msgid "It is not a parallel printer"
-#~ msgstr "Das ist kein Parallel-Drucker"
 
-#~ msgid "It is not a network printer"
-#~ msgstr "Das ist kein Netzwerk-Drucker"
 
-#~ msgid "It is not a samba printer"
-#~ msgstr "Das ist kein Samba-Drucker"
 
-#~ msgid "It is not a IPP printer"
-#~ msgstr "Das ist kein IPP-Drucker"
 
-#~ msgid "It is not a LPD printer"
-#~ msgstr "Das ist kein LPD-Drucker"
 
-#~ msgid "is not a valid option"
-#~ msgstr "ist keine gültige Option"
 
-#~ msgid "Parameter '{name}' does not exist"
-#~ msgstr "Den Parameter \"{name}\" gibt es nicht"
 
-#~ msgid "Owner"
-#~ msgstr "Besitzer"
 
-#~ msgid "Queued at"
-#~ msgstr "In die Warteschlange gestellt am"
 
-#~ msgid "Set printer name and method"
-#~ msgstr "Wählen Sie den Druckernamen und die Druckmethode"
 
-#~ msgid "Parallel"
-#~ msgstr "Parallel"
 
-#~ msgid "AppSocket"
-#~ msgstr "AppSocket"
 
-#~ msgid "Samba"
-#~ msgstr "Samba"
 
-#~ msgid "IPP: Internet printing protocol"
-#~ msgstr "IPP: Internet-Druck-Protokoll (Internet-Printing-Protocol)"
 
-#~ msgid "LPD: Line Printer Daemon"
-#~ msgstr "LPD: Line Printer Daemon"
 
-#~ msgid "Choose manufacturer"
-#~ msgstr "Wählen Sie einen Hersteller"
 
-#~ msgid "Local parallel printer configuration"
-#~ msgstr "Konfiguration des lokalen Parallel-Druckers"
 
-#~ msgid "Are you sure you want to delete the printer '{name}'?"
-#~ msgstr "Möchten Sie den Drucker \"{name}\" wirklich löschen?"
 
-#~ msgid "Cancel"
-#~ msgstr "Abbrechen"
 
-#~ msgid "Local USB printer configuration"
-#~ msgstr "Konfiguration der lokalen USB-Drucker"
 
-#~ msgid "Change"
-#~ msgstr "Ändern"
 
-#~ msgid "Job queue"
-#~ msgstr "Druckwarteschlange"
 
-#~ msgid "Size(KB)"
-#~ msgstr "Grösse (in KB)"
 
-#~ msgid "Creation time"
-#~ msgstr "Erstellzeit"
 
-#~ msgid "Action"
-#~ msgstr "Aktion"
 
-#~ msgid "This printer has no pending job in queue at the moment"
-#~ msgstr "Dieser Drucker hat im Moment keine wartenden Druckaufträge"
 
-#~ msgid "You need to save changes in order to print a test page"
-#~ msgstr ""
-#~ "Die Änderungen müssen gespeichert werden um eine Testseite zu drucken"
 
-#~ msgid "Print Test Page"
-#~ msgstr "Testseite drucken"
 
-#~ msgid "Driver options"
-#~ msgstr "Treiberoptionen"
 
-#~ msgid "Choose a printer model"
-#~ msgstr "Wählen Sie ein Druckermodell"
 
-#~ msgid "Configure IPP printer"
-#~ msgstr "IPP-Drucker konfigurieren"
 
-#~ msgid "Choose a driver for the printer"
-#~ msgstr "Wählen Sie einen Treiber für den Drucker"
 
-#~ msgid "Configure LPD printer"
-#~ msgstr "LPD-Drucker konfigurieren"
 
-#~ msgid "Choose a dirver for the printer"
-#~ msgstr "Wählen Sie einen Treiber für den Drucker"
 
-#~ msgid "driver"
-#~ msgstr "Treiber"
 
-#~ msgid "Go"
-#~ msgstr "Los"
 
-#~ msgid "Samba shared printer configurationr"
-#~ msgstr "Konfiguration für über Samba freigegebene Drucker"
 
-#~ msgid "Share resource"
-#~ msgstr "Drucker freigeben"
 
-#~ msgid "Anonymous"
-#~ msgstr "Anonym"
 
-#~ msgid "Guest"
-#~ msgstr "Gast"
 
-#~ msgid "User/Password"
-#~ msgstr "Benutzer/Passwort"
 
-#~ msgid "Remote printer configuration"
-#~ msgstr "Konfiguration für entfernte Drucker"
 
-#~ msgid "Configure AppSocket printer"
-#~ msgstr "AppSocket-Drucker konfigurieren"
 
-#~ msgid "Samba shared printer configuration"
-#~ msgstr "Konfiguration für über Samba freigegebene Drucker"
 
-#~ msgid "Enable standalone CUPS"
-#~ msgstr "Selbständigen CUPS aktivieren"
 
-#~ msgid "General settings"
-#~ msgstr "Allgemeine Einstellungen"
 
-#~ msgid "List of printers"
-#~ msgstr "Druckerliste"
 
-#~ msgid "Description"
-#~ msgstr "Beschreibung"
 
-#~ msgid "Actions"
-#~ msgstr "Aktionen"
 
-#~ msgid "Manage"
-#~ msgstr "Verwalten"
 
-#~ msgid "Manage this printer"
-#~ msgstr "Diesen Drucker verwalten"
 
-#~ msgid "There is no printer configured yet"
-#~ msgstr "Derzeit ist kein Drucker eingerichtet"
 
-#~ msgid "printers"
-#~ msgstr "Drucker"
 
-#~ msgid "module status"
-#~ msgstr "Status des Moduls"
 
-#~ msgid "Network printer"
-#~ msgstr "Netzwerkdrucker"
 
-#~ msgid "Printer sharing status"
-#~ msgstr "Drucker freigeben"

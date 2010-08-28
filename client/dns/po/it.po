@@ -293,85 +293,24 @@ msgstr "Modifica"
 msgid "edit"
 msgstr "modifica"
 
-#~ msgid "Infrastructure"
-#~ msgstr "Infrastruttura"
 
-#~ msgid "Owner domain"
-#~ msgstr "Proprietario dominio"
 
-#~ msgid "Service enabled"
-#~ msgstr "Servizio attivo"
 
-#~ msgid "Service disabled"
-#~ msgstr "Servizio inattivo"
 
-#~ msgid "Domain Name System"
-#~ msgstr "Domain Name System"
 
-#~ msgid "There is an alias with the same name \"{name}\" in the same domain"
-#~ msgstr "C'è un alias con lo stesso nome \"{name}\" nello stesso dominio"
 
-#~ msgid "Hostname"
-#~ msgstr "Nome host"
 
-#~ msgid "hostname"
-#~ msgstr "nome host"
 
-#~ msgid "IP address"
-#~ msgstr "indirizzo IP"
 
-#~ msgid "Alias name"
-#~ msgstr "Nome alias"
 
-#~ msgid "dns"
-#~ msgstr "dns"
 
-#~ msgid "module status"
-#~ msgstr "stato del modulo"
 
-#~ msgid "domain name"
-#~ msgstr "nome del dominio"
 
-#~ msgid ""
-#~ "The domain '{name}' is already used. Please choose another domain name"
-#~ msgstr ""
-#~ "Il dominio '{name}' e' gia' usato. Per favore scegliete un altro nome del "
-#~ "dominio"
 
-#~ msgid "Host name can't contain dots"
-#~ msgstr "Il nome dell'host non puo' contenere punti"
 
-#~ msgid ""
-#~ "The host name '{name}' is already used. Please choose another host name"
-#~ msgstr ""
-#~ "Il nome dell'host '{name}' e' gia' in uso. Per favore scegliete un altro "
-#~ "nome"
 
-#~ msgid ""
-#~ "The IP address '{ip}' is already used. Please choose another IP address"
-#~ msgstr ""
-#~ "L'indirizzo IP '{ip}' e' gia' in uso. Per favore scegliete un altro "
-#~ "indirizzo IP"
 
-#~ msgid "An alias can't contain dots"
-#~ msgstr "Un alias non puo' contenere punti"
 
-#~ msgid ""
-#~ "The alias '{name}' is already used as a host name. Please choose another "
-#~ "alias"
-#~ msgstr ""
-#~ "L'alias '{name}' e' gia' usato da un altro nome host. Per favore "
-#~ "scegliete un altro alias"
 
-#~ msgid ""
-#~ "The alias '{name}' is already used as alias in the host '{host}'. Please "
-#~ "choose another alias"
-#~ msgstr ""
-#~ "L'alias '{name}' e' gia' in uso come alias nell'host '{host}'. Per favore "
-#~ "scegliete un altro alias"
 
-#~ msgid "DNS service status"
-#~ msgstr "Stato del servizio DNS"
 
-#~ msgid "Domain name"
-#~ msgstr "Nome del dominio"

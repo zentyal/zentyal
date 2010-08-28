@@ -30,8 +30,8 @@ use EBox::RemoteServices::Subscription;
 
 EBox::init();
 
-my $subsServ = EBox::RemoteServices::Subscription->new(user => 'warp',
-                                                     password => 'warp');
+my $subsServ = EBox::RemoteServices::Subscription->new(user => 'zentyal',
+                                                       password => 'zentyal');
 
 print 'Subscribing an eBox... ';
 $subsServ->subscribeEBox('foobar');

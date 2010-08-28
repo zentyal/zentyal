@@ -1240,233 +1240,76 @@ msgid "Change"
 msgstr "Zmień"
 
 #, fuzzy
-#~ msgid "External mail address"
-#~ msgstr "Adres e-mail"
 
-#~ msgid "Create alias mail account to group"
-#~ msgstr "Utwórz alias dla grupy"
 
-#~ msgid ""
-#~ "When the last member of a group is removed, the mail alias account will "
-#~ "be deleted"
-#~ msgstr "Gdy ostatni użytkownik grupy odejdzie, alias zostanie usunięty."
 
-#~ msgid "Message"
-#~ msgstr "Wiadomość"
 
-#~ msgid "Operate"
-#~ msgstr "Operować"
 
-#~ msgid "maildir size"
-#~ msgstr "rozmiar katalogu"
 
-#~ msgid "Default maildir size (MB)"
-#~ msgstr "Standardowy rozmiar katalogu mail (MB)"
 
 #, fuzzy
-#~ msgid "mail"
-#~ msgstr "Mail"
 
 #, fuzzy
-#~ msgid "Communications"
-#~ msgstr "Błąd autentykacji"
 
-#~ msgid "SSL Support"
-#~ msgstr "Obsługa SSL"
 
-#~ msgid "No"
-#~ msgstr "Nie"
 
-#~ msgid "Optional"
-#~ msgstr "Dodatkowy"
 
-#~ msgid "Required"
-#~ msgstr "Wymagany"
 
-#~ msgid "Mail system"
-#~ msgstr "mail systemowy"
 
-#~ msgid "vdomain"
-#~ msgstr "Domena wirtualna"
 
-#~ msgid "Message size limit"
-#~ msgstr "Limit rozmiaru wiadomości"
 
-#~ msgid "relay"
-#~ msgstr "przekazanie"
 
-#~ msgid "remote IP"
-#~ msgstr "zdalny adres IP"
 
-#~ msgid "{ip} is not a valid ip address"
-#~ msgstr "adres {ip} nie jest poprawnym adresem IP"
 
-#~ msgid "{ip} cannot be reached by any configured interface"
-#~ msgstr ""
-#~ "adres {ip} jest nieosiągalny dla żadnego skonfigurowanego połączenia "
-#~ "sieciowego"
 
-#~ msgid "{ip} can be reached by more than one configured interface"
-#~ msgstr ""
-#~ "{ip} może zostać uzyskany przez więcej niż jeden skonfigurowany interfejs"
 
-#~ msgid "port"
-#~ msgstr "port"
 
-#~ msgid "message size"
-#~ msgstr "rozmiar wiadomości"
 
-#~ msgid "Yes"
-#~ msgstr "Tak"
 
-#~ msgid "TLS support is required by the authentication system"
-#~ msgstr "Obsługa TLS jest wymagana przez system autentykacji"
 
-#~ msgid "Services"
-#~ msgstr "Usługi"
 
-#~ msgid "Service"
-#~ msgstr "Usługa"
 
-#~ msgid "Apply Changes"
-#~ msgstr "Zapisz ustawienia"
 
-#~ msgid ""
-#~ "A value of 0 for the maximum message size and maximum mail account size "
-#~ "stands for no size limitation."
-#~ msgstr ""
-#~ "Wartośc 0 dla maksymalnego rozmiaru wiadomości oraz rozmiaru konta, "
-#~ "powoduje brak ograniczeń"
 
-#~ msgid "Maximum message size accepted by the mail server"
-#~ msgstr "Maksymalny rozmiar wiadomości akceptowany przez serwer"
 
-#~ msgid "Size (MB)"
-#~ msgstr "Rozmiar (MB)"
 
-#~ msgid ""
-#~ "You should move to allowed column those objects you want to allow sending "
-#~ "mail through this module."
-#~ msgstr ""
-#~ "Powinieneś przesunąć do kolumny allowed te elementy które chcesz żeby "
-#~ "zostały wysłane przez ten moduł."
 
-#~ msgid ""
-#~ "Choose the object whose state you want to change and click on the arrow "
-#~ "to move it to the desired column."
-#~ msgstr ""
-#~ "Wybierz obiekt który chcesz zmienić i kliknij na strzałke aby przesunąć "
-#~ "go do wybranej kolumny."
 
-#~ msgid "Denied"
-#~ msgstr "Odrzucone"
 
-#~ msgid "Empty list"
-#~ msgstr "Pusta lista"
 
-#~ msgid "Allow"
-#~ msgstr "Zezwól"
 
-#~ msgid "Move selected objects to the allowed column"
-#~ msgstr "Przenieś wybrane elementy do kolumny dopuszczone"
 
-#~ msgid "Deny"
-#~ msgstr "Odrzuć"
 
-#~ msgid "Move selected objects to the denied column"
-#~ msgstr "Przenieś wybrane elementy do kolumny odrzucone"
 
-#~ msgid "Apply"
-#~ msgstr "Zastosuj"
 
-#~ msgid "Default maximum mail account size"
-#~ msgstr "Standardowy rozmiar konta mail"
 
-#~ msgid "Force the change to the existing accounts"
-#~ msgstr "Nadpisz zamiany dla istniejącego konta"
 
-#~ msgid "Maildir size for {vdomain} virtual domain"
-#~ msgstr "Rozmiar katalogu dla domeny wirtualnej {vdomain}"
 
-#~ msgid "Add a new virtual domain"
-#~ msgstr "Dodaj nową domene wirtualną"
 
-#~ msgid "(MB)"
-#~ msgstr "(MB)"
 
-#~ msgid "Add"
-#~ msgstr "Dodaj"
 
 #, fuzzy
-#~ msgid "Unlimited"
-#~ msgstr "Nieograniczony rozmiar"
 
-#~ msgid "Maildir Size"
-#~ msgstr "Rozmiar katalogu mail"
 
-#~ msgid "Edit"
-#~ msgstr "Edytuj"
 
-#~ msgid "smarthost ip"
-#~ msgstr "adres IP smarthosta"
 
-#~ msgid "IP address of smarthost to send mail"
-#~ msgstr "adres IP smarthosta do wysyłania maili"
 
-#~ msgid "mail system status"
-#~ msgstr "status usługi"
 
-#~ msgid "Service status"
-#~ msgstr "Status usługi"
 
-#~ msgid "Deleting virtual domain"
-#~ msgstr "Usuń wirtualną domene"
 
-#~ msgid "There are no users in the group or the users do not "
-#~ msgstr "Nie ma użytkowników w grupie "
 
-#~ msgid "POP3"
-#~ msgstr "POP3"
 
-#~ msgid "IMAP"
-#~ msgstr "IMAP"
 
-#~ msgid "Changing maildir size of"
-#~ msgstr "Zmień rozmiar katalogu mail"
 
-#~ msgid "Page"
-#~ msgstr "Strona"
 
-#~ msgid "of"
-#~ msgstr "z"
 
-#~ msgid "module status"
-#~ msgstr "status modułu"
 
-#~ msgid "External Filter"
-#~ msgstr "Filtr Zewnętrzny"
 
-#~ msgid "Local port"
-#~ msgstr "Port lokalny"
 
-#~ msgid "Remote IP address"
-#~ msgstr "Zdalny adres IP"
 
-#~ msgid "Remote Port"
-#~ msgstr "Port zdalny"
 
-#~ msgid "There is not any message at the queue or the service is stopped"
-#~ msgstr "Nie ma żadnych wiadomości w kolejce lub usługa jest wyłączona"
 
-#~ msgid "Account do not exists"
-#~ msgstr "Konto nie istnieje"
 
-#~ msgid "Relay policy for objects"
-#~ msgstr "Przekazanie polityki dla obiektu"
 
-#~ msgid "Allowed"
-#~ msgstr "Dopuszczone"
 
 #, fuzzy
-#~ msgid "Filter's IP address"
-#~ msgstr "Zdalny adres IP"

@@ -849,88 +849,24 @@ msgid "Enter"
 msgstr "Potwierdź"
 
 #, fuzzy
-#~ msgid "User corner"
-#~ msgstr "Nazwa użytkownika"
 
-#~ msgid ""
-#~ "If you remove this group all its data within its shared directory will be "
-#~ "deleted"
-#~ msgstr ""
-#~ "Jeśli usuniesz tę grupę, wszystkie jej dane wewnątrz jej współdzielonego "
-#~ "katalogu zostaną skasowane."
 
 #, fuzzy
-#~ msgid ""
-#~ "There are no users at the moment. You may want to add some in {openhref}"
-#~ "Add user section{closehref}."
-#~ msgstr ""
-#~ "Nie ma w tej chwili żadnych użytkowników. Musi być co najmniej jeden aby "
-#~ "móc zarządzać grupą."
 
-#~ msgid "Edit User"
-#~ msgstr "Edytuj użytkownika"
 
-#~ msgid "Edit Group"
-#~ msgstr "Edytuj grupę"
 
-#~ msgid ""
-#~ "Changes in user accounts take effect inmediately, they do not need to be "
-#~ "saved."
-#~ msgstr ""
-#~ "Zmiany w kontach użytkowników nie muszą być zapisywane. Dane "
-#~ "aktualizowane są natychmiast."
 
-#~ msgid ""
-#~ "Changes related to printing, file sharing and Jabber service do need to "
-#~ "be saved in order to be effective."
-#~ msgstr ""
-#~ "Zmiany związane z wydrukiem, udostępnianiem plików oraz z usługą Jabber "
-#~ "nie muszą być zapisywane aby zostać zaktualizowane."
 
-#~ msgid "Create"
-#~ msgstr "Utwórz"
 
-#~ msgid "Actions"
-#~ msgstr "Działania"
 
 #, fuzzy
-#~ msgid ""
-#~ "There are no groups at the moment. You may want to add some in the master "
-#~ "eBox"
-#~ msgstr ""
-#~ "Nie ma w tej chwili żadnych użytkowników. Musi być co najmniej jeden aby "
-#~ "móc zarządzać grupą."
 
 #, fuzzy
-#~ msgid ""
-#~ "There are no groups at the moment. You may want to add some in the Domain "
-#~ "Controller"
-#~ msgstr ""
-#~ "Nie ma w tej chwili żadnych użytkowników. Musi być co najmniej jeden aby "
-#~ "móc zarządzać grupą."
 
-#~ msgid "full name"
-#~ msgstr "nazwisko i imię"
 
 #, fuzzy
-#~ msgid "Edit user"
-#~ msgstr "Edytuj użytkownika"
 
-#~ msgid ""
-#~ "This operation will cause the removal of the user and all his "
-#~ "dependences; such as mail accounts, user data..."
-#~ msgstr ""
-#~ "Ta operacja spowoduje usunięcie użytkownika i wszystkich jego zależności "
-#~ "takich jak: konta pocztowe, dane użytkownika itp."
 
-#~ msgid "Deleting user"
-#~ msgstr "Usuwanie użytkownika"
 
-#~ msgid "Deleting group"
-#~ msgstr "Usuwanie grupy"
 
-#~ msgid "Administration of group "
-#~ msgstr "Administracja grupą"
 
-#~ msgid "Administration of user"
-#~ msgstr "Administracja użytkownikiem"

@@ -127,286 +127,101 @@ msgstr ""
 "Żeby dodać lub zarządzań drukarkami użyj {open_href}CUPS Interfejs "
 "WWW{close_href}"
 
-#~ msgid "Model"
-#~ msgstr "Model"
 
-#~ msgid "Printer {printer} has no available drivers"
-#~ msgstr "Brak sterowników do drukarki {printer}."
 
-#~ msgid "Add a new printer (II)"
-#~ msgstr "Dodaj nową drukarkę"
 
-#~ msgid "Next"
-#~ msgstr "Dalej"
 
-#~ msgid "IP"
-#~ msgstr "Adres IP"
 
-#~ msgid "Port"
-#~ msgstr "Port"
 
-#~ msgid "Add a new printer (VI)"
-#~ msgstr "Dodaj nową drukarkę"
 
-#~ msgid "Driver"
-#~ msgstr "Sterownik"
 
-#~ msgid "The printer has been deleted successfully"
-#~ msgstr "Drukarka została pomyślnie usunięta"
 
-#~ msgid "Shared resource"
-#~ msgstr "Zasób współdzielony"
 
-#~ msgid "Authentication"
-#~ msgstr "Autoryzacja"
 
-#~ msgid "Password"
-#~ msgstr "Hasło"
 
-#~ msgid "Manage printer"
-#~ msgstr "Zarządzaj drukarką"
 
-#~ msgid "Printer details"
-#~ msgstr "Informacje o drukarce"
 
-#~ msgid "Driver Options"
-#~ msgstr "Ustawienia sterownika"
 
-#~ msgid "Configuration options"
-#~ msgstr "Ustawienia drukarki"
 
-#~ msgid "Jobs Queue"
-#~ msgstr "Kolejka zadań"
 
-#~ msgid "Printer's name"
-#~ msgstr "Nazwa drukarki"
 
-#~ msgid "Printer's id"
-#~ msgstr "Drukarka"
 
-#~ msgid "Job id"
-#~ msgstr "ID zadania"
 
-#~ msgid "Job was successfully canceled"
-#~ msgstr "Zadanie zostało anulowane"
 
-#~ msgid "Add a new printer (IV)"
-#~ msgstr "Dodaj nową drukarkę"
 
-#~ msgid "Device"
-#~ msgstr "Urządzenie"
 
-#~ msgid "Manage printers"
-#~ msgstr "Zarządzaj drukarkami"
 
-#~ msgid "Delete printer"
-#~ msgstr "Usuń drukarkę"
 
-#~ msgid "Add a new printer (V)"
-#~ msgstr "Dodaj nową drukarkę"
 
-#~ msgid "Method"
-#~ msgstr "Metoda"
 
-#~ msgid "Printer description"
-#~ msgstr "Opis drukarki"
 
-#~ msgid "Manufacturer"
-#~ msgstr "Producent"
 
-#~ msgid "Add a new printer (III)"
-#~ msgstr "Dodaj nową drukarkę"
 
-#~ msgid "Add a new printer (I)"
-#~ msgstr "Dodaj nową drukarkę"
 
-#~ msgid "Add user ebox to lpadmin group"
-#~ msgstr "Dodaj użytkownika do Administratorów drukowania"
 
 #, fuzzy
-#~ msgid "To add and manage printers"
-#~ msgstr "Zarządzaj drukarkami"
 
 #, fuzzy
-#~ msgid "Add Printer"
-#~ msgstr "Dodaj drukarkę"
 
-#~ msgid ""
-#~ "The printer's name contains characters not valid.Only alphanumeric "
-#~ "characters are allowed"
-#~ msgstr ""
-#~ "Nazwa drukarki zawiera niedozwolone znaki. Dozwolone są wyłącznie znaki "
-#~ "alfanumeryczne (litery oraz cyfry)."
 
-#~ msgid "Name"
-#~ msgstr "Nazwa"
 
-#~ msgid "The given name is alreaday used as "
-#~ msgstr "Podana nazwa została wcześniej użyta jako"
 
-#~ msgid "It is not a usb printer"
-#~ msgstr "Urządzenie nie jest drukarką USB"
 
-#~ msgid "It is not a parallel printer"
-#~ msgstr ""
-#~ "Urządzenia/drukarki nie można podłączyć do portu równoległego (LPT)."
 
-#~ msgid "It is not a network printer"
-#~ msgstr "Urządzenie nie jest drukarką sieciową"
 
-#~ msgid "It is not a samba printer"
-#~ msgstr "Urządzenie nie jest drukarką podłączoną przez SAMBA"
 
 #, fuzzy
-#~ msgid "It is not a IPP printer"
-#~ msgstr ""
-#~ "Nie można skonfigurować drukarki do pracy poprzez Internet Printing "
-#~ "Protocl (LPP)"
 
 #, fuzzy
-#~ msgid "It is not a LPD printer"
-#~ msgstr "Urządzenie nie jest drukarką USB"
 
-#~ msgid "is not a valid option"
-#~ msgstr "jest niedozwoloną opcją "
 
-#~ msgid "Parameter '{name}' does not exist"
-#~ msgstr "Parametr '{name}' nie istnieje"
 
-#~ msgid "Owner"
-#~ msgstr "Właściciel"
 
-#~ msgid "Queued at"
-#~ msgstr "Zakolejkowano w"
 
-#~ msgid "Set printer name and method"
-#~ msgstr "Ustaw nazwę i sposób podłączenia drukarki"
 
-#~ msgid "Parallel"
-#~ msgstr "Port równoległy (LPT)"
 
-#~ msgid "Samba"
-#~ msgstr "Samba"
 
-#~ msgid "Choose manufacturer"
-#~ msgstr "Wybierz producenta drukarki"
 
-#~ msgid "Local parallel printer configuration"
-#~ msgstr "Konfiguracja lokalnej drukarki na porcie równoległym (LPT)"
 
-#~ msgid "Are you sure you want to delete the printer '{name}'?"
-#~ msgstr "Na pewno usunąć drukarkę '{name}'?"
 
-#~ msgid "Cancel"
-#~ msgstr "Anuluj"
 
-#~ msgid "Local USB printer configuration"
-#~ msgstr "Konfiguracja lokalnej drukarki USB"
 
-#~ msgid "Change"
-#~ msgstr "Zmień"
 
-#~ msgid "Job queue"
-#~ msgstr "Kolejka zadań"
 
-#~ msgid "Size(KB)"
-#~ msgstr "Rozmiar (KB)"
 
-#~ msgid "Creation time"
-#~ msgstr "Czas utworzenia"
 
-#~ msgid "Action"
-#~ msgstr "Działanie"
 
-#~ msgid "This printer has no pending job in queue at the moment"
-#~ msgstr "Drukarka nie wykonuje w tej chwili żadnego zadania."
 
 #, fuzzy
-#~ msgid "Print Test Page"
-#~ msgstr "Wydrukuj stronę testową"
 
-#~ msgid "Driver options"
-#~ msgstr "Ustawienia sterownika"
 
-#~ msgid "Choose a printer model"
-#~ msgstr "Wybierz model drukarki"
 
 #, fuzzy
-#~ msgid "Configure IPP printer"
-#~ msgstr "Konfiguruj drukarkę sieciową"
 
-#~ msgid "Choose a driver for the printer"
-#~ msgstr "Wybierz sterownik dla drukarki"
 
 #, fuzzy
-#~ msgid "Configure LPD printer"
-#~ msgstr "Konfiguruj drukarkę USB"
 
-#~ msgid "Choose a dirver for the printer"
-#~ msgstr "Wybierz sterownik dla drukarki"
 
-#~ msgid "driver"
-#~ msgstr "sterownik"
 
-#~ msgid "Go"
-#~ msgstr "Dalej"
 
-#~ msgid "Samba shared printer configurationr"
-#~ msgstr "Konfiguracja drukarek udostępnionych przez SAMBA"
 
-#~ msgid "Share resource"
-#~ msgstr "Udostępnij zasób"
 
-#~ msgid "Anonymous"
-#~ msgstr "Anonimowy"
 
-#~ msgid "Guest"
-#~ msgstr "Gość"
 
-#~ msgid "User/Password"
-#~ msgstr "Użytkownik/Hasło"
 
-#~ msgid "Remote printer configuration"
-#~ msgstr "Konfiguracja drukarek zdalnych"
 
 #, fuzzy
-#~ msgid "Configure AppSocket printer"
-#~ msgstr "Konfiguruj drukarkę zdalną"
 
-#~ msgid "Samba shared printer configuration"
-#~ msgstr "Konfiguracja drukarki współdzielonej przez SAMBA"
 
-#~ msgid "General settings"
-#~ msgstr "Ustawienia ogólne"
 
-#~ msgid "List of printers"
-#~ msgstr "Lista drukarek"
 
-#~ msgid "Description"
-#~ msgstr "Opis"
 
-#~ msgid "Actions"
-#~ msgstr "Działania"
 
-#~ msgid "Manage"
-#~ msgstr "Zarządzaj"
 
-#~ msgid "Manage this printer"
-#~ msgstr "Zarządzaj tą drukarką"
 
 #, fuzzy
-#~ msgid "There is no printer configured yet"
-#~ msgstr "Nie ma jeszcze skonfigurowanej drukarki."
 
 #, fuzzy
-#~ msgid "printers"
-#~ msgstr "Drukarki"
 
-#~ msgid "module status"
-#~ msgstr "stan modułu"
 
-#~ msgid "Network printer"
-#~ msgstr "Przez sieć"
 
-#~ msgid "Printer sharing status"
-#~ msgstr "Stan udostępnienia drukarki"

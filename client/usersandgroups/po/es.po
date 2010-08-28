@@ -856,113 +856,30 @@ msgstr "Aviso: La tecla Bloq. Mayús. está activada"
 msgid "Enter"
 msgstr "Entrar"
 
-#~ msgid "LDAP Info"
-#~ msgstr "Datos LDAP"
 
-#~ msgid "Slave status"
-#~ msgstr "Estado del esclavo"
 
-#~ msgid "User corner"
-#~ msgstr "Rincón del usuario"
 
-#~ msgid "User Corner webserver settings"
-#~ msgstr "Configuración del servidor web del rincón del usuario"
 
-#~ msgid ""
-#~ "If you remove this group all its data within its shared directory will be "
-#~ "deleted"
-#~ msgstr ""
-#~ "Si elimina este grupo todos sus datos contenidos en su directorio "
-#~ "compartido serán eliminados"
 
-#~ msgid ""
-#~ "There are no groups at the moment. You may want to add some in {openhref}"
-#~ "Add group section{closehref}."
-#~ msgstr ""
-#~ "No hay grupos en este momento. Quizás quiera añadir uno en {openhref}"
-#~ "sección Añadir grupo{closehref}."
 
-#~ msgid ""
-#~ "There are no users at the moment. You may want to add some in {openhref}"
-#~ "Add user section{closehref}."
-#~ msgstr ""
-#~ "No hay ningun usuario en estos momentos. Quizás quiera añadir uno en "
-#~ "{openhref}Add user section{closehref}."
 
-#~ msgid "Edit User"
-#~ msgstr "Editar usuario"
 
-#~ msgid "Edit Group"
-#~ msgstr "Editar grupo"
 
-#~ msgid ""
-#~ "Changes in user accounts take effect inmediately, they do not need to be "
-#~ "saved."
-#~ msgstr ""
-#~ "Los cambios sobre las cuentas de usuario tienen efecto inmediato, no es "
-#~ "necesario salvar la configuración."
 
-#~ msgid ""
-#~ "Changes related to printing, file sharing and Jabber service do need to "
-#~ "be saved in order to be effective."
-#~ msgstr ""
-#~ "Los cambios relacionados con las impresoras, la compartición de ficheros "
-#~ "y el servicio de mensajería instantánea, no necesitan ser salvados para "
-#~ "resultar efectivos."
 
-#~ msgid "Create"
-#~ msgstr "Crear"
 
-#~ msgid "Actions"
-#~ msgstr "Acciones"
 
 #, fuzzy
-#~ msgid ""
-#~ "There are no groups at the moment. You may want to add some in the master "
-#~ "eBox"
-#~ msgstr ""
-#~ "No hay ningun usuario en estos momentos. Se necesita al menos uno para "
-#~ "gestionar el grupo"
 
 #, fuzzy
-#~ msgid ""
-#~ "There are no groups at the moment. You may want to add some in the Domain "
-#~ "Controller"
-#~ msgstr ""
-#~ "No hay ningun usuario en estos momentos. Se necesita al menos uno para "
-#~ "gestionar el grupo"
 
-#~ msgid "full name"
-#~ msgstr "nombre completo"
 
 #, fuzzy
-#~ msgid "Edit user"
-#~ msgstr "Editar usuario"
 
-#~ msgid ""
-#~ "This operation will cause the removal of the user and all his "
-#~ "dependences; such as mail accounts, user data..."
-#~ msgstr ""
-#~ "Esta operación eliminará el usuario y todas sus dependencias, tales como "
-#~ "cuentas de correo, datos del usuario..."
 
-#~ msgid "Deleting user"
-#~ msgstr "Eliminar usuario"
 
-#~ msgid "Deleting group"
-#~ msgstr "Eliminar grupo"
 
-#~ msgid "Administration of group "
-#~ msgstr "Administración del grupo"
 
-#~ msgid "Administration of user"
-#~ msgstr "Administración del usuario"
 
-#~ msgid "Username must not be longer than "
-#~ msgstr "El nombre de usuario no debe ser mayor que "
 
-#~ msgid "Groupname must not be longer than "
-#~ msgstr "El nombre del grupo no debe ser mayor que "
 
-#~ msgid "Password must not be longer than "
-#~ msgstr "La contraseña no debe ser mayor que "

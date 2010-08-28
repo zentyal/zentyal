@@ -574,30 +574,10 @@ msgstr "Пароль ЦС"
 msgid "Renew a certificate"
 msgstr "Обновить сертификат"
 
-#~ msgid ""
-#~ "The private key passpharse needed to create a new request. No renewal was "
-#~ "made. Issue a new certificate with new keys"
-#~ msgstr ""
-#~ "Приватный ключ нуждается в создании нового запроса. Обновлений сделано не "
-#~ "было. Издайте новый сертификат с новыми ключами"
 
-#~ msgid "You must create a Certification Authority."
-#~ msgstr "Вы должны создать Центр Сертификации"
 
-#~ msgid "Infrastructure"
-#~ msgstr "Ифраструктура"
 
-#~ msgid "Certificate Manager"
-#~ msgstr "Менеджер Сертификатов"
 
-#~ msgid "Re CA Passphrase"
-#~ msgstr "Подтверждение CA-пароля"
 
-#~ msgid "Passphrase"
-#~ msgstr "Пароль"
 
-#~ msgid "Re-passphrase"
-#~ msgstr "Подтверждение пароля"
 
-#~ msgid "Days to expire MUST be a natural number"
-#~ msgstr "Кол-во дней до истечения срока ДОЛЖНО быть натуральным числом"

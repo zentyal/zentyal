@@ -448,178 +448,50 @@ msgstr "Não conectado. Verifique os logs VPN em {path}"
 msgid "Connected"
 msgstr "Conectado"
 
-#~ msgid "eBox Control Center"
-#~ msgstr "Centro de Controle do eBox"
 
-#~ msgid "Control center"
-#~ msgstr "Centro de Controle"
 
-#~ msgid "Control Center Client"
-#~ msgstr "Cliente do Centro de Controle"
 
-#~ msgid "Control Center"
-#~ msgstr "Centro de Controle"
 
 #, fuzzy
-#~ msgid "Remote support accesss"
-#~ msgstr "Serviço de Acesso Remoto"
 
-#~ msgid ""
-#~ " {openhref}Subscribing{closehref} your eBox to the Control Center lets "
-#~ "you have automatic configuration backup and much more"
-#~ msgstr ""
-#~ "{openhref}Subscrevendo{closehref} no seu eBox seu painel de controle "
-#~ "permite configurar automaticamente backup e muito mais"
 
-#~ msgid ""
-#~ "Subscribing an eBox will configure OpenVPN module and its dependencies by "
-#~ "running these actions and modifying these files: "
-#~ msgstr ""
-#~ "Subscrevendo um eBox você vai configurar o módulo OpenVPN e suas "
-#~ "dependências rodando estas ações e modificando estes arquivos:"
 
-#~ msgid "Remote support access configuration"
-#~ msgstr "Configuração para acesso de suporte remoto"
 
-#~ msgid ""
-#~ "eBox Technologies provides support for eBox Platform through our "
-#~ "{openhref}store{closehref}"
-#~ msgstr ""
-#~ "EBox Technologies fornece suporte para a plataforma eBox através de nossa "
-#~ "{openhref}loja{closehref}"
 
-#~ msgid ""
-#~ "To join the remote session, login in the shell as a user belonging to the "
-#~ "'{group}' group and use the command '{cmd}'."
-#~ msgstr ""
-#~ "Para juntar-se a sessão remota, faça o login no shell como um usuário "
-#~ "pertencente ao {group} e use o comando '{cmd}'."
 
-#~ msgid ""
-#~ "In order to subscribe an eBox remote services {url}. You will have remote "
-#~ "backup facilities and much more"
-#~ msgstr ""
-#~ "Para subscrever um seviço remoto eBox {url}. Terá que ter facilidades de "
-#~ "backup remoto e muito mais"
 
 #, fuzzy
-#~ msgid "eBox Control Center is paid services to enhance your eBox experience"
-#~ msgstr ""
-#~ "Os serviços remotos do eBox são serviços pagos para aumentar a sua "
-#~ "experiência eBox"
 
-#~ msgid "User name"
-#~ msgstr "Nome do usuário"
 
-#~ msgid "field1"
-#~ msgstr "campo1"
 
-#~ msgid "field2"
-#~ msgstr "campo2"
 
-#~ msgid "Settings"
-#~ msgstr "Definições"
 
-#~ msgid "Composite"
-#~ msgstr "Composto"
 
-#~ msgid "eBox remote services"
-#~ msgstr "serviços remotos do eBox"
 
 #, fuzzy
-#~ msgid "Remote Services Subscription"
-#~ msgstr "Subscrição de serviços remotos"
 
-#~ msgid "Key for service proxy not found"
-#~ msgstr "Chave para serviço proxy não encontrada"
 
-#~ msgid ""
-#~ "Cannot proceed with your request because it was a connection problem. "
-#~ "Possible causes are:"
-#~ msgstr ""
-#~ "Impossível prosseguir com seu pedido porque há um problema com a conexão. "
-#~ "Possíveis causas são:"
 
-#~ msgid "Your computer has not internet connection"
-#~ msgstr "Seu computador está sem conexão com a internet"
 
-#~ msgid "Firewall is blocking the connection. Try to restart firewall module"
-#~ msgstr ""
-#~ "O firewall está bloqueando a conexão. Tente reiniciar o módulo firewall"
 
-#~ msgid "Your computer has not a correct system date"
-#~ msgstr "A data do seu computador não está correta"
 
-#~ msgid "You are using the wrong certificates"
-#~ msgstr "Você está usando certificados errados"
 
-#~ msgid "This eBox has been removed from your registered eBoxes"
-#~ msgstr "Este eBox foi removido de seus eBox'es registrados"
 
-#~ msgid "Name"
-#~ msgstr "Nome"
 
-#~ msgid "Date"
-#~ msgstr "Data"
 
-#~ msgid "Archive size"
-#~ msgstr "Tamanho do arquivo"
 
-#~ msgid "Cancel"
-#~ msgstr "Cancelar"
 
-#~ msgid "eBox host"
-#~ msgstr "Host eBox"
 
-#~ msgid "Download"
-#~ msgstr "Baixar"
 
-#~ msgid "restore"
-#~ msgstr "Restaurar"
 
-#~ msgid "download"
-#~ msgstr "Baixar"
 
-#~ msgid "Backups' list"
-#~ msgstr "Lista de backup"
 
-#~ msgid "User"
-#~ msgstr "Usuário"
 
-#~ msgid "Submit"
-#~ msgstr "Submeter"
 
-#~ msgid "Enter user and password"
-#~ msgstr "Entre com usuário e senha"
 
-#~ msgid "Back up"
-#~ msgstr "Salvar"
 
-#~ msgid "Back up the current configuration state"
-#~ msgstr "Salvar o estado de configuração vigente"
 
-#~ msgid ""
-#~ "Backup is disabled because there are unsaved configuration changes. "
-#~ "Please, save or discard them to be able to backup the configuration"
-#~ msgstr ""
-#~ "O backup está desabilitado porque existem mudanças na configuração não "
-#~ "salvas. Por favor, salve ou descarte-as para permitir o backup da "
-#~ "configuração"
 
-#~ msgid "delete"
-#~ msgstr "deletar"
 
-#~ msgid "Configuration backups' list"
-#~ msgstr "Lista de backups de configuração"
 
-#~ msgid ""
-#~ "This feature is only available if you get eBox  Services. You can "
-#~ "contract them at {url1}. If you are already registered, then subscribe "
-#~ "this eBox at {url2}"
-#~ msgstr ""
-#~ "Esta facilidade só está disponível se subscrever os Serviços eBox. Podem "
-#~ "ser contratados em {url1}. Se já está registrado subscreva esta eBox em "
-#~ "{url2}"
 
-#~ msgid "subscription page"
-#~ msgstr "página de subscrição"

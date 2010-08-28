@@ -867,114 +867,26 @@ msgstr "Advarsel: Caps Lock er aktivert"
 msgid "Enter"
 msgstr "Tast inn"
 
-#~ msgid "LDAP Info"
-#~ msgstr "LDAP-info"
 
-#~ msgid "Slave status"
-#~ msgstr "Slavestatus"
 
-#~ msgid "User corner"
-#~ msgstr "Brukerhjørne"
 
-#~ msgid "User Corner webserver settings"
-#~ msgstr "Brukerhjørne web-server innstillinger"
 
-#~ msgid ""
-#~ "If you remove this group all its data within its shared directory will be "
-#~ "deleted"
-#~ msgstr ""
-#~ "Hvis du fjerner denne gruppen vil alle dens data innenfor dens delte "
-#~ "mapper bli slettet"
 
-#~ msgid ""
-#~ "There are no groups at the moment. You may want to add some in {openhref}"
-#~ "Add group section{closehref}."
-#~ msgstr ""
-#~ "Det er ingen grupper akkurat nå. Du kan legge til noen i {openhref}Legg "
-#~ "til gruppe seksjonen{closehref}."
 
-#~ msgid ""
-#~ "There are no users at the moment. You may want to add some in {openhref}"
-#~ "Add user section{closehref}."
-#~ msgstr ""
-#~ "Det er ingen brukere akkurat nå. Du kan legge til noen i {openhref}Legg "
-#~ "til bruker seksjonen{closehref}."
 
-#~ msgid "Users corner certificates"
-#~ msgstr "Bruker hjørne sertifikater"
 
-#~ msgid "Can't bind to LDAP with the provided password"
-#~ msgstr "Kan ikke koble til LDAP med oppgitt passord"
 
-#~ msgid "Edit User"
-#~ msgstr "Rediger Bruker"
 
-#~ msgid "Edit Group"
-#~ msgstr "Rediger Gruppe"
 
-#~ msgid ""
-#~ "Changes in user accounts take effect inmediately, they do not need to be "
-#~ "saved."
-#~ msgstr ""
-#~ "Endringer i brukere kontoer effektueres med en gang, de trenger ikke "
-#~ "lagres."
 
-#~ msgid ""
-#~ "Changes related to printing, file sharing and Jabber service do need to "
-#~ "be saved in order to be effective."
-#~ msgstr ""
-#~ "Endinger relatert til utskrift, fil deling og Jabber tjenesten trenger å "
-#~ "lagres før de effektueres."
 
-#~ msgid "Create"
-#~ msgstr "Opprett"
 
-#~ msgid "Actions"
-#~ msgstr "Handling"
 
-#~ msgid "Missing fields to configure eBox as slave"
-#~ msgstr "Mangler felter for å konfigurere eBox som slave"
 
-#~ msgid ""
-#~ "There are no groups at the moment. You may want to add some in the master "
-#~ "eBox"
-#~ msgstr ""
-#~ "Det er ingen grupper akkurat nå. Du vil kanskje legge til noen i sjefs "
-#~ "eBoxen"
 
-#~ msgid ""
-#~ "There are no groups at the moment. You may want to add some in the Domain "
-#~ "Controller"
-#~ msgstr ""
-#~ "Det er ingen grupper akkurat nå. Du vil kanskje legge til noen i Domene "
-#~ "Kontrolleren"
 
-#~ msgid "eBox master"
-#~ msgstr "eBox sjef"
 
-#~ msgid "Only for slave configuration: Master eBox LDAP user password"
-#~ msgstr "Bare for slave konfigurasjon: Sjefs eBoxens LDAP bruker passord"
 
-#~ msgid ""
-#~ "Your current openLDAP database will be replaced and backed up in /var/"
-#~ "backups/slapd"
-#~ msgstr ""
-#~ "Din gjeldende openLDAP database vil bli erstattet og sikkerhetskopiert i /"
-#~ "var/backups/slapd"
 
-#~ msgid ""
-#~ "eBox will initialize openLDAP to store its database. It will also "
-#~ "overwrite your current configuration"
-#~ msgstr ""
-#~ "eBox vil initsialisere openLDAP for å lagre den database. Den vil også "
-#~ "overskrive din gjeldende konfigurasjon"
 
-#~ msgid ""
-#~ "To configure the openLDAP database with dc  entry, rootpw, rootdn, "
-#~ "schemas and ACLs used by  the LDAP based eBox modules"
-#~ msgstr ""
-#~ "For å konfigurere openLDAP databasen med dc  entry, rootpw, rootdn, "
-#~ "skjemaer og ACLs brukt av  LDAP basert eBox moduler"
 
-#~ msgid "Office"
-#~ msgstr "Kontor"

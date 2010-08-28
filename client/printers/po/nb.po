@@ -127,294 +127,98 @@ msgid ""
 "{close_href}"
 msgstr ""
 
-#~ msgid "Model"
-#~ msgstr "Modell"
 
-#~ msgid "Printer {printer} has no available drivers"
-#~ msgstr "Printeren {printer} har ingen tilgjengelige drivere"
 
-#~ msgid "Add a new printer (II)"
-#~ msgstr "Legg til en ny skriver (II)"
 
-#~ msgid "Next"
-#~ msgstr "Neste"
 
-#~ msgid "IP"
-#~ msgstr "IP"
 
-#~ msgid "Port"
-#~ msgstr "Port"
 
-#~ msgid "Standalone cups enabled"
-#~ msgstr "Selvstendig cups aktivert"
 
-#~ msgid "Standalone cups disabled"
-#~ msgstr "Selvstendig cups deaktivert"
 
-#~ msgid "Add a new printer (VI)"
-#~ msgstr "Legg til ny skriver (VI)"
 
-#~ msgid "Driver"
-#~ msgstr "Driver"
 
-#~ msgid "The printer has been deleted successfully"
-#~ msgstr "Printeren ble slettet"
 
-#~ msgid "Shared resource"
-#~ msgstr "Delt resurs"
 
-#~ msgid "Authentication"
-#~ msgstr "Autentisering"
 
-#~ msgid "Password"
-#~ msgstr "Passord"
 
-#~ msgid "Manage printer"
-#~ msgstr "Behandle skriver"
 
-#~ msgid "Printer details"
-#~ msgstr "Skriver detaljer"
 
-#~ msgid "Driver Options"
-#~ msgstr "Driver alternativer"
 
-#~ msgid "Configuration options"
-#~ msgstr "Konfigurasjons alternativer"
 
-#~ msgid "Jobs Queue"
-#~ msgstr "Jobb Kø"
 
-#~ msgid "Printer's name"
-#~ msgstr "Printers navn"
 
-#~ msgid "Printer's id"
-#~ msgstr "Printers id"
 
-#~ msgid "Job id"
-#~ msgstr "Jobb id"
 
-#~ msgid "Job was successfully canceled"
-#~ msgstr "Jobben ble avbrutt vellykket"
 
-#~ msgid "Add a new printer (IV)"
-#~ msgstr "Legg til ny skriver (IV)"
 
-#~ msgid "Device"
-#~ msgstr "Enhet"
 
-#~ msgid "Manage printers"
-#~ msgstr "Behandle skrivere"
 
-#~ msgid "Delete printer"
-#~ msgstr "Slett skriver"
 
-#~ msgid "Add a new printer (V)"
-#~ msgstr "Legg til ny skriver (V)"
 
-#~ msgid "Method"
-#~ msgstr "Metode"
 
-#~ msgid "Printer description"
-#~ msgstr "Skriver beskrivelse"
 
-#~ msgid "Manufacturer"
-#~ msgstr "Produsent"
 
-#~ msgid "Add a new printer (III)"
-#~ msgstr "Legg til ny skriver (III)"
 
-#~ msgid "Add a new printer (I)"
-#~ msgstr "Legg til ny skriver (I)"
 
-#~ msgid "Add user ebox to lpadmin group"
-#~ msgstr "Legg til bruker ebox til lpadmin gruppe"
 
-#~ msgid "In order to manage printers and queues from the eBox web interface"
-#~ msgstr "For å behandle skrivere og køer fra ebox web grensesnitt"
 
-#~ msgid "To add and manage printers"
-#~ msgstr "For å legge til og behandle skrivere"
 
-#~ msgid "To enable standalone cupsd listen on internal interfaces"
-#~ msgstr "For å aktivere selvgående cupsd lytting på interne grensesnitt"
 
-#~ msgid "Add Printer"
-#~ msgstr "Legg til skriver"
 
-#~ msgid ""
-#~ "The printer's name contains characters not valid.Only alphanumeric "
-#~ "characters are allowed"
-#~ msgstr ""
-#~ "Skriver navnet inneholder ugyldige tegn. Bare alfanumeriske tegn er "
-#~ "tillatt"
 
-#~ msgid "Name"
-#~ msgstr "Navn"
 
-#~ msgid "The given name is alreaday used as "
-#~ msgstr "Oppgitt navn er allerede brukt som "
 
-#~ msgid "It is not a usb printer"
-#~ msgstr "Er ikke en usb skriver"
 
-#~ msgid "It is not a parallel printer"
-#~ msgstr "Er ikke en parallell skriver"
 
-#~ msgid "It is not a network printer"
-#~ msgstr "Er ikke en nettverks skriver"
 
-#~ msgid "It is not a samba printer"
-#~ msgstr "Er ikke en samba skriver"
 
-#~ msgid "It is not a IPP printer"
-#~ msgstr "Er ikke en IPP skriver"
 
-#~ msgid "It is not a LPD printer"
-#~ msgstr "Er ikke en LPD skriver"
 
-#~ msgid "is not a valid option"
-#~ msgstr "er ikke et gyldig valg"
 
-#~ msgid "Parameter '{name}' does not exist"
-#~ msgstr "Parameter '{name}' eksisterer ikke"
 
-#~ msgid "Owner"
-#~ msgstr "Eier"
 
-#~ msgid "Queued at"
-#~ msgstr "Køet på"
 
-#~ msgid "Set printer name and method"
-#~ msgstr "Sett skrivernavn og metode"
 
-#~ msgid "Parallel"
-#~ msgstr "Parallell"
 
-#~ msgid "AppSocket"
-#~ msgstr "AppSocket"
 
-#~ msgid "Samba"
-#~ msgstr "Samba"
 
-#~ msgid "IPP: Internet printing protocol"
-#~ msgstr "IPP: Internet printing protocol"
 
-#~ msgid "LPD: Line Printer Daemon"
-#~ msgstr "LPD: Line Printer Daemon"
 
-#~ msgid "Choose manufacturer"
-#~ msgstr "Velg produsent"
 
-#~ msgid "Local parallel printer configuration"
-#~ msgstr "Lokal parallell skriver konfigurasjon"
 
-#~ msgid "Are you sure you want to delete the printer '{name}'?"
-#~ msgstr "Er du sikker på at du vil slette skriver '{name}'?"
 
-#~ msgid "Cancel"
-#~ msgstr "Avbryt"
 
-#~ msgid "Local USB printer configuration"
-#~ msgstr "Lokal USB skriver konfigurasjon"
 
-#~ msgid "Change"
-#~ msgstr "Endre"
 
-#~ msgid "Job queue"
-#~ msgstr "Jobb kø"
 
-#~ msgid "Size(KB)"
-#~ msgstr "Størrelse(KB)"
 
-#~ msgid "Creation time"
-#~ msgstr "Opprettelses tid"
 
-#~ msgid "Action"
-#~ msgstr "Handling"
 
-#~ msgid "This printer has no pending job in queue at the moment"
-#~ msgstr "Denne skriveren har ingen ventende jobber i kø nå"
 
-#~ msgid "You need to save changes in order to print a test page"
-#~ msgstr "Du må lagre endringer før du kan skrive ut en test side"
 
-#~ msgid "Print Test Page"
-#~ msgstr "Skriv ut Test Side"
 
-#~ msgid "Driver options"
-#~ msgstr "Driver alternativer"
 
-#~ msgid "Choose a printer model"
-#~ msgstr "Velg en skriver modell"
 
-#~ msgid "Configure IPP printer"
-#~ msgstr "Konfigurer IPP skriver"
 
-#~ msgid "Choose a driver for the printer"
-#~ msgstr "Velg en driver for skriveren"
 
-#~ msgid "Configure LPD printer"
-#~ msgstr "Konfigurer LPD skriver"
 
-#~ msgid "Choose a dirver for the printer"
-#~ msgstr "Velg en driver for skriveren"
 
-#~ msgid "driver"
-#~ msgstr "driver"
 
-#~ msgid "Go"
-#~ msgstr "Kjør"
 
-#~ msgid "Samba shared printer configurationr"
-#~ msgstr "Sama delt skriver konfigurasjon"
 
-#~ msgid "Share resource"
-#~ msgstr "Del resurs"
 
-#~ msgid "Anonymous"
-#~ msgstr "Anonym"
 
-#~ msgid "Guest"
-#~ msgstr "Gjest"
 
-#~ msgid "User/Password"
-#~ msgstr "Bruker/Passord"
 
-#~ msgid "Remote printer configuration"
-#~ msgstr "Ekstern skriver konfigurasjon"
 
-#~ msgid "Configure AppSocket printer"
-#~ msgstr "Konfigurere AppSocket skriver"
 
-#~ msgid "Samba shared printer configuration"
-#~ msgstr "Samba delt skriver konfigurasjon"
 
-#~ msgid "Enable standalone CUPS"
-#~ msgstr "Aktiver selvgående CUPS"
 
-#~ msgid "General settings"
-#~ msgstr "Generelle instillinger"
 
-#~ msgid "List of printers"
-#~ msgstr "Liste med skrivere"
 
-#~ msgid "Description"
-#~ msgstr "Beskrivelse"
 
-#~ msgid "Actions"
-#~ msgstr "Handliger"
 
-#~ msgid "Manage"
-#~ msgstr "Behandle"
 
-#~ msgid "Manage this printer"
-#~ msgstr "Behandle denne skriveren"
 
-#~ msgid "There is no printer configured yet"
-#~ msgstr "Ingen skriver er konfigurert enda"
 
-#~ msgid "printers"
-#~ msgstr "skrivere"
 
-#~ msgid "Office"
-#~ msgstr "Kontor"

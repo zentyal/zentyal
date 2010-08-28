@@ -104,13 +104,13 @@ sub routesTest
   while (my ($net, $router) = each %routes) {
     ok EBox::NetWrappers::route_is_up($net, $router), "Checking route_is_up($net, $router)"
   }
- 
+
   my %inexistentRoutes = (
                 '192.168.0.0' => '0.0.0.0',         # gateway matchs but net not
                 '10.0.0.0'     => '192.168.45.200',  # net match but gateway not
                 '120.34.23.13'      => '34.32.61.34', # neither match
                );
-  
+
   while (my ($net, $router) = each %inexistentRoutes) {
     ok !EBox::NetWrappers::route_is_up($net, $router), "Checking route_is_up($net, $router) with inexistent routes"
   }
@@ -120,7 +120,7 @@ sub routesTest
 
 sub unfakeTest
 {
-  my $fakeIface = 'warp35';
+  my $fakeIface = 'foo35';
 
   my %fakeIfaces = (
                     $fakeIface => {
@@ -138,7 +138,7 @@ sub unfakeTest
 
   my @ifaces;
   @ifaces = EBox::NetWrappers::list_ifaces();
-  
+
   if ((@ifaces != 1) or ($ifaces[0] ne $fakeIface)) {
     die "setFakeIfaces failed";
   } 

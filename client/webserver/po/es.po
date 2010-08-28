@@ -263,46 +263,11 @@ msgstr ""
 "El servicio web de Zentyal permite hospedar páginas web en HTML dentro de "
 "diferentes hosts virtuales."
 
-#~ msgid ""
-#~ "To allow HTML directories for users is needed to have the file sharing "
-#~ "module is installed and configured."
-#~ msgstr ""
-#~ "Para permitir directorios HTML personales, es necesario tener el módulo "
-#~ "de compartición de archivos instalado y configurado."
 
-#~ msgid ""
-#~ "To allow HTML directories for users is needed to have the file sharing "
-#~ "module configured. To configure it enable it at least one time."
-#~ msgstr ""
-#~ "Para permitir directorios HTML personales necesitas el módulo de "
-#~ "compartir ficheros configurado. Para configurarlo, actívalo al menos una "
-#~ "vez."
 
-#~ msgid "listening port"
-#~ msgstr "puerto de escucha"
 
-#~ msgid ""
-#~ "If you tick this field, each user is permitted to have a website in their "
-#~ "home directory under public_html"
-#~ msgstr ""
-#~ "Si marcar este campo, cada usuario tiene permiso para tener un sitio web "
-#~ "en su propio directorio bajo public_html"
 
-#~ msgid "virtual host"
-#~ msgstr "Host Virtual"
 
-#~ msgid "The virtual host name supplied is a top domain name"
-#~ msgstr "El nombre de host virtual es un dominio de primer nivel"
 
-#~ msgid ""
-#~ "The virtual host name supplied is a domain name (Maybe you want instead "
-#~ "{url}?)."
-#~ msgstr ""
-#~ "El nombre de host virtual es un nombre de dominio (¿quizá debería ser "
-#~ "{url}?)."
 
-#~ msgid "Web service"
-#~ msgstr "Servicio Web"
 
-#~ msgid "Web"
-#~ msgstr "Web"

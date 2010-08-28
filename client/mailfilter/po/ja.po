@@ -915,274 +915,86 @@ msgid "[Virus] found in a mail to you:"
 msgstr ""
 
 #, fuzzy
-#~ msgid "Unsupported or incorrect input source fonrmat: {format}"
-#~ msgstr "サポートされていないか誤ったフォーマットです: {format}"
 
 #, fuzzy
-#~ msgid "General  settings"
-#~ msgstr "拒否設定が変更されました"
 
 #, fuzzy
-#~ msgid "POP transparent proxy configuration"
-#~ msgstr "アンチスパムオプション"
 
-#~ msgid "To add the LDAP schemas used by eBox mailfilter"
-#~ msgstr "eBoxメールフィルタが利用するLDAPスキーマを追加"
 
-#~ msgid "To configure freshclam updater daemon"
-#~ msgstr "freshclamアップデータデーモンを設定"
 
 #, fuzzy
-#~ msgid "Antivirus database update status"
-#~ msgstr "ウィルスデータベース更新状態"
 
 #, fuzzy
-#~ msgid "The last update failed"
-#~ msgstr "最後の更新が {date} に失敗しました"
 
 #, fuzzy
-#~ msgid ""
-#~ "Update failed.\n"
-#~ "Your version of freshclam  is outdated.Please, install version {version} "
-#~ "or higher"
-#~ msgstr ""
-#~ "{date} に更新が失敗しました。\n"
-#~ "お使いのFleshclamは古いバージョンです。バージョン {version} 以降を使用して"
-#~ "ください"
 
-#~ msgid "Antivirus"
-#~ msgstr "アンチウィルス"
 
-#~ msgid "Mail filter system"
-#~ msgstr "メールフィルタシステム"
 
-#~ msgid "Mail filter settings"
-#~ msgstr "メールフィルタ設定"
 
 #, fuzzy
-#~ msgid "Internal mailfilter"
-#~ msgstr "eBox内部メールフィルタ"
 
 #, fuzzy
-#~ msgid "Options"
-#~ msgstr "アクション"
 
 #, fuzzy
-#~ msgid "Database update status"
-#~ msgstr "ウィルスデータベース更新状態"
 
-#~ msgid "Learned from mailbox file"
-#~ msgstr "メールボックスファイルから学習"
 
-#~ msgid "Denied settings changed"
-#~ msgstr "拒否設定が変更されました"
 
-#~ msgid ""
-#~ "The sender can be either an email address or a domain name prefixed with "
-#~ "'@'"
-#~ msgstr ""
-#~ "送信者はEメールアドレスか'@'でプリフィックスされたドメイン名のいずれかを使"
-#~ "えます"
 
-#~ msgid "Mail domain"
-#~ msgstr "メールドメイン"
 
-#~ msgid "The last update failed at {date}"
-#~ msgstr "最後の更新が {date} に失敗しました"
 
-#~ msgid ""
-#~ "Update failed at {date}.\n"
-#~ "Your version of freshclam  is outdated.Please, install version {version} "
-#~ "or higher"
-#~ msgstr ""
-#~ "{date} に更新が失敗しました。\n"
-#~ "お使いのFleshclamは古いバージョンです。バージョン {version} 以降を使用して"
-#~ "ください"
 
-#~ msgid "{plural} which are not listed below are allowed"
-#~ msgstr "以下に表示されていない {plural} が許可されています"
 
-#~ msgid "Delete"
-#~ msgstr "削除"
 
-#~ msgid ""
-#~ "Spam messages which a score equal or greater than this threshold will be "
-#~ "added to the learning system "
-#~ msgstr "このしきい値以上の迷惑メッセージが学習システムに追加されます"
 
-#~ msgid ""
-#~ "Ham messages which a score below this threshold will be added to the "
-#~ "learning system"
-#~ msgstr "このしきい値を下回るスコアの通常メールを学習システムに追加"
 
-#~ msgid "Antispam options"
-#~ msgstr "アンチスパムオプション"
 
-#~ msgid "Whitelist"
-#~ msgstr "ホワイトリスト"
 
-#~ msgid "Blacklist"
-#~ msgstr "ブラックリスト"
 
-#~ msgid "Service port"
-#~ msgstr "サービスポート"
 
-#~ msgid "Antispam sender access lists"
-#~ msgstr "送信者アクセス一覧をアンチスパム"
 
-#~ msgid ""
-#~ "External mail server {mta} removed. Remember to remove its mail domains "
-#~ "from the external mail domain's list"
-#~ msgstr ""
-#~ "外部メールサーバ {mta} は削除されました。外部メールドメイン一覧から該当す"
-#~ "るメールドメインを削除してください"
 
-#~ msgid "{name} is already registered"
-#~ msgstr "{name} はすでに登録されています"
 
-#~ msgid "{name} added"
-#~ msgstr "{name} が追加されました"
 
-#~ msgid "No changes were specified by the user"
-#~ msgstr "変更は指定されていません"
 
-#~ msgid "{name} is not registered"
-#~ msgstr "{name} は登録されていません"
 
-#~ msgid "{name} removed"
-#~ msgstr "{name} が削除されました"
 
-#~ msgid "The specified sender is not in the ACL"
-#~ msgstr "指定した送信者はACLに含まれていません"
 
-#~ msgid "Mail domain {domain} added to external domain's list."
-#~ msgstr "メールドメイン {domain} が外部ドメイン一覧に追加されました"
 
-#~ msgid "Mail domain {domain} removed from external domain's list."
-#~ msgstr "メールドメイン {domain} が外部ドメイン一覧から削除されました"
 
-#~ msgid "All entries were removed"
-#~ msgstr "全ての項目が削除されました"
 
-#~ msgid ""
-#~ "External mail server {mta} allowed. Remember to add its mail domains to "
-#~ "the external mail domain's list"
-#~ msgstr ""
-#~ "外部メールサーバ {mta} が許可されました。外部メールドメイン一覧に追加して"
-#~ "ください"
 
-#~ msgid "{ext} is not registered in the extensions list"
-#~ msgstr "{ext} は拡張子一覧に登録されていません"
 
-#~ msgid "{ext} is not registered in the mimeTypes list"
-#~ msgstr "{ext} はMIMEタイプ一覧に登録されていません"
 
-#~ msgid "The spam's autolearn threshold must be higher than 6.0"
-#~ msgstr "迷惑メールの学習のしきい値は6.0より大きく設定してください"
 
-#~ msgid "The ham's autolearn threshold cannot be higher than spam's threshold"
-#~ msgstr "通常メールの学習のしきい値は迷惑メールよりも高く設定してください"
 
-#~ msgid "MTA's address"
-#~ msgstr "MTAのアドレス"
 
-#~ msgid "{mta} is already allowed"
-#~ msgstr "{mta} はすでに許可されています"
 
-#~ msgid "{mta} not found"
-#~ msgstr "{mta} が見つかりません"
 
-#~ msgid "{domain} is already acknowledged as external mail domain"
-#~ msgstr "{domain} はすでに外部メールドメインとして認識されています"
 
-#~ msgid "Domain {domain} was not acknowledged as external mail domain"
-#~ msgstr "ドメイン {domain} は外部メールドメインとして認識されていません"
 
-#~ msgid "Administrator address"
-#~ msgstr "管理者アドレス"
 
-#~ msgid "policy type"
-#~ msgstr "ポリシータイプ"
 
-#~ msgid "The last successful update was at {date}"
-#~ msgstr "最後の更新は {date} です"
 
-#~ msgid "Deny"
-#~ msgstr "拒否"
 
-#~ msgid "Add {element}"
-#~ msgstr "{element} を追加"
 
-#~ msgid "Name"
-#~ msgstr "名前"
 
-#~ msgid "All registered {plural}"
-#~ msgstr "全ての登録済み {plural}"
 
-#~ msgid "Delete them all"
-#~ msgstr "全て削除"
 
-#~ msgid "Change"
-#~ msgstr "変更"
 
-#~ msgid "Antispam global sender access lists"
-#~ msgstr "グローバルな送信者アクセス一覧をアンチスパム"
 
-#~ msgid "Spam filter training"
-#~ msgstr "迷惑メールフィルタの学習"
 
-#~ msgid "Sender"
-#~ msgstr "送信者"
 
-#~ msgid "Add sender to {type}"
-#~ msgstr "送信者を {type} に追加"
 
-#~ msgid "Notification address"
-#~ msgstr "通知アドレス"
 
-#~ msgid "Notification"
-#~ msgstr "通知"
 
-#~ msgid "External Mail server"
-#~ msgstr "外部メールサーバ"
 
-#~ msgid "Allowed external mail servers"
-#~ msgstr "許可された外部メールサーバ"
 
-#~ msgid "Add external mail server"
-#~ msgstr "外部メールサーバを追加"
 
-#~ msgid "External Mail domain"
-#~ msgstr "外部メールドメイン"
 
-#~ msgid "Add external mail domain"
-#~ msgstr "外部メールドメインを追加"
 
-#~ msgid ""
-#~ "The \"{name}\"  setting will not have effect until the\n"
-#~ "   antivirus service will be enabled in the mail filter"
-#~ msgstr ""
-#~ "\"{name}\" の設定はアンチウィルスサービスがメールフィルタの設定で有効にな"
-#~ "らない限り無効です"
 
-#~ msgid ""
-#~ "The \"{name}\"  setting will not have effect until the\n"
-#~ "   antispam sergice will be enabled in the mail filter"
-#~ msgstr ""
-#~ "\"{name}\" の設定はアンチスパムサービスがメールフィルタの設定で有効になら"
-#~ "ない限り無効です"
 
-#~ msgid "Use default spam threshold (current value is {v})"
-#~ msgstr "デフォルトの迷惑メールしきい値を使う (現在値 {v})"
 
-#~ msgid "Mail filter options"
-#~ msgstr "メールフィルタオプション"
 
-#~ msgid "Extensions filter"
-#~ msgstr "拡張子フィルタ"
 
-#~ msgid "Unsupported or incorrect input source format: {format}"
-#~ msgstr "サポートされていないか誤ったフォーマットです: {format}"
 
-#~ msgid "module status"
-#~ msgstr "モジュール状態"

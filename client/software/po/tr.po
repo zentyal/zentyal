@@ -329,233 +329,98 @@ msgid "Upgrade"
 msgstr "Güncelle"
 
 #, fuzzy
-#~ msgid "packages installed"
-#~ msgstr "Aşağıdaki paketler kurulacak"
 
 #, fuzzy
-#~ msgid "Automatic Updates"
-#~ msgstr "Otomatil sistem güncellemeleri"
 
-#~ msgid "Software updates are being handled automatically"
-#~ msgstr "Sistem güncellemeleri otomatik olarak başlatılacak"
 
-#~ msgid "Installed version "
-#~ msgstr "Kurulu sürüm"
 
-#~ msgid "Latest version"
-#~ msgstr "Son sürüm"
 
-#~ msgid "none"
-#~ msgstr "hiçbirşey"
 
-#~ msgid "Remove"
-#~ msgstr "Kaldır"
 
 #, fuzzy
-#~ msgid "eBox - Antivirus module"
-#~ msgstr "Posta süzgeçleme modulu"
 
 #, fuzzy
-#~ msgid "eBox - Asterisk"
-#~ msgstr "eBox DNS sunucusu"
 
 #, fuzzy
-#~ msgid "eBox - Certificate Authority Manager for eBox"
-#~ msgstr "Ebox yetkili sertifika yöneticisi "
 
 #, fuzzy
-#~ msgid "eBox - captive portal module"
-#~ msgstr "Posta süzgeçleme modulu"
 
 #, fuzzy
-#~ msgid "eBox - DHCP server module"
-#~ msgstr "eBox DNS sunucusu"
 
 #, fuzzy
-#~ msgid "eBox - DNS server"
-#~ msgstr "eBox DNS sunucusu"
 
 #, fuzzy
-#~ msgid "eBox - Firewall"
-#~ msgstr "Güvenlik duvarı"
 
 #, fuzzy
-#~ msgid "eBox - Instant messaging proxy"
-#~ msgstr "Haberleşme (Jabber)"
 
 #, fuzzy
-#~ msgid "eBox - Instant messaging (Jabber)"
-#~ msgstr "Haberleşme (Jabber)"
 
 #, fuzzy
-#~ msgid "eBox - Mail server"
-#~ msgstr "Posta sunucusu"
 
 #, fuzzy
-#~ msgid "eBox - Mail filter module"
-#~ msgstr "Posta süzgeçleme modulu"
 
 #, fuzzy
-#~ msgid "eBox - Monitoring module  "
-#~ msgstr "Posta süzgeçleme modulu"
 
 #, fuzzy
-#~ msgid "eBox - Network configuration module"
-#~ msgstr "Ağ ayarları"
 
 #, fuzzy
-#~ msgid "eBox - NTP server"
-#~ msgstr "eBox DNS sunucusu"
 
 #, fuzzy
-#~ msgid "eBox - Object management"
-#~ msgstr "Nesne yönetimi"
 
 #, fuzzy
-#~ msgid "eBox - OpenVPN server module"
-#~ msgstr "OpenVPN sunucusu"
 
 #, fuzzy
-#~ msgid "eBox - Printer sharing"
-#~ msgstr "Yazıcı paylaşımı"
 
 #, fuzzy
-#~ msgid "eBox - File sharing"
-#~ msgstr "Dosya paylaşımı"
 
 #, fuzzy
-#~ msgid "eBox - Services management"
-#~ msgstr "Servis yönetimi"
 
 #, fuzzy
-#~ msgid "eBox - Software management"
-#~ msgstr "Uygulama yönetimi"
 
 #, fuzzy
-#~ msgid "eBox - Proxy cache and content filter"
-#~ msgstr "Vekil depolama ve içerik filtreleme"
 
 #, fuzzy
-#~ msgid "eBox - Traffic shaper for eBox"
-#~ msgstr "Ebox için internet trafik kontrolü"
 
 #, fuzzy
-#~ msgid "eBox - User and Group management"
-#~ msgstr "Kullanıcı ve grup yönetimi"
 
 #, fuzzy
-#~ msgid "eBox - Web Server"
-#~ msgstr "eBox DNS sunucusu"
 
-#~ msgid "IPsec VPNs"
-#~ msgstr "IPsec VPNs"
 
-#~ msgid "SOAP server to communicate with eBox control center"
-#~ msgstr "Ebox yönetim merkezi ile iletişim yapabilecek SOAP sunucu adresi"
 
 #, fuzzy
-#~ msgid "eBox- Web Server"
-#~ msgstr "eBox DNS sunucusu"
 
 #, fuzzy
-#~ msgid "Web Server"
-#~ msgstr "eBox DNS sunucusu"
 
 #, fuzzy
-#~ msgid "ebox NTP server"
-#~ msgstr "eBox DNS sunucusu"
 
-#~ msgid "The packages were removed successfully"
-#~ msgstr "Paketler başarılı bir şekilde silindi"
 
 #, fuzzy
-#~ msgid "The packages installation has finished successfully"
-#~ msgstr "Paketlerin kurulu başarılı bir şekilde tamamlandı"
 
-#~ msgid ""
-#~ "An error ocurred while removing components. If the error persists or eBox "
-#~ "stops working properly, seek technical support."
-#~ msgstr ""
-#~ "Bir bileşenin kaldırılması esnasında bir hata oluştur. Eğer bu hata "
-#~ "tekrar meydana gelirse veya eBox düzgün çalışmaz ise 'Teknik Servis' "
-#~ "bölümünü okuyun"
 
-#~ msgid "DHCP server"
-#~ msgstr "DHCP sunucusu"
 
-#~ msgid "Base framework"
-#~ msgstr "Temel taşlar"
 
-#~ msgid "NTP server"
-#~ msgstr "NTP sunucusu"
 
-#~ msgid "The installation of the packages has finished successfully"
-#~ msgstr "Paketlerin kurulu başarılı bir şekilde tamamlandı"
 
-#~ msgid ""
-#~ "The packages are being installed, please refrain from using the "
-#~ "application until the update is done"
-#~ msgstr ""
-#~ "Paket güncellenecek. Lütfen güncelleme esnasında bu uygulamayı "
-#~ "kullanmayın."
 
-#~ msgid "Certificate Authority Manager for eBox"
-#~ msgstr "Ebox yetkili sertifika yöneticisi "
 
-#~ msgid "eBox DNS server"
-#~ msgstr "eBox DNS sunucusu"
 
-#~ msgid "Firewall"
-#~ msgstr "Güvenlik duvarı"
 
-#~ msgid "Instant messaging (Jabber)"
-#~ msgstr "Haberleşme (Jabber)"
 
-#~ msgid "Mail server"
-#~ msgstr "Posta sunucusu"
 
-#~ msgid "Mail filter module"
-#~ msgstr "Posta süzgeçleme modulu"
 
-#~ msgid "Object management"
-#~ msgstr "Nesne yönetimi"
 
-#~ msgid "OpenVPN server"
-#~ msgstr "OpenVPN sunucusu"
 
-#~ msgid "Printer sharing"
-#~ msgstr "Yazıcı paylaşımı"
 
-#~ msgid "File sharing"
-#~ msgstr "Dosya paylaşımı"
 
-#~ msgid "Services  management"
-#~ msgstr "Servis yönetimi"
 
-#~ msgid "Traffic shaper for eBox"
-#~ msgstr "Ebox için internet trafik kontrolü"
 
-#~ msgid "User and Group management"
-#~ msgstr "Kullanıcı ve grup yönetimi"
 
 #, fuzzy
-#~ msgid "ebox - Certificate Authority Manager for eBox"
-#~ msgstr "Ebox yetkili sertifika yöneticisi "
 
 #, fuzzy
-#~ msgid "ebox - Instant messaging (Jabber)"
-#~ msgstr "Haberleşme (Jabber)"
 
 #, fuzzy
-#~ msgid "ebox - Mail filter module"
-#~ msgstr "Posta süzgeçleme modulu"
 
-#~ msgid "Network configuration"
-#~ msgstr "Ağ ayarları"
 
 #, fuzzy
-#~ msgid "ebox - File sharing"
-#~ msgstr "Dosya paylaşımı"
 
-#~ msgid "Proxy cache and content filter"
-#~ msgstr "Vekil depolama ve içerik filtreleme"

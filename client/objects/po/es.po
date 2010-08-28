@@ -112,83 +112,24 @@ msgid "{ip} overlaps with the address or another object's member"
 msgstr "{ip} se solapa con la dirección u otro miembro de objeto"
 
 #, fuzzy
-#~ msgid "Core"
-#~ msgstr "Crear"
 
-#~ msgid "IP Address"
-#~ msgstr "Dirección IP"
 
-#~ msgid "Object name"
-#~ msgstr "Nombre del objeto"
 
-#~ msgid ""
-#~ "The name '{name}' is already used to identify another object. Please "
-#~ "choose another name"
-#~ msgstr ""
-#~ "El nombre {name} ya esta en uso para identificar otro objeto. Por favor, "
-#~ "elija otro nombre"
 
-#~ msgid "Edit Object"
-#~ msgstr "Editar Objeto"
 
-#~ msgid "Netmask"
-#~ msgstr "Máscara de red"
 
-#~ msgid "Deleting object"
-#~ msgstr "Borrando objeto"
 
-#~ msgid ""
-#~ "The object you tried to delete is being used by some modules, please "
-#~ "confirm that you want to delete it."
-#~ msgstr ""
-#~ "El objeto que ha intentado borrar está siendo usado por algunos módulos, "
-#~ "por favor, confirme que desea borrarlo."
 
-#~ msgid "Delete"
-#~ msgstr "Borrar"
 
-#~ msgid "Cancel"
-#~ msgstr "Cancelar"
 
-#~ msgid "Edit <span class='stitle'>{description}</span> members"
-#~ msgstr "Editar miembros de <span class='stitle'>{description}</span>"
 
-#~ msgid "MAC"
-#~ msgstr "MAC"
 
-#~ msgid "Action"
-#~ msgstr "Acción"
 
-#~ msgid "Add"
-#~ msgstr "Añadir"
 
-#~ msgid "Delete Object"
-#~ msgstr "Borrar Objeto"
 
-#~ msgid ""
-#~ "If you delete this object, all the information about its members will be "
-#~ "lost."
-#~ msgstr ""
-#~ "Al borrar este objeto perderá toda la información acerca de sus miembros."
 
-#~ msgid "Delete object"
-#~ msgstr "Borrar objeto"
 
-#~ msgid "Create new object"
-#~ msgstr "Crear nuevo objeto"
 
-#~ msgid ""
-#~ "The objects that you create here can be used in the rest of the system. "
-#~ "Remember that an IP address cannot belong to more than one object."
-#~ msgstr ""
-#~ "Los objetos que cree aquí pueden usarse en el resto del sistema. Recuerde "
-#~ "que una dirección IP no puede pertenecer a más de un objeto."
 
-#~ msgid "Edit"
-#~ msgstr "Editar"
 
-#~ msgid "edit"
-#~ msgstr "editar"
 
-#~ msgid "delete"
-#~ msgstr "borrar"

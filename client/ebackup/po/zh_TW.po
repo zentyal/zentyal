@@ -442,50 +442,18 @@ msgid "Configuration and Status"
 msgstr ""
 
 #, fuzzy
-#~ msgid "General remote backup server configuration"
-#~ msgstr "一般備份伺服器組態"
 
-#~ msgid "Backup module"
-#~ msgstr "備份模組"
 
-#~ msgid "Hostname"
-#~ msgstr "主機名稱"
 
-#~ msgid "Status"
-#~ msgstr "狀態"
 
-#~ msgid "Last Update"
-#~ msgstr "最後更新"
 
-#~ msgid "Days to Keep"
-#~ msgstr "保留天數"
 
-#~ msgid "Size"
-#~ msgstr "大小"
 
-#~ msgid "Hosts"
-#~ msgstr "主機"
 
-#~ msgid "Local backup directory {p} does not exist"
-#~ msgstr "本地端備份目錄 {p} 不存在"
 
-#~ msgid "Days to keep"
-#~ msgstr "保留天數"
 
-#~ msgid "Local Backup Configuration"
-#~ msgstr "本地端備份組態"
 
-#~ msgid "Local backup configuration updated."
-#~ msgstr "本地端備份組態已更新。"
 
-#~ msgid "Install /etc/cron.daily/ebox-ebackup-cron."
-#~ msgstr "安裝 /etc/cron.daily/ebox-ebackup-cron。"
 
-#~ msgid "eBox will run a nightly script to backup your system."
-#~ msgstr "eBox 會執行每天的命令稿來備份您的系統。"
 
-#~ msgid "Local backup configuration."
-#~ msgstr "本地端備份組態。"
 
-#~ msgid "Core"
-#~ msgstr "核心"

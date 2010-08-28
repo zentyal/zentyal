@@ -1292,333 +1292,106 @@ msgstr ""
 msgid "Change"
 msgstr "Changer"
 
-#~ msgid "External mail address"
-#~ msgstr "Adresse de courrier externe"
 
-#~ msgid "size in Mb"
-#~ msgstr "Taille en Mb"
 
-#~ msgid "Return address for mail bounced back to the sender"
-#~ msgstr "Renvoi l'adresse des courriers rejetés à l'expéditeur"
 
-#~ msgid "Create alias mail account to group"
-#~ msgstr "Créer une compte d'alias pour le groupe"
 
-#~ msgid ""
-#~ "When the last member of a group is removed, the mail alias account will "
-#~ "be deleted"
-#~ msgstr ""
-#~ "Quand le dernier membre d'un groupe est enlevé, le compte d'alias de "
-#~ "courrier sera supprimé"
 
-#~ msgid "Message"
-#~ msgstr "Message"
 
-#~ msgid "Operate"
-#~ msgstr "Envoyer"
 
-#~ msgid "maildir size"
-#~ msgstr "taille de la boîte mail"
 
-#~ msgid "Cannot create user account: mail directory {d} aready exists"
-#~ msgstr ""
-#~ "Impossible de créer le compte utilisateur: répertoire électronique (mail "
-#~ "directory ) {d} existe déjà"
 
-#~ msgid "Default maildir size (MB)"
-#~ msgstr "Taille de la boîte par défaut (Mb)"
 
 #, fuzzy
-#~ msgid "mail"
-#~ msgstr "courrier email"
 
-#~ msgid "To add the LDAP schemas used by eBox mail"
-#~ msgstr "Ajouter les schémas LDAP utilisés par le service email d'eBox"
 
-#~ msgid "Communications"
-#~ msgstr "Communications"
 
-#~ msgid "SSL Support"
-#~ msgstr "Support SSL"
 
-#~ msgid "No"
-#~ msgstr "Non"
 
-#~ msgid "Optional"
-#~ msgstr "Optionnel"
 
-#~ msgid "Required"
-#~ msgstr "Requis"
 
-#~ msgid "Add {user} to {group} group"
-#~ msgstr "Ajouter {user} au groupe {group}"
 
-#~ msgid "To allow {daemon} to connect with {otherDaemon} via unix socket"
-#~ msgstr ""
-#~ "Permettre à {daemon} de se connecter avec {otherDaemon} via le socket unix"
 
 # Courier en tant que serveur de courrier ou "Courier-Imap" ?
 #, fuzzy
-#~ msgid "To let courier know how to access LDAP"
-#~ msgstr "Pour laisser le serveur de courrier savoir comment accéder à LDAP"
 
-#~ msgid "To configure courier POP3"
-#~ msgstr "Configurer le serveur de courrier POP3"
 
-#~ msgid "To configure POP3 with SSL support"
-#~ msgstr "Configurer le serveur de courrier POP3 avec support SSL"
 
-#~ msgid "To configure IMAP with SSL support"
-#~ msgstr "Configurer le serveur de courrier IMAP avec support SSL"
 
 #, fuzzy
-#~ msgid "To configure saslauthd to authenticate against LDAP "
-#~ msgstr "Configurer \"saslauthd\" pour l'authentification avec LDAP"
 
 #, fuzzy
-#~ msgid "To configure saslauthd to use LDAP"
-#~ msgstr "Configurer \"saslauthd\" pour l'utilisation de LDAP"
 
-#~ msgid "eBox will execute /usr/sbin/postalias /etc/aliases "
-#~ msgstr "eBox va exécuter usr/sbin/postalias /etc/aliases"
 
-#~ msgid "Mail system"
-#~ msgstr "Système de courrier"
 
-#~ msgid "vdomain"
-#~ msgstr "vdomain"
 
-#~ msgid "Message size limit"
-#~ msgstr "Limite de taille de message"
 
-#~ msgid "relay"
-#~ msgstr "relais"
 
-#~ msgid "remote IP"
-#~ msgstr "IP distante"
 
-#~ msgid "{ip} is not a valid ip address"
-#~ msgstr "{ip} n'est pas une adresse valide"
 
-#~ msgid "{ip} cannot be reached by any configured interface"
-#~ msgstr "{ip} ne peut pas être atteinte par aucune carte réseau configurée"
 
-#~ msgid "{ip} can be reached by more than one configured interface"
-#~ msgstr "{ip} peut être atteinte par plus d'une carte réseau configurée"
 
-#~ msgid "port"
-#~ msgstr "port"
 
-#~ msgid "message size"
-#~ msgstr "taille de message"
 
-#~ msgid "Yes"
-#~ msgstr "Oui"
 
-#~ msgid "TLS support is required by the authentication system"
-#~ msgstr "Le support TLS est requis par le système d'authentification"
 
-#~ msgid "Services"
-#~ msgstr "Services"
 
-#~ msgid "Service"
-#~ msgstr "Service"
 
-#~ msgid "Apply Changes"
-#~ msgstr "Appliquer les changements"
 
-#~ msgid ""
-#~ "A value of 0 for the maximum message size and maximum mail account size "
-#~ "stands for no size limitation."
-#~ msgstr ""
-#~ "Une valeur de 0 pour la taille maximale de message et la taille maximale "
-#~ "de compte de courrier n'implique aucune limitation de taille."
 
-#~ msgid "Maximum message size accepted by the mail server"
-#~ msgstr "Taille maximale de message admise par le serveur de courrier"
 
-#~ msgid "Size (MB)"
-#~ msgstr "Taille (MB)"
 
-#~ msgid ""
-#~ "You should move to allowed column those objects you want to allow sending "
-#~ "mail through this module."
-#~ msgstr ""
-#~ "Vous devez déplacer dans la colonne autorisée les objets pour lesquels "
-#~ "vous désirez permettre d'envoyer courrier par ce module."
 
-#~ msgid ""
-#~ "Choose the object whose state you want to change and click on the arrow "
-#~ "to move it to the desired column."
-#~ msgstr ""
-#~ "Choisissez l'objet dont vous voulez changer l'état et cliquer sur la "
-#~ "flèche pour la déplacer à la colonne désirée."
 
-#~ msgid "Denied"
-#~ msgstr "Interdit"
 
-#~ msgid "Empty list"
-#~ msgstr "Liste vide"
 
-#~ msgid "Allow"
-#~ msgstr "Permettre"
 
-#~ msgid "Move selected objects to the allowed column"
-#~ msgstr "Déplacez les objets choisis à la colonne permise"
 
-#~ msgid "Deny"
-#~ msgstr "Interdire"
 
-#~ msgid "Move selected objects to the denied column"
-#~ msgstr "Déplacez les objets choisis à la colonne interdite"
 
-#~ msgid "Apply"
-#~ msgstr "Appliquer"
 
-#~ msgid "Default maximum mail account size"
-#~ msgstr "Taille par défaut de compte de courrier"
 
-#~ msgid "Force the change to the existing accounts"
-#~ msgstr "Forcer le changement des comptes existants"
 
-#~ msgid "Maildir size for {vdomain} virtual domain"
-#~ msgstr "Taille de la boîte pour domaine virtuel {vdomain}"
 
-#~ msgid "Add a new virtual domain"
-#~ msgstr "Ajouter un nouveau domaine virtuel"
 
-#~ msgid "Default maildir size"
-#~ msgstr "Taille de la boîte par défaut"
 
-#~ msgid "(MB)"
-#~ msgstr "(MB)"
 
-#~ msgid "Add"
-#~ msgstr "Ajouter"
 
 #, fuzzy
-#~ msgid "Unlimited"
-#~ msgstr "Taille illimitée"
 
-#~ msgid "Maildir Size"
-#~ msgstr "Taille de la boîte"
 
-#~ msgid "Edit"
-#~ msgstr "Éditer"
 
-#~ msgid "smarthost ip"
-#~ msgstr "IP de smarthost"
 
-#~ msgid "IP address of smarthost to send mail"
-#~ msgstr "Adresse IP de smarthost pour envoyer un courrier"
 
-#~ msgid "mail system status"
-#~ msgstr "statut du système de courrier"
 
-#~ msgid "Unknown filter {filter}"
-#~ msgstr "Filtre inconnu {filter}"
 
-#~ msgid "Service status"
-#~ msgstr "Statut du service"
 
-#~ msgid "Deleting virtual domain"
-#~ msgstr "Effacer le domaine virtuel"
 
-#~ msgid "There are no users in the group or the users do not "
-#~ msgstr "Il n'y a pas d'utilisateur dans le groupe ou les utilisateur ne"
 
-#~ msgid "POP3"
-#~ msgstr "POP3"
 
-#~ msgid "IMAP"
-#~ msgstr "IMAP"
 
-#~ msgid "Changing maildir size of"
-#~ msgstr "Changer taille de la boîte de"
 
-#~ msgid "Page"
-#~ msgstr "Page"
 
-#~ msgid "of"
-#~ msgstr "de"
 
-#~ msgid "module status"
-#~ msgstr "statut de module"
 
-#~ msgid "External Filter"
-#~ msgstr "Filtre Externe"
 
-#~ msgid "Local port"
-#~ msgstr "Port local"
 
-#~ msgid "Remote IP address"
-#~ msgstr "Adresse IP distante"
 
-#~ msgid "Remote Port"
-#~ msgstr "Port Distant"
 
-#~ msgid ""
-#~ "You should move to allowed column those objects that do you want to allow "
-#~ "send mail through this module."
-#~ msgstr ""
-#~ "Vous devez déplacer à la colonne permise les objets que vous désirez "
-#~ "permettre d'envoyer courrier par ce module."
 
-#~ msgid ""
-#~ "Choose the object whose state you want to change and click in the arrow "
-#~ "to move it to the desired column."
-#~ msgstr ""
-#~ "Choisissez l'objet dont l'état vous voulez changer et cliquer sur la "
-#~ "flèche pour la déplacer à la colonne désirée."
 
-#~ msgid "Maildir size (MB)"
-#~ msgstr "Taille de maildir (MB)"
 
-#~ msgid "left hand side of mail"
-#~ msgstr "côté gauche de courrier"
 
-#~ msgid "right hand side of mail"
-#~ msgstr "côté droite de courrier"
 
-#~ msgid "mdsize"
-#~ msgstr "mdsize"
 
-#~ msgid "Mail Traffic"
-#~ msgstr "Trafic de Courrier"
 
-#~ msgid "Default maximum size for new mail accounts (MB):"
-#~ msgstr "Taille maximale par défaut pour comptes de courrier nouvelles (MB):"
 
-#~ msgid "Esto es un foobar del Mail: "
-#~ msgstr "Ça c'est un foobar du courrier"
 
-#~ msgid ""
-#~ "The following settings only will take effect when the mail module will be "
-#~ "enabled"
-#~ msgstr ""
-#~ "Les paramètres suivants ne prendront effets que lorsque le module de "
-#~ "courrier sera activé"
 
-#~ msgid "There is not any message at the queue or the service is stopped"
-#~ msgstr "Il n'y a aucun message dans la file ou le service est arrêté"
 
-#~ msgid "Account do not exists"
-#~ msgstr "Le compte n'existe pas"
 
-#~ msgid "Mail service settings"
-#~ msgstr "Configuration du service de courrier"
 
-#~ msgid "Relay policy for objects"
-#~ msgstr "Politique de relais pour objets"
 
-#~ msgid "Allowed"
-#~ msgstr "Permis"
 
-#~ msgid "Mail forward port"
-#~ msgstr "Port de transmission mail"
 
-#~ msgid "Filter's IP address"
-#~ msgstr "Filtre de l'adresse IP"
 
-#~ msgid "Filter's Port"
-#~ msgstr "Filtre de port"

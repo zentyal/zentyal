@@ -1383,129 +1383,42 @@ msgid "Powered by"
 msgstr "Powered by"
 
 #, fuzzy
-#~ msgid "Threshold a"
-#~ msgstr "Limiar"
 
-#~ msgid "Configure network objects' policies"
-#~ msgstr "Configurar políticas dos objetos de rede"
 
-#~ msgid "Configure user's groups global policies"
-#~ msgstr "Configurar políticas globais dos grupos de usuários"
 
-#~ msgid "Filter settings for profile {p}"
-#~ msgstr "Opções de filtro para o perfil {p}"
 
-#~ msgid "Proxy"
-#~ msgstr "Proxy"
 
-#~ msgid "HTTP proxy"
-#~ msgstr "Proxy HTTP"
 
-#~ msgid "HTTP Proxy service status"
-#~ msgstr "Status do serviço de Proxy"
 
-#~ msgid "module status"
-#~ msgstr "Status do Módulo"
 
-#~ msgid "content filter threshold"
-#~ msgstr "Ponto Inicial do Filtro de Conteúdo"
 
-#~ msgid "transparent proxy"
-#~ msgstr "proxy transparente"
 
-#~ msgid "listening port"
-#~ msgstr "Portas que está escutando"
 
-#~ msgid "action"
-#~ msgstr "ação"
 
-#~ msgid "Allowed domains"
-#~ msgstr "Domínios Aceitos"
 
-#~ msgid "Squid listening port"
-#~ msgstr "Porta que o Squid está escutando"
 
-#~ msgid "DansGuardian listening port"
-#~ msgstr "Porta que o DansGuardian está escutando"
 
-#~ msgid "Policy '{policy}' is invalid"
-#~ msgstr "A poítica '{policy}'é inválida"
 
-#~ msgid "domain"
-#~ msgstr "domínio"
 
-#~ msgid "Add here those domains which you want to allow access."
-#~ msgstr "Adicione aqui os domínios que você quer permitir acesso."
 
-#~ msgid "Add here those domains which you do not want to allow access."
-#~ msgstr ""
-#~ "Adicone aqui os domínios que você não quer de seja permitido o acesso"
 
-#~ msgid ""
-#~ "Please note that if you set a configuration which prevents you from "
-#~ "connecting to the administration interface through the proxy, you must "
-#~ "then connect to it directly"
-#~ msgstr ""
-#~ "Por Favor, perceba que se você setar uma configuração que proóba que você "
-#~ "conecte à interface de Administrador pelo proxy, você terá que conectar "
-#~ "diretamente."
 
-#~ msgid "Change"
-#~ msgstr "Mudar"
 
-#~ msgid "Introduce domains in this way: "
-#~ msgstr "Introduza Domínios dessa maneira:"
 
-#~ msgid "domain.com"
-#~ msgstr "domino.com"
 
-#~ msgid "Action"
-#~ msgstr "Ação"
 
-#~ msgid "Add"
-#~ msgstr "Adicionar"
 
-#~ msgid "Delete"
-#~ msgstr "Deletar"
 
 #, fuzzy
-#~ msgid "Actions"
-#~ msgstr "Ação"
 
-#~ msgid ""
-#~ "Choose the object whose state you want to change and click in the arrow "
-#~ "to move it to the desired column."
-#~ msgstr ""
-#~ "Escolha o objeto o que você quer mudar e clique na seta para mover para a "
-#~ "coluna desejada"
 
-#~ msgid "Empty list"
-#~ msgstr "Lista Vazia"
 
-#~ msgid "Move selected objects to the filtered column"
-#~ msgstr "Mova os objetos selecionados para a coluna Filtrados"
 
-#~ msgid "Ban"
-#~ msgstr "Banir"
 
-#~ msgid "Move selected objects to the banned column"
-#~ msgstr "Mova os objetos selecionados para a coluna de Banidos"
 
-#~ msgid "Move selected objects to the unfiltered column"
-#~ msgstr "Mova os objetos selecionados para a coluna de não-filtrados"
 
-#~ msgid "global policy"
-#~ msgstr "política global"
 
-#~ msgid "Banned domains"
-#~ msgstr "Domínios Banidos"
 
-#~ msgid "object"
-#~ msgstr "objeto"
 
-#~ msgid "General Settings"
-#~ msgstr "Configurações Globais"
 
 #, fuzzy
-#~ msgid "Allow all"
-#~ msgstr "Aceitar"

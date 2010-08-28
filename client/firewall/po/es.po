@@ -455,310 +455,80 @@ msgstr ""
 "Puedes deshabilitar estas reglas, pero debes estar seguro de lo que estas "
 "haciendo o algunos servicios podrían detenerse."
 
-#~ msgid "eBox"
-#~ msgstr "eBox"
 
-#~ msgid "Port Forwading"
-#~ msgstr "Redirección de puertos"
 
-#~ msgid "redirect"
-#~ msgstr "redirigir"
 
-#~ msgid "Packet filtering"
-#~ msgstr "Filtrado de paquetes"
 
-#~ msgid ""
-#~ "These rules are meant to control access from internal network interfaces "
-#~ "to services running on your eBox machine"
-#~ msgstr ""
-#~ "Estas reglas sirven para controla el acceso desde interfaces de red "
-#~ "internos a servicios que se están ejecutando en tu máquina eBox"
 
-#~ msgid "Redirects"
-#~ msgstr "Redirecciones"
 
-#~ msgid "Port redirections"
-#~ msgstr "Redirecciones de puertos"
 
-#~ msgid "Filtering rules from  external networks to eBox"
-#~ msgstr "Reglas de filtrado desde las redes externas a eBox"
 
-#~ msgid "firewall"
-#~ msgstr "cortafuegos"
 
-#~ msgid "Global services' filtering rules"
-#~ msgstr "Reglas globales de filtrado de servicios"
 
-#~ msgid "Services' filtering rules {desc}"
-#~ msgstr "Reglas de filtrado de servicios {desc}"
 
-#~ msgid "Edit rule"
-#~ msgstr "Editar regla"
 
-#~ msgid "Global firewall configuration"
-#~ msgstr "Configuración global del firewall"
 
-#~ msgid "Firewall configuration: {desc}"
-#~ msgstr "Configuración del firewall: {desc}"
 
-#~ msgid "service"
-#~ msgstr "servicio"
 
-#~ msgid "policy"
-#~ msgstr "política"
 
-#~ msgid "network interface"
-#~ msgstr "interfaz de red"
 
-#~ msgid "destination address"
-#~ msgstr "dirección de destino"
 
-#~ msgid "Port {port} is being used by a service or port redirection."
-#~ msgstr ""
-#~ "El puerto {port} está siendo usado por un servicio o por una redirección "
-#~ "de puerto."
 
-#~ msgid "Actions"
-#~ msgstr "Acciones"
 
-#~ msgid "Add"
-#~ msgstr "Añadir"
 
-#~ msgid "Change"
-#~ msgstr "Cambiar"
 
-#~ msgid "Delete"
-#~ msgstr "Borrar"
 
-#~ msgid ""
-#~ "Protocol, ports and addresses are optional. The rules will be applied in "
-#~ "order, from top to bottom, you can reorder them once they are added. "
-#~ "Rules can also be disabled without deleting them."
-#~ msgstr ""
-#~ "El protocolo, los puertos y las direcciones son opcionales. Las reglas se "
-#~ "aplicarán en orden, de arriba a abajo, puede reordenarlas después de "
-#~ "haberlas añadido. Las reglas también pueden ser desactivadas sin "
-#~ "necesidad de borrarlas."
 
-#~ msgid "New rule"
-#~ msgstr "Nueva regla"
 
-#~ msgid "Action"
-#~ msgstr "Acción"
 
-#~ msgid "Allow"
-#~ msgstr "Permitir"
 
-#~ msgid "Deny"
-#~ msgstr "Denegar"
 
-#~ msgid "Source address"
-#~ msgstr "Dirección de origen"
 
-#~ msgid "is not"
-#~ msgstr "no es"
-
-#~ msgid "is"
-#~ msgstr "es"
-
-#~ msgid "to"
-#~ msgstr "a"
-
-#~ msgid "Destination address"
-#~ msgstr "Dirección de destino"
-
-#~ msgid "Rule list"
-#~ msgstr "Lista de Reglas"
-
-#~ msgid "allow"
-#~ msgstr "permitir"
-
-#~ msgid "allow (disabled)"
-#~ msgstr "permitir (habilitado)"
 
-#~ msgid "deny"
-#~ msgstr "denegar"
 
-#~ msgid "deny (disabled)"
-#~ msgstr "denegar (deshabilitado)"
 
-#~ msgid "inverse match"
-#~ msgstr "coincidencia inversa"
 
-#~ msgid "Edit"
-#~ msgstr "Editar"
 
-#~ msgid "Up"
-#~ msgstr "Arriba"
-
-#~ msgid "Down"
-#~ msgstr "Abajo"
-
-#~ msgid "delete"
-#~ msgstr "borrar"
-
-#~ msgid "edit"
-#~ msgstr "editar"
 
-#~ msgid "move up"
-#~ msgstr "subir"
 
-#~ msgid "move down"
-#~ msgstr "bajar"
 
-#~ msgid "any"
-#~ msgstr "cualquiera"
-
-#~ msgid "Services"
-#~ msgstr "Servicios"
-
-#~ msgid "Policy"
-#~ msgstr "Política"
-
-#~ msgid ""
-#~ "Protocol, port and destination address are optional. The rules will be "
-#~ "applied in order, from top to bottom, you can reorder them once they are "
-#~ "added. Rules can also be disabled without deleting them."
-#~ msgstr ""
-#~ "La dirección de destino, el protocolo y el puerto son opcionales. Las "
-#~ "reglas se aplicarán en orden, de arriba a abajo, puede reordenarlas "
-#~ "despues de haberlas añadido. Las reglas también pueden ser desactivadas "
-#~ "sin necesidad de borrarlas."
-
-#~ msgid ""
-#~ "Rules without an explicit destination address will be applied to packets "
-#~ "that leave eBox through an external network interface. You may flag "
-#~ "network interfaces as external in the <a href='../Network/Ifaces'>Network "
-#~ "Interfaces</a> configuration page."
-#~ msgstr ""
-#~ "Las reglas sin una dirección de destino explícita se aplicarán a los "
-#~ "paquetes que salen de la eBox por una interfaz de red externa. Puede "
-#~ "marcar las interfaces de red como externas en la página de configuración "
-#~ "de <a href='../Network/Ifaces'>Interfaces de Red</a>."
-
-#~ msgid "Active"
-#~ msgstr "Activa"
-
-#~ msgid ""
-#~ "The policy states what to do on network packets not explicitly matched "
-#~ "below. The policy is applied to connections that leave eBox through an "
-#~ "external network interface. If you want to allow traffic between internal "
-#~ "networks you need to create explicit rules for that."
-#~ msgstr ""
-#~ "La política determina la acción a tomar sobre los paquetes de red no "
-#~ "especificados explícitamente a continuación. La política se aplica a las "
-#~ "conexiones que salen de la eBox a través de una interfaz de red externa. "
-#~ "Si desea permitir tráfico entre redes internas debe crear reglas "
-#~ "explícitas para ello."
-
-#~ msgid ""
-#~ "Choosing global will make the firewall fall back to the <a href='Object?"
-#~ "object=_global'>default configuration</a>."
-#~ msgstr ""
-#~ "Si elige global el cortafuegos usará la <a href='Object?"
-#~ "object=_global'>configuración por defecto</a>."
-
-#~ msgid "Global"
-#~ msgstr "Global"
-
-#~ msgid "object"
-#~ msgstr "objeto"
-
-#~ msgid "Port cannot be set if no protocol is selected."
-#~ msgstr "Si no selecciona un protocolo no es posible establecer el puerto."
-
-#~ msgid "address"
-#~ msgstr "dirección"
-
-#~ msgid "source port"
-#~ msgstr "puerto de origen"
-
-#~ msgid "source address"
-#~ msgstr "dirección de origen"
-
-#~ msgid "Rule not found"
-#~ msgstr "Regla no encontrada"
-
-#~ msgid "Deny action"
-#~ msgstr "Denegar acción"
-
-#~ msgid ""
-#~ "This will tell the firewall what to do when discarding network packets.  "
-#~ "If you choose Reject, a packet will be sent back to the sender, choosing "
-#~ "Drop will make the firewall drop the packet silently."
-#~ msgstr ""
-#~ "Esto determina el comportamiento del firewall al descartar paquetes. Si "
-#~ "selecciona Rechazar, se enviará un paquete al remitente del paquete a "
-#~ "descartar. Si selecciona Ignorar el firewall descartará los paquetes de "
-#~ "forma silenciosa."
-
-#~ msgid "Drop packets"
-#~ msgstr "Ignorar paquetes"
-
-#~ msgid "Reject packets"
-#~ msgstr "Rechazar paquetes"
-
-#~ msgid "Apply"
-#~ msgstr "Aplicar"
-
-#~ msgid "Filtering rules for internet access"
-#~ msgstr "Reglas de filtrado para acceso a Internet"
-
-#~ msgid ""
-#~ "The link below will let you set up the default behavior of the packet "
-#~ "filter.  These rules are meant to control access from internal network "
-#~ "interfaces to external ones, they provide a simpler way to control access "
-#~ "to the internet. You may also choose an object and set up its own rules"
-#~ msgstr ""
-#~ "El enlace que hay a continuación le permitirá configurar el "
-#~ "comportamiento por defecto del filtrado de paquetes. Estas reglas están "
-#~ "pensadas para controlar el acceso desde los interfaces de la red interna "
-#~ "a los de la externa. Éstas proveen una forma más sencilla de controlar el "
-#~ "acceso a Internet. Quizá también quiera elegir un objeto y poner sus "
-#~ "propias reglas."
-
-#~ msgid "Configure default rules"
-#~ msgstr "Configurar reglas por defecto"
-
-#~ msgid "Filtering Rules between internal networks"
-#~ msgstr "Reglas de filtrado entre redes internas"
-
-#~ msgid "Configure default rules related to eBox services"
-#~ msgstr ""
-#~ "Configurar reglas por defecto relacionadas con los servicios de eBox"
-
-#~ msgid "Configure rules for a particular object"
-#~ msgstr "Configurar las reglas para un objeto concreto"
-
-#~ msgid "Go"
-#~ msgstr "Ir"
-
-#~ msgid ""
-#~ "The link below will let you set up the default behavior of the packet "
-#~ "filter. You may also choose an object and set up rules and the services "
-#~ "it may access. These rules are meant to control access from internal "
-#~ "network interfaces to external ones, they provide a simpler way to "
-#~ "control access to the internet."
-#~ msgstr ""
-#~ "El enlace que hay a continuación le permitira configurar el "
-#~ "comportamiento por defecto del firewall. También puede seleccionar un "
-#~ "objeto y configurar reglas y los servicios a los que podrá acceder. Estas "
-#~ "reglas están pensadas para controlar el acceso desde los interfaces de la "
-#~ "red interna a los de la externa. Éstas proveen una forma más sencilla de "
-#~ "controlar el acceso a Internet."
-
-#~ msgid "Filtering Rules"
-#~ msgstr "Reglas de filtrado"
-
-#~ msgid ""
-#~ "This link will let you set up filtering rules that will take precedence "
-#~ "over the ones you set up for network objects further below."
-#~ msgstr ""
-#~ "Este enlace le permitirá establecer reglas de filtrado que tendrán "
-#~ "preferencia sobre las que configure para los objetos de red más abajo."
-
-#~ msgid "Rules for internet access"
-#~ msgstr "Reglas para acceso a Internet"
-
-#~ msgid "Filtering rules for eBox's services"
-#~ msgstr "Reglas de filtrado para los servicios eBox"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

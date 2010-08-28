@@ -431,57 +431,19 @@ msgid "Configuration and Status"
 msgstr ""
 
 #, fuzzy
-#~ msgid "General remote backup server configuration"
-#~ msgstr "Общи настройки на сървъра за архивиране"
 
-#~ msgid "Backup module"
-#~ msgstr "Модул архивиране"
 
-#~ msgid "Hostname"
-#~ msgstr "Име на хост"
 
-#~ msgid "Status"
-#~ msgstr "Състояние"
 
-#~ msgid "Last Update"
-#~ msgstr "Последно обновяване"
 
-#~ msgid "Days to Keep"
-#~ msgstr "Дни на съхранение"
 
-#~ msgid "Size"
-#~ msgstr "Големина"
 
-#~ msgid "Hosts"
-#~ msgstr "Хостове"
 
-#~ msgid "Local backup directory {p} does not exist"
-#~ msgstr "Локална директория {p} за архив не съществува."
 
-#~ msgid "Days to keep"
-#~ msgstr "Дни на съхранение"
 
-#~ msgid "Local Backup Configuration"
-#~ msgstr "Локални настройки за архивиране"
 
-#~ msgid ""
-#~ "Local backup configuration. If the module is enabled the backup will be "
-#~ "scheduled to be done daily"
-#~ msgstr ""
-#~ "Локални настройки за архивиране. Ако модулът е активиран, архивирането ще "
-#~ "бъде включено в разписание да бъде извършвано ежедневно."
 
-#~ msgid "Local backup configuration updated."
-#~ msgstr "Локалните настройки за архивиране са обновени."
 
-#~ msgid "Install /etc/cron.daily/ebox-ebackup-cron."
-#~ msgstr "Инсталиране на /etc/cron.daily/ebox-ebackup-cron"
 
-#~ msgid "eBox will run a nightly script to backup your system."
-#~ msgstr "eBox ще изпълнява нощен скрипт за да архивира Вашата система."
 
-#~ msgid "Local backup configuration."
-#~ msgstr "Локални настройки за архивиране"
 
-#~ msgid "Core"
-#~ msgstr "Сърцевина"

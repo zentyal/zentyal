@@ -131,289 +131,96 @@ msgstr ""
 "Pantru a adăuga şi administra imprimante trebuie să folosiţi "
 "{open_href}Interfaţa Web CUPS{close_href}"
 
-#~ msgid "Model"
-#~ msgstr "Model"
 
-#~ msgid "Printer {printer} has no available drivers"
-#~ msgstr "Imprimanta {printer}nu are drivere disponibile"
 
-#~ msgid "Add a new printer (II)"
-#~ msgstr "Adaugă o imprimantă nouă (II)"
 
-#~ msgid "Next"
-#~ msgstr "Următor"
 
-#~ msgid "IP"
-#~ msgstr "IP"
 
-#~ msgid "Port"
-#~ msgstr "Port"
 
-#~ msgid "Standalone cups enabled"
-#~ msgstr "CUPS independent activat"
 
-#~ msgid "Standalone cups disabled"
-#~ msgstr "CUPS independent DEZactivat"
 
-#~ msgid "Add a new printer (VI)"
-#~ msgstr "Adaugă o imprimantă nouă (VI)"
 
-#~ msgid "Driver"
-#~ msgstr "Driver"
 
-#~ msgid "The printer has been deleted successfully"
-#~ msgstr "Imprimanta a fost ştearsă cu succes"
 
-#~ msgid "Shared resource"
-#~ msgstr "Resursă partajată"
 
-#~ msgid "Authentication"
-#~ msgstr "Autentificare"
 
-#~ msgid "Password"
-#~ msgstr "Parolă"
 
-#~ msgid "Manage printer"
-#~ msgstr "Administrare imprimantă"
 
-#~ msgid "Printer details"
-#~ msgstr "Detalii imprimantă"
 
-#~ msgid "Driver Options"
-#~ msgstr "Opţiuni driver"
 
-#~ msgid "Configuration options"
-#~ msgstr "Opţiuni configurare"
 
-#~ msgid "Jobs Queue"
-#~ msgstr "Coadă de imprimare"
 
-#~ msgid "Printer's name"
-#~ msgstr "Numele imprimantei"
 
-#~ msgid "Printer's id"
-#~ msgstr "ID-ul imprimantei"
 
-#~ msgid "Job id"
-#~ msgstr "ID-ul imprimării"
 
-#~ msgid "Job was successfully canceled"
-#~ msgstr "Imprimarea a fost anulată cu succes"
 
-#~ msgid "Add a new printer (IV)"
-#~ msgstr "Adaugă o imprimantă nouă (IV)"
 
-#~ msgid "Device"
-#~ msgstr "Dispozitiv"
 
-#~ msgid "Manage printers"
-#~ msgstr "Administrare imprimante"
 
-#~ msgid "Delete printer"
-#~ msgstr "Ştergere imprimantă"
 
-#~ msgid "Add a new printer (V)"
-#~ msgstr "Adaugă o imprimantă nouă (V)"
 
-#~ msgid "Method"
-#~ msgstr "Metodă"
 
-#~ msgid "Printer description"
-#~ msgstr "Descriere imprimantă"
 
-#~ msgid "Manufacturer"
-#~ msgstr "Producător"
 
-#~ msgid "Add a new printer (III)"
-#~ msgstr "Adaugă o imprimantă nouă (III)"
 
-#~ msgid "Add a new printer (I)"
-#~ msgstr "Adaugă o imprimantă nouă (I)"
 
-#~ msgid "Add user ebox to lpadmin group"
-#~ msgstr "Adaugă utilizatorul eBox la grupul lpadmin"
 
-#~ msgid "In order to manage printers and queues from the eBox web interface"
-#~ msgstr "Pentru a administra imprimantele şi cozile din interfaţa web a eBox"
 
-#~ msgid "To add and manage printers"
-#~ msgstr "Pentru adaugarea şi administrarea imprimantelor"
 
-#~ msgid "To enable standalone cupsd listen on internal interfaces"
-#~ msgstr ""
-#~ "Pentru activarea ascultării cupsd independent pe interfeţele interne"
 
-#~ msgid "Add Printer"
-#~ msgstr "Adaugă imprimantă"
 
-#~ msgid ""
-#~ "The printer's name contains characters not valid.Only alphanumeric "
-#~ "characters are allowed"
-#~ msgstr ""
-#~ "Numele imprimantei conţine caractere incorecte. Sunt permise numai "
-#~ "caracterele alfanumerice"
 
-#~ msgid "Name"
-#~ msgstr "Nume"
 
-#~ msgid "The given name is alreaday used as "
-#~ msgstr "Numele dat este utilizat deja de "
 
-#~ msgid "It is not a usb printer"
-#~ msgstr "Nu e o imprimantă USB"
 
-#~ msgid "It is not a parallel printer"
-#~ msgstr "Nu e o imprimantă paralelă"
 
-#~ msgid "It is not a network printer"
-#~ msgstr "Nu e o imprimantă de reţea"
 
-#~ msgid "It is not a samba printer"
-#~ msgstr "Nu e o imprimantă samba"
 
-#~ msgid "It is not a IPP printer"
-#~ msgstr "Nu e o imprimantă IPP"
 
-#~ msgid "It is not a LPD printer"
-#~ msgstr "Nu e o imprimantă LPD"
 
-#~ msgid "is not a valid option"
-#~ msgstr "nu e opţiune validă"
 
-#~ msgid "Parameter '{name}' does not exist"
-#~ msgstr "Parametrul '{name}' nu există"
 
-#~ msgid "Owner"
-#~ msgstr "Proprietar"
 
-#~ msgid "Queued at"
-#~ msgstr "În coadă din:"
 
-#~ msgid "Set printer name and method"
-#~ msgstr "Configurare nume imprimantă şi metodă"
 
-#~ msgid "Parallel"
-#~ msgstr "Paralelă"
 
-#~ msgid "AppSocket"
-#~ msgstr "AppSocket"
 
-#~ msgid "Samba"
-#~ msgstr "Samba"
 
-#~ msgid "IPP: Internet printing protocol"
-#~ msgstr "IPP: Internet printing protocol"
 
-#~ msgid "LPD: Line Printer Daemon"
-#~ msgstr "LPD: Line Printer Daemon"
 
-#~ msgid "Choose manufacturer"
-#~ msgstr "Alegeţi producătorul"
 
-#~ msgid "Local parallel printer configuration"
-#~ msgstr "Configurare imprimantă paralelă locală"
 
-#~ msgid "Are you sure you want to delete the printer '{name}'?"
-#~ msgstr "Chiar doriţi ştergerea impimantei  '{name}'?"
 
-#~ msgid "Cancel"
-#~ msgstr "Anulare"
 
-#~ msgid "Local USB printer configuration"
-#~ msgstr "Configurare imprimantă USB locală"
 
-#~ msgid "Change"
-#~ msgstr "Modificare"
 
-#~ msgid "Job queue"
-#~ msgstr "Coada de imprimare"
 
-#~ msgid "Size(KB)"
-#~ msgstr "Mărime (kB)"
 
-#~ msgid "Creation time"
-#~ msgstr "Data creării"
 
-#~ msgid "Action"
-#~ msgstr "Acţiune"
 
-#~ msgid "This printer has no pending job in queue at the moment"
-#~ msgstr "Această imprimantă nu are imprimări în curs în acest moment"
 
-#~ msgid "You need to save changes in order to print a test page"
-#~ msgstr "Trebuie să salvaţi modificările pentru a tipări o pagină de test"
 
-#~ msgid "Print Test Page"
-#~ msgstr "Imprimare pagină de test"
 
-#~ msgid "Driver options"
-#~ msgstr "Opţiuni driver"
 
-#~ msgid "Choose a printer model"
-#~ msgstr "Alegeţi un model de imprimantă"
 
-#~ msgid "Configure IPP printer"
-#~ msgstr "Configurare imprimantă IPP"
 
-#~ msgid "Choose a driver for the printer"
-#~ msgstr "Alegeţi un driver pt. imprimantă"
 
-#~ msgid "Configure LPD printer"
-#~ msgstr "Configurare imprimantă LPD"
 
-#~ msgid "Choose a dirver for the printer"
-#~ msgstr "Alegeţi un driver pt. imprimantă"
 
-#~ msgid "driver"
-#~ msgstr "driver"
 
-#~ msgid "Go"
-#~ msgstr "Porneşte"
 
-#~ msgid "Samba shared printer configurationr"
-#~ msgstr "Configurare imprimantă samba partajată"
 
-#~ msgid "Share resource"
-#~ msgstr "Partajare resursă"
 
-#~ msgid "Anonymous"
-#~ msgstr "Anonim"
 
-#~ msgid "Guest"
-#~ msgstr "Oaspete"
 
-#~ msgid "User/Password"
-#~ msgstr "Utilizator/parolă"
 
-#~ msgid "Remote printer configuration"
-#~ msgstr "Configurare imprimantă la distanţă"
 
-#~ msgid "Configure AppSocket printer"
-#~ msgstr "Configurare imprimantă AppSocket"
 
-#~ msgid "Samba shared printer configuration"
-#~ msgstr "Configurare imprimantă samba partajată"
 
-#~ msgid "Enable standalone CUPS"
-#~ msgstr "Activare CUPS independent"
 
-#~ msgid "General settings"
-#~ msgstr "Configurare generală"
 
-#~ msgid "List of printers"
-#~ msgstr "Lista imprimantelor"
 
-#~ msgid "Description"
-#~ msgstr "Descriere"
 
-#~ msgid "Actions"
-#~ msgstr "Acţiuni"
 
-#~ msgid "Manage"
-#~ msgstr "Administrează"
 
-#~ msgid "Manage this printer"
-#~ msgstr "Administrează această imprimantă"
 
-#~ msgid "There is no printer configured yet"
-#~ msgstr "Încă nu e configurată nici o imprimantă"

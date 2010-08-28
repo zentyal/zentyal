@@ -464,72 +464,23 @@ msgstr "Wiederherstellungsdienst"
 msgid "Configuration and Status"
 msgstr "Konfiguration und Status"
 
-#~ msgid "There is no information about the backuped files yet"
-#~ msgstr "Keine Information über bereits gesicherte Dateien vorhanden"
 
-#~ msgid "Number of full copies to keep"
-#~ msgstr "Anzahl zu behaltender Vollsicherungen"
 
-#~ msgid "exclude"
-#~ msgstr "ausschließen"
 
-#~ msgid "Exclude regexp"
-#~ msgstr "Ausschluss - regulärer Ausdruck"
 
-#~ msgid "General remote backup server configuration"
-#~ msgstr "Allgemeine Fern-Sicherungs-Server Einstellungen"
 
-#~ msgid ""
-#~ "You can create your <i>eBox Remote Storage</i> account in our {ohref}on-"
-#~ "line store{chref}. Use this service to have a quick and safe remote "
-#~ "location to store your data"
-#~ msgstr ""
-#~ "Sie können ihren <i>eBox Fern Speicher</i> Zugang in unserem {ohref}"
-#~ "Online-Geschäft{chref} kaufen. Verwenden sie diesen Dienst um einen "
-#~ "schnellen und sicheren Ort zum Ablegen ihrer Daten zu erhalten."
 
-#~ msgid "Backup module"
-#~ msgstr "Sicherungs-Modul"
 
 #, fuzzy
-#~ msgid "Hostname"
-#~ msgstr "Hostname"
 
-#~ msgid "Status"
-#~ msgstr "Status"
 
-#~ msgid "Last Update"
-#~ msgstr "Letzte Aktualisierung"
 
-#~ msgid "Days to Keep"
-#~ msgstr "Tage zur Aufbewahrung"
 
-#~ msgid "Size"
-#~ msgstr "Größe"
 
-#~ msgid "Local backup directory {p} does not exist"
-#~ msgstr "Lokales Sicherungs-Verzeichnis {p} existiert nicht"
 
-#~ msgid "Days to keep"
-#~ msgstr "Tage zur Aufbewahrung"
 
-#~ msgid "Local Backup Configuration"
-#~ msgstr "Lokale Sicherungs-Konfiguration"
 
 #, fuzzy
-#~ msgid ""
-#~ "Local backup configuration. If the module is enabled the backup will be "
-#~ "scheduled to be done daily"
-#~ msgstr ""
-#~ "Lokale Sicherungs-Konfiguration. Wenn dieses Modul aktiviert ist wird die "
-#~ "Sicherung täglich geplant"
 
-#~ msgid "Local backup configuration updated."
-#~ msgstr "Lokale Sicherungs-Konfiguration aktualisiert"
 
-#~ msgid "Install /etc/cron.daily/ebox-ebackup-cron."
-#~ msgstr "Installiere /etc/cron.daily/ebox-ebackup-cron."
 
-#~ msgid "eBox will run a nightly script to backup your system."
-#~ msgstr ""
-#~ "ebox wird ein nächtliches Script ausführen um dein System zu sichern."

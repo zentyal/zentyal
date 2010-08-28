@@ -604,41 +604,11 @@ msgstr "Passwortsatz der Zertifizierungsstelle"
 msgid "Renew a certificate"
 msgstr "Zertifikat erneuern"
 
-#~ msgid ""
-#~ "The private key passpharse needed to create a new request. No renewal was "
-#~ "made. Issue a new certificate with new keys"
-#~ msgstr ""
-#~ "Das Passwort des privaten Schlüssels erforderte eine neue Anfrage. Es "
-#~ "fand keine Erneuerung statt. Stellen Sie ein neues Zertifikat mit neuen "
-#~ "Schlüsseln aus"
 
-#~ msgid "You must create a Certification Authority."
-#~ msgstr "Sie müssen eine Zertifizierungsstelle generieren"
 
-#~ msgid "Infrastructure"
-#~ msgstr "Infrastruktur"
 
-#~ msgid "Certificate Manager"
-#~ msgstr "Zertifikatsverwaltung"
 
-#~ msgid "Re CA Passphrase"
-#~ msgstr "Passwortsatz der Zertifizierungsstelle wiederholen"
 
-#~ msgid "Passphrase"
-#~ msgstr "Passwortsatz"
 
-#~ msgid "Re-passphrase"
-#~ msgstr "Passwortsatz wiederholen"
 
-#~ msgid ""
-#~ "The certificate whose common name is {cn} you tried to revoke is being "
-#~ "used by some module, please confirm you are sure to revoke and leave the "
-#~ "service(s) instable or disabled"
-#~ msgstr ""
-#~ "Das Zertifikat mit dem Allgemeinen Namen {cn}, welches Sie widerrufen "
-#~ "wollten, wird noch von einem Modul verwendet. Bitte bestätigen Sie, dass "
-#~ "sie mit Sicherheit widerrufen wollen. Das kann den betroffenen Dienst "
-#~ "instabil machen oder deaktivieren"
 
-#~ msgid "Days to expire MUST be a natural number"
-#~ msgstr "Ablaufdatum in Tagen MUSS eine natürliche Zahl sein"

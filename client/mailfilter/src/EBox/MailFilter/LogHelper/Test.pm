@@ -193,7 +193,7 @@ sub smtpFilterLogTest : Test(65)
                  {
                   name => 'Spam detected, pass policy',
                   lines => [
-                            'Aug 27 04:57:10 intrepid amavis[11173]: (11173-01) Passed SPAM, <spam@warp.es> -> <macaco@monos.org>, Hits: 4.637, tag=0, tag2=2, kill=2, queued_as: 7D978307BD, L/Y/Y/Y'
+                            'Aug 27 04:57:10 intrepid amavis[11173]: (11173-01) Passed SPAM, <spam@zentyal.org> -> <macaco@monos.org>, Hits: 4.637, tag=0, tag2=2, kill=2, queued_as: 7D978307BD, L/Y/Y/Y'
 
                            ],
                   expectedData => {
@@ -201,7 +201,7 @@ sub smtpFilterLogTest : Test(65)
                                    action => 'Passed',
                                    'spam_hits' => '4.637',
                                    date => "$year-Aug-27 04:57:10",
-                                   from_address => 'spam@warp.es',
+                                   from_address => 'spam@zentyal.org',
                                    to_address   => 'macaco@monos.org',
                                   },
                  },
@@ -209,14 +209,14 @@ sub smtpFilterLogTest : Test(65)
                  {
                   name => 'Spam detected, reject policy',
                   lines => [
-'Aug 27 05:00:30 intrepid amavis[11802]: (11802-02) Blocked SPAM, <spam@warp.es> -> <macaco@monos.org>, Hits: 4.736, tag=0, tag2=2, kill=2, L/Y/Y/Y',
+'Aug 27 05:00:30 intrepid amavis[11802]: (11802-02) Blocked SPAM, <spam@zentyal.org> -> <macaco@monos.org>, Hits: 4.736, tag=0, tag2=2, kill=2, L/Y/Y/Y',
                            ],
                   expectedData => {
                                    event => 'SPAM',
                                    action => 'Blocked',
                                    'spam_hits' => '4.736',
                                    date => "$year-Aug-27 05:00:30",
-                                   from_address => 'spam@warp.es',
+                                   from_address => 'spam@zentyal.org',
                                    to_address   => 'macaco@monos.org',
                                   },
                  },
@@ -224,7 +224,7 @@ sub smtpFilterLogTest : Test(65)
                  {
                   name => 'Spam detected, bounce policy',
                   lines => [
-                            'Aug 27 05:03:30 intrepid amavis[12473]: (12473-01) Blocked SPAM, <spam@warp.es> -> <macaco@monos.org>, Hits: 4.906, tag=0, tag2=2, kill=2, L/Y/Y/Y'
+                            'Aug 27 05:03:30 intrepid amavis[12473]: (12473-01) Blocked SPAM, <spam@zentyal.org> -> <macaco@monos.org>, Hits: 4.906, tag=0, tag2=2, kill=2, L/Y/Y/Y'
 
                            ],
                   expectedData => {
@@ -232,7 +232,7 @@ sub smtpFilterLogTest : Test(65)
                                    action => 'Blocked',
                                    'spam_hits' => '4.906',
                                    date => "$year-Aug-27 05:03:30",
-                                   from_address => 'spam@warp.es',
+                                   from_address => 'spam@zentyal.org',
                                    to_address   => 'macaco@monos.org',
                                   },
                  },
@@ -241,14 +241,14 @@ sub smtpFilterLogTest : Test(65)
                  {
                   name => 'Virus detected, discard policy',
                   lines => [
-                            'Aug 27 05:32:12 intrepid amavis[13093]: (13093-02) Blocked INFECTED (Eicar-Test-Signature), <spam@warp.es> -> <macaco@monos.org>, Hits: -, tag=0, tag2=2, kill=2, L/Y/0/0',
+                            'Aug 27 05:32:12 intrepid amavis[13093]: (13093-02) Blocked INFECTED (Eicar-Test-Signature), <spam@zentyal.org> -> <macaco@monos.org>, Hits: -, tag=0, tag2=2, kill=2, L/Y/0/0',
 
                            ],
                   expectedData => {
                                    event => 'INFECTED',
                                    action => 'Blocked',
                                    date => "$year-Aug-27 05:32:12",
-                                   from_address => 'spam@warp.es',
+                                   from_address => 'spam@zentyal.org',
                                    to_address   => 'macaco@monos.org',
                                   },
                  },
@@ -257,13 +257,13 @@ sub smtpFilterLogTest : Test(65)
                  {
                   name => 'Virus detected, pass policy',
                   lines => [
-                            'Aug 27 05:35:12 intrepid amavis[14032]: (14032-01) Passed INFECTED (Eicar-Test-Signature), <spam@warp.es> -> <macaco@monos.org>, Hits: -, tag=0, tag2=2, kill=2, queued_as: 684C4307BD, L/Y/0/0',
+                            'Aug 27 05:35:12 intrepid amavis[14032]: (14032-01) Passed INFECTED (Eicar-Test-Signature), <spam@zentyal.org> -> <macaco@monos.org>, Hits: -, tag=0, tag2=2, kill=2, queued_as: 684C4307BD, L/Y/0/0',
                            ],
                   expectedData => {
                                    event => 'INFECTED',
                                    action => 'Passed',
                                    date => "$year-Aug-27 05:35:12",
-                                   from_address => 'spam@warp.es',
+                                   from_address => 'spam@zentyal.org',
                                    to_address   => 'macaco@monos.org',
                                   },
                  },
@@ -271,14 +271,14 @@ sub smtpFilterLogTest : Test(65)
                  {
                   name => 'Forbidden MIME type , bounce policy',
                   lines => [
-                            'Aug 27 06:03:13 intrepid amavis[16115]: (16115-01) Blocked BANNED (multipart/mixed | application/x-zip,.zip,putty.zip | .exe,.exe-ms,PAGEANT.EXE), <spam@warp.es> -> <macaco@monos.org>, Hits: -, tag=0, tag2=2, kill=2, L/Y/0/0',
+                            'Aug 27 06:03:13 intrepid amavis[16115]: (16115-01) Blocked BANNED (multipart/mixed | application/x-zip,.zip,putty.zip | .exe,.exe-ms,PAGEANT.EXE), <spam@zentyal.org> -> <macaco@monos.org>, Hits: -, tag=0, tag2=2, kill=2, L/Y/0/0',
 
                            ],
                   expectedData => {
                                    event => 'BANNED',
                                    action => 'Blocked',
                                    date => "$year-Aug-27 06:03:13",
-                                   from_address => 'spam@warp.es',
+                                   from_address => 'spam@zentyal.org',
                                    to_address   => 'macaco@monos.org',
                                   },
                  },
@@ -286,14 +286,14 @@ sub smtpFilterLogTest : Test(65)
                  {
                   name => 'Forbidden MIME type , pass policy',
                   lines => [
-                            'Aug 27 06:09:44 intrepid amavis[17590]: (17590-01) Passed BANNED (multipart/mixed | application/x-zip,.zip,putty.zip | .exe,.exe-ms,PAGEANT.EXE), <spam@warp.es> -> <macaco@monos.org>, Hits: -, tag=0, tag2=2, kill=2, queued_as: B8797307BD, L/Y/0/0',
+                            'Aug 27 06:09:44 intrepid amavis[17590]: (17590-01) Passed BANNED (multipart/mixed | application/x-zip,.zip,putty.zip | .exe,.exe-ms,PAGEANT.EXE), <spam@zentyal.org> -> <macaco@monos.org>, Hits: -, tag=0, tag2=2, kill=2, queued_as: B8797307BD, L/Y/0/0',
 
                            ],
                   expectedData => {
                                    event => 'BANNED',
                                    action => 'Passed',
                                    date => "$year-Aug-27 06:09:44",
-                                   from_address => 'spam@warp.es',
+                                   from_address => 'spam@zentyal.org',
                                    to_address   => 'macaco@monos.org',
                                   },
                  },
@@ -301,7 +301,7 @@ sub smtpFilterLogTest : Test(65)
                  {
                   name => 'Forbidden file extension, bounce policy',
                   lines => [
-                            'Aug 27 06:00:52 intrepid amavis[16114]: (16114-01) Blocked BANNED (multipart/mixed | application/x-msdos-program,.exe,.exe-ms,putty.exe), <spam@warp.es> -> <macaco@monos.org>, Hits: -, tag=0, tag2=2, kill=2, L/Y/0/0'
+                            'Aug 27 06:00:52 intrepid amavis[16114]: (16114-01) Blocked BANNED (multipart/mixed | application/x-msdos-program,.exe,.exe-ms,putty.exe), <spam@zentyal.org> -> <macaco@monos.org>, Hits: -, tag=0, tag2=2, kill=2, L/Y/0/0'
 
 
                            ],
@@ -309,7 +309,7 @@ sub smtpFilterLogTest : Test(65)
                                    event => 'BANNED',
                                    action => 'Blocked',
                                    date => "$year-Aug-27 06:00:52",
-                                   from_address => 'spam@warp.es',
+                                   from_address => 'spam@zentyal.org',
                                    to_address   => 'macaco@monos.org',
                                   },
                  },
@@ -317,14 +317,14 @@ sub smtpFilterLogTest : Test(65)
                  {
                   name => 'Forbidden file extension, pass policy',
                   lines => [
-                            'Aug 27 06:10:37 intrepid amavis[17591]: (17591-01) Passed BANNED (multipart/mixed | application/x-msdos-program,.exe,.exe-ms,putty.exe), <spam@warp.es> -> <macaco@monos.org>, Hits: -, tag=0, tag2=2, kill=2, queued_as: 89228307BD, L/Y/0/0'
+                            'Aug 27 06:10:37 intrepid amavis[17591]: (17591-01) Passed BANNED (multipart/mixed | application/x-msdos-program,.exe,.exe-ms,putty.exe), <spam@zentyal.org> -> <macaco@monos.org>, Hits: -, tag=0, tag2=2, kill=2, queued_as: 89228307BD, L/Y/0/0'
 
                            ],
                   expectedData => {
                                    event => 'BANNED',
                                    action => 'Passed',
                                    date => "$year-Aug-27 06:10:37",
-                                   from_address => 'spam@warp.es',
+                                   from_address => 'spam@zentyal.org',
                                    to_address   => 'macaco@monos.org',
                                   },
                  },
@@ -332,14 +332,14 @@ sub smtpFilterLogTest : Test(65)
                  {
                   name => 'Sender blacklisted',
                   lines => [
-'Aug 27 06:16:53 intrepid amavis[18339]: (18339-01) Blocked SPAM, <spam@warp.es> -> <macaco@monos.org>, Hits: -, tag=0, tag2=2, kill=2, L/Y/Y/Y'
+'Aug 27 06:16:53 intrepid amavis[18339]: (18339-01) Blocked SPAM, <spam@zentyal.org> -> <macaco@monos.org>, Hits: -, tag=0, tag2=2, kill=2, L/Y/Y/Y'
 
                            ],
                   expectedData => {
                                    event => 'BLACKLISTED',
                                    action => 'Blocked',
                                    date => "$year-Aug-27 06:16:53",
-                                   from_address => 'spam@warp.es',
+                                   from_address => 'spam@zentyal.org',
                                    to_address   => 'macaco@monos.org',
                                   },
                  },
@@ -380,14 +380,14 @@ sub smtpFilterLogTest : Test(65)
                  {
                   name => 'Clean message',
                   lines => [
-                            'Jul 29 06:44:16 intrepid amavis[25342]: (25342-04) Passed CLEAN, <spam@warp.es> -> <macaco@monos.org>, Hits: 3.904, tag=0, tag2=5, kill=5, queued_as: 96A4530845, L/Y/0/0'
+                            'Jul 29 06:44:16 intrepid amavis[25342]: (25342-04) Passed CLEAN, <spam@zentyal.org> -> <macaco@monos.org>, Hits: 3.904, tag=0, tag2=5, kill=5, queued_as: 96A4530845, L/Y/0/0'
 
                            ],
                   expectedData => {
                                    event => 'CLEAN',
                                    action => 'Passed',
                                    date => "$year-Jul-29 06:44:16",
-                                   from_address => 'spam@warp.es',
+                                   from_address => 'spam@zentyal.org',
                                    to_address   => 'macaco@monos.org',
                                    'spam_hits' => 3.904,
                                   },

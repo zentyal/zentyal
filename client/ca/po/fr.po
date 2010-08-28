@@ -597,31 +597,10 @@ msgstr "Phrase secrète CA"
 msgid "Renew a certificate"
 msgstr "Renouveler un certificat"
 
-#~ msgid ""
-#~ "The private key passpharse needed to create a new request. No renewal was "
-#~ "made. Issue a new certificate with new keys"
-#~ msgstr ""
-#~ "LA clé privé passphrase nécessaire pour créer une nouvelle requête. Aucun "
-#~ "renouvellement n'a été effectué. Créer un nouveau certificat avec une "
-#~ "nouvelle clé"
 
-#~ msgid "You must create a Certification Authority."
-#~ msgstr "Créer le certificat d'autorité de certification"
 
-#~ msgid "Infrastructure"
-#~ msgstr "Infrastructure"
 
-#~ msgid "Certificate Manager"
-#~ msgstr "Gestionnaire de certificat"
 
-#~ msgid "Re CA Passphrase"
-#~ msgstr "Réentrer votre Phrase secrète CA"
 
-#~ msgid "Passphrase"
-#~ msgstr "Phrase secrète"
 
-#~ msgid "Re-passphrase"
-#~ msgstr "Réentrer votre Phrase secrète"
 
-#~ msgid "Days to expire MUST be a natural number"
-#~ msgstr "Les jours avant expiration doivent être un nombre entier"

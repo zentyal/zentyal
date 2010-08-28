@@ -880,402 +880,113 @@ msgstr "Rapport du proxy transparent POP"
 msgid "[Virus] found in a mail to you:"
 msgstr "[Virus] trouvé dans un de vos courriers:"
 
-#~ msgid "Unsupported or incorrect input source fonrmat: {format}"
-#~ msgstr "Format de donnée incorrect ou non supporté : {format}"
 
-#~ msgid "General  settings"
-#~ msgstr "Paramètres généraux"
 
-#~ msgid "POP transparent proxy configuration"
-#~ msgstr "Configuration du proxy transparent POP"
 
-#~ msgid "Virtual domains configuration"
-#~ msgstr "Configuration des domaines virtuels"
 
-#~ msgid "To add the LDAP schemas used by eBox mailfilter"
-#~ msgstr "Ajouter les modèles LDAP utilisés par le filtre de courrier d'eBox"
 
-#~ msgid "UTM"
-#~ msgstr "UTM"
 
 #, fuzzy
-#~ msgid "Antivirus database update status"
-#~ msgstr "Status des mises-à-jours des définitions de virus"
 
 #, fuzzy
-#~ msgid "The last update failed"
-#~ msgstr "Dernière tentative de mise-à-jour le {date}"
 
 #, fuzzy
-#~ msgid ""
-#~ "Update failed.\n"
-#~ "Your version of freshclam  is outdated.Please, install version {version} "
-#~ "or higher"
-#~ msgstr ""
-#~ "Mise-à-jour échouée le {date}. \n"
-#~ " Votre version de freshclam est dépassée. Veuillez installer la version "
-#~ "{version} ou supérieure"
 
 #, fuzzy
-#~ msgid "Last update successful"
-#~ msgstr "Dernière mise-à-jour réussie le {date}"
 
-#~ msgid "Antivirus"
-#~ msgstr "Antivirus"
 
-#~ msgid "Mail filter system"
-#~ msgstr "Système de filtrage mail"
 
-#~ msgid "Mail filter settings"
-#~ msgstr "Configuration du filtrage mail"
 
 #, fuzzy
-#~ msgid "Internal mailfilter"
-#~ msgstr "Filtre mail interne à eBox"
 
 #, fuzzy
-#~ msgid "Options"
-#~ msgstr "Actions"
 
 #, fuzzy
-#~ msgid "Database update status"
-#~ msgstr "Status des mises-à-jours des définitions de virus"
-
-#~ msgid "Learned from mailbox file"
-#~ msgstr "Appris du fichier de boîte mail"
-
-#~ msgid "Denied settings changed"
-#~ msgstr "Configuration des accès refusés modifiée"
-
-#~ msgid ""
-#~ "The sender can be either an email address or a domain name prefixed with "
-#~ "'@'"
-#~ msgstr ""
-#~ "L'expéditeur peut uniquement être une adresse mail ou un nom de domaine "
-#~ "commençant par '@'"
-
-#~ msgid "Mail domain"
-#~ msgstr "Domaine mail"
-
-#~ msgid "The last update failed at {date}"
-#~ msgstr "Dernière tentative de mise-à-jour le {date}"
-
-#~ msgid ""
-#~ "Update failed at {date}.\n"
-#~ "Your version of freshclam  is outdated.Please, install version {version} "
-#~ "or higher"
-#~ msgstr ""
-#~ "Mise-à-jour échouée le {date}. \n"
-#~ " Votre version de freshclam est dépassée. Veuillez installer la version "
-#~ "{version} ou supérieure"
 
-#~ msgid "{plural} which are not listed below are allowed"
-#~ msgstr "{plural} qui ne sont pas listés ci-dessous sont autorisés"
-
-#~ msgid "Delete"
-#~ msgstr "Effacer"
 
-#~ msgid ""
-#~ "Spam messages which a score equal or greater than this threshold will be "
-#~ "added to the learning system "
-#~ msgstr ""
-#~ "Les pourriels qui ont un score égal ou supérieur au seuil seront "
-#~ "introduits dans le système d'apprentissage"
 
-#~ msgid ""
-#~ "Ham messages which a score below this threshold will be added to the "
-#~ "learning system"
-#~ msgstr ""
-#~ "Les mails valides (ham) qui ont un score inférieur à ce seuil seront "
-#~ "introduits dans le système d'apprentissage"
 
-#~ msgid "Antispam options"
-#~ msgstr "Options antispam"
 
-#~ msgid "Service port"
-#~ msgstr "Port du service"
 
-#~ msgid "Antispam sender access lists"
-#~ msgstr "Listes d'accès d'expéditeur d'Antispam"
 
-#~ msgid ""
-#~ "External mail server {mta} removed. Remember to remove its mail domains "
-#~ "from the external mail domain's list"
-#~ msgstr ""
-#~ "Serveur de mail externe {mta} supprimé. Rappelez-vous d'enlever son nom "
-#~ "de domaine de la liste des noms de domaine externe"
 
-#~ msgid "{name} is already registered"
-#~ msgstr "{name} est déjà enregistré"
 
-#~ msgid "{name} added"
-#~ msgstr "{name} ajouté"
 
-#~ msgid "No changes were specified by the user"
-#~ msgstr "Aucun changement n'a été spécifié par l'utilisateur"
 
-#~ msgid "{name} is not registered"
-#~ msgstr "{name} n'est pas enregistré"
 
-#~ msgid "{name} removed"
-#~ msgstr "{name} supprimé"
 
-#~ msgid "The specified sender is not in the ACL"
-#~ msgstr "L'expéditeur spécifié n'est pas dans les ACL"
 
-#~ msgid "Mail domain {domain} added to external domain's list."
-#~ msgstr ""
-#~ "Nom de domaine {domain} ajouté à la liste des noms de domaines externes"
 
-#~ msgid "Mail domain {domain} removed from external domain's list."
-#~ msgstr ""
-#~ "Nom de domaine de courrier {domain} supprimé de la liste des noms de "
-#~ "domaines externes"
 
-#~ msgid "All entries were removed"
-#~ msgstr "Toutes les entrées ont été supprimées"
 
-#~ msgid ""
-#~ "External mail server {mta} allowed. Remember to add its mail domains to "
-#~ "the external mail domain's list"
-#~ msgstr ""
-#~ "Serveur de courrier externe {mta} autorisé. Rappelez-vous de l'ajouter à "
-#~ "la liste des domaines externes"
 
-#~ msgid "{ext} is not registered in the extensions list"
-#~ msgstr "{ext} n'est pas enregistré dans la liste d'extensions"
 
-#~ msgid "{ext} is not registered in the mimeTypes list"
-#~ msgstr "{ext} n'est pas enregistré dans la liste de types MIME"
 
-#~ msgid "The spam's autolearn threshold must be higher than 6.0"
-#~ msgstr "Le seuil d'auto-apprentissage des spams doit être supérieur à 6.0"
 
-#~ msgid "The ham's autolearn threshold cannot be higher than spam's threshold"
-#~ msgstr ""
-#~ "Le seuil d'auto-apprentissage des mails valides (ham) ne peut pas être "
-#~ "supérieur à celui du spam"
 
-#~ msgid "MTA's address"
-#~ msgstr "Adresse du MTA"
 
-#~ msgid "{mta} is already allowed"
-#~ msgstr "{mta} est déjà autorisé"
 
-#~ msgid "{mta} not found"
-#~ msgstr "{mta} introuvable"
 
-#~ msgid "{domain} is already acknowledged as external mail domain"
-#~ msgstr "{domain} est déjà autorisé en tant que domaine de mails externe"
 
-#~ msgid "Domain {domain} was not acknowledged as external mail domain"
-#~ msgstr ""
-#~ "Le domaine {domain} n'est pas autorisé en tant que domaine de mails "
-#~ "externe"
 
-#~ msgid "Administrator address"
-#~ msgstr "Adresse de l'administrateur"
 
-#~ msgid "policy type"
-#~ msgstr "Type de politique"
 
-#~ msgid "filter type"
-#~ msgstr "Type de filtre"
 
-#~ msgid "The last successful update was at {date}"
-#~ msgstr "Dernière mise-à-jour réussie le {date}"
 
-#~ msgid "Deny"
-#~ msgstr "Interdire"
 
-#~ msgid "Add {element}"
-#~ msgstr "Ajouter {element}"
 
-#~ msgid "Name"
-#~ msgstr "Nom"
 
-#~ msgid "All registered {plural}"
-#~ msgstr "{plural} tous enregistrés"
 
-#~ msgid "Delete them all"
-#~ msgstr "Tous les supprimer"
 
-#~ msgid "Change"
-#~ msgstr "Modifier"
 
-#~ msgid "Antispam global sender access lists"
-#~ msgstr "Listes globales d'accès d'expéditeur d'Antispam"
 
-#~ msgid "Spam filter training"
-#~ msgstr "Entraînement du filtre spam"
 
-#~ msgid "Whitelist"
-#~ msgstr "Liste blanche"
 
-#~ msgid "Blacklist"
-#~ msgstr "Liste noire"
 
-#~ msgid "Sender"
-#~ msgstr "Expéditeur"
 
-#~ msgid "Add sender to {type}"
-#~ msgstr "Ajouter l'expéditeur à {type}"
 
-#~ msgid "Notification address"
-#~ msgstr "Adresse de notification"
 
-#~ msgid "Notification"
-#~ msgstr "Avertissement"
 
-#~ msgid "External Mail server"
-#~ msgstr "Serveur mail externe"
 
-#~ msgid "Allowed external mail servers"
-#~ msgstr "Serveurs mail externes autorisés"
 
-#~ msgid "Add external mail server"
-#~ msgstr "Ajouter un serveur de mail externe"
 
-#~ msgid "External Mail domain"
-#~ msgstr "Domaine mail externe"
 
-#~ msgid "Add external mail domain"
-#~ msgstr "Ajouter un domaine mail externe"
 
-#~ msgid ""
-#~ "The \"{name}\"  setting will not have effect until the\n"
-#~ "   antivirus service will be enabled in the mail filter"
-#~ msgstr ""
-#~ "Le paramètre de \"{name}\" ne sera effectif que lorsque le service "
-#~ "antivirus sera activé dans le filtre du courrier"
 
-#~ msgid ""
-#~ "The \"{name}\"  setting will not have effect until the\n"
-#~ "   antispam sergice will be enabled in the mail filter"
-#~ msgstr ""
-#~ "Le paramètre de \"{name}\" ne sera effectif que lorsque le service "
-#~ "antivirus sera activé dans le filtre du courrier"
 
-#~ msgid "Use default spam threshold (current value is {v})"
-#~ msgstr ""
-#~ "Utilise le seuil antispam par défaut (la valeur courante est de {v})"
 
-#~ msgid "Mail filter options"
-#~ msgstr "Options du filtre mail"
 
-#~ msgid "Extensions filter"
-#~ msgstr "Filtre d'extensions"
 
-#~ msgid "Unsupported or incorrect input source format: {format}"
-#~ msgstr "Format de donnée source incorrect ou non supporté : {format}"
 
-#~ msgid "module status"
-#~ msgstr "Status du module"
 
-#~ msgid "Configure denied file extensions"
-#~ msgstr "Configurer les extensions de fichiers interdites"
 
-#~ msgid "extensions"
-#~ msgstr "extensions"
 
-#~ msgid "Update failed at {date}.\n"
-#~ msgstr "Mise-à-jour échouée le {date}.\n"
 
-#~ msgid "Add"
-#~ msgstr "Ajouter"
 
-#~ msgid "Are you sure you want to delete all {plural}?"
-#~ msgstr "Etes-vous sûr de vouloir tous les effacer {plural} ?"
 
-#~ msgid "There isn't any sender in {type} "
-#~ msgstr "Il n'y a aucun expéditeur dans {type}"
 
-#~ msgid "Enable Mail filter system"
-#~ msgstr "Activer le système de filtrage mail"
 
-#~ msgid "No allowed external mail servers"
-#~ msgstr "Serveurs mail externes interdits"
 
-#~ msgid "No external mail domains"
-#~ msgstr "Aucun domaine mail externe"
 
-#~ msgid "Configure denied MIME types"
-#~ msgstr "Configurer les types MIME refusés"
 
-#~ msgid ""
-#~ "External mail server {mta} removed. Remember to remove his mail domains "
-#~ "from the external mail domains list"
-#~ msgstr ""
-#~ "Serveur de mail externe {mta} supprimé. Rappelez-vous d'enlever son nom "
-#~ "de domaine de la liste des noms de domaine externe"
 
-#~ msgid "No changes where specified by the user"
-#~ msgstr "Aucun changement n'a été spécifié par l'utilisateur"
 
-#~ msgid "Mail domain{domain} removed from external domains list."
-#~ msgstr ""
-#~ "Nom de domaine {domain} supprimé de la liste des noms de domaines externes"
 
-#~ msgid ""
-#~ "External mail server {mta} allowed. Remember to add his mail domains to "
-#~ "the external mail domains list"
-#~ msgstr ""
-#~ "Serveur de mail externe {mta} autorisé. Rappelez-vous de l'ajouter à la "
-#~ "liste des domaines externes"
 
-#~ msgid "The spam's threshold cannot be higher than his autolearn threshold"
-#~ msgstr ""
-#~ "Le seuil des spams ne peut être supérieur que son seuil d'auto-"
-#~ "apprentissage"
 
-#~ msgid ""
-#~ "The spam's threshold cannot be lower or equalthan his ham's autolearn "
-#~ "threshold"
-#~ msgstr ""
-#~ "Le seuil de spams ne peut pas être inférieur ou égale à son seuil d'auto-"
-#~ "apprentissage de mails valides (ham)"
 
-#~ msgid ""
-#~ "Cannot learn because bayesian filter is disabled in the current "
-#~ "configuration. In order to be able to learn  enable ithe bayesian filter "
-#~ "and save the changes"
-#~ msgstr ""
-#~ "Apprentissage impossible car le filtre bayésien est désactivé dans la "
-#~ "configuration actuelle. "
 
-#~ msgid ""
-#~ "The sender can only be a email address or a domain name prefixed with '@'"
-#~ msgstr ""
-#~ "L'expéditeur peut uniquement être une adresse mail ou un nom de domaine "
-#~ "commençant par '@'"
 
-#~ msgid "Invalid externa; MTA {mta}. Local net addresses are not allowed"
-#~ msgstr ""
-#~ "MTA {mta} externe invalide. Les adresses locales ne sont pas permises"
 
-#~ msgid "Tag which will be added to the subject of spam mail"
-#~ msgstr "Etiquette qui sera ajoutée au sujet du spam"
 
-#~ msgid "Use bayesian classefier"
-#~ msgstr "Utiliser la classification bayésienne"
 
-#~ msgid "Change the score of mail according the history of the sender"
-#~ msgstr ""
-#~ "Modifier le score des mails en accord avec l'historique de l'expéditeur"
 
-#~ msgid ""
-#~ "Spam messages which a score equal or greater than this threshold will be  "
-#~ "introduced  in the learning system "
-#~ msgstr ""
-#~ "Les spams qui ont un score égal ou supérieur au seuil seront introduits "
-#~ "dans le système d'apprentissage"
 
-#~ msgid ""
-#~ "Ham messages which a score below this treshold will be introduced in the "
-#~ "learning system"
-#~ msgstr ""
-#~ "Les mails valides (ham) qui ont un score inférieur à ce seuil seront "
-#~ "introduits dans le système d'apprentissage"
 
-#~ msgid "The last update was successful at {date}"
-#~ msgstr "Dernière mise-à-jour réussie le {date}"
+
+
+
+
+
+
+

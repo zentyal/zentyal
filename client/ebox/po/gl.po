@@ -2349,139 +2349,63 @@ msgstr ""
 msgid "Download configuration report file"
 msgstr "Descargar o ficheiro de reporte de erros"
 
-#~ msgid "modules left to restore"
-#~ msgstr "módulos da esquerda para restaurar"
 
-#~ msgid "Bug report"
-#~ msgstr "Informe de erros"
 
 #, fuzzy
-#~ msgid "Support & Services"
-#~ msgstr "Asistencia e servizos"
 
 #, fuzzy
-#~ msgid "Created by {href}"
-#~ msgstr "{ebox} creado por {warp}"
 
-#~ msgid "{ebox} created by {warp}"
-#~ msgstr "{ebox} creado por {warp}"
 
-#~ msgid "RAID device {name} is performing operation {opName}"
-#~ msgstr "O dispositivo RAID {name} está levando a cabo a operación {opName}"
 
 #, fuzzy
-#~ msgid "System backups"
-#~ msgstr "Sistema de backups"
 
-#~ msgid "RAID report"
-#~ msgstr "Informe RAID"
 
 #, fuzzy
-#~ msgid "Day"
-#~ msgstr "calquera"
 
-#~ msgid ""
-#~ "An internal error has ocurred. This is most probably a bug, relevant "
-#~ "information can be found in the logs."
-#~ msgstr ""
-#~ "Ocurriu un erro interno. Esto probablemente sexa un bug, a información "
-#~ "pertinente pódese atopar nos rexistros."
 
 #, fuzzy
-#~ msgid "Backup deleted"
-#~ msgstr "Módulos de copia de seguridade"
 
 #, fuzzy
-#~ msgid "Restoring remote backup"
-#~ msgstr "Restaurar copia de seguridade"
 
 #, fuzzy
-#~ msgid "Restoring modules from remote backup"
-#~ msgstr "Restaurar esta copia de seguridade"
 
 #, fuzzy
-#~ msgid "Remote system backups"
-#~ msgstr "Sistema de backups"
 
 #, fuzzy
-#~ msgid ""
-#~ "Please confirm that you want to restore the configuraction using the "
-#~ "following remote backup:"
-#~ msgstr ""
-#~ "Por favor confirma que queres eliminar o seguinte ficheiro de copia de "
-#~ "seguridade:"
 
 #, fuzzy
-#~ msgid "Making remote backup"
-#~ msgstr "Restaurar copia de seguridade"
 
 #, fuzzy
-#~ msgid "Backing up modules "
-#~ msgstr "Módulos de copia de seguridade"
 
 #, fuzzy
-#~ msgid "Remote system backups proxy"
-#~ msgstr "Sistema de backups"
 
 #, fuzzy
-#~ msgid "Connection error"
-#~ msgstr "operacións realizadas"
 
 #, fuzzy
-#~ msgid "eBox suscription details"
-#~ msgstr "Subscrición errada: {message}"
 
 #, fuzzy
-#~ msgid "Delete data"
-#~ msgstr "Eliminar"
 
 #, fuzzy
-#~ msgid "Subscription to remote services"
-#~ msgstr "Habilitar servizo"
 
 #, fuzzy
-#~ msgid "Remote services subscription"
-#~ msgstr "Habilitar servizo"
 
 #, fuzzy
-#~ msgid "Enter user and password"
-#~ msgstr "Contrasinal de usuario"
 
 #, fuzzy
-#~ msgid "Configuration backups' list"
-#~ msgstr "Configuración das copias de seguridade"
 
 #, fuzzy
-#~ msgid "subscription page"
-#~ msgstr "Subscrición errada: {message}"
 
 #, fuzzy
-#~ msgid "Configuration backups"
-#~ msgstr "Configuración da copia de seguridade"
 
-#~ msgid "A instance of a subclass of EBox::GConfModule is expected"
-#~ msgstr "Precísase unha instancia da subclase EBox::GConfModule"
 
 #, fuzzy
-#~ msgid "RAID 0"
-#~ msgstr "RAID"
 
 #, fuzzy
-#~ msgid "RAID 1"
-#~ msgstr "RAID"
 
 #, fuzzy
-#~ msgid "RAID 2"
-#~ msgstr "RAID"
 
 #, fuzzy
-#~ msgid "RAID 3"
-#~ msgstr "RAID"
 
 #, fuzzy
-#~ msgid "RAID 4"
-#~ msgstr "RAID"
 
 #, fuzzy
-#~ msgid "RAID 5"
-#~ msgstr "RAID"

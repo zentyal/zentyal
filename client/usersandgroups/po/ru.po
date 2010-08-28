@@ -857,126 +857,29 @@ msgstr "Предупреждение: включен Caps Lock "
 msgid "Enter"
 msgstr "Вход"
 
-#~ msgid "LDAP Info"
-#~ msgstr "Инфа LDAP"
 
-#~ msgid "Slave status"
-#~ msgstr "Состояние slave"
 
-#~ msgid "User corner"
-#~ msgstr "Уголок пользователя"
 
-#~ msgid "User Corner webserver settings"
-#~ msgstr "Параметры вэб-сервера уголка пользователя"
 
-#~ msgid ""
-#~ "If you remove this group all its data within its shared directory will be "
-#~ "deleted"
-#~ msgstr ""
-#~ "Если вы удалите эту группу все данные в общем каталоге будут удалены"
 
-#~ msgid ""
-#~ "There are no groups at the moment. You may want to add some in {openhref}"
-#~ "Add group section{closehref}."
-#~ msgstr ""
-#~ "В данный момент нет групп. Вам необходимо добавить {openhref}Раздел "
-#~ "Добавить группу{closehref}."
 
-#~ msgid ""
-#~ "There are no users at the moment. You may want to add some in {openhref}"
-#~ "Add user section{closehref}."
-#~ msgstr ""
-#~ "В данный момент нет пользователей. Вам необходимо добавить {openhref} "
-#~ "Раздел Добавить пользователя {closehref}"
 
-#~ msgid "Users corner certificates"
-#~ msgstr "Сертификаты уголка пользователей"
 
-#~ msgid "Can't bind to LDAP with the provided password"
-#~ msgstr "Не возможно связаться с LDAP с данным паролем"
 
-#~ msgid "Edit User"
-#~ msgstr "Редактировать пользователя"
 
-#~ msgid "Edit Group"
-#~ msgstr "Редактировать группу"
 
-#~ msgid ""
-#~ "Changes in user accounts take effect inmediately, they do not need to be "
-#~ "saved."
-#~ msgstr ""
-#~ "Изменения в учетной записи вступают в силу немедленно, нет необходимости "
-#~ "их записывать."
 
-#~ msgid ""
-#~ "Changes related to printing, file sharing and Jabber service do need to "
-#~ "be saved in order to be effective."
-#~ msgstr ""
-#~ "Изменения связанные с принтерами, совместного доступа к файлам и службой "
-#~ "jabber необходимо записывать для вступления их в силу."
 
-#~ msgid "Create"
-#~ msgstr "Создать"
 
-#~ msgid "Actions"
-#~ msgstr "Действие"
 
 #, fuzzy
-#~ msgid ""
-#~ "There are no groups at the moment. You may want to add some in the master "
-#~ "eBox"
-#~ msgstr ""
-#~ "В данный момент нет групп. Вам необходимо добавить {openhref}Раздел "
-#~ "Добавить группу{closehref}."
 
 #, fuzzy
-#~ msgid ""
-#~ "There are no groups at the moment. You may want to add some in the Domain "
-#~ "Controller"
-#~ msgstr ""
-#~ "В данный момент нет групп. Вам необходимо добавить {openhref}Раздел "
-#~ "Добавить группу{closehref}."
 
-#~ msgid ""
-#~ "Your current openLDAP database will be replaced and backed up in /var/"
-#~ "backups/slapd"
-#~ msgstr ""
-#~ "Ваша текущая база данных openLDAP будет заменена и сохранена в /var/"
-#~ "backups/slapd"
 
-#~ msgid ""
-#~ "eBox will initialize openLDAP to store its database. It will also "
-#~ "overwrite your current configuration"
-#~ msgstr ""
-#~ "eBox инициализирует openLDAP для хранения своей базы данных. Также он "
-#~ "перепишет текущую вашу конфигурацию"
 
-#~ msgid ""
-#~ "To configure the openLDAP database with dc  entry, rootpw, rootdn, "
-#~ "schemas and ACLs used by  the LDAP based eBox modules"
-#~ msgstr ""
-#~ "Чтобы настроить базу данных  openLDAP с входящими, rootpw, rootdn, "
-#~ "schemas и ACLs используйте LDAP модуль eBox."
 
-#~ msgid "Office"
-#~ msgstr "Офис"
 
-#~ msgid "full name"
-#~ msgstr "полное имя"
 
-#~ msgid "foo"
-#~ msgstr "foo"
 
-#~ msgid ""
-#~ "Your current openLDAP database will be replaced and backuped in /var/"
-#~ "backups/slapd"
-#~ msgstr ""
-#~ "Ваша текущая база данных openLDAP будет заменена и сохранена в /var/"
-#~ "backups/slapd"
 
-#~ msgid ""
-#~ "This operation will cause the removal of the user and all his "
-#~ "dependences; such as mail accounts, user data..."
-#~ msgstr ""
-#~ "Эта операция удалит пользователя и все, что с ним связано (почтовый "
-#~ "аккаунт, данный пользователя и т.п.)"

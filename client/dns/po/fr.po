@@ -292,92 +292,27 @@ msgstr "Editer"
 msgid "edit"
 msgstr "éditer"
 
-#~ msgid "Infrastructure"
-#~ msgstr "Infrastructure"
 
-#~ msgid "Owner domain"
-#~ msgstr "Domaine propriétaire"
 
-#~ msgid "Service enabled"
-#~ msgstr "Service activé"
 
-#~ msgid "Service disabled"
-#~ msgstr "Service désactivé"
 
-#~ msgid "Domain Name System"
-#~ msgstr "Contrôleur de domaine"
 
-#~ msgid "There is an alias with the same name \"{name}\" in the same domain"
-#~ msgstr ""
-#~ "Il existe déjà un alias dont le nom est \"{name}\" dans le même domaine"
 
-#~ msgid "Hostname"
-#~ msgstr "Nom d'hôte"
 
-#~ msgid "hostname"
-#~ msgstr "nom d'hôte"
 
-#~ msgid "IP address"
-#~ msgstr "Adresse IP"
 
-#~ msgid "Alias name"
-#~ msgstr "Nom d'alias"
 
-#~ msgid "dns"
-#~ msgstr "dns"
 
-#~ msgid "module status"
-#~ msgstr "statut du module"
 
-#~ msgid "domain name"
-#~ msgstr "nom de domaine"
 
-#~ msgid ""
-#~ "The domain '{name}' is already used. Please choose another domain name"
-#~ msgstr ""
-#~ "Le nom de domaine '{name}' est déjà utilisé. Veuillez en choisir un autre"
 
-#~ msgid "Host name can't contain dots"
-#~ msgstr "Le nom d'hôte ne peut pas contenir un point"
 
-#~ msgid ""
-#~ "The host name '{name}' is already used. Please choose another host name"
-#~ msgstr ""
-#~ "Le nom d'hôte '{name}' est déjà utilisé. Veuillez en choisir un autre"
 
-#~ msgid ""
-#~ "The IP address '{ip}' is already used. Please choose another IP address"
-#~ msgstr ""
-#~ "L'adresse IP '{ip}' est déjà utilisée. Veuillez en choisir une autre"
 
-#~ msgid "An alias can't contain dots"
-#~ msgstr "Un alias ne peut pas contenir de point"
 
-#~ msgid ""
-#~ "The alias '{name}' is already used as a host name. Please choose another "
-#~ "alias"
-#~ msgstr ""
-#~ "L'alias '{name}' est déjà utilisé comme nom d'hôte. Veuillez en choisir "
-#~ "un autre"
 
-#~ msgid ""
-#~ "The alias '{name}' is already used as alias in the host '{host}'. Please "
-#~ "choose another alias"
-#~ msgstr ""
-#~ "L'alias '{name}' est déjà utilisé comme alias pour l'hôte '{host}'. "
-#~ "Veuillez en choisir un autre"
 
-#~ msgid "DNS service status"
-#~ msgstr "Statut du service DNS"
 
-#~ msgid "DNS cache"
-#~ msgstr "Cache DNS"
 
-#~ msgid "DNS Cache"
-#~ msgstr "Cache DNS"
 
-#~ msgid "Enable the DNS Cache"
-#~ msgstr "Habiliter Cache DNS"
 
-#~ msgid "Domain name"
-#~ msgstr "Nom de domaine"

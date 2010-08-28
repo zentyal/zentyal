@@ -1016,95 +1016,38 @@ msgid ""
 msgstr ""
 
 #, fuzzy
-#~ msgid "Physical interface"
-#~ msgstr "Interfícies virtuals"
 
 #, fuzzy
-#~ msgid "Vlan interface list"
-#~ msgstr "Interfícies virtuals"
 
 #, fuzzy
-#~ msgid "These are the vlan interfaces which are available in your system."
-#~ msgstr "Interfícies de xarxa"
 
 #, fuzzy
-#~ msgid "interface"
-#~ msgstr "Interfície"
 
 #, fuzzy
-#~ msgid "Configurable interface list"
-#~ msgstr "interfície de xarxa"
 
 #, fuzzy
-#~ msgid "These are the interfaces which can be configured"
-#~ msgstr "Interfícies de xarxa"
 
 #, fuzzy
-#~ msgid "Physical interface list"
-#~ msgstr "Interfícies virtuals"
 
 #, fuzzy
-#~ msgid ""
-#~ "These are the physical interfaces which are available in your system."
-#~ msgstr "Interfícies de xarxa"
 
 #, fuzzy
-#~ msgid "Set default gateway"
-#~ msgstr "Pasarel·la per defecte"
 
 #, fuzzy
-#~ msgid "Configure default gateway"
-#~ msgstr "Pasarel·la per defecte"
 
 #, fuzzy
-#~ msgid "Balance traffic and multigateway rules"
-#~ msgstr "adreça de la pasarel·la"
 
 #, fuzzy
-#~ msgid "IP Address"
-#~ msgstr "Adreça IP"
 
-#~ msgid "Routes"
-#~ msgstr "Rutes"
 
-#~ msgid ""
-#~ "Having network interfaces configured via DHCP may cause this settings to "
-#~ "be overriden."
-#~ msgstr ""
-#~ "Tenir interfícies de xarxa configurades via DHCP pot fer que aquests "
-#~ "paràmetres es sobreescriguen."
 
 #, fuzzy
-#~ msgid "There is already a default gateway"
-#~ msgstr "Pasarel·la per defecte"
 
-#~ msgid "gateway address"
-#~ msgstr "adreça de la pasarel·la"
 
-#~ msgid "Primary"
-#~ msgstr "Primària"
 
 #, fuzzy
-#~ msgid ""
-#~ "Having network interfaces configured via DHCP may cause the default "
-#~ "gateway to be overriden."
-#~ msgstr ""
-#~ "Tenir interfícies de xarxa configurades via DHCP pot fer que aquests "
-#~ "paràmetres, i sobretot la pasarel·la per defecte, es sobreescriguen."
 
 #, fuzzy
-#~ msgid "Rule"
-#~ msgstr "Rutes"
 
-#~ msgid "Default gateway"
-#~ msgstr "Pasarel·la per defecte"
 
-#~ msgid ""
-#~ "All routers you enter here must be reachable through one of the network "
-#~ "interfaces currently configured."
-#~ msgstr ""
-#~ "Totes les rutes que introduïu han de ser accessibles des de una de les "
-#~ "interfícies de xarxa actualment configurades."
 
-#~ msgid "network address"
-#~ msgstr "adreça de xarxa"

@@ -1023,178 +1023,52 @@ msgstr ""
 "konfiguracji."
 
 #, fuzzy
-#~ msgid "Physical interface"
-#~ msgstr "Interfejs wirtualny"
 
 #, fuzzy
-#~ msgid "Vlan interface list"
-#~ msgstr "Interfejs wirtualny"
 
 #, fuzzy
-#~ msgid "These are the vlan interfaces which are available in your system."
-#~ msgstr "Interfejs sieciowy skonfigurowany"
 
 #, fuzzy
-#~ msgid "interface"
-#~ msgstr "Interfejs"
 
 #, fuzzy
-#~ msgid "Configurable interface list"
-#~ msgstr "Skonfiguruj interfejsy sieciowe"
 
 #, fuzzy
-#~ msgid "These are the interfaces which can be configured"
-#~ msgstr "Interfejs sieciowy skonfigurowany"
 
 #, fuzzy
-#~ msgid "Physical interface list"
-#~ msgstr "Interfejs wirtualny"
 
 #, fuzzy
-#~ msgid ""
-#~ "These are the physical interfaces which are available in your system."
-#~ msgstr "Interfejs sieciowy skonfigurowany"
 
-#~ msgid "Set default gateway"
-#~ msgstr "Ustaw domyślną bramę"
 
-#~ msgid "You can change later the gateway at Network/Routes menus item"
-#~ msgstr "Możesz zmienić ustawienia bramy w menu Network/Routers"
 
-#~ msgid ""
-#~ "After the initial config you can revisit this page at Network/Interfaces "
-#~ "in the menu"
-#~ msgstr ""
-#~ "Po przeprowadzeniu konfiguracji wstępnej możesz znaleźć tę stronę w menu "
-#~ "Network/Interfaces"
 
-#~ msgid "Gateway configured"
-#~ msgstr "Brama ustawiona"
 
-#~ msgid "You can revisit this page at Network/DNS in the menu"
-#~ msgstr "Możesz znaleźć tę stronę w menu Network/DNS"
 
-#~ msgid "Network interface configured"
-#~ msgstr "Interfejs sieciowy skonfigurowany"
 
-#~ msgid "Configure name servers"
-#~ msgstr "Ustawienia serwerów nazw"
 
-#~ msgid "Configure default gateway"
-#~ msgstr "Ustawienia bramy domyślnej"
 
-#~ msgid "Upload"
-#~ msgstr "Upload"
 
-#~ msgid "Download"
-#~ msgstr "Pobieranie"
 
 #, fuzzy
-#~ msgid "Core"
-#~ msgstr "Źródło"
 
 #, fuzzy
-#~ msgid "Balance traffic and multigateway rules"
-#~ msgstr "Reguły dla wielu bram"
 
-#~ msgid "IP Address"
-#~ msgstr "Adres IP"
 
-#~ msgid "Protocol"
-#~ msgstr "Protokół"
 
-#~ msgid "Port"
-#~ msgstr "Port"
 
-#~ msgid "Destination port"
-#~ msgstr "Port docelowy"
 
-#~ msgid "Source port"
-#~ msgstr "Port źródłowy"
 
-#~ msgid "Port cannot be set if no protocol is selected"
-#~ msgstr "Port nie może zostać ustawiony, jeżeli protokół nie jest wybrany"
 
-#~ msgid "Routes"
-#~ msgstr "Trasy"
 
-#~ msgid ""
-#~ "Having network interfaces configured via DHCP may cause this settings to "
-#~ "be overriden."
-#~ msgstr ""
-#~ "Konfiguracja interfejsu sieciowego poprzez serwer DHCP może powodować "
-#~ "zmiany ustawień."
 
-#~ msgid ""
-#~ "Gateway {gw} must be reacheable by a static interface. Currently is "
-#~ "reacheable by {iface} which is not static"
-#~ msgstr ""
-#~ "Brama {gw} musi być dostępna przez interfejs skonfigurowany statycznie. "
-#~ "Aktualnie jest ona osiągalna przez interfejs {iface}, który nie jest "
-#~ "skonfigurowany statycznie."
 
 #, fuzzy
-#~ msgid ""
-#~ "To be able to use this feature, you need, at least, two gateways. You can "
-#~ "add them <a href=\"/ebox/Network/View/GatewayDataTable\">here</a> first"
-#~ msgstr ""
-#~ "Aby skorzystać z tej opcji musisz ustawić przynajmniej dwie bramy. Możesz "
-#~ "dodać bramy <a href="
 
-#~ msgid "There is already a default gateway"
-#~ msgstr "Domyślna brama jest już ustawiona"
 
-#~ msgid "gateway address"
-#~ msgstr "adresy bram"
 
-#~ msgid "Primary"
-#~ msgstr "Główny"
 
-#~ msgid "Apply"
-#~ msgstr "Zastosuj"
 
-#~ msgid ""
-#~ "Having network interfaces configured via DHCP may cause the default "
-#~ "gateway to be overriden."
-#~ msgstr ""
-#~ "Konfiguracja interfejsu poprzez serwer DHCP może prowadzić do zmiany "
-#~ "domyślnej bramy."
 
-#~ msgid ""
-#~ "To be able to use this feature, you need, at least, two gateways. You can "
-#~ "add them <a href="
-#~ msgstr ""
-#~ "Aby skorzystać z tej opcji musisz ustawić przynajmniej dwie bramy. Możesz "
-#~ "dodać bramy <a href="
 
-#~ msgid ""
-#~ "If you choose to continue, all modules that make use of the current "
-#~ "configuration of this network interface will delete the relevant parts of "
-#~ "their configuration. Choose "
-#~ msgstr ""
-#~ "Jeżeli postanowisz kontynuować, wszystkie moduły korzystające z obecnej "
-#~ "konfiguracji tego interfejsu sieciowego usuną powiązane fragmenty "
-#~ "konfiguracji."
 
-#~ msgid ""
-#~ "You can add as many gateways as you want. This is very useful if you want "
-#~ "to split your internet traffic through serveral links.<br>The download "
-#~ "and upload fields must be set as much rate as you have to your connection "
-#~ "towards the gateway. The correct value of this fields is critical to "
-#~ "ensure a correct functionality of the traffic shaping module"
-#~ msgstr ""
-#~ "Możesz dodać wiele bram. Jest to użyteczne, tylko jeśli chcesz dzielić "
-#~ "ruch pomiędzy łącza.<br>Pola pobierania i wysyłania muszą być ustawione "
-#~ "na szybkość z jaką możesz wysyłać/odbierać dane z bramy. Prawidłowe "
-#~ "ustawienia tych pól gwarantuje prawidłowe funkcjonowanie mechanizmów "
-#~ "kształtowania ruchu."
 
-#~ msgid ""
-#~ "All routers you enter here must be reachable through one of the network "
-#~ "interfaces currently configured."
-#~ msgstr ""
-#~ "Wszystkie routery, które tutaj wpiszesz muszą być osiągalne przez jeden z "
-#~ "aktualnie skonfigurowanych interfejsów."
 
-#~ msgid "network address"
-#~ msgstr "adres sieci"

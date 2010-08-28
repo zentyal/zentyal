@@ -2440,74 +2440,25 @@ msgstr "Aruande genereerimine võib mõned minutid aega võtta, palun oota."
 msgid "Download configuration report file"
 msgstr "Laadi seadistuste aruandefail alla"
 
-#~ msgid "modules left to restore"
-#~ msgstr "taastada jäänud mooduleid"
 
-#~ msgid "Bug report"
-#~ msgstr "Veaaruanne"
 
-#~ msgid "Control panel"
-#~ msgstr "Juhtpaneel"
 
-#~ msgid "Control center"
-#~ msgstr "Juhtimiskeskus"
 
-#~ msgid "RAID device {name} is performing operation {opName}"
-#~ msgstr "RAID seade {name} teostab operatsiooni: {opName}"
 
-#~ msgid "System backups"
-#~ msgstr "Süsteemi varundamised"
 
-#~ msgid "RAID report"
-#~ msgstr "RAID aruanne"
 
 #, fuzzy
-#~ msgid ""
-#~ "An internal error has ocurred. This is most probably a bug, relevant "
-#~ "information can be found in the logs."
-#~ msgstr ""
-#~ "Ilmnes sisemine viga. Selle vea kohta käiva informatsiooni leiad logidest."
 
-#~ msgid "Backup deleted"
-#~ msgstr "Varundus kustutatud"
 
-#~ msgid "Restoring remote backup"
-#~ msgstr "Kaugvarunduse taastamine"
 
-#~ msgid "Restoring modules from remote backup"
-#~ msgstr "Kaugvarunduse moodulite taastamine"
 
-#~ msgid ""
-#~ "Please confirm that you want to restore the configuraction using the "
-#~ "following remote backup:"
-#~ msgstr ""
-#~ "Palun kinnita, et sa tõesti tahad seadistusi taastada kasutades järgnevat "
-#~ "kaugvarundust:"
 
-#~ msgid "Inexistent action: {a}"
-#~ msgstr "Olematu toiming: {a}"
 
-#~ msgid "Making remote backup"
-#~ msgstr "Kaugvarunduse tegemine"
 
-#~ msgid "Backing up modules "
-#~ msgstr "Moodulite varundamine"
 
 #, fuzzy
-#~ msgid "Remote system backups proxy"
-#~ msgstr "Kaugsüsteemi puhverserveri varundamised"
 
-#~ msgid "Connection error"
-#~ msgstr "Ühenduse viga"
 
-#~ msgid "Day"
-#~ msgstr "Päev"
 
-#~ msgid "events"
-#~ msgstr "sündmused"
 
-#~ msgid "Create logs database"
-#~ msgstr "Logide andmebaasi loomine"
 
-#~ msgid "eBox store its logs in the database"
-#~ msgstr "eBoxi logide salvestamine andmebaasi"

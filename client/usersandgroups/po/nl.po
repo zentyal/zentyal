@@ -860,129 +860,32 @@ msgid "Enter"
 msgstr ""
 
 #, fuzzy
-#~ msgid "User corner"
-#~ msgstr "Gebruikersnaam"
 
-#~ msgid ""
-#~ "If you remove this group all its data within its shared directory will be "
-#~ "deleted"
-#~ msgstr ""
-#~ "Als je deze groep verwijderd worden alle gegevens in zijn gedeelde map "
-#~ "verwijderd."
 
 #, fuzzy
-#~ msgid ""
-#~ "There are no users at the moment. You may want to add some in {openhref}"
-#~ "Add user section{closehref}."
-#~ msgstr ""
-#~ "Er zijn geen gebruikers. Er moet er minstens één_ _zijn om deze groep te "
-#~ "kunnen beheren"
 
-#~ msgid "Edit User"
-#~ msgstr "Gebruiker wijzigen"
 
-#~ msgid "Edit Group"
-#~ msgstr "Groep wijzigen"
 
-#~ msgid ""
-#~ "Changes in user accounts take effect inmediately, they do not need to be "
-#~ "saved."
-#~ msgstr ""
-#~ "Wijzigingen in gebruikers instellingen worden onmiddellijk toegepast en "
-#~ "hoeven te niet worden opgeslagen."
 
-#~ msgid ""
-#~ "Changes related to printing, file sharing and Jabber service do need to "
-#~ "be saved in order to be effective."
-#~ msgstr ""
-#~ "Wijzigingen aan printer-, bestandsdeel- en Jabberinstellingen moeten wel "
-#~ "opgeslagen worden om toegepast te worden."
 
-#~ msgid "Create"
-#~ msgstr "Aanmaken"
 
-#~ msgid "Actions"
-#~ msgstr "Acties"
 
 #, fuzzy
-#~ msgid ""
-#~ "There are no groups at the moment. You may want to add some in the master "
-#~ "eBox"
-#~ msgstr ""
-#~ "Er zijn geen gebruikers. Er moet er minstens één_ _zijn om deze groep te "
-#~ "kunnen beheren"
 
 #, fuzzy
-#~ msgid ""
-#~ "There are no groups at the moment. You may want to add some in the Domain "
-#~ "Controller"
-#~ msgstr ""
-#~ "Er zijn geen gebruikers. Er moet er minstens één_ _zijn om deze groep te "
-#~ "kunnen beheren"
 
 #, fuzzy
-#~ msgid ""
-#~ "Your current openLDAP database will be replaced and backed up in /var/"
-#~ "backups/slapd"
-#~ msgstr ""
-#~ "De huidige openLDAP database word vervangen en gekopieerd naar /var/"
-#~ "backups/slapd"
 
-#~ msgid ""
-#~ "eBox will initialize openLDAP to store its database. It will also "
-#~ "overwrite your current configuration"
-#~ msgstr ""
-#~ "eBox gebruikt openLDAP om zijn database in op te slaan. De huidige "
-#~ "configuratie word overschreven"
 
-#~ msgid ""
-#~ "To configure the openLDAP database with dc  entry, rootpw, rootdn, "
-#~ "schemas and ACLs used by  the LDAP based eBox modules"
-#~ msgstr ""
-#~ "Om de openLdap database te configureren met dc_ _entry, rootpw, rootdn, "
-#~ "schemas en ACLs die gebruikt worden door de op LDAP gebaseerde eBox "
-#~ "modules"
 
-#~ msgid "full name"
-#~ msgstr "Volledige naam"
 
-#~ msgid "foo"
-#~ msgstr "foo"
 
-#~ msgid ""
-#~ "Your current openLDAP database will be replaced and backuped in /var/"
-#~ "backups/slapd"
-#~ msgstr ""
-#~ "De huidige openLDAP database word vervangen en gekopieerd naar /var/"
-#~ "backups/slapd"
 
-#~ msgid "Edit user"
-#~ msgstr "Wijzig gebruiker"
 
-#~ msgid ""
-#~ "This operation will cause the removal of the user and all his "
-#~ "dependences; such as mail accounts, user data..."
-#~ msgstr ""
-#~ "Deze wijziging verwijdert de gebruiker en al zijn gegevens; zoals mail "
-#~ "accounts, gebruikers gegevens..."
 
-#~ msgid "Deleting user"
-#~ msgstr "Gebruiker aan het verwijderen"
 
-#~ msgid "Deleting group"
-#~ msgstr "Groep aan het verwijderen"
 
-#~ msgid "Administration of group "
-#~ msgstr "Beheer van groep"
 
-#~ msgid "Administration of user"
-#~ msgstr "Beheer van gebruiker"
 
-#~ msgid "Username must not be longer than "
-#~ msgstr "Gebruikersnaam mag niet langer zijn dan"
 
-#~ msgid "Groupname must not be longer than "
-#~ msgstr "Naam groep mag niet langer zijn dan"
 
-#~ msgid "Password must not be longer than "
-#~ msgstr "Paswoorden mogen niet langer zijn dan"

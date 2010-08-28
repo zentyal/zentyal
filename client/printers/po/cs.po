@@ -127,293 +127,101 @@ msgid ""
 "{close_href}"
 msgstr ""
 
-#~ msgid "Model"
-#~ msgstr "Model"
 
-#~ msgid "Printer {printer} has no available drivers"
-#~ msgstr "Tiskárna {printer} nemá dostupné ovladače"
 
-#~ msgid "Add a new printer (II)"
-#~ msgstr "Přidat novou tiskárnu (II)"
 
-#~ msgid "Next"
-#~ msgstr "Další"
 
-#~ msgid "IP"
-#~ msgstr "IP"
 
-#~ msgid "Port"
-#~ msgstr "Port"
 
-#~ msgid "Standalone cups enabled"
-#~ msgstr "Samostatný cups povolený"
 
-#~ msgid "Standalone cups disabled"
-#~ msgstr "Samostatný cups zakázaný"
 
-#~ msgid "Add a new printer (VI)"
-#~ msgstr "Přidat novou tiskárnu (VI)"
 
-#~ msgid "Driver"
-#~ msgstr "Ovladač"
 
-#~ msgid "The printer has been deleted successfully"
-#~ msgstr "Tiskárna byla úspěšně smazána"
 
-#~ msgid "Shared resource"
-#~ msgstr "Sdílené zdroje"
 
-#~ msgid "Authentication"
-#~ msgstr "Ověření"
 
-#~ msgid "Password"
-#~ msgstr "Heslo"
 
-#~ msgid "Manage printer"
-#~ msgstr "Správa tiskárny"
 
-#~ msgid "Printer details"
-#~ msgstr "Detail tiskárny"
 
-#~ msgid "Driver Options"
-#~ msgstr "Možnosti ovladače"
 
-#~ msgid "Configuration options"
-#~ msgstr "Možnosti konfigurace"
 
-#~ msgid "Jobs Queue"
-#~ msgstr "Úlohy ve frontě"
 
-#~ msgid "Printer's name"
-#~ msgstr "Jméno tiskárny"
 
-#~ msgid "Printer's id"
-#~ msgstr "ID tiskárny"
 
-#~ msgid "Job id"
-#~ msgstr "ID úlohy"
 
-#~ msgid "Job was successfully canceled"
-#~ msgstr "Úloha byla úspěšně zrušena"
 
-#~ msgid "Add a new printer (IV)"
-#~ msgstr "přidat novou tiskárnu (IV)"
 
-#~ msgid "Device"
-#~ msgstr "Zařízení"
 
-#~ msgid "Manage printers"
-#~ msgstr "Správa tiskáren"
 
-#~ msgid "Delete printer"
-#~ msgstr "Smazat tiskárnu"
 
-#~ msgid "Add a new printer (V)"
-#~ msgstr "Přidat novou tiskárnu (V)"
 
-#~ msgid "Method"
-#~ msgstr "Způsob"
 
-#~ msgid "Printer description"
-#~ msgstr "Popis tiskárny"
 
-#~ msgid "Manufacturer"
-#~ msgstr "Výrobce"
 
-#~ msgid "Add a new printer (III)"
-#~ msgstr "Přidat novou tiskárnu (III)"
 
-#~ msgid "Add a new printer (I)"
-#~ msgstr "Přidat novou tiskárnu (I)"
 
-#~ msgid "Add user ebox to lpadmin group"
-#~ msgstr "Přidat uživatele ebox-u do skupiny lpadmin"
 
-#~ msgid "In order to manage printers and queues from the eBox web interface"
-#~ msgstr "Povolit správu tiskáren a tiskových úloh z webového rozhraní eBox-u"
 
-#~ msgid "To add and manage printers"
-#~ msgstr "Přidání a správa tiskáren"
 
 #, fuzzy
-#~ msgid "To enable standalone cupsd listen on internal interfaces"
-#~ msgstr "Povolit samostatný cupsd poslouchající na vnitřních rozhraní"
 
-#~ msgid "Add Printer"
-#~ msgstr "Přidat tiskárnu"
 
-#~ msgid ""
-#~ "The printer's name contains characters not valid.Only alphanumeric "
-#~ "characters are allowed"
-#~ msgstr ""
-#~ "Název tiskárny obsahuje nepovolené znaky. Povolené jsou pouze "
-#~ "alfanumerické znaky"
 
-#~ msgid "Name"
-#~ msgstr "Jméno"
 
-#~ msgid "The given name is alreaday used as "
-#~ msgstr "Zadané jméno se již používá"
 
-#~ msgid "It is not a usb printer"
-#~ msgstr "Nejedná se o USB tiskárnu"
 
-#~ msgid "It is not a parallel printer"
-#~ msgstr "Nejedná se o LPT tiskárnu"
 
-#~ msgid "It is not a network printer"
-#~ msgstr "Nejedná se o síťovou tiskárnu"
 
-#~ msgid "It is not a samba printer"
-#~ msgstr "Nejedná se o samba tiskárnu"
 
-#~ msgid "It is not a IPP printer"
-#~ msgstr "Nejedná se o IPP tiskárnu"
 
-#~ msgid "It is not a LPD printer"
-#~ msgstr "Nejedná se o LPD tiskárnu"
 
-#~ msgid "is not a valid option"
-#~ msgstr "není platná volba"
 
-#~ msgid "Parameter '{name}' does not exist"
-#~ msgstr "Hodnota '{name}' neexistuje"
 
-#~ msgid "Owner"
-#~ msgstr "Vlastník"
 
-#~ msgid "Queued at"
-#~ msgstr "Ve frontě jako"
 
-#~ msgid "Set printer name and method"
-#~ msgstr "Nastavit jméno tiskárny a způsob"
 
-#~ msgid "Parallel"
-#~ msgstr "Paralelní (LPT)"
 
-#~ msgid "AppSocket"
-#~ msgstr "AppSocket"
 
-#~ msgid "Samba"
-#~ msgstr "Samba"
 
-#~ msgid "IPP: Internet printing protocol"
-#~ msgstr "IPP: Internetový tiskový protokol"
 
-#~ msgid "LPD: Line Printer Daemon"
-#~ msgstr "LPD: Line Printer Daemon"
 
-#~ msgid "Choose manufacturer"
-#~ msgstr "Zvolit výrobce"
 
-#~ msgid "Local parallel printer configuration"
-#~ msgstr "Nastavit lokální LPT tiskárnu"
 
-#~ msgid "Are you sure you want to delete the printer '{name}'?"
-#~ msgstr "Jste si jistý, že chcete smazat tiskárnu '{name}'?"
 
-#~ msgid "Cancel"
-#~ msgstr "Zrušit"
 
-#~ msgid "Local USB printer configuration"
-#~ msgstr "Nastavení lokální USB tiskárny"
 
-#~ msgid "Change"
-#~ msgstr "Změna"
 
-#~ msgid "Job queue"
-#~ msgstr "Úloha ve frontě"
 
-#~ msgid "Size(KB)"
-#~ msgstr "Velikost(KB)"
 
-#~ msgid "Creation time"
-#~ msgstr "Čas vytvoření"
 
-#~ msgid "Action"
-#~ msgstr "Akce"
 
 #, fuzzy
-#~ msgid "This printer has no pending job in queue at the moment"
-#~ msgstr "Tato tiskárna nemá žádnou úlohu čekající na zpracování"
 
-#~ msgid "You need to save changes in order to print a test page"
-#~ msgstr "Před tiskem zkušební stránky musíte uložit změny"
 
-#~ msgid "Print Test Page"
-#~ msgstr "Tisk testovací stránky"
 
-#~ msgid "Driver options"
-#~ msgstr "Možnosti ovladače"
 
-#~ msgid "Choose a printer model"
-#~ msgstr "Vyberte model tiskárny"
 
-#~ msgid "Configure IPP printer"
-#~ msgstr "Nastavení IPP tiskárny"
 
-#~ msgid "Choose a driver for the printer"
-#~ msgstr "Zvolte ovladač tiskárny"
 
-#~ msgid "Configure LPD printer"
-#~ msgstr "Nastavení LPD tiskárny"
 
-#~ msgid "Choose a dirver for the printer"
-#~ msgstr "Zvolte ovladač tiskárny"
 
-#~ msgid "driver"
-#~ msgstr "ovladač"
 
 #, fuzzy
-#~ msgid "Go"
-#~ msgstr "Udělat"
 
 #, fuzzy
-#~ msgid "Samba shared printer configurationr"
-#~ msgstr "Nastavení Samba sdílené tiskárny"
 
-#~ msgid "Share resource"
-#~ msgstr "Sdílené zdroje"
 
-#~ msgid "Anonymous"
-#~ msgstr "Anonymní"
 
-#~ msgid "Guest"
-#~ msgstr "Host"
 
-#~ msgid "User/Password"
-#~ msgstr "Uživatel/Heslo"
 
-#~ msgid "Remote printer configuration"
-#~ msgstr "Nastavení sdílené tiskárny"
 
-#~ msgid "Configure AppSocket printer"
-#~ msgstr "Nastavit tiskárnu typu AppSocket"
 
 #, fuzzy
-#~ msgid "Samba shared printer configuration"
-#~ msgstr "Nastavení Samba sdílené tiskárny"
 
-#~ msgid "Enable standalone CUPS"
-#~ msgstr "Povolit samostatný CUPS"
 
-#~ msgid "General settings"
-#~ msgstr "Hlavní nastavení"
 
-#~ msgid "List of printers"
-#~ msgstr "Seznam tiskáren"
 
-#~ msgid "Description"
-#~ msgstr "Popis"
 
-#~ msgid "Actions"
-#~ msgstr "Akce"
 
-#~ msgid "Manage"
-#~ msgstr "Spravovat"
 
-#~ msgid "Manage this printer"
-#~ msgstr "Spravovat tuto tiskárnu"
 
-#~ msgid "There is no printer configured yet"
-#~ msgstr "Zatím není nastavena žádná tiskárna"

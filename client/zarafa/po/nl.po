@@ -118,60 +118,19 @@ msgstr "Beheerders rechten"
 msgid "Change"
 msgstr "Wijzigen"
 
-#~ msgid "To properly configure jabberd2 muc"
-#~ msgstr "Om jabberd2 muc te configureren op de juiste manier"
 
-#~ msgid "domain"
-#~ msgstr "domein"
 
-#~ msgid "module status"
-#~ msgstr "module status"
 
-#~ msgid ""
-#~ "Domain name should be available on the network. Otherwise, you may not be "
-#~ "able to use this service. This applies for internal and external "
-#~ "connections."
-#~ msgstr ""
-#~ "Het domein zou beschikbaar moeten zijn op het netwerk, anders is het "
-#~ "mogelijk dat deze service niet gebruikt kan worden. Dit geldt zowel voor "
-#~ "interne- als externe verbindingen."
 
-#~ msgid "Domain name"
-#~ msgstr "Domein Naam"
 
-#~ msgid "No"
-#~ msgstr "Nee"
 
-#~ msgid "Optional"
-#~ msgstr "Optioneel"
 
-#~ msgid "Required"
-#~ msgstr "Nodig"
 
-#~ msgid "Password for Jabber service is the user password."
-#~ msgstr ""
-#~ "Het wachtwoord voor de Jabber service is het wachtwoord van de gebruiker."
 
-#~ msgid "Copy jabber ldap schema to /etc/ldap/schemas"
-#~ msgstr "Copieer jabber schema naar /etc/ldap/schemas"
 
-#~ msgid "To add the LDAP schemas used by eBox jabber"
-#~ msgstr "Om de LDAP schema's toe te voegen, gebruikt door eBox jabber"
 
-#~ msgid "Communications"
-#~ msgstr "Communicaties"
 
-#~ msgid "General Settings"
-#~ msgstr "Algemene Instellingen"
 
-#~ msgid "Apply Changes"
-#~ msgstr "Wijzigingen toepassen"
 
-#~ msgid "Enter a username and password to register with this server."
-#~ msgstr "Geef gebruikersnaam en wachtwoord om op deze server te registreren."
 
-#~ msgid "listening port"
-#~ msgstr "luistert op poort"
 
-#~ msgid "Jabber Service status"
-#~ msgstr "Jabber Service status"

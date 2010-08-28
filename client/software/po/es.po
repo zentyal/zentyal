@@ -323,311 +323,108 @@ msgstr ""
 msgid "Upgrade"
 msgstr "Actualizar"
 
-#~ msgid ""
-#~ "As you are enjoying a Commercial Server Subscription the updates are "
-#~ "Quality Assured by the eBox Development Team."
-#~ msgstr ""
-#~ "Como se está disfrutando de una Suscripción Comercial del servidor, la "
-#~ "calidad de las actualizaciones está asegurada por el equipo de desarrollo "
-#~ "de eBox"
 
-#~ msgid ""
-#~ "Warning: The updates are community based. You can now gain access to the "
-#~ "Quality Assured Updates by purchasing the <a "
-#~ "href='{proUrl}'>Professional</a>  or <a href='{entUrl}'>Enterprise</a> "
-#~ "Server Subscription. QA Updates guarantee that all the upgrades, bugfixes "
-#~ "and security updates are extensively tested by the eBox Development Team "
-#~ "and you won't be introducing any regressions on your already working "
-#~ "system."
-#~ msgstr ""
-#~ "Advertencia : Las actualizaciones están basadas en la comunidad. Puedes "
-#~ "obtener acceso a las Actualizaciones de Calidad Asegurada (Quality "
-#~ "Assured Updates) adquiriendo las suscripciones <a "
-#~ "href='{proUrl}'>Professional</a> o <a href='{entUrl}'>Enterprise</a>. Las "
-#~ "Actualizaciones de Calidad Asegurada garantizan que todas las mejoras, "
-#~ "correcciones y actualizaciones de seguridad han sido extensamente "
-#~ "comprobadas por el Equipo de Desarrollo de eBox y que no vas a introducir "
-#~ "ningún fallo en el sistema que actualmente tienes en producción."
 
-#~ msgid "packages installed"
-#~ msgstr "paquetes instalados"
 
-#~ msgid ""
-#~ "eBox software will download the available updates from your configured "
-#~ "apt sources. "
-#~ msgstr ""
-#~ "eBox software descargará las actualizaciones disponibles desde las "
-#~ "fuentes apt que tenga configuradas"
 
-#~ msgid "Enable cron script to download updates"
-#~ msgstr "Habilitar script de cron para bajarse actualizaciones"
 
-#~ msgid ""
-#~ "The software management module must be enabled to be able to install "
-#~ "packages"
-#~ msgstr ""
-#~ "El módulo de gestión del software debe estar habilitado para poder "
-#~ "instalar paquetes"
 
-#~ msgid ""
-#~ "The software management module must be enabled to be able to remove "
-#~ "packages"
-#~ msgstr ""
-#~ "El módulo de gestión del software debe estar habilitado para poder "
-#~ "eliminar paquetes"
 
-#~ msgid "Automatic Updates"
-#~ msgstr "Actualizaciones automáticas"
 
-#~ msgid "Software updates are being handled automatically"
-#~ msgstr "Las actualizaciones de software se gestionan automáticamente"
 
-#~ msgid "Installed version "
-#~ msgstr "Versión instalada"
 
-#~ msgid "Latest version"
-#~ msgstr "Última versión"
 
-#~ msgid "none"
-#~ msgstr "ninguna"
 
-#~ msgid "Remove"
-#~ msgstr "Eliminar"
 
-#~ msgid ""
-#~ "Please wait, the update of the software available list is in process "
-#~ "right now"
-#~ msgstr ""
-#~ "Por favor, espere, la lista de software disponible está siendo "
-#~ "actualizada en este momento"
 
-#~ msgid ""
-#~ "The component list was never succefully downloaded so the information "
-#~ "shown is probably outdated. The list is updated each night or you can "
-#~ "force the update with the console command 'ebox-software'"
-#~ msgstr ""
-#~ "La lista de componentes no se ha podido descargar satisfactoriamente "
-#~ "todavía así que la información aquí mostrada estará probablemente "
-#~ "desactualizada. La lista se actualizada cada noche pero se puede forzar "
-#~ "la actualización ejecutando el comando 'ebox-software' en la consola"
 
-#~ msgid ""
-#~ "The component list was updated on {mon}/{mday}/{year} {hour}:{min}. It "
-#~ "will be updated again at night or you can force the update with the "
-#~ "console command 'ebox-software'"
-#~ msgstr ""
-#~ "La lista de componentes se actualizó el {mday}/{mon}/{year} a las {hour}:"
-#~ "{min}. Se actualizará de nuevo por la noche pero se puede forzar una "
-#~ "actualización ejecutando el comando 'ebox-software' en la consola"
 
 #, fuzzy
-#~ msgid "eBox - Antivirus module"
-#~ msgstr "Filtro de correo"
 
 #, fuzzy
-#~ msgid "eBox - Asterisk"
-#~ msgstr "Servidor DNS para eBox"
 
 #, fuzzy
-#~ msgid "eBox - Certificate Authority Manager for eBox"
-#~ msgstr "Gestor de autoridad certificadora"
 
 #, fuzzy
-#~ msgid "eBox - captive portal module"
-#~ msgstr "Filtro de correo"
 
 #, fuzzy
-#~ msgid "eBox - DHCP server module"
-#~ msgstr "Servidor DNS para eBox"
 
 #, fuzzy
-#~ msgid "eBox - DNS server"
-#~ msgstr "Servidor DNS para eBox"
 
 #, fuzzy
-#~ msgid "eBox - Firewall"
-#~ msgstr "Cortafuegos"
 
 #, fuzzy
-#~ msgid "eBox - Instant messaging proxy"
-#~ msgstr "Mensajería instantánea (Jabber)"
 
 #, fuzzy
-#~ msgid "eBox - Instant messaging (Jabber)"
-#~ msgstr "Mensajería instantánea (Jabber)"
 
 #, fuzzy
-#~ msgid "eBox - Mail server"
-#~ msgstr "Servidor de Correo"
 
 #, fuzzy
-#~ msgid "eBox - Mail filter module"
-#~ msgstr "Filtro de correo"
 
 #, fuzzy
-#~ msgid "eBox - Monitoring module  "
-#~ msgstr "Filtro de correo"
 
 #, fuzzy
-#~ msgid "eBox - Network configuration module"
-#~ msgstr "Configuración de red"
 
 #, fuzzy
-#~ msgid "eBox - NTP server"
-#~ msgstr "Servidor DNS para eBox"
 
 #, fuzzy
-#~ msgid "eBox - Object management"
-#~ msgstr "Gestión de objetos"
 
 #, fuzzy
-#~ msgid "eBox - OpenVPN server module"
-#~ msgstr "Servidor OpenVPN"
 
 #, fuzzy
-#~ msgid "eBox - Printer sharing"
-#~ msgstr "Compartición de impresoras"
 
 #, fuzzy
-#~ msgid "eBox - File sharing"
-#~ msgstr "Compartición de ficheros"
 
 #, fuzzy
-#~ msgid "eBox - Services management"
-#~ msgstr "Gestión de software"
 
 #, fuzzy
-#~ msgid "eBox - Software management"
-#~ msgstr "Gestión de software"
 
 #, fuzzy
-#~ msgid "eBox - Proxy cache and content filter"
-#~ msgstr "Caché HTTP y filtro de contenidos"
 
 #, fuzzy
-#~ msgid "eBox - Traffic shaper for eBox"
-#~ msgstr "Moldeador de tráfico para eBox"
 
 #, fuzzy
-#~ msgid "eBox - User and Group management"
-#~ msgstr "Gestión de usuarios y grupos"
 
 #, fuzzy
-#~ msgid "eBox - Web Server"
-#~ msgstr "Servidor DNS para eBox"
 
-#~ msgid "IPsec VPNs"
-#~ msgstr "VPN IPSec"
 
 #, fuzzy
-#~ msgid "eBox- Web Server"
-#~ msgstr "Servidor DNS para eBox"
 
 #, fuzzy
-#~ msgid "Web Server"
-#~ msgstr "Servidor DNS para eBox"
 
 #, fuzzy
-#~ msgid "ebox NTP server"
-#~ msgstr "Servidor DNS para eBox"
 
-#~ msgid "The packages were removed successfully"
-#~ msgstr "Los paquetes se han eliminado correctamente"
 
 #, fuzzy
-#~ msgid "The packages installation has finished successfully"
-#~ msgstr "Los paquetes se han instalado correctamente "
 
-#~ msgid ""
-#~ "An error ocurred while removing components. If the error persists or eBox "
-#~ "stops working properly, seek technical support."
-#~ msgstr ""
-#~ "Se ha producido un error al instalar componentes. Si el error persiste o "
-#~ "eBox deja de funcionar correctamente pida soporte técnico."
 
-#~ msgid "DHCP server"
-#~ msgstr "Servidor DHCP"
 
-#~ msgid "Base framework"
-#~ msgstr "Sistema base"
 
-#~ msgid "NTP server"
-#~ msgstr "Servidor NTP"
 
-#~ msgid "The installation of the packages has finished successfully"
-#~ msgstr "Los paquetes se han instalado correctamente "
 
-#~ msgid ""
-#~ "The packages are being installed, please refrain from using the "
-#~ "application until the update is done"
-#~ msgstr ""
-#~ "Los paquetes se están actualizando, por favor no use la aplicación hasta "
-#~ "que la actualización se complete"
 
-#~ msgid "DNS cache"
-#~ msgstr "Caché DNS"
 
-#~ msgid "Service logs"
-#~ msgstr "Servicio de Logs"
 
-#~ msgid "Certificate Authority Manager for eBox"
-#~ msgstr "Gestor de autoridad certificadora"
 
-#~ msgid "eBox DNS server"
-#~ msgstr "Servidor DNS para eBox"
 
-#~ msgid "Firewall"
-#~ msgstr "Cortafuegos"
 
-#~ msgid "Instant messaging (Jabber)"
-#~ msgstr "Mensajería instantánea (Jabber)"
 
-#~ msgid "Mail server"
-#~ msgstr "Servidor de Correo"
 
-#~ msgid "Mail filter module"
-#~ msgstr "Filtro de correo"
 
-#~ msgid "Object management"
-#~ msgstr "Gestión de objetos"
 
-#~ msgid "OpenVPN server"
-#~ msgstr "Servidor OpenVPN"
 
-#~ msgid "Printer sharing"
-#~ msgstr "Compartición de impresoras"
 
-#~ msgid "File sharing"
-#~ msgstr "Compartición de ficheros"
 
 #, fuzzy
-#~ msgid "Services  management"
-#~ msgstr "Gestión de software"
 
-#~ msgid "Traffic shaper for eBox"
-#~ msgstr "Moldeador de tráfico para eBox"
 
-#~ msgid "User and Group management"
-#~ msgstr "Gestión de usuarios y grupos"
 
 #, fuzzy
-#~ msgid "ebox - Certificate Authority Manager for eBox"
-#~ msgstr "Gestor de autoridad certificadora"
 
 #, fuzzy
-#~ msgid "ebox - Instant messaging (Jabber)"
-#~ msgstr "Mensajería instantánea (Jabber)"
 
 #, fuzzy
-#~ msgid "ebox - Mail filter module"
-#~ msgstr "Filtro de correo"
 
-#~ msgid "Network configuration"
-#~ msgstr "Configuración de red"
 
 #, fuzzy
-#~ msgid "ebox - File sharing"
-#~ msgstr "Compartición de ficheros"
 
-#~ msgid "Proxy cache and content filter"
-#~ msgstr "Caché HTTP y filtro de contenidos"

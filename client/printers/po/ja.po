@@ -124,288 +124,101 @@ msgid ""
 "{close_href}"
 msgstr ""
 
-#~ msgid "Model"
-#~ msgstr "モデル"
 
-#~ msgid "Add a new printer (II)"
-#~ msgstr "新しいプリンタ (II) を追加"
 
-#~ msgid "Next"
-#~ msgstr "次"
 
-#~ msgid "IP"
-#~ msgstr "IP"
 
-#~ msgid "Port"
-#~ msgstr "ポート"
 
-#~ msgid "Standalone cups enabled"
-#~ msgstr "スタンドアロンCUPSは有効です"
 
-#~ msgid "Standalone cups disabled"
-#~ msgstr "スタンドアロンCUPSは無効です"
 
-#~ msgid "Add a new printer (VI)"
-#~ msgstr "新しいプリンタ (VI) を追加"
 
-#~ msgid "Driver"
-#~ msgstr "ドライバ"
 
-#~ msgid "The printer has been deleted successfully"
-#~ msgstr "プリンタは削除されました"
 
-#~ msgid "Shared resource"
-#~ msgstr "共有リソース"
 
-#~ msgid "Authentication"
-#~ msgstr "認証"
 
-#~ msgid "Password"
-#~ msgstr "パスワード"
 
-#~ msgid "Manage printer"
-#~ msgstr "プリンタの管理"
 
-#~ msgid "Printer details"
-#~ msgstr "プリンタの詳細"
 
-#~ msgid "Driver Options"
-#~ msgstr "ドライバオプション"
 
-#~ msgid "Configuration options"
-#~ msgstr "設定オプション"
 
-#~ msgid "Jobs Queue"
-#~ msgstr "ジョブキュー"
 
-#~ msgid "Printer's name"
-#~ msgstr "プリンタ名"
 
-#~ msgid "Printer's id"
-#~ msgstr "プリンタID"
 
-#~ msgid "Job id"
-#~ msgstr "ジョブID"
 
-#~ msgid "Job was successfully canceled"
-#~ msgstr "ジョブはキャンセルされました"
 
-#~ msgid "Add a new printer (IV)"
-#~ msgstr "新しいプリンタ (IV) を追加"
 
-#~ msgid "Device"
-#~ msgstr "デバイス"
 
-#~ msgid "Manage printers"
-#~ msgstr "プリンタの管理"
 
-#~ msgid "Delete printer"
-#~ msgstr "プリンタを削除"
 
-#~ msgid "Add a new printer (V)"
-#~ msgstr "新しいプリンタ (V) を追加"
 
-#~ msgid "Method"
-#~ msgstr "方法"
 
-#~ msgid "Printer description"
-#~ msgstr "プリンタの内容"
 
-#~ msgid "Manufacturer"
-#~ msgstr "メーカー"
 
-#~ msgid "Add a new printer (III)"
-#~ msgstr "新しいプリンタ (III) を追加"
 
-#~ msgid "Add a new printer (I)"
-#~ msgstr "新しいプリンタ (I) を追加"
 
-#~ msgid "Add user ebox to lpadmin group"
-#~ msgstr "lpadminグループにユーザeboxを追加"
 
-#~ msgid "In order to manage printers and queues from the eBox web interface"
-#~ msgstr "eBoxウェブインタフェースからプリンタとキューを管理するため"
 
-#~ msgid "To add and manage printers"
-#~ msgstr "プリンタの追加・管理"
 
-#~ msgid "To enable standalone cupsd listen on internal interfaces"
-#~ msgstr "スタンドアロンcupsdを内部インタフェースに応答"
 
 #, fuzzy
-#~ msgid "Add Printer"
-#~ msgstr "プリンタを追加"
 
-#~ msgid ""
-#~ "The printer's name contains characters not valid.Only alphanumeric "
-#~ "characters are allowed"
-#~ msgstr ""
-#~ "プリンタ名に無効な文字が含まれています。半角英数字のみ使用できます。"
 
-#~ msgid "Name"
-#~ msgstr "名前"
 
-#~ msgid "The given name is alreaday used as "
-#~ msgstr "名前はすでに次のところで使われています"
 
-#~ msgid "It is not a usb printer"
-#~ msgstr "USBプリンタではありません"
 
-#~ msgid "It is not a parallel printer"
-#~ msgstr "パラレルプリンタではありません"
 
-#~ msgid "It is not a network printer"
-#~ msgstr "ネットワークプリンタではありません"
 
-#~ msgid "It is not a samba printer"
-#~ msgstr "Sambaプリンタではありません"
 
 #, fuzzy
-#~ msgid "It is not a IPP printer"
-#~ msgstr "USBプリンタではありません"
 
 #, fuzzy
-#~ msgid "It is not a LPD printer"
-#~ msgstr "USBプリンタではありません"
 
-#~ msgid "is not a valid option"
-#~ msgstr "無効なオプションです"
 
-#~ msgid "Parameter '{name}' does not exist"
-#~ msgstr "パラメタ '{name}' は存在しません"
 
-#~ msgid "Owner"
-#~ msgstr "所有者"
 
-#~ msgid "Queued at"
-#~ msgstr "次の時間にキューに入力"
 
-#~ msgid "Set printer name and method"
-#~ msgstr "プリンタ名と共有方法を選択してください"
 
-#~ msgid "Parallel"
-#~ msgstr "パラレル"
 
-#~ msgid "Samba"
-#~ msgstr "Samba"
 
-#~ msgid "Choose manufacturer"
-#~ msgstr "製造メーカーを選択してください"
 
-#~ msgid "Local parallel printer configuration"
-#~ msgstr "パラレルプリンタの設定"
 
-#~ msgid "Are you sure you want to delete the printer '{name}'?"
-#~ msgstr "本当にプリンタ '{name}' を削除しますか？"
 
-#~ msgid "Cancel"
-#~ msgstr "キャンセル"
 
-#~ msgid "Local USB printer configuration"
-#~ msgstr "USBプリンタの設定"
 
-#~ msgid "Change"
-#~ msgstr "変更"
 
-#~ msgid "Job queue"
-#~ msgstr "ジョブキュー"
 
-#~ msgid "Size(KB)"
-#~ msgstr "サイズ(KB)"
 
-#~ msgid "Creation time"
-#~ msgstr "作成時刻"
 
-#~ msgid "Action"
-#~ msgstr "アクション"
 
-#~ msgid "This printer has no pending job in queue at the moment"
-#~ msgstr "プリンタは現在ジョブをキューに抱えていません"
 
 #, fuzzy
-#~ msgid "Print Test Page"
-#~ msgstr "プリンタ名"
 
-#~ msgid "Driver options"
-#~ msgstr "ドライバオプション"
 
-#~ msgid "Choose a printer model"
-#~ msgstr "プリンタモデルを選んでください"
 
 #, fuzzy
-#~ msgid "Configure IPP printer"
-#~ msgstr "リモートプリンタを設定"
 
-#~ msgid "Choose a driver for the printer"
-#~ msgstr "プリンタのためにドライバを選択してください"
 
 #, fuzzy
-#~ msgid "Configure LPD printer"
-#~ msgstr "リモートプリンタを設定"
 
-#~ msgid "Choose a dirver for the printer"
-#~ msgstr "プリンタドライバを選択してください"
 
-#~ msgid "driver"
-#~ msgstr "ドライバ"
 
-#~ msgid "Go"
-#~ msgstr "進む"
 
-#~ msgid "Samba shared printer configurationr"
-#~ msgstr "Samba共有プリンタ設定"
 
-#~ msgid "Share resource"
-#~ msgstr "共有リソース"
 
-#~ msgid "Anonymous"
-#~ msgstr "匿名"
 
-#~ msgid "Guest"
-#~ msgstr "ゲスト"
 
-#~ msgid "User/Password"
-#~ msgstr "ユーザ/パスワード"
 
-#~ msgid "Remote printer configuration"
-#~ msgstr "プリンタ設定を削除"
 
 #, fuzzy
-#~ msgid "Configure AppSocket printer"
-#~ msgstr "リモートプリンタを設定"
 
-#~ msgid "Samba shared printer configuration"
-#~ msgstr "Samba共有プリンタ設定"
 
-#~ msgid "Enable standalone CUPS"
-#~ msgstr "スタンドアロンCUPSを有効化"
 
-#~ msgid "General settings"
-#~ msgstr "一般設定"
 
-#~ msgid "List of printers"
-#~ msgstr "プリンタ一覧"
 
-#~ msgid "Description"
-#~ msgstr "内容"
 
-#~ msgid "Actions"
-#~ msgstr "アクション"
 
-#~ msgid "Manage"
-#~ msgstr "管理"
 
-#~ msgid "Manage this printer"
-#~ msgstr "このプリンタの管理"
 
-#~ msgid "There is no printer configured yet"
-#~ msgstr "設定済みのプリンタはありません"
 
-#~ msgid "printers"
-#~ msgstr "プリンタ"
 
-#~ msgid "module status"
-#~ msgstr "モジュールの状態"
 
-#~ msgid "Network printer"
-#~ msgstr "ネットワークプリンタ"

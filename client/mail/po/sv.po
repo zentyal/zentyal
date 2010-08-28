@@ -1269,124 +1269,41 @@ msgid "Change"
 msgstr "Ändra"
 
 #, fuzzy
-#~ msgid "External mail address"
-#~ msgstr "E-postadress"
 
-#~ msgid "size in Mb"
-#~ msgstr "storlek i Mb"
 
-#~ msgid "Create alias mail account to group"
-#~ msgstr "Skapa alias e-postkonto för grupp"
 
-#~ msgid ""
-#~ "When the last member of a group is removed, the mail alias account will "
-#~ "be deleted"
-#~ msgstr ""
-#~ "När den sista medlemmen av en grupp är borttagen kommer e-postalias "
-#~ "kontot att raderas"
 
-#~ msgid "Message"
-#~ msgstr "Meddelande"
 
-#~ msgid "Operate"
-#~ msgstr "Åtgärda"
 
-#~ msgid "maildir size"
-#~ msgstr "maildir storlek"
 
-#~ msgid "Cannot create user account: mail directory {d} aready exists"
-#~ msgstr ""
-#~ "Kan inte skapa användarkonto eftersom användarens epost-mapp {d} redan "
-#~ "existerar."
 
-#~ msgid "Default maildir size (MB)"
-#~ msgstr "Standard e-postmapp storlek (MB)"
 
-#~ msgid "mail"
-#~ msgstr "e-post"
 
-#~ msgid "To add the LDAP schemas used by eBox mail"
-#~ msgstr "För att lägga till LDAP scheman som används av eBox e-post"
 
 #, fuzzy
-#~ msgid "Communications"
-#~ msgstr "Kommunikation"
 
-#~ msgid "SSL Support"
-#~ msgstr "SSL-stöd"
 
-#~ msgid "No"
-#~ msgstr "Nej"
 
-#~ msgid "Optional"
-#~ msgstr "Valfritt"
 
-#~ msgid "Required"
-#~ msgstr "Krävs"
 
-#~ msgid "Add {user} to {group} group"
-#~ msgstr "Lägg till {user} till gruppen {group}"
 
-#~ msgid "To allow {daemon} to connect with {otherDaemon} via unix socket"
-#~ msgstr ""
-#~ "För att tillåta {daemon} att koppla till {otherDaemon} via unix socket"
 
-#~ msgid "To let courier know how to access LDAP"
-#~ msgstr "För att låta courier veta hur det ska accessa LDAP"
 
-#~ msgid "To configure courier POP3"
-#~ msgstr "För att konfigurera POP3"
 
-#~ msgid "To configure POP3 with SSL support"
-#~ msgstr "För att konfigurera POP3 med SSL support"
 
-#~ msgid "To configure IMAP with SSL support"
-#~ msgstr "För att konfigurera IMAP med SSL support"
 
-#~ msgid "To configure saslauthd to authenticate against LDAP "
-#~ msgstr "För att konfigurera saslauthd att autentisera mot LDAP"
 
-#~ msgid "To configure saslauthd to use LDAP"
-#~ msgstr "För att konfigurera saslauthd att använda LDAP"
 
-#~ msgid "Relay denied by the smarthost"
-#~ msgstr "Relä nekat av smarthost"
 
-#~ msgid "Yes"
-#~ msgstr "Ja"
 
-#~ msgid "TLS support is required by the authentication system"
-#~ msgstr "TLS-stöd krävs av autentiseringssystemet"
 
-#~ msgid "Services"
-#~ msgstr "Tjänster"
 
-#~ msgid "Service"
-#~ msgstr "Tjänst"
 
-#~ msgid "Apply Changes"
-#~ msgstr "Verkställ ändringar"
 
-#~ msgid "Add a new virtual domain"
-#~ msgstr "Lägg till en ny virtuell domän"
 
-#~ msgid "(MB)"
-#~ msgstr "(MB)"
 
-#~ msgid "Add"
-#~ msgstr "Lägg till"
 
-#~ msgid "Edit"
-#~ msgstr "Redigera"
 
-#~ msgid "POP3"
-#~ msgstr "POP3"
 
-#~ msgid "IMAP"
-#~ msgstr "IMAP"
 
-#~ msgid "Page"
-#~ msgstr "Sida"
 
-#~ msgid "of"
-#~ msgstr "av"

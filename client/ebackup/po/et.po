@@ -467,23 +467,9 @@ msgstr "Teenuste taastamine"
 msgid "Configuration and Status"
 msgstr "Seadistamine ja olek"
 
-#~ msgid ""
-#~ "If you choose {brand} or file system methods , then the destination field "
-#~ "may be the target directory in the backup server"
-#~ msgstr ""
-#~ "Kui valid {brand} või failisüsteemi meetodi, siis võib sihtkoha väli olla "
-#~ "varundusserveri sihtkataloog"
 
-#~ msgid "There is no information about the backuped files yet"
-#~ msgstr "Teavet varundatud failide kohta veel ei ole."
 
-#~ msgid "Number of full copies to keep"
-#~ msgstr "Täiskoopiate arv, mida alles hoitakse"
 
 # Välja jätmine
-#~ msgid "exclude"
-#~ msgstr "Jäta välja"
 
 # Välja jäetavale rakendatav regulaaravaldis
-#~ msgid "Exclude regexp"
-#~ msgstr "Regulaaravaldis välja jätmiseks"

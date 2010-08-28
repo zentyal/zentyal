@@ -330,230 +330,98 @@ msgid "Upgrade"
 msgstr "Autualizar"
 
 #, fuzzy
-#~ msgid "packages installed"
-#~ msgstr "S'instalarán os siguients paquez"
 
 #, fuzzy
-#~ msgid "Automatic Updates"
-#~ msgstr "Autualizazions automaticas de software"
 
-#~ msgid "Software updates are being handled automatically"
-#~ msgstr "As autualizazions de software se chestionan automaticament"
 
-#~ msgid "Installed version "
-#~ msgstr "Bersión instalata"
 
-#~ msgid "Latest version"
-#~ msgstr "Zaguera bersión"
 
-#~ msgid "none"
-#~ msgstr "denguna"
 
-#~ msgid "Remove"
-#~ msgstr "Eliminar"
 
 #, fuzzy
-#~ msgid "eBox - Antivirus module"
-#~ msgstr "Filtro d'o modulo de correu"
 
 #, fuzzy
-#~ msgid "eBox - Asterisk"
-#~ msgstr "Serbidor DNS ta eBox"
 
 #, fuzzy
-#~ msgid "eBox - Certificate Authority Manager for eBox"
-#~ msgstr "Chestor d'autoridat zertificadora"
 
 #, fuzzy
-#~ msgid "eBox - captive portal module"
-#~ msgstr "Filtro d'o modulo de correu"
 
 #, fuzzy
-#~ msgid "eBox - DHCP server module"
-#~ msgstr "Serbidor DNS ta eBox"
 
 #, fuzzy
-#~ msgid "eBox - DNS server"
-#~ msgstr "Serbidor DNS ta eBox"
 
 #, fuzzy
-#~ msgid "eBox - Firewall"
-#~ msgstr "Firewall"
 
 #, fuzzy
-#~ msgid "eBox - Instant messaging proxy"
-#~ msgstr "Mensachería instantania (Jabber)"
 
 #, fuzzy
-#~ msgid "eBox - Instant messaging (Jabber)"
-#~ msgstr "Mensachería instantania (Jabber)"
 
 #, fuzzy
-#~ msgid "eBox - Mail server"
-#~ msgstr "Serbidor de Correu"
 
 #, fuzzy
-#~ msgid "eBox - Mail filter module"
-#~ msgstr "Filtro d'o modulo de correu"
 
 #, fuzzy
-#~ msgid "eBox - Monitoring module  "
-#~ msgstr "Filtro d'o modulo de correu"
 
 #, fuzzy
-#~ msgid "eBox - Network configuration module"
-#~ msgstr "Confegurazión de rete"
 
 #, fuzzy
-#~ msgid "eBox - NTP server"
-#~ msgstr "Serbidor DNS ta eBox"
 
 #, fuzzy
-#~ msgid "eBox - Object management"
-#~ msgstr "Chestión d'ochetos"
 
 #, fuzzy
-#~ msgid "eBox - OpenVPN server module"
-#~ msgstr "Serbidor OpenVPN"
 
 #, fuzzy
-#~ msgid "eBox - Printer sharing"
-#~ msgstr "Compartizión d'imprentadoras"
 
 #, fuzzy
-#~ msgid "eBox - File sharing"
-#~ msgstr "Compartizión de fichers"
 
 #, fuzzy
-#~ msgid "eBox - Services management"
-#~ msgstr "Chestión de software"
 
 #, fuzzy
-#~ msgid "eBox - Software management"
-#~ msgstr "Chestión de software"
 
 #, fuzzy
-#~ msgid "eBox - Proxy cache and content filter"
-#~ msgstr "Cache HTTP e filtro de contenitos"
 
 #, fuzzy
-#~ msgid "eBox - Traffic shaper for eBox"
-#~ msgstr "Moldiador de trafico ta eBox"
 
 #, fuzzy
-#~ msgid "eBox - User and Group management"
-#~ msgstr "Chestión d'usuarios e grupos"
 
 #, fuzzy
-#~ msgid "eBox - Web Server"
-#~ msgstr "Serbidor DNS ta eBox"
 
-#~ msgid "IPsec VPNs"
-#~ msgstr "VPN IPSec"
 
 #, fuzzy
-#~ msgid "eBox- Web Server"
-#~ msgstr "Serbidor DNS ta eBox"
 
 #, fuzzy
-#~ msgid "Web Server"
-#~ msgstr "Serbidor DNS ta eBox"
 
 #, fuzzy
-#~ msgid "ebox NTP server"
-#~ msgstr "Serbidor DNS ta eBox"
 
-#~ msgid "The packages were removed successfully"
-#~ msgstr "Os paquez s'han eliminato correutament"
 
 #, fuzzy
-#~ msgid "The packages installation has finished successfully"
-#~ msgstr "Os paquez s'han instalato correutament"
 
-#~ msgid ""
-#~ "An error ocurred while removing components. If the error persists or eBox "
-#~ "stops working properly, seek technical support."
-#~ msgstr ""
-#~ "S'ha produzito un error á lo instalar components. Si o error contina u "
-#~ "eBox dixa de funzionar correutament demande soporte teunico."
 
-#~ msgid "DHCP server"
-#~ msgstr "Serbidor DHCP"
 
-#~ msgid "Base framework"
-#~ msgstr "Sistema base"
 
-#~ msgid "NTP server"
-#~ msgstr "Serbidor NTP"
 
-#~ msgid "The installation of the packages has finished successfully"
-#~ msgstr "Os paquez s'han instalato correutament"
 
-#~ msgid ""
-#~ "The packages are being installed, please refrain from using the "
-#~ "application until the update is done"
-#~ msgstr ""
-#~ "Os paquez son autualizando-sen, por fabor no use l'aplicazión dica que se "
-#~ "remate l'autualizazión"
 
-#~ msgid "Certificate Authority Manager for eBox"
-#~ msgstr "Chestor d'autoridat zertificadora"
 
-#~ msgid "eBox DNS server"
-#~ msgstr "Serbidor DNS ta eBox"
 
-#~ msgid "Firewall"
-#~ msgstr "Firewall"
 
-#~ msgid "Instant messaging (Jabber)"
-#~ msgstr "Mensachería instantania (Jabber)"
 
-#~ msgid "Mail server"
-#~ msgstr "Serbidor de Correu"
 
-#~ msgid "Mail filter module"
-#~ msgstr "Filtro d'o modulo de correu"
 
-#~ msgid "Object management"
-#~ msgstr "Chestión d'ochetos"
 
-#~ msgid "OpenVPN server"
-#~ msgstr "Serbidor OpenVPN"
 
-#~ msgid "Printer sharing"
-#~ msgstr "Compartizión d'imprentadoras"
 
-#~ msgid "File sharing"
-#~ msgstr "Compartizión de fichers"
 
 #, fuzzy
-#~ msgid "Services  management"
-#~ msgstr "Chestión de software"
 
-#~ msgid "Traffic shaper for eBox"
-#~ msgstr "Moldiador de trafico ta eBox"
 
-#~ msgid "User and Group management"
-#~ msgstr "Chestión d'usuarios e grupos"
 
 #, fuzzy
-#~ msgid "ebox - Certificate Authority Manager for eBox"
-#~ msgstr "Chestor d'autoridat zertificadora"
 
 #, fuzzy
-#~ msgid "ebox - Instant messaging (Jabber)"
-#~ msgstr "Mensachería instantania (Jabber)"
 
 #, fuzzy
-#~ msgid "ebox - Mail filter module"
-#~ msgstr "Filtro d'o modulo de correu"
 
-#~ msgid "Network configuration"
-#~ msgstr "Confegurazión de rete"
 
 #, fuzzy
-#~ msgid "ebox - File sharing"
-#~ msgstr "Compartizión de fichers"
 
-#~ msgid "Proxy cache and content filter"
-#~ msgstr "Cache HTTP e filtro de contenitos"

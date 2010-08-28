@@ -584,23 +584,8 @@ msgstr "Haslo CA"
 msgid "Renew a certificate"
 msgstr "Odnów certyfikat"
 
-#~ msgid ""
-#~ "The private key passpharse needed to create a new request. No renewal was "
-#~ "made. Issue a new certificate with new keys"
-#~ msgstr ""
-#~ "Nowy klucz prywatny musi być utworzony aby wygenerować żądanie "
-#~ "certyfikatu. Odnowienie nie powiodło się. Wydaj nowy certyfikat za pomocą "
-#~ "nowych kluczy"
 
 #, fuzzy
-#~ msgid "You must create a Certification Authority."
-#~ msgstr "Utwórz certyfikat Urzędu Certyfikacji (CA)"
 
-#~ msgid "Certificate Manager"
-#~ msgstr "Menedżer certyfikatów"
 
-#~ msgid "Re CA Passphrase"
-#~ msgstr "Odwolaj Haslo CA"
 
-#~ msgid "Days to expire MUST be a natural number"
-#~ msgstr "Pole 'Dni do wygaśnięcia' musi zawierać liczbę całkowitą dodatnią."

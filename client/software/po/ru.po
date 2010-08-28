@@ -325,165 +325,47 @@ msgid "Upgrade"
 msgstr "Обновить"
 
 #, fuzzy
-#~ msgid "packages installed"
-#~ msgstr "пакеты отмечены для установки"
 
-#~ msgid ""
-#~ "eBox software will download the available updates from your configured "
-#~ "apt sources. "
-#~ msgstr ""
-#~ "Программное обеспечение eBox загрузит доступные обновления из указанных "
-#~ "источников обновлений apt"
 
-#~ msgid "Enable cron script to download updates"
-#~ msgstr "Включить скрипт загрузки обновлений в cron"
 
-#~ msgid ""
-#~ "The software management module must be enabled to be able to install "
-#~ "packages"
-#~ msgstr ""
-#~ "Модуль управления ПО должен быть активирован для возможности установки "
-#~ "пакетов"
 
-#~ msgid ""
-#~ "The software management module must be enabled to be able to remove "
-#~ "packages"
-#~ msgstr ""
-#~ "Модуль управления ПО должен быть активирован для возможности удаления "
-#~ "пакетов"
 
-#~ msgid "Automatic Updates"
-#~ msgstr "Автоматическое обновление"
 
-#~ msgid "Software updates are being handled automatically"
-#~ msgstr "Обновление программного обеспечения выполняется автоматически"
 
-#~ msgid "Installed version "
-#~ msgstr "Установленная версия"
 
-#~ msgid "Latest version"
-#~ msgstr "Последняя версия"
 
-#~ msgid "none"
-#~ msgstr "ничего"
 
-#~ msgid "Remove"
-#~ msgstr "Удалить"
 
-#~ msgid ""
-#~ "Please wait, the update of the software available list is in process "
-#~ "right now"
-#~ msgstr ""
-#~ "Пожалуйста, подождите, список доступного программного обеспечения "
-#~ "обновляется"
 
-#~ msgid ""
-#~ "The component list was never succefully downloaded so the information "
-#~ "shown is probably outdated. The list is updated each night or you can "
-#~ "force the update with the console command 'ebox-software'"
-#~ msgstr ""
-#~ "Не произошла успешная загрузка списка компонентов поэтому показываемая "
-#~ "информация вероятно устарела. Список обновляется каждую ночь, , либо вы "
-#~ "можете обновить его с помощью консольной команды 'ebox-software'"
 
-#~ msgid ""
-#~ "The component list was updated on {mon}/{mday}/{year} {hour}:{min}. It "
-#~ "will be updated again at night or you can force the update with the "
-#~ "console command 'ebox-software'"
-#~ msgstr ""
-#~ "Список компонентов обновлен {mon}/{mday}/{year} {hour}:{min}. Он будет "
-#~ "обновлен ночью, либо вы можете обновить его с помощью консольной команды "
-#~ "'ebox-software'"
 
-#~ msgid "eBox - Backup"
-#~ msgstr "eBox - Резервное копирование"
 
-#~ msgid "eBox - Antivirus module"
-#~ msgstr "eBox - антивирусный модуль"
 
-#~ msgid "eBox - Asterisk"
-#~ msgstr "eBox - Asterisk"
 
-#~ msgid "eBox - Certificate Authority Manager for eBox"
-#~ msgstr "eBox - Управление Центром Сертификации для eBox"
 
-#~ msgid "eBox - captive portal module"
-#~ msgstr "eBox - портальный модуль"
 
-#~ msgid "eBox - DHCP server module"
-#~ msgstr "eBox - модуль сервера DHCP"
 
-#~ msgid "eBox - DNS server"
-#~ msgstr "eBox - сервер DNS"
 
-#~ msgid "the eBox platform - Base framework"
-#~ msgstr "eBox platform - базовый фреймворк"
 
-#~ msgid "eBox - Firewall"
-#~ msgstr "eBox - Файервол"
 
-#~ msgid "eBox - Intrusion Detection System"
-#~ msgstr "eBox - Система Обнаружения Вторжений"
 
-#~ msgid "eBox - Instant messaging proxy"
-#~ msgstr "eBox - прокси мгновенных сообщений"
 
-#~ msgid "eBox - Instant messaging (Jabber)"
-#~ msgstr "eBox - сервер мгновенных сообщений (Jabber)"
 
-#~ msgid "eBox - layer 7 protocols"
-#~ msgstr "eBox - слой 7 протоколов"
 
-#~ msgid "eBox - Mail server"
-#~ msgstr "eBox - Почтовый сервер"
 
-#~ msgid "eBox - Mail filter module"
-#~ msgstr "eBox - Модуль почтового фильтра"
 
-#~ msgid "eBox - Monitoring module  "
-#~ msgstr "eBox - Модуль мониторинга"
 
-#~ msgid "eBox - Network configuration module"
-#~ msgstr "eBox - Модуль конфигурации сети"
 
-#~ msgid "eBox - NTP server"
-#~ msgstr "eBox - Сервер NTP"
 
-#~ msgid "eBox - Object management"
-#~ msgstr "eBox - Управление объектами"
 
-#~ msgid "eBox - OpenVPN server module"
-#~ msgstr "eBox - Модуль сервера OpenVPN"
 
-#~ msgid "eBox - Printer sharing"
-#~ msgstr "eBox - Совместное использование принтеров"
 
-#~ msgid "eBox - client for remote services   "
-#~ msgstr "eBox - клиент для удаленных служб"
 
-#~ msgid "eBox - File sharing"
-#~ msgstr "eBox - Совместное использование файлов"
 
-#~ msgid "eBox - Services management"
-#~ msgstr "eBox - Управление службами"
 
-#~ msgid "eBox - Software management"
-#~ msgstr "eBox - Управление программным обеспечением"
 
-#~ msgid "eBox - Proxy cache and content filter"
-#~ msgstr "eBox - Прокси и фильтр содержимого"
 
-#~ msgid "eBox - Traffic shaper for eBox"
-#~ msgstr "eBox - Шейпер трафика для eBox"
 
-#~ msgid "eBox - User and Group management"
-#~ msgstr "eBox - Управление пользователями и группами"
 
-#~ msgid "eBox - Web Server"
-#~ msgstr "eBox - Веб-сервер"
 
-#~ msgid "IPsec VPNs"
-#~ msgstr "IPsec VPNs"
 
-#~ msgid "SOAP server to communicate with eBox control center"
-#~ msgstr "Сервер SOAP для коммуникации с центром управления eBox"

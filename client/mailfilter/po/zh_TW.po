@@ -844,67 +844,22 @@ msgstr "通透式 POP 代理伺服器報告"
 msgid "[Virus] found in a mail to you:"
 msgstr "[Virus] 在寄給您的信中找到病毒："
 
-#~ msgid "Unsupported or incorrect input source fonrmat: {format}"
-#~ msgstr "不支援或錯誤的輸入來源格式: {format}"
 
-#~ msgid "General  settings"
-#~ msgstr "一般設定"
 
-#~ msgid "POP transparent proxy configuration"
-#~ msgstr "POP 通透式代理伺服器組態"
 
-#~ msgid "Virtual domains configuration"
-#~ msgstr "虛擬網域設置"
 
-#~ msgid "To add the LDAP schemas used by eBox mailfilter"
-#~ msgstr "eBox 郵件過濾已使用新增 LDAP schemas"
 
-#~ msgid "UTM"
-#~ msgstr "UTM"
 
-#~ msgid "To configure freshclam updater daemon"
-#~ msgstr "設置 freshclam 背景更新"
 
 #, fuzzy
-#~ msgid "Antivirus database update status"
-#~ msgstr "資料庫更新狀態"
 
-#~ msgid ""
-#~ "The antivirus database has not been updated since the  mailfilter eBox's "
-#~ "module was installed"
-#~ msgstr "防毒資料庫至從 eBox 的郵件過濾模組安裝後都沒有更新"
 
-#~ msgid "The last update failed"
-#~ msgstr "最近更新失敗"
 
-#~ msgid ""
-#~ "Update failed.\n"
-#~ "Your version of freshclam  is outdated.Please, install version {version} "
-#~ "or higher"
-#~ msgstr ""
-#~ "更新失敗.\n"
-#~ "您的 freshclam 版本是舊的.請安裝 {version} 的版本或更新的"
 
-#~ msgid "Last update successful"
-#~ msgstr "最近更新成功"
 
-#~ msgid "Unknown event {event}"
-#~ msgstr "不明的事件 {event}"
 
-#~ msgid "Antivirus"
-#~ msgstr "防毒"
 
-#~ msgid "Mail filter system"
-#~ msgstr "郵件過濾系統"
 
-#~ msgid "Mail filter settings"
-#~ msgstr "郵件過濾設定"
 
-#~ msgid "Internal mailfilter"
-#~ msgstr "內部郵件過濾"
 
-#~ msgid "Options"
-#~ msgstr "選項"
 
-#~ msgid "Antivirus configuration"
-#~ msgstr "防毒設置"

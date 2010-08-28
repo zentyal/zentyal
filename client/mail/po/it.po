@@ -1277,284 +1277,92 @@ msgid "Change"
 msgstr "Cambia"
 
 #, fuzzy
-#~ msgid "External mail address"
-#~ msgstr "Indirizzo email"
 
-#~ msgid "size in Mb"
-#~ msgstr "dimensione in Mb"
 
-#~ msgid "Create alias mail account to group"
-#~ msgstr "Crea un account alias di posta a un gruppo"
 
-#~ msgid ""
-#~ "When the last member of a group is removed, the mail alias account will "
-#~ "be deleted"
-#~ msgstr ""
-#~ "Quando l'ultimo membro di un gruppo viene rimosso, l'account alias di "
-#~ "posta sara' rimosso"
 
-#~ msgid "Message"
-#~ msgstr "Mesaggio"
 
-#~ msgid "Operate"
-#~ msgstr "Opera"
 
-#~ msgid "maildir size"
-#~ msgstr "dimensione della cartella di posta"
 
-#~ msgid "Cannot create user account: mail directory {d} aready exists"
-#~ msgstr ""
-#~ "Non è possibile creare l'account utente: la directory di posta {d} esiste "
-#~ "già"
 
-#~ msgid "Default maildir size (MB)"
-#~ msgstr "Dimensione di default della Maildir (MB)"
 
 #, fuzzy
-#~ msgid "mail"
-#~ msgstr "Posta"
 
-#~ msgid "To add the LDAP schemas used by eBox mail"
-#~ msgstr "Per aggiungere gli schemi LDAP usati da eBox mail"
 
 #, fuzzy
-#~ msgid "Communications"
-#~ msgstr "Autenticazione"
 
-#~ msgid "SSL Support"
-#~ msgstr "Supporto SSL"
 
-#~ msgid "No"
-#~ msgstr "No"
 
-#~ msgid "Optional"
-#~ msgstr "Opzionale"
 
-#~ msgid "Required"
-#~ msgstr "Richiesto"
 
 #, fuzzy
-#~ msgid "Add {user} to {group} group"
-#~ msgstr "Aggiungi {nomeutente} a {nomegruppo} gruppo"
 
-#~ msgid "To allow {daemon} to connect with {otherDaemon} via unix socket"
-#~ msgstr ""
-#~ "Per consentire a {daemon} di connetersi con {otherDaemon} mediante socket "
-#~ "unix"
 
-#~ msgid "To let courier know how to access LDAP"
-#~ msgstr "Per far sapere a courier come accedere a LDAP"
 
-#~ msgid "To configure courier POP3"
-#~ msgstr "Per configurare il servizio POP3 di courier"
 
-#~ msgid "To configure POP3 with SSL support"
-#~ msgstr "Per configurare POP3 con supporto SSL"
 
-#~ msgid "To configure IMAP with SSL support"
-#~ msgstr "Per configurare IMAP con supporto SSL"
 
-#~ msgid "To configure saslauthd to authenticate against LDAP "
-#~ msgstr "Per configurare saslauthd per autenticarsi attraverso LDAP"
 
-#~ msgid "To configure saslauthd to use LDAP"
-#~ msgstr "Per configurare saslauthd per usare LDAP"
 
-#~ msgid "Relay denied by the smarthost"
-#~ msgstr "trasmissione negata dallo smarthost"
 
-#~ msgid "eBox will execute /usr/sbin/postalias /etc/aliases "
-#~ msgstr "eBox eseguirà /usr/sbin/postalias /etc/aliases"
 
-#~ msgid "Mail system"
-#~ msgstr "Sistema di posta"
 
-#~ msgid "vdomain"
-#~ msgstr "vdomain"
 
-#~ msgid "Message size limit"
-#~ msgstr "Limite del messaggio"
 
-#~ msgid "relay"
-#~ msgstr "relay"
 
-#~ msgid "remote IP"
-#~ msgstr "Ip remoto"
 
-#~ msgid "{ip} is not a valid ip address"
-#~ msgstr "{ip} non e' un indirizzo valido"
 
-#~ msgid "{ip} cannot be reached by any configured interface"
-#~ msgstr "{ip} non puo' essere raggiunto da nessuna interfaccia configurata"
 
-#~ msgid "{ip} can be reached by more than one configured interface"
-#~ msgstr "{ip} puo' essere raggiunto da piu' di una interfaccia configurata"
 
-#~ msgid "port"
-#~ msgstr "porta"
 
-#~ msgid "message size"
-#~ msgstr "dimensione del messaggio"
 
-#~ msgid "Yes"
-#~ msgstr "Si"
 
-#~ msgid "TLS support is required by the authentication system"
-#~ msgstr "Il supporto TLS e' richiesto dal sistema di autenticazione"
 
-#~ msgid "Services"
-#~ msgstr "Servizi"
 
-#~ msgid "Service"
-#~ msgstr "Servizio"
 
-#~ msgid "Apply Changes"
-#~ msgstr "Applica modifiche"
 
-#~ msgid ""
-#~ "A value of 0 for the maximum message size and maximum mail account size "
-#~ "stands for no size limitation."
-#~ msgstr ""
-#~ "Un valore di 0 come dimensione massima del messaggio e della dimensione "
-#~ "massima dell'account di posta significano nessun limite di dimensione"
 
-#~ msgid "Maximum message size accepted by the mail server"
-#~ msgstr "Dimensione massima del messaggio accettata dal server di posta"
 
-#~ msgid "Size (MB)"
-#~ msgstr "Dimensione (MB)"
 
-#~ msgid ""
-#~ "You should move to allowed column those objects you want to allow sending "
-#~ "mail through this module."
-#~ msgstr ""
-#~ "Dovresti muovere a una colonna permessa quegli oggetti a cui vuoi "
-#~ "permettere l'invio di posta attraverso questo modulo"
 
-#~ msgid ""
-#~ "Choose the object whose state you want to change and click on the arrow "
-#~ "to move it to the desired column."
-#~ msgstr ""
-#~ "Scegli l'oggetto il cui stato vuoi cambiare e clicca sulla freccia per "
-#~ "muoverla nella colonna desiderata"
 
-#~ msgid "Denied"
-#~ msgstr "Negato"
 
-#~ msgid "Empty list"
-#~ msgstr "Lista vuota"
 
-#~ msgid "Allow"
-#~ msgstr "Permettere"
 
-#~ msgid "Move selected objects to the allowed column"
-#~ msgstr "Muove gli oggetti selezionati sulla colonna permessa"
 
-#~ msgid "Deny"
-#~ msgstr "Nega"
 
-#~ msgid "Move selected objects to the denied column"
-#~ msgstr "Muove gli oggetti selezionati sulla colonna negata"
 
-#~ msgid "Apply"
-#~ msgstr "Applica"
 
-#~ msgid "Default maximum mail account size"
-#~ msgstr "Dimensione di default dell'account di mail"
 
-#~ msgid "Force the change to the existing accounts"
-#~ msgstr "Obbligo di modificare agli account esistenti"
 
-#~ msgid "Maildir size for {vdomain} virtual domain"
-#~ msgstr "Dimensione della maildir per {vdomain} dominio virtuale"
 
-#~ msgid "Add a new virtual domain"
-#~ msgstr "Aggiungi un nuovo dominio virtuale"
 
-#~ msgid "Default maildir size"
-#~ msgstr "Dimensione di default della maildir"
 
-#~ msgid "(MB)"
-#~ msgstr "(MB)"
 
-#~ msgid "Add"
-#~ msgstr "Aggiungi"
 
 #, fuzzy
-#~ msgid "Unlimited"
-#~ msgstr "Dimensione illimitata"
 
-#~ msgid "Maildir Size"
-#~ msgstr "Dimensione della Maildir"
 
-#~ msgid "Edit"
-#~ msgstr "Componi"
 
-#~ msgid "smarthost ip"
-#~ msgstr "ip dello smarthost"
 
-#~ msgid "IP address of smarthost to send mail"
-#~ msgstr "Indirizzo IP dello smarthost per inviare posta"
 
-#~ msgid "mail system status"
-#~ msgstr "stato del sistema di posta"
 
-#~ msgid "Unknown filter {filter}"
-#~ msgstr "Filtro sconosciuto {filter}"
 
-#~ msgid "Service status"
-#~ msgstr "Stato del servizio"
 
-#~ msgid "Deleting virtual domain"
-#~ msgstr "Sto cancellando il dominio virtuale"
 
-#~ msgid "There are no users in the group or the users do not "
-#~ msgstr "Non ci sono utenti nel gruppo o gli utenti non"
 
-#~ msgid "POP3"
-#~ msgstr "POP3"
 
-#~ msgid "IMAP"
-#~ msgstr "IMAP"
 
-#~ msgid "Changing maildir size of"
-#~ msgstr "Sto cambiando la dimensione della maildir di"
 
-#~ msgid "Page"
-#~ msgstr "Pagina"
 
-#~ msgid "of"
-#~ msgstr "di"
 
-#~ msgid "module status"
-#~ msgstr "stato del modulo"
 
-#~ msgid "External Filter"
-#~ msgstr "Filtro esterno"
 
-#~ msgid "Local port"
-#~ msgstr "Porta locale"
 
-#~ msgid "Remote IP address"
-#~ msgstr "Indirizzo IP remoto"
 
-#~ msgid "Remote Port"
-#~ msgstr "Porta remota"
 
-#~ msgid "There is not any message at the queue or the service is stopped"
-#~ msgstr "Non c'e' nessun messaggio in cosa o il servizio e' fermo"
 
-#~ msgid "Account do not exists"
-#~ msgstr "L'account non esiste"
 
-#~ msgid "Relay policy for objects"
-#~ msgstr "Politica di relay per gli oggetti"
 
-#~ msgid "Allowed"
-#~ msgstr "Permesso"
 
-#~ msgid "Filter's IP address"
-#~ msgstr "Indirizzo IP del filtro"
 
-#~ msgid "Filter's Port"
-#~ msgstr "Porta del filtro"

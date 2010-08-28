@@ -128,303 +128,101 @@ msgstr ""
 "Para añadir o gestionar impresoras se debe usar la {open_href}Interfaz web "
 "de CUPS{close_href}"
 
-#~ msgid "Model"
-#~ msgstr "Modelo"
 
-#~ msgid "Printer {printer} has no available drivers"
-#~ msgstr "La impresora {printer} no tiene drivers disponibles"
 
-#~ msgid "Add a new printer (II)"
-#~ msgstr "Añadir nueva impresora (II)"
 
-#~ msgid "Next"
-#~ msgstr "Siguiente"
 
-#~ msgid "IP"
-#~ msgstr "IP"
 
-#~ msgid "Port"
-#~ msgstr "Puerto"
 
-#~ msgid "Standalone cups enabled"
-#~ msgstr "Modo autónomo de cups habilitado"
 
-#~ msgid "Standalone cups disabled"
-#~ msgstr "Modo autónomo de cups deshabilitado"
 
-#~ msgid "Add a new printer (VI)"
-#~ msgstr "Añadir nueva impresora (VI)"
 
-#~ msgid "Driver"
-#~ msgstr "Driver"
 
-#~ msgid "The printer has been deleted successfully"
-#~ msgstr "La impresora ha sido eliminada satisfactoriamente"
 
-#~ msgid "Shared resource"
-#~ msgstr "Recurso compartido"
 
-#~ msgid "Authentication"
-#~ msgstr "Autenticación"
 
-#~ msgid "Password"
-#~ msgstr "Contraseña"
 
-#~ msgid "Manage printer"
-#~ msgstr "Administrar impresora"
 
-#~ msgid "Printer details"
-#~ msgstr "Detalles de impresora"
 
-#~ msgid "Driver Options"
-#~ msgstr "Opciones del driver"
 
-#~ msgid "Configuration options"
-#~ msgstr "Opciones de configuración"
 
-#~ msgid "Jobs Queue"
-#~ msgstr "Trabajos pendientes"
 
-#~ msgid "Printer's name"
-#~ msgstr "Nombre de la impresora"
 
-#~ msgid "Printer's id"
-#~ msgstr "Identificador de la impresora"
 
-#~ msgid "Job id"
-#~ msgstr "Identificador del trabajo"
 
-#~ msgid "Job was successfully canceled"
-#~ msgstr "El trabajo fue cancelado con éxito"
 
-#~ msgid "Add a new printer (IV)"
-#~ msgstr "Añadir nueva impresora (IV)"
 
-#~ msgid "Device"
-#~ msgstr "Dispositivo"
 
-#~ msgid "Manage printers"
-#~ msgstr "Administrar impresoras"
 
-#~ msgid "Delete printer"
-#~ msgstr "Eliminar impresora"
 
-#~ msgid "Add a new printer (V)"
-#~ msgstr "Añadir nueva impresora (V)"
 
-#~ msgid "Method"
-#~ msgstr "Método"
 
-#~ msgid "Printer description"
-#~ msgstr "Descripción de la impresora"
 
-#~ msgid "Manufacturer"
-#~ msgstr "Fabricante"
 
-#~ msgid "Add a new printer (III)"
-#~ msgstr "Añadir nueva impresora (III)"
 
-#~ msgid "Add a new printer (I)"
-#~ msgstr "Añadir nueva impresora (I)"
 
-#~ msgid "Add user ebox to lpadmin group"
-#~ msgstr "Añadir al usuario eBox al grupo lpadmin"
 
-#~ msgid "In order to manage printers and queues from the eBox web interface"
-#~ msgstr ""
-#~ "Para gestionar impresoras y colas de impresión desde la interfaz de eBox"
 
-#~ msgid "To add and manage printers"
-#~ msgstr "Para añadir y gestionar drivers"
 
-#~ msgid "To enable standalone cupsd listen on internal interfaces"
-#~ msgstr "Para activar cupsd autónomo escuchando en las interfaces internas"
 
-#~ msgid "Add Printer"
-#~ msgstr "Añadir Impresora"
 
-#~ msgid ""
-#~ "The printer's name contains characters not valid.Only alphanumeric "
-#~ "characters are allowed"
-#~ msgstr ""
-#~ "El nombre de la impresora contiene caracteres no válidos. Sólo se "
-#~ "permiten caracteres alfanuméricos"
 
-#~ msgid "Name"
-#~ msgstr "Nombre"
 
-#~ msgid "The given name is alreaday used as "
-#~ msgstr "El nombre de la impresora está siendo usado por un "
 
-#~ msgid "It is not a usb printer"
-#~ msgstr "No es una impresora usb"
 
-#~ msgid "It is not a parallel printer"
-#~ msgstr "No es una impresora paralela"
 
-#~ msgid "It is not a network printer"
-#~ msgstr "No es una impresora de red"
 
-#~ msgid "It is not a samba printer"
-#~ msgstr "No es una impresora samba"
 
-#~ msgid "It is not a IPP printer"
-#~ msgstr "No es una impresora IPP"
 
-#~ msgid "It is not a LPD printer"
-#~ msgstr "No es una impresora LPD"
 
-#~ msgid "is not a valid option"
-#~ msgstr "no es una opción válida"
 
-#~ msgid "Parameter '{name}' does not exist"
-#~ msgstr "El parámetro {name} no existe"
 
-#~ msgid "Owner"
-#~ msgstr "Propietario"
 
-#~ msgid "Queued at"
-#~ msgstr "Puesto en cola el"
 
-#~ msgid "Set printer name and method"
-#~ msgstr "Seleccione nombre de la impresora y método"
 
-#~ msgid "Parallel"
-#~ msgstr "Paralelo"
 
-#~ msgid "AppSocket"
-#~ msgstr "AppSocket"
 
-#~ msgid "Samba"
-#~ msgstr "Samba"
 
-#~ msgid "IPP: Internet printing protocol"
-#~ msgstr "IPP: Protocol de impresión de Internet"
 
-#~ msgid "LPD: Line Printer Daemon"
-#~ msgstr "LPD: Demonio de impresión en línea"
 
-#~ msgid "Choose manufacturer"
-#~ msgstr "Elija un fabricante"
 
-#~ msgid "Local parallel printer configuration"
-#~ msgstr "Configuración de impresora paralela local"
 
-#~ msgid "Are you sure you want to delete the printer '{name}'?"
-#~ msgstr "¿Está seguro de que quiere eliminar la impresora '{name}'?"
 
-#~ msgid "Cancel"
-#~ msgstr "Cancelar"
 
-#~ msgid "Local USB printer configuration"
-#~ msgstr "Configuración de impresora USB local"
 
-#~ msgid "Change"
-#~ msgstr "Cambiar"
 
-#~ msgid "Job queue"
-#~ msgstr "Trabajos pendientes "
 
-#~ msgid "Size(KB)"
-#~ msgstr "Tamaño(KB)"
 
-#~ msgid "Creation time"
-#~ msgstr "Fecha de creación"
 
-#~ msgid "Action"
-#~ msgstr "Acción"
 
-#~ msgid "This printer has no pending job in queue at the moment"
-#~ msgstr "Esta impresora no tiene ningún trabajo pendiente en estos momentos"
 
-#~ msgid "You need to save changes in order to print a test page"
-#~ msgstr ""
-#~ "Se necesita guardar los cambios para poder imprimir una página de prueba"
 
-#~ msgid "Print Test Page"
-#~ msgstr "Imprimir Página de Prueba"
 
-#~ msgid "Driver options"
-#~ msgstr "Opciones del driver"
 
-#~ msgid "Choose a printer model"
-#~ msgstr "Elija un modelo de impresora"
 
-#~ msgid "Configure IPP printer"
-#~ msgstr "Configurar impresora IPP"
 
-#~ msgid "Choose a driver for the printer"
-#~ msgstr "Elija un driver para la impresora"
 
-#~ msgid "Configure LPD printer"
-#~ msgstr "Configurar impresora LPD"
 
-#~ msgid "Choose a dirver for the printer"
-#~ msgstr "Seleccione un driver para la impresora"
 
-#~ msgid "driver"
-#~ msgstr "driver"
 
-#~ msgid "Go"
-#~ msgstr "Seguir"
 
-#~ msgid "Samba shared printer configurationr"
-#~ msgstr "Configuración de impresora compartida por samba"
 
-#~ msgid "Share resource"
-#~ msgstr "Recurso compartido"
 
-#~ msgid "Anonymous"
-#~ msgstr "Anónimo"
 
-#~ msgid "Guest"
-#~ msgstr "Invitado"
 
-#~ msgid "User/Password"
-#~ msgstr "Usuario/Contraseña"
 
-#~ msgid "Remote printer configuration"
-#~ msgstr "Configuración de impresora remota"
 
-#~ msgid "Configure AppSocket printer"
-#~ msgstr "Configurar impresora AppSocket"
 
-#~ msgid "Samba shared printer configuration"
-#~ msgstr "Configuración de impresora compartida por samba"
 
-#~ msgid "Enable standalone CUPS"
-#~ msgstr "Habilitar CUPS autónomo"
 
-#~ msgid "General settings"
-#~ msgstr "Opciones Generales"
 
-#~ msgid "List of printers"
-#~ msgstr "Lista de impresoras"
 
-#~ msgid "Description"
-#~ msgstr "Descripción"
 
-#~ msgid "Actions"
-#~ msgstr "Acciones"
 
-#~ msgid "Manage"
-#~ msgstr "Administrar"
 
-#~ msgid "Manage this printer"
-#~ msgstr "Administrar esta impresora"
 
-#~ msgid "There is no printer configured yet"
-#~ msgstr "No hay ninguna impresora configurada todavía"
 
 #, fuzzy
-#~ msgid "printers"
-#~ msgstr "Impresoras"
 
-#~ msgid "module status"
-#~ msgstr "estado del módulo"
 
-#~ msgid "Network printer"
-#~ msgstr "Impresora de red"
 
-#~ msgid "Printer sharing status"
-#~ msgstr "Estado de las impresoras compartidas"

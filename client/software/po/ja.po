@@ -332,187 +332,67 @@ msgid "Upgrade"
 msgstr "アップグレード"
 
 #, fuzzy
-#~ msgid "packages installed"
-#~ msgstr "残りのインストールパッケージ"
 
-#~ msgid ""
-#~ "eBox software will download the available updates from your configured "
-#~ "apt sources. "
-#~ msgstr "eBoxは設定済みのapt sourcesから利用可能な更新をダウンロードします。"
 
-#~ msgid "Enable cron script to download updates"
-#~ msgstr "更新をダウンロードするためにcronスクリプトを有効化"
 
 #, fuzzy
-#~ msgid "Automatic Updates"
-#~ msgstr "自動アップデート"
 
-#~ msgid "Software updates are being handled automatically"
-#~ msgstr "ソフトウェアアップデートは自動で適用されます"
 
-#~ msgid "Installed version "
-#~ msgstr "インストール済みバージョン"
 
-#~ msgid "Latest version"
-#~ msgstr "最新バージョン"
 
-#~ msgid "none"
-#~ msgstr "なし"
 
-#~ msgid "Remove"
-#~ msgstr "削除"
 
 #, fuzzy
-#~ msgid "eBox - Antivirus module"
-#~ msgstr "eBox - メールフィルタモジュール"
 
 #, fuzzy
-#~ msgid "eBox - Asterisk"
-#~ msgstr "eBox - DNSサーバ"
 
-#~ msgid "eBox - Certificate Authority Manager for eBox"
-#~ msgstr "eBox - eBox認証局マネージャ"
 
 #, fuzzy
-#~ msgid "eBox - captive portal module"
-#~ msgstr "eBox - メールフィルタモジュール"
 
-#~ msgid "eBox - DHCP server module"
-#~ msgstr "eBox - DHCPサーバモジュール"
 
-#~ msgid "eBox - DNS server"
-#~ msgstr "eBox - DNSサーバ"
 
-#~ msgid "the eBox platform - Base framework"
-#~ msgstr "eBoxプラットフォーム - ベースフレームワーク"
 
-#~ msgid "eBox - Firewall"
-#~ msgstr "eBox - ファイアウォール"
 
 #, fuzzy
-#~ msgid "eBox - Instant messaging proxy"
-#~ msgstr "eBox - インスタントメッセージング (Jabber)"
 
-#~ msgid "eBox - Instant messaging (Jabber)"
-#~ msgstr "eBox - インスタントメッセージング (Jabber)"
 
-#~ msgid "eBox - Mail server"
-#~ msgstr "eBox - メールサーバ"
 
-#~ msgid "eBox - Mail filter module"
-#~ msgstr "eBox - メールフィルタモジュール"
 
 #, fuzzy
-#~ msgid "eBox - Monitoring module  "
-#~ msgstr "eBox - メールフィルタモジュール"
 
-#~ msgid "eBox - Network configuration module"
-#~ msgstr "eBox - ネットワーク設定モジュール"
 
-#~ msgid "eBox - NTP server"
-#~ msgstr "eBox - NTPサーバ"
 
-#~ msgid "eBox - Object management"
-#~ msgstr "eBox - オブジェクト管理"
 
-#~ msgid "eBox - OpenVPN server module"
-#~ msgstr "eBox - OpenVPNサーバモジュール"
 
-#~ msgid "eBox - Printer sharing"
-#~ msgstr "eBox - プリンタ共有"
 
-#~ msgid "eBox - File sharing"
-#~ msgstr "eBox - ファイル共有"
 
-#~ msgid "eBox - Services management"
-#~ msgstr "eBox - サービス管理"
 
-#~ msgid "eBox - Software management"
-#~ msgstr "eBox - ソフトウェアの管理"
 
-#~ msgid "eBox - Proxy cache and content filter"
-#~ msgstr "eBox - プロキシキャッシュとコンテンツフィルタ"
 
-#~ msgid "eBox - Traffic shaper for eBox"
-#~ msgstr "eBox - eBoxのためのトラフィック整形"
 
-#~ msgid "eBox - User and Group management"
-#~ msgstr "eBox - ユーザグループ管理"
 
 #, fuzzy
-#~ msgid "eBox - Web Server"
-#~ msgstr "Webサーバ"
 
-#~ msgid "IPsec VPNs"
-#~ msgstr "IPsec VPN"
 
-#~ msgid "SOAP server to communicate with eBox control center"
-#~ msgstr "eBoxコントロールセンターと接続するSOAPサーバ"
 
 #, fuzzy
-#~ msgid "eBox- Web Server"
-#~ msgstr "Webサーバ"
 
-#~ msgid "Web Server"
-#~ msgstr "Webサーバ"
 
-#~ msgid "The packages were removed successfully"
-#~ msgstr "パッケージは削除されました"
 
-#~ msgid ""
-#~ "An error ocurred while removing components. If the error persists or eBox "
-#~ "stops working properly, seek technical support."
-#~ msgstr ""
-#~ "コンポーネントの削除中にエラーが発生しました。エラーが続いたりeBoxが正しく"
-#~ "動作していないようでしたらテクニカルサポートに問い合わせてください。"
 
-#~ msgid "DHCP server"
-#~ msgstr "DHCPサーバ"
 
-#~ msgid "Base framework"
-#~ msgstr "ベースフレームワーク"
 
-#~ msgid "Firewall"
-#~ msgstr "ファイアウォール"
 
-#~ msgid "Mail server"
-#~ msgstr "メールサーバ"
 
-#~ msgid "NTP server"
-#~ msgstr "NTPサーバ"
 
-#~ msgid "Object management"
-#~ msgstr "オブジェクト管理"
 
-#~ msgid "OpenVPN server"
-#~ msgstr "OpenVPNサーバ"
 
-#~ msgid "Printer sharing"
-#~ msgstr "プリンタ共有"
 
-#~ msgid "Services  management"
-#~ msgstr "サービス管理"
 
-#~ msgid "Traffic shaper for eBox"
-#~ msgstr "eBoxトラフィック整形"
 
-#~ msgid "User and Group management"
-#~ msgstr "ユーザとグループの管理"
 
-#~ msgid "Proxy cache and content filter"
-#~ msgstr "プロキシキャッシュとコンテンツフィルタ"
 
-#~ msgid "Certificate Authority Manager for eBox"
-#~ msgstr "eBox認証局マネージャ"
 
-#~ msgid "eBox DNS server"
-#~ msgstr "eBox DNSサーバ"
 
-#~ msgid "Instant messaging (Jabber)"
-#~ msgstr "インスタントメッセージング (Jabber)"
 
-#~ msgid "Mail filter module"
-#~ msgstr "メールフィルタモジュール"
 
-#~ msgid "File sharing"
-#~ msgstr "ファイル共有"

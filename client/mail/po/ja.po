@@ -1312,259 +1312,80 @@ msgid "Change"
 msgstr "変更"
 
 #, fuzzy
-#~ msgid "External mail address"
-#~ msgstr "メールアドレス"
 
-#~ msgid "Create alias mail account to group"
-#~ msgstr "グループのエイリアスメールアカウントを作成"
 
-#~ msgid ""
-#~ "When the last member of a group is removed, the mail alias account will "
-#~ "be deleted"
-#~ msgstr ""
-#~ "グループに所属するメンバーが全て削除されると、グループのエイリアスメールア"
-#~ "カウントは削除されます"
 
-#~ msgid "Message"
-#~ msgstr "メッセージ"
 
-#~ msgid "Operate"
-#~ msgstr "操作"
 
-#~ msgid "maildir size"
-#~ msgstr "メールディレクトリサイズ"
 
-#~ msgid "Default maildir size (MB)"
-#~ msgstr "デフォルトのメールディレクトリサイズ (MB)"
 
-#~ msgid "mail"
-#~ msgstr "メール"
 
-#~ msgid "To add the LDAP schemas used by eBox mail"
-#~ msgstr "eBox mailに使われるLDAPスキーマを追加"
 
 #, fuzzy
-#~ msgid "Communications"
-#~ msgstr "認証エラー"
 
-#~ msgid "SSL Support"
-#~ msgstr "SSLサポート"
 
-#~ msgid "No"
-#~ msgstr "いいえ"
 
-#~ msgid "Optional"
-#~ msgstr "任意"
 
-#~ msgid "Required"
-#~ msgstr "必須"
 
 #, fuzzy
-#~ msgid "To allow {daemon} to connect with {otherDaemon} via unix socket"
-#~ msgstr "postfixとsaslauthdの通信を許可"
 
-#~ msgid "To let courier know how to access LDAP"
-#~ msgstr "courierにLDAPへのアクセス方法を通知"
 
-#~ msgid "To configure courier POP3"
-#~ msgstr "courier POP3の設定"
 
-#~ msgid "To configure POP3 with SSL support"
-#~ msgstr "POP3をSSLサポート付きで設定"
 
-#~ msgid "To configure IMAP with SSL support"
-#~ msgstr "IMAPをSSLサポート付きで設定"
 
-#~ msgid "To configure saslauthd to authenticate against LDAP "
-#~ msgstr "saslauthdをLDAP認証するよう設定"
 
-#~ msgid "To configure saslauthd to use LDAP"
-#~ msgstr "saslauthdがLDAPを使うよう設定"
 
-#~ msgid "eBox will execute /usr/sbin/postalias /etc/aliases "
-#~ msgstr "eBoxは/usr/sbin/postalias /etc/aliasesを実行します"
 
-#~ msgid "Mail system"
-#~ msgstr "メールシステム"
 
-#~ msgid "To allow postfix communicate with saslauthd "
-#~ msgstr "postfixとsaslauthdの通信を許可"
 
-#~ msgid "vdomain"
-#~ msgstr "Vドメイン"
 
-#~ msgid "Message size limit"
-#~ msgstr "メッセージサイズ制限"
 
-#~ msgid "relay"
-#~ msgstr "リレー"
 
-#~ msgid "dpkg-stateoverride  saslauthdaemon directory"
-#~ msgstr "dpkg-stateoverride  saslauthdaemon ディレクトリ"
 
-#~ msgid "remote IP"
-#~ msgstr "リモートIP"
 
-#~ msgid "{ip} is not a valid ip address"
-#~ msgstr "{ip} は有効なIPアドレスではありません"
 
-#~ msgid "{ip} cannot be reached by any configured interface"
-#~ msgstr "{ip} は設定済みのインタフェースから到達できません"
 
-#~ msgid "{ip} can be reached by more than one configured interface"
-#~ msgstr "{ip} は1つ以上の設定済みのインタフェースから到達可能です"
 
-#~ msgid "port"
-#~ msgstr "ポート"
 
-#~ msgid "The smart host must be a domain name, a host name or an host address"
-#~ msgstr ""
-#~ "スマートホストはドメイン名、ホスト名、またはホストのアドレスのいずれかでな"
-#~ "くてはなりません"
 
-#~ msgid "message size"
-#~ msgstr "メッセージサイズ"
 
-#~ msgid "Yes"
-#~ msgstr "はい"
 
-#~ msgid "TLS support is required by the authentication system"
-#~ msgstr "認証システムにはTLSサポートが必要です"
 
-#~ msgid "Services"
-#~ msgstr "サービス"
 
-#~ msgid "Service"
-#~ msgstr "サービス"
 
-#~ msgid "Apply Changes"
-#~ msgstr "変更を適用"
 
-#~ msgid ""
-#~ "The smarthost can be a IP address, a host name or a domain name. In the "
-#~ "last case the mail server for the domain must be advertised in the "
-#~ "domain's DNS record"
-#~ msgstr ""
-#~ "スマートホストにはIPアドレス、ホスト名、またはドメイン名を利用できます。ド"
-#~ "メイン名を使う場合、メールサーバはドメイン内のDNSレコードでアドバタイズさ"
-#~ "れていることが必要です。"
 
-#~ msgid ""
-#~ "A value of 0 for the maximum message size and maximum mail account size "
-#~ "stands for no size limitation."
-#~ msgstr ""
-#~ "0を入力するとメッセージサイズ最大値、メールアカウントサイズ最大値は無制限"
-#~ "になります"
 
-#~ msgid "Maximum message size accepted by the mail server"
-#~ msgstr "メールサーバにメッセージサイズ最大値が許可されました"
 
-#~ msgid "Size (MB)"
-#~ msgstr "サイズ (MB)"
 
-#~ msgid ""
-#~ "You should move to allowed column those objects you want to allow sending "
-#~ "mail through this module."
-#~ msgstr ""
-#~ "このモジュールを通してメールを送信させたいオブジェクトを許可欄に移動してく"
-#~ "ださい"
 
-#~ msgid ""
-#~ "Choose the object whose state you want to change and click on the arrow "
-#~ "to move it to the desired column."
-#~ msgstr ""
-#~ "状態を変更したいオブジェクトを選択し、矢印をクリックして移動させてください"
 
-#~ msgid "Denied"
-#~ msgstr "拒否"
 
-#~ msgid "Empty list"
-#~ msgstr "空白のリスト"
 
-#~ msgid "Allow"
-#~ msgstr "許可"
 
-#~ msgid "Move selected objects to the allowed column"
-#~ msgstr "選択したオブジェクトを許可欄に移動"
 
-#~ msgid "Deny"
-#~ msgstr "拒否"
 
-#~ msgid "Move selected objects to the denied column"
-#~ msgstr "選択したオブジェクトを拒否欄に移動"
 
-#~ msgid "Apply"
-#~ msgstr "適用"
 
-#~ msgid "Default maximum mail account size"
-#~ msgstr "デフォルトのメールアカウントサイズ最大値"
 
-#~ msgid "Force the change to the existing accounts"
-#~ msgstr "既存のアカウントに変更を強制"
 
-#~ msgid "Maildir size for {vdomain} virtual domain"
-#~ msgstr "バーチャルドメイン {vdomain} のメールディレクトリサイズ"
 
-#~ msgid "Add a new virtual domain"
-#~ msgstr "バーチャルドメインを新規作成"
 
-#~ msgid "Default maildir size"
-#~ msgstr "デフォルトのメールディレクトリサイズ"
 
-#~ msgid "(MB)"
-#~ msgstr "(MB)"
 
-#~ msgid "Add"
-#~ msgstr "追加"
 
-#~ msgid "Unlimited"
-#~ msgstr "無制限"
 
-#~ msgid "Maildir Size"
-#~ msgstr "メールディレクトリサイズ"
 
-#~ msgid "Edit"
-#~ msgstr "編集"
 
-#~ msgid "There aren't modules which provide mail domains options to configure"
-#~ msgstr "設定が必要なメールドメインオプションを持つモジュールがありません"
 
-#~ msgid "Remove postfix init script link"
-#~ msgstr "postfix起動スクリプトのリンクを削除"
 
-#~ msgid "eBox will take care of starting and stopping the service."
-#~ msgstr "eBoxはサービスの開始と停止を行います"
 
-#~ msgid ""
-#~ "Remove courier init script links for authdaemon, imap, imap-ssl, pop, and "
-#~ "pop-ssl"
-#~ msgstr ""
-#~ "authdaemon, imap, imap-ssl, pop, pop-sslのためのcourier起動スクリプトのリ"
-#~ "ンクを削除"
 
-#~ msgid "mail system status"
-#~ msgstr "メールシステム状態"
 
-#~ msgid "Unknown filter {filter}"
-#~ msgstr "不明なフィルタ {filter}"
 
-#~ msgid "smarthost ip"
-#~ msgstr "スマートホストIP"
 
-#~ msgid "IP address of smarthost to send mail"
-#~ msgstr "メールを送信するスマートホストのIPアドレス"
 
-#~ msgid "Service status"
-#~ msgstr "サービス状態"
 
-#~ msgid "Relay policy for objects"
-#~ msgstr "オブジェクトのリレーポリシー"
 
-#~ msgid "Allowed"
-#~ msgstr "許可"
 
-#~ msgid "Filter's IP address"
-#~ msgstr "フィルタのIPアドレス"
 
-#~ msgid "Filter's Port"
-#~ msgstr "フィルタのポート"

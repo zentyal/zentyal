@@ -688,140 +688,30 @@ msgstr "Subnetzmaske"
 msgid "Delete"
 msgstr "Löschen"
 
-#~ msgid "eBox"
-#~ msgstr "eBox"
 
-#~ msgid "eBox's domain"
-#~ msgstr "Domäne der eBox"
 
-#~ msgid "{name} cannot contain spaces"
-#~ msgstr "Der {name} kann keine Leerzeichen enthalten"
 
-#~ msgid "Infrastructure"
-#~ msgstr "Infrastruktur"
 
-#~ msgid "DHCP service status"
-#~ msgstr "Status des DHCP-Dienstes"
 
-#~ msgid ""
-#~ "DHCP server cannot activated because there are not any network interface "
-#~ "with a static address. {openhref}Configure one{closehref} first"
-#~ msgstr ""
-#~ "Der DHCP Server kann nicht aktiviert werden weil es keine Netzwerkkarte "
-#~ "mit einer statischen Adresse gibt. {openhref}Konfigurieren{closehref} Sie "
-#~ "bitte zuerst"
 
-#~ msgid ""
-#~ "At least, an interface must set as staticto configure the DHCP service on "
-#~ "it. To do so, change {openhref}interfaces configuration{closehref} in "
-#~ "network module"
-#~ msgstr ""
-#~ "Mindestens eine Netzwerkkarte muss eine statische IP-Adresse haben, damit "
-#~ "Sie den DHCP-Dienst verwenden können. Die Netzwerkkarten können Sie im "
-#~ "{openhref}Netzwerk-Modul{closehref} konfigurieren"
 
-#~ msgid "Nameserver IP address"
-#~ msgstr "IP Adresse des Nameservers"
 
-#~ msgid "\"To\" IP address"
-#~ msgstr "\"Bis\" IP Adresse"
 
-#~ msgid "IP address {ip} is already added as fixed address '{name}'"
-#~ msgstr ""
-#~ "Die IP Adresse {ip} ist bereits als fixe IP Adresse \"{name}\" hinzugefügt"
 
-#~ msgid ""
-#~ "MAC address {mac} is already added as fixed address '{name}' for "
-#~ "interface '{iface}'"
-#~ msgstr ""
-#~ "Die MAC Adresse {mac} ist bereits als fixe IP Adresse \"{name}\" für die "
-#~ "Netzwerkkarte \"{iface}\" hinzugefügt"
 
 #, fuzzy
-#~ msgid ""
-#~ "DHCP server requires a static interface, {openhref}configure one"
-#~ "{closehref} first"
-#~ msgstr ""
-#~ "Der DHCP Server benötigt eine statische Adresse, {openhref}konfigurieren"
-#~ "{closeref} Sie bitte eine"
 
-#~ msgid ""
-#~ "DHCP server requires a static interface, {openhref}configure one"
-#~ "{closeref} first"
-#~ msgstr ""
-#~ "Der DHCP Server benötigt eine statische Adresse, {openhref}konfigurieren"
-#~ "{closeref} Sie bitte eine"
 
-#~ msgid ""
-#~ "DHCP server can not activated because there are not any network interface "
-#~ "with a static address. <a href='Network/Ifaces'>Configure one</a> first"
-#~ msgstr ""
-#~ "Der DHCP Server kann nicht aktiviert werden weil es keine Netzwerkkarte "
-#~ "mit einer statischen Adresse gibt. <a href='Network/"
-#~ "Ifaces'>Konfigurieren</a> Sie bitte zuerst"
 
-#~ msgid "Gateway IP address"
-#~ msgstr "Gateway IP adresse"
 
-#~ msgid "\"From\" IP address"
-#~ msgstr "\"Von\" IP Adresse"
 
-#~ msgid "{from}-{to} is an invalid range"
-#~ msgstr "{from}-{to} ist kein gültiger Bereich"
 
-#~ msgid "Range {new_from}-{new_to} includes interface IP address: {iface_ip}"
-#~ msgstr ""
-#~ "Der Bereich {new_from}-{new_to} beinhaltet die IP Adresse einer "
-#~ "Netzwerkkarte: {iface_ip}"
 
-#~ msgid ""
-#~ "Range {new_from}-{new_to} overlaps with range '{range}': {old_from}-"
-#~ "{old_to}"
-#~ msgstr ""
-#~ "Der Bereich {new_from}-{new_to} überschneidet sich mit dem Bereich "
-#~ "\"{range}\": {old_from}-{old_to}"
 
-#~ msgid ""
-#~ "Range {new_from}-{new_to} includes fixed address '{name}': {fixed_ip}"
-#~ msgstr ""
-#~ "Der Bereich {new_from}-{new_to} beinhaltet die fixe IP Adresse \"{name}"
-#~ "\": {fixed_ip}"
 
-#~ msgid "The selected IP is the interface IP address: {iface_ip}"
-#~ msgstr "Die gewählte IP ist die IP Adresse der Netzwerkkarte: {iface_ip}"
 
-#~ msgid "IP address {ip} is in range '{range}': {old_from}-{old_to}"
-#~ msgstr "Die IP Adresse {ip} ist im Bereich \"{range}\": {old_from}-{old_to}"
 
-#~ msgid ""
-#~ "The IP address of the virtual interface you're trying to add is already "
-#~ "used by the DHCP range '{range}' in the interface '{iface}'. Please, "
-#~ "remove it before trying to add a virtual interface using it."
-#~ msgstr ""
-#~ "Die IP Adresse der virtuellen Netzwerkkarte, welche Sie hinzufügen "
-#~ "möchten, ist im DHCP Bereich \"{range}\" der Netzwerkkarte \"{iface}\". "
-#~ "Bitte entfernen Sie diese bevor Sie die Adresse einer virtuellen "
-#~ "Netzwerkkarte hinzufügen."
 
-#~ msgid ""
-#~ "The IP address of the virtual interface you're trying to add is already "
-#~ "used by the DHCP fixed address '{fixed}' in the interface '{iface}'. "
-#~ "Please, remove it before trying to add a virtual interface using it."
-#~ msgstr ""
-#~ "Die IP Adresse der virtuellen Netzwerkkarte, welche Sie hinzufügen "
-#~ "möchten, ist eine fixe DHCP-Adresse \"{fixed}\" der Netzwerkkarte "
-#~ "\"{iface}\". Bitte entfernen Sie diese bevor Sie die Adresse einer "
-#~ "virtuellen Netzwerkkarte hinzufügen."
 
-#~ msgid "DHCP server status"
-#~ msgstr "DHCP Server Status"
 
-#~ msgid "Advanced Options"
-#~ msgstr "Erweiterte Optionen"
 
-#~ msgid ""
-#~ "Unlinked previous uploaded firmware since next server optionhas been "
-#~ "changed from eBox to {option}"
-#~ msgstr ""
-#~ "Die zuvor hochgeladene Firmware wurde entfernt, weil nicht mehr die eBox "
-#~ "der nächste Server ist, sondern {option}"

@@ -120,62 +120,20 @@ msgstr "Administrationsrechte"
 msgid "Change"
 msgstr "Ändern"
 
-#~ msgid "To properly configure jabberd2 muc"
-#~ msgstr "Um jabberd2 MUC richtig zu konfigurieren"
 
-#~ msgid "domain"
-#~ msgstr "Domäne"
 
-#~ msgid "module status"
-#~ msgstr "Status des Moduls"
 
-#~ msgid ""
-#~ "Domain name should be available on the network. Otherwise, you may not be "
-#~ "able to use this service. This applies for internal and external "
-#~ "connections."
-#~ msgstr ""
-#~ "Die Domäne sollte im Netzwerk verfügbar sein. Sonst können Sie diesen "
-#~ "Dienst nicht verwenden. Das gilt sowohl für interne, als auch für externe "
-#~ "Verbindungen"
 
-#~ msgid "Domain name"
-#~ msgstr "Name der Domäne"
 
-#~ msgid "No"
-#~ msgstr "Nein"
 
-#~ msgid "Optional"
-#~ msgstr "Optional"
 
-#~ msgid "Required"
-#~ msgstr "Notwendig"
 
-#~ msgid "Password for Jabber service is the user password."
-#~ msgstr "Das Passwort für den Jabber-Dienst ist das des Benutzers"
 
-#~ msgid "Copy jabber ldap schema to /etc/ldap/schemas"
-#~ msgstr "Kopiere das Jabber LDAP-Schema nach /etc/ldap/schemas"
 
-#~ msgid "To add the LDAP schemas used by eBox jabber"
-#~ msgstr "Um die von eBox jabber verwendeten LDAP-Schemas hinzuzufügen"
 
 #, fuzzy
-#~ msgid "Communications"
-#~ msgstr "Nachrichten"
 
-#~ msgid "General Settings"
-#~ msgstr "Allgemeine Einstellungen"
 
-#~ msgid "Apply Changes"
-#~ msgstr "Änderungen anwenden"
 
-#~ msgid "Enter a username and password to register with this server."
-#~ msgstr ""
-#~ "Geben Sie einen Benutzernamen und ein Passwort ein, um sich mit diesem "
-#~ "Server zu verbinden"
 
-#~ msgid "listening port"
-#~ msgstr "Hört auf Port"
 
-#~ msgid "Jabber Service status"
-#~ msgstr "Status des Jabber-Dienstes"

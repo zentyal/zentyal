@@ -130,289 +130,96 @@ msgstr ""
 "Nyomtatók hozzáadásához vagy kezeléséhez a {open_href}CUPS Web "
 "Interface{close_href} használja"
 
-#~ msgid "Model"
-#~ msgstr "Modell"
 
-#~ msgid "Printer {printer} has no available drivers"
-#~ msgstr "A(z) {printer} nyomtatóhoz nem érhető el meghajtóprogram"
 
-#~ msgid "Add a new printer (II)"
-#~ msgstr "Új nyomtató hozzáadása (II)"
 
-#~ msgid "Next"
-#~ msgstr "Következő"
 
-#~ msgid "IP"
-#~ msgstr "IP-cím"
 
-#~ msgid "Port"
-#~ msgstr "Port"
 
-#~ msgid "Standalone cups enabled"
-#~ msgstr "Önálló CUPS bekapcsolva"
 
-#~ msgid "Standalone cups disabled"
-#~ msgstr "Önálló CUPS kikapcsolva"
 
-#~ msgid "Add a new printer (VI)"
-#~ msgstr "Új nyomtató hozzáadása (VI)"
 
-#~ msgid "Driver"
-#~ msgstr "Meghajtóprogram"
 
-#~ msgid "The printer has been deleted successfully"
-#~ msgstr "A nyomtató sikeresen törölve"
 
-#~ msgid "Shared resource"
-#~ msgstr "Megosztott erőforrás"
 
-#~ msgid "Authentication"
-#~ msgstr "Hitelesítés"
 
-#~ msgid "Password"
-#~ msgstr "Jelszó"
 
-#~ msgid "Manage printer"
-#~ msgstr "Nyomtató kezelése"
 
-#~ msgid "Printer details"
-#~ msgstr "Nyomtató részletei"
 
-#~ msgid "Driver Options"
-#~ msgstr "Meghajtóprogram beállításai"
 
-#~ msgid "Configuration options"
-#~ msgstr "Beállítási lehetőségek"
 
-#~ msgid "Jobs Queue"
-#~ msgstr "Feladatok sora"
 
-#~ msgid "Printer's name"
-#~ msgstr "Nyomtató neve"
 
-#~ msgid "Printer's id"
-#~ msgstr "Nyomtató azonosítója"
 
-#~ msgid "Job id"
-#~ msgstr "Feladat azonosítója"
 
-#~ msgid "Job was successfully canceled"
-#~ msgstr "A feladat sikeresen törölve"
 
-#~ msgid "Add a new printer (IV)"
-#~ msgstr "Új nyomtató hozzáadása (IV)"
 
-#~ msgid "Device"
-#~ msgstr "Eszköz"
 
-#~ msgid "Manage printers"
-#~ msgstr "Nyomtatók kezelése"
 
-#~ msgid "Delete printer"
-#~ msgstr "Nyomtató törlése"
 
-#~ msgid "Add a new printer (V)"
-#~ msgstr "Új nyomtató hozzáadása (V)"
 
-#~ msgid "Method"
-#~ msgstr "Módszer"
 
-#~ msgid "Printer description"
-#~ msgstr "Nyomtató leírása"
 
-#~ msgid "Manufacturer"
-#~ msgstr "Gyártó"
 
-#~ msgid "Add a new printer (III)"
-#~ msgstr "Új nyomtató hozzáadása (III)"
 
-#~ msgid "Add a new printer (I)"
-#~ msgstr "Új nyomtató hozzáadása (I)"
 
-#~ msgid "Add user ebox to lpadmin group"
-#~ msgstr "Az ebox felhasználó hozzáadása az lpadmin csoporthoz"
 
-#~ msgid "In order to manage printers and queues from the eBox web interface"
-#~ msgstr ""
-#~ "A nyomtatók és a nyomtatási sorok az eBox webes felületén való kezeléséhez"
 
-#~ msgid "To add and manage printers"
-#~ msgstr "Nyomtatók hozzáadása és kezelése"
 
-#~ msgid "To enable standalone cupsd listen on internal interfaces"
-#~ msgstr "Az önálló CUPS démon figyeljen a belső csatolókon"
 
-#~ msgid "Add Printer"
-#~ msgstr "Nyomtató hozzáadása"
 
-#~ msgid ""
-#~ "The printer's name contains characters not valid.Only alphanumeric "
-#~ "characters are allowed"
-#~ msgstr ""
-#~ "A nyomtató neve érvénytelen karaktereket tartalmaz. Csak alfanumerikus "
-#~ "karakterek engedélyezettek."
 
-#~ msgid "Name"
-#~ msgstr "Név"
 
-#~ msgid "The given name is alreaday used as "
-#~ msgstr "A kívánt név már használatban van"
 
-#~ msgid "It is not a usb printer"
-#~ msgstr "Ez nem USB nyomtató"
 
-#~ msgid "It is not a parallel printer"
-#~ msgstr "Ez nem párhuzamos porttal rendelkező nyomtató"
 
-#~ msgid "It is not a network printer"
-#~ msgstr "Ez nem hálózati nyomtató"
 
-#~ msgid "It is not a samba printer"
-#~ msgstr "Ez nem Samba nyomtató"
 
-#~ msgid "It is not a IPP printer"
-#~ msgstr "Ez nem IPP protokollon csatlakozó nyomtató"
 
-#~ msgid "It is not a LPD printer"
-#~ msgstr "Ez nem LPD nyomtató"
 
-#~ msgid "is not a valid option"
-#~ msgstr "Érvénytelen beállítás"
 
-#~ msgid "Parameter '{name}' does not exist"
-#~ msgstr "Nem létező paraméter: „{name}”"
 
-#~ msgid "Owner"
-#~ msgstr "Tulajdonos"
 
-#~ msgid "Queued at"
-#~ msgstr "Sorba állítva:"
 
-#~ msgid "Set printer name and method"
-#~ msgstr "Nyomtató nevének és csatlakozási módjának beállítása"
 
-#~ msgid "Parallel"
-#~ msgstr "Párhuzamos"
 
-#~ msgid "AppSocket"
-#~ msgstr "AppSocket"
 
-#~ msgid "Samba"
-#~ msgstr "Samba"
 
-#~ msgid "IPP: Internet printing protocol"
-#~ msgstr "IPP: Internet printing protocol"
 
-#~ msgid "LPD: Line Printer Daemon"
-#~ msgstr "LPD: Line Printer Daemon"
 
-#~ msgid "Choose manufacturer"
-#~ msgstr "Válassza ki a gyártót"
 
-#~ msgid "Local parallel printer configuration"
-#~ msgstr "Helyi, párhuzamos nyomtató beállítása"
 
-#~ msgid "Are you sure you want to delete the printer '{name}'?"
-#~ msgstr "Biztos, hogy törölni akarja ezt a nyomtatót: „{name}”?"
 
-#~ msgid "Cancel"
-#~ msgstr "Mégse"
 
-#~ msgid "Local USB printer configuration"
-#~ msgstr "Helyi USB nyomtató beállítása"
 
-#~ msgid "Change"
-#~ msgstr "Módosítás"
 
-#~ msgid "Job queue"
-#~ msgstr "Feladatsor"
 
-#~ msgid "Size(KB)"
-#~ msgstr "Méret (kB)"
 
-#~ msgid "Creation time"
-#~ msgstr "Létrehozás időpontja"
 
-#~ msgid "Action"
-#~ msgstr "Művelet"
 
-#~ msgid "This printer has no pending job in queue at the moment"
-#~ msgstr "Jelenleg nem vár feladat a nyomtatási sorban a nyomtatóra"
 
-#~ msgid "You need to save changes in order to print a test page"
-#~ msgstr "El kell mentenie a beállításokat a tesztoldal kinyomtatása előtt"
 
-#~ msgid "Print Test Page"
-#~ msgstr "Tesztoldal nyomtatása"
 
-#~ msgid "Driver options"
-#~ msgstr "Meghajtóprogram beállításai"
 
-#~ msgid "Choose a printer model"
-#~ msgstr "Válasszon egy nyomtatómodellt"
 
-#~ msgid "Configure IPP printer"
-#~ msgstr "IPP nyomtató beállítása"
 
-#~ msgid "Choose a driver for the printer"
-#~ msgstr "Válassza ki a nyomtató meghajtóprogramját"
 
-#~ msgid "Configure LPD printer"
-#~ msgstr "LPD nyomtató beállítása"
 
-#~ msgid "Choose a dirver for the printer"
-#~ msgstr "Válassza ki a nyomtató meghajtóprogramját"
 
-#~ msgid "driver"
-#~ msgstr "meghajtóprogram"
 
-#~ msgid "Go"
-#~ msgstr "Ugrás"
 
-#~ msgid "Samba shared printer configurationr"
-#~ msgstr "Megosztott Samba nyomtató beállítása"
 
-#~ msgid "Share resource"
-#~ msgstr "Erőforrás megosztása"
 
-#~ msgid "Anonymous"
-#~ msgstr "Anonymous"
 
-#~ msgid "Guest"
-#~ msgstr "Vendég"
 
-#~ msgid "User/Password"
-#~ msgstr "Felhasználó/jelszó"
 
-#~ msgid "Remote printer configuration"
-#~ msgstr "Távoli nyomtató beállítása"
 
-#~ msgid "Configure AppSocket printer"
-#~ msgstr "AppSocket nyomtató beállítása"
 
-#~ msgid "Samba shared printer configuration"
-#~ msgstr "Megosztott Samba nyomtató beállítása"
 
-#~ msgid "Enable standalone CUPS"
-#~ msgstr "Önálló CUPS bekapcsolása"
 
-#~ msgid "General settings"
-#~ msgstr "Általános beállítások"
 
-#~ msgid "List of printers"
-#~ msgstr "Nyomtatók listája"
 
-#~ msgid "Description"
-#~ msgstr "Leírás"
 
-#~ msgid "Actions"
-#~ msgstr "Műveletek"
 
-#~ msgid "Manage"
-#~ msgstr "Kezelés"
 
-#~ msgid "Manage this printer"
-#~ msgstr "Nyomtató kezelése"
 
-#~ msgid "There is no printer configured yet"
-#~ msgstr "Még nincs nyomtató beállítva"

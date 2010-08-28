@@ -469,199 +469,55 @@ msgid ""
 msgstr ""
 
 #, fuzzy
-#~ msgid "redirect"
-#~ msgstr "リダイレクト"
 
-#~ msgid "Packet filtering"
-#~ msgstr "パケットフィルタ"
 
-#~ msgid ""
-#~ "These rules are meant to control access from internal network interfaces "
-#~ "to services running on your eBox machine"
-#~ msgstr ""
-#~ "これらのルールは内部ネットワークインタフェースからeBoxが動作するマシンへの"
-#~ "アクセスのコントロールに適用されます"
 
-#~ msgid "Redirects"
-#~ msgstr "リダイレクト"
 
-#~ msgid "Port redirections"
-#~ msgstr "ポートリダイレクト"
 
-#~ msgid "Filtering rules from  external networks to eBox"
-#~ msgstr "外部ネットワークからeBoxへのフィルタルール"
 
-#~ msgid "firewall"
-#~ msgstr "ファイアウォール"
 
-#~ msgid "Global services' filtering rules"
-#~ msgstr "グローバルサービスのフィルタルール"
 
-#~ msgid "Services' filtering rules {desc}"
-#~ msgstr "サービスのフィルタルール {desc}"
 
-#~ msgid "Edit rule"
-#~ msgstr "ルールを編集"
 
-#~ msgid "Global firewall configuration"
-#~ msgstr "グローバルファイアウォール設定"
 
-#~ msgid "Firewall configuration: {desc}"
-#~ msgstr "ファイアウォール設定: {desc}"
 
-#~ msgid "service"
-#~ msgstr "サービス"
 
-#~ msgid "policy"
-#~ msgstr "ポリシー"
 
-#~ msgid "network interface"
-#~ msgstr "ネットワークインタフェース"
 
-#~ msgid "destination address"
-#~ msgstr "送信先アドレス"
 
-#~ msgid "Port {port} is being used by a service or port redirection."
-#~ msgstr ""
-#~ "ポート {port} はサービスによって使われているかリダイレクト対象になっていま"
-#~ "す。"
 
-#~ msgid "Actions"
-#~ msgstr "アクション"
 
-#~ msgid "Add"
-#~ msgstr "追加"
 
-#~ msgid "Change"
-#~ msgstr "変更"
 
-#~ msgid "Delete"
-#~ msgstr "削除"
 
-#~ msgid ""
-#~ "Protocol, ports and addresses are optional. The rules will be applied in "
-#~ "order, from top to bottom, you can reorder them once they are added. "
-#~ "Rules can also be disabled without deleting them."
-#~ msgstr ""
-#~ "プロトコル、ポート、アドレスの入力は任意です。ルールは上から順に適用されま"
-#~ "す。追加した後で並べ替えることもできます。ルールは削除しなくても無効化する"
-#~ "ことができます。"
 
-#~ msgid "New rule"
-#~ msgstr "新規ルール"
 
-#~ msgid "Action"
-#~ msgstr "アクション"
 
-#~ msgid "Allow"
-#~ msgstr "許可"
 
-#~ msgid "Deny"
-#~ msgstr "拒否"
 
-#~ msgid "Source address"
-#~ msgstr "送信元アドレス"
 
-#~ msgid "is not"
-#~ msgstr "でない"
 
-#~ msgid "is"
-#~ msgstr "です"
 
-#~ msgid "to"
-#~ msgstr "へ"
 
-#~ msgid "Destination address"
-#~ msgstr "送信先アドレス"
 
-#~ msgid "Rule list"
-#~ msgstr "ルール一覧"
 
-#~ msgid "allow"
-#~ msgstr "許可"
 
-#~ msgid "allow (disabled)"
-#~ msgstr "許可(無効)"
 
-#~ msgid "deny"
-#~ msgstr "拒否"
 
-#~ msgid "deny (disabled)"
-#~ msgstr "拒否(無効)"
 
-#~ msgid "inverse match"
-#~ msgstr "逆引き"
 
-#~ msgid "Edit"
-#~ msgstr "編集"
 
-#~ msgid "Up"
-#~ msgstr "正常"
 
-#~ msgid "Down"
-#~ msgstr "停止"
 
-#~ msgid "delete"
-#~ msgstr "削除"
 
-#~ msgid "edit"
-#~ msgstr "編集"
 
-#~ msgid "move up"
-#~ msgstr "上に移動"
 
-#~ msgid "move down"
-#~ msgstr "下に移動"
 
-#~ msgid "any"
-#~ msgstr "全て"
 
-#~ msgid "Services"
-#~ msgstr "サービス"
 
-#~ msgid "Policy"
-#~ msgstr "ポリシー"
 
-#~ msgid ""
-#~ "Protocol, port and destination address are optional. The rules will be "
-#~ "applied in order, from top to bottom, you can reorder them once they are "
-#~ "added. Rules can also be disabled without deleting them."
-#~ msgstr ""
-#~ "プロトコル、ポート、送信先アドレスの入力は任意です。ルールは上から下の順に"
-#~ "適用されます。追加した後で並べ替えることもできます。ルールは削除しなくても"
-#~ "無効にすることができます。"
 
-#~ msgid ""
-#~ "Rules without an explicit destination address will be applied to packets "
-#~ "that leave eBox through an external network interface. You may flag "
-#~ "network interfaces as external in the <a href='../Network/Ifaces'>Network "
-#~ "Interfaces</a> configuration page."
-#~ msgstr ""
-#~ "送信先のアドレスが明示されていないルールはeBoxから外部ネットワークインタ"
-#~ "フェースへのパケットに適用されます.ネットワークインタフェースは<a "
-#~ "href='../Network/Ifaces'>ネットワークインタフェース設定ページ</a>から外部"
-#~ "向けとして設定できます。"
 
-#~ msgid "Active"
-#~ msgstr "アクティブ"
 
-#~ msgid ""
-#~ "The policy states what to do on network packets not explicitly matched "
-#~ "below. The policy is applied to connections that leave eBox through an "
-#~ "external network interface. If you want to allow traffic between internal "
-#~ "networks you need to create explicit rules for that."
-#~ msgstr ""
-#~ "ポリシーは以下の設定に明示的にマッチしないネットワークパケットに対して操作"
-#~ "を行います。ポリシーはeBoxから外部ネットワークインタフェースへの接続に適用"
-#~ "されます。内部ネットワークでのトラフィックを許可するには明示的にルールを作"
-#~ "成する必要があります。"
 
-#~ msgid ""
-#~ "Choosing global will make the firewall fall back to the <a href='Object?"
-#~ "object=_global'>default configuration</a>."
-#~ msgstr ""
-#~ "グローバルを選択するとファイアウォールは<a href='Object?object=_global'>デ"
-#~ "フォルト設定</a>に戻ります。"
 
-#~ msgid "Global"
-#~ msgstr "グローバル"

@@ -125,293 +125,99 @@ msgid ""
 "{close_href}"
 msgstr ""
 
-#~ msgid "Model"
-#~ msgstr "型號"
 
-#~ msgid "Add a new printer (II)"
-#~ msgstr "新增新的印表機 (II)"
 
-#~ msgid "Next"
-#~ msgstr "下一步"
 
-#~ msgid "IP"
-#~ msgstr "IP"
 
-#~ msgid "Port"
-#~ msgstr "連接埠"
 
-#~ msgid "Standalone cups enabled"
-#~ msgstr "獨立 cups 已啟用"
 
-#~ msgid "Standalone cups disabled"
-#~ msgstr "獨立 cups 已停用"
 
-#~ msgid "Add a new printer (VI)"
-#~ msgstr "新增新的印表機 (VI)"
 
-#~ msgid "Driver"
-#~ msgstr "驅動程式"
 
-#~ msgid "The printer has been deleted successfully"
-#~ msgstr "此印表機已成功刪除了"
 
-#~ msgid "Shared resource"
-#~ msgstr "已分享資源"
 
-#~ msgid "Authentication"
-#~ msgstr "驗證"
 
-#~ msgid "Password"
-#~ msgstr "密碼"
 
-#~ msgid "Manage printer"
-#~ msgstr "管理印表機"
 
-#~ msgid "Printer details"
-#~ msgstr "印表機詳細內容"
 
-#~ msgid "Driver Options"
-#~ msgstr "驅動程式選項"
 
-#~ msgid "Configuration options"
-#~ msgstr "設置選項"
 
-#~ msgid "Jobs Queue"
-#~ msgstr "列印佇列"
 
-#~ msgid "Printer's name"
-#~ msgstr "印表機名稱"
 
-#~ msgid "Printer's id"
-#~ msgstr "印表機id"
 
-#~ msgid "Job id"
-#~ msgstr "Job id"
 
-#~ msgid "Job was successfully canceled"
-#~ msgstr "Job已成功取消了"
 
-#~ msgid "Add a new printer (IV)"
-#~ msgstr "新增新的印表機 (IV)"
 
-#~ msgid "Device"
-#~ msgstr "裝置"
 
-#~ msgid "Manage printers"
-#~ msgstr "管理印表機"
 
-#~ msgid "Delete printer"
-#~ msgstr "刪除印表機"
 
-#~ msgid "Add a new printer (V)"
-#~ msgstr "新增新的印表機 (V)"
 
-#~ msgid "Method"
-#~ msgstr "Method"
 
-#~ msgid "Printer description"
-#~ msgstr "印表機說明"
 
-#~ msgid "Manufacturer"
-#~ msgstr "製造商"
 
-#~ msgid "Add a new printer (III)"
-#~ msgstr "新增新的印表機 (III)"
 
-#~ msgid "Add a new printer (I)"
-#~ msgstr "新增新的印表機 (I)"
 
-#~ msgid "Add user ebox to lpadmin group"
-#~ msgstr "新增使用者 ebox 到 lpadmin 群組"
 
-#~ msgid "In order to manage printers and queues from the eBox web interface"
-#~ msgstr "從 eBox 網頁介面來管理印表機和佇列"
 
-#~ msgid "To add and manage printers"
-#~ msgstr "新增和管理印表機"
 
-#~ msgid "To enable standalone cupsd listen on internal interfaces"
-#~ msgstr "啟用獨立 cupsd 在內部網路介面來監聽"
 
-#~ msgid "Add Printer"
-#~ msgstr "新增印表機"
 
-#~ msgid ""
-#~ "The printer's name contains characters not valid.Only alphanumeric "
-#~ "characters are allowed"
-#~ msgstr "印表機名稱裡面的有無效的字元.只接受數字的字元"
 
-#~ msgid "Name"
-#~ msgstr "名稱"
 
-#~ msgid "The given name is alreaday used as "
-#~ msgstr "規定的名稱已被使用"
 
-#~ msgid "It is not a usb printer"
-#~ msgstr "這不是 usb 印表機"
 
-#~ msgid "It is not a parallel printer"
-#~ msgstr "這不是 parallel 印表機"
 
-#~ msgid "It is not a network printer"
-#~ msgstr "這不是網路印表機"
 
-#~ msgid "It is not a samba printer"
-#~ msgstr "這不是 samba 印表機"
 
-#~ msgid "It is not a IPP printer"
-#~ msgstr "這不是 IPP 印表機"
 
-#~ msgid "It is not a LPD printer"
-#~ msgstr "這不是 LPD 印表機"
 
-#~ msgid "is not a valid option"
-#~ msgstr "不正確的選項"
 
-#~ msgid "Parameter '{name}' does not exist"
-#~ msgstr "參數 '{name}' 是不存在"
 
-#~ msgid "Owner"
-#~ msgstr "擁有者"
 
-#~ msgid "Queued at"
-#~ msgstr "佇列在"
 
-#~ msgid "Set printer name and method"
-#~ msgstr "設定印表機的名稱和 method"
 
-#~ msgid "Parallel"
-#~ msgstr "Parallel"
 
-#~ msgid "AppSocket"
-#~ msgstr "AppSocket"
 
-#~ msgid "Samba"
-#~ msgstr "Samba"
 
-#~ msgid "IPP: Internet printing protocol"
-#~ msgstr "IPP：網際網路列印通訊協定"
 
-#~ msgid "LPD: Line Printer Daemon"
-#~ msgstr "LPD：線路印表機伺服程式"
 
-#~ msgid "Choose manufacturer"
-#~ msgstr "選擇製造商"
 
-#~ msgid "Local parallel printer configuration"
-#~ msgstr "本機 parallel 印表機設置"
 
-#~ msgid "Are you sure you want to delete the printer '{name}'?"
-#~ msgstr "您確定要刪除這個印表機 '{name}' 嗎?"
 
-#~ msgid "Cancel"
-#~ msgstr "取消"
 
-#~ msgid "Local USB printer configuration"
-#~ msgstr "本機 USB 印表機設置"
 
-#~ msgid "Change"
-#~ msgstr "改變"
 
-#~ msgid "Job queue"
-#~ msgstr "列印佇列"
 
-#~ msgid "Size(KB)"
-#~ msgstr "大小(KB)"
 
-#~ msgid "Creation time"
-#~ msgstr "建立時間"
 
-#~ msgid "Action"
-#~ msgstr "動作"
 
-#~ msgid "This printer has no pending job in queue at the moment"
-#~ msgstr "這個印表機現在沒有緊急的列印工作在佇列上"
 
 #, fuzzy
-#~ msgid "Print Test Page"
-#~ msgstr "印表機名稱"
 
-#~ msgid "Driver options"
-#~ msgstr "驅動程式選項"
 
-#~ msgid "Choose a printer model"
-#~ msgstr "選擇一個印表機型號"
 
-#~ msgid "Configure IPP printer"
-#~ msgstr "設定 IPP 印表機"
 
-#~ msgid "Choose a driver for the printer"
-#~ msgstr "選擇印表機的驅動程式"
 
-#~ msgid "Configure LPD printer"
-#~ msgstr "設定 LPD 印表機"
 
-#~ msgid "Choose a dirver for the printer"
-#~ msgstr "選擇印表機的驅動程式"
 
-#~ msgid "driver"
-#~ msgstr "驅動程式"
 
-#~ msgid "Go"
-#~ msgstr "開始"
 
-#~ msgid "Samba shared printer configurationr"
-#~ msgstr "Samba 印表機分享設置"
 
-#~ msgid "Share resource"
-#~ msgstr "分享資源"
 
-#~ msgid "Anonymous"
-#~ msgstr "匿名"
 
-#~ msgid "Guest"
-#~ msgstr "訪客"
 
-#~ msgid "User/Password"
-#~ msgstr "使用者/密碼"
 
-#~ msgid "Remote printer configuration"
-#~ msgstr "遠端印表機設置"
 
-#~ msgid "Configure AppSocket printer"
-#~ msgstr "設定 AppSocket 印表機"
 
-#~ msgid "Samba shared printer configuration"
-#~ msgstr "Samba 印表機分享設置"
 
-#~ msgid "Enable standalone CUPS"
-#~ msgstr "啟用獨立 cups"
 
-#~ msgid "General settings"
-#~ msgstr "一般設定"
 
-#~ msgid "List of printers"
-#~ msgstr "印表機列表"
 
-#~ msgid "Description"
-#~ msgstr "說明"
 
-#~ msgid "Actions"
-#~ msgstr "動作"
 
-#~ msgid "Manage"
-#~ msgstr "管理"
 
-#~ msgid "Manage this printer"
-#~ msgstr "管理這個印表機"
 
-#~ msgid "There is no printer configured yet"
-#~ msgstr "這裡沒有印表機設置"
 
-#~ msgid "printers"
-#~ msgstr "印表機"
 
-#~ msgid "Office"
-#~ msgstr "辦公室"
 
-#~ msgid "module status"
-#~ msgstr "模組狀態"
 
-#~ msgid "Network printer"
-#~ msgstr "網路印表機"

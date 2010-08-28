@@ -1065,144 +1065,43 @@ msgstr ""
 "ンタフェースに関する設定を消去します。設定状況がよくわからない場合はキャンセ"
 "ルしてください。"
 
-#~ msgid "Physical interface"
-#~ msgstr "物理インタフェース"
 
-#~ msgid "Vlan interface list"
-#~ msgstr "VLANインタフェースリスト"
 
-#~ msgid "These are the vlan interfaces which are available in your system."
-#~ msgstr "これらがシステムで利用可能なVLANインタフェースです。"
 
-#~ msgid "interface"
-#~ msgstr "インタフェース"
 
-#~ msgid "Configurable interface list"
-#~ msgstr "設定可能なインタフェース一覧"
 
-#~ msgid "These are the interfaces which can be configured"
-#~ msgstr "これらが設定可能なインタフェースです"
 
-#~ msgid "Physical interface list"
-#~ msgstr "物理インタフェース一覧"
 
-#~ msgid ""
-#~ "These are the physical interfaces which are available in your system."
-#~ msgstr "これらがシステムで利用可能な物理インタフェースです。"
 
-#~ msgid "Set default gateway"
-#~ msgstr "デフォルトゲートウェイを設定"
 
-#~ msgid "You can change later the gateway at Network/Routes menus item"
-#~ msgstr "後でメニューのNetwork/Routesからゲートウェイを変更できます"
 
-#~ msgid ""
-#~ "After the initial config you can revisit this page at Network/Interfaces "
-#~ "in the menu"
-#~ msgstr ""
-#~ "初期設定後はメニューのNetwork/Interfacesからこのページを訪れることができま"
-#~ "す"
 
-#~ msgid "Gateway configured"
-#~ msgstr "ゲートウェイが設定されました"
 
-#~ msgid "You can revisit this page at Network/DNS in the menu"
-#~ msgstr "メニューのNetwork/DNSからもこのページを訪れることができます"
 
-#~ msgid "Network interface configured"
-#~ msgstr "ネットワークインタフェースが設定されました"
 
-#~ msgid "Configure name servers"
-#~ msgstr "ネームサーバを設定"
 
-#~ msgid "Configure default gateway"
-#~ msgstr "デフォルトゲートウェイを設定"
 
-#~ msgid "Upload"
-#~ msgstr "アップロード"
 
-#~ msgid "Download"
-#~ msgstr "ダウンロード"
 
 #, fuzzy
-#~ msgid "Core"
-#~ msgstr "送信元"
 
-#~ msgid "Balance traffic and multigateway rules"
-#~ msgstr "トラフィックとマルチゲートウェイルールを調整"
 
-#~ msgid "IP Address"
-#~ msgstr "IPアドレス"
 
-#~ msgid "Protocol"
-#~ msgstr "プロトコル"
 
-#~ msgid "Port"
-#~ msgstr "ポート"
 
-#~ msgid "Destination port"
-#~ msgstr "送信先ポート"
 
-#~ msgid "Source port"
-#~ msgstr "送信元ポート"
 
-#~ msgid "Port cannot be set if no protocol is selected"
-#~ msgstr "プロトコルが選択されていないとポートは設定できません。"
 
-#~ msgid "Routes"
-#~ msgstr "経路"
 
-#~ msgid ""
-#~ "Having network interfaces configured via DHCP may cause this settings to "
-#~ "be overriden."
-#~ msgstr ""
-#~ "DHCP経由で設定されたインタフェースがある場合、この設定が上書きされるかもし"
-#~ "れません。"
 
-#~ msgid ""
-#~ "Gateway {gw} must be reacheable by a static interface. Currently is "
-#~ "reacheable by {iface} which is not static"
-#~ msgstr ""
-#~ "ゲートウェイ {gw} は静的インタフェースから到達できる場所に存在する必要があ"
-#~ "ります。 現在は静的でないインタフェース {iface} から到達可能です。"
 
-#~ msgid ""
-#~ "To be able to use this feature, you need, at least, two gateways. You can "
-#~ "add them <a href=\"/ebox/Network/View/GatewayDataTable\">here</a> first"
-#~ msgstr ""
-#~ "この機能を使うには、少なくとも2つのゲートウェイが必要です。<a href=\"/"
-#~ "ebox/Network/View/GatewayDataTable\">ここから</a>追加できます。"
 
-#~ msgid "There is already a default gateway"
-#~ msgstr "デフォルトゲートウェイはすでに存在します"
 
-#~ msgid "gateway address"
-#~ msgstr "ゲートウェイアドレス"
 
-#~ msgid "Primary"
-#~ msgstr "プライマリ"
 
-#~ msgid "Secondary"
-#~ msgstr "セカンダリ"
 
-#~ msgid "Apply"
-#~ msgstr "適用"
 
-#~ msgid "Activate traffic rate monitor"
-#~ msgstr "トラフィックレート監視を有効化"
 
-#~ msgid "Traffic rate monitor"
-#~ msgstr "トラフィックレート監視"
 
-#~ msgid ""
-#~ "All routers you enter here must be reachable through one of the network "
-#~ "interfaces currently configured."
-#~ msgstr ""
-#~ "ここに入力した全てのルータは設定済みのネットワークインタフェースから到達可"
-#~ "能である必要があります。"
 
-#~ msgid "network address"
-#~ msgstr "ネットワークアドレス"
 
-#~ msgid "Name server resolvers"
-#~ msgstr "ネームサーバリゾルバ"

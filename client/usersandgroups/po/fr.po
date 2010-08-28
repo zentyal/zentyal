@@ -881,160 +881,39 @@ msgstr "Attention: Verr.Maj (Caps Lock) est activé"
 msgid "Enter"
 msgstr "Entrer"
 
-#~ msgid "Slave status"
-#~ msgstr "Statut de l'esclave"
 
-#~ msgid "User corner"
-#~ msgstr "Espace utilisateur"
 
-#~ msgid "User Corner webserver settings"
-#~ msgstr "Paramètres du serveur web de l'espace utilisateur"
 
-#~ msgid ""
-#~ "If you remove this group all its data within its shared directory will be "
-#~ "deleted"
-#~ msgstr ""
-#~ "Si vous enlevez ce groupe toutes ses données dans son répertoire partagé "
-#~ "seront enlevées"
 
-#~ msgid ""
-#~ "There are no groups at the moment. You may want to add some in {openhref}"
-#~ "Add group section{closehref}."
-#~ msgstr ""
-#~ "Aucun groupe n'est défini pour le moment. Vous devez en ajouter dans "
-#~ "{openhref}la section ajouter un groupe{closehref}."
 
-#~ msgid ""
-#~ "There are no users at the moment. You may want to add some in {openhref}"
-#~ "Add user section{closehref}."
-#~ msgstr ""
-#~ "Il n'y a aucun utilisateur à ce moment. Vous pouvez en ajouter dans "
-#~ "{openhref} la section \"Ajout d'utilisateur\"{closehref}."
 
-#~ msgid "Users corner certificates"
-#~ msgstr "Certificats de l'espace utilisateurs"
 
-#~ msgid "Can't bind to LDAP with the provided password"
-#~ msgstr "Impossible de se connecter à LDAP avec le mot de passe spécifié"
 
-#~ msgid "Edit User"
-#~ msgstr "Éditer l'utilisateur"
 
-#~ msgid "Edit Group"
-#~ msgstr "Éditer un groupe"
 
-#~ msgid ""
-#~ "Changes in user accounts take effect inmediately, they do not need to be "
-#~ "saved."
-#~ msgstr ""
-#~ "Les changements aux comptes utilisateurs entrent en vigueur "
-#~ "immédiatement, ils n'ont pas besoin d'être sauvegardés."
 
-#~ msgid ""
-#~ "Changes related to printing, file sharing and Jabber service do need to "
-#~ "be saved in order to be effective."
-#~ msgstr ""
-#~ "Les changements liés à l'impression et au partage de fichiers doivent "
-#~ "être sauvegardés afin d'enter en vigueur."
 
-#~ msgid "Create"
-#~ msgstr "Créer"
 
-#~ msgid "Actions"
-#~ msgstr "Actions"
 
-#~ msgid "Missing fields to configure eBox as slave"
-#~ msgstr "Champs manquant pour configurer eBox en tant qu'esclave"
 
-#~ msgid ""
-#~ "There are no groups at the moment. You may want to add some in the master "
-#~ "eBox"
-#~ msgstr ""
-#~ "Aucun groupe n'est défini pour le moment. Vous pouvez en ajouter dans "
-#~ "l'eBox maître"
 
 #, fuzzy
-#~ msgid ""
-#~ "There are no groups at the moment. You may want to add some in the Domain "
-#~ "Controller"
-#~ msgstr ""
-#~ "Aucun groupe n'est défini pour le moment. Vous pouvez en ajouter dans "
-#~ "l'eBox maître"
 
-#~ msgid "eBox master"
-#~ msgstr "eBox maître"
 
-#~ msgid "Only for slave configuration: Master eBox LDAP user password"
-#~ msgstr ""
-#~ "Uniquement pour la configuration en tant qu'esclave : mot de passe de "
-#~ "l'utilisateur LDAP de l'eBox maître"
 
-#~ msgid ""
-#~ "Your current openLDAP database will be replaced and backed up in /var/"
-#~ "backups/slapd"
-#~ msgstr ""
-#~ "Votre base de données actuelle d'openLDAP va être remplacée et "
-#~ "sauvegardée dans /var/backups/slapd"
 
-#~ msgid ""
-#~ "eBox will initialize openLDAP to store its database. It will also "
-#~ "overwrite your current configuration"
-#~ msgstr ""
-#~ "eBox va initialiser open LDAP pour stocker ces bases de données. Cela va "
-#~ "également écraser votre configuration actuelle"
 
-#~ msgid ""
-#~ "To configure the openLDAP database with dc  entry, rootpw, rootdn, "
-#~ "schemas and ACLs used by  the LDAP based eBox modules"
-#~ msgstr ""
-#~ "Pour configurer la base de données openLDAP avec les entrées dc   , "
-#~ "rootpw, rootdn, schemas et ACLs utilisées par  les modules eBox basés sur "
-#~ "LDAP"
 
-#~ msgid "Office"
-#~ msgstr "Bureau"
 
-#~ msgid "full name"
-#~ msgstr "nom complet"
 
-#~ msgid "foo"
-#~ msgstr "foo"
 
-#~ msgid ""
-#~ "Your current openLDAP database will be replaced and backuped in /var/"
-#~ "backups/slapd"
-#~ msgstr ""
-#~ "Votre base de données openLDAP actuelle va être remplacée et sauvegardée "
-#~ "dans /var/backup/slapd"
 
 # Better translation
-#~ msgid "Edit user"
-#~ msgstr "Modifier un utilisateur"
 
-#~ msgid ""
-#~ "This operation will cause the removal of the user and all his "
-#~ "dependences; such as mail accounts, user data..."
-#~ msgstr ""
-#~ "Cette opération causera la suppression de l'utilisateur et de toutes ses "
-#~ "dépendances ; comme des comptes de courrier, données ..."
 
-#~ msgid "Deleting user"
-#~ msgstr "Effacement de l'utilisateur"
 
-#~ msgid "Deleting group"
-#~ msgstr "Effacement du groupe"
 
-#~ msgid "Administration of group "
-#~ msgstr "Administration de groupe"
 
-#~ msgid "Administration of user"
-#~ msgstr "Administration d'utilisateurs"
 
-#~ msgid "Username must not be longer than "
-#~ msgstr "Le nom d'usager ne peut pas être plus long de "
 
-#~ msgid "Groupname must not be longer than "
-#~ msgstr "Le nom du group ne peut pas être plus long de "
 
-#~ msgid "Password must not be longer than "
-#~ msgstr "Le mot de passe ne peut pas être plus long de "

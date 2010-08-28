@@ -369,140 +369,31 @@ msgid "options"
 msgstr "opcje"
 
 #, fuzzy
-#~ msgid "traffic shaping"
-#~ msgstr "Kształtowanie Ruchu"
 
-#~ msgid ""
-#~ "Traffic shaping can be only done in external interfaces which have "
-#~ "gateways associated to"
-#~ msgstr ""
-#~ "Kształtowanie ruchu może zostać uruchomione tylko na interfejsach "
-#~ "zewnętrznych, które posiadają zdefiniowane w konfiguracji bramy."
 
 #, fuzzy
-#~ msgid ""
-#~ "Adding a rule to the interface should be done following maximum rate "
-#~ "allowed to that interface and the sum of the different guaranteed rates "
-#~ "should be at much as the total rate allowed. No limited rate or zero "
-#~ "means unlimited rate in terms of bandwidth link. At least, one should be "
-#~ "provided.In order to identify a rule, an attribute should be given."
-#~ "Highest priority: 0 lowest priority: 7."
-#~ msgstr ""
-#~ "Dodawanie reguły do interfejsu powinno poprzedzać określenie maksymalnej "
-#~ "przepustowości na interfejsie i określeniem sumy reguł gwarantujących "
-#~ "przepustowość. Brak reguł, lub wpisanie 0 (zero) oznacza ustawienie "
-#~ "nieograniczonej przepustowości."
 
-#~ msgid "Traffic Shaping Management"
-#~ msgstr "Zarządzanie kierowaniem ruchu"
 
 #, fuzzy
-#~ msgid "interface {iface}"
-#~ msgstr "interfejs"
 
 #, fuzzy
-#~ msgid "Guaranteed rate or limited rate is required"
-#~ msgstr "Gwarantowana lub ograniczona przepustowość"
 
-#~ msgid "Guaranteed rate or limited rate"
-#~ msgstr "Gwarantowana lub ograniczona przepustowość"
 
-#~ msgid "Identifier"
-#~ msgstr "Identyfikator"
 
-#~ msgid "Enabled"
-#~ msgstr "Włączone"
 
-#~ msgid "Traffic Shaping Rule"
-#~ msgstr "Reguła kształtowania ruchu"
 
-#~ msgid "Rules list"
-#~ msgstr "Lista reguł"
 
-#~ msgid ""
-#~ "Select an external interface with gateways associated to add traffic "
-#~ "shaping rules"
-#~ msgstr ""
-#~ "Wybierz interfejs zewnętrzny wraz z powiązanymi bramami, aby dodać "
-#~ "mechanizmy kierowania ruchu."
 
-#~ msgid ""
-#~ "Adding a rule to the interface should be done following maximum rate "
-#~ "allowed to that interface and the sum of the different guaranteed rates "
-#~ "should be at much as the total rate allowed. No limited rate or zero "
-#~ "means unlimited rate in terms of bandwidth link"
-#~ msgstr ""
-#~ "Dodawanie reguły do interfejsu powinno poprzedzać określenie maksymalnej "
-#~ "przepustowości na interfejsie i określeniem sumy reguł gwarantujących "
-#~ "przepustowość. Brak reguł, lub wpisanie 0 (zero) oznacza ustawienie "
-#~ "nieograniczonej przepustowości."
 
-#~ msgid ""
-#~ "The maximum rule account {max} is reached, please delete at least one in "
-#~ "order to add a new one"
-#~ msgstr ""
-#~ "Została osiągnięta maksymalna ( {max} ) ilość reguł. Aby dodać następną "
-#~ "usuń jedną z istniejących."
 
-#~ msgid ""
-#~ "Traffic shaping can be only done in external interface and {iface} is not"
-#~ msgstr ""
-#~ "Kształtowanie ruchu może zostać uruchomione tylko na interfejsach "
-#~ "zewnętrznych, a {iface} takim nie jest."
 
-#~ msgid "Rules lists per interface"
-#~ msgstr "Lista reguł dla interfejsu"
 
-#~ msgid ""
-#~ "Traffic Shaping is applied only to external interfaces which have "
-#~ "gateways with an upload rate set. In order to do so, create a gateway at "
-#~ "{openhref}Network->Gateways{closehref} setting as interface an external "
-#~ "one."
-#~ msgstr ""
-#~ "Kształtowanie ruchu włączyć można tylko na zewnętrznych interfejsach z "
-#~ "ustawioną bramą oraz określona szybkością. Aby ustawić powyższe opcje "
-#~ "przejdź do {openhref}Network->Gateways{closehref}"
 
-#~ msgid ""
-#~ "Traffic Shaping is applied only to external interfaces. In order to use "
-#~ "this feature create an external interface at {openhref}Network->Interfaces"
-#~ "{closehref}"
-#~ msgstr ""
-#~ "Kształtowania ruchu włączyć można tylko na zewnętrznych interfejsach. W "
-#~ "celu wykorzystania mechanizmów kształtowania ruchu utwórz zewnętrzny "
-#~ "interfejs poprzez wybranie {openhref}Network->Interfaces{closehref}"
 
-#~ msgid "interface"
-#~ msgstr "interfejs"
 
 #, fuzzy
-#~ msgid "Rules list for {iface}"
-#~ msgstr "Lista reguł dla interfejsu"
 
 #, fuzzy
-#~ msgid ""
-#~ "Traffic Shaping is applied when eBox is acting as a gateway. To achieve "
-#~ "so, you need at least an internal and an external interface. Check your "
-#~ "interface configuration to match so at {openhref}Network->Interfaces"
-#~ "{closehref}"
-#~ msgstr ""
-#~ "Kształtowania ruchu włączyć można tylko na zewnętrznych interfejsach. W "
-#~ "celu wykorzystania mechanizmów kształtowania ruchu utwórz zewnętrzny "
-#~ "interfejs poprzez wybranie {openhref}Network->Interfaces{closehref}"
 
 #, fuzzy
-#~ msgid ""
-#~ "Adding a rule to the interface should be done following maximum rate "
-#~ "allowed to that interface and the sum of the different guaranteed rates "
-#~ "should be at much as the total rate allowed. No limited rate or zero "
-#~ "means unlimited rate in terms of bandwidth link. At least, one should be "
-#~ "provided.In order to identify a rule, an attribute should be given."
-#~ "Highest priority: 0 lowest priority: 7"
-#~ msgstr ""
-#~ "Dodawanie reguły do interfejsu powinno poprzedzać określenie maksymalnej "
-#~ "przepustowości na interfejsie i określeniem sumy reguł gwarantujących "
-#~ "przepustowość. Brak reguł, lub wpisanie 0 (zero) oznacza ustawienie "
-#~ "nieograniczonej przepustowości."
 
-#~ msgid "Traffic Shaping rules"
-#~ msgstr "Reguły kierowania ruchu"

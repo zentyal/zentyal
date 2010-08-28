@@ -1359,209 +1359,65 @@ msgid "Powered by"
 msgstr ""
 
 #, fuzzy
-#~ msgid "Threshold a"
-#~ msgstr "Kapasite"
 
 #, fuzzy
-#~ msgid "Filter settings for profile {p}"
-#~ msgstr "Genel Ayarlar"
 
-#~ msgid "Proxy"
-#~ msgstr "Vekil sunucu"
 
-#~ msgid "HTTP proxy"
-#~ msgstr "HTTP vekil sunucusu"
 
-#~ msgid "HTTP Proxy service status"
-#~ msgstr "HTTP vekil sunucu durumu"
 
-#~ msgid "module status"
-#~ msgstr "Modul durumu"
 
-#~ msgid "Attribute Name"
-#~ msgstr "Öznitelik ismi"
 
-#~ msgid "Name"
-#~ msgstr "İsim"
 
-#~ msgid "New {type} SHOULD be lower than {number} characters"
-#~ msgstr "Yeni {type} en azından {number} karakter olmalıdır"
 
-#~ msgid "The {type} SHOULD have the following syntax: \"word/word\""
-#~ msgstr "{type} yandaki gibi tanımlanmalıdır: \"word/word\""
 
-#~ msgid ""
-#~ "The {type} SHOULD be in IANA type. Check this link: {url} for details"
-#~ msgstr ""
-#~ "{type} bir IANA türünde olmalıdır. Detaylar için  {url} adresini kontrol "
-#~ "edin"
 
-#~ msgid "File extension {name} added correctly"
-#~ msgstr "{name} dosya uzantısı başarılı bir şekilde eklendi"
 
-#~ msgid "File extension {name} is already in the list"
-#~ msgstr "{name} dosya uzantısı önceden listeye alınmış"
 
-#~ msgid "MIME type {name} added correctly"
-#~ msgstr "{name} MIME türü başarılı bir şekilde eklendi"
 
-#~ msgid "MIME type {name} is already in the list"
-#~ msgstr "{name} MIME türü önceden listeye alınmış"
 
-#~ msgid " or something starting with \"x-\"."
-#~ msgstr "ya da bazen \"x-\" ile başlar"
 
-#~ msgid "Add a new file extension without dot. Like \"pdf\""
-#~ msgstr "Yeni dosya eklentilerini nokta koymadan ekleyin (örn.: pdf)"
 
-#~ msgid "content filter threshold"
-#~ msgstr "İçerik süzgeç eşiği"
 
-#~ msgid "transparent proxy"
-#~ msgstr "Saydam vekil sunucu"
 
-#~ msgid "listening port"
-#~ msgstr "Kullanılan port"
 
-#~ msgid "{attr} has been deleted successfully"
-#~ msgstr "{attr} başarılı bir şekilde silindi"
 
-#~ msgid "All file extensions have been deleted"
-#~ msgstr "Bütün dosya eklentileri silindi"
 
-#~ msgid "All MIME types have been deleted"
-#~ msgstr "Bütün MIME türleri silindi"
 
-#~ msgid "action"
-#~ msgstr "İşlem"
 
-#~ msgid "Allowed domains"
-#~ msgstr "İzinli alan isimleri"
 
-#~ msgid "Squid listening port"
-#~ msgstr "Squid kullanım portu"
 
-#~ msgid "DansGuardian listening port"
-#~ msgstr "DansGuardian kullanım portu"
 
-#~ msgid "Policy '{policy}' is invalid"
-#~ msgstr "'{policy}' ilkesi geçersiz"
 
-#~ msgid "domain"
-#~ msgstr "Alan"
 
-#~ msgid "Add here those domains which you want to allow access."
-#~ msgstr "Erişimine izin vermek istediğiniz alan adı isimlerini buraya girin"
 
-#~ msgid "Add here those domains which you do not want to allow access."
-#~ msgstr "Erişimini yasakladığınız alan adı isimilerini buraya girin"
 
-#~ msgid ""
-#~ "Please note that if you set a configuration which prevents you from "
-#~ "connecting to the administration interface through the proxy, you must "
-#~ "then connect to it directly"
-#~ msgstr ""
-#~ "Vekil sunucu üzerinden internet erişimini yasaklamak için yönetici web "
-#~ "arayüzüne doğrudan bağlanmanız gerektiğini lütfen unutmayın."
 
-#~ msgid "Change"
-#~ msgstr "Değiştir"
 
-#~ msgid "Introduce domains in this way: "
-#~ msgstr "Alan adı isimlerini bu şekilde girin:"
 
-#~ msgid "domain.com"
-#~ msgstr "domain.com"
 
-#~ msgid "Action"
-#~ msgstr "İşlem"
 
-#~ msgid "Add"
-#~ msgstr "Ekle"
 
-#~ msgid "Delete"
-#~ msgstr "Sil"
 
-#~ msgid ""
-#~ "When the filter content is enabled you can select those file {name} which "
-#~ "are denied to download"
-#~ msgstr ""
-#~ "İçerik süzgeçleme etkili hale getirilirse {name} dosyalarını "
-#~ "seçebilirsiniz (bu dosyaların indirilmesine izin verilmez)"
 
-#~ msgid "Actions"
-#~ msgstr "İşlem"
 
-#~ msgid "All MIME types"
-#~ msgstr "Bütün MIME türleri"
 
-#~ msgid "Delete them all"
-#~ msgstr "Hepsini sil"
 
-#~ msgid "Are you sure you want to delete all file extensions?"
-#~ msgstr "Bütün dosya uzantılarını silmek istediğinizden emin misiniz?"
 
-#~ msgid "Are you sure you want to delete all MIME types?"
-#~ msgstr "Bütün MIME türlerini silmek istediğinizden emin misiniz?"
 
-#~ msgid ""
-#~ "Choose the object whose state you want to change and click in the arrow "
-#~ "to move it to the desired column."
-#~ msgstr ""
-#~ "Durumunu değiştirmek istediğiniz nesneyi seçin. Sonra yön tuşlarını "
-#~ "kullanarak götürmek istediğiniz sütuna taşıyın."
 
-#~ msgid "Empty list"
-#~ msgstr "Liste boş"
 
-#~ msgid "Move selected objects to the filtered column"
-#~ msgstr "Seçili nesneleri süzgeçlendi sütununa taşı"
 
-#~ msgid "Ban"
-#~ msgstr "Yasakla"
 
-#~ msgid "Move selected objects to the banned column"
-#~ msgstr "Seçili nesneleri yasakla sütununa taşı"
 
-#~ msgid "Move selected objects to the unfiltered column"
-#~ msgstr "Seçili nesneleri süzgeçlenmedi sütununa taşı"
 
-#~ msgid "This list will only take effect if {globalPolicy} is set to {filter}"
-#~ msgstr ""
-#~ "Bu liste sadece {globalPolicy} ilkesi {filter} olarak tanımlandığında "
-#~ "uygulanır."
 
-#~ msgid "Mime Type filter"
-#~ msgstr "MIME türü süzgeci"
 
 #, fuzzy
-#~ msgid "Configure allowed internet domains"
-#~ msgstr "İzin verilen eklentileri ayarla"
 
-#~ msgid "Extensions filter"
-#~ msgstr "Eklenti süzgeci"
 
-#~ msgid "MIME Type filter"
-#~ msgstr "MIME türü süzgeci"
 
-#~ msgid ""
-#~ "Add a new MIME type with the following syntax: type/subtype Where type "
-#~ "can be: {types}"
-#~ msgstr ""
-#~ "Yeni MIME türünü yandaki şekilde ayarlayabilirsiniz: kategori/alt "
-#~ "kategori. Olası kategoriler şunlardır: {types}"
 
-#~ msgid "global policy"
-#~ msgstr "Genel ilkeler"
 
-#~ msgid "Banned domains"
-#~ msgstr "Yasaklı alan isimleri"
 
-#~ msgid "object"
-#~ msgstr "Nesne"
 
-#~ msgid "General Settings"
-#~ msgstr "Genel Ayarlar"
 
-#~ msgid "All extensions"
-#~ msgstr "Bütün uzantılar"

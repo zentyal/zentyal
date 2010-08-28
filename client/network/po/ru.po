@@ -1064,174 +1064,52 @@ msgstr ""
 "сетевого интерфейса удалят важные части своей конфигурации. Выберите \"Отмена"
 "\" если вы не хотите этого."
 
-#~ msgid "eBox"
-#~ msgstr "eBox"
 
-#~ msgid "{up}, {ext}, {link}"
-#~ msgstr "{up}, {ext}, {link}"
 
-#~ msgid "Physical interface"
-#~ msgstr "Физический интерфейс"
 
-#~ msgid "Vlan interface list"
-#~ msgstr "Список виртуальных интерфейсов"
 
-#~ msgid "These are the vlan interfaces which are available in your system."
-#~ msgstr "Это - интерфейсы vlan, которые доступны в вашей системе."
 
-#~ msgid "interface"
-#~ msgstr "интерфейс"
 
-#~ msgid "Configurable interface list"
-#~ msgstr "Список настраиваемых интерфейсов"
 
-#~ msgid "These are the interfaces which can be configured"
-#~ msgstr "Это - интерфейсы, которые могут настраиваться"
 
-#~ msgid "Physical interface list"
-#~ msgstr "Список физических интерфейсов"
 
-#~ msgid ""
-#~ "These are the physical interfaces which are available in your system."
-#~ msgstr "Это - физические интерфейсы, которые доступны в вашей системе."
 
-#~ msgid "Dynamic DNS"
-#~ msgstr "Dynamic DNS"
 
-#~ msgid "Set default gateway"
-#~ msgstr "Установить основной шлюз"
 
-#~ msgid "You can change later the gateway at Network/Routes menus item"
-#~ msgstr "Позднее, Вы можете изменить шлюз через меню Сеть/Маршруты"
 
-#~ msgid ""
-#~ "After the initial config you can revisit this page at Network/Interfaces "
-#~ "in the menu"
-#~ msgstr ""
-#~ "После начальной настройки Вы можете попасть на эту страницу через меню "
-#~ "Сеть/Интерфейсы"
 
-#~ msgid "Gateway configured"
-#~ msgstr "Шлюз сконфигурирован"
 
-#~ msgid "You can revisit this page at Network/DNS in the menu"
-#~ msgstr "Вы можете посетить эту страницу через меню Сеть/DNS"
 
-#~ msgid "Network interface configured"
-#~ msgstr "Сетевой интерфейс сконфигурирован"
 
-#~ msgid "Configure name servers"
-#~ msgstr "Настроить серверы имен"
 
-#~ msgid "Configure default gateway"
-#~ msgstr "Настроить основной шлюз"
 
-#~ msgid "Upload"
-#~ msgstr "Входящий"
 
-#~ msgid "Upload rate in Kbits/s for this gateway."
-#~ msgstr "Входящий Kbits/s для этого шлюза."
 
-#~ msgid "Download"
-#~ msgstr "Исходящий"
 
-#~ msgid "Download rate in Kbits/s for this gateway."
-#~ msgstr "Исходящий Kbits/s для этого шлюза."
 
-#~ msgid ""
-#~ "You can add as many gateways as you want. This is very useful if you want "
-#~ "to split your Internet traffic through several links.{br}The download and "
-#~ "upload fields must be set as much rate as you have to your connection "
-#~ "towards the gateway. The correct value of these fields is critical to "
-#~ "ensure a correct functionality of the traffic shaping module"
-#~ msgstr ""
-#~ "Вы можете добавить любое количество шлюзов. Это полезно если вы хотите "
-#~ "распределить ваш интернет трафик по нескольким каналам.{br} Поля входящий "
-#~ "и исходящий должны быть установлены в зависимости от количества "
-#~ "соединений необходимых вам для шлюза. Корректное значение полей имеет "
-#~ "важное значение для правильной работы модуля управления трафиком."
 
-#~ msgid "Core"
-#~ msgstr "Ядро"
 
-#~ msgid "Balance traffic and multigateway rules"
-#~ msgstr "Балансировка траффика и мультишлюзовые правила"
 
-#~ msgid "IP Address"
-#~ msgstr "IP-адрес"
 
-#~ msgid "Protocol"
-#~ msgstr "Протокол"
 
-#~ msgid "Port"
-#~ msgstr "Порт"
 
-#~ msgid "Leave it blank  to select any port"
-#~ msgstr "Оставьте пустым  для выбора какого-либо порта"
 
-#~ msgid "Leave it blank if to select any port"
-#~ msgstr "Оставьте пустым, если выбираете любые порты"
 
-#~ msgid "Destination port"
-#~ msgstr "Порт назначения"
 
-#~ msgid "Source port"
-#~ msgstr "Исходный порт"
 
-#~ msgid "Port cannot be set if no protocol is selected"
-#~ msgstr "Порт не может быть установлен без выбора протокола"
 
-#~ msgid "Routes"
-#~ msgstr "Маршруты"
 
 #, fuzzy
-#~ msgid ""
-#~ "To be able to use this feature, you need, at least, two gateways. You can "
-#~ "add them <a href=\"/ebox/Network/View/GatewayDataTable\">here</a> first"
-#~ msgstr "Для включения этой функции Вам необходимо, как минимум, два шлюза."
 
-#~ msgid "There is already a default gateway"
-#~ msgstr "Этот шлюз уже является основным"
 
-#~ msgid "gateway address"
-#~ msgstr "адрес шлюза"
 
-#~ msgid "Primary"
-#~ msgstr "Первичный"
 
-#~ msgid "Secondary"
-#~ msgstr "Вторичный"
 
-#~ msgid "Apply"
-#~ msgstr "Применить"
 
 #, fuzzy
-#~ msgid "Source traffic"
-#~ msgstr "Балансировка траффика"
 
 #, fuzzy
-#~ msgid "Service traffic"
-#~ msgstr "Балансировка траффика"
 
-#~ msgid ""
-#~ "To be able to use this feature, you need, at least, two gateways. You can "
-#~ "add them <a href="
-#~ msgstr "Для включения этой функции Вам необходимо, как минимум, два шлюза."
 
-#~ msgid ""
-#~ "If you choose to continue, all modules that make use of the current "
-#~ "configuration of this network interface will delete the relevant parts of "
-#~ "their configuration. Choose "
-#~ msgstr ""
-#~ "Если Вы продолжите то все модули, использующие текущую конфигурацию этого "
-#~ "сетевого интерфейса удалят важные части своей конфигурации."
 
-#~ msgid ""
-#~ "All routers you enter here must be reachable through one of the network "
-#~ "interfaces currently configured."
-#~ msgstr ""
-#~ "Все маршруты введенные здесь должны быть доступны через один из "
-#~ "настроенных сетевых интерфейсов."
 
-#~ msgid "network address"
-#~ msgstr "адрес сети"

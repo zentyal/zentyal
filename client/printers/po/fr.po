@@ -125,308 +125,104 @@ msgid ""
 "{close_href}"
 msgstr ""
 
-#~ msgid "Model"
-#~ msgstr "Modèle"
 
-#~ msgid "Printer {printer} has no available drivers"
-#~ msgstr "L'imprimante {printer} n'a pas de driver disponible"
 
-#~ msgid "Add a new printer (II)"
-#~ msgstr "Ajouter une nouvelle imprimante (II)"
 
-#~ msgid "Next"
-#~ msgstr "Suivant"
 
-#~ msgid "IP"
-#~ msgstr "IP"
 
-#~ msgid "Port"
-#~ msgstr "Port"
 
-#~ msgid "Standalone cups enabled"
-#~ msgstr "Services d'impression locale activés"
 
-#~ msgid "Standalone cups disabled"
-#~ msgstr "Services d'impression locale désactivés"
 
-#~ msgid "Add a new printer (VI)"
-#~ msgstr "Ajouter une nouvelle imprimante (VI)"
 
-#~ msgid "Driver"
-#~ msgstr "Driver"
 
-#~ msgid "The printer has been deleted successfully"
-#~ msgstr "L'imprimante a été effacée avec succès"
 
-#~ msgid "Shared resource"
-#~ msgstr "Ressource partagée"
 
-#~ msgid "Authentication"
-#~ msgstr "Authentification"
 
-#~ msgid "Password"
-#~ msgstr "Mot de passe"
 
-#~ msgid "Manage printer"
-#~ msgstr "Administrer imprimante"
 
-#~ msgid "Printer details"
-#~ msgstr "Détails de l'imprimante"
 
-#~ msgid "Driver Options"
-#~ msgstr "Options de driver"
 
-#~ msgid "Configuration options"
-#~ msgstr "Options de configuration"
 
-#~ msgid "Jobs Queue"
-#~ msgstr "Queue de Travaux"
 
-#~ msgid "Printer's name"
-#~ msgstr "Nom d'imprimante"
 
-#~ msgid "Printer's id"
-#~ msgstr "ID d'imprimante"
 
-#~ msgid "Job id"
-#~ msgstr "ID de travail"
 
-#~ msgid "Job was successfully canceled"
-#~ msgstr "Le travail était annulé avec succès"
 
-#~ msgid "Add a new printer (IV)"
-#~ msgstr "Ajouter une nouvelle imprimante (IV)"
 
-#~ msgid "Device"
-#~ msgstr "Dispositif"
 
-#~ msgid "Manage printers"
-#~ msgstr "Administrer imprimantes"
 
-#~ msgid "Delete printer"
-#~ msgstr "Effacer imprimante"
 
-#~ msgid "Add a new printer (V)"
-#~ msgstr "Ajouter une nouvelle imprimante (V)"
 
-#~ msgid "Method"
-#~ msgstr "Méthode"
 
-#~ msgid "Printer description"
-#~ msgstr "Description de l'imprimante"
 
-#~ msgid "Manufacturer"
-#~ msgstr "Fabricant"
 
-#~ msgid "Add a new printer (III)"
-#~ msgstr "Ajouter une nouvelle imprimante (III)"
 
-#~ msgid "Add a new printer (I)"
-#~ msgstr "Ajouter une nouvelle imprimante (I)"
 
 # lpadmin est le groupe d'administration d'imprimante
-#~ msgid "Add user ebox to lpadmin group"
-#~ msgstr "Ajouter l'utilisateur ebox au groupe lpadmin"
 
-#~ msgid "In order to manage printers and queues from the eBox web interface"
-#~ msgstr ""
-#~ "Afin de gérer les imprimantes et les files d'attente d'impression à "
-#~ "partir de l'interface web d'eBox"
 
-#~ msgid "To add and manage printers"
-#~ msgstr "Pour ajouter et gérer les imprimantes"
 
-#~ msgid "To enable standalone cupsd listen on internal interfaces"
-#~ msgstr "Pour activer le monitoring des imprimante locales "
 
-#~ msgid "Add Printer"
-#~ msgstr "Ajouter une imprimante"
 
-#~ msgid ""
-#~ "The printer's name contains characters not valid.Only alphanumeric "
-#~ "characters are allowed"
-#~ msgstr ""
-#~ "Le nom de l'imprimante contient des caractères invalides. Seuls les "
-#~ "caractères alphanumériques sont permis"
 
-#~ msgid "Name"
-#~ msgstr "Nom"
 
-#~ msgid "The given name is alreaday used as "
-#~ msgstr "Le nom introduit est déjà utilisé comme "
 
-#~ msgid "It is not a usb printer"
-#~ msgstr "Ce n'est pas une imprimante usb"
 
-#~ msgid "It is not a parallel printer"
-#~ msgstr "Ce n'est pas une imprimante parallèle"
 
-#~ msgid "It is not a network printer"
-#~ msgstr "Ce n'est pas une imprimante réseau"
 
-#~ msgid "It is not a samba printer"
-#~ msgstr "Ce n'est pas une imprimante samba"
 
-#~ msgid "It is not a IPP printer"
-#~ msgstr "Ce n'est pas une imprimante IPP"
 
-#~ msgid "It is not a LPD printer"
-#~ msgstr "Ce n'est pas une imprimante LPD"
 
-#~ msgid "is not a valid option"
-#~ msgstr "n'est pas une option valide"
 
-#~ msgid "Parameter '{name}' does not exist"
-#~ msgstr "Le paramètre '{name}' n'existe pas"
 
-#~ msgid "Owner"
-#~ msgstr "Propriétaire"
 
-#~ msgid "Queued at"
-#~ msgstr "Placé en queue  au"
 
-#~ msgid "Set printer name and method"
-#~ msgstr "configure le nom de l'imprimante et son mode de connexion"
 
-#~ msgid "Parallel"
-#~ msgstr "Parallèle"
 
 # The AppSocket protocol (sometimes also called the JetDirect protocol, because of its origins with the HP JetDirect network interfaces). AppSocket printing normally happens over port 9100 and uses socket URIs
-#~ msgid "AppSocket"
-#~ msgstr "\"AppSocket\" or HP JetDirect "
 
-#~ msgid "Samba"
-#~ msgstr "Samba"
 
-#~ msgid "IPP: Internet printing protocol"
-#~ msgstr "IPP: Internet printing protocol (Protocole d'impression Internet)"
 
 # Line Printer Daemon protocol (aussi connu sous le nom de Line Printer Remote protocol ou de Berkeley printing system, abrégé en LPD/LPR) désigne un protocole d'impression communément utilisé sur les systèmes de type UNIX, bien que CUPS soit aujourd'hui plus répandu. Le protocole LPD est défini dans la RFC 1179.
-#~ msgid "LPD: Line Printer Daemon"
-#~ msgstr "LPD : Line Printer Daemon protocol (ou Berkeley printing system)"
 
-#~ msgid "Choose manufacturer"
-#~ msgstr "Choisir le fabricant"
 
-#~ msgid "Local parallel printer configuration"
-#~ msgstr "Configuration d'imprimante parallèle locale"
 
-#~ msgid "Are you sure you want to delete the printer '{name}'?"
-#~ msgstr "Êtes-vous sûr de vouloir effacer l'imprimante '{name} '?"
 
-#~ msgid "Cancel"
-#~ msgstr "Annuler"
 
-#~ msgid "Local USB printer configuration"
-#~ msgstr "Configuration d'imprimante USB locale"
 
-#~ msgid "Change"
-#~ msgstr "Changer"
 
-#~ msgid "Job queue"
-#~ msgstr "File d'attente d'impression"
 
-#~ msgid "Size(KB)"
-#~ msgstr "Taille(KB)"
 
-#~ msgid "Creation time"
-#~ msgstr "Heure de création"
 
-#~ msgid "Action"
-#~ msgstr "Action"
 
-#~ msgid "This printer has no pending job in queue at the moment"
-#~ msgstr "Cette imprimante n'a aucun travail en attente en ce moment"
 
-#~ msgid "You need to save changes in order to print a test page"
-#~ msgstr ""
-#~ "Vous devez enregistrer les modifications pour pouvoir imprimer une page "
-#~ "de test"
 
-#~ msgid "Print Test Page"
-#~ msgstr "Imprimer une page de test"
 
-#~ msgid "Driver options"
-#~ msgstr "Options de driver"
 
-#~ msgid "Choose a printer model"
-#~ msgstr "Choisir une modèle d'imprimante"
 
-#~ msgid "Configure IPP printer"
-#~ msgstr "Configurer une imprimante IPP"
 
-#~ msgid "Choose a driver for the printer"
-#~ msgstr "Choisir un driver pour l'imprimante"
 
-#~ msgid "Configure LPD printer"
-#~ msgstr "Configurer imprimante LPD"
 
-#~ msgid "Choose a dirver for the printer"
-#~ msgstr "Choisissez un driver pour l'imprimante"
 
-#~ msgid "driver"
-#~ msgstr "driver"
 
-#~ msgid "Go"
-#~ msgstr "Aller"
 
-#~ msgid "Samba shared printer configurationr"
-#~ msgstr "Configuration d'imprimante partagée avec Samba"
 
-#~ msgid "Share resource"
-#~ msgstr "Partager ressource"
 
-#~ msgid "Anonymous"
-#~ msgstr "Anonyme"
 
-#~ msgid "Guest"
-#~ msgstr "Hôte"
 
-#~ msgid "User/Password"
-#~ msgstr "Utilisateur/Mot de passe"
 
-#~ msgid "Remote printer configuration"
-#~ msgstr "Configuration d'imprimante distante"
 
 # "AppSocket" =~ HP JetDirect
-#~ msgid "Configure AppSocket printer"
-#~ msgstr "Configurer une imprimante \"AppSocket\" / HP JetDirect"
 
-#~ msgid "Samba shared printer configuration"
-#~ msgstr "Configuration d'imprimantes partagées avec Samba"
 
-#~ msgid "Enable standalone CUPS"
-#~ msgstr "Activer le serveur d'impression local"
 
-#~ msgid "General settings"
-#~ msgstr "Configuration générale"
 
-#~ msgid "List of printers"
-#~ msgstr "Liste d'imprimantes"
 
-#~ msgid "Description"
-#~ msgstr "Description"
 
-#~ msgid "Actions"
-#~ msgstr "Actions"
 
-#~ msgid "Manage"
-#~ msgstr "Administrer"
 
-#~ msgid "Manage this printer"
-#~ msgstr "Administrer cette imprimante"
 
-#~ msgid "There is no printer configured yet"
-#~ msgstr "Il n'y a pas encore d'imprimante configurée"
 
-#~ msgid "printers"
-#~ msgstr "imprimantes"
 
-#~ msgid "module status"
-#~ msgstr "statut du module"
 
-#~ msgid "Network printer"
-#~ msgstr "Imprimante de réseau"
 
-#~ msgid "Printer sharing status"
-#~ msgstr "Statut d'imprimantes partagées"

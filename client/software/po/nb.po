@@ -331,160 +331,46 @@ msgid "Upgrade"
 msgstr "Oppgrader"
 
 #, fuzzy
-#~ msgid "packages installed"
-#~ msgstr "pakker igjen å installere"
 
-#~ msgid ""
-#~ "eBox software will download the available updates from your configured "
-#~ "apt sources. "
-#~ msgstr ""
-#~ "eBox programmvare vil laste ned tilgjengelige oppdateringer fra dine "
-#~ "konfigurerte apt kilder."
 
-#~ msgid "Enable cron script to download updates"
-#~ msgstr "Aktiver cron skript for nedlasting av oppdateringer"
 
-#~ msgid ""
-#~ "The software management module must be enabled to be able to install "
-#~ "packages"
-#~ msgstr ""
-#~ "Programvare behandlings modulen må først aktiviseres for å kunne "
-#~ "installere pakker"
 
-#~ msgid ""
-#~ "The software management module must be enabled to be able to remove "
-#~ "packages"
-#~ msgstr ""
-#~ "Programvare behandlings modulen må først aktiviseres for å kunne fjerne "
-#~ "pakker"
 
-#~ msgid "Automatic Updates"
-#~ msgstr "Automatiske Oppdateringer"
 
-#~ msgid "Software updates are being handled automatically"
-#~ msgstr "Programmvare oppdateringer håndteres automatisk"
 
-#~ msgid "Installed version "
-#~ msgstr "Installert versjon "
 
-#~ msgid "Latest version"
-#~ msgstr "Siste versjon"
 
-#~ msgid "none"
-#~ msgstr "ingen"
 
-#~ msgid "Remove"
-#~ msgstr "Fjern"
 
-#~ msgid ""
-#~ "Please wait, the update of the software available list is in process "
-#~ "right now"
-#~ msgstr "Vennligst vent, oppdatering av programvareliste utføres"
 
-#~ msgid ""
-#~ "The component list was never succefully downloaded so the information "
-#~ "shown is probably outdated. The list is updated each night or you can "
-#~ "force the update with the console command 'ebox-software'"
-#~ msgstr ""
-#~ "Komponentlisten ble aldri fullstendig lastet ned, informasjonen er "
-#~ "sannsynligvis utdatert. Listen oppdateres hver natt, eller du kan tvinge "
-#~ "en oppdatering med kommandoen 'ebox-software'"
 
-#~ msgid ""
-#~ "The component list was updated on {mon}/{mday}/{year} {hour}:{min}. It "
-#~ "will be updated again at night or you can force the update with the "
-#~ "console command 'ebox-software'"
-#~ msgstr ""
-#~ "Komponentlisten ble oppdatert {mday}/{mon}/{year} {hour}:{min}. Listen "
-#~ "oppdateres hver natt, eller du kan tvinge en oppdatering med kommandoen "
-#~ "'ebox-software'"
 
-#~ msgid "eBox - Backup"
-#~ msgstr "eBox - Sikkerhetskopi"
 
-#~ msgid "eBox - Antivirus module"
-#~ msgstr "eBox - Antivirus modul"
 
-#~ msgid "eBox - Asterisk"
-#~ msgstr "eBox - Asterisk"
 
-#~ msgid "eBox - Certificate Authority Manager for eBox"
-#~ msgstr "eBox - Sertifiserings Autoritets Behandler for eBox"
 
-#~ msgid "eBox - captive portal module"
-#~ msgstr "eBox - captive portal modul"
 
-#~ msgid "eBox - DHCP server module"
-#~ msgstr "eBox - DHCP server modul"
 
-#~ msgid "eBox - DNS server"
-#~ msgstr "eBox - DNS server"
 
-#~ msgid "the eBox platform - Base framework"
-#~ msgstr "eBox plattform - Basis rammeverk"
 
-#~ msgid "eBox - Firewall"
-#~ msgstr "eBox - Brannmur"
 
-#~ msgid "eBox - Intrusion Detection System"
-#~ msgstr "eBox - Inntrengings Deteksjons System"
 
-#~ msgid "eBox - Instant messaging proxy"
-#~ msgstr "eBox - Lynmeldings proxy"
 
-#~ msgid "eBox - Instant messaging (Jabber)"
-#~ msgstr "eBox - Lynmeldings tjeneste (Jabber)"
 
-#~ msgid "eBox - layer 7 protocols"
-#~ msgstr "eBox - lag 7 protokoller"
 
-#~ msgid "eBox - Mail server"
-#~ msgstr "eBox - E-post server"
 
-#~ msgid "eBox - Mail filter module"
-#~ msgstr "eBox - E-post filter modul"
 
-#~ msgid "eBox - Monitoring module  "
-#~ msgstr "eBox - Overvåkings modul  "
 
-#~ msgid "eBox - Network configuration module"
-#~ msgstr "eBox - Nettverks konfigurasjons modul"
 
-#~ msgid "eBox - NTP server"
-#~ msgstr "eBox - NTP server"
 
-#~ msgid "eBox - Object management"
-#~ msgstr "eBox - Objekt håndtering"
 
-#~ msgid "eBox - OpenVPN server module"
-#~ msgstr "eBox - OpenVPN server modul"
 
-#~ msgid "eBox - Printer sharing"
-#~ msgstr "eBox - Printer deling"
 
-#~ msgid "eBox - client for remote services   "
-#~ msgstr "eBox - klient for eksterne tjenester   "
 
-#~ msgid "eBox - File sharing"
-#~ msgstr "eBox - Fil deling"
 
-#~ msgid "eBox - Services management"
-#~ msgstr "eBox - Tjeneste behandling"
 
-#~ msgid "eBox - Software management"
-#~ msgstr "eBox - Programvare håndtering"
 
-#~ msgid "eBox - Proxy cache and content filter"
-#~ msgstr "eBox - Proxy cache og innholds filter"
 
-#~ msgid "eBox - Traffic shaper for eBox"
-#~ msgstr "eBox - Trafikk styrer for eBox"
 
-#~ msgid "eBox - User and Group management"
-#~ msgstr "eBox - Bruker og Gruppe håndtering"
 
-#~ msgid "eBox - Web Server"
-#~ msgstr "eBox - Web Server"
 
-#~ msgid "IPsec VPNs"
-#~ msgstr "IPsec VPN"

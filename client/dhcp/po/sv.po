@@ -674,120 +674,29 @@ msgstr "Nätmask för sub-nät"
 msgid "Delete"
 msgstr "Ta bort"
 
-#~ msgid "eBox"
-#~ msgstr "eBox"
 
-#~ msgid "eBox's domain"
-#~ msgstr "Domänen som eBox-servern tillhör"
 
-#~ msgid "{name} cannot contain spaces"
-#~ msgstr "{name} får inte innehålla blanksteg"
 
-#~ msgid "Infrastructure"
-#~ msgstr "Infrastruktur"
 
 #, fuzzy
-#~ msgid "DHCP service status"
-#~ msgstr "Status för DHCP-server"
 
 #, fuzzy
-#~ msgid ""
-#~ "DHCP server cannot activated because there are not any network interface "
-#~ "with a static address. {openhref}Configure one{closehref} first"
-#~ msgstr ""
-#~ "DHCP-servern kan inte aktiveras därför att det inte finns något "
-#~ "nätverksgränssnitt med en statisk adress. <a href='Network/"
-#~ "Ifaces'>Konfigurera ett</a> först"
 
-#~ msgid "Nameserver IP address"
-#~ msgstr "IP-adress för namnserver"
 
-#~ msgid "\"To\" IP address"
-#~ msgstr "\"Till\"-IP-adress"
 
-#~ msgid "IP address {ip} is already added as fixed address '{name}'"
-#~ msgstr "IP-adressen {ip} finns redan inlagd som en fast adress \"{name}\""
 
-#~ msgid ""
-#~ "MAC address {mac} is already added as fixed address '{name}' for "
-#~ "interface '{iface}'"
-#~ msgstr ""
-#~ "MAC-adressen {mac} finns redan inlagd som en fast adress \"{name}\" för "
-#~ "nätverksgränssnittet \"{iface}\""
 
-#~ msgid ""
-#~ "DHCP server requires a static interface, {openhref}configure one"
-#~ "{closehref} first"
-#~ msgstr ""
-#~ "DHCP-servern kräver ett statiskt nätverksgränssnitt, {openhref}"
-#~ "konfigurera ett{closehref} först"
 
-#~ msgid ""
-#~ "DHCP server can not activated because there are not any network interface "
-#~ "with a static address. <a href='Network/Ifaces'>Configure one</a> first"
-#~ msgstr ""
-#~ "DHCP-servern kan inte aktiveras därför att det inte finns något "
-#~ "nätverksgränssnitt med en statisk adress. <a href='Network/"
-#~ "Ifaces'>Konfigurera ett</a> först"
 
-#~ msgid "Gateway IP address"
-#~ msgstr "IP-adress för gateway"
 
-#~ msgid "\"From\" IP address"
-#~ msgstr "\"Från\"-IP-adress"
 
-#~ msgid "{from}-{to} is an invalid range"
-#~ msgstr "{from}-{to} är ett ogiltigt intervall"
 
-#~ msgid "Range {new_from}-{new_to} includes interface IP address: {iface_ip}"
-#~ msgstr ""
-#~ "Intervallet {new_from}-{new_to} inkluderar IP-adressen för "
-#~ "nätverksgränsnittet: {iface_ip}"
 
-#~ msgid ""
-#~ "Range {new_from}-{new_to} overlaps with range '{range}': {old_from}-"
-#~ "{old_to}"
-#~ msgstr ""
-#~ "Intervallet {new_from}-{new_to} överlappar med intervallet \"{range}\": "
-#~ "{old_from}-{old_to}"
 
-#~ msgid ""
-#~ "Range {new_from}-{new_to} includes fixed address '{name}': {fixed_ip}"
-#~ msgstr ""
-#~ "Intervallet {new_from}-{new_to} inkluderar fasta adressen \"{name}\": "
-#~ "{fixed_ip}"
 
-#~ msgid "The selected IP is the interface IP address: {iface_ip}"
-#~ msgstr ""
-#~ "Den valda IP-adressen är IP-adressen för nätverksgränssnittet: {iface_ip}"
 
-#~ msgid "IP address {ip} is in range '{range}': {old_from}-{old_to}"
-#~ msgstr ""
-#~ "IP-adressen {ip} finns i intervallet \"{range}\": {old_from}-{old_to}"
 
-#~ msgid ""
-#~ "The IP address of the virtual interface you're trying to add is already "
-#~ "used by the DHCP range '{range}' in the interface '{iface}'. Please, "
-#~ "remove it before trying to add a virtual interface using it."
-#~ msgstr ""
-#~ "IP-adressen för det virtuella nätverksgränssnittet som du försöker lägga "
-#~ "till används redan av DHCP-intervallet \"{range}\" i nätverksgränssnittet "
-#~ "\"{iface}\". Ta bort det innan du försöker att lägga till ett virtuella "
-#~ "nätverksgränssnitt som använder det."
 
-#~ msgid ""
-#~ "The IP address of the virtual interface you're trying to add is already "
-#~ "used by the DHCP fixed address '{fixed}' in the interface '{iface}'. "
-#~ "Please, remove it before trying to add a virtual interface using it."
-#~ msgstr ""
-#~ "IP-adressen för det virtuella nätverksgränssnittet som du försöker lägga "
-#~ "till används redan av den fasta DHCP-adressen \"{fixed}\" i "
-#~ "nätverksgränssnittet \"{iface}\". Ta bort det innan du försöker att lägga "
-#~ "till ett virtuellt nätverksgränssnitt som använder det."
 
-#~ msgid "DHCP server status"
-#~ msgstr "Status för DHCP-server"
 
 #, fuzzy
-#~ msgid "Advanced Options"
-#~ msgstr "Alternativ"

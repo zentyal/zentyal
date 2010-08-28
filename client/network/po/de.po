@@ -1090,276 +1090,76 @@ msgstr ""
 "löschen. Möchten Sie weiterfahren? Wählen Sie \"Abbrechen\", falls Sie sich "
 "nicht sicher sind"
 
-#~ msgid "eBox"
-#~ msgstr "eBox"
 
-#~ msgid "Physical interface"
-#~ msgstr "Liste der physikalischen Netzwerkkarten"
 
-#~ msgid "Vlan interface list"
-#~ msgstr "Liste der virtuellen Netzwerkkarten (VLAN)"
 
-#~ msgid "These are the vlan interfaces which are available in your system."
-#~ msgstr "Das sind die verfügbaren virtuellen Netzwerkkarten in Ihrem System"
 
-#~ msgid "interface"
-#~ msgstr "Netzwerkkarte"
 
-#~ msgid "Configurable interface list"
-#~ msgstr "Liste der konfigurierbaren Netzwerkkarten"
 
-#~ msgid "These are the interfaces which can be configured"
-#~ msgstr "Dies sind die Netzwerkkarten, welche konfiguriert werden können"
 
-#~ msgid "Physical interface list"
-#~ msgstr "Physikalische Netzwerkkarten"
 
-#~ msgid ""
-#~ "These are the physical interfaces which are available in your system."
-#~ msgstr ""
-#~ "Dies sind die verfügbaren physikalischen Netzwerkkarten in Ihrem System"
 
-#~ msgid "Dynamic DNS"
-#~ msgstr "Dynamisches DNS"
 
-#~ msgid "Set default gateway"
-#~ msgstr "Standardgateway setzen"
 
-#~ msgid "You can change later the gateway at Network/Routes menus item"
-#~ msgstr "Sie können den Gateway später ändern im Menu Netzwerk / Routing"
 
-#~ msgid ""
-#~ "After the initial config you can revisit this page at Network/Interfaces "
-#~ "in the menu"
-#~ msgstr ""
-#~ "Nach der Anfangs-Konfiguration können Sie diese Seite erneut aufrufen im "
-#~ "Menu unter Netzwerk/Netzwerkkarten"
 
-#~ msgid "Gateway configured"
-#~ msgstr "Gateway konfiguriert"
 
-#~ msgid "You can revisit this page at Network/DNS in the menu"
-#~ msgstr ""
-#~ "Sie können diese Seite erneut aufrufen mittels dem Menu Netzwerk/DNS"
 
-#~ msgid "Network interface configured"
-#~ msgstr "Netzwerkkarte konfiguriert"
 
-#~ msgid "Configure name servers"
-#~ msgstr "Nameserver konfigurieren"
 
-#~ msgid "Configure default gateway"
-#~ msgstr "Standardgateway konfigurieren"
 
-#~ msgid "Upload"
-#~ msgstr "Upload"
 
 # there's no german expression for 'Upload'
-#~ msgid "Upload rate in Kbits/s for this gateway."
-#~ msgstr "Upload-Geschwindigkeit in Kbit/s für dieses Gateway"
 
-#~ msgid "Download"
-#~ msgstr "Download"
 
-#~ msgid "Download rate in Kbits/s for this gateway."
-#~ msgstr "Download-Geschwindigkeit in Kbit/s für dieses Gateway"
 
-#~ msgid ""
-#~ "You can add as many gateways as you want. This is very useful if you want "
-#~ "to split your Internet traffic through several links.{br}The download and "
-#~ "upload fields must be set as much rate as you have to your connection "
-#~ "towards the gateway. The correct value of these fields is critical to "
-#~ "ensure a correct functionality of the traffic shaping module"
-#~ msgstr ""
-#~ "Geben Sie soviele Gateways wie benötigt an. Damit können sie zum Beispiel "
-#~ "Ihre Internetverbindung auf mehrere Anschlüsse aufteilen.{br}Die Felder "
-#~ "für Download und Upload müssen den Anschlusskapazitäten entsprechen. Dies "
-#~ "ist essenziell für das korrekte Funktionieren der Bandbreitenverwaltung."
 
 #, fuzzy
-#~ msgid "Core"
-#~ msgstr "Quelle"
 
-#~ msgid "Balance traffic and multigateway rules"
-#~ msgstr "Netzverkehr verteilen und Multigateway Regeln"
 
-#~ msgid "IP Address"
-#~ msgstr "IP-Adresse"
 
-#~ msgid "Protocol"
-#~ msgstr "Protokoll"
 
-#~ msgid "Port"
-#~ msgstr "Port"
 
-#~ msgid "Leave it blank  to select any port"
-#~ msgstr "Leer lassen um alle Ports auszuwählen"
 
 # i'm not sure if 'if' in the english text is correct.
-#~ msgid "Leave it blank if to select any port"
-#~ msgstr "Lassen Sie diese Feld leer um alle Ports auszuwählen"
 
-#~ msgid "Destination port"
-#~ msgstr "Zielport"
 
-#~ msgid "Source port"
-#~ msgstr "Quellport"
 
-#~ msgid "Port cannot be set if no protocol is selected"
-#~ msgstr "Der Port kann nicht gesetzt werden, wenn kein Protokoll gewählt ist"
 
-#~ msgid "Routes"
-#~ msgstr "Routing"
 
-#~ msgid ""
-#~ "Having network interfaces configured via DHCP may cause this settings to "
-#~ "be overriden."
-#~ msgstr ""
-#~ "Diese Einstellungen könnten überschrieben werden, falls Sie "
-#~ "Netzwerkkarten via DHCP konfigurieren"
 
-#~ msgid ""
-#~ "Gateway {gw} must be reacheable by a static interface. Currently is "
-#~ "reacheable by {iface} which is not static"
-#~ msgstr ""
-#~ "Der Gateway {gw} muss über eine statische Netzwerkkarte erreichbar sein. "
-#~ "Die Netzwerkkarte {iface} erreicht zwar den Gateway, ist aber dynamisch "
-#~ "konfiguriert"
 
-#~ msgid ""
-#~ "To be able to use this feature, you need, at least, two gateways. You can "
-#~ "add them <a href=\"/ebox/Network/View/GatewayDataTable\">here</a> first"
-#~ msgstr ""
-#~ "Um diese Funktion verwenden zu können, müssen Sie mindestens zwei "
-#~ "Gateways konfiguriert haben. Sie können diese <a href=\"/ebox/Network/"
-#~ "View/GatewayDataTable\">hier</a> hinzufügen"
 
-#~ msgid "There is already a default gateway"
-#~ msgstr "Es gibt schon einen Standardgateway"
 
-#~ msgid "gateway address"
-#~ msgstr "Adresse des Gateways"
 
-#~ msgid "Primary"
-#~ msgstr "Erster"
 
-#~ msgid "Secondary"
-#~ msgstr "Zweiter"
 
-#~ msgid "Apply"
-#~ msgstr "Anwenden"
 
-#~ msgid "Traffic rate monitor"
-#~ msgstr "Bandbreitenüberwachung"
 
-#~ msgid "Source traffic"
-#~ msgstr "Netzverkehr für Quelle"
 
-#~ msgid "Service traffic"
-#~ msgstr "Netzverkehr für Dienst"
 
-#~ msgid "Traffic rate monitor active"
-#~ msgstr "Bandbreitenüberwachung aktiv"
 
-#~ msgid "Active sources traffic"
-#~ msgstr "Netzwerkverkehr der aktiven Quellen"
 
-#~ msgid "Active services traffic"
-#~ msgstr "Netzwerkverkehr der aktiven Dienste"
 
-#~ msgid "Source and service traffic"
-#~ msgstr "Netzwerkverkehr für Quelle und Dienst"
 
-#~ msgid "Byte rate"
-#~ msgstr "Bandbreite"
 
-#~ msgid "Traffic data not found for service {service}"
-#~ msgstr "Kein Netzwerkverkehr gefunden für den Dienst {service}"
 
-#~ msgid "Traffic data not found for source {src} and service {service}"
-#~ msgstr ""
-#~ "Kein Netzwerkverkehr gefunden für die Quelle {src} und den Dienst "
-#~ "{service}"
 
-#~ msgid "Active services"
-#~ msgstr "Aktive Dienste"
 
 #, fuzzy
-#~ msgid "No traffic data found for services"
-#~ msgstr "Kein Netzwerkverkehr gefunden für den Dienst {service}"
 
-#~ msgid "Active sources"
-#~ msgstr "Akive Quellen"
 
 #, fuzzy
-#~ msgid "No traffic data for sources found"
-#~ msgstr "Kein Netzwerkverkehr für die Quelle {src} gefunden"
 
-#~ msgid "Traffic rate from {src}"
-#~ msgstr "Bandbreite von {src}"
 
-#~ msgid "Traffic rate for {service}"
-#~ msgstr "Bandbreite für {service}"
 
-#~ msgid "Traffic data not found for source {src}"
-#~ msgstr "Kein Netzwerkverkehr für die Quelle {src} gefunden"
 
-#~ msgid "No services bit rate data found"
-#~ msgstr "Keine Bandbreitenbeschränkung für den Dienst gefunden"
 
-#~ msgid "No sources bit rate data found"
-#~ msgstr "Keine Bandbreitenbeschränkung für den Dienst gefunden"
 
-#~ msgid ""
-#~ "Having network interfaces configured via DHCP may cause the default "
-#~ "gateway to be overriden."
-#~ msgstr ""
-#~ "Der Standardgateway kann überschrieben werden, falls Sie Netzwerkkarten "
-#~ "über DHCP konfigurieren"
 
-#~ msgid ""
-#~ "To be able to use this feature, you need, at least, two gateways. You can "
-#~ "add them <a href="
-#~ msgstr ""
-#~ "Um diese Funktion verwenden zu können, müssen Sie mindestens zwei "
-#~ "Gateways konfiguriert haben. Sie können diese hinzufügen im Menu Netzwerk/"
-#~ "Routen"
 
 #, fuzzy
-#~ msgid ""
-#~ "If you choose to continue, all modules that make use of the current "
-#~ "configuration of this network interface will delete the relevant parts of "
-#~ "their configuration. Choose "
-#~ msgstr ""
-#~ "#-#-#-#-#  de.po (ebox-network 0.9)  #-#-#-#-#\n"
-#~ "#-#-#-#-#  de.po (ebox-network 0.8.99)  #-#-#-#-#\n"
-#~ "Falls Sie weiterfahren möchten, werden alle Module, welche die "
-#~ "gegenwärtige Konfiguration dieser Netzwerkkarte verwenden, die "
-#~ "entsprechenen Teile aus ihrer Konfiguration löschen. Möchten Sie "
-#~ "weiterfahren?"
 
-#~ msgid ""
-#~ "You can add as many gateways as you want. This is very useful if you want "
-#~ "to split your internet traffic through serveral links.<br>The download "
-#~ "and upload fields must be set as much rate as you have to your connection "
-#~ "towards the gateway. The correct value of this fields is critical to "
-#~ "ensure a correct functionality of the traffic shaping module"
-#~ msgstr ""
-#~ "Sie können soviele Gateways hinzufügen, wie sie möchten. Das ist "
-#~ "hilfreich, wenn Sie Ihren Datenverkehr auf verschiedene Verbindungen "
-#~ "verteilen möchten.Die Verbindungsgeschwindigkeit für Down- und Upload "
-#~ "müssen mit derjenigen des Gateways übereinstimmen. Das ist SEHR WICHTIG "
-#~ "für das Funktionieren der Bandbreitenverwaltung"
 
-#~ msgid "Activate traffic rate monitor"
-#~ msgstr "Bandbreitenüberwachung aktivieren"
 
-#~ msgid ""
-#~ "All routers you enter here must be reachable through one of the network "
-#~ "interfaces currently configured."
-#~ msgstr ""
-#~ "Alle Router, die Sie hier eingeben müssen durch eine der konfigurierten "
-#~ "Netzwerkkarten erreichbar sein"
 
-#~ msgid "network address"
-#~ msgstr "Adresse des Netzwerks"

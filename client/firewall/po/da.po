@@ -475,205 +475,56 @@ msgstr ""
 "services kan holde op med at fungere."
 
 #, fuzzy
-#~ msgid "redirect"
-#~ msgstr "Redirigerer"
 
-#~ msgid "Packet filtering"
-#~ msgstr "Pakke filtrering"
 
-#~ msgid ""
-#~ "These rules are meant to control access from internal network interfaces "
-#~ "to services running on your eBox machine"
-#~ msgstr ""
-#~ "Disse regler skal kontrollere adgang fra interne netværk interfaces til "
-#~ "services på din eBox maskine"
 
-#~ msgid "Redirects"
-#~ msgstr "Redirigerer"
 
-#~ msgid "Port redirections"
-#~ msgstr "Port redirigeringer"
 
-#~ msgid "Filtering rules from  external networks to eBox"
-#~ msgstr "Filtrerings regler fra externe netværk til eBox"
 
-#~ msgid "firewall"
-#~ msgstr "firewall"
 
-#~ msgid "Global services' filtering rules"
-#~ msgstr "Global service filtrerings regler"
 
-#~ msgid "Services' filtering rules {desc}"
-#~ msgstr "Service filtrerings regler {desc}"
 
-#~ msgid "Edit rule"
-#~ msgstr "Rediger regel"
 
-#~ msgid "Global firewall configuration"
-#~ msgstr "Global firewall konfigurering"
 
-#~ msgid "Firewall configuration: {desc}"
-#~ msgstr "Firewall konfigurering: {desc}"
 
-#~ msgid "service"
-#~ msgstr "service"
 
-#~ msgid "policy"
-#~ msgstr "politik"
 
-#~ msgid "network interface"
-#~ msgstr "netværk interface"
 
-#~ msgid "destination address"
-#~ msgstr "destination adresse"
 
-#~ msgid "Port {port} is being used by a service or port redirection."
-#~ msgstr ""
-#~ "Porten {port} bliver brugt af en service eller en port redirigering."
 
-#~ msgid "Actions"
-#~ msgstr "Handlinger"
 
-#~ msgid "Add"
-#~ msgstr "Tilføj"
 
-#~ msgid "Change"
-#~ msgstr "Skift"
 
-#~ msgid "Delete"
-#~ msgstr "Slet"
 
-#~ msgid ""
-#~ "Protocol, ports and addresses are optional. The rules will be applied in "
-#~ "order, from top to bottom, you can reorder them once they are added. "
-#~ "Rules can also be disabled without deleting them."
-#~ msgstr ""
-#~ "Protokol,porte og adresser er options. Reglerne bliver tilføjet i "
-#~ "rækkefølge fra toppen og nedad, og du kan ændre rækkefølgen senere. "
-#~ "Regler kan deaktiveres uden at slette dem."
 
-#~ msgid "New rule"
-#~ msgstr "Ny regel"
 
-#~ msgid "Action"
-#~ msgstr "Handling"
 
-#~ msgid "Allow"
-#~ msgstr "Tillad"
 
-#~ msgid "Deny"
-#~ msgstr "Afvis"
 
-#~ msgid "Source address"
-#~ msgstr "Kilde adresse"
 
-#~ msgid "is not"
-#~ msgstr "er ikke"
 
-#~ msgid "is"
-#~ msgstr "er"
 
-#~ msgid "to"
-#~ msgstr "til"
 
-#~ msgid "Destination address"
-#~ msgstr "Destinations adresse"
 
-#~ msgid "Rule list"
-#~ msgstr "Regel liste"
 
-#~ msgid "allow"
-#~ msgstr "tillad"
 
-#~ msgid "allow (disabled)"
-#~ msgstr "tillad (deaktiveret)"
 
-#~ msgid "deny"
-#~ msgstr "nægt"
 
-#~ msgid "deny (disabled)"
-#~ msgstr "nægt (deaktiveret)"
 
-#~ msgid "inverse match"
-#~ msgstr "omvendt match"
 
-#~ msgid "Edit"
-#~ msgstr "Rediger"
 
-#~ msgid "Up"
-#~ msgstr "Op"
 
-#~ msgid "Down"
-#~ msgstr "Ned"
 
-#~ msgid "delete"
-#~ msgstr "slet"
 
-#~ msgid "edit"
-#~ msgstr "rediger"
 
-#~ msgid "move up"
-#~ msgstr "flyt op"
 
-#~ msgid "move down"
-#~ msgstr "flyt ned"
 
-#~ msgid "any"
-#~ msgstr "enhver"
 
-#~ msgid "Services"
-#~ msgstr "Services/ydelser"
 
-#~ msgid "Policy"
-#~ msgstr "Politik"
 
-#~ msgid ""
-#~ "Protocol, port and destination address are optional. The rules will be "
-#~ "applied in order, from top to bottom, you can reorder them once they are "
-#~ "added. Rules can also be disabled without deleting them."
-#~ msgstr ""
-#~ "Protokol, port og destinations adresse er options. Reglerne tilføjes i "
-#~ "rækkefølge, fra toppen og ned, og du kan flytte dem rundt når de er "
-#~ "tilføjet. Regler kan også slås fra uden at man skal slette dem."
 
-#~ msgid ""
-#~ "Rules without an explicit destination address will be applied to packets "
-#~ "that leave eBox through an external network interface. You may flag "
-#~ "network interfaces as external in the <a href='../Network/Ifaces'>Network "
-#~ "Interfaces</a> configuration page."
-#~ msgstr ""
-#~ "Regler uden en eksplicit destinations adresse vil blive tilføjet pakker "
-#~ "der forlader eBox gennem et externt netværk interface. Du kan markere "
-#~ "netværk interfaces som externe i <a href='../Network/Ifaces'>Netværk "
-#~ "Interfaces</a> konfigurerings side."
 
-#~ msgid "Active"
-#~ msgstr "Aktiv"
 
-#~ msgid ""
-#~ "The policy states what to do on network packets not explicitly matched "
-#~ "below. The policy is applied to connections that leave eBox through an "
-#~ "external network interface. If you want to allow traffic between internal "
-#~ "networks you need to create explicit rules for that."
-#~ msgstr ""
-#~ "Politikken tilkendegiver hvad der skal ske med netværk pakker der ikke "
-#~ "præcis passer med nedenstående. Politikken gælder forbindelser der "
-#~ "forlader eBox gennem et externt netværk interface. Hvis du vil tillade "
-#~ "trafik mellem interne netværk må du lave eksplicitte regler for det."
 
-#~ msgid ""
-#~ "Choosing global will make the firewall fall back to the <a href='Object?"
-#~ "object=_global'>default configuration</a>."
-#~ msgstr ""
-#~ "At vælge global vil sætte firewallen til <a href='Object?"
-#~ "object=_global'>default konfiguration</a>."
 
-#~ msgid "Global"
-#~ msgstr "Global"
 
-#~ msgid ""
-#~ "The eBox firewall will flush any previous firewall  rules which have been "
-#~ "added manually or by another tool"
-#~ msgstr ""
-#~ "Ebox firewallen vil slette alle gamle firewall regler, hvad enten de er "
-#~ "lavet manuelt, eller kommer fra anden firewall software"

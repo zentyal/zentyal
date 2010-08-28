@@ -865,147 +865,49 @@ msgstr "Rapport för transparent POP proxy"
 msgid "[Virus] found in a mail to you:"
 msgstr "[Virus] funnet i e-post till dig:"
 
-#~ msgid "Unsupported or incorrect input source fonrmat: {format}"
-#~ msgstr "Osupporterat eller felaktigt inmatningsformat: {format}"
 
-#~ msgid "General  settings"
-#~ msgstr "Generella inställningar"
 
-#~ msgid "POP transparent proxy configuration"
-#~ msgstr "Transparent proxy för POP konfiguration"
 
-#~ msgid "Virtual domains configuration"
-#~ msgstr "Virtuella domäners konfiguration"
 
-#~ msgid "To add the LDAP schemas used by eBox mailfilter"
-#~ msgstr "För att lägga till LDAP scheman som används av eBox e-postfilter"
 
-#~ msgid "UTM"
-#~ msgstr "UTM"
 
 #, fuzzy
-#~ msgid "Internal mailfilter"
-#~ msgstr "Extern e-postserver"
 
-#~ msgid "Learned from mailbox file"
-#~ msgstr "Lärde från brevlådefil"
 
-#~ msgid "Denied settings changed"
-#~ msgstr "Nekningsinställningar ändrade"
 
-#~ msgid "Service port"
-#~ msgstr "Tjänsteport"
 
 #, fuzzy
-#~ msgid "Notification address"
-#~ msgstr "Notifiering"
 
 #, fuzzy
-#~ msgid ""
-#~ "External mail server {mta} removed. Remember to remove its mail domains "
-#~ "from the external mail domain's list"
-#~ msgstr ""
-#~ "Externa e-postservern {mta} togs bort. Kom ihåg att ta bort serverns e-"
-#~ "postdomäner från listan över externa e-postdomäner"
 
-#~ msgid "{name} is already registered"
-#~ msgstr "{name} är redan registrerat"
 
-#~ msgid "{name} added"
-#~ msgstr "{name} lades till"
 
 #, fuzzy
-#~ msgid "No changes were specified by the user"
-#~ msgstr "Inga ändringar angavs av användaren"
 
-#~ msgid "{name} is not registered"
-#~ msgstr "{name} är inte registrerat"
 
-#~ msgid "{name} removed"
-#~ msgstr "{name} togs bort"
 
-#~ msgid "The specified sender is not in the ACL"
-#~ msgstr "Angiven avsändare finns inte i ACL"
 
-#~ msgid "Mail domain {domain} added to external domain's list."
-#~ msgstr "E-postdomänen {domain} lades till i listan över externa domäner."
 
 #, fuzzy
-#~ msgid "Mail domain {domain} removed from external domain's list."
-#~ msgstr "E-postdomänen {domain} togs bort från listan över externa domäner."
 
-#~ msgid "All entries were removed"
-#~ msgstr "Alla poster togs bort"
 
 #, fuzzy
-#~ msgid ""
-#~ "External mail server {mta} allowed. Remember to add its mail domains to "
-#~ "the external mail domain's list"
-#~ msgstr ""
-#~ "Externa e-postservern {mta} tillåts. Kom ihåg att lägga till serverns e-"
-#~ "postdomäner till listan över externa e-postdomäner"
 
-#~ msgid "{ext} is not registered in the extensions list"
-#~ msgstr "{ext} är inte registrerad i listan över filändelser"
 
-#~ msgid "{ext} is not registered in the mimeTypes list"
-#~ msgstr "{ext} är inte registrerad i listan över MIME-typer"
 
-#~ msgid "Add sender to {type}"
-#~ msgstr "Lägg till avsändare till {type}"
 
-#~ msgid "Notification"
-#~ msgstr "Notifiering"
 
-#~ msgid "External Mail server"
-#~ msgstr "Extern e-postserver"
 
-#~ msgid "Allowed external mail servers"
-#~ msgstr "Tillåtna externa e-postservrar"
 
-#~ msgid "Add external mail server"
-#~ msgstr "Lägg till extern e-postserver"
 
-#~ msgid "External Mail domain"
-#~ msgstr "Extern e-postdomän"
 
-#~ msgid "Add external mail domain"
-#~ msgstr "Lägg till extern e-postdomän"
 
-#~ msgid "Extensions filter"
-#~ msgstr "Filter för filändelser"
 
-#~ msgid "module status"
-#~ msgstr "modulstatus"
 
-#~ msgid "Enable Mail filter system"
-#~ msgstr "Aktivera e-postfiltersystem"
 
-#~ msgid "No allowed external mail servers"
-#~ msgstr "Inga tillåtna externa e-postservrar"
 
-#~ msgid "No external mail domains"
-#~ msgstr "Inga externa e-postdomäner"
 
-#~ msgid "Configure denied MIME types"
-#~ msgstr "Konfigurera nekade MIME-typer"
 
-#~ msgid ""
-#~ "External mail server {mta} removed. Remember to remove his mail domains "
-#~ "from the external mail domains list"
-#~ msgstr ""
-#~ "Externa e-postservern {mta} togs bort. Kom ihåg att ta bort serverns e-"
-#~ "postdomäner från listan över externa e-postdomäner"
 
-#~ msgid "No changes where specified by the user"
-#~ msgstr "Inga ändringar angavs av användaren"
 
-#~ msgid "Mail domain{domain} removed from external domains list."
-#~ msgstr "E-postdomänen {domain} togs bort från listan över externa domäner."
 
-#~ msgid ""
-#~ "External mail server {mta} allowed. Remember to add his mail domains to "
-#~ "the external mail domains list"
-#~ msgstr ""
-#~ "Externa e-postservern {mta} tillåts. Kom ihåg att lägga till serverns e-"
-#~ "postdomäner till listan över externa e-postdomäner"

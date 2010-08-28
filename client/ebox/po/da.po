@@ -2421,345 +2421,121 @@ msgstr "Det kan tage flere minutter at genere denne rapport. Vent venligst."
 msgid "Download configuration report file"
 msgstr "Download konfigurations rapport fil"
 
-#~ msgid "modules left to restore"
-#~ msgstr "moduler der mangler at bliver restored"
 
-#~ msgid "Bug report"
-#~ msgstr "Fejl report"
 
 #, fuzzy
-#~ msgid "Monitoring"
-#~ msgstr "Mounted på"
 
-#~ msgid "events"
-#~ msgstr "handlinger"
 
 #, fuzzy
-#~ msgid "Created by {href}"
-#~ msgstr "{ebox} er udviklet af {warp} i samarbejde med {dbs}"
 
 #, fuzzy
-#~ msgid "{ebox} created by {warp}"
-#~ msgstr "{ebox} er udviklet af {warp} i samarbejde med {dbs}"
 
-#~ msgid "System backups"
-#~ msgstr "System backuper"
 
-#~ msgid "RAID report"
-#~ msgstr "RAID status"
 
 #, fuzzy
-#~ msgid "Day"
-#~ msgstr "alle"
 
-#~ msgid "Disk usage Information"
-#~ msgstr "Disk forbrug"
 
-#~ msgid "Back up"
-#~ msgstr "Backup"
 
-#~ msgid ""
-#~ "An internal error has ocurred. This is most probably a bug, relevant "
-#~ "information can be found in the logs."
-#~ msgstr ""
-#~ "En intern fejl er opstået. Det skyldes nok en fejl i programmet, du kan "
-#~ "måske finde en forklaring i loggen."
 
 #, fuzzy
-#~ msgid "Backup deleted"
-#~ msgstr "Backup metode"
 
 #, fuzzy
-#~ msgid "Restoring remote backup"
-#~ msgstr "Restore af backup"
 
 #, fuzzy
-#~ msgid "Restoring modules from remote backup"
-#~ msgstr "Restore fra backup"
 
 #, fuzzy
-#~ msgid "Remote system backups"
-#~ msgstr "System backuper"
 
 #, fuzzy
-#~ msgid ""
-#~ "Please confirm that you want to restore the configuraction using the "
-#~ "following remote backup:"
-#~ msgstr "Bekræft venligst at du vil slette følgende backup fil:"
 
 #, fuzzy
-#~ msgid "Inexistent action: {a}"
-#~ msgstr "RAID arrayet {a} findes ikke"
 
 #, fuzzy
-#~ msgid "Backing up modules "
-#~ msgstr "Backup af moduler"
 
 #, fuzzy
-#~ msgid "Remote system backups proxy"
-#~ msgstr "System backuper"
 
 #, fuzzy
-#~ msgid "Connection error"
-#~ msgstr "Operationens hastighed"
 
 #, fuzzy
-#~ msgid "Inexistent backup: {n}"
-#~ msgstr "RAID arrayet {a} findes ikke"
 
 #, fuzzy
-#~ msgid "Delete data"
-#~ msgstr "Slet"
 
-#~ msgid "No RAID devices present"
-#~ msgstr "Der en ikke noget RAID enheder til stede"
 
 #, fuzzy
-#~ msgid "Enter user and password"
-#~ msgstr "Bruger password"
 
 #, fuzzy
-#~ msgid "Back up the current configuration state"
-#~ msgstr "Lav backup af nuværende setup"
 
 #, fuzzy
-#~ msgid "Configuration backups' list"
-#~ msgstr "Backup af indstillinger"
 
 #, fuzzy
-#~ msgid "subscription page"
-#~ msgstr "Beskrivelse"
 
-#~ msgid "A instance of a subclass of EBox::GConfModule is expected"
-#~ msgstr "En instans af subklassen EBox::GConfModule var ventet"
 
-#~ msgid "RAID 0"
-#~ msgstr "RAID 0"
 
-#~ msgid "RAID 1"
-#~ msgstr "RAID 1"
 
-#~ msgid "RAID 2"
-#~ msgstr "RAID 2"
 
-#~ msgid "RAID 3"
-#~ msgstr "RAID 3"
 
-#~ msgid "RAID 4"
-#~ msgstr "RAID 4"
 
-#~ msgid "RAID 5"
-#~ msgstr "RAID 5"
 
-#~ msgid "Write down a positive number"
-#~ msgstr "Skriv et positivt tal"
 
-#~ msgid ""
-#~ "The data you are removing is being used by\n"
-#~ "\t\t\tthe following sections:"
-#~ msgstr ""
-#~ "De data som du sletter bliver brugt af\n"
-#~ "\t\t følgende moduler:"
 
-#~ msgid "Welcome to eBox"
-#~ msgstr "Velkommen til eBox"
 
-#~ msgid "eBox was already initialized"
-#~ msgstr "eBox var allerede sat op"
 
-#~ msgid "Set password"
-#~ msgstr "Sæt password"
 
-#~ msgid "Default password was already changed"
-#~ msgstr "Standard passwordet er allerede ændret"
 
-#~ msgid "New passwords do not match"
-#~ msgstr "Nye passwords er ikke ens"
 
 #, fuzzy
-#~ msgid "modules saved"
-#~ msgstr "modul navn"
 
-#~ msgid ""
-#~ "In order to configure the Jabber event dispatcher is required to be "
-#~ "registered at the chosen Jabber server or check subscribe to do register. "
-#~ "The administrator identifier should follow the pattern: user@domain[/"
-#~ "resource]"
-#~ msgstr ""
-#~ "For at kunne konfigurere Jabber handlings senderen skal den være "
-#~ "registreret hos en Jabber server, eller vælg tilmeld for at registrere. "
-#~ "Administrations id'et skal se sådan ud: bruger@domæne[/resource]"
 
-#~ msgid "Change default password"
-#~ msgstr "Skift standard password"
 
-#~ msgid "Use default values"
-#~ msgstr "Brug standard værdier"
 
 #, fuzzy
-#~ msgid "Status: {percentage}% completed"
-#~ msgstr "Procent færdig"
 
-#~ msgid "Compulsory IP Address"
-#~ msgstr "Obligatorisk ip-adresse"
 
-#~ msgid "Compulsory Boolean"
-#~ msgstr "Obligatorisk on/off"
 
-#~ msgid "Compulsory Integer"
-#~ msgstr "Obligatorisk tal"
 
-#~ msgid "Compulsory Text"
-#~ msgstr "Obligatorisk tekst"
 
-#~ msgid "Compulsory MAC Address"
-#~ msgstr "Obligatorisk MAC adresse"
 
-#~ msgid "Compulsory Password"
-#~ msgstr "Obligatorisk kodeord"
 
-#~ msgid "Compulsory Service"
-#~ msgstr "Obligatorisk service"
 
-#~ msgid "Read only test form"
-#~ msgstr "Læsbar test form"
 
-#~ msgid "Static test form"
-#~ msgstr "Statisk test form"
 
-#~ msgid "Sub-composite example"
-#~ msgstr "Under composite exempel"
 
-#~ msgid "Optional IP Address"
-#~ msgstr "Frivillig ip adresse"
 
-#~ msgid "Optional Boolean"
-#~ msgstr "Frivillig on/off værdi"
 
-#~ msgid "Optional Integer"
-#~ msgstr "Frivilligt tal"
 
-#~ msgid "Compulsory Select"
-#~ msgstr "Obligatorisk valg"
 
-#~ msgid "Optional Text"
-#~ msgstr "Frivillig tekst"
 
-#~ msgid "Optional MAC address"
-#~ msgstr "Frivillig MAC adresse"
 
-#~ msgid "Optional Link"
-#~ msgstr "Frivilligt link"
 
-#~ msgid "Optional Password"
-#~ msgstr "Frivilligt password"
 
-#~ msgid "Union"
-#~ msgstr "Union"
 
-#~ msgid "Foo"
-#~ msgstr "Foo"
 
-#~ msgid "Bar"
-#~ msgstr "Bar"
 
-#~ msgid "Baz"
-#~ msgstr "Baz"
 
-#~ msgid "Inverse Match Select"
-#~ msgstr "Vælg baglæns match"
 
-#~ msgid "Inverse Match Union"
-#~ msgstr "Vælg baglæns samling"
 
-#~ msgid "Inverse Foo"
-#~ msgstr "Baglæns Foo"
 
-#~ msgid "Inverse Bar"
-#~ msgstr "Baglæns Bar"
 
-#~ msgid "Inverse Baz"
-#~ msgstr "Baglæns Baz"
 
-#~ msgid "Inverse Other option"
-#~ msgstr "Andre baglæns muligheder"
 
-#~ msgid "Members"
-#~ msgstr "Medlemmer"
 
-#~ msgid "Test model"
-#~ msgstr "Test model"
 
-#~ msgid "Test model to test types"
-#~ msgstr "Test model for at test typer"
 
-#~ msgid "row"
-#~ msgstr "Række"
 
-#~ msgid "A"
-#~ msgstr "A"
 
-#~ msgid "B"
-#~ msgstr "B"
 
-#~ msgid "C"
-#~ msgstr "C"
 
-#~ msgid "Test form"
-#~ msgstr "Test formular"
 
-#~ msgid "Test form to test types"
-#~ msgstr "Test formular for at teste typer"
 
-#~ msgid ""
-#~ "A provided class with has multiple instances cannot have construction "
-#~ "parameters specified"
-#~ msgstr ""
-#~ "En klasse som har flere instanser kan ikke have konstruktions parametre"
 
-#~ msgid ""
-#~ "Check if any service has been restarted many  times in a time interval"
-#~ msgstr ""
-#~ "Check om nogen programmer er blevet genstartet mange _ _ gange i et "
-#~ "tidsinterval"
 
-#~ msgid ""
-#~ "You must set the httpd_serverroot variable in the ebox configuration file"
-#~ msgstr "Du skal sætte httpd_serverroot variablen i eBoxs konfigurationsfil"
 
-#~ msgid "You must set the httpd_init variable in the ebox configuration file"
-#~ msgstr "Du skal sætte httpd_init variablen i eBoxs konfigurationsfil"
 
-#~ msgid "The httpd_init script you configured is not executable."
-#~ msgstr "det httpd_init script du har angivet er ikke eksekverbart"
 
-#~ msgid "Active"
-#~ msgstr "Aktivt"
 
-#~ msgid "yes"
-#~ msgstr "ja"
 
-#~ msgid "no"
-#~ msgstr "nej"
 
-#~ msgid "Choose a value within the value set {set}"
-#~ msgstr "Vælg en værdi indenfor værdierne {set}"
 
-#~ msgid ""
-#~ "Events module may help you to make eBox inform you about events that "
-#~ "happen at eBox in some different ways"
-#~ msgstr ""
-#~ "Handlingsmoduler kan hjælpe dig til at få eBox til at informere dig om "
-#~ "handlinger i eBox på forskellige måder"
 
-#~ msgid "{ebox} created by {warp} in collaboration with {dbs}"
-#~ msgstr "{ebox} er udviklet af {warp} i samarbejde med {dbs}"
 
-#~ msgid " at "
-#~ msgstr "i"
 
-#~ msgid "Provided object with index {i} soes not exist"
-#~ msgstr "Objektet med index {i} eksisterer ikke"
 
-#~ msgid "Check if any disk partition  has no storage space left"
-#~ msgstr "Check om noget filsystem har ledig plads"

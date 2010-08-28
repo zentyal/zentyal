@@ -284,76 +284,24 @@ msgstr "Redigera"
 msgid "edit"
 msgstr "redigera"
 
-#~ msgid "Infrastructure"
-#~ msgstr "Infrastruktur"
 
-#~ msgid "Owner domain"
-#~ msgstr "Ägande domän"
 
-#~ msgid "Service enabled"
-#~ msgstr "Service aktiverad"
 
-#~ msgid "Service disabled"
-#~ msgstr "Service inaktiverad"
 
-#~ msgid "Domain Name System"
-#~ msgstr "Domännamn"
 
-#~ msgid "There is an alias with the same name \"{name}\" in the same domain"
-#~ msgstr "Det finns ett alias med samma namn i samma domän, \"{name}\""
 
-#~ msgid "Hostname"
-#~ msgstr "Värdnamn"
 
-#~ msgid "hostname"
-#~ msgstr "värdnamn"
 
-#~ msgid "IP address"
-#~ msgstr "IP-adress"
 
 #, fuzzy
-#~ msgid "Alias name"
-#~ msgstr "Alias"
 
-#~ msgid "module status"
-#~ msgstr "modulstatus"
 
-#~ msgid "domain name"
-#~ msgstr "domännamn"
 
-#~ msgid ""
-#~ "The domain '{name}' is already used. Please choose another domain name"
-#~ msgstr "Domänen \"{name}\" används redan. Välj ett annat domännamn"
 
-#~ msgid "Host name can't contain dots"
-#~ msgstr "Värdnamnet får inte innehålla punkter"
 
-#~ msgid ""
-#~ "The host name '{name}' is already used. Please choose another host name"
-#~ msgstr "Värdnamnet \"{name}\" används redan. Välj ett annat värdnamn"
 
-#~ msgid ""
-#~ "The IP address '{ip}' is already used. Please choose another IP address"
-#~ msgstr "IP-adressen \"{ip}\" används redan. Välj en annan IP-adress"
 
-#~ msgid "An alias can't contain dots"
-#~ msgstr "Ett alias får inte innehålla punkter"
 
-#~ msgid ""
-#~ "The alias '{name}' is already used as a host name. Please choose another "
-#~ "alias"
-#~ msgstr ""
-#~ "Aliaset \"{name}\" används redan som ett värdnamn. Välj ett annat alias"
 
-#~ msgid ""
-#~ "The alias '{name}' is already used as alias in the host '{host}'. Please "
-#~ "choose another alias"
-#~ msgstr ""
-#~ "Aliaset \"{name}\" används redan som ett alias i värden \"{host}\". Välj "
-#~ "ett annat alias"
 
-#~ msgid "DNS service status"
-#~ msgstr "Status för DNS-tjänst"
 
-#~ msgid "Domain name"
-#~ msgstr "Domännamn"

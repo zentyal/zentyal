@@ -113,85 +113,25 @@ msgid "{ip} overlaps with the address or another object's member"
 msgstr "adres {ip} pokrywa się z innym adresem"
 
 #, fuzzy
-#~ msgid "Core"
-#~ msgstr "Uwtórz"
 
 #, fuzzy
-#~ msgid "IP Address"
-#~ msgstr "Adresy IP"
 
-#~ msgid "Object name"
-#~ msgstr "Nazwa Obiektu"
 
-#~ msgid ""
-#~ "The name '{name}' is already used to identify another object. Please "
-#~ "choose another name"
-#~ msgstr ""
-#~ "Nazwa '{name}' jest już używana do identyfikacji innego obiektu. Wybierz "
-#~ "inną nazwę"
 
-#~ msgid "Edit Object"
-#~ msgstr "Edytuj Obiekt"
 
-#~ msgid "Netmask"
-#~ msgstr "Maska sieci"
 
-#~ msgid "Deleting object"
-#~ msgstr "Usuwanie obiektów"
 
-#~ msgid ""
-#~ "The object you tried to delete is being used by some modules, please "
-#~ "confirm that you want to delete it."
-#~ msgstr ""
-#~ "Obiekt, który chciałeś usunąć jest używany przez pewne moduły, potwierdź "
-#~ "czy nadal chcesz go usunąć."
 
-#~ msgid "Delete"
-#~ msgstr "Usuń"
 
-#~ msgid "Cancel"
-#~ msgstr "Anuluj"
 
-#~ msgid "Edit <span class='stitle'>{description}</span> members"
-#~ msgstr "Edytuj <span class='stitle'>{description}</span> użytkowników"
 
-#~ msgid "MAC"
-#~ msgstr "MAC"
 
-#~ msgid "Action"
-#~ msgstr "Akcja"
 
-#~ msgid "Add"
-#~ msgstr "Dodaj"
 
-#~ msgid "Delete Object"
-#~ msgstr "Usuń Obiekt"
 
-#~ msgid ""
-#~ "If you delete this object, all the information about its members will be "
-#~ "lost."
-#~ msgstr ""
-#~ "Jeśli usuniesz ten obiekt wszystkie informacje o jego użytkownikach "
-#~ "zostaną usunięte."
 
-#~ msgid "Delete object"
-#~ msgstr "Usuń obiekt"
 
-#~ msgid "Create new object"
-#~ msgstr "Utwórz nowy obiekt"
 
-#~ msgid ""
-#~ "The objects that you create here can be used in the rest of the system. "
-#~ "Remember that an IP address cannot belong to more than one object."
-#~ msgstr ""
-#~ "Utworzony tutaj obiekt może być używany z resztą systemu. Pamiętaj, że "
-#~ "adres IP nie może należeć do więcej niż jednego obiektu."
 
-#~ msgid "Edit"
-#~ msgstr "Edytuj"
 
-#~ msgid "edit"
-#~ msgstr "edytuj"
 
-#~ msgid "delete"
-#~ msgstr "usuń"

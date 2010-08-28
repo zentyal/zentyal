@@ -37,8 +37,8 @@ use Test::More tests => 2;
 use Error qw(:try);
 
 use constant {
-  USER => 'warp',
-  PASSWORD => 'warp',
+  USER => 'zentyal',
+  PASSWORD => 'zentyal',
 };
 
 EBox::init();

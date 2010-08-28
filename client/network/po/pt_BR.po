@@ -1057,107 +1057,36 @@ msgstr ""
 "interface de rede apagarão partes relevantes da sua configuração. Escolha "
 "\"Cancelar\" se não tiver se certeza do que está fazendo."
 
-#~ msgid "eBox"
-#~ msgstr "eBox"
 
-#~ msgid "{up}, {ext}, {link}"
-#~ msgstr "{up}, {ext}, {link}"
 
-#~ msgid "Physical interface"
-#~ msgstr "Interface física"
 
-#~ msgid "Vlan interface list"
-#~ msgstr "Lista de interfaces Vlan"
 
-#~ msgid "These are the vlan interfaces which are available in your system."
-#~ msgstr "Estas são as Vlan's disponíveis no sistema"
 
-#~ msgid "interface"
-#~ msgstr "interface"
 
-#~ msgid "Configurable interface list"
-#~ msgstr "Lista de interfaces configuráveis"
 
-#~ msgid "These are the interfaces which can be configured"
-#~ msgstr "Estas são as interfaces que podem ser configuradas"
 
-#~ msgid "Physical interface list"
-#~ msgstr "Lista de interfaces físicas"
 
-#~ msgid ""
-#~ "These are the physical interfaces which are available in your system."
-#~ msgstr "Estas são as interfaces físicas disponíveis no sistema"
 
-#~ msgid "Set default gateway"
-#~ msgstr "Defina o gateway padrão"
 
-#~ msgid "You can change later the gateway at Network/Routes menus item"
-#~ msgstr "Você pode alterar o gateway mais tarde em Rede/Rotas no menu"
 
-#~ msgid ""
-#~ "After the initial config you can revisit this page at Network/Interfaces "
-#~ "in the menu"
-#~ msgstr ""
-#~ "Após a configuração inicial pode retornar a esta página em Rede/"
-#~ "Interfaces no menu"
 
-#~ msgid "Gateway configured"
-#~ msgstr "Gateway configurado"
 
-#~ msgid "You can revisit this page at Network/DNS in the menu"
-#~ msgstr "Você pode retornar a esta página em Rede/DNS no menu"
 
-#~ msgid "Network interface configured"
-#~ msgstr "Interface de rede configurada"
 
-#~ msgid "Configure name servers"
-#~ msgstr "Configurar os servidores de nome"
 
-#~ msgid "Configure default gateway"
-#~ msgstr "Configurar o gateway padrão"
 
-#~ msgid "Upload"
-#~ msgstr "Upload"
 
-#~ msgid "Upload rate in Kbits/s for this gateway."
-#~ msgstr "Taxa de upload em Kbits/s para este gateway"
 
-#~ msgid "Download"
-#~ msgstr "Download"
 
-#~ msgid "Download rate in Kbits/s for this gateway."
-#~ msgstr "Taxa de download em Kbits/s para este gateway"
 
 #, fuzzy
-#~ msgid "Core"
-#~ msgstr "Origem"
 
-#~ msgid "Balance traffic and multigateway rules"
-#~ msgstr "Balanceamento de tráfego e regras multigateway"
 
-#~ msgid "IP Address"
-#~ msgstr "Endereço IP"
 
-#~ msgid "Protocol"
-#~ msgstr "Protocolo"
 
-#~ msgid "Port"
-#~ msgstr "Porta"
 
-#~ msgid "Leave it blank  to select any port"
-#~ msgstr "Deixe em branco para selecionar qualquer porta"
 
-#~ msgid "Leave it blank if to select any port"
-#~ msgstr "Deixe em branco para selecionar qualquer porta"
 
-#~ msgid "Destination port"
-#~ msgstr "Porta de destino"
 
-#~ msgid "Source port"
-#~ msgstr "Porta de origem"
 
-#~ msgid "Port cannot be set if no protocol is selected"
-#~ msgstr "A porta não pode ser definida se nenhum protocolo for selecionado"
 
-#~ msgid "Routes"
-#~ msgstr "Rotas"

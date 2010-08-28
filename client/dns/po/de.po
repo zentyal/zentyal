@@ -301,86 +301,24 @@ msgstr "Bearbeiten"
 msgid "edit"
 msgstr "bearbeiten"
 
-#~ msgid "Infrastructure"
-#~ msgstr "Infrastruktur"
 
-#~ msgid "Owner domain"
-#~ msgstr "Besitzerdomäne"
 
-#~ msgid "Service enabled"
-#~ msgstr "Dienst aktiviert"
 
-#~ msgid "Service disabled"
-#~ msgstr "Dienst deaktiviert"
 
-#~ msgid "Domain Name System"
-#~ msgstr "Domain Name System (DNS)"
 
-#~ msgid "There is an alias with the same name \"{name}\" in the same domain"
-#~ msgstr ""
-#~ "Es gibt bereits einen Computer mit dem Namen \"{name}\" in dieser Domäne"
 
-#~ msgid "Hostname"
-#~ msgstr "Computername"
 
-#~ msgid "hostname"
-#~ msgstr "Computername"
 
-#~ msgid "IP address"
-#~ msgstr "IP Adresse"
 
-#~ msgid "Alias name"
-#~ msgstr "Alias"
 
-#~ msgid "dns"
-#~ msgstr "DNS"
 
-#~ msgid "module status"
-#~ msgstr "Status des Moduls"
 
-#~ msgid "domain name"
-#~ msgstr "Name der Domäne"
 
-#~ msgid ""
-#~ "The domain '{name}' is already used. Please choose another domain name"
-#~ msgstr ""
-#~ "Die Domäne \"{name}\" wird bereits verwendet. Bitte wählen Sie einen "
-#~ "anderen Namen für die Domäne"
 
-#~ msgid "Host name can't contain dots"
-#~ msgstr "Computernamen dürfen keine Punkte enthalten"
 
-#~ msgid ""
-#~ "The host name '{name}' is already used. Please choose another host name"
-#~ msgstr ""
-#~ "Der Computername \"{name}\" wird bereits verwendet. Bitte wählen Sie "
-#~ "einen anderen Namen für den Computer"
 
-#~ msgid ""
-#~ "The IP address '{ip}' is already used. Please choose another IP address"
-#~ msgstr ""
-#~ "Die IP Adresse \"{ip}\" wird bereits verwendet. Bitte wählen Sie eine "
-#~ "andere IP Adresse"
 
-#~ msgid "An alias can't contain dots"
-#~ msgstr "Ein Alias darf keine Punkte beinhalten"
 
-#~ msgid ""
-#~ "The alias '{name}' is already used as a host name. Please choose another "
-#~ "alias"
-#~ msgstr ""
-#~ "Das Alias \"{name}\" wird bereits als Computername verwendet. Bitte "
-#~ "wählen Sie ein anderes Alias"
 
-#~ msgid ""
-#~ "The alias '{name}' is already used as alias in the host '{host}'. Please "
-#~ "choose another alias"
-#~ msgstr ""
-#~ "Das Alias \"{name}\" wird bereits als Alias für den Computer \"{host}\" "
-#~ "verwendet. Bitte wählen Sie ein anderes Alias"
 
-#~ msgid "DNS service status"
-#~ msgstr "Status des DNS-Dienstes"
 
-#~ msgid "Domain name"
-#~ msgstr "Name der Domäne"

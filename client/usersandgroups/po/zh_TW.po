@@ -827,95 +827,24 @@ msgid "Enter"
 msgstr "進入"
 
 #, fuzzy
-#~ msgid "User corner"
-#~ msgstr "使用者名稱"
 
-#~ msgid ""
-#~ "If you remove this group all its data within its shared directory will be "
-#~ "deleted"
-#~ msgstr "假如您刪除這個群組所有的資料及它們分享的目錄都會被刪除"
 
-#~ msgid ""
-#~ "There are no groups at the moment. You may want to add some in {openhref}"
-#~ "Add group section{closehref}."
-#~ msgstr ""
-#~ "這裡現在沒有群組。您可能會想在{openhref}加入群組{closehref}加入一些。"
 
-#~ msgid ""
-#~ "There are no users at the moment. You may want to add some in {openhref}"
-#~ "Add user section{closehref}."
-#~ msgstr ""
-#~ "這裡現在沒有使用者。您可能會想在{openhref}加入使用者{closehref}加入一些。"
 
-#~ msgid "Edit User"
-#~ msgstr "編輯使用者"
 
-#~ msgid "Edit Group"
-#~ msgstr "編輯群組"
 
-#~ msgid ""
-#~ "Changes in user accounts take effect inmediately, they do not need to be "
-#~ "saved."
-#~ msgstr "改變使用者帳號會立即生效,他不需要儲存."
 
-#~ msgid ""
-#~ "Changes related to printing, file sharing and Jabber service do need to "
-#~ "be saved in order to be effective."
-#~ msgstr "為了讓功能生效更改相關列印,檔案分享和 Jabber 的服務是必須儲存的."
 
-#~ msgid "Create"
-#~ msgstr "建立"
 
-#~ msgid "Actions"
-#~ msgstr "動作"
 
 #, fuzzy
-#~ msgid ""
-#~ "There are no groups at the moment. You may want to add some in the master "
-#~ "eBox"
-#~ msgstr ""
-#~ "這裡現在沒有群組。您可能會想在{openhref}加入群組{closehref}加入一些。"
 
 #, fuzzy
-#~ msgid ""
-#~ "There are no groups at the moment. You may want to add some in the Domain "
-#~ "Controller"
-#~ msgstr ""
-#~ "這裡現在沒有群組。您可能會想在{openhref}加入群組{closehref}加入一些。"
 
-#~ msgid ""
-#~ "Your current openLDAP database will be replaced and backed up in /var/"
-#~ "backups/slapd"
-#~ msgstr "您目前的 openLDAP 資料庫將被置換並且備份到 /var/backups/slapd"
 
-#~ msgid ""
-#~ "eBox will initialize openLDAP to store its database. It will also "
-#~ "overwrite your current configuration"
-#~ msgstr "eBox 將會初始 openLDAP 儲存的資料庫.這也會覆寫您目前的設置"
 
-#~ msgid ""
-#~ "To configure the openLDAP database with dc  entry, rootpw, rootdn, "
-#~ "schemas and ACLs used by  the LDAP based eBox modules"
-#~ msgstr ""
-#~ "設定 openLDAP 資料庫的 dc  entry, rootpw, rootdn, schemas 和基於 eBox 模組"
-#~ "的 LDAP 所使用的 ACLs"
 
-#~ msgid "Office"
-#~ msgstr "辦公室"
 
-#~ msgid "full name"
-#~ msgstr "完整名稱"
 
-#~ msgid "foo"
-#~ msgstr "foo"
 
-#~ msgid ""
-#~ "Your current openLDAP database will be replaced and backuped in /var/"
-#~ "backups/slapd"
-#~ msgstr "您目前的 openLDAP 資料庫將被置換並且備份到 /var/backups/slapd"
 
-#~ msgid ""
-#~ "This operation will cause the removal of the user and all his "
-#~ "dependences; such as mail accounts, user data..."
-#~ msgstr ""
-#~ "這個操作會造成移除使用者及所有他用到的功能;例如郵件帳戶,使用者資料..."

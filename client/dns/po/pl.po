@@ -289,78 +289,26 @@ msgid "edit"
 msgstr "edytuj"
 
 #, fuzzy
-#~ msgid "Owner domain"
-#~ msgstr "Domena"
 
-#~ msgid "Service enabled"
-#~ msgstr "Serwis wlaczony"
 
-#~ msgid "Service disabled"
-#~ msgstr "Serwis wylaczony"
 
 #, fuzzy
-#~ msgid "Domain Name System"
-#~ msgstr "System Nazw Domenowych"
 
-#~ msgid "There is an alias with the same name \"{name}\" in the same domain"
-#~ msgstr ""
-#~ "Istnieje juz alias o tej samej nazwie \"{name}\" w tej samej domenie"
 
 #, fuzzy
-#~ msgid "Hostname"
-#~ msgstr "Nazwa hosta"
 
 #, fuzzy
-#~ msgid "hostname"
-#~ msgstr "nazwa hosta"
 
-#~ msgid "IP address"
-#~ msgstr "adres IP"
 
 #, fuzzy
-#~ msgid "Alias name"
-#~ msgstr "Alias"
 
-#~ msgid "module status"
-#~ msgstr "status modułu"
 
-#~ msgid "domain name"
-#~ msgstr "nazwa domeny"
 
-#~ msgid ""
-#~ "The domain '{name}' is already used. Please choose another domain name"
-#~ msgstr "Domena '{name}' jest już zajęta. Wybierz inną nazwę domeny"
 
-#~ msgid "Host name can't contain dots"
-#~ msgstr "Nazwa hosta nie może zawierać kropki"
 
-#~ msgid ""
-#~ "The host name '{name}' is already used. Please choose another host name"
-#~ msgstr "Nazwa hosta '{name}' jest już zajęta. Wybierz inną nazwę hosta"
 
-#~ msgid ""
-#~ "The IP address '{ip}' is already used. Please choose another IP address"
-#~ msgstr "Adres IP '{ip}' jest już używany. Wybierz inny adres IP"
 
-#~ msgid "An alias can't contain dots"
-#~ msgstr "Alias nie może zawierać kropki"
 
-#~ msgid ""
-#~ "The alias '{name}' is already used as a host name. Please choose another "
-#~ "alias"
-#~ msgstr ""
-#~ "Nazwa aliasu '{name}' jest już zajęta jako nazwa hosta. Wybierz inna "
-#~ "nazwę aliasu"
 
-#~ msgid ""
-#~ "The alias '{name}' is already used as alias in the host '{host}'. Please "
-#~ "choose another alias"
-#~ msgstr ""
-#~ "Nazwa aliasu '{name}' jest już zajęta jako alias dla hosta '{host}'. "
-#~ "Wybierz inna nazwę aliasu"
 
-#~ msgid "DNS service status"
-#~ msgstr "Status serwisu DNS"
 
-#~ msgid "Domain name"
-#~ msgstr "Nazwa domeny"

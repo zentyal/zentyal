@@ -116,75 +116,29 @@ msgid "{ip} overlaps with the address or another object's member"
 msgstr "{ip} sobreescriu a les adreces o altres membres d'objectes"
 
 #, fuzzy
-#~ msgid "Core"
-#~ msgstr "Crea"
 
 #, fuzzy
-#~ msgid "IP Address"
-#~ msgstr "Adreça IP"
 
-#~ msgid "Object name"
-#~ msgstr "Nom de l'objecte"
 
 #, fuzzy
-#~ msgid "Edit Object"
-#~ msgstr "Objecte"
 
-#~ msgid "Netmask"
-#~ msgstr "Màscara de xarxa"
 
-#~ msgid "Deleting object"
-#~ msgstr "S'està eliminant l'objecte"
 
-#~ msgid ""
-#~ "The object you tried to delete is being used by some modules, please "
-#~ "confirm that you want to delete it."
-#~ msgstr ""
-#~ "L'objecte que heu intentat eliminar està sent utilitzar per alguns "
-#~ "mòduls. Confirmeu que voleu eliminar-lo."
 
-#~ msgid "Delete"
-#~ msgstr "Elimina"
 
-#~ msgid "Cancel"
-#~ msgstr "Cancel·la"
 
-#~ msgid "MAC"
-#~ msgstr "MAC"
 
-#~ msgid "Action"
-#~ msgstr "Acció"
 
-#~ msgid "Add"
-#~ msgstr "Afegeix"
 
 #, fuzzy
-#~ msgid "Delete Object"
-#~ msgstr "S'està eliminant l'objecte"
 
 #, fuzzy
-#~ msgid "Delete object"
-#~ msgstr "S'està eliminant l'objecte"
 
 #, fuzzy
-#~ msgid "Create new object"
-#~ msgstr "Nou objecte"
 
-#~ msgid ""
-#~ "The objects that you create here can be used in the rest of the system. "
-#~ "Remember that an IP address cannot belong to more than one object."
-#~ msgstr ""
-#~ "Els objectes que creeu aquí es poden utilitzar a la resta del sistema. "
-#~ "Recordeu que una adreça IP no pot pertànyer a més d'un objecte."
 
 #, fuzzy
-#~ msgid "Edit"
-#~ msgstr "Surt"
 
 #, fuzzy
-#~ msgid "edit"
-#~ msgstr "Surt"
 
 #, fuzzy
-#~ msgid "delete"
-#~ msgstr "Elimina"

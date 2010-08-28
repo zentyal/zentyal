@@ -848,130 +848,30 @@ msgstr "Atenção: Caps Lock está ligado"
 msgid "Enter"
 msgstr "Enter"
 
-#~ msgid "LDAP Info"
-#~ msgstr "Informação LDAP"
 
-#~ msgid "Slave status"
-#~ msgstr "Estado do cliente"
 
-#~ msgid "User corner"
-#~ msgstr "Área do utilizador"
 
-#~ msgid "User Corner webserver settings"
-#~ msgstr "Definições do servidor web da área do utilizador"
 
-#~ msgid ""
-#~ "If you remove this group all its data within its shared directory will be "
-#~ "deleted"
-#~ msgstr ""
-#~ "Se remover este grupo todos os dados no seu directório partilhado serão "
-#~ "apagados"
 
-#~ msgid ""
-#~ "There are no groups at the moment. You may want to add some in {openhref}"
-#~ "Add group section{closehref}."
-#~ msgstr ""
-#~ "Actualmente não existem grupos. Pode adicionar um em {openhref}Add group "
-#~ "section{closehref}."
 
-#~ msgid ""
-#~ "There are no users at the moment. You may want to add some in {openhref}"
-#~ "Add user section{closehref}."
-#~ msgstr ""
-#~ "Actualmente não existem utilizadores. Adicione um em {openhref}Add user "
-#~ "section{closehref}."
 
-#~ msgid "Users corner certificates"
-#~ msgstr "Certificados da área do utilizador"
 
-#~ msgid "Can't bind to LDAP with the provided password"
-#~ msgstr "Não é possível ligar ao LDAP com a palavra-passe fornecida"
 
-#~ msgid "Edit User"
-#~ msgstr "Editar utilizador"
 
-#~ msgid "Edit Group"
-#~ msgstr "Editar grupo"
 
-#~ msgid ""
-#~ "Changes in user accounts take effect inmediately, they do not need to be "
-#~ "saved."
-#~ msgstr ""
-#~ "As alterações nas contas de utilizador têm efeito imediato, não "
-#~ "necessitam de ser gravadas"
 
-#~ msgid ""
-#~ "Changes related to printing, file sharing and Jabber service do need to "
-#~ "be saved in order to be effective."
-#~ msgstr ""
-#~ "As alterações relacionadas com a impressão, partilha de ficheiros e "
-#~ "serviço Jabber necessitam de ser gravadas para ficarem activas"
 
-#~ msgid "Create"
-#~ msgstr "Criar"
 
-#~ msgid "Actions"
-#~ msgstr "Acções"
 
-#~ msgid "Missing fields to configure eBox as slave"
-#~ msgstr "Faltam campos para configurar a eBox como cliente"
 
-#~ msgid ""
-#~ "There are no groups at the moment. You may want to add some in the master "
-#~ "eBox"
-#~ msgstr "Actualmente não existem grupos. Pode um na eBox principal"
 
 #, fuzzy
-#~ msgid ""
-#~ "There are no groups at the moment. You may want to add some in the Domain "
-#~ "Controller"
-#~ msgstr "Actualmente não existem grupos. Pode um na eBox principal"
 
-#~ msgid "eBox master"
-#~ msgstr "eBox principal"
 
-#~ msgid "Only for slave configuration: Master eBox LDAP user password"
-#~ msgstr ""
-#~ "Somente para configuração cliente: Palavra-passe de utilizador LDAP da "
-#~ "eBox principal"
 
-#~ msgid ""
-#~ "Your current openLDAP database will be replaced and backed up in /var/"
-#~ "backups/slapd"
-#~ msgstr ""
-#~ "A actual base de dados openLDAP será substituída e guardada em /var/"
-#~ "backups/slapd"
 
-#~ msgid ""
-#~ "eBox will initialize openLDAP to store its database. It will also "
-#~ "overwrite your current configuration"
-#~ msgstr ""
-#~ "A eBox inicializará o openLDAP para quardar a sua base de dados. Também "
-#~ "substituirá a sua configuração actual"
 
-#~ msgid ""
-#~ "To configure the openLDAP database with dc  entry, rootpw, rootdn, "
-#~ "schemas and ACLs used by  the LDAP based eBox modules"
-#~ msgstr ""
-#~ "Para configurar a base de dados do openLDAP com uma entrada DC, rootpw, "
-#~ "rootdn, esquemas e ACL's usadas pelos módulos eBox baseados em LDAP"
 
-#~ msgid "full name"
-#~ msgstr "Nome completo"
 
-#~ msgid "foo"
-#~ msgstr "foo"
 
-#~ msgid ""
-#~ "Your current openLDAP database will be replaced and backuped in /var/"
-#~ "backups/slapd"
-#~ msgstr ""
-#~ "A sua base de dados openLDAP actual será substituída e guardada em /var/"
-#~ "backups/slapd "
 
-#~ msgid ""
-#~ "This operation will cause the removal of the user and all his "
-#~ "dependences; such as mail accounts, user data..."
-#~ msgstr ""
-#~ "Esta operação remove o utilizador e todas as suas dependências tais como "
-#~ "contas de correio, dados do utilizador, etc."

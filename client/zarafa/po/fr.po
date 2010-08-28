@@ -121,62 +121,19 @@ msgstr "Droits d'administration"
 msgid "Change"
 msgstr "Changer"
 
-#~ msgid "To properly configure jabberd2 muc"
-#~ msgstr "Pour configurer proprement \"jabberd2 muc\""
 
-#~ msgid "domain"
-#~ msgstr "domaine"
 
-#~ msgid "module status"
-#~ msgstr "statut du module"
 
-#~ msgid ""
-#~ "Domain name should be available on the network. Otherwise, you may not be "
-#~ "able to use this service. This applies for internal and external "
-#~ "connections."
-#~ msgstr ""
-#~ "Le nom de domaine devrait être disponible sur le réseau. Autrement, vous "
-#~ "ne pourrez pas utiliser ce service. Ceci s'applique pour les connexions "
-#~ "internes et externes."
 
-#~ msgid "Domain name"
-#~ msgstr "Nom de domaine"
 
-#~ msgid "No"
-#~ msgstr "Non"
 
-#~ msgid "Optional"
-#~ msgstr "Optional"
 
-#~ msgid "Required"
-#~ msgstr "Requis"
 
-#~ msgid "Password for Jabber service is the user password."
-#~ msgstr ""
-#~ "Le mot de passe pour le service Jabber est le mot de passe d'utilisateur."
 
-#~ msgid "Copy jabber ldap schema to /etc/ldap/schemas"
-#~ msgstr "Copier le schéma ldap de jabber vers /etc/ldap/schemas"
 
-#~ msgid "To add the LDAP schemas used by eBox jabber"
-#~ msgstr "Ajouter les schémas LDAP utilisés par jabber"
 
-#~ msgid "Communications"
-#~ msgstr "Communications"
 
-#~ msgid "General Settings"
-#~ msgstr "Configuration Générale"
 
-#~ msgid "Apply Changes"
-#~ msgstr "Appliquer changements"
 
-#~ msgid "Enter a username and password to register with this server."
-#~ msgstr ""
-#~ "Entrer un nom d'utilisateur et un mot de passe pour s'enregistrer à ce "
-#~ "service."
 
-#~ msgid "listening port"
-#~ msgstr "port d'écoute"
 
-#~ msgid "Jabber Service status"
-#~ msgstr "Statut du Service Jabber"

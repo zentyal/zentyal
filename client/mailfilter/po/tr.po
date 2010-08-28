@@ -906,379 +906,112 @@ msgid "[Virus] found in a mail to you:"
 msgstr ""
 
 #, fuzzy
-#~ msgid "Unsupported or incorrect input source fonrmat: {format}"
-#~ msgstr "Desteklenmeyen veya hatalı girdi kaynak biçimi: {format}"
 
 #, fuzzy
-#~ msgid "General  settings"
-#~ msgstr "Yasaklama ayarları değiştirildi"
 
 #, fuzzy
-#~ msgid "POP transparent proxy configuration"
-#~ msgstr "Antispam seçenekleri"
 
 #, fuzzy
-#~ msgid "Antivirus database update status"
-#~ msgstr "Virüs veritabanı güncelleme durumu"
 
 #, fuzzy
-#~ msgid "The last update failed"
-#~ msgstr "Son güncelleme {date} tarihinde başarısız oldu"
 
 #, fuzzy
-#~ msgid ""
-#~ "Update failed.\n"
-#~ "Your version of freshclam  is outdated.Please, install version {version} "
-#~ "or higher"
-#~ msgstr ""
-#~ "Güncelleme {date} tarihinde başarısız oldu.\n"
-#~ "Freshclam sürümünüz geçersiz. Lütfen {version} sürümünü veya daha "
-#~ "yükseğini kurun"
 
 #, fuzzy
-#~ msgid "Last update successful"
-#~ msgstr "Son güncelleme {date} tarihinde başarılı oldu"
 
-#~ msgid "Antivirus"
-#~ msgstr "Antivirüs"
 
-#~ msgid "Mail filter system"
-#~ msgstr "Posta süzgeç sistemi"
 
-#~ msgid "Mail filter settings"
-#~ msgstr "Posta süzgeç ayarları"
 
 #, fuzzy
-#~ msgid "Internal mailfilter"
-#~ msgstr "eBox dahili posta süzgeci"
 
 #, fuzzy
-#~ msgid "Options"
-#~ msgstr "İşlemler"
 
 #, fuzzy
-#~ msgid "Database update status"
-#~ msgstr "Virüs veritabanı güncelleme durumu"
-
-#~ msgid "Learned from mailbox file"
-#~ msgstr "Posta kutusu dosyasından öğren"
-
-#~ msgid "Denied settings changed"
-#~ msgstr "Yasaklama ayarları değiştirildi"
 
-#~ msgid ""
-#~ "The sender can be either an email address or a domain name prefixed with "
-#~ "'@'"
-#~ msgstr ""
-#~ "Gönderen, bir e-posta adresi veya '@' ile başlayan bir alan adı olabilir."
 
-#~ msgid "Mail domain"
-#~ msgstr "Posta alan adı"
 
-#~ msgid "The last update failed at {date}"
-#~ msgstr "Son güncelleme {date} tarihinde başarısız oldu"
 
-#~ msgid ""
-#~ "Update failed at {date}.\n"
-#~ "Your version of freshclam  is outdated.Please, install version {version} "
-#~ "or higher"
-#~ msgstr ""
-#~ "Güncelleme {date} tarihinde başarısız oldu.\n"
-#~ "Freshclam sürümünüz geçersiz. Lütfen {version} sürümünü veya daha "
-#~ "yükseğini kurun"
 
-#~ msgid "{plural} which are not listed below are allowed"
-#~ msgstr "Aşağıda listelenmeyen {plural} 'a izin verildi"
 
-#~ msgid "Delete"
-#~ msgstr "Sil"
 
-#~ msgid ""
-#~ "Spam messages which a score equal or greater than this threshold will be "
-#~ "added to the learning system "
-#~ msgstr ""
-#~ "Bu puan eşiğine eşit veya daha yüksek olan gereksiz posta mesajları "
-#~ "öğrenme sistemine eklenecek"
 
-#~ msgid ""
-#~ "Ham messages which a score below this threshold will be added to the "
-#~ "learning system"
-#~ msgstr ""
-#~ "Bu puan eşiğinden daha düşük olan 'ham' mesajları öğrenme sistemine "
-#~ "eklenecek"
 
-#~ msgid "Antispam options"
-#~ msgstr "Antispam seçenekleri"
 
-#~ msgid "Service port"
-#~ msgstr "Servis portu"
 
-#~ msgid "Antispam sender access lists"
-#~ msgstr "Antispam gönderici erişim listeleri"
 
-#~ msgid ""
-#~ "External mail server {mta} removed. Remember to remove its mail domains "
-#~ "from the external mail domain's list"
-#~ msgstr ""
-#~ "Harici posta sunucusu {mta} silindi. Bu sunucunu posta alan adlarını "
-#~ "harici alan adları listesinden silmeyi unutmayın"
 
-#~ msgid "{name} is already registered"
-#~ msgstr "{name} önceden kayıt edildi"
 
-#~ msgid "{name} added"
-#~ msgstr "{name} eklendi"
 
-#~ msgid "No changes were specified by the user"
-#~ msgstr "Kullanıcı tarfından değişiklik belirtilemdi"
 
-#~ msgid "{name} is not registered"
-#~ msgstr "{name} kayıtlı değil"
 
-#~ msgid "{name} removed"
-#~ msgstr "{name} silindi"
 
-#~ msgid "The specified sender is not in the ACL"
-#~ msgstr "Belirlenen gönderen ACL içinde değil"
 
-#~ msgid "Mail domain {domain} added to external domain's list."
-#~ msgstr "{domain} posta alan adı harici alan adı listesine eklendi"
 
-#~ msgid "Mail domain {domain} removed from external domain's list."
-#~ msgstr "Posta alan adı {domain} harici alan adları listesinden silindi."
 
-#~ msgid "All entries were removed"
-#~ msgstr "Tüm girdiler silindi"
 
-#~ msgid ""
-#~ "External mail server {mta} allowed. Remember to add its mail domains to "
-#~ "the external mail domain's list"
-#~ msgstr ""
-#~ "Harici posta sunucusu {mta} için izin verildi. Bu sunucunun posta alan "
-#~ "adlarını harici alan adları listesine eklemeyi unutmayın"
 
-#~ msgid "{ext} is not registered in the extensions list"
-#~ msgstr "{ext} uzantılar listesinde kayıtlı değil"
 
-#~ msgid "{ext} is not registered in the mimeTypes list"
-#~ msgstr "{ext} mimeTipleri listesinde kayıtlı değil"
 
-#~ msgid "The spam's autolearn threshold must be higher than 6.0"
-#~ msgstr "Gereksiz postayı otomatik öğrenme değeri 6.0'dan yüksek olmalı"
 
-#~ msgid "The ham's autolearn threshold cannot be higher than spam's threshold"
-#~ msgstr "'Ham'i kendiliğinden öğrenme eşiği spam'inkinden yüksek olamaz"
 
-#~ msgid "MTA's address"
-#~ msgstr "MTA adresi"
 
-#~ msgid "{mta} is already allowed"
-#~ msgstr "{mta} 'ya zaten izin verilmiş"
 
-#~ msgid "{mta} not found"
-#~ msgstr "{mta} bulunamadı"
 
-#~ msgid "{domain} is already acknowledged as external mail domain"
-#~ msgstr "{domain} 'i zaten harici posta alan adı olarak alındı"
 
-#~ msgid "Domain {domain} was not acknowledged as external mail domain"
-#~ msgstr "{domain} domaini harici posta alan adı olarak alınmadı"
 
-#~ msgid "Administrator address"
-#~ msgstr "Yönetici adresi"
 
-#~ msgid "policy type"
-#~ msgstr "Yönetim tipi"
 
-#~ msgid "filter type"
-#~ msgstr "Süzgeç tipi"
 
-#~ msgid "The last successful update was at {date}"
-#~ msgstr "Başarılı son güncelleme {date} tarihinde gerçekleşti"
 
-#~ msgid "Deny"
-#~ msgstr "Yasakla"
 
-#~ msgid "Add {element}"
-#~ msgstr "{element} ekle"
 
-#~ msgid "Name"
-#~ msgstr "İsim"
 
-#~ msgid "All registered {plural}"
-#~ msgstr "Tüm kayıtlı {plural}"
 
-#~ msgid "Delete them all"
-#~ msgstr "Hepsini sil"
 
-#~ msgid "Change"
-#~ msgstr "Değiştir"
 
-#~ msgid "Antispam global sender access lists"
-#~ msgstr "Genel Antispam gönderen erişim listeleri"
 
-#~ msgid "Spam filter training"
-#~ msgstr "Gereksiz posta süzgeci öğretimi"
 
-#~ msgid "Whitelist"
-#~ msgstr "Beyaz liste"
 
-#~ msgid "Blacklist"
-#~ msgstr "Kara liste"
 
-#~ msgid "Sender"
-#~ msgstr "Gönderen"
 
-#~ msgid "Add sender to {type}"
-#~ msgstr "{type} bölümüne gönderen ekle"
 
-#~ msgid "Notification address"
-#~ msgstr "Uyarı adresi"
 
-#~ msgid "Notification"
-#~ msgstr "Uyarılma"
 
-#~ msgid "External Mail server"
-#~ msgstr "Harici posta sunucusu"
 
-#~ msgid "Allowed external mail servers"
-#~ msgstr "İzin verilen harici posta sunucuları"
 
-#~ msgid "Add external mail server"
-#~ msgstr "Harici posta sunucusu ekle"
 
-#~ msgid "External Mail domain"
-#~ msgstr "Harici posta alan isimleri"
 
-#~ msgid "Add external mail domain"
-#~ msgstr "Harici posta alan ismi ekle"
 
-#~ msgid ""
-#~ "The \"{name}\"  setting will not have effect until the\n"
-#~ "   antivirus service will be enabled in the mail filter"
-#~ msgstr ""
-#~ "\"{name}\" ayarları posta süzgeçlemesinde antivirüs\n"
-#~ "servisi açılıncaya kadar geçerli olmayacak"
 
-#~ msgid ""
-#~ "The \"{name}\"  setting will not have effect until the\n"
-#~ "   antispam sergice will be enabled in the mail filter"
-#~ msgstr ""
-#~ "\"{name}\" ayarları posta süzgeçlemesinde antivirüs\n"
-#~ "servisi açılıncaya kadar geçerli olmayacak"
 
-#~ msgid "Use default spam threshold (current value is {v})"
-#~ msgstr "Öntanımlı gereksiz posta eşiğini kullan (şu anki değer {v})"
 
-#~ msgid "Mail filter options"
-#~ msgstr "Posta süzgeçleme seçenekleri"
 
-#~ msgid "Extensions filter"
-#~ msgstr "Uzantı süzgeçleri"
 
-#~ msgid "Unsupported or incorrect input source format: {format}"
-#~ msgstr "Desteklenmeyen veya hatalı girdi kaynak biçimi: {format}"
 
-#~ msgid "module status"
-#~ msgstr "Modül durumu"
 
-#~ msgid ""
-#~ "External mail server {mta} removed. Remember to remove his mail domains "
-#~ "from the external mail domains list"
-#~ msgstr ""
-#~ "Harici posta sunucusu {mta} silindi. Kendisinin posta domainlerini harici "
-#~ "domain listesinden silmeyi unutmayın "
 
-#~ msgid "No changes where specified by the user"
-#~ msgstr "Kullanıcı tarafından yapılan değişiklik yok"
 
-#~ msgid "Mail domain{domain} removed from external domains list."
-#~ msgstr "{domain} posta domaini harici domain listesinden silindi"
 
-#~ msgid ""
-#~ "External mail server {mta} allowed. Remember to add his mail domains to "
-#~ "the external mail domains list"
-#~ msgstr ""
-#~ "{mta} harici posta sunucusuna izin verildi. Kullanıcının posta "
-#~ "domainlerini harici posta domain listesine eklemeyi unutmayın"
 
-#~ msgid "The spam's threshold cannot be higher than his autolearn threshold"
-#~ msgstr "Gereksiz posta değeri, otomatik öğrenme değerinden yüksek olamaz"
 
-#~ msgid ""
-#~ "The spam's threshold cannot be lower or equalthan his ham's autolearn "
-#~ "threshold"
-#~ msgstr "Gerksiz posta değeri ham değerine eşit veya yüksek olamaz"
 
-#~ msgid ""
-#~ "Cannot learn because bayesian filter is disabled in the current "
-#~ "configuration. In order to be able to learn  enable ithe bayesian filter "
-#~ "and save the changes"
-#~ msgstr ""
-#~ "Öğrenilemiyor çünkü şu anki yapılandırmada bayesian süzgeci kapalı. "
-#~ "Öğrenmeyi etkin kılmak için bayesian süzgecini etkinleştirin ve "
-#~ "değişiklikleri kaydedin"
 
-#~ msgid ""
-#~ "The sender can only be a email address or a domain name prefixed with '@'"
-#~ msgstr ""
-#~ "Gönderen bir e-posta adresi veya @ ön eki ile başlayan bir domain ismi "
-#~ "olabilir"
 
-#~ msgid "Invalid externa; MTA {mta}. Local net addresses are not allowed"
-#~ msgstr "Geçersiz harici {mta} MTA. Yerel net adresine izin yok"
 
-#~ msgid "Configure denied file extensions"
-#~ msgstr "Yasaklanan dosya uzantılarını yapılandır"
 
-#~ msgid "extensions"
-#~ msgstr "uzantılar"
 
-#~ msgid "Update failed at {date}.\n"
-#~ msgstr "Güncelleme {date} tarihinde başarısız oldu. \n"
 
-#~ msgid "Add"
-#~ msgstr "Ekle"
 
-#~ msgid "Are you sure you want to delete all {plural}?"
-#~ msgstr "Tüm {plural} girdisini silmekten emin misiniz?"
 
-#~ msgid "Tag which will be added to the subject of spam mail"
-#~ msgstr "Gereksiz posta konusu olarak eklenecek etiket"
 
-#~ msgid "Use bayesian classefier"
-#~ msgstr "Bayesian sınıflandırıcısı kullan"
 
-#~ msgid "Change the score of mail according the history of the sender"
-#~ msgstr "Postanın puanını gönderenin geçmiş kayıtlarına göre değiştir"
 
-#~ msgid ""
-#~ "Spam messages which a score equal or greater than this threshold will be  "
-#~ "introduced  in the learning system "
-#~ msgstr ""
-#~ "Bu değere eşit veya daha yüksek gereksiz postalar öğrenme sistemine "
-#~ "eklenecektir"
 
-#~ msgid ""
-#~ "Ham messages which a score below this treshold will be introduced in the "
-#~ "learning system"
-#~ msgstr ""
-#~ "Bu değerden daha düşük 'ham' postaları öğrenme sistemine eklenecektir"
 
-#~ msgid "There isn't any sender in {type} "
-#~ msgstr "{type} içinde hiçbir gönderen tanımlanmamış"
 
-#~ msgid "Enable Mail filter system"
-#~ msgstr "Posta süzgeçleme sistemini etkinleştir"
 
-#~ msgid "No allowed external mail servers"
-#~ msgstr "İzin verilmiş harici posta sunucusu mevcut değil"
 
-#~ msgid "No external mail domains"
-#~ msgstr "Harici posta alan isimleri mevcut değil"
 
-#~ msgid "Configure denied MIME types"
-#~ msgstr "Reddedilen MIME türlerini düzenle"
 
-#~ msgid "The last update was successful at {date}"
-#~ msgstr "Son güncelleme {date} tarihinde başarılı oldu"
+
+

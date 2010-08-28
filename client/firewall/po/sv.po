@@ -463,177 +463,59 @@ msgstr ""
 "Du kan deaktivera dessa regler men var uppmärksam på att vissa tjänster kan "
 "sluta att fungera om du inte vet vad du gör."
 
-#~ msgid "eBox"
-#~ msgstr "eBox"
 
-#~ msgid "redirect"
-#~ msgstr "omdirigera"
 
-#~ msgid "Packet filtering"
-#~ msgstr "Paketfiltrering"
 
-#~ msgid ""
-#~ "These rules are meant to control access from internal network interfaces "
-#~ "to services running on your eBox machine"
-#~ msgstr ""
-#~ "De här reglerna är tänkt att kontrollera åtomst från interna "
-#~ "nätverksgränssnitt till tjänster som körs på din eBox maskin"
 
-#~ msgid "Redirects"
-#~ msgstr "Omdirigeringar"
 
-#~ msgid "Port redirections"
-#~ msgstr "Portomdirigeringar"
 
-#~ msgid "Filtering rules from  external networks to eBox"
-#~ msgstr "Filterregler från externa nätverk till eBox"
 
-#~ msgid "firewall"
-#~ msgstr "Brandvägg"
 
-#~ msgid "UTM"
-#~ msgstr "UTM"
 
-#~ msgid "Edit rule"
-#~ msgstr "Redigera regel"
 
-#~ msgid "Global firewall configuration"
-#~ msgstr "Allmän brandväggskonfiguration"
 
-#~ msgid "Firewall configuration: {desc}"
-#~ msgstr "Brandväggskonfiguration: {desc}"
 
-#~ msgid "service"
-#~ msgstr "tjänst"
 
-#~ msgid "policy"
-#~ msgstr "policy"
 
-#~ msgid "network interface"
-#~ msgstr "nätverksgränssnitt"
 
-#~ msgid "destination address"
-#~ msgstr "destinationsadress"
 
-#~ msgid "Actions"
-#~ msgstr "Åtgärder"
 
-#~ msgid "Add"
-#~ msgstr "Lägg till"
 
-#~ msgid "Change"
-#~ msgstr "Ändra"
 
-#~ msgid "Delete"
-#~ msgstr "Ta bort"
 
-#~ msgid "New rule"
-#~ msgstr "Ny regel"
 
-#~ msgid "Action"
-#~ msgstr "Åtgärd"
 
-#~ msgid "Allow"
-#~ msgstr "Tillåt"
 
-#~ msgid "Deny"
-#~ msgstr "Neka"
 
-#~ msgid "Source address"
-#~ msgstr "Källadress"
 
-#~ msgid "is not"
-#~ msgstr "är inte"
 
-#~ msgid "is"
-#~ msgstr "är"
 
-#~ msgid "to"
-#~ msgstr "till"
 
-#~ msgid "Destination address"
-#~ msgstr "Destinationsadress"
 
-#~ msgid "Rule list"
-#~ msgstr "Regellista"
 
-#~ msgid "allow"
-#~ msgstr "tillåt"
 
-#~ msgid "allow (disabled)"
-#~ msgstr "tillåt (inaktiverad)"
 
-#~ msgid "deny"
-#~ msgstr "neka"
 
-#~ msgid "deny (disabled)"
-#~ msgstr "neka (inaktiverad)"
 
-#~ msgid "Edit"
-#~ msgstr "Redigera"
 
-#~ msgid "Up"
-#~ msgstr "Uppåt"
 
-#~ msgid "Down"
-#~ msgstr "Nedåt"
 
-#~ msgid "delete"
-#~ msgstr "ta bort"
 
-#~ msgid "edit"
-#~ msgstr "redigera"
 
-#~ msgid "move up"
-#~ msgstr "flytta uppåt"
 
-#~ msgid "move down"
-#~ msgstr "flytta nedåt"
 
-#~ msgid "any"
-#~ msgstr "alla"
 
-#~ msgid "Services"
-#~ msgstr "Tjänster"
 
-#~ msgid "Policy"
-#~ msgstr "Policy"
 
-#~ msgid "Active"
-#~ msgstr "Aktiv"
 
-#~ msgid "object"
-#~ msgstr "objekt"
 
-#~ msgid "address"
-#~ msgstr "adress"
 
-#~ msgid "source port"
-#~ msgstr "källport"
 
-#~ msgid "source address"
-#~ msgstr "källadress"
 
-#~ msgid "Rule not found"
-#~ msgstr "Regeln hittades inte"
 
-#~ msgid "Drop packets"
-#~ msgstr "Kasta paket"
 
-#~ msgid "Reject packets"
-#~ msgstr "Neka paket"
 
-#~ msgid "Apply"
-#~ msgstr "Verkställ"
 
-#~ msgid "Configure default rules"
-#~ msgstr "Konfigurera standardregler"
 
-#~ msgid "Deny action"
-#~ msgstr "Åtgärd vid nekning"
 
-#~ msgid "Filtering rules for internet access"
-#~ msgstr "Filterregler för internetåtkomst"
 
-#~ msgid "Filtering Rules between internal networks"
-#~ msgstr "Filterregler mellan interna nätverk"

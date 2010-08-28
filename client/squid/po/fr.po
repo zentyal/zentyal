@@ -1397,237 +1397,72 @@ msgstr ""
 msgid "Powered by"
 msgstr ""
 
-#~ msgid "Threshold a"
-#~ msgstr "Seuil d'un"
 
-#~ msgid "Configure network objects' policies"
-#~ msgstr "Configurer les politiques d'objets réseau"
 
-#~ msgid "Configure user's groups global policies"
-#~ msgstr "Configurer les stratégies globales des groupes utilisateurs"
 
-#~ msgid "Filter settings for profile {p}"
-#~ msgstr "Paramètres de filtrage pour le profil {p}"
 
-#~ msgid "Gateway"
-#~ msgstr "Passerelle"
 
-#~ msgid "Proxy"
-#~ msgstr "Proxy"
 
-#~ msgid "HTTP proxy"
-#~ msgstr "Proxy HTTP "
 
-#~ msgid "HTTP Proxy service status"
-#~ msgstr "Statut du service Proxy HTTP"
 
-#~ msgid "module status"
-#~ msgstr "statut du module"
 
-#~ msgid "Attribute Name"
-#~ msgstr "Nom d'attribut"
 
-#~ msgid "Name"
-#~ msgstr "Nom"
 
-#~ msgid "New {type} SHOULD be lower than {number} characters"
-#~ msgstr "Le nouveau {type} DOIT être inférieure à {number} caractères"
 
-#~ msgid "The {type} SHOULD have the following syntax: \"word/word\""
-#~ msgstr "{type} DOIT avoir la syntaxe suivante : \"word/word\""
 
-#~ msgid ""
-#~ "The {type} SHOULD be in IANA type. Check this link: {url} for details"
-#~ msgstr "{type} DOIT être du type IANA. Plus d'informations ici : {url}"
 
-#~ msgid "File extension {name} added correctly"
-#~ msgstr "Extension de fichier {name} ajouté correctement"
 
-#~ msgid "File extension {name} is already in the list"
-#~ msgstr "Extension de fichier {name} déjà dans la liste"
 
-#~ msgid "MIME type {name} added correctly"
-#~ msgstr "Type MIME {name} ajouté correctement"
 
-#~ msgid "MIME type {name} is already in the list"
-#~ msgstr "Type MIME {name} déjà dans la liste"
 
-#~ msgid " or something starting with \"x-\"."
-#~ msgstr "ou quelquechose commençant par \"x-\"."
 
-#~ msgid "Add a new file extension without dot. Like \"pdf\""
-#~ msgstr "Ajouter une nouvelle extension (sans le point, comme \"pdf\")"
 
-#~ msgid "content filter threshold"
-#~ msgstr "seuil de filtre de contenu"
 
-#~ msgid "transparent proxy"
-#~ msgstr "proxy transparent"
 
-#~ msgid "listening port"
-#~ msgstr "port d'écoute"
 
-#~ msgid "{attr} has been deleted successfully"
-#~ msgstr "{attr} a été effacé correctement"
 
-#~ msgid "All file extensions have been deleted"
-#~ msgstr "Toutes les extensions de fichiers ont été supprimées"
 
-#~ msgid "All MIME types have been deleted"
-#~ msgstr "Tous les types MIME ont été supprimés"
 
-#~ msgid "action"
-#~ msgstr "action"
 
-#~ msgid "Allowed domains"
-#~ msgstr "Domaines autorisés"
 
-#~ msgid "Squid listening port"
-#~ msgstr "Port d'écoute de Squid"
 
-#~ msgid "DansGuardian listening port"
-#~ msgstr "Port d'écoute de DansGuardian"
 
-#~ msgid "Policy '{policy}' is invalid"
-#~ msgstr "La politique '{policy}' est invalide"
 
-#~ msgid "domain"
-#~ msgstr "domaine"
 
-#~ msgid "Add here those domains which you want to allow access."
-#~ msgstr "Ajoutez ici les domaines auxquels vous souhaitez autoriser l'accès"
 
-#~ msgid "Add here those domains which you do not want to allow access."
-#~ msgstr ""
-#~ "Ajoutez ici les domaines auxquels vous ne souhaitez pas autoriser l'accès"
 
-#~ msgid ""
-#~ "Please note that if you set a configuration which prevents you from "
-#~ "connecting to the administration interface through the proxy, you must "
-#~ "then connect to it directly"
-#~ msgstr ""
-#~ "Veuillez noter que si vous placez une configuration qui vous empêche de "
-#~ "vous connecter à l'interface d'administration par le proxy, vous devez "
-#~ "alors vous connecter à elle directement"
 
-#~ msgid "Change"
-#~ msgstr "Modifier"
 
-#~ msgid "Introduce domains in this way: "
-#~ msgstr "Introduire les domaines de cette manière : "
 
-#~ msgid "domain.com"
-#~ msgstr "domain.com"
 
-#~ msgid "Action"
-#~ msgstr "Action"
 
-#~ msgid "Add"
-#~ msgstr "Ajouter"
 
-#~ msgid "Delete"
-#~ msgstr "Effacer"
 
-#~ msgid ""
-#~ "When the filter content is enabled you can select those file {name} which "
-#~ "are denied to download"
-#~ msgstr ""
-#~ "Lorsque le filtrage de contenu est activé, vous pouvez sélectionner les "
-#~ "fichiers {name}, qui sont interdits de téléchargement"
 
-#~ msgid "Actions"
-#~ msgstr "Actions"
 
-#~ msgid "All MIME types"
-#~ msgstr "Tous les types MIME"
 
-#~ msgid "Delete them all"
-#~ msgstr "Tous les supprimer"
 
-#~ msgid "Are you sure you want to delete all file extensions?"
-#~ msgstr ""
-#~ "Etes-vous sûr de vouloir effacer toutes les extensions de fichiers ?"
 
-#~ msgid "Are you sure you want to delete all MIME types?"
-#~ msgstr "Etes-vous sûr de vouloir effacer tous les types MIME ?"
 
-#~ msgid ""
-#~ "Choose the object whose state you want to change and click in the arrow "
-#~ "to move it to the desired column."
-#~ msgstr ""
-#~ "Choisissez l'objet dontvous voulez changer l'état et cliquer sur la "
-#~ "flèche pour le déplacer à la colonne désirée."
 
-#~ msgid "Empty list"
-#~ msgstr "Liste vide"
 
-#~ msgid "Move selected objects to the filtered column"
-#~ msgstr "Déplacez les objets choisis à la colonne filtrée"
 
-#~ msgid "Ban"
-#~ msgstr "Exclure"
 
-#~ msgid "Move selected objects to the banned column"
-#~ msgstr "Déplacez les objets choisis à la colonne interdite"
 
-#~ msgid "Move selected objects to the unfiltered column"
-#~ msgstr "Déplacez les objets choisis à la colonne non filtrée"
 
-#~ msgid "This list will only take effect if {globalPolicy} is set to {filter}"
-#~ msgstr ""
-#~ "Cette liste ne prendra effet que si {globalPolicy} est défini à {filter}"
 
-#~ msgid "Mime Type filter"
-#~ msgstr "Filtre de type MIME"
 
-#~ msgid ""
-#~ "The 'filter' policy only takes effect when the 'Content filter' is active"
-#~ msgstr ""
-#~ "La politique de filtrage prend effet uniquement lorsque le \"filtre de "
-#~ "contenu\" est actif"
 
-#~ msgid "Configure allowed internet domains"
-#~ msgstr "Configurer les domaines Internet autorisés"
 
-#~ msgid ""
-#~ "The configuration is invalid becuase a 'filter' policy requires an active "
-#~ "content filter"
-#~ msgstr ""
-#~ "La configuration n'est pas valable car une politique de filtrage "
-#~ "nécessite un filtre de contenu actif"
 
-#~ msgid "Extensions filter"
-#~ msgstr "Filtre d'extensions"
 
-#~ msgid "MIME Type filter"
-#~ msgstr "Filtre de type MIME"
 
-#~ msgid ""
-#~ "Add a new MIME type with the following syntax: type/subtype Where type "
-#~ "can be: {types}"
-#~ msgstr ""
-#~ "Ajouter un nouveau type MIME avec la syntaxe suivante : type/sous-type où "
-#~ "le type peut être : {types}"
 
-#~ msgid "global policy"
-#~ msgstr "politique globale"
 
-#~ msgid "Banned domains"
-#~ msgstr "Domaines exclus"
 
-#~ msgid "object"
-#~ msgstr "objet"
 
-#~ msgid "General Settings"
-#~ msgstr "Paramètres généraux"
 
 #, fuzzy
-#~ msgid "Allow all"
-#~ msgstr "Autoriser"
 
-#~ msgid "All extensions"
-#~ msgstr "Toutes les extensions"
 
 #, fuzzy
-#~ msgid "Allow all extensions"
-#~ msgstr "Autoriser"

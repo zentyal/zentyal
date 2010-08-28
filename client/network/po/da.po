@@ -1069,197 +1069,67 @@ msgstr ""
 "konfiguration, på dette netværk interface, slette de relevante dele af deres "
 "konfiguration. Vælg \"Fortryd\" hvis du ikke er sikker."
 
-#~ msgid "Physical interface"
-#~ msgstr "Fysisk interface"
 
-#~ msgid "Vlan interface list"
-#~ msgstr "Vlan interface liste"
 
-#~ msgid "These are the vlan interfaces which are available in your system."
-#~ msgstr "Disse vlan interfaces er tilgængelige på dit system."
 
-#~ msgid "interface"
-#~ msgstr "interface"
 
-#~ msgid "Configurable interface list"
-#~ msgstr "Konfigurerbar interface liste"
 
-#~ msgid "These are the interfaces which can be configured"
-#~ msgstr "Disse interfaces kan konfigureres"
 
-#~ msgid "Physical interface list"
-#~ msgstr "Fysisk interface liste"
 
-#~ msgid ""
-#~ "These are the physical interfaces which are available in your system."
-#~ msgstr "Dette er de fysiske interfaces der er tilgængelige på dit system."
 
-#~ msgid "Set default gateway"
-#~ msgstr "Sæt default gateway"
 
-#~ msgid "You can change later the gateway at Network/Routes menus item"
-#~ msgstr "Du kan ændre gateway'en senere i Netværk/Routes i menuen"
 
-#~ msgid ""
-#~ "After the initial config you can revisit this page at Network/Interfaces "
-#~ "in the menu"
-#~ msgstr ""
-#~ "Efter den første konfigurering kan du komme tilbage til siden ved Netværk/"
-#~ "Interfaces i menuen"
 
-#~ msgid "Gateway configured"
-#~ msgstr "Gateway konfigureret"
 
-#~ msgid "You can revisit this page at Network/DNS in the menu"
-#~ msgstr "Du kan se denne side igen ved Netværk/DNS i menuen"
 
-#~ msgid "Network interface configured"
-#~ msgstr "Netværk interface konfigureret"
 
-#~ msgid "Configure name servers"
-#~ msgstr "Konfigurer navneserver"
 
-#~ msgid "Configure default gateway"
-#~ msgstr "Konfigurer default gateway"
 
-#~ msgid "Upload"
-#~ msgstr "Upload"
 
-#~ msgid "Download"
-#~ msgstr "Download"
 
 #, fuzzy
-#~ msgid "Core"
-#~ msgstr "Source/kilde"
 
-#~ msgid "Balance traffic and multigateway rules"
-#~ msgstr "Afbalancér trafik og multigateway regler"
 
-#~ msgid "IP Address"
-#~ msgstr "IP Adresse"
 
-#~ msgid "Protocol"
-#~ msgstr "Protokol"
 
-#~ msgid "Port"
-#~ msgstr "Port"
 
-#~ msgid "Destination port"
-#~ msgstr "Destination port"
 
-#~ msgid "Source port"
-#~ msgstr "Kilde port"
 
-#~ msgid "Port cannot be set if no protocol is selected"
-#~ msgstr "Port kan ikke sættes hvis protokol ikke er valgt"
 
-#~ msgid "Routes"
-#~ msgstr "Ruter"
 
-#~ msgid ""
-#~ "Having network interfaces configured via DHCP may cause this settings to "
-#~ "be overriden."
-#~ msgstr ""
-#~ "At konfigurere via DHCP kan bevirke at opsætning bliver overskrevet."
 
-#~ msgid ""
-#~ "Gateway {gw} must be reacheable by a static interface. Currently is "
-#~ "reacheable by {iface} which is not static"
-#~ msgstr ""
-#~ "Gateway {gw} må være tilgængelig for et statisk interface. Er lige nu "
-#~ "tilgængelig for {iface} der ikke er statisk"
 
-#~ msgid ""
-#~ "To be able to use this feature, you need, at least, two gateways. You can "
-#~ "add them <a href=\"/ebox/Network/View/GatewayDataTable\">here</a> first"
-#~ msgstr ""
-#~ "For at bruge denne feature behøver du mindst to gateways. Du kan tilføje "
-#~ "dem <a href=\"/ebox/Network/View/GatewayDataTable\">her</a>  først"
 
-#~ msgid "There is already a default gateway"
-#~ msgstr "Der er allerede en default gateway"
 
-#~ msgid "gateway address"
-#~ msgstr "gateway adresse"
 
-#~ msgid "Primary"
-#~ msgstr "Primær"
 
-#~ msgid "Secondary"
-#~ msgstr "Sekundær"
 
-#~ msgid "Apply"
-#~ msgstr "Tilføj"
 
 #, fuzzy
-#~ msgid "Activate traffic rate monitor"
-#~ msgstr "traffik data fra {src}"
 
 #, fuzzy
-#~ msgid "Traffic rate monitor"
-#~ msgstr "traffik data fra {src}"
 
-#~ msgid "Traffic data not found for service {service}"
-#~ msgstr "Ingen traffik fundet for servicen {service}"
 
-#~ msgid "Traffic data not found for source {src} and service {service}"
-#~ msgstr "Ingen traffik fundet for kilden {src} og servicen {service}"
 
-#~ msgid "Active services"
-#~ msgstr "Aktive servicer"
 
 #, fuzzy
-#~ msgid "No traffic data found for services"
-#~ msgstr "Ingen traffik fundet for servicen {service}"
 
-#~ msgid "Active sources"
-#~ msgstr "Aktive kilder"
 
 #, fuzzy
-#~ msgid "No traffic data for sources found"
-#~ msgstr "Ingen traffik data for kilden {src}"
 
-#~ msgid "Traffic rate from {src}"
-#~ msgstr "traffik data fra {src}"
 
-#~ msgid "Traffic rate for {service}"
-#~ msgstr "Traffik data for {service}"
 
 #, fuzzy
-#~ msgid "Traffic rate monitor active"
-#~ msgstr "Traffik data for {service}"
 
 #, fuzzy
-#~ msgid "Active sources traffic"
-#~ msgstr "Aktive kilder"
 
 #, fuzzy
-#~ msgid "Active services traffic"
-#~ msgstr "Aktive servicer"
 
 #, fuzzy
-#~ msgid "Source traffic"
-#~ msgstr "Balancer trafik"
 
 #, fuzzy
-#~ msgid "Service traffic"
-#~ msgstr "Balancer trafik"
 
-#~ msgid "Traffic data not found for source {src}"
-#~ msgstr "Ingen traffik data for kilden {src}"
 
-#~ msgid "No services bit rate data found"
-#~ msgstr "ingen service bitrate kunne findes"
 
-#~ msgid "No sources bit rate data found"
-#~ msgstr "Ingen bitrate data for kilder"
 
-#~ msgid ""
-#~ "All routers you enter here must be reachable through one of the network "
-#~ "interfaces currently configured."
-#~ msgstr ""
-#~ "Alle routere du nævner her må være tilgængelige gennem en af de netværk "
-#~ "interfaces du har konfigureret"
 
-#~ msgid "network address"
-#~ msgstr "netværk adresse"

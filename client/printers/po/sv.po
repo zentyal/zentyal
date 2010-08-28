@@ -126,302 +126,101 @@ msgid ""
 "{close_href}"
 msgstr ""
 
-#~ msgid "Model"
-#~ msgstr "Modell"
 
-#~ msgid "Printer {printer} has no available drivers"
-#~ msgstr "Skrivaren {printer} har inga tillgängliga drivrutiner"
 
-#~ msgid "Add a new printer (II)"
-#~ msgstr "Lägg till en ny skrivare (II)"
 
-#~ msgid "Next"
-#~ msgstr "Nästa"
 
-#~ msgid "IP"
-#~ msgstr "IP"
 
-#~ msgid "Port"
-#~ msgstr "Port"
 
-#~ msgid "Standalone cups enabled"
-#~ msgstr "Fristående cups aktiverad"
 
-#~ msgid "Standalone cups disabled"
-#~ msgstr "Fristående cups inaktiverad"
 
-#~ msgid "Add a new printer (VI)"
-#~ msgstr "Lägg till en ny skrivare (VI)"
 
-#~ msgid "Driver"
-#~ msgstr "Drivrutin"
 
-#~ msgid "The printer has been deleted successfully"
-#~ msgstr "Skrivaren har tagits bort"
 
-#~ msgid "Shared resource"
-#~ msgstr "Delad resurs"
 
-#~ msgid "Authentication"
-#~ msgstr "Autentisering"
 
-#~ msgid "Password"
-#~ msgstr "Lösenord"
 
-#~ msgid "Manage printer"
-#~ msgstr "Hantera skrivare"
 
-#~ msgid "Printer details"
-#~ msgstr "Detaljer om skrivare"
 
-#~ msgid "Driver Options"
-#~ msgstr "Drivrutinsalternativ"
 
-#~ msgid "Configuration options"
-#~ msgstr "Konfigurationsalternativ"
 
-#~ msgid "Jobs Queue"
-#~ msgstr "Jobbkö"
 
-#~ msgid "Printer's name"
-#~ msgstr "Skrivarens namn"
 
-#~ msgid "Printer's id"
-#~ msgstr "Skrivarens id"
 
-#~ msgid "Job id"
-#~ msgstr "Jobb-id"
 
-#~ msgid "Job was successfully canceled"
-#~ msgstr "Jobbet avbröts"
 
-#~ msgid "Add a new printer (IV)"
-#~ msgstr "Lägg till en ny skrivare (IV)"
 
-#~ msgid "Device"
-#~ msgstr "Enhet"
 
-#~ msgid "Manage printers"
-#~ msgstr "Hantera skrivare"
 
-#~ msgid "Delete printer"
-#~ msgstr "Ta bort skrivare"
 
-#~ msgid "Add a new printer (V)"
-#~ msgstr "Lägg till en ny skrivare (V)"
 
-#~ msgid "Method"
-#~ msgstr "Metod"
 
-#~ msgid "Printer description"
-#~ msgstr "Skrivarbeskrivning"
 
-#~ msgid "Manufacturer"
-#~ msgstr "Tillverkare"
 
-#~ msgid "Add a new printer (III)"
-#~ msgstr "Lägg till en ny skrivare (III)"
 
-#~ msgid "Add a new printer (I)"
-#~ msgstr "Lägg till en ny skrivare (I)"
 
-#~ msgid "Add user ebox to lpadmin group"
-#~ msgstr "Lägg till användaren ebox till lpadmin gruppen"
 
-#~ msgid "In order to manage printers and queues from the eBox web interface"
-#~ msgstr ""
-#~ "För att kunna administrera skrivare och köer från eBox webgränssnitt"
 
-#~ msgid "To add and manage printers"
-#~ msgstr "För att lägga till och hantera skrivare"
 
-#~ msgid "To enable standalone cupsd listen on internal interfaces"
-#~ msgstr "För att tillåta fristående cupsd att lyssna på interna gränssnitt"
 
-#~ msgid "Add Printer"
-#~ msgstr "Lägg till skrivare"
 
-#~ msgid ""
-#~ "The printer's name contains characters not valid.Only alphanumeric "
-#~ "characters are allowed"
-#~ msgstr ""
-#~ "Skrivarens namn innehåller ogiltiga tecken. Endast alfanumeriska tecken "
-#~ "tillåts"
 
-#~ msgid "Name"
-#~ msgstr "Namn"
 
-#~ msgid "The given name is alreaday used as "
-#~ msgstr "Det angivna namnet används redan som"
 
-#~ msgid "It is not a usb printer"
-#~ msgstr "Den är inte en usb-skrivare"
 
-#~ msgid "It is not a parallel printer"
-#~ msgstr "Den är inte en parallellportsskrivare"
 
-#~ msgid "It is not a network printer"
-#~ msgstr "Den är inte en nätverksskrivare"
 
-#~ msgid "It is not a samba printer"
-#~ msgstr "Den är inte en samba-skrivare"
 
-#~ msgid "It is not a IPP printer"
-#~ msgstr "Den är inte en IPP skrivare"
 
-#~ msgid "It is not a LPD printer"
-#~ msgstr "Den är inte en LPD skrivare"
 
-#~ msgid "is not a valid option"
-#~ msgstr "är inte ett giltigt alternativ"
 
-#~ msgid "Parameter '{name}' does not exist"
-#~ msgstr "Parametern \"{name}\" finns inte"
 
-#~ msgid "Owner"
-#~ msgstr "Ägare"
 
-#~ msgid "Queued at"
-#~ msgstr "Kölagd"
 
-#~ msgid "Set printer name and method"
-#~ msgstr "Ställ in skrivarnamn och metod"
 
-#~ msgid "Parallel"
-#~ msgstr "Parallellport"
 
-#~ msgid "AppSocket"
-#~ msgstr "AppSocket"
 
-#~ msgid "Samba"
-#~ msgstr "Samba"
 
-#~ msgid "IPP: Internet printing protocol"
-#~ msgstr "IPP: Internet printing protocol"
 
-#~ msgid "LPD: Line Printer Daemon"
-#~ msgstr "LPD: Line Printer Daemon"
 
-#~ msgid "Choose manufacturer"
-#~ msgstr "Välj tillverkare"
 
-#~ msgid "Local parallel printer configuration"
-#~ msgstr "Konfiguration för lokal parallellportsskrivare"
 
-#~ msgid "Are you sure you want to delete the printer '{name}'?"
-#~ msgstr "Är du säker på att du vill ta bort skrivaren \"{name}\"?"
 
-#~ msgid "Cancel"
-#~ msgstr "Avbryt"
 
-#~ msgid "Local USB printer configuration"
-#~ msgstr "Konfiguration för lokal USB-skrivare"
 
-#~ msgid "Change"
-#~ msgstr "Ändra"
 
-#~ msgid "Job queue"
-#~ msgstr "Jobbkö"
 
-#~ msgid "Size(KB)"
-#~ msgstr "Storlek(KB)"
 
-#~ msgid "Creation time"
-#~ msgstr "Skapad den"
 
-#~ msgid "Action"
-#~ msgstr "Åtgärd"
 
-#~ msgid "This printer has no pending job in queue at the moment"
-#~ msgstr "Den här skrivaren har inga väntande jobb i kö för tillfället"
 
-#~ msgid "You need to save changes in order to print a test page"
-#~ msgstr "Du behöver spara ändringarna för att kunna skriva ut en testsida"
 
-#~ msgid "Print Test Page"
-#~ msgstr "Skriv testsida"
 
-#~ msgid "Driver options"
-#~ msgstr "Drivrutinsalternativ"
 
-#~ msgid "Choose a printer model"
-#~ msgstr "Välj en skrivarmodell"
 
-#~ msgid "Configure IPP printer"
-#~ msgstr "Konfigurera IPP skrivare"
 
-#~ msgid "Choose a driver for the printer"
-#~ msgstr "Välj en drivrutin för skrivaren"
 
-#~ msgid "Configure LPD printer"
-#~ msgstr "Konfigurera LPD skrivare"
 
-#~ msgid "Choose a dirver for the printer"
-#~ msgstr "Välj en drivrutin för skrivaren"
 
-#~ msgid "driver"
-#~ msgstr "drivrutin"
 
-#~ msgid "Go"
-#~ msgstr "Kör"
 
-#~ msgid "Samba shared printer configurationr"
-#~ msgstr "Konfiguration av delad Samba-skrivare "
 
-#~ msgid "Share resource"
-#~ msgstr "Dela resurs"
 
-#~ msgid "Anonymous"
-#~ msgstr "Anonym"
 
-#~ msgid "Guest"
-#~ msgstr "Gäst"
 
-#~ msgid "User/Password"
-#~ msgstr "Användare/Lösenord"
 
-#~ msgid "Remote printer configuration"
-#~ msgstr "Konfiguration av fjärrskrivare"
 
-#~ msgid "Configure AppSocket printer"
-#~ msgstr "Konfigurera AppSocket skrivare"
 
-#~ msgid "Samba shared printer configuration"
-#~ msgstr "Konfiguration för delad Samba-skrivare"
 
-#~ msgid "Enable standalone CUPS"
-#~ msgstr "Aktivera fristående CUPS"
 
-#~ msgid "General settings"
-#~ msgstr "Generella inställningar"
 
-#~ msgid "List of printers"
-#~ msgstr "Skrivarlista"
 
-#~ msgid "Description"
-#~ msgstr "Beskrivning"
 
-#~ msgid "Actions"
-#~ msgstr "Åtgärder"
 
-#~ msgid "Manage"
-#~ msgstr "Hantera"
 
-#~ msgid "Manage this printer"
-#~ msgstr "Hantera den här skrivaren"
 
-#~ msgid "There is no printer configured yet"
-#~ msgstr "Det finns ingen konfigurerad skrivare ännu"
 
 #, fuzzy
-#~ msgid "printers"
-#~ msgstr "Skrivare"
 
-#~ msgid "module status"
-#~ msgstr "modulstatus"
 
-#~ msgid "Network printer"
-#~ msgstr "Nätverksskrivare"
 
-#~ msgid "Printer sharing status"
-#~ msgstr "Status för skrivardelning"

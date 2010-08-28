@@ -837,84 +837,24 @@ msgid "Enter"
 msgstr ""
 
 #, fuzzy
-#~ msgid "User corner"
-#~ msgstr "Kullanıcı ismi"
 
-#~ msgid ""
-#~ "If you remove this group all its data within its shared directory will be "
-#~ "deleted"
-#~ msgstr "Eğer grubu silerseniz ortak kullanımdaki bütün dizinlerde silinir"
 
 #, fuzzy
-#~ msgid ""
-#~ "There are no users at the moment. You may want to add some in {openhref}"
-#~ "Add user section{closehref}."
-#~ msgstr ""
-#~ "Henüz kullanıcı mevcut değil. Kullanım için en azından bir grubu "
-#~ "düzenlemeniz gerekiyor."
 
-#~ msgid "Edit User"
-#~ msgstr "Kullanıcıyı düzenle"
 
-#~ msgid "Edit Group"
-#~ msgstr "Grubu düzenle"
 
-#~ msgid ""
-#~ "Changes in user accounts take effect inmediately, they do not need to be "
-#~ "saved."
-#~ msgstr "Kullanıcı hesapları güncelleniyor. Lütfen birşey kaydetmeyin."
 
-#~ msgid ""
-#~ "Changes related to printing, file sharing and Jabber service do need to "
-#~ "be saved in order to be effective."
-#~ msgstr ""
-#~ "Yazdırma, Ortak kullanım ve Jabber servisindeki değişiklikler kayıt "
-#~ "edilmesi gerekir."
 
-#~ msgid "Create"
-#~ msgstr "Oluştur"
 
-#~ msgid "Actions"
-#~ msgstr "İşlemler"
 
 #, fuzzy
-#~ msgid ""
-#~ "There are no groups at the moment. You may want to add some in the master "
-#~ "eBox"
-#~ msgstr ""
-#~ "Henüz kullanıcı mevcut değil. Kullanım için en azından bir grubu "
-#~ "düzenlemeniz gerekiyor."
 
 #, fuzzy
-#~ msgid ""
-#~ "There are no groups at the moment. You may want to add some in the Domain "
-#~ "Controller"
-#~ msgstr ""
-#~ "Henüz kullanıcı mevcut değil. Kullanım için en azından bir grubu "
-#~ "düzenlemeniz gerekiyor."
 
-#~ msgid "full name"
-#~ msgstr "Tam ismi"
 
 #, fuzzy
-#~ msgid "Edit user"
-#~ msgstr "Kullanıcıyı düzenle"
 
-#~ msgid ""
-#~ "This operation will cause the removal of the user and all his "
-#~ "dependences; such as mail accounts, user data..."
-#~ msgstr ""
-#~ "Bu işlem kullanıcıyı siler ve ona ait tüm posta ve kullanıcı verileride "
-#~ "birlikte silinir"
 
-#~ msgid "Deleting user"
-#~ msgstr "Kullanıcı siliniyor"
 
-#~ msgid "Deleting group"
-#~ msgstr "Grup siliniyor"
 
-#~ msgid "Administration of group "
-#~ msgstr "Grup yöneticisi"
 
-#~ msgid "Administration of user"
-#~ msgstr "Kullanıcı yönetimi"

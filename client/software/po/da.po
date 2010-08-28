@@ -350,232 +350,98 @@ msgid "Upgrade"
 msgstr "Opgrader"
 
 #, fuzzy
-#~ msgid "packages installed"
-#~ msgstr "Softwarepakker der mangler at blive installeret"
 
 #, fuzzy
-#~ msgid "Automatic Updates"
-#~ msgstr "Automatisk software opdatering"
 
-#~ msgid "Software updates are being handled automatically"
-#~ msgstr "Software opdateringer sker automatisk."
 
-#~ msgid "Installed version "
-#~ msgstr "Installeret version"
 
-#~ msgid "Latest version"
-#~ msgstr "Seneste version"
 
-#~ msgid "none"
-#~ msgstr "ingen"
 
-#~ msgid "Remove"
-#~ msgstr "Fjern"
 
 #, fuzzy
-#~ msgid "eBox - Antivirus module"
-#~ msgstr "Post filter modul"
 
 #, fuzzy
-#~ msgid "eBox - Asterisk"
-#~ msgstr "eBox DNS server"
 
 #, fuzzy
-#~ msgid "eBox - Certificate Authority Manager for eBox"
-#~ msgstr "Certifikat håndtering for eBox"
 
 #, fuzzy
-#~ msgid "eBox - captive portal module"
-#~ msgstr "Post filter modul"
 
 #, fuzzy
-#~ msgid "eBox - DHCP server module"
-#~ msgstr "eBox DNS server"
 
 #, fuzzy
-#~ msgid "eBox - DNS server"
-#~ msgstr "eBox DNS server"
 
 #, fuzzy
-#~ msgid "eBox - Firewall"
-#~ msgstr "Firewall"
 
 #, fuzzy
-#~ msgid "eBox - Instant messaging proxy"
-#~ msgstr "Jabber"
 
 #, fuzzy
-#~ msgid "eBox - Instant messaging (Jabber)"
-#~ msgstr "Jabber"
 
 #, fuzzy
-#~ msgid "eBox - Mail server"
-#~ msgstr "Post server"
 
 #, fuzzy
-#~ msgid "eBox - Mail filter module"
-#~ msgstr "Post filter modul"
 
 #, fuzzy
-#~ msgid "eBox - Monitoring module  "
-#~ msgstr "Post filter modul"
 
 #, fuzzy
-#~ msgid "eBox - Network configuration module"
-#~ msgstr "Netværksindstillinger"
 
 #, fuzzy
-#~ msgid "eBox - NTP server"
-#~ msgstr "eBox DNS server"
 
 #, fuzzy
-#~ msgid "eBox - Object management"
-#~ msgstr "Pakke håndtering"
 
 #, fuzzy
-#~ msgid "eBox - OpenVPN server module"
-#~ msgstr "OpenVPN server"
 
 #, fuzzy
-#~ msgid "eBox - Printer sharing"
-#~ msgstr "Deling af printer"
 
 #, fuzzy
-#~ msgid "eBox - File sharing"
-#~ msgstr "Deling af filer"
 
 #, fuzzy
-#~ msgid "eBox - Services management"
-#~ msgstr "Styring af funktioner"
 
 #, fuzzy
-#~ msgid "eBox - Software management"
-#~ msgstr "Software styring"
 
 #, fuzzy
-#~ msgid "eBox - Proxy cache and content filter"
-#~ msgstr "Proxy server og indholdsfilter"
 
 #, fuzzy
-#~ msgid "eBox - Traffic shaper for eBox"
-#~ msgstr "Båndbredde styring for eBox"
 
 #, fuzzy
-#~ msgid "eBox - User and Group management"
-#~ msgstr "Bruger- og gruppehåndtering"
 
 #, fuzzy
-#~ msgid "eBox - Web Server"
-#~ msgstr "eBox DNS server"
 
-#~ msgid "IPsec VPNs"
-#~ msgstr "IPsec VPNer"
 
-#~ msgid "SOAP server to communicate with eBox control center"
-#~ msgstr "SOAP server som styres af eBox kontrol center"
 
 #, fuzzy
-#~ msgid "eBox- Web Server"
-#~ msgstr "eBox DNS server"
 
 #, fuzzy
-#~ msgid "Web Server"
-#~ msgstr "eBox DNS server"
 
 #, fuzzy
-#~ msgid "ebox NTP server"
-#~ msgstr "eBox DNS server"
 
-#~ msgid "The packages were removed successfully"
-#~ msgstr "Pakken blev successfuldt fjernet."
 
 #, fuzzy
-#~ msgid "The packages installation has finished successfully"
-#~ msgstr "Installationen af pakkerne er sluttet succesfuldt"
 
-#~ msgid ""
-#~ "An error ocurred while removing components. If the error persists or eBox "
-#~ "stops working properly, seek technical support."
-#~ msgstr ""
-#~ "Der opstod en fejl mens dokumenterne blev fjernet. Hvis fejlen gentages "
-#~ "eller eBox holder op med at virke, kontakt teknisk support."
 
-#~ msgid "DHCP server"
-#~ msgstr "DHCP server"
 
-#~ msgid "Base framework"
-#~ msgstr "Basis fundament"
 
-#~ msgid "NTP server"
-#~ msgstr "NTP server"
 
-#~ msgid "The installation of the packages has finished successfully"
-#~ msgstr "Installationen af pakkerne er sluttet succesfuldt"
 
-#~ msgid ""
-#~ "The packages are being installed, please refrain from using the "
-#~ "application until the update is done"
-#~ msgstr ""
-#~ "Pakken er igang med at blive installeret. Lad venligst være med at "
-#~ "benytte programmet indtil opdateringen er færdig."
 
-#~ msgid "Certificate Authority Manager for eBox"
-#~ msgstr "Certifikat håndtering for eBox"
 
-#~ msgid "eBox DNS server"
-#~ msgstr "eBox DNS server"
 
-#~ msgid "Firewall"
-#~ msgstr "Firewall"
 
-#~ msgid "Instant messaging (Jabber)"
-#~ msgstr "Jabber"
 
-#~ msgid "Mail server"
-#~ msgstr "Post server"
 
-#~ msgid "Mail filter module"
-#~ msgstr "Post filter modul"
 
-#~ msgid "Object management"
-#~ msgstr "Pakke håndtering"
 
-#~ msgid "OpenVPN server"
-#~ msgstr "OpenVPN server"
 
-#~ msgid "Printer sharing"
-#~ msgstr "Deling af printer"
 
-#~ msgid "File sharing"
-#~ msgstr "Deling af filer"
 
-#~ msgid "Services  management"
-#~ msgstr "Styring af funktioner"
 
-#~ msgid "Traffic shaper for eBox"
-#~ msgstr "Båndbredde styring for eBox"
 
-#~ msgid "User and Group management"
-#~ msgstr "Bruger- og gruppehåndtering"
 
 #, fuzzy
-#~ msgid "ebox - Certificate Authority Manager for eBox"
-#~ msgstr "Certifikat håndtering for eBox"
 
 #, fuzzy
-#~ msgid "ebox - Instant messaging (Jabber)"
-#~ msgstr "Jabber"
 
 #, fuzzy
-#~ msgid "ebox - Mail filter module"
-#~ msgstr "Post filter modul"
 
-#~ msgid "Network configuration"
-#~ msgstr "Netværksindstillinger"
 
 #, fuzzy
-#~ msgid "ebox - File sharing"
-#~ msgstr "Deling af filer"
 
-#~ msgid "Proxy cache and content filter"
-#~ msgstr "Proxy server og indholdsfilter"

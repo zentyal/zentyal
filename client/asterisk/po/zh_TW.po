@@ -446,32 +446,10 @@ msgstr "在這群組中沒有用戶或用戶並無任何Asterisk帳號, 所以�
 msgid "Group queue"
 msgstr "群儲列"
 
-#~ msgid ""
-#~ "{brand}: make low-cost VoIP calls to mobile phones and landlines directly "
-#~ "with eBox. Once you have obtained a {subs} , you can purchase the VoIP "
-#~ "credit you need. All these services available for purchasing at the "
-#~ "{ohref}eBox on-line store{chref}! "
-#~ msgstr ""
-#~ "{brand}: 以eBox直接撥低價VoIP到手機和市話. 一旦您已建立一個{subs}, 您可以"
-#~ "購買您需要的VoIP帳戶金額.  所有這些服務都可以在{ohref}eBox網上商店{chref}"
-#~ "購買!"
 
 #, fuzzy
-#~ msgid ""
-#~ "You must install dahdi and dahdi-modules-ebox packages to use Meetings."
-#~ msgstr "您必須安裝 dahdi-linux 和 dahi-tools 套件才能使用會議。"
 
-#~ msgid "To configure the RTP port ranges."
-#~ msgstr "設定 RTP 連接埠範圍。"
 
-#~ msgid "Administrator password"
-#~ msgstr "系統管理者密碼"
 
-#~ msgid "To add the Asterisk schema and ACLs."
-#~ msgstr "加入 Asterisk 配置和 ACLs。"
 
-#~ msgid "Communications"
-#~ msgstr "溝通"
 
-#~ msgid "To add a new schema"
-#~ msgstr "新增模式"

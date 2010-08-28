@@ -451,56 +451,13 @@ msgstr "Nincs kapcsolat. Ellenőrizze a VPN logokat: {path}"
 msgid "Connected"
 msgstr "Csatlakozva"
 
-#~ msgid "eBox Control Center"
-#~ msgstr "eBox vezérlőközpont"
 
-#~ msgid "Control center"
-#~ msgstr "Vezérlőközpont"
 
-#~ msgid "Control Center Client"
-#~ msgstr "Vezérlőközpont ügyfél"
 
-#~ msgid "Control Center"
-#~ msgstr "Vezérlőközpont"
 
-#~ msgid "Remote support accesss"
-#~ msgstr "Távoli támogatás engedélyezése"
 
-#~ msgid ""
-#~ " {openhref}Subscribing{closehref} your eBox to the Control Center lets "
-#~ "you have automatic configuration backup and much more"
-#~ msgstr ""
-#~ "A {openhref}Feliratkozás{closehref} az eBox Vezérlőközpontjába lehetővé "
-#~ "teszi az automatikus beállításmentés és sok mást is"
 
-#~ msgid ""
-#~ "Subscribing an eBox will configure OpenVPN module and its dependencies by "
-#~ "running these actions and modifying these files: "
-#~ msgstr ""
-#~ "Az eBoxra való feliratkozás beállítja az OpenVPN modult és függőségeit "
-#~ "hogy hajtsák végre a következő változtatásokat: "
 
-#~ msgid "Remote support access configuration"
-#~ msgstr "Távoli támogatás elérésének beállítása"
 
-#~ msgid ""
-#~ "eBox Technologies provides support for eBox Platform through our "
-#~ "{openhref}store{closehref}"
-#~ msgstr ""
-#~ "Az eBox Technologies a {openhref}store{closehref}-on keresztül, "
-#~ "támogatást nyújt az eBox Platformhoz"
 
-#~ msgid ""
-#~ "To join the remote session, login in the shell as a user belonging to the "
-#~ "'{group}' group and use the command '{cmd}'."
-#~ msgstr ""
-#~ "A távoli munkamenethez való csatlakozáshoz, lépjen be a konzolba egy a(z) "
-#~ "'{group}' csoporthoz tartozó felhasználóval és futtassa a(z) '{cmd}' "
-#~ "parancsot."
 
-#~ msgid ""
-#~ "In order to subscribe an eBox remote services {url}. You will have remote "
-#~ "backup facilities and much more"
-#~ msgstr ""
-#~ "Ha feliratkozik egy eBox távoli szolgáltatásra {url}. Lehetősége lesz "
-#~ "távoli mentésre és más sok másra"

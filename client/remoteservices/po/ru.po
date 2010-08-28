@@ -435,121 +435,39 @@ msgstr "Нет подключения. Проверьте журналы VPN в 
 msgid "Connected"
 msgstr "Подключено"
 
-#~ msgid "eBox Control Center"
-#~ msgstr "Центр управления eBox"
 
-#~ msgid "Control center"
-#~ msgstr "Центр управления"
 
-#~ msgid "Control Center Client"
-#~ msgstr "Клиент центра управления"
 
-#~ msgid "Control Center"
-#~ msgstr "Центр управления"
 
 #, fuzzy
-#~ msgid "Remote support accesss"
-#~ msgstr "Удаленные службы"
 
-#~ msgid ""
-#~ " {openhref}Subscribing{closehref} your eBox to the Control Center lets "
-#~ "you have automatic configuration backup and much more"
-#~ msgstr ""
-#~ " {openhref}Subscribing{closehref} вашего eBox на Центр Управления "
-#~ "позволит вам автоматически настроить бэкап и многое другое"
 
-#~ msgid ""
-#~ "Subscribing an eBox will configure OpenVPN module and its dependencies by "
-#~ "running these actions and modifying these files: "
-#~ msgstr ""
-#~ "Подписка eBox настроит модуль OpenVPN и его зависимости, запустив "
-#~ "следующие действия и изменив следующие файлы: "
 
-#~ msgid ""
-#~ "In order to subscribe an eBox remote services {url}. You will have remote "
-#~ "backup facilities and much more"
-#~ msgstr ""
-#~ "При подписке eBox на удаленные услуги {url}. Вы получите удаленное "
-#~ "резервное копирование и многое другое."
 
-#~ msgid "eBox Control Center is paid services to enhance your eBox experience"
-#~ msgstr "Платные услуги центра управления eBox повысят ваш опыт eBox :)"
 
-#~ msgid "User name"
-#~ msgstr "Имя пользователя"
 
-#~ msgid "field1"
-#~ msgstr "поле1"
 
-#~ msgid "field2"
-#~ msgstr "поле2"
 
-#~ msgid "Settings"
-#~ msgstr "Настройки"
 
-#~ msgid "Composite"
-#~ msgstr "Комбинированный"
 
-#~ msgid "eBox remote services"
-#~ msgstr "eBox удаленные службы"
 
-#~ msgid "Remote Services Subscription"
-#~ msgstr "Подписка удаленную службу"
 
-#~ msgid "Your computer has not internet connection"
-#~ msgstr "Ваш компьютер не имеет интернет соединения"
 
-#~ msgid "Your computer has not a correct system date"
-#~ msgstr "На вашем компьютере не корректное системное время"
 
-#~ msgid "You are using the wrong certificates"
-#~ msgstr "Вы используете неправильные сертификаты"
 
-#~ msgid "This eBox has been removed from your registered eBoxes"
-#~ msgstr "Этот eBox был удален из Вашего зарегистрированного eBoxes"
 
-#~ msgid "Name"
-#~ msgstr "Имя"
 
-#~ msgid "Date"
-#~ msgstr "Дата"
 
-#~ msgid "Archive size"
-#~ msgstr "Размер архива"
 
-#~ msgid "Cancel"
-#~ msgstr "Отмена"
 
-#~ msgid "eBox host"
-#~ msgstr "eBox узел"
 
-#~ msgid "Download"
-#~ msgstr "Загрузить"
 
-#~ msgid "restore"
-#~ msgstr "восстановить"
 
-#~ msgid "download"
-#~ msgstr "загрузить"
 
-#~ msgid "Backups' list"
-#~ msgstr "Список резервных копий"
 
-#~ msgid "User"
-#~ msgstr "Пользователь"
 
-#~ msgid "Submit"
-#~ msgstr "Подтвердить"
 
-#~ msgid "Enter user and password"
-#~ msgstr "Введите пользователя и пароль"
 
 #, fuzzy
-#~ msgid "delete"
-#~ msgstr "удалить"
 
-#~ msgid "Configuration backups' list"
-#~ msgstr "Настройка списка резервных копий"
 
-#~ msgid "subscription page"
-#~ msgstr "страница подписки"

@@ -333,236 +333,81 @@ msgid "Upgrade"
 msgstr "Aggiorna"
 
 #, fuzzy
-#~ msgid "packages installed"
-#~ msgstr "pacchetti rimasti da installare"
 
-#~ msgid ""
-#~ "eBox software will download the available updates from your configured "
-#~ "apt sources. "
-#~ msgstr ""
-#~ "eBox scaricherà gli aggiornamenti disponibili dalle sorgenti apt "
-#~ "configurate"
 
-#~ msgid "Enable cron script to download updates"
-#~ msgstr "Abilita il cron script per scaricare gli aggiornamenti"
 
-#~ msgid ""
-#~ "The software management module must be enabled to be able to install "
-#~ "packages"
-#~ msgstr ""
-#~ "Il modulo per la gestione del software deve essere abilitato per "
-#~ "installare i pacchetti"
 
-#~ msgid ""
-#~ "The software management module must be enabled to be able to remove "
-#~ "packages"
-#~ msgstr ""
-#~ "Il modulo per la gestione del software deve essere abilitato per "
-#~ "rimuovere i pacchetti"
 
-#~ msgid "Automatic Updates"
-#~ msgstr "Aggiornamenti automatici"
 
-#~ msgid "Software updates are being handled automatically"
-#~ msgstr "Gli aggiornamenti software sono gestiti automaticamente"
 
-#~ msgid "Installed version "
-#~ msgstr "Versione installata"
 
-#~ msgid "Latest version"
-#~ msgstr "Ultima versione"
 
-#~ msgid "none"
-#~ msgstr "nessuno"
 
-#~ msgid "Remove"
-#~ msgstr "Rimuovi"
 
-#~ msgid "eBox - Backup"
-#~ msgstr "eBox - Backup"
 
 #, fuzzy
-#~ msgid "eBox - Antivirus module"
-#~ msgstr "eBox - Modulo filtro posta"
 
 #, fuzzy
-#~ msgid "eBox - Asterisk"
-#~ msgstr "eBox - server DNS"
 
-#~ msgid "eBox - Certificate Authority Manager for eBox"
-#~ msgstr "eBox - Certificate Authority Manager per eBox"
 
 #, fuzzy
-#~ msgid "eBox - captive portal module"
-#~ msgstr "eBox - Modulo filtro posta"
 
-#~ msgid "eBox - DHCP server module"
-#~ msgstr "eBox - modulo server DHCP"
 
-#~ msgid "eBox - DNS server"
-#~ msgstr "eBox - server DNS"
 
-#~ msgid "the eBox platform - Base framework"
-#~ msgstr "Framework base di eBox"
 
-#~ msgid "eBox - Firewall"
-#~ msgstr "eBox - Firewall"
 
 #, fuzzy
-#~ msgid "eBox - Instant messaging proxy"
-#~ msgstr "eBox - Instant messaging (Jabber)"
 
-#~ msgid "eBox - Instant messaging (Jabber)"
-#~ msgstr "eBox - Instant messaging (Jabber)"
 
-#~ msgid "eBox - layer 7 protocols"
-#~ msgstr "eBox - layer 7 protocols"
 
-#~ msgid "eBox - Mail server"
-#~ msgstr "eBox - Server di posta"
 
-#~ msgid "eBox - Mail filter module"
-#~ msgstr "eBox - Modulo filtro posta"
 
-#~ msgid "eBox - Monitoring module  "
-#~ msgstr "eBox - Modulo monitor"
 
-#~ msgid "eBox - Network configuration module"
-#~ msgstr "eBox - Modulo configurazione di rete"
 
-#~ msgid "eBox - NTP server"
-#~ msgstr "eBox - Server NTP"
 
-#~ msgid "eBox - Object management"
-#~ msgstr "eBox - Gestione oggetti"
 
-#~ msgid "eBox - OpenVPN server module"
-#~ msgstr "eBox - Modulo server OpenVPN"
 
-#~ msgid "eBox - Printer sharing"
-#~ msgstr "eBox - Condivisione stampanti"
 
-#~ msgid "eBox - File sharing"
-#~ msgstr "eBox - Condivisione file"
 
-#~ msgid "eBox - Services management"
-#~ msgstr "eBox - Gestione servizi"
 
-#~ msgid "eBox - Software management"
-#~ msgstr "eBox - Gestione software"
 
-#~ msgid "eBox - Proxy cache and content filter"
-#~ msgstr "eBox - Proxy cache e filtro contenuti"
 
-#~ msgid "eBox - Traffic shaper for eBox"
-#~ msgstr "eBox - Traffic shaper per eBox"
 
-#~ msgid "eBox - User and Group management"
-#~ msgstr "eBox - Gestione Utenti e Gruppi"
 
-#~ msgid "eBox - Web Server"
-#~ msgstr "eBox - Server Web"
 
-#~ msgid "IPsec VPNs"
-#~ msgstr "IPsec VPNs"
 
-#~ msgid "SOAP server to communicate with eBox control center"
-#~ msgstr "Server SOAP per la comunicazione con eBox control center"
 
 #, fuzzy
-#~ msgid "eBox- Web Server"
-#~ msgstr "Server Web"
 
-#~ msgid "Web Server"
-#~ msgstr "Server Web"
 
 #, fuzzy
-#~ msgid "ebox NTP server"
-#~ msgstr "Server DNS eBox"
 
-#~ msgid "The packages were removed successfully"
-#~ msgstr "I pacchetti sono stati rimossi correttamente"
 
-#~ msgid ""
-#~ "An error ocurred while removing components. If the error persists or eBox "
-#~ "stops working properly, seek technical support."
-#~ msgstr ""
-#~ "Si è verificato un errore durante la rimozione dei componenti. Se "
-#~ "l'errore persiste o eBox smette di funzionare correttamente, chiedere "
-#~ "supporto tecnico."
 
-#~ msgid "DHCP server"
-#~ msgstr "Server DHCP"
 
-#~ msgid "Base framework"
-#~ msgstr "Framework di base"
 
-#~ msgid "NTP server"
-#~ msgstr "Server NTP"
 
-#~ msgid "The installation of the packages has finished successfully"
-#~ msgstr "L'installazione dei pacchetti è terminata correttamente"
 
-#~ msgid "Certificate Authority Manager for eBox"
-#~ msgstr "Gestore Certificate Authority per eBox"
 
-#~ msgid "eBox DNS server"
-#~ msgstr "Server DNS eBox"
 
-#~ msgid "Firewall"
-#~ msgstr "Firewall"
 
-#~ msgid "Instant messaging (Jabber)"
-#~ msgstr "Instant messaging (Jabber)"
 
-#~ msgid "Mail server"
-#~ msgstr "Server di posta"
 
-#~ msgid "Mail filter module"
-#~ msgstr "Modulo filtro posta"
 
-#~ msgid "Object management"
-#~ msgstr "Gestione oggetti"
 
-#~ msgid "OpenVPN server"
-#~ msgstr "Server OpenVPN"
 
-#~ msgid "Printer sharing"
-#~ msgstr "Condivisione stampanti"
 
-#~ msgid "File sharing"
-#~ msgstr "Condivisione file"
 
-#~ msgid "Services  management"
-#~ msgstr "Gestione servizi"
 
-#~ msgid "Traffic shaper for eBox"
-#~ msgstr "Traffic shaper per eBox"
 
-#~ msgid "User and Group management"
-#~ msgstr "Gestione Utenti e Gruppi"
 
-#~ msgid "The packages installation has finished successfully"
-#~ msgstr "L'installazione dei pacchetti è terminata correttamente"
 
 #, fuzzy
-#~ msgid "ebox - Certificate Authority Manager for eBox"
-#~ msgstr "Gestore Certificate Authority per eBox"
 
 #, fuzzy
-#~ msgid "ebox - Instant messaging (Jabber)"
-#~ msgstr "Instant messaging (Jabber)"
 
 #, fuzzy
-#~ msgid "ebox - Mail filter module"
-#~ msgstr "Modulo filtro posta"
 
-#~ msgid "Network configuration"
-#~ msgstr "Configurazione di rete"
 
 #, fuzzy
-#~ msgid "ebox - File sharing"
-#~ msgstr "Condivisione file"
 
-#~ msgid "Proxy cache and content filter"
-#~ msgstr "Proxy cache e filtro contenuti"

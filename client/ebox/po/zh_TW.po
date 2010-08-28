@@ -2308,235 +2308,74 @@ msgstr ""
 msgid "Download configuration report file"
 msgstr "下載錯誤回報檔案"
 
-#~ msgid "modules left to restore"
-#~ msgstr "剩下要還原的模組"
 
-#~ msgid "Bug report"
-#~ msgstr "錯誤回報"
 
 #, fuzzy
-#~ msgid "Support & Services"
-#~ msgstr "服務"
 
-#~ msgid "Create logs database"
-#~ msgstr "建立日誌資料庫"
 
-#~ msgid "eBox store its logs in the database"
-#~ msgstr "eBox 日誌儲存在資料庫"
 
-#~ msgid "Monitoring"
-#~ msgstr "監控中"
 
-#~ msgid "events"
-#~ msgstr "事件"
 
-#~ msgid "Created by {href}"
-#~ msgstr "由 {href} 建立"
 
-#~ msgid "{ebox} created by {warp}"
-#~ msgstr "{ebox} 由 {warp} 建立"
 
-#~ msgid "RAID device {name} is performing operation {opName}"
-#~ msgstr "磁碟陣列裝置 {name} 正在執行動作 {opName}"
 
-#~ msgid "System backups"
-#~ msgstr "系統備份"
 
-#~ msgid "RAID report"
-#~ msgstr "磁碟陣列報告"
 
-#~ msgid "Day"
-#~ msgstr "天"
 
-#~ msgid "Disk usage Information"
-#~ msgstr "磁碟用量資訊"
 
-#~ msgid "Back up"
-#~ msgstr "備份"
 
-#~ msgid "Remote system backups"
-#~ msgstr "遠端系統備份"
 
-#~ msgid "Making remote backup"
-#~ msgstr "建立遠端備份"
 
-#~ msgid "Backing up modules "
-#~ msgstr "正在備份模組"
 
-#~ msgid "Restoring remote backup"
-#~ msgstr "正在還原遠端備份"
 
-#~ msgid "Restoring modules from remote backup"
-#~ msgstr "正在從遠端備份還原模組"
 
-#~ msgid "Backup deleted"
-#~ msgstr "備份已刪除"
 
-#~ msgid ""
-#~ "Please confirm that you want to restore the configuraction using the "
-#~ "following remote backup:"
-#~ msgstr "請確認您想要使用下列遠端備份檔還原組態："
 
-#~ msgid "Inexistent action: {a}"
-#~ msgstr "不存在的動作：{a}"
 
-#~ msgid "Remote system backups proxy"
-#~ msgstr "遠端系統備份代理伺服器"
 
-#~ msgid "Connection error"
-#~ msgstr "連線錯誤"
 
-#~ msgid ""
-#~ "An internal error has ocurred. This is most probably a bug, relevant "
-#~ "information can be found in the logs."
-#~ msgstr "內部錯誤已產生.這多半是 bug,有關資訊可以在日誌上找到"
 
-#~ msgid "Control panel"
-#~ msgstr "控制面板"
 
-#~ msgid "Control center"
-#~ msgstr "控制中心"
 
-#~ msgid ""
-#~ "Remote services from eBox are paid services to enhance your eBox "
-#~ "experience"
-#~ msgstr "來自 eBox 的遠端服務是付費服務，可以增強您的 eBox 體驗"
 
-#~ msgid "Access from control panel without password"
-#~ msgstr "不使用密碼存取控制面板"
 
-#~ msgid "Access settings"
-#~ msgstr "存取設定值"
 
-#~ msgid ""
-#~ "Subscription was done correctly. Wait a minute to let the subscription be "
-#~ "propagated throughout the system"
-#~ msgstr "訂閱已正確完成。請等待幾分鐘讓訂閱傳播到整個系統。"
 
-#~ msgid "Subscription data retrieved correctly"
-#~ msgstr "已正確接收訂閱資料"
 
-#~ msgid ""
-#~ "Prior to make a subscription on remote services, enable the OpenVPN "
-#~ "module and save or discard its changes"
-#~ msgstr "在遠端服務進行訂閱之前，請先啟用 OpenVPN 模組並儲存或放棄它的變更"
 
-#~ msgid "eBox common name"
-#~ msgstr "eBox 一般名稱"
 
-#~ msgid "eBox suscription details"
-#~ msgstr "eBox 訂閱詳細資料"
 
-#~ msgid "Delete data"
-#~ msgstr "刪除資料"
 
-#~ msgid "Subscription to remote services"
-#~ msgstr "訂閱遠端服務"
 
-#~ msgid ""
-#~ "In order to subscribe an eBox remote services {url}. You will have remote "
-#~ "backup facilities and much more"
-#~ msgstr "為了訂閱 eBox 遠端服務 {url}。您要有遠端備份的能力等等"
 
-#~ msgid "Key for service URN not found"
-#~ msgstr "找不到 URN 服務的設定鍵"
 
-#~ msgid "Key for service proxy not found"
-#~ msgstr "找不到代理伺服器服務的設定鍵"
 
-#~ msgid "No ebox-services DNS key found"
-#~ msgstr "找不到 ebox-服務 DNS 設定鍵"
 
-#~ msgid "Cannot create SOAP connection"
-#~ msgstr "不能建立 SOAP 連線"
 
-#~ msgid "No domain key found for this service"
-#~ msgstr "找不到這個服務的網域設定鍵"
 
-#~ msgid "Server {s} not found via DNS server {d}"
-#~ msgstr "無法透過 DNS 伺服器 {d} 找到伺服器 {s}"
 
-#~ msgid "Inexistent backup: {n}"
-#~ msgstr "不存在的備份： {n}"
 
-#~ msgid "No backups in server for host: {h}"
-#~ msgstr "伺服器中的備份沒有此主機：{h}"
 
-#~ msgid "Key for proxy backup service not found"
-#~ msgstr "找不到代理伺服器備份服務的設定鍵"
 
-#~ msgid "Key for web subscription service not found"
-#~ msgstr "找不到網頁訂閱服務的設定鍵"
 
-#~ msgid "eBox remote services"
-#~ msgstr "eBox 遠端服務"
 
-#~ msgid "Remote services subscription"
-#~ msgstr "遠端服務訂閱"
 
-#~ msgid "No RAID devices present"
-#~ msgstr "沒有 RAID 裝置"
 
-#~ msgid "Back up the current configuration state"
-#~ msgstr "備份目前的組態狀態"
 
-#~ msgid "Configuration backups' list"
-#~ msgstr "組態備份清單"
 
-#~ msgid "eBox host"
-#~ msgstr "eBox 主機"
 
-#~ msgid "Submit"
-#~ msgstr "送出"
 
-#~ msgid "Enter user and password"
-#~ msgstr "輸入使用者及密碼"
 
-#~ msgid ""
-#~ "Cannot proceed with your request because it was a connection problem. "
-#~ "Possible causes are:"
-#~ msgstr "不能處理您的要求，因為有連線上的問題。可能的原因有："
 
-#~ msgid "Your computer has not internet connection"
-#~ msgstr "您的電腦沒有網際網路連線"
 
-#~ msgid "Your computer has not a correct system date"
-#~ msgstr "您的電腦系統日期錯誤"
 
-#~ msgid "You are using the wrong certificates"
-#~ msgstr "您使用了錯誤的憑證"
 
-#~ msgid "This eBox has been removed from your registered eBoxes"
-#~ msgstr "這個 eBox 已經從您註冊的 eBox 中移除了"
 
-#~ msgid ""
-#~ "This feature is only available if you get eBox  Services. You can "
-#~ "contract them at {url1}. If you are already registered, then subscribe "
-#~ "this eBox at {url2}"
-#~ msgstr ""
-#~ "這個功能只有在您取得 eBox  服務時才能使用。您可以在 {url1} 連絡他們。如果"
-#~ "您已經註冊，可以在 {url2} 訂閱這個 eBox"
 
-#~ msgid "subscription page"
-#~ msgstr "訂閱頁面"
 
-#~ msgid "Summary"
-#~ msgstr "摘要"
 
-#~ msgid "RAID 0"
-#~ msgstr "RAID 0"
 
-#~ msgid "RAID 1"
-#~ msgstr "RAID 1"
 
-#~ msgid "RAID 2"
-#~ msgstr "RAID 2"
 
-#~ msgid "RAID 3"
-#~ msgstr "RAID 3"
 
-#~ msgid "RAID 4"
-#~ msgstr "RAID 4"
 
-#~ msgid "RAID 5"
-#~ msgstr "RAID 5"

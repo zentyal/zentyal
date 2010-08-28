@@ -118,52 +118,17 @@ msgstr "管理者權限"
 msgid "Change"
 msgstr "改變"
 
-#~ msgid "To properly configure jabberd2 muc"
-#~ msgstr "要適當的設定 jabberd2 muc"
 
-#~ msgid "domain"
-#~ msgstr "網域"
 
-#~ msgid "module status"
-#~ msgstr "模組狀態"
 
-#~ msgid ""
-#~ "Domain name should be available on the network. Otherwise, you may not be "
-#~ "able to use this service. This applies for internal and external "
-#~ "connections."
-#~ msgstr ""
-#~ "網域名稱應該要能在網路上取得。否則，您可能無法使用這個服務。這個選項會套用"
-#~ "到外部和內部連線。"
 
-#~ msgid "Domain name"
-#~ msgstr "網域名稱"
 
-#~ msgid "No"
-#~ msgstr "否"
 
-#~ msgid "Optional"
-#~ msgstr "選擇性"
 
-#~ msgid "Required"
-#~ msgstr "必須的"
 
-#~ msgid "Password for Jabber service is the user password."
-#~ msgstr "Jabber 服務的密碼是使用者密碼。"
 
-#~ msgid "Copy jabber ldap schema to /etc/ldap/schemas"
-#~ msgstr "複製 jabber ldap schema 到 /etc/ldap/schemas"
 
-#~ msgid "To add the LDAP schemas used by eBox jabber"
-#~ msgstr "加入 eBox jabber 使用的 LDAP schema"
 
-#~ msgid "Communications"
-#~ msgstr "通訊"
 
-#~ msgid "General Settings"
-#~ msgstr "一般設定值"
 
-#~ msgid "Apply Changes"
-#~ msgstr "套用變更"
 
-#~ msgid "Enter a username and password to register with this server."
-#~ msgstr "輸入要在這個伺服器註冊的使用者名稱和密碼。"

@@ -328,124 +328,42 @@ msgid "Upgrade"
 msgstr "升級"
 
 #, fuzzy
-#~ msgid "packages installed"
-#~ msgstr "套件安裝"
 
-#~ msgid ""
-#~ "eBox software will download the available updates from your configured "
-#~ "apt sources. "
-#~ msgstr "從您設置的 apt 來源下載可用的 eBox 軟體"
 
-#~ msgid "Enable cron script to download updates"
-#~ msgstr "啟用排程 script 來下載更新"
 
-#~ msgid "Automatic Updates"
-#~ msgstr "自動更新"
 
-#~ msgid "Software updates are being handled automatically"
-#~ msgstr "系統更新已被設定為全自動"
 
-#~ msgid "Installed version "
-#~ msgstr "已安裝版本"
 
-#~ msgid "Latest version"
-#~ msgstr "最新版本"
 
-#~ msgid "none"
-#~ msgstr "沒有"
 
-#~ msgid "Remove"
-#~ msgstr "移除"
 
-#~ msgid "eBox - Backup"
-#~ msgstr "eBox - 備份"
 
-#~ msgid "eBox - Antivirus module"
-#~ msgstr "eBox - 防毒模組"
 
-#~ msgid "eBox - Asterisk"
-#~ msgstr "eBox - Asterisk"
 
-#~ msgid "eBox - Certificate Authority Manager for eBox"
-#~ msgstr "eBox - eBox 的憑證中心管理程式"
 
-#~ msgid "eBox - captive portal module"
-#~ msgstr "eBox - 網頁認證模組"
 
-#~ msgid "eBox - DHCP server module"
-#~ msgstr "eBox - DHCP 伺服器模組"
 
-#~ msgid "eBox - DNS server"
-#~ msgstr "eBox - DNS 伺服器"
 
-#~ msgid "the eBox platform - Base framework"
-#~ msgstr "eBox 系統 - Base framework"
 
-#~ msgid "eBox - Firewall"
-#~ msgstr "eBox - 防火牆"
 
-#~ msgid "eBox - Intrusion Detection System"
-#~ msgstr "eBox - 入侵偵測系統"
 
-#~ msgid "eBox - Instant messaging proxy"
-#~ msgstr "eBox - 即時通訊代理伺服器"
 
-#~ msgid "eBox - Instant messaging (Jabber)"
-#~ msgstr "eBox - 即時通訊 (Jabber)"
 
-#~ msgid "eBox - layer 7 protocols"
-#~ msgstr "eBox - layer 7 protocols"
 
-#~ msgid "eBox - Mail server"
-#~ msgstr "eBox - 郵件伺服器"
 
-#~ msgid "eBox - Mail filter module"
-#~ msgstr "eBox - 郵件過濾模組"
 
-#~ msgid "eBox - Monitoring module  "
-#~ msgstr "eBox - 監控模組"
 
-#~ msgid "eBox - Network configuration module"
-#~ msgstr "eBox - 網路設置模組"
 
-#~ msgid "eBox - NTP server"
-#~ msgstr "eBox - NTP 伺服器"
 
-#~ msgid "eBox - Object management"
-#~ msgstr "eBox - Object 管理"
 
-#~ msgid "eBox - OpenVPN server module"
-#~ msgstr "eBox - OpenVPN 伺服器模組"
 
-#~ msgid "eBox - Printer sharing"
-#~ msgstr "eBox - 印表機分享"
 
-#~ msgid "eBox - client for remote services   "
-#~ msgstr "eBox - 遠端服務客戶端   "
 
-#~ msgid "eBox - File sharing"
-#~ msgstr "eBox - 檔案分享"
 
-#~ msgid "eBox - Services management"
-#~ msgstr "eBox - 服務管理"
 
-#~ msgid "eBox - Software management"
-#~ msgstr "eBox - 軟體管理"
 
-#~ msgid "eBox - Proxy cache and content filter"
-#~ msgstr "eBox - 代理伺服器和內容過濾"
 
-#~ msgid "eBox - Traffic shaper for eBox"
-#~ msgstr "eBox - eBox 的流量管理"
 
-#~ msgid "eBox - User and Group management"
-#~ msgstr "eBox - 使用者和群組管理"
 
-#~ msgid "eBox - Web Server"
-#~ msgstr "eBox - 網頁伺服器"
 
-#~ msgid "IPsec VPNs"
-#~ msgstr "IPsec VPNs"
 
-#~ msgid "SOAP server to communicate with eBox control center"
-#~ msgstr "SOAP 伺服器通訊到 eBox 控制中心"

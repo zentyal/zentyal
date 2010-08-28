@@ -659,110 +659,27 @@ msgstr "Alt ağ ağ maskesi"
 msgid "Delete"
 msgstr "Sil"
 
-#~ msgid "eBox"
-#~ msgstr "eBox"
 
-#~ msgid "eBox's domain"
-#~ msgstr "eBox alan adı"
 
 #, fuzzy
-#~ msgid "DHCP service status"
-#~ msgstr "DHCP sunucu durumu"
 
 #, fuzzy
-#~ msgid ""
-#~ "DHCP server cannot activated because there are not any network interface "
-#~ "with a static address. {openhref}Configure one{closehref} first"
-#~ msgstr ""
-#~ "DHCP sunucusu etkinleştirilemiyor çünkğ ağ kartı sabit bir IP ile tanımlı "
-#~ "değil. <a href='Network/Ifaces'>Ayarlar</a> bölümünden lütfen sabit IP "
-#~ "alacak şekilde ağ kartınızı ayarlayın."
 
-#~ msgid "Nameserver IP address"
-#~ msgstr "Ad sunucusu IP adresi"
 
-#~ msgid "\"To\" IP address"
-#~ msgstr "\"Buraya\" bölümünden IP adresi"
 
-#~ msgid "IP address {ip} is already added as fixed address '{name}'"
-#~ msgstr "{ip} adresi önceden '{name}' sabit adresi olarak eklendi"
 
-#~ msgid ""
-#~ "MAC address {mac} is already added as fixed address '{name}' for "
-#~ "interface '{iface}'"
-#~ msgstr ""
-#~ "{mac} MAC adresi önceden '{name}' sabit ismi olarak '{iface}' aygıtı için "
-#~ "tanımlandı"
 
-#~ msgid ""
-#~ "DHCP server requires a static interface, {openhref}configure one"
-#~ "{closehref} first"
-#~ msgstr ""
-#~ "DHCP sunucusu için sabit bir IP tanımlaması gereklidir. {openhref}Buraya "
-#~ "tıklayarak{closehref} bir tane tanımlayabilirsiniz"
 
-#~ msgid ""
-#~ "DHCP server can not activated because there are not any network interface "
-#~ "with a static address. <a href='Network/Ifaces'>Configure one</a> first"
-#~ msgstr ""
-#~ "DHCP sunucusu etkinleştirilemiyor çünkğ ağ kartı sabit bir IP ile tanımlı "
-#~ "değil. <a href='Network/Ifaces'>Ayarlar</a> bölümünden lütfen sabit IP "
-#~ "alacak şekilde ağ kartınızı ayarlayın."
 
-#~ msgid "Gateway IP address"
-#~ msgstr "Ağ geçidi IP adresi"
 
-#~ msgid "\"From\" IP address"
-#~ msgstr "\"Burdan\" bölümünden IP adresi"
 
-#~ msgid "{from}-{to} is an invalid range"
-#~ msgstr "{from}-{to} adresleri geçerli bir tanımlama değil"
 
-#~ msgid "Range {new_from}-{new_to} includes interface IP address: {iface_ip}"
-#~ msgstr ""
-#~ "{new_from}-{new_to} aralığı bir ağ kartının IP adresini içeriyor: "
-#~ "{iface_ip}"
 
-#~ msgid ""
-#~ "Range {new_from}-{new_to} overlaps with range '{range}': {old_from}-"
-#~ "{old_to}"
-#~ msgstr ""
-#~ "{new_from}-{new_to} aralığı ile başka bir '{range}' aralığı kesişiyor: "
-#~ "{old_from}-{old_to}"
 
-#~ msgid ""
-#~ "Range {new_from}-{new_to} includes fixed address '{name}': {fixed_ip}"
-#~ msgstr ""
-#~ "{new_from}-{new_to} aralığı '{name}' aygıtının sabit IP numarasını "
-#~ "tanımlıyor: {fixed_ip}"
 
-#~ msgid "The selected IP is the interface IP address: {iface_ip}"
-#~ msgstr "Seçilen IP adresi ağ kartının IP adresidir: {iface_ip}"
 
-#~ msgid "IP address {ip} is in range '{range}': {old_from}-{old_to}"
-#~ msgstr "{ip} adresi {range} aralığındadır: {old_from}-{old_to}"
 
-#~ msgid ""
-#~ "The IP address of the virtual interface you're trying to add is already "
-#~ "used by the DHCP range '{range}' in the interface '{iface}'. Please, "
-#~ "remove it before trying to add a virtual interface using it."
-#~ msgstr ""
-#~ "DHCP \"{range}\"  alanında  kullanmak istediğiniz Sanal ağ kartının IP "
-#~ "adresi \"{iface}\" kartının IP adresidir. Lütfen ilk önce bunu silin ve "
-#~ "sonra sanal ağ kartı ilave edin"
 
-#~ msgid ""
-#~ "The IP address of the virtual interface you're trying to add is already "
-#~ "used by the DHCP fixed address '{fixed}' in the interface '{iface}'. "
-#~ "Please, remove it before trying to add a virtual interface using it."
-#~ msgstr ""
-#~ "DHCP \"{fixed}\"  alanında  kullanmak istediğiniz  sabit ağ kartının IP "
-#~ "adresi \"{iface}\" kartının IP adresidir. Lütfen ilk önce bunu silin ve "
-#~ "sonra sanal ağ kartı ilave edin"
 
-#~ msgid "DHCP server status"
-#~ msgstr "DHCP sunucu durumu"
 
 #, fuzzy
-#~ msgid "Advanced Options"
-#~ msgstr "Seçenekler"

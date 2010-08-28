@@ -374,21 +374,7 @@ msgstr "Порт"
 msgid "options"
 msgstr "настройки"
 
-#~ msgid "Source MAC"
-#~ msgstr "Источник MAC"
 
-#~ msgid "Change or remove some rules on {contextName}"
-#~ msgstr "Изменить или удалить некоторые правила касающиеся {contextName}"
 
-#~ msgid "traffic shaping"
-#~ msgstr "управление трафиком"
 
-#~ msgid "Gateway"
-#~ msgstr "Шлюз"
 
-#~ msgid ""
-#~ "Traffic shaping can be only done in external interfaces which have "
-#~ "gateways associated to"
-#~ msgstr ""
-#~ "Шейпинг трафика можно организовать только на внешних интерфейсах "
-#~ "связанных со шлюзом."

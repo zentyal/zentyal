@@ -1301,228 +1301,74 @@ msgid "Change"
 msgstr "Cambear"
 
 #, fuzzy
-#~ msgid "External mail address"
-#~ msgstr "Adreza de correu"
 
-#~ msgid "Create alias mail account to group"
-#~ msgstr "Creyar un alias de cuenta de correu á lo grupo"
 
-#~ msgid ""
-#~ "When the last member of a group is removed, the mail alias account will "
-#~ "be deleted"
-#~ msgstr ""
-#~ "Cuan o zaguer miembro d'o grupo sía eliminato, l'alias d'a cuenta de "
-#~ "correu será eliminata"
 
-#~ msgid "Message"
-#~ msgstr "ID d'o mensache"
 
-#~ msgid "Operate"
-#~ msgstr "Executar"
 
-#~ msgid "maildir size"
-#~ msgstr "tamaño d'o buzón de correu"
 
-#~ msgid "Default maildir size (MB)"
-#~ msgstr "Tamaño d'o buzón por defeuto (Mb)"
 
 #, fuzzy
-#~ msgid "mail"
-#~ msgstr "Correu"
 
 #, fuzzy
-#~ msgid "Communications"
-#~ msgstr "Error d'autenticazión"
 
-#~ msgid "SSL Support"
-#~ msgstr "Tarabidau SSL"
 
-#~ msgid "No"
-#~ msgstr "No"
 
-#~ msgid "Optional"
-#~ msgstr "Ozional"
 
-#~ msgid "Required"
-#~ msgstr "Requiesto"
 
-#~ msgid "Mail system"
-#~ msgstr "Sistema de correu"
 
-#~ msgid "vdomain"
-#~ msgstr "dominio birtual"
 
-#~ msgid "Message size limit"
-#~ msgstr "Tamaño limite de mensache"
 
-#~ msgid "relay"
-#~ msgstr "relay"
 
-#~ msgid "remote IP"
-#~ msgstr "IP remota"
 
-#~ msgid "{ip} is not a valid ip address"
-#~ msgstr "{ip} no ye una adreza IP balida"
 
-#~ msgid "{ip} cannot be reached by any configured interface"
-#~ msgstr "{ip} no puede estar adubito por denguna interfaz confegurata"
 
-#~ msgid "{ip} can be reached by more than one configured interface"
-#~ msgstr "{ip} no puede estar adubito por más d'una interfaz confegurata"
 
-#~ msgid "port"
-#~ msgstr "puerto"
 
-#~ msgid "message size"
-#~ msgstr "tamaño d'o mensache"
 
-#~ msgid "Yes"
-#~ msgstr "Sí"
 
-#~ msgid "TLS support is required by the authentication system"
-#~ msgstr "O tarabidau TLS ye requiesto por o sistema d'autenticazión"
 
-#~ msgid "Services"
-#~ msgstr "Serbizios"
 
-#~ msgid "Service"
-#~ msgstr "Serbizio"
 
-#~ msgid "Apply Changes"
-#~ msgstr "Aplicar cambeos"
 
-#~ msgid ""
-#~ "A value of 0 for the maximum message size and maximum mail account size "
-#~ "stands for no size limitation."
-#~ msgstr ""
-#~ "Un balor de 0 ta o tamaño masimo de mensache e tamaño masimo d'un buzón "
-#~ "de correu embreca no limitazión de tamaño"
 
-#~ msgid "Maximum message size accepted by the mail server"
-#~ msgstr "Tamaño masimo de mensache adempribiato por o serbidor de correu"
 
-#~ msgid "Size (MB)"
-#~ msgstr "Tamaño (MB)"
 
-#~ msgid ""
-#~ "You should move to allowed column those objects you want to allow sending "
-#~ "mail through this module."
-#~ msgstr ""
-#~ "Abría de mober á la colunna premititos aquers ochetos que deseye que "
-#~ "puedan nimbiar correu á trabiés d'iste modulo"
 
-#~ msgid ""
-#~ "Choose the object whose state you want to change and click on the arrow "
-#~ "to move it to the desired column."
-#~ msgstr ""
-#~ "Eslixa os ochetos cualo estato quiera cambear e pulse en a flecha ta "
-#~ "mober-los á la colunna deseyata"
 
-#~ msgid "Denied"
-#~ msgstr "Denegato"
 
-#~ msgid "Empty list"
-#~ msgstr "Lista bazía"
 
-#~ msgid "Allow"
-#~ msgstr "Premitir"
 
-#~ msgid "Move selected objects to the allowed column"
-#~ msgstr "Mueba os ochetos trigatos á la colunna premitito"
 
-#~ msgid "Deny"
-#~ msgstr "Denegato"
 
-#~ msgid "Move selected objects to the denied column"
-#~ msgstr "Mueba os ochetos trigatos á la colunna denegato"
 
-#~ msgid "Apply"
-#~ msgstr "Aplicar"
 
-#~ msgid "Default maximum mail account size"
-#~ msgstr "Tamaño masimo d'a cuenta de correu"
 
-#~ msgid "Force the change to the existing accounts"
-#~ msgstr "Aforzar o cambeo á las cuentas esistents"
 
-#~ msgid "Maildir size for {vdomain} virtual domain"
-#~ msgstr "Tamaño de buzón de correu ta o dominio birtual {vdomain}"
 
-#~ msgid "Add a new virtual domain"
-#~ msgstr "Adibir un nuebo dominio birtual"
 
-#~ msgid "(MB)"
-#~ msgstr "(MB)"
 
-#~ msgid "Add"
-#~ msgstr "Adibir"
 
 #, fuzzy
-#~ msgid "Unlimited"
-#~ msgstr "Tamaño ilimitato"
 
-#~ msgid "Maildir Size"
-#~ msgstr "Tamaño de buzón de correu"
 
-#~ msgid "Edit"
-#~ msgstr "Editar"
 
-#~ msgid "smarthost ip"
-#~ msgstr "IP smarthost"
 
-#~ msgid "IP address of smarthost to send mail"
-#~ msgstr "Adreza IP d'o smarthost á lo cualo nimbiar o correu"
 
-#~ msgid "mail system status"
-#~ msgstr "estato d'o sistema de correu"
 
-#~ msgid "Unknown filter {filter}"
-#~ msgstr "Filtro {filter} esconoxito"
 
-#~ msgid "Service status"
-#~ msgstr "Estato d'o serbizio"
 
-#~ msgid "Deleting virtual domain"
-#~ msgstr "Eliminar un dominio birtual"
 
-#~ msgid "There are no users in the group or the users do not "
-#~ msgstr "No bi ha usuarios en o grupo"
 
-#~ msgid "POP3"
-#~ msgstr "POP3"
 
-#~ msgid "IMAP"
-#~ msgstr "IMAP"
 
-#~ msgid "Changing maildir size of"
-#~ msgstr "Cambeando lo tamaño d'o buzón de correu de"
 
-#~ msgid "Page"
-#~ msgstr "pachina"
 
-#~ msgid "of"
-#~ msgstr "de"
 
-#~ msgid "module status"
-#~ msgstr "estato d'o modulo"
 
-#~ msgid "External Filter"
-#~ msgstr "Filtrato esterno"
 
-#~ msgid "There is not any message at the queue or the service is stopped"
-#~ msgstr "No bi'n ha mensaches en a cola u o serbizio ye aturato"
 
-#~ msgid "Account do not exists"
-#~ msgstr "A cuenta no esiste"
 
-#~ msgid "Relay policy for objects"
-#~ msgstr "Politica de Relay sobre ochetos"
 
-#~ msgid "Allowed"
-#~ msgstr "Premitito"
 
-#~ msgid "Filter's IP address"
-#~ msgstr "Adreza IP d'o filtro"
 
-#~ msgid "Filter's Port"
-#~ msgstr "Puerto d'o filtro"

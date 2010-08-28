@@ -429,138 +429,46 @@ msgid "Connected"
 msgstr "連線錯誤"
 
 #, fuzzy
-#~ msgid "eBox Control Center"
-#~ msgstr "控制中心"
 
-#~ msgid "Control center"
-#~ msgstr "控制中心"
 
 #, fuzzy
-#~ msgid "Control Center Client"
-#~ msgstr "控制中心"
 
 #, fuzzy
-#~ msgid "Control Center"
-#~ msgstr "控制中心"
 
 #, fuzzy
-#~ msgid "Remote support accesss"
-#~ msgstr "遠端服務"
 
-#~ msgid ""
-#~ "In order to subscribe an eBox remote services {url}. You will have remote "
-#~ "backup facilities and much more"
-#~ msgstr "為了訂閱 eBox 遠端服務 {url}。您要有遠端備份的能力等等"
 
 #, fuzzy
-#~ msgid "eBox Control Center is paid services to enhance your eBox experience"
-#~ msgstr "來自 eBox 的遠端服務是付費服務，可以增強您的 eBox 體驗"
 
-#~ msgid "User name"
-#~ msgstr "使用者名稱"
 
-#~ msgid "field1"
-#~ msgstr "欄位1"
 
-#~ msgid "field2"
-#~ msgstr "欄位2"
 
-#~ msgid "Settings"
-#~ msgstr "設定值"
 
-#~ msgid "Composite"
-#~ msgstr "組合"
 
-#~ msgid "eBox remote services"
-#~ msgstr "eBox 遠端服務"
 
-#~ msgid "Remote Services Subscription"
-#~ msgstr "遠端服務訂閱"
 
-#~ msgid "Key for service proxy not found"
-#~ msgstr "找不到代理伺服器服務的設定鍵"
 
-#~ msgid ""
-#~ "Cannot proceed with your request because it was a connection problem. "
-#~ "Possible causes are:"
-#~ msgstr "不能處理您的要求，因為有連線上的問題。可能的原因有："
 
-#~ msgid "Your computer has not internet connection"
-#~ msgstr "您的電腦沒有網際網路連線"
 
-#~ msgid "Firewall is blocking the connection. Try to restart firewall module"
-#~ msgstr "防火牆已阻擋此連線。請嘗試重新啟動防火牆模組"
 
-#~ msgid "Your computer has not a correct system date"
-#~ msgstr "您的電腦系統日期錯誤"
 
-#~ msgid "You are using the wrong certificates"
-#~ msgstr "您使用了錯誤的憑證"
 
-#~ msgid "This eBox has been removed from your registered eBoxes"
-#~ msgstr "這個 eBox 已經從您註冊的 eBox 中移除了"
 
-#~ msgid "Name"
-#~ msgstr "名稱"
 
-#~ msgid "Date"
-#~ msgstr "日期"
 
-#~ msgid "Archive size"
-#~ msgstr "壓縮檔大小"
 
-#~ msgid "Cancel"
-#~ msgstr "取消"
 
-#~ msgid "eBox host"
-#~ msgstr "eBox 主機"
 
-#~ msgid "Download"
-#~ msgstr "下載"
 
-#~ msgid "restore"
-#~ msgstr "還原"
 
-#~ msgid "download"
-#~ msgstr "下載"
 
-#~ msgid "Backups' list"
-#~ msgstr "備份的清單"
 
-#~ msgid "User"
-#~ msgstr "使用者"
 
-#~ msgid "Submit"
-#~ msgstr "送出"
 
-#~ msgid "Enter user and password"
-#~ msgstr "輸入使用者及密碼"
 
-#~ msgid "Back up"
-#~ msgstr "備份"
 
-#~ msgid "Back up the current configuration state"
-#~ msgstr "備份目前的組態狀態"
 
-#~ msgid ""
-#~ "Backup is disabled because there are unsaved configuration changes. "
-#~ "Please, save or discard them to be able to backup the configuration"
-#~ msgstr ""
-#~ "由於尚有未儲存的組態變更，備份已被停用。請儲存或放棄它們才能備份組態"
 
-#~ msgid "delete"
-#~ msgstr "刪除"
 
-#~ msgid "Configuration backups' list"
-#~ msgstr "組態備份清單"
 
-#~ msgid ""
-#~ "This feature is only available if you get eBox  Services. You can "
-#~ "contract them at {url1}. If you are already registered, then subscribe "
-#~ "this eBox at {url2}"
-#~ msgstr ""
-#~ "這個功能只有在您取得 eBox  服務時才能使用。您可以在 {url1} 連絡他們。如果"
-#~ "您已經註冊，可以在 {url2} 訂閱這個 eBox"
 
-#~ msgid "subscription page"
-#~ msgstr "訂閱頁面"

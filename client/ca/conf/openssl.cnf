@@ -16,7 +16,7 @@ oid_section		= new_oids
 # To use this configuration file with the "-extfile" option of the
 # "openssl x509" utility, name here the section containing the
 # X.509v3 extensions to use:
-# extensions		= 
+# extensions		=
 # (Alternatively, use a configuration file that has only
 # X.509v3 extensions in its main [= default] section.)
 
@@ -132,17 +132,17 @@ stateOrProvinceName		= State or Province Name (full name)
 stateOrProvinceName_default	= Zaragoza
 
 localityName			= Locality Name (eg, city)
-localityName_default 		= Zaragoza
+localityName_default	= Zaragoza
 
 0.organizationName		= Organization Name (eg, company)
-0.organizationName_default	= Warp Networks S.L.
+0.organizationName_default	= eBox Technologies S.L.
 
 # we can do this but it is not needed normally :-)
 #1.organizationName		= Second Organization Name (eg, company)
 #1.organizationName_default	= World Wide Web Pty Ltd
 
 organizationalUnitName		= Organizational Unit Name (eg, section)
-organizationalUnitName_default	= 
+organizationalUnitName_default	=
 
 commonName			= Common Name (eg, YOUR name)
 commonName_default		= user@domain.net

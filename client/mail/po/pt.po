@@ -1277,180 +1277,60 @@ msgid "Change"
 msgstr "Modificar"
 
 #, fuzzy
-#~ msgid "External mail address"
-#~ msgstr "Endereço de correio"
 
-#~ msgid "size in Mb"
-#~ msgstr "tamanho em Mb"
 
-#~ msgid "Create alias mail account to group"
-#~ msgstr "Criar um pseudónimo para a conta de correio do grupo"
 
-#~ msgid ""
-#~ "When the last member of a group is removed, the mail alias account will "
-#~ "be deleted"
-#~ msgstr ""
-#~ "Quando o último membro do grupo é removido o pseudónimo da conta de "
-#~ "correio será apagado"
 
-#~ msgid "Message"
-#~ msgstr "Mensagem"
 
-#~ msgid "Operate"
-#~ msgstr "Operar"
 
-#~ msgid "maildir size"
-#~ msgstr "tamanho do directório maildir"
 
-#~ msgid "Cannot create user account: mail directory {d} aready exists"
-#~ msgstr ""
-#~ "Não é possível criar uma conta de utilizador: o directório de correio já "
-#~ "existe"
 
-#~ msgid "Default maildir size (MB)"
-#~ msgstr "Tamanho pré-definido do directório de correio (Mb)"
 
 #, fuzzy
-#~ msgid "mail"
-#~ msgstr "correio"
 
-#~ msgid "To add the LDAP schemas used by eBox mail"
-#~ msgstr "Para adicionar esquemas LDAP usados pelo correio eBox"
 
 #, fuzzy
-#~ msgid "Communications"
-#~ msgstr "Autenticação"
 
-#~ msgid "SSL Support"
-#~ msgstr "Suporte SSL"
 
-#~ msgid "No"
-#~ msgstr "Não"
 
-#~ msgid "Optional"
-#~ msgstr "Opcional"
 
-#~ msgid "Required"
-#~ msgstr "Requerido"
 
-#~ msgid "Add {user} to {group} group"
-#~ msgstr "Adicionar {user} ao grupo {group}"
 
-#~ msgid "To allow {daemon} to connect with {otherDaemon} via unix socket"
-#~ msgstr ""
-#~ "Para permitir que {daemon} se ligue a {otherDaemon} através de ligação "
-#~ "unix"
 
-#~ msgid "To let courier know how to access LDAP"
-#~ msgstr "Para que o courrier saiba como aceder ao LDAP"
 
-#~ msgid "To configure courier POP3"
-#~ msgstr "Para configurar o courrier POP3"
 
-#~ msgid "To configure POP3 with SSL support"
-#~ msgstr "Para configurar o suporte SSL do POP3"
 
-#~ msgid "To configure IMAP with SSL support"
-#~ msgstr "Para configurar o IMAP com suporte SSL"
 
-#~ msgid "To configure saslauthd to authenticate against LDAP "
-#~ msgstr "Para configurar o saslauthd para se autenticar no LDAP"
 
-#~ msgid "To configure saslauthd to use LDAP"
-#~ msgstr "Para configurar o sasauthd para usar LDAP"
 
-#~ msgid "Relay denied by the smarthost"
-#~ msgstr "Encaminhamento negado pelo smarthost"
 
-#~ msgid "Mail system"
-#~ msgstr "Sistema de E-mail"
 
-#~ msgid "vdomain"
-#~ msgstr "vdomain"
 
-#~ msgid "Message size limit"
-#~ msgstr "Limite de tamanho da mensagem"
 
-#~ msgid "relay"
-#~ msgstr "relay"
 
-#~ msgid "remote IP"
-#~ msgstr "IP remoto"
 
-#~ msgid "{ip} is not a valid ip address"
-#~ msgstr "{ip} não é um número de ip válido"
 
-#~ msgid "port"
-#~ msgstr "porta"
 
-#~ msgid "message size"
-#~ msgstr "tamanho da mensagem"
 
-#~ msgid "Yes"
-#~ msgstr "Sim"
 
-#~ msgid "Services"
-#~ msgstr "Serviços"
 
-#~ msgid "Service"
-#~ msgstr "Serviço"
 
-#~ msgid "Apply Changes"
-#~ msgstr "Aplicar modificações"
 
-#~ msgid "Size (MB)"
-#~ msgstr "Tamanho (MB)"
 
-#~ msgid "Denied"
-#~ msgstr "Negado"
 
-#~ msgid "Allow"
-#~ msgstr "Permitir"
 
-#~ msgid "Deny"
-#~ msgstr "Negar"
 
-#~ msgid "Apply"
-#~ msgstr "Submeter"
 
-#~ msgid "(MB)"
-#~ msgstr "(MB)"
 
-#~ msgid "Add"
-#~ msgstr "Adicionar"
 
-#~ msgid "Maildir Size"
-#~ msgstr "Tamanho da Maildir"
 
-#~ msgid "Edit"
-#~ msgstr "Editar"
 
-#~ msgid "Unknown filter {filter}"
-#~ msgstr "Filtro desconhecido {filter}"
 
-#~ msgid "IP address of smarthost to send mail"
-#~ msgstr "Endreço de IP ou smarthost para enviar mail"
 
-#~ msgid "Service status"
-#~ msgstr "Estado do serviço"
 
-#~ msgid "mail system status"
-#~ msgstr "Estado do sistema de mail"
 
-#~ msgid "Deleting virtual domain"
-#~ msgstr "Apagando o domínio virtual"
 
-#~ msgid "POP3"
-#~ msgstr "POP3"
 
-#~ msgid "IMAP"
-#~ msgstr "IMAP"
 
-#~ msgid "module status"
-#~ msgstr "Estado do módulo"
 
-#~ msgid "Account do not exists"
-#~ msgstr "A conta não existe"
 
-#~ msgid "Allowed"
-#~ msgstr "Permitido"

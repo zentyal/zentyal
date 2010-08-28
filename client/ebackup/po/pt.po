@@ -457,73 +457,23 @@ msgstr "Restauro de serviços"
 msgid "Configuration and Status"
 msgstr "Configuração e estado"
 
-#~ msgid ""
-#~ "If you choose {brand} or file system methods , then the destination field "
-#~ "may be the target directory in the backup server"
-#~ msgstr ""
-#~ "Se escolher os métodos {brand} ou sistema de ficheiros, o campo do "
-#~ "destino poderá ser o objectivo no servidor de cópias de segurança"
 
-#~ msgid "There is no information about the backuped files yet"
-#~ msgstr "Ainda não existe informação acerca das cópias de segurança"
 
-#~ msgid "Number of full copies to keep"
-#~ msgstr "Numero de Cópias de Segurança completas a manter"
 
-#~ msgid "exclude"
-#~ msgstr "Excluir"
 
-#~ msgid "Exclude regexp"
-#~ msgstr "Excluir regexp"
 
 #, fuzzy
-#~ msgid "General remote backup server configuration"
-#~ msgstr "Configuração geral do servidor de cópia de segurança"
 
-#~ msgid "Backup module"
-#~ msgstr "Módulo de cópia de segurança"
 
-#~ msgid "Hostname"
-#~ msgstr "Nome do hospedeiro"
 
-#~ msgid "Status"
-#~ msgstr "Estado"
 
-#~ msgid "Last Update"
-#~ msgstr "Ultima actualização"
 
-#~ msgid "Days to Keep"
-#~ msgstr "Dias a manter"
 
-#~ msgid "Size"
-#~ msgstr "Tamanho"
 
-#~ msgid "Hosts"
-#~ msgstr "Hospedeiros"
 
-#~ msgid "Local backup directory {p} does not exist"
-#~ msgstr "O directório local {p} não existe"
 
-#~ msgid "Days to keep"
-#~ msgstr "Dias a manter"
 
-#~ msgid "Local Backup Configuration"
-#~ msgstr "Configuração de cópia de segurança local"
 
-#~ msgid ""
-#~ "Local backup configuration. If the module is enabled the backup will be "
-#~ "scheduled to be done daily"
-#~ msgstr ""
-#~ "Configuração de cópia de segurança local. Se o módulo estiver activado a "
-#~ "cópia de segurança será agendada para ser efectuada diáriamente"
 
-#~ msgid "Local backup configuration updated."
-#~ msgstr "Configuração da cópia de segurança local actualizada"
 
-#~ msgid "Install /etc/cron.daily/ebox-ebackup-cron."
-#~ msgstr "Instalar /etc/cron.daily/ebox-backup-cron"
 
-#~ msgid "eBox will run a nightly script to backup your system."
-#~ msgstr ""
-#~ "A eBox correrá um script nocturno para fazer uma cópia de segurança do "
-#~ "seu sistema"

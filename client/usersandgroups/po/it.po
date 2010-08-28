@@ -867,131 +867,33 @@ msgstr "Attenzione: Caps Lock è abilitato"
 msgid "Enter"
 msgstr "Entra"
 
-#~ msgid "LDAP Info"
-#~ msgstr "Info LDAP"
 
-#~ msgid "Slave status"
-#~ msgstr "Stato slave"
 
-#~ msgid "User corner"
-#~ msgstr "Angolo utente"
 
 #, fuzzy
-#~ msgid "User Corner webserver settings"
-#~ msgstr "Impostazioni del server web per l'angolo utente"
 
-#~ msgid ""
-#~ "If you remove this group all its data within its shared directory will be "
-#~ "deleted"
-#~ msgstr ""
-#~ "Se elimini questo gruppo, tutti i dati all'interno delle sue directory "
-#~ "condivise saranno eliminati"
 
-#~ msgid ""
-#~ "There are no groups at the moment. You may want to add some in {openhref}"
-#~ "Add group section{closehref}."
-#~ msgstr ""
-#~ "Non ci sono gruppi al momento. Puoi aggiungerne in {openhref} Aggiungi "
-#~ "gruppo sezione {closehref}"
 
-#~ msgid ""
-#~ "There are no users at the moment. You may want to add some in {openhref}"
-#~ "Add user section{closehref}."
-#~ msgstr ""
-#~ "Non ci sono utenti al momento. Puoi aggiungerne in {openhref}Aggiungi "
-#~ "utente sezione{closehref}"
 
 #, fuzzy
-#~ msgid "Users corner certificates"
-#~ msgstr "Certificati dell'angolo utente"
 
-#~ msgid "Can't bind to LDAP with the provided password"
-#~ msgstr "Non è possibile autenticarsi su LDAP con la password fornita"
 
-#~ msgid "Edit User"
-#~ msgstr "Modifica utente"
 
-#~ msgid "Edit Group"
-#~ msgstr "Modifica Gruppo"
 
-#~ msgid ""
-#~ "Changes in user accounts take effect inmediately, they do not need to be "
-#~ "saved."
-#~ msgstr ""
-#~ "Le modifiche agli account utente hanno effetto immediato, non è "
-#~ "necessario registrarle."
 
-#~ msgid ""
-#~ "Changes related to printing, file sharing and Jabber service do need to "
-#~ "be saved in order to be effective."
-#~ msgstr ""
-#~ "Non è necessario registrare le modifiche relative ai servizi di stampa, "
-#~ "condivisione file e Jabber per renderle attive."
 
-#~ msgid "Create"
-#~ msgstr "Crea"
 
-#~ msgid "Actions"
-#~ msgstr "Azioni"
 
-#~ msgid "Missing fields to configure eBox as slave"
-#~ msgstr "Mancano dei campi per configurare eBox come slave"
 
-#~ msgid ""
-#~ "There are no groups at the moment. You may want to add some in the master "
-#~ "eBox"
-#~ msgstr "Non ci sono gruppi al momento. Puoi aggiungerne nell'eBox master"
 
 #, fuzzy
-#~ msgid ""
-#~ "There are no groups at the moment. You may want to add some in the Domain "
-#~ "Controller"
-#~ msgstr "Non ci sono gruppi al momento. Puoi aggiungerne nell'eBox master"
 
-#~ msgid "eBox master"
-#~ msgstr "eBox master"
 
 #, fuzzy
-#~ msgid "Only for slave configuration: Master eBox LDAP user password"
-#~ msgstr ""
-#~ "Solo per la configurazione dello slave: password utenti LDAP del master "
-#~ "eBox"
 
-#~ msgid ""
-#~ "Your current openLDAP database will be replaced and backed up in /var/"
-#~ "backups/slapd"
-#~ msgstr ""
-#~ "Il tuo database openLDAP verrà sostituito e salvato in /var/backups/slapd"
 
-#~ msgid ""
-#~ "eBox will initialize openLDAP to store its database. It will also "
-#~ "overwrite your current configuration"
-#~ msgstr ""
-#~ "eBox inizzializzerà openLDAP per memorizzare i suoi database. Inoltre "
-#~ "sovrascriverà la configurazione corrente"
 
-#~ msgid ""
-#~ "To configure the openLDAP database with dc  entry, rootpw, rootdn, "
-#~ "schemas and ACLs used by  the LDAP based eBox modules"
-#~ msgstr ""
-#~ "Per configurare il database openLDAP con dc__  , rootpw, rootdn, schemi e "
-#~ "ACL utilizzati da __ modulo basato su LDAP di eBox"
 
-#~ msgid "full name"
-#~ msgstr "nome completo"
 
-#~ msgid "foo"
-#~ msgstr "pippo"
 
-#~ msgid ""
-#~ "Your current openLDAP database will be replaced and backuped in /var/"
-#~ "backups/slapd"
-#~ msgstr ""
-#~ "Il tuo database openLDAP verrà sostituito e salvato in /var/backups/slapd"
 
-#~ msgid ""
-#~ "This operation will cause the removal of the user and all his "
-#~ "dependences; such as mail accounts, user data..."
-#~ msgstr ""
-#~ "Questa operazione causerà l'eliminazione dell'utente e di tutte le sue "
-#~ "dipendenze; come ad esempio l'account di mail, i dati utente..."

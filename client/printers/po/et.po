@@ -131,319 +131,121 @@ msgid ""
 "{close_href}"
 msgstr ""
 
-#~ msgid "Model"
-#~ msgstr "Mudel"
 
-#~ msgid "Printer {printer} has no available drivers"
-#~ msgstr "Printerile {printer} ei ole saadaval draivereid"
 
 #  
-#~ msgid "Add a new printer (II)"
-#~ msgstr "Uue printeri lisamine (II)"
 
-#~ msgid "Next"
-#~ msgstr "Järgmine"
 
-#~ msgid "IP"
-#~ msgstr "IP"
 
-#~ msgid "Port"
-#~ msgstr "Port"
 
 # kas siin ikka on teenus?
 #, fuzzy
-#~ msgid "Standalone cups enabled"
-#~ msgstr "Eraldiseisev cups teenus on lubatud"
 
 # vt eelmine
 #, fuzzy
-#~ msgid "Standalone cups disabled"
-#~ msgstr "Eraldiseisev cups teenus on keelatud"
 
-#~ msgid "Add a new printer (VI)"
-#~ msgstr "Uue printeri lisamine (VI)"
 
-#~ msgid "Driver"
-#~ msgstr "Draiver"
 
-#~ msgid "The printer has been deleted successfully"
-#~ msgstr "Printeri kustutamine õnnestus"
 
-#~ msgid "Shared resource"
-#~ msgstr "Jagatud ressurss"
 
-#~ msgid "Authentication"
-#~ msgstr "Autentimine"
 
-#~ msgid "Password"
-#~ msgstr "Parool"
 
-#~ msgid "Manage printer"
-#~ msgstr "Printeri haldamine"
 
 # vbla Printeri lisainfo v info > valiku all kuvatakse tootja, mudel, driver
-#~ msgid "Printer details"
-#~ msgstr "Printeri üksikasjad"
 
 # vbla Driveri seaded
-#~ msgid "Driver Options"
-#~ msgstr "Draiveri valikud"
 
-#~ msgid "Configuration options"
-#~ msgstr "Seadistamisvalikud"
 
 # vbla Tööjärjekord
-#~ msgid "Jobs Queue"
-#~ msgstr "Tööde järjekord"
 
-#~ msgid "Printer's name"
-#~ msgstr "Printeri nimi"
 
-#~ msgid "Printer's id"
-#~ msgstr "Printeri id"
 
-#~ msgid "Job id"
-#~ msgstr "Töö id"
 
-#~ msgid "Job was successfully canceled"
-#~ msgstr "Töö katkestamine õnnestus"
 
-#~ msgid "Add a new printer (IV)"
-#~ msgstr "Uue printeri lisamine (IV)"
 
-#~ msgid "Device"
-#~ msgstr "Seade"
 
-#~ msgid "Manage printers"
-#~ msgstr "Printerite haldamine"
 
-#~ msgid "Delete printer"
-#~ msgstr "Printeri kustutamine"
 
-#~ msgid "Add a new printer (V)"
-#~ msgstr "Uue printeri lisamine (V)"
 
-#~ msgid "Method"
-#~ msgstr "Meetod"
 
-#~ msgid "Printer description"
-#~ msgstr "Printeri kirjeldus"
 
-#~ msgid "Manufacturer"
-#~ msgstr "Tootja"
 
-#~ msgid "Add a new printer (III)"
-#~ msgstr "Uue printeri lisamine (III)"
 
-#~ msgid "Add a new printer (I)"
-#~ msgstr "Uue printeri lisamine (I)"
 
-#~ msgid "Add user ebox to lpadmin group"
-#~ msgstr "Kasutaja lisamine lpadmin gruppi"
 
-#~ msgid "In order to manage printers and queues from the eBox web interface"
-#~ msgstr "Printerite ja tööjärjekordade haldamiseks eBoxi veebiliidesest"
 
-#~ msgid "To add and manage printers"
-#~ msgstr "Printerite lisamiseks ning halduseks"
 
 # vbla ... cupsd-l kuulata ...
-#~ msgid "To enable standalone cupsd listen on internal interfaces"
-#~ msgstr "Eraldiseisva cups deemoni sisemiste liideste kuulamiseks"
 
-#~ msgid "Add Printer"
-#~ msgstr "Printeri lisamine"
 
-#~ msgid ""
-#~ "The printer's name contains characters not valid.Only alphanumeric "
-#~ "characters are allowed"
-#~ msgstr ""
-#~ "Printeri nimi sisaldab sobimatuid märke. Lubatud on ainult numbrid ja "
-#~ "tähed"
 
-#~ msgid "Name"
-#~ msgstr "Nimi"
 
-#~ msgid "The given name is alreaday used as "
-#~ msgstr "Antud nimi on juba kasutusel kui "
 
-#~ msgid "It is not a usb printer"
-#~ msgstr "See ei ole usb printer"
 
-#~ msgid "It is not a parallel printer"
-#~ msgstr "See ei ole paralleelühendusega printer"
 
-#~ msgid "It is not a network printer"
-#~ msgstr "See ei ole võrguprinter"
 
-#~ msgid "It is not a samba printer"
-#~ msgstr "See ei ole samba printer"
 
-#~ msgid "It is not a IPP printer"
-#~ msgstr "See ei ole IPP printer"
 
-#~ msgid "It is not a LPD printer"
-#~ msgstr "See ei ole LPD printer"
 
 # koodis: $opt . " " . __('is not a valid option'))
-#~ msgid "is not a valid option"
-#~ msgstr "ei ole sobiv valik"
 
-#~ msgid "Parameter '{name}' does not exist"
-#~ msgstr "Parameetrit '{name}' ei eksisteeri"
 
-#~ msgid "Owner"
-#~ msgstr "Omanik"
 
 # vbla Järjekorda pandud
-#~ msgid "Queued at"
-#~ msgstr "Järjekorda lisatud"
 
 # vbla nimetamine ja meetodi valimine
-#~ msgid "Set printer name and method"
-#~ msgstr "Printeri nime ja ühendusviisi määramine"
 
 # vbla Paralleelühendus v Paralleelport
-#~ msgid "Parallel"
-#~ msgstr "Paralleelne"
 
-#~ msgid "AppSocket"
-#~ msgstr "AppSocket"
 
-#~ msgid "Samba"
-#~ msgstr "Samba"
 
-#~ msgid "IPP: Internet printing protocol"
-#~ msgstr "IPP: Interneti prindiprotokoll"
 
-#~ msgid "LPD: Line Printer Daemon"
-#~ msgstr "LPD: Reaprinteriprotokoll"
 
-#~ msgid "Choose manufacturer"
-#~ msgstr "Printeri tootja valimine"
 
 # vbla... paralleelse liidesega ... v Kohaliku paralleelpordiprinteri seadistamine
-#~ msgid "Local parallel printer configuration"
-#~ msgstr "Kohaliku paralleelühendusega printeri seadistamine"
 
-#~ msgid "Are you sure you want to delete the printer '{name}'?"
-#~ msgstr "Kas sa oled kindel, et soovid kustutada printerit '{name}'?"
 
-#~ msgid "Cancel"
-#~ msgstr "Loobu"
 
-#~ msgid "Local USB printer configuration"
-#~ msgstr "Kohaliku USB printeri seadistamine"
 
-#~ msgid "Change"
-#~ msgstr "Muuda"
 
 # vbla Tööde järjekord, vt need jobs ja queue asjad üle hiljem
-#~ msgid "Job queue"
-#~ msgstr "Tööjärjekord"
 
-#~ msgid "Size(KB)"
-#~ msgstr "Suurus(KB)"
 
 # KDE-s Loomisaeg
-#~ msgid "Creation time"
-#~ msgstr "Loomise aeg"
 
-#~ msgid "Action"
-#~ msgstr "Toiming"
 
-#~ msgid "This printer has no pending job in queue at the moment"
-#~ msgstr "Sellel printeril ei ole hetkel ootel töid järjekorras"
 
-#~ msgid "You need to save changes in order to print a test page"
-#~ msgstr "Testlehekülje printimiseks pead muudatused salvestama"
 
-#~ msgid "Print Test Page"
-#~ msgstr "Prindi testlehekülg"
 
 # vbla Draiveri seaded
-#~ msgid "Driver options"
-#~ msgstr "Draiveri valikud"
 
-#~ msgid "Choose a printer model"
-#~ msgstr "Printeri mudeli valimine"
 
-#~ msgid "Configure IPP printer"
-#~ msgstr "IPP (võrguprinteri) seadistamine"
 
-#~ msgid "Choose a driver for the printer"
-#~ msgstr "Printeri draiveri valimine"
 
-#~ msgid "Configure LPD printer"
-#~ msgstr "LPD (võrguprinteri) seadistamine"
 
-#~ msgid "Choose a dirver for the printer"
-#~ msgstr "Printeri draiveri valimine"
 
-#~ msgid "driver"
-#~ msgstr "draiver"
 
 # nupp, vbla Mine
-#~ msgid "Go"
-#~ msgstr "Liigu"
 
 # vbla Läbi samba jagatud printeri seadistamine
-#~ msgid "Samba shared printer configurationr"
-#~ msgstr "Samba jagatud printeri seadistamine"
 
-#~ msgid "Share resource"
-#~ msgstr "Jagatud ressurss"
 
 # kas seda peaks tõlkima?
-#~ msgid "Anonymous"
-#~ msgstr "Anonüümne"
 
 # vt eelmine
-#~ msgid "Guest"
-#~ msgstr "Külaline"
 
-#~ msgid "User/Password"
-#~ msgstr "Kasutaja/Parool"
 
-#~ msgid "Remote printer configuration"
-#~ msgstr "Võrguprinteri seadistamine"
 
-#~ msgid "Configure AppSocket printer"
-#~ msgstr "AppSocket võrguprinteri seadistamine"
 
-#~ msgid "Samba shared printer configuration"
-#~ msgstr "Samba jagatud printeri seadistamine"
 
 # mõnes kohas on CUPS, mõnes cups???
-#~ msgid "Enable standalone CUPS"
-#~ msgstr "Luba eraldiseisev CUPS"
 
-#~ msgid "General settings"
-#~ msgstr "Üldine seadistamine"
 
-#~ msgid "List of printers"
-#~ msgstr "Printerite loend"
 
-#~ msgid "Description"
-#~ msgstr "Kirjeldus"
 
-#~ msgid "Actions"
-#~ msgstr "Tegevused"
 
-#~ msgid "Manage"
-#~ msgstr "Halda"
 
-#~ msgid "Manage this printer"
-#~ msgstr "Printeri haldamine"
 
-#~ msgid "There is no printer configured yet"
-#~ msgstr "Printerit ei ole veel seadistatud"
 
-#~ msgid "module status"
-#~ msgstr "mooduli olek"
 
-#~ msgid "printers"
-#~ msgstr "printerid"
 
-#~ msgid "Network printer"
-#~ msgstr "Võrguprinter"

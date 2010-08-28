@@ -122,50 +122,17 @@ msgid "Change"
 msgstr "変更"
 
 #, fuzzy
-#~ msgid "To properly configure jabberd2 muc"
-#~ msgstr "jabberd2を正しく設定"
 
-#~ msgid "domain"
-#~ msgstr "ドメイン"
 
-#~ msgid "module status"
-#~ msgstr "モジュール状態"
 
-#~ msgid ""
-#~ "Domain name should be available on the network. Otherwise, you may not be "
-#~ "able to use this service. This applies for internal and external "
-#~ "connections."
-#~ msgstr ""
-#~ "ドメイン名がネットワーク上で利用可能になっている必要があります。この規定は"
-#~ "内部と外部の接続に適用されます。"
 
-#~ msgid "Domain name"
-#~ msgstr "ドメイン名"
 
-#~ msgid "No"
-#~ msgstr "いいえ"
 
-#~ msgid "Optional"
-#~ msgstr "オプション"
 
-#~ msgid "Required"
-#~ msgstr "必須"
 
 #, fuzzy
-#~ msgid "Password for Jabber service is the user password."
-#~ msgstr "Jabberサービスのパスワードはユーザパスワードです"
 
-#~ msgid "Copy jabber ldap schema to /etc/ldap/schemas"
-#~ msgstr "jabber ldapスキーマを/etc/ldap/schemasにコピー"
 
-#~ msgid "To add the LDAP schemas used by eBox jabber"
-#~ msgstr "eBox jabberで利用するLDAPスキーマを追加"
 
-#~ msgid "Apply Changes"
-#~ msgstr "変更を適用"
 
-#~ msgid "Enter a username and password to register with this server."
-#~ msgstr "ユーザ名とパスワードを入力し、このサーバに登録してください"
 
-#~ msgid "listening port"
-#~ msgstr "受信ポート"

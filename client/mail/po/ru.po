@@ -1264,267 +1264,84 @@ msgstr ""
 msgid "Change"
 msgstr "Изменить"
 
-#~ msgid "External mail address"
-#~ msgstr "Внешний почтовый адрес"
 
-#~ msgid "size in Mb"
-#~ msgstr "размер в Mb"
 
-#~ msgid "Return address for mail bounced back to the sender"
-#~ msgstr "Обратный адрес для доставки к отправителю"
 
-#~ msgid "Create alias mail account to group"
-#~ msgstr "Создать почтовый псевдоним для группы"
 
-#~ msgid ""
-#~ "When the last member of a group is removed, the mail alias account will "
-#~ "be deleted"
-#~ msgstr ""
-#~ "Когда последний член группы будет удален, почтовый псевдоним тоже будет "
-#~ "удален"
 
-#~ msgid "Message"
-#~ msgstr "Сообщение"
 
-#~ msgid "Operate"
-#~ msgstr "Управление"
 
-#~ msgid "maildir size"
-#~ msgstr "размер почтового каталога"
 
-#~ msgid "Cannot create user account: mail directory {d} aready exists"
-#~ msgstr ""
-#~ "не возможно создать пользовательский аккаунт: почтовый каталог {d} уже "
-#~ "существует"
 
-#~ msgid "Default maildir size (MB)"
-#~ msgstr "Стандартный размер почтового каталога (Мбайт)"
 
-#~ msgid "mail"
-#~ msgstr "почта"
 
-#~ msgid "To add the LDAP schemas used by eBox mail"
-#~ msgstr "Добавить LDAP схемы используемые почтой eBox"
 
-#~ msgid "Communications"
-#~ msgstr "Коммуникации"
 
-#~ msgid "SSL Support"
-#~ msgstr "Поддержка SSL"
 
-#~ msgid "No"
-#~ msgstr "Нет"
 
-#~ msgid "Optional"
-#~ msgstr "Параметр"
 
-#~ msgid "Required"
-#~ msgstr "Обязательный"
 
-#~ msgid "Add {user} to {group} group"
-#~ msgstr "Добавить {user} в {group} группу"
 
-#~ msgid "To allow {daemon} to connect with {otherDaemon} via unix socket"
-#~ msgstr "Разрешить {daemon} соединяться с {otherDaemon} через юникс сокет "
 
-#~ msgid "To let courier know how to access LDAP"
-#~ msgstr "Показать courier, как обращаться к LDAP"
 
-#~ msgid "To configure courier POP3"
-#~ msgstr "Настроить courier POP3"
 
-#~ msgid "To configure POP3 with SSL support"
-#~ msgstr "Настроить POP3 с поддержкой SSL"
 
-#~ msgid "To configure IMAP with SSL support"
-#~ msgstr "Настроить IMAP с поддержкой SSL"
 
-#~ msgid "To configure saslauthd to authenticate against LDAP "
-#~ msgstr "Настроить saslauthd для аутентификации LDAP"
 
-#~ msgid "To configure saslauthd to use LDAP"
-#~ msgstr "Настроить saslauthd для использования LDAP"
 
-#~ msgid "Relay denied by the smarthost"
-#~ msgstr "Пересылка с узла запрещена"
 
-#~ msgid "Add postfix to sasl group"
-#~ msgstr "Добавить postfix в группу sasl"
 
-#~ msgid "eBox will execute /usr/sbin/postalias /etc/aliases "
-#~ msgstr "eBox выполнит /usr/sbin/postalias /etc/aliases "
 
-#~ msgid "Mail system"
-#~ msgstr "Почтовая система"
 
-#~ msgid "vdomain"
-#~ msgstr "вирт. домен"
 
-#~ msgid "Message size limit"
-#~ msgstr "Лимит размера сообщения"
 
-#~ msgid "remote IP"
-#~ msgstr "удаленный IP"
 
-#~ msgid "{ip} is not a valid ip address"
-#~ msgstr "{ip} не действительный IP-адрес"
 
-#~ msgid "{ip} cannot be reached by any configured interface"
-#~ msgstr ""
-#~ "{ip} не может быть достигнут ни через один сконфигурированный интерфейс"
 
-#~ msgid "{ip} can be reached by more than one configured interface"
-#~ msgstr ""
-#~ "{ip} может быть достигнут более чем через один сконфигурированный "
-#~ "интерфейс"
 
-#~ msgid "port"
-#~ msgstr "порт"
 
-#~ msgid "message size"
-#~ msgstr "размер сообщения"
 
-#~ msgid "Yes"
-#~ msgstr "Да"
 
-#~ msgid "TLS support is required by the authentication system"
-#~ msgstr "Поддержка TLS требуется системой аутентификации"
 
-#~ msgid "Services"
-#~ msgstr "Службы"
 
-#~ msgid "Service"
-#~ msgstr "Служба"
 
-#~ msgid "Apply Changes"
-#~ msgstr "Применить изменения"
 
-#~ msgid ""
-#~ "A value of 0 for the maximum message size and maximum mail account size "
-#~ "stands for no size limitation."
-#~ msgstr ""
-#~ "Значение '0' (ноль) для макс. размера сообщения и макс. размера почтового "
-#~ "аккаунта означает безлимитные размеры."
 
-#~ msgid "Maximum message size accepted by the mail server"
-#~ msgstr "Макс. размер сообщения принят почтовым сервером"
 
-#~ msgid "Size (MB)"
-#~ msgstr "Размер (Мбайт)"
 
-#~ msgid ""
-#~ "You should move to allowed column those objects you want to allow sending "
-#~ "mail through this module."
-#~ msgstr ""
-#~ "Вы должны переместить в графу \"Разрешено\" те объекты, которым Вы хотите "
-#~ "разрешить отправлять почту через этот модуль."
 
-#~ msgid ""
-#~ "Choose the object whose state you want to change and click on the arrow "
-#~ "to move it to the desired column."
-#~ msgstr ""
-#~ "Выберите объект и кликните на стрелку для перемещения его в желаемую "
-#~ "графу."
 
-#~ msgid "Denied"
-#~ msgstr "Запрещено"
 
-#~ msgid "Empty list"
-#~ msgstr "Пустой список"
 
-#~ msgid "Allow"
-#~ msgstr "Разрешить"
 
-#~ msgid "Move selected objects to the allowed column"
-#~ msgstr "Переместить выбранные объекты в графу \"Разрешено\""
 
-#~ msgid "Deny"
-#~ msgstr "Запретить"
 
-#~ msgid "Move selected objects to the denied column"
-#~ msgstr "Переместить выбранные объекты в графу \"Запрещено\""
 
-#~ msgid "Apply"
-#~ msgstr "Применить"
 
-#~ msgid "Default maximum mail account size"
-#~ msgstr "Стандартный макс. размер почтового аккаунта"
 
-#~ msgid "Force the change to the existing accounts"
-#~ msgstr "Применить изменение для существующих аккаунтов"
 
-#~ msgid "Maildir size for {vdomain} virtual domain"
-#~ msgstr "Размер почтового каталога для вирт. домена {vdomain}"
 
-#~ msgid "Add a new virtual domain"
-#~ msgstr "Добавить новый виртуальный домен"
 
-#~ msgid "Default maildir size"
-#~ msgstr "Стандартный размер почтового каталога"
 
-#~ msgid "(MB)"
-#~ msgstr "(Мбайт)"
 
-#~ msgid "Add"
-#~ msgstr "Добавить"
 
 #, fuzzy
-#~ msgid "Unlimited"
-#~ msgstr "Безлимитный размер"
 
-#~ msgid "Maildir Size"
-#~ msgstr "Размер почтового каталога"
 
-#~ msgid "Edit"
-#~ msgstr "Редактировать"
 
-#~ msgid "smarthost ip"
-#~ msgstr "smarthost IP"
 
-#~ msgid "IP address of smarthost to send mail"
-#~ msgstr "smarthost IP-адрес для отправки почты"
 
-#~ msgid "mail system status"
-#~ msgstr "статус почтовой системы"
 
-#~ msgid "Service status"
-#~ msgstr "Статус службы"
 
-#~ msgid "Deleting virtual domain"
-#~ msgstr "Удаление виртуального домена"
 
-#~ msgid "POP3"
-#~ msgstr "POP3"
 
-#~ msgid "IMAP"
-#~ msgstr "IMAP"
 
-#~ msgid "Changing maildir size of"
-#~ msgstr "Изменение размера почтового каталога"
 
-#~ msgid "Page"
-#~ msgstr "Страница"
 
-#~ msgid "of"
-#~ msgstr "из"
 
-#~ msgid "module status"
-#~ msgstr "статус модуля"
 
-#~ msgid "External Filter"
-#~ msgstr "Внешний фильтр"
 
-#~ msgid "There is not any message at the queue or the service is stopped"
-#~ msgstr "Нет ни одного сообщения в очереди или остановленной службы"
 
-#~ msgid "Account do not exists"
-#~ msgstr "Аккаунта не существует"
 
-#~ msgid "Allowed"
-#~ msgstr "Разрешено"
 
-#~ msgid "Filter's IP address"
-#~ msgstr "IP-адрес фильтра"
 
-#~ msgid "Filter's Port"
-#~ msgstr "Порт фильтра"

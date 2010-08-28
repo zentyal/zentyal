@@ -847,103 +847,25 @@ msgid "Enter"
 msgstr ""
 
 #, fuzzy
-#~ msgid "User corner"
-#~ msgstr "ユーザ名"
 
-#~ msgid ""
-#~ "If you remove this group all its data within its shared directory will be "
-#~ "deleted"
-#~ msgstr ""
-#~ "このグループを削除すると、共有ディレクトリに含まれるデータも全て削除されま"
-#~ "す"
 
 #, fuzzy
-#~ msgid ""
-#~ "There are no users at the moment. You may want to add some in {openhref}"
-#~ "Add user section{closehref}."
-#~ msgstr ""
-#~ "現在ユーザが存在しません。このグループを管理するには最低でも1人のユーザが"
-#~ "必要です"
 
 #, fuzzy
-#~ msgid "Edit User"
-#~ msgstr "ユーザを編集"
 
-#~ msgid "Edit Group"
-#~ msgstr "グループを編集"
 
-#~ msgid ""
-#~ "Changes in user accounts take effect inmediately, they do not need to be "
-#~ "saved."
-#~ msgstr "変更はすぐに反映されるため、保存する必要はありません。"
 
-#~ msgid ""
-#~ "Changes related to printing, file sharing and Jabber service do need to "
-#~ "be saved in order to be effective."
-#~ msgstr ""
-#~ "印刷、ファイル共有、Jabberに関連した変更を反映するために保存する必要はあり"
-#~ "ません"
 
-#~ msgid "Create"
-#~ msgstr "作成"
 
-#~ msgid "Actions"
-#~ msgstr "アクション"
 
 #, fuzzy
-#~ msgid ""
-#~ "There are no groups at the moment. You may want to add some in the master "
-#~ "eBox"
-#~ msgstr ""
-#~ "現在ユーザが存在しません。このグループを管理するには最低でも1人のユーザが"
-#~ "必要です"
 
 #, fuzzy
-#~ msgid ""
-#~ "There are no groups at the moment. You may want to add some in the Domain "
-#~ "Controller"
-#~ msgstr ""
-#~ "現在ユーザが存在しません。このグループを管理するには最低でも1人のユーザが"
-#~ "必要です"
 
 #, fuzzy
-#~ msgid ""
-#~ "Your current openLDAP database will be replaced and backed up in /var/"
-#~ "backups/slapd"
-#~ msgstr ""
-#~ "現在のOpenLDAPデータベース設定は置換され、/var/backups/slapdにバックアップ"
-#~ "されます"
 
-#~ msgid ""
-#~ "eBox will initialize openLDAP to store its database. It will also "
-#~ "overwrite your current configuration"
-#~ msgstr ""
-#~ "eBoxはデータベースを格納するためにOpenLDAPを初期化します。また、現在の設定"
-#~ "を上書きします"
 
-#~ msgid ""
-#~ "To configure the openLDAP database with dc  entry, rootpw, rootdn, "
-#~ "schemas and ACLs used by  the LDAP based eBox modules"
-#~ msgstr ""
-#~ "OpenLDAPデータベースをdcエントリ、rootpw、rootdn、スキーマ、そしてACLとと"
-#~ "もに設定（ACLはLDAPに依存するeBoxモジュールに利用されます）"
 
-#~ msgid "full name"
-#~ msgstr "フルネーム"
 
-#~ msgid "foo"
-#~ msgstr "hoge"
 
-#~ msgid ""
-#~ "Your current openLDAP database will be replaced and backuped in /var/"
-#~ "backups/slapd"
-#~ msgstr ""
-#~ "現在のOpenLDAPデータベース設定は置換され、/var/backups/slapdにバックアップ"
-#~ "されます"
 
-#~ msgid ""
-#~ "This operation will cause the removal of the user and all his "
-#~ "dependences; such as mail accounts, user data..."
-#~ msgstr ""
-#~ "この操作を行うと、メールアカウントやユーザの所有するデータなど関連するデー"
-#~ "タとともにユーザが削除されます。"

@@ -363,101 +363,27 @@ msgstr "Port"
 msgid "options"
 msgstr "Seçenekler"
 
-#~ msgid "Source MAC"
-#~ msgstr "Kaynak MAC"
 
 #, fuzzy
-#~ msgid "If service is any, some source ordestination should be provided"
-#~ msgstr "Eğer bir hizmet sunulacaksa bazı kaynak veya hedef verilmeli"
 
 #, fuzzy
-#~ msgid "traffic shaping"
-#~ msgstr "Trafik Şekillendirme"
 
-#~ msgid ""
-#~ "Traffic shaping can be only done in external interfaces which have "
-#~ "gateways associated to"
-#~ msgstr ""
-#~ "Trafik şekillendirmesi ilişikilendirilmiş ağ geçidine sahip harici "
-#~ "arabirimlerde yapılabilir"
 
 #, fuzzy
-#~ msgid ""
-#~ "Adding a rule to the interface should be done following maximum rate "
-#~ "allowed to that interface and the sum of the different guaranteed rates "
-#~ "should be at much as the total rate allowed. No limited rate or zero "
-#~ "means unlimited rate in terms of bandwidth link. At least, one should be "
-#~ "provided.In order to identify a rule, an attribute should be given."
-#~ "Highest priority: 0 lowest priority: 7."
-#~ msgstr ""
-#~ "Arabirime eklenilecek bir kural bu arabirime eklenilmesine izin verilen "
-#~ "azami oran ve  farklı garantilenmiş oranlar izin verilen toplam oranlar "
-#~ "kadar olmalıdır. Sınırlanmamış oran veya sıfır bant genişliği bağlantısı "
-#~ "anlamında sınırsız oran anlamına gelir. En azından, bir tanesi "
-#~ "girilmelidir. Bir kural tanımlamak için bir özellik girilmelidir. En "
-#~ "yüksek öncelik:0 , en düşük öncelik: 7"
 
-#~ msgid "Traffic Shaping Management"
-#~ msgstr "Trafik Şekillendirme Yönetimi"
 
 #, fuzzy
-#~ msgid "interface {iface}"
-#~ msgstr "Arabirim"
 
 #, fuzzy
-#~ msgid "Guaranteed rate or limited rate is required"
-#~ msgstr "Garantilenmiş veya sınırlanmış oran"
 
-#~ msgid "Guaranteed rate or limited rate"
-#~ msgstr "Garantilenmiş veya sınırlanmış oran"
 
-#~ msgid "Identifier"
-#~ msgstr "Tanımlayıcı"
 
-#~ msgid "Enabled"
-#~ msgstr "Etkin"
 
-#~ msgid "Traffic Shaping Rule"
-#~ msgstr "Trafik Şekillendirme Kuralı"
 
-#~ msgid "Rules list"
-#~ msgstr "Kurallar listesi"
 
-#~ msgid "Traffic Shaping is applied when eBox is acting as "
-#~ msgstr "Trafik şekillendirme eBox şu şekilde çalıştığında uygulanacaktır: "
 
-#~ msgid "Rules lists per interface"
-#~ msgstr "Herbir arabirim için kurallar listesi"
 
-#~ msgid ""
-#~ "Traffic Shaping is applied only to external interfaces which have "
-#~ "gateways with an upload rate set. In order to do so, create a gateway at "
-#~ "{openhref}Network->Gateways{closehref} setting as interface an external "
-#~ "one."
-#~ msgstr ""
-#~ "Trafik Şekillendirme upload oran ayarı olan ağ geçitlerine sahip harici "
-#~ "arabirimlerde uygulanır. Bunu yapmak için, {openhref}Network->Gateways"
-#~ "{closehref} altında arabirimlerden biri harici olarak bir gateway "
-#~ "oluşturun. "
 
 #, fuzzy
-#~ msgid "Rules list for {iface}"
-#~ msgstr "Herbir arabirim için kurallar listesi"
 
-#~ msgid ""
-#~ "Adding a rule to the interface should be done following maximum rate "
-#~ "allowed to that interface and the sum of the different guaranteed rates "
-#~ "should be at much as the total rate allowed. No limited rate or zero "
-#~ "means unlimited rate in terms of bandwidth link. At least, one should be "
-#~ "provided.In order to identify a rule, an attribute should be given."
-#~ "Highest priority: 0 lowest priority: 7"
-#~ msgstr ""
-#~ "Arabirime eklenilecek bir kural bu arabirime eklenilmesine izin verilen "
-#~ "azami oran ve  farklı garantilenmiş oranlar izin verilen toplam oranlar "
-#~ "kadar olmalıdır. Sınırlanmamış oran veya sıfır bant genişliği bağlantısı "
-#~ "anlamında sınırsız oran anlamına gelir. En azından, bir tanesi "
-#~ "girilmelidir. Bir kural tanımlamak için bir özellik girilmelidir. En "
-#~ "yüksek öncelik:0 , en düşük öncelik: 7"
 
-#~ msgid "Traffic Shaping rules"
-#~ msgstr "Trafik Şekillendirme Kuralları"

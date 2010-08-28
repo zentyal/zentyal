@@ -128,301 +128,100 @@ msgstr ""
 "Чтобы добавить или управлять принтерами вам необходимо использовать "
 "{open_href} Веб-интерфейс CUPS {close_href}"
 
-#~ msgid "Model"
-#~ msgstr "Модель"
 
-#~ msgid "Printer {printer} has no available drivers"
-#~ msgstr "Для принтера {printer} нет доступных драйверов"
 
-#~ msgid "Add a new printer (II)"
-#~ msgstr "Добавить новый принтер (II)"
 
-#~ msgid "Next"
-#~ msgstr "Следующее"
 
-#~ msgid "IP"
-#~ msgstr "IP"
 
-#~ msgid "Port"
-#~ msgstr "Порт"
 
-#~ msgid "Standalone cups enabled"
-#~ msgstr "Автономный режим включен"
 
-#~ msgid "Standalone cups disabled"
-#~ msgstr "Автономный режим отключен"
 
-#~ msgid "Add a new printer (VI)"
-#~ msgstr "Добавить новый принтер (VI)"
 
-#~ msgid "Driver"
-#~ msgstr "Драйвер"
 
-#~ msgid "The printer has been deleted successfully"
-#~ msgstr "Принтер был удален"
 
-#~ msgid "Shared resource"
-#~ msgstr "Общий ресурс"
 
-#~ msgid "Authentication"
-#~ msgstr "Аутентификация"
 
-#~ msgid "Password"
-#~ msgstr "Пароль"
 
-#~ msgid "Manage printer"
-#~ msgstr "Управление принтером"
 
-#~ msgid "Printer details"
-#~ msgstr "Подробности о принтере"
 
-#~ msgid "Driver Options"
-#~ msgstr "Опции драйвера"
 
-#~ msgid "Configuration options"
-#~ msgstr "Опции конфигурации"
 
-#~ msgid "Jobs Queue"
-#~ msgstr "Очередь заданий"
 
-#~ msgid "Printer's name"
-#~ msgstr "Имя принтера"
 
-#~ msgid "Printer's id"
-#~ msgstr "ID принтера"
 
-#~ msgid "Job id"
-#~ msgstr "ID задания"
 
-#~ msgid "Job was successfully canceled"
-#~ msgstr "Задание отменено"
 
-#~ msgid "Add a new printer (IV)"
-#~ msgstr "Добавить новый принтер (IV)"
 
-#~ msgid "Device"
-#~ msgstr "Устройство"
 
-#~ msgid "Manage printers"
-#~ msgstr "Управление принтерами"
 
-#~ msgid "Delete printer"
-#~ msgstr "Удалить принтер"
 
-#~ msgid "Add a new printer (V)"
-#~ msgstr "Добавить новый принтер (V)"
 
-#~ msgid "Method"
-#~ msgstr "Метод"
 
-#~ msgid "Printer description"
-#~ msgstr "Описание принтера"
 
-#~ msgid "Manufacturer"
-#~ msgstr "Изготовитель"
 
-#~ msgid "Add a new printer (III)"
-#~ msgstr "Добавить новый принтер (III)"
 
-#~ msgid "Add a new printer (I)"
-#~ msgstr "Добавить новый принтер (I)"
 
-#~ msgid "Add user ebox to lpadmin group"
-#~ msgstr "Добавить пользователя ebox в группу ldadmin"
 
-#~ msgid "In order to manage printers and queues from the eBox web interface"
-#~ msgstr ""
-#~ "Чтобы управлять принтерами и очередями печати через веб-интрефейс eBox"
 
-#~ msgid "To add and manage printers"
-#~ msgstr "Добавление и управление принтерами"
 
-#~ msgid "To enable standalone cupsd listen on internal interfaces"
-#~ msgstr "Включение автономного режима сушащего внешний интерфейс"
 
-#~ msgid "Add Printer"
-#~ msgstr "Добавить принтер"
 
-#~ msgid ""
-#~ "The printer's name contains characters not valid.Only alphanumeric "
-#~ "characters are allowed"
-#~ msgstr ""
-#~ "Имя принтера содержит недопустимые символы. Допустимы только буквенно-"
-#~ "цифровые символы"
 
-#~ msgid "Name"
-#~ msgstr "Имя"
 
-#~ msgid "The given name is alreaday used as "
-#~ msgstr "Указанное имя уже используется"
 
-#~ msgid "It is not a usb printer"
-#~ msgstr "Это не USB-принтер"
 
-#~ msgid "It is not a parallel printer"
-#~ msgstr "Это не параллельный принтер"
 
-#~ msgid "It is not a network printer"
-#~ msgstr "Это не сетевой принтер"
 
-#~ msgid "It is not a samba printer"
-#~ msgstr "Это не Samba-принтер"
 
-#~ msgid "It is not a IPP printer"
-#~ msgstr "Это не IPP принтер"
 
-#~ msgid "It is not a LPD printer"
-#~ msgstr "Это не LSD принтер"
 
-#~ msgid "is not a valid option"
-#~ msgstr "недопустимая опция"
 
-#~ msgid "Parameter '{name}' does not exist"
-#~ msgstr "Параметра '{name}' не существует"
 
-#~ msgid "Owner"
-#~ msgstr "Владелец"
 
-#~ msgid "Queued at"
-#~ msgstr "В очереди на"
 
-#~ msgid "Set printer name and method"
-#~ msgstr "Задайте имя принтера и метод"
 
-#~ msgid "Parallel"
-#~ msgstr "Параллельный"
 
-#~ msgid "AppSocket"
-#~ msgstr "AppSocket"
 
-#~ msgid "Samba"
-#~ msgstr "Samba"
 
-#~ msgid "IPP: Internet printing protocol"
-#~ msgstr "IPP: Internet printing protocol"
 
-#~ msgid "LPD: Line Printer Daemon"
-#~ msgstr "LPD: Line Printer Daemon"
 
-#~ msgid "Choose manufacturer"
-#~ msgstr "Выберите производителя"
 
-#~ msgid "Local parallel printer configuration"
-#~ msgstr "Настройка локального параллельного принтера"
 
-#~ msgid "Are you sure you want to delete the printer '{name}'?"
-#~ msgstr "Вы уверены что хотите удалить принтер '{name}'?"
 
-#~ msgid "Cancel"
-#~ msgstr "Отмена"
 
-#~ msgid "Local USB printer configuration"
-#~ msgstr "Настройка локального USB-принтера"
 
-#~ msgid "Change"
-#~ msgstr "Изменить"
 
-#~ msgid "Job queue"
-#~ msgstr "Очередь задания"
 
-#~ msgid "Size(KB)"
-#~ msgstr "Размер (Кбайт)"
 
-#~ msgid "Creation time"
-#~ msgstr "Время создания"
 
-#~ msgid "Action"
-#~ msgstr "Действие"
 
-#~ msgid "This printer has no pending job in queue at the moment"
-#~ msgstr "Этот принтер имеет незавершенные задания в очереди"
 
-#~ msgid "You need to save changes in order to print a test page"
-#~ msgstr "Вы должны сохранить изменения, чтобы распечатать пробную страницу"
 
-#~ msgid "Print Test Page"
-#~ msgstr "Печать пробной страницы"
 
-#~ msgid "Driver options"
-#~ msgstr "Опции драйвера"
 
-#~ msgid "Choose a printer model"
-#~ msgstr "Выберите модель принтера"
 
-#~ msgid "Configure IPP printer"
-#~ msgstr "Настроить IPP принтер"
 
-#~ msgid "Choose a driver for the printer"
-#~ msgstr "Выберите драйвер для принтера"
 
-#~ msgid "Configure LPD printer"
-#~ msgstr "Настроить LPD принтер"
 
-#~ msgid "Choose a dirver for the printer"
-#~ msgstr "Выберите драйвер для принтера"
 
-#~ msgid "driver"
-#~ msgstr "драйвер"
 
-#~ msgid "Go"
-#~ msgstr "Вперед"
 
-#~ msgid "Samba shared printer configurationr"
-#~ msgstr "Настройка общего Samba-принтера"
 
-#~ msgid "Share resource"
-#~ msgstr "Открыть доступ к ресурсу"
 
-#~ msgid "Anonymous"
-#~ msgstr "Анонимный"
 
-#~ msgid "Guest"
-#~ msgstr "Гость"
 
-#~ msgid "User/Password"
-#~ msgstr "Пользователь/Пароль"
 
-#~ msgid "Remote printer configuration"
-#~ msgstr "Настройка удаленного принтера"
 
-#~ msgid "Configure AppSocket printer"
-#~ msgstr "Настроить AppSocket принтер"
 
-#~ msgid "Samba shared printer configuration"
-#~ msgstr "Конфигурация общего Samba-принтера"
 
-#~ msgid "Enable standalone CUPS"
-#~ msgstr "Включение автономного режима CUPS"
 
-#~ msgid "General settings"
-#~ msgstr "Общие настройка"
 
-#~ msgid "List of printers"
-#~ msgstr "Список принтеров"
 
-#~ msgid "Description"
-#~ msgstr "Описание"
 
-#~ msgid "Actions"
-#~ msgstr "Действия"
 
-#~ msgid "Manage"
-#~ msgstr "Управление"
 
-#~ msgid "Manage this printer"
-#~ msgstr "Управление этим принтером"
 
-#~ msgid "There is no printer configured yet"
-#~ msgstr "Нет сконфигурированного принтера"
 
-#~ msgid "printers"
-#~ msgstr "принтеры"
 
-#~ msgid "Office"
-#~ msgstr "Офис"
 
-#~ msgid "module status"
-#~ msgstr "статус модуля"
 
-#~ msgid "Network printer"
-#~ msgstr "Сетевой принтер"

@@ -2368,368 +2368,125 @@ msgstr ""
 msgid "Download configuration report file"
 msgstr "Escargar informe d'error"
 
-#~ msgid "Bug report"
-#~ msgstr "Informe d'error"
 
 #, fuzzy
-#~ msgid "events"
-#~ msgstr "Ebento"
 
 #, fuzzy
-#~ msgid "Created by {href}"
-#~ msgstr "{ebox} creyato por {warp} en colaborazión con {dbs}"
 
 #, fuzzy
-#~ msgid "{ebox} created by {warp}"
-#~ msgstr "{ebox} creyato por {warp} en colaborazión con {dbs}"
 
-#~ msgid "System backups"
-#~ msgstr "Backup d'o sistema"
 
 #, fuzzy
-#~ msgid "RAID report"
-#~ msgstr "Informe d'error"
 
 #, fuzzy
-#~ msgid "Day"
-#~ msgstr "Cualsiquiera"
 
 #, fuzzy
-#~ msgid "Back up"
-#~ msgstr "Backup"
 
-#~ msgid ""
-#~ "An internal error has ocurred. This is most probably a bug, relevant "
-#~ "information can be found in the logs."
-#~ msgstr ""
-#~ "Un error interno ha ocurrito. Lo más probable ye que sía un error, se "
-#~ "puede trobar informazión relebant en os logs"
 
 #, fuzzy
-#~ msgid "Backup deleted"
-#~ msgstr "Tipo de backup"
 
 #, fuzzy
-#~ msgid "Restoring remote backup"
-#~ msgstr "Restaurar dende backup"
 
 #, fuzzy
-#~ msgid "Restoring modules from remote backup"
-#~ msgstr "Restaurar dende backup"
 
 #, fuzzy
-#~ msgid "Remote system backups"
-#~ msgstr "Backup d'o sistema"
 
 #, fuzzy
-#~ msgid ""
-#~ "Please confirm that you want to restore the configuraction using the "
-#~ "following remote backup:"
-#~ msgstr "Por fabor, confirme que quiere borrar iste fichero de backup:"
 
 #, fuzzy
-#~ msgid "Backing up modules "
-#~ msgstr "Tipo de backup"
 
 #, fuzzy
-#~ msgid "Remote system backups proxy"
-#~ msgstr "Backup d'o sistema"
 
 #, fuzzy
-#~ msgid "Delete data"
-#~ msgstr "Borrar"
 
 #, fuzzy
-#~ msgid "Enter user and password"
-#~ msgstr "Meta una parabra de paso"
 
 #, fuzzy
-#~ msgid "Back up the current configuration state"
-#~ msgstr "Backup d'o estato autual"
 
 #, fuzzy
-#~ msgid "Configuration backups' list"
-#~ msgstr "Backups d'a confegurazión"
 
 #, fuzzy
-#~ msgid "subscription page"
-#~ msgstr "Descrizión"
 
-#~ msgid "Welcome to eBox"
-#~ msgstr "Biemplegato ta eBox"
 
-#~ msgid "eBox was already initialized"
-#~ msgstr "eBox ya ha estato inizializato"
 
-#~ msgid "Set password"
-#~ msgstr "Meta una parabra de paso"
 
-#~ msgid "Default password was already changed"
-#~ msgstr "A parabra de paso inizial ya estió cambeata"
 
-#~ msgid "New passwords do not match"
-#~ msgstr "As parabras de paso son diferents"
 
 #, fuzzy
-#~ msgid "modules saved"
-#~ msgstr "Nombre de modulo"
 
-#~ msgid "Change default password"
-#~ msgstr "Cambie a parabra de paso inizial"
 
-#~ msgid "Use default values"
-#~ msgstr "Empelgar balors de fabrica"
 
 #, fuzzy
-#~ msgid "Compulsory Password"
-#~ msgstr "Parabra de paso autual"
 
 #, fuzzy
-#~ msgid "Static test form"
-#~ msgstr "Restaurar"
 
 #, fuzzy
-#~ msgid "Optional IP Address"
-#~ msgstr "Meta una parabra de paso"
 
 #, fuzzy
-#~ msgid "Optional Boolean"
-#~ msgstr "Meta una parabra de paso"
 
 #, fuzzy
-#~ msgid "Optional Integer"
-#~ msgstr "Meta una parabra de paso"
 
 #, fuzzy
-#~ msgid "Optional Text"
-#~ msgstr "Meta una parabra de paso"
 
 #, fuzzy
-#~ msgid "Optional MAC address"
-#~ msgstr "Meta una parabra de paso"
 
 #, fuzzy
-#~ msgid "Optional Link"
-#~ msgstr "Meta una parabra de paso"
 
 #, fuzzy
-#~ msgid "Optional Password"
-#~ msgstr "Meta una parabra de paso"
 
 #, fuzzy
-#~ msgid "Union"
-#~ msgstr "Esconoxito"
 
 #, fuzzy
-#~ msgid "Members"
-#~ msgstr "Nobiembre"
 
 #, fuzzy
-#~ msgid "Test model"
-#~ msgstr "Tipo de restaurazión"
 
 #, fuzzy
-#~ msgid "Test form"
-#~ msgstr "Restaurar"
 
-#~ msgid ""
-#~ "You must set the httpd_serverroot variable in the ebox configuration file"
-#~ msgstr ""
-#~ "Debe establir a bariable httpd_serverroot en o fichero de confegurazión "
-#~ "d'ebox"
 
-#~ msgid "You must set the httpd_init variable in the ebox configuration file"
-#~ msgstr ""
-#~ "Debe establir a bariable httpd_init en o fichero de confegurazión d'ebox"
 
-#~ msgid "The httpd_init script you configured is not executable."
-#~ msgstr "O script httpd_init confegurato no ye executable."
 
 #, fuzzy
-#~ msgid "Active"
-#~ msgstr "Aizión"
 
-#~ msgid ""
-#~ "Unable to find a correct backup disk. Please insert a backup disk and "
-#~ "retry"
-#~ msgstr ""
-#~ "No se i troba dengún CD/DVD de backup. Por fabor, meta-bi un disco de "
-#~ "backup correuto e reintente a operazión"
 
-#~ msgid "Please confirm that you want to restore using this backup disk:"
-#~ msgstr ""
-#~ "Por fabor, confirme que quiere restaurar emplegando iste disco de backup:"
 
-#~ msgid ""
-#~ "Please confirm that you want to write this backup file to a CD or DVD "
-#~ "disk:"
-#~ msgstr ""
-#~ "Por fabor, confirme que quiere escribir iste archibo de backup en un "
-#~ "disco CD/DVD"
 
-#~ msgid "Write to disk"
-#~ msgstr "Escribir en disco"
 
-#~ msgid "Backup was written to CD/DVD disk"
-#~ msgstr "O backup estió escrito en o disco CD/DVD correutament"
 
-#~ msgid "Unable to recognize the mounted DVD media"
-#~ msgstr "No se pudo reconoxer o CD enserito"
 
-#~ msgid "Unable to recognize the mounted CD media"
-#~ msgstr "No se pudo reconoxer el DVD enserito"
 
-#~ msgid ""
-#~ "This system need {program} installed to perform the requested action. "
-#~ "Please install it and retry"
-#~ msgstr ""
-#~ "O sistema ha menester de que {program} siga instalato ta reyalizar "
-#~ "l'aizión requiesta. Por fabor, instale-lo y intente atra begada"
 
-#~ msgid ""
-#~ "Unable to find {path}. Make sure that the cdrom driver is compiled in "
-#~ "your kerner or loaded as module"
-#~ msgstr ""
-#~ "No se podió trobar {path}. Asegure-se de que a controladora d'a unidá de "
-#~ "CD/DVD siga cargata como modulo u compilata en o suyo kernel."
 
-#~ msgid "Unable to read {path}."
-#~ msgstr "No se podió leyer {path}"
 
-#~ msgid "This system does not have a recorder drive"
-#~ msgstr "Iste sistema no'n tien ninguna unidá denguna grabadora de CD/DVD"
 
-#~ msgid "No disk found. Please insert disk and retry"
-#~ msgstr ""
-#~ "No se i trobó dengún CD/DVD. Por fabor, meta-bi un disco y intente-lo "
-#~ "atra begada"
 
-#~ msgid "{media } is a unsupported media type"
-#~ msgstr "{media} es un tipo de meyo no soportato"
 
-#~ msgid "{device} cannot be found"
-#~ msgstr "No s'ha trobato {device}"
 
-#~ msgid "{device} is mounted. Please, remove the disk"
-#~ msgstr "{device} ye amontato. Por fabor, espulse o disco"
 
-#~ msgid "Device {dev} cannot write media of type {media}"
-#~ msgstr "O dispositibo {dev} no puede grabar discos de tipo {media}"
 
-#~ msgid "The media has not sufficient capabilty for the data"
-#~ msgstr ""
-#~ "O disco no tiene pro capazidat ta os datos á grabar. Pruebe con un tipo "
-#~ "de disco con más capazidat"
 
-#~ msgid "No blanking method for {media}  defined. Cannot erase it"
-#~ msgstr ""
-#~ "No se puede borrar o disco debito á que no s'ha definito metodo de "
-#~ "borrato ta discos de tipo {media}"
 
-#~ msgid "Insert a backup disc and try again, please"
-#~ msgstr "Por fabor, meta-bi un disco de backup e reintente a operazión"
 
 #, fuzzy
-#~ msgid "Writing backup file to optical disc"
-#~ msgstr "Grabar backup en CD/DVD"
 
-#~ msgid ""
-#~ "Cannot rename backup file from {newName} to his original name {name}. "
-#~ "Error message: {error}"
-#~ msgstr ""
-#~ "No se puede renombrar l'archivo de backup {newName} á lo suyo nombre "
-#~ "orichinal {name}. Mensache d'error: {error}"
 
-#~ msgid ""
-#~ "'Backup to CD/DVD disk' is disabled, because eBox could not find any "
-#~ "recorder drive"
-#~ msgstr ""
-#~ "Backup en CD/DVD' ye desautibado debito á que eBox no ha puesto trobar "
-#~ "dengún dispositibo de grabazión"
 
-#~ msgid "Back up to hard disk"
-#~ msgstr "Backup en disco duro"
 
-#~ msgid "Back up to CD/DVD disk"
-#~ msgstr "Backup en CD/DVD"
 
-#~ msgid "Restore backup from disk"
-#~ msgstr "Restaurar backup dende CD/DVD"
 
-#~ msgid ""
-#~ "You can restore from a backup disk. Please insert the disk before "
-#~ "clicking the button"
-#~ msgstr ""
-#~ "Puede restaurar dende un CD u DVD de backup. Por fabor, meta-bi o disco "
-#~ "antis de pretar o botón."
 
-#~ msgid ""
-#~ "'Restore backup from CD/DVD disk' is disabled, because eBox could not "
-#~ "find any reader drive"
-#~ msgstr ""
-#~ "Restaurar dende CD/DVD' ye desautibato debito á que no s'ha trobato "
-#~ "denguna unidat leutora"
 
-#~ msgid "Restore from disk"
-#~ msgstr "Restaurar desde CD/DVD"
 
-#~ msgid ""
-#~ "'Write backup to CD/DVD disk' is disabled, because eBox could not find "
-#~ "any recorder drive"
-#~ msgstr ""
-#~ "Grabar backup enCD/DVD' ye desautibato debito á que eBox no ha puesto "
-#~ "trobar dengún dispositibo de grabazión"
 
-#~ msgid "Write backup to CD/DVD disk"
-#~ msgstr "Grabar backup en CD/DVD"
 
-#~ msgid "write into disk"
-#~ msgstr "grabar en CD/DVD"
 
-#~ msgid "write into disk (disabled)"
-#~ msgstr "grabar en CD/DVD (desautibato)"
 
-#~ msgid "Backup done"
-#~ msgstr "Backup reyalizato con exito"
 
-#~ msgid ""
-#~ "Full backup restored succesfully. You should now review your "
-#~ "configuration and save it if you want to keep it."
-#~ msgstr ""
-#~ "A confegurazión e os datos s'han cargato correutament. Agora deberba "
-#~ "rebisar a confegurazión e alzar-la si quiere conserbar-la."
 
-#~ msgid ""
-#~ "Configuration restored succesfully, you should now review it and save it "
-#~ "if you want to keep it."
-#~ msgstr ""
-#~ "A confegurazión e os datos s'han cargato correutament. Agora deberba "
-#~ "rebisar a confegurazión e alzar-la si quiere conserbar-la."
 
-#~ msgid "of"
-#~ msgstr "de"
 
 #, fuzzy
-#~ msgid ""
-#~ "Full backup restored successfully. You should now review your "
-#~ "configuration and save it if you want to keep it."
-#~ msgstr ""
-#~ "A confegurazión e os datos s'han cargato correutament. Agora deberba "
-#~ "rebisar a confegurazión e alzar-la si quiere conserbar-la."
 
 #, fuzzy
-#~ msgid ""
-#~ "Configuration restored successfully, you should now review it and save it "
-#~ "if you want to keep it."
-#~ msgstr ""
-#~ "A confegurazión e os datos s'han cargato correutament. Agora deberba "
-#~ "rebisar a confegurazión e alzar-la si quiere conserbar-la."
 
-#~ msgid "{ebox} created by {warp} in collaboration with {dbs}"
-#~ msgstr "{ebox} creyato por {warp} en colaborazión con {dbs}"
 
-#~ msgid "Field {field} does not exist"
-#~ msgstr "O campo {field} no existe"
 
-#~ msgid "Page"
-#~ msgstr "Pachina"

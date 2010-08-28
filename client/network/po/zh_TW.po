@@ -1027,104 +1027,35 @@ msgstr ""
 "如果您選擇繼續，所有使用這個網路介面的組態的模組會刪除其組態的相關部分。如果"
 "您對這個問題不確定就請選擇「取消」。"
 
-#~ msgid "eBox"
-#~ msgstr "eBox"
 
-#~ msgid "Physical interface"
-#~ msgstr "實體介面"
 
-#~ msgid "Vlan interface list"
-#~ msgstr "Vlan 介面列表"
 
-#~ msgid "These are the vlan interfaces which are available in your system."
-#~ msgstr "這些 vlan 介面在您的系統上是可用的"
 
-#~ msgid "interface"
-#~ msgstr "介面"
 
-#~ msgid "Configurable interface list"
-#~ msgstr "設置介面列表"
 
-#~ msgid "These are the interfaces which can be configured"
-#~ msgstr "這個介面是可以設置的"
 
-#~ msgid "Physical interface list"
-#~ msgstr "實體介面列表"
 
-#~ msgid ""
-#~ "These are the physical interfaces which are available in your system."
-#~ msgstr "這些實體介面在您的系統上是可用的"
 
-#~ msgid "Dynamic DNS"
-#~ msgstr "動態 DNS"
 
-#~ msgid "Set default gateway"
-#~ msgstr "設定預設通訊閘"
 
-#~ msgid "You can change later the gateway at Network/Routes menus item"
-#~ msgstr "您可以在 網路/路由 選單選項中變更之後的通訊閘"
 
-#~ msgid ""
-#~ "After the initial config you can revisit this page at Network/Interfaces "
-#~ "in the menu"
-#~ msgstr "在初始化設置之後您可以在選單中的 網路/介面 重新檢視這個頁面"
 
-#~ msgid "Gateway configured"
-#~ msgstr "通訊閘已設置"
 
-#~ msgid "You can revisit this page at Network/DNS in the menu"
-#~ msgstr "您可以在選單中的 網路/DNS 重新檢視這個頁面"
 
-#~ msgid "Network interface configured"
-#~ msgstr "網路介面已設置"
 
-#~ msgid "Configure name servers"
-#~ msgstr "設置名稱伺服器"
 
-#~ msgid "Configure default gateway"
-#~ msgstr "設置預設通訊閘"
 
-#~ msgid "Upload"
-#~ msgstr "上傳"
 
-#~ msgid "Upload rate in Kbits/s for this gateway."
-#~ msgstr "這個通訊閘上傳速度在 Kbits/s"
 
-#~ msgid "Download"
-#~ msgstr "下載"
 
-#~ msgid "Download rate in Kbits/s for this gateway."
-#~ msgstr "這個通訊閘下載速度在 Kbits/s"
 
-#~ msgid "Core"
-#~ msgstr "核心"
 
-#~ msgid "Balance traffic and multigateway rules"
-#~ msgstr "負載平衡和多線路由規則"
 
-#~ msgid "IP Address"
-#~ msgstr "IP 位址"
 
-#~ msgid "Protocol"
-#~ msgstr "通訊協定"
 
-#~ msgid "Port"
-#~ msgstr "連接埠"
 
-#~ msgid "Leave it blank  to select any port"
-#~ msgstr "留空白就是選擇任何連接埠"
 
-#~ msgid "Leave it blank if to select any port"
-#~ msgstr "假如選擇任何連接埠請留空白"
 
-#~ msgid "Destination port"
-#~ msgstr "目的連接埠"
 
-#~ msgid "Source port"
-#~ msgstr "來源連接埠"
 
-#~ msgid "Port cannot be set if no protocol is selected"
-#~ msgstr "假如沒有選擇通訊協定那連接埠不可以設定"
 
-#~ msgid "Routes"
-#~ msgstr "路由"

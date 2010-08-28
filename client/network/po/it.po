@@ -1079,174 +1079,49 @@ msgstr ""
 "di questa interfaccia di rete elimineranno le parti relative della propria "
 "configurazione. Scegli \"Annulla\" se non sei sicuro di cosa stai facendo."
 
-#~ msgid "eBox"
-#~ msgstr "eBox"
 
-#~ msgid "Physical interface"
-#~ msgstr "Interfaccia fisica"
 
-#~ msgid "Vlan interface list"
-#~ msgstr "Elenco interfacce vlan"
 
-#~ msgid "These are the vlan interfaces which are available in your system."
-#~ msgstr "Queste sono le interfacce vlan disponibili sul tuo sistema"
 
-#~ msgid "interface"
-#~ msgstr "interfaccia"
 
-#~ msgid "Configurable interface list"
-#~ msgstr "Elenco interfacce configurabili"
 
-#~ msgid "These are the interfaces which can be configured"
-#~ msgstr "Queste sono le interfacce che possono essere configurate"
 
-#~ msgid "Physical interface list"
-#~ msgstr "Elenco interfacce fisiche"
 
-#~ msgid ""
-#~ "These are the physical interfaces which are available in your system."
-#~ msgstr "Queste sono le interfacce fisiche disponibili sul tuo sistema."
 
-#~ msgid "Dynamic DNS"
-#~ msgstr "DNS dinamico"
 
-#~ msgid "Set default gateway"
-#~ msgstr "Imposta gateway predefinito"
 
-#~ msgid "You can change later the gateway at Network/Routes menus item"
-#~ msgstr "Puoi modificare più tardi il gateway dalla voce di menu Rete/Route"
 
-#~ msgid ""
-#~ "After the initial config you can revisit this page at Network/Interfaces "
-#~ "in the menu"
-#~ msgstr ""
-#~ "Dopo la configurazione iniziale puoi raggiungere questa pagina da Rete/"
-#~ "Interfacce nel menu"
 
-#~ msgid "Gateway configured"
-#~ msgstr "Gateway configurato"
 
-#~ msgid "You can revisit this page at Network/DNS in the menu"
-#~ msgstr "Puoi raggiungere questa pagina da Rete/DNS sul menu"
 
-#~ msgid "Network interface configured"
-#~ msgstr "Interfaccia di rete configurata"
 
-#~ msgid "Configure name servers"
-#~ msgstr "Configura name server"
 
-#~ msgid "Configure default gateway"
-#~ msgstr "Configura gateway di default"
 
-#~ msgid "Upload"
-#~ msgstr "Upload"
 
-#~ msgid "Upload rate in Kbits/s for this gateway."
-#~ msgstr "Aliquota upload in kbits/s per questo gateway"
 
-#~ msgid "Download"
-#~ msgstr "Download"
 
-#~ msgid "Download rate in Kbits/s for this gateway."
-#~ msgstr "Aliquota download in kbits/s per questo gateway"
 
-#~ msgid ""
-#~ "You can add as many gateways as you want. This is very useful if you want "
-#~ "to split your Internet traffic through several links.{br}The download and "
-#~ "upload fields must be set as much rate as you have to your connection "
-#~ "towards the gateway. The correct value of these fields is critical to "
-#~ "ensure a correct functionality of the traffic shaping module"
-#~ msgstr ""
-#~ "Puoi aggiungere quanti gateway desideri. Questo è molto utile se vuoi "
-#~ "suddividere il traffico internet fra connessioni diverse.{br}I campi "
-#~ "download ed upload devono essere impostati ai valori disponibili sul dato "
-#~ "gateway. È critico che il valore di questi campi sia corretto per il "
-#~ "corretto funzionamento del modulo di traffic shaping"
 
 #, fuzzy
-#~ msgid "Core"
-#~ msgstr "Sorgente"
 
-#~ msgid "Balance traffic and multigateway rules"
-#~ msgstr "Regole di bilanciamento traffico e multigateway"
 
-#~ msgid "IP Address"
-#~ msgstr "Indirizzo IP"
 
-#~ msgid "Protocol"
-#~ msgstr "Protocollo"
 
-#~ msgid "Port"
-#~ msgstr "Porta"
 
-#~ msgid "Leave it blank  to select any port"
-#~ msgstr "Lascia in bianco_ _per selezionare qualsiasi porta"
 
-#~ msgid "Leave it blank if to select any port"
-#~ msgstr "Lascia in bianco per selezionare qualsiasi porta"
 
-#~ msgid "Destination port"
-#~ msgstr "Porta destinazione"
 
-#~ msgid "Source port"
-#~ msgstr "Porta sorgente"
 
-#~ msgid "Port cannot be set if no protocol is selected"
-#~ msgstr ""
-#~ "La porta non può essere impostata se non è selezionato alcun protocollo"
 
-#~ msgid "Routes"
-#~ msgstr "Route"
 
-#~ msgid ""
-#~ "Having network interfaces configured via DHCP may cause this settings to "
-#~ "be overriden."
-#~ msgstr ""
-#~ "Avere le interfacce di rete configurate via DHCP può provocare la "
-#~ "sovrascritture di queste impostazioni."
 
-#~ msgid ""
-#~ "Gateway {gw} must be reacheable by a static interface. Currently is "
-#~ "reacheable by {iface} which is not static"
-#~ msgstr ""
-#~ "Il gateway {gw} deve essere raggiungibile da un'interfaccia statica. "
-#~ "Attualmente è raggiungible da {iface} che non è statica"
 
-#~ msgid ""
-#~ "To be able to use this feature, you need, at least, two gateways. You can "
-#~ "add them <a href=\"/ebox/Network/View/GatewayDataTable\">here</a> first"
-#~ msgstr ""
-#~ "Per poter usare questa funzione, hai bisogno almeno di due gateway. Puoi "
-#~ "aggiungerli prima da <a href=\"/ebox/Network/View/GatewayDataTable\">qui</"
-#~ "a>"
 
-#~ msgid "There is already a default gateway"
-#~ msgstr "C'è già un gateway di default"
 
-#~ msgid "gateway address"
-#~ msgstr "indirizzo gateway"
 
-#~ msgid "Primary"
-#~ msgstr "Primario"
 
-#~ msgid "Secondary"
-#~ msgstr "Secondario"
 
-#~ msgid "Apply"
-#~ msgstr "Applica"
 
-#~ msgid "Activate traffic rate monitor"
-#~ msgstr "Attiva monitoraggio traffico"
 
-#~ msgid "Traffic rate monitor"
-#~ msgstr "Monitoraggio traffico"
 
-#~ msgid ""
-#~ "All routers you enter here must be reachable through one of the network "
-#~ "interfaces currently configured."
-#~ msgstr ""
-#~ "Tutti i router inseriti qui devono essere raggiungibili tramite una delle "
-#~ "interfacce di rete attualmente configurate"
 
-#~ msgid "network address"
-#~ msgstr "indirizzo rete"

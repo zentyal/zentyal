@@ -65,16 +65,5 @@ msgstr "設定 freshclam 更新程式"
 msgid "To schedule the launch of the updater"
 msgstr "設定更新程式執行的時程"
 
-#~ msgid ""
-#~ "Update successful but your freshclam version is outdated.\n"
-#~ "The antivirus will not be able to use all the signatures.Please, install "
-#~ "version {version} or higher."
-#~ msgstr ""
-#~ "更新是成功的，但是您的 freshclam 版本已過時。\n"
-#~ "因此防毒功能將無法使用完整的病毒碼。請安裝 {version} 版或更高的版本。"
 
-#~ msgid "UTM"
-#~ msgstr "UTM"
 
-#~ msgid "Update status"
-#~ msgstr "更新狀態"

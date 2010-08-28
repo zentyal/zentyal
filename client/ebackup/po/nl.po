@@ -443,58 +443,20 @@ msgid "Configuration and Status"
 msgstr ""
 
 #, fuzzy
-#~ msgid ""
-#~ "If you choose {brand} or file system methods , then the destination field "
-#~ "may be the target directory in the backup server"
-#~ msgstr ""
-#~ "Bij selectie van {brand} of bestandssysteem methode, mag de "
-#~ "bestemmingslocatie de doeldirectory van de backup server bevatten"
 
 #, fuzzy
-#~ msgid "General remote backup server configuration"
-#~ msgstr "Algemene backup server configuratie"
 
-#~ msgid "Backup module"
-#~ msgstr "Backup module"
 
-#~ msgid "Hostname"
-#~ msgstr "Hostnaam"
 
-#~ msgid "Status"
-#~ msgstr "Status"
 
-#~ msgid "Last Update"
-#~ msgstr "Laatste update"
 
-#~ msgid "Days to Keep"
-#~ msgstr "Dagen te bewaren"
 
-#~ msgid "Size"
-#~ msgstr "Groote"
 
-#~ msgid "Hosts"
-#~ msgstr "Hosts"
 
-#~ msgid "Local backup directory {p} does not exist"
-#~ msgstr "Locale backup map {p} bestaat niet"
 
-#~ msgid "Days to keep"
-#~ msgstr "Aantal dagen te bewaren"
 
-#~ msgid "Local Backup Configuration"
-#~ msgstr "Locale backup configuratie"
 
-#~ msgid "Local backup configuration updated."
-#~ msgstr "Locale backup configuratie bewaard."
 
-#~ msgid "Install /etc/cron.daily/ebox-ebackup-cron."
-#~ msgstr "Installeer /etc/cron.daily/eboxplatform-cron."
 
-#~ msgid "eBox will run a nightly script to backup your system."
-#~ msgstr "Ebox zal elke nacht een backupscript uitvoeren op uw systeem."
 
-#~ msgid "Local backup configuration."
-#~ msgstr "Locale backup configuratie."
 
-#~ msgid "Core"
-#~ msgstr "Kern"

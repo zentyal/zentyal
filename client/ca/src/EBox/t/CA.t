@@ -46,9 +46,9 @@ is ( $ca->passwordRequired(), undef, 'No policy is set yet');
 
 diag( 'Creating a password-aware CA' );
 
-cmp_ok ( $ca->createCA(orgName => "Warp",
+cmp_ok ( $ca->createCA(orgName => "Zentyal",
 		   caKeyPassword => "mama",
-		   commonName => "lalala"), 
+		   commonName => "lalala"),
 	 '==', 1, 'creating CA' );
 
 ok ( $ca->getCACertificateMetadata(), "getting current valid CA" );
@@ -69,7 +69,7 @@ ok ( ! defined($ca->revokeCACertificate(reason => 'affiliationChanged',
 # Tests there's is CRL
 ok ( $ca->getCurrentCRL(), "getting CRL" );
 
-ok ( $ca->issueCACertificate(orgName => "Warpera",
+ok ( $ca->issueCACertificate(orgName => "Zentyalera",
 			     caKeyPassword => 'papa',
 			     genPair       => 1),
      "issuing CA certificate");
@@ -174,7 +174,7 @@ cmp_ok( $ca->destroyCA(), "==", 1, 'destroying CA' );
 
 diag( 'Creating a password-unaware CA' );
 
-cmp_ok ( $ca->createCA(orgName => 'Warp-no-passwd'),
+cmp_ok ( $ca->createCA(orgName => 'Zentyal-no-passwd'),
 	 '==', 1, 'creating passwordless CA' );
 
 ok ( ! $ca->passwordRequired(), 'A unaunthenticated CA');
@@ -182,7 +182,7 @@ ok ( ! $ca->passwordRequired(), 'A unaunthenticated CA');
 ok (! defined($ca->revokeCACertificate(reason => 'affiliationChanged')),
     'revoking passwordless CA');
 
-ok ( $ca->issueCACertificate(orgName => 'Warp-no-no',
+ok ( $ca->issueCACertificate(orgName => 'Zentyal-no-no',
 			     genPair => 1),
      "issuing passwordless CA certificate");
 

@@ -118,85 +118,24 @@ msgid "{ip} overlaps with the address or another object's member"
 msgstr "{ip} überlappt mit Adresse eines anderen Objektmitglieds"
 
 #, fuzzy
-#~ msgid "Core"
-#~ msgstr "Generieren"
 
-#~ msgid "IP Address"
-#~ msgstr "IP-Adresse"
 
-#~ msgid "Object name"
-#~ msgstr "Name der Computergruppe"
 
-#~ msgid "Netmask"
-#~ msgstr "Netzmaske"
 
-#~ msgid "Edit Object"
-#~ msgstr "Computergruppe bearbeiten"
 
-#~ msgid ""
-#~ "The name '{name}' is already used to identify another object. Please "
-#~ "choose another name"
-#~ msgstr ""
-#~ "Der Name \"{name}\" wird bereits für eine andere Computergruppe "
-#~ "verwendet. Bitte wählen Sie einen anderen Namen"
 
-#~ msgid "Edit <span class='stitle'>{description}</span> members"
-#~ msgstr "Mitglieder von <span class='stitle'>{description}</span> bearbeiten"
 
-#~ msgid "MAC"
-#~ msgstr "MAC-Adresse"
 
-#~ msgid "Action"
-#~ msgstr "Aktion"
 
-#~ msgid "Add"
-#~ msgstr "Hinzufügen"
 
-#~ msgid "Delete"
-#~ msgstr "Löschen"
 
-#~ msgid "Delete Object"
-#~ msgstr "Computergruppe löschen"
 
-#~ msgid ""
-#~ "If you delete this object, all the information about its members will be "
-#~ "lost."
-#~ msgstr ""
-#~ "Falls Sie diese Computergruppe löschen, werden alle Informationen über "
-#~ "die Mitglieder gelöscht"
 
-#~ msgid "Delete object"
-#~ msgstr "Computergruppe löschen"
 
-#~ msgid "Create new object"
-#~ msgstr "Neue Computergruppe erstellen"
 
-#~ msgid ""
-#~ "The objects that you create here can be used in the rest of the system. "
-#~ "Remember that an IP address cannot belong to more than one object."
-#~ msgstr ""
-#~ "Die Computergruppen welche Sie hier erstellen, können im restlichen "
-#~ "System verwendet werden. Denken Sie daran, dass eine IP-Adresse nur zu "
-#~ "einer einzigen Computergruppe gehören darf"
 
-#~ msgid "Edit"
-#~ msgstr "Bearbeiten"
 
-#~ msgid "edit"
-#~ msgstr "Bearbeiten"
 
-#~ msgid "delete"
-#~ msgstr "Löschen"
 
-#~ msgid ""
-#~ "The object you tried to delete is being used by some modules, please "
-#~ "confirm that you want to delete it."
-#~ msgstr ""
-#~ "Die Computergruppe, welche Sie löschen möchten, wird von einigen Modulen "
-#~ "verwendet. Möchten Sie diese trotzdem löschen?"
 
-#~ msgid "Cancel"
-#~ msgstr "Abbrechen"
 
-#~ msgid "Deleting object"
-#~ msgstr "Computergruppe wird gelöscht"

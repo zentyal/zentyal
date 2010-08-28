@@ -341,72 +341,19 @@ msgid "Upgrade"
 msgstr "Uuenda"
 
 #, fuzzy
-#~ msgid "packages installed"
-#~ msgstr "paigaldada jäänud pakette"
 
-#~ msgid ""
-#~ "eBox software will download the available updates from your configured "
-#~ "apt sources. "
-#~ msgstr ""
-#~ "eBoxi tarkvara laeb alla saadavad uuendused, sinu poolt seadistatud apt "
-#~ "allikatest"
 
-#~ msgid "Enable cron script to download updates"
-#~ msgstr "Luba cron skript uuenduste allalaadimiseks"
 
-#~ msgid ""
-#~ "The software management module must be enabled to be able to install "
-#~ "packages"
-#~ msgstr ""
-#~ "Pakettide paigaldamiseks peab olema lubatud tarkvara haldamise moodul"
 
-#~ msgid ""
-#~ "The software management module must be enabled to be able to remove "
-#~ "packages"
-#~ msgstr ""
-#~ "Pakettide eemaldamiseks peab olema lubatud tarkvara haldamise moodul"
 
-#~ msgid "Automatic Updates"
-#~ msgstr "Automaatne uuendamine"
 
-#~ msgid "Software updates are being handled automatically"
-#~ msgstr "Tarkvarauuendusi käsitletakse automaatselt"
 
-#~ msgid "Installed version "
-#~ msgstr "Paigaldatud versioon"
 
 # "Uusim versioon" võib samuti olla
-#~ msgid "Latest version"
-#~ msgstr "Uusim versioon"
 
-#~ msgid "none"
-#~ msgstr "puudub"
 
-#~ msgid "Remove"
-#~ msgstr "Eemalda"
 
-#~ msgid ""
-#~ "Please wait, the update of the software available list is in process "
-#~ "right now"
-#~ msgstr ""
-#~ "Palun oota, saadaval olevate tarkvarauuenduste loend on hetkel töötluses"
 
 # 'ebox-software' tohib tõlkida või mitte?
-#~ msgid ""
-#~ "The component list was never succefully downloaded so the information "
-#~ "shown is probably outdated. The list is updated each night or you can "
-#~ "force the update with the console command 'ebox-software'"
-#~ msgstr ""
-#~ "Komponentide loendi laadimine ebaõnnestus. Seega on kuvatud informatsioon "
-#~ "ilmselt vananenud. Loendit uuendatakse igal ööl, kuid sunnitud uuendamine "
-#~ "on võimalik käsureale 'ebox-software' sisestades"
 
 # 'ebox-software' tohib tõlkida või mitte?
-#~ msgid ""
-#~ "The component list was updated on {mon}/{mday}/{year} {hour}:{min}. It "
-#~ "will be updated again at night or you can force the update with the "
-#~ "console command 'ebox-software'"
-#~ msgstr ""
-#~ "Komponentide loendit uuendati viimati {mday}/{mon}/{year}{hour}:{min}. "
-#~ "Loendit uuendatakse igal ööl, kuid sunnitud uuendamine on võimalik "
-#~ "käsureale 'ebox-software' sisestades"

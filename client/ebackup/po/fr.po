@@ -463,76 +463,24 @@ msgstr "Services restaurer"
 msgid "Configuration and Status"
 msgstr "Configuration et statut"
 
-#~ msgid "There is no information about the backuped files yet"
-#~ msgstr ""
-#~ "Il n'existe pas encore d'information concernant le fichier sauvegardé"
 
-#~ msgid "Number of full copies to keep"
-#~ msgstr "Nombre de copie complètes à garder"
 
-#~ msgid "exclude"
-#~ msgstr "exclu"
 
-#~ msgid "General remote backup server configuration"
-#~ msgstr "Configuration générale du serveur de sauvegarde distant"
 
-#~ msgid ""
-#~ "By creating the iBackup account through this {ohref}link{chref} you "
-#~ "support the development of eBox with no extra charge"
-#~ msgstr ""
-#~ "En créant le compte iBackup au tyravers de ce {ohref}lien{chref} , vous "
-#~ "participez au développement d'eBox gratuitement"
 
-#~ msgid "Backup module"
-#~ msgstr "Module de sauvegarde"
 
-#~ msgid "Hostname"
-#~ msgstr "Nom de l'hôte"
 
-#~ msgid "Status"
-#~ msgstr "État "
 
-#~ msgid "Last Update"
-#~ msgstr "Dernière mise à jour"
 
-#~ msgid "Days to Keep"
-#~ msgstr "Nombre de jours à retenir"
 
-#~ msgid "Size"
-#~ msgstr "Taille"
 
-#~ msgid "Hosts"
-#~ msgstr "Hôtes"
 
-#~ msgid "Local backup directory {p} does not exist"
-#~ msgstr "Le répertoire de sauvegarde local {p} n'existe pas"
 
 # Instead of Nombre, we may also use Nbre for short if the phrase is too long.  French users understand it
-#~ msgid "Days to keep"
-#~ msgstr "Nombre de jours à retenir"
 
-#~ msgid "Local Backup Configuration"
-#~ msgstr "Configuration de la sauvegarde locale"
 
-#~ msgid ""
-#~ "Local backup configuration. If the module is enabled the backup will be "
-#~ "scheduled to be done daily"
-#~ msgstr ""
-#~ "Configuration de la sauvegarde locale. Si le module est activé, la "
-#~ "sauvegarde sera planifiée chaque jour"
 
-#~ msgid "Local backup configuration updated."
-#~ msgstr "Configuration de sauvegarde locale mise-à-jour."
 
-#~ msgid "Install /etc/cron.daily/ebox-ebackup-cron."
-#~ msgstr "Installer /etc/cron.daily/ebox-ebackup-cron."
 
-#~ msgid "eBox will run a nightly script to backup your system."
-#~ msgstr ""
-#~ "eBox exécutera un script pour sauvegarder votre système toutes les nuits"
 
-#~ msgid "Local backup configuration."
-#~ msgstr "La configuration du serveur de sauvegarde local"
 
-#~ msgid "Core"
-#~ msgstr "Core"

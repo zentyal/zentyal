@@ -857,129 +857,31 @@ msgstr "Atenção: Caps Lock ligado"
 msgid "Enter"
 msgstr "Entrar"
 
-#~ msgid "LDAP Info"
-#~ msgstr "Informação do LDAP"
 
-#~ msgid "Slave status"
-#~ msgstr "Estado do slave"
 
-#~ msgid "User corner"
-#~ msgstr "Área do usuário"
 
-#~ msgid "User Corner webserver settings"
-#~ msgstr "Configurações do servidor da Área do Usuário"
 
-#~ msgid ""
-#~ "If you remove this group all its data within its shared directory will be "
-#~ "deleted"
-#~ msgstr ""
-#~ "Se você remover este grupo todos os seus dados no seu diretório "
-#~ "compartilhado serão apagados"
 
-#~ msgid ""
-#~ "There are no groups at the moment. You may want to add some in {openhref}"
-#~ "Add group section{closehref}."
-#~ msgstr ""
-#~ "Não há grupos no momento. Você deve adicionar alguns em {openhref}Add "
-#~ "group section{closehref}"
 
-#~ msgid ""
-#~ "There are no users at the moment. You may want to add some in {openhref}"
-#~ "Add user section{closehref}."
-#~ msgstr ""
-#~ "Não existem usuários no momento. Você deve adicionar alguns em {openhref}"
-#~ "Add user section{closehref}."
 
-#~ msgid "Users corner certificates"
-#~ msgstr "Certificados da área do usuário"
 
-#~ msgid "Can't bind to LDAP with the provided password"
-#~ msgstr "Não foi possível buscar no LDAP com a senha fornecida"
 
-#~ msgid "Edit User"
-#~ msgstr "Editar usuário"
 
-#~ msgid "Edit Group"
-#~ msgstr "Editar Grupo"
 
-#~ msgid ""
-#~ "Changes in user accounts take effect inmediately, they do not need to be "
-#~ "saved."
-#~ msgstr ""
-#~ "Alterações em contas de usuarios tem efeito imediato, elas não precisam "
-#~ "ser salvas."
 
-#~ msgid ""
-#~ "Changes related to printing, file sharing and Jabber service do need to "
-#~ "be saved in order to be effective."
-#~ msgstr ""
-#~ "Alterações relacionadas com a impressão, compartilhamento de arquivo e "
-#~ "serviço Jabber precisam ser salvas para terem efeito."
 
-#~ msgid "Create"
-#~ msgstr "Criar"
 
-#~ msgid "Actions"
-#~ msgstr "Ações"
 
-#~ msgid "Missing fields to configure eBox as slave"
-#~ msgstr "Faltam parâmetros para configurar o eBox como slave"
 
-#~ msgid ""
-#~ "There are no groups at the moment. You may want to add some in the master "
-#~ "eBox"
-#~ msgstr "Não há grupos no momento. Você deve adicionar alguns no master eBox"
 
 #, fuzzy
-#~ msgid ""
-#~ "There are no groups at the moment. You may want to add some in the Domain "
-#~ "Controller"
-#~ msgstr "Não há grupos no momento. Você deve adicionar alguns no master eBox"
 
 # mantido como o original por ser linguagem técnica - maintained as original for being a technical word.
-#~ msgid "eBox master"
-#~ msgstr "eBox master"
 
-#~ msgid "Only for slave configuration: Master eBox LDAP user password"
-#~ msgstr ""
-#~ "Apenas para configuração do slave: senha do usuário LDAP no Master eBox "
 
-#~ msgid ""
-#~ "Your current openLDAP database will be replaced and backed up in /var/"
-#~ "backups/slapd"
-#~ msgstr ""
-#~ "Seu atual openldap base será substituído e quardado em /var/backups/slapd"
 
-#~ msgid ""
-#~ "eBox will initialize openLDAP to store its database. It will also "
-#~ "overwrite your current configuration"
-#~ msgstr ""
-#~ "ebox inicializara o openLDAP para guarda o banco de dados. Reescrevendo "
-#~ "na atual configuração"
 
-#~ msgid ""
-#~ "To configure the openLDAP database with dc  entry, rootpw, rootdn, "
-#~ "schemas and ACLs used by  the LDAP based eBox modules"
-#~ msgstr ""
-#~ "Configure o banco de dados do openLDAP com dc_ entry, rootpw, rootdn, "
-#~ "equemas e ACLs by_ os módulos LDAP baseados no eBox"
 
-#~ msgid "full name"
-#~ msgstr "Nome completo"
 
-#~ msgid "foo"
-#~ msgstr "foo"
 
-#~ msgid ""
-#~ "Your current openLDAP database will be replaced and backuped in /var/"
-#~ "backups/slapd"
-#~ msgstr ""
-#~ "Seu atual banco de dados do openLDAP será recolocado e salvo em /var/"
-#~ "backup/slapd"
 
-#~ msgid ""
-#~ "This operation will cause the removal of the user and all his "
-#~ "dependences; such as mail accounts, user data..."
-#~ msgstr ""
-#~ "Esta operação fará com que haja a remoção do usuário e todas as suas "
-#~ "dependências, como o correio contas, dados do usuário ..."

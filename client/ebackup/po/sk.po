@@ -432,57 +432,19 @@ msgid "Configuration and Status"
 msgstr ""
 
 #, fuzzy
-#~ msgid "General remote backup server configuration"
-#~ msgstr "Všeobecné nastavenia zálohovania servera"
 
-#~ msgid "Backup module"
-#~ msgstr "Modul Zálohovanie"
 
-#~ msgid "Hostname"
-#~ msgstr "Meno stanice"
 
-#~ msgid "Status"
-#~ msgstr "Stav"
 
-#~ msgid "Last Update"
-#~ msgstr "Posledná aktualizácia"
 
-#~ msgid "Days to Keep"
-#~ msgstr "Doba uchovania v dňoch"
 
-#~ msgid "Size"
-#~ msgstr "Veľkosť"
 
-#~ msgid "Hosts"
-#~ msgstr "Stanice"
 
-#~ msgid "Local backup directory {p} does not exist"
-#~ msgstr "Lokálny priečinok {p} neexistuje"
 
-#~ msgid "Days to keep"
-#~ msgstr "Doba uchovania v dňoch"
 
-#~ msgid "Local Backup Configuration"
-#~ msgstr "Nastavenie lokálnej zálohy"
 
-#~ msgid ""
-#~ "Local backup configuration. If the module is enabled the backup will be "
-#~ "scheduled to be done daily"
-#~ msgstr ""
-#~ "Nastavenie lokálnej zálohy. Ak je modul povolený, záloha sa bude "
-#~ "vykonávať denne"
 
-#~ msgid "Local backup configuration updated."
-#~ msgstr "Nastavenie lokálne zálohy bolo aktualizované."
 
-#~ msgid "Install /etc/cron.daily/ebox-ebackup-cron."
-#~ msgstr "Inštalácia /etc/cron.daily/ebox-ebackup-cron."
 
-#~ msgid "eBox will run a nightly script to backup your system."
-#~ msgstr "eBox bude v noci spúšťať skript, ktorý vytvorí zálohu systému."
 
-#~ msgid "Local backup configuration."
-#~ msgstr "Nastavenie lokálnej zálohy"
 
-#~ msgid "Core"
-#~ msgstr "Jadro"

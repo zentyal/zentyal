@@ -319,224 +319,95 @@ msgid "Upgrade"
 msgstr "Zaktualizuj"
 
 #, fuzzy
-#~ msgid "packages installed"
-#~ msgstr "Następujące pakiety zostaną zainstalowane"
 
 #, fuzzy
-#~ msgid "Automatic Updates"
-#~ msgstr "Automatyczne aktualizacje systemu"
 
-#~ msgid "Software updates are being handled automatically"
-#~ msgstr "Aktualizacje systemu odbywają się automatycznie"
 
-#~ msgid "Installed version "
-#~ msgstr "Zainstalowana wersja"
 
-#~ msgid "Latest version"
-#~ msgstr "Najnowsza wersja"
 
-#~ msgid "none"
-#~ msgstr "żadne"
 
-#~ msgid "Remove"
-#~ msgstr "Usuń"
 
 #, fuzzy
-#~ msgid "eBox - Antivirus module"
-#~ msgstr "Serwer Poczty"
 
 #, fuzzy
-#~ msgid "eBox - Asterisk"
-#~ msgstr "Serwer DNS eBoxa"
 
 #, fuzzy
-#~ msgid "eBox - Certificate Authority Manager for eBox"
-#~ msgstr "Menedżer Autorytetów i Certyfikatów dla eBox"
 
 #, fuzzy
-#~ msgid "eBox - captive portal module"
-#~ msgstr "Serwer Poczty"
 
 #, fuzzy
-#~ msgid "eBox - DHCP server module"
-#~ msgstr "Serwer DNS eBoxa"
 
 #, fuzzy
-#~ msgid "eBox - DNS server"
-#~ msgstr "Serwer DNS eBoxa"
 
 #, fuzzy
-#~ msgid "eBox - Firewall"
-#~ msgstr "Firewall"
 
 #, fuzzy
-#~ msgid "eBox - Instant messaging proxy"
-#~ msgstr "Obsługa komunikatora (Jabber)"
 
 #, fuzzy
-#~ msgid "eBox - Instant messaging (Jabber)"
-#~ msgstr "Obsługa komunikatora (Jabber)"
 
 #, fuzzy
-#~ msgid "eBox - Mail server"
-#~ msgstr "Serwer Poczty"
 
 #, fuzzy
-#~ msgid "eBox - Mail filter module"
-#~ msgstr "Serwer Poczty"
 
 #, fuzzy
-#~ msgid "eBox - Monitoring module  "
-#~ msgstr "Serwer Poczty"
 
 #, fuzzy
-#~ msgid "eBox - Network configuration module"
-#~ msgstr "Konfiguracja Sieci"
 
 #, fuzzy
-#~ msgid "eBox - NTP server"
-#~ msgstr "Serwer DNS eBoxa"
 
 #, fuzzy
-#~ msgid "eBox - Object management"
-#~ msgstr "Menedżer obiektów"
 
 #, fuzzy
-#~ msgid "eBox - OpenVPN server module"
-#~ msgstr "Serwer OpenVPN"
 
 #, fuzzy
-#~ msgid "eBox - Printer sharing"
-#~ msgstr "Współdzielenie drukarki"
 
 #, fuzzy
-#~ msgid "eBox - File sharing"
-#~ msgstr "Współdzielenie plików"
 
 #, fuzzy
-#~ msgid "eBox - Services management"
-#~ msgstr "Zarządzanie Oprogramowaniem"
 
 #, fuzzy
-#~ msgid "eBox - Software management"
-#~ msgstr "Zarządzanie Oprogramowaniem"
 
 #, fuzzy
-#~ msgid "eBox - Proxy cache and content filter"
-#~ msgstr "Proxy i filtr treści"
 
 #, fuzzy
-#~ msgid "eBox - Traffic shaper for eBox"
-#~ msgstr "Zarządzanie ruchem dla eBoxa"
 
 #, fuzzy
-#~ msgid "eBox - User and Group management"
-#~ msgstr "Zarządzanie Użytkownikami i Grupami"
 
 #, fuzzy
-#~ msgid "eBox - Web Server"
-#~ msgstr "Serwer DNS eBoxa"
 
-#~ msgid "IPsec VPNs"
-#~ msgstr "IPsec VPNs"
 
 #, fuzzy
-#~ msgid "eBox- Web Server"
-#~ msgstr "Serwer DNS eBoxa"
 
 #, fuzzy
-#~ msgid "Web Server"
-#~ msgstr "Serwer DNS eBoxa"
 
 #, fuzzy
-#~ msgid "ebox NTP server"
-#~ msgstr "Serwer DNS eBoxa"
 
-#~ msgid "The packages were removed successfully"
-#~ msgstr "Pakiety zostały pomyślnie usunięte"
 
 #, fuzzy
-#~ msgid "The packages installation has finished successfully"
-#~ msgstr "Instalacja pakietu odbyła się pomyślnie"
 
-#~ msgid ""
-#~ "An error ocurred while removing components. If the error persists or eBox "
-#~ "stops working properly, seek technical support."
-#~ msgstr ""
-#~ "Wystąpił błąd podczas usuwania komponentów. Jeśli błąd będzie często "
-#~ "występował lub eBox przestanie działać poprawnie, zasięgnij pomocy "
-#~ "technicznej."
 
-#~ msgid "DHCP server"
-#~ msgstr "Serwer DHCP"
 
-#~ msgid "Base framework"
-#~ msgstr "Podstawowe pliki "
 
-#~ msgid "NTP server"
-#~ msgstr "Serwer NTP"
 
-#~ msgid "The installation of the packages has finished successfully"
-#~ msgstr "Instalacja pakietu odbyła się pomyślnie"
 
-#~ msgid ""
-#~ "The packages are being installed, please refrain from using the "
-#~ "application until the update is done"
-#~ msgstr ""
-#~ "Aktualizacje są właśnie instalowane, powstrzymaj się przed dalszymi "
-#~ "zmianami, aż do końca aktualizacji"
 
-#~ msgid "Certificate Authority Manager for eBox"
-#~ msgstr "Menedżer Autorytetów i Certyfikatów dla eBox"
 
-#~ msgid "eBox DNS server"
-#~ msgstr "Serwer DNS eBoxa"
 
-#~ msgid "Firewall"
-#~ msgstr "Firewall"
 
-#~ msgid "Instant messaging (Jabber)"
-#~ msgstr "Obsługa komunikatora (Jabber)"
 
-#~ msgid "Mail server"
-#~ msgstr "Serwer Poczty"
 
-#~ msgid "Object management"
-#~ msgstr "Menedżer obiektów"
 
-#~ msgid "OpenVPN server"
-#~ msgstr "Serwer OpenVPN"
 
-#~ msgid "Printer sharing"
-#~ msgstr "Współdzielenie drukarki"
 
-#~ msgid "File sharing"
-#~ msgstr "Współdzielenie plików"
 
 #, fuzzy
-#~ msgid "Services  management"
-#~ msgstr "Zarządzanie Oprogramowaniem"
 
-#~ msgid "Traffic shaper for eBox"
-#~ msgstr "Zarządzanie ruchem dla eBoxa"
 
-#~ msgid "User and Group management"
-#~ msgstr "Zarządzanie Użytkownikami i Grupami"
 
 #, fuzzy
-#~ msgid "ebox - Certificate Authority Manager for eBox"
-#~ msgstr "Menedżer Autorytetów i Certyfikatów dla eBox"
 
 #, fuzzy
-#~ msgid "ebox - Instant messaging (Jabber)"
-#~ msgstr "Obsługa komunikatora (Jabber)"
 
-#~ msgid "Network configuration"
-#~ msgstr "Konfiguracja Sieci"
 
 #, fuzzy
-#~ msgid "ebox - File sharing"
-#~ msgstr "Współdzielenie plików"
 
-#~ msgid "Proxy cache and content filter"
-#~ msgstr "Proxy i filtr treści"

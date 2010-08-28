@@ -118,58 +118,19 @@ msgstr "Административные права"
 msgid "Change"
 msgstr "Изменить"
 
-#~ msgid "To properly configure jabberd2 muc"
-#~ msgstr "Правильно настроить jabberd2 muc"
 
-#~ msgid "domain"
-#~ msgstr "домен"
 
-#~ msgid "module status"
-#~ msgstr "статус модуля"
 
-#~ msgid ""
-#~ "Domain name should be available on the network. Otherwise, you may not be "
-#~ "able to use this service. This applies for internal and external "
-#~ "connections."
-#~ msgstr ""
-#~ "Доменное имя должно быть доступно в сети. Иначе, Вы можете не получить "
-#~ "доступ к этой службе. Это применимо к внутренним и внешним соединениям."
 
-#~ msgid "Domain name"
-#~ msgstr "Доменное имя"
 
-#~ msgid "No"
-#~ msgstr "Нет"
 
-#~ msgid "Optional"
-#~ msgstr "Опционально"
 
-#~ msgid "Required"
-#~ msgstr "Требуется"
 
-#~ msgid "Password for Jabber service is the user password."
-#~ msgstr "Пароль для службы Jabber это пароль пользователя"
 
-#~ msgid "Copy jabber ldap schema to /etc/ldap/schemas"
-#~ msgstr "Скопируйте схему jabber ldap в /etc/ldap/schemas"
 
-#~ msgid "To add the LDAP schemas used by eBox jabber"
-#~ msgstr "Добавить схемы LDAP, используемые eBox jabber"
 
-#~ msgid "Communications"
-#~ msgstr "Коммуникации"
 
-#~ msgid "General Settings"
-#~ msgstr "Общие настройки"
 
-#~ msgid "Apply Changes"
-#~ msgstr "Применить изменения"
 
-#~ msgid "Enter a username and password to register with this server."
-#~ msgstr "Введите имя пользователя и пароль для регистрации на этом сервере."
 
-#~ msgid "listening port"
-#~ msgstr "прослушиваемый порт"
 
-#~ msgid "Jabber Service status"
-#~ msgstr "Статус службы Jabber"

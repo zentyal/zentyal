@@ -2,7 +2,7 @@ dn: dc=ebox
 objectClass: top
 objectClass: dcObject
 objectClass: organization
-o: warp
+o: zentyal
 dc: ebox
 structuralObjectClass: organization
 entryUUID: a88878f2-b45f-102c-8e8c-3346359f5867

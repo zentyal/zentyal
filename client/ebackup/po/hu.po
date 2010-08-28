@@ -449,89 +449,25 @@ msgstr "Szolgáltatások visszaállítása"
 msgid "Configuration and Status"
 msgstr "Beállítás és állapot"
 
-#~ msgid ""
-#~ "If you choose {brand} or file system methods , then the destination field "
-#~ "may be the target directory in the backup server"
-#~ msgstr ""
-#~ "Ha a {brand} vagy a fájlrendszer módot választotta, a célmappa a mentő "
-#~ "szerver egy mappája kell legyen"
 
-#~ msgid "There is no information about the backuped files yet"
-#~ msgstr "Nincs információ az eddig mentett állományokról."
 
-#~ msgid "Number of full copies to keep"
-#~ msgstr "Megtartani kívánt teljes másolatok száma"
 
-#~ msgid "exclude"
-#~ msgstr "kizárva"
 
-#~ msgid "Exclude regexp"
-#~ msgstr "Reguláris kifejezések kizárása"
 
-#~ msgid "General remote backup server configuration"
-#~ msgstr "Az általános távoli mentés szerverének beállításai"
 
-#~ msgid ""
-#~ "You can create your <i>eBox Remote Storage</i> account in our {ohref}on-"
-#~ "line store{chref}. Use this service to have a quick and safe remote "
-#~ "location to store your data"
-#~ msgstr ""
-#~ "Létrehozhat egy hozzáférést <i>eBox távoli tároló</i>, nálunk: {ohref}on-"
-#~ "line store{chref}. Gyorsan és biztonságosan használhatja ezt a "
-#~ "szolgáltatást az adatok távoli mentésére"
 
 # {ohref}link{chref} nem tudom hogyan működik majd.
-#~ msgid ""
-#~ "By creating the iBackup account through this {ohref}link{chref} you "
-#~ "support the development of eBox with no extra charge"
-#~ msgstr ""
-#~ "iBackup fiók létrehozásával ezen a {ohref}hivatkozáson{chref} keresztül "
-#~ "támogatja az eBox fejlesztését plusz költség nélkül."
 
-#~ msgid "Backup module"
-#~ msgstr "Biztonsági mentés modul"
 
-#~ msgid "Hostname"
-#~ msgstr "Kiszolgáló neve"
 
-#~ msgid "Status"
-#~ msgstr "Státusz"
 
-#~ msgid "Last Update"
-#~ msgstr "Utolsó frissítés"
 
-#~ msgid "Days to Keep"
-#~ msgstr "Maradt napok száma"
 
-#~ msgid "Size"
-#~ msgstr "Méret"
 
-#~ msgid "Hosts"
-#~ msgstr "Hosztok"
 
-#~ msgid "Local backup directory {p} does not exist"
-#~ msgstr "Helyi biztonsági mentés könyvtár {p} nem létezik"
 
-#~ msgid "Days to keep"
-#~ msgstr "Maradt napok száma"
 
-#~ msgid "Local Backup Configuration"
-#~ msgstr "Helyi Biztonsági mentés Beállítások"
 
-#~ msgid ""
-#~ "Local backup configuration. If the module is enabled the backup will be "
-#~ "scheduled to be done daily"
-#~ msgstr ""
-#~ "Helyi biztonsági mentés beállítások. Ha a modul engedélyezett, akkor a "
-#~ "mentések napi gyakorisággal fognak mentődni"
 
-#~ msgid "Local backup configuration updated."
-#~ msgstr "Helyi biztonsági mentés beállítások frissültek."
 
-#~ msgid "Install /etc/cron.daily/ebox-ebackup-cron."
-#~ msgstr "Telepítés /etc/cron.daily/ebox-ebackup-cron."
 
-#~ msgid "eBox will run a nightly script to backup your system."
-#~ msgstr ""
-#~ "eBox futtatni fog egy szkriptet, ami éjszaka fog biztonsági mentést "
-#~ "készíteni a rendszerről."

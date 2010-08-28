@@ -572,28 +572,10 @@ msgstr "CA password"
 msgid "Renew a certificate"
 msgstr "Forny et certifikat"
 
-#~ msgid ""
-#~ "The private key passpharse needed to create a new request. No renewal was "
-#~ "made. Issue a new certificate with new keys"
-#~ msgstr ""
-#~ "Det private password til at oprette en ny ansøgning. Ingen fornyelse blev "
-#~ "lavet. Opret et nyt certifikat med nye nøgler"
 
 #, fuzzy
-#~ msgid "You must create a Certification Authority."
-#~ msgstr "Opret Certifikat autoritets certifikat"
 
-#~ msgid "Certificate Manager"
-#~ msgstr "Certifikat manager"
 
-#~ msgid "Re CA Passphrase"
-#~ msgstr "Gentag CA password"
 
-#~ msgid "Passphrase"
-#~ msgstr "password"
 
-#~ msgid "Re-passphrase"
-#~ msgstr "Gentag password"
 
-#~ msgid "Days to expire MUST be a natural number"
-#~ msgstr "Antal dage til udløb skal være et heltal"

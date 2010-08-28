@@ -874,282 +874,89 @@ msgid "[Virus] found in a mail to you:"
 msgstr "Encontrados [Virus] en un correo para ti:"
 
 #, fuzzy
-#~ msgid "Unsupported or incorrect input source fonrmat: {format}"
-#~ msgstr "Formato de entrada no soportado o incorrecto: {format}"
 
 #, fuzzy
-#~ msgid "General  settings"
-#~ msgstr "Ajustes de rechazo cambiados"
 
 #, fuzzy
-#~ msgid "POP transparent proxy configuration"
-#~ msgstr "Opciones Antispam"
 
 #, fuzzy
-#~ msgid "Antivirus database update status"
-#~ msgstr "Estado de actualización de la base de datos de virus"
 
 #, fuzzy
-#~ msgid "The last update failed"
-#~ msgstr "La última actualización falló el {date}"
 
 #, fuzzy
-#~ msgid ""
-#~ "Update failed.\n"
-#~ "Your version of freshclam  is outdated.Please, install version {version} "
-#~ "or higher"
-#~ msgstr ""
-#~ "La actualización falló el {date}.\n"
-#~ "Su versión de freshclam es obsoleta. Por favor, instale  la versión "
-#~ "{version} o superior"
 
 #, fuzzy
-#~ msgid "Last update successful"
-#~ msgstr "La última actualización con éxito fue el {date}"
 
-#~ msgid "Antivirus"
-#~ msgstr "Antivirus"
 
-#~ msgid "Mail filter system"
-#~ msgstr "Sistema de filtrado"
 
-#~ msgid "Mail filter settings"
-#~ msgstr "Ajustes del filtro de correo"
 
 #, fuzzy
-#~ msgid "Internal mailfilter"
-#~ msgstr "Filtro de correo interno de eBox"
 
 #, fuzzy
-#~ msgid "Options"
-#~ msgstr "Acciones"
 
 #, fuzzy
-#~ msgid "Database update status"
-#~ msgstr "Estado de actualización de la base de datos de virus"
 
-#~ msgid "Learned from mailbox file"
-#~ msgstr "Aprendiendo desde fichero mailbox"
 
-#~ msgid "Denied settings changed"
-#~ msgstr "Ajustes de rechazo cambiados"
 
-#~ msgid ""
-#~ "The sender can be either an email address or a domain name prefixed with "
-#~ "'@'"
-#~ msgstr ""
-#~ "El remitente puede ser una dirección de correo o un nombre de dominio con "
-#~ "el prefijo '@'"
 
-#~ msgid "Mail domain"
-#~ msgstr "Dominio de correo"
 
-#~ msgid "The last update failed at {date}"
-#~ msgstr "La última actualización falló el {date}"
 
-#~ msgid ""
-#~ "Update failed at {date}.\n"
-#~ "Your version of freshclam  is outdated.Please, install version {version} "
-#~ "or higher"
-#~ msgstr ""
-#~ "La actualización falló el {date}.\n"
-#~ "Su versión de freshclam es obsoleta. Por favor, instale  la versión "
-#~ "{version} o superior"
 
-#~ msgid "Delete"
-#~ msgstr "Borrar"
 
-#~ msgid ""
-#~ "Spam messages which a score equal or greater than this threshold will be "
-#~ "added to the learning system "
-#~ msgstr ""
-#~ "Mensajes Spam con la puntuación igual o mayor que este umbral serán "
-#~ "añadidos al sistema de aprendizaje"
 
-#~ msgid ""
-#~ "Ham messages which a score below this threshold will be added to the "
-#~ "learning system"
-#~ msgstr ""
-#~ "Mensajes Ham con la puntuación por debajo de este umbral serán añadidos "
-#~ "al sistema de aprendizaje"
 
-#~ msgid "Antispam options"
-#~ msgstr "Opciones Antispam"
 
-#~ msgid "Whitelist"
-#~ msgstr "Lista blanca"
 
-#~ msgid "Blacklist"
-#~ msgstr "Lista negra"
 
-#~ msgid "Service port"
-#~ msgstr "Puerto del servicio"
 
-#~ msgid ""
-#~ "External mail server {mta} removed. Remember to remove its mail domains "
-#~ "from the external mail domain's list"
-#~ msgstr ""
-#~ "Servidor de correo externo {mta} eliminado. Recuerde eliminar los "
-#~ "dominios de correo de la lista de dominios de correo externos"
 
-#~ msgid "{name} is already registered"
-#~ msgstr "{name} ya está registrado"
 
-#~ msgid "{name} added"
-#~ msgstr "{name} añadido"
 
-#~ msgid "No changes were specified by the user"
-#~ msgstr "El usuario no ha especificado ningun cambio"
 
-#~ msgid "{name} is not registered"
-#~ msgstr "{name} no está registrado"
 
-#~ msgid "{name} removed"
-#~ msgstr "{name} eliminado"
 
-#~ msgid "The specified sender is not in the ACL"
-#~ msgstr "El remitente especificado no está en la ACL"
 
-#~ msgid "Mail domain {domain} added to external domain's list."
-#~ msgstr "Dominio de correo {domain} añadido a la lista de dominios externos."
 
-#~ msgid "Mail domain {domain} removed from external domain's list."
-#~ msgstr ""
-#~ "Dominio de correo {domain} eliminado de la lista de dominios externos."
 
-#~ msgid "All entries were removed"
-#~ msgstr "Todas las entradas fueron eliminadas"
 
 #, fuzzy
-#~ msgid ""
-#~ "External mail server {mta} allowed. Remember to add its mail domains to "
-#~ "the external mail domain's list"
-#~ msgstr ""
-#~ "Servidor de correo externo {MTA} permitido. Recuerde agregar sus dominios "
-#~ "de correo a la lista de dominios de correo externo"
 
-#~ msgid "{ext} is not registered in the extensions list"
-#~ msgstr "{ext} no está registrada en la lista de extensiones"
 
-#~ msgid "{ext} is not registered in the mimeTypes list"
-#~ msgstr "{ext} no está registrado en la lista de tipos MIME"
 
-#~ msgid "The spam's autolearn threshold must be higher than 6.0"
-#~ msgstr "El umbral de auto aprendizaje de Spam debe ser mayor de 6.0"
 
-#~ msgid "The ham's autolearn threshold cannot be higher than spam's threshold"
-#~ msgstr ""
-#~ "El umbral de auto aprendizaje de Ham no pude ser mayor que el de Spam"
 
-#~ msgid "MTA's address"
-#~ msgstr "Dirección del MTA"
 
-#~ msgid "{mta} is already allowed"
-#~ msgstr "{mta} ya está permitido"
 
-#~ msgid "{mta} not found"
-#~ msgstr "{mta} no encontrado"
 
-#~ msgid "{domain} is already acknowledged as external mail domain"
-#~ msgstr "{domain} ya se reconoce como dominio de correo externo"
 
-#~ msgid "Domain {domain} was not acknowledged as external mail domain"
-#~ msgstr ""
-#~ "El dominio {domain} no fue reconocido como dominio de correo externo"
 
-#~ msgid "Administrator address"
-#~ msgstr "Dirección del administrador"
 
-#~ msgid "policy type"
-#~ msgstr "tipo de política"
 
-#~ msgid "filter type"
-#~ msgstr "tipo de filtro"
 
 #, fuzzy
-#~ msgid "The last successful update was at {date}"
-#~ msgstr "La última actualización falló el {date}"
 
-#~ msgid "Deny"
-#~ msgstr "Rechazar"
 
-#~ msgid "Add {element}"
-#~ msgstr "Añadir {element}"
 
-#~ msgid "Name"
-#~ msgstr "Nombre"
 
-#~ msgid "Delete them all"
-#~ msgstr "Borrarlos todos"
 
-#~ msgid "Change"
-#~ msgstr "Cambiar"
 
-#~ msgid "Antispam global sender access lists"
-#~ msgstr "Lista global de acceso de remitentes antispam"
 
-#~ msgid "Spam filter training"
-#~ msgstr "Entrenamiento del filtro del Spam"
 
-#~ msgid "Sender"
-#~ msgstr "Remitente"
 
-#~ msgid "Add sender to {type}"
-#~ msgstr "Añadir remitente a {type}"
 
-#~ msgid "Notification address"
-#~ msgstr "Dirección para notificar"
 
-#~ msgid "Notification"
-#~ msgstr "Notificación"
 
-#~ msgid "External Mail server"
-#~ msgstr "Servidor de Correo Externo"
 
-#~ msgid "Allowed external mail servers"
-#~ msgstr "Servidores de correo externos autorizados"
 
-#~ msgid "Add external mail server"
-#~ msgstr "Añadir servidor de correo externo"
 
-#~ msgid "External Mail domain"
-#~ msgstr "Dominio de Correo Externo"
 
-#~ msgid "Add external mail domain"
-#~ msgstr "Añadir dominio de correo externo"
 
-#~ msgid ""
-#~ "The \"{name}\"  setting will not have effect until the\n"
-#~ "   antivirus service will be enabled in the mail filter"
-#~ msgstr ""
-#~ "El ajuste \"{name}\"  no tendrá efecto hasta que\n"
-#~ "el servicio antivirus sea activado en el filtro de correo"
 
-#~ msgid ""
-#~ "The \"{name}\"  setting will not have effect until the\n"
-#~ "   antispam sergice will be enabled in the mail filter"
-#~ msgstr ""
-#~ "El ajuste \"{name}\" no tendrá efecto hasta que\n"
-#~ "el servicio antispam sea activado en el filtro de correo"
 
-#~ msgid "Use default spam threshold (current value is {v})"
-#~ msgstr "Utilizar umbral de spam por defecto (el valor actual es {v})"
 
-#~ msgid "Mail filter options"
-#~ msgstr "Opciones del filtro de correo"
 
-#~ msgid "Extensions filter"
-#~ msgstr "Filtro de extensiones"
 
-#~ msgid "Unsupported or incorrect input source format: {format}"
-#~ msgstr "Formato de entrada no soportado o incorrecto: {format}"
 
-#~ msgid "module status"
-#~ msgstr "estado del modulo"
 
 #, fuzzy
-#~ msgid "Enable Mail filter system"
-#~ msgstr "Sistema de filtrado"
 
-#~ msgid "The last update was successful at {date}"
-#~ msgstr "La última actualización con éxito fue el {date}"

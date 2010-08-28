@@ -2323,94 +2323,34 @@ msgstr ""
 msgid "Download configuration report file"
 msgstr "بازیابی پیکربندی"
 
-#~ msgid "modules left to restore"
-#~ msgstr "ماجول‌های باقیمانده برای بازبینی"
 
-#~ msgid "Bug report"
-#~ msgstr "گزارش ایراد"
 
 #, fuzzy
-#~ msgid "Monitoring"
-#~ msgstr "فیلترینگ"
 
 #, fuzzy
-#~ msgid "events"
-#~ msgstr "رویداد"
 
-#~ msgid "Created by {href}"
-#~ msgstr "ایجاد شده توسط {href}"
 
-#~ msgid "{ebox} created by {warp}"
-#~ msgstr "{ebox} تولید‌شده توسط {warp}"
 
-#~ msgid "System backups"
-#~ msgstr "پشتیبان‌های سامانه"
 
-#~ msgid "RAID report"
-#~ msgstr "گزارش RAID"
 
-#~ msgid "Day"
-#~ msgstr "روز"
 
-#~ msgid "Disk usage Information"
-#~ msgstr "اطلاعات بکارگیری دیسک"
 
-#~ msgid "Back up"
-#~ msgstr "پشتیبان"
 
-#~ msgid "Remote system backups"
-#~ msgstr "پشتیبان‌های سامانه راه‌دور"
 
-#~ msgid "Making remote backup"
-#~ msgstr "ایجاد پشتیبان راه‌دور"
 
-#~ msgid "Backing up modules "
-#~ msgstr "پشتیبان‌گیری ماجول‌ها"
 
-#~ msgid "Restoring remote backup"
-#~ msgstr "بازیابی پشتیبان راه‌دور"
 
-#~ msgid "Restoring modules from remote backup"
-#~ msgstr "بازیابی ماجول‌ها از پشتیبان راه دور"
 
-#~ msgid "Backup deleted"
-#~ msgstr "پشتیبان حذف شد"
 
-#~ msgid "Inexistent action: {a}"
-#~ msgstr "اقدام ناموجود: {a}"
 
-#~ msgid "Remote system backups proxy"
-#~ msgstr "پروکسی پشتیبا‌ن‌های سامانه راه‌دور"
 
-#~ msgid "Connection error"
-#~ msgstr "خطای اتصال"
 
-#~ msgid "Control panel"
-#~ msgstr "صفحه کنترل"
 
-#~ msgid "Control center"
-#~ msgstr "مرکز کنترل"
 
-#~ msgid "No RAID devices present"
-#~ msgstr "هیچ دستگاه RAID حاضر نیست"
 
-#~ msgid "Back up the current configuration state"
-#~ msgstr "پشتیبان‌گیری وضعیت فعلی پیکربندی"
 
-#~ msgid "Configuration backups' list"
-#~ msgstr "فهرست پشتیبان‌های پیکربندی"
 
-#~ msgid "eBox host"
-#~ msgstr "میزبان ای‌باکس"
 
-#~ msgid "Submit"
-#~ msgstr "ارسال"
 
-#~ msgid "Enter user and password"
-#~ msgstr "نام کاربری و گذرواژه را وارد نمایید"
 
-#~ msgid "Your computer has not a correct system date"
-#~ msgstr "رایانه شما تاریخ سیستمی درستی ندارد"
 
-#~ msgid "You are using the wrong certificates"
-#~ msgstr "شما از گواهینامه‌های اشتباه استفاده می‌کنید"

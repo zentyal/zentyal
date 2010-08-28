@@ -1064,164 +1064,46 @@ msgstr ""
 "birlikte silinir. Eğer ne yaptığınızdan emin değilseniz \"Vazgeç\" "
 "seçeneğini kullanın."
 
-#~ msgid "Physical interface"
-#~ msgstr "Fiziksel arabirim"
 
-#~ msgid "Vlan interface list"
-#~ msgstr "Sanal arabirim listesi"
 
-#~ msgid "These are the vlan interfaces which are available in your system."
-#~ msgstr "Bunlar sisteminizde mevcut olan sanal arabirimlerdir."
 
-#~ msgid "interface"
-#~ msgstr "Arabirim"
 
-#~ msgid "Configurable interface list"
-#~ msgstr "Yapılandırılabilir arabirim listesi"
 
-#~ msgid "These are the interfaces which can be configured"
-#~ msgstr "Bunlar yapılandırılabilir arabirimlerdir"
 
-#~ msgid "Physical interface list"
-#~ msgstr "Fiziksel arabirim listesi"
 
-#~ msgid ""
-#~ "These are the physical interfaces which are available in your system."
-#~ msgstr "Bunlar sisteminizde mevcut olan fiziksel arabirimlerdir."
 
-#~ msgid "Set default gateway"
-#~ msgstr "Öntanımlı ağ geçidini ayarla"
 
-#~ msgid "You can change later the gateway at Network/Routes menus item"
-#~ msgstr ""
-#~ "Ağ geçidi ayarlarını daha sonra Ağ/Yönelticiler menüsünden "
-#~ "değiştirebilirsiniz"
 
-#~ msgid ""
-#~ "After the initial config you can revisit this page at Network/Interfaces "
-#~ "in the menu"
-#~ msgstr ""
-#~ "İlk ayarlardan sonra sayfayı tekrar ziyaret edebilirsiniz (Ağ/Ağ Kartları)"
 
-#~ msgid "Gateway configured"
-#~ msgstr "Ağ geçidi ayarlandı"
 
-#~ msgid "You can revisit this page at Network/DNS in the menu"
-#~ msgstr "Bu sayfayı  tekrar Ağ/DNS menüsünden giriş yapabilirsiniz"
 
-#~ msgid "Network interface configured"
-#~ msgstr "Ağ arabirimi ayarlandı"
 
-#~ msgid "Configure name servers"
-#~ msgstr "Ad sunucularını ayarla"
 
-#~ msgid "Configure default gateway"
-#~ msgstr "Varsayılan ağ geçidini ayarla"
 
-#~ msgid "Upload"
-#~ msgstr "Yükle"
 
-#~ msgid "Download"
-#~ msgstr "İndir"
 
 #, fuzzy
-#~ msgid "Core"
-#~ msgstr "Kaynak"
 
-#~ msgid "Balance traffic and multigateway rules"
-#~ msgstr "Trafik dengesi ve çoklu ağ geçidi kuralları"
 
-#~ msgid "IP Address"
-#~ msgstr "IP adresi"
 
-#~ msgid "Protocol"
-#~ msgstr "Protokol"
 
-#~ msgid "Port"
-#~ msgstr "Port"
 
-#~ msgid "Destination port"
-#~ msgstr "Hedef portu"
 
-#~ msgid "Source port"
-#~ msgstr "Kaynak portu"
 
-#~ msgid "Port cannot be set if no protocol is selected"
-#~ msgstr "Protokol seçilmezse port tanımlaması yapılamaz"
 
-#~ msgid "Routes"
-#~ msgstr "Yönelticiler"
 
-#~ msgid ""
-#~ "Having network interfaces configured via DHCP may cause this settings to "
-#~ "be overriden."
-#~ msgstr ""
-#~ "Mevcut ağ kartı ayarları DHCP sunucusu tarafından tekrardan "
-#~ "yapılandırılabilir."
 
-#~ msgid ""
-#~ "Gateway {gw} must be reacheable by a static interface. Currently is "
-#~ "reacheable by {iface} which is not static"
-#~ msgstr ""
-#~ "{gw} ağ geçidi sabit bir IP adresi ile erişilebilir olması gerekir. "
-#~ "{iface} ağ kartı ağ geçidine erişebiliyor fakat bu işlem dinamik IP "
-#~ "üzerinden ayarlı."
 
-#~ msgid ""
-#~ "To be able to use this feature, you need, at least, two gateways. You can "
-#~ "add them <a href=\"/ebox/Network/View/GatewayDataTable\">here</a> first"
-#~ msgstr ""
-#~ "Bu fonksiyonu kullanabilmek için en azından 2 tane ağ geçidi tanımlamanız "
-#~ "gereklidir. Bunları öncelikle <a href=\"/ebox/Network/View/"
-#~ "GatewayDataTable\">buraya</a> ekleyebilirsiniz."
 
-#~ msgid "There is already a default gateway"
-#~ msgstr "Önceden tanımlı bir ağ geçidi mevcut"
 
-#~ msgid "gateway address"
-#~ msgstr "Ağ geçidi adresi"
 
-#~ msgid "Primary"
-#~ msgstr "Birincil"
 
-#~ msgid "Apply"
-#~ msgstr "Uygula"
 
 #, fuzzy
-#~ msgid "Source traffic"
-#~ msgstr "Trafik Dengeleme"
 
 #, fuzzy
-#~ msgid "Service traffic"
-#~ msgstr "Trafik Dengeleme"
 
-#~ msgid ""
-#~ "Having network interfaces configured via DHCP may cause the default "
-#~ "gateway to be overriden."
-#~ msgstr ""
-#~ "Varsayılan ağ geçidi DHCP sunucusu tarafından tekrardan düzenlenebilir."
 
-#~ msgid ""
-#~ "To be able to use this feature, you need, at least, two gateways. You can "
-#~ "add them <a href="
-#~ msgstr ""
-#~ "Bu fonksiyonu kullanabilmek için en azından 2 tane ağ geçidi tanımlamanız "
-#~ "gereklidir. Bu işlemi Ağ/Yönelticiler  menüsünden yapabilirsiniz."
 
-#~ msgid ""
-#~ "If you choose to continue, all modules that make use of the current "
-#~ "configuration of this network interface will delete the relevant parts of "
-#~ "their configuration. Choose "
-#~ msgstr ""
-#~ "Devam ederseniz ağ cihazınızın kullandığı bütün ayarlar bu modullar ile "
-#~ "birlikte silinir. Seçiminiz:"
 
-#~ msgid ""
-#~ "All routers you enter here must be reachable through one of the network "
-#~ "interfaces currently configured."
-#~ msgstr ""
-#~ "Girdiğiniz bütün yönelticiler ağ kartınız üzerinden erişilebilir olması "
-#~ "gerekir."
 
-#~ msgid "network address"
-#~ msgstr "Ağ adresi"

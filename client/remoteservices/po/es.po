@@ -447,161 +447,48 @@ msgstr "No conectado. Comprueba los registros de VPN en {path}"
 msgid "Connected"
 msgstr "Conectado"
 
-#~ msgid "eBox Control Center"
-#~ msgstr "Centro de Control de eBox"
 
-#~ msgid "Control center"
-#~ msgstr "Centro de control"
 
-#~ msgid "Control Center Client"
-#~ msgstr "Cliente del Centro de Control"
 
-#~ msgid "Control Center"
-#~ msgstr "Centro de Control"
 
-#~ msgid "Remote support accesss"
-#~ msgstr "Acceso de soporte remoto"
 
-#~ msgid ""
-#~ " {openhref}Subscribing{closehref} your eBox to the Control Center lets "
-#~ "you have automatic configuration backup and much more"
-#~ msgstr ""
-#~ " {openhref}Subscribir{closehref} eBox al Centro de Control te permite "
-#~ "tener backups automáticos de la configuración y mucho más!"
 
-#~ msgid ""
-#~ "Subscribing an eBox will configure OpenVPN module and its dependencies by "
-#~ "running these actions and modifying these files: "
-#~ msgstr ""
-#~ "Subscribir eBox configurará el módulo OpenVPN ejecutando estas acciones y "
-#~ "modificando estos ficheros:"
 
 #, fuzzy
-#~ msgid ""
-#~ "In order to subscribe an eBox remote services {url}. You will have remote "
-#~ "backup facilities and much more"
-#~ msgstr ""
-#~ "Ordenando la suscripción de servicios remotos eBox {url}. Usted tendrá "
-#~ "facilidades de backup remoto y mucho más"
 
-#~ msgid "eBox Control Center is paid services to enhance your eBox experience"
-#~ msgstr ""
-#~ "el Centro de Control eBox son servicios pagados para mejorar tu "
-#~ "experiencia eBox"
 
-#~ msgid "User name"
-#~ msgstr "Nombre de usuario"
 
-#~ msgid "field1"
-#~ msgstr "campo1"
 
-#~ msgid "field2"
-#~ msgstr "campo2"
 
-#~ msgid "Settings"
-#~ msgstr "Opciones"
 
-#~ msgid "eBox remote services"
-#~ msgstr "Servicios remotos eBox"
 
 #, fuzzy
-#~ msgid "Remote Services Subscription"
-#~ msgstr "Suscripción de servicios remotos"
 
-#~ msgid "Key for service proxy not found"
-#~ msgstr "Clave para el servicio proxy no encontrada"
 
-#~ msgid ""
-#~ "Cannot proceed with your request because it was a connection problem. "
-#~ "Possible causes are:"
-#~ msgstr ""
-#~ "Su petición no puede ser procesada porque hay un problema de conexion. "
-#~ "Las posibles causas son:"
 
-#~ msgid "Your computer has not internet connection"
-#~ msgstr "Su ordenador no tiene conexion a internet"
 
-#~ msgid "Firewall is blocking the connection. Try to restart firewall module"
-#~ msgstr ""
-#~ "El firewall esta bloqueando la conexion. Intente reiniciar el módulo "
-#~ "firewall"
 
-#~ msgid "Your computer has not a correct system date"
-#~ msgstr "Su ordenador no tiene un fecha de sistema correcta"
 
 #, fuzzy
-#~ msgid "You are using the wrong certificates"
-#~ msgstr "Usted esta usando los certificados equivocados"
 
 #, fuzzy
-#~ msgid "This eBox has been removed from your registered eBoxes"
-#~ msgstr "Este eBox ha sido removido de su registro de eBoxes"
 
-#~ msgid "Name"
-#~ msgstr "Nombre"
 
-#~ msgid "Date"
-#~ msgstr "Fecha"
 
-#~ msgid "Archive size"
-#~ msgstr "Tamano de archivo"
 
-#~ msgid "Cancel"
-#~ msgstr "Cancelar"
 
-#~ msgid "eBox host"
-#~ msgstr "eBox host"
 
-#~ msgid "Download"
-#~ msgstr "Descargar"
 
-#~ msgid "restore"
-#~ msgstr "restaurar"
 
-#~ msgid "download"
-#~ msgstr "descargar"
 
-#~ msgid "Backups' list"
-#~ msgstr "Lista de backups"
 
-#~ msgid "User"
-#~ msgstr "Usuario"
 
-#~ msgid "Submit"
-#~ msgstr "Enviar"
 
-#~ msgid "Enter user and password"
-#~ msgstr "Introduzca usuario y contraseña"
 
-#~ msgid "Back up"
-#~ msgstr "Back up"
 
-#~ msgid "Back up the current configuration state"
-#~ msgstr "Backup del actual estado de configuración"
 
-#~ msgid ""
-#~ "Backup is disabled because there are unsaved configuration changes. "
-#~ "Please, save or discard them to be able to backup the configuration"
-#~ msgstr ""
-#~ "El backup esta deshabilitado porque hay cambios de configuración sin "
-#~ "guardar. Por favor guardelos o descartelos para poder habilitar el backup "
-#~ "de configuración"
 
-#~ msgid "delete"
-#~ msgstr "borrar"
 
-#~ msgid "Configuration backups' list"
-#~ msgstr "Lista de backups de configuración"
 
 #, fuzzy
-#~ msgid ""
-#~ "This feature is only available if you get eBox  Services. You can "
-#~ "contract them at {url1}. If you are already registered, then subscribe "
-#~ "this eBox at {url2}"
-#~ msgstr ""
-#~ "Esta función solo esta disponible si usted adquiere los servicios eBox. "
-#~ "Puede contratarlo en {url1}. Si ya esta registrado, entonces suscribase a "
-#~ "este eBox en {url2}"
 
-#~ msgid "subscription page"
-#~ msgstr "pagina de suscripción"

@@ -914,270 +914,84 @@ msgid "[Virus] found in a mail to you:"
 msgstr ""
 
 #, fuzzy
-#~ msgid "Unsupported or incorrect input source fonrmat: {format}"
-#~ msgstr "Ikke understøttet eller ukorrekt input source format: {format}"
 
 #, fuzzy
-#~ msgid "General  settings"
-#~ msgstr "Afvis opsætning ændret"
 
 #, fuzzy
-#~ msgid "POP transparent proxy configuration"
-#~ msgstr "Antispam muligheder"
 
 #, fuzzy
-#~ msgid "Antivirus database update status"
-#~ msgstr "Virus database updatering status"
 
 #, fuzzy
-#~ msgid "The last update failed"
-#~ msgstr "Den sidste opdatering mislykkedes d. {date}"
 
 #, fuzzy
-#~ msgid ""
-#~ "Update failed.\n"
-#~ "Your version of freshclam  is outdated.Please, install version {version} "
-#~ "or higher"
-#~ msgstr ""
-#~ "Opdatering mislykkedes d. {date}.Din version af freshclam  er forældet. "
-#~ "Installér venligst version {version} eller højere"
 
-#~ msgid "Antivirus"
-#~ msgstr "Antivirus"
 
-#~ msgid "Mail filter system"
-#~ msgstr "Mail filter system"
 
-#~ msgid "Mail filter settings"
-#~ msgstr "Mail filter opsætning"
 
 #, fuzzy
-#~ msgid "Internal mailfilter"
-#~ msgstr "eBox internt mail filter"
 
 #, fuzzy
-#~ msgid "Options"
-#~ msgstr "Handlinger"
 
 #, fuzzy
-#~ msgid "Database update status"
-#~ msgstr "Virus database updatering status"
 
-#~ msgid "Learned from mailbox file"
-#~ msgstr "Lært fra mailbox file"
 
-#~ msgid "Denied settings changed"
-#~ msgstr "Afvis opsætning ændret"
 
-#~ msgid ""
-#~ "The sender can be either an email address or a domain name prefixed with "
-#~ "'@'"
-#~ msgstr ""
-#~ "Afsenderen kan enten være en email adresse eller et domæne navn prefixed "
-#~ "med '@'"
 
-#~ msgid "Mail domain"
-#~ msgstr "Mail domæne"
 
-#~ msgid "The last update failed at {date}"
-#~ msgstr "Den sidste opdatering mislykkedes d. {date}"
 
-#~ msgid ""
-#~ "Update failed at {date}.\n"
-#~ "Your version of freshclam  is outdated.Please, install version {version} "
-#~ "or higher"
-#~ msgstr ""
-#~ "Opdatering mislykkedes d. {date}.Din version af freshclam  er forældet. "
-#~ "Installér venligst version {version} eller højere"
 
-#~ msgid "{plural} which are not listed below are allowed"
-#~ msgstr "{plural} som ikke er nævnt nedenfor er tilladt"
 
-#~ msgid "Delete"
-#~ msgstr "Slet"
 
-#~ msgid ""
-#~ "Spam messages which a score equal or greater than this threshold will be "
-#~ "added to the learning system "
-#~ msgstr ""
-#~ "Spam meddelelser med en score lig med eller større end denne tærskel vil "
-#~ "blive tilføjet læresystemet"
 
-#~ msgid ""
-#~ "Ham messages which a score below this threshold will be added to the "
-#~ "learning system"
-#~ msgstr ""
-#~ "Ham meddelelser med en score lig med eller større end denne tærskel vil "
-#~ "blive tilføjet læresystemet"
 
-#~ msgid "Antispam options"
-#~ msgstr "Antispam muligheder"
 
-#~ msgid "Whitelist"
-#~ msgstr "Whitelist/godkendte"
 
-#~ msgid "Blacklist"
-#~ msgstr "Blacklist/uønskede"
 
-#~ msgid "Service port"
-#~ msgstr "Service port"
 
-#~ msgid "Antispam sender access lists"
-#~ msgstr "Antispam afsender adgangs liste"
 
-#~ msgid ""
-#~ "External mail server {mta} removed. Remember to remove its mail domains "
-#~ "from the external mail domain's list"
-#~ msgstr ""
-#~ "Extern mail server {mta} er fjernet. Husk at fjerne dens mail domæner fra "
-#~ "den externe mail domæne liste"
 
-#~ msgid "{name} is already registered"
-#~ msgstr "{name} er allerede registreret"
 
-#~ msgid "{name} added"
-#~ msgstr "{name} tilføjet"
 
-#~ msgid "No changes were specified by the user"
-#~ msgstr "Ingen ændringer blev angivet af bruger"
 
-#~ msgid "{name} is not registered"
-#~ msgstr "{name} er ikke registreret"
 
-#~ msgid "{name} removed"
-#~ msgstr "{name} fjernet"
 
-#~ msgid "The specified sender is not in the ACL"
-#~ msgstr "DEnangivne afsender er ikke i ACL'en"
 
-#~ msgid "Mail domain {domain} added to external domain's list."
-#~ msgstr "Mail domæne {domain} tilføjet til extern domæne liste."
 
-#~ msgid "Mail domain {domain} removed from external domain's list."
-#~ msgstr "Mail domæne {domain} fjernet fra extern domæne liste."
 
-#~ msgid "All entries were removed"
-#~ msgstr "Alle posteringer blev fjernet"
 
-#~ msgid ""
-#~ "External mail server {mta} allowed. Remember to add its mail domains to "
-#~ "the external mail domain's list"
-#~ msgstr ""
-#~ "Extern mail server {mta} tilladt. Husk at tilføje  dens mail domæner til "
-#~ "den externe mail domæne liste"
 
-#~ msgid "{ext} is not registered in the extensions list"
-#~ msgstr "{ext} er ikke registreret i extensions listen"
 
-#~ msgid "{ext} is not registered in the mimeTypes list"
-#~ msgstr "{ext} er ikke registreret i mimeTypes listen"
 
-#~ msgid "The spam's autolearn threshold must be higher than 6.0"
-#~ msgstr "Spam's selvlærings tærskel skal være højere end 6.0"
 
-#~ msgid "The ham's autolearn threshold cannot be higher than spam's threshold"
-#~ msgstr "Ham's selvlærings tærskel kan ikke være højere end spam's tærskel"
 
-#~ msgid "MTA's address"
-#~ msgstr "MTA's adresse"
 
-#~ msgid "{mta} is already allowed"
-#~ msgstr "{mta} er allerede tilladt"
 
-#~ msgid "{mta} not found"
-#~ msgstr "{mta} ikke fundet"
 
-#~ msgid "{domain} is already acknowledged as external mail domain"
-#~ msgstr "{domain} er allerede anerkendt som externt mail domæne"
 
-#~ msgid "Domain {domain} was not acknowledged as external mail domain"
-#~ msgstr "Domænet {domain} blev ikke anerkendt som externt mail domæne"
 
-#~ msgid "Administrator address"
-#~ msgstr "Administrator adresse"
 
-#~ msgid "policy type"
-#~ msgstr "politik type"
 
-#~ msgid "The last successful update was at {date}"
-#~ msgstr "Den sidste succesfulde opdatering var d. {date}"
 
-#~ msgid "Deny"
-#~ msgstr "Afvis"
 
-#~ msgid "Add {element}"
-#~ msgstr "Tilføj {element}"
 
-#~ msgid "Name"
-#~ msgstr "Navn"
 
-#~ msgid "All registered {plural}"
-#~ msgstr "Alle registreret {plural}"
 
-#~ msgid "Delete them all"
-#~ msgstr "Slet alle"
 
-#~ msgid "Change"
-#~ msgstr "Skift"
 
-#~ msgid "Antispam global sender access lists"
-#~ msgstr "Antispam global afsender tilgangs lister"
 
-#~ msgid "Spam filter training"
-#~ msgstr "Spam filter træning"
 
-#~ msgid "Sender"
-#~ msgstr "Afsender"
 
-#~ msgid "Add sender to {type}"
-#~ msgstr "Tilføj afsender til {type}"
 
-#~ msgid "Notification address"
-#~ msgstr "Meddelelses adresse"
 
-#~ msgid "Notification"
-#~ msgstr "Meddelelse"
 
-#~ msgid "External Mail server"
-#~ msgstr "Extern Mail server"
 
-#~ msgid "Allowed external mail servers"
-#~ msgstr "Tilladte externe mail servere"
 
-#~ msgid "Add external mail server"
-#~ msgstr "Tilføj extern mail server"
 
-#~ msgid "External Mail domain"
-#~ msgstr "Externt Mail domæne"
 
-#~ msgid "Add external mail domain"
-#~ msgstr "Tilføj externt mail domæne"
 
-#~ msgid ""
-#~ "The \"{name}\"  setting will not have effect until the\n"
-#~ "   antivirus service will be enabled in the mail filter"
-#~ msgstr ""
-#~ "\"{name}\"  opsætning vil ikke have nogen effekt før   antivirus service "
-#~ "vil blive aktiveret på mail filter"
 
-#~ msgid ""
-#~ "The \"{name}\"  setting will not have effect until the\n"
-#~ "   antispam sergice will be enabled in the mail filter"
-#~ msgstr ""
-#~ "\"{name}\"  opsætning vil ikke have nogen effekt før   antivirus service "
-#~ "vil blive aktiveret på mail filter"
 
-#~ msgid "Use default spam threshold (current value is {v})"
-#~ msgstr "Brug default spam tærskel (nuværende værdi er {v})"
 
-#~ msgid "Mail filter options"
-#~ msgstr "Mail filter muligheder"
 
-#~ msgid "Extensions filter"
-#~ msgstr "Udvidelses filter"
 
-#~ msgid "Unsupported or incorrect input source format: {format}"
-#~ msgstr "Ikke understøttet eller ukorrekt input source format: {format}"
 
-#~ msgid "module status"
-#~ msgstr "modul status"

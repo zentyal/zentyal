@@ -113,84 +113,25 @@ msgid "{ip} overlaps with the address or another object's member"
 msgstr ""
 
 #, fuzzy
-#~ msgid "Core"
-#~ msgstr "Oluştur"
 
 #, fuzzy
-#~ msgid "IP Address"
-#~ msgstr "IP adresi"
 
-#~ msgid "Object name"
-#~ msgstr "Nesne ismi"
 
-#~ msgid ""
-#~ "The name '{name}' is already used to identify another object. Please "
-#~ "choose another name"
-#~ msgstr ""
-#~ "{name}'  ismi başka bir projede kullanımda. Lütfen farklı bir isim "
-#~ "kullanın"
 
-#~ msgid "Edit Object"
-#~ msgstr "Nesneyi düzenle"
 
-#~ msgid "Netmask"
-#~ msgstr "Ağ maskesi"
 
-#~ msgid "Deleting object"
-#~ msgstr "Nesne siliniyor"
 
-#~ msgid ""
-#~ "The object you tried to delete is being used by some modules, please "
-#~ "confirm that you want to delete it."
-#~ msgstr ""
-#~ "Silmek istediğiniz nesne şuanda kullanımda. Lütfen silmek istediğiniz "
-#~ "nesneyi tekrardan onaylayın."
 
-#~ msgid "Delete"
-#~ msgstr "Sil"
 
-#~ msgid "Cancel"
-#~ msgstr "Vazgeç"
 
-#~ msgid "Edit <span class='stitle'>{description}</span> members"
-#~ msgstr "<span class='stitle'>{description}</span> üyelerini düzenle"
 
-#~ msgid "MAC"
-#~ msgstr "MAC Adresi"
 
-#~ msgid "Action"
-#~ msgstr "İşlem"
 
-#~ msgid "Add"
-#~ msgstr "Ekle"
 
-#~ msgid "Delete Object"
-#~ msgstr "Nesneyi sil"
 
-#~ msgid ""
-#~ "If you delete this object, all the information about its members will be "
-#~ "lost."
-#~ msgstr "Eğer bu nesneyi silerseniz ona ait tüm bilgiler kaybolur."
 
-#~ msgid "Delete object"
-#~ msgstr "Nesneyi sil"
 
-#~ msgid "Create new object"
-#~ msgstr "Yeni nesne oluştur"
 
-#~ msgid ""
-#~ "The objects that you create here can be used in the rest of the system. "
-#~ "Remember that an IP address cannot belong to more than one object."
-#~ msgstr ""
-#~ "Burada oluşturduğunuz yeni nesne sistemin her tarafında aynı isimde "
-#~ "kullanılabilir. Lütden bir IP adresinin sadece bir nesne içinde "
-#~ "kullanılabileceğini unutmayın."
 
-#~ msgid "Edit"
-#~ msgstr "Düzenle"
 
-#~ msgid "edit"
-#~ msgstr "Düzenle"
 
-#~ msgid "delete"
-#~ msgstr "Sil"

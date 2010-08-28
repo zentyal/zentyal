@@ -1271,85 +1271,29 @@ msgid "Change"
 msgstr "變更"
 
 #, fuzzy
-#~ msgid "External mail address"
-#~ msgstr "郵件位址"
 
-#~ msgid "size in Mb"
-#~ msgstr "MB 的大小"
 
-#~ msgid "Create alias mail account to group"
-#~ msgstr "建立別名帳號到群組"
 
-#~ msgid ""
-#~ "When the last member of a group is removed, the mail alias account will "
-#~ "be deleted"
-#~ msgstr "當在群組中最後一個帳號移除,此郵件別名帳號將被刪除"
 
-#~ msgid "Message"
-#~ msgstr "郵件"
 
-#~ msgid "Operate"
-#~ msgstr "操作"
 
-#~ msgid "maildir size"
-#~ msgstr "信箱目錄大小"
 
-#~ msgid "Cannot create user account: mail directory {d} aready exists"
-#~ msgstr "不能建立使用者帳號：郵件目錄 {d} 已存在"
 
-#~ msgid "Default maildir size (MB)"
-#~ msgstr "預設信箱大小 (MB)"
 
-#~ msgid "mail"
-#~ msgstr "郵件"
 
-#~ msgid "To add the LDAP schemas used by eBox mail"
-#~ msgstr "用 eBox 郵件系統來新增 LDAP schemas 使用"
 
-#~ msgid "Communications"
-#~ msgstr "通訊"
 
-#~ msgid "SSL Support"
-#~ msgstr "SSL 支援"
 
-#~ msgid "No"
-#~ msgstr "否"
 
-#~ msgid "Optional"
-#~ msgstr "可選擇"
 
-#~ msgid "Required"
-#~ msgstr "必須"
 
-#~ msgid "Add {user} to {group} group"
-#~ msgstr "將 {user} 加入 {group} 群組"
 
-#~ msgid "To allow {daemon} to connect with {otherDaemon} via unix socket"
-#~ msgstr "允許 {daemon} 用 {otherDaemon} 連線到 unix socket"
 
-#~ msgid "To let courier know how to access LDAP"
-#~ msgstr "讓 courier 了解如何存取 LDAP"
 
-#~ msgid "To configure courier POP3"
-#~ msgstr "設置 courier POP3"
 
-#~ msgid "To configure POP3 with SSL support"
-#~ msgstr "設置讓 POP3 支援 SSL"
 
-#~ msgid "To configure IMAP with SSL support"
-#~ msgstr "設置讓 IMAP 支援 SSL"
 
-#~ msgid "To configure saslauthd to authenticate against LDAP "
-#~ msgstr "設置讓 saslauthd 用 LDAP 驗證"
 
-#~ msgid "To configure saslauthd to use LDAP"
-#~ msgstr "設置 saslauthd 使用 LDAP"
 
-#~ msgid "Add postfix to sasl group"
-#~ msgstr "新增 postfix 到 sasl 群組"
 
-#~ msgid "eBox will execute /usr/sbin/postalias /etc/aliases "
-#~ msgstr "eBox 將會執行 /usr/sbin/postalias /etc/aliases "
 
-#~ msgid "Mail system"
-#~ msgstr "郵件系統"

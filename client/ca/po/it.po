@@ -582,29 +582,10 @@ msgstr "Passphrase CA"
 msgid "Renew a certificate"
 msgstr "Rinnova un certificato"
 
-#~ msgid ""
-#~ "The private key passpharse needed to create a new request. No renewal was "
-#~ "made. Issue a new certificate with new keys"
-#~ msgstr ""
-#~ "La passphrase della chiave privata necessaria per creare una nuova "
-#~ "richiesta. Nessun rinnovo è stato effettuato. Emetti un nuovo certificato "
-#~ "con nuove chiavi"
 
 #, fuzzy
-#~ msgid "You must create a Certification Authority."
-#~ msgstr "Crea la Certificazione del Certificato dell'Autorita "
 
-#~ msgid "Certificate Manager"
-#~ msgstr "Manager del certificato"
 
-#~ msgid "Re CA Passphrase"
-#~ msgstr "Re CA Passfrase"
 
-#~ msgid "Passphrase"
-#~ msgstr "Passfrase"
 
-#~ msgid "Re-passphrase"
-#~ msgstr "Re-passfrase"
 
-#~ msgid "Days to expire MUST be a natural number"
-#~ msgstr "Il numero di giorni per espirare deve essere un numero naturale"

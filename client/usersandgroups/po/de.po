@@ -897,123 +897,30 @@ msgstr "Achtung: Feststelltaste ist aktiviert"
 msgid "Enter"
 msgstr "Enter"
 
-#~ msgid "LDAP Info"
-#~ msgstr "LDAP Info"
 
-#~ msgid "User corner"
-#~ msgstr "Benutzerbereich"
 
-#~ msgid "User Corner webserver settings"
-#~ msgstr "Benutzerbereich-Webserver-Einstellungen"
 
-#~ msgid ""
-#~ "If you remove this group all its data within its shared directory will be "
-#~ "deleted"
-#~ msgstr ""
-#~ "Falls Sie diese Gruppe löschen, werden alle Daten in den freigegebenen "
-#~ "Ordnern gelöscht"
 
 #, fuzzy
-#~ msgid ""
-#~ "There are no users at the moment. You may want to add some in {openhref}"
-#~ "Add user section{closehref}."
-#~ msgstr "Es gibt im Moment noch keine Benutzer. "
 
-#~ msgid "Edit User"
-#~ msgstr "Benutzer bearbeiten"
 
-#~ msgid "Edit Group"
-#~ msgstr "Gruppe bearbeiten"
 
-#~ msgid ""
-#~ "Changes in user accounts take effect inmediately, they do not need to be "
-#~ "saved."
-#~ msgstr ""
-#~ "Änderungen an den Benutzerkonten treten sofort in Kraft, sie müssen nicht "
-#~ "gespeichert werden"
 
-#~ msgid ""
-#~ "Changes related to printing, file sharing and Jabber service do need to "
-#~ "be saved in order to be effective."
-#~ msgstr ""
-#~ "Änderungen betreffend Druck-, Dateifreigabe- und Jabber-Dienst müssen "
-#~ "gespeichert werden, damit sie in Kraft treten"
 
-#~ msgid "Create"
-#~ msgstr "Erstellen"
 
-#~ msgid "Actions"
-#~ msgstr "Aktionen"
 
 #, fuzzy
-#~ msgid ""
-#~ "There are no groups at the moment. You may want to add some in the master "
-#~ "eBox"
-#~ msgstr ""
-#~ "Es gibt im Moment noch keine Gruppen. Sie müssen mindestens einen "
-#~ "erstellen, um diese Gruppe verwalten zu können"
 
 #, fuzzy
-#~ msgid ""
-#~ "There are no groups at the moment. You may want to add some in the Domain "
-#~ "Controller"
-#~ msgstr ""
-#~ "Es gibt im Moment noch keine Gruppen. Sie müssen mindestens einen "
-#~ "erstellen, um diese Gruppe verwalten zu können"
 
-#~ msgid ""
-#~ "Your current openLDAP database will be replaced and backed up in /var/"
-#~ "backups/slapd"
-#~ msgstr ""
-#~ "Ihre derzeitige openLDAP-Datenbank wird ersetzt und gesichert in /var/"
-#~ "backups/slapd"
 
-#~ msgid ""
-#~ "eBox will initialize openLDAP to store its database. It will also "
-#~ "overwrite your current configuration"
-#~ msgstr ""
-#~ "openLDAP wird von eBox gestartet, damit die Datenbank gespeichert wird. "
-#~ "Es wird auch Ihre derzeitige Konfiguration überschreiben"
 
-#~ msgid ""
-#~ "To configure the openLDAP database with dc  entry, rootpw, rootdn, "
-#~ "schemas and ACLs used by  the LDAP based eBox modules"
-#~ msgstr ""
-#~ "Um die openLDAP-Datenbank mit dc-Eintrag, rootpw, rootdn, Schemas und "
-#~ "ACL's, benutzt von eBox Modulen, welche auf LDAP zugreifen, zu "
-#~ "konfigurieren"
 
-#~ msgid "full name"
-#~ msgstr "Vollständiger Name"
 
-#~ msgid "foo"
-#~ msgstr "bla"
 
-#~ msgid ""
-#~ "Your current openLDAP database will be replaced and backuped in /var/"
-#~ "backups/slapd"
-#~ msgstr ""
-#~ "Ihre derzeitige openLDAP-Datenbank wird ersetzt und gesichert in /var/"
-#~ "backups/slapd"
 
-#~ msgid "Edit user"
-#~ msgstr "Benutzer bearbeiten"
 
-#~ msgid ""
-#~ "This operation will cause the removal of the user and all his "
-#~ "dependences; such as mail accounts, user data..."
-#~ msgstr ""
-#~ "Dieser Vorgang löscht den Benutzer und alle zugehörigen Daten wie E-"
-#~ "Mails, Benutzerdaten, ..."
 
-#~ msgid "Deleting user"
-#~ msgstr "Benutzer wird gelöscht"
 
-#~ msgid "Deleting group"
-#~ msgstr "Gruppe wird gelöscht"
 
-#~ msgid "Administration of group "
-#~ msgstr "Gruppen verwalten"
 
-#~ msgid "Administration of user"
-#~ msgstr "Benutzer verwalten"

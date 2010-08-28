@@ -42,8 +42,8 @@ ok ( ! $ca->isCreated(), 'not created');
 
 throws_ok { $ca->createCA() } 'EBox::Exceptions::DataMissing', 'data missing error';
 
-cmp_ok ( $ca->createCA(orgName => "Warp",
-		   commonName => "lalala"), 
+cmp_ok ( $ca->createCA(orgName => "Zentyal",
+		   commonName => "lalala"),
 	 '==', 1, 'creating CA' );
 
 ok ( $ca->getCACertificateMetadata(), "getting current valid CA" );
@@ -51,7 +51,7 @@ ok ( $ca->getCACertificateMetadata(), "getting current valid CA" );
 ok ( ! defined($ca->revokeCACertificate(reason => 'affiliationChanged')),
      "revoking CA certificate");
 
-ok ( $ca->issueCACertificate(orgName => "Warpera"),
+ok ( $ca->issueCACertificate(orgName => "ZentyalFoo"),
      "issuing CA certificate");
 
 ok ( $ca->renewCACertificate(localityName => 'La Juani',
@@ -65,10 +65,10 @@ ok ( $ca->issueCertificate(commonName => 'uno 1',
      "issuing 1st certificate");
 
 ok ( $ca->issueCertificate(commonName => 'dos',
-			   days => 15), 
+			   days => 15),
      "issuing 2nd certificate");
 
-throws_ok { $ca->revokeCertificate(commonName => 'tres') } "EBox::Exceptions::External", 
+throws_ok { $ca->revokeCertificate(commonName => 'tres') } "EBox::Exceptions::External",
      "revoking an unexistent certificate";
 
 ok ( ! defined($ca->revokeCertificate(commonName => 'dos'))

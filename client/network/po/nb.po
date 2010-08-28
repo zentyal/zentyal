@@ -1066,91 +1066,26 @@ msgstr ""
 "konfigurasjon av dette nettverks grensesnittet slette vesentlige deler av "
 "sin konfigurasjon. Velg \"Avbryt\" hvis du ikke er sikker på dette."
 
-#~ msgid "eBox"
-#~ msgstr "eBox"
 
-#~ msgid "Physical interface"
-#~ msgstr "Fysisk grensesnitt"
 
-#~ msgid "Vlan interface list"
-#~ msgstr "Vlan grensesnitt liste"
 
-#~ msgid "These are the vlan interfaces which are available in your system."
-#~ msgstr "Dette er vlan grensesnittene som er tilgjengelig i ditt system."
 
-#~ msgid "interface"
-#~ msgstr "grensesnitt"
 
-#~ msgid "Configurable interface list"
-#~ msgstr "Konfigurerbar grensesnitts liste"
 
-#~ msgid "These are the interfaces which can be configured"
-#~ msgstr "Dette er grensesnittene som kan konfigureres"
 
-#~ msgid "Physical interface list"
-#~ msgstr "Fysisk grensesnitt liste"
 
-#~ msgid ""
-#~ "These are the physical interfaces which are available in your system."
-#~ msgstr ""
-#~ "Dette er de fysiske grensesnittene som er tilgjengelig i ditt system."
 
-#~ msgid "Dynamic DNS"
-#~ msgstr "Dynamisk DNS"
 
-#~ msgid "Set default gateway"
-#~ msgstr "Sett standard gateway"
 
-#~ msgid "You can change later the gateway at Network/Routes menus item"
-#~ msgstr "Du kan endre senere standard gateway på Netverk/Ruter meny valget"
 
-#~ msgid ""
-#~ "After the initial config you can revisit this page at Network/Interfaces "
-#~ "in the menu"
-#~ msgstr ""
-#~ "Etter første konfigurasjon kan du besøke denne siden om igjen på Nettverk/"
-#~ "Grensesnitt i menyen"
 
-#~ msgid "Gateway configured"
-#~ msgstr "Gateway konfigurert"
 
-#~ msgid "You can revisit this page at Network/DNS in the menu"
-#~ msgstr "Du kan besøke denne siden om igjen på Nettverk/DNS i menyen."
 
-#~ msgid "Network interface configured"
-#~ msgstr "Nettverks grensesnitt konfigurert"
 
-#~ msgid "Configure name servers"
-#~ msgstr "Konfigurer navne servere"
 
-#~ msgid "Configure default gateway"
-#~ msgstr "Konfigurer standard gateway"
 
-#~ msgid "Upload"
-#~ msgstr "Opplast"
 
-#~ msgid "Upload rate in Kbits/s for this gateway."
-#~ msgstr "Opplastings rate i Kbits/s for denne gatewayen"
 
-#~ msgid "Download"
-#~ msgstr "Nedlast"
 
-#~ msgid "Download rate in Kbits/s for this gateway."
-#~ msgstr "Nedlastings rate i Kbits/s for denne gatewayen"
 
-#~ msgid ""
-#~ "You can add as many gateways as you want. This is very useful if you want "
-#~ "to split your Internet traffic through several links.{br}The download and "
-#~ "upload fields must be set as much rate as you have to your connection "
-#~ "towards the gateway. The correct value of these fields is critical to "
-#~ "ensure a correct functionality of the traffic shaping module"
-#~ msgstr ""
-#~ "Du kan legge til så mange gatewayer du vil. Dette er veldig nyttig hvis "
-#~ "du vil splitte din Internett trafikk gjennom forskjellige linker.{br} "
-#~ "Nedlastings og opplastings feltene må settes til så mye hastighet som du "
-#~ "har på din tilkobling på gatewayen. Korrekt verdi av disse feltene er "
-#~ "viktig for å forsikre en korrekt funksjonalitet av trafikk formings "
-#~ "modulen"
 
-#~ msgid "Core"
-#~ msgstr "Kjerne"

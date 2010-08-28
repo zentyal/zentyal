@@ -837,49 +837,15 @@ msgid "[Virus] found in a mail to you:"
 msgstr ""
 
 #, fuzzy
-#~ msgid "General  settings"
-#~ msgstr "Ustawienia filtra pocztowego"
 
-#~ msgid "To configure freshclam updater daemon"
-#~ msgstr "Aby skonfigurować program aktualizacyjny Freshclam"
 
 #, fuzzy
-#~ msgid "Antivirus database update status"
-#~ msgstr "Stan aktualizacji bazy danych"
 
-#~ msgid ""
-#~ "The antivirus database has not been updated since the  mailfilter eBox's "
-#~ "module was installed"
-#~ msgstr ""
-#~ "Sygnatury wirusów nie były aktualizowane od czasu zainstalowania modułu "
-#~ "do filtrowania poczty"
 
-#~ msgid "The last update failed"
-#~ msgstr "Ostatnia próba aktualizacji nie powiodła się"
 
-#~ msgid ""
-#~ "Update failed.\n"
-#~ "Your version of freshclam  is outdated.Please, install version {version} "
-#~ "or higher"
-#~ msgstr ""
-#~ "Aktualizacja nie powiodła się.\n"
-#~ "Twoja wersja programu aktualizacyjnego Freshclam jest przestarzała. "
-#~ "Zainstaluj wersję {version} lub wyższą."
 
-#~ msgid "Last update successful"
-#~ msgstr "Aktualizacja zakończona sukcesem"
 
-#~ msgid "Unknown event {event}"
-#~ msgstr "Nieznane zdarzenie {event}"
 
-#~ msgid "Antivirus"
-#~ msgstr "Antywirus"
 
-#~ msgid "Mail filter system"
-#~ msgstr "System filtrowania poczty"
 
-#~ msgid "Internal mailfilter"
-#~ msgstr "Wewnętrzny filtr pocztowy"
 
-#~ msgid "Options"
-#~ msgstr "Opcje"

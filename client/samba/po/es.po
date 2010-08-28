@@ -713,74 +713,24 @@ msgstr "Directorios de usuario"
 msgid "{group} share directory"
 msgstr "directorio compartido de {group}"
 
-#~ msgid ""
-#~ "To make NSS use LDAP resolution for user and group accounts. Needed for "
-#~ "Samba PDC configuration."
-#~ msgstr ""
-#~ "Para hacer que NSS use resolución LDAP para cuentas de usuario y grupo. "
-#~ "Se necesita para la configuración de Samba como PDC."
 
-#~ msgid "To let NSS know how to access LDAP accounts"
-#~ msgstr "Modificar NSS para acceda a cuentas LDAP"
 
-#~ msgid "Incoorect SID: {s}"
-#~ msgstr "SID erróneo: {s}"
 
 #, fuzzy
-#~ msgid "file sharing"
-#~ msgstr "Compartir ficheros"
 
-#~ msgid "List of samba shares"
-#~ msgstr "Lista de recursos compartido samba"
 
-#~ msgid "module status"
-#~ msgstr "estado del módulo"
 
-#~ msgid "netbios"
-#~ msgstr "netbios"
 
-#~ msgid "working group"
-#~ msgstr "grupo de trabajo"
 
-#~ msgid "working mode"
-#~ msgstr "modo de trabajo"
 
-#~ msgid "user quota"
-#~ msgstr "cuota de usuario"
 
-#~ msgid "General Settings"
-#~ msgstr "Configuración general"
 
-#~ msgid ""
-#~ "To allow unlimited disk usage to users, just set zero as user quota limit."
-#~ msgstr ""
-#~ "Para permitir uso de disco ilimitado a los usuarios simplemente ponga su "
-#~ "límite de cuota a cero."
 
-#~ msgid "Working mode"
-#~ msgstr "Modo de trabajo"
 
-#~ msgid "File server"
-#~ msgstr "Servidor de ficheros"
 
-#~ msgid "Working group"
-#~ msgstr "Grupo de trabajo"
 
-#~ msgid "listening port"
-#~ msgstr "Puerto de escucha"
 
-#~ msgid "Domain Name"
-#~ msgstr "Nombre del Dominio"
 
-#~ msgid "Deleting group"
-#~ msgstr "Eliminar grupo"
 
-#~ msgid "PDC/File sharing service status"
-#~ msgstr "Estado del servicio de compartición de ficheros o del PDC"
 
-#~ msgid "This resource name is longer than 12 charcters."
-#~ msgstr "El nombre del recurso compartido no puede superar 12 carácteres."
 
-#~ msgid "This user has a sharing directory associated which conatins data"
-#~ msgstr ""
-#~ "Este usuario tiene asociado un directorio compartido que contiene datos"

@@ -324,186 +324,51 @@ msgstr ""
 msgid "Upgrade"
 msgstr "Atualizar"
 
-#~ msgid ""
-#~ "As you are enjoying a Commercial Server Subscription the updates are "
-#~ "Quality Assured by the eBox Development Team."
-#~ msgstr ""
-#~ "Como você tem uma subscrição comercial as atualizações tem Qualidade "
-#~ "Assegurada (QA) pelo time de desenvolvimento eBox."
 
-#~ msgid ""
-#~ "Warning: The updates are community based. You can now gain access to the "
-#~ "Quality Assured Updates by purchasing the <a "
-#~ "href='{proUrl}'>Professional</a>  or <a href='{entUrl}'>Enterprise</a> "
-#~ "Server Subscription. QA Updates guarantee that all the upgrades, bugfixes "
-#~ "and security updates are extensively tested by the eBox Development Team "
-#~ "and you won't be introducing any regressions on your already working "
-#~ "system."
-#~ msgstr ""
-#~ "Aviso: As atualizações são baseadas na comunidade. Você pode garantir "
-#~ "atualizações de Qualidade Assegurada (QA) comprando uma subscrição <a "
-#~ "href='{proUrl}'>Professional</a>  ou <a href='{entUrl}'>Enterprise</a>. "
-#~ "Atualizações eBox QA garantem que todos os upgrades, bugfixes e "
-#~ "atualizações de segurança  são cuidadosamente testadas pela time de "
-#~ "desenvolvimento eBox e você não irá introduzir nenhuma falha em seu "
-#~ "sistema."
 
 #, fuzzy
-#~ msgid "packages installed"
-#~ msgstr "pacotes restantes"
 
-#~ msgid ""
-#~ "eBox software will download the available updates from your configured "
-#~ "apt sources. "
-#~ msgstr ""
-#~ "O eBox irá baixar as atualizações disponíveis a partir de suas origens "
-#~ "configuradas no apt. "
 
-#~ msgid "Enable cron script to download updates"
-#~ msgstr "Habilita o script da cron para baixar as atualizações"
 
-#~ msgid ""
-#~ "The software management module must be enabled to be able to install "
-#~ "packages"
-#~ msgstr ""
-#~ "O módulo de gerenciamento de software precisa estar habilitado para ser "
-#~ "capaz de instalar pacotes"
 
-#~ msgid ""
-#~ "The software management module must be enabled to be able to remove "
-#~ "packages"
-#~ msgstr ""
-#~ "O módulo de gerenciamento de software precisa estar habilitado para ser "
-#~ "capaz de remover pacotes"
 
-#~ msgid "Automatic Updates"
-#~ msgstr "Atualizações Automáticas"
 
-#~ msgid "Software updates are being handled automatically"
-#~ msgstr "As atualizações do sistema estão sendo gerenciadas automaticamente"
 
-#~ msgid "Installed version "
-#~ msgstr "Versão instalada "
 
-#~ msgid "Latest version"
-#~ msgstr "Última versão"
 
-#~ msgid "none"
-#~ msgstr "nada"
 
-#~ msgid "Remove"
-#~ msgstr "Remover"
 
-#~ msgid ""
-#~ "Please wait, the update of the software available list is in process "
-#~ "right now"
-#~ msgstr ""
-#~ "Por favor aguarde, a atualização do software disponível está sendo "
-#~ "processada nesse momento"
 
-#~ msgid ""
-#~ "The component list was never succefully downloaded so the information "
-#~ "shown is probably outdated. The list is updated each night or you can "
-#~ "force the update with the console command 'ebox-software'"
-#~ msgstr ""
-#~ "A listagem dos componentes nunca foi baixada com sucesso, então a "
-#~ "informação mostrada está provavelmente desatualizada. A listagem é "
-#~ "atualizada a cada noite ou você pode forçar a atualização a partir pelo "
-#~ "comando de console 'ebox-software' "
 
-#~ msgid ""
-#~ "The component list was updated on {mon}/{mday}/{year} {hour}:{min}. It "
-#~ "will be updated again at night or you can force the update with the "
-#~ "console command 'ebox-software'"
-#~ msgstr ""
-#~ "A listagem dos componentes foi atualizada em {mon}/{mday}/{year} {hour}:"
-#~ "{min}. Ela será atualizada novamente pela noite ou você pode forçar a "
-#~ "atualização a partir pelo comando de console 'ebox-software' "
 
 #, fuzzy
-#~ msgid "eBox - Antivirus module"
-#~ msgstr "eBox - Módulo de filtro de email"
 
 #, fuzzy
-#~ msgid "eBox - Asterisk"
-#~ msgstr "eBox - Servidor DNS"
 
-#~ msgid "eBox - Certificate Authority Manager for eBox"
-#~ msgstr "eBox - Gerenciador de Certificados de Autoridade do eBox"
 
 #, fuzzy
-#~ msgid "eBox - captive portal module"
-#~ msgstr "eBox - Módulo de filtro de email"
 
-#~ msgid "eBox - DHCP server module"
-#~ msgstr "eBox - Módulo DHCP"
 
-#~ msgid "eBox - DNS server"
-#~ msgstr "eBox - Servidor DNS"
 
-#~ msgid "the eBox platform - Base framework"
-#~ msgstr "a plataforma eBox - Base framework"
 
-#~ msgid "eBox - Firewall"
-#~ msgstr "eBox - Firewall"
 
 #, fuzzy
-#~ msgid "eBox - Instant messaging proxy"
-#~ msgstr "eBox - Mensagem Instantânea (Jabber)"
 
-#~ msgid "eBox - Instant messaging (Jabber)"
-#~ msgstr "eBox - Mensagem Instantânea (Jabber)"
 
-#~ msgid "eBox - layer 7 protocols"
-#~ msgstr "eBox - protocolos camada 7"
 
-#~ msgid "eBox - Mail server"
-#~ msgstr "eBox - Servidor de Email"
 
-#~ msgid "eBox - Mail filter module"
-#~ msgstr "eBox - Módulo de filtro de email"
 
-#~ msgid "eBox - Monitoring module  "
-#~ msgstr "eBox - Módulo de monitoração  "
 
-#~ msgid "eBox - Network configuration module"
-#~ msgstr "eBox - Módulo de configuração de rede"
 
-#~ msgid "eBox - NTP server"
-#~ msgstr "eBox - Servidor NTP"
 
-#~ msgid "eBox - Object management"
-#~ msgstr "eBox - Gerenciador de Objetos"
 
-#~ msgid "eBox - OpenVPN server module"
-#~ msgstr "eBox - Módulo do servidor OpenVPN"
 
-#~ msgid "eBox - Printer sharing"
-#~ msgstr "eBox - Compartilhamento de impressora"
 
-#~ msgid "eBox - File sharing"
-#~ msgstr "eBox - Compartilhamento de arquivos"
 
-#~ msgid "eBox - Services management"
-#~ msgstr "eBox - Gerenciador de serviços"
 
-#~ msgid "eBox - Software management"
-#~ msgstr "eBox - Gerenciador de programa"
 
-#~ msgid "eBox - Proxy cache and content filter"
-#~ msgstr "eBox - Cache Proxy e filtro de conteúdo"
 
-#~ msgid "eBox - Traffic shaper for eBox"
-#~ msgstr "eBox - Traffic shaper para o eBox"
 
-#~ msgid "eBox - User and Group management"
-#~ msgstr "Gerenciador de Usuários e Grupos"
 
-#~ msgid "eBox - Web Server"
-#~ msgstr "eBox - Servidor Web"
 
-#~ msgid "IPsec VPNs"
-#~ msgstr "IPsec VPNs"
 
-#~ msgid "SOAP server to communicate with eBox control center"
-#~ msgstr "servidor de SOAP comunicar com o centro de controle eBox"
