@@ -1,4 +1,5 @@
 <%args>
+    $activesync
 </%args>
 Alias /webaccess /usr/share/zarafa-webaccess
 
@@ -21,3 +22,7 @@ Alias /webaccess-mobile /usr/share/zarafa-webaccess-mobile
     Order allow,deny
     Allow from all
 </Directory>
+
+% if ($activesync) {
+Alias /Microsoft-Server-ActiveSync /usr/share/z-push/index.php
+% }

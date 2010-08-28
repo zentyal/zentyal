@@ -185,6 +185,7 @@ sub _table
                               update => __('Zarafa gateways configuration settings updated.'),
                              },
        modelDomain        => 'Zarafa',
+       help               => __('Zarafa gateways allow access to users mailboxes using POP3 and IMAP protocols.'),
       };
 
     return $dataTable;

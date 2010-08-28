@@ -353,18 +353,25 @@ sub _setWebServerConf
     EBox::Sudo::root('rm -f ' . "$vHostPattern");
 
     my $vhost = $self->model('GeneralSettings')->vHostValue();
+    my $activesync = $self->model('GeneralSettings')->activeSyncValue();
 
     my @cmds = ();
 
     if ($vhost eq 'disabled') {
         push(@cmds, 'a2ensite zarafa-webaccess');
         push(@cmds, 'a2ensite zarafa-webaccess-mobile');
+        if ($activesync) {
+            push(@cmds, 'a2ensite z-push');
+        } else {
+            push(@cmds, 'a2dissite z-push');
+        }
     } else {
         push(@cmds, 'a2dissite zarafa-webaccess');
         push(@cmds, 'a2dissite zarafa-webaccess-mobile');
+        push(@cmds, 'a2dissite z-push');
         my $destFile = EBox::WebServer::SITES_AVAILABLE_DIR . 'user-' .
                        EBox::WebServer::VHOST_PREFIX. $vhost .'/ebox-zarafa';
-        $self->writeConfFile($destFile, 'zarafa/apache.mas', []);
+        $self->writeConfFile($destFile, 'zarafa/apache.mas', [ activesync => $activesync ]);
     }
     try {
         EBox::Sudo::root(@cmds);

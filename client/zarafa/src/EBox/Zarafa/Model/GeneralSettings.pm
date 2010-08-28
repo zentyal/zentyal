@@ -74,6 +74,15 @@ sub _table
                                 printableName => __('Enable Spell Checking'),
                                 editable      => 1,
                                 defaultValue  => 1,
+                                help => __('Enable spell checking on Zarafa Webaccess.'),
+                               ),
+       new EBox::Types::Boolean(
+                                fieldName     => 'activeSync',
+                                printableName => __('Enable Active Sync'),
+                                editable      => 1,
+                                defaultValue  => 1,
+                                help =>
+__('Enable Active Sync (Microsoft Exchange syncronization protocol).'),
                                ),
        new EBox::Types::Select(
                                 fieldName     => 'vHost',
@@ -83,7 +92,7 @@ sub _table
                                 disableCache => 1,
                                 defaultValue => 'disabled',
                                 help =>
-__('Virtual host where Zarafa will be installed. This will disable the global access to /webaccess.')
+__('Enable Zarafa access only on this virtual host under /webaccess and /webaccess-mobile.'),
                                ),
       );
 
