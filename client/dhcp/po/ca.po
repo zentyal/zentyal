@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: ebox-dhcp 0.12\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-08-26 00:53+0200\n"
-"PO-Revision-Date: 2010-08-18 11:27+0200\n"
+"PO-Revision-Date: 2010-08-26 10:57+0200\n"
 "Last-Translator: jaume ponsa <jaume@calidae.net>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
@@ -180,20 +180,18 @@ msgid "fixed address"
 msgstr "adreça fixa"
 
 #: src/EBox/Model/ThinClientOptions.pm:139
-#, fuzzy
 msgid "You need to upload a boot image to Zentyal if you set it as next server"
 msgstr ""
-"Ha de carregar una imatge d'arrencada d'eBox si s'estableix com el servidor "
-"següent"
+"Ha de carregar una imatge d'arrencada a Zentyal si s'estableix com el "
+"servidor següent"
 
 #: src/EBox/Model/ThinClientOptions.pm:146
-#, fuzzy
 msgid ""
 "In order to upload a boot image to Zentyal, you need to set Zentyal as next "
 "server"
 msgstr ""
-"Per carregar una imatge d'arrencada a l'eBox, necessita definir l'eBox com a "
-"servidor següent"
+"Per carregar una imatge d'arrencada a Zentyal , necessita definir l'eBox com "
+"a servidor següent"
 
 #: src/EBox/Model/ThinClientOptions.pm:153
 msgid "You need to specify a path to the boot image in the remote server"

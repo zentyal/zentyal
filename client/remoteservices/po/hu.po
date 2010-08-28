@@ -9,7 +9,7 @@ msgstr ""
 "technologies.es\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-08-25 17:45+0200\n"
-"PO-Revision-Date: 2010-08-16 13:18+0200\n"
+"PO-Revision-Date: 2010-08-28 09:16+0200\n"
 "Last-Translator: Nagy Ákos <nagy.akos@akos.ro>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
@@ -189,7 +189,7 @@ msgid "Cannot get the restricted addresses for remote support"
 msgstr "Nem érhetőek el a védett címek a távoli segítséghez"
 
 #: src/EBox/RemoteServices/SupportAccess.pm:128
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "There exists already a user {u} and it does not seem created by Zentyal. "
 "Until this user is renamed or removed it would be impossible to set up "
@@ -220,26 +220,25 @@ msgid "Done"
 msgstr "Kész"
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:259
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Subscribing Zentyal will configure the {mods} and its dependencies "
 msgstr ""
-"Az eBoxra faló feliratkozás következtében be lesznek állítva a(z) {mods} "
+"A Zentyalra faló feliratkozás következtében be lesznek állítva a(z) {mods} "
 "modul és annak függőségei "
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:266
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Subscribing Zentyal will enable the {mods} and its dependencies.<br/>"
 msgstr ""
-"Az eBoxra faló feliratkozás következtében aktiválva lesz a(z) {mods} modul "
+"A Zentyalra faló feliratkozás következtében aktiválva lesz a(z) {mods} modul "
 "és annak függőségei.<br/>"
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:271
-#, fuzzy
 msgid ""
 "Take into account that subscribing Zentyal could take a minute. Do not touch "
 "anything until subscribing process is done."
 msgstr ""
-"Az eBoxra való feliratkozás végrehajtása egy kis időbe telik. Kérem ne "
+"A Zentyalra való feliratkozás végrehajtása egy kis időbe telik. Kérem ne "
 "csináljon semmit ameddig a feliratkozási eljárás véget nem ér."
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:307
@@ -255,32 +254,28 @@ msgid "User Name or Email Address"
 msgstr "Felhasználónév vagy email cím"
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:335
-#, fuzzy
 msgid "Server Name"
-msgstr "eBox név"
+msgstr "Zentyal név"
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:340
-#, fuzzy
 msgid "Choose a name for your server which is a valid subdomain name"
-msgstr "Válasszon egy valós tartománynevet az eBoxnak"
+msgstr "Válasszon egy valós tartománynevet a Zentyalnak"
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:347
 msgid "Password"
 msgstr "Jelszó"
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:355
-#, fuzzy
 msgid "Zentyal subscription details"
-msgstr "eBox feliratkozás részletei"
+msgstr "Zentyal feliratkozás részletei"
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:356
 msgid "Delete data"
 msgstr "Adat törtlése"
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:359
-#, fuzzy
 msgid "Subscription to Zentyal Cloud"
-msgstr "Feliratkozás az eBox Vezérlőközpontra"
+msgstr "Feliratkozás a Zentyal Vezérlőközpontra"
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:360
 msgid "Subscribe"
@@ -320,16 +315,14 @@ msgid "Access settings"
 msgstr "Hozzáférési beállítások"
 
 #: src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:75
-#, fuzzy
 msgid "Allow remote access to Zentyal staff"
-msgstr "Távoli elérés engedélyezése az eBoxhoz"
+msgstr "Távoli elérés engedélyezése a Zentyalhoz"
 
 #: src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:81
 msgid "Allow access from any internet address"
 msgstr "Hozzáférés engedélyezése minden internetcímről"
 
 #: src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:85
-#, fuzzy
 msgid ""
 "By default the acces is only granted to hosts inside the Zentyal Cloud "
 "private network. If you enable this option access is granted from any "
@@ -353,7 +346,6 @@ msgstr ""
 "a szolgáltatást kell engedélyeznie"
 
 #: src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:129
-#, fuzzy
 msgid ""
 "To restrict addresses you need that your Zentyal Server is subscribed to "
 "Zentyal Cloud. Either subscribe it or allow access from any address"
@@ -362,7 +354,7 @@ msgstr ""
 "szolgáltatásra. Feliratkozás nélkül a hozzáférés nem korlátozható"
 
 #: src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:140
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Enabling remote support will allow staff from Zentyal to freely access your "
 "computer.\n"
@@ -372,8 +364,8 @@ msgid ""
 "To join the remote session, login in the shell as a user belonging to the "
 "'adm' group and use the command: '{cmd}'."
 msgstr ""
-"A távoli támogatás engedélyezésével engedélyezi az eBox Techologies "
-"csapatának a géphez való teljes hozzáférést.\n"
+"A távoli támogatás engedélyezésével engedélyezi a Zentyal csapatának a "
+"géphez való teljes hozzáférést.\n"
 "Használja a screen parancsot a shell hozzáféréshez. Ennek használatához a "
 "\"screen\" program SUID-je engedélyezve kell legyen. Ez a beállítás nem "
 "érvényesül ha ez nincs engedélyezve.\n"
@@ -399,7 +391,7 @@ msgstr "A proxy mentési szolgáltatáshoz nem található kulcs"
 #: src/EBox/Event/Dispatcher/ControlCenter.pm:160
 #: src/EBox/RemoteServices.pm:1000
 msgid "Zentyal Cloud"
-msgstr ""
+msgstr "Zentyal Cloud"
 
 #: src/EBox/Event/Dispatcher/ControlCenter.pm:147
 msgid "Control panel"
@@ -407,7 +399,7 @@ msgstr "Vezérlőfelület"
 
 #: src/EBox/RemoteServices.pm:82
 msgid "Zentyal Cloud Client"
-msgstr ""
+msgstr "Zentyal Cloud kliens"
 
 #: src/EBox/RemoteServices.pm:217
 msgid "Not subscribed"
@@ -418,7 +410,6 @@ msgid "Subscribed"
 msgstr "Regisztrálva"
 
 #: src/EBox/RemoteServices.pm:251
-#, fuzzy
 msgid "Subscription"
 msgstr "Feliratkozás"
 
@@ -427,33 +418,29 @@ msgid "System"
 msgstr "Rendszer"
 
 #: src/EBox/RemoteServices.pm:312
-#, fuzzy
 msgid "Zentyal Cloud Connection"
-msgstr "eBox vezérlőközpont kapcsolat"
+msgstr "Zentyal Cloud kapcsolat"
 
 #: src/EBox/RemoteServices.pm:425
-#, fuzzy
 msgid ""
 "The subscribed hostname is only available if the host is subscribed to "
 "Zentyal Cloud"
 msgstr ""
-"A bejegyzett gépnév csak akkor használható a a gép fel van iratkozva az eBox "
-"Vezérlőpult szolgáltatásra"
+"A bejegyzett gépnév csak akkor használható ha a gép fel van iratkozva a "
+"Zentyal Vezérlőpult szolgáltatásra"
 
 #: src/EBox/RemoteServices.pm:454
-#, fuzzy
 msgid ""
 "The monitor gatherer IP addresses are only available if the host is "
 "subscribed to Zentyal Cloud"
 msgstr ""
-"Több IP címet csak akkor monitorizálhat ha fel van iratkozva az eBox "
+"Több IP címet csak akkor monitorizálhat ha fel van iratkozva a Zentyal "
 "Vezérlőpult szolgáltatásra"
 
 #: src/EBox/RemoteServices.pm:599
-#, fuzzy
 msgid "Zentyal must be subscribed to reload the bundle"
 msgstr ""
-"Az újratöltéshez fel kell iratkoznia az eBox Vezérlőpult szolgáltatásra"
+"Az újratöltéshez fel kell iratkoznia a Zentyal Vezérlőpult szolgáltatásra"
 
 #: src/EBox/RemoteServices.pm:993
 #, perl-brace-format

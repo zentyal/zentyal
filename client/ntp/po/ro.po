@@ -9,7 +9,7 @@ msgstr ""
 "technologies.com\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-08-25 17:44+0200\n"
-"PO-Revision-Date: 2010-04-22 11:11+0200\n"
+"PO-Revision-Date: 2010-08-27 08:30+0200\n"
 "Last-Translator: Harald Ersch <harald.ersch@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
@@ -86,14 +86,12 @@ msgid "Remove ntp init script links"
 msgstr "Şterge link-uri pt. script-urile de iniţializare NTP  "
 
 #: src/EBox/NTP.pm:70
-#, fuzzy
 msgid "Zentyal will take care of starting and stopping the services."
-msgstr "eBox va avea grijă de pornirea/oprirea serviciilor."
+msgstr "Zentyal va avea grijă de pornirea/oprirea serviciilor."
 
 #: src/EBox/NTP.pm:88
-#, fuzzy
 msgid "NTP configuration file"
-msgstr "Configurare fus orar"
+msgstr "Fişier configurare NTP"
 
 #: src/EBox/NTP.pm:225
 msgid "primary server"
@@ -176,11 +174,11 @@ msgid "Enabled"
 msgstr "Activat"
 
 #: src/templates/date.mas:10
-#, fuzzy
 msgid ""
 "A change in the date or time will cause all Zentyal services to be restarted."
 msgstr ""
-"Orice modificare a datei/orei va iniţia repornirea tuturor serviciilor eBox."
+"Orice modificare a datei/orei va iniţia repornirea tuturor serviciilor "
+"Zentyal."
 
 #: src/templates/date.mas:15
 msgid "Date"

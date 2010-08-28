@@ -8,13 +8,14 @@ msgstr ""
 "Project-Id-Version: ebox-firewall 0.12\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-08-25 17:46+0200\n"
-"PO-Revision-Date: 2007-07-24 15:27+0200\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2010-08-26 23:01+0200\n"
+"Last-Translator: Bo Dalbjerg <bo@dalbjerg.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/Iptables.pm:840 src/EBox/Iptables.pm:877
 #: src/EBox/Firewall/IptablesRedirectRule.pm:78
@@ -137,7 +138,7 @@ msgstr ""
 
 #: src/EBox/Firewall.pm:811
 msgid "REDIRECT"
-msgstr ""
+msgstr "OMDIRIGERE "
 
 #: src/EBox/Firewall/Model/EBoxOutputRuleTable.pm:69
 #, fuzzy
@@ -151,7 +152,7 @@ msgstr "Filtrering regler for udgående trafik fra eBox"
 #: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:161
 #: src/EBox/Firewall/Model/ToInternetRuleTable.pm:78
 msgid "rule"
-msgstr "REgel"
+msgstr "regel"
 
 #: src/EBox/Firewall/Model/ExternalToInternalRuleTable.pm:69
 #, fuzzy
@@ -160,7 +161,7 @@ msgstr "Filtrerings regler for externe netværk til interne netværk"
 
 #: src/EBox/Firewall/Model/RedirectsTable.pm:145
 msgid "Contradictory rule found. Remove it first"
-msgstr ""
+msgstr "Modstridende regel fundet. Fjern denne først"
 
 #: src/EBox/Firewall/Model/RedirectsTable.pm:249
 msgid "Interface"
@@ -169,7 +170,7 @@ msgstr "Interface"
 #: src/EBox/Firewall/Model/RedirectsTable.pm:256
 #, fuzzy
 msgid "Original destination"
-msgstr "Destination"
+msgstr "Oprindelige destination"
 
 #: src/EBox/Firewall/Model/RedirectsTable.pm:264
 #, fuzzy
@@ -183,7 +184,7 @@ msgstr "Objekt"
 #: src/EBox/Firewall/Model/RedirectsTable.pm:279
 #, fuzzy
 msgid "Original destination port"
-msgstr "destination port"
+msgstr "Oprindelige destinations port"
 
 #: src/EBox/Firewall/Model/RedirectsTable.pm:297
 #: src/EBox/Firewall/Model/BaseRuleTable.pm:127
@@ -212,19 +213,19 @@ msgstr "Port"
 
 #: src/EBox/Firewall/Model/RedirectsTable.pm:326
 msgid "Same"
-msgstr ""
+msgstr "Samme"
 
 #: src/EBox/Firewall/Model/RedirectsTable.pm:329
 msgid "Other"
-msgstr ""
+msgstr "Andre"
 
 #: src/EBox/Firewall/Model/RedirectsTable.pm:337
 msgid "Log"
-msgstr ""
+msgstr "Log"
 
 #: src/EBox/Firewall/Model/RedirectsTable.pm:339
 msgid "Log new forwarded connections"
-msgstr ""
+msgstr "Log nye videresendte (forwarded) forbindelser"
 
 #: src/EBox/Firewall/Model/RedirectsTable.pm:344
 #: src/EBox/Firewall/Model/BaseRuleTable.pm:186
@@ -233,11 +234,11 @@ msgstr "Beskrivelse"
 
 #: src/EBox/Firewall/Model/RedirectsTable.pm:361
 msgid "List of forwarded ports"
-msgstr ""
+msgstr "Liste med videsendte (forwarded) porte"
 
 #: src/EBox/Firewall/Model/RedirectsTable.pm:370
 msgid "forwarding"
-msgstr ""
+msgstr "videresendte (forwarded)"
 
 #: src/EBox/Firewall/Model/BaseRuleTable.pm:67
 msgid "ACCEPT"
@@ -260,6 +261,8 @@ msgid ""
 "If inverse match is ticked, any service but the selected one will match this "
 "rule"
 msgstr ""
+"Hvis inverteret (inverse) match er markeret, vil alle på nær den valgte, "
+"matche denne regel"
 
 #: src/EBox/Firewall/Model/BaseRuleTable.pm:228
 #: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:194
@@ -269,47 +272,47 @@ msgstr "Konfigurer regler"
 
 #: src/EBox/Firewall/Model/BaseRuleTable.pm:243
 msgid "'any service' cannot have a inverse march"
-msgstr ""
+msgstr "'any service' kan ikke havde inverteret (inverse) match"
 
 #: src/EBox/Firewall/Model/ExternalToEBoxRuleTable.pm:69
 #, fuzzy
 msgid "External networks to Zentyal"
-msgstr "Filtrerings regler fra externe netværk til eBox"
+msgstr "Filtrerings regler for externe netværk til Zentyal"
 
 #: src/EBox/Firewall/Model/InternalToEBoxRuleTable.pm:69
 #, fuzzy
 msgid "Internal networks to Zentyal"
-msgstr "Filtrerings regler for interne netværk i eBox"
+msgstr "Filtrerings regler for interne netværk i Zentyal"
 
 #: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:37
 msgid "Input"
-msgstr ""
+msgstr "Indput"
 
 #: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:38
 #, fuzzy
 msgid "External Input"
-msgstr "extern port"
+msgstr "Ekstern indput"
 
 #: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:39
 msgid "Output"
-msgstr ""
+msgstr "Output"
 
 #: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:40
 msgid "Forward"
-msgstr ""
+msgstr "Videresend (forward)"
 
 #: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:41
 msgid "NAT prerouting"
-msgstr ""
+msgstr "NAT prerouting"
 
 #: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:42
 msgid "NAT postrouting"
-msgstr ""
+msgstr "NAT postrouting"
 
 #: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:118
 #, fuzzy
 msgid "Rule"
-msgstr "Regler"
+msgstr "Regel"
 
 #: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:123
 msgid "Enabled"
@@ -317,35 +320,35 @@ msgstr "Aktiv"
 
 #: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:129
 msgid "Type"
-msgstr ""
+msgstr "Type"
 
 #: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:134
 #, fuzzy
 msgid "Module"
-msgstr "REgel"
+msgstr "Modul"
 
 #: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:139
 msgid "Condition"
-msgstr ""
+msgstr "Tilstand"
 
 #: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:153
 #: src/templates/filter.mas:51
 msgid "Rules added by Zentyal services (Advanced)"
-msgstr ""
+msgstr "Regler tilføjet af Zentyal tjenester (avanceret)"
 
 #: src/EBox/Firewall/Model/ToInternetRuleTable.pm:66
 #, fuzzy
 msgid "Internal networks"
-msgstr "Extern port"
+msgstr "Interne netværk"
 
 #: src/EBox/Firewall/Model/Report/PacketTrafficGraph.pm:52
 #: src/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:46
 msgid "packets dropped"
-msgstr ""
+msgstr "droppede pakker"
 
 #: src/EBox/Firewall/Model/Report/PacketTrafficGraph.pm:64
 msgid "Firewall packet traffic chart"
-msgstr ""
+msgstr "Firewall pakker trafik kort (packet traffic chart)"
 
 #: src/EBox/Firewall/Model/Report/PacketTrafficGraph.pm:86
 #, fuzzy
@@ -354,28 +357,28 @@ msgstr "Pakke filtrering"
 
 #: src/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:66
 msgid "Packets dropped"
-msgstr ""
+msgstr "Droppede pakker"
 
 #: src/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:78
 msgid "Packet traffic details"
-msgstr ""
+msgstr "Pakke trafik detaljer"
 
 #: src/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:86
 msgid "traffic"
-msgstr ""
+msgstr "trafik"
 
 #: src/EBox/Firewall/Composite/Report/PacketTrafficReport.pm:69
 msgid "Packet traffic report"
-msgstr ""
+msgstr "Pakke trafik rapport"
 
 #: src/EBox/Firewall/Composite/Report/PacketTrafficReport.pm:70
 msgid "Firewall packet traffic report"
-msgstr ""
+msgstr "Firewall pakke trafik rapport"
 
 #: src/templates/filter.mas:6
 #, fuzzy
 msgid "Filtering rules from internal networks to Zentyal"
-msgstr "Filtrerings regler for interne netværk i eBox"
+msgstr "Filtrerings regler for: interne netværk til Zentyal (eBox)"
 
 #: src/templates/filter.mas:8
 #, fuzzy
@@ -383,8 +386,8 @@ msgid ""
 "These rules allow you to control access from internal networks to services "
 "running on your Zentyal machine."
 msgstr ""
-"Disse regler tillader dig at kontrollere adgang fra externe netværk til "
-"services der kører på din eBox maskine."
+"Disse regler tillader dig at kontrollere adgang fra eksterne netværk til "
+"services der kører på din Zentyal (eBox) maskine."
 
 #: src/templates/filter.mas:10 src/templates/filter.mas:18
 #: src/templates/filter.mas:26 src/templates/filter.mas:37
@@ -405,12 +408,12 @@ msgid ""
 msgstr ""
 "Disse regler tillader dig at kontrollere adgangen fra dine interne netværk "
 "til internettet, og trafik mellem dine interne netværk. Ønsker du at give "
-"adgang til dine eBox services, skal du bruge ovenstående sektion"
+"adgang til dine Zentyal (eBox) services, skal du bruge ovenstående sektion"
 
 #: src/templates/filter.mas:21
 #, fuzzy
 msgid "Filtering rules for traffic coming out from Zentyal"
-msgstr "Filtrering regler for udgående trafik fra eBox"
+msgstr "Filtrering regler for udgående trafik fra Zentyal (eBox)"
 
 #: src/templates/filter.mas:23
 #, fuzzy
@@ -418,12 +421,13 @@ msgid ""
 "These rules allow you to control access from your Zentyal to external "
 "services."
 msgstr ""
-"Disse regler tillader dig at kontrollere adgang fra eBox til externe services"
+"Disse regler tillader dig at kontrollere adgang fra Zentyal (eBox) til "
+"eksterne services"
 
 #: src/templates/filter.mas:29
 #, fuzzy
 msgid "Filtering rules from external networks to Zentyal"
-msgstr "Filtrerings regler fra externe netværk til eBox"
+msgstr "Filtrerings regler fra eksterne netværk til Zentyal (eBox)"
 
 #: src/templates/filter.mas:31
 #, fuzzy
@@ -431,8 +435,8 @@ msgid ""
 "These rules allow you to control access from external networks to sevices "
 "running on your Zentyal machine."
 msgstr ""
-"Disse regler tillader dig at kontrollere adgang fra externe netværk til "
-"services der kører på din eBox maskine."
+"Disse regler tillader dig at kontrollere adgang fra eksterne netværk til "
+"services der kører på din Zentyal (eBox) maskine."
 
 #: src/templates/filter.mas:34 src/templates/filter.mas:45
 #, fuzzy
@@ -442,32 +446,33 @@ msgid ""
 "this unless you know what you are doing."
 msgstr ""
 "Vær opmærksom på at tilføjelse af regler i denne sektion kan forringe din "
-"netværk sikkerhed, da du kan give adgang fra usikre netværk. Brug ikke disse "
-"muligheder medmindre du ved hvad du gør"
+"netværks sikkerhed, da du kan give adgang fra usikre netværk. Brug ikke "
+"disse muligheder medmindre du ved hvad du gør"
 
 #: src/templates/filter.mas:40
 msgid "Filtering rules from external networks to internal networks"
-msgstr "Filtrerings regler for externe netværk til interne netværk"
+msgstr "Filtrerings regler for eksterne netværk til interne netværk"
 
 #: src/templates/filter.mas:42
 msgid ""
 "These rules allow you to control access from external networks to internal "
 "networks."
 msgstr ""
-"Disse regler tillader dig at kontrollere adgang fra externe netværk til "
+"Disse regler tillader dig at kontrollere adgang fra eksterne netværk til "
 "interne netværk"
 
 #: src/templates/filter.mas:53
 #, fuzzy
 msgid "These rules are automatically added by the Zentyal services."
-msgstr ""
-"Disse regler tillader dig at kontrollere adgang fra eBox til externe services"
+msgstr "Disse regler er automatisk tilføjet af Zentyal services"
 
 #: src/templates/filter.mas:56
 msgid ""
 "You can disable these rules, but make sure you know what you are doing or "
 "otherwise some services could stop working."
 msgstr ""
+"Du kan deaktivere disse regler, men vær sikker på hvad du gør, da nogle "
+"services kan holde op med at fungere."
 
 #, fuzzy
 #~ msgid "redirect"

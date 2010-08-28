@@ -9,8 +9,8 @@ msgstr ""
 "technologies.com\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-08-25 17:45+0200\n"
-"PO-Revision-Date: 2010-07-22 20:04+0200\n"
-"Last-Translator: Nagy Ákos <reg@pecska.ro>\n"
+"PO-Revision-Date: 2010-08-28 09:12+0200\n"
+"Last-Translator: Nagy Ákos <nagy.akos@akos.ro>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -19,9 +19,8 @@ msgstr ""
 "X-Generator: Pootle 1.1.0\n"
 
 #: migration/0001_add_firewall_services.pl:30
-#, fuzzy
 msgid "Zentyal RADIUS system"
-msgstr "eBox RADIUS rendszer"
+msgstr "Zentyal RADIUS rendszer"
 
 #: src/EBox/Model/Auth.pm:103
 msgid "All users"
@@ -68,13 +67,12 @@ msgid "Create RADIUS certificates for TTLS"
 msgstr "RADIUS tanúsítványok létrehozása a TTLS-hez"
 
 #: src/EBox/Radius.pm:101
-#, fuzzy
 msgid ""
 "Zentyal will create the needed certificates for TTLS in /etc/freeradius/"
 "certs/."
 msgstr ""
-"Az eBox létrehozza a szükséges TTLS tanúsítványokat az /etc/freeradius/"
-"certs/ könyvtárba."
+"A Zentyal létrehozza a szükséges TTLS tanúsítványokat az "
+"/etc/freeradius/certs/ könyvtárba."
 
 #: src/EBox/Radius.pm:121
 msgid "To configure allowed LDAP group."

@@ -9,7 +9,7 @@ msgstr ""
 "technologies.com\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-08-26 00:53+0200\n"
-"PO-Revision-Date: 2010-08-25 17:02+0200\n"
+"PO-Revision-Date: 2010-08-27 13:36+0200\n"
 "Last-Translator: Robert Brzozowski <gnutar1@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
@@ -44,7 +44,7 @@ msgstr "Przywróć bazę logów"
 
 #: src/EBox/Model/RemoteRestoreLogs.pm:125
 msgid "Restores the Zentyal logs found in the selected backup"
-msgstr "Przywróć logi eBox-a z zaznaczonej kopii zapasowej"
+msgstr "Przywróć logi Zentyala z zaznaczonej kopii zapasowej"
 
 #: src/EBox/Model/RemoteFileList.pm:162
 msgid "File"
@@ -89,7 +89,7 @@ msgstr "kopia"
 
 #: src/EBox/Model/RemoteRestoreConf.pm:104
 msgid "Restore Zentyal configuration from backup"
-msgstr "Przywróć ustawienia eBox z plików kopii zapasowej"
+msgstr "Przywróć ustawienia Zentyala z plików kopii zapasowej"
 
 #: src/EBox/Model/RemoteRestoreConf.pm:111
 msgid "Loads the configuration found in the backup"
@@ -105,8 +105,8 @@ msgid ""
 "Configuration backup not found in backup for {d}. Maybe you could try "
 "another date?"
 msgstr ""
-"Nie znaleziono konfiguracji eBox w plikach kopii z dnia {d}. Spróbuj z inną "
-"datą."
+"Nie znaleziono konfiguracji Zentyala w plikach kopii z dnia {d}. Spróbuj z "
+"inną datą."
 
 #: src/EBox/Model/RemoteExcludes.pm:82
 msgid "Exclude or Include"
@@ -274,15 +274,15 @@ msgid "on the last day"
 msgstr "ostatniego dnia"
 
 #: src/EBox/Model/RemoteSettings.pm:494
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "{oi}{brand}{ci} is a quick and safe remote location to store the data you "
 "keep on your Zentyal servers. Purchase the backup storage space you need at "
 "the {ohref}Zentyal on-line store{chref}."
 msgstr ""
 "{oi}{brand}{ci} jest szybkim i bezpiecznym zdalnym miejscem do tworzenia "
-"kopii zapasowej. Możesz kupić miejsce, którego potrzebujesz na {ohref}eBox "
-"on-line store{chref}"
+"kopii zapasowej. Możesz kupić miejsce, którego potrzebujesz na "
+"{ohref}Zentyal on-line store{chref}"
 
 #: src/EBox/Model/RemoteSettings.pm:511
 msgid "1 week"
@@ -338,11 +338,11 @@ msgstr "3 lata"
 
 #: src/EBox/Model/RemoteSettings.pm:591
 msgid "Destination must be a relative directory"
-msgstr ""
+msgstr "Należy ustawić katalog bezwzględny (relatywny)"
 
 #: src/EBox/Model/RemoteSettings.pm:646
 msgid "The target parameter that must be like 'other.host[:port]/some_dir"
-msgstr ""
+msgstr "Zgodnie ze wzorem 'host[:port]/folder'"
 
 #: src/EBox/Model/RemoteSettings.pm:657 src/EBox/Model/RemoteSettings.pm:691
 msgid "target"
@@ -350,7 +350,7 @@ msgstr "miejsce przechowywania kopii"
 
 #: src/EBox/Model/RemoteSettings.pm:659
 msgid "Must be a like 'other.host[:port]/some_dir'"
-msgstr "Zgodnie z 'komputer[:port]/katalog'"
+msgstr "Zgodnie ze wzorem 'host[:port]/folder'"
 
 #: src/EBox/Model/RemoteSettings.pm:666 src/EBox/Model/RemoteSettings.pm:701
 msgid "host"
@@ -375,6 +375,8 @@ msgid ""
 "Must be a like 'other.host[:port]/relative_path' or 'other.host[:port]/"
 "absolute_path'"
 msgstr ""
+"Zgodnie ze wzorem 'host[:port]/ścieżka_względna' lub "
+"'host[:port]/pełna_ścieżka'"
 
 #: src/EBox/Model/RemoteSettings.pm:706
 msgid "absolute directory"
@@ -387,7 +389,7 @@ msgstr "ścieżka względna (relatywna)"
 #: src/EBox/Model/RemoteSettings.pm:719
 msgid ""
 "File system method needs a target parameter that should be a directory path"
-msgstr ""
+msgstr "Metoda System plików wymaga podania katalogu"
 
 #: src/EBox/Model/RemoteSettings.pm:724 src/EBox/Model/RemoteSettings.pm:728
 msgid "Directory for backup"

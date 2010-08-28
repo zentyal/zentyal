@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: ebox-samba 0.12\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-08-25 17:48+0200\n"
-"PO-Revision-Date: 2010-08-16 17:14+0200\n"
+"PO-Revision-Date: 2010-08-27 06:02+0200\n"
 "Last-Translator: Jorge Eduardo Quintao <jorge@netsol.com.br>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
@@ -195,9 +195,8 @@ msgid "Share path"
 msgstr "Caminho do compartilhamento"
 
 #: src/EBox/Samba/Model/SambaShares.pm:112
-#, fuzzy
 msgid "Directory under Zentyal"
-msgstr "Diretório no eBox"
+msgstr "Diretório no Zentyal"
 
 #: src/EBox/Samba/Model/SambaShares.pm:118
 msgid "File system path"
@@ -237,19 +236,18 @@ msgid "The directory is not empty. Are you sure you want to remove it?"
 msgstr "O diretório não está vazio. Você tem certeza que quer removê-lo?"
 
 #: src/EBox/Samba/Model/SambaShares.pm:318
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "{openit}Directory under Zentyal{closeit} will automatically create the share."
 "directory in /home/samba/shares {br}{openit}File system path{closeit} will "
 "allow you to share an existing directory within your file system"
 msgstr ""
-"{openit}Diretório sob o eBox{openit} vai criar automaticamente o "
+"{openit}Diretório no Zentyal{openit} vai criar automaticamente o "
 "compartilhamento. Diretório em /home/samba/shares {br}{openit}Caminho do "
 "sistema de arquivos{closeit} vai permitir a você compartilhar um diretório "
 "existente com o seu sistema de arquivos."
 
 #: src/EBox/Samba/Model/SambaShares.pm:331
-#, fuzzy
 msgid ""
 "Here you can create shares with more fine-grained permission control. You "
 "can use an existing directory or pick a name and let Zentyal create it for "
@@ -257,7 +255,7 @@ msgid ""
 msgstr ""
 "Aqui você pode criar compartilhamentos com controle de permissões mais "
 "refinado. Você pode usar um diretório existente ou  pegar um nome e deixar o "
-"eBox criá-lo para você."
+"Zentyal criá-lo para você."
 
 #: src/EBox/Samba/Model/SambaSharePermissions.pm:93
 msgid "Read only"
@@ -440,32 +438,29 @@ msgid "Create Samba home directory for shares and groups"
 msgstr "Criar o diretório home do Samba para usuários e grupos"
 
 #: src/EBox/Samba.pm:92
-#, fuzzy
 msgid ""
 "Zentyal will create the directories for Samba shares and groups under /home/"
 "samba."
 msgstr ""
-"O eBox vai criar os diretórios home para os usuários e grupos Samba em /home/"
-"samba."
+"O Zentyal vai criar os diretórios home para os usuários e grupos Samba em "
+"/home/samba."
 
 #: src/EBox/Samba.pm:97
 msgid "Add LDAP schemas"
 msgstr "Adicionar esquemas LDAP "
 
 #: src/EBox/Samba.pm:98
-#, fuzzy
 msgid ""
 "Zentyal will add two LDAP schemas to the LDAP directory: samba and ebox."
-msgstr "O eBox adicionará dois esquemas ao diretório LDAP: samba e ebox."
+msgstr "O Zentyal adicionará dois esquemas ao diretório LDAP: samba e ebox."
 
 #: src/EBox/Samba.pm:103
 msgid "Set Samba LDAP admin dn password"
 msgstr "Definir LDAP Samba admin dn senha"
 
 #: src/EBox/Samba.pm:104
-#, fuzzy
 msgid "Zentyal will configure Samba to use the LDAP admin dn password."
-msgstr "O eBox configurará o Samba para usar o admin dn senha do LDAP."
+msgstr "O Zentyal configurará o Samba para usar o admin dn senha do LDAP."
 
 #: src/EBox/Samba.pm:120
 msgid "To set up Samba according to your configuration."

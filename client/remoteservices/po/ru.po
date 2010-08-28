@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: ebox-remoteservices 1.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-08-25 17:45+0200\n"
-"PO-Revision-Date: 2010-08-25 17:45+0200\n"
-"Last-Translator: Alexander Kuznetsov <smithaV@yandex.ru>\n"
+"PO-Revision-Date: 2010-08-26 18:36+0200\n"
+"Last-Translator: Val Budkin <valentin@ktc-ua.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
-"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/CGI/Backup/DeleteRemoteBackup.pm:65
@@ -85,20 +85,20 @@ msgstr ""
 
 #: src/EBox/CGI/Backup/Confirm.pm:98 src/EBox/CGI/Backup/Confirm.pm:111
 msgid "Restore"
-msgstr "Восстановление"
+msgstr "Восстановить"
 
 #: src/EBox/CGI/Backup/Confirm.pm:119
 msgid "Please confirm that you want to delete the following remote backup:"
-msgstr "Пожалуйста подтвердите удаление следующей удаленной резервной копии:"
+msgstr "Пожалуйста подтвердите удаление следующего удаленного бэкапа:"
 
 #: src/EBox/CGI/Backup/Confirm.pm:125
 msgid "Delete"
-msgstr "Удаление"
+msgstr "Удалить"
 
 #: src/EBox/CGI/Backup/Confirm.pm:173
 #, perl-brace-format
 msgid "Inexistent action: {a}"
-msgstr "Существует действие: {a}"
+msgstr "Не существующие действие: {a}"
 
 #: src/EBox/CGI/Backup/Proxy.pm:35
 msgid "Remote system backups proxy"
@@ -127,9 +127,8 @@ msgid "Cannot contact to {host}. Check your connection to the Internet"
 msgstr "Не возможно связатся с {host}. Проверьте соединение с Интернет"
 
 #: src/EBox/RemoteServices/Types/EBoxCommonName.pm:56
-#, fuzzy
 msgid "It must be a valid subdomain name"
-msgstr "Должно быть правильное доменное имя"
+msgstr "Это должно быть корректное имя поддомена"
 
 #: src/EBox/RemoteServices/Types/EBoxCommonName.pm:58
 #, perl-brace-format
@@ -142,9 +141,9 @@ msgid "It cannot be greater than {n} characters"
 msgstr "Значение не может быть больше {n} символов."
 
 #: src/EBox/RemoteServices/CSV.pm:78
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Skipping bad formed line: {l}"
-msgstr "Пропущена неправильно оформленная строка {l}"
+msgstr "Пропущена некорректно оформленная строка {l}"
 
 #: src/EBox/RemoteServices/Base.pm:214
 msgid "No ebox-services DNS key found"
@@ -165,15 +164,15 @@ msgstr "Не найдены ключи домена для этой службы
 
 #: src/EBox/RemoteServices/Audit/Password.pm:225
 msgid "system"
-msgstr ""
+msgstr "система"
 
 #: src/EBox/RemoteServices/Audit/Password.pm:291
 msgid "average"
-msgstr ""
+msgstr "средняя"
 
 #: src/EBox/RemoteServices/Audit/Password.pm:295
 msgid "weak"
-msgstr ""
+msgstr "слабая"
 
 #: src/EBox/RemoteServices/Audit/Password.pm:398
 #, perl-brace-format
@@ -221,23 +220,22 @@ msgid "Done"
 msgstr "Продолжить"
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:259
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Subscribing Zentyal will configure the {mods} and its dependencies "
-msgstr "Подписка eBox включает модуль OpenVPN и его зависимости."
+msgstr "Подписка Zentyal включит {mods} и зависимости"
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:266
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Subscribing Zentyal will enable the {mods} and its dependencies.<br/>"
-msgstr "Подписка eBox включает модуль OpenVPN и его зависимости."
+msgstr "Подписка Zentyal включит {mods} и зависимости<br/>"
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:271
-#, fuzzy
 msgid ""
 "Take into account that subscribing Zentyal could take a minute. Do not touch "
 "anything until subscribing process is done."
 msgstr ""
-"Примите во внимание, что подписка eBox может занять минуты. Ничего не "
-"трогайте пока процесс подписки не окончится."
+"Примите во внимание, что подписка Zentyal может занять несколько минут. "
+"Ничего не трогайте пока процесс подписки не окончится."
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:307
 msgid ""
@@ -252,50 +250,44 @@ msgid "User Name or Email Address"
 msgstr "Имя пользователя или адрес электронной почты"
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:335
-#, fuzzy
 msgid "Server Name"
-msgstr "Имя eBox"
+msgstr "Имя сервера"
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:340
-#, fuzzy
 msgid "Choose a name for your server which is a valid subdomain name"
-msgstr "Выберите имя для вашего Ebox чтобы оно было правильным доменным именем"
+msgstr "Выберите имя для вашего сервера (должно быть корректным поддоменом)"
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:347
 msgid "Password"
 msgstr "Пароль"
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:355
-#, fuzzy
 msgid "Zentyal subscription details"
-msgstr "Подробности подписки eBox"
+msgstr "Подробности о подписке Zentyal"
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:356
 msgid "Delete data"
 msgstr "Удалить данные"
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:359
-#, fuzzy
 msgid "Subscription to Zentyal Cloud"
-msgstr "Подписка на Центр Управления eBox"
+msgstr "Подписка на Zentyal Cloud"
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:360
 msgid "Subscribe"
 msgstr "Подписка"
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:516
-#, fuzzy
 msgid " module"
-msgstr "Модуль"
+msgstr "модуль"
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:522
 msgid " and "
-msgstr ""
+msgstr "и"
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:522
-#, fuzzy
 msgid " modules"
-msgstr "Модуль"
+msgstr "Модули"
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:539
 msgid "Action"
@@ -320,45 +312,42 @@ msgstr "Настройки доступа"
 
 #: src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:75
 msgid "Allow remote access to Zentyal staff"
-msgstr ""
+msgstr "Разрешить удалённый доступ к Zentyal "
 
 #: src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:81
 msgid "Allow access from any internet address"
 msgstr "Разрешить доступ с любого Internet адреса"
 
 #: src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:85
-#, fuzzy
 msgid ""
 "By default the acces is only granted to hosts inside the Zentyal Cloud "
 "private network. If you enable this option access is granted from any "
 "address. Use this option only if you could not connect to the Zentyal Cloud"
 msgstr ""
-"По умолчанию предоставляется доступ только доверенным хостам из  Control "
-"Center private network. Если эта опция включена  - доступ предоставляется с "
-"любого адреса Internet. Используйте эту опцию только если невозможно "
-"подключиться к Control Center"
+"По умолчанию предоставляется доступ только доверенным хостам в Zentyal Cloud "
+"private network. Если эта опция включена  - доступ предоставляется с любого "
+"адреса Internet. Используйте эту опцию только если не выходит подключиться "
+"к Zentyal Cloud"
 
 #: src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:91
 #: src/EBox/RemoteServices.pm:259
-#, fuzzy
 msgid "Remote Support Access"
-msgstr "Удаленные службы"
+msgstr "Службы удалённой поддержки"
 
 #: src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:121
 msgid ""
 "Remote access from any address requires that remote access support is enabled"
 msgstr ""
-"Для удаленного доступа  с любого адреса Internet необходимо чтобы была "
-"активирована  поддержка через удаленный доступ  "
+"Для удаленного доступа с любого адреса Internet необходимо, чтобы были "
+"активированы службы удалённой поддержки"
 
 #: src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:129
-#, fuzzy
 msgid ""
 "To restrict addresses you need that your Zentyal Server is subscribed to "
 "Zentyal Cloud. Either subscribe it or allow access from any address"
 msgstr ""
-"Чтобы запретить адреса необходимо, чтобы eBox был указан в Control Center. "
-"Или укажите eBox в Control Center или разрешите доступ с любых адресов"
+"Чтобы запретить адреса, необходимо чтобы для сервера Zentyal была подписка "
+"на Zentyal Cloud, или включен доступ с любого адреса."
 
 #: src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:140
 #, perl-brace-format
@@ -391,7 +380,7 @@ msgstr "Ключ для прокси-сервера резервных копи�
 #: src/EBox/Event/Dispatcher/ControlCenter.pm:160
 #: src/EBox/RemoteServices.pm:1000
 msgid "Zentyal Cloud"
-msgstr ""
+msgstr "Zentyal Cloud"
 
 #: src/EBox/Event/Dispatcher/ControlCenter.pm:147
 msgid "Control panel"
@@ -399,29 +388,27 @@ msgstr "Панель управления"
 
 #: src/EBox/RemoteServices.pm:82
 msgid "Zentyal Cloud Client"
-msgstr ""
+msgstr "Клиент Zentyal Cloud"
 
 #: src/EBox/RemoteServices.pm:217
 msgid "Not subscribed"
-msgstr "Нет подписчиков"
+msgstr "Не подписан"
 
 #: src/EBox/RemoteServices.pm:219
 msgid "Subscribed"
-msgstr "Подписчики"
+msgstr "Подписан"
 
 #: src/EBox/RemoteServices.pm:251
-#, fuzzy
 msgid "Subscription"
-msgstr "Описание"
+msgstr "Подписка"
 
 #: src/EBox/RemoteServices.pm:262
 msgid "System"
-msgstr ""
+msgstr "Система"
 
 #: src/EBox/RemoteServices.pm:312
-#, fuzzy
 msgid "Zentyal Cloud Connection"
-msgstr "Соединение с eBox центром управления"
+msgstr "Соединение с Zentyal Cloud"
 
 #: src/EBox/RemoteServices.pm:425
 msgid ""

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-mailfilter 0.12\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-08-25 17:44+0200\n"
-"PO-Revision-Date: 2010-08-24 02:39+0200\n"
+"PO-Revision-Date: 2010-08-26 12:08+0200\n"
 "Last-Translator: Vasco Castelo Branco <vcbranco@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
@@ -534,9 +534,9 @@ msgstr ""
 "filtro de correio"
 
 #: src/EBox/MailFilter/Model/ExternalDomain.pm:113
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "{d} is a internal Zentyal virtual main domain"
-msgstr "{d} é um domínio principal virtual interno da eBox"
+msgstr "{d} é um domínio principal virtual interno da Zentyal"
 
 #: src/EBox/MailFilter/Model/POPProxyConfiguration.pm:69
 msgid "Filter virus"
@@ -797,9 +797,8 @@ msgid "To configure amavis"
 msgstr "Para configurar o amavis"
 
 #: src/EBox/MailFilter/Amavis.pm:427
-#, fuzzy
 msgid "Zentyal internal mail filter"
-msgstr "Filtro de correio interno ebox"
+msgstr "Filtro de correio interno Zentyal"
 
 #: src/EBox/MailFilter/Amavis.pm:441
 msgid "SMTP filter proxy"

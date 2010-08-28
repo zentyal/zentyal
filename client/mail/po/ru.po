@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: ebox-mail 0.12\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-08-25 17:47+0200\n"
-"PO-Revision-Date: 2010-02-03 21:06+0100\n"
-"Last-Translator: Alexander Kuzmenko <alex@engp.su>\n"
+"PO-Revision-Date: 2010-08-26 14:43+0200\n"
+"Last-Translator: Dmitry Salynin <dsalynin@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
-"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Pootle 1.1.0\n"
 
 #: migration/0005_add_managesieve_firewall_services.pl:28
@@ -23,9 +23,8 @@ msgid "protocol for editing SIEVE filters"
 msgstr "протокол для редактирования фильтров SIEVE"
 
 #: migration/0001_add_firewall_services.pl:30
-#, fuzzy
 msgid "Zentyal Mail System"
-msgstr "Почтовая система eBox"
+msgstr "Почтовая система Zentyal"
 
 #: src/EBox/MailUserLdap.pm:85 src/EBox/MailUserLdap.pm:90
 #: src/EBox/MailAliasLdap.pm:107 src/EBox/MailAliasLdap.pm:137
@@ -119,9 +118,8 @@ msgid "Mail virtual domain"
 msgstr "Почтовый виртуальный домен"
 
 #: src/EBox/CGI/Wizard/VirtualDomain.pm:47
-#, fuzzy
 msgid "Invalid virtual mail domain"
-msgstr "Почтовый виртуальный домен"
+msgstr "Неверный почтовый виртуальный домен"
 
 #: src/EBox/CGI/DelAccount.pm:48
 msgid "user mail"
@@ -273,7 +271,7 @@ msgstr ""
 #: src/EBox/Mail/Model/ExternalAliases.pm:146
 #, perl-brace-format
 msgid "An account or alias called {al} already exists"
-msgstr ""
+msgstr "Учётная запись или алиас {al} уже существует"
 
 #: src/EBox/Mail/Model/ExternalAliases.pm:167
 msgid ""
@@ -295,9 +293,8 @@ msgid "TLS for SMTP server"
 msgstr "TLS для сервера SMTP"
 
 #: src/EBox/Mail/Model/SMTPAuth.pm:71
-#, fuzzy
 msgid "Require authentication"
-msgstr "Аутентификация"
+msgstr "Необходима идентификация"
 
 #: src/EBox/Mail/Model/SMTPAuth.pm:74
 msgid ""
@@ -376,13 +373,12 @@ msgstr "Защищённый IMAP"
 
 #: src/EBox/Mail/Model/ExternalAccounts.pm:276
 #: src/EBox/Mail/Model/ExternalAccounts.pm:283
-#, fuzzy
 msgid "External account username"
-msgstr "Внешний аккаунт добавлен"
+msgstr "Имя пользователя внешнего аккаунта"
 
 #: src/EBox/Mail/Model/ExternalAccounts.pm:278
 msgid "No spaces allowed"
-msgstr ""
+msgstr "Пробелы не допустимы"
 
 #: src/EBox/Mail/Model/ExternalAccounts.pm:317
 msgid "External account added"
@@ -758,13 +754,12 @@ msgid "Configure mail dispatcher"
 msgstr "Настройка почтового диспетчера"
 
 #: src/EBox/Mail/Model/Dispatcher/Mail.pm:147
-#, fuzzy
 msgid ""
 "In order to configure the Mail event dispatcher is required to enable the "
 "mail service from Zentyal"
 msgstr ""
 "Для настройки событий почтового диспетчера необходимо включить почтовую "
-"службу из eBox"
+"службу из Zentyal"
 
 #: src/EBox/Mail/Model/Dispatcher/Mail.pm:150
 msgid "Mail dispatcher configuration updated"
@@ -839,39 +834,36 @@ msgid "Generate mail aliases"
 msgstr "Создать почтовые псевдонимы"
 
 #: src/EBox/Mail.pm:143
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Zentyal will execute {cmd}"
-msgstr "eBox выполнит {cmd}"
+msgstr "Zentyal выполнит {cmd}"
 
 #: src/EBox/Mail.pm:148
 msgid "Add LDAP schemas"
 msgstr "Добавить LDAP схему"
 
 #: src/EBox/Mail.pm:150
-#, fuzzy
 msgid "Zentyal will add two LDAP schemas: authldap.ldif and eboximail.ldif."
-msgstr "Добавить в eBox две схемы LDAP: authldap.schema и eboximail.schema."
+msgstr "Добавить в Zentyal две схемы LDAP: authldap.schema и eboximail.schema."
 
 #: src/EBox/Mail.pm:156
 msgid "Create certificates"
 msgstr "Создать сертификаты"
 
 #: src/EBox/Mail.pm:158
-#, fuzzy
 msgid "Zentyal will create certificates to use in mail services"
-msgstr "eBox создал сертификаты для использования в почтовых службах"
+msgstr "Zentyal создал сертификаты для использования в почтовых службах"
 
 #: src/EBox/Mail.pm:163
 msgid "Add fetchmail update cron job"
 msgstr "Добавить в cron обновление fethmail"
 
 #: src/EBox/Mail.pm:165
-#, fuzzy
 msgid ""
 "Zentyal will schedule a cron job to update fetchmail configuration when the "
 "user add external accounts"
 msgstr ""
-"eBox добавит задание в Cron для обновления настроек fechmail`a когда "
+"Zentyal добавит задание в Cron для обновления настроек fechmail`a когда "
 "пользователь добавит внешние ящики"
 
 #: src/EBox/Mail.pm:185
@@ -1050,7 +1042,6 @@ msgid "Maximum message size exceeded"
 msgstr "Превышен макс. размер сообщения"
 
 #: src/EBox/Mail.pm:1621
-#, fuzzy
 msgid "User quota exceeded"
 msgstr "Превышена квота пользователя"
 
@@ -1130,19 +1121,16 @@ msgid "Delete"
 msgstr "Удалить"
 
 #: src/templates/Wizard/virtualdomain.mas:4
-#, fuzzy
 msgid "Virtual mail domain"
-msgstr "Виртуальные почтовые домены"
+msgstr "Виртуальный почтовый домен"
 
 #: src/templates/Wizard/virtualdomain.mas:7
-#, fuzzy
 msgid "Set up the default virtual mail domain"
-msgstr "Отправить копию всех почтовых доменов"
+msgstr "Настройка по умолчанию виртуального почтового домена"
 
 #: src/templates/Wizard/virtualdomain.mas:8
-#, fuzzy
 msgid "This will be the domain for your mail accounts"
-msgstr "Этот пользователь имеет почтовую учетную запись"
+msgstr "Это будет домен для ваших почтовых ящиков"
 
 #: src/templates/qmanager.mas:20
 msgid "Sender"

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-webserver 0.12\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-08-25 17:50+0200\n"
-"PO-Revision-Date: 2010-08-24 20:52+0200\n"
+"PO-Revision-Date: 2010-08-27 15:05+0200\n"
 "Last-Translator: Robert Brzozowski <gnutar1@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
@@ -57,7 +57,7 @@ msgstr "Włączyć moduł SSL serwera APACHE"
 
 #: src/EBox/WebServer.pm:147
 msgid "To serve pages over HTTPS."
-msgstr "Udostępnić strony WWW przez HTTPS"
+msgstr "Do obsługiwania stron WWW przez HTTPS"
 
 #: src/EBox/WebServer.pm:185
 msgid "Web service status"
@@ -76,13 +76,13 @@ msgid "Listening port"
 msgstr "Port nasłuchujący"
 
 #: src/EBox/WebServer/Model/GeneralSettings.pm:115
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Zentyal Administration is running on this port, change it on {ohref}System -"
 "> General{chref}."
 msgstr ""
-"eBox Administration pracuje na tym porcie, proszę go zmienić na {ohref}"
-"System -> General{chref}."
+"Na tym porcie ustawione jest zarządzanie serwerem Zentyal , można go zmienić "
+"w {ohref}System -> Ogólne{chref}."
 
 #: src/EBox/WebServer/Model/GeneralSettings.pm:128
 #, perl-brace-format
@@ -253,10 +253,9 @@ msgid "Configuration"
 msgstr "Konfiguracja"
 
 #: src/EBox/WebServer/Composite/General.pm:80
-#, fuzzy
 msgid ""
 "The Zentyal web service allows you to host Web pages in plain HTML within "
 "different virtual hosts."
 msgstr ""
-"Serwis WWW platformy eBox pozwala serwować strony WWW w HTML z różnych "
-"hostów wirtualnych"
+"Usługa WWW serwera Zentyal pozwala zarządzać stronami WWW w języku HTML "
+"różnych hostów wirtualnych"

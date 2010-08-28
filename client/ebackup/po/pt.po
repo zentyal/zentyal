@@ -9,7 +9,7 @@ msgstr ""
 "technologies.com\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-08-26 00:53+0200\n"
-"PO-Revision-Date: 2010-08-08 02:14+0200\n"
+"PO-Revision-Date: 2010-08-26 11:31+0200\n"
 "Last-Translator: Vasco Castelo Branco <vcbranco@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
@@ -24,9 +24,8 @@ msgid "Backup"
 msgstr "Cópia de Segurança"
 
 #: src/EBox/Event/Watcher/EBackup.pm:141
-#, fuzzy
 msgid "Check if Zentyal backup was not successful."
-msgstr "Marque se a cópia de segurança eBox não foi efectuada com sucesso"
+msgstr "Marque se a cópia de segurança Zentyal não foi efectuada com sucesso"
 
 #: src/EBox/Model/RemoteRestoreLogs.pm:88 src/EBox/Model/RemoteFileList.pm:143
 #: src/EBox/Model/RemoteStatus.pm:119 src/EBox/Model/RemoteRestoreConf.pm:74
@@ -43,10 +42,9 @@ msgid "Restore logs database"
 msgstr "Restaurar base de dados de registo"
 
 #: src/EBox/Model/RemoteRestoreLogs.pm:125
-#, fuzzy
 msgid "Restores the Zentyal logs found in the selected backup"
 msgstr ""
-"Restaura os registos eBox encontrados na cópia de segurança seleccionada"
+"Restaura os registos Zentyal encontrados na cópia de segurança seleccionada"
 
 #: src/EBox/Model/RemoteFileList.pm:162
 msgid "File"
@@ -91,9 +89,8 @@ msgid "backup"
 msgstr "cópia de Segurança"
 
 #: src/EBox/Model/RemoteRestoreConf.pm:104
-#, fuzzy
 msgid "Restore Zentyal configuration from backup"
-msgstr "Restaurar configuração da eBox a partir de uma cópia de segurança"
+msgstr "Restaurar configuração da Zentyal a partir de uma cópia de segurança"
 
 #: src/EBox/Model/RemoteRestoreConf.pm:111
 msgid "Loads the configuration found in the backup"
@@ -284,15 +281,15 @@ msgid "on the last day"
 msgstr "no ultimo dia"
 
 #: src/EBox/Model/RemoteSettings.pm:494
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "{oi}{brand}{ci} is a quick and safe remote location to store the data you "
 "keep on your Zentyal servers. Purchase the backup storage space you need at "
 "the {ohref}Zentyal on-line store{chref}."
 msgstr ""
 "{oi}{brand}{ci} é uma localização rápida e segura para armazenar os dados "
-"que mantém nos seus servidores eBox. Adquira espaço de armazenamento que "
-"necessita na {ohref}loja on-line eBox {chref}"
+"que mantém nos seus servidores Zentyal. Adquira espaço de armazenamento que "
+"necessita na {ohref}loja on-line Zentyal {chref}"
 
 #: src/EBox/Model/RemoteSettings.pm:511
 msgid "1 week"

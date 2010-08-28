@@ -9,7 +9,7 @@ msgstr ""
 "technologies.com\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-08-25 17:50+0200\n"
-"PO-Revision-Date: 2010-08-16 13:25+0200\n"
+"PO-Revision-Date: 2010-08-28 09:28+0200\n"
 "Last-Translator: Nagy Ákos <nagy.akos@akos.ro>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
@@ -76,12 +76,12 @@ msgid "Listening port"
 msgstr "Figyelő port"
 
 #: src/EBox/WebServer/Model/GeneralSettings.pm:115
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Zentyal Administration is running on this port, change it on {ohref}System -"
 "> General{chref}."
 msgstr ""
-"Az eBox Adminisztrációs oldala fut ezen a porton, kérem változtassa meg: "
+"A Zentyal Adminisztrációs oldala fut ezen a porton, kérem változtassa meg: "
 "{ohref}System -> General{chref}."
 
 #: src/EBox/WebServer/Model/GeneralSettings.pm:128
@@ -259,12 +259,11 @@ msgid "Configuration"
 msgstr "Beállítások"
 
 #: src/EBox/WebServer/Composite/General.pm:80
-#, fuzzy
 msgid ""
 "The Zentyal web service allows you to host Web pages in plain HTML within "
 "different virtual hosts."
 msgstr ""
-"Az eBox webszolgáltatása megengedi a weblapok sima HTML-ben tárolását "
+"A Zentyal webszolgáltatása megengedi a weblapok sima HTML-ben tárolását "
 "virtuális nevek nélkül."
 
 #~ msgid ""

@@ -9,8 +9,8 @@ msgstr ""
 "technologies.com\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-08-26 00:53+0200\n"
-"PO-Revision-Date: 2010-08-11 22:12+0200\n"
-"Last-Translator: Bogdan Chirica <bogdan.chirica@gmail.com>\n"
+"PO-Revision-Date: 2010-08-27 07:59+0200\n"
+"Last-Translator: Harald Ersch <harald.ersch@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -25,9 +25,8 @@ msgid "Backup"
 msgstr "Backup"
 
 #: src/EBox/Event/Watcher/EBackup.pm:141
-#, fuzzy
 msgid "Check if Zentyal backup was not successful."
-msgstr "Verificati daca backup-ul eBox nu a fost efectuat cu success"
+msgstr "Verificati daca backup-ul Zentyal nu a fost efectuat cu success"
 
 #: src/EBox/Model/RemoteRestoreLogs.pm:88 src/EBox/Model/RemoteFileList.pm:143
 #: src/EBox/Model/RemoteStatus.pm:119 src/EBox/Model/RemoteRestoreConf.pm:74
@@ -41,14 +40,12 @@ msgstr "Data backup-ului"
 
 # se refera la jurnale sau la restaurari ???
 #: src/EBox/Model/RemoteRestoreLogs.pm:118
-#, fuzzy
 msgid "Restore logs database"
 msgstr "Restaureaza baza de date jurnal"
 
 #: src/EBox/Model/RemoteRestoreLogs.pm:125
-#, fuzzy
 msgid "Restores the Zentyal logs found in the selected backup"
-msgstr "Restaureaza jurnalele gasite in backup-ul selectat"
+msgstr "Restaureaza jurnalele Zentyal gasite în backup-ul selectat"
 
 #: src/EBox/Model/RemoteFileList.pm:162
 msgid "File"
@@ -94,9 +91,8 @@ msgid "backup"
 msgstr "backup"
 
 #: src/EBox/Model/RemoteRestoreConf.pm:104
-#, fuzzy
 msgid "Restore Zentyal configuration from backup"
-msgstr "Restaureaza configuratia eBox din backup"
+msgstr "Restaureaza configuratia Zentyal din backup"
 
 #: src/EBox/Model/RemoteRestoreConf.pm:111
 msgid "Loads the configuration found in the backup"
@@ -286,15 +282,15 @@ msgid "on the last day"
 msgstr "in ultima zi"
 
 #: src/EBox/Model/RemoteSettings.pm:494
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "{oi}{brand}{ci} is a quick and safe remote location to store the data you "
 "keep on your Zentyal servers. Purchase the backup storage space you need at "
 "the {ohref}Zentyal on-line store{chref}."
 msgstr ""
 "{oi}{brand}{ci} este o locatie sigura si rapida in care sa stocati datele pe "
-"care le aveti pe serverele eBox. Cumparati spatiu de stocare necesar "
-"dumneavoastra la {ohref}magazinul eBox on-line{chref}."
+"care le aveti pe serverele Zentyal. Cumparati spatiu de stocare necesar "
+"dumneavoastra la {ohref}magazinul Zentyal on-line{chref}."
 
 #: src/EBox/Model/RemoteSettings.pm:511
 msgid "1 week"
@@ -445,13 +441,13 @@ msgstr ""
 "d/ebox ebackup restart' pentru a inprospata informatiile de backup"
 
 #: src/EBox/EBackup/DBRestore.pm:46
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Logs backup data not found in backup for {d}. Maybe you could try another "
 "date?"
 msgstr ""
-"Backup-ul jurnalelor nu a fost gasit in backup-ul pentru {d}. Poate "
-"incercati o alta data?"
+"Backup-ul jurnalelor nu a fost gasit in backup-ul pentru {d}. Puteţi încerca "
+"să utilizaţi o alta dată?"
 
 #: src/EBox/Composite/ServicesRestore.pm:64
 msgid "Services restore"

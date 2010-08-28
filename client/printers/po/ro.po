@@ -9,7 +9,7 @@ msgstr ""
 "technologies.com\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-08-25 17:48+0200\n"
-"PO-Revision-Date: 2010-07-05 14:02+0200\n"
+"PO-Revision-Date: 2010-08-27 09:52+0200\n"
 "Last-Translator: Harald Ersch <harald.ersch@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
@@ -32,26 +32,23 @@ msgid "Create spool directory for printers"
 msgstr "Creare director de lucru pentru imprimante"
 
 #: src/EBox/Printers.pm:59
-#, fuzzy
 msgid "Zentyal will create a spool directory under /var/spool/samba"
-msgstr "eBox va crea un director de lucru în /var/spool/samba"
+msgstr "Zentyal va crea un director de lucru în /var/spool/samba"
 
 #: src/EBox/Printers.pm:64
 msgid "Create log table"
 msgstr "Creare tabel jurnal"
 
 #: src/EBox/Printers.pm:65
-#, fuzzy
 msgid ""
 "Zentyal will create a new table into its log database to store printers logs"
 msgstr ""
-"eBox va crea un tabel nou în baza de date jurnal pentru a păstra jurnalul de "
-"imprimare"
+"Zentyal va crea un tabel nou în baza de date jurnal pentru a păstra jurnalul "
+"de imprimare"
 
 #: src/EBox/Printers.pm:81
-#, fuzzy
 msgid "To configure cupsd"
-msgstr "Imprimanta nu este configurată"
+msgstr "Pentru a configura CUPSD"
 
 #: src/EBox/Printers.pm:223
 msgid "Job ID"
@@ -66,9 +63,8 @@ msgid "User"
 msgstr "Utilizator"
 
 #: src/EBox/Printers.pm:226
-#, fuzzy
 msgid "Date"
-msgstr "Ştergere"
+msgstr "Data"
 
 #: src/EBox/Printers.pm:227
 msgid "Event"
@@ -80,7 +76,7 @@ msgstr "În coadă"
 
 #: src/EBox/Printers.pm:232
 msgid "Completed"
-msgstr ""
+msgstr "Finalizat"
 
 #: src/EBox/Printers.pm:233
 msgid "Canceled"
@@ -96,23 +92,25 @@ msgid ""
 "Prior to configure printers you need to enable the module in the {openref}"
 "Module Status{closeref}  section and save changes after that."
 msgstr ""
+"Înainte de a configura imprimantele este necesară activarea modulului în "
+"secţiunea {openref}Stare Module{closeref} şi apoi înregistrarea "
+"modificărilor."
 
 #: src/EBox/Model/CUPS.pm:156
 msgid "Interface"
-msgstr ""
+msgstr "Interfaţa"
 
 #: src/EBox/Model/CUPS.pm:161
 msgid "Listen"
-msgstr ""
+msgstr "Ascultă"
 
 #: src/EBox/Model/CUPS.pm:170
 msgid "Select CUPS Interfaces"
-msgstr ""
+msgstr "Selectare interfeţe CUPS"
 
 #: src/EBox/Model/CUPS.pm:175
-#, fuzzy
 msgid "interface"
-msgstr "Imprimantă"
+msgstr "interfaţă"
 
 #: src/EBox/Model/CUPS.pm:176
 msgid ""
@@ -120,6 +118,9 @@ msgid ""
 "account that is not probably a good idea to listen on external interfaces. "
 "If none are selected, it will be listening only at localhost"
 msgstr ""
+"Selectaţi interfeţele pe care va asculta serverul de Web CUPS. Nu e o idee "
+"bună ca acesta să asculte pe interfeţele externe. Dacă nu selectaţi nici o "
+"interfaţă, va asculta numai pe localhost."
 
 #: src/EBox/Model/CUPS.pm:187
 #, perl-brace-format
@@ -127,6 +128,8 @@ msgid ""
 "To add or manage printers you have to use the {open_href}CUPS Web Interface"
 "{close_href}"
 msgstr ""
+"Pantru a adăuga şi administra imprimante trebuie să folosiţi "
+"{open_href}Interfaţa Web CUPS{close_href}"
 
 #~ msgid "Model"
 #~ msgstr "Model"

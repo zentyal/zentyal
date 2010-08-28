@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: ebox-trafficshaping 0.12.2\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-08-25 17:50+0200\n"
-"PO-Revision-Date: 2010-08-21 12:04+0200\n"
-"Last-Translator: iddqd <meil.uniwersalny@gmail.com>\n"
+"PO-Revision-Date: 2010-08-28 15:02+0200\n"
+"Last-Translator: Robert Brzozowski <gnutar1@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -42,7 +42,7 @@ msgstr ""
 "{gR} kbit/s"
 
 #: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:247
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Limited Rate {lR} kbit/s should be lower than {maxLR}kbit/s or you should "
 "increase maximum upload traffic associated to external interfaces"
@@ -76,22 +76,20 @@ msgid "Address"
 msgstr "Adres"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:182
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "{iface} (internal interface)"
-msgstr "Lista reguł dla interfejsu"
+msgstr "{iface} (interfejs wewnętrzny)"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:185
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "{iface} (external interface)"
-msgstr "Wybierz interfejs zewnętrzny aby kierować ruchem"
+msgstr "{iface} (interfejs zewnętrzny)"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:212
-#, fuzzy
 msgid "Guaranteed rate"
 msgstr "Gwarantowana przepustowość"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:217
-#, fuzzy
 msgid "Limited rate"
 msgstr "Ograniczona przepustowość"
 
@@ -101,10 +99,12 @@ msgid ""
 "Object {object} has no members. Please add at least one to add rules using "
 "this object"
 msgstr ""
+"Brak użytkowników obiektu {object}. Dodaj co najmniej jednego, aby "
+"zdefiniować reguły używające ten obiekt"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:255
 msgid "If service is any, some source or destination should be provided"
-msgstr ""
+msgstr "Jeśli wybierzesz dowolną usługę, należy podać źródło lub cel"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:390
 msgid "Service"
@@ -181,7 +181,7 @@ msgstr ""
 "Ruch nie może przekroczyć tej prędkości. 0 oznacza nieograniczoną prędkość."
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:494
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Rules list for {printableIndex}"
 msgstr "Lista reguł dla {printableIndex}"
 
@@ -229,9 +229,8 @@ msgid "Application based service group"
 msgstr ""
 
 #: src/EBox/TrafficShaping/Model/InterfaceRate.pm:98
-#, fuzzy
 msgid "External Interface"
-msgstr "Wybierz interfejs zewnętrzny aby kierować ruchem"
+msgstr "Zewnętrzny Interfejs"
 
 #: src/EBox/TrafficShaping/Model/InterfaceRate.pm:103
 msgid "Upload"
@@ -251,13 +250,12 @@ msgstr "Prędkość pobierania w Kbits/s za pośrednictwem tego interfejsu"
 
 #: src/EBox/TrafficShaping/Model/InterfaceRate.pm:122
 #: src/EBox/TrafficShaping/Model/InterfaceRate.pm:123
-#, fuzzy
 msgid "External Interface Rates"
-msgstr "Wybierz interfejs zewnętrzny aby kierować ruchem"
+msgstr "Przepustowość Interfejsu Zewnętrznego"
 
 #: src/EBox/TrafficShaping/Model/InterfaceRate.pm:130
 msgid "rate"
-msgstr "predkośc"
+msgstr "przepustowość"
 
 #: src/EBox/TrafficShaping/Model/InterfaceRate.pm:155
 msgid "You need at least one internal interface and one external interface"
@@ -265,7 +263,7 @@ msgstr ""
 "Potrzeba przynajmniej jednego interfejsu wewnętrznego i jednego zewnętrznego"
 
 #: src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:84
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Traffic Shaping is applied when Zentyal is acting as a gateway. To achieve "
 "this, you need at least an internal and an external interface. Check your "
@@ -273,10 +271,10 @@ msgid ""
 msgstr ""
 "Kształtowanie ruchu włączyć można tylko na zewnętrznych interfejsach. W celu "
 "wykorzystania mechanizmów kształtowania ruchu utwórz zewnętrzny interfejs "
-"poprzez wybranie {openhref}Network->Interfaces{closehref}"
+"poprzez wybranie {openhref}Sieć->Interfejsy{closehref}"
 
 #: src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:93
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Traffic Shaping is applied only if there are gateways with an upload rate "
 "set associated with an external interface. In order to do so, create a "
@@ -288,7 +286,6 @@ msgstr ""
 "przejdź do {openhref}Network->Gateways{closehref}"
 
 #: src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:116
-#, fuzzy
 msgid "Rules list per interface"
 msgstr "Lista reguł dla interfejsu"
 
@@ -301,9 +298,8 @@ msgstr ""
 "używasz kształtowania na wewnętrznym interfejsie wykonujesz ingress shaping "
 
 #: src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:129
-#, fuzzy
 msgid "Choose an interface to shape"
-msgstr "Wybierz interfejs zewnętrzny aby kierować ruchem"
+msgstr "Wybierz interfejs aby kierować ruchem"
 
 #: src/EBox/TrafficShaping.pm:102
 msgid "Traffic Shaping"
@@ -322,19 +318,16 @@ msgid "Add tc rules"
 msgstr "Dodaj reguły tc"
 
 #: src/EBox/TrafficShaping.pm:146
-#, fuzzy
 msgid "To implement the traffic shaping rules"
-msgstr "Reguły kierowania ruchu"
+msgstr "Aby wprowadzić reguły kierowania ruchu"
 
 #: src/EBox/TrafficShaping.pm:463
-#, fuzzy
 msgid "Rules"
-msgstr "Reguła"
+msgstr "Reguły"
 
 #: src/EBox/TrafficShaping.pm:465
-#, fuzzy
 msgid "Interface Rates"
-msgstr "Interfejs"
+msgstr "Przepustowość interfejsu"
 
 #: src/EBox/TrafficShaping.pm:539 src/EBox/TrafficShaping.pm:691
 #: src/EBox/TrafficShaping.pm:1109 src/EBox/TC.pm:108

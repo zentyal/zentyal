@@ -9,8 +9,8 @@ msgstr ""
 "technologies.es\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-08-25 17:50+0200\n"
-"PO-Revision-Date: 2009-12-10 14:55+0100\n"
-"Last-Translator: Adrian Munteanu <adrimunteanu@gmail.com>\n"
+"PO-Revision-Date: 2010-08-27 09:43+0200\n"
+"Last-Translator: Harald Ersch <harald.ersch@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -29,57 +29,52 @@ msgid "Web Server"
 msgstr "Server Web"
 
 #: src/EBox/WebServer.pm:100
-#, fuzzy
 msgid "To set webserver listening port."
 msgstr "Setare port ascultare server web"
 
 #: src/EBox/WebServer.pm:105
 msgid "To configure default virtual host."
-msgstr ""
+msgstr "Configurare gazdă virtuală implicită."
 
 #: src/EBox/WebServer.pm:110
 msgid "To configure default SSL virtual host."
-msgstr ""
+msgstr "Configurare gazdă virtuală SSL implicită."
 
 #: src/EBox/WebServer.pm:115
-#, fuzzy
 msgid "To configure the per-user public_html directory."
-msgstr "Configurare director public HTML per utilizator"
+msgstr "Configurare director public HTML per utilizator."
 
 #: src/EBox/WebServer.pm:140
-#, fuzzy
 msgid "Enable Apache LDAP user module"
-msgstr "Activare modul utilizator apache LDAP"
+msgstr "Activare modul utilizator Apache LDAP"
 
 #: src/EBox/WebServer.pm:142
-#, fuzzy
 msgid "To fetch home directories from LDAP."
-msgstr "Adu directoarele home din LDAP"
+msgstr "Extragere directoare home din LDAP"
 
 #: src/EBox/WebServer.pm:145
-#, fuzzy
 msgid "Enable Apache SSL module"
-msgstr "Activare modul utilizator apache LDAP"
+msgstr "Activare modul utilizator apache SSL"
 
 #: src/EBox/WebServer.pm:147
 msgid "To serve pages over HTTPS."
-msgstr ""
+msgstr "Pentru servirea paginilor prin HTTPS."
 
 #: src/EBox/WebServer.pm:185
 msgid "Web service status"
 msgstr "Stare serviciu web"
 
 #: src/EBox/WebServer.pm:441
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "The {userDirConfFile} is missing! Please recover it."
-msgstr "Utilizatorul{userDirConfFile} lipseste! Va rugam recuperati-l"
+msgstr "Utilizatorul{userDirConfFile} lipseste! Vă rugăm recuperaţi-l."
 
 #: src/EBox/WebServer/Model/GeneralSettings.pm:97
 #: src/EBox/WebServer/Model/GeneralSettings.pm:109
 #: src/EBox/WebServer/Model/GeneralSettings.pm:120
 #: src/EBox/WebServer/Model/GeneralSettings.pm:230
 msgid "Listening port"
-msgstr ""
+msgstr "Port ascultare"
 
 #: src/EBox/WebServer/Model/GeneralSettings.pm:115
 #, perl-brace-format
@@ -87,6 +82,8 @@ msgid ""
 "Zentyal Administration is running on this port, change it on {ohref}System -"
 "> General{chref}."
 msgstr ""
+"Administrarea Zentyal foloseşte acest port, modificaţi-l la{ohref}Sistem -> "
+"General{chref}."
 
 #: src/EBox/WebServer/Model/GeneralSettings.pm:128
 #, perl-brace-format
@@ -94,46 +91,55 @@ msgid ""
 "You need a Service Certificate for the Web Server module, enable it on "
 "{ohref}Certification Authority -> Service Certificates{chref}."
 msgstr ""
+"Este necesar serviciul Certificate pentru modulul Server Web, activaţi-l la "
+"{ohref}Autoritate de certificare -> Certificate Servicii{chref}."
 
 #: src/EBox/WebServer/Model/GeneralSettings.pm:140
 msgid ""
 "Having installed and configured the Users and Groups module is required to "
 "allow HTML directories for users."
 msgstr ""
+"Pentru a permite directoare HTML pentru utilizatori este necesară instalarea "
+"şi configurarea modulului Utilizatori şi Grupuri."
 
 #: src/EBox/WebServer/Model/GeneralSettings.pm:146
 msgid ""
 "A properly configured Users and Groups module is required to allow HTML "
 "directories for users. To configure it, please enable it at least one time."
 msgstr ""
+"Pentru a permite directoare HTML pentru utilizatori este necesară "
+"configurarea corespunzătoare a modulului Utilizatori şi Grupuri.Pentru "
+"confogurarea lui, activaţi-l cel puţin odată."
 
 #: src/EBox/WebServer/Model/GeneralSettings.pm:236
 msgid "Listening SSL port"
-msgstr ""
+msgstr "Port ascultare SSL"
 
 #: src/EBox/WebServer/Model/GeneralSettings.pm:240
 #: src/EBox/WebServer/Model/VHostTable.pm:253
 msgid "Disabled"
-msgstr ""
+msgstr "Dezactivat"
 
 #: src/EBox/WebServer/Model/GeneralSettings.pm:245
 msgid "Enabled"
-msgstr ""
+msgstr "Activat"
 
 #: src/EBox/WebServer/Model/GeneralSettings.pm:253
 #, perl-brace-format
 msgid "Enable per user {dirName}"
-msgstr ""
+msgstr "Activare {dirName} per utilizator"
 
 #: src/EBox/WebServer/Model/GeneralSettings.pm:257
 msgid ""
 "Allow users to publish web documents using the public_html directory on "
 "their home."
 msgstr ""
+"Permite utilizatorilor publicarea de documente Web folosind directorul "
+"public_html din home-ul personal."
 
 #: src/EBox/WebServer/Model/GeneralSettings.pm:265
 msgid "General configuration settings"
-msgstr ""
+msgstr "Configurari generale"
 
 #: src/EBox/WebServer/Model/GeneralSettings.pm:269
 #, perl-brace-format
@@ -142,23 +148,29 @@ msgid ""
 "another service. If you enable user to publish their own html pages, those "
 "should be loaded from {dirName} directory from their home directories."
 msgstr ""
+"Configurare generală a serverului Web. Portul de ascultare nu trebuie "
+"folosit de nici un alt serviciu. Dacă activaţi publicarea de către "
+"utilizatori a propriilor pagini html, acestea trebuie încărcate din "
+"directoarele {dirName} din home-urile lor."
 
 #: src/EBox/WebServer/Model/GeneralSettings.pm:275
 msgid "General Web server configuration settings updated."
-msgstr ""
+msgstr "Configuraţia generală a serverului Web a fost actualizată."
 
 #: src/EBox/WebServer/Model/VHostTable.pm:94
 msgid "Virtual host name"
-msgstr ""
+msgstr "Nume gazdă virtuală"
 
 #: src/EBox/WebServer/Model/VHostTable.pm:98
 #: src/EBox/WebServer/Model/VHostTable.pm:311
 msgid "Virtual host"
-msgstr ""
+msgstr "Gazdă virtuală"
 
 #: src/EBox/WebServer/Model/VHostTable.pm:105
 msgid "SSL support is disabled. Enable it before adding a SSL virtual host."
 msgstr ""
+"Suportul SSL este dezactivat. Activaţi-l înainte de a adăuga gazde virtuale "
+"SSL."
 
 #: src/EBox/WebServer/Model/VHostTable.pm:170
 #, perl-brace-format
@@ -166,6 +178,8 @@ msgid ""
 "Virtual host {vhost} added. A domain {domain} has been created with the "
 "mapping name {name} - IP address {ip}. {noDnsWarning} "
 msgstr ""
+"Gazda virtuală {vhost} adăugată. Un domeniu {domain} a fost creeat cu "
+"asocierea nume {name} - adresă IP {ip}. {noDnsWarning} "
 
 #: src/EBox/WebServer/Model/VHostTable.pm:189
 #, perl-brace-format
@@ -173,41 +187,45 @@ msgid ""
 "Virtual host {vhost} added. A mapping name {name} - IP address {ip} has been "
 "added to {domain} domain."
 msgstr ""
+"Gazda virtuală {vhost} adăugată. Asocierea nume {name} - adresă IP {ip} a "
+"fost adăugată la domeniul {domain}."
 
 #: src/EBox/WebServer/Model/VHostTable.pm:203
 #, perl-brace-format
 msgid "Virtual host {vhost} added as an alias {alias} to hostname {hostname}."
-msgstr ""
+msgstr "Gazda virtuală {vhost} adăugată ca alias la numele gazdei {hostname}."
 
 #: src/EBox/WebServer/Model/VHostTable.pm:209
 #: src/EBox/WebServer/Model/VHostTable.pm:214
 #, perl-brace-format
 msgid "Virtual host {vhost} added."
-msgstr ""
+msgstr "Gazdă vitruală {vhost} adăugată."
 
 #: src/EBox/WebServer/Model/VHostTable.pm:219
 msgid "There is no static internal interface to set the Web server IP address."
 msgstr ""
+"Nu există interfaţă statică internă pentru a aloca adresa IP a serverului "
+"Web."
 
 #: src/EBox/WebServer/Model/VHostTable.pm:254
 msgid "Allow SSL"
-msgstr ""
+msgstr "Permite SSL"
 
 #: src/EBox/WebServer/Model/VHostTable.pm:255
 msgid "Force SSL"
-msgstr ""
+msgstr "Forţează SSL"
 
 #: src/EBox/WebServer/Model/VHostTable.pm:280
 msgid "SSL support"
-msgstr ""
+msgstr "Suport SSL"
 
 #: src/EBox/WebServer/Model/VHostTable.pm:287
 msgid "Name"
-msgstr ""
+msgstr "Nume"
 
 #: src/EBox/WebServer/Model/VHostTable.pm:297
 msgid "Virtual hosts"
-msgstr ""
+msgstr "Gazde virtuale"
 
 #: src/EBox/WebServer/Model/VHostTable.pm:301
 #, perl-brace-format
@@ -219,6 +237,11 @@ msgid ""
 "particular configuration you want to add must be placed in the {userConf} "
 "directory."
 msgstr ""
+"Gazdele virtuale sunt o formă de servicii de găzduire Web unde mai multe "
+"instanţe ale aceluiaşi server Web sunt localizate pe un singur server. Nume "
+"diferite de gazde indică acelaşi server Web. Dacă este posibil, sunt create "
+"automat intrări în DNS. Conţinutul trebuie plasat în directorul {docRoot}. "
+"Orice configurare particularizată poate fi plasată în directorul {userConf}."
 
 #: src/EBox/WebServer/Model/VHostTable.pm:332
 #, perl-brace-format
@@ -226,13 +249,17 @@ msgid ""
 "{open}The DNS module is disabled. The added mapping or domains will not have "
 "any effect until you enable it"
 msgstr ""
+"{open} Modulul DNS este dezactivat. Asocierile adăugate sau domeniile nu vor "
+"avea efecte decât după activarea lui."
 
 #: src/EBox/WebServer/Composite/General.pm:77
 msgid "Configuration"
-msgstr ""
+msgstr "Configuraţie"
 
 #: src/EBox/WebServer/Composite/General.pm:80
 msgid ""
 "The Zentyal web service allows you to host Web pages in plain HTML within "
 "different virtual hosts."
 msgstr ""
+"Serviciul Web Zentyal permite găzduirea paginilor Web HTML simple prin "
+"intermediul gazdelor virtuale diferite."

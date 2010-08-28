@@ -8,22 +8,23 @@ msgstr ""
 "Project-Id-Version: ebox-mail 0.12\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-08-25 17:47+0200\n"
-"PO-Revision-Date: 2007-07-24 12:12+0200\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2010-08-27 00:01+0200\n"
+"Last-Translator: Bo Dalbjerg <bo@dalbjerg.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: migration/0005_add_managesieve_firewall_services.pl:28
 msgid "protocol for editing SIEVE filters"
-msgstr ""
+msgstr "protokol for ændring af SIEVE filtre"
 
 #: migration/0001_add_firewall_services.pl:30
 #, fuzzy
 msgid "Zentyal Mail System"
-msgstr "Mail system"
+msgstr "Zentyal Mail system"
 
 #: src/EBox/MailUserLdap.pm:85 src/EBox/MailUserLdap.pm:90
 #: src/EBox/MailAliasLdap.pm:107 src/EBox/MailAliasLdap.pm:137
@@ -40,17 +41,17 @@ msgstr "Denne bruger har en mail konto"
 
 #: src/EBox/MailUserLdap.pm:813
 msgid "Quota can only be a positive number or zero for unlimited quota"
-msgstr ""
+msgstr "Kvote kan kun være et positivt tal eller nul for ubegrænset kvote"
 
 #: src/EBox/MailAliasLdap.pm:64
 #, perl-brace-format
 msgid "{ac} is not a internal account"
-msgstr ""
+msgstr "{ac} er ikke en intern konto"
 
 #: src/EBox/MailAliasLdap.pm:81
 #, perl-brace-format
 msgid "{ac} is not a external account"
-msgstr ""
+msgstr "{ac} er ikke en ekstern konto"
 
 #: src/EBox/MailAliasLdap.pm:103 src/EBox/CGI/DelAlias.pm:48
 msgid "mail alias"
@@ -59,23 +60,23 @@ msgstr "mail alias"
 #: src/EBox/MailAliasLdap.pm:115
 #, perl-brace-format
 msgid "{ac} is a mail alias. Alias of aliases are not allowed"
-msgstr ""
+msgstr "{ac} er en mail alias. Alias af alias er ikke tilladt"
 
 #: src/EBox/MailAliasLdap.pm:134
 #, fuzzy
 msgid "group alias"
-msgstr "gruppe alias mail"
+msgstr "gruppe alias"
 
 #: src/EBox/MailAliasLdap.pm:173 src/EBox/MailAliasLdap.pm:193
 #, fuzzy
 msgid "Domain alias"
-msgstr "mail alias"
+msgstr "Domæne alias"
 
 #: src/EBox/MailAliasLdap.pm:178 src/EBox/MailAliasLdap.pm:217
 #: src/EBox/MailAliasLdap.pm:244
 #, fuzzy, perl-brace-format
 msgid "Mail domain {d} does not exists"
-msgstr "Kontoen eksisterer ikke"
+msgstr "Mail domæne {d} eksisterer ikke"
 
 #: src/EBox/MailAliasLdap.pm:185
 #, perl-brace-format
@@ -83,6 +84,8 @@ msgid ""
 "Cannot use {d} as alias for a mail domain because a domain which this name "
 "already exists"
 msgstr ""
+"Kan ikke benytte {d} som alias for et mail domæne, da der allerrede "
+"eksisterer et domæne med dette navn"
 
 #: src/EBox/MailAliasLdap.pm:327 src/EBox/MailAliasLdap.pm:356
 #: src/EBox/MailAliasLdap.pm:391
@@ -115,12 +118,12 @@ msgstr "brugernavn"
 #: src/EBox/CGI/Wizard/VirtualDomain.pm:43 src/EBox/Mail/Model/VDomains.pm:211
 #, fuzzy
 msgid "Mail virtual domain"
-msgstr "virtuelt domæne"
+msgstr "Virtuelt mail domæne"
 
 #: src/EBox/CGI/Wizard/VirtualDomain.pm:47
 #, fuzzy
 msgid "Invalid virtual mail domain"
-msgstr "virtuelt domæne"
+msgstr "Ikke gyldig virtuelt domæne"
 
 #: src/EBox/CGI/DelAccount.pm:48
 msgid "user mail"
@@ -128,7 +131,7 @@ msgstr "bruger mail"
 
 #: src/EBox/CGI/SetAccountMaildirQuota.pm:60
 msgid "Quota must be a amount of MB greter than zero"
-msgstr ""
+msgstr "Kvote skal være 1MB eller flere MB"
 
 #: src/EBox/CGI/CreateAccount.pm:50 src/EBox/MailVDomainsLdap.pm:66
 #: src/EBox/MailVDomainsLdap.pm:119 src/EBox/Mail/Model/VDomains.pm:101
@@ -137,12 +140,12 @@ msgstr "virtuelt domæne"
 
 #: src/EBox/CGI/CreateAccount.pm:52
 msgid "Mail address"
-msgstr "mail adresse"
+msgstr "Mail adresse"
 
 #: src/EBox/CGI/DelGroupAlias.pm:47
 #, fuzzy
 msgid "alias"
-msgstr "mail alias"
+msgstr "alias"
 
 #: src/EBox/CGI/DelGroupAlias.pm:52
 msgid "group alias mail"
@@ -179,12 +182,12 @@ msgstr ""
 
 #: src/EBox/Mail/Greylist.pm:53
 msgid "To configure whitelist for greylisting"
-msgstr ""
+msgstr "Konfiguration af whitelist til greylisting"
 
 #: src/EBox/Mail/Greylist.pm:277
 #, fuzzy
 msgid "Greylist service"
-msgstr "Mail services"
+msgstr "Greylist services"
 
 #: src/EBox/Mail/Model/ObjectPolicy.pm:89
 #, fuzzy
@@ -194,27 +197,29 @@ msgstr "Emne"
 #: src/EBox/Mail/Model/ObjectPolicy.pm:95
 #, fuzzy
 msgid "Allow relay"
-msgstr "Tilladt"
+msgstr "Tillad vidersendelse (relay)"
 
 #: src/EBox/Mail/Model/ObjectPolicy.pm:98
 msgid ""
 "Tick this to allow the machines within the above object to send mails "
 "through this server."
 msgstr ""
+"Afkryds her for at tillade de maskiner inden for ovennævnte formål, at sende "
+"mails via denne server"
 
 #: src/EBox/Mail/Model/ObjectPolicy.pm:107
 #, fuzzy
 msgid "Relay policy for network objects"
-msgstr "Videresendelses politik for objekter"
+msgstr "Videresendelses politik for netværks objekter"
 
 #: src/EBox/Mail/Model/ObjectPolicy.pm:119
 msgid "object's relay policy"
-msgstr ""
+msgstr "objektets relæ politik"
 
 #: src/EBox/Mail/Model/ObjectPolicy.pm:120
 #, fuzzy
 msgid "You may allow mail relay per network object"
-msgstr "Videresendelses politik for objekter"
+msgstr "Du kan tillade mail videresendelses for netværks objekter"
 
 #: src/EBox/Mail/Model/ObjectPolicy.pm:221
 #, perl-brace-format
@@ -222,32 +227,34 @@ msgid ""
 "There are not network objects in the system. You can create them in the "
 "{openurl}Object's page{closeurl}"
 msgstr ""
+"Der er ingen netværks objekter i systemet. Du kan oprette dem i "
+"{openurl}Object's page{closeurl}"
 
 #: src/EBox/Mail/Model/ExternalAliases.pm:54
 #, fuzzy
 msgid "Alias"
-msgstr "sidste"
+msgstr "Alias"
 
 #: src/EBox/Mail/Model/ExternalAliases.pm:60
 msgid "The mail domain is appended automatically"
-msgstr ""
+msgstr "Mail domænet er tilføjet automatisk"
 
 #: src/EBox/Mail/Model/ExternalAliases.pm:64
 #: src/EBox/Mail/Model/ExternalAccounts.pm:87
 #: src/EBox/Mail/Model/ExternalAccounts.pm:270
 #, fuzzy
 msgid "External account"
-msgstr "mail konto"
+msgstr "Ekstern mail konto"
 
 #: src/EBox/Mail/Model/ExternalAliases.pm:75
 #, fuzzy
 msgid "External Aliases"
-msgstr "Mail konto indstillinger"
+msgstr "Ekstern alias"
 
 #: src/EBox/Mail/Model/ExternalAliases.pm:84
 #, fuzzy
 msgid "External account alias"
-msgstr "Mail konto indstillinger"
+msgstr "Ekstern konto alias"
 
 #: src/EBox/Mail/Model/ExternalAliases.pm:86
 msgid "External account alias added. You must save changes to use this alias"

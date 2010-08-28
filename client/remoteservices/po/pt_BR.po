@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-remoteservices 1.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-08-25 17:45+0200\n"
-"PO-Revision-Date: 2010-08-16 16:34+0200\n"
+"PO-Revision-Date: 2010-08-27 04:53+0200\n"
 "Last-Translator: Jorge Eduardo Quintao <jorge@netsol.com.br>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
@@ -189,15 +189,15 @@ msgid "Cannot get the restricted addresses for remote support"
 msgstr "Endereços restritos não puderam ser obtidos para suporte remoto"
 
 #: src/EBox/RemoteServices/SupportAccess.pm:128
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "There exists already a user {u} and it does not seem created by Zentyal. "
 "Until this user is renamed or removed it would be impossible to set up "
 "remote support access"
 msgstr ""
-"Existe já um usuário {u} e não parece ter sido criado por eBox. Até este "
-"usuário ser renomeado ou removido, será impossível configurar o acesso de "
-"suporte remoto"
+"Já existe um usuário {u} e este não parece ter sido criado pelo Zentyal. Até "
+"este usuário ser renomeado ou removido, será impossível configurar o acesso "
+"de suporte remoto"
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:130
 msgid ""
@@ -220,23 +220,22 @@ msgid "Done"
 msgstr "Feito"
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:259
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Subscribing Zentyal will configure the {mods} and its dependencies "
-msgstr "A subscrição de um eBox irá configurar os {mods} e depedências "
+msgstr "A subscrição de um Zentyal irá configurar os {mods} e depedências "
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:266
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Subscribing Zentyal will enable the {mods} and its dependencies.<br/>"
-msgstr "A subscrição de um eBox irá habilitar os {mods} e dependências.<br/>"
+msgstr "A subscrição de um Zentyal irá habilitar os {mods} e dependências.<br/>"
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:271
-#, fuzzy
 msgid ""
 "Take into account that subscribing Zentyal could take a minute. Do not touch "
 "anything until subscribing process is done."
 msgstr ""
-"Entrar em uma conta para subscrever um eBox demora um pouco. Não toque em "
-"nada enquanto o processo não termina."
+"Entrar em uma conta para fazer a subscrição de um Zentyal pode demorar um "
+"pouco. Não toque em nada enquanto o processo não termina."
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:307
 msgid ""
@@ -251,36 +250,33 @@ msgid "User Name or Email Address"
 msgstr "Nome de usuário ou endereço de e-mail"
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:335
-#, fuzzy
 msgid "Server Name"
-msgstr "Nome do eBox"
+msgstr "Nome do Servidor"
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:340
-#, fuzzy
 msgid "Choose a name for your server which is a valid subdomain name"
-msgstr "Escolha um nome para o seu eBox que seja um nome de sub-domínio válido"
+msgstr ""
+"Escolha um nome para o seu Zentyal que seja um nome de sub-domínio válido"
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:347
 msgid "Password"
 msgstr "Senha"
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:355
-#, fuzzy
 msgid "Zentyal subscription details"
-msgstr "Detalhes de subscrição do eBox"
+msgstr "Detalhes de subscrição do Zentyal"
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:356
 msgid "Delete data"
 msgstr "Apagar dados"
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:359
-#, fuzzy
 msgid "Subscription to Zentyal Cloud"
-msgstr "Subscrição no centro de controle do eBox"
+msgstr "Subscrição para a Núvem Zentyal"
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:360
 msgid "Subscribe"
-msgstr "Subscrever"
+msgstr "Fazer subscrição"
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:516
 msgid " module"
@@ -316,30 +312,28 @@ msgid "Access settings"
 msgstr "Definições de acesso"
 
 #: src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:75
-#, fuzzy
 msgid "Allow remote access to Zentyal staff"
-msgstr "Permitir acesso remoto para o pessoal do eBox"
+msgstr "Permitir acesso remoto para o equipe Zentyal"
 
 #: src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:81
 msgid "Allow access from any internet address"
 msgstr "Permite acesso de qualquer endereço internet"
 
 #: src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:85
-#, fuzzy
 msgid ""
 "By default the acces is only granted to hosts inside the Zentyal Cloud "
 "private network. If you enable this option access is granted from any "
 "address. Use this option only if you could not connect to the Zentyal Cloud"
 msgstr ""
-"Por padrão o acesso é dado somente para hosts dentro da rede privativa do "
-"Centrol de Controle. Se você habilitar esta opção o acesso é dado para "
-"qualquer endereço. Use esta opção somente se você não pode se conectar ao "
-"Centro de Controle"
+"Por padrão o acesso é dado somente para hosts dentro da rede privativa da "
+"Núvem Zentyal. Se você habilitar esta opção o acesso é dado para qualquer "
+"endereço. Use esta opção somente se você não pode se conectar à Núvem "
+"Zentyal"
 
 #: src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:91
 #: src/EBox/RemoteServices.pm:259
 msgid "Remote Support Access"
-msgstr "Serviço de Acesso Remoto"
+msgstr "Acesso ao Suporte Remoto"
 
 #: src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:121
 msgid ""
@@ -349,17 +343,16 @@ msgstr ""
 "habilitado"
 
 #: src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:129
-#, fuzzy
 msgid ""
 "To restrict addresses you need that your Zentyal Server is subscribed to "
 "Zentyal Cloud. Either subscribe it or allow access from any address"
 msgstr ""
-"Para restringir endereços você necessita que seu eBox tenha subscrição para "
-"o Centro de Controle. Ou você faz a subscrição ou o acesso será permitido "
-"para qualquer endereço"
+"Para restringir endereços você necessita que seu Servidor Zentyal tenha "
+"subscrição para a Núvem Zentyal. Ou você faz a subscrição ou o acesso será "
+"permitido para qualquer endereço"
 
 #: src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:140
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Enabling remote support will allow staff from Zentyal to freely access your "
 "computer.\n"
@@ -369,8 +362,8 @@ msgid ""
 "To join the remote session, login in the shell as a user belonging to the "
 "'adm' group and use the command: '{cmd}'."
 msgstr ""
-"Habilitando suporte remoto você irá permitir o staff da eBox technologies "
-"para livremente acessar seu computador.\n"
+"Habilitando suporte remoto você irá permitir a equipe Zentyal para "
+"livremente acessar seu computador.\n"
 "Você pode usar o 'screen' comando para se juntar ao shell deles. Para "
 "permitir isto, o SUID bit do programa 'screen' deve ser habilitado. Esta "
 "alteração é desfeita quando a opção está desabilitada\n"
@@ -396,15 +389,15 @@ msgstr "Chave para o serviço de backup do proxy não encontrada"
 #: src/EBox/Event/Dispatcher/ControlCenter.pm:160
 #: src/EBox/RemoteServices.pm:1000
 msgid "Zentyal Cloud"
-msgstr ""
+msgstr "Núvem Zentyal"
 
 #: src/EBox/Event/Dispatcher/ControlCenter.pm:147
 msgid "Control panel"
-msgstr "Painel de Controle"
+msgstr "Painel de controle"
 
 #: src/EBox/RemoteServices.pm:82
 msgid "Zentyal Cloud Client"
-msgstr ""
+msgstr "Cliente da Núvem Zentyal"
 
 #: src/EBox/RemoteServices.pm:217
 msgid "Not subscribed"
@@ -415,41 +408,36 @@ msgid "Subscribed"
 msgstr "Subscrito"
 
 #: src/EBox/RemoteServices.pm:251
-#, fuzzy
 msgid "Subscription"
-msgstr "Descrição"
+msgstr "Subscrição"
 
 #: src/EBox/RemoteServices.pm:262
 msgid "System"
 msgstr "Sistema"
 
 #: src/EBox/RemoteServices.pm:312
-#, fuzzy
 msgid "Zentyal Cloud Connection"
-msgstr "Conexão com o Centro de Controle do eBox"
+msgstr "Conexão com a Núvem Zentyal"
 
 #: src/EBox/RemoteServices.pm:425
-#, fuzzy
 msgid ""
 "The subscribed hostname is only available if the host is subscribed to "
 "Zentyal Cloud"
 msgstr ""
-"O hostname inscrito está somente disponível se o host tem subscrição para "
-"Centro de Controle eBox"
+"O hostname subscrito só está disponível se o host tem subscrição para a "
+"Núvem Zentyal"
 
 #: src/EBox/RemoteServices.pm:454
-#, fuzzy
 msgid ""
 "The monitor gatherer IP addresses are only available if the host is "
 "subscribed to Zentyal Cloud"
 msgstr ""
 "O monitor que coleta endereços IP está disponível somente quando o host tem "
-"subscrição para Centro de Controle eBox"
+"subscrição para a Núvem Zentyal"
 
 #: src/EBox/RemoteServices.pm:599
-#, fuzzy
 msgid "Zentyal must be subscribed to reload the bundle"
-msgstr "eBox deve ter subscripção para recarregar o pacote"
+msgstr "O Zentyal deve estar subscrito para recarregar o pacote"
 
 #: src/EBox/RemoteServices.pm:993
 #, perl-brace-format

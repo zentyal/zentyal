@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: ebox-trafficshaping 0.12.2\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-08-25 17:50+0200\n"
-"PO-Revision-Date: 2010-07-21 00:50+0200\n"
+"PO-Revision-Date: 2010-08-26 12:58+0200\n"
 "Last-Translator: Vasco Castelo Branco <vcbranco@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
@@ -257,16 +257,16 @@ msgid "You need at least one internal interface and one external interface"
 msgstr "Necessita de pelo menos um interface interno e um interface externo"
 
 #: src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:84
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Traffic Shaping is applied when Zentyal is acting as a gateway. To achieve "
 "this, you need at least an internal and an external interface. Check your "
 "interface configuration to match, at {openhref}Network->Interfaces{closehref}"
 msgstr ""
-"O perfil de tráfego é aplicado quando a eBox está configurada como gateway. "
-"Para obter isto necessita pelo menos de um interface interno e outro "
-"externo . Verifique a configuração dos interfaces em {openhref}Network-"
-">Interfaces{closehref}"
+"O perfil de tráfego é aplicado quando a Zentyalestá configurada como "
+"gateway. Para obter isto necessita pelo menos de um interface interno e "
+"outro externo . Verifique a configuração dos interfaces em "
+"{openhref}Network->Interfaces{closehref}"
 
 #: src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:93
 #, perl-brace-format

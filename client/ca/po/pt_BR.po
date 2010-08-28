@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: ebox-ca 0.12\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-08-26 00:53+0200\n"
-"PO-Revision-Date: 2010-08-16 15:49+0200\n"
+"PO-Revision-Date: 2010-08-27 05:31+0200\n"
 "Last-Translator: Jorge Eduardo Quintao <jorge@netsol.com.br>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
@@ -89,13 +89,12 @@ msgid "certificate"
 msgstr "certificado"
 
 #: src/EBox/Model/Certificates.pm:287
-#, fuzzy
 msgid ""
 "Here you may set certificates from this CA for those secure services managed "
 "by Zentyal"
 msgstr ""
 "Aqui você pode colocar certificados de CA para os serviços de segurança "
-"gerenciados pelo eBox"
+"gerenciados pelo Zentyal"
 
 #: src/EBox/CA.pm:123 src/EBox/CGI/RevokeCertificate.pm:43
 #: src/EBox/CGI/Index.pm:40 src/EBox/CGI/IssueCertificate.pm:50

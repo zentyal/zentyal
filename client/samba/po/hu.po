@@ -9,8 +9,8 @@ msgstr ""
 "technologies.com\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-08-25 17:48+0200\n"
-"PO-Revision-Date: 2010-07-22 20:29+0200\n"
-"Last-Translator: Nagy Ákos <reg@pecska.ro>\n"
+"PO-Revision-Date: 2010-08-28 09:19+0200\n"
+"Last-Translator: Nagy Ákos <nagy.akos@akos.ro>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -199,9 +199,8 @@ msgid "Share path"
 msgstr "Megosztás útvonala"
 
 #: src/EBox/Samba/Model/SambaShares.pm:112
-#, fuzzy
 msgid "Directory under Zentyal"
-msgstr "Könyvtár az eBox alatt"
+msgstr "Könyvtár a Zentyal alatt"
 
 #: src/EBox/Samba/Model/SambaShares.pm:118
 msgid "File system path"
@@ -243,27 +242,26 @@ msgid "The directory is not empty. Are you sure you want to remove it?"
 msgstr "A könyvtár nem üres. Biztos, hogy törölni akarod?"
 
 #: src/EBox/Samba/Model/SambaShares.pm:318
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "{openit}Directory under Zentyal{closeit} will automatically create the share."
 "directory in /home/samba/shares {br}{openit}File system path{closeit} will "
 "allow you to share an existing directory within your file system"
 msgstr ""
-"Az {openit}eBox könyvtára alatt{closeit} automatikusan létrejön a share."
-"directory könyvtár a /home/samba/shares mappán belül. {br}A {openit}"
-"Fájlrendszer útvonal{closeit} engedélyezi egy már létező könyvtár "
+"A {openit}Zentyal könyvtára alatt{closeit} automatikusan létrejön a "
+"share.directory könyvtár a /home/samba/shares mappán belül. {br}A "
+"{openit}Fájlrendszer útvonal{closeit} engedélyezi egy már létező könyvtár "
 "megosztását."
 
 #: src/EBox/Samba/Model/SambaShares.pm:331
-#, fuzzy
 msgid ""
 "Here you can create shares with more fine-grained permission control. You "
 "can use an existing directory or pick a name and let Zentyal create it for "
 "you."
 msgstr ""
 "Itt lehet létrehozni megosztásokat részletesen szabályozható engedélyekkel. "
-"Egy már létező könyvtárat akar használni vagy kijelölni egy nevet, akkor az "
-"eBox ... (?)"
+"Megoszthat egy már létező könyvtárat vagy adja meg a nevét és a Zentyal "
+"létrehozza azt."
 
 #: src/EBox/Samba/Model/SambaSharePermissions.pm:93
 msgid "Read only"
@@ -449,32 +447,29 @@ msgid "Create Samba home directory for shares and groups"
 msgstr "Samba home könyvtár létrehozása megosztásoknak és csoportoknak"
 
 #: src/EBox/Samba.pm:92
-#, fuzzy
 msgid ""
 "Zentyal will create the directories for Samba shares and groups under /home/"
 "samba."
 msgstr ""
-"Az eBox létrehozza a home könyvtárat a Samba megosztásoknak és csoportoknak "
-"a /home/samba alatt."
+"A Zentyal létrehozza a home könyvtárat a Samba megosztásoknak és "
+"csoportoknak a /home/samba alatt."
 
 #: src/EBox/Samba.pm:97
 msgid "Add LDAP schemas"
 msgstr "LDAP séma hozzáadása"
 
 #: src/EBox/Samba.pm:98
-#, fuzzy
 msgid ""
 "Zentyal will add two LDAP schemas to the LDAP directory: samba and ebox."
-msgstr "Az eBox hozzáad két LDAP sémát az LDAP könyvtárhoz: samba és ebox."
+msgstr "A Zentyal hozzáad két LDAP sémát az LDAP könyvtárhoz: samba és ebox."
 
 #: src/EBox/Samba.pm:103
 msgid "Set Samba LDAP admin dn password"
 msgstr "Samba LDAP adminisztrátorának dn (?) jelszavának beállítása."
 
 #: src/EBox/Samba.pm:104
-#, fuzzy
 msgid "Zentyal will configure Samba to use the LDAP admin dn password."
-msgstr "Az eBox beállítja a Samba LDAP adminisztrátorának dn (?) jelszavát."
+msgstr "A Zentyal beállítja a Samba LDAP adminisztrátorának dn (?) jelszavát."
 
 #: src/EBox/Samba.pm:120
 msgid "To set up Samba according to your configuration."

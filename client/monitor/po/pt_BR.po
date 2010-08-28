@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: EBox-monitor 0.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-08-25 17:44+0200\n"
-"PO-Revision-Date: 2010-08-16 15:43+0200\n"
+"PO-Revision-Date: 2010-08-27 04:25+0200\n"
 "Last-Translator: Jorge Eduardo Quintao <jorge@netsol.com.br>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
@@ -31,26 +31,24 @@ msgstr "qualquer"
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:102
 #: src/EBox/Monitor/Model/MeasureWatchers.pm:77
 msgid "Events"
-msgstr ""
+msgstr "Eventos"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:106
 #: src/EBox/Monitor/Model/MeasureWatchers.pm:81
-#, fuzzy
 msgid "Monitor Watcher"
 msgstr "Monitoração"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:110
-#, fuzzy
 msgid "Threshold Configuration"
-msgstr "Configuração de Threshold"
+msgstr "Limiar da Configuração"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:144
 msgid "At least a threshold (maximum or minimum) must be set"
-msgstr "Ao menos um threshold (máximo ou mínimo) deve ser configurado"
+msgstr "Ao menos um limiar (máximo ou mínimo) deve ser configurado"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:149
 msgid "This threshold rule will override the current ones"
-msgstr "Esta regra de threshold irá sobrepor a atual"
+msgstr "Esta regra de limiar irá sobrepor a atual"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:244
 msgid "Failure minimum"
@@ -413,19 +411,19 @@ msgid "{what} \"{dS}\" is currently {value}."
 msgstr "{what} \"{dS}\" está atualmente {value}."
 
 #: src/EBox/Event/Watcher/Monitor.pm:280
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "That is within the {severity} region of {minBound} and {maxBound}. "
-msgstr "Isso está dentro da {severity} região de {minBound} e {maxBound}."
+msgstr "Isso está dentro da {severity} região de {minBound} e {maxBound}. "
 
 #: src/EBox/Event/Watcher/Monitor.pm:288
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "That is above the {severity} threshold of {bound}. "
-msgstr "Isso está acima da {severity} threshold do {bound}."
+msgstr "Isso está acima da {severity} threshold do {bound}. "
 
 #: src/EBox/Event/Watcher/Monitor.pm:291
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "That is below the {severity} threshold of {bound}. "
-msgstr "Isso está abaixo da {severity} threshold do {bound}."
+msgstr "Isso está abaixo da {severity} threshold do {bound}. "
 
 #: src/EBox/Monitor.pm:150
 #, perl-brace-format

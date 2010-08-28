@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-objects 0.12\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-08-25 17:47+0200\n"
-"PO-Revision-Date: 2010-08-24 20:02+0200\n"
+"PO-Revision-Date: 2010-08-27 16:50+0200\n"
 "Last-Translator: Robert Brzozowski <gnutar1@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
@@ -61,14 +61,12 @@ msgid "Members"
 msgstr "Członkowie"
 
 #: src/EBox/Model/ObjectTable.pm:84
-#, fuzzy
 msgid "Objects List"
 msgstr "Lista obiektów"
 
 #: src/EBox/Model/ObjectTable.pm:92
-#, fuzzy
 msgid "object"
-msgstr "Obiekt"
+msgstr "obiekt"
 
 #: src/EBox/Model/ObjectTable.pm:114
 msgid "This object is being used by another module"
@@ -80,6 +78,8 @@ msgid ""
 "used in other modules. Any change on an object is automatically synched in "
 "all the modules using it"
 msgstr ""
+"Jakiekolwiek zmiany w obiektach są automatycznie synchronizowane z modułami, "
+"które ich używają"
 
 #: src/EBox/Model/ObjectTable.pm:209
 msgid ""
@@ -89,12 +89,11 @@ msgstr "Słowo 'Any' jest zarezerwowane i nie może być użyte jako nazwa obiek
 
 #: src/EBox/Model/MemberTable.pm:71
 msgid "IP address"
-msgstr "Adresy IP"
+msgstr "Adres IP"
 
 #: src/EBox/Model/MemberTable.pm:77
-#, fuzzy
 msgid "MAC address"
-msgstr "Adresy MAC"
+msgstr "Adres MAC"
 
 #: src/EBox/Model/MemberTable.pm:95
 msgid "member"
@@ -102,16 +101,16 @@ msgstr "członek"
 
 #: src/EBox/Model/MemberTable.pm:117
 msgid "You can only use MAC addresses with hosts"
-msgstr ""
+msgstr "Możesz tylko używać adresów MAC z hostami"
 
 #: src/EBox/Model/MemberTable.pm:120 src/EBox/Model/MemberTable.pm:121
 msgid "network address"
-msgstr "adresy sieci"
+msgstr "adres sieci"
 
 #: src/EBox/Model/MemberTable.pm:127
 #, perl-brace-format
 msgid "{ip} overlaps with the address or another object's member"
-msgstr ""
+msgstr "adres {ip} pokrywa się z innym adresem"
 
 #, fuzzy
 #~ msgid "Core"

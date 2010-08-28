@@ -9,8 +9,8 @@ msgstr ""
 "technologies.com\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-08-26 00:53+0200\n"
-"PO-Revision-Date: 2010-08-11 17:06+0200\n"
-"Last-Translator: Bogdan Chirica <bogdan.chirica@gmail.com>\n"
+"PO-Revision-Date: 2010-08-27 07:56+0200\n"
+"Last-Translator: Harald Ersch <harald.ersch@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -21,14 +21,12 @@ msgstr ""
 
 # Desi a fost adoptat ca si TFTP eng. o traducere adecvata poate fi utila
 #: migration/0002_add_services.pl:117
-#, fuzzy
 msgid "Trivial File Transfer Protocol"
-msgstr "Protocolul Transferului Fisierelor Trivial (TFTP)"
+msgstr "Protocolul Transferului Trivial al Fişierelor  (TFTP)"
 
 #: migration/0002_add_services.pl:126
-#, fuzzy
 msgid "Dynamic Host Configuration Protocol"
-msgstr "Configurarea Gazde Dinamice (DHCP)"
+msgstr "Protocol de configurare dinamică a gazdelor (DHCP)"
 
 #: src/EBox/Model/DynamicDNS.pm:110 src/EBox/Model/FixedAddressTable.pm:98
 #: src/EBox/Model/ThinClientOptions.pm:118 src/EBox/Model/RangeInfo.pm:108
@@ -38,7 +36,7 @@ msgstr "Configurarea Gazde Dinamice (DHCP)"
 #: src/EBox/Composite/OptionsTab.pm:87
 #, perl-brace-format
 msgid "interface {iface}"
-msgstr "interfata {iface}"
+msgstr "interfaţa {iface}"
 
 #: src/EBox/Model/DynamicDNS.pm:131 src/EBox/Model/DynamicDNS.pm:139
 #: src/EBox/Model/DynamicDNS.pm:386
@@ -183,19 +181,17 @@ msgid "fixed address"
 msgstr "adresa fixa"
 
 #: src/EBox/Model/ThinClientOptions.pm:139
-#, fuzzy
 msgid "You need to upload a boot image to Zentyal if you set it as next server"
 msgstr ""
-"Trebuie sa incarci o imagine de boot in eBox daca vrei sa il setezi ca "
+"Trebuie să încarci o imagine de boot in Zentyal daca vrei sa il setezi ca "
 "următorul server"
 
 #: src/EBox/Model/ThinClientOptions.pm:146
-#, fuzzy
 msgid ""
 "In order to upload a boot image to Zentyal, you need to set Zentyal as next "
 "server"
 msgstr ""
-"Pentru a putea incarca o imagine de boot, eBox trebuie setat ca urmatorul "
+"Pentru a putea incarca o imagine de boot, Zentyal trebuie setat ca urmatorul "
 "server"
 
 #: src/EBox/Model/ThinClientOptions.pm:153
@@ -205,26 +201,25 @@ msgstr ""
 
 # Putin cam neclara fraza 
 #: src/EBox/Model/ThinClientOptions.pm:158
-#, fuzzy
 msgid ""
 "You can only specify a file name if you have a next server and it is not "
 "Zentyal"
 msgstr ""
 "Poti specifica un nume de fisier doar daca exista un alt server \"urmatorul "
-"server\" si nu este serverul eBox"
+"server\" diferit de serverul Zentyal"
 
 #: src/EBox/Model/ThinClientOptions.pm:209
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Removing previously uploaded boot image since next server option has been "
 "changed from Zentyal to {option}"
 msgstr ""
 "Se sterge imaginea de boot incarcata anterior deoarece optiunea de urmatorul "
-"server a fost schimbata din eBox in {option}"
+"server a fost schimbata din Zentyal in {option}"
 
 #: src/EBox/Model/ThinClientOptions.pm:232
 msgid "Next server"
-msgstr "Urmatorul server"
+msgstr "Următorul server"
 
 #: src/EBox/Model/ThinClientOptions.pm:236 src/EBox/Model/Options.pm:371
 #: src/EBox/Model/Options.pm:405 src/EBox/Model/Options.pm:409
@@ -325,46 +320,40 @@ msgid "{gateway} is not in the current network"
 msgstr "{gateway} nu este in reteaua curenta"
 
 #: src/EBox/Model/Options.pm:169
-#, fuzzy
 msgid ""
 "DNS module must be enabled to be able to select Zentyal as primary DNS server"
 msgstr ""
-"Modulul DNS trebuie activat pentru a putea selecta eBox ca server DNS primar"
+"Modulul DNS trebuie activat pentru a putea selecta Zentyal ca server DNS "
+"primar"
 
 #: src/EBox/Model/Options.pm:179
-#, fuzzy
 msgid "NTP module must be enabled to be able to select Zentyal as NTP server"
 msgstr ""
-"Modulul NTP trebuie activat pentru a putea selecta serverul eBox ca si "
+"Modulul NTP trebuie activat pentru a putea selecta serverul Zentyal ca si "
 "server NTP"
 
 #: src/EBox/Model/Options.pm:190
-#, fuzzy
 msgid ""
 "Samba module must be enabled to be able to select Zentyal as WINS server"
 msgstr ""
-"Modulul Samba trebuie activat pentru a putea selecta serverul eBox ca si "
+"Modulul Samba trebuie activat pentru a putea selecta serverul Zentyal ca si "
 "server de WINS"
 
 #: src/EBox/Model/Options.pm:384
-#, fuzzy
 msgid "Zentyal domain"
-msgstr "Domeniu static"
+msgstr "Domeniu Zentyal"
 
 #: src/EBox/Model/Options.pm:392
-#, fuzzy
 msgid "local Zentyal DNS"
-msgstr "DNS local eBox"
+msgstr "DNS local Zentyal"
 
 #: src/EBox/Model/Options.pm:414
-#, fuzzy
 msgid "local Zentyal NTP"
-msgstr "NTP local eBox"
+msgstr "NTP local Zentyal"
 
 #: src/EBox/Model/Options.pm:428
-#, fuzzy
 msgid "local Zentyal"
-msgstr "local eBox"
+msgstr "local Zentyal"
 
 #: src/EBox/Model/Options.pm:440 src/templates/options.mas:18
 msgid "Default gateway"
@@ -379,13 +368,12 @@ msgid "Configured ones"
 msgstr "Cele configurate"
 
 #: src/EBox/Model/Options.pm:466
-#, fuzzy
 msgid ""
 "Setting \"Zentyal\" as default gateway will set the interface IP address as "
 "gateway"
 msgstr ""
-"Setand \"eBox\" ca Gateway implicit, va seta adresa IP a interfetei ca IP de "
-"gateway"
+"Setand \"Zentyal\" ca Gateway implicit, va seta adresa IP a interfetei ca IP "
+"de gateway"
 
 #: src/EBox/Model/Options.pm:472 src/templates/options.mas:29
 msgid "Search domain"
@@ -404,12 +392,11 @@ msgid "Primary nameserver"
 msgstr "Server de nume primar"
 
 #: src/EBox/Model/Options.pm:483
-#, fuzzy
 msgid ""
 "If \"Zentyal DNS\" is present and selected, the Zentyal server will act as "
 "cache DNS server"
 msgstr ""
-"Daca \"ebox DNS\" este prezent si selectat, atunci eBox va avea rol de "
+"Daca \"Zentyal DNS\" este prezent si selectat, atunci Zentyal va avea rol de "
 "server DNS cache"
 
 #: src/EBox/Model/Options.pm:488 src/templates/options.mas:52
@@ -421,26 +408,24 @@ msgid "NTP server"
 msgstr "Server NTP"
 
 #: src/EBox/Model/Options.pm:497
-#, fuzzy
 msgid ""
 "If \"Zentyal NTP\" is present and selected, Zentyal will be the NTP server "
 "for DHCP clients"
 msgstr ""
-"Daca \"eBox NTP\" este prezent si selectat, atunci eBox va di server de NTP "
-"pentru gazdele din DHCP"
+"Daca \"Zentyal NTP\" este prezent si selectat, atunci Zentyal va fi server de "
+"NTP pentru gazdele din DHCP"
 
 #: src/EBox/Model/Options.pm:502
 msgid "WINS server"
 msgstr "Server de WINS"
 
 #: src/EBox/Model/Options.pm:505
-#, fuzzy
 msgid ""
 "If \"Zentyal Samba\" is present and selected, Zentyal will be the WINS "
 "server for DHCP clients"
 msgstr ""
-"Daca \"eBox Samba\" este prezent si selectat, atunci eBox va fi server de "
-"WINS pentru gazdele din DHCP"
+"Daca \"Zentyal Samba\" este prezent si selectat, atunci Zentyal va fi server "
+"de WINS pentru gazdele din DHCP"
 
 #: src/EBox/Model/Options.pm:512
 msgid "Common options"
@@ -448,7 +433,6 @@ msgstr "Optiuni comune"
 
 # Trebuie clarificat sensul frazelor
 #: src/EBox/Model/Options.pm:517
-#, fuzzy
 msgid ""
 "If you set a \"configured ones\" as default gateway, you may choose one the "
 "configured gateways. As \"search domain\" value, one of the configured DNS "
@@ -457,8 +441,8 @@ msgid ""
 msgstr ""
 "Daca setati \"cele configurate\" ca si gateway implicit, puteti alege una "
 "dintre gateway-uri configurate. Ca si valoarea \"Domeniul de cautare\" unul "
-"dintre domeniile DNS configurate in eBox poate fi ales. Toate campurile sunt "
-"setari optionale, valoarea \"Nimic\" sau lasati gol."
+"dintre domeniile DNS configurate in Zentyal poate fi ales. Toate campurile "
+"sunt setari optionale, valoarea \"Nimic\" sau lasati gol."
 
 #: src/EBox/Model/RangeTable.pm:118
 #, perl-brace-format
@@ -643,41 +627,40 @@ msgid "Options"
 msgstr "Optiuni"
 
 #: src/templates/options.mas:10
-#, fuzzy
 msgid ""
 "You can leave empty the Default Gateway field to use Zentyal as default "
 "gateway for this subnet"
 msgstr ""
-"Puteti lasa gol campul de Gateway implicit pentru a utiliza gateway-ul eBox "
-"pentru aceasta subretea"
+"Puteti lasa gol campul de Gateway implicit pentru a utiliza gateway-ul "
+"Zentyal pentru aceasta subretea"
 
 #: src/templates/options.mas:64
 msgid "Apply"
-msgstr "Aplica"
+msgstr "Aplică"
 
 #: src/templates/fixed.mas:11 src/templates/ranges.mas:56
 msgid "Action"
-msgstr "Actiune"
+msgstr "Acţiune"
 
 #: src/templates/fixed.mas:34 src/templates/fixed.mas:37
 #: src/templates/fixed.mas:38 src/templates/ranges.mas:74
 #: src/templates/ranges.mas:75 src/templates/ranges.mas:76
 msgid "Add"
-msgstr "Adauga"
+msgstr "Adaugă"
 
 #: src/templates/fixed.mas:51 src/templates/fixed.mas:53
 #: src/templates/fixed.mas:54
 msgid "Remove"
-msgstr "Sterge"
+msgstr "Şterge"
 
 #: src/templates/ranges.mas:30
 msgid "Subnet netmask"
-msgstr "Masca Subretea"
+msgstr "Mască subreţea"
 
 #: src/templates/ranges.mas:91 src/templates/ranges.mas:92
 #: src/templates/ranges.mas:93
 msgid "Delete"
-msgstr "Sterge"
+msgstr "Şterge"
 
 # :)
 #~ msgid "eBox"

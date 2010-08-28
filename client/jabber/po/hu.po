@@ -9,8 +9,8 @@ msgstr ""
 "technologies.com\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-08-25 17:41+0200\n"
-"PO-Revision-Date: 2010-07-21 15:40+0200\n"
-"Last-Translator: Nagy Ákos <reg@pecska.ro>\n"
+"PO-Revision-Date: 2010-08-28 08:23+0200\n"
+"Last-Translator: Nagy Ákos <nagy.akos@akos.ro>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -35,9 +35,8 @@ msgid "Add Jabber LDAP schema"
 msgstr "A Jabber LDAP séma hozzáadása"
 
 #: src/EBox/Jabber.pm:57
-#, fuzzy
 msgid "Zentyal will need this schema to store Jabber users."
-msgstr "Az eBox a jabber felhasználók tárolására használja ezt a sémát"
+msgstr "A Zentyal a jabber felhasználók tárolására használja ezt a sémát"
 
 #: src/EBox/Jabber.pm:73
 msgid "To properly configure ejabberd."

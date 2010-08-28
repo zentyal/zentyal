@@ -9,7 +9,7 @@ msgstr ""
 "technologies.com\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-08-26 00:53+0200\n"
-"PO-Revision-Date: 2010-05-04 12:25+0200\n"
+"PO-Revision-Date: 2010-08-27 07:40+0200\n"
 "Last-Translator: Harald Ersch <harald.ersch@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
@@ -94,13 +94,12 @@ msgid "certificate"
 msgstr "certificat(e)"
 
 #: src/EBox/Model/Certificates.pm:287
-#, fuzzy
 msgid ""
 "Here you may set certificates from this CA for those secure services managed "
 "by Zentyal"
 msgstr ""
 "Aici puteți accesa certificatele de la această autoritate de certificare "
-"pentru serviciile sigure ale acestui eBox"
+"pentru serviciile sigure ale acestui Zentyal"
 
 #: src/EBox/CA.pm:123 src/EBox/CGI/RevokeCertificate.pm:43
 #: src/EBox/CGI/Index.pm:40 src/EBox/CGI/IssueCertificate.pm:50
@@ -504,9 +503,8 @@ msgid "Issue"
 msgstr "Emitere"
 
 #: src/templates/index.mas:77
-#, fuzzy
 msgid "Certificate changes will take effect immediately."
-msgstr "Modificările certificatelor vor avea efect imediat"
+msgstr "Modificările certificatelor vor avea efect imediat."
 
 #: src/templates/index.mas:79
 msgid "The CA passphrase is optional"

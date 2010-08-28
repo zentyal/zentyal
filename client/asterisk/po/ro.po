@@ -10,8 +10,8 @@ msgstr ""
 "technologies.com\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-08-26 00:52+0200\n"
-"PO-Revision-Date: 2010-08-13 12:57+0200\n"
-"Last-Translator: Bogdan Chirica <bogdan.chirica@gmail.com>\n"
+"PO-Revision-Date: 2010-08-27 07:38+0200\n"
+"Last-Translator: Harald Ersch <harald.ersch@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -21,9 +21,8 @@ msgstr ""
 "X-Generator: Pootle 1.1.0\n"
 
 #: migration/0001_add_firewall_services.pl:30
-#, fuzzy
 msgid "Zentyal VoIP system"
-msgstr "Sistemul eBox VoIP"
+msgstr "Sistemul Zentyal VoIP"
 
 #: src/EBox/Asterisk.pm:74 src/EBox/Asterisk.pm:715
 #: src/EBox/Composite/General.pm:67
@@ -103,12 +102,12 @@ msgstr "Stare"
 
 #: src/EBox/Asterisk.pm:530 src/EBox/Asterisk.pm:634
 msgid "No users connected."
-msgstr "Nu sunt utilizatori conectati."
+msgstr "Nu sunt utilizatori conectaţi."
 
 #: src/EBox/Asterisk.pm:622
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Room {name} active for {rtime}"
-msgstr "Intalnire {name} activa pentru {rtime}"
+msgstr "Întâlnire {name} activă pentru {rtime}"
 
 #: src/EBox/Asterisk.pm:625
 msgid "Time Connected"
@@ -248,9 +247,8 @@ msgid "General Asterisk server configuration updated."
 msgstr "Configurarea generala a serverului Asterisk actualizata."
 
 #: src/EBox/Model/NAT.pm:96
-#, fuzzy
 msgid "Zentyal is behind NAT"
-msgstr "eBox este dupa NAT"
+msgstr "Zentyal este dupa NAT"
 
 #: src/EBox/Model/NAT.pm:101
 msgid "No"

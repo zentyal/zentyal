@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: ebox-software 0.12.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-08-25 17:48+0200\n"
-"PO-Revision-Date: 2010-08-16 22:28+0200\n"
+"PO-Revision-Date: 2010-08-27 05:00+0200\n"
 "Last-Translator: Jorge Eduardo Quintao <jorge@netsol.com.br>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
@@ -43,9 +43,8 @@ msgstr ""
 "desabilite {key} chave."
 
 #: src/EBox/Software.pm:596
-#, fuzzy
 msgid "Zentyal Components"
-msgstr "Componentes eBox"
+msgstr "Componentes Zentyal"
 
 #: src/EBox/Software.pm:598
 msgid "System Updates"
@@ -100,14 +99,12 @@ msgid "automatic updates configuration"
 msgstr "configuração das atualizações automáticas"
 
 #: src/EBox/CGI/EBox.pm:36
-#, fuzzy
 msgid "Choose Zentyal packages to install"
-msgstr "Escolhar pacotes eBox para instalar"
+msgstr "Escolher pacotes Zentyal para instalar"
 
 #: src/EBox/CGI/EBox.pm:40
-#, fuzzy
 msgid "Zentyal components"
-msgstr "componentes do eBox"
+msgstr "Componentes Zentyal"
 
 #: src/EBox/CGI/Updates.pm:32 src/EBox/CGI/Updates.pm:50
 msgid "System updates"
@@ -206,9 +203,8 @@ msgid "View advanced mode"
 msgstr "Visualizar modo avançado"
 
 #: src/templates/ebox.mas:512
-#, fuzzy
 msgid "Skip install"
-msgstr "Instalar"
+msgstr "Saltar instalação"
 
 #: src/templates/ebox.mas:525
 msgid "View basic mode"
@@ -216,7 +212,7 @@ msgstr "Visualizar modo básico"
 
 #: src/templates/ebox.mas:543 src/templates/ebox.mas:572
 msgid "Delete"
-msgstr ""
+msgstr "Apagar"
 
 #: src/templates/ebox.mas:552 src/templates/ebox.mas:561
 #: src/templates/updates.mas:97
@@ -226,15 +222,15 @@ msgstr "Atualizar lista"
 #: src/templates/ebox.mas:553 src/templates/ebox.mas:562
 #: src/templates/ebox.mas:573
 msgid "Deselect All"
-msgstr ""
+msgstr "Deselecionar Todos"
 
 #: src/templates/ebox.mas:554 src/templates/ebox.mas:574
 msgid "Select All"
-msgstr ""
+msgstr "Selecionar Todos"
 
 #: src/templates/ebox.mas:563
 msgid "Select Al"
-msgstr ""
+msgstr "Selecionar Todos"
 
 #: src/templates/del.mas:97
 msgid "The following packages will be installed"
@@ -275,9 +271,8 @@ msgid "Perform automatic security updates"
 msgstr "Executar atualização automática segura"
 
 #: src/templates/config.mas:14
-#, fuzzy
 msgid "Zentyal is configured to use automatic QA updates"
-msgstr "Este eBox está configurado para usar atualizações automáticas eBox QA"
+msgstr "O Zentyal está configurado para usar atualizações automáticas QA"
 
 #: src/templates/config.mas:26
 msgid "Automatic operations start time"
@@ -310,21 +305,19 @@ msgid "Security update"
 msgstr "Atualizações de segurança"
 
 #: src/templates/updates.mas:55
-#, fuzzy
 msgid "Zentyal QA update"
-msgstr "Atualização eBox QA"
+msgstr "Atualização QA Zentyal"
 
 #: src/templates/updates.mas:77
 msgid "Update all packages"
 msgstr "Atualizar todos os pacotes"
 
 #: src/templates/updates.mas:88
-#, fuzzy
 msgid ""
 "This operation can take some time, don't worry if Zentyal looks unresponsive "
 "after pressing the Upgrade button."
 msgstr ""
-"A operação pode levar algum tempo, não se preocupe se o eBox parecer não "
+"A operação pode levar algum tempo, não se preocupe se o Zentyal parecer não "
 "responder após pressionar o botão de Atualizar"
 
 #: src/templates/updates.mas:95

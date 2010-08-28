@@ -6,8 +6,8 @@ msgstr ""
 "Project-Id-Version: ebox-dhcp 0.12\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-08-26 00:53+0200\n"
-"PO-Revision-Date: 2010-08-18 21:47+0200\n"
-"Last-Translator: Cyril MARTY <cyril_marty@yahoo.fr>\n"
+"PO-Revision-Date: 2010-08-26 14:26+0200\n"
+"Last-Translator: Didier RAMBEAU <didier.rambeau@free.fr>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -181,21 +181,23 @@ msgstr "Adresses fixes"
 msgid "fixed address"
 msgstr "adresse fixe"
 
+# adaptation au changement de nom du produit
 #: src/EBox/Model/ThinClientOptions.pm:139
 #, fuzzy
 msgid "You need to upload a boot image to Zentyal if you set it as next server"
 msgstr ""
-"Vous devez envoyer une image de boot à eBox si vous le sélectionné comme "
+"Vous devez envoyer une image de boot à Zentyal si vous le sélectionné comme "
 "serveur suivant"
 
+# adaptation au changement de nom du produit
 #: src/EBox/Model/ThinClientOptions.pm:146
 #, fuzzy
 msgid ""
 "In order to upload a boot image to Zentyal, you need to set Zentyal as next "
 "server"
 msgstr ""
-"Pour pouvoir envoyer une image de boot depuis eBox, vous devez définir eBox "
-"en tant que serveur suivant"
+"Pour pouvoir envoyer une image de boot depuis Zentyal, vous devez définir "
+"Zentyal en tant que serveur suivant"
 
 #: src/EBox/Model/ThinClientOptions.pm:153
 msgid "You need to specify a path to the boot image in the remote server"
@@ -211,6 +213,7 @@ msgstr ""
 "Vous pouvez seulement spécifier un nom de fichiersi vous possédez un serveur "
 "suivant et que ce dernier n'est pas un eBox"
 
+# adaptation au changement de nom du produit
 #: src/EBox/Model/ThinClientOptions.pm:209
 #, fuzzy, perl-brace-format
 msgid ""
@@ -218,7 +221,7 @@ msgid ""
 "changed from Zentyal to {option}"
 msgstr ""
 "Suppression de l'image de boot existante tant que l'option du serveur "
-"suivant sera de {option} au lieu de eBox"
+"suivant sera de {option} au lieu de Zentyal"
 
 #: src/EBox/Model/ThinClientOptions.pm:232
 msgid "Next server"
@@ -322,48 +325,54 @@ msgstr ""
 msgid "{gateway} is not in the current network"
 msgstr "{gateway} n'est pas dans le réseau actuel"
 
+# adaptation au changement de nom du produit
 #: src/EBox/Model/Options.pm:169
 #, fuzzy
 msgid ""
 "DNS module must be enabled to be able to select Zentyal as primary DNS server"
 msgstr ""
-"Le module DNS doit être activé pour permettre de définir eBox en tant que "
+"Le module DNS doit être activé pour permettre de définir Zentyal en tant que "
 "serveur DNS primaire"
 
+# adaptation au changement de nom du produit
 #: src/EBox/Model/Options.pm:179
 #, fuzzy
 msgid "NTP module must be enabled to be able to select Zentyal as NTP server"
 msgstr ""
-"Le module NTP doit être activé pour permettre de définir eBox en tant que "
+"Le module NTP doit être activé pour permettre de définir Zentyal en tant que "
 "serveur NTP"
 
+# adaptation au changement de nom du produit
 #: src/EBox/Model/Options.pm:190
 #, fuzzy
 msgid ""
 "Samba module must be enabled to be able to select Zentyal as WINS server"
 msgstr ""
-"Le module Samba doit être activé pour permettre de définir Bbox en tant que "
-"serveur WINS"
+"Le module Samba doit être activé pour permettre de définir Zentyal en tant "
+"que serveur WINS"
 
 #: src/EBox/Model/Options.pm:384
 #, fuzzy
 msgid "Zentyal domain"
 msgstr "Domaine statique"
 
+# adaptation au changement de nom du produit + typo
 #: src/EBox/Model/Options.pm:392
 #, fuzzy
 msgid "local Zentyal DNS"
-msgstr "DNS locale d'eBox"
+msgstr "DNS local de Zentyal"
 
+# adaptation au changement de nom du produit + typo
 #: src/EBox/Model/Options.pm:414
 #, fuzzy
 msgid "local Zentyal NTP"
-msgstr "NTP locale d'eBox"
+msgstr "NTP local de Zentyal"
 
+# adaptation au changement de nom du produit
 #: src/EBox/Model/Options.pm:428
 #, fuzzy
 msgid "local Zentyal"
-msgstr "eBox local"
+msgstr "Zentyal local"
 
 #: src/EBox/Model/Options.pm:440 src/templates/options.mas:18
 msgid "Default gateway"
@@ -377,13 +386,14 @@ msgstr "Adresse IP personnalisée"
 msgid "Configured ones"
 msgstr "Configuré"
 
+# adaptation au changement de nom du produit
 #: src/EBox/Model/Options.pm:466
 #, fuzzy
 msgid ""
 "Setting \"Zentyal\" as default gateway will set the interface IP address as "
 "gateway"
 msgstr ""
-"Régler \"ebox\" comme passerelle par défaut définira l'adresse IP de "
+"Régler \"Zentyal\" comme passerelle par défaut définira l'adresse IP de "
 "l'interface comme passerelle"
 
 #: src/EBox/Model/Options.pm:472 src/templates/options.mas:29
@@ -402,14 +412,15 @@ msgstr ""
 msgid "Primary nameserver"
 msgstr "Serveur de nom primaire"
 
+# adpatation au changement de nom du produit
 #: src/EBox/Model/Options.pm:483
 #, fuzzy
 msgid ""
 "If \"Zentyal DNS\" is present and selected, the Zentyal server will act as "
 "cache DNS server"
 msgstr ""
-"Si \"eBox DNS\" est présent et sélectionné, le serveur eBox agira en tant "
-"que serveur de cache DNS"
+"Si \"Zentyal DNS\" est présent et sélectionné, le serveur Zentyal agira en "
+"tant que serveur de cache DNS"
 
 #: src/EBox/Model/Options.pm:488 src/templates/options.mas:52
 msgid "Secondary nameserver"
@@ -604,9 +615,10 @@ msgstr "Date"
 msgid "IP"
 msgstr "IP"
 
+# corrrection typo
 #: src/EBox/DHCP.pm:1267
 msgid "Event"
-msgstr "Evénement"
+msgstr "Evènement"
 
 #: src/EBox/DHCP.pm:1270
 msgid "Leased"
@@ -640,6 +652,7 @@ msgstr "Statut du Module"
 msgid "Options"
 msgstr "Options"
 
+# Adaptation au nouveau nom du produit
 #: src/templates/options.mas:10
 #, fuzzy
 msgid ""
@@ -647,7 +660,7 @@ msgid ""
 "gateway for this subnet"
 msgstr ""
 "Vous pouvez laisser vide le champ \"Passerelle par Défaut\" pour utiliser "
-"eBox comme passerelle par défaut pour ce sous-réseau"
+"Zentyal comme passerelle par défaut pour ce sous-réseau"
 
 #: src/templates/options.mas:64
 msgid "Apply"

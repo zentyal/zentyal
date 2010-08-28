@@ -10,8 +10,8 @@ msgstr ""
 "technologies.com\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-08-26 00:52+0200\n"
-"PO-Revision-Date: 2010-08-17 11:16+0200\n"
-"Last-Translator: Sven <deathsorce@freenet.de>\n"
+"PO-Revision-Date: 2010-08-27 14:38+0200\n"
+"Last-Translator: Robin Kluth <commi1993@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -20,9 +20,8 @@ msgstr ""
 "X-Generator: Pootle 1.1.0\n"
 
 #: migration/0001_add_firewall_services.pl:30
-#, fuzzy
 msgid "Zentyal VoIP system"
-msgstr "eBox VoIP System"
+msgstr "Zentyal VoIP System"
 
 #: src/EBox/Asterisk.pm:74 src/EBox/Asterisk.pm:715
 #: src/EBox/Composite/General.pm:67
@@ -31,7 +30,7 @@ msgstr "VoIP"
 
 #: src/EBox/Asterisk.pm:130
 msgid "To configure enabled and disabled modules."
-msgstr "Zum Aktiveren und Deaktivieren von Asterisk-Modulen"
+msgstr "Um aktivierte und deaktivierte Module zu konfigurieren."
 
 #: src/EBox/Asterisk.pm:135
 msgid "To configure the Realtime interface."
@@ -167,17 +166,16 @@ msgid "Busy"
 msgstr "Besetzt"
 
 #: src/EBox/Asterisk.pm:711
-#, fuzzy
 msgid "Failed"
-msgstr "fehlgeschlagen"
+msgstr "Fehlgeschlagen"
 
 #: src/EBox/Model/Localnets.pm:88
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Networks attached directly to internal interfaces, like {net}, are always "
 "considered local networks so it is not neccessary to add them."
 msgstr ""
-"Netwerke, die an den internen Netzwerkkarten ,wie z.B. {net}, angeschlossen "
+"Netzwerke, die an den internen Netzwerkkarten ,wie z.B. {net}, angeschlossen "
 "sind, werden sowieso als interne Netzwerke behandelt, sie brauchen nicht "
 "extra hinzugefügt werden."
 
@@ -198,7 +196,6 @@ msgid "local network"
 msgstr "lokales Netzwerk"
 
 #: src/EBox/Model/AsteriskUser.pm:50
-#, fuzzy
 msgid "Asterisk Account"
 msgstr "Asterisk Konto"
 
@@ -234,53 +231,45 @@ msgid "VoIP domain"
 msgstr "VoIP-Domäne"
 
 #: src/EBox/Model/Settings.pm:145
-#, fuzzy
 msgid "General configuration"
 msgstr "Allgemeine Konfigurationseinstellungen"
 
 #: src/EBox/Model/Settings.pm:149
-#, fuzzy
 msgid "General Asterisk server configuration"
-msgstr "Allgemeine Asterisk - Serverkonfiguration"
+msgstr "Allgemeine Asterisk Serverkonfiguration"
 
 #: src/EBox/Model/Settings.pm:151
-#, fuzzy
 msgid "General Asterisk server configuration updated."
 msgstr ""
-"Allgemeine Asterisk Serverkonfigurations Einstellungen wurden aktualisiert."
+"Allgemeine Asterisk Serverkonfiguration Einstellungen wurden aktualisiert."
 
 #: src/EBox/Model/NAT.pm:96
 msgid "Zentyal is behind NAT"
-msgstr ""
+msgstr "Zentyal ist hinter NAT"
 
 #: src/EBox/Model/NAT.pm:101
 msgid "No"
 msgstr "Nein"
 
 #: src/EBox/Model/NAT.pm:120
-#, fuzzy
 msgid "NAT configuration"
 msgstr "NAT Konfiguration"
 
 #: src/EBox/Model/NAT.pm:124
-#, fuzzy
 msgid "NAT Asterisk server configuration"
-msgstr "NAT Asterisk - Server konfiguration"
+msgstr "NAT Asterisk - Server Konfiguration"
 
 #: src/EBox/Model/NAT.pm:126
-#, fuzzy
 msgid "NAT Asterisk server configuration updated."
-msgstr "NAT Asterisk Server Konfiguration Einstellungs Update"
+msgstr "NAT Asterisk Server Konfiguration aktualisiert."
 
 #: src/EBox/Model/Provider.pm:68
-#, fuzzy
 msgid "Custom"
 msgstr "Benutzerdefiniert"
 
 #: src/EBox/Model/Provider.pm:89
-#, fuzzy
 msgid "Provider"
-msgstr "SIP - Provider"
+msgstr "Provider"
 
 #: src/EBox/Model/Provider.pm:95
 msgid "Name"
@@ -288,7 +277,7 @@ msgstr "Name"
 
 #: src/EBox/Model/Provider.pm:100
 msgid "VoIP service provider name."
-msgstr ""
+msgstr "VoIP-Service Provider Name"
 
 #: src/EBox/Model/Provider.pm:104
 msgid "Username"

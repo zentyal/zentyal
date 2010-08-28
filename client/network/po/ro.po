@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: ebox-network 0.12.99\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-08-25 17:47+0200\n"
-"PO-Revision-Date: 2010-08-14 00:06+0200\n"
-"Last-Translator: Bogdan Chirica <bogdan.chirica@gmail.com>\n"
+"PO-Revision-Date: 2010-08-27 08:28+0200\n"
+"Last-Translator: Harald Ersch <harald.ersch@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -121,9 +121,8 @@ msgid "Traffic rate monitoring"
 msgstr "Monitorizare rată de trafic"
 
 #: src/EBox/Network/Composite/Gateway.pm:56
-#, fuzzy
 msgid "Gateways and Proxy"
-msgstr "Gateway-uri"
+msgstr "Gateway-uri şi Proxy"
 
 #: src/EBox/Network/Composite/WANFailover.pm:77
 msgid ""
@@ -264,9 +263,8 @@ msgstr ""
 "lista rutele implicite trebuie să executaţi: "
 
 #: src/EBox/Network.pm:108
-#, fuzzy
 msgid "Enable Zentyal DHCP hook"
-msgstr "Activare registru eBox DHCP"
+msgstr "Activare registru Zentyal DHCP"
 
 #: src/EBox/Network.pm:109
 msgid ""
@@ -277,42 +275,36 @@ msgstr ""
 "rutare implicită. "
 
 #: src/EBox/Network.pm:127
-#, fuzzy
 msgid "Zentyal will set your network configuration"
-msgstr "eBox va înregistra configuraţia reţelei"
+msgstr "Zentyal va înregistra configuraţia reţelei"
 
 #: src/EBox/Network.pm:132
-#, fuzzy
 msgid "Zentyal will set your DNS configuration"
-msgstr "eBox va înregistra configuraţia DNS"
+msgstr "Zentyal va înregistra configuraţia DNS"
 
 #: src/EBox/Network.pm:137
-#, fuzzy
 msgid "Zentyal will set your DHCP client configuration"
-msgstr "eBox va înregistra configuraţia client DHCP"
+msgstr "Zentyal va înregistra configuraţia client DHCP"
 
 #: src/EBox/Network.pm:142 src/EBox/Network.pm:147
-#, fuzzy
 msgid "Zentyal will set your ddclient configuration"
-msgstr "eBox va înregistra configuraţia ddclient"
+msgstr "Zentyal va înregistra configuraţia ddclient"
 
 #: src/EBox/Network.pm:152 src/EBox/Network.pm:157
-#, fuzzy
 msgid "Zentyal will store your PPPoE passwords"
-msgstr "eBox va înregistra parolele PPPoE"
+msgstr "Zentyal va înregistra parolele PPPoE"
 
 #: src/EBox/Network.pm:164
-#, fuzzy
 msgid "Zentyal will add a DSL provider configuration for PPPoE"
-msgstr "eBox va adăuga o configuraţie pt. furnizorul DSL pentru PPPoE"
+msgstr "Zentyal va adăuga o configuraţie pt. furnizorul DSL pentru PPPoE"
 
 #: src/EBox/Network.pm:171
 msgid "Zentyal will set HTTP proxy for all users"
-msgstr ""
+msgstr "Zentyal va înregistra proxy-ul HTTP pentru toţi utilizatorii"
 
 #: src/EBox/Network.pm:174
 msgid "Zentyal will set HTTP proxy for APT"
-msgstr ""
+msgstr "Zentyal va înregistra proxy-ul HTTP pentru APT"
 
 #: src/EBox/Network.pm:904 src/EBox/Network.pm:908
 msgid "Virtual interface name"
@@ -484,7 +476,7 @@ msgid ""
 "This domain will be appended when trying to resolve hosts if the first "
 "attempt without appending it has failed."
 msgstr ""
-"Acest domeniu va fi adăugat atunci când prima încercare de a rezolva gazdal, "
+"Acest domeniu va fi adăugat atunci când prima încercare de a rezolva gazda, "
 "fără a avea domeniul adăugat, a eşuat"
 
 #: src/EBox/Model/MultiGwRulesOptions.pm:43
@@ -588,9 +580,8 @@ msgstr ""
 "anume, regula se va aplica pentru toate"
 
 #: src/EBox/Model/DNSResolver.pm:77
-#, fuzzy
 msgid "IP address of the DNS server that Zentyal will use to resolve names."
-msgstr "Adresa IP a serverului DNS folosit de eBox pentru a rezolva numele."
+msgstr "Adresa IP a serverului DNS folosit de Zentyal pentru a rezolva numele."
 
 #: src/EBox/Model/DNSResolver.pm:83 src/templates/Wizard/network.mas:70
 #: src/templates/Wizard/network.mas:74
@@ -606,15 +597,14 @@ msgid "name server"
 msgstr "server nume"
 
 #: src/EBox/Model/DNSResolver.pm:110
-#, fuzzy
 msgid ""
 "<p>Here you can add the name server resolvers that Zentyal will use.</"
 "p><p>Note that these settings may be overriden if you have any network "
 "interface configured via DHCP</p>"
 msgstr ""
 "<p>Adăugaţi aici serverele de rezolvare a numelui ce vor fi utilizate de "
-"eBox.</p><p>Aceste configurări pot fi suprascrise dacă aveţi orice interfaţă "
-"de reţea configurată prin DHCP</p>"
+"Zentyal.</p><p>Aceste configurări pot fi suprascrise dacă aveţi orice "
+"interfaţă de reţea configurată prin DHCP</p>"
 
 #: src/EBox/Model/ByteRateSettings.pm:80
 msgid "Interface to listen"
@@ -630,7 +620,7 @@ msgstr "Modificările vor fi aplicate imediat monitorului ratei de trafic"
 
 #: src/EBox/Model/ByteRateSettings.pm:96
 msgid "Settings changed"
-msgstr "Configurare modificată"
+msgstr "Configuraţie modificată"
 
 #: src/EBox/Model/ByteRateSettings.pm:115
 #, perl-brace-format
@@ -856,23 +846,24 @@ msgid "Traffic by source and service"
 msgstr "Trafic după sursă şi serviciu"
 
 #: src/EBox/Model/Proxy.pm:72
-#, fuzzy
 msgid "Proxy server"
-msgstr "server nume"
+msgstr "Server Proxy"
 
 #: src/EBox/Model/Proxy.pm:78
 msgid "Proxy port"
-msgstr ""
+msgstr "Port Proxy"
 
 #: src/EBox/Model/Proxy.pm:86
 msgid "Proxy"
-msgstr ""
+msgstr "Proxy"
 
 #: src/EBox/Model/Proxy.pm:90
 msgid ""
 "This settings will be used to allow Zentyal to access the Internet if an "
 "HTTP proxy is needed."
 msgstr ""
+"Acestă configuraţie va fi utilizată pentru a permite accesul Zentyal la "
+"Internet prin intermediul unui Proxy."
 
 #: src/templates/confirmremove.mas:11 src/templates/confirm.mas:16
 msgid ""
@@ -945,12 +936,11 @@ msgid "External (WAN)"
 msgstr "Externă (WAN)"
 
 #: src/templates/ifaces.mas:111
-#, fuzzy
 msgid ""
 "Check this if you are using Zentyal as a gateway and this interface is "
 "connected to your Internet router."
 msgstr ""
-"Bifaţi aceasta dacă folosiţi eBox drept gateway şi această interfaţă e "
+"Bifaţi aceasta dacă folosiţi Zentyal drept gateway şi această interfaţă e "
 "conectată la Router-ul dvs. de Internet"
 
 #: src/templates/ifaces.mas:168
@@ -1022,10 +1012,9 @@ msgid "Select external network interfaces"
 msgstr "Selectaţi interfeţele către reţele externe"
 
 #: src/templates/Wizard/interfaces.mas:11
-#, fuzzy
 msgid ""
 "You will not be able to connect to Zentyal administration page through them"
-msgstr "Nu veţi putea deschide paginile de administrare eBox prin ele"
+msgstr "Nu veţi putea deschide paginile de administrare Zentyal prin ele"
 
 #: src/templates/diag.mas:13 src/templates/diag.mas:18
 msgid "Ping"

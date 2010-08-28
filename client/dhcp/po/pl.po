@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-dhcp 0.12\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-08-26 00:53+0200\n"
-"PO-Revision-Date: 2010-08-25 17:32+0200\n"
+"PO-Revision-Date: 2010-08-27 13:27+0200\n"
 "Last-Translator: Robert Brzozowski <gnutar1@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
@@ -179,19 +179,17 @@ msgid "fixed address"
 msgstr "adres statyczny"
 
 #: src/EBox/Model/ThinClientOptions.pm:139
-#, fuzzy
 msgid "You need to upload a boot image to Zentyal if you set it as next server"
 msgstr ""
-"Musisz załadować obraz bootowalny do eBox-a jeśli ustawiasz go jako następny "
-"serwer"
+"Musisz załadować obraz bootowalny do Zentyala jeśli ustawiasz go jako "
+"następny serwer"
 
 #: src/EBox/Model/ThinClientOptions.pm:146
-#, fuzzy
 msgid ""
 "In order to upload a boot image to Zentyal, you need to set Zentyal as next "
 "server"
 msgstr ""
-"Aby załadować obraz bootowalny do eBox-a, musisz ustawić go jako następny "
+"Aby załadować obraz bootowalny do Zentyala, musisz ustawić go jako następny "
 "serwer"
 
 #: src/EBox/Model/ThinClientOptions.pm:153
@@ -199,22 +197,21 @@ msgid "You need to specify a path to the boot image in the remote server"
 msgstr "Musisz podać ścieżkę do obrazu bootowalnego na zdalnym serwerze"
 
 #: src/EBox/Model/ThinClientOptions.pm:158
-#, fuzzy
 msgid ""
 "You can only specify a file name if you have a next server and it is not "
 "Zentyal"
 msgstr ""
 "Możesz podać jedynie nazwę pliku jeśli posiadasz kolejny serwer i nie jest "
-"to eBox"
+"to Zentyal"
 
 #: src/EBox/Model/ThinClientOptions.pm:209
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Removing previously uploaded boot image since next server option has been "
 "changed from Zentyal to {option}"
 msgstr ""
-"Usuwam poprzednio załadowany obraz bootowalny jako że opcja serwera "
-"następnego została zmieniona z eBox na {option}"
+"Usuwam poprzednio załadowany obraz bootowalny jako że opcja następny serwer "
+"została zmieniona z Zentyal na {option}"
 
 #: src/EBox/Model/ThinClientOptions.pm:232
 msgid "Next server"
@@ -314,41 +311,35 @@ msgid "{gateway} is not in the current network"
 msgstr "{gateway} nie należy do bieżącej sieci"
 
 #: src/EBox/Model/Options.pm:169
-#, fuzzy
 msgid ""
 "DNS module must be enabled to be able to select Zentyal as primary DNS server"
-msgstr "Aby ustawić eBox jako podstawowy serwer DNS, należy włączyć moduł DNS"
+msgstr ""
+"Aby ustawić Zentyal jako podstawowy serwer DNS, należy włączyć moduł DNS"
 
 #: src/EBox/Model/Options.pm:179
-#, fuzzy
 msgid "NTP module must be enabled to be able to select Zentyal as NTP server"
-msgstr "Aby ustawić eBox jako serwer NTP, należy włączyć moduł NTP"
+msgstr "Aby ustawić Zentyal jako serwer NTP, należy włączyć moduł NTP"
 
 #: src/EBox/Model/Options.pm:190
-#, fuzzy
 msgid ""
 "Samba module must be enabled to be able to select Zentyal as WINS server"
-msgstr "Aby ustawić eBox jako serwer WINS, należy włączyć moduł Samby"
+msgstr "Aby ustawić Zentyal jako serwer WINS, należy włączyć moduł Samba"
 
 #: src/EBox/Model/Options.pm:384
-#, fuzzy
 msgid "Zentyal domain"
-msgstr "Domena statyczna"
+msgstr "Domena serwera"
 
 #: src/EBox/Model/Options.pm:392
-#, fuzzy
 msgid "local Zentyal DNS"
 msgstr "lokalny serwer DNS"
 
 #: src/EBox/Model/Options.pm:414
-#, fuzzy
 msgid "local Zentyal NTP"
 msgstr "lokalny serwer NTP"
 
 #: src/EBox/Model/Options.pm:428
-#, fuzzy
 msgid "local Zentyal"
-msgstr "lokalny serwer eBox"
+msgstr "lokalny serwer Zentyal"
 
 #: src/EBox/Model/Options.pm:440 src/templates/options.mas:18
 msgid "Default gateway"
@@ -360,16 +351,15 @@ msgstr "Dowolny adres IP"
 
 #: src/EBox/Model/Options.pm:460
 msgid "Configured ones"
-msgstr "Skonfigurowane"
+msgstr "Skonfigurowano"
 
 #: src/EBox/Model/Options.pm:466
-#, fuzzy
 msgid ""
 "Setting \"Zentyal\" as default gateway will set the interface IP address as "
 "gateway"
 msgstr ""
-"Ustawienie serwera eBox jako bramy domyślnej spowoduje, że jego adres IP "
-"stanie się domyślnym adresem bramy"
+"Ustawienie Zentyala jako bramy domyślnej spowoduje, że jego adres IP stanie "
+"się domyślnie adresem bramy"
 
 #: src/EBox/Model/Options.pm:472 src/templates/options.mas:29
 msgid "Search domain"
@@ -386,13 +376,10 @@ msgid "Primary nameserver"
 msgstr "Podstawowy serwer DNS"
 
 #: src/EBox/Model/Options.pm:483
-#, fuzzy
 msgid ""
 "If \"Zentyal DNS\" is present and selected, the Zentyal server will act as "
 "cache DNS server"
-msgstr ""
-"Jeśli zaznaczysz \"eBox Samba\", serwer eBox stanie się domyślnym serwerem "
-"WINS dla klientów DHCP"
+msgstr "Jeśli \"Zentyal DNS\" zostanie wybrany, stanie się on serwerem cache DNS"
 
 #: src/EBox/Model/Options.pm:488 src/templates/options.mas:52
 msgid "Secondary nameserver"
@@ -403,26 +390,24 @@ msgid "NTP server"
 msgstr "Serwer NTP"
 
 #: src/EBox/Model/Options.pm:497
-#, fuzzy
 msgid ""
 "If \"Zentyal NTP\" is present and selected, Zentyal will be the NTP server "
 "for DHCP clients"
 msgstr ""
-"Jeśli zaznaczysz \"eBox NTP\", serwer eBox stanie się domyślnym serwerem NTP "
-"dla klientów DHCP"
+"Jeśli zaznaczysz \"Zentyal NTP\", serwer Zentyal stanie się domyślnym serwerem "
+"NTP dla klientów DHCP"
 
 #: src/EBox/Model/Options.pm:502
 msgid "WINS server"
 msgstr "Serwer WINS"
 
 #: src/EBox/Model/Options.pm:505
-#, fuzzy
 msgid ""
 "If \"Zentyal Samba\" is present and selected, Zentyal will be the WINS "
 "server for DHCP clients"
 msgstr ""
-"Jeśli zaznaczysz \"eBox Samba\", serwer eBox stanie się domyślnym serwerem "
-"WINS dla klientów DHCP"
+"Jeśli zaznaczysz \"Zentyal Samba\", Zentyal stanie się domyślnym serwerem WINS "
+"dla klientów DHCP"
 
 #: src/EBox/Model/Options.pm:512
 msgid "Common options"
@@ -447,22 +432,21 @@ msgid "Range {from}-{to} is not in network {net}"
 msgstr "Adresy {from}-{to} nie należą do sieci {net}"
 
 #: src/EBox/Model/RangeTable.pm:142
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Range {from}-{to} includes interface with IP address: {ifaceIP}"
 msgstr "Zakres {from}-{to} zawiera adres IP interfejsu: {ifaceIP}"
 
 #: src/EBox/Model/RangeTable.pm:165
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Range {newFrom}-{newTo} overlaps with range '{range}': {oldFrom}-{oldTo}"
 msgstr ""
 "Zakres {newFrom}-{newTo} pokrywa się z zakresem: '{range}': {oldFrom}-{oldTo}"
 
 #: src/EBox/Model/RangeTable.pm:183
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Range {from}-{to} includes fixed address '{name}': {fixedIP}"
-msgstr ""
-"Zakres: {from}-{to} zawiera ustawione adresy statyczne: '{name}': {fixedIP}"
+msgstr "Zakres: {from}-{to} zawiera adresy statyczne: '{name}': {fixedIP}"
 
 #: src/EBox/Model/RangeTable.pm:220 src/EBox/CGI/AddRange.pm:46
 #: src/templates/ranges.mas:54
@@ -479,7 +463,6 @@ msgid "Ranges"
 msgstr "Zakresy"
 
 #: src/EBox/Model/RangeTable.pm:241
-#, fuzzy
 msgid "range"
 msgstr "zakres"
 
@@ -489,6 +472,9 @@ msgid ""
 "An interface must set as static to configure the DHCP service on it. To do "
 "so, change {openhref}interfaces configuration{closehref} in network module"
 msgstr ""
+"Jeśli chcesz skonfigurować usługę DHCP, ustaw dla interfejsu statyczny adres "
+"IP. Przejdź do {openhref}Konfiguracja interfejsów{closehref} w zakładce "
+"Sieci"
 
 #: src/EBox/Composite/AdvancedOptions.pm:133
 msgid "Advanced options"
@@ -507,6 +493,8 @@ msgid ""
 "In order to serve IP addresses on an interface, it is required to set at "
 "least a range or a fixed address."
 msgstr ""
+"Aby interfejs łączył się z siecią należy ustawić adres statyczny lub zakres "
+"adresów dynamicznych"
 
 #: src/EBox/Composite/InterfaceConfiguration.pm:112
 #, perl-brace-format
@@ -514,6 +502,8 @@ msgid ""
 "In order to serve IP addresses on a external interface, you must open the "
 "service on {openhref}firewall module{closehref}"
 msgstr ""
+"Aby interfejs zewnętrzny łączył się z siecią należy skonfigurować usługę w "
+"module zapory {openhref}Firewall{closehref}"
 
 #: src/EBox/DHCP.pm:119
 #, perl-brace-format
@@ -592,12 +582,10 @@ msgid "DHCP"
 msgstr "DHCP"
 
 #: src/EBox/DHCP.pm:1333
-#, fuzzy
 msgid "Host name"
 msgstr "Nazwa hosta"
 
 #: src/EBox/DHCP.pm:1360
-#, fuzzy
 msgid "DHCP leases"
 msgstr "Wydzierżawione adresy DHCP"
 
@@ -614,12 +602,11 @@ msgid "Options"
 msgstr "Opcje"
 
 #: src/templates/options.mas:10
-#, fuzzy
 msgid ""
 "You can leave empty the Default Gateway field to use Zentyal as default "
 "gateway for this subnet"
 msgstr ""
-"Możesz pozostawić puste pole Bramy domyślnej, aby uczynić eBox-a domyślną "
+"Jeśli pole Brama domyślna pozostawisz puste, Zentyal stanie się domyślną "
 "bramą dla tej podsieci."
 
 #: src/templates/options.mas:64

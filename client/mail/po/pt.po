@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-mail 0.12\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-08-25 17:47+0200\n"
-"PO-Revision-Date: 2010-08-24 02:21+0200\n"
+"PO-Revision-Date: 2010-08-26 12:05+0200\n"
 "Last-Translator: Vasco Castelo Branco <vcbranco@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
@@ -22,9 +22,8 @@ msgid "protocol for editing SIEVE filters"
 msgstr "protocolo para editar os filtros SIELVE"
 
 #: migration/0001_add_firewall_services.pl:30
-#, fuzzy
 msgid "Zentyal Mail System"
-msgstr "Sistema de correio electrónico da eBox"
+msgstr "Sistema de correio electrónico Zentyal"
 
 #: src/EBox/MailUserLdap.pm:85 src/EBox/MailUserLdap.pm:90
 #: src/EBox/MailAliasLdap.pm:107 src/EBox/MailAliasLdap.pm:137
@@ -679,7 +678,7 @@ msgstr ""
 
 #: src/EBox/Mail/Model/GreylistConfiguration.pm:100
 msgid "Entries time to live (days)"
-msgstr "Tempo máximo das mensagens na greylist"
+msgstr "Tempo máximo das mensagens na greylist (dias)"
 
 #: src/EBox/Mail/Model/GreylistConfiguration.pm:101
 msgid "Period till unseen entries will be deleted"
@@ -765,13 +764,12 @@ msgid "Configure mail dispatcher"
 msgstr "Configurar o expedidor de correio"
 
 #: src/EBox/Mail/Model/Dispatcher/Mail.pm:147
-#, fuzzy
 msgid ""
 "In order to configure the Mail event dispatcher is required to enable the "
 "mail service from Zentyal"
 msgstr ""
 "para configurar o expedidor de eventos de correio é necessário activar o "
-"serviço de correio da eBox"
+"serviço de correio da Zentyal"
 
 #: src/EBox/Mail/Model/Dispatcher/Mail.pm:150
 msgid "Mail dispatcher configuration updated"
@@ -846,39 +844,36 @@ msgid "Generate mail aliases"
 msgstr "Gerar pseudónimos de correio electrónico"
 
 #: src/EBox/Mail.pm:143
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Zentyal will execute {cmd}"
-msgstr "A eBox executará {cmd}"
+msgstr "A Zentyal executará {cmd}"
 
 #: src/EBox/Mail.pm:148
 msgid "Add LDAP schemas"
 msgstr "Adicionar esquemas LDAP"
 
 #: src/EBox/Mail.pm:150
-#, fuzzy
 msgid "Zentyal will add two LDAP schemas: authldap.ldif and eboximail.ldif."
-msgstr "A eBox adicioanrá dois esquemas LDAP: authldap.ldif e eboximail.ldif"
+msgstr "A Zentyal adicionará dois esquemas LDAP: authldap.ldif e eboximail.ldif"
 
 #: src/EBox/Mail.pm:156
 msgid "Create certificates"
-msgstr "Criar ceritficados"
+msgstr "Criar certificados"
 
 #: src/EBox/Mail.pm:158
-#, fuzzy
 msgid "Zentyal will create certificates to use in mail services"
-msgstr "A Ebox criará os certificados para usar nos serviços de correio"
+msgstr "A Zentyal criará os certificados para usar nos serviços de correio"
 
 #: src/EBox/Mail.pm:163
 msgid "Add fetchmail update cron job"
-msgstr "Adicionar rotina de actualização cron fatchmail"
+msgstr "Adicionar rotina de actualização cron fetchmail"
 
 #: src/EBox/Mail.pm:165
-#, fuzzy
 msgid ""
 "Zentyal will schedule a cron job to update fetchmail configuration when the "
 "user add external accounts"
 msgstr ""
-"A eBox calendarizará aum rotina cron para actualizar o fetchmail quando o "
+"A Zentyal calendarizará uma rotina cron para actualizar o fetchmail quando o "
 "utilizador adicionar contas de correio electrónico externas"
 
 #: src/EBox/Mail.pm:185

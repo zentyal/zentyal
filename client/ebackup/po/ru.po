@@ -9,14 +9,14 @@ msgstr ""
 "technologies.com\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-08-26 00:53+0200\n"
-"PO-Revision-Date: 2010-08-18 13:50+0200\n"
-"Last-Translator: Dmitry Salynin <dsalynin@gmail.com>\n"
+"PO-Revision-Date: 2010-08-26 18:17+0200\n"
+"Last-Translator: Val Budkin <valentin@ktc-ua.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
-"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/Event/Watcher/EBackup.pm:123 src/EBox/EBackup.pm:72
@@ -25,15 +25,13 @@ msgid "Backup"
 msgstr "Резервное Копирование"
 
 #: src/EBox/Event/Watcher/EBackup.pm:141
-#, fuzzy
 msgid "Check if Zentyal backup was not successful."
-msgstr "Проверить, удалось ли выполнить бэкап"
+msgstr "Проверить, удалось ли Zentyal выполнить бэкап "
 
 #: src/EBox/Model/RemoteRestoreLogs.pm:88 src/EBox/Model/RemoteFileList.pm:143
 #: src/EBox/Model/RemoteStatus.pm:119 src/EBox/Model/RemoteRestoreConf.pm:74
-#, fuzzy
 msgid "There are not backed up files yet"
-msgstr "Нет информации о файлах бэкапа"
+msgstr "Пока-что отсутствуют файлы бэкапа"
 
 #: src/EBox/Model/RemoteRestoreLogs.pm:107
 #: src/EBox/Model/RemoteFileList.pm:166 src/EBox/Model/RemoteRestoreConf.pm:93
@@ -42,11 +40,11 @@ msgstr "Дата бэкапа"
 
 #: src/EBox/Model/RemoteRestoreLogs.pm:118
 msgid "Restore logs database"
-msgstr ""
+msgstr "Восстановить базу данных журналов"
 
 #: src/EBox/Model/RemoteRestoreLogs.pm:125
 msgid "Restores the Zentyal logs found in the selected backup"
-msgstr ""
+msgstr "Восстанавливает журналы Zentyal найденые в выбраном бэкапе"
 
 #: src/EBox/Model/RemoteFileList.pm:162
 msgid "File"
@@ -91,7 +89,7 @@ msgstr "бэкап"
 
 #: src/EBox/Model/RemoteRestoreConf.pm:104
 msgid "Restore Zentyal configuration from backup"
-msgstr ""
+msgstr "Восстановить настройки Zentyal из бэкапа"
 
 #: src/EBox/Model/RemoteRestoreConf.pm:111
 msgid "Loads the configuration found in the backup"
@@ -99,14 +97,14 @@ msgstr ""
 
 #: src/EBox/Model/RemoteRestoreConf.pm:113
 msgid "Please wait..."
-msgstr ""
+msgstr "Подождите..."
 
 #: src/EBox/Model/RemoteRestoreConf.pm:169
 #, perl-brace-format
 msgid ""
 "Configuration backup not found in backup for {d}. Maybe you could try "
 "another date?"
-msgstr ""
+msgstr "Бэкап настроек не найден в бэкапе на {d}. Попробуете другую дату?"
 
 #: src/EBox/Model/RemoteExcludes.pm:82
 msgid "Exclude or Include"
@@ -117,7 +115,6 @@ msgid "Includes and Excludes"
 msgstr "Влючённые и исключённые"
 
 #: src/EBox/Model/RemoteExcludes.pm:94
-#, fuzzy
 msgid "exclude or include"
 msgstr "Исключить или включить"
 
@@ -133,9 +130,8 @@ msgid "Exclude path"
 msgstr "Исключить путь"
 
 #: src/EBox/Model/RemoteExcludes.pm:121
-#, fuzzy
 msgid "Exclude by regular expression"
-msgstr "исключать путь регулярного выражения"
+msgstr "исключить путь с помощью регулярного выражения"
 
 #: src/EBox/Model/RemoteExcludes.pm:125
 msgid "Include Path"
@@ -166,9 +162,10 @@ msgid "Host or destination"
 msgstr "Хост или приемник"
 
 #: src/EBox/Model/RemoteSettings.pm:169
-#, fuzzy
 msgid "If the selected method is file system, only set the target directory"
-msgstr "Если выбранный метод {brand}, укажите директорию"
+msgstr ""
+"Если выбраный метод - файловая система, установливайте только целевой "
+"каталог"
 
 #: src/EBox/Model/RemoteSettings.pm:173
 msgid "User"
@@ -221,15 +218,15 @@ msgstr "Процесс бэкапа начат в"
 
 #: src/EBox/Model/RemoteSettings.pm:267
 msgid "Keep previous full copies"
-msgstr ""
+msgstr "Сохранить предыдущие полные копии"
 
 #: src/EBox/Model/RemoteSettings.pm:272
 msgid "maximum number"
-msgstr "Максимальный номер"
+msgstr "Максимальное количество"
 
 #: src/EBox/Model/RemoteSettings.pm:280
 msgid "no older than"
-msgstr ""
+msgstr "не старше чем"
 
 #: src/EBox/Model/RemoteSettings.pm:294
 msgid "General Configuration"
@@ -270,11 +267,11 @@ msgstr "по воскресеньям"
 #: src/EBox/Model/RemoteSettings.pm:331
 #, perl-brace-format
 msgid "on the {mday}th"
-msgstr ""
+msgstr "по {mday}"
 
 #: src/EBox/Model/RemoteSettings.pm:339
 msgid "on the last day"
-msgstr ""
+msgstr "на предыдущий день"
 
 #: src/EBox/Model/RemoteSettings.pm:494
 #, perl-brace-format
@@ -283,66 +280,69 @@ msgid ""
 "keep on your Zentyal servers. Purchase the backup storage space you need at "
 "the {ohref}Zentyal on-line store{chref}."
 msgstr ""
+"{oi}{brand}{ci} - быстрое и безопасное удалённое хранилище для обеспечения "
+"сохранности данных ваших серверов Zentyal. Приобретайте место для бэкапа в "
+"{ohref}онлайн-магазине Zentyal{chref}."
 
 #: src/EBox/Model/RemoteSettings.pm:511
 msgid "1 week"
-msgstr ""
+msgstr "1 неделя"
 
 #: src/EBox/Model/RemoteSettings.pm:515
 msgid "2 weeks"
-msgstr ""
+msgstr "2 недели"
 
 #: src/EBox/Model/RemoteSettings.pm:519
 msgid "3 weeks"
-msgstr ""
+msgstr "3 недели"
 
 #: src/EBox/Model/RemoteSettings.pm:523
 msgid "1 month"
-msgstr ""
+msgstr "1 месяц"
 
 #: src/EBox/Model/RemoteSettings.pm:527
 msgid "2 months"
-msgstr ""
+msgstr "2 месяца"
 
 #: src/EBox/Model/RemoteSettings.pm:531
 msgid "3 months"
-msgstr ""
+msgstr "3 месяца"
 
 #: src/EBox/Model/RemoteSettings.pm:535
 msgid "4 months"
-msgstr ""
+msgstr "4 месяца"
 
 #: src/EBox/Model/RemoteSettings.pm:539
 msgid "6 months"
-msgstr ""
+msgstr "6 месяцев"
 
 #: src/EBox/Model/RemoteSettings.pm:543
 msgid "9 months"
-msgstr ""
+msgstr "9 месяцев"
 
 #: src/EBox/Model/RemoteSettings.pm:547
 msgid "1 year"
-msgstr ""
+msgstr "1 год"
 
 #: src/EBox/Model/RemoteSettings.pm:551
 msgid "1 year and half"
-msgstr ""
+msgstr "Полтора года"
 
 #: src/EBox/Model/RemoteSettings.pm:555
 msgid "2 years"
-msgstr ""
+msgstr "2 года"
 
 #: src/EBox/Model/RemoteSettings.pm:559
 msgid "3 years"
-msgstr ""
+msgstr "3 года"
 
 #: src/EBox/Model/RemoteSettings.pm:591
 msgid "Destination must be a relative directory"
-msgstr "Расположение должно быть относительным"
+msgstr "Расположение бэкапа должно быть относительным каталогом"
 
 #: src/EBox/Model/RemoteSettings.pm:646
 msgid "The target parameter that must be like 'other.host[:port]/some_dir"
-msgstr "Параметр цель должен быть в формате 'other.host[:port]/some_dir'"
+msgstr "Параметр должен быть в формате 'другой.хост[:порт]/каталог'"
 
 #: src/EBox/Model/RemoteSettings.pm:657 src/EBox/Model/RemoteSettings.pm:691
 msgid "target"
@@ -350,7 +350,7 @@ msgstr "цель"
 
 #: src/EBox/Model/RemoteSettings.pm:659
 msgid "Must be a like 'other.host[:port]/some_dir'"
-msgstr "Должен быть в формате  'other.host[:port]/some_dir'"
+msgstr "Должен быть в формате 'другой.хост[:порт]/каталог'"
 
 #: src/EBox/Model/RemoteSettings.pm:666 src/EBox/Model/RemoteSettings.pm:701
 msgid "host"
@@ -369,16 +369,16 @@ msgid ""
 "The RSYNC target parameter that must be like 'other.host[:port]/"
 "relative_path' or 'other.host[:port]/absolute_path'"
 msgstr ""
-"RSYNC цель должна быть в формате 'other.host[:port]/relative_path' или "
-"'other.host[:port]/absolute_path'"
+"RSYNC цель должна быть в формате 'другой.хост[:порт]/относительный_путь' или "
+"'другой.хост[:порт]/абсолютный_путь'"
 
 #: src/EBox/Model/RemoteSettings.pm:694
 msgid ""
 "Must be a like 'other.host[:port]/relative_path' or 'other.host[:port]/"
 "absolute_path'"
 msgstr ""
-"Должен быть в формате 'other.host[:port]/relative_path' или 'other.host[:"
-"port]/absolute_path'"
+"Должен быть в формате 'другой.хост[:порт]/относительный_путь' или "
+"'другой.хост[:порт]/абсолютный_путь'"
 
 #: src/EBox/Model/RemoteSettings.pm:706
 msgid "absolute directory"
@@ -392,41 +392,44 @@ msgstr "относительный путь"
 msgid ""
 "File system method needs a target parameter that should be a directory path"
 msgstr ""
-"Метод *файловой системы* нуждается в параметре цели, который должен быть "
-"путём каталога"
+"Для метода \"файловая система\" необходимо указать путь целевого каталога "
+"размещения"
 
 #: src/EBox/Model/RemoteSettings.pm:724 src/EBox/Model/RemoteSettings.pm:728
 msgid "Directory for backup"
-msgstr "Директория для бэкапа"
+msgstr "Каталог для бэкапа"
 
 #: src/EBox/Model/RemoteSettings.pm:731
 msgid "File exists and it is not a directory"
-msgstr "Файл существует и это не директория"
+msgstr "Файл существует и это не каталог"
 
 #: src/EBox/Model/RemoteSettings.pm:751
-#, fuzzy
 msgid "Incremental backup must be more frequent than full backup"
-msgstr "Полный бэкап не может быть более частым чем частичный"
+msgstr "Инкрементальный бэкап должен производится чаще, чем полный"
 
+# аффтар АХТУНГА жжот :)
 #: src/EBox/Model/RemoteSettings.pm:763
 msgid ""
 "General backup server configuration updated. SCP method selected; "
 "<em>remember</em> to add your target host to the list of known hosts by SSH"
 msgstr ""
 "Конфигурация главного сервера бэкапа обновлена. Выбран метод SCP; "
-"<em>АХТУНГ</em> не забудь добавить целевой хост в список извесных SSH "
+"<em>АХТУНГ</em> не забудьте добавить целевой хост в список извесных SSH "
 "серверов"
 
 #: src/EBox/EBackup.pm:197
 #, perl-brace-format
 msgid "File {f} not found in backup for {d}, try a later date"
-msgstr ""
+msgstr "Файл {f} не найден в бэкапе для {d}, попробуйте другую дату"
 
 #: src/EBox/EBackup.pm:204
 msgid ""
 "No backup archives found. Maybe they were deleted?. Run '/etc/init.d/ebox "
 "ebackup restart' to refresh backup's information."
 msgstr ""
+"Не найдено архивов с бэкапом. Возможно они были удалены?. Запустите "
+"'/etc/init.d/ebox ebackup restart' для обновления для обновления информации "
+"о бэкапах."
 
 #: src/EBox/EBackup/DBRestore.pm:46
 #, perl-brace-format
@@ -439,7 +442,7 @@ msgstr ""
 
 #: src/EBox/Composite/ServicesRestore.pm:64
 msgid "Services restore"
-msgstr ""
+msgstr "Восстановление служб"
 
 #: src/EBox/Composite/RemoteGeneral.pm:65
 msgid "Configuration and Status"

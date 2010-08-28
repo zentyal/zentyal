@@ -9,8 +9,8 @@ msgstr ""
 "technologies.com\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-08-25 17:48+0200\n"
-"PO-Revision-Date: 2010-06-10 21:30+0200\n"
-"Last-Translator: Nagy Ákos <reg@pecska.ro>\n"
+"PO-Revision-Date: 2010-08-28 09:22+0200\n"
+"Last-Translator: Nagy Ákos <nagy.akos@akos.ro>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -100,12 +100,11 @@ msgid "Overwrite blocked page templates"
 msgstr "Blokkolt lapok sablonjának felülírása"
 
 #: src/EBox/Squid.pm:302
-#, fuzzy
 msgid ""
 "Dansguardian blocked page templates will be overwritten with Zentyal "
 "customized templates."
 msgstr ""
-"A Dansguardian blokkolt lapok sablonja felül lesz írva az eBox "
+"A Dansguardian blokkolt lapok sablonja felül lesz írva a Zentyal "
 "személyreszabott sablonjával"
 
 #: src/EBox/Squid.pm:342

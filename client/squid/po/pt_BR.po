@@ -7,8 +7,8 @@ msgstr ""
 "Project-Id-Version: ebox-squid 0.12\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-08-25 17:48+0200\n"
-"PO-Revision-Date: 2010-07-21 00:46+0200\n"
-"Last-Translator: Flávio Veras <flaviove@gmail.com>\n"
+"PO-Revision-Date: 2010-08-27 05:21+0200\n"
+"Last-Translator: Jorge Eduardo Quintao <jorge@netsol.com.br>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -98,25 +98,25 @@ msgid "Overwrite blocked page templates"
 msgstr "Sobrescrever modelo de página bloqueada"
 
 #: src/EBox/Squid.pm:302
-#, fuzzy
 msgid ""
 "Dansguardian blocked page templates will be overwritten with Zentyal "
 "customized templates."
 msgstr ""
 "Modelos Dansguardian de páginas bloqueadas serão sobrescritas com modelos "
-"personalizados eBox."
+"personalizados Zentyal."
 
 #: src/EBox/Squid.pm:342
 msgid "You must set the cache_mem variable in the ebox configuration file"
 msgstr ""
-"Você precisa definir a variável cache_mem no arquivo de configuração do eBox"
+"Você precisa definir a variável cache_mem no arquivo de configuração do "
+"Zentyal"
 
 #: src/EBox/Squid.pm:351
 msgid ""
 "You must set the max_object_size variable in the ebox configuration file"
 msgstr ""
-"Você precisa definir a variável max_object_size(tamanho máximo do objeto) no "
-"arquivo de configuração do eBox"
+"Você precisa definir a variável max_object_size (tamanho máximo do objeto) "
+"no arquivo de configuração do Zentyal"
 
 #: src/EBox/Squid.pm:1080
 msgid "Enabled"
@@ -134,7 +134,7 @@ msgstr "Proxy transparente"
 #: src/EBox/Squid/Model/GroupPolicyBase.pm:92
 #: src/EBox/Squid/Model/ExtensionFilterBase.pm:99
 msgid "Allow"
-msgstr "Permite"
+msgstr "Permitir"
 
 #: src/EBox/Squid.pm:1089 src/EBox/Squid/Model/GroupPolicyBase.pm:96
 msgid "Deny"
@@ -239,15 +239,15 @@ msgstr "Média"
 
 #: src/EBox/Squid/Types/WeightedPhrasesThreshold.pm:59
 msgid "Strict"
-msgstr "Restrita"
+msgstr "Rigoroso"
 
 #: src/EBox/Squid/Types/WeightedPhrasesThreshold.pm:60
 msgid "Very strict"
-msgstr "Muito restrita"
+msgstr "Muito rigoroso"
 
 #: src/EBox/Squid/Types/WeightedPhrasesThreshold.pm:67
 msgid "This specifies how strict the content filter is."
-msgstr "Isto especifica o quão restrito é o filtro"
+msgstr "Isso especifica o rigor do filtro de conteúdo."
 
 #: src/EBox/Squid/Types/DomainPolicy.pm:50 src/EBox/Squid/Types/Policy.pm:80
 #: src/EBox/Squid/Model/DomainFilterCategoriesBase.pm:102
@@ -345,7 +345,7 @@ msgstr "Toda semana"
 
 #: src/EBox/Squid/Types/TimePeriod.pm:222
 msgid "Weekend"
-msgstr "Fim-de-semana"
+msgstr "Fim de semana"
 
 #: src/EBox/Squid/Types/TimePeriod.pm:227
 msgid "Work days"
@@ -422,22 +422,22 @@ msgstr "Lista de domínios atualizada"
 
 #: src/EBox/Squid/Model/FilterGroupContentFilterThreshold.pm:66
 msgid "Use default profile threshold"
-msgstr "Usar limiar de perfil padrão"
+msgstr "Usar perfil de entrada padrão"
 
 #: src/EBox/Squid/Model/FilterGroupContentFilterThreshold.pm:72
 #: src/EBox/Squid/Model/ContentFilterThreshold.pm:68
 msgid "Threshold"
-msgstr "Limiar"
+msgstr "Entrada"
 
 #: src/EBox/Squid/Model/FilterGroupContentFilterThreshold.pm:79
 #: src/EBox/Squid/Model/ContentFilterThreshold.pm:77
 msgid "Content filter threshold"
-msgstr "Limiar do filtro de conteúdo"
+msgstr "Entrada do filtro de conteúdo"
 
 #: src/EBox/Squid/Model/FilterGroupContentFilterThreshold.pm:85
 #: src/EBox/Squid/Model/ContentFilterThreshold.pm:83
 msgid "Content filter threshold changed"
-msgstr "Limiar do filtro de conteúdo alterado"
+msgstr "Entrada do filtro de conteúdo modificado"
 
 #: src/EBox/Squid/Model/GroupsFilterPolicy.pm:60
 #: src/EBox/Squid/Model/GroupPolicyBase.pm:75
@@ -466,7 +466,7 @@ msgstr "Exclui domínio do caching"
 
 #: src/EBox/Squid/Model/NoCacheDomains.pm:88
 msgid "Cache exemptions"
-msgstr "Exclusões de cache"
+msgstr "Insenções de cache"
 
 #: src/EBox/Squid/Model/NoCacheDomains.pm:101
 msgid "domain name address"
@@ -474,11 +474,11 @@ msgstr "endereço do domínio"
 
 #: src/EBox/Squid/Model/NoCacheDomains.pm:102
 msgid "You can exempt some addresses from caching"
-msgstr "Você pode excluir alguns domínios do caching"
+msgstr "Você pode isentar alguns domínios do caching"
 
 #: src/EBox/Squid/Model/NoCacheDomains.pm:104
 msgid "Address added"
-msgstr "Endereço incluído"
+msgstr "Endereço acrescentado"
 
 #: src/EBox/Squid/Model/NoCacheDomains.pm:105
 msgid "Address removed"
@@ -495,8 +495,8 @@ msgid ""
 "Object {object} has no members. Please add at least one to add rules using "
 "this object."
 msgstr ""
-"Objeto {object} não tem membros. Por favor adicione pelo menos um para "
-"adicionar regras de uso a este objeto."
+"Objeto {object} não tem membros. Por favor, adicione pelo menos um para "
+"adicionar regras usando este objeto."
 
 #: src/EBox/Squid/Model/DelayPools2.pm:102
 #: src/EBox/Squid/Model/DelayPools1.pm:100
@@ -514,7 +514,7 @@ msgstr ""
 msgid ""
 "If {first} is set unlimited, then {second} must be set to unlimited as well"
 msgstr ""
-"Se {first} está configurado como ilimitado, então {second} tem que ser "
+"Se {first} está configurado como ilimitado, então {second} deve ser "
 "configurado ilimitado também "
 
 #: src/EBox/Squid/Model/DelayPools2.pm:134
@@ -556,8 +556,7 @@ msgid ""
 "Maximum unthrottled download size for this network. Use -1 to disable this "
 "option."
 msgstr ""
-"O tamanho máximo de não estrangulamento para download nesta rede. Use -1 "
-"para desativar essa opção."
+"Limite máximo para download nesta rede. Use -1 para desativar essa opção."
 
 #: src/EBox/Squid/Model/DelayPools2.pm:187
 msgid "Client Rate"
@@ -567,19 +566,18 @@ msgstr "Taxa de cliente"
 msgid ""
 "Maximum download bandwidth rate per client. Use -1 to disable this option."
 msgstr ""
-"Taxa máxima de largura de banda para download  por cliente. Use -1 para "
+"Taxa máxima de largura de banda para download por cliente. Use -1 para "
 "desativar essa opção."
 
 #: src/EBox/Squid/Model/DelayPools2.pm:197
 msgid "Client Maximum Size"
-msgstr "Cliente tamanho máximo"
+msgstr "Tamanho Máximo de Cliente"
 
 #: src/EBox/Squid/Model/DelayPools2.pm:203
 msgid ""
 "Maximum unthrottled download size per client. Use -1 to disable this option."
 msgstr ""
-"Taxa máxima de largura de banda sem estrangulamento de download  por "
-"cliente. Use -1 para desativar essa opção."
+"Tamanho máximo de download por cliente. Use -1 para desativar essa opção."
 
 #: src/EBox/Squid/Model/DelayPools2.pm:209
 msgid "Delay Pools Class 2"

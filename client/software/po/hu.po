@@ -9,7 +9,7 @@ msgstr ""
 "technologies.com\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-08-25 17:48+0200\n"
-"PO-Revision-Date: 2010-08-16 13:21+0200\n"
+"PO-Revision-Date: 2010-08-28 09:22+0200\n"
 "Last-Translator: Nagy Ákos <nagy.akos@akos.ro>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
@@ -45,9 +45,8 @@ msgstr ""
 "{conf}{key}"
 
 #: src/EBox/Software.pm:596
-#, fuzzy
 msgid "Zentyal Components"
-msgstr "eBox komponensek"
+msgstr "Zentyal komponensek"
 
 #: src/EBox/Software.pm:598
 msgid "System Updates"
@@ -102,14 +101,12 @@ msgid "automatic updates configuration"
 msgstr "automatikus frissítések beállítása"
 
 #: src/EBox/CGI/EBox.pm:36
-#, fuzzy
 msgid "Choose Zentyal packages to install"
-msgstr "Válassza ki a telepítendő eBox csomagokat"
+msgstr "Válassza ki a telepítendő Zentyal csomagokat"
 
 #: src/EBox/CGI/EBox.pm:40
-#, fuzzy
 msgid "Zentyal components"
-msgstr "eBox komponensek"
+msgstr "Zentyal komponensek"
 
 #: src/EBox/CGI/Updates.pm:32 src/EBox/CGI/Updates.pm:50
 msgid "System updates"
@@ -205,9 +202,8 @@ msgid "View advanced mode"
 msgstr "Haladó mód használata"
 
 #: src/templates/ebox.mas:512
-#, fuzzy
 msgid "Skip install"
-msgstr "Telepítés"
+msgstr "Telepítés kihagyása"
 
 #: src/templates/ebox.mas:525
 msgid "View basic mode"
@@ -215,7 +211,7 @@ msgstr "Kezdő mód használata"
 
 #: src/templates/ebox.mas:543 src/templates/ebox.mas:572
 msgid "Delete"
-msgstr ""
+msgstr "Töröl"
 
 #: src/templates/ebox.mas:552 src/templates/ebox.mas:561
 #: src/templates/updates.mas:97
@@ -225,15 +221,15 @@ msgstr "Lista frissítése"
 #: src/templates/ebox.mas:553 src/templates/ebox.mas:562
 #: src/templates/ebox.mas:573
 msgid "Deselect All"
-msgstr ""
+msgstr "Kijelölések megszüntetése"
 
 #: src/templates/ebox.mas:554 src/templates/ebox.mas:574
 msgid "Select All"
-msgstr ""
+msgstr "Összes kijelölése"
 
 #: src/templates/ebox.mas:563
 msgid "Select Al"
-msgstr ""
+msgstr "Összes kijelölése"
 
 #: src/templates/del.mas:97
 msgid "The following packages will be installed"
@@ -272,9 +268,8 @@ msgid "Perform automatic security updates"
 msgstr "Automatikus szoftverfrissítések végrehajtása"
 
 #: src/templates/config.mas:14
-#, fuzzy
 msgid "Zentyal is configured to use automatic QA updates"
-msgstr "Ez eBox alapból engedélyezi a QA frissítéseket"
+msgstr "A Zentyal alapból engedélyezi a QA frissítéseket"
 
 #: src/templates/config.mas:26
 msgid "Automatic operations start time"
@@ -305,21 +300,19 @@ msgid "Security update"
 msgstr "Biztonsági frissítések"
 
 #: src/templates/updates.mas:55
-#, fuzzy
 msgid "Zentyal QA update"
-msgstr "eBox QA frissítés"
+msgstr "Zentyal QA frissítés"
 
 #: src/templates/updates.mas:77
 msgid "Update all packages"
 msgstr "Minden csomag frissítése"
 
 #: src/templates/updates.mas:88
-#, fuzzy
 msgid ""
 "This operation can take some time, don't worry if Zentyal looks unresponsive "
 "after pressing the Upgrade button."
 msgstr ""
-"A művelet eltarthat egy ideig, ne aggódjon ha az eBox nem válaszol a "
+"A művelet eltarthat egy ideig, ne aggódjon ha a Zentyal nem válaszol a "
 "Frissítés gomb megnyomása után."
 
 #: src/templates/updates.mas:95

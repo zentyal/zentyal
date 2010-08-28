@@ -10,7 +10,7 @@ msgstr ""
 "technologies.com\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-08-25 17:45+0200\n"
-"PO-Revision-Date: 2010-04-22 11:23+0200\n"
+"PO-Revision-Date: 2010-08-27 08:32+0200\n"
 "Last-Translator: Harald Ersch <harald.ersch@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
@@ -21,9 +21,8 @@ msgstr ""
 "X-Generator: Pootle 1.1.0\n"
 
 #: migration/0001_add_firewall_services.pl:30
-#, fuzzy
 msgid "Zentyal RADIUS system"
-msgstr "sistemul RADIUS eBox"
+msgstr "sistemul RADIUS Zentyal"
 
 #: src/EBox/Model/Auth.pm:103
 msgid "All users"
@@ -70,11 +69,11 @@ msgid "Create RADIUS certificates for TTLS"
 msgstr "Create certificate RADIUS pt. TTLS"
 
 #: src/EBox/Radius.pm:101
-#, fuzzy
 msgid ""
 "Zentyal will create the needed certificates for TTLS in /etc/freeradius/"
 "certs/."
-msgstr "eBox va crea certificatele necesare pt. TTLS în/etc/freeradius/certs/"
+msgstr ""
+"Zentyal va crea certificatele necesare pt. TTLS în /etc/freeradius/certs/"
 
 #: src/EBox/Radius.pm:121
 msgid "To configure allowed LDAP group."
@@ -89,9 +88,8 @@ msgid "To configure RADIUS clients."
 msgstr "Pt. configurarea clienţilor RADIUS."
 
 #: src/EBox/Radius.pm:133
-#, fuzzy
 msgid "To configure RADIUS EAP."
-msgstr "Pt. configurarea modulului LDAP RADIUS"
+msgstr "Pt. configurarea modulului EAP RADIUS"
 
 #: src/EBox/Radius.pm:137
 msgid "To configure default RADIUS vhost."

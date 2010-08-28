@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-. 1.5\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-08-25 17:47+0200\n"
-"PO-Revision-Date: 2010-08-08 01:51+0200\n"
+"PO-Revision-Date: 2010-08-26 11:59+0200\n"
 "Last-Translator: Vasco Castelo Branco <vcbranco@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
@@ -18,9 +18,8 @@ msgstr ""
 "X-Generator: Pootle 1.1.0\n"
 
 #: migration/0001_add_firewall_services.pl:30
-#, fuzzy
 msgid "Zentyal FTP Server"
-msgstr "Servidor FTP eBox"
+msgstr "Servidor FTP Zentyal"
 
 #: src/EBox/Model/Options.pm:45
 msgid "Disabled"

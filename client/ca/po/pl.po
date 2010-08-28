@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-ca 0.12\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-08-26 00:53+0200\n"
-"PO-Revision-Date: 2010-08-25 17:30+0200\n"
+"PO-Revision-Date: 2010-08-27 13:10+0200\n"
 "Last-Translator: Robert Brzozowski <gnutar1@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
@@ -93,11 +93,11 @@ msgid "certificate"
 msgstr "Certyfikat"
 
 #: src/EBox/Model/Certificates.pm:287
-#, fuzzy
 msgid ""
 "Here you may set certificates from this CA for those secure services managed "
 "by Zentyal"
-msgstr "Tutaj możesz utworzyć certyfikaty CA dla usług zarządzanych przez eBox"
+msgstr ""
+"Tutaj możesz utworzyć certyfikaty CA dla usług zarządzanych przez Zentyala"
 
 #: src/EBox/CA.pm:123 src/EBox/CGI/RevokeCertificate.pm:43
 #: src/EBox/CGI/Index.pm:40 src/EBox/CGI/IssueCertificate.pm:50
@@ -319,7 +319,7 @@ msgstr ""
 "Pole 'Dni do wygaśnięcia' {days} musi zawierać liczbę całkowitą dodatnią."
 
 #: src/EBox/CGI/IssueCertificate.pm:146
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "The input contains invalid characters. All {ascii} alphanumeric characters, "
 "plus these non alphanumeric chars: .?&+:-@* and spaces are allowed."

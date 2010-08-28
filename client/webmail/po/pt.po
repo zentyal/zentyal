@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-webmail 1.3\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-08-25 17:50+0200\n"
-"PO-Revision-Date: 2010-08-24 01:38+0200\n"
+"PO-Revision-Date: 2010-08-26 13:08+0200\n"
 "Last-Translator: Vasco Castelo Branco <vcbranco@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
@@ -26,9 +26,8 @@ msgid "Operation mode"
 msgstr "Modo de operação"
 
 #: src/EBox/WebMail/Model/OperationMode.pm:83
-#, fuzzy
 msgid "Zentyal mail service"
-msgstr "Serviço de correio electrónico da eBox"
+msgstr "Serviço de correio electrónico Zentyal"
 
 #: src/EBox/WebMail/Model/OperationMode.pm:94
 msgid "Remote server"
@@ -111,22 +110,20 @@ msgid "TLS"
 msgstr "TLS"
 
 #: src/EBox/WebMail/Model/RemoteServerConfiguration.pm:285
-#, fuzzy
 msgid ""
 "No need to configure the connection to a remote server beacuse WebMail is "
 "configured to use Zentyal mail service'"
 msgstr ""
 "Não é necessário configurar a ligação a um servidor remoto porque o WebMail "
-"está configurado para usar o serviço de correio da eBox"
+"está configurado para usar o serviço de correio Zentyal"
 
 #: src/EBox/WebMail/Model/Options.pm:45
 msgid "Name"
 msgstr "Nome"
 
 #: src/EBox/WebMail/Model/Options.pm:47
-#, fuzzy
 msgid "Zentyal webmail"
-msgstr "Webmail da eBox"
+msgstr "Webmail Zentyal"
 
 #: src/EBox/WebMail/Model/Options.pm:49
 msgid ""
@@ -199,14 +196,14 @@ msgid "Webmail will be accesible at http://ip/webmail/."
 msgstr "O webmail estará acessível em http://ip/webmail"
 
 #: src/EBox/WebMail.pm:348
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Webmail module needs IMAP or IMAPS service enabled if using Zentyal mail "
 "service. You can enable it at {openurl}Mail -> General{closeurl}."
 msgstr ""
 "O módulo webmail necessita dos serviços IMAP ou IMAPS activos se estiver a "
-"usar o seviço de correio electrónico da eBox. Pode activá-los em {openurl}"
-"Correio Electrónico -> Geral{closeurl}"
+"usar o seviço de correio electrónico da Zentyal. Pode activá-los em "
+"{openurl}Correio Electrónico -> Geral{closeurl}"
 
 #: src/EBox/WebMail.pm:405
 msgid ""

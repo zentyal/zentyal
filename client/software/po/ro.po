@@ -9,7 +9,7 @@ msgstr ""
 "technologies.com\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-08-25 17:48+0200\n"
-"PO-Revision-Date: 2010-08-03 08:15+0200\n"
+"PO-Revision-Date: 2010-08-27 08:36+0200\n"
 "Last-Translator: Harald Ersch <harald.ersch@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
@@ -46,9 +46,8 @@ msgstr ""
 "dezactivaţi cheia  {key}."
 
 #: src/EBox/Software.pm:596
-#, fuzzy
 msgid "Zentyal Components"
-msgstr "Componente eBox"
+msgstr "Componente Zentyal"
 
 #: src/EBox/Software.pm:598
 msgid "System Updates"
@@ -102,14 +101,12 @@ msgid "automatic updates configuration"
 msgstr "configurarea actualizărilor automate"
 
 #: src/EBox/CGI/EBox.pm:36
-#, fuzzy
 msgid "Choose Zentyal packages to install"
-msgstr "Alegeţi pachetele eBox de instalat"
+msgstr "Alegeţi pachetele Zentyal de instalat"
 
 #: src/EBox/CGI/EBox.pm:40
-#, fuzzy
 msgid "Zentyal components"
-msgstr "componente eBox"
+msgstr "Componente Zentyal"
 
 #: src/EBox/CGI/Updates.pm:32 src/EBox/CGI/Updates.pm:50
 msgid "System updates"
@@ -140,9 +137,8 @@ msgid "Current operation"
 msgstr "Operaţiune curentă"
 
 #: src/EBox/CGI/InstallPkgs.pm:172
-#, fuzzy
 msgid "actions done"
-msgstr "Acţiuni"
+msgstr "Acţiuni efectuate"
 
 #: src/EBox/CGI/InstallPkgs.pm:173
 msgid ""
@@ -204,9 +200,8 @@ msgid "View advanced mode"
 msgstr "Vizualizare mod avansat"
 
 #: src/templates/ebox.mas:512
-#, fuzzy
 msgid "Skip install"
-msgstr "Instalare"
+msgstr "Salt peste instalare"
 
 #: src/templates/ebox.mas:525
 msgid "View basic mode"
@@ -214,26 +209,25 @@ msgstr "Vizualizare mod succint"
 
 #: src/templates/ebox.mas:543 src/templates/ebox.mas:572
 msgid "Delete"
-msgstr ""
+msgstr "Şterge"
 
 #: src/templates/ebox.mas:552 src/templates/ebox.mas:561
 #: src/templates/updates.mas:97
-#, fuzzy
 msgid "Update list"
-msgstr "Actualizare"
+msgstr "Actualizare listă"
 
 #: src/templates/ebox.mas:553 src/templates/ebox.mas:562
 #: src/templates/ebox.mas:573
 msgid "Deselect All"
-msgstr ""
+msgstr "Deselectare toate"
 
 #: src/templates/ebox.mas:554 src/templates/ebox.mas:574
 msgid "Select All"
-msgstr ""
+msgstr "Selectare toate"
 
 #: src/templates/ebox.mas:563
 msgid "Select Al"
-msgstr ""
+msgstr "Selectare AI"
 
 #: src/templates/del.mas:97
 msgid "The following packages will be installed"
@@ -274,9 +268,8 @@ msgid "Perform automatic security updates"
 msgstr "Execută actualizări de securitate automate "
 
 #: src/templates/config.mas:14
-#, fuzzy
 msgid "Zentyal is configured to use automatic QA updates"
-msgstr "Acest eBox este configurat să utilizeze actualizări automate QA"
+msgstr "Acest Zentyal este configurat să utilizeze actualizări automate QA"
 
 #: src/templates/config.mas:26
 msgid "Automatic operations start time"
@@ -307,22 +300,20 @@ msgid "Security update"
 msgstr "Actualizări de securitate"
 
 #: src/templates/updates.mas:55
-#, fuzzy
 msgid "Zentyal QA update"
-msgstr "Actualizare eBox QA (Asigurarea calităţii)"
+msgstr "Actualizare Zentyal QA (Asigurarea calităţii)"
 
 #: src/templates/updates.mas:77
 msgid "Update all packages"
 msgstr "Actualizarea tuturor pachetelor"
 
 #: src/templates/updates.mas:88
-#, fuzzy
 msgid ""
 "This operation can take some time, don't worry if Zentyal looks unresponsive "
 "after pressing the Upgrade button."
 msgstr ""
-"Această operaţiune poate dura, nu vă îngrijoraţi dacă eBox pare blocat după "
-"apăsarea butonului Actualizare."
+"Această operaţiune poate dura, nu vă îngrijoraţi dacă Zentyal pare blocat "
+"după apăsarea butonului Actualizare."
 
 #: src/templates/updates.mas:95
 msgid "Upgrade"

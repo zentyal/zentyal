@@ -8,13 +8,14 @@ msgstr ""
 "Project-Id-Version: ebox-ids 1.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-08-25 17:47+0200\n"
-"PO-Revision-Date: 2009-03-08 15:17+0000\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2010-08-26 21:34+0200\n"
+"Last-Translator: Bo Dalbjerg <bo@dalbjerg.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/IDS.pm:62 src/EBox/IDS.pm:169 src/EBox/IDS.pm:311
 msgid "IDS"
@@ -22,101 +23,101 @@ msgstr ""
 
 #: src/EBox/IDS.pm:299 src/EBox/Model/Report/AlertDetails.pm:52
 msgid "Date"
-msgstr ""
+msgstr "Dato"
 
 #: src/EBox/IDS.pm:300
 msgid "Priority"
-msgstr ""
+msgstr "Prioritet"
 
 #: src/EBox/IDS.pm:301
 msgid "Description"
-msgstr ""
+msgstr "Beskrivelse"
 
 #: src/EBox/IDS.pm:302
 msgid "Source"
-msgstr ""
+msgstr "Kilde"
 
 #: src/EBox/IDS.pm:303
 msgid "Destination"
-msgstr ""
+msgstr "Destination"
 
 #: src/EBox/IDS.pm:304
 msgid "Protocol"
-msgstr ""
+msgstr "Protokol"
 
 #: src/EBox/IDS.pm:305
 msgid "Event"
-msgstr ""
+msgstr "Hændelse"
 
 #: src/EBox/IDS.pm:317
 msgid "Alert"
-msgstr ""
+msgstr "Alarmer"
 
 #: src/EBox/Model/Interfaces.pm:129
 msgid "Interface"
-msgstr ""
+msgstr "Interface"
 
 #: src/EBox/Model/Interfaces.pm:134 src/EBox/Model/Rules.pm:158
 msgid "Enabled"
-msgstr ""
+msgstr "Aktiveret"
 
 #: src/EBox/Model/Interfaces.pm:143
 msgid "Interfaces"
-msgstr ""
+msgstr "Interfaces"
 
 #: src/EBox/Model/Interfaces.pm:149
 msgid "interface"
-msgstr ""
+msgstr "interface"
 
 #: src/EBox/Model/Interfaces.pm:151
 msgid "Select in which interfaces IDS system will be enabled"
-msgstr ""
+msgstr "Vælg i hvilke interfaces IDS systemet skal aktiveres"
 
 #: src/EBox/Model/Rules.pm:153
 msgid "Rule Set"
-msgstr ""
+msgstr "Regel sæt"
 
 #: src/EBox/Model/Rules.pm:167
 msgid "Rules"
-msgstr ""
+msgstr "Regler"
 
 #: src/EBox/Model/Rules.pm:172
 msgid "rule"
-msgstr ""
+msgstr "regel"
 
 #: src/EBox/Model/Rules.pm:173
 msgid "help message"
-msgstr ""
+msgstr "hjælpe besked"
 
 #: src/EBox/Model/Report/AlertDetails.pm:41
 #: src/EBox/Model/Report/AlertGraph.pm:47
 msgid "number of alerts"
-msgstr ""
+msgstr "antal af alarmer"
 
 #: src/EBox/Model/Report/AlertDetails.pm:58
 msgid "Number of alerts"
-msgstr ""
+msgstr "Antal af alarmer"
 
 #: src/EBox/Model/Report/AlertDetails.pm:66
 msgid "Alert details"
-msgstr ""
+msgstr "Alarm detaljer"
 
 #: src/EBox/Model/Report/AlertDetails.pm:73
 msgid "alerts"
-msgstr ""
+msgstr "alarmer"
 
 #: src/EBox/Model/Report/AlertGraph.pm:52
 msgid "Alerts chart"
-msgstr ""
+msgstr "Alarm kort"
 
 #: src/EBox/Model/Report/AlertGraph.pm:68
 msgid "Alert Graph"
-msgstr ""
+msgstr "Alarm graf"
 
 #: src/EBox/Composite/General.pm:70
 msgid "Intrusion Detection System"
-msgstr ""
+msgstr "Indtrængesles Detektions System"
 
 #: src/EBox/Composite/Report/AlertReport.pm:66
 msgid "IDS Alerts report"
-msgstr ""
+msgstr "IDS alarm rapport"

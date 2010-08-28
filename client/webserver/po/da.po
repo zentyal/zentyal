@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-webserver 0.12\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-08-25 17:50+0200\n"
-"PO-Revision-Date: 2010-08-26 00:26+0200\n"
+"PO-Revision-Date: 2010-08-26 01:02+0200\n"
 "Last-Translator: Bo Dalbjerg <bo@dalbjerg.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
@@ -88,75 +88,95 @@ msgstr ""
 
 #: src/EBox/WebServer/Model/GeneralSettings.pm:128
 #, perl-brace-format
+#, fuzzy
 msgid ""
 "You need a Service Certificate for the Web Server module, enable it on "
 "{ohref}Certification Authority -> Service Certificates{chref}."
 msgstr ""
+"Du behøver et Service certifikat for Webserver modulet, aktiver det på "
+"{ohref}Certification Authority -> Service Certificates{chref}."
 
 #: src/EBox/WebServer/Model/GeneralSettings.pm:140
+#, fuzzy
 msgid ""
 "Having installed and configured the Users and Groups module is required to "
 "allow HTML directories for users."
 msgstr ""
+"Bruger og gruppe modulet skal være installeret og konfigureret, for at "
+"tillade HTML kataloger for brugere."
 
 #: src/EBox/WebServer/Model/GeneralSettings.pm:146
+#, fuzzy
 msgid ""
 "A properly configured Users and Groups module is required to allow HTML "
 "directories for users. To configure it, please enable it at least one time."
 msgstr ""
+"Et rigtigt konfigureret Bruger og gruppe modul er krævet for at tillade HTML "
+"kataloger (directories) for brugere. For at konfigurer dette, aktiver "
+"modulet."
 
 #: src/EBox/WebServer/Model/GeneralSettings.pm:236
 msgid "Listening SSL port"
-msgstr ""
+msgstr "Indkomne SSL port"
 
 #: src/EBox/WebServer/Model/GeneralSettings.pm:240
 #: src/EBox/WebServer/Model/VHostTable.pm:253
 msgid "Disabled"
-msgstr ""
+msgstr "Deaktiveret"
 
 #: src/EBox/WebServer/Model/GeneralSettings.pm:245
 msgid "Enabled"
-msgstr ""
+msgstr "Aktiveret"
 
 #: src/EBox/WebServer/Model/GeneralSettings.pm:253
 #, perl-brace-format
 msgid "Enable per user {dirName}"
-msgstr ""
+msgstr "Aktiver per bruger {dirName}"
 
 #: src/EBox/WebServer/Model/GeneralSettings.pm:257
+#, fuzzy
 msgid ""
 "Allow users to publish web documents using the public_html directory on "
 "their home."
 msgstr ""
+"Tillad brugere at publicere web dokumenter fra deres public_html hjemme "
+"katalog (directory)"
 
 #: src/EBox/WebServer/Model/GeneralSettings.pm:265
 msgid "General configuration settings"
-msgstr ""
+msgstr "Almindelig konfigurations indstillinger"
 
 #: src/EBox/WebServer/Model/GeneralSettings.pm:269
 #, perl-brace-format
+#, fuzzy
 msgid ""
 "General Web server configuration. The listening port must not be used by "
 "another service. If you enable user to publish their own html pages, those "
 "should be loaded from {dirName} directory from their home directories."
 msgstr ""
+"Almindelig Web server konfiguration. Den indkomne port må ikke være i brug "
+"af andre programmer/services. Hvis du tillader brugere at publicere deres "
+"egne html sider, skal disse placeres i {dirName} kataloget, fra deres hjemme "
+"katalog (home directories)"
 
 #: src/EBox/WebServer/Model/GeneralSettings.pm:275
 msgid "General Web server configuration settings updated."
-msgstr ""
+msgstr "Almindelige Web server indstillinger er opdateret."
 
 #: src/EBox/WebServer/Model/VHostTable.pm:94
 msgid "Virtual host name"
-msgstr ""
+msgstr "Virtuel vært (host) navn"
 
 #: src/EBox/WebServer/Model/VHostTable.pm:98
 #: src/EBox/WebServer/Model/VHostTable.pm:311
 msgid "Virtual host"
-msgstr ""
+msgstr "Virtuel vært (host)"
 
 #: src/EBox/WebServer/Model/VHostTable.pm:105
 msgid "SSL support is disabled. Enable it before adding a SSL virtual host."
 msgstr ""
+"SSL understøttelse er deaktiveret. Aktiver dette før du tilføjer en virtuel "
+"SSL vært (host)"
 
 #: src/EBox/WebServer/Model/VHostTable.pm:170
 #, perl-brace-format
@@ -164,6 +184,8 @@ msgid ""
 "Virtual host {vhost} added. A domain {domain} has been created with the "
 "mapping name {name} - IP address {ip}. {noDnsWarning} "
 msgstr ""
+"Virtuel vært {vhost} tilføjet. Et domæne {domain} er blevet oprettet med "
+"mappernavnet {name} -IP adresse {ip}. {noDnsWarning}  "
 
 #: src/EBox/WebServer/Model/VHostTable.pm:189
 #, perl-brace-format
@@ -171,44 +193,51 @@ msgid ""
 "Virtual host {vhost} added. A mapping name {name} - IP address {ip} has been "
 "added to {domain} domain."
 msgstr ""
+"Virtuel vært {vhost} tilføjet. Et mappernavn {name} -IP adresse {ip} er "
+"blevet tilføjet {domain} domænet."
 
 #: src/EBox/WebServer/Model/VHostTable.pm:203
 #, perl-brace-format
 msgid "Virtual host {vhost} added as an alias {alias} to hostname {hostname}."
 msgstr ""
+"Virtuel vært {vhost} er blevet tilføjet som et alias {alias} til værtsnavnet "
+"{hostname}."
 
 #: src/EBox/WebServer/Model/VHostTable.pm:209
 #: src/EBox/WebServer/Model/VHostTable.pm:214
 #, perl-brace-format
 msgid "Virtual host {vhost} added."
-msgstr ""
+msgstr "Virtuel vært {vhost} tilføjet."
 
 #: src/EBox/WebServer/Model/VHostTable.pm:219
 msgid "There is no static internal interface to set the Web server IP address."
 msgstr ""
+"Der er ikke noget permanent interface til at give Web server en IP adresse."
 
 #: src/EBox/WebServer/Model/VHostTable.pm:254
 msgid "Allow SSL"
-msgstr ""
+msgstr "Tillad SSL"
 
 #: src/EBox/WebServer/Model/VHostTable.pm:255
+#, fuzzy
 msgid "Force SSL"
-msgstr ""
+msgstr "Gennemtving SSL"
 
 #: src/EBox/WebServer/Model/VHostTable.pm:280
 msgid "SSL support"
-msgstr ""
+msgstr "SSL understøttelse"
 
 #: src/EBox/WebServer/Model/VHostTable.pm:287
 msgid "Name"
-msgstr ""
+msgstr "Navn"
 
 #: src/EBox/WebServer/Model/VHostTable.pm:297
 msgid "Virtual hosts"
-msgstr ""
+msgstr "Virtuelle værter (hosts)"
 
 #: src/EBox/WebServer/Model/VHostTable.pm:301
 #, perl-brace-format
+#, fuzzy
 msgid ""
 "Virtual hosts are a form of web hosting service where many instances of the "
 "same web server are hosted on a single physical server. Different host names "
@@ -217,6 +246,12 @@ msgid ""
 "particular configuration you want to add must be placed in the {userConf} "
 "directory."
 msgstr ""
+"Virtuel værter er en form for web-hosting-tjeneste, hvor mange forekomster "
+"af samme web server er hostet på en enkelt fysisk server. Forskellige "
+"værtsnavne peger på den samme webserver. Hvis muligt, bliver DNS oprettet "
+"automatisk. Indholdet skal placeres under {docRoot} kataloget. Eventuelle "
+"særlige konfigurationer, du ønsker at tilføje, skal placeres i {userConf} "
+"kataloget."
 
 #: src/EBox/WebServer/Model/VHostTable.pm:332
 #, perl-brace-format
@@ -224,13 +259,17 @@ msgid ""
 "{open}The DNS module is disabled. The added mapping or domains will not have "
 "any effect until you enable it"
 msgstr ""
+"{open} DNS modulet er deaktiveret. De tilføjede mapper og domæner vil ikke "
+"have nogen virkning før du aktiverer dette."
 
 #: src/EBox/WebServer/Composite/General.pm:77
 msgid "Configuration"
-msgstr ""
+msgstr "konfiguration"
 
 #: src/EBox/WebServer/Composite/General.pm:80
 msgid ""
 "The Zentyal web service allows you to host Web pages in plain HTML within "
 "different virtual hosts."
 msgstr ""
+"Zentyal web service tillader dig at udbyde Web sider i ren HTML i "
+"forskellige virtuelle værter (hosts)"

@@ -9,8 +9,8 @@ msgstr ""
 "technologies.com\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-08-26 00:53+0200\n"
-"PO-Revision-Date: 2010-08-17 00:19+0200\n"
-"Last-Translator: Alessandro Bolletta <alex@alessandrobolletta.it>\n"
+"PO-Revision-Date: 2010-08-26 18:03+0200\n"
+"Last-Translator: Claudio Brocco <claudiob@ethicalsoftware.it>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -24,15 +24,13 @@ msgid "Backup"
 msgstr "Backup"
 
 #: src/EBox/Event/Watcher/EBackup.pm:141
-#, fuzzy
 msgid "Check if Zentyal backup was not successful."
-msgstr "Controlla se il backup di ebox non è andato a buon fine."
+msgstr "Controlla se il backup di Zentyal non è andato a buon fine."
 
 #: src/EBox/Model/RemoteRestoreLogs.pm:88 src/EBox/Model/RemoteFileList.pm:143
 #: src/EBox/Model/RemoteStatus.pm:119 src/EBox/Model/RemoteRestoreConf.pm:74
-#, fuzzy
 msgid "There are not backed up files yet"
-msgstr "Non ci sono ancora files backuppati"
+msgstr "Non ci sono ancora files backuppati al momento"
 
 #: src/EBox/Model/RemoteRestoreLogs.pm:107
 #: src/EBox/Model/RemoteFileList.pm:166 src/EBox/Model/RemoteRestoreConf.pm:93
@@ -44,9 +42,8 @@ msgid "Restore logs database"
 msgstr "Ripristina il database dei logs"
 
 #: src/EBox/Model/RemoteRestoreLogs.pm:125
-#, fuzzy
 msgid "Restores the Zentyal logs found in the selected backup"
-msgstr "Ripristina i log di eBox archiviati nel backup selezionato"
+msgstr "Ripristina i log di Zentyal archiviati nel backup selezionato"
 
 #: src/EBox/Model/RemoteFileList.pm:162
 msgid "File"
@@ -70,8 +67,10 @@ msgstr "Ripristino file completato"
 
 #: src/EBox/Model/RemoteFileList.pm:269
 #, perl-brace-format
+#, fuzzy
 msgid "Remote URL to be used with duplicity for manual restores: {url}"
 msgstr ""
+"Indirizzo remoto da usare con duplicity per il ripristino manuale: {url}"
 
 #: src/EBox/Model/RemoteStatus.pm:138 src/EBox/Model/RemoteExcludes.pm:76
 msgid "Type"
@@ -90,9 +89,8 @@ msgid "backup"
 msgstr "backup"
 
 #: src/EBox/Model/RemoteRestoreConf.pm:104
-#, fuzzy
 msgid "Restore Zentyal configuration from backup"
-msgstr "Ripristina la configurazione del server eBox da un backup"
+msgstr "Ripristina la configurazione del server Zentyal da un backup"
 
 #: src/EBox/Model/RemoteRestoreConf.pm:111
 msgid "Loads the configuration found in the backup"
@@ -120,7 +118,6 @@ msgid "Includes and Excludes"
 msgstr "Inclusioni ed Esclusioni"
 
 #: src/EBox/Model/RemoteExcludes.pm:94
-#, fuzzy
 msgid "exclude or include"
 msgstr "Escludi o Includi"
 
@@ -140,7 +137,6 @@ msgid "Exclude path"
 msgstr "Escludi percorso"
 
 #: src/EBox/Model/RemoteExcludes.pm:121
-#, fuzzy
 msgid "Exclude by regular expression"
 msgstr "Escludi in base a una espressione regolare"
 
@@ -285,16 +281,16 @@ msgid "on the last day"
 msgstr "nell'ultimo giorno"
 
 #: src/EBox/Model/RemoteSettings.pm:494
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "{oi}{brand}{ci} is a quick and safe remote location to store the data you "
 "keep on your Zentyal servers. Purchase the backup storage space you need at "
 "the {ohref}Zentyal on-line store{chref}."
 msgstr ""
 "{oi}{brand}{ci} è uno spazio remoto dedicato veloce e sicuro dove puoi "
-"archiviare i dati presenti nei tuoi server eBox. Acquista lo spazio sul sito "
-"di cui hai bisogno per i tuoi backups online su {ohref}eBox on-line store"
-"{chref}."
+"archiviare i dati presenti nei tuoi server Zentyal. Acquista lo spazio sul "
+"sito di cui hai bisogno per i tuoi backups online su {ohref}Zentyal on-line "
+"store{chref}."
 
 #: src/EBox/Model/RemoteSettings.pm:511
 msgid "1 week"
@@ -403,9 +399,12 @@ msgid "relative directory"
 msgstr "percorso relativo"
 
 #: src/EBox/Model/RemoteSettings.pm:719
+#, fuzzy
 msgid ""
 "File system method needs a target parameter that should be a directory path"
 msgstr ""
+"Il metodo File system necessita di un parametro target che deve essere un "
+"percordo di directory"
 
 #: src/EBox/Model/RemoteSettings.pm:724 src/EBox/Model/RemoteSettings.pm:728
 msgid "Directory for backup"
@@ -416,7 +415,6 @@ msgid "File exists and it is not a directory"
 msgstr "Il file esiste e non è una directory"
 
 #: src/EBox/Model/RemoteSettings.pm:751
-#, fuzzy
 msgid "Incremental backup must be more frequent than full backup"
 msgstr "Il backup incrementale deve essere più frequente del backup completo"
 
@@ -451,6 +449,8 @@ msgid ""
 "Logs backup data not found in backup for {d}. Maybe you could try another "
 "date?"
 msgstr ""
+"Dati di backup dei Log non trovati nel backup {d}. Forse puoi provare "
+"un'altra data="
 
 #: src/EBox/Composite/ServicesRestore.pm:64
 msgid "Services restore"

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-squid 0.12\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-08-25 17:48+0200\n"
-"PO-Revision-Date: 2010-08-25 17:49+0200\n"
+"PO-Revision-Date: 2010-08-26 12:57+0200\n"
 "Last-Translator: Vasco Castelo Branco <vcbranco@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
@@ -99,13 +99,12 @@ msgid "Overwrite blocked page templates"
 msgstr "Exemplos para substituir páginas bloqueadas"
 
 #: src/EBox/Squid.pm:302
-#, fuzzy
 msgid ""
 "Dansguardian blocked page templates will be overwritten with Zentyal "
 "customized templates."
 msgstr ""
 "Os exemplos de páginas bloqueadas do Dansguardian serão substituídos por "
-"exemplos personalizados da eBox"
+"exemplos personalizados da Zentyal"
 
 #: src/EBox/Squid.pm:342
 msgid "You must set the cache_mem variable in the ebox configuration file"
@@ -1194,7 +1193,7 @@ msgstr ""
 "permitir o uso de politicas de grupo"
 
 #: src/EBox/Squid/Model/ObjectGroupPolicy.pm:162
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Configure object {ob} user groups policies"
 msgstr "Configurar politicas de objectos {ob} de grupos de utilizadores"
 

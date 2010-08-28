@@ -9,8 +9,8 @@ msgstr ""
 "technologies.com\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-08-26 00:53+0200\n"
-"PO-Revision-Date: 2010-04-06 16:27+0200\n"
-"Last-Translator: Nagy Ákos <reg@pecska.ro>\n"
+"PO-Revision-Date: 2010-08-28 08:04+0200\n"
+"Last-Translator: Nagy Ákos <nagy.akos@akos.ro>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -183,20 +183,18 @@ msgid "fixed address"
 msgstr "statikus IP-címek"
 
 #: src/EBox/Model/ThinClientOptions.pm:139
-#, fuzzy
 msgid "You need to upload a boot image to Zentyal if you set it as next server"
 msgstr ""
-"Fel kell töltenie egy rendszerindító lemezképet az eBoxnak, ha következő "
-"kiszolgálónak állítja be"
+"Fel kell töltenie egy rendszerindító lemezképet a Zentyalra, ha következő "
+"szervert állít be"
 
 #: src/EBox/Model/ThinClientOptions.pm:146
-#, fuzzy
 msgid ""
 "In order to upload a boot image to Zentyal, you need to set Zentyal as next "
 "server"
 msgstr ""
-"Rendszerindító lemezkép feltöltéséhez az eBoxot következő kiszolgálónak kell "
-"beállítania"
+"Rendszerindító lemezkép feltöltéséhez a Zentyalt következő kiszolgálónak "
+"kell beállítania"
 
 #: src/EBox/Model/ThinClientOptions.pm:153
 msgid "You need to specify a path to the boot image in the remote server"
@@ -204,22 +202,21 @@ msgstr ""
 "Meg kell adnia a rendszerindító lemezkép elérési útvonalát a távoli szerveren"
 
 #: src/EBox/Model/ThinClientOptions.pm:158
-#, fuzzy
 msgid ""
 "You can only specify a file name if you have a next server and it is not "
 "Zentyal"
 msgstr ""
-"Csak fájlnevet adhat meg ha van egy következő kiszolgálója, és az nem egy "
-"eBox"
+"Csak fájlnevet adhat meg ha van egy következő kiszolgálója, és az nem lehet "
+"egy Zentyal"
 
 #: src/EBox/Model/ThinClientOptions.pm:209
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Removing previously uploaded boot image since next server option has been "
 "changed from Zentyal to {option}"
 msgstr ""
 "Az előzőleg feltöltött rendszerindító lemezkép törlése, mivel a következő "
-"kiszolgáló beállítása módosult eBox-ról a következőre: {option}"
+"kiszolgáló beállítása módosult Zentyal-ról a következőre: {option}"
 
 #: src/EBox/Model/ThinClientOptions.pm:232
 msgid "Next server"
@@ -324,47 +321,40 @@ msgid "{gateway} is not in the current network"
 msgstr "A(z) {gateway} nem az aktuális hálózat része"
 
 #: src/EBox/Model/Options.pm:169
-#, fuzzy
 msgid ""
 "DNS module must be enabled to be able to select Zentyal as primary DNS server"
 msgstr ""
-"A DNS modulnak aktívnak kell lennie, ha az eBoxot elsődleges DNS "
+"A DNS modulnak aktívnak kell lennie, ha az Zentyalt elsődleges DNS "
 "kiszolgálóként szeretné használni"
 
 #: src/EBox/Model/Options.pm:179
-#, fuzzy
 msgid "NTP module must be enabled to be able to select Zentyal as NTP server"
 msgstr ""
-"Az NTP modulnak aktívnak kell lennie, ha az eBoxot NTP kiszogálóként "
+"Az NTP modulnak aktívnak kell lennie, ha a Zentyalt NTP kiszolgálóként "
 "szeretné használni"
 
 #: src/EBox/Model/Options.pm:190
-#, fuzzy
 msgid ""
 "Samba module must be enabled to be able to select Zentyal as WINS server"
 msgstr ""
-"A Samba modulnak aktívnak kell lennie, ha az eBoxot WINS kiszolgálóként "
+"A Samba modulnak aktívnak kell lennie, ha a Zentyalt WINS kiszolgálóként "
 "szeretné használni"
 
 #: src/EBox/Model/Options.pm:384
-#, fuzzy
 msgid "Zentyal domain"
-msgstr "Statikus tartomány"
+msgstr "Zentyal tartomány"
 
 #: src/EBox/Model/Options.pm:392
-#, fuzzy
 msgid "local Zentyal DNS"
-msgstr "helyi eBox DNS"
+msgstr "helyi Zentyal DNS"
 
 #: src/EBox/Model/Options.pm:414
-#, fuzzy
 msgid "local Zentyal NTP"
-msgstr "helyi eBox NTP"
+msgstr "helyi Zentyal NTP"
 
 #: src/EBox/Model/Options.pm:428
-#, fuzzy
 msgid "local Zentyal"
-msgstr "helyi eBox"
+msgstr "helyi Zentyal"
 
 #: src/EBox/Model/Options.pm:440 src/templates/options.mas:18
 msgid "Default gateway"
@@ -379,12 +369,11 @@ msgid "Configured ones"
 msgstr "Beállítottak"
 
 #: src/EBox/Model/Options.pm:466
-#, fuzzy
 msgid ""
 "Setting \"Zentyal\" as default gateway will set the interface IP address as "
 "gateway"
 msgstr ""
-"Az „eBox” alapértelmezett átjáróként való beállításakor a csatoló IP-címe "
+"A „Zentyal” alapértelmezett átjáróként való beállításakor a csatoló IP-címe "
 "lesz beállítva átjárócímként"
 
 #: src/EBox/Model/Options.pm:472 src/templates/options.mas:29
@@ -404,13 +393,12 @@ msgid "Primary nameserver"
 msgstr "Elsődleges névkiszolgáló"
 
 #: src/EBox/Model/Options.pm:483
-#, fuzzy
 msgid ""
 "If \"Zentyal DNS\" is present and selected, the Zentyal server will act as "
 "cache DNS server"
 msgstr ""
-"Ha az „eBox DNS” létezik és be van jelölve, akkor az eBox kiszolgáló DNS-"
-"gyorsítótár kiszolgálóként fog működni"
+"Ha a „Zentyal DNS” létezik és be van jelölve, akkor a Zentyal kiszolgáló "
+"DNS-gyorsítótár kiszolgálóként fog működni"
 
 #: src/EBox/Model/Options.pm:488 src/templates/options.mas:52
 msgid "Secondary nameserver"
@@ -421,25 +409,23 @@ msgid "NTP server"
 msgstr "NTP kiszolgáló"
 
 #: src/EBox/Model/Options.pm:497
-#, fuzzy
 msgid ""
 "If \"Zentyal NTP\" is present and selected, Zentyal will be the NTP server "
 "for DHCP clients"
 msgstr ""
-"Ha az „eBox NTP” létezik és be van jelölve, akkor az eBox kiszolgáló a DHCP-"
-"kliensek NTP kiszolgálója lesz"
+"Ha a „Zentyal NTP” létezik és be van jelölve, akkor a Zentyal kiszolgáló a "
+"DHCP-kliensek NTP kiszolgálója lesz"
 
 #: src/EBox/Model/Options.pm:502
 msgid "WINS server"
 msgstr "WINS kiszolgáló"
 
 #: src/EBox/Model/Options.pm:505
-#, fuzzy
 msgid ""
 "If \"Zentyal Samba\" is present and selected, Zentyal will be the WINS "
 "server for DHCP clients"
 msgstr ""
-"Ha az „eBox Samba” létezik és be van jelölve, akkor az eBox kiszolgáló a "
+"Ha a „Zentyal Samba” létezik és be van jelölve, akkor a Zentyal kiszolgáló a "
 "DHCP-kliensek WINS kiszolgálója lesz"
 
 #: src/EBox/Model/Options.pm:512
@@ -447,7 +433,6 @@ msgid "Common options"
 msgstr "Általános beállítások"
 
 #: src/EBox/Model/Options.pm:517
-#, fuzzy
 msgid ""
 "If you set a \"configured ones\" as default gateway, you may choose one the "
 "configured gateways. As \"search domain\" value, one of the configured DNS "
@@ -456,7 +441,7 @@ msgid ""
 msgstr ""
 "Ha a „Beállítottak” van kijelölve alapértelmezett átjárónak, akkor "
 "kiválaszthatja a már beállított átjárók egyikét. A „Keresési tartomány” "
-"értékéül az eBox egyik DNS tartományát választhatja. Az összes mező "
+"értékéül a Zentyal egyik DNS tartományát választhatja. Az összes mező "
 "opcionális, ha az érték „None”, vagy üresen hagyja."
 
 #: src/EBox/Model/RangeTable.pm:118
@@ -640,12 +625,11 @@ msgid "Options"
 msgstr "Beállítások"
 
 #: src/templates/options.mas:10
-#, fuzzy
 msgid ""
 "You can leave empty the Default Gateway field to use Zentyal as default "
 "gateway for this subnet"
 msgstr ""
-"Az Alapértelmezett átjáró mezőt üresen hagyhatja, ha az eBoxot szeretné "
+"Az Alapértelmezett átjáró mezőt üresen hagyhatja, ha a Zentyalt szeretné "
 "alapértelmezett átjáróként használni ebben az alhálózatban"
 
 #: src/templates/options.mas:64

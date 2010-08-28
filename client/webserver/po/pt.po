@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-webserver 0.12\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-08-25 17:50+0200\n"
-"PO-Revision-Date: 2010-08-24 01:44+0200\n"
+"PO-Revision-Date: 2010-08-26 13:09+0200\n"
 "Last-Translator: Vasco Castelo Branco <vcbranco@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
@@ -75,13 +75,13 @@ msgid "Listening port"
 msgstr "Porto a ser escutado"
 
 #: src/EBox/WebServer/Model/GeneralSettings.pm:115
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Zentyal Administration is running on this port, change it on {ohref}System -"
 "> General{chref}."
 msgstr ""
-"A administração eBox está a correr neste porto, altere em {ohref}Sistema -> "
-"Geral{chref}"
+"A administração Zentyal está a correr neste porto, altere em {ohref}Sistema "
+"-> Geral{chref}"
 
 #: src/EBox/WebServer/Model/GeneralSettings.pm:128
 #, perl-brace-format
@@ -257,12 +257,11 @@ msgid "Configuration"
 msgstr "Configuração"
 
 #: src/EBox/WebServer/Composite/General.pm:80
-#, fuzzy
 msgid ""
 "The Zentyal web service allows you to host Web pages in plain HTML within "
 "different virtual hosts."
 msgstr ""
-"O serviço Web eBox permite-lhe alojar sites em HTML com diferentes "
+"O serviço Web Zentyal permite-lhe alojar sites em HTML com diferentes "
 "servidores virtuais"
 
 #~ msgid ""

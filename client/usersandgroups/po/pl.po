@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-usersandgroups 0.12\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-08-25 17:50+0200\n"
-"PO-Revision-Date: 2010-08-25 11:20+0200\n"
+"PO-Revision-Date: 2010-08-27 17:15+0200\n"
 "Last-Translator: Robert Brzozowski <gnutar1@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
@@ -20,7 +20,7 @@ msgstr ""
 
 #: migration/0001_usercorner_add_webserver_service.pl:54
 msgid "User Corner Web Server"
-msgstr "Serwer WWW Kącika Użytkownika"
+msgstr "Kącika Użytkownika"
 
 #: src/EBox/LdapUserImplementation.pm:44
 msgid "This group contains users"
@@ -83,7 +83,6 @@ msgid "user name"
 msgstr "nazwa użytkownika"
 
 #: src/EBox/CGI/ModifyUser.pm:49 src/EBox/CGI/AddUser.pm:48
-#, fuzzy
 msgid "last name"
 msgstr "Nazwisko"
 
@@ -127,7 +126,7 @@ msgstr "Migruj skonfigurowane moduły"
 
 #: src/EBox/UserCornerWebServer.pm:66
 msgid "Required for usercorner access to configured modules"
-msgstr "Wymagane do dostępu Kącika Użytkownika do skonfigurowanych modułów"
+msgstr "Wymagane do dostępu w Kąciku Użytkownika do skonfigurowanych modułów"
 
 #: src/EBox/UserCornerWebServer.pm:179
 msgid "User Corner web server"
@@ -148,7 +147,6 @@ msgid "Parameter"
 msgstr "Parametr"
 
 #: src/EBox/UsersAndGroups/Model/PendingSync.pm:78
-#, fuzzy
 msgid "List of pending operations on slaves"
 msgstr "Lista operacji w toku na podrzędnych"
 
@@ -157,6 +155,8 @@ msgid ""
 "This is a list those operations that need to be run by the slaves because "
 "the master failed to contact them."
 msgstr ""
+"To jest lista operacji do wykonania przez serwery podrzędne, wynikająca z "
+"braku połączenia z serwerem głównym"
 
 #: src/EBox/UsersAndGroups/Model/PendingSync.pm:87
 msgid "operation"
@@ -172,7 +172,6 @@ msgid "There are no pending operations at the moment."
 msgstr "Nie ma obecnie operacji w toku"
 
 #: src/EBox/UsersAndGroups/Model/ADSyncSettings.pm:65
-#, fuzzy
 msgid "AD user"
 msgstr "Użytkownik ActiveDirectory"
 
@@ -183,7 +182,6 @@ msgstr ""
 "utworzony w ActiveDirectory)"
 
 #: src/EBox/UsersAndGroups/Model/ADSyncSettings.pm:72
-#, fuzzy
 msgid "AD password"
 msgstr "Hasło ActiveDirectory"
 
@@ -204,9 +202,8 @@ msgid "AD Secret Key"
 msgstr "Tajny klucz ActiveDirectory (AD Secret Key)"
 
 #: src/EBox/UsersAndGroups/Model/ADSyncSettings.pm:87
-#, fuzzy
 msgid "Secret key to be shared between Windows and Zentyal (16 chars)"
-msgstr "Tajny klucz wymiany między Windows i eBox (16 znaków)"
+msgstr "Tajny klucz wymiany między Windows i Zentyal (16 znaków)"
 
 #: src/EBox/UsersAndGroups/Model/ADSyncSettings.pm:93
 msgid "Windows AD Sync Settings"
@@ -229,44 +226,38 @@ msgid "Windows AD Slave"
 msgstr "Podrzędny dla WindowsActiveDirectory"
 
 #: src/EBox/UsersAndGroups/Model/Mode.pm:78
-#, fuzzy
 msgid "LDAP DN"
-msgstr "Nazwa katalogu LDAP"
+msgstr "Nazwa domeny LDAP"
 
 #: src/EBox/UsersAndGroups/Model/Mode.pm:83
 msgid "Only for master and AD slave configuration"
-msgstr "Tylko do konfiguracji Głównego i Podrzędnego w ActiveDirectowy"
+msgstr "Tylko do konfiguracji Głównego i Podrzędnego w ActiveDirectory"
 
 #: src/EBox/UsersAndGroups/Model/Mode.pm:87
-#, fuzzy
 msgid "Master host"
-msgstr "Host główny"
+msgstr "Główny host"
 
 #: src/EBox/UsersAndGroups/Model/Mode.pm:89
-#, fuzzy
 msgid "Only for slave configuration: IP of the master Zentyal or Windows AD"
 msgstr ""
-"Tylko do konfiguracji podrzędnego: adres IP głównego w ActiveDirectory (eBox "
-"lub Windows)"
+"Tylko do konfiguracji serwera podrzędnego: adres IP serwera głównego Zentyal "
+"lub windows ActiveDirectory"
 
 #: src/EBox/UsersAndGroups/Model/Mode.pm:93
-#, fuzzy
 msgid "LDAP password"
 msgstr "Hasło LDAP"
 
 #: src/EBox/UsersAndGroups/Model/Mode.pm:95
-#, fuzzy
 msgid "Master Zentyal LDAP password"
-msgstr "Hasło LDAP głównego eBox-a"
+msgstr "Hasło LDAP serwera głównego Zentyal"
 
 #: src/EBox/UsersAndGroups/Model/Mode.pm:101
 msgid "Configuration"
 msgstr "Konfiguracja"
 
 #: src/EBox/UsersAndGroups/Model/Mode.pm:102
-#, fuzzy
 msgid "Zentyal Users Mode"
-msgstr "Tryb użytkowników eBox"
+msgstr "Tryb użytkowników Zentyal"
 
 #: src/EBox/UsersAndGroups/Model/Groups.pm:59
 #: src/EBox/UsersAndGroups/Model/Users.pm:60
@@ -294,25 +285,24 @@ msgid "There are no groups at the moment"
 msgstr "Nie ma obecnie żadnych grup"
 
 #: src/EBox/UsersAndGroups/Model/Groups.pm:139
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Zentyal is configured as slave and there are no groups at the moment. You "
 "may want to add some in the {openhref}master{closehref}."
 msgstr ""
-"Ten serwer eBox jest skonfigurowany jako podrzędny i nie ma w tej chwili "
-"żadnych grup. Może chciałbyś je dodać w {openhref}głównym{closehref}."
+"Ten serwer Zentyal jest skonfigurowany jako podrzędny i nie ma w tej chwili "
+"żadnych grup. Może chciałbyś je dodać w {openhref}nadrzędny{closehref}."
 
 #: src/EBox/UsersAndGroups/Model/Groups.pm:143
-#, fuzzy
 msgid ""
 "Zentyal is configured as Windows AD slave and there are no groups at the "
 "moment. If there are groups in your Domain Controller, maybe the "
 "synchronization process has failed or has not finished yet."
 msgstr ""
-"Ten serwer eBox jest skonfigurowany jako podrzędny do WindowsActiveDirectory "
-"i nie ma w tej chwili żadnych grup. Jeśli w Twoim kontrolerze domeny są "
-"grupy, to prawdopodobnie proces synchronizacji nie powiódł się lub jest w "
-"trakcie."
+"Ten serwer Zentyal jest skonfigurowany jako podrzędny dla "
+"WindowsActiveDirectory i nie ma w tej chwili żadnych grup. Jeśli w Twoim "
+"kontrolerze domeny są grupy, to prawdopodobnie proces synchronizacji nie "
+"powiódł się lub jest w trakcie synchronizacji."
 
 #: src/EBox/UsersAndGroups/Model/PAM.pm:61
 msgid "Enable PAM"
@@ -371,15 +361,13 @@ msgstr "Serwer DN"
 
 #: src/EBox/UsersAndGroups/Model/LdapInfo.pm:72
 msgid "Root DN"
-msgstr ""
+msgstr "Root DN"
 
 #: src/EBox/UsersAndGroups/Model/LdapInfo.pm:84
-#, fuzzy
 msgid "Users DN"
 msgstr "Użytkownicy DN"
 
 #: src/EBox/UsersAndGroups/Model/LdapInfo.pm:90
-#, fuzzy
 msgid "Groups DN"
 msgstr "Grupy DN"
 
@@ -403,25 +391,24 @@ msgid "There are no users at the moment"
 msgstr "W tej chwili nie ma żadnych użytkowników"
 
 #: src/EBox/UsersAndGroups/Model/Users.pm:137
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Zentyal is configured as slave and there are no users at the moment. You may "
 "want to add some in the {openhref}master{closehref}."
 msgstr ""
-"Nie ma w tej chwili żadnych użytkowników. Musi być co najmniej jeden aby móc "
-"zarządzać grupą."
+"Ten serwer Zentyal jest skonfigurowany jako podrzędny i nie ma w tej chwili "
+"żadnych grup. Może chciałbyś je dodać w {openhref}nadrzędny{closehref}."
 
 #: src/EBox/UsersAndGroups/Model/Users.pm:141
-#, fuzzy
 msgid ""
 "Zentyal is configured as Windows AD slave and there are no users at the "
 "moment. If there are users in your Domain Controller, maybe the "
 "synchronization process has failed or has not finished yet."
 msgstr ""
-"Ten serwer eBox jest skonfigurowany jako podrzędny do WindowsActiveDirectory "
-"i nie ma w tej chwili żadnych grup. Jeśli w Twoim kontrolerze domeny są "
-"grupy, to prawdopodobnie proces synchronizacji nie powiódł się lub jest w "
-"trakcie."
+"Ten serwer Zentyal jest skonfigurowany jako podrzędny dla "
+"WindowsActiveDirectory i nie ma w tej chwili żadnych grup. Jeśli w Twoim "
+"kontrolerze domeny są grupy, to prawdopodobnie proces synchronizacji nie "
+"powiódł się lub jest w trakcie synchronizacji."
 
 #: src/EBox/UsersAndGroups/Model/Slaves.pm:60
 #: src/EBox/UserCornerWebServer/Model/Settings.pm:55
@@ -433,11 +420,10 @@ msgid "List of slaves"
 msgstr "Lista serwerów podrzędnych"
 
 #: src/EBox/UsersAndGroups/Model/Slaves.pm:74
-#, fuzzy
 msgid ""
 "This is a list of those Zentyal slaves which are subscribed to this Zentyal."
 msgstr ""
-"To jest lista podrzędnych serwerów eBox, które są subskrybowane do tego "
+"To jest lista podrzędnych serwerów Zentyal, które są przypisane  do tego "
 "serwera."
 
 #: src/EBox/UsersAndGroups/Model/Slaves.pm:75
@@ -464,7 +450,6 @@ msgstr "Brak opcji do edycji."
 
 #: src/EBox/UsersAndGroups/Composite/UserTemplate.pm:86
 #: src/EBox/UsersAndGroups.pm:2368 src/EBox/UsersAndGroups.pm:2377
-#, fuzzy
 msgid "User Template"
 msgstr "Szablon użytkownika"
 
@@ -474,43 +459,40 @@ msgid "LDAP Settings"
 msgstr "Ustawienia LDAP"
 
 #: src/EBox/UsersAndGroups.pm:83 src/templates/Wizard/users.mas:4
-#, fuzzy
 msgid "Users and Groups"
-msgstr "Użytkownicy i grupy"
+msgstr "Użytkownicy i Grupy"
 
 #: src/EBox/UsersAndGroups.pm:105
 msgid ""
 "Your LDAP database will be populated with some basic organizational units"
-msgstr ""
+msgstr "Baza LDAP będzie wypełniona podstawowymi jednostkami organizacyjnymi"
 
 #: src/EBox/UsersAndGroups.pm:106
-#, fuzzy
 msgid ""
 "Zentyal needs this organizational units to add users and groups into them."
 msgstr ""
-"eBox wymaga tych jednostek organizacyjnych do utworzenia w nich Użytkowników "
-"i Grup ."
+"Zentyal wymaga tych jednostek organizacyjnych do utworzenia w nich "
+"Użytkowników i Grup."
 
 #: src/EBox/UsersAndGroups.pm:110
 msgid "Create directories for slave journals"
 msgstr "Utwórz katalogi dla zasobów serwera podrzędnego"
 
 #: src/EBox/UsersAndGroups.pm:111
-#, fuzzy
 msgid "Zentyal needs the directories to record pending slave actions."
 msgstr ""
-"eBox wymaga katalogów do przechowywania oczekujących procesów "
+"Zentyal wymaga katalogów do przechowywania oczekujących procesów "
 "komunikacyjnych z serwerem podrzędnym."
 
 #: src/EBox/UsersAndGroups.pm:118
 msgid ""
 "Your Zentyal will be registered as a slave in the Zentyal master specified"
-msgstr ""
+msgstr "Twój serwer zostanie zarejestrowany jako podrzędny"
 
 #: src/EBox/UsersAndGroups.pm:119
 msgid ""
 "This Zentyal needs to have remote access to the users in the Zentyal master."
-msgstr ""
+msgstr "Zentyal potrzebuje zdalnego dostępu do użytkowników na serwerze głównym"
 
 #: src/EBox/UsersAndGroups.pm:126
 msgid "Apparmor profile will be disabled"
@@ -525,40 +507,42 @@ msgid "Install /etc/cron.d/ebox-ad-sync."
 msgstr "Instaluj /etc/cron.d/ebox-ad-sync"
 
 #: src/EBox/UsersAndGroups.pm:136
-#, fuzzy
 msgid "Zentyal will run a script every 5 minutes to sync with Windows AD."
 msgstr ""
-"W celu synchronizacji z Windows AD serwer eBox będzie uruchamiał skrypt co 5 "
-"minut."
+"W celu synchronizacji z Windows AD serwer Zentyal będzie uruchamiał skrypt "
+"co 5 minut."
 
 #: src/EBox/UsersAndGroups.pm:145
 msgid "Configure PAM."
 msgstr "Konfiguruj PAM"
 
 #: src/EBox/UsersAndGroups.pm:146
-#, fuzzy
 msgid "Zentyal will give LDAP users system account."
-msgstr "eBox udostępni konta użytkowników LDAP."
+msgstr "Zentyal udostępni konto systemowe użytkowników LDAP."
 
 #: src/EBox/UsersAndGroups.pm:166
 msgid ""
 "To make NSS use LDAP resolution for user and group accounts. Needed for "
 "Samba PDC configuration."
 msgstr ""
+"By stworzyć NSS użyj LDAP dla użytkowników i grup. Należy skonfigurować "
+"Samba PDC"
 
 #: src/EBox/UsersAndGroups.pm:172
 msgid "To let NSS know how to access LDAP accounts."
-msgstr ""
+msgstr "Pozwól NSS sprawdzić jak dostać się do kont LDAP"
 
 #: src/EBox/UsersAndGroups.pm:181
 msgid "To make LDAP listen on TCP and Unix sockets."
-msgstr ""
+msgstr "Umożliwia LDAP nasłuch na gniazdach TCP i Unixowych"
 
 #: src/EBox/UsersAndGroups.pm:186
 msgid ""
 "To copy LDAP admin password generated by Zentyal and allow other modules to "
 "access LDAP."
 msgstr ""
+"Aby skopiować hasło administracyjne LDAP, wygenerowane przez Zentyal oraz "
+"pozwolić innym modułom na dostęp do LDAP"
 
 #: src/EBox/UsersAndGroups.pm:811
 #, perl-brace-format
@@ -568,7 +552,7 @@ msgstr ""
 
 #: src/EBox/UsersAndGroups.pm:816
 msgid "Username already exists on the system"
-msgstr ""
+msgstr "Nazwa użytkownika już występuje w systemie"
 
 #: src/EBox/UsersAndGroups.pm:916 src/EBox/UsersAndGroups.pm:1532
 msgid "Maximum number of system users reached"
@@ -579,11 +563,13 @@ msgstr "Utworzono maksymalną dozwoloną liczbę użytkowników"
 msgid ""
 "Incorrect UID {uid} for a user . UID must be equal or greater than {min}"
 msgstr ""
+"Błędny UID {uid} dla użytkownika. UID musi być równe lub większe niż {min}"
 
 #: src/EBox/UsersAndGroups.pm:944
 #, perl-brace-format
 msgid "Incorrect UID {uid} for a system user . UID must be lesser than {max}"
 msgstr ""
+"Błędny UID {uid} dla użytkownika systemowego. UID musi być mniejsze od {max}"
 
 #: src/EBox/UsersAndGroups.pm:1456
 #, perl-brace-format
@@ -598,12 +584,12 @@ msgstr "Nazwa grupy jest niepoprawna ponieważ jest użyta wewnątrz"
 #, perl-brace-format
 msgid ""
 "Incorrect GID {gid} for a group . GID must be equal or greater than {min}"
-msgstr ""
+msgstr "Błędny GID {gid} dla grupy. GID musi być równe lub większe niż {min}"
 
 #: src/EBox/UsersAndGroups.pm:1559
 #, perl-brace-format
 msgid "Incorrect GID {gid} for a system group . GID must be lesser than {max}"
-msgstr ""
+msgstr "Błędny GID {gid} dla grupy systemowej. GID musi być mniejsze od {max}"
 
 #: src/EBox/UsersAndGroups.pm:2146
 #, perl-brace-format
@@ -612,66 +598,67 @@ msgstr "Hasło może składać się maksymalnie z {maxPwdLength} znaków"
 
 #: src/EBox/UsersAndGroups.pm:2391
 msgid "AD Sync Settings"
-msgstr ""
+msgstr "Ustawienia synchronizacji Active Directory"
 
 #: src/EBox/UsersAndGroups.pm:2626
 #, perl-brace-format
 msgid "Can't connect to master Zentyal at {remote}"
-msgstr ""
+msgstr "Brak połączenia z serwerem głównym z {remote}"
 
 #: src/EBox/UsersAndGroups.pm:2633
 #, perl-brace-format
 msgid ""
 "Can't connect to master Zentyal at {remote} with the provided LDAP password"
 msgstr ""
+"Brak połączenia z serwerem głównym z {remote}, używając udostępnionego hasła "
+"LDAP"
 
 #: src/EBox/UsersAndGroups.pm:2652
 #, perl-brace-format
 msgid "A host with the name {host} is already registered in this Zentyal"
-msgstr ""
+msgstr "Host {host} jest już zarejestrowany na serwerze Zentyal"
 
 #: src/EBox/UsersAndGroups.pm:2774
 msgid "Replication failed"
-msgstr ""
+msgstr "Replikacja nie powiodła się"
 
 #: src/EBox/UserCorner/CGI/Dashboard/Index.pm:30
-#, fuzzy
 msgid "User"
-msgstr "Użytkownicy"
+msgstr "Użytkownik"
 
 #: src/EBox/UserCorner/CGI/Login/Index.pm:62
 msgid ""
 "There is a script which has asked to run in Zentyal exclusively. Please, "
 "wait patiently until it is done"
 msgstr ""
+"Ten skrypt został uruchomiony dodatkowo przez Zentyal. Poczekaj cierpliwie "
+"na zakończenie"
 
 #: src/EBox/UserCorner/CGI/Login/Index.pm:66
-#, fuzzy
 msgid "Incorrect password"
-msgstr "potwierdź hasło"
+msgstr "Niewłaściwe hasło"
 
 #: src/EBox/UserCorner/CGI/Login/Index.pm:69
 msgid "For security reasons your session has expired due to inactivity"
-msgstr ""
+msgstr "Twoja sesja wygasła z powodu braku aktywności"
 
 #: src/EBox/UserCorner/CGI/Login/Index.pm:72
 msgid "You have been logged out because a new session has been opened"
-msgstr ""
+msgstr "Zostałeś wylogowany gdyż nowa sesja została otwarta"
 
 #: src/EBox/UserCorner/CGI/Login/Index.pm:75
 msgid "You are not logged in"
-msgstr ""
+msgstr "Nie jesteś zalogowany"
 
 #: src/EBox/UserCornerWebServer/Model/Settings.pm:63
 msgid "General configuration"
-msgstr ""
+msgstr "Konfiguracja ogólna"
 
 #: src/EBox/UserCornerWebServer/Model/Settings.pm:97
 msgid "listening port"
-msgstr ""
+msgstr "portu nasłuchu"
 
 #: src/templates/ajax/tableUser.mas:88
-#, fuzzy
 msgid "Add new"
 msgstr "Dodaj użytkownika"
 
@@ -702,21 +689,23 @@ msgstr "Anuluj"
 
 #: src/templates/Wizard/users.mas:7
 msgid "Select the type of the server"
-msgstr ""
+msgstr "Wybierz typ serwera"
 
 #: src/templates/Wizard/users.mas:8
 msgid ""
 "Choose standalone unless you want LDAP replication or synchronization with "
 "Active Directory."
 msgstr ""
+"Wybierz wolnostojący, jeśli chcesz się synchronizować z Active Directory "
+"używając LDAP"
 
 #: src/templates/Wizard/users.mas:10
 msgid "Standalone server"
-msgstr ""
+msgstr "Wolnostojący"
 
 #: src/templates/Wizard/users.mas:11
 msgid "Advanced configuration (Master/Slave/AD Sync)"
-msgstr ""
+msgstr "Konfiguracja zaawansowana (Główny/Podrzędny/AD Sync)"
 
 #: src/templates/groups.mas:10
 msgid "Add Group"
@@ -738,13 +727,12 @@ msgstr "Wartość opcjonalna"
 #: src/templates/groups.mas:38 src/templates/groups.mas:39
 #: src/templates/users.mas:73 src/templates/users.mas:74
 msgid "Add and Edit"
-msgstr ""
+msgstr "Dodaj i edytuj"
 
 #: src/templates/groups.mas:41 src/templates/groups.mas:42
 #: src/templates/users.mas:69 src/templates/users.mas:70
-#, fuzzy
 msgid "Add"
-msgstr "Dodaj użytkownika"
+msgstr "Dodaj"
 
 #: src/templates/users.mas:12
 msgid "Add User"
@@ -754,15 +742,14 @@ msgstr "Dodaj użytkownika"
 msgid "User name"
 msgstr "Nazwa użytkownika"
 
+# Imię
 #: src/templates/users.mas:25 src/templates/user.mas:21
-#, fuzzy
 msgid "First name"
-msgstr "nazwa użytkownika"
+msgstr "Imię"
 
 #: src/templates/users.mas:33 src/templates/user.mas:31
-#, fuzzy
 msgid "Last name"
-msgstr "nazwa użytkownika"
+msgstr "Nazwisko"
 
 #: src/templates/users.mas:56 src/templates/user.mas:62
 msgid "Retype password"
@@ -773,7 +760,6 @@ msgid "Group"
 msgstr "Grupa"
 
 #: src/templates/group.mas:14
-#, fuzzy
 msgid ""
 "There are no users at the moment. You need at least one to manage this group "
 "properly."
@@ -818,28 +804,24 @@ msgid "Delete group"
 msgstr "Usuń grupę"
 
 #: src/templates/group.mas:110
-#, fuzzy
 msgid ""
 "This operation will cause the removal of the group and all dependent data "
 "such as shared directory, etc."
 msgstr ""
-"Ta operacja spowoduje usunięcie użytkownika i wszystkich jego zależności "
-"takich jak: konta pocztowe, dane użytkownika itp."
+"Ta operacja spowoduje usunięcie grupy i wszystkich jej zależności takie jak: "
+"konta pocztowe, współdzielone katalogi grupy, etc."
 
 #: src/templates/user.mas:88
-#, fuzzy
 msgid "User groups"
-msgstr "Użytkownicy w grupie"
+msgstr "Grupy użytkownika"
 
 #: src/templates/user.mas:90
-#, fuzzy
 msgid "Other groups"
-msgstr "Usuń grupę"
+msgstr "Pozostałe grupy"
 
 #: src/templates/user.mas:117
-#, fuzzy
 msgid "Remove groups from user"
-msgstr "Usuń użytkowników z grupy"
+msgstr "Usuń grupy użytkownika"
 
 #: src/templates/user.mas:159 src/templates/user.mas:167
 #: src/templates/user.mas:168
@@ -847,7 +829,6 @@ msgid "Delete user"
 msgstr "Usuń użytkownika"
 
 #: src/templates/user.mas:161
-#, fuzzy
 msgid ""
 "This operation will cause the removal of the user and all dependent data "
 "such as mail accounts, user files, etc."
@@ -857,15 +838,15 @@ msgstr ""
 
 #: src/templates/usercorner/headTitle.mas:11
 msgid "Logout"
-msgstr ""
+msgstr "Wyloguj"
 
 #: src/templates/usercorner/login/index.mas:26
 msgid "Warning: Caps Lock is enabled"
-msgstr ""
+msgstr "Uwaga: Caps Lock jest włączony"
 
 #: src/templates/usercorner/login/index.mas:41
 msgid "Enter"
-msgstr ""
+msgstr "Potwierdź"
 
 #, fuzzy
 #~ msgid "User corner"

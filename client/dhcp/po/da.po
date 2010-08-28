@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: ebox-dhcp 0.12\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-08-26 00:53+0200\n"
-"PO-Revision-Date: 2010-01-20 11:45+0100\n"
-"Last-Translator: Jesper Lindeberg <jlindeberg@gmail.com>\n"
+"PO-Revision-Date: 2010-08-26 23:39+0200\n"
+"Last-Translator: Bo Dalbjerg <bo@dalbjerg.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -69,21 +69,23 @@ msgid ""
 "Domain name appended to the hostname from those clients whose leased IP "
 "address comes from a range"
 msgstr ""
+"Domæne navne tilføjet hostname fra de klienter, hvis lejede IP-adresser "
+"kommer fra en række"
 
 #: src/EBox/Model/DynamicDNS.pm:338
 #, fuzzy
 msgid "Static domain"
-msgstr "Søge domæne"
+msgstr "Statisk domæne"
 
 #: src/EBox/Model/DynamicDNS.pm:340
 msgid ""
 "Domain name appended to the hostname from those clients with a fixed address "
 "mapping"
-msgstr ""
+msgstr "Domæne navne tilføjet hostname fra disse klienter med fast adresse "
 
 #: src/EBox/Model/DynamicDNS.pm:345
 msgid "Same as Dynamic Domain"
-msgstr ""
+msgstr "Samme som dynamisk domæne (dynamic domain)"
 
 #: src/EBox/Model/DynamicDNS.pm:349 src/EBox/Model/Options.pm:376
 #: src/EBox/Model/Options.pm:399 src/EBox/Model/Options.pm:418
@@ -93,21 +95,23 @@ msgstr "Brugerdefineret"
 
 #: src/EBox/Model/DynamicDNS.pm:357
 msgid "Dynamic DNS Options"
-msgstr ""
+msgstr "Dynamisk DNS muligheder"
 
 #: src/EBox/Model/DynamicDNS.pm:362
 msgid "The domains will be added automatically to DNS module in read-only mode"
 msgstr ""
+"Domænet vil blive automatisk tilføjet DNS modulet i læs-kun (read-only) "
+"tilstand"
 
 #: src/EBox/Model/DynamicDNS.pm:394
 #, perl-brace-format
 msgid "Domain \"{domain}\" added to DNS section"
-msgstr ""
+msgstr "Domæne \"{domain}\" tilføjet til DNS sektionen"
 
 #: src/EBox/Model/DynamicDNS.pm:405
 #, perl-brace-format
 msgid "Domain \"{domain}\" removed from DNS section"
-msgstr ""
+msgstr "Domæne \"{domain}\" fjernet fra DNS sektionen"
 
 #: src/EBox/Model/FixedAddressTable.pm:124
 #, perl-brace-format
@@ -178,8 +182,8 @@ msgstr "fast adresse"
 #, fuzzy
 msgid "You need to upload a boot image to Zentyal if you set it as next server"
 msgstr ""
-"For at kunne sende firmware, så man kan boote PCer fra ebox, skal man sætte "
-"eBox til at være næste server"
+"Du skal uploade et boot image til Zentyal hvis du har indstillet den som "
+"næste server"
 
 #: src/EBox/Model/ThinClientOptions.pm:146
 #, fuzzy
@@ -187,18 +191,20 @@ msgid ""
 "In order to upload a boot image to Zentyal, you need to set Zentyal as next "
 "server"
 msgstr ""
-"For at kunne sende firmware, så man kan boote PCer fra ebox, skal man sætte "
-"eBox til at være næste server"
+"For at uploade et boot image til Zentyal, skal du indstille Zentyal som "
+"næste server"
 
 #: src/EBox/Model/ThinClientOptions.pm:153
 msgid "You need to specify a path to the boot image in the remote server"
-msgstr ""
+msgstr "Du skal angive en sti (path) til boot image i den eksterne server"
 
 #: src/EBox/Model/ThinClientOptions.pm:158
 msgid ""
 "You can only specify a file name if you have a next server and it is not "
 "Zentyal"
 msgstr ""
+"Du kan kun angive et filnavn, hvis du har en næste server og det er ikke "
+"Zentyal"
 
 #: src/EBox/Model/ThinClientOptions.pm:209
 #, fuzzy, perl-brace-format
@@ -206,7 +212,8 @@ msgid ""
 "Removing previously uploaded boot image since next server option has been "
 "changed from Zentyal to {option}"
 msgstr ""
-"Slettet gammel firmware da næste server er ændret fra eBox til {option}"
+"Fjerner tidligere uploadet boot image, da næste server løsning er ændret fra "
+"Zentyal til {option}"
 
 #: src/EBox/Model/ThinClientOptions.pm:232
 msgid "Next server"
@@ -224,11 +231,11 @@ msgstr "navn"
 
 #: src/EBox/Model/ThinClientOptions.pm:252
 msgid "File name"
-msgstr "filnavn"
+msgstr "Fil navn"
 
 #: src/EBox/Model/ThinClientOptions.pm:261
 msgid "File path in next server"
-msgstr ""
+msgstr "Sti (path) i næste server"
 
 #: src/EBox/Model/ThinClientOptions.pm:269
 msgid "Thin client"
@@ -240,8 +247,8 @@ msgid ""
 "You may want to customise your thin client options.To do so, you may include "
 "all the files you require under {path} directory"
 msgstr ""
-"Måske vil du tilpasse dine tynd klient indstililnge. For at gøre det kan du "
-"lægge alle de nødvendige filer i {path} folderen"
+"Måske vil du tilpasse dine tynde klient indstillinger. For at gøre det, kan "
+"du lægge alle de nødvendige filer i {path} folderen"
 
 #: src/EBox/Model/RangeInfo.pm:143
 msgid "Interface IP address"
@@ -304,50 +311,49 @@ msgstr ""
 #: src/EBox/Model/Options.pm:157
 #, perl-brace-format
 msgid "{gateway} is not in the current network"
-msgstr "{gateway} er ikke i nuværende netværk"
+msgstr "{gateway} er ikke i det nuværende netværk"
 
 #: src/EBox/Model/Options.pm:169
 #, fuzzy
 msgid ""
 "DNS module must be enabled to be able to select Zentyal as primary DNS server"
 msgstr ""
-"DNS service må være aktiv som primær navneserver for den lokale eBox DNS "
+"DNS modulet skal være aktiveret for at kunne vælge Zentyal som primær DNS "
 "server"
 
 #: src/EBox/Model/Options.pm:179
 #, fuzzy
 msgid "NTP module must be enabled to be able to select Zentyal as NTP server"
 msgstr ""
-"DNS service må være aktiv som primær navneserver for den lokale eBox DNS "
-"server"
+"NTP modulet (tidsstyring) skal være aktiveret for at Zentyal kan fungere som "
+"NTP server"
 
 #: src/EBox/Model/Options.pm:190
 #, fuzzy
 msgid ""
 "Samba module must be enabled to be able to select Zentyal as WINS server"
 msgstr ""
-"DNS service må være aktiv som primær navneserver for den lokale eBox DNS "
-"server"
+"Samba modulet skal være aktivt for at kunne vælge Zentyal som WINS server"
 
 #: src/EBox/Model/Options.pm:384
 #, fuzzy
 msgid "Zentyal domain"
-msgstr "Søge domæne"
+msgstr "Zentyal domæne"
 
 #: src/EBox/Model/Options.pm:392
 #, fuzzy
 msgid "local Zentyal DNS"
-msgstr "lokal eBox DNS"
+msgstr "lokal Zentyal (eBox) DNS"
 
 #: src/EBox/Model/Options.pm:414
 #, fuzzy
 msgid "local Zentyal NTP"
-msgstr "lokal eBox DNS"
+msgstr "lokal Zentyal (eBox) NTP"
 
 #: src/EBox/Model/Options.pm:428
 #, fuzzy
 msgid "local Zentyal"
-msgstr "lokal eBox DNS"
+msgstr "lokal Zentyal (eBox) "
 
 #: src/EBox/Model/Options.pm:440 src/templates/options.mas:18
 msgid "Default gateway"
@@ -366,6 +372,8 @@ msgid ""
 "Setting \"Zentyal\" as default gateway will set the interface IP address as "
 "gateway"
 msgstr ""
+"Hvis \"Zentyal\" sættes til at være default gateway vil intetfacets IP adresse "
+"blive gateway"
 
 #: src/EBox/Model/Options.pm:472 src/templates/options.mas:29
 msgid "Search domain"
@@ -376,6 +384,8 @@ msgid ""
 "The selected domain will complete on your clients those DNS queries which "
 "are not fully qualified"
 msgstr ""
+"Det valgte domæne vil fuldføre på dine klienters DNS forespørgsler, som ikke "
+"er fuldt kvalificeret"
 
 #: src/EBox/Model/Options.pm:480 src/templates/options.mas:41
 msgid "Primary nameserver"
@@ -386,6 +396,8 @@ msgid ""
 "If \"Zentyal DNS\" is present and selected, the Zentyal server will act as "
 "cache DNS server"
 msgstr ""
+"Hvis \"Zentyal DNS\" er til stede og valgt, vil Zentyal serveren fungere som "
+"cache DNS server"
 
 #: src/EBox/Model/Options.pm:488 src/templates/options.mas:52
 msgid "Secondary nameserver"
@@ -394,24 +406,28 @@ msgstr "Sekundær navneserver"
 #: src/EBox/Model/Options.pm:494
 #, fuzzy
 msgid "NTP server"
-msgstr "Næste server"
+msgstr "NTP server"
 
 #: src/EBox/Model/Options.pm:497
 msgid ""
 "If \"Zentyal NTP\" is present and selected, Zentyal will be the NTP server "
 "for DHCP clients"
 msgstr ""
+"Hvis \"Zentyal NTP\" er til stede og valgt, vil Zentyal serveren fungere som "
+"NTP server for DHCP klienter"
 
 #: src/EBox/Model/Options.pm:502
 #, fuzzy
 msgid "WINS server"
-msgstr "Næste server"
+msgstr "WINS server"
 
 #: src/EBox/Model/Options.pm:505
 msgid ""
 "If \"Zentyal Samba\" is present and selected, Zentyal will be the WINS "
 "server for DHCP clients"
 msgstr ""
+"Hvis \"Zentyal Samba\" er til stede og valgt, vil Zentyal serveren fungere som "
+"WINS server for DHCP klienter"
 
 #: src/EBox/Model/Options.pm:512
 msgid "Common options"
@@ -440,24 +456,25 @@ msgstr "{from} - {to} er en ugyldig range"
 #: src/EBox/Model/RangeTable.pm:129
 #, perl-brace-format
 msgid "Range {from}-{to} is not in network {net}"
-msgstr "Range {from}-{to} er ikke i netværket {net}"
+msgstr "Området {from}-{to} er ikke i netværket {net}"
 
 #: src/EBox/Model/RangeTable.pm:142
 #, perl-brace-format
 msgid "Range {from}-{to} includes interface with IP address: {ifaceIP}"
-msgstr "Range {from}-{to} indbefatter interface med IP adresse: {ifaceIP}"
+msgstr "Området {from}-{to} indbefatter interface med IP adresse: {ifaceIP}"
 
 #: src/EBox/Model/RangeTable.pm:165
 #, perl-brace-format
 msgid ""
 "Range {newFrom}-{newTo} overlaps with range '{range}': {oldFrom}-{oldTo}"
 msgstr ""
-"Range {newFrom}-{newTo} overlapper gammel range '{range}': {oldFrom}-{oldTo}"
+"Området {newFrom}-{newTo} overlapper gammel range '{range}': "
+"{oldFrom}-{oldTo}"
 
 #: src/EBox/Model/RangeTable.pm:183
 #, perl-brace-format
 msgid "Range {from}-{to} includes fixed address '{name}': {fixedIP}"
-msgstr "Range {from}-{to} inkluderer fast adresse '{name}': {fixedIP}"
+msgstr "Området {from}-{to} inkluderer fast adresse '{name}': {fixedIP}"
 
 #: src/EBox/Model/RangeTable.pm:220 src/EBox/CGI/AddRange.pm:46
 #: src/templates/ranges.mas:54
@@ -519,7 +536,7 @@ msgstr ""
 #: src/EBox/DHCP.pm:119
 #, fuzzy, perl-brace-format
 msgid "{server} configuration file"
-msgstr "Service konfiguration"
+msgstr "{server} konfigurations fil"
 
 #: src/EBox/DHCP.pm:426 src/EBox/DHCP.pm:462 src/EBox/DHCP.pm:512
 #: src/EBox/DHCP.pm:558 src/EBox/DHCP.pm:604 src/EBox/DHCP.pm:702
@@ -594,12 +611,12 @@ msgstr "DHCP"
 #: src/EBox/DHCP.pm:1333
 #, fuzzy
 msgid "Host name"
-msgstr "navn"
+msgstr "Værts navn (host name)"
 
 #: src/EBox/DHCP.pm:1360
 #, fuzzy
 msgid "DHCP leases"
-msgstr "DHCP områder"
+msgstr "DHCP tildelinger"
 
 #: src/EBox/CGI/Enable.pm:41
 msgid "module status"

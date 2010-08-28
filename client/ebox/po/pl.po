@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox 0.12\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-08-26 00:53+0200\n"
-"PO-Revision-Date: 2010-08-25 11:14+0200\n"
+"PO-Revision-Date: 2010-08-27 13:50+0200\n"
 "Last-Translator: Robert Brzozowski <gnutar1@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
@@ -23,22 +23,23 @@ msgid "port"
 msgstr "port"
 
 #: src/EBox/Apache.pm:600
-#, fuzzy
 msgid "Zentyal web server"
-msgstr "eBox web serwer"
+msgstr "Zentyal web serwer"
 
 #: src/EBox/Event/Dispatcher/Jabber.pm:166
 msgid "Admin Jabber account"
-msgstr ""
+msgstr "Konto administratora Jabber"
 
 #: src/EBox/Event/Dispatcher/Jabber.pm:179
 msgid "Jabber"
-msgstr ""
+msgstr "Jabber"
 
 #: src/EBox/Event/Dispatcher/Jabber.pm:229
 #, perl-brace-format
 msgid "Jabber server {serverName} is down or connection is not allowed"
 msgstr ""
+"Nie można uzyskać połączenia z serwerem Jabber {serverName}. Sprawdź, czy "
+"jest włączony"
 
 #: src/EBox/Event/Dispatcher/Jabber.pm:259
 #, perl-brace-format
@@ -62,7 +63,7 @@ msgstr "RSS"
 #: src/EBox/Event/Dispatcher/RSS.pm:290
 #, perl-brace-format
 msgid "Zentyal alerts channel for {hostname}"
-msgstr ""
+msgstr "Kanał ostrzeżeń dla serwera {hostname}"
 
 #: src/EBox/Event/Dispatcher/RSS.pm:293
 msgid "This channel tracks what happens on this Zentyal machine along the time"
@@ -71,12 +72,12 @@ msgstr ""
 #: src/EBox/Event/Dispatcher/RSS.pm:313
 #, perl-brace-format
 msgid "The event has happened in Zentyal {hostname} from {source}"
-msgstr ""
+msgstr "To zdarzenie wygenerowano na serwerze {hostname} przez {source}"
 
 #: src/EBox/Event/Dispatcher/RSS.pm:317
 #, perl-brace-format
 msgid "Go to your {url} to check its status."
-msgstr ""
+msgstr "Sprawdź status na stronie {url}"
 
 #: src/EBox/Event/Dispatcher/Log.pm:136
 msgid "Log file"
@@ -90,6 +91,8 @@ msgstr "Logi"
 #, perl-brace-format
 msgid "Dispatcher {name} is not configured to be enabled"
 msgstr ""
+"Nie można włączyć powiadamiacza {name}, gdyż nie został właściwie "
+"skonfigurowany"
 
 #: src/EBox/Event/Watcher/DiskFreeSpace.pm:134
 #, perl-brace-format
@@ -115,9 +118,10 @@ msgid "Service"
 msgstr "Usługa"
 
 #: src/EBox/Event/Watcher/Runit.pm:159
-#, fuzzy
 msgid "Check if any Zentyal service is not running when it is enabled"
-msgstr "Sprawdź, czy jakakolwiek usługa eBox jest włączona i nie pracuje"
+msgstr ""
+"Sprawdź, czy jakaś usługa Zentyala przestała pracować podczas gdy jest "
+"włączona"
 
 #: src/EBox/Event/Watcher/Runit.pm:229
 #, perl-brace-format
@@ -343,23 +347,20 @@ msgid "spare"
 msgstr "zapasowy"
 
 #: src/EBox/Event/Watcher/State.pm:126
-#, fuzzy
 msgid "Zentyal is up and running"
-msgstr "eBox pracuje prawidłowo"
+msgstr "Zentyal pracuje prawidłowo"
 
 #: src/EBox/Event/Watcher/State.pm:132
-#, fuzzy
 msgid "Zentyal is critically down"
-msgstr "W związku z błędem krytycznym eBox został zatrzymany"
+msgstr "W związku z błędem krytycznym Zentyal został zatrzymany"
 
 #: src/EBox/Event/Watcher/State.pm:157 src/templates/report/raid.mas:226
 msgid "State"
 msgstr "Stan"
 
 #: src/EBox/Event/Watcher/State.pm:174
-#, fuzzy
 msgid "Check if Zentyal is currently up or down"
-msgstr "Sprawdź, czy eBox jest uruchomiony"
+msgstr "Sprawdź, czy Zentyal jest uruchomiony"
 
 #: src/EBox/Model/DataTable.pm:328
 #, perl-brace-format
@@ -368,7 +369,7 @@ msgstr "{model} w module {module}"
 
 #: src/EBox/Model/DataTable.pm:332
 msgid "at"
-msgstr ""
+msgstr "na"
 
 #: src/EBox/Model/DataTable.pm:543
 msgid "field"
@@ -380,7 +381,7 @@ msgstr "strona"
 
 #: src/EBox/Model/DataTable.pm:1472
 msgid "Page must be a number equal or greater than zero"
-msgstr ""
+msgstr "Podana wartość musi być równa lub większa od 0"
 
 #: src/EBox/Model/DataTable.pm:2132 src/EBox/Model/DataMultiTable.pm:169
 #: src/EBox/Model/Composite.pm:654 src/EBox/Model/Composite.pm:669
@@ -391,7 +392,7 @@ msgstr "Czynność"
 #: src/EBox/Model/DataTable.pm:2834
 #, perl-brace-format
 msgid "Remove {num} rows of {rowName} from {model}{br}"
-msgstr ""
+msgstr "Usuń {num} kolumn(y) o nazwie {rowName} z modelu {model}{br}"
 
 #: src/EBox/Model/DataTable.pm:2905
 msgid "Page size"
@@ -456,12 +457,16 @@ msgid ""
 "The data you are removing is being used by\n"
 "                    the following sections:"
 msgstr ""
+"Usuwane dane są używane przez \n"
+"                    poniższe sekcje:"
 
 #: src/EBox/Model/ModelManager.pm:516
 msgid ""
 "The data you are modifying is being used by\n"
 "\t\t\tthe following sections:"
 msgstr ""
+"Modyfikowane dane są używane przez \n"
+"\t\t\t poniższe sekcje:"
 
 #: src/EBox/Model/DataForm.pm:555
 #, perl-brace-format
@@ -494,7 +499,7 @@ msgstr "Wartość nie może być mniejsza niż {m}"
 
 #: src/EBox/Types/DomainName.pm:118
 msgid "IP addresses are not allowed"
-msgstr ""
+msgstr "Podane adresy są niedopuszczalne"
 
 #: src/EBox/Types/Float.pm:112
 msgid "Enter a float number"
@@ -564,7 +569,7 @@ msgstr "Nazwa hosta"
 
 #: src/EBox/SysInfo.pm.in:107
 msgid "Core version"
-msgstr "wersja eBox"
+msgstr "wersja Zentyala"
 
 #: src/EBox/SysInfo.pm.in:109
 msgid "System load"
@@ -659,6 +664,7 @@ msgid ""
 "In order to enable a configurable event dispatcher, you need to configure it "
 "first"
 msgstr ""
+"Aby uruchomić powiadamiacz zdarzeń, wymagana jest wcześniejsza konfiguracja"
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:193
 msgid "Jabber server name"
@@ -691,17 +697,16 @@ msgid "Subscribe"
 msgstr "Subskrybuj"
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:226
-#, fuzzy
 msgid ""
 "Tick this option if you want Zentyal to create an account for the above user"
 msgstr ""
-"Zaznacz tę opcję, jeśli chcesz żeby eBox utworzył konto dla podanego "
+"Zaznacz tę opcję, jeśli chcesz żeby Zentyal utworzył konto dla podanego "
 "użytkownika"
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:233
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:300
 msgid "Administrator Jabber Identifier"
-msgstr ""
+msgstr "Identyfikator administratora Jabber"
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:236
 msgid ""
@@ -796,6 +801,7 @@ msgid ""
 "Events module configures Zentyal to help informing you about events that "
 "happen"
 msgstr ""
+"Moduł zdarzeń pozwala Zentyalowi na informowanie o bieżącej pracy systemu"
 
 #: src/EBox/Events/Model/ConfigureEventDataTable.pm:275
 #: src/templates/backup.mas:42 src/templates/backup.mas:124
@@ -1130,7 +1136,7 @@ msgstr "miesiąc"
 
 #: src/EBox/Logs/Model/Report/OptionsBase.pm:79
 msgid "Report time period"
-msgstr ""
+msgstr "Okres raportowania"
 
 #: src/EBox/Logs/Model/Report/OptionsBase.pm:101
 msgid "Report options"
@@ -1162,7 +1168,7 @@ msgstr "Wolne miejsce na dysku"
 #: src/EBox/PgDBEngine.pm:81
 #, perl-brace-format
 msgid "You must set the {variable} variable in the ebox configuration file"
-msgstr "Musisz ustawić zmienną {variable} w pliku konfiguracyjnym eboxa."
+msgstr "Musisz ustawić zmienną {variable} w pliku konfiguracyjnym Zentyala"
 
 #: src/EBox/PgDBEngine.pm:435
 #, perl-brace-format
@@ -1218,7 +1224,7 @@ msgstr "Komunikaty"
 
 #: src/EBox/Logs.pm:850
 msgid "Lifetime parameter must be a positive number of hours"
-msgstr ""
+msgstr "Parametr musi mieć wartość dodatnią"
 
 #: src/EBox/Common/Model/EnableForm.pm:100
 msgid "Service enabled"
@@ -1238,11 +1244,11 @@ msgstr ""
 
 #: src/EBox/Events.pm:200
 msgid "Enable default log dispatcher"
-msgstr ""
+msgstr "Włącz domyślny powiadamiacz logów"
 
 #: src/EBox/Events.pm:498
 msgid "The events module is not enabled to send events"
-msgstr ""
+msgstr "Moduł zdarzeń jest wyłączony, nie może wysyłać powiadomień"
 
 #: src/EBox/Events.pm:731
 msgid "Event service status"
@@ -1279,8 +1285,7 @@ msgid ""
 "An internal error related to a template has occurred. This is a bug, "
 "relevant information can be found in the logs."
 msgstr ""
-"Wystąpił błąd wewnętrzny związany z szablonem. Związane z nim komunikaty "
-"znajdziesz w logach."
+"W szablonie wystąpił błąd. Związane z nim komunikaty znajdziesz w logach."
 
 #: src/EBox/CGI/Wizard.pm:29
 msgid "Initial configuration wizard"
@@ -1400,7 +1405,6 @@ msgid "Bug-report configuration dump"
 msgstr "Zrzut konfiguracji na potrzeby raportu błędów"
 
 #: src/EBox/CGI/EBox/Hostname.pm:44
-#, fuzzy
 msgid "hostname"
 msgstr "Nazwa hosta"
 
@@ -1417,14 +1421,12 @@ msgid "Halt or Reboot"
 msgstr "Zatrzymanie lub ponowne uruchomienie systemu"
 
 #: src/EBox/CGI/EBox/Halt.pm:45
-#, fuzzy
 msgid "Zentyal is going down for halt"
-msgstr "Trwa zamykanie systemu eBox"
+msgstr "Trwa zamykanie systemu"
 
 #: src/EBox/CGI/EBox/Halt.pm:48
-#, fuzzy
 msgid "Zentyal is going down for reboot"
-msgstr "Trwa zamykanie systemu eBox w celu ponownego uruchomienia."
+msgstr "Trwa zamykanie systemu w celu ponownego uruchomienia."
 
 #: src/EBox/CGI/EBox/RestartService.pm:50
 msgid "module name"
@@ -1436,9 +1438,8 @@ msgstr "Moduł został pomyślnie zatrzymany i uruchomiony ponownie"
 
 #: src/EBox/CGI/EBox/Password.pm:45 src/templates/password.mas:11
 #: src/templates/login/index.mas:49
-#, fuzzy
 msgid "Username"
-msgstr "Nazwa hosta"
+msgstr "Użytkownik"
 
 #: src/EBox/CGI/EBox/Password.pm:50 src/templates/login/index.mas:54
 msgid "Password"
@@ -1530,7 +1531,7 @@ msgstr "Zostałeś wylogowany ponieważ została otwarta nowa sesja."
 
 #: src/EBox/CGI/Logs/Index.pm:331
 msgid "Full Reports"
-msgstr "Pełen raport"
+msgstr "Pełne raporty"
 
 #: src/EBox/Backup.pm:98
 msgid "Creating backup archive"
@@ -1594,13 +1595,12 @@ msgid "The backup file is corrupt."
 msgstr "Plik kopii zapasowej jest uszkodzony."
 
 #: src/EBox/Backup.pm:915
-#, fuzzy
 msgid ""
 "The backup archive has a invalid type. Maybe the file is corrupt or you are "
 "using a incompatible Zentyal version"
 msgstr ""
 "Archiwum kopii zapasowej jest niewłaściwego typu. Może plik jest uszkodzony "
-"lub używasz niekompatybilnej wersji eBox."
+"lub używasz niekompatybilnej wersji Zentyala"
 
 #: src/EBox/Backup.pm:921
 msgid ""
@@ -1646,26 +1646,24 @@ msgid "Cancel"
 msgstr "Anuluj"
 
 #: src/templates/links-widget.mas:5
-#, fuzzy
 msgid "Community Resources"
-msgstr "Przywrócenie konfiguracji"
+msgstr "Community Resources"
 
 #: src/templates/links-widget.mas:10
-#, fuzzy
 msgid "Documentation"
-msgstr "Domena"
+msgstr "Dokumentacja"
 
 #: src/templates/links-widget.mas:12
 msgid "Forum"
-msgstr ""
+msgstr "Forum"
 
 #: src/templates/links-widget.mas:14
 msgid "Report a bug"
-msgstr ""
+msgstr "Raportowanie błędów"
 
 #: src/templates/links-widget.mas:16
 msgid "How to Contribute"
-msgstr ""
+msgstr "Pomoc w ulepszaniu Zentyala"
 
 #: src/templates/moduleStatusTable.mas:59
 msgid "Depends"
@@ -1689,9 +1687,8 @@ msgid "Congratulations!"
 msgstr "Gratulacje!"
 
 #: src/templates/wizard.mas:122
-#, fuzzy
 msgid "Now you are ready to save changes and start using your Zentyal server"
-msgstr "Teraz możesz zapisać zmiany i rozpocząć pracę z serwerem eBox"
+msgstr "Teraz możesz zapisać zmiany i rozpocząć pracę z serwerem Zentyal"
 
 #: src/templates/wizard.mas:144 src/templates/wizard.mas:154
 msgid "Skip"
@@ -1844,7 +1841,7 @@ msgstr ""
 
 #: src/templates/progress.mas:27
 msgid "Some error has happened in Zentyal: "
-msgstr ""
+msgstr "Zentyal wygenerowała następujące błędy:"
 
 #: src/templates/progress.mas:152
 msgid "Starting..."
@@ -1981,19 +1978,16 @@ msgid ""
 msgstr ""
 
 #: src/templates/backup.mas:26
-#, fuzzy
 msgid "Backup the Current State"
 msgstr "Wykonaj kopię zapasową bieżącego stanu"
 
 #: src/templates/backup.mas:28
-#, fuzzy
 msgid ""
 "Backups will be stored in Zentyal and then you will be able to download them "
 "to your hard disk."
 msgstr ""
-"Kopie zapasowe będą zapisywane w eBoxsie. Później możesz pobrać je na swój "
-"dysk lub skopiować je na płyty CD/DVD. Kopię możesz później nagrać z "
-"powrotem."
+"Kopie zapasowe będą magazynowane przez Zentyala. Możesz je później pobrać na "
+"dysk zewnętrzny."
 
 #: src/templates/backup.mas:29
 msgid ""
@@ -2001,12 +1995,16 @@ msgid ""
 "administration rights will be able to access the backup directory as a "
 "shared resource."
 msgstr ""
+"Jeśli moduł Współdzielenie plików został skonfigurowany, wszyscy użytkownicy "
+"z prawami administratora będą mieli dostęp do katalogu kopii zapasowej"
 
 #: src/templates/backup.mas:33
 msgid ""
 "Backup is disabled because there are unsaved configuration changes. Please, "
 "save or discard them to be able to backup the configuration"
 msgstr ""
+"Tworzenie kopii plików konfiguracyjnych zostało przerwane ze względu na "
+"niezapisane zmiany. Zatwierdź lub anuluj zmiany i powtórz tworzenie kopii"
 
 #: src/templates/backup.mas:50
 msgid "Backup mode"
@@ -2021,6 +2019,8 @@ msgid ""
 "You can upload a backup file from your computer. When uploading files you "
 "should be warned that some web browsers cannot handle huge files (>= 1 Gb)."
 msgstr ""
+"Możesz przesyłać pliki kopii ze swojego komputera. Pamiętaj, że niektóre "
+"przeglądarki nie obsługują plików większych niż 1 Gb"
 
 #: src/templates/backup.mas:82
 msgid "Backup file"
@@ -2044,11 +2044,11 @@ msgstr "Lista kopii zapasowych"
 
 #: src/templates/backup.mas:127 src/templates/confirm-backup.mas:53
 msgid "Archive size"
-msgstr ""
+msgstr "Wielkość archiwum"
 
 #: src/templates/backup.mas:128
 msgid "Actions"
-msgstr "Czynności"
+msgstr "Działania"
 
 #: src/templates/backup.mas:158
 msgid "Restore configuration using this file"
@@ -2111,18 +2111,16 @@ msgid "Running unmanaged"
 msgstr ""
 
 #: src/templates/dashboard/index.mas:32 src/templates/dashboard/status.mas:28
-#, fuzzy
 msgid "The service is running, but not enabled in Zentyal"
-msgstr "Usługa jest uruchomiona, ale nie włączona w eBox"
+msgstr "Usługa jest uruchomiona, ale nie włączona"
 
 #: src/templates/dashboard/index.mas:36 src/templates/dashboard/status.mas:31
 msgid "Disabled"
 msgstr "Wyłączone"
 
 #: src/templates/dashboard/index.mas:37 src/templates/dashboard/status.mas:32
-#, fuzzy
 msgid "The service is not enabled in Zentyal"
-msgstr "Ta usługa nie jest włączona w eBox"
+msgstr "Ta usługa nie jest włączona"
 
 #: src/templates/dashboard/index.mas:42 src/templates/dashboard/status.mas:25
 msgid "Start"
@@ -2142,6 +2140,9 @@ msgid ""
 "The following modules have unsaved changes but are <b>disabled</b>. If you "
 "need to enable them go to {openref}Module Status{closeref}."
 msgstr ""
+"Niektóre moduły zawierają niezapisane zmiany i posiadają status "
+"<b>wyłączony</b>. Jeśli chcesz je włączyć przejdź do zakładki "
+"{openref}Moduły{closeref}"
 
 #: src/templates/finish.mas:106
 msgid ""
@@ -2174,15 +2175,16 @@ msgid "There are no unsaved changes."
 msgstr "Nie ma żadnych niezapisanych zmian."
 
 #: src/templates/hostname.mas:9
-#, fuzzy
 msgid "Change Hostname"
-msgstr "Zmiany zostały zapisane"
+msgstr "Zmiana nazwy hosta"
 
 #: src/templates/hostname.mas:10
 msgid ""
 "You will need to restart all the services or reboot the system to apply the "
 "hostname change."
 msgstr ""
+"Żeby zmiana nazwy hosta zaczęła funkcjonować, musisz zrestartować usługi lub "
+"uruchomić system"
 
 #: src/templates/confirm-backup.mas:110
 msgid "Full Restore"
@@ -2230,6 +2232,8 @@ msgid ""
 "Warning: Unfortunately Internet Explorer is not yet supported on Zentyal. "
 "Please use {url} instead."
 msgstr ""
+"Uwaga: Zentyal może nie obsługiwać Internet Explorera, zamiast tego użyj "
+"{url}"
 
 #: src/templates/login/index.mas:46
 #, perl-brace-format
@@ -2256,20 +2260,19 @@ msgstr ""
 
 #: src/templates/configureView.mas:16
 msgid "Actions to perform by Zentyal"
-msgstr ""
+msgstr "Operacje, które zostaną wykonane przez Zentyal"
 
 #: src/templates/configureView.mas:31
 msgid "Files to modify by Zentyal"
-msgstr ""
+msgstr "Pliki, które zostaną zmodyfikowane przez Zentyal"
 
 #: src/templates/configureView.mas:50
 msgid "Accept"
 msgstr "Akceptuj"
 
 #: src/templates/port.mas:9
-#, fuzzy
 msgid "Administration Interface TCP Port"
-msgstr "Numer portu TCP dla interfejsu administracyjnego"
+msgstr "Port TCP dla panelu zarządzania"
 
 #: src/templates/halt.mas:10
 msgid "You might lose your Internet connection if this machine is halted."
@@ -2285,23 +2288,22 @@ msgid "Reboot"
 msgstr "Uruchom ponownie"
 
 #: src/templates/bug.mas:9
-#, fuzzy
 msgid ""
 "This page lets you generate a file with information about the state of your "
 "system. The file will be useful if you want to report a problem or seek "
 "support."
 msgstr ""
 "Ta strona umożliwia wygenerowanie pliku z informacją o stanie twojego "
-"systemu. Plik może okazać się pomocny jeśli chciałbyś zgłosić błąd w eBoxsie."
+"systemu. Plik może okazać się pomocny jeśli chciałbyś zgłosić błąd w "
+"systemie"
 
 #: src/templates/bug.mas:13
 msgid "It may take several minutes to generate the report. Please be patient."
-msgstr ""
+msgstr "Poczekaj, trwa przygotowywanie raportu"
 
 #: src/templates/bug.mas:19
-#, fuzzy
 msgid "Download configuration report file"
-msgstr "Pobierz plik z raportem błędu"
+msgstr "Pobierz plik z raportem konfiguracyjnym"
 
 #~ msgid "Bug report"
 #~ msgstr "Raport błędów"

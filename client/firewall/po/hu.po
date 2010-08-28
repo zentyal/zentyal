@@ -9,8 +9,8 @@ msgstr ""
 "technologies.com\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-08-25 17:46+0200\n"
-"PO-Revision-Date: 2010-06-10 21:19+0200\n"
-"Last-Translator: Nagy Ákos <reg@pecska.ro>\n"
+"PO-Revision-Date: 2010-08-28 08:22+0200\n"
+"Last-Translator: Nagy Ákos <nagy.akos@akos.ro>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -43,13 +43,12 @@ msgid "Flush previous firewall rules"
 msgstr "Előző tűzfal szabályok törlése"
 
 #: src/EBox/Firewall.pm:87
-#, fuzzy
 msgid ""
 "The Zentyal firewall will flush any previous firewall rules which have been "
 "added manually or by another tool"
 msgstr ""
-"Az eBox tűzfal kitörli az összes már létező kézileg vagy más segédprogrammal "
-"beállított tűzfalszabályt"
+"A Zentyal tűzfal kitörli az összes már létező kézileg vagy más "
+"segédprogrammal beállított tűzfalszabályt"
 
 #: src/EBox/Firewall.pm:92
 msgid "Secure by default"
@@ -146,9 +145,8 @@ msgid "REDIRECT"
 msgstr "REDIRECT"
 
 #: src/EBox/Firewall/Model/EBoxOutputRuleTable.pm:69
-#, fuzzy
 msgid "Traffic coming out from Zentyal"
-msgstr "Az eBoxon kívülről jövő forgalom szűrő szabályai"
+msgstr "A Zentyalra kívülről jövő forgalom szűrő szabályai"
 
 #: src/EBox/Firewall/Model/EBoxOutputRuleTable.pm:78
 #: src/EBox/Firewall/Model/ExternalToInternalRuleTable.pm:81
@@ -275,14 +273,12 @@ msgid "'any service' cannot have a inverse march"
 msgstr "a 'bármely szolgáltatás'-nak nem lehet inverze"
 
 #: src/EBox/Firewall/Model/ExternalToEBoxRuleTable.pm:69
-#, fuzzy
 msgid "External networks to Zentyal"
-msgstr "A külső hálózatokból az eBox felé szűrő szabályok"
+msgstr "A külső hálózatokból a Zentyal felé szűrő szabályok"
 
 #: src/EBox/Firewall/Model/InternalToEBoxRuleTable.pm:69
-#, fuzzy
 msgid "Internal networks to Zentyal"
-msgstr "A belső hálózatból az eBox fele haladó szűrő szabályok"
+msgstr "A belső hálózatból a Zentyal fele haladó szűrő szabályok"
 
 #: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:37
 msgid "Input"
@@ -330,9 +326,8 @@ msgstr "Feltétel"
 
 #: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:153
 #: src/templates/filter.mas:51
-#, fuzzy
 msgid "Rules added by Zentyal services (Advanced)"
-msgstr "Az eBox szolgáltatások által hozzáadott szabályok (Haladó)"
+msgstr "A Zentyal szolgáltatások által hozzáadott szabályok (Haladó)"
 
 #: src/EBox/Firewall/Model/ToInternetRuleTable.pm:66
 msgid "Internal networks"
@@ -372,17 +367,15 @@ msgid "Firewall packet traffic report"
 msgstr "A tűzfal csomagforgalom összesítője"
 
 #: src/templates/filter.mas:6
-#, fuzzy
 msgid "Filtering rules from internal networks to Zentyal"
-msgstr "A belső hálózatból az eBox fele haladó szűrő szabályok"
+msgstr "A belső hálózatból a Zentyal felé haladó szűrő szabályok"
 
 #: src/templates/filter.mas:8
-#, fuzzy
 msgid ""
 "These rules allow you to control access from internal networks to services "
 "running on your Zentyal machine."
 msgstr ""
-"Ezen szabályok segítségével beállíthatja a külső hálózatokból az eBox "
+"Ezen szabályok segítségével beállíthatja a külső hálózatokból a Zentyal "
 "szolgáltatásait elérni kívánó forgalmat"
 
 #: src/templates/filter.mas:10 src/templates/filter.mas:18
@@ -396,7 +389,6 @@ msgid "Filtering rules for internal networks"
 msgstr "A belső hálózatra vonatkozó szűrő szabályok"
 
 #: src/templates/filter.mas:15
-#, fuzzy
 msgid ""
 "These rules allow you to control access from internal networks to the "
 "Internet and traffic between internal networks. If you wish to provide "
@@ -404,35 +396,31 @@ msgid ""
 msgstr ""
 "Ezek a szabályok megengedik a hozzáférés szabályozását  a belső hálózatból "
 "az internet felé, és a belső hálózatok közti forgalomszabályozást. Ha "
-"hozzáférést szeretne adni az eBox szolgáltatásaihoz, használja a fenti "
+"hozzáférést szeretne adni a Zentyal szolgáltatásaihoz, használja a fenti "
 "szakaszt."
 
 #: src/templates/filter.mas:21
-#, fuzzy
 msgid "Filtering rules for traffic coming out from Zentyal"
-msgstr "Az eBoxon kívülről jövő forgalom szűrő szabályai"
+msgstr "A Zentyalon kívülről jövő forgalom szűrő szabályai"
 
 #: src/templates/filter.mas:23
-#, fuzzy
 msgid ""
 "These rules allow you to control access from your Zentyal to external "
 "services."
 msgstr ""
-"Ezen szabályokkal beállíthatja az eBoxtól a külső szolgáltatások felé "
+"Ezen szabályokkal beállíthatja a Zentyaltól a külső szolgáltatások felé "
 "irányuló forgalmat"
 
 #: src/templates/filter.mas:29
-#, fuzzy
 msgid "Filtering rules from external networks to Zentyal"
-msgstr "A külső hálózatokból az eBox felé szűrő szabályok"
+msgstr "A külső hálózatokból a Zentyal felé szűrő szabályok"
 
 #: src/templates/filter.mas:31
-#, fuzzy
 msgid ""
 "These rules allow you to control access from external networks to sevices "
 "running on your Zentyal machine."
 msgstr ""
-"Ezen szabályok segítségével beállíthatja a külső hálózatokból az eBox "
+"Ezen szabályok segítségével beállíthatja a külső hálózatokból a Zentyal "
 "szolgáltatásait elérni kívánó forgalmat"
 
 #: src/templates/filter.mas:34 src/templates/filter.mas:45
@@ -459,9 +447,8 @@ msgstr ""
 "hálózatba irányuló forgalmat"
 
 #: src/templates/filter.mas:53
-#, fuzzy
 msgid "These rules are automatically added by the Zentyal services."
-msgstr "Ezek a szabályok automatikusan lettek hozzáadva az eBox által."
+msgstr "Ezek a szabályok automatikusan lettek hozzáadva a Zentyal által."
 
 #: src/templates/filter.mas:56
 msgid ""

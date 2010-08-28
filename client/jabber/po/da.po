@@ -8,36 +8,39 @@ msgstr ""
 "Project-Id-Version: ebox-jabber 0.12\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-08-25 17:41+0200\n"
-"PO-Revision-Date: 2007-09-28 10:35+0200\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2010-08-26 21:26+0200\n"
+"Last-Translator: Bo Dalbjerg <bo@dalbjerg.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: migration/0001_add_firewall_services.pl:30 src/EBox/Jabber.pm:221
 #, fuzzy
 msgid "Jabber Server"
-msgstr "Jabber service"
+msgstr "Jabber server"
 
 #: src/EBox/JabberLdapUser.pm:263
 msgid ""
 "This user has a jabber account. If the user currently connected it will "
 "continue connected until jabber authorization is again required."
 msgstr ""
+"Denne bruger har en Jabba konto. Hvis denne bruger er logget på vil dette "
+"være tilfældet indtil Jabba krvæer ny in logning."
 
 #: src/EBox/Jabber.pm:56
 msgid "Add Jabber LDAP schema"
-msgstr ""
+msgstr "Tilføj Jabber LDAP skema"
 
 #: src/EBox/Jabber.pm:57
 msgid "Zentyal will need this schema to store Jabber users."
-msgstr ""
+msgstr "Zentyal skal bruge dette skema for at gemme Jabber brugere."
 
 #: src/EBox/Jabber.pm:73
 msgid "To properly configure ejabberd."
-msgstr ""
+msgstr "For at konfigurer Jabber  "
 
 #: src/EBox/CGI/JabberUserOptions.pm:45
 msgid "username"
@@ -50,16 +53,16 @@ msgstr "Slået fra"
 
 #: src/EBox/Jabber/Model/GeneralSettings.pm:93
 msgid "Allow SSL"
-msgstr ""
+msgstr "Tillad SSL"
 
 #: src/EBox/Jabber/Model/GeneralSettings.pm:94
 msgid "Force SSL"
-msgstr ""
+msgstr "Gennemtving SSL"
 
 #: src/EBox/Jabber/Model/GeneralSettings.pm:113
 #, fuzzy
 msgid "Jabber domain"
-msgstr "Jabber konto"
+msgstr "Jabber domæne"
 
 #: src/EBox/Jabber/Model/GeneralSettings.pm:119
 #, fuzzy
@@ -73,7 +76,7 @@ msgstr "Forbind til et globalt Jabber netværk"
 
 #: src/EBox/Jabber/Model/GeneralSettings.pm:132
 msgid "Enable MUC (Multi User Chat)"
-msgstr ""
+msgstr "Aktiver MUC (Multi User Chat) / Bruger chat"
 
 #: src/EBox/Jabber/Model/GeneralSettings.pm:141
 #, fuzzy
@@ -82,7 +85,7 @@ msgstr "Generelle indstillinger"
 
 #: src/EBox/Jabber/Model/GeneralSettings.pm:146
 msgid "General Jabber server configuration settings updated."
-msgstr ""
+msgstr "Generelle indstillinger opdateret på Jabber serveren"
 
 #: src/EBox/Jabber/Model/JabberUser.pm:50
 #, fuzzy
@@ -96,7 +99,7 @@ msgstr "Jabber"
 
 #: src/EBox/Jabber/Composite/General.pm:66
 msgid "Configuration"
-msgstr ""
+msgstr "Konfiguration"
 
 #: src/templates/jabber.mas:8
 #, fuzzy

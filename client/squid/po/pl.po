@@ -8,86 +8,76 @@ msgstr ""
 "Project-Id-Version: ebox-squid 0.12\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-08-25 17:48+0200\n"
-"PO-Revision-Date: 2007-04-05 13:36+0000\n"
-"Last-Translator: Artur Kruszewski <mazdac@gmail.com>\n"
+"PO-Revision-Date: 2010-08-28 15:14+0200\n"
+"Last-Translator: Robert Brzozowski <gnutar1@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n==0 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2);\n"
-"X-Generator: Pootle 0.10.1\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/Squid.pm:70 src/EBox/Squid.pm:1108 src/EBox/Squid.pm:1185
 #: src/EBox/Squid/Composite/General.pm:76
 msgid "HTTP Proxy"
-msgstr "Pośrednik HTTP"
+msgstr "HTTP Proxy"
 
 #: src/EBox/Squid.pm:201
-#, fuzzy
 msgid "HTTP Proxy configuration file"
-msgstr "Status usługi pośrednika HTTP"
+msgstr "Plik konfiguracyjny HTTP Proxy"
 
 #: src/EBox/Squid.pm:206
-#, fuzzy
 msgid "Content filter configuration file"
-msgstr "Próg filtra treści"
+msgstr "Plik konfiguracyjny filtra treści"
 
 #: src/EBox/Squid.pm:211
 msgid "Default filter group configuration"
-msgstr ""
+msgstr "Konfiguracja grupy domyślnego filtra"
 
 #: src/EBox/Squid.pm:216
 msgid "Filter groups membership"
-msgstr ""
+msgstr "Członkowie grup filtrowania"
 
 #: src/EBox/Squid.pm:221
-#, fuzzy
 msgid "Content filter banned extension list"
-msgstr "Próg filtra treści"
+msgstr "Lista odrzuconych rozszerzeń plików"
 
 #: src/EBox/Squid.pm:226
-#, fuzzy
 msgid "Content filter banned mime type list"
-msgstr "Próg filtra treści"
+msgstr "Lista odrzuconych typów mime"
 
 #: src/EBox/Squid.pm:231
-#, fuzzy
 msgid "Content filter exception site list"
-msgstr "Próg filtra treści"
+msgstr "Lista wyjątków dla miejsc"
 
 #: src/EBox/Squid.pm:236
-#, fuzzy
 msgid "Content filter grey site list"
-msgstr "Próg filtra treści"
+msgstr "Greylista miejsc"
 
 #: src/EBox/Squid.pm:241
-#, fuzzy
 msgid "Content filter banned site list"
-msgstr "Próg filtra treści"
+msgstr "Lista odrzuconych miejsc"
 
 #: src/EBox/Squid.pm:246
-#, fuzzy
 msgid "Content filter exception URL list"
-msgstr "Próg filtra treści"
+msgstr "Lista wyjątków dla adresów URL"
 
 #: src/EBox/Squid.pm:251
-#, fuzzy
 msgid "Content filter grey URL list"
-msgstr "Próg filtra treści"
+msgstr "Greylista adresów URL"
 
 #: src/EBox/Squid.pm:256
-#, fuzzy
 msgid "Content filter banned URL list"
-msgstr "Próg filtra treści"
+msgstr "Lista odrzuconych adresów URL"
 
 #: src/EBox/Squid.pm:261
 msgid "Forbidden phrases list"
-msgstr ""
+msgstr "Lista niedozwolonych wyrażeń"
 
 #: src/EBox/Squid.pm:266
 msgid "Exception phrases list"
-msgstr ""
+msgstr "Wyjątki dla wyrażeń"
 
 #: src/EBox/Squid.pm:271
 msgid "PICS ratings configuration"
@@ -102,9 +92,8 @@ msgid "Dansguardian's antivirus scanner configuration"
 msgstr ""
 
 #: src/EBox/Squid.pm:286
-#, fuzzy
 msgid "Filter groups per IP"
-msgstr "Filtr"
+msgstr "Grupy filtrów po IP"
 
 #: src/EBox/Squid.pm:301
 msgid "Overwrite blocked page templates"
@@ -118,13 +107,13 @@ msgstr ""
 
 #: src/EBox/Squid.pm:342
 msgid "You must set the cache_mem variable in the ebox configuration file"
-msgstr "Musisz ustawić zmienną cache_mem w pliku konfiguracyjnym ebox"
+msgstr "Musisz ustawić zmienną cache_mem w pliku konfiguracyjnym Zentyala"
 
 #: src/EBox/Squid.pm:351
 #, fuzzy
 msgid ""
 "You must set the max_object_size variable in the ebox configuration file"
-msgstr "Musisz ustawić zmienną cache_mem w pliku konfiguracyjnym ebox"
+msgstr "Musisz ustawić zmienną max_object_size w pliku konfiguracyjnym Zentyala"
 
 #: src/EBox/Squid.pm:1080
 msgid "Enabled"

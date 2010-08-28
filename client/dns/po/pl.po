@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: ebox-dns 0.12\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-08-26 00:53+0200\n"
-"PO-Revision-Date: 2010-08-17 18:53+0200\n"
-"Last-Translator: Michal Markiewka <bruno@supermedia.pl>\n"
+"PO-Revision-Date: 2010-08-27 13:34+0200\n"
+"Last-Translator: Robert Brzozowski <gnutar1@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -23,9 +23,8 @@ msgid "Domain"
 msgstr "Domena"
 
 #: src/EBox/Model/DomainTable.pm:186 src/EBox/Model/HostnameTable.pm:223
-#, fuzzy
 msgid "Hostnames"
-msgstr "Nazwy hostów"
+msgstr "Nazwy hosta"
 
 #: src/EBox/Model/DomainTable.pm:195
 msgid "Mail Exchangers"
@@ -36,7 +35,6 @@ msgid "Name Servers"
 msgstr "Serwery nazw (DNS)"
 
 #: src/EBox/Model/DomainTable.pm:211 src/EBox/Model/HostnameTable.pm:196
-#, fuzzy
 msgid "IP Address"
 msgstr "Adres IP"
 
@@ -89,8 +87,8 @@ msgstr "Nazwa hosta"
 #: src/EBox/Model/MailExchanger.pm:154 src/EBox/Model/NameServer.pm:133
 msgid "If you choose \"Custom\", it should be a Fully Qualified Domain Name"
 msgstr ""
-"Jeśli wybrano \"własny\", to powinno podać się nazwę domeny w pełni "
-"kwalifikowaną (FQDN)"
+"Jeśli wybrano \"Własny\", to należy podać w pełni kwalifikowaną nazwę domeny "
+"(FQDN)"
 
 #: src/EBox/Model/MailExchanger.pm:160 src/EBox/Model/NameServer.pm:139
 msgid "This domain"
@@ -170,7 +168,7 @@ msgstr "Domena w trybie tylko do odczytu. Nie można dodawać serwerów nazw"
 
 #: src/EBox/Model/NameServer.pm:158
 msgid "Name servers"
-msgstr "Serwer nazw (DNS)"
+msgstr "Serwery nazw (DNS)"
 
 #: src/EBox/Model/NameServer.pm:164
 msgid "It manages the name server (NS) records for this domain"
@@ -178,7 +176,7 @@ msgstr "Zarządzanie wpisami do serwerów nazw (NS) dla tej domeny"
 
 #: src/EBox/Model/NameServer.pm:165
 msgid "name server record"
-msgstr "Wpis serwera nazw"
+msgstr "wpis serwera nazw"
 
 #: src/EBox/Model/HostnameTable.pm:136
 #, perl-brace-format
@@ -195,7 +193,6 @@ msgstr ""
 "Domena ustawiona w tryb tylko do odczytu. Nie można dodawać nazw hostów"
 
 #: src/EBox/Model/HostnameTable.pm:216
-#, fuzzy
 msgid "Host names"
 msgstr "Nazwy hosta"
 
@@ -220,7 +217,6 @@ msgid "local bind9 configuration file"
 msgstr "Lokalny plik konfiguracyjny bind9 (serwera DNS)"
 
 #: src/EBox/DNS.pm.in:533
-#, fuzzy
 msgid "Keys configuration file"
 msgstr "Plik konfiguracyjny dla strefy {zone}"
 
@@ -256,7 +252,7 @@ msgstr "IP"
 
 #: src/templates/edit.mas:23 src/templates/index.mas:24
 msgid "Action"
-msgstr "Akcja"
+msgstr "Działania"
 
 #: src/templates/edit.mas:40 src/templates/edit.mas:41
 #: src/templates/edit.mas:42 src/templates/edit.mas:74

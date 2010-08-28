@@ -9,8 +9,8 @@ msgstr ""
 "technologies.com\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-08-25 17:48+0200\n"
-"PO-Revision-Date: 2010-01-27 21:44+0100\n"
-"Last-Translator: Gabor Kelemen <kelemeng@gnome.hu>\n"
+"PO-Revision-Date: 2010-08-28 09:33+0200\n"
+"Last-Translator: Nagy Ákos <nagy.akos@akos.ro>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -31,27 +31,24 @@ msgid "Create spool directory for printers"
 msgstr "Várólista-könyvtár létrehozása nyomtatók részére"
 
 #: src/EBox/Printers.pm:59
-#, fuzzy
 msgid "Zentyal will create a spool directory under /var/spool/samba"
 msgstr ""
-"Az eBox létrehoz egy várólista-könyvtárat a /var/spool/samba könyvtárban"
+"A Zentyal létrehoz egy várólista-könyvtárat a /var/spool/samba könyvtárban"
 
 #: src/EBox/Printers.pm:64
 msgid "Create log table"
 msgstr "Naplótábla létrehozása"
 
 #: src/EBox/Printers.pm:65
-#, fuzzy
 msgid ""
 "Zentyal will create a new table into its log database to store printers logs"
 msgstr ""
-"Az eBox létrehoz egy új táblát a naplóadatbázisban a nyomtatónaplók "
+"A Zentyal létrehoz egy új táblát a naplóadatbázisban a nyomtatónaplók "
 "tárolásához"
 
 #: src/EBox/Printers.pm:81
-#, fuzzy
 msgid "To configure cupsd"
-msgstr "A nyomtató nincs beállítva"
+msgstr "A cupd-t beállítani"
 
 #: src/EBox/Printers.pm:223
 msgid "Job ID"
@@ -66,9 +63,8 @@ msgid "User"
 msgstr "Felhasználó"
 
 #: src/EBox/Printers.pm:226
-#, fuzzy
 msgid "Date"
-msgstr "Törlés"
+msgstr "Dátum"
 
 #: src/EBox/Printers.pm:227
 msgid "Event"
@@ -80,7 +76,7 @@ msgstr "Sorba állítva"
 
 #: src/EBox/Printers.pm:232
 msgid "Completed"
-msgstr ""
+msgstr "Befejezve"
 
 #: src/EBox/Printers.pm:233
 msgid "Canceled"
@@ -96,23 +92,24 @@ msgid ""
 "Prior to configure printers you need to enable the module in the {openref}"
 "Module Status{closeref}  section and save changes after that."
 msgstr ""
+"A nyomtatók beállítása előtt engedélyeznie kell a modult a {openref}Module "
+"Állapot{closeref}  részben majd el kell mentse a beállításokat."
 
 #: src/EBox/Model/CUPS.pm:156
 msgid "Interface"
-msgstr ""
+msgstr "Interfész"
 
 #: src/EBox/Model/CUPS.pm:161
 msgid "Listen"
-msgstr ""
+msgstr "Hallgat"
 
 #: src/EBox/Model/CUPS.pm:170
 msgid "Select CUPS Interfaces"
-msgstr ""
+msgstr "CUPS interfész kijelölése"
 
 #: src/EBox/Model/CUPS.pm:175
-#, fuzzy
 msgid "interface"
-msgstr "Nyomtató"
+msgstr "interfész"
 
 #: src/EBox/Model/CUPS.pm:176
 msgid ""
@@ -120,6 +117,9 @@ msgid ""
 "account that is not probably a good idea to listen on external interfaces. "
 "If none are selected, it will be listening only at localhost"
 msgstr ""
+"Válassza ki a CUPS webszerver milyen interfészen működjön. Egy küldő "
+"interfész beállítása biztonságilag nem ajánlott. Ha semmi sincs kiválasztva, "
+"csak a lolcalhoston hallgat"
 
 #: src/EBox/Model/CUPS.pm:187
 #, perl-brace-format
@@ -127,6 +127,8 @@ msgid ""
 "To add or manage printers you have to use the {open_href}CUPS Web Interface"
 "{close_href}"
 msgstr ""
+"Nyomtatók hozzáadásához vagy kezeléséhez a {open_href}CUPS Web "
+"Interface{close_href} használja"
 
 #~ msgid "Model"
 #~ msgstr "Modell"

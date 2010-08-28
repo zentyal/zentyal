@@ -9,7 +9,7 @@ msgstr ""
 "technologies.com\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-08-25 17:47+0200\n"
-"PO-Revision-Date: 2010-08-16 13:03+0200\n"
+"PO-Revision-Date: 2010-08-28 09:00+0200\n"
 "Last-Translator: Nagy Ákos <nagy.akos@akos.ro>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
@@ -23,9 +23,8 @@ msgid "protocol for editing SIEVE filters"
 msgstr "a SIEVE szűrő módosítására szolgáló protokoll"
 
 #: migration/0001_add_firewall_services.pl:30
-#, fuzzy
 msgid "Zentyal Mail System"
-msgstr "eBox levelező rendszer"
+msgstr "Zentyal levelező rendszer"
 
 #: src/EBox/MailUserLdap.pm:85 src/EBox/MailUserLdap.pm:90
 #: src/EBox/MailAliasLdap.pm:107 src/EBox/MailAliasLdap.pm:137
@@ -763,13 +762,12 @@ msgid "Configure mail dispatcher"
 msgstr "Levél diszpécser beállítása"
 
 #: src/EBox/Mail/Model/Dispatcher/Mail.pm:147
-#, fuzzy
 msgid ""
 "In order to configure the Mail event dispatcher is required to enable the "
 "mail service from Zentyal"
 msgstr ""
 "Ahhoz, hogy beállítsa a levél eseményre reagáló diszpécsert, aktiválnia kell "
-"az mail szolgáltatást az eBoxban"
+"a levelező szolgáltatást a Zentyalban"
 
 #: src/EBox/Mail/Model/Dispatcher/Mail.pm:150
 msgid "Mail dispatcher configuration updated"
@@ -844,39 +842,36 @@ msgid "Generate mail aliases"
 msgstr "Levelező álnevek generálása"
 
 #: src/EBox/Mail.pm:143
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Zentyal will execute {cmd}"
-msgstr "az eBox végrehajtja: {cmd}"
+msgstr "a Zentyal végrehajtja: {cmd}"
 
 #: src/EBox/Mail.pm:148
 msgid "Add LDAP schemas"
 msgstr "LDAP séma hozzáadása"
 
 #: src/EBox/Mail.pm:150
-#, fuzzy
 msgid "Zentyal will add two LDAP schemas: authldap.ldif and eboximail.ldif."
-msgstr "az eBox két LDAP sémát tölt be: authldap.ldif és eboximail.ldif."
+msgstr "a Zentyal két LDAP sémát tölt be: authldap.ldif és eboximail.ldif."
 
 #: src/EBox/Mail.pm:156
 msgid "Create certificates"
 msgstr "Tanúsítvány létrehozása"
 
 #: src/EBox/Mail.pm:158
-#, fuzzy
 msgid "Zentyal will create certificates to use in mail services"
-msgstr "Az eBox a levelezési szolgáltatás számára tanúsítványt generál"
+msgstr "A Zentyal a levelezési szolgáltatás számára tanúsítványt generál"
 
 #: src/EBox/Mail.pm:163
 msgid "Add fetchmail update cron job"
 msgstr "A fetchmail frissítésének automatizálása"
 
 #: src/EBox/Mail.pm:165
-#, fuzzy
 msgid ""
 "Zentyal will schedule a cron job to update fetchmail configuration when the "
 "user add external accounts"
 msgstr ""
-"Az eBox időzíti egy cron bejegyzés segítségével a fetchmail beállításainak "
+"A Zentyal időzíti egy cron bejegyzés segítségével a fetchmail beállításainak "
 "frissítését ha a felhasználó egy külső fiókot állít be"
 
 #: src/EBox/Mail.pm:185

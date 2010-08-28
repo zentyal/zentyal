@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-ca 0.12\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-08-26 00:53+0200\n"
-"PO-Revision-Date: 2010-08-08 02:13+0200\n"
+"PO-Revision-Date: 2010-08-26 11:23+0200\n"
 "Last-Translator: Vasco Castelo Branco <vcbranco@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
@@ -89,13 +89,12 @@ msgid "certificate"
 msgstr "certificado"
 
 #: src/EBox/Model/Certificates.pm:287
-#, fuzzy
 msgid ""
 "Here you may set certificates from this CA for those secure services managed "
 "by Zentyal"
 msgstr ""
 "Aqui pode definir certificados deste CA para os serviços seguros geridos "
-"pela eBox"
+"pela Zentyal"
 
 #: src/EBox/CA.pm:123 src/EBox/CGI/RevokeCertificate.pm:43
 #: src/EBox/CGI/Index.pm:40 src/EBox/CGI/IssueCertificate.pm:50
@@ -132,7 +131,7 @@ msgid ""
 "The Certification Authority Infrastructure is not available, create it first"
 msgstr ""
 "A infraestrutura da Autoridade de Certificação não está disponível. Crie-a "
-"primeiro "
+"primeiro"
 
 #: src/EBox/CA.pm:1202
 msgid "Either common name, distinguished name or serial number has been passed"

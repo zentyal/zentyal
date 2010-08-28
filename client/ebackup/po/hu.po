@@ -9,8 +9,8 @@ msgstr ""
 "technologies.com\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-08-26 00:53+0200\n"
-"PO-Revision-Date: 2010-07-21 15:30+0200\n"
-"Last-Translator: Nagy Ákos <reg@pecska.ro>\n"
+"PO-Revision-Date: 2010-08-28 08:05+0200\n"
+"Last-Translator: Nagy Ákos <nagy.akos@akos.ro>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -24,9 +24,8 @@ msgid "Backup"
 msgstr "Biztonsági mentés"
 
 #: src/EBox/Event/Watcher/EBackup.pm:141
-#, fuzzy
 msgid "Check if Zentyal backup was not successful."
-msgstr "Ellenőrizze, hogy az eBox biztonsági mentés hibás-e."
+msgstr "Ellenőrizze, hogy a Zentyal biztonsági mentés hibás-e."
 
 #: src/EBox/Model/RemoteRestoreLogs.pm:88 src/EBox/Model/RemoteFileList.pm:143
 #: src/EBox/Model/RemoteStatus.pm:119 src/EBox/Model/RemoteRestoreConf.pm:74
@@ -43,9 +42,8 @@ msgid "Restore logs database"
 msgstr "Naplóadatbázisok visszaállítása"
 
 #: src/EBox/Model/RemoteRestoreLogs.pm:125
-#, fuzzy
 msgid "Restores the Zentyal logs found in the selected backup"
-msgstr "eBox naplózások visszaállítása a kiválasztott mentésből"
+msgstr "Zentyal naplózások visszaállítása a kiválasztott mentésből"
 
 #: src/EBox/Model/RemoteFileList.pm:162
 msgid "File"
@@ -90,9 +88,8 @@ msgid "backup"
 msgstr "Biztonsági mentés"
 
 #: src/EBox/Model/RemoteRestoreConf.pm:104
-#, fuzzy
 msgid "Restore Zentyal configuration from backup"
-msgstr "eBox beállítások visszaállítása mentésből"
+msgstr "Zentyal beállítások visszaállítása mentésből"
 
 #: src/EBox/Model/RemoteRestoreConf.pm:111
 msgid "Loads the configuration found in the backup"
@@ -280,15 +277,15 @@ msgid "on the last day"
 msgstr "az utolsó napon"
 
 #: src/EBox/Model/RemoteSettings.pm:494
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "{oi}{brand}{ci} is a quick and safe remote location to store the data you "
 "keep on your Zentyal servers. Purchase the backup storage space you need at "
 "the {ohref}Zentyal on-line store{chref}."
 msgstr ""
-"{oi}{brand}{ci} egy gyors és biztonságos távoli hely az eBox szerver "
-"adatainak tárolására. Vásároljon mentési céllal tárterületet innen: {ohref}"
-"eBox on-line store{chref}."
+"{oi}{brand}{ci} egy gyors és biztonságos távoli hely a Zentyal szerver "
+"adatainak tárolására. Vásároljon mentési céllal tárterületet innen: "
+"{ohref}eBox on-line store{chref}."
 
 #: src/EBox/Model/RemoteSettings.pm:511
 msgid "1 week"

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-printers 0.12\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-08-25 17:48+0200\n"
-"PO-Revision-Date: 2010-08-24 16:05+0200\n"
+"PO-Revision-Date: 2010-08-27 17:17+0200\n"
 "Last-Translator: Robert Brzozowski <gnutar1@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
@@ -20,38 +20,32 @@ msgstr ""
 
 #: migration/0001_add_ipp_service.pl:102
 msgid "Cups printer server port"
-msgstr ""
+msgstr "Port serwera CUPS"
 
 #: src/EBox/Printers.pm:43 src/EBox/Composite/General.pm:60
-#, fuzzy
 msgid "Printer Sharing"
-msgstr "Udostępnianie drukarki"
+msgstr "Współdzielenie drukarki"
 
 #: src/EBox/Printers.pm:58
-#, fuzzy
 msgid "Create spool directory for printers"
 msgstr "Utwórz katalog na wydruki"
 
 #: src/EBox/Printers.pm:59
-#, fuzzy
 msgid "Zentyal will create a spool directory under /var/spool/samba"
-msgstr "eBox utworzy katalog na wydruki w /var/spool/samba"
+msgstr "Zentyal utworzy katalog na wydruki w /var/spool/samba"
 
 #: src/EBox/Printers.pm:64
-#, fuzzy
 msgid "Create log table"
-msgstr "Utwórz historię"
+msgstr "Utwórz bazę logów"
 
 #: src/EBox/Printers.pm:65
-#, fuzzy
 msgid ""
 "Zentyal will create a new table into its log database to store printers logs"
-msgstr "eBox utworzy nowy plik z historią drukowania"
+msgstr "Zentyal utworzy nowy plik z historią drukowania"
 
 #: src/EBox/Printers.pm:81
-#, fuzzy
 msgid "To configure cupsd"
-msgstr "Drukarka nieskonfigurowana"
+msgstr "Konfiguracja cupsd"
 
 #: src/EBox/Printers.pm:223
 msgid "Job ID"
@@ -66,9 +60,8 @@ msgid "User"
 msgstr "Użytkownik"
 
 #: src/EBox/Printers.pm:226
-#, fuzzy
 msgid "Date"
-msgstr "Usuń"
+msgstr "Data"
 
 #: src/EBox/Printers.pm:227
 msgid "Event"
@@ -80,7 +73,7 @@ msgstr "Zakolejkowano"
 
 #: src/EBox/Printers.pm:232
 msgid "Completed"
-msgstr ""
+msgstr "Ukończone"
 
 #: src/EBox/Printers.pm:233
 msgid "Canceled"
@@ -96,23 +89,24 @@ msgid ""
 "Prior to configure printers you need to enable the module in the {openref}"
 "Module Status{closeref}  section and save changes after that."
 msgstr ""
+"Przed konfiguracją drukarek należy włączyć moduł drukowania w zakładce "
+"{openref}Moduły{closeref}  i zapisać zmiany"
 
 #: src/EBox/Model/CUPS.pm:156
 msgid "Interface"
-msgstr ""
+msgstr "Interfejs"
 
 #: src/EBox/Model/CUPS.pm:161
 msgid "Listen"
-msgstr ""
+msgstr "Nasłuchuje"
 
 #: src/EBox/Model/CUPS.pm:170
 msgid "Select CUPS Interfaces"
-msgstr ""
+msgstr "Wybierz interfejsy CUPS"
 
 #: src/EBox/Model/CUPS.pm:175
-#, fuzzy
 msgid "interface"
-msgstr "Drukarka"
+msgstr "interfejs"
 
 #: src/EBox/Model/CUPS.pm:176
 msgid ""
@@ -120,6 +114,9 @@ msgid ""
 "account that is not probably a good idea to listen on external interfaces. "
 "If none are selected, it will be listening only at localhost"
 msgstr ""
+"Wybierz interfejs na którym będzie nasłuchiwał serwer CUPS. Nie jest "
+"zalecane użycie zewnętrznej karty sieciowej. Jeśli nic nie wybierzesz, "
+"zostanie ustawiony adres localhost"
 
 #: src/EBox/Model/CUPS.pm:187
 #, perl-brace-format
@@ -127,6 +124,8 @@ msgid ""
 "To add or manage printers you have to use the {open_href}CUPS Web Interface"
 "{close_href}"
 msgstr ""
+"Żeby dodać lub zarządzań drukarkami użyj {open_href}CUPS Interfejs "
+"WWW{close_href}"
 
 #~ msgid "Model"
 #~ msgstr "Model"

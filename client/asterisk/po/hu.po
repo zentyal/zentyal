@@ -9,7 +9,7 @@ msgstr ""
 "technologies.com\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-08-26 00:52+0200\n"
-"PO-Revision-Date: 2010-08-16 13:01+0200\n"
+"PO-Revision-Date: 2010-08-28 07:57+0200\n"
 "Last-Translator: Nagy Ákos <nagy.akos@akos.ro>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
@@ -19,9 +19,8 @@ msgstr ""
 "X-Generator: Pootle 1.1.0\n"
 
 #: migration/0001_add_firewall_services.pl:30
-#, fuzzy
 msgid "Zentyal VoIP system"
-msgstr "eBox VoIP rendszer"
+msgstr "Zentyal VoIP rendszer"
 
 #: src/EBox/Asterisk.pm:74 src/EBox/Asterisk.pm:715
 #: src/EBox/Composite/General.pm:67
@@ -244,9 +243,8 @@ msgid "General Asterisk server configuration updated."
 msgstr "Az Asterisk kiszolgáló általános beállításai frissültek."
 
 #: src/EBox/Model/NAT.pm:96
-#, fuzzy
 msgid "Zentyal is behind NAT"
-msgstr "Az eBox NAT mögött található"
+msgstr "A Zentyal NAT mögött található"
 
 #: src/EBox/Model/NAT.pm:101
 msgid "No"

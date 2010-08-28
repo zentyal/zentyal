@@ -9,7 +9,7 @@ msgstr ""
 "technologies.com\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-08-25 17:44+0200\n"
-"PO-Revision-Date: 2010-08-16 13:05+0200\n"
+"PO-Revision-Date: 2010-08-28 09:02+0200\n"
 "Last-Translator: Nagy Ákos <nagy.akos@akos.ro>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
@@ -32,16 +32,14 @@ msgstr "bármi"
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:102
 #: src/EBox/Monitor/Model/MeasureWatchers.pm:77
 msgid "Events"
-msgstr ""
+msgstr "Események"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:106
 #: src/EBox/Monitor/Model/MeasureWatchers.pm:81
-#, fuzzy
 msgid "Monitor Watcher"
-msgstr "Monitor"
+msgstr "Monitor figyelő"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:110
-#, fuzzy
 msgid "Threshold Configuration"
 msgstr "Határérték beállítás"
 
@@ -414,18 +412,18 @@ msgid "{what} \"{dS}\" is currently {value}."
 msgstr "{what} \"{dS}\" jelenlegi értéke {value}."
 
 #: src/EBox/Event/Watcher/Monitor.pm:280
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "That is within the {severity} region of {minBound} and {maxBound}. "
 msgstr ""
 "Ennek {severity} a tartományon belül kell lennie {minBound} és {maxBound}."
 
 #: src/EBox/Event/Watcher/Monitor.pm:288
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "That is above the {severity} threshold of {bound}. "
 msgstr "Ennek {severity} a határérték {bound} fölött kell lennie."
 
 #: src/EBox/Event/Watcher/Monitor.pm:291
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "That is below the {severity} threshold of {bound}. "
 msgstr "Ennek {severity} a határérték {bound} alatt kell lennie."
 

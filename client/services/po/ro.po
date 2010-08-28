@@ -9,7 +9,7 @@ msgstr ""
 "technologies.com\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-08-25 17:48+0200\n"
-"PO-Revision-Date: 2010-07-02 12:25+0200\n"
+"PO-Revision-Date: 2010-08-27 08:31+0200\n"
 "Last-Translator: Harald Ersch <harald.ersch@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
@@ -58,9 +58,8 @@ msgid "eBox administration"
 msgstr "administrare eBox"
 
 #: migration/0001_import_services_from_firewall.pl:109
-#, fuzzy
 msgid "Zentyal Administration Web Server"
-msgstr "Web server pt. administrare eBox"
+msgstr "Web server pt. administrarea Zentyal"
 
 #: src/EBox/Services.pm:48 src/EBox/Model/ServiceTable.pm:145
 msgid "Services"
@@ -71,9 +70,8 @@ msgid "port"
 msgstr "port"
 
 #: src/EBox/Services.pm:403
-#, fuzzy
 msgid "Zentyal Administration port"
-msgstr "port administrare eBox"
+msgstr "Port administrare Zentyal"
 
 #: src/EBox/Model/ServiceTable.pm:103
 msgid "Domain"
@@ -92,14 +90,13 @@ msgid "Internal"
 msgstr "Intern"
 
 #: src/EBox/Model/ServiceTable.pm:127
-#, fuzzy
 msgid ""
 "Tick this field if there is actually a service on the machine using the "
 "ports configured for this service. This helps Zentyal to know what ports are "
 "already busy"
 msgstr ""
 "Bifaţi acest câmp dacă exisă un serviciu în acest calculator ce foloseşte "
-"porturile configurate pentru acel serviciu. Aceasta ajută eBox să afle "
+"porturile configurate pentru acel serviciu. Aceasta ajută Zentyal să afle "
 "porturile ocupate deja."
 
 #: src/EBox/Model/ServiceTable.pm:134
