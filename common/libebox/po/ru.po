@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: libebox 0.12.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-08-26 00:38+0200\n"
-"PO-Revision-Date: 2010-02-03 21:01+0100\n"
-"Last-Translator: Alexander Kuzmenko <alex@engp.su>\n"
+"PO-Revision-Date: 2010-08-26 10:43+0200\n"
+"Last-Translator: Dmitry Salynin <dsalynin@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
-"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/Config.pm.in:76
@@ -130,9 +130,10 @@ msgstr ""
 "информацию можно найти в журналах."
 
 #: src/EBox/CGI/Base.pm:578
-#, fuzzy
 msgid "You have just hit a bug in Zentyal. Please seek technical support."
-msgstr "Пожалуйста, обратитесь в техническую поддержку."
+msgstr ""
+"Ву только-что обнарузили неполадку в Zentyal. Пожалуйста, обратитесь в "
+"техническую поддержку."
 
 #: src/EBox/CGI/Base.pm:664
 msgid ""
@@ -142,6 +143,8 @@ msgstr "Ваш запрос не будет обработан т.к. содер
 #: src/EBox/CGI/Base.pm:697
 msgid "Wrong HTTP referer detected, operation cancelled for security reasons"
 msgstr ""
+"Обнаружена неправильная ссылка HTTP, действие отменено по соображениям "
+"безопасности"
 
 #: src/EBox/CGI/Base.pm:709
 msgid ""
@@ -183,21 +186,19 @@ msgid "hide help"
 msgstr "скрыть помощь"
 
 #: src/templates/ebox/pageNotFound.mas:3
-#, fuzzy
 msgid "Zentyal homepage"
-msgstr "Домашняя страница eBox "
+msgstr "Домашняя страница Zentyal"
 
 #: src/templates/ebox/pageNotFound.mas:7
 msgid "If you typed the URL manually, please check it"
 msgstr "Если вы ввели URL вручную, пожалуйста проверьте еще раз."
 
 #: src/templates/ebox/pageNotFound.mas:8
-#, fuzzy
 msgid ""
 "Maybe a change in the Zentyal configuration or software made no longer "
 "available the requested page"
 msgstr ""
-"Возможно изменение конфигурации eBox или программного обеспечение сделало "
+"Возможно изменение конфигурации Zentyal или программного обеспечение сделало "
 "запрашиваемую страницу недоступной"
 
 #: src/templates/ebox/pageNotFound.mas:9

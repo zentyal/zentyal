@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: libebox 0.12.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-08-26 00:38+0200\n"
-"PO-Revision-Date: 2010-08-24 16:38+0200\n"
+"PO-Revision-Date: 2010-08-27 16:52+0200\n"
 "Last-Translator: Robert Brzozowski <gnutar1@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
@@ -25,7 +25,7 @@ msgstr "Nie mogę otworzyć pliku konfiguracyjnego {file}."
 
 #: src/EBox/Config.pm.in:171
 msgid "The ebox user has not been set in the config file."
-msgstr "Użytkownik eBoxa nie został ustawiony w pliku konfiguracyjnym."
+msgstr "Użytkownik Zentyala nie został ustawiony w pliku konfiguracyjnym."
 
 #: src/EBox/Exceptions/DataNotFound.pm:37
 #, perl-brace-format
@@ -96,7 +96,7 @@ msgstr "Interfejs"
 
 #: src/EBox/CGI/EBox/PageNotFound.pm:28
 msgid "Page not found"
-msgstr "Strona nie znaleziona."
+msgstr "Nie odnaleziono strony"
 
 #: src/EBox/CGI/Base.pm:198
 msgid ""
@@ -115,7 +115,6 @@ msgstr ""
 "można znaleźć w logach."
 
 #: src/EBox/CGI/Base.pm:566
-#, fuzzy
 msgid ""
 "An internal error has occurred. This is most probably a bug, relevant "
 "information can be found in the logs."
@@ -123,7 +122,6 @@ msgstr ""
 "Wystąpił błąd wewnętrzny. Związane z nim komunikaty można znaleźć w logach."
 
 #: src/EBox/CGI/Base.pm:572
-#, fuzzy
 msgid ""
 "An unexpected internal error has occurred. This is a bug, relevant "
 "information can be found in the logs."
@@ -132,18 +130,17 @@ msgstr ""
 "znaleźć w logach."
 
 #: src/EBox/CGI/Base.pm:578
-#, fuzzy
 msgid "You have just hit a bug in Zentyal. Please seek technical support."
 msgstr ""
-"Trafiłeś na błąd serwera eBox. Prosimy skontaktuj się ze wsparciem "
+"Trafiłeś na błąd serwera Zentyal. Prosimy o kontakt ze wsparciem "
 "technicznym."
 
 #: src/EBox/CGI/Base.pm:664
 msgid ""
 "Your request could not be processed because it had some incorrect parameters"
 msgstr ""
-"Twoje żądanie nie mogło zostać przetworzone ponieważ zawierało  "
-"nieprawidłowe parametry."
+"Twoje żądanie nie mogło zostać przetworzone ponieważ zawierało nieprawidłowe "
+"parametry."
 
 #: src/EBox/CGI/Base.pm:697
 msgid "Wrong HTTP referer detected, operation cancelled for security reasons"
@@ -166,7 +163,6 @@ msgid "Cannot create a temporally file for the upload"
 msgstr "Nie można utworzyć tymczasowego pliku."
 
 #: src/templates/language.mas:10
-#, fuzzy
 msgid "Language Selection"
 msgstr "Wybór języka"
 
@@ -191,44 +187,44 @@ msgid "hide help"
 msgstr "Ukryj pomoc"
 
 #: src/templates/ebox/pageNotFound.mas:3
-#, fuzzy
 msgid "Zentyal homepage"
-msgstr "Strona główna eBox"
+msgstr "Strona główna Zentyal"
 
 #: src/templates/ebox/pageNotFound.mas:7
 msgid "If you typed the URL manually, please check it"
-msgstr ""
+msgstr "Sprawdź, czy wpisałeś poprawnie adres URL"
 
 #: src/templates/ebox/pageNotFound.mas:8
 msgid ""
 "Maybe a change in the Zentyal configuration or software made no longer "
 "available the requested page"
 msgstr ""
+"Zmiany konfiguracyjne Zentyala mogły spowodować, że ta strona jest już "
+"niedostępna"
 
 #: src/templates/ebox/pageNotFound.mas:9
 #, perl-brace-format
 msgid ""
 "If you need more help, you may want visit {homepage} for documentation and "
 "mailing lists"
-msgstr ""
+msgstr "Aby skorzystać z pomocy, wejdź na stronę {homepage}"
 
 #: src/templates/ebox/pageNotFound.mas:12
 msgid "we're sorry"
-msgstr ""
+msgstr "przepraszamy"
 
 #: src/templates/ebox/pageNotFound.mas:13
-#, fuzzy
 msgid "The page cannot be found"
 msgstr "Strony nie odnaleziono."
 
 #: src/templates/ajax/setter/inverseMatchUnionSetter.mas:9
 #: src/templates/ajax/setter/inverseMatchSelectSetter.mas:13
 msgid "Inverse match"
-msgstr ""
+msgstr "Dopasowanie odwrotne"
 
 #: src/templates/ajax/setter/portRangeSetter.mas:23
 msgid "From"
-msgstr "Z"
+msgstr "Od"
 
 #: src/templates/ajax/setter/portRangeSetter.mas:29
 msgid "To"
@@ -251,7 +247,6 @@ msgid "Optional"
 msgstr "Opcja"
 
 #: src/templates/ajax/tablePager.mas:46
-#, fuzzy
 msgid "Page"
 msgstr "Strona"
 
@@ -304,12 +299,10 @@ msgid "Search"
 msgstr "Szukaj"
 
 #: src/templates/ajax/tableBody.mas:336
-#, fuzzy
 msgid "Add"
 msgstr "Dodaj"
 
 #: src/templates/ajax/tableBody.mas:360
-#, fuzzy
 msgid "Cancel"
 msgstr "Przerwij"
 
