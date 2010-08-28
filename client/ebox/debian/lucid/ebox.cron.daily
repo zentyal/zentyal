@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # Check latest version
-URL="http://update.ebox-platform.com/last-1.5.txt"
+URL="http://update.zentyal.org/last-2.0.txt"
 TIMEOUT="300"
 DEST="/var/lib/ebox/latestversion"
 wget --timeout $TIMEOUT $URL -O $DEST >/dev/null 2>&1

@@ -52,7 +52,7 @@ use EBox::View::Customizer;
 # Core modules
 use Error qw(:try);
 
-use constant STORE_URL => 'http://store.ebox-technologies.com/';
+use constant STORE_URL => 'http://store.zentyal.com/';
 use constant UTM       => '?utm_source=ebox&utm_medium=ebox&utm_content=remoteservices'
                           . '&utm_campaign=register';
 use constant BASIC_URL => STORE_URL . 'serversubscriptions/subscription-basic.html' . UTM;

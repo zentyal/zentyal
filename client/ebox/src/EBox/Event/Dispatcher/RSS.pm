@@ -297,8 +297,8 @@ sub _addEventToRSS
                       ttl           => CHANNEL_TTL,
                      );
         $rss->image(title       => 'Zentyal',
-                    url         => 'http://trac.ebox-platform.com/chrome/common/ebox-logo.png',
-                    link        => 'http://ebox-platform.com',
+                    url         => 'http://trac.zentyal.org/chrome/common/ebox-logo.png',
+                    link        => 'http://zentyal.org',
                     description => 'Zentyal',
                     alt         => 'Zentyal',
                    );

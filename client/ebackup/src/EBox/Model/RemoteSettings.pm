@@ -496,7 +496,7 @@ sub _message
         'space you need at the {ohref}Zentyal on-line store{chref}.',
          oi => '<i>',
          ci => '</i>',
-         ohref => '<a href="http://store.ebox-technologies.com/?utm_source=ebox&utm_medium=ebox&utm_campaign=ebackup">',
+         ohref => '<a href="http://store.zentyal.com/?utm_source=ebox&utm_medium=ebox&utm_campaign=ebackup">',
          brand => 'Zentyal Backup Storage',
          chref => '</a>'
     );

@@ -55,8 +55,8 @@ use constant FEATURESCONFFILE     => '/etc/asterisk/features.conf';
 
 use constant VOICEMAIL_DIR        => '/var/spool/asterisk/voicemail';
 
-use constant EBOX_VOIP_SRVNAME    => 'ebox-technologies';
-use constant EBOX_SIP_SERVER      => 'sip.ebox-technologies.com';
+use constant EBOX_VOIP_SRVNAME    => 'zentyal';
+use constant EBOX_SIP_SERVER      => 'sip.zentyal.com';
 
 # Constructor: _create
 #

@@ -304,7 +304,7 @@ sub _defaultChannelLink
         }
     }
 
-    return 'http://ebox-platform.com';
+    return 'http://zentyal.org';
 
 
 }

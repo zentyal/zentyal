@@ -1,7 +1,7 @@
 <%init>
 use EBox::Gettext;
 my $eboxHomepageName = __(q{Zentyal homepage});
-my $eboxHomepageAHref = "<a href='http://www.ebox-platform.com'>$eboxHomepageName</a> ";
+my $eboxHomepageAHref = "<a href='http://www.zentyal.org'>$eboxHomepageName</a> ";
 
 my @tipList = (
    __(q{If you typed the URL manually, please check it}),

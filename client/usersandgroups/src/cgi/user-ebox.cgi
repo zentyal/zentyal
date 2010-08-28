@@ -74,7 +74,7 @@ try {
     } else {
         print '<li>' . __('Download a configuration report by clicking') . ' <a href="#" class="nvac" onclick=\'document.forms[0].action="https://"+document.domain+"/ebox/EBox/Backup"; document.forms[0].submit();\'>' . __('here') . '</a>.</li>';
     }
-    print '<li>' . __('Create a new ticket in the Zentyal trac by clicking ') . '<a class="nvac" href="#" onclick="window.open(\'http://trac.ebox-platform.com/newticket\')">' . __('here') . "</a>.</li>";
+    print '<li>' . __('Create a new ticket in the Zentyal trac by clicking ') . '<a class="nvac" href="#" onclick="window.open(\'http://trac.zentyal.org/newticket\')">' . __('here') . "</a>.</li>";
     print '<li>' . __('Write a short description of the problem in the summary field') . '.</li>';
     print '<li>' . __('Write a detailed report of what you were doing before this problem ocurred in the description field') . '.</li>';
     print '<li>' . __('Do not forget to attach the downloaded file in the ticket') . '.</li></ol>';
