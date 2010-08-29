@@ -60,13 +60,18 @@ cp /tmp/ebox/motd /etc/motd.tail
 # copy *.deb files from CD to hard disk
 PKG_DIR=/var/tmp/ebox-packages
 mkdir $PKG_DIR
-list=`cat /tmp/ebox/extra-packages.list`
-packages=`LANG=C apt-get install $list --simulate|grep ^Inst|cut -d' ' -f2`
-for p in $packages
+#list=`cat /tmp/ebox/extra-packages.list`
+#packages=`LANG=C apt-get install $list --simulate|grep ^Inst|cut -d' ' -f2`
+#for p in $packages
+#do
+#    char=$(echo $p | cut -c 1)
+#    cp /cdrom/pool/main/{$char,lib$char}/*/${p}_*.deb $PKG_DIR 2> /dev/null
+#    cp /cdrom/pool/extras/${p}_*.deb $PKG_DIR 2> /dev/null
+#done
+files=`find /cdrom/pool -name '*.deb'`
+for file in $files
 do
-    char=$(echo $p | cut -c 1)
-    cp /cdrom/pool/main/{$char,lib$char}/*/${p}_*.deb $PKG_DIR 2> /dev/null
-    cp /cdrom/pool/extras/${p}_*.deb $PKG_DIR 2> /dev/null
+    cp $file $PKG_DIR 2> /dev/null
 done
 
 create_repository # Set up local package repository
