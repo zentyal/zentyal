@@ -8,7 +8,7 @@ Standards-Version: 3.8.2
 Package: ebox-egroupware
 Architecture: all
 Depends: ebox (>= 1.5), ebox (<< 1.5.100), ebox-network (>= 0.12), ebox-usersandgroups (>= 0.12), ebox-mail (>= 0.12), ${misc:Depends}, egroupware (>= 1.6.003), egroupware (< 1.7), php5-mhash, ebox-webserver (>= 0.12), php5-pgsql
-Description: Zentyal - Groupware
+Description: Zentyal - Groupware (eGroupware)
  Zentyal is an open source small business server that can act as
  a Gateway, Unified Threat Manager, Office Server, Infrastructure
  Manager, Unified Communications Server or a combination of them. One
