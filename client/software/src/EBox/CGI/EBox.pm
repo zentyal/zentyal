@@ -31,11 +31,13 @@ sub new {
     my $class = shift;
     my $self;
     if (-f FIRST_RUN_FILE) {
-        $self = $class->SUPER::new('title'    => __('Choose Zentyal packages to install'),
+        $self = $class->SUPER::new('title' =>
+                __d('Choose Zentyal packages to install', 'ebox-software'),
                 'template' => 'software/ebox.mas',
                 @_);
     } else {
-        $self = $class->SUPER::new('title'    => __('Zentyal components'),
+        $self = $class->SUPER::new('title' =>
+                __d('Zentyal components', 'ebox-software'),
                 'template' => 'software/ebox.mas',
                 @_);
     }

@@ -928,6 +928,8 @@ sub firstTimeMenu
 {
     my ($self, $current) = @_;
 
+    settextdomain('ebox-software');
+
     print "<div id='menu'><ul id='nav'>\n";
 
     print "<li><div class='separator'>" . __('Welcome') . "</div></li>\n";
