@@ -1,5 +1,7 @@
 HEAD
     + Fixed RAID problems
+    + Disabled auto login after the install
+    + Disabled screensaver
 2.0-rc2
     + Nicer 16 colors plymouth boot logo
     + Logout screen rebrand

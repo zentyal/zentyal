@@ -11,6 +11,10 @@ cp /var/tmp/ebox/ebox-xsession $DIR/.xsession
 chmod +x $DIR/.xsession
 chown $USER_NAME:$USER_NAME $DIR/.xsession
 
+echo "mode: off" > $DIR/.xscreensaver
+echo "selected: -1" >> $DIR/.xscreensaver
+chown $USER_NAME:$USER_NAME $DIR/.xscreensaver
+
 mkdir $DIR/.mozilla
 cp -r /var/tmp/ebox/ebox-firefox-profile $DIR/.mozilla/firefox
 chown -R $USER_NAME:$USER_NAME $DIR/.mozilla
@@ -45,7 +49,6 @@ chown -R $USER_NAME:$USER_NAME $DESKTOP
 chown -R $USER_NAME:$USER_NAME $PANELS_DIR
 chown -R $USER_NAME:$USER_NAME $PCMANFM_DIR
 
-mv /var/tmp/ebox/rc.local /etc/rc.local
-rm -rf /var/tmp/ebox
+mv /var/tmp/ebox/second-boot.sh /etc/rc.local
 
 exit 0
