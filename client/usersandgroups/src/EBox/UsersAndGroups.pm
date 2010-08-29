@@ -750,8 +750,10 @@ sub soapRun
     my ($self, $slave, $method, $param, @params) = @_;
 
     my $journaldir = $self->_journalsDir . $slave->{'hostname'};
-    (-d $journaldir) or EBox::Sudo::command("mkdir -p $journaldir");
-
+    unless (-d $journaldir) {
+        EBox::Sudo::root('mkdir -p ' . $journaldir,
+                         'chown -R ebox:ebox ' . $self->_journalsDir);
+    }
     my $client = $self->soapClient($slave);
 
     try {
