@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-mail 0.12\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-08-28 23:36+0200\n"
-"PO-Revision-Date: 2010-08-27 14:17+0200\n"
+"PO-Revision-Date: 2010-08-29 19:09+0200\n"
 "Last-Translator: Robert Brzozowski <gnutar1@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
@@ -32,7 +32,7 @@ msgstr "Wiadomość jest dostarczana"
 
 #: src/EBox/Event/Dispatcher/Mail.pm:154
 msgid "Admin mail recipient"
-msgstr "Adresat maili administracyjnych"
+msgstr "Adresat maili administratora"
 
 #: src/EBox/Event/Dispatcher/Mail.pm:167 src/EBox/Mail/Model/MailUser.pm:68
 #: src/EBox/Mail.pm:94 src/EBox/Mail.pm:1511 src/EBox/Mail.pm:1671
@@ -241,7 +241,7 @@ msgstr "Port smarthosta"
 msgid ""
 "The mailname is set to the server's hostname and the hostname is not fully "
 "qualified. "
-msgstr ""
+msgstr "Nazwa hosta nie jest w pełni kwalifikowana, wybierz inną."
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:423
 msgid "The selected mailname is not a fully qualified hostname. "
@@ -252,6 +252,8 @@ msgid ""
 "Not having a fully qualified hostname could lead to some mail servers to "
 "reject the mail and incorrect reply addresses from system users"
 msgstr ""
+"Brak w pełni kwalifikowanej nazwy hosta spowoduje niewłaściwe działanie "
+"systemu pocztowego"
 
 #: src/EBox/Mail/Model/RetrievalServices.pm:61
 msgid "POP3 service enabled"
@@ -304,6 +306,9 @@ msgid ""
 "gateway for Zarafa. You can do it at {ohref}Zarafa gateways configuration "
 "settings{chref}."
 msgstr ""
+"Aby włączyć usługę pobierania poczty {service}, musisz wyłączyć usługę bramy "
+"{service} Zarafa. Możesz to zrobić w zakładce {ohref}Ustawienia "
+"konfiguracyjne bram Zarafa{chref}."
 
 #: src/EBox/Mail/Model/ExternalAliases.pm:54
 msgid "Alias"
@@ -423,6 +428,8 @@ msgid ""
 "Cannot add virtual domain {vd} because it appears as external domain in the "
 "account referenced by the alias {al}"
 msgstr ""
+"Nie można dodać domeny wirtualnej {vd} ponieważ nazwa jest zbieżna z "
+"zewnętrzną domeną określoną przez alias {al} "
 
 #: src/EBox/Mail/Model/VDomainAliases.pm:57
 msgid "Aliases"
@@ -501,10 +508,11 @@ msgid "Subject"
 msgstr "Temat"
 
 #: src/EBox/Mail/Model/Dispatcher/Mail.pm:127
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "[Zentyal-event] An event has happened at {hostName}"
 msgstr ""
-"[EBox-event] Ostrzeżenie wygenerowanie automatycznie przez serwer {hostName}"
+"[Zentyal-event] Ostrzeżenie wygenerowanie automatycznie przez serwer "
+"{hostName}"
 
 #: src/EBox/Mail/Model/Dispatcher/Mail.pm:134 src/EBox/Mail.pm:1640
 msgid "To"
@@ -519,6 +527,8 @@ msgid ""
 "In order to configure the Mail event dispatcher is required to enable the "
 "mail service from Zentyal"
 msgstr ""
+"Aby skonfigurować powiadamiacz zdarzeń serwera pocztowego należy włączyć "
+"moduł poczty"
 
 #: src/EBox/Mail/Model/Dispatcher/Mail.pm:149
 msgid "Mail dispatcher configuration updated"
@@ -700,7 +710,7 @@ msgstr "Usługa greylist-y"
 
 #: src/EBox/Mail/FetchmailLdap.pm:347
 msgid "External retrieval service"
-msgstr "Usługa odbierania wiadomości zewnętrznych"
+msgstr "Usługa pobierania wiadomości zewnętrznych"
 
 #: src/EBox/MailAliasLdap.pm:62
 #, perl-brace-format

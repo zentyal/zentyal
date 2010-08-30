@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: ebox-mail 0.12\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-08-28 23:36+0200\n"
-"PO-Revision-Date: 2010-08-22 15:49+0200\n"
+"PO-Revision-Date: 2010-08-29 16:35+0200\n"
 "Last-Translator: Cyril MARTY <cyril_marty@yahoo.fr>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
@@ -17,9 +17,8 @@ msgstr ""
 "X-Generator: Pootle 1.1.0\n"
 
 #: migration/0001_add_firewall_services.pl:45
-#, fuzzy
 msgid "Zentyal Mail System"
-msgstr "Système de courrier eBox"
+msgstr "Système de courrier de Zentyal"
 
 #: migration/0005_add_managesieve_firewall_services.pl:43
 msgid "protocol for editing SIEVE filters"
@@ -315,6 +314,9 @@ msgid ""
 "gateway for Zarafa. You can do it at {ohref}Zarafa gateways configuration "
 "settings{chref}."
 msgstr ""
+"Pour activer {service} le service de récupération du courrier, vous devez "
+"désactiver {service} la passerelle pour Zarafa. Vous pouvez le faire par "
+"{ohref}paramètres de configuration de la passerelle Zarafa{chref}"
 
 #: src/EBox/Mail/Model/ExternalAliases.pm:54
 msgid "Alias"
@@ -367,7 +369,7 @@ msgstr ""
 #: src/EBox/Mail/Model/ExternalAliases.pm:146
 #, perl-brace-format
 msgid "An account or alias called {al} already exists"
-msgstr ""
+msgstr "Un compte ou un alias portant le nom {al} existe déjà"
 
 #: src/EBox/Mail/Model/ExternalAliases.pm:167
 msgid ""
@@ -529,9 +531,9 @@ msgid "Subject"
 msgstr "Sujet"
 
 #: src/EBox/Mail/Model/Dispatcher/Mail.pm:127
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "[Zentyal-event] An event has happened at {hostName}"
-msgstr "[EBox-event] Un événement est survenu sur {hostName}"
+msgstr "[Zentyal-event] Un événement est survenu sur {hostName}"
 
 #: src/EBox/Mail/Model/Dispatcher/Mail.pm:134 src/EBox/Mail.pm:1640
 msgid "To"
@@ -542,13 +544,12 @@ msgid "Configure mail dispatcher"
 msgstr "Configurer l'expéditeur de courrier"
 
 #: src/EBox/Mail/Model/Dispatcher/Mail.pm:146
-#, fuzzy
 msgid ""
 "In order to configure the Mail event dispatcher is required to enable the "
 "mail service from Zentyal"
 msgstr ""
-"Afin de configurer l'expédition d'événement par courrier, vous devez activer "
-"le service de courrier d'eBox"
+"Pour pouvoir configurer les évènements du Courrier, le répartiteur "
+"d'événement est nécessaire pour activer le service depuis Zentyal"
 
 #: src/EBox/Mail/Model/Dispatcher/Mail.pm:149
 msgid "Mail dispatcher configuration updated"
@@ -806,28 +807,26 @@ msgid "Generate mail aliases"
 msgstr "Créer des alias de courrier "
 
 #: src/EBox/Mail.pm:143
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Zentyal will execute {cmd}"
-msgstr "eBox va exécuter {cmd}"
+msgstr "Zentyal va exécuter {cmd}"
 
 #: src/EBox/Mail.pm:148
 msgid "Add LDAP schemas"
 msgstr "Ajouter les schémas LDAP"
 
 #: src/EBox/Mail.pm:150
-#, fuzzy
 msgid "Zentyal will add two LDAP schemas: authldap.ldif and eboximail.ldif."
-msgstr "eBox va ajouter deux schémas LDAP : authldap.ldif and eboximail.ldif."
+msgstr "Zentyal va ajouter deux schémas LDAP : authldap.ldif et eboximail.ldif."
 
 #: src/EBox/Mail.pm:156
 msgid "Create certificates"
 msgstr "Créer des certificats"
 
 #: src/EBox/Mail.pm:158
-#, fuzzy
 msgid "Zentyal will create certificates to use in mail services"
 msgstr ""
-"eBox va générer des certificats qui seront utilisés par le service de "
+"Zentyal va générer des certificats qui seront utilisés par les services de "
 "courrier"
 
 #: src/EBox/Mail.pm:163
@@ -835,14 +834,13 @@ msgid "Add fetchmail update cron job"
 msgstr "Ajouter la tâche planifiée de mise-à-jour de fetchmail"
 
 #: src/EBox/Mail.pm:165
-#, fuzzy
 msgid ""
 "Zentyal will schedule a cron job to update fetchmail configuration when the "
 "user add external accounts"
 msgstr ""
-"eBox va programmer une tâche planifiée pour mettre à jour la configuration "
-"de fetchmail (service de récupération), lorsque l'utilisateur ajoutera des "
-"comptes externes"
+"Zentyal va programmer une tâche planifiée pour mettre à jour la "
+"configuration de fetchmail (service de récupération), lorsque l'utilisateur "
+"ajoutera des comptes externes"
 
 #: src/EBox/Mail.pm:185
 msgid "To configure postfix"

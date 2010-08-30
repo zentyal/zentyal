@@ -7,50 +7,55 @@ msgstr ""
 "Project-Id-Version: ebox-samba 0.12\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-08-28 23:41+0200\n"
-"PO-Revision-Date: 2006-11-20 14:33+0100\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2010-08-30 02:15+0200\n"
+"Last-Translator: josefa <jgonza24@xtec.cat>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural= (n != 1);\n"
-"X-Generator: Translate Toolkit 0.10.1\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: migration/0001_add_samba_service.pl:128
 msgid "File sharing (Samba) protocol"
-msgstr ""
+msgstr "Protocol de compartició de fitxers (Samba)"
 
 #: src/EBox/Samba.pm:74 src/EBox/Samba/Model/SambaUser.pm:58
 #: src/EBox/Samba/Composite/General.pm:67
 msgid "File Sharing"
-msgstr ""
+msgstr "Compartició de fitxers"
 
 #: src/EBox/Samba.pm:89
 msgid "Create Samba home directory for shares and groups"
-msgstr ""
+msgstr "Crear directori personal de Samba per directoris compartits i grups"
 
 #: src/EBox/Samba.pm:90
 msgid ""
 "Zentyal will create the directories for Samba shares and groups under /home/"
 "samba."
 msgstr ""
+"Zentyal crearà directoris personals per directoris compartits i grups de "
+"Samba sota /home/samba."
 
 #: src/EBox/Samba.pm:95
 msgid "Add LDAP schemas"
-msgstr ""
+msgstr "Afegir esquemes de LDAP"
 
 #: src/EBox/Samba.pm:96
 msgid ""
 "Zentyal will add two LDAP schemas to the LDAP directory: samba and ebox."
 msgstr ""
+"Zentyal afegirà dos esquemes de LDAP al directori de LDAP: samba i ebox."
 
 #: src/EBox/Samba.pm:101
 msgid "Set Samba LDAP admin dn password"
-msgstr ""
+msgstr "Establir la contrasenya d'administrador del dn de LDAP per Samba"
 
 #: src/EBox/Samba.pm:102
 msgid "Zentyal will configure Samba to use the LDAP admin dn password."
 msgstr ""
+"Zentyal configurarà samba per utilitzar la contrasenya de l'administrador dn "
+"de LDAP."
 
 #: src/EBox/Samba.pm:118
 msgid "To set up Samba according to your configuration."

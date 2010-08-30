@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: ebox-trafficshaping 0.12.2\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-08-28 23:31+0200\n"
-"PO-Revision-Date: 2010-08-22 16:23+0200\n"
+"PO-Revision-Date: 2010-08-29 18:00+0200\n"
 "Last-Translator: Cyril MARTY <cyril_marty@yahoo.fr>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
@@ -281,15 +281,15 @@ msgstr ""
 "Vous devez avoir au minimum une interface interne et une interface externe"
 
 #: src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:83
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Traffic Shaping is applied when Zentyal is acting as a gateway. To achieve "
 "this, you need at least an internal and an external interface. Check your "
 "interface configuration to match, at {openhref}Network->Interfaces{closehref}"
 msgstr ""
-"Le lissage de trafic est actif lorsqu'eBox fonctionne en mode passerelle. "
-"Vous devez avoir au moins une interface interne et une externe. Vérifiez "
-"votre configuration dans {openhref} Réseau->Interfaces{closehref}"
+"Le lissage de trafic est actif lorsque Zentyal fonctionne en mode "
+"passerelle. Vous devez avoir au moins une interface interne et une externe. "
+"Vérifiez votre configuration dans {openhref} Réseau->Interfaces{closehref}"
 
 #: src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:92
 #, perl-brace-format

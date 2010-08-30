@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: ebox-jabber 0.12\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-08-28 23:36+0200\n"
-"PO-Revision-Date: 2010-08-22 12:12+0200\n"
+"PO-Revision-Date: 2010-08-29 16:32+0200\n"
 "Last-Translator: Cyril MARTY <cyril_marty@yahoo.fr>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
@@ -34,10 +34,10 @@ msgid "Add Jabber LDAP schema"
 msgstr "Ajouter le schéma Jabber dans LDAP"
 
 #: src/EBox/Jabber.pm:57
-#, fuzzy
 msgid "Zentyal will need this schema to store Jabber users."
 msgstr ""
-"eBox va avoir besoin de ce schéma pour stocker les utilisateurs de Jabber."
+"Zentyal va avoir besoin de ce schéma pour stocker les utilisateurs de "
+"Jabber."
 
 #: src/EBox/Jabber.pm:73
 msgid "To properly configure ejabberd."

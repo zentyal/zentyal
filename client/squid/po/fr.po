@@ -7,8 +7,8 @@ msgstr ""
 "Project-Id-Version: ebox-squid 0.12\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-08-28 23:41+0200\n"
-"PO-Revision-Date: 2010-08-27 08:12+0200\n"
-"Last-Translator: Didier RAMBEAU <didier.rambeau@free.fr>\n"
+"PO-Revision-Date: 2010-08-29 18:04+0200\n"
+"Last-Translator: Cyril MARTY <cyril_marty@yahoo.fr>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -99,7 +99,6 @@ msgstr "Réécriture des modèles de page bloquée"
 
 # adaptation au nouveau nom du produit.
 #: src/EBox/Squid.pm:302
-#, fuzzy
 msgid ""
 "Dansguardian blocked page templates will be overwritten with Zentyal "
 "customized templates."
@@ -108,19 +107,17 @@ msgstr ""
 "modèles personnalisés de Zentyal."
 
 #: src/EBox/Squid.pm:342
-#, fuzzy
 msgid "You must set the cache_mem variable in the Zentyal configuration file"
 msgstr ""
-"Vous devez définir la variable cache_mem dans le fichier de configuration "
-"d'ebox"
+"Vous devez définir la variable cache_mem dans le fichier de configuration de "
+"Zentyal"
 
 #: src/EBox/Squid.pm:351
-#, fuzzy
 msgid ""
 "You must set the max_object_size variable in the Zentyal configuration file"
 msgstr ""
 "Vous devez définir la variable max_object_size dans le fichier de "
-"configuration d'ebox"
+"configuration de Zentyal"
 
 #: src/EBox/Squid.pm:1080
 msgid "Enabled"
@@ -256,10 +253,11 @@ msgstr "Période de temps autorisée"
 
 #: src/EBox/Squid/Model/ObjectPolicy.pm:89
 #: src/EBox/Squid/Model/GroupPolicyBase.pm:119
-#, fuzzy
 msgid ""
 "Time period when the access is allowed. It is ignored with a deny policy"
-msgstr "Période pendant laquelle l'accès est autorisé"
+msgstr ""
+"Période pendant laquelle l'accès est autorisé. Elle est ignorée dans le cas "
+"d'une stratégie de refus"
 
 #: src/EBox/Squid/Model/ObjectPolicy.pm:95
 msgid "Group policy"
@@ -323,12 +321,12 @@ msgstr ""
 "Vous ne pouvez utiliser qu'un profil personnalisé avec la politique 'Filtre'"
 
 #: src/EBox/Squid/Model/ObjectPolicy.pm:527
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "There are no network objects in the system. {open}Create{close} at least one "
 "object if you want to set a object policy"
 msgstr ""
-"Il n'y a pas d'objet réseau dans le système.{open}Créer{close} au moins un "
+"Il n'y a pas d'objets réseau dans le système.{open}Créer{close} au moins un "
 "objet si vous voulez établir une stratégie d'objet"
 
 #: src/EBox/Squid/Model/FilterGroupDomainFilterCategories.pm:60
@@ -343,42 +341,36 @@ msgstr "Catégorie"
 
 #: src/EBox/Squid/Model/FilterGroupDomainFilter.pm:50
 #: src/EBox/Squid/Model/DomainFilter.pm:65
-#, fuzzy
 msgid "Domains and URL rules"
-msgstr "Règles des domaines et URL"
+msgstr "Règles des domaines et des URL"
 
 #: src/EBox/Squid/Model/FilterGroupDomainFilter.pm:63
 #: src/EBox/Squid/Model/DomainFilter.pm:78
-#, fuzzy
 msgid "internet domain or URL"
 msgstr "domaine internet ou URL"
 
 #: src/EBox/Squid/Model/FilterGroupDomainFilter.pm:64
 #: src/EBox/Squid/Model/DomainFilter.pm:79
-#, fuzzy
 msgid ""
 "Allow/Deny the HTTP traffic from/to the listed internet domains and URLs."
 msgstr ""
-"Accepte/Refuse le trafic HTTP de/vers la liste des domaines Internet et les "
-"URLs."
+"Accepter/Refuser le trafic HTTP de/vers la liste des domaines Internet et "
+"des URLs."
 
 #: src/EBox/Squid/Model/FilterGroupDomainFilter.pm:66
 #: src/EBox/Squid/Model/DomainFilter.pm:81
-#, fuzzy
 msgid "Domain or URL added"
 msgstr "Domaine ou URL ajouté"
 
 #: src/EBox/Squid/Model/FilterGroupDomainFilter.pm:67
 #: src/EBox/Squid/Model/DomainFilter.pm:82
-#, fuzzy
 msgid "Domain or URL removed"
 msgstr "Domaine ou URL supprimé"
 
 #: src/EBox/Squid/Model/FilterGroupDomainFilter.pm:68
 #: src/EBox/Squid/Model/DomainFilter.pm:83
-#, fuzzy
 msgid "Domain or URL updated"
-msgstr "Domaine ou URL mis-à-jour"
+msgstr "Domaine ou URL mis à jour"
 
 #: src/EBox/Squid/Model/ApplyAllowToAllBase.pm:71
 msgid "elements"
@@ -390,11 +382,10 @@ msgid "Allow all {elements}"
 msgstr "Autoriser tous les {elements}"
 
 #: src/EBox/Squid/Model/ApplyAllowToAllBase.pm:89
-#, fuzzy
 msgid "Use this field to change the value of all the above rows at once"
 msgstr ""
-"Utiliser ce champ afin de changer la valeur de  toutes les colonnes ci-"
-"dessus en une fois"
+"Utiliser ce champ pour changer la valeur de toutes les lignes ci-dessus en "
+"une fois"
 
 #: src/EBox/Squid/Model/DomainFilterFilesBase.pm:61 stubs/template.html.mas:39
 msgid "Categories"
@@ -500,9 +491,8 @@ msgid "MIME Type"
 msgstr "Type MIME"
 
 #: src/EBox/Squid/Model/MIMEFilterBase.pm:129
-#, fuzzy
 msgid "A MIME Type must follow this syntax: type/subtype"
-msgstr "Un type MIME doit avoir la syntaxe suivante : type/sous-type"
+msgstr "Un type MIME doit suivre la syntaxe suivante: type/sous-type"
 
 #: src/EBox/Squid/Model/MIMEFilterBase.pm:139
 #, perl-brace-format
@@ -567,15 +557,14 @@ msgstr "Type MIME"
 
 #: src/EBox/Squid/Model/MIMEFilter.pm:64
 #: src/EBox/Squid/Model/FilterGroupMIMEFilter.pm:60
-#, fuzzy
 msgid ""
 "Allow/Deny the HTTP traffic of the files which the given MIME types. MIME "
 "types not listed here are allowed.\n"
 "The filter needs a 'filter' policy to be in effect"
 msgstr ""
-"Accepte/Refuse le trafic HTTP des fichiers pour le type MIME donné. Les "
+"Accepter/Refuser le trafic HTTP des fichiers pour les types MIME donnés. Les "
 "types MIME non listés sont acceptés. \n"
-" Le filtre nécessite qu'une politique de filtrage soit activée"
+"Le filtre nécessite une stratégie de 'filtrage' pour être effective"
 
 #: src/EBox/Squid/Model/MIMEFilter.pm:67
 #: src/EBox/Squid/Model/FilterGroupMIMEFilter.pm:63
@@ -698,6 +687,8 @@ msgid ""
 "Maximum unthrottled download size for this network. Use -1 to disable this "
 "option."
 msgstr ""
+"Taille de téléchargement maximum non limitée pour ce réseau. Utiliser -1 "
+"pour désactiver cette option."
 
 #: src/EBox/Squid/Model/DelayPools2.pm:187
 msgid "Client Rate"
@@ -718,10 +709,12 @@ msgstr "Taille Client Maximum"
 msgid ""
 "Maximum unthrottled download size per client. Use -1 to disable this option."
 msgstr ""
+"Taille de téléchargement non limité par client. Utiliser -1 pour désactiver "
+"cette option."
 
 #: src/EBox/Squid/Model/DelayPools2.pm:209
 msgid "Delay Pools Class 2"
-msgstr ""
+msgstr "Zone d'attente de Classe 2"
 
 #: src/EBox/Squid/Model/DelayPools2.pm:216
 #, perl-brace-format
@@ -729,11 +722,14 @@ msgid ""
 "Once the request exceeds the {max} then the HTTP Proxy will throttle the "
 "download bandwidth to the given {rate}. The client number is limited to 256."
 msgstr ""
+"Une fois que la requête dépasse le {max} alors le proxy HTTP va limiter la "
+"bande passante de téléchargement au niveau {rate} défini. Le nombre de "
+"client est limité à 256."
 
 #: src/EBox/Squid/Model/DelayPools2.pm:222
 #: src/EBox/Squid/Model/DelayPools1.pm:186
 msgid "pool"
-msgstr ""
+msgstr "zone"
 
 #: src/EBox/Squid/Model/DelayPools1.pm:151
 msgid "Network Rate"
@@ -745,7 +741,7 @@ msgstr "Taille Maximum du Réseau"
 
 #: src/EBox/Squid/Model/DelayPools1.pm:173
 msgid "Delay Pools Class 1"
-msgstr ""
+msgstr "Zone d'attente de Classe 1"
 
 #: src/EBox/Squid/Model/DelayPools1.pm:180
 #, perl-brace-format
@@ -761,9 +757,8 @@ msgid "Domains lists files for filter group"
 msgstr "Fichiers de liste de domaine pour groupe de filtrage"
 
 #: src/EBox/Squid/Model/FilterGroupDomainFilterFiles.pm:91
-#, fuzzy
 msgid "You can upload files whith lists of domains"
-msgstr "Vous pouvez envoyer des fichiers avec les listes de domaines"
+msgstr "Vous pouvez envoyer des fichiers aux listes de domaines"
 
 #: src/EBox/Squid/Model/FilterGroup.pm:70
 msgid "Filter profiles"
@@ -821,7 +816,7 @@ msgstr "Période de temps"
 
 #: src/EBox/Squid/Model/GroupPolicyBase.pm:247
 #: src/EBox/Squid/Model/GroupPolicyBase.pm:254
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "There are no user groups in the system. {open}Create{close} at least one "
 "group  if you want to set a group policy"
@@ -871,13 +866,12 @@ msgstr ""
 
 # ??
 #: src/EBox/Squid/Model/ObjectGroupPolicy.pm:147
-#, fuzzy
 msgid ""
 "The object needs to be set to a policy with authorization in order to to use "
 "group policies"
 msgstr ""
-"L'objet doit être défini avec une stratégie qui autorise l'utilisation de "
-"stratégies de groupe"
+"L'objet doit être défini avec une stratégie avec une autorisation qui lui "
+"permet l'utilisation des stratégies de groupe"
 
 #: src/EBox/Squid/Model/ObjectGroupPolicy.pm:162
 #, perl-brace-format
@@ -889,18 +883,20 @@ msgid ""
 "Time period when the access is allowed. It is ignored if the group has a "
 "deny policy, time constraints of parent object are always ignored"
 msgstr ""
+"Période pendant laquelle l'accès est autorisé. Cela sera ignoré dans le cas "
+"où le groupe a une stratégie de refus, les contraintes de temps des objet "
+"parent seront toujours ignorées"
 
 #: src/EBox/Squid/Model/GlobalGroupPolicy.pm:77
 msgid "Group policies"
 msgstr "Politique de groupe"
 
 #: src/EBox/Squid/Model/GlobalGroupPolicy.pm:93
-#, fuzzy
 msgid ""
 "Here you can globally block or allow access by user group. Filter options "
 "will be by global policy or by object policy"
 msgstr ""
-"Vous pouvez bloquer ou autoriser globalement les accès par groupe "
+"Ici vous pouvez bloquer ou autoriser globalement les accès par groupe "
 "d'utilisateur. Les options de filtrage sont soit des stratégies globales ou "
 "soit des stratégies par objet"
 
@@ -911,12 +907,10 @@ msgstr ""
 "authentification"
 
 #: src/EBox/Squid/Model/DomainFilterBase.pm:35
-#, fuzzy
 msgid "Domain or URL"
 msgstr "Domaine ou URL"
 
 #: src/EBox/Squid/Model/DomainFilterBase.pm:76
-#, fuzzy
 msgid "Domain or IP address part of URL"
 msgstr "Domaine ou adresse IP faisant partie de l'URL"
 
@@ -992,13 +986,12 @@ msgstr ""
 "trouvé dans certains objets"
 
 #: src/EBox/Squid/Model/GeneralSettings.pm:183
-#, fuzzy
 msgid ""
 "An authorization policy is required because you are using global group "
 "policies"
 msgstr ""
-"Vous avez besoin d'utiliser des stratégies d'autorisation avec les "
-"politiques du groupe globale"
+"Une stratégie d'autorisation est nécessaire car vous utilisez des stratégies "
+"globales de groupe"
 
 #: src/EBox/Squid/Model/GeneralSettings.pm:192
 msgid ""
@@ -1141,20 +1134,18 @@ msgid "Address updated"
 msgstr "Adresse mise à jour"
 
 #: src/EBox/Squid/Model/DomainFilterSettingsBase.pm:40
-#, fuzzy
 msgid "Block not listed domains and URLs"
-msgstr "Bloquer les domaines non-listés"
+msgstr "Bloquer les domaines et les URL non-listés"
 
 #: src/EBox/Squid/Model/DomainFilterSettingsBase.pm:43
-#, fuzzy
 msgid ""
 "If this is enabled, any domain or URL which is neither present neither in "
 "the <i>Domains and URLrules</i> nor in the <i>Domain list files</i> sections "
 "below will be forbidden."
 msgstr ""
-"Si c'est activé, tout domaine qui ne sera pas indiqué comme autorisé dans "
-"les sections <i>Règles de domaines</i> ou <i>Liste de domaines</i> ci-"
-"dessous sera interdit."
+"Si c'est activé, tous domaines qui ne sera pas précisé dans la section "
+"<i>Règles des domaines et des URL</i> ou dans <i>Liste des fichiers de "
+"domaine</i> ci-dessous seront interdits."
 
 #: src/EBox/Squid/Model/DomainFilterSettingsBase.pm:51
 msgid "Block sites specified only as IP"
@@ -1260,7 +1251,7 @@ msgid "Bad minutes value: {mi}"
 msgstr "Mauvaise valeur pour les minutes : {mi}"
 
 #: src/EBox/Squid/Types/TimePeriod.pm:526
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Bad minutes format: {mi}"
 msgstr "Mauvais format pour les minutes : {mi}"
 
@@ -1330,6 +1321,13 @@ msgid ""
 "match from the source is done. If a network object does not match any rule, "
 "then no bandwidth throttling is done to it"
 msgstr ""
+"Les zones de Classe 1 vous permettent de restreindre le taux de bande "
+"passante pour les gros téléchargements tandis que les zones de Classe 2 vous "
+"permettent d'appliquer un taux de bande passante pour les usages "
+"intensifs.Les zones de Classe 1 sont plus prioritaires que les zones de "
+"Classe 2 et que la première correspondance de la source faite. Si un objet "
+"réseau ne corresponds à aucune règle, alors aucune limitation de bande "
+"passante est appliquée."
 
 #: src/EBox/Squid/Composite/FilterSettings.pm:77
 msgid "Filter settings"
@@ -1354,7 +1352,6 @@ msgid "HTTP proxy traffic report"
 msgstr "Rapport de trafic du proxy HTTP"
 
 #: stubs/template.html.mas:9
-#, fuzzy
 msgid "Access Denied"
 msgstr "Accès refusé"
 
@@ -1368,7 +1365,6 @@ msgid "Access to the page: {page} has been denied for the following reason"
 msgstr "Accès à la page : {page} a été refusé pour la raison suivante"
 
 #: stubs/template.html.mas:41
-#, fuzzy
 msgid ""
 "You are seeing this error because what you attempted to access appears to "
 "contain, or is labeled as containing, material that has been deemed "
@@ -1382,10 +1378,12 @@ msgstr ""
 msgid ""
 "If you have any queries contact your ICT Coordinator or Network Manager."
 msgstr ""
+"Si vous avez des questions contactez votre coordinateur ICT ou votre "
+"administrateur réseau."
 
 #: stubs/template.html.mas:47
 msgid "Powered by"
-msgstr ""
+msgstr "Propulsé par"
 
 #: src/templates/ajax/setter/timePeriod.mas:16
 msgid "From"

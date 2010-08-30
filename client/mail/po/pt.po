@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-mail 0.12\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-08-28 23:36+0200\n"
-"PO-Revision-Date: 2010-08-26 12:05+0200\n"
+"PO-Revision-Date: 2010-08-29 06:15+0200\n"
 "Last-Translator: Vasco Castelo Branco <vcbranco@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
@@ -312,6 +312,9 @@ msgid ""
 "gateway for Zarafa. You can do it at {ohref}Zarafa gateways configuration "
 "settings{chref}."
 msgstr ""
+"Para activar o serviço de verificação do correio {service} deve desactivar a "
+"gateway {service} do Zarafa. Pode faze-lo em {ohref}Definições da "
+"configuração da gateway Zarafa{chref}"
 
 #: src/EBox/Mail/Model/ExternalAliases.pm:54
 msgid "Alias"
@@ -525,9 +528,9 @@ msgid "Subject"
 msgstr "Assunto"
 
 #: src/EBox/Mail/Model/Dispatcher/Mail.pm:127
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "[Zentyal-event] An event has happened at {hostName}"
-msgstr "[EBox-event] Aconteceu um evento em {hostName}"
+msgstr "[Zentyal-event] Aconteceu um evento em {hostName}"
 
 #: src/EBox/Mail/Model/Dispatcher/Mail.pm:134 src/EBox/Mail.pm:1640
 msgid "To"

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: EBox-monitor 1.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-08-28 23:36+0200\n"
-"PO-Revision-Date: 2010-08-22 15:52+0200\n"
+"PO-Revision-Date: 2010-08-29 12:05+0200\n"
 "Last-Translator: Cyril MARTY <cyril_marty@yahoo.fr>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
@@ -35,22 +35,26 @@ msgstr "Toutes les sources de données sont à nouveau joignables"
 msgid "{what} \"{dS}\" is currently {value}."
 msgstr "{what} \"{dS}\" est {value} actuellement."
 
+# {severity} est de type erreur, alerte, donc le contexte dit que le la valeur surveillée est dans une zone d'alerte compris entre les limites min et max.
+# 
 # Ancien : Le/la {severity} est entre {minBound} et {maxBound}.
 # A voir dans son contexte ... c'est pas clair
 #: src/EBox/Event/Watcher/Monitor.pm:280
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "That is within the {severity} region of {minBound} and {maxBound}. "
-msgstr "C'est au sein de la {severity} région de {minBound} et {maxBound}."
+msgstr ""
+"C'est à l'intérieur de la zone {severity} comprise entre {minBound} et "
+"{maxBound}."
 
 #: src/EBox/Event/Watcher/Monitor.pm:288
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "That is above the {severity} threshold of {bound}. "
-msgstr "C'est au-dessus de {severity} seuil de {bound}."
+msgstr "C'est au-dessus du seuil {severity} limité à {bound}."
 
 #: src/EBox/Event/Watcher/Monitor.pm:291
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "That is below the {severity} threshold of {bound}. "
-msgstr "C'est en-dessous de {severity} seuil de {bound}."
+msgstr "C'est en-dessous du seuil {severity} limité à {bound}."
 
 #: src/EBox/Monitor.pm:150
 #, perl-brace-format
@@ -216,28 +220,26 @@ msgstr "Thermique"
 msgid ""
 "Collect thermal information (CPU sensors temperature) if possible from {dir}"
 msgstr ""
-"Renseigne les informations thermiques (sonde de température du CPU) venant "
+"Collecte les informations thermiques (sondes de température du CPU) venant "
 "de {dir} si possible"
 
 #: src/EBox/Monitor/Measure/Base.pm:684
 msgid "value"
-msgstr "Valeur"
+msgstr "valeur"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:102
 #: src/EBox/Monitor/Model/MeasureWatchers.pm:77
 msgid "Events"
-msgstr ""
+msgstr "Evènements"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:106
 #: src/EBox/Monitor/Model/MeasureWatchers.pm:81
-#, fuzzy
 msgid "Monitor Watcher"
-msgstr "Moniteur"
+msgstr "Agent de Surveillance"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:110
-#, fuzzy
 msgid "Threshold Configuration"
-msgstr "Configuration des seuils"
+msgstr "Configuration du seuil"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:144
 msgid "At least a threshold (maximum or minimum) must be set"

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-webserver 0.12\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-08-28 23:42+0200\n"
-"PO-Revision-Date: 2010-08-22 13:32+0200\n"
+"PO-Revision-Date: 2010-08-29 10:56+0200\n"
 "Last-Translator: Cyril MARTY <cyril_marty@yahoo.fr>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
@@ -132,12 +132,12 @@ msgid "Listening port"
 msgstr "Port d'écoute"
 
 #: src/EBox/WebServer/Model/GeneralSettings.pm:114
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Zentyal Administration is running on this port, change it on {ohref}System -"
 "> General{chref}."
 msgstr ""
-"L'administration d'eBox Administration ce fait sur ce port, changer le dans "
+"L'administration de Zentyal se fait sur ce port, changer le dans "
 "{ohref}Système -> Général{chref}."
 
 #: src/EBox/WebServer/Model/GeneralSettings.pm:127
@@ -217,13 +217,12 @@ msgid "Web Server"
 msgstr "Serveur Web"
 
 #: src/EBox/WebServer/Composite/General.pm:79
-#, fuzzy
 msgid ""
 "The Zentyal web service allows you to host Web pages in plain HTML within "
 "different virtual hosts."
 msgstr ""
-"Le service Web d'eBox vous permet d'héberger des pages HTML dans différents "
-"hôtes virtuels"
+"Le service Web de Zentyal vous permet d'héberger des pages HTML dans "
+"différents hôtes virtuels."
 
 #: src/EBox/WebServer.pm:99
 msgid "To set webserver listening port."

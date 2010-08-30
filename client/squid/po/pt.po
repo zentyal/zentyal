@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-squid 0.12\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-08-28 23:41+0200\n"
-"PO-Revision-Date: 2010-08-26 12:57+0200\n"
+"PO-Revision-Date: 2010-08-29 06:19+0200\n"
 "Last-Translator: Vasco Castelo Branco <vcbranco@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
@@ -107,17 +107,16 @@ msgstr ""
 "exemplos personalizados da Zentyal"
 
 #: src/EBox/Squid.pm:342
-#, fuzzy
 msgid "You must set the cache_mem variable in the Zentyal configuration file"
 msgstr ""
-"Tem que definir a variável da cache_mem no ficheiro de configuração eBox"
+"Tem que definir a variável da cache_mem no ficheiro de configuração Zentyal"
 
 #: src/EBox/Squid.pm:351
-#, fuzzy
 msgid ""
 "You must set the max_object_size variable in the Zentyal configuration file"
 msgstr ""
-"Tem que definir a variável max_object_size no ficheiro de configuração eBox"
+"Tem que definir a variável max_object_size no ficheiro de configuração "
+"Zentyal"
 
 #: src/EBox/Squid.pm:1080
 msgid "Enabled"
@@ -1242,9 +1241,9 @@ msgid "Bad minutes value: {mi}"
 msgstr "Valor dos minutos errado: {mi}"
 
 #: src/EBox/Squid/Types/TimePeriod.pm:526
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Bad minutes format: {mi}"
-msgstr "Formato dos minutos  : {mi}"
+msgstr "Formato dos minutos errado: {mi}"
 
 #: src/EBox/Squid/Types/TimePeriod.pm:539
 #: src/EBox/Squid/Types/TimePeriod.pm:545

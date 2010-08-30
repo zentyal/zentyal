@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: ebox-mail 0.12\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-08-29 01:25+0200\n"
-"PO-Revision-Date: 2010-08-28 22:38+0200\n"
+"PO-Revision-Date: 2010-08-29 17:03+0200\n"
 "Last-Translator: josefa <jgonza24@xtec.cat>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
@@ -311,6 +311,9 @@ msgid ""
 "gateway for Zarafa. You can do it at {ohref}Zarafa gateways configuration "
 "settings{chref}."
 msgstr ""
+"Per habilitar el servei {service} s'ha de deshabilitar la porta d'enllaç "
+"{service} per Zarafa. Això pot fer-se en la {ohref}Configuració de portes "
+"d'enllaç de Zarafa{chref}"
 
 #: src/EBox/Mail/Model/ExternalAliases.pm:54
 msgid "Alias"
@@ -522,7 +525,7 @@ msgid "Subject"
 msgstr "Assumpte"
 
 #: src/EBox/Mail/Model/Dispatcher/Mail.pm:127
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "[Zentyal-event] An event has happened at {hostName}"
 msgstr "[Zentyal-event] Un esdeveniment ha succeït a {hostName}"
 
@@ -984,7 +987,7 @@ msgstr "IP amfitrió origen"
 
 #: src/EBox/Mail.pm:1643 src/templates/qmanager.mas:18
 msgid "Size (bytes)"
-msgstr "Tamany (bytes)"
+msgstr "Mida (bytes)"
 
 #: src/EBox/Mail.pm:1644
 msgid "Relay"
@@ -1008,7 +1011,7 @@ msgstr "Missatges exitosos"
 
 #: src/EBox/Mail.pm:1660
 msgid "Maximum message size exceeded"
-msgstr "Tamany màxim del missatge superat"
+msgstr "Mida màxima del missatge superat"
 
 #: src/EBox/Mail.pm:1661
 msgid "User quota exceeded"
@@ -1048,7 +1051,7 @@ msgstr "Servidor de correu SMTP"
 
 #: src/EBox/Mail.pm:1889
 msgid "Mail POP/IMAP server"
-msgstr "Servidor  de correu POP/IMAP"
+msgstr "Servidor de correu POP/IMAP"
 
 #: src/EBox/CGI/DelAlias.pm:42 src/EBox/CGI/CreateAccount.pm:42
 #: src/EBox/CGI/CreateAlias.pm:42 src/EBox/CGI/SetAccountMaildirQuota.pm:41

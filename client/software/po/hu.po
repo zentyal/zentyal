@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-software 1.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-08-28 23:41+0200\n"
-"PO-Revision-Date: 2010-08-28 09:22+0200\n"
+"PO-Revision-Date: 2010-08-29 11:07+0200\n"
 "Last-Translator: Nagy Ákos <nagy.akos@akos.ro>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
@@ -188,13 +188,15 @@ msgstr "Frissítés"
 
 #: src/templates/updates.mas:24 src/templates/ebox.mas:181
 msgid "Package list updated successfully"
-msgstr ""
+msgstr "A csomaglista sikeresen frissítve"
 
 #: src/templates/updates.mas:28 src/templates/ebox.mas:185
 msgid ""
 "Error updating package list. Please try to execute the following command in "
 "a console to see the problem: sudo apt-get update"
 msgstr ""
+"Hiba történt a csomaglista frissítésekor. A hiba megoldása érdekében, kérem "
+"próbálja meg futtatni a következő parancsot a konzolban: sudo apt-get update"
 
 #: src/templates/updates.mas:38
 msgid "Updates are available for the following system components"

@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: ebox-samba 0.12\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-08-28 23:41+0200\n"
-"PO-Revision-Date: 2010-08-22 16:16+0200\n"
+"PO-Revision-Date: 2010-08-29 18:09+0200\n"
 "Last-Translator: Cyril MARTY <cyril_marty@yahoo.fr>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
@@ -30,33 +30,29 @@ msgid "Create Samba home directory for shares and groups"
 msgstr "Crée un répertoire personnel Samba pour les partages et les groupes"
 
 #: src/EBox/Samba.pm:90
-#, fuzzy
 msgid ""
 "Zentyal will create the directories for Samba shares and groups under /home/"
 "samba."
 msgstr ""
-"eBox va créer des répertoires pour les partages et les groupes Samba sous /"
-"home/samba."
+"Zentyal va créer des répertoires pour les partages et les groupes Samba sous "
+"/home/samba."
 
 #: src/EBox/Samba.pm:95
 msgid "Add LDAP schemas"
 msgstr "Ajouter un schéma LDAP"
 
 #: src/EBox/Samba.pm:96
-#, fuzzy
 msgid ""
 "Zentyal will add two LDAP schemas to the LDAP directory: samba and ebox."
-msgstr "eBox va ajouter deux schémas LDAP au dossier LDAP: Samba et eBox"
+msgstr "Zentyal va ajouter deux schémas LDAP au dossier LDAP: Samba et eBox"
 
 #: src/EBox/Samba.pm:101
 msgid "Set Samba LDAP admin dn password"
 msgstr "Définir le mot de passe \"ldap admin dn\" de Samba"
 
 #: src/EBox/Samba.pm:102
-#, fuzzy
 msgid "Zentyal will configure Samba to use the LDAP admin dn password."
-msgstr ""
-"eBox va configurer Samba pour utiliser le mot de passe \"ldap admin dn\""
+msgstr "Zentyal va configurer Samba pour utiliser le mot de passe LDAP admin dn"
 
 #: src/EBox/Samba.pm:118
 msgid "To set up Samba according to your configuration."
@@ -310,9 +306,8 @@ msgid "Share path"
 msgstr "Chemin du partage"
 
 #: src/EBox/Samba/Model/SambaShares.pm:112
-#, fuzzy
 msgid "Directory under Zentyal"
-msgstr "Répertoire sous eBox"
+msgstr "Répertoire sous Zentyal"
 
 #: src/EBox/Samba/Model/SambaShares.pm:118
 msgid "File system path"
@@ -357,19 +352,18 @@ msgid "The directory is not empty. Are you sure you want to remove it?"
 msgstr "Le répertoire n'est pas vide. Êtes-vous sûr de vouloir l'effacer ?"
 
 #: src/EBox/Samba/Model/SambaShares.pm:318
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "{openit}Directory under Zentyal{closeit} will automatically create the share."
 "directory in /home/samba/shares {br}{openit}File system path{closeit} will "
 "allow you to share an existing directory within your file system"
 msgstr ""
-"{openit}Le répertoire sous eBox{closeit} créera automatiquement le "
+"{openit}Le répertoire sous Zentyal{closeit} créera automatiquement le "
 "répertoire de partage dans /home/samba/shares {br}.{openit}Le chemin du "
 "système de fichier{closeit} vous permettra de partager un répertoire "
 "existant à l'intérieur de votre système de fichier. "
 
 #: src/EBox/Samba/Model/SambaShares.pm:331
-#, fuzzy
 msgid ""
 "Here you can create shares with more fine-grained permission control. You "
 "can use an existing directory or pick a name and let Zentyal create it for "
@@ -377,7 +371,7 @@ msgid ""
 msgstr ""
 "Ici, vous pouvez créer des partages avec des contrôles de permissions plus  "
 "pointus. Vous pouvez utilisez un répertoire existant ou fournir un nom et "
-"laissé eBox le créer pour vous."
+"laissé Zentyal le créer pour vous."
 
 #: src/EBox/Samba/Model/AntivirusDefault.pm:50
 msgid "Scan"

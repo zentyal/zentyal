@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: ebox-asterisk 1.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-08-28 23:07+0200\n"
-"PO-Revision-Date: 2010-08-22 11:52+0200\n"
+"PO-Revision-Date: 2010-08-29 10:48+0200\n"
 "Last-Translator: Cyril MARTY <cyril_marty@yahoo.fr>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
@@ -19,9 +19,8 @@ msgstr ""
 "X-Generator: Pootle 1.1.0\n"
 
 #: migration/0001_add_firewall_services.pl:45
-#, fuzzy
 msgid "Zentyal VoIP system"
-msgstr "système VoIP ebox "
+msgstr "système VoIP Zentyal "
 
 #: src/EBox/Asterisk.pm:74 src/EBox/Asterisk.pm:715
 #: src/EBox/Composite/General.pm:67
@@ -249,9 +248,8 @@ msgid "General Asterisk server configuration updated."
 msgstr "Configuration générale du serveur Asterisk mise à jour."
 
 #: src/EBox/Model/NAT.pm:96
-#, fuzzy
 msgid "Zentyal is behind NAT"
-msgstr "eBox est derrière un NAT "
+msgstr "Zentyal est derrière un NAT (Translateur d'adresse)"
 
 #: src/EBox/Model/NAT.pm:101
 msgid "No"

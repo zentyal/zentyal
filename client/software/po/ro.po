@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-software 0.12.99\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-08-28 23:41+0200\n"
-"PO-Revision-Date: 2010-08-27 08:36+0200\n"
+"PO-Revision-Date: 2010-08-30 08:17+0200\n"
 "Last-Translator: Harald Ersch <harald.ersch@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
@@ -186,13 +186,15 @@ msgstr "In curs de actualizare"
 
 #: src/templates/updates.mas:24 src/templates/ebox.mas:181
 msgid "Package list updated successfully"
-msgstr ""
+msgstr "Lista pachetelor a fost actualizată cu succes"
 
 #: src/templates/updates.mas:28 src/templates/ebox.mas:185
 msgid ""
 "Error updating package list. Please try to execute the following command in "
 "a console to see the problem: sudo apt-get update"
 msgstr ""
+"Eroare la actualizarea listei pachetelor. Pentru a vedea detalii despre "
+"problemă executați într-o consolă comanda: sudo apt-get update"
 
 #: src/templates/updates.mas:38
 msgid "Updates are available for the following system components"

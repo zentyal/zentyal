@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-squid 1.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-08-28 23:41+0200\n"
-"PO-Revision-Date: 2010-08-28 09:22+0200\n"
+"PO-Revision-Date: 2010-08-29 11:10+0200\n"
 "Last-Translator: Nagy Ákos <nagy.akos@akos.ro>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
@@ -107,16 +107,16 @@ msgstr ""
 "személyreszabott sablonjával"
 
 #: src/EBox/Squid.pm:342
-#, fuzzy
 msgid "You must set the cache_mem variable in the Zentyal configuration file"
-msgstr "Itt kell megadni a cache_mem változó értékét az eBox beállító fájlhoz."
+msgstr ""
+"Itt kell megadni a cache_mem változó értékét a Zentyal beállító fájlhoz."
 
 #: src/EBox/Squid.pm:351
-#, fuzzy
 msgid ""
 "You must set the max_object_size variable in the Zentyal configuration file"
 msgstr ""
-"Be kell állítania a max_obiect_size változót az eBox konfigurációs fájljában"
+"Be kell állítania a max_obiect_size változót a Zentyal konfigurációs "
+"fájljában"
 
 #: src/EBox/Squid.pm:1080
 msgid "Enabled"
@@ -1237,9 +1237,9 @@ msgid "Bad minutes value: {mi}"
 msgstr "Rossz perc érték: {mi}"
 
 #: src/EBox/Squid/Types/TimePeriod.pm:526
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Bad minutes format: {mi}"
-msgstr "Rossz perc_ _formátum: {mi}"
+msgstr "Rossz perc formátum: {mi}"
 
 #: src/EBox/Squid/Types/TimePeriod.pm:539
 #: src/EBox/Squid/Types/TimePeriod.pm:545

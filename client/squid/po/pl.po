@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-squid 0.12\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-08-28 23:41+0200\n"
-"PO-Revision-Date: 2010-08-28 15:14+0200\n"
+"PO-Revision-Date: 2010-08-29 22:48+0200\n"
 "Last-Translator: Robert Brzozowski <gnutar1@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
@@ -106,12 +106,10 @@ msgid ""
 msgstr ""
 
 #: src/EBox/Squid.pm:342
-#, fuzzy
 msgid "You must set the cache_mem variable in the Zentyal configuration file"
 msgstr "Musisz ustawić zmienną cache_mem w pliku konfiguracyjnym Zentyala"
 
 #: src/EBox/Squid.pm:351
-#, fuzzy
 msgid ""
 "You must set the max_object_size variable in the Zentyal configuration file"
 msgstr ""
@@ -127,7 +125,7 @@ msgstr "Wyłączone"
 
 #: src/EBox/Squid.pm:1084
 msgid "Transparent proxy"
-msgstr "przezroczysty pośrednik"
+msgstr "Transparent proxy"
 
 #: src/EBox/Squid.pm:1087 src/EBox/Squid/Model/MIMEFilterBase.pm:59
 #: src/EBox/Squid/Model/GroupPolicyBase.pm:92
@@ -147,7 +145,7 @@ msgstr "Filtr"
 
 #: src/EBox/Squid.pm:1094
 msgid "Global policy"
-msgstr "Polityka globalna"
+msgstr "Globalne zasady"
 
 #: src/EBox/Squid.pm:1096
 msgid "Listening port"
@@ -163,21 +161,19 @@ msgstr ""
 
 #: src/EBox/Squid.pm:1134
 msgid "Objects' Policy"
-msgstr ""
+msgstr "Zasady dla obiektów"
 
 #: src/EBox/Squid.pm:1137
-#, fuzzy
 msgid "Groups' Policy"
-msgstr "Polityka"
+msgstr "Zasady dla grup"
 
 #: src/EBox/Squid.pm:1140
 #: src/EBox/Squid/Model/FilterGroupDomainFilterCategories.pm:96
 #: src/EBox/Squid/Model/DomainFilterCategories.pm:111
 #: src/EBox/Squid/Composite/FilterSettings.pm:93
 #: src/EBox/Squid/Composite/FilterGroupSettings.pm:95
-#, fuzzy
 msgid "Filter Profiles"
-msgstr "Odfiltrowano"
+msgstr "Profile filtrów"
 
 #: src/EBox/Squid.pm:1170 src/EBox/Squid/Model/Report/TrafficDetails.pm:95
 msgid "Date"
@@ -190,7 +186,7 @@ msgstr "Host"
 #: src/EBox/Squid.pm:1172 src/EBox/Squid/Model/Report/TrafficDetails.pm:51
 #: src/EBox/Squid/Model/Report/TrafficDetails.pm:99
 msgid "User"
-msgstr ""
+msgstr "Użytkownik"
 
 #: src/EBox/Squid.pm:1173
 msgid "URL"
@@ -223,9 +219,8 @@ msgid "Filtered"
 msgstr "Odfiltrowano"
 
 #: src/EBox/Squid.pm:1260
-#, fuzzy
 msgid "HTTP Proxy's cache files"
-msgstr "Status usługi pośrednika HTTP"
+msgstr "Pliki cache HTTP Proxy"
 
 #: src/EBox/Squid/Model/ApplyAllowToAllMIME.pm:41
 #: src/EBox/Squid/Model/FilterGroupApplyAllowToAllMIME.pm:41
@@ -234,21 +229,19 @@ msgstr "typy MIME"
 
 #: src/EBox/Squid/Model/ApplyAllowToAllMIME.pm:48
 #: src/EBox/Squid/Model/FilterGroupApplyAllowToAllMIME.pm:48
-#, fuzzy
 msgid "Set policy for all MIME types"
-msgstr "Konfiguruj dozwolone typy MIME"
+msgstr "Konfiguruj zasady dla typów MIME"
 
 #: src/EBox/Squid/Model/ObjectPolicy.pm:77
-#, fuzzy
 msgid "Object"
-msgstr "obiekt"
+msgstr "Obiekt"
 
 #: src/EBox/Squid/Model/ObjectPolicy.pm:84
 #: src/EBox/Squid/Model/DomainFilterCategoriesBase.pm:80
 #: src/EBox/Squid/Model/GroupPolicyBase.pm:87
 #: src/EBox/Squid/Model/DomainFilterBase.pm:42
 msgid "Policy"
-msgstr "Polityka"
+msgstr "Zasady"
 
 #: src/EBox/Squid/Model/ObjectPolicy.pm:88
 msgid "Allowed time period"
@@ -261,29 +254,25 @@ msgid ""
 msgstr ""
 
 #: src/EBox/Squid/Model/ObjectPolicy.pm:95
-#, fuzzy
 msgid "Group policy"
-msgstr "Polityka globalna"
+msgstr "Zasady dla grup"
 
 #: src/EBox/Squid/Model/ObjectPolicy.pm:103
 #: src/EBox/Squid/Model/GlobalGroupPolicy.pm:113
-#, fuzzy
 msgid "Filter profile"
-msgstr "Odfiltrowano"
+msgstr "Profil filtrów"
 
 #: src/EBox/Squid/Model/ObjectPolicy.pm:116
-#, fuzzy
 msgid "Object Policies"
-msgstr "polityka globalna"
+msgstr "Zasady dla obiektów"
 
 #: src/EBox/Squid/Model/ObjectPolicy.pm:117
 msgid "List of objects"
-msgstr ""
+msgstr "Lista obiektów"
 
 #: src/EBox/Squid/Model/ObjectPolicy.pm:132
-#, fuzzy
 msgid "object's policy"
-msgstr "polityka globalna"
+msgstr "zasady dla obiektów"
 
 #: src/EBox/Squid/Model/ObjectPolicy.pm:133
 msgid "Here you can establish a custom policy per network object"
@@ -291,15 +280,15 @@ msgstr ""
 
 #: src/EBox/Squid/Model/ObjectPolicy.pm:135
 msgid "Added object's policy"
-msgstr ""
+msgstr "Dodano zasadę dla obiektu"
 
 #: src/EBox/Squid/Model/ObjectPolicy.pm:136
 msgid "Removed object's policy"
-msgstr ""
+msgstr "Usunięto zasadę dla obiektu"
 
 #: src/EBox/Squid/Model/ObjectPolicy.pm:137
 msgid "Updated object's policy"
-msgstr ""
+msgstr "Zaktualizowano zasadę dla obiektu"
 
 #: src/EBox/Squid/Model/ObjectPolicy.pm:188
 msgid "Authorization policy is not compatible with transparent proxy mode"

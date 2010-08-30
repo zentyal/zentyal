@@ -6,8 +6,8 @@ msgstr ""
 "Project-Id-Version: ebox-network 0.12\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-08-29 01:25+0200\n"
-"PO-Revision-Date: 2010-08-16 11:48+0200\n"
-"Last-Translator: Olivier Marquis <olivier.marquis@eccm.ch>\n"
+"PO-Revision-Date: 2010-08-29 16:28+0200\n"
+"Last-Translator: Cyril MARTY <cyril_marty@yahoo.fr>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -109,7 +109,7 @@ msgstr "règle"
 
 #: src/EBox/Model/WANFailoverRules.pm:192
 msgid "WAN Failover is only available for static interfaces"
-msgstr ""
+msgstr "Le basculement WAN n'est disponible que pour des interfaces statiques"
 
 #: src/EBox/Model/WANFailoverRules.pm:198
 msgid "Invalid value for Host"
@@ -243,9 +243,8 @@ msgid "all"
 msgstr "tous"
 
 #: src/EBox/Model/GatewayTable.pm:184
-#, fuzzy
 msgid "Auto"
-msgstr "Action"
+msgstr "Auto"
 
 #: src/EBox/Model/GatewayTable.pm:190 src/templates/ifaces.mas:34
 #: src/templates/ifaces.mas:286
@@ -301,7 +300,6 @@ msgid "Gateways List"
 msgstr "Liste des passerelles"
 
 #: src/EBox/Model/GatewayTable.pm:248
-#, fuzzy
 msgid ""
 "You can add as many gateways as you want. This is very useful if you want to "
 "split your Internet traffic through several links. Note that if you "
@@ -309,18 +307,19 @@ msgid ""
 "automatically."
 msgstr ""
 "Vous pouvez ajouter autant de passerelles que vous désirez. C'est très utile "
-"si vous désirez partager votre trafic internet au travers de plusieurs "
-"branches."
+"si vous désirez partager votre trafic Internet sur plusieurs liens. Notez "
+"que si vous configurez les interfaces en DHCP ou PPPoE leurs passerelles "
+"reçues seront ajoutées ici en automatique."
 
 #: src/EBox/Model/GatewayTable.pm:250
 msgid "gateway"
 msgstr "passerelle"
 
 #: src/EBox/Model/GatewayTable.pm:283
-#, fuzzy
 msgid "You can not manually add a gateway for DHCP or PPPoE interfaces"
 msgstr ""
-"Vous ne pouvez pas ajouter de passerelle comme DHCP ou comme interfaces PPPoE"
+"Vous ne pouvez pas ajouter manuellement de passerelle pour les interfaces en "
+"DHCP ou en PPPoE"
 
 #: src/EBox/Model/GatewayTable.pm:342
 msgid "Automatically added gateways can not be manually deleted"
@@ -431,9 +430,9 @@ msgid "static route"
 msgstr "route statique"
 
 #: src/EBox/Model/DNSResolver.pm:77
-#, fuzzy
 msgid "IP address of the DNS server that Zentyal will use to resolve names."
-msgstr "Adresse IP du serveur DNS que eBox va utiliser pour résoudre les noms."
+msgstr ""
+"Adresse IP du serveur DNS que Zentyal va utiliser pour résoudre les noms."
 
 #: src/EBox/Model/DNSResolver.pm:83 src/templates/Wizard/network.mas:86
 #: src/templates/Wizard/network.mas:90
@@ -449,15 +448,14 @@ msgid "name server"
 msgstr "serveur de nom"
 
 #: src/EBox/Model/DNSResolver.pm:110
-#, fuzzy
 msgid ""
 "<p>Here you can add the name server resolvers that Zentyal will use.</"
 "p><p>Note that these settings may be overriden if you have any network "
 "interface configured via DHCP</p>"
 msgstr ""
-"<p>Ici, vous pouvez ajouter les serveurs de résolution de nom de domaine "
-"qu'eBox utilisera.</p><p>Notez que ces paramètres peuvent être écrasés si "
-"vous avez une interface réseau configurée via DHCP</p>"
+"<p>Ici vous pouvez ajouter les serveurs de résolution de nom de domaine que "
+"Zentyal utilisera.</p><p>Notez que ces paramètres peuvent être écrasés si "
+"vous avez une interface réseau configurée par DHCP</p>"
 
 #: src/EBox/Model/WANFailoverOptions.pm:71
 msgid "Time between checks"
@@ -476,23 +474,24 @@ msgid "These options affect to all the tests."
 msgstr "Ces options affectent tous les tests"
 
 #: src/EBox/Model/Proxy.pm:72
-#, fuzzy
 msgid "Proxy server"
-msgstr "serveur de nom"
+msgstr "Serveur Proxy"
 
 #: src/EBox/Model/Proxy.pm:78
 msgid "Proxy port"
-msgstr ""
+msgstr "Port du Proxy"
 
 #: src/EBox/Model/Proxy.pm:86
 msgid "Proxy"
-msgstr ""
+msgstr "Proxy"
 
 #: src/EBox/Model/Proxy.pm:90
 msgid ""
 "This settings will be used to allow Zentyal to access the Internet if an "
 "HTTP proxy is needed."
 msgstr ""
+"Ces paramètres vont être utilisés pour permettre à Zentyal d'accéder à "
+"Internet si un proxy HTTP existe."
 
 #: src/EBox/Model/MultiGwRulesOptions.pm:43
 msgid "Enable"
@@ -536,9 +535,8 @@ msgstr ""
 "vous devez exécuter:"
 
 #: src/EBox/Network.pm:106
-#, fuzzy
 msgid "Enable Zentyal DHCP hook"
-msgstr "Active la personnalisation DHCP (DHCP hook) d'eBox"
+msgstr "Active la récupération DHCP (DCHP hook) de Zentyal"
 
 #: src/EBox/Network.pm:107
 msgid ""
@@ -549,42 +547,36 @@ msgstr ""
 "la table de routage par défaut. "
 
 #: src/EBox/Network.pm:125
-#, fuzzy
 msgid "Zentyal will set your network configuration"
-msgstr "eBox configurera votre réseau"
+msgstr "Zentyal va appliquer votre configuration réseau"
 
 #: src/EBox/Network.pm:130
-#, fuzzy
 msgid "Zentyal will set your DNS configuration"
-msgstr "eBox configurera votre DNS"
+msgstr "Zentyal va appliquer votre configuration DNS"
 
 #: src/EBox/Network.pm:135
-#, fuzzy
 msgid "Zentyal will set your DHCP client configuration"
-msgstr "eBox configurera votre configuration DHCP client"
+msgstr "Zentyal va appliquer votre configuration client DHCP"
 
 #: src/EBox/Network.pm:140 src/EBox/Network.pm:145
-#, fuzzy
 msgid "Zentyal will set your ddclient configuration"
-msgstr "eBox configurera votre \"ddclient\""
+msgstr "Zentyal va appliquer votre configuration \"ddclient\""
 
 #: src/EBox/Network.pm:150 src/EBox/Network.pm:155
-#, fuzzy
 msgid "Zentyal will store your PPPoE passwords"
-msgstr "eBox stockera vos mots de passe PPPoE"
+msgstr "Zentyal va stocker votre mot de passe PPPoE"
 
 #: src/EBox/Network.pm:162
-#, fuzzy
 msgid "Zentyal will add a DSL provider configuration for PPPoE"
-msgstr "eBox ajoutera la configuration d'un fournisseur DSL pour PPPoE"
+msgstr "Zentyal va ajouter la configuration d'un fournisseur DSL pour PPPoE"
 
 #: src/EBox/Network.pm:169
 msgid "Zentyal will set HTTP proxy for all users"
-msgstr ""
+msgstr "Zentyal va appliquer le proxy HTTP pour tous les utilisateurs"
 
 #: src/EBox/Network.pm:172
 msgid "Zentyal will set HTTP proxy for APT"
-msgstr ""
+msgstr "Zentyal va appliquer le proxy HTTP pour APT"
 
 #: src/EBox/Network.pm:902 src/EBox/Network.pm:906
 msgid "Virtual interface name"
@@ -623,7 +615,6 @@ msgstr ""
 "vlans."
 
 #: src/EBox/Network.pm:3061
-#, fuzzy
 msgid ""
 "The requested operation will cause one of the configured gateways to become "
 "unreachable. Please remove it first if you really want to make this change."
@@ -724,9 +715,8 @@ msgid "Traffic rate monitoring"
 msgstr "Surveillance du taux de trafic"
 
 #: src/EBox/Network/Composite/Gateway.pm:56
-#, fuzzy
 msgid "Gateways and Proxy"
-msgstr "Passerelles"
+msgstr "Passerelles et Proxy"
 
 #: src/EBox/Network/Composite/WANFailover.pm:77
 msgid ""
@@ -887,33 +877,28 @@ msgid "virtual interface name"
 msgstr "nom d'interface virtuelle"
 
 #: src/templates/Wizard/interfaces.mas:7 src/templates/Wizard/network.mas:23
-#, fuzzy
 msgid "Network interfaces"
 msgstr "Interfaces réseaux"
 
 #: src/templates/Wizard/interfaces.mas:10
-#, fuzzy
 msgid "Select external network interfaces"
-msgstr "interface réseau"
+msgstr "Sélectionner les interfaces réseau externes"
 
 #: src/templates/Wizard/interfaces.mas:11
-#, fuzzy
 msgid ""
 "You will not be able to connect to Zentyal administration page through them"
 msgstr ""
-"Vous ne pourrez pas vous connecter à la page d'administration eBox à travers "
-"eux"
+"Vous ne pourrez pas vous connecter à la page d'administration de Zentyal à "
+"travers eux"
 
 #: src/templates/Wizard/network.mas:26
-#, fuzzy
 msgid "Configure network for external interfaces"
-msgstr "Configurer les cartes réseau"
+msgstr "Configurer le réseau pour les interfaces externes"
 
 #: src/templates/Wizard/network.mas:27
-#, fuzzy
 msgid "Now you can set IP addresses and networks for each interface"
 msgstr ""
-"Maintenant, vous pouvez définir des adresses IP et des réseaux pour chaque "
+"Maintenant vous pouvez définir des adresses IP et des réseaux pour chaque "
 "interface"
 
 #: src/templates/Wizard/network.mas:40 src/templates/ifaces.mas:45
@@ -921,9 +906,8 @@ msgid "Method"
 msgstr "Méthode"
 
 #: src/templates/Wizard/network.mas:43
-#, fuzzy
 msgid "Don't configure"
-msgstr "DNS configuré"
+msgstr "Ne pas configurer"
 
 #: src/templates/Wizard/network.mas:82
 msgid "Gateway"
@@ -1033,7 +1017,7 @@ msgstr "Tronquer (802.1q)"
 
 #: src/templates/ifaces.mas:80 src/templates/ifaces.mas:82
 msgid "Bridged"
-msgstr ""
+msgstr "Pontée (Bridged)"
 
 #: src/templates/ifaces.mas:87 src/templates/ifaces.mas:89
 msgid "Not set"
@@ -1044,18 +1028,16 @@ msgid "External (WAN)"
 msgstr "Externe (WAN)"
 
 #: src/templates/ifaces.mas:111
-#, fuzzy
 msgid ""
 "Check this if you are using Zentyal as a gateway and this interface is "
 "connected to your Internet router."
 msgstr ""
-"Vérifiez si vous utilisez eBox comme passerelle et si son interface réseau "
-"est connectée à votre routeur internet."
+"Vérifiez ceci si vous utilisez Zentyal comme passerelle et si cette "
+"interface est connectée à votre routeur Internet."
 
 #: src/templates/ifaces.mas:168
-#, fuzzy
 msgid "Bridge"
-msgstr "Passerelle"
+msgstr "Pont"
 
 #: src/templates/ifaces.mas:189
 msgid "User name"

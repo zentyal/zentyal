@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: ebox-zarafa 0.12.99\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-08-28 20:28+0200\n"
-"PO-Revision-Date: 2010-04-27 09:54+0200\n"
+"PO-Revision-Date: 2010-08-30 08:20+0200\n"
 "Last-Translator: Harald Ersch <harald.ersch@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
@@ -18,32 +18,28 @@ msgstr ""
 "X-Generator: Pootle 1.1.0\n"
 
 #: migration/0001_add_firewall_services.pl:30
-#, fuzzy
 msgid "Zarafa Server"
-msgstr "Server Jabber"
+msgstr "Server Zarafa"
 
 #: src/EBox/ZarafaLdapUser.pm:239
-#, fuzzy
 msgid ""
 "This user has a Zarafa account. If the user currently connected it will "
 "continue connected until Zarafa authorization is again required."
 msgstr ""
-"Acest utilizator are un cont JAbber. Dacă este conectat acum, va ră,âne "
+"Acest utilizator are un cont Zarafa. Dacă este conectat acum, va rămâne "
 "conectat până când i se va cere din nou autentificarea."
 
 #: src/EBox/Zarafa.pm:64
-#, fuzzy
 msgid "Add Zarafa LDAP schema"
-msgstr "Adaugă schemă LDAP-Jabber"
+msgstr "Adaugă schemă LDAP-Zarafa"
 
 #: src/EBox/Zarafa.pm:65
-#, fuzzy
 msgid "Zentyal will need this schema to store Zarafa users."
-msgstr "eBox are nevoie de această schemă pentru a stoca utilizatorii Jabber"
+msgstr "Zentyal are nevoie de această schemă pentru a stoca utilizatorii Zarafa"
 
 #: src/EBox/Zarafa.pm:69
 msgid "Add vmail system user"
-msgstr ""
+msgstr "Adaugă utilizator sistem vmail"
 
 #: src/EBox/Zarafa.pm:70
 msgid "Zentyal will need this to deliver mail to Zarafa."
@@ -76,9 +72,8 @@ msgid "Zarafa will be accesible at http://ip/webaccess/."
 msgstr ""
 
 #: src/EBox/Zarafa.pm:103
-#, fuzzy
 msgid "To properly configure Zarafa."
-msgstr "Pentru configurarea corectă a jabberd2"
+msgstr "Pentru configurarea corectă Zarafa"
 
 #: src/EBox/Zarafa.pm:108
 #, fuzzy

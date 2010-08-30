@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-usersandgroups 1.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-08-28 23:42+0200\n"
-"PO-Revision-Date: 2010-08-28 09:27+0200\n"
+"PO-Revision-Date: 2010-08-29 11:09+0200\n"
 "Last-Translator: Nagy Ákos <nagy.akos@akos.ro>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
@@ -70,11 +70,11 @@ msgstr "Az LDAP felhasználók rendszerfelhasználókénti engedélyezése."
 
 #: src/EBox/UsersAndGroups/Model/PAM.pm:94
 msgid "Default login shell"
-msgstr ""
+msgstr "Alapértelmezett login shell"
 
 #: src/EBox/UsersAndGroups/Model/PAM.pm:98
 msgid "This will apply only to new users from now on."
-msgstr ""
+msgstr "Ez a jövőben létrehozott felhasználókra lesz csak alkalmazva."
 
 #: src/EBox/UsersAndGroups/Model/PAM.pm:104
 msgid "PAM settings"
@@ -684,6 +684,8 @@ msgid ""
 "If you need the advanced features you have to configure them manually. You "
 "can find {open}all the information in our wiki{close}"
 msgstr ""
+"Ha haladó beállításokra van szüksége, kézzel kell őket beállítania. További "
+"információkat {open}a wiki oldalon talál{close}"
 
 #: src/templates/user.mas:21 src/templates/users.mas:25
 msgid "First name"

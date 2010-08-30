@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: ebox 0.12\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-08-29 01:24+0200\n"
-"PO-Revision-Date: 2010-08-28 23:07+0200\n"
+"PO-Revision-Date: 2010-08-29 23:26+0200\n"
 "Last-Translator: josefa <jgonza24@xtec.cat>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
@@ -60,15 +60,14 @@ msgid "RSS"
 msgstr "RSS"
 
 #: src/EBox/Event/Dispatcher/RSS.pm:289
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Zentyal alerts channel for {hostname}"
-msgstr "eBox canal d'alertes per {hostname}"
+msgstr "Zentyal canal d'alertes per {hostname}"
 
 #: src/EBox/Event/Dispatcher/RSS.pm:292
-#, fuzzy
 msgid "This channel tracks what happens on this Zentyal machine along the time"
 msgstr ""
-"Aquest canal condueix al que ha passat en aquesta màquina eBox durant el "
+"Aquest canal condueix al que ha passat en aquesta màquina Zentyal  durant el "
 "temps."
 
 #: src/EBox/Event/Dispatcher/RSS.pm:312
@@ -90,9 +89,9 @@ msgid "Log"
 msgstr "Registre"
 
 #: src/EBox/Event/Dispatcher/Abstract.pm:140
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Dispatcher {name} is not configured to be enabled"
-msgstr "Missatger {name} no ha estat habilitat"
+msgstr "L'emissor {name} no està configurat per ser habilitat"
 
 #: src/EBox/Event/Watcher/DiskFreeSpace.pm:133
 #, perl-brace-format
@@ -118,9 +117,10 @@ msgid "Service"
 msgstr "Servei"
 
 #: src/EBox/Event/Watcher/Runit.pm:158
-#, fuzzy
 msgid "Check if any Zentyal service is not running when it is enabled"
-msgstr "Comprova si hi ha cap servei de Zentyal aturat quan estigui habilitat"
+msgstr ""
+"Comprova si algun servei de Zentyal no està executant-se quan estigui "
+"habilitat"
 
 #: src/EBox/Event/Watcher/Runit.pm:228
 #, perl-brace-format
@@ -136,9 +136,9 @@ msgid "Log observer"
 msgstr "Observador de registres"
 
 #: src/EBox/Event/Watcher/Log.pm:240
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Notify when a logger ({loggers}) has logged something"
-msgstr "Reporta quan ({loggers}) ha reportat alguna cosa"
+msgstr "Reporta quan un registrador ({loggers}) ha registrat alguna cosa"
 
 #: src/EBox/Event/Watcher/RAID.pm:181 src/EBox/SysInfo.pm.in:273
 #: src/EBox/CGI/Report/RAID.pm:30
@@ -224,10 +224,11 @@ msgid "RAID device {name} has started operation {opName}."
 msgstr "El dispositiu RAID {name} ha començat la operació {opName}"
 
 #: src/EBox/Event/Watcher/RAID.pm:404
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "RAID device {name} has finished operation {opName} or it was aborted."
 msgstr ""
-"El dispositiu RAID {name} ha hacabat l'operació {opName} o ha estat abortada"
+"El dispositiu RAID {name} ha finalitzat l'operació {opName} o ha estat "
+"avortada"
 
 #: src/EBox/Event/Watcher/RAID.pm:410
 #, perl-brace-format
@@ -235,18 +236,18 @@ msgid ""
 "RAID device {name} has finished operation {oldOpName} and started "
 "{newOpName}."
 msgstr ""
-"El dispositiu RAID {name} ha hacabat l'operació {oldOpName} i ha començat "
-"{newOpName}"
+"El dispositiu RAID {name} ha finalitzat l'operació {oldOpName} i ha començat "
+"{newOpName}."
 
 #: src/EBox/Event/Watcher/RAID.pm:435
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Status: {percentage} completed."
-msgstr "Estat: {percentage} competat"
+msgstr "Estat: {percentage} completat"
 
 #: src/EBox/Event/Watcher/RAID.pm:438
 #, perl-brace-format
 msgid "Estimated finish time: {time}."
-msgstr "Temps estimat per acabar: {time}"
+msgstr "Temps estimat per acabar: {time}."
 
 #: src/EBox/Event/Watcher/RAID.pm:470
 #, perl-brace-format
@@ -352,23 +353,20 @@ msgid "spare"
 msgstr "lliure"
 
 #: src/EBox/Event/Watcher/State.pm:125
-#, fuzzy
 msgid "Zentyal is up and running"
-msgstr "eBox esta funcionant"
+msgstr "Zentyal és actiu i executant-se"
 
 #: src/EBox/Event/Watcher/State.pm:131
-#, fuzzy
 msgid "Zentyal is critically down"
-msgstr "eBox esta criticament apagat"
+msgstr "Zentyal està inoperable"
 
 #: src/EBox/Event/Watcher/State.pm:156 src/templates/report/raid.mas:226
 msgid "State"
 msgstr "Estat"
 
 #: src/EBox/Event/Watcher/State.pm:173
-#, fuzzy
 msgid "Check if Zentyal is currently up or down"
-msgstr "Comprova si l'eBox esta engegat o parat"
+msgstr "Comprova si Zentyal està actualment en actiu o inactiu"
 
 #: src/EBox/Model/DataTable.pm:327
 #, perl-brace-format
@@ -461,13 +459,12 @@ msgid "Choose one of the following:"
 msgstr "Escull una de les següents:"
 
 #: src/EBox/Model/ModelManager.pm:468
-#, fuzzy
 msgid ""
 "The data you are removing is being used by\n"
 "                    the following sections:"
 msgstr ""
-"Les dades que vols esborrar estan siguent utilitzades per\n"
-"\\n\n"
+"Les dades que estàs esborrant estan sent utilitzades per\n"
+"           les següents seccions:"
 
 #: src/EBox/Model/ModelManager.pm:515
 msgid ""
@@ -709,11 +706,10 @@ msgid "Subscribe"
 msgstr "Registra"
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:225
-#, fuzzy
 msgid ""
 "Tick this option if you want Zentyal to create an account for the above user"
 msgstr ""
-"Marca aquesta opció si vols que Zentyal crei el compte per l'usuari de sobre"
+"Marca aquesta opció si vols que Zentyal crei el compte per l'usuari de dalt"
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:232
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:299
@@ -721,15 +717,14 @@ msgid "Administrator Jabber Identifier"
 msgstr "Identificador de l'Administrador de Jabber"
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:235
-#, fuzzy
 msgid ""
 "Destination Jabber ID of the messages generated by Zentyal,  i.e: you, the "
 "Zentyal admin. Note that you need to register this  account manually in any "
 "jabber server"
 msgstr ""
-"ID del Jabber de destinació per als missatges generats per l'eBox. p.ex: tu "
-"el administrador de eBox, observa que es necessita registrar aquest compte "
-"manualment en qualsevol servidor de jabber"
+"ID del Jabber de destinació per als missatges generats per Zentyal. p.ex: "
+"tu, l'administrador de Zentyal, observa que es necessita registrar aquest "
+"compte manualment en qualsevol servidor de jabber"
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:244
 msgid "Configure Jabber dispatcher"
@@ -815,13 +810,12 @@ msgid "RSS Dispatcher"
 msgstr "Missatger de RSS"
 
 #: src/EBox/Events/Model/GeneralComposite.pm:79
-#, fuzzy
 msgid ""
 "Events module configures Zentyal to help informing you about events that "
 "happen"
 msgstr ""
-"El mòdul de esdeveniments configura Zentyal per tal d'ajudar-te amb els "
-"esdeveniments que hi han"
+"El mòdul d'esdeveniments configura Zentyal per tal d'ajudar-te a informar-te "
+"sobre els esdeveniments que succeeixen"
 
 #: src/EBox/Events/Model/ConfigureEventDataTable.pm:274
 #: src/templates/backup.mas:42 src/templates/backup.mas:124
@@ -1429,9 +1423,8 @@ msgid "Bug-report configuration dump"
 msgstr "Restaura la configuració"
 
 #: src/EBox/CGI/EBox/Hostname.pm:44
-#, fuzzy
 msgid "hostname"
-msgstr "Nom del host"
+msgstr "Nom de l'amfitrió"
 
 #: src/EBox/CGI/EBox/CurrentProgress.pm:36
 msgid "Upgrading"
@@ -1446,14 +1439,12 @@ msgid "Halt or Reboot"
 msgstr "Apaga o reinicia"
 
 #: src/EBox/CGI/EBox/Halt.pm:43
-#, fuzzy
 msgid "Zentyal is going down for halt"
-msgstr "l'eBox s'està aturant"
+msgstr "Zentyal s'està aturant"
 
 #: src/EBox/CGI/EBox/Halt.pm:46
-#, fuzzy
 msgid "Zentyal is going down for reboot"
-msgstr "l'eBox s'està reiniciant"
+msgstr "Zentyal s'està reiniciant"
 
 #: src/EBox/CGI/EBox/RestartService.pm:48
 msgid "module name"
@@ -1465,9 +1456,8 @@ msgstr "El mòdul s'ha reiniciat correctament."
 
 #: src/EBox/CGI/EBox/Password.pm:43 src/templates/password.mas:11
 #: src/templates/login/index.mas:49
-#, fuzzy
 msgid "Username"
-msgstr "Nom del servidor"
+msgstr "Nom d'usuari"
 
 #: src/EBox/CGI/EBox/Password.pm:48 src/templates/login/index.mas:54
 msgid "Password"
@@ -1540,13 +1530,12 @@ msgid "Restore successful"
 msgstr "Restauració satisfactòria"
 
 #: src/EBox/CGI/Login/Index.pm:63
-#, fuzzy
 msgid ""
 "There is a script which has asked to run in Zentyal exclusively. Please, "
 "wait patiently until it is done"
 msgstr ""
-"Hi ha un script que ha demanat exclusivament corre en Zentyal. Si us plau, "
-"espera fins que s'acabi."
+"Hi ha un script que ha demanat executar-se exclusivament en Zentyal. Si us "
+"plau, espera pacientment fins que s'acabi."
 
 #: src/EBox/CGI/Login/Index.pm:67
 msgid "Incorrect password"
@@ -1626,13 +1615,12 @@ msgid "The backup file is corrupt."
 msgstr "El fitxer de còpia de seguretat és corrupte."
 
 #: src/EBox/Backup.pm:913
-#, fuzzy
 msgid ""
 "The backup archive has a invalid type. Maybe the file is corrupt or you are "
 "using a incompatible Zentyal version"
 msgstr ""
-"L'arxiu de backup es d'un tipus invalid. Potser l'arxiu està corromput o bé "
-"estàs fent servir una versió de Zentyal incompatible"
+"L'arxiu de backup és d'un tipus incorrecte. Potser l'arxiu està corromput o "
+"bé estàs fent servir una versió de Zentyal incompatible"
 
 #: src/EBox/Backup.pm:919
 msgid ""
@@ -1680,9 +1668,8 @@ msgid "Cancel"
 msgstr "Cancel·la"
 
 #: src/templates/links-widget.mas:5
-#, fuzzy
 msgid "Community Resources"
-msgstr "Configuració de la restauració"
+msgstr "Recursos de la Comunitat"
 
 #: src/templates/links-widget.mas:10
 msgid "Documentation"
@@ -1694,14 +1681,13 @@ msgstr "Fòrum"
 
 #: src/templates/links-widget.mas:14
 msgid "Report a bug"
-msgstr ""
+msgstr "Notifica un error"
 
 #: src/templates/links-widget.mas:16
 msgid "How to Contribute"
-msgstr ""
+msgstr "Com contribuir"
 
 #: src/templates/moduleStatusTable.mas:59
-#, fuzzy
 msgid "Depends"
 msgstr "Depèn"
 
@@ -1723,10 +1709,10 @@ msgid "Congratulations!"
 msgstr "Felicitats!"
 
 #: src/templates/wizard.mas:122
-#, fuzzy
 msgid "Now you are ready to save changes and start using your Zentyal server"
 msgstr ""
-"Ara estàs preparat per guardar els canvis i començar a fer servir el teu eBox"
+"Ara estàs preparat per desar els canvis i començar a fer servir el teu "
+"Zentyal"
 
 #: src/templates/wizard.mas:144 src/templates/wizard.mas:154
 msgid "Skip"
@@ -1753,9 +1739,8 @@ msgid "last"
 msgstr "últim"
 
 #: src/templates/logs/index.mas:20
-#, fuzzy
 msgid "Log Domain"
-msgstr "Domini de logs"
+msgstr "Domini de registre"
 
 #: src/templates/logs/index.mas:22
 msgid "Last hour logs will be showed when selecting a component"
@@ -1784,7 +1769,6 @@ msgid "January"
 msgstr "Gener"
 
 #: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
-#, fuzzy
 msgid "February"
 msgstr "Febrer"
 
@@ -1837,7 +1821,6 @@ msgid "To date:"
 msgstr "a la Data:"
 
 #: src/templates/logs/index.mas:203 src/templates/logs/index.mas:204
-#, fuzzy
 msgid "Search"
 msgstr "Cerca"
 
@@ -1882,12 +1865,10 @@ msgid "items left"
 msgstr "Unitats que queden"
 
 #: src/templates/progress.mas:27
-#, fuzzy
 msgid "Some error has happened in Zentyal: "
-msgstr "Hi ha hagut alguns errors a l'eBox"
+msgstr "Hi ha hagut alguns errors a Zentyal"
 
 #: src/templates/progress.mas:152
-#, fuzzy
 msgid "Starting..."
 msgstr "Iniciant.."
 
@@ -1978,7 +1959,6 @@ msgid "RAID device number"
 msgstr "Número de dispositiu RAID"
 
 #: src/templates/report/raid.mas:225
-#, fuzzy
 msgid "Device"
 msgstr "Dispositiu"
 
@@ -2003,12 +1983,10 @@ msgid "Mounted on"
 msgstr "Muntat a"
 
 #: src/templates/report/diskUsage.mas:31
-#, fuzzy
 msgid "Options"
 msgstr "Opcions"
 
 #: src/templates/report/diskUsage.mas:34
-#, fuzzy
 msgid "Partition Properties"
 msgstr "Propietats de la partició"
 
@@ -2031,12 +2009,11 @@ msgid "Backup the Current State"
 msgstr "Fes una còpia de seguretat de la estat actual"
 
 #: src/templates/backup.mas:28
-#, fuzzy
 msgid ""
 "Backups will be stored in Zentyal and then you will be able to download them "
 "to your hard disk."
 msgstr ""
-"Els Backups seran guardats a l'eBox i aleshores podràs descarregar-los al "
+"Els Backups seran guardats a Zentyal i aleshores podràs descarregar-los al "
 "teu disc dur"
 
 #: src/templates/backup.mas:29
@@ -2162,18 +2139,16 @@ msgid "Running unmanaged"
 msgstr "Corrent sense supervisió"
 
 #: src/templates/dashboard/index.mas:32 src/templates/dashboard/status.mas:28
-#, fuzzy
 msgid "The service is running, but not enabled in Zentyal"
-msgstr "El servei està corren tperò no habilitat al eBox"
+msgstr "El servei està executant-se però no habilitat a Zentyal"
 
 #: src/templates/dashboard/index.mas:36 src/templates/dashboard/status.mas:31
 msgid "Disabled"
 msgstr "Deshabilitat"
 
 #: src/templates/dashboard/index.mas:37 src/templates/dashboard/status.mas:32
-#, fuzzy
 msgid "The service is not enabled in Zentyal"
-msgstr "El servei no està habilitat a l'eBox"
+msgstr "El servei no està habilitat a Zentyal"
 
 #: src/templates/dashboard/index.mas:42 src/templates/dashboard/status.mas:25
 msgid "Start"
@@ -2228,15 +2203,16 @@ msgid "There are no unsaved changes."
 msgstr "No hi ha canvis sense desar."
 
 #: src/templates/hostname.mas:9
-#, fuzzy
 msgid "Change Hostname"
-msgstr "Cambis guardats"
+msgstr "Canviar nom de la màquina"
 
 #: src/templates/hostname.mas:10
 msgid ""
 "You will need to restart all the services or reboot the system to apply the "
 "hostname change."
 msgstr ""
+"Necessitaràs reiniciar tots els serveis o reiniciar el sistema per aplicar "
+"el canvi de nom de la màquina."
 
 #: src/templates/confirm-backup.mas:110
 msgid "Full Restore"
@@ -2276,27 +2252,27 @@ msgstr "Còpies de seguretat remotes d'altres hosts subscrits."
 
 #: src/templates/login/index.mas:40
 msgid "Warning: Caps Lock is enabled"
-msgstr "Atenció: Majúscules haibilitades"
+msgstr "Atenció: Majúscules habilitades"
 
 #: src/templates/login/index.mas:43
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Warning: Unfortunately Internet Explorer is not yet supported on Zentyal. "
 "Please use {url} instead."
 msgstr ""
-"Atenció: Desafortunadament el Microsoft Internet Explorer no esta suportat "
-"per eBox. Siusplau utilitza {url}"
+"Atenció: Infortunadament Internet Explorer no està suportat per Zentyal. Si "
+"us plau utilitzi {url}"
 
 #: src/templates/login/index.mas:46
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Warning: You are using a browser which is not {url}, the only one officially "
 "supported. Please, take into consideration that you might face some issues "
 "while navigating on Zentyal UI."
 msgstr ""
-"Atenció: Estàs fent servir un Navegador que no es {url}, lúnic oficialment "
-"suportat. Tingues en compte que pots trobar alguns errors navegant a l'eBox "
-"UI."
+"Atenció: Estàs fent servir un Navegador que no és {url}, l'únic oficialment "
+"suportat. Si us plau, tingues en compte que pots trobar-te algun problema "
+"navegant en la interfície de Zentyal."
 
 #: src/templates/login/index.mas:63
 msgid "Enter"
@@ -2307,25 +2283,22 @@ msgid "Remote services control panel"
 msgstr "Panell de control de serveis remots"
 
 #: src/templates/configureView.mas:12
-#, fuzzy
 msgid ""
 "Enabling this module will cause Zentyal to perform the actions and file "
 "modifications listed below. You must explicitly accept these changes to "
 "enable the module."
 msgstr ""
-"Habilitant aquest módul farà que l'eBox realitzi les accions i modificacions "
-"llistades més avall. Hauria de acceptar explicitament auqests canvis per "
-"habilitar el módul"
+"Habilitant aquest mòdul farà que Zentyal realitzi les accions i les "
+"modificacions en els fitxers llistats més avall. Has d'acceptar "
+"explícitament aquests canvis per habilitar el mòdul."
 
 #: src/templates/configureView.mas:16
-#, fuzzy
 msgid "Actions to perform by Zentyal"
-msgstr "Accions a realitzar per l'eBox"
+msgstr "Accions a realitzar per Zentyal"
 
 #: src/templates/configureView.mas:31
-#, fuzzy
 msgid "Files to modify by Zentyal"
-msgstr "Arxius a modificar per l'eBox"
+msgstr "Arxius a modificar per Zentyal"
 
 #: src/templates/configureView.mas:50
 msgid "Accept"
@@ -2353,13 +2326,13 @@ msgid ""
 "system. The file will be useful if you want to report a problem or seek "
 "support."
 msgstr ""
-"Aquesta pàgina vos permet generar un fitxer amb la informació sobre l'estat "
-"del vostre sistema. El fitxer serà útil si voleu informar d'una errada en "
-"EBox."
+"Aquesta pàgina permet generar un fitxer amb la informació sobre l'estat del "
+"vostre sistema. El fitxer serà útil si voleu informar d'una errada o cerques "
+"suport."
 
 #: src/templates/bug.mas:13
 msgid "It may take several minutes to generate the report. Please be patient."
-msgstr "Pot trigar varis minuts generar l'informe, siusplau sigueu pacients"
+msgstr "Pot trigar varis minuts generar l'informe, si us plau sigueu pacients."
 
 #: src/templates/bug.mas:19
 msgid "Download configuration report file"

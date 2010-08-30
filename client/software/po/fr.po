@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: ebox-software 0.12.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-08-28 23:41+0200\n"
-"PO-Revision-Date: 2010-08-22 14:29+0200\n"
+"PO-Revision-Date: 2010-08-29 11:36+0200\n"
 "Last-Translator: Cyril MARTY <cyril_marty@yahoo.fr>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
@@ -43,9 +43,8 @@ msgstr ""
 "automatiques, éditez {conf} et désactivez la clé {key}."
 
 #: src/EBox/Software.pm:597
-#, fuzzy
 msgid "Zentyal Components"
-msgstr "Composants d'eBox"
+msgstr "Composants de Zentyal"
 
 #: src/EBox/Software.pm:599
 msgid "System Updates"
@@ -92,14 +91,12 @@ msgid "automatic updates configuration"
 msgstr "configuration des mises-à-jour automatiques"
 
 #: src/EBox/CGI/EBox.pm:34
-#, fuzzy
 msgid "Choose Zentyal packages to install"
-msgstr "Choisissez les paquets eBox à installer"
+msgstr "Choisissez les paquets Zentyal à installer"
 
 #: src/EBox/CGI/EBox.pm:38
-#, fuzzy
 msgid "Zentyal components"
-msgstr "Composantes d'eBox"
+msgstr "composants de Zentyal"
 
 #: src/EBox/CGI/Config.pm:31
 msgid "Software management settings"
@@ -193,13 +190,16 @@ msgstr "Mise-à-jour en cours"
 
 #: src/templates/updates.mas:24 src/templates/ebox.mas:181
 msgid "Package list updated successfully"
-msgstr ""
+msgstr "Liste des paquets mise à jour avec succès"
 
 #: src/templates/updates.mas:28 src/templates/ebox.mas:185
 msgid ""
 "Error updating package list. Please try to execute the following command in "
 "a console to see the problem: sudo apt-get update"
 msgstr ""
+"Erreur pendant la mise à jour de la liste des paquets. Essayez d'exécuter la "
+"commande suivante dans la console pour voir le problème: sudo apt-get "
+"update"
 
 #: src/templates/updates.mas:38
 msgid "Updates are available for the following system components"
@@ -231,25 +231,24 @@ msgstr "Actualiser"
 
 #: src/templates/updates.mas:66
 msgid "Security update"
-msgstr "Mise-à-jour de sécurité"
+msgstr "Mise à jour de sécurité"
 
 #: src/templates/updates.mas:69
-#, fuzzy
 msgid "Zentyal QA update"
-msgstr "Mise-à-jour d'Assurance Qualité (QA)"
+msgstr "Mise à jour certifiée de Zentyal (Quality Assurance)"
 
 #: src/templates/updates.mas:91
 msgid "Update all packages"
 msgstr "Actualiser tous les paquets"
 
 #: src/templates/updates.mas:102
-#, fuzzy
 msgid ""
 "This operation can take some time, don't worry if Zentyal looks unresponsive "
 "after pressing the Upgrade button."
 msgstr ""
-"Cette opération peut prendre un certain temps, ne vous inquiétez pas si eBox "
-"semble ne plus répondre après avoir appuyé sur le bouton de mise-à-jour."
+"Cette opération peut prendre un certain temps, ne vous inquiétez pas si "
+"Zentyal semble ne plus répondre après avoir appuyé sur le bouton \"Mise à "
+"jour\"."
 
 #: src/templates/updates.mas:106
 msgid "Upgrade"
@@ -270,9 +269,8 @@ msgid "View advanced mode"
 msgstr "Vue mode avancé"
 
 #: src/templates/ebox.mas:526
-#, fuzzy
 msgid "Skip install"
-msgstr "Installer"
+msgstr "Ignorer l'installation"
 
 #: src/templates/ebox.mas:539
 msgid "View basic mode"
@@ -280,17 +278,17 @@ msgstr "Vue mode basique"
 
 #: src/templates/ebox.mas:557 src/templates/ebox.mas:586
 msgid "Delete"
-msgstr ""
+msgstr "Effacer"
 
 #: src/templates/ebox.mas:567 src/templates/ebox.mas:576
 #: src/templates/ebox.mas:587
 msgid "Deselect All"
-msgstr ""
+msgstr "Désélectionner tout"
 
 #: src/templates/ebox.mas:568 src/templates/ebox.mas:577
 #: src/templates/ebox.mas:588
 msgid "Select All"
-msgstr ""
+msgstr "Sélectionner tout"
 
 #: src/templates/del.mas:97
 msgid "The following packages will be installed"
@@ -333,9 +331,10 @@ msgid "Perform automatic security updates"
 msgstr "Exécutez les mises-à-jour de sécurité automatiques"
 
 #: src/templates/config.mas:14
-#, fuzzy
 msgid "Zentyal is configured to use automatic QA updates"
-msgstr "Cet eBox est configuré pour appliquer les mises à jour QA automatiques"
+msgstr ""
+"Zentyal est configuré pour appliquer les mises à jour certifiées QA en "
+"automatique"
 
 #: src/templates/config.mas:26
 msgid "Automatic operations start time"

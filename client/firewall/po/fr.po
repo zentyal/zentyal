@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: ebox-firewall 0.12\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-08-28 23:35+0200\n"
-"PO-Revision-Date: 2010-08-22 12:36+0200\n"
+"PO-Revision-Date: 2010-08-29 17:58+0200\n"
 "Last-Translator: Cyril MARTY <cyril_marty@yahoo.fr>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
@@ -28,9 +28,8 @@ msgid "rule"
 msgstr "règle"
 
 #: src/EBox/Firewall/Model/EBoxOutputRuleTable.pm:68
-#, fuzzy
 msgid "Traffic coming out from Zentyal"
-msgstr "Trafic sortant d'eBox"
+msgstr "Trafic sortant de Zentyal"
 
 #: src/EBox/Firewall/Model/ExternalToInternalRuleTable.pm:68
 msgid "External networks to internal networks"
@@ -128,14 +127,12 @@ msgid "forwarding"
 msgstr "en cours de transfert"
 
 #: src/EBox/Firewall/Model/InternalToEBoxRuleTable.pm:68
-#, fuzzy
 msgid "Internal networks to Zentyal"
-msgstr "Réseaux internes à eBox"
+msgstr "Réseaux internes à Zentyal"
 
 #: src/EBox/Firewall/Model/ExternalToEBoxRuleTable.pm:68
-#, fuzzy
 msgid "External networks to Zentyal"
-msgstr "Réseaux externes à eBox"
+msgstr "Réseaux externes à Zentyal"
 
 #: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:37
 msgid "Input"
@@ -188,9 +185,8 @@ msgstr "Décision"
 
 #: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:153
 #: src/templates/filter.mas:51
-#, fuzzy
 msgid "Rules added by Zentyal services (Advanced)"
-msgstr "Règles ajoutées par les services eBox (mode avancé)"
+msgstr "Règles ajoutées par les services de Zentyal (mode avancé)"
 
 #: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:180
 #: src/EBox/Firewall/Model/BaseRuleTable.pm:213 src/EBox/Firewall.pm:782
@@ -302,12 +298,11 @@ msgid "Flush previous firewall rules"
 msgstr "Vider les anciennes règles du pare-feu"
 
 #: src/EBox/Firewall.pm:85
-#, fuzzy
 msgid ""
 "The Zentyal firewall will flush any previous firewall rules which have been "
 "added manually or by another tool"
 msgstr ""
-"Le pare-feu d'eBox va écraser toutes les anciennes règles, ajoutées "
+"Le pare-feu de Zentyal va vider toutes les précédentes règles ajoutées "
 "manuellement ou par une utilitaire tiers"
 
 #: src/EBox/Firewall.pm:90
@@ -361,25 +356,23 @@ msgstr "Port de destination"
 
 #: src/EBox/Firewall.pm:809
 msgid "DROP"
-msgstr "Supprimer"
+msgstr "ABANDONNER"
 
 #: src/EBox/Firewall.pm:809
 msgid "REDIRECT"
 msgstr "REDIRIGER"
 
 #: src/templates/filter.mas:6
-#, fuzzy
 msgid "Filtering rules from internal networks to Zentyal"
-msgstr "Règles de filtrages depuis les réseaux internes vers eBox"
+msgstr "Règles de filtrages depuis les réseaux internes vers Zentyal"
 
 #: src/templates/filter.mas:8
-#, fuzzy
 msgid ""
 "These rules allow you to control access from internal networks to services "
 "running on your Zentyal machine."
 msgstr ""
 "Ces règles vous permettent de contrôler les accès des réseaux internes vers "
-"les services de votre machine eBox."
+"les services fonctionnant sur votre machine Zentyal."
 
 #: src/templates/filter.mas:10 src/templates/filter.mas:18
 #: src/templates/filter.mas:26 src/templates/filter.mas:37
@@ -392,7 +385,6 @@ msgid "Filtering rules for internal networks"
 msgstr "Règles de filtrages pour les réseaux internes"
 
 #: src/templates/filter.mas:15
-#, fuzzy
 msgid ""
 "These rules allow you to control access from internal networks to the "
 "Internet and traffic between internal networks. If you wish to provide "
@@ -400,36 +392,32 @@ msgid ""
 msgstr ""
 "Ces règles vous permettent de contrôler l'accès depuis les réseaux internes "
 "vers Internet et le trafic entre les réseaux internes. Si vous désirez "
-"autoriser l'accès aux services eBox, vous devez utiliser la section au "
+"autoriser l'accès aux services de Zentyal, vous devez utiliser la section au "
 "dessus."
 
 #: src/templates/filter.mas:21
-#, fuzzy
 msgid "Filtering rules for traffic coming out from Zentyal"
-msgstr "Règles de filtrage pour le trafic sortant d'eBox"
+msgstr "Règles de filtrage pour le trafic sortant de Zentyal"
 
 #: src/templates/filter.mas:23
-#, fuzzy
 msgid ""
 "These rules allow you to control access from your Zentyal to external "
 "services."
 msgstr ""
-"Ces règles permettent de contrôler l'accès depuis eBox vers les  services "
+"Ces règles permettent de contrôler l'accès depuis Zentyal vers les services "
 "externes."
 
 #: src/templates/filter.mas:29
-#, fuzzy
 msgid "Filtering rules from external networks to Zentyal"
-msgstr "Règles de filtrages entre les réseaux externes et eBox"
+msgstr "Règles de filtrage depuis les réseaux externes vers Zentyal"
 
 #: src/templates/filter.mas:31
-#, fuzzy
 msgid ""
 "These rules allow you to control access from external networks to sevices "
 "running on your Zentyal machine."
 msgstr ""
-"Ces règles vous permettent le contrôle d'accès des réseaux externes sur les "
-"services de votre eBox"
+"Ces règles vous permettent de contrôler l'accès depuis des réseaux externes "
+"vers les services fonctionnant sur votre machine Zentyal."
 
 #: src/templates/filter.mas:34 src/templates/filter.mas:45
 msgid ""
@@ -455,9 +443,8 @@ msgstr ""
 "réseaux internes"
 
 #: src/templates/filter.mas:53
-#, fuzzy
 msgid "These rules are automatically added by the Zentyal services."
-msgstr "Ces règles sont automatiquement ajoutées par les services eBox."
+msgstr "Ces règles sont automatiquement ajoutées par les services de Zentyal."
 
 #: src/templates/filter.mas:56
 msgid ""

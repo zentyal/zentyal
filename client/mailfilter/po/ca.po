@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: ebox-mailfilter 0.12\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-08-29 01:25+0200\n"
-"PO-Revision-Date: 2010-08-28 22:37+0200\n"
+"PO-Revision-Date: 2010-08-29 20:44+0200\n"
 "Last-Translator: josefa <jgonza24@xtec.cat>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
@@ -203,141 +203,145 @@ msgstr "Estat"
 #: src/EBox/MailFilter/VDomainsLdap.pm:604
 #, perl-brace-format
 msgid "Virtual mail domain {vd} does not exist"
-msgstr ""
+msgstr "El domini virtual de correu {vd} no existeix"
 
 #: src/EBox/MailFilter/Model/ExternalMTA.pm:67
 msgid "External mail server"
-msgstr ""
+msgstr "Servidor de correu extern"
 
 #: src/EBox/MailFilter/Model/ExternalMTA.pm:70
 msgid "IP address of the server"
-msgstr ""
+msgstr "Adreça IP del servidor"
 
 #: src/EBox/MailFilter/Model/ExternalMTA.pm:74
 #: src/EBox/MailFilter/Model/ExternalDomain.pm:74
 msgid "Allow connection"
-msgstr ""
+msgstr "Connexió permesa"
 
 #: src/EBox/MailFilter/Model/ExternalMTA.pm:82
 msgid "External mail servers"
-msgstr ""
+msgstr "Servidors de correu externs"
 
 #: src/EBox/MailFilter/Model/ExternalMTA.pm:94
 msgid "external mail server"
-msgstr ""
+msgstr "servidor de correu extern"
 
 #: src/EBox/MailFilter/Model/ExternalMTA.pm:95
 msgid ""
 "Here you can specify which external mail servers can connect to the mail "
 "filter"
 msgstr ""
+"Aquí pots especificar quins servidors de correu externs poden connectar-se "
+"al filtre de correu"
 
 #: src/EBox/MailFilter/Model/ExternalMTA.pm:142
 #, perl-brace-format
 msgid "Invalid external MTA {mta}. Local network addresses are not allowed"
 msgstr ""
+"MTA extern {mta} no vàlid. Les adreces de xarxa locals no estan permeses"
 
 #: src/EBox/MailFilter/Model/ExternalDomain.pm:68
 msgid "External mail domain"
-msgstr ""
+msgstr "Domini de correu extern"
 
 #: src/EBox/MailFilter/Model/ExternalDomain.pm:82
 msgid "External mail domains"
-msgstr ""
+msgstr "Dominis de correu externs"
 
 #: src/EBox/MailFilter/Model/ExternalDomain.pm:94
 msgid "external mail domain"
-msgstr ""
+msgstr "domini de correu extern"
 
 #: src/EBox/MailFilter/Model/ExternalDomain.pm:95
 msgid ""
 "Here you can specify which external mail domains can connect to the mail "
 "filter"
 msgstr ""
+"Aquí pots especificar quins dominis de correu externs poden connectar-se al "
+"filtre de correu"
 
 #: src/EBox/MailFilter/Model/ExternalDomain.pm:113
 #, perl-brace-format
 msgid "{d} is a internal Zentyal virtual main domain"
-msgstr ""
+msgstr "{d} és un domini virtual principal intern de Zentyal"
 
 #: src/EBox/MailFilter/Model/AntispamTraining.pm:58
 msgid "Mailbox"
-msgstr ""
+msgstr "Bústia"
 
 #: src/EBox/MailFilter/Model/AntispamTraining.pm:64
 msgid "Mailbox contains"
-msgstr ""
+msgstr "La bústia conté"
 
 #: src/EBox/MailFilter/Model/AntispamTraining.pm:74
 msgid "Train bayesian spam filter"
-msgstr ""
+msgstr "Entrenar filtre bayesian de spam"
 
 #: src/EBox/MailFilter/Model/AntispamTraining.pm:79
-#, fuzzy
 msgid "Learned from messages"
-msgstr "Missatges nets"
+msgstr "Aprenent de missatges"
 
 #: src/EBox/MailFilter/Model/AntispamTraining.pm:81
 msgid "Train"
-msgstr ""
+msgstr "Entrenar"
 
 #: src/EBox/MailFilter/Model/AntispamTraining.pm:96
 #: src/EBox/MailFilter/Model/Report/FilterGraph.pm:64
 #: src/EBox/MailFilter/Model/Report/FilterDetails.pm:49
 #: src/EBox/MailFilter/Model/Report/FilterDetails.pm:90
-#, fuzzy
 msgid "spam"
-msgstr "Antispam"
+msgstr "spam"
 
 #: src/EBox/MailFilter/Model/AntispamTraining.pm:97
 msgid "ham"
-msgstr ""
+msgstr "ham"
 
 #: src/EBox/MailFilter/Model/AntispamTraining.pm:129
 #, perl-brace-format
 msgid "Invalid mailbox type: {type}"
-msgstr ""
+msgstr "Tipus de bústia no vàlid: {type}"
 
 #: src/EBox/MailFilter/Model/VDomains.pm:68
 msgid "Domain"
-msgstr ""
+msgstr "Domini"
 
 #: src/EBox/MailFilter/Model/VDomains.pm:78
 msgid "Use virus filtering"
-msgstr ""
+msgstr "Utilitzar filtrat de virus"
 
 #: src/EBox/MailFilter/Model/VDomains.pm:84
 msgid "Use spam filtering"
-msgstr ""
+msgstr "Utilitzar filtrat de spam"
 
 #: src/EBox/MailFilter/Model/VDomains.pm:90
 #: src/EBox/MailFilter/Model/AntispamConfiguration.pm:61
 #: src/EBox/MailFilter/SpamAssassin.pm:336
-#, fuzzy
 msgid "Spam threshold"
-msgstr "Esdeveniment de spam "
+msgstr "Llindar de spam "
 
 #: src/EBox/MailFilter/Model/VDomains.pm:97
 msgid "default"
-msgstr ""
+msgstr "per defecte"
 
 #: src/EBox/MailFilter/Model/VDomains.pm:101
 msgid "custom threshold"
-msgstr ""
+msgstr "llindar personalitzat"
 
 #: src/EBox/MailFilter/Model/VDomains.pm:113
 msgid "Learn from accounts' Spam IMAP folders"
-msgstr ""
+msgstr "Aprendre dels comptes de les carpetes IMAP de spam"
 
 #: src/EBox/MailFilter/Model/VDomains.pm:115
 msgid ""
 "Every time that a email moved into or out of the IMAP spam folder the filter "
 "will be trained with it"
 msgstr ""
+"Cada vegada que un correu entri o surti de la carpeta IMAP de spam el filtre "
+"s'entrenarà amb ell"
 
 #: src/EBox/MailFilter/Model/VDomains.pm:122
 msgid "Learning ham account"
-msgstr ""
+msgstr "Aprenent compte ham"
 
 #: src/EBox/MailFilter/Model/VDomains.pm:123
 msgid ""
@@ -345,10 +349,13 @@ msgid ""
 "incorrectly classified as spam may be forwarded to this addres to train the "
 "filter"
 msgstr ""
+"Una adreça (ham@domini) serà creada per aquest domini, els missatges ham "
+"classificats incorrectament com spam poden ser enviats a aquesta adreça per "
+"entrenar al filtre"
 
 #: src/EBox/MailFilter/Model/VDomains.pm:134
 msgid "Learning spam account"
-msgstr ""
+msgstr "Aprenent compte spam"
 
 #: src/EBox/MailFilter/Model/VDomains.pm:135
 msgid ""
@@ -356,19 +363,22 @@ msgid ""
 "incorrectly classified as ham may be forwarded to this addres to train the "
 "filter"
 msgstr ""
+"Una adreça (spam@domini) serà creada per aquest domini, els missatges spam "
+"classificats incorrectament com ham poden ser enviats a aquesta adreça per "
+"entrenar al filtre"
 
 #: src/EBox/MailFilter/Model/VDomains.pm:146
 msgid "Antispam sender policy"
-msgstr ""
+msgstr "Política antispam de l'emissor"
 
 #: src/EBox/MailFilter/Model/VDomains.pm:157
 #: src/EBox/MailFilter/Model/AntispamACL.pm:164
 msgid "Virtual Domains"
-msgstr ""
+msgstr "Dominis Virtuals"
 
 #: src/EBox/MailFilter/Model/VDomains.pm:168
 msgid "virtual domain"
-msgstr ""
+msgstr "domini virtual"
 
 #: src/EBox/MailFilter/Model/VDomains.pm:186
 #, perl-brace-format
@@ -376,165 +386,167 @@ msgid ""
 "There are no virtual mail domains managed by this server. You can create "
 "some in the {openA}virtual domains mail page{closeA}."
 msgstr ""
+"No hi ha dominis virtuals gestionats per aquest servidor. Pots crear-ne "
+"alguns en {openA}pàgina de dominis virtuals de correu{closeA}"
 
 #: src/EBox/MailFilter/Model/AntispamVDomainACL.pm:61
 #: src/EBox/MailFilter/Model/AntispamACL.pm:61
-#, fuzzy
 msgid "Mail sender"
-msgstr "Filtre de correu"
+msgstr "Emissor de correu"
 
 #: src/EBox/MailFilter/Model/AntispamVDomainACL.pm:67
 #: src/EBox/MailFilter/Model/AntispamACL.pm:67
 msgid "Policy"
-msgstr ""
+msgstr "Política"
 
 #: src/EBox/MailFilter/Model/AntispamVDomainACL.pm:76
 msgid "Sender policy for virtual domain"
-msgstr ""
+msgstr "Política de l'emissor per domini virtual"
 
 #: src/EBox/MailFilter/Model/AntispamVDomainACL.pm:88
 #: src/EBox/MailFilter/Model/AntispamACL.pm:88
 msgid "sender policy"
-msgstr ""
+msgstr "política de l'emissor"
 
 #: src/EBox/MailFilter/Model/AntispamVDomainACL.pm:97
 #: src/EBox/MailFilter/Model/AntispamACL.pm:97
 msgid "whitelist"
-msgstr ""
+msgstr "llista blanca"
 
 #: src/EBox/MailFilter/Model/AntispamVDomainACL.pm:98
 #: src/EBox/MailFilter/Model/AntispamACL.pm:98
 msgid "blacklist"
-msgstr ""
+msgstr "llista negra"
 
 #: src/EBox/MailFilter/Model/AntispamVDomainACL.pm:99
 #: src/EBox/MailFilter/Model/AntispamACL.pm:99
 msgid "process"
-msgstr ""
+msgstr "procés"
 
 #: src/EBox/MailFilter/Model/AmavisConfiguration.pm:63
 #: src/EBox/MailFilter/Model/POPProxyConfiguration.pm:57
 msgid "Enabled"
-msgstr ""
+msgstr "Habilitat"
 
 #: src/EBox/MailFilter/Model/AmavisConfiguration.pm:69
 msgid "Antivirus enabled"
-msgstr ""
+msgstr "Antivirus deshabilitat"
 
 #: src/EBox/MailFilter/Model/AmavisConfiguration.pm:75
-#, fuzzy
 msgid "Antispam enabled"
-msgstr "Antispam"
+msgstr "Antispam habilitat"
 
 #: src/EBox/MailFilter/Model/AmavisConfiguration.pm:82
 msgid "Service's port"
-msgstr ""
+msgstr "Port del servei"
 
 #: src/EBox/MailFilter/Model/AmavisConfiguration.pm:89
 msgid "Notify of non-spam problematic messages"
-msgstr ""
+msgstr "Notificar els missatges problemàtics que no són spam"
 
 #: src/EBox/MailFilter/Model/AmavisConfiguration.pm:93
 msgid "Disabled"
-msgstr ""
+msgstr "Deshabilitat"
 
 #: src/EBox/MailFilter/Model/AmavisConfiguration.pm:98
-#, fuzzy
 msgid "mail address"
-msgstr "Adreça del client"
+msgstr "Adreça del correu"
 
 #: src/EBox/MailFilter/Model/AmavisConfiguration.pm:108
 msgid "General"
-msgstr ""
+msgstr "General"
 
 #: src/EBox/MailFilter/Model/AmavisConfiguration.pm:139
 #, perl-brace-format
 msgid "The port {port} is already used by module {mod}"
-msgstr ""
+msgstr "El port {port} ja està sent utilitzat pel mòdul {mod}"
 
 #: src/EBox/MailFilter/Model/AmavisPolicy.pm:61
-#, fuzzy
 msgid "Virus policy"
-msgstr "Virus trobat"
+msgstr "Política de virus"
 
 #: src/EBox/MailFilter/Model/AmavisPolicy.pm:67
-#, fuzzy
 msgid "Spam policy"
-msgstr "Esdeveniment de spam "
+msgstr "Política de spam"
 
 #: src/EBox/MailFilter/Model/AmavisPolicy.pm:73
 msgid "Banned files policy"
-msgstr ""
+msgstr "Política de fitxers descartats"
 
 #: src/EBox/MailFilter/Model/AmavisPolicy.pm:79
-#, fuzzy
 msgid "Bad header policy"
-msgstr "Trobada capçalera errònia"
+msgstr "Política de capçalera errònia"
 
 #: src/EBox/MailFilter/Model/AmavisPolicy.pm:89
 msgid "Filter Policies"
-msgstr ""
+msgstr "Polítiques de filtre "
 
 #: src/EBox/MailFilter/Model/POPProxyConfiguration.pm:69
 msgid "Filter virus"
-msgstr ""
+msgstr "Filtre de virus"
 
 #: src/EBox/MailFilter/Model/POPProxyConfiguration.pm:75
 msgid "Filter spam"
-msgstr ""
+msgstr "Filtre de spam"
 
 #: src/EBox/MailFilter/Model/POPProxyConfiguration.pm:81
 msgid "ISP spam subject"
-msgstr ""
+msgstr "Assumpte spam de l'ISP"
 
 #: src/EBox/MailFilter/Model/POPProxyConfiguration.pm:85
 msgid ""
 "This option allows you to set the string your ISP uses if\n"
 "it processes your email for SPAM."
 msgstr ""
+"Aquesta opció et permet establir la cadena de caràcters utilitzada per tu "
+"ISP si\n"
+"es processa el teu correu per SPAM"
 
 #: src/EBox/MailFilter/Model/POPProxyConfiguration.pm:93
 msgid "Configuration"
-msgstr ""
+msgstr "Configuració"
 
 #: src/EBox/MailFilter/Model/POPProxyConfiguration.pm:113
 msgid ""
 "The POP transparent proxy must scan for something to be useful. If you do "
 "not need either antivirus of spam scan we suggest you turn it off"
 msgstr ""
+"El proxy transparent POP ha de cercar alguna cosa per ser útil. Si no "
+"necessites cercar antivirus o spam, et suggerim que el desactivis"
 
 #: src/EBox/MailFilter/Model/AntispamACL.pm:76
 msgid "Sender policy"
-msgstr ""
+msgstr "Política de l'emissor"
 
 #: src/EBox/MailFilter/Model/MIMETypeACL.pm:67
 msgid "MIME Type"
-msgstr ""
+msgstr "Tipus MIME"
 
 #: src/EBox/MailFilter/Model/MIMETypeACL.pm:73
 #: src/EBox/MailFilter/Model/FileExtensionACL.pm:73
 msgid "Allow"
-msgstr ""
+msgstr "Permetre"
 
 #: src/EBox/MailFilter/Model/MIMETypeACL.pm:81
 msgid "MIME types"
-msgstr ""
+msgstr "tipus MIME"
 
 #: src/EBox/MailFilter/Model/MIMETypeACL.pm:93
 #: src/EBox/MailFilter/Types/MIMEType.pm:60
 msgid "MIME type"
-msgstr ""
+msgstr "tipus MIME "
 
 #: src/EBox/MailFilter/Model/MIMETypeACL.pm:94
 msgid ""
 "MIME types which are not listed below are allowed. MIME types aren't used by "
 "POP transparent proxy"
 msgstr ""
+"Els tipus MIME que no estan llistats a sota estan permesos. Els tipus MIME "
+"que no estan utilitzats pel proxy transparent POP "
 
 #: src/EBox/MailFilter/Model/Report/FilterGraph.pm:51
-#, fuzzy
 msgid "Mail filter graph"
-msgstr "Filtre de correu"
+msgstr "Gràfic de filtre de correu"
 
 #: src/EBox/MailFilter/Model/Report/FilterGraph.pm:60
 #: src/EBox/MailFilter/Model/Report/POPProxyDetails.pm:49
@@ -542,261 +554,279 @@ msgstr "Filtre de correu"
 #: src/EBox/MailFilter/Model/Report/POPProxyGraph.pm:66
 #: src/EBox/MailFilter/Model/Report/FilterDetails.pm:46
 #: src/EBox/MailFilter/Model/Report/FilterDetails.pm:80
-#, fuzzy
 msgid "clean messages"
-msgstr "Missatges nets"
+msgstr "netejar missatges"
 
 #: src/EBox/MailFilter/Model/Report/FilterGraph.pm:68
 #: src/EBox/MailFilter/Model/Report/FilterDetails.pm:52
 #: src/EBox/MailFilter/Model/Report/FilterDetails.pm:95
 msgid "banned files"
-msgstr ""
+msgstr "fitxers prohibits"
 
 #: src/EBox/MailFilter/Model/Report/FilterGraph.pm:72
 #: src/EBox/MailFilter/Model/Report/FilterDetails.pm:55
 #: src/EBox/MailFilter/Model/Report/FilterDetails.pm:85
 msgid "infected"
-msgstr ""
+msgstr "infectat"
 
 #: src/EBox/MailFilter/Model/Report/FilterGraph.pm:76
 #: src/EBox/MailFilter/Model/Report/FilterDetails.pm:58
 msgid "bad header"
-msgstr ""
+msgstr "capçalera incorrecta"
 
 #: src/EBox/MailFilter/Model/Report/FilterGraph.pm:80
 #: src/EBox/MailFilter/Model/Report/FilterDetails.pm:61
 msgid "blacklisted"
-msgstr ""
+msgstr "llistat negre"
 
 #: src/EBox/MailFilter/Model/Report/FilterGraph.pm:103
 msgid "Filter traffic"
-msgstr ""
+msgstr "Filtre de trànsit"
 
 #: src/EBox/MailFilter/Model/Report/POPProxyDetails.pm:46
 #: src/EBox/MailFilter/Model/Report/POPProxyDetails.pm:75
 #: src/EBox/MailFilter/Model/Report/POPProxyGraph.pm:63
 msgid "total messages"
-msgstr ""
+msgstr "missatges totals"
 
 #: src/EBox/MailFilter/Model/Report/POPProxyDetails.pm:52
 #: src/EBox/MailFilter/Model/Report/POPProxyGraph.pm:69
 msgid "infected messages "
-msgstr ""
+msgstr "missatges infectats"
 
 #: src/EBox/MailFilter/Model/Report/POPProxyDetails.pm:56
 #: src/EBox/MailFilter/Model/Report/POPProxyDetails.pm:90
 #: src/EBox/MailFilter/Model/Report/POPProxyGraph.pm:73
 msgid "spam messages"
-msgstr ""
+msgstr "missatges spam"
 
 #: src/EBox/MailFilter/Model/Report/POPProxyDetails.pm:85
 msgid "infected messages"
-msgstr ""
+msgstr "missatges infectats"
 
 #: src/EBox/MailFilter/Model/Report/POPProxyDetails.pm:102
 msgid "Transparent POP proxy traffic details"
-msgstr ""
+msgstr "Detalls de trànsit del proxy transparent POP"
 
 #: src/EBox/MailFilter/Model/Report/POPProxyDetails.pm:110
 #: src/EBox/MailFilter/Model/Report/FilterDetails.pm:125
 msgid "traffic"
-msgstr ""
+msgstr "trànsit"
 
 #: src/EBox/MailFilter/Model/Report/POPProxyGraph.pm:51
 msgid "POP proxy graph"
-msgstr ""
+msgstr "Gràfic del proxy POP"
 
 #: src/EBox/MailFilter/Model/Report/POPProxyGraph.pm:95
 msgid "Transparent POP proxy traffic"
-msgstr ""
+msgstr "Trànsit del proxy transparent POP"
 
 #: src/EBox/MailFilter/Model/Report/FilterDetails.pm:101
 msgid "blacklisted senders"
-msgstr ""
+msgstr "emissors del llistat negre"
 
 #: src/EBox/MailFilter/Model/Report/FilterDetails.pm:106
 msgid "bad message header"
-msgstr ""
+msgstr "capçalera de missatge incorrecte"
 
 #: src/EBox/MailFilter/Model/Report/FilterDetails.pm:117
 msgid "Filter traffic details"
-msgstr ""
+msgstr "Detalls del trànsit del filtre"
 
 #: src/EBox/MailFilter/Model/AntispamConfiguration.pm:65
 msgid "The score threshold to mark a message as spam"
-msgstr ""
+msgstr "El llindar de puntuació per marcar un missatge com spam"
 
 #: src/EBox/MailFilter/Model/AntispamConfiguration.pm:69
 msgid "Spam subject tag"
-msgstr ""
+msgstr "Etiqueta d'assumpte spam"
 
 #: src/EBox/MailFilter/Model/AntispamConfiguration.pm:72
 msgid "Tag which will be added to the spam mail subject"
-msgstr ""
+msgstr "Etiqueta que serà afegida a l'assumpte del correu spam"
 
 #: src/EBox/MailFilter/Model/AntispamConfiguration.pm:76
 msgid "Use Bayesian classifier"
-msgstr ""
+msgstr "Utilitzar classificador Bayesian"
 
 #: src/EBox/MailFilter/Model/AntispamConfiguration.pm:82
 msgid "Auto-whitelist"
-msgstr ""
+msgstr "Auto-llista blanca"
 
 #: src/EBox/MailFilter/Model/AntispamConfiguration.pm:85
 msgid "Change the score of mail according to the sender history"
-msgstr ""
+msgstr "Canviar la puntuació del correu d'acord amb la història de l'emissor"
 
 #: src/EBox/MailFilter/Model/AntispamConfiguration.pm:89
 msgid "Auto-learn"
-msgstr ""
+msgstr "Autoaprenentatge"
 
 #: src/EBox/MailFilter/Model/AntispamConfiguration.pm:92
 msgid "Feedback the learning system with messages that reach the threshold"
 msgstr ""
+"Realimentació del sistema d'aprenentatge amb missatges que arriben al "
+"llindar"
 
 #: src/EBox/MailFilter/Model/AntispamConfiguration.pm:97
 msgid "Autolearn spam threshold"
-msgstr ""
+msgstr "Llindar d'autoaprenentatge de spam"
 
 #: src/EBox/MailFilter/Model/AntispamConfiguration.pm:101
 msgid ""
 "Spam messages with a score equal or greater than this threshold will be "
 "added to the learning system "
 msgstr ""
+"Els missatges de spam amb una puntuació igual o més gran que aquest llindar "
+"seran afegits al sistema d'aprenentatge"
 
 #: src/EBox/MailFilter/Model/AntispamConfiguration.pm:105
 msgid "Autolearn ham threshold"
-msgstr ""
+msgstr "Llindar d'autoaprenentatge de ham"
 
 #: src/EBox/MailFilter/Model/AntispamConfiguration.pm:108
 msgid ""
 "Ham messages with a score below this threshold will be added to the learning "
 "system"
 msgstr ""
+"Els missatges de ham amb una puntuació igual o més gran que aquest llindar "
+"seran afegits al sistema d'aprenentatge"
 
 #: src/EBox/MailFilter/Model/AntispamConfiguration.pm:114
 msgid "Antispam configuration"
-msgstr ""
+msgstr "Configuració d'antispam"
 
 #: src/EBox/MailFilter/Model/AntispamConfiguration.pm:166
 msgid ""
 "You must define autolearn spam threshold when autolearn option is active"
 msgstr ""
+"Has de definir un llindar d'autoaprenentatge de spam quan l'opció "
+"d'autoaprenentatge és activa"
 
 #: src/EBox/MailFilter/Model/AntispamConfiguration.pm:172
 msgid "You must define autolearn ham threshold when autolearn option is active"
 msgstr ""
+"Has de definir un llindar d'autoaprenentatge de ham quan l'opció "
+"d'autoaprenentatge és activa"
 
 #: src/EBox/MailFilter/Model/AntispamConfiguration.pm:178
 msgid ""
 "The spam's autolearn threshold cannot be lower than the default spam's "
 "treshold "
 msgstr ""
+"El llindar d'autoaprenentatge de spam no pot ser més baix que el llindar de "
+"spam per defecte"
 
 #: src/EBox/MailFilter/Model/AntispamConfiguration.pm:184
 msgid ""
 "The ham's autolearn threshold canot be higher or equal than the default spam "
 "level"
 msgstr ""
+"El llindar d'autoaprenentatge de ham no pot ser més alt o igual que el "
+"llindar de spam per defecte"
 
 #: src/EBox/MailFilter/Model/FileExtensionACL.pm:67
 msgid "File extension"
-msgstr ""
+msgstr "Extensió de fitxer"
 
 #: src/EBox/MailFilter/Model/FileExtensionACL.pm:81
 msgid "File extensions"
-msgstr ""
+msgstr "Extensions de fitxer"
 
 #: src/EBox/MailFilter/Model/FileExtensionACL.pm:93
 #: src/EBox/MailFilter/Types/FileExtension.pm:58
 msgid "file extension"
-msgstr ""
+msgstr "extensió de fitxer"
 
 #: src/EBox/MailFilter/Model/FileExtensionACL.pm:94
 msgid "Extensions which are not listed below are allowed"
-msgstr ""
+msgstr "Les extensions no llistades a sota són permeses"
 
 #: src/EBox/MailFilter/Types/AmavisSender.pm:78
 msgid "domain name"
-msgstr ""
+msgstr "nom de domini"
 
 #: src/EBox/MailFilter/Types/AmavisSender.pm:82
 msgid "email address"
-msgstr ""
+msgstr "adreça de correu"
 
 #: src/EBox/MailFilter/Types/AmavisSender.pm:86
 msgid ""
 "The sender ought be either an email address or a domain name prefixed with "
 "'@'"
 msgstr ""
+"L'emissor ha de ser una adreça de correu o un nom de domini amb el prefix "
+"'@'"
 
 #: src/EBox/MailFilter/Types/Policy.pm:45
 msgid "Pass"
-msgstr ""
+msgstr "Passar"
 
 #: src/EBox/MailFilter/Types/Policy.pm:46
 msgid "Reject"
-msgstr ""
+msgstr "Rebutjar"
 
 #: src/EBox/MailFilter/Types/Policy.pm:47
 msgid "Bounce"
-msgstr ""
+msgstr "Rebotar"
 
 #: src/EBox/MailFilter/Types/Policy.pm:48
 msgid "Discard"
-msgstr ""
+msgstr "Descartar"
 
 #: src/EBox/MailFilter/Types/Policy.pm:68
 msgid "Mailfilter's policy"
-msgstr ""
+msgstr "Política de filtre de correu"
 
 #: src/EBox/MailFilter/Types/AntispamThreshold.pm:135
 msgid "Write down a decimal number"
-msgstr ""
+msgstr "Escriure un nombre decimal"
 
 #: src/EBox/MailFilter/Types/AntispamThreshold.pm:140
 msgid "Only non-zero positive numbers are allowed"
-msgstr ""
+msgstr "Només nombres positius diferents de 0 són permesos"
 
 #: src/EBox/MailFilter/Types/AntispamThreshold.pm:149
 #, perl-brace-format
 msgid "Write down a number lesser than {m}"
-msgstr ""
+msgstr "Escriure un nombre menor que {m}"
 
 #: src/EBox/MailFilter/Types/AntispamThreshold.pm:156
 #, perl-brace-format
 msgid "Write down a number greater  than {m}"
-msgstr ""
+msgstr "Escriure un nombre més gran que {m}"
 
 #: src/EBox/MailFilter/Amavis.pm:63
 msgid "To configure amavis"
-msgstr ""
+msgstr "Configurar amavis"
 
 #: src/EBox/MailFilter/Amavis.pm:427
 msgid "Zentyal internal mail filter"
-msgstr ""
+msgstr "Filtre de correu intern de Zentyal"
 
 #: src/EBox/MailFilter/Amavis.pm:441
 msgid "SMTP filter proxy"
-msgstr ""
+msgstr "Filtre proxy SMTP"
 
 #: src/EBox/MailFilter/SpamAssassin.pm:58
 msgid " To configure spamassassin daemon"
-msgstr ""
+msgstr "Configurar el dimoni de spamassassin"
 
 #: src/EBox/MailFilter/SpamAssassin.pm:336
 msgid "It must be a number(decimal point allowed)"
-msgstr ""
+msgstr "Ha de ser un nombre(decimals permesos)"
 
 #: src/EBox/MailFilter/SpamAssassin.pm:346
 msgid "The spam's threshold cannot be higher than its autolearn threshold"
 msgstr ""
+"El llindar de spam no pot ser més alt que el seu llindar d'autoaprenentatge"
 
 #: src/EBox/MailFilter/SpamAssassin.pm:350
 msgid ""
 "The spam's threshold cannot be lower or equal than its ham's autolearn "
 "threshold"
 msgstr ""
+"El llindar de spam no pot ser més baix o igual que el seu llindar "
+"d'autoaprenentatge de ham"
 
 #: src/EBox/MailFilter/SpamAssassin.pm:390
 msgid ""
@@ -804,39 +834,44 @@ msgid ""
 "configuration. In order to be able to learn enable the bayesian filter and "
 "save changes"
 msgstr ""
+"No es pot aprendre perquè el filtre bayesian està deshabilitat en la "
+"configuració actual. Per poder aprendre habiliti el filtre bayesian i desi "
+"els canvis"
 
 #: src/EBox/MailFilter/SpamAssassin.pm:404
 #, perl-brace-format
 msgid "Accounts from the domain {d} cannot train the bayesian filter"
-msgstr ""
+msgstr "Els comptes del domini {d} no poden entrenar el filtre bayesian"
 
 #: src/EBox/MailFilter/Composite/Report/POPProxyReport.pm:69
 #: src/EBox/MailFilter/Composite/Report/FilterReport.pm:69
 msgid "Mail filter report"
-msgstr ""
+msgstr "Informe del filtre de correu"
 
 #: src/EBox/MailFilter/Composite/Report/POPProxyReport.pm:70
 msgid "Transparent POP proxy report"
-msgstr ""
+msgstr "Informe del proxy POP transparent"
 
 #: src/EBox/MailFilter/Composite/Report/FilterReport.pm:70
 msgid "Mail Filter report"
-msgstr ""
+msgstr "Informe del filtre de correu"
 
 #: src/EBox/MailFilter/Composite/FileFilter.pm:58
 msgid "Attached Files Filter"
-msgstr ""
+msgstr "Filtre de fitxers adjunts"
 
 #: src/EBox/MailFilter/Composite/FileFilter.pm:60
 msgid ""
 "Filter mail messages according attached files. The transparent POP proxy "
 "only filters by extension"
 msgstr ""
+"Filtrar missatges de correu segons els fitxers adjunts. El proxy POP "
+"transparent només filtra per extensió"
 
 #: src/EBox/MailFilter/Composite/ExternalConnections.pm:59
 msgid "External connections"
-msgstr ""
+msgstr "Connexions externes"
 
 #: stubs/p3scan.conf.mas:15
 msgid "[Virus] found in a mail to you:"
-msgstr ""
+msgstr "Trobats [Virus] en un correu per tu:"
