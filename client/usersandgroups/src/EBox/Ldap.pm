@@ -1043,6 +1043,16 @@ sub _execute
     };
 }
 
+sub _tryToRestartSlapd
+{
+    my $users = EBox::Global->modInstance('users');
+    my $mode = $users->mode();
+
+    if ($mode eq 'master') {
+        EBox::Sudo::root('/etc/init.d/slapd start');
+    }
+}
+
 sub safeConnect
 {
     my ($ldapurl) = @_;
@@ -1050,6 +1060,7 @@ sub safeConnect
     my $ldap;
 
     while (not $ldap = Net::LDAP->new($ldapurl) and $retries--) {
+        _tryToRestartSlapd();
         EBox::error(
             "Couldn't connect to LDAP server $ldapurl, retrying");
         sleep(1);
