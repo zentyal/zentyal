@@ -208,7 +208,7 @@ sub enableActions
             '/etc/default/slapd');
 
         $self->_setupSlaveLDAP();
-    } elsif ($mode eq 'master' or $mode eq 'ad-sync') {
+    } elsif ($mode eq 'master' or $mode eq 'ad-slave') {
         my $password = remotePassword();
 
         EBox::UsersAndGroups::Setup::master($password);
@@ -2428,7 +2428,7 @@ sub dumpConfig
 
     my $mode = mode();
 
-    if ($mode eq 'master' or $mode eq 'ad-sync') {
+    if ($mode eq 'master' or $mode eq 'ad-slave') {
         $self->ldap->dumpLdapMaster($dir);
         if ($options{bug}) {
             my $file = $self->ldap->ldifFile($dir, 'master', 'data');
@@ -2449,7 +2449,7 @@ sub restoreConfig
     my ($self, $dir) = @_;
     my $mode = mode();
 
-    if ($mode eq 'master' or $mode eq 'ad-sync') {
+    if ($mode eq 'master' or $mode eq 'ad-slave') {
         EBox::Sudo::root('/etc/init.d/slapd stop');
         $self->ldap->restoreLdapMaster($dir);
         EBox::Sudo::root('/etc/init.d/slapd start');

@@ -97,7 +97,7 @@ sub _loadSchema
     my $users = EBox::Global->modInstance('users');
 
     my $mode = $users->mode();
-    if ($mode eq 'master' or $mode eq 'ad-sync') {
+    if ($mode eq 'master' or $mode eq 'ad-slave') {
         $self->ldap->ldapCon();
         my $ldap = $self->ldap->{ldap};
         $self->_loadSchemaDirectory($ldap, $ldiffile);
@@ -163,7 +163,7 @@ sub _loadACL
     my $users = EBox::Global->modInstance('users');
     my $mode = $users->mode();
 
-    if ($mode eq 'master' or $mode eq 'ad-sync') {
+    if ($mode eq 'master' or $mode eq 'ad-slave') {
         $self->ldap->ldapCon();
         my $ldap = $self->ldap->{ldap};
         $self->_loadACLDirectory($ldap, $acl);
