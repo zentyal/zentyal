@@ -93,7 +93,7 @@ my $progressIn = EBox::ProgressIndicator->retrieve($progressId);
 				if (ads[nAds].items != null) {
 					html += "<ul>";
 					for(var i = 0; i < ads[nAds].items.length; i++)
-						html += "<li>" + ads[nAds].items[i] + "</li>";
+						html += "<li style=\"font-size: 1.2em; padding: 2px 0\">" + ads[nAds].items[i] + "</li>";
 				}
 				html += "</br>";
 				if (ads[nAds].links != null) {
