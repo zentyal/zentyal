@@ -1038,7 +1038,7 @@ sub _execute
     }
     finally {
         if ($pause) {
-            self->start();
+            $self->start();
         }
     };
 }

@@ -104,7 +104,6 @@ sub _loadSchema
     } elsif ($mode eq 'slave') {
         my $password = $self->ldap->getPassword();
         my $ldap;
-        my $bind;
         my @ports = (389, 1389, 1390);
         for my $port (@ports) {
             $ldap = EBox::Ldap::safeConnect("127.0.0.1:$port");
