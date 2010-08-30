@@ -244,6 +244,10 @@ sub _setConf
 
     my $mode = mode();
 
+    if ($mode eq 'master') {
+        EBox::Sudo::silentRoot('/etc/init.d/slapd start');
+    }
+
     my $ldap = $self->ldap;
     EBox::Module::Base::writeFile(SECRETFILE, $ldap->getPassword(),
         { mode => '0600', uid => 0, gid => 0 });
