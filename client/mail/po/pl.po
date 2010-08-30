@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-mail 0.12\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-08-28 23:36+0200\n"
-"PO-Revision-Date: 2010-08-29 19:09+0200\n"
+"PO-Revision-Date: 2010-08-30 20:45+0200\n"
 "Last-Translator: Robert Brzozowski <gnutar1@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
@@ -73,7 +73,7 @@ msgstr ""
 
 #: src/EBox/Mail/Model/ObjectPolicy.pm:107
 msgid "Relay policy for network objects"
-msgstr "Zasady przesyłania wiadomości"
+msgstr "Zasady przesyłania poczty dla obiektów sieciowych"
 
 #: src/EBox/Mail/Model/ObjectPolicy.pm:119
 msgid "object's relay policy"
@@ -294,6 +294,8 @@ msgid ""
 "This service allows to a user to manage his Sieve mail filtering scripts "
 "from a local client which speaks the ManageSieve protocol"
 msgstr ""
+"Usługa pozwala na użytkownikowi zarządzać własnym skryptem filtrowania "
+"poczty, używającym protokołu ManageSieve"
 
 #: src/EBox/Mail/Model/RetrievalServices.pm:102
 msgid "Mail retrieval services"
@@ -592,7 +594,7 @@ msgstr "Prześlij kopię wszystkich maili do"
 
 #: src/EBox/Mail/Model/VDomainSettings.pm:58
 msgid "The mail will be a Blind Carbon Copy (BCC)."
-msgstr ""
+msgstr "Wiadomość będzie wysłana jako ukryta UDW"
 
 #: src/EBox/Mail/Model/VDomainSettings.pm:62
 msgid "Disabled"
@@ -659,15 +661,15 @@ msgstr "Włączony"
 
 #: src/EBox/Mail/Model/GreylistConfiguration.pm:81
 msgid "Greylist duration (seconds)"
-msgstr ""
+msgstr "Czas ważności Greylisty (sekundy)"
 
 #: src/EBox/Mail/Model/GreylistConfiguration.pm:82
 msgid "During this interval, the mail sender is deferred"
-msgstr ""
+msgstr "W tym czasie nadawana wiadomość jest odroczona"
 
 #: src/EBox/Mail/Model/GreylistConfiguration.pm:90
 msgid "Retry window (hours)"
-msgstr ""
+msgstr "Okienko spróbuj ponownie (godziny)"
 
 #: src/EBox/Mail/Model/GreylistConfiguration.pm:91
 msgid ""
@@ -734,7 +736,7 @@ msgstr "konto pocztowe"
 #: src/EBox/MailAliasLdap.pm:113
 #, perl-brace-format
 msgid "{ac} is a mail alias. Alias of aliases are not allowed"
-msgstr "{ac} jest już aliasem."
+msgstr "{ac} jest już aliasem. Niedozwolone jest tworzenie aliasu do aliasu"
 
 #: src/EBox/MailAliasLdap.pm:132
 msgid "group alias"
@@ -803,13 +805,15 @@ msgstr "Zentyal utworzy certyfikaty używane w usługach pocztowych"
 
 #: src/EBox/Mail.pm:163
 msgid "Add fetchmail update cron job"
-msgstr ""
+msgstr "Dodaj harmonogram łączenia fetchmaila"
 
 #: src/EBox/Mail.pm:165
 msgid ""
 "Zentyal will schedule a cron job to update fetchmail configuration when the "
 "user add external accounts"
 msgstr ""
+"Jeśli użytkownik doda zewnętrzne konto pocztowe, Zentyal skonfiguruje "
+"harmonogram fetchmaila do pobierania poczty"
 
 #: src/EBox/Mail.pm:185
 msgid "To configure postfix"
@@ -861,7 +865,7 @@ msgstr "Nazwa domeny i domeny wirtualnej są takie same"
 
 #: src/EBox/Mail.pm:1017
 msgid "Cannot change this parameter for a non-custom filter"
-msgstr ""
+msgstr "Nie można zmienić parametru dla nie swojego filtra"
 
 #: src/EBox/Mail.pm:1033 src/EBox/Mail.pm:1053
 msgid ""

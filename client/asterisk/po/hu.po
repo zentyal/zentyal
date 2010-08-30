@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-asterisk 1.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-08-28 23:07+0200\n"
-"PO-Revision-Date: 2010-08-28 07:57+0200\n"
+"PO-Revision-Date: 2010-08-30 11:25+0200\n"
 "Last-Translator: Nagy Ákos <nagy.akos@akos.ro>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
@@ -279,7 +279,7 @@ msgstr "VoIP szolgáltató neve."
 
 #: src/EBox/Model/Provider.pm:104
 msgid "Username"
-msgstr "Felhasználói név"
+msgstr "Felhasználónév"
 
 #: src/EBox/Model/Provider.pm:111 src/EBox/Model/Meetings.pm:170
 msgid "Password"
@@ -384,7 +384,7 @@ msgstr "csoport"
 
 #: src/EBox/CGI/AsteriskUserOptions.pm:43
 msgid "username"
-msgstr "felhasználói név"
+msgstr "felhasználónév"
 
 #: src/templates/user.mas:8
 msgid "Asterisk account"

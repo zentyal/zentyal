@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-mail 1.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-08-28 23:36+0200\n"
-"PO-Revision-Date: 2010-08-29 11:05+0200\n"
+"PO-Revision-Date: 2010-08-30 15:44+0200\n"
 "Last-Translator: Nagy Ákos <nagy.akos@akos.ro>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
@@ -802,7 +802,7 @@ msgstr "Levelező álnevek generálása"
 #: src/EBox/Mail.pm:143
 #, perl-brace-format
 msgid "Zentyal will execute {cmd}"
-msgstr "a Zentyal végrehajtja: {cmd}"
+msgstr "A Zentyal végrehajtja: {cmd}"
 
 #: src/EBox/Mail.pm:148
 msgid "Add LDAP schemas"
@@ -810,7 +810,7 @@ msgstr "LDAP séma hozzáadása"
 
 #: src/EBox/Mail.pm:150
 msgid "Zentyal will add two LDAP schemas: authldap.ldif and eboximail.ldif."
-msgstr "a Zentyal két LDAP sémát tölt be: authldap.ldif és eboximail.ldif."
+msgstr "A Zentyal két LDAP sémát tölt be: authldap.ldif és eboximail.ldif."
 
 #: src/EBox/Mail.pm:156
 msgid "Create certificates"
@@ -962,7 +962,7 @@ msgstr "Greylist"
 #: src/EBox/Mail.pm:1594 src/EBox/CGI/QueueManager.pm:34
 #: src/EBox/CGI/QueueManager.pm:52
 msgid "Queue Management"
-msgstr "Queue Management"
+msgstr "Queue menedzsment"
 
 #: src/EBox/Mail.pm:1621
 msgid "Mail retrieval from external accounts"
@@ -986,7 +986,7 @@ msgstr "From host ip"
 
 #: src/EBox/Mail.pm:1643 src/templates/qmanager.mas:18
 msgid "Size (bytes)"
-msgstr "Mérte (bájt)"
+msgstr "Mért (bájt)"
 
 #: src/EBox/Mail.pm:1644
 msgid "Relay"

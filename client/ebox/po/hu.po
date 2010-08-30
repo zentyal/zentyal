@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-ebox 1.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-08-28 23:35+0200\n"
-"PO-Revision-Date: 2010-08-28 08:18+0200\n"
+"PO-Revision-Date: 2010-08-30 15:39+0200\n"
 "Last-Translator: Nagy Ákos <nagy.akos@akos.ro>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
@@ -27,7 +27,7 @@ msgstr "Zentyal webkiszolgáló"
 
 #: src/EBox/Event/Dispatcher/Jabber.pm:165
 msgid "Admin Jabber account"
-msgstr "Adminisztratív Jabber profil"
+msgstr "Adminisztratív Jabber fiók"
 
 #: src/EBox/Event/Dispatcher/Jabber.pm:178
 msgid "Jabber"
@@ -133,7 +133,7 @@ msgstr "Naplóbejegyzés figyelő"
 #: src/EBox/Event/Watcher/Log.pm:240
 #, perl-brace-format
 msgid "Notify when a logger ({loggers}) has logged something"
-msgstr "Figyelmeztessen, ha valamilyen naplóbejegyzés készült ({loggers})"
+msgstr "Figyelmeztessen, ha a(z) ({loggers}) naplózó, naplózott valamit."
 
 #: src/EBox/Event/Watcher/RAID.pm:181 src/EBox/SysInfo.pm.in:273
 #: src/EBox/CGI/Report/RAID.pm:30
@@ -177,7 +177,7 @@ msgstr "Folyamatban: {operation}"
 #: src/EBox/Event/Watcher/RAID.pm:273
 #, perl-brace-format
 msgid "Completed operation percentage: {per}"
-msgstr "elkészült folyamat százalékban: {per}"
+msgstr "Folyamat elkészültségi állapota: {per}"
 
 #: src/EBox/Event/Watcher/RAID.pm:275
 #, perl-brace-format
@@ -217,12 +217,12 @@ msgstr ""
 #: src/EBox/Event/Watcher/RAID.pm:398
 #, perl-brace-format
 msgid "RAID device {name} has started operation {opName}."
-msgstr "{name} RAID eszköz megkezdte működését ezen a néven: {opName}. "
+msgstr "{name} RAID eszköz megkezdte működését ezen a néven: {opName}."
 
 #: src/EBox/Event/Watcher/RAID.pm:404
 #, perl-brace-format
 msgid "RAID device {name} has finished operation {opName} or it was aborted."
-msgstr "{name} RAID eszköz befejzete működését ezen a néven: {opName}. "
+msgstr "{name} RAID eszköz befejzete működését ezen a néven: {opName}."
 
 #: src/EBox/Event/Watcher/RAID.pm:410
 #, perl-brace-format
@@ -349,11 +349,11 @@ msgstr "tartalék"
 
 #: src/EBox/Event/Watcher/State.pm:125
 msgid "Zentyal is up and running"
-msgstr "A Zentyal elindult és fut."
+msgstr "A Zentyal elindult és fut"
 
 #: src/EBox/Event/Watcher/State.pm:131
 msgid "Zentyal is critically down"
-msgstr "A Zentyal kritikus hiba miatt leállt."
+msgstr "A Zentyal kritikus hiba miatt leállt"
 
 #: src/EBox/Event/Watcher/State.pm:156 src/templates/report/raid.mas:226
 msgid "State"
@@ -361,7 +361,7 @@ msgstr "Státusz"
 
 #: src/EBox/Event/Watcher/State.pm:173
 msgid "Check if Zentyal is currently up or down"
-msgstr "Ellenőrizze, hogy a Zentyal pillanatnyilag működik-e vagy sem!"
+msgstr "Ellenőrizze, hogy a Zentyal pillanatnyilag működik-e vagy sem"
 
 #: src/EBox/Model/DataTable.pm:327
 #, perl-brace-format
@@ -382,9 +382,7 @@ msgstr "oldal"
 
 #: src/EBox/Model/DataTable.pm:1471
 msgid "Page must be a number equal or greater than zero"
-msgstr ""
-"Az oldal számozásának (?) nagyobb vagy egyenlőnek kell lennie mint 0!Az "
-"oldalak számának (?)"
+msgstr "Az oldal számozásának nagyobb vagy egyenlőnek kell lennie mint nulla"
 
 #: src/EBox/Model/DataTable.pm:2131 src/EBox/Model/DataMultiTable.pm:168
 #: src/EBox/Model/Composite.pm:653 src/EBox/Model/Composite.pm:668
@@ -403,7 +401,7 @@ msgstr "Oldalméret"
 
 #: src/EBox/Model/DataTable.pm:2907
 msgid "Must be either a positive number or zero"
-msgstr "Ide 0 vagy pozitív egész szám kell!"
+msgstr "Egy pozitív egész szám vagy nulla kell legyen"
 
 #: src/EBox/Model/DataTable.pm:3214
 #, perl-brace-format
@@ -488,7 +486,7 @@ msgstr "Vége"
 
 #: src/EBox/Types/Int.pm:154
 msgid "Enter an integer number"
-msgstr "Adjon meg egy egész számot!"
+msgstr "Adjon meg egy egész számot"
 
 #: src/EBox/Types/Int.pm:161 src/EBox/Types/Float.pm:120
 #, perl-brace-format
@@ -502,16 +500,16 @@ msgstr "Ennek az értéknek nem kellene kisebbnek lennie mint {m}"
 
 #: src/EBox/Types/DomainName.pm:117
 msgid "IP addresses are not allowed"
-msgstr "Az IP címek nincsenek engedélyezve!"
+msgstr "Az IP címek nincsenek engedélyezve"
 
 #: src/EBox/Types/Float.pm:112
 msgid "Enter a float number"
-msgstr "Adjon meg egy tört számot!"
+msgstr "Adjon meg egy tört számot"
 
 #: src/EBox/Types/Select.pm:340
 #, perl-brace-format
 msgid "Choose a value within the value set: {set}"
-msgstr "Adjon meg egy értéket ezen az értéken belül: {set}."
+msgstr "Adjon meg egy értéket ezen az értéken belül: {set}"
 
 #: src/EBox/Types/Service.pm:212 src/EBox/Types/PortRange.pm:289
 #: src/EBox/Events/Model/Watcher/LogFiltering.pm:149
@@ -522,12 +520,12 @@ msgstr "Bármi"
 #: src/EBox/Types/Password.pm:133
 #, perl-brace-format
 msgid "The password should have at least {minLength} characters"
-msgstr "A jelszó minimális hossza {minLength} karakter!"
+msgstr "A jelszó minimális hossza {minLength} karakter"
 
 #: src/EBox/Types/Password.pm:144
 #, perl-brace-format
 msgid "The password should have at most {maxLength} characters"
-msgstr "A jelszó maximális hossza {maxLength} karakter!"
+msgstr "A jelszó maximális hossza {maxLength} karakter"
 
 #: src/EBox/Types/PortRange.pm:138
 msgid "any"
@@ -548,7 +546,7 @@ msgstr "Ennek {from} nagyobbnak kell lennie ennél {to}"
 
 #: src/EBox/Html.pm:39 src/templates/wizard.mas:124
 msgid "Save changes"
-msgstr "módosítások mentése"
+msgstr "Módosítások mentése"
 
 #: src/EBox/Html.pm:40 src/EBox/CGI/Logout/Index.pm:29
 msgid "Logout"
@@ -604,7 +602,7 @@ msgstr "Erőforrások és szolgáltatások"
 
 #: src/EBox/SysInfo.pm.in:251 src/EBox/CGI/Dashboard/Index.pm:32
 msgid "Dashboard"
-msgstr "Műszerfal"
+msgstr "Vezérlőpult"
 
 #: src/EBox/SysInfo.pm.in:262 src/EBox/Report/DiskUsage.pm:351
 msgid "System"
@@ -797,7 +795,7 @@ msgid ""
 "favourite RSS. "
 msgstr ""
 "A csatorna link, az a link amely segítségével megoszthatja a kedvenc RSS "
-"tartalmait."
+"tartalmait. "
 
 #: src/EBox/Events/Model/Dispatcher/RSS.pm:209
 msgid "RSS dispatcher configuration updated"
@@ -1213,7 +1211,7 @@ msgstr "Naplók beállítása"
 
 #: src/EBox/Logs.pm:718
 msgid "Client Address"
-msgstr "Kliens (ügyfél) címe"
+msgstr "Kliens címe"
 
 #: src/EBox/Logs.pm:719 src/EBox/CGI/EBox/Backup.pm:256
 #: src/templates/moduleStatusTable.mas:58 src/templates/finish.mas:117
@@ -1836,7 +1834,7 @@ msgstr "Jelszócsere"
 
 #: src/templates/password.mas:5
 msgid "Your password must be at least 6 characters long."
-msgstr "A jelszó minimális hossza 6 karakter!"
+msgstr "A jelszó minimális hossza 6 karakter."
 
 #: src/templates/password.mas:25
 msgid "Current password"
@@ -1856,7 +1854,7 @@ msgstr "Elem"
 
 #: src/templates/progress.mas:25
 msgid "items left"
-msgstr "hátramaradott elemek"
+msgstr "hátramaradt elemek"
 
 #: src/templates/progress.mas:27
 msgid "Some error has happened in Zentyal: "

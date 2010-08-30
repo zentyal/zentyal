@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-openvpn 0.12\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-08-28 23:28+0200\n"
-"PO-Revision-Date: 2010-08-28 14:45+0200\n"
+"PO-Revision-Date: 2010-08-30 18:10+0200\n"
 "Last-Translator: Robert Brzozowski <gnutar1@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
@@ -215,6 +215,9 @@ msgid ""
 "clients connecting to this VPN.{closepar}{openpar}Typically, you will allow "
 "access to your LAN by advertising its network address here{closepar}"
 msgstr ""
+"{openpar}Dodaj tutaj sieci, które chcesz żeby były dostępne dla użytkowników "
+"łączących się poprzez VPN{closepar}{openpar}Przykładowo dodaj swoją sieć "
+"lokalną, żeby uzyskać do niej dostęp{closepar}"
 
 #: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:59
 msgid "Client's type"
@@ -409,6 +412,12 @@ msgid ""
 "remote users.{openpar}Once you are done with the configuration you can "
 "download a file bundle for your operating system to use in your clients."
 msgstr ""
+"{openpar}Konfiguracja openVPN pozwala na łączenie się użytkowników lub "
+"zdalnych biur.{closepar}{openpar}Kliknij na {openit}Konfiguracja{closeit} by "
+"ustawić parametry VPN.{closepar}{openpar}{openit}Rozgłaszane sieci{closeit} "
+"pozwoli Ci wybrać, do których sieci będzie miał dostęp użytkownik "
+"zewnętrzny.{openpar}Po ukończeniu konfiguracji pobierz paczkę dla Twojego "
+"systemu."
 
 #: src/EBox/OpenVPN/Model/ClientConfiguration.pm:69
 msgid "Manual Configuration"
@@ -655,7 +664,7 @@ msgstr "Główny plik konfiguracyjny zebra"
 
 #: src/EBox/OpenVPN.pm:174
 msgid "To configure ripd to exchange routes with client to client connections"
-msgstr ""
+msgstr "Konfiguracja ripd do połączeń klient-to-klient"
 
 #: src/EBox/OpenVPN.pm:675
 #, perl-brace-format

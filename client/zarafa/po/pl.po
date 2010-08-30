@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: ebox-zarafa 0.12\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-08-28 20:28+0200\n"
-"PO-Revision-Date: 2010-08-30 08:12+0200\n"
+"PO-Revision-Date: 2010-08-30 11:58+0200\n"
 "Last-Translator: Robert Brzozowski <gnutar1@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
@@ -103,7 +103,7 @@ msgstr "Konfiguracja serwera indeksującego Zarafa"
 
 #: src/EBox/Zarafa.pm:452
 msgid "Zarafa Gateway Server"
-msgstr "Serwer Gateway Zarafa"
+msgstr "Łącznik serwera Zarafa"
 
 #: src/EBox/Zarafa/Model/Quota.pm:75
 msgid "Maximum mailbox size"
@@ -125,7 +125,7 @@ msgstr "Ograniczona do"
 
 #: src/EBox/Zarafa/Model/Quota.pm:96
 msgid "Warn user over"
-msgstr ""
+msgstr "Ostrzeżenie o przekroczeniu"
 
 #: src/EBox/Zarafa/Model/Quota.pm:109
 msgid "Stop user sending mails over"
@@ -153,9 +153,9 @@ msgid ""
 "To enable Zarafa {service} gateway you must disable {service} mail retrieval "
 "service. You can do it at {ohref}Mail General Configuration{chref}."
 msgstr ""
-"Aby włączyć {service} bramy, musisz najpierw wyłączyć {service} usługę "
-"odbierania poczty. Możesz to zrobić w zakładce {ohref}Ogólna konfiguracja "
-"poczty{chref}."
+"Aby włączyć usługę {service} łącznika, musisz najpierw wyłączyć {service} "
+"usługę odbierania poczty. Możesz to zrobić w zakładce {ohref}Ogólna "
+"konfiguracja poczty{chref}."
 
 #: src/EBox/Zarafa/Model/Gateways.pm:129
 #, perl-brace-format
@@ -241,15 +241,15 @@ msgstr ""
 
 #: src/EBox/Zarafa/Model/GeneralSettings.pm:81
 msgid "Enable Active Sync"
-msgstr ""
+msgstr "Włącz synchronizację"
 
 #: src/EBox/Zarafa/Model/GeneralSettings.pm:85
 msgid "Enable Active Sync (Microsoft Exchange syncronization protocol)."
-msgstr ""
+msgstr "Włącz synchronizację (protokół Exchange)"
 
 #: src/EBox/Zarafa/Model/GeneralSettings.pm:89
 msgid "Virtual host"
-msgstr ""
+msgstr "Host wirtualny"
 
 #: src/EBox/Zarafa/Model/GeneralSettings.pm:95
 msgid ""
@@ -290,6 +290,8 @@ msgid ""
 "You can access the Zarafa web interface at http://zentyal_ip/webaccess and "
 "the mobile version at http://zentyal_ip/webaccess-mobile."
 msgstr ""
+"Do obsługi Zarafa możesz użyć adresu http://zentyal_ip/webaccess dla "
+"telefonów komórkowych http://zentyal_ip/webaccess-mobile"
 
 #: src/EBox/CGI/ZarafaUserOptions.pm:46
 msgid "username"

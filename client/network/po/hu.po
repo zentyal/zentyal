@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-network 1.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-08-29 01:25+0200\n"
-"PO-Revision-Date: 2010-08-28 09:07+0200\n"
+"PO-Revision-Date: 2010-08-30 15:53+0200\n"
 "Last-Translator: Nagy Ákos <nagy.akos@akos.ro>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
@@ -629,7 +629,7 @@ msgstr ""
 
 #: src/EBox/Network.pm:3410 src/EBox/Network.pm:3431
 msgid "Host name"
-msgstr "Host neve"
+msgstr "Gép neve"
 
 #: src/EBox/Network.pm:3451 src/EBox/CGI/Diag.pm:65
 msgid "host name"
@@ -730,7 +730,7 @@ msgstr ""
 
 #: src/EBox/Network/Composite/DNS.pm:60
 msgid "Domain Name Server Resolver"
-msgstr "Domain Name Server (megoldó?) feloldó"
+msgstr "Tartománynév szerver feloldó"
 
 #: src/EBox/Network/Report/ByteRate.pm:136
 msgid "Running"
@@ -792,7 +792,7 @@ msgstr "minden szolgáltatás"
 
 #: src/EBox/Network/Report/ByteRate.pm:1040
 msgid "All active sources"
-msgstr "Minden forrás aktív."
+msgstr "Minden aktív forrás"
 
 #: src/EBox/Network/Report/ByteRate.pm:1045
 msgid "Traffic data for"
@@ -1033,7 +1033,7 @@ msgstr "VLAN lista"
 
 #: src/templates/ifaces.mas:231 src/templates/ifaces.mas:289
 msgid "Action"
-msgstr "Action"
+msgstr "Művelet"
 
 #: src/templates/ifaces.mas:247 src/templates/ifaces.mas:248
 #: src/templates/ifaces.mas:249 src/templates/ifaces.mas:333

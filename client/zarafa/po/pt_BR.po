@@ -6,8 +6,8 @@ msgstr ""
 "Project-Id-Version: ebox-zarafa 0.12\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-08-28 20:28+0200\n"
-"PO-Revision-Date: 2010-02-19 14:25+0100\n"
-"Last-Translator: Maximus Sales <net.maximus@gmail.com>\n"
+"PO-Revision-Date: 2010-08-30 17:06+0200\n"
+"Last-Translator: Jorge Eduardo Quintao <jorge@netsol.com.br>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -16,150 +16,141 @@ msgstr ""
 "X-Generator: Pootle 1.1.0\n"
 
 #: migration/0001_add_firewall_services.pl:30
-#, fuzzy
 msgid "Zarafa Server"
-msgstr "Servidor Jabber"
+msgstr "Servidor Zarafa"
 
 #: src/EBox/ZarafaLdapUser.pm:239
-#, fuzzy
 msgid ""
 "This user has a Zarafa account. If the user currently connected it will "
 "continue connected until Zarafa authorization is again required."
 msgstr ""
-"Este usuário possui uma conta do jabber. Se o usuário estiver conectado, "
-"permanecerá conectado até que a autorização do jabber seja requerida "
+"Este usuário possui uma conta Zarafa. Se o usuário estiver conectado, "
+"permanecerá conectado até que a autorização do Zarafa seja requerida "
 "novamente"
 
 #: src/EBox/Zarafa.pm:64
-#, fuzzy
 msgid "Add Zarafa LDAP schema"
-msgstr "Adicionar esquema Jabber LDAP"
+msgstr "Adicionar esquema LDAP Zarafa"
 
 #: src/EBox/Zarafa.pm:65
-#, fuzzy
 msgid "Zentyal will need this schema to store Zarafa users."
-msgstr "o eBox irá requerer o esquema para armazenar os usuários jabber"
+msgstr "O Zentyal irá requerer o esquema para armazenar os usuários Zarafa."
 
 #: src/EBox/Zarafa.pm:69
 msgid "Add vmail system user"
-msgstr ""
+msgstr "Adicionar usuário do sistema vmail"
 
 #: src/EBox/Zarafa.pm:70
 msgid "Zentyal will need this to deliver mail to Zarafa."
-msgstr ""
+msgstr "O Zentyal precisar disto para enviar correio para o Zarafa"
 
 #: src/EBox/Zarafa.pm:74
 msgid "Create MySQL Zarafa database."
-msgstr ""
+msgstr "Criar o banco de dados MySQL do Zarafa."
 
 #: src/EBox/Zarafa.pm:75
 msgid "This database will store the data needed by Zarafa."
-msgstr ""
+msgstr "Este banco de dados irá armazenar os dados necessários pelo Zarafa."
 
 #: src/EBox/Zarafa.pm:79
 msgid "Create default SSL key/certificates."
-msgstr ""
+msgstr "Criar chave/certificados SSL padrões "
 
 #: src/EBox/Zarafa.pm:80
 msgid ""
 "This self-signed default certificates will be used by Zarafa POP3/IMAP "
 "gateway."
 msgstr ""
+"Este certificado auto-assinado padrão será usado pelo gateway POP3/IMAP do "
+"Zarafa."
 
 #: src/EBox/Zarafa.pm:84
 msgid "Add zarafa link to www data directory."
-msgstr ""
+msgstr "Adicionar link zarafa para o diretório de dados www."
 
 #: src/EBox/Zarafa.pm:85
 msgid "Zarafa will be accesible at http://ip/webaccess/."
-msgstr ""
+msgstr "O Zarafa irá estar acessível em http://ip/webaccess/."
 
 #: src/EBox/Zarafa.pm:103
-#, fuzzy
 msgid "To properly configure Zarafa."
-msgstr "Para configurar corretamente o jabberd2"
+msgstr "Para configurar corretamente o Zarafa."
 
 #: src/EBox/Zarafa.pm:108
-#, fuzzy
 msgid "To properly configure Zarafa LDAP connection."
-msgstr "Para configurar corretamente o jabberd2"
+msgstr "Para configurar corretamente a conexão LDAP Zarafa."
 
 #: src/EBox/Zarafa.pm:113
-#, fuzzy
 msgid "To properly configure Zarafa webaccess."
-msgstr "Para configurar corretamente o jabberd2"
+msgstr "Para configurar corretamente o webaccess Zarafa."
 
 #: src/EBox/Zarafa.pm:118
-#, fuzzy
 msgid "To properly configure Zarafa gateway server."
-msgstr "Para configurar corretamente o jabberd2"
+msgstr "Para configurar corretamente o servidor de gateway Zarafa."
 
 #: src/EBox/Zarafa.pm:123
-#, fuzzy
 msgid "To properly configure Zarafa quota monitoring server."
-msgstr "Para configurar corretamente o jabberd2"
+msgstr ""
+"Para configurar corretamente o servidor de monitoramento de cota Zarafa."
 
 #: src/EBox/Zarafa.pm:128
-#, fuzzy
 msgid "To properly configure Zarafa mail delivering server."
-msgstr "Para configurar corretamente o jabberd2"
+msgstr "Para configurar corretamente o servidor de envio de correio Zarafa."
 
 #: src/EBox/Zarafa.pm:133
-#, fuzzy
 msgid "To properly configure Zarafa ical server."
-msgstr "Para configurar corretamente o jabberd2"
+msgstr "Para configurar corretamente o servidor ical Zarafa."
 
 #: src/EBox/Zarafa.pm:138
-#, fuzzy
 msgid "To properly configure Zarafa indexing server."
-msgstr "Para configurar corretamente o jabberd2"
+msgstr "Para configurar corretamente o servidor de indexação Zarafa."
 
 #: src/EBox/Zarafa.pm:452
 msgid "Zarafa Gateway Server"
-msgstr ""
+msgstr "Servidor de Gateway Zarafa"
 
 #: src/EBox/Zarafa/Model/Quota.pm:75
 msgid "Maximum mailbox size"
-msgstr ""
+msgstr "Tamanho máximo da caixa de correio (mailbox)"
 
 #: src/EBox/Zarafa/Model/Quota.pm:77
 msgid "When a mailbox reaches this size futher messages will be rejected."
 msgstr ""
+"Quando a caixa de correio (mailbox) atingir este tamanho as novas mensagens "
+"serão rejeitadas."
 
 #: src/EBox/Zarafa/Model/Quota.pm:81
 msgid "Unlimited size"
-msgstr ""
+msgstr "Tamanho ilimitado"
 
 #: src/EBox/Zarafa/Model/Quota.pm:85
 msgid "Limited to"
-msgstr ""
+msgstr "Limitado em"
 
 #: src/EBox/Zarafa/Model/Quota.pm:96
 msgid "Warn user over"
-msgstr ""
+msgstr "Avisar usuário acima de"
 
 #: src/EBox/Zarafa/Model/Quota.pm:109
 msgid "Stop user sending mails over"
-msgstr ""
+msgstr "Parar usuários enviando correio acima de"
 
 #: src/EBox/Zarafa/Model/Quota.pm:124
-#, fuzzy
 msgid "Quota configuration settings"
-msgstr "Configuração Geral"
+msgstr "Definições da configuração de cota"
 
 #: src/EBox/Zarafa/Model/Quota.pm:129
-#, fuzzy
 msgid "Zarafa server quota configuration settings updated."
-msgstr "Configuração Geral"
+msgstr ""
+"As definições de configuração de cota do servidor Zarafa foram atualizadas."
 
 #: src/EBox/Zarafa/Model/ZarafaUser.pm:49
-#, fuzzy
 msgid "Groupware Account"
-msgstr "Conta do Jabber"
+msgstr "Conta do servidor de colaboração"
 
 #: src/EBox/Zarafa/Model/ZarafaUser.pm:57
 msgid "Zarafa"
-msgstr ""
+msgstr "Zarafa"
 
 #: src/EBox/Zarafa/Model/Gateways.pm:95
 #, perl-brace-format
@@ -167,6 +158,9 @@ msgid ""
 "To enable Zarafa {service} gateway you must disable {service} mail retrieval "
 "service. You can do it at {ohref}Mail General Configuration{chref}."
 msgstr ""
+"Para habilitar o Zarafa, desabilite o serviço {service}Recuperar e-mails de "
+"contas externas{service}. Você pode fazer isto em {ohref}Configuração Geral "
+"do Correio{chref}."
 
 #: src/EBox/Zarafa/Model/Gateways.pm:129
 #, perl-brace-format
@@ -174,42 +168,45 @@ msgid ""
 "To enable Zarafa POP3 and IMAP gateways you need at least one virtual "
 "domain. You can do it at {ohref}Virtual Mail Domains{chref}."
 msgstr ""
+"Para habilitar os gateways POP3 e IMAP do Zarafa você deve ter pelo menos um "
+"domínio virtual. Você pode fazer isto em {ohref}Domínios Virtuais de "
+"Correio{chref}."
 
 #: src/EBox/Zarafa/Model/Gateways.pm:151
 msgid "Enable POP3 gateway"
-msgstr ""
+msgstr "Habilitar gateway POP3"
 
 #: src/EBox/Zarafa/Model/Gateways.pm:157
 msgid "Enable POP3S gateway"
-msgstr ""
+msgstr "Habilitar gateway POP3S"
 
 #: src/EBox/Zarafa/Model/Gateways.pm:163
 msgid "Enable IMAP gateway"
-msgstr ""
+msgstr "Habilitar gateway IMAP"
 
 #: src/EBox/Zarafa/Model/Gateways.pm:169
 msgid "Enable IMAPS gateway"
-msgstr ""
+msgstr "Habilitar gateway IMAPS"
 
 #: src/EBox/Zarafa/Model/Gateways.pm:180
-#, fuzzy
 msgid "Zarafa gateways configuration settings"
-msgstr "Configuração Geral"
+msgstr "Definições de configuração de gateways do Zarafa"
 
 #: src/EBox/Zarafa/Model/Gateways.pm:185
-#, fuzzy
 msgid "Zarafa gateways configuration settings updated."
-msgstr "Configuração Geral"
+msgstr "Definições de configuração de gateways do Zarafa atualizadas."
 
 #: src/EBox/Zarafa/Model/Gateways.pm:188
 msgid ""
 "Zarafa gateways allow access to users mailboxes using POP3 and IMAP "
 "protocols."
 msgstr ""
+"Os gatgeways do Zarafa permitem acesso para as caixas de correio dos "
+"usuários usando os protocolos POP3 e IMAP."
 
 #: src/EBox/Zarafa/Model/VMailDomain.pm:50
 msgid "No domain selected"
-msgstr ""
+msgstr "Nenhum domínio selecionado"
 
 #: src/EBox/Zarafa/Model/VMailDomain.pm:95
 #, perl-brace-format
@@ -217,60 +214,65 @@ msgid ""
 "To configure Zarafa you must have at least one virtual mail domain. You can "
 "define one at {ohref}Virtual Domains{chref}."
 msgstr ""
+"Para configurar o Zarafa você deve ter pelo menos um domínio virtual de "
+"correio. Você pode definir isto em {ohref}Domínios Virtuais{chref}."
 
 #: src/EBox/Zarafa/Model/VMailDomain.pm:122
 msgid ""
 "The deleted virtual domain was selected for Zarafa. Maybe you want to select "
 "another one now."
 msgstr ""
+"O domínio virtual apagado era usado pelo Zarafa. Talvez você queira "
+"selecionar outro agora."
 
 #: src/EBox/Zarafa/Model/VMailDomain.pm:149
 msgid "Virtual domain"
-msgstr ""
+msgstr "Domínio virtual"
 
 #: src/EBox/Zarafa/Model/VMailDomain.pm:158
 msgid "Virtual mail domain"
-msgstr ""
+msgstr "Domínio virtual de correio"
 
 #: src/EBox/Zarafa/Model/VMailDomain.pm:163
 msgid "Select the virtual mail domain to be used for Zarafa."
-msgstr ""
+msgstr "Selecione o domínio virtual de correio que será usado pelo Zarafa."
 
 #: src/EBox/Zarafa/Model/GeneralSettings.pm:74
 msgid "Enable Spell Checking"
-msgstr ""
+msgstr "Habilitar Corrertor Ortográfico"
 
 #: src/EBox/Zarafa/Model/GeneralSettings.pm:77
 msgid "Enable spell checking on Zarafa Webaccess."
-msgstr ""
+msgstr "Habilitar corretor ortográfico no Acesso Web do Zarafa."
 
 #: src/EBox/Zarafa/Model/GeneralSettings.pm:81
 msgid "Enable Active Sync"
-msgstr ""
+msgstr "Habilitar Active Sync"
 
 #: src/EBox/Zarafa/Model/GeneralSettings.pm:85
 msgid "Enable Active Sync (Microsoft Exchange syncronization protocol)."
 msgstr ""
+"Habilitar Active Sync (protocolo de sincronização do Microsoft Exchange)"
 
 #: src/EBox/Zarafa/Model/GeneralSettings.pm:89
 msgid "Virtual host"
-msgstr ""
+msgstr "Host virtual"
 
 #: src/EBox/Zarafa/Model/GeneralSettings.pm:95
 msgid ""
 "Enable Zarafa access only on this virtual host under /webaccess and /"
 "webaccess-mobile."
 msgstr ""
+"Habilitar acesso ao Zarafa somente neste host virtual debaixo de /webaccess "
+"e /webaccess-mobile."
 
 #: src/EBox/Zarafa/Model/GeneralSettings.pm:102
-#, fuzzy
 msgid "General configuration settings"
-msgstr "Configuração Geral"
+msgstr "Definições gerais de configuração"
 
 #: src/EBox/Zarafa/Model/GeneralSettings.pm:107
-#, fuzzy
 msgid "General Zarafa server configuration settings updated."
-msgstr "Configuração Geral"
+msgstr "Definições gerais de configuração do servidor Zarafa atualizadas."
 
 #: src/EBox/Zarafa/Model/GeneralSettings.pm:119 src/templates/zarafa.mas:22
 #: src/templates/zarafa.mas:25
@@ -282,30 +284,32 @@ msgid ""
 "The deleted virtual host was selected for Zarafa. Maybe you want to select "
 "another one now."
 msgstr ""
+"O host virtual apagado estava selecionado pelo Zarafa. Talvez você queira "
+"selecionar outro agora."
 
 #: src/EBox/Zarafa/Composite/General.pm:67
-#, fuzzy
 msgid "Configuration"
-msgstr "Configuração Geral"
+msgstr "Configuração"
 
 #: src/EBox/Zarafa/Composite/General.pm:68
 msgid "Groupware (Zarafa)"
-msgstr ""
+msgstr "Servidor de colaboração (Zarafa)"
 
 #: src/EBox/Zarafa/Composite/General.pm:70
 msgid ""
 "You can access the Zarafa web interface at http://zentyal_ip/webaccess and "
 "the mobile version at http://zentyal_ip/webaccess-mobile."
 msgstr ""
+"Você pode acessar a interface web do Zarafa em http://zentyal_ip/webaccess e "
+"a versão móvel em http://zentyal_ip/webaccess-mobile."
 
 #: src/EBox/CGI/ZarafaUserOptions.pm:46
 msgid "username"
 msgstr "usuário"
 
 #: src/templates/zarafa.mas:8
-#, fuzzy
 msgid "Zarafa account"
-msgstr "Conta do Jabber"
+msgstr "Conta do Zarafa"
 
 #: src/templates/zarafa.mas:17
 msgid "User account"
@@ -322,6 +326,8 @@ msgstr "Direitos administrativos"
 #: src/templates/zarafa.mas:46
 msgid "Zarafa takes quota settings from mail account settings."
 msgstr ""
+"O Zarafa configurou suas definições de cota de acordo com as  cotas das "
+"contas de correio."
 
 #: src/templates/zarafa.mas:54 src/templates/zarafa.mas:55
 msgid "Change"

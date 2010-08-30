@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: ebox-usersandgroups 0.12\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-08-28 23:42+0200\n"
-"PO-Revision-Date: 2010-08-27 06:21+0200\n"
+"PO-Revision-Date: 2010-08-30 16:18+0200\n"
 "Last-Translator: Jorge Eduardo Quintao <jorge@netsol.com.br>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
@@ -70,11 +70,11 @@ msgstr "Fazer usuários LDAP terem uma conta do sistema."
 
 #: src/EBox/UsersAndGroups/Model/PAM.pm:94
 msgid "Default login shell"
-msgstr ""
+msgstr "Shell de acesso padrão"
 
 #: src/EBox/UsersAndGroups/Model/PAM.pm:98
 msgid "This will apply only to new users from now on."
-msgstr ""
+msgstr "Isto será aplicado somente para novos usuários a partir de agora."
 
 #: src/EBox/UsersAndGroups/Model/PAM.pm:104
 msgid "PAM settings"
@@ -687,6 +687,8 @@ msgid ""
 "If you need the advanced features you have to configure them manually. You "
 "can find {open}all the information in our wiki{close}"
 msgstr ""
+"Se você necessitar de recursos avançados você pode configurá-los "
+"manualmente. Você pode {open}todas as informações no nosso wiki{close}"
 
 #: src/templates/user.mas:21 src/templates/users.mas:25
 msgid "First name"

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-monitor 1.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-08-28 23:36+0200\n"
-"PO-Revision-Date: 2010-08-28 09:02+0200\n"
+"PO-Revision-Date: 2010-08-30 15:50+0200\n"
 "Last-Translator: Nagy Ákos <nagy.akos@akos.ro>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
@@ -69,11 +69,11 @@ msgstr "A(z) {daemon} fő beállító fájlja"
 #: src/EBox/Monitor/Measure/CPU.pm:59
 #, perl-brace-format
 msgid "CPU {no} usage"
-msgstr "processzor (CPU) {no} használat"
+msgstr "Processzor használat {no}"
 
 #: src/EBox/Monitor/Measure/CPU.pm:65
 msgid "CPU usage"
-msgstr "processzor (CPU) használat"
+msgstr "Processzor használat"
 
 #: src/EBox/Monitor/Measure/CPU.pm:66
 msgid ""
@@ -200,19 +200,18 @@ msgstr "érzékelő"
 #: src/EBox/Monitor/Measure/Thermal.pm:133
 #, perl-brace-format
 msgid "Temperature for {what}"
-msgstr "hőmérséklet {what}"
+msgstr "Hőmérséklet {what}"
 
 #: src/EBox/Monitor/Measure/Thermal.pm:139
 msgid "Thermal"
-msgstr "processzor (CPU) hőmérséklet"
+msgstr "Termikus"
 
 #: src/EBox/Monitor/Measure/Thermal.pm:140
 #, perl-brace-format
 msgid ""
 "Collect thermal information (CPU sensors temperature) if possible from {dir}"
 msgstr ""
-"Összegyűjti a processzor (CPU) érzékelő hőmérséklet értékeit, ha lehetséges "
-"{dir}"
+"Összegyűjti a processzor érzékelő hőmérséklet értékeit, ha lehetséges {dir}"
 
 #: src/EBox/Monitor/Measure/Base.pm:684
 msgid "value"
@@ -392,19 +391,19 @@ msgstr "Minden mértékegységhez több határérték tartozhat?"
 
 #: src/EBox/Monitor/Configuration.pm:121
 msgid "Last hour"
-msgstr "Legutóbbi óra"
+msgstr "Elmúlt 1 óra"
 
 #: src/EBox/Monitor/Configuration.pm:127
 msgid "Last day"
-msgstr "Legutóbbi nap"
+msgstr "Elmúlt nap"
 
 #: src/EBox/Monitor/Configuration.pm:133
 msgid "Last month"
-msgstr "Legutóbbi hónap"
+msgstr "Elmúlt hónap"
 
 #: src/EBox/Monitor/Configuration.pm:139
 msgid "Last year"
-msgstr "Legutóbbi év"
+msgstr "Elmúlt év"
 
 #: src/EBox/Monitor/Types/MeasureAttribute.pm:132
 #: src/EBox/Monitor/Types/MeasureAttribute.pm:146

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-remoteservices 1.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-08-28 23:38+0200\n"
-"PO-Revision-Date: 2010-08-28 09:16+0200\n"
+"PO-Revision-Date: 2010-08-30 15:19+0200\n"
 "Last-Translator: Nagy Ákos <nagy.akos@akos.ro>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
@@ -52,20 +52,19 @@ msgid ""
 "Zentyal Cloud"
 msgstr ""
 "A bejegyzett gépnév csak akkor használható ha a gép fel van iratkozva a "
-"Zentyal Vezérlőpult szolgáltatásra"
+"Zentyal Cloud szolgáltatásra"
 
 #: src/EBox/RemoteServices.pm:454
 msgid ""
 "The monitor gatherer IP addresses are only available if the host is "
 "subscribed to Zentyal Cloud"
 msgstr ""
-"Több IP címet csak akkor monitorizálhat ha fel van iratkozva a Zentyal "
-"Vezérlőpult szolgáltatásra"
+"Több IP címet csak akkor monitorizálhat ha fel van iratkozva a Zentyal Cloud "
+"szolgáltatásra"
 
 #: src/EBox/RemoteServices.pm:599
 msgid "Zentyal must be subscribed to reload the bundle"
-msgstr ""
-"Az újratöltéshez fel kell iratkoznia a Zentyal Vezérlőpult szolgáltatásra"
+msgstr "Az újratöltéshez fel kell iratkoznia a Zentyal Cloud szolgáltatásra"
 
 #: src/EBox/RemoteServices.pm:993
 #, perl-brace-format
@@ -137,10 +136,10 @@ msgid ""
 "private network. If you enable this option access is granted from any "
 "address. Use this option only if you could not connect to the Zentyal Cloud"
 msgstr ""
-"Alapértelmezetten a hozzáférés csak a Vezérlőpult privát hálózatában "
-"található gépekről engedélyezett. Ha ezt beállítja a hozzáférés mindenhonnan "
-"engedélyezve lesz. Csak ha nem tud csatlakozni a Vezérlőpulthoz használja "
-"ezt a beállítást"
+"Alapértelmezetten a hozzáférés csak a Zentyal Cloud hálózatában található "
+"gépekről engedélyezett. Ha ezt beállítja a hozzáférés mindenhonnan "
+"engedélyezve lesz. Csak akkor használja ezt a beállítást ha nem tagja a "
+"Zentyal Cloud szolgáltatásnak"
 
 #: src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:121
 msgid ""
@@ -154,8 +153,8 @@ msgid ""
 "To restrict addresses you need that your Zentyal Server is subscribed to "
 "Zentyal Cloud. Either subscribe it or allow access from any address"
 msgstr ""
-"A hozzáférési címek korlátozása érdekében fel kell iratkozzon a Vezérlőpult "
-"szolgáltatásra. Feliratkozás nélkül a hozzáférés nem korlátozható"
+"A hozzáférési címek korlátozása érdekében fel kell iratkozzon a Zentyal "
+"Cloud szolgáltatásra. Feliratkozás nélkül a hozzáférés nem korlátozható"
 
 #: src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:140
 #, perl-brace-format
