@@ -8,10 +8,8 @@ Standards-Version: 3.8.2
 Package: libebox
 Architecture: all
 Depends: sudo, iproute, liblog-dispatch-perl, liblog-log4perl-perl, libhtml-mason-perl, liblocale-gettext-perl, liberror-perl, libdevel-stacktrace-perl, libintl-perl, libnet-ip-perl, gettext, libfile-slurp-perl, libreadonly-perl, libreadonly-xs-perl, libperl6-junction-perl, libmail-rfc822-address-perl, libsoap-lite-perl, libjs-scriptaculous, libjs-prototype, ${misc:Depends}
-Replaces: ebox (<< 0.6)
-Conflicts: ebox (<< 0.12.99)
 Description: Zentyal - Common Library
- Zentyal is an open source small business server that can act as
+ Zentyal is a Linux small business server that can act as
  a Gateway, Unified Threat Manager, Office Server, Infrastructure
  Manager, a Unified Communications Server or a combination of them. One
  single, easy-to-use platform to manage all your network services.

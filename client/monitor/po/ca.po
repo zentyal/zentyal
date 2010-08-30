@@ -12,7 +12,7 @@ msgstr ""
 "Last-Translator: josefa <jgonza24@xtec.cat>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ASCII\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Pootle 1.1.0\n"
 
@@ -27,7 +27,7 @@ msgstr "Notificar quan un valor concret ha arribat a un cert llindar"
 
 #: src/EBox/Event/Watcher/Monitor.pm:263
 msgid "All data sources are within range again"
-msgstr "Totes les fonts de dades són de nou dins del rang"
+msgstr "Totes les fonts de dadas són de nou dins del rang"
 
 #: src/EBox/Event/Watcher/Monitor.pm:273
 #, perl-brace-format

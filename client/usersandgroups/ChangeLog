@@ -1,4 +1,4 @@
-HEAD
+2.0
 	+ Fixed user journal dir creation on master
 	+ Fixed failed login error on user corner
 	+ Default login_shell under PAM Settings UI instead of 80users.conf

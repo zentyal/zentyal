@@ -1,4 +1,4 @@
-AC_INIT([EBox-software], [1.5.6])
+AC_INIT([EBox-software], [2.0])
 
 AC_CONFIG_AUX_DIR([config])
 AC_CONFIG_SRCDIR([src/EBox/Software.pm])

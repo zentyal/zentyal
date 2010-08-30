@@ -1,4 +1,4 @@
-AC_INIT([EBox-asterisk], [1.5.5])
+AC_INIT([EBox-asterisk], [2.0])
 
 AC_CONFIG_AUX_DIR([config])
 AC_CONFIG_SRCDIR([src/EBox/Asterisk.pm])

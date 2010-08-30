@@ -1,4 +1,4 @@
-AC_INIT([EBox-radius], [1.5.3])
+AC_INIT([EBox-radius], [2.0])
 
 AC_CONFIG_AUX_DIR([config])
 AC_CONFIG_SRCDIR([src/EBox/Radius.pm])
