@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: libebox 0.12.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-08-28 19:44+0200\n"
-"PO-Revision-Date: 2010-08-22 17:08+0200\n"
+"PO-Revision-Date: 2010-08-29 18:08+0200\n"
 "Last-Translator: Cyril MARTY <cyril_marty@yahoo.fr>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
@@ -129,10 +129,9 @@ msgstr ""
 "pertinente peut être trouvé dans les logs."
 
 #: src/EBox/CGI/Base.pm:576
-#, fuzzy
 msgid "You have just hit a bug in Zentyal. Please seek technical support."
 msgstr ""
-"Vous avez trouvé un bogue dans l'eBox. Veuillez contacter le support "
+"Vous avez trouvé un bogue dans Zentyal. Veuillez contacter le support "
 "technique"
 
 #: src/EBox/CGI/Base.pm:662
@@ -188,22 +187,20 @@ msgid "hide help"
 msgstr "Masquer l'aide"
 
 #: src/templates/ebox/pageNotFound.mas:3
-#, fuzzy
 msgid "Zentyal homepage"
-msgstr "Page d'accueil eBox"
+msgstr "Page d'accueil de Zentyal"
 
 #: src/templates/ebox/pageNotFound.mas:7
 msgid "If you typed the URL manually, please check it"
 msgstr "Si vous taper l'URL manuellement, veuillez la vérifier"
 
 #: src/templates/ebox/pageNotFound.mas:8
-#, fuzzy
 msgid ""
 "Maybe a change in the Zentyal configuration or software made no longer "
 "available the requested page"
 msgstr ""
 "La page requise a probablement disparue suite à la modification de la "
-"configuration ou d'eBox"
+"configuration de Zentyal ou d'un logiciel"
 
 #: src/templates/ebox/pageNotFound.mas:9
 #, perl-brace-format
