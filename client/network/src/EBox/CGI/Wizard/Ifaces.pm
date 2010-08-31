@@ -58,8 +58,9 @@ sub _processWizard
     foreach my $iface ( @{$net->ifaces()} ) {
         my $scope = $self->param($iface . '_scope');
 
-        if ( $net->ifaceExists($iface) and $scope eq 'external' ) {
-            $net->set_bool("interfaces/$iface/external", 1);
+        if ( $net->ifaceExists($iface) ) {
+            my $isExternal = $scope eq 'external';
+            $net->set_bool("interfaces/$iface/external", $isExternal);
         }
     }
 }
