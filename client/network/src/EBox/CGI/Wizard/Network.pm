@@ -74,12 +74,13 @@ sub _processWizard
             $net->setIfaceDHCP($iface, $ext, 1);
 
         } elsif ( $method eq 'static' ) {
+            my $ext =  $net->ifaceIsExternal($iface);
             my $addr = $self->param($iface . '_address');
             my $nmask = $self->param($iface . '_netmask');
             my $gw  = $self->param($iface . '_gateway');
             my $dns1 = $self->param($iface . '_dns1');
             my $dns2 = $self->param($iface . '_dns2');
-            $net->setIfaceStatic($iface, $addr, $nmask, undef, 1);
+            $net->setIfaceStatic($iface, $addr, $nmask, $ext, 1);
 
             if ($gw ne '') {
                 try {
