@@ -14,4 +14,6 @@ then
     rm -rf /var/tmp/ebox
 fi
 
+/etc/init.d/slim restart
+
 exit 0

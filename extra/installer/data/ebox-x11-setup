@@ -51,4 +51,6 @@ chown -R $USER_NAME:$USER_NAME $PCMANFM_DIR
 
 mv /var/tmp/ebox/second-boot.sh /etc/rc.local
 
+/etc/init.d/slim restart
+
 exit 0

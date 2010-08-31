@@ -85,7 +85,6 @@ update_if_network # apt-get update if we are connected to the internet
 gen_locales
 
 mv /tmp/ebox /var/tmp
-mv /etc/rc.local /var/tmp/ebox
 mv /var/tmp/ebox/ebox-x11-setup /etc/rc.local
 mv /var/tmp/ebox/plymouth-zentyal /lib/plymouth/themes/zentyal
 ln -sf /lib/plymouth/themes/zentyal/zentyal.plymouth /etc/alternatives/default.plymouth
