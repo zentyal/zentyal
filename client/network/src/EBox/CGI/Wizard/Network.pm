@@ -70,7 +70,8 @@ sub _processWizard
         my $method = $self->param($iface . '_method');
 
         if ( $method eq 'dhcp' ) {
-            $net->setIfaceDHCP($iface, 1, 1);
+            my $ext =  $net->ifaceIsExternal($iface);
+            $net->setIfaceDHCP($iface, $ext, 1);
 
         } elsif ( $method eq 'static' ) {
             my $addr = $self->param($iface . '_address');

@@ -59,7 +59,10 @@ sub _processWizard
         my $scope = $self->param($iface . '_scope');
 
         if ( $net->ifaceExists($iface) ) {
-            my $isExternal = $scope eq 'external';
+            my $isExternal = 0;
+            if ($scope eq 'external') {
+                $isExternal = 1;
+            }
             $net->set_bool("interfaces/$iface/external", $isExternal);
         }
     }
