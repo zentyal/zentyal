@@ -2,7 +2,7 @@
 
 export LOG=/tmp/ebox-installer.log
 SOURCES_LIST=/etc/apt/sources.list
-PPA_URL="http://ppa.launchpad.net/ebox/1.5/ubuntu"
+PPA_URL="http://ppa.launchpad.net/zentyal/2.0/ubuntu"
 EBOX_SOURCES="deb $PPA_URL lucid main"
 ZARAFA_SOURCES="deb http://archive.canonical.com/ubuntu lucid partner"
 PKG_DIR=/var/tmp/ebox-packages
