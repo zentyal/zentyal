@@ -153,6 +153,10 @@ sub syncRows
               $modified = 1;
               $removed = 1;
           };
+          unless ( defined($row) ) {
+              $modified = 1;
+              $removed  = 1;
+          }
           next if ($removed);
           my $stored = $row->valueByName('eventDispatcher');
           $storedEventDispatchers{$stored} = 'true';

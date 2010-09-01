@@ -1,3 +1,6 @@
+HEAD
+	+ Bugfix: Login from Zentyal Cloud is passwordless again
+	+ Some defensive code for the synchronization in Events models
 1.5.14
 	+ Fixed redis bug with dir keys prefix
 	+ Improved login page style

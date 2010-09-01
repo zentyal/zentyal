@@ -231,7 +231,7 @@ sub loginCC
             if ( $remoteServMod->eBoxSubscribed()
                  and $remoteServMod->model('AccessSettings')->passwordlessValue()) {
                 # Do what login does
-                my $sessionKey = $self->authen_cred($req,'',1);
+                my $sessionKey = $self->authen_cred($req, '', '',1);
                 $self->send_cookie($req, $sessionKey);
                 $self->handle_cache($req);
                 $req->headers_out()->set('Location' => '/ebox/');

@@ -1373,7 +1373,7 @@ sub setTypedRow
       }
 
       # Check if the new row is unique
-      if ( $self->rowUnique() ) {
+      if ( $self->rowUnique() and (keys %{$paramsRef} > 0) ) {
           $self->_checkRowIsUnique($id, $allHashElements);
       }
 
@@ -3319,6 +3319,7 @@ sub _checkFieldIsUnique
     # Call _rows instead of rows because of deep recursion
     foreach my $id (@{$self->_ids(1)}) {
         my $row = $self->row($id);
+        next unless defined($row);
         my $rowField = $row->elementByName($newData->fieldName());
         if ( $newData->isEqualTo($rowField) ) {
             throw EBox::Exceptions::DataExists(
@@ -3352,6 +3353,7 @@ sub _checkRowIsUnique # (rowId, row_ref)
 
     foreach my $id (@{$self->_ids()}) {
         my $row = $self->row($id);
+        next unless ( defined($row) );
         # Compare if the row identifier is different
         next if ( defined($rowId) and $row->{'id'} eq $rowId);
         my $nEqual = 0;
