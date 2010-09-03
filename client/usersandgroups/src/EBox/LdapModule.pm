@@ -107,7 +107,7 @@ sub _loadSchema
         my @ports = (389, 1389, 1390);
         for my $port (@ports) {
             $ldap = EBox::Ldap::safeConnect("127.0.0.1:$port");
-            EBox::safeBind($ldap, ROOT_CONFIG_DN, $password);
+            EBox::Ldap::safeBind($ldap, ROOT_CONFIG_DN, $password);
             $self->_loadSchemaDirectory($ldap, $ldiffile);
         }
     } else {
@@ -173,7 +173,7 @@ sub _loadACL
         my @ports = (389, 1389, 1390);
         for my $port (@ports) {
             $ldap = EBox::Ldap::safeConnect("127.0.0.1:$port");
-            EBox::safeBind($ldap, ROOT_CONFIG_DN, $password);
+            EBox::Ldap::safeBind($ldap, ROOT_CONFIG_DN, $password);
             $self->_loadACLDirectory($ldap, $acl);
         }
     } else {
