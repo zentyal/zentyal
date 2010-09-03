@@ -1,3 +1,5 @@
+HEAD
+	+ Fixed incorrect LDAP binding in some cases
 2.0
 	+ Fixed user journal dir creation on master
 	+ Fixed failed login error on user corner
