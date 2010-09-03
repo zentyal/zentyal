@@ -282,7 +282,7 @@ sub precondition
 
 sub preconditionFailMsg
 {
-    return __(q{No need to configure the connection to a remote server beacuse WebMail is configured to use Zentyal mail service'});
+    return __(q{No need to configure the connection to a remote server because WebMail is configured to use Zentyal mail service'});
 }
 
 sub headTitle
