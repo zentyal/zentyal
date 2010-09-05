@@ -1,6 +1,9 @@
 HEAD
 	+ Bugfix: Login from Zentyal Cloud is passwordless again
 	+ Some defensive code for the synchronization in Events models
+	+ Bugfix: add EBox::Config::Redis::get to fetch scalar or list
+	  values. Make GConfModule use it to avoid issues with directories
+	  that have both sort of values.
 1.5.14
 	+ Fixed redis bug with dir keys prefix
 	+ Improved login page style

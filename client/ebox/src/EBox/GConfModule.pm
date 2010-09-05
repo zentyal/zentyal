@@ -788,7 +788,7 @@ sub _get # (key)
 {
     my ($self, $key) = @_;
     $key = $self->_key($key);
-    return $self->redis->get_string($key);
+    return $self->redis->get($key);
 }
 
 sub _set #

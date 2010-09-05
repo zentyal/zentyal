@@ -229,6 +229,26 @@ sub exists
     $self->_redis_call('exists', $key);
 }
 
+# Method: get
+#
+# Generic get to retrieve keys. It will
+# automatically check if it's a scalar
+# or list value.
+#
+sub get
+{
+    my ($self, $key) = @_;
+
+    my $type = $self->_redis_call('type', $key);
+    if ($type eq 'string') {
+        return $self->get_string($key);
+    } elsif ($type eq 'list') {
+         return $self->get_list($key);
+    }
+
+    return undef;
+}
+
 # Method: backup_dir
 #
 #   Back up a given dir $key in $dest
