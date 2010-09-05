@@ -987,7 +987,7 @@ sub printers
     my %external;
     if ($global->modExists('printers')) {
         my $printers = $global->modInstance('printers');
-        %external = map { $_ => 1 } @{$printers->fetchExternalCUPSPrinters()};
+        %external = map { $_ => 'new' } @{$printers->fetchExternalCUPSPrinters()};
     } else {
         return [];
     }
@@ -1008,7 +1008,7 @@ sub printers
     }
 
     unless ($readOnly) {
-        for my $newPrinter (grep { $external{$_} == 1  } keys %external) {
+        for my $newPrinter (grep { $external{$_} == 'new' } keys %external) {
             $self->_addExternalPrinter($newPrinter);
             push (@printers, $newPrinter);
         }
