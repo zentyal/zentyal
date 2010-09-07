@@ -14,8 +14,9 @@ my $settings = $usersMod->model('ADSyncSettings');
 my $username = $settings->usernameValue();
 my $password = $settings->adpassValue();
 
+my $ldapAD;
 try {
-    my $ldapAD = EBox::Ldap::safeConnect($host);
+    $ldapAD = EBox::Ldap::safeConnect($host);
 } catch Error with {
     EBox::error("[ad-sync] Can't connect to $host\n");
     exit 1;
@@ -24,9 +25,9 @@ try {
 my $base = baseDnAD();
 
 my $bindDn = "CN=$username,CN=Users,$base";
-
-my $res = $ldapAD->bind($bindDn, password => $password);
-unless ($res->{resultCode} eq 0) {
+try {
+    EBox::Ldap::safeBind($ldapAD, $bindDn, $password);
+} catch Error with {
     EBox::error("[ad-sync] Can't bind to $host as $bindDn");
     exit 1;
 }
