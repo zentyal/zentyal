@@ -1,3 +1,5 @@
+HEAD
+	+ Removed warning during postinst
 2.0.1
 	+ Bugfix: Login from Zentyal Cloud is passwordless again
 	+ Some defensive code for the synchronization in Events models
