@@ -20,7 +20,7 @@ try {
 } catch Error with {
     EBox::error("[ad-sync] Can't connect to $host\n");
     exit 1;
-}
+};
 
 my $base = baseDnAD();
 
@@ -30,7 +30,7 @@ try {
 } catch Error with {
     EBox::error("[ad-sync] Can't bind to $host as $bindDn");
     exit 1;
-}
+};
 
 my %newUsers = usersAD();
 my %newGroups = groupsAD();
