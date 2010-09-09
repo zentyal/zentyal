@@ -1,3 +1,5 @@
+HEAD
+    + Import PPA key to avoid warning executing apt-get update
 2.0-1
     + 64bit support
     + Rebranded bookmarks icons
