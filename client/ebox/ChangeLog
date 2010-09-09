@@ -1,4 +1,6 @@
 HEAD
+	+ Avoid division by zero in progress indicator when total ticks is
+	  zero
 	+ Removed warning during postinst
 2.0.1
 	+ Bugfix: Login from Zentyal Cloud is passwordless again

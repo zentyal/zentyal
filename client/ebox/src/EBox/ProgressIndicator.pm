@@ -187,6 +187,12 @@ sub totalTicks
 sub percentage
 {
   my ($self) = @_;
+
+  # Workaround to avoid illegal division by zero
+  if ( $self->totalTicks() == 0 ) {
+      return 100;
+  }
+
   my $per = $self->ticks / $self->totalTicks;
   $per = sprintf("%.2f", $per); # round to two decimals
 
