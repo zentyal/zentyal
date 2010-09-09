@@ -4,14 +4,11 @@
 </%doc>
 <%args>
    $soapHandler
-   $domainName
+   $caDomain
    $allowedClientCNs
    $confDirPath
    $caPath
 </%args>
-<%init>
-  my $internalDomainName = "internal.$domainName";
-</%init>
 <IfModule mod_ssl.c>
    SSLCACertificatePath <% $caPath %>
 </IfModule>
@@ -22,7 +19,7 @@
         SSLRequireSSL
         SSLVerifyClient require
         SSLVerifyDepth 1
-        SSLRequire %{SSL_CLIENT_S_DN_O} eq "<% $domainName %>" and %{SSL_CLIENT_I_DN_O} eq "<% $domainName %>" \
+        SSLRequire %{SSL_CLIENT_S_DN_O} eq "<% $caDomain %>" and %{SSL_CLIENT_I_DN_O} eq "<% $caDomain %>" \
                    and %{SSL_CLIENT_S_DN_CN} =~ m/<% $allowedClientCNs %>/
         SSLOptions +StdEnvVars
    </IfModule>
@@ -42,8 +39,8 @@
        SSLRequireSSL
        SSLVerifyClient require
        SSLVerifyDepth 1
-       SSLRequire %{SSL_CLIENT_S_DN_O} eq "<% $domainName %>" \
-                  and %{SSL_CLIENT_I_DN_O} eq "<% $domainName %>" \
+       SSLRequire %{SSL_CLIENT_S_DN_O} eq "<% $caDomain %>" \
+                  and %{SSL_CLIENT_I_DN_O} eq "<% $caDomain %>" \
                   and %{SSL_CLIENT_S_DN_CN} =~ m/<% $allowedClientCNs %>/
        SSLOptions +StdEnvVars +OptRenegotiate
    </IfModule>

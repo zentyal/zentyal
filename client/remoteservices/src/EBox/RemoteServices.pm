@@ -123,7 +123,7 @@ sub proxyDomain
     my ($self) = @_;
 
     if ( $self->eBoxSubscribed() ) {
-        return $self->_confKeys()->{domain};
+        return $self->_confKeys()->{realm};
     }
     return undef;
 }
@@ -842,7 +842,7 @@ sub _confSOAPService
     if ($self->eBoxSubscribed()) {
         my @tmplParams = (
             (soapHandler      => WS_DISPATCHER),
-            (domainName       => $self->_confKeys()->{domain}),
+            (caDomain         => $self->_confKeys()->{caDomain}),
             (allowedClientCNs => $self->_allowedClientCNRegexp()),
             (confDirPath      => EBox::Config::conf()),
             (caPath           => CA_DIR),
