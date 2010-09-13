@@ -1,7 +1,6 @@
 HEAD
 	+ Fixed modules configuration purge script
 	+ Avoid division by zero in progress indicator when total ticks is
-	+ Avoid division by zero in progress indicator when total ticks is
 	  zero
 	+ Removed warning during postinst
 2.0.1
