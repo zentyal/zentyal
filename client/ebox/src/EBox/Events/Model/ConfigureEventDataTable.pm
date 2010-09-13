@@ -67,25 +67,23 @@ use constant ENABLED_WATCHERS_DIR => CONF_DIR . 'WatcherEnabled/';
 #       created model
 #
 sub new
-  {
+{
+    my $class = shift;
 
-      my $class = shift;
+    my $self = $class->SUPER::new(@_);
 
-      my $self = $class->SUPER::new(@_);
+    bless ( $self, $class );
 
-      bless ( $self, $class );
+    # Create the Events configuration directory
+    unless ( -d ( CONF_DIR )) {
+        mkdir ( CONF_DIR, 0700 );
+    }
+    unless ( -d (ENABLED_WATCHERS_DIR)) {
+        mkdir ( ENABLED_WATCHERS_DIR, 0700 );
+    }
 
-      # Create the Events configuration directory
-      unless ( -d ( CONF_DIR )) {
-          mkdir ( CONF_DIR, 0700 );
-      }
-      unless ( -d (ENABLED_WATCHERS_DIR)) {
-          mkdir ( ENABLED_WATCHERS_DIR, 0700 );
-      }
-
-      return $self;
-
-  }
+    return $self;
+}
 
 # Method: syncRows
 #
@@ -103,83 +101,81 @@ sub new
 #        <EBox::Model::DataTable::syncRows>
 #
 sub syncRows
-  {
+{
+    my ($self, $currentIds) = @_;
 
-      my ($self, $currentIds) = @_;
+    # If the GConf module is readonly, return current rows
+    if ( $self->{'gconfmodule'}->isReadOnly() ) {
+        return undef;
+    }
+    my $modIsChanged = EBox::Global->getInstance()->modIsChanged('events');
 
-      # If the GConf module is readonly, return current rows
-      if ( $self->{'gconfmodule'}->isReadOnly() ) {
-          return undef;
-      }
-      my $modIsChanged = EBox::Global->getInstance()->modIsChanged('events');
+    my %storedEventWatchers;
+    my %currentEventWatchers;
+    my $watchersRef = $self->_fetchWatchers();
+    foreach my $watcherFetched (@{$watchersRef}) {
+        $currentEventWatchers{$watcherFetched} = 'true';
+    }
 
-      my %storedEventWatchers;
-      my %currentEventWatchers;
-      my $watchersRef = $self->_fetchWatchers();
-      foreach my $watcherFetched (@{$watchersRef}) {
-          $currentEventWatchers{$watcherFetched} = 'true';
-      }
+    my $modified = undef;
+    # Removing old ones
+    foreach my $id (@{$currentIds}) {
+        my $row;
+        my $removed = 0;
+        try {
+            $row = $self->row($id);
+        } catch EBox::Exceptions::Base with {
+            $self->removeRow( $id );
+            $modified = 1;
+            $removed  = 1;
+        };
+        unless ( defined($row) ) {
+            $modified = 1;
+            $removed  = 1;
+        }
+        next if ($removed);
+        my $stored = $row->valueByName('eventWatcher');
+        $storedEventWatchers{$stored} = 'true';
+        if ( exists ( $currentEventWatchers{$stored} )) {
+            # Check its ability
+            my $able = $self->_checkWatcherAbility($stored);
+            $self->setTypedRow($id, undef, readOnly => not $able);
+        } else {
+            $self->removeRow( $id );
+        }
+        $modified = 1;
+    }
 
-      my $modified = undef;
-      # Removing old ones
-      foreach my $id (@{$currentIds}) {
-          my $row;
-          my $removed = 0;
-          try {
-              $row = $self->row($id);
-          } catch EBox::Exceptions::Base with {
-              $self->removeRow( $id );
-              $modified = 1;
-              $removed  = 1;
-          };
-          unless ( defined($row) ) {
-              $modified = 1;
-              $removed  = 1;
-          }
-          next if ($removed);
-          my $stored = $row->valueByName('eventWatcher');
-          $storedEventWatchers{$stored} = 'true';
-          if ( exists ( $currentEventWatchers{$stored} )) {
-              # Check its ability
-              my $able = $self->_checkWatcherAbility($stored);
-              $self->setTypedRow($id, undef, readOnly => not $able);
-          } else {
-              $self->removeRow( $id );
-          }
-          $modified = 1;
-      }
+    # Adding new ones
+    foreach my $watcher (keys ( %currentEventWatchers )) {
+        next if ( exists ( $storedEventWatchers{$watcher} ));
+        eval "use $watcher";
+        my $enabled = not $watcher->DisabledByDefault();
+        # Those dispatchers that are enabled by default must be enabled
+        if ( $enabled ) {
+            $self->parentModule()->enableEventElement('watcher', $watcher, 1);
+        }
+        my %params = ('eventWatcher' => $watcher,
+                # The value is obtained dynamically
+                'description'  => undef,
+                'enabled'      => $enabled,
+                'configuration_selected' => 'configuration_'
+                . $watcher->ConfigurationMethod(),
+                'readOnly'     => not $self->_checkWatcherAbility($watcher),
+                );
+        if ( $watcher->ConfigurationMethod() eq 'none' ) {
+            $params{configuration_none} = '';
+        }
+        $self->addRow( %params );
+        $modified = 1;
+    }
 
-      # Adding new ones
-      foreach my $watcher (keys ( %currentEventWatchers )) {
-          next if ( exists ( $storedEventWatchers{$watcher} ));
-          eval "use $watcher";
-          my $enabled = not $watcher->DisabledByDefault();
-          # Those dispatchers that are enabled by default must be enabled
-          if ( $enabled ) {
-              $self->parentModule()->enableEventElement('watcher', $watcher, 1);
-          }
-          my %params = ('eventWatcher' => $watcher,
-                         # The value is obtained dynamically
-                         'description'  => undef,
-                         'enabled'      => $enabled,
-                         'configuration_selected' => 'configuration_'
-                                                    . $watcher->ConfigurationMethod(),
-                         'readOnly'     => not $self->_checkWatcherAbility($watcher),
-                       );
-          if ( $watcher->ConfigurationMethod() eq 'none' ) {
-              $params{configuration_none} = '';
-          }
-          $self->addRow( %params );
-          $modified = 1;
-      }
-
-      if ($modified and not $modIsChanged) {
-          $self->{'gconfmodule'}->_saveConfig();
+    if ($modified and not $modIsChanged) {
+        $self->{'gconfmodule'}->_saveConfig();
         EBox::Global->getInstance()->modRestarted('events');
-      }
-      return $modified;
-
-  }
+    }
+    return $modified;
+}
 
 # Method: updatedRowNotify
 #
@@ -198,7 +194,6 @@ sub syncRows
 #
 sub updatedRowNotify
 {
-
     my ($self, $rowRef) = @_;
 
     # Get whether the event watcher is enabled or not
@@ -213,7 +208,6 @@ sub updatedRowNotify
     if ( $className =~ m/::Log$/ and $enabled) {
         $self->_checkLogWatchers();
     }
-
 }
 
 # Method: pageTitle
@@ -261,71 +255,69 @@ sub headTitle
 #       event. The event name and description are read-only fields.
 #
 sub _table
-  {
-
-      my @tableHeader =
+{
+    my @tableHeader =
         (
          new EBox::Types::Text(
-                               fieldName     => 'eventWatcher',
-                               printableName => __('Name'),
-                               class         => 'tleft',
-                               size          => 12,
-                               unique        => 1,
-                               filter        => \&filterName,
-                              ),
+             fieldName     => 'eventWatcher',
+             printableName => __('Name'),
+             class         => 'tleft',
+             size          => 12,
+             unique        => 1,
+             filter        => \&filterName,
+             ),
          new EBox::Types::Text(
-                               fieldName     => 'description',
-                               printableName => __('Description'),
-                               size          => 30,
-                               optional      => 1,
-                               # The value is obtained dynamically
-                               volatile      => 1,
-                               filter        => \&filterDescription,
-                              ),
+             fieldName     => 'description',
+             printableName => __('Description'),
+             size          => 30,
+             optional      => 1,
+             # The value is obtained dynamically
+             volatile      => 1,
+             filter        => \&filterDescription,
+             ),
          new EBox::Types::Union(
-                                fieldName     => 'configuration',
-                                printableName => __('Configuration'),
-                                editable      => 0,
-                                subtypes      =>
-                                [
-                                 new EBox::Types::Link(
-                                                       fieldName               => 'configuration_link',
-                                                       volatile                => 1,
-                                                       acquirer                => \&acquireURL,
-                                                      ),
-                                 new EBox::Types::HasMany(
-                                                          fieldName            => 'configuration_model',
-                                                          foreignModelAcquirer => \&acquireConfModel,
-                                                          backView             => '/ebox/Events/Composite/GeneralComposite',
-                                                         ),
-                                 new EBox::Types::Union::Text(
-                                                              fieldName        => 'configuration_none',
-                                                              printableName    => __('None'),
-                                                             ),
-                                ]
-                               ),
-        );
+             fieldName     => 'configuration',
+             printableName => __('Configuration'),
+             editable      => 0,
+             subtypes      =>
+             [
+             new EBox::Types::Link(
+                 fieldName               => 'configuration_link',
+                 volatile                => 1,
+                 acquirer                => \&acquireURL,
+                 ),
+             new EBox::Types::HasMany(
+                 fieldName            => 'configuration_model',
+                 foreignModelAcquirer => \&acquireConfModel,
+                 backView             => '/ebox/Events/Composite/GeneralComposite',
+                 ),
+             new EBox::Types::Union::Text(
+                 fieldName        => 'configuration_none',
+                 printableName    => __('None'),
+                 ),
+             ]
+                 ),
+             );
 
-      my $dataTable =
-        {
-         tableName           => 'ConfigureEventDataTable',
-         printableTableName  => __('Configure Events'),
-         actions => {
-                     editField  => '/ebox/Events/Controller/ConfigureEventDataTable',
-                     changeView => '/ebox/Events/Controller/ConfigureEventDataTable',
-                    },
-         tableDescription    => \@tableHeader,
-         class               => 'dataTable',
-         rowUnique           => 1,
-         printableRowName    => __('event'),
-         help                => __('Enable/Disable each event watcher monitoring'),
-         enableProperty      => 1,
-         defaultEnabledValue => 0,
-        };
+    my $dataTable =
+    {
+        tableName           => 'ConfigureEventDataTable',
+        printableTableName  => __('Configure Events'),
+        actions => {
+            editField  => '/ebox/Events/Controller/ConfigureEventDataTable',
+            changeView => '/ebox/Events/Controller/ConfigureEventDataTable',
+        },
+        tableDescription    => \@tableHeader,
+        class               => 'dataTable',
+        rowUnique           => 1,
+        printableRowName    => __('event'),
+        help                => __('Enable/Disable each event watcher monitoring'),
+        enableProperty      => 1,
+        defaultEnabledValue => 0,
+    };
 
-      return $dataTable;
-
-  }
+    return $dataTable;
+}
 
 # Group: Callback functions
 
@@ -343,22 +335,20 @@ sub _table
 #     String - localised the event name
 #
 sub filterName
-  {
+{
+    my ($instanceType) = @_;
 
-      my ($instanceType) = @_;
+    my $className = $instanceType->value();
 
-      my $className = $instanceType->value();
+    eval "use $className";
+    if ( $@ ) {
+        # Error loading class -> watcher to remove
+        return;
+    }
+    my $watcher = $className->new();
 
-      eval "use $className";
-      if ( $@ ) {
-          # Error loading class -> watcher to remove
-          return;
-      }
-      my $watcher = $className->new();
-
-      return $watcher->name();
-
-  }
+    return $watcher->name();
+}
 
 # Function: filterDescription
 #
@@ -375,22 +365,20 @@ sub filterName
 #     String - localised the description name
 #
 sub filterDescription
-  {
+{
+    my ($instancedType) = @_;
 
-      my ($instancedType) = @_;
+    my $className = $instancedType->row()->valueByName('eventWatcher');
 
-      my $className = $instancedType->row()->valueByName('eventWatcher');
+    eval "use $className";
+    if ( $@ ) {
+        # Error loading class -> watcher to remove
+        return;
+    }
+    my $watcher = $className->new();
 
-      eval "use $className";
-      if ( $@ ) {
-          # Error loading class -> watcher to remove
-          return;
-      }
-      my $watcher = $className->new();
-
-      return $watcher->description();
-
-  }
+    return $watcher->description();
+}
 
 # Function: acquireConfModel
 #
@@ -407,22 +395,20 @@ sub filterDescription
 #      String - the foreign model to configurate the watcher
 #
 sub acquireConfModel
-  {
+{
+    my ($row) = @_;
 
-      my ($row) = @_;
+    my $className = $row->valueByName('eventWatcher');
 
-      my $className = $row->valueByName('eventWatcher');
+    eval "use $className";
+    if ( $@ ) {
+        # Error loading class -> watcher to remove
+        # Return the fallback model
+        return 'Fallback';
+    }
 
-      eval "use $className";
-      if ( $@ ) {
-          # Error loading class -> watcher to remove
-          # Return the fallback model
-          return 'Fallback';
-      }
-
-      return $className->ConfigureModel();
-
-  }
+    return $className->ConfigureModel();
+}
 
 # Function: acquireURL
 #
@@ -440,7 +426,6 @@ sub acquireConfModel
 #
 sub acquireURL
 {
-
     my ($instancedType) = @_;
 
     my $className = $instancedType->row()->valueByName('eventWatcher');
@@ -452,7 +437,6 @@ sub acquireURL
     }
 
     return $className->ConfigureURL();
-
 }
 
 
@@ -461,38 +445,37 @@ sub acquireURL
 # Fetch the current watchers on the system
 # Return an array ref with all the class names
 sub _fetchWatchers
-  {
-      my ($self) = @_;
+{
+    my ($self) = @_;
 
-      my @watchers = ();
+    my @watchers = ();
 
-      # Fetch the current available event watchers
-      my $dirPath = WATCHERS_DIR;
-      opendir ( my $dir, $dirPath );
+    # Fetch the current available event watchers
+    my $dirPath = WATCHERS_DIR;
+    opendir ( my $dir, $dirPath );
 
-      while ( defined ( my $file = readdir ( $dir ))) {
-          next unless (-f "$dirPath/$file");
-          next unless ( $file =~ m/.*\.pm/);
-          my ($className) = ($file =~ m/(.*)\.pm/);
-          $className = 'EBox::Event::Watcher::' . $className;
-          # Test the class
-          eval "use $className";
-          if ( $@ ) {
-              EBox::warn('Error loading class: $className');
-              next;
-          }
-          # It should be an event watcher
-          next unless ( $className->isa('EBox::Event::Watcher::Base'));
-          # It shouldn't be the base event watcher
-          next if ( $className eq 'EBox::Event::Watcher::Base' );
+    while ( defined ( my $file = readdir ( $dir ))) {
+        next unless (-f "$dirPath/$file");
+        next unless ( $file =~ m/.*\.pm/);
+        my ($className) = ($file =~ m/(.*)\.pm/);
+        $className = 'EBox::Event::Watcher::' . $className;
+        # Test the class
+        eval "use $className";
+        if ( $@ ) {
+            EBox::warn('Error loading class: $className');
+            next;
+        }
+        # It should be an event watcher
+        next unless ( $className->isa('EBox::Event::Watcher::Base'));
+        # It shouldn't be the base event watcher
+        next if ( $className eq 'EBox::Event::Watcher::Base' );
 
-          push ( @watchers, $className );
-      }
-      closedir ( $dir );
+        push ( @watchers, $className );
+    }
+    closedir ( $dir );
 
-      return \@watchers;
-
-  }
+    return \@watchers;
+}
 
 # Method to check if there are any log watcher enabled
 sub _checkLogWatchers
@@ -512,7 +495,6 @@ sub _checkLogWatchers
                           . $self->message()
                          );
     }
-
 }
 
 # This method checks if the event watcher is able to monitor the
@@ -520,7 +502,6 @@ sub _checkLogWatchers
 # subsystem does not work with RAID
 sub _checkWatcherAbility # (watcherClassName)
 {
-
     my ($self, $watcherClassName) = @_;
 
     eval "use $watcherClassName";
@@ -529,8 +510,6 @@ sub _checkWatcherAbility # (watcherClassName)
     }
 
     return $watcherClassName->Able();
-
 }
 
 1;
-
