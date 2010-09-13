@@ -30,273 +30,264 @@ use EBox::Exceptions::External;
 
 sub new # (error=?, msg=?, cgi=?)
 {
-	my $class = shift;
-	my $self = $class->SUPER::new('title' => __('Backup'),
-				      'template' => '/backupTabs.mas',
-				      @_);
-	$self->{errorchain} = "EBox/Backup";
-	bless($self, $class);
-	return $self;
+    my $class = shift;
+    my $self = $class->SUPER::new('title' => __('Backup'),
+                      'template' => '/backupTabs.mas',
+                      @_);
+    $self->{errorchain} = "EBox/Backup";
+    bless($self, $class);
+    return $self;
 }
 
 sub _print
 {
-	my $self = shift;
-	if ($self->{error} || not defined($self->{downfile})) {
-		$self->SUPER::_print;
-		return;
-	}
-	open(BACKUP,$self->{downfile}) or
-		throw EBox::Exceptions::Internal('Could not open backup file.');
-	print($self->cgi()->header(-type=>'application/octet-stream',
-				   -attachment=>$self->{downfilename}));
-	while (<BACKUP>) {
-		print $_;
-	}
-	close BACKUP;
+    my $self = shift;
+    if ($self->{error} || not defined($self->{downfile})) {
+        $self->SUPER::_print;
+        return;
+    }
+    open(BACKUP,$self->{downfile}) or
+        throw EBox::Exceptions::Internal('Could not open backup file.');
+    print($self->cgi()->header(-type=>'application/octet-stream',
+                -attachment=>$self->{downfilename}));
+    while (<BACKUP>) {
+        print $_;
+    }
+    close BACKUP;
 }
 
 sub requiredParameters
 {
-  my ($self) = @_;
+    my ($self) = @_;
 
-  if ($self->param('backup')) {
-    return [qw(backup description mode)];
-  }
-  elsif ($self->param('bugreport')) {
-    return [qw(bugreport )];
-  }
-  elsif ($self->param('restoreFromFile')) {
-    return [qw(restoreFromFile backupfile mode)];
-  }
-  elsif ($self->param('restoreFromId')) {
-    return [qw(restoreFromId id mode)];
-  }
-  elsif ($self->param('download')) {
-    return [qw(download id download.x download.y)];
-  }
-  elsif ($self->param('delete')) {
-    return [qw(delete id)];
-  }
-  elsif ($self->param('bugReport')) {
-    return [qw(bugReport)];
-  }
-  else {
-    return [];
-  }
+    if ($self->param('backup')) {
+        return [qw(backup description mode)];
+    }
+    elsif ($self->param('bugreport')) {
+        return [qw(bugreport )];
+    }
+    elsif ($self->param('restoreFromFile')) {
+        return [qw(restoreFromFile backupfile mode)];
+    }
+    elsif ($self->param('restoreFromId')) {
+        return [qw(restoreFromId id mode)];
+    }
+    elsif ($self->param('download')) {
+        return [qw(download id download.x download.y)];
+    }
+    elsif ($self->param('delete')) {
+        return [qw(delete id)];
+    }
+    elsif ($self->param('bugReport')) {
+        return [qw(bugReport)];
+    }
+    else {
+        return [];
+    }
 }
 
 sub optionalParameters
 {
-  my ($self) = @_;
+    my ($self) = @_;
 
-  if ($self->param('cancel')) {
-    return ['.*'];
-  }
+    if ($self->param('cancel')) {
+        return ['.*'];
+    }
 
-  return ['selected'];
+    return ['selected'];
 }
-
 
 sub actuate
 {
-  my ($self) = @_;
+    my ($self) = @_;
 
-  $self->param('cancel') and return;
+    $self->param('cancel') and return;
 
-  if ($self->param('backup')) {
-    $self->_backupAction();
-  }
-  elsif ($self->param('bugreport')) {
-    $self->_bugreportAction();
+    if ($self->param('backup')) {
+        $self->_backupAction();
     }
-  elsif ($self->param('delete')) {
-      $self->_deleteAction();
+    elsif ($self->param('bugreport')) {
+        $self->_bugreportAction();
     }
-  elsif ($self->param('download')) {
-    $self->_downloadAction();
-  }
-  elsif ($self->param('restoreFromId')) {
-    $self->_restoreFromIdAction();
-  }
-  elsif ($self->param('restoreFromFile')) {
-    $self->_restoreFromFileAction();
-  }
+    elsif ($self->param('delete')) {
+        $self->_deleteAction();
+    }
+    elsif ($self->param('download')) {
+        $self->_downloadAction();
+    }
+    elsif ($self->param('restoreFromId')) {
+        $self->_restoreFromIdAction();
+    }
+    elsif ($self->param('restoreFromFile')) {
+        $self->_restoreFromFileAction();
+    }
 }
-
-
 
 sub masonParameters
 {
-  my ($self) = @_;
-  my @params = ();
+    my ($self) = @_;
 
-  my $backup = EBox::Backup->new();
-  push @params, (backups => $backup->listBackups());
+    my @params = ();
 
-  my $global = EBox::Global->getInstance();
-  my $modulesChanged = grep { $global->modIsChanged($_) } @{ $global->modNames() };
-  push @params, (modulesChanged => $modulesChanged);
-  push @params, (selected => 'local');
+    my $backup = EBox::Backup->new();
+    push @params, (backups => $backup->listBackups());
 
+    my $global = EBox::Global->getInstance();
+    my $modulesChanged = grep { $global->modIsChanged($_) } @{ $global->modNames() };
+    push @params, (modulesChanged => $modulesChanged);
+    push @params, (selected => 'local');
 
-  return \@params;
+    return \@params;
 }
-
 
 sub  _backupAction
 {
-  my ($self, %params) = @_;
+    my ($self, %params) = @_;
 
-  my $fullBackup;
-  my $mode = $self->param('mode');
-  if ($mode eq 'fullBackup') {
-    $fullBackup = 1;
-  }
-  elsif ($mode eq 'configurationBackup') {
-    $fullBackup = 0;
-  }
-  else {
-    throw EBox::Exceptions::External(__x('Unknown backup mode: {mode}', mode => $mode));
-  }
+    my $fullBackup;
+    my $mode = $self->param('mode');
+    if ($mode eq 'fullBackup') {
+        $fullBackup = 1;
+    }
+    elsif ($mode eq 'configurationBackup') {
+        $fullBackup = 0;
+    }
+    else {
+        throw EBox::Exceptions::External(__x('Unknown backup mode: {mode}', mode => $mode));
+    }
 
-  my $description = $self->param('description');
+    my $description = $self->param('description');
 
-  my $progressIndicator;
+    my $progressIndicator;
 
-  my $backup = EBox::Backup->new();
-  $progressIndicator= $backup->prepareMakeBackup(description => $description, fullBackup => $fullBackup);
+    my $backup = EBox::Backup->new();
+    $progressIndicator= $backup->prepareMakeBackup(description => $description, fullBackup => $fullBackup);
 
-  $self->_showBackupProgress($progressIndicator);
+    $self->_showBackupProgress($progressIndicator);
 }
-
-
 
 sub  _restoreFromFileAction
 {
-  my ($self) = @_;
+    my ($self) = @_;
 
-  my $filename = $self->unsafeParam('backupfile');
-  # poor man decode html entity for '/'
-  $filename =~ s{%2F}{/}g;
-  $self->_restore($filename);
+    my $filename = $self->unsafeParam('backupfile');
+    # poor man decode html entity for '/'
+    $filename =~ s{%2F}{/}g;
+    $self->_restore($filename);
 }
 
 sub _restoreFromIdAction
 {
-  my ($self) = @_;
+    my ($self) = @_;
 
-  my $id = $self->param('id');
-  if ($id =~ m{[./]}) {
-    throw EBox::Exceptions::External(
-				     __("The input contains invalid characters"));
-  }
+    my $id = $self->param('id');
+    if ($id =~ m{[./]}) {
+        throw EBox::Exceptions::External(
+                __("The input contains invalid characters"));
+    }
 
-  $self->_restore(EBox::Config::conf ."/backups/$id.tar");
+    $self->_restore(EBox::Config::conf ."/backups/$id.tar");
 }
-
 
 sub _restore
 {
-  my ($self, $filename) = @_;
+    my ($self, $filename) = @_;
 
-  my $fullRestore = $self->_fullRestoreMode;
+    my $fullRestore = $self->_fullRestoreMode;
 
-  my $backup = new EBox::Backup;
+    my $backup = new EBox::Backup;
 
-  my $progressIndicator =
-    $backup->prepareRestoreBackup($filename, fullRestore => $fullRestore);
+    my $progressIndicator =
+        $backup->prepareRestoreBackup($filename, fullRestore => $fullRestore);
 
-  $self->_showRestoreProgress($progressIndicator);
+    $self->_showRestoreProgress($progressIndicator);
 }
 
 sub _fullRestoreMode
 {
-  my ($self) = @_;
+    my ($self) = @_;
 
-  my $fullRestore;
-  my $mode = $self->param('mode');
-  if ($mode eq 'fullRestore') {
-    $fullRestore = 1;
-  }
-  elsif ($mode eq 'configurationRestore') {
-    $fullRestore = 0;
-  }
-  else {
-    throw EBox::Exceptions::External(__x('Unknown restore mode: {mode}', mode => $mode));
-  }
+    my $fullRestore;
+    my $mode = $self->param('mode');
+    if ($mode eq 'fullRestore') {
+        $fullRestore = 1;
+    }
+    elsif ($mode eq 'configurationRestore') {
+        $fullRestore = 0;
+    }
+    else {
+        throw EBox::Exceptions::External(__x('Unknown restore mode: {mode}', mode => $mode));
+    }
 
-  return $fullRestore;
+    return $fullRestore;
 }
-
 
 sub _showBackupProgress
 {
-  my ($self, $progressIndicator) =@_;
-  $self->showProgress(
-		      progressIndicator => $progressIndicator,
+    my ($self, $progressIndicator) = @_;
 
-		      title    => __('Backing up'),
-		      text               =>  __('Backing up modules'),
-		      currentItemCaption =>  __('Operation') ,
-		      itemsLeftMessage   =>  __('operations left to finish backup'),
-		      endNote            =>  __('Backup successful'),
-		      reloadInterval     =>  2,
-		     );
+    $self->showProgress(
+            progressIndicator => $progressIndicator,
+
+            title    => __('Backing up'),
+            text               =>  __('Backing up modules'),
+            currentItemCaption =>  __('Operation') ,
+            itemsLeftMessage   =>  __('operations left to finish backup'),
+            endNote            =>  __('Backup successful'),
+            reloadInterval     =>  2,
+            );
 }
 
 sub _showRestoreProgress
 {
-  my ($self, $progressIndicator) =@_;
-  $self->showProgress(
-		      progressIndicator  => $progressIndicator,
+    my ($self, $progressIndicator) = @_;
 
-		      title              => __('Restoring backup'),
-		      text               =>   __('Restoring modules'),
-		      currentItemCaption =>   __('Module') ,
-		      itemsLeftMessage   =>   __('modules restored'),
-		      endNote            =>   __('Restore successful'),
-		      reloadInterval     =>   4,
-);
+    $self->showProgress(
+            progressIndicator  => $progressIndicator,
+
+            title              => __('Restoring backup'),
+            text               =>   __('Restoring modules'),
+            currentItemCaption =>   __('Module') ,
+            itemsLeftMessage   =>   __('modules restored'),
+            endNote            =>   __('Restore successful'),
+            reloadInterval     =>   4,
+            );
 }
-
-
-
 
 sub  _downloadAction
 {
-  my ($self) = @_;
+    my ($self) = @_;
 
-  my $id = $self->param('id');
-  if ($id =~ m{[./]}) {
-    throw EBox::Exceptions::External(
-				     __("The input contains invalid characters"));
-  }
-  $self->{downfile} = EBox::Config::conf . "/backups/$id.tar";
-  $self->{downfilename} = 'eboxbackup.tar';
+    my $id = $self->param('id');
+    if ($id =~ m{[./]}) {
+        throw EBox::Exceptions::External(
+                __("The input contains invalid characters"));
+    }
+    $self->{downfile} = EBox::Config::conf . "/backups/$id.tar";
+    $self->{downfilename} = 'eboxbackup.tar';
 }
 
 sub  _deleteAction
 {
-  my ($self) = @_;
+    my ($self) = @_;
 
-  my $id = $self->param('id');
-  if ($id =~ m{[./]}) {
-    throw EBox::Exceptions::External(
-				     __("The input contains invalid characters"));
-  }
-  my $backup = EBox::Backup->new();
-  $backup->deleteBackup($id);
+    my $id = $self->param('id');
+    if ($id =~ m{[./]}) {
+        throw EBox::Exceptions::External(
+                __("The input contains invalid characters"));
+    }
+    my $backup = EBox::Backup->new();
+    $backup->deleteBackup($id);
 }
 
 sub  _bugreportAction
 {
-  my ($self) = @_;
+    my ($self) = @_;
 
-  my $backup = EBox::Backup->new();
-  $self->{errorchain} = "EBox/Bug";
-  $self->{downfile} = $backup->makeBugReport();
-  $self->{downfilename} = 'ebox-configuration-report.tar';
+    my $backup = EBox::Backup->new();
+    $self->{errorchain} = "EBox/Bug";
+    $self->{downfile} = $backup->makeBugReport();
+    $self->{downfilename} = 'ebox-configuration-report.tar';
 }
 
 1;
