@@ -43,15 +43,13 @@ use EBox::Gettext;
 #       general events composite
 #
 sub new
-  {
+{
+    my ($class) = @_;
 
-      my ($class) = @_;
+    my $self = $class->SUPER::new();
 
-      my $self = $class->SUPER::new();
-
-      return $self;
-
-  }
+    return $self;
+}
 
 # Group: Protected methods
 
@@ -62,26 +60,24 @@ sub new
 #     <EBox::Model::Composite::_description>
 #
 sub _description
-  {
+{
+    my $description =
+    {
+        components      => [
+                            #'/events/EnableForm',
+                            'ConfigurationComposite',
+        ],
+        layout          => 'top-bottom',
+        name            => 'GeneralComposite',
+        printableName   => __('Events'),
+        pageTitle => __('Events'),
+        headTitle => undef,
+        compositeDomain => 'Events',
+        help            => __('Events module configures Zentyal to help ' .
+                              'informing you about events that happen'),
+    };
 
-      my $description =
-        {
-         components      => [
-#                             '/events/EnableForm',
-                             'ConfigurationComposite',
-                            ],
-         layout          => 'top-bottom',
-         name            => 'GeneralComposite',
-         printableName   => __('Events'),
-         pageTitle => __('Events'),
-         headTitle => undef,
-         compositeDomain => 'Events',
-         help            => __('Events module configures Zentyal to help ' .
-                               'informing you about events that happen'),
-        };
-
-      return $description;
-
-  }
+    return $description;
+}
 
 1;
