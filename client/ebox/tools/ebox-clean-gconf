@@ -11,12 +11,11 @@ $module or die "You must supply the name of a Zentyal module";
 EBox::init();
 
 my $global = EBox::Global->instance();
-my $mod = $global->modInstance($module);
 
 my $globalConf = "/ebox/modules/global/modules/$module";
 my $moduleConf = "/ebox/modules/$module";
 
 $global->delete_dir($globalConf);
-$mod->delete_dir($moduleConf);
+$global->{redis}->delete_dir($moduleConf);
 
 1;
