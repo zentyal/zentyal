@@ -110,7 +110,7 @@ sub run
       my @modules = $self->_runningAlertServices();
       if (@modules) {
           $msg = __x("The following modules are not running but they are enabled: {modules}\n",
-                  modules => "@modules");
+                     modules => join(', ', @modules) );
 
           return [ new EBox::Event(
                   message => $msg,

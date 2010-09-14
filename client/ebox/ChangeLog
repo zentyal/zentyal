@@ -1,4 +1,5 @@
 HEAD
+	+ Better message for the service status event
 	+ Fixed modules configuration purge script
 	+ Avoid division by zero in progress indicator when total ticks is
 	  zero
