@@ -3015,7 +3015,7 @@ sub deleteSlave
     my $res = 0;
     try {
         $self->ldap->delete("hostname=$slave," . $self->slavesDn());
-        my $journaldir = $self->_journalsDir . $slave->{'hostname'};
+        my $journaldir = $self->_journalsDir . $slave;
         if (-d $journaldir) {
             EBox::Sudo::root('rm -rf ' . $journaldir);
         }
