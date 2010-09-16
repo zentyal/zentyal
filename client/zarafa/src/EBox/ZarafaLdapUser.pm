@@ -69,7 +69,7 @@ sub schemas
 
 sub localAttributes
 {
-    my @attrs = qw(zarafaAccount zarafaAdmin zarafaQuotaWarn zarafaQuotaSoft zarafaQuotaHard);
+    my @attrs = qw(zarafaAccount zarafaAdmin zarafaQuotaOverride zarafaQuotaWarn zarafaQuotaSoft zarafaQuotaHard);
     return \@attrs;
 }
 
@@ -183,10 +183,10 @@ sub setHasAccount #($username, [01]) 0=disable, 1=enable
                            'objectClass' => 'zarafa-user',
                            'zarafaAccount' => '1',
                            'zarafaAdmin' => '0',
-                                               'zarafaQuotaOverride' => '0',
-                                               'zarafaQuotaWarn' => '0',
-                                               'zarafaQuotaSoft' => '0',
-                                               'zarafaQuotaHard' => '0',
+                           'zarafaQuotaOverride' => '0',
+                           'zarafaQuotaWarn' => '0',
+                           'zarafaQuotaSoft' => '0',
+                           'zarafaQuotaHard' => '0',
                            ]
                        ]
               );
@@ -200,10 +200,10 @@ sub setHasAccount #($username, [01]) 0=disable, 1=enable
                           'objectClass' => ['zarafa-user'],
                               'zarafaAccount' => [],
                               'zarafaAdmin' => [],
-                                                  'zarafaQuotaOverride' => [],
-                                                  'zarafaQuotaWarn' => [],
-                                                  'zarafaQuotaSoft' => [],
-                                                  'zarafaQuotaHard' => [],
+                              'zarafaQuotaOverride' => [],
+                              'zarafaQuotaWarn' => [],
+                              'zarafaQuotaSoft' => [],
+                              'zarafaQuotaHard' => [],
                           ]
                        ]
               );
