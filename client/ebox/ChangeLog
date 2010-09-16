@@ -1,6 +1,7 @@
 HEAD
 	+ Better message for the service status event
 	+ Fixed modules configuration purge script
+	+ Block enable module button after first click
 	+ Avoid division by zero in progress indicator when total ticks is
 	  zero
 	+ Removed warning during postinst

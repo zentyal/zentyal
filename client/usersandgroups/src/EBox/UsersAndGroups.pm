@@ -49,6 +49,7 @@ use File::Slurp;
 use File::Temp qw/tempfile/;
 use Perl6::Junction qw(any);
 use String::ShellQuote;
+use Fcntl qw(:flock);
 
 use constant USERSDN        => 'ou=Users';
 use constant GROUPSDN       => 'ou=Groups';
@@ -71,6 +72,8 @@ use constant CA_DIR         => EBox::Config::conf() . 'ssl-ca/';
 use constant SSL_DIR        => EBox::Config::conf() . 'ssl/';
 use constant CERT           => SSL_DIR . 'master.cert';
 use constant AUTHCONFIGTMPL => '/etc/auth-client-config/profile.d/acc-ebox';
+use constant LOCK_FILE      => EBox::Config::tmp() . 'ebox-users-lock';
+
 
 sub _create
 {
@@ -198,6 +201,13 @@ sub enableActions
     my ($self) = @_;
     my $share = EBox::Config::share();
 
+    # Lock to operate in exclusive mode
+    open(my $lock, '>', LOCK_FILE);
+    flock($lock, LOCK_EX);
+
+    return if ($self->{enabled});
+    $self->{enabled} = 1;
+
     my $mode = mode();
 
     if ($mode eq 'slave') {
@@ -219,6 +229,10 @@ sub enableActions
             "Trying to enable users with unknown LDAP mode: $mode");
     }
     EBox::Sudo::root("$share/ebox-usersandgroups/ebox-usersandgroups-enable");
+
+    # Release lock
+    flock($lock, LOCK_UN);
+    close($lock);
 }
 
 
@@ -243,7 +257,6 @@ sub _setConf
     my ($self) = @_;
 
     my $mode = mode();
-
     my $ldap = $self->ldap;
     EBox::Module::Base::writeFile(SECRETFILE, $ldap->getPassword(),
         { mode => '0600', uid => 0, gid => 0 });
@@ -3002,6 +3015,10 @@ sub deleteSlave
     my $res = 0;
     try {
         $self->ldap->delete("hostname=$slave," . $self->slavesDn());
+        my $journaldir = $self->_journalsDir . $slave->{'hostname'};
+        if (-d $journaldir) {
+            EBox::Sudo::root('rm -rf ' . $journaldir);
+        }
     } otherwise {
         EBox::debug('Error deleting slave: ' . $slave);
         $res = 1;

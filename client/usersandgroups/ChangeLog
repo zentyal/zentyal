@@ -1,4 +1,7 @@
 HEAD
+	+ Fixed master/slave synchronization issues
+	+ Remove userjournal dir when removing a slave
+	+ Added lock during module enable to avoid initialization problems
 	+ Fixed AD slave synchronization task
 2.0.1
 	+ Fixed incorrect LDAP binding in some cases
