@@ -5,6 +5,7 @@ HEAD
 	+ Avoid division by zero in progress indicator when total ticks is
 	  zero
 	+ Removed warning during postinst
+	+ Added new subscription messages in logs, events and backup
 2.0.1
 	+ Bugfix: Login from Zentyal Cloud is passwordless again
 	+ Some defensive code for the synchronization in Events models

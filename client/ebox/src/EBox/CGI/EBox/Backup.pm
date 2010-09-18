@@ -137,6 +137,13 @@ sub masonParameters
     push @params, (modulesChanged => $modulesChanged);
     push @params, (selected => 'local');
 
+    my $subscribed = 0;
+    if ($global->modExists('remoteservices')) {
+        my $rs = $global->modInstance('remoteservices');
+        $subscribed = $rs->eBoxSubscribed();
+    }
+    push @params, (subscribed => $subscribed);
+
     return \@params;
 }
 

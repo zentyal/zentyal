@@ -25,6 +25,12 @@ use EBox::Global;
 use EBox::Gettext;
 use EBox::Logs::Consolidate;
 
+use constant STORE_URL => 'http://store.zentyal.com/';
+use constant UTM       => '?utm_source=ebox&utm_medium=query.logs&utm_campaign=reports';
+use constant PROF_URL  => STORE_URL . 'serversubscriptions/subscription-professional.html' . UTM;
+use constant ENTER_URL => STORE_URL . 'serversubscriptions/subscription-enterprise.html' . UTM;
+use constant REPORT_URL => 'http://www.zentyal.com/sample-report-pdf' . UTM;
+
 sub new
 {
     my $class = shift;
@@ -184,6 +190,49 @@ sub _table
 sub Viewer
 {
     return '/ajax/tableBodyWithoutActions.mas';
+}
+
+# Method: viewCustomizer
+#
+#      Return a custom view customizer to set a permanent message
+#      if needed
+#
+# Overrides:
+#
+#      <EBox::Model::DataTable::viewCustomizer>
+#
+sub viewCustomizer
+{
+    my ($self) = @_;
+
+    my $customizer = new EBox::View::Customizer();
+    $customizer->setModel($self);
+
+    my $subscriptionLevel = -1;
+
+    if (EBox::Global->modExists('remoteservices')) {
+        my $rs = EBox::Global->modInstance('remoteservices');
+        $subscriptionLevel = $rs->subscriptionLevel();
+    }
+    unless ($subscriptionLevel > 0) {
+        $customizer->setPermanentMessage($self->_commercialMsg());
+    }
+
+    return $customizer;
+}
+
+# Return the commercial message
+sub _commercialMsg
+{
+    return __sx('Gain full access to frequent reports based on these logs by purchasing a '
+                . '{openhrefp}Professional{closehref} or '
+                . '{openhrefe}Enterprise Server Subscription{closehref}. '
+                . 'You can see a sample of these reports '
+                . '{openhrefr}here{closehref}.',
+                openhrefp => '<a href="' . PROF_URL . '" target="_blank">',
+                openhrefe => '<a href="' . ENTER_URL . '" target="_blank">',
+                openhrefr => '<a href="' . REPORT_URL . '" target="_blank">',
+                closehref => '</a>');
 }
 
 

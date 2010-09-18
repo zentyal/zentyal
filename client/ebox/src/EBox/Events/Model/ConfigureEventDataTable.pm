@@ -51,6 +51,12 @@ use constant WATCHERS_DIR => EBox::Config::perlPath() . 'EBox/Event/Watcher';
 use constant CONF_DIR => EBox::Config::conf() . 'events/';
 use constant ENABLED_WATCHERS_DIR => CONF_DIR . 'WatcherEnabled/';
 
+use constant STORE_URL => 'http://store.zentyal.com/';
+use constant UTM       => '?utm_source=ebox&utm_medium=events&utm_campaign=alerts';
+use constant PROF_URL  => STORE_URL . 'serversubscriptions/subscription-professional.html' . UTM;
+use constant ENTER_URL => STORE_URL . 'serversubscriptions/subscription-enterprise.html' . UTM;
+use constant VIRTUAL_CIO_URL => 'http://www.zentyal.com/virtual_CIO_EN.pdf' . UTM;
+
 # Group: Public methods
 
 # Constructor: new
@@ -510,6 +516,49 @@ sub _checkWatcherAbility # (watcherClassName)
     }
 
     return $watcherClassName->Able();
+}
+
+# Method: viewCustomizer
+#
+#      Return a custom view customizer to set a permanent message
+#      if needed
+#
+# Overrides:
+#
+#      <EBox::Model::DataTable::viewCustomizer>
+#
+sub viewCustomizer
+{
+    my ($self) = @_;
+
+    my $customizer = new EBox::View::Customizer();
+    $customizer->setModel($self);
+
+    my $subscriptionLevel = -1;
+
+    if (EBox::Global->modExists('remoteservices')) {
+        my $rs = EBox::Global->modInstance('remoteservices');
+        $subscriptionLevel = $rs->subscriptionLevel();
+    }
+    unless ($subscriptionLevel > 0) {
+        $customizer->setPermanentMessage($self->_commercialMsg());
+    }
+
+    return $customizer;
+}
+
+# Return the commercial message
+sub _commercialMsg
+{
+    return __sx('Receive automatic alerts by purchasing a '
+                . '{openhrefp}Professional{closehref} or '
+                . '{openhrefe}Enterprise Server Subscription{closehref}. '
+                . 'You have a full list of available alerts '
+                . '{openhrefr}here{closehref}.',
+                openhrefp => '<a href="' . PROF_URL . '" target="_blank">',
+                openhrefe => '<a href="' . ENTER_URL . '" target="_blank">',
+                openhrefr => '<a href="' . VIRTUAL_CIO_URL . '" target="_blank">',
+                closehref => '</a>');
 }
 
 1;

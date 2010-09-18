@@ -1,10 +1,16 @@
 <%args>
   @backups
   $modulesChanged
+  $subscribed
 </%args>
 <%init>
 use EBox::Gettext;
 </%init>
+% unless ($subscribed) {
+  <div class='warning'>
+	<% __sx('Get a FREE {ohref}Basic Server Subscription{chref} to gain access to automatic remote configuration backup.', ohref => '<a href="http://store.zentyal.com/serversubscriptions/subscription-basic.html?utm_source=ebox&utm_medium=conf.backup&utm_campaign=basic.subscription" target="_blank">', chref => '</a>') %>
+  </div>
+% }
 <& .backupSection, modulesChanged => $modulesChanged &>
 <& .restoreSection&>
 <& .listSection, backups => \@backups &>
