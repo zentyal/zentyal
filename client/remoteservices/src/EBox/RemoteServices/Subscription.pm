@@ -389,6 +389,12 @@ sub deleteData
     $events->unset('alert_autoconfiguration');
     # TODO: Remove ebox-cloud-prof package
 
+    # Remove subscription levels
+    my $rs = EBox::Global->modInstance('remoteservices');
+    $rs->st_unset('subscription/level');
+    $rs->st_unset('subscription/codename');
+    $rs->st_unset('subscription/securityUpdates');
+
 }
 
 # Group: Private methods

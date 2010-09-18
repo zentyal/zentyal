@@ -570,13 +570,13 @@ sub _commercialMsg
 {
     return __sx('Zentyal Cloud services integrate Quality Assured software '
                 . 'updates, alerts and centralized monitoring and administration '
-                . 'of your eBox servers. You gain full access to these services '
+                . 'of your Zentyal servers. You gain full access to these services '
                 . 'by obtaining a {openhrefp}Professional{closehref} or '
                 . '{openhrefe}Enterprise Server Subscription{closehref}. '
                 . 'You can also have a look to these services by getting the '
                 . '{openhrefb}Basic Server Subscription{closehref}, '
                 . 'that also allows you to store your configuration backup remotely, receive alerts '
-                . 'regarding the connectivity of your eBox server, available updates or '
+                . 'regarding the connectivity of your Zentyal server, available updates or '
                 . 'failed automatic backup.',
                 openhrefp  => '<a href="' . PROF_URL . '" target="_blank">',
                 openhrefe => '<a href="' . ENTER_URL . '" target="_blank">',

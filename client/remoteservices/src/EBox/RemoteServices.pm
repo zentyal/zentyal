@@ -28,6 +28,7 @@ use base qw(EBox::Module::Service
 use strict;
 use warnings;
 
+use feature qw(switch);
 
 use Date::Calc;
 use EBox::Config;
@@ -37,17 +38,20 @@ use EBox::Dashboard::Value;
 use EBox::DBEngineFactory;
 use EBox::Exceptions::External;
 use EBox::Exceptions::Internal;
+use EBox::Exceptions::MissingArgument;
 use EBox::Gettext;
 use EBox::Global;
 use EBox::Service;
 use EBox::RemoteServices::Audit::Password;
 use EBox::RemoteServices::Backup;
 use EBox::RemoteServices::Bundle;
+use EBox::RemoteServices::Capabilities;
 use EBox::RemoteServices::Subscription;
 use EBox::RemoteServices::SupportAccess;
 use EBox::RemoteServices::Configuration;
 use EBox::Sudo;
 use Error qw(:try);
+use Net::DNS;
 
 # Constants
 use constant SERV_DIR            => EBox::Config::conf() . 'remoteservices/';
@@ -650,6 +654,184 @@ sub version
     return $remoteServicesVersion;
 }
 
+# Method: subscriptionLevel
+#
+#      Get the subscription level
+#
+# Parameters:
+#
+#      force - Boolean check against server
+#              *(Optional)* Default value: false
+#
+# Returns:
+#
+#      Int - the subscription level
+#
+#         -1 - no subscribed or impossible to know
+#          0 - basic
+#          1 - professional
+#          2 - enterprise
+#
+sub subscriptionLevel
+{
+    my ($self, $force) = @_;
+
+    $force = 0 unless defined($force);
+
+    if ( (not $force) and (defined($self->st_get_int('subscription/level'))) ) {
+        return $self->st_get_int('subscription/level');
+    } else {
+        # Ask to the cloud if connected
+        if ( $self->isConnected() ) {
+            my $cap = new EBox::RemoteServices::Capabilities();
+            my $subsLevel = $cap->subscriptionLevel();
+            $self->_setSubscription($subsLevel);
+            return $subsLevel->{level};
+        }
+    }
+    return -1;
+
+}
+
+# Method: subscriptionCodename
+#
+#      Get the subscription codename
+#
+# Parameters:
+#
+#      force - Boolean check against server
+#              *(Optional)* Default value: false
+#
+# Returns:
+#
+#      String - the subscription codename
+#
+#         '' - no subscribed or impossible to know
+#         basic
+#         professional
+#         enterprise
+#
+sub subscriptionCodename
+{
+    my ($self, $force) = @_;
+
+    $force = 0 unless defined($force);
+
+    if ( (not $force)
+         and (defined($self->st_get_string('subscription/codename'))) ) {
+        return $self->st_get_string('subscription/codename');
+    } else {
+        # Ask to the cloud if connected
+        if ( $self->isConnected() ) {
+            my $cap = new EBox::RemoteServices::Capabilities();
+            my $subsLevel = $cap->subscriptionLevel();
+            $self->_setSubscription($subsLevel);
+            return $subsLevel->{codename};
+        }
+    }
+    return '';
+
+}
+
+# Method: securityUpdatesAddOn
+#
+#      Get if server has security updates add-on
+#
+# Parameters:
+#
+#      force - Boolean check against server
+#              *(Optional)* Default value: false
+#
+# Returns:
+#
+#      Boolean - indicating if it has security updates add-on or not
+#
+sub securityUpdatesAddOn
+{
+    my ($self, $force) = @_;
+
+    $force = 0 unless defined($force);
+
+    if ( (not $force)
+         and (defined($self->st_get_bool('subscription/securityUpdates'))) ) {
+        return $self->st_get_bool('subscription/securityUpdates');
+    } else {
+        # Ask to the cloud if connected
+        if ( $self->isConnected() ) {
+            my $cap = new EBox::RemoteServices::Capabilities();
+            my $secUpdates = $cap->securityUpdatesAddOn();
+            $self->st_set_bool('subscription/securityUpdates', $secUpdates);
+            return $secUpdates;
+        }
+    }
+    return '';
+
+}
+
+# Method: queryInternalNS
+#
+#    Query the internal nameserver
+#
+# Parameters:
+#
+#    hostname - String the host to ask for
+#
+#    method - String to determine which answer to retrieve.
+#             Possible values:
+#                 - random: select one IP address randomly (Default)
+#                 - all : return all IP addresses
+#
+# Returns:
+#
+#    empty string - if there is no answer
+#
+#    String - the IP address if random or first method is selected
+#
+#    array ref - the IP addresses if all method is selected
+#
+# Exceptions:
+#
+#    <EBox::Exceptions::MissingArgument> - thrown if any compulsory
+#    argument is missing
+#
+#    <EBox::Exceptions::Internal> - thrown if the host is not
+#    connected to the cloud
+#
+sub queryInternalNS
+{
+    my ($self, $hostname, $method) = @_;
+
+    defined($hostname) or throw EBox::Exceptions::MissingArgument('hostname');
+
+    throw EBox::Exceptions::Internal('No connected') unless ( $self->isConnected() );
+
+    $method = 'random' unless (defined($method));
+
+    my $ns = $self->_confKeys()->{dnsServer};
+    my $resolver = new Net::DNS::Resolver(nameservers => [ $ns ],
+                                          defnames    => 0,
+                                          udp_timeout => 15);
+
+    my $response = $resolver->query($hostname);
+
+    return '' unless (defined($response));
+
+    my @addresses = map { $_->address() } (grep { $_->type() eq 'A' } $response->answer());
+
+    given ( $method ) {
+        when ( 'random' ) {
+            my $n = int(rand(scalar(@addresses)));
+            return $addresses[$n];
+        }
+        when ( 'all' ) {
+            return \@addresses;
+        }
+        default {
+            throw EBox::Exceptions::Internal("Invalid method $method");
+        }
+    }
+
+}
 
 # Group: Public methods related to reporting
 
@@ -1002,7 +1184,17 @@ sub _ccConnectionWidget
 
 }
 
+# set the subscription level
+sub _setSubscription
+{
+    my ($self, $subsLevel) = @_;
 
+    $self->st_set_int('subscription/level', $subsLevel->{level});
+    $self->st_set_string('subscription/codename', $subsLevel->{codename});
+
+}
+
+# TODO: Document this method
 sub extraSudoerUsers
 {
     my ($self) = @_;
