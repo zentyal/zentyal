@@ -28,6 +28,8 @@ use EBox::Exceptions::DataExists;
 use EBox::Types::Host;
 use EBox::OpenVPN::Types::Certificate;
 
+use Error qw(:try);
+
 # XXX TODO
 #   - client type must hid unavailable types
 #  - certificates select must not show the certificate of the server
@@ -315,11 +317,19 @@ sub precondition
 {
     my ($self) = @_;
 
-    my $configuration = $self->row()->parentRow()->subModel('configuration');
-    defined $configuration or
-        return undef;
-
-    return  $configuration->configured();
+    my $configured;
+    try {
+        my $configuration = $self->row()->parentRow()->subModel('configuration');
+        if ($configuration) {
+            $configured = $configuration->configured();
+        } else {
+            $configured = 0;
+        }
+    } otherwise {
+        my $ex = shift;
+        $self->{addPreconditionMsg} = $ex->text();
+        $configured = 0;
+    };
 }
 
 # Method: pageTitle
@@ -346,7 +356,15 @@ sub pageTitle
 #
 sub preconditionFailMsg
 {
-  __('Cannot make a bundle because the server  is not fully configured; please complete the configuration and retry');
+    my ($self) = @_;
+
+    my $msg = '<p>' . __('Cannot make a bundle because the server  is not fully configured; please complete the configuration and retry') . '<p/>';
+
+    if ($self->{addPreconditionMsg}) {
+        $msg .= '<p>' . (delete $self->{addPreconditionMsg}) . '<p/>';
+    }
+
+    return $msg;
 }
 
 1;
