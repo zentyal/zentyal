@@ -90,4 +90,7 @@ exit 0;
 QUARANTINE_DIR=/var/lib/ebox/quarantine/
 chown root.__USERS__  $QUARANTINE_DIR || true
 
+# This might fail if the fs does not support quotas
 invoke-rc.d quota restart
+
+exit 0

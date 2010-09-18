@@ -1,4 +1,5 @@
 HEAD
+	+ Bug fix: samba can be enabled now if filesystem does not support quotas
 	+ Removed warning due to mix numeric and string values in printer hash.
 1.5.9
 	+ Rebranded domain name and description
