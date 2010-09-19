@@ -1,3 +1,5 @@
+HEAD
+	+ Allow more than one dot in usernames
 2.0.2
 	+ Fixed master/slave synchronization issues
 	+ Remove userjournal dir when removing a slave
