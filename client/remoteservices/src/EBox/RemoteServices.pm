@@ -690,7 +690,6 @@ sub subscriptionLevel
         }
     }
     return -1;
-
 }
 
 # Method: subscriptionCodename
@@ -765,7 +764,6 @@ sub securityUpdatesAddOn
         }
     }
     return '';
-
 }
 
 # Method: queryInternalNS

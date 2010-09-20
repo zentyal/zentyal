@@ -54,18 +54,34 @@ sub subscriptionLevel
 {
     my ($self) = @_;
 
-    return $self->soapCall('subscriptionLevel');
+    my $result = { level => -1, codename => ''};
+
+    try {
+        $result = $self->soapCall('subscriptionLevel');
+    } otherwise {
+        EBox::warn("SOAP call subscriptionLevel failed: $@");
+    };
+
+    return $result;
 }
 
 # Method: securityUpdatesAddOn
 #
-#     Check the subscription level with the cloud
+#     Check the if securityUpdates addon is available in the cloud
 #
 sub securityUpdatesAddOn
 {
     my ($self) = @_;
 
-    return $self->soapCall('securityUpdatesAddOn');
+    my $result = '';
+
+    try {
+        $result = $self->soapCall('securityUpdatesAddOn');
+    } otherwise {
+        EBox::warn("SOAP call securityUpdatesAddOn failed: $@");
+    };
+
+    return $result;
 }
 
 # Group: Protected methods
