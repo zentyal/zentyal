@@ -255,7 +255,7 @@ sub usage
   }
 
 
-  # calcualte system usage and free space for each file system
+  # calculate system usage and free space for each file system
   foreach my $fileSys (keys %usageByFilesys) {
     exists $fileSystems->{$fileSys} or
       throw EBox::Exceptions::Internal("File system not found: $fileSys");

@@ -300,7 +300,7 @@ sub logReportInfo
         $entry->{'values'} = {};
         my $mount = $fileSysS->{$fileSys}->{mountPoint};
         $entry->{'values'}->{'mountpoint'} = $mount;
-        my $info = df($mount);
+        my $info = df($mount, 1);
         $entry->{'values'}->{'used'} = $info->{'used'};
         $entry->{'values'}->{'free'} = $info->{'bavail'};
         push(@data, $entry)

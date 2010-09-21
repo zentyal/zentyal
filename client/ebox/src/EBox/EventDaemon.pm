@@ -439,15 +439,15 @@ sub _dispatchEventByDispatcher
             my ($exc) = @_;
             EBox::warn($dispatcher->name() . ' is not enabled to send messages');
             EBox::error($exc->stringify());
-            # TODO: Disable dispatcher since it's not enabled to
-            # send events
-            eval { require 'EBox::Global'};
-            my $events = EBox::Global->modInstance('events');
-            # Disable the model
-            $events->enableDispatcher( ref ( $dispatcher ), 0);
-            $events->configureDispatcherModel()->setMessage(
-                    __x('Dispatcher {name} disabled since it is not able to '
-                        . 'send events', name => $dispatcher->name()));
+            # Disable dispatcher since it's not enabled to
+            # send events: This is a non-sense after months of testing
+            # eval { require 'EBox::Global'};
+            # my $events = EBox::Global->modInstance('events');
+            # # Disable the model
+            # $events->enableDispatcher( ref ( $dispatcher ), 0);
+            # $events->configureDispatcherModel()->setMessage(
+            #         __x('Dispatcher {name} disabled since it is not able to '
+            #             . 'send events', name => $dispatcher->name()));
         };
     }
 }

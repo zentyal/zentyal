@@ -1,3 +1,7 @@
+HEAD
+	+ Bugfix: Disk usage is now reported in expected bytes
+	+ Bugfix: Event dispatcher is not disabled when it is impossible
+	  for it to dispatch the message
 2.0.2
 	+ Better message for the service status event
 	+ Fixed modules configuration purge script
