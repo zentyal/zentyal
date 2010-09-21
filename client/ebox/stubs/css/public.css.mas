@@ -43,6 +43,7 @@
     position: relative;
     display: block;
     top: -46px;
+    margin-bottom: -46px;
     margin-right: 0px;
     float:right;
 }
