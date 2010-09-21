@@ -360,7 +360,6 @@ sub notifyFreshclamEvent
 
   }
 
-
   my $statePairs = "date,$date,update,$update,error,$error,outdated,$outdated";
   my $stateFile = $class->freshclamStateFile();
   write_file($stateFile, $statePairs);
