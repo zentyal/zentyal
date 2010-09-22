@@ -28,6 +28,7 @@ use EBox::Squid::Types::TimePeriod;
 use EBox::Types::HasMany;
 
 use constant MAX_DG_GROUP => 99; # max group number allowed by dansguardian
+use constant STORE_URL => 'https://store.zentyal.com/other/advanced-security.html?utm_source=zentyal&utm_medium=HTTP_proxy_profile_filter&utm_campaign=advanced_security_updates';
 
 # Group: Public methods
 
@@ -52,6 +53,34 @@ sub new
 
     bless $self, $class;
     return $self;
+
+}
+
+# Method: viewCustomizer
+#
+#      To display a permanent message
+#
+# Overrides:
+#
+#      <EBox::Model::DataTable::viewCustomizer>
+#
+sub viewCustomizer
+{
+    my ($self) = @_;
+
+    my $customizer = $self->SUPER::viewCustomizer();
+
+    my $securityUpdatesAddOn = 0;
+    if ( EBox::Global->modExists('remoteservices') ) {
+        my $rs = EBox::Global->modInstance('remoteservices');
+        $securityUpdatesAddOn = $rs->securityUpdatesAddOn();
+    }
+
+    unless ( $securityUpdatesAddOn ) {
+        $customizer->setPermanentMessage($self->_commercialMsg());
+    }
+
+    return $customizer;
 
 }
 
@@ -482,6 +511,23 @@ sub restoreConfig
     my ($class, $dir)  = @_;
     EBox::Squid::Model::DomainFilterFilesBase->restoreConfig($dir);
 }
+
+# Security Updates Add-On message
+sub _commercialMsg
+{
+    return __sx(
+        'Get Content Filtering updates to keep your HTTP proxy aware of '
+        . 'the latest threats such as malware, phishing and bots! The Content '
+        . 'Filtering updates are integrated in the {openhref}Advanced Security '
+        . 'Updates{closehref} subscription that guarantees that the Antispam, '
+        . 'Intrusion Detection System, Content filtering system and Antivirus '
+        . 'installed on your Zentyal server are updated on daily basis based '
+        . 'on the information provided by the most trusted IT experts.',
+        openhref  => '<a href="' . STORE_URL . '" target="_blank">',
+        closehref => '</a>');
+
+}
+
 
 1;
 

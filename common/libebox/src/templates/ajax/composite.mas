@@ -31,6 +31,12 @@
   <% $model->help() %>
 </div>
 %    }
+%    # Print the permanent message if any
+%    if ( $model->permanentMessage() ) {
+<div class="note">
+  <% $model->permanentMessage() %>
+</div>
+%    }
 %    if ( $model->layout() eq 'tabbed' )
 %    {
 <& /ajax/tabMenu.mas,

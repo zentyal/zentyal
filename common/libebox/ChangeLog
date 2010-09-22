@@ -1,4 +1,7 @@
 HEAD
+	+ Added permanent messages to composite viewer
+	+ Bugfix: Show permanent messages and message below page title if
+	  the model has pageTitle property
 	+ Added Lithuanian language
 	+ Added Romanian to the language selection
 1.5.10

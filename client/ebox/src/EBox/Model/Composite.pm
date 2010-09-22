@@ -549,13 +549,31 @@ sub printableIndex
 #     String - the i18ned string which contents the help if any
 #
 sub help
-  {
+{
 
       my ($self) = @_;
 
       return $self->{help};
 
-  }
+}
+
+# Method: permanentMessage
+#
+#     Get the permanent message to be shown as a note within the
+#     composite
+#
+# Returns:
+#
+#     String - the i18ned string which contents the permanent message
+#
+sub permanentMessage
+{
+    my ($self) = @_;
+
+    return $self->{permanentMessage};
+
+}
+
 
 # Method: selectMessage
 #
@@ -741,10 +759,14 @@ sub Viewer
 #       menuNamespace - String the menu namespace, this is used in
 #       order to show the context within the eBox menu *(Optional)*
 #
+#       permanentMessage - String the permanent message to be shown
+#       always as a side note in the composite *(Optional)*
+#
+#
 sub _description
-  {
+{
 
-  }
+}
 
 # Group: Private methods
 
@@ -775,6 +797,7 @@ sub _setDescription
       $self->{name} = ref( $self );
       $self->{printableName} = '';
       $self->{help} = '';
+      $self->{permanentMessage} = '';
       $self->{selectMessage} = __('Choose one of the following:');
       $self->{compositeDomain} = delete ( $description->{compositeDomain} );
       $self->{menuNamespace} = delete ($description->{menuNamespace});
@@ -802,12 +825,11 @@ sub _setDescription
           $self->{name} = delete ( $description->{name} );
       }
 
-      if ( exists ($description->{printableName})) {
-          $self->{printableName} = delete ( $description->{printableName} );
-      }
-
-      if ( exists ($description->{help})) {
-          $self->{help} = delete ( $description->{help} );
+      # String properties
+      foreach my $property (qw(printableName help permanentMessage)) {
+          if ( exists ($description->{$property})) {
+              $self->{$property} = delete ( $description->{$property} );
+          }
       }
 
       if ( exists ($description->{selectMessage})) {

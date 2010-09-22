@@ -26,6 +26,11 @@ use strict;
 use warnings;
 
 use EBox::Gettext;
+use EBox::Global;
+
+# Constants
+use constant STORE_URL => 'https://store.zentyal.com/other/advanced-security.html?utm_source=zentyal&utm_medium=IDS&utm_campaign=advanced_security_updates';
+
 
 # Group: Public methods
 
@@ -46,6 +51,35 @@ sub new
     my $self = $class->SUPER::new();
 
     return $self;
+}
+
+# Method: permanentMessage
+#
+#     Override to show a message depending on the subscription status
+#
+# Overrides:
+#
+#     <EBox::Model::Composite::permanentMessage>
+#
+sub permanentMessage
+{
+    my ($self) = @_;
+
+    unless ( $self->{advancedSec} ) {
+        my $securityUpdatesAddOn = 0;
+        if ( EBox::Global->modExists('remoteservices') ) {
+            my $rs = EBox::Global->modInstance('remoteservices');
+            $securityUpdatesAddOn = $rs->securityUpdatesAddOn();
+        }
+
+        unless ( $securityUpdatesAddOn ) {
+            $self->{permanentMessage} = $self->_commercialMsg();
+        }
+        $self->{advancedSec} = 1;
+    }
+
+    return $self->{permanentMessage};
+
 }
 
 # Group: Protected methods
@@ -73,6 +107,25 @@ sub _description
     };
 
     return $description;
+}
+
+# Group: Private methods
+
+# Commercial message
+sub _commercialMsg
+{
+    return __sx(
+        'Get IDS updates to protect your system against the latest security '
+        . 'threats such as hacking attempts and attacks on security '
+        . 'vulnerabilities! The IDS updates are integrated in the {openhref} '
+        . 'Advanced Security Updates{closehref} subscription that guarantees '
+        . 'that the Antispam, Intrusion Detection System, Content filtering '
+        . 'system and Antivirus installed on your Zentyal server are updated '
+        . 'on daily basis based on the information provided by the most '
+        . 'trusted IT experts.',
+        openhref  => '<a href="' . STORE_URL . '" target="_blank">',
+        closehref => '</a>');
+
 }
 
 1;

@@ -1,4 +1,5 @@
 HEAD
+	+ Added permanent message property to Composite
 	+ Bugfix: Minor aesthetic fix in horizontal menu
 	+ Bugfix: Disk usage is now reported in expected bytes
 	+ Bugfix: Event dispatcher is not disabled when it is impossible
