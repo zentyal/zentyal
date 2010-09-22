@@ -1090,6 +1090,8 @@ sub _startupTasks
     if ( $self->st_get_bool('just_subscribed') ) {
         # Get the cron jobs after subscribing on the background
         system(EBox::Config::pkgdata() . 'ebox-get-cronjobs &');
+        # Set the subscription level
+        system(EBox::Config::pkgdata() . '../ebox-remoteservices/subs-level &');
         $self->st_set_bool('just_subscribed', 0);
     }
 }

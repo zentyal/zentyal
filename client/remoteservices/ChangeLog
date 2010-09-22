@@ -1,4 +1,7 @@
 HEAD
+	+ Bugfix: Asked for the subscription level after subscription
+	  during saving changes stage to avoid showing up commercial
+	  messages when they should not
 	+ Bugfix: Added pageTitle property to remote support access page
 2.0.2
 	+ Handle exceptions in subscription levels SOAP calls
