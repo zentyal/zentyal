@@ -82,13 +82,14 @@ sub _table
                                 editable      => 1,
                                 default       => 0,
                                 help =>
-__('By default the acces is only granted to hosts inside the Zentyal Cloud private network. If you enable this option access is granted from any address. Use this option only if you could not connect to the Zentyal Cloud')
+__('By default, the access is only granted to hosts inside the Zentyal Cloud private network. If you enable this option, the access is granted from any address. Use this option only if you could not connect to the Zentyal Cloud')
                                ),
       );
 
     my $dataForm = {
                     tableName          => 'RemoteSupportAccess',
-                    printableTableName => __('Remote Support Access'),
+                    printableTableName => __('Enable Remote Support Access'),
+                    pageTitle          => __('Remote Support Access'),
                     modelDomain        => 'RemoteServices',
                     defaultActions     => [ 'editField', 'changeView' ],
                     tableDescription   => \@tableDesc,
