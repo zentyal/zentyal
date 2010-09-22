@@ -195,7 +195,7 @@ sub _commercialMsg
         'Get Antivirus updates to protect your system against scams, '
         . 'spear phishing, frauds and other junk! The Antivirus updates '
         . 'are integrated in the {openhref}Advanced Security Updates{closehref} '
-        . 'subscription that guarantees that the Antispam, Intruder Detection '
+        . 'subscription that guarantees that the Antispam, Intrusion Detection '
         . 'System, Content filtering system and Antivirus installed on your '
         . 'Zentyal server are updated on daily basis based on the information '
         . 'provided by the most trusted IT experts.',
