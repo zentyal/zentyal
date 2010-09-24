@@ -4,10 +4,10 @@
 ; Kervin Pierre, kervin@blueprint-tech.com
 ; 05JUN02
 
-; Modified by eBox Technologies S.L. (2009)
+; Modified by eBox Technologies S.L. (2009-2010)
 
-!define PRODUCT_NAME "eBox AD Password Synchronizer"
-!define PRODUCT_VERSION "1.3"
+!define PRODUCT_NAME "Zentyal AD Password Synchronizer"
+!define PRODUCT_VERSION "2.0"
 !define PRODUCT_PUBLISHER "eBox Technologies S.L."
 !define PRODUCT_DIR_REGKEY "Software\Microsoft\Windows\CurrentVersion\App Paths\ebox_adsync_config.exe"
 !define PRODUCT_UNINST_KEY "Software\Microsoft\Windows\CurrentVersion\Uninstall\${PRODUCT_NAME}"

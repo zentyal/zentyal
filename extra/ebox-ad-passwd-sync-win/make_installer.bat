@@ -12,6 +12,7 @@
 
 Set INSTALLER_TEMP=installer_temp
 Set MAKENSIS_EXE="c:\program files\nsis\makensis.exe"
+Set PYTHON_EXE="C:\Python26\python.exe"
 
 mkdir %INSTALLER_TEMP%
 
@@ -27,8 +28,14 @@ copy ebox-service-launcher.exe %INSTALLER_TEMP%
 copy vcredist_x86.exe %INSTALLER_TEMP%
 
 :: Generate .exe from python
+if exist %PYTHON_EXE% goto path 
 python setup.py py2exe
 copy dist\*.* %INSTALLER_TEMP%
+goto end
+:path
+%PYTHON_EXE% setup.py py2exe
+copy dist\*.* %INSTALLER_TEMP%
+:end
 
 cd %INSTALLER_TEMP%
 %MAKENSIS_EXE% ebox-adsync.nsi

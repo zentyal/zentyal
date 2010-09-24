@@ -8,7 +8,7 @@ set INST_PATH=%*
 set INI="%INST_PATH%\ebox-service-launcher.ini"
 
 echo [Settings] > %INI%
-echo ServiceName = eBox Password Synchronizer >> %INI%
+echo ServiceName = Zentyal Password Synchronizer >> %INI%
 echo CheckProcessSeconds = 30 >> %INI%
 echo [Process0] >> %INI%
 echo CommandLine = %INST_PATH%\ebox-pwdsync-service.exe >> %INI%

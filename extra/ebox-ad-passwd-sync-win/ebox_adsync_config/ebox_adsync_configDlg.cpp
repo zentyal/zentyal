@@ -138,7 +138,7 @@ CPasswdhk_configDlg::CPasswdhk_configDlg(CWnd* pParent /*=NULL*/)
 	m_loglevel = _T("3");
 	m_maxlogsize = _T("8192");
 	m_priority = _T("0");
-	m_urlencode = TRUE;
+	m_urlencode = FALSE;
 	m_enabled = FALSE;
 	m_postChangeProg = _T("");
 	m_preChangeProg = _T("\\ebox-pwdsync-hook.exe");
@@ -149,7 +149,7 @@ CPasswdhk_configDlg::CPasswdhk_configDlg(CWnd* pParent /*=NULL*/)
 	m_preChangeProgWait = _T("5000");
 	m_environment = _T("");
 	m_inheritHandles = FALSE;
-	// new fields added for eBox
+	// new fields added for Zentyal
 	m_secret = _T("");
 	m_host = _T("");
 	m_port = _T("6677");
@@ -532,6 +532,10 @@ void CPasswdhk_configDlg::OnOK()
 	/* secret */
 	memset(&szBuf, 0, sizeof(szBuf));
 	strncpy(szBuf, m_secret.GetBuffer(0), sizeof(szBuf)-2);
+	if (strlen(szBuf) != 16) {
+		MessageBox("Password lenght must be 16 chars", "Incorrect password lenght", MB_ICONERROR);
+		return;
+	}
 
 	retVal = RegSetValueEx(hk, "secret", 0, REG_SZ,
 			  (LPBYTE)szBuf, strlen(szBuf));
@@ -833,12 +837,12 @@ void CPasswdhk_configDlg::OnEnablecheck()
 					"error writing to registry", retVal);
 				return;
 			}
-			MessageBox("eBox password hook enabled in registry.", "success", MB_ICONINFORMATION);
+			MessageBox("Zentyal password hook enabled in registry.", "success", MB_ICONINFORMATION);
 		}
 		else
 		{
-			MessageBox("eBox password hook is already disabled in the registry",
-				"Disabling eBox password hook in registry notification packages",
+			MessageBox("Zentyal password hook is already disabled in the registry",
+				"Disabling Zentyal password hook in registry notification packages",
 				MB_ICONINFORMATION);
 		}
 	}
@@ -846,8 +850,8 @@ void CPasswdhk_configDlg::OnEnablecheck()
 	{
 		if(m_enabled)
 		{
-			MessageBox("eBox password hook is already registered in the registry",
-				"Enabling eBox password hook in registry notification packages",
+			MessageBox("Zentyal password hook is already registered in the registry",
+				"Enabling Zentyal password hook in registry notification packages",
 				MB_ICONINFORMATION);
 		}
 		else
@@ -877,7 +881,7 @@ void CPasswdhk_configDlg::OnEnablecheck()
 				return;
 			}
 
-			MessageBox("eBox password hook disabled in registry.", "success", MB_ICONINFORMATION);
+			MessageBox("Zentyal password hook disabled in registry.", "success", MB_ICONINFORMATION);
 		}
 	}
 
