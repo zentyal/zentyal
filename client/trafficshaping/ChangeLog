@@ -1,4 +1,4 @@
-HEAD
+2.0.1
 	+ Do traffic shaping after routing in POSTROUTING chain
 1.5.4
 	+ Bugfix: l7-based rules can now be combined with port-based rules
