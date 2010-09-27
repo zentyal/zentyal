@@ -1811,7 +1811,7 @@ sub _createPostroutingChain # (iface)
     };
 
     try {
-        $self->_pf("-t mangle -I POSTROUTING -j EBOX-SHAPER");
+        $self->_pf("-t mangle -A POSTROUTING -j EBOX-SHAPER");
         $self->_pf('-t mangle -I FORWARD -j EBOX-L7SHAPER');
     } catch EBox::Exceptions::Sudo::Command with {
         my $exception = shift;

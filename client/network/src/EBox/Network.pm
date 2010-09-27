@@ -2726,6 +2726,7 @@ sub _multigwRoutes
     my @cmds; # commands to run
 
     push(@cmds, EBox::Config::share() . "ebox-network/ebox-flush-fwmarks");
+    my %interfaces;
 
     for my $router ( reverse @{$routers} ) {
 
@@ -2735,6 +2736,7 @@ sub _multigwRoutes
 
         my $iface = $router->{'interface'};
         my $method = $self->ifaceMethod($iface);
+        $interfaces{$iface}++;
 
         my $mark = $marks->{$router->{'id'}};
         my $table = 100 + $mark;
@@ -2744,30 +2746,33 @@ sub _multigwRoutes
         my $if = new IO::Interface::Simple($iface);
         next unless $if->address;
 
-        my $route = "via $ip";
+        my $net = $self->ifaceNetwork($iface);
+        my $address = $self->ifaceAddress($iface);
+        my $route = "via $ip dev $iface src $address";
         if ($method eq 'ppp') {
             $route = "dev $iface";
         }
 
         push(@cmds, "/sbin/ip route flush table $table");
         push(@cmds, "/sbin/ip rule add fwmark $mark table $table");
-        push(@cmds, "/sbin/ip rule add from $ip table $table");
+        push(@cmds, "/sbin/ip rule add from $address table $table");
         push(@cmds, "/sbin/ip route add default $route table $table");
     }
 
     push(@cmds,'/sbin/ip rule add table main');
 
     # Not in @cmds array because of possible CONNMARK exception
-    root('/sbin/iptables -t mangle -F');
-    root('/sbin/iptables -t mangle -X');
-
     try {
-        root('/sbin/iptables -t mangle -A PREROUTING -j CONNMARK --restore-mark');
-        root('/sbin/iptables -t mangle -A OUTPUT -j CONNMARK --restore-mark');
-    } catch EBox::Exceptions::Internal with {};
+        my @fcmds;
+        push(@fcmds, '/sbin/iptables -t mangle -F');
+        push(@fcmds, '/sbin/iptables -t mangle -X');
+        push(@fcmds, '/sbin/iptables -t mangle -A PREROUTING -j CONNMARK --restore-mark');
+        push(@fcmds, '/sbin/iptables -t mangle -A POSTROUTING -j CONNMARK --restore-mark');
+        push(@fcmds, '/sbin/iptables -t mangle -A OUTPUT -j CONNMARK --restore-mark');
+        EBox::Sudo::root(@fcmds);
+    } otherwise {};
 
     my $defaultRouterMark;
-    my $totalWeight = 0;
     foreach my $router (@{$routers}) {
 
         # Skip gateways with unassigned address
@@ -2777,12 +2782,11 @@ sub _multigwRoutes
             $defaultRouterMark = $marks->{$router->{'id'}};
         }
 
-        $totalWeight += $router->{'weight'};
-
         my $mark = $marks->{$router->{'id'}};
 
         # Match interface instead of mac for pppoe and dhcp
         my $mac = $router->{'mac'};
+        my $iface = $self->realIface($router->{'interface'});
         my $origin;
         if ($mac) {
             # Skip unknown macs for static interfaces
@@ -2790,63 +2794,42 @@ sub _multigwRoutes
 
             $origin = "-m mac --mac-source $mac";
         } else {
-            my $iface = $self->realIface($router->{'interface'});
             $origin = "-i $iface";
         }
-        push(@cmds, "/sbin/iptables -t mangle -A PREROUTING  "
+        push(@cmds, '/sbin/iptables -t mangle -A PREROUTING '
                   . "-m mark --mark 0/0xff $origin "
                   . "-j MARK --set-mark $mark");
+
+
+        # mark in postrouting (only if more than one output iface)
+        if ( scalar keys %interfaces > 1 ) {
+            push(@cmds, '/sbin/iptables -t mangle -A POSTROUTING '
+                        . "-o $iface -j MARK --set-mark $mark");
+        }
     }
 
     for my $rule (@{$self->model('MultiGwRulesDataTable')->iptablesRules()}) {
         push(@cmds, "/sbin/iptables $rule");
     }
 
-    # EMARK chain for weight balanced marks
-    push(@cmds, '/sbin/iptables -t mangle -N EMARK');
-    push(@cmds, '/sbin/iptables -t mangle -A PREROUTING -j EMARK');
-    push(@cmds, '/sbin/iptables -t mangle -A OUTPUT -j EMARK');
-
-    my $condProbability = 1;
-    if ( $self->balanceTraffic() ) {
-
-        foreach my $router (@{$routers}) {
-
-            # Skip gateways with unassigned address
-            next unless $router->{'ip'};
-
-            # calculate conditional probability
-            my $probability = $router->{'weight'} / $totalWeight;
-            $probability = $probability / $condProbability;
-
-            my $mark = $marks->{$router->{'id'}};
-
-            push(@cmds, '/sbin/iptables -t mangle -A EMARK' .
-                        ' -m mark --mark 0/0xff' .
-                        ' -m statistic --mode random' .
-                        " --probability $probability" .
-                        " -j MARK --set-mark $mark");
-
-            # update conditional
-            $condProbability = (1 - $probability) * $condProbability;
-        }
-
-    }
-
     # send unmarked packets through default router
-    if ( $defaultRouterMark ) {
-        push(@cmds, "/sbin/iptables -t mangle -A EMARK -m mark --mark 0/0xff " .
+    if ((not $self->balanceTraffic()) and $defaultRouterMark) {
+        push(@cmds, "/sbin/iptables -t mangle -A PREROUTING  -m mark --mark 0/0xff " .
+                    "-j  MARK --set-mark $defaultRouterMark");
+        push(@cmds, "/sbin/iptables -t mangle -A OUTPUT -m mark --mark 0/0xff " .
                     "-j  MARK --set-mark $defaultRouterMark");
     }
-
 
     # always before CONNMARK save commands
     EBox::Sudo::root(@cmds);
 
     try {
-        root("/sbin/iptables -t mangle -A PREROUTING -j CONNMARK --save-mark");
-        root("/sbin/iptables -t mangle -A OUTPUT -j CONNMARK --save-mark");
-    } catch EBox::Exceptions::Internal with {};
+        my @fcmds;
+        push(@fcmds, '/sbin/iptables -t mangle -A PREROUTING -j CONNMARK --save-mark');
+        push(@fcmds, '/sbin/iptables -t mangle -A POSTROUTING -j CONNMARK --save-mark');
+        push(@fcmds, '/sbin/iptables -t mangle -A OUTPUT -j CONNMARK --save-mark');
+        EBox::Sudo::root(@fcmds);
+    } otherwise {};
 }
 
 sub isRunning
@@ -3808,12 +3791,12 @@ sub _multipathCommand
         my $if = new IO::Interface::Simple($iface);
         next unless $if->address;
 
-        my $route = "via $ip";
+        my $route = "via $ip dev $iface";
         if ($method eq 'ppp') {
             $route = "dev $iface";
         }
 
-        $cmd .= " nexthop $route";
+        $cmd .= " nexthop $route weight $gw->{'weight'}";
 
         $numGWs++;
     }

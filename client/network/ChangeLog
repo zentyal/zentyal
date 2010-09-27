@@ -1,5 +1,6 @@
 HEAD
 	+ Fixed network confirmation page to work with bridges
+	+ Improved load balancing to avoid web sessions loss
 2.0
 	+ Fixed network wizard interface and logic
 1.5.8
