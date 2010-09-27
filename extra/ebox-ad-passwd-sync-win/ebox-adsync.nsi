@@ -45,7 +45,7 @@ SetCompressor bzip2
 !insertmacro MUI_RESERVEFILE_INSTALLOPTIONS
 
 Name "${PRODUCT_NAME} ${PRODUCT_VERSION}"
-OutFile "ebox-adsync-installer.exe"
+OutFile "zentyal-adsync-${PRODUCT_VERSION}.exe"
 InstallDir "$PROGRAMFILES\ebox-adsync"
 InstallDirRegKey HKEY_LOCAL_MACHINE "SOFTWARE\Account Synchronization Project\ebox-adsync" ""
 ShowInstDetails show
@@ -85,7 +85,7 @@ Section "" ; (default section)
   ; Make Shortcuts
   ReadRegStr $OUTDIR HKLM "SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders" "Common Administrative Tools"
   StrCmp $OUTDIR "" nocommon
-  CreateShortCut "$OUTDIR\eBox AD Password Sync Configuration.lnk" "$INSTDIR\ebox_adsync_config.exe"
+  CreateShortCut "$OUTDIR\Zentyal AD Password Sync Configuration.lnk" "$INSTDIR\ebox_adsync_config.exe"
 nocommon:
 
   ; Install VC++ redistributable package
@@ -149,7 +149,7 @@ Section Uninstall
   DeleteRegKey HKEY_LOCAL_MACHINE "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\ebox-adsync"
   DeleteRegKey HKEY_LOCAL_MACHINE "SYSTEM\CurrentControlSet\Control\Lsa\ebox-adsync"
   ReadRegStr $OUTDIR HKLM "SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders" "Common Administrative Tools"
-  Delete "$OUTDIR\eBox AD Password Sync Configuration.lnk"
+  Delete "$OUTDIR\Zentyal AD Password Sync Configuration.lnk"
   RMDir "$INSTDIR"
 SectionEnd
 

@@ -39,6 +39,6 @@ copy dist\*.* %INSTALLER_TEMP%
 
 cd %INSTALLER_TEMP%
 %MAKENSIS_EXE% ebox-adsync.nsi
-move ebox-adsync-installer.exe ..
+move zentyal-adsync-*.exe ..
 
 pause

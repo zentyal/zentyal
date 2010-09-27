@@ -135,7 +135,7 @@ CPasswdhk_configDlg::CPasswdhk_configDlg(CWnd* pParent /*=NULL*/)
 	m_workingdir = instPath;
 	m_logfile = _T("\\ebox-pwdsync-hook.log");
 	m_logfile.Insert(0, instPath);
-	m_loglevel = _T("3");
+	m_loglevel = _T("2");
 	m_maxlogsize = _T("8192");
 	m_priority = _T("0");
 	m_urlencode = FALSE;

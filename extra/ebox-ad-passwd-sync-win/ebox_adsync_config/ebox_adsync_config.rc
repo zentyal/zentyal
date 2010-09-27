@@ -75,21 +75,21 @@ IDR_MAINFRAME           ICON    DISCARDABLE     "res\\ebox_adsync_config.ico"
 
 IDD_ABOUTBOX DIALOG DISCARDABLE  0, 0, 235, 55
 STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
-CAPTION "About eBox AD Password Sync"
+CAPTION "About Zentyal AD Password Sync"
 FONT 8, "MS Sans Serif"
 BEGIN
     ICON            IDR_MAINFRAME,IDC_STATIC,11,17,20,20
-    LTEXT           "eBox AD Password Sync Version 0.1",IDC_STATIC,40,10,119,
-                    8,SS_NOPREFIX
-    LTEXT           "Copyright (C) 2009 eBox Technologies S.L.",IDC_STATIC,
-                    40,25,176,8
+    LTEXT           "Zentyal AD Password Sync Version 2.0",IDC_STATIC,40,10,
+                    119,8,SS_NOPREFIX
+    LTEXT           "Copyright (C) 2009-2010 eBox Technologies S.L.",
+                    IDC_STATIC,40,25,176,8
     DEFPUSHBUTTON   "OK",IDOK,178,7,50,14,WS_GROUP
 END
 
 IDD_PASSWDHK_CONFIG_DIALOG DIALOGEX 0, 0, 293, 172
 STYLE DS_3DLOOK | WS_MINIMIZEBOX | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
 EXSTYLE WS_EX_APPWINDOW
-CAPTION "eBox Active Directory Password Synchronizer"
+CAPTION "Zentyal Active Directory Password Synchronizer"
 FONT 8, "MS Sans Serif"
 BEGIN
     EDITTEXT        IDC_HOST,109,48,143,12,ES_AUTOHSCROLL | WS_GROUP
@@ -101,9 +101,9 @@ BEGIN
     GROUPBOX        "Actions",IDC_STATIC,7,132,283,32
     DEFPUSHBUTTON   "Save to Registry and Exit",IDOK,13,142,93,14,WS_GROUP
     PUSHBUTTON      "Exit without Saving ",IDCANCEL,189,142,93,14,WS_GROUP
-    LTEXT           "Dialog to configure the eBox AD Password Sync registry settings.\nMore info at http://trac.ebox-platform.com/Documentation/EBoxActiveDirectorySync",
+    LTEXT           "Dialog to configure the Zentyal AD Password Sync registry settings.\nMore info at http://trac.zentyal.org/Documentation/EBoxActiveDirectorySync",
                     IDC_STATIC,7,7,281,20
-    LTEXT           "eBox slave host",IDC_STATIC,48,48,58,11
+    LTEXT           "Zentyal slave host",IDC_STATIC,48,48,58,11
     LTEXT           "Secret key",IDC_STATIC,48,90,49,11
     EDITTEXT        IDC_PORT,110,69,143,12,ES_AUTOHSCROLL | ES_NUMBER
     LTEXT           "Port",IDC_STATIC,48,69,37,8
