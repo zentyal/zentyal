@@ -155,6 +155,41 @@ sub enableModDepends
     }
 }
 
+# Method: bootDepends
+#
+#   This method is used to declare which modules need to have its
+#   daemons started before this module ones.
+#
+#   It doesn't state a configuration dependency, it states a boot
+#   dependency.
+#
+#   For example: the samba module needs the printer daemon started before.
+#
+#   By default it returns the modules established in the bootdepends list
+#   in the module YAML file. Override the method if you need something more
+#   specific, e.g., having a dynamic list. If nothing is specified in the
+#   YAML file nor the method is overriden, the enabledepends value is
+#   returned to provide compatibility with the previous behavior.
+#
+# Returns:
+#
+#    array ref containing the dependencies.
+#
+#    Example:
+#
+#       [ 'firewall', 'users' ]
+#
+sub bootDepends
+{
+    my ($self) = @_;
+    my $depends = $self->info()->{'bootdepends'};
+    if(not defined($depends)) {
+        return $self->enableModDepends();
+    } else {
+        return $depends;
+    }
+}
+
 # Method: configured
 #
 #   This method is used to check if the module has been configured.

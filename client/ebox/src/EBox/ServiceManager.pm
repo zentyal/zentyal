@@ -469,13 +469,13 @@ sub checkUserModifications
 
 # Method: modulesInDependOrder
 #
-#     Return a module list ordered by the dependencies
+#     Return a module list ordered by the boot dependencies
 #
 sub modulesInDependOrder
 {
     my ($self) = @_;
     my @modules = map { EBox::Global->modInstance($_) }
-        (@{$self->_dependencyTree()});
+        (@{$self->_dependencyBootTree()});
     return \@modules;
 }
 
@@ -484,6 +484,20 @@ sub modulesInDependOrder
 sub _dependencyTree
 {
     my ($self, $tree, $hash) = @_;
+
+    return $self->_genericDependencyTree($tree, $hash, 'enableModDepends');
+}
+
+sub _dependencyBootTree
+{
+    my ($self, $tree, $hash) = @_;
+
+    return $self->_genericDependencyTree($tree, $hash, 'bootDepends');
+}
+
+sub _genericDependencyTree
+{
+    my ($self, $tree, $hash, $func) = @_;
 
     $tree = [] unless (defined($tree));
     $hash = {} unless (defined($hash));
@@ -494,7 +508,7 @@ sub _dependencyTree
     for my $mod (@{$global->modInstancesOfType(CLASS)}) {
         next if (exists $hash->{$mod->{'name'}});
         my $depOk = 1;
-        for my $modDep (@{$mod->enableModDepends()}) {
+        for my $modDep (@{$mod->$func()}) {
             unless (exists $hash->{$modDep}) {
                 $depOk = undef;
                 last;
@@ -509,7 +523,7 @@ sub _dependencyTree
     if ($numMods ==  @{$tree}) {
         return $tree;
     } else {
-        return $self->_dependencyTree($tree, $hash);
+        return $self->_genericDependencyTree($tree, $hash, $func);
     }
 }
 

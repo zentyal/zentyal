@@ -1,4 +1,5 @@
 HEAD
+	+ Added new bootDepends method to customize daemons boot order
 	+ Added permanent message property to Composite
 	+ Bugfix: Minor aesthetic fix in horizontal menu
 	+ Bugfix: Disk usage is now reported in expected bytes

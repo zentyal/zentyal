@@ -5,3 +5,6 @@ depends:
 
 enabledepends:
     - samba
+
+bootdepends:
+    - network

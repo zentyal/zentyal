@@ -78,6 +78,31 @@ sub _create
     return $self;
 }
 
+# Method: bootDepends
+#
+#     Samba depends on CUPS only if printers module enabled.
+#
+# Overrides:
+#
+#     <EBox::Module::Base::depends>
+#
+sub bootDepends
+{
+    my ($self) = @_;
+
+    my $dependsList = $self->depends();
+
+    my $module = 'printers';
+    if (EBox::Global->modExists($module)) {
+        my $printers = EBox::Global->modInstance($module);
+        if ($printers->isEnabled()) {
+            push (@{$dependsList}, $module);
+        }
+    }
+
+    return $dependsList;
+}
+
 # Method: actions
 #
 #	Override EBox::Module::Service::actions
