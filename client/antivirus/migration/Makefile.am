@@ -2,7 +2,7 @@
 
 Migrationsdir = @DATADIR@/ebox-antivirus/migration
 
-nobase_Migrations_SCRIPTS =  0001_preserve_service_status.pl
+nobase_Migrations_SCRIPTS =  0001_preserve_service_status.pl 0002_remove_cron_script.pl
 
 EXTRA_DIST = $(nobase_Migrations_SCRIPTS)
 

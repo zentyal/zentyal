@@ -35,16 +35,24 @@ use EBox::Config;
 use EBox::Global;
 use EBox::AntiVirus::FirewallHelper;
 
+use constant CLAMAV_PID_DIR => '/var/run/clamav/';
+
 use constant {
-  CLAMAVPIDFILE                 => '/var/run/clamav/clamd.pid',
+  CLAMAVPIDFILE                 => CLAMAV_PID_DIR . 'clamd.pid',
   CLAMD_INIT                    => 'clamav-daemon',
   CLAMD_CONF_FILE               => '/etc/clamav/clamd.conf',
-
-  CLAMD_SOCKET                  => '/var/run/clamav/clamd.ctl',
+  CLAMD_SOCKET                  => CLAMAV_PID_DIR . 'clamd.ctl',
 
   FRESHCLAM_CONF_FILE           => '/etc/clamav/freshclam.conf',
   FRESHCLAM_OBSERVER_SCRIPT     => 'freshclam-observer',
   FRESHCLAM_CRON_SCRIPT         => '/etc/cron.hourly/freshclam',
+  FRESHCLAM_DIR                 => '/var/lib/clamav/',
+  FRESHCLAM_INIT                => 'clamav-freshclam',
+  FRESHCLAM_PID_FILE            => CLAMAV_PID_DIR . 'freshclam.pid',
+  FRESHCLAM_APPARMOR_PROFILE    => '/etc/apparmor.d/usr.bin.freshclam.zentyal',
+  FRESHCLAM_USER                => 'clamav',
+
+  APPARMOR_SERVICE              => '/etc/init.d/apparmor',
 };
 
 
@@ -137,7 +145,8 @@ sub compositeClasses
 #        <EBox::Module::Service::actions>
 sub actions
 {
-    return [];
+    return [
+       ];
 }
 
 
@@ -217,12 +226,7 @@ sub usedFiles
            reason => __('To configure freshclam updater'),
            module => 'antivirus',
        },
-       {
-           file => FRESHCLAM_CRON_SCRIPT,
-           reason => __('To schedule the launch of the updater'),
-           module => 'antivirus',
-          },
-         ];
+       ];
 }
 
 
@@ -235,6 +239,11 @@ sub _daemons
             type => 'init.d',
             pidfiles => [CLAMAVPIDFILE],
         },
+        {
+            name => FRESHCLAM_INIT,
+            type => 'init.d',
+            pidfiles => [ FRESHCLAM_PID_FILE ],
+        },
            ];
 
 }
@@ -244,9 +253,24 @@ sub localSocket
   return CLAMD_SOCKET;
 }
 
+# Method: _setConf
+#
+# Overrides:
+#
+#      <EBox::Module::Service::_setConf>
+#
 sub _setConf
 {
   my ($self) = @_;
+
+  # Create /var/run/clamav with clamav permissions
+  my @cmds = ();
+  unless ( -d CLAMAV_PID_DIR ) {
+      push(@cmds, 'mkdir ' . CLAMAV_PID_DIR);
+  }
+  push(@cmds, 'chown ' . FRESHCLAM_USER . ':' . FRESHCLAM_USER . ' ' . CLAMAV_PID_DIR);
+  push(@cmds, 'chmod g+w ' . CLAMAV_PID_DIR);
+  EBox::Sudo::root(@cmds);
 
   my $localSocket = $self->localSocket();
 
@@ -272,10 +296,17 @@ sub _setConf
   $self->writeConfFile(FRESHCLAM_CONF_FILE,
                        "antivirus/freshclam.conf.mas", \@freshclamParams);
 
-  # regenerate freshclam cron hourly script
-  $self->writeConfFile(FRESHCLAM_CRON_SCRIPT,
-                       "antivirus/freshclam-cron.mas",
-                       [ enabled => $self->isEnabled() ]);
+  my @profileParams = (
+      observerScript  => $observerScript
+     );
+
+  $self->writeConfFile(FRESHCLAM_APPARMOR_PROFILE,
+                       'antivirus/freshclam.profile.mas', \@profileParams);
+
+  if ( -f APPARMOR_SERVICE ) {
+      EBox::Sudo::root(APPARMOR_SERVICE . ' restart');
+  }
+
 }
 
 # Method: freshclamState
@@ -322,12 +353,12 @@ sub freshclamState
 sub freshclamEBoxDir
 {
 #    EBox::Config::conf() . 'freshclam';
-    return '/var/lib/clamav';
+    return FRESHCLAM_DIR;
 }
 
 sub freshclamStateFile
 {
-    return freshclamEBoxDir() . '/freshclam.state';
+    return freshclamEBoxDir() . 'freshclam.state';
 }
 
 

@@ -1,0 +1,40 @@
+<%args>
+  $observerScript
+</%args>
+#include <tunables/global>
+
+/usr/bin/freshclam {
+  #include <abstractions/base>
+  #include <abstractions/nameservice>
+  #include <abstractions/user-tmp>
+
+  capability setgid,
+  capability setuid,
+
+  /etc/clamav/clamd.conf r,
+  /etc/clamav/freshclam.conf r,
+  /etc/clamav/onerrorexecute.d/* mr,
+  /etc/clamav/onupdateexecute.d/* mr,
+  /etc/clamav/virusevent.d/* mr,
+
+  owner @{HOME}/.clamtk/db/ rw,
+  owner @{HOME}/.clamtk/db/** rwk,
+
+  owner @{HOME}/.klamav/database/ rw,
+  owner @{HOME}/.klamav/database/** rwk,
+
+  /usr/bin/freshclam mr,
+
+  /var/lib/clamav/ r,
+  /var/lib/clamav/** krw,
+
+  /var/log/clamav/* kw,
+  /var/run/clamav/freshclam.pid w,
+  /var/run/clamav/clamd.ctl w,
+
+  # Run observer script
+  /bin/dash ix,
+  <% $observerScript %> rUx,
+
+  deny /var/run/samba/gencache.tdb mrwkl,
+}

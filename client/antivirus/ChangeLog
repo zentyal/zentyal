@@ -1,4 +1,7 @@
 HEAD
+	+ Use freshclam as a daemon instead of cron script
+	+ Bugfix: Include a tailored AppArmor profile to allow the
+	  observer scripts execution
 	+ Added signatures to the database information page
 	+ Added commercial message
 	+ Bugfix: Show right messages when the module is not configured nor

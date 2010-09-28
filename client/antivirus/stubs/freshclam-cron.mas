@@ -1,8 +1,0 @@
-<%args>
-$enabled
-</%args>
-#!/bin/bash
-
-% if ($enabled) {
-/usr/bin/freshclam
-% }
