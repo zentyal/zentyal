@@ -13,6 +13,7 @@ DEB_CONFIGURE_SCRIPT_ENV += BIND9CONF="/etc/bind/named.conf"
 DEB_CONFIGURE_SCRIPT_ENV += BIND9CONFOPTIONS="/etc/bind/named.conf.options" 
 DEB_CONFIGURE_SCRIPT_ENV += BIND9CONFLOCAL="/etc/bind/named.conf.local" 
 DEB_CONFIGURE_SCRIPT_ENV += BIND9_INIT="/etc/init.d/bind9" 
+DEB_CONFIGURE_SCRIPT_ENV += BIND9_UPDATE_ZONES="/var/lib/bind" 
 
 DEB_CONFIGURE_EXTRA_FLAGS := --disable-runtime-tests 
 DEB_MAKE_INVOKE = $(MAKE) $(DEB_MAKE_FLAGS) -C $(DEB_BUILDDIR)

@@ -41,6 +41,7 @@ use constant BIND9CONFFILE => "@BIND9CONF@";
 use constant BIND9CONFOPTIONSFILE => "@BIND9CONFOPTIONS@";
 use constant BIND9CONFLOCALFILE => "@BIND9CONFLOCAL@";
 use constant BIND9INIT     => "@BIND9_INIT@";
+use constant BIND9_UPDATE_ZONES => "@BIND9_UPDATE_ZONES@";
 use constant PIDFILE       => "/var/run/bind/run/named.pid";
 use constant NAMESERVER_HOST => 'ns';
 use constant KEYSFILE => BIND9CONFDIR . '/keys';
@@ -651,7 +652,14 @@ sub _setConf
         my $domdata = $self->_completeDomain($domainId);
         push(@domainData, $domdata);
 
-        my $file = BIND9CONFDIR . "/db." . $domdata->{'name'};
+        my $file;
+        if ( $domdata->{'dynamic'} ) {
+            $file = BIND9_UPDATE_ZONES;
+        } else {
+            $file = BIND9CONFDIR;
+        }
+        $file .= '/db.' . $domdata->{'name'};
+
         @array = ();
         push(@array, 'domain' => $domdata);
         push(@array, 'nameserverHostname' => __PACKAGE__->NameserverHost());
@@ -685,6 +693,8 @@ sub _setConf
     my @intnets = @{$self->_intnets()};
 
     @array = ();
+    push(@array, 'confDir' => BIND9CONFDIR);
+    push(@array, 'dynamicConfDir' => BIND9_UPDATE_ZONES);
     push(@array, 'domains' => \@domains);
     push(@array, 'inaddrs' => \@inaddrs);
     push(@array, 'intnets' => \@intnets);

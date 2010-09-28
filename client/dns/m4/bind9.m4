@@ -33,6 +33,7 @@ AC_DEFUN([AC_PROG_BIND9],
   BIND9CONF="$BIND9CONFDIR/named.conf"
   BIND9CONFOPTIONS="$BIND9CONFDIR/named.conf.options"
   BIND9CONFLOCAL="$BIND9CONFDIR/named.conf.local"
+  BIND9_UPDATE_ZONES="/var/lib/bind"
   AC_MSG_CHECKING(named.conf)
   AC_MSG_CHECKING(named.conf.options)
   AC_MSG_CHECKING(named.conf.local)
@@ -48,6 +49,7 @@ AC_DEFUN([AC_PROG_BIND9],
   AC_SUBST(BIND9CONFDIR)
   AC_SUBST(BIND9CONFOPTIONS)
   AC_SUBST(BIND9CONFLOCAL)
+  AC_SUBST(BIND9_UPDATE_ZONES)
   AC_PATH_PROG(BIND9_INIT, bind9, , /etc/init.d)
   if test -z "$BIND9_INIT" ; then
   	AC_MSG_ERROR("bind init script not found")

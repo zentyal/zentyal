@@ -1,0 +1,56 @@
+<%args>
+  $keysFile
+</%args>
+# This profile has been modified by Zentyal Server to provide Dynamic
+# DNS feature
+
+#include <tunables/global>
+
+/usr/sbin/dhcpd3 {
+  #include <abstractions/base>
+  #include <abstractions/nameservice>
+  #include <abstractions/ssl_keys>
+
+  capability net_bind_service,
+  capability net_raw,
+  capability setgid,
+  capability setuid,
+
+  network inet raw,
+  network packet packet,
+
+  /etc/hosts.allow r,
+  /etc/hosts.deny r,
+
+  /etc/dhcp3/ r,
+  /etc/dhcp3/** r,
+  /etc/dhcpd.conf r,
+  /etc/dhcpd_ldap.conf r,
+
+  /usr/sbin/dhcpd3 mr,
+
+  /var/lib/dhcp3/dhcpd.leases* lrw,
+  /var/log/ r,
+  /var/log/** rw,
+  /var/run/dhcp3-server/dhcpd.pid w,
+
+  # LTSP. See:
+  # http://www.ltsp.org/~sbalneav/LTSPManual.html
+  # https://wiki.edubuntu.org/
+  /etc/ltsp/ r,
+  /etc/ltsp/** r,
+  /etc/dhcpd-k12ltsp.conf r,
+  /etc/dhcpd.leases* lrw,
+  /ltsp/ r,
+  /ltsp/** r,
+
+  # Eucalyptus
+  /var/run/eucalyptus/net/ r,
+  /var/run/eucalyptus/net/** r,
+  /var/run/eucalyptus/net/*.pid lrw,
+  /var/run/eucalyptus/net/*.leases* lrw,
+  /var/run/eucalyptus/net/*.trace lrw,
+
+  # For dynamic DNS (Zentyal)
+  <% $keysFile %> r,
+}

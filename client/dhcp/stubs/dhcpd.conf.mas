@@ -12,6 +12,7 @@ Parameters:
     dnstwo - String the default secondary DNS server
     dynamicDNSEnabled - Boolean indicating whether the dynamic DNS feature is on or not
     keysFile - String with the file path to shared secret keys to update DNS server
+    pidFile - String the path to the file which stores the daemon PID
 </%doc>
 <%args>
 	%ifaces
@@ -21,6 +22,7 @@ Parameters:
 	$dnstwo => ""
         $dynamicDNSEnabled => 0
         $keysFile => ""
+        $pidFile
 </%args>
 # DHCP server is authoritative for all networks
 authoritative;
@@ -30,6 +32,8 @@ authoritative;
 option rfc3442-classless-static-routes code 121 = array of integer 8;
 # MS routes
 option ms-classless-static-routes code 249 = array of integer 8;
+
+pid-file-name "<% $pidFile %>";
 
 %       if ( $dynamicDNSEnabled ) {
 ddns-update-style    interim;

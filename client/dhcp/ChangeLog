@@ -1,3 +1,8 @@
+HEAD
+	+ Bugfix: Add to apparmor profile the bind keys file to read it to
+	  make dynamic DNS feature work again
+	+ Bugfix: Comply apparmor profile by setting pid file as
+   	  /var/run/dhcp3-server/dhcpd.pid
 1.5.4
 	+ Zentyal rebrand
 1.5.3

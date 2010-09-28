@@ -1,3 +1,6 @@
+HEAD
+	+ Bugfix: Comply apparmor profile by setting the updated dynamic
+	  zones under /var/lib/bind
 1.5.1
 	+ BP: Set @ to all domain-wide records (A, NS) to avoid issues
 	  regarding to order in the configuration file
