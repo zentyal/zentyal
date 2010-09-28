@@ -1138,7 +1138,7 @@ sub _fileList
 
     my @files  = map {
         $self->get_string($_);
-    } $self->all_entries($dir);
+    } @{$self->all_entries($dir)};
 
     return \@files;
 }
