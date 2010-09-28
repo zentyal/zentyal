@@ -16,7 +16,7 @@ HEAD
 	+ Changed outdated message, to avoid befuddle users
 1.3.13
 	+ Changed location of freshclam state file, maybe it could solve
-          some notification errors in some installations
+	  some notification errors in some installations
 1.3.12
 	+ Add page title
 1.3.10
@@ -25,13 +25,13 @@ HEAD
 	  after antivirus.
 1.3.6
 	+ bugfix: notify squid module when antivirus is enabled, so it
-          could change its configuration if needed
+	  could change its configuration if needed
 1.1.20
 	+ run it as root for now to make it work samba-vscan
 	+ do not use upstart for clamd
 	+ use pidfiles() and pidfile
 	+ freshclam status file is store in a ebox directory with
-          clamav persmisions
+	  clamav persmisions
 1.1.10
 	+ New release
 1.1
