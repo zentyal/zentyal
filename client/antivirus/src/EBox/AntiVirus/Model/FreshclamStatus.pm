@@ -127,7 +127,7 @@ sub _content
     my $antivirus  = $self->{'gconfmodule'};
     my $state      = $antivirus->freshclamState();
 
-    my $date        = delete $state->{date};
+    my $date       = delete $state->{date};
 
     my $event;
     my $eventInfo;
@@ -152,6 +152,8 @@ sub _content
             $nSig  = $self->_nSig();
         }
     }
+
+    settextdomain('ebox-antivirus');
 
     # build appropiate msg
     my $msg;
