@@ -100,7 +100,7 @@ sub _table
 
       my $dataForm = {
                       tableName          => __PACKAGE__->nameFromClass(),
-                      printableTableName => __('Database Update Status'),
+                      printableTableName => __d('Database Update Status', 'ebox-antivirus'),
                       pageTitle          => __('Antivirus'),
                       modelDomain        => 'AntiVirus',
                       tableDescription   => \@tableDesc,
