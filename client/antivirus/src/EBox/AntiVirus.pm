@@ -72,15 +72,13 @@ use constant {
 #
 sub _create
 {
-        my $class = shift;
-        my $self = $class->SUPER::_create(name => 'antivirus',
-                                          printableName => __n('Antivirus')
-                                         );
-        bless($self, $class);
-        return $self;
+    my $class = shift;
+    my $self = $class->SUPER::_create(name => 'antivirus',
+                                      printableName => __n('Antivirus')
+                                     );
+    bless($self, $class);
+    return $self;
 }
-
-
 
 # Group: Public methods
 
@@ -133,8 +131,6 @@ sub compositeClasses
     return [];
 }
 
-
-
 # Method: actions
 #
 #        Explain the actions the module must make to configure the
@@ -145,10 +141,8 @@ sub compositeClasses
 #        <EBox::Module::Service::actions>
 sub actions
 {
-    return [
-       ];
+    return [];
 }
-
 
 # Method: enableService
 #
@@ -171,7 +165,6 @@ sub enableService
 
     $self->SUPER::enableService($status);
 
-
     # notify squid of changes..
     #  this must be after status has chenged..
     my $global = EBox::Global->instance();
@@ -179,9 +172,6 @@ sub enableService
         my $squid = $global->modInstance('squid');
         $squid->notifyAntivirusEnabled();
     }
-
-
-
 }
 
 # Method: enableActions
@@ -229,8 +219,6 @@ sub usedFiles
        ];
 }
 
-
-
 sub _daemons
 {
     return [
@@ -245,12 +233,11 @@ sub _daemons
             pidfiles => [ FRESHCLAM_PID_FILE ],
         },
            ];
-
 }
 
 sub localSocket
 {
-  return CLAMD_SOCKET;
+    return CLAMD_SOCKET;
 }
 
 # Method: _setConf
@@ -261,52 +248,51 @@ sub localSocket
 #
 sub _setConf
 {
-  my ($self) = @_;
+    my ($self) = @_;
 
-  # Create /var/run/clamav with clamav permissions
-  my @cmds = ();
-  unless ( -d CLAMAV_PID_DIR ) {
-      push(@cmds, 'mkdir ' . CLAMAV_PID_DIR);
-  }
-  push(@cmds, 'chown ' . FRESHCLAM_USER . ':' . FRESHCLAM_USER . ' ' . CLAMAV_PID_DIR);
-  push(@cmds, 'chmod g+w ' . CLAMAV_PID_DIR);
-  EBox::Sudo::root(@cmds);
+    # Create /var/run/clamav with clamav permissions
+    my @cmds = ();
+    unless ( -d CLAMAV_PID_DIR ) {
+        push(@cmds, 'mkdir ' . CLAMAV_PID_DIR);
+    }
+    push(@cmds, 'chown ' . FRESHCLAM_USER . ':' . FRESHCLAM_USER . ' ' . CLAMAV_PID_DIR);
+    push(@cmds, 'chmod g+w ' . CLAMAV_PID_DIR);
+    EBox::Sudo::root(@cmds);
 
-  my $localSocket = $self->localSocket();
+    my $localSocket = $self->localSocket();
 
-  my @clamdParams = (
-                localSocket => $localSocket,
-               );
+    my @clamdParams = (
+            localSocket => $localSocket,
+            );
 
-  $self->writeConfFile(CLAMD_CONF_FILE, "antivirus/clamd.conf.mas", \@clamdParams);
+    $self->writeConfFile(CLAMD_CONF_FILE, "antivirus/clamd.conf.mas", \@clamdParams);
 
-  $self->disableApparmorProfile('usr.sbin.clamd');
+    $self->disableApparmorProfile('usr.sbin.clamd');
 
-  my $observerScript = EBox::Config::share() . '/ebox-antivirus/' . FRESHCLAM_OBSERVER_SCRIPT;
+    my $observerScript = EBox::Config::share() . '/ebox-antivirus/' . FRESHCLAM_OBSERVER_SCRIPT;
 
-  my $network = EBox::Global->modInstance('network');
-  my $proxy = $network->model('Proxy');
-  my @freshclamParams = (
-                         clamdConfFile   => CLAMD_CONF_FILE,
-                         observerScript  => $observerScript,
-                         proxyServer => $proxy->serverValue(),
-                         proxyPort => $proxy->portValue(),
-                        );
+    my $network = EBox::Global->modInstance('network');
+    my $proxy = $network->model('Proxy');
+    my @freshclamParams = (
+            clamdConfFile   => CLAMD_CONF_FILE,
+            observerScript  => $observerScript,
+            proxyServer => $proxy->serverValue(),
+            proxyPort => $proxy->portValue(),
+            );
 
-  $self->writeConfFile(FRESHCLAM_CONF_FILE,
-                       "antivirus/freshclam.conf.mas", \@freshclamParams);
+    $self->writeConfFile(FRESHCLAM_CONF_FILE,
+            "antivirus/freshclam.conf.mas", \@freshclamParams);
 
-  my @profileParams = (
-      observerScript  => $observerScript
-     );
+    my @profileParams = (
+            observerScript  => $observerScript
+            );
 
-  $self->writeConfFile(FRESHCLAM_APPARMOR_PROFILE,
-                       'antivirus/freshclam.profile.mas', \@profileParams);
+    $self->writeConfFile(FRESHCLAM_APPARMOR_PROFILE,
+            'antivirus/freshclam.profile.mas', \@profileParams);
 
-  if ( -f APPARMOR_SERVICE ) {
-      EBox::Sudo::root(APPARMOR_SERVICE . ' restart');
-  }
-
+    if ( -f APPARMOR_SERVICE ) {
+        EBox::Sudo::root(APPARMOR_SERVICE . ' restart');
+    }
 }
 
 # Method: freshclamState
@@ -325,34 +311,30 @@ sub _setConf
 #    If there is not last recorded event it returns a empty hash
 sub freshclamState
 {
-  my ($self) = @_;
-  my @stateAttrs = qw(update error outdated date);
+    my ($self) = @_;
+    my @stateAttrs = qw(update error outdated date);
 
-  my $freshclamStateFile = $self->freshclamStateFile();
-  if (not -e $freshclamStateFile) {
-    return { map {  ( $_ => undef )  } @stateAttrs  }; # freshclam has never updated before
-  }
+    my $freshclamStateFile = $self->freshclamStateFile();
+    if (not -e $freshclamStateFile) {
+        return { map {  ( $_ => undef )  } @stateAttrs  }; # freshclam has never updated before
+    }
 
-  my $fileContents  =  read_file($freshclamStateFile);
-  my %state =  split ',', $fileContents, (@stateAttrs * 2);
+    my $fileContents  =  read_file($freshclamStateFile);
+    my %state =  split ',', $fileContents, (@stateAttrs * 2);
 
-  # checking state file coherence
-  foreach my $attr (@stateAttrs) {
-    exists $state{$attr} or throw EBox::Exceptions::Internal("Invalid freshclam state file. Missing attribute: $attr");
-  }
-  if ( scalar @stateAttrs !=  scalar keys %state) {
-    throw EBox::Exceptions::Internal("Invalid fresclam state file: invalid attributes found. (valid attributes are @stateAttrs)");
-  }
+    # checking state file coherence
+    foreach my $attr (@stateAttrs) {
+        exists $state{$attr} or throw EBox::Exceptions::Internal("Invalid freshclam state file. Missing attribute: $attr");
+    }
+    if ( scalar @stateAttrs !=  scalar keys %state) {
+        throw EBox::Exceptions::Internal("Invalid fresclam state file: invalid attributes found. (valid attributes are @stateAttrs)");
+    }
 
-
-  return \%state;
+    return \%state;
 }
-
-
 
 sub freshclamEBoxDir
 {
-#    EBox::Config::conf() . 'freshclam';
     return FRESHCLAM_DIR;
 }
 
@@ -361,45 +343,42 @@ sub freshclamStateFile
     return freshclamEBoxDir() . 'freshclam.state';
 }
 
-
-
 sub notifyFreshclamEvent
 {
-  my ($class, $event, $extraParam) = @_;
+    my ($class, $event, $extraParam) = @_;
 
-  my @validEvents = qw(update error outdated);
-  if (not ($event eq any( @validEvents))) {
-    $extraParam = defined $extraParam ? "with parameter $extraParam" : "";
-    die ("Invalid freshclam event: $event $extraParam");
-  }
+    my @validEvents = qw(update error outdated);
+    if (not ($event eq any( @validEvents))) {
+        $extraParam = defined $extraParam ? "with parameter $extraParam" : "";
+        die ("Invalid freshclam event: $event $extraParam");
+    }
 
+    my $date = time();
+    my $update   = 0;
+    my $outdated = 0;
+    my $error    = 0;
 
-  my $date = time();
-  my $update   = 0;
-  my $outdated = 0;
-  my $error    = 0;
+    if ($event eq 'update') {
+        $update = 1;
+    }
+    elsif ($event eq  'error') {
+        $error = 1;
+    }
+    elsif ($event eq 'outdated') {
+        $outdated = $extraParam; # $extraPAram = last version
 
+    }
 
-  if ($event eq 'update') {
-    $update = 1;
-  }
-  elsif ($event eq  'error') {
-    $error = 1;
-  }
-  elsif ($event eq 'outdated') {
-    $outdated = $extraParam; # $extraPAram = last version
-
-  }
-
-  my $statePairs = "date,$date,update,$update,error,$error,outdated,$outdated";
-  my $stateFile = $class->freshclamStateFile();
-  write_file($stateFile, $statePairs);
+    my $statePairs = "date,$date,update,$update,error,$error,outdated,$outdated";
+    my $stateFile = $class->freshclamStateFile();
+    write_file($stateFile, $statePairs);
 }
 
 
 sub firewallHelper
 {
     my ($self) = @_;
+
     if ($self->isEnabled()) {
         return EBox::AntiVirus::FirewallHelper->new();
     }
@@ -439,6 +418,7 @@ sub summary
 sub report
 {
     my ($self) = @_;
+
     my $state = $self->freshclamState();
 
     my $timeStamp = delete $state->{date};
@@ -460,7 +440,6 @@ sub report
     if ($event eq 'outdated') {
         $report->{clamVersionRequested} = $eventInfo,
     }
-
 
     return $report;
 }
