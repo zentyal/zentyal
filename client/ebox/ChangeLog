@@ -1,4 +1,4 @@
-HEAD
+2.0.3
 	+ Fixed config backend problems with _fileList call
 	+ Added new bootDepends method to customize daemons boot order
 	+ Added permanent message property to Composite
