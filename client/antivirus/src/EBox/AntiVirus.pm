@@ -287,10 +287,9 @@ sub _setConf
             observerScript  => $observerScript
             );
 
-    $self->writeConfFile(FRESHCLAM_APPARMOR_PROFILE,
-            'antivirus/freshclam.profile.mas', \@profileParams);
-
-    if ( -f APPARMOR_SERVICE ) {
+    if ((-f APPARMOR_SERVICE) and not (-f FRESHCLAM_APPARMOR_PROFILE)) {
+        $self->writeConfFile(FRESHCLAM_APPARMOR_PROFILE,
+                'antivirus/freshclam.profile.mas', \@profileParams);
         EBox::Sudo::root(APPARMOR_SERVICE . ' restart');
     }
 }

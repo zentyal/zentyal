@@ -70,10 +70,10 @@ use Text::DHCPLeases;
 use constant DHCPCONFFILE => "/etc/dhcp3/dhcpd.conf";
 use constant LEASEFILE => "/var/lib/dhcp3/dhcpd.leases";
 use constant PIDFILE => '/var/run/dhcp3-server/dhcpd.pid';
-use constant APPARMOR => '/etc/apparmor.d/usr.sbin.dhcpd3.zentyal';
+use constant APPARMOR_PROFILE => '/etc/apparmor.d/usr.sbin.dhcpd3.zentyal';
 use constant DHCP_SERVICE => "ebox.dhcpd3";
 use constant TFTP_SERVICE => "tftpd-hpa";
-use constant APPARMOR_SERVICE => 'apparmor';
+use constant APPARMOR_SERVICE => '/etc/init.d/apparmor';
 
 use constant CONF_DIR => EBox::Config::conf() . 'dhcp/';
 use constant PLUGIN_CONF_SUBDIR => 'plugins/';
@@ -1399,11 +1399,11 @@ sub _setDHCPConf
 
     $self->writeConfFile(DHCPCONFFILE, "dhcp/dhcpd.conf.mas", \@params);
 
-    # Write apparmor profile
-    $self->writeConfFile(APPARMOR, "dhcp/apparmor-dhcpd.profile.mas",
-                         [ ( 'keysFile'  => $self->_keysFile() ) ]);
-    if ( (-f '/etc/init.d' . APPARMOR_SERVICE) and ($dynamicDNSEnabled) ) {
-        EBox::Sudo::root('invoke-rc.d apparmor restart');
+    # Write apparmor profile if needed
+    if ((-f APPARMOR_SERVICE) and not (-f APPARMOR_PROFILE) and ($dynamicDNSEnabled)) {
+        $self->writeConfFile(APPARMOR_PROFILE, "dhcp/apparmor-dhcpd.profile.mas",
+                             [ ( 'keysFile'  => $self->_keysFile() ) ]);
+        EBox::Sudo::root(APPARMOR_SERVICE . ' restart');
     }
 }
 
