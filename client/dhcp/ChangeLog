@@ -1,4 +1,4 @@
-HEAD
+2.0.1
 	+ Bugfix: Add to apparmor profile the bind keys file to read it to
 	  make dynamic DNS feature work again
 	+ Bugfix: Comply apparmor profile by setting pid file as
