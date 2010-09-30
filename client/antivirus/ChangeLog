@@ -1,4 +1,4 @@
-HEAD
+2.0.1
 	+ Launch freshclam as a cron script from the required path by
 	  clamav-freshclam init script
 	+ Bugfix: Include a tailored AppArmor profile to allow the
