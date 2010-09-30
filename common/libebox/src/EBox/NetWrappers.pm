@@ -74,7 +74,13 @@ sub iface_exists #(iface)
 #
 sub list_ifaces
 {
-        my @devices = `cat /proc/net/dev 2>/dev/null | sed 's/^ *//' | cut -d " " -f 1 | grep : | sed 's/:.*//'` ;
+        my @devices;
+        # TODO: It'd be nice to use an API for that if exists
+        if (-d '/sys/class/net/') {
+            @devices = `ls /sys/class/net/`;
+        } else {
+            @devices = `cat /proc/net/dev 2>/dev/null | sed 's/^ *//' | cut -d " " -f 1 | grep : | sed 's/:.*//'`;
+        }
         chomp(@devices);
         @devices = sort @devices;
         return @devices;
