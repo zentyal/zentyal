@@ -1,0 +1,14 @@
+<%doc>
+  Template for the freshclam program to be launched hourly
+</%doc>
+<%args>
+  $enabled
+</%args>
+# /etc/cron.d/clamav-freshclam: crontab entries for ebox-antivirus package
+
+SHELL=/bin/sh
+
+% if ( $enabled ) {
+# Run freshclam once a hour
+@hourly clamav /usr/bin/freshclam --quiet
+% }

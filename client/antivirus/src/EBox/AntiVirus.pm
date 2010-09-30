@@ -45,10 +45,8 @@ use constant {
 
   FRESHCLAM_CONF_FILE           => '/etc/clamav/freshclam.conf',
   FRESHCLAM_OBSERVER_SCRIPT     => 'freshclam-observer',
-  FRESHCLAM_CRON_SCRIPT         => '/etc/cron.hourly/freshclam',
+  FRESHCLAM_CRON_FILE           => '/etc/cron.d/clamav-freshclam',
   FRESHCLAM_DIR                 => '/var/lib/clamav/',
-  FRESHCLAM_INIT                => 'clamav-freshclam',
-  FRESHCLAM_PID_FILE            => CLAMAV_PID_DIR . 'freshclam.pid',
   FRESHCLAM_APPARMOR_PROFILE    => '/etc/apparmor.d/usr.bin.freshclam.zentyal',
   FRESHCLAM_USER                => 'clamav',
 
@@ -217,6 +215,11 @@ sub usedFiles
            reason => __('To configure freshclam updater'),
            module => 'antivirus',
        },
+        {
+           file   => FRESHCLAM_CRON_FILE,
+           reason => __('To schedule the launch of the updater'),
+           module => 'antivirus',
+       },
        ];
 }
 
@@ -228,12 +231,7 @@ sub _daemons
             type => 'init.d',
             pidfiles => [CLAMAVPIDFILE],
         },
-        {
-            name => FRESHCLAM_INIT,
-            type => 'init.d',
-            pidfiles => [ FRESHCLAM_PID_FILE ],
-        },
-           ];
+       ];
 }
 
 sub localSocket
@@ -250,15 +248,6 @@ sub localSocket
 sub _setConf
 {
     my ($self) = @_;
-
-    # Create /var/run/clamav with clamav permissions
-    my @cmds = ();
-    unless ( -d CLAMAV_PID_DIR ) {
-        push(@cmds, 'mkdir ' . CLAMAV_PID_DIR);
-    }
-    push(@cmds, 'chown ' . FRESHCLAM_USER . ':' . FRESHCLAM_USER . ' ' . CLAMAV_PID_DIR);
-    push(@cmds, 'chmod g+w ' . CLAMAV_PID_DIR);
-    EBox::Sudo::root(@cmds);
 
     my $localSocket = $self->localSocket();
 
@@ -284,11 +273,15 @@ sub _setConf
     $self->writeConfFile(FRESHCLAM_CONF_FILE,
             "antivirus/freshclam.conf.mas", \@freshclamParams);
 
-    my @profileParams = (
-            observerScript  => $observerScript
-            );
+    # Regenerate freshclam cron hourly script
+    $self->writeConfFile(FRESHCLAM_CRON_FILE,
+                         'antivirus/clamav-freshclam.cron.mas',
+                         [ enabled => $self->isEnabled() ]);
 
     if ((-f APPARMOR_SERVICE) and not (-f FRESHCLAM_APPARMOR_PROFILE)) {
+        my @profileParams = (
+            observerScript  => $observerScript
+           );
         $self->writeConfFile(FRESHCLAM_APPARMOR_PROFILE,
                 'antivirus/freshclam.profile.mas', \@profileParams);
         EBox::Sudo::root(APPARMOR_SERVICE . ' restart');

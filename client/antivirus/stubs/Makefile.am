@@ -2,7 +2,8 @@
 
 Stubdir = @STUBSPATH@/antivirus
 
-nobase_Stub_DATA = clamd.conf.mas freshclam.conf.mas freshclam.profile.mas
+nobase_Stub_DATA = clamd.conf.mas clamav-freshclam.cron.mas freshclam.conf.mas \
+		   freshclam.profile.mas
 
 EXTRA_DIST = $(nobase_Stub_DATA)
 

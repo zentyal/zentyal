@@ -1,5 +1,6 @@
 HEAD
-	+ Use freshclam as a daemon instead of cron script
+	+ Launch freshclam as a cron script from the required path by
+	  clamav-freshclam init script
 	+ Bugfix: Include a tailored AppArmor profile to allow the
 	  observer scripts execution
 	+ Added signatures to the database information page
