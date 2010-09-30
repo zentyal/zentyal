@@ -26,6 +26,10 @@
 **  MAR, 2002
 **
 ** +Modified by.
+**  Brian Clayton
+**  Information Technology Services
+**  Clark University
+**  APR, 2008
 **
 ** Redistributed under the terms of the LGPL
 ** license.  See LICENSE.txt file included in
@@ -38,81 +42,142 @@
 #include <limits.h>
 #include <windows.h>
 #include <ntsecapi.h>
+#include <tchar.h>
+#include <process.h>
 
-typedef NTSTATUS (*PASSWORDCHANGENOTIFYTYPE)(PUNICODE_STRING, ULONG, PUNICODE_STRING);
-typedef BOOL (*PASSWORDFILTERTYPE)(PUNICODE_STRING, PUNICODE_STRING, PUNICODE_STRING, BOOL);
-typedef BOOL (*INITIALIZECHANGENOTIFYTYPE)(void);
+#ifdef UNICODE
+#define new_punicode new_punicode_w
+#else
+#define new_punicode new_punicode_a
+#endif
 
-PUNICODE_STRING new_punicode(PWSTR s)
+typedef NTSTATUS (NTAPI *PASSWORDCHANGENOTIFYTYPE)(PUNICODE_STRING, ULONG, PUNICODE_STRING);
+typedef BOOL (NTAPI *PASSWORDFILTERTYPE)(PUNICODE_STRING, PUNICODE_STRING, PUNICODE_STRING, BOOL);
+typedef BOOL (NTAPI *INITIALIZECHANGENOTIFYTYPE)(void);
+
+PASSWORDCHANGENOTIFYTYPE PasswordChangeNotify;
+PASSWORDFILTERTYPE PasswordFilter;
+INITIALIZECHANGENOTIFYTYPE InitializeChangeNotify;
+HANDLE mutex;
+int threadCount;
+
+PUNICODE_STRING new_punicode_w(PWSTR s)
 {
 	PUNICODE_STRING ret = (PUNICODE_STRING)calloc(1, sizeof(LSA_UNICODE_STRING));
-
-	ret->Length = wcslen(s)*2;
+	ret->Length = (USHORT)wcslen(s) * sizeof(WCHAR);
 	ret->MaximumLength = ret->Length;
 	ret->Buffer = _wcsdup(s);
 
 	return ret;
 }
 
-int __cdecl main(int argc, char* argv[])
+PUNICODE_STRING new_punicode_a(PSTR s)
+{
+	int size;
+	PWSTR s2;
+	PUNICODE_STRING np;
+	size = MultiByteToWideChar(CP_UTF8, 0, s, -1, NULL, 0);
+	s2 = (PWSTR)calloc(size, sizeof(WCHAR));
+	MultiByteToWideChar(CP_UTF8, 0, s, -1, s2, size);
+	np = new_punicode_w(s2);
+	free(s2);
+	return np;
+}
+
+void pshk_test(TCHAR **argv)
+{
+	PUNICODE_STRING username;
+	PUNICODE_STRING password;
+	PUNICODE_STRING fullName;
+	ULONG rid;
+	BOOL retVal;
+	int threadNum;
+
+	username = new_punicode(argv[0]);
+	password = new_punicode(argv[1]);
+	fullName = new_punicode(argv[2]);
+	rid = _tcstoul(argv[3], NULL, 10);
+
+	WaitForSingleObject(mutex, INFINITE);
+	threadNum = threadCount++;
+	ReleaseMutex(mutex);
+
+	_tprintf(_T("\nThread %d calling PasswordFilter\n"), threadNum);
+	retVal = PasswordFilter(username, fullName, password, FALSE);
+	_tprintf(_T("\nThread %d PasswordFilter returned %d\n"), threadNum, retVal);
+
+	_tprintf(_T("\nThread %d calling PasswordChangeNotify\n"), threadNum);
+	PasswordChangeNotify(username, rid, password);
+	_tprintf(_T("\nThread %d PasswordChangeNotify complete\n"), threadNum);
+	free(username);
+	free(password);
+	free(fullName);
+}
+
+unsigned __stdcall pshk_thread(void *args)
+{
+	pshk_test((TCHAR **)args);
+	_endthread();
+	return 0;
+}
+
+int _tmain(int argc, TCHAR* argv[])
 {
 	
-	PASSWORDCHANGENOTIFYTYPE	passwordchangenotify;
-	PASSWORDFILTERTYPE			passwordfilter;
-	INITIALIZECHANGENOTIFYTYPE	initializechangenotify;
-	HINSTANCE	hDLL;
-	BOOL		retVal;
-	char		*dll_filename;
+	HINSTANCE hDLL;
+	BOOL retVal;
+	TCHAR *dll_filename = _T("passwdhk.dll");
+	HANDLE thread;
 
-	if( argv[1] == NULL || strlen(argv[1]) < 4 )
-		dll_filename = strdup("passwdhk.dll");
-	else dll_filename = strdup(argv[1]);
-
-	printf("Attempting to load \"%s\"\n", dll_filename);
-	hDLL = LoadLibrary(argv[1]);
-	if (hDLL != NULL)
-	{
-		passwordchangenotify = (PASSWORDCHANGENOTIFYTYPE)GetProcAddress(hDLL, "PasswordChangeNotify");
-		if (!passwordchangenotify)
-		{
-			printf("ERROR: could not load PasswordChangeNotify function.\n");
-			return 1;
-		}
-
-		passwordfilter = (PASSWORDFILTERTYPE)GetProcAddress(hDLL, "PasswordFilter");
-		if (!passwordfilter)
-		{
-			printf("ERROR: could not load PasswordFilter function.\n");
-			return 1;
-		}
-
-		initializechangenotify = (INITIALIZECHANGENOTIFYTYPE)GetProcAddress(hDLL, "InitializeChangeNotify");
-		if (!initializechangenotify)
-		{
-			printf("ERROR: could not load InitializeChangeNotify function.\n");
-			return 1;
-		}
+	if (argc < 5) {
+		_tprintf(_T("Usage: %s username password fullname relativeid [username2 password2 fullname2 relativeid2]\n"), argv[0]);
+		return 1;
 	}
-	else
-	{
-		printf("ERROR: could not load library \"%s\"\n", dll_filename);
+	
+	_tprintf(_T("Attempting to load \"%s\"\n"), dll_filename);
+	hDLL = LoadLibrary(dll_filename);
+	if (hDLL != NULL) {
+		PasswordChangeNotify = (PASSWORDCHANGENOTIFYTYPE)GetProcAddress(hDLL, "PasswordChangeNotify");
+		if (!PasswordChangeNotify) {
+			_tprintf(_T("ERROR: could not load PasswordChangeNotify function.\n"));
+			return 1;
+		}
+
+		PasswordFilter = (PASSWORDFILTERTYPE)GetProcAddress(hDLL, "PasswordFilter");
+		if (!PasswordFilter) {
+			_tprintf(_T("ERROR: could not load PasswordFilter function.\n"));
+			return 1;
+		}
+
+		InitializeChangeNotify = (INITIALIZECHANGENOTIFYTYPE)GetProcAddress(hDLL, "InitializeChangeNotify");
+		if (!InitializeChangeNotify) {
+			_tprintf(_T("ERROR: could not load InitializeChangeNotify function.\n"));
+			return 1;
+		}
+	} else {
+		_tprintf(_T("ERROR: could not load library \"%s\"\n"), dll_filename);
 		return 1;
 	}
 
-	printf("\nCalling InitialChangeNotify\n===========================================\n\n");
-	retVal = initializechangenotify();
-	printf("function returned %d\n\n===========================================\n\n", retVal);
+	_tprintf(_T("\nCalling InitialChangeNotify\n"));
+	retVal = InitializeChangeNotify();
+	_tprintf(_T("\nfunction returned %d\n"), retVal);
 
-	printf("\nCalling PasswordFilter\n===========================================\n\n");
-	retVal = passwordfilter(new_punicode(L"kervin"), 
-		new_punicode(L"Kervin Pierre"),	new_punicode(L"s3cr3t!!-p@66wd"), FALSE);
-	printf("function returned %d\n\n===========================================\n\n", retVal);
+	threadCount = 0;
+	mutex = CreateMutex(NULL, FALSE, NULL);
+	if (argc > 8)
+		thread = (HANDLE)_beginthreadex(NULL, 0, pshk_thread, (void *)&argv[5], 0, NULL);
 
-	printf("\nCalling PasswordChangeNotify\n===========================================\n\n");
-	passwordchangenotify(new_punicode(L"kervin"), 1234, new_punicode(L"s3cr3t!!-p@66wd"));
-	printf("\n===========================================\n\n");
+	pshk_test(&argv[1]);
 
-	FreeLibrary( hDLL );
+	if (argc > 8) {
+		WaitForSingleObject(thread, INFINITE);
+		CloseHandle(thread);
+	}
+
+	CloseHandle(mutex);
+
+	FreeLibrary(hDLL);
 	return 0;
 }
 

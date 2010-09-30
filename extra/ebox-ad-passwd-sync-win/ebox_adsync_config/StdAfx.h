@@ -2,6 +2,10 @@
 //  or project specific include files that are used frequently, but
 //      are changed infrequently
 //
+#ifndef _WIN32_WINNT	// Permit use of features specific to Windows NT 4.0 or later.
+#define _WIN32_WINNT 0x0400	// Change this to the appropriate value to target
+#endif		         // Windows 98 and Windows 2000 or later.
+
 
 #if !defined(AFX_STDAFX_H__17D034B1_4682_4AD6_ACAB_7C364AA64832__INCLUDED_)
 #define AFX_STDAFX_H__17D034B1_4682_4AD6_ACAB_7C364AA64832__INCLUDED_

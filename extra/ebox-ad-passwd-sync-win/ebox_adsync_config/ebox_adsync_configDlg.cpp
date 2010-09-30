@@ -25,6 +25,10 @@
 **  MAR, 2002
 **
 ** +Modified by.
+**  Brian Clayton
+**  Information Technology Services
+**  Clark University
+**  MAR, 2008
 **
 ** Redistributed under the terms of the LGPL
 ** license.  See LICENSE.txt file included in
@@ -39,8 +43,9 @@
 #include "ebox_adsync_config.h"
 #include "ebox_adsync_configDlg.h"
 
-#define PSHK_REG_KEY "SYSTEM\\CurrentControlSet\\Control\\Lsa\\ebox-adsync"
+#define PSHK_REG_KEY _T("SYSTEM\\CurrentControlSet\\Control\\Lsa\\ebox-adsync")
 #define PSHK_REG_VALUE_MAX_LEN	256
+#define PSHK_REG_VALUE_MAX_LEN_BYTES PSHK_REG_VALUE_MAX_LEN * sizeof(TCHAR)
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -93,30 +98,28 @@ BEGIN_MESSAGE_MAP(CAboutDlg, CDialog)
 	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
-void pshk_trim( char *str )
+void pshk_trim(char *str)
 {
-	//Remove leading...
-	for( unsigned int i=0; i<strlen(str)-1; i++ )
-		if(str[i]==' ')
-		{
-			strcpy(&str[i], &str[i+1]);
-			str[strlen(str)+1]=0;
-		}
-		else break;
+    //Remove leading...
+    for(unsigned int i=0; i<strlen(str)-1; i++)
+        if(str[i]==' ') {
+            strcpy(&str[i], &str[i+1]);
+            str[strlen(str)+1]=0;
+        }
+        else break;
 
-	//...and trailing spaces
-	for(i=strlen(str)-1; i>=0; i-- )
-		if(str[i]==' ')
-			str[i]=0;
-		else break;
+    //...and trailing spaces
+    for(unsigned int i=strlen(str)-1; i>=0; i-- )
+        if(str[i]==' ')
+            str[i]=0;
+        else break;
 
-	//...and consecutive spaces
-	for(i=1;i<strlen(str)-1;i++)
-		if(str[i]==' ' && str[i-1]==' ')
-		{
-			strcpy(&str[i-1], &str[i]);
-			str[strlen(str)+1]=0;
-		}
+    //...and consecutive spaces
+    for(unsigned int i=1;i<strlen(str)-1;i++)
+        if(str[i]==' ' && str[i-1]==' ') {
+            strcpy(&str[i-1], &str[i]);
+            str[strlen(str)+1]=0;
+        }
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -149,6 +152,7 @@ CPasswdhk_configDlg::CPasswdhk_configDlg(CWnd* pParent /*=NULL*/)
 	m_preChangeProgWait = _T("5000");
 	m_environment = _T("");
 	m_inheritHandles = FALSE;
+	m_doublequote = FALSE;
 	// new fields added for Zentyal
 	m_secret = _T("");
 	m_host = _T("");
@@ -204,12 +208,10 @@ BOOL CPasswdhk_configDlg::OnInitDialog()
 	ASSERT(IDM_ABOUTBOX < 0xF000);
 
 	CMenu* pSysMenu = GetSystemMenu(FALSE);
-	if (pSysMenu != NULL)
-	{
+	if (pSysMenu != NULL) {
 		CString strAboutMenu;
 		strAboutMenu.LoadString(IDS_ABOUTBOX);
-		if (!strAboutMenu.IsEmpty())
-		{
+		if (!strAboutMenu.IsEmpty()) {
 			pSysMenu->AppendMenu(MF_SEPARATOR);
 			pSysMenu->AppendMenu(MF_STRING, IDM_ABOUTBOX, strAboutMenu);
 		}
@@ -222,205 +224,73 @@ BOOL CPasswdhk_configDlg::OnInitDialog()
 
 	// TODO: Add extra initialization here
 	HKEY hk, hk2;
-	char szBuf[PSHK_REG_VALUE_MAX_LEN+1];
-	DWORD szBufSize = PSHK_REG_VALUE_MAX_LEN;
-	char szBuf2[PSHK_REG_VALUE_MAX_LEN+1];
+	TCHAR szBuf[PSHK_REG_VALUE_MAX_LEN + 1];
+	DWORD szBufSize = PSHK_REG_VALUE_MAX_LEN_BYTES;
+	char szBuf2[PSHK_REG_VALUE_MAX_LEN + 1];
 	DWORD szBufSize2 = PSHK_REG_VALUE_MAX_LEN;
 	DWORD readRetVal;
 
 	memset(szBuf, 0, sizeof(szBuf));
 
-	if( RegOpenKeyEx(HKEY_LOCAL_MACHINE, PSHK_REG_KEY,
-		0, KEY_QUERY_VALUE, &hk) != ERROR_SUCCESS )
-	{
+	if (RegOpenKeyEx(HKEY_LOCAL_MACHINE, PSHK_REG_KEY, 0, KEY_QUERY_VALUE, &hk) != ERROR_SUCCESS)
         return FALSE;
-	}
 
-	/* Get the host */
-	readRetVal = RegQueryValueEx(hk, "host", NULL, NULL, (LPBYTE)szBuf, &szBufSize);
-	if( readRetVal == ERROR_SUCCESS )
-	{
-		m_host = _T("");
-		m_host.Insert(0, szBuf);
-	}
-	memset(szBuf, 0, sizeof(szBuf));
-	szBufSize = PSHK_REG_VALUE_MAX_LEN;
+    // Added by Zentyal
+	if (ReadRegValue(hk, _T("host"), (LPBYTE)szBuf, &szBufSize) == ERROR_SUCCESS)
+		m_host = szBuf;
+	if (ReadRegValue(hk, _T("secret"), (LPBYTE)szBuf, &szBufSize) == ERROR_SUCCESS)
+		m_secret = szBuf;
+	if (ReadRegValue(hk, _T("port"), (LPBYTE)szBuf, &szBufSize) == ERROR_SUCCESS)
+		m_port = szBuf;
 
-	/* Get the secret */
-	readRetVal = RegQueryValueEx(hk, "secret", NULL, NULL, (LPBYTE)szBuf, &szBufSize);
-	if( readRetVal == ERROR_SUCCESS )
-	{
-		m_secret = _T("");
-		m_secret.Insert(0, szBuf);
-	}
-	memset(szBuf, 0, sizeof(szBuf));
-	szBufSize = PSHK_REG_VALUE_MAX_LEN;
-
-	/* Get the port */
-	readRetVal = RegQueryValueEx(hk, "port", NULL, NULL, (LPBYTE)szBuf, &szBufSize);
-	if( readRetVal == ERROR_SUCCESS )
-	{
-		m_port = _T("");
-		m_port.Insert(0, szBuf);
-	}
-	memset(szBuf, 0, sizeof(szBuf));
-	szBufSize = PSHK_REG_VALUE_MAX_LEN;
-
-	/* Get the log level */
-	readRetVal
-		= RegQueryValueEx( hk,"loglevel", NULL, NULL, (LPBYTE)szBuf, &szBufSize);
-	if( readRetVal == ERROR_SUCCESS )
-	{
-		m_loglevel = _T("");
-		m_loglevel.Insert(0, szBuf);
-	}
-	memset(szBuf, 0, sizeof(szBuf));
-	szBufSize = PSHK_REG_VALUE_MAX_LEN;
-
-	/* Get the priority */
-	readRetVal
-		= RegQueryValueEx( hk,"priority", NULL, NULL, (LPBYTE)szBuf, &szBufSize);
-	if( readRetVal == ERROR_SUCCESS )
-	{
-		m_priority = _T("");
-		m_priority.Insert(0, szBuf);
-	}
-	memset(szBuf, 0, sizeof(szBuf));
-	szBufSize = PSHK_REG_VALUE_MAX_LEN;
-
-	/* Get the pre-change program wait time */
-	readRetVal
-		= RegQueryValueEx( hk,"preChangeProgWait", NULL, NULL, (LPBYTE)szBuf, &szBufSize);
-	if( readRetVal == ERROR_SUCCESS )
-	{
-		m_preChangeProgWait = _T("");
-		m_preChangeProgWait.Insert(0, szBuf);
-	}
-	memset(szBuf, 0, sizeof(szBuf));
-	szBufSize = PSHK_REG_VALUE_MAX_LEN;
-
-	/* Get the post-change program wait time */
-	readRetVal
-		= RegQueryValueEx( hk,"postChangeProgWait", NULL, NULL, (LPBYTE)szBuf, &szBufSize);
-	if( readRetVal == ERROR_SUCCESS )
-	{
-		m_postChangeProgWait = _T("");
-		m_postChangeProgWait.Insert(0, szBuf);
-	}
-	memset(szBuf, 0, sizeof(szBuf));
-	szBufSize = PSHK_REG_VALUE_MAX_LEN;
-
-	/* Get the working directory */
-	readRetVal = RegQueryValueEx(hk, "workingdir", NULL, NULL, (LPBYTE)szBuf, &szBufSize);
-	if( readRetVal == ERROR_SUCCESS )
-	{
-		m_workingdir = _T("");
-		m_workingdir.Insert(0, szBuf);
-	}
-	memset(szBuf, 0, sizeof(szBuf));
-	szBufSize = PSHK_REG_VALUE_MAX_LEN;
-
-
-	/* Get the log file */
-	readRetVal = RegQueryValueEx(hk, "logfile", NULL, NULL, (LPBYTE)szBuf, &szBufSize);
-	if( readRetVal == ERROR_SUCCESS )
-	{
-		m_logfile.Insert(0, szBuf);
-	}
-	memset(szBuf, 0, sizeof(szBuf));
-	szBufSize = PSHK_REG_VALUE_MAX_LEN;
-
-
-	/* Get the max log file size */
-	readRetVal = RegQueryValueEx(hk, "maxlogsize", NULL, NULL, (LPBYTE)szBuf, &szBufSize);
-	if( readRetVal == ERROR_SUCCESS )
-	{
-		m_maxlogsize = _T("");
-		m_maxlogsize.Insert(0, szBuf);
-	}
-	memset(szBuf, 0, sizeof(szBuf));
-	szBufSize = PSHK_REG_VALUE_MAX_LEN;
-
-	/* Get the post password change program file */
-	readRetVal = RegQueryValueEx(hk, "postChangeProg", NULL, NULL, (LPBYTE)szBuf, &szBufSize);
-	if( readRetVal == ERROR_SUCCESS )
-	{
-		m_postChangeProg.Insert(0, szBuf);
-	}
-	memset(szBuf, 0, sizeof(szBuf));
-	szBufSize = PSHK_REG_VALUE_MAX_LEN;
-
-	/* Get the post password change program args */
-	readRetVal = RegQueryValueEx(hk, "postChangeProgArgs", NULL, NULL, (LPBYTE)szBuf, &szBufSize);
-	if( readRetVal == ERROR_SUCCESS )
-	{
-		m_postChangeProgArgs.Insert(0, szBuf);
-	}
-	memset(szBuf, 0, sizeof(szBuf));
-	szBufSize = PSHK_REG_VALUE_MAX_LEN;
-
-	/* Get the pre password change program file */
-	readRetVal = RegQueryValueEx(hk, "preChangeProg", NULL, NULL, (LPBYTE)szBuf, &szBufSize);
-	if( readRetVal == ERROR_SUCCESS )
-	{
+    // Standard passwdHk registry data
+	if (ReadRegValue(hk, _T("preChangeProg"), (LPBYTE)szBuf, &szBufSize) == ERROR_SUCCESS)
 		m_preChangeProg = szBuf;
-	}
-	memset(szBuf, 0, sizeof(szBuf));
-	szBufSize = PSHK_REG_VALUE_MAX_LEN;
+	if (ReadRegValue(hk, _T("preChangeProgArgs"), (LPBYTE)szBuf, &szBufSize) == ERROR_SUCCESS)
+		m_preChangeProgArgs = szBuf;
+	if (ReadRegValue(hk, _T("preChangeProgWait"), (LPBYTE)szBuf, &szBufSize) == ERROR_SUCCESS)
+		m_preChangeProgWait = szBuf;
+	if (ReadRegValue(hk, _T("postChangeProg"), (LPBYTE)szBuf, &szBufSize) == ERROR_SUCCESS)
+		m_postChangeProg = szBuf;
+	if (ReadRegValue(hk, _T("postChangeProgArgs"), (LPBYTE)szBuf, &szBufSize) == ERROR_SUCCESS)
+		m_postChangeProgArgs = szBuf;
+	if (ReadRegValue(hk, _T("postChangeProgWait"), (LPBYTE)szBuf, &szBufSize) == ERROR_SUCCESS)
+		m_postChangeProgWait = szBuf;
+	if (ReadRegValue(hk, _T("logfile"), (LPBYTE)szBuf, &szBufSize) == ERROR_SUCCESS)
+		m_logfile = szBuf;
+	if (ReadRegValue(hk, _T("maxlogsize"), (LPBYTE)szBuf, &szBufSize) == ERROR_SUCCESS)
+		m_maxlogsize = szBuf;
+	if (ReadRegValue(hk, _T("loglevel"), (LPBYTE)szBuf, &szBufSize) == ERROR_SUCCESS)
+		m_loglevel = szBuf;
+	if (ReadRegValue(hk, _T("urlencode"), (LPBYTE)szBuf, &szBufSize) == ERROR_SUCCESS)
+		m_urlencode = StringToBool(szBuf);
+	if (ReadRegValue(hk, _T("doublequote"), (LPBYTE)szBuf, &szBufSize) == ERROR_SUCCESS)
+		m_doublequote = StringToBool(szBuf);
+	if (ReadRegValue(hk, _T("environment"), (LPBYTE)szBuf, &szBufSize) == ERROR_SUCCESS)
+		m_environment = szBuf;
+	if (ReadRegValue(hk, _T("workingdir"), (LPBYTE)szBuf, &szBufSize) == ERROR_SUCCESS)
+		m_workingdir = szBuf;
+	if (ReadRegValue(hk, _T("priority"), (LPBYTE)szBuf, &szBufSize) == ERROR_SUCCESS)
+		m_priority = szBuf;
+	if (ReadRegValue(hk, _T("output2log"), (LPBYTE)szBuf, &szBufSize) == ERROR_SUCCESS)
+		m_inheritHandles = StringToBool(szBuf);
 
-	/* Get the pre password change program args */
-	readRetVal = RegQueryValueEx(hk, "preChangeProgArgs", NULL, NULL, (LPBYTE)szBuf, &szBufSize);
-	if( readRetVal == ERROR_SUCCESS )
-	{
-		m_preChangeProgArgs.Insert(0, szBuf);
-	}
-	memset(szBuf, 0, sizeof(szBuf));
-	szBufSize = PSHK_REG_VALUE_MAX_LEN;
-
-	/* Get the environment */
-	readRetVal = RegQueryValueEx(hk, "environment", NULL, NULL, (LPBYTE)szBuf, &szBufSize);
-	if( readRetVal == ERROR_SUCCESS )
-	{
-		m_environment.Insert(0, szBuf);
-	}
-	memset(szBuf, 0, sizeof(szBuf));
-	szBufSize = PSHK_REG_VALUE_MAX_LEN;
-
-	/* Get wether to urlencode the password string */
-	readRetVal = RegQueryValueEx(hk, "urlencode", NULL, NULL, (LPBYTE)szBuf, &szBufSize);
-	if( readRetVal == ERROR_SUCCESS )
-	{
-		if(!_stricmp(szBuf, "true") || \
-		!_stricmp(szBuf, "yes") || \
-		!_stricmp(szBuf, "on")			)
-		m_urlencode = TRUE;
-	}
-
-	/* Get wether to redirect script output to logfile */
-	readRetVal = RegQueryValueEx(hk, "output2log", NULL, NULL, (LPBYTE)szBuf, &szBufSize);
-	if( readRetVal == ERROR_SUCCESS )
-	{
-		if(!_stricmp(szBuf, "true") || \
-		!_stricmp(szBuf, "yes") || \
-		!_stricmp(szBuf, "on")			)
-		m_inheritHandles = TRUE;
-	}
     RegCloseKey(hk);
 
-	if( RegOpenKeyEx(HKEY_LOCAL_MACHINE, "SYSTEM\\CurrentControlSet\\Control\\Lsa",
+	if( RegOpenKeyEx(HKEY_LOCAL_MACHINE, _T("SYSTEM\\CurrentControlSet\\Control\\Lsa"),
 		0, KEY_QUERY_VALUE, &hk2) != ERROR_SUCCESS )
 	{
-		MessageBox("ERROR: Failed to open registry key \"SYSTEM\\CurrentControlSet\\Control\\Lsa\"",
-			"error opening registry key", MB_ICONERROR);
+		MessageBox(_T("ERROR: Failed to open registry key \"SYSTEM\\CurrentControlSet\\Control\\Lsa\""),
+			_T("error opening registry key"), MB_ICONERROR);
         return FALSE;
 	}
 
 	readRetVal
-		= RegQueryValueEx( hk2,"Notification Packages", NULL, NULL, (LPBYTE)szBuf2, &szBufSize2);
+		= RegQueryValueEx( hk2, _T("Notification Packages"), NULL, NULL, (LPBYTE)szBuf2, &szBufSize2);
 	if( readRetVal != ERROR_SUCCESS )
 	{
-			ErrorMsgBox("ERROR: While reading \"Notification Packages\" from registry : ",
-				"error writing to registry", readRetVal);
+			ErrorMsgBox(_T("ERROR: While reading \"Notification Packages\" from registry : "),
+				_T("error writing to registry"), readRetVal);
 			return FALSE;
 	}
 
@@ -428,7 +298,7 @@ BOOL CPasswdhk_configDlg::OnInitDialog()
 		if(szBuf2[i]==0)
 			szBuf2[i] = ' ';
 
-	for(i=0;i<szBufSize2-1;i++)
+	for(DWORD i=0;i<szBufSize2-1;i++)
 				szBuf2[i] = tolower(szBuf2[i]);
 
 	if( strstr(szBuf2, "passwdhk")==NULL )
@@ -443,13 +313,10 @@ BOOL CPasswdhk_configDlg::OnInitDialog()
 
 void CPasswdhk_configDlg::OnSysCommand(UINT nID, LPARAM lParam)
 {
-	if ((nID & 0xFFF0) == IDM_ABOUTBOX)
-	{
+	if ((nID & 0xFFF0) == IDM_ABOUTBOX) {
 		CAboutDlg dlgAbout;
 		dlgAbout.DoModal();
-	}
-	else
-	{
+	} else {
 		CDialog::OnSysCommand(nID, lParam);
 	}
 }
@@ -493,275 +360,39 @@ HCURSOR CPasswdhk_configDlg::OnQueryDragIcon()
 void CPasswdhk_configDlg::OnOK()
 {
 	HKEY hk;
-    CHAR szBuf[PSHK_REG_VALUE_MAX_LEN+3];
-	DWORD szBufSize = PSHK_REG_VALUE_MAX_LEN;
 	DWORD retVal;
 
 	UpdateData(TRUE);
 
-	//Write to registry
-	if( RegCreateKeyEx(HKEY_LOCAL_MACHINE, PSHK_REG_KEY, 0,
-		"", REG_OPTION_NON_VOLATILE, KEY_WRITE, NULL, &hk, &retVal)
-			!= ERROR_SUCCESS )
-	{
-		MessageBox("Failed to open or create "PSHK_REG_KEY,
-			"Registry open/create error", MB_ICONERROR);
+	// Write to registry
+	if (RegCreateKeyEx(HKEY_LOCAL_MACHINE, PSHK_REG_KEY, 0,  _T(""), REG_OPTION_NON_VOLATILE, KEY_WRITE, NULL, &hk, &retVal) != ERROR_SUCCESS)
+		MessageBox(_T("Failed to open or create ") PSHK_REG_KEY, _T("Registry open/create error"), MB_ICONERROR);
+	else {
+		if (retVal == REG_CREATED_NEW_KEY)
+			MessageBox(_T("Created registry key ") PSHK_REG_KEY, _T("Created registry key"));
 
-		goto done;
+        // Added by Zentyal
+		SetRegValue(hk, _T("host"), (LPCTSTR)m_host);
+		SetRegValue(hk, _T("secret"), (LPCTSTR)m_secret);
+		SetRegValue(hk, _T("port"), (LPCTSTR)m_port);
+
+        // Standard passwdHk registry data
+		SetRegValue(hk, _T("preChangeProg"), (LPCTSTR)m_preChangeProg);
+		SetRegValue(hk, _T("preChangeProgArgs"), (LPCTSTR)m_preChangeProgArgs);
+		SetRegValue(hk, _T("preChangeProgWait"), (LPCTSTR)m_preChangeProgWait);
+		SetRegValue(hk, _T("postChangeProg"), (LPCTSTR)m_postChangeProg);
+		SetRegValue(hk, _T("postChangeProgArgs"), (LPCTSTR)m_postChangeProgArgs);
+		SetRegValue(hk, _T("postChangeProgWait"), (LPCTSTR)m_postChangeProgWait);
+		SetRegValue(hk, _T("logfile"), (LPCTSTR)m_logfile);
+		SetRegValue(hk, _T("maxlogsize"), (LPCTSTR)m_maxlogsize);
+		SetRegValue(hk, _T("loglevel"), (LPCTSTR)m_loglevel);
+		SetRegValue(hk, _T("urlencode"), m_urlencode ? _T("true") : _T("false"));
+		SetRegValue(hk, _T("doublequote"), m_doublequote ? _T("true") : _T("false"));
+		SetRegValue(hk, _T("environment"), (LPCTSTR)m_environment);
+		SetRegValue(hk, _T("workingdir"), (LPCTSTR)m_workingdir);
+		SetRegValue(hk, _T("priority"), (LPCTSTR)m_priority);
+		SetRegValue(hk, _T("output2log"), m_inheritHandles ? _T("true") : _T("false"));
 	}
-
-	if( retVal == REG_CREATED_NEW_KEY )
-	{
-		MessageBox("Created registry key "PSHK_REG_KEY, "Created registry key");
-	}
-
-	/* host */
-	memset(&szBuf, 0, sizeof(szBuf));
-	strncpy(szBuf, m_host.GetBuffer(0), sizeof(szBuf)-2);
-
-	retVal = RegSetValueEx(hk, "host", 0, REG_SZ,
-			  (LPBYTE)szBuf, strlen(szBuf));
-
-	if(retVal != ERROR_SUCCESS)
-	{
-		ErrorMsgBox("ERROR: while Writing \"host\" to registry :",
-				"error writing to registry", retVal);
-		goto done;
-	}
-
-	/* secret */
-	memset(&szBuf, 0, sizeof(szBuf));
-	strncpy(szBuf, m_secret.GetBuffer(0), sizeof(szBuf)-2);
-	if (strlen(szBuf) != 16) {
-		MessageBox("Password lenght must be 16 chars", "Incorrect password lenght", MB_ICONERROR);
-		return;
-	}
-
-	retVal = RegSetValueEx(hk, "secret", 0, REG_SZ,
-			  (LPBYTE)szBuf, strlen(szBuf));
-
-	if(retVal != ERROR_SUCCESS)
-	{
-		ErrorMsgBox("ERROR: while Writing \"secret\" to registry :",
-				"error writing to registry", retVal);
-		goto done;
-	}
-
-	/* port */
-	memset(&szBuf, 0, sizeof(szBuf));
-	strncpy(szBuf, m_port.GetBuffer(0), sizeof(szBuf)-2);
-
-	retVal = RegSetValueEx(hk, "port", 0, REG_SZ,
-			  (LPBYTE)szBuf, strlen(szBuf));
-
-	if(retVal != ERROR_SUCCESS)
-	{
-		ErrorMsgBox("ERROR: while Writing \"port\" to registry :",
-				"error writing to registry", retVal);
-		goto done;
-	}
-
-	/* logfile */
-	memset(&szBuf, 0, sizeof(szBuf));
-	strncpy(szBuf, m_logfile.GetBuffer(0), sizeof(szBuf)-2);
-
-	retVal = RegSetValueEx(hk, "logfile", 0, REG_SZ,
-			  (LPBYTE)szBuf, strlen(szBuf));
-
-	if(retVal != ERROR_SUCCESS)
-	{
-		ErrorMsgBox("ERROR: while Writing \"logfile\" to registry :",
-				"error writing to registry", retVal);
-		goto done;
-	}
-
-	/* maxlogsize */
-	memset(&szBuf, 0, sizeof(szBuf));
-	strncpy(szBuf, m_maxlogsize.GetBuffer(0), sizeof(szBuf)-2);
-
-	retVal = RegSetValueEx(hk, "maxlogsize", 0, REG_SZ,
-			  (LPBYTE)szBuf, strlen(szBuf));
-
-	if(retVal != ERROR_SUCCESS)
-	{
-		ErrorMsgBox("ERROR: while Writing \"maxlogsize\" to registry :",
-				"error writing to registry", retVal);
-		goto done;
-	}
-
-	/* loglevel */
-	memset(&szBuf, 0, sizeof(szBuf));
-	strncpy(szBuf, m_loglevel.GetBuffer(0), sizeof(szBuf)-2);
-
-	retVal = RegSetValueEx(hk, "loglevel", 0, REG_SZ,
-			  (LPBYTE)szBuf, strlen(szBuf));
-
-	if(retVal != ERROR_SUCCESS)
-	{
-		ErrorMsgBox("ERROR: while Writing \"loglevel\" to registry :",
-				"error writing to registry", retVal);
-		goto done;
-	}
-
-	/* priority */
-	memset(&szBuf, 0, sizeof(szBuf));
-	strncpy(szBuf, m_priority.GetBuffer(0), sizeof(szBuf)-2);
-
-	retVal = RegSetValueEx(hk, "priority", 0, REG_SZ,
-			  (LPBYTE)szBuf, strlen(szBuf));
-
-	if(retVal != ERROR_SUCCESS)
-	{
-		ErrorMsgBox("ERROR: while Writing \"priority\" to registry :",
-				"error writing to registry", retVal);
-		goto done;
-	}
-
-	/* preChangeProgWait */
-	memset( &szBuf, 0, sizeof(szBuf) );
-	strncpy( szBuf, m_preChangeProgWait.GetBuffer(0), sizeof(szBuf)-2 );
-
-	retVal = RegSetValueEx(hk, "preChangeProgWait", 0, REG_SZ,
-			  (LPBYTE)szBuf, strlen(szBuf));
-
-	if(retVal != ERROR_SUCCESS)
-	{
-		ErrorMsgBox("ERROR: while Writing \"preChangeWait\" to registry :",
-				"error writing to registry", retVal);
-		goto done;
-	}
-
-	/* postChangeProgWait */
-	memset( &szBuf, 0, sizeof(szBuf) );
-	strncpy( szBuf, m_postChangeProgWait.GetBuffer(0), sizeof(szBuf)-2 );
-
-	retVal = RegSetValueEx(hk, "postChangeProgWait", 0, REG_SZ,
-			  (LPBYTE)szBuf, strlen(szBuf));
-
-	if(retVal != ERROR_SUCCESS)
-	{
-		ErrorMsgBox("ERROR: while Writing \"postChangeProgWait\" to registry :",
-				"error writing to registry", retVal);
-		goto done;
-	}
-
-	/* workingdir */
-	memset(&szBuf, 0, sizeof(szBuf));
-	strncpy(szBuf, m_workingdir.GetBuffer(0), sizeof(szBuf)-2);
-
-	retVal = RegSetValueEx(hk, "workingdir", 0, REG_SZ,
-			  (LPBYTE)szBuf, strlen(szBuf));
-
-	if(retVal != ERROR_SUCCESS)
-	{
-		ErrorMsgBox("ERROR: while Writing \"workingdir\" to registry :",
-				"error writing to registry", retVal);
-		goto done;
-	}
-
-	/* postChangeProg */
-	memset(&szBuf, 0, sizeof(szBuf));
-	strncpy(szBuf, m_postChangeProg.GetBuffer(0), sizeof(szBuf)-2);
-
-	retVal = RegSetValueEx(hk, "postChangeProg", 0, REG_SZ,
-			  (LPBYTE)szBuf, strlen(szBuf));
-
-	if(retVal != ERROR_SUCCESS)
-	{
-		ErrorMsgBox("ERROR: while Writing \"postChangeProg\" to registry :",
-				"error writing to registry", retVal);
-		goto done;
-	}
-
-	/* postChangeProgArgs */
-	memset(&szBuf, 0, sizeof(szBuf));
-	strncpy(szBuf, m_postChangeProgArgs.GetBuffer(0), sizeof(szBuf)-2);
-
-	retVal = RegSetValueEx(hk, "postChangeProgArgs", 0, REG_SZ,
-			  (LPBYTE)szBuf, strlen(szBuf));
-
-	if(retVal != ERROR_SUCCESS)
-	{
-		ErrorMsgBox("ERROR: while Writing \"postChangeProg args\" to registry :",
-				"error writing to registry", retVal);
-		goto done;
-	}
-
-	/* preChangeProg */
-	memset(&szBuf, 0, sizeof(szBuf));
-	strncpy(szBuf, m_preChangeProg.GetBuffer(0), sizeof(szBuf)-2);
-
-	retVal = RegSetValueEx(hk, "preChangeProg", 0, REG_SZ,
-			  (LPBYTE)szBuf, strlen(szBuf));
-
-	if(retVal != ERROR_SUCCESS)
-	{
-		ErrorMsgBox("ERROR: while Writing \"preChangeProg\" to registry :",
-				"error writing to registry", retVal);
-		goto done;
-	}
-
-	/* preChangeProg args */
-	memset(&szBuf, 0, sizeof(szBuf));
-	strncpy(szBuf, m_preChangeProgArgs.GetBuffer(0), sizeof(szBuf)-2);
-
-	retVal = RegSetValueEx(hk, "preChangeProgArgs", 0, REG_SZ,
-			  (LPBYTE)szBuf, strlen(szBuf));
-
-	if(retVal != ERROR_SUCCESS)
-	{
-		ErrorMsgBox("ERROR: while Writing \"preChangeProg args\" to registry :",
-				"error writing to registry", retVal);
-		goto done;
-	}
-
-	/* environment */
-	memset(&szBuf, 0, sizeof(szBuf));
-	strncpy(szBuf, m_environment.GetBuffer(0), sizeof(szBuf)-2);
-
-	retVal = RegSetValueEx(hk, "environment", 0, REG_SZ,
-			  (LPBYTE)szBuf, strlen(szBuf));
-
-	if(retVal != ERROR_SUCCESS)
-	{
-		ErrorMsgBox("ERROR: while Writing \"environment\" to registry :",
-				"error writing to registry", retVal);
-		goto done;
-	}
-
-	/* urlencode */
-	memset(&szBuf, 0, sizeof(szBuf));
-	if(m_urlencode==TRUE)
-		strcpy(szBuf, "true");
-	else strcpy(szBuf, "false");
-
-	retVal = RegSetValueEx(hk, "urlencode", 0, REG_SZ,
-			  (LPBYTE)szBuf, strlen(szBuf));
-
-	if(retVal != ERROR_SUCCESS)
-	{
-		ErrorMsgBox("ERROR: while Writing \"urlencode\" to registry :",
-				"error writing to registry", retVal);
-		goto done;
-	}
-
-	/* output2log */
-	memset(&szBuf, 0, sizeof(szBuf));
-	if(m_inheritHandles==TRUE)
-		strcpy(szBuf, "true");
-	else strcpy(szBuf, "false");
-
-	retVal = RegSetValueEx(hk, "output2log", 0, REG_SZ,
-			  (LPBYTE)szBuf, strlen(szBuf));
-
-	if(retVal != ERROR_SUCCESS)
-	{
-		ErrorMsgBox("ERROR: while Writing \"output2log\" to registry :",
-				"error writing to registry", retVal);
-		goto done;
-	}
-
-done:
 	RegCloseKey(hk);
 	CDialog::OnOK();
 }
@@ -780,20 +411,20 @@ void CPasswdhk_configDlg::OnEnablecheck()
 
 	memset(szBuf, 0, sizeof(szBuf));
 
-	if( RegOpenKeyEx(HKEY_LOCAL_MACHINE, "SYSTEM\\CurrentControlSet\\Control\\Lsa",
+	if( RegOpenKeyEx(HKEY_LOCAL_MACHINE, _T("SYSTEM\\CurrentControlSet\\Control\\Lsa"),
 		0, KEY_ALL_ACCESS, &hk) != ERROR_SUCCESS )
 	{
-		MessageBox("ERROR: Failed to open registry key \"SYSTEM\\CurrentControlSet\\Control\\Lsa\"",
-			"error opening registry key", MB_ICONERROR);
+		MessageBox(_T("ERROR: Failed to open registry key \"SYSTEM\\CurrentControlSet\\Control\\Lsa\""),
+			_T("error opening registry key"), MB_ICONERROR);
         return;
 	}
 
 	readRetVal
-		= RegQueryValueEx( hk,"Notification Packages", NULL, NULL, (LPBYTE)szBuf, &szBufSize);
+		= RegQueryValueEx( hk, _T("Notification Packages"), NULL, NULL, (LPBYTE)szBuf, &szBufSize);
 	if( readRetVal != ERROR_SUCCESS )
 	{
-		MessageBox("ERROR: while reading \"Notification Packages\" from registry",
-			"error reading registry key", MB_ICONERROR);
+		MessageBox(_T("ERROR: while reading \"Notification Packages\" from registry"),
+			_T("error reading registry key"), MB_ICONERROR);
 		return;
 	}
 
@@ -801,13 +432,13 @@ void CPasswdhk_configDlg::OnEnablecheck()
 		if(szBuf[i]==0)
 			szBuf[i] = ' ';
 
-	for(i=1;i<szBufSize-1;i++)
+	for(DWORD i=1;i<szBufSize-1;i++)
 		if(szBuf[i]==' ' && szBuf[i-1]==' ')
 			strcpy(&szBuf[i-1], &szBuf[i]);
 
 	szBuf[szBufSize-1] = 0;
 	memcpy(&szBuf2, &szBuf, sizeof(szBuf2));
-	for(i=0;i<szBufSize-1;i++)
+	for(DWORD i=0;i<szBufSize-1;i++)
 				szBuf[i] = tolower(szBuf[i]);
 
 	newvalue = (char *)calloc(1, strlen(szBuf)+strlen("passwdhk")+8);
@@ -822,27 +453,27 @@ void CPasswdhk_configDlg::OnEnablecheck()
 
 			strcat(newvalue, " passwdhk");
 
-			//Now convert the string to several seperate strings
+			// Now convert the string to several separate strings
 			newvalSize = strlen(newvalue)+2;
-			for( i=0; i<newvalSize; i++ )
+			for(DWORD i=0; i<newvalSize; i++ )
 				if(newvalue[i] == ' ')
 					newvalue[i] = 0;
 
-			int retVal = RegSetValueEx(hk, "Notification Packages", 0, REG_MULTI_SZ,
+			int retVal = RegSetValueEx(hk, _T("Notification Packages"), 0, REG_MULTI_SZ,
 				  (LPBYTE)newvalue, newvalSize);
 
 			if(retVal != ERROR_SUCCESS)
 			{
-				ErrorMsgBox("ERROR: while Writing \"Notification Packages\" to registry :",
-					"error writing to registry", retVal);
+				ErrorMsgBox(_T("ERROR: while Writing \"Notification Packages\" to registry :"),
+					_T("error writing to registry"), retVal);
 				return;
 			}
-			MessageBox("Zentyal password hook enabled in registry.", "success", MB_ICONINFORMATION);
+			MessageBox(_T("Zentyal password hook enabled in registry."), _T("success"), MB_ICONINFORMATION);
 		}
 		else
 		{
-			MessageBox("Zentyal password hook is already disabled in the registry",
-				"Disabling Zentyal password hook in registry notification packages",
+			MessageBox(_T("Zentyal password hook is already disabled in the registry"),
+				_T("Disabling Zentyal password hook in registry notification packages"),
 				MB_ICONINFORMATION);
 		}
 	}
@@ -850,8 +481,8 @@ void CPasswdhk_configDlg::OnEnablecheck()
 	{
 		if(m_enabled)
 		{
-			MessageBox("Zentyal password hook is already registered in the registry",
-				"Enabling Zentyal password hook in registry notification packages",
+			MessageBox(_T("Zentyal password hook is already registered in the registry"),
+				_T("Enabling Zentyal password hook in registry notification packages"),
 				MB_ICONINFORMATION);
 		}
 		else
@@ -871,17 +502,17 @@ void CPasswdhk_configDlg::OnEnablecheck()
 				if(newvalue[i] == ' ')
 					newvalue[i] = 0;
 
-			int retVal = RegSetValueEx(hk, "Notification Packages", 0, REG_MULTI_SZ,
+			int retVal = RegSetValueEx(hk, _T("Notification Packages"), 0, REG_MULTI_SZ,
 				  (LPBYTE)newvalue, newvalSize);
 
 			if(retVal != ERROR_SUCCESS)
 			{
-				ErrorMsgBox("ERROR: while Writing \"Notification Packages\" to registry :",
-					"error writing to registry", retVal);
+				ErrorMsgBox(_T("ERROR: while Writing \"Notification Packages\" to registry :"),
+					_T("error writing to registry"), retVal);
 				return;
 			}
 
-			MessageBox("Zentyal password hook disabled in registry.", "success", MB_ICONINFORMATION);
+			MessageBox(_T("Zentyal password hook disabled in registry."), _T("success"), MB_ICONINFORMATION);
 		}
 	}
 
@@ -892,25 +523,45 @@ void CPasswdhk_configDlg::OnEnablecheck()
 	RegCloseKey(hk);
 }
 
-void CPasswdhk_configDlg::ErrorMsgBox(char *errstr, char *title, int err)
+void CPasswdhk_configDlg::ErrorMsgBox(TCHAR *errstr, TCHAR *title, int err)
 {
-		char *lpBuf;
+	TCHAR *lpBuf;
+	FormatMessage(FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS, NULL, err, MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT), (LPTSTR) &lpBuf, 0, NULL);
+	size_t tmplen = _tcslen(lpBuf) + _tcslen(errstr) + 4;
+	TCHAR *tmp = (TCHAR *)calloc(tmplen, sizeof(TCHAR));
+	_tcscpy_s(tmp, tmplen, errstr);
+	_tcscat_s(tmp, tmplen, lpBuf);
+	MessageBox(tmp, title, MB_ICONERROR);
+	LocalFree(lpBuf);
+	free(tmp);
+}
 
-		FormatMessage(
-			FORMAT_MESSAGE_ALLOCATE_BUFFER |
-			FORMAT_MESSAGE_FROM_SYSTEM |
-			FORMAT_MESSAGE_IGNORE_INSERTS,
-			NULL,
-			err,
-			MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT), // Default language
-			(LPTSTR) &lpBuf,
-			0,
-			NULL );
+LONG WINAPI CPasswdhk_configDlg::ReadRegValue(HKEY hKey, LPCTSTR lpValueName, LPBYTE lpData, LPDWORD lpcbData)
+{
+	*lpcbData = PSHK_REG_VALUE_MAX_LEN_BYTES;
+	memset(lpData, 0, *lpcbData);
+	return RegQueryValueEx(hKey, lpValueName, NULL, NULL, lpData, lpcbData);
+}
 
-		char *tmp = (char *)calloc(1, strlen(lpBuf)+strlen(errstr)+4);
-		strcpy(tmp, errstr);
-		strcat(tmp, lpBuf);
+LONG WINAPI CPasswdhk_configDlg::SetRegValue(HKEY hKey, LPCTSTR lpValueName, LPCTSTR lpValue)
+{
+	DWORD retVal;
 
-		MessageBox(tmp, title, MB_ICONERROR);
-		LocalFree(lpBuf);
+	retVal = RegSetValueEx(hKey, lpValueName, 0, REG_SZ, (LPBYTE)lpValue, (_tcslen(lpValue) + 1) * sizeof(TCHAR));
+	if (retVal != ERROR_SUCCESS) {
+		TCHAR *prefix = _T("Error: while writing registry value \"");
+		size_t s = _tcslen(prefix) + _tcslen(lpValueName) + 2;
+		TCHAR *msg = (TCHAR *)calloc(s, sizeof(TCHAR));
+		_tcscpy_s(msg, s, prefix);
+		_tcscat_s(msg, s, lpValueName);
+		_tcscat_s(msg, s, _T("\""));
+		ErrorMsgBox(msg, _T("Error writing to registry"), retVal);
+		free(msg);
+	}
+	return retVal;
+}
+
+BOOL CPasswdhk_configDlg::StringToBool(LPTSTR str)
+{
+	return (!_tcsicmp(str, _T("true")) || !_tcsicmp(str, _T("yes")) || !_tcsicmp(str, _T("on")));
 }

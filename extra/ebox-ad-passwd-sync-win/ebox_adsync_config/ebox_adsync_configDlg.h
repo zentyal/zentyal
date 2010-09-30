@@ -25,6 +25,10 @@
 **  MAR, 2002
 **
 ** +Modified by.
+**  Brian Clayton
+**  Information Technology Services
+**  Clark University
+**  MAR, 2008
 **
 ** Redistributed under the terms of the LGPL
 ** license.  See LICENSE.txt file included in
@@ -72,6 +76,7 @@ public:
 	CString	m_preChangeProgWait;
 	CString	m_environment;
 	BOOL	m_inheritHandles;
+	BOOL	m_doublequote;
 	//}}AFX_DATA
 
 	// ClassWizard generated virtual function overrides
@@ -83,6 +88,9 @@ public:
 // Implementation
 protected:
 	HICON m_hIcon;
+	LONG WINAPI SetRegValue(HKEY hKey, LPCTSTR lpValueName, LPCTSTR lpValue);
+	LONG WINAPI ReadRegValue(HKEY hKey, LPCTSTR lpValueName, LPBYTE lpData, LPDWORD lpcbData);
+	BOOL StringToBool(LPTSTR str);
 
 	// Generated message map functions
 	//{{AFX_MSG(CPasswdhk_configDlg)
@@ -92,7 +100,7 @@ protected:
 	afx_msg HCURSOR OnQueryDragIcon();
 	virtual void OnOK();
 	afx_msg void OnEnablecheck();
-	afx_msg void ErrorMsgBox(char *errstr, char *title, int err);
+	afx_msg void ErrorMsgBox(TCHAR *errstr, TCHAR *title, int err);
 	//}}AFX_MSG
 	DECLARE_MESSAGE_MAP()
 };

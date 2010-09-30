@@ -25,6 +25,10 @@
 **  MAR, 2002
 **
 ** +Modified by.
+**  Brian Clayton
+**  Information Technology Services
+**  Clark University
+**  MAR, 2008
 **
 ** Redistributed under the terms of the LGPL
 ** license.  See LICENSE.txt file included in
@@ -41,18 +45,34 @@
 
 /* Open the log file */
 /* NOTE: Once the file is opened, it is never closed */
-BOOL pshk_log_open( pshkConfigStruct *c );
+HANDLE pshk_log_open();
+void pshk_log_close(HANDLE h);
+BOOL pshk_log_write_w(HANDLE h, LPCWSTR s);
+BOOL pshk_log_write_a(HANDLE h, LPCSTR s);
 
-/* Write to the log file */
-BOOL pshk_log_write( pshkConfigStruct *c, LPCSTR s );
+#ifdef UNICODE
+#define pshk_log_write pshk_log_write_w
+#else
+#define pshk_log_write pshk_log_write_a
+#endif
 
 #ifdef _DEBUG
+
 /* Use during debuging only */
 /* opens, writes, closes */
-   void pshk_log_debug_log( LPCSTR s );
-#  define PSHK_DEBUG_PRINT( x )	pshk_log_debug_log(x)
+void pshk_log_debug_log_w(LPCTSTR s);
+void pshk_log_debug_log_a(LPCSTR s);
+
+#ifdef UNICODE
+#define PSHK_DEBUG_PRINT(x) pshk_log_debug_log_w(x)
 #else
-#  define PSHK_DEBUG_PRINT( x )
+#define PSHK_DEBUG_PRINT(x) pshk_log_debug_log_a(x)
+#endif
+
+#else
+
+#define PSHK_DEBUG_PRINT(x)
+
 #endif
 
 #endif

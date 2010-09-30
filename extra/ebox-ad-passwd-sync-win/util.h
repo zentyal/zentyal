@@ -25,6 +25,10 @@
 **  MAR, 2002
 **
 ** +Modified by.
+**  Brian Clayton
+**  Information Technology Services
+**  Clark University
+**  MAR, 2008
 **
 ** Redistributed under the terms of the LGPL
 ** license.  See LICENSE.txt file included in
@@ -33,7 +37,12 @@
 ********************************************************************/
 
 
-#define PSHK_BORDER "==================================="
-LPSTR pshk_struct2str( pshkConfigStruct c );
-LPSTR rawurlencode(LPSTR src);
-int pshk_exec_prog(int option, pshkConfigStruct c, char *username, char *password);
+#ifdef UNICODE
+#define rawurlencode rawurlencode_w
+#else
+#define rawurlencode rawurlencode_a
+#endif
+LPTSTR pshk_struct2str();
+LPWSTR rawurlencode_w(LPWSTR src);
+LPSTR rawurlencode_a(LPSTR src);
+int pshk_exec_prog(int option, TCHAR *username, TCHAR *password);

@@ -1,0 +1,13 @@
+Changes (03 Apr 2008):
+
+ - Fixed bug causing truncation of passwords containing more than 13 URL-encoded characters. Buffer size was being calculated based on password length *before* URL encoding (which lengthens it for symbols requiring encoding).  The extra buffer padding allowed room for up to 13 characters to be encoded, but more than this caused truncation of the password as it was passed to the external program(s).
+
+ - Updated memory wiping to use SecureZeroMemory for better security. ZeroMemory and memset may be optimized out by the compiler, but SecureZeroMemory will not be. With Visual C++ 6.0, this will require updated headers and libraries. Fortunately, these can be downloaded free from Microsoft (see http://www.microsoft.com/downloads/details.aspx?FamilyId=E6E1C3DF-A74F-4207-8586-711EBE331CDC&displaylang=en to download the current SDK).
+
+ - Updated everything for full UNICODE support.
+
+ - Fixed bug with logging truncation not working when output2log enabled.  The duplicate handles used for external program output logging were not being closed before truncation was attempted.
+
+ - Made logging capability thread-safe.  Microsoft specifies that password filter functions should be thread-safe; see http://msdn2.microsoft.com/en-us/library/ms721884.aspx .  Existing logging garbled data when log writes (including redirected external program output) overlapped between multiple threads.
+
+ - Added support for user-specified account info and multi-threaded testing to passwdhk_driver test application.
