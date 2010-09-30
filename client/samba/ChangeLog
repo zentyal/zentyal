@@ -1,4 +1,4 @@
-2.0.1
+HEAD
 	+ Bug fix: cups daemon is now started before samba one
 	+ Bug fix: samba can be enabled now if filesystem does not support quotas
 	+ Removed warning due to mix numeric and string values in printer hash.

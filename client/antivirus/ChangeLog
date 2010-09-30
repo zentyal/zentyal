@@ -1,4 +1,4 @@
-2.0.1
+HEAD
 	+ Use freshclam as a daemon instead of cron script
 	+ Bugfix: Include a tailored AppArmor profile to allow the
 	  observer scripts execution
