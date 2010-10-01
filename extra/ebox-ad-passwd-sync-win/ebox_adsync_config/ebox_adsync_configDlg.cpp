@@ -98,27 +98,27 @@ BEGIN_MESSAGE_MAP(CAboutDlg, CDialog)
 	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
-void pshk_trim(char *str)
+void pshk_trim(wchar_t *str)
 {
     //Remove leading...
-    for(unsigned int i=0; i<strlen(str)-1; i++)
+    for(unsigned int i=0; i<wcslen(str)-1; i++)
         if(str[i]==' ') {
-            strcpy(&str[i], &str[i+1]);
-            str[strlen(str)+1]=0;
+            wcscpy_s(&str[i], wcslen(str), &str[i+1]);
+            str[wcslen(str)+1]=0;
         }
         else break;
 
     //...and trailing spaces
-    for(unsigned int i=strlen(str)-1; i>=0; i-- )
+    for(unsigned int i=wcslen(str)-1; i>=0; i-- )
         if(str[i]==' ')
             str[i]=0;
         else break;
 
     //...and consecutive spaces
-    for(unsigned int i=1;i<strlen(str)-1;i++)
+    for(unsigned int i=1; i<wcslen(str)-1; i++)
         if(str[i]==' ' && str[i-1]==' ') {
-            strcpy(&str[i-1], &str[i]);
-            str[strlen(str)+1]=0;
+            wcscpy_s(&str[i-1], wcslen(str), &str[i]);
+            str[wcslen(str)+1]=0;
         }
 }
 
@@ -226,8 +226,8 @@ BOOL CPasswdhk_configDlg::OnInitDialog()
 	HKEY hk, hk2;
 	TCHAR szBuf[PSHK_REG_VALUE_MAX_LEN + 1];
 	DWORD szBufSize = PSHK_REG_VALUE_MAX_LEN_BYTES;
-	char szBuf2[PSHK_REG_VALUE_MAX_LEN + 1];
-	DWORD szBufSize2 = PSHK_REG_VALUE_MAX_LEN;
+	TCHAR szBuf2[PSHK_REG_VALUE_MAX_LEN + 1];
+	DWORD szBufSize2 = PSHK_REG_VALUE_MAX_LEN_BYTES;
 	DWORD readRetVal;
 
 	memset(szBuf, 0, sizeof(szBuf));
@@ -301,7 +301,7 @@ BOOL CPasswdhk_configDlg::OnInitDialog()
 	for(DWORD i=0;i<szBufSize2-1;i++)
 				szBuf2[i] = tolower(szBuf2[i]);
 
-	if( strstr(szBuf2, "passwdhk")==NULL )
+	if( wcsstr(szBuf2, _T("passwdhk"))==NULL )
 		m_enabled = FALSE;
 	else m_enabled = TRUE;
 
@@ -400,9 +400,10 @@ void CPasswdhk_configDlg::OnOK()
 void CPasswdhk_configDlg::OnEnablecheck()
 {
 	HKEY hk;
-    char szBuf[PSHK_REG_VALUE_MAX_LEN+1];
-	char szBuf2[PSHK_REG_VALUE_MAX_LEN+1];
-	char *newvalue, *pos;
+    TCHAR szBuf[PSHK_REG_VALUE_MAX_LEN+1];
+	TCHAR szBuf2[PSHK_REG_VALUE_MAX_LEN+1];
+	LPTSTR newvalue;
+    LPTSTR pos;
 	DWORD szBufSize = PSHK_REG_VALUE_MAX_LEN;
 	DWORD readRetVal;
 	DWORD newvalSize;
@@ -434,27 +435,27 @@ void CPasswdhk_configDlg::OnEnablecheck()
 
 	for(DWORD i=1;i<szBufSize-1;i++)
 		if(szBuf[i]==' ' && szBuf[i-1]==' ')
-			strcpy(&szBuf[i-1], &szBuf[i]);
+			wcscpy_s(&szBuf[i-1], szBufSize, &szBuf[i]);
 
 	szBuf[szBufSize-1] = 0;
 	memcpy(&szBuf2, &szBuf, sizeof(szBuf2));
 	for(DWORD i=0;i<szBufSize-1;i++)
 				szBuf[i] = tolower(szBuf[i]);
 
-	newvalue = (char *)calloc(1, strlen(szBuf)+strlen("passwdhk")+8);
-	pos=strstr(szBuf, "passwdhk");
+	newvalue = (LPTSTR)calloc(1, wcslen(szBuf)+wcslen(_T("passwdhk"))+8);
+	pos=wcsstr(szBuf, _T("passwdhk"));
 	if(pos==NULL)
 	{
 		if(m_enabled)
 		{
-			strncpy(newvalue, szBuf2, szBufSize-1);
+			wcscpy_s(newvalue, szBufSize, szBufSize-1);
 
 			pshk_trim(newvalue);
 
-			strcat(newvalue, " passwdhk");
+			wcscat_s(newvalue, szBufSize, _T(" passwdhk"));
 
 			// Now convert the string to several separate strings
-			newvalSize = strlen(newvalue)+2;
+			newvalSize = wcslen(newvalue)+2;
 			for(DWORD i=0; i<newvalSize; i++ )
 				if(newvalue[i] == ' ')
 					newvalue[i] = 0;
@@ -487,17 +488,17 @@ void CPasswdhk_configDlg::OnEnablecheck()
 		}
 		else
 		{
-			DWORD i = strlen(szBuf2) - strlen(pos);
-			strncpy(newvalue, szBuf2, szBufSize-1);
-			strcpy(&newvalue[i], &newvalue[i+8]);
+			DWORD i = wcslen(szBuf2) - wcslen(pos);
+			wcsncpy(newvalue, szBuf2, szBufSize-1);
+			wcscpy_s(&newvalue[i], szBufSize, &newvalue[i+8]);
 			memset(&newvalue[szBufSize-8], 0, 7);
-			if(newvalue[strlen(newvalue)-1]==' ')
-				newvalue[strlen(newvalue)-1]=0;
+			if(newvalue[wcslen(newvalue)-1]==' ')
+				newvalue[wcslen(newvalue)-1]=0;
 
 			pshk_trim(newvalue);
 
 			//Now convert the string to several seperate strings
-			newvalSize = strlen(newvalue)+2;
+			newvalSize = wcslen(newvalue)+2;
 			for( i=0; i<newvalSize; i++ )
 				if(newvalue[i] == ' ')
 					newvalue[i] = 0;
