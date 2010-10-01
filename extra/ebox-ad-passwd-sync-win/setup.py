@@ -1,4 +1,4 @@
 from distutils.core import setup
 import py2exe
 
-setup(console=['ebox-pwdsync-hook','ebox-pwdsync-service'])
+setup(console=['ebox-pwdsync-hook','ebox-pwdsync-service','zentyal-enable-hook'])
