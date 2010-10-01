@@ -109,7 +109,7 @@ CPasswdhk_configDlg::CPasswdhk_configDlg(CWnd* pParent /*=NULL*/)
 	// as a commandline argument
 	CString instPath;
 	if (__argc > 1) {
-		instPath = __argv[1];
+		instPath = __targv[1];
 	}
 	//{{AFX_DATA_INIT(CPasswdhk_configDlg)
 	m_workingdir = instPath;
