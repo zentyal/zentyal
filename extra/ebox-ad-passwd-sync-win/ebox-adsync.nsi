@@ -66,6 +66,7 @@ Section "" ; (default section)
   File README.passwdHk.txt
   File ebox_adsync_config.exe
   ; python files
+  File _ctypes.pyd
   File _socket.pyd
   File _ssl.pyd
   File bz2.pyd
@@ -76,6 +77,7 @@ Section "" ; (default section)
   File ebox-service-launcher.exe
   File ebox-pwdsync-service.exe
   File ebox-pwdsync-hook.exe
+  File zentyal-enable-hook.exe
   File library.zip
   File python26.dll
   SetOutPath $SYSDIR
@@ -134,6 +136,7 @@ Section Uninstall
   Delete "$INSTDIR\ebox_adsync_config.exe"
   Delete "$INSTDIR\_socket.pyd"
   Delete "$INSTDIR\_ssl.pyd"
+  Delete "$INSTDIR\_ctypes.pyd"
   Delete "$INSTDIR\bz2.pyd"
   Delete "$INSTDIR\Crypto.Cipher.AES.pyd"
   Delete "$INSTDIR\select.pyd"
@@ -141,6 +144,7 @@ Section Uninstall
   Delete "$INSTDIR\ebox-service-launcher.*"
   Delete "$INSTDIR\ebox-pwdsync-service.exe"
   Delete "$INSTDIR\ebox-pwdsync-hook.exe"
+  Delete "$INSTDIR\zentyal-enable-hook.exe"
   Delete "$INSTDIR\library.zip"
   Delete "$INSTDIR\python26.dll"
   Delete /REBOOTOK "$SYSDIR\passwdHk.dll"

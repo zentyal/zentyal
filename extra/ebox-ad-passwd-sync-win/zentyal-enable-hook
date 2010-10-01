@@ -18,7 +18,7 @@
 #   Boston, MA  02111-1307
 #   USA
 
-from sys import argv
+from sys import argv, exit
 from _winreg import *
 from ctypes import c_int, WINFUNCTYPE, windll
 from ctypes.wintypes import HWND, LPCSTR, UINT
@@ -32,7 +32,7 @@ REG_DATA = 'Notification Packages'
 HOOK_DLL = 'passwdhk'
 
 action = 'enable'
-if argv[1]:
+if len(argv) > 1:
     action = argv[1]
 
 hKey = OpenKey(HKEY_LOCAL_MACHINE, REG_KEY, 0, KEY_ALL_ACCESS)
