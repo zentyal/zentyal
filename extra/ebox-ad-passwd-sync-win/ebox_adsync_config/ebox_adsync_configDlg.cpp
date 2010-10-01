@@ -251,9 +251,11 @@ BOOL CPasswdhk_configDlg::OnInitDialog()
 
 	RegCloseKey(hk);
 
-	CString queryCommand = _T("\\zentyal-enable-hook.exe query");
-	queryCommand.Insert(0, m_workingdir);
-	if (_wsystem((LPCTSTR)queryCommand) == 0) {
+	CString command = _T("\\zentyal-enable-hook.exe");
+	command.Insert(0, m_workingdir);
+	command.Insert(0, _T("\""));
+	command.Append(_T("\" query"));
+	if (_tsystem((LPCTSTR)command) == 0) {
 		m_enabled = TRUE;
 	} else {
 		m_enabled = FALSE;
@@ -354,14 +356,15 @@ void CPasswdhk_configDlg::OnEnablecheck()
 {
 	UpdateData(TRUE);
 
-	CString queryCommand = _T("\\zentyal-enable-hook.exe");
-	queryCommand.Insert(0, m_workingdir);
+	CString command = _T("\\zentyal-enable-hook.exe");
+	command.Insert(0, m_workingdir);
+	command.Insert(0, _T("\""));
+	command.Append(_T("\""));
 
 	if (m_enabled == FALSE) {
-		queryCommand.Append(_T(" disable"));
+		command.Append(_T(" disable"));
 	}
-
-	_wsystem((LPCTSTR)queryCommand);
+	_tsystem((LPCTSTR)command);
 }
 
 void CPasswdhk_configDlg::ErrorMsgBox(TCHAR *errstr, TCHAR *title, int err)
