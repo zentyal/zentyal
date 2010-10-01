@@ -1,0 +1,78 @@
+#!/usr/bin/python
+# Copyright (C) 2010 eBox Technologies S.L.
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the Lesser GNU General Public License as
+# published by the Free Software Foundation; either version 2
+# of the License, or (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# Lesser GNU General Public License for more details.
+#
+# You should have received a copy of the Lesser GNU General Public
+# License along with This program; if not, write to the
+#   Free Software Foundation, Inc.,
+#   59 Temple Place, Suite 330,
+#   Boston, MA  02111-1307
+#   USA
+
+from sys import argv
+from _winreg import *
+from ctypes import c_int, WINFUNCTYPE, windll
+from ctypes.wintypes import HWND, LPCSTR, UINT
+
+prototype = WINFUNCTYPE(c_int, HWND, LPCSTR, LPCSTR, UINT)
+paramflags = (1, "hwnd", 0), (1, "text", None), (1, "caption", None), (1, "flags", 0)
+MessageBox = prototype(("MessageBoxA", windll.user32), paramflags)
+
+REG_KEY = 'SYSTEM\\CurrentControlSet\\Control\\Lsa'
+REG_DATA = 'Notification Packages'
+HOOK_DLL = 'passwdhk'
+
+action = 'enable'
+if argv[1]:
+    action = argv[1]
+
+hKey = OpenKey(HKEY_LOCAL_MACHINE, REG_KEY, 0, KEY_ALL_ACCESS)
+if hKey == None:
+    MessageBox(text='ERROR: Failed to open registry key "' + REG_KEY + '"',
+               caption='Error opening registry key')
+
+packages = QueryValueEx(hKey, REG_DATA)[0]
+if packages == None:
+    MessageBox(text='ERROR: Failed to read "' + REG_DATA + '" from registry',
+               caption='Error reading registry key')
+
+found = HOOK_DLL in (i.lower() for i in packages)
+
+if action == 'query':
+    if found:
+        exit(0)
+    else:
+        exit(1)
+elif action == 'enable':
+    if not found:
+        packages.append(HOOK_DLL)
+        SetValueEx(hKey, REG_DATA, 0, REG_MULTI_SZ, packages)
+        MessageBox(text='Zentyal password hook enabled in registry', caption='Success');
+        exit(0)
+    else:
+        MessageBox(text='Zentyal password hook is already registered in the registry',
+                   caption='Enabling Zentyal password hook in registry notification packages')
+        exit(1)
+elif action == 'disable':
+    if found:
+        packages.remove(HOOK_DLL)
+        SetValueEx(hKey, REG_DATA, 0, REG_MULTI_SZ, packages)
+        MessageBox(text='Zentyal password hook disabled in registry', caption='Success')
+        exit(0)
+    else:
+        MessageBox(text='Zentyal password hook is already disabled in the registry',
+                   caption='Disabling Zentyal password hook in registry notification packages')
+        exit(1)
+else:
+    MessageBox(text='Only "enable", "disable" or "query" are valid arguments',
+               caption='Invalid argument')
+    exit(1)
