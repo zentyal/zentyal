@@ -98,29 +98,6 @@ BEGIN_MESSAGE_MAP(CAboutDlg, CDialog)
 	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
-void pshk_trim(wchar_t *str)
-{
-    //Remove leading...
-    for(unsigned int i=0; i<wcslen(str)-1; i++)
-        if(str[i]==' ') {
-            wcscpy_s(&str[i], wcslen(str), &str[i+1]);
-            str[wcslen(str)+1]=0;
-        }
-        else break;
-
-    //...and trailing spaces
-    for(unsigned int i=wcslen(str)-1; i>=0; i-- )
-        if(str[i]==' ')
-            str[i]=0;
-        else break;
-
-    //...and consecutive spaces
-    for(unsigned int i=1; i<wcslen(str)-1; i++)
-        if(str[i]==' ' && str[i-1]==' ') {
-            wcscpy_s(&str[i-1], wcslen(str), &str[i]);
-            str[wcslen(str)+1]=0;
-        }
-}
 
 /////////////////////////////////////////////////////////////////////////////
 // CPasswdhk_configDlg dialog
@@ -223,19 +200,16 @@ BOOL CPasswdhk_configDlg::OnInitDialog()
 	SetIcon(m_hIcon, FALSE);		// Set small icon
 
 	// TODO: Add extra initialization here
-	HKEY hk, hk2;
+	HKEY hk;
 	TCHAR szBuf[PSHK_REG_VALUE_MAX_LEN + 1];
 	DWORD szBufSize = PSHK_REG_VALUE_MAX_LEN_BYTES;
-	TCHAR szBuf2[PSHK_REG_VALUE_MAX_LEN + 1];
-	DWORD szBufSize2 = PSHK_REG_VALUE_MAX_LEN_BYTES;
-	DWORD readRetVal;
 
 	memset(szBuf, 0, sizeof(szBuf));
 
 	if (RegOpenKeyEx(HKEY_LOCAL_MACHINE, PSHK_REG_KEY, 0, KEY_QUERY_VALUE, &hk) != ERROR_SUCCESS)
         return FALSE;
 
-    // Added by Zentyal
+	// Added by Zentyal
 	if (ReadRegValue(hk, _T("host"), (LPBYTE)szBuf, &szBufSize) == ERROR_SUCCESS)
 		m_host = szBuf;
 	if (ReadRegValue(hk, _T("secret"), (LPBYTE)szBuf, &szBufSize) == ERROR_SUCCESS)
@@ -243,7 +217,7 @@ BOOL CPasswdhk_configDlg::OnInitDialog()
 	if (ReadRegValue(hk, _T("port"), (LPBYTE)szBuf, &szBufSize) == ERROR_SUCCESS)
 		m_port = szBuf;
 
-    // Standard passwdHk registry data
+	// Standard passwdHk registry data
 	if (ReadRegValue(hk, _T("preChangeProg"), (LPBYTE)szBuf, &szBufSize) == ERROR_SUCCESS)
 		m_preChangeProg = szBuf;
 	if (ReadRegValue(hk, _T("preChangeProgArgs"), (LPBYTE)szBuf, &szBufSize) == ERROR_SUCCESS)
@@ -275,37 +249,16 @@ BOOL CPasswdhk_configDlg::OnInitDialog()
 	if (ReadRegValue(hk, _T("output2log"), (LPBYTE)szBuf, &szBufSize) == ERROR_SUCCESS)
 		m_inheritHandles = StringToBool(szBuf);
 
-    RegCloseKey(hk);
+	RegCloseKey(hk);
 
-	if( RegOpenKeyEx(HKEY_LOCAL_MACHINE, _T("SYSTEM\\CurrentControlSet\\Control\\Lsa"),
-		0, KEY_QUERY_VALUE, &hk2) != ERROR_SUCCESS )
-	{
-		MessageBox(_T("ERROR: Failed to open registry key \"SYSTEM\\CurrentControlSet\\Control\\Lsa\""),
-			_T("error opening registry key"), MB_ICONERROR);
-        return FALSE;
-	}
-
-	readRetVal
-		= RegQueryValueEx( hk2, _T("Notification Packages"), NULL, NULL, (LPBYTE)szBuf2, &szBufSize2);
-	if( readRetVal != ERROR_SUCCESS )
-	{
-			ErrorMsgBox(_T("ERROR: While reading \"Notification Packages\" from registry : "),
-				_T("error writing to registry"), readRetVal);
-			return FALSE;
-	}
-
-	for(DWORD i=0;i<szBufSize2-1;i++)
-		if(szBuf2[i]==0)
-			szBuf2[i] = ' ';
-
-	for(DWORD i=0;i<szBufSize2-1;i++)
-				szBuf2[i] = tolower(szBuf2[i]);
-
-	if( wcsstr(szBuf2, _T("passwdhk"))==NULL )
+	CString queryCommand = _T("\\zentyal-enable-hook.exe query");
+	queryCommand.Insert(0, m_workingdir);
+	if (_wsystem((LPCTSTR)queryCommand) == 0) {
+		m_enabled = TRUE;
+	} else {
 		m_enabled = FALSE;
-	else m_enabled = TRUE;
+	}
 
-	RegCloseKey(hk2);
 	UpdateData(FALSE);
 
 	return TRUE;  // return TRUE  unless you set the focus to a control
@@ -365,18 +318,18 @@ void CPasswdhk_configDlg::OnOK()
 	UpdateData(TRUE);
 
 	// Write to registry
-	if (RegCreateKeyEx(HKEY_LOCAL_MACHINE, PSHK_REG_KEY, 0,  _T(""), REG_OPTION_NON_VOLATILE, KEY_WRITE, NULL, &hk, &retVal) != ERROR_SUCCESS)
+	if (RegCreateKeyEx(HKEY_LOCAL_MACHINE, PSHK_REG_KEY, 0,  _T(""), REG_OPTION_NON_VOLATILE, KEY_WRITE, NULL, &hk, &retVal) != ERROR_SUCCESS) {
 		MessageBox(_T("Failed to open or create ") PSHK_REG_KEY, _T("Registry open/create error"), MB_ICONERROR);
-	else {
-		if (retVal == REG_CREATED_NEW_KEY)
+	} else {
+		if (retVal == REG_CREATED_NEW_KEY) {
 			MessageBox(_T("Created registry key ") PSHK_REG_KEY, _T("Created registry key"));
-
-        // Added by Zentyal
+		}
+	        // Added by Zentyal
 		SetRegValue(hk, _T("host"), (LPCTSTR)m_host);
 		SetRegValue(hk, _T("secret"), (LPCTSTR)m_secret);
 		SetRegValue(hk, _T("port"), (LPCTSTR)m_port);
 
-        // Standard passwdHk registry data
+		// Standard passwdHk registry data
 		SetRegValue(hk, _T("preChangeProg"), (LPCTSTR)m_preChangeProg);
 		SetRegValue(hk, _T("preChangeProgArgs"), (LPCTSTR)m_preChangeProgArgs);
 		SetRegValue(hk, _T("preChangeProgWait"), (LPCTSTR)m_preChangeProgWait);
@@ -399,129 +352,16 @@ void CPasswdhk_configDlg::OnOK()
 
 void CPasswdhk_configDlg::OnEnablecheck()
 {
-	HKEY hk;
-    TCHAR szBuf[PSHK_REG_VALUE_MAX_LEN+1];
-	TCHAR szBuf2[PSHK_REG_VALUE_MAX_LEN+1];
-	LPTSTR newvalue;
-    LPTSTR pos;
-	DWORD szBufSize = PSHK_REG_VALUE_MAX_LEN;
-	DWORD readRetVal;
-	DWORD newvalSize;
-
 	UpdateData(TRUE);
 
-	memset(szBuf, 0, sizeof(szBuf));
+	CString queryCommand = _T("\\zentyal-enable-hook.exe");
+	queryCommand.Insert(0, m_workingdir);
 
-	if( RegOpenKeyEx(HKEY_LOCAL_MACHINE, _T("SYSTEM\\CurrentControlSet\\Control\\Lsa"),
-		0, KEY_ALL_ACCESS, &hk) != ERROR_SUCCESS )
-	{
-		MessageBox(_T("ERROR: Failed to open registry key \"SYSTEM\\CurrentControlSet\\Control\\Lsa\""),
-			_T("error opening registry key"), MB_ICONERROR);
-        return;
+	if (m_enabled == FALSE) {
+		queryCommand.Append(_T(" disable"));
 	}
 
-	readRetVal
-		= RegQueryValueEx( hk, _T("Notification Packages"), NULL, NULL, (LPBYTE)szBuf, &szBufSize);
-	if( readRetVal != ERROR_SUCCESS )
-	{
-		MessageBox(_T("ERROR: while reading \"Notification Packages\" from registry"),
-			_T("error reading registry key"), MB_ICONERROR);
-		return;
-	}
-
-	for(DWORD i=0;i<szBufSize-1;i++)
-		if(szBuf[i]==0)
-			szBuf[i] = ' ';
-
-	for(DWORD i=1;i<szBufSize-1;i++)
-		if(szBuf[i]==' ' && szBuf[i-1]==' ')
-			wcscpy_s(&szBuf[i-1], szBufSize, &szBuf[i]);
-
-	szBuf[szBufSize-1] = 0;
-	memcpy(&szBuf2, &szBuf, sizeof(szBuf2));
-	for(DWORD i=0;i<szBufSize-1;i++)
-				szBuf[i] = tolower(szBuf[i]);
-
-	newvalue = (LPTSTR)calloc(1, wcslen(szBuf)+wcslen(_T("passwdhk"))+8);
-	pos=wcsstr(szBuf, _T("passwdhk"));
-	if(pos==NULL)
-	{
-		if(m_enabled)
-		{
-			wcscpy_s(newvalue, szBufSize, szBufSize-1);
-
-			pshk_trim(newvalue);
-
-			wcscat_s(newvalue, szBufSize, _T(" passwdhk"));
-
-			// Now convert the string to several separate strings
-			newvalSize = wcslen(newvalue)+2;
-			for(DWORD i=0; i<newvalSize; i++ )
-				if(newvalue[i] == ' ')
-					newvalue[i] = 0;
-
-			int retVal = RegSetValueEx(hk, _T("Notification Packages"), 0, REG_MULTI_SZ,
-				  (LPBYTE)newvalue, newvalSize);
-
-			if(retVal != ERROR_SUCCESS)
-			{
-				ErrorMsgBox(_T("ERROR: while Writing \"Notification Packages\" to registry :"),
-					_T("error writing to registry"), retVal);
-				return;
-			}
-			MessageBox(_T("Zentyal password hook enabled in registry."), _T("success"), MB_ICONINFORMATION);
-		}
-		else
-		{
-			MessageBox(_T("Zentyal password hook is already disabled in the registry"),
-				_T("Disabling Zentyal password hook in registry notification packages"),
-				MB_ICONINFORMATION);
-		}
-	}
-	else
-	{
-		if(m_enabled)
-		{
-			MessageBox(_T("Zentyal password hook is already registered in the registry"),
-				_T("Enabling Zentyal password hook in registry notification packages"),
-				MB_ICONINFORMATION);
-		}
-		else
-		{
-			DWORD i = wcslen(szBuf2) - wcslen(pos);
-			wcsncpy(newvalue, szBuf2, szBufSize-1);
-			wcscpy_s(&newvalue[i], szBufSize, &newvalue[i+8]);
-			memset(&newvalue[szBufSize-8], 0, 7);
-			if(newvalue[wcslen(newvalue)-1]==' ')
-				newvalue[wcslen(newvalue)-1]=0;
-
-			pshk_trim(newvalue);
-
-			//Now convert the string to several seperate strings
-			newvalSize = wcslen(newvalue)+2;
-			for( i=0; i<newvalSize; i++ )
-				if(newvalue[i] == ' ')
-					newvalue[i] = 0;
-
-			int retVal = RegSetValueEx(hk, _T("Notification Packages"), 0, REG_MULTI_SZ,
-				  (LPBYTE)newvalue, newvalSize);
-
-			if(retVal != ERROR_SUCCESS)
-			{
-				ErrorMsgBox(_T("ERROR: while Writing \"Notification Packages\" to registry :"),
-					_T("error writing to registry"), retVal);
-				return;
-			}
-
-			MessageBox(_T("Zentyal password hook disabled in registry."), _T("success"), MB_ICONINFORMATION);
-		}
-	}
-
-	free(newvalue);
-	memset(szBuf, 0, sizeof(szBuf));
-	szBufSize = PSHK_REG_VALUE_MAX_LEN;
-
-	RegCloseKey(hk);
+	_wsystem((LPCTSTR)queryCommand);
 }
 
 void CPasswdhk_configDlg::ErrorMsgBox(TCHAR *errstr, TCHAR *title, int err)
