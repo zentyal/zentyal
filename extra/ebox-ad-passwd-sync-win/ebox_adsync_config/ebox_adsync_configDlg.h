@@ -91,6 +91,7 @@ protected:
 	LONG WINAPI SetRegValue(HKEY hKey, LPCTSTR lpValueName, LPCTSTR lpValue);
 	LONG WINAPI ReadRegValue(HKEY hKey, LPCTSTR lpValueName, LPBYTE lpData, LPDWORD lpcbData);
 	BOOL StringToBool(LPTSTR str);
+	BOOL ExecuteHookAction(CString action);
 
 	// Generated message map functions
 	//{{AFX_MSG(CPasswdhk_configDlg)

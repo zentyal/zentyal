@@ -251,15 +251,7 @@ BOOL CPasswdhk_configDlg::OnInitDialog()
 
 	RegCloseKey(hk);
 
-	CString command = _T("\\zentyal-enable-hook.exe");
-	command.Insert(0, m_workingdir);
-	command.Insert(0, _T("\""));
-	command.Append(_T("\" query"));
-	if (_tsystem((LPCTSTR)command) == 0) {
-		m_enabled = TRUE;
-	} else {
-		m_enabled = FALSE;
-	}
+	m_enabled = ExecuteHookAction(_T("query"));
 
 	UpdateData(FALSE);
 
@@ -356,15 +348,11 @@ void CPasswdhk_configDlg::OnEnablecheck()
 {
 	UpdateData(TRUE);
 
-	CString command = _T("\\zentyal-enable-hook.exe");
-	command.Insert(0, m_workingdir);
-	command.Insert(0, _T("\""));
-	command.Append(_T("\""));
-
+	CString action = _T("enable");
 	if (m_enabled == FALSE) {
-		command.Append(_T(" disable"));
+		action = _T("disable");
 	}
-	_tsystem((LPCTSTR)command);
+	ExecuteHookAction(action);
 }
 
 void CPasswdhk_configDlg::ErrorMsgBox(TCHAR *errstr, TCHAR *title, int err)
@@ -408,4 +396,40 @@ LONG WINAPI CPasswdhk_configDlg::SetRegValue(HKEY hKey, LPCTSTR lpValueName, LPC
 BOOL CPasswdhk_configDlg::StringToBool(LPTSTR str)
 {
 	return (!_tcsicmp(str, _T("true")) || !_tcsicmp(str, _T("yes")) || !_tcsicmp(str, _T("on")));
+}
+
+BOOL CPasswdhk_configDlg::ExecuteHookAction(CString action)
+{
+	STARTUPINFO si;
+	PROCESS_INFORMATION pi;
+
+	ZeroMemory(&si, sizeof(si));
+	si.cb = sizeof(si);
+	ZeroMemory(&pi, sizeof(pi));
+
+	CString cmd = _T("\"");
+	cmd.Append(m_workingdir);
+	cmd.Append(_T("\\zentyal-enable-hook.exe\" "));	
+	cmd.Append(action);
+	
+	size_t len = cmd.GetLength() + 1;
+	TCHAR *buf = (TCHAR *)calloc(len, sizeof(TCHAR));
+	_tcscpy_s(buf, len, (LPCTSTR)cmd);
+
+	if (CreateProcess(NULL, buf, NULL, NULL, FALSE, 0, NULL, NULL, &si, &pi)) {
+		WaitForSingleObject(pi.hProcess, INFINITE);
+		
+		DWORD dwExitCode;
+		GetExitCodeProcess(pi.hProcess, &dwExitCode);
+
+		CloseHandle(pi.hProcess);
+		CloseHandle(pi.hThread);
+		free(buf);
+
+		if (dwExitCode == 0) {
+			return TRUE;
+		}
+	}
+
+	return FALSE;
 }
