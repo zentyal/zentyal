@@ -105,31 +105,7 @@ END_MESSAGE_MAP()
 CPasswdhk_configDlg::CPasswdhk_configDlg(CWnd* pParent /*=NULL*/)
 	: CDialog(CPasswdhk_configDlg::IDD, pParent)
 {
-	// Get the installation path for appending it if it's passed
-	// as a commandline argument
-	CString instPath;
-	if (__argc > 1) {
-		instPath = __targv[1];
-	}
 	//{{AFX_DATA_INIT(CPasswdhk_configDlg)
-	m_workingdir = instPath;
-	m_logfile = _T("\\ebox-pwdsync-hook.log");
-	m_logfile.Insert(0, instPath);
-	m_loglevel = _T("2");
-	m_maxlogsize = _T("8192");
-	m_priority = _T("0");
-	m_urlencode = FALSE;
-	m_enabled = FALSE;
-	m_postChangeProg = _T("");
-	m_preChangeProg = _T("\\ebox-pwdsync-hook.exe");
-	m_preChangeProg.Insert(0, instPath);
-	m_postChangeProgArgs = _T("");
-	m_preChangeProgArgs = _T("");
-	m_postChangeProgWait = _T("0");
-	m_preChangeProgWait = _T("5000");
-	m_environment = _T("");
-	m_inheritHandles = FALSE;
-	m_doublequote = FALSE;
 	// new fields added for Zentyal
 	m_secret = _T("");
 	m_host = _T("");
@@ -199,7 +175,6 @@ BOOL CPasswdhk_configDlg::OnInitDialog()
 	SetIcon(m_hIcon, TRUE);			// Set big icon
 	SetIcon(m_hIcon, FALSE);		// Set small icon
 
-	// TODO: Add extra initialization here
 	HKEY hk;
 	TCHAR szBuf[PSHK_REG_VALUE_MAX_LEN + 1];
 	DWORD szBufSize = PSHK_REG_VALUE_MAX_LEN_BYTES;
@@ -207,7 +182,10 @@ BOOL CPasswdhk_configDlg::OnInitDialog()
 	memset(szBuf, 0, sizeof(szBuf));
 
 	if (RegOpenKeyEx(HKEY_LOCAL_MACHINE, PSHK_REG_KEY, 0, KEY_QUERY_VALUE, &hk) != ERROR_SUCCESS)
-        return FALSE;
+	        return FALSE;
+
+	if (ReadRegValue(hk, _T("workingdir"), (LPBYTE)szBuf, &szBufSize) == ERROR_SUCCESS)
+		m_workingdir = szBuf;
 
 	// Added by Zentyal
 	if (ReadRegValue(hk, _T("host"), (LPBYTE)szBuf, &szBufSize) == ERROR_SUCCESS)
@@ -216,38 +194,6 @@ BOOL CPasswdhk_configDlg::OnInitDialog()
 		m_secret = szBuf;
 	if (ReadRegValue(hk, _T("port"), (LPBYTE)szBuf, &szBufSize) == ERROR_SUCCESS)
 		m_port = szBuf;
-
-	// Standard passwdHk registry data
-	if (ReadRegValue(hk, _T("preChangeProg"), (LPBYTE)szBuf, &szBufSize) == ERROR_SUCCESS)
-		m_preChangeProg = szBuf;
-	if (ReadRegValue(hk, _T("preChangeProgArgs"), (LPBYTE)szBuf, &szBufSize) == ERROR_SUCCESS)
-		m_preChangeProgArgs = szBuf;
-	if (ReadRegValue(hk, _T("preChangeProgWait"), (LPBYTE)szBuf, &szBufSize) == ERROR_SUCCESS)
-		m_preChangeProgWait = szBuf;
-	if (ReadRegValue(hk, _T("postChangeProg"), (LPBYTE)szBuf, &szBufSize) == ERROR_SUCCESS)
-		m_postChangeProg = szBuf;
-	if (ReadRegValue(hk, _T("postChangeProgArgs"), (LPBYTE)szBuf, &szBufSize) == ERROR_SUCCESS)
-		m_postChangeProgArgs = szBuf;
-	if (ReadRegValue(hk, _T("postChangeProgWait"), (LPBYTE)szBuf, &szBufSize) == ERROR_SUCCESS)
-		m_postChangeProgWait = szBuf;
-	if (ReadRegValue(hk, _T("logfile"), (LPBYTE)szBuf, &szBufSize) == ERROR_SUCCESS)
-		m_logfile = szBuf;
-	if (ReadRegValue(hk, _T("maxlogsize"), (LPBYTE)szBuf, &szBufSize) == ERROR_SUCCESS)
-		m_maxlogsize = szBuf;
-	if (ReadRegValue(hk, _T("loglevel"), (LPBYTE)szBuf, &szBufSize) == ERROR_SUCCESS)
-		m_loglevel = szBuf;
-	if (ReadRegValue(hk, _T("urlencode"), (LPBYTE)szBuf, &szBufSize) == ERROR_SUCCESS)
-		m_urlencode = StringToBool(szBuf);
-	if (ReadRegValue(hk, _T("doublequote"), (LPBYTE)szBuf, &szBufSize) == ERROR_SUCCESS)
-		m_doublequote = StringToBool(szBuf);
-	if (ReadRegValue(hk, _T("environment"), (LPBYTE)szBuf, &szBufSize) == ERROR_SUCCESS)
-		m_environment = szBuf;
-	if (ReadRegValue(hk, _T("workingdir"), (LPBYTE)szBuf, &szBufSize) == ERROR_SUCCESS)
-		m_workingdir = szBuf;
-	if (ReadRegValue(hk, _T("priority"), (LPBYTE)szBuf, &szBufSize) == ERROR_SUCCESS)
-		m_priority = szBuf;
-	if (ReadRegValue(hk, _T("output2log"), (LPBYTE)szBuf, &szBufSize) == ERROR_SUCCESS)
-		m_inheritHandles = StringToBool(szBuf);
 
 	RegCloseKey(hk);
 
@@ -309,6 +255,25 @@ void CPasswdhk_configDlg::OnOK()
 	HKEY hk;
 	DWORD retVal;
 
+	// Default values
+	m_logfile = _T("\\ebox-pwdsync-hook.log");
+	m_logfile.Insert(0, m_workingdir);
+	m_loglevel = _T("2");
+	m_maxlogsize = _T("8192");
+	m_priority = _T("0");
+	m_urlencode = FALSE;
+	m_enabled = FALSE;
+	m_postChangeProg = _T("");
+	m_preChangeProg = _T("\\ebox-pwdsync-hook.exe");
+	m_preChangeProg.Insert(0, m_workingdir);
+	m_postChangeProgArgs = _T("");
+	m_preChangeProgArgs = _T("");
+	m_postChangeProgWait = _T("0");
+	m_preChangeProgWait = _T("5000");
+	m_environment = _T("");
+	m_inheritHandles = FALSE;
+	m_doublequote = FALSE;
+
 	UpdateData(TRUE);
 
 	// Write to registry
@@ -323,7 +288,6 @@ void CPasswdhk_configDlg::OnOK()
 		SetRegValue(hk, _T("secret"), (LPCTSTR)m_secret);
 		SetRegValue(hk, _T("port"), (LPCTSTR)m_port);
 
-		// Standard passwdHk registry data
 		SetRegValue(hk, _T("preChangeProg"), (LPCTSTR)m_preChangeProg);
 		SetRegValue(hk, _T("preChangeProgArgs"), (LPCTSTR)m_preChangeProgArgs);
 		SetRegValue(hk, _T("preChangeProgWait"), (LPCTSTR)m_preChangeProgWait);
@@ -409,16 +373,16 @@ BOOL CPasswdhk_configDlg::ExecuteHookAction(CString action)
 
 	CString cmd = _T("\"");
 	cmd.Append(m_workingdir);
-	cmd.Append(_T("\\zentyal-enable-hook.exe\" "));	
+	cmd.Append(_T("\\zentyal-enable-hook.exe\" "));
 	cmd.Append(action);
-	
+
 	size_t len = cmd.GetLength() + 1;
 	TCHAR *buf = (TCHAR *)calloc(len, sizeof(TCHAR));
 	_tcscpy_s(buf, len, (LPCTSTR)cmd);
 
 	if (CreateProcess(NULL, buf, NULL, NULL, FALSE, 0, NULL, NULL, &si, &pi)) {
 		WaitForSingleObject(pi.hProcess, INFINITE);
-		
+
 		DWORD dwExitCode;
 		GetExitCodeProcess(pi.hProcess, &dwExitCode);
 

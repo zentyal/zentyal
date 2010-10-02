@@ -1,4 +1,4 @@
-//Microsoft Developer Studio generated resource script.
+// Microsoft Visual C++ generated resource script.
 //
 #include "resource.h"
 
@@ -13,7 +13,7 @@
 #undef APSTUDIO_READONLY_SYMBOLS
 
 /////////////////////////////////////////////////////////////////////////////
-// English (U.S.) resources
+// Inglés (Estados Unidos) resources
 
 #if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
 #ifdef _WIN32
@@ -27,18 +27,18 @@ LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
 // TEXTINCLUDE
 //
 
-1 TEXTINCLUDE DISCARDABLE 
+1 TEXTINCLUDE 
 BEGIN
     "resource.h\0"
 END
 
-2 TEXTINCLUDE DISCARDABLE 
+2 TEXTINCLUDE 
 BEGIN
     "#include ""afxres.h""\r\n"
     "\0"
 END
 
-3 TEXTINCLUDE DISCARDABLE 
+3 TEXTINCLUDE 
 BEGIN
     "#define _AFX_NO_SPLITTER_RESOURCES\r\n"
     "#define _AFX_NO_OLE_RESOURCES\r\n"
@@ -66,51 +66,42 @@ END
 
 // Icon with lowest ID value placed first to ensure application icon
 // remains consistent on all systems.
-IDR_MAINFRAME           ICON    DISCARDABLE     "res\\ebox_adsync_config.ico"
+IDR_MAINFRAME           ICON                    "res\\ebox_adsync_config.ico"
 
 /////////////////////////////////////////////////////////////////////////////
 //
 // Dialog
 //
 
-IDD_ABOUTBOX DIALOG DISCARDABLE  0, 0, 235, 55
-STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+IDD_ABOUTBOX DIALOG  0, 0, 235, 55
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "About Zentyal AD Password Sync"
 FONT 8, "MS Sans Serif"
 BEGIN
     ICON            IDR_MAINFRAME,IDC_STATIC,11,17,20,20
-    LTEXT           "Zentyal AD Password Sync Version 2.0",IDC_STATIC,40,10,
-                    119,8,SS_NOPREFIX
-    LTEXT           "Copyright (C) 2009-2010 eBox Technologies S.L.",
-                    IDC_STATIC,40,25,176,8
+    LTEXT           "Zentyal AD Password Sync Version 2.0",IDC_STATIC,40,10,119,8,SS_NOPREFIX
+    LTEXT           "Copyright (C) 2009-2010 eBox Technologies S.L.",IDC_STATIC,40,25,176,8
     DEFPUSHBUTTON   "OK",IDOK,178,7,50,14,WS_GROUP
 END
 
-IDD_PASSWDHK_CONFIG_DIALOG DIALOGEX 0, 0, 293, 172
-STYLE DS_3DLOOK | WS_MINIMIZEBOX | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+IDD_PASSWDHK_CONFIG_DIALOG DIALOGEX 0, 0, 230, 126
+STYLE DS_SETFONT | DS_3DLOOK | WS_MINIMIZEBOX | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
 EXSTYLE WS_EX_APPWINDOW
 CAPTION "Zentyal Active Directory Password Synchronizer"
-FONT 8, "MS Sans Serif"
+FONT 8, "MS Sans Serif", 0, 0, 0x1
 BEGIN
-    EDITTEXT        IDC_HOST,109,48,143,12,ES_AUTOHSCROLL | WS_GROUP
-    EDITTEXT        IDC_SECRET,110,90,143,12,ES_PASSWORD | ES_AUTOHSCROLL | 
-                    WS_GROUP
-    CONTROL         "Enable service (instantaneous)",IDC_ENABLECHECK,"Button",
-                    BS_AUTOCHECKBOX | BS_LEFTTEXT | WS_TABSTOP,110,114,143,
-                    12
-    GROUPBOX        "Actions",IDC_STATIC,7,132,283,32
-    DEFPUSHBUTTON   "Save to Registry and Exit",IDOK,13,142,93,14,WS_GROUP
-    PUSHBUTTON      "Exit without Saving ",IDCANCEL,189,142,93,14,WS_GROUP
-    LTEXT           "Dialog to configure the Zentyal AD Password Sync registry settings.\nMore info at http://trac.zentyal.org/Documentation/EBoxActiveDirectorySync",
-                    IDC_STATIC,7,7,281,20
-    LTEXT           "Zentyal slave host",IDC_STATIC,48,48,58,11
-    LTEXT           "Secret key",IDC_STATIC,48,90,49,11
-    EDITTEXT        IDC_PORT,110,69,143,12,ES_AUTOHSCROLL | ES_NUMBER
-    LTEXT           "Port",IDC_STATIC,48,69,37,8
+    EDITTEXT        IDC_HOST,80,50,140,12,ES_AUTOHSCROLL | WS_GROUP
+    EDITTEXT        IDC_SECRET,80,90,140,12,ES_PASSWORD | ES_AUTOHSCROLL | WS_GROUP
+    CONTROL         "Enabled",IDC_ENABLECHECK,"Button",BS_AUTOCHECKBOX | BS_LEFTTEXT | BS_LEFT | WS_TABSTOP,8,30,80,10
+    DEFPUSHBUTTON   "OK",IDOK,85,110,60,14,BS_CENTER | WS_GROUP
+    LTEXT           "Settings for the Zentyal AD Password Synchronizer. More info at:\nhttp://trac.zentyal.org/Documentation/EBoxActiveDirectorySync",IDC_STATIC,10,5,210,24
+    LTEXT           "Zentyal slave host",IDC_STATIC,10,50,60,10
+    LTEXT           "Secret key",IDC_STATIC,10,90,60,10
+    EDITTEXT        IDC_PORT,80,70,40,12,ES_AUTOHSCROLL | ES_NUMBER
+    LTEXT           "Port",IDC_STATIC,10,70,60,10
 END
 
 
-#ifndef _MAC
 /////////////////////////////////////////////////////////////////////////////
 //
 // Version
@@ -133,15 +124,13 @@ BEGIN
     BEGIN
         BLOCK "040904B0"
         BEGIN
-            VALUE "CompanyName", "\0"
-            VALUE "FileDescription", "ebox_adsync_config MFC Application\0"
-            VALUE "FileVersion", "1, 0, 0, 1\0"
-            VALUE "InternalName", "ebox_adsync_config\0"
-            VALUE "LegalCopyright", "Copyright (C) 2002\0"
-            VALUE "LegalTrademarks", "\0"
-            VALUE "OriginalFilename", "ebox_adsync_config.EXE\0"
-            VALUE "ProductName", "ebox_adsync_config Application\0"
-            VALUE "ProductVersion", "1, 0, 0, 1\0"
+            VALUE "FileDescription", "ebox_adsync_config MFC Application"
+            VALUE "FileVersion", "1, 0, 0, 1"
+            VALUE "InternalName", "ebox_adsync_config"
+            VALUE "LegalCopyright", "Copyright (C) 2002"
+            VALUE "OriginalFilename", "ebox_adsync_config.EXE"
+            VALUE "ProductName", "ebox_adsync_config Application"
+            VALUE "ProductVersion", "1, 0, 0, 1"
         END
     END
     BLOCK "VarFileInfo"
@@ -150,8 +139,6 @@ BEGIN
     END
 END
 
-#endif    // !_MAC
-
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -159,7 +146,7 @@ END
 //
 
 #ifdef APSTUDIO_INVOKED
-GUIDELINES DESIGNINFO DISCARDABLE 
+GUIDELINES DESIGNINFO 
 BEGIN
     IDD_ABOUTBOX, DIALOG
     BEGIN
@@ -171,9 +158,9 @@ BEGIN
 
     IDD_PASSWDHK_CONFIG_DIALOG, DIALOG
     BEGIN
-        LEFTMARGIN, 7
-        TOPMARGIN, 7
-        BOTTOMMARGIN, 159
+        VERTGUIDE, 220
+        BOTTOMMARGIN, 110
+        HORZGUIDE, 104
     END
 END
 #endif    // APSTUDIO_INVOKED
@@ -184,12 +171,12 @@ END
 // String Table
 //
 
-STRINGTABLE DISCARDABLE 
+STRINGTABLE 
 BEGIN
     IDS_ABOUTBOX            "&About eBox AD Password Sync..."
 END
 
-#endif    // English (U.S.) resources
+#endif    // Inglés (Estados Unidos) resources
 /////////////////////////////////////////////////////////////////////////////
 
 

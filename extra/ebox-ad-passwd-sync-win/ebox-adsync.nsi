@@ -6,7 +6,7 @@
 
 ; Modified by eBox Technologies S.L. (2009-2010)
 
-!define PRODUCT_NAME "Zentyal AD Password Synchronizer"
+!define PRODUCT_NAME "Zentyal AD Password Sync"
 !define PRODUCT_VERSION "2.0"
 !define PRODUCT_PUBLISHER "eBox Technologies S.L."
 !define PRODUCT_DIR_REGKEY "Software\Microsoft\Windows\CurrentVersion\App Paths\ebox_adsync_config.exe"
@@ -55,7 +55,7 @@ Section "" ; (default section)
   SetOutPath "$INSTDIR"
   SetOverwrite ifnewer
   ; add files / whatever that need to be installed here.
-  WriteRegStr HKEY_LOCAL_MACHINE "SOFTWARE\SYSTEM\CurrentControlSet\Control\Lsa\ebox-adsync" "" "$INSTDIR"
+  WriteRegStr HKEY_LOCAL_MACHINE "SYSTEM\CurrentControlSet\Control\Lsa\ebox-adsync" "workingdir" "$INSTDIR"
   WriteRegStr HKEY_LOCAL_MACHINE "Software\Microsoft\Windows\CurrentVersion\Uninstall\ebox-adsync" "DisplayName" "$(^Name) (remove only)"
   WriteRegStr HKEY_LOCAL_MACHINE "Software\Microsoft\Windows\CurrentVersion\Uninstall\ebox-adsync" "UninstallString" '"$INSTDIR\uninst.exe"'
 
@@ -101,7 +101,7 @@ nocommon:
   SetOutPath $INSTDIR ; restore $OUTDIR
 
   DetailPrint "Running configuration wizard"
-  ExecWait '"$INSTDIR\ebox_adsync_config.exe" "$INSTDIR"'
+  ExecWait "$INSTDIR\ebox_adsync_config.exe"
 
   ; setup the service
   DetailPrint "Installing the service"
@@ -109,7 +109,7 @@ nocommon:
   DetailPrint "Cleaning up"
   Delete "$INSTDIR\setup-service.bat"
 
-  MessageBox MB_OK "For Windows 2000/2003 users: You may need to enable 'complexity requirements' under 'Password policy' in the 'Domain security policy' administrator tool."
+  MessageBox MB_ICONEXCLAMATION|MB_OK "Warning: Make sure you enable the 'complexity requirements' under 'Password Policy' in 'Administrative Tools -> Domain Security Policy -> Account Policies'. Otherwise the password synchronization won't work."
   MessageBox MB_OK "Please restart before changes can take effect."
 
   ; write out uninstaller
