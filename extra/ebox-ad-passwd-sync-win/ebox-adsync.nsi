@@ -94,7 +94,7 @@ nocommon:
   SetOutPath $TEMP
   DetailPrint "Installing VC++ 2008 runtime"
   File vcredist_x86.exe
-  Exec "$TEMP\vcredist_x86.exe /q"
+  ExecWait "$TEMP\vcredist_x86.exe /q"
   DetailPrint "Cleaning up"
   Delete $TEMP\vcredist_x86.exe
 
