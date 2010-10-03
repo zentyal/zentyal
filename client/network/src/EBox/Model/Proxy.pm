@@ -22,8 +22,11 @@ use warnings;
 
 use EBox::Gettext;
 use EBox::Global;
+use EBox::Types::Text;
+use EBox::Types::Password;
 use EBox::Types::Host;
 use EBox::Types::Port;
+use EBox::View::Customizer;
 
 # Dependencies
 
@@ -67,6 +70,20 @@ sub _table
 
     my @tableHeader =
       (
+       new EBox::Types::Text(
+           'fieldName'     => 'username',
+           'printableName' => __('Username'),
+           'size'          => 18,
+           'editable'      => 1,
+           'optional'      => 1,
+       ),
+       new EBox::Types::Password(
+           'fieldName'     => 'password',
+           'printableName' => __('Password'),
+           'size'          => 18,
+           'editable'      => 1,
+           'optional'      => 1,
+       ),
        new EBox::Types::Host(
            'fieldName'     => 'server',
            'printableName' => __('Proxy server'),
@@ -77,7 +94,7 @@ sub _table
            'fieldName'     => 'port',
            'printableName' => __('Proxy port'),
            'editable'      => 1,
-           'optional'      => 1,
+           'defaultValue'  => 8080,
        ),
       );
 
@@ -94,6 +111,25 @@ sub _table
                      };
 
       return $dataTable;
+}
+
+# Method: viewCustomizer
+#
+# Overrides:
+#
+#       <EBox::Model::DataTable::viewCustomizer>
+#
+sub viewCustomizer
+{
+    my ($self) = @_;
+
+    my $customizer = new EBox::View::Customizer();
+    $customizer->setModel($self);
+    if ($self->usernameValue() and $self->passwordValue()) {
+        my $msg = __('Proxy username and password will be visible by all system users.');
+        $customizer->setPermanentMessage($msg);
+    }
+    return $customizer;
 }
 
 1;

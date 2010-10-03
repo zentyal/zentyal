@@ -268,6 +268,8 @@ sub _setConf
             observerScript  => $observerScript,
             proxyServer => $proxy->serverValue(),
             proxyPort => $proxy->portValue(),
+            proxyUser => $proxy->usernameValue(),
+            proxyPasswd => $proxy->passwordValue(),
             );
 
     $self->writeConfFile(FRESHCLAM_CONF_FILE,

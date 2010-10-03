@@ -1,10 +1,9 @@
 <%args>
-    $proxyServer
-    $proxyPort
+    $proxyConf
 </%args>
 #!/bin/sh -e
 
 # Zentyal defined HTTP Proxy
-% if ($proxyServer and $proxyPort) {
-export http_proxy="http://<% $proxyServer %>:<% $proxyPort %>/"
+% if ($proxyConf) {
+export http_proxy=<% $proxyConf %>
 % }

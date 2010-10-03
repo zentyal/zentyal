@@ -40,4 +40,8 @@ OnOutdatedExecute <% "$observerScript outdated %v" %>
 % if ($proxyServer and $proxyPort) {
 HTTPProxyServer <% $proxyServer %>
 HTTPProxyPort <% $proxyPort %>
+% if ($proxyUser and $proxyPasswd) {
+HTTPProxyUsername <% $proxyUser %>
+HTTPProxyPassword <% $proxyPasswd %>
+% }
 % }

@@ -1,3 +1,5 @@
+HEAD
+	+ Add support for authenticated proxy
 2.0.1
 	+ Launch freshclam as a cron script from the required path by
 	  clamav-freshclam init script
