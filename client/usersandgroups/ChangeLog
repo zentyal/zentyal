@@ -1,4 +1,4 @@
-HEAD
+2.0.3
 	+ Allow LDAP users and groups up to 128 characters
 	+ Show precondition message for user corner on slave servers
 	+ Unconfigure ftp and zarafa in reinstall script
