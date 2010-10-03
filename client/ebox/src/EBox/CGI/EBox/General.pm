@@ -28,27 +28,27 @@ use Sys::Hostname;
 
 sub new # (error=?, msg=?, cgi=?)
 {
-	my $class = shift;
-	my $self = $class->SUPER::new('title' => __('General Configuration'),
-				      'template' => '/general.mas',
-				      @_);
-	bless($self, $class);
-	return $self;
+    my $class = shift;
+    my $self = $class->SUPER::new('title' => __('General Configuration'),
+                      'template' => '/general.mas',
+                      @_);
+    bless($self, $class);
+    return $self;
 }
 
 sub _process
 {
-	my $self = shift;
+    my $self = shift;
 
-	my $global = EBox::Global->getInstance();
-	my $apache = $global->modInstance('apache');
+    my $global = EBox::Global->getInstance();
+    my $apache = $global->modInstance('apache');
 
-	my @array = ();
-	push(@array, 'port' => $apache->port());
-	push(@array, 'lang' => EBox::locale());
-	push(@array, 'hostname' => Sys::Hostname::hostname());
+    my @array = ();
+    push(@array, 'port' => $apache->port());
+    push(@array, 'lang' => EBox::locale());
+    push(@array, 'hostname' => Sys::Hostname::hostname());
 
-	$self->{params} = \@array;
+    $self->{params} = \@array;
 }
 
 1;
