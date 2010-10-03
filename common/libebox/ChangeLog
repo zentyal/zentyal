@@ -1,5 +1,5 @@
 HEAD
-	+ Use sysfs if possible to find network interfaces
+	+ Use sysfs to retrieve network interfaces information
 	+ Added permanent messages to composite viewer
 	+ Bugfix: Show permanent messages and message below page title if
 	  the model has pageTitle property

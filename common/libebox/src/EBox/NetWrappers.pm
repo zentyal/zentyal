@@ -23,6 +23,7 @@ use EBox::Gettext;
 use EBox::Exceptions::DataNotFound;
 use Perl6::Junction qw(any);
 use EBox::Validate;
+use EBox::Sysfs;
 
 BEGIN {
 	use Exporter ();
@@ -46,7 +47,7 @@ BEGIN {
 
 # Function: iface_exists
 #
-#    Check if a given interface exists in the system using *ifconfig*
+#    Check if a given interface exists in the system
 #
 # Parameters:
 #
@@ -58,35 +59,27 @@ BEGIN {
 #
 sub iface_exists #(iface)
 {
-        my $iface = shift;
-	defined($iface) or return undef;
-        return (system("/sbin/ifconfig $iface > /dev/null 2>&1") == 0);
+    my ($iface) = @_;
+    my @ifaces = list_ifaces();
+    return ($iface eq any(@ifaces));
 }
 
-#
 # Function: list_ifaces
 #
-#   	Return a list of all real interfaces in the machine via */proc/net/dev*
+#	    Return a list of all real interfaces in the machine
 #
 # Returns:
 #
-#      	An array containg the interfaces
+#       An array containg the interfaces
 #
 sub list_ifaces
 {
-        my @devices;
-        # TODO: It'd be nice to use an API for that if exists
-        if (-d '/sys/class/net/') {
-            @devices = `ls /sys/class/net/`;
-        } else {
-            @devices = `cat /proc/net/dev 2>/dev/null | sed 's/^ *//' | cut -d " " -f 1 | grep : | sed 's/:.*//'`;
-        }
+        my @devices = `ls /sys/class/net/`;
         chomp(@devices);
         @devices = sort @devices;
         return @devices;
 }
 
-#
 # Function: iface_is_up
 #
 #	Checks if a given interface is up.
@@ -111,42 +104,10 @@ sub iface_is_up
 						data => __('Interface'),
 						value => $iface);
         }
-        return (system("/sbin/ifconfig $iface 2>/dev/null | sed 's/^ *//' | cut -d ' ' -f 1 | grep UP > /dev/null") == 0);
+        my $state = EBox::Sysfs::read_value("/sys/class/net/$iface/operstate");
+        return ($state eq 'up');
 }
 
-#
-# Function: iface_netmask
-#
-# 	Returns the netmask for a given interface (dot format)
-#
-# Parameters:
-#
-#       iface - Interface's name
-#
-# Returns:
-#
-#       A string containing the netmask
-#
-# Exceptions:
-#
-#       DataNotFound - If interface does not exists
-#
-sub iface_netmask
-{
-  warn "Deprecated sub; use iface_addresses_with_netmask instead";
-        my $if = shift;
-        unless (iface_exists($if)) {
-                throw EBox::Exceptions::DataNotFound(
-						data => __('Interface'),
-						value => $if);
-        }
-
-        my $mask = `/sbin/ifconfig $if 2> /dev/null | sed 's/ /\\n/g' | grep Mask: | sed 's/^.*://'`;
-        chomp($mask);
-        return $mask;
-}
-
-#
 # Function: iface_mac_address
 #
 # 	Returns the mac address for a given interface
@@ -171,14 +132,10 @@ sub iface_mac_address
 						data => __('Interface'),
 						value => $if);
         }
-        my $mac = `/sbin/ifconfig $if 2> /dev/null | grep HWaddr | sed 's/^.*HWaddr //' | sed 's/ *\$//'`;
-        chomp($mac);
-	defined($mac) or return undef;
-	($mac ne '') or return undef;
+        my $mac = EBox::Sysfs::read_value("/sys/class/net/$if/address");
         return $mac;
 }
 
-#
 # Function: iface_addresses
 #
 # 	Return the addresses for a given interface (dot format)
@@ -204,7 +161,6 @@ sub iface_addresses
 }
 
 
-#
 #  Function: iface_by_address
 #
 #  Search a iface by his address
@@ -230,7 +186,6 @@ sub iface_by_address
 
 
 
-#
 # Function: iface_addresses_with_netmask
 #
 # 	Returns the  addresses for a given interface (dot format)
@@ -285,7 +240,6 @@ sub _ifaceShowAddress
   return @addrs;
 }
 
-#
 # Function: list_routes
 #
 #   	Rertuns the list of current routes
@@ -414,10 +368,6 @@ sub local_ip_to_reach_network
   return undef;
 }
 
-
-
-
-#
 # Function: route_is_up
 #
 #	Checks if a given route is already up.
@@ -444,7 +394,6 @@ sub route_is_up # (network, router)
         return undef;
 }
 
-#
 # Function: ip_network
 #
 # 	Returns the network for an address and netmask
@@ -466,7 +415,6 @@ sub ip_network # (address, netmask)
 	return join(".", unpack("CCCC", $net_bits & $mask_bits));
 }
 
-#
 # Function: ip_broadcast
 #
 # 	Returns the broadcast address  for an address and netmask
@@ -488,7 +436,6 @@ sub ip_broadcast # (address, netmask)
 	return join(".", unpack("CCCC", $net_bits | (~$mask_bits)));
 }
 
-#
 # Function: bits_from_mask
 #
 # 	Given a network mask it returns it in binary format
@@ -507,7 +454,6 @@ sub bits_from_mask # (netmask)
 	return unpack("%B*", pack("CCCC", split(/\./, $netmask)));
 }
 
-#
 # Function: mask_from_bits
 #
 # 	Given a network mask in binary format it returns it in decimal dot notation
@@ -530,7 +476,6 @@ sub mask_from_bits # (bits)
 	return join(".",unpack("CCCC", pack("B*",$mask_binary)));
 }
 
-#
 # Function: to_network_with_mask
 #
 # 	Given a network and a netmask rerurns the network with embeded mask (form x.x.x.x/n)
@@ -551,8 +496,6 @@ sub to_network_with_mask
   return "$network/$bits";
 }
 
-
-#
 # Function: to_network_without_mask
 #
 # 	Given a  network with embeded mask (form x.x.x.x/n) it returns the network and netmask
@@ -573,8 +516,6 @@ sub to_network_without_mask
   return ($network, $netmask);
 }
 
-
-#
 # Function: list_local_addresses
 #
 # Returns:
@@ -588,7 +529,6 @@ sub list_local_addresses
     return @localAddresses;
 }
 
-#
 # Function: list_local_addresses_with_netmask
 #
 # Returns:
