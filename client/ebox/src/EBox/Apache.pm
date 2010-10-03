@@ -50,112 +50,112 @@ use constant APACHE_PORT => 443;
 
 sub _create
 {
-	my $class = shift;
-	my $self = $class->SUPER::_create(name   => 'apache',
+    my $class = shift;
+    my $self = $class->SUPER::_create(name   => 'apache',
                                           domain => 'ebox',
                                           printableName => 'apache',
                                           @_);
-	bless($self, $class);
-	return $self;
+    bless($self, $class);
+    return $self;
 }
 
 sub serverroot
 {
-	return '/var/lib/ebox';
+    return '/var/lib/ebox';
 }
 
 sub initd
 {
-	return '/usr/share/ebox/ebox-apache2ctl';
+    return '/usr/share/ebox/ebox-apache2ctl';
 }
 
 # Method: cleanupForExec
 #
-#	It does the job to prepare a forked apache process to do an exec.
-#	We should use spawn_proc_prog() from mod_perl but we experience
-#	some issues.
+#   It does the job to prepare a forked apache process to do an exec.
+#   We should use spawn_proc_prog() from mod_perl but we experience
+#   some issues.
 #
 #
 sub cleanupForExec
 {
     POSIX::setsid();
 
-	opendir(my $dir, "/proc/$$/fd");
-	while (defined(my $fd = readdir($dir))) {
-		next unless ($fd =~ /^\d+$/);
-		eval('POSIX::close($fd)');
-	}
-	open(STDOUT, '> /dev/null');
-	open(STDERR, '> /dev/null');
-	open(STDIN, '/dev/null');
+    opendir(my $dir, "/proc/$$/fd");
+    while (defined(my $fd = readdir($dir))) {
+        next unless ($fd =~ /^\d+$/);
+        eval('POSIX::close($fd)');
+    }
+    open(STDOUT, '> /dev/null');
+    open(STDERR, '> /dev/null');
+    open(STDIN, '/dev/null');
 }
 
 # restarting apache from inside apache could be problematic, so we fork() and
 # detach the child from the process group.
 sub _daemon # (action)
 {
-	my $self = shift;
-	my $action = shift;
-	my $pid;
-	my $fork = undef;
-	exists $ENV{"MOD_PERL"} and $fork = 1;
+    my $self = shift;
+    my $action = shift;
+    my $pid;
+    my $fork = undef;
+    exists $ENV{"MOD_PERL"} and $fork = 1;
 
-	if ($fork) {
-		unless (defined($pid = fork())) {
-			throw EBox::Exceptions::Internal("Cannot fork().");
-		}
+    if ($fork) {
+        unless (defined($pid = fork())) {
+            throw EBox::Exceptions::Internal("Cannot fork().");
+        }
 
-		if ($pid) {
-			return; # parent returns inmediately
-		}
-		cleanupForExec();
-	}
+        if ($pid) {
+            return; # parent returns inmediately
+        }
+        cleanupForExec();
+    }
 
-	if ($action eq 'stop') {
-		EBox::Sudo::root('/usr/share/ebox/ebox-apache2ctl stop');
-	} elsif ($action eq 'start') {
-		EBox::Sudo::root('/usr/share/ebox/ebox-apache2ctl start');
-	} elsif ($action eq 'restart') {
-		my $restartCmd = EBox::Config::pkgdata . 'ebox-apache-restart';
-		if ($fork) {
-			exec($restartCmd);
-		}
-		else {
-			EBox::Sudo::root($restartCmd);
-		}
+    if ($action eq 'stop') {
+        EBox::Sudo::root('/usr/share/ebox/ebox-apache2ctl stop');
+    } elsif ($action eq 'start') {
+        EBox::Sudo::root('/usr/share/ebox/ebox-apache2ctl start');
+    } elsif ($action eq 'restart') {
+        my $restartCmd = EBox::Config::pkgdata . 'ebox-apache-restart';
+        if ($fork) {
+            exec($restartCmd);
+        }
+        else {
+            EBox::Sudo::root($restartCmd);
+        }
 
-	}
+    }
 
     unless ($action eq 'start') {
         # Stop redis server
         $self->{redis}->stopRedis();
     }
 
-	if ($fork) {
-		exit 0;
-	}
+    if ($fork) {
+        exit 0;
+    }
 }
 
 sub _stopService
 {
-	my $self = shift;
-	$self->_daemon('stop');
+    my $self = shift;
+    $self->_daemon('stop');
 }
 
 sub _setConf
 {
-	my ($self) = @_;
+    my ($self) = @_;
 
-	$self->_writeHttpdConfFile();
-	$self->_writeStartupFile();
-	$self->_writeCSSFiles();
+    $self->_writeHttpdConfFile();
+    $self->_writeStartupFile();
+    $self->_writeCSSFiles();
 }
 
 sub _enforceServiceState
 {
-	my ($self) = @_;
+    my ($self) = @_;
 
-	$self->_daemon('restart');
+    $self->_daemon('restart');
 }
 
 
@@ -171,36 +171,36 @@ sub _writeHttpdConfFile
 {
     my ($self) = @_;
 
-	my $httpdconf = _httpdConfFile();
-	my $output;
-	my $interp = HTML::Mason::Interp->new(out_method => \$output);
-	my $comp = $interp->make_component(
-			comp_file => (EBox::Config::stubs . '/apache.mas'));
+    my $httpdconf = _httpdConfFile();
+    my $output;
+    my $interp = HTML::Mason::Interp->new(out_method => \$output);
+    my $comp = $interp->make_component(
+            comp_file => (EBox::Config::stubs . '/apache.mas'));
 
-	my @confFileParams = ();
-	push @confFileParams, ( port => $self->port());
-	push @confFileParams, ( user => EBox::Config::user());
-	push @confFileParams, ( group => EBox::Config::group());
-	push @confFileParams, ( serverroot => $self->serverroot());
-	push @confFileParams, ( tmpdir => EBox::Config::tmp());
+    my @confFileParams = ();
+    push @confFileParams, ( port => $self->port());
+    push @confFileParams, ( user => EBox::Config::user());
+    push @confFileParams, ( group => EBox::Config::group());
+    push @confFileParams, ( serverroot => $self->serverroot());
+    push @confFileParams, ( tmpdir => EBox::Config::tmp());
     push @confFileParams, ( eboxconfdir => EBox::Config::conf());
 
     push @confFileParams, ( restrictedResources => $self->_restrictedResources() );
     push @confFileParams, ( includes => $self->_includes() );
 
     my $debugMode =  EBox::Config::configkey('debug') eq 'yes';
-	push @confFileParams, ( debug => $debugMode);
+    push @confFileParams, ( debug => $debugMode);
 
-	$interp->exec($comp, @confFileParams);
+    $interp->exec($comp, @confFileParams);
 
-	my $confile = EBox::Config::tmp . "httpd.conf";
-	unless (open(HTTPD, "> $confile")) {
-		throw EBox::Exceptions::Internal("Could not write to $confile");
-	}
-	print HTTPD $output;
-	close(HTTPD);
+    my $confile = EBox::Config::tmp . "httpd.conf";
+    unless (open(HTTPD, "> $confile")) {
+        throw EBox::Exceptions::Internal("Could not write to $confile");
+    }
+    print HTTPD $output;
+    close(HTTPD);
 
-	root("/bin/mv $confile $httpdconf");
+    root("/bin/mv $confile $httpdconf");
 
 }
 
@@ -220,7 +220,7 @@ sub _writeCSSFiles
 
     my $path = EBox::Config::dynamicwww() . '/css';
     unless (-d $path) {
-	mkdir $path;
+    mkdir $path;
     }
 
     my ($primaryGid) = split / /, $GID, 2;
@@ -254,8 +254,8 @@ sub _startupFile
 
 sub port
 {
-	my $self = shift;
-	my $port = $self->get_int('port');
+    my $self = shift;
+    my $port = $self->get_int('port');
     $port or $port = APACHE_PORT;
     return $port;
 }
@@ -270,44 +270,44 @@ sub port
 #
 sub setPort # (port)
 {
-	my ($self, $port) = @_;
+    my ($self, $port) = @_;
 
-	checkPort($port, __("port"));
-	my $fw = EBox::Global->modInstance('firewall');
+    checkPort($port, __("port"));
+    my $fw = EBox::Global->modInstance('firewall');
 
-	if ($self->port() == $port) {
-		return;
-	}
+    if ($self->port() == $port) {
+        return;
+    }
 
-	if (defined($fw)) {
-		unless ($fw->availablePort("tcp",$port)) {
-			throw EBox::Exceptions::DataExists(data => __('port'),
-							   value => $port);
-		}
-	}
+    if (defined($fw)) {
+        unless ($fw->availablePort("tcp",$port)) {
+            throw EBox::Exceptions::DataExists(data => __('port'),
+                               value => $port);
+        }
+    }
 
-	if (EBox::Global->instance()->modExists('services')) {
-		my $services = EBox::Global->modInstance('services');
-		$services->setAdministrationPort($port);
-	}
+    if (EBox::Global->instance()->modExists('services')) {
+        my $services = EBox::Global->modInstance('services');
+        $services->setAdministrationPort($port);
+    }
 
-	$self->set_int('port', $port);
+    $self->set_int('port', $port);
 }
 
 
 sub logs {
-	my @logs = ();
-	my $log;
-	$log->{'module'} = 'apache';
-	$log->{'table'} = 'access';
-	$log->{'file'} = EBox::Config::log . "/access.log";
-	my @fields = qw{ host www_user date method url protocol code size referer ua };
-	$log->{'fields'} = \@fields;
-	$log->{'regex'} = '(.*?) - (.*?) \[(.*)\] "(.*?) (.*?) (.*?)" (.*?) (.*?) "(.*?)" "(.*?)" "-"';
-	my @types = qw{ inet varchar timestamp varchar varchar varchar integer integer varchar varchar };
-	$log->{'types'} = \@types;
-	push(@logs, $log);
-	return \@logs;
+    my @logs = ();
+    my $log;
+    $log->{'module'} = 'apache';
+    $log->{'table'} = 'access';
+    $log->{'file'} = EBox::Config::log . "/access.log";
+    my @fields = qw{ host www_user date method url protocol code size referer ua };
+    $log->{'fields'} = \@fields;
+    $log->{'regex'} = '(.*?) - (.*?) \[(.*)\] "(.*?) (.*?) (.*?)" (.*?) (.*?) "(.*?)" "(.*?)" "-"';
+    my @types = qw{ inet varchar timestamp varchar varchar varchar integer integer varchar varchar };
+    $log->{'types'} = \@types;
+    push(@logs, $log);
+    return \@logs;
 }
 
 # Method: setRestrictedResource
