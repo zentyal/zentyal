@@ -1,4 +1,18 @@
 #!/usr/bin/perl
+# Copyright (C) 2008-2010 eBox Technologies S.L.
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License, version 2, as
+# published by the Free Software Foundation.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 use EBox;
 use EBox::Global;
@@ -13,6 +27,8 @@ my $host = $mode->remoteValue();
 my $settings = $usersMod->model('ADSyncSettings');
 my $username = $settings->usernameValue();
 my $password = $settings->adpassValue();
+
+my $debug = EBox::Config::configkey('debug') eq 'yes';
 
 my $ldapAD;
 try {
@@ -49,12 +65,12 @@ my @groupsToDel  = grep { not exists $newGroups{$_} } keys %currentGroups;
 my @groupsToModify = grep { exists $newGroups{$_} } keys %currentGroups;
 
 foreach my $username (@usersToDel) {
-    EBox::debug("[ad-sync] Deleting user $username that no longer exists");
+    logIfDebug("[ad-sync] Deleting user $username that no longer exists");
     $usersMod->delUser($username);
 }
 
 foreach my $username (@usersToAdd) {
-    EBox::debug("[ad-sync] Adding new user $username");
+    logIfDebug("[ad-sync] Adding new user $username");
     my $user = $newUsers{$username};
 
     # The user must have a initial password in order to add it, as
@@ -69,19 +85,19 @@ foreach my $username (@usersToAdd) {
 }
 
 foreach my $username (@usersToModify) {
-    EBox::debug("[ad-sync] Updating existing user $username");
+    logIfDebug("[ad-sync] Updating existing user $username");
     my $user = $newUsers{$username};
     $usersMod->modifyUser($user);
 }
 
 foreach my $groupname (@groupsToDel) {
-    EBox::debug("[ad-sync] Deleting group $groupname that no longer exists");
+    logIfDebug("[ad-sync] Deleting group $groupname that no longer exists");
     $usersMod->delGroup($groupname);
 }
 
 foreach my $groupname (@groupsToAdd) {
     my $group = $newGroups{$groupname};
-    EBox::debug("[ad-sync] Adding new group $groupname");
+    logIfDebug("[ad-sync] Adding new group $groupname");
     try {
         $usersMod->addGroup($groupname, $group->{comment}, 0);
     } catch Error with {
@@ -93,7 +109,7 @@ foreach my $groupname (@groupsToAdd) {
         try {
             my $user = getPrincipalName($member);
             next unless $user;
-            EBox::debug("[ad-sync] Adding user $user to new group $groupname");
+            logIfDebug("[ad-sync] Adding user $user to new group $groupname");
             $usersMod->addUserToGroup($user, $groupname);
         } catch Error with {
             EBox::warn("[ad-sync] can't add user $user to group $groupname.");
@@ -112,7 +128,7 @@ foreach my $groupname (@groupsToModify) {
     foreach my $member (@membersToAdd) {
         try {
             next unless $member;
-            EBox::debug("[ad-sync] Adding user $member to existing group $groupname");
+            logIfDebug("[ad-sync] Adding user $member to existing group $groupname");
             $usersMod->addUserToGroup($member, $groupname);
         } catch Error with {
             EBox::warn("[ad-sync] can't add user $user to group $groupname.");
@@ -123,7 +139,7 @@ foreach my $groupname (@groupsToModify) {
         try {
             my $user = getPrincipalName($member);
             next unless $user;
-            EBox::debug("[ad-sync] Deleting user $member from group $groupname");
+            logIfDebug("[ad-sync] Deleting user $member from group $groupname");
             $usersMod->delUserFromGroup($member, $groupname);
         } catch Error with {
             EBox::warn("[ad-sync] can't del user $user from group $groupname.");
@@ -302,8 +318,17 @@ sub getPrincipalName # (dn)
         $name =~ s/@.*$//;
         return $name;
     } else {
-        EBox::debug("[ad-sync] can't get userPrincipalName for $dn.");
+        logIfDebug("[ad-sync] can't get userPrincipalName for $dn.");
         return undef;
+    }
+}
+
+sub logIfDebug # (msg)
+{
+    my ($msg) = @_;
+
+    if ($debug) {
+        EBox::debug($msg);
     }
 }
 

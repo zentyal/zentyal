@@ -1,4 +1,4 @@
-# Copyright
+# Copyright (C) 2009-2010 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -115,6 +115,26 @@ sub validateTypedRow
             $services->updateDestPort('usercorner/0', $portNumber);
         }
     }
+}
+
+# Method: precondition
+#
+#   Overrides  <EBox::Model::DataTable::precondition>
+#
+sub precondition
+{
+    my $users = EBox::Global->modInstance('users');
+
+    return ($users->mode() eq 'master');
+}
+
+# Method: preconditionFailMsg
+#
+#   Overrides  <EBox::Model::DataTable::preconditionFailMsg>
+#
+sub preconditionFailMsg
+{
+    return __('User Corner is not supported on slave servers.');
 }
 
 1;

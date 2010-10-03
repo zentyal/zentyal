@@ -1,4 +1,8 @@
 HEAD
+	+ Allow LDAP users and groups up to 128 characters
+	+ Show precondition message for user corner on slave servers
+	+ Unconfigure ftp and zarafa in reinstall script
+	+ Do not show adsync debug messages if debug is disabled in config
 	+ Allow more than one dot in usernames
 2.0.2
 	+ Fixed master/slave synchronization issues
