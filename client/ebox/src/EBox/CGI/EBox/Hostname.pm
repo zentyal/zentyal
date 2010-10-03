@@ -27,26 +27,26 @@ use EBox::Validate;
 
 sub new # (cgi=?)
 {
-	my $class = shift;
-	my $self = $class->SUPER::new(@_);
-	bless($self, $class);
-	$self->{errorchain} = "EBox/General";
-	$self->{redirect} = "EBox/General";
-	return $self;
+    my $class = shift;
+    my $self = $class->SUPER::new(@_);
+    bless($self, $class);
+    $self->{errorchain} = "EBox/General";
+    $self->{redirect} = "EBox/General";
+    return $self;
 }
 
 sub _process
 {
-	my ($self) = @_;
+    my ($self) = @_;
 
-	if (defined($self->param('sethostname'))) {
+    if (defined($self->param('sethostname'))) {
         my $hostname = $self->param('hostname');
         EBox::Validate::checkHost($hostname, __('hostname'));
         EBox::Sudo::root(EBox::Config::share() .
-                         "ebox/ebox-change-hostname $hostname");
-	    my $global = EBox::Global->getInstance();
-	    $global->modChange('apache');
-	}
+                "ebox/ebox-change-hostname $hostname");
+        my $global = EBox::Global->getInstance();
+        $global->modChange('apache');
+    }
 }
 
 1;
