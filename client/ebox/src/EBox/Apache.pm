@@ -146,6 +146,7 @@ sub _setConf
 {
     my ($self) = @_;
 
+    $self->_changeHostname();
     $self->_writeHttpdConfFile();
     $self->_writeStartupFile();
     $self->_writeCSSFiles();
@@ -260,6 +261,19 @@ sub port
     return $port;
 }
 
+sub _changeHostname
+{
+    my ($self) = @_;
+
+    my $hostname = $self->get_string('hostname');
+
+    if ($hostname) {
+        EBox::Sudo::root(EBox::Config::share() .
+                         "ebox/ebox-change-hostname $hostname");
+        $self->set_string('hostname', '');
+    }
+}
+
 # Method: setPort
 #
 #     Set the listening port for the apache perl
@@ -294,8 +308,8 @@ sub setPort # (port)
     $self->set_int('port', $port);
 }
 
-
-sub logs {
+sub logs
+{
     my @logs = ();
     my $log;
     $log->{'module'} = 'apache';

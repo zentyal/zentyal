@@ -42,11 +42,13 @@ sub _process
 
     my $global = EBox::Global->getInstance();
     my $apache = $global->modInstance('apache');
+    my $newHostname = $apache->get_string('hostname');
 
     my @array = ();
     push(@array, 'port' => $apache->port());
     push(@array, 'lang' => EBox::locale());
     push(@array, 'hostname' => Sys::Hostname::hostname());
+    push(@array, 'newHostname' => $newHostname);
 
     $self->{params} = \@array;
 }

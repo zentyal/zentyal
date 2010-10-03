@@ -4,8 +4,9 @@
 	$lang
 	$port
 	$hostname
+	$newHostname => ''
 </%args>
 <& password.mas &>
 <& language.mas, lang => $lang &>
 <& port.mas, port => $port &>
-<& hostname.mas, hostname => $hostname &>
+<& hostname.mas, hostname => $hostname, newHostname => $newHostname &>

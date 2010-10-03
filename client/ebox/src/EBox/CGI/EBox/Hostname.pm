@@ -25,6 +25,8 @@ use EBox::Gettext;
 use EBox::Sudo;
 use EBox::Validate;
 
+use Sys::Hostname;
+
 sub new # (cgi=?)
 {
     my $class = shift;
@@ -41,11 +43,14 @@ sub _process
 
     if (defined($self->param('sethostname'))) {
         my $hostname = $self->param('hostname');
-        EBox::Validate::checkHost($hostname, __('hostname'));
-        EBox::Sudo::root(EBox::Config::share() .
-                "ebox/ebox-change-hostname $hostname");
-        my $global = EBox::Global->getInstance();
-        $global->modChange('apache');
+        my $oldHostname = Sys::Hostname::hostname();
+        if ($hostname ne $oldHostname) {
+            EBox::Validate::checkHost($hostname, __('hostname'));
+            my $global = EBox::Global->getInstance();
+            my $apache = $global->modInstance('apache');
+            $apache->set_string('hostname', $hostname);
+            $global->modChange('apache');
+        }
     }
 }
 
