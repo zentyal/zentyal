@@ -34,6 +34,7 @@ use EBox::Exceptions::External;
 use EBox::Exceptions::Internal;
 use EBox::DBEngineFactory;
 use EBox::Service;
+use EBox::Logs::SlicedBackup;
 
 use POSIX qw(ceil);
 
@@ -351,10 +352,7 @@ sub extendedBackup
   my ($self, %params) = @_;
   my $dir    = $params{dir};
 
-  my $dbengine = EBox::DBEngineFactory::DBEngine();
-  my $dumpFile = "$dir/eboxlogs.dump";
-
-  $dbengine->dumpDB($dumpFile);
+  $self->dumpExtraBackupData($dir);
 }
 
 
@@ -364,9 +362,9 @@ sub extendedRestore
   my $dir    = $params{dir};
 
   my $dbengine = EBox::DBEngineFactory::DBEngine();
-  my $dumpFile = "$dir/eboxlogs.dump";
+  my $dumpFileBasename = 'eboxlogs';
 
-  $dbengine->restoreDB($dumpFile);
+  $dbengine->restoreDB($dir, $dumpFileBasename);
 }
 
 
@@ -375,9 +373,9 @@ sub dumpExtraBackupData
     my ($self, $dir) = @_;
 
     my $dbengine = EBox::DBEngineFactory::DBEngine();
-    my $dumpFile = "$dir/eboxlogs.sql";
+    my $dumpFileBasename = "eboxlogs";
 
-    $dbengine->dumpDB($dumpFile);
+    $dbengine->backupDB($dir, $dumpFileBasename);
 }
 
 sub _checkValidDate # (date)
@@ -848,7 +846,8 @@ sub forcePurge
                      __("Lifetime parameter must be a positive number of hours")
                                     );
 
-  my $thresholdDate = $self->_thresholdDate($lifetime);
+  my $now           = time();
+  my $thresholdDate = $self->_thresholdDate($lifetime, $now);
 
   my @tables = map {
       @{  $self->getModTableInfos($_) }
@@ -878,6 +877,7 @@ sub purge
 {
   my ($self) = @_;
 
+  my $now = time();
   my %thresholdByModule = ();
 
   # get the threshold date for each domain
@@ -890,7 +890,7 @@ sub purge
     $lifeTime or
       next;
 
-    my $threshold = $self->_thresholdDate($lifeTime);
+    my $threshold = $self->_thresholdDate($lifeTime, $now);
     $thresholdByModule{$row_r->valueByName('domain')} = $threshold;
   }
 
@@ -916,22 +916,56 @@ sub purge
 # Transform an hour into a localtime
 sub _thresholdDate
 {
-  my ($self, $lifeTime) = @_;
+  my ($self, $lifeTime, $now) = @_;
 
   # lifeTime must be in hours
   my $lifeTimeSeconds = $lifeTime * 3600;
-  my $threshold = time() - $lifeTimeSeconds;
+  my $threshold = $now - $lifeTimeSeconds;
   return scalar localtime($threshold);
 }
 
 # Do perform the purge in a table
-sub _purgeTable #(tablename, timecolumn, thresholdDate)
+sub _purgeTable
 {
   my ($self, $table, $timeCol, $thresholdDate) = @_;
 
-  my $sqlStatement = "DELETE FROM $table WHERE $timeCol < '$thresholdDate'";
+  my $finalThreshold;
   my $dbengine = EBox::DBEngineFactory::DBEngine();
+
+  if (EBox::Logs::SlicedBackup::slicedMode()) {
+      $finalThreshold = EBox::Logs::SlicedBackup::limitPurgeThreshold(
+                                                                      $dbengine,
+                                                                      $table,
+                                                                      $thresholdDate,
+
+                                                                     );
+      if (not defined $finalThreshold) {
+          EBox::info("Cannot purge logs of table $table before $thresholdDate because they are unarchived backup slices");
+          return;
+      } elsif ($thresholdDate ne $finalThreshold) {
+          EBox::info("Log purge of table before $thresholdDate has be restricted to records before $finalThreshold because it were not archived backup slices");
+      }
+
+  } else {
+      $finalThreshold = $thresholdDate;
+  }
+
+  my $sqlStatement = "DELETE FROM $table WHERE $timeCol < '$finalThreshold'";
   $dbengine->query($sqlStatement);
+}
+
+sub archiveBackupSlices
+{
+    my ($self, $force) = @_;
+
+    if (not $force) {
+        my $enabled = EBox::Logs::SlicedBackup::slicedMode();
+        $enabled or
+            return;
+    }
+
+    my $dbengine = EBox::DBEngineFactory::DBEngine();
+    EBox::Logs::SlicedBackup::archive($dbengine);
 }
 
 1;

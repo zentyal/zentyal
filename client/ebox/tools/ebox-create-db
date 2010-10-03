@@ -23,6 +23,7 @@ create_db()
     /usr/share/ebox/ebox-sql-table add sysinfo_disk_usage /usr/share/ebox/sqllog/sysinfo_disk_usage.sql
     /usr/share/ebox/ebox-sql-table add sysinfo_disk_usage_report /usr/share/ebox/sqllog/sysinfo_disk_usage_report.sql
     /usr/share/ebox/ebox-sql-table add events /usr/share/ebox/sqllog/events.sql
+    /usr/share/ebox/ebox-sql-table add backup_slices /usr/share/ebox/sqllog/backup_slices.sql
 }
 
 # Check if we can connect to postgresql now

@@ -24,14 +24,22 @@ use DBI;
 use EBox::Gettext;
 use EBox::Validate;
 use EBox;
+use EBox::Config;
+use EBox::Sudo;
 use EBox::Exceptions::Internal;
-
-use Params::Validate qw(validate_pos);
+use EBox::Exceptions::InvalidData;
+use EBox::Exceptions::MissingArgument;
+use EBox::FileSystem;
+use File::Slurp;
+use File::Copy;
+use File::Basename;
+use EBox::Logs::SlicedBackup;
 
 use Error qw(:try);
 use Data::Dumper;
 
-sub new {
+sub new
+{
     my $class = shift,
     my $self = {};
     bless($self,$class);
@@ -81,6 +89,16 @@ sub _dbpass
                     'variable in the ebox configuration file',
                     variable => 'eboxlogs_dbpass'));
     return $root;
+}
+
+
+# Method: _dbsuperuser
+#
+#  This function returns the database superuser's username
+#
+sub _dbsuperuser
+{
+    return 'postgres';
 }
 
 # Method: _connect
@@ -299,7 +317,6 @@ sub query
     my $ret;
     my $err;
 
-
     $self->_prepare($sql);
     if (@values) {
        $err = $self->{'sthinsert'}->execute(@values);
@@ -341,6 +358,7 @@ sub query_hash
 sub query_hash_to_sql
 {
     my ($self, $query, $semicolon) = @_;
+
     defined $semicolon or
         $semicolon  = 1;
 
@@ -367,10 +385,8 @@ sub query_hash_to_sql
         $sql .= ';';
     }
 
-
     return $sql;
 }
-
 
 
 # Method: do
@@ -397,9 +413,7 @@ sub do
         push @optionalCallParams, @bindValues;
     }
 
-    my $res;
-
-    $res = $self->{dbh}->do($sql, @optionalCallParams);
+    my $res = $self->{dbh}->do($sql, @optionalCallParams);
     if (not defined $res) {
         my $errstr = $self->{'dbh'}->errstr();
         throw EBox::Exceptions::Internal("Error doing statement: $sql , $errstr\n");
@@ -408,8 +422,67 @@ sub do
     return $res;
 }
 
+# Method: tables
+#
+# Returns:
+#   reference to a list with all the public (regular) tables of the database
+sub tables
+{
+    my ($self) = @_;
+    my $sql = q{select tablename from pg_catalog.pg_tables where schemaname = 'public';};
+    my @tables = map { $_->{tablename}  }  @{$self->query($sql)};
+    return \@tables;
+}
+
+sub backupDB
+{
+    my ($self, $dir, $basename, %args) = @_;
+    my $slicedMode;
+    if (exists $args{slicedMode}) {
+        $slicedMode = delete  $args{slicedMode};
+    } else {
+        $slicedMode = EBox::Logs::SlicedBackup::slicedMode();
+    }
+
+    if ($slicedMode) {
+        EBox::Logs::SlicedBackup::slicedBackup($self, $dir, %args);
+    } else {
+        my $file = "$dir/$basename.dump";
+        $self->dumpDB($file, 0);
+    }
+}
 
 
+sub restoreDB
+{
+    my ($self, $dir, $basename, %params) = @_;
+    my $slicedMode;
+    if (exists $params{slicedMode}) {
+        $slicedMode = delete $params{slicedMode};
+    } else {
+        $slicedMode = EBox::Logs::SlicedBackup::slicedMode();
+    }
+
+    my $noSlicesDumpFile = "$dir/$basename.dump";
+
+    if ($slicedMode) {
+        if (-e $noSlicesDumpFile) {
+            throw EBox::Exceptions::External(
+  __('You are using sliced backup mode and this backup was made in no-sliced mode')
+                                            );
+        }
+
+        EBox::Logs::SlicedBackup::slicedRestore($self, $dir, %params);
+    } else {
+        if (not -e $noSlicesDumpFile) {
+            throw EBox::Exceptions::External(
+  __('Databse dump file not found. Maybe the backup you are trying to restore was made in sliced mode?')
+                                            );
+        }
+
+        $self->restoreDBDump($noSlicesDumpFile, 0);
+    }
+}
 
 # Method: dumpDB
 #
@@ -420,20 +493,42 @@ sub do
 #
 sub  dumpDB
 {
-    my ($self, $outputFile) = @_;
-    validate_pos(@_, 1, 1);
+    my ($self, $outputFile, $onlySchema) = @_;
+    defined $onlySchema or
+        $onlySchema = 0;
+
+    my $tmpFile = _superuserTmpFile(1);
 
     my $dbname = _dbname();
-    my $dbuser = _dbuser();
-    my $eboxHome = EBox::Config::home();
+    my $dumpCommand = "/usr/bin/pg_dump --clean --file $tmpFile $dbname";
+    if ($onlySchema) {
+        $dumpCommand .= ' --schema-only';
+    }
 
-    my $dumpCommand = "HOME=$eboxHome /usr/bin/pg_dump --no-owner --clean --file $outputFile -U $dbuser $dbname";
-    my $output = `$dumpCommand`;
-    if ($? != 0) {
-        EBox::error("The following command raised error: $dumpCommand\nOutput:$output");
-        throw EBox::Exceptions::External(__x("Error dumping the postgresql database {name}", name => _dbname()));
+    $self->commandAsSuperuser($dumpCommand);
+
+    # give file to ebox and move to real desitnation
+    EBox::Sudo::root("chown ebox.ebox $tmpFile");
+    File::Copy::move($tmpFile, $outputFile);
+
+    $self->_mangleDumpFile($outputFile);
+}
+
+
+sub _mangleDumpFile
+{
+    my ($self, $file) = @_;
+
+    my @linesToComment = (
+                          'DROP TABLE public.' .
+                            EBox::Logs::SlicedBackup::backupSlicesDBTable(),
+                         );
+    foreach my $line (@linesToComment) {
+        my $sed = qq{sed -i s/'$line'/'-- $line'/ $file};
+        EBox::Sudo::command($sed);
     }
 }
+
 
 # Method: restoreDB
 #
@@ -443,24 +538,105 @@ sub  dumpDB
 # Parameters:
 #      $file - database dump file
 #
-sub restoreDB
+sub restoreDBDump
 {
-    my ($self, $file) = @_;
-    validate_pos(@_, 1, 1);
+    my ($self, $file, $onlySchema) = @_;
+    defined $onlySchema or
+        $onlySchema = 0;
 
     EBox::info('We wil try to restore the database. This will erase your current data' );
-    (-r $file) or throw EBox::Exceptions::External(__x("DB dump file {file} is not readable", file => $file));
 
-    my $dbname = _dbname();
-    my $dbuser = _dbuser();
-    my $eboxHome = EBox::Config::home();
+    my $tmpFile = _superuserTmpFile(0);
+    EBox::Sudo::root("mv $file $tmpFile");
 
-    my $restoreCommand = "HOME=$eboxHome /usr/bin/psql "
-        . " --file $file  -U $dbuser $dbname";
-    EBox::Sudo::command($restoreCommand);
-    EBox::info('Database ' . _dbname() . ' restored' );
+    try {
+        my $superuser = _dbsuperuser();
+        EBox::Sudo::root("chown $superuser:$superuser $tmpFile");
+    } otherwise {
+        # left file were it was before
+        my $ex =shift;
+        EBox::Sudo::root("mv $tmpFile $file");
+        $ex->throw();
+    };
+
+    try {
+        $self->sqlAsSuperuser(file => $tmpFile);
+    } finally {
+        # undo ownership and file move
+        EBox::Sudo::root("chown ebox:ebox $tmpFile");
+        EBox::Sudo::root("mv $tmpFile $file");
+    };
+
+    if ($onlySchema) {
+        EBox::info('Database schema dump for ' . _dbname() . ' restored' );
+
+    } else {
+        EBox::info('Database dump for ' . _dbname() . ' restored' );
+    }
 }
 
+
+# Method: sqlAsSuperuse
+#
+#  Executes sql as the database's superuser
+#
+#  Arguments (named):
+#      sql - string with SQL code to execute
+#      file - file which contents will be read as executed as SQL
+sub sqlAsSuperuser
+{
+    my ($self, %args) = @_;
+    my $file = $args{file};
+    my $sql  = $args{sql};
+
+    if ($file and $sql) {
+        throw EBox::Exceptions::Internal('Incompatible parameters: file and sql');
+    } elsif (not ($file or $sql)) {
+        throw EBox::Exceptions::MissingArgument('file or sql');
+    }
+
+    if ($sql) {
+        $file = EBox::Config::tmp() . 'sqlSuper.cmd';
+        File::Slurp::write_file($file, $sql);
+   }
+
+    my $dbname = $self->_dbname();
+    my $psqlCmd = "/usr/bin/psql --file $file $dbname ";
+    $self->commandAsSuperuser($psqlCmd);
+}
+
+
+# Method: commandAsSuperuser
+#
+#   Executes a shell command with the ID of the database superuser
+sub commandAsSuperuser
+{
+    my ($self, $cmd) = @_;
+    defined $cmd or
+        throw EBox::Exceptions::MissingArgument('command');
+
+    my $dbsuperuser = _dbsuperuser();
+    EBox::Sudo::sudo($cmd, $dbsuperuser);
+}
+
+
+sub _superuserTmpFile
+{
+    my ($create) = @_;
+
+    my $file = EBox::Config::tmp() . 'db_superuser.tmp';
+
+    if ($create) {
+        my $superuser = _dbsuperuser();
+        if (not -e $file) {
+            EBox::Sudo::command("touch $file");
+        }
+
+        EBox::Sudo::root("chown $superuser:$superuser $file");
+    }
+
+    return $file;
+}
 
 sub DESTROY
 {

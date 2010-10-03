@@ -26,17 +26,18 @@ try {
 
     # we consolidate before the purge to not lose any data
     EBox::Logs::Consolidate->consolidate('all');
-    
+
     # do report consolidation
     my @mods =  @{ EBox::Global->modInstancesOfType('EBox::LogObserver')  };
     for my $mod (@mods) {
         $mod->consolidateReportFromLogs();
     }
 
+    $logs->archiveBackupSlices();
+
     $logs->purge();
 } finally {
     EBox::Util::Lock::unlock(LOCK_NAME);
 };
-
 
 1;

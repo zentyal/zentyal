@@ -25,19 +25,24 @@ use EBox::Global;
 use EBox::Config;
 use EBox::Gettext;
 use Error qw(:try);
+use Date::Parse;
 
 sub restoreEBoxLogs
 {
     my ($date) = @_;
 
+    # convert date to timespamp, needed for sliced restore
+    my $dateEpoch = str2time($date);
+
     my $ebackup = EBox::Global->modInstance('ebackup');
 
     my $dbengine = EBox::DBEngineFactory::DBEngine();
-    my $dumpFile =  EBox::EBackup::extraDataDir() .  "/logs/eboxlogs.sql";
-    my $dumpFileTmp = EBox::Config::tmp() . 'eboxlogs.sql';
+    my $dumpDir =  EBox::EBackup::extraDataDir() .  "/logs";
+    my $dumpDirTmp = EBox::Config::tmp() . 'eboxlogs.restore';
+    my $basename = 'eboxlogs';
 
     try {
-        $ebackup->restoreFile($dumpFile, $date, $dumpFileTmp);
+        $ebackup->restoreFile($dumpDir, $date, $dumpDirTmp);
     } catch EBox::Exceptions::External with {
         my $ex = shift;
         my $text = $ex->stringify();
@@ -51,11 +56,8 @@ sub restoreEBoxLogs
         $ex->throw();
     };
 
-    $dbengine->restoreDB($dumpFileTmp);
-    unlink $dumpFileTmp;
+    $dbengine->restoreDB($dumpDirTmp, $basename, toDate => $dateEpoch);
+    system "rm -rf $dumpDirTmp";
 }
-
-
-
 
 1;
