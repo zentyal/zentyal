@@ -29,6 +29,7 @@ use Perl6::Junction qw( any );
 
 use constant MARK_MASK => '0xFF00';
 use constant UNKNOWN_PROTO_MARK => '0x200';
+use constant PENDING_PROTO_MARK => '0x100';
 
 # Mark shift, last 8 bits
 use constant MARK_SHIFT => 8;
@@ -402,7 +403,6 @@ sub dumpIptablesCommands
             # Send unmarked packets to l7filter (NFQUEUE)
             $ipTablesRule->setTable('mangle');
             $ipTablesRule->setChain($l7shaperChain);
-            $ipTablesRule->addModule('mark', 'mark', '0/' . MARK_MASK);
 
             my $serviceMod = EBox::Global->modInstance('services');
             $ipTablesRule->setService($serviceMod->serviceId('any'));
@@ -415,6 +415,13 @@ sub dumpIptablesCommands
 
             $ipTablesRule->setDecision("NFQUEUE --queue $queue");
             push(@ipTablesCommands, @{$ipTablesRule->strings()});
+
+            # Set the mark to remove l7filter mark when the result is
+            # 1 (pending protocol)
+            push(@ipTablesCommands, "-t mangle -A $shaperChain "
+                                    . '-m mark --mark '
+                                    . PENDING_PROTO_MARK . '/' . MARK_MASK
+                                    . ' -j MARK --set-mark 0x0');
 
             # Set the mark to remove l7filter mark when the result is
             # 2 (unknown protocol)

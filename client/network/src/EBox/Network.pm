@@ -2776,7 +2776,6 @@ sub _multigwRoutes
         push(@fcmds, '/sbin/iptables -t mangle -F');
         push(@fcmds, '/sbin/iptables -t mangle -X');
         push(@fcmds, '/sbin/iptables -t mangle -A PREROUTING -j CONNMARK --restore-mark');
-        push(@fcmds, '/sbin/iptables -t mangle -A POSTROUTING -j CONNMARK --restore-mark');
         push(@fcmds, '/sbin/iptables -t mangle -A OUTPUT -j CONNMARK --restore-mark');
         EBox::Sudo::root(@fcmds);
     } otherwise {};
@@ -2835,8 +2834,9 @@ sub _multigwRoutes
     try {
         my @fcmds;
         push(@fcmds, '/sbin/iptables -t mangle -A PREROUTING -j CONNMARK --save-mark');
-        push(@fcmds, '/sbin/iptables -t mangle -A POSTROUTING -j CONNMARK --save-mark');
         push(@fcmds, '/sbin/iptables -t mangle -A OUTPUT -j CONNMARK --save-mark');
+        push(@fcmds, '/sbin/iptables -t mangle -A POSTROUTING -j CONNMARK --save-mark' .
+                     ' --nfmask 0xff'); # routers mark only
         EBox::Sudo::root(@fcmds);
     } otherwise {};
 }

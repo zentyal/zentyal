@@ -1,5 +1,6 @@
 HEAD
 	+ Add support for authenticated proxy
+	+ Fixed traffic shaping problems in multigateway scenarios
 2.0.1
 	+ Fixed network confirmation page to work with bridges
 	+ Improved load balancing to avoid web sessions loss
