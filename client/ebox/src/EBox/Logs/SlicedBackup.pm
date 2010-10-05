@@ -19,6 +19,7 @@ use warnings;
 
 package EBox::Logs::SlicedBackup;
 
+use EBox;
 use EBox::PgDBEngine;
 use EBox::Config;
 use EBox::Gettext;
@@ -82,6 +83,7 @@ sub slicedBackup
 sub slicedRestore
 {
     my ($dbengine, $dir, %params) = @_;
+
     my $toDate = $params{toDate};
 
     my $timeline = _activeTimeline($dbengine);
@@ -174,11 +176,10 @@ sub _restoreTables
 {
     my ($dbengine, $dir, %params) = @_;
     my $toDate = $params{toDate};
-
     my $archiveDir = $params{archiveDir};
-
     # to avoid glob // problems
     $dir =~ s{/+$}{};
+    my $tmpDir = EBox::Config::tmp();
 
     my $actualTimeline = _activeTimeline($dbengine);
 
@@ -190,9 +191,9 @@ sub _restoreTables
 
     push @tableFiles, glob("$dir/*.table-dump");
 
-
     my $copySqlCmd;
     foreach my $file (@tableFiles) {
+        EBox::info("Next DB table file: $file");
         my ($basename, $dirname, $extension) = fileparse($file, qr/\.[^.]*/);
 
         # in slices case basenane is table-number
@@ -203,13 +204,33 @@ sub _restoreTables
             next;
         }
 
+        my $uncompresedFile;
+        my $toDelete = undef;
+        if ($extension =~ m/\.gz$/) {
+            $uncompresedFile = $tmpDir . 'table-tmp';
+            my $zcat = "zcat $file > $uncompresedFile";
+            system $zcat;
+            if ($? != 0) {
+                EBox::error(
+                  "Unable to decompress file with command $zcat\n".
+                  "Skipping slice"
+                           );
+                next;
+            }
 
-        my $copy = "COPY $table FROM '$file';\n";
-        $copySqlCmd .= $copy;
+            $toDelete = $uncompresedFile;
+        } else {
+            $uncompresedFile = $file;
+        }
+
+        my $copySqlCmd = "COPY $table FROM '$uncompresedFile';\n";
+        # to copy from a file must be db superuser
+        $dbengine->sqlAsSuperuser(sql => $copySqlCmd);
+        EBox::info("$file restored to the DB\n");
+        if ($toDelete) {
+            unlink $toDelete;
+        }
      }
-
-    # to copy from a file must be db superuser
-    $dbengine->sqlAsSuperuser(sql => $copySqlCmd);
 
     if ($toDate) {
         _updateTimeline($dbengine, $actualTimeline, $toDate);
@@ -367,6 +388,7 @@ sub _updateSliceMap
     }
 }
 
+# return the uncompressed name (without .gz)
 sub _backupTableSliceCmd
 {
     my ($dir, $table, $timeline, $n, $beginTs, $endTs) = @_;
@@ -447,7 +469,7 @@ sub archive
     my $period =   EBox::Config::configkeyFromFile('eboxlogs_sliced_backup_period',
                                                   CONF_FILE);
     my $epochPeriod = _periodToEpoch($dbengine, $period);
-    foreach my $table (@{ $dbengine->tables() }) {
+    foreach my $table (@{ archivableTables($dbengine) }) {
         _updateSliceMap($dbengine, table => $table, period => $epochPeriod, nowTs => $nowTs);
     }
 
@@ -461,6 +483,7 @@ sub archive
 
     my $copyCmds;
     my @toArchive;
+    my @outputFiles;
     my $superuserTmpDir = _superuserTmpDir();
 
     my $res = $dbengine->query($sql);
@@ -470,6 +493,10 @@ sub archive
         my $beginTs = $slice->{begints};
         my $endTs = $slice->{endts};
         push @toArchive, [$table, $id];
+
+        my $outputFile = _backupFileForTable($archiveDir, $table, $timeline, $id);
+        push @outputFiles, $outputFile;
+
         $copyCmds .=  _backupTableSliceCmd(
                                            $superuserTmpDir,
                                            $table,
@@ -496,8 +523,27 @@ sub archive
                         "timeline = $timeline";
         $dbengine->do($updateSql);
     }
+
+    # compress files
+    foreach my $file (@outputFiles) {
+        try {
+            EBox::Sudo::root("gzip $file");
+        } catch EBox::Exceptions::Command with {
+            EBox::error("Cannot compress file $file. Try to do it manully. Skipping to next file.")
+        };
+    }
 }
 
+# Method: archivableTables
+sub archivableTables
+{
+    my ($dbengine) = @_;
+    my @tables = grep {
+        not _noSliceableTable($_)
+    } @{ $dbengine->tables() };
+
+    return \@tables;
+}
 
 # Method: slicedMode
 #
@@ -589,13 +635,13 @@ sub slicesFromArchive
                   'eboxlogs_sliced_backup_archive', CONF_FILE);
     $archiveDir =~ s{/+$}{/};
 
-    my @allTableFiles = glob("$archiveDir/*.table-slice");
+    my @allTableFiles = glob("$archiveDir/*.table-slice.gz");
     my %maxIds = %{ _maxIdsInTimeline($dbengine, $actualTimeline, $toDate) };
 
     # this is to discard restores from either inadecuate dates or timelines
     my %selected;
     foreach my $file (@allTableFiles) {
-        my ($basename, $dirname, $extension) = fileparse($file, qr/\.[^.]*/);
+        my ($basename, $dirname, $extension) = fileparse($file, qr/\..*/);
         my ($table, $timeline, $n) = split '-', $basename, 3;
 
         if ($timeline > $actualTimeline) {
@@ -648,7 +694,7 @@ sub slicesFromArchive
             next;
         }
 
-        # end choose fiels loop
+        # end choose files loop
     }
 
 

@@ -130,7 +130,7 @@ _checkMaxSlice($dbengine, $table, $timeline, 5);
 
 $dbengine->backupDB($backupDir, 'basaename', slicedMode => 1, nowTs => $nowTs);
 _checkMaxSlice($dbengine, $table, $timeline, 5);
-_checkSlices(1, $backupDir, $table, $timeline, 5);
+_checkSlices({ mustExist => 1, compressed => 0 }, $backupDir, $table, $timeline, 5);
 _checkSlices(0, $backupDir, $table, $timeline, 1, 2, 3, 4);
 
 # 
@@ -196,7 +196,7 @@ _checkMarkAsArchived(1, $dbengine, $table, $timeline, 1, 2, 3, 4);
 diag 'file retrieval from archive test' ;
 my @archiveFiles = sort @{ EBox::Logs::SlicedBackup::slicesFromArchive($dbengine, $archiveDir, $timeline) };
 my @expectedFiles = sort map {
-    EBox::Logs::SlicedBackup::_backupFileForTable($archiveDir, $table, $timeline, $_)
+    EBox::Logs::SlicedBackup::_backupFileForTable($archiveDir, $table, $timeline, $_) . '.gz'
                  } (1, 2, 3, 4);
 
 is_deeply \@archiveFiles, \@expectedFiles,
@@ -231,7 +231,7 @@ _checkActualTimeline($dbengine, 1);
 # slices up to time
 @archiveFiles = sort @{ EBox::Logs::SlicedBackup::slicesFromArchive($dbengine, $archiveDir, $timeline, $nowTsFor3SliceBackup ) };
 @expectedFiles = sort map {
-    EBox::Logs::SlicedBackup::_backupFileForTable($archiveDir, $table, $timeline, $_)
+    EBox::Logs::SlicedBackup::_backupFileForTable($archiveDir, $table, $timeline, $_) . '.gz'
                  } (1, 2);
 
 is_deeply \@archiveFiles, \@expectedFiles,
@@ -362,9 +362,23 @@ sub _checkMarkAsArchived
 
 sub _checkSlices
 {
-    my ($mustExist, $dir, $table, $timeline, @slices) = @_;
+    my ($options, $dir, $table, $timeline, @slices) = @_;
+    my $mustExist;
+    my $compressed = 1;
+    if (ref $options) {
+        $mustExist = $options->{mustExist};
+        $compressed = $options->{compressed};
+    } else {
+        $mustExist = $options;
+    }
+
+
     my @filesWanted = map {
-        EBox::Logs::SlicedBackup::_backupFileForTable($dir, $table, $timeline, $_)
+        my $f = EBox::Logs::SlicedBackup::_backupFileForTable($dir, $table, $timeline, $_);
+        if ($compressed) {
+            $f .= '.gz';
+        }
+        $f
     } @slices;
 
 
