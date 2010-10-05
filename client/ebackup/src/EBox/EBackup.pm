@@ -32,6 +32,7 @@ use EBox::Gettext;
 use EBox::Global;
 use EBox::Backup;
 use EBox::Sudo;
+use EBox::Logs::SlicedBackup;
 use File::Slurp;
 
 use String::ShellQuote;
@@ -208,7 +209,6 @@ __(q{No backup archives found. Maybe they were deleted?.} .
         } else {
             $ex->throw();
         }
-
     };
 }
 
@@ -281,7 +281,6 @@ sub dumpExtraData
             $mod->dumpExtraBackupData($dir);
         }
     }
-
 }
 
 
@@ -332,8 +331,16 @@ sub _autoExcludesArguments
         return '';
     }
 
+    my $args = '';
+    # exclude sliced backups directory
+    my $slicesDir = EBox::Logs::SlicedBackup::archiveDir();
+    if ($slicesDir) {
+        $args .= "--exclude $slicesDir ";
+    }
+
     my $dir = $row->valueByName('target');
-    return  "--exclude=$dir ";
+    $args .=  "--exclude=$dir ";
+    return $args;
 }
 
 # Method: remoteDelOldArguments
@@ -615,7 +622,6 @@ sub _syncRemoteCaches
     if ($genListFiles) {
         $self->remoteGenerateListFile();
     }
-
 }
 
 # Method: menu

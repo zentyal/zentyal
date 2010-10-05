@@ -1,6 +1,6 @@
 ## Process this file with automake to produce Makefile.in
 
-pkgdata_SCRIPTS =  ebox-remote-ebackup ebox-duplicity-wrapper
+pkgdata_SCRIPTS =  ebox-remote-ebackup ebox-duplicity-wrapper restore-logs
 
 pkgdata_DATA = server-fingerprints
 

@@ -1,0 +1,109 @@
+#!/usr/bin/perl
+# Copyright (C) 2010 eBox Technologies S.L.
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License, version 2, as
+# published by the Free Software Foundation.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+
+# Script: restore-logs
+#
+# This script restores the logs from the backup configured 
+#
+# Unless is suplied with a date argument it restores from the last backup
+#
+# If a date argument is supplied, its value must coincide exactly when 
+# one of the stored backup. The syntax is:
+#
+#   --date WeekDay Mont DD HH:MM:SS YYYY (Example: 'Thu Sep 23 14:41:01 2010')
+#
+# 
+
+
+use strict;
+use warnings;
+
+use EBox;
+#use EBox::Config;
+use EBox::Global;
+#use EBox::Sudo;
+use  EBox::EBackup::DBRestore;
+
+
+use Error qw(:try);
+
+
+sub checkDate
+{
+    my ($ebackup, $date) = @_;
+    my $status = $ebackup->remoteStatus();
+    my $dateWS = $date;
+    $dateWS =~ s/\s+//g;
+    foreach my $sta (@{ $status }) {
+        my $backupDate = $sta->{date};
+        $backupDate =~ s/\s+//g;
+        if ($dateWS eq $backupDate) {
+            return 1;
+        }
+    }
+
+    die "Date $date was not founnd among backup dates. The syntax must be the same that the one showed in the module interface";
+}
+
+sub lastDate
+{
+    my ($ebackup) = @_;
+    my $status = $ebackup->remoteStatus();
+    # get the more recent date
+    return $status->[-1]->{date};
+}
+
+
+
+EBox::init();
+
+my $ebackup = EBox::Global->getInstance(1)->modInstance('ebackup');
+unless ($ebackup->isEnabled() ) {
+    print "Backup module is disabled\n";
+    exit 0;
+}
+unless ($ebackup->configurationIsComplete()) {
+    print "Backup module configuration is not completed. Configure it and retry\n";
+    exit 0;
+
+}
+unless ($ebackup->lock()) {
+     print "There's a backup process taking place";
+     exit 1;
+}
+
+
+my $date;
+if ($ARGV[0]) {
+    if ($ARGV[0] eq '--date') {
+        $date = $ARGV[1];
+        checkDate($ebackup, $date);
+    } else {
+        die "Invalid argument: " . $ARGV[0];
+    }
+} else {
+    $date = lastDate($ebackup);
+}
+
+# We need an updated cache to avoid errors while checking the status if backup
+# files have been re/moved
+$ebackup->remoteGenerateStatusCache();
+
+
+
+EBox::EBackup::DBRestore::restoreEBoxLogs($date);
+
+exit 0;
