@@ -2,6 +2,8 @@ HEAD
 	+ Bug fix: cups daemon is now started before samba one
 	+ Bug fix: samba can be enabled now if filesystem does not support quotas
 	+ Removed warning due to mix numeric and string values in printer hash.
+	+ New CUPS printers are also stored in redis when editing groups
+	+ Deleted obsolete code regarding external/non-external printers
 1.5.9
 	+ Rebranded domain name and description
 1.5.8

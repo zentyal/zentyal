@@ -420,9 +420,6 @@ sub _exposedMethods
 }
 
 
-
-
-
 # return interface upon samba should listen
 # XXX this is a quick fix for this version. See #529
 sub sambaInterfaces
@@ -985,22 +982,12 @@ sub _checkQuota # (quota)
     return 1;
 }
 
-sub addPrinter # (resource)
+sub _addPrinter
 {
     my ($self, $name) = @_;
 
-    return if ($self->dir_exists("printers/$name"));
-    $self->set_list("printers/$name/users", "string", []);
-    $self->set_list("printers/$name/groups", "string", []);
-    $self->set_bool("printers/external", undef);
-
-}
-
-sub _addExternalPrinter
-{
-    my ($self, $name) = @_;
-    $self->set_list("printers/$name/users", "string", []);
-    $self->set_list("printers/$name/groups", "string", []);
+    $self->set_list("printers/$name/users", 'string', []);
+    $self->set_list("printers/$name/groups", 'string', []);
     $self->set_bool("printers/$name/external", 1);
 }
 
@@ -1019,22 +1006,20 @@ sub printers
 
     my @printers;
     my $readOnly = $self->isReadOnly();
-    for my $printer (@{$self->array_from_dir("printers")}) {
-        my $name = $printer->{_dir};
-        my $key = "printers/$name/external";
-        my $isExt = $self->get_bool($key);
-        if ($isExt and not exists $external{$name}) {
+    for my $printer (@{$self->array_from_dir('printers')}) {
+        my $name = $printer->{'_dir'};
+        if (exists $external{$name}) {
+            $external{$name} = 'exists';
+        } else {
             $self->delPrinter($name) unless ($readOnly);
             $external{$name} = 'removed';
-        }  elsif ($isExt) {
-            $external{$name} = 'exists';
         }
         push (@printers,  $printer->{'_dir'});
     }
 
     unless ($readOnly) {
-        for my $newPrinter (grep { $external{$_} == 'new' } keys %external) {
-            $self->_addExternalPrinter($newPrinter);
+        for my $newPrinter (grep { $external{$_} eq 'new' } keys %external) {
+            $self->_addPrinter($newPrinter);
             push (@printers, $newPrinter);
         }
     }
@@ -1051,11 +1036,9 @@ sub _addUsersToPrinter # (printer, users)
                 'value' => $printer);
     }
 
-
     for my $username (@{$users}) {
         _checkUserExists($username);
     }
-
 
     $self->set_list("printers/$printer/users", "string", $users);
 }
@@ -1127,8 +1110,7 @@ sub _printersForGroup # (user)
     _checkGroupExists($group);
 
     my @printers;
-    for my $printer (@{$self->array_from_dir("printers")}) {
-        my $name = $printer->{'_dir'};
+    for my $name (@{$self->printers()}) {
         my $print = { 'name' => $name, 'allowed' => undef };
         my $groups = $self->get_list("printers/$name/groups");
         if (@{$groups}) {

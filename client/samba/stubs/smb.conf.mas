@@ -167,6 +167,7 @@ use EBox::Gettext;
  printable     =    yes
  valid users   = <% $printer->{'users'} %>
 # guest ok = yes
+
 %   }
 % }
 
