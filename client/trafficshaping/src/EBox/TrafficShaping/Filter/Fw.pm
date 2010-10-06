@@ -418,14 +418,14 @@ sub dumpIptablesCommands
 
             # Set the mark to remove l7filter mark when the result is
             # 1 (pending protocol)
-            push(@ipTablesCommands, "-t mangle -A $shaperChain "
+            push(@ipTablesCommands, "-t mangle -I $shaperChain "
                                     . '-m mark --mark '
                                     . PENDING_PROTO_MARK . '/' . MARK_MASK
                                     . ' -j MARK --set-mark 0x0');
 
             # Set the mark to remove l7filter mark when the result is
             # 2 (unknown protocol)
-            push(@ipTablesCommands, "-t mangle -A $shaperChain "
+            push(@ipTablesCommands, "-t mangle -I $shaperChain "
                                     . '-m mark --mark '
                                     . UNKNOWN_PROTO_MARK . '/' . MARK_MASK
                                     . ' -j MARK --set-mark 0x0');
