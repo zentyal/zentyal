@@ -50,7 +50,7 @@ try {
 
     my $backupReport = $@;
     print header;
-    print start_html(-title => 'eBox',
+    print start_html(-title => 'Zentyal',
        -script => [
             {-type => 'text/javascript',
              -src  => '/data/js/common.js'},
