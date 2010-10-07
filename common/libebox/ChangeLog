@@ -1,3 +1,6 @@
+HEAD
+	+ Fixed a backward compatibility issue when checking if a network
+	  interface is up
 2.0.1
 	+ Use sysfs to retrieve network interfaces information
 	+ Added permanent messages to composite viewer

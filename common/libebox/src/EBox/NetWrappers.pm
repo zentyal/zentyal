@@ -105,7 +105,8 @@ sub iface_is_up
 						value => $iface);
         }
         my $state = EBox::Sysfs::read_value("/sys/class/net/$iface/operstate");
-        return ($state eq 'up');
+        return ($state eq 'up' or
+                $state eq 'unknown'); # backward compatibility
 }
 
 # Function: iface_mac_address
