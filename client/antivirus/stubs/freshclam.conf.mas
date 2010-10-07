@@ -4,6 +4,8 @@ $observerScript
 $databaseMirrorLocalCode => 'local'
 $proxyServer
 $proxyPort
+$proxyUser
+$proxyPasswd
 </%args>
 # Automatically created by the clamav-freshclam postinst
 # Comments will get lost when you reconfigure the clamav-freshclam package
