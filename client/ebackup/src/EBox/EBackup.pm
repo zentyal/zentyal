@@ -133,7 +133,6 @@ sub addModuleStatus
         enabled       => $self->isEnabled(),
         running       => $self->isEnabled(),
         nobutton      => 1));
-
 }
 
 
@@ -170,7 +169,6 @@ sub restoreFile
     my $rFile = $file;
     $rFile =~ s:^/::; # file must be realtive
 
-
     # shell quote does not work well for espaces with duplicity...
     $rFile =~ s:\ :\\\ :g;
     $destination =~ s:\ :\\\ :g;
@@ -178,12 +176,10 @@ sub restoreFile
     $rFile = shell_quote($rFile);
     $destination = shell_quote($destination);
 
-
     my $time = Date::Parse::str2time($date);
 
     my $model = $self->model('RemoteSettings');
     my $url = $self->_remoteUrl();
-
 
     my $cmd = DUPLICITY_WRAPPER .  " --force -t $time --file-to-restore $rFile $url $destination";
 
@@ -319,29 +315,32 @@ sub remoteFileSelectionArguments
     return $args;
 }
 
-
 sub _autoExcludesArguments
 {
     my ($self) = @_;
 
-    # exclude backup directory if we are using 'filesystem' mode
-    my $settings = $self->model('RemoteSettings');
-    my $row = $settings->row();
-    if ($row->valueByName('method') ne 'file') {
-        return '';
-    }
-
     my $args = '';
+    # directories excluded to avoid risk of
+    # duplicity crash
+    $args .= "--exclude=/proc --exclude=/sys ";
+
     # exclude sliced backups directory
     my $slicesDir = EBox::Logs::SlicedBackup::archiveDir();
     if ($slicesDir) {
         $args .= "--exclude $slicesDir ";
     }
 
-    my $dir = $row->valueByName('target');
-    $args .=  "--exclude=$dir ";
+    # exclude backup directory if we are using 'filesystem' mode
+    my $settings = $self->model('RemoteSettings');
+    my $row = $settings->row();
+    if ($row->valueByName('method') eq 'file') {
+        my $dir = $row->valueByName('target');
+        $args .=  "--exclude=$dir ";
+    }
+
     return $args;
 }
+
 
 # Method: remoteDelOldArguments
 #
@@ -526,7 +525,6 @@ sub setRemoteBackupCrontab
         push (@lines, "$full $script --full");
     }
 
-
     my $incrList = $strings->{incremental};
     if ($incrList) {
         foreach my $incr (@{ $incrList }) {
@@ -576,7 +574,6 @@ sub _setConf
     $self->setRemoteBackupCrontab();
 
     $self->_syncRemoteCaches();
-
 }
 
 
