@@ -1326,20 +1326,17 @@ sub _regenConfig
 {
     my ($self) = @_;
 
-    $self->_preServiceHook($self->isEnabled());
+    $self->_preSetConfHook();
     if ($self->service) {
         $self->_setMailConf;
         my $vdomainsLdap = new EBox::MailVDomainsLdap;
         $vdomainsLdap->regenConfig();
-
     }
 
     $self->greylist()->writeUpstartFile();
     $self->_enforceServiceState();
-    $self->_postServiceHook($self->isEnabled());
-
+    $self->_postSetConfHook();
 }
-
 
 
 #
