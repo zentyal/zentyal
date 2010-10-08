@@ -3,5 +3,5 @@
 </%args>
 # Zentyal defined HTTP Proxy
 % if ($proxyConf) {
-Acquire::http::Proxy <% $proxyConf %>
+Acquire::http::Proxy "<% $proxyConf %>";
 % }

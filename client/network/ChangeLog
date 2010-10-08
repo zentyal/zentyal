@@ -1,3 +1,5 @@
+HEAD
+	+ Fixed syntax and string quote in 99proxy.conf
 2.0.2
 	+ Add support for authenticated proxy
 	+ Fixed traffic shaping problems in multigateway scenarios
