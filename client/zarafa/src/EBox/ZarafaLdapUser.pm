@@ -193,6 +193,7 @@ sub setHasAccount #($username, [01]) 0=disable, 1=enable
         my $result = $ldap->modify($dn, \%attrs );
         ($result->is_error) and
         throw EBox::Exceptions::Internal('Error updating user: $username\n\n');
+        $self->{zarafa}->_hook('setacc', $username);
     } elsif ($mesg->count and not ($option)) {
         my %attrs = (
               changes => [
@@ -210,6 +211,7 @@ sub setHasAccount #($username, [01]) 0=disable, 1=enable
         my $result = $ldap->modify($dn, \%attrs );
         ($result->is_error) and
         throw EBox::Exceptions::Internal('Error updating user: $username\n\n');
+        $self->{zarafa}->_hook('unsetacc', $username);
     }
 
     return 0;

@@ -735,8 +735,9 @@ sub initUser
     # a new new user is created
     my @mods = @{$self->_modsLdapUserBase()};
 
-    foreach my $mod (@mods){
+    foreach my $mod (@mods) {
         $mod->_addUser($user, $password);
+        $mod->_hook('adduser', $user);
     }
 }
 
@@ -1115,8 +1116,9 @@ sub _cleanUser
 
     # Tell modules depending on users and groups
     # an user is to be deleted
-    foreach my $mod (@mods){
+    foreach my $mod (@mods) {
         $mod->_delUser($user);
+        $mod->_hook('deluser', $user);
     }
 }
 
