@@ -24,8 +24,9 @@ use EBox::Global;
 use EBox::Gettext;
 
 ## arguments:
-## 	title [required]
-sub new {
+##  title [required]
+sub new
+{
     my $class = shift;
     my $self = $class->SUPER::new('title'    => __('System updates'),
             'template' => 'software/updates.mas',
@@ -35,8 +36,9 @@ sub new {
     return $self;
 }
 
-sub _process($) {
-    my $self = shift;
+sub _process
+{
+    my ($self) = @_;
 
     my $software = EBox::Global->modInstance('software');
 
