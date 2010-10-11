@@ -1,3 +1,8 @@
+HEAD
+	+ Set a random automatic time when there is not stored any
+	  configured time by admin
+	+ Not launching an exception when ebox-software is locked in the
+	  System page
 1.5.6
 	+ Update list button gives feedback about the result now
 	+ Profile descriptions are now translatable

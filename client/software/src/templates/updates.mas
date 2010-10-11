@@ -3,13 +3,10 @@
     $updateStatus => undef
     $automaticUpdates
     $QAUpdates
-    $updateList
+    $updateList => 0
 </%args>
 <%init>
 use EBox::Gettext;
-unless (defined $updateList) {
-	$updateList = 0;
-}
 </%init>
 
 % if ($automaticUpdates) {

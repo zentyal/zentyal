@@ -22,6 +22,7 @@ use base 'EBox::CGI::ClientBase';
 use EBox;
 use EBox::Global;
 use EBox::Gettext;
+use Error qw(:try);
 
 ## arguments:
 ##  title [required]
@@ -42,36 +43,41 @@ sub _process
 
     my $software = EBox::Global->modInstance('software');
 
-    my $updateList = 0;
-    if (defined($self->param('updatePkgs'))) {
-        EBox::info("Update packages list");
-        if ($software->updatePkgList()) {
-            $updateList = 1;
-        } else {
-            $updateList = 2;
+    try {
+        my $updateList = 0;
+        if (defined($self->param('updatePkgs'))) {
+            EBox::info("Update packages list");
+            if ($software->updatePkgList()) {
+                $updateList = 1;
+            } else {
+                $updateList = 2;
+            }
         }
-    }
-
-    $self->{title} = __('System updates');
-
-    my @array = ();
-    my $upg = $software->listUpgradablePkgs(0, 1);
-    if (@{$upg} == 0) {
-        $self->{msg} = __('The system components are up to date.');
-        $self->{params} = [
-            updateStatus => $software->updateStatus(0),
-            automaticUpdates => 0,
-            QAUpdates => $software->QAUpdates(),
-            updateList => $updateList,
-        ];
-        return;
-    }
-    push(@array, 'upgradables' => $upg);
-    push(@array, 'updateList' => $updateList);
-    push(@array, 'updateStatus' => $software->updateStatus(0));
-    push(@array, 'automaticUpdates' => $software->getAutomaticUpdates());
-    push(@array, 'QAUpdates' => $software->QAUpdates());
-    $self->{params} = \@array;
+        my @array = ();
+        my $upg = $software->listUpgradablePkgs(0, 1);
+        if (@{$upg} == 0) {
+            $self->{msg} = __('The system components are up to date.');
+            $self->{params} = [
+                updateStatus => $software->updateStatus(0),
+                automaticUpdates => 0,
+                QAUpdates => $software->QAUpdates(),
+                updateList => $updateList,
+               ];
+            return;
+        }
+        push(@array, 'upgradables' => $upg);
+        push(@array, 'updateList' => $updateList);
+        push(@array, 'updateStatus' => $software->updateStatus(0));
+        push(@array, 'automaticUpdates' => $software->getAutomaticUpdates());
+        push(@array, 'QAUpdates' => $software->QAUpdates());
+        $self->{params} = \@array;
+    } catch EBox::Exceptions::External with {
+        my @array;
+        push(@array, 'automaticUpdates' => 0);
+        push(@array, 'QAUpdates'        => $software->QAUpdates());
+        push(@array, 'updateStatus'     => $software->updateStatus(0));
+        $self->{params} = \@array;
+    };
 }
 
 1;

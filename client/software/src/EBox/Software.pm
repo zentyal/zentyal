@@ -538,6 +538,19 @@ sub setAutomaticUpdates # (auto)
     $self->set_bool('automatic', $auto);
 }
 
+# Method: setAutomaticUpdatesTime
+#
+#      Set the time when the automatic update process starts
+#
+# Parameters:
+#
+#      time - String in HH:MM format
+#
+# Exceptions:
+#
+#      <EBox::Exceptions::InvalidData> - thrown if the time parameter
+#      is not in correct format
+#
 sub setAutomaticUpdatesTime
 {
     my ($self, $time) = @_;
@@ -569,14 +582,26 @@ sub setAutomaticUpdatesTime
     $self->set_string('automatic_time', $time);
 }
 
+# Method: automaticUpdatesTime
+#
+#      Get the time when the automatic update process starts
+#
+# Returns:
+#
+#      String - in HH:MM format
+#
 sub automaticUpdatesTime
 {
     my ($self) = @_;
     my $value = $self->get_string('automatic_time');
     if (not $value) {
-        return '04:15';
+        # Set a random value for the first time to avoid DoS
+        my $randHour = int(rand(24));
+        my $randMin  = int(rand(60));
+        my $time     = "${randHour}:$randMin";
+        $self->setAutomaticUpdatesTime($time);
+        return $time;
     }
-
 
     return $value;
 }
@@ -780,7 +805,7 @@ sub _isModLocked
 #  Return the status of the package list
 #
 #  Parameter:
-#   ebox - 1 if ebox components, 0 if system upates
+#   ebox - 1 if ebox components, 0 if system updates
 #
 #  Returns:
 #  -1 if currently updating
