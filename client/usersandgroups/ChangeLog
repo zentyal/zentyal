@@ -1,3 +1,5 @@
+2.0.5
+	+ Removed wrong hooks implementation
 2.0.4
 	+ Fixed infinite recursion when setting up some models on slave servers
 	+ Added support for addUser/delUser hooks

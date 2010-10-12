@@ -737,7 +737,6 @@ sub initUser
 
     foreach my $mod (@mods) {
         $mod->_addUser($user, $password);
-        $mod->_hook('adduser', $user);
     }
 }
 
@@ -1118,7 +1117,6 @@ sub _cleanUser
     # an user is to be deleted
     foreach my $mod (@mods) {
         $mod->_delUser($user);
-        $mod->_hook('deluser', $user);
     }
 }
 
