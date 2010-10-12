@@ -1,4 +1,4 @@
-HEAD
+2.0.4
 	+ Fixed infinite recursion when setting up some models on slave servers
 	+ Added support for addUser/delUser hooks
 2.0.3
