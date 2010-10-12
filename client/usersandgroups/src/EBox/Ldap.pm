@@ -1043,12 +1043,20 @@ sub _execute
     };
 }
 
-sub _tryToRestartSlapd
+sub _tryToStartSlapd
 {
-    my $users = EBox::Global->modInstance('users');
-    my $mode = $users->mode();
+    # FIXME: We need to know the real mode here, but as some models may
+    # require to ask for the mode when being setted up, we cannot use
+    # the model manager, we'd enter in infinite recursion.
 
-    if ($mode eq 'master') {
+    # my $users = EBox::Global->modInstance('users');
+    # my $mode = $users->mode();
+    #
+    # if ($mode ne 'slave') {
+    #    EBox::Sudo::root('/etc/init.d/slapd start');
+    #}
+
+    if (! -d '/etc/ldap/slapd-replica.d') { # not slave
         EBox::Sudo::root('/etc/init.d/slapd start');
     }
 }
@@ -1060,7 +1068,7 @@ sub safeConnect
     my $ldap;
 
     while (not $ldap = Net::LDAP->new($ldapurl) and $retries--) {
-        _tryToRestartSlapd();
+        _tryToStartSlapd();
         EBox::error(
             "Couldn't connect to LDAP server $ldapurl, retrying");
         sleep(1);
