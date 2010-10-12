@@ -77,7 +77,7 @@ case "$1" in
         fi
 
         # Launch redis-server on first install (needed by EBox::init)
-        if [ -f /var/lib/ebox/.first ]; then
+        if [ -f /var/lib/ebox/.first -a -z "$2" ]; then
             /usr/bin/sudo -u ebox /usr/bin/redis-server /var/lib/ebox/conf/redis.first
         fi
 
@@ -108,7 +108,7 @@ case "$1" in
         /usr/share/ebox/ebox-migrate /usr/share/ebox-events/migration
 
         # remove initial redis config and stop server
-        if [ -f /var/lib/ebox/.first ]; then
+        if [ -f /var/lib/ebox/.first -a -z "$2" ]; then
             kill -9 `cat /var/lib/ebox/redis.ebox.pid`
         fi
         rm /var/lib/ebox/conf/redis.first

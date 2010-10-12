@@ -1,3 +1,5 @@
+HEAD
+	+ Fixed postinstall script problems during upgrade
 2.0.3
 	+ Added support for the sliced backup of the DB
 	+ Hostname change is now visible in the form before saving changes
