@@ -1,3 +1,5 @@
+HEAD
+	+ Bugfix: SCP method works again after addition of SlicedBackup
 2.0.4
 	+ Removed useless gconf backup during upgrade
 	+ Fixed postinstall script problems during upgrade

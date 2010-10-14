@@ -54,9 +54,9 @@ sub slicedBackup
 
     my $period;
     if (exists $params{period}) {
-        $period =delete $params{period};
+        $period = delete $params{period};
     } else {
-        $period =  EBox::Config::configkeyFromFile('eboxlogs_sliced_backup_period',
+        $period = EBox::Config::configkeyFromFile('eboxlogs_sliced_backup_period',
                                                   CONF_FILE);
     }
 
@@ -74,8 +74,8 @@ sub slicedBackup
 # Parameters:
 #
 #  dbengine - database engine
-#   dir - directory when the backup files had to be found
-#   notArchivedForce(named) - force to restore even when they are not archived slices (default: from  configuration file)
+#  dir - directory when the backup files had to be found
+#  notArchivedForce(named) - force to restore even when they are not archived slices (default: from  configuration file)
 #  toDate (named) - restore data until this date. Date must be a epoch timestamp. (default: rstore all the available data in the backup)
 #  archiveDir (named) - directory where we could found the archived backup slices
 #                      (default: from confioguration file)
@@ -113,14 +113,11 @@ sub slicedRestore
     _restoreTables($dbengine, $dir, %params);
 }
 
-
 sub _schemaFile
 {
     my ($dir) = @_;
     return "$dir/db.schema-dump";
 }
-
-
 
 sub _periodToEpoch
 {
@@ -253,9 +250,9 @@ sub _updateTimeline
 
     my $new = $actual + 1;
     my $updateTimeline = 'UPDATE ' . SLICES_TABLE . ' ' .
-                        "SET TIMELINE=$new " .
-                      "WHERE timeline = $actual AND " .
-                     "beginTs <= to_timestamp($date)" ;
+                         "SET TIMELINE=$new " .
+                         "WHERE timeline = $actual AND " .
+                         "beginTs <= to_timestamp($date)" ;
     $dbengine->do($updateTimeline);
 }
 
@@ -263,10 +260,10 @@ sub _updateTimeline
 # wether a database table should be backed/restored in sliced mode.
 # currently are exmpted all the report/consolidation tables, 'admin' and 'backup_slices'
 sub _noSliceableTable
- {
-     my ($table) = @_;
+{
+    my ($table) = @_;
 
-     my $suffix = (split '_', $table)[-1];
+    my $suffix = (split '_', $table)[-1];
 
     if ($suffix eq 'report') {
         # the report tables are dumped fully
@@ -284,7 +281,7 @@ sub _noSliceableTable
         return 1;
     }
 
-     return 0;
+    return 0;
 }
 
 sub _actualTableSlice
@@ -294,7 +291,6 @@ sub _actualTableSlice
     if (_noSliceableTable($table)) {
         return ();
     }
-
 
     my $sqlActiveSlice = "SELECT id, beginTs, endTs, timeline FROM backup_slices WHERE tablename = '$table' AND endTs >= to_timestamp($nowTs)  ORDER BY id DESC LIMIT 1";
     my ($res) =  @{ $dbengine->query($sqlActiveSlice) };
@@ -328,7 +324,6 @@ sub _activeTimeline
 
     return 1; # valeu for first timeline
 }
-
 
 
 sub _updateSliceMap
@@ -454,7 +449,7 @@ sub archive
 
     my $archiveDir = exists $params{archiveDir} ?
                        $params{archiveDir}
-                       : EBox::Config::configkeyFromFile('eboxlogs_sliced_backup_archive', CONF_FILE);
+                       :  archiveDir();
     my $nowTs = exists $params{nowTs} ? $params{nowTs} : time();
 
     try {
@@ -534,7 +529,19 @@ sub archive
     }
 }
 
+#  Method: archiveDir
+#
+#  Returns:
+#    the archive directory found in the config file
+sub archiveDir
+{
+    return EBox::Config::configkeyFromFile('eboxlogs_sliced_backup_archive', CONF_FILE);
+}
+
 # Method: archivableTables
+#
+# Returns:
+#  list of tables that must be archived
 sub archivableTables
 {
     my ($dbengine) = @_;
@@ -631,8 +638,7 @@ sub slicesFromArchive
     my ($dbengine, $archiveDir, $actualTimeline, $toDate) = @_;
 
     defined $archiveDir or
-        $archiveDir = EBox::Config::configkeyFromFile(
-                  'eboxlogs_sliced_backup_archive', CONF_FILE);
+        $archiveDir = archiveDir();
     $archiveDir =~ s{/+$}{/};
 
     my @allTableFiles = glob("$archiveDir/*.table-slice.gz");
