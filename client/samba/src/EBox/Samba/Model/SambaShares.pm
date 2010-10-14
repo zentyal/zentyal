@@ -26,6 +26,7 @@ use strict;
 use warnings;
 
 use Cwd 'abs_path';
+use String::ShellQuote;
 
 use EBox::Gettext;
 use EBox::Global;
@@ -289,8 +290,8 @@ sub createDirs
             } elsif ($userType->selectedType() eq 'user') {
                 $perm = 'u:';
             }
-            $perm .= $userType->printableValue() . ':';
-
+            my $qobject = shell_quote( $userType->printableValue());
+            $perm .= $qobject . ':';
 
             if ($permissions->value() eq 'readOnly') {
                 $perm .= 'rx';

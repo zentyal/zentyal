@@ -1,3 +1,5 @@
+HEAD
+	+ Bug fix: support users and groups with spaces and so on in ACLs
 2.0.1
 	+ Bug fix: cups daemon is now started before samba one
 	+ Bug fix: samba can be enabled now if filesystem does not support quotas
