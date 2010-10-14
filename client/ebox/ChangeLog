@@ -1,5 +1,6 @@
-2.0.5
+HEAD
 	+ Bugfix: SCP method works again after addition of SlicedBackup
+	+ Added option in 90eboxpglogger.conf to disable logs consolidation
 2.0.4
 	+ Removed useless gconf backup during upgrade
 	+ Fixed postinstall script problems during upgrade

@@ -24,13 +24,15 @@ try {
     defined $logs or
         die 'Cannot instanstiate eBox logs module';
 
-    # we consolidate before the purge to not lose any data
-    EBox::Logs::Consolidate->consolidate('all');
+    unless (EBox::Config::configkey('disable_consolidation') eq 'yes') {
+        # we consolidate before the purge to not lose any data
+        EBox::Logs::Consolidate->consolidate('all');
 
-    # do report consolidation
-    my @mods =  @{ EBox::Global->modInstancesOfType('EBox::LogObserver')  };
-    for my $mod (@mods) {
-        $mod->consolidateReportFromLogs();
+        # do report consolidation
+        my @mods =  @{ EBox::Global->modInstancesOfType('EBox::LogObserver')  };
+        for my $mod (@mods) {
+            $mod->consolidateReportFromLogs();
+        }
     }
 
     $logs->archiveBackupSlices();
