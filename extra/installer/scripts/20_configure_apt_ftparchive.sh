@@ -2,6 +2,8 @@
 
 . ../build_cd.conf
 
+ARCH=$1
+
 (test -d $INDICES_DIR) || mkdir -p $INDICES_DIR
 
 pushd $INDICES_DIR

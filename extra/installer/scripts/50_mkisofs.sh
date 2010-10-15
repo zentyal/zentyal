@@ -2,6 +2,11 @@
 
 . ../build_cd.conf
 
+ARCH=$1
+
+ISO_IMAGE="$ISO_IMAGE_BASE-$ARCH.iso"
+CD_BUILD_DIR="$CD_BUILD_DIR_BASE-$ARCH"
+
 mkisofs -r -V "Zentyal $EBOX_VERSION$EBOX_APPEND $ARCH" \
             -cache-inodes \
             -J -l -b isolinux/isolinux.bin \

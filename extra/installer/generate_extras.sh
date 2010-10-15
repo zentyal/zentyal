@@ -3,6 +3,17 @@
 test -r build_cd.conf || exit 1
 . ./build_cd.conf
 
+ARCH=$1
+
+if [ "$ARCH" -ne "i386" -o "$ARCH" -ne "amd64" ]
+then
+    echo "Usage: $0 [i386|amd64]"
+    exit 1
+fi
+
+EXTRAS_DIR="$EXTRAS_DIR_BASE-$ARCH"
+CHROOT="$CHROOT_BASE-$ARCH"
+
 test -d $EXTRAS_DIR || mkdir $EXTRAS_DIR
 
 sudo rm -fr $CHROOT
