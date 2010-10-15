@@ -697,6 +697,7 @@ sub _writeSquidConf
   push @writeParam, ('groupsPolicies' => $groupsPolicies);
   push @writeParam, ('objectsPolicies' => $objectsPolicies);
   push @writeParam, ('objectsDelayPools' => $self->_objectsDelayPools);
+  push @writeParam, ('nameservers' => $network->nameservers());
   push @writeParam, ('append_domain' => $append_domain);
   push @writeParam, ('cache_host' => $cache_host);
   push @writeParam, ('cache_port' => $cache_port);

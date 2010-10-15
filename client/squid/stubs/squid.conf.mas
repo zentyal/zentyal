@@ -15,6 +15,7 @@
     @objectsDelayPools
     @groupsPolicies
     @notCachedDomains
+    @nameservers
     $append_domain
     $cache_host
     $cache_port
@@ -89,6 +90,13 @@ http_port <% $port %> <% $transKey %>
 # END_TAG #
 
 visible_hostname localhost
+% if (@nameservers) {
+% my $dns_nameservers;
+% foreach my $srv (@nameservers) {
+% $dns_nameservers .= "$srv ";
+% }
+dns_nameservers <% $dns_nameservers %>
+% }
 % if ($append_domain) {
 append_domain .<% $append_domain %>
 % }
@@ -138,7 +146,7 @@ acl authorized  proxy_auth required
 <& .objectsACLs, objectsPolicies => \@objectsDelayPools &>
 
 # no cache domains acl
-% foreach my  $domain (@notCachedDomains) {
+% foreach my $domain (@notCachedDomains) {
 acl noCached dstdomain <% $domain %>
 % }
 
