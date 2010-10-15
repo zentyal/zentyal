@@ -2,7 +2,7 @@
 
 Stubdir = @STUBSPATH@/remoteservices
 
-nobase_Stub_DATA = soap-loc.mas
+nobase_Stub_DATA = ebox-remoteservices.cron.mas soap-loc.mas
 
 EXTRA_DIST = $(nobase_Stub_DATA)
 

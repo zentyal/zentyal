@@ -61,6 +61,7 @@ use constant WS_DISPATCHER       => __PACKAGE__ . '::WSDispatcher';
 use constant RUNNERD_SERVICE     => 'ebox.runnerd';
 use constant SITE_HOST_KEY       => 'siteHost';
 use constant COMPANY_KEY         => 'subscribedHostname';
+use constant CRON_FILE           => '/etc/cron.d/ebox-remoteservices';
 
 # Group: Protected methods
 
@@ -147,6 +148,7 @@ sub _setConf
     if ($self->eBoxSubscribed()) {
         $self->_confSOAPService();
         $self->_establishVPNConnection();
+        $self->_writeCronFile();
         $self->_startupTasks();
     }
 
@@ -1061,7 +1063,10 @@ sub _confSOAPService
             ;
         };
     }
-    $apacheMod->save();
+    # We have to save Apache changes:
+    # From GUI, it is assumed that it is done at the end of the process
+    # From CLI, we have to call it manually in some way. TODO: Find it!
+    # $apacheMod->save();
 
 }
 
@@ -1096,7 +1101,33 @@ sub _startupTasks
     }
 }
 
+# Write the cron file
+sub _writeCronFile
+{
+    my ($self) = @_;
 
+    my $hours = $self->get_list('rand_hours');
+    unless ( @{$hours} > 0 ) {
+        # Set the random times when scripts must ask for information
+        my @randHours = map { int(rand(24)) } 0 .. 10;
+        my @randMins  = map { int(rand(60)) } 0 .. 10;
+        $self->set_list('rand_hours', 'int', \@randHours);
+        $self->set_list('rand_mins' , 'int',  \@randMins);
+        $hours = \@randHours;
+    }
+
+    my $mins = $self->get_list('rand_mins');
+
+    my @tmplParams = (
+        ( hours => $hours), (mins => $mins)
+       );
+
+    EBox::Module::Base::writeConfFileNoCheck(
+        CRON_FILE,
+        'remoteservices/ebox-remoteservices.cron.mas',
+        \@tmplParams);
+
+}
 
 # Return the allowed client CNs regexp
 sub _allowedClientCNRegexp

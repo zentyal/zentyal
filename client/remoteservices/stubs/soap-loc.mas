@@ -30,7 +30,7 @@
 <IfModule mod_rewrite.c>
    RewriteLock <% $confDirPath %>rewrite.lck
 
-   RewriteCond %{HTTP:Via}   ebox
+   RewriteCond %{HTTP:Via}   dynamic
    RewriteCond %{HTTP_COOKIE} !Auth_EBox
    RewriteRule ^/ebox           /LOGIN_CC [L]
 </IfModule>

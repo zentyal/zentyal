@@ -141,7 +141,7 @@ sub setTypedRow
     $self->_manageLogs(not $subs);
     $self->_manageSquid(not $subs);
 
-    # Call the parent method to store data in GConf and such
+    # Call the parent method to store data in our conf storage
     $self->SUPER::setTypedRow($id, $paramsRef, %optParams);
 
     # Mark RemoteServices module as changed
@@ -151,6 +151,10 @@ sub setTypedRow
 
     my $modManager = EBox::Model::ModelManager->instance();
     $modManager->markAsChanged();
+
+    # Mark the apache module as changed as well
+    my $apacheMod = EBox::Global->modInstance('apache');
+    $apacheMod->setAsChanged();
 
     # Reload table
     $self->reloadTable();

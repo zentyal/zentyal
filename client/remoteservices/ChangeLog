@@ -1,4 +1,9 @@
 HEAD
+	+ Do not save Apache module in module restarts as GUI already do
+	  it at the end of saving modules stage
+	+ Set random times for cron tasks
+	+ Bugfix: Remote access is again passwordless after changing our
+	  brand
 	+ Bugfix: Asked for the subscription level after subscription
 	  during saving changes stage to avoid showing up commercial
 	  messages when they should not
