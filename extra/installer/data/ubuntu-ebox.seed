@@ -31,12 +31,6 @@ d-i console-setup/ask_detect boolean false
 #d-i netcfg/get_hostname string ebox
 #d-i netcfg/get_domain string unassigned-domain
 
-# mirror
-#d-i mirror/http/proxy string
-
-# clock
-#d-i clock-setup/utc boolean true
-
 # to create a normal user account
 #d-i passwd/user-fullname string 'eBox Administrator'
 #d-i passwd/username string eboxadmin
@@ -44,9 +38,6 @@ d-i console-setup/ask_detect boolean false
 #d-i passwd/user-password-again password eboxadmin
 
 d-i user-setup/encrypt-home boolean false
-
-# grub
-#d-i grub-installer/only_debian boolean true
 
 # finish
 #d-i finish-install/reboot_in_progress note

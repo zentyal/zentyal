@@ -2,6 +2,7 @@ HEAD
     + Import PPA key to avoid warning executing apt-get update
     + Added PDF viewer
     + One single build run now generates both i386 and amd64
+    + No longer duplicate preseed entries for auto and expert
 2.0-1
     + 64bit support
     + Rebranded bookmarks icons

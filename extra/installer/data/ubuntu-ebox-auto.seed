@@ -1,20 +1,13 @@
-# ubuntu-ebox.seed - ebox preseeding for ubuntu server
+# Settings for the automatic (non-expert) mode
 
-##
-## ebox stuff
-##
+# mirror
+d-i mirror/http/proxy string
 
-# always install the pae kernel
-d-i base-installer/kernel/override-image string linux-generic-pae
-# only install basic language packs
-d-i pkgsel/language-pack-patterns string
-# no language support packages
-d-i pkgsel/install-language-support boolean false
-# install ssh, bc, ebox and X environment
-d-i pkgsel/include string ssh bc ebox xorg firefox slim lxde xdg-user-dirs gksu libnss3-tools nano xscreensaver evince policykit-1 plymouth-theme-ubuntu-logo
+# clock
+d-i clock-setup/utc boolean true
 
-# disable automatic updates, eBox will take care of that
-d-i pkgsel/update-policy select none
+# grub
+d-i grub-installer/only_debian boolean true
 
 ##
 ## partitioning
@@ -87,66 +80,3 @@ d-i partman/confirm_nooverwrite boolean true
 #d-i partman/confirm_write_new_label boolean true
 #d-i partman/choose_partition select Finish partitioning and write changes to disk
 #d-i partman/confirm boolean true
-
-##
-## automatic install (for testing purposes)
-##
-
-# locale sets language and country
-# this preseeding needs to be done in initrd
-#d-i debian-installer/locale string en_US
-d-i console-setup/ask_detect boolean false
-#d-i console-setup/layoutcode string us
-#d-i console-setup/variant select USA
-
-# network
-#d-i netcfg/choose_interface select auto
-#d-i netcfg/get_hostname string ebox
-#d-i netcfg/get_domain string unassigned-domain
-
-# mirror
-d-i mirror/http/proxy string
-
-# clock
-d-i clock-setup/utc boolean true
-
-# to create a normal user account
-#d-i passwd/user-fullname string 'eBox Administrator'
-#d-i passwd/username string eboxadmin
-#d-i passwd/user-password password eboxadmin
-#d-i passwd/user-password-again password eboxadmin
-
-d-i user-setup/encrypt-home boolean false
-
-# grub
-d-i grub-installer/only_debian boolean true
-
-# finish
-#d-i finish-install/reboot_in_progress note
-
-##
-## packages configuration preseeding
-##
-
-# tasksel answers (don't install standard task)
-#tasksel tasksel/skip-tasks  string standard
-tasksel tasksel/first multiselect
-
-# postfix answers
-postfix postfix/main_mailer_type select No configuration
-
-# eBox answers
-ebox ebox/port string 443
-
-# No boot splash screen.
-#d-i debian-installer/splash boolean false
-
-d-i pkgsel/language-packs string
-
-# late command (we prepare here the ebox custom installer)
-d-i preseed/late_command string \
-    cp -r /cdrom/ebox /target/tmp/ || \
-    cp -r /target/cdrom/ebox /target/tmp/ && \
-    touch /target/tmp/ebox-installer.auto && \
-    chroot /target sh /tmp/ebox/prepare-ebox-install.sh
-
