@@ -11,6 +11,10 @@ test -d $CD_BUILD_DIR || (echo "cd build directory not found."; false) || exit 1
 test -d $DATA_DIR  || (echo "data directory not found."; false) || exit 1
 
 cp $DATA_DIR/ubuntu-ebox.seed $CD_BUILD_DIR/preseed/ubuntu-server.seed
+if [ "$ARCH" == "amd64" ]
+then
+    sed -i '/linux-generic-pae/d' $CD_BUILD_DIR/preseed/ubuntu-server.seed
+fi
 
 cp $DATA_DIR/ubuntu-ebox.seed $CD_BUILD_DIR/preseed/ubuntu-server-auto.seed
 cat $DATA_DIR/ubuntu-ebox-auto.seed >> $CD_BUILD_DIR/preseed/ubuntu-server-auto.seed
