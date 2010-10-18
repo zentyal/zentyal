@@ -78,7 +78,11 @@ create_repository # Set up local package repository
 
 echo ${LOCAL_SOURCES} >> ${SOURCES_LIST} # add local sources
 echo ${ZARAFA_SOURCES} >> ${SOURCES_LIST} # add canonical/partner sources
-echo ${EBOX_SOURCES} >> ${SOURCES_LIST} # add ppa sources
+
+if ! grep -q zentyal ${SOURCES_LIST}
+then
+    echo ${EBOX_SOURCES} >> ${SOURCES_LIST} # add ppa sources
+fi
 
 update_if_network # apt-get update if we are connected to the internet
 
