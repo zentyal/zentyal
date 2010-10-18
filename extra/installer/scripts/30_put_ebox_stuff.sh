@@ -28,4 +28,8 @@ rm -rf $CD_EBOX_DIR/*
 TMPDIR=/tmp/zentyal-installer-data-$$
 svn export $DATA_DIR $TMPDIR
 cp -r $TMPDIR/* $CD_EBOX_DIR/
+if [ "$ARCH" == "amd64" ]
+then
+    sed -i '/linux-generic-pae/d' $CD_EBOX_DIR/extra-packages.list
+fi
 rm -rf $TMPDIR

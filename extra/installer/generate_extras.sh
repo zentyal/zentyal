@@ -31,6 +31,12 @@ sudo mv sources.list $CHROOT/etc/apt/sources.list
 sudo chroot $CHROOT apt-get update
 
 test -r data/extra-packages.list || exit 1
-cat data/extra-packages.list | xargs sudo chroot $CHROOT apt-get install --download-only --no-install-recommends --allow-unauthenticated --yes
+cp data/extra-packages.list /tmp/extra-packages.list
+if [ "$ARCH" == "amd64" ]
+then
+    sed -i '/linux-headers-generic-pae/d' /tmp/extra-packages.list
+fi
+cat /tmp/extra-packages.list | xargs sudo chroot $CHROOT apt-get install --download-only --no-install-recommends --allow-unauthenticated --yes
+rm /tmp/extra-packages.list
 
 cp $CHROOT/var/cache/apt/archives/*.deb $EXTRAS_DIR/
