@@ -1,4 +1,4 @@
-HEAD
+2.0.5
 	+ Removed deprecated "Full backup" option from configuration backup
 	+ Bugfix: SCP method works again after addition of SlicedBackup
 	+ Added option in 90eboxpglogger.conf to disable logs consolidation
