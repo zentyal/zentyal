@@ -43,20 +43,13 @@ my $disabledAttr = $modulesChanged ? 'disabled' : '';
 <table class='formTable'>
     <tbody>
        <form action='Backup' method='POST'>
+       <& /input/hidden.mas, name => 'mode', value => 'configurationBackup', &>
 		<tr>
 			<td class='tright'>
 				<span class='ftitle'><% __('Description') %>:</span>
 			</td>
 			<td>
 					<input type='text' class='inputText' name='description' size='52' />
-			</td>
-                </tr>
-		<tr>
-			<td class='tright'>
-				<span class='ftitle'><% __('Backup mode') %>:</span>
-			</td>
-			<td>
-		                <& /input/select.mas, name => 'mode', value => 'configurationBackup', options => $modeOptions &>
 			</td>
                 </tr>
 		<tr>
@@ -128,7 +121,6 @@ my %printableTypeById = (
 	<thead>
 		<tr>
 			<th class="tleft"><%__('Description') %>  </th>
-			<th><% __('Type') %> </th>
 			<th><%__('Date')%> </th>
                         <th><% __('Archive size') %> </th>
 			<th class="thOptions"><%__('Actions') %></th>
@@ -140,12 +132,6 @@ my %printableTypeById = (
 
 				<td class="tleft">
 					<% $backup->{'description'} %>
-				</td>
-				<td>
-%                                 my $typeId  = $backup->{type};
-%                                 exists $printableTypeById{$typeId} or
-%                                    $typeId = 'unknown';
-				   <% $printableTypeById{$typeId}  %>
 				</td>
 				<td class='tcenter'>
 					<% $backup->{'date'} %>

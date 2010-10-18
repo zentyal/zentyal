@@ -39,14 +39,6 @@ if ($restoreAction) {
 				<% $backup->{'description'} %>
 			</td>
 		</tr>
-		<tr>
-			<td class='tright'>
-				<span class='ftitle'><% __('Type') %>:</span>
-			</td>
-			<td>
-				<% $backup->{'printableType'} %>
-			</td>
-		</tr>
 %		if (exists $backup->{'size'}) {
                  <tr>
 			<td class='tright'>
