@@ -2468,7 +2468,6 @@ sub _generateProxyConfig
     my ($self) = @_;
 
     my $proxy = $self->model('Proxy');
-    
     my $proxyConf;
 
     if ($proxy->serverValue() and $proxy->portValue()) {
@@ -2764,7 +2763,7 @@ sub _multigwRoutes
 
         push(@cmds, "/sbin/ip route flush table $table");
         push(@cmds, "/sbin/ip rule add fwmark $mark table $table");
-        push(@cmds, "/sbin/ip rule add from $address table $table");
+        push(@cmds, "/sbin/ip rule add from $ip table $table");
         push(@cmds, "/sbin/ip route add default $route table $table");
     }
 

@@ -309,7 +309,7 @@ sub _runTest # (type, host)
     } elsif ($type eq 'dns') {
         $result = system("host -W 5 $host");
     } elsif ($type eq 'http') {
-        my $command = "wget $host -T 5 -O /dev/null";
+        my $command = "wget $host --tries=1 -T 5 -O /dev/null";
         $result = system($command);
     }
 
