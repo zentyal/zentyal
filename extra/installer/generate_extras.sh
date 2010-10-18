@@ -5,7 +5,7 @@ test -r build_cd.conf || exit 1
 
 ARCH=$1
 
-if [ "$ARCH" -ne "i386" -o "$ARCH" -ne "amd64" ]
+if [ "$ARCH" != "i386" -a "$ARCH" != "amd64" ]
 then
     echo "Usage: $0 [i386|amd64]"
     exit 1

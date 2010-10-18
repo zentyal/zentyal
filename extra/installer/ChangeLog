@@ -1,4 +1,5 @@
 HEAD
+    + Add PPA in the first stage to install latest versions
     + Import PPA key to avoid warning executing apt-get update
     + Added PDF viewer
     + One single build run now generates both i386 and amd64

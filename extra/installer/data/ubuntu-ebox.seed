@@ -1,8 +1,15 @@
-# ubuntu-ebox.seed - ebox preseeding for ubuntu server
+# ubuntu-ebox.seed - zentyal preseeding for ubuntu server
 
 ##
-## ebox stuff
+## zentyal stuff
 ##
+
+# add zentyal repository
+d-i apt-setup/local0/repository string \
+       http://ppa.launchpad.net/zentyal/2.0/ubuntu lucid main
+d-i apt-setup/local0/comment string Zentyal 2.0 PPA repository
+# FIXME: change it to the definitive URL
+d-i apt-setup/local0/key string http://people.zentyal.org/~josh/ebox-ppa.asc
 
 # always install the pae kernel
 d-i base-installer/kernel/override-image string linux-generic-pae

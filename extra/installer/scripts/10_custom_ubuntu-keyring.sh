@@ -2,6 +2,10 @@
 
 . ../build_cd.conf
 
+ARCH=$1
+
+CD_BUILD_DIR="$CD_BUILD_DIR_BASE-$ARCH"
+
 pushd $BASE_DIR
 
 rm -rf $UBUNTU_KEYRING_DIR

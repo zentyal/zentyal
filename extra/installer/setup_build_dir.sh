@@ -3,9 +3,21 @@
 test -r build_cd.conf || exit 1
 . ./build_cd.conf
 
-test -d $BASE_DIR || (echo "base_dir directory not found."; false) || exit 1
+ARCH=$1
 
-test -r $ISO_PATH || (echo "iso image not found."; false) || exit 1
+if [ "$ARCH" != "i386" -a "$ARCH" != "amd64" ]
+then
+    echo "Usage: $0 [i386|amd64]"
+    exit 1
+fi
+
+ISO_PATH="$ISO_PATH_BASE-$ARCH.iso"
+CD_BUILD_DIR="$CD_BUILD_DIR_BASE-$ARCH"
+CD_MOUNT_DIR="$CD_MOUNT_DIR_BASE-$ARCH"
+
+test -d $BASE_DIR || (echo "BASE_DIR directory not found."; false) || exit 1
+
+test -r $ISO_PATH || (echo "ISO image $ISO_PATH not found."; false) || exit 1
 
 test -r $UBUNTU_KEYRING_TAR || wget $UBUNTU_KEYRING_URL
 
@@ -26,6 +38,6 @@ sed -i "s/Ubuntu Server/Zentyal $EBOX_VERSION/g" $CD_BUILD_DIR/isolinux/isolinux
 sudo umount $CD_MOUNT_DIR || exit 1
 rmdir $CD_MOUNT_DIR
 
-echo "installer build directory generated from contents of $ISO_PATH"
+echo "Installer build directory generated from contents of $ISO_PATH"
 
 exit 0
