@@ -6,8 +6,7 @@
 
 # add zentyal repository
 d-i apt-setup/local0/repository string http://ppa.launchpad.net/zentyal/2.0/ubuntu lucid main
-# FIXME: change it to the definitive URL
-d-i apt-setup/local0/key string http://people.zentyal.org/~josh/ebox-ppa.asc
+d-i apt-setup/local0/key string http://keys.zentyal.org/zentyal-2.0-ppa.asc
 
 # always install the pae kernel
 d-i base-installer/kernel/override-image string linux-generic-pae
