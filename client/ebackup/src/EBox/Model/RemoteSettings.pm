@@ -221,6 +221,12 @@ sub _table
                     populate => \&_weekDays,
                 ),
                 new EBox::Types::Select(
+                    fieldName     => 'full_bimonthly',
+                    printableName => __('Twice a month'),
+                    editable      => 1,
+                    populate      => \&_weekDays,
+                ),
+                new EBox::Types::Select(
                     fieldName     => 'full_monthly',
                     printableName => __('Monthly'),
                     editable      => 1,
@@ -369,6 +375,9 @@ sub _crontabStringFull
     my $month = '*';
     if ( $freq eq 'weekly' ) {
         $weekDay = $startsOn;
+    } elsif ($freq eq 'bimonthly') {
+        $weekDay = $startsOn;
+        $monthDay ='1-7,15-21';
     } elsif ( $freq eq 'monthly' ) {
         if ($startsOn <= 28) {
             $monthDay = $startsOn,
@@ -741,8 +750,9 @@ sub _validateFrequencies
 
     return if ($partial eq 'disabled');
     my %values = (
-                  daily => 3,
-                  weekly => 2,
+                  daily => 4,
+                  weekly => 3,
+                  bimonthly => 2,
                   monthly => 1,
                  );
 
