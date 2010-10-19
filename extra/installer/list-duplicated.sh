@@ -24,10 +24,23 @@ do
 	# FIXME: Probably there is a bug here (false positive with samba)
 	if [ $EXTRA_VERSION \> $MAIN_VERSION ]
 	then
-		echo "$i: extras version newer than main one"
+		# extras version newer than main one but may be unsafe to remove
+        # the main one if it is a package belonging to the base system
+		echo $i >> REMOVE_main_unsafe
 	else
 		echo $i >> REMOVE_extras
 	fi
+done
+
+# be careful with duplicated packages in extras
+# the older version has to be removed manually by now
+ls extras | cut -d'_' -f1 | uniq -c | grep -v "    1" | cut -d' ' -f8- > NO_REMOVE
+
+cp REMOVE_extras FINAL_REMOVE
+
+for i in `cat NO_REMOVE`
+do
+    sed -i "/^$i$/d" FINAL_REMOVE
 done
 
 for dir in main extras
