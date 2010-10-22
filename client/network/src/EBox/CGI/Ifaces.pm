@@ -26,7 +26,7 @@ use EBox::Gettext;
 sub new # (error=?, msg=?, cgi=?)
 {
 	my $class = shift;
-	my $self = $class->SUPER::new('title' => __('Network Interfaces'),
+	my $self = $class->SUPER::new('title' => __d('Network Interfaces', 'ebox-network'),
 				      'template' => '/network/ifaces.mas',
 				      @_);
 	$self->{domain} = 'ebox-network';
