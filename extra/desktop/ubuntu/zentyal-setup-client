@@ -26,5 +26,4 @@ fi
 sed -i "s/^host .*$//" /etc/ldap.conf
 sed -i "1 i host $SERVER" /etc/ldap.conf
 
-TYPES="nss pam-password pam-auth pam-session pam-account"
-auth-client-config -t $TYPES -p zentyal
+auth-client-config -a -p zentyal
