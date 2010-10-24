@@ -46,7 +46,7 @@ use Readonly;
 Readonly::Scalar our $FULL_BACKUP_ID  => 'full backup';
 Readonly::Scalar our $CONFIGURATION_BACKUP_ID  =>'configuration backup';
 Readonly::Scalar our $BUGREPORT_BACKUP_ID  =>'bugreport configuration dump';
-my $RECURSIVE_DEPENDENCY_THRESHOLD = 3;
+my $RECURSIVE_DEPENDENCY_THRESHOLD = 20;
 
 sub new
 {

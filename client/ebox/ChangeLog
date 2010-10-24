@@ -1,6 +1,8 @@
 2.0.6
 	+ Use mod dependencies as default restore dependencies
 	+ Fixed dependencies in events module
+	+ Increased recursive dependency threshold to avoid
+	  backup restoration problems
 2.0.5
 	+ Removed deprecated "Full backup" option from configuration backup
 	+ Bugfix: SCP method works again after addition of SlicedBackup
