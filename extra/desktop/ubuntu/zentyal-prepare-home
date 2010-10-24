@@ -1,7 +1,7 @@
 #!/bin/bash
 
 USER=$PAM_USER
-USERHOME=/home/samba/users/$USER
+USERHOME=/home/$USER
 
 PROFILE=$USERHOME/.profile
 CONFIGURED_STAMP=~/.zentyal-desktop-configured
