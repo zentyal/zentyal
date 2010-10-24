@@ -1,7 +1,7 @@
-Server side changes
--------------------
+Changes needed on the Zentyal server
+------------------------------------
 
-Change login_shell from /bin/false to /bin/bash in /etc/ebox/80samba.conf
+Set a valid shell like /bin/bash in "Users and Groups -> LDAP Settings"
 
 Edit /etc/default/slapd:
 
@@ -16,4 +16,6 @@ apt-get install libpam-ldap
 
 Replace /etc/ldap.conf with our included ldap.conf
 
-ebox-setup-client <ebox-ldap-address>
+zentyal-setup-client <zentyal-ldap-address>
+
+Note that this is automatically done if you are using the .deb package.

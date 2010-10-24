@@ -1,6 +1,6 @@
 #!/bin/bash
 
-EKIGACONF=$HOME/.ebox-desktop/ekiga.gconf
+EKIGACONF=$HOME/.zentyal-desktop/ekiga.gconf
 if [ -f $EKIGACONF ]
 then
     while [ -z $PASSWORD ]

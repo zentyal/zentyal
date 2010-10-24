@@ -1,19 +1,18 @@
-Source: ebox-desktop
+Source: zentyal-desktop
 Section: web
 Priority: optional
-Maintainer: Ubuntu MOTU Developers <ubuntu-motu@lists.ubuntu.com>
-XSBC-Original-Maintainer: Javier Uruen Val <javi@warp.es>
-Build-Depends: debhelper (>= 4.0.0), cdbs, po-debconf
-Standards-Version: 3.7.3
+Maintainer: José Antonio Calvo <jacalvo@zentyal.org>
+Build-Depends: debhelper (>= 5.0.0), cdbs, po-debconf
+Standards-Version: 3.8.2
 
-Package: ebox-desktop
+Package: zentyal-desktop
 Architecture: all
 Depends: debconf, libpam-ldap, ldap-utils
-Description: eBox platform - desktop configuration
- eBox is a framework for the development and deployment of security-wise
- network services in small and medium-sized networks, offering a simplified
- graphical interface to non expert users. It can be set up as a gateway,
- having some extra features over a usual router.
+Description: Zentyal - Desktop package for Ubuntu clients
+ Zentyal is a Linux small business server that can act as
+ a Gateway, Unified Threat Manager, Office Server, Infrastructure
+ Manager, Unified Communications Server or a combination of them. One
+ single, easy-to-use platform to manage all your network services.
  .
- This package configures desktop clients for the eBox services.
+ This package configures desktop clients for the Zentyal services.
 

@@ -1,0 +1,5 @@
+Template: zentyal-desktop/server
+Type: string
+_description: Zentyal Server address:
+ Please enter the address of the Zentyal server to be used as
+ authentication server for this client.

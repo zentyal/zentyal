@@ -1,6 +1,7 @@
 #!/bin/bash
 
 SERVER=$1
+DC="dc=ubuntu" # FIXME: unhardcode this
 
 # Create firefox default profile and get its path
 BOOKMARKS_FILE=`firefox -CreateProfile default 2>&1 | cut -d\' -f4 | sed 's/prefs.js$/bookmarks.html/'`
@@ -19,15 +20,15 @@ add_bookmark()
 # User Corner bookmark
 # TODO: Check if user corner is enabled
 URL="https://$SERVER:8888"
-DESC="eBox User Corner"
+DESC="Zentyal User Corner"
 add_bookmark
 
-# eGroupware bookmark
-HAS_EGW_ACCOUNT=`ldapsearch -x -b "uid=$USER,ou=Users,dc=ebox" -h $SERVER | grep ^egwPermsTemplate`
+# Zarafa bookmark
+HAS_EGW_ACCOUNT=`ldapsearch -x -b "uid=$USER,ou=Users,$DC" -h $SERVER | grep ^zarafaAccount`
 if [ -n "$HAS_EGW_ACCOUNT" ]
 then
-    URL="http://$SERVER/egroupware"
-    DESC="eGroupware"
+    URL="http://$SERVER/webaccess"
+    DESC="Zarafa"
     add_bookmark
 fi
 

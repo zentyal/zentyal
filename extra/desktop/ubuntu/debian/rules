@@ -1,14 +1,14 @@
 #!/usr/bin/make -f
 
 include /usr/share/cdbs/1/rules/debhelper.mk
-include debian/cdbs/ebox-desktop.mk
+include debian/cdbs/zentyal-desktop.mk
 
 DEB_DH_INSTALLINIT_ARGS = --no-start
 
-install/ebox-desktop::
-	$(MAKE) DESTDIR=`pwd`/debian/ebox-desktop PREFIX=/usr install
+install/zentyal-desktop::
+	$(MAKE) DESTDIR=`pwd`/debian/zentyal-desktop PREFIX=/usr install
 
-cleanbuilddir/ebox-desktop::
+cleanbuilddir/zentyal-desktop::
 
 clean::
 	debconf-updatepo

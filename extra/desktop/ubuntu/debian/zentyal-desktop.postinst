@@ -1,0 +1,14 @@
+#!/bin/sh
+
+. /usr/share/debconf/confmodule
+
+[ -f /etc/ldap.conf ] &&
+mv /etc/ldap.conf /usr/share/zentyal-desktop/ldap.conf.save
+
+cp /usr/share/zentyal-desktop/ldap.conf /etc/ldap.conf
+
+cp /usr/share/zentyal-desktop/zentyal.pam /etc/auth-client-config/profile.d/zentyal
+
+db_get zentyal-desktop/server
+server="$RET"
+zentyal-setup-client $server

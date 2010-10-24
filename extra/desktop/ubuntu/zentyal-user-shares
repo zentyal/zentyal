@@ -2,6 +2,7 @@
 
 SERVER=$1
 DESKTOP_DIR=`xdg-user-dir DESKTOP`
+DC="dc=ubuntu" # FIXME: unhardcode this
 
 [ -d $DESKTOP_DIR ] || mkdir $DESKTOP_DIR
 
@@ -28,12 +29,12 @@ do
     if [ $gid -ge 2001 ]
     then
         groupname=`getent group $gid | cut -d: -f1`
-        SHARE=`ldapsearch -x -b "cn=$groupname,ou=Groups,dc=ebox" -h $SERVER \
+        SHARE=`ldapsearch -x -b "cn=$groupname,ou=Groups,$DC" -h $SERVER \
                | grep ^displayResource | cut -d: -f2 | cut -c2-`
 
         if [ -n "$SHARE" ]
         then
-            DESC=`ldapsearch -x -b "cn=$groupname,ou=Groups,dc=ebox" -h $SERVER \
+            DESC=`ldapsearch -x -b "cn=$groupname,ou=Groups,$DC" -h $SERVER \
                  | grep ^description | cut -d: -f2 | cut -c2-`
             create_desktop_link
         fi

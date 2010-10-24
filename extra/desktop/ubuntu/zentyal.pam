@@ -1,0 +1,25 @@
+#
+# this configuration is for using ldap to authenticate and authorize
+# Zentyal LDAP users and groups on the system.
+#
+[zentyal]
+nss_passwd=passwd: compat ldap
+nss_group=group: compat ldap
+nss_shadow=shadow: compat ldap
+nss_netgroup=netgroup: nis
+pam_auth=auth       required     pam_env.so
+        auth       sufficient   pam_unix.so likeauth nullok
+        auth       sufficient   pam_ldap.so use_first_pass
+        auth       required pam_group.so
+        auth       required     pam_deny.so
+pam_account=account    sufficient   pam_unix.so
+        account    sufficient   pam_ldap.so
+        account    required     pam_deny.so
+pam_password=password   sufficient   pam_unix.so nullok md5 shadow use_authtok
+        password   sufficient   pam_ldap.so use_first_pass
+        password   required     pam_deny.so
+pam_session=session    required     pam_limits.so
+        session    required     pam_mkhomedir.so skel=/etc/skel/ umask=0022
+        session    required     pam_unix.so
+        session    optional     pam_ldap.so
+        session    optional     pam_exec.so /bin/sh /usr/share/zentyal-desktop/zentyal-prepare-home
