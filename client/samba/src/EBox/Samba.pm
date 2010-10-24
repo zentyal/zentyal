@@ -1353,7 +1353,6 @@ sub restoreConfig
     my ($self, $dir) = @_;
 
     $self->_loadSharesTree($dir);
-    $self->_fixLeftoverSharedDirectories();
     $self->fixSIDs();
 
     my $sambaLdapUser = new EBox::SambaLdapUser;
@@ -1412,7 +1411,7 @@ sub _loadSharesTree
     foreach my $dirInfo (@shares) {
         my ($dir, $uid, $gid, $perm) = split ':', $dirInfo;
 
-        if (!-d $dir) {
+        unless ( -d $dir) {
             EBox::Sudo::root("/bin/mkdir -p  '$dir'");
         }
 
@@ -1504,140 +1503,6 @@ sub _sharesTreeFile
     return "$dir/sharesTree.bak";
 }
 
-
-
-# we look for shared directories leftover from users and groups created
-# between a backup and a recovery. We move them to a leftover directories
-# so the data will be safe and retrevied by root
-sub _fixLeftoverSharedDirectories
-{
-    my ($self) = @_;
-
-
-    my @leftovers = $self->_findLeftoverSharedDirectories();
-    return if @leftovers == 0;
-
-    my $leftoversDir = $self->leftoversDir();
-
-    if (not EBox::Sudo::fileTest('-e', $leftoversDir)) {
-        EBox::Sudo::root("/bin/mkdir --mode=755 $leftoversDir");
-    }
-
-    my @leftoverTypes = qw(users groups);
-    foreach my $subdir (@leftoverTypes) {
-        if (not EBox::Sudo::fileTest('-e', "$leftoversDir/$subdir")) {
-            EBox::Sudo::root("/bin/mkdir --mode=755 $leftoversDir/$subdir");
-        }
-    }
-
-    foreach my $leftover (@leftovers) {
-        my $chownCommand = "/bin/chown root.root -R $leftover";
-        EBox::Sudo::root($chownCommand);
-
-        my $chmodDirCommand = "/bin/chmod 755 $leftover";
-        EBox::Sudo::root($chmodDirCommand);
-
-        # change permission to files in dir if dir has files
-        my $filesInDir = 1;
-        try {  EBox::Sudo::root("/bin/ls $leftover/*")  }  otherwise { $filesInDir = 0  } ;
-
-        if ($filesInDir) {
-            my $chmodFilesCommand = "  /bin/chmod -R og-srwx  $leftover/*";
-            EBox::Sudo::root($chmodFilesCommand);
-        }
-
-        my $leftoverNewDir =  $self->_leftoverNewDir($leftover, $leftoversDir);
-
-        my $mvCommand = "/bin/mv  $leftover $leftoverNewDir";
-        EBox::Sudo::root($mvCommand);
-        EBox::info("Moved leftover directory $leftover to $leftoverNewDir");
-    }
-}
-
-
-sub _leftoverNewDir
-{
-    my ($self, $leftover, $leftoversDir) = @_;
-
-    my $usersPath  = EBox::SambaLdapUser::usersPath();
-    my $groupsPath = EBox::SambaLdapUser::groupsPath();
-
-    my $leftoverType;
-    if ($leftover =~ m/^$usersPath/) {
-        $leftoverType = 'users/';
-    }
-    elsif ($leftover =~ m/^$groupsPath/) {
-        $leftoverType = 'groups/';
-    }
-    else {
-        EBox::warn("Can not determine the type of leftover $leftover; it will be store it in $leftoversDir");
-        $leftoverType = undef;
-    }
-
-    my $leftoverNewDir = "$leftoversDir/";
-    $leftoverNewDir .= $leftoverType if defined $leftoverType;  # better to store the leftover in a wrong place than lost it
-        $leftoverNewDir .= File::Basename::basename($leftover);
-
-    if (EBox::Sudo::fileTest('-e', $leftoverNewDir)) {
-        EBox::warn ("$leftoverNewDir already exists, we will choose another dir for this leftover. Please, remove or store away leftover directories" );
-        my $counter = 2;
-        my $oldLeftoverDir =$leftoverNewDir;
-        do  {
-            $leftoverNewDir = $oldLeftoverDir . ".$counter";
-            $counter = $counter +1 ;
-        } while (EBox::Sudo::fileTest('-e', $leftoverNewDir));
-        EBox::warn("The leftover will be stored in $leftoverNewDir");
-    }
-
-    return $leftoverNewDir;
-}
-
-
-sub _findLeftoverSharedDirectories
-{
-    my ($self) = @_;
-
-    my $sambaLdapUser = new EBox::SambaLdapUser;
-
-    my @leftovers;
-    my $sharedDirs = $sambaLdapUser->sharedDirectories();
-    return () if @{ $sharedDirs } == 0;
-
-
-    my $usersDir =  $sambaLdapUser->usersPath();
-    push @leftovers, $self->_findLeftoversInDir($usersDir, $sharedDirs);
-
-    my $groupsDir = $sambaLdapUser->groupsPath();
-    push @leftovers, $self->_findLeftoversInDir($groupsDir, $sharedDirs);
-
-    EBox::info("Leftovers shared directories found: @leftovers") if @leftovers > 0;
-    return @leftovers;
-}
-
-
-sub _findLeftoversInDir
-{
-    my ($self, $dir, $sharedDirs) = @_;
-    my $allShareDirs =  all(@{ $sharedDirs }) ;
-
-    my @candidateDirs;
-    try {
-        @candidateDirs = @{ EBox::Sudo::root("/usr/bin/find $dir/* -type d -maxdepth 0 ") };
-    }
-    catch EBox::Exceptions::Sudo::Command with { # we catch this because find will be fail if aren't any subdirectories in $dir
-        @candidateDirs = ();
-    };
-
-    chomp @candidateDirs;
-
-    my @leftovers = grep { $_ ne $allShareDirs  } @candidateDirs;
-    return @leftovers;
-}
-
-sub leftoversDir
-{
-    return EBox::SambaLdapUser::basePath() . '/leftovers';
-}
 
 
 # Overrides:

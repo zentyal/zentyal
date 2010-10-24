@@ -199,16 +199,7 @@ sub _checkConfig
   _checkRestoredDir($homedir, $status->{homedirStat});
 }
 
-sub leftoversWithConfigurationBackupTest : Test(49)
-{
-  _leftoversTest($CONFIG_BACKUP_LEFTOVER_DIR, 0);
-}
 
-
-sub leftoversWithFullBackupTest   : Test(49)
-{
-  _leftoversTest($FULL_BACKUP_LEFTOVER_DIR, 1);
-}
 
 
 # that counts for 4 checks

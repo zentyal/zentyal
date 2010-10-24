@@ -202,6 +202,23 @@ sub actions
     ];
 }
 
+
+# Method: restoreDependencies
+#
+#   Override EBox::Module::Base::restoreDependencies
+#
+sub restoreDependencies
+{
+    my @depends = ();
+
+    if ( EBox::Global->modExists('mail') )  {
+        push(@depends, 'mail');
+    }
+
+    return \@depends;
+}
+
+
 # Method: enableActions
 #
 #       Override EBox::Module::Service::enableActions
@@ -897,10 +914,10 @@ sub report
     my $allAlertsRaw  =  $self->runMonthlyQuery($beg, $end, {
         'select' => 'level, SUM(nEvents)',
         'from' => 'events_report',
-        'group' => 'level',                                                              
+        'group' => 'level',
                                                                   },
     { 'key' => 'level' }
-   );    
+   );
 
 
     $report->{'all_alerts'} = {};
@@ -922,13 +939,13 @@ sub report
                 'where' => qq{level='$level'}
                                                          },
                 { 'key' => 'source' }
-                                            );  
+                                            );
         foreach my $source (keys %{$result}) {
             if (not exists $alertsBySource->{$source}) {
                 $alertsBySource->{$source} = {};
             }
             $alertsBySource->{$source}->{$level} = $result->{$source}->{sum};
-        }  
+        }
     }
 
     $report->{alerts_by_source} = $alertsBySource;

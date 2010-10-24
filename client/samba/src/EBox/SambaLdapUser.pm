@@ -475,7 +475,7 @@ sub _createDir
 {
     my ($self, $path, $uid, $gid, $chmod) = @_;
 
-    if (-d $path) {
+    if (EBox::Sudo::fileTest('-d', $path)) {
         return;
     }
 

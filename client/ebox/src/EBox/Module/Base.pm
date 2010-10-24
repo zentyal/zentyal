@@ -374,8 +374,9 @@ sub _bak_file_from_dir
 #
 sub restoreDependencies
 {
-  my ($self) = @_;
-  return [];
+    my ($self) = @_;
+    my $global = EBox::Global->getInstance();
+    return $global->modDepends($self->name);
 }
 
 
@@ -1280,14 +1281,14 @@ sub _consolidateReportStartDate
                 'limit' => 1
                                        });
         my $row = shift(@{$res});
-            
+
         #if there is no rows in source tables for consolidation, return undef
-        defined($row) or 
+        defined($row) or
             return undef;
-        
+
         $date = $row->{date};
 
-        
+
         #later we call update so we need to have something inserted
         $db->unbufferedInsert('report_consolidation', {
                 'report_table' => $target_table,
@@ -1307,7 +1308,7 @@ sub consolidateReportFromLogs
                                     $queries,
                                     \&_consolidationValuesForMonth
                                    );
-    
+
 }
 
 
@@ -1323,8 +1324,8 @@ sub _consolidateReportFromDB
     for my $q (@{$queries}) {
         my $target_table = $q->{'target_table'};
         my $query = $q->{'query'};
-        
-        my $date = $self->_consolidateReportStartDate($db, 
+
+        my $date = $self->_consolidateReportStartDate($db,
                                                       $target_table,
                                                       $query);
         $date or
@@ -1374,7 +1375,7 @@ sub _consolidateReportFromDB
                 for my $r (@{$results}) {
                     my @from = ($target_table);
                     my @where;
-                        
+
                     for my $f (@identityFields) {
                         if (exists $r->{$f}) {
                             push(@where, $f . " = '" . $r->{$f} . "'");
@@ -1422,16 +1423,16 @@ sub _consolidateReportFromDB
 
 
                 # update last consolidation time
-  
+
                $db->update('report_consolidation',
-                    { 'last_date' => "'$gmConsolidationStartTime'" }, 
+                    { 'last_date' => "'$gmConsolidationStartTime'" },
                     [ "report_table = '$target_table'" ],
                 );
             }
 
             # only the first loop could  have a hour/day diffetent than the 00:00:00/1
              $hour = '00:00:00';
-             $day = 1; 
+             $day = 1;
             if($month == 12) {
                 $month = 1;
                 $year++;
@@ -1509,12 +1510,12 @@ sub _lastConsolidationValuesForMonth
         my @results;
         my $origWhere = $query->{where};
         foreach my $keyValue (@keyValues) {
-            $query->{where} = $origWhere . " AND $key = '$keyValue'"; 
+            $query->{where} = $origWhere . " AND $key = '$keyValue'";
             push @results, @{ $db->query_hash($query) };
         }
-        
+
         return \@results;
-        
+
     } else {
         return $db->query_hash($query);
     }
@@ -1536,7 +1537,7 @@ sub _lastConsolidationValuesForMonth
 #         },
 #
 #
-#   
+#
 #
 # 'target_table' defines the table where the consolidated data will be stored.
 # The data will considerate using the provided query. The format of the query i
@@ -1570,7 +1571,7 @@ sub logReportInfo
 #
 # This method is used to consolidate data from data tables which has been
 # populated by the logReportInfo method. It call consolidateReportInfoQueries fr
-# that. 
+# that.
 #
 # The difference between consolidateReportFromLogs and
 # consolidateReportInfoQueries is that the last one only takes the latest value
@@ -1599,7 +1600,7 @@ sub consolidateReportInfo
                                     $queries,
                                     \&_lastConsolidationValuesForMonth
                                    );
-    
+
 }
 
 
@@ -1610,7 +1611,7 @@ sub _unionQuery
 {
     my ($self, $dbengine, $orig_query) = @_;
     my %query = %{ $orig_query };
-    
+
     my @tables = split '\s*,\s*', $query{from};
 
     my @tableQueries;
