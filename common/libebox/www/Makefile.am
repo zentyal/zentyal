@@ -24,7 +24,8 @@ images = images/delete.gif images/show.gif \
   images/spinner.gif images/widget_controls.png images/triangles.png \
   images/edit-inactive.gif images/delete-inactive.gif \
   images/magnifying-glass.png images/managed.png \
-  images/bg.gif images/asc.gif images/desc.gif
+  images/bg.gif images/asc.gif images/desc.gif \
+  images/exclamation.png images/encrypted.png
 
 js = js/base64.js js/csshover.htc js/common.js \
   js/help.js js/table-helper.js  \
