@@ -28,6 +28,7 @@ install:
 	install -m755 zentyal-user-shares $(DESTDIR)$(DATADIR)
 	install -m755 zentyal-firefox-profile $(DESTDIR)$(DATADIR)
 	install -m755 zentyal-jabber-setup $(DESTDIR)$(DATADIR)
+	install -m755 zentyal-unconfigure-client $(DESTDIR)$(DATADIR)
 	install -m755 ekiga-launcher $(DESTDIR)$(DATADIR)
 	install -m644 ldap.conf $(DESTDIR)$(DATADIR)
 	install -m644 zentyal.pam $(DESTDIR)$(DATADIR)

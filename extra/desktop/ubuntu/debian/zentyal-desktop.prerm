@@ -1,6 +1,6 @@
 #!/bin/sh
 
-zentyal-unconfigure-client
+/usr/share/zentyal-desktop/zentyal-unconfigure-client
 
 [ -f /usr/share/zentyal-desktop/ldap.conf.save ] &&
 mv /usr/share/zentyal-desktop/ldap.conf.save /etc/ldap.conf
