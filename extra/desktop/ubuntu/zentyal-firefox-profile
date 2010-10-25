@@ -1,7 +1,7 @@
 #!/bin/bash
 
 SERVER=$1
-DC="dc=ubuntu" # FIXME: unhardcode this
+DC=$2
 
 # Create firefox default profile and get its path
 BOOKMARKS_FILE=`firefox -CreateProfile default 2>&1 | cut -d\' -f4 | sed 's/prefs.js$/bookmarks.html/'`

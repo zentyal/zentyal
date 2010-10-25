@@ -1,6 +1,10 @@
 #!/bin/bash
 
 SERVER=$1
+DC=$2
+
+# Change "dc=foo,dc=com" to foo.com
+DOMAIN=`echo $DC | sed 's/,dc=/\./' | sed 's/dc=//'`
 
 PIDGIN_DIR=$HOME/.zentyal-desktop/pidgin
 
@@ -9,7 +13,7 @@ add_conference()
     GROUP_NAME=$1
 
     sed -i "/<group/a\
-                <chat proto='prpl-jabber' account='$USER@zentyal/zentyaluser'>\n\
+                <chat proto='prpl-jabber' account='$USER@$DOMAIN/zentyaluser'>\n\
 \t\t\t<component name='handle'>$USER</component>\n\
 \t\t\t<component name='room'>$GROUP_NAME</component>\n\
 \t\t\t<component name='server'>conference.zentyal</component>\n\
@@ -18,10 +22,10 @@ add_conference()
 
 # Replace variables in pidgin config template
 sed -i "s/USERNAME/$USER/g" $PIDGIN_DIR/accounts.xml
-sed -i "s/ZENTYALDOMAIN/zentyal/g" $PIDGIN_DIR/accounts.xml
+sed -i "s/ZENTYALDOMAIN/$DOMAIN/g" $PIDGIN_DIR/accounts.xml
 sed -i "s/ZENTYALSERVER/$SERVER/g" $PIDGIN_DIR/accounts.xml
 sed -i "s/USERNAME/$USER/g" $PIDGIN_DIR/blist.xml
-sed -i "s/ZENTYALDOMAIN/zentyal/g" $PIDGIN_DIR/blist.xml
+sed -i "s/ZENTYALDOMAIN/$DOMAIN/g" $PIDGIN_DIR/blist.xml
 
 # Insert group conferences in buddy list
 for gid in `id -G`

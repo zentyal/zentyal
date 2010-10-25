@@ -21,7 +21,8 @@
 CONFIGURED_STAMP=~/.zentyal-desktop-configured
 
 SERVER=`grep ^host /etc/ldap.conf | cut -d' ' -f2`
-DC="dc=ubuntu" # FIXME: unhardcode this
+DC=`ldapsearch -x -s base -h $SERVER '(objectclass=*)' namingContexts |
+    grep ^namingContexts | cut -d' ' -f2-`
 
 SCRIPTS_DIR=/usr/share/zentyal-desktop
 SKEL_DIR=/usr/share/zentyal-desktop/skel
@@ -59,7 +60,7 @@ rm $EVOLUTIONCONF
 HAS_SAMBA_ACCOUNT=`ldapsearch -x -b "uid=$USER,ou=Users,$DC" -h $SERVER | grep "^objectClass: sambaSamAccount"`
 if [ -n "$HAS_SAMBA_ACCOUNT" ]
 then
-    $SCRIPTS_DIR/zentyal-user-shares $SERVER
+    $SCRIPTS_DIR/zentyal-user-shares $SERVER $DC
 fi
 
 # Pidgin configuration
@@ -67,10 +68,10 @@ cp -r $SKEL_DIR/pidgin $ZENTYAL_DESKTOP_DIR
 HAS_JABBER_ACCOUNT=`ldapsearch -x -b "uid=$USER,ou=Users,$DC" -h $SERVER | grep "^objectClass: userJabberAccount"`
 if [ -n "$HAS_JABBER_ACCOUNT" ]
 then
-    $SCRIPTS_DIR/zentyal-jabber-setup $SERVER
+    $SCRIPTS_DIR/zentyal-jabber-setup $SERVER $DC
 fi
 
 # Firefox profile configuration
-$SCRIPTS_DIR/zentyal-firefox-profile $SERVER
+$SCRIPTS_DIR/zentyal-firefox-profile $SERVER $DC
 
 touch $CONFIGURED_STAMP

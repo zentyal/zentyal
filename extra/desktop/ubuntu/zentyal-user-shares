@@ -1,8 +1,8 @@
 #!/bin/bash
 
 SERVER=$1
+DC=$2
 DESKTOP_DIR=`xdg-user-dir DESKTOP`
-DC="dc=ubuntu" # FIXME: unhardcode this
 
 [ -d $DESKTOP_DIR ] || mkdir $DESKTOP_DIR
 
