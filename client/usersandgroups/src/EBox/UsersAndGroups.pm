@@ -278,22 +278,27 @@ sub _setConf
         EBox::Sudo::root("install -m 0644 -o root -g root $cronFile /etc/cron.d/ebox-ad-sync");
     }
 
-    if ( $mode eq 'master' ) {
-        my $ldapconf = $ldap->ldapConf();
-        my @array = ();
-        push(@array, 'basedc'    => $ldapconf->{'dn'});
-        push(@array, 'ldap'     => $ldapconf->{'ldapi'});
-        push(@array, 'binddn'     => $ldapconf->{'rootdn'});
-        push(@array, 'bindpw'    => $ldap->getPassword());
-        push(@array, 'usersdn'   => $self->usersDn);
-        push(@array, 'groupsdn'  => $self->groupsDn);
-        push(@array, 'computersdn' => 'ou=Computers,' . $ldapconf->{'dn'});
+    my @array = ();
+    my $dn = $self->model('Mode')->dnValue();
 
-        $self->writeConfFile(LIBNSSLDAPFILE, "usersandgroups/ldap.conf.mas",
-                \@array);
-
-        $self->_setupNSSPAM();
+    if ( $mode eq 'slave' ) {
+        push(@array, 'ldap' => 'ldap://127.0.0.1:1389');
+    } else {
+        # master or ad-sync
+        push(@array, 'ldap' => EBox::Ldap::LDAPI);
     }
+
+    push(@array, 'basedc'    => $dn);
+    push(@array, 'binddn'    => 'cn=ebox,' . $dn);
+    push(@array, 'bindpw'    => remotePassword());
+    push(@array, 'usersdn'   => USERSDN . ',' . $dn);
+    push(@array, 'groupsdn'  => GROUPSDN . ',' . $dn);
+    push(@array, 'computersdn' => 'ou=Computers,' . $dn);
+
+    $self->writeConfFile(LIBNSSLDAPFILE, "usersandgroups/ldap.conf.mas",
+            \@array);
+
+    $self->_setupNSSPAM();
 }
 
 # Method: _daemons
@@ -2394,11 +2399,11 @@ sub menu
             $folder->add(new EBox::Menu::Item('url' => 'Users/Composite/UserTemplate',
                                               'text' => __('User Template')));
         }
-        if (($mode eq 'master') or ($mode eq 'ad-slave')) {
-            $folder->add(new EBox::Menu::Item(
-                'url' => 'Users/Composite/Settings',
-                'text' => __('LDAP Settings')));
-        }
+
+        $folder->add(new EBox::Menu::Item(
+                    'url' => 'Users/Composite/Settings',
+                    'text' => __('LDAP Settings')));
+
         if ($mode eq 'master') {
             $folder->add(new EBox::Menu::Item(
                         'url' => 'Users/Composite/SlaveInfo',
@@ -2639,6 +2644,13 @@ sub _setupSlaveLDAP
     my ($self) = @_;
 
     my ($ldap, $dn) = $self->_connRemoteLDAP();
+
+    # Save LDAP dn in Mode
+    my $model = $self->model('Mode');
+    my $row = $model->row();
+    $row->elementByName('dn')->setValue($dn);
+    $row->store();
+
     $self->_registerHostname($ldap, $dn);
     $self->_getCertificates($ldap, $dn);
     $self->_setupReplication($dn);
@@ -3087,28 +3099,23 @@ sub _setupNSSPAM
 {
     my ($self) = @_;
 
-    my @array = ();
+    my @array;
     my $umask = EBox::Config::configkey('dir_umask');
-    push(@array, 'umask' => $umask);
+    push (@array, 'umask' => $umask);
 
     $self->writeConfFile(AUTHCONFIGTMPL, 'usersandgroups/acc-ebox.mas',
                \@array);
 
-    EBox::Sudo::root('auth-client-config -t nss -p ebox');
-
-    my $typeFiles = 'pam-password pam-auth pam-session pam-account';
-
-    system("auth-client-config -t $typeFiles -p ebox -s");
-    my $pamEnabled = not $?;
     my $enablePam = $self->model('PAM')->enable_pamValue();
+    my @cmds;
+    push (@cmds, 'auth-client-config -a -p ebox');
 
-    if ($pamEnabled != $enablePam) {
-        if ($enablePam) {
-            EBox::Sudo::root("auth-client-config -t $typeFiles -p ebox");
-        } else {
-            EBox::Sudo::root("auth-client-config -t $typeFiles -p ebox -r");
-        }
+    unless ($enablePam) {
+        push (@cmds, 'auth-client-config -a -p ebox -r');
     }
+
+    push (@cmds, 'auth-client-config -t nss -p ebox');
+    EBox::Sudo::root(@cmds);
 }
 
 1;

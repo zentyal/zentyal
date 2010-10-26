@@ -80,24 +80,31 @@ sub _table
 {
 
     my ($self) = @_;
+    my $users = $self->parentModule();
+    my @tableDesc = ();
 
-    my @tableDesc = (
-        new EBox::Types::Boolean(
-            fieldName => 'enable_pam',
-            printableName => __('Enable PAM'),
-            defaultValue => 0,
-            editable => 1,
-            help => __('Make LDAP users have system account.')
-        ),
-        new EBox::Types::Select(
-            fieldName => 'login_shell',
-            printableName => __('Default login shell'),
-            disableCache => 1,
-            populate => \&validShells,
-            editable => 1,
-            help => __('This will apply only to new users from now on.')
-        ),
-    );
+    push (@tableDesc,
+            new EBox::Types::Boolean(
+                fieldName => 'enable_pam',
+                printableName => __('Enable PAM'),
+                defaultValue => 0,
+                editable => 1,
+                help => __('Make LDAP users have system account.')
+                )
+         );
+
+    unless ( $users->mode eq 'slave' ) {
+        push(@tableDesc,
+                new EBox::Types::Select(
+                    fieldName => 'login_shell',
+                    printableName => __('Default login shell'),
+                    disableCache => 1,
+                    populate => \&validShells,
+                    editable => 1,
+                    help => __('This will apply only to new users from now on.')
+                    )
+            );
+    }
 
     my $dataForm = {
         tableName           => 'PAM',
