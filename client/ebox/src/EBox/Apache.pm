@@ -609,7 +609,7 @@ sub certificates
 
     return [
             {
-             service =>  __('Zentyal web server'),
+             service =>  __('Zentyal Administration Web Server'),
              path    =>  '/var/lib/ebox/conf/ssl/ssl.pem',
              user => 'ebox',
              group => 'ebox',

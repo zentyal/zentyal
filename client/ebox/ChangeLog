@@ -1,3 +1,5 @@
+HEAD
+	+ Rename service certificate to Zentyal Administration Web Server
 2.0.6
 	+ Use mod dependencies as default restore dependencies
 	+ Fixed dependencies in events module
