@@ -12,6 +12,7 @@
     $quarantine_path
     $roaming
     @shares
+    $guest_shares
     $antivirus
     %antivirus_exceptions
     $recycle
@@ -52,13 +53,11 @@ use EBox::Gettext;
  ldap admin dn = <% $ldap->{'rootdn'} %>
  map acl inherit = Yes
  printing = cups
-
 % if ($pdc) {
  encrypt passwords = Yes
  obey pam restrictions = No
  ldap passwd sync = Yes
  mangling method = hash2
-
  logon script = logon.bat
  logon drive = <% $drive %>
  logon home =
@@ -67,7 +66,6 @@ use EBox::Gettext;
 % } else {
  logon path =
 % }
-
  domain logons = Yes
  os level = 65
  preferred master = Yes
@@ -79,6 +77,9 @@ use EBox::Gettext;
  add user to group script = /usr/sbin/smbldap-groupmod -m "%u" "%g"
  delete user from group script = /usr/sbin/smbldap-groupmod -x "%u" "%g"
  set primary group script = /usr/sbin/smbldap-usermod -g "%g" "%u"
+% if ($guest_shares) {
+ security = share
+% }
 
 [netlogon]
  path = /home/samba/netlogon/

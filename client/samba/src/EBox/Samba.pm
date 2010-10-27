@@ -512,7 +512,16 @@ sub _setConf
     push(@array, 'roaming' => $self->roamingProfiles());
     push(@array, 'backup_path' => EBox::Config::conf() . '/backups');
     push(@array, 'quarantine_path' => EBox::Config::var() . '/lib/ebox/quarantine');
-    push(@array, 'shares' => $self->shares());
+    my $shares = $self->shares();
+    push(@array, 'shares' => $shares);
+    my $guestShares = 0;
+    foreach my $share (@{$shares}) {
+        if ($share->{'guest'}) {
+            $guestShares = 1;
+            last;
+        }
+    }
+    push(@array, 'guest_shares' => $guestShares);
     push(@array, 'antivirus' => $self->defaultAntivirusSettings());
     push(@array, 'antivirus_exceptions' => $self->antivirusExceptions());
     push(@array, 'recycle' => $self->defaultRecycleSettings());
