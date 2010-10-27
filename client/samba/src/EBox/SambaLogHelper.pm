@@ -79,7 +79,7 @@ sub processLine # (file, line, logger)
     my $timestamp = $date . ' ' . (${[localtime(time)]}[5] + 1900);
     $dataToInsert{timestamp} = $timestamp;
 
-    if ($message =~ /^ALERT - Scan result: '(.*?)' infected with virus '(.*?)', client: '[^a-zA-Z0-9]*(.*?)'$/) {
+    if ($message =~ /^ALERT - Scan result: '(.*?)' infected with virus '(.*?)', client: '[^0-9]*(.*?)'$/) {
         $dataToInsert{event} = 'virus';
         $dataToInsert{filename} = $1;
         $dataToInsert{virus} = $2;

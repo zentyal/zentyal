@@ -1,3 +1,5 @@
+HEAD
+	+ Fixed log retrieving for quarantine alerts
 2.0.2
 	+ Fixed problems in backup restoration
 	+ Bug fix: support users and groups with spaces and so on in ACLs
