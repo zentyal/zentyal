@@ -1,8 +1,13 @@
-Install enviroment:
+Setup the build enviroment
+--------------------------
+
 1. Download Strawberry Perl http://strawberryperl.com/
 2. Download PAR http://par.perl.org/wiki/Main_Page
 3. Execute "cpan PAR::Packer"
 
+
+Configuration files paths
+-------------------------
 
 Pidgin:
 Path:
