@@ -1,7 +1,13 @@
 PREFIX = /usr/local
 DATADIR = $(PREFIX)/share/zentyal-desktop
 SBINDIR = $(PREFIX)/sbin
+ifeq ($(PREFIX),/usr/local)
+    LIBPERL = $(PREFIX)/lib/site_perl
+else
+    LIBPERL = $(PREFIX)/share/perl5
+endif
 EXPORT = zentyal-desktop-build
+
 
 distclean:
 	rm -rf $(EXPORT)
@@ -11,6 +17,7 @@ distclean:
 
 export: distclean
 	svn export . $(EXPORT)
+	svn export ../common $(EXPORT)/common
 
 dist: export
 	tar cvvzf zentyal-desktop.tar.gz $(EXPORT)
@@ -32,6 +39,8 @@ install:
 	install -m755 ekiga-launcher $(DESTDIR)$(DATADIR)
 	install -m644 ldap.conf $(DESTDIR)$(DATADIR)
 	install -m644 zentyal.pam $(DESTDIR)$(DATADIR)
+	install -d $(DESTDIR)$(LIBPERL)/ZentyalDesktop
+	install -m644 common/ZentyalDesktop/LDAP.pm $(DESTDIR)$(LIBPERL)/ZentyalDesktop
 	install -d $(DESTDIR)/etc/zentyal-desktop
 	install -m644 zentyal-desktop.conf $(DESTDIR)/etc/zentyal-desktop
 
@@ -39,4 +48,5 @@ uninstall:
 	rm -f $(DESTDIR)$(SBINDIR)/zentyal-setup-client
 	rm -rf $(DESTDIR)/etc/zentyal-desktop
 	rm -rf $(DESTDIR)$(DATADIR)
+	rm -rf $(DESTDIR)$(LIBPERL)/ZentyalDesktop
 
