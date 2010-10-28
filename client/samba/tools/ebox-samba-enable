@@ -86,10 +86,6 @@ exit 0;
 
 /usr/share/ebox-samba/ebox-samba-ldap fix-sids
 
-# change group ownership of quarantine_dir to __USERS__
-QUARANTINE_DIR=/var/lib/ebox/quarantine/
-chown root.__USERS__  $QUARANTINE_DIR || true
-
 # This might fail if the fs does not support quotas
 invoke-rc.d quota restart
 

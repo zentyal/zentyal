@@ -12,9 +12,6 @@ case "$1" in
         if [ ! -d $QUARANTINE_DIR ]; then
             mkdir -p $QUARANTINE_DIR
         fi
-        if getent group __USERS__ >/dev/null; then
-            chown root:__USERS__  $QUARANTINE_DIR
-        fi
         chmod 730 $QUARANTINE_DIR
 
         # migrate data if needed

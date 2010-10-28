@@ -549,6 +549,9 @@ sub _setConf
     # Create samba shares
     $self->model('SambaShares')->createDirs();
 
+    # Change group ownership of quarantine_dir to __USERS__
+    my $quarantine_dir = EBox::Config::var() . '/lib/ebox/quarantine';
+    EBox::Sudo::silentRoot("chown root:__USERS__  $quarantine_dir");
 }
 
 
