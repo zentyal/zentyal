@@ -65,7 +65,10 @@ sub servicesInfo
     }
 
     if ($hasJabberAccount) {
-        $services->{Jabber} = {};
+        my $domain = $baseDn;
+        $domain =~ s/,dc=/\./;
+        $domain =~ s/dc=//;
+        $services->{Jabber} = { domain => $domain };
     }
 
     if ($hasVoIPAccount) {
