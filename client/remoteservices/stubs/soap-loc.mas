@@ -11,6 +11,7 @@
 </%args>
 <IfModule mod_ssl.c>
    SSLCACertificatePath <% $caPath %>
+   SSLInsecureRenegotiation on
 </IfModule>
 <Location /soap>
    SetHandler perl-script

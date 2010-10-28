@@ -1,4 +1,6 @@
 HEAD
+	+ Allow insecure clients (bad renegotiation CVE-2009-3555) until
+	  Zentyal Cloud clients have the problem fixed.
 	+ Do not save Apache module in module restarts as GUI already do
 	  it at the end of saving modules stage
 	+ Set random times for cron tasks
