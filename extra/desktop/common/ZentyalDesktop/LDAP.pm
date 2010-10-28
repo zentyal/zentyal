@@ -35,7 +35,7 @@ sub new
     return $self;
 }
 
-sub info
+sub servicesInfo
 {
     my ($self) = @_;
 
@@ -47,22 +47,32 @@ sub info
     my $hasZarafaAccount = $self->isObjectClass($dn, 'zarafaAccount');
     my $hasSambaAccount = $self->isObjectClass($dn, 'sambaSamAccount');
     my $hasJabberAccount = $self->isObjectClass($dn, 'userJabberAccount');
+    my $hasVoIPAccount = $self->isObjectClass($dn, 'AsteriskSIPUser');
 
-    my $info = {
-        user => $USER,
-        server => $self->{server},
-        services => {
-            mail => (defined $mailAccount) and ($mailAccount ne ''),
-            zarafa => $hasZarafaAccount,
-            samba => $hasSambaAccount,
-            jabber => $hasJabberAccount,
-        },
-        mailAccount => $mailAccount,
-        # TODO: fill this
-        groupShares => [],
-    };
+    my $services = {};
 
-    return $info;
+    if ((defined $mailAccount) and ($mailAccount ne '')) {
+        $services->{Mail} = { account => $mailAccount };
+    }
+
+    if ($hasZarafaAccount) {
+        $services->{Zarafa} = {};
+    }
+
+    if ($hasSambaAccount) {
+        my $groupShares = []; # FIXME: fill this
+        $services->{Samba} = { groupShares => $groupShares };
+    }
+
+    if ($hasJabberAccount) {
+        $services->{Jabber} = {};
+    }
+
+    if ($hasVoIPAccount) {
+        $services->{VoIP} = {};
+    }
+
+    return $services;
 }
 
 # Method: search
