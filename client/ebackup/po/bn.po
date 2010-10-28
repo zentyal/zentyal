@@ -1,0 +1,425 @@
+# Bengali translations for ebox-ebackup package.
+# Copyright (C) 2010 eBox Technologies S.L.
+# This file is distributed under the same license as the ebox-ebackup package.
+# Automatically generated, 2010.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: ebox-ebackup 2.0.3"
+"Report-Msgid-Bugs-To: developers@zentyal.org\n"
+"POT-Creation-Date: 2010-08-26 00:53+0200\n"
+"PO-Revision-Date: 2010-08-26 00:53+0200\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: none\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: src/EBox/Event/Watcher/EBackup.pm:123 src/EBox/EBackup.pm:72
+#: src/EBox/Composite/Remote.pm:65
+msgid "Backup"
+msgstr ""
+
+#: src/EBox/Event/Watcher/EBackup.pm:141
+msgid "Check if Zentyal backup was not successful."
+msgstr ""
+
+#: src/EBox/Model/RemoteRestoreLogs.pm:88 src/EBox/Model/RemoteFileList.pm:143
+#: src/EBox/Model/RemoteStatus.pm:119 src/EBox/Model/RemoteRestoreConf.pm:74
+msgid "There are not backed up files yet"
+msgstr ""
+
+#: src/EBox/Model/RemoteRestoreLogs.pm:107
+#: src/EBox/Model/RemoteFileList.pm:166 src/EBox/Model/RemoteRestoreConf.pm:93
+msgid "Backup Date"
+msgstr ""
+
+#: src/EBox/Model/RemoteRestoreLogs.pm:118
+msgid "Restore logs database"
+msgstr ""
+
+#: src/EBox/Model/RemoteRestoreLogs.pm:125
+msgid "Restores the Zentyal logs found in the selected backup"
+msgstr ""
+
+#: src/EBox/Model/RemoteFileList.pm:162
+msgid "File"
+msgstr ""
+
+#: src/EBox/Model/RemoteFileList.pm:177
+msgid "Restore Files"
+msgstr ""
+
+#: src/EBox/Model/RemoteFileList.pm:178
+msgid "file restore operation"
+msgstr ""
+
+#: src/EBox/Model/RemoteFileList.pm:204
+msgid "File already exists if you continue the current will be deleted"
+msgstr ""
+
+#: src/EBox/Model/RemoteFileList.pm:220
+msgid "File restored successfully"
+msgstr ""
+
+#: src/EBox/Model/RemoteFileList.pm:269
+#, perl-brace-format
+msgid "Remote URL to be used with duplicity for manual restores: {url}"
+msgstr ""
+
+#: src/EBox/Model/RemoteStatus.pm:138 src/EBox/Model/RemoteExcludes.pm:76
+msgid "Type"
+msgstr ""
+
+#: src/EBox/Model/RemoteStatus.pm:142
+msgid "Date"
+msgstr ""
+
+#: src/EBox/Model/RemoteStatus.pm:149
+msgid "Remote Backup Status"
+msgstr ""
+
+#: src/EBox/Model/RemoteStatus.pm:150
+msgid "backup"
+msgstr ""
+
+#: src/EBox/Model/RemoteRestoreConf.pm:104
+msgid "Restore Zentyal configuration from backup"
+msgstr ""
+
+#: src/EBox/Model/RemoteRestoreConf.pm:111
+msgid "Loads the configuration found in the backup"
+msgstr ""
+
+#: src/EBox/Model/RemoteRestoreConf.pm:113
+msgid "Please wait..."
+msgstr ""
+
+#: src/EBox/Model/RemoteRestoreConf.pm:169
+#, perl-brace-format
+msgid ""
+"Configuration backup not found in backup for {d}. Maybe you could try "
+"another date?"
+msgstr ""
+
+#: src/EBox/Model/RemoteExcludes.pm:82
+msgid "Exclude or Include"
+msgstr ""
+
+#: src/EBox/Model/RemoteExcludes.pm:93
+msgid "Includes and Excludes"
+msgstr ""
+
+#: src/EBox/Model/RemoteExcludes.pm:94
+msgid "exclude or include"
+msgstr ""
+
+#: src/EBox/Model/RemoteExcludes.pm:102
+msgid ""
+"A file or directory is included or excluded according the first match. A "
+"directory match is applied to all it contents. Files not explicitly excluded "
+"or included are included"
+msgstr ""
+
+#: src/EBox/Model/RemoteExcludes.pm:117
+msgid "Exclude path"
+msgstr ""
+
+#: src/EBox/Model/RemoteExcludes.pm:121
+msgid "Exclude by regular expression"
+msgstr ""
+
+#: src/EBox/Model/RemoteExcludes.pm:125
+msgid "Include Path"
+msgstr ""
+
+#: src/EBox/Model/RemoteExcludes.pm:147
+msgid "exclude path"
+msgstr ""
+
+#: src/EBox/Model/RemoteExcludes.pm:160
+msgid "exclude path regular expression"
+msgstr ""
+
+#: src/EBox/Model/RemoteExcludes.pm:162
+msgid "Incorrect regular expression"
+msgstr ""
+
+#: src/EBox/Model/RemoteExcludes.pm:183
+msgid "include path"
+msgstr ""
+
+#: src/EBox/Model/RemoteSettings.pm:161
+msgid "Method"
+msgstr ""
+
+#: src/EBox/Model/RemoteSettings.pm:167
+msgid "Host or destination"
+msgstr ""
+
+#: src/EBox/Model/RemoteSettings.pm:169
+msgid "If the selected method is file system, only set the target directory"
+msgstr ""
+
+#: src/EBox/Model/RemoteSettings.pm:173
+msgid "User"
+msgstr ""
+
+#: src/EBox/Model/RemoteSettings.pm:178
+msgid "Password"
+msgstr ""
+
+#: src/EBox/Model/RemoteSettings.pm:183
+msgid "Encryption"
+msgstr ""
+
+#: src/EBox/Model/RemoteSettings.pm:188 src/EBox/Model/RemoteSettings.pm:240
+#: src/EBox/Model/RemoteSettings.pm:477
+msgid "Disabled"
+msgstr ""
+
+#: src/EBox/Model/RemoteSettings.pm:193
+msgid "Symmetric Key"
+msgstr ""
+
+#: src/EBox/Model/RemoteSettings.pm:198
+msgid "GPG Key"
+msgstr ""
+
+#: src/EBox/Model/RemoteSettings.pm:209
+msgid "Full Backup Frequency"
+msgstr ""
+
+#: src/EBox/Model/RemoteSettings.pm:214 src/EBox/Model/RemoteSettings.pm:245
+msgid "Daily"
+msgstr ""
+
+#: src/EBox/Model/RemoteSettings.pm:219 src/EBox/Model/RemoteSettings.pm:250
+msgid "Weekly"
+msgstr ""
+
+#: src/EBox/Model/RemoteSettings.pm:225
+msgid "Monthly"
+msgstr ""
+
+#: src/EBox/Model/RemoteSettings.pm:235
+msgid "Incremental Backup Frequency"
+msgstr ""
+
+#: src/EBox/Model/RemoteSettings.pm:261
+msgid "Backup process starts at"
+msgstr ""
+
+#: src/EBox/Model/RemoteSettings.pm:267
+msgid "Keep previous full copies"
+msgstr ""
+
+#: src/EBox/Model/RemoteSettings.pm:272
+msgid "maximum number"
+msgstr ""
+
+#: src/EBox/Model/RemoteSettings.pm:280
+msgid "no older than"
+msgstr ""
+
+#: src/EBox/Model/RemoteSettings.pm:294
+msgid "General Configuration"
+msgstr ""
+
+#: src/EBox/Model/RemoteSettings.pm:299
+msgid "General backup server configuration updated"
+msgstr ""
+
+#: src/EBox/Model/RemoteSettings.pm:312
+msgid "on Monday"
+msgstr ""
+
+#: src/EBox/Model/RemoteSettings.pm:313
+msgid "on Tuesday"
+msgstr ""
+
+#: src/EBox/Model/RemoteSettings.pm:314
+msgid "on Wednesday"
+msgstr ""
+
+#: src/EBox/Model/RemoteSettings.pm:315
+msgid "on Thursday"
+msgstr ""
+
+#: src/EBox/Model/RemoteSettings.pm:316
+msgid "on Friday"
+msgstr ""
+
+#: src/EBox/Model/RemoteSettings.pm:317
+msgid "on Saturday"
+msgstr ""
+
+#: src/EBox/Model/RemoteSettings.pm:318
+msgid "on Sunday"
+msgstr ""
+
+#: src/EBox/Model/RemoteSettings.pm:331
+#, perl-brace-format
+msgid "on the {mday}th"
+msgstr ""
+
+#: src/EBox/Model/RemoteSettings.pm:339
+msgid "on the last day"
+msgstr ""
+
+#: src/EBox/Model/RemoteSettings.pm:494
+#, perl-brace-format
+msgid ""
+"{oi}{brand}{ci} is a quick and safe remote location to store the data you "
+"keep on your Zentyal servers. Purchase the backup storage space you need at "
+"the {ohref}Zentyal on-line store{chref}."
+msgstr ""
+
+#: src/EBox/Model/RemoteSettings.pm:511
+msgid "1 week"
+msgstr ""
+
+#: src/EBox/Model/RemoteSettings.pm:515
+msgid "2 weeks"
+msgstr ""
+
+#: src/EBox/Model/RemoteSettings.pm:519
+msgid "3 weeks"
+msgstr ""
+
+#: src/EBox/Model/RemoteSettings.pm:523
+msgid "1 month"
+msgstr ""
+
+#: src/EBox/Model/RemoteSettings.pm:527
+msgid "2 months"
+msgstr ""
+
+#: src/EBox/Model/RemoteSettings.pm:531
+msgid "3 months"
+msgstr ""
+
+#: src/EBox/Model/RemoteSettings.pm:535
+msgid "4 months"
+msgstr ""
+
+#: src/EBox/Model/RemoteSettings.pm:539
+msgid "6 months"
+msgstr ""
+
+#: src/EBox/Model/RemoteSettings.pm:543
+msgid "9 months"
+msgstr ""
+
+#: src/EBox/Model/RemoteSettings.pm:547
+msgid "1 year"
+msgstr ""
+
+#: src/EBox/Model/RemoteSettings.pm:551
+msgid "1 year and half"
+msgstr ""
+
+#: src/EBox/Model/RemoteSettings.pm:555
+msgid "2 years"
+msgstr ""
+
+#: src/EBox/Model/RemoteSettings.pm:559
+msgid "3 years"
+msgstr ""
+
+#: src/EBox/Model/RemoteSettings.pm:591
+msgid "Destination must be a relative directory"
+msgstr ""
+
+#: src/EBox/Model/RemoteSettings.pm:646
+msgid "The target parameter that must be like 'other.host[:port]/some_dir"
+msgstr ""
+
+#: src/EBox/Model/RemoteSettings.pm:657 src/EBox/Model/RemoteSettings.pm:691
+msgid "target"
+msgstr ""
+
+#: src/EBox/Model/RemoteSettings.pm:659
+msgid "Must be a like 'other.host[:port]/some_dir'"
+msgstr ""
+
+#: src/EBox/Model/RemoteSettings.pm:666 src/EBox/Model/RemoteSettings.pm:701
+msgid "host"
+msgstr ""
+
+#: src/EBox/Model/RemoteSettings.pm:668 src/EBox/Model/RemoteSettings.pm:703
+msgid "port"
+msgstr ""
+
+#: src/EBox/Model/RemoteSettings.pm:670
+msgid "directory"
+msgstr ""
+
+#: src/EBox/Model/RemoteSettings.pm:680
+msgid ""
+"The RSYNC target parameter that must be like 'other.host[:port]/"
+"relative_path' or 'other.host[:port]/absolute_path'"
+msgstr ""
+
+#: src/EBox/Model/RemoteSettings.pm:694
+msgid ""
+"Must be a like 'other.host[:port]/relative_path' or 'other.host[:port]/"
+"absolute_path'"
+msgstr ""
+
+#: src/EBox/Model/RemoteSettings.pm:706
+msgid "absolute directory"
+msgstr ""
+
+#: src/EBox/Model/RemoteSettings.pm:708
+msgid "relative directory"
+msgstr ""
+
+#: src/EBox/Model/RemoteSettings.pm:719
+msgid ""
+"File system method needs a target parameter that should be a directory path"
+msgstr ""
+
+#: src/EBox/Model/RemoteSettings.pm:724 src/EBox/Model/RemoteSettings.pm:728
+msgid "Directory for backup"
+msgstr ""
+
+#: src/EBox/Model/RemoteSettings.pm:731
+msgid "File exists and it is not a directory"
+msgstr ""
+
+#: src/EBox/Model/RemoteSettings.pm:751
+msgid "Incremental backup must be more frequent than full backup"
+msgstr ""
+
+#: src/EBox/Model/RemoteSettings.pm:763
+msgid ""
+"General backup server configuration updated. SCP method selected; "
+"<em>remember</em> to add your target host to the list of known hosts by SSH"
+msgstr ""
+
+#: src/EBox/EBackup.pm:197
+#, perl-brace-format
+msgid "File {f} not found in backup for {d}, try a later date"
+msgstr ""
+
+#: src/EBox/EBackup.pm:204
+msgid ""
+"No backup archives found. Maybe they were deleted?. Run '/etc/init.d/ebox "
+"ebackup restart' to refresh backup's information."
+msgstr ""
+
+#: src/EBox/EBackup/DBRestore.pm:46
+#, perl-brace-format
+msgid ""
+"Logs backup data not found in backup for {d}. Maybe you could try another "
+"date?"
+msgstr ""
+
+#: src/EBox/Composite/ServicesRestore.pm:64
+msgid "Services restore"
+msgstr ""
+
+#: src/EBox/Composite/RemoteGeneral.pm:65
+msgid "Configuration and Status"
+msgstr ""

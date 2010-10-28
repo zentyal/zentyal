@@ -165,6 +165,7 @@ sub _unset_packagedomain
 
 my $langs;
 $langs->{'an_ES.UTF-8'} = 'Aragonés';
+$langs->{'bn_BD.UTF-8'} = 'Bengali';
 $langs->{'bg_BG.UTF-8'} = 'Български';
 $langs->{'es_ES.UTF-8'} = 'Español';
 $langs->{'et_EE.UTF-8'} = 'Eesti';
@@ -191,6 +192,7 @@ $langs->{'ru_RU.UTF-8'} = 'Русский';
 $langs->{'sv_SE.UTF-8'} = 'Svenska';
 $langs->{'tr_TR.UTF-8'} = 'Türkçe';
 $langs->{'uk_UA.UTF-8'} = 'украї́нська';
+$langs->{'zh_CN.UTF-8'} = '汉字';
 $langs->{'zh_TW.UTF-8'} = '繁體中文';
 
 # Method:  langname
