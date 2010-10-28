@@ -19,6 +19,7 @@ use strict;
 use warnings;
 
 use Win32::TieRegistry(Delimiter=>"#", ArrayValues=>0);
+use Win32::Process;
 
 $Registry->Delimiter("/");
 my $VERSION= $Registry->{"LMachine/SOFTWARE/Mozilla/Mozilla Firefox/CurrentVersion"}
@@ -27,17 +28,28 @@ my $VERSION= $Registry->{"LMachine/SOFTWARE/Mozilla/Mozilla Firefox/CurrentVersi
 my $EXEC_PATH= $Registry->{"LMachine/SOFTWARE/Mozilla/Mozilla Firefox/$VERSION/Main/PathToExe"}
     or die "Error: $^E\n";
 
-system('"' . $EXEC_PATH . '-CreateProfile Default\"');
-
-my $args = '-CreateProfile Default';
+my $args = '-CreateProfile Default2';
 my $process;
 Win32::Process::Create($process,$EXEC_PATH, "$EXEC_PATH $args",0,0,'.') 
     or die "Error: $^E\n";
 
 
-
-
-my $USER = $ENV{USERNAME};
 my $SERVER = '192.168.1.135'; # FIXME: unhardcode this
+my $ICON = "iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABmJLR0QA/gD+AP7rGNSCAAAACXBIWXMAAABIAAAASABGyWs+AAAACXZwQWcAAAAQAAAAEABcxq3DAAAA9UlEQVQ4y7WRMU7DQBBF32xW0FBCzAXiUJAcgHCQcAUUzFli5Q5AxyEIUupEAswF4khUNBTgpcGj3cR2IhC/+jt//8zfWfgj5Obh1NWJF+cLWY47tfrx9atYgOFgzsfnO/utAxXvHvvKD0dPGIxndawmJwDYsnQ/O6uN6YDVpKvn9uhZuTYYDuaB6XbaU95CApMPW2VYxxfw9hP5lwloTtA0HdCF/Qu2/vM2neW446pQGn19nQdLzNNYO0dJtjGtKAraVy8bdcMOyNMYKQ+uCIbt1CBKMhwgIiCGo8uFata/1ARjDHkaEyUZxu6FDfxIdU+o4gDfVFV7/yoGZqUAAAAASUVORK5CYII=";
+
+
+my $PATH_BOOKMARKS = ' '; # FIXME: search path
+
+open (my $BOOKMARKS, $PATH_BOOKMARKS)
+    or die "Error: $^E\n"
+
+
+
+
+my $bookmarks = join ('', <$BOOKMARKS>);
+
+
+
+
 
 
