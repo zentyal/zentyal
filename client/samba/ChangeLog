@@ -1,5 +1,6 @@
 HEAD
 	+ Fixed quarantine folder permissions
+	+ Don't ask for password in guest shares
 2.0.3
 	+ Bug fix: guest shares now work on Windows clients
 	+ Fixed log retrieving for quarantine alerts

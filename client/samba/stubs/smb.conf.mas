@@ -78,7 +78,7 @@ use EBox::Gettext;
  delete user from group script = /usr/sbin/smbldap-groupmod -x "%u" "%g"
  set primary group script = /usr/sbin/smbldap-usermod -g "%g" "%u"
 % if ($guest_shares) {
- security = share
+ map to guest = Bad User
 % }
 
 [netlogon]

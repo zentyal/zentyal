@@ -551,7 +551,7 @@ sub _setConf
 
     # Change group ownership of quarantine_dir to __USERS__
     my $quarantine_dir = EBox::Config::var() . '/lib/ebox/quarantine';
-    EBox::Sudo::silentRoot("chown root:__USERS__  $quarantine_dir");
+    EBox::Sudo::silentRoot("chown root:__USERS__ $quarantine_dir");
 }
 
 
