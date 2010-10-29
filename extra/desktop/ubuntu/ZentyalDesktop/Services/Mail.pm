@@ -50,3 +50,5 @@ sub configure
 
     unlink ($EVOLUTIONCONF);
 }
+
+1;

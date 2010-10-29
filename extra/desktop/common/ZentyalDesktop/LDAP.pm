@@ -129,7 +129,8 @@ sub search # (args)
 
     unless ($self->{ldap}) {
         my $ldap = new Net::LDAP($self->{ldapurl});
-        $ldap->bind($self->{dn});
+        $ldap->bind();
+        $self->{ldap} = $ldap;
     }
 
     my $result = $self->{ldap}->search(%{$args});
@@ -224,3 +225,5 @@ sub dn
 
     return $self->{dn};
 }
+
+1;

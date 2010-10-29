@@ -32,3 +32,5 @@ sub configure
     system ("cp /usr/share/applications/ekiga.desktop $LOCAL_APPS");
     system ("sed -i 's:^Exec=ekiga:Exec=/usr/share/zentyal-desktop/ekiga-launcher:' $LOCAL_APPS/ekiga.desktop");
 }
+
+1;

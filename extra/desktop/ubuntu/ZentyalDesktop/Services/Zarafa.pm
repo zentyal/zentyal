@@ -21,3 +21,5 @@ sub configure
 
     # TODO: Add firefox bookmark here?
 }
+
+1;

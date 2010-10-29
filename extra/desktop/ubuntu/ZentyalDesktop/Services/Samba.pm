@@ -56,3 +56,5 @@ sub create_desktop_link
     print $FH "URL=smb://$user@$server/$share";
     close ($FH);
 }
+
+1;

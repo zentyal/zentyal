@@ -57,3 +57,5 @@ sub add_conference
 
     system ("sed -i "$regex" $PIDGIN_DIR/blist.xml");
 }
+
+1;
