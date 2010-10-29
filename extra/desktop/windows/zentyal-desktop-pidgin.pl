@@ -17,7 +17,7 @@
 
 use strict;
 use warnings;
-
+use ZentyalDesktop::LDAP;
 use Win32::TieRegistry(Delimiter=>"#", ArrayValues=>0);
 
 $Registry->Delimiter("/");
@@ -25,7 +25,13 @@ my $APPDATA= $Registry->{"CUser/Volatile Environment/APPDATA"}
     or die "Error: $^E\n";
 
 my $USER = $ENV{USERNAME};
-my $SERVER = '192.168.1.135'; # FIXME: unhardcode this
+my $SERVER = $Registry->{"LMachine/SOFTWARE/Zentyal/Zentyal Desktop/SERVER"}
+    or die "Error: $^E\n";
+
+my $ldap = ZentyalDesktop::LDAP->new($SERVER, $USER);
+my $services = $ldap->servicesInfo();
+
+my $DOMAIN = $services -> {'Jabber'} -> {'domain'};
 
 open (my $T_ACCOUNT, '<.\templates\pidgin\accounts.xml')
     or die "Error: $^E\n";
@@ -33,7 +39,7 @@ open (my $T_ACCOUNT, '<.\templates\pidgin\accounts.xml')
 my $account = join ('', <$T_ACCOUNT>);
 
 $account =~ s/USERNAME/$USER/g;
-$account =~ s/ZENTYALDOMAIN/zentyal/g;
+$account =~ s/ZENTYALDOMAIN/$DOMAIN/g;
 $account =~ s/ZENTYALSERVER/$SERVER/g;
 
 open (my $T_BLIST, '<./templates/pidgin/blist.xml')
