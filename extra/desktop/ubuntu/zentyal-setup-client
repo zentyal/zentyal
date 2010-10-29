@@ -23,7 +23,14 @@ then
     exit 1
 fi
 
-sed -i "s/^host .*$//" /etc/ldap.conf
-sed -i "1 i host $SERVER" /etc/ldap.conf
+DC=`ldapsearch -x -s base -h $SERVER '(objectclass=*)' namingContexts |
+    grep ^namingContexts | cut -d' ' -f2-`
+
+sed -i "s/^host .*$/host $SERVER/" /etc/ldap.conf
+sed -i "s/^base .*$/base $DC/" /etc/ldap.conf
+for i in Users Computers Groups
+do
+    sed -i "s/ou=$i,.*one$/ou=$i,$DC?one/" /etc/ldap.conf
+done
 
 auth-client-config -a -p zentyal
