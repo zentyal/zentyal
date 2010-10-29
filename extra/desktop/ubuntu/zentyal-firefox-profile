@@ -1,7 +1,7 @@
 #!/bin/bash
 
 SERVER=$1
-DC=$2
+ADD_ZARAFA=$2
 
 # Create firefox default profile and get its path
 BOOKMARKS_FILE=`firefox -CreateProfile default 2>&1 | cut -d\' -f4 | sed 's/prefs.js$/bookmarks.html/'`
@@ -24,8 +24,7 @@ DESC="Zentyal User Corner"
 add_bookmark
 
 # Zarafa bookmark
-HAS_EGW_ACCOUNT=`ldapsearch -x -b "uid=$USER,ou=Users,$DC" -h $SERVER | grep ^zarafaAccount`
-if [ -n "$HAS_EGW_ACCOUNT" ]
+if [ -n "$ADD_ZARAFA" ]
 then
     URL="http://$SERVER/webaccess"
     DESC="Zarafa"

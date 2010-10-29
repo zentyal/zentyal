@@ -60,7 +60,16 @@ sub servicesInfo
     }
 
     if ($hasSambaAccount) {
-        my $groupShares = []; # FIXME: fill this
+        my $groupShares = {};
+        foreach my $group ($self->groups()) {
+            my $groupDn = "uid=$group,ou=Users,$baseDn";
+            my $share = $self->getAttribute($groupDn, 'displayResource');
+            if ($share) {
+                my $desc = $self->getAttribute($groupDn, 'description');
+                $groupShares->{$group} = { share => $share,
+                                           desc  => $desc };
+            }
+        }
         $services->{Samba} = { groupShares => $groupShares };
     }
 
@@ -76,6 +85,34 @@ sub servicesInfo
     }
 
     return $services;
+}
+
+# Method: groups
+#
+#       Returns an array containing all the groups
+#
+# Returns:
+#
+#       array - holding the groups
+#
+sub groups
+{
+    my ($self) = @_;
+
+    my $baseDn = $self->dn();
+
+    my %args = (
+                base => "ou=Groups,$baseDn",
+                filter => '(objectclass=*)',
+                scope => 'one',
+                attrs => ['cn']
+               );
+
+    my $result = $self->ldap->search(\%args);
+
+    my @groups = map { $_->get_value('cn') } $result->entries();
+
+    return @groups;
 }
 
 # Method: search
