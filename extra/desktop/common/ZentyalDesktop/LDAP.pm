@@ -35,6 +35,20 @@ sub new
     return $self;
 }
 
+sub connect
+{
+    my ($self) = @_;
+
+    unless ($self->{ldap}) {
+        my $ldap = new Net::LDAP($self->{ldapurl});
+        $ldap->bind();
+        $self->{ldap} = $ldap;
+    }
+
+    return $self->{ldap};
+}
+
+
 sub servicesInfo
 {
     my ($self) = @_;
@@ -75,8 +89,8 @@ sub servicesInfo
 
     if ($hasJabberAccount) {
         my $domain = $baseDn;
-        $domain =~ s/,dc=/\./;
-        $domain =~ s/dc=//;
+        $domain =~ s/,dc=/\./g;
+        $domain =~ s/dc=//g;
         $services->{Jabber} = { domain => $domain };
     }
 
@@ -108,34 +122,11 @@ sub groups
                 attrs => ['cn']
                );
 
-    my $result = $self->ldap->search(\%args);
+    my $result = $self->{ldap}->search(%args);
 
     my @groups = map { $_->get_value('cn') } $result->entries();
 
     return @groups;
-}
-
-# Method: search
-#
-#       Performs a search in the LDAP directory using Net::LDAP.
-#
-# Parameters:
-#
-#       args - arguments to pass to Net::LDAP->search()
-#
-sub search # (args)
-{
-    my ($self, $args) = @_;
-
-    unless ($self->{ldap}) {
-        my $ldap = new Net::LDAP($self->{ldapurl});
-        $ldap->bind();
-        $self->{ldap} = $ldap;
-    }
-
-    my $result = $self->{ldap}->search(%{$args});
-
-    return $result;
 }
 
 # Method: isObjectClass
@@ -160,7 +151,8 @@ sub isObjectClass
             scope  => 'base'
             );
 
-    my $result = $self->search(\%attrs);
+    my $ldap = $self->connect();
+    my $result = $ldap->search(%attrs);
 
     if ($result->count ==  1) {
         return 1;
@@ -187,8 +179,10 @@ sub getAttribute # (dn, attribute);
 {
     my ($self, $dn, $attribute) = @_;
 
+    my $ldap = $self->connect();
+
     my %args = (base => $dn, filter => "$attribute=*");
-    my $result = $self->search(\%args);
+    my $result = $ldap->search(%args);
 
     return undef unless ($result->count > 0);
 
@@ -208,8 +202,7 @@ sub dn
     my ($self) = @_;
 
     if(!defined($self->{dn})) {
-        my $ldap = new Net::LDAP($self->{ldapurl});
-        $ldap->bind();
+        my $ldap = $self->connect();
 
         my %args = (
             'base' => '',
