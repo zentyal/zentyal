@@ -44,12 +44,6 @@ open (my $BOOKMARKS, $PATH_BOOKMARKS)
     or die "Error: $^E\n"
 
 
-
-
 my $bookmarks = join ('', <$BOOKMARKS>);
 
-
-
-
-
-
+$bookmarks =~ /PERSONAL_TOOLBAR_FOLDER/{N;N;a\<DT><A HREF=\"$URL\" ICON=\"data:image/png;base64,$ICON_DATA\">$DESC</A>}/;
