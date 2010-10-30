@@ -15,7 +15,7 @@
 !include LogicLib.nsh
 
 !define MUI_ABORTWARNING
-!define MUI_ICON "zentyal.ico"
+!define MUI_ICON "res\zentyal.ico"
 
 !insertmacro MUI_LANGUAGE "English"
 ; MUI end ------
