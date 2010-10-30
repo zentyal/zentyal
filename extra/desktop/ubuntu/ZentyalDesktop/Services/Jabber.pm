@@ -15,6 +15,10 @@
 
 package ZentyalDesktop::Services::Jabber;
 
+use ZentyalDesktop::Config qw(SKEL_DIR);
+
+use Text::Template;
+
 sub configure
 {
     my ($server, $user, $data) = @_;
@@ -22,40 +26,48 @@ sub configure
     my $domain = $data->{domain};
 
     my $HOME = $ENV{HOME};
-    my $PIDGIN_DIR = "$HOME/.zentyal-desktop/pidgin";
 
     # Replace variables in pidgin config template
-    system ("sed -i \"s/USERNAME/$user/g\" $PIDGIN_DIR/accounts.xml");
-    system ("sed -i \"s/ZENTYALDOMAIN/$domain/g\" $PIDGIN_DIR/accounts.xml");
-    system ("sed -i \"s/ZENTYALSERVER/$server/g\" $PIDGIN_DIR/accounts.xml");
-    system ("sed -i \"s/USERNAME/$user/g\" $PIDGIN_DIR/blist.xml");
-    system ("sed -i \"s/ZENTYALDOMAIN/$domain/g\" $PIDGIN_DIR/blist.xml");
 
-    my @groups = split (' ', `id -G`);
+    my @gids = split (' ', `id -G`);
 
     # Insert group conferences in buddy list
-    for my $gid (@groups) {
+    my $groups = '';
+    for my $gid (@gids) {
         if ($gid >= 2001) {
             my (undef, undef, undef, $groupname) = getgrgid($gid);
-            add_conference($server, $user, $domain, $groupname);
+            $groups .= _groupStr($server, $user, $domain, $groupname);
         }
     }
 
-    system ("mv $PIDGIN_DIR $HOME/.purple");
+    my $confDir = "$HOME/.purple";
+    mkdir ($confDir);
+
+    my $template = new Text::Template(SOURCE => SKEL_DIR . '/pidgin/accounts.xml');
+    $template->fill_in_file("$confDir/accounts.xml",
+                            HASH => { user => $user,
+                                      domain => $domain,
+                                      server => $server });
+
+    my $template = new Text::Template(SOURCE => SKEL_DIR . '/pidgin/blist.xml');
+    $template->fill_in_file("$confDir/blist.xml",
+                            HASH => { user => $user,
+                                      domain => $domain,
+                                      groups => $groups });
 }
 
-sub add_conference
+sub _groupStr
 {
     my ($server, $user, $domain, $group) = @_;
 
-    my $regex = "/<group/a\
+# TODO: Check if conference.$domain should be $server
+    my $group = "/<group/a\
                 <chat proto='prpl-jabber' account='$user@$domain/zentyaluser'>\n\
 \t\t\t<component name='handle'>$user</component>\n\
 \t\t\t<component name='room'>$group</component>\n\
 \t\t\t<component name='server'>conference.$domain</component>\n\
 \t\t</chat>\n";
-
-    system ("sed -i \"$regex\" $PIDGIN_DIR/blist.xml");
+    return $group;
 }
 
 1;

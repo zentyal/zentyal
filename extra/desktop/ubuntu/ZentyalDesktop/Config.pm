@@ -27,8 +27,8 @@ our @EXPORT_OK = qw(SCRIPTS_DIR SKEL_DIR ZENTYAL_DESKTOP_DIR
 
 use constant SCRIPTS_DIR => '/usr/share/zentyal-desktop';
 use constant SKEL_DIR => '/usr/share/zentyal-desktop/skel';
-use constant ZENTYAL_DESKTOP_DIR => '~/.zentyal-desktop';
-use constant CONFIGURED_STAMP => '~/.zentyal-desktop-configured';
+use constant ZENTYAL_DESKTOP_DIR => $ENV{HOME} . '/.zentyal-desktop';
+use constant CONFIGURED_STAMP => $ENV{HOME} . '/.zentyal-desktop-configured';
 
 use constant CONFIG_FILE => '/etc/zentyal-desktop/zentyal-desktop.conf';
 

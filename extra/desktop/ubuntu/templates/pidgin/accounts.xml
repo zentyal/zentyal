@@ -3,11 +3,11 @@
 <account version='1.0'>
 	<account>
 		<protocol>prpl-jabber</protocol>
-		<name>USERNAME@ZENTYALDOMAIN/zentyaluser</name>
-		<alias>USERNAME</alias>
+		<name>{$user}@{$domain}/zentyaluser</name>
+		<alias>{$user}</alias>
 		<settings>
 			<setting name='check-mail' type='bool'>0</setting>
-			<setting name='connect_server' type='string'>ZENTYALSERVER</setting>
+			<setting name='connect_server' type='string'>{$server}</setting>
 			<setting name='old_ssl' type='bool'>1</setting>
 			<setting name='auth_plain_in_clear' type='bool'>0</setting>
 			<setting name='require_tls' type='bool'>1</setting>

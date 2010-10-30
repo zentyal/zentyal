@@ -4,9 +4,10 @@
     <blist>
         <group name='Zentyal groups'>
             <setting name='collapsed' type='bool'>0</setting>
+            {$groups}
         </group>
     </blist>
     <privacy>
-        <account proto='prpl-jabber' name='USERNAME@ZENTYALDOMAIN/zentyaluser' mode='1'/>
+        <account proto='prpl-jabber' name='{$user}@{$domain}/zentyaluser' mode='1'/>
     </privacy>
 </purple>
