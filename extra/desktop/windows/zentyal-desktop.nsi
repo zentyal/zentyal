@@ -83,7 +83,7 @@ FunctionEnd
 Section
   SetOutPath "$INSTDIR"
   SetOverwrite on
-  File "Config.exe"
+  File "zentyal-desktop-config.exe"
   CreateDirectory "$SMPROGRAMS\Zentyal Desktop"
 SectionEnd
 
