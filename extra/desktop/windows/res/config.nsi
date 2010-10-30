@@ -23,7 +23,7 @@ Page custom nsDialogsPage nsDialogsPageLeave
 Page instfiles
 
 Name "${PRODUCT_NAME} ${PRODUCT_VERSION}"
-OutFile "Config.exe"
+OutFile "zentyal-desktop-config.exe"
 InstallDir "$PROGRAMFILES\Zentyal Desktop"
 InstallDirRegKey HKLM "${PRODUCT_DIR_REGKEY}" ""
 
