@@ -55,7 +55,7 @@ sub add_conference
 \t\t\t<component name='server'>conference.$domain</component>\n\
 \t\t</chat>\n";
 
-    system ("sed -i "$regex" $PIDGIN_DIR/blist.xml");
+    system ("sed -i \"$regex\" $PIDGIN_DIR/blist.xml");
 }
 
 1;

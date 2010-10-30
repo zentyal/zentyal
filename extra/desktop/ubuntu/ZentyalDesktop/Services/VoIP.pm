@@ -15,15 +15,16 @@
 
 package ZentyalDesktop::Services::VoIP;
 
+use ZentyalDesktop::Config qw(ZENTYAL_DESKTOP_DIR SKEL_DIR);
+
 sub configure
 {
     my ($server, $user, $data) = @_;
 
-    # FIXME: Get ZENTYAL_DESKTOP_DIR and SKEL_DIR
-
     # Ekiga configuration
-    my $EKIGACONF = "$ZENTYAL_DESKTOP_DIR/ekiga.gconf";
-    system("cp $SKEL_DIR/ekiga.gconf $EKIGACONF");
+    my $EKIGATMPL = SKEL_DIR . '/ekiga.gconf';
+    my $EKIGACONF = ZENTYAL_DESKTOP_DIR . '/ekiga.gconf';
+    system("cp $EKIGATMPL $EKIGACONF");
 
     my $HOME = $ENV{HOME};
     my $LOCAL_APPS = "$HOME/.local/share/applications";

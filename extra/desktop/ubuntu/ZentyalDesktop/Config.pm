@@ -18,7 +18,17 @@ package ZentyalDesktop::Config;
 use strict;
 use warnings;
 
+use base 'Exporter';
+
 use Config::Tiny;
+
+our @EXPORT_OK = qw(SCRIPTS_DIR SKEL_DIR ZENTYAL_DESKTOP_DIR
+                    CONFIGURED_STAMP);
+
+use constant SCRIPTS_DIR => '/usr/share/zentyal-desktop';
+use constant SKEL_DIR => '/usr/share/zentyal-desktop/skel';
+use constant ZENTYAL_DESKTOP_DIR => '~/.zentyal-desktop';
+use constant CONFIGURED_STAMP => '~/.zentyal-desktop-configured';
 
 use constant CONFIG_FILE => '/etc/zentyal-desktop/zentyal-desktop.conf';
 
@@ -74,7 +84,7 @@ sub mailProtocol
 #
 #   string - (always | when-possible | never)
 #
-sub mailProtocol
+sub mailSSL
 {
     my ($self) = @_;
 

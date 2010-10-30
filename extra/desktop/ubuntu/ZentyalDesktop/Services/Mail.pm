@@ -13,9 +13,9 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package ZentyalDesktop::Services::Samba;
+package ZentyalDesktop::Services::Mail;
 
-use ZentyalDesktop::Config;
+use ZentyalDesktop::Config qw(SKEL_DIR);
 
 use Text::Template;
 
@@ -23,7 +23,7 @@ sub configure
 {
     my ($server, $user, $data) = @_;
 
-    my $mailAccount = $data->{account}
+    my $mailAccount = $data->{account};
 
     # Escape @ for evolution conf
     my $accountEscaped = $mailAccount;
@@ -38,7 +38,7 @@ sub configure
     # Evolution configuration
     my $EVOLUTIONCONF = "$HOME/evolution.gconf";
 
-    my $template = new Text::Template(SOURCE => "$SKEL_DIR/evolution.gconf");
+    my $template = new Text::Template(SOURCE => SKEL_DIR . '/evolution.gconf');
     $template->fill_in_file($EVOLUTIONCONF, HASH => { user => $user,
                                               accountEscaped => $accountEscaped,
                                               mailAccount => $mailAccount,
