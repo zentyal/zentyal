@@ -76,7 +76,7 @@ sub servicesInfo
     if ($hasSambaAccount) {
         my $groupShares = {};
         foreach my $group ($self->groups()) {
-            my $groupDn = "uid=$group,ou=Users,$baseDn";
+            my $groupDn = "cn=$group,ou=Groups,$baseDn";
             my $share = $self->getAttribute($groupDn, 'displayResource');
             if ($share) {
                 my $desc = $self->getAttribute($groupDn, 'description');
