@@ -27,12 +27,20 @@ sub configure
     my $EKIGACONF = ZENTYAL_DESKTOP_DIR . '/ekiga.gconf';
     system("cp $EKIGATMPL $EKIGACONF");
 
+    my $ekigaLink = '/usr/share/applications/ekiga.desktop';
+
+    unless (-f $ekigaLink) {
+        return;
+    }
+
     my $HOME = $ENV{HOME};
     my $LOCAL_APPS = "$HOME/.local/share/applications";
 
     system ("mkdir -p $LOCAL_APPS");
-    system ("cp /usr/share/applications/ekiga.desktop $LOCAL_APPS");
-    system ("sed -i 's:^Exec=ekiga:Exec=/usr/share/zentyal-desktop/ekiga-launcher:' $LOCAL_APPS/ekiga.desktop");
+    system ("cp $ekigaLink $LOCAL_APPS");
+
+    my $ekigaLauncher = '/usr/share/zentyal-desktop/ekiga-launcher';
+    system ("sed -i 's:^Exec=ekiga:Exec=$ekigaLauncher:' $LOCAL_APPS/ekiga.desktop");
 }
 
 1;

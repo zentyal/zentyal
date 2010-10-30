@@ -54,7 +54,7 @@ sub configure
 
     system ("gconftool --load $EVOLUTIONCONF");
 
-#    unlink ($EVOLUTIONCONF);
+    unlink ($EVOLUTIONCONF);
 }
 
 1;
