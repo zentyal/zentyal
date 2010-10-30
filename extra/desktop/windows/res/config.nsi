@@ -41,7 +41,7 @@ Function nsDialogsPage
 		Abort
 	${EndIf}
 
-	${NSD_CreateLabel} 0 0 100% 12u "Write Zentyal server direction:"
+	${NSD_CreateLabel} 0 0 100% 12u "Enter Zentyal Server address:"
 	Pop $Label
 
 	${NSD_CreateText} 0 10u 100% 15u $0
@@ -57,6 +57,6 @@ Function nsDialogsPageLeave
         Quit
 FunctionEnd
 
-Section 
-        DetailPrint "IP modified"
+Section
+        DetailPrint "Server address stored"
 SectionEnd
