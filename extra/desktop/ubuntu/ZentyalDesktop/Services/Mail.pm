@@ -21,6 +21,7 @@ use Text::Template;
 
 sub configure
 {
+    shift @_;
     my ($server, $user, $data) = @_;
 
     my $mailAccount = $data->{account};
@@ -36,19 +37,24 @@ sub configure
     my $useSSL = $config->mailSSL();
 
     # Evolution configuration
-    my $EVOLUTIONCONF = "$HOME/evolution.gconf";
 
     my $template = new Text::Template(SOURCE => SKEL_DIR . '/evolution.gconf');
-    $template->fill_in_file($EVOLUTIONCONF, HASH => { user => $user,
-                                              accountEscaped => $accountEscaped,
-                                              mailAccount => $mailAccount,
-                                              server => $server,
-                                              protocol => $protocol,
-                                              useSSL => $useSSL });
+
+    my $EVOLUTIONCONF = "$HOME/evolution.gconf";
+    open (my $confFH, '>', $EVOLUTIONCONF);
+
+    $template->fill_in(OUTPUT => $confFH,
+                       HASH => { user => $user,
+                                 accountEscaped => $accountEscaped,
+                                 mailAccount => $mailAccount,
+                                 server => $server,
+                                 protocol => $protocol,
+                                 useSSL => $useSSL });
+    close ($confFH);
 
     system ("gconftool --load $EVOLUTIONCONF");
 
-    unlink ($EVOLUTIONCONF);
+#    unlink ($EVOLUTIONCONF);
 }
 
 1;

@@ -21,6 +21,7 @@ use Text::Template;
 
 sub configure
 {
+    shift @_;
     my ($server, $user, $data) = @_;
 
     my $domain = $data->{domain};
@@ -43,17 +44,23 @@ sub configure
     my $confDir = "$HOME/.purple";
     mkdir ($confDir);
 
-    my $template = new Text::Template(SOURCE => SKEL_DIR . '/pidgin/accounts.xml');
-    $template->fill_in_file("$confDir/accounts.xml",
-                            HASH => { user => $user,
-                                      domain => $domain,
-                                      server => $server });
+    my $template = new Text::Template(TYPE => FILE,
+                                      SOURCE => SKEL_DIR . '/pidgin/accounts.xml');
+    open (my $accountsFH, '>', "$confDir/accounts.xml");
+    $template->fill_in(OUTPUT => $accountsFH,
+                       HASH => { user => $user,
+                                 domain => $domain,
+                                 server => $server });
+    close ($accountsFH);
 
-    my $template = new Text::Template(SOURCE => SKEL_DIR . '/pidgin/blist.xml');
-    $template->fill_in_file("$confDir/blist.xml",
-                            HASH => { user => $user,
-                                      domain => $domain,
-                                      groups => $groups });
+    my $template = new Text::Template(TYPE => FILE,
+                                      SOURCE => SKEL_DIR . '/pidgin/blist.xml');
+    open (my $blistFH, '>', "$confDir/blist.xml");
+    $template->fill_in(OUTPUT => $blistFH,
+                       HASH => { user => $user,
+                                 domain => $domain,
+                                 groups => $groups });
+    close ($blistFH);
 }
 
 sub _groupStr
@@ -61,8 +68,7 @@ sub _groupStr
     my ($server, $user, $domain, $group) = @_;
 
 # TODO: Check if conference.$domain should be $server
-    my $group = "/<group/a\
-                <chat proto='prpl-jabber' account='$user@$domain/zentyaluser'>\n\
+    my $group = "<chat proto='prpl-jabber' account='${user}@${domain}/zentyaluser'>\n\
 \t\t\t<component name='handle'>$user</component>\n\
 \t\t\t<component name='room'>$group</component>\n\
 \t\t\t<component name='server'>conference.$domain</component>\n\

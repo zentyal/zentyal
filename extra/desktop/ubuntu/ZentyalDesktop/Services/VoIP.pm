@@ -19,6 +19,7 @@ use ZentyalDesktop::Config qw(ZENTYAL_DESKTOP_DIR SKEL_DIR);
 
 sub configure
 {
+    shift @_;
     my ($server, $user, $data) = @_;
 
     # Ekiga configuration

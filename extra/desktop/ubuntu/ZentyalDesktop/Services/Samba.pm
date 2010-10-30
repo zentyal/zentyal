@@ -17,6 +17,7 @@ package ZentyalDesktop::Services::Samba;
 
 sub configure
 {
+    shift @_;
     my ($server, $user, $data) = @_;
 
     my $DESKTOP_DIR = `xdg-user-dir DESKTOP`;
