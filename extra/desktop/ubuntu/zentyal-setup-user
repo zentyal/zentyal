@@ -28,6 +28,7 @@ unless (-d ZENTYAL_DESKTOP_DIR) {
 }
 
 my $server = `grep ^host /etc/ldap.conf | cut -d' ' -f2`;
+chomp ($server);
 my $user = $ENV{USER};
 
 my $ldap = new ZentyalDesktop::LDAP($server, $user);

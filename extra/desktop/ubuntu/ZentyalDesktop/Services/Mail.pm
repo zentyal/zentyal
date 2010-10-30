@@ -21,8 +21,7 @@ use Text::Template;
 
 sub configure
 {
-    shift @_;
-    my ($server, $user, $data) = @_;
+    my ($class, $server, $user, $data) = @_;
 
     my $mailAccount = $data->{account};
 

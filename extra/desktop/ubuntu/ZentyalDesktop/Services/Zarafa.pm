@@ -17,8 +17,7 @@ package ZentyalDesktop::Services::Zarafa;
 
 sub configure
 {
-    shift @_;
-    my ($server, $user, $data) = @_;
+    my ($class, $server, $user, $data) = @_;
 
     # TODO: Add firefox bookmark here?
 }

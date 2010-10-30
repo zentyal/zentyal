@@ -17,44 +17,48 @@ package ZentyalDesktop::Services::Samba;
 
 sub configure
 {
-    shift @_;
-    my ($server, $user, $data) = @_;
+    my ($class, $server, $user, $data) = @_;
 
     my $DESKTOP_DIR = `xdg-user-dir DESKTOP`;
+    chomp ($DESKTOP_DIR);
 
     unless (-d $DESKTOP_DIR) {
         mkdir ($DESKTOP_DIR);
     }
 
-    create_desktop_link($server, $user, $user, "$user\'s share");
+    create_desktop_link($DESKTOP_DIR, $server, $user,
+                        $user, "$user\'s share");
 
-    my @groups = split (' ', `id -G`);
+    my $gids = `id -G`;
+    chomp ($gids);
+    my @groups = split (' ', $gids);
 
     # Insert group conferences in buddy list
     for my $gid (@groups) {
         if ($gid >= 2001) {
-            my (undef, undef, undef, $groupname) = getgrgid($gid);
-            my $share = $data->{groupShares}->{$groupname}->{name};
+            my $groupname = getgrgid($gid);
+            my $share = $data->{groupShares}->{$groupname}->{share};
             my $desc = $data->{groupShares}->{$groupname}->{desc};
-            create_desktop_link($server, $user, $share, $desc);
+            create_desktop_link($DESKTOP_DIR, $server, $user,
+                                $share, $desc);
         }
     }
 }
 
 sub create_desktop_link
 {
-    my ($server, $user, $share, $desc) = @_;
+    my ($dir, $server, $user, $share, $desc) = @_;
 
-    my $linkfile = "$DESKTOP_DIR/$share.desktop";
+    open (my $FH, '>', "$dir/$share.desktop");
 
-    open (my $FH, ">$linkfile");
-    print $FH "#!/usr/bin/env xdg-open";
-    print $FH "[Desktop Entry]";
-    print $FH "Version=1.0";
-    print $FH "Type=Link";
-    print $FH "Name=$share";
-    print $FH "Comment=$desc";
-    print $FH "URL=smb://$user@$server/$share";
+    print $FH "#!/usr/bin/env xdg-open\n";
+    print $FH "[Desktop Entry]\n";
+    print $FH "Version=1.0\n";
+    print $FH "Type=Link\n";
+    print $FH "Name=$share\n";
+    print $FH "Comment=$desc\n";
+    print $FH "URL=smb://$user\@$server/$share\n";
+
     close ($FH);
 }
 

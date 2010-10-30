@@ -21,8 +21,7 @@ use Text::Template;
 
 sub configure
 {
-    shift @_;
-    my ($server, $user, $data) = @_;
+    my ($class, $server, $user, $data) = @_;
 
     my $domain = $data->{domain};
 
@@ -68,7 +67,7 @@ sub _groupStr
     my ($server, $user, $domain, $group) = @_;
 
 # TODO: Check if conference.$domain should be $server
-    my $group = "<chat proto='prpl-jabber' account='${user}@${domain}/zentyaluser'>\n\
+    my $group = "<chat proto='prpl-jabber' account='$user\@$domain/zentyaluser'>\n\
 \t\t\t<component name='handle'>$user</component>\n\
 \t\t\t<component name='room'>$group</component>\n\
 \t\t\t<component name='server'>conference.$domain</component>\n\
