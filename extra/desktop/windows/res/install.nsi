@@ -3,7 +3,7 @@
 ; HM NIS Edit Wizard helper defines
 !define PRODUCT_NAME "Zentyal Desktop"
 !define PRODUCT_VERSION "0.2"
-!define PRODUCT_PUBLISHER "eBox Technologies."
+!define PRODUCT_PUBLISHER "eBox Technologies S.L."
 !define PRODUCT_WEB_SITE "http://www.zentyal.com"
 !define PRODUCT_DIR_REGKEY "Software\Zentyal\${PRODUCT_NAME}"
 !define PRODUCT_UNINST_KEY "Software\Zentyal\${PRODUCT_NAME}\Uninstall\"
@@ -22,7 +22,8 @@
 ; Welcome page
 !insertmacro MUI_PAGE_WELCOME
 ; License page
-;!insertmacro MUI_PAGE_LICENSE "..\..\path\to\licence\YourSoftwareLicence.txt"
+!define MUI_LICENSEPAGE_CHECKBOX
+!insertmacro MUI_PAGE_LICENSE "LICENSE.txt"
 ; Components page
 !insertmacro MUI_PAGE_COMPONENTS
 ; Directory page
@@ -62,7 +63,7 @@ Function nsDialogsPage
 		Abort
 	${EndIf}
 
-	${NSD_CreateLabel} 0 0 100% 12u "Write Zentyal server direction:"
+	${NSD_CreateLabel} 0 0 100% 12u "Enter Zentyal Server address:"
 	Pop $Label
 
 	${NSD_CreateText} 0 10u 100% 15u ""
