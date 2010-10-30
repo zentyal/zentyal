@@ -21,6 +21,7 @@ use strict;
 use ZentyalDesktop::Config qw(ZENTYAL_DESKTOP_DIR
                               SCRIPTS_DIR
                               CONFIGURED_STAMP);
+use ZentyalDesktop::Util;
 use ZentyalDesktop::LDAP;
 
 unless (-d ZENTYAL_DESKTOP_DIR) {
@@ -30,6 +31,8 @@ unless (-d ZENTYAL_DESKTOP_DIR) {
 my $server = `grep ^host /etc/ldap.conf | cut -d' ' -f2`;
 chomp ($server);
 my $user = $ENV{USER};
+
+ZentyalDesktop::Util::createFirefoxProfile();
 
 my $ldap = new ZentyalDesktop::LDAP($server, $user);
 
@@ -41,11 +44,6 @@ foreach my $service (keys %{$services}) {
     my $data = $services->{$service};
     $package->configure($server, $user, $data);
 }
-
-# TODO: Do this in ZentyalDesktop::Services::Zarafa
-# Firefox profile configuration
-my $addZarafa = exists $services->{Zarafa};
-system (SCRIPTS_DIR . "/zentyal-firefox-profile $server $addZarafa");
 
 system ('touch ' . CONFIGURED_STAMP);
 

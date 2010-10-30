@@ -32,7 +32,6 @@ install:
 	cp -a templates/* $(DESTDIR)$(DATADIR)/skel
 	install -m755 zentyal-prepare-home $(DESTDIR)$(DATADIR)
 	install -m755 zentyal-setup-user $(DESTDIR)$(DATADIR)
-	install -m755 zentyal-firefox-profile $(DESTDIR)$(DATADIR)
 	install -m755 zentyal-unconfigure-client $(DESTDIR)$(DATADIR)
 	install -m755 ekiga-launcher $(DESTDIR)$(DATADIR)
 	install -m644 ldap.conf $(DESTDIR)$(DATADIR)

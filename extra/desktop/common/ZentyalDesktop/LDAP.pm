@@ -58,12 +58,15 @@ sub servicesInfo
     my $dn = "uid=$user,ou=Users,$baseDn";
 
     my $mailAccount = $self->getAttribute($dn, 'mail');
-    my $hasZarafaAccount = $self->isObjectClass($dn, 'zarafaAccount');
+    my $hasZarafaAccount = $self->isObjectClass($dn, 'zarafa-user');
     my $hasSambaAccount = $self->isObjectClass($dn, 'sambaSamAccount');
     my $hasJabberAccount = $self->isObjectClass($dn, 'userJabberAccount');
     my $hasVoIPAccount = $self->isObjectClass($dn, 'AsteriskSIPUser');
 
     my $services = {};
+
+    # FIXME: Unhardcode this when possible
+    $services->{UserCorner} = { port => 8888 };
 
     if ((defined $mailAccount) and ($mailAccount ne '')) {
         $services->{Mail} = { account => $mailAccount };

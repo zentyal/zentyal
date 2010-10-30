@@ -23,12 +23,14 @@ use base 'Exporter';
 use Config::Tiny;
 
 our @EXPORT_OK = qw(SCRIPTS_DIR SKEL_DIR ZENTYAL_DESKTOP_DIR
-                    CONFIGURED_STAMP);
+                    CONFIGURED_STAMP ZENTYAL_ICON_DATA);
 
 use constant SCRIPTS_DIR => '/usr/share/zentyal-desktop';
 use constant SKEL_DIR => '/usr/share/zentyal-desktop/skel';
 use constant ZENTYAL_DESKTOP_DIR => $ENV{HOME} . '/.zentyal-desktop';
 use constant CONFIGURED_STAMP => $ENV{HOME} . '/.zentyal-desktop-configured';
+
+use constant ZENTYAL_ICON_DATA => "iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAACsElEQVQ4jYVTS0wTURR9YVXpvMJ0ZmICDP241ZUaN2z8kBgTFy6ItECAIMF+LMy8UWhkgSCG2klUXLFQNsQNSRNTWmhIUD4m3RAtCSFC+CYYUjpvFl1oaHKfiwbip+LZ3nvOuefeXIRKIPJernoel+9GpquvmwGLg6pcF9W482wAlZXqP8GzWLWgJ+U3elLO60kZoomaz1TBfVTDzNRwgRK8mCPll0uSX0yddUcT8paerIWRuIMNx5xsaNKV2fbx4b0Qzw6UCmYQG1CN+04VrvEv52hC3oomZBiOOVn/hAvUMTeERt2LC03Cg0+tEqx0irAb4tmhagOT4CNDsd48EYgm5Ld6shaGY07WO+6C4EvXfFfEfem4Hr+NxZRHGk23i4WdIA85FYNJ8FbWjzj0NF5TrSfl/EjcwfoniuS2AaelVMyUR3q83CHCfk8lMwkGqli9KDolN+rJ4ujqmBvu6ecunrboD83SxmbADgbBYBJuAkUSVfXRqZovQ5OuTOi1e+HUMyGEZj3iwzWfmMmqeMVQuUFkBiyOnIL7tn18eMErBP8nkPII11a7hHBWxeGcYr2BKOHuUw2zvRDPlloliN3BwmkCc03SzIa/GIFqOIGoYr1garhwoFSwlU4RUl7h1b/I0w18XbpNgr1unlGCgRL8CLEBVEY1vGQQG+yGeJZuFwspjxD+kxxv4OvmW6SDdZ8dsqqNUWLLfyMWB0IIoVz3mSsm4X4cqjbYCfKw3CHCxxbp66xX1Ga84tW5Zmk63SbBus8OB0oFowSDqXGDvzlQxeo1CT7KqRj2eyrZZsAOaz4xs9olhDf8dtjr5lnRGYOh4vGSj0XV8lsmwdsmwWAQDIcEZ7IqDhvFvECJLW8QbujUr8z6EUeJtYkS7p1JuCcGsdZTgpNUw73mceZf8BMxe1ZixOqkKgAAAABJRU5ErkJggg==";
 
 use constant CONFIG_FILE => '/etc/zentyal-desktop/zentyal-desktop.conf';
 
@@ -89,6 +91,20 @@ sub mailSSL
     my ($self) = @_;
 
     return $self->_getOption('mail', 'use-ssl');
+}
+
+sub setFirefoxBookmarksFile
+{
+    my ($self, $file) = @_;
+
+    $self->{bookmarks} = $file;
+}
+
+sub firefoxBookmarksFile
+{
+    my ($self) = @_;
+
+    return $self->{bookmarks};
 }
 
 sub _getOption # (section, option)

@@ -13,7 +13,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package ZentyalDesktop::Services::Zarafa;
+package ZentyalDesktop::Services::UserCorner;
 
 use ZentyalDesktop::Util;
 
@@ -21,8 +21,10 @@ sub configure
 {
     my ($class, $server, $user, $data) = @_;
 
-    ZentyalDesktop::Util::addFirefoxBookmark("http://$server/webaccess",
-                                             'Zarafa');
+    my $port = $data->{port};
+
+    ZentyalDesktop::Util::addFirefoxBookmark("https://$server:$port",
+                                             'Zentyal User Corner');
 }
 
 1;
