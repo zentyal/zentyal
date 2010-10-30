@@ -30,6 +30,7 @@ install:
 	install -m755 zentyal-setup-client $(DESTDIR)$(SBINDIR)
 	install -d $(DESTDIR)$(DATADIR)/skel
 	cp -a templates/* $(DESTDIR)$(DATADIR)/skel
+	cp -a common/templates/* $(DESTDIR)$(DATADIR)/skel
 	install -m755 zentyal-prepare-home $(DESTDIR)$(DATADIR)
 	install -m755 zentyal-setup-user $(DESTDIR)$(DATADIR)
 	install -m755 zentyal-unconfigure-client $(DESTDIR)$(DATADIR)
