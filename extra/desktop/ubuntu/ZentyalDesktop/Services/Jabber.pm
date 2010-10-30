@@ -29,13 +29,15 @@ sub configure
 
     # Replace variables in pidgin config template
 
-    my @gids = split (' ', `id -G`);
+    my $gidsStr = `id -G`;
+    chomp ($gidsStr);
+    my @gids = split (' ', $gidsStr);
 
     # Insert group conferences in buddy list
     my $groups = '';
     for my $gid (@gids) {
         if ($gid >= 2001) {
-            my (undef, undef, undef, $groupname) = getgrgid($gid);
+            my $groupname = getgrgid($gid);
             $groups .= _groupStr($server, $user, $domain, $groupname);
         }
     }
@@ -66,7 +68,6 @@ sub _groupStr
 {
     my ($server, $user, $domain, $group) = @_;
 
-# TODO: Check if conference.$domain should be $server
     my $group = "<chat proto='prpl-jabber' account='$user\@$domain/zentyaluser'>\n\
 \t\t\t<component name='handle'>$user</component>\n\
 \t\t\t<component name='room'>$group</component>\n\
