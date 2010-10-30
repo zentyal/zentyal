@@ -37,7 +37,7 @@ install:
 	install -m644 ldap.conf $(DESTDIR)$(DATADIR)
 	install -m644 zentyal.pam $(DESTDIR)$(DATADIR)
 	install -d $(DESTDIR)$(LIBPERL)/ZentyalDesktop
-	install -m644 common/ZentyalDesktop/LDAP.pm $(DESTDIR)$(LIBPERL)/ZentyalDesktop
+	cp -a common/ZentyalDesktop/* $(DESTDIR)$(LIBPERL)/ZentyalDesktop
 	cp -a ZentyalDesktop/* $(DESTDIR)$(LIBPERL)/ZentyalDesktop
 	install -d $(DESTDIR)/etc/zentyal-desktop
 	install -m644 zentyal-desktop.conf $(DESTDIR)/etc/zentyal-desktop
