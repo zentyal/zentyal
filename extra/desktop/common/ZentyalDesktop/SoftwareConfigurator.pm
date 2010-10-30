@@ -1,5 +1,3 @@
-#!/usr/bin/perl
-#
 # Copyright (C) 2010 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
@@ -15,21 +13,27 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-use warnings;
-use strict;
+package ZentyalDesktop::SoftwareConfigurator;
 
-use ZentyalDesktop::Config qw(ZENTYAL_DESKTOP_DIR CONFIGURED_STAMP);
+use ZentyalDesktop::Util;
+use ZentyalDesktop::LDAP;
 
-unless (-d ZENTYAL_DESKTOP_DIR) {
-    mkdir (ZENTYAL_DESKTOP_DIR);
+sub configure
+{
+    my ($class, $server, $user) = @_;
+
+    ZentyalDesktop::Util::createFirefoxProfile();
+
+    my $ldap = new ZentyalDesktop::LDAP($server, $user);
+
+    my $services = $ldap->servicesInfo();
+
+    foreach my $service (keys %{$services}) {
+        my $package = "ZentyalDesktop::Services::$service";
+        eval "use $package";
+        my $data = $services->{$service};
+        $package->configure($server, $user, $data);
+    }
 }
 
-my $server = `grep ^host /etc/ldap.conf | cut -d' ' -f2`;
-chomp ($server);
-my $user = $ENV{USER};
-
-ZentyalDesktop::SoftwareConfigurator->configure($server, $user);
-
-system ('touch ' . CONFIGURED_STAMP);
-
-exit 0;
+1;
