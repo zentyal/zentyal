@@ -4,6 +4,8 @@ Setup enviroment
 1. Download Strawberry Perl http://strawberryperl.com/
 2. Install all CPAN modules in get_build_deps.bat
 3. Download Nullsoft Installer (NSIS) (http://sourceforge.net/projects/nsis/)
+4. Download wget (http://downloads.sourceforge.net/gnuwin32/wget-1.11.4-1-setup.exe)
+5. Inside the 'res' directory, execute download_extras.but
 
 How to build
 ------------
