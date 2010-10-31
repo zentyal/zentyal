@@ -1,4 +1,5 @@
 HEAD
+	+ Install apache-prefork instead of worker by default
 	+ Rename service certificate to Zentyal Administration Web Server
 2.0.6
 	+ Use mod dependencies as default restore dependencies
