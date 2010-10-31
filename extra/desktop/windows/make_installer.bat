@@ -1,6 +1,7 @@
 :: Build script for Zentyal Desktop
 
 set MAKENSIS_EXE="%programfiles%\NSIS\makensis.exe"
+set LIBPERL=C:\strawberry\perl\lib\auto
 
 mkdir build
 mkdir dist
@@ -10,8 +11,10 @@ xcopy /S /I /Y ZentyalDesktop build\ZentyalDesktop
 xcopy /S /I /Y ..\common\ZentyalDesktop build\ZentyalDesktop
 
 cd build
-:: call pp --gui --icon ..\res\zentyal.ico -o zentyal-setup-user.exe zentyal-setup-user.pl
-call pp -o zentyal-setup-user.exe zentyal-setup-user.pl
+
+:: Comment this and uncomment the following to build in release mode
+call pp -o zentyal-setup-user.exe zentyal-setup-user.pl --link %LIBPERL%\Socket\Socket.dll
+:: call pp --gui --icon ..\res\zentyal.ico -o zentyal-setup-user.exe zentyal-setup-user.pl --link %LIBPERL%\Socket\Socket.dll
 
 move zentyal-setup-user.exe ..\dist
 cd ..

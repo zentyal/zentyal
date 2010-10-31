@@ -90,7 +90,7 @@ SectionEnd
 Section "Firefox (Web Browser)" SEC01
   SetOutPath "$INSTDIR"
   SetOverwrite on
-  File "firefox-setup.exe"
+  File "res\firefox-setup.exe"
   CreateDirectory "$SMPROGRAMS\Zentyal Desktop"
   ExecWait '$INSTDIR\firefox-setup.exe'
 SectionEnd
@@ -98,7 +98,7 @@ SectionEnd
 Section "Ekiga (VoIP)" SEC02
   SetOutPath "$INSTDIR"
   SetOverwrite on
-  File "ekiga-setup.exe"
+  File "res\ekiga-setup.exe"
   CreateDirectory "$SMPROGRAMS\Zentyal Desktop"
   ExecWait '$INSTDIR\ekiga-setup.exe'
 SectionEnd
@@ -106,7 +106,7 @@ SectionEnd
 Section "Thunderbird (Mail)" SEC03
   SetOutPath "$INSTDIR"
   SetOverwrite on
-  File "thunderbird-setup.exe"
+  File "res\thunderbird-setup.exe"
   CreateDirectory "$SMPROGRAMS\Zentyal Desktop"
   ExecWait '$INSTDIR\thunderbird-setup.exe'
 SectionEnd
@@ -114,7 +114,7 @@ SectionEnd
 Section "Pidgin (Jabber)" SEC04
   SetOutPath "$INSTDIR"
   SetOverwrite on
-  File "pidgin-setup.exe"
+  File "res\pidgin-setup.exe"
   CreateDirectory "$SMPROGRAMS\Zentyal Desktop"
   ExecWait '$INSTDIR\pidgin-setup.exe'
 SectionEnd
