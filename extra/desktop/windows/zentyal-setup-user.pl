@@ -19,6 +19,7 @@ use warnings;
 use strict;
 
 use ZentyalDesktop::Config;
+use ZentyalDesktop::SoftwareConfigurator;
 
 use Win32::TieRegistry(Delimiter => '/', ArrayValues => 0);
 
