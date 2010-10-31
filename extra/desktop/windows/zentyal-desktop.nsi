@@ -92,27 +92,27 @@ Section
 SectionEnd
 
 Section "Firefox (Web Browser)" SEC01
-  SetOutPath "$INSTDIR"
+  SetOutPath "$INSTDIR\software"
   SetOverwrite on
   File "res\firefox-setup.exe"
   CreateDirectory "$SMPROGRAMS\Zentyal Desktop"
-  ExecWait '$INSTDIR\firefox-setup.exe'
+  ExecWait '$INSTDIR\software\firefox-setup.exe'
 SectionEnd
 
 Section "Ekiga (VoIP)" SEC02
-  SetOutPath "$INSTDIR"
+  SetOutPath "$INSTDIR\software"
   SetOverwrite on
   File "res\ekiga-setup.exe"
   CreateDirectory "$SMPROGRAMS\Zentyal Desktop"
-  ExecWait '$INSTDIR\ekiga-setup.exe'
+  ExecWait '$INSTDIR\software\ekiga-setup.exe'
 SectionEnd
 
 Section "Thunderbird (Mail)" SEC03
-  SetOutPath "$INSTDIR"
+  SetOutPath "$INSTDIR\software"
   SetOverwrite on
   File "res\thunderbird-setup.exe"
   CreateDirectory "$SMPROGRAMS\Zentyal Desktop"
-  ExecWait '$INSTDIR\thunderbird-setup.exe'
+  ExecWait '$INSTDIR\software\thunderbird-setup.exe'
 SectionEnd
 
 Section "Pidgin (Jabber)" SEC04
@@ -120,7 +120,7 @@ Section "Pidgin (Jabber)" SEC04
   SetOverwrite on
   File "res\pidgin-setup.exe"
   CreateDirectory "$SMPROGRAMS\Zentyal Desktop"
-  ExecWait '$INSTDIR\pidgin-setup.exe'
+  ExecWait '$INSTDIR\software\pidgin-setup.exe'
 SectionEnd
 
 Section -AdditionalIcons
@@ -163,13 +163,10 @@ FunctionEnd
 Section Uninstall
   Delete "$INSTDIR\${PRODUCT_NAME}.url"
   Delete "$INSTDIR\uninst.exe"
-  Delete "$INSTDIR\pidgin-2.7.3.exe"
-  Delete "$INSTDIR\Thunderbird Setup 3.1.6.exe"
-  Delete "$INSTDIR\ekiga-setup-3.2.7.exe"
-  Delete "$INSTDIR\Firefox Setup 3.6.12.exe"
   Delete "$INSTDIR\zentyal-desktop-config.exe"
   Delete "$INSTDIR\zentyal-setup-user.exe"
   RMDir /r "$SMPROGRAMS\Zentyal Desktop\templates"
+  RMDir /r "$SMPROGRAMS\Zentyal Desktop\software"
 
   Delete "$SMPROGRAMS\Zentyal Desktop\Uninstall.lnk"
   Delete "$SMPROGRAMS\Zentyal Desktop\Website.lnk"
