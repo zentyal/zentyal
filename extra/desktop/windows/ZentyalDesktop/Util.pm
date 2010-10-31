@@ -22,14 +22,32 @@ use Win32::Process;
 
 sub createFirefoxProfile
 {
-    my $args = '-CreateProfile Default2';
+    my $config = ZentyalDesktop::Config->instance();
+
+    my $appData = $config->appData();
+
+    my $args = '-CreateProfile default';
     my $process;
     my $exePath = _firefoxExePath();
     Win32::Process::Create($process, $exePath, "$exePath $args", 0, 0, '.');
 
-    my $bookfile = 'FIXME/bookmarks.txt';
-    my $config = ZentyalDesktop::Config->instance();
-    $config->setFirefoxBookmarksFile($bookfile);
+    my $profilesPath = "$appData/Mozilla/Firefox/Profiles/";
+    $profilesPath =~ s/\\/\//g;
+    opendir (my $dir, $profilesPath)
+        or return;
+
+    my @files = readdir ($dir);
+    my $profileDir;
+    foreach my $file (@files) {
+        if ($file =~ /default/) {
+            $profileDir = $file;
+            last;
+        }
+    }
+
+    closedir ($dir);
+
+    $config->setFirefoxBookmarksFile("$profilesPath/$profileDir/bookmarks.html");
 }
 
 # TODO: This function should be common

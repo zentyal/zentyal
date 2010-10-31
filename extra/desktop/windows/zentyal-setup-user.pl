@@ -20,9 +20,11 @@ use strict;
 
 use ZentyalDesktop::Config;
 use ZentyalDesktop::SoftwareConfigurator;
+use ZentyalDesktop::Util;
 
 use Win32::TieRegistry(Delimiter => '/', ArrayValues => 0);
 
+# Exit if configured mark is set
 eval { $Registry->{'CUser/Software/Zentyal/Zentyal Desktop/Configured'}; };
 unless ($@) {
     exit 0;
@@ -37,27 +39,13 @@ my $server = $Registry->{'LMachine/SOFTWARE/Zentyal/Zentyal Desktop/SERVER'}
     or die "Error: $^E";
 my $user = $ENV{USERNAME};
 
-
-my $firefoxProfilessPath = $appData . '/Mozilla/Firefox/Profiles/';
-$firefoxProfilesPath =~ s/\\/\//g;
-opendir (my $dir, $profilesPath)
-    or die "Error: $^E\n";
-my @files = readdir $dir;
-my $profileDir;
-foreach my $file (@files){
-    if ($file =~ /default/){
-        $profileDir = $file;
-        last;
-    };
-};
-
-$config->setFirefoxBookmarksFile($appData . '/Mozilla/Firefox/Profiles/' . $profileDir . 'bookmarks.html');
+ZentyalDesktop::Util::createFirefoxProfile();
 
 ZentyalDesktop::SoftwareConfigurator->configure($server, $user);
 
-my $tips = $Registry->{'CUser/Software/'}->{'Zentyal/Zentyal Desktop'}
+# Set configured mark
+my $zentyalRegKey = $Registry->{'CUser/Software/'}->{'Zentyal/Zentyal Desktop'}
     or die "Error: $^E\n";
-$tips{'/Configured'} = 1;
-
+$zentyalRegKey{'/Configured'} = 1;
 
 exit 0;
