@@ -46,8 +46,7 @@ PCMANFM_DIR=$DIR/.config/pcmanfm
 mkdir -p $PCMANFM_DIR
 mv /var/tmp/ebox/lxde-zentyal/main.lxde $PCMANFM_DIR/
 chown -R $USER_NAME:$USER_NAME $DESKTOP
-chown -R $USER_NAME:$USER_NAME $PANELS_DIR
-chown -R $USER_NAME:$USER_NAME $PCMANFM_DIR
+chown -R $USER_NAME:$USER_NAME $DIR/.config
 
 mv /var/tmp/ebox/second-boot.sh /etc/rc.local
 

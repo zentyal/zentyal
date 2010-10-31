@@ -1,3 +1,5 @@
+HEAD
+    + Fixed .config dir permissions
 2.0-2
     + Add PPA in the first stage to install latest versions
     + Import PPA key to avoid warning executing apt-get update
