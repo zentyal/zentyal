@@ -86,6 +86,9 @@ Section
   File "zentyal-setup-user.exe"
   File "zentyal-desktop-config.exe"
   CreateDirectory "$SMPROGRAMS\Zentyal Desktop"
+  CreateDirectory "$SMPROGRAMS\Zentyal Desktop\templates"
+  SetOutPath "$INSTDIR\templates"
+  File /r "templates\*.*"
 SectionEnd
 
 Section "Firefox (Web Browser)" SEC01
@@ -166,6 +169,7 @@ Section Uninstall
   Delete "$INSTDIR\Firefox Setup 3.6.12.exe"
   Delete "$INSTDIR\zentyal-desktop-config.exe"
   Delete "$INSTDIR\zentyal-setup-user.exe"
+  RMDir /r "$SMPROGRAMS\Zentyal Desktop\templates"
 
   Delete "$SMPROGRAMS\Zentyal Desktop\Uninstall.lnk"
   Delete "$SMPROGRAMS\Zentyal Desktop\Website.lnk"

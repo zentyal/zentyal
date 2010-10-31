@@ -15,7 +15,7 @@
 
 package ZentyalDesktop::Services::Jabber;
 
-use ZentyalDesktop::Config;
+use ZentyalDesktop::Config qw(TEMPLATES_DIR);
 
 use Text::Template;
 
@@ -28,8 +28,7 @@ sub configure
     my $config = ZentyalDesktop::Config->instance();
     my $APPDATA = $config->appData();
 
-    # FIXME: Unhardcode this
-    my $TEMPLATES_DIR = './templates';
+    my $TEMPLATES_DIR = TEMPLATES_DIR;
 
     # FIXME: Get user groups
     #my $gidsStr = `id -G`;

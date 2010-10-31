@@ -12,9 +12,9 @@ xcopy /S /I /Y ..\common\ZentyalDesktop\*.* build\ZentyalDesktop
 
 cd build
 
-:: Comment this and uncomment the following to build in release mode
-call pp -o zentyal-setup-user.exe zentyal-setup-user.pl --link %LIBPERL%\Socket\Socket.dll -M %EXTRAMODULES%
-:: call pp --gui --icon ..\res\zentyal.ico -o zentyal-setup-user.exe zentyal-setup-user.pl --link %LIBPERL%\Socket\Socket.dll
+:: The two following lines are for debug and release build, uncomment only one of them
+::call pp -o zentyal-setup-user.exe zentyal-setup-user.pl --link %LIBPERL%\Socket\Socket.dll -M %EXTRAMODULES%
+call pp --gui --icon ..\res\zentyal.ico -o zentyal-setup-user.exe zentyal-setup-user.pl --link %LIBPERL%\Socket\Socket.dll -M %EXTRAMODULES%
 
 move zentyal-setup-user.exe ..\dist
 cd ..

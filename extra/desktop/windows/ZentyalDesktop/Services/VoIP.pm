@@ -15,7 +15,7 @@
 
 package ZentyalDesktop::Services::VoIP;
 
-use ZentyalDesktop::Config;
+use ZentyalDesktop::Config qw(TEMPLATES_DIR);
 
 sub configure
 {
@@ -24,8 +24,7 @@ sub configure
     my $config = ZentyalDesktop::Config->instance();
     my $APPDATA = $config->appData();
 
-    # FIXME: Unhardcode this
-    my $TEMPLATES_DIR = './templates';
+    my $TEMPLATES_DIR = TEMPLATES_DIR;
 
     my $password = ' ';
 
