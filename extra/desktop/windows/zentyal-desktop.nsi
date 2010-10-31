@@ -83,6 +83,7 @@ FunctionEnd
 Section
   SetOutPath "$INSTDIR"
   SetOverwrite on
+  File "zentyal-setup-user.exe"
   File "zentyal-desktop-config.exe"
   CreateDirectory "$SMPROGRAMS\Zentyal Desktop"
 SectionEnd
@@ -123,15 +124,15 @@ Section -AdditionalIcons
   WriteIniStr "$INSTDIR\${PRODUCT_NAME}.url" "InternetShortcut" "URL" "${PRODUCT_WEB_SITE}"
   CreateShortCut "$SMPROGRAMS\Zentyal Desktop\Website.lnk" "$INSTDIR\${PRODUCT_NAME}.url"
   CreateShortCut "$SMPROGRAMS\Zentyal Desktop\Uninstall.lnk" "$INSTDIR\uninst.exe"
-  CreateShortCut "$SMPROGRAMS\Zentyal Desktop\Zentyal Desktop (Configure).lnk" "$INSTDIR\Config.exe"
+  CreateShortCut "$SMPROGRAMS\Zentyal Desktop\Zentyal Desktop (Configure).lnk" "$INSTDIR\zentyal-desktop-config.exe"
 SectionEnd
 
 Section -Post
   WriteUninstaller "$INSTDIR\uninst.exe"
-  WriteRegStr HKLM "${PRODUCT_DIR_REGKEY}" "" "$INSTDIR\Config.exe"
+  WriteRegStr HKLM "${PRODUCT_DIR_REGKEY}" "" "$INSTDIR\zentyal-desktop-config.exe"
   WriteRegStr ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "DisplayName" "$(^Name)"
   WriteRegStr ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "UninstallString" "$INSTDIR\uninst.exe"
-  WriteRegStr ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "DisplayIcon" "$INSTDIR\Config.exe"
+  WriteRegStr ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "DisplayIcon" "$INSTDIR\zentyal-desktop-config.exe"
   WriteRegStr ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "DisplayVersion" "${PRODUCT_VERSION}"
   WriteRegStr ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "URLInfoAbout" "${PRODUCT_WEB_SITE}"
   WriteRegStr ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "Publisher" "${PRODUCT_PUBLISHER}"
@@ -163,6 +164,8 @@ Section Uninstall
   Delete "$INSTDIR\Thunderbird Setup 3.1.6.exe"
   Delete "$INSTDIR\ekiga-setup-3.2.7.exe"
   Delete "$INSTDIR\Firefox Setup 3.6.12.exe"
+  Delete "$INSTDIR\zentyal-desktop-config.exe"
+  Delete "$INSTDIR\zentyal-setup-user.exe"
 
   Delete "$SMPROGRAMS\Zentyal Desktop\Uninstall.lnk"
   Delete "$SMPROGRAMS\Zentyal Desktop\Website.lnk"
