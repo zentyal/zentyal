@@ -10,8 +10,8 @@ xcopy /S /I /Y ZentyalDesktop build\ZentyalDesktop
 xcopy /S /I /Y ..\common\ZentyalDesktop build\ZentyalDesktop
 
 cd build
-:: pp --gui --icon ..\res\zentyal.ico -o zentyal-setup-user.exe zentyal-setup-user.pl
-pp -o zentyal-setup-user.exe zentyal-setup-user.pl
+:: call pp --gui --icon ..\res\zentyal.ico -o zentyal-setup-user.exe zentyal-setup-user.pl
+call pp -o zentyal-setup-user.exe zentyal-setup-user.pl
 
 move zentyal-setup-user.exe ..\dist
 cd ..
