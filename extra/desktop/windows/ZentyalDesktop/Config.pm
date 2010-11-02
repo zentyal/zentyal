@@ -29,7 +29,7 @@ use constant ZENTYAL_ICON_DATA => "iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hA
 use constant DATA_DIR => $ENV{ProgramFiles} . '\Zentyal Desktop';
 use constant TEMPLATES_DIR => DATA_DIR . '\templates';
 
-use constant CONFIG_FILE => 'FIXME/zentyal-desktop.conf';
+use constant CONFIG_FILE =>  DATA_DIR . '/zentyal-desktop.conf';
 
 my $singleton;
 

@@ -85,6 +85,7 @@ Section
   SetOverwrite on
   File "zentyal-setup-user.exe"
   File "zentyal-desktop-config.exe"
+  File "zentyal-desktop.conf"
   CreateDirectory "$SMPROGRAMS\Zentyal Desktop"
   CreateDirectory "$SMPROGRAMS\Zentyal Desktop\templates"
   SetOutPath "$INSTDIR\templates"

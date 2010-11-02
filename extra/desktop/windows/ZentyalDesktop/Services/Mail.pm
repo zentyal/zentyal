@@ -26,6 +26,8 @@ sub configure
     my $config = ZentyalDesktop::Config->instance();
     my $appData = $config->appData();
 
+    my $TEMPLATES_DIR = TEMPLATES_DIR;
+
     my $exePath = _thunderbirdExePath();
     my $args = '-CreateProfile default';
     my $process;
@@ -79,6 +81,16 @@ sub _thunderbirdExePath
 {
     my $version = $Registry->{"LMachine/SOFTWARE/Mozilla/Mozilla Thunderbird/CurrentVersion"};
     my $path = $Registry->{"LMachine/SOFTWARE/Mozilla/Mozilla Thunderbird/$version/Main/PathToExe"};
+
+    my $lMachine=Win32::TieRegistry->Open('LMachine', {Access=>KEY_READ(),Delimiter=>"/"})
+        or die "Error: $^E";
+    my $versionKey = $lMachine->Open('SOFTWARE/Mozilla/Mozilla Thunderbird', {Access=>KEY_READ(),Delimiter=>"/"});
+    my $version = $serverKey->GetValue('CurrentVersion');
+    $versionKey->Close();
+    my $pathKey = $lMachine->Open("SOFTWARE/Mozilla/Mozilla Thunderbird/$version/Main", {Access=>KEY_READ(),Delimiter=>"/"});
+    my $path = $pathKey->GetValue('PathToExe');
+    $pathKey->Close();
+    $lMachine->Close();
 
     return $path;
 }

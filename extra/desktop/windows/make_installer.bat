@@ -6,6 +6,7 @@ set EXTRAMODULES=ZentyalDesktop/Services/UserCorner.pm ZentyalDesktop/Services/Z
 
 mkdir build dist
 
+copy zentyal-desktop.conf dist
 copy zentyal-setup-user.pl build
 xcopy /S /I /Y ZentyalDesktop build\ZentyalDesktop
 xcopy /S /I /Y ..\common\ZentyalDesktop\*.* build\ZentyalDesktop

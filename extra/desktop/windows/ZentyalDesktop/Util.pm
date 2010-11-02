@@ -83,9 +83,15 @@ sub addFirefoxBookmark
 
 sub _firefoxExePath
 {
-    my $version = $Registry->{"LMachine/SOFTWARE/Mozilla/Mozilla Firefox/CurrentVersion"};
-    my $path = $Registry->{"LMachine/SOFTWARE/Mozilla/Mozilla Firefox/$version/Main/PathToExe"};
-
+    my $lMachine=Win32::TieRegistry->Open('LMachine', {Access=>KEY_READ(),Delimiter=>"/"})
+        or die "Error: $^E";
+    my $versionKey = $lMachine->Open('LMachine/SOFTWARE/Mozilla/Mozilla Firefox', {Access=>KEY_READ(),Delimiter=>"/"});
+    my $version = $serverKey->GetValue('CurrentVersion');
+    $versionKey->Close();
+    my $pathKey = $lMachine->Open("LMachine/SOFTWARE/Mozilla/Mozilla Firefox/$version/Main", {Access=>KEY_READ(),Delimiter=>"/"});
+    my $path = $pathKey->GetValue('PathToExe');
+    $pathKey->Close();
+    $lMachine->Close();
     return $path;
 }
 
