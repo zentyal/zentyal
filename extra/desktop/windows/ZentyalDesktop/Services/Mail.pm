@@ -22,8 +22,11 @@ sub configure
     my ($class, $server, $user, $data) = @_;
 
     my $mailAccount = $data->{account};
-    
-    my $exePath = _thunderbirdExePath();    
+
+    my $config = ZentyalDesktop::Config->instance();
+    my $appData = $config->appData();
+
+    my $exePath = _thunderbirdExePath();
     my $args = '-CreateProfile default';
     my $process;
 
@@ -45,7 +48,6 @@ sub configure
 
     closedir ($dir);
 
-    my $config = ZentyalDesktop::Config->instance();
     my $protocol = $config->mailProtocol();
     my $useSSL = $config->mailSSL();
 
@@ -56,11 +58,11 @@ sub configure
             $ssl = '0';
     } else {
         $ssl = '1';
-    }    
+    }
 
-    open (my $templateFH, '<', "$TEMPLATES_DIR/prefs.js");
+    open (my $templateFH, '<', "$TEMPLATES_DIR/thunderbird/prefs.js");
     my $template = join ('', <$templateFH>);
-    close ($templateFH);   
+    close ($templateFH);
 
     $template =~ s/USER/$user/g;
     $template =~ s/SERVER/$server/g;
