@@ -38,6 +38,8 @@ my $lMachine=Win32::TieRegistry->Open('LMachine', {Access=>KEY_READ(),Delimiter=
     or die "Error: $^E";
 my $serverKey = $lMachine->Open('SOFTWARE/Zentyal/Zentyal Desktop', {Access=>KEY_READ(),Delimiter=>"/"});
 my $server = $serverKey->GetValue('SERVER');
+$serverKey->Close();
+$lMachine->Close();
 
 my $user = $ENV{USERNAME};
 
