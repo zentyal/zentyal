@@ -21,12 +21,10 @@ use strict;
 use ZentyalDesktop::Config;
 use ZentyalDesktop::SoftwareConfigurator;
 use ZentyalDesktop::Util;
-
+use Win32::Registry;
 use Win32::TieRegistry(Delimiter => '/', ArrayValues => 0);
-
 # Exit if configured mark is set
 my $configured = $Registry->{'CUser/Software/Zentyal/Zentyal Desktop/Configured'};
-
 if ($configured) {
     exit 0;
 }
@@ -36,8 +34,11 @@ my $appData = $Registry->{'CUser/Volatile Environment/APPDATA'}
     or die "Error: $^E";
 $config->setAppData($appData);
 
-my $server = $Registry->{'LMachine/SOFTWARE/Zentyal/Zentyal Desktop/SERVER'}
+my $lMachine=Win32::TieRegistry->Open('LMachine', {Access=>KEY_READ(),Delimiter=>"/"})
     or die "Error: $^E";
+my $serverKey = $lMachine->Open('SOFTWARE/Zentyal/Zentyal Desktop', {Access=>KEY_READ(),Delimiter=>"/"});
+my $server = $serverKey->GetValue('SERVER');
+
 my $user = $ENV{USERNAME};
 
 ZentyalDesktop::SoftwareConfigurator->configure($server, $user);
