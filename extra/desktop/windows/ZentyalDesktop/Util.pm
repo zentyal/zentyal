@@ -29,6 +29,7 @@ sub createFirefoxProfile
     my $args = '-CreateProfile default';
     my $process;
     my $exePath = _firefoxExePath();
+
     Win32::Process::Create($process, $exePath, "$exePath $args", 0, 0, '.');
 
     my $profilesPath = "$appData/Mozilla/Firefox/Profiles/";

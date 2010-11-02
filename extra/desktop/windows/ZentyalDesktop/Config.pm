@@ -60,6 +60,37 @@ sub instance
     return $singleton;
 }
 
+# Method: mailProtocol
+#
+#   Gets the value of the protocol for mail retrieving
+#
+# Returns:
+#
+#   string - Value for the option.
+#
+sub mailProtocol
+{
+    my ($self) = @_;
+
+    return $self->_getOption('mail', 'protocol');
+}
+
+# Method: mailSSL
+#
+#   Gets if SSL has to be used for mail retrieving
+#
+# Returns:
+#
+#   string - (always | when-possible | never)
+#
+sub mailSSL
+{
+    my ($self) = @_;
+
+    return $self->_getOption('mail', 'use-ssl');
+}
+
+
 sub setAppData
 {
     my ($self, $file) = @_;

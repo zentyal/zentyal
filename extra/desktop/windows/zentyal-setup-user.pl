@@ -25,10 +25,11 @@ use ZentyalDesktop::Util;
 use Win32::TieRegistry(Delimiter => '/', ArrayValues => 0);
 
 # Exit if configured mark is set
-eval { $Registry->{'CUser/Software/Zentyal/Zentyal Desktop/Configured'}; };
-unless ($@) {
+my $configured = $Registry->{'CUser/Software/Zentyal/Zentyal Desktop/Configured'}; 
+  
+if ($configured) {
     exit 0;
-}
+};
 
 my $config = ZentyalDesktop::Config->instance();
 my $appData = $Registry->{'CUser/Volatile Environment/APPDATA'}
@@ -39,13 +40,13 @@ my $server = $Registry->{'LMachine/SOFTWARE/Zentyal/Zentyal Desktop/SERVER'}
     or die "Error: $^E";
 my $user = $ENV{USERNAME};
 
-ZentyalDesktop::Util::createFirefoxProfile();
 
 ZentyalDesktop::SoftwareConfigurator->configure($server, $user);
 
 # Set configured mark
-my $zentyalRegKey = $Registry->{'CUser/Software/'}->{'Zentyal/Zentyal Desktop'}
-    or die "Error: $^E\n";
-$zentyalRegKey{'/Configured'} = 1;
+my $pathKey = $Registry->{'CUser/Software/'}; 
+
+my $newKey = $pathKey->CreateKey('Zentyal/Zentyal Desktop');
+$newKey->{'Configured'} = 1;
 
 exit 0;
