@@ -1,3 +1,3 @@
 :: Installs CPAN modules required by Zentyal Desktop
 
-cpan PAR::Packer Net::LDAP Config::Tiny Text::Template
+cpan PAR::Packer Net::LDAP Config::Tiny Text::Template Win32::Registry
