@@ -2641,7 +2641,10 @@ sub defaultPasswordHash
 
 sub _setupSlaveLDAP
 {
-    my ($self) = @_;
+    my ($self, $replicaOnly) = @_;
+
+    # Setup everything by default
+    $replicaOnly = 0 unless defined($replicaOnly);
 
     my ($ldap, $dn) = $self->_connRemoteLDAP();
 
@@ -2653,7 +2656,7 @@ sub _setupSlaveLDAP
 
     $self->_registerHostname($ldap, $dn);
     $self->_getCertificates($ldap, $dn);
-    $self->_setupReplication($dn);
+    $self->_setupReplication($dn, $replicaOnly);
 }
 
 sub _connRemoteLDAP
@@ -2741,7 +2744,7 @@ sub _getCertificates
 
 sub _setupReplication
 {
-    my ($self, $remotedn) = @_;
+    my ($self, $remotedn, $replicaOnly) = @_;
 
     my $model = EBox::Model::ModelManager->instance()->model('Mode');
     my $remote = $model->remoteValue();
@@ -2758,18 +2761,21 @@ sub _setupReplication
     EBox::Module::Base::writeFile($ldappass, $password);
 
     $self->_writeLdapConf('replica', $opts);
-    $self->_writeLdapConf('translucent', $opts);
-    $self->_writeLdapConf('frontend', $opts);
 
-    EBox::Module::Base::writeConfFileNoCheck(
-        EBox::Config::tmp() . "slapd-frontend-referrals.ldif",
-        "usersandgroups/slapd-frontend-referrals.ldif.mas",
-        $opts
-    );
-    EBox::Sudo::root('slapadd -F ' . LDAPCONFDIR .
-        "slapd-frontend.d" .  " -b '$remotedn' -l " .
-        EBox::Config::tmp() . "slapd-frontend-referrals.ldif");
-    EBox::Sudo::root("chown -R openldap.openldap /var/lib/ldap-frontend");
+    unless($replicaOnly) {
+        $self->_writeLdapConf('translucent', $opts);
+        $self->_writeLdapConf('frontend', $opts);
+
+        EBox::Module::Base::writeConfFileNoCheck(
+                EBox::Config::tmp() . "slapd-frontend-referrals.ldif",
+                "usersandgroups/slapd-frontend-referrals.ldif.mas",
+                $opts
+                );
+        EBox::Sudo::root('slapadd -F ' . LDAPCONFDIR .
+                "slapd-frontend.d" .  " -b '$remotedn' -l " .
+                EBox::Config::tmp() . "slapd-frontend-referrals.ldif");
+        EBox::Sudo::root("chown -R openldap.openldap /var/lib/ldap-frontend");
+    }
 
     $self->_manageService('start');
     $self->waitSync();

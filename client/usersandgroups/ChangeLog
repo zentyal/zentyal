@@ -1,4 +1,5 @@
 HEAD
+	+ Added zentyal-rejoin-slave to rejoin a slave to its master
 	+ Fixed NSS/PAM in slave machines
 2.0.5
 	+ Removed wrong hooks implementation
