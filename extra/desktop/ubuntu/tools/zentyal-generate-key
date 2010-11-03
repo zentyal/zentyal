@@ -6,17 +6,15 @@ then
     SERVER=`grep ^host /etc/ldap.conf | cut -d' ' -f2`
 fi
 
-TITLE="Welcome to Zentyal Desktop first login configuration"
+TEXT="Welcome to Zentyal Desktop first login configuration.
 
-TEXT="You are seeing this because you have enabled the roaming profiles feature. After you close this dialog, you will be asked for your password. It is needed to copy your public key tot he server. You will not have to do this on the next logins, just this time."
+You are seeing this because you have enabled the roaming profiles feature. After you close this dialog, you will be asked for your password. It is needed to copy your public key tot he server. You will not have to do this on the next logins, just this time."
 
 ssh-keygen -f $HOME/.ssh/id_rsa -N ''
 
-zenity --title "$TITLE" --text "$TEXT" --info
+zenity --text "$TEXT" --info
 
 SSH_ASKPASS=ssh-askpass setsid ssh-copy-id $SERVER
-
-zenity --text "COMMAND ENDED WITH VALUE *$?*" --info
 
 if [ $? -eq 0 ]
 then
