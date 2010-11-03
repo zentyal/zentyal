@@ -7,23 +7,18 @@ grep -q "^roaming-profiles.*yes" $CONF || exit 0
 # If server address is not in the environment, read it
 if [ -z "$SERVER" ]
 then
-    export SERVER=`grep ^host /etc/ldap.conf | cut -d' ' -f2`
+    SERVER=`grep ^host /etc/ldap.conf | cut -d' ' -f2`
 fi
 
-if [ "$1" == "logout" ]
+# Generate key pair if not already done
+if ! [ -f ~/.ssh/id_rsa.pub ]
 then
-    # Empty trash and cache in logout
-    rm -r /home/$USER/.local/share/Trash/*
-    rm -r /home/$USER/.local/share/Trash/.*
-    rm -r /home/$USER/.mozilla/firefox/*.default/Cache/*
-else
-    # Generate key pair if not already done
-    if ! [ -f ~/.ssh/id_rsa.pub ]
-    then
-        . /usr/share/zentyal-desktop/zentyal-generate-key
-    fi
+    . /usr/share/zentyal-desktop/zentyal-generate-key
 fi
 
-# Sync files
-unison -ignore '.gvfs' $HOME ssh://$SERVER/$HOME | zenity --title='Zentyal Desktop' --progress --auto-close --pulsate --text='Syncing roaming profile'
+# FIXME: This doesn't work, investigate why
+IGNORE_LIST="-ignore 'Path .gvfs' -ignore 'Path .local/share/Trash' -ignore 'Regex .*(cache|Cache|te?mp|history|thumbnails).*'"
+
+# Sync files with pulsating progress bar
+(echo ; unison $HOME ssh://$USER@$SERVER//$HOME -batch) | zenity --title='Zentyal Desktop' --progress --auto-close --pulsate --text='Syncing roaming profile'
 
