@@ -5,4 +5,7 @@
 [ -f /usr/share/zentyal-desktop/ldap.conf.save ] &&
 mv /usr/share/zentyal-desktop/ldap.conf.save /etc/ldap.conf
 
+[ -f /usr/share/zentyal-desktop/gdm-post-default.save ] &&
+mv /usr/share/zentyal-desktop/gdm-post-default.save /etc/gdm/PostSession/Default
+
 rm /etc/auth-client-config/profile.d/zentyal

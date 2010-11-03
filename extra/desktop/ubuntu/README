@@ -3,11 +3,11 @@ Changes needed on the Zentyal server
 
 Set a valid shell like /bin/bash in "Users and Groups -> LDAP Settings"
 
-Edit /etc/default/slapd:
+Only if you want to enable roaming profiles:
 
-SLAPD_SERVICES change from 127.0.0.1 to 0.0.0.0
+ - Mark the "Enable PAM" checkbox in "LDAP Settings".
 
-/etc/init.d/slapd restart
+ - sudo apt-get install unison
 
 
 Client actions

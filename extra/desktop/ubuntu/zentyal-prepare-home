@@ -13,6 +13,8 @@ then
     echo "\n$COMMENT" >> $PROFILE
     # Execute zentyal-desktop setup unless it's already configured
     echo "[ -f $CONFIGURED_STAMP ] || $SETUP_SCRIPT" >> $PROFILE
+    # Always execute the roaming profile sync tool
+    echo "/usr/share/zentyal-desktop/zentyal-sync-profile" >> $PROFILE
 fi
 
 # Set proper .profile ownership

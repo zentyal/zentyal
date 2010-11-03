@@ -1,0 +1,29 @@
+#!/bin/bash
+
+# Exit if roaming profiles are disabled
+CONF=/etc/zentyal-desktop/zentyal-desktop.conf
+grep -q "^roaming-profiles.*yes" $CONF || exit 0
+
+# If server address is not in the environment, read it
+if [ -z "$SERVER" ]
+then
+    export SERVER=`grep ^host /etc/ldap.conf | cut -d' ' -f2`
+fi
+
+if [ "$1" == "logout" ]
+then
+    # Empty trash and cache in logout
+    rm -r /home/$USER/.local/share/Trash/*
+    rm -r /home/$USER/.local/share/Trash/.*
+    rm -r /home/$USER/.mozilla/firefox/*.default/Cache/*
+else
+    # Generate key pair if not already done
+    if ! [ -f ~/.ssh/id_rsa.pub ]
+    then
+        . /usr/share/zentyal-desktop/zentyal-generate-key
+    fi
+fi
+
+# Sync files
+unison -ignore '.gvfs' $HOME ssh://$SERVER/$HOME | zenity --title='Zentyal Desktop' --progress --auto-close --pulsate --text='Syncing roaming profile'
+

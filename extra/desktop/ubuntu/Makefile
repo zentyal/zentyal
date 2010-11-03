@@ -33,8 +33,7 @@ install:
 	cp -a common/templates/* $(DESTDIR)$(DATADIR)/skel
 	install -m755 zentyal-prepare-home $(DESTDIR)$(DATADIR)
 	install -m755 zentyal-setup-user $(DESTDIR)$(DATADIR)
-	install -m755 zentyal-unconfigure-client $(DESTDIR)$(DATADIR)
-	install -m755 ekiga-launcher $(DESTDIR)$(DATADIR)
+	cp -a tools/* $(DESTDIR)$(DATADIR)
 	install -m644 ldap.conf $(DESTDIR)$(DATADIR)
 	install -m644 zentyal.pam $(DESTDIR)$(DATADIR)
 	install -d $(DESTDIR)$(LIBPERL)/ZentyalDesktop

@@ -9,6 +9,11 @@ cp /usr/share/zentyal-desktop/ldap.conf /etc/ldap.conf
 
 cp /usr/share/zentyal-desktop/zentyal.pam /etc/auth-client-config/profile.d/zentyal
 
+GDM_POSTDEFAULT=/etc/gdm/PostSession/Default
+[ -f $GDM_POSTDEFAULT ] &&
+mv $GDM_POSTDEFAULT /usr/share/zentyal-desktop/gdm-post-default.save
+cp /usr/share/zentyal-desktop/gdm-post-session $GDM_POSTDEFAULT
+
 db_get zentyal-desktop/server
 server="$RET"
 zentyal-setup-client $server
