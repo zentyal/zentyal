@@ -84,13 +84,13 @@ sub _thunderbirdExePath
 
     my $lMachine=Win32::TieRegistry->Open('LMachine', {Access=>KEY_READ(),Delimiter=>"/"})
         or die "Error: $^E";
-    my $versionKey = $lMachine->Open('SOFTWARE/Mozilla/Mozilla Thunderbird', {Access=>KEY_READ(),Delimiter=>"/"});
-    my $version = $serverKey->GetValue('CurrentVersion');
-    $versionKey->Close();
-    my $pathKey = $lMachine->Open("SOFTWARE/Mozilla/Mozilla Thunderbird/$version/Main", {Access=>KEY_READ(),Delimiter=>"/"});
+    my $versionKey = $lMachine->Open('Mozilla/Mozilla Thunderbird', {Access=>KEY_READ(),Delimiter=>"/"});
+    my $version = $versionKey->GetValue('CurrentVersion');
+    undef $versionKey;
+    my $pathKey = $lMachine->Open("Mozilla/Mozilla Thunderbird/$version/Main", {Access=>KEY_READ(),Delimiter=>"/"});
     my $path = $pathKey->GetValue('PathToExe');
-    $pathKey->Close();
-    $lMachine->Close();
+    undef $pathKey;
+    undef $lMachine;
 
     return $path;
 }
