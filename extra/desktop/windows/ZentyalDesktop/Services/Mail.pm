@@ -16,37 +16,52 @@
 package ZentyalDesktop::Services::Mail;
 
 use ZentyalDesktop::Config qw(TEMPLATES_DIR);
+use Win32::Registry;
+use Win32::TieRegistry(Delimiter => '/', ArrayValues => 0);
+use ZentyalDesktop::Log;
+
+my $logger = ZentyalDesktop::Log->getLogger();
 
 sub configure
 {
     my ($class, $server, $user, $data) = @_;
-
+    $logger->debug("Mail configure -> server: $server user: $user account: $data->{account}");
+    
     my $mailAccount = $data->{account};
 
     my $config = ZentyalDesktop::Config->instance();
     my $appData = $config->appData();
-
+ 
     my $TEMPLATES_DIR = TEMPLATES_DIR;
 
     my $exePath = _thunderbirdExePath();
     my $args = '-CreateProfile default';
+    $logger->debug("execute: $exePath $args");
+
     my $process;
-
     Win32::Process::Create($process, $exePath, "$exePath $args", 0, 0, '.');
+    $process->Wait('60000');
 
-    my $profilesPath = "$appData/Thundebird/Profiles/";
+    my $profilesPath = "$appData/Thunderbird/Profiles/";    
+    $logger->debug("profiles path: $profilesPath");
     $profilesPath =~ s/\\/\//g;
-    opendir (my $dir, $profilesPath)
-        or return;
+
+    my $dir;
+    eval{ opendir ($dir, $profilesPath);};
+    if ($@) {
+        $logger->error("ERROR: $@");
+        return;
+    };
 
     my @files = readdir ($dir);
     my $profileDir;
-    foreach my $file (@files) {
+    foreach my $file (@files) {            
         if ($file =~ /default/) {
             $profileDir = $file;
             last;
         }
     }
+    $logger->debug("profile dir: $profileDir");
 
     closedir ($dir);
 
@@ -68,30 +83,34 @@ sub configure
 
     $template =~ s/USER/$user/g;
     $template =~ s/SERVER/$server/g;
-    $template =~ s/MAILACCOUNT/$mailaccount/g;
+    $template =~ s/MAILACCOUNT/$mailAccount/g;
     $template =~ s/PROTOCOL/$protocol/g;
     $template =~ s/SSL/$ssl/g;
 
-    open (my $confFH, '>', "$profileDir/prefs.js");
+    open (my $confFH, '>', "$profilesPath/$profileDir/prefs.js");
     print $confFH $template;
     close ($confFH);
 }
 
 sub _thunderbirdExePath
 {
-    my $version = $Registry->{"LMachine/SOFTWARE/Mozilla/Mozilla Thunderbird/CurrentVersion"};
-    my $path = $Registry->{"LMachine/SOFTWARE/Mozilla/Mozilla Thunderbird/$version/Main/PathToExe"};
-
-    my $lMachine=Win32::TieRegistry->Open('LMachine', {Access=>KEY_READ(),Delimiter=>"/"})
-        or die "Error: $^E";
-    my $versionKey = $lMachine->Open('Mozilla/Mozilla Thunderbird', {Access=>KEY_READ(),Delimiter=>"/"});
-    my $version = $versionKey->GetValue('CurrentVersion');
-    undef $versionKey;
-    my $pathKey = $lMachine->Open("Mozilla/Mozilla Thunderbird/$version/Main", {Access=>KEY_READ(),Delimiter=>"/"});
-    my $path = $pathKey->GetValue('PathToExe');
-    undef $pathKey;
-    undef $lMachine;
-
+    my $path;
+    eval {   
+        my $lMachine=Win32::TieRegistry->Open('LMachine', {Access=>KEY_READ(),Delimiter=>"/"});
+        my $versionKey = $lMachine->Open('SOFTWARE/Mozilla/Mozilla Thunderbird', {Access=>KEY_READ(),Delimiter=>"/"});
+        my $version = $versionKey->GetValue('CurrentVersion');
+        undef $versionKey;
+        my $pathKey = $lMachine->Open("SOFTWARE/Mozilla/Mozilla Thunderbird/$version/Main", {Access=>KEY_READ(),Delimiter=>"/"});
+        $path = $pathKey->GetValue('PathToExe');
+        undef $pathKey;
+        undef $lMachine;
+    };
+    if ($@) {
+        $logger->error("ERROR: $@. Exit");
+        return;
+    } else {
+        $logger->debug("Firefox exe path: $path");
+    };
     return $path;
 }
 

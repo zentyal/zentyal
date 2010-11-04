@@ -16,9 +16,12 @@
 package ZentyalDesktop::Util;
 
 use ZentyalDesktop::Config;
-
+use ZentyalDesktop::Log;
+use Win32::Registry;
 use Win32::TieRegistry(Delimiter => '/', ArrayValues => 0);
 use Win32::Process;
+
+my $logger = ZentyalDesktop::Log->getLogger();
 
 sub createFirefoxProfile
 {
@@ -29,13 +32,23 @@ sub createFirefoxProfile
     my $args = '-CreateProfile default';
     my $process;
     my $exePath = _firefoxExePath();
+    $logger->debug("execute: $exePath $args");
 
     Win32::Process::Create($process, $exePath, "$exePath $args", 0, 0, '.');
+    $process->Wait('60000');
 
     my $profilesPath = "$appData/Mozilla/Firefox/Profiles/";
+    $logger->debug("profiles path: $profilesPath");
     $profilesPath =~ s/\\/\//g;
-    opendir (my $dir, $profilesPath)
-        or return;
+
+    my $dir;
+    eval {
+        opendir ($dir, $profilesPath);
+    };
+    if ($@) {
+        $logger->error("ERROR: $@. Exit");
+        return;
+    }  
 
     my @files = readdir ($dir);
     my $profileDir;
@@ -45,6 +58,7 @@ sub createFirefoxProfile
             last;
         }
     }
+    $logger->debug("profile dir: $profileDir");
 
     closedir ($dir);
 
@@ -55,6 +69,7 @@ sub createFirefoxProfile
 sub addFirefoxBookmark
 {
     my ($url, $desc) = @_;
+    $logger->debug("Add firefox bookmark -> Url: $url desc: $desc");
 
     my $config = ZentyalDesktop::Config->instance();
     my $file = $config->firefoxBookmarksFile();
@@ -83,15 +98,23 @@ sub addFirefoxBookmark
 
 sub _firefoxExePath
 {
-    my $lMachine=Win32::TieRegistry->Open('LMachine', {Access=>KEY_READ(),Delimiter=>"/"})
-        or die "Error: $^E";
-    my $versionKey = $lMachine->Open('LMachine/SOFTWARE/Mozilla/Mozilla Firefox', {Access=>KEY_READ(),Delimiter=>"/"});
-    my $version = $serverKey->GetValue('CurrentVersion');
-    $versionKey->Close();
-    my $pathKey = $lMachine->Open("LMachine/SOFTWARE/Mozilla/Mozilla Firefox/$version/Main", {Access=>KEY_READ(),Delimiter=>"/"});
-    my $path = $pathKey->GetValue('PathToExe');
-    $pathKey->Close();
-    $lMachine->Close();
+    my $path;
+    eval {        
+        my $lMachine=Win32::TieRegistry->Open('LMachine', {Access=>KEY_READ(),Delimiter=>"/"});
+        my $versionKey = $lMachine->Open('SOFTWARE/Mozilla/Mozilla Firefox', {Access=>KEY_READ(),Delimiter=>"/"});
+        my $version = $versionKey->GetValue('CurrentVersion');
+        undef $versionKey;
+        my $pathKey = $lMachine->Open("SOFTWARE/Mozilla/Mozilla Firefox/$version/Main", {Access=>KEY_READ(),Delimiter=>"/"});
+        $path = $pathKey->GetValue('PathToExe');
+        undef $pathKey;
+        undef $lMachine;
+    };
+    if ($@) {
+        $logger->error("ERROR: $@. Exit");
+        return;
+    } else {
+        $logger->debug("Firefox exe path: $path");
+    };
     return $path;
 }
 

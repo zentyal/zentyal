@@ -16,10 +16,16 @@
 package ZentyalDesktop::Services::VoIP;
 
 use ZentyalDesktop::Config qw(TEMPLATES_DIR);
+use ZentyalDesktop::Log;
+
+my $logger = ZentyalDesktop::Log->getLogger();
 
 sub configure
 {
     my ($class, $server, $user, $data) = @_;
+    $logger->debug("VoIP configure -> server: $server user: $user");
+    
+    my $password = '';
 
     my $config = ZentyalDesktop::Config->instance();
     my $APPDATA = $config->appData();
@@ -32,9 +38,9 @@ sub configure
     my $template = join ('', <$templateFH>);
     close ($templateFH);
 
-    $template =~ s/USERNAME/$USER/g;
-    $template =~ s/SERVER/$SERVER/g;
-    $template =~ s/PASSWORD/$PASSWORD/g;
+    $template =~ s/USERNAME/$user/g;
+    $template =~ s/SERVER/$server/g;
+    $template =~ s/PASSWORD/$password/g;
 
     open (my $confFH, '>', "$APPDATA/ekiga.conf");
     print $confFH $template;

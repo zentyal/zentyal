@@ -16,12 +16,16 @@
 package ZentyalDesktop::Services::Jabber;
 
 use ZentyalDesktop::Config qw(TEMPLATES_DIR);
-
+use ZentyalDesktop::Log;
 use Text::Template;
+
+my $logger = ZentyalDesktop::Log->getLogger();
 
 sub configure
 {
     my ($class, $server, $user, $data) = @_;
+
+    $logger->debug("Jabber configure -> server: $server user: $user domain: $data->{domain}");
 
     my $domain = $data->{domain};
 
@@ -46,6 +50,7 @@ sub configure
 
     my $confDir = "$APPDATA/.purple";
     mkdir ($confDir);
+    $logger->debug("configuration directory: $confDir");
 
     my $template = new Text::Template(TYPE => FILE,
                                       SOURCE => "$TEMPLATES_DIR/pidgin/accounts.xml");
