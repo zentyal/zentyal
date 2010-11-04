@@ -118,7 +118,7 @@ Section "Thunderbird (Mail)" SEC03
 SectionEnd
 
 Section "Pidgin (Jabber)" SEC04
-  SetOutPath "$INSTDIR"
+  SetOutPath "$INSTDIR\software"
   SetOverwrite on
   File "res\pidgin-setup.exe"
   CreateDirectory "$SMPROGRAMS\Zentyal Desktop"
