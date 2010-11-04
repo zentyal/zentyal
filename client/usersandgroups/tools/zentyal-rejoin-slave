@@ -37,4 +37,6 @@ $users->_setupSlaveLDAP(1);
 
 $users->_manageService('start');
 
+$users->save();
+
 1;
