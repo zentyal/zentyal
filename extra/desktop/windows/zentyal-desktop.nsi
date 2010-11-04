@@ -86,6 +86,7 @@ Section
   File "zentyal-setup-user.exe"
   File "zentyal-desktop-config.exe"
   File "zentyal-desktop.ini"
+  File "zentyal-user-reset.bat"
   CreateDirectory "$SMPROGRAMS\Zentyal Desktop"
   CreateDirectory "$SMPROGRAMS\Zentyal Desktop\templates"
   SetOutPath "$INSTDIR\templates"

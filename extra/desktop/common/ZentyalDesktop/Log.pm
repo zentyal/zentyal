@@ -26,7 +26,7 @@ use Log::Log4perl qw(get_logger);
 #
 sub initLog
 {
-    my ($self, $dir) = @_:
+    my ($self, $dir) = @_;
 
     my $conf = q(
     log4perl.category.ZentyalDesktop::Config         = ALL, Logfile
