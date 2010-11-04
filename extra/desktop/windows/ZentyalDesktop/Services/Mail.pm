@@ -26,12 +26,12 @@ sub configure
 {
     my ($class, $server, $user, $data) = @_;
     $logger->debug("Mail configure -> server: $server user: $user account: $data->{account}");
-    
+
     my $mailAccount = $data->{account};
 
     my $config = ZentyalDesktop::Config->instance();
     my $appData = $config->appData();
- 
+
     my $TEMPLATES_DIR = TEMPLATES_DIR;
 
     my $exePath = _thunderbirdExePath();
@@ -42,7 +42,7 @@ sub configure
     Win32::Process::Create($process, $exePath, "$exePath $args", 0, 0, '.');
     $process->Wait('60000');
 
-    my $profilesPath = "$appData/Thunderbird/Profiles/";    
+    my $profilesPath = "$appData/Thunderbird/Profiles/";
     $logger->debug("profiles path: $profilesPath");
     $profilesPath =~ s/\\/\//g;
 
@@ -55,7 +55,7 @@ sub configure
 
     my @files = readdir ($dir);
     my $profileDir;
-    foreach my $file (@files) {            
+    foreach my $file (@files) {
         if ($file =~ /default/) {
             $profileDir = $file;
             last;
@@ -95,7 +95,7 @@ sub configure
 sub _thunderbirdExePath
 {
     my $path;
-    eval {   
+    eval {
         my $lMachine=Win32::TieRegistry->Open('LMachine', {Access=>KEY_READ(),Delimiter=>"/"});
         my $versionKey = $lMachine->Open('SOFTWARE/Mozilla/Mozilla Thunderbird', {Access=>KEY_READ(),Delimiter=>"/"});
         my $version = $versionKey->GetValue('CurrentVersion');

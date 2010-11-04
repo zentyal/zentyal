@@ -48,7 +48,7 @@ sub createFirefoxProfile
     if ($@) {
         $logger->error("ERROR: $@. Exit");
         return;
-    }  
+    }
 
     my @files = readdir ($dir);
     my $profileDir;
@@ -99,7 +99,7 @@ sub addFirefoxBookmark
 sub _firefoxExePath
 {
     my $path;
-    eval {        
+    eval {
         my $lMachine=Win32::TieRegistry->Open('LMachine', {Access=>KEY_READ(),Delimiter=>"/"});
         my $versionKey = $lMachine->Open('SOFTWARE/Mozilla/Mozilla Firefox', {Access=>KEY_READ(),Delimiter=>"/"});
         my $version = $versionKey->GetValue('CurrentVersion');

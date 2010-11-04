@@ -24,7 +24,7 @@ sub configure
 {
     my ($class, $server, $user, $data) = @_;
     $logger->debug("VoIP configure -> server: $server user: $user");
-    
+
     my $password = '';
 
     my $config = ZentyalDesktop::Config->instance();
