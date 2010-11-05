@@ -20,7 +20,7 @@ use Win32::Registry;
 use Win32::TieRegistry(Delimiter => '/', ArrayValues => 0);
 use ZentyalDesktop::Log;
 
-my $logger = ZentyalDesktop::Log->logger();
+my $logger = ZentyalDesktop::Log::logger();
 
 sub configure
 {

@@ -19,7 +19,7 @@ use ZentyalDesktop::Config qw(TEMPLATES_DIR);
 use ZentyalDesktop::Log;
 use Text::Template;
 
-my $logger = ZentyalDesktop::Log->logger();
+my $logger = ZentyalDesktop::Log::logger();
 
 sub configure
 {
