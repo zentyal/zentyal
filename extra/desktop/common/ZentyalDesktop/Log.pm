@@ -30,16 +30,15 @@ my $loginit = 0;
 #
 sub init
 {
-    my ($self, $dir) = @_;
+    my ($logfile) = @_;
 
     my $conf = q(
-    log4perl.category.ZentyalDesktop::Config         = ALL, Logfile
+    log4perl.category.ZentyalDesktop   = ALL, Logfile
     log4perl.appender.Logfile          = Log::Log4perl::Appender::File
-    log4perl.appender.Logfile.layout = \
-    Log::Log4perl::Layout::PatternLayout
+    log4perl.appender.Logfile.layout   = Log::Log4perl::Layout::PatternLayout
     log4perl.appender.Logfile.layout.ConversionPattern = %d %F{1} %L> %m %n
     );
-    $conf .= "log4perl.appender.Logfile.filename = $dir";
+    $conf .= "log4perl.appender.Logfile.filename = $logfile";
 
     Log::Log4perl::init(\$conf);
     $loginit = 1;
@@ -47,16 +46,14 @@ sub init
 
 sub logger
 {
-    my ($cat) = @_;
-
-    defined($cat) or $cat = LOGGER_CAT;
-    if(not $loginit) {
+    unless ($loginit) {
         use Devel::StackTrace;
 
         my $trace = Devel::StackTrace->new();
         print STDERR $trace->as_string();
     }
-    return Log::Log4perl->get_logger($cat);
+
+    return Log::Log4perl->get_logger(LOGGER_CAT);
 }
 
 1;

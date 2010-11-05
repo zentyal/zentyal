@@ -1,4 +1,4 @@
-#!/usr/bin/perl
+#!perl
 #
 # Copyright (C) 2010 eBox Technologies S.L.
 #
@@ -30,7 +30,7 @@ my $appData = $ENV{APPDATA};
 
 ZentyalDesktop::Log->init($appData . '\ZentyalDesktop.log');
 
-my $logger = ZentyalDesktop::Log->logger();
+my $logger = ZentyalDesktop::Log::logger();
 $logger->debug("Begin zentyal-setup-user");
 
 # Exit if configured mark is set
