@@ -21,7 +21,7 @@ use Win32::Registry;
 use Win32::TieRegistry(Delimiter => '/', ArrayValues => 0);
 use Win32::Process;
 
-my $logger = ZentyalDesktop::Log->getLogger();
+my $logger = ZentyalDesktop::Log->logger();
 
 sub createFirefoxProfile
 {

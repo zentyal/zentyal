@@ -26,9 +26,11 @@ use ZentyalDesktop::Log;
 use Win32::Registry;
 use Win32::TieRegistry(Delimiter => '/', ArrayValues => 0);
 
-my $dirData = $ENV{APPDATA};
-ZentyalDesktop::Log->initLog($dirData . '\ZentyalDesktop.log');
-my $logger = ZentyalDesktop::Log->getLogger();
+my $appData = $ENV{APPDATA};
+
+ZentyalDesktop::Log->init($appData . '\ZentyalDesktop.log');
+
+my $logger = ZentyalDesktop::Log->logger();
 $logger->debug("Begin zentyal-setup-user");
 
 # Exit if configured mark is set
@@ -41,13 +43,7 @@ $logger->debug('Configured mark is not set');
 
 
 my $config = ZentyalDesktop::Config->instance();
-my $appData = $Registry->{'CUser/Volatile Environment/APPDATA'};
-unless ($appData) {
-    $logger->error("ERROR: $^E. Exit");
-    exit 1;
-}
-$logger->debug("appdata: $appData");
-
+$logger->debug("Application data directory: $appData");
 $config->setAppData($appData);
 
 my $server;

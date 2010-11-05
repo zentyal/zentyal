@@ -18,13 +18,17 @@ package ZentyalDesktop::Log;
 use strict;
 use warnings;
 
-use Log::Log4perl qw(get_logger);
+use Log::Log4perl;
 
-# Method: initLog
+use constant LOGGER_CAT => 'ZentyalDesktop';
+
+my $loginit = 0;
+
+# Method: init
 #
 #   Initialize Zentyal Desktop log
 #
-sub initLog
+sub init
 {
     my ($self, $dir) = @_;
 
@@ -36,25 +40,23 @@ sub initLog
     log4perl.appender.Logfile.layout.ConversionPattern = %d %F{1} %L> %m %n
     );
     $conf .= "log4perl.appender.Logfile.filename = $dir";
-    print $conf;
+
     Log::Log4perl::init(\$conf);
+    $loginit = 1;
 }
 
-
-# Method: getLogger
-#
-#   Initialize logger
-#
-# Returns:
-#
-#   logger instancie
-#
-sub getLogger
+sub logger
 {
-    my ($self) = @_;
+    my ($cat) = @_;
 
-    my $logger = Log::Log4perl->get_logger('ZentyalDesktop::Config');
-    return $logger;
+    defined($cat) or $cat = LOGGER_CAT;
+    if(not $loginit) {
+        use Devel::StackTrace;
+
+        my $trace = Devel::StackTrace->new();
+        print STDERR $trace->as_string();
+    }
+    return Log::Log4perl->get_logger($cat);
 }
 
 1;
