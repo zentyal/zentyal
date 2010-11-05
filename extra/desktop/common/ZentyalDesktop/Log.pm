@@ -30,7 +30,7 @@ my $loginit = 0;
 #
 sub init
 {
-    my ($logfile) = @_;
+    my ($class, $logfile) = @_;
 
     my $conf = q(
     log4perl.category.ZentyalDesktop   = ALL, Logfile
