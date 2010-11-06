@@ -112,7 +112,6 @@ sub setUserAccount
 
     $self->_createMaildir($lhs, $rhs);
 
-
     my @list = $mail->{malias}->listMailGroupsByUser($user);
     foreach my $item(@list) {
         my @aliases = @{ $mail->{malias}->groupAliases($item) };
@@ -775,7 +774,7 @@ sub setMaildirQuotaUsesDefault
     my $userMaildirSizeValue = $isDefault ? 0 : 1;
     $self->setUserLdapValue($user, 'userMaildirSize', $userMaildirSizeValue);
     if ($isDefault) {
-       # sync quota with default
+        # sync quota with default
         my $mail = EBox::Global->modInstance('mail');
         my $defaultQuota = $mail->defaultMailboxQuota();
         $self->setUserLdapValue($user, 'quota', $defaultQuota);
@@ -820,25 +819,39 @@ sub setMaildirQuota
 #  Method: regenMaildirQuotas
 #
 # regenerate user accounts mailquotas to reflect the changes in default
-# quota configuration
+# quota configuration (only if default quota has changed)
 sub regenMaildirQuotas
 {
     my ($self) = @_;
 
     my $mail = EBox::Global->modInstance('mail');
     my $defaultQuota = $mail->defaultMailboxQuota();
+
+    # Check mailbox size against last saved value
+    my $prevDefaultQuota = $mail->get_int('prevMailboxSize');
+
+    # Only regenerate if default quota has changed (or first time)
+    return if (defined($prevDefaultQuota) and ($defaultQuota eq $prevDefaultQuota));
+
+    EBox::info("Changing default quota to $defaultQuota MB");
+
+    # Save new value
+    $mail->set_int('prevMailboxSize', $defaultQuota);
+    $mail->_saveConfig();
+
     my $usersMod = EBox::Global->modInstance('users');
 
     foreach my $user ($usersMod->users()) {
-        my $userName = $user->{username};
-        $self->userAccount($userName) or
+        my $username = $user->{username};
+        $self->userAccount($username) or
             next;
 
-        if ($self->maildirQuotaType($userName) eq 'default') {
-            $self->setMaildirQuota($userName, $defaultQuota);
+        if ($self->maildirQuotaType($username) eq 'default') {
+            $self->setMaildirQuota($username, $defaultQuota);
         }
     }
 }
+
 
 # FIXME make a listener-observer for this new code and move it to ebox-zarafa
 sub _userZarafaAccount

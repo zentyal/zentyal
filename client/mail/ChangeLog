@@ -1,3 +1,5 @@
+HEAD
+	+ Don't regenerate user quotas if default quota doesn't change
 2.0.1
 	+ Bugfix: hooks didn't work (thanks to moebius for the patch)
 1.5.5
