@@ -279,18 +279,18 @@ sub _setConf
     }
 
     my @array = ();
-    my $dn = $self->model('Mode')->dnValue();
-
+    my $dn;
     if ( $mode eq 'slave' ) {
         push(@array, 'ldap' => 'ldap://127.0.0.1:1389');
+        $dn = $self->model('Mode')->dnValue();
     } else {
         # master or ad-sync
         push(@array, 'ldap' => EBox::Ldap::LDAPI);
+        $dn = $ldap->dn;
     }
 
     push(@array, 'basedc'    => $dn);
     push(@array, 'binddn'    => 'cn=ebox,' . $dn);
-    push(@array, 'bindpw'    => remotePassword());
     push(@array, 'usersdn'   => USERSDN . ',' . $dn);
     push(@array, 'groupsdn'  => GROUPSDN . ',' . $dn);
     push(@array, 'computersdn' => 'ou=Computers,' . $dn);

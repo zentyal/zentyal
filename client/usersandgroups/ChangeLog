@@ -1,3 +1,5 @@
+HEAD
+	+ Fixed NSS DN config in masters
 2.0.6
 	+ Added zentyal-rejoin-slave to rejoin a slave to its master
 	+ Fixed NSS/PAM in slave machines
