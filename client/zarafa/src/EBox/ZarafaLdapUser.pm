@@ -73,6 +73,13 @@ sub localAttributes
     return \@attrs;
 }
 
+
+sub indexes
+{
+    return [ 'zarafaAccount' ];
+}
+
+
 sub isAdmin #($username)
 {
     my ($self, $username) = @_;

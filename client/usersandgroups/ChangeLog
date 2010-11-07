@@ -1,4 +1,5 @@
 HEAD
+	+ Added index add mechanism to LdapModule
 	+ Fixed NSS DN config in masters
 2.0.6
 	+ Added zentyal-rejoin-slave to rejoin a slave to its master

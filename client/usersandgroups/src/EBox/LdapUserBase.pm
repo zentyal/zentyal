@@ -226,12 +226,26 @@ sub acls
 #
 # Returns:
 #
-#	array ref - Each element must be a string with a path to an LDIF schema
+#	array ref - Each element must be a string with an attribute name
 #
 sub localAttributes
 {
     return [];
 }
+
+# Method: indexes
+#
+#	Returns the attributes that need to be indexed in a translucent LDAP
+#
+# Returns:
+#
+#	array ref - Each element must be a string with an attribute name to inex
+#
+sub indexes
+{
+    return [];
+}
+
 
 # Method: defaultUserModel
 #

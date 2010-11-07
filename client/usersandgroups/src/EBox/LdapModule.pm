@@ -235,6 +235,79 @@ sub _addTranslucentLocalAttribute
     EBox::Sudo::root("sed -i -e 's/^olcTranslucentLocal: \\(.*\\)/olcTranslucentLocal: \\1,$attribute/' /etc/ldap/slapd-translucent.d/cn=config/olcDatabase={1}hdb/olcOverlay={0}translucent.ldif");
 }
 
+
+#   Method: _addIndex
+#
+#       Create indexes in LDAP for an attribute
+#
+# Parameters:
+#          attribute - string with the attribute to be indexed in LDAP
+#
+sub _addIndex
+{
+    my ($self, $attribute) = @_;
+
+    my $users = EBox::Global->modInstance('users');
+    my $mode = $users->mode();
+
+    if ($mode eq 'master' or $mode eq 'ad-slave') {
+        $self->ldap->ldapCon();
+        my $ldap = $self->ldap->{ldap};
+        $self->_addIndexDirectory($ldap, $attribute);
+    } elsif ($mode eq 'slave') {
+        my $password = $self->ldap->getPassword();
+        my $ldap;
+        my @ports = (389, 1389, 1390);
+        for my $port (@ports) {
+            $ldap = EBox::Ldap::safeConnect("127.0.0.1:$port");
+            EBox::Ldap::safeBind($ldap, ROOT_CONFIG_DN, $password);
+            $self->_addIndexDirectory($ldap, $attribute);
+        }
+    } else {
+        throw EBox::Exceptions::Internal(
+            "Creating index with unknown LDAP mode: $mode");
+    }
+}
+
+
+sub _addIndexDirectory
+{
+    my ($self, $ldap, $attribute) = @_;
+
+    my $index = "$attribute eq";
+
+    my $dn = 'olcDatabase={1}hdb,cn=config';
+    my %args = (
+            'base' => $dn,
+            'scope' => 'base',
+            'filter' => "(objectClass=*)",
+            'attrs' => ['olcDbIndex']
+    );
+    my $result = $ldap->search(%args);
+    my $entry = ($result->entries)[0];
+    my $attr = ($entry->attributes)[0];
+    my $found = undef;
+    my @indexes = $entry->get_value($attr);
+    for my $dbindex (@indexes) {
+        if($dbindex eq $index) {
+            $found = 1;
+            last;
+        }
+    }
+    if(not $found) {
+        push(@indexes, $index);
+        my %args = (
+            'replace' => [ 'olcDbIndex' => \@indexes ]
+        );
+        try {
+            $ldap->modify($dn, %args);
+        } otherwise {
+            throw EBox::Exceptions::Internal("Invalid index: $index");
+        };
+    }
+}
+
+
 #   Method: performLDAPActions
 #
 #      adds the schemas, acls and local attributes specified in the
@@ -260,6 +333,10 @@ sub performLDAPActions
     my @acls = @{ $ldapuser->acls() };
     for my $acl (@acls) {
         $self->_loadACL($acl);
+    }
+    my @indexes = @{ $ldapuser->indexes() };
+    for my $index (@indexes) {
+        $self->_addIndex($index);
     }
     if ($slave) {
         $users->stopIfRequired();
