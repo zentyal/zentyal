@@ -17,6 +17,7 @@ package ZentyalDesktop::SoftwareConfigurator;
 
 use ZentyalDesktop::Util;
 use ZentyalDesktop::LDAP;
+use ZentyalDesktop::Log;
 
 use ZentyalDesktop::Jabber;
 use ZentyalDesktop::Mail;
@@ -24,14 +25,13 @@ use ZentyalDesktop::Samba;
 use ZentyalDesktop::UserCorner;
 use ZentyalDesktop::VoIP;
 use ZentyalDesktop::Zarafa;
-use ZentyalDesktop::Log;
-use Switch;
+
+#use Data::Dumper;
 
 my $logger = ZentyalDesktop::Log::logger();
 
 sub configure
 {
-    $logger->debug("FIXME: configuration");
     my ($class, $server, $user) = @_;
 
     ZentyalDesktop::Util::createFirefoxProfile();
@@ -40,21 +40,14 @@ sub configure
 
     my $services = $ldap->servicesInfo();
 
+#    print Dumper($services);
+
     foreach my $service (keys %{$services}) {
         $logger->debug("Service: $service");
-         my $data = $services->{$service};
-        switch ($service) {
-            case 'Jabber' {ZentyalDesktop::Jabber->configure($server,$user,$data); }
-            case 'Mail' {ZentyalDesktop::Mail->configure($server,$user,$data); }
-            case 'Samba' {ZentyalDesktop::Samba->configure($server,$user,$data); }
-            case 'UserCorner' {ZentyalDesktop::UserCorner->configure($server,$user,$data); }
-            case 'VoIP' {ZentyalDesktop::VoIP->configure($server,$user,$data); }
-            case 'Zarafa' {ZentyalDesktop::Zarafa->configure($server,$user,$data); }
-        }
+        my $data = $services->{$service};
+        my $package = "ZentyalDesktop::$service";
+        $package->configure($server, $user, $data);
     }
-
-#    my $data = $services->(Jabber);
-
 }
 
 1;

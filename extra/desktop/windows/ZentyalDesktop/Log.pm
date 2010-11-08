@@ -19,11 +19,8 @@ use strict;
 use warnings;
 
 use Log::Log4perl;
-use Devel::StackTrace;
 
 use constant LOGGER_CAT => 'ZentyalDesktop';
-
-my $loginit = 0;
 
 # Method: init
 #
@@ -42,17 +39,10 @@ sub init
     $conf .= "log4perl.appender.Logfile.filename = $logfile";
 
     Log::Log4perl::init(\$conf);
-    $loginit = 1;
 }
 
 sub logger
 {
-    unless ($loginit) {
-
-        my $trace = Devel::StackTrace->new();
-        print STDERR $trace->as_string();
-    }
-
     return Log::Log4perl->get_logger(LOGGER_CAT);
 }
 
