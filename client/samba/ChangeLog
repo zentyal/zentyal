@@ -1,4 +1,4 @@
-HEAD
+2.0.5
 	+ Only ASCII characters are now allowed for share names and comments
 	+ Bug fix: guest shares also work if PDC not enabled
 2.0.4
