@@ -373,15 +373,14 @@ sub usesPort
         return undef;
     }
 
-# if we have a interface specified we can check if we don't use it.
+    # if we have a interface specified we can check if we don't use it.
     if ((defined $iface) and ($iface ne 'lo')) {
-# see if we need to listen in normal interfaces
+        # see if we need to listen in normal interfaces
         my $externalMTAs = @{ $self->allowedExternalMTAs() } > 0;
         if (not $externalMTAs) {
             return undef;
         }
     }
-
 
     if ($port == $self->port) {
         return 1;
@@ -429,7 +428,6 @@ sub mailFilter
             active      => $active,
             );
 
-
     return ($name, \%properties);
 }
 
@@ -438,7 +436,8 @@ sub summary
 {
     my ($self, $summary) = @_;
 
-    my $section = new EBox::Dashboard::Section(__("SMTP filter proxy"));
+    my $section = new EBox::Dashboard::Section('SMTPProxy',
+                                               __("SMTP filter proxy"));
     $summary->add($section);
 
     my $enabled = $self->isEnabled();
@@ -455,15 +454,12 @@ sub summary
 
     my $mailfilter = EBox::Global->modInstance('mailfilter');
 
-
-
-
-   my $antispam = new EBox::Dashboard::ModuleStatus(
-       module        => 'mailfilter',
-       printableName =>__('Antispam'),
-       enabled       => $self->antispam(),
-       running       => $mailfilter->antispam()->isRunning(),
-       nobutton      => 1);
+    my $antispam = new EBox::Dashboard::ModuleStatus(
+            module        => 'mailfilter',
+            printableName =>__('Antispam'),
+            enabled       => $self->antispam(),
+            running       => $mailfilter->antispam()->isRunning(),
+            nobutton      => 1);
     $section->add($antispam);
 }
 

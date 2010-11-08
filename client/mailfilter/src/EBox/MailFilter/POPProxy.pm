@@ -12,8 +12,9 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+
 package EBox::MailFilter::POPProxy;
-# package:
+
 use strict;
 use warnings;
 
@@ -226,8 +227,8 @@ sub _confAttr
 
 sub isEnabled
 {
-  my ($self) = @_;
-  return $self->_confAttr('enabled');
+    my ($self) = @_;
+    return $self->_confAttr('enabled');
 }
 
 
@@ -306,7 +307,6 @@ sub usesPort
         return undef;
     }
 
-
     if ($port == $self->port) {
         return 1;
     }
@@ -318,7 +318,8 @@ sub summary
 {
     my ($self, $summary) = @_;
 
-    my $section = new EBox::Dashboard::Section(__("Transparent POP Proxy"));
+    my $section = new EBox::Dashboard::Section('POPProxy',
+                                               __("Transparent POP Proxy"));
     $summary->add($section);
 
     my $enabled = $self->isEnabled();
@@ -342,12 +343,12 @@ sub summary
 #         nobutton      => 1);
 #     $section->add($antivirus);
 
-   my $antispam = new EBox::Dashboard::ModuleStatus(
-       module        => 'mailfilter',
-       printableName => __('Antispam'),
-       enabled       => $self->antispam(),
-       running       => $mailfilter->antispam()->isRunning(),
-       nobutton      => 1);
+    my $antispam = new EBox::Dashboard::ModuleStatus(
+            module        => 'mailfilter',
+            printableName => __('Antispam'),
+            enabled       => $self->antispam(),
+            running       => $mailfilter->antispam()->isRunning(),
+            nobutton      => 1);
     $section->add($antispam);
 }
 
