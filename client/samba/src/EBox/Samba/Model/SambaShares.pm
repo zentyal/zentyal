@@ -164,39 +164,55 @@ sub _table
       return $dataTable;
 }
 
-# Method: validateRow
+# Method: validateTypedRow
 #
-#       Override <EBox::Model::DataTable::validateRow> method
+#       Override <EBox::Model::DataTable::validateTypedRow> method
 #
 #   Check if the share path is allowed or not
-sub validateTypedRow()
+sub validateTypedRow
 {
     my ($self, $action, $parms)  = @_;
 
     return unless ($action eq 'add' or $action eq 'update');
-    return unless (exists $parms->{'path'});
 
-    my $path = $parms->{'path'}->selectedType();
-
-    if ($path eq 'system') {
-        # Check if it is an allowed system path
-        my $normalized = abs_path($parms->{'path'}->value());
-        for my $filterPath (FILTER_PATH) {
-            if ($normalized =~ /^$filterPath/) {
-                throw EBox::Exceptions::External(
-                    __('Path not allowed'));
+    if (exists $parms->{'path'}) {
+        my $path = $parms->{'path'}->selectedType();
+        if ($path eq 'system') {
+            # Check if it is an allowed system path
+            my $normalized = abs_path($parms->{'path'}->value());
+            for my $filterPath (FILTER_PATH) {
+                if ($normalized =~ /^$filterPath/) {
+                    throw EBox::Exceptions::External(
+                            __('Path not allowed'));
+                }
             }
-        }
-    } else {
-        # Check if it is a valid directory
-        my $dir = $parms->{'path'}->value();
-        unless ($dir =~ /^\w+$/) {
-            throw EBox::Exceptions::External(
-                 __('Only alphanumeric characters plus '
-                    . '_ are valid for a path'));
+        } else {
+            # Check if it is a valid directory
+            my $dir = $parms->{'path'}->value();
+            unless ($dir =~ /^\w+$/) {
+                throw EBox::Exceptions::External(
+                        __('Only alphanumeric characters plus '
+                            . '_ are valid for a path'));
+            }
         }
     }
 
+    # FIXME: Remove these checkings if configuration is written in UTF-8
+    if (exists $parms->{'share'}) {
+        my $shareName = $parms->{'share'}->value();
+        unless ($shareName =~ /^[\0-\x7f]+$/) {
+            throw EBox::Exceptions::External(
+                __('Only ASCII characters are valid for a share name'));
+        }
+    }
+
+    if (exists $parms->{'comment'}) {
+        my $comment = $parms->{'comment'}->value();
+        unless ($comment =~ /^[\0-\x7f]+$/) {
+            throw EBox::Exceptions::External(
+                __('Only ASCII characters are valid for a share description'));
+        }
+    }
 }
 
 # Method: removeRow
