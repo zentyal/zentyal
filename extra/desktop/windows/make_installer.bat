@@ -2,7 +2,7 @@
 
 set MAKENSIS_EXE="%programfiles%\NSIS\makensis.exe"
 set LIBPERL=C:\strawberry\perl\lib\auto
-set EXTRAMODULES=ZentyalDesktop/Services/UserCorner.pm ZentyalDesktop/Services/Zarafa.pm ZentyalDesktop/Services/VoIP.pm ZentyalDesktop/Services/Samba.pm ZentyalDesktop/Services/Mail.pm ZentyalDesktop/Services/Jabber.pm
+set EXTRAMODULES=ZentyalDesktop/UserCorner.pm ZentyalDesktop/Zarafa.pm ZentyalDesktop/VoIP.pm ZentyalDesktop/Samba.pm ZentyalDesktop/Mail.pm ZentyalDesktop/Jabber.pm
 
 mkdir build dist
 
@@ -17,6 +17,7 @@ cd build
 :: The two following lines are for debug and release build, uncomment only one of them
 call pp -o zentyal-setup-user.exe zentyal-setup-user.pl --link %LIBPERL%\Socket\Socket.dll -M %EXTRAMODULES%
 ::call pp --gui --icon ..\res\zentyal.ico -o zentyal-setup-user.exe zentyal-setup-user.pl --link %LIBPERL%\Socket\Socket.dll -M %EXTRAMODULES%
+pause
 
 move zentyal-setup-user.exe ..\dist
 cd ..
