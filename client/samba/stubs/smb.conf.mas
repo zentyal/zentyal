@@ -53,6 +53,9 @@ use EBox::Gettext;
  ldap admin dn = <% $ldap->{'rootdn'} %>
  map acl inherit = Yes
  printing = cups
+% if ($guest_shares) {
+ map to guest = Bad User
+% }
 % if ($pdc) {
  encrypt passwords = Yes
  obey pam restrictions = No
@@ -77,9 +80,6 @@ use EBox::Gettext;
  add user to group script = /usr/sbin/smbldap-groupmod -m "%u" "%g"
  delete user from group script = /usr/sbin/smbldap-groupmod -x "%u" "%g"
  set primary group script = /usr/sbin/smbldap-usermod -g "%g" "%u"
-% if ($guest_shares) {
- map to guest = Bad User
-% }
 
 [netlogon]
  path = /home/samba/netlogon/

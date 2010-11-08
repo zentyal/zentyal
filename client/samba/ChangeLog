@@ -1,3 +1,5 @@
+HEAD
+	+ Bug fix: guest shares also work if PDC not enabled
 2.0.4
 	+ Fixed quarantine folder permissions
 	+ Don't ask for password in guest shares
