@@ -10,19 +10,19 @@ copy zentyal-desktop.ini dist
 copy zentyal-user-reset.bat dist
 copy zentyal-setup-user.pl build
 xcopy /S /I /Y ZentyalDesktop build\ZentyalDesktop
-xcopy /S /I /Y ..\common\ZentyalDesktop\*.* build\ZentyalDesktop
+::xcopy /S /I /Y ..\common\ZentyalDesktop\*.* build\ZentyalDesktop
 
 cd build
 
 :: The two following lines are for debug and release build, uncomment only one of them
-::call pp -o zentyal-setup-user.exe zentyal-setup-user.pl --link %LIBPERL%\Socket\Socket.dll -M %EXTRAMODULES%
-call pp --gui --icon ..\res\zentyal.ico -o zentyal-setup-user.exe zentyal-setup-user.pl --link %LIBPERL%\Socket\Socket.dll -M %EXTRAMODULES%
+call pp -o zentyal-setup-user.exe zentyal-setup-user.pl --link %LIBPERL%\Socket\Socket.dll -M %EXTRAMODULES%
+::call pp --gui --icon ..\res\zentyal.ico -o zentyal-setup-user.exe zentyal-setup-user.pl --link %LIBPERL%\Socket\Socket.dll -M %EXTRAMODULES%
 
 move zentyal-setup-user.exe ..\dist
 cd ..
 
 xcopy /S /I /Y templates dist\templates
-xcopy /S /I /Y ..\common\templates\*.* dist\templates
+::xcopy /S /I /Y ..\common\templates\*.* dist\templates
 
 xcopy /S /I /Y res dist\res
 copy LICENSE.txt dist
