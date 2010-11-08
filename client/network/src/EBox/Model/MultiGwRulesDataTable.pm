@@ -301,73 +301,62 @@ sub _buildIptablesRule
         @dst = @{$self->_addressesForObject($object->value())};
     }
 
-    # prepare rules determined by the service into @prerules array
-    my $prefix = "-t mangle -A PREROUTING";
-    if ($srcType eq 'source_ebox') {
-        $prefix = "-t mangle -A OUTPUT";
+    my @chains;
+    unless ($srcType eq 'source_ebox') {
+        push(@chains, 'PREROUTING');
     }
-    my @prerules;
+    if ($srcType eq 'source_ebox' or ($srcType eq 'source_any' and $iface eq 'any')) {
+        push(@chains, 'OUTPUT');
+    }
 
-    my $port;
-    foreach my $ser (@{$serviceConf}) {
-        $port = "";
-        my $protocol = $ser->{'protocol'};
-        my $srcPort = $ser->{'source'};
-        my $dstPort = $ser->{'destination'};
+    #rules for all prefixes
+    my @all_rules;
+    foreach my $chain (@chains) {
+        my $prefix = "-t mangle -A $chain";
 
-        if ($protocol eq any ('tcp', 'udp', 'tcp/udp')) {
+        # prepare rules determined by the service into @prerules array
+        my @prerules;
 
-            if ($srcPort ne 'any') {
-                $port .= " --source-port $srcPort ";
-            }
+        my $port;
+        foreach my $ser (@{$serviceConf}) {
+            $port = "";
+            my $protocol = $ser->{'protocol'};
+            my $srcPort = $ser->{'source'};
+            my $dstPort = $ser->{'destination'};
 
-            if ($dstPort ne 'any') {
-                $port .= " --destination-port $dstPort ";
-            }
+            if ($protocol eq any ('tcp', 'udp', 'tcp/udp')) {
 
-            if ($protocol eq 'tcp/udp') {
-                push (@prerules, $prefix . " -p udp " . $port);
-                push (@prerules, $prefix . " -p tcp " . $port);
-            } else {
+                if ($srcPort ne 'any') {
+                    $port .= " --source-port $srcPort ";
+                }
+
+                if ($dstPort ne 'any') {
+                    $port .= " --destination-port $dstPort ";
+                }
+
+                if ($protocol eq 'tcp/udp') {
+                    push (@prerules, $prefix . " -p udp " . $port);
+                    push (@prerules, $prefix . " -p tcp " . $port);
+                } else {
+                    push (@prerules, $prefix . " -p $protocol " . $port);
+                }
+
+            } elsif ($protocol eq any ('gre', 'icmp', 'esp')) {
                 push (@prerules, $prefix . " -p $protocol " . $port);
+            } elsif ($protocol eq 'any') {
+                push (@prerules, $prefix . "" . $port);
             }
-
-        } elsif ($protocol eq any ('gre', 'icmp', 'esp')) {
-            push (@prerules, $prefix . " -p $protocol " . $port);
-        } elsif ($protocol eq 'any') {
-            push (@prerules, $prefix . "" . $port);
         }
-    }
 
-    # generate final iptables rules from @prerules into @rules array
-    my @rules;
+        # generate final iptables rules from @prerules into @rules array
+        my @rules;
 
-    # src ebox (already with different prefix) we don't loop arround ifaces
-    if ($srcType eq 'source_ebox') {
-        for my $rule (@prerules) {
-           for my $rsrc (@src) {
-               for my $rdst (@dst) {
-                   my $wrule = $rule;
-                   if ($rsrc ne '') {
-                       $wrule .= " -s $rsrc";
-                   }
-                   if ($rdst ne '') {
-                       $wrule .= " -d $rdst";
-                   }
-                   my $mrule  = "$wrule -m mark --mark 0/0xff "
-                                 . "-j MARK "
-                                 . "--set-mark $marks->{$gw}";
-                   push (@rules, $mrule);
-               }
-           }
-        }
-    } else {
-        for my $rule (@prerules) {
-            for my $riface (@ifaces) {
+        # src ebox (already with different prefix) we don't loop arround ifaces
+        if ($srcType eq 'source_ebox' or $chain eq 'OUTPUT') {
+            for my $rule (@prerules) {
                 for my $rsrc (@src) {
                     for my $rdst (@dst) {
-                        $riface = $network->realIface($riface);
-                        my $wrule = $rule . " -i $riface";
+                        my $wrule = $rule;
                         if ($rsrc ne '') {
                             $wrule .= " -s $rsrc";
                         }
@@ -375,15 +364,38 @@ sub _buildIptablesRule
                             $wrule .= " -d $rdst";
                         }
                         my $mrule  = "$wrule -m mark --mark 0/0xff "
-                                      . "-j MARK "
-                                      . "--set-mark $marks->{$gw}";
+                            . "-j MARK "
+                            . "--set-mark $marks->{$gw}";
                         push (@rules, $mrule);
                     }
                 }
             }
+        } else {
+            for my $rule (@prerules) {
+                for my $riface (@ifaces) {
+                    for my $rsrc (@src) {
+                        for my $rdst (@dst) {
+                            $riface = $network->realIface($riface);
+                            my $wrule = $rule . " -i $riface";
+                            if ($rsrc ne '') {
+                                $wrule .= " -s $rsrc";
+                            }
+                            if ($rdst ne '') {
+                                $wrule .= " -d $rdst";
+                            }
+                            my $mrule  = "$wrule -m mark --mark 0/0xff "
+                                . "-j MARK "
+                                . "--set-mark $marks->{$gw}";
+                            push (@rules, $mrule);
+                        }
+                    }
+                }
+            }
         }
+
+        push(@all_rules, @rules);
     }
-    return @rules;
+    return @all_rules;
 }
 
 sub precondition
