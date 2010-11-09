@@ -316,6 +316,7 @@ sub createDirs
             }
             push (@perms, $perm);
         }
+        next unless @perms;
         my $cmd = 'setfacl -m ' . join(',', @perms) . " $path";
         my $defaultCmd = 'setfacl -m d:' . join(',d:', @perms) ." $path";
         EBox::debug("$cmd and $defaultCmd");
