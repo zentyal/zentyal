@@ -414,7 +414,7 @@ sub _crontabStringIncr
         my @daysMonth;
         if ($fullStartsOn <= 28) {
             my @daysMonth = grep { $_ ne $fullStartsOn }  (1 .. 31);
-            my $monthDay = join ',', @daysMonth;
+            $monthDay = join ',', @daysMonth;
             return ["0 $hour $monthDay $month $weekDay"];
         } else {
             # every day except last day
@@ -426,8 +426,28 @@ sub _crontabStringIncr
             return \@strings;
         }
 
-    }
+    } elsif ($fullFreq eq 'bimonthly') {
+        my $fullMonthDays = '1-7,15-21';
+        my $noFullMonthDays = '8-14,22-31';
+        if ($freq eq 'weekly') {
+            $weekDay = $startsOn;
+            if ($weekDay != $fullStartsOn) {
+                return "0 $hour * * $weekDay";
+            } else {
+                return "0 $hour $noFullMonthDays $month $weekDay";
+            }
+        }
 
+        # incremental daily frequency
+        my @weekDay = grep { $_ ne $fullStartsOn } (0 .. 6);
+        my $noFullWeekDays = join ',', @weekDay;
+        return [
+                "0 $hour $noFullMonthDays * *",
+                "0 $hour $fullMonthDays * $noFullWeekDays",
+
+               ];
+
+    }
 
 }
 
