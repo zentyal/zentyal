@@ -100,7 +100,7 @@ zarafa_destination_recipient_limit = 1
 % if ($relay) {
 smtp_tls_security_level = may
 smtp_tls_key_file  = <% $keyFile  %>
-smtp_tls_cert_file = <% $certFile %> 
+smtp_tls_cert_file = <% $certFile %>
 % }
 
 % if ($relayAuth) {
