@@ -1256,6 +1256,11 @@ sub schemas
              EBox::Config::share() . "ebox-samba/ebox.ldif" ];
 }
 
+sub indexes
+{
+    return ['sambaSID', 'sambaGroupType', 'sambaSIDList', 'sambaDomainName'];
+}
+
 sub acls
 {
     my ($self) = @_;

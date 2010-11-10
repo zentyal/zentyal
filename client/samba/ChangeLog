@@ -1,4 +1,5 @@
 HEAD
+	+ Improved performance by adding samba LDAP indexes
 	+ Only set shares ACL if needed
 2.0.5
 	+ Only ASCII characters are now allowed for share names and comments
