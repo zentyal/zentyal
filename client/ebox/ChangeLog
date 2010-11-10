@@ -1,5 +1,5 @@
 HEAD
-	+ Post-installation includes sudoers.d into sudoers file if it's not yet
+	+ Pre-installation includes sudoers.d into sudoers file if it's not yet
 	  installed
 	+ Install apache-prefork instead of worker by default
 	+ Rename service certificate to Zentyal Administration Web Server

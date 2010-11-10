@@ -83,10 +83,6 @@ case "$1" in
 
         #sudo configuration
         /usr/share/ebox/ebox-sudoers-friendly
-        SUDOERS=/etc/sudoers
-        if ! grep -qE "^#includedir\s+/etc/sudoers.d" "$SUDOERS"; then
-            echo "#includedir /etc/sudoers.d" >> "$SUDOERS"
-        fi
 
         # Import old gconf backup from preinst
         if [ -f /var/lib/ebox/gconf.backup ]; then
