@@ -241,7 +241,7 @@ sub extraDataDir
 
 sub dumpExtraData
 {
-    my ($self) = @_;
+    my ($self, $readOnlyGlobal) = @_;
 
     my $extraDataDir = $self->extraDataDir();
     system "rm -rf $extraDataDir";
@@ -251,7 +251,7 @@ sub dumpExtraData
         return;
     }
 
-    my $global = EBox::Global->getInstance();
+    my $global = EBox::Global->getInstance($readOnlyGlobal);
 
     # Backup configuration
     my $bakCmd = EBox::Config::pkgdata() .
@@ -266,9 +266,9 @@ sub dumpExtraData
         my $bakFile = EBox::Backup::backupDir() . '/confbackup.tar';
         system "mv $bakFile $extraDataDir";
     } otherwise {
-        EBox::debug("ebox-make-backup failed");
+        my $ex = shift;
+        EBox::error("Confguration backup failed: $ex . It will not be possible to restore the configuration from this server");
     };
-
 
     foreach my $mod (@{ $global->modInstances() }) {
         if ($mod->can('dumpExtraBackupData')) {
@@ -382,10 +382,26 @@ sub remoteListFileArguments
 sub remoteGenerateListFile
 {
     my ($self) = @_;
-    my $collection = $self->remoteListFileArguments();
+    my $collectionCmd = $self->remoteListFileArguments();
     my $tmpFile = $self->tmpFileList();
-    EBox::Sudo::root("$collection > $tmpFile");
-    EBox::Sudo::root("chown ebox:ebox $tmpFile");
+
+    my $success = 0;
+    try {
+        EBox::Sudo::root("$collectionCmd > $tmpFile");
+        $success = 1;
+    } catch EBox::Exceptions::Sudo::Command with {
+        my $ex = shift;
+        my $error = join "\n", @{ $ex->error() };
+        if ($error =~ m/No signature chains found/) {
+            $success = 0;
+        }
+    };
+
+    if ($success) {
+        EBox::Sudo::root("chown ebox:ebox $tmpFile");
+    } else {
+        EBox::Sudo::root("rm -f $tmpFile");
+    }
 }
 
 
@@ -456,13 +472,18 @@ sub remoteGenerateStatusCache
     my $status = undef;
     try {
         $status =  EBox::Sudo::root($cmd);
-
-    } otherwise {};
+    } catch EBox::Exceptions::Sudo::Command with {
+        my $ex = shift;
+        my $error = join "\n", @{  $ex->error() };
+        if ($error =~ m/No signature chains found/) {
+            $status = '';
+        }
+    };
 
     if (defined $status) {
         File::Slurp::write_file($file, $status);
     } else {
-        ( -e $file) and
+        (-e $file) and
             unlink $file;
     }
 }
@@ -722,7 +743,6 @@ sub _remoteUrl
 
 sub _volSize
 {
-
     my $volSize = EBox::Config::configkeyFromFile('volume_size',
                                                   EBACKUP_CONF_FILE);
     if (not $volSize) {
@@ -731,12 +751,28 @@ sub _volSize
     return $volSize;
 }
 
-
 sub configurationIsComplete
 {
     my ($self) = @_;
     my $model = $self->model('RemoteSettings');
     return $model->configurationIsComplete();
+}
+
+sub _backupProcessLockName
+{
+    return 'ebackup-process';
+}
+
+sub backupProcessLock
+{
+    my $name = _backupProcessLockName();
+    EBox::Util::Lock::lock($name);
+}
+
+sub backupProcessUnlock
+{
+    my $name = _backupProcessLockName();
+    EBox::Util::Lock::unlock($name);
 }
 
 1;

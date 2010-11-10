@@ -1,3 +1,5 @@
+HEAD
+	+ Better error and precondition control when making backups
 2.0.4
 	+ Fixed incremental backup frequency with full backup frequency is
 	"twice a month"
