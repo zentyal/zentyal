@@ -90,7 +90,7 @@ sub _verifyCert
 {
   my ($certPath) = @_;
 
-  my $cmd =  OPENSSL_PATH . ' x509 -noout -in ' . $certPath;
+  my $cmd =  OPENSSL_PATH . "x509 -noout -in '$certPath'";
   try {
     EBox::Sudo::root($cmd);
   }
@@ -105,7 +105,7 @@ sub _verifyCert
 sub _verifyPrivKey {
   my ($privKeyPath) = @_;
 
-  my $cmd = OPENSSL_PATH . ' rsa -noout -in ' . $privKeyPath;
+  my $cmd = OPENSSL_PATH . " rsa -noout -in '$privKeyPath'";
   try {
     EBox::Sudo::root($cmd);
   }
@@ -119,7 +119,7 @@ sub _verifyPrivKey {
 sub  _verifyCertWithCa
 {
   my($certPath, $caPath) = @_;
-  my $verifyParams = " -CAfile $caPath $certPath";
+  my $verifyParams = " -CAfile '$caPath' '$certPath'";
 
   my $verifyOk = _opensslVerify($verifyParams);
   unless ($verifyOk) {
@@ -139,16 +139,16 @@ sub _verifyCertWithPrivKey
 
   # XXX check ofr race condition!!
 
-  my $certCmd = OPENSSL_PATH . " x509 -pubkey -noout -in $certPath";
+  my $certCmd = OPENSSL_PATH . " x509 -pubkey -noout -in '$certPath'";
   my $certOutput = EBox::Sudo::root( $certCmd );
   write_file($fhPubCert, $certOutput);
 
-  my $keyCmd = OPENSSL_PATH . " rsa -pubout -in $privKeyPath";
+  my $keyCmd = OPENSSL_PATH . " rsa -pubout -in '$privKeyPath'";
   my $keyOutput = EBox::Sudo::root( $keyCmd );
   write_file($fhPubKey, $keyOutput);
 
   try {
-    my $diffCmd = DIFF_PATH . " --brief $pubCert $pubKey";
+    my $diffCmd = DIFF_PATH . " --brief '$pubCert' '$pubKey'";
     EBox::Sudo::root($diffCmd);
   }
   otherwise {

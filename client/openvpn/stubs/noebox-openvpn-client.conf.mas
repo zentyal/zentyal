@@ -120,7 +120,7 @@ key  <% qq{"$key"} %>
 
 # Verify server certificate by common name
 % if (defined $tlsRemote) {
-   tls-remote <% $tlsRemote %>
+tls-remote <% $tlsRemote %>
 % }
 
 

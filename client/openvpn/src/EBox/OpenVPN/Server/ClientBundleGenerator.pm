@@ -161,7 +161,7 @@ sub _resolveExternalAddr
 sub _getHtmlPageCmd
 {
     my ($addrFile, $local) = @_;
-    my $cmd = "wget -O $addrFile --bind-address=$local --tries=1 --timeout=6 "
+    my $cmd = "wget -O '$addrFile' --bind-address=$local --tries=1 --timeout=6 "
       . IPResolvUrl();
     return $cmd;
 }

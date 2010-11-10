@@ -499,7 +499,6 @@ sub stopDeletedDaemon
     my $upstartFile = $class->_upstartFileForDaemon($name, $type);
     if (not -f $upstartFile) {
         return;
-
     }
 
     my $upstartService = $class->upstartNameForDaemon($name, $type);
@@ -516,8 +515,8 @@ sub deletedDaemonCleanup
     try {
         $class->stopDeletedDaemon($name, $type);
 
-        foreach my $file  ( $class->daemonFiles($name) ) {
-            EBox::Sudo::root(" rm -rf $file");
+        foreach my $file( $class->daemonFiles($name) ) {
+            EBox::Sudo::root("rm -rf '$file'");
 
         }
     }
@@ -540,7 +539,7 @@ sub _rootCommandForStartDaemon
     my $confFilePath =   $self->confFile($confDir);
     my $pidFile = $self->_pidFile();
 
-    return "$bin  --syslog $name  --config $confFilePath";
+    return "$bin --syslog '$name' --config '$confFilePath'";
 }
 
 # Method: limitRespawn
@@ -616,7 +615,7 @@ sub writeUpstartFile
     };
 
     EBox::Module::Base::writeConfFileNoCheck(
-        $path,'/openvpn/upstart.mas',
+        $path, '/openvpn/upstart.mas',
         [ cmd => $cmd, limited => $limited],
         $fileAttrs
        );
@@ -628,7 +627,7 @@ sub removeUpstartFile
     my ($self) = @_;
 
     my $path = $self->_upstartFile();
-    EBox::Sudo::root("rm -f $path");
+    EBox::Sudo::root("rm -f '$path'");
 }
 
 sub removeUpstartFileForDaemon
@@ -640,7 +639,7 @@ sub removeUpstartFileForDaemon
       or throw EBox::Exceptions::MissingArgument('name');
 
     my $path = $class->_upstartFileForDaemon($name, $type);
-    EBox::Sudo::root("rm -f $path");
+    EBox::Sudo::root("rm -f '$path'");
 }
 
 #

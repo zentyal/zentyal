@@ -64,7 +64,7 @@ server <% $subnet %> <% $subnetNetmask %>
 
 # Maintain a record of client <-> virtual IP address
 # associations in this file.  
-ifconfig-pool-persist <% $ippFile %>
+ifconfig-pool-persist <% "'$ippFile'" %>
 
 
 # If enabled, this directive will configure
@@ -122,7 +122,7 @@ persist-tun
 # Output a short status file showing
 # current connections, truncated
 # and rewritten every minute.
-status <% $statusLogFile %>
+status <% "'$statusLogFile'" %>
 
 # By default, log messages will go to the syslog (or
 # on Windows, if running as a service, they will go to
@@ -131,7 +131,7 @@ status <% $statusLogFile %>
 # "log" will truncate the log file on OpenVPN startup,
 # while "log-append" will append to it.  Use one
 # or the other (but not both).
-log-append  <% $logFile %>
+log-append  <% "'$logFile'" %>
 
 # Set the appropriate level of log
 # file verbosity.
