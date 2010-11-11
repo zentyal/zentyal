@@ -1,4 +1,4 @@
-HEAD
+2.0.5
 	+ Better error and precondition control when making backups
 	+ Do not spawn a separate process to make the configuration backup
 	+ Warn instead of abort all the backup if there are unsaved changes
