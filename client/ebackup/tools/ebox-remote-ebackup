@@ -164,7 +164,7 @@ sub _adjustType
 }
 
 
-sub _checkAllModulesUnchanged
+sub _unsavedChangesWarning
 {
     my ($self) = @_;
 
@@ -178,11 +178,10 @@ sub _checkAllModulesUnchanged
 
     if (@changed) {
         my $mods = join ',', @changed;
-        my $msg = __x('Cannot backup because the following modules have unsaved changes: {mods}',
+        my $msg = __x('Configuration backup skipped because the following modules have unsaved changes: {mods}. The rest of the backup will not be affected',
                      mods => $mods);
         _sendSuccessEvent(0,  $msg);
         print "$msg\n";
-        exit 0;
     }
 
 }
@@ -223,7 +222,7 @@ unless ($ebackup->configurationIsComplete()) {
     exit 0;
 }
 
-_checkAllModulesUnchanged();
+_unsavedChangesWarning();
 
 my $mustExit = 0;
 try {
