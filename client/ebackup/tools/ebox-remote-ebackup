@@ -81,7 +81,7 @@ sub _sendSuccessEvent
 }
 
 
-sub _mangleErrorMsg
+sub _mangleDuplicityErrorMsg
 {
     my ($msg) = @_;
 
@@ -210,7 +210,6 @@ if ($ARGV[0]) {
     }
 }
 
-
 EBox::init();
 
 my $globalRO = 1;
@@ -222,14 +221,13 @@ unless ($ebackup->isEnabled() ) {
 unless ($ebackup->configurationIsComplete()) {
     print "Backup module configuration is not completed. Configure it and retry\n";
     exit 0;
-
 }
 
 _checkAllModulesUnchanged();
 
 my $mustExit = 0;
 try {
-        $ebackup->backupProcessLock()
+    $ebackup->backupProcessLock()
 } otherwise {
     my $alreadyMsg = __('Another backup process is running, wait until it finish and try again');
     print $alreadyMsg;
@@ -242,7 +240,7 @@ if ($mustExit) {
 }
 
 try {
-   $ebackup->lock() ;
+    $ebackup->lock() ;
 } otherwise {
     $ebackup->backupProcessUnlock();
     my $busyMsg = __('The backup module is busy, retry later');
@@ -276,19 +274,28 @@ try {
     my $success = 1;
     try {
         EBox::Sudo::root($backupCmd);
-    } otherwise {
+    } catch EBox::Exceptions::Sudo::Command with {
         my $ex = shift @_;
+        $success = 0;
         my @error = @{  $ex->error() };
         chomp $error[-1];
         $errorMsg = "@error";
-        $errorMsg = _mangleErrorMsg($errorMsg);
-
-        print "Backup failed: $errorMsg\n";
+        $errorMsg = _mangleDuplicityErrorMsg($errorMsg);
+    } otherwise {
+        my ($ex) = @_;
         $success = 0;
+        $errorMsg = "$ex";
     };
 
+    if ($success) {
+        EBox::info('Backup process finished successfuly');
+    } else {
+        my $msg = "Backup failed: $errorMsg";
+        print "$msg\n";
+        EBox::error($msg);
+    }
+
     _sendSuccessEvent($success, $errorMsg);
-    EBox::info('Backup process finished');
 } finally {
     # Create status
     $ebackup->remoteGenerateStatusCache();
