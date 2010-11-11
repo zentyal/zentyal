@@ -60,7 +60,7 @@ sub _sendEvent
 
 sub _sendSuccessEvent
 {
-    my ($ebackup, $success, $msgError) = @_;
+    my ($success, $msgError) = @_;
     my $msg;
     my $level;
     if ($success) {
@@ -287,7 +287,7 @@ try {
         $success = 0;
     };
 
-    _sendSuccessEvent($ebackup, $success, $errorMsg);
+    _sendSuccessEvent($success, $errorMsg);
     EBox::info('Backup process finished');
 } finally {
     # Create status
