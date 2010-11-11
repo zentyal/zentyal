@@ -258,12 +258,16 @@ sub dumpExtraData
         '/ebox-make-backup --destination confbackup.tar';
 
     try {
-        EBox::Sudo::root($bakCmd);
+        my $filename = 'confbackup.tar';
+        my $bakFile = EBox::Backup->backupDir() . "/$filename";
+        EBox::Backup->makeBackup(
+                                 description => 'Configuration backup',
+                                 destination => $filename,
+                                );
         # XXX Some modules such as events are marked as changed after
         #     running ebox-make-backup.
         #     This is a temporary workaround
         $global->revokeAllModules();
-        my $bakFile = EBox::Backup::backupDir() . '/confbackup.tar';
         system "mv $bakFile $extraDataDir";
     } otherwise {
         my $ex = shift;
