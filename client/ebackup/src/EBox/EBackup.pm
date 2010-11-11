@@ -271,7 +271,7 @@ sub dumpExtraData
         system "mv $bakFile $extraDataDir";
     } otherwise {
         my $ex = shift;
-        EBox::error("Confguration backup failed: $ex . It will not be possible to restore the configuration from this server");
+        EBox::error("Configuration backup failed: $ex. It will not be possible to restore the configuration from this backup, but the data will be backed up.");
     };
 
     foreach my $mod (@{ $global->modInstances() }) {
