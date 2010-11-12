@@ -62,7 +62,7 @@ sub _process
                 automaticUpdates => 0,
                 QAUpdates => $software->QAUpdates(),
                 updateList => $updateList,
-               ];
+            ];
             return;
         }
         push(@array, 'upgradables' => $upg);

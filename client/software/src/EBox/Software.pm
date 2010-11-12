@@ -40,8 +40,8 @@ use AptPkg::Cache;
 
 # Constants
 use constant {
-    LOCK_FILE     => EBox::Config::tmp() . 'ebox-software-lock',
-    LOCKED_BY_KEY => 'lockedBy',
+    LOCK_FILE      => EBox::Config::tmp() . 'ebox-software-lock',
+    LOCKED_BY_KEY  => 'lockedBy',
     LOCKER_PID_KEY => 'lockerPid',
     CRON_FILE      => '/etc/cron.d/ebox-software',
 };
@@ -50,13 +50,13 @@ use constant {
 
 sub _create
 {
-	my $class = shift;
-	my $self = $class->SUPER::_create(name => 'software',
-                        printableName => __n('Software Management'),
-						domain => 'ebox-software',
-						@_);
-	bless($self, $class);
-	return $self;
+    my $class = shift;
+    my $self = $class->SUPER::_create(name => 'software',
+            printableName => __n('Software Management'),
+            domain => 'ebox-software',
+            @_);
+    bless($self, $class);
+    return $self;
 }
 
 # Method: listEBoxPkgs
@@ -159,17 +159,17 @@ sub removePkgs # (@pkgs)
 
 	$self->_isModLocked();
 
-	if (not @pkgs) {
-	  EBox::info("No packages to remove");
-	  return;
-	}
+    if (not @pkgs) {
+        EBox::info("No packages to remove");
+        return;
+    }
 
 	my $executable = EBox::Config::share() .
 	  "/ebox-software/ebox-remove-packages @pkgs";
-	my $progress = EBox::ProgressIndicator->create(
-						       totalTicks => scalar @pkgs,
-						       executable => $executable,
-						      );
+    my $progress = EBox::ProgressIndicator->create(
+            totalTicks => scalar @pkgs,
+            executable => $executable,
+            );
 	$progress->runExecutable();
 	return $progress;
 
@@ -186,13 +186,13 @@ sub removePkgs # (@pkgs)
 #
 sub updatePkgList
 {
-	my ($self) = @_;
+    my ($self) = @_;
 
-        $self->_isModLocked();
+    $self->_isModLocked();
 
-	my $cmd ='/usr/bin/apt-get update -q';
-	try {
-		root($cmd);
+    my $cmd ='/usr/bin/apt-get update -q';
+    try {
+        root($cmd);
         return 1;
     } catch EBox::Exceptions::Internal with {
         EBox::error("Error updating package list");
@@ -215,30 +215,30 @@ sub fetchAllPkgs
 
     $self->_isModLocked();
 
-	my @pkgs;
+    my @pkgs;
 
-	@pkgs = @{_getInfoEBoxPkgs()};
+    @pkgs = @{_getInfoEBoxPkgs()};
 
-	my $cmd ='/usr/bin/apt-get install -qq --download-only --force-yes --yes --no-install-recommends ';
-	foreach my $pkg (@pkgs) {
-		$cmd .= ($pkg->{name} . " ");
-	}
-	try {
-		root($cmd);
-	} catch EBox::Exceptions::Internal with {
-	};
+    my $cmd ='/usr/bin/apt-get install -qq --download-only --force-yes --yes --no-install-recommends ';
+    foreach my $pkg (@pkgs) {
+        $cmd .= ($pkg->{name} . " ");
+    }
+    try {
+        root($cmd);
+    } catch EBox::Exceptions::Internal with {
+    };
 
-	$cmd ='/usr/bin/apt-get dist-upgrade -qq --download-only --force-yes --yes --no-install-recommends ';
-	try {
-		root($cmd);
-	} catch EBox::Exceptions::Internal with {
-	};
+    $cmd ='/usr/bin/apt-get dist-upgrade -qq --download-only --force-yes --yes --no-install-recommends ';
+    try {
+        root($cmd);
+    } catch EBox::Exceptions::Internal with {
+    };
 
-	$cmd ='/usr/bin/apt-get autoclean -qq --force-yes --yes';
-	try {
-		root($cmd);
-	} catch EBox::Exceptions::Internal with {
-	};
+    $cmd ='/usr/bin/apt-get autoclean -qq --force-yes --yes';
+    try {
+        root($cmd);
+    } catch EBox::Exceptions::Internal with {
+    };
 }
 
 sub _packageListFile
@@ -259,15 +259,15 @@ sub _packageListFile
 #
 # Parameters:
 #
-# 	clear - if set to 1, forces the cache to be cleared
+#   clear - if set to 1, forces the cache to be cleared
 #
-#       excludeEBoxPackages - not return ebox packages (but they are saved in the cache anyway)
+#   excludeEBoxPackages - not return ebox packages (but they are saved in the cache anyway)
 #
 # Returns:
 #
 #	array ref - holding hashes ref containing keys:
 #                   'name' - package's name
-# 	            'description' package's short description
+#                   'description' package's short description
 #                   'version' - package's latest version
 #                   'security' - flag indicating if the update is a security one
 #                   'changelog' - package's changelog from current version till last one
@@ -279,25 +279,25 @@ sub _packageListFile
 #
 sub listUpgradablePkgs
 {
-	my ($self,$clear, $excludeEBoxPackages) = @_;
+    my ($self,$clear, $excludeEBoxPackages) = @_;
 
-	my $upgrade = [];
+    my $upgrade = [];
 
-	my $file = $self->_packageListFile(0);
+    my $file = $self->_packageListFile(0);
 
-	if (defined($clear) and $clear == 1) {
-		if ( -f "$file" ) {
-			unlink($file);
-		}
-	} else {
-		if (-f "$file" ) {
-			$upgrade = retrieve($file);
-                        if ($excludeEBoxPackages) {
-                            return $self->_excludeEBoxPackages($upgrade);
-                        }
-			return $upgrade;
-		}
-	}
+    if (defined($clear) and $clear == 1) {
+        if ( -f "$file" ) {
+            unlink($file);
+        }
+    } else {
+        if (-f "$file" ) {
+            $upgrade = retrieve($file);
+            if ($excludeEBoxPackages) {
+                return $self->_excludeEBoxPackages($upgrade);
+            }
+            return $upgrade;
+        }
+    }
 
     $self->_isModLocked();
 
@@ -318,10 +318,8 @@ sub _excludeEBoxPackages
     my ($self, $list) = @_;
     my @withoutEBox = grep {
         my $name = $_->{'name'};
-        ($name ne 'libebox') and
-         ($name ne 'ebox')    and
-          not ($name =~ /^ebox-/)
-      } @{ $list };
+        ($name ne 'libebox') and ($name ne 'ebox') and not ($name =~ /^ebox-/)
+    } @{ $list };
     return \@withoutEBox;
 }
 
@@ -332,7 +330,7 @@ sub _excludeEBoxPackages
 #
 # Parameters:
 #
-# 	packages - an array with the names of the packages being installed
+#   packages - an array with the names of the packages being installed
 #
 # Returns:
 #
@@ -359,7 +357,7 @@ sub listPackageInstallDepends
 #
 # Parameters:
 #
-# 	packages - an array with the names of the packages
+#   packages - an array with the names of the packages
 #
 # Returns:
 #

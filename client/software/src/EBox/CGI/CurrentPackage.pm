@@ -25,31 +25,31 @@ use EBox::Gettext;
 use EBox::Config;
 
 ## arguments:
-## 	title [required]
+##  title [required]
 sub new {
-	my $class = shift;
-	my $self = $class->SUPER::new('title'    => __('Upgrading'),
-				      'template' => 'software/upgrading.mas',
-				      @_);
-	$self->{domain} = 'ebox-software';
-	bless($self, $class);
-	return $self;
+    my $class = shift;
+    my $self = $class->SUPER::new('title'    => __('Upgrading'),
+            'template' => 'software/upgrading.mas',
+            @_);
+    $self->{domain} = 'ebox-software';
+    bless($self, $class);
+    return $self;
 }
 
 sub _process($) {
-	my $self = shift;
-	my @array = ();
-	$self->{params} = \@array;
+    my $self = shift;
+    my @array = ();
+    $self->{params} = \@array;
 }
 
 sub _print($) {
-	my $self = shift;
+    my $self = shift;
 
-	open(FD, EBox::Config::tmp . 'ebox-update-log') or return;
-	my $package = <FD>;
-	print($self->cgi()->header(-charset=>'utf-8'));
-	print $package;
-	close (FD);
+    open(FD, EBox::Config::tmp . 'ebox-update-log') or return;
+    my $package = <FD>;
+    print($self->cgi()->header(-charset=>'utf-8'));
+    print $package;
+    close (FD);
 }
 
 1;

@@ -24,16 +24,16 @@ use EBox::Global;
 use EBox::Gettext;
 
 ## arguments:
-## 	title [required]
+##  title [required]
 sub new {
-	my $class = shift;
-	my $self = $class->SUPER::new('title'    =>
-					__('Software management settings'),
-				      'template' => 'software/config.mas',
-				      @_);
-	$self->{domain} = 'ebox-software';
-	bless($self, $class);
-	return $self;
+    my $class = shift;
+    my $self = $class->SUPER::new('title'    =>
+            __('Software management settings'),
+            'template' => 'software/config.mas',
+            @_);
+    $self->{domain} = 'ebox-software';
+    bless($self, $class);
+    return $self;
 }
 
 sub _process($) {

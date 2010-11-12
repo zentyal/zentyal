@@ -24,52 +24,52 @@ use EBox::Global;
 use EBox::Gettext;
 
 ## arguments:
-## 	title [required]
+##  title [required]
 sub new {
-	my $class = shift;
-	my $self = $class->SUPER::new('title' => '',
-				      'template' => 'software/del.mas',
-				      @_);
-	$self->{domain} = 'ebox-software';
-	bless($self, $class);
-	return $self;
+    my $class = shift;
+    my $self = $class->SUPER::new('title' => '',
+        'template' => 'software/del.mas',
+        @_);
+    $self->{domain} = 'ebox-software';
+    bless($self, $class);
+    return $self;
 }
 
 sub _process($) {
-	my $self = shift;
+    my $self = shift;
 
-	my $action;
-	my $doit = 'no';
+    my $action;
+    my $doit = 'no';
 
-	if (defined($self->param('go'))) {
-		$doit = 'yes';
-	}
+    if (defined($self->param('go'))) {
+        $doit = 'yes';
+    }
 
-	if (defined($self->param('cancel'))) {
-		$self->{chain} = "Software/EBox";
-		return;
-	}
+    if (defined($self->param('cancel'))) {
+        $self->{chain} = "Software/EBox";
+        return;
+    }
 
-	if (defined($self->param('upgrade'))) {
-		$action = 'install';
-		$doit = 'yes';
-	} elsif (defined($self->param('ebox-install'))) {
-		$action = 'install';
-	} elsif (defined($self->param('ebox-remove'))) {
-		$action = 'remove';
-	} else {
-	    throw EBox::Exceptions::Internal("Missing action parameter");
-	}
+    if (defined($self->param('upgrade'))) {
+        $action = 'install';
+        $doit = 'yes';
+    } elsif (defined($self->param('ebox-install'))) {
+        $action = 'install';
+    } elsif (defined($self->param('ebox-remove'))) {
+        $action = 'remove';
+    } else {
+        throw EBox::Exceptions::Internal("Missing action parameter");
+    }
 
-	# Take the packages
-	my $packages_r = $self->_packages( $self->param('allbox') );
+# Take the packages
+    my $packages_r = $self->_packages( $self->param('allbox') );
 
-	if ($doit eq 'yes') {
-	    $self->_goAhead($action, $packages_r);
-	}
-	else {
-	    $self->showConfirmationPage($action, $packages_r);
-	}
+    if ($doit eq 'yes') {
+        $self->_goAhead($action, $packages_r);
+    }
+    else {
+        $self->showConfirmationPage($action, $packages_r);
+    }
 }
 
 sub _menu {
@@ -96,15 +96,15 @@ sub _packages
 
     my @pkgs;
     if (not  $allPackages) {
-	@pkgs = grep(s/^pkg-//, @{$self->params()});
-	(@pkgs == 0) and throw EBox::Exceptions::External(__('There were no packages to update'));
-	} else {
-	    # Take the name from upgradable package list
-	    my $software = EBox::Global->modInstance('software');
-	    foreach my $pkg (@{$software->listUpgradablePkgs()}) {
-		push (@pkgs, $pkg->{name} );
-	    }
-	}
+        @pkgs = grep(s/^pkg-//, @{$self->params()});
+        (@pkgs == 0) and throw EBox::Exceptions::External(__('There were no packages to update'));
+    } else {
+# Take the name from upgradable package list
+        my $software = EBox::Global->modInstance('software');
+        foreach my $pkg (@{$software->listUpgradablePkgs()}) {
+            push (@pkgs, $pkg->{name} );
+        }
+    }
 
     return \@pkgs;
 }
@@ -118,14 +118,14 @@ sub _goAhead
     $self->{errorchain} = "Software/EBox";
 
     if ($action eq 'install') {
-	my $progress = $software->installPkgs(@{ $packages_r });
-	$self->showInstallProgress($progress);
+        my $progress = $software->installPkgs(@{ $packages_r });
+        $self->showInstallProgress($progress);
 
     } elsif ($action eq 'remove') {
-	my $progress = $software->removePkgs(@{  $packages_r  });
-	$self->showRemoveProgress($progress);
+        my $progress = $software->removePkgs(@{  $packages_r  });
+        $self->showRemoveProgress($progress);
     } else {
-	throw EBox::Exceptions::Internal("Bad action: $action");
+        throw EBox::Exceptions::Internal("Bad action: $action");
     }
 }
 
@@ -140,18 +140,18 @@ sub showConfirmationPage
     my $actpackages;
     my $descactpackages ;
     if($action eq 'install') {
-	$actpackages = $software->listPackageInstallDepends($packages_r);
-	$descactpackages = $software->listPackageDescription($actpackages);
+        $actpackages = $software->listPackageInstallDepends($packages_r);
+        $descactpackages = $software->listPackageDescription($actpackages);
     } elsif ($action eq 'remove') {
-	$actpackages = $software->listPackageRemoveDepends($packages_r);
-	$descactpackages = $software->listPackageDescription($actpackages);
+        $actpackages = $software->listPackageRemoveDepends($packages_r);
+        $descactpackages = $software->listPackageDescription($actpackages);
     }  else {
-	throw EBox::Exceptions::Internal("Bad action: $action");
+        throw EBox::Exceptions::Internal("Bad action: $action");
     }
 
     $self->{'template'} = 'software/del.mas',
 
-    my @array;
+        my @array;
     push(@array, 'action' => $action);
     push(@array, 'packages' => $packages_r);
     push(@array, 'actpackages' => $actpackages);
@@ -161,48 +161,48 @@ sub showConfirmationPage
 
 sub showInstallProgress
 {
-  my ($self, $progressIndicator) = @_;
-  $self->showProgress(
-		      progressIndicator => $progressIndicator,
-		      title    => __('Installing'),
-		      text     => __('Installing packages'),
-		      currentItemCaption  =>  __("Current operation"),
-		      itemsLeftMessage  => __('actions done'),
-		      endNote  =>  __('The packages installation has finished successfully. '
-                                      . 'The administration interface may become unresponsive '
-                                      . 'for a few seconds. Please wait patiently until '
-                                      . 'the system has been fully configured. You will be automatically '
-                                      . 'redirected to the next step'),
-              errorNote => __('The packages installation has not finished correctly '
-                                      . '. More information on the logs'),
-		      reloadInterval  => 2,
-              nextStepUrl => '/ebox/Wizard',
-              nextStepText => 'Go to save changes',
-              nextStepTimeout => 1
-		     );
+    my ($self, $progressIndicator) = @_;
+    $self->showProgress(
+        progressIndicator => $progressIndicator,
+        title    => __('Installing'),
+        text     => __('Installing packages'),
+        currentItemCaption  =>  __("Current operation"),
+        itemsLeftMessage  => __('actions done'),
+        endNote  =>  __('The packages installation has finished successfully. '
+            . 'The administration interface may become unresponsive '
+            . 'for a few seconds. Please wait patiently until '
+            . 'the system has been fully configured. You will be automatically '
+            . 'redirected to the next step'),
+        errorNote => __('The packages installation has not finished correctly '
+            . '. More information on the logs'),
+        reloadInterval  => 2,
+        nextStepUrl => '/ebox/Wizard',
+        nextStepText => 'Go to save changes',
+        nextStepTimeout => 1
+    );
 }
 
 sub showRemoveProgress
 {
-  my ($self, $progressIndicator) = @_;
-  $self->showProgress(
-		      progressIndicator => $progressIndicator,
+    my ($self, $progressIndicator) = @_;
+$self->showProgress(
+        progressIndicator => $progressIndicator,
 
-		      title    => __('Removing package'),
-		      text     => __('Removing the selected package and its dependent packages'),
-		      currentItemCaption  =>  __("Current operation"),
-		      itemsLeftMessage  => __('packages left to remove'),
-		      endNote  =>  __('The packages removal has finished successfully. '
-                                      . 'The administration interface may become unresponsive '
-                                      . 'for a few seconds. Please wait patiently until '
-                                      . 'the system has been fully restarted'),
-                      errorNote => __('The packages removal has not finished correctly '
-                                      . '. More information on the logs'),
-		      reloadInterval  => 2,
-              nextStepUrl => '/ebox/Finish',
-              nextStepText => 'Go to initial configuration wizard',
-              nextStepTimeout => 1
-		     );
+        title    => __('Removing package'),
+        text     => __('Removing the selected package and its dependent packages'),
+        currentItemCaption  =>  __("Current operation"),
+        itemsLeftMessage  => __('packages left to remove'),
+        endNote  =>  __('The packages removal has finished successfully. '
+            . 'The administration interface may become unresponsive '
+            . 'for a few seconds. Please wait patiently until '
+            . 'the system has been fully restarted'),
+        errorNote => __('The packages removal has not finished correctly '
+            . '. More information on the logs'),
+        reloadInterval  => 2,
+        nextStepUrl => '/ebox/Finish',
+        nextStepText => 'Go to initial configuration wizard',
+        nextStepTimeout => 1
+        );
 }
 
 1;

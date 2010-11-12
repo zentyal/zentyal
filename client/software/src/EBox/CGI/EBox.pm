@@ -54,11 +54,11 @@ sub _process
 
     my $updateList = 0;
     if (defined($self->param('updatePkgs'))) {
-       if ($software->updatePkgList()) {
-        $updateList = 1;
-       } else {
-        $updateList = 2;
-       }
+        if ($software->updatePkgList()) {
+            $updateList = 1;
+        } else {
+            $updateList = 2;
+        }
     }
 
     my @array = ();
@@ -88,7 +88,7 @@ sub _menu
 
 sub _top
 {
-	my ($self) = @_;
+    my ($self) = @_;
     if (-f FIRST_RUN_FILE) {
         $self->_topNoAction();
     } else {

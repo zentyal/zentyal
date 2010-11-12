@@ -24,22 +24,22 @@ use EBox::Global;
 use EBox::Gettext;
 
 ## arguments:
-## 	title [required]
+##  title [required]
 sub new {
-	my $class = shift;
-	my $self = $class->SUPER::new(@_);
-	$self->{redirect} = "Software/Config";
-	$self->{domain} = 'ebox-software';
-	bless($self, $class);
-	return $self;
+    my $class = shift;
+    my $self = $class->SUPER::new(@_);
+    $self->{redirect} = "Software/Config";
+    $self->{domain} = 'ebox-software';
+    bless($self, $class);
+    return $self;
 }
 
 sub _process($) {
-	my $self = shift;
-	my $software= EBox::Global->modInstance('software');
+    my $self = shift;
+    my $software= EBox::Global->modInstance('software');
 
-	$self->_requireParam('active', __('automatic updates configuration'));
-	$software->setAutomaticUpdates(($self->param('active') eq 'yes'));
+    $self->_requireParam('active', __('automatic updates configuration'));
+    $software->setAutomaticUpdates(($self->param('active') eq 'yes'));
 }
 
 1;
