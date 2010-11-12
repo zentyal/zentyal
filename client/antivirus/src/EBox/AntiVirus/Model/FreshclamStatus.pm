@@ -213,7 +213,11 @@ sub _nSig
     my $output = EBox::Sudo::root($cmd);
 
     my $line = $output->[0];
+
+    return 0 unless (defined($line));
+
     my ($nSig) = $line =~ m/([0-9]+)\ssignatures/;
+
     return $nSig;
 
 }
