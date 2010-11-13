@@ -19,6 +19,7 @@ use warnings;
 use strict;
 
 use ZentyalDesktop::Config qw(ZENTYAL_DESKTOP_DIR CONFIGURED_STAMP);
+use ZentyalDesktop::SoftwareConfigurator;
 
 unless (-d ZENTYAL_DESKTOP_DIR) {
     mkdir (ZENTYAL_DESKTOP_DIR);
