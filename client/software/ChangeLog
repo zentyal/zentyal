@@ -1,4 +1,5 @@
 HEAD
+	+ Unknown packages are considered as uninstalled
 	+ Set a random automatic time when there is not stored any
 	  configured time by admin
 	+ Not launching an exception when ebox-software is locked in the

@@ -30,7 +30,7 @@ use EBox::Menu::Folder;
 use EBox::Menu::Item;
 use EBox::Module::Base;
 use EBox::ProgressIndicator;
-use EBox::Sudo qw( :all );
+use EBox::Sudo;
 
 use Digest::MD5;
 use Error qw(:try);
@@ -192,7 +192,7 @@ sub updatePkgList
 
     my $cmd ='/usr/bin/apt-get update -q';
     try {
-        root($cmd);
+        EBox::Sudo::root($cmd);
         return 1;
     } catch EBox::Exceptions::Internal with {
         EBox::error("Error updating package list");
@@ -224,19 +224,19 @@ sub fetchAllPkgs
         $cmd .= ($pkg->{name} . " ");
     }
     try {
-        root($cmd);
+        EBox::Sudo::root($cmd);
     } catch EBox::Exceptions::Internal with {
     };
 
     $cmd ='/usr/bin/apt-get dist-upgrade -qq --download-only --force-yes --yes --no-install-recommends ';
     try {
-        root($cmd);
+        EBox::Sudo::root($cmd);
     } catch EBox::Exceptions::Internal with {
     };
 
     $cmd ='/usr/bin/apt-get autoclean -qq --force-yes --yes';
     try {
-        root($cmd);
+        EBox::Sudo::root($cmd);
     } catch EBox::Exceptions::Internal with {
     };
 }
@@ -429,7 +429,7 @@ sub _packageDepends
     }
 
 
-    my $output = root($aptCmd);
+    my $output = EBox::Sudo::root($aptCmd);
 
 
     my @packages = grep {
@@ -471,7 +471,8 @@ sub isInstalled
 {
     my ($self, $name) = @_;
     my $cache = AptPkg::Cache->new;
-    if ($cache->{$name}{CurrentState} eq 'Installed'){
+    my $package = $cache->{$name};
+    if ($package and $package->{CurrentState} eq 'Installed'){
         return 1;
     }
     return 0;
