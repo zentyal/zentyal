@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 . /usr/share/debconf/confmodule
 
@@ -16,4 +16,11 @@ cp /usr/share/zentyal-desktop/gdm-post-session $GDM_POSTDEFAULT
 
 db_get zentyal-desktop/server
 server="$RET"
+db_get zentyal-desktop/slave
+slave="$RET"
+
+if [ "$slave" == "true" ]
+then
+    server="$server:1389"
+fi
 zentyal-setup-client $server

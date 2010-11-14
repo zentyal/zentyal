@@ -7,7 +7,7 @@ grep -q "^roaming-profiles.*yes" $CONF || exit 0
 # If server address is not in the environment, read it
 if [ -z "$SERVER" ]
 then
-    SERVER=`grep ^host /etc/ldap.conf | cut -d' ' -f2`
+    SERVER=`grep ^host /etc/ldap.conf | cut -d' ' -f2 | cut -d: -f1`
 fi
 
 # Generate key pair if not already done

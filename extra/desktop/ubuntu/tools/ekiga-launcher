@@ -9,7 +9,7 @@ then
                   || exit 256`
         test $? -eq 0 || exit 256
     done
-    SERVER=`grep ^host /etc/ldap.conf | cut -d' ' -f2`
+    SERVER=`grep ^host /etc/ldap.conf | cut -d' ' -f2 | cut -d: -f1`
     sed -i "s/USERNAME/$USER/g" $EKIGACONF
     sed -i "s/SERVER/$SERVER/g" $EKIGACONF
     sed -i "s/PASSWORD/$PASSWORD/g" $EKIGACONF

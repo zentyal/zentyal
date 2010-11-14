@@ -25,7 +25,7 @@ unless (-d ZENTYAL_DESKTOP_DIR) {
     mkdir (ZENTYAL_DESKTOP_DIR);
 }
 
-my $server = `grep ^host /etc/ldap.conf | cut -d' ' -f2`;
+my $server = `grep ^host /etc/ldap.conf | cut -d' ' -f2 | cut -d: -f1`;
 chomp ($server);
 my $user = $ENV{USER};
 

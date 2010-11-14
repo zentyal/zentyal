@@ -3,3 +3,7 @@ Type: string
 _description: Zentyal Server address:
  Please enter the address of the Zentyal server to be used as
  authentication server for this client.
+Template: zentyal-desktop/server
+Type: boolean
+_description: Zentyal Server type:
+ Is your Zentyal server a slave of another master Zentyal?

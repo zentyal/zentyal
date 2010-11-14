@@ -3,7 +3,7 @@
 # If server address is not in the environment, read it
 if [ -z "$SERVER" ]
 then
-    SERVER=`grep ^host /etc/ldap.conf | cut -d' ' -f2`
+    SERVER=`grep ^host /etc/ldap.conf | cut -d' ' -f2 | cut -d: -f1`
 fi
 
 TEXT="Welcome to Zentyal Desktop first login configuration.
