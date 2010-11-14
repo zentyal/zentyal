@@ -30,3 +30,16 @@ msgid ""
 "Please enter the address of the Zentyal server to be used as authentication "
 "server for this client."
 msgstr ""
+
+#. Type: boolean
+#. description
+#: ../zentyal-desktop.templates:1002
+msgid "Zentyal Server LDAP mode:"
+msgstr ""
+
+#. Type: boolean
+#. description
+#: ../zentyal-desktop.templates:1002
+msgid ""
+"Is your Zentyal server a slave of another master Zentyal?"
+msgstr ""
