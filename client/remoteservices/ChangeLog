@@ -1,3 +1,5 @@
+HEAD
+	+ Fixed bad hour bug in remoteservices cron file generation
 2.0.3
 	+ Allow insecure clients (bad renegotiation CVE-2009-3555) until
 	  Zentyal Cloud clients have the problem fixed.
