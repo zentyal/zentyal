@@ -24,7 +24,7 @@ use EBox::Gettext;
 use EBox::NetWrappers qw();
 use Net::IP;
 use Mail::RFC822::Address;
-use Data::Validate::Domain qw(is_domain);
+use Data::Validate::Domain qw(is_hostname);
 
 use constant IFNAMSIZ => 16; #Max length name for interfaces
 
@@ -568,7 +568,7 @@ sub _checkDomainName
 {
     my ($domain) = @_;
 
-    return is_domain($domain);
+    return is_hostname($domain);
 }
 
 # Function: checkDomainName
@@ -588,7 +588,7 @@ sub checkDomainName # (domain, name?)
 {
     my ($domain, $name) = @_;
 
-    unless (is_domain($domain)) {
+    unless (is_hostname($domain)) {
         if ($name) {
             throw EBox::Exceptions::InvalidData
                 ('data' => $name, 'value' => $domain);
