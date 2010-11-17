@@ -18,38 +18,38 @@
 </tr>
 <tr>
 	<td>click</td>
-	<td>link=Groups</td>
+	<td>link=Users and Groups</td>
 	<td></td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>link=Edit Group</td>
+	<td>link=Groups</td>
 	<td></td>
 </tr>
 <tr>
-    <td>type</td>
-    <td>Groups_filter</td>
-    <td>{$GROUP}</td>
+	<td>type</td>
+	<td>Groups_filter</td>
+	<td>{$GROUP}</td>
 </tr>
 <tr>
-    <td>runScript</td>
-    <td>startAjaxRequest()</td>
-    <td></td>
+	<td>runScript</td>
+	<td>startAjaxRequest()</td>
+	<td></td>
 </tr>
 <tr>
-    <td>waitForValue</td>
-    <td>ajax_request_cookie</td>
-    <td>1</td>
+	<td>waitForValue</td>
+	<td>ajax_request_cookie</td>
+	<td>1</td>
 </tr>
 <tr>
-    <td>click</td>
-    <td>filter</td>
-    <td></td>
-</tr>    
+	<td>click</td>
+	<td>filter</td>
+	<td></td>
+</tr>
 <tr>
-    <td>waitForValue</td>
-    <td>ajax_request_cookie</td>
-    <td>0</td>
+	<td>waitForValue</td>
+	<td>ajax_request_cookie</td>
+	<td>0</td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
@@ -66,7 +66,6 @@
 	<td>addtogroup</td>
 	<td></td>
 </tr>
-
 </tbody></table>
 </body>
 </html>
