@@ -1,61 +1,61 @@
 ## Process this file with automake to produce Makefile.in
-stubsdir = $(datadir)/emoddev/stubs
+stubsdir = $(datadir)/zmoddev/stubs
 
 stubs_DATA = autogen.sh configure.ac.mas Makefile.am.mas
 
-stubsdebiandir = $(datadir)/emoddev/stubs/debian
+stubsdebiandir = $(datadir)/zmoddev/stubs/debian
 
 stubsdebian_DATA = debian/prerm debian/changelog.mas debian/cdbs/ebox.mk \
 	debian/compat debian/postrm.mas debian/rules debian/postinst.mas \
 	debian/control.mas
 
-stubsdebiancdbsdir = $(datadir)/emoddev/stubs/debian/cdbs
+stubsdebiancdbsdir = $(datadir)/zmoddev/stubs/debian/cdbs
 
 stubsdebiancdbs_DATA = debian/cdbs/ebox.mk
 
 
-stubsm4dir = $(datadir)/emoddev/stubs/m4
+stubsm4dir = $(datadir)/zmoddev/stubs/m4
 
 stubsm4_DATA = m4/definedir.m4  m4/ebox.m4  m4/gconf-2.m4
 	m4/nls.m4  m4/perlmodules.m4  m4/po.m4
 
-stubsmigrationdir = $(datadir)/emoddev/stubs/migration
+stubsmigrationdir = $(datadir)/zmoddev/stubs/migration
 
 stubsmigration_DATA = migration/Makefile.am.mas
 
-stubsschemasdir = $(datadir)/emoddev/stubs/schemas
+stubsschemasdir = $(datadir)/zmoddev/stubs/schemas
 
-stubsmigrationbasedir = $(datadir)/emoddev/stubs/migration
+stubsmigrationbasedir = $(datadir)/zmoddev/stubs/migration
 
 stubsmigrationbase_DATA = migration/migration.pl.mas
 
 stubsschemas_DATA = schemas/Makefile.am.mas  schemas/yaml.mas
 
-stubssrcdir = $(datadir)/emoddev/stubs/src
+stubssrcdir = $(datadir)/zmoddev/stubs/src
 
 stubssrc_DATA = src/Makefile.am.mas src/MainClass.pm.mas src/FirewallHelper.pm.mas
 
-stubsmodeldir = $(datadir)/emoddev/stubs/src/Model
+stubsmodeldir = $(datadir)/zmoddev/stubs/src/Model
 
 stubsmodel_DATA =  src/Model/TableModel.pm.mas src/Model/FormModel.pm.mas
 
-stubscompositedir = $(datadir)/emoddev/stubs/src/Composite
+stubscompositedir = $(datadir)/zmoddev/stubs/src/Composite
 
 stubscomposite_DATA =  src/Composite/Composite.pm.mas
 
 
-stubstypedir = $(datadir)/emoddev/stubs/src/Types
+stubstypedir = $(datadir)/zmoddev/stubs/src/Types
 
 stubstype_DATA = src/Types/Type.pm.mas
 
 
 
-stubstoolsdir = $(datadir)/emoddev/stubs/tools
+stubstoolsdir = $(datadir)/zmoddev/stubs/tools
 
 stubstools_DATA = tools/extract-perl-from-mason tools/po-am.footer  \
 	tools/po-am.generator  tools/po-am.header
 
-stubsstubsdir = $(datadir)/emoddev/stubs/stubs/
+stubsstubsdir = $(datadir)/zmoddev/stubs/stubs/
 
 stubsstubs_DATA = stubs/Makefile.am.mas stubs/service.conf.mas
 
