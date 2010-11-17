@@ -5,7 +5,7 @@
 </%args>
 ## Process this file with automake to produce Makefile.in
 % if (@subDirs) {
-SUBDIRS = <% "@subDirs"  %>
+SUBDIRS = <% "@subDirs" %>
 % }
 
 % if (defined $perlDir) {
@@ -13,9 +13,9 @@ perldir = @PERLPATH@/<% $perlDir %>
 % }
 
 % if (@perlData) {
-nobase_perl_DATA = <% "@perlData" %> 
+nobase_perl_DATA = <% "@perlData" %>
 
-DISTCLEANFILES = 
+DISTCLEANFILES =
 
 EXTRA_DIST = $(nobase_perl_DATA)
 % }

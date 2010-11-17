@@ -33,7 +33,7 @@ stubsschemas_DATA = schemas/Makefile.am.mas  schemas/yaml.mas
 
 stubssrcdir = $(datadir)/emoddev/stubs/src
 
-stubssrc_DATA = src/Makefile.am.mas  src/MainClass.pm.mas src/FirewallHelper.pm.mas
+stubssrc_DATA = src/Makefile.am.mas src/MainClass.pm.mas src/FirewallHelper.pm.mas
 
 stubsmodeldir = $(datadir)/emoddev/stubs/src/Model
 
@@ -52,7 +52,7 @@ stubstype_DATA = src/Types/Type.pm.mas
 
 stubstoolsdir = $(datadir)/emoddev/stubs/tools
 
-stubstools_DATA = tools/extract-perl-from-mason  tools/po-am.footer  \
+stubstools_DATA = tools/extract-perl-from-mason tools/po-am.footer  \
 	tools/po-am.generator  tools/po-am.header
 
 stubsstubsdir = $(datadir)/emoddev/stubs/stubs/

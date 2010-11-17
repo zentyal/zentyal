@@ -1,5 +1,5 @@
 <%args>
-    $name    
+    $name
     $parent
     $package
 </%args>
@@ -25,7 +25,7 @@ sub new
     my %opts = @_;
     my $self = $class->SUPER::new(@_);
     bless($self, $class);
-    
+
     return $self;
 }
 

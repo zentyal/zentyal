@@ -1,15 +1,14 @@
-Source: emoddev
+Source: zmoddev
 Section: utils
 Priority: optional
-Maintainer: Ubuntu MOTU Developers <ubuntu-motu@lists.ubuntu.com>
-XSBC-Original-Maintainer: Javier Uruen Val <javi@warp.es>
+Maintainer: José Antonio Calvo <jacalvo@zentyal.org>
 Build-Depends: cdbs, debhelper (>= 4.0.0)
 Standards-Version: 3.7.3
 
-Package: emoddev
+Package: zmoddev
 Architecture: all
 Depends: make, dpkg-dev, autotools-dev, autoconf, cdbs, automake1.9 | automake, fakeroot, build-essential, libhtml-mason-perl
 Recommends: ebox
-Description: eBox  module development scripts
+Description: Zentyal module development scripts
  This package ships scripts to ease the development of modules for the
- eBox platform.
+ Zentyal Server.

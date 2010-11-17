@@ -25,15 +25,13 @@ use EBox::Gettext;
 #         Constructor for composite
 #
 sub new
-  {
+{
+    my ($class, @params) = @_;
 
-      my ($class, @params) = @_;
+    my $self = $class->SUPER::new(@params);
 
-      my $self = $class->SUPER::new(@params);
-
-      return $self;
-
-  }
+    return $self;
+}
 
 # Group: Protected methods
 
@@ -44,21 +42,19 @@ sub new
 #     <EBox::Model::Composite::_description>
 #
 sub _description
-  {
+{
+    my $description =
+    {
+        components      => [
+            ],
+        layout          => 'top-bottom',
+        name            => '<% $name %>',
+        printableName   => __('<% $name %>'),
+        compositeDomain => '<% $compositeDomain %>',
+        #help           => __(''),
+    };
 
-      my $description =
-        {
-         components      => [
-                            ],
-         layout          => 'top-bottom',
-         name            => '<% $name %>',
-         printableName   => __('<% $name %>'),
-         compositeDomain => '<% $compositeDomain %>',
-#         help            => __(''),
-        };
-
-      return $description;
-
-  }
+    return $description;
+}
 
 1;

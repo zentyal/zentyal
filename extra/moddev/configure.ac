@@ -1,7 +1,7 @@
-AC_INIT([emoddev], [1.5])
+AC_INIT([zmoddev], [2.0])
 
 AC_CONFIG_AUX_DIR([config])
-AC_CONFIG_SRCDIR([src/ebox-moddev-create.in])
+AC_CONFIG_SRCDIR([src/zentyal-moddev-create.in])
 
 AM_INIT_AUTOMAKE([foreign])
 
@@ -14,12 +14,12 @@ AC_DEFINE_DIR(LIBDIR, libdir)
 AC_CONFIG_FILES([
 Makefile
 src/Makefile
-src/ebox-moddev-create
-src/ebox-moddev-model
-src/ebox-moddev-composite
-src/ebox-moddev-type
-src/ebox-moddev-migration
-src/ebox-moddev-stub
+src/zentyal-moddev-create
+src/zentyal-moddev-model
+src/zentyal-moddev-composite
+src/zentyal-moddev-type
+src/zentyal-moddev-migration
+src/zentyal-moddev-stub
 stubs/Makefile
 ])
 

@@ -1,7 +1,7 @@
 <%args>
     $module
     $mainClass
-    $modNameSpace    
+    $modNameSpace
     $version
 </%args>
 AC_INIT([EBox-<% $module %>], [<% $version %>])

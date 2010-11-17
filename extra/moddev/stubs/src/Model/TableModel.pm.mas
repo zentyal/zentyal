@@ -6,7 +6,7 @@
     $rowName
     $modelDomain
 </%args>
-# Copyright  
+# Copyright (C)
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -22,7 +22,7 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
 # Class: <% $packageName %>
-#   
+#
 #   TODO: Document class
 #
 
@@ -37,7 +37,7 @@ use warnings;
 
 use base 'EBox::Model::DataTable';
 
-sub new 
+sub new
 {
         my $class = shift;
         my %parms = @_;
@@ -51,8 +51,8 @@ sub new
 sub _table
 {
 
-    my @tableHead = 
-    ( 
+    my @tableHead =
+    (
 #     Here you should add your instances of subclass of EBox::Types::Abstact to
 #     define the table's fields. For example to add a text field:
 #        new EBox::Types::Text(
@@ -66,8 +66,8 @@ sub _table
 
     );
 
-    my $dataTable = 
-    { 
+    my $dataTable =
+    {
         'tableName' => '<% $modelName %>',
         'automaticRemove' => 1,
         'printableTableName' => __('<% $printableTableName %>'),

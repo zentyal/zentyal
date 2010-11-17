@@ -13,7 +13,7 @@ use File::Copy;
 use constant
     {
        MODULE_VERSION => '0.1',
-       STUBS_PATH => '@DATADIR@/emoddev/stubs',
+       STUBS_PATH => '@DATADIR@/zmoddev/stubs',
     };
 
 sub _printUsage
@@ -219,7 +219,7 @@ sub _src_EBox_Module_Model
     my $params = " --main-class $mainClass --name Settings" .
                  " --module-name-space $modNameSpace" .
                  " --destdir $dir";
-    system("ebox-moddev-model $params");
+    system("zentyal-moddev-model $params");
 }
 
 sub _src_EBox_Module_Composite
@@ -232,7 +232,7 @@ sub _src_EBox_Module_Composite
     my $params = " --main-class $mainClass --name Composite" .
                  " --module-name-space $modNameSpace" .
                  " --destdir $dir";
-    system("ebox-moddev-composite $params");
+    system("zentyal-moddev-composite $params");
 }
 
 
@@ -246,7 +246,7 @@ sub _src_EBox_Module_Types
     my $params = " --main-class $mainClass " .
                  " --module-name-space $modNameSpace" .
                  " --destdir $dir";
-    system("ebox-moddev-type$params");
+    system("zentyal-moddev-type$params");
 }
 
 
@@ -353,7 +353,7 @@ sub _stubs
 
     my $params = " --main-class $module --name service.conf" .
                  " --destdir $dir";
-    system("ebox-moddev-stub $params");
+    system("zentyal-moddev-stub $params");
 }
 
 sub _m4
