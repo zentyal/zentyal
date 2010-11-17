@@ -6,7 +6,7 @@ In this version you will learn how to create a model that does not store
 anything on disk, and commits its configuration changes inmediately. Although
 this is not the preferred way to do this, it can be useful for some scenarios.
 
-If you remember, most of the modules in eBox let the user make
+If you remember, most of the modules in Zentyal let the user make
 configuration changes, and these changes do not take effect on the real
 configuration until the user clicks on the *Save changes* button.
 
@@ -18,14 +18,14 @@ Data model
 
 Let's create our new model called *AllModules* by running:::
 
-     ebox-moddev-model  --main-class Apache2 --name AllModules --field module:Text --field enabled:Boolean --model table
+     zentyal-moddev-model  --main-class Apache2 --name AllModules --field module:Text --field enabled:Boolean --model table
 
 This model is going to be used to configure apache modules as well. However,
-we will be doing things in a different way. 
+we will be doing things in a different way.
 
 First of all, we are going to build our rows in run-time. This approach can be
 very useful if you have a read-only table with thousands of rows as its very
-memory-efficient. 
+memory-efficient.
 
 We need to create our row identifier vector in run-time. To simplify things, we
 will be using the name of the apache modules as row identifiers. We will
@@ -39,7 +39,7 @@ The code to carry out that task will look like:::
     #   Override <EBox::Model::DataTable::ids> to return
     #   row identifiers based on the apache modules that
     #   are available in /etc/apache2/mods-available
-    sub ids 
+    sub ids
     {
          opendir (my $dh, '/etc/apache2/mods-available');
         my @mods;

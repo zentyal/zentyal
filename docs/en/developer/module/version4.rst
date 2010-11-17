@@ -49,7 +49,7 @@ The code in *src/EBox/Model/Modules.pm* will be something like this::
 Let's walk through the above code. *@modules* contains the apache modules that
 users will be able to enable from this module. *$currentRows* contains the row
 identifiers of the stored rows. Note that we use the module name as the row
-identifier. 
+identifier.
 
 In case we do not have to add any row, we just return *0* to tell the framework
 that we have not added or removed any row.
@@ -63,15 +63,15 @@ Approach *b*: migration
 =======================
 
 The migration scripts are helpful to add or migrate data. They are usually
-used when a new version of an eBox module is released and its data model has
+used when a new version of a Zentyal module is released and its data model has
 changed. They are also useful to populate values in our models.
 
 A migration script is run only once if there is no error during its execution.
 
-Let's use a new *ebox-moddev* command to add our first migration script.
+Let's use a new *zentyal-moddev* command to add our first migration script.
 Within your module directory run::
 
-    ebox-moddev-migration  --main-class apache2 --version 1
+    zentyal-moddev-migration --main-class apache2 --version 1
 
 This will create our first migration script in *migration/1.pl* that will look
 like this::
@@ -118,7 +118,7 @@ like this::
 
     1;
 
-First of all, we need 
+First of all, we need
 using one of its functions::
 
     #!perl

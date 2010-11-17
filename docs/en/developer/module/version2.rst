@@ -6,7 +6,7 @@ Next iteration. So far our module only manages the listening port. This is way t
 
 In Ubuntu and Debian, there are a couple of apache directories which are of interest for this task: */etc/apache2/mods-available* and */etc/apache2/mods-enabled*. The system administrator can enable a module by symliking a couple of files. There's a tool called *a2enmod* that makes this task automatic.
 
-Let's pick a few modules to be managed by eBox:
+Let's pick a few modules to be managed by Zentyal:
 
 * ssl
 * info
@@ -19,15 +19,16 @@ In our first version, our UI will look like a table that the user can add rows t
 
 The data model to manage modules is pretty simple, we will need a field to store the module name and another field to enable and disable the module.
 
-We will use *ebox-moddev-model*, a tool that allows us to easily add new models to our eBox module. Within the apache2 directory run::
+We will use *ebox-moddev-model*, a tool that allows us to easily add new models to our Zentyal module. Within the apache2 directory run::
 
-    ebox-moddev-model  --main-class Apache2 --name Modules --field module:Select --field enabled:Boolean --model table
+    zentyal-moddev-model  --main-class Apache2 --name Modules --field module:Select --field enabled:Boolean --model table
 
 The above command adds a new model called *Modules* which is composed of a *Select* type called *module* and a *Boolean* type called *enabled*. The type of model is a *table* instead of a *form* as we did in version 0.1. *main-class* is *Apache2* as you should recall from the initial module creation.
 
 Build and install the package.
 
-For now there's no menu entry to check the view associated to this module, but we can easily guess the URL as we know the model name. Fire up to browser, log in eBox and go to *http://your_ip/ebox/Apache/View/Modules*. You will see something like this:
+For now there's no menu entry to check the view associated to this module, but we can easily guess the URL as we know the model name. Fire up to browser,
+log in Zentyal and go to *http://your_ip/ebox/Apache/View/Modules*. You will see something like this:
 
 .. image:: images/modules-1.png
 

@@ -7,7 +7,7 @@ So far we have three different models with three different menu entries that hel
 Composite view
 ==============
 
-There is already a default composite created with *emoddev*. This composite is configured with a top-bottom layout. However, its model list is empty. We will have to populate it with our models. The default composite lives in *src/EBox/Composite/Composite.pm*. We should add our models to *components* and set *printableName* to *Apache2 configuration*. This is how this file should then look::
+There is already a default composite created with *zmoddev*. This composite is configured with a top-bottom layout. However, its model list is empty. We will have to populate it with our models. The default composite lives in *src/EBox/Composite/Composite.pm*. We should add our models to *components* and set *printableName* to *Apache2 configuration*. This is how this file should then look::
 
     #!perl
     # Class: EBox::Apache2::Composite::Composite

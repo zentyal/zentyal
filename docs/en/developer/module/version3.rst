@@ -7,20 +7,20 @@ the current state of the module at every moment. This means that the value
 will not be stored on disk, hence it will not be retrieved from disk
 either. This value will be computed every time the row is rendered.
 
-To provide this functionality we need to introduce how eBox types
+To provide this functionality we need to introduce how Zentyal types
 work and how we can create our own type to achieve this behavior. In a
-nutshell, eBox types provide a convenient way to store and represent
+nutshell, Zentyal types provide a convenient way to store and represent
 certain data. Most of them are stored and automatically retrieved from our
 persistence backend, being LDAP or GConf.
 
 Data model
 ==========
 
-We will use *emoddev* to create a custom type. Run the following command::
+We will use *zmoddev* to create a custom type. Run the following command::
 
-    ebox-moddev-type  --main-class Apache2 --name CurrentStatus --parent EBox::Types::Boolean
+    zentyal-moddev-type  --main-class Apache2 --name CurrentStatus --parent EBox::Types::Boolean
 
-The above command *ebox-moddev-type* will need to know a few things: main class, the name of the new type, in this case *CurrentStatus*, and *--parent* is used to tell which is the parent class our new type will inherit from.
+The above command *zentyal-moddev-type* will need to know a few things: main class, the name of the new type, in this case *CurrentStatus*, and *--parent* is used to tell which is the parent class our new type will inherit from.
 
 Now you will have a stub type in *src/EBox/Types/CurrentStatus.pm*. Modify this file to have the following code::
 
@@ -276,9 +276,9 @@ The whole file should look like this::
 Menu
 ====
 
-The current entry menu for our module is still pointing to the *Settings* model that is created by default by *emoddev*. It would be nice to have a menu entry to access our *modules* model.
+The current entry menu for our module is still pointing to the *Settings* model that is created by default by *zmoddev*. It would be nice to have a menu entry to access our *modules* model.
 
-The process to build the eBox menu works as follows: the framework will ask every main class in run-time to return a data structure by calling the method *menu()*. This data structure can contain a single menu entry with its name and URL, or it might be a bit more complex and return a folder with no URLs and several entries with URLs contained in that folder.
+The process to build the Zentyal menu works as follows: the framework will ask every main class in run-time to return a data structure by calling the method *menu()*. This data structure can contain a single menu entry with its name and URL, or it might be a bit more complex and return a folder with no URLs and several entries with URLs contained in that folder.
 
 Let's see an example of how to return a folder called *Apache2* and two entries pointing to *Settings* and *Modules*. The method to modify is *menu()* in *src/EBox/Apache2.pm*, and it should look like this::
 

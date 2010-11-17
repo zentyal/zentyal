@@ -11,7 +11,7 @@ By default two fields are added to this model: *Field 1* and *Field 2*.
 
 The next step will be to change these fields to have the name and content that we actually want. The first version of our module is going to be pretty simple. The only thing we will let the user change will be the port. Roughly speaking, the data model is composed of some fields, you have to decide what kind of data we will store in each field. To do this, we use some classes shipped with the framework which are called types.
 
-These are some of the types you can currently find in eBox:
+These are some of the types you can currently find in Zentyal:
 
 * Text
 * Int
@@ -228,7 +228,7 @@ The next thing we do is to retrieve the stored value of our field called *listen
 Writing the apache configuration
 ================================
 
-eBox commits its configuration changes as follows:
+Zentyal commits its configuration changes as follows:
 
 * The user starts a new web interface session and makes some changes to the configuration.
 * The *Save changes* button on the top-right corner turns red to let the user know there are unsaved changes.
@@ -252,7 +252,7 @@ The apache configuration file we are going to modify is */etc/apache2/ports.conf
 
     Listen 80
 
-In its current version, eBox uses a `template based system <http://www.masonhq.com>` to generate new configuration files.
+In its current version, Zentyal uses a `template based system <http://www.masonhq.com>` to generate new configuration files.
 
 Let's create our template for this file. Our scaffolding script has already created a template in *stubs/service.conf.mas*. We have to modify it as follows::
 
@@ -319,7 +319,8 @@ daemons when required.
 
 The *_regenConfig* function will be called every time we change our module configuration and when the machine boots for first time.
 
-eBox developers love to party, and they also love to be nice and friendly to users. That is why you have to tell the framework that your module will modify a system file, in this case, */etc/apache2/ports.conf*. By doing so, eBox will detect if the user has modified that file manually before overwriting, and will ask permission to do it as courtesy to our beloved users. In your main class you will have to override the *usedFiles()* function to report which files your module overwrites::
+Zentyal developers love to party, and they also love to be nice and friendly to users. That is why you have to tell the framework that your module will
+modify a system file, in this case, */etc/apache2/ports.conf*. By doing so, Zentyal will detect if the user has modified that file manually before overwriting, and will ask permission to do it as courtesy to our beloved users. In your main class you will have to override the *usedFiles()* function to report which files your module overwrites::
 
     #!perl
     # Method: usedFiles

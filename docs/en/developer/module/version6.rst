@@ -21,7 +21,7 @@ Data model
 
 Our new model is going to be pretty simple: *ServerAliases* will just be a list of domains. As usual, *emoddev* will allow us to create this model easily::
 
-    ebox-moddev-model --main-class Apache2 --name ServerAliases --field name:DomainName --model table
+    zentyal-moddev-model --main-class Apache2 --name ServerAliases --field name:DomainName --model table
 
 The above command will create our model in *src/EBox/Model/ServerAliases*. We will just make a minor change to the file, changing the *printableTableName* from *ServerAliases* to *Aliases*. The code should look like this::
 
@@ -42,7 +42,7 @@ The above command will create our model in *src/EBox/Model/ServerAliases*. We wi
     # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
     # Class: EBox::Apache2::Model::ServerAliases
-    #   
+    #
     #   TODO: Document class
     #
 
@@ -58,7 +58,7 @@ The above command will create our model in *src/EBox/Model/ServerAliases*. We wi
 
     use base 'EBox::Model::DataTable';
 
-    sub new 
+    sub new
     {
             my $class = shift;
             my %parms = @_;
@@ -73,8 +73,8 @@ The above command will create our model in *src/EBox/Model/ServerAliases*. We wi
     sub _table
     {
 
-        my @tableHead = 
-        ( 
+        my @tableHead =
+        (
             new EBox::Types::DomainName(
                 'fieldName' => 'name',
                 'printableName' => __('name'),
@@ -83,8 +83,8 @@ The above command will create our model in *src/EBox/Model/ServerAliases*. We wi
                 'editable' => 1
             ),
         );
-        my $dataTable = 
-        { 
+        my $dataTable =
+        {
             'tableName' => 'ServerAliases',
             'printableTableName' => __('Aliases'),
             'modelDomain' => 'Apache2',
@@ -132,7 +132,7 @@ The whole file should be::
 
     use base 'EBox::Model::DataTable';
 
-    sub new 
+    sub new
     {
             my $class = shift;
             my %parms = @_;
@@ -147,8 +147,8 @@ The whole file should be::
     sub _table
     {
 
-        my @tableHead = 
-        ( 
+        my @tableHead =
+        (
             new EBox::Types::DomainName(
                 'fieldName' => 'name',
                 'printableName' => __('Virtual Host'),
@@ -163,8 +163,8 @@ The whole file should be::
              'view' => '/ebox/Apache2/View/ServerAliases',
         ),
         );
-        my $dataTable = 
-        { 
+        my $dataTable =
+        {
             'tableName' => 'VirtualHosts',
             'printableTableName' => __('Virtual Hosts'),
             'modelDomain' => 'Apache2',

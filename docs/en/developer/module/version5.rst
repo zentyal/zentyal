@@ -12,12 +12,12 @@ Data model
 We need to create a new model to store the virtual hosts. This initial
 version will only have one field called *name* which obviously will store the
 name of the virtual host. This field must store fully qualified domain names
-(FQDN) and must check that its stored data has a valid syntax. eBox already has
+(FQDN) and must check that its stored data has a valid syntax. Zentyal already has
 a type that meets our needs: *EBox::Types::DomainName*.
 
-Let's use our beloved *emoddev* tool::
+Let's use our beloved *zmoddev* tool::
 
-    ebox-moddev-model --main-class Apache2 --name VirtualHosts --model table --field name:DomainName
+    zentyal-moddev-model --main-class Apache2 --name VirtualHosts --model table --field name:DomainName
 
 The above command will create a new model in *src/EBox/Model/VirtualHosts.pm*
 whose code will look like this::
@@ -359,7 +359,7 @@ and you will see something like this:
 .. image:: images/virtual-host-1.png
 
 Now we would like to let the user to enable and disable any virtual host. Your
-first thought should be just adding a new boolean field as we did with the *Modules* model. This is not necessary as eBox does it automatically for you under the hood if you set the *enableProperty* value to true. By doing this you are telling the framework to automatically add a new boolean field.
+first thought should be just adding a new boolean field as we did with the *Modules* model. This is not necessary as Zentyal does it automatically for you under the hood if you set the *enableProperty* value to true. By doing this you are telling the framework to automatically add a new boolean field.
 
 In the method *_table()* in *src/EBox/Model/VirtualHosts.pm* you have to set
 *enableProperty* to 1 as follows::
@@ -431,7 +431,7 @@ For every virtual host we will create a file in */etc/apache2/sites-available/*.
 
 We need to create a *Mason* template to configure every Apache virtual host::
 
-    ebox-moddev-stub --main-class apache2 --name virtual-host.conf
+    zentyal-moddev-stub --main-class apache2 --name virtual-host.conf
 
 The above command will create a file in *stubs/virtual-host.conf*. You should add the following code::
 
@@ -564,7 +564,7 @@ Let's recap all the changes that we need to make to *src/EBox/Apache2.pm*::
     # along with this program; if not, write to the Free Software
     # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-    # Class: EBox::Apache2 
+    # Class: EBox::Apache2
     #
     #   TODO: Documentation
 
@@ -601,7 +601,7 @@ Let's recap all the changes that we need to make to *src/EBox/Apache2.pm*::
     # Overrides:
     #
     #       <EBox::Model::ModelProvider::modelClasses>
-    sub modelClasses 
+    sub modelClasses
     {
         return [
             'EBox::Apache2::Model::Settings',
@@ -634,7 +634,7 @@ Let's recap all the changes that we need to make to *src/EBox/Apache2.pm*::
     {
         my $mgr = EBox::Model::ModelManager->instance();
             my $model = $mgr->model('apache2/VirtualHosts');
-        
+
         my @usedFiles;
         for my $id (@{$model->ids()}) {
                 my $row = $model->row($id);
@@ -648,7 +648,7 @@ Let's recap all the changes that we need to make to *src/EBox/Apache2.pm*::
             return \@usedFiles;
     }
 
-    # Method: enableActions 
+    # Method: enableActions
     #
     #   Override EBox::ServiceModule::ServiceInterface::enableActions
     #
@@ -656,7 +656,7 @@ Let's recap all the changes that we need to make to *src/EBox/Apache2.pm*::
     {
     }
 
-    # Method: serviceModuleName 
+    # Method: serviceModuleName
     #
     #   Override EBox::ServiceModule::ServiceInterface::serviceModuleName
     #
@@ -707,7 +707,7 @@ Let's recap all the changes that we need to make to *src/EBox/Apache2.pm*::
                 my $enabled = $row->valueByName('enabled');
                 my $outputFile = "/etc/apache2/sites-available/ebox-$name";
                 my @params = (name => $name);
-                # Write virtual host configuration file 
+                # Write virtual host configuration file
                 $self->writeConfFile($outputFile, 'apache2/virtual-host.conf.mas', \@params);
 
                 # Create the document root directory if it does not exist
@@ -741,7 +741,7 @@ Let's recap all the changes that we need to make to *src/EBox/Apache2.pm*::
     # Method: menu
     #
     #       Overrides EBox::Module method.
-    #   
+    #
     #
     sub menu
     {
@@ -761,12 +761,12 @@ Let's recap all the changes that we need to make to *src/EBox/Apache2.pm*::
         my $virtualHosts = new EBox::Menu::Item(
         'url' => 'Apache2/View/VirtualHosts',
         'text' => __('Virtual Hosts'));
-      
+
 
         $folder->add($settings);
         $folder->add($modules);
         $folder->add($virtualHosts);
-        
+
         $root->add($folder);
     }
 
