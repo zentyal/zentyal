@@ -394,10 +394,10 @@ sub _addUser
     my $model = EBox::Model::ModelManager::instance()->model('mail/MailUser');
     return unless ($model->enabledValue());
     my $vdomain = $model->domainValue();
-    return unless ($vdomain  and $mail->{vdomains}->vdomainExists($vdomain));
+    return unless ($vdomain and $mail->{vdomains}->vdomainExists($vdomain));
 
     try {
-        $self->setUserAccount($user, $user, $vdomain);
+        $self->setUserAccount($user, lc($user), $vdomain);
     } otherwise {
        EBox::info("Creation of email account for $user failed");
     };
