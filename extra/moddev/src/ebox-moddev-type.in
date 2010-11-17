@@ -10,7 +10,7 @@ use HTML::Mason;
 use File::Slurp;
 use File::Copy;
 
-use constant 
+use constant
     {
        MODULE_VERSION => '0.1',
        STUBS_PATH => '@DATADIR@/emoddev/stubs',
@@ -30,7 +30,7 @@ sub _printUsage
 
 sub _parseOptions
 {
-    my %options = ( 
+    my %options = (
             name =>   undef,
             parent => undef,
             destdir => undef,
@@ -81,7 +81,7 @@ sub _types
           next unless ( $file =~ m/.*\.pm/ );
           push(@models, $file);
     }
-    return \@models; 
+    return \@models;
 }
 
 sub _makefile
@@ -90,7 +90,7 @@ sub _makefile
 
     my $modNameSpace = $options->{modNameSpace};
     my $dir = $options->{destdir} . '/src/EBox/' . $modNameSpace . '/Types';
-    mkdir ($dir) unless (-d $dir); 
+    mkdir ($dir) unless (-d $dir);
 
     my $perlDir = 'EBox/' . $modNameSpace . '/Types';
     my $perlData =  _types($dir);
@@ -100,7 +100,7 @@ sub _makefile
             );
     ${$output} = '';
     $interp->exec($comp,
-                  ( 
+                  (
                       perlDir => $perlDir,
                       perlData => $perlData,
                    )
@@ -115,18 +115,18 @@ sub _src_EBox_Module_Types
 
     my $modNameSpace = $options->{modNameSpace};
     my $dir = $options->{destdir} . '/src/EBox/' . $modNameSpace . '/Types';
-    mkdir ($dir) unless (-d $dir); 
+    mkdir ($dir) unless (-d $dir);
 
     my $template = '/src/Types/Type.pm.mas';
-   
+
     my $comp = $interp->make_component(
             comp_file => STUBS_PATH . $template,
             );
     ${$output} = '';
     my $name = $options->{name};
     my $package = 'EBox::' . $modNameSpace.  '::Types::' . $name;
-    $interp->exec($comp, 
-            ( 
+    $interp->exec($comp,
+            (
                 name => $name,
                 parent => $options->{parent},
                 package=> $package,
@@ -150,9 +150,9 @@ sub _createType
     my $options = _parseOptions();
 
     my $dir = $options->{destdir};
-    
+
     my $output;
-    my $interp = HTML::Mason::Interp->new(comp_root => STUBS_PATH, 
+    my $interp = HTML::Mason::Interp->new(comp_root => STUBS_PATH,
             out_method => \$output);
 
     if ($options->{name}) {

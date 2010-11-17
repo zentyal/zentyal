@@ -10,7 +10,7 @@ use HTML::Mason;
 use File::Slurp;
 use File::Copy;
 
-use constant 
+use constant
     {
        MODULE_VERSION => '0.1',
        STUBS_PATH => '@DATADIR@/emoddev/stubs',
@@ -27,9 +27,9 @@ sub _printUsage
 
 sub _parseOptions
 {
-    my %options = ( 
+    my %options = (
             name =>   undef,
-            fields => [], 
+            fields => [],
             destdir => undef,
             model => 'form',
             mainClass => undef,
@@ -78,11 +78,8 @@ sub _composites
           next unless ( $file =~ m/.*\.pm/ );
           push(@models, $file);
     }
-    return \@models; 
+    return \@models;
 }
-
-
-
 
 sub _makefile
 {
@@ -101,7 +98,7 @@ sub _makefile
             );
     ${$output} = '';
     $interp->exec($comp,
-                    ( 
+                    (
                         perlDir => $perlDir,
                         perlData => $perlData,
                      )
@@ -117,7 +114,7 @@ sub _src_EBox_Module_Composite
     my $modNameSpace = $options->{modNameSpace};
     my $dir = $options->{destdir} . '/src/EBox/' .
               $modNameSpace . '/Composite';
-    mkdir ($dir) unless (-d $dir); 
+    mkdir ($dir) unless (-d $dir);
 
     my $compositeFile = $options->{name} . '.pm';
 
@@ -129,9 +126,9 @@ sub _src_EBox_Module_Composite
             comp_file => STUBS_PATH . $template,
             );
     ${$output} = '';
-    $interp->exec($comp, 
-            ( 
-              package => $package,              
+    $interp->exec($comp,
+            (
+              package => $package,
               name => $name,
               compositeDomain => $options->{mainClass},
               ));
@@ -162,12 +159,12 @@ sub _addCompositesToMainClass
     open($fd, $file) or die "Can open $file\n";
     my @oldFile = <$fd>;
     close($fd);
-    
+
     open($fd, ">$file");
     my $inFunction = undef;
     for my $line (@oldFile) {
         if ($line =~ /sub compositeClasses/) {
-            $inFunction = 1;    
+            $inFunction = 1;
         } elsif ($inFunction and $line =~ /{/) {
             print $fd "{\n$code";
             next;
@@ -196,9 +193,9 @@ sub _createComposite
     my $options = _parseOptions();
 
     my $dir = $options->{destdir};
-    
+
     my $output;
-    my $interp = HTML::Mason::Interp->new(comp_root => STUBS_PATH, 
+    my $interp = HTML::Mason::Interp->new(comp_root => STUBS_PATH,
             out_method => \$output);
 
    _src_EBox_Module_Composite($interp, \$output, $options);

@@ -10,7 +10,7 @@ use HTML::Mason;
 use File::Slurp;
 use File::Copy;
 
-use constant 
+use constant
     {
        MODULE_VERSION => '0.1',
        STUBS_PATH => '@DATADIR@/emoddev/stubs',
@@ -30,7 +30,7 @@ sub _printUsage
 
 sub _parseOptions
 {
-    my %options = ( 
+    my %options = (
             name =>   undef,
             parent => undef,
             destdir => undef,
@@ -79,7 +79,7 @@ sub _templates
           next unless ( $file =~ m/.*\.mas/ );
           push(@models, $file);
     }
-    return \@models; 
+    return \@models;
 }
 
 sub _makefile
@@ -105,17 +105,17 @@ sub _template
     my ($interp, $output, $options) = @_;
 
     my $dir = $options->{destdir} . '/stubs';
-    mkdir ($dir) unless (-d $dir); 
+    mkdir ($dir) unless (-d $dir);
 
     my $template = '/stubs/service.conf.mas';
-   
+
     my $comp = $interp->make_component(
             comp_file => STUBS_PATH . $template,
             );
     ${$output} = '';
     my $name = $options->{name};
-    $interp->exec($comp, 
-            ( 
+    $interp->exec($comp,
+            (
                 name => $name,
                 parent => $options->{parent},
                 mainClass => $options->{mainClass},
@@ -139,9 +139,9 @@ sub _createStub
     my $options = _parseOptions();
 
     my $dir = $options->{destdir};
-    
+
     my $output;
-    my $interp = HTML::Mason::Interp->new(comp_root => STUBS_PATH, 
+    my $interp = HTML::Mason::Interp->new(comp_root => STUBS_PATH,
             out_method => \$output);
 
     if ($options->{name}) {

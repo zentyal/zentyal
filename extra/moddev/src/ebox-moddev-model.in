@@ -10,7 +10,7 @@ use HTML::Mason;
 use File::Slurp;
 use File::Copy;
 
-use constant 
+use constant
     {
        MODULE_VERSION => '0.1',
        STUBS_PATH => '@DATADIR@/emoddev/stubs',
@@ -72,9 +72,9 @@ sub _parseFields
 
 sub _parseOptions
 {
-    my %options = ( 
+    my %options = (
             name =>   undef,
-            fields => [], 
+            fields => [],
             destdir => undef,
             model => 'form',
             mainClass => undef,
@@ -97,7 +97,7 @@ sub _parseOptions
         _printUsage();
     }
 
-    unless (defined($options{name}) and 
+    unless (defined($options{name}) and
             defined($options{modNameSpace})
            ) {
         _printUsage();
@@ -115,9 +115,6 @@ sub _parseOptions
         die "$options{destdir} does not exist!!";
     }
 
-
-
-
     return \%options;
 }
 
@@ -130,7 +127,7 @@ sub _models
           next unless ( $file =~ m/.*\.pm/ );
           push(@models, $file);
     }
-    return \@models; 
+    return \@models;
 }
 sub _makefile
 {
@@ -161,30 +158,29 @@ sub _src_EBox_Module_Model
     my $dir = $options->{destdir} . '/src/EBox/' . $modNameSpace .  '/Model';
 
     my $modelClassFile = $options->{name} . '.pm';
-    mkdir ($dir) unless (-d $dir); 
+    mkdir ($dir) unless (-d $dir);
 
     my $name = $options->{name};
     my $packageName = 'EBox::' . $modNameSpace . '::Model::' . $name;
 
     # TableModel or FormModel ?
     my $template = '/src/Model/FormModel.pm.mas';
-   
+
     my $comp = $interp->make_component(
             comp_file => STUBS_PATH . $template,
             );
     ${$output} = '';
-    $interp->exec($comp, 
+    $interp->exec($comp,
             ( packageName => $packageName,
               modelName => $name,
-              printableTableName => $options->{name}, 
-              printableRowName => $options->{name}, 
+              printableTableName => $options->{name},
+              printableRowName => $options->{name},
               rowName   => $name,
               modelDomain => $options->{mainClass},
               fields    => $options->{parsedFields},
               modelType => $options->{model}
               ));
     write_file("$dir/$modelClassFile", ${$output});
-
 }
 
 sub _addModelsToMainClass
@@ -194,9 +190,9 @@ sub _addModelsToMainClass
     my $mainClass = $options->{mainClass};
     my $file = $options->{destdir} . "/src/EBox/$mainClass.pm";
     my $modNameSpace =  $options->{modNameSpace};
-    my $dir = $options->{destdir} . '/src/EBox/' . 
-                    $modNameSpace . 
-                     '/Model'; 
+    my $dir = $options->{destdir} . '/src/EBox/' .
+                    $modNameSpace .
+                     '/Model';
 
     my $code = "    return [\n";
     for my $model (@{_models($dir)}) {
@@ -210,12 +206,12 @@ sub _addModelsToMainClass
     open($fd, $file) or die "Can open $file\n";
     my @oldFile = <$fd>;
     close($fd);
-    
+
     open($fd, ">$file");
     my $inFunction = undef;
     for my $line (@oldFile) {
         if ($line =~ /sub modelClasses/) {
-            $inFunction = 1;    
+            $inFunction = 1;
         } elsif ($inFunction and $line =~ /{/) {
             print $fd "{\n$code";
             next;
@@ -244,9 +240,9 @@ sub _createModel
     my $options = _parseOptions();
 
     my $dir = $options->{destdir};
-    
+
     my $output;
-    my $interp = HTML::Mason::Interp->new(comp_root => STUBS_PATH, 
+    my $interp = HTML::Mason::Interp->new(comp_root => STUBS_PATH,
             out_method => \$output);
 
    _src_EBox_Module_Model($interp, \$output, $options);

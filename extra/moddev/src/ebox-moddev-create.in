@@ -10,7 +10,7 @@ use HTML::Mason;
 use File::Slurp;
 use File::Copy;
 
-use constant 
+use constant
     {
        MODULE_VERSION => '0.1',
        STUBS_PATH => '@DATADIR@/emoddev/stubs',
@@ -20,7 +20,7 @@ sub _printUsage
 {
     print STDERR "Usage: $0 --module-name --main-class [Options]\n\n";
     print STDERR "Options:\n";
-    print STDERR "\t--version\n"; 
+    print STDERR "\t--version\n";
     print STDERR "\t--destdir\n";
     print STDERR "\t--model form | table. Default: form\n";
     exit 1;
@@ -28,8 +28,8 @@ sub _printUsage
 
 sub _parseOptions
 {
-    my %options = ( 
-            moduleName => undef, 
+    my %options = (
+            moduleName => undef,
             printableModuleName => undef,
             mainClass => undef ,
             version => MODULE_VERSION,
@@ -82,7 +82,7 @@ sub _parseOptions
 
     if (defined $options{mainClass}) {
         my $modNameSpace = $options{mainClass};
-        $modNameSpace =~ s/\.pm$//;        
+        $modNameSpace =~ s/\.pm$//;
         $options{modNameSpace} = $modNameSpace
     }
 
@@ -96,7 +96,7 @@ sub _configure
     my $comp = $interp->make_component(
             comp_file => STUBS_PATH .  '/configure.ac.mas');
     ${$output} = '';
-    $interp->exec($comp,  
+    $interp->exec($comp,
             (mainClass => $options->{mainClass},
              modNameSpace => $options->{modNameSpace},
              module => $options->{moduleName},
@@ -126,7 +126,7 @@ sub _src
             comp_file => STUBS_PATH .  '/src/Makefile.am.mas',
             );
     ${$output} = '';
-    $interp->exec($comp, ( 
+    $interp->exec($comp, (
         subDirs  => ['EBox'],
        ));
     write_file($dir . '/Makefile.am', ${$output});
@@ -144,18 +144,18 @@ sub _src_EBox
             comp_file => STUBS_PATH .  '/src/Makefile.am.mas',
             );
     ${$output} = '';
-    $interp->exec($comp, ( 
+    $interp->exec($comp, (
         perlData => [$mainClass],
         perlDir  => 'EBox',
         subDirs  => [$options->{modNameSpace}],
        ));
     write_file($dir . '/Makefile.am', ${$output});
-    
+
     $comp = $interp->make_component(
             comp_file => STUBS_PATH .  '/src/MainClass.pm.mas',
             );
     ${$output} = '';
-    $interp->exec($comp, 
+    $interp->exec($comp,
             ( mainClass => $mainClass,
               class => 'EBox::' . $options->{mainClass},
               name => $options->{moduleName},
@@ -188,28 +188,24 @@ sub _src_EBox_Module
             comp_file => STUBS_PATH .  '/src/FirewallHelper.pm.mas',
             );
        ${$output} = '';
-       $interp->exec($comp, (         
+       $interp->exec($comp, (
                              modNameSpace => $modNameSpace
                             ));
-       
-       write_file($dir . "/$file", ${$output});   
+
+       write_file($dir . "/$file", ${$output});
     }
-
-
 
     $comp = $interp->make_component(
             comp_file => STUBS_PATH .  '/src/Makefile.am.mas',
             );
     ${$output} = '';
-    $interp->exec($comp, (         
+    $interp->exec($comp, (
         perlDir  => "/EBox/$modNameSpace",
         perlData => \@perlData,
         subDirs  => ['Model', 'Composite', 'Types'],
        ));
 
-    write_file($dir . "/Makefile.am", ${$output});    
-
- 
+    write_file($dir . "/Makefile.am", ${$output});
 }
 
 
@@ -217,27 +213,26 @@ sub _src_EBox_Module_Model
 {
     my ($interp, $output, $options) = @_;
 
-    my $dir = $options->{destdir}; 
+    my $dir = $options->{destdir};
     my $modNameSpace = $options->{modNameSpace};
-    my $mainClass = $options->{mainClass}; 
+    my $mainClass = $options->{mainClass};
     my $params = " --main-class $mainClass --name Settings" .
-                 " --module-name-space $modNameSpace" . 
-#                 " --field field1:Text --field field2:Text" .
+                 " --module-name-space $modNameSpace" .
                  " --destdir $dir";
-    system("ebox-moddev-model $params"); 
+    system("ebox-moddev-model $params");
 }
 
 sub _src_EBox_Module_Composite
 {
     my ($interp, $output, $options) = @_;
 
-    my $dir = $options->{destdir}; 
+    my $dir = $options->{destdir};
     my $modNameSpace = $options->{modNameSpace};
-    my $mainClass = $options->{mainClass}; 
+    my $mainClass = $options->{mainClass};
     my $params = " --main-class $mainClass --name Composite" .
-                 " --module-name-space $modNameSpace" . 
+                 " --module-name-space $modNameSpace" .
                  " --destdir $dir";
-    system("ebox-moddev-composite $params"); 
+    system("ebox-moddev-composite $params");
 }
 
 
@@ -245,13 +240,13 @@ sub _src_EBox_Module_Types
 {
     my ($interp, $output, $options) = @_;
 
-    my $dir = $options->{destdir}; 
-    my $mainClass = $options->{mainClass}; 
+    my $dir = $options->{destdir};
+    my $mainClass = $options->{mainClass};
     my $modNameSpace = $options->{modNameSpace};
     my $params = " --main-class $mainClass " .
-                 " --module-name-space $modNameSpace" . 
+                 " --module-name-space $modNameSpace" .
                  " --destdir $dir";
-    system("ebox-moddev-type$params"); 
+    system("ebox-moddev-type$params");
 }
 
 
@@ -279,7 +274,7 @@ sub _debian
             comp_file => STUBS_PATH .  '/debian/changelog.mas',
             );
     ${$output} = '';
-    $interp->exec($comp, ( module => $module, 
+    $interp->exec($comp, ( module => $module,
         version => $options->{version}));
     write_file($dir . '/changelog', ${$output});
 
@@ -303,7 +298,6 @@ sub _debian
     ${$output} = '';
     $interp->exec($comp, ( module => $module));
     write_file($dir . "/ebox-$module.postrm", ${$output});
-    
 }
 
 sub _migration
@@ -321,8 +315,6 @@ sub _migration
     ${$output} = '';
     $interp->exec($comp, ( module => $module, migrationScripts => []));
     write_file($dir . '/Makefile.am', ${$output});
-
-   
 }
 
 sub _schemas
@@ -361,7 +353,7 @@ sub _stubs
 
     my $params = " --main-class $module --name service.conf" .
                  " --destdir $dir";
-    system("ebox-moddev-stub $params"); 
+    system("ebox-moddev-stub $params");
 }
 
 sub _m4
@@ -372,7 +364,7 @@ sub _m4
     my $m4dst = $options->{destdir} . '/m4';
 
     `cp -a $m4src $m4dst`;
-} 
+}
 
 sub _tools
 {
@@ -383,7 +375,7 @@ sub _tools
 
     `cp -a $toolsSrc $toolsDst`;
     chmod(0755, "$toolsDst/po-am.generator");
-} 
+}
 
 
 sub _autogen
@@ -417,11 +409,11 @@ sub _createModule
     my $options = _parseOptions();
 
     my $dir = $options->{destdir};
-    
+
     mkdir $dir or die "Can't create dir $dir";
-    
+
     my $output;
-    my $interp = HTML::Mason::Interp->new(comp_root => STUBS_PATH, 
+    my $interp = HTML::Mason::Interp->new(comp_root => STUBS_PATH,
             out_method => \$output);
 
    _configure($interp, \$output, $options);

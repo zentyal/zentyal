@@ -10,7 +10,7 @@ use HTML::Mason;
 use File::Slurp;
 use File::Copy;
 
-use constant 
+use constant
     {
        MODULE_VERSION => '0.1',
        STUBS_PATH => '@DATADIR@/emoddev/stubs',
@@ -28,7 +28,7 @@ sub _printUsage
 
 sub _parseOptions
 {
-    my %options = ( 
+    my %options = (
             name =>   undef,
             parent => undef,
             destdir => undef,
@@ -76,7 +76,7 @@ sub _migrations
           next unless ( $file =~ m/.*\.pl/ );
           push(@models, $file);
     }
-    return \@models; 
+    return \@models;
 }
 
 sub _makefile
@@ -102,22 +102,21 @@ sub _migration
     my ($interp, $output, $options) = @_;
 
     my $dir = $options->{destdir} . '/migration';
-    mkdir ($dir) unless (-d $dir); 
+    mkdir ($dir) unless (-d $dir);
 
     my $template = '/migration/migration.pl.mas';
-   
+
     my $comp = $interp->make_component(
             comp_file => STUBS_PATH . $template,
             );
     ${$output} = '';
     my $version = $options->{version};
-    $interp->exec($comp, 
-            ( 
+    $interp->exec($comp,
+            (
                 version => $version,
                 module => $options->{mainClass},
               ));
     write_file("$dir/$version.pl", ${$output});
-
 }
 
 sub _runAutogen
@@ -135,9 +134,9 @@ sub _createType
     my $options = _parseOptions();
 
     my $dir = $options->{destdir};
-    
+
     my $output;
-    my $interp = HTML::Mason::Interp->new(comp_root => STUBS_PATH, 
+    my $interp = HTML::Mason::Interp->new(comp_root => STUBS_PATH,
             out_method => \$output);
 
    _migration($interp, \$output, $options);
