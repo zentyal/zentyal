@@ -18,3 +18,4 @@ Module developer guide
    version7
    version8
    version9
+   contribute
