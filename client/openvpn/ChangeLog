@@ -1,3 +1,5 @@
+HEAD
+	+ Typo fix: A missing space in a command to validate certificates
 2.0.1
 	+ Bugfix: Handle spaces in server names
 	+ Added exception error to precondition fail message

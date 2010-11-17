@@ -90,7 +90,7 @@ sub _verifyCert
 {
   my ($certPath) = @_;
 
-  my $cmd =  OPENSSL_PATH . "x509 -noout -in '$certPath'";
+  my $cmd =  OPENSSL_PATH . " x509 -noout -in '$certPath'";
   try {
     EBox::Sudo::root($cmd);
   }
