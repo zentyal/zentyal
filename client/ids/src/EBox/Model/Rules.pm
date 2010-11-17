@@ -170,7 +170,7 @@ sub _table
         class              => 'dataTable',
         modelDomain        => 'IDS',
         printableRowName   => __('rule'),
-        help               => __('help message'),
+        help               => __('Select the sets of rules you want apply when scanning the network traffic'),
     };
     return $dataTable;
 }
