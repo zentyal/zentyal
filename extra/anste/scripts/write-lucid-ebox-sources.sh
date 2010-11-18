@@ -3,9 +3,14 @@
 SOURCES="/etc/apt/sources.list"
 
 
-if ! grep -q "1.5" $SOURCES
+if ! grep -q "2.0" $SOURCES
 then
-    echo "deb http://ppa.launchpad.net/ebox/1.5/ubuntu lucid main " >> $SOURCES
+    echo "deb http://ppa.launchpad.net/zentyal/2.0/ubuntu lucid main " >> $SOURCES
+fi
+
+if ! grep -q "partner" $SOURCES
+then
+    echo "deb http://archive.canonical.com/ubuntu lucid partner " >> $SOURCES
 fi
 
 if ! grep -q "trunk" $SOURCES
