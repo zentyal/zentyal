@@ -46,7 +46,7 @@ sub _process
     try {
         my $updateList = 0;
         if (defined($self->param('updatePkgs'))) {
-            EBox::info("Update packages list");
+            # EBox::info("Update packages list");
             if ($software->updatePkgList()) {
                 $updateList = 1;
             } else {

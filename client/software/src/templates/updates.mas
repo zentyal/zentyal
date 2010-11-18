@@ -50,22 +50,22 @@ automatically as scheduled') %>
 %	foreach my $pkg (@upgradables) {
 			<tr class='border'>
 				<td>
-%         if ( $pkg->{security} or $pkg->{'ebox-qa'} ) {
+%         if ( $pkg->{security} ) {
+                                <img src="/data/images/exclamation.png"
+                                     alt="<% __('Security update') %>"
+                                     title="<% __('Security update') %>" />
+%         } elsif ( $pkg->{'ebox-qa'} ) {
+                                <img src="/data/images/encrypted.png"
+                                     alt="<% __('Zentyal QA update') %>"
+                                     title="<% __('Zentyal QA update') %>" />
+%         }
+%         if ( ($pkg->{security} or $pkg->{'ebox-qa'}) and ($pkg->{changelog}) ) {
                                 <img src="/data/images/add.gif" alt="more info"
-%           if ( $pkg->{changelog} ) {
                                      onclick="$('<% $pkg->{name} %>_changelog').toggle()
                                                              return false;"
-%           }
                                 />
 %         }
                                 <%$pkg->{name}%>
-%                               if ( $pkg->{security} ) {
-                                 <em><% __('Security update') %></em>
-%                                }
-%                               elsif ( $pkg->{'ebox-qa'} ) {
-                                 <em><% __('Zentyal QA update') %></em>
-%                                }
-
                                 </td>
 				<td><%$pkg->{description}%></td>
 				<td><%$pkg->{version}%></td>

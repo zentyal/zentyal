@@ -61,7 +61,7 @@ sub _process($) {
         throw EBox::Exceptions::Internal("Missing action parameter");
     }
 
-# Take the packages
+    # Take the packages
     my $packages_r = $self->_packages( $self->param('allbox') );
 
     if ($doit eq 'yes') {
@@ -99,9 +99,9 @@ sub _packages
         @pkgs = grep(s/^pkg-//, @{$self->params()});
         (@pkgs == 0) and throw EBox::Exceptions::External(__('There were no packages to update'));
     } else {
-# Take the name from upgradable package list
+        # Take the name from upgradable package list excluding Zentyal pkgs
         my $software = EBox::Global->modInstance('software');
-        foreach my $pkg (@{$software->listUpgradablePkgs()}) {
+        foreach my $pkg (@{$software->listUpgradablePkgs(0, 1)}) {
             push (@pkgs, $pkg->{name} );
         }
     }

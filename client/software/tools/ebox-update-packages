@@ -112,8 +112,6 @@ try {
 	my $software = $global->modInstance('software');
 	#causes the cache to be generated
 	$software->listUpgradablePkgs(1);
-	#call also listEBoxPkgs to regen the cache
-	$software->listEBoxPkgs(1);
 } catch Error with {
    my ($exc) = @_;
     $retValue = $exc->exitValue();

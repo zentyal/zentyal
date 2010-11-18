@@ -21,8 +21,6 @@ try {
     #call listUpgradablePkgs even if we're not using them just now as this
     #causes the cache to be generated
     @pkgs = @{$software->listUpgradablePkgs(1)};
-    #call also listEBoxPkgs to regen the cache
-    my @eboxpkgs = @{$software->listEBoxPkgs(1)};
 } finally {
     $software->unlock();
 };
@@ -42,7 +40,6 @@ try {
         # the installation has invalidated the previous packages list so we need to
         # regenerate the cache
         $software->listUpgradablePkgs(1);
-        $software->listEBoxPkgs(1);
     }
 } finally {
     $software->unlock();

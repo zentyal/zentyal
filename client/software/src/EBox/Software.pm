@@ -51,10 +51,11 @@ use constant {
 sub _create
 {
     my $class = shift;
-    my $self = $class->SUPER::_create(name => 'software',
-            printableName => __n('Software Management'),
-            domain => 'ebox-software',
-            @_);
+    my $self = $class->SUPER::_create(
+        name => 'software',
+        printableName => __n('Software Management'),
+        domain => 'ebox-software',
+        @_);
     bless($self, $class);
     return $self;
 }
@@ -63,11 +64,7 @@ sub _create
 #
 #       Get the list of the Zentyal packages with information about them.
 #
-# Parameters:
-#
-#       clear - Boolean set to true to retrieve the list of Zentyal
-#               packages from esofttool utility or false to get from
-#               cache
+#       The cache is not used anymore and packages are got from real time.
 #
 # Returns:
 #
@@ -88,13 +85,13 @@ sub _create
 #
 sub listEBoxPkgs
 {
-	my ($self,$clear) = @_;
+    my ($self) = @_;
 
-	my $eboxlist = [];
+    my $eboxlist = [];
 
-    $eboxlist =  _getInfoEBoxPkgs();
+    $eboxlist =  $self->_getInfoEBoxPkgs();
 
-	return $eboxlist;
+    return $eboxlist;
 }
 
 # Method: installPkgs
@@ -217,7 +214,7 @@ sub fetchAllPkgs
 
     my @pkgs;
 
-    @pkgs = @{_getInfoEBoxPkgs()};
+	@pkgs = @{$self->_getInfoEBoxPkgs()};
 
     my $cmd ='/usr/bin/apt-get install -qq --download-only --force-yes --yes --no-install-recommends ';
     foreach my $pkg (@pkgs) {
@@ -259,9 +256,10 @@ sub _packageListFile
 #
 # Parameters:
 #
-#   clear - if set to 1, forces the cache to be cleared
+#	clear - Boolean if set to 1, forces the cache to be cleared
 #
-#   excludeEBoxPackages - not return ebox packages (but they are saved in the cache anyway)
+#   excludeEBoxPackages - Boolean not return zentyal packages (but
+#                         they are saved in the cache anyway)
 #
 # Returns:
 #
@@ -270,7 +268,9 @@ sub _packageListFile
 #                   'description' package's short description
 #                   'version' - package's latest version
 #                   'security' - flag indicating if the update is a security one
-#                   'changelog' - package's changelog from current version till last one
+#                   'changelog' - package's changelog from current version
+#                                 till last one (TODO)
+#                   'ebox-qa' - flag indicating the package is from our QA repository
 #
 # Exceptions:
 #
@@ -279,34 +279,31 @@ sub _packageListFile
 #
 sub listUpgradablePkgs
 {
-    my ($self,$clear, $excludeEBoxPackages) = @_;
+    my ($self, $clear, $excludeEBoxPackages) = @_;
 
     my $upgrade = [];
 
     my $file = $self->_packageListFile(0);
 
-    if (defined($clear) and $clear == 1) {
-        if ( -f "$file" ) {
+    if ( (defined($clear) and ($clear == 1)) or (not -f $file) ) {
+        if ( -f $file ) {
             unlink($file);
         }
+        $self->_isModLocked();
+
+        $upgrade = $self->_getUpgradablePkgs();
+
+        store($upgrade, $file);
     } else {
-        if (-f "$file" ) {
-            $upgrade = retrieve($file);
-            if ($excludeEBoxPackages) {
-                return $self->_excludeEBoxPackages($upgrade);
-            }
-            return $upgrade;
-        }
+        $upgrade = retrieve($file);
     }
 
-    $self->_isModLocked();
-
-    $upgrade = _getUpgradablePkgs();
-
-    store($upgrade, $file);
-
     if ($excludeEBoxPackages) {
-        return $self->_excludeEBoxPackages($upgrade);
+        $upgrade = $self->_excludeEBoxPackages($upgrade);
+    }
+
+    if ($self->QAUpdates() and $self->_QAExclusive()) {
+        $upgrade = $self->_onlyQA($upgrade);
     }
 
     return $upgrade;
@@ -318,9 +315,21 @@ sub _excludeEBoxPackages
     my ($self, $list) = @_;
     my @withoutEBox = grep {
         my $name = $_->{'name'};
-        ($name ne 'libebox') and ($name ne 'ebox') and not ($name =~ /^ebox-/)
-    } @{ $list };
+        ($name ne 'libebox')
+        and ($name ne 'ebox')
+        and ($name !~ /^ebox-/)
+        and ($name !~ /^zentyal-/)
+      } @{ $list };
     return \@withoutEBox;
+}
+
+sub _onlyQA
+{
+    my ($self, $list) = @_;
+
+    my @onlyQA = grep { $_->{'ebox-qa'} } @{$list};
+
+    return \@onlyQA;
 }
 
 # Method: listPackageInstallDepends
@@ -388,7 +397,7 @@ sub listPackageDescription
 #
 # Parameters:
 #
-# 	packages - an array with the names of the packages being removed
+#	packages - an array with the names of the packages being removed
 #
 # Returns:
 #
@@ -654,7 +663,6 @@ sub lock
 
     $self->st_set_string(LOCKED_BY_KEY, $params{by});
     $self->st_set_int(LOCKER_PID_KEY, $$);
-
 }
 
 # Method: unlock
@@ -681,7 +689,6 @@ sub unlock
 
     $self->st_unset(LOCKED_BY_KEY);
     $self->st_unset(LOCKER_PID_KEY);
-
 }
 
 
@@ -689,82 +696,130 @@ sub unlock
 
 sub _getInfoEBoxPkgs
 {
-	my $cache = AptPkg::Cache->new;
-	my @list;
-	for my $pack (keys %$cache)     {
-		if ($pack =~ /^libebox$|^ebox$|^ebox-.*/) {
-			my $pkgCache = $cache->packages()->lookup($pack) or next;
-			my %data;
-			$data{'name'} = $pkgCache->{Name};
-			$data{'description'} = $pkgCache->{ShortDesc};
-			if ($pkgCache->{Name} =~ /^libebox$|^ebox$/) {
-				$data{'removable'} = 0;
-			} else {
-				$data{'removable'} = 1;
-			}
-			$data{'avail'} = $pkgCache->{VerStr};
-			if ($cache->{$pack}{CurrentVer}) {
-				$data{'version'} = $cache->{$pack}{CurrentVer}{VerStr};
-			}
-			push(@list, \%data);
-		}
-	}
-	return \@list;
+    my ($self) = @_;
+
+    my $cache = AptPkg::Cache->new;
+    my @list;
+    for my $pack (keys %$cache) {
+        if ($pack =~ /^libebox$|^ebox$|^ebox-.*/) {
+            my $pkgCache = $cache->packages()->lookup($pack) or next;
+            my %data;
+            $data{'name'} = $pkgCache->{Name};
+            $data{'description'} = $pkgCache->{ShortDesc};
+            if ($pkgCache->{Name} =~ /^libebox$|^ebox$/) {
+                $data{'removable'} = 0;
+            } else {
+                $data{'removable'} = 1;
+            }
+            $data{'avail'} = $self->_candidateVersion($cache->{$pack})->{version};
+            if ($cache->{$pack}{CurrentVer}) {
+                $data{'version'} = $cache->{$pack}{CurrentVer}{VerStr};
+            }
+            push(@list, \%data);
+        }
+    }
+    return \@list;
 }
 
 sub _getUpgradablePkgs
 {
-	my $distro = _getDistroId();
-	my $cache = AptPkg::Cache->new();
-	my @list;
-	for my $pack (keys %$cache)     {
-		unless ($pack =~ /^libebox$|^ebox$|^ebox-.*|.*kernel-image.*|.*linux-image.*/) {
-			my $pkgCache = $cache->packages()->lookup($pack) or next;
-			my %data;
+    my ($self) = @_;
 
-			if ($cache->{$pack}{CurrentVer}) {
-				$data{'version'} = $pkgCache->{VerStr};
-				if ($cache->{$pack}{CurrentVer}{VerStr} eq $data{version}) {
-					next;
-				}
-			} else {
-				next;
-			}
+    my $cache = AptPkg::Cache->new();
+    my @list;
+    for my $pack (keys %$cache) {
+        unless ($pack =~ /.*kernel-image.*|.*linux-image.*/) {
+            my $pkgCache = $cache->packages()->lookup($pack) or next;
+            my %data;
 
-			$data{'name'} = $pkgCache->{Name};
-			$data{'description'} = $pkgCache->{ShortDesc};
+            my $currentVerObj = $cache->{$pack}{CurrentVer};
 
-			my @files = $cache->files($pack);
-			$data{'security'} = 0;
-			$data{'ebox-qa'} = 0;
-			my $security = 0;
-			my $ebox_qa = 0;
-			foreach my $file (@files) {
-				if ($file->{Archive} =~ /.*security.*/) {
-					$security = 1;
-				}
-				if ($distro eq 'Ubuntu') {
-					if ($file-> {Archive}  eq 'ebox-qa'){
-						$ebox_qa = 1;
-					}
-				} elsif ($distro eq 'Debian') {
-					if ($file->{Site} eq 'qa.ebox-platform.com'){
-						$ebox_qa = 1;
-					}
-				}
-				if ($security and $ebox_qa) {
-					last;
-				}
-			}
-			$data{'security'} = $security;
-			$data{'ebox-qa'} = $ebox_qa;
+            if ($currentVerObj) {
+                if ($currentVerObj->{VerStr} eq $pkgCache->{VerStr} ) {
+                    next;
+                }
+            } else {
+                next;
+            }
 
-			push(@list, \%data);
-		}
+            $data{'name'} = $pkgCache->{Name};
+            $data{'description'} = $pkgCache->{ShortDesc};
+            my $candidateVerInfo = $self->_candidateVersion($cache->{$pack});
+            $data{'security'}    = $candidateVerInfo->{security};
+            $data{'ebox-qa'}     = $candidateVerInfo->{qa};
+            $data{'version'}     = $candidateVerInfo->{version};
 
-	}
+            push(@list, \%data);
+        }
 
-	return \@list;
+    }
+
+    return \@list;
+}
+
+# Get the version and several properties given the package
+sub _candidateVersion
+{
+    my ($self, $pkgObj) = @_;
+
+    my $qa = 0;
+    my $security = 0;
+    my $version  = "";
+
+    # We assume the VersionList returns the first element the
+    # latest package version but we have to take just the
+    # first available version from the current installed one
+    # since our QA repository may not have the latest
+    # available version
+    my $foundCurr = 0;
+    my $QAVerStr  = "";
+    my $currentVerObj = $pkgObj->{CurrentVer};
+    if ( $currentVerObj ) {
+        $version      = $currentVerObj->{VerStr};
+        foreach my $curVerFile (@{$currentVerObj->FileList()}) {
+            if ( $curVerFile->File()->{Archive} eq 'ebox-qa' ) {
+                $QAVerStr = $currentVerObj->{VerStr};
+                last;
+            }
+        }
+    } else {
+        # There is no current installed package
+        $foundCurr = 1;
+    }
+    my $versionList = $pkgObj->{VersionList};
+    foreach my $verObj (reverse @{$versionList}) {
+        # Check repository info only from greater versions
+        if ( $foundCurr ) {
+            $qa = 0;
+            $security = 0;
+            foreach my $verFile (@{$verObj->FileList()}) {
+                if ($verFile->File()->{Archive} =~ /security/) {
+                    $security = 1;
+                }
+                if ($verFile->File()->{Archive}  eq 'ebox-qa') {
+                    $qa = 1;
+                }
+                if ($security and $qa) {
+                    last;
+                }
+            }
+            if ( $qa ) {
+                $QAVerStr = $verObj->{VerStr};
+            }
+            $version = $verObj->{VerStr};
+        } else {
+            $foundCurr = $verObj->{VerStr} eq $currentVerObj->{VerStr};
+        }
+    }
+
+    # This prevents showing the wrong latest available version
+    # if we are using QA updates
+    if ( $QAVerStr and $self->_QAExclusive() ) {
+        $version = $QAVerStr;
+        $qa      = 1;
+    }
+
+    return { qa => $qa, security => $security, version => $version };
 }
 
 #return the distro name
@@ -878,8 +933,7 @@ sub _setAptPreferences
 
     my $enabled;
     if ($self->QAUpdates()) {
-        my $exclusiveSource =  EBox::Config::configkey('qa_updates_exclusive_source');
-        $enabled = lc($exclusiveSource) eq 'true';
+        $enabled = $self->_QAExclusive();
     } else {
         $enabled = 0;
     }
@@ -909,11 +963,7 @@ sub _setAptPreferences
             EBox::Sudo::root("rm -f '$preferencesBak' ");
         }
     }
-
-
 }
-
-
 
 
 sub _installCronFile
@@ -993,5 +1043,11 @@ sub _printMenuItem
     print "<li><div style='$style'>$text</div></li>\n";
 }
 
+# Is it QA the exclusive source?
+sub _QAExclusive
+{
+    my $exclusiveSource =  EBox::Config::configkey('qa_updates_exclusive_source');
+    return (lc($exclusiveSource) eq 'true');
+}
 
 1;
