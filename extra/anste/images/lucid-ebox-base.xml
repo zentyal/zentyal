@@ -17,11 +17,11 @@
         <package>postfix</package>
         <package>postgresql</package>
         <package>apache2-mpm-prefork</package>
-        <profile>ebox</profile>
+        <profile>ebox</profile>	
     </packages>
 
     <pre-install>
-        <script>write-lucid-ebox-sources.sh</script>
+	<script>write-lucid-ebox-sources.sh</script>
     </pre-install>
 
     <post-install>
