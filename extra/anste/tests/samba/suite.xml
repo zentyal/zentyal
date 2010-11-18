@@ -115,7 +115,7 @@
 
         <host>ebox-server</host>
         <dir>check-pdc-attrs</dir>
-        <var name="DOMAIN" value="EBOX"/>
+        <var name="DOMAIN" value="ZENTYAL-DOMAIN"/>
         <var name="PASSWORD" value="ebox-foobar"/>
         <var name="MIN_PWD_LEN" value="4"/>
         <var name="MAX_PWD_AGE" value="864000"/>
@@ -138,7 +138,7 @@
 
         <host>ebox-server</host>
         <dir>check-pdc-attrs</dir>
-        <var name="DOMAIN" value="EBOX"/>
+        <var name="DOMAIN" value="ZENTYAL-DOMAIN"/>
         <var name="PASSWORD" value="ebox-foobar"/>
         <var name="MIN_PWD_LEN" value="4"/>
         <var name="MAX_PWD_AGE" value="864000"/>
@@ -252,7 +252,7 @@
         <var name="SHARE" value="foobar"/>
         <var name="SHARE_PATH" value="foobar"/>
         <var name="TYPE" value="ebox"/>
-        <var name="TYPE_LABEL" value="Directory under eBox"/>
+        <var name="TYPE_LABEL" value="Directory under Zentyal"/>
         <var name="QUOTA" value="100"/>
     </test>
 
