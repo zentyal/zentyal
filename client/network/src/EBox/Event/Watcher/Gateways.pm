@@ -29,6 +29,10 @@ use EBox::Exceptions::Lock;
 
 use Error qw(:try);
 
+# TODO: Remove this once we change the debug behavior
+# to log only if debug = yes
+my $debug = EBox::Config::configkey('debug') eq 'yes';
+
 # Group: Public methods
 
 # Constructor: new
@@ -49,7 +53,6 @@ use Error qw(:try);
 #
 sub new
 {
-
     my ($class) = @_;
 
     my $network = EBox::Global->modInstance('network');
@@ -96,7 +99,7 @@ sub run
 {
     my ($self) = @_;
 
-    #EBox::debug('Entering failover event...');
+    logIfDebug('Entering failover event...');
 
     $self->{eventList} = [];
     $self->{failed} = {};
@@ -107,7 +110,10 @@ sub run
     return [] unless $network->isEnabled();
 
     # We don't do anything if there are unsaved changes
-    return [] if $global->modIsChanged('network');
+    if ($global->modIsChanged('network')) {
+        EBox::warn('Failover event disabled due to unsaved changes on the Zentyal interface.');
+        return [];
+    }
 
     my $rules = $network->model('WANFailoverRules');
     my $gateways = $network->model('GatewayTable');
@@ -120,15 +126,19 @@ sub run
     return [] unless @enabledRules;
 
     foreach my $id (@enabledRules) {
-        #EBox::debug("Testing rules for gateway with id $id...");
+        logIfDebug("Testing rules for gateway with id $id...");
         my $row = $rules->row($id);
         $self->_testRule($row);
     }
 
     # We don't do anything if there are unsaved changes
     return [] if $global->modIsChanged('network');
+    if ($global->modIsChanged('network')) {
+        EBox::warn('Leaving failover event without doing anything due to unsaved changes on the Zentyal interface.');
+        return [];
+    }
 
-    #EBox::debug('Applying changes in the gateways table...');
+    logIfDebug('Applying changes in the gateways table...');
 
     my $needSave = 0;
     foreach my $id (@{$gateways->ids()}) {
@@ -139,7 +149,7 @@ sub run
         # It must be enabled if all tests are passed
         my $enable = not($self->{failed}->{$id});
 
-        #EBox::debug("Properties for gateway $gwName ($id): enabled=$enabled, enable=$enable");
+        logIfDebug("Properties for gateway $gwName ($id): enabled=$enabled, enable=$enable");
 
         # We don't do anything if the previous state is the same
         if ($enable xor $enabled) {
@@ -161,7 +171,7 @@ sub run
     unless ($default and $default->valueByName('enabled')) {
         # If the original default gateway is alive, restore it
         my $originalId = $network->selectedDefaultGateway();
-        #EBox::debug("The preferred default gateway is $originalId");
+        logIfDebug("The preferred default gateway is $originalId");
         my $original = $gateways->row($originalId);
         if ($original and $original->valueByName('enabled')) {
             if ( $default ) {
@@ -170,10 +180,10 @@ sub run
             }
             $original->elementByName('default')->setValue(1);
             $original->store();
-            #EBox::debug('The original default gateway has been restored');
+            logIfDebug('The original default gateway has been restored');
             $needSave = 1;
         } else {
-            #EBox::debug('Checking if there is another enabled gateway to set as default');
+            logIfDebug('Checking if there is another enabled gateway to set as default');
             # Check if we can find another enabled to set it as default
             my $other = $gateways->findValue('enabled' => 1);
             if ($other) {
@@ -184,14 +194,14 @@ sub run
                 $other->elementByName('default')->setValue(1);
                 $other->store();
                 #my $otherName = $other->valueByName('name');
-                #EBox::debug("The gateway $otherName is now the default");
+                logIfDebug("The gateway $otherName is now the default");
                 $needSave = 1;
             }
         }
     }
 
     if ($needSave) {
-        #EBox::debug('Regenerating rules for the gateways');
+        logIfDebug('Regenerating rules for the gateways');
         $network->regenGateways();
 
         # Workaround for squid problem
@@ -212,10 +222,10 @@ sub run
             }
         }
     } else {
-        #EBox::debug('No need to regenerate the rules for the gateways');
+        logIfDebug('No need to regenerate the rules for the gateways');
     }
 
-    #EBox::debug('Leaving failover event...');
+    logIfDebug('Leaving failover event...');
 
     return $self->{eventList};
 }
@@ -226,7 +236,7 @@ sub _testRule # (row)
 
     my $gw = $row->valueByName('gateway');
 
-    #EBox::debug("Entering _testRule for gateway $gw...");
+    logIfDebug("Entering _testRule for gateway $gw...");
 
     # First test on this gateway, initialize its entry on the hash
     unless (exists $self->{failed}->{$gw}) {
@@ -236,7 +246,7 @@ sub _testRule # (row)
     # If a test for this gw has already failed we don't test any other
     return if ($self->{failed}->{$gw});
 
-    #EBox::debug("Running $typeName tests for gateway $gw...");
+    logIfDebug("Running $typeName tests for gateway $gw...");
 
     my $gwName = $self->{gateways}->row($gw)->valueByName('name');
 
@@ -264,11 +274,11 @@ sub _testRule # (row)
 
     for (1..$probes) {
         if ($self->_runTest($type, $host)) {
-            #EBox::debug("Probe number $_ succeded.");
+            logIfDebug("Probe number $_ succeded.");
             $successes++;
             last if ($successes >= $neededSuccesses);
         } else {
-            #EBox::debug("Probe number $_ failed.");
+            logIfDebug("Probe number $_ failed.");
             $fails++;
             last if ($fails >= $maxFails);
         }
@@ -384,6 +394,15 @@ sub _name
 sub _description
 {
     return __('Check if gateways are connected or disconnected.');
+}
+
+sub logIfDebug # (msg)
+{
+    my ($msg) = @_;
+
+    if ($debug) {
+        EBox::debug($msg);
+    }
 }
 
 1;
