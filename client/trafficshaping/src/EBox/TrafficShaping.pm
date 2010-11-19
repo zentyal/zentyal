@@ -1745,10 +1745,10 @@ sub _deleteChains # (iface)
 
     my @cmds;
     my $iptablesCmd = '/sbin/iptables';
-    push(@cmds, "$iptablesCmd -t mangle -F EBOX-SHAPER-$iface");
-    push(@cmds, "$iptablesCmd -t mangle -X EBOX-SHAPER-$iface");
-    push(@cmds, "$iptablesCmd -t mangle -F EBOX-L7SHAPER-$iface");
-    push(@cmds, "$iptablesCmd -t mangle -X EBOX-L7SHAPER-$iface");
+    push (@cmds, "$iptablesCmd -t mangle -F EBOX-SHAPER-$iface");
+    push (@cmds, "$iptablesCmd -t mangle -X EBOX-SHAPER-$iface");
+    push (@cmds, "$iptablesCmd -t mangle -F EBOX-L7SHAPER-$iface");
+    push (@cmds, "$iptablesCmd -t mangle -X EBOX-L7SHAPER-$iface");
     EBox::Sudo::silentRoot(@cmds);
 
 }
@@ -1758,39 +1758,15 @@ sub _deletePostroutingChain # (iface)
 
     my ($self) = @_;
 
-    my $chain = "EBOX-SHAPER";
-    try {
-        $self->_pf("-t mangle -D POSTROUTING -j EBOX-SHAPER");
-        $self->_pf('-t mangle -D FORWARD -j EBOX-L7SHAPER');
-    } catch EBox::Exceptions::Sudo::Command with {
-        my $exception = shift;
-        if ($exception->exitValue() == 1) {
-            # Ignoring
-            ;
-        }
-    };
-
-    try {
-        $self->_pf("-t mangle -F EBOX-SHAPER");
-        $self->_pf('-t mangle -F EBOX-L7SHAPER');
-    } catch EBox::Exceptions::Sudo::Command with {
-        my $exception = shift;
-        if ($exception->exitValue() == 1) {
-            # Ignoring
-            ;
-        }
-    };
-
-    try {
-        $self->_pf("-t mangle -X EBOX-SHAPER");
-        $self->_pf('-t mangle -X EBOX-L7SHAPER');
-    } catch EBox::Exceptions::Sudo::Command with {
-        my $exception = shift;
-        if ($exception->exitValue() == 1) {
-            # Ignoring
-            ;
-        }
-    };
+    my @cmds;
+    my $iptablesCmd = '/sbin/iptables';
+    push (@cmds, "$iptablesCmd -t mangle -D POSTROUTING -j EBOX-SHAPER");
+    push (@cmds, "$iptablesCmd -t mangle -D FORWARD -j EBOX-L7SHAPER");
+    push (@cmds, "$iptablesCmd -t mangle -F EBOX-SHAPER");
+    push (@cmds, "$iptablesCmd -t mangle -F EBOX-L7SHAPER");
+    push (@cmds, "$iptablesCmd -t mangle -X EBOX-SHAPER");
+    push (@cmds, "$iptablesCmd -t mangle -X EBOX-L7SHAPER");
+    EBox::Sudo::silentRoot(@cmds);
 }
 
 sub _createPostroutingChain # (iface)
@@ -1798,35 +1774,20 @@ sub _createPostroutingChain # (iface)
 
     my ($self) = @_;
 
+    my @cmds;
+    my $iptablesCmd = '/sbin/iptables';
     my $chain = "EBOX-SHAPER";
-    try {
-        $self->_pf("-t mangle -N  EBOX-SHAPER");
-        $self->_pf('-t mangle -N  EBOX-L7SHAPER');
-    } catch EBox::Exceptions::Sudo::Command with {
-        my $exception = shift;
-        if ($exception->exitValue() == 1) {
-            # Ignoring
-            ;
-        }
-    };
-
-    try {
-        $self->_pf("-t mangle -A POSTROUTING -j EBOX-SHAPER");
-        $self->_pf('-t mangle -I FORWARD -j EBOX-L7SHAPER');
-    } catch EBox::Exceptions::Sudo::Command with {
-        my $exception = shift;
-        if ($exception->exitValue() == 1) {
-            # Ignoring
-            ;
-        }
-    };
+    push (@cmds, "$iptablesCmd -t mangle -N EBOX-SHAPER");
+    push (@cmds, "$iptablesCmd -t mangle -N EBOX-L7SHAPER");
+    push (@cmds, "$iptablesCmd -t mangle -A POSTROUTING -j EBOX-SHAPER");
+    push (@cmds, "$iptablesCmd -t mangle -I FORWARD -j EBOX-L7SHAPER");
+    EBox::Sudo::silentRoot(@cmds);
 }
 
 
 
 sub _resetChain # (iface)
 {
-
     my ($self, $iface) = @_;
 
     # Delete any previous chain
@@ -1834,69 +1795,26 @@ sub _resetChain # (iface)
 
     my $chain = "EBOX-SHAPER-$iface";
     my $chainl7 = "EBOX-L7SHAPER-$iface";
-    try {
-        $self->_pf("-t mangle -N $chain");
-    } catch EBox::Exceptions::Sudo::Command with {
-        my $exception = shift;
-        if ($exception->exitValue() == 1) {
-            EBox::info("$chain already exists");
-        }
-    };
 
-    try {
-        $self->_pf("-t mangle -N $chainl7");
-    } catch EBox::Exceptions::Sudo::Command with {
-        my $exception = shift;
-        if ($exception->exitValue() == 1) {
-            EBox::info("$chainl7 already exists");
-        }
-    };
+    my @cmds;
+    my $iptablesCmd = '/sbin/iptables';
 
-    my $rule = "-t mangle -I EBOX-SHAPER -o $iface -j $chain";
-    try {
-        $self->_pf($rule);
-    } catch EBox::Exceptions::Sudo::Command with {
-        my $exception = shift;
-        if ($exception->exitValue() == 1) {
-            EBox::info($rule);
-        }
-    };
-
-    my $rule1 = "-t mangle -I EBOX-L7SHAPER -i $iface -j $chainl7";
-    my $rule2 = "-t mangle -I EBOX-L7SHAPER -o $iface -j $chainl7";
-    try {
-        $self->_pf($rule1);
-        $self->_pf($rule2);
-    } catch EBox::Exceptions::Sudo::Command with {
-        my $exception = shift;
-        if ($exception->exitValue() == 1) {
-            EBox::info($rule1);
-        }
-    };
-  }
+    push (@cmds, "$iptablesCmd -t mangle -N $chain");
+    push (@cmds, "$iptablesCmd -t mangle -N $chainl7");
+    push (@cmds, "$iptablesCmd -t mangle -I EBOX-SHAPER -o $iface -j $chain");
+    push (@cmds, "$iptablesCmd -t mangle -I EBOX-L7SHAPER -o $iface -j $chainl7");
+    EBox::Sudo::silentRoot(@cmds);
+}
 
 # Execute an array of iptables commands
 sub _executeIptablesCmds # (iptablesCmds_ref)
 {
-
     my ($self, $iptablesCmds_ref) = @_;
 
-    # foreach my $ipTablesCmd (@{$iptablesCmds_ref}) {
-    #   #EBox::info("iptables $ipTablesCmd");
-    #   $self->_pf($ipTablesCmd);
-    # }
     my @cmds = map { "/sbin/iptables $_" } @{$iptablesCmds_ref};
     EBox::Sudo::root(@cmds);
-
 }
 
-
-# Run a iptables command
-sub _pf
-{
-    my ($self, $cmd) = @_;
-    EBox::Sudo::root("/sbin/iptables $cmd");
-}
 
 # Fetch configured interfaces in this module
 sub _configuredInterfaces

@@ -96,7 +96,7 @@ sub dumpTcAttr
     my ($self) = @_;
 
     my $attrs = 'htb ';
-    $attrs .= 'default ' . $self->{defaultClass} . ' '
+    $attrs .= 'default ' . sprintf('0x%X', $self->{defaultClass}) . ' '
       if defined( $self->{defaultClass} );
     if ( defined( $self->{rate} ) ) {
         if ( $self->{rate} == 0 ) {

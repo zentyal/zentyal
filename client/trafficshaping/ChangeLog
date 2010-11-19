@@ -1,3 +1,6 @@
+HEAD
+	+ Fixed L7 shaping when watching more than one interface
+	+ Some performance improvements
 2.0.2
 	+ Minor performance improvements with L7 protocols
 2.0.1
