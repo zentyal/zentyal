@@ -2762,7 +2762,7 @@ sub _multigwRoutes
         }
 
         push(@cmds, "/sbin/ip route flush table $table");
-        push(@cmds, "/sbin/ip rule add fwmark $mark table $table");
+        push(@cmds, "/sbin/ip rule add fwmark $mark/0xFF table $table");
         push(@cmds, "/sbin/ip rule add from $ip table $table");
         push(@cmds, "/sbin/ip route add default $route table $table");
     }
