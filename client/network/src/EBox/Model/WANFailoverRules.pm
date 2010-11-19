@@ -101,7 +101,7 @@ sub _table
         new EBox::Types::Int(
            'fieldName' => 'probes',
            'printableName' => __('Number of probes'),
-           'defaultValue' => 10,
+           'defaultValue' => 6,
            'size' => 2,
            'min' => 1,
            'max' => 50,
@@ -111,7 +111,7 @@ sub _table
            'fieldName' => 'ratio',
            'printableName' => __('Required success ratio'),
            'trailingText' => '%',
-           'defaultValue' => 75,
+           'defaultValue' => 40,
            'size' => 2,
            'min' => 1,
            'max' => 100,
