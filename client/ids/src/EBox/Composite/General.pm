@@ -45,7 +45,6 @@ use constant STORE_URL => 'https://store.zentyal.com/other/advanced-security.htm
 #
 sub new
 {
-
     my ($class) = @_;
 
     my $self = $class->SUPER::new();
@@ -79,7 +78,6 @@ sub permanentMessage
     }
 
     return $self->{permanentMessage};
-
 }
 
 # Group: Protected methods
@@ -92,7 +90,6 @@ sub permanentMessage
 #
 sub _description
 {
-
     my $description =
     {
         components      => [
@@ -103,7 +100,6 @@ sub _description
         name            => __PACKAGE__->nameFromClass,
         pageTitle       => __('Intrusion Detection System'),
         compositeDomain => 'IDS',
-#        help            => __('help message'),
     };
 
     return $description;
@@ -125,7 +121,6 @@ sub _commercialMsg
         . 'trusted IT experts.',
         openhref  => '<a href="' . STORE_URL . '" target="_blank">',
         closehref => '</a>');
-
 }
 
 1;
