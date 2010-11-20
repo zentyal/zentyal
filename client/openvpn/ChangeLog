@@ -1,3 +1,6 @@
+HEAD
+	+ Bugfix: Configuration files are correctly removed when a server is
+	  deleted
 2.0.2
 	+ Typo fix: A missing space in a command to validate certificates
 2.0.1

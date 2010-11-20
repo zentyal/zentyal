@@ -136,13 +136,14 @@ sub upstartNameForDaemon
 sub _upstartFile
 {
     my ($self) = @_;
-    return  UPSTART_DIR . '/' . $self->upstartName() . '.conf';
+    return __PACKAGE__->_upstartFileForDaemon($self->name(), $self->type());
 }
 
 sub _upstartFileForDaemon
 {
     my ($class, $name, $type) = @_;
-    return  UPSTART_DIR . '/' . $class->upstartNameForDaemon($name, $type);
+    return  UPSTART_DIR . '/' . $class->upstartNameForDaemon($name, $type) .
+        '.conf';
 }
 
 sub ifaceNumber
@@ -503,8 +504,6 @@ sub stopDeletedDaemon
 
     my $upstartService = $class->upstartNameForDaemon($name, $type);
     EBox::Service::manage($upstartService, 'stop');
-
-    $class->removeUpstartFileForDaemon($name, $type);
 }
 
 sub deletedDaemonCleanup
@@ -514,10 +513,10 @@ sub deletedDaemonCleanup
 
     try {
         $class->stopDeletedDaemon($name, $type);
+        $class->removeUpstartFileForDaemon($name, $type);
 
         foreach my $file( $class->daemonFiles($name) ) {
             EBox::Sudo::root("rm -rf '$file'");
-
         }
     }
     otherwise {
