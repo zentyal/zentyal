@@ -1,7 +1,7 @@
 <%args>
 $ldapport
 $usersDn
-$mailboxesDir 
+$mailboxesDir
 </%args>
 # This file is opened as root, so it should be owned by root and mode 0600.
 #
@@ -23,7 +23,7 @@ hosts = 127.0.0.1:<% $ldapport %>
 
 # LDAP URIs to use. You can use this instead of hosts list. Note that this
 # setting isn't supported by all LDAP libraries.
-#uris = 
+#uris =
 
 # Distinguished Name - the username used to login to the LDAP server
 #dn = "cn=unused,dc=ebox"
@@ -73,7 +73,7 @@ auth_bind = yes
 ldap_version = 3
 
 # LDAP base. %variables can be used here.
-base = <% $usersDn %> 
+base = <% $usersDn %>
 
 # Dereference: never, searching, finding, always
 #deref = never
@@ -90,7 +90,7 @@ base = <% $usersDn %>
 #
 # There are also other special fields which can be returned, see
 # http://wiki.dovecot.org/UserDatabase/ExtraFields
-user_attrs = =mail=<% $mailboxesDir%>/%d/%n, \
+user_attrs = =mail=maildir:<% $mailboxesDir%>/%d/%n, \
              =home=<% $mailboxesDir%>/%d/%n, \
              quota=quota_rule=*:storage=%$M,  \
              =quota_rule2=Trash:storage=110%%
@@ -126,5 +126,5 @@ pass_filter = (&(objectClass=posixAccount)(mail=%u))
 
 # You can use same UID and GID for all user accounts if you really want to.
 # If the UID/GID is still found from LDAP reply, it overrides these values.
-#user_global_uid = 
-#user_global_gid = 
+#user_global_uid =
+#user_global_gid =
