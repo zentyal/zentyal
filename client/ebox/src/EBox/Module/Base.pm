@@ -225,19 +225,17 @@ sub _lock
 #
 sub setAsChanged
 {
-  my ($self) = @_;
-  my $name = $self->name;
+    my ($self) = @_;
+    my $name = $self->name;
 
-  my $global = EBox::Global->getInstance();
+    my $global = EBox::Global->getInstance();
 
-  return if $global->modIsChanged($name);
+    return if $global->modIsChanged($name);
 
-  $global->modChange($name);
+    $global->modChange($name);
 }
 
 
-
-#
 # Method: makeBackup
 #
 #   restores the module state from a backup
@@ -249,17 +247,16 @@ sub setAsChanged
 # bug - wether we are making a bug report instead of a normal backup
 sub makeBackup # (dir, %options)
 {
-  my ($self, $dir, %options) = @_;
-  defined $dir or throw EBox::Exceptions::InvalidArgument('directory');
+    my ($self, $dir, %options) = @_;
+    defined $dir or throw EBox::Exceptions::InvalidArgument('directory');
 
-  my $backupDir = $self->_createBackupDir($dir);
+    my $backupDir = $self->_createBackupDir($dir);
 
-  $self->aroundDumpConfig($backupDir, %options);
+    $self->aroundDumpConfig($backupDir, %options);
 
-  if ($options{fullBackup}) {
-    $self->extendedBackup(dir => $backupDir, %options);
-  }
-
+    if ($options{fullBackup}) {
+        $self->extendedBackup(dir => $backupDir, %options);
+    }
 }
 
 
@@ -280,20 +277,20 @@ sub extendedBackup
 #
 sub backupDir
 {
-  my ($self, $dir) = @_;
+    my ($self, $dir) = @_;
 
-  # avoid duplicate paths problem
-  my $modulePathPart =  '/' . $self->name() . '.bak';
-  ($dir) = split $modulePathPart, $dir;
+    # avoid duplicate paths problem
+    my $modulePathPart =  '/' . $self->name() . '.bak';
+    ($dir) = split $modulePathPart, $dir;
 
-  my $backupDir = $self->_bak_file_from_dir($dir);
-  return $backupDir;
+    my $backupDir = $self->_bak_file_from_dir($dir);
+    return $backupDir;
 }
 
 
 # Private method: _createBackupDir
-#   creates a directory to dump or restore files containig the module state. If there are already a apropiate directory, it simply returns the path of this directory
-#
+#   creates a directory to dump or restore files containig the module state.
+#   If there are already a apropiate directory, it simply returns the path of this directory
 #
 # Parameters:
 #     $dir - directory used for the restore/backup operation
@@ -315,9 +312,6 @@ sub _createBackupDir
 }
 
 
-
-
-#
 # Method: restoreBackup
 #
 #   restores the module state from a backup
@@ -329,20 +323,19 @@ sub _createBackupDir
 #
 sub restoreBackup # (dir, %options)
 {
-  my ($self, $dir, %options) = @_;
-  defined $dir or throw EBox::Exceptions::InvalidArgument('directory');
+    my ($self, $dir, %options) = @_;
+    defined $dir or throw EBox::Exceptions::InvalidArgument('directory');
 
-  my $backupDir = $self->backupDir($dir);
-  (-d $backupDir) or throw EBox::Exceptions::Internal("$backupDir must be a directory");
+    my $backupDir = $self->backupDir($dir);
+    (-d $backupDir) or throw EBox::Exceptions::Internal("$backupDir must be a directory");
 
-  if (not $options{dataRestore}) {
-    $self->aroundRestoreConfig($backupDir);
-  }
+    if (not $options{dataRestore}) {
+        $self->aroundRestoreConfig($backupDir);
+    }
 
-
-  if ($options{fullRestore} or $options{dataRestore}) {
-    $self->extendedRestore(dir => $backupDir, %options);
-  }
+    if ($options{fullRestore} or $options{dataRestore}) {
+        $self->extendedRestore(dir => $backupDir, %options);
+    }
 }
 
 
@@ -353,17 +346,14 @@ sub extendedRestore
   # my $dir = $params{dir};
 }
 
-
-
 sub _bak_file_from_dir
 {
-  my ($self, $dir) = @_;
-  $dir =~ s{/+$}{};
-  my $file = "$dir/" . $self->name . ".bak";
-  return $file;
+    my ($self, $dir) = @_;
+    $dir =~ s{/+$}{};
+    my $file = "$dir/" . $self->name . ".bak";
+    return $file;
 }
 
-#
 # Method: restoreDependencies
 #
 #   this method should be override by any module that depends on another module/s  to be restored from a backup
@@ -379,8 +369,6 @@ sub restoreDependencies
     return $global->modDepends($self->name);
 }
 
-
-
 # Method:  dumpConfig
 #
 #   this must be override by individuals to restore to dump the
@@ -392,11 +380,10 @@ sub restoreDependencies
 #
 sub dumpConfig
 {
-  my ($self, $dir, %options) = @_;
+    my ($self, $dir, %options) = @_;
 
 }
 
-#
 # Method: aroundDumpConfig
 #
 # Wraps the dumpConfig call; the purpose of this sub is to allow
@@ -410,10 +397,9 @@ sub dumpConfig
 #
 sub aroundDumpConfig
 {
-  my ($self, $dir, @options) = @_;
+    my ($self, $dir, @options) = @_;
 
-
-  $self->dumpConfig($dir, @options);
+    $self->dumpConfig($dir, @options);
 }
 
 #
@@ -429,7 +415,7 @@ sub aroundDumpConfig
 #
 sub restoreConfig
 {
-  my ($self, $dir) = @_;
+    my ($self, $dir) = @_;
 }
 
 
@@ -462,7 +448,6 @@ sub initChangedState
         throw EBox::Exceptions::Internal($self->name . ' module already has changed state');
 }
 
-#
 # Method: name
 #
 #   Return the module name of the current module instance
@@ -477,7 +462,6 @@ sub name
     return $self->{name};
 }
 
-#
 # Method: setName
 #
 #   Set the module name for the current module instance
@@ -504,7 +488,6 @@ sub setName # (name)
 #
 sub printableName
 {
-
     my ($self) = @_;
 
     if ( $self->{printableName} ) {
@@ -512,7 +495,6 @@ sub printableName
     } else {
         return $self->name();
     }
-
 }
 
 # Method: setPrintableName
@@ -526,15 +508,12 @@ sub printableName
 #
 sub setPrintableName
 {
-
     my ($self, $printableName) = @_;
 
     $self->{printableName} = $printableName;
-
 }
 
 
-#
 # Method: title
 #
 #   Returns the module title of the current module instance
@@ -555,7 +534,6 @@ sub title
     }
 }
 
-#
 # Method: setTitle
 #
 #   Sets the module title for the current module instance
@@ -570,7 +548,6 @@ sub setTitle # (title)
     $self->{title} = $title;
 }
 
-#
 # Method: actionMessage
 #
 #   Gets the action message for an action
@@ -588,7 +565,6 @@ sub actionMessage
     }
 }
 
-#
 # Method: menu
 #
 #   This method returns the menu for the module. What it returns
@@ -600,7 +576,6 @@ sub menu
     return undef;
 }
 
-#
 # Method: widgets
 #
 #   Return the widget names for the module. It should be overriden by
@@ -625,7 +600,6 @@ sub widgets
     return {};
 }
 
-#
 # Method: widget
 #
 #   Return the appropriate widget if exists or undef otherwise
@@ -655,7 +629,6 @@ sub widget
     }
 }
 
-#
 # Method: statusSummary
 #
 #   Return the status summary for the module. What it returns will
@@ -672,7 +645,6 @@ sub statusSummary
     return undef;
 }
 
-#
 # Method: domain
 #
 #   Returns the locale domain for the current module instance
@@ -709,7 +681,6 @@ sub package
     return $self->domain();
 }
 
-#
 # Method: wizardPages
 #
 #   Return the an array containin the wizard pages for the module. It should
@@ -726,7 +697,6 @@ sub wizardPages
     return [];
 }
 
-#
 # Method: pidRunning
 #
 #   Checks if a PID is running
@@ -748,7 +718,6 @@ sub pidRunning
     return undef;
 }
 
-#
 # Method: pidFileRunning
 #
 #   Given a file holding a PID, it gathers it and checks if it's running
@@ -998,7 +967,7 @@ sub report
 # Parameters:
 #
 #       beg - initial year-month (i.e., '2009-10')
-#	    end - final year-month
+#       end - final year-month
 #       query - SQL query without any dates
 #       options - hash containing options for the processing of the results
 #          key - if key is provided, multiple rows will be processed and
@@ -1034,8 +1003,6 @@ sub runMonthlyQuery
     my $orig_where = $query->{'where'};
 
     my $nMonth = 0;
-
-
 
     while (
         ($year < $endyear) or
@@ -1115,14 +1082,11 @@ sub _emptyMonthlyQueryData
 {
     my ($self, $db, $beg, $end, $query, $options, $fields_r) = @_;
 
-
     my ($begyear, $begmonth) = split('-', $beg);
     my ($endyear, $endmonth) = split('-', $end);
 
     my $length = ($endyear - $begyear)*12 + ($endmonth - $begmonth);
     my $makeResults_r = sub { return [ map { 0 } (0 .. $length)  ] };
-
-
 
     my $key = $options->{'key'};
     my @keys;
@@ -1132,7 +1096,6 @@ sub _emptyMonthlyQueryData
         @keys = map {  $_->{ $key } }  @{ $res };
 
     }
-
 
     my @fields = @{ $fields_r };
 
@@ -1308,7 +1271,6 @@ sub consolidateReportFromLogs
                                     $queries,
                                     \&_consolidationValuesForMonth
                                    );
-
 }
 
 
@@ -1326,11 +1288,10 @@ sub _consolidateReportFromDB
         my $query = $q->{'query'};
 
         my $date = $self->_consolidateReportStartDate($db,
-                                                      $target_table,
-                                                      $query);
+                $target_table,
+                $query);
         $date or
             next;
-
 
         my @time = localtime($date);
         my $year = $time[5]+1900;
@@ -1363,7 +1324,7 @@ sub _consolidateReportFromDB
                 # query to check if the record exists already
                 my @fields = keys(%{@{$results}[0]});
 
-                # this are the fields which identifies a line as not repeatable
+                # these are the fields which identify a line as not repeatable
                 my @identityFields;
                 if (exists $query->{group}) {
                     push @identityFields, split(/ *, */,$query->{'group'});
@@ -1388,14 +1349,13 @@ sub _consolidateReportFromDB
                         if (@portions == 2) {
                             push @from, $portions[0];
                         }
-
                     }
                     push(@where, "date = '$beginMonth'");
 
                     my $res = $db->query_hash({
-                                               'from' => join(',', @from),
-                                               'where' => join(' AND ', @where)
-                                              });
+                            'from' => join(',', @from),
+                            'where' => join(' AND ', @where)
+                            });
                     if (@{$res}) {
                         # record exists, we will udpate it
                         my $row = shift(@{$res});
@@ -1408,31 +1368,27 @@ sub _consolidateReportFromDB
                                     # sum values
                                     $new_row->{$k} = $row->{$k} + $r->{$k};
                                 }
-
                             }
                         }
 
-
                         $db->update($target_table, $new_row, \@where);
                     } else {
-                        # record does not exit isnert it
+                        # record does not exists, insert it
                         $r->{'date'} = $beginMonth;
                         $db->unbufferedInsert($target_table, $r);
                     }
                 }
 
-
                 # update last consolidation time
-
-               $db->update('report_consolidation',
-                    { 'last_date' => "'$gmConsolidationStartTime'" },
-                    [ "report_table = '$target_table'" ],
-                );
+                $db->update('report_consolidation',
+                        { 'last_date' => "'$gmConsolidationStartTime'" },
+                        [ "report_table = '$target_table'" ],
+                        );
             }
 
             # only the first loop could  have a hour/day diffetent than the 00:00:00/1
-             $hour = '00:00:00';
-             $day = 1;
+            $hour = '00:00:00';
+            $day = 1;
             if($month == 12) {
                 $month = 1;
                 $year++;
@@ -1442,11 +1398,9 @@ sub _consolidateReportFromDB
 
             # update timeTs for the next month
             $timeTs = timelocal(0,0,0, 1,($month-1),($year-1900));
-
         }
     }
 }
-
 
 
 sub _consolidationValuesForMonth
@@ -1470,7 +1424,6 @@ sub _consolidationValuesForMonth
     }
     $query->{'where'} = $new_where;
 
-
     my $results = $db->query_hash($query);
     return $results;
 }
@@ -1485,7 +1438,6 @@ sub _lastConsolidationValuesForMonth
     foreach my $table (@{ $query->{from_tables} }) {
         push @dateWherePortions, "($table.timestamp >= '$beginTime' AND " .
             "$table.timestamp < date '$beginMonth' + interval '1 month')";
-
     }
 
     my $date_where = join ' AND ', @dateWherePortions;
@@ -1501,7 +1453,6 @@ sub _lastConsolidationValuesForMonth
 
     my $key = $query->{key};
     if (defined $key) {
-
         my $from = join ', ', @{ $query->{from_tables} };
         my $sql = qq{SELECT DISTINCT $key FROM $from WHERE }. $query->{where};
         my $keyResults = $db->query($sql);
@@ -1515,7 +1466,6 @@ sub _lastConsolidationValuesForMonth
         }
 
         return \@results;
-
     } else {
         return $db->query_hash($query);
     }
@@ -1600,11 +1550,7 @@ sub consolidateReportInfo
                                     $queries,
                                     \&_lastConsolidationValuesForMonth
                                    );
-
 }
-
-
-
 
 # if this is neccesary in more places we will move it to PgDbEngine
 sub _unionQuery
@@ -1625,7 +1571,6 @@ sub _unionQuery
     $sql .= ';';
 
     return $dbengine->query($sql);
-
 }
 
 1;
