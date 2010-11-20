@@ -1,4 +1,5 @@
 HEAD
+	+ Increased size of event field in mail_message_report table
 	+ Autocreate user email always in lowercase
 2.0.2
 	+ Don't regenerate user quotas if default quota doesn't change
