@@ -193,7 +193,7 @@ sub run
                 }
                 $other->elementByName('default')->setValue(1);
                 $other->store();
-                #my $otherName = $other->valueByName('name');
+                my $otherName = $other->valueByName('name');
                 logIfDebug("The gateway $otherName is now the default");
                 $needSave = 1;
             }
@@ -236,7 +236,9 @@ sub _testRule # (row)
 
     my $gw = $row->valueByName('gateway');
 
-    logIfDebug("Entering _testRule for gateway $gw...");
+    my $gwName = $self->{gateways}->row($gw)->valueByName('name');
+
+    logIfDebug("Entering _testRule for gateway $gwName...");
 
     # First test on this gateway, initialize its entry on the hash
     unless (exists $self->{failed}->{$gw}) {
@@ -246,9 +248,7 @@ sub _testRule # (row)
     # If a test for this gw has already failed we don't test any other
     return if ($self->{failed}->{$gw});
 
-    logIfDebug("Running $typeName tests for gateway $gw...");
-
-    my $gwName = $self->{gateways}->row($gw)->valueByName('name');
+    logIfDebug("Running $typeName tests for gateway $gwName...");
 
     my $type = $row->valueByName('type');
     my $typeName = $row->printableValueByName('type');
