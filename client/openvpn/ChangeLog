@@ -1,4 +1,5 @@
 HEAD
+	+ Bugfix: VPN servers cannot be managed without a valid CA certificate
 	+ Bugfix: Configuration files are correctly removed when a server is
 	  deleted
 2.0.2

@@ -147,7 +147,7 @@ sub precondition
 {
     my $global = EBox::Global->getInstance();
     my $ca = $global->modInstance('ca');
-    return ($ca->isCreated());
+    return ($ca->isAvailable());
 }
 
 # Method: preconditionFailMsg
@@ -162,12 +162,23 @@ sub precondition
 #
 sub preconditionFailMsg
 {
-    return  __x('{openpar}You need to create a CA certificate to use this module.'
-        . ' {closepar}{openpar}Please, go to the {openhref}certification '
-        . 'authority module{closehref} and create it.{closepar}',
-        openhref => qq{<a href='/ebox/CA/Index'>}, closehref => qq{</a>},
-        openpar => '<p>', closepar => '</p>' );
-
+    my $global = EBox::Global->getInstance();
+    my $ca = $global->modInstance('ca');
+    if ($ca->isCreated()) {
+        return  __x('{openpar}You need a valid CA certificate to use this '
+            . 'module. {closepar}{openpar}Please, go to the {openhref} '
+            . 'certification authority module{closehref} and renew it.'
+            . '{closepar}',
+            openhref => qq{<a href='/ebox/CA/Index'>}, closehref => qq{</a>},
+            openpar => '<p>', closepar => '</p>');
+    } else {
+        return  __x('{openpar}You need to create a CA certificate to use this '
+            .'module. {closepar}{openpar}Please, go to the {openhref}'
+            .'certification authority module{closehref} and create it.'
+            .'{closepar}',
+            openhref => qq{<a href='/ebox/CA/Index'>}, closehref => qq{</a>},
+            openpar => '<p>', closepar => '</p>');
+    }
 }
 
 sub validateTypedRow
