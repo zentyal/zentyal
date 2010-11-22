@@ -140,14 +140,36 @@ sub run
 
     logIfDebug('Applying changes in the gateways table...');
 
+
+    # Enable all routers if everything is down
+    my $allDown = 1;
+    foreach my $id (@enabledRules) {
+        my $row = $rules->row($id);
+        my $gw = $row->valueByName('gateway');
+        unless ($self->{failed}->{$gw}) {
+            $allDown = 0;
+            last;
+        }
+    }
+
+    if ($allDown) {
+        logIfDebug("All gateways are down");
+    }
+
     my $needSave = 0;
-    foreach my $id (@{$gateways->ids()}) {
+    foreach my $rule (@enabledRules) {
+        my $row = $rules->row($rule);
+        my $id = $row->valueByName('gateway');
+
         my $row = $gateways->row($id);
         my $gwName = $row->valueByName('name');
         my $enabled = $row->valueByName('enabled');
 
         # It must be enabled if all tests are passed
         my $enable = not($self->{failed}->{$id});
+
+        # Enable tested routers if all are down
+        $enable=1 if ($allDown);
 
         logIfDebug("Properties for gateway $gwName ($id): enabled=$enabled, enable=$enable");
 
@@ -156,7 +178,7 @@ sub run
             $row->elementByName('enabled')->setValue($enable);
             $row->store();
             $needSave = 1;
-            if ($enable) {
+            if ($enable and not $allDown) {
                 my $event = new EBox::Event(message => __x("Gateway {gw} connected", gw => $gwName),
                                     level   => 'info',
                                     source  => $self->name());

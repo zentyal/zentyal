@@ -2705,6 +2705,25 @@ sub _removeRoutes
 
 }
 
+# disable reverse path for gateway interfaces
+sub _disableReversePath
+{
+    my ($self) = @_;
+
+    my $routers = $self->gatewaysWithMac();
+
+    my @cmds;
+    for my $router ( reverse @{$routers} ) {
+        my $iface = $router->{'interface'};
+        $iface = $self->realIface($iface);
+        push (@cmds, "/sbin/sysctl -q -w net.ipv4.conf.$iface.rp_filter=0");
+    }
+
+    EBox::Sudo::root(@cmds);
+}
+
+
+
 sub _multigwRoutes
 {
     my ($self) = @_;
@@ -2969,6 +2988,7 @@ sub _enforceServiceState
     }
 
     $self->_generateRoutes();
+    $self->_disableReversePath();
     $self->_multigwRoutes();
     $self->_cleanupVlanIfaces();
 
