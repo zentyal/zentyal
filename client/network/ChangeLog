@@ -1,6 +1,5 @@
 HEAD
 	+ Disable reverse path to avoid failover checking problems
-	+ Failover enables all routers if no one is up
 	+ Better default values for failover rules
 	+ Use masks in fwmark to avoid interferences with traffic shaping
 	+ Warning in log if failover event disabled due to unsaved changes
