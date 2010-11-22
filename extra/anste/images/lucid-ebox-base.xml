@@ -26,6 +26,7 @@
 
     <post-install>
         <script>ssl-cert-workaround.sh</script>
+        <script>delete-first.sh</script>
         <script>force-package-install.sh</script>
         <script>add-services-to-ebox-firewall</script>
         <script>ebox-same-cert.sh</script>
