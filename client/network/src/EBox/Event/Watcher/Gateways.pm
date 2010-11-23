@@ -147,7 +147,10 @@ sub run
         my $enabled = $row->valueByName('enabled');
 
         # It must be enabled if all tests are passed
-        my $enable = not($self->{failed}->{$id});
+        my $enable = $enabled;
+        if (defined($self->{failed}->{$id})) {
+            $enable = not($self->{failed}->{$id})
+        };
 
         logIfDebug("Properties for gateway $gwName ($id): enabled=$enabled, enable=$enable");
 
