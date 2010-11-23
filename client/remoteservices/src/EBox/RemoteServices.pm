@@ -879,7 +879,7 @@ sub logReportInfo
     # Store the current number of users
     my $nUsers = EBox::RemoteServices::Audit::Password::nUsers();
     push(@data, { table  => 'remoteservices_passwd_users',
-                  values => { nUsers => $nUsers }});
+                  values => { nusers => $nUsers }});
 
     return \@data;
 
@@ -897,9 +897,9 @@ sub consolidateReportInfoQueries
         {
             target_table => 'remoteservices_passwd_users_report',
             query        => {
-                select => 'nUsers',
+                select => 'nusers',
                 from   => 'remoteservices_passwd_users',
-                key    => 'nUsers',
+                key    => 'nusers',
                }
            }
        ];
@@ -938,7 +938,7 @@ sub report
     my $nUsersQuery = $self->runMonthlyQuery(
         $beg, $end,
         {
-            select => 'nUsers',
+            select => 'nusers',
             from   => 'remoteservices_passwd_users_report',
            },
        );
