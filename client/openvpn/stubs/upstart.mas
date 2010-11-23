@@ -11,10 +11,6 @@
 $cmd
 $limited => 0
 </%args>
-pre-start script
-    invoke-rc.d openvpn stop || true
-end script
-
 exec <% $cmd %>
 % if ($limited) {
 respawn limit 5 40

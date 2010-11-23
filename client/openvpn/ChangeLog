@@ -1,4 +1,5 @@
 HEAD
+	+ Bugfix: Zentyal-managed VPN servers are only started by upstart
 	+ Bugfix: VPN servers cannot be managed without a valid CA certificate
 	+ Bugfix: Configuration files are correctly removed when a server is
 	  deleted

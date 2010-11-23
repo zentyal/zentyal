@@ -46,7 +46,6 @@ use EBox::FileSystem;
 
 use Perl6::Junction qw(any);
 use File::Slurp;
-use Error qw(:try);
 
 use constant MAX_IFACE_NUMBER => 999999;  # this is the last number which prints
 # correctly in ifconfig
@@ -245,6 +244,8 @@ sub _writeConfFiles
     my ($self) = @_;
 
     $self->_writeRIPDaemonConf(); # XXX RIP stuff
+    $self->writeConfFile('/etc/default/openvpn',
+        '/openvpn/default-openvpn.mas');
 
     my $confDir = $self->confDir();
 
@@ -1240,7 +1241,7 @@ sub changeIfaceExternalProperty # (iface, external)
     return $self->_invokeOnDaemons('changeIfaceExternalProperty', @params);
 }
 
-sub staticIfaceAddressChanged 
+sub staticIfaceAddressChanged
 {
     my ($self, @params) = @_;
     return $self->_anyDaemonReturnsTrue('staticIfaceAddressChanged', @params);
