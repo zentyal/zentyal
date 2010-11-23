@@ -1,3 +1,5 @@
+HEAD
+	+ Added /etc/default/openvpn to openvpn used files
 2.0.3
 	+ Bugfix: Zentyal-managed VPN servers are only started by upstart
 	+ Bugfix: VPN servers cannot be managed without a valid CA certificate

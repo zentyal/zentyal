@@ -173,6 +173,11 @@ sub usedFiles
                              'To configure ripd to exchange routes with client '
                                .'to client connections'
               )
+            },
+            {
+              'file' => '/etc/default/openvpn',
+              'module' => 'openvpn',
+              'reason' => __('To remove system-wide VPN servers autostart')
             }
     ];
 }
