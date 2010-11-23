@@ -3,6 +3,32 @@
     <name>eBox traffic balance scenario</name>
     <desc>One eBox, two routers and one client.</desc>
 
+    <host>
+        <name>ebox-server</name>
+        <desc>Host used to test that ebox works properly.</desc>
+        <baseimage>{$dist}-ebox-base</baseimage>
+        <network>
+            <interface type="static">
+                <name>eth1</name>
+                <address>192.168.2.1</address>
+                <hw-addr>00:16:3E:72:55:34</hw-addr>
+                <netmask>255.255.255.0</netmask>
+            </interface>
+            <interface type="static">
+                <name>eth2</name>
+                <address>192.168.3.1</address>
+                <hw-addr>00:16:3E:72:55:35</hw-addr>
+                <netmask>255.255.255.0</netmask>
+            </interface>
+        </network>
+
+        <post-install>
+            <script>ebox-import-network.sh</script>
+            <script>ebox-wait-start.sh</script>
+        </post-install>
+    </host>
+
+
     <host type="router">
         <name>router-a</name>
         <desc>Host that acts like a router</desc>
@@ -29,31 +55,6 @@
                 <netmask>255.255.255.0</netmask>
             </interface>
         </network>
-    </host>
-
-    <host>
-        <name>ebox-server</name>
-        <desc>Host used to test that ebox works properly.</desc>
-        <baseimage>{$dist}-ebox-base</baseimage>
-        <network>
-            <interface type="static">
-                <name>eth1</name>
-                <address>192.168.2.1</address>
-                <hw-addr>00:16:3E:72:55:34</hw-addr>
-                <netmask>255.255.255.0</netmask>
-            </interface>
-            <interface type="static">
-                <name>eth2</name>
-                <address>192.168.3.1</address>
-                <hw-addr>00:16:3E:72:55:35</hw-addr>
-                <netmask>255.255.255.0</netmask>
-            </interface>
-        </network>
-
-        <post-install>
-            <script>ebox-import-network.sh</script>
-            <script>ebox-wait-start.sh</script>
-        </post-install>
     </host>
 
     <host>
