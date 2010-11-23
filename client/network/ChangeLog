@@ -1,4 +1,5 @@
 HEAD
+	+ WAN Failover now supports DHCP and PPPoE interfaces
 	+ Disable reverse path to avoid failover checking problems
 	+ Better default values for failover rules
 	+ Use masks in fwmark to avoid interferences with traffic shaping

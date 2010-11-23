@@ -172,27 +172,11 @@ sub validateTypedRow
 {
     my ($self, $action, $changedFields, $allFields) = @_;
 
-    my $host = $allFields->{host}->value();
     my $type = $allFields->{type}->value();
 
-# FIXME: Temporal workaround until failover works with DHCP and PPPoE
-#    if ($type eq 'gw_ping') {
-        my $gwName = $allFields->{gateway}->value();
-        my $network = EBox::Global->modInstance('network');
-        my $gw = $network->model('GatewayTable')->row($gwName);
-        my $iface = $gw->valueByName('interface');
-
-#        if ($network->ifaceMethod($iface) eq 'ppp') {
-#            throw EBox::Exceptions::External(__('Ping to gateway not available on PPPoE interfaces, select ping to host instead'));
-#        }
-
-#        return;
-#    }
-        if ($network->ifaceMethod($iface) eq any('ppp', 'dhcp')) {
-            throw EBox::Exceptions::External(__('WAN Failover is only available for static interfaces'));
-        }
-
     return if $type eq 'gw_ping';
+
+    my $host = $allFields->{host}->value();
 
     unless (EBox::Validate::checkHost($host)) {
         throw EBox::Exceptions::External(__('Invalid value for Host'));
