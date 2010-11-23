@@ -7,6 +7,16 @@
     <scenario>openvpn/server-one-client.xml</scenario>
 
     <test type="selenium">
+        <name>RemoveDefaultGW</name>
+        <desc>
+        Remove the default gateway 10.6.7.1
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>remove-default-gw</dir>
+    </test>
+
+    <test type="selenium">
         <name>ConfigNetwork</name>
         <desc>
         Sets the interface as external.
