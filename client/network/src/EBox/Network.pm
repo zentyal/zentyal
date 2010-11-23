@@ -2713,6 +2713,7 @@ sub _disableReversePath
     my $routers = $self->gatewaysWithMac();
 
     my @cmds;
+    push (@cmds, '/sbin/sysctl -q -w net.ipv4.conf.all.rp_filter=0');
     for my $router ( reverse @{$routers} ) {
         my $iface = $router->{'interface'};
         $iface = $self->realIface($iface);
