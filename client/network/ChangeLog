@@ -5,6 +5,7 @@ HEAD
 	+ Use masks in fwmark to avoid interferences with traffic shaping
 	+ Warning in log if failover event disabled due to unsaved changes
 	+ Failover does not enable unwatched gateways
+	+ Reload events daemon after upgrade to apply failover changes
 2.0.5
 	+ Include Zentyal in multigateway rules when setting 'any' as source
 	+ Make Interfaces page title translatable
