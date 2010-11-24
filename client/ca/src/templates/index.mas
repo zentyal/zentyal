@@ -29,7 +29,7 @@ use EBox::CA::DN;
 #  if ( $passRequired or $caNeeded ) {
 #    push ( @issueTable, [ name => 'caPassphrase', input => 'password',
 #                          printableName => __('CA Passphrase') ]);
-#    
+#
 #  }
 
   if ( $caNeeded ) {
@@ -92,7 +92,7 @@ use EBox::CA::DN;
 <h3><% __("Current Certificate List")  %></h3>
 <div class="help">
   <% __("Date refers to Expiration Date in Valid/Expired and to Revokation Date in Revoked certificates respectively") %>.
-</div>  
+</div>
 <table class="dataTable">
   <thead>
     <th><% __("Name")  %></th>
@@ -101,9 +101,12 @@ use EBox::CA::DN;
     <th class="thOptions"><% __("Actions") %></th>
   </thead>
   <tbody>
+%   # XXX: We need the CN of the CA certificates to filter revoked ones
+%   my $caCertName = '';
 %   foreach my $cert (@{$certs}) {
 %   # It is needed to check if it is the CA certificate
 %     if ( $cert->{'isCACert'} and $cert->{'state'} eq 'V' ) {
+%      $caCertName = $cert->{'dn'}->attribute('commonName');
        <tr class="highlight">
 %     }
 	 <td class="tleft"
@@ -135,7 +138,7 @@ use EBox::CA::DN;
       <td class="tcenter"
 %     if ( $cert->{"state"} eq 'R' ) {
           title="<% __x('Reason: {reason}', reason => $cert->{'reason'}) %>"
-%     } 
+%     }
         >
         <% $stateStr %>
       </td>
@@ -152,8 +155,8 @@ use EBox::CA::DN;
         <%
 	  sprintf("%04d-%02d-%02d %02d:%02d:%02d", $date->year(),
 		  $date->month(), $date->day(), $date->hours(),
-		  $date->minutes(), $date->seconds()) 
-        %>		
+		  $date->minutes(), $date->seconds())
+        %>
       </td>
       <td class="tcenter">
 %	if ( $cert->{"state"} eq "V" ) {
@@ -163,18 +166,18 @@ use EBox::CA::DN;
 	>
 	  <img src="/data/images/deny-active.gif"
 	       alt="<% __('Revoke') %>" />
-	</a>   
+	</a>
         <img src="/data/images/sep.gif" alt="-" />
-%	} 
+%	}
 %	if ( $cert->{"state"} eq "V" ) {
         <a
 	href="DownloadFiles?cn=<%$cert->{'dn'}->attribute('commonName') | u%>"
 	>
 	  <img src="/data/images/install.gif"
 	       alt="<% __('Download Key(s) and Certificate') %>" />
-	</a>   
+	</a>
         <img src="/data/images/sep.gif" alt="-" />
-%	} 
+%	}
 %	if ( $cert->{"state"} eq "V" ) {
         <a
 	href="ShowForm?action=renew&cn=<%$cert->{'dn'}->attribute('commonName')
@@ -182,11 +185,23 @@ use EBox::CA::DN;
 	>
 	  <img src="/data/images/reload.gif"
 	       alt="<% __('Renew') %>" />
-	</a>   
+	</a>
         <img src="/data/images/sep.gif" alt="-" />
-%	} 
+%	}
+%	if (($cert->{'state'} eq 'E' or $cert->{'state'} eq 'R') and
+%        not $caNeeded and
+%        $cert->{'dn'}->attribute('commonName') ne $caCertName) {
+        <a
+	href="ShowForm?action=reissue&cn=<%$cert->{'dn'}->attribute('commonName')
+	| u%>"
+	>
+	  <img src="/data/images/reload.gif"
+	       alt="<% __('Reissue') %>" />
+	</a>
+%	}
+
       </td>
-    </tr>  
+    </tr>
 %   }
   </tbody>
 </table>
@@ -198,7 +213,7 @@ use EBox::CA::DN;
 			{ imgFile => "/data/images/install.gif",
 			  imgName => __("Download Key(s) and Certificate") },
 			{ imgFile => "/data/images/reload.gif",
-			  imgName => __("Renew") }
+			  imgName => __("Renew or reissue") }
 		       );
 </%perl>
 <& legendTable.mas, elements => \@legendElements, nColumns => 3 &>

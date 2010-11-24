@@ -79,8 +79,10 @@ sub _process
       $self->{template} = "ca/formRevoke.mas";
     } elsif ($action eq "renew") {
       $self->{template} = "ca/formRenew.mas";
+    } elsif ($action eq "reissue") {
+      $self->{template} = "ca/formReissue.mas";
     } else {
-      throw EBox::Exceptions::External(__('Only revoke and renew actions are performed'));
+      throw EBox::Exceptions::External(__('Only revoke, renew and reissue actions are performed'));
     }
 
     my $cert = $ca->getCertificateMetadata(cn => $cn);

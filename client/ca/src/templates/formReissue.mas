@@ -1,0 +1,50 @@
+<%args>
+  $metaDataCert # A hash reference to the list certificate returned element
+  $passRequired => '' # Set if the CA is password aware
+</%args>
+<%init>
+  use EBox::Gettext;
+
+  my $subjAltNamesStr = join(', ', map { "$_->{type}:$_->{value}" } @{$metaDataCert->{'subjAltNames'}});
+  my @reissueTable = (
+		    [ name  => 'name', input => 'hidden',
+		      value => $metaDataCert->{dn}->attribute('commonName') ],
+		    [ name  => 'expiryDays', printableName =>
+		      __('Days to expire'),  input => 'text'],
+            [ name  => 'subjectAltName', printableName =>
+		      __('Subject Alternative Names'),  input => 'text',
+              value => $subjAltNamesStr, optional => 1 ]);
+
+  if ( $passRequired ) {
+    push ( @reissueTable, [ name  => 'caPassphrase', input => 'password',
+                         printableName => __('CA Passphrase') ]);
+  }
+
+  push ( @reissueTable, [ printableName => '',
+                        component => '/ca/forceRenew.mas:buttons',
+			action          => 'certificate',
+			printableAction => __('Reissue')
+                      ],
+       );
+</%init>
+<!-- Form to reissue a certificate -->
+<h3><% __('Reissue a certificate')  %></h3>
+<div>
+  <span class="ftitle"><% __("Common Name") %>: </span>
+  <span class="ftitle">
+    <% $metaDataCert->{dn}->attribute('commonName')  %>
+  </span>
+</div>
+% if ( exists $metaDataCert->{'subjAltNames'} ) {
+<div>
+  <br>
+  <span class="ftitle"><% __('Subject Alternative Names') %>: </span>
+  <span class="ftitle">
+     <% $subjAltNamesStr %>
+  </span>
+</div>
+% }
+<br>
+<form action="IssueCertificate" method="post" >
+  <& formTable.mas, rows => \@reissueTable &>
+</form>
