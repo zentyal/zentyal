@@ -1,4 +1,4 @@
-HEAD
+2.0.4
 	+ Bugfix: VPN servers are correctly disabled when their certificates are
 	  expired or revoked
 	+ Added /etc/default/openvpn to openvpn used files
