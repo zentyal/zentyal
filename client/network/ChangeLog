@@ -1,4 +1,4 @@
-HEAD
+2.0.6
 	+ WAN Failover now supports DHCP and PPPoE interfaces
 	+ Disable reverse path to avoid failover checking problems
 	+ Better default values for failover rules
