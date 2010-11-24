@@ -22,34 +22,18 @@ manage_overwrite() {
 case "$1" in
     configure)
 
-        # import network configuration from system 
+        # import network configuration from system
         # if installing the first time
         if [ -z "$2" ] ; then
             /usr/share/ebox-network/ebox-netcfg-import || true
         fi
 
-
         # Migrate data if needed
         /usr/share/ebox/ebox-migrate /usr/share/ebox-network/migration/
 
-        # Comment out due to a bug LP: 220205
-        # create directory for RRD databases
-        # RRD_DIR=`perl -MEBox::Network::Report::ByteRate -e'$d = EBox::Network::Report::ByteRate::_rrdDir(); print $d; 1'`
-        # mkdir -p $RRD_DIR
-        # chown ebox:ebox $RRD_DIR
-
-        # Ask permission to overwrite /etc/newtork/interfaces if we
-        # are upgrading 0.11.99-0ubuntu1 as that version didn't use
-        # that file but another interfaces file under /var/lib/ebox
-        if [ "$2" = "0.11.99-0ubuntu1" ]; then
-            if /etc/init.d/ebox network status; then
-                manage_overwrite;
-            fi
-        fi
-
         invoke-rc.d ebox network restart
 
-        # Execute this only when upgrading
+        # Apply failover code changes only when upgrading
         if [ -n "$2" ] ; then
             invoke-rc.d ebox events restart
         fi
