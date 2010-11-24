@@ -641,6 +641,7 @@ sub _deactivate
     my ($self) = @_;
 
     $self->{row}->elementByName('service')->setValue(0);
+    $self->{row}->store();
 
    # we stop daemon to not accept more conexions with the invalidate certificate
     $self->stop() if $self->isRunning();

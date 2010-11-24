@@ -1,4 +1,6 @@
 HEAD
+	+ Bugfix: VPN servers are correctly disabled when their certificates are
+	  expired or revoked
 	+ Added /etc/default/openvpn to openvpn used files
 2.0.3
 	+ Bugfix: Zentyal-managed VPN servers are only started by upstart
