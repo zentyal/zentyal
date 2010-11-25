@@ -1,3 +1,9 @@
+HEAD
+	+ Do not check archive if the version list if it was installed
+	  manually or the archive is missing (Fixed a warning)
+	+ Fixed a bug in error management in ebox-apt-update and
+	  ebox-update-packages scripts
+	+ Fixed bug setting automatic time
 2.0.2
 	+ Use icons for Security and QA updates in System updates
 	  (libebox >= 2.0.3)

@@ -606,7 +606,7 @@ sub automaticUpdatesTime
         # Set a random value for the first time to avoid DoS
         my $randHour = int(rand(24));
         my $randMin  = int(rand(60));
-        my $time     = "${randHour}:$randMin";
+        my $time     = sprintf('%02d:%02d', $randHour, $randMin);
         $self->setAutomaticUpdatesTime($time);
         return $time;
     }
@@ -793,6 +793,8 @@ sub _candidateVersion
             $qa = 0;
             $security = 0;
             foreach my $verFile (@{$verObj->FileList()}) {
+                # next if the archive is missing or installed using dpkg
+                next unless defined($verFile->File()->{Archive});
                 if ($verFile->File()->{Archive} =~ /security/) {
                     $security = 1;
                 }
