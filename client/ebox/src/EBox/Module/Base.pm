@@ -1338,7 +1338,7 @@ sub _consolidateReportFromDB
                     my @where;
 
                     for my $f (@identityFields) {
-                        if (exists $r->{$f}) {
+                        if (exists $r->{$f} and defined $r->{$f}) {
                             push(@where, $f . " = '" . $r->{$f} . "'");
                         }
 

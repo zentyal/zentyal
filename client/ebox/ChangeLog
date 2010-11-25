@@ -1,3 +1,5 @@
+HEAD
+	+ Check for undefined values in logs consolidation
 2.0.7
 	+ Pre-installation includes sudoers.d into sudoers file if it's not yet
 	  installed
