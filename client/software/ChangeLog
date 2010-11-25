@@ -1,4 +1,4 @@
-HEAD
+2.0.3
 	+ Do not check archive if the version list if it was installed
 	  manually or the archive is missing (Fixed a warning)
 	+ Fixed a bug in error management in ebox-apt-update and
