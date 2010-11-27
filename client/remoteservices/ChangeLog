@@ -1,4 +1,6 @@
 HEAD
+	+ Set hostname as default value for server name
+	+ Minor message changes
 	+ Correct case for sql column names
 2.0.4
 	+ Fixed bad hour bug in remoteservices cron file generation

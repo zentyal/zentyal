@@ -53,7 +53,8 @@ sub _paramIsValid
     my $advice = '';
     # Check if this does not contain underscores neither dots
     unless ( EBox::Validate::checkDomainName($value) ) {
-        $advice = __('It must be a valid subdomain name');
+        $advice = __('It must be a valid subdomain name. '
+                     . 'It can only contain alphanumeric and - characters');
     } elsif ( $value =~ m/\./g ) {
         $advice = __x('It cannot contain "{char}" character',
                       char => '.');

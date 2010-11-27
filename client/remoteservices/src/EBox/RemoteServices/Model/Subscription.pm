@@ -51,6 +51,7 @@ use EBox::View::Customizer;
 
 # Core modules
 use Error qw(:try);
+use Sys::Hostname;
 
 use constant STORE_URL => 'http://store.zentyal.com/';
 use constant UTM       => '?utm_source=ebox&utm_medium=ebox&utm_content=remoteservices'
@@ -127,8 +128,11 @@ sub setTypedRow
             my $subsData = $subsServ->subscribeEBox($paramsRef->{eboxCommonName}->value());
             # Indicate if the necessary to wait for a second or not
             if ( $subsData->{new} ) {
-                $self->{returnedMsg} = __('Subscription was done correctly. Wait a minute to let '
-                                          . 'the subscription be propagated throughout the system.');
+                $self->{returnedMsg} = __('Subscription was done correctly. Save changes and then, '
+                                          . 'wait a minute to guarantee the system carries out '
+                                          . 'the process of subscribing. Later you can start '
+                                          . 'using the cloud based services you are entitled '
+                                          . 'to with your subscription (remote backup, updates, alerts, etc.)');
             } else {
                 $self->{returnedMsg} = __('Subscription data retrieved correctly.');
             }
@@ -324,6 +328,11 @@ sub _table
 {
     my ($self) = @_;
 
+    my $hostname = Sys::Hostname::hostname();
+    ($hostname) = split( /\./, $hostname); # Remove the latest part of
+                                           # the hostname to make it a
+                                           # valid subdomain name
+
     my @tableDesc =
       (
        new EBox::Types::Text(
@@ -343,6 +352,7 @@ sub _table
                              storer         => \&_storeInGConfState,
                              help           => __('Choose a name for your server which is '
                                                   . 'a valid subdomain name'),
+                             defaultValue   => $hostname,
                             ),
       );
 
@@ -357,7 +367,7 @@ sub _table
     my ($actionName, $printableTableName);
     if ( $self->eBoxSubscribed() ) {
         $printableTableName = __('Zentyal subscription details');
-        $actionName = __('Delete data');
+        $actionName = __('Unsubscribe');
     } else {
         splice(@tableDesc, 1, 0, $passType);
         $printableTableName = __('Subscription to Zentyal Cloud');
@@ -389,10 +399,15 @@ sub _acquireFromGConfState
 {
     my ($type) = @_;
 
-    my $model = $type->model();
+    my $model    = $type->model();
     my $gconfmod = EBox::Global->modInstance('remoteservices');
     my $keyField = $model->name() . '/' . $type->fieldName();
-    $type->{'value'} = $gconfmod->st_get_string($keyField);
+    my $value    = $gconfmod->st_get_string($keyField);
+    if ( defined($value) and ($value ne '') ) {
+        return $value;
+    }
+
+    return undef;
 
 }
 
