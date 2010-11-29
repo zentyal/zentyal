@@ -1,0 +1,66 @@
+#!/usr/bin/perl
+# Copyright (C) 2010 eBox Technologies S.L.
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License, version 2, as
+# published by the Free Software Foundation.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+
+use warnings;
+use strict;
+
+use EBox;
+use EBox::Config::Redis;
+use EBox::Sudo;
+use Error qw(:try);
+
+my $dir = '/ebox';
+
+if ($ARGV[0]) {
+    $dir = $ARGV[0];
+}
+
+my $editor = 'vi';
+
+if (defined $ENV{VISUAL}) {
+    $editor = $ENV{VISUAL};
+} elsif (defined $ENV{EDITOR}) {
+    $editor = $ENV{EDITOR};
+}
+
+EBox::init();
+
+my $redis = new EBox::Config::Redis();
+
+my $dumpfile = "/var/lib/ebox/conf/redisvi-dump-$$";
+
+$redis->export_dir_to_yaml($dir, $dumpfile);
+system("cp $dumpfile $dumpfile.orig");
+
+system("$editor $dumpfile");
+
+system("diff $dumpfile.orig $dumpfile");
+
+if ($? == 0) {
+    print "Not modified.\n";
+} else {
+    $redis->delete_dir($dir);
+    try {
+        $redis->import_dir_from_yaml($dumpfile);
+    } otherwise {
+	print "Import of modifications failed, restoring the original...\n";
+    	$redis->delete_dir($dir);
+        $redis->import_dir_from_yaml("$dumpfile.orig");
+    };
+}
+
+unlink $dumpfile;
+unlink "$dumpfile.orig";
