@@ -4,7 +4,7 @@ TESTFILE=/tmp/anste-openvpn-ready-$$
 
 cd $CLIENT
 
-openvpn --config foobar-server-client.conf --daemon --route-up "touch $TESTFILE" --log $TESTFILE.log
+openvpn --script-security 2 --config foobar-server-client.conf --daemon --route-up "/bin/touch $TESTFILE" --log $TESTFILE.log
 
 for i in `seq 1 20`
 do
@@ -22,4 +22,18 @@ cat $TESTFILE.log
 rm $TESTFILE $TESTFILE.log
 
 echo "Expecting foo on $HOST:1100"
-nc -w 10 $HOST 1100 | grep foo 
+
+for i in `seq 1 30`
+do
+    nc $HOST 1100 | grep "foo"
+    if [ $? != 0 ]
+    then
+        echo "$i try"
+        sleep 1
+    else
+	echo "Succes"
+        exit 0
+    fi
+done
+
+exit 1
