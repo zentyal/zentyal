@@ -1,3 +1,8 @@
+HEAD
+	+ Always end safely the installation of packages regardless of any
+	  error
+	+ Wait for the child ending when installing packages
+	+ Include as Zentyal component the ones that start with "zentyal-"
 2.0.3
 	+ Do not check archive if the version list if it was installed
 	  manually or the archive is missing (Fixed a warning)

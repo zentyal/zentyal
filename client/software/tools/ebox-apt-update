@@ -17,6 +17,8 @@
 use warnings;
 use strict;
 
+use Error qw(:try);
+
 my @packages = @ARGV;
 
 my $dpkgOpts = '-o DPkg::Options::="--force-confold"';
@@ -29,42 +31,45 @@ my $fullCmd = "LANG=C DEBIAN_FRONTEND=noninteractive $cmd @packages 2>&1";
 
 my ($pid, $read, $text, $write);
 
-open $read, '-|', $fullCmd;
+open($read, '-|', $fullCmd);
+try {
 
-my $out = '';
-while ($text = <$read>) {
-    if ($text =~ /^E:\s/) {
-        $out =  $text
-    }
-    elsif ($text =~ /Need to get ([0-9]*).*([0-9]*)MB of archives/){
-        $out = "down$1";
-    }
-    elsif ($text =~ /Get:[0-9]*\s(.*)/){
-        $out = $text;
-    }
-    elsif ($text =~ /([0-9]+) upgraded.* ([0-9]+) .* ([0-9]+) .* ([0-9]+) .*/) {
-        $out = 'ins' . ($1+$2) . "\nrem$3\n";
-    }
-    elsif ($text =~ /(Unpacking\s.*)/) {
-        $out = " $1\n";
-    }
-    elsif ($text =~ /([0-9]+%).*/) {
-        $out = "$1\n";
-    }
-    elsif ($text =~ /(Setting up\s.*)/) {
-        $out = " $1\n";
-    }
+    my $out = '';
+    while ($text = <$read>) {
+        if ($text =~ /^E:\s/) {
+            $out = $text;
+        }
+        elsif ($text =~ /Need to get ([0-9]*).*([0-9]*)MB of archives/){
+            $out = "down$1";
+        }
+        elsif ($text =~ /Get:[0-9]*\s(.*)/){
+            $out = $text;
+        }
+        elsif ($text =~ /([0-9]+) upgraded.* ([0-9]+) .* ([0-9]+) .* ([0-9]+) .*/) {
+            $out = 'ins' . ($1+$2) . "\nrem$3\n";
+        }
+        elsif ($text =~ /(Unpacking\s.*)/) {
+            $out = " $1\n";
+        }
+        elsif ($text =~ /([0-9]+%).*/) {
+            $out = "$1\n";
+        }
+        elsif ($text =~ /(Setting up\s.*)/) {
+            $out = " $1\n";
+        }
 
-    if ($out) {
-        open ($write, '>', $fifo);
-        print $write $out;
-        close $write;
+        if ($out) {
+            open ($write, '>', $fifo);
+            print $write $out;
+            close $write;
+        }
     }
-}
-open ($write, '>', $fifo);
-print $write 'end';
-close $write;
+} finally {
+    open ($write, '>', $fifo);
+    print $write 'end';
+    close($write);
 
-close $read;
+    close($read);
+};
 
 1;

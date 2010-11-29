@@ -114,7 +114,7 @@ sub listEBoxPkgs
 #
 sub installPkgs # (@pkgs)
 {
-	my ($self, @pkgs) = @_;
+    my ($self, @pkgs) = @_;
 
     $self->_isModLocked();
 
@@ -123,13 +123,13 @@ sub installPkgs # (@pkgs)
         return;
     }
 
-	my $executable = EBox::Config::share() . "/ebox-software/ebox-update-packages @pkgs";
-	my $progress = EBox::ProgressIndicator->create(
-						       totalTicks => scalar @pkgs,
-						       executable => $executable,
-						      );
-	$progress->runExecutable();
-	return $progress;
+    my $executable = EBox::Config::share() . "/ebox-software/ebox-update-packages @pkgs";
+    my $progress = EBox::ProgressIndicator->create(
+        totalTicks => scalar @pkgs,
+        executable => $executable,
+       );
+    $progress->runExecutable();
+    return $progress;
 }
 
 # Method: removePkgs
@@ -258,8 +258,8 @@ sub _packageListFile
 #
 #	clear - Boolean if set to 1, forces the cache to be cleared
 #
-#   excludeEBoxPackages - Boolean not return zentyal packages (but
-#                         they are saved in the cache anyway)
+#       excludeEBoxPackages - Boolean not return zentyal packages (but
+#                             they are saved in the cache anyway)
 #
 # Returns:
 #
@@ -701,7 +701,7 @@ sub _getInfoEBoxPkgs
     my $cache = AptPkg::Cache->new;
     my @list;
     for my $pack (keys %$cache) {
-        if ($pack =~ /^libebox$|^ebox$|^ebox-.*/) {
+        if ($pack =~ /^libebox$|^ebox$|^ebox-.*|^zentyal-.*/) {
             my $pkgCache = $cache->packages()->lookup($pack) or next;
             my %data;
             $data{'name'} = $pkgCache->{Name};

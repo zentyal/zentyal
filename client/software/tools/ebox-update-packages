@@ -42,24 +42,25 @@ my $progressIdParamName = pop @ARGV; # unused
 my @packages            = @ARGV;
 
 my $progress = EBox::ProgressIndicator->retrieve($progressId);
-$progress->started() or die('progress executable not run');
+$progress->started() or die('progress executable is not running');
 
-my ($retValue, $errorMsg) = (0, '');
+my ($retValue, $errorMsg, $pid) = (0, '', 0);
 
 try {
     my $fifo = '/var/lib/ebox/ebox-apt-update.pipe';
 
     #Clean fifo
-    EBox::Sudo::silentRoot ("rm $fifo");
-    EBox::Sudo::silentRoot ("mkfifo $fifo");
+    EBox::Sudo::silentRoot("rm $fifo");
+    EBox::Sudo::silentRoot("mkfifo $fifo");
 
     EBox::info('Starting package installation process');
 
-    my $pid = fork();
+    $pid = fork();
     if ($pid == 0) {
+        # Child code
         my $insPkgs = "@packages";
         EBox::Sudo::root ("/usr/share/ebox-software/ebox-apt-update $insPkgs ");
-        exit 0;
+        exit(0);
     }
 
     my $break = 0;
@@ -79,7 +80,7 @@ try {
                 $firstLine = $text;
             }
 
-            if ($text eq "end") {
+            if ($text eq 'end') {
                 $break = 1;
             }
             unless (($text eq $oldText) or ($text eq $lastLine)) {
@@ -120,6 +121,12 @@ try {
     $errorMsg = $exc->stringify();
     EBox::error($errorMsg);
 } finally {
+    if ( $pid != 0 ) {
+        waitpid($pid, 0);
+        if ( ${^CHILD_ERROR_NATIVE} != 0 ) {
+            EBox::error('ebox-apt-update was exited with ' . ${^CHILD_ERROR_NATIVE});
+        }
+    }
     try {
         $progress->setAsFinished($retValue, $errorMsg);
     } catch EBox::Exceptions::External with {
