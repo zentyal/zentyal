@@ -5,9 +5,9 @@ TESTFILE=/tmp/anste-openvpn-ready-$$
 cd $CLIENT
 
 # FIXME: temporary workaround until fixed in ebox-openvpn
-sed -i 's/^dev unitialized/dev tap/g' foobar-server-client.conf
+# sed -i 's/^dev unitialized/dev tap/g' foobar-server-client.conf
 
-openvpn --config foobar-server-client.conf --daemon --route-up "touch $TESTFILE" --log $TESTFILE.log
+openvpn --script-security 2 --config foobar-server-client.conf --daemon --route-up "/bin/touch $TESTFILE" --log $TESTFILE.log
 
 OK=0
 
@@ -31,7 +31,7 @@ then
     exit 1
 fi
 
-while true ; do echo foo | netcat -l -p 1100 -q 1 || exit 1 ; done &
+while true ; do echo foo | nc -l 1100 || exit 1 ; done &
 
 sleep 1
 
