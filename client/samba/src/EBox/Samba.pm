@@ -698,14 +698,16 @@ sub widgets
 {
     return {
         'sharesbyuser' => {
-            'title' => __("Shares by user"),
-                'widget' => \&sharesByUserWidget,
-                'default' => 1
+            'title' => __('Shares by user'),
+            'widget' => \&sharesByUserWidget,
+            'order' => 7,
+            'default' => 1
         },
         'usersbyshare' => {
-            'title' => __("Users by share"),
-                'widget' => \&usersByShareWidget,
-                'default' => 1
+            'title' => __('Users by share'),
+            'widget' => \&usersByShareWidget,
+            'order' => 9,
+            'default' => 1
         }
     };
 }

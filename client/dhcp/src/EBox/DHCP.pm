@@ -1363,6 +1363,7 @@ sub widgets
         'dhcpleases' => {
             'title' => __("DHCP leases"),
             'widget' => \&dhcpLeasesWidget,
+            'order' => 5,
             'default' => 1
         }
     };

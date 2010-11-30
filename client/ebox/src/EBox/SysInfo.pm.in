@@ -157,16 +157,17 @@ sub linksWidget
 #
 sub widgets
 {
-
     my $widgets = {
         'modules' => {
             'title' => __("Module Status"),
             'widget' => \&modulesWidget,
+            'order' => 6,
             'default' => 1
         },
         'general' => {
             'title' => __("General Information"),
             'widget' => \&generalWidget,
+            'order' => 1,
             'default' => 1
         },
         'processes' => {
@@ -179,6 +180,7 @@ sub widgets
         $widgets->{'links'} = {
             'title' => __("Resources & Services"),
             'widget' => \&linksWidget,
+            'order' => 2,
             'default' => 1
         };
     }

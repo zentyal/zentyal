@@ -317,6 +317,7 @@ sub widgets
         'cc_connection' => {
             'title'   => __('Zentyal Cloud Connection'),
             'widget'  => \&_ccConnectionWidget,
+            'order'  => 4,
             'default' => 1,
         }
        };

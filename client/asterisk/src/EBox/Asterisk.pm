@@ -650,18 +650,22 @@ sub widgets
         return {};
     }
 
-    return {
+    my $widgets = {
         'onlineusers' => {
-            'title' => __("VoIP Online Users"),
-                'widget' => \&onlineUsersWidget,
-                'default' => 1
+            'title' => __('VoIP Online Users'),
+            'widget' => \&onlineUsersWidget,
+            'order' => 11,
+            'default' => 1
         },
         'usersbyconference' => {
-            'title' => __("VoIP Users in Meetings"),
-                'widget' => \&usersByMeetingsWidget,
-                'default' => 1
+            'title' => __('VoIP Users in Meetings'),
+            'widget' => \&usersByMeetingsWidget,
+            'order' => 12,
+            'default' => 1
         }
     };
+
+    return $widgets;
 }
 
 

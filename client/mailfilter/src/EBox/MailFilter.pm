@@ -509,8 +509,9 @@ sub widgets
 {
     my $widgets = {
         'mailfilter' => {
-            'title' => __("Mail filter"),
+            'title' => __('Mail filter'),
             'widget' => \&mailFilterWidget,
+            'order' => 10,
             'default' => 1
         }
     };
@@ -556,7 +557,6 @@ sub _smtpFilterTableInfo
                        mailfilter_smtp_traffic => _filterTrafficConsolidationSpec(),
                       };
 
-
     return {
             'name' => __('SMTP filter'),
             'index' => 'mailfilter-smtpFilter',
@@ -596,10 +596,6 @@ sub _popProxyTableInfo
                   'pop3_fetch_failed' =>
                         __('POP3 transmission aborted'),
     };
-
-
-
-
 
     return {
             'name' => __('POP3 proxy'),
@@ -727,8 +723,6 @@ sub menu
                  )
     );
 
-
-
     $root->add($folder);
 }
 
@@ -778,7 +772,7 @@ sub report
         'group' => "event"
     }, { 'key' => 'event'});
 
-    
+
     $report->{'smtp'} = {};
     foreach my $key (%{ $smtpRaw }) {
         my $messages = $smtpRaw->{$key}->{messages};
@@ -796,7 +790,5 @@ sub report
 
     return $report;
 }
-
-
 
 1;

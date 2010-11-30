@@ -91,7 +91,7 @@ showModuleWidgets = function(module,start) {
                     handle: "widgetHandle",
                     onDrag: function(d,e) {
                         if(e.clientY > 100) {
-                            if(!this.loaded) { 
+                            if(!this.loaded) {
                                 new Ajax.Updater(d.element.id,
                                         '/ebox/Dashboard/Widget?module=' +
                                         d.module + '&widget=' + d.widget, {
@@ -150,7 +150,7 @@ showModuleWidgets = function(module,start) {
 }
 
 </script>
-<div id='module_list' style='float: left'>
+<div id='module_list'>
 % foreach my $module (@modules) {
 %   my $modname = $module->{'name'};
 %   my $title = $module->{'title'};
@@ -159,4 +159,8 @@ showModuleWidgets = function(module,start) {
     </div>
 % }
 </div>
-<div id='widget_list' style='float: left'></div>
+<div id='widget_list'>
+    <div class='note'>
+        <% __('Browse the available widgets in the left menu and drag&drop them to the dashboard.') %>
+    </div>
+</div>

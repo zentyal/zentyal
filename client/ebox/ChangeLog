@@ -1,5 +1,7 @@
 HEAD
 	+ Replaced zentyal-conf script with the more powerful zentyal-redisvi
+	+ Set always the same default order for dashboard widgets
+	+ Added help message to the configure widgets dialog
 	+ Check for undefined values in logs consolidation
 2.0.7
 	+ Pre-installation includes sudoers.d into sudoers file if it's not yet

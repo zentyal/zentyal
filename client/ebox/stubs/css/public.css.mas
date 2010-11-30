@@ -132,11 +132,13 @@
 #module_list {
     margin-left: 20px;
     height: 60px;
+    width: 100px;
     overflow: auto;
+    float: left;
 }
 
 #widget_list {
-    margin-left: 20px;
+    margin: 0 5px 0 135px;
 }
 
 .help {

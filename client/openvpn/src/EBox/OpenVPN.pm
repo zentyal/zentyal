@@ -1574,8 +1574,9 @@ sub widgets
 
     my $widgets = {
         'openvpndaemons' => {
-            'title' => __("OpenVPN daemons"),
+            'title' => __('OpenVPN daemons'),
             'widget' => \&openVPNDaemonsWidget,
+            'order' => 13,
             'default' => 1
         }
     };
@@ -1584,7 +1585,7 @@ sub widgets
             my $widget = {
                 'title' => $ovpn->name(),
                 'widget' => \&openVPNWidget,
-                'parameter' => $ovpn->name()
+                'parameter' => $ovpn->name(),
                };
             $widgets->{'vpn' . $ovpn->name()} = $widget;
         }

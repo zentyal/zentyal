@@ -1509,6 +1509,7 @@ sub widgets
         'mail' => {
             'title' => __("Mail"),
             'widget' => \&mailServicesWidget,
+            'order' => 8,
             'default' => 1
         }
     };

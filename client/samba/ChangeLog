@@ -1,6 +1,7 @@
 HEAD
 	+ Improved performance by adding samba LDAP indexes
 	+ Only set shares ACL if needed
+	+ Set default order for dashboard widgets
 2.0.5
 	+ Only ASCII characters are now allowed for share names and comments
 	+ Bug fix: guest shares also work if PDC not enabled

@@ -90,10 +90,11 @@ sub preconditionFailMsg
     my ($self) = @_;
 
     my @kernels = @{EBox::Util::SystemKernel->kernels()};
+    my @headers = map { s/image/headers/; $_ } @kernels;
 
     return __x("You must install dahdi and linux-headers packages to use Meetings.{br}" .
                "Run the following command: sudo apt-get install {kernels} dahdi.",
-               br => '<br/>', kernels => @kernels);
+               br => '<br/>', kernels => @headers);
 }
 
 

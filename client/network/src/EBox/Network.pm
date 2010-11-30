@@ -3570,6 +3570,7 @@ sub widgets
         'interfaces' => {
             'title' => __("Network Interfaces"),
             'widget' => \&interfacesWidget,
+            'order' => 3,
             'default' => 1
         }
     };

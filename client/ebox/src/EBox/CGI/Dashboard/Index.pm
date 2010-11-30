@@ -83,8 +83,12 @@ sub masonParameters
         }
     }
 
+    my @orderedWidgets =
+        sort { $widgets->{$a}->{order} <=> $widgets->{$b}->{order} }
+        keys %{$widgets};
+
     #put the remaining widgets in the dashboards trying to balance them
-    foreach my $wname (keys %{$widgets}) {
+    foreach my $wname (@orderedWidgets) {
         if (!$sysinfo->isWidgetKnown($wname)) {
             $sysinfo->addKnownWidget($wname);
             my $widget = delete $widgets->{$wname};
