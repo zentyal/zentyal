@@ -566,7 +566,6 @@ sub setRemoteBackupCron
 
     my $dst = backupCronFile();
     EBox::Sudo::root("install --mode=0644 $tmpFile $dst");
-
 }
 
 
@@ -618,7 +617,6 @@ sub _setConf
     } else {
         $self->removeRemoteBackupCron();
     }
-
 
     $self->_syncRemoteCaches();
 }

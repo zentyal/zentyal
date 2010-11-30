@@ -95,7 +95,6 @@ sub crontabStrings
                                    );
     }
 
-
     return ({ full => $full, incremental => $incr });
 }
 
@@ -122,6 +121,7 @@ sub _frequencyAndStartsOn
 sub viewCustomizer
 {
     my ($self) = @_;
+
     my $customizer = new EBox::View::Customizer();
     my $userPass = [qw/user password/];
     my $allFields = [qw/user password/];
@@ -139,6 +139,7 @@ sub viewCustomizer
                 }
             });
     # $customizer->setPermanentMessage(_message());
+
     return $customizer;
 }
 
@@ -154,7 +155,6 @@ sub viewCustomizer
 #
 sub _table
 {
-
     my @tableHeader = (
        new EBox::Types::Select(
            fieldName     => 'method',
@@ -177,33 +177,33 @@ sub _table
            fieldName     => 'password',
            printableName => __('Password'),
            editable      => 1,
-       ),
-        new EBox::Types::Union(
-            'fieldName' => 'encryption',
-            'printableName' => __('Encryption'),
-            'subtypes' =>
-                [
-                new EBox::Types::Union::Text(
-                    'fieldName' => 'disabled',
-                    'printableName' => __('Disabled'),
-                    'optional' => 1
-                ),
-                new EBox::Types::Password(
-                    'fieldName' => 'symmetric',
-                    'printableName' => __('Symmetric Key'),
-                    'editable'=> 1,
-                ),
-                new EBox::Types::Select(
-                    fieldName     => 'asymmetric',
-                    printableName => __('GPG Key'),
-                    editable      => 1,
-                    populate      => \&_gpgKeys,
-                    disabledCache  => 1,
-                ),
-                ],
-            'unique' => 1,
-            'editable' => 1,
-            ),
+           ),
+       new EBox::Types::Union(
+               'fieldName' => 'encryption',
+               'printableName' => __('Encryption'),
+               'subtypes' =>
+               [
+               new EBox::Types::Union::Text(
+                   'fieldName' => 'disabled',
+                   'printableName' => __('Disabled'),
+                   'optional' => 1
+                   ),
+               new EBox::Types::Password(
+                   'fieldName' => 'symmetric',
+                   'printableName' => __('Symmetric Key'),
+                   'editable'=> 1,
+                   ),
+               new EBox::Types::Select(
+                   fieldName     => 'asymmetric',
+                   printableName => __('GPG Key'),
+                   editable      => 1,
+                   populate      => \&_gpgKeys,
+                   disabledCache  => 1,
+                   ),
+               ],
+               'unique' => 1,
+               'editable' => 1,
+               ),
         new EBox::Types::Union(
             'fieldName' => 'full',
             'printableName' => __('Full Backup Frequency'),
@@ -268,10 +268,10 @@ sub _table
            editable      => 1,
            populate      => \&_startingTime,
        ),
-        new EBox::Types::Union(
-            'fieldName' => 'full_copies_to_keep',
-            'printableName' => __('Keep previous full copies'),
-            'subtypes' =>
+       new EBox::Types::Union(
+           'fieldName' => 'full_copies_to_keep',
+           'printableName' => __('Keep previous full copies'),
+           'subtypes' =>
                 [
                 new EBox::Types::Int(
                     'fieldName' => 'full_copies_to_keep_number',
@@ -288,10 +288,9 @@ sub _table
                     populate      => \&_deadline,
                 ),
                 ],
-            'unique' => 1,
-            'editable' => 1,
-            ),
-
+           'unique' => 1,
+           'editable' => 1,
+           ),
     );
 
     my $dataTable =
@@ -308,7 +307,6 @@ sub _table
     };
 
     return $dataTable;
-
 }
 
 
@@ -323,7 +321,6 @@ sub _weekDays
              { printableValue => __('on Saturday'), value =>  6},
              { printableValue => __('on Sunday'), value => 0},
             ];
-
 }
 
 
@@ -366,12 +363,10 @@ sub _startingTime
     return \@time;
 }
 
-
 sub _crontabMinute
 {
     return 0;
 }
-
 
 sub _crontabWeekDayAndUser
 {
@@ -413,10 +408,6 @@ sub _crontabStringFull
     return ["$minute $hour $monthDay $month $weekDay"];
 }
 
-
-
-
-
 # Warning: is assumed that full and inc frequencies and startOn values are
 # enforced as coherent vlaues by the interface
 sub _crontabStringIncr
@@ -426,7 +417,6 @@ sub _crontabStringIncr
     my $weekDay = _crontabWeekDayAndUser('*');
     my $monthDay = '*';
     my $month = '*';
-
 
     if ($fullFreq eq 'weekly') {
         $weekDay = _crontabWeekDayAndUser($fullFreq, 0);
@@ -450,7 +440,6 @@ sub _crontabStringIncr
             push @strings, "$minute $hour 1-29 4,6,9,11 $weekDay";
             return \@strings;
         }
-
     } elsif ($fullFreq eq 'bimonthly') {
         my $fullMonthDays = '1-7,15-21';
         my $noFullMonthDays = '8-14,22-31';
@@ -469,13 +458,9 @@ sub _crontabStringIncr
         return [
                 "$minute $hour $noFullMonthDays * $weekDay",
                 "$minute $hour $fullMonthDays * $noFullWeekDays",
-
                ];
-
     }
-
 }
-
 
 
 sub _crontabStringLastDayMonth
@@ -622,6 +607,7 @@ sub _deadline
 sub removeArguments
 {
     my ($self) = @_;
+
     my $keep =  $self->row()->elementByName('full_copies_to_keep');
     my $keepSelected = $keep->selectedType();
     my $keepValue = $keep->value();
@@ -636,8 +622,9 @@ sub removeArguments
 sub validateTypedRow
 {
     my ($self, $action, $paramsRef, $allFieldsRef) = @_;
+
     my $actualValues = $self->_actualValues($paramsRef, $allFieldsRef);
-    
+
     my $method = $actualValues->{method}->value();
     my $target = $actualValues->{target}->value();
 
@@ -673,9 +660,6 @@ sub validateTypedRow
                                     $fullStart, $incStart
                                    );
     }
-
-
-
 }
 
 
@@ -785,7 +769,6 @@ __('File system method needs a target parameter that should be a directory path'
                                             value => $target,
                                             advice =>
                                     __('File exists and it is not a directory')
-
                                            );
     }
 }
@@ -868,9 +851,7 @@ sub configurationIsComplete
         return 0;
     }
 
-
     return 1;
 }
-
 
 1;
