@@ -1,3 +1,7 @@
+HEAD
+	+ Using /etc/cron.d instead of ebox crontab for scheduled
+	  backups
+	+ Fixed error in scheduled backups using week days
 2.0.5
 	+ Better error and precondition control when making backups
 	+ Do not spawn a separate process to make the configuration backup

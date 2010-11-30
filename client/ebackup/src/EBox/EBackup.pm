@@ -254,8 +254,6 @@ sub dumpExtraData
     my $global = EBox::Global->getInstance($readOnlyGlobal);
 
     # Backup configuration
-    my $bakCmd = EBox::Config::pkgdata() .
-        '/ebox-make-backup --destination confbackup.tar';
 
     try {
         my $filename = 'confbackup.tar';
@@ -533,12 +531,12 @@ sub remoteListFiles
     return $self->{files};
 }
 
-# Method: setRemoteBackupCrontab
+# Method: setRemoteBackupCron
 #
 #   configure crontab according to user configuration
 #   to call our backup script
 #
-sub setRemoteBackupCrontab
+sub setRemoteBackupCron
 {
     my ($self) = @_;
 
@@ -557,16 +555,33 @@ sub setRemoteBackupCrontab
         }
     }
 
-    my $tmpFile = EBox::Config::tmp() . 'crontab';
-    open(my $tmp, '>' .  EBox::Config::tmp() . 'crontab');
+    my $tmpFile = EBox::Config::tmp() . 'ebackup-cron';
+    open(my $tmp, '>', $tmpFile);
     if ($self->isEnabled()) {
         for my $line (@lines) {
             print $tmp "$line\n";
         }
     }
     close($tmp);
-    EBox::Sudo::command("crontab $tmpFile");
+
+    my $dst = backupCronFile();
+    EBox::Sudo::root("install --mode=0644 $tmpFile $dst");
+
 }
+
+
+sub removeRemoteBackupCron
+{
+    my $rmCmd = "rm -f " . backupCronFile();
+    EBox::Sudo::root($rmCmd);
+}
+
+
+sub backupCronFile
+{
+    return '/etc/cron.d/ebox-ebackup';
+}
+
 
 # Method: _setConf
 #
@@ -579,6 +594,7 @@ sub _setConf
     my ($self) = @_;
 
     if (not $self->configurationIsComplete()) {
+        $self->removeRemoteBackupCron();
         return;
     }
 
@@ -596,7 +612,13 @@ sub _setConf
             DUPLICITY_SYMMETRIC_PASSWORD,
             $symPass, { uid => 'ebox', gid => 'ebox', mode => '0600'}
     );
-    $self->setRemoteBackupCrontab();
+
+    if ($self->isEnabled()) {
+        $self->setRemoteBackupCron();
+    } else {
+        $self->removeRemoteBackupCron();
+    }
+
 
     $self->_syncRemoteCaches();
 }

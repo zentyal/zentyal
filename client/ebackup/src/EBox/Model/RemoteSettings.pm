@@ -366,17 +366,41 @@ sub _startingTime
     return \@time;
 }
 
+
+sub _crontabMinute
+{
+    return 0;
+}
+
+
+sub _crontabWeekDayAndUser
+{
+    my ($weekDay, $equal) = @_;
+    my $user = 'root';
+
+    if ($weekDay eq '*') {
+        return "* $user";
+    }
+
+    if ($equal) {
+        return "* $user test \$(date +\%w) -eq $weekDay && ";
+    } else {
+        return "* $user test \$(date +\%w) -ne $weekDay && ";
+    }
+}
+
 sub _crontabStringFull
 {
     my ($hour, $freq, $startsOn) = @_;
 
-    my $weekDay = '*';
+    my $minute  = _crontabMinute();
+    my $weekDay = _crontabWeekDayAndUser('*');
     my $monthDay = '*';
     my $month = '*';
     if ( $freq eq 'weekly' ) {
-        $weekDay = $startsOn;
+        $weekDay = _crontabWeekDayAndUser($startsOn, 1);
     } elsif ($freq eq 'bimonthly') {
-        $weekDay = $startsOn;
+        $weekDay = _crontabWeekDayAndUser($startsOn, 1);
         $monthDay ='1-7,15-21';
     } elsif ( $freq eq 'monthly' ) {
         if ($startsOn <= 28) {
@@ -386,7 +410,7 @@ sub _crontabStringFull
         }
     }
 
-    return ["0 $hour $monthDay $month $weekDay"];
+    return ["$minute $hour $monthDay $month $weekDay"];
 }
 
 
@@ -398,52 +422,53 @@ sub _crontabStringFull
 sub _crontabStringIncr
 {
     my ($hour, $fullFreq, $fullStartsOn, $freq, $startsOn) = @_;
-    my $weekDay = '*';
+    my $minute  = _crontabMinute();
+    my $weekDay = _crontabWeekDayAndUser('*');
     my $monthDay = '*';
     my $month = '*';
 
+
     if ($fullFreq eq 'weekly') {
-        my @daysWeek =  grep { $_ ne $fullStartsOn }  (0 .. 6);
-        $weekDay = join ',', @daysWeek;
-        return ["0 $hour $monthDay $month $weekDay"];
+        $weekDay = _crontabWeekDayAndUser($fullFreq, 0);
+        return ["$minute $hour $monthDay $month $weekDay"];
     } elsif ($fullFreq eq 'monthly') {
         if ($freq eq 'weekly') {
-            $weekDay = $startsOn;
+            $weekDay = _crontabWeekDayAndUser($startsOn, 1);
         }
 
         my @daysMonth;
         if ($fullStartsOn <= 28) {
             my @daysMonth = grep { $_ ne $fullStartsOn }  (1 .. 31);
             $monthDay = join ',', @daysMonth;
-            return ["0 $hour $monthDay $month $weekDay"];
+            return ["$minute $hour $monthDay $month $weekDay"];
         } else {
             # every day except last day
             my @strings;
-            push @strings, "0 $hour 1-30 1,3,5,7,8,10,12 $weekDay";
+            push @strings, "$minute $hour 1-30 1,3,5,7,8,10,12 $weekDay";
             # we dont use 29th days every 4 years
-            push @strings, "0 $hour 1-27 2 $weekDay";
-            push @strings, "0 $hour 1-29 4,6,9,11 $weekDay";
+            push @strings, "$minute $hour 1-27 2 $weekDay";
+            push @strings, "$minute $hour 1-29 4,6,9,11 $weekDay";
             return \@strings;
         }
 
     } elsif ($fullFreq eq 'bimonthly') {
         my $fullMonthDays = '1-7,15-21';
         my $noFullMonthDays = '8-14,22-31';
+
         if ($freq eq 'weekly') {
-            $weekDay = $startsOn;
-            if ($weekDay != $fullStartsOn) {
-                return "0 $hour * * $weekDay";
+            $weekDay = _crontabWeekDayAndUser($startsOn, 1);;
+            if ($startsOn != $fullStartsOn) {
+                return ["$minute $hour * $month $weekDay"];
             } else {
-                return "0 $hour $noFullMonthDays $month $weekDay";
+                return ["$minute $hour $noFullMonthDays $month $weekDay"];
             }
         }
 
         # incremental daily frequency
-        my @weekDay = grep { $_ ne $fullStartsOn } (0 .. 6);
-        my $noFullWeekDays = join ',', @weekDay;
+        my $noFullWeekDays = _crontabWeekDayAndUser($fullStartsOn, 0);
         return [
-                "0 $hour $noFullMonthDays * *",
-                "0 $hour $fullMonthDays * $noFullWeekDays",
+                "$minute $hour $noFullMonthDays * $weekDay",
+                "$minute $hour $fullMonthDays * $noFullWeekDays",
 
                ];
 
@@ -456,13 +481,15 @@ sub _crontabStringIncr
 sub _crontabStringLastDayMonth
 {
     my ($hour) = @_;
-    my $weekDay = '*';
+
+    my $minute  = _crontabMinute();
+    my $weekDay = _crontabWeekDayAndUser('*');
 
     my @strings;
-    push @strings, "0 $hour 31 1,3,5,7,8,10,12 $weekDay";
+    push @strings, "$minute $hour 31 1,3,5,7,8,10,12 $weekDay";
     # we dont use 29th days every 4 years
-    push @strings, "0 $hour 28 2 $weekDay";
-    push @strings, "0 $hour 30 4,6,9,11 $weekDay";
+    push @strings, "$minute $hour 28 2 $weekDay";
+    push @strings, "$minute $hour 30 4,6,9,11 $weekDay";
     return \@strings;
 }
 
@@ -610,7 +637,7 @@ sub validateTypedRow
 {
     my ($self, $action, $paramsRef, $allFieldsRef) = @_;
     my $actualValues = $self->_actualValues($paramsRef, $allFieldsRef);
-
+    
     my $method = $actualValues->{method}->value();
     my $target = $actualValues->{target}->value();
 
@@ -787,6 +814,7 @@ sub _validateFrequencies
 sub formSubmitted
 {
     my ($self) = @_;
+
     my $method = $self->row()->valueByName('method');
     if ($method eq 'scp') {
         $self->setMessage(
