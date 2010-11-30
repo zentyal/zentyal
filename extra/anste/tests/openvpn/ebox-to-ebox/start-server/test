@@ -1,6 +1,6 @@
 #!/bin/bash
 
-while true ; do echo foo | netcat -l -p 1100 -q 1 || exit 1 ; done &
+while true ; do echo foo | netcat -l 1100 || exit 1 ; done &
 
 sleep 1
 
