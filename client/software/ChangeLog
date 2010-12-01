@@ -1,4 +1,4 @@
-HEAD
+2.0.4
 	+ Fixed defunct process due to uncaught SIGPIPE
 	+ Always end safely the installation of packages regardless of any
 	  error
