@@ -26,23 +26,23 @@ $ref->{localstatedir} = "@LOCALSTATEDIR@";
 $ref->{libdir} = "@LIBDIR@";
 
 for my $key (keys(%{$ref})) {
-	if (substr($ref->{$key},-1) ne '/') {
-		$ref->{$key} = ($ref->{$key} . "/");
-	}
+    if (substr($ref->{$key},-1) ne '/') {
+        $ref->{$key} = ($ref->{$key} . "/");
+    }
 }
 
 $ref->{package} = "@PACKAGE@";
 $ref->{version} = "@VERSION@";
 $ref->{perlpath} = "@PERLPATH@";
 
-sub etc 
+sub etc
 {
-	return $ref->{sysconfdir} . "ebox/";
+    return $ref->{sysconfdir} . "ebox/";
 }
 
 sub var
 {
-	return $ref->{localstatedir};
+    return $ref->{localstatedir};
 }
 
 # Function: configkeyFromFile
@@ -67,52 +67,56 @@ sub var
 #
 sub configkeyFromFile # (key, file)
 {
-	my ($key, $file) = @_;
-	my $value = undef;
-	open(my $CONF, $file) or 
-		throw EBox::Exceptions::External(
-					__x('Could not open the config file {file}.', file => $file));
-	my @lines = <$CONF>;
-	for my $line (@lines) {
-		$line =~ s/\s//g;
-		$line =~ s/#.*//g;
-		($line eq '') and next;
-		my ($nkey, $nvalue) = $line =~ /(.*?)=(.*)/;
-		if ($nkey eq $key) {
-			$value = $nvalue;
-			last;
-		}
-	}
-	close($CONF);
-	return $value;
+    my ($key, $file) = @_;
+    my $value = undef;
+    open(my $CONF, $file) or
+        throw EBox::Exceptions::External(
+                    __x('Could not open the config file {file}.', file => $file));
+    my @lines = <$CONF>;
+    for my $line (@lines) {
+        $line =~ s/\s//g;
+        $line =~ s/#.*//g;
+        ($line eq '') and next;
+        my ($nkey, $nvalue) = $line =~ /(.*?)=(.*)/;
+        if ($nkey eq $key) {
+            $value = $nvalue;
+            last;
+        }
+    }
+    close($CONF);
+    return $value;
 }
 
 sub configkey # (key)
 {
-	my $key = shift;
-	my $value = undef;
+    my $key = shift;
+    my $value = undef;
 
-	my @conffiles = glob(EBox::Config::etc() . "[0-9][0-9]*.conf");
-	
-	foreach my $file (@conffiles){
-		$value = configkeyFromFile($key, $file);
-		defined($value) and last;
-	}
-	return $value;
+    my @conffiles = glob(EBox::Config::etc() . "[0-9][0-9]*.conf");
+
+    foreach my $file (@conffiles){
+        $value = configkeyFromFile($key, $file);
+        defined($value) and last;
+    }
+    if (defined($value)) {
+        return $value;
+    } else {
+        return '';
+    }
 }
 
 sub configkeys # (key)
 {
-	my $key = shift;
+    my $key = shift;
 
-	my @conffiles = glob(EBox::Config::etc() . "[0-9][0-9]*.conf");
-	
-	my @values;
-	foreach my $file (@conffiles){
-		my $value = configkeyFromFile($key, $file);
-		push (@values, $value) if defined($value);
-	}
-	return \@values;
+    my @conffiles = glob(EBox::Config::etc() . "[0-9][0-9]*.conf");
+
+    my @values;
+    foreach my $file (@conffiles){
+        my $value = configkeyFromFile($key, $file);
+        push (@values, $value) if defined($value);
+    }
+    return \@values;
 }
 
 # Function: configKeysFromFile
@@ -137,18 +141,18 @@ sub configkeys # (key)
 #
 sub configKeysFromFile # (file)
 {
-	my ($file) = @_;
+    my ($file) = @_;
 
-	my $value = undef;
-	open(my $CONF, $file) or
+    my $value = undef;
+    open(my $CONF, $file) or
           throw EBox::Exceptions::DataNotFound(data => 'config file',
                                                value => $file);
         my %configKeys = ();
-	while (<$CONF>) {
-		$_ =~ s/\s//g;
-		$_ =~ s/#.*//g;
-		($_ eq '') and next;
-		my ($nkey, $nvalue) = $_ =~ /(.*)=(.*)/;
+    while (<$CONF>) {
+        $_ =~ s/\s//g;
+        $_ =~ s/#.*//g;
+        ($_ eq '') and next;
+        my ($nkey, $nvalue) = $_ =~ /(.*)=(.*)/;
                 # Support for several values for a single key if comma is set
                 if ( $nvalue =~ m/,/g ) {
                     my @values = split( ',', $nvalue);
@@ -156,90 +160,89 @@ sub configKeysFromFile # (file)
                 } else {
                     $configKeys{$nkey} = $nvalue;
                 }
-	}
-	close($CONF);
-	return \%configKeys;
-
+    }
+    close($CONF);
+    return \%configKeys;
 }
 
 sub user
 {
-	my $user = configkey('user');
-	$user or throw EBox::Exceptions::External(
-		__('The ebox user has not been set in the config file.'));
-	return $user;
+    my $user = configkey('user');
+    $user or throw EBox::Exceptions::External(
+        __('The ebox user has not been set in the config file.'));
+    return $user;
 }
 
 sub groups
 {
-	my @values = @{configkeys('group')};
-	@values or throw EBox::Exceptions::External("The ebox group has not ".
-						"been set in the config file.");
-	my @groups;
-	for my $group (@values) {
-		if ($group =~ m/:/) {
-			push (@groups, split(':', $group));
-		} else {
-			push (@groups, $group);
-		}
-	}
+    my @values = @{configkeys('group')};
+    @values or throw EBox::Exceptions::External("The ebox group has not ".
+                        "been set in the config file.");
+    my @groups;
+    for my $group (@values) {
+        if ($group =~ m/:/) {
+            push (@groups, split(':', $group));
+        } else {
+            push (@groups, $group);
+        }
+    }
 
-	return \@groups;
+    return \@groups;
 }
 
 sub group
 {
-	my $value = configkey('egroup');
-	$value or throw EBox::Exceptions::External("The ebox group has not ".
-			"been set in the config file.");
-	return $value;
+    my $value = configkey('egroup');
+    $value or throw EBox::Exceptions::External("The ebox group has not ".
+            "been set in the config file.");
+    return $value;
 }
 
 sub home
 {
-	my $user = user();
-	  my ($name,$passwd,$uid,$gid, $quota,$comment,$gcos,$dir,$shell,$expire) = getpwnam($user);
-	return $dir;
+    my $user = user();
+      my ($name,$passwd,$uid,$gid, $quota,$comment,$gcos,$dir,$shell,$expire) = getpwnam($user);
+    return $dir;
 }
 
-sub prefix 
+sub prefix
 {
-	return $ref->{prefix};
+    return $ref->{prefix};
 }
 
-sub share 
+sub share
 {
-	return $ref->{datadir};
+    return $ref->{datadir};
 }
 
 sub lib
 {
-	return $ref->{libdir};
+    return $ref->{libdir};
 }
 
-sub libexec 
+sub libexec
 {
-	return $ref->{libdir} . "ebox/";
+    return $ref->{libdir} . "ebox/";
 }
 
-sub pkgdata 
+sub pkgdata
 {
-	return $ref->{datadir} . "ebox/";
+    return $ref->{datadir} . "ebox/";
 }
 
-sub locale 
+sub locale
 {
-	return $ref->{datadir} . "locale/";
+    return $ref->{datadir} . "locale/";
 }
 
-sub conf 
+sub conf
 {
-	return $ref->{localstatedir} . "lib/ebox/conf/";
+    return $ref->{localstatedir} . "lib/ebox/conf/";
 }
 
-sub tmp 
+sub tmp
 {
-	return $ref->{localstatedir} . "lib/ebox/tmp/";
+    return $ref->{localstatedir} . "lib/ebox/tmp/";
 }
 
 # Method: downloads
@@ -255,9 +258,9 @@ sub downloads
         return tmp() . 'downloads/';
 }
 
-sub passwd 
+sub passwd
 {
-	return $ref->{localstatedir} . "lib/ebox/conf/ebox.passwd";
+    return $ref->{localstatedir} . "lib/ebox/conf/ebox.passwd";
 }
 
 
@@ -287,55 +290,55 @@ sub scriptSession
     return $ref->{localstatedir} . 'lib/ebox/conf/ebox.script-sid';
 }
 
-sub log 
+sub log
 {
-	return $ref->{localstatedir} . "log/ebox/";
+    return $ref->{localstatedir} . "log/ebox/";
 }
 
 sub logfile
 {
-	return $ref->{localstatedir} . "log/ebox/ebox.log";
+    return $ref->{localstatedir} . "log/ebox/ebox.log";
 }
 
-sub stubs 
+sub stubs
 {
-	return $ref->{datadir} . "ebox/stubs/";
+    return $ref->{datadir} . "ebox/stubs/";
 }
 
-sub cgi 
+sub cgi
 {
-	return $ref->{datadir} . "ebox/cgi/";
+    return $ref->{datadir} . "ebox/cgi/";
 }
 
-sub templates 
+sub templates
 {
-	return $ref->{datadir} . "ebox/templates/";
+    return $ref->{datadir} . "ebox/templates/";
 }
 
-sub schemas 
+sub schemas
 {
-	return $ref->{datadir} . "ebox/schemas/";
+    return $ref->{datadir} . "ebox/schemas/";
 }
 
-sub www 
+sub www
 {
-	return $ref->{datadir} . "ebox/www/";
+    return $ref->{datadir} . "ebox/www/";
 }
 
-sub css 
+sub css
 {
-	return $ref->{datadir} . "ebox/www/css/";
+    return $ref->{datadir} . "ebox/www/css/";
 }
 
-sub images 
+sub images
 {
-	return $ref->{datadir} . "ebox/www/images/";
+    return $ref->{datadir} . "ebox/www/images/";
 }
 
 
 sub dynamicwww
 {
-	return $ref->{localstatedir} . 'lib/ebox/dynamicwww/';
+    return $ref->{localstatedir} . 'lib/ebox/dynamicwww/';
 }
 
 sub dynamicwwwSubdirs
@@ -353,19 +356,19 @@ sub dynamicRSS
     return dynamicwww() . 'feed/';
 }
 
-sub package 
+sub package
 {
-	return $ref->{package};
+    return $ref->{package};
 }
 
-sub version 
+sub version
 {
-	return $ref->{version};
+    return $ref->{version};
 }
 
-sub lang 
+sub lang
 {
-	return $ref->{lang};
+    return $ref->{lang};
 }
 
 # Method: perlPath
@@ -378,10 +381,8 @@ sub lang
 #      String - the perl path
 #
 sub perlPath
-  {
-
-      return $ref->{perlpath};
-
-  }
+{
+    return $ref->{perlpath};
+}
 
 1;
