@@ -1,4 +1,5 @@
 HEAD
+	+ Fixed defunct process due to uncaught SIGPIPE
 	+ Always end safely the installation of packages regardless of any
 	  error
 	+ Wait for the child ending when installing packages

@@ -67,8 +67,7 @@ try {
     my ($read, $text, $oldText);
     do {
         unless (open ($read, '<',  $fifo)){
-            EBox::error("Error opening fifo <$fifo> - $!");
-            throw IOException("Error opening fifo <$fifo> - $!");
+            throw EBox::Exceptions::Internal("Error opening fifo <$fifo> - $!");
         }
         my $firstLine = '';
         my $lastLine = '';

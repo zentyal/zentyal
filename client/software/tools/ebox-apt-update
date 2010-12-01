@@ -26,14 +26,20 @@ my ($retValue, $errorMsg) = (0, '');
 
 my $fifo = '/var/lib/ebox/ebox-apt-update.pipe';
 
-my $cmd ="/usr/bin/apt-get install -q --yes --force-yes --no-install-recommends $dpkgOpts";
+my $cmd ="/usr/bin/apt-get install --yes --force-yes --no-install-recommends $dpkgOpts";
 my $fullCmd = "LANG=C DEBIAN_FRONTEND=noninteractive $cmd @packages 2>&1";
 
 my ($pid, $read, $text, $write);
 
+local $SIG{PIPE} = sub {
+    open ($write, '>', $fifo);
+    print $write 'end';
+    close($write);
+    exit 0;
+};
+
 open($read, '-|', $fullCmd);
 try {
-
     my $out = '';
     while ($text = <$read>) {
         if ($text =~ /^E:\s/) {
