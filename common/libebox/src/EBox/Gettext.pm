@@ -19,15 +19,14 @@ use Locale::gettext;
 use EBox::Config;
 
 BEGIN {
-	use Exporter ();
-	our ($VERSION, @ISA, @EXPORT, @EXPORT_OK, %EXPORT_TAGS);
+    use Exporter ();
+    our ($VERSION, @ISA, @EXPORT, @EXPORT_OK, %EXPORT_TAGS);
 
-	@ISA = qw(Exporter);
-	@EXPORT = qw{ __ __n __x __d __dx __s __sx settextdomain gettextdomain langs };
-	%EXPORT_TAGS = ( DEFAULT => \@EXPORT );
-	@EXPORT_OK = qw();
-	$VERSION = EBox::Config::version;
-
+    @ISA = qw(Exporter);
+    @EXPORT = qw{ __ __n __x __d __dx __s __sx settextdomain gettextdomain langs };
+    %EXPORT_TAGS = ( DEFAULT => \@EXPORT );
+    @EXPORT_OK = qw();
+    $VERSION = EBox::Config::version;
 }
 
 my $cur_domain = 'ebox';
@@ -37,7 +36,7 @@ use constant SUBS_DOMAIN => 'ebox-subscription';
 
 # Method: settextdomain
 #
-#	Sets the curent message domain
+#   Sets the curent message domain
 #
 # Parameters:
 #
@@ -45,18 +44,18 @@ use constant SUBS_DOMAIN => 'ebox-subscription';
 #
 sub settextdomain # (domain)
 {
-	my $domain = shift;
-	textdomain($domain);
-	bindtextdomain($domain, EBox::Config::locale());
-	my $old_domain = $cur_domain;
-	$cur_domain = $domain;
-	return $old_domain;
+    my $domain = shift;
+    textdomain($domain);
+    bindtextdomain($domain, EBox::Config::locale());
+    my $old_domain = $cur_domain;
+    $cur_domain = $domain;
+    return $old_domain;
 }
 
 #
 # Method: gettextdomain
 #
-# 	Gathers  the curent message domain
+#   Gathers  the curent message domain
 #
 # Returns:
 #
@@ -64,51 +63,51 @@ sub settextdomain # (domain)
 #
 sub gettextdomain
 {
-	return $cur_domain;
+    return $cur_domain;
 }
 
 sub __ # (text)
 {
-	_set_packagedomain();
-	my $string = gettext(shift);
-	_unset_packagedomain();
-	return $string;
+    _set_packagedomain();
+    my $string = gettext(shift);
+    _unset_packagedomain();
+    return $string;
 }
 
 sub __n # (text)
 {
-	my $string = shift;
-	my ($p, $a, $c) = caller;
-	return $string;
+    my $string = shift;
+    my ($p, $a, $c) = caller;
+    return $string;
 }
 
 sub __x # (text, %variables)
 {
-	my ($msgid, %vars) = @_;
-	_set_packagedomain();
-	my $string = gettext($msgid);
-	_unset_packagedomain();
-	return __expand($string, %vars);
+    my ($msgid, %vars) = @_;
+    _set_packagedomain();
+    my $string = gettext($msgid);
+    _unset_packagedomain();
+    return __expand($string, %vars);
 }
 
 sub __d # (text,domain)
 {
-	my ($string,$domain) = @_;
-	bindtextdomain($domain, EBox::Config::locale());
-	textdomain($domain);
-	$string = gettext($string);
-	textdomain($cur_domain);
-	return $string;
+    my ($string,$domain) = @_;
+    bindtextdomain($domain, EBox::Config::locale());
+    textdomain($domain);
+    $string = gettext($string);
+    textdomain($cur_domain);
+    return $string;
 }
 
 sub __dx # (text,domain, %variables)
 {
-	my ($string,$domain, %vars) = @_;
-	bindtextdomain($domain, EBox::Config::locale());
-	textdomain($domain);
-	$string = gettext($string);
-	textdomain($cur_domain);
-	return __expand($string, %vars);
+    my ($string,$domain, %vars) = @_;
+    bindtextdomain($domain, EBox::Config::locale());
+    textdomain($domain);
+    $string = gettext($string);
+    textdomain($cur_domain);
+    return __expand($string, %vars);
 }
 
 sub __s # (text)
@@ -127,40 +126,40 @@ sub __sx # (text, %variables)
 
 sub __expand # (translation, %arguments)
 {
-	my ($translation, %args) = @_;
+    my ($translation, %args) = @_;
 
-	my $re = join '|', map { quotemeta $_ } keys %args;
-	$translation =~ s/\{($re)\}/defined $args{$1} ? $args{$1} : "{$1}"/ge;
-	return $translation;
+    my $re = join '|', map { quotemeta $_ } keys %args;
+    $translation =~ s/\{($re)\}/defined $args{$1} ? $args{$1} : "{$1}"/ge;
+    return $translation;
 }
 
 # Method: _set_packagedomain
 #
-# 	Fetch and set the module's domain.
-# 	Tries to call $PACKAGE::domain function
-# 	to fetch the domain
+#   Fetch and set the module's domain.
+#   Tries to call $PACKAGE::domain function
+#   to fetch the domain
 #
 sub _set_packagedomain
 {
-	my ($package, $filename, $line) = caller 1;
-	my $domain = undef;
-	eval {$domain = $package->domain()};
-	if ($domain) {
-		$old_domain = settextdomain($domain);
-	} else {
-		$old_domain = undef;
-	}
+    my ($package, $filename, $line) = caller 1;
+    my $domain = undef;
+    eval {$domain = $package->domain()};
+    if ($domain) {
+        $old_domain = settextdomain($domain);
+    } else {
+        $old_domain = undef;
+    }
 }
 
 # Method: _unset_packagedomain
 #
-#	Restore de previous domain
+#   Restore de previous domain
 #
 sub _unset_packagedomain
 {
-	if ($old_domain) {
-		settextdomain($old_domain);
-	}
+    if ($old_domain) {
+        settextdomain($old_domain);
+    }
 }
 
 my $langs;
@@ -197,31 +196,31 @@ $langs->{'zh_TW.UTF-8'} = '繁體中文';
 
 # Method:  langname
 #
-#   	Gathers the current set language
+#       Gathers the current set language
 #
 # Returns:
 #
-#	the current domain language
+#   the current domain language
 #
 sub langname # (locale)
 {
-	my ($locale) = @_;
+    my ($locale) = @_;
 
-	return $langs->{$locale};
+    return $langs->{$locale};
 }
 
 # Method: langs
-#  	gathers the available languages
+#   gathers the available languages
 #
 # Returns:
 #
-#	hash reference -  containing the available languages. Each key
-#	represents a *locale* and its value contains the associated
-#	language
+#   hash reference -  containing the available languages. Each key
+#   represents a *locale* and its value contains the associated
+#   language
 #
 sub langs
 {
-	return $langs;
+    return $langs;
 }
 
 1;
