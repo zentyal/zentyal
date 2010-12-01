@@ -71,7 +71,7 @@ sub configkeyFromFile # (key, file)
     my $value = undef;
     open(my $CONF, $file) or
         throw EBox::Exceptions::External(
-                    __x('Could not open the config file {file}.', file => $file));
+                __x('Could not open the config file {file}.', file => $file));
     my @lines = <$CONF>;
     for my $line (@lines) {
         $line =~ s/\s//g;
@@ -97,11 +97,6 @@ sub configkey # (key)
     foreach my $file (@conffiles){
         $value = configkeyFromFile($key, $file);
         defined($value) and last;
-    }
-    if (defined($value)) {
-        return $value;
-    } else {
-        return '';
     }
 }
 
@@ -145,21 +140,21 @@ sub configKeysFromFile # (file)
 
     my $value = undef;
     open(my $CONF, $file) or
-          throw EBox::Exceptions::DataNotFound(data => 'config file',
-                                               value => $file);
-        my %configKeys = ();
+        throw EBox::Exceptions::DataNotFound(data => 'config file',
+                value => $file);
+    my %configKeys = ();
     while (<$CONF>) {
         $_ =~ s/\s//g;
         $_ =~ s/#.*//g;
         ($_ eq '') and next;
         my ($nkey, $nvalue) = $_ =~ /(.*)=(.*)/;
-                # Support for several values for a single key if comma is set
-                if ( $nvalue =~ m/,/g ) {
-                    my @values = split( ',', $nvalue);
-                    $configKeys{$nkey} = \@values;
-                } else {
-                    $configKeys{$nkey} = $nvalue;
-                }
+# Support for several values for a single key if comma is set
+        if ( $nvalue =~ m/,/g ) {
+            my @values = split( ',', $nvalue);
+            $configKeys{$nkey} = \@values;
+        } else {
+            $configKeys{$nkey} = $nvalue;
+        }
     }
     close($CONF);
     return \%configKeys;
@@ -169,7 +164,7 @@ sub user
 {
     my $user = configkey('user');
     $user or throw EBox::Exceptions::External(
-        __('The ebox user has not been set in the config file.'));
+            __('The ebox user has not been set in the config file.'));
     return $user;
 }
 
@@ -177,7 +172,7 @@ sub groups
 {
     my @values = @{configkeys('group')};
     @values or throw EBox::Exceptions::External("The ebox group has not ".
-                        "been set in the config file.");
+            "been set in the config file.");
     my @groups;
     for my $group (@values) {
         if ($group =~ m/:/) {
@@ -201,7 +196,7 @@ sub group
 sub home
 {
     my $user = user();
-      my ($name,$passwd,$uid,$gid, $quota,$comment,$gcos,$dir,$shell,$expire) = getpwnam($user);
+    my ($name,$passwd,$uid,$gid, $quota,$comment,$gcos,$dir,$shell,$expire) = getpwnam($user);
     return $dir;
 }
 
@@ -255,7 +250,7 @@ sub tmp
 sub downloads
 {
 
-        return tmp() . 'downloads/';
+    return tmp() . 'downloads/';
 }
 
 sub passwd
@@ -273,9 +268,9 @@ sub passwd
 #      String - the path to that file
 
 sub sessionid
-  {
+{
     return $ref->{localstatedir} . 'lib/ebox/conf/ebox.sid';
-  }
+}
 
 # Method: scriptSession
 #
@@ -348,7 +343,7 @@ sub dynamicwwwSubdirs
 
 sub dynamicimages
 {
-  return dynamicwww() . 'images/';
+    return dynamicwww() . 'images/';
 }
 
 sub dynamicRSS
