@@ -94,9 +94,14 @@ sub configkey # (key)
 
     my @conffiles = glob(EBox::Config::etc() . "[0-9][0-9]*.conf");
 
-    foreach my $file (@conffiles){
+    foreach my $file (@conffiles) {
         $value = configkeyFromFile($key, $file);
         defined($value) and last;
+    }
+    if (defined($value)) {
+        return $value;
+    } else {
+        return '';
     }
 }
 

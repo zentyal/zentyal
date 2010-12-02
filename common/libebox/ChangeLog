@@ -1,5 +1,8 @@
 HEAD
 	+ Aesthetic improvement in modal boxes
+	+ Bugfix: Escape ' and " as HTML entities in gettext to fix
+	  problems with the dashboard in some languages
+	+ Fixed error when trying to read an undefined configkey
 2.0.3
 	+ Validation of domain names using Data::Validate::Domain
 	+ Added Bengali language
