@@ -53,7 +53,6 @@ sub new
 
     bless $self, $class;
     return $self;
-
 }
 
 # Method: viewCustomizer
@@ -81,10 +80,7 @@ sub viewCustomizer
     }
 
     return $customizer;
-
 }
-
-
 
 # Method: _table
 #
@@ -93,31 +89,25 @@ sub _table
 {
     my ($self) = @_;
 
-  my $dataTable =
-  {
-      tableName          => name(),
-      pageTitle         => __('Filter profiles'),
-      printableTableName => __('List of profiles'),
-      modelDomain        => 'Squid',
-      'defaultController' => '/ebox/Squid/Controller/FilterGroup',
-      'defaultActions' => [
-          'add', 'del',
-      'editField',
-      'changeView',
-          ],
-      tableDescription   => $self->tableHeader(),
-      class              => 'dataTable',
-      rowUnique          => 1,
-      automaticRemove    => 1,
-      printableRowName   => __("filter profile"),
-#      help               => __(""),
-      messages           => {
-          add => __(q{Added filter profile}),
-          del =>  __(q{Removed filter profile}),
-          update => __(q{Updated filter profile}),
-      },
-  };
-
+    my $dataTable =
+    {
+        tableName          => name(),
+        pageTitle         => __('Filter profiles'),
+        printableTableName => __('List of profiles'),
+        modelDomain        => 'Squid',
+        'defaultController' => '/ebox/Squid/Controller/FilterGroup',
+        'defaultActions' => [ 'add', 'del', 'editField', 'changeView' ],
+        tableDescription   => $self->tableHeader(),
+        class              => 'dataTable',
+        rowUnique          => 1,
+        automaticRemove    => 1,
+        printableRowName   => __("filter profile"),
+        messages           => {
+            add => __(q{Added filter profile}),
+            del =>  __(q{Removed filter profile}),
+            update => __(q{Updated filter profile}),
+        },
+    };
 }
 
 
@@ -125,32 +115,28 @@ sub tableHeader
 {
     my ($self) = @_;
 
-
     my @header = (
-                          new EBox::Types::Text(
-                                                   fieldName => 'name',
-                                                   printableName => __('Filter group'),
-                                                   editable      => 1,
-                                                  ),
-                          new EBox::Types::HasMany(
-                                 fieldName => 'filterPolicy',
-                                 printableName => __('Configuration'),
+            new EBox::Types::Text(
+                fieldName => 'name',
+                printableName => __('Filter group'),
+                editable      => 1,
+                ),
+            new EBox::Types::HasMany(
+                fieldName => 'filterPolicy',
+                printableName => __('Configuration'),
 
-                                 foreignModel => 'squid/FilterGroupSettings',
-                                 foreignModelIsComposite => 1,
+                foreignModel => 'squid/FilterGroupSettings',
+                foreignModelIsComposite => 1,
 
-                                 'view' => '/ebox/Squid/Composite/FilterGroupSettings',
-                                 'backView' => '/ebox/Squid/View/FilterGroup',
-                                ),
-                         );
-
+                'view' => '/ebox/Squid/Composite/FilterGroupSettings',
+                'backView' => '/ebox/Squid/View/FilterGroup',
+                ),
+            );
 
     return \@header;
 }
 
-
 my $defaultRow;
-
 
 sub defaultGroupName
 {
@@ -160,7 +146,6 @@ sub defaultGroupName
 sub _initDefaultRow
 {
     my ($self) = @_;
-
 
     my $dir   = $self->directory();
     $defaultRow = new EBox::Model::Row(
@@ -224,14 +209,14 @@ sub name
 
 sub validateTypedRow
 {
-  my ($self, $action, $params_r, $actual_r) = @_;
-  if (($self->size() + 1)  == MAX_DG_GROUP) {
-      throw EBox::Exceptions::External(
-     __('Maximum number of filter groups reached')
-                                      );
-  }
-}
+    my ($self, $action, $params_r, $actual_r) = @_;
 
+    if (($self->size() + 1)  == MAX_DG_GROUP) {
+        throw EBox::Exceptions::External(
+                __('Maximum number of filter groups reached')
+                );
+    }
+}
 
 # Method: idByRowId
 #
@@ -250,91 +235,85 @@ sub idByRowId
     return \%idByRowId;
 }
 
-
-
 sub filterGroups
 {
-  my ($self) = @_;
-  my @filterGroups = (  );
+    my ($self) = @_;
+    my @filterGroups = ();
 
-  my $squid   = EBox::Global->modInstance('squid');
-  my $usergroupPolicies =  $squid->model('GlobalGroupPolicy');
-  my %usersByFilterGroupId = %{ $usergroupPolicies->usersByFilterGroup()  };
+    my $squid = EBox::Global->modInstance('squid');
+    my $usergroupPolicies = $squid->model('GlobalGroupPolicy');
+    my %usersByFilterGroupId = %{ $usergroupPolicies->usersByFilterGroup()  };
 
+    # groups will have ids greater that this number
+    my $id = 0;
 
-  my $id = 0; # groups will have ids greater that this number
-              # remember id 1 is reserved for gd's default group so it must be
-              # the first to be getted
+    # remember id 1 is reserved for gd's default group so it must be
+    # the first to be getted
+    foreach my $rowId ( @{ $self->ids() } ) {
+        my $row = $self->row($rowId);
+        my $name  = $row->valueByName('name');
 
+        $id += 1;
+        if ($id > MAX_DG_GROUP) {
+            EBox::info("Filter group $name and following groups will use default content filter policy because the maximum number of Dansguardian groups is reached");
+            last;
+        }
 
-  foreach my $rowId ( @{ $self->ids() } ) {
-      my $row = $self->row($rowId);
-      my $name  = $row->valueByName('name');
+        if ($id == 1) {
+            # default filter group needs special tratment
+            push @filterGroups, $self->_defaultFilterGroup($row);
+            next;
+        }
 
-      $id += 1 ;
-      if ($id > MAX_DG_GROUP) {
-          EBox::info("Filter group $name and following groups will use default content filter policy because the maximum number of Dansguardian groups is reached");
-          last;
-      }
+        my $users;
+        if (exists $usersByFilterGroupId{$rowId}) {
+            $users = $usersByFilterGroupId{$rowId};
+        } else {
+            $users = [];
+        }
 
-      if ($id == 1) {
-          # defautl filter group needs special tratment
-          push @filterGroups, $self->_defaultFilterGroup($row);
-          next;
-      }
+        my %group = (
+                number => $id,
+                groupName => $name,
+                users  => $users,
+                defaults => {},
+                );
 
-      my $users;
-      if (exists $usersByFilterGroupId{$rowId}) {
-          $users = $usersByFilterGroupId{$rowId};
-      } else {
-          $users = [];
-      }
+        my $policy = $row->elementByName('filterPolicy')->foreignModelInstance();
 
-      my %group = (
-                   number => $id,
-                   groupName => $name,
-                   users  => $users,
-                   defaults => {},
-                  );
+        $group{antivirus} =
+            $policy->componentByName('FilterGroupAntiVirus', 1)->active(),
 
+            $group{threshold} =
+                $policy->componentByName('FilterGroupContentFilterThreshold', 1)->threshold();
 
-      my $policy = $row->elementByName('filterPolicy')->foreignModelInstance();
+        my $useDefault;
 
-      $group{antivirus} =
-          $policy->componentByName('FilterGroupAntiVirus', 1)->active(),
+        $useDefault = $policy->componentByName('UseDefaultExtensionFilter', 1);
+        if ($useDefault->useDefaultValue()) {
+            $group{defaults}->{bannedextensionlist} = 1;
+        }
+        else {
+            $group{bannedExtensions} =
+                $policy->componentByName('FilterGroupExtensionFilter', 1)->banned();
+        }
 
-      $group{threshold} =
-        $policy->componentByName('FilterGroupContentFilterThreshold', 1)->threshold();
+        $useDefault = $policy->componentByName('UseDefaultMIMEFilter', 1);
+        if ($useDefault->useDefaultValue()) {
 
-      my $useDefault;
+            $group{defaults}->{bannedmimetypelist} = 1;
+        }
+        else {
+            $group{bannedMIMETypes} =
+                $policy->componentByName('FilterGroupMIMEFilter', 1)->banned();
+        }
 
-      $useDefault = $policy->componentByName('UseDefaultExtensionFilter', 1);
-      if ($useDefault->useDefaultValue()) {
-          $group{defaults}->{bannedextensionlist} = 1;
-      }
-      else {
-          $group{bannedExtensions} =
-              $policy->componentByName('FilterGroupExtensionFilter', 1)->banned();
-      }
+        $self->_setFilterGroupDomainsPolicy(\%group, $policy);
 
-      $useDefault = $policy->componentByName('UseDefaultMIMEFilter', 1);
-      if ($useDefault->useDefaultValue()) {
+        push @filterGroups, \%group;
+    }
 
-          $group{defaults}->{bannedmimetypelist} = 1;
-      }
-      else {
-          $group{bannedMIMETypes} =
-              $policy->componentByName('FilterGroupMIMEFilter', 1)->banned();
-      }
-
-
-      $self->_setFilterGroupDomainsPolicy(\%group, $policy);
-
-      push @filterGroups, \%group;
-  }
-
-
-  return \@filterGroups;
+    return \@filterGroups;
 }
 
 
@@ -353,7 +332,6 @@ sub _setFilterGroupDomainsPolicy
 
         return;
     }
-
 
     my $domainFilter      = $policy->componentByName('FilterGroupDomainFilter', 1);
     my $domainFilterFiles = $policy->componentByName('FilterGroupDomainFilterFiles', 1);
@@ -378,13 +356,10 @@ sub _setFilterGroupDomainsPolicy
                              includes => $domainFilterFiles->filteredUrls(),
                             ];
 
-
     $group->{bannedurllist} = [
                                urls =>  => $domainFilter->bannedUrls(),
                                includes => $domainFilterFiles->bannedUrls(),
                               ];
-
-
 
     my $domainFilterSettings = $policy->componentByName('FilterGroupDomainFilterSettings', 1);
 
@@ -394,10 +369,7 @@ sub _setFilterGroupDomainsPolicy
                                 domains       => $domainFilter->banned(),
                                 includes      => $domainFilterFiles->banned(),
                                ];
-
-
 }
-
 
 sub _defaultFilterGroup
 {
@@ -406,104 +378,96 @@ sub _defaultFilterGroup
     my $policy = $row->elementByName('filterPolicy')->foreignModelInstance();
 
     my $default = {
-                   number => 1,
-                   groupName => 'default',
-                   antivirus =>
-                      $policy->componentByName('DefaultAntiVirus', 1)->active(),
-                   threshold =>
-                      $policy->componentByName('ContentFilterThreshold', 1)->contentFilterThresholdValue(),
-                   bannedExtensions =>
-                      $policy->componentByName('ExtensionFilter', 1)->banned(),
-                   bannedMIMETypes =>
-                      $policy->componentByName('MIMEFilter', 1)->banned(),
-                   defaults => {},
-                  };
+        number => 1,
+        groupName => 'default',
+        antivirus =>
+            $policy->componentByName('DefaultAntiVirus', 1)->active(),
+        threshold =>
+            $policy->componentByName('ContentFilterThreshold', 1)->contentFilterThresholdValue(),
+        bannedExtensions =>
+            $policy->componentByName('ExtensionFilter', 1)->banned(),
+        bannedMIMETypes =>
+            $policy->componentByName('MIMEFilter', 1)->banned(),
+        defaults => {},
+    };
 
     my $domainFilter      = $policy->componentByName('DomainFilter', 1);
     my $domainFilterFiles = $policy->componentByName('DomainFilterFiles', 1);
 
     $default->{exceptionsitelist} = [
-                        domains => $domainFilter->allowed(),
-                                     includes => $domainFilterFiles->allowed(),
-                       ];
+        domains => $domainFilter->allowed(),
+        includes => $domainFilterFiles->allowed(),
+    ];
 
     $default->{exceptionurllist} = [
-                                    urls => $domainFilter->allowedUrls(),
-                                    includes => $domainFilterFiles->allowedUrls(),
-                                   ];
+        urls => $domainFilter->allowedUrls(),
+        includes => $domainFilterFiles->allowedUrls(),
+    ];
 
     $default->{greysitelist} = [
-                        domains => $domainFilter->filtered(),
-                        includes => $domainFilterFiles->filtered(),
-                       ];
+        domains => $domainFilter->filtered(),
+        includes => $domainFilterFiles->filtered(),
+    ];
 
     $default->{greyurllist} = [
-                        urls => $domainFilter->filteredUrls(),
-                        includes => $domainFilterFiles->filteredUrls(),
-                       ];
-
-
+        urls => $domainFilter->filteredUrls(),
+        includes => $domainFilterFiles->filteredUrls(),
+    ];
 
     $default->{bannedurllist} = [
-                        urls     => $domainFilter->bannedUrls(),
-                        includes => $domainFilterFiles->bannedUrls(),
-                       ];
+        urls => $domainFilter->bannedUrls(),
+        includes => $domainFilterFiles->bannedUrls(),
+    ];
 
+    my $domainFilterSettings = $policy->componentByName('DomainFilterSettings', 1);
 
-
-  my $domainFilterSettings = $policy->componentByName('DomainFilterSettings', 1);
-
-  $default->{bannedsitelist} = [
-                    blockIp       => $domainFilterSettings->blockIpValue,
-                    blanketBlock  => $domainFilterSettings->blanketBlockValue,
-                    domains       => $domainFilter->banned(),
-                    includes      => $domainFilterFiles->banned(),
-                   ];
+    $default->{bannedsitelist} = [
+        blockIp       => $domainFilterSettings->blockIpValue,
+        blanketBlock  => $domainFilterSettings->blanketBlockValue,
+        domains       => $domainFilter->banned(),
+        includes      => $domainFilterFiles->banned(),
+    ];
 
     return $default;
 }
 
 
-
 sub antivirusNeeded
 {
-  my ($self) = @_;
+    my ($self) = @_;
 
-  my $id = 0;
-  foreach my $rowId ( @{ $self->ids() } ) {
-      my $antivirusModel;
-      my $row = $self->row($rowId);
-      my $policy =
-        $row->elementByName('filterPolicy')->foreignModelInstance();
+    my $id = 0;
+    foreach my $rowId ( @{ $self->ids() } ) {
+        my $antivirusModel;
+        my $row = $self->row($rowId);
+        my $policy =
+            $row->elementByName('filterPolicy')->foreignModelInstance();
 
-      if ($id == 0) {
-          # defautl group is always the first
-          $antivirusModel =
-            $policy->componentByName('DefaultAntiVirus', 1);
-      } elsif ($id > MAX_DG_GROUP) {
-          my $name  = $row->valueByName('name');
-          EBox::info(
- "Maximum nuber of dansguardian groups reached, group $name and  following groups antivirus configuration is not used"
-             );
-          last;
-      } else {
-          $antivirusModel =
-             $policy->componentByName('FilterGroupAntiVirus', 1);
-      }
+        if ($id == 0) {
+            # default group is always the first
+            $antivirusModel =
+                $policy->componentByName('DefaultAntiVirus', 1);
+        } elsif ($id > MAX_DG_GROUP) {
+            my $name  = $row->valueByName('name');
+            EBox::info(
+                    "Maximum nuber of dansguardian groups reached, group $name and  following groups antivirus configuration is not used"
+                    );
+            last;
+        } else {
+            $antivirusModel =
+                $policy->componentByName('FilterGroupAntiVirus', 1);
+        }
 
-      if ($antivirusModel->active()) {
-          return 1;
-      }
+        if ($antivirusModel->active()) {
+            return 1;
+        }
 
-      $id += 1 ;
-  }
+        $id += 1 ;
+    }
 
-  # no profile with antivirus enabled found...
-  return 0;
+    # no profile with antivirus enabled found...
+    return 0;
 }
-
-
-
 
 # this must be only called one time
 sub restoreConfig
@@ -528,6 +492,4 @@ sub _commercialMsg
 
 }
 
-
 1;
-
