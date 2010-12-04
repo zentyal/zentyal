@@ -38,7 +38,7 @@ use EBox::Validate qw(:all);
 use EBox::Model::ModelManager;
 use EBox::Model::CompositeManager;
 
-use EBox::Sudo qw(:all);
+use EBox::Sudo;
 use EBox::NetWrappers qw(:all);
 use EBox::Service;
 use EBox::DHCPLogHelper;
@@ -121,13 +121,29 @@ sub usedFiles
 	       ];
 }
 
+# Method: actions
+#
+#	Override EBox::Module::Service::actions
+#
+sub actions
+{
+    return [
+        {
+            'action' => __x('Disable {server} init sctript', server => 'dhcpd'),
+            'reason' => __('Zentyal will take care of start and stop ' .
+                'the service'),
+            'module' => 'dhcp',
+        }
+    ];
+}
+
 # Method: enableActions
 #
-# 	Override EBox::Module::Service::enableActions
+#   Override EBox::Module::Service::enableActions
 #
 sub enableActions
 {
-    root(EBox::Config::share() . '/ebox-dhcp/ebox-dhcp-enable');
+    EBox::Sudo::root(EBox::Config::share() . '/ebox-dhcp/ebox-dhcp-enable');
 }
 
 # Method: _daemons

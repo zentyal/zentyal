@@ -1,4 +1,5 @@
 HEAD
+	+ DHCP init.d script is disabled when enabling the module
 	+ Set default order for dashboard widgets
 2.0.1
 	+ Bugfix: Add to apparmor profile the bind keys file to read it to
