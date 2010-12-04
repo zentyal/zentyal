@@ -111,8 +111,6 @@ sub _chart
 
   my $chart = new Chart::Pie( _calcGraphSize($datasets, $chartParams)  );
 
-
-
   $chart->set (
                %{ $chartParams  }
             );
@@ -120,7 +118,6 @@ sub _chart
   foreach my $ds_r (@{ $datasets }) {
     $chart->add_dataset(  @{ $ds_r  });
   }
-
 
   $chart->png($imageLocation->{file});
 
@@ -286,8 +283,6 @@ sub usage
     $usageByFilesys{$fileSys}->{free}   = $freeSpace;
   }
 
-
-
   return \%usageByFilesys;
 }
 
@@ -345,10 +340,13 @@ sub _chartDatasets
 
   # we put free space and system usage first bz we want they have always the
   # same colors
-  push @labels, __('Free space');
+
+  # we don't translate the strings: 'Free space' and 'System' to avoid
+  # problems with special characters in some lenguages
+  push @labels, 'Free space';
   push @diskUsage, $freeSpace . ' Mb';
 
-  push @labels,     __('System');
+  push @labels,    'System';
   push @diskUsage, $systemUsage . ' Mb';
 
   while (my ($facilityName, $facilityUsage) = each %usageByFacility ) {

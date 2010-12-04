@@ -33,7 +33,7 @@ function updatePage (xmlHttp, nextStepTimeout, nextStepUrl) {
         else if (response.state == 'done') {
             Element.hide('progressing');
             Element.show('done');
-
+            pe.stop();
             if ( nextStepTimeout > 0 ) {
                 setTimeout ( "location.href='" + nextStepUrl + "';", nextStepTimeout*1000 );
             }
@@ -45,6 +45,7 @@ function updatePage (xmlHttp, nextStepTimeout, nextStepUrl) {
         else if (response.state == 'error') {
             Element.hide('progressing');
             Element.show('error-progress');
+            pe.stop();
             if ( 'errorMsg' in response.statevars ) {
                 $('error-progress-message').update(
                     response.statevars.errorMsg);

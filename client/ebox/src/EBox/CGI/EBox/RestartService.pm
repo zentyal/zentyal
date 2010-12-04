@@ -25,32 +25,35 @@ use EBox::Gettext;
 
 sub new # (cgi=?)
 {
-	my $class = shift;
-	my $self = $class->SUPER::new(@_);
-	bless($self, $class);
-	$self->{errorchain} = "/Dashboard/Index";
-	$self->{redirect} = "/Dashboard/Index";
-	return $self;
+    my $class = shift;
+    my $self = $class->SUPER::new(@_);
+    bless($self, $class);
+    $self->{errorchain} = "/Dashboard/Index";
+    $self->{redirect} = "/Dashboard/Index";
+    return $self;
 }
 
 sub domain
 {
-	return 'ebox';
+    return 'ebox';
 }
 
 sub _process
-
 {
-	my $self = shift;
+    my $self = shift;
 
-	my $global = EBox::Global->getInstance(1);
+    my $global = EBox::Global->getInstance(1);
 
-	$self->_requireParam('module', __('module name'));
-	my $mod = $global->modInstance($self->param('module'));
-	$self->{chain} = "/Dashboard/Index";
-	$mod->restartService();
-	$self->{msg} = __('The module was restarted correctly.');
-        $self->cgi()->delete_all();
+    $self->_requireParam('module', __('module name'));
+    my $mod = $global->modInstance($self->param('module'));
+    $self->{chain} = "/Dashboard/Index";
+    my $restart =  $mod->restartService();
+    if ($restart) {
+        $self->{msg} = __('The module was restarted correctly.');
+    } else {
+        $self->{msg} = __('Error restarting service. See /var/log/ebox/ebox.log for more information.');
+    }
+    $self->cgi()->delete_all();
 }
 
 1;
