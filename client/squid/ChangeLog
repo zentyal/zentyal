@@ -1,3 +1,5 @@
+HEAD
+	+ Filter profiles names with spaces are forbidden to avoid errors
 2.0.1
 	+ Added commercial message
 	+ Set DNS servers in Squid configuration

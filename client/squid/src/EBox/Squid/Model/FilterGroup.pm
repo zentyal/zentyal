@@ -21,6 +21,7 @@ use base 'EBox::Model::DataTable';
 use EBox;
 use EBox::Global;
 use EBox::Exceptions::Internal;
+use EBox::Exceptions::External;
 use EBox::Gettext;
 use EBox::Types::Text;
 use EBox::Squid::Types::Policy;
@@ -215,6 +216,15 @@ sub validateTypedRow
         throw EBox::Exceptions::External(
                 __('Maximum number of filter groups reached')
                 );
+    }
+
+    my $name = exists $params_r->{name} ?
+                      $params_r->{name}->value() :
+                      $actual_r->{name}->value();
+
+    # no whitespaces allowed in profile name
+    if ($name =~ m/\s/) {
+        throw EBox::Exceptions::External(__('No spaces are allowed in profile names'));
     }
 }
 
