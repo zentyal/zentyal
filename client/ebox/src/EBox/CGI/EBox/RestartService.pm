@@ -22,6 +22,8 @@ use base 'EBox::CGI::ClientBase';
 
 use EBox::Global;
 use EBox::Gettext;
+use EBox::Exceptions::Internal;
+use Error qw(:try);
 
 sub new # (cgi=?)
 {
@@ -47,12 +49,14 @@ sub _process
     $self->_requireParam('module', __('module name'));
     my $mod = $global->modInstance($self->param('module'));
     $self->{chain} = "/Dashboard/Index";
-    my $restart =  $mod->restartService();
-    if ($restart) {
+    try {
+        $mod->restartService();
         $self->{msg} = __('The module was restarted correctly.');
-    } else {
+    } catch EBox::Exceptions::Internal with {
+        my ($ex) = @_;
+        EBox::error("Restart of $mod from dashboard failed: " . $ex->text);
         $self->{msg} = __('Error restarting service. See /var/log/ebox/ebox.log for more information.');
-    }
+    };
     $self->cgi()->delete_all();
 }
 
