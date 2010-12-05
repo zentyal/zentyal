@@ -37,7 +37,6 @@ use constant {
   AMAVIS_SERVICE                => 'ebox.amavisd-new',
   AMAVIS_CONF_FILE              => '/etc/amavis/conf.d/amavisd.conf',
   AMAVISPIDFILE                 => '/var/run/amavis/amavisd.pid',
-  AMAVIS_INIT                   => '/etc/init.d/amavis',
                                    # which this modules provides
   MAILFILTER_NAME => 'mailfilter', # name used to identify the filter
                                    # which mavis provides
@@ -103,11 +102,11 @@ sub isRunning
 
 sub stopService
 {
-  my ($self) = @_;
+    my ($self) = @_;
 
-  if ($self->isRunning()) {
-    $self->_daemon('stop');
-  }
+    if ($self->isRunning()) {
+        $self->_daemon('stop');
+    }
 }
 
 sub writeConf
@@ -122,41 +121,38 @@ sub writeConf
 
     my @masonParams;
 
-    push @masonParams, ( myhostname => $self->_fqdn());
-    push @masonParams, ( mydomain => $self->_domain());
-    push @masonParams, ( localDomains => $self->_localDomains());
+    push @masonParams, (myhostname => $self->_fqdn());
+    push @masonParams, (mydomain => $self->_domain());
+    push @masonParams, (localDomains => $self->_localDomains());
 
     push @masonParams, (port => $self->port);
 
     push @masonParams, (allowedExternalMTAs => $self->allowedExternalMTAs);
 
-    push @masonParams, ( ldapBase         =>  $ldap->dn );
-    push @masonParams, ( ldapQueryFilter  =>  '(&(objectClass=amavisAccount)(|(mail=%m)(domainMailPortion=%m)))');
-    push @masonParams, ( ldapBindDn       =>  $ldap->rootDn );
-    push @masonParams, ( ldapBindPasswd   =>  $ldap->rootPw );
+    push @masonParams, (ldapBase         =>  $ldap->dn );
+    push @masonParams, (ldapQueryFilter  =>  '(&(objectClass=amavisAccount)(|(mail=%m)(domainMailPortion=%m)))');
+    push @masonParams, (ldapBindDn       =>  $ldap->rootDn );
+    push @masonParams, (ldapBindPasswd   =>  $ldap->rootPw );
 
-    push @masonParams, ( antivirusActive  => $self->antivirus());
-    push @masonParams, ( virusPolicy      => $self->filterPolicy('virus'));
-    push @masonParams, ( clamdSocket     => $antivirus->localSocket());
+    push @masonParams, (antivirusActive  => $self->antivirus());
+    push @masonParams, (virusPolicy      => $self->filterPolicy('virus'));
+    push @masonParams, (clamdSocket     => $antivirus->localSocket());
 
-    push @masonParams, ( antispamActive     => $self->antispam());
-    push @masonParams, ( spamThreshold => $antispam->spamThreshold());
-    push @masonParams, ( spamSubject   =>  $antispam->spamSubjectTag);
-    push @masonParams, ( spamPolicy         => $self->filterPolicy('spam'));
-    push @masonParams,
-        ( antispamWhitelist  => $antispam->whitelistForAmavisConf());
-    push @masonParams,
-        ( antispamBlacklist  => $antispam->blacklistForAmavisConf());
+    push @masonParams, (antispamActive     => $self->antispam());
+    push @masonParams, (spamThreshold => $antispam->spamThreshold());
+    push @masonParams, (spamSubject   =>  $antispam->spamSubjectTag);
+    push @masonParams, (spamPolicy         => $self->filterPolicy('spam'));
+    push @masonParams, (antispamWhitelist  => $antispam->whitelistForAmavisConf());
+    push @masonParams, (antispamBlacklist  => $antispam->blacklistForAmavisConf());
 
-    push @masonParams, ( bannedPolicy      => $self->filterPolicy('banned'));
-    push @masonParams, ( bannedFileTypes   => $self->bannedFilesRegexes);
+    push @masonParams, (bannedPolicy      => $self->filterPolicy('banned'));
+    push @masonParams, (bannedFileTypes   => $self->bannedFilesRegexes);
 
-    push @masonParams, ( bheadPolicy      => $self->filterPolicy('bhead'));
+    push @masonParams, (bheadPolicy      => $self->filterPolicy('bhead'));
 
     push @masonParams, (adminAddress => $self->adminAddress);
 
     push @masonParams, (debug => EBox::Config::configkey('debug') eq 'yes');
-
 
     my $uid = getpwnam('root');
     my $gid = getgrnam('root');
@@ -223,8 +219,6 @@ sub _confAttr
     return $row->valueByName($attr);
 }
 
-
-
 sub _domain
 {
     my $domain = `hostname --domain`;
@@ -240,7 +234,6 @@ sub _domain
     if (not $domain) {
         return 'localdomain';
     }
-
 
     return $domain;
 }
@@ -408,8 +401,7 @@ sub mailFilter
 {
     my ($self) = @_;
 
-
-    my $name       = $self->mailFilterName;
+    my $name = $self->mailFilterName;
     my $active;
 
     my $module = EBox::Global->modInstance('mailfilter');
