@@ -427,6 +427,7 @@ sub isRunning
 sub addModuleStatus
 {
     my ($self, $section) = @_;
+
     my $enabled = $self->isEnabled();
     my $running = $self->isRunning();
     my $name = $self->name();
@@ -691,27 +692,27 @@ sub _regenConfig
 #
 sub restartService
 {
-	my $self = shift;
+    my $self = shift;
 
-	$self->_lock();
-	my $global = EBox::Global->getInstance();
-	my $log = EBox::logger;
+    $self->_lock();
+    my $global = EBox::Global->getInstance();
+    my $log = EBox::logger;
 
-	if (not $self->isEnabled()) {
-		$log->info("Skipping restart for $self->{name} as it's disabled");
-		return;
-	}
+    if (not $self->isEnabled()) {
+        $log->info("Skipping restart for $self->{name} as it's disabled");
+        return;
+    }
 
-	$log->info("Restarting service for module: " . $self->name);
-	try {
-            $self->_regenConfig('restart' => 1);
-	} otherwise  {
-            my ($ex) = @_;
-            $log->error("Error restarting service: $ex");
-            throw $ex;
-        } finally {
-		$self->_unlock();
-	};
+    $log->info("Restarting service for module: " . $self->name);
+    try {
+        $self->_regenConfig('restart' => 1);
+    } otherwise  {
+        my ($ex) = @_;
+        $log->error("Error restarting service: $ex");
+        throw $ex;
+    } finally {
+        $self->_unlock();
+    };
 }
 
 # Method: _supportActions
@@ -838,7 +839,6 @@ sub disableApparmorProfile
             EBox::Sudo::root('invoke-rc.d apparmor restart');
         }
     }
-
 }
 
 1;
