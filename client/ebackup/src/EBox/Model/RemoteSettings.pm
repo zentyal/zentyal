@@ -378,9 +378,9 @@ sub _crontabWeekDayAndUser
     }
 
     if ($equal) {
-        return "* $user test \$(date +\%w) -eq $weekDay && ";
+        return "* $user test \$(date +\\\%w) -eq $weekDay && ";
     } else {
-        return "* $user test \$(date +\%w) -ne $weekDay && ";
+        return "* $user test \$(date +\\\%w) -ne $weekDay && ";
     }
 }
 
