@@ -1,5 +1,6 @@
 HEAD
 	+ Filter profiles names with spaces are forbidden to avoid errors
+	+ Avoid problems with some languages on disk usage graph
 2.0.1
 	+ Added commercial message
 	+ Set DNS servers in Squid configuration

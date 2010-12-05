@@ -1258,7 +1258,7 @@ sub _facilitiesForDiskUsage
   my ($self) = @_;
 
   my $cachePath          = '/var/spool/squid';
-  my $cachePrintableName = __(q{HTTP Proxy's cache files} );
+  my $cachePrintableName = 'HTTP Proxy cache';
 
   return {
           $cachePrintableName => [ $cachePath ],
