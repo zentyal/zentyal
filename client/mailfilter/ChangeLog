@@ -1,4 +1,7 @@
 HEAD
+	+ Manage exception when ebox.amavisd-new is missing. It never
+	  should be missing unless unfinished or wrong installation.
+	  But at least now it doesn't crash the entire dashboard.
 	+ Replaced lha uncompressor with rar and 7zip
 	+ Set default order for dashboard widgets
 2.0.1
