@@ -4,7 +4,7 @@
 if ! [ -f '/var/lib/ebox/.first' ]
 then
     # Disable auto login once installation is done
-    sed -i "s/auto_login.*/auto_login\tno/" /etc/slim.conf
+    sed -i "s/.*autologin=.*/# autologin=nobody/" /etc/lxdm/default.conf
 
     # Remove temporal local repository
     sed -i "/deb file.*ebox-packages/d" /etc/apt/sources.list
@@ -14,6 +14,6 @@ then
     rm -rf /var/tmp/ebox
 fi
 
-/etc/init.d/slim restart
+/etc/init.d/lxdm restart
 
 exit 0
