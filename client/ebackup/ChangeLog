@@ -1,4 +1,4 @@
-HEAD
+2.0.6
 	+ Using /etc/cron.d instead of ebox crontab for scheduled
 	  backups
 	+ Fixed error in scheduled backups using week days
