@@ -1,4 +1,4 @@
-HEAD
+2.0.2
 	+ Manage exception when ebox.amavisd-new is missing. It never
 	  should be missing unless unfinished or wrong installation.
 	  But at least now it doesn't crash the entire dashboard.
