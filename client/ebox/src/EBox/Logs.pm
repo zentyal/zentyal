@@ -268,6 +268,18 @@ sub getLogsModules
     return [grep { $_->configured() } @{$global->modInstancesOfType('EBox::LogObserver')}];
 }
 
+# Method: getAllTables
+#
+#       Get the table information from all modules which implements
+#       the log observer
+#
+# Return:
+#
+#       hash ref - the table information indexed by table name (index)
+#       as returned by <EBox::LogObserver::tableInfo> + 'helper'
+#       component which is the module that implements the LogObserver
+#       interface
+#
 sub getAllTables
 {
     my ($self) = @_;
@@ -297,7 +309,9 @@ sub getAllTables
 # Returns:
 #
 #       hash ref - the table information returned by
-#       <EBox::LogObserver::tableInfo>
+#       <EBox::LogObserver::tableInfo> + 'helper'
+#       component which is the module that implements the LogObserver
+#       interface
 #
 sub getTableInfo
 {
@@ -412,7 +426,7 @@ sub _checkValidDate # (date)
 #       to - String which represents the "to" date in "year-month-day
 #       hour:min:sec" format
 #
-#       index - String the module's name in lower case
+#       index - String the table's name
 #
 #       pagesize - Int the page's size to return the result
 #

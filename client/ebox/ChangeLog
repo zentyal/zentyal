@@ -1,3 +1,6 @@
+HEAD
+	+ File sharing and mailfilter log event watchers works again since
+	  it is managed several log tables per module
 2.0.8
 	+ Replaced zentyal-conf script with the more powerful zentyal-redisvi
 	+ Set always the same default order for dashboard widgets

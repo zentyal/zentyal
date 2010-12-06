@@ -232,7 +232,7 @@ sub _description
           $loggersMsg = join(', ', @names);
           # XX Delete
 #           my @loggers = keys %{$loggerTables};
-          
+
 #           $loggersMsg = join( ', ',
 #                               map { $logs->getTableInfo($_)->{name} } @loggers);
       }
@@ -249,13 +249,14 @@ sub _createEvents
 {
     my ($self, $loggerName, $rows) = @_;
 
+    my $helperMod = $self->{logs}->getTableInfo($loggerName)->{helper};
+
     my @retEvents = ();
     foreach my $row (@{$rows}) {
-        my $logger = EBox::Global->modInstance($loggerName);
         push(@retEvents, new EBox::Event(
-                                         message => $logger->humanEventMessage($row),
+                                         message => $helperMod->humanEventMessage($row),
                                          level   => 'info',
-                                         source  => $self->name() . '/' . $loggerName,
+                                         source  => $self->name() . '-' . $loggerName,
                                         )
             );
     }

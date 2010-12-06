@@ -64,7 +64,7 @@ sub enableLog
 #       ref with these fields:
 #
 #        - name: the printable name of the table
-#        - index: the name of the table         
+#        - index: the name of the table
 #        - titles: A hash ref with the table fields and theirs user read
 #               translation.
 #        - order: An array with table fields ordered.
