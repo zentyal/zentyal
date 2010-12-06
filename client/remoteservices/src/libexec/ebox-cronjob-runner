@@ -50,7 +50,7 @@ sub _runCronJobs
         }
         # The period is in minutes
         my $period        = $yaml->[0]->{period};
-        my $lastTimestamp = $yaml->[0]->{lastTimestap};
+        my $lastTimestamp = $yaml->[0]->{lastTimestamp};
         if ( $lastTimestamp + ($period * 60) < time() ) {
             foreach my $fileName (qw(exitValue stderr stdout)) {
                 unlink("$cronJobDirPath/$fileName") if -e "$cronJobDirPath/$fileName";

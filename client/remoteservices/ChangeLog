@@ -1,4 +1,5 @@
 HEAD
+	+ Typo fix to run cron job when the period says to do
 	+ Set default order for dashboard widgets
 2.0.5
 	+ Set hostname as default value for server name
