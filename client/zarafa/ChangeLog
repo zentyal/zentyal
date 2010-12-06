@@ -1,4 +1,6 @@
 HEAD
+	+ Set the right permissions and group for certificates issued by
+	  CA module
 	+ Improved performance by adding zarafaAccount LDAP index.
 2.0.2
 	+ Added create/delete account hooks support.

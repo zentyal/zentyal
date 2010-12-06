@@ -452,8 +452,8 @@ sub certificates
              service =>  __('Zarafa Gateway Server'),
              path    =>  '/etc/zarafa/ssl/ssl.pem',
              user => 'root',
-             group => 'zarafa',
-             mode => '0440',
+             group => 'root',
+             mode => '0400',
         },
     ];
 }
