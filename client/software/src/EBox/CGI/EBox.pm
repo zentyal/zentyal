@@ -71,6 +71,7 @@ sub _process
     push(@array, 'isGateway'    => $software->isInstalled('ebox-gateway'));
     push(@array, 'isCommunication'    => $software->isInstalled('ebox-communication'));
     push(@array, 'updateList'    => $updateList);
+    push(@array, 'brokenPackages'     => $software->listBrokenPkgs());
 
     $self->{params} = \@array;
 }

@@ -1,5 +1,6 @@
 <%args>
     @eboxpkgs => ()
+    @brokenPackages => ()
     $updateStatus
     $QAUpdates
     $isOffice
@@ -171,7 +172,7 @@ var pkgTable = new Array(
 </script>
 
 % my $file = '/var/lib/ebox/.first';
-% unless (-f $file) {
+% unless ((-f $file) or @brokenPackages) {
 <& /software/updateNote.mas, status => $updateStatus, qa => $QAUpdates &>
 % }
 
@@ -187,6 +188,42 @@ var pkgTable = new Array(
 % }
 
 
+% if (@brokenPackages) {
+<div class='error'>
+    <% __('The following packages are not properly installed. You need to fix this before trying to use them or install new modules.') %>
+</div>
+<div>
+
+<table cellspacing="1" cellpadding="0" class="dataTable" style="margin: 10px 0">
+    <thead>
+        <tr>
+            <th class="tleft"><% __('Component') %></th>
+            <th class="tleft"><% __('Description') %></th>
+            <th class="tleft"><% __('Version') %></th>
+        </tr>
+    </thead>
+    <tbody>
+% foreach my $pkg (@brokenPackages) {
+    <tr class="data line0">
+      <td><% $pkg->{name} %></td>
+      <td><% $pkg->{description} %></td>
+      <td><% $pkg->{version} %></td>
+    </tr>
+% }
+</tbody></table>
+</div>
+<div class='note'>
+    <% __('To solve this situation, please try to execute the following command in the console:') %>
+    <br/>
+    <br/>
+    <b>sudo dpkg --configure -a</b>
+    <br/>
+    <br/>
+    <% __x('After the above command is finished you can reload this page. If the problem persists, you can ask for help in the {ofhref}community forum{chref} or file a ticket in the {othref}Zentyal trac{chref}.',
+           othref => '<a href="http://trac.zentyal.org/newticket" target="_blank">',
+           ofhref => '<a href="http://forum.zentyal.org/" target="_blank">', chref => '</a>') %>
+</div>
+% } else {
 <div style="padding: 15px 0">
 <div id="basic">
     <a href='#' onclick="Effect.Fade('basic', { duration: 0.3 }); Effect.Appear('advanced', { duration: 0.3, queue: 'end' })"><%__('View advanced mode')%></a>
@@ -592,6 +629,7 @@ var pkgTable = new Array(
     </div>
 </div>
 </div>
+% }
 
 <script>
     var insTable = new Array();

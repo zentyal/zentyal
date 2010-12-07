@@ -1,4 +1,6 @@
 HEAD
+	+ Treat wrong installed packages as not-existent modules
+	+ Added a warning in dashboard informing about broken packages
 	+ File sharing and mailfilter log event watchers works again since
 	  it is managed several log tables per module
 2.0.8

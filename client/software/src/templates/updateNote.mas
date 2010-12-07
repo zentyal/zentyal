@@ -15,7 +15,7 @@ if ($qa) {
             ohent => '<a href="http://store.zentyal.com/serversubscriptions/subscription-enterprise.html" target="_blank">',
             ch    => '</a>',
             );
-	$class = 'error';
+	$class = 'warning';
 }
 </%init>
 <div class='<% $class %>'>

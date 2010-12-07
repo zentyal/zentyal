@@ -2,6 +2,8 @@
     @dashboard1
     @dashboard2
     %toggled
+    @brokenPackages
+    $softwareInstalled => 0
 </%args>
 <%init>
 use EBox::Gettext;
@@ -113,6 +115,19 @@ function updateGraph(element,value) {
 </script>
 
 <a href="#" onclick='configureWidgets(); return false;' ><% __('Configure widgets') %></a>
+% if (@brokenPackages) {
+<div class='error'>
+    <% __x('The following packages are not properly installed: {packages}.',
+           packages => join (' ', @brokenPackages)) %>
+% if ($softwareInstalled) {
+    <% __x('Go to {ohref}Software Management{chref} for more information.',
+           ohref => '<a href="/ebox/Software/EBox/">', chref => '</a>') %>
+% } else {
+    <% __x('To solve this situation, please try to execute the following command in the console: {cmd}',
+           cmd => '<b>sudo dpkg --configure -a</b>') %>
+% }
+</div>
+% }
 <div style='clear: right;'/>
 <div class='dashboard' id="dashboard1">
 <br/>

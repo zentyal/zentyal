@@ -42,6 +42,8 @@ use POSIX qw(setuid setgid setlocale LC_ALL);
 use Perl6::Junction qw(any all);
 
 use Digest::MD5;
+use AptPkg::Cache;
+use File::stat;
 
 # Constants
 use constant {
@@ -50,6 +52,11 @@ use constant {
     TIMESTAMP_KEY   => 'saved_timestamp',
 };
 
+my @CORE_MODULES = qw(sysinfo apache events global logs);
+
+my $lastDpkgStatusMtime = undef;
+my $_cache = undef;
+my $_brokenPackages = {};
 
 #redefine inherited method to create own constructor
 #for Singleton pattern
@@ -139,7 +146,30 @@ sub _writeModInfo
 sub modExists # (module)
 {
     my ($self, $name) = @_;
-    return defined($self->_className($name));
+
+    # Check if module package is properly installed
+    #
+    # No need to check core modules because if
+    # ebox package is not properly installed nothing
+    # of this is going to work at all.
+    #
+    if ($name eq any(@CORE_MODULES)) {
+        return 1;
+    } else {
+        # Fall back to the classical implementation
+        # if we are in middle of a package installation
+        if ($ENV{DPKG_RUNNING_VERSION}) {
+            return defined($self->_className($name));
+        }
+
+        my $package = "ebox-$name";
+        # Special case for the usersandgroups modules that
+        # are the exception for the above naming rule
+        if ($name =~ /^user/) {
+            $package = 'ebox-usersandgroups';
+        }
+        return _packageInstalled($package);
+    }
 }
 
 # Method: modEnabled
@@ -424,6 +454,30 @@ sub prepareSaveAllModules
     return $self->_prepareActionScript('saveAllModules', $totalTicks);
 }
 
+sub packageCache
+{
+    my $status = stat('/var/lib/dpkg/status');
+    my $currentMtime = $status->mtime();
+
+    if (defined ($lastDpkgStatusMtime)) {
+        # Regenerate cache only if status file has changed
+        if ($currentMtime != $lastDpkgStatusMtime) {
+            $_cache = new AptPkg::Cache;
+            $_brokenPackages = {};
+        }
+    } else {
+        $_cache = new AptPkg::Cache;
+    }
+    $lastDpkgStatusMtime = $currentMtime;
+
+    return $_cache;
+}
+
+sub brokenPackages
+{
+    my @names = keys %{$_brokenPackages};
+    return \@names;
+}
 
 sub _prepareActionScript
 {
@@ -1104,6 +1158,30 @@ sub _nScripts
         closedir($dh);
     }
     return $nScripts;
+}
+
+sub _packageInstalled
+{
+    my ($name) = @_;
+
+    my $cache = packageCache();
+
+    if (exists $_brokenPackages->{$name}) {
+        return 0;
+    }
+
+    my $installed = 0;
+    if ($cache->exists($name)) {
+        my $pkg = $cache->get($name);
+        if ($pkg->{SelectedState} == AptPkg::State::Install) {
+            $installed = ($pkg->{InstState} == AptPkg::State::Ok and
+                          $pkg->{CurrentState} == AptPkg::State::Installed);
+            unless ($installed) {
+                $_brokenPackages->{$name} = 1;
+            }
+        }
+    }
+    return $installed;
 }
 
 1;

@@ -112,6 +112,12 @@ sub masonParameters
     push(@params, 'dashboard1' => \@dashboard1);
     push(@params, 'dashboard2' => \@dashboard2);
     push(@params, 'toggled' => $sysinfo->toggledElements());
+
+    push(@params, 'brokenPackages' => $global->brokenPackages());
+    if (EBox::Global->modExists('software')) {
+        push(@params, 'softwareInstalled' => 1);
+    }
+
     return \@params;
 }
 

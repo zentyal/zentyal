@@ -1,3 +1,6 @@
+HEAD
+	+ Improved performance using global package cache
+	+ Show a helpful page if there are half-installed packages
 2.0.4
 	+ Fixed defunct process due to uncaught SIGPIPE
 	+ Always end safely the installation of packages regardless of any

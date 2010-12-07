@@ -94,6 +94,40 @@ sub listEBoxPkgs
     return $eboxlist;
 }
 
+# Method: listBrokenPkgs
+#
+#       Get the list of the not properly installed Zentyal packages
+#       with information about them.
+#
+# Returns:
+#
+#	array ref of hashes holding the following keys:
+#
+#	name - name of the package
+#	description - short description of the package
+#	version - version installed
+#
+sub listBrokenPkgs
+{
+    my ($self) = @_;
+
+    my $cache = $self->_cache();
+
+    my @list;
+    for my $pack (@{$self->_brokenPackages()}) {
+        my $pkg = $cache->packages()->lookup($pack);
+        my %data;
+        $data{'name'} = $pkg->{Name};
+        $data{'description'} = $pkg->{ShortDesc};
+        if ($cache->{$pack}{CurrentVer}) {
+            $data{'version'} = $cache->{$pack}{CurrentVer}{VerStr};
+        }
+        push (@list, \%data);
+    }
+    return \@list;
+}
+
+
 # Method: installPkgs
 #
 #	Installs a list of packages via apt
@@ -380,7 +414,8 @@ sub listPackageInstallDepends
 sub listPackageDescription
 {
 	my ($self, $packages) = @_;
-	my $cache = AptPkg::Cache->new;
+
+	my $cache = $self->_cache();
 
 	my @list;
 	for my $pack ( @$packages) {
@@ -479,12 +514,15 @@ sub _packageDepends
 sub isInstalled
 {
     my ($self, $name) = @_;
-    my $cache = AptPkg::Cache->new;
-    my $package = $cache->{$name};
-    if ($package and $package->{CurrentState} eq 'Installed'){
+
+    my $cache = $self->_cache();
+    my $pkg = $cache->{$name};
+    if ($pkg and $pkg->{InstState} == AptPkg::State::Ok
+             and $pkg->{CurrentState} == AptPkg::State::Installed) {
         return 1;
+    } else {
+        return 0;
     }
-    return 0;
 }
 
 
@@ -698,7 +736,7 @@ sub _getInfoEBoxPkgs
 {
     my ($self) = @_;
 
-    my $cache = AptPkg::Cache->new;
+    my $cache = $self->_cache();
     my @list;
     for my $pack (keys %$cache) {
         if ($pack =~ /^libebox$|^ebox$|^ebox-.*|^zentyal-.*/) {
@@ -725,9 +763,10 @@ sub _getUpgradablePkgs
 {
     my ($self) = @_;
 
-    my $cache = AptPkg::Cache->new();
+    my $cache = $self->_cache();
     my @list;
     for my $pack (keys %$cache) {
+        # FIXME: Has this any sense now we have dropped our custom kernel?
         unless ($pack =~ /.*kernel-image.*|.*linux-image.*/) {
             my $pkgCache = $cache->packages()->lookup($pack) or next;
             my %data;
@@ -735,7 +774,7 @@ sub _getUpgradablePkgs
             my $currentVerObj = $cache->{$pack}{CurrentVer};
 
             if ($currentVerObj) {
-                if ($currentVerObj->{VerStr} eq $pkgCache->{VerStr} ) {
+                if ($currentVerObj->{VerStr} eq $pkgCache->{VerStr}) {
                     next;
                 }
             } else {
@@ -751,7 +790,6 @@ sub _getUpgradablePkgs
 
             push(@list, \%data);
         }
-
     }
 
     return \@list;
@@ -764,7 +802,7 @@ sub _candidateVersion
 
     my $qa = 0;
     my $security = 0;
-    my $version  = "";
+    my $version  = '';
 
     # We assume the VersionList returns the first element the
     # latest package version but we have to take just the
@@ -822,21 +860,6 @@ sub _candidateVersion
     }
 
     return { qa => $qa, security => $security, version => $version };
-}
-
-#return the distro name
-sub _getDistroId
-{
-	my $distroFile = '/etc/lsb-release';
-	open(FILE, $distroFile);
-	my $distro = <FILE>;
-	close(FILE);
-	chop($distro);
-	if ($distro =~ /.*=(.*)/) {
-		return $1;
-	} else {
-		return '';
-	}
 }
 
 # Check if the module is locked or not
@@ -1050,6 +1073,24 @@ sub _QAExclusive
 {
     my $exclusiveSource =  EBox::Config::configkey('qa_updates_exclusive_source');
     return (lc($exclusiveSource) eq 'true');
+}
+
+sub _cache
+{
+    my ($self) = @_;
+
+    return EBox::Global->packageCache();
+}
+
+sub _brokenPackages
+{
+    my ($self) = @_;
+
+    # Force call to modExists for all modules
+    # in order to refresh values after apache restart
+    EBox::Global->modNames();
+
+    return EBox::Global->brokenPackages();
 }
 
 1;
