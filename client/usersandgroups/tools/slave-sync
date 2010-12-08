@@ -2,6 +2,13 @@
 use strict;
 use warnings;
 
+# Performance improvement:
+# Do not load anything if there are no
+# pending operations in userjournal directories
+unless (grep { -d $_ } </var/lib/ebox*/conf/userjournal/*>) {
+    exit 0;
+}
+
 use EBox;
 use EBox::Config;
 use EBox::Global;
@@ -13,8 +20,6 @@ my $mode = 'run';
 if (($#ARGV == 0) and ($ARGV[0] eq '-l')) {
     $mode = 'list';
 }
-
-
 
 EBox::init();
 my $users = EBox::Global->modInstance('users');
@@ -99,7 +104,5 @@ sub processDir
     }
     closedir($jdir);
 }
-
-
 
 1;
