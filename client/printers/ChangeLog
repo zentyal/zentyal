@@ -1,3 +1,6 @@
+HEAD
+	+ Include support for HP printers by default
+	+ Remove duplicated table creation in enable script
 2.0.1
 	+ Bug fix: cups daemon is now started before samba one
 1.5.2

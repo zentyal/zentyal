@@ -3,9 +3,6 @@
 # stop cups
 invoke-rc.d cups stop
 
-# create log table
-/usr/share/ebox/ebox-sql-table add jobs /usr/share/ebox/sqllog/printers.sql
-
 # create spool
 if [ ! -d /var/spool/samba ]; then
     mkdir /var/spool/samba
