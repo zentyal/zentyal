@@ -193,17 +193,17 @@ my %callbackByRe = (
     qr{^Initialization Sequence Completed$} =>\&_startedEvent,
 
     qr{
-       ^([\d\.]+?):\d+\s        # client ip:port
-       VERIFY\s([\w\s]+):\s   # VERIFY [status]:
-        (.*)$                   #  more information (containst the client's certificatw)
-      }x   =>\&_verifiyEvent,
+       ^([\d\.]+?):\d+\s       # client ip:port
+       VERIFY\s([\w\s]+):\s    # VERIFY [status]:
+       (.*)$                   #  more information (containst the client's certificatw)
+      }x =>\&_verifyEvent,
 
     qr{
        ^[\d\.]+:\d+\s    # client ip and port
        \[(.*?)\]\s       # client certificate CN
        Peer\sConnection\sInitiated\swith\s
-       ([\d\.]+?):\d+$    # client ip and port (we will use this instead of the first)
-      }x =>\&_peerConnectionEvent,
+       \[AF_.*\]([\d\.]+?):\d+$    # client ip and port (we will use this instead of the first)
+      }x => \&_peerConnectionEvent,
 
     qr{
         \[(.*?)\]\s       # server certificate CN
@@ -241,7 +241,7 @@ sub _startedEvent
     return { name => 'initialized' };
 }
 
-sub _verifiyEvent
+sub _verifyEvent
 {
     my $ip     = $1;
     my $status = $2;
@@ -251,7 +251,6 @@ sub _verifiyEvent
 
     my $event;
     if ($status eq 'OK') {
-
         # we ignore the verification ok event for now
         return undef;
     }elsif ($status eq 'X509NAME ERROR' ) {
