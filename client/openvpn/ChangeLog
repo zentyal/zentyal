@@ -1,5 +1,6 @@
 HEAD
 	+ Bugfix: VPN client connections are logged again
+	+ Changed download client bundle text to "Download"
 	+ Set default order for dashboard widgets
 2.0.4
 	+ Bugfix: VPN servers are correctly disabled when their certificates are

@@ -103,6 +103,7 @@ sub _table
     {
         'tableName'               => __PACKAGE__->nameFromClass(),
         'printableTableName' => __('Download Client Bundle'),
+        'printableActionName' => __('Download'),
         'automaticRemove' => 1,
         'defaultController' => '/ebox/OpenVPN/Controller/DownloadClientBundle',
         'defaultActions' => ['add', 'del', 'editField',  'changeView' ],
