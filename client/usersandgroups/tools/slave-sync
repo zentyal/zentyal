@@ -23,12 +23,13 @@ if (($#ARGV == 0) and ($ARGV[0] eq '-l')) {
 
 EBox::init();
 my $users = EBox::Global->modInstance('users');
-$users->configured() or
+$users->configured() or exit 0;
+
+try {
+    @{$users->listSlaves()} or exit 0;
+} otherwise {
     exit 0;
-($users->mode() eq 'master') or
-    exit 0;
-@{$users->listSlaves()} or
-    exit 0;
+};
 
 processDir(EBox::Config::conf() . "userjournal/");
 processDir(EBox::UserCorner::usercornerdir() . "userjournal/");

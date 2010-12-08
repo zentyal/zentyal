@@ -1,5 +1,6 @@
 HEAD
 	+ Optimize slave-sync script if there are no pending operations
+	+ Remove useless call to mode() on slave-sync script (faster now)
 	+ Replica LDAP listens in all interfaces
 2.0.7
 	+ Added index add mechanism to LdapModule
