@@ -9,7 +9,7 @@
 use EBox::Gettext;
 </%init>
 
-% if (@{$mqlist}) { 
+% if (@{$mqlist}) {
 
 <table class='dataTable' cellspacing='0'>
 	<thead>
@@ -28,7 +28,7 @@ use EBox::Gettext;
 % foreach my $row (@{$mqlist}) {
 	<tr>
 %	foreach my $field (@order) {
-                
+
 %               if (not exists $row->{$field}) {
 			<td><% $row->{$field} %></td>
 %		} elsif ((ref $row->{$field}) eq 'ARRAY') {
@@ -116,7 +116,7 @@ use EBox::Gettext;
 
 	<td style="width:90%; text-align: center;">
 %	if ($tpages <= 0) {
-		<% __('Page') %> <% $page %> 
+		<% __('Page') %> <% $page %>
 %	} else {
 		<% __('Page') %> <% $page %> <% __('of') %> <%$tpages%>
 %	}
@@ -143,7 +143,7 @@ use EBox::Gettext;
 
 % } else {
 <div class='note'>
-	<% __('There is no messages in queue or the service is stopped') %>
+	<% __('There are no messages in queue or the service is stopped') %>
 </div>
 % }
 
