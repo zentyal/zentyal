@@ -47,7 +47,7 @@ use POSIX;
 <%init>
   # Fetch table head from model
   my @tableHead = @{$model->table()->{'tableDescription'}};
-  # Pointer to different values for convenience 
+  # Pointer to different values for convenience
   my $actions = $model->table()->{'actions'};
   my $changeView = $model->action('changeView');
   my $printableRowName = $model->table()->{'printableRowName'};
@@ -61,7 +61,7 @@ use POSIX;
   }
   unless ($page) {
     $page = 0;
-  } 
+  }
   # Fetch the edited row if we are editing one
   my $rowEdit;
   if ($editid and ($editid ne 'undefined')) {
@@ -121,20 +121,20 @@ use POSIX;
    title => $model->headTitle()
 &>
 %    }
-%    if ($changeView and exists $actions->{'add'}) 
+%    if ($changeView and exists $actions->{'add'})
 %    {
   <a href='#' class='addNew'
-      name='add' 
+      name='add'
          onClick='<%
-                 $model->changeViewJS( changeType => "changeAdd", 
-                      editId => "undefined", 
+                 $model->changeViewJS( changeType => "changeAdd",
+                      editId => "undefined",
                       page => $page,
-                      isFilter => 0) 
+                      isFilter => 0)
                 %>;return false'><% __d('Add new', 'libebox') %></a>
    <br/>
    <br/>
 %    }
-  <span id="<% 'creatingForm_' . $tableName %>"></span>   
+  <span id="<% 'creatingForm_' . $tableName %>"></span>
 %  }
 
 %  if ( $action eq 'changeAdd' or $action eq 'changeEdit' )
@@ -144,7 +144,7 @@ use POSIX;
 %     my $addingStr = __dx('Adding a new {row}', 'libebox', row => $printableRowName);
 <& PARENT:title, title => $addingStr &>
 %    }
-%   elsif ( $action eq 'changeEdit' ) 
+%   elsif ( $action eq 'changeEdit' )
 %    {
 <h3>
 %     my $editingStr = __dx('Editing {row}', 'libebox', row => $printableRowName);
@@ -174,13 +174,13 @@ use POSIX;
 %  }
 
 
-% if (@ids or length($filter) > 0) 
+% if (@ids or length($filter) > 0)
 %  {
 %    if ( $action eq 'changeAdd' or $action eq 'changeEdit' )
 %    {
 <h3>
-  <% 
-    $printableTableName 
+  <%
+    $printableTableName
   %>
 </h3>
 %    }
@@ -194,39 +194,39 @@ use POSIX;
       name='<%
               $tableName
             %>'
-      id='<% 
-            $tableName . "_filter" 
+      id='<%
+            $tableName . "_filter"
           %>'
-      value="<% 
-              $filter 
-             %>"  
+      value="<%
+              $filter
+             %>"
   />
-  <input type='submit' 
-      name='filter' 
-      value="<% __d('Search', 'libebox') %>" 
-      title="Apply" 
-      onClick='setLoading("<% 
-                             $filterId 
+  <input type='submit'
+      name='filter'
+      value="<% __d('Search', 'libebox') %>"
+      title="Apply"
+      onClick='setLoading("<%
+                             $filterId
                             %>");
                 <%
-                  $model->changeViewJS( changeType => "changeList", 
-                     editId => 'undefined', 
+                  $model->changeViewJS( changeType => "changeList",
+                     editId => 'undefined',
                      page => 0,
                      isFilter => 1)
                %>;
-  
-               return false' 
+
+               return false'
   />
-  <span id="<% 
-              $filterId 
+  <span id="<%
+              $filterId
             %>"
-  ></span>   
+  ></span>
 </form>
 	</td>
     </tr>
 </table>
-<table class='<% 
-               $model->table()->{'class'} 
+<table class='<%
+               $model->table()->{'class'}
               %>'>
 
 <& SELF:tableHead, tableHead => \@tableHead &>
@@ -250,16 +250,16 @@ use POSIX;
 %        $row = $model->row($ids[$idx]);
 %      }
 
-      <tr class='border' 
-          id="<% 
+      <tr class='border'
+          id="<%
                 $row->id()
               %>">
-        
-%      foreach my $td (@{$row->elements()}) 
+
+%      foreach my $td (@{$row->elements()})
 %      {
 %        next unless ($td->HTMLViewer());
         <td class='tcenter'>
-          <& 
+          <&
             $td->HTMLViewer(),
             'data' => $td
           &>
@@ -267,22 +267,22 @@ use POSIX;
 
 %    }
 
-<& SELF:actionCell, model => $model, 
+<& SELF:actionCell, model => $model,
                     actions => $actions,
 
-                    row => $row, 
+                    row => $row,
                     firstRow    => ($idx == 0),
                     lastRow    => ($idx == $#ids),
 
                     changeView => $changeView,
-                    page => $page 
+                    page => $page
                     &>
       </tr>
 %     if ($displayRows == $model->pageSize() and not (defined($filter) and length($filter) > 0) ) {
 %       $matches = scalar(@ids);
 %       last;
 %     }
-%   }  
+%   }
     </tbody>
 </table>
 
@@ -301,7 +301,7 @@ use POSIX;
 
 
 % } else {
-<input type="hidden" 
+<input type="hidden"
   id="<% $model->tableName() . '_pageSize' %>"
   value="<% $model->pageSize() %>"
 >
@@ -346,41 +346,41 @@ use POSIX;
   <td id="<% 'buttons_' . $model->modelName() %>">
 % if ( $action eq 'changeAdd' )
 % {
-    <input class='inputButton' 
-           type='submit' 
+    <input class='inputButton'
+           type='submit'
            name='add'
            value='<% __d('Add', 'libebox') %>'
            title="Add"
-           onClick='<% 
-                      $model->addNewRowJS($page) 
-                    %>; return false'
-    />
-% } 
-% elsif ($action eq 'changeEdit') 
-% {
-    <input class='inputButton' 
-           type='submit' 
-           name='change'
-           value="<% __d('Change', 'libebox') %>" 
-           title="Change"
-           onClick='<% 
-                      $model->changeRowJS($editid, $page) 
+           onClick='<%
+                      $model->addNewRowJS($page)
                     %>; return false'
     />
 % }
-% if ($changeView) 
+% elsif ($action eq 'changeEdit')
 % {
-    <input class='inputButton' 
-           type='submit' 
+    <input class='inputButton'
+           type='submit'
+           name='change'
+           value="<% __d('Change', 'libebox') %>"
+           title="Change"
+           onClick='<%
+                      $model->changeRowJS($editid, $page)
+                    %>; return false'
+    />
+% }
+% if ($changeView)
+% {
+    <input class='inputButton'
+           type='submit'
            name='cancel'
            value="<% __d('Cancel', 'libebox') %>"
            title="Cancel"
-           onClick='<% 
-                      $model->changeViewJS( changeType => "changeList", 
-                          editId => 'undefined', 
+           onClick='<%
+                      $model->changeViewJS( changeType => "changeList",
+                          editId => 'undefined',
                           page => $page,
-                          isFilter =>  0) 
-                    %>;return false' 
+                          isFilter =>  0)
+                    %>;return false'
     />
 % }
   </td>
@@ -405,25 +405,25 @@ Parameteres:
 @tableHead
 </%args>
     <thead>
-%    foreach my $th (@tableHead) 
+%    foreach my $th (@tableHead)
 %    {
 %      next unless ($th->HTMLViewer());
-      <th class='<% 
-                   $th->class() 
+      <th class='<%
+                   $th->class()
                   %>'>
-        <% 
-          $th->printableName() 
+        <%
+          $th->printableName()
         %>
       </th>
 %    }
 
       <th class='thOptions'>
         <%
-          __d('Action', 'libebox') 
+          __d('Action', 'libebox')
         %>
       </th>
     </thead>
-</%method>    
+</%method>
 
 <%method actionCell>
 <%doc>
@@ -447,9 +447,9 @@ $row
 $changeView
 $page
 </%args>
-        <td class='tcenter' 
-            id='actionsCell_<% 
-                              $row->{id} 
+        <td class='tcenter'
+            id='actionsCell_<%
+                              $row->{id}
                             %>'>
 %      my $disabled = '';
 %      my $edit = 'edit';
@@ -464,80 +464,80 @@ $page
 %          $delete_msg = __d('Read-only row: delete disabled', 'libebox');
 %      }
 
-%      if ($actions->{'del'}) 
+%      if ($actions->{'del'})
 %      {
-          <input class='inputButton' 
-              <% 
-                $disabled 
+          <input class='inputButton'
+              <%
+                $disabled
               %>
-              type='image' 
+              type='image'
               name='del'
-              value="Del" 
+              value="Del"
               title="<% $delete_msg %>"
-              alt="Del" 
+              alt="Del"
               src='/data/images/<% $delete %>.gif'
-              onClick='<% 
-                          $model->actionClickedJS('del', 
-                             $row->{id}, 
-                            '' , 
-                            $page) 
-                       %>' 
+              onClick='<%
+                          $model->actionClickedJS('del',
+                             $row->{id},
+                            '' ,
+                            $page)
+                       %>'
           />
-      
+
 %      }
-%      if ($changeView) 
+%      if ($changeView)
 %      {
           <input  class='inputButton'
-              <% 
-                $disabled 
-              %>  
-              type='image' 
+              <%
+                $disabled
+              %>
+              type='image'
               name='edit'
-              value="edit" 
+              value="edit"
               title="<% $edit_msg %>"
               src='/data/images/<% $edit %>.gif'
-              onClick='<% 
-                         $model->changeViewJS( changeType => 'changeEdit', 
-                             editId => $row->{'id'}, 
+              onClick='<%
+                         $model->changeViewJS( changeType => 'changeEdit',
+                             editId => $row->{'id'},
                              page => $page,
-                             isFilter => 0) 
- 
-                       %>' 
+                             isFilter => 0)
+
+                       %>'
           />
 %      }
-    
-%      if ($model->table()->{'order'} == 1) 
+
+%      if ($model->table()->{'order'} == 1)
 %      {
 %       if (not $firstRow) {
           <input class='inputButton'
-              type='image' 
+              type='image'
               name='up'
-              value="Up" 
+              value="Up"
               title="Up"
-              alt="Up" 
-              src='/data/images/up.gif' 
+              alt="Up"
+              src='/data/images/up.gif'
               onClick='<%
-                         $model->actionClickedJS('move', 
-                             $row->{id}, 
-                            'up', 
-                            $page) 
+                         $model->actionClickedJS('move',
+                             $row->{id},
+                            'up',
+                            $page)
                        %>'
           />
 %       }
 
 %       if (not $lastRow) {
-          <input  class='inputButton' 
-              type='image' 
+          <input  class='inputButton'
+              type='image'
               name='down'
-              value="Down" 
+              value="Down"
               title="Down"
-              alt="Down" 
-              src='/data/images/down.gif' 
-              onClick='<% 
-                         $model->actionClickedJS('move', 
-                             $row->{id}, 
-                            'down', 
-                            $page) 
+              alt="Down"
+              src='/data/images/down.gif'
+              onClick='<%
+                         $model->actionClickedJS('move',
+                             $row->{id},
+                            'down',
+                            $page)
                        %>'
           />
 %       }
