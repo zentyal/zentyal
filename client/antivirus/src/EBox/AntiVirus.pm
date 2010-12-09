@@ -212,11 +212,6 @@ sub usedFiles
         },
         {
            file => FRESHCLAM_CONF_FILE,
-           reason => __('To configure freshclam updater'),
-           module => 'antivirus',
-       },
-        {
-           file   => FRESHCLAM_CRON_FILE,
            reason => __('To schedule the launch of the updater'),
            module => 'antivirus',
        },
