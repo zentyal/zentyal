@@ -16,10 +16,6 @@ case "$1" in
            /etc/init.d/apparmor restart || true
        fi
 
-       CRON_FILE=/etc/cron.hourly/freshclam
-       touch $CRON_FILE
-       chmod a+x $CRON_FILE
-
        # create directory for freshclam data
        FRESHCLAM_DIR=$(perl -MEBox::AntiVirus -e'print EBox::AntiVirus::freshclamEBoxDir(); 1;');
        mkdir -p $FRESHCLAM_DIR

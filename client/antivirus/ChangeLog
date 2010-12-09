@@ -1,5 +1,6 @@
 HEAD
 	+ Removed duplicated entry in usedFiles
+	+ Removed creation of empty /etc/cron.hourly/freshclam script
 2.0.4
 	+ Show 0 signatures when the antivirus is not even launched
 2.0.3
