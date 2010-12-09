@@ -1,3 +1,5 @@
+HEAD
+	+ Workaround for POST params validation with webkit based browsers
 2.0.4
 	+ Aesthetic improvement in modal boxes
 	+ Bugfix: Escape ' and " as HTML entities in gettext to fix

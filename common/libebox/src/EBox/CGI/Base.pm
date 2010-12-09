@@ -655,11 +655,12 @@ sub _validateParams
     my $params_r    = $self->params();
     $params_r       = $self->_validateRequiredParams($params_r);
     $params_r       = $self->_validateOptionalParams($params_r);
+    $params_r       = $self->_webkitParamsWorkaround($params_r);
 
     my @paramsLeft = @{ $params_r };
-    if (@paramsLeft ) {
-      EBox::error("Unallowed parameters found in CGI request: @paramsLeft");
-      throw EBox::Exceptions::External ( __('Your request could not be processed because it had some incorrect parameters'));
+    if (@paramsLeft) {
+        EBox::error("Unallowed parameters found in CGI request: @paramsLeft");
+        throw EBox::Exceptions::External ( __('Your request could not be processed because it had some incorrect parameters'));
     }
 
     return 1;
@@ -726,6 +727,20 @@ sub _validateOptionalParams
     return \@newParams;
 }
 
+
+sub _webkitParamsWorkaround
+{
+    my ($self, $params_r) = @_;
+
+    # Prototype adds a '_' empty param to Ajax POST requests when the agent is
+    # webkit based
+    my @paramsToDiscard = ['_'];
+    my $matchResult_r = _matchParams(@paramsToDiscard, $params_r);
+
+    my $allMatches = all  @{ $matchResult_r->{matches} };
+    my @newParams = grep { $_ ne $allMatches } @{ $params_r} ;
+    return \@newParams;
+}
 
 sub _matchParams
 {
