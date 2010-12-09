@@ -1,4 +1,4 @@
-HEAD
+2.0.6
 	+ Always regenerate APT cache for installing or upgrading
 	+ Do not download all the packages, just download needed ones
 2.0.5
