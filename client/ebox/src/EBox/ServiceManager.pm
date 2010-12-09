@@ -627,16 +627,9 @@ sub  _getMD5
 {
     my ($self, $path) = @_;
 
-    my $exists = 1;
-    try {
-        root("test -e $path");
-    } otherwise {
+    unless (fileTest('-e', $path)) {
         EBox::info("File $path does not exist. So we won't compute its digest");
-        $exists = undef;
-    };
-
-    unless ($exists) {
-       return "notexists";
+        return 'notexists';
     }
 
     my $md5 = pop(@{root("md5sum $path | cut -d' ' -f1")});

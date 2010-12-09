@@ -347,7 +347,7 @@ sub fileTest
     ($test eq $anyFileTestPredicate) or throw EBox::Exceptions::Internal("Unknown or unsupported test file predicate: $test (upon $file)");
 
     my $testCmd = "$TEST_PATH $test '$file'";
-    rootWithoutException($testCmd);
+    silentRoot($testCmd);
 
     return ($? == 0);           # $? was set by execution of $testCmd
 }

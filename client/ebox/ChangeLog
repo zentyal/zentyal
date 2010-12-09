@@ -1,3 +1,5 @@
+HEAD
+	+ Removed warning on non existent file digest
 2.0.9
 	+ Treat wrong installed packages as not-existent modules
 	+ Added a warning in dashboard informing about broken packages
