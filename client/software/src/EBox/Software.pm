@@ -736,7 +736,7 @@ sub _getInfoEBoxPkgs
 {
     my ($self) = @_;
 
-    my $cache = $self->_cache();
+    my $cache = $self->_cache(1);
     my @list;
     for my $pack (keys %$cache) {
         if ($pack =~ /^libebox$|^ebox$|^ebox-.*|^zentyal-.*/) {
@@ -763,7 +763,7 @@ sub _getUpgradablePkgs
 {
     my ($self) = @_;
 
-    my $cache = $self->_cache();
+    my $cache = $self->_cache(1);
     my @list;
     for my $pack (keys %$cache) {
         # FIXME: Has this any sense now we have dropped our custom kernel?
@@ -1077,9 +1077,13 @@ sub _QAExclusive
 
 sub _cache
 {
-    my ($self) = @_;
+    my ($self, $regen) = @_;
 
-    return EBox::Global->packageCache();
+    if (not defined $self->{cache} or $regen) {
+        $self->{cache} = new AptPkg::Cache();
+    }
+
+    return $self->{cache};
 }
 
 sub _brokenPackages
