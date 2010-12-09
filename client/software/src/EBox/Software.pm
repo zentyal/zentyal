@@ -231,47 +231,6 @@ sub updatePkgList
     };
 }
 
-# Method: fetchAllPkgs
-#
-#	Download all the new ebox packages and the system updates
-#
-# Exceptions:
-#
-#       <EBox::Exceptions::External> - thrown if the module is locked
-#       by other process
-#
-sub fetchAllPkgs
-{
-    my ($self) = @_;
-
-    $self->_isModLocked();
-
-    my @pkgs;
-
-	@pkgs = @{$self->_getInfoEBoxPkgs()};
-
-    my $cmd ='/usr/bin/apt-get install -qq --download-only --force-yes --yes --no-install-recommends ';
-    foreach my $pkg (@pkgs) {
-        $cmd .= ($pkg->{name} . " ");
-    }
-    try {
-        EBox::Sudo::root($cmd);
-    } catch EBox::Exceptions::Internal with {
-    };
-
-    $cmd ='/usr/bin/apt-get dist-upgrade -qq --download-only --force-yes --yes --no-install-recommends ';
-    try {
-        EBox::Sudo::root($cmd);
-    } catch EBox::Exceptions::Internal with {
-    };
-
-    $cmd ='/usr/bin/apt-get autoclean -qq --force-yes --yes';
-    try {
-        EBox::Sudo::root($cmd);
-    } catch EBox::Exceptions::Internal with {
-    };
-}
-
 sub _packageListFile
 {
     my ($self, $ebox) = @_;

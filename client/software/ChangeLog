@@ -1,5 +1,6 @@
 HEAD
 	+ Always regenerate APT cache for installing or upgrading
+	+ Do not download all the packages, just download needed ones
 2.0.5
 	+ Improved performance using global package cache
 	+ Show a helpful page if there are half-installed packages
