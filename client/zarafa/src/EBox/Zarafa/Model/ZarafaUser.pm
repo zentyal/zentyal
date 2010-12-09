@@ -50,6 +50,13 @@ sub _table
             'editable' => 1,
             'defaultValue' => 1
         ),
+        new EBox::Types::Boolean(
+            'fieldName' => 'contact',
+            'printableName' => __('Groupware Contact'),
+            'help' => __('Enable contact in the addressbook even if account is disabled.'),
+            'editable' => 1,
+            'defaultValue' => 1
+        ),
     );
     my $dataTable =
     {

@@ -52,14 +52,17 @@ sub _process
     if ($self->param('active') eq 'yes') {
         $zarafaldap->setHasAccount($username, 1);
         if (defined($self->param('is_admin'))) {
-            $zarafaldap->setIsAdmin($username,1);
+            $zarafaldap->setIsAdmin($username, 1);
         } else {
-            $zarafaldap->setIsAdmin($username,0);
+            $zarafaldap->setIsAdmin($username, 0);
         }
     } else {
-        if ($zarafaldap->hasAccount($username)) {
-            $zarafaldap->setHasAccount($username, 0);
+        if (defined($self->param('contact'))) {
+            $zarafaldap->setHasContact($username, 1);
+        } else {
+            $zarafaldap->setHasContact($username, 0);
         }
+        $zarafaldap->setHasAccount($username, 0);
     }
 }
 

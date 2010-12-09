@@ -1,4 +1,6 @@
 HEAD
+	+ Add support to show disabled accounts as contacts
+	+ Add script to purge orphaned stores
 	+ Set the right permissions and group for certificates issued by
 	  CA module
 	+ Improved performance by adding zarafaAccount LDAP index.

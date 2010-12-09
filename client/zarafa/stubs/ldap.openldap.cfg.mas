@@ -84,7 +84,7 @@ ldap_dynamicgroup_type_attribute_value = zarafa-dynamicgroup
 #   (objectCategory=Person)
 # For LDAP with posix users:
 #   no need to use the search filter.
-ldap_user_search_filter = (zarafaAccount=1)
+ldap_user_search_filter = (|(objectclass=zarafa-contact)(zarafaAccount=1))
 
 # unique user id for find the user
 # Required

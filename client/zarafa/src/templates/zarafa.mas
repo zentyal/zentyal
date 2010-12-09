@@ -47,6 +47,20 @@
         </td>
     </tr>
 %    }
+%    if ($params->{'active'} eq 'no') {
+    <tr>
+        <td class="tright">
+            <span class="ftitle"><% __('Groupware contact') %>:</span>
+        </td>
+        <td>
+            <input type="checkbox" name="contact" id="external" value="yes"
+%            if ($params->{'contact'} eq 'yes') {
+                checked
+%            }
+            />
+        </td>
+    </tr>
+%    }
     <tr>
     <td></td>
     <td>

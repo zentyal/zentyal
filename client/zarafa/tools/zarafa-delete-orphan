@@ -1,0 +1,22 @@
+#/bin/bash
+
+# script from http://www.zarafa.com/wiki/index.php/Permanently_delete_all_orphan_stores
+
+ZARAFA_ADMIN=`which zarafa-admin`
+AWK=`which awk`
+
+echo 
+echo "ALERT - This script will permanently delete all orphan stores!!!"
+echo -n "Are you sure you want to continue [y/n]: "
+
+read USERINPUT
+echo
+
+if [ "$USERINPUT" == "y" ]; then
+  $ZARAFA_ADMIN --list-orphans | tail -n+4 | $AWK '{print $1}' |while read STOREID; do
+    echo "Removing store: $STOREID"
+    $ZARAFA_ADMIN --remove-store $STOREID
+  done
+else
+  echo "Cancelled"
+fi
