@@ -27,7 +27,7 @@ use EBox::Menu::Item;
 use EBox::Menu::Folder;
 use Error qw(:try);
 use EBox::Validate qw( :all );
-use EBox::Sudo qw( :all );
+use EBox::Sudo;
 use EBox;
 
 use constant NTPCONFFILE => "/etc/ntp.conf";
@@ -322,12 +322,12 @@ sub _restartAllServices
     my ($self) = @_;
 
     my $global = EBox::Global->getInstance();
-    my @names = grep(!/^network$/, @{$global->modNames});
-    @names = grep(!/^firewall$/, @names);
-    my $failed = "";
+    my $failed = '';
     EBox::info('Restarting all modules');
-    foreach my $name (@names) {
-        my $mod = $global->modInstance($name);
+    foreach my $mod (@{$global->modInstancesOfType('EBox::Module::Service')}) {
+        my $name = $mod->name();
+        next if ($name eq 'network') or
+                ($name eq 'firewall');
         try {
             $mod->restartService();
         } catch EBox::Exceptions::Internal with {
@@ -335,8 +335,8 @@ sub _restartAllServices
         };
     }
     if ($failed ne "") {
-        throw EBox::Exceptions::Internal("The following modules ".
-            "failed while being restarted, their state is ".
+        throw EBox::Exceptions::Internal("The following modules " .
+            "failed while being restarted, their state is " .
             "unknown: $failed");
     }
 
