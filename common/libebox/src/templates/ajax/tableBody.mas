@@ -45,6 +45,8 @@ use POSIX;
   %presetParams => ()
 </%args>
 <%init>
+  use EBox::Gettext;
+
   # Fetch table head from model
   my @tableHead = @{$model->table()->{'tableDescription'}};
   # Pointer to different values for convenience
@@ -147,6 +149,7 @@ use POSIX;
 %   elsif ( $action eq 'changeEdit' )
 %    {
 <h3>
+
 %     my $editingStr = __dx('Editing {row}', 'libebox', row => $printableRowName);
 <& PARENT:title, title => $editingStr &>
 %   }
@@ -249,6 +252,7 @@ use POSIX;
 %      if ($displayRows > $model->pageSize()) { next; };
 %        $row = $model->row($ids[$idx]);
 %      }
+%
 
       <tr class='border'
           id="<%
@@ -271,8 +275,9 @@ use POSIX;
                     actions => $actions,
 
                     row => $row,
-                    firstRow    => ($idx == 0),
-                    lastRow    => ($idx == $#ids),
+
+                    idx  => $idx,
+                    ids => \@ids,
 
                     changeView => $changeView,
                     page => $page
@@ -361,7 +366,7 @@ use POSIX;
     <input class='inputButton'
            type='submit'
            name='change'
-           value="<% __d('Change', 'libebox') %>"
+           value="<% $model->printableActionName() %>"
            title="Change"
            onClick='<%
                       $model->changeRowJS($editid, $page)
@@ -441,8 +446,10 @@ Parameteres:
 <%args>
 $model
 $actions
-$firstRow
-$lastRow
+
+$idx
+@ids
+
 $row
 $changeView
 $page
@@ -451,12 +458,14 @@ $page
             id='actionsCell_<%
                               $row->{id}
                             %>'>
+%      my $rowReadOnly = $row->readOnly()   ;
+%
 %      my $disabled = '';
 %      my $edit = 'edit';
 %      my $edit_msg = __d('Edit', 'libebox');
 %      my $delete = 'delete';
 %      my $delete_msg = __d('Delete', 'libebox');
-%      if ($row->readOnly()) {
+%      if ($rowReadOnly) {
 %          $disabled = 'disabled';
 %          $edit = 'edit-inactive';
 %          $delete = 'delete-inactive';
@@ -508,14 +517,77 @@ $page
 
 %      if ($model->table()->{'order'} == 1)
 %      {
+        <& SELF:.moveRowActions,
+            model => $model,
+            row => $row,
+
+            idx => $idx,
+            ids => \@ids,
+
+            page => $page,
+        &>
+%      }
+        </td>
+</%method>
+
+<%method  .moveRowActions>
+<%args>
+$model
+$row
+
+$idx
+@ids
+
+$page
+</%args>
+
+<%perl>
+     my $rowReadOnly = $row->readOnly();
+     my ($prevRowRO, $nextRowRO);
+     my ($up_icon, $up_msg);
+     my ($down_icon, $down_msg);
+     my ($up_disabled, $down_disabled);
+
+     my $firstRow =  ($idx == 0);
+     if (not $firstRow) {
+           $prevRowRO = $model->isRowReadOnly($ids[$idx-1]);
+           if ($rowReadOnly or $prevRowRO) {
+               $up_disabled = 'disabled';
+               $up_icon = 'up-inactive.gif';
+               $up_msg = __d('Read-only row: move up disabled', 'libebox');
+           } else {
+               $up_disabled = '';
+               $up_icon = 'up.gif';
+               $up_msg = __d('Move up', 'libebox');
+           }
+       }
+
+
+     my $lastRow = ($idx == $#ids);
+     if (not $lastRow) {
+           $nextRowRO = $model->isRowReadOnly($ids[$idx+1]);
+
+           if ($rowReadOnly or $nextRowRO) {
+               $down_disabled = 'disabled';
+               $down_icon = 'down-inactive.gif';
+               $down_msg = __d('Read-only row: move down  disabled', 'libebox');
+           } else {
+               $down_disabled = '';
+               $down_icon = 'down.gif';
+               $down_msg = __d('Move down', 'libebox');
+           }
+     }
+
+</%perl>
 %       if (not $firstRow) {
           <input class='inputButton'
+              <% $up_disabled %>
               type='image'
               name='up'
               value="Up"
-              title="Up"
+              title="<% $up_msg %>"
               alt="Up"
-              src='/data/images/up.gif'
+              src='/data/images/<% $up_icon  %>'
               onClick='<%
                          $model->actionClickedJS('move',
                              $row->{id},
@@ -527,12 +599,13 @@ $page
 
 %       if (not $lastRow) {
           <input  class='inputButton'
+              <% $down_disabled %>
               type='image'
               name='down'
               value="Down"
-              title="Down"
+              title="<% $down_msg %>"
               alt="Down"
-              src='/data/images/down.gif'
+              src='/data/images/<% $down_icon %>'
               onClick='<%
                          $model->actionClickedJS('move',
                              $row->{id},
@@ -541,8 +614,6 @@ $page
                        %>'
           />
 %       }
-%     }
-        </td>
 </%method>
 
 <%doc>
@@ -565,5 +636,3 @@ $page
     crumbs => $crumbs
 &>
 </%def>
-
-
