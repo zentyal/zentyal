@@ -1,4 +1,5 @@
 HEAD
+	+ Added network as dependency of printers
 	+ Include support for HP printers by default
 	+ Remove duplicated table creation in enable script
 2.0.1
