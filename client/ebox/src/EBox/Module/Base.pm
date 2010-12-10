@@ -900,8 +900,8 @@ sub writeConfFileNoCheck # (file, component, params, defaults)
                 my $ex = shift;
                 EBox::error("Falling back to default $stub due to exception " .
                             "processing custom template $customStub: $ex");
+                $comp = $interp->make_component(comp_file => $stub);
             };
-            $comp = $interp->make_component(comp_file => $stub);
         } else {
             $comp = $interp->make_component(comp_file => $stub);
         }
