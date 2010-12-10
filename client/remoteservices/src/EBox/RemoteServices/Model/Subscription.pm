@@ -121,6 +121,7 @@ sub setTypedRow
                                                                password => $password);
         if ( $subs ) {
             # Desubscribing
+            EBox::RemoteServices::Subscription::checkUnsubscribeIsAllowed();
             EBox::RemoteServices::Backup->new()->cleanDaemons();
             $subsServ->deleteData($paramsRef->{eboxCommonName}->value());
         } else {
@@ -197,7 +198,6 @@ sub eBoxSubscribed
     my $subs = $self->{gconfmodule}->st_get_bool('subscribed');
     $subs = 0 if not defined($subs);
     return $subs;
-
 }
 
 # Method: unsubscribe
@@ -216,7 +216,10 @@ sub unsubscribe
     my ($self) = @_;
 
     if ($self->eBoxSubscribed()) {
+        EBox::RemoteServices::Subscription::checkUnsubscribeIsAllowed();
+
         my $row = $self->row();
+
         # Storing again make subscription if it is already done and
         # unsubscribing if Zentyal is subscribed
         $row->store();
@@ -224,7 +227,6 @@ sub unsubscribe
     } else {
         return 0;
     }
-
 }
 
 # Method: viewCustomizer
@@ -246,7 +248,6 @@ sub viewCustomizer
         $customizer->setPermanentMessage($self->_commercialMsg());
     }
     return $customizer;
-
 }
 
 # Method: help
@@ -281,7 +282,6 @@ sub help
     }
 
     return $msg;
-
 }
 
 # Method: precondition
@@ -383,9 +383,8 @@ sub _table
                     printableActionName => $actionName,
                    };
 
-      return $dataForm;
-
-  }
+    return $dataForm;
+}
 
 # Group: Private methods
 
@@ -422,7 +421,6 @@ sub _storeInGConfState
     } else {
         $gconfModule->st_unset($keyField);
     }
-
 }
 
 # Manage the event control center dispatcher and events module

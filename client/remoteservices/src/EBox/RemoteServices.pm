@@ -46,12 +46,15 @@ use EBox::RemoteServices::Audit::Password;
 use EBox::RemoteServices::Backup;
 use EBox::RemoteServices::Bundle;
 use EBox::RemoteServices::Capabilities;
+use EBox::RemoteServices::Configuration;
+use EBox::RemoteServices::DisasterRecovery;
+use EBox::RemoteServices::DisasterRecoveryProxy;
 use EBox::RemoteServices::Subscription;
 use EBox::RemoteServices::SupportAccess;
-use EBox::RemoteServices::Configuration;
 use EBox::Sudo;
 use Error qw(:try);
 use Net::DNS;
+use File::Slurp;
 
 # Constants
 use constant SERV_DIR            => EBox::Config::conf() . 'remoteservices/';
@@ -769,6 +772,135 @@ sub securityUpdatesAddOn
     return '';
 }
 
+# Method: disasterRecoveryAddOn
+#
+#      Get whether the company has disaster recovery add-on or not
+#
+# Parameters:
+#
+#      force - Boolean check against server
+#              *(Optional)* Default value: false
+#
+# Returns:
+#
+#      Boolean - indicating whether the company has disaster recovery
+#      add-on or not
+#
+sub disasterRecoveryAddOn
+{
+    my ($self, $force) = @_;
+
+    $force = 0 unless defined($force);
+
+    if ( (not $force)
+         and (defined($self->st_get_bool('subscription/disasterRecovery'))) ) {
+        return $self->st_get_bool('subscription/disasterRecovery');
+    } else {
+        # Ask to the cloud if connected
+        if ( $self->isConnected() ) {
+            my $cap = new EBox::RemoteServices::Capabilities();
+            my $disasterRec = $cap->disasterRecoveryAddOn();
+            $self->st_set_bool('subscription/disasterRecovery', $disasterRec);
+            return $disasterRec;
+        }
+    }
+    return '';
+}
+
+# Method: backupCredentials
+#
+#     Get the backup credentials if the server is connected to Zentyal
+#     Cloud. If not connected, then the method requires three arguments
+#     to get the information from the public Web Service
+#
+#     There is a cache to store the value that it may be overriden by
+#     setting the force parameter
+#
+# Parameters:
+#
+#       force - Boolean indicating if we have to search for the
+#               credentials to the Zentyal Cloud or not
+#
+#       username - String the customer's name or email address
+#
+#       password - String the customer's password
+#
+#       commonName - String the Zentyal server name
+#
+#       - Named parameters
+#
+# Returns:
+#
+#     hash ref - containing the following key-value pairs
+#
+#           username - String the user name
+#           password - String the password for that user in that server
+#           server   - String the backup server host name
+#           quota    - Int the allowed quota
+#
+sub backupCredentials
+{
+    my ($self, %args) = @_;
+
+    if ( $args{force} or not defined($self->st_get_string('disaster_recovery/username'))  ) {
+        my $cred;
+        if ( $self->isConnected() ) {
+            my $disRecAgent = new EBox::RemoteServices::DisasterRecovery();
+            $cred = $disRecAgent->credentials();
+        } else {
+            unless (defined($args{username})) {
+                throw EBox::Exceptions::MissingArgument('username');
+            }
+            unless (defined($args{password})) {
+                throw EBox::Exceptions::MissingArgument('password');
+            }
+            unless (defined($args{commonName})) {
+                throw EBox::Exceptions::MissingArgument('commonName');
+            }
+            my $disRecAgent = new EBox::RemoteServices::DisasterRecoveryProxy(
+                user => $args{username}, password => $args{password}
+               );
+            $cred = $disRecAgent->credentials(commonName => $args{commonName});
+        }
+        if ( defined($cred->{username}) ) {
+            $self->st_set_string('disaster_recovery/username', $cred->{username});
+            $self->st_set_string('disaster_recovery/password', $cred->{password});
+            $self->st_set_string('disaster_recovery/server',   $cred->{server});
+            $self->st_set_int('disaster_recovery/quota', $cred->{quota});
+        } else {
+            $self->st_delete_dir('disaster_recovery');
+            return {};
+        }
+    }
+
+    return $self->st_hash_from_dir('disaster_recovery');
+}
+
+# Method: serverList
+#
+#    Give the Zentyal server list
+#
+# Parameters:
+#
+#    user - String the user name
+#
+#    password - String the password
+#
+#    - Named parameters
+#
+# Returns:
+#
+#      Array ref - the Zentyal server common names
+#
+sub serverList
+{
+    my ($self, %args) = @_;
+
+    my $connector = new EBox::RemoteServices::Subscription(%args);
+
+    return $connector->serversList();
+}
+
 # Method: queryInternalNS
 #
 #    Query the internal nameserver
@@ -831,7 +963,6 @@ sub queryInternalNS
             throw EBox::Exceptions::Internal("Invalid method $method");
         }
     }
-
 }
 
 # Group: Public methods related to reporting
@@ -883,7 +1014,6 @@ sub logReportInfo
                   values => { nusers => $nUsers }});
 
     return \@data;
-
 }
 
 # Method: consolidateReportInfoQueries
@@ -1000,7 +1130,6 @@ sub report
     }
 
     return $report;
-
 }
 
 
@@ -1085,7 +1214,6 @@ sub _establishVPNConnection
             EBox::error("Cannot contact to Zentyal Cloud: $exc");
         };
     }
-
 }
 
 # Perform the tasks done just after subscribing
@@ -1127,7 +1255,6 @@ sub _writeCronFile
         CRON_FILE,
         'remoteservices/ebox-remoteservices.cron.mas',
         \@tmplParams);
-
 }
 
 # Return the allowed client CNs regexp
@@ -1193,7 +1320,6 @@ sub _caLinkPath
     my $hashValue = $hashRet->[0];
     chomp($hashValue);
     return CA_DIR . "${hashValue}.0";
-
 }
 
 # Return the Control Center connection widget to be shown in the dashboard
@@ -1213,7 +1339,6 @@ sub _ccConnectionWidget
         }
         $section->add(new EBox::Dashboard::Value(__('Zentyal Cloud'), $msg, $valueType));
     }
-
 }
 
 # set the subscription level
@@ -1226,7 +1351,10 @@ sub _setSubscription
 
 }
 
-# TODO: Document this method
+# Method: extaSudoerUser
+#
+#  Returns:
+#    list with usernames to add to the system' sudoer users
 sub extraSudoerUsers
 {
     my ($self) = @_;
@@ -1238,8 +1366,113 @@ sub extraSudoerUsers
             EBox::RemoteServices::SupportAccess->remoteAccessUser;
     }
 
-
     return @users;
+}
+
+
+
+sub _backupSubscritionConf
+{
+    my ($self, $dir) = @_;
+    return "$dir/subscription.conf";
+}
+
+sub _backupSubscritionTar
+{
+    my ($self, $dir) = @_;
+    return "$dir/subscription.tar.gz";
+}
+
+sub dumpConfig
+{
+    my ($self, $dir) = @_;
+
+    if (not $self->eBoxSubscribed()) {
+        # no subscription to backup
+        return;
+    }
+
+    my $stringConf = '';
+    my @settings = (
+                    ['subscribed', 'bool'],
+                    ['just_subscribed', 'bool'],
+                    # form
+                    ['Subscription/eboxCommonName', 'string'],
+                    ['Subscription/username', 'string'],
+                    # cache
+
+               );
+
+    foreach my $setting (@settings) {
+        my ($key, $type) = @{ $setting };
+        my $getter = "st_get_" . $type;
+        my $value = $self->$getter($key);
+        $stringConf .= "$key,$type,$value\n";
+    }
+    # file with subscription conf parameters
+    my $subscriptionConfFile = $self->_backupSubscritionConf($dir);
+    File::Slurp::write_file($subscriptionConfFile, $stringConf);
+
+    # tar with subscription files directory
+    my $tarPath = $self->_backupSubscritionTar($dir);
+    my $subscriptionDir =  SUBS_DIR;
+    my $tarCmd = 'tar  cf ' . $tarPath . ' ' . $subscriptionDir;
+    EBox::Sudo::root($tarCmd);
+}
+
+sub restoreConfig
+{
+    my ($self, $dir) = @_;
+
+    $self->clearCache();
+
+    my $subscriptionConf = $self->_backupSubscritionConf($dir);
+    if (not -r $subscriptionConf) {
+        # no subscribed
+        $self->st_set_bool('subscribed', 0);
+        return;
+    }
+
+    # restore st conf
+    my @lines = File::Slurp::read_file($subscriptionConf);
+    foreach my $line  (@lines) {
+        chomp $line;
+        my ($key,$type,$value) = split ',', $line;
+        my $setter = "st_set_" . $type;
+        if (defined $value) {
+            $self->$setter($key, $value);
+        } else {
+            $self->unset($key); # remove previous key..
+        }
+
+    }
+
+    # restore subscription files and ownerhsip
+    my $tarPath = $self->_backupSubscritionTar($dir);
+    my $tarCmd = 'tar x --file ' . $tarPath . ' -C /';
+    EBox::Sudo::root($tarCmd);
+
+    my $subscriptionDir =  SUBS_DIR;
+    EBox::Sudo::root("chown ebox.adm '$subscriptionDir'");
+    EBox::Sudo::root("chown -R ebox.ebox $subscriptionDir*");
+}
+
+sub clearCache
+{
+    my ($self) = @_;
+
+    my @cacheKeys = qw(
+                    subscription/level
+                    subscription/codename
+                    subscription/securityUpdates
+                    subscription/disasterRecovery
+
+                    disaster_recovery/username
+                    );
+
+    foreach my $key (@cacheKeys) {
+        $self->unset($key);
+    }
 }
 
 1;

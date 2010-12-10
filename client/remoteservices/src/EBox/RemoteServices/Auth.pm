@@ -117,11 +117,16 @@ sub serviceUrn
 {
     my ($self) = @_;
 
-    my $urn = EBox::Config::configkeyFromFile($self->_serviceUrnKey(),
-                                              $self->_confFile());
+    my $urnKey = $self->_serviceUrnKey();
+    my $confFile =  $self->_confFile();
+    my $urn = EBox::Config::configkeyFromFile($urnKey, $confFile);
     if ( not $urn ) {
         throw EBox::Exceptions::External(
-            __('Key for service URN not found')
+            __x('Cannot retrieve service URN; key "{key}" not found in {file}',
+
+                key => $urnKey,
+                file => $confFile,
+               )
            );
     }
     return $urn;

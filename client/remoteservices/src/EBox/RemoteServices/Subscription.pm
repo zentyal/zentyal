@@ -200,6 +200,24 @@ sub subscribeEBox
 
 }
 
+# Method: serversList
+#
+#      Return the list of registered Zentyal servers for this user
+#
+# Returns:
+#
+#      Array ref - the Zentyal server common names
+#
+sub serversList
+{
+    my ($self) = @_;
+
+    my $list = $self->soapCall('showList');
+
+    return $list;
+
+}
+
 # Class Method: extractBundle
 #
 #      Given the bundle as string data, extract the files to the
@@ -389,12 +407,23 @@ sub deleteData
     $events->unset('alert_autoconfiguration');
     # TODO: Remove ebox-cloud-prof package
 
-    # Remove subscription levels
+    # Remove subscription levels and disaster recovery if any
     my $rs = EBox::Global->modInstance('remoteservices');
-    $rs->st_unset('subscription/level');
-    $rs->st_unset('subscription/codename');
-    $rs->st_unset('subscription/securityUpdates');
+    $rs->st_delete_dir('subscription');
+    $rs->st_delete_dir('disaster_recovery');
 
+}
+
+# Checks whether the installed modules allows to be unsubscribed for cloud
+sub checkUnsubscribeIsAllowed
+{
+    my $modList = EBox::Global->modInstances();
+    foreach my $mod (@{  $modList }) {
+        my $method = 'canUnsubscribeFromCloud';
+        if ($mod->can($method)) {
+            $mod->$method();
+        }
+    }
 }
 
 # Group: Private methods

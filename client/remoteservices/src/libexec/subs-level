@@ -43,6 +43,11 @@ EBox::init();
 my $rs = EBox::Global->modInstance('remoteservices');
 
 $rs->securityUpdatesAddOn('force');
+my $disRecOn = $rs->disasterRecoveryAddOn('force');
+if ( $disRecOn ) {
+    # Reload backup credentials
+    $rs->backupCredentials(force => 1);
+}
 $rs->subscriptionLevel('force');
 
 1;

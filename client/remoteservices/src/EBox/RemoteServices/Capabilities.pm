@@ -84,6 +84,26 @@ sub securityUpdatesAddOn
     return $result;
 }
 
+# Method: disasterRecoveryAddOn
+#
+#     Check the if disaster recovery addon is available in the cloud
+#     for this company
+#
+sub disasterRecoveryAddOn
+{
+    my ($self) = @_;
+
+    my $result = '';
+
+    try {
+        $result = $self->soapCall('disasterRecoveryAddOn');
+    } otherwise {
+        EBox::warn("SOAP call disasterRecoveryAddOn failed: $@");
+    };
+
+    return $result;
+}
+
 # Group: Protected methods
 
 # Method: _serviceUrnKey
