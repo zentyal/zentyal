@@ -20,17 +20,23 @@ use strict;
 use warnings;
 
 use Redis;
+use EBox::Config;
 use EBox::Service;
-use POSIX;
+use POSIX ':signal_h';
 use YAML::Tiny;
 use XML::Simple;
 use File::Slurp;
 use Error qw/:try/;
 
 my $redis = undef;
+
+# Constants
 use constant REDIS_CONF => 'conf/redis.conf';
 use constant REDIS_PASS => 'conf/redis.passwd';
+use constant CLIENT_CONF => EBox::Config::etc() . '80eboxclient.conf';
 
+# Constructor: new
+#
 sub new
 {
     my ($class, %args) = @_;
@@ -57,7 +63,7 @@ sub set_string
 {
     my ($self, $key, $value) = @_;
 
-   $self->_redis_call('set', $key =>  $value);
+    $self->_redis_call('set', $key =>  $value);
 }
 
 # Method: get_string
@@ -503,7 +509,7 @@ sub _restore_dir
     }
 }
 
-# Wrapper to reconnect to to redis in case of detecting a failure when
+# Wrapper to reconnect to redis in case of detecting a failure when
 # issuing a command.
 sub _redis_call
 {
@@ -511,34 +517,51 @@ sub _redis_call
 
     # Check process id and respawn redis if has changed (fork)
     if ( $self->{pid} ne $$ ) {
-        $self->_respawn;
+        $self->_respawn();
     }
 
     my $response;
     my @response;
     my $wantarray = wantarray;
+
     my $tries = 5;
     for my $i (1..$tries) {
-        my $failure;
-        try {
-            if ($wantarray) {
-                @response = $self->{redis}->$command(@args);
-            } else {
-                $response = $self->{redis}->$command(@args);
+        our $failure = 1;
+        {
+            local $SIG{PIPE};
+            $SIG{PIPE} = sub {
+                # EBox::warn("$$ Reconnecting to redis server after SIGPIPE");
+                $failure = 1; };
+            eval {
+                if ($wantarray) {
+                    @response = $self->{redis}->$command(@args);
+                } else {
+                    $response = $self->{redis}->$command(@args);
+                }
+                $failure = 0;
+            };
+            if ((my $ret = $@) or $failure) {
+                # EBox::warn("$$ - $ret");
+                sleep(1);
+                # Disconnected, try to reconnect
+                eval {
+                    $self->_initRedis();
+                    $self->_respawn();
+                    $failure = 1;
+                };
+                if (my $ret2 = $@) {
+                    # EBox::warn("$$ -- $ret2");
+                    sleep(1);
+                    $failure = 1;
+                }
             }
-            $failure = 0;
-        } otherwise {
-            # Disconnected, try to reconnect
-            $self->_initRedis;
-            $self->_respawn;
-            $failure = 1;
-        };
+        }
 
         last unless ($failure);
 
         if ($failure) {
             if ( $i < $tries) {
-                warn 'Reconnecting to redis server...';
+                warn "Reconnecting to redis server ($i try)...";
             } else {
                 die 'Cannot connect to redis server';
             }
@@ -556,6 +579,10 @@ sub _redis_call
 sub _respawn
 {
     my ($self) = @_;
+
+    # try {
+    #     $self->{redis}->quit();
+    # } otherwise { ; };
     $self->{redis} = undef;
     $redis = undef;
 
@@ -566,6 +593,9 @@ sub _respawn
     $redis->auth($filepasswd);
     $self->{redis} = $redis;
     $self->{pid} = $$;
+
+    # EBox::info("$$ Respawning the redis connection");
+
 }
 
 
@@ -589,7 +619,6 @@ sub _initRedis
         # Launch daemon, added sleep to avoid first connection problems
         EBox::Sudo::silentRoot('start ebox.redis && sleep 1');
     }
-
 }
 
 
@@ -602,7 +631,6 @@ sub writeConfigFile
     my ($self, $user) = @_;
 
     defined($user) or $user = EBox::Config::user();
-
 
     my $home = $self->_home($user);
 
@@ -653,7 +681,7 @@ sub _port
     if ($user eq 'ebox-usercorner') {
         return EBox::Config::configkey('redis_port_usercorner');
     } else {
-        return EBox::Config::configkey('redis_port');
+        return EBox::Config::configkeyFromFile('redis_port', CLIENT_CONF);
     }
 
     # Unknown user

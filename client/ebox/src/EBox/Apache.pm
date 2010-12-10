@@ -126,7 +126,7 @@ sub _daemon # (action)
 
     }
 
-    unless ($action eq 'start') {
+    if ($action eq 'stop') {
         # Stop redis server
         $self->{redis}->stopRedis();
     }
@@ -187,7 +187,7 @@ sub _writeHttpdConfFile
     push @confFileParams, ( eboxconfdir => EBox::Config::conf());
 
     push @confFileParams, ( restrictedResources => $self->_restrictedResources() );
-    push @confFileParams, ( includes => $self->_includes() );
+    push @confFileParams, ( includes => $self->_includes(1) );
 
     my $debugMode =  EBox::Config::configkey('debug') eq 'yes';
     push @confFileParams, ( debug => $debugMode);
@@ -540,7 +540,7 @@ sub addInclude
             "File $includeFilePath cannot be read or it is not a file"
            );
     }
-    my @includes = @{$self->_includes()};
+    my @includes = @{$self->_includes(0)};
     unless ( grep { $_ eq $includeFilePath } @includes) {
         push(@includes, $includeFilePath);
         $self->set_list(INCLUDE_KEY, 'string', \@includes);
@@ -572,7 +572,7 @@ sub removeInclude
     unless(defined($includeFilePath)) {
         throw EBox::Exceptions::MissingArgument('includeFilePath');
     }
-    my @includes = @{$self->_includes()};
+    my @includes = @{$self->_includes(0)};
     my @newIncludes = grep { $_ ne $includeFilePath } @includes;
     if ( @newIncludes eq @includes ) {
         throw EBox::Exceptions::Internal("$includeFilePath has not been included previously");
@@ -584,8 +584,22 @@ sub removeInclude
 # Return those include files that has been added
 sub _includes
 {
-    my ($self) = @_;
-    return $self->get_list(INCLUDE_KEY);
+    my ($self, $check) = @_;
+    my $includeList = $self->get_list(INCLUDE_KEY);
+    if (not $check) {
+        return $includeList
+    }
+
+    my @includes;
+    foreach my $incPath (@{ $includeList  }) {
+        if ((-f $incPath) and (-r $incPath)) {
+            push @includes, $incPath;
+        } else {
+            EBox::warn("Ignoring apache include $incPath: cannot read the file or not is a regular file");
+        }
+    }
+
+    return \@includes;
 }
 
 # Method: certificates
@@ -615,9 +629,7 @@ sub certificates
              group => 'ebox',
              mode => '0600',
             },
-
            ];
 }
-
 
 1;

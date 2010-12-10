@@ -1,4 +1,16 @@
 HEAD
+	+ Wait for 10 seconds to the child process when destroying the
+	  progress indicator to avoid zombie processes
+	+ Caught SIGPIPE when trying to contact Redis server and the
+	  socket was already closed
+	+ Do not stop redis server when restarting apache but only when
+	  the service is asked to stop
+	+ Improvements in import/export configuration (know before as
+	  configuration backup)
+	+ Improvements in ProgressIndicator
+	+ Better behaviour of read-only rows with up/down arrows
+	+ Added support for printableActionName in DataTable's
+	+ Added information about automatic configuration backup
 	+ Removed warning on non existent file digest
 2.0.9
 	+ Treat wrong installed packages as not-existent modules

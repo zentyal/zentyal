@@ -25,6 +25,7 @@ use EBox::Gettext;
 use EBox::Global;
 use EBox::Apache;
 
+use POSIX ":sys_wait_h";
 use Error qw(:try);
 
 
@@ -188,13 +189,25 @@ sub percentage
 {
   my ($self) = @_;
 
-  # Workaround to avoid illegal division by zero
-  if ( $self->totalTicks() == 0 ) {
+  if ($self->finished()) {
       return 100;
   }
 
-  my $per = $self->ticks / $self->totalTicks;
+  my $totalTicks = $self->totalTicks();
+  # Workaround to avoid illegal division by zero
+  if ($totalTicks  == 0 ) {
+      return 100;
+  }
+
+
+  my $per = $self->ticks / $totalTicks;
   $per = sprintf("%.2f", $per); # round to two decimals
+  $per *=100;
+
+  if ($per > 100) {
+      # to guard for cases that more noitifyTicks than needed had been received
+      return 100;
+  }
 
   return $per;
 }
@@ -287,7 +300,6 @@ sub setAsFinished
   if ( $retValue > 0 and defined($errorMsg)) {
     $self->setConfString('errorMsg', $errorMsg);
   }
-
 }
 
 # Method: retValue
@@ -391,6 +403,18 @@ sub stateAsHash
 sub destroy
 {
   my ($self) = @_;
+
+  if (exists $self->{childPid}) {
+      for (0 .. 10) {
+          my $kid = waitpid($self->{childPid}, WNOHANG);
+          if ($kid != 0) {
+              last;
+          }
+          sleep 1;
+      }
+
+  }
+
   my $piDir = $self->confKeysBase();
 
   $self->fullModule->st_delete_dir($piDir);
@@ -434,6 +458,7 @@ sub _fork
   }
 
   if ($pid) {
+    $self->{childPid} = $pid;
     return; # parent returns immediately
   }
   else {

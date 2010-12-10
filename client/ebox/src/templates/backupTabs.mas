@@ -10,18 +10,18 @@ $selected or $selected = 'local';
 my %tabs = (
 	    local => {
 		      component =>  'backup.mas',
-		      title     =>  __('Local Backup'),
-                      url       => '/ebox/EBox/Backup?selected=local',
+		      title     =>  __('Local'),
+              url       => '/ebox/EBox/Backup?selected=local',
 		     },
 	    remote => {
 		      component =>  '/RemoteServices/Backup/index.mas',
-		      title     =>  __('Remote Backup'),
-                      url       => '/ebox/RemoteServices/Backup/Index?selected=remote',
+		      title     =>  __('Remote in Zentyal Cloud'),
+              url       => '/ebox/RemoteServices/Backup/Index?selected=remote',
 		     },
 	    proxy => {
 		      component =>  '/RemoteServices/Backup/proxy.mas',
-		      title     =>  __('Remote Backup from Other Subscribed Hosts'),
-                      url       => '/ebox/RemoteServices/Backup/Proxy?selected=proxy',
+		      title     =>  __('Remote in Zentyal Cloud from other subscribed hosts'),
+              url       => '/ebox/RemoteServices/Backup/Proxy?selected=proxy',
 		     },
 	   );
 my @tabsOrder;
@@ -47,5 +47,4 @@ if (not exists $tabs{$selected}) {
 
 </div>
 <& $tabs{$selected}->{component}, %args &>
-
 

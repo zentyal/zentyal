@@ -1602,7 +1602,7 @@ sub ids
 
 # Method: customFilterIds
 #
-#       Return Ids filtered by the string that is passed 
+#       Return Ids filtered by the string that is passed
 #
 #       You must enable the 'customFilter' property in your table description.
 #
@@ -1895,13 +1895,11 @@ sub printableModelName
 #       What <EBox::Model::DataTable::printableModelName> returns
 #
 sub printableName
-  {
+{
+    my ($self) = @_;
 
-      my ($self) = @_;
-
-      return $self->printableModelName();
-
-  }
+    return $self->printableModelName();
+}
 
 # Method: pageTitle
 #
@@ -4388,10 +4386,30 @@ sub popRedirection
     return $redirection;
 }
 
+# Method: printableActionName
+#
+#      Get the i18ned action name for the form.
+#
+# Returns:
+#
+#      String - the i18ned action name. Default value: 'Change'
+#
+sub printableActionName
+{
+    my ($self) = @_;
+
+    unless (defined ( $self->table()->{'printableActionName'})) {
+        $self->table()->{'printableActionName'} = __d('Change', 'libebox');
+    }
+
+    return $self->table()->{'printableActionName'};
+}
+
+
 # Method: viewCustomizer
 #
 #   Returns EBox::View::Customizer for this model.
-#   By default it creates an empty object. 
+#   By default it creates an empty object.
 #
 # Returns:
 #

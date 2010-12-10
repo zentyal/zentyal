@@ -31,7 +31,7 @@ use EBox::Exceptions::External;
 sub new # (error=?, msg=?, cgi=?)
 {
     my $class = shift;
-    my $self = $class->SUPER::new('title' => __('Backup'),
+    my $self = $class->SUPER::new('title' => __('Import/Export Configuration'),
                       'template' => '/backupTabs.mas',
                       @_);
     $self->{errorchain} = "EBox/Backup";
@@ -271,7 +271,7 @@ sub  _downloadAction
                 __("The input contains invalid characters"));
     }
     $self->{downfile} = EBox::Config::conf . "/backups/$id.tar";
-    $self->{downfilename} = 'eboxbackup.tar';
+    $self->{downfilename} = "$id.tar";
 }
 
 sub  _deleteAction

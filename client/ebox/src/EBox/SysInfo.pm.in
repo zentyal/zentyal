@@ -277,7 +277,7 @@ sub menu
 
 
     $folder->add(new EBox::Menu::Item('url' => 'EBox/Backup',
-                      'text' => __('Backup')));
+                      'text' => __('Import/Export Configuration')));
 
     $folder->add(new EBox::Menu::Item('url' => 'EBox/ConfigurationReport',
                       'text' => __('Configuration Report')));

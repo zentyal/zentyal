@@ -243,8 +243,7 @@ sub setAsChanged
 # Parameters:
 #  dir - directory used for the backup operation
 #  (named parameters following)
-#  fullBackup - wether we want to do a full restore as opposed a configuration-only restore (default: false)
-# bug - wether we are making a bug report instead of a normal backup
+#  bug - wether we are making a bug report instead of a normal backup
 sub makeBackup # (dir, %options)
 {
     my ($self, $dir, %options) = @_;
@@ -253,19 +252,9 @@ sub makeBackup # (dir, %options)
     my $backupDir = $self->_createBackupDir($dir);
 
     $self->aroundDumpConfig($backupDir, %options);
-
-    if ($options{fullBackup}) {
-        $self->extendedBackup(dir => $backupDir, %options);
-    }
 }
 
 
-# default implementation: do nothing
-sub extendedBackup
-{
-  # my %params = @_;
-  # my $dir = $params{dir};
-}
 
 # Method: backupDir
 #
@@ -338,7 +327,6 @@ sub restoreBackup # (dir, %options)
     }
 }
 
-
 # default implementation: do nothing
 sub extendedRestore
 {
@@ -358,8 +346,8 @@ sub _bak_file_from_dir
 #
 #   this method should be override by any module that depends on another module/s  to be restored from a backup
 #
-# Returns:
-#   a reference to a list with the names of required eBox modules for a sucesful restore. (default: none)
+# Returns: a reference to a list with the names of required eBox modules for a
+#   sucesful restore. (default: module dependencies )
 #
 #
 sub restoreDependencies
@@ -658,7 +646,7 @@ sub domain
 {
     my $self = shift;
 
-    if (defined $self->{domain}){
+    if (defined $self->{domain}) {
         return $self->{domain};
     } else {
         return 'ebox';
@@ -1289,8 +1277,9 @@ sub _consolidateReportFromDB
         my $query = $q->{'query'};
 
         my $date = $self->_consolidateReportStartDate($db,
-                $target_table,
-                $query);
+                                                      $target_table,
+                                                      $query);
+
         $date or
             next;
 
@@ -1381,10 +1370,11 @@ sub _consolidateReportFromDB
                 }
 
                 # update last consolidation time
-                $db->update('report_consolidation',
-                        { 'last_date' => "'$gmConsolidationStartTime'" },
-                        [ "report_table = '$target_table'" ],
-                        );
+
+               $db->update('report_consolidation',
+                    { 'last_date' => "'$gmConsolidationStartTime'" },
+                    [ "report_table = '$target_table'" ],
+                );
             }
 
             # only the first loop could  have a hour/day diffetent than the 00:00:00/1

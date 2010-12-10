@@ -30,7 +30,7 @@ use EBox::Config;
 use EBox::Exceptions::MissingArgument;
 use EBox::Exceptions::Internal;
 use EBox::Global;
-use EBox::Sudo qw(:all);
+use EBox::Sudo;
 
 use Error qw(:try);
 use File::Basename;
@@ -627,12 +627,12 @@ sub  _getMD5
 {
     my ($self, $path) = @_;
 
-    unless (fileTest('-e', $path)) {
+    unless (EBox::Sudo::fileTest('-e', $path)) {
         EBox::info("File $path does not exist. So we won't compute its digest");
         return 'notexists';
     }
 
-    my $md5 = pop(@{root("md5sum $path | cut -d' ' -f1")});
+    my $md5 = pop(@{EBox::Sudo::root("md5sum $path | cut -d' ' -f1")});
     chomp $md5;
 
     return $md5;

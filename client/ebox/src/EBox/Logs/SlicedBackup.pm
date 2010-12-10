@@ -214,7 +214,6 @@ sub _restoreTables
                            );
                 next;
             }
-
             $toDelete = $uncompresedFile;
         } else {
             $uncompresedFile = $file;
@@ -456,7 +455,7 @@ sub archive
         $dbengine->commandAsSuperuser("test -d $archiveDir");
     } otherwise {
         throw EBox::Exceptions::External(
-                 __("Directory $archiveDir must be readable by DB's superuser")
+                 qq{Directory $archiveDir must be readable by DB's superuser}
                                          );
     };
 

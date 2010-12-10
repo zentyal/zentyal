@@ -361,15 +361,9 @@ sub getLogDomains
     return \%logdomains;
 }
 
-sub extendedBackup
-{
-  my ($self, %params) = @_;
-  my $dir    = $params{dir};
-
-  $self->dumpExtraBackupData($dir);
-}
 
 
+# keept for coapmibilty with old extended backups
 sub extendedRestore
 {
   my ($self, %params) = @_;
@@ -382,14 +376,28 @@ sub extendedRestore
 }
 
 
+sub backupDomains
+{
+    my $name = 'logs';
+    my %attrs  = (
+                  printableName => __('Logs'),
+                  description   => __(q{Zentyal Server logs database}),
+                 );
+
+    return ($name, \%attrs);
+}
+
+
 sub dumpExtraBackupData
 {
-    my ($self, $dir) = @_;
+    my ($self, $dir, %backupDomains) = @_;
 
-    my $dbengine = EBox::DBEngineFactory::DBEngine();
-    my $dumpFileBasename = "eboxlogs";
+    if ($backupDomains{logs} ) {
+        my $dbengine = EBox::DBEngineFactory::DBEngine();
+        my $dumpFileBasename = "eboxlogs";
 
-    $dbengine->backupDB($dir, $dumpFileBasename);
+        $dbengine->backupDB($dir, $dumpFileBasename);
+    }
 }
 
 sub _checkValidDate # (date)

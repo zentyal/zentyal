@@ -6,9 +6,15 @@
 <%init>
 use EBox::Gettext;
 </%init>
-% unless ($subscribed) {
+% if ($subscribed) {
+  <div class='note'>
+	<% __sx('Thanks to your server subscription, the configuration backup is checked on daily basis and stored automatically on the Zentyal Cloud if any configuration changes are detected. You may check all your configuration backups {ohref}here{chref}.',
+                ohref => '<a href="https://cloud.zentyal.com/services/backup/all" target="_blank">',
+                chref => '</a>') %>
+  </div>
+% } else {
   <div class='warning'>
-	<% __sx('Get a FREE {ohref}Basic Server Subscription{chref} to gain access to automatic remote configuration backup.', ohref => '<a href="http://store.zentyal.com/serversubscriptions/subscription-basic.html?utm_source=ebox&utm_medium=conf.backup&utm_campaign=basic.subscription" target="_blank">', chref => '</a>') %>
+	<% __sx('Get a FREE {ohref}Basic Server Subscription{chref} that allows you to have a look to the commercial services and to store your configuration backup remotely, receive alerts regarding the connectivity of your Zentyal server, available updates or failed automatic backup.', ohref => '<a href="http://store.zentyal.com/serversubscriptions/subscription-basic.html?utm_source=ebox&utm_medium=conf.backup&utm_campaign=basic.subscription" target="_blank">', chref => '</a>') %>
   </div>
 % }
 <& .backupSection, modulesChanged => $modulesChanged &>

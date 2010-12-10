@@ -36,24 +36,24 @@ my $dataRestore   = 0;
 my $deleteBackup = 0;
 
 my $forceDependencies = 0;
+my $revokeAllOnModuleFail = 1;
 
 my $help = 0;;
 my $info = 0;
 
 my $optionsOk = GetOptions(
-			   'module:s' => \@modsToRestore,
-			   'progress-id:i' => \$progressId,
-			   'config-restore' => \$configRestore,
-			   'full-restore'  => \$fullRestore,
-			   'data-restore'  => \$dataRestore,
-			   'force-dependencies' => \$forceDependencies,
-			   'delete-backup'      => \$deleteBackup,
+               'module:s' => \@modsToRestore,
+               'progress-id:i' => \$progressId,
+               'config-restore' => \$configRestore,
+               'full-restore'  => \$fullRestore,
+               'data-restore'  => \$dataRestore,
+               'force-dependencies' => \$forceDependencies,
+               'delete-backup'      => \$deleteBackup,
+               'revoke-all-on-module-fail!' => \$revokeAllOnModuleFail,
 
-			   'info'       => \$info,
-
-			   'help'               => \$help,
-			   
-			  );
+               'info'       => \$info,
+               'help'       => \$help,
+              );
 
 if (not $optionsOk) {
   usage();
@@ -64,10 +64,7 @@ elsif (@ARGV != 1) {
   exit 1;
 }
 
-
-
 my ($file) = @ARGV;
-
 
 # see operation mode
 if ($help) {
@@ -80,8 +77,7 @@ elsif ($info) {
 }
 
 
-# operation mode: restore backup 
-
+# operation mode: restore backup
 
 # see if we have incompatible operation modes
 my $incompatibleModes = grep { $_  }  ($configRestore, $dataRestore, $fullRestore, );
@@ -107,6 +103,7 @@ $restoreParams{fullRestore}       = $fullRestore;
 $restoreParams{dataRestore}       = $dataRestore;
 $restoreParams{forceDependencies} = $forceDependencies;
 $restoreParams{deleteBackup}      = $deleteBackup;
+$restoreParams{revokeAllOnModuleFail} = $revokeAllOnModuleFail;
 
 try {
   EBox::Backup->restoreBackup($file, %restoreParams);
@@ -152,7 +149,7 @@ sub usage
   $0  [OPTION\]... [--module NAME]...   ARCHIVE_FILE
   $0  --info ARCHIVE_FILE
   $0  --help
-  
+
   Options:
     --config-restore
     --data-restore
@@ -161,6 +158,8 @@ sub usage
     --force-dependencies
 
     --delete-backup
+
+    --revoke-all-on-module-fail,--no-revoke-all-on-module-fail
 
     --progress-id
 END

@@ -587,26 +587,6 @@ sub formSubmitted
 
 }
 
-# Method: printableActionName
-#
-#      Get the i18ned action name for the form.
-#
-# Returns:
-#
-#      String - the i18ned action name. Default value: 'Change'
-#
-sub printableActionName
-{
-    my ($self) = @_;
-
-    unless (defined ( $self->table()->{'printableActionName'})) {
-        $self->table()->{'printableActionName'} = __('Change');
-    }
-
-    return $self->table()->{'printableActionName'};
-
-}
-
 # Method: AUTOLOAD
 #
 #      This method will intercept any call done to undefined
