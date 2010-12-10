@@ -1,4 +1,5 @@
 HEAD
+	+ Allow custom mason templates under /etc/ebox/stubs
 	+ Wait for 10 seconds to the child process when destroying the
 	  progress indicator to avoid zombie processes
 	+ Caught SIGPIPE when trying to contact Redis server and the

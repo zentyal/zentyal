@@ -890,8 +890,21 @@ sub writeConfFileNoCheck # (file, component, params, defaults)
     my $comp;
 
     try {
-        $comp = $interp->make_component(comp_file =>
-                                         EBox::Config::stubs . "/" . $compname);
+        my $stub = EBox::Config::stubs() . $compname;
+        my $customStub = EBox::Config::etc() . "stubs/$compname";
+        if (-f $customStub) {
+            try {
+                EBox::info("Using custom template for $file: $customStub");
+                $comp = $interp->make_component(comp_file => $customStub);
+            } otherwise {
+                my $ex = shift;
+                EBox::error("Falling back to default $stub due to exception " .
+                            "processing custom template $customStub: $ex");
+            };
+            $comp = $interp->make_component(comp_file => $stub);
+        } else {
+            $comp = $interp->make_component(comp_file => $stub);
+        }
     } otherwise {
         my $ex = shift;
         throw EBox::Exceptions::Internal("Template $compname failed with $ex");
