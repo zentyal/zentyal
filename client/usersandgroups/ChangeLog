@@ -1,4 +1,6 @@
 HEAD
+	+ Fix Samba PDC on slaves
+	+ Check for incompatibility between Samba PDC and PAM on slaves
 	+ Optimize slave-sync script if there are no pending operations
 	+ Remove useless call to mode() on slave-sync script (faster now)
 	+ Replica LDAP listens in all interfaces

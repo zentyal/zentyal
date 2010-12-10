@@ -1,4 +1,5 @@
 HEAD
+	+ Check for incompatibility between PDC and PAM on slaves
 	+ Improved performance by adding samba LDAP indexes
 	+ Only set shares ACL if needed
 	+ Set default order for dashboard widgets

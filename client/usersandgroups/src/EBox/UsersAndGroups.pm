@@ -281,7 +281,14 @@ sub _setConf
     my @array = ();
     my $dn;
     if ( $mode eq 'slave' ) {
-        push(@array, 'ldap' => 'ldap://127.0.0.1:1389');
+        my $enablePam = $self->model('PAM')->enable_pamValue();
+
+        # Bind to translucent if PAM enabled, to frontend if not (necessary for samba)
+        if ( $enablePam ) {
+            push(@array, 'ldap' => 'ldap://127.0.0.1:1389');
+        } else {
+            push(@array, 'ldap' => 'ldap://127.0.0.1');
+        }
         $dn = $self->model('Mode')->dnValue();
     } else {
         # master or ad-sync

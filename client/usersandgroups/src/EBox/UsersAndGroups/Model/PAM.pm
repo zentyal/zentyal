@@ -50,6 +50,42 @@ sub new
     return $self;
 }
 
+# Method: validateTypedRow
+#
+#   Check if mail services are disabled.
+#
+# Overrides:
+#
+#       <EBox::Model::DataTable::validateTypedRow>
+#
+sub validateTypedRow
+{
+    my ($self, $action, $changedParams, $allParams) = @_;
+
+    # Check for incompatibility between PDC and PAM
+    # only on slave servers
+
+    my $mode = $self->parentModule()->mode();
+    return unless $mode eq 'slave';
+
+    return unless EBox::Global->modExists('samba');
+
+    my $samba = EBox::Global->modInstance('samba');
+
+    my $pam = exists $allParams->{enable_pam} ?
+                  $allParams->{enable_pam}->value() :
+                  $changedParams->{enable_pam}->value();
+
+    my $pdc = $samba->pdc();
+
+    if ($pam and $pdc) {
+        throw EBox::Exceptions::External(__x('PAM can not be enabled on slave servers while acting as PDC. You can disable the PDC functionality at {ohref}Samba General Settings{chref}.',
+ohref => q{<a href='/ebox/Samba/Composite/General/'>},
+chref => q{</a>}));
+    }
+}
+
+
 sub validShells
 {
     my @shells;

@@ -77,6 +77,24 @@ sub validateTypedRow
         throw EBox::Exceptions::External(
                 __('Netbios name cannot be longer than 15 characters'));
     }
+
+    # Check for incompatibility between PDC and PAM
+    # only on slave servers
+
+    my $users = EBox::Global->modInstance('users');
+    return unless ($users->mode() eq 'slave');
+
+    my $pdc = exists $newParams->{pdc} ?
+                  $newParams->{pdc}->value() :
+                  $oldParams->{pdc}->value();
+
+    my $pam = $users->model('PAM')->enable_pamValue();
+
+    if ($pam and $pdc) {
+        throw EBox::Exceptions::External(__x('A slave server can not act as PDC if PAM is enabled. You can do disable PAM at {ohref}LDAP Settings{chref}.',
+            ohref => q{<a href='/ebox/Users/Composite/Settings/'>},
+            chref => q{</a>}));
+    }
 }
 
 sub _table
