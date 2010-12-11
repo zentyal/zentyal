@@ -1,4 +1,4 @@
-HEAD
+2.0.8
 	+ Fix Samba PDC on slaves
 	+ Check for incompatibility between Samba PDC and PAM on slaves
 	+ Optimize slave-sync script if there are no pending operations
