@@ -3,6 +3,7 @@ HEAD
 	+ Workaround for POST params validation with webkit based browsers
 	+ Added support for printableActionName in DataTable's
 	+ Better behaviour of read-only rows with up/down arrows
+	+ Add missing semicolon to HTML entities
 2.0.4
 	+ Aesthetic improvement in modal boxes
 	+ Bugfix: Escape ' and " as HTML entities in gettext to fix

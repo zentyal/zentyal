@@ -71,8 +71,8 @@ sub __ # (text)
     _set_packagedomain();
     my $string = gettext(shift);
     _unset_packagedomain();
-    $string =~ s/\'/\&#39/g;
-    $string =~ s/\"/\&#34/g;
+    $string =~ s/\'/\&#39\;/g;
+    $string =~ s/\"/\&#34\;/g;
     return $string;
 }
 
