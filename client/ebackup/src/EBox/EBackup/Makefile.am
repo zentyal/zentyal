@@ -3,7 +3,7 @@ SUBDIRS = Types
 
 perldir = @PERLPATH@/EBox/EBackup
 
-nobase_perl_DATA = DBRestore.pm
+nobase_perl_DATA = DBRestore.pm Subscribed.pm Password.pm
 
 DISTCLEANFILES =
 

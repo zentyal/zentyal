@@ -14,14 +14,14 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 
-package EBox::EBackup::Model::RemoteStatus;
+package EBox::EBackup::Model::RemoteStorage;
 
-# Class: EBox::EBackup::Model::RemoteStatus
+# Class: EBox::EBackup::Model::RemoteStorage
 #
-#
+#   TODO: Document the class
 #
 
-use base 'EBox::Model::DataTable';
+use base 'EBox::Model::DataForm::ReadOnly';
 
 use strict;
 use warnings;
@@ -56,43 +56,31 @@ sub new
     return $self;
 }
 
-# Method: ids
-#
-# Overrides:
-#
-#      <EBox::Model::DataTable::ids>
-#
-sub ids
+
+sub _content
 {
     my ($self) = @_;
+    if (not defined $self->{storage}) {
+        my $ebackup = $self->{gconfmodule};
+        $self->{storage} = $ebackup->storageUsage();
+        if (not defined $self->{storage}) {
+            return {
+                    used => __('Unknown'),
+                    available => __('Unknown'),
+                    total     => __('Unknown'),
+                   };
+        }
+    }
 
-    my @status = @{$self->{gconfmodule}->remoteStatus()};
-    return [] unless (@status);
-
-    return [0 .. (scalar(@status) -1)];
+    return {
+            used => $self->{storage}->{used} . ' MB',
+            available => $self->{storage}->{available} . ' MB',
+            total => $self->{storage}->{total} . ' MB',
+           };
 }
 
-# Method: row
-#
-# Overrides:
-#
-#      <EBox::Model::DataTable::row>
-#
-sub row
-{
-    my ($self, $id) = @_;
 
-    # the reverse is for antichronological order
-    my @status = reverse @{$self->{gconfmodule}->remoteStatus()};
-    my $type = $status[$id]->{'type'};
-    my $date = $status[$id]->{'date'};
 
-    my $row = $self->_setValueRow(type => $type,
-                                  date => $date,
-                                 );
-    $row->setId($id);
-    return $row;
-}
 
 # Method: precondition
 #
@@ -103,9 +91,9 @@ sub row
 sub precondition
 {
     my ($self) = @_;
-
-    my @status = @{$self->{gconfmodule}->remoteStatus()};
-    return (scalar(@status));
+    my $ebackup = $self->{gconfmodule};
+    $self->{storage} = $ebackup->storageUsage();
+    return defined $self->{storage}
 }
 
 # Method: preconditionFailMsg
@@ -117,11 +105,12 @@ sub precondition
 sub preconditionFailMsg
 {
     my ($self) = @_;
-
-    return __('Remote Backup Status') . ': ' . __('There are not backed up files yet');
+    # nothing to show if not precondition..
+    return '';
 }
 
 
+#
 # Group: Protected methods
 
 # Method: _table
@@ -135,35 +124,32 @@ sub _table
 
     my @tableHeader = (
         new EBox::Types::Text(
-            fieldName     => 'type',
-            printableName => __('Type'),
+            fieldName     => 'used',
+            printableName => __('Used storage'),
         ),
         new EBox::Types::Text(
-            fieldName     => 'date',
-            printableName => __('Date'),
+            fieldName     => 'available',
+            printableName => __('Available storage'),
         ),
-
+        new EBox::Types::Text(
+           fieldName     => 'total',
+            printableName => __('Total storage'),
+        ),
     );
 
     my $dataTable =
     {
-        tableName          => 'RemoteStatus',
-        printableTableName => __('Remote Backup Status'),
+        tableName          => 'RemoteStorage',
+        printableTableName => __('Remote Storage Usage'),
         printableRowName   => __('backup'),
-        defaultActions     => ['editField', 'changeView' ],
         tableDescription   => \@tableHeader,
         class              => 'dataTable',
         modelDomain        => 'EBackup',
-        defaultEnabledValue => 1,
     };
 
     return $dataTable;
 
 }
 
-sub Viewer
-{
-    return '/ajax/tableBodyWithoutActions.mas';
-}
 
 1;

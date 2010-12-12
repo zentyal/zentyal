@@ -34,6 +34,11 @@ use EBox::Backup;
 use EBox::Sudo;
 use EBox::Logs::SlicedBackup;
 use File::Slurp;
+use EBox::FileSystem;
+use Filesys::Df;
+use EBox::DBEngineFactory;
+use EBox::EBackup::Subscribed;
+use EBox::EBackup::Password;
 
 use String::ShellQuote;
 use Date::Parse;
@@ -45,16 +50,9 @@ use EBox::Exceptions::MissingArgument;
 use constant EBACKUP_CONF_FILE => EBox::Config::etc() . '82ebackup.conf';
 use constant EBACKUP_MENU_ENTRY => 'ebackup_menu_enabled';
 use constant DUPLICITY_WRAPPER => EBox::Config::share() . '/ebox-ebackup/ebox-duplicity-wrapper';
-use constant DUPLICITY_PASSWORD =>  EBox::Config::conf . '/ebox-ebackup.password';
-use constant DUPLICITY_SYMMETRIC_PASSWORD =>  EBox::Config::conf . '/ebox-ebackup-symmetric.password';
 use constant LOCK_FILE     => EBox::Config::tmp() . 'ebox-ebackup-lock';
-use constant EBACKUP_EBOX_FINGERPRINT_FILE => EBox::Config::share() . '/ebox-ebackup/server-fingerprints';
 
-my %servers = (
-    'ebox_eu' => 'ch-s010.rsync.net',
-    'ebox_us_denver' => 'usw-s008.rsync.net',
-    'ebox_us_w' => 'usw-s004.rsync.net',
-);
+
 
 
 # Constructor: _create
@@ -94,6 +92,8 @@ sub modelClasses
         'EBox::EBackup::Model::RemoteFileList',
         'EBox::EBackup::Model::RemoteRestoreLogs',
         'EBox::EBackup::Model::RemoteRestoreConf',
+        'EBox::EBackup::Model::RemoteStorage',
+        'EBox::EBackup::Model::BackupDomains',
     ];
 }
 
@@ -147,12 +147,16 @@ sub addModuleStatus
 #   file - strings containing the file name to restore
 #   date - string containing a date that can be parsed by Date::Parse
 #   destination - path to restore in place of the previous path (optional)
+#   urlParams
 #
 sub restoreFile
 {
-    my ($self, $file, $date, $destination) = @_;
+    my ($self, $file, $date, $destination, $urlParams) = @_;
+    defined $urlParams or
+        $urlParams = {};
 
-    if (not $self->configurationIsComplete()) {
+    if ((not $self->configurationIsComplete()) and
+        (keys %{ $urlParams} == 0) ) {
         return;
     }
 
@@ -166,22 +170,33 @@ sub restoreFile
 
     $destination or
         $destination = $file;
-    my $rFile = $file;
-    $rFile =~ s:^/::; # file must be realtive
+
+    my $rFile;
+    if ($file eq '/') {
+        $rFile = undef;
+    } else {
+        $rFile = $file;
+        $rFile =~ s:^/::; # file must be relative
+
+        # shell quote does not work well for espaces with duplicity...
+        $rFile =~ s:\ :\\\ :g;
+        $rFile = shell_quote($rFile);
+    }
 
     # shell quote does not work well for espaces with duplicity...
-    $rFile =~ s:\ :\\\ :g;
     $destination =~ s:\ :\\\ :g;
-
-    $rFile = shell_quote($rFile);
     $destination = shell_quote($destination);
 
     my $time = Date::Parse::str2time($date);
 
     my $model = $self->model('RemoteSettings');
-    my $url = $self->_remoteUrl();
+    my $url = $self->_remoteUrl(%{ $urlParams });
 
-    my $cmd = DUPLICITY_WRAPPER .  " --force -t $time --file-to-restore $rFile $url $destination";
+    my $cmd = DUPLICITY_WRAPPER .  " --force -t $time ";
+    if ($rFile) {
+        $cmd .= "--file-to-restore $rFile ";
+    }
+    $cmd .= " $url $destination";
 
     try {
         EBox::Sudo::root($cmd);
@@ -198,9 +213,9 @@ sub restoreFile
                );
         } elsif ($error =~ m/No backup chains found/) {
             throw EBox::Exceptions::External(
-__(q{No backup archives found. Maybe they were deleted?.} .
-   q{ Run '/etc/init.d/ebox ebackup restart' to refresh backup's information.}
-       )
+                __(q{No backup archives found. Maybe they were deleted?.} .
+                     q{ Run '/etc/init.d/ebox ebackup restart' to refresh backup's information.}
+                    )
                );
         } else {
             $ex->throw();
@@ -209,9 +224,31 @@ __(q{No backup archives found. Maybe they were deleted?.} .
 }
 
 
+# Method: lastBackupDate
+#
+#  Returns:
+#   string with the date of the last backup made, undef if there are not backups
+#
+#  Warning:
+#    the information is getted from the cache, remember you could call
+#    _syncRemoteCaches to refresh the cache
+sub lastBackupDate
+{
+    my ($self, $urlParams) = @_;
+    my $status = $self->remoteStatus($urlParams);
+    if (not @{ $status }) {
+        return undef;
+    }
+
+    return $status->[-1]->{date};
+}
+
+
+
 # Method: remoteArguments
 #
 #   Return the arguments to be used by duplicty
+#
 #
 # Arguments:
 #
@@ -222,14 +259,16 @@ __(q{No backup archives found. Maybe they were deleted?.} .
 #   String contaning the arguments for duplicy
 sub remoteArguments
 {
-    my ($self, $type) = @_;
+    my ($self, $type, $urlParams) = @_;
+    defined $urlParams or
+        $urlParams = {};
 
     my $volSize = $self->_volSize();
     my $fileArgs = $self->remoteFileSelectionArguments();
     my $cmd =  DUPLICITY_WRAPPER .  " $type " .
             "--volsize $volSize " .
             "$fileArgs " .
-            " / " . $self->_remoteUrl();
+            " / " . $self->_remoteUrl(%{ $urlParams });
     return $cmd;
 }
 
@@ -250,10 +289,12 @@ sub dumpExtraData
         EBox::error("Cannot write in extra backup data directory $extraDataDir");
         return;
     }
-
     my $global = EBox::Global->getInstance($readOnlyGlobal);
 
-    # Backup configuration
+    # create backup domain files
+    my @enabledBackupDomains = keys %{ $self->_enabledBackupDomains()  };
+    File::Slurp::write_file($self->enabledDomainsListPath(),
+                            join ',', @enabledBackupDomains);
 
     try {
         my $filename = 'confbackup.tar';
@@ -272,27 +313,233 @@ sub dumpExtraData
         EBox::error("Configuration backup failed: $ex. It will not be possible to restore the configuration from this backup, but the data will be backed up.");
     };
 
+    my %enabled;
+    if ($self->_fullMachineBackup()) {
+        %enabled = (  full => 1);
+    } else {
+        %enabled  = %{ $self->_enabledBackupDomains() };
+    }
+
     foreach my $mod (@{ $global->modInstances() }) {
         if ($mod->can('dumpExtraBackupData')) {
             my $dir = $extraDataDir . '/' . $mod->name();
-            mkdir $dir;
-            $mod->dumpExtraBackupData($dir);
+            mkdir $dir; # this directory could be empty if th next call doesnot
+                        # put any file on it
+            $mod->dumpExtraBackupData($dir, %enabled);
         }
     }
 }
 
+sub enabledDomainsListPath
+{
+    my ($self) = @_;
+    my $path = $self->extraDataDir() .  '/enabled-domains.csv';
+    return $path;
+}
+
+# Method: includedConfigBackupPath
+#
+# Returns:
+#  path of the config backup in the backed-up file system
+sub includedConfigBackupPath
+{
+    my ($self) = @_;
+    my $path = $self->extraDataDir() .  '/confbackup.tar';
+    return $path;
+}
+
+# Method: availableBackupDomains
+#
+# Parameters: modNames - names of modules to look for backup domains (Default:
+# all instaled modules)
+#
+# Returns:
+#  hash reference wich backup domain name as key and backup domain attributes as values
+sub availableBackupDomains
+{
+    my ($self, $modNames) = @_;
+    my %backupDomains = ();
+
+    my $global = EBox::Global->getInstance();
+    if (not defined $modNames) {
+        $modNames = $global->modNames();
+    }
+
+    foreach my $name (@{ $modNames }) {
+        my $mod = $global->modInstance($name);
+        # the mod shouldnt to exist when we supply a list of modules
+        defined $mod or
+            next;
+        if ($mod->isa('EBox::Module::Service')) {
+            $mod->configured() or
+                next;
+        }
+
+        if ($mod->can('backupDomains')) {
+            my @modBackupDomains = $mod->backupDomains();
+            while (my ($name, $attrs) = splice( @modBackupDomains, 0, 2)) {
+                $backupDomains{$name} = $attrs;
+                $backupDomains{$name}->{enabled} = $mod->configured();
+            }
+
+            # the same domain can be provided by different modules this is
+            # intentional to allow than more of one module for each backup
+            # domain  but assure that their $attr valeus are identical or you can
+            # run into trouble
+        }
+    }
+
+    return \%backupDomains;
+}
+
+sub _enabledBackupDomains
+{
+    my ($self) = @_;
+    if ($self->_fullMachineBackup()) {
+        # we add logss, otherwise it would be required to stop the postgre
+        # database to have a correct backup
+        return { full => 1, logs => 1};
+    }
+
+    my $domainsModel = $self->model('BackupDomains');
+    return $domainsModel->enabled();
+}
+
+
+sub _fullMachineBackup
+{
+    # XXX TODO
+    return 0;
+}
+
+
+sub backupDomainsFileSelectionsRowPrefix
+{
+    return 'ds';
+}
+
+# Method: modulesBackupDomainsFileSelections
+#
+#  Returns:
+#   list with all file selections for the enabled backup domains in the system
+sub modulesBackupDomainsFileSelections
+{
+    my ($self) = @_;
+
+    my %enabled = %{ $self->_enabledBackupDomains() };
+    if (not keys %enabled) {
+        return [];
+    }
+
+    my $mods = EBox::Global->getInstance()->modInstances();
+    my @domainSelections = ();
+    foreach my $mod (@{ $mods }) {
+        if ($mod->can('backupDomainsFileSelection')) {
+            my $bds = $mod->backupDomainsFileSelection(%enabled);
+            $bds->{mod} = $mod->{name};
+            push @domainSelections, $bds;
+        }
+    }
+
+    @domainSelections = sort {
+                       my $pA = exists $a->{priority} ?
+                                       $a->{priority} : 1;
+                       my $pB = exists $b->{priority} ?
+                                       $b->{priority} : 1;
+                       $pA <=> $pB
+                     } @domainSelections ;
+
+
+    my $prefix = $self->backupDomainsFileSelectionsRowPrefix();
+    my @selections;
+    foreach my $ds (@domainSelections) {
+        foreach my $type (qw(exclude exclude-regexp include)) {
+            my $typeList = $type . 's';
+            if ($ds->{$typeList}) {
+                foreach my $value (@{ $ds->{$typeList} }) {
+                        my $escapedValue = $value;
+                        $escapedValue =~ s{/}{R}g;
+                        my $id =  $prefix .  '_' .
+                            $ds->{mod} . '_' . $type . '_' .$escapedValue;
+                        push @selections, {
+                                           id   => $id,
+                                           type => $type,
+                                           value => $value };
+                }
+            }
+        }
+    }
+
+    return \@selections;
+}
+
+
+sub _backupDomainsFileSelectionArguments
+{
+    my ($self) = @_;
+
+    my @selections = @{ $self->modulesBackupDomainsFileSelections };
+
+    my $args = '';
+    foreach my $selection (@selections) {
+        $args .= '--' . $selection->{type} . ' ' . $selection->{value} . ' ';
+    }
+
+    return $args;
+}
+
+
+
+sub _fullMachineBackupSelectionArguments
+{
+    my ($self) = @_;
+
+    # here we only excldue things that has no sense in any scenario
+
+    my $args = $self->_autoExcludesArguments();
+
+    # temp directories
+    $args .= ' --exclude=/tmp ';
+
+    # special directories
+    $args .= ' --exclude=/dev ';
+    $args .= ' --exclude=/proc ';
+    $args .= ' --exclude=/sys ';
+    $args .= ' --exclude=**/lost+found';
+
+    # use (--delete excluded) ? It seems that some devices
+    # are not automatically created under /dev
+
+    # Include
+    # + /dev/console
+    # + /dev/initctl
+    # + /dev/null
+    # + /dev/zero
+
+    # external devices directory
+    $args .= ' --exclude=/media ';
+
+    return $args;
+}
 
 sub remoteFileSelectionArguments
 {
     my ($self) = @_;
 
-    my $model = $self->model('RemoteExcludes');
+    if ($self->_fullMachineBackup()) {
+        return $self->_fullMachineBackupSelectionArguments();
+    }
+
     my $args = '';
     # Include configuration backup
     $args .= ' --include=' . $self->extraDataDir . ' ';
 
     $args .= $self->_autoExcludesArguments();
 
+    # high level selection arguments
+    $args .= $self->_backupDomainsFileSelectionArguments();
+
+    my $model = $self->model('RemoteExcludes');
     for my $id (@{$model->ids()}) {
         my $row = $model->row($id);
         my $type = $row->valueByName('type');
@@ -323,7 +570,7 @@ sub _autoExcludesArguments
 
     my $args = '';
     # directories excluded to avoid risk of
-    # duplicity crash
+    # duplicity crash_remoteUrl
     $args .= "--exclude=/proc --exclude=/sys ";
 
     # exclude sliced backups directory
@@ -353,12 +600,14 @@ sub _autoExcludesArguments
 #   String contaning the arguments for duplicy
 sub remoteDelOldArguments
 {
-    my ($self, $type) = @_;
+    my ($self, $type, $urlParams) = @_;
+    defined $urlParams
+        or $urlParams = {};
 
     my $model = $self->model('RemoteSettings');
     my $removeArgs = $model->removeArguments();
 
-    return DUPLICITY_WRAPPER . " $removeArgs --force " . $self->_remoteUrl();
+    return DUPLICITY_WRAPPER . " $removeArgs --force " . $self->_remoteUrl(%{ $urlParams });
 }
 
 # Method: remoteListFileArguments
@@ -371,11 +620,14 @@ sub remoteDelOldArguments
 #
 sub remoteListFileArguments
 {
-    my ($self, $type) = @_;
+    my ($self, $type, $urlParams) = @_;
+    defined $urlParams
+        or $urlParams = {};
 
     my $model = $self->model('RemoteSettings');
 
-    return DUPLICITY_WRAPPER . " list-current-files " . $self->_remoteUrl();
+    return DUPLICITY_WRAPPER . ' list-current-files ' .
+             $self->_remoteUrl(%{ $urlParams });
 }
 
 #  Method: remoteGenerateListFile
@@ -410,7 +662,10 @@ sub remoteGenerateListFile
 # Method: remoteStatus
 #
 #  Return the status of the remote backup.
-#  Cached for 1000 seconds.
+#
+#  Params:
+#  noCacheUrl - if present use this URL specification instead of
+#               the module configuration and cached results.
 #
 # Returns:
 #
@@ -418,30 +673,47 @@ sub remoteGenerateListFile
 #
 #  type - full or incremental backup
 #  date - backup date
+#  volumes - the number of stored volumes
 sub remoteStatus
 {
-    my ($self) = @_;
+    my ($self, $noCacheUrl) = @_;
 
     my @status;
-    if (-f tmpCurrentStatus()) {
-        my @lines = File::Slurp::read_file(tmpCurrentStatus());
-        for my $line (@lines) {
-            # We are trying to match this:
-            #  Full Wed Sep 23 13:30:56 2009 95
-            #  Incr Fri Sep 23 13:30:56 2009 95
-            my $regexp = '^\s+(\w+)\s+(\w+\s+\w+\s+\d\d? '
-                    . '\d\d:\d\d:\d\d \d{4})\s+\d+';
-            if ($line =~ /$regexp/ ) {
-                push (@status, {
-                        type => $1,
-                        date => $2 }
-                     );
-            }
+    my @lines;
+    if ($noCacheUrl) {
+        my $status = $self->_retrieveRemoteStatus($noCacheUrl);
+        if (not $status) {
+            throw EBox::Exceptions::External(
+                                             __('Could not get backup collection status, check whether the parameters and passwords are correct')
+                                            );
+        }
+
+        @lines = @{ $status  };
+    } else {
+        if (-f tmpCurrentStatus()) {
+            @lines = File::Slurp::read_file(tmpCurrentStatus());
+        }
+    }
+
+    for my $line (@lines) {
+        # We are trying to match this:
+        #  Full Wed Sep 23 13:30:56 2009 95
+        #  Incr Fri Sep 23 13:30:56 2009 95
+        my $regexp = '^\s+(\w+)\s+(\w+\s+\w+\s+\d\d? '
+            . '\d\d:\d\d:\d\d \d{4})\s+(\d+)';
+        if ($line =~ /$regexp/ ) {
+            push (@status, {
+                type => $1,
+                date => $2,
+                volumes => $3,
+                           }
+                 );
         }
     }
 
     return \@status;
 }
+
 
 # Method: tmpCurrentStatus
 #
@@ -462,14 +734,33 @@ sub tmpCurrentStatus
 #
 sub remoteGenerateStatusCache
 {
-    my ($self) = @_;
 
-    if (not $self->configurationIsComplete()) {
+    my ($self, $urlParams) = @_;
+    $self->_clearStorageUsageCache();
+
+    my $file = tmpCurrentStatus();
+    my $status = $self->_retrieveRemoteStatus($urlParams);
+
+    if (defined $status) {
+        File::Slurp::write_file($file, $status);
+    } else {
+        ( -e $file) and
+            unlink $file;
+    }
+}
+
+sub _retrieveRemoteStatus
+{
+    my ($self, $urlParams) = @_;
+    defined $urlParams
+        or $urlParams = {};
+
+    if ((not keys %{ $urlParams }) and
+        (not $self->configurationIsComplete())) {
         return;
     }
 
-    my $file = tmpCurrentStatus();
-    my $remoteUrl = $self->_remoteUrl();
+    my $remoteUrl = $self->_remoteUrl(%{ $urlParams  });
     my $cmd = DUPLICITY_WRAPPER . " collection-status $remoteUrl";
     my $status = undef;
     try {
@@ -482,12 +773,7 @@ sub remoteGenerateStatusCache
         }
     };
 
-    if (defined $status) {
-        File::Slurp::write_file($file, $status);
-    } else {
-        (-e $file) and
-            unlink $file;
-    }
+    return $status;
 }
 
 # Method: tmpFileList
@@ -544,8 +830,12 @@ sub setRemoteBackupCron
     my $strings = $self->model('RemoteSettings')->crontabStrings();
 
     my $script = EBox::Config::share() . 'ebox-ebackup/ebox-remote-ebackup';
-    foreach my $full (@{ $strings->{full} }) {
-        push (@lines, "$full $script --full");
+
+    my $fullList = $strings->{full};
+    if ($fullList) {
+        foreach my $full (@{ $fullList }) {
+            push (@lines, "$full $script --full");
+        }
     }
 
     my $incrList = $strings->{incremental};
@@ -557,6 +847,14 @@ sub setRemoteBackupCron
 
     my $tmpFile = EBox::Config::tmp() . 'ebackup-cron';
     open(my $tmp, '>', $tmpFile);
+
+    my $onceList = $strings->{once};
+    if ($onceList) {
+        foreach my $once (@{ $onceList }) {
+            push (@lines, "$once $script --full-only-once");
+        }
+    }
+
     if ($self->isEnabled()) {
         for my $line (@lines) {
             print $tmp "$line\n";
@@ -599,18 +897,20 @@ sub _setConf
 
     # Store password
     my $model = $self->model('RemoteSettings');
-    my $pass = $model->row()->valueByName('password');
-    $pass = '' unless (defined($pass));
+    my $pass = '';
+    if (not $self->EBox::EBackup::Subscribed::isSubscribed()) {
+        $pass = $model->row()->valueByName('password');
+        defined $pass or
+            $pass = '';
+    } else {
+        my $credentials = EBox::EBackup::Subscribed::credentials();
+        $pass = $credentials->{password};
+    }
+    EBox::EBackup::Password::setPasswdFile($pass);
+
     my $symPass = $model->row->valueByName('encryption');
-    $symPass = '' unless (defined($symPass));
-    EBox::Module::Base::writeFile(
-            DUPLICITY_PASSWORD,
-            $pass, { uid => 'ebox', gid => 'ebox', mode => '0600'}
-    );
-    EBox::Module::Base::writeFile(
-            DUPLICITY_SYMMETRIC_PASSWORD,
-            $symPass, { uid => 'ebox', gid => 'ebox', mode => '0600'}
-    );
+    $self->$symPass = '' unless (defined($symPass));
+    EBox::EBackup::Password::setSymmetricPassword($symPass);
 
     if ($self->isEnabled()) {
         $self->setRemoteBackupCron();
@@ -621,6 +921,9 @@ sub _setConf
     $self->_syncRemoteCaches();
 }
 
+
+# this calls to remoteGenerateStatusCache and if there was change it regenerates
+# also the files list
 
 sub _syncRemoteCaches
 {
@@ -657,7 +960,6 @@ sub _syncRemoteCaches
                     last;
                 }
             }
-
         }
     }
 
@@ -714,46 +1016,87 @@ sub unlock
     close($self->{lock});
 }
 
+# XXX TODO: refactor parameters from model and/or subscription its own method
 sub _remoteUrl
 {
-    my ($self) = @_;
+    my ($self, %forceParams) = @_;
 
-    my $user;
-
+    my ($method, $user, $target);
+    my ($encSelected, $encValue);
     my $model = $self->model('RemoteSettings');
-    my $method = $model->row()->valueByName('method');
-    my $origMethod = $method;
-    my $target = $model->row()->valueByName('target');
-    if ($method =~ /^ebox/) {
-        if (defined($target)) {
-            $target = "$servers{$method}/$target";
-        } else {
-            $target = "$servers{$method}";
+
+    my $subscribed = EBox::EBackup::Subscribed::isSubscribed();
+    my $sshKnownHosts = 0;
+
+    if (%forceParams) {
+        foreach my $param (qw(method user target password encValue encSelected)) {
+            $forceParams{$param} or
+                throw EBox::Exceptions::MissingArgument($param);
         }
-        $method = 'scp';
-    }
-    my $url = "$method://";
-    if ($method ne 'file') {
-        $user = $model->row()->valueByName('user');
-        if ($user) {
-            $url .= "$user@";
+
+        $method= $forceParams{method};
+        $user = $forceParams{user};
+        $target = $forceParams{target};
+        my $passwd = $forceParams{password};
+        EBox::EBackup::Password::setPasswdFile($passwd, 1);
+        $encSelected = $forceParams{encSelected};
+        $encValue = $forceParams{encValue};
+        $sshKnownHosts = ($method eq 'scp');
+
+    }  else {
+        $method = $model->row()->valueByName('method');
+        if ($method eq 'cloud')  {
+            if (not $subscribed) {
+                throw EBox::Exceptions::External(
+__('You need to have the disaster recovery add-on to use this backup method')
+                                                );
+            }
+
+            my $credentials = EBox::EBackup::Subscribed::credentials();
+            if (not $credentials) {
+                throw EBox::Exceptions::External(
+                                                 __('Could not retrieve backup credentials, check your conexion to Zentyal Cloud')
+                                                );
+            }
+
+            $sshKnownHosts = 1;
+            $method = $credentials->{method};
+            $target = $credentials->{target};
+            $user = $credentials->{username};
+            my $passwd = $credentials->{password};
+            EBox::EBackup::Password::setPasswdFile($passwd);
+
+        } else {
+            # no cloud method!
+            $target = $model->row()->valueByName('target');
+
+            if ($method ne 'file') {
+                $user = $model->row()->valueByName('user');
+            }
         }
     }
 
+    my $url = "$method://";
+    if ($user) {
+        $url .= "$user@";
+    }
     $url .= $target if defined($target);
 
     if ($method eq 'scp') {
         $url .= ' --ssh-askpass';
     }
 
-    if ($origMethod =~ /^ebox/) {
+    if ($sshKnownHosts) {
         $url .= ' --ssh-options="-oUserKnownHostsFile='
-            . EBACKUP_EBOX_FINGERPRINT_FILE . '"';
+            . EBox::EBackup::Subscribed::FINGERPRINT_FILE . '"';
     }
 
-    my $encryption = $model->row()->elementByName('encryption');
-    my $encValue = $encryption->value();
-    my $encSelected = $encryption->selectedType();
+    if (not %forceParams) {
+        my $encryption = $model->row()->elementByName('encryption');
+        $encValue = $encryption->value();
+        $encSelected = $encryption->selectedType();
+    }
+
     if ($encValue eq 'disabled') {
         $url .= ' --no-encryption';
     } else {
@@ -762,22 +1105,61 @@ sub _remoteUrl
         }
     }
 
+    if ($forceParams{alternativePassword}) {
+        $url .= ' --alternative-password';
+    }
+
     return $url;
 }
+
 
 sub _volSize
 {
     my $volSize = EBox::Config::configkeyFromFile('volume_size',
                                                   EBACKUP_CONF_FILE);
     if (not $volSize) {
-        $volSize = 600;
+        $volSize = 25;
     }
     return $volSize;
+}
+
+# Method: tempdir
+#
+#  Returns:
+#    temporal directory for duplicity (default: /tmp)
+sub tempdir
+{
+    my $tmpdir = EBox::Config::configkeyFromFile('temp_dir',
+                                                  EBACKUP_CONF_FILE);
+    if ($tmpdir) {
+        return $tmpdir;
+    }
+
+    return '/tmp';
+}
+
+
+sub canUnsubscribeFromCloud
+{
+    my ($self) = @_;
+    my $model = $self->model('RemoteSettings');
+    my $method = $model->row()->valueByName('method');
+    if ($method eq 'cloud') {
+        throw EBox::Exceptions::External(
+__(q{Could not unsubscribe because the backup module is configured to use the Zentyal Cloud. If you want to unsubscribe, you must change this <a href='/ebox/EBackup/Composite/Remote#RemoteGeneralSettings'> setting</a>.}
+  )
+                                        );
+    }
 }
 
 sub configurationIsComplete
 {
     my ($self) = @_;
+
+    if (EBox::EBackup::Subscribed::isSubscribed()) {
+        return 1;
+    }
+
     my $model = $self->model('RemoteSettings');
     return $model->configurationIsComplete();
 }
@@ -797,6 +1179,179 @@ sub backupProcessUnlock
 {
     my $name = _backupProcessLockName();
     EBox::Util::Lock::unlock($name);
+}
+
+## Report methods
+
+# Method: storageUsage
+#
+#   get the available and used space in the storage place used to save the
+#   backup collection
+#
+#  Returns:
+#    hash ref with the keys:
+#              - used: space used in Mb
+#              - available: space available in Mb
+#              - total: in Mb
+#
+# Warning:
+# the results cache will fail if more space is taken or free without using
+# ebox-remote-ebackup, this will be very possible with file storage
+sub storageUsage
+{
+    my ($self) = @_;
+    if (not $self->configurationIsComplete()) {
+        return undef;
+    }
+
+    my $file = _storageUsageCacheFile();
+    if (-f $file) {
+        my $cacheContents = File::Slurp::read_file($file);
+        my ($usedCache,$availableCache, $totalCache) =
+            split ',', $cacheContents;
+        if ((defined $usedCache ) and (defined $availableCache) and
+             (defined $totalCache)) {
+            return {
+                    used => $usedCache,
+                    available => $availableCache,
+                    total    => $totalCache,
+                   }
+        } else {
+            $self->_clearStorageUsageCache();
+        }
+    }
+
+    my ($total, $used, $available);
+
+    my $model  = $self->model('RemoteSettings');
+    my $method = $model->row()->valueByName('method');
+    my $target = $model->row()->valueByName('target');
+
+    if ($method eq 'cloud') {
+        my $quota;
+        ($used, $quota) = EBox::EBackup::Subscribed::quota();
+        $total = $quota;
+        $available = $quota - $used;
+    } elsif ($method eq 'file') {
+        my $blockSize = 1024*1024; # 1024*1024 - 1Mb blocks
+        my $df = df($target, $blockSize);
+        $available = $df->{bfree};
+        $total     = $df->{blocks};
+        $used = $total - $available;
+    }
+
+    # XXX TODO SCP, FTP
+
+    if (not defined $used) {
+        return undef;
+    }
+
+
+    my $result = {
+            used => int($used),
+            available => int($available),
+            total     => int ($total),
+                 };
+
+    # update cache
+    my $cacheStr = $result->{used} . ','  . $result->{available} .
+                    ',' . $result->{total};
+    File::Slurp::write_file($file, $cacheStr);
+
+    return $result;
+}
+
+
+
+sub _storageUsageCacheFile
+{
+    return EBox::Config::tmp() . 'ebackup-storage-usage';
+}
+
+sub _clearStorageUsageCache
+{
+    my ($self) = @_;
+    my $file = _storageUsageCacheFile();
+    system "rm -f $file";
+}
+
+# Method: gatherReportInfo
+#
+#  This method shoudl be called after each backup to gather information for the
+#  report; for thism moduel this method is used instead of the usual reportInfo
+sub gatherReportInfo
+{
+    my ($self) = @_;
+    if (not $self->configurationIsComplete()) {
+        return;
+    }
+
+    my $usage = $self->storageUsage();
+    if (not defined $usage) {
+        return;
+    }
+
+    my $values  = {
+                   used => $usage->{used},
+                   available => $usage->{available}
+                  };
+
+    my $db = EBox::DBEngineFactory::DBEngine();
+    my @time = localtime(time);
+    my ($year, $month, $day) = ($time[5] + 1900, $time[4] + 1, $time[3]);
+    my ($hour, $min, $sec) = ($time[2], $time[1], $time[0]);
+    my $date = "$year-$month-$day $hour:$min:$sec";
+
+    my @reportInfo = (
+                      {
+                       table => 'ebackup_storage_usage',
+                       values => $values,
+                      },
+                     );
+
+    for my $i (@reportInfo) {
+        $i->{'values'}->{'timestamp'} = $date;
+        $db->insert($i->{'table'}, $i->{'values'});
+    }
+
+    # Perform the buffered inserts done above
+    $db->multiInsert();
+}
+
+
+sub consolidateReportInfoQueries
+{
+    return [
+        {
+            'target_table' => 'ebackup_storage_usage_report',
+            'query' => {
+                'select' => 'used, available',
+                'from' => 'ebackup_storage_usage',
+            },
+        }
+    ];
+}
+
+# Method: report
+#
+# Overrides:
+#   <EBox::Module::Base::report>
+sub report
+{
+    my ($self, $beg, $end, $options) = @_;
+    if (not $self->configurationIsComplete()) {
+        return {};
+    }
+
+    my $report = {};
+    $report->{included} = $self->model('BackupDomains')->report();
+    $report->{settings} = $self->model('RemoteSettings')->report();
+    $report->{'storage_usage'} = $self->runMonthlyQuery($beg, $end, {
+        'select' => 'used, available',
+        'from' => 'ebackup_storage_usage_report',
+    });
+
+    return $report;
 }
 
 1;

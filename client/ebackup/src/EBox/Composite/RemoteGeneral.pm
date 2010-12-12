@@ -57,8 +57,9 @@ sub _description
     {
         components      => [
                                'ebackup/RemoteSettings',
+                               'ebackup/RemoteStorage',
                                'ebackup/RemoteStatus',
-                               'ebackup/RemoteExcludes',
+                               'ebackup/BackupDomains',
                            ],
         layout          => 'top-bottom',
         name            => __PACKAGE__->nameFromClass,

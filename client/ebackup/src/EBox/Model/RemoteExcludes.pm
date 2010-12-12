@@ -31,7 +31,7 @@ use EBox::Gettext;
 use EBox::Types::Select;
 use EBox::Types::Text;
 use EBox::Validate;
-
+use EBox::EBackup::Subscribed;
 
 # Group: Public methods
 
@@ -81,10 +81,15 @@ sub _table
             fieldName     => 'target',
             printableName => __('Exclude or Include'),
             size          => 30,
-            unique        => 1,
+            unique        => 0,
             editable      => 1,
             allowUnsafeChars => 1,
         ),
+       new EBox::Types::Boolean (
+            fieldName => 'system',
+            hidden => 1,
+            defaultValue => 0,
+                                ),
     );
 
     my $dataTable =
@@ -92,6 +97,7 @@ sub _table
         tableName          => 'RemoteExcludes',
         printableTableName => __('Includes and Excludes'),
         printableRowName   => __('exclude or include'),
+        rowUnique          => 1,
         defaultActions     => [ 'add', 'del', 'editField', 'changeView', 'move' ],
         order              => 1,
         tableDescription   => \@tableHeader,
@@ -196,6 +202,190 @@ sub _actualValues
     }
 
     return \%actualValues;
+}
+
+# Method: syncRows
+#
+#  Needed to show all backup domains provided by the modules
+#
+#   Overrides <EBox::Model::DataTable::syncRows>
+#
+sub syncRows
+{
+    my ($self, $currentIds) = @_;
+
+    my $ebackup  = $self->{'gconfmodule'};
+    # If the GConf module is readonly, return current rows
+    if ( $ebackup->isReadOnly() ) {
+        return undef;
+    }
+
+    my $prefix =  $ebackup->backupDomainsFileSelectionsRowPrefix(). '_';
+
+    my @currentDsIds;
+    foreach my $row (@{ $currentIds }) {
+        if ($row =~ m/^$prefix/) {
+            push @currentDsIds, $row;
+        } else {
+            last;
+        }
+    }
+
+    if (not EBox::EBackup::Subscribed::isSubscribed()) {
+        # no disaster recovery add-on, so we not add nothing and remove old added rows
+        # if neccessary
+        my $changed = undef;
+        foreach my $id (@currentDsIds) {
+            $self->removeRow($id);
+            $changed = 1;
+        }
+        return $changed;
+    }
+
+    my @domainsSelections = @{ $ebackup->modulesBackupDomainsFileSelections() };
+    if (@domainsSelections == @currentDsIds) {
+        # check if there arent any change
+        my $equal = 1;
+        my $i = 0;
+        while ($i < @domainsSelections) {
+            if ($domainsSelections[$i]->{id} ne  $currentDsIds[$i]) {
+                $equal = 0;
+                last;
+            }
+        }
+        if ($equal) {
+            return undef;
+        }
+    }
+
+    # changed, so to hedge to any order change we will remove all the old domain
+    # backup related row and add new ones
+    foreach my $id (@currentDsIds) {
+        $self->removeRow($id);
+    }
+
+    foreach my $selection (@domainsSelections) {
+        my $type;
+        if ($selection->{type} eq 'include') {
+            $type = 'include_path';
+        } elsif ($selection->{type} eq 'exclude') {
+            $type = 'exclude_path';
+        } elsif ($selection->{type} eq 'exclude-regexp') {
+            $type = 'exclude_regexp';
+        }
+
+        $self->addRow(
+                      id => $selection->{id},
+                      type => $type,
+                      target => $selection->{value},
+                      system  => 1,
+                      readOnly => 1,
+                     );
+    }
+
+    my $modIsChanged =  EBox::Global->getInstance()->modIsChanged($ebackup->name());
+    if (not $modIsChanged) {
+        $ebackup->_saveConfig();
+        EBox::Global->getInstance()->modRestarted($ebackup->name());
+    }
+
+    return 1;
+}
+
+
+# need to overload this to discriminate between user added path and system added paths
+sub _checkRowIsUnique
+{
+    my ($self, $rowId, $row_ref) = @_;
+
+    # we only care abotu the target field
+    my $target = $row_ref->{target};
+    my $rowSystem = $row_ref->{system}->value();
+    if ($rowSystem) {
+        # systme rows are always added
+        return;
+    }
+
+
+    # Call _ids instead of ids because of deep recursion
+    foreach my $id (@{$self->_ids(1)}) {
+        my $row = $self->row($id);
+        next unless defined($row);
+
+        # Compare if the row identifier is different
+        next if ( defined($rowId) and $row->{'id'} eq $rowId);
+
+        my $rowTarget = $row->elementByName('target');
+        if ($target->isEqualTo($rowTarget)) {
+            throw EBox::Exceptions::DataExists(
+                                           'data'  => $target->printableName(),
+                                           'value' => $target->value()
+                                           );
+        }
+
+
+    }
+}
+
+
+# we override this bz if we have read-only rows we want not to have user rows
+# before them
+# XXX duplciate fantom rows error!
+sub _insertPos
+{
+    my ($self, $id, $pos) = @_;
+    if (not EBox::EBackup::Subscribed::isSubscribed()) {
+        # no disaster recovery add-on, so we havent nothing to change there
+        return $self->SUPER::_insertPos($id, $pos);
+    }
+
+    my $ebackup  = $self->{'gconfmodule'};
+    my $prefix =  $ebackup->backupDomainsFileSelectionsRowPrefix(). '_';
+    my $prefixRe =~ qr/^$prefix/;
+    if ($id =~ m/$prefixRe/) {
+        # is a system row, nothing to do
+        return $self->SUPER::_insertPos($id, $pos);
+    }
+
+    # assure that a user row is not added before a ssytem row
+    my $newPos = $pos;
+    my @order = @{$ebackup->get_list($self->{'order'})};
+    foreach my $n (0 .. @order) {
+        if ($n >= @order) {
+            $newPos = $n;
+            last;
+        }
+        if ($n < $pos) {
+            next;
+        }
+
+        if ($order[$n] =~ m/$prefixRe/) {
+            next;
+        } else {
+            $newPos = $n;
+        }
+    }
+
+    my $ret = $self->SUPER::_insertPos($id, $newPos);
+    return $ret;
+}
+
+# XXX fudge to avoid duplicate rows, this is not the ideal solution
+sub ids
+{
+    my ($self, @args) = @_;
+    my %seen;
+    my @noDupIds;
+    foreach my $id (@{ $self->SUPER::ids(@args) }) {
+        if (exists $seen{$id}) {
+            # duplicate!
+            next;
+        }
+        push @noDupIds, $id;
+        $seen{$id} = 1;
+    }
+
+    return \@noDupIds;
 }
 
 1;

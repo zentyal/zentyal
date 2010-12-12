@@ -1,4 +1,4 @@
-# Copyright (C) 2010 EBox Technologies S.L.
+# Copyright (C) 2010 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -16,7 +16,6 @@
 use strict;
 use warnings;
 
-
 package EBox::EBackup::DBRestore;
 
 use EBox::DBEngineFactory;
@@ -29,20 +28,16 @@ use Date::Parse;
 
 sub restoreEBoxLogs
 {
-    my ($date) = @_;
-
-    # convert date to timespamp, needed for sliced restore
-    my $dateEpoch = str2time($date);
+    my ($date, $urlParams) = @_;
+    defined $urlParams or
+        $urlParams = {};
 
     my $ebackup = EBox::Global->modInstance('ebackup');
-
-    my $dbengine = EBox::DBEngineFactory::DBEngine();
-    my $dumpDir =  EBox::EBackup::extraDataDir() .  "/logs";
+    my $dumpDir = backupDir();
     my $dumpDirTmp = EBox::Config::tmp() . 'eboxlogs.restore';
-    my $basename = 'eboxlogs';
 
     try {
-        $ebackup->restoreFile($dumpDir, $date, $dumpDirTmp);
+        $ebackup->restoreFile($dumpDir, $date, $dumpDirTmp, $urlParams);
     } catch EBox::Exceptions::External with {
         my $ex = shift;
         my $text = $ex->stringify();
@@ -56,8 +51,25 @@ sub restoreEBoxLogs
         $ex->throw();
     };
 
-    $dbengine->restoreDB($dumpDirTmp, $basename, toDate => $dateEpoch);
-    system "rm -rf $dumpDirTmp";
+    restoreEBoxLogsFromDir($dumpDirTmp, $date);
+}
+
+
+sub restoreEBoxLogsFromDir
+{
+    my ($dir, $date) = @_;
+    # convert date to timestamp, needed for sliced restore
+    my $dateEpoch = str2time($date);
+
+    my $dbengine = EBox::DBEngineFactory::DBEngine();
+    my $basename = 'eboxlogs';
+    $dbengine->restoreDB($dir, $basename, toDate => $dateEpoch);
+}
+
+
+sub backupDir
+{
+    return  EBox::EBackup::extraDataDir() .  "/logs";
 }
 
 1;

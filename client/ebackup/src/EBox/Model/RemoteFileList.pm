@@ -176,6 +176,7 @@ sub _table
         tableName          => 'RemoteFileList',
         printableTableName => __('Restore Files'),
         printableRowName   => __('file restore operation'),
+        printableActionName   => __('Restore'),
         defaultActions     => ['editField', 'changeView' ],
         tableDescription   => \@tableHeader,
         class              => 'dataTable',

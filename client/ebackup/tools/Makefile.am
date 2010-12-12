@@ -1,6 +1,7 @@
 ## Process this file with automake to produce Makefile.in
+SUBDIRS=sqllog
 
-pkgdata_SCRIPTS =  ebox-remote-ebackup ebox-duplicity-wrapper restore-logs
+pkgdata_SCRIPTS =  ebox-remote-ebackup ebox-duplicity-wrapper restore-logs restore-tool
 
 pkgdata_DATA = server-fingerprints
 

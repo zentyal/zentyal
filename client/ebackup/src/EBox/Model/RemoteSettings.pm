@@ -37,7 +37,10 @@ use EBox::Types::Union;
 use EBox::Types::Password;
 use EBox::View::Customizer;
 use EBox::Validate;
+use EBox::EBackup::Subscribed;
 
+# Constants
+use constant URL => 'https://store.zentyal.com/other/disaster-recovery.html';
 
 # Group: Public methods
 
@@ -66,17 +69,18 @@ sub new
 
 # Method: crontabStrings
 #
-#	Builds the crontab line for full and incremental.
+#       Builds the crontab line for full and incremental.
 #
 # Returns:
 #
-#	Hash ref:
+#       Hash ref:
 #
-#		full => scheduling crontab lines for full backup
-#		incremental => scheduling crontab lines for incremental backup
+#               full => scheduling crontab lines for full backup
+#               incremental => scheduling crontab lines for incremental backup
+#               once        => scheduling crontab lines for full backup once mode
 #
-#	Note that, it only returns the scheduling part '30 1 * * * *' and not
-#	the command
+#       Note that, it only returns the scheduling part '30 1 * * * *' and not
+#       the command
 #
 sub crontabStrings
 {
@@ -86,16 +90,25 @@ sub crontabStrings
     my ($fullFreq, $fullStartsOn) = $self->_frequencyAndStartsOn('full');
     my ($incrFreq, $incrStartsOn) = $self->_frequencyAndStartsOn('incremental');
 
-    my $full = _crontabStringFull($time, $fullFreq, $fullStartsOn);
+    my ($full, $incr, $once);
 
-    my $incr = undef;
-    unless ($incrFreq eq 'disabled') {
-        $incr =  _crontabStringIncr($time, $fullFreq, $fullStartsOn,
-                                    $incrFreq, $incrStartsOn
-                                   );
+    if ($fullFreq eq 'once') {
+        $once = _crontabStringOnce($time, $incrFreq, $incrStartsOn);
+    } else {
+        $full = _crontabStringFull($time, $fullFreq, $fullStartsOn);
+        unless ($incrFreq eq 'disabled') {
+            $incr =  _crontabStringIncr($time, $fullFreq, $fullStartsOn,
+                                        $incrFreq, $incrStartsOn
+                                       );
+        }
     }
 
-    return ({ full => $full, incremental => $incr });
+    my $strings = {
+                   full => $full,
+                   incremental => $incr,
+                   once        => $once
+                  };
+    return $strings;
 }
 
 
@@ -124,26 +137,26 @@ sub viewCustomizer
 
     my $customizer = new EBox::View::Customizer();
     my $userPass = [qw/user password/];
-    my $allFields = [qw/user password/];
+    my $allFields = [qw/user password target/];
     $customizer->setModel($self);
     $customizer->setOnChangeActions(
             { method =>
                 {
-                # ebox_eu => {  enable => $userPass },
-                # ebox_us_denver => { enable => $userPass },
-                # ebox_us_w => { enable => $userPass },
-                file => { disable => $userPass },
+                cloud => { disable => $allFields },
+                file => { disable => $userPass , enable => ['target'] },
                 rsync => { enable => $allFields },
                 scp => { enable => $allFields },
                 ftp => { enable => $allFields },
                 }
             });
-    # $customizer->setPermanentMessage(_message());
+
+    if ( not EBox::EBackup::Subscribed::isSubscribed() ) {
+        $customizer->setPermanentMessage(_message());
+    }
 
     return $customizer;
 }
 
-#
 
 # Group: Private methods
 
@@ -178,37 +191,42 @@ sub _table
            printableName => __('Password'),
            editable      => 1,
            ),
-       new EBox::Types::Union(
-               'fieldName' => 'encryption',
-               'printableName' => __('Encryption'),
-               'subtypes' =>
-               [
-               new EBox::Types::Union::Text(
-                   'fieldName' => 'disabled',
-                   'printableName' => __('Disabled'),
-                   'optional' => 1
-                   ),
-               new EBox::Types::Password(
-                   'fieldName' => 'symmetric',
-                   'printableName' => __('Symmetric Key'),
-                   'editable'=> 1,
-                   ),
-               new EBox::Types::Select(
-                   fieldName     => 'asymmetric',
-                   printableName => __('GPG Key'),
-                   editable      => 1,
-                   populate      => \&_gpgKeys,
-                   disabledCache  => 1,
-                   ),
-               ],
-               'unique' => 1,
-               'editable' => 1,
-               ),
+        new EBox::Types::Union(
+            'fieldName' => 'encryption',
+            'printableName' => __('Encryption'),
+            'subtypes' =>
+                [
+                new EBox::Types::Union::Text(
+                    'fieldName' => 'disabled',
+                    'printableName' => __('Disabled'),
+                    'optional' => 1
+                ),
+                new EBox::Types::Password(
+                    'fieldName' => 'symmetric',
+                    'printableName' => __('Symmetric Key'),
+                    'editable'=> 1,
+                ),
+# XXX asymmetric key disabled until we could support it in disaster-recovery if
+#     you want to use it uncomment the following lines and execute
+#     '/etc/init.d/ebox apache restart
+
+#    new EBox::Types::Select( fieldName =>
+#     'asymmetric', printableName => __('GPG Key'), editable => 1, populate =>
+#     \&_gpgKeys, disabledCache => 1, ),
+                ],
+            'unique' => 1,
+            'editable' => 1,
+            ),
         new EBox::Types::Union(
             'fieldName' => 'full',
             'printableName' => __('Full Backup Frequency'),
             'subtypes' =>
                 [
+                new EBox::Types::Union::Text(
+                    'fieldName' => 'full_once',
+                    'printableName' => __('Only the first time'),
+                    'optional' => 1
+                ),
                 new EBox::Types::Union::Text(
                     'fieldName' => 'full_daily',
                     'printableName' => __('Daily'),
@@ -233,19 +251,14 @@ sub _table
                     populate      => \&_monthDays,
                 ),
                 ],
-            'unique' => 1,
-            'editable' => 1,
+            'unique'        => 1,
+            'editable'      => 1,
             ),
         new EBox::Types::Union(
             'fieldName' => 'incremental',
             'printableName' => __('Incremental Backup Frequency'),
             'subtypes' =>
                 [
-                new EBox::Types::Union::Text(
-                    'fieldName' => 'incremental_disabled',
-                    'printableName' => __('Disabled'),
-                    'optional' => 1
-                ),
                 new EBox::Types::Union::Text(
                     'fieldName' => 'incremental_daily',
                     'printableName' => __('Daily'),
@@ -257,8 +270,13 @@ sub _table
                     'editable'=> 1,
                     populate => \&_weekDays,
                 ),
+                new EBox::Types::Union::Text(
+                    'fieldName' => 'incremental_disabled',
+                    'printableName' => __('Disabled'),
+                    'optional' => 1
+                ),
                 ],
-            'unique' => 1,
+            'unique'   => 1,
             'editable' => 1,
             ),
 
@@ -332,16 +350,16 @@ sub _monthDays
             value => $mday,
             printableValue => __x(
                                   'on the {mday}th',
-                                  mday => $mday,
+                                   mday => $mday,
                                  )
-            }
+        }
 
     } (1 .. 28);
+
     push @days, {
                  value => 31,
                  printableValue => __('on the last day'),
                 };
-
 
     return \@days;
 }
@@ -384,10 +402,24 @@ sub _crontabWeekDayAndUser
     }
 }
 
-sub _crontabStringFull
+sub _crontabStringOnce
 {
     my ($hour, $freq, $startsOn) = @_;
 
+    my $minute  = _crontabMinute();
+    my $weekDay = _crontabWeekDayAndUser('*');
+    my $monthDay = '*';
+    my $month = '*';
+    if ($freq eq 'weekly') {
+        $weekDay = _crontabWeekDayAndUser($startsOn, 1);
+    } # Do nothing if freq is daily
+
+    return ["$minute $hour $monthDay $month $weekDay"];
+}
+
+sub _crontabStringFull
+{
+    my ($hour, $freq, $startsOn) = @_;
     my $minute  = _crontabMinute();
     my $weekDay = _crontabWeekDayAndUser('*');
     my $monthDay = '*';
@@ -397,13 +429,7 @@ sub _crontabStringFull
     } elsif ($freq eq 'bimonthly') {
         $weekDay = _crontabWeekDayAndUser($startsOn, 1);
         $monthDay ='1-7,15-21';
-    } elsif ( $freq eq 'monthly' ) {
-        if ($startsOn <= 28) {
-            $monthDay = $startsOn,
-        } else {
-            return _crontabStringLastDayMonth($hour);
-        }
-    }
+    } # Do nothing if freq is daily
 
     return ["$minute $hour $monthDay $month $weekDay"];
 }
@@ -480,22 +506,10 @@ sub _crontabStringLastDayMonth
 
 sub _method
 {
-    return ([
-            # {
-            # value => 'ebox_eu',
-            # printableValue => 'Zentyal Backup Storage (EU)',
-            # },
-            # {
-            # value => 'ebox_us_denver',
-            # printableValue => 'Zentyal Backup Storage (US Denver)',
-            # },
-            # {
-            # value => 'ebox_us_w',
-            # printableValue => 'Zentyal Backup Storage (US West Coast)',
-            # },
+    my @methods = (
             {
             value => 'file',
-            printableValue => 'File System',
+            printableValue => __('File System'),
             },
             {
             value => 'ftp',
@@ -509,7 +523,22 @@ sub _method
             value => 'scp',
             printableValue => 'SCP',
             },
-    ]);
+    );
+
+    my $cloud = {
+                 value => 'cloud',
+                 printableValue => 'Zentyal Cloud',
+            };
+
+
+   if ( EBox::EBackup::Subscribed::isSubscribed() ) {
+       unshift @methods, $cloud;
+   } else {
+       $cloud->{disabled} = 1;
+       push @methods, $cloud;
+   }
+
+    return \@methods;
 }
 
 
@@ -530,16 +559,16 @@ sub _gpgKeys
 
 sub _message
 {
-    my $backupmsg =  __x(
-
-        '{oi}{brand}{ci} is a quick and safe remote location to store the data ' .
-        'you keep on your Zentyal servers. Purchase the backup storage ' .
-        'space you need at the {ohref}Zentyal on-line store{chref}.',
-         oi => '<i>',
-         ci => '</i>',
-         ohref => '<a href="http://store.zentyal.com/?utm_source=ebox&utm_medium=ebox&utm_campaign=ebackup">',
-         brand => 'Zentyal Backup Storage',
-         chref => '</a>'
+    my $backupmsg =  __sx(
+        'Choosing {brand} method you will use the {ohref}{service} service{chref}. '
+        . 'This service guarantees your most critical data is backed up, '
+        . 'secured, monitored and recovered easily quickly in case of a disaster. '
+        . 'You gain access to this service by obtaining the {service} service '
+        . 'and Professional or Enterprise Server Subscription.',
+        brand   => 'Zentyal Cloud',
+        service => 'Zentyal Disaster Recovery',
+        ohref   => '<a href="' . URL . '" target="_blank">',
+        chref   => '</a>',
     );
     return $backupmsg;
 }
@@ -623,45 +652,50 @@ sub validateTypedRow
 {
     my ($self, $action, $paramsRef, $allFieldsRef) = @_;
 
+    if (exists $paramsRef->{encryption} ) {
+        $self->_checkEncryptionChangeIsAllowed();
+    }
+
+    if (exists $paramsRef->{target} or
+        exists $paramsRef->{method}) {
+
+        $self->{targetChanged} = 1;
+    }
+
     my $actualValues = $self->_actualValues($paramsRef, $allFieldsRef);
 
     my $method = $actualValues->{method}->value();
-    my $target = $actualValues->{target}->value();
-
-    if ($method =~ /^ebox/) {
-        my $target = $actualValues->{target}->value();
-        if (defined($target)) {
-            my $excepTxt = __('Destination must be a relative directory');
-            if ($target =~ m:^/:) {
-                throw EBox::Exceptions::External($excepTxt);
-            }
-            EBox::Validate::checkFilePath(
-                    $target,
-                    $excepTxt
-                    );
-        }
-    } else {
-        # all methods except eBox need a target
+    if ($method ne 'cloud') {
+        # all methods except cloud need a target
         my $checkMethod = '_validateTargetFor' . (ucfirst $method);
+        my $target = $actualValues->{target}->value();
         $self->$checkMethod($target);
     }
 
     my $incrementalFreq = $actualValues->{incremental}->selectedType();
-    if ($incrementalFreq ne 'incremental_disabled') {
-        my $fullFreq = $actualValues->{full}->selectedType();
-        my $fullStart = $actualValues->{'full'}->value();
-        my $incStart  = $actualValues->{'incremental'}->value();
+    my $fullFreq = $actualValues->{full}->selectedType();
+    my $fullStart = $actualValues->{'full'}->value();
+    my $incStart  = $actualValues->{'incremental'}->value();
 
-        $fullFreq =~ s{full_}{};
-        $incrementalFreq =~ s{incremental_}{};
+    $fullFreq =~ s{full_}{};
+    $incrementalFreq =~ s{incremental_}{};
 
+    $self->_validateFrequencies($fullFreq, $incrementalFreq,
+                                $fullStart, $incStart);
 
-        $self->_validateFrequencies($fullFreq, $incrementalFreq,
-                                    $fullStart, $incStart
-                                   );
-    }
 }
 
+sub _checkEncryptionChangeIsAllowed
+{
+    my ($self) = @_;
+    my $ebackup = $self->{gconfmodule};
+    my $remoteStatus = $ebackup->remoteStatus();
+    if (@{ $remoteStatus }) {
+        throw EBox::Exceptions::External(
+__('You cannot switch encryption options when there are existent backups with the original encryption options. You must remove previous backup to change the encryption options')
+                                        );
+    }
+}
 
 sub _validateTargetForFtp
 {
@@ -708,17 +742,16 @@ sub _validateTargetForFtpAndScp
         EBox::Validate::checkPort($port, __('port'));
     }
     EBox::Validate::checkFilePath($dir, __('directory'));
-
 }
 
 sub _validateTargetForRsync
 {
     my ($self, $target) = @_;
 
-   if (not $target) {
-         throw EBox::Exceptions::MissingArgument(
-   __(q{The RSYNC target parameter that must be like 'other.host[:port]/relative_path' or 'other.host[:port]/absolute_path'})
-                                               );
+    if (not $target) {
+        throw EBox::Exceptions::MissingArgument(
+                __(q{The RSYNC target parameter that must be like 'other.host[:port]/relative_path' or 'other.host[:port]/absolute_path'})
+                );
     }
 
     my $checkRegex = qr{^([^/:]*?) # host
@@ -734,7 +767,6 @@ sub _validateTargetForRsync
  __(q{Must be a like 'other.host[:port]/relative_path' or 'other.host[:port]/absolute_path'})
                                            );
     }
-
 
     my ($host, $port, $dir) = ($1, $2, $3);
 
@@ -756,8 +788,8 @@ sub _validateTargetForFile
 
     if (not $target) {
         throw EBox::Exceptions::MissingArgument(
-__('File system method needs a target parameter that should be a directory path')
-                                               );
+                __('File system method needs a target parameter that should be a directory path')
+                );
     }
 
     EBox::Validate::checkAbsoluteFilePath($target,
@@ -778,7 +810,21 @@ sub _validateFrequencies
 {
     my ($self, $full, $partial, $fullStartAt, $partialStartAt) = @_;
 
-    return if ($partial eq 'disabled');
+    my $partialDisabled =  ($partial eq 'disabled');
+    if (($full eq 'once'))  {
+        if ($partialDisabled) {
+            throw EBox::Exceptions::External(
+ __(q{You must enable incremental backups when you enable 'Only the first time' full backup frequency})
+                                            );
+        }
+
+        return;
+    }
+
+    if ($partialDisabled) {
+        return;
+    }
+
     my %values = (
                   daily => 4,
                   weekly => 3,
@@ -798,12 +844,25 @@ sub formSubmitted
 {
     my ($self) = @_;
 
+    my $msg;
+    my $targetChanged = delete $self->{targetChanged};
+    if ($targetChanged) {
+        $msg = __('General backup configuration updated.') . '<p>' .
+               __('Backup method or target changed; you must save changes to refresh the backups list');
+    }
+
     my $method = $self->row()->valueByName('method');
     if ($method eq 'scp') {
-        $self->setMessage(
- __('General backup server configuration updated. SCP method selected; <em>remember</em> to add your target host to the list of known hosts by SSH')
-                         );
+        if ($msg) {
+            $msg .= '<p>';
+        } else {
+            $msg = __('General backup configuration updated.') . '<p>';
+        }
+        $msg .=  __('SCP method selected. Remember to add your target host to the list of known hosts by SSH');
+    }
 
+    if ($msg) {
+        $self->setMessage($msg);
     }
 }
 
@@ -829,15 +888,18 @@ sub configurationIsComplete
 
     my $row = $self->row();
 
+    my $method = $row->valueByName('method');
+    if ($method eq 'cloud') {
+        return 1;
+    }
+
     my $target = $row->valueByName('target');
     if (not $target) {
         return 0;
     }
 
-    my $method = $row->valueByName('method');
-    if (not $method =~ /^ebox/) {
-        # only we could get a incomplete configuration with the default value
-        # (ebox denver) so other methods are always complete
+    if ($method eq 'file') {
+        # file does not need user or password
         return 1;
     }
 
@@ -845,13 +907,84 @@ sub configurationIsComplete
     if (not $user) {
         return 0;
     }
-
     my $password = $row->valueByName('password');
     if (not $password) {
         return 0;
     }
 
     return 1;
+}
+
+# Method: setCloudMethod
+#
+#      Set the cloud method
+#
+# Parameters:
+#
+#      firstTime - Boolean the first time that is called
+#
+sub setCloudMethod
+{
+    my ($self, $firstTime) = @_;
+
+    if (not EBox::EBackup::Subscribed::isSubscribed()) {
+        EBox::warn("setCloudFirstTime called without disaster recovery subscription");
+        return;
+    }
+
+    my $row = $self->row();
+    $row->elementByName('method')->setValue('cloud');
+    if ($firstTime) {
+        my $fullElement = $row->elementByName('full');
+        $fullElement->setValue({'full_once' => ''});
+        my $incrElement = $row->elementByName('incremental');
+        $incrElement->setValue({'incremental_weekly' => 0 });
+    }
+
+    $row->store();
+}
+
+# return hash for reporting
+sub report
+{
+    my ($self) = @_;
+    my $row = $self->row();
+
+    my @report =  ();
+
+    my @attrs = qw(method);
+    if ($row->valueByName('method') ne 'cloud') {
+        push @attrs, 'target';
+    }
+    push @attrs, qw(encryption full incremental start);
+
+    foreach my $attr (@attrs) {
+        my $element =  $row->elementByName($attr);
+        my $printableName = $element->printableName();
+        my $printableValue;
+        if ($element->isa('EBox::Types::Union')) {
+            $printableValue = $element->subtype()->printableName();
+        } else {
+            $printableValue =  $element->printableValue();
+        }
+
+        my $row = {$printableName, $printableValue};
+        push @report, $row;
+    }
+
+    my $fullCopies =  $row->elementByName('full_copies_to_keep');
+    my $retentionPolicy =  {
+                   __('Retention policy type') =>
+                         ucfirst $fullCopies->subtype()->printableName()
+                  };
+
+    my $retentionCopies = {
+                           $fullCopies->printableName() => ucfirst $fullCopies->printableValue()
+    };
+
+    push @report, $retentionPolicy, $retentionCopies;
+
+    return \@report;
 }
 
 1;

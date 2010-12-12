@@ -1,0 +1,2289 @@
+#!/usr/bin/perl
+# Copyright (C) 2010 eBox Technologies S.L.
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License, version 2, as
+# published by the Free Software Foundation.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+
+use strict;
+use warnings;
+
+use EBox;
+use EBox::Backup;
+use EBox::Config;
+use EBox::EBackup::DBRestore;
+use EBox::EBackup::Password;
+use EBox::Gettext;
+use EBox::Global;
+use EBox::NetWrappers;
+use EBox::RemoteServices::ProxyBackup;
+use EBox::ServiceManager;
+use EBox::Sudo;
+use Error qw(:try);
+use Getopt::Long;
+use POSIX 'setsid';
+use Term::ReadKey;
+use Time::Piece;
+use String::ShellQuote ;
+use YAML::Tiny;
+
+my $usesX = 1; # flag to signal whether graphical environment is available
+
+#  XXX problem when isntalled
+# early versions of modules which no have bakcupDomains enabled..
+
+
+# XXX remtoe services does nto store its backup state in backup so subscritions
+# are lost and which happens with vpn?
+
+
+sub tmpDir
+{
+    return '/tmp/zentyal-restore';
+}
+
+sub filesTmpDir
+{
+    return tmpDir() . '/files';
+}
+
+sub modPreConditions
+{
+    my @mods = ('ebackup', 'remoteservices'); # add software when used
+    foreach my $modName (@mods) {
+        my $mod = EBox::Global->modInstance($modName);
+        if (not defined $mod) {
+            fatal(
+                      __x('Module {mod} should be installed',
+                         mod => $modName)
+                 );
+        }
+
+        if ($mod->isa('EBox::Module::Service')) {
+            if (not $mod->configured()) {
+            fatal(
+                      __x('Module {mod} should be configured',
+                         mod => $modName)
+                 );
+            }
+        }
+    }
+}
+
+sub askUser
+{
+    if ($usesX) {
+        return _zenityEntry(__('Zentyal Cloud User'));
+    } else {
+        return terminalPrompt(__("Zentyal Cloud User: "));
+    }
+
+}
+
+sub askPassword
+{
+    if ($usesX) {
+        return _zenityEntry(__('Zentyal Cloud Password'), 1);
+    } else {
+        return terminalPrompt(__('Zentyal Cloud Password: '), 1);
+    }
+}
+
+
+sub askServerCN
+{
+    my ($servers) = @_;
+    my $serverCN;
+    if ($usesX) {
+        my @serversOrdered = sort @{ $servers  };
+        $serverCN = _zenityList(__('Choose the server to restore'),
+                                __('Server'),
+                                  0, \@serversOrdered);
+    } else {
+        showServerList($servers);
+        $serverCN =  terminalPrompt(__("Server to restore: "));
+    }
+
+    _checkServerCN($serverCN, $servers);
+
+    return $serverCN;
+}
+
+
+
+sub askEncryption
+{
+    my ($serverCN) = @_;
+    my ($symmetricPassword, $encryptionKey, $keyPassphrase);
+
+    my $encMode = _askEncryptionMode($serverCN);
+    if ($encMode eq 'symmetric') {
+        $symmetricPassword = _askSymmetricPassword($serverCN);
+    } elsif ($encMode eq 'key') {
+        $encryptionKey = _askEncryptionKey($serverCN);
+        $keyPassphrase = _askKeyPassphrase($encryptionKey);
+    }
+
+
+    return  [$symmetricPassword, $encryptionKey, $keyPassphrase];
+}
+
+
+sub _askEncryptionMode
+{
+    my ($serverCN) = @_;
+
+    my $msg = __x(
+                  'What encryption mode was used for the backups of {cn}?',
+                  cn => $serverCN
+                 );
+
+
+    my %printableByOption = (
+                              none => __('No encryption'),
+                              symmetric => __('Symmetric password'),
+# Uncomment to enable GPG decryption mode
+#                              key => __('GPG Key'),
+
+                             );
+
+    my @printableOptions = map {
+        $printableByOption{$_}
+    } qw(none symmetric );
+#   } qw(none symmetric key); # uncomment to add key option
+
+    my $chosen;
+    if ($usesX) {
+        $chosen = _zenityList($msg, __('Mode'),  0,
+                              \@printableOptions,
+                              firstEnabled => 1
+                             );
+    } else {
+        print $msg;
+        print "\n";
+        my $inputMsg=  __x('Available options: {ops}',
+                            ops => join ',', @printableOptions
+                          );
+        print $inputMsg, "\n";
+        $chosen = terminalPrompt(__('Enter selected option: '));
+    }
+
+    while (my ($option, $printable) = each%printableByOption) {
+        if ($printable eq $chosen) {
+            return $option;
+        }
+    }
+
+    fatal('Cannot determine encryption method');
+}
+
+sub _askSymmetricPassword
+{
+    my ($serverCN) = @_;
+
+    my $symmetricPassword;
+    my $symMsg = __x('Enter symmetric password used to back up {ser}: ',
+                     ser => $serverCN
+                    );
+    if ($usesX) {
+        $symmetricPassword  = _zenityEntry($symMsg, 1);
+    } else {
+        $symmetricPassword = terminalPrompt($symMsg, 1);
+    }
+
+    return $symmetricPassword;
+}
+
+sub _askEncryptionKey
+{
+    my ($serverCN) = @_;
+
+    my $encryptionKey;
+    my $symMsg = __x('Enter ID of encryption key used to back up {ser}',
+                     ser => $serverCN
+                    );
+    if ($usesX) {
+        $encryptionKey  = _zenityEntry($symMsg);
+    } else {
+        $encryptionKey = terminalPrompt($symMsg);
+    }
+
+    return $encryptionKey;
+}
+
+
+sub _askKeyPassphrase
+{
+    my ($encryptionKey) = @_;
+    my $passphrase;
+    my $msg = __x('Enter passphrase for GPG key {id}',
+                  id => $encryptionKey);
+
+    if ($usesX) {
+        $passphrase  = _zenityEntry($msg);
+    } else {
+        $passphrase = terminalPrompt($msg);
+    }
+
+
+    return $passphrase;
+}
+
+
+sub askDomainsToRestore
+{
+    my ($configBackup, $credentials, $date) = @_;
+
+    my %availableDomains = %{ _backupDomainsAvailableByPrintableName($configBackup, $credentials, $date) };
+
+
+    my @availablePrintableNames = keys %availableDomains;
+
+
+    my @domains;
+    if ($usesX) {
+        my $answer = _zenityList(__('Select backup domains to restore'),
+                                 __('Backup domain'),
+                                 1,
+                                 \@availablePrintableNames,
+                                 allEnabled => 1,
+                                );
+        @domains = @{ $answer };
+    } else {
+        my $printableList = join ', ', @availablePrintableNames;
+        print __x('Backup domains available in this server: {l}',
+                  l => $printableList);
+        print "\n";
+        my $unparsed = terminalPrompt("Backup domains to restore (comma separated): ");
+        @domains =  split ',', $unparsed;
+        foreach  (@domains) {
+            $_ =~ s/^\s+//;
+            $_ =~ s/\s+$//;
+        }
+    }
+
+    if (not @domains) {
+        fatal(__('No backup domain selected to restore. Doing nothing'));
+    }
+
+    # get domain name form printable name
+    @domains = map {
+        $availableDomains{$_}
+    } @domains;
+
+
+    my %toRestore = map {
+        $_ => 1
+    } @domains;
+
+
+    # use Data::Dumper;
+    # print Dumper(\%toRestore);
+
+    return \%toRestore;
+}
+
+sub serverList
+{
+    my ($remoteServices, $user, $password)  = @_;
+
+
+    my $msg = __('Retrieving registered servers list');
+    my $pulsatePid = _showUnanticipatedProgress($msg);
+
+    my $list;
+    try {
+
+        $list = $remoteServices->serverList(user => $user,
+                                            password => $password
+                                           );
+    } finally {
+        _finishUnanticipatedProgress($pulsatePid);
+    };
+
+    return $list;
+}
+
+
+sub _setupPasswords
+{
+    my ($credentials) = @_;
+
+    my $encKey = '';
+    my $symPasswd = '';
+    if (exists $credentials->{encValue} and
+         ($credentials->{encValue} ne 'disabled')) {
+        if (exists $credentials->{encSelected}) {
+            my $selected = $credentials->{encSelected};
+            my $value    = $credentials->{encValue};
+            if ($selected eq 'asymmetric') {
+                $encKey = $value;
+            } elsif ($selected eq 'symmetric') {
+                $symPasswd = $value;
+            }
+        }
+    }
+
+    if ($symPasswd) {
+        EBox::EBackup::Password::setSymmetricPassword($symPasswd, 1);
+    }
+
+    if ($encKey) {
+        if (not $credentials->{keyPassphrase}) {
+            fatal(__('No key passphrase'));
+        }
+        EBox::EBackup::Password::setGpgPassphrase($credentials->{keyPassphrase}, 1);
+    }
+
+    my $password = $credentials->{password};
+    if (not defined $password) {
+        fatal(__('No password in retrieved credentials'));
+    }
+    EBox::EBackup::Password::setPasswdFile($password, 1);
+}
+
+
+sub backupCredentials
+{
+    my %params = @_;
+    my $remoteServices = delete $params{remoteServices};
+    my $credentials;
+
+    my $msg = __('Retrieving account information');
+    my $pulsatePid = _showUnanticipatedProgress($msg);
+
+    try {
+        $credentials =
+            $remoteServices->backupCredentials(
+                    username   => $params{username},
+                    password   => $params{password},
+                    commonName => $params{serverCN},
+                    force      => 1,
+                    );
+    } catch EBox::Exceptions::DataNotFound with  {
+        $credentials = undef;
+    } finally {
+        _finishUnanticipatedProgress($pulsatePid);
+    };
+
+    if (not defined $credentials) {
+        $credentials = {
+            username => $params{username},
+            password => $params{password},
+            method   => 'scp',
+            type     => 'basic',
+        };
+    } else {
+        $credentials->{type} = 'subscribed';
+    }
+
+    $credentials->{commonName} = $params{serverCN};
+
+    if (not exists $credentials->{method}) {
+        $credentials->{method} = 'scp';
+    }
+
+    return $credentials;
+}
+
+
+sub addEncryptionToCredentials
+{
+    my ($credentials, %params) = @_;
+    if ($credentials->{type} ne 'subscribed') {
+        return $credentials;
+    }
+
+    if ($params{symmetricPassword}) {
+        $credentials->{encSelected} = 'symmetric';
+        $credentials->{encValue} = $params{symmetricPassword};
+    } elsif ($params{encryptionKey}) {
+        $credentials->{encSelected} = 'asymmetric';
+        $credentials->{encValue} = $params{encryptionKey};
+        $credentials->{keyPassphrase} = $params{keyPassphrase};
+    } else {
+        $credentials->{encSelected} = 'none';
+        $credentials->{encValue} = 'disabled';
+    }
+
+    return $credentials;
+}
+
+
+sub showServerList
+{
+    my ($serverList) = @_;
+
+    if (not @{ $serverList }) {
+        fatal(__("No registered Zentyal Servers"));
+    }
+
+    my @ordered = sort @{ $serverList};
+
+    print "\n";
+    print __('Registered Zentyal Servers');
+    print "\n--------------------------------------\n";
+    foreach my $server (@ordered) {
+        print $server, "\n";
+    }
+
+    print "\n";
+}
+
+
+sub doRestore
+{
+    my %params = @_;
+    my $configBackup = $params{configBackup};
+    my $credentials = $params{credentials};
+    my $date        = $params{date};
+    my %toRestore = %{ $params{toRestore} };
+
+    my $restoreConfig = delete $toRestore{configuration};
+    if ($restoreConfig) {
+        restoreConfig($configBackup);
+
+        if ( $credentials->{type} ne 'basic' ) {
+            _installCloudPackages($configBackup); # install cloud packages need
+                                                  # access to special repositories
+                                                  # granted by remoteservices
+        }
+    }
+
+
+    if ($credentials->{type} eq 'basic') {
+        # basic subscriptions backups only store the configuration, so we have
+        # finished
+        return;
+    }
+
+    my $ebackup = EBox::Global->modInstance('ebackup');
+
+    my $urlParams   = _remoteUrlParamsFromCredentials($credentials);
+    _restoreBackupDomainsFiles($ebackup, $date, \%toRestore);
+
+    if ($toRestore{logs}) {
+        _restoreLogs($date);
+    }
+}
+
+
+# Restore the files whose source are backup domains
+sub _restoreBackupDomainsFiles
+{
+    my ($ebackup, $date, $toRestore) = @_;
+
+    my $tmpDir = filesTmpDir();
+    my $msg = __('Restoring files');
+    my $pulsatePid = _showUnanticipatedProgress($msg);
+
+
+    try {
+        # restore backup domains
+
+        foreach my $mod (@{ EBox::Global->modInstances() }) {
+            $mod->can('backupDomainsFileSelection') or next;
+
+            my $selection = $mod->backupDomainsFileSelection(%{ $toRestore } );
+            if ((not defined $selection) or (keys %{ $selection} == 0)) {
+                next;
+            }
+
+            # use Data::Dumper;
+            # print Dumper($selection);
+
+            foreach my $file (@{ $selection->{'includes'} }) {
+                $file =~ s{/+$}{};
+                my $srcFile = _fileFromBackup($file);
+                my $dstFile = $file;
+                if (EBox::Sudo::fileTest('-d', $dstFile)) {
+                    $srcFile .= '/*';
+                }
+
+                try {
+                    EBox::Sudo::root("cp -rpf $srcFile $file");
+                } otherwise {
+                    my $ex = shift;
+                    my $msg = __x('Cannot restore file {file} requested by backup domains. Reason: {reason}',
+                                  file => $file,
+                                  reason => "$ex",
+                                 );
+                    EBox::warn($msg);
+                };
+            }
+        }
+    } finally {
+        _finishUnanticipatedProgress($pulsatePid);
+    };
+
+}
+
+sub _restoreLogs
+{
+    my ($date) = @_;
+
+    my $dir = _fileFromBackup( EBox::EBackup::DBRestore::backupDir());
+    if (not EBox::Sudo::fileTest('-d', $dir)) {
+        warning(__('Backup log data not found, log database will not be restored'));
+        return;
+    }
+
+
+    my $msg = __('Restoring log database');
+    my $pulsatePid = _showUnanticipatedProgress($msg);
+    try {
+        EBox::EBackup::DBRestore::restoreEBoxLogsFromDir($dir, $date);
+    } finally {
+        _finishUnanticipatedProgress($pulsatePid);
+    };
+}
+
+sub restoreConfig
+{
+    my ($configBackup) = @_;
+    preRestoreConfigChecks($configBackup);
+
+    my $progressIndicator =
+        EBox::Backup->prepareRestoreBackup($configBackup,
+                                           revokeAllOnModuleFail => 0);
+
+    my $retValue = progress($progressIndicator, __('Restoring configuration backup'));
+    if ($retValue != 0) {
+        my $errorMsg = $progressIndicator->errorMsg();
+        $errorMsg or
+            $errorMsg = __('Unknown error');
+        my $msg = $errorMsg . "\n";
+        $msg .= __('The configuration restore failed. We will continue the process to try to restore as much as possible but your system will need manual tweaking');
+
+        warning($msg);
+        return;
+    }
+
+
+#    EBox::Backup->restoreBackup($configBackup);
+    postRestoreConfigMangling();
+}
+
+sub preRestoreConfigChecks
+{
+    my ($configBackup) = @_;
+
+    my $msg = __('Checking configuration compability');
+    my $unanticipatedProgress = _showUnanticipatedProgress($msg);
+
+    # check that interfaces referenced in network exist
+    # XXX try to mangle this if possible to allow restore
+    my $dir;
+    try {
+        $dir = EBox::Backup->_unpackAndVerify($configBackup);
+        EBox::Backup->_unpackModulesRestoreData($dir);
+
+        _preRestoreNetworkCheck($dir);
+    } finally {
+        system "rm -rf $dir";
+        _finishUnanticipatedProgress($unanticipatedProgress);
+    };
+
+
+}
+
+
+sub _preRestoreNetworkCheck
+{
+    my ($dir) = @_;
+
+    my $confBakFile = "$dir/eboxbackup/network.bak/network.bak";
+    if (not -r $confBakFile) {
+        EBox::error("Cannot found data for network module, Skipping network pre-restore check");
+        return;
+    }
+
+
+    my @enabledIfaces;
+
+    # Open the config
+    my $yaml = YAML::Tiny->read( $confBakFile );
+    foreach my $spec (@{  $yaml }) {
+        my $iface;
+        if ($spec->{key} =~ m{^/ebox/modules/network/interfaces/(.*?)/method$}) {
+            $iface = $1;
+        }  else {
+            # not interested in this key
+            next;
+        }
+
+        if ($spec->{value} eq 'notset') {
+            # no enabled, safe to ignore
+            next;
+        }
+
+        push @enabledIfaces, $iface;
+    }
+
+    my @missing = grep {
+        not EBox::NetWrappers::iface_exists($_)
+    } @enabledIfaces;
+
+    if (@missing) {
+        my $msg = __x('Cannot restore backup because there are less interfaces than there are available. The missing interfaces are: {missing}',
+                      missing => join ',', @missing
+                     );
+        fatal($msg);
+    }
+}
+
+sub _installMissingModules
+{
+    my ($configBackup) = @_;
+
+
+    my %modulesInBackup = map {
+                                $_ => 1
+                            } @{ EBox::Backup->_modulesInBackup($configBackup) };
+    my %modulesToConfigure  = %modulesInBackup;
+
+#     use Data::Dumper; # DDD
+#     print "MOD I N BACKUP\n"; # DDD
+#     print Dumper(\%modulesInBackup);  # DDD
+
+    foreach my $modName ( @{ EBox::Global->modNames() }) {
+        delete $modulesInBackup{$modName};
+        my $mod = EBox::Global->modInstance($modName);
+        if ((not $mod->isa('EBox::Module::Service')) or
+             $mod->configured()) {
+            delete $modulesToConfigure{$modName};
+        }
+    }
+
+    # delete $modulesInBackup{privoxy};  # DDD
+    my @missingModules = keys %modulesInBackup;
+    if (@missingModules) {
+        _updateDebPackagesList();
+        EBox::info("Missing modules to recover the configuration: @missingModules");
+        _installDebPackages(@missingModules);
+    }
+
+    my @unconfModules = keys %modulesToConfigure;
+    if (@unconfModules) {
+        EBox::info("Modules to configure: @unconfModules");
+        _configureModules(@unconfModules);
+    }
+
+}
+
+
+sub _updateDebPackagesList
+{
+    my ($msg) = @_;
+
+    if (not $msg) {
+        $msg = __('Updating software package lists');
+    }
+
+    my $pulsatePid = _showUnanticipatedProgress($msg);
+
+    my $cmd ='/usr/bin/apt-get update -q';
+    try {
+        EBox::Sudo::root($cmd);
+    } finally {
+        _finishUnanticipatedProgress($pulsatePid);
+    };
+}
+
+
+sub _installDebPackages
+{
+    my @modules = @_;
+
+    my @packages;
+    foreach my $mod (@modules) {
+        # WWW in case a debian package provides more than one Zentyal module this
+        # could fail, currently is not a issue bz the unique case is the
+        # ebox/events/logs modules which are installed as prerequisite
+
+        # usercorner requires user module and comes in the same ubuntu package
+        # so we can skip it
+        if ($mod eq 'usercorner') {
+            next;
+        }
+
+        if ($mod eq 'cloudprof') {
+            # cloudprof is a special case
+            next;
+
+        }
+
+        if ($mod eq 'users') {
+            push @packages, 'ebox-usersandgroups';
+        } else {
+            # If the debian package does not conform to the ebox-{modulename} stand
+            # this will fail
+            push @packages, 'ebox-' . $mod;
+        }
+    }
+
+    my $msg = __('Installing Zentyal components and their dependencies');
+#     print "PACKAGES INSTALL $msg :@packages \n";
+
+    _aptInstall(\@packages, $msg);
+
+# XXX assure that maoduels are laoded and retraviable by eBox::Global modinstance
+}
+
+
+sub _aptInstall
+{
+    my ($packages_r, $msg) = @_;
+    my @packages = @{ $packages_r };
+
+    my $pulsatePid = _showUnanticipatedProgress($msg);
+
+    my $errorMsg;
+    my $installOk = 0;
+    try {
+        my $dpkgOpts = '-o Dpkg::Options::="--force-confold"';
+        my $cmd = "apt-get install -y --force-yes --no-install-recommends $dpkgOpts @packages";
+        my $errorFile = '/tmp/restore-tool-stderr';
+
+        $ENV{LANG} = 'C';
+        $ENV{DEBIAN_FRONTEND} = 'noninteractive';
+        my $fullCmd = "sudo -E  $cmd > /dev/null 2> $errorFile";
+        system $fullCmd;
+        if ($? != 0) {
+            my $childError = $!;
+            if ($childError == -1) {
+                throw EBox::Exceptions::Internal("Failed to execute child process $cmd");
+            } elsif ($childError & 127) {
+                my $signal = ($childError & 127);
+                my $coredump = ($childError & 128) ? 'with coredump' : 'without coredump';
+                throw EBox::Exceptions::Internal("$cmd died with signal $signal $coredump");
+            }
+
+            my $exitValue =  $childError >>  8;
+            my @error = File::Slurp::read_file($errorFile);
+            throw EBox::Exceptions::Command(cmd => $cmd,
+                                            output => [],
+                                            error => \@error,
+                                            exitValue => $exitValue);
+        }
+
+        $installOk = 1;
+    } catch EBox::Exceptions::Command with {
+        my $ex = shift;
+        $installOk = 0;
+        $errorMsg = join '', @{ $ex->error() };
+    } otherwise {
+        my $ex = shift;
+        $installOk = 0;
+        $errorMsg = "$ex";
+    } finally {
+        _finishUnanticipatedProgress($pulsatePid);
+    };
+
+
+    if (not $installOk) {
+        my $msg;
+        if ($errorMsg) {
+            $msg = __x(
+         'Error installing packages: {err}. You can continue but you would not restore any data for the missing packages',
+                      err => $errorMsg
+                     );
+        } else {
+            $msg =__(
+         'Error installing packages. You can continue but you would not restore any data for the missing packages',
+                    );
+        }
+
+        warning($msg);
+    }
+
+#    XXX uncomment when ebox-software does not fail outside apache
+#     my $software = EBox::Global->modInstance('software');
+#     my $progressIndicator = $software->installPkgs(@packages);
+#     my $error =  progress($progressIndicator,
+#                           __('Installing missing modules'));
+#     if ($error) {
+#         my $errorMsg = $progressIndicator->errorMsg();
+#         my $msg;
+#
+#         if ($errorMsg) {
+#             $msg = __x(
+#          'Error installing packages: {err}. You can continue but you would not restore any data for the missing packages',
+#                       err => $errorMsg
+#                      );
+#         } else {
+#             $msg =__(
+#          'Error installing packages. You can continue but you would not restore any data for the missing packages',
+#                     );
+#         }
+
+#         warning($msg);
+#     }
+
+}
+
+sub _installCloudPackages
+{
+    my ($confBackup) = @_;
+
+    my $remoteservices = EBox::Global->modInstance('remoteservices');
+    if (not $remoteservices->eBoxSubscribed()) {
+        return;
+    }
+
+    my $openvpn = EBox::Global->modInstance('openvpn');
+    my $loaded = _loadSubscriptionBundle($remoteservices, $openvpn);
+    if (not $loaded) {
+        # could not install this packages without bundle
+        return;
+    }
+
+    my @toInstall;
+
+    my %cloudPackages = (
+                         'ebox-cloud-prof',
+                         'zentyal-security-updates',
+                        );
+
+    my $installedPackages = _debPackagesInBackup($confBackup);
+    foreach my $package (@{ $installedPackages }) {
+        if (exists $cloudPackages{$package}) {
+            push @toInstall, $package;
+            delete $cloudPackages{$package};
+            if (keys %cloudPackages == 0) {
+                last;
+            }
+
+        }
+    }
+
+    if (not @toInstall) {
+        return;
+    }
+
+    _updateDebPackagesList(__('Updating package list to allow access to exclusive Zentyal Cloud packages'));
+
+    my $msg = __('Install cloud packages');
+    _aptInstall(\@toInstall, $msg);
+
+    # No configure modules stage required because:
+    # ebox-cloud-prof no needs configuration
+    # zentyal-security-updates is not a zentyal module
+}
+
+
+
+sub _loadSubscriptionBundle
+{
+    my ($remoteservices, $openvpn) = @_;
+
+    my $msg = __('Downloading subscription data');
+    my $pulsatePid = _showUnanticipatedProgress($msg);
+
+    my $res;
+    try {
+        $openvpn->restartService();
+        $remoteservices->restartService(); # to assure connection
+        $res = $remoteservices->reloadBundle('force');
+    } finally {
+        _finishUnanticipatedProgress($pulsatePid);
+    };
+
+    if ($res == 1) {
+        # success!
+        return 1;
+    }
+
+    if ($res == 0) {
+        warning(
+__('Connection error when retrieving subscription bundle. Zentyal Cloud exclusive packages will not be installed' )
+               );
+
+    } elsif ($res == 2) {
+        warning(
+__('Cannot retrieve bundle because either installed ebox-remoteservices is outdated or only outdated bundle is available in the cloud. Zentyal Cloud exclusive packages will not be installed')
+);
+    } else {
+        warning(
+__('Unknown error retrieving subscription bundle. Zentyal Cloud exclusive packages will not be installed')
+);
+    }
+
+    return 0;
+}
+
+sub _debPackagesInBackup
+{
+    my ($confBackup) = @_;
+
+    my @packages;
+    my $tmpDir = EBox::Backup->_unpackArchive($confBackup, 'debpackages' );
+    try {
+        my $file = "$tmpDir/eboxbackup/debpackages";
+        open (my $FH, "<", $file) or
+            die "Error opening installed packages file $!";
+        while (my $line = <$FH>) {
+            # lines ae like: ii apache2.2-common 2.2.14-1 Apache HTTP Server
+            if ($line =~ m/\Aii\s+(.*?)\s/) {
+                push @packages, $1;
+            }
+        }
+        close $FH or
+            die "Error closing isntalled packages file: $!";
+    } finally {
+        system "rm -rf $tmpDir";
+    };
+
+    return \@packages;
+}
+
+
+sub _configureModules
+{
+    my @modulesToConfigure = @_;
+    if (not @modulesToConfigure) {
+        return;
+    }
+
+    my %toConfigure = map { $_ => 1 } @modulesToConfigure;
+
+    my $mgr = EBox::ServiceManager->new();
+    my @orderedMods = @{$mgr->_dependencyTree()};
+
+    my $PROGRESS_BAR;
+    $usesX and
+        local $SIG{PIPE} = 'IGNORE';
+
+    if ($usesX) {
+        my $cmd = _zenityProgressBarCmd(__('Configuring modules'));
+        open $PROGRESS_BAR, "|$cmd" or
+            fatal("Cannot start process $cmd: $!");
+    } else {
+        print "\n";
+    }
+
+#    print "TO CONFIGURE @orderedMods\n";
+    my $i = 0;
+    my $percent;
+    foreach my $name (@orderedMods) {
+        $i += 1;
+        if (not exists $toConfigure{$name}) {
+            next;
+        }
+
+        my $percent = ($i/(scalar @orderedMods)) * 100;
+        $percent = sprintf("%.2f", $percent);
+
+        if ($PROGRESS_BAR) {
+            print  $PROGRESS_BAR $percent . "\n" or
+                _zenityProgressFail($!, $?);
+        } elsif (not $usesX) {
+            print "\r";
+            my $msg =  __x('Configuring modules {p}% done. Current module {mod}',
+                           p => $percent,
+                           mod => $name);
+            print $msg;
+            print "\n";
+        }
+
+        print "About to configure $name\n"; # DDDD
+        my $module = EBox::Global->modInstance($name);
+        $module->setInstalled();
+        $module->setConfigured(1);
+        $mgr->updateModuleDigests($name);
+
+        try {
+            $module->enableActions();
+
+        } otherwise {
+            my ($ex) = @_;
+            my $err = $ex->text();
+            $module->setConfigured(0);
+                $module->enableService(0);
+            my $msg = __x('Failed to configure module {name}: {err}. This could affect to the restore from other modules');
+            warning($msg);
+        };
+
+        $mgr->updateModuleDigests($name); # in ConfigureModuleController this is
+            # call bef and after the enableActions
+        print "Finished configuring $name\n"; # DDDD
+    }
+
+    if ($PROGRESS_BAR) {
+        print  $PROGRESS_BAR "100\n" or
+            _zenityProgressFail($!, $?);
+        close $PROGRESS_BAR or
+            _zenityProgressFail($!, $?);
+    }
+
+    my $saveChangesMsg = __('Finishing new modules configuration');
+    print "Saving chagnes for new modules\n"; # DDD
+    saveChanges($saveChangesMsg);
+}
+
+
+sub postRestoreConfigMangling
+{
+     # XXX here we will fix config items
+
+}
+
+# Stop any interrupting processes if required
+sub _stopInterruptingProcesses
+{
+    try {
+        my $gl = EBox::Global->getInstance();
+        if ( $gl->modExists('events') ) {
+            my $evts = $gl->modInstance('events');
+            $evts->stopService();
+        }
+    } otherwise { };
+}
+
+
+sub _downloadBackupData
+{
+    my ($credentials, $date) = @_;
+    my $basic = $credentials->{type} eq 'basic';
+    if ($basic) {
+        return;
+    }
+
+    my $dstDir = filesTmpDir();
+    my $msg = __('Downloading the backup data and configuration');
+
+
+    my $pulsatePid = _showUnanticipatedProgress($msg);
+    try {
+        my $ebackup = EBox::Global->modInstance('ebackup');
+
+        my $urlParams = _remoteUrlParamsFromCredentials($credentials);
+        # restore all files, this is done to sepepd-up the process
+        $ebackup->restoreFile('/', $date, $dstDir, $urlParams);
+    } finally {
+        _finishUnanticipatedProgress($pulsatePid);
+    };
+}
+
+
+sub _fileFromBackup
+{
+    my ($file) = @_;
+    return filesTmpDir() . '/' . $file;
+
+}
+
+
+sub _getConfigBackup
+{
+    my ($credentials, $date) = @_;
+
+    my $basic = $credentials->{type} eq 'basic';
+
+    if (not $basic) {
+        my $ebackup = EBox::Global->modInstance('ebackup');
+        my $backupFile =  $ebackup->includedConfigBackupPath();
+        return _fileFromBackup($backupFile);
+    }
+
+    my $dstFile = tmpDir() . '/backup-config';
+    my $msg =  __('Downloading configuration');;
+    my $pulsatePid = _showUnanticipatedProgress($msg);
+    try {
+        _downloadBasicConfigurationBackup($credentials, $date, $dstFile);
+    } finally {
+        _finishUnanticipatedProgress($pulsatePid);
+    };
+
+    return $dstFile;
+}
+
+
+sub askBackupDate
+{
+    my ($credentials, $restoreLast) = @_;
+
+    if ($credentials->{type} eq 'basic') {
+        return _basicBackupDate($credentials, $restoreLast);
+    }
+
+    # extractions of date coudl take a logn time, maybe we can put a progress
+    # widget there
+    my $commonName = $credentials->{commonName};
+    my $ebackup = EBox::Global->modInstance('ebackup');
+
+    my $msg = __('Retrieving backup collection status ...');
+    my $pulsatePid = _showUnanticipatedProgress($msg);
+
+    my @dates;
+    my $lastDate;
+    try {
+        my $urlParams = _remoteUrlParamsFromCredentials($credentials);
+        if ($restoreLast) {
+            $lastDate= $ebackup->lastBackupDate($urlParams);
+        } else {
+            my $status = $ebackup->remoteStatus($urlParams);
+            @dates = map {
+                $_->{date};
+            } @{ $status };
+        }
+    } finally {
+        _finishUnanticipatedProgress($pulsatePid);
+    };
+
+    if ($lastDate) {
+        print __x('Last backup date was: {date}',
+                      date => $lastDate);
+        print "\n";
+        return $lastDate;
+    }
+
+    if (not @dates) {
+        fatal(__x(
+                  'No backups found for server {server}',
+                  server => $credentials->{commonName}
+                 )
+
+             );
+    }
+
+    return _backupDateInput($commonName, \@dates);
+}
+
+
+sub _basicBackupDate
+{
+    my ($credentials, $restoreLast) = @_;
+    my $remoteBackup = EBox::RemoteServices::ProxyBackup->new(
+                                          user => $credentials->{username},
+                                          password => $credentials->{password},
+                                                             );
+    my $commonName = $credentials->{commonName};
+    my $allBackups = $remoteBackup->listRemoteBackups();
+    if (not exists $allBackups->{$commonName}) {
+        fatal(__x('No automatic configuration backups were made for the server {s}',
+                  s => $commonName
+                 )
+            );
+    }
+
+    my $backups = $allBackups->{$commonName};
+    if ($restoreLast) {
+        return _lastBasicBackupDate($backups);
+    }
+
+
+    my @dates = map {
+        $_->{Date}
+    } values %{ $backups };
+
+
+    return _backupDateInput($commonName, \@dates);
+}
+
+
+sub _lastBasicBackupDate
+{
+    my ($backups) = @_;
+
+    my $lastDate;
+    my $lastDateStr;
+    while (my ($name, $attrs) = each %{ $backups }) {
+        my ($dateStr) = split '\+', $attrs->{Date};
+        my $date = Time::Piece->strptime($dateStr,
+                                         '%a, %d %b %Y %T ');
+        if (
+            (not defined $lastDate) or
+            ($date > $lastDate)
+           ) {
+
+            $lastDate = $date;
+            $lastDateStr = $attrs->{Date};
+        }
+
+    }
+
+    print __x('Last backup date was: {date}',
+              date => $lastDateStr);
+    print "\n";
+    return $lastDateStr;
+}
+
+
+sub _backupDateInput
+{
+    my ($commonName, $dates) = @_;
+    my $chosen;
+    if ($usesX) {
+        $chosen = _zenityList(__x('Choose date to restore the backup from server {cn}',
+                                  cn => $commonName
+                                 ),
+                                __('Date'),
+                                  0, $dates);
+    } else {
+        $chosen = _terminalDateInput($commonName, $dates);
+    }
+
+    return $chosen;
+}
+
+
+
+sub _downloadBasicConfigurationBackup
+{
+    my ($credentials, $date, $dstFile) = @_;
+    my $remoteBackup = EBox::RemoteServices::ProxyBackup->new(
+                                          user => $credentials->{username},
+                                          password => $credentials->{password},
+                                                             );
+    my $commonName = $credentials->{commonName};
+    my $allBackups = $remoteBackup->listRemoteBackups();
+    if (not exists $allBackups->{$commonName}) {
+        fatal(__x(
+              'No automatic configuration backups were done for the server {s}',
+                  s => $commonName,
+                )
+             );
+    }
+
+    my $backups = $allBackups->{$commonName};
+
+#     use Data::Dumper;
+#     print "ALL BASIC conf backups " . Dumper($allBackups);
+#     print "Available BASIC copnf backups " . Dumper($backups);
+
+    my $chosen;
+    while (my ($name, $attrs) = each %{ $backups }) {
+        if ($attrs->{Date} eq $date) {
+            $chosen = $name;
+            last;
+        }
+    }
+
+#    print " Chosen $chosen \n";
+    if (not defined $chosen) {
+        fatal(
+          __x('No configuration backups were made for the date {d} in {s} server',
+              s => $commonName,
+              d => $date
+              )
+             );
+    }
+
+    my $tmpFile = $remoteBackup->downloadRemoteBackup($commonName, $chosen);
+    EBox::Sudo::command("mv -f '$tmpFile' '$dstFile'");
+    return $dstFile;
+}
+
+sub clearTmpDir
+{
+    my $tmpDir = tmpDir();
+    EBox::Sudo::root("rm -rf $tmpDir");
+    mkdir $tmpDir or
+        fatal(__x("Cannot create directory {dir}",
+                  dir => $tmpDir
+                 ));
+}
+
+sub _checkServerCN
+{
+    my ($serverCN, $servers) = @_;
+    my $serverFound = grep {
+        $serverCN eq $_
+    } @{ $servers };
+
+    if (not $serverFound) {
+        fatal(__x("The server {server} is not registered in Zentyal Cloud",
+                 server => $serverCN
+               ));
+    }
+}
+
+
+sub _getDomainsInBackup
+{
+    my ($ebackup, $credentials, $date) = @_;
+
+    my $listPath = _fileFromBackup($ebackup->enabledDomainsListPath());
+    if (not -f $listPath) {
+        EBox::warn("No backup domain lists, assuming all were backed-up");
+        return undef;
+    }
+
+    my @domains = split ',', File::Slurp::read_file($listPath);
+    # print "DOMAINS IN BACKUP : @domains\n";
+
+    my $domainsHash = {
+                   map {
+                       $_ => 1
+                   } @domains
+                  };
+
+    return $domainsHash;
+}
+
+sub _backupDomainsAvailableByPrintableName
+{
+    my ($configBackup, $credentials, $date) = @_;
+
+    my $modulesInBackup =  EBox::Backup->_modulesInBackup($configBackup);
+
+    my $ebackup = EBox::Global->modInstance('ebackup');
+
+    my $backupDomains_r = $ebackup->availableBackupDomains($modulesInBackup);
+
+    my $actuallyBackuped = _getDomainsInBackup($ebackup, $credentials, $date);
+
+    my %domains;
+    while (my ($name, $attrs) = each %{ $backupDomains_r } ) {
+        if (defined $actuallyBackuped ) {
+            if (not $actuallyBackuped->{$name}) {
+                # domain was not backed up, skipping
+                next;
+            }
+        }
+
+        my $printable = exists $attrs->{printableName} ?
+                               $attrs->{printableName} :
+                                $name;
+
+        $domains{$printable} = $name;
+    }
+
+    $domains{__('Configuration')} = 'configuration';
+
+    # use Data::Dumper;
+    # print Dumper (\%domains);
+
+    return \%domains;
+}
+
+
+sub _checkToRestore
+{
+    my ($configBackup, $credentials, $date, $toRestore) = @_;
+    my %byPrintableName = %{ _backupDomainsAvailableByPrintableName ($configBackup, $credentials, $date) };
+    my %available =  reverse %byPrintableName;
+
+    foreach my $domain (keys %{ $toRestore }) {
+        if ($domain eq 'configuration') {
+            # special 'configuration' domain always is available
+            next;
+        }
+
+        if (not $available{$domain}) {
+            fatal(__x('{domain} is not available to restore in the backup',
+                     domain => $domain
+                   ));
+        }
+    }
+}
+
+
+sub _commercialMessage
+{
+    my $msg = __s('If you had Zentyal Disaster Recovery, '
+                  . 'you would have been able to restore module data as well as '
+                  . 'the configuration you are about to recover');
+    if ($usesX) {
+        _zenityInfo($msg);
+    } else {
+        print $msg;
+        print "\n";
+    }
+}
+
+
+sub terminalPrompt
+{
+    my ($msg, $hide) = @_;
+
+    if ($hide) {
+        ReadMode('noecho');
+    }
+
+    my $input = undef;
+    while (not defined $input) {
+        print  $msg;
+        $input = readline(*STDIN);
+        print "\n";
+
+        chomp $input;
+        $input =~ s/^\s+//;
+        $input =~ s/\s+$//;
+
+        if ($input eq '') {
+            $input = undef;
+            print __('Please, enter a value');
+            print "\n";
+        }
+    }
+
+    if ($hide) {
+        ReadMode('normal');
+    }
+
+    return $input;
+}
+
+
+sub _terminalProgressIndicator
+{
+    my ($progressIndicator, $msg) = @_;
+    my $percent = 0;
+    print "\n";
+    while ($percent < 100) {
+        print "\r$msg: $percent%";
+        $percent = $progressIndicator->percentage();
+        sleep 1;
+    }
+    print "\r$msg: $percent%\n";
+
+    return $progressIndicator->retValue();
+}
+
+
+sub  _terminalDateInput
+{
+    my ($commonName, $dates) = @_;
+    print __x('Backup dates for server {cn}',
+             cn => $commonName);
+    print "\n------------------------------------------\n";
+    foreach my $date (@{ $dates }) {
+        print "$date\n";
+    }
+
+    my %validDates= map {
+        $_ => 1
+    } @{ $dates };
+
+
+    my $selected = undef;
+    while (not defined $selected) {
+        print "\n";
+        $selected = terminalPrompt(
+                                   __('Enter backup date to restore:')
+                                  );
+
+        if (not exists $validDates{$selected}) {
+             print __x('Invalid date: {d}. Try again',
+                       d => $selected);
+             print "\n";
+             $selected = undef;
+         }
+    }
+
+    return $selected;
+}
+
+sub _terminalWaning
+{
+    my ($msg) = @_;
+    print __x(
+              'Warning: {msg}',
+              msg => $msg
+             );
+    print "\n";
+}
+
+
+sub _zenityQuote
+{
+    my ($text) = @_;
+
+    $text =shell_quote($text);
+
+    if ($text =~ m/a href/) {
+        # GTK need this changes in URLs
+        # escape ampersand
+        $text =~ s/&/&amp;/g;
+        # remove target attr
+        $text =~ s/target=".*?"//g;
+    }
+
+    return $text;
+}
+
+
+sub _zenityCommonArgs
+{
+    my $args = '--title ' . _zenityTitle() . ' ';
+    $args .= _zenityIcon();
+    return $args;
+}
+
+sub _zenityTitle
+{
+    return _zenityQuote(
+        __('Zentyal Disaster Recovery')
+                       );
+}
+
+sub _zenityIcon
+{
+    my $path = '/usr/share/ebox/www/favicon.ico';
+    if (-r $path) {
+        return "--window-icon=$path ";
+    }
+
+    return '';
+}
+
+sub _zenityFatal
+{
+    my ($text) = @_;
+
+    my $commonArgs = _zenityCommonArgs();
+    $text = _zenityQuote($text);
+    my $cmd = qq{zenity --error $commonArgs --text=$text};
+
+    EBox::Sudo::command($cmd);
+}
+
+sub _zenityWarning
+{
+    my ($text) = @_;
+
+    my $commonArgs = _zenityCommonArgs();
+    $text = _zenityQuote($text);
+    my $cmd = qq{zenity --warning $commonArgs --text=$text};
+    EBox::Sudo::command($cmd);
+}
+
+sub _zenityInfo
+{
+    my ($text) = @_;
+
+    my $commonArgs = _zenityCommonArgs();
+    $text = _zenityQuote($text);
+    my $cmd = qq{zenity --info $commonArgs --text=$text};
+    EBox::Sudo::command($cmd);
+}
+
+
+sub _zenityEntry
+{
+    my ($text, $hide) = @_;
+
+    $text = _zenityQuote($text);
+    my $commonArgs = _zenityCommonArgs();
+    my $cmd = qq{zenity --entry $commonArgs --text=$text};
+    if ($hide) {
+        $cmd .= ' --hide-text';
+    }
+
+    my $answer = undef;
+    while (not defined $answer) {
+        try {
+            my $output = EBox::Sudo::command($cmd);
+            $answer = _zenityAnswerFromOutput($output);
+            if ($answer eq '') {
+                $answer = undef;
+            }
+        } catch EBox::Exceptions::Command with {
+            my $ex = shift;
+            if ($ex->exitValue() == 1) {
+                # cancel button pressed
+                _zenityUserAbort();
+
+            } else {
+                $ex->throw();
+            }
+        };
+
+        if (not defined $answer) {
+            _zenityWarning(
+            __('This entry is mandatory to continue the restoring process. Retry')
+                          );
+        }
+    }
+
+    return $answer;
+}
+
+sub _zenityQuestion
+{
+    my ($text) = @_;
+
+    $text = _zenityQuote($text);
+    my $commonArgs = _zenityCommonArgs();
+    my $cmd = qq{zenity --question $commonArgs --text=$text};
+
+    my $ret;
+    try {
+        EBox::Sudo::command($cmd);
+        $ret = 1;
+    } catch EBox::Exceptions::Command with {
+        my $ex = shift;
+        if ($ex->exitValue() == 1) {
+            # exit code signals 'no' answer
+            $ret = 0;
+        } else {
+            # exit code signals error in application
+            $ex->throw();
+        }
+    };
+
+    return $ret;
+}
+
+
+sub _zenityList
+{
+    my ($text, $column, $multiple, $list, %params) = @_;
+    $text = _zenityQuote($text);
+    my $allEnabled = $params{allEnabled};
+    my $firstEnabled = exists $params{firstEnabled} ?
+                               $params{firstEnabled} : undef;
+
+    my $commonArgs = _zenityCommonArgs();
+
+    my $cmd = qq{zenity --list $commonArgs --text=$text };
+    if ($multiple) {
+        $cmd .=  "--checklist";
+    } else {
+        $cmd .= " --radiolist";
+    }
+
+    $cmd .=  q{ --column } . __('Selection') . qq{  --column "$column"};
+
+    if (defined $firstEnabled) {
+        my $firstItem = shift @{ $list };
+        if ($firstEnabled) {
+            $cmd .=  qq{ TRUE "$firstItem"};
+        } else {
+            $cmd .= qq{ FALSE "$firstItem"};
+        }
+    }
+
+    foreach my $item (@{ $list}) {
+        if ($allEnabled) {
+            $cmd .= qq{ TRUE "$item"};
+        } else {
+            $cmd .= qq{ FALSE "$item"};
+        }
+
+    }
+
+    my $answer = undef;
+    while (not defined $answer) {
+        try {
+            my $output = EBox::Sudo::command($cmd);
+            $answer = _zenityAnswerFromOutput($output);
+            if ($answer eq '') {
+                $answer = undef;
+            }
+        } catch EBox::Exceptions::Command with {
+            my $ex = shift;
+            if ($ex->exitValue() == 1) {
+                # cancel button pressed
+                _zenityUserAbort();
+
+            } else {
+                $ex->throw();
+            }
+        };
+
+        if (not defined $answer) {
+            _zenityWarning(
+            __('This entry is mandatory to carry on the restoring process. Choose from the list')
+                          );
+        }
+    }
+
+    if ($multiple) {
+        my @answerList = split '\|', $answer;
+        return \@answerList;
+    }
+
+    return $answer;
+}
+
+
+sub _zenityAnswerFromOutput
+{
+    my ($output) = @_;
+    my $answer = $output->[0];
+    defined $answer or
+        return undef;
+
+    chomp $answer;
+
+    $answer =~ s/^\s*//;
+    $answer =~ s/\s*$//;
+    return $answer;
+}
+
+
+
+sub _zenityProgressBarCmd
+{
+    my ($text) = @_;
+    $text = _zenityQuote($text);
+    my $commonArgs = _zenityCommonArgs();
+
+    my $cmd = qq{zenity --progress $commonArgs --text=$text --auto-close --auto-kill}; 
+    return $cmd;
+}
+
+sub _zenityProgressIndicator
+{
+    my ($progressIndicator, $text) = @_;
+    my $cmd = _zenityProgressBarCmd($text);
+
+    local $SIG{PIPE} = 'IGNORE';
+    my $PR;
+    open $PR, "|$cmd" or
+        fatal("Cannot start process $cmd: $!");
+    my $percent = 0;
+    while ($percent < 100) {
+        print  $PR $percent . "\n" or
+            _zenityProgressFail($!, $?);
+        $percent = $progressIndicator->percentage();
+    }
+
+    print  $PR $percent or
+        _zenityProgressFail($!, $?);
+
+    close $PR or
+        _zenityProgressFail($!, $?);
+    return $progressIndicator->retValue();
+}
+
+sub _zenityProgressFail
+{
+    my ($err, $exitValue) = @_;
+    if ($err eq 'Broken pipe' and ($exitValue == 0)) {
+        _zenityUserAbort();
+    } elsif ($err eq 'Broken pipe') {
+        # error closing progress bar. We ignore it
+        return;
+    } else {
+        fatal("$err. Exit code: $exitValue");
+    }
+}
+
+
+sub _showUnanticipatedProgress
+{
+    my ($msg) = @_;
+    if ($usesX) {
+        return _zenityPulsate($msg);
+    } else {
+        print $msg . "\n";
+        print __('Please wait') . "\n";;
+        return undef;
+    }
+}
+
+sub _finishUnanticipatedProgress
+{
+    my ($pulsatePid) = @_;
+
+    if ($usesX) {
+        if (defined $pulsatePid) {
+            _zenityPulsateClose($pulsatePid);
+        }
+    } else {
+        print __('Finished') . "\n";
+    }
+}
+
+
+sub _zenityPulsateCmd
+{
+    my ($text) = @_;
+    $text = _zenityQuote($text);
+    my $commonArgs = _zenityCommonArgs();
+    my $zenityCmd = qq{zenity --progress $commonArgs --text=$text} .
+          q{ --pulsate --auto-close};
+    return $zenityCmd;
+}
+
+sub _zenityPulsate
+{
+    my ($text) = @_;
+
+    my $pid = fork();
+    if ($pid) {
+        # parent
+        return $pid;
+    }
+
+    # child code
+    chdir '/'               or die "Can't chdir to /: $!";
+    open STDIN, '/dev/null' or die "Can't read /dev/null: $!";
+    open STDOUT, '>/dev/null';
+
+    die "Can't start a new session: $!" if setsid == -1;
+    open STDERR, '>&STDOUT' or die "Can't dup stdout: $!";
+
+    my $zenityCmd = _zenityPulsateCmd($text);
+    open my $PROC, "|$zenityCmd";
+    while (1) {
+        print $PROC 1;
+    }
+
+    close $PROC;
+    exit(0);
+}
+
+
+sub _zenityPulsateClose
+{
+    my ($pulsatePid) = @_;
+    # Send SIGABRT
+    kill(6, $pulsatePid);
+
+    # XXX use kill 9 if it does not close
+
+    # To avoid zombie processes, this is a blocking operation
+    waitpid($pulsatePid, 0);
+}
+
+sub _zenityUserAbort
+{
+    my $msg = __('Restoring process aborted upon user request');
+    fatal($msg);
+}
+
+
+sub _remoteUrlParamsFromCredentials
+{
+    my ($credentials) = @_;
+
+    my $target = $credentials->{server} . '/' . $credentials->{commonName};
+    my %params = (
+        method => $credentials->{method},
+        user   => $credentials->{username},
+        password => $credentials->{password},
+        target => $target,
+        encValue => $credentials->{encValue},
+        encSelected => $credentials->{encSelected},
+        alternativePassword => 1,
+       );
+
+    return \%params;
+}
+
+
+
+sub saveChanges
+{
+    my ($msg) = @_;
+    $msg or
+        $msg =  __('Saving configuration changes');
+
+    my $global = EBox::Global->getInstance();
+    my $progressIndicator = $global->prepareSaveAllModules();
+
+    my $retValue = progress($progressIndicator, $msg);
+    if ($retValue != 0) {
+        my $errorMsg = $progressIndicator->errorMsg();
+        $errorMsg or
+            $errorMsg = __('Unknown error');
+        my $msg = $errorMsg . "\n";
+        $msg .= __('Error saving configuration changes; some Zentyal modules would remain in a unknown state');
+
+        warning($msg);
+        return;
+    }
+}
+
+
+sub _xauthCookie
+{
+    my $cmd = 'xauth list';
+    my @output = `$cmd`;
+    foreach my $line (@output) {
+        chomp $line;
+    }
+    return \@output;
+}
+
+sub _xauthEBox
+{
+    my ($cookieList) = @_;
+
+    my $xauthFile = '/var/lib/ebox/.Xauthority';
+    EBox::Sudo::root("rm -f $xauthFile");
+    EBox::Sudo::root("touch $xauthFile");
+    EBox::Sudo::root("chown ebox.ebox $xauthFile");
+
+
+    foreach my $cookie (@{ $cookieList }) {
+        EBox::Sudo::command("xauth -f $xauthFile  add $cookie");
+    }
+
+}
+
+sub _xhostAllowLocal
+{
+    system 'which xhost > /dev/null';
+    if ($? != 0) {
+        # no xhost program present
+        return;
+    }
+
+    my $cmd ='xhost +local: > /dev/null';
+    system $cmd;
+}
+
+
+sub _xhostUnallowLocal
+{
+    system 'which xhost > /dev/null';
+    if ($? != 0) {
+        # no xhost program present
+        return;
+    }
+
+    my $cmd ='xhost -local: > /dev/null';
+    system $cmd;
+    $usesX = 0;
+}
+
+# This sub is intended to set the VM overcommit as tailoring the
+# process from redis server
+# sub _setVMOvercommit
+# {
+#     EBox::Sudo::silentRoot('sysctl -q -w vm.overcommit_memory=1');
+# }
+
+sub warning
+{
+    my ($msg) = @_;
+    if ($usesX) {
+        _zenityWarning($msg);
+    } else {
+        _terminalWaning($msg);
+    }
+}
+
+
+my $_fatalShow = 0;
+sub fatal
+{
+    my ($input) = @_;
+
+    if (not $_fatalShow) {
+        my $msg;
+        if (ref $input) {
+            if ($input->can('stringify')) {
+                $msg = $input->stringify();
+            } elsif ($input->can('text')){
+                $msg = $input->text();
+            }
+        }
+        if (not $msg) {
+            $msg = "$input";
+        }
+
+        if ($usesX) {
+            _zenityFatal($msg);
+        }
+        print STDERR $msg;
+        print "\n";
+        $_fatalShow = 1;
+        die $msg;
+    }
+
+    if ($usesX) {
+        _xhostUnallowLocal();
+    }
+
+    die __('Restore process aborted');
+}
+
+
+sub progress
+{
+    my ($progressIndicator, $msg)  = @_;
+
+    if (not $progressIndicator->started()) {
+        $progressIndicator->runExecutable();
+    }
+
+    if ($usesX) {
+        return _zenityProgressIndicator($progressIndicator, $msg);
+    } else {
+        return _terminalProgressIndicator($progressIndicator, $msg);
+    }
+}
+
+sub usage
+{
+    print "restore-tool  [--user=username] [--password=password] [--server=serverCommonName] [--last-date]\n";
+    print "              [--backup-domain=domain1] [--backup-domain=domain2]  ... \n";
+    print "              [--no-encryption|--symmetric-password=PASSWORD\n";
+    print "              [--no-x]\n";
+    print "\n";
+    print "\t --user=USERNAME        \t ";
+    print __("User for the authentication") . "\n";
+    print "\t --password=PASSWORD    \t ";
+    print __('Password for the authentication. This password will be shown both '
+             . 'in the command line and in the process list so only use this option '
+             . 'when security is not a concern') . "\n";
+    print "\t --server=SERVER        \t ";
+    print __("Server from which its backup date the restore will be done") . "\n";
+    print "\t --last-date            \t ";
+    print __("Use the last backup done for the restore")  . "\n";
+    print "\t --backup-domain=DOMAIN \t ";
+    print __("Backup domain to restore. It could be repeated several times") . "\n";
+    print "\t--no-encryption|--symmetric-password=PASSWORD|--encryption-key=KEY\n";
+    print __('Check if we use the no encryption, a symmetric scheme with password or '
+             . 'asymmetric scheme with a private key') . "\n";
+    print "\t --no-x                 \t ";
+    print __("Do not use graphical interface") . "\n";
+
+    exit 0;
+}
+
+
+sub getCredentials
+{
+    my ($user, $password, $serverCN, %params) = @_;
+    my $noEncryption      = $params{noEncryption};
+    my $symmetricPassword = $params{symmetricPassword};
+    my $encryptionKey     = $params{encryptionKey};
+    my $keyPassphrase     = $params{keyPassphrase};
+
+    if (not $user) {
+        $user = askUser();
+    }
+    if (not $password) {
+        $password = askPassword();
+    }
+
+    my $remoteServices = EBox::Global->modInstance('remoteservices');
+
+    my $servers = serverList($remoteServices, $user, $password);
+    if (not @{ $servers} ) {
+        fatal(__x("The account {user} do not have any registered Zentyal servers",
+                  user => $user)
+             );
+    }
+
+    if (not $serverCN) {
+        $serverCN = askServerCN($servers);
+    } else {
+        _checkServerCN($serverCN, $servers);
+    }
+
+    my $credentials = backupCredentials(
+                                        remoteServices => $remoteServices,
+                                        username       => $user,
+                                        password       => $password,
+                                        serverCN       => $serverCN,
+
+                                       );
+
+    if ($credentials->{type} eq 'basic') {
+        _commercialMessage();
+    } else {
+        if ((not$noEncryption) and
+            (not defined $symmetricPassword) and
+            (not defined $encryptionKey) )  {
+            ($symmetricPassword, $encryptionKey, $keyPassphrase) = @{ askEncryption($serverCN) };
+        }
+
+        $credentials = addEncryptionToCredentials($credentials,
+                symmetricPassword => $symmetricPassword,
+                encryptionKey     => $encryptionKey,
+                keyPassphrase     => $keyPassphrase,
+                );
+    }
+
+    return $credentials;
+}
+
+
+sub getBackupDomainsToRestore
+{
+    my ($credentials, $configBackup,  $date, $domainsCli) = @_;
+    my @domainsCli = @{  $domainsCli };
+    my $domains;
+
+    if ($credentials->{type} eq 'subscribed') {
+        if (not @domainsCli) {
+            # ask to the user9
+            $domains = askDomainsToRestore($configBackup, $credentials, $date);
+        } else {
+            $domains = {
+                          map {
+                              $_ => 1
+                          } @domainsCli
+                         };
+        }
+
+        _checkToRestore($configBackup, $credentials, $date, $domains);
+    } else {
+        @domainsCli = grep { $_ ne 'configuration'  } @domainsCli;
+        if (@domainsCli) {
+            fatal (
+                   __x('The following backup domains could not be restored from a basic subscription: {domains}',
+                       domains => "@domainsCli"
+                      )
+                  );
+        }
+        $domains = { configuration => 1};
+    }
+
+    return $domains;
+}
+
+# The last message to finish the restore
+sub finishedMessage
+{
+    my ($credentials) = @_;
+
+    my $msg = "";
+    if ( $credentials->{type} eq 'basic' ) {
+        $msg = __s("Your configuration backup is now restored!\n\n"
+                   . 'Perhaps you were interested in the Zentyal Disaster Recovery '
+                   . 'service? It allows you to store critical data easily and '
+                   . 'safely in a remote location, as well as to restore this data '
+                   . 'and system configuration in case of a disaster.');
+    } else {
+        $msg = __('Your full backup is now successfully restored!');
+    }
+    $msg .= "\n\n" . __('You can go now to the Zentyal administration interface to manage your recovered host.');
+
+    EBox::info($msg);
+    if ($usesX) {
+        _zenityInfo($msg);
+    } else {
+        print $msg;
+        print "\n";
+    }
+}
+
+my $xauthCookie;
+my $usage = 0;
+my ($user, $password, $serverCN);
+my $restoreLast = 0;
+my @toRestoreCli = ();
+my $noEncryption;
+my $symmetricPassword = undef;
+my $encryptKey = undef;
+my $keyPassphrase;
+
+my $correct = GetOptions(
+                         'usage|help' => \$usage,
+                         'user|username=s' => \$user,
+                          'password=s' => \$password,
+                         'server-cn=s'   => \$serverCN,
+                         'backup-domain=s' => \@toRestoreCli,
+                          'x|gui!' => \$usesX,
+                         'last-date!' => \$restoreLast,
+                         'symmetric-password=s' => \$symmetricPassword,
+#                uncomment to enable gpg decrypt
+#                         'encryption-key=s'  => \$encryptKey,
+#                         'key-passphrase=s'   => \$keyPassphrase,
+                         'no-encryption+'     => \$noEncryption,
+                        );
+
+if ( $usage or (not $correct) ) {
+    usage();
+}
+
+my $cryptOptions = grep { $_ } ($encryptKey, $symmetricPassword, $noEncryption);
+if ($cryptOptions > 1) {
+  die __('You can only specify one of the encryption options: --symmetric-password, --encription-key and --no-encryption');
+}
+if ($noEncryption) {
+    $symmetricPassword = 0;
+    $encryptKey = 0;
+    $keyPassphrase = 0;
+}
+
+if ($usesX) {
+    _xhostAllowLocal();
+    $xauthCookie = _xauthCookie();
+}
+
+EBox::init();
+
+if ($usesX) {
+    system "which zenity 1> /dev/null";
+    if ($? != 0) {
+        print __("Zenity package not found. Falling back to terminal mode");
+        print "\n";
+        $usesX = 0;
+    } else {
+        _xauthEBox($xauthCookie);
+    }
+}
+
+# Set the VM overcommit for the Redis server (CPU intensive process)
+# _setVMOvercommit();
+
+try {
+    clearTmpDir();
+    modPreConditions();
+
+    my $credentials = getCredentials($user, $password, $serverCN,
+                                     symmetricPassword => $symmetricPassword,
+                                     encryptionKey     => $encryptKey,
+                                     keyPassphrase     => $keyPassphrase,
+                                     noEncryption      => $noEncryption,
+                                    );
+
+    # use Data::Dumper; # DDD
+    # print      "CRECENTIALs\n " . Dumper($credentials); # DDD
+
+    _setupPasswords($credentials);
+
+    # Restore last backup for basic users always
+    $restoreLast = ($restoreLast or ($credentials->{type} eq 'basic'));
+
+    my $date     = askBackupDate($credentials, $restoreLast);
+
+    # Stop any interrupting process
+    _stopInterruptingProcesses();
+
+    _downloadBackupData($credentials, $date);
+
+     my $configBackup = _getConfigBackup($credentials, $date);
+    # install missing modules to get a correct list of availabe domains to restore
+    _installMissingModules($configBackup);
+
+
+    my $toRestore = getBackupDomainsToRestore($credentials, $configBackup,
+                                              $date,
+                                               \@toRestoreCli);
+
+    # print Dumper($credentials); # DDD
+    # print "TORESTORE\n"; # DDD
+    # print Dumper($toRestore); #DDD
+
+    doRestore(
+              credentials => $credentials,
+              toRestore   => $toRestore,
+              configBackup => $configBackup,
+              date         => $date,
+             );
+    saveChanges();
+
+    finishedMessage($credentials);
+    clearTmpDir(); # Comment this for debug purposes
+} otherwise {
+    my $ex = shift @_;
+    fatal($ex);
+} finally {
+    if ($usesX) {
+        _xhostUnallowLocal();
+    }
+
+};
+
+1;

@@ -56,12 +56,12 @@ sub _description
     my $description =
     {
         components      => [
-                              'ebackup/RemoteRestoreConf', 
-                               'ebackup/RemoteRestoreLogs',
+                              'ebackup/RemoteRestoreConf',
+                              'ebackup/RemoteRestoreLogs',
                            ],
         layout          => 'top-bottom',
         name            => __PACKAGE__->nameFromClass,
-        printableName   => __('Services restore'),
+        printableName   => __('Services Restore'),
         compositeDomain => 'EBackup',
     };
 

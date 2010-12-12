@@ -23,7 +23,7 @@
 #
 #   --full (default)
 #   --incremental
-
+#   --full-only-once
 
 use strict;
 use warnings;
@@ -36,6 +36,7 @@ use EBox::Sudo;
 use EBox::Event;
 
 use Error qw(:try);
+
 
 sub _sendEvent
 {
@@ -57,29 +58,42 @@ sub _sendEvent
     }
 }
 
-
 sub _sendSuccessEvent
 {
-    my ($success, $msgError) = @_;
+    my ($success, $type, $msgError) = @_;
     my $msg;
     my $level;
+    
+    my $printableMode;
+    if ($type eq 'full') {
+        $printableMode = __('full');
+    } elsif ($type eq 'incremental') {
+        $printableMode = __('incremental');
+    } else {
+        $printableMode = $type;
+    }
+
+
     if ($success) {
-        $msg = __('Zentyal backup succeeded');
+        $msg = __x('Zentyal {mode} backup succeeded',
+                    mode => $printableMode);
         $level = 'info';
     } else {
         if ($msgError) {
-            $msg = __x("Zentyal backup failed: {error}",
-                   error => $msgError);
+            $msg = __x("Zentyal {mode} backup failed: {error}",
+                       mode  => $printableMode,
+                       error => $msgError,
+                      );
         } else {
-            $msg = __("Zentyal backup failed"),
+            $msg = __x("Zentyal {mode} backup failed",
+                       mode  => $printableMode,
+                      );
         }
 
         $level = 'error';
     }
-
     _sendEvent( $msg, $level);
 }
-
 
 sub _mangleDuplicityErrorMsg
 {
@@ -91,16 +105,16 @@ sub _mangleDuplicityErrorMsg
         my ($avail, $need) = ($1, $2);
         $avail = _bytesToMB($avail);
         $need = _bytesToMB($need);
-        my $tmpDir = '/tmp';
+        my $tmpDir = EBox::EBackup::tempdir();
 
         return __x(
-                   q{Temp directory '{dir}' has {avail} MB available, backup needs approx {need} MB. Either free some space or change volume size settings in /etc/ebox/82ebackup.conf.},
+                   q{Temp directory '{dir}' has {avail} MB available, backup needs approx {need} MB. Either free some space or change temporal directory and volume size settings in /etc/ebox/82ebackup.conf.},
                    dir   => $tmpDir,
                    avail => $avail,
                    need => $need,
                   );
-    }
 
+    }
     return $msg;
 }
 
@@ -124,15 +138,13 @@ sub _existsFullBackup
     return 0;
 }
 
-
 sub usage
 {
     print __('Usage:');
     print "\n";
-    print "$0 [--full|--incremental]";
+    print "$0 [--full|--incremental|--full-only-once]";
     print "\n";
 }
-
 
 sub _adjustType
 {
@@ -169,7 +181,7 @@ sub _unsavedChangesWarning
     my ($self) = @_;
 
     my @changed;
-    my $global = EBox::Global->getInstance();
+    my $global = EBox::Global->getInstance(); # rw instance to get change status
     foreach my $modName (@{ $global->modNames() }) {
         if ($global->modIsChanged($modName)) {
             push @changed, $modName;
@@ -179,11 +191,10 @@ sub _unsavedChangesWarning
     if (@changed) {
         my $mods = join ',', @changed;
         my $msg = __x('Configuration backup skipped because the following modules have unsaved changes: {mods}. The rest of the backup will not be affected',
-                     mods => $mods);
+                      mods => $mods);
         _sendSuccessEvent(0,  $msg);
         print "$msg\n";
     }
-
 }
 
 sub _removeExpiredBackups
@@ -193,14 +204,14 @@ sub _removeExpiredBackups
     EBox::Sudo::root($removeArguments);
 }
 
-
 my $type = 'full';
-
 if ($ARGV[0]) {
     if ($ARGV[0] eq '--incremental') {
         $type = 'incremental';
     } elsif ($ARGV[0] eq '--full') {
         $type = 'full';
+    } elsif ($ARGV[0] eq '--full-only-once') {
+        $type = 'full-only-once';
     } else {
         print "Invalid argument: " . $ARGV[0];
         print "\n";
@@ -220,11 +231,13 @@ unless ($ebackup->isEnabled() ) {
 unless ($ebackup->configurationIsComplete()) {
     print "Backup module configuration is not completed. Configure it and retry\n";
     exit 0;
+
 }
 
 _unsavedChangesWarning();
 
 my $mustExit = 0;
+
 try {
     $ebackup->backupProcessLock()
 } otherwise {
@@ -238,8 +251,9 @@ if ($mustExit) {
     exit $mustExit;
 }
 
+
 try {
-    $ebackup->lock() ;
+   $ebackup->lock() ;
 } otherwise {
     $ebackup->backupProcessUnlock();
     my $busyMsg = __('The backup module is busy, retry later');
@@ -249,10 +263,15 @@ try {
     $mustExit =  1;
 };
 
+
+
 if ($mustExit) {
     exit $mustExit;
 }
 
+
+my $errorMsg;
+my $success = 1;
 try {
     $type = _adjustType($ebackup, $type);
 
@@ -272,6 +291,7 @@ try {
     my $errorMsg;
     my $success = 1;
     try {
+        EBox::info('Backing up files to destination');
         EBox::Sudo::root($backupCmd);
     } catch EBox::Exceptions::Sudo::Command with {
         my $ex = shift @_;
@@ -294,7 +314,8 @@ try {
         EBox::error($msg);
     }
 
-    _sendSuccessEvent($success, $errorMsg);
+    _sendSuccessEvent($success, $type, $errorMsg);
+
 } finally {
     # Create status
     $ebackup->remoteGenerateStatusCache();
@@ -305,5 +326,14 @@ try {
     $ebackup->backupProcessUnlock();
     $ebackup->unlock();
 };
+
+
+# update logs, we do this even with a failed backup bz it oculd change disk
+# usage, with leftover files..
+$ebackup->gatherReportInfo();
+my $cloudProf = EBox::Global->modInstance('cloudprof');
+if ($cloudProf) {
+    $cloudProf->ebackupAlerts();
+}
 
 exit 0;

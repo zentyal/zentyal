@@ -59,6 +59,7 @@ sub _description
                                'ebackup/RemoteGeneral',
                                'ebackup/RemoteFileList',
                                'ebackup/ServicesRestore',
+                               'ebackup/RemoteExcludes',
                            ],
         layout          => 'tabbed',
         name            => __PACKAGE__->nameFromClass,

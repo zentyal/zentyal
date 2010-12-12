@@ -18,27 +18,66 @@
 #
 # Wrapper to not expose duplicity password via sh -c
 
-
-
 use warnings;
 use strict;
 
-use EBox;
 use EBox::Config;
 use EBox::EBackup;
-use File::Slurp;
+use EBox::EBackup::Password;
+use EBox::Sudo;
 
-my $password = File::Slurp::read_file(EBox::EBackup::DUPLICITY_PASSWORD);
-my $symmPassword = File::Slurp::read_file(EBox::EBackup::DUPLICITY_SYMMETRIC_PASSWORD);
+my %originalArgv = map { $_ => 1 } @ARGV;
+
+my $debug = (EBox::Config::configkeyFromFile('debug', '/etc/ebox/99ebox.conf') eq 'yes');
+
+# set environment variables for passwords
+my $alternativePasswordArg = '--alternative-password';
+my $alternativePassword = $originalArgv{$alternativePasswordArg};
+if ($alternativePassword) {
+    @ARGV = grep {
+        $_ ne $alternativePasswordArg
+    } @ARGV;
+}
+
+# set remote server password
+my $password =   EBox::EBackup::Password::passwd($alternativePassword);
 $ENV{FTP_PASSWORD} = $password;
 $ENV{RSYNC_PASSWORD} = $password;
-$ENV{PASSPHRASE} = $symmPassword;
 
-# commented out because hardy's duplicity dont support log-file!
-# uncomment for newer versions and add to the exec line
-# my $logFile =  EBox::Config::log() . 'ebackup.log';
-# my $logFileArg = "--log-file $logFile";
+# temp directory
+unless ($originalArgv{'--tempdir'}) {
+    push @ARGV, '--tempdir' => EBox::EBackup::tempdir();
+}
 
+# gpg keys management
+if ($originalArgv{'--encrypt-key'}) {
+    my $gpgDir = EBox::Config::home() . '.gnupg';
 
+    my $gpgPassphrase = EBox::EBackup::Password::gpgPassphrase($alternativePassword);
+    $ENV{PASSPHRASE} = $gpgPassphrase;
+    $ENV{PASSPHRASE} = 'foobar';
 
-exec "/usr/bin/duplicity  @ARGV";
+    unless ($originalArgv{'--gpg-options'})  {
+     push @ARGV, '--gpg-options';
+     push @ARGV, qq{'--homedir=$gpgDir '};
+     }
+} else {
+    # no public key encryption, setup symmetric encryption
+    my $symmPassword = EBox::EBackup::Password::symmetricPassword($alternativePassword);
+    $ENV{PASSPHRASE} = $symmPassword;
+}
+
+if ($debug) {
+    my $logFile =  EBox::Config::log() . 'duplicity-debug.log';
+    push @ARGV, '--log-file', $logFile;
+}
+
+my $duplicityCommand = "/usr/bin/duplicity @ARGV";
+if ($debug) {
+    my $cmdMsg = "Duplicity command: $duplicityCommand";
+    my $cmdLogFile =  EBox::Config::log() . 'duplicity-command.log';
+    system "echo $cmdMsg >> $cmdLogFile";
+}
+
+$ENV{LANG} ='en_US.UTF-8';
+exec $duplicityCommand;
