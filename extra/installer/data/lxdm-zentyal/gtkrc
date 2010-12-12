@@ -1,0 +1,31 @@
+style "back"
+{
+	engine "pixmap"
+	{
+		image
+		{
+			function = FLAT_BOX
+			shadow=NONE
+			state = NORMAL
+			file="wave.svg"
+			stretch=TRUE
+			detail = "base"
+		}
+	}
+}
+
+style "time"
+{
+	fg[NORMAL]="#ffffff"
+	font_name="Sans 12"
+}
+
+style "prompt"
+{
+	fg[NORMAL]="#000000"
+	font_name="Sans Bold 14"
+}
+
+widget "lxdm" style "back"
+widget "lxdm.*.time" style "time"
+widget "lxdm.*.prompt" style "prompt"
