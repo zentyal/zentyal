@@ -236,11 +236,15 @@ sub dn
     return $self->{dn};
 }
 
-
-sub clearDNCachedValue
+# Method: clearConn
+#
+#       Closes LDAP connection and clears DN cached value
+#
+sub clearConn
 {
     my ($self) = @_;
     delete $self->{dn};
+    delete $self->{ldap};
 }
 
 # Method: rootDn

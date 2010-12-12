@@ -1788,15 +1788,35 @@ sub restoreConfig
 
 }
 
-# extended backup
+# backup stuff
+
+sub backupDomains
+{
+    my $name = 'mailboxes';
+    my %attrs  = (
+                  printableName => __('Mailboxes'),
+                  description   => __(q{Mail messages from users and group alias}),
+                 );
+
+    return ($name, \%attrs);
+}
+
+sub backupDomainsFileSelection
+{
+    my ($self, %enabled) = @_;
+    if ($enabled{mailboxes}) {
+        my $selection = {
+                          includes => [ $self->_storageMailDirs() ],
+                         };
+        return $selection;
+    }
+
+    return {};
+}
 
 sub _storageMailDirs
 {
-    my @dirs;
-    foreach my $dir (qw(/var/mail /var/vmail)) {
-        push(@dirs, $dir) if (-d $dir);
-    }
-    return @dirs;
+    return  (qw(/var/mail /var/vmail));
 }
 
 sub _backupMailArchive
@@ -1805,20 +1825,8 @@ sub _backupMailArchive
     return "$dir/mailArchive.tar.bz2";
 }
 
-sub extendedBackup
-{
-    my ($self, %options) = @_;
-    my $dir     = $options{dir};
 
-    my @dirsToBackup = $self->_storageMailDirs();
-
-    my $tarFile = $self->_backupMailArchive($dir);
-
-    my $tarCommand =
-"/bin/tar -cf $tarFile --bzip2 --atime-preserve --absolute-names --preserve --same-owner @dirsToBackup";
-    EBox::Sudo::root($tarCommand);
-}
-
+# kept only for comapibility with old full backups
 sub extendedRestore
 {
     my ($self, %options) = @_;
@@ -1826,9 +1834,7 @@ sub extendedRestore
 
     # erasing actual mail archives
     my @dirsToClean =  $self->_storageMailDirs();
-    EBox::info(
-"Files in @dirsToClean will be erased and replaced with backup's mail archive"
-    );
+    EBox::info("Files in @dirsToClean will be erased and replaced with backup's mail archive");
     EBox::Sudo::root("rm -rf @dirsToClean");
 
     # restoring backup's mail archives
@@ -1839,9 +1845,7 @@ sub extendedRestore
 "/bin/tar -xf $tarFile --bzip2 --atime-preserve --absolute-names --preserve --same-owner";
         EBox::Sudo::root($tarCommand);
     }else {
-        EBox::error(
-"Mail's messages archive not found at $tarFile. Mail's messages will NOT be restored.\n Resuming restoring process.."
-          );
+        EBox::error("Mail's messages archive not found at $tarFile. Mail's messages will NOT be restored.\n Resuming restoring process..");
     }
 }
 

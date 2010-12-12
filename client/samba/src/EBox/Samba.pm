@@ -1380,6 +1380,38 @@ sub restoreDependencies
 }
 
 
+# backup domains
+
+sub backupDomains
+{
+    my $name = 'shares';
+    my %attrs  = (
+                  printableName => __('File Sharing'),
+                  description   => __(q{Shares, users and groups homes and profiles}),
+                 );
+
+    return ($name, \%attrs);
+}
+
+sub backupDomainsFileSelection
+{
+    my ($self, %enabled) = @_;
+    if ($enabled{shares}) {
+        my $sambaLdapUser = new EBox::SambaLdapUser();
+        my @dirs =  @{ $sambaLdapUser->sharedDirectories() };
+        push @dirs, map {
+            $_->{path}
+        } @{ $self->shares(1) };
+
+        my $selection = {
+                          includes => \@dirs,
+                         };
+        return $selection;
+    }
+
+    return {};
+}
+
 sub _dumpSharesTree
 {
     my ($self, $dir) = @_;

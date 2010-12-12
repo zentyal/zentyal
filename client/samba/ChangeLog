@@ -1,3 +1,5 @@
+HEAD
+	+ Added backup domain
 2.0.6
 	+ Check for incompatibility between PDC and PAM on slaves
 	+ Improved performance by adding samba LDAP indexes

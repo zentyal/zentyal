@@ -139,4 +139,45 @@ sub _daemons
     return [ { 'name' => 'vsftpd' } ];
 }
 
+sub backupDomains
+{
+    my $name = 'ftpserver';
+    my %attrs  = (
+                  printableName => __('FTP server hosted files'),
+                  description   => __(q{User homes and anonymous directory}),
+                  order        => 300,
+                 );
+
+    return ($name, \%attrs);
+}
+
+sub ftpHome
+{
+    return '/srv/ftp';
+}
+
+sub backupDomainsFileSelection
+{
+    my ($self, %enabled) = @_;
+    if ($enabled{ftpserver}) {
+        my @includes = ( $self->ftpHome(), );
+        my @excludes = ();
+        my $options = $self->model('Options');
+        if ( $options->userHomes()) {
+            push @includes, '/home';
+            push @excludes, '/home/samba';
+        }
+
+        my $selection = {
+                          includes => \@includes,
+                          excludes => \@excludes,
+                          # the priority is to avoid clashes with the samba module
+                          priority => 20,
+                         };
+        return $selection;
+    }
+
+    return {};
+}
+
 1;

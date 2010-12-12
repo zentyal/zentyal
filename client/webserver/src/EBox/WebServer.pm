@@ -723,4 +723,31 @@ sub _checkCertificate
     }
 }
 
+sub backupDomains
+{
+    my $name = 'webserver';
+    my %attrs  = (
+                  printableName => __('Web server hosted files'),
+                  description   => __(q{Virtual hosts data}),
+                  order        => 300,
+                 );
+
+    return ($name, \%attrs);
+}
+
+sub backupDomainsFileSelection
+{
+    my ($self, %enabled) = @_;
+    if ($enabled{webserver}) {
+        my $selection = {
+                          includes => [
+                    EBox::WebServer::PlatformPath::DocumentRoot(),
+                                      ],
+                         };
+        return $selection;
+    }
+
+    return {};
+}
+
 1;

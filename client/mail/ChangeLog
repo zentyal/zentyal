@@ -1,4 +1,5 @@
 HEAD
+	+ Added backup domain
 	+ Increased size of event field in mail_message_report table
 	+ Autocreate user email always in lowercase
 	+ Fixed dovecot mailboxes config to avoid problems with some vdomains
