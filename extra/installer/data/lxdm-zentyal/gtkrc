@@ -22,7 +22,7 @@ style "time"
 
 style "prompt"
 {
-	fg[NORMAL]="#000000"
+	fg[NORMAL]="#DDD"
 	font_name="Sans Bold 14"
 }
 

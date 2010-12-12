@@ -61,6 +61,18 @@
                             <property name="position">0</property>
                           </packing>
                         </child>
+                        <child>
+                          <object class="GtkLabel" id="prompt">
+                            <property name="visible">True</property>
+                            <property name="visible">True</property>
+                            <property name="label" translatable="yes">User:</property>
+                          </object>
+                          <packing>
+                            <property name="expand">False</property>
+                            <property name="fill">False</property>
+                            <property name="position">0</property>
+                          </packing>
+                        </child>
                       </object>
                     </child>
                   </object>
