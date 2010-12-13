@@ -108,10 +108,11 @@ sub _mangleDuplicityErrorMsg
         my $tmpDir = EBox::EBackup::tempdir();
 
         return __x(
-                   q{Temp directory '{dir}' has {avail} MB available, backup needs approx {need} MB. Either free some space or change temporal directory and volume size settings in /etc/ebox/82ebackup.conf.},
+                   q/Temp directory '{dir}' has {avail} MB available, backup needs approx {need} MB. Either free some space or change temporal directory and volume size settings in {conf}./,
                    dir   => $tmpDir,
                    avail => $avail,
-                   need => $need,
+                   need  => $need,
+                   conf  => '/etc/ebox/82ebackup.conf',
                   );
 
     }
@@ -241,7 +242,7 @@ my $mustExit = 0;
 try {
     $ebackup->backupProcessLock()
 } otherwise {
-    my $alreadyMsg = __('Another backup process is running, wait until it finish and try again');
+    my $alreadyMsg = __('Another backup process is running, wait until it finishes and try again');
     print $alreadyMsg;
     print "\n";
     _sendSuccessEvent(0,  $alreadyMsg);

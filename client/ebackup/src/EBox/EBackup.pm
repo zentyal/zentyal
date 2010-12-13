@@ -1146,7 +1146,9 @@ sub canUnsubscribeFromCloud
     my $method = $model->row()->valueByName('method');
     if ($method eq 'cloud') {
         throw EBox::Exceptions::External(
-__(q{Could not unsubscribe because the backup module is configured to use the Zentyal Cloud. If you want to unsubscribe, you must change this <a href='/ebox/EBackup/Composite/Remote#RemoteGeneralSettings'> setting</a>.}
+__x('Could not unsubscribe because the backup module is configured to use the Zentyal Cloud. If you want to unsubscribe, you must change this {ohref}setting{chref}.',
+    ohref => q{<a href='/ebox/EBackup/Composite/Remote#RemoteGeneralSettings'>},
+    chref => '</a>'
   )
                                         );
     }

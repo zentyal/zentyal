@@ -129,7 +129,7 @@ sub actions
 {
     return [
         {
-            'action' => __x('Disable {server} init sctript', server => 'dhcpd'),
+            'action' => __x('Disable {server} init script', server => 'dhcpd'),
             'reason' => __('Zentyal will take care of start and stop ' .
                 'the service'),
             'module' => 'dhcp',

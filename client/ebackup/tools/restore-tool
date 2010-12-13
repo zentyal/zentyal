@@ -84,7 +84,7 @@ sub askUser
     if ($usesX) {
         return _zenityEntry(__('Zentyal Cloud User'));
     } else {
-        return terminalPrompt(__("Zentyal Cloud User: "));
+        return terminalPrompt(__("Zentyal Cloud User:") . ' ');
     }
 
 }
@@ -94,7 +94,7 @@ sub askPassword
     if ($usesX) {
         return _zenityEntry(__('Zentyal Cloud Password'), 1);
     } else {
-        return terminalPrompt(__('Zentyal Cloud Password: '), 1);
+        return terminalPrompt(__('Zentyal Cloud Password:') . ' ', 1);
     }
 }
 
@@ -1523,9 +1523,7 @@ sub _zenityCommonArgs
 
 sub _zenityTitle
 {
-    return _zenityQuote(
-        __('Zentyal Disaster Recovery')
-                       );
+    return _zenityQuote('Zentyal Disaster Recovery');
 }
 
 sub _zenityIcon
@@ -2198,7 +2196,10 @@ if ( $usage or (not $correct) ) {
 
 my $cryptOptions = grep { $_ } ($encryptKey, $symmetricPassword, $noEncryption);
 if ($cryptOptions > 1) {
-  die __('You can only specify one of the encryption options: --symmetric-password, --encription-key and --no-encryption');
+  die __x('You can only specify one of the encryption options: {sy}, {asy} y {no}',
+          sy  => '--symmetric-password',
+          asy => '--encription-key',
+          no  => '--no-encryption');
 }
 if ($noEncryption) {
     $symmetricPassword = 0;
