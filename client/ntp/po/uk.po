@@ -8,28 +8,27 @@ msgstr ""
 "Project-Id-Version: ebox-ntp 1.5.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-08-28 23:28+0200\n"
-"PO-Revision-Date: 2010-08-17 12:41+0200\n"
-"Last-Translator: Val Budkin <valentin@ktc-ua.com>\n"
+"PO-Revision-Date: 2010-09-09 09:50+0200\n"
+"Last-Translator: Vladimir Popov <adminlug@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
-"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/NTP.pm:67
 msgid "Remove ntp init script links"
-msgstr ""
+msgstr "Видалити посилання на скрипт ініціалізації ntp"
 
 #: src/EBox/NTP.pm:68
 msgid "Zentyal will take care of starting and stopping the services."
-msgstr ""
+msgstr "Zentyal подбае про запуск і зупинку служб."
 
 #: src/EBox/NTP.pm:86
-#, fuzzy
 msgid "NTP configuration file"
-msgstr "Конфігурація часової зони"
+msgstr "Файл налаштування NTP"
 
 #: src/EBox/NTP.pm:221 src/EBox/CGI/AddServers.pm:45
 #: src/templates/servers.mas:16
@@ -55,11 +54,11 @@ msgstr "Допоміжний сервер"
 
 #: src/EBox/NTP.pm:244
 msgid "Primary and tertiary server must be different"
-msgstr ""
+msgstr "Основний і другий додатковий сервери повинні відрізнятися"
 
 #: src/EBox/NTP.pm:250
 msgid "tertiary server"
-msgstr ""
+msgstr "другий додатковий сервер"
 
 #: src/EBox/NTP.pm:266
 #, perl-brace-format
@@ -69,11 +68,11 @@ msgstr "{name} IP адреса"
 #: src/EBox/NTP.pm:269
 #, perl-brace-format
 msgid "{name} host name"
-msgstr ""
+msgstr "{name} ім'я вузла"
 
 #: src/EBox/NTP.pm:401
 msgid "System"
-msgstr ""
+msgstr "Система"
 
 #: src/EBox/NTP.pm:404
 msgid "Date/Time"
@@ -93,7 +92,7 @@ msgstr "перший ntp сервер"
 
 #: src/EBox/CGI/AddServers.pm:55 src/templates/servers.mas:38
 msgid "Tertiary server"
-msgstr ""
+msgstr "Другий додатковий сервер"
 
 #: src/EBox/CGI/Datetime.pm:30
 msgid "Date and Time Configuration"
@@ -101,7 +100,7 @@ msgstr "Налаштування дати та часу"
 
 #: src/EBox/CGI/Synch.pm:41
 msgid "external synchronize status"
-msgstr ""
+msgstr "статус зовнішньої синхронізації"
 
 #: src/EBox/CGI/ChangeDate.pm:41
 msgid "Day"
@@ -144,6 +143,8 @@ msgid ""
 "You should remember to set up your timezone to have synchronization behaving "
 "correctly."
 msgstr ""
+"Ви повинні пам'ятати налаштування часового поясу для правильної "
+"синхронізації."
 
 #: src/templates/servers.mas:50 src/templates/synch.mas:19
 #: src/templates/synch.mas:20 src/templates/date.mas:96
@@ -153,7 +154,6 @@ msgid "Change"
 msgstr "Змінити"
 
 #: src/templates/datetime.mas:8
-#, fuzzy
 msgid "Time Synchronization with NTP Servers"
 msgstr "Сінхронізація часу з NTP серверами"
 
@@ -163,20 +163,20 @@ msgstr "Зовнішні NTP сервери"
 
 #: src/templates/datetime.mas:10
 msgid "Change Date and Time"
-msgstr "Змінити дату та час"
+msgstr "Змінити Дату та Час"
 
 #: src/templates/synch.mas:11 src/templates/synch.mas:14
 msgid "Disabled"
-msgstr ""
+msgstr "Відключено"
 
 #: src/templates/synch.mas:12 src/templates/synch.mas:15
 msgid "Enabled"
-msgstr ""
+msgstr "Включено"
 
 #: src/templates/date.mas:10
 msgid ""
 "A change in the date or time will cause all Zentyal services to be restarted."
-msgstr ""
+msgstr "Зміна дати або часу призведе до перезапуску всіх служб Zentyal."
 
 #: src/templates/date.mas:15
 msgid "Date"

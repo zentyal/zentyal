@@ -5,75 +5,76 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-mail 2.0"
-"Report-Msgid-Bugs-To: developers@zentyal.org\n"
+"Project-Id-Version: ebox-mail 2.0Report-Msgid-Bugs-To: "
+"developers@zentyal.org\n"
 "POT-Creation-Date: 2010-01-28 13:28+0000\n"
-"PO-Revision-Date: 2010-01-28 13:28+0000\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2010-12-07 20:00+0100\n"
+"Last-Translator: Vytautas <vytautas@lantraneta.lt>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n%"
-"100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"(n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: migration/0005_add_managesieve_firewall_services.pl:28
 msgid "protocol for editing SIEVE filters"
-msgstr ""
+msgstr "prieiga SIEVE filtrų redagavimui"
 
 #: migration/0001_add_firewall_services.pl:30
 msgid "eBox Mail System"
-msgstr ""
+msgstr "eBox Pašto Sistema"
 
 #: src/EBox/MailUserLdap.pm:83 src/EBox/MailUserLdap.pm:88
 #: src/EBox/MailAliasLdap.pm:105 src/EBox/MailAliasLdap.pm:135
 msgid "mail account"
-msgstr ""
+msgstr "pašto paskyra"
 
 #: src/EBox/MailUserLdap.pm:430
 msgid "This group has a mail alias"
-msgstr ""
+msgstr "Ši grupė turi pašto aliasą"
 
 #: src/EBox/MailUserLdap.pm:457
 msgid "This user has a mail account"
-msgstr ""
+msgstr "Šis vartotojas turi pašto paskyrą"
 
 #: src/EBox/MailUserLdap.pm:809
 msgid "Quota can only be a positive number or zero for unlimited quota"
-msgstr ""
+msgstr "Kvota gali būti tik teigiamas skaičius arba nulis neribotai kvotai"
 
 #: src/EBox/MailAliasLdap.pm:62
 #, perl-brace-format
 msgid "{ac} is not a internal account"
-msgstr ""
+msgstr "{ac} yra ne vidinė paskyra"
 
 #: src/EBox/MailAliasLdap.pm:79
 #, perl-brace-format
 msgid "{ac} is not a external account"
-msgstr ""
+msgstr "{ac} yra ne išorinė paskyra"
 
 #: src/EBox/MailAliasLdap.pm:101 src/EBox/CGI/DelAlias.pm:46
 msgid "mail alias"
-msgstr ""
+msgstr "pašto aliasas"
 
 #: src/EBox/MailAliasLdap.pm:113
 #, perl-brace-format
 msgid "{ac} is a mail alias. Alias of aliases are not allowed"
-msgstr ""
+msgstr "{ac} yra pašto aliasas. Aliasas aliaso yra neleidžiamas"
 
 #: src/EBox/MailAliasLdap.pm:132
 msgid "group alias"
-msgstr ""
+msgstr "grupės aliasas"
 
 #: src/EBox/MailAliasLdap.pm:171 src/EBox/MailAliasLdap.pm:191
 msgid "Domain alias"
-msgstr ""
+msgstr "Vardų srities aliasas"
 
 #: src/EBox/MailAliasLdap.pm:176 src/EBox/MailAliasLdap.pm:215
 #: src/EBox/MailAliasLdap.pm:242
 #, perl-brace-format
 msgid "Mail domain {d} does not exists"
-msgstr ""
+msgstr "Pašto vardų sritis {d} neegzistuoja"
 
 #: src/EBox/MailAliasLdap.pm:183
 #, perl-brace-format
@@ -81,109 +82,111 @@ msgid ""
 "Cannot use {d} as alias for a mail domain because a domain which this name "
 "already exists"
 msgstr ""
+"Negalima panaudoti {d} kaip aliaso pašto vardų srityje nes vardų sritis jau "
+"egzistuoja"
 
 #: src/EBox/MailAliasLdap.pm:325 src/EBox/MailAliasLdap.pm:354
 #: src/EBox/MailAliasLdap.pm:389
 msgid "mail alias account"
-msgstr ""
+msgstr "pašto aliaso paskyra"
 
 #: src/EBox/CGI/MQRequeue.pm:42 src/EBox/CGI/MQRemove.pm:42
 #: src/templates/qmanager.mas:17
 msgid "Queue ID"
-msgstr ""
+msgstr "Užklausos ID"
 
 #: src/EBox/CGI/CreateGroupAlias.pm:43 src/EBox/CGI/DelGroupAlias.pm:42
 msgid "group"
-msgstr ""
+msgstr "grupė"
 
 #: src/EBox/CGI/CreateGroupAlias.pm:49 src/EBox/CGI/CreateAlias.pm:49
 msgid "account name"
-msgstr ""
+msgstr "paskyros vardas"
 
 #: src/EBox/CGI/CreateGroupAlias.pm:50 src/EBox/CGI/CreateAlias.pm:50
 msgid "domain name"
-msgstr ""
+msgstr "vardų sritis"
 
 #: src/EBox/CGI/DelAlias.pm:42 src/EBox/CGI/DelAccount.pm:42
 #: src/EBox/CGI/SetAccountMaildirQuota.pm:41 src/EBox/CGI/CreateAccount.pm:42
 #: src/EBox/CGI/CreateAlias.pm:42
 msgid "username"
-msgstr ""
+msgstr "vartotojas"
 
 #: src/EBox/CGI/DelAccount.pm:46
 msgid "user mail"
-msgstr ""
+msgstr "vartotojo paštas"
 
 #: src/EBox/CGI/SetAccountMaildirQuota.pm:60
 msgid "Quota must be a amount of MB greter than zero"
-msgstr ""
+msgstr "Kvota turi būti Megabaitais (MB) ir daugiau nei nulis"
 
 #: src/EBox/CGI/CreateAccount.pm:48 src/EBox/MailVDomainsLdap.pm:64
 #: src/EBox/MailVDomainsLdap.pm:117 src/EBox/Mail/Model/VDomains.pm:101
 msgid "virtual domain"
-msgstr ""
+msgstr "virtuali vardų sritis"
 
 #: src/EBox/CGI/CreateAccount.pm:50
 msgid "Mail address"
-msgstr ""
+msgstr "Pašto adresas"
 
 #: src/EBox/CGI/DelGroupAlias.pm:45
 msgid "alias"
-msgstr ""
+msgstr "aliasas"
 
 #: src/EBox/CGI/DelGroupAlias.pm:50
 msgid "group alias mail"
-msgstr ""
+msgstr "grupės pašto aliasas"
 
 #: src/EBox/CGI/CreateAlias.pm:48
 msgid "maildrop"
-msgstr ""
+msgstr "maildrop"
 
 #: src/EBox/CGI/QueueManager.pm:34 src/EBox/CGI/QueueManager.pm:52
 #: src/EBox/Mail.pm:1549
 msgid "Queue Management"
-msgstr ""
+msgstr "Užklausų Tvarkymas"
 
 #: src/EBox/Event/Dispatcher/Mail.pm:155
 msgid "Admin mail recipient"
-msgstr ""
+msgstr "Admin pašto gavėjas"
 
 #: src/EBox/Event/Dispatcher/Mail.pm:168 src/EBox/Mail/Model/MailUser.pm:68
 #: src/EBox/Mail.pm:92 src/EBox/Mail.pm:1466 src/EBox/Mail.pm:1618
 msgid "Mail"
-msgstr ""
+msgstr "Paštas"
 
 #: src/EBox/Event/Dispatcher/Mail.pm:189
 #, perl-brace-format
 msgid "Cannot connect to {smtp} mail server"
-msgstr ""
+msgstr "Nepavyko prisijungti {smtp} pašto serverį"
 
 #: src/EBox/Event/Dispatcher/Mail.pm:230
 #, perl-brace-format
 msgid "Cannot connect to the server {hostname} to send the event through SMTP"
-msgstr ""
+msgstr "Nepavyko prisijungti prie serverio {hostname} išsiųsti įvykiui per SMTP"
 
 #: src/EBox/Mail/Greylist.pm:55
 msgid "To configure whitelist for greylisting"
-msgstr ""
+msgstr "Konfigūruoti baltąjį sąrašą greylisting'ui"
 
 #: src/EBox/Mail/Greylist.pm:279
 msgid "Greylist service"
-msgstr ""
+msgstr "Greylist servisas"
 
 #: src/EBox/Mail/Model/ObjectPolicy.pm:90
 msgid "Object"
-msgstr ""
+msgstr "Objektas"
 
 #: src/EBox/Mail/Model/ObjectPolicy.pm:96
 msgid "Allow relay"
-msgstr ""
+msgstr "Leisti transliatorių (relay)"
 
 #: src/EBox/Mail/Model/ObjectPolicy.pm:99
 msgid ""
 "Tick this to allow the machines within the above object to send mails "
 "through this server."
-msgstr ""
+msgstr "Pažymėkite leisti mašinoms be objektų siųsti paštą per šį serverį."
 
 #: src/EBox/Mail/Model/ObjectPolicy.pm:108
 msgid "Relay policy for network objects"

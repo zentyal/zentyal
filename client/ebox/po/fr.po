@@ -7,8 +7,8 @@ msgstr ""
 "Project-Id-Version: ebox 0.12\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-08-28 23:35+0200\n"
-"PO-Revision-Date: 2010-08-29 15:29+0200\n"
-"Last-Translator: Cyril MARTY <cyril_marty@yahoo.fr>\n"
+"PO-Revision-Date: 2010-09-07 16:47+0200\n"
+"Last-Translator: Nicolas Liaudat <nliaudat@pompiers-chatel.ch>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -89,7 +89,7 @@ msgstr "Journal"
 #: src/EBox/Event/Dispatcher/Abstract.pm:140
 #, perl-brace-format
 msgid "Dispatcher {name} is not configured to be enabled"
-msgstr "L'expéditeur {name} n'est pas configuré sur activé"
+msgstr "Le répartiteur {name} n'est pas activé"
 
 #: src/EBox/Event/Watcher/DiskFreeSpace.pm:133
 #, perl-brace-format
@@ -656,22 +656,23 @@ msgstr "Aucun"
 
 #: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:351
 msgid "Configure Dispatchers"
-msgstr "Configurer les répartiteurs (Dispatchers)"
+msgstr "Configurer les répartiteurs"
 
 #: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:360
 msgid "dispatcher"
-msgstr "expéditeur"
+msgstr "répartiteur"
 
 #: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:361
 msgid "Enable/Disable each event dispatcher"
-msgstr "Activer/désactiver chaque événement de l'exéditeur"
+msgstr "Activer/désactiver chaque événement du répartiteur"
 
 #: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:550
 msgid ""
 "In order to enable a configurable event dispatcher, you need to configure it "
 "first"
 msgstr ""
-"Afin d'activer un événement d'expéditeur, vous devez le configurer avant"
+"Afin d'activer un événement du répartiteur, vous devez le configurer "
+"préalablement"
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:192
 msgid "Jabber server name"
@@ -729,15 +730,15 @@ msgstr ""
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:244
 msgid "Configure Jabber dispatcher"
-msgstr "Configurer l'expéditeur Jabber"
+msgstr "Configurer le répartiteur Jabber"
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:249
 msgid "This dispatcher will send events to an Jabber account"
-msgstr "Cet expéditeur enverra les évènements à un compte Jabber"
+msgstr "Ce répartiteur enverra les évènements à un compte Jabber"
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:252
 msgid "Jabber dispatcher configuration updated"
-msgstr "Configuration de l'expéditeur Jabber mis-à-jour"
+msgstr "Configuration du répartiteur Jabber mis-à-jour"
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:272
 #: src/EBox/Events/Model/Dispatcher/RSS.pm:324
@@ -748,11 +749,11 @@ msgstr "Configuration de l'expéditeur Jabber mis-à-jour"
 #: src/EBox/Events/Model/Watcher/Log.pm:385 src/EBox/Events.pm:94
 #: src/EBox/Events.pm:821
 msgid "Events"
-msgstr "Evénements"
+msgstr "Événements"
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:276
 msgid "Jabber Dispatcher"
-msgstr "Configurer le régulateur Jabber"
+msgstr "Configurer le répartiteur Jabber"
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:301
 msgid "It should follow the pattern 'user@domain[/resource]'"
@@ -792,7 +793,7 @@ msgstr "S'abonner à ce flux RSS"
 
 #: src/EBox/Events/Model/Dispatcher/RSS.pm:201
 msgid "Configure RSS dispatcher"
-msgstr "Configurer les expéditeurs RSS"
+msgstr "Configurer le répartiteur RSS"
 
 #: src/EBox/Events/Model/Dispatcher/RSS.pm:206
 msgid ""
@@ -804,11 +805,11 @@ msgstr ""
 
 #: src/EBox/Events/Model/Dispatcher/RSS.pm:209
 msgid "RSS dispatcher configuration updated"
-msgstr "Configuration de l'expéditeur RSS mis-à-jour"
+msgstr "Configuration du répartiteur RSS mis-à-jour"
 
 #: src/EBox/Events/Model/Dispatcher/RSS.pm:328
 msgid "RSS Dispatcher"
-msgstr "Régulateur RSS"
+msgstr "Répartiteur RSS"
 
 #: src/EBox/Events/Model/GeneralComposite.pm:79
 msgid ""
@@ -826,7 +827,7 @@ msgstr "Description"
 
 #: src/EBox/Events/Model/ConfigureEventDataTable.pm:308
 msgid "Configure Events"
-msgstr "Configurer les événements"
+msgstr "Configurer les tâches événementielles"
 
 #: src/EBox/Events/Model/ConfigureEventDataTable.pm:316
 #: src/EBox/Events/Model/Report/EventsDetails.pm:109
@@ -854,7 +855,7 @@ msgstr "Surveiller le domaine {logDomain}"
 #: src/EBox/Events/Model/Watcher/LogFiltering.pm:168
 #: src/templates/logs/index.mas:183
 msgid "Event"
-msgstr "Evénement"
+msgstr "Événement"
 
 #: src/EBox/Events/Model/Watcher/LogFiltering.pm:176
 #, perl-brace-format
@@ -1299,8 +1300,8 @@ msgstr "Message"
 #, perl-brace-format
 msgid "Dispatcher {name} disabled since it is not able to send events"
 msgstr ""
-"L'expéditeur {name} est désactivé depuis qu'il n'est plus capable d'envoyer "
-"des événements"
+"Le répartiteur {name} est désactivé depuis qu'il n'est plus capable "
+"d'envoyer des événements"
 
 #: src/EBox/CGI/ClientRawBase.pm:212 src/EBox/CGI/WizardPage.pm:155
 msgid ""
@@ -2289,7 +2290,7 @@ msgstr ""
 
 #: src/templates/login/index.mas:63
 msgid "Enter"
-msgstr "Saisir"
+msgstr "Se connecter"
 
 #: src/templates/headTitle.mas:20
 msgid "Remote services control panel"

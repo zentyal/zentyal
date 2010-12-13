@@ -7,8 +7,8 @@ msgstr ""
 "Project-Id-Version: ebox-network 0.12\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-08-29 01:25+0200\n"
-"PO-Revision-Date: 2010-08-18 22:40+0200\n"
-"Last-Translator: andrea biasi <info@andreabiasi.it>\n"
+"PO-Revision-Date: 2010-09-16 12:30+0200\n"
+"Last-Translator: Simone Bernini <lemorragia@libero.it>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -27,6 +27,8 @@ msgid ""
 "Gateway {gw} disconnected ({failRatio}% of '{type}' tests to host '{host}' "
 "failed, max={maxFailRatio}%)"
 msgstr ""
+"Gateway {gw} disconnesso ({failRatio}% di '{type}' test all'host '{host}' "
+"falliti, max={maxFailRatio}%)"
 
 #: src/EBox/Event/Watcher/Gateways.pm:370 src/EBox/Network.pm:3592
 #: src/EBox/Network/Composite/WANFailover.pm:61
@@ -38,9 +40,8 @@ msgid "Check if gateways are connected or disconnected."
 msgstr "Controlla se i gateway sono connessi"
 
 #: src/EBox/Model/SearchDomain.pm:71
-#, fuzzy
 msgid "Domain"
-msgstr "Nome dominio"
+msgstr "Dominio"
 
 #: src/EBox/Model/SearchDomain.pm:79
 msgid "Search Domain"
@@ -55,16 +56,14 @@ msgstr ""
 "risolverlo senza il dominio fallisce."
 
 #: src/EBox/Model/WANFailoverRules.pm:55
-#, fuzzy
 msgid "Ping to gateway"
-msgstr "Interroga il gateway"
+msgstr "Genera una richiesta PING al gateway"
 
 #: src/EBox/Model/WANFailoverRules.pm:59
 msgid "Ping to host"
-msgstr "Contatta la macchina"
+msgstr "Genera una richiesta PING all'host"
 
 #: src/EBox/Model/WANFailoverRules.pm:63
-#, fuzzy
 msgid "DNS resolve"
 msgstr "Risoluzione DNS"
 
@@ -86,12 +85,10 @@ msgid "Number of probes"
 msgstr "Numero di prove"
 
 #: src/EBox/Model/WANFailoverRules.pm:112
-#, fuzzy
 msgid "Required success ratio"
 msgstr "Tasso di successo richiesto"
 
 #: src/EBox/Model/WANFailoverRules.pm:125
-#, fuzzy
 msgid "Test rules"
 msgstr "Regole per il test"
 
@@ -113,11 +110,11 @@ msgstr "regola"
 
 #: src/EBox/Model/WANFailoverRules.pm:192
 msgid "WAN Failover is only available for static interfaces"
-msgstr ""
+msgstr "Il WAN Failover e' disponibile solo per interfacce di rete statiche"
 
 #: src/EBox/Model/WANFailoverRules.pm:198
 msgid "Invalid value for Host"
-msgstr "Valore non valido per la macchina"
+msgstr "Valore non valido per l'host"
 
 #: src/EBox/Model/ByteRateGraphControl.pm:46
 msgid "Select traffic graphic"
@@ -249,9 +246,8 @@ msgid "all"
 msgstr "tutte"
 
 #: src/EBox/Model/GatewayTable.pm:184
-#, fuzzy
 msgid "Auto"
-msgstr "Azione"
+msgstr "Auto"
 
 #: src/EBox/Model/GatewayTable.pm:190 src/templates/ifaces.mas:34
 #: src/templates/ifaces.mas:286
@@ -307,7 +303,6 @@ msgid "Gateways List"
 msgstr "Elenco gateway"
 
 #: src/EBox/Model/GatewayTable.pm:248
-#, fuzzy
 msgid ""
 "You can add as many gateways as you want. This is very useful if you want to "
 "split your Internet traffic through several links. Note that if you "
@@ -315,7 +310,8 @@ msgid ""
 "automatically."
 msgstr ""
 "Puoi aggiungere quanti gateway vuoi. È molto utile se vuoi separare il "
-"traffico internet"
+"traffico internet tra link diversi.Nota che se configuri le interfacce come "
+"DHCP o PPPoE, i loro gateway sono scelti in automatico."
 
 #: src/EBox/Model/GatewayTable.pm:250
 msgid "gateway"
@@ -323,23 +319,26 @@ msgstr "gateway"
 
 #: src/EBox/Model/GatewayTable.pm:283
 msgid "You can not manually add a gateway for DHCP or PPPoE interfaces"
-msgstr ""
+msgstr "Puoi aggiungere manualmente un gateway per interfacce DHCP o PPPoE"
 
 #: src/EBox/Model/GatewayTable.pm:342
 msgid "Automatically added gateways can not be manually deleted"
 msgstr ""
+"I gateway aggiunti automaticamente non possono essere cancellati manualmente"
 
 #: src/EBox/Model/MultiGwRulesDataTable.pm:77
 msgid "any"
 msgstr "qualsiasi"
 
 #: src/EBox/Model/MultiGwRulesDataTable.pm:104
+#, fuzzy
 msgid ""
 "Incoming interface to match packets. If you  want to match a whole subnet "
 "you can  select the interface of that subnet"
 msgstr ""
-"Interfaccia d'ingresso per i pacchetti. Se vuoi_ _interessare un'intera "
-"sottorete puoi_ _selezionare l'interfaccia interessata"
+"Interfaccia in ingresso con cui fare match dei pacchetti.Se vuoi fare "
+"matching con un intera sottorete puoi selezionare l'interfaccia di quella "
+"sottorete"
 
 #: src/EBox/Model/MultiGwRulesDataTable.pm:115
 #: src/EBox/Model/MultiGwRulesDataTable.pm:142
@@ -367,16 +366,14 @@ msgid "Destination object"
 msgstr "Oggetto destinazione"
 
 #: src/EBox/Model/MultiGwRulesDataTable.pm:172
-#, fuzzy
 msgid "Gateway to route packets matching this rule"
-msgstr "Gateway verso pacchetti instradati seguendo questa regola"
+msgstr "Gateway verso cui instradare pacchetti che seguono questa regola"
 
 #: src/EBox/Model/MultiGwRulesDataTable.pm:180
 msgid "Multigateway rules"
 msgstr "Regole multigateway"
 
 #: src/EBox/Model/MultiGwRulesDataTable.pm:193
-#, fuzzy
 msgid ""
 "You can decide what kind of traffic goes out by each gateway. This way, you "
 "can force a subnet, service, destination and so forth  to use the router you "
@@ -385,10 +382,10 @@ msgid ""
 "port or an IP address, then the rule will match all of them"
 msgstr ""
 "Puoi decidere che tipo di traffico esce da ciascun gateway. In questo modo "
-"puoi forzare una sottorete, servizio, destinazione all'uso di un certo "
-"router. Prego tieni a menti che le regole saranno applicate in sequenza, "
-"dall'alto verso il basso, dopo averle aggiunte puoi riordinarle. Se non "
-"imposti una porta o un indirizzo IP, la regola sarà applicata a tutti"
+"puoi forzare sottorete, servizio e destinazione all'uso di un certo router. "
+"Tieni a menti che le regole saranno applicate in sequenza, dall'alto verso "
+"il basso, dopo averle aggiunte puoi riordinarle. Se non imposti una porta o "
+"un indirizzo IP, la regola sarà applicata a tutti"
 
 #: src/EBox/Model/StaticRoute.pm:147 src/EBox/Network.pm:81
 #: src/EBox/Network.pm:3575
@@ -420,44 +417,42 @@ msgid "Static Routes"
 msgstr "Route statiche"
 
 #: src/EBox/Model/StaticRoute.pm:176
-#, fuzzy
 msgid ""
 "All gateways you enter here must be reachable through one of the network "
 "interfaces currently configured."
 msgstr ""
-"Tutti i gateway inseriti devono essere raggiungibili dall'interfaccia di "
-"rete confogurata"
+"Tutti i gateway inseriti qui devono essere raggiungibili da una delle "
+"interfacce di rete correntemente configurate"
 
 #: src/EBox/Model/StaticRoute.pm:179
 msgid "static route"
 msgstr "route statica"
 
 #: src/EBox/Model/DNSResolver.pm:77
-#, fuzzy
 msgid "IP address of the DNS server that Zentyal will use to resolve names."
-msgstr "Indirizzi IP del server DNS che eBox utilizza per recuperare i nomi"
+msgstr "Indirizzi IP del server DNS che Zentyal utilizza per risolvere i nomi."
 
 #: src/EBox/Model/DNSResolver.pm:83 src/templates/Wizard/network.mas:86
 #: src/templates/Wizard/network.mas:90
 msgid "Domain Name Server"
-msgstr "Name server"
+msgstr "Domain Name server"
 
 #: src/EBox/Model/DNSResolver.pm:92
+#, fuzzy
 msgid "Domain Name Server Resolver List"
-msgstr "Lista name server resolver"
+msgstr "Lista dei Domain Name Server Resolver"
 
 #: src/EBox/Model/DNSResolver.pm:98
 msgid "name server"
 msgstr "name server"
 
 #: src/EBox/Model/DNSResolver.pm:110
-#, fuzzy
 msgid ""
 "<p>Here you can add the name server resolvers that Zentyal will use.</"
 "p><p>Note that these settings may be overriden if you have any network "
 "interface configured via DHCP</p>"
 msgstr ""
-"<p>Qui puoi aggiungere i name server resolvers che eBox userà.</p><p>Nota "
+"<p>Qui puoi aggiungere i name server resolvers che Zentyal userà.</p><p>Nota "
 "che queste impostazioni possono essere prevalicate se hai altre interfacce "
 "configurate via DHCP</p>"
 
@@ -466,37 +461,36 @@ msgid "Time between checks"
 msgstr "Tempo tra i controlli"
 
 #: src/EBox/Model/WANFailoverOptions.pm:72
-#, fuzzy
 msgid "seconds"
-msgstr "byte/secondo"
+msgstr "secondi"
 
 #: src/EBox/Model/WANFailoverOptions.pm:82
 msgid "Global options"
 msgstr "Opzioni globali"
 
 #: src/EBox/Model/WANFailoverOptions.pm:86
-#, fuzzy
 msgid "These options affect to all the tests."
 msgstr "Queste opzioni si applicano a tutti i test."
 
 #: src/EBox/Model/Proxy.pm:72
-#, fuzzy
 msgid "Proxy server"
-msgstr "name server"
+msgstr "Server proxy"
 
 #: src/EBox/Model/Proxy.pm:78
 msgid "Proxy port"
-msgstr ""
+msgstr "Porta del proxy"
 
 #: src/EBox/Model/Proxy.pm:86
 msgid "Proxy"
-msgstr ""
+msgstr "Proxy"
 
 #: src/EBox/Model/Proxy.pm:90
 msgid ""
 "This settings will be used to allow Zentyal to access the Internet if an "
 "HTTP proxy is needed."
 msgstr ""
+"Queste configurazioni saranno usate per permettere a Zentyal di accedere a "
+"internet se un proxy HTTP e' richiesto."
 
 #: src/EBox/Model/MultiGwRulesOptions.pm:43
 msgid "Enable"
@@ -536,9 +530,8 @@ msgstr ""
 "per elencare le routes di default devi eseguire:"
 
 #: src/EBox/Network.pm:106
-#, fuzzy
 msgid "Enable Zentyal DHCP hook"
-msgstr "Abilita DHCP hook di eBox"
+msgstr "Abilita DHCP hook di Zentyal"
 
 #: src/EBox/Network.pm:107
 msgid ""
@@ -549,42 +542,36 @@ msgstr ""
 "tabella delle route di default"
 
 #: src/EBox/Network.pm:125
-#, fuzzy
 msgid "Zentyal will set your network configuration"
-msgstr "eBox imposterà la configurazione di rete"
+msgstr "Zentyal imposterà la configurazione di rete"
 
 #: src/EBox/Network.pm:130
-#, fuzzy
 msgid "Zentyal will set your DNS configuration"
-msgstr "eBox imposterà la configurazione DNS"
+msgstr "Zentyal configurera' i DNS"
 
 #: src/EBox/Network.pm:135
-#, fuzzy
 msgid "Zentyal will set your DHCP client configuration"
-msgstr "eBox imposterà la configurazione del client DHCP"
+msgstr "Zentyal imposterà la configurazione del client DHCP"
 
 #: src/EBox/Network.pm:140 src/EBox/Network.pm:145
-#, fuzzy
 msgid "Zentyal will set your ddclient configuration"
-msgstr "eBox imposterà la configurazione del ddclient "
+msgstr "Zentyal imposterà la configurazione del ddclient "
 
 #: src/EBox/Network.pm:150 src/EBox/Network.pm:155
-#, fuzzy
 msgid "Zentyal will store your PPPoE passwords"
-msgstr "ebox salverà le tue PPPoE password"
+msgstr "Zentyal salverà le tue password PPPoE"
 
 #: src/EBox/Network.pm:162
-#, fuzzy
 msgid "Zentyal will add a DSL provider configuration for PPPoE"
-msgstr "eBox aggiungerà la configurazione PPPoE del tuo provider"
+msgstr "Zentyal aggiungerà la configurazione PPPoE del tuo provider"
 
 #: src/EBox/Network.pm:169
 msgid "Zentyal will set HTTP proxy for all users"
-msgstr ""
+msgstr "Zentyal configurera' il proxy HTTP per tutti gli utenti"
 
 #: src/EBox/Network.pm:172
 msgid "Zentyal will set HTTP proxy for APT"
-msgstr ""
+msgstr "Zentyal configurera' il proxy HTTP per APT"
 
 #: src/EBox/Network.pm:902 src/EBox/Network.pm:906
 msgid "Virtual interface name"
@@ -719,9 +706,8 @@ msgid "Traffic rate monitoring"
 msgstr "Monitoraggio livelli di traffico"
 
 #: src/EBox/Network/Composite/Gateway.pm:56
-#, fuzzy
 msgid "Gateways and Proxy"
-msgstr "Gateway"
+msgstr "Gateway e proxy"
 
 #: src/EBox/Network/Composite/WANFailover.pm:77
 msgid ""
@@ -882,54 +868,49 @@ msgid "virtual interface name"
 msgstr "nome interfaccia virtuale"
 
 #: src/templates/Wizard/interfaces.mas:7 src/templates/Wizard/network.mas:23
-#, fuzzy
 msgid "Network interfaces"
 msgstr "Interfacce di rete"
 
 #: src/templates/Wizard/interfaces.mas:10
-#, fuzzy
 msgid "Select external network interfaces"
-msgstr "interfaccia rete"
+msgstr "Seleziona l'interfaccia di rete per le connessioni esterne"
 
 #: src/templates/Wizard/interfaces.mas:11
 msgid ""
 "You will not be able to connect to Zentyal administration page through them"
 msgstr ""
+"Non sarai in grado di connetterti all'interfaccia di amministrazione di "
+"Zentyal attraverso di esse"
 
 #: src/templates/Wizard/network.mas:26
-#, fuzzy
 msgid "Configure network for external interfaces"
-msgstr "Configura interfacce di rete"
+msgstr "Configura la rete per le interfacce esterne"
 
 #: src/templates/Wizard/network.mas:27
 msgid "Now you can set IP addresses and networks for each interface"
-msgstr ""
+msgstr "Ora puoi configurare gli indirizzi ip e le reti per ogni interfaccia"
 
 #: src/templates/Wizard/network.mas:40 src/templates/ifaces.mas:45
 msgid "Method"
 msgstr "Metodo"
 
 #: src/templates/Wizard/network.mas:43
-#, fuzzy
 msgid "Don't configure"
-msgstr "DNS configurato"
+msgstr "Non configurare"
 
 #: src/templates/Wizard/network.mas:82
 msgid "Gateway"
 msgstr "Gateway"
 
 #: src/templates/confirmVlanDel.mas:9
-#, fuzzy
 msgid ""
 "The removal of the vlan interface will affect the configuration of one or "
 "more modules that use references to this network interface."
 msgstr ""
-"La modifica che stai cercando di effettuare avrà impatti sulla "
-"configurazione di uno o più moduli con riferimenti a questa interfaccia di "
-"rete."
+"La rimozione di questa interfaccia vlan avrà impatti sulla configurazione di "
+"uno o più moduli con riferimenti a questa interfaccia di rete."
 
 #: src/templates/confirmVlanDel.mas:12 src/templates/confirmremove.mas:14
-#, fuzzy
 msgid ""
 "If you choose to continue, all modules that make use of this network "
 "interface will delete the relevant parts of their configuration. Choose "
@@ -973,9 +954,8 @@ msgid "Ping"
 msgstr "Ping"
 
 #: src/templates/diag.mas:22
-#, fuzzy
 msgid "Traceroute"
-msgstr "route statica"
+msgstr "Traceroute"
 
 #: src/templates/diag.mas:27
 msgid "Trace"
@@ -984,7 +964,7 @@ msgstr "Trace"
 #: src/templates/diag.mas:31
 #, fuzzy
 msgid "Domain Name Resolution"
-msgstr "Risoluzione nomi"
+msgstr "Risoluzione dei nomi di dominio"
 
 #: src/templates/diag.mas:32
 msgid "Domain name"
@@ -1025,8 +1005,9 @@ msgid "Trunk (802.1q)"
 msgstr "Trunk (802.1q)"
 
 #: src/templates/ifaces.mas:80 src/templates/ifaces.mas:82
+#, fuzzy
 msgid "Bridged"
-msgstr ""
+msgstr "Bridged"
 
 #: src/templates/ifaces.mas:87 src/templates/ifaces.mas:89
 msgid "Not set"
@@ -1041,10 +1022,13 @@ msgid ""
 "Check this if you are using Zentyal as a gateway and this interface is "
 "connected to your Internet router."
 msgstr ""
+"Seleziona questo se usi Zentyal come gateway, e questa interfaccia e' "
+"connessa al tuo router internet"
 
 #: src/templates/ifaces.mas:168
+#, fuzzy
 msgid "Bridge"
-msgstr ""
+msgstr "Bridge"
 
 #: src/templates/ifaces.mas:189
 msgid "User name"

@@ -10,8 +10,8 @@ msgstr ""
 "Project-Id-Version: ebox-printers 0.12\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-08-28 23:38+0200\n"
-"PO-Revision-Date: 2010-02-04 13:21+0100\n"
-"Last-Translator: Daniel F <sek@daniel2k.de>\n"
+"PO-Revision-Date: 2010-09-12 12:47+0200\n"
+"Last-Translator: J. Schwieder <j.schwieder@gmx.de>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -29,30 +29,38 @@ msgid ""
 "Prior to configure printers you need to enable the module in the {openref}"
 "Module Status{closeref}  section and save changes after that."
 msgstr ""
+"Bevor Sie Drucker konfigurieren, müssen Sie das Modul in der {openref}Modul-"
+"Status{closeref} Sektion aktivieren und die Änderungen speichern."
 
 #: src/EBox/Model/CUPS.pm:156
 msgid "Interface"
-msgstr ""
+msgstr "Schnittstelle"
 
 #: src/EBox/Model/CUPS.pm:161
+#, fuzzy
 msgid "Listen"
-msgstr ""
+msgstr "Horchen"
 
 #: src/EBox/Model/CUPS.pm:170
+#, fuzzy
 msgid "Select CUPS Interfaces"
-msgstr ""
+msgstr "CUPS-Schnittstellen auswählen"
 
 #: src/EBox/Model/CUPS.pm:175
 #, fuzzy
 msgid "interface"
-msgstr "Drucker"
+msgstr "Schnittstelle"
 
 #: src/EBox/Model/CUPS.pm:176
+#, fuzzy
 msgid ""
 "Select in which interfaces the CUPS webserver will listen on. Take into "
 "account that is not probably a good idea to listen on external interfaces. "
 "If none are selected, it will be listening only at localhost"
 msgstr ""
+"Wähle das Netzwerk-Interface für den CUPS-Webserver aus. Bedenke dabei, dass "
+"es möglicherweisekeine gute Idee ist, ein externes Netzwerk-Interface "
+"auszuwählen. Wenn gar keines ausgewählt ist, wird nur Localhost benutzt."
 
 #: src/EBox/Model/CUPS.pm:187
 #, perl-brace-format
@@ -60,6 +68,8 @@ msgid ""
 "To add or manage printers you have to use the {open_href}CUPS Web Interface"
 "{close_href}"
 msgstr ""
+"Zum Hinzufügen oder Ändern von Druckern muss das {open_href}CUPS Web "
+"Interface{close_href} benutzt werden"
 
 #: src/EBox/Printers.pm:41 src/EBox/Composite/General.pm:60
 msgid "Printer Sharing"
@@ -67,24 +77,22 @@ msgstr "Drucker freigeben"
 
 #: src/EBox/Printers.pm:56
 msgid "Create spool directory for printers"
-msgstr "Erstellen eines Drucker-Spool-Verzeichnisses "
+msgstr "Erstellen eines Drucker-Spool-Verzeichnisses"
 
 #: src/EBox/Printers.pm:57
-#, fuzzy
 msgid "Zentyal will create a spool directory under /var/spool/samba"
-msgstr "eBox erstellt ein Spool-Verzeichnis unter /var/spool/samba"
+msgstr "Zentyal wird ein Spool-Verzeichnis unter /var/spool/samba erstellen"
 
 #: src/EBox/Printers.pm:62
 msgid "Create log table"
 msgstr "Erstelle Protokollierungs-Tabelle"
 
 #: src/EBox/Printers.pm:63
-#, fuzzy
 msgid ""
 "Zentyal will create a new table into its log database to store printers logs"
 msgstr ""
-"eBox wird eine neue Tabelle in der Protokollierungs-Datenbank erstellen um "
-"Ereignisse der Drucker zu speichern"
+"Zentyal wird eine neue Tabelle in der Protokollierungs-Datenbank erstellen, "
+"um Ereignisse der Drucker zu speichern"
 
 #: src/EBox/Printers.pm:79
 #, fuzzy
@@ -93,7 +101,7 @@ msgstr "Drucker nicht konfiguriert"
 
 #: src/EBox/Printers.pm:221
 msgid "Job ID"
-msgstr "ID des Druckauftrags"
+msgstr "Druckauftrag-ID"
 
 #: src/EBox/Printers.pm:222
 msgid "Printer"
@@ -117,8 +125,9 @@ msgid "Queued"
 msgstr "In die Warteschlange gestellt"
 
 #: src/EBox/Printers.pm:230
+#, fuzzy
 msgid "Completed"
-msgstr ""
+msgstr "Fertiggestellt"
 
 #: src/EBox/Printers.pm:231
 msgid "Canceled"

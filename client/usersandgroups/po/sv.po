@@ -8,75 +8,77 @@ msgstr ""
 "Project-Id-Version: ebox-usersandgroups 0.12\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-08-28 23:42+0200\n"
-"PO-Revision-Date: 2007-06-06 09:41+0200\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2010-09-08 16:26+0200\n"
+"Last-Translator: Anders <anders@bolist.se>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"es\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: migration/0001_usercorner_add_webserver_service.pl:69
 msgid "User Corner Web Server"
-msgstr ""
+msgstr "Användaravdelningen Webb Server"
 
 #: src/EBox/UsersAndGroups/Model/PendingSync.pm:59
 #: src/EBox/UsersAndGroups/Model/Mode.pm:70
 #: src/EBox/UsersAndGroups/Model/Slaves.pm:55
 msgid "Slave"
-msgstr ""
+msgstr "Slave"
 
 #: src/EBox/UsersAndGroups/Model/PendingSync.pm:64
 msgid "Operation"
-msgstr ""
+msgstr "Operation"
 
 #: src/EBox/UsersAndGroups/Model/PendingSync.pm:69
 msgid "Parameter"
-msgstr ""
+msgstr "Parameter"
 
 #: src/EBox/UsersAndGroups/Model/PendingSync.pm:78
 msgid "List of pending operations on slaves"
-msgstr ""
+msgstr "Lista över pågående operationer på slaves"
 
 #: src/EBox/UsersAndGroups/Model/PendingSync.pm:85
 msgid ""
 "This is a list those operations that need to be run by the slaves because "
 "the master failed to contact them."
 msgstr ""
+"Detta är en förteckning över de uppgifter som måste köras av slavesen "
+"eftersom master inte har fått kontakt med dem."
 
 #: src/EBox/UsersAndGroups/Model/PendingSync.pm:87
 msgid "operation"
-msgstr ""
+msgstr "operation"
 
 #: src/EBox/UsersAndGroups/Model/PendingSync.pm:129
 #: src/EBox/UsersAndGroups/Model/Slaves.pm:118
 msgid "You must enable the module Users in master mode."
-msgstr ""
+msgstr "Du måste aktivera modulen Användare i master-läge."
 
 #: src/EBox/UsersAndGroups/Model/PendingSync.pm:131
 msgid "There are no pending operations at the moment."
-msgstr ""
+msgstr "Det finns inga pågående verksamheter för tillfället."
 
 #: src/EBox/UsersAndGroups/Model/PAM.pm:87
 msgid "Enable PAM"
-msgstr ""
+msgstr "Aktivera PAM"
 
 #: src/EBox/UsersAndGroups/Model/PAM.pm:90
 msgid "Make LDAP users have system account."
-msgstr ""
+msgstr "Gör så LDAP-användare har ett system konto."
 
 #: src/EBox/UsersAndGroups/Model/PAM.pm:94
 msgid "Default login shell"
-msgstr ""
+msgstr "Standard inloggningsskal"
 
 #: src/EBox/UsersAndGroups/Model/PAM.pm:98
 msgid "This will apply only to new users from now on."
-msgstr ""
+msgstr "Detta gäller endast för nya användare från och med nu."
 
 #: src/EBox/UsersAndGroups/Model/PAM.pm:104
 msgid "PAM settings"
-msgstr ""
+msgstr "PAM Inställningar"
 
 #: src/EBox/UsersAndGroups/Model/ADSyncSettings.pm:65
 #, fuzzy
@@ -85,7 +87,7 @@ msgstr "Lägg till användare"
 
 #: src/EBox/UsersAndGroups/Model/ADSyncSettings.pm:68
 msgid "Username for binding to Windows AD (it has to be created in the AD)"
-msgstr ""
+msgstr "Användarnamn för att binda till Windows AD (Den måste skapas i AD)"
 
 #: src/EBox/UsersAndGroups/Model/ADSyncSettings.pm:72
 #, fuzzy
@@ -94,31 +96,33 @@ msgstr "lösenord"
 
 #: src/EBox/UsersAndGroups/Model/ADSyncSettings.pm:74
 msgid "Password for the above user"
-msgstr ""
+msgstr "Lösenord för ovanstående användare"
 
 #: src/EBox/UsersAndGroups/Model/ADSyncSettings.pm:78
 msgid "Listen port"
-msgstr ""
+msgstr "Lyssna på port"
 
 #: src/EBox/UsersAndGroups/Model/ADSyncSettings.pm:81
 msgid "Port for listening password sync notifications from Windows"
 msgstr ""
+"Port för att lyssna på lösenord´s synkroniseringar notifieringar från "
+"Windows"
 
 #: src/EBox/UsersAndGroups/Model/ADSyncSettings.pm:85
 msgid "AD Secret Key"
-msgstr ""
+msgstr "AD Hemlig Nyckel"
 
 #: src/EBox/UsersAndGroups/Model/ADSyncSettings.pm:87
 msgid "Secret key to be shared between Windows and Zentyal (16 chars)"
-msgstr ""
+msgstr "Hemlig nyckel som delas mellan Windows och Zentyal (16 tecken)"
 
 #: src/EBox/UsersAndGroups/Model/ADSyncSettings.pm:93
 msgid "Windows AD Sync Settings"
-msgstr ""
+msgstr "Windows AD Synk Inställningar"
 
 #: src/EBox/UsersAndGroups/Model/ADSyncSettings.pm:114
 msgid "The secret key needs to have 16 characters."
-msgstr ""
+msgstr "Den hemliga nyckeln måste ha 16 tecken."
 
 #: src/EBox/UsersAndGroups/Model/Groups.pm:58
 #: src/EBox/UsersAndGroups/Model/Users.pm:59
@@ -127,7 +131,7 @@ msgstr "Namn"
 
 #: src/EBox/UsersAndGroups/Model/Groups.pm:63
 msgid "Description"
-msgstr ""
+msgstr "Beskrivning"
 
 #: src/EBox/UsersAndGroups/Model/Groups.pm:68
 #: src/EBox/UsersAndGroups/Model/Users.pm:69
@@ -153,10 +157,11 @@ msgid ""
 "You must enable the module Users in the module status section in order to "
 "use it."
 msgstr ""
+"Du måste aktivera modulen Användare i modulen status för att använda den."
 
 #: src/EBox/UsersAndGroups/Model/Groups.pm:135
 msgid "There are no groups at the moment"
-msgstr ""
+msgstr "Den finns inga grupper för närvarande"
 
 #: src/EBox/UsersAndGroups/Model/Groups.pm:138
 #, fuzzy, perl-brace-format
@@ -173,22 +178,25 @@ msgid ""
 "moment. If there are groups in your Domain Controller, maybe the "
 "synchronization process has failed or has not finished yet."
 msgstr ""
+"Zentyal är konfigurerad som Windows AD-slave och det finns inga grupper just "
+"nu. Om det finns grupper i din domänkontrollant, kanske synkroniseringen "
+"har misslyckats eller inte klar än."
 
 #: src/EBox/UsersAndGroups/Model/ForceSync.pm:90
 msgid "Force sync"
-msgstr ""
+msgstr "Tvinga synkronisering"
 
 #: src/EBox/UsersAndGroups/Model/ForceSync.pm:92
 msgid "on slaves"
-msgstr ""
+msgstr "på slaves"
 
 #: src/EBox/UsersAndGroups/Model/ForceSync.pm:98
 msgid "Force sync of pending operations"
-msgstr ""
+msgstr "Tvingad synkronisering med pågående operationer"
 
 #: src/EBox/UsersAndGroups/Model/ForceSync.pm:101
 msgid "Sync now"
-msgstr ""
+msgstr "Synkronisera nu"
 
 #: src/EBox/UsersAndGroups/Model/Users.pm:64
 msgid "Full name"
@@ -209,7 +217,7 @@ msgstr "användare"
 
 #: src/EBox/UsersAndGroups/Model/Users.pm:133
 msgid "There are no users at the moment"
-msgstr ""
+msgstr "Det finns inga användare för tillfället."
 
 #: src/EBox/UsersAndGroups/Model/Users.pm:136
 #, fuzzy, perl-brace-format
@@ -217,8 +225,8 @@ msgid ""
 "Zentyal is configured as slave and there are no users at the moment. You may "
 "want to add some in the {openhref}master{closehref}."
 msgstr ""
-"Det finns inga användare för tillfället. Du behöver åtminstone en för att "
-"kunna hantera den här gruppen"
+"Zentyal är konfigurerad som slave och det finns inga användare för "
+"tillfället. Du kanske vill lägga till i {openhref}master{closehref}."
 
 #: src/EBox/UsersAndGroups/Model/Users.pm:140
 msgid ""
@@ -226,10 +234,13 @@ msgid ""
 "moment. If there are users in your Domain Controller, maybe the "
 "synchronization process has failed or has not finished yet."
 msgstr ""
+"Zentyal är konfigurerad som Windows AD-slave och det finns inga användare "
+"för tillfället. Om det finns användare i din domänkontrollant, kanske "
+"synkroniseringen har misslyckats eller inte klar än."
 
 #: src/EBox/UsersAndGroups/Model/Password.pm:49
 msgid "Password management"
-msgstr ""
+msgstr "Lösenordshantering"
 
 #: src/EBox/UsersAndGroups/Model/Password.pm:59
 #, fuzzy
@@ -255,11 +266,11 @@ msgstr "Lösenorden stämde inte överens."
 
 #: src/EBox/UsersAndGroups/Model/Password.pm:117
 msgid "Password successfully updated"
-msgstr ""
+msgstr "Lösenord har uppdaterats"
 
 #: src/EBox/UsersAndGroups/Model/Mode.pm:67 src/EBox/UsersAndGroups.pm:2400
 msgid "Mode"
-msgstr ""
+msgstr "Läge"
 
 #: src/EBox/UsersAndGroups/Model/Mode.pm:69
 #, fuzzy
@@ -268,15 +279,15 @@ msgstr "användare"
 
 #: src/EBox/UsersAndGroups/Model/Mode.pm:71
 msgid "Windows AD Slave"
-msgstr ""
+msgstr "Windows AD Slave"
 
 #: src/EBox/UsersAndGroups/Model/Mode.pm:78
 msgid "LDAP DN"
-msgstr ""
+msgstr "LDAP DN"
 
 #: src/EBox/UsersAndGroups/Model/Mode.pm:83
 msgid "Only for master and AD slave configuration"
-msgstr ""
+msgstr "Endast för master och AD slave konfiguration"
 
 #: src/EBox/UsersAndGroups/Model/Mode.pm:87
 #, fuzzy
@@ -285,7 +296,7 @@ msgstr "användare"
 
 #: src/EBox/UsersAndGroups/Model/Mode.pm:89
 msgid "Only for slave configuration: IP of the master Zentyal or Windows AD"
-msgstr ""
+msgstr "Endast för slave konfiguration: IP till master Zentyal eller Windows AD"
 
 #: src/EBox/UsersAndGroups/Model/Mode.pm:93
 #, fuzzy
@@ -299,19 +310,19 @@ msgstr "lösenord"
 
 #: src/EBox/UsersAndGroups/Model/Mode.pm:101
 msgid "Configuration"
-msgstr ""
+msgstr "Konfiguration"
 
 #: src/EBox/UsersAndGroups/Model/Mode.pm:102
 msgid "Zentyal Users Mode"
-msgstr ""
+msgstr "Zentyal Användar Läge"
 
 #: src/EBox/UsersAndGroups/Model/LdapInfo.pm:66
 msgid "Base DN"
-msgstr ""
+msgstr "Base DN"
 
 #: src/EBox/UsersAndGroups/Model/LdapInfo.pm:72
 msgid "Root DN"
-msgstr ""
+msgstr "Root DN"
 
 #: src/EBox/UsersAndGroups/Model/LdapInfo.pm:84
 #, fuzzy
@@ -325,48 +336,53 @@ msgstr "Grupper"
 
 #: src/EBox/UsersAndGroups/Model/LdapInfo.pm:98
 msgid "LDAP information"
-msgstr ""
+msgstr "LDAP information"
 
 #: src/EBox/UsersAndGroups/Model/LdapInfo.pm:155
 msgid ""
 "You must enable the Users and Groups module to access the LDAP information."
 msgstr ""
+"Du måste aktivera användare och grupper modul för att få tillgång till LDAP-"
+"information."
 
 #: src/EBox/UsersAndGroups/Model/Slaves.pm:60
 #: src/EBox/UserCornerWebServer/Model/Settings.pm:55
 msgid "Port"
-msgstr ""
+msgstr "Port"
 
 #: src/EBox/UsersAndGroups/Model/Slaves.pm:67
 msgid "List of slaves"
-msgstr ""
+msgstr "Lista på slaves"
 
 #: src/EBox/UsersAndGroups/Model/Slaves.pm:74
 msgid ""
 "This is a list of those Zentyal slaves which are subscribed to this Zentyal."
 msgstr ""
+"Detta är en lista över de Zentyal slaves som anslutit sig till denna "
+"Zentyal."
 
 #: src/EBox/UsersAndGroups/Model/Slaves.pm:75
 msgid "slave"
-msgstr ""
+msgstr "slave"
 
 #: src/EBox/UsersAndGroups/Model/Slaves.pm:120
 msgid "There are no slaves at the moment."
-msgstr ""
+msgstr "Det finns inga slaves för tillfället."
 
 #: src/EBox/UsersAndGroups/Composite/SlaveInfo.pm:73
 #: src/EBox/UsersAndGroups.pm:2390
 msgid "Slave Status"
-msgstr ""
+msgstr "Slave Status"
 
 #: src/EBox/UsersAndGroups/Composite/UserTemplate.pm:62
 msgid ""
 "These configuration options are used when a new user account is created."
 msgstr ""
+"Dessa konfigurationsalternativ används när ett nytt användarkonto skapas."
 
 #: src/EBox/UsersAndGroups/Composite/UserTemplate.pm:75
 msgid "There isn't any configurable option."
-msgstr ""
+msgstr "Det finns inte några konfigurerbara alternativ."
 
 #: src/EBox/UsersAndGroups/Composite/UserTemplate.pm:86
 #: src/EBox/UsersAndGroups.pm:2371 src/EBox/UsersAndGroups.pm:2380
@@ -377,7 +393,7 @@ msgstr "Användarnamn"
 #: src/EBox/UsersAndGroups/Composite/Settings.pm:70
 #: src/EBox/UsersAndGroups.pm:2385
 msgid "LDAP Settings"
-msgstr ""
+msgstr "LDAP inställningar"
 
 #: src/EBox/LdapUserImplementation.pm:42
 msgid "This group contains users"
@@ -392,73 +408,84 @@ msgstr "Användare i grupp"
 msgid ""
 "Your LDAP database will be populated with some basic organizational units"
 msgstr ""
+"Din LDAP-databas kommer att befolkas med några grundläggande organiserings "
+"enheter"
 
 #: src/EBox/UsersAndGroups.pm:102
 msgid ""
 "Zentyal needs this organizational units to add users and groups into them."
 msgstr ""
+"Zentyal behöver organiserings enheter för att lägga till användare och "
+"grupper i dem."
 
 #: src/EBox/UsersAndGroups.pm:106
 msgid "Create directories for slave journals"
-msgstr ""
+msgstr "Skapa Mappar för slave journals"
 
 #: src/EBox/UsersAndGroups.pm:107
 msgid "Zentyal needs the directories to record pending slave actions."
-msgstr ""
+msgstr "Zentyal behöver kataloger för att spela in avvaktande slave åtgärder."
 
 #: src/EBox/UsersAndGroups.pm:114
 msgid ""
 "Your Zentyal will be registered as a slave in the Zentyal master specified"
 msgstr ""
+"Din Zentyal kommer att registreras som en slave i den angivna Zentyal master"
 
 #: src/EBox/UsersAndGroups.pm:115
 msgid ""
 "This Zentyal needs to have remote access to the users in the Zentyal master."
 msgstr ""
+"Den här Zentyal måste ha fjärråtkomst till användarna i Zentyal mastern."
 
 #: src/EBox/UsersAndGroups.pm:122
 msgid "Apparmor profile will be disabled"
-msgstr ""
+msgstr "Apparmor profil inaktiveras"
 
 #: src/EBox/UsersAndGroups.pm:123
 msgid "It is not ready to work with more than one slapd."
-msgstr ""
+msgstr "Det är inte redo att arbeta med mer än en slapd."
 
 #: src/EBox/UsersAndGroups.pm:131
 msgid "Install /etc/cron.d/ebox-ad-sync."
-msgstr ""
+msgstr "Installera /etc/cron.d/ebox-ad-sync."
 
 #: src/EBox/UsersAndGroups.pm:132
 msgid "Zentyal will run a script every 5 minutes to sync with Windows AD."
 msgstr ""
+"Zentyal kör ett skript var 5:e minut för att synkronisera med Windows AD."
 
 #: src/EBox/UsersAndGroups.pm:141
 msgid "Configure PAM."
-msgstr ""
+msgstr "Konfigurera PAM"
 
 #: src/EBox/UsersAndGroups.pm:142
 msgid "Zentyal will give LDAP users system account."
-msgstr ""
+msgstr "Zentyal kommer att ge LDAP-användare system konto."
 
 #: src/EBox/UsersAndGroups.pm:162
 msgid ""
 "To make NSS use LDAP resolution for user and group accounts. Needed for "
 "Samba PDC configuration."
 msgstr ""
+"För att NSS ska använda LDAP beslut för användar- och grupp konton. Behövs "
+"en Samba PDC konfiguration."
 
 #: src/EBox/UsersAndGroups.pm:168
 msgid "To let NSS know how to access LDAP accounts."
-msgstr ""
+msgstr "Att låta NSS veta hur man kan få tillgång till LDAP-konton."
 
 #: src/EBox/UsersAndGroups.pm:177
 msgid "To make LDAP listen on TCP and Unix sockets."
-msgstr ""
+msgstr "För att LDAP ska lyssna på TCP och Unix sockets."
 
 #: src/EBox/UsersAndGroups.pm:182
 msgid ""
 "To copy LDAP admin password generated by Zentyal and allow other modules to "
 "access LDAP."
 msgstr ""
+"Om du vill kopiera LDAP admin lösenord genererat från Zentyal och låta andra "
+"moduler för att få tillgång LDAP."
 
 #: src/EBox/UsersAndGroups.pm:814
 #, perl-brace-format
@@ -467,7 +494,7 @@ msgstr "Användarnamnet får inte vara längre än {maxuserlength} tecken"
 
 #: src/EBox/UsersAndGroups.pm:819
 msgid "Username already exists on the system"
-msgstr ""
+msgstr "Användarnamnet finns redan i systemet"
 
 #: src/EBox/UsersAndGroups.pm:824 src/EBox/UsersAndGroups.pm:830
 #: src/EBox/UsersAndGroups.pm:1072 src/EBox/UsersAndGroups.pm:1122
@@ -487,11 +514,14 @@ msgstr "Maximalt antal systemanvändare har uppnåtts"
 msgid ""
 "Incorrect UID {uid} for a user . UID must be equal or greater than {min}"
 msgstr ""
+"Felaktig UID {uid} för en användare. UID måste vara lika med eller större än "
+"{min}"
 
 #: src/EBox/UsersAndGroups.pm:947
 #, perl-brace-format
 msgid "Incorrect UID {uid} for a system user . UID must be lesser than {max}"
 msgstr ""
+"Felaktig UID {uid} för en systemanvändare. UID måste vara mindre än {max}"
 
 #: src/EBox/UsersAndGroups.pm:1459
 #, perl-brace-format
@@ -515,11 +545,13 @@ msgstr "gruppnamn"
 msgid ""
 "Incorrect GID {gid} for a group . GID must be equal or greater than {min}"
 msgstr ""
+"Felaktig GID {gid} för en grupp. GID måste vara lika med eller större än "
+"{min}"
 
 #: src/EBox/UsersAndGroups.pm:1562
 #, perl-brace-format
 msgid "Incorrect GID {gid} for a system group . GID must be lesser than {max}"
-msgstr ""
+msgstr "Felaktig GID {gid} för en system grupp. GID måste vara mindre än {max}"
 
 #: src/EBox/UsersAndGroups.pm:2149
 #, perl-brace-format
@@ -528,16 +560,16 @@ msgstr "Lösenord får inte vara längre än {maxPwdLength} tecken"
 
 #: src/EBox/UsersAndGroups.pm:2394
 msgid "AD Sync Settings"
-msgstr ""
+msgstr "AD Synk Inställningar"
 
 #: src/EBox/UsersAndGroups.pm:2653
 #, perl-brace-format
 msgid "A host with the name {host} is already registered in this Zentyal"
-msgstr ""
+msgstr "En host med namnet {host} är redan registrerad i Zentyal"
 
 #: src/EBox/UsersAndGroups.pm:2774
 msgid "Replication failed"
-msgstr ""
+msgstr "Replikering misslyckades"
 
 #: src/EBox/UserCorner/CGI/Dashboard/Index.pm:30
 #, fuzzy
@@ -549,6 +581,8 @@ msgid ""
 "There is a script which has asked to run in Zentyal exclusively. Please, "
 "wait patiently until it is done"
 msgstr ""
+"Det finns ett script som har begärt att köra i Zentyal exklusivt. Var vänlig "
+"vänta tills det är färdigt"
 
 #: src/EBox/UserCorner/CGI/Login/Index.pm:66
 #, fuzzy
@@ -557,15 +591,15 @@ msgstr "ange lösenordet igen"
 
 #: src/EBox/UserCorner/CGI/Login/Index.pm:69
 msgid "For security reasons your session has expired due to inactivity"
-msgstr ""
+msgstr "Av säkerhetsskäl har du blivit utloggad på grund av inaktivitet"
 
 #: src/EBox/UserCorner/CGI/Login/Index.pm:72
 msgid "You have been logged out because a new session has been opened"
-msgstr ""
+msgstr "Du har loggats ut eftersom en ny session har öppnats"
 
 #: src/EBox/UserCorner/CGI/Login/Index.pm:75
 msgid "You are not logged in"
-msgstr ""
+msgstr "Du är inte inloggad"
 
 #: src/EBox/UserCornerWebServer.pm:39
 #: src/EBox/UserCornerWebServer/Model/Settings.pm:45
@@ -575,7 +609,7 @@ msgstr "Användarnamn"
 
 #: src/EBox/UserCornerWebServer.pm:65
 msgid "Migrate configured modules"
-msgstr ""
+msgstr "Migrera konfigurerade moduler"
 
 #: src/EBox/UserCornerWebServer.pm:66
 msgid "Required for usercorner access to configured modules"
@@ -588,11 +622,11 @@ msgstr "Användarnamn"
 
 #: src/EBox/UserCornerWebServer/Model/Settings.pm:63
 msgid "General configuration"
-msgstr ""
+msgstr "Allmän konfiguration"
 
 #: src/EBox/UserCornerWebServer/Model/Settings.pm:97
 msgid "listening port"
-msgstr ""
+msgstr "port"
 
 #: src/EBox/CGI/AddUser.pm:46 src/EBox/CGI/ModifyUser.pm:47
 #, fuzzy
@@ -638,21 +672,23 @@ msgstr "Gruppen togs bort"
 
 #: src/templates/Wizard/users.mas:7
 msgid "Select the type of the server"
-msgstr ""
+msgstr "Välj server typ"
 
 #: src/templates/Wizard/users.mas:8
 msgid ""
 "Choose standalone unless you want LDAP replication or synchronization with "
 "Active Directory."
 msgstr ""
+"Välj fristående om du inte vill LDAP replikering eller synkronisering med "
+"Active Directory."
 
 #: src/templates/Wizard/users.mas:10
 msgid "Standalone server"
-msgstr ""
+msgstr "Fristående server"
 
 #: src/templates/Wizard/users.mas:11
 msgid "Advanced configuration (Master/Slave/AD Sync)"
-msgstr ""
+msgstr "Avancerad konfiguration (Master/Slave/AD Sync)"
 
 #: src/templates/Wizard/users.mas:12
 #, perl-brace-format
@@ -660,6 +696,8 @@ msgid ""
 "If you need the advanced features you have to configure them manually. You "
 "can find {open}all the information in our wiki{close}"
 msgstr ""
+"Om du behöver avancerade funktioner så måste du konfigurera dem manuellt. Du "
+"kan hitta {open} all information i vår wiki {close}"
 
 #: src/templates/user.mas:21 src/templates/users.mas:25
 #, fuzzy
@@ -754,7 +792,7 @@ msgstr "Avbryt"
 
 #: src/templates/usercorner/login/index.mas:26
 msgid "Warning: Caps Lock is enabled"
-msgstr ""
+msgstr "Varning: Caps Lock är aktiverat"
 
 #: src/templates/usercorner/login/index.mas:29 src/templates/users.mas:17
 msgid "User name"
@@ -762,11 +800,11 @@ msgstr "Användarnamn"
 
 #: src/templates/usercorner/login/index.mas:41
 msgid "Enter"
-msgstr ""
+msgstr "Enter"
 
 #: src/templates/usercorner/headTitle.mas:11
 msgid "Logout"
-msgstr ""
+msgstr "Logga ut"
 
 #: src/templates/ajax/tableUser.mas:88
 msgid "Add new"
@@ -785,7 +823,7 @@ msgstr "Lägg till ny"
 #: src/templates/users.mas:73 src/templates/users.mas:74
 #: src/templates/groups.mas:38 src/templates/groups.mas:39
 msgid "Add and Edit"
-msgstr ""
+msgstr "Lägg till och ändra"
 
 #: src/templates/users.mas:88
 msgid "Group"

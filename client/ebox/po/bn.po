@@ -5,109 +5,111 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-ebox 2.0.6"
-"Report-Msgid-Bugs-To: developers@zentyal.org\n"
+"Project-Id-Version: ebox-ebox 2.0.6Report-Msgid-Bugs-To: "
+"developers@zentyal.org\n"
 "POT-Creation-Date: 2010-08-26 00:53+0200\n"
-"PO-Revision-Date: 2010-08-26 00:53+0200\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2010-11-24 20:43+0100\n"
+"Last-Translator: Kaustav Das Modak <kaustav.dasmodak@yahoo.co.in>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/Apache.pm:277 src/EBox/Apache.pm:286
 msgid "port"
-msgstr ""
+msgstr "পোর্ট"
 
 #: src/EBox/Apache.pm:600
 msgid "Zentyal web server"
-msgstr ""
+msgstr "জেন্ট্যায়াল্‌ ওয়েব সার্ভার"
 
 #: src/EBox/Event/Dispatcher/Jabber.pm:166
 msgid "Admin Jabber account"
-msgstr ""
+msgstr "অ্যাডমিন জ্যাবর অ্যাকাউন্ট"
 
 #: src/EBox/Event/Dispatcher/Jabber.pm:179
 msgid "Jabber"
-msgstr ""
+msgstr "জ্যাবর"
 
 #: src/EBox/Event/Dispatcher/Jabber.pm:229
 #, perl-brace-format
 msgid "Jabber server {serverName} is down or connection is not allowed"
 msgstr ""
+"{serverName} নামক জ্যাবর সার্ভার বন্ধ আছে অথবা সংযোগ স্থাপনের অনুমতি নেই"
 
 #: src/EBox/Event/Dispatcher/Jabber.pm:259
 #, perl-brace-format
 msgid "Subscription failed: {message}"
-msgstr ""
+msgstr "সাবস্ক্রিপশন্‌ ব্যর্থ হয়েছে: {message}"
 
 #: src/EBox/Event/Dispatcher/Jabber.pm:266
 #, perl-brace-format
 msgid "Authorization failed: {result} - {message}"
-msgstr ""
+msgstr "অনুমোদন ব্যর্থ হয়েছে: {result} - {message}"
 
 #: src/EBox/Event/Dispatcher/RSS.pm:219
 #, perl-brace-format
 msgid "RSS file: {path}"
-msgstr ""
+msgstr "RSS ফাইল: {path}"
 
 #: src/EBox/Event/Dispatcher/RSS.pm:233
 msgid "RSS"
-msgstr ""
+msgstr "RSS"
 
 #: src/EBox/Event/Dispatcher/RSS.pm:290
 #, perl-brace-format
 msgid "Zentyal alerts channel for {hostname}"
-msgstr ""
+msgstr "{hostname} -এর জন্য জেন্ট্যায়ালের সতর্কতা প্রণালী"
 
 #: src/EBox/Event/Dispatcher/RSS.pm:293
 msgid "This channel tracks what happens on this Zentyal machine along the time"
-msgstr ""
+msgstr "এই জেন্ট্যায়াল্‌ মেশিনে সময়কালে যা ঘটে তা এই প্রণালী খোঁজ রাখে"
 
 #: src/EBox/Event/Dispatcher/RSS.pm:313
 #, perl-brace-format
 msgid "The event has happened in Zentyal {hostname} from {source}"
-msgstr ""
+msgstr "এই ঘটনাটি ঘটেছে জেন্ট্যায়াল্‌ {hostname} -এ {source} থেকে"
 
 #: src/EBox/Event/Dispatcher/RSS.pm:317
 #, perl-brace-format
 msgid "Go to your {url} to check its status."
-msgstr ""
+msgstr "আপনার {url} -এ যান সেটির অবস্থা পরিক্ষা করতে।"
 
 #: src/EBox/Event/Dispatcher/Log.pm:136
 msgid "Log file"
-msgstr ""
+msgstr "কার্যবিবরণী ফাইল"
 
 #: src/EBox/Event/Dispatcher/Log.pm:149
 msgid "Log"
-msgstr ""
+msgstr "কার্যবিবরণী"
 
 #: src/EBox/Event/Dispatcher/Abstract.pm:141
 #, perl-brace-format
 msgid "Dispatcher {name} is not configured to be enabled"
-msgstr ""
+msgstr "{name} নামক ডিস্প্যাচার সক্রিয় হওয়ার জন্য কনফিগার করা নেই"
 
 #: src/EBox/Event/Watcher/DiskFreeSpace.pm:134
 #, perl-brace-format
 msgid "The file system {fs}, mounted on {mp}, has no space left"
-msgstr ""
+msgstr "{mp} -তে মাউন্ট করা ফাইল সিস্টেম {fs} -এ কোনো জায়গা ফাঁকা নেই"
 
 #: src/EBox/Event/Watcher/DiskFreeSpace.pm:168
 msgid "Free storage space"
-msgstr ""
+msgstr "সংরক্ষণের জন্য ফাঁকা জায়গা "
 
 #: src/EBox/Event/Watcher/DiskFreeSpace.pm:185
 msgid "Check if any disk partition has no storage space left"
-msgstr ""
+msgstr "ডিস্ক পার্টিশনে কোনো সংরক্ষণের জায়গা বাকি আছে কিনা দেখুন"
 
 #: src/EBox/Event/Watcher/Runit.pm:113
 #, perl-brace-format
 msgid "The following modules are not running but they are enabled: {modules}\n"
-msgstr ""
+msgstr "এই মডিউলগুলি চলছে না কিন্তু এদের সক্রিয় করা আছে: {modules}\n"
 
 #: src/EBox/Event/Watcher/Runit.pm:142
 msgid "Service"
-msgstr ""
+msgstr "পরিষেবা"
 
 #: src/EBox/Event/Watcher/Runit.pm:159
 msgid "Check if any Zentyal service is not running when it is enabled"

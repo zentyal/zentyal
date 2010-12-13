@@ -7,74 +7,71 @@ msgstr ""
 "Project-Id-Version: ebox-zarafa 0.12\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-08-28 20:28+0200\n"
-"PO-Revision-Date: 2010-01-27 18:26+0100\n"
+"PO-Revision-Date: 2010-09-06 17:47+0200\n"
 "Last-Translator: Vadim Glyshkov <plusv@yandex.ru>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
-"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Pootle 1.1.0\n"
 
 #: migration/0001_add_firewall_services.pl:30
-#, fuzzy
 msgid "Zarafa Server"
-msgstr "Jabber сервер"
+msgstr "Сервер Zarafa"
 
 #: src/EBox/ZarafaLdapUser.pm:239
-#, fuzzy
 msgid ""
 "This user has a Zarafa account. If the user currently connected it will "
 "continue connected until Zarafa authorization is again required."
 msgstr ""
-"Этот пользователь имеет учетную запись jabber. Если пользователь сейчас "
+"Этот пользователь имеет учетную запись Zarafa. Если пользователь сейчас "
 "подключен, он будет продолжать оставаться на связи пока не потребуется "
 "заново авторизоваться."
 
 #: src/EBox/Zarafa.pm:64
-#, fuzzy
 msgid "Add Zarafa LDAP schema"
-msgstr "Добавить схему Jabber LDAP"
+msgstr "Добавить схему LDAP Zarafa"
 
 #: src/EBox/Zarafa.pm:65
-#, fuzzy
 msgid "Zentyal will need this schema to store Zarafa users."
-msgstr "eBox необходима данная схема для хранения пользователей jabber"
+msgstr "Zentyal необходима данная схема для хранения пользователей Zarafa "
 
 #: src/EBox/Zarafa.pm:69
 msgid "Add vmail system user"
-msgstr ""
+msgstr "Добавить системного пользователя vmail"
 
 #: src/EBox/Zarafa.pm:70
 msgid "Zentyal will need this to deliver mail to Zarafa."
-msgstr ""
+msgstr "Zentyal необходимо это для того чтобы доставлять почту в Zarafa."
 
 #: src/EBox/Zarafa.pm:74
 msgid "Create MySQL Zarafa database."
-msgstr ""
+msgstr "Создать базу данных MySQL Zarafa"
 
 #: src/EBox/Zarafa.pm:75
 msgid "This database will store the data needed by Zarafa."
-msgstr ""
+msgstr "Эта база данных содержит данные необходимые для Zarafa."
 
 #: src/EBox/Zarafa.pm:79
 msgid "Create default SSL key/certificates."
-msgstr ""
+msgstr "Создать ключ/сертификаты SSL по умолчанию "
 
 #: src/EBox/Zarafa.pm:80
 msgid ""
 "This self-signed default certificates will be used by Zarafa POP3/IMAP "
 "gateway."
 msgstr ""
+"Эти само-подписанные сертификаты будут использованы шлюзом POP3/IMAP Zarafa."
 
 #: src/EBox/Zarafa.pm:84
 msgid "Add zarafa link to www data directory."
-msgstr ""
+msgstr "Добавьте ссылку zarafa в каталог данных www."
 
 #: src/EBox/Zarafa.pm:85
 msgid "Zarafa will be accesible at http://ip/webaccess/."
-msgstr ""
+msgstr "Zarafa доступна по адресу http://ip/webaccess/."
 
 #: src/EBox/Zarafa.pm:103
 #, fuzzy
@@ -211,7 +208,7 @@ msgstr ""
 
 #: src/EBox/Zarafa/Model/VMailDomain.pm:50
 msgid "No domain selected"
-msgstr ""
+msgstr "Нет выбранного домена"
 
 #: src/EBox/Zarafa/Model/VMailDomain.pm:95
 #, perl-brace-format
@@ -228,51 +225,51 @@ msgstr ""
 
 #: src/EBox/Zarafa/Model/VMailDomain.pm:149
 msgid "Virtual domain"
-msgstr ""
+msgstr "Виртуальный домен"
 
 #: src/EBox/Zarafa/Model/VMailDomain.pm:158
 msgid "Virtual mail domain"
-msgstr ""
+msgstr "Виртуальный почтовый домен"
 
 #: src/EBox/Zarafa/Model/VMailDomain.pm:163
 msgid "Select the virtual mail domain to be used for Zarafa."
-msgstr ""
+msgstr "Выберите виртуальный почтовый домен для использования в Zarafa."
 
 #: src/EBox/Zarafa/Model/GeneralSettings.pm:74
 msgid "Enable Spell Checking"
-msgstr ""
+msgstr "Включить проверку правописания"
 
 #: src/EBox/Zarafa/Model/GeneralSettings.pm:77
 msgid "Enable spell checking on Zarafa Webaccess."
-msgstr ""
+msgstr "Включить в вебдоступе Zarafa проверку правописания"
 
 #: src/EBox/Zarafa/Model/GeneralSettings.pm:81
 msgid "Enable Active Sync"
-msgstr ""
+msgstr "Включить Active Sync"
 
 #: src/EBox/Zarafa/Model/GeneralSettings.pm:85
 msgid "Enable Active Sync (Microsoft Exchange syncronization protocol)."
-msgstr ""
+msgstr "Включить Active Sync (Microsoft Exchange syncronization protocol)."
 
 #: src/EBox/Zarafa/Model/GeneralSettings.pm:89
 msgid "Virtual host"
-msgstr ""
+msgstr "Виртуальный хост"
 
 #: src/EBox/Zarafa/Model/GeneralSettings.pm:95
 msgid ""
 "Enable Zarafa access only on this virtual host under /webaccess and /"
 "webaccess-mobile."
 msgstr ""
+"Включить доступ к Zarafa только на этом виртуальном хосте через /webaccess и "
+"/webaccess-mobile."
 
 #: src/EBox/Zarafa/Model/GeneralSettings.pm:102
-#, fuzzy
 msgid "General configuration settings"
-msgstr "Общая конфигурация"
+msgstr "Общие параметры конфигурации"
 
 #: src/EBox/Zarafa/Model/GeneralSettings.pm:107
-#, fuzzy
 msgid "General Zarafa server configuration settings updated."
-msgstr "Общая конфигурация"
+msgstr "Общие настройки конфигурации сервера Zarafa обновлены."
 
 #: src/EBox/Zarafa/Model/GeneralSettings.pm:119 src/templates/zarafa.mas:22
 #: src/templates/zarafa.mas:25
@@ -284,30 +281,33 @@ msgid ""
 "The deleted virtual host was selected for Zarafa. Maybe you want to select "
 "another one now."
 msgstr ""
+"Удаленный виртуальный хост был выбран для Zarafa. Возможно вы хотите сейчас "
+"выбрать другой."
 
 #: src/EBox/Zarafa/Composite/General.pm:67
-#, fuzzy
 msgid "Configuration"
-msgstr "Общая конфигурация"
+msgstr "Конфигурация"
 
 #: src/EBox/Zarafa/Composite/General.pm:68
 msgid "Groupware (Zarafa)"
-msgstr ""
+msgstr "Groupware (Zarafa)"
 
 #: src/EBox/Zarafa/Composite/General.pm:70
 msgid ""
 "You can access the Zarafa web interface at http://zentyal_ip/webaccess and "
 "the mobile version at http://zentyal_ip/webaccess-mobile."
 msgstr ""
+"Вы можете получить досутп к вебинтерфейсу Zarafa по адресу "
+"http://zentyal_ip/webaccess, а к мобильной версии по адресу "
+"http://zentyal_ip/webaccess-mobile."
 
 #: src/EBox/CGI/ZarafaUserOptions.pm:46
 msgid "username"
 msgstr "имя пользователя"
 
 #: src/templates/zarafa.mas:8
-#, fuzzy
 msgid "Zarafa account"
-msgstr "Аккаунт Jabber"
+msgstr "Аккаунт Zarafa"
 
 #: src/templates/zarafa.mas:17
 msgid "User account"
@@ -323,7 +323,7 @@ msgstr "Административные права"
 
 #: src/templates/zarafa.mas:46
 msgid "Zarafa takes quota settings from mail account settings."
-msgstr ""
+msgstr "Zarafa берет настройки квот из настроек учетной записи почты."
 
 #: src/templates/zarafa.mas:54 src/templates/zarafa.mas:55
 msgid "Change"

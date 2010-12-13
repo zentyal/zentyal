@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: ebox-asterisk 1.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-08-28 23:07+0200\n"
-"PO-Revision-Date: 2010-08-26 11:22+0200\n"
+"PO-Revision-Date: 2010-10-10 19:00+0200\n"
 "Last-Translator: Vasco Castelo Branco <vcbranco@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
@@ -29,7 +29,7 @@ msgstr "VoIP"
 
 #: src/EBox/Asterisk.pm:130
 msgid "To configure enabled and disabled modules."
-msgstr "Configurar os módulos ligar e desligar do Asterisk."
+msgstr "Configurar os módulos ligados e desligados"
 
 #: src/EBox/Asterisk.pm:135
 msgid "To configure the Realtime interface."

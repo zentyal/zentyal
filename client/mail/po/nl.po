@@ -7,76 +7,80 @@ msgstr ""
 "Project-Id-Version: ebox-mail 0.12\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-08-28 23:36+0200\n"
-"PO-Revision-Date: 2006-12-22 13:55+0100\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2010-10-05 21:51+0200\n"
+"Last-Translator: Dick van Pelt <zentyal@thepelties.nl>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Translate Toolkit 0.10.1\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: migration/0001_add_firewall_services.pl:45
 msgid "Zentyal Mail System"
-msgstr ""
+msgstr "Zentyal Mail Systeem"
 
 #: migration/0005_add_managesieve_firewall_services.pl:43
 msgid "protocol for editing SIEVE filters"
-msgstr ""
+msgstr "protocol voor het bewerken van SIEVE filters"
 
 #: src/EBox/MailQueue.pm:79
 msgid "This message is being delivered"
-msgstr ""
+msgstr "Deze mail wordt afgeleverd"
 
 #: src/EBox/Event/Dispatcher/Mail.pm:154
 msgid "Admin mail recipient"
-msgstr ""
+msgstr "Ontvanger voor Admin-mail"
 
 #: src/EBox/Event/Dispatcher/Mail.pm:167 src/EBox/Mail/Model/MailUser.pm:68
 #: src/EBox/Mail.pm:94 src/EBox/Mail.pm:1511 src/EBox/Mail.pm:1671
 msgid "Mail"
-msgstr ""
+msgstr "Mail"
 
 #: src/EBox/Event/Dispatcher/Mail.pm:188
 #, perl-brace-format
 msgid "Cannot connect to {smtp} mail server"
-msgstr ""
+msgstr "Kan {smtp} server niet bereiken"
 
 #: src/EBox/Event/Dispatcher/Mail.pm:231
 #, perl-brace-format
 msgid "Cannot connect to the server {hostname} to send the event through SMTP"
 msgstr ""
+"Kan de server {hostname} niet bereiken om het event middels SMTP af te "
+"leveren"
 
 #: src/EBox/MailVDomainsLdap.pm:64 src/EBox/MailVDomainsLdap.pm:117
 #: src/EBox/Mail/Model/VDomains.pm:101 src/EBox/CGI/CreateAccount.pm:48
 msgid "virtual domain"
-msgstr ""
+msgstr "virtueel domein"
 
 #: src/EBox/Mail/Model/ObjectPolicy.pm:89
 msgid "Object"
-msgstr ""
+msgstr "Object"
 
 #: src/EBox/Mail/Model/ObjectPolicy.pm:95
 msgid "Allow relay"
-msgstr ""
+msgstr "Relaying toestaan"
 
 #: src/EBox/Mail/Model/ObjectPolicy.pm:98
 msgid ""
 "Tick this to allow the machines within the above object to send mails "
 "through this server."
 msgstr ""
+"Klik dit aan om de machine in het bovenstaande object toe te staan mail te "
+"verzenden via deze server."
 
 #: src/EBox/Mail/Model/ObjectPolicy.pm:107
 msgid "Relay policy for network objects"
-msgstr ""
+msgstr "Relay policy voor netwerk objecten"
 
 #: src/EBox/Mail/Model/ObjectPolicy.pm:119
 msgid "object's relay policy"
-msgstr ""
+msgstr "Relay policy voor dit object"
 
 #: src/EBox/Mail/Model/ObjectPolicy.pm:120
 msgid "You may allow mail relay per network object"
-msgstr ""
+msgstr "Je kan mail relay per netwerk object toestaan."
 
 #: src/EBox/Mail/Model/ObjectPolicy.pm:221
 #, perl-brace-format
@@ -84,184 +88,194 @@ msgid ""
 "There are not network objects in the system. You can create them in the "
 "{openurl}Object's page{closeurl}"
 msgstr ""
+"Er zijn geen netwerk objecten in het systeem. Je kan ze aanmaken op de "
+"{openurl} Objectpagina{closeurl}"
 
 #: src/EBox/Mail/Model/ExternalFilter.pm:87
 msgid "Filter in use"
-msgstr ""
+msgstr "Dit filter is in gebruik."
 
 #: src/EBox/Mail/Model/ExternalFilter.pm:95
 msgid "Custom filter's mail forward port"
-msgstr ""
+msgstr "Mail forwarding poort voor eigen filter"
 
 #: src/EBox/Mail/Model/ExternalFilter.pm:101
 msgid "Custom filter's IP address"
-msgstr ""
+msgstr "IP address voor eigen filter"
 
 #: src/EBox/Mail/Model/ExternalFilter.pm:107
 msgid "Custom filter's Port"
-msgstr ""
+msgstr "Poort voor eigen filter"
 
 #: src/EBox/Mail/Model/ExternalFilter.pm:116
 msgid "Mail filter options"
-msgstr ""
+msgstr "Mail filter opties"
 
 #: src/EBox/Mail/Model/ExternalFilter.pm:159
 msgid "none"
-msgstr ""
+msgstr "geen"
 
 #: src/EBox/Mail/Model/ExternalFilter.pm:160
 #: src/EBox/Mail/Model/SMTPOptions.pm:126
 msgid "custom"
-msgstr ""
+msgstr "eigen"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:72
 msgid "Smarthost to send mail"
-msgstr ""
+msgstr "Smarthost om mail te verzenden"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:75
 msgid "The format is host[:port] being port set to 25 if none is supplied"
 msgstr ""
+"De syntax is host[:port] waar de poort op 25 wordt gezet als er geen poort "
+"wordt opgegeven"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:81
 msgid "Smarthost authentication"
-msgstr ""
+msgstr "Smarthost authenticatie"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:89
 msgid "None"
-msgstr ""
+msgstr "Geen"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:93
 msgid "User and password"
-msgstr ""
+msgstr "Gebruiker en wachtwoord"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:99
 msgid "User"
-msgstr ""
+msgstr "Gebruiker"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:105
 #: src/EBox/Mail/Model/ExternalAccounts.pm:94
 msgid "Password"
-msgstr ""
+msgstr "Wahtwoord"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:118
 msgid "Server mailname"
-msgstr ""
+msgstr "Server mailnaam"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:122
 msgid "FQDN hostname"
-msgstr ""
+msgstr "FQDN hostnaam"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:134
 msgid "Postmaster address"
-msgstr ""
+msgstr "Postmaster adres"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:136
 msgid "Address used to report mail problems"
-msgstr ""
+msgstr "Adres voor het melden van mailproblemen"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:140
 msgid "Local root account"
-msgstr ""
+msgstr "Lokaal root account"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:144
 msgid "Custom address"
-msgstr ""
+msgstr "Eigen adres"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:152
 msgid "Maximum mailbox size allowed"
-msgstr ""
+msgstr "Maximaal toegestane mailbox grootte"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:154
 msgid ""
 "When a mailbox reaches this size futher messages will be rejected. This can "
 "be overidden by account"
 msgstr ""
+"Als de mailbox deze grootte bereikt, zullen volgende berichten worden "
+"afgewezen. Dit kan worden overruled door de gebruiker"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:158
 #: src/EBox/Mail/Model/SMTPOptions.pm:177 src/templates/createaccount.mas:79
 msgid "Unlimited size"
-msgstr ""
+msgstr "Geen limiet"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:162
 #: src/EBox/Mail/Model/SMTPOptions.pm:181
 msgid "limited to"
-msgstr ""
+msgstr "Begrensd tot"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:173
 msgid "Maximum message size accepted"
-msgstr ""
+msgstr "Maximale berichtgrootte die geaccepteerd wordt"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:193
 msgid "Expiration period for deleted mails"
-msgstr ""
+msgstr "Verloop-periode voor verwijderde mail"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:197
 #: src/EBox/Mail/Model/SMTPOptions.pm:216
 msgid "Never"
-msgstr ""
+msgstr "Nooit"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:201
 #: src/EBox/Mail/Model/SMTPOptions.pm:220
 msgid "expired in"
-msgstr ""
+msgstr "afgelopen in"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:202
 #: src/EBox/Mail/Model/SMTPOptions.pm:221
 msgid "days"
-msgstr ""
+msgstr "dagen"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:212
 msgid "Expiration period for spam mails"
-msgstr ""
+msgstr "Verloop-periode voor spam email"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:233
 msgid "Options"
-msgstr ""
+msgstr "Opties"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:340
 #: src/EBox/Mail/Model/SMTPOptions.pm:344
 msgid "Smarthost's address"
-msgstr ""
+msgstr "Adres van de Smarthost"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:341
 msgid "Smarthost's port"
-msgstr ""
+msgstr "Poort van de Smarthost"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:419
 msgid ""
 "The mailname is set to the server's hostname and the hostname is not fully "
 "qualified. "
 msgstr ""
+"Voor de mailnaam is de hostnaam gebruikt en de hostnaam is niet in FQDN-"
+"vorm. "
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:423
 msgid "The selected mailname is not a fully qualified hostname. "
-msgstr ""
+msgstr "De gekozen mailnaam is niet een FQDN-naam."
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:427
 msgid ""
 "Not having a fully qualified hostname could lead to some mail servers to "
 "reject the mail and incorrect reply addresses from system users"
 msgstr ""
+"Als er geen FQDN-naam is kan dit leiden tot het niet verwerken van mail door "
+"andere systeem en foute reply-adressen van de gebruikers van dit systeem"
 
 #: src/EBox/Mail/Model/RetrievalServices.pm:61
 msgid "POP3 service enabled"
-msgstr ""
+msgstr "POP3 service gestart"
 
 #: src/EBox/Mail/Model/RetrievalServices.pm:67
 msgid "Secure POP3S service enabled"
-msgstr ""
+msgstr "Secure POP3S service gestart"
 
 #: src/EBox/Mail/Model/RetrievalServices.pm:73
 msgid "IMAP service enabled"
-msgstr ""
+msgstr "IMAP service gestart"
 
 #: src/EBox/Mail/Model/RetrievalServices.pm:79
 msgid "Secure IMAPS service enabled"
-msgstr ""
+msgstr "Secure IMAPS service gestart"
 
 #: src/EBox/Mail/Model/RetrievalServices.pm:85
 msgid "Retrieve mail for external accounts"
-msgstr ""
+msgstr "Ontvang mail voor externe accounts"
 
 #: src/EBox/Mail/Model/RetrievalServices.pm:87
 msgid ""
@@ -269,10 +283,13 @@ msgid ""
 "delivered to their local account. External account can be configured in the "
 "user's corner."
 msgstr ""
+"Hiermee wordt gebruikers toegestaan om mail van externe accounts te "
+"ontvangen. De mail wordt afgeleverd op hun lokale account. Externe accounts "
+"kunnen ingesteld worden in de Gebruikershoek."
 
 #: src/EBox/Mail/Model/RetrievalServices.pm:92
 msgid "Manage Sieve scripts"
-msgstr ""
+msgstr "Beheer SIEVE scrips"
 
 #: src/EBox/Mail/Model/RetrievalServices.pm:94
 msgid ""

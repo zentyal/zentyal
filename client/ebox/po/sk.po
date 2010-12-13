@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: ebox\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-08-28 23:35+0200\n"
-"PO-Revision-Date: 2010-05-26 16:04+0200\n"
+"PO-Revision-Date: 2010-09-14 13:32+0200\n"
 "Last-Translator: Bokor Pavol <bokor@4enzo.net>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
@@ -21,9 +21,8 @@ msgid "port"
 msgstr "port"
 
 #: src/EBox/Apache.pm:598
-#, fuzzy
 msgid "Zentyal web server"
-msgstr "Pozorovanie záznamu"
+msgstr "Zentyal web server"
 
 #: src/EBox/Event/Dispatcher/Jabber.pm:165
 msgid "Admin Jabber account"
@@ -58,25 +57,25 @@ msgid "RSS"
 msgstr "RSS"
 
 #: src/EBox/Event/Dispatcher/RSS.pm:289
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Zentyal alerts channel for {hostname}"
-msgstr "Kanál upozornení systému eBox zo stanice {hostname}"
+msgstr "Kanál upozornení systému Zentyal pre {hostname}"
 
 #: src/EBox/Event/Dispatcher/RSS.pm:292
-#, fuzzy
 msgid "This channel tracks what happens on this Zentyal machine along the time"
-msgstr "Tento kanál priebežne sleduje udalosti na počítači so systémom eBox"
+msgstr "Tento kanál priebežne sleduje udalosti na počítači so systémom Zentyal"
 
 #: src/EBox/Event/Dispatcher/RSS.pm:312
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "The event has happened in Zentyal {hostname} from {source}"
 msgstr ""
-"Udalosť, ktorá nastala v systéme eBox na stanici {hostname} v module {source}"
+"Udalosť, ktorá nastala v systéme Zentyal na stanici {hostname} v module "
+"{source}"
 
 #: src/EBox/Event/Dispatcher/RSS.pm:316
 #, perl-brace-format
 msgid "Go to your {url} to check its status."
-msgstr "Súčasný stav môžete skontrolovať v systéme {url}"
+msgstr "Súčasný stav v systéme môžete skontrolovať tu{url}"
 
 #: src/EBox/Event/Dispatcher/Log.pm:135
 msgid "Log file"
@@ -106,19 +105,17 @@ msgid "Check if any disk partition has no storage space left"
 msgstr "Sleduje, či je na diskovom oddiely dostatok voľného miesta"
 
 #: src/EBox/Event/Watcher/Runit.pm:112
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "The following modules are not running but they are enabled: {modules}\n"
-msgstr "Nasledujúce moduly nie sú spustené: {modules}\n"
+msgstr "Nasledujúce moduly nie sú spustené alebo nie sú povolené: {modules}\n"
 
 #: src/EBox/Event/Watcher/Runit.pm:141
 msgid "Service"
 msgstr "Služba"
 
 #: src/EBox/Event/Watcher/Runit.pm:158
-#, fuzzy
 msgid "Check if any Zentyal service is not running when it is enabled"
-msgstr ""
-"Sleduje, či sú spustené všetky služby systému eBox, ktoré majú byť spustené"
+msgstr "Skontroluje, či niektorá služba nie je spustená aj keď bola povolená"
 
 #: src/EBox/Event/Watcher/Runit.pm:228
 #, perl-brace-format
@@ -217,19 +214,19 @@ msgstr ""
 "{newNum}"
 
 #: src/EBox/Event/Watcher/RAID.pm:398
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "RAID device {name} has started operation {opName}."
 msgstr "Zariadenie poľa RAID {name} spustilo operáciu {opName}"
 
 #: src/EBox/Event/Watcher/RAID.pm:404
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "RAID device {name} has finished operation {opName} or it was aborted."
 msgstr ""
 "Zariadenie poľa RAID {name} dokončilo operáciu {opName} alebo bola táto "
 "operácia zrušená"
 
 #: src/EBox/Event/Watcher/RAID.pm:410
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "RAID device {name} has finished operation {oldOpName} and started "
 "{newOpName}."
@@ -238,12 +235,12 @@ msgstr ""
 "operáciu {newOpName}"
 
 #: src/EBox/Event/Watcher/RAID.pm:435
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Status: {percentage} completed."
-msgstr "Stav: {percentage} "
+msgstr "Stav: {percentage} hotovo."
 
 #: src/EBox/Event/Watcher/RAID.pm:438
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Estimated finish time: {time}."
 msgstr "Odhadovaný čas dokončenia: {time}"
 
@@ -260,6 +257,8 @@ msgid ""
 "Spare component {compName} from RAID array {arrayName} which was being "
 "rebuilt to replace a faulty device has failed"
 msgstr ""
+"Náhradný prvok {compName} z RAID poľa {arrayName}, na ktorom bola začatá "
+"oprava po výmene vadného prvku, bol chybný"
 
 #: src/EBox/Event/Watcher/RAID.pm:489
 #, perl-brace-format
@@ -268,6 +267,9 @@ msgid ""
 "rebuilt to replace a faulty device has been successfully rebuilt and has "
 "been made active"
 msgstr ""
+"Náhradný prvok {compName} z RAID poľa {arrayName}, na ktorom bola začatá "
+"oprava po výmene vadného prvku, je v poriadku. Oprava prebehla úspešne a "
+"prvok je aktívny."
 
 #: src/EBox/Event/Watcher/RAID.pm:502
 #, perl-brace-format
@@ -275,6 +277,8 @@ msgid ""
 "A new component {compName} has been hot added to RAID device {arrayName} "
 "with status {status}"
 msgstr ""
+"Nový prvok {compName} bol pridaný do RAID poľa {arrayName} so statusom "
+"{status}"
 
 #: src/EBox/Event/Watcher/RAID.pm:515
 #, perl-brace-format
@@ -282,6 +286,8 @@ msgid ""
 "A component {compName} has been hot removed from RAID array {arrayName} when "
 "its status was {status}"
 msgstr ""
+"Prvok {compName} bol odobratý z RAID poľa {arrayName} keď jeho status bol "
+"{status}"
 
 #: src/EBox/Event/Watcher/RAID.pm:541 src/EBox/Event/Watcher/RAID.pm:585
 #: src/templates/report/raid.mas:111
@@ -294,70 +300,67 @@ msgstr "degradované"
 
 #: src/EBox/Event/Watcher/RAID.pm:545 src/templates/report/raid.mas:115
 msgid "recovering"
-msgstr "zotavujúce sa"
+msgstr "obnovuje sa"
 
 #: src/EBox/Event/Watcher/RAID.pm:547 src/templates/report/raid.mas:117
 msgid "resyncing"
-msgstr "synchronizujúce sa"
+msgstr "synchronizuje sa"
 
 #: src/EBox/Event/Watcher/RAID.pm:549 src/templates/report/raid.mas:121
 msgid "rebuilding"
-msgstr "obnovujúce sa"
+msgstr "opravuje sa"
 
 #: src/EBox/Event/Watcher/RAID.pm:551 src/templates/report/raid.mas:119
 msgid "reshaping"
-msgstr "reorganizujúce sa"
+msgstr "formuje sa"
 
 #: src/EBox/Event/Watcher/RAID.pm:553 src/templates/report/raid.mas:123
 msgid "failed"
-msgstr "nefunkčné"
+msgstr "neúspešný"
 
 #: src/EBox/Event/Watcher/RAID.pm:565
 msgid "resync"
-msgstr ""
+msgstr "synchronizácia"
 
 #: src/EBox/Event/Watcher/RAID.pm:567
 msgid "rebuild"
-msgstr ""
+msgstr "obnoviť"
 
 #: src/EBox/Event/Watcher/RAID.pm:569
 msgid "reshape"
-msgstr ""
+msgstr "formovať"
 
 #: src/EBox/Event/Watcher/RAID.pm:571
 msgid "recovery"
-msgstr ""
+msgstr "obnova"
 
 #: src/EBox/Event/Watcher/RAID.pm:573
 msgid "check"
-msgstr ""
+msgstr "kontrola"
 
 #: src/EBox/Event/Watcher/RAID.pm:587
 msgid "faulty"
-msgstr ""
+msgstr "chbný"
 
 #: src/EBox/Event/Watcher/RAID.pm:589 src/templates/report/raid.mas:233
 msgid "spare"
-msgstr ""
+msgstr "rezerva"
 
 #: src/EBox/Event/Watcher/State.pm:125
-#, fuzzy
 msgid "Zentyal is up and running"
-msgstr "Systém eBox je zapnutý a pracuje"
+msgstr "Zentyal je zapnutý a pracuje"
 
 #: src/EBox/Event/Watcher/State.pm:131
-#, fuzzy
 msgid "Zentyal is critically down"
-msgstr "Systém eBox zlyhal a je vypnutý"
+msgstr "Zentyal zlyhal a je vypnutý"
 
 #: src/EBox/Event/Watcher/State.pm:156 src/templates/report/raid.mas:226
 msgid "State"
 msgstr "Stav"
 
 #: src/EBox/Event/Watcher/State.pm:173
-#, fuzzy
 msgid "Check if Zentyal is currently up or down"
-msgstr "Sleduje, či je eBox spustený alebo nie"
+msgstr "kontrola, či je Zentyal spustený alebo nie"
 
 #: src/EBox/Model/DataTable.pm:327
 #, perl-brace-format
@@ -389,11 +392,11 @@ msgstr "Akcia"
 #: src/EBox/Model/DataTable.pm:2833
 #, perl-brace-format
 msgid "Remove {num} rows of {rowName} from {model}{br}"
-msgstr ""
+msgstr "Odstrániť {num} riadkov {rowName} z {model}{br}"
 
 #: src/EBox/Model/DataTable.pm:2904
 msgid "Page size"
-msgstr ""
+msgstr "Veľkosť strany"
 
 #: src/EBox/Model/DataTable.pm:2907
 msgid "Must be either a positive number or zero"
@@ -402,27 +405,27 @@ msgstr "Musí byť buď kladné číslo alebo nula"
 #: src/EBox/Model/DataTable.pm:3214
 #, perl-brace-format
 msgid "{row} added"
-msgstr ""
+msgstr "{row} pridané"
 
 #: src/EBox/Model/DataTable.pm:3215
 #, perl-brace-format
 msgid "{row} deleted"
-msgstr ""
+msgstr "{row} zmazané"
 
 #: src/EBox/Model/DataTable.pm:3216
 #, perl-brace-format
 msgid "{row} updated"
-msgstr "{row} bola aktualizovaná"
+msgstr "{row} aktualizované"
 
 #: src/EBox/Model/DataTable.pm:3217
 #, perl-brace-format
 msgid "{row} moved up"
-msgstr ""
+msgstr "{row} presunuté nahor"
 
 #: src/EBox/Model/DataTable.pm:3218
 #, perl-brace-format
 msgid "{row} moved down"
-msgstr ""
+msgstr "{row} presunuté nadol"
 
 #: src/EBox/Model/DataTable.pm:4540
 #: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:286
@@ -433,12 +436,12 @@ msgstr "Zapnuté"
 #: src/EBox/Model/ProviderBase.pm:246
 #, perl-brace-format
 msgid "Provided object with index {i} does not exist"
-msgstr ""
+msgstr "Poskytnutý objekt s indexom{i} neexistuje"
 
 #: src/EBox/Model/Composite.pm:371
 #, perl-brace-format
 msgid "It should be one of following values: {values}"
-msgstr ""
+msgstr "Mala by byť jedna z následujúcich hodnôt: {values}"
 
 #: src/EBox/Model/Composite.pm:655
 #, perl-brace-format
@@ -447,7 +450,7 @@ msgstr ""
 
 #: src/EBox/Model/Composite.pm:778
 msgid "Choose one of the following:"
-msgstr ""
+msgstr "Vyberte jedno z následujúcich:"
 
 #: src/EBox/Model/ModelManager.pm:468
 msgid ""
@@ -464,7 +467,7 @@ msgstr ""
 #: src/EBox/Model/DataForm.pm:554
 #, perl-brace-format
 msgid "Remove data from {model}{br}"
-msgstr ""
+msgstr "Odstrániť data z {model}{br}"
 
 #: src/EBox/Model/DataForm.pm:603 src/templates/dataInUse.mas:25
 #: src/templates/dataInUse.mas:34 src/templates/password.mas:67
@@ -492,7 +495,7 @@ msgstr "Hodnota nemôže byť menšia ako {m}"
 
 #: src/EBox/Types/DomainName.pm:117
 msgid "IP addresses are not allowed"
-msgstr ""
+msgstr "IP adresy nie sú povolené"
 
 #: src/EBox/Types/Float.pm:112
 msgid "Enter a float number"
@@ -521,15 +524,15 @@ msgstr "Heslo môže mať najviac {maxLength} znakov"
 
 #: src/EBox/Types/PortRange.pm:138
 msgid "any"
-msgstr ""
+msgstr "nejaký"
 
 #: src/EBox/Types/PortRange.pm:293
 msgid "Single port"
-msgstr ""
+msgstr "Samostatný port"
 
 #: src/EBox/Types/PortRange.pm:297
 msgid "Port range"
-msgstr ""
+msgstr "Rozsah portov"
 
 #: src/EBox/Types/PortRange.pm:414
 #, perl-brace-format
@@ -545,59 +548,52 @@ msgid "Logout"
 msgstr "Odhlásiť sa"
 
 #: src/EBox/SysInfo.pm.in:50
-#, fuzzy
 msgid "System Information"
 msgstr "Informácie o systéme"
 
 #: src/EBox/SysInfo.pm.in:95
 msgid "available"
-msgstr ""
+msgstr "dostupný"
 
 #: src/EBox/SysInfo.pm.in:103
 msgid "Time"
 msgstr "Čas"
 
 #: src/EBox/SysInfo.pm.in:104
-#, fuzzy
 msgid "Hostname"
 msgstr "Názov stanice"
 
 #: src/EBox/SysInfo.pm.in:105
-#, fuzzy
 msgid "Core version"
-msgstr "Verzia eBoxu"
+msgstr "Verzia jadra"
 
 #: src/EBox/SysInfo.pm.in:107
 msgid "System load"
 msgstr "Záťaž systému"
 
 #: src/EBox/SysInfo.pm.in:108
-#, fuzzy
 msgid "Uptime"
-msgstr "Čas"
+msgstr "Doba prevádzky"
 
 #: src/EBox/SysInfo.pm.in:109
 msgid "Users"
-msgstr ""
+msgstr "Užívatelia"
 
 #: src/EBox/SysInfo.pm.in:163 src/EBox/SysInfo.pm.in:256
-#, fuzzy
 msgid "Module Status"
 msgstr "Stav modulov"
 
 #: src/EBox/SysInfo.pm.in:168
-#, fuzzy
 msgid "General Information"
-msgstr "Všeobecné informácie"
+msgstr "Hlavné informácie"
 
 #: src/EBox/SysInfo.pm.in:173
-#, fuzzy
 msgid "Process List"
 msgstr "Zoznam procesov"
 
 #: src/EBox/SysInfo.pm.in:180
 msgid "Resources & Services"
-msgstr ""
+msgstr "Zdroje a Služby"
 
 #: src/EBox/SysInfo.pm.in:251 src/EBox/CGI/Dashboard/Index.pm:32
 msgid "Dashboard"
@@ -621,9 +617,8 @@ msgid "Backup"
 msgstr "Zálohovanie"
 
 #: src/EBox/SysInfo.pm.in:281
-#, fuzzy
 msgid "Configuration Report"
-msgstr "Obnova konfigurácie"
+msgstr "Správa o konfigurácii"
 
 #: src/EBox/SysInfo.pm.in:284
 msgid "Halt/Reboot"
@@ -650,7 +645,7 @@ msgstr "Žiadne"
 
 #: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:351
 msgid "Configure Dispatchers"
-msgstr "Nastavenie oznamovaciu službu"
+msgstr "Nastaviť oznamovaciu službu"
 
 #: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:360
 msgid "dispatcher"
@@ -658,7 +653,7 @@ msgstr "oznamovacia služba"
 
 #: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:361
 msgid "Enable/Disable each event dispatcher"
-msgstr ""
+msgstr "Povoliť/Zakázať každú udalosť oznamovacej služby"
 
 #: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:550
 msgid ""
@@ -698,16 +693,13 @@ msgstr "Heslo používateľa"
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:223
 msgid "Subscribe"
-msgstr "Vytvoriť konto"
+msgstr "Prihlásiť sa k odberu"
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:225
 #, fuzzy
 msgid ""
 "Tick this option if you want Zentyal to create an account for the above user"
-msgstr ""
-"Warning! There is no log domain watcher enabled. Please, go to "
-"'Configuration' to enable at least one to be notified when a log in this "
-"domain happens. "
+msgstr "Zvoľte túto možnosť ak chcete"
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:232
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:299

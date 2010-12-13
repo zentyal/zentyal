@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: ebox-samba 0.12\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-08-28 23:41+0200\n"
-"PO-Revision-Date: 2010-08-15 12:01+0200\n"
+"PO-Revision-Date: 2010-09-12 13:08+0200\n"
 "Last-Translator: J. Schwieder <j.schwieder@gmx.de>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
@@ -26,13 +26,12 @@ msgid "Create Samba home directory for shares and groups"
 msgstr "Erstelle Samba Home-Verzeichnis für Benutzer und Gruppen"
 
 #: src/EBox/Samba.pm:90
-#, fuzzy
 msgid ""
 "Zentyal will create the directories for Samba shares and groups under /home/"
 "samba."
 msgstr ""
-"eBox wird die Home-Verzeichnisse für Samba-Benutzer und -Gruppen unter /home/"
-"samba erstellen."
+"Zentyal wird die Home-Verzeichnisse für Samba-Benutzer und -Gruppen unter "
+"/home/samba erstellen."
 
 #: src/EBox/Samba.pm:95
 msgid "Add LDAP schemas"
@@ -54,8 +53,8 @@ msgstr "Setze das Passwort des DN LDAP-Admin"
 #, fuzzy
 msgid "Zentyal will configure Samba to use the LDAP admin dn password."
 msgstr ""
-"ebox wird Samba so konfigurieren, dass es das Passwort der DN \"LDAP admin"
-"\"  verwendet."
+"Zentyal wird Samba so konfigurieren, dass es das Passwort der DN \"LDAP "
+"admin\"  verwendet."
 
 #: src/EBox/Samba.pm:118
 msgid "To set up Samba according to your configuration."
@@ -311,7 +310,7 @@ msgstr "Freigabepfad"
 #: src/EBox/Samba/Model/SambaShares.pm:112
 #, fuzzy
 msgid "Directory under Zentyal"
-msgstr "Verzeichnis in eBox"
+msgstr "Verzeichnis in Zentyal"
 
 #: src/EBox/Samba/Model/SambaShares.pm:118
 msgid "File system path"
@@ -363,10 +362,10 @@ msgid ""
 "directory in /home/samba/shares {br}{openit}File system path{closeit} will "
 "allow you to share an existing directory within your file system"
 msgstr ""
-"{openit}Verzeichnis in eBox{closeit} wird automatisch das Freigabe-"
-"Verzeichnis in /home/samba/shares erstellen{br}{openit}Dateisystempfad"
-"{closeit} erlaubt Ihnen ein bestehendes Verzeichnis in Ihrem Dateisystem "
-"freizugeben."
+"{openit}Verzeichnis in Zentyal{closeit} wird automatisch das Freigabe-"
+"Verzeichnis in /home/samba/shares "
+"erstellen{br}{openit}Dateisystempfad{closeit} erlaubt Ihnen ein bestehendes "
+"Verzeichnis in Ihrem Dateisystem freizugeben."
 
 #: src/EBox/Samba/Model/SambaShares.pm:331
 #, fuzzy
@@ -377,7 +376,7 @@ msgid ""
 msgstr ""
 "Hier können Sie Freigaben mit weitaus differenzierteren Berechtigugnen "
 "anlegen. Sie können ein schon angelegtes Verzeichnis verwenden oder einen "
-"Namen auswählen und eBox erstellt es für Sie."
+"Namen auswählen und Zentyal erstellt es für Sie."
 
 #: src/EBox/Samba/Model/AntivirusDefault.pm:50
 msgid "Scan"

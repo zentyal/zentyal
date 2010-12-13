@@ -8,22 +8,23 @@ msgstr ""
 "Project-Id-Version: ebox-dhcp 1.5.3\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-08-28 23:34+0200\n"
-"PO-Revision-Date: 2008-09-01 08:30+0200\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2010-09-09 10:10+0200\n"
+"Last-Translator: Vladimir Popov <adminlug@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
-"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: migration/0002_add_services.pl:132
 msgid "Trivial File Transfer Protocol"
-msgstr ""
+msgstr "TFTP (простий протокол передачі файлів)"
 
 #: migration/0002_add_services.pl:141
 msgid "Dynamic Host Configuration Protocol"
-msgstr ""
+msgstr "DHCP (протокол динамічної конфігурації вузла)"
 
 #: src/EBox/Model/DynamicDNS.pm:110 src/EBox/Model/FixedAddressTable.pm:97
 #: src/EBox/Model/ThinClientOptions.pm:117 src/EBox/Model/RangeInfo.pm:107
@@ -33,51 +34,54 @@ msgstr ""
 #: src/EBox/Composite/OptionsTab.pm:86
 #, perl-brace-format
 msgid "interface {iface}"
-msgstr ""
+msgstr "Інтерфейс {iface}"
 
 #: src/EBox/Model/DynamicDNS.pm:131 src/EBox/Model/DynamicDNS.pm:139
 #: src/EBox/Model/DynamicDNS.pm:386
 #, perl-brace-format
 msgid "Domain {domain} has already been defined manually in DNS section"
-msgstr ""
+msgstr "Домен {domain} вже визначено вручну в DNS розділі"
 
 #: src/EBox/Model/DynamicDNS.pm:240
 msgid "DNS module must be configured to work with this feature"
-msgstr ""
+msgstr "Модуль DNS повинен бути налаштований для роботи з цією функцією"
 
 #: src/EBox/Model/DynamicDNS.pm:243
 #, perl-brace-format
 msgid "{pkg} must be installed to use this feature"
-msgstr ""
+msgstr "Для роботи цієї функції повинен бути встановлений {pkg}"
 
 #: src/EBox/Model/DynamicDNS.pm:265
 msgid ""
 "Domains will be added/set automatically in DNS section in read-only mode."
 msgstr ""
+"Домени будуть додані автоматично в DNS розділі у режимі тільки для читання."
 
 #: src/EBox/Model/DynamicDNS.pm:267
 msgid "DNS module must be enabled to make this feature work. "
-msgstr ""
+msgstr "Щоб працювала ця функція, модуль DNS повинен бути включений."
 
 #: src/EBox/Model/DynamicDNS.pm:331
 msgid "Dynamic domain"
-msgstr ""
+msgstr "Динамічний домен"
 
 #: src/EBox/Model/DynamicDNS.pm:333
 msgid ""
 "Domain name appended to the hostname from those clients whose leased IP "
 "address comes from a range"
 msgstr ""
+"Ім'я домену додається до імен вузлів для тих клієнтів які отримують IP з "
+"діапазону."
 
 #: src/EBox/Model/DynamicDNS.pm:338
 msgid "Static domain"
-msgstr ""
+msgstr "Статичний домен"
 
 #: src/EBox/Model/DynamicDNS.pm:340
 msgid ""
 "Domain name appended to the hostname from those clients with a fixed address "
 "mapping"
-msgstr ""
+msgstr "Доменне ім'я додається до імен вузлів для клієнтів з постійним адресою"
 
 #: src/EBox/Model/DynamicDNS.pm:345
 msgid "Same as Dynamic Domain"

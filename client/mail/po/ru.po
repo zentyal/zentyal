@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: ebox-mail 0.12\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-08-28 23:36+0200\n"
-"PO-Revision-Date: 2010-08-26 14:43+0200\n"
-"Last-Translator: Dmitry Salynin <dsalynin@gmail.com>\n"
+"PO-Revision-Date: 2010-09-25 20:58+0200\n"
+"Last-Translator: Alexander V Redyuk <aredyuk@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
-"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Pootle 1.1.0\n"
 
 #: migration/0001_add_firewall_services.pl:45
@@ -519,7 +519,7 @@ msgstr "Тема"
 #: src/EBox/Mail/Model/Dispatcher/Mail.pm:127
 #, fuzzy, perl-brace-format
 msgid "[Zentyal-event] An event has happened at {hostName}"
-msgstr "[EBox-event] событие произошло на {hostName}"
+msgstr "[Zentyal-event] событие произошло на {hostName}"
 
 #: src/EBox/Mail/Model/Dispatcher/Mail.pm:134 src/EBox/Mail.pm:1640
 msgid "To"

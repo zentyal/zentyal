@@ -8,114 +8,115 @@ msgstr ""
 "Project-Id-Version: ebox-ids 1.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-08-28 23:35+0200\n"
-"PO-Revision-Date: 2009-03-08 15:17+0000\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2010-09-16 04:38+0200\n"
+"Last-Translator: NiZhiqiang <nessus@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/Model/Rules.pm:153
 msgid "Rule Set"
-msgstr ""
+msgstr "规则集"
 
 #: src/EBox/Model/Rules.pm:158 src/EBox/Model/Interfaces.pm:134
 msgid "Enabled"
-msgstr ""
+msgstr "已启用"
 
 #: src/EBox/Model/Rules.pm:167
 msgid "Rules"
-msgstr ""
+msgstr "规则"
 
 #: src/EBox/Model/Rules.pm:172
 msgid "rule"
-msgstr ""
+msgstr "规则"
 
 #: src/EBox/Model/Rules.pm:173
 msgid "help message"
-msgstr ""
+msgstr "帮助信息"
 
 #: src/EBox/Model/Interfaces.pm:129
 msgid "Interface"
-msgstr ""
+msgstr "接口"
 
 #: src/EBox/Model/Interfaces.pm:143
 msgid "Interfaces"
-msgstr ""
+msgstr "接口"
 
 #: src/EBox/Model/Interfaces.pm:149
 msgid "interface"
-msgstr ""
+msgstr "接口"
 
 #: src/EBox/Model/Interfaces.pm:151
 msgid "Select in which interfaces IDS system will be enabled"
-msgstr ""
+msgstr "选择IDS监听的网络接口"
 
 #: src/EBox/Model/Report/AlertGraph.pm:47
 #: src/EBox/Model/Report/AlertDetails.pm:41
 msgid "number of alerts"
-msgstr ""
+msgstr "报警数"
 
 #: src/EBox/Model/Report/AlertGraph.pm:52
 msgid "Alerts chart"
-msgstr ""
+msgstr "报警图"
 
 #: src/EBox/Model/Report/AlertGraph.pm:68
 msgid "Alert Graph"
-msgstr ""
+msgstr "报警图"
 
 #: src/EBox/Model/Report/AlertDetails.pm:52 src/EBox/IDS.pm:299
 msgid "Date"
-msgstr ""
+msgstr "日期"
 
 #: src/EBox/Model/Report/AlertDetails.pm:58
 msgid "Number of alerts"
-msgstr ""
+msgstr "报警数"
 
 #: src/EBox/Model/Report/AlertDetails.pm:66
 msgid "Alert details"
-msgstr ""
+msgstr "报警细节"
 
 #: src/EBox/Model/Report/AlertDetails.pm:73
 msgid "alerts"
-msgstr ""
+msgstr "报警"
 
 #: src/EBox/IDS.pm:62 src/EBox/IDS.pm:169 src/EBox/IDS.pm:311
 msgid "IDS"
-msgstr ""
+msgstr "IDS"
 
 #: src/EBox/IDS.pm:300
 msgid "Priority"
-msgstr ""
+msgstr "优先级"
 
 #: src/EBox/IDS.pm:301
 msgid "Description"
-msgstr ""
+msgstr "说明"
 
 #: src/EBox/IDS.pm:302
 msgid "Source"
-msgstr ""
+msgstr "源地址"
 
 #: src/EBox/IDS.pm:303
 msgid "Destination"
-msgstr ""
+msgstr "目的地址"
 
 #: src/EBox/IDS.pm:304
 msgid "Protocol"
-msgstr ""
+msgstr "协议"
 
 #: src/EBox/IDS.pm:305
 msgid "Event"
-msgstr ""
+msgstr "事件"
 
 #: src/EBox/IDS.pm:317
 msgid "Alert"
-msgstr ""
+msgstr "报警"
 
 #: src/EBox/Composite/General.pm:70
 msgid "Intrusion Detection System"
-msgstr ""
+msgstr "入侵检测系统"
 
 #: src/EBox/Composite/Report/AlertReport.pm:66
 msgid "IDS Alerts report"
-msgstr ""
+msgstr "IDS报警报告"

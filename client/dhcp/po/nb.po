@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: ebox-dhcp 0.12.100\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-08-28 23:34+0200\n"
-"PO-Revision-Date: 2010-08-12 16:09+0200\n"
-"Last-Translator: Ronny Gonzales <gonzito@online.no>\n"
+"PO-Revision-Date: 2010-10-08 09:34+0200\n"
+"Last-Translator: Ronny Gonzales <ronny@kcl.no>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -176,42 +176,39 @@ msgid "fixed address"
 msgstr "fast adresse"
 
 #: src/EBox/Model/ThinClientOptions.pm:138
-#, fuzzy
 msgid "You need to upload a boot image to Zentyal if you set it as next server"
 msgstr ""
-"Du trenger å laste opp et oppstarts bilde til eBox hvis du vil sette den som "
-"neste server"
+"Du trenger å laste opp et oppstarts bilde til Zentyal hvis du vil sette den "
+"som neste server"
 
 #: src/EBox/Model/ThinClientOptions.pm:145
-#, fuzzy
 msgid ""
 "In order to upload a boot image to Zentyal, you need to set Zentyal as next "
 "server"
 msgstr ""
-"For å laste opp et oppstarts bilde til eBox, må du sette eBox som neste "
-"server"
+"For å laste opp et oppstarts bilde til Zentyal, må du sette Zentyal som "
+"neste server"
 
 #: src/EBox/Model/ThinClientOptions.pm:152
 msgid "You need to specify a path to the boot image in the remote server"
 msgstr "Du må spesifisere en sti til oppstarts bildet i den eksterne serveren"
 
 #: src/EBox/Model/ThinClientOptions.pm:157
-#, fuzzy
 msgid ""
 "You can only specify a file name if you have a next server and it is not "
 "Zentyal"
 msgstr ""
 "Du kan bare spesifisere et fil navn hvis du har en neste server og den er "
-"ikke en eBox"
+"ikke en Zentyal"
 
 #: src/EBox/Model/ThinClientOptions.pm:208
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Removing previously uploaded boot image since next server option has been "
 "changed from Zentyal to {option}"
 msgstr ""
 "Fjerning av tidligere opplastede oppstarts bilder siden neste server "
-"alternativet har blitt endret fra eBox til {option}"
+"alternativet har blitt endret fra Zentyal til {option}"
 
 #: src/EBox/Model/ThinClientOptions.pm:231
 msgid "Next server"
@@ -246,7 +243,7 @@ msgid ""
 "all the files you require under {path} directory"
 msgstr ""
 "Du vil kanskje tilpasse dine tynn klient alternativer. For å gjøre det, kan "
-"du inkludere alle nødvendige filer under  {path} mappen"
+"du inkludere alle nødvendige filer under {path} mappen"
 
 #: src/EBox/Model/RangeInfo.pm:142
 msgid "Interface IP address"
@@ -309,41 +306,37 @@ msgid "{gateway} is not in the current network"
 msgstr "{gateway} er ikke på nåværende nettverk"
 
 #: src/EBox/Model/Options.pm:168
-#, fuzzy
 msgid ""
 "DNS module must be enabled to be able to select Zentyal as primary DNS server"
-msgstr "DNS modulen må være aktiv for å kunne velge eBox som primær DNS server"
+msgstr ""
+"DNS modulen må være aktiv for å kunne velge Zentyal som primær DNS server"
 
 #: src/EBox/Model/Options.pm:178
-#, fuzzy
 msgid "NTP module must be enabled to be able to select Zentyal as NTP server"
-msgstr "DNS modulen må være aktiv for å kunne velge eBox som primær DNS server"
+msgstr ""
+"DNS modulen må være aktiv for å kunne velge Zentyal som primær DNS server"
 
 #: src/EBox/Model/Options.pm:189
-#, fuzzy
 msgid ""
 "Samba module must be enabled to be able to select Zentyal as WINS server"
-msgstr "DNS modulen må være aktiv for å kunne velge eBox som primær DNS server"
+msgstr ""
+"DNS modulen må være aktiv for å kunne velge Zentyal som primær DNS server"
 
 #: src/EBox/Model/Options.pm:383
-#, fuzzy
 msgid "Zentyal domain"
-msgstr "Statisk domene"
+msgstr "Zentyal domene"
 
 #: src/EBox/Model/Options.pm:391
-#, fuzzy
 msgid "local Zentyal DNS"
-msgstr "lokal eBox DNS"
+msgstr "lokal Zentyal DNS"
 
 #: src/EBox/Model/Options.pm:413
-#, fuzzy
 msgid "local Zentyal NTP"
-msgstr "lokal eBox NTP"
+msgstr "lokal Zentyal NTP"
 
 #: src/EBox/Model/Options.pm:427
-#, fuzzy
 msgid "local Zentyal"
-msgstr "lokal eBox"
+msgstr "lokal Zentyal"
 
 #: src/EBox/Model/Options.pm:439 src/templates/options.mas:18
 msgid "Default gateway"
@@ -358,12 +351,11 @@ msgid "Configured ones"
 msgstr "De konfigurerte"
 
 #: src/EBox/Model/Options.pm:465
-#, fuzzy
 msgid ""
 "Setting \"Zentyal\" as default gateway will set the interface IP address as "
 "gateway"
 msgstr ""
-"Setter du \"ebox\" som standard gateway vil sette grensesnittets IP adresse "
+"Setter du \"Zentyal\" som standard gateway vil sette grensesnittets IP adresse "
 "som gateway"
 
 #: src/EBox/Model/Options.pm:471 src/templates/options.mas:29
@@ -383,12 +375,11 @@ msgid "Primary nameserver"
 msgstr "Primær server"
 
 #: src/EBox/Model/Options.pm:482
-#, fuzzy
 msgid ""
 "If \"Zentyal DNS\" is present and selected, the Zentyal server will act as "
 "cache DNS server"
 msgstr ""
-"Hvis \"eBox DNS\" er tilgjengelig og valgt, eBox serveren vil oppføre seg "
+"Hvis \"Zentyal DNS\" er tilgjengelig og valgt, eBox serveren vil oppføre seg "
 "som en mellomlagrings DNS server"
 
 #: src/EBox/Model/Options.pm:487 src/templates/options.mas:52
@@ -400,12 +391,11 @@ msgid "NTP server"
 msgstr "NTP server"
 
 #: src/EBox/Model/Options.pm:496
-#, fuzzy
 msgid ""
 "If \"Zentyal NTP\" is present and selected, Zentyal will be the NTP server "
 "for DHCP clients"
 msgstr ""
-"Hvis \"eBox NTP\" er tilgjengelig og valgt, vil eBox være NTP serveren for "
+"Hvis \"Zentyal NTP\" er tilgjengelig og valgt, vil eBox være NTP serveren for "
 "DHCP klienter"
 
 #: src/EBox/Model/Options.pm:501
@@ -413,12 +403,11 @@ msgid "WINS server"
 msgstr "WINS server"
 
 #: src/EBox/Model/Options.pm:504
-#, fuzzy
 msgid ""
 "If \"Zentyal Samba\" is present and selected, Zentyal will be the WINS "
 "server for DHCP clients"
 msgstr ""
-"Hvis \"eBox Samba\" er tilgjengelig og valgt, vil eBox være serveren WINS "
+"Hvis \"Zentyal Samba\" er tilgjengelig og valgt, vil eBox være serveren WINS "
 "serveren for DHCP klienter"
 
 #: src/EBox/Model/Options.pm:511
@@ -426,7 +415,6 @@ msgid "Common options"
 msgstr "Vanlige valg"
 
 #: src/EBox/Model/Options.pm:516
-#, fuzzy
 msgid ""
 "If you set a \"configured ones\" as default gateway, you may choose one the "
 "configured gateways. As \"search domain\" value, one of the configured DNS "
@@ -434,9 +422,9 @@ msgid ""
 "value as \"None\" or leaving blank."
 msgstr ""
 "Hvis du setter en \"de konfigurerte\" som standard gateway, kan du velge de "
-"konfigurerte gatewayene. Som \"søke domene\" verdi, en av de konfigurerte "
-"DNS domene på din eBox kan bli valg. Alle felter er valgfritt å sette "
-"verdien til \"Ingen\" eller la det stå tomt."
+"konfigurerte gatewayene. Som \"søke domene\" verdi, en av de konfigurerte DNS "
+"domene på din Zentyal kan bli valg. Alle felter er valgfritt å sette verdien "
+"til \"Ingen\" eller la det stå tomt."
 
 #: src/EBox/Model/RangeTable.pm:117
 #, perl-brace-format
@@ -620,13 +608,12 @@ msgid "Options"
 msgstr "Alternativer"
 
 #: src/templates/options.mas:10
-#, fuzzy
 msgid ""
 "You can leave empty the Default Gateway field to use Zentyal as default "
 "gateway for this subnet"
 msgstr ""
-"Du kan la Standard Gateway være tomt for å bruke eBox sin standard gateway "
-"for dette nettverket"
+"Du kan la Standard Gateway være tomt for å bruke Zentyal sin standard "
+"gateway for dette nettverket"
 
 #: src/templates/options.mas:64
 msgid "Apply"

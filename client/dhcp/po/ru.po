@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: ebox-dhcp 0.12\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-08-28 23:34+0200\n"
-"PO-Revision-Date: 2010-02-26 10:13+0100\n"
-"Last-Translator: Vladimir Popov <adminlug@gmail.com>\n"
+"PO-Revision-Date: 2010-08-31 01:22+0200\n"
+"Last-Translator: Val Budkin <valentin@ktc-ua.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
-"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Pootle 1.1.0\n"
 
 #: migration/0002_add_services.pl:132
@@ -181,41 +181,39 @@ msgid "fixed address"
 msgstr "фиксированный адрес"
 
 #: src/EBox/Model/ThinClientOptions.pm:138
-#, fuzzy
 msgid "You need to upload a boot image to Zentyal if you set it as next server"
 msgstr ""
-"Вам необходимо загрузить загрузочный образ eBox, если вы установили его, как "
+"Необходимо загрузить загрузочный образ Zentyal, если вы установили его, как "
 "следующий сервер"
 
 #: src/EBox/Model/ThinClientOptions.pm:145
-#, fuzzy
 msgid ""
 "In order to upload a boot image to Zentyal, you need to set Zentyal as next "
 "server"
 msgstr ""
-"Для загрузки загрузочного образа eBox, вам необходимо установить eBox, как "
-"следующий сервер"
+"Для загрузки загрузочного образа на Zentyal, вам необходимо установить "
+"Zentyal следующим сервером"
 
 #: src/EBox/Model/ThinClientOptions.pm:152
 msgid "You need to specify a path to the boot image in the remote server"
 msgstr "Вы должны указать путь к загрузочному образу на удаленном сервере"
 
 #: src/EBox/Model/ThinClientOptions.pm:157
-#, fuzzy
 msgid ""
 "You can only specify a file name if you have a next server and it is not "
 "Zentyal"
 msgstr ""
-"Вы можете указать только имя файла, если у вас следующий сервер и это не eBox"
+"Вы можете указать только имя файла, если у вас следующий сервер и это не "
+"Zentyal"
 
 #: src/EBox/Model/ThinClientOptions.pm:208
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Removing previously uploaded boot image since next server option has been "
 "changed from Zentyal to {option}"
 msgstr ""
-"Удаление предыдущего загрузочного образа, так как опция следующего сервера "
-"изменена с eBox на {option}"
+"Удаленяется предыдущий загрузочный образ, так как опция следующего сервера "
+"изменена с Zentyal на {option}"
 
 #: src/EBox/Model/ThinClientOptions.pm:231
 msgid "Next server"
@@ -315,47 +313,40 @@ msgid "{gateway} is not in the current network"
 msgstr "{gateway} не принадлежит этой сети"
 
 #: src/EBox/Model/Options.pm:168
-#, fuzzy
 msgid ""
 "DNS module must be enabled to be able to select Zentyal as primary DNS server"
 msgstr ""
-"Модуль DNS должн быть включён, для того чтобы использовать eBox в качестве "
-"первичного сервера DNS"
+"Модуль DNS должн быть включён, для того чтобы использовать Zentyal в "
+"качестве первичного сервера DNS"
 
 #: src/EBox/Model/Options.pm:178
-#, fuzzy
 msgid "NTP module must be enabled to be able to select Zentyal as NTP server"
 msgstr ""
-"Модуль NTP должен быть включён, чтобы использовать eBox в качестве NTP "
+"Модуль NTP должен быть включён, чтобы использовать Zentyal в качестве NTP "
 "сервера"
 
 #: src/EBox/Model/Options.pm:189
-#, fuzzy
 msgid ""
 "Samba module must be enabled to be able to select Zentyal as WINS server"
 msgstr ""
-"Модуль Samba должн быть включен, чтобы использовать сервер eBox в качестве "
-"WINS сервера "
+"Модуль Samba должн быть включен, чтобы использовать сервер Zentyal в "
+"качестве WINS сервера "
 
 #: src/EBox/Model/Options.pm:383
-#, fuzzy
 msgid "Zentyal domain"
-msgstr "Статический домен"
+msgstr "Домен Zentyal"
 
 #: src/EBox/Model/Options.pm:391
-#, fuzzy
 msgid "local Zentyal DNS"
-msgstr "локальный eBox DNS"
+msgstr "локальный DNS Zentyal"
 
 #: src/EBox/Model/Options.pm:413
-#, fuzzy
 msgid "local Zentyal NTP"
-msgstr "локальный eBox NTP"
+msgstr "локальный NTP Zentyal"
 
 #: src/EBox/Model/Options.pm:427
-#, fuzzy
 msgid "local Zentyal"
-msgstr "локальный eBox"
+msgstr "локальный Zentyal"
 
 #: src/EBox/Model/Options.pm:439 src/templates/options.mas:18
 msgid "Default gateway"
@@ -367,16 +358,15 @@ msgstr "Пользовательский IP-адрес"
 
 #: src/EBox/Model/Options.pm:459
 msgid "Configured ones"
-msgstr "Сконфигурирован"
+msgstr "Сконфигурированные "
 
 #: src/EBox/Model/Options.pm:465
-#, fuzzy
 msgid ""
 "Setting \"Zentyal\" as default gateway will set the interface IP address as "
 "gateway"
 msgstr ""
-"Установив \"eBox\", как шлюз по умолчанию, вы устанавливаете адрес "
-"интерфейса в качестве шлюза по умолчанию."
+"Настройка \"Zentyal\", как шлюз по умолчанию, установит IP-адрес интерфейса в "
+"качестве шлюза по умолчанию"
 
 #: src/EBox/Model/Options.pm:471 src/templates/options.mas:29
 msgid "Search domain"
@@ -393,12 +383,11 @@ msgid "Primary nameserver"
 msgstr "Основной сервер имен"
 
 #: src/EBox/Model/Options.pm:482
-#, fuzzy
 msgid ""
 "If \"Zentyal DNS\" is present and selected, the Zentyal server will act as "
 "cache DNS server"
 msgstr ""
-"Если выбрана опция \"eBox DNS\", eBox-сервер будет выступать в качестве "
+"Если выбрана опция \"Zentyal DNS\", Zentyal-сервер будет выступать в качестве "
 "кэширующего DNS сервера"
 
 #: src/EBox/Model/Options.pm:487 src/templates/options.mas:52
@@ -410,43 +399,39 @@ msgid "NTP server"
 msgstr "NTP сервер"
 
 #: src/EBox/Model/Options.pm:496
-#, fuzzy
 msgid ""
 "If \"Zentyal NTP\" is present and selected, Zentyal will be the NTP server "
 "for DHCP clients"
 msgstr ""
-"Если выбрана опция \"eBox DNS\", eBox-сервер будет выступать в качестве NTP "
-"сервера для клиентов с DHCP"
+"Если выбрана опция \"Zentyal NTP\", Zentyal-сервер будет выступать в качестве "
+"NTP сервера для DHCP-клиентов"
 
 #: src/EBox/Model/Options.pm:501
 msgid "WINS server"
 msgstr "WINS сервер"
 
 #: src/EBox/Model/Options.pm:504
-#, fuzzy
 msgid ""
 "If \"Zentyal Samba\" is present and selected, Zentyal will be the WINS "
 "server for DHCP clients"
 msgstr ""
-"Если выбрана опция \"eBox Samba\", eBox-сервер будет выступать в качестве "
-"сервера WINS, для клиентов с DHCP"
+"Если выбрана опция \"ZSentyal amba\", Zentyal будет выступать в качестве "
+"сервера WINS, для DHCP-клиентов"
 
 #: src/EBox/Model/Options.pm:511
 msgid "Common options"
 msgstr "Общие опции"
 
 #: src/EBox/Model/Options.pm:516
-#, fuzzy
 msgid ""
 "If you set a \"configured ones\" as default gateway, you may choose one the "
 "configured gateways. As \"search domain\" value, one of the configured DNS "
 "domains on Zentyal might be chosen. All fields are optionals setting its "
 "value as \"None\" or leaving blank."
 msgstr ""
-"Если установить \"configured ones\" как шлюз по умолчанию, вы можете выбрать "
-"один из настроенных шлюзов. Значение \"домен поиска\", может быть выбрано из "
-"настроенных  в eBox доменов DNS. Все значения полей являющимися "
-"дополнительными указать как \"None\" или оставить пустыми."
+"Если установить \"сконфигурированные\" как шлюз по умолчанию, вы сможете "
+"выбрать один из настроенных шлюзов. Значение \"домен поиска\", должно быть "
+"выбрано из настроенных в Zentyal доменов DNS. Все настройки опциональны."
 
 #: src/EBox/Model/RangeTable.pm:117
 #, perl-brace-format
@@ -533,9 +518,9 @@ msgstr ""
 "модуль файрвол{closehref}"
 
 #: src/EBox/DHCP.pm:117
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "{server} configuration file"
-msgstr "Настройка службы"
+msgstr "{server} конфигурационный файл"
 
 #: src/EBox/DHCP.pm:424 src/EBox/DHCP.pm:460 src/EBox/DHCP.pm:510
 #: src/EBox/DHCP.pm:556 src/EBox/DHCP.pm:602 src/EBox/DHCP.pm:700
@@ -629,12 +614,11 @@ msgid "Options"
 msgstr "Опции"
 
 #: src/templates/options.mas:10
-#, fuzzy
 msgid ""
 "You can leave empty the Default Gateway field to use Zentyal as default "
 "gateway for this subnet"
 msgstr ""
-"Вы можете не заполнять поле Основной шлюз если eBox используется как "
+"Вы можете не заполнять поле Основной шлюз если Zentyal используется как "
 "основной шлюз для этой подсети"
 
 #: src/templates/options.mas:64

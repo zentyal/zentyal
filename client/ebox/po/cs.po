@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-ebox 1.5\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-08-28 23:35+0200\n"
-"PO-Revision-Date: 2010-05-06 12:52+0200\n"
+"PO-Revision-Date: 2010-11-30 17:55+0100\n"
 "Last-Translator: Michal Formánek <formi@seznam.cz>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
@@ -22,9 +22,8 @@ msgid "port"
 msgstr "port"
 
 #: src/EBox/Apache.pm:598
-#, fuzzy
 msgid "Zentyal web server"
-msgstr "Log pozorovatel"
+msgstr "Zentyal web server"
 
 #: src/EBox/Event/Dispatcher/Jabber.pm:165
 msgid "Admin Jabber account"
@@ -37,17 +36,17 @@ msgstr "Jabber"
 #: src/EBox/Event/Dispatcher/Jabber.pm:228
 #, perl-brace-format
 msgid "Jabber server {serverName} is down or connection is not allowed"
-msgstr "Jabber server {serverName} je vypnutý, nebo připojení není povoleno"
+msgstr "Jabber server {serverName} je vypnutý, nebo odmítl připojení"
 
 #: src/EBox/Event/Dispatcher/Jabber.pm:258
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Subscription failed: {message}"
-msgstr "Přihlášení selhalo: {message}"
+msgstr "Nepodařilo se vytvořit účet: {message}"
 
 #: src/EBox/Event/Dispatcher/Jabber.pm:265
 #, perl-brace-format
 msgid "Authorization failed: {result} - {message}"
-msgstr "Autorizace se nezdařila: {result} - {message}"
+msgstr "Nepodařilo se přihlásit: {result} - {message}"
 
 #: src/EBox/Event/Dispatcher/RSS.pm:218
 #, perl-brace-format
@@ -59,21 +58,20 @@ msgid "RSS"
 msgstr "RSS"
 
 #: src/EBox/Event/Dispatcher/RSS.pm:289
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Zentyal alerts channel for {hostname}"
-msgstr "Kanál upozornění systému eBox ze stanice {hostname}"
+msgstr "Kanál upozornění systému Zentyal pro {hostname}"
 
 #: src/EBox/Event/Dispatcher/RSS.pm:292
-#, fuzzy
 msgid "This channel tracks what happens on this Zentyal machine along the time"
-msgstr ""
-"Tento kanál průběžně sleduje události na tomto počítači se systémem eBox"
+msgstr "Tento kanál průběžně sleduje události na počítači se systémem Zentyal"
 
 #: src/EBox/Event/Dispatcher/RSS.pm:312
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "The event has happened in Zentyal {hostname} from {source}"
 msgstr ""
-"Událost, která nastala v systému eBox na stanici {hostname} v modulu {source}"
+"Událost, která nastala v systému Zentyal na stanici {hostname} v modulu "
+"{source}"
 
 #: src/EBox/Event/Dispatcher/RSS.pm:316
 #, perl-brace-format
@@ -109,7 +107,7 @@ msgstr "Sleduje, zda je na diskovém oddílu dostatek volného místa"
 #: src/EBox/Event/Watcher/Runit.pm:112
 #, fuzzy, perl-brace-format
 msgid "The following modules are not running but they are enabled: {modules}\n"
-msgstr "Následující moduly neběží: {modules}\n"
+msgstr "Následující moduly neběží, ale jsou povoleny : {modules}\n"
 
 #: src/EBox/Event/Watcher/Runit.pm:141
 msgid "Service"
@@ -119,7 +117,7 @@ msgstr "Služba"
 #, fuzzy
 msgid "Check if any Zentyal service is not running when it is enabled"
 msgstr ""
-"Zkontrolujte, zda-li jakákoliv eBox služba není spuštěna, ikdyž by měla"
+"Zkontrolujte, zda-li jakákoliv Zentyal služba není spuštěna, ikdyž by měla"
 
 #: src/EBox/Event/Watcher/Runit.pm:228
 #, perl-brace-format
@@ -2198,9 +2196,8 @@ msgid "There are no unsaved changes."
 msgstr ""
 
 #: src/templates/hostname.mas:9
-#, fuzzy
 msgid "Change Hostname"
-msgstr "Změny uloženy"
+msgstr "Změnit Hostname"
 
 #: src/templates/hostname.mas:10
 msgid ""
@@ -2225,16 +2222,17 @@ msgid "There are unsaved changes, if you log out now they will be lost."
 msgstr ""
 
 #: src/templates/logout/index.mas:15
+#, fuzzy
 msgid "There are no unsaved changes in this session."
-msgstr ""
+msgstr "Nejsou žádné neuložené změny v této relaci."
 
 #: src/templates/logout/index.mas:19
 msgid "Exit"
-msgstr ""
+msgstr "Exit"
 
 #: src/templates/backupTabs.mas:13
 msgid "Local Backup"
-msgstr ""
+msgstr "Lokální záloha"
 
 #: src/templates/backupTabs.mas:18
 #, fuzzy
@@ -2247,7 +2245,7 @@ msgstr ""
 
 #: src/templates/login/index.mas:40
 msgid "Warning: Caps Lock is enabled"
-msgstr ""
+msgstr "Upozornění: máte zaplý Caps Lock"
 
 #: src/templates/login/index.mas:43
 #, perl-brace-format
@@ -2255,6 +2253,8 @@ msgid ""
 "Warning: Unfortunately Internet Explorer is not yet supported on Zentyal. "
 "Please use {url} instead."
 msgstr ""
+"Upozornění: Bohužel Internet Explorer zatím není pro Zentyal podporován. "
+"Prosím, použijte místo něj {url}."
 
 #: src/templates/login/index.mas:46
 #, perl-brace-format
@@ -2263,10 +2263,13 @@ msgid ""
 "supported. Please, take into consideration that you might face some issues "
 "while navigating on Zentyal UI."
 msgstr ""
+"Upozornění: Používáte prohlížeč {url}, který není oficiálně podporován. "
+"Prosím, vezměte v úvahu, že by jste mohli mít nějaké problémy při navigaci v "
+"Zentyal UI."
 
 #: src/templates/login/index.mas:63
 msgid "Enter"
-msgstr ""
+msgstr "Enter"
 
 #: src/templates/headTitle.mas:20
 msgid "Remote services control panel"
@@ -2289,23 +2292,25 @@ msgstr ""
 
 #: src/templates/configureView.mas:50
 msgid "Accept"
-msgstr ""
+msgstr "Potvrdit"
 
 #: src/templates/port.mas:9
 msgid "Administration Interface TCP Port"
-msgstr ""
+msgstr "Číslo TCP portu pro administrační rozhraní"
 
 #: src/templates/halt.mas:10
 msgid "You might lose your Internet connection if this machine is halted."
 msgstr ""
+"Pokud se vypne tento počítač, může dojít ke ztrátě vašeho připojení k "
+"internetu."
 
 #: src/templates/halt.mas:14
 msgid "Halt"
-msgstr ""
+msgstr "Vypnout"
 
 #: src/templates/halt.mas:16
 msgid "Reboot"
-msgstr ""
+msgstr "Restart"
 
 #: src/templates/bug.mas:9
 msgid ""
@@ -2313,11 +2318,16 @@ msgid ""
 "system. The file will be useful if you want to report a problem or seek "
 "support."
 msgstr ""
+"Tato stránka vám umožňuje generovat soubor s informacemi o stavu vašeho "
+"systému. Soubor bude užitečný, pokud chcete nahlásit problém nebo hledat "
+"podporu. "
 
+# report = sestavy ?
 #: src/templates/bug.mas:13
+#, fuzzy
 msgid "It may take several minutes to generate the report. Please be patient."
-msgstr ""
+msgstr "Generování reportu může trvat několik minut. Prosím, buďte trpěliví."
 
 #: src/templates/bug.mas:19
 msgid "Download configuration report file"
-msgstr ""
+msgstr "Stáhněte si konfigurační zprávu "

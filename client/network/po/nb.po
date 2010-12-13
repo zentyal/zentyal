@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: ebox-network 0.12.99\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-08-29 01:25+0200\n"
-"PO-Revision-Date: 2010-02-15 06:38+0100\n"
-"Last-Translator: Ronny Gonzales <gonzito@online.no>\n"
+"PO-Revision-Date: 2010-10-27 14:17+0200\n"
+"Last-Translator: Ronny Gonzales <ronny@kcl.no>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -423,9 +423,8 @@ msgid "static route"
 msgstr "statisk rute"
 
 #: src/EBox/Model/DNSResolver.pm:77
-#, fuzzy
 msgid "IP address of the DNS server that Zentyal will use to resolve names."
-msgstr "IP adressen til DNS serveren som eBox vil bruke til å slå opp navn."
+msgstr "IP adressen til DNS serveren som Zentyal vil bruke til å slå opp navn."
 
 #: src/EBox/Model/DNSResolver.pm:83 src/templates/Wizard/network.mas:86
 #: src/templates/Wizard/network.mas:90
@@ -441,15 +440,14 @@ msgid "name server"
 msgstr "navn server"
 
 #: src/EBox/Model/DNSResolver.pm:110
-#, fuzzy
 msgid ""
 "<p>Here you can add the name server resolvers that Zentyal will use.</"
 "p><p>Note that these settings may be overriden if you have any network "
 "interface configured via DHCP</p>"
 msgstr ""
-"<p>Her kan du legge til navn server oppslagerne som eBox vil bruke..</"
-"p><p>NB. Disse innstillingene kan bli overskrevet om du har nettverks "
-"grensesnitt konfigurert via DHCP</p>"
+"<p>Her kan du legge til navn server oppslagerne som Zentyal vil "
+"bruke..</p><p>NB. Disse innstillingene kan bli overskrevet om du har "
+"nettverks grensesnitt konfigurert via DHCP</p>"
 
 #: src/EBox/Model/WANFailoverOptions.pm:71
 msgid "Time between checks"
@@ -468,23 +466,24 @@ msgid "These options affect to all the tests."
 msgstr "Disse valgene påvirker alle testene."
 
 #: src/EBox/Model/Proxy.pm:72
-#, fuzzy
 msgid "Proxy server"
-msgstr "navn server"
+msgstr "Proxy server"
 
 #: src/EBox/Model/Proxy.pm:78
 msgid "Proxy port"
-msgstr ""
+msgstr "Proxy port"
 
 #: src/EBox/Model/Proxy.pm:86
 msgid "Proxy"
-msgstr ""
+msgstr "Proxy"
 
 #: src/EBox/Model/Proxy.pm:90
 msgid ""
 "This settings will be used to allow Zentyal to access the Internet if an "
 "HTTP proxy is needed."
 msgstr ""
+"Denne instillingen vil bli brukt for å gi Zential tilgang til Internet om en "
+"HTTP proxy er nødvendig."
 
 #: src/EBox/Model/MultiGwRulesOptions.pm:43
 msgid "Enable"
@@ -524,9 +523,8 @@ msgstr ""
 "standard ruter må du kjøre: "
 
 #: src/EBox/Network.pm:106
-#, fuzzy
 msgid "Enable Zentyal DHCP hook"
-msgstr "Aktiver eBox DHCP hook"
+msgstr "Aktiver Zentyal DHCP hook"
 
 #: src/EBox/Network.pm:107
 msgid ""
@@ -537,42 +535,36 @@ msgstr ""
 "standar rute tabellen. "
 
 #: src/EBox/Network.pm:125
-#, fuzzy
 msgid "Zentyal will set your network configuration"
-msgstr "eBox vil sette din nettverks konfigurasjon"
+msgstr "Zentyal vil sette din nettverks konfigurasjon"
 
 #: src/EBox/Network.pm:130
-#, fuzzy
 msgid "Zentyal will set your DNS configuration"
-msgstr "eBox vil sette din DNS konfigurasjon"
+msgstr "Zentyal vil sette din DNS konfigurasjon"
 
 #: src/EBox/Network.pm:135
-#, fuzzy
 msgid "Zentyal will set your DHCP client configuration"
-msgstr "eBox vil sette din DHCP client konfigurasjon"
+msgstr "Zentyal vil sette din DHCP client konfigurasjon"
 
 #: src/EBox/Network.pm:140 src/EBox/Network.pm:145
-#, fuzzy
 msgid "Zentyal will set your ddclient configuration"
-msgstr "eBox vil sette din ddclient konfigurasjon"
+msgstr "Zentyal vil sette din ddclient konfigurasjon"
 
 #: src/EBox/Network.pm:150 src/EBox/Network.pm:155
-#, fuzzy
 msgid "Zentyal will store your PPPoE passwords"
-msgstr "eBox vil lagre dine PPPoE passord"
+msgstr "Zentyal vil lagre dine PPPoE passord"
 
 #: src/EBox/Network.pm:162
-#, fuzzy
 msgid "Zentyal will add a DSL provider configuration for PPPoE"
-msgstr "eBox vil legge til en DSL leverandør konfigurasjon for PPPoE"
+msgstr "Zentyal vil legge til en DSL leverandør konfigurasjon for PPPoE"
 
 #: src/EBox/Network.pm:169
 msgid "Zentyal will set HTTP proxy for all users"
-msgstr ""
+msgstr "Zentyal vil sette HTTP proxy for alle brukere"
 
 #: src/EBox/Network.pm:172
 msgid "Zentyal will set HTTP proxy for APT"
-msgstr ""
+msgstr "Zentyal vil sette HTTP proxy for APT"
 
 #: src/EBox/Network.pm:902 src/EBox/Network.pm:906
 msgid "Virtual interface name"
@@ -650,14 +642,12 @@ msgid "up"
 msgstr "oppe"
 
 #: src/EBox/Network.pm:3492
-#, fuzzy
 msgid "external"
-msgstr "Ekstern"
+msgstr "ekstern"
 
 #: src/EBox/Network.pm:3494
-#, fuzzy
 msgid "internal"
-msgstr "Ekstern"
+msgstr "intern"
 
 #: src/EBox/Network.pm:3500
 msgid "link ok"
@@ -709,9 +699,8 @@ msgid "Traffic rate monitoring"
 msgstr "Trafikk hastighets overvåkning"
 
 #: src/EBox/Network/Composite/Gateway.pm:56
-#, fuzzy
 msgid "Gateways and Proxy"
-msgstr "Gateway"
+msgstr "Gateway og Proxy"
 
 #: src/EBox/Network/Composite/WANFailover.pm:77
 msgid ""
@@ -852,7 +841,7 @@ msgstr "passord"
 
 #: src/EBox/CGI/Iface.pm:106
 msgid "bridge"
-msgstr ""
+msgstr "bro"
 
 #: src/EBox/CGI/EnableBalanceTraffic.pm:42
 msgid "traffic balance"
@@ -871,37 +860,33 @@ msgid "virtual interface name"
 msgstr "virtuelt grensesnitts navn"
 
 #: src/templates/Wizard/interfaces.mas:7 src/templates/Wizard/network.mas:23
-#, fuzzy
 msgid "Network interfaces"
-msgstr "Nettverks Grensesnitt"
+msgstr "Nettverks grensesnitt"
 
 #: src/templates/Wizard/interfaces.mas:10
-#, fuzzy
 msgid "Select external network interfaces"
-msgstr "nettverks grensesnitt"
+msgstr "Velg eksterne nettverks grensesnitt"
 
 #: src/templates/Wizard/interfaces.mas:11
 msgid ""
 "You will not be able to connect to Zentyal administration page through them"
-msgstr ""
+msgstr "Du vil ikke kunne koble til Zentyal administrasjons siden gjennom dem"
 
 #: src/templates/Wizard/network.mas:26
-#, fuzzy
 msgid "Configure network for external interfaces"
-msgstr "Konfigurer nettverks grensesnitt"
+msgstr "Konfigurer nettverk for eksterne grensesnitt"
 
 #: src/templates/Wizard/network.mas:27
 msgid "Now you can set IP addresses and networks for each interface"
-msgstr ""
+msgstr "Nå kan du sette IP adresse og nettverk for hvert grensesnitt"
 
 #: src/templates/Wizard/network.mas:40 src/templates/ifaces.mas:45
 msgid "Method"
 msgstr "Metode"
 
 #: src/templates/Wizard/network.mas:43
-#, fuzzy
 msgid "Don't configure"
-msgstr "DNS konfigurert"
+msgstr "Ikke konfigurer"
 
 #: src/templates/Wizard/network.mas:82
 msgid "Gateway"
@@ -1009,7 +994,7 @@ msgstr "Koffert (802.1q)"
 
 #: src/templates/ifaces.mas:80 src/templates/ifaces.mas:82
 msgid "Bridged"
-msgstr ""
+msgstr "Brolagt"
 
 #: src/templates/ifaces.mas:87 src/templates/ifaces.mas:89
 msgid "Not set"
@@ -1020,17 +1005,16 @@ msgid "External (WAN)"
 msgstr "Ekstern (WAN)"
 
 #: src/templates/ifaces.mas:111
-#, fuzzy
 msgid ""
 "Check this if you are using Zentyal as a gateway and this interface is "
 "connected to your Internet router."
 msgstr ""
-"Huk av her hvis du bruker eBox som en gateway og dette grensesnittet er "
+"Huk av her hvis du bruker Zentyal som en gateway og dette grensesnittet er "
 "tilkoblet din Internet router."
 
 #: src/templates/ifaces.mas:168
 msgid "Bridge"
-msgstr ""
+msgstr "Bro"
 
 #: src/templates/ifaces.mas:189
 msgid "User name"

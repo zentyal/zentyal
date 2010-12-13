@@ -7,8 +7,8 @@ msgstr ""
 "Project-Id-Version: ebox-trafficshaping 0.12.2\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-08-28 23:31+0200\n"
-"PO-Revision-Date: 2009-05-28 20:29+0200\n"
-"Last-Translator: Sudel <sudel@freemail.it>\n"
+"PO-Revision-Date: 2010-09-15 11:03+0200\n"
+"Last-Translator: Simone Bernini <lemorragia@libero.it>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -21,30 +21,31 @@ msgid "Traffic Shaping"
 msgstr "Traffic Shaping"
 
 #: src/EBox/TrafficShaping.pm:140
+#, fuzzy
 msgid "Add iptables rules to mangle table"
-msgstr ""
+msgstr "Aggiungi regole di iptables alla tabella di filtraggio"
 
 #: src/EBox/TrafficShaping.pm:141
+#, fuzzy
 msgid "To mark packets with different priorities and rates"
-msgstr ""
+msgstr "Per marcare i pacchetti con differenti priorita' e quantita' precise"
 
 #: src/EBox/TrafficShaping.pm:145
 msgid "Add tc rules"
-msgstr ""
+msgstr "Aggiungi regole tc"
 
 #: src/EBox/TrafficShaping.pm:146
 msgid "To implement the traffic shaping rules"
-msgstr ""
+msgstr "Per implementare le regole di traffic shaping"
 
 #: src/EBox/TrafficShaping.pm:463
-#, fuzzy
 msgid "Rules"
-msgstr "regola"
+msgstr "Regole"
 
 #: src/EBox/TrafficShaping.pm:465
 #, fuzzy
 msgid "Interface Rates"
-msgstr "Interfaccia"
+msgstr "Quantita' di traffico dell'interfaccia"
 
 #: src/EBox/TrafficShaping.pm:539 src/EBox/TrafficShaping.pm:691
 #: src/EBox/TrafficShaping.pm:1109 src/EBox/TC.pm:107
@@ -137,8 +138,9 @@ msgid "Service"
 msgstr "Servizio"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:394
+#, fuzzy
 msgid "Port based service"
-msgstr ""
+msgstr "Servizio data la sua porta"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:406
 msgid "Source"
@@ -179,25 +181,34 @@ msgid "Kbit/s"
 msgstr "Kbit/s"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:472
+#, fuzzy
 msgid ""
 "Note that The sum of all guaranteed rates cannot exceed your total "
 "bandwidth. 0 means unguaranteed rate."
 msgstr ""
+"Nota che la somma di tutte le quantita' di banda garantite, non puo' "
+"eccedere la tua banda totale.0 significa traffico non garantito."
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:486
 msgid "Traffic will not exceed this rate. 0 means unlimited rate."
 msgstr ""
+"Il traffico non superera' questo valore.0 significa traffico senza limite di "
+"banda."
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:493
 #, perl-brace-format
 msgid "Rules list for {printableIndex}"
-msgstr "Elenco regole pe {printableIndex}"
+msgstr "Elenco regole per {printableIndex}"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:502
+#, fuzzy
 msgid ""
 "Note that if the interface is internal, the traffic flow comes from Internet "
 "to inside and the external is the other way around"
 msgstr ""
+"Nota bene che se l'interfaccia e' interna, il flusso di traffico scorre da "
+"internet VERSO questa interfaccia, e le interfacce esterne seguono il "
+"contrario di questa regola"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:507
 msgid "rule"
@@ -228,63 +239,72 @@ msgid ""
 "Application based protocols are slower but more effective as they check the "
 "content of any packet to match a service."
 msgstr ""
+"Protocolli basati su una precisa porta, usano il numero di porta per "
+"localizzare un servizio.Protocolli basati su una precisa applicazione sono "
+"piu lenti anche se piu efficaci, per fare traffic shaping, in quanto "
+"controllano il contenuto di ogni singolo pacchetto per fare match con una "
+"precisa applicazione."
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:688
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:705
+#, fuzzy
 msgid "Application based service"
-msgstr ""
+msgstr "Servizio definito in base all'applicazione"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:696
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:712
+#, fuzzy
 msgid "Application based service group"
-msgstr ""
+msgstr "Gruppo di un servizio definito in base all'applicazione"
 
 #: src/EBox/TrafficShaping/Model/InterfaceRate.pm:98
-#, fuzzy
 msgid "External Interface"
-msgstr "{iface} (interfaccia esterna)"
+msgstr "Interfaccia esterna"
 
 #: src/EBox/TrafficShaping/Model/InterfaceRate.pm:103
 msgid "Upload"
-msgstr ""
+msgstr "Upload"
 
 #: src/EBox/TrafficShaping/Model/InterfaceRate.pm:107
+#, fuzzy
 msgid "Upload rate in Kbits/s through this interface"
-msgstr ""
+msgstr "Rate di dati in upload(Kbits/s) attraverso questa interfaccia"
 
 #: src/EBox/TrafficShaping/Model/InterfaceRate.pm:111
 msgid "Download"
-msgstr ""
+msgstr "Download"
 
 #: src/EBox/TrafficShaping/Model/InterfaceRate.pm:115
+#, fuzzy
 msgid "Download rate in Kbits/s through this interface"
-msgstr ""
+msgstr "Rate di dati in download(Kbits/s) attraverso questa interfaccia"
 
 #: src/EBox/TrafficShaping/Model/InterfaceRate.pm:122
 #: src/EBox/TrafficShaping/Model/InterfaceRate.pm:123
 #, fuzzy
 msgid "External Interface Rates"
-msgstr "{iface} (interfaccia esterna)"
+msgstr "Rate di dati su questa interfaccia esterna"
 
 #: src/EBox/TrafficShaping/Model/InterfaceRate.pm:130
+#, fuzzy
 msgid "rate"
-msgstr ""
+msgstr "rate"
 
 #: src/EBox/TrafficShaping/Model/InterfaceRate.pm:155
 msgid "You need at least one internal interface and one external interface"
-msgstr ""
+msgstr "Hai bisogno almeno di un interfaccia interna e un interfaccia esterna"
 
 #: src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:83
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Traffic Shaping is applied when Zentyal is acting as a gateway. To achieve "
 "this, you need at least an internal and an external interface. Check your "
 "interface configuration to match, at {openhref}Network->Interfaces{closehref}"
 msgstr ""
-"Il traffic shaping viene applicato quando eBox funziona come gateway. Per "
+"Il traffic shaping viene applicato quando Zentyal funziona come gateway. Per "
 "ottenere questo, devi avere almeno un'interfaccia interna ed una esterna. "
-"Controlla che la tua configurazione interfaccia corrisponda, su {openhref}"
-"Rete ->Interfacce{closehref}"
+"Controlla che la tua configurazione interfaccia corrisponda, su "
+"{openhref}Rete ->Interfacce{closehref}"
 
 #: src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:92
 #, perl-brace-format

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-radius 1.4\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-08-28 23:38+0200\n"
-"PO-Revision-Date: 2010-04-16 17:00+0200\n"
+"PO-Revision-Date: 2010-11-05 11:53+0100\n"
 "Last-Translator: Michal Formánek <formi@seznam.cz>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
@@ -18,9 +18,8 @@ msgstr ""
 "X-Generator: Pootle 1.1.0\n"
 
 #: migration/0001_add_firewall_services.pl:45
-#, fuzzy
 msgid "Zentyal RADIUS system"
-msgstr "eBox RADIUS systém"
+msgstr "Zentyal RADIUS systém"
 
 #: src/EBox/Model/Clients.pm:105
 msgid "Client"
@@ -31,9 +30,8 @@ msgid "IP Address"
 msgstr "IP adresa"
 
 #: src/EBox/Model/Clients.pm:118
-#, fuzzy
 msgid "Shared Secret"
-msgstr "Shared Secret"
+msgstr "Sdílení tajného hesla"
 
 #: src/EBox/Model/Clients.pm:126
 msgid "RADIUS Clients"
@@ -49,11 +47,11 @@ msgstr "Všichni uživatelé"
 
 #: src/EBox/Model/Auth.pm:128
 msgid "Group allowed to authenticate"
-msgstr "Skupina nemá právo ověřovat"
+msgstr "Skupina s povolenou autentizací"
 
 #: src/EBox/Model/Auth.pm:138
 msgid "General configuration"
-msgstr "Obecné nastavení"
+msgstr "Hlavní nastavení"
 
 #: src/EBox/Model/Auth.pm:142
 msgid "RADIUS server configuration"
@@ -68,37 +66,36 @@ msgid "Create RADIUS certificates for TTLS"
 msgstr "Vytvořit RADIUS certifikáty pro TTLS"
 
 #: src/EBox/Radius.pm:101
-#, fuzzy
 msgid ""
 "Zentyal will create the needed certificates for TTLS in /etc/freeradius/"
 "certs/."
-msgstr "eBox vytvoří potřebné certifikáty pro TTLS v /etc/freeradius/certs/."
+msgstr ""
+"Zentyal vytvoří certifikáty potřebné pro TTLS ve složce "
+"/etc/freeradius/certs/."
 
 #: src/EBox/Radius.pm:121
-#, fuzzy
 msgid "To configure allowed LDAP group."
-msgstr "Konfigurovat povolenou LDAP skupinu"
+msgstr "Nastavit povolenou LDAP skupinu."
 
 #: src/EBox/Radius.pm:125
 msgid "To configure RADIUS LDAP module."
-msgstr "Konfigurovat modul RADIUS LDAP"
+msgstr "Nastavit modul RADIUS LDAP."
 
 #: src/EBox/Radius.pm:129
 msgid "To configure RADIUS clients."
-msgstr "Konfigurovat RADIUS klienty"
+msgstr "Nastavit RADIUS klienty."
 
 #: src/EBox/Radius.pm:133
-#, fuzzy
 msgid "To configure RADIUS EAP."
-msgstr "Konfigurovat modul RADIUS LDAP"
+msgstr "Nastavit modul RADIUS EAP."
 
 #: src/EBox/Radius.pm:137
 msgid "To configure default RADIUS vhost."
-msgstr "Konfigurovat výchozí RADIUS vhost"
+msgstr "Nastavit výchozí RADIUS vhost."
 
 #: src/EBox/Radius.pm:141
 msgid "To configure RADIUS inner-tunnel vhost."
-msgstr "Konfigurovat RADIUS vhost vnitřní-tunel"
+msgstr "Nastavit RADIUS inner-tunnel vhost."
 
 #: src/EBox/Radius.pm:304 src/EBox/Radius.pm:328
 #: src/EBox/Composite/General.pm:64

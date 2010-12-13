@@ -9,8 +9,8 @@ msgstr ""
 "developers@zentyal.org\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-08-28 23:31+0200\n"
-"PO-Revision-Date: 2009-09-04 14:01+0200\n"
-"Last-Translator: Ronny Gonzales <gonzito@online.no>\n"
+"PO-Revision-Date: 2010-10-08 11:17+0200\n"
+"Last-Translator: Ronny Gonzales <ronny@kcl.no>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -262,9 +262,8 @@ msgid "Download"
 msgstr "Nedlasting"
 
 #: src/EBox/TrafficShaping/Model/InterfaceRate.pm:115
-#, fuzzy
 msgid "Download rate in Kbits/s through this interface"
-msgstr "Opplastings rate i Kbits/s gjennom dette grensesnittet"
+msgstr "Nedlastings rate i Kbits/s gjennom dette grensesnittet"
 
 #: src/EBox/TrafficShaping/Model/InterfaceRate.pm:122
 #: src/EBox/TrafficShaping/Model/InterfaceRate.pm:123
@@ -280,13 +279,13 @@ msgid "You need at least one internal interface and one external interface"
 msgstr "Du trenger minst et internt grensesnitt og et eksternt grensesnitt"
 
 #: src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:83
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Traffic Shaping is applied when Zentyal is acting as a gateway. To achieve "
 "this, you need at least an internal and an external interface. Check your "
 "interface configuration to match, at {openhref}Network->Interfaces{closehref}"
 msgstr ""
-"Trafikk Forming brukes når eBox fungerer som gateway. For å oppnå dette, "
+"Trafikk Forming brukes når Zentyal fungerer som gateway. For å oppnå dette, "
 "trenger du minst et intert og et ekstern grensesnitt. Kontroller din "
 "grensesnitt konfigurasjon på {openhref}Netverk->Grensesnitt{closehref}"
 
@@ -341,14 +340,13 @@ msgstr ""
 "Begrenset Rate {lR} kbit/s bør være høyere enn Garantert Rate {gR}kbit/s"
 
 #: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:246
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Limited Rate {lR} kbit/s should be lower than {maxLR}kbit/s or you should "
 "increase maximum upload traffic associated to external interfaces"
 msgstr ""
 "Begrenset Rate {lR} kbit/s bør være lavere enn {maxLR}kbit/s ellers bør du "
-"du øke maksimums opplastings trafikk til gatewayene tilkoblet ditte eksterne "
-"grensesnittet"
+"du øke maksimums opplastings trafikk tildelt til eksterne grensesnitt"
 
 #: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:403
 #, perl-brace-format

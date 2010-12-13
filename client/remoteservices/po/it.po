@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: ebox-remoteservices 1.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-08-28 23:38+0200\n"
-"PO-Revision-Date: 2010-08-17 14:18+0200\n"
-"Last-Translator: Luca Erre <LUCA.etrusco@gmail.com>\n"
+"PO-Revision-Date: 2010-09-15 12:30+0200\n"
+"Last-Translator: Simone Bernini <lemorragia@libero.it>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -18,20 +18,21 @@ msgstr ""
 "X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/RemoteServices.pm:82
+#, fuzzy
 msgid "Zentyal Cloud Client"
-msgstr ""
+msgstr "Client Zentyal Cloud"
 
 #: src/EBox/RemoteServices.pm:217
 msgid "Not subscribed"
-msgstr ""
+msgstr "Non iscritto"
 
 #: src/EBox/RemoteServices.pm:219
 msgid "Subscribed"
-msgstr ""
+msgstr "Iscritto"
 
 #: src/EBox/RemoteServices.pm:251
 msgid "Subscription"
-msgstr ""
+msgstr "Iscrizione"
 
 #: src/EBox/RemoteServices.pm:259
 #: src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:91
@@ -40,42 +41,50 @@ msgstr "Accesso al supporto remoto"
 
 #: src/EBox/RemoteServices.pm:262
 msgid "System"
-msgstr ""
+msgstr "Sistema"
 
 #: src/EBox/RemoteServices.pm:312
+#, fuzzy
 msgid "Zentyal Cloud Connection"
-msgstr ""
+msgstr "Connessione Zentyal Cloud"
 
 #: src/EBox/RemoteServices.pm:425
+#, fuzzy
 msgid ""
 "The subscribed hostname is only available if the host is subscribed to "
 "Zentyal Cloud"
 msgstr ""
+"L'hostname di iscrizione e' disponibile solo se l'host e' iscritto alla "
+"Zentyal Cloud"
 
 #: src/EBox/RemoteServices.pm:454
+#, fuzzy
 msgid ""
 "The monitor gatherer IP addresses are only available if the host is "
 "subscribed to Zentyal Cloud"
 msgstr ""
+"Gli indirizzi IP dei monitor gatherer sono disponibili solo se l'host e' "
+"iscritto alla Zentyal Cloud"
 
 #: src/EBox/RemoteServices.pm:599
 msgid "Zentyal must be subscribed to reload the bundle"
-msgstr ""
+msgstr "Zentyal deve essere iscritto, per ricaricare il bundle software"
 
 #: src/EBox/RemoteServices.pm:993
 #, perl-brace-format
 msgid "Not connected. Check VPN logs in {path}"
-msgstr ""
+msgstr "Non connesso.Controlla i log della VPN in {path}"
 
 #: src/EBox/RemoteServices.pm:997
 msgid "Connected"
-msgstr ""
+msgstr "Connesso"
 
 #: src/EBox/RemoteServices.pm:1000
 #: src/EBox/Event/Dispatcher/ControlCenter.pm:160
 #: src/EBox/RemoteServices/Composite/General.pm:62
+#, fuzzy
 msgid "Zentyal Cloud"
-msgstr ""
+msgstr "Zentyal Cloud"
 
 #: src/EBox/Event/Dispatcher/ControlCenter.pm:147
 msgid "Control panel"
@@ -90,13 +99,15 @@ msgid "average"
 msgstr "media"
 
 #: src/EBox/RemoteServices/Audit/Password.pm:295
+#, fuzzy
 msgid "weak"
-msgstr ""
+msgstr "debole"
 
 #: src/EBox/RemoteServices/Audit/Password.pm:398
 #, perl-brace-format
+#, fuzzy
 msgid "No {level} passwords were found in users"
-msgstr ""
+msgstr "Nessuna {level} password trovata tra gli utenti"
 
 #: src/EBox/RemoteServices/Audit/Password.pm:403
 #, perl-brace-format
@@ -105,23 +116,22 @@ msgstr "Gli utenti seguenti hanno {level} password: {users}"
 
 #: src/EBox/RemoteServices/SupportAccess.pm:68
 msgid "Cannot get the restricted addresses for remote support"
-msgstr ""
+msgstr "Impossibile ottenere gli indirizzi riservati al supporto remoto"
 
 #: src/EBox/RemoteServices/SupportAccess.pm:128
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "There exists already a user {u} and it does not seem created by Zentyal. "
 "Until this user is renamed or removed it would be impossible to set up "
 "remote support access"
 msgstr ""
-"Esiste già un utente {u} e non sembra creato da eBox. Finché questo utente "
-"non viene rimosso o rinominato è impossibile configurare il remote support "
-"access"
+"Esiste già un utente {u} e non sembra creato da Zentyal. Finché questo "
+"utente non viene rimosso o rinominato è impossibile configurare il supporto "
+"all'assistenza remota"
 
 #: src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:75
-#, fuzzy
 msgid "Allow remote access to Zentyal staff"
-msgstr "Permetti all'eBox staff l'accesso remoto"
+msgstr "Permetti allo staff di Zentyal l'accesso remoto"
 
 #: src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:81
 msgid "Allow access from any internet address"
@@ -143,12 +153,17 @@ msgstr ""
 msgid ""
 "Remote access from any address requires that remote access support is enabled"
 msgstr ""
+"L'accesso remoto da qualsiasi indirizzo richiede che il supporto all'accesso "
+"remoto sia abilitato"
 
 #: src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:129
 msgid ""
 "To restrict addresses you need that your Zentyal Server is subscribed to "
 "Zentyal Cloud. Either subscribe it or allow access from any address"
 msgstr ""
+"Per limitare gli indirizzi e' necessario che il tuo server Zentyal sia "
+"iscritto alla Zentyal Cloud.Iscrivilo o permetti l'accesso da qualunque "
+"indirizzo"
 
 #: src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:140
 #, perl-brace-format
@@ -161,6 +176,14 @@ msgid ""
 "To join the remote session, login in the shell as a user belonging to the "
 "'adm' group and use the command: '{cmd}'."
 msgstr ""
+"Abilitare il supporto remoto permettera' allo staff di Zentyal di accedere "
+"liberamente al tuo computer.\n"
+"Puoi usare il comando 'screen' per partecipare ad una shell remota avviata "
+"da uno dello staff.Per permettere questo, il bit SUID del programma 'screen' "
+"viene abilitato.Una volta che l'opzione del supporto remoto e' "
+"disabilitata, anche il SUID bit di 'screen' viene disabilitato.\n"
+"Per entrare in una sessione remota di shell, fai login come un utente che "
+"faccia parte del gruppo 'adm' e usa il comando : '{cmd}'"
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:130
 msgid ""
@@ -185,76 +208,83 @@ msgstr "Fatto"
 #: src/EBox/RemoteServices/Model/Subscription.pm:259
 #, fuzzy, perl-brace-format
 msgid "Subscribing Zentyal will configure the {mods} and its dependencies "
-msgstr "Sottoscrivere un eBox configurerà {mods} e le sie dipendenze"
+msgstr "Iscrivere Zentyal configurerà i moduli {mods} e le loro dipendenze"
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:266
 #, fuzzy, perl-brace-format
 msgid "Subscribing Zentyal will enable the {mods} and its dependencies.<br/>"
-msgstr "Sottoscrivere un eBox ebiliterà il {mods} e le sue dipendenze"
+msgstr "Iscrivere Zentyal abiliterà i moduli {mods} e le loro dipendenze"
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:271
 msgid ""
 "Take into account that subscribing Zentyal could take a minute. Do not touch "
 "anything until subscribing process is done."
 msgstr ""
+"Tieni conto che iscrivere Zentyal potra' richiedere qualche minuto.Non "
+"toccare nulla fino a che il processo di iscrizione non e' completato."
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:307
+#, fuzzy
 msgid ""
 "Prior to make a subscription on remote services, save or discard changes in "
 "the OpenVPN module"
 msgstr ""
+"Prima di effettuare una registrazione ai servizi remoti di Zentyal, "
+"assicurati di salvare(o annullare) tutte le modifiche effettuate nel modulo "
+"OpenVPN"
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:327
 msgid "User Name or Email Address"
-msgstr ""
+msgstr "Nome utente o indirizzo mail"
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:335
 msgid "Server Name"
-msgstr ""
+msgstr "Nome server"
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:340
 #, fuzzy
 msgid "Choose a name for your server which is a valid subdomain name"
-msgstr "Scegli un nome per il tuo eBox che sia un nome di subdomain valido"
+msgstr ""
+"Scegli un nome per il tuo Zentyal che sia un nome di sottodominio valido"
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:347
 msgid "Password"
-msgstr ""
+msgstr "Password"
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:355
 #, fuzzy
 msgid "Zentyal subscription details"
-msgstr "Dettagli sottoscrizione eBox"
+msgstr "Dettagli iscrizione Zentyal"
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:356
 msgid "Delete data"
-msgstr "Elimina Informazioni"
+msgstr "Elimina dati"
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:359
+#, fuzzy
 msgid "Subscription to Zentyal Cloud"
-msgstr ""
+msgstr "Iscrizione alla Zentyal Cloud"
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:360
+#, fuzzy
 msgid "Subscribe"
-msgstr ""
+msgstr "Iscrivi"
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:516
-#, fuzzy
 msgid " module"
-msgstr "Modulo"
+msgstr "modulo"
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:522
 msgid " and "
-msgstr ""
+msgstr "e"
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:522
-#, fuzzy
 msgid " modules"
-msgstr "Modulo"
+msgstr "moduli"
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:539
 msgid "Action"
-msgstr ""
+msgstr "Azione"
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:540
 #: src/EBox/RemoteServices/Model/Subscription.pm:561
@@ -263,11 +293,11 @@ msgstr "Motivo"
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:560
 msgid "File"
-msgstr ""
+msgstr "File"
 
 #: src/EBox/RemoteServices/Model/AccessSettings.pm:79
 msgid "Access from control panel without password"
-msgstr "Accedi al Pannello di Controllo senza password"
+msgstr "Accedi dal Pannello di Controllo senza password"
 
 #: src/EBox/RemoteServices/Model/AccessSettings.pm:87
 msgid "Access settings"
@@ -290,11 +320,11 @@ msgstr "Non puo essere più lunga di {n} caratteri"
 #: src/EBox/RemoteServices/CSV.pm:78
 #, perl-brace-format
 msgid "Skipping bad formed line: {l}"
-msgstr ""
+msgstr "Ignoro la linea malformattata : {l}"
 
 #: src/EBox/RemoteServices/Base.pm:214
 msgid "No ebox-services DNS key found"
-msgstr ""
+msgstr "Chiave DNS ebox-services non trovata"
 
 #: src/EBox/RemoteServices/Base.pm:259
 #, perl-brace-format
@@ -307,7 +337,7 @@ msgstr "Impossibile creare una connessione SOAP"
 
 #: src/EBox/RemoteServices/Base.pm:381
 msgid "No domain key found for this service"
-msgstr ""
+msgstr "Nessuna chiave di dominio trovata per questo servizio"
 
 #: src/EBox/RemoteServices/ProxyBackup.pm:203
 #, perl-brace-format
@@ -322,11 +352,12 @@ msgstr "Backup inesistente:{n}"
 
 #: src/EBox/RemoteServices/ProxyBackup.pm:243
 msgid "Key for proxy backup service not found"
-msgstr ""
+msgstr "Chiave per il servizio di proxy backup non trovata"
 
 #: src/EBox/RemoteServices/Subscription.pm:110
+#, fuzzy
 msgid "Key for web subscription service not found"
-msgstr ""
+msgstr "Chiave per l'iscrizione via web non trovata"
 
 #: src/EBox/RemoteServices/Subscription.pm:421
 #, perl-brace-format
@@ -334,8 +365,9 @@ msgid "Cannot contact to {host}. Check your connection to the Internet"
 msgstr "Impossibile connettersi a {host}. Controlla la connessione ad internet"
 
 #: src/EBox/RemoteServices/Auth.pm:124
+#, fuzzy
 msgid "Key for service URN not found"
-msgstr ""
+msgstr "Chiave per il servizio URN non trovata"
 
 #: src/EBox/RemoteServices/Auth.pm:160
 #, perl-brace-format

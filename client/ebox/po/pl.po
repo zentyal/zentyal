@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox 0.12\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-08-28 23:35+0200\n"
-"PO-Revision-Date: 2010-08-27 13:50+0200\n"
+"PO-Revision-Date: 2010-09-11 10:35+0200\n"
 "Last-Translator: Robert Brzozowski <gnutar1@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
@@ -38,8 +38,8 @@ msgstr "Jabber"
 #, perl-brace-format
 msgid "Jabber server {serverName} is down or connection is not allowed"
 msgstr ""
-"Nie można uzyskać połączenia z serwerem Jabber {serverName}. Sprawdź, czy "
-"jest włączony"
+"Serwer Jabber {serverName} jest wyłączony lub nie masz praw do uzyskania "
+"połączenia"
 
 #: src/EBox/Event/Dispatcher/Jabber.pm:258
 #, perl-brace-format
@@ -67,7 +67,7 @@ msgstr "Kanał ostrzeżeń dla serwera {hostname}"
 
 #: src/EBox/Event/Dispatcher/RSS.pm:292
 msgid "This channel tracks what happens on this Zentyal machine along the time"
-msgstr ""
+msgstr "Kanał wskazuje co się wydarzyło na serwerze Zentyal w podanym czasie"
 
 #: src/EBox/Event/Dispatcher/RSS.pm:312
 #, perl-brace-format
@@ -240,7 +240,7 @@ msgstr ""
 #: src/EBox/Event/Watcher/RAID.pm:435
 #, perl-brace-format
 msgid "Status: {percentage} completed."
-msgstr "Stopień zaawansowania: {percentage} completed"
+msgstr "Stopień zaawansowania: ukończono {percentage} "
 
 #: src/EBox/Event/Watcher/RAID.pm:438
 #, perl-brace-format
@@ -279,7 +279,8 @@ msgid ""
 "A new component {compName} has been hot added to RAID device {arrayName} "
 "with status {status}"
 msgstr ""
-"Nowy dysk {compName} dodano do macierzy {arrayName} i ma status {status}"
+"Nowy dysk {compName} został dodany do macierzy {arrayName} i ma status "
+"{status}"
 
 #: src/EBox/Event/Watcher/RAID.pm:515
 #, perl-brace-format
@@ -392,7 +393,7 @@ msgstr "Czynność"
 #: src/EBox/Model/DataTable.pm:2833
 #, perl-brace-format
 msgid "Remove {num} rows of {rowName} from {model}{br}"
-msgstr "Usuń {num} kolumn(y) o nazwie {rowName} z modelu {model}{br}"
+msgstr "Usuń {num} kolumnę(y) o nazwie {rowName} z {model}{br}"
 
 #: src/EBox/Model/DataTable.pm:2904
 msgid "Page size"
@@ -481,7 +482,7 @@ msgstr "Zmień"
 
 #: src/EBox/Model/DataForm.pm:708 src/templates/progress.mas:26
 msgid "Done"
-msgstr "Wykonane"
+msgstr "Wykonano"
 
 #: src/EBox/Types/Int.pm:154
 msgid "Enter an integer number"
@@ -499,7 +500,7 @@ msgstr "Wartość nie może być mniejsza niż {m}"
 
 #: src/EBox/Types/DomainName.pm:117
 msgid "IP addresses are not allowed"
-msgstr "Podane adresy są niedopuszczalne"
+msgstr "Podane adresy są niedozwolone"
 
 #: src/EBox/Types/Float.pm:112
 msgid "Enter a float number"
@@ -577,11 +578,11 @@ msgstr "Obciążenie systemu"
 
 #: src/EBox/SysInfo.pm.in:108
 msgid "Uptime"
-msgstr "Czas"
+msgstr "Czas pracy"
 
 #: src/EBox/SysInfo.pm.in:109
 msgid "Users"
-msgstr "Użytkownicy"
+msgstr "Liczba użytkowników"
 
 #: src/EBox/SysInfo.pm.in:163 src/EBox/SysInfo.pm.in:256
 msgid "Module Status"
@@ -748,7 +749,7 @@ msgstr "Powinno być zgodne ze schematem 'user@domain[/resource]'"
 
 #: src/EBox/Events/Model/Dispatcher/RSS.pm:149
 msgid "Nobody"
-msgstr "Nikt"
+msgstr "Żaden"
 
 #: src/EBox/Events/Model/Dispatcher/RSS.pm:153
 msgid "IP address"

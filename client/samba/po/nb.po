@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: ebox-samba 0.12.99\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-08-28 23:41+0200\n"
-"PO-Revision-Date: 2010-02-01 10:42+0100\n"
-"Last-Translator: Ronny Gonzales <gonzito@online.no>\n"
+"PO-Revision-Date: 2010-10-08 13:28+0200\n"
+"Last-Translator: Ronny Gonzales <ronny@kcl.no>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -27,68 +27,59 @@ msgid "File Sharing"
 msgstr "Fil Deling"
 
 #: src/EBox/Samba.pm:89
-#, fuzzy
 msgid "Create Samba home directory for shares and groups"
-msgstr "Opprett Samba hjemme mappe for brukere og grupper"
+msgstr "Opprett Samba hjemme mappe for delte mapper og grupper"
 
 #: src/EBox/Samba.pm:90
-#, fuzzy
 msgid ""
 "Zentyal will create the directories for Samba shares and groups under /home/"
 "samba."
 msgstr ""
-"eBox vil opprette hjemme mappene for Samba brukere og grupper under /home/"
-"samba."
+"Zentyal vil opprette hjemme mappene for Samba brukere og grupper under "
+"/home/samba."
 
 #: src/EBox/Samba.pm:95
 msgid "Add LDAP schemas"
 msgstr "Legg til LDAP skjemaer"
 
 #: src/EBox/Samba.pm:96
-#, fuzzy
 msgid ""
 "Zentyal will add two LDAP schemas to the LDAP directory: samba and ebox."
-msgstr "eBox vil legge til to LDAP skjemaer: samba og ebox."
+msgstr "Zentyal vil legge til to LDAP skjemaer: samba og ebox."
 
 #: src/EBox/Samba.pm:101
 msgid "Set Samba LDAP admin dn password"
 msgstr "Sett Samba LDAP admin dn passord"
 
 #: src/EBox/Samba.pm:102
-#, fuzzy
 msgid "Zentyal will configure Samba to use the LDAP admin dn password."
-msgstr "eBox vil konfigurere Samba til å bruke LDAP admin dn passord"
+msgstr "Zentyal vil konfigurere Samba til å bruke LDAP admin dn passord"
 
 #: src/EBox/Samba.pm:118
-#, fuzzy
 msgid "To set up Samba according to your configuration."
-msgstr "For å sette opp Samba i henhold til din konfigurasjon"
+msgstr "For å sette opp Samba i henhold til din konfigurasjon."
 
 #: src/EBox/Samba.pm:123
-#, fuzzy
 msgid "To set up smbldap-tools according to your configuration."
-msgstr "For å sette opp smbldap-tools i henhold til din konfigurasjon"
+msgstr "For å sette opp smbldap-tools i henhold til din konfigurasjon."
 
 #: src/EBox/Samba.pm:129
-#, fuzzy
 msgid "To set up smbldap-tools according to your LDAP configuration."
-msgstr "For å sett opp up smbldap-tools i følge din LDAP konfigurasjon"
+msgstr "For å sett opp up smbldap-tools i følge din LDAP konfigurasjon."
 
 #: src/EBox/Samba.pm:135
-#, fuzzy
 msgid "To add quota support to /home partition."
-msgstr "For å legge til kvote støtte til /home partisjonen"
+msgstr "For å legge til kvote støtte til /home partisjonen."
 
 #: src/EBox/Samba.pm:140
-#, fuzzy
 msgid "To set the antivirus settings for Samba."
-msgstr "For å sette antivirus innstillinger for Samba"
+msgstr "For å sette antivirus innstillinger for Samba."
 
 #: src/EBox/Samba.pm:626 src/EBox/Samba/Model/AntivirusExceptions.pm:109
 #: src/EBox/Samba/Model/RecycleExceptions.pm:109
 #: src/templates/ajax/viewer/shareViewer.mas:12
 msgid "Share"
-msgstr "Delt område"
+msgstr "Delt mappe"
 
 #: src/EBox/Samba.pm:626 src/EBox/Samba.pm:647
 msgid "Source machine"
@@ -314,9 +305,8 @@ msgid "Share path"
 msgstr "Delings sti"
 
 #: src/EBox/Samba/Model/SambaShares.pm:112
-#, fuzzy
 msgid "Directory under Zentyal"
-msgstr "Mappe under eBox"
+msgstr "Mappe under Zentyal"
 
 #: src/EBox/Samba/Model/SambaShares.pm:118
 msgid "File system path"
@@ -328,11 +318,11 @@ msgstr "Kommenter"
 
 #: src/EBox/Samba/Model/SambaShares.pm:131
 msgid "Guest access"
-msgstr ""
+msgstr "Gjeste tilgang"
 
 #: src/EBox/Samba/Model/SambaShares.pm:134
 msgid "This share will not require authentication."
-msgstr ""
+msgstr "Denne delte mappen vil ikke kreve autentisering."
 
 #: src/EBox/Samba/Model/SambaShares.pm:138
 msgid "Access control"
@@ -361,25 +351,24 @@ msgid "The directory is not empty. Are you sure you want to remove it?"
 msgstr "Mappen er ikke tom. Er du sikker på at du vil fjerne den?"
 
 #: src/EBox/Samba/Model/SambaShares.pm:318
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "{openit}Directory under Zentyal{closeit} will automatically create the share."
 "directory in /home/samba/shares {br}{openit}File system path{closeit} will "
 "allow you to share an existing directory within your file system"
 msgstr ""
-"{openit}Directory under eBox{closeit} vill automatisk opprette delings."
-"mappe /home/samba/shares {br}{openit}File system path{closeit} vil tillate "
-"deg å dele en eksisterende mappe innenfor ditt filsystem. "
+"{openit}Directory under Zentyal{closeit} vill automatisk opprette "
+"delings.mappe /home/samba/shares {br}{openit}File system path{closeit} vil "
+"tillate deg å dele en eksisterende mappe innenfor ditt filsystem. "
 
 #: src/EBox/Samba/Model/SambaShares.pm:331
-#, fuzzy
 msgid ""
 "Here you can create shares with more fine-grained permission control. You "
 "can use an existing directory or pick a name and let Zentyal create it for "
 "you."
 msgstr ""
 "Her kan du opprette delings områder med mer fin-kontroll av rettigheter. Du "
-"kan bruke eksisterende mapper eller velge et navn og la eBox opprette den "
+"kan bruke eksisterende mapper eller velge et navn og la Zentyal opprette den "
 "for deg."
 
 #: src/EBox/Samba/Model/AntivirusDefault.pm:50
@@ -499,6 +488,7 @@ msgstr "Bruker/Gruppe"
 #: src/EBox/Samba/Model/SambaSharePermissions.pm:175
 msgid "Any access control is disabled if the guest access is allowed."
 msgstr ""
+"Enhver tilgangs kontroll blir deaktivert hvis gjeste tilgang er tilllatt."
 
 #: src/EBox/Samba/Model/SambaSharePermissions.pm:220
 msgid "Permissions"
@@ -513,23 +503,20 @@ msgid "ACL"
 msgstr "ACL"
 
 #: src/EBox/Samba/Model/SambaSharePermissions.pm:249
-#, fuzzy
 msgid ""
 "Be careful if you grant <i>administrator</i> privileges.User will be able to "
 "read and write any file in the share."
 msgstr ""
 "Vær forsiktig hvis du tildeler <i>administrator</i> rettigheter.Brukere vil "
-"ha tilgang til å lese og skrive alle filer i delings området"
+"ha tilgang til å lese og skrive alle filer i delings mappen."
 
 #: src/EBox/Samba/Model/SambaSharePermissions.pm:259
-#, fuzzy
 msgid " (user))"
-msgstr "bruker"
+msgstr "(bruker))"
 
 #: src/EBox/Samba/Model/SambaSharePermissions.pm:261
-#, fuzzy
 msgid " (group))"
-msgstr "gruppe"
+msgstr "(gruppe))"
 
 #: src/EBox/Samba/Model/DeletedSambaShares.pm:113
 msgid "path"
@@ -570,9 +557,8 @@ msgid "Disk quota limit"
 msgstr "Disk kvote begrensning"
 
 #: src/EBox/SambaLdapUser.pm:285
-#, fuzzy
 msgid "This user has a sharing directory associated which contains data."
-msgstr "Denne brukeren har en delt mappe tildelt som inneholder data"
+msgstr "Denne brukeren har en delt mappe tildelt som inneholder data."
 
 #: src/EBox/SambaLdapUser.pm:344 src/EBox/SambaLdapUser.pm:362
 #, perl-brace-format
@@ -600,9 +586,8 @@ msgid "Group {g} is not a samba group"
 msgstr "Gruppen {g} er ikke en samba gruppe"
 
 #: src/EBox/SambaLdapUser.pm:412
-#, fuzzy
 msgid "This group has a sharing directory associated that contains data."
-msgstr "Denne gruppen har et delt område tildelt som inneholder data"
+msgstr "Denne gruppen har et delt mappe tildelt som inneholder data."
 
 #: src/EBox/SambaLdapUser.pm:610
 #, perl-brace-format
@@ -610,9 +595,8 @@ msgid "{g} group does not exist"
 msgstr "{g} gruppen eksisterer ikke"
 
 #: src/EBox/SambaLdapUser.pm:757
-#, fuzzy
 msgid "A name should be provided for the share."
-msgstr "Et navn bør oppgis for det delte område"
+msgstr "Et navn bør oppgis for det delte mappe."
 
 #: src/EBox/SambaLdapUser.pm:765
 msgid "sharing resource"

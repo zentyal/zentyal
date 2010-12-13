@@ -8,61 +8,62 @@ msgstr ""
 "Project-Id-Version: ebox-. 1.5\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-08-28 23:35+0200\n"
-"PO-Revision-Date: 2010-06-03 02:52+0200\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2010-09-06 15:38+0200\n"
+"Last-Translator: Bokor Pavol <bokor@4enzo.net>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: migration/0001_add_firewall_services.pl:45
 msgid "Zentyal FTP Server"
-msgstr ""
+msgstr "Zentyal FTP Server"
 
 #: src/EBox/FTP.pm:84
 msgid "To configure vsftpd"
-msgstr ""
+msgstr "Konfigurovať vsftpd"
 
 #: src/EBox/FTP.pm:88
 msgid "To configure vsftpd with LDAP authentication"
-msgstr ""
+msgstr "Konfigurovať vsftpd s LDAP autentifikáciou"
 
 #: src/EBox/Model/Options.pm:45
 msgid "Disabled"
-msgstr ""
+msgstr "Zakázaný"
 
 #: src/EBox/Model/Options.pm:49
 msgid "Read only"
-msgstr ""
+msgstr "Len na čítanie"
 
 #: src/EBox/Model/Options.pm:53
 msgid "Read/Write"
-msgstr ""
+msgstr "Čítať/Zapisovať"
 
 #: src/EBox/Model/Options.pm:66
 msgid "Anonymous access"
-msgstr ""
+msgstr "Anonymný prístup"
 
 #: src/EBox/Model/Options.pm:70
 msgid "Sets the permissions for the /srv/ftp directory"
-msgstr ""
+msgstr "Nastaviť prístup pre /srv/ftp priečinok"
 
 #: src/EBox/Model/Options.pm:74
 msgid "Personal directories"
-msgstr ""
+msgstr "Osobné priečinky"
 
 #: src/EBox/Model/Options.pm:77
 msgid "Enable FTP access for each user to its /home directory"
-msgstr ""
+msgstr "Povoliť FTP prístup pre každého do jeho /home priečinku"
 
 #: src/EBox/Model/Options.pm:83
 msgid "General configuration settings"
-msgstr ""
+msgstr "Hlavné nastavenia"
 
 #: src/EBox/Model/Options.pm:84
 msgid "FTP Server"
-msgstr ""
+msgstr "FTP Server"
 
 #: src/EBox/Model/Options.pm:88
 msgid ""
@@ -72,3 +73,8 @@ msgid ""
 "write permissions for everybody, for example: mkdir /srv/ftp/incoming ; "
 "chmod o+rwx /srv/ftp/incoming"
 msgstr ""
+"Priečinok pre anonymný prístup je /srv/ftp. Uistite sa, že súbory, ktoré sem "
+"uložíte, majú práva na čítanie pre všetkých (chmod o+r /srv/ftp/*). Ak "
+"chcete poskytnúť prístup aj na zápis, musíte vytvoriť podpriečinok s právami "
+"na zápis pre všetkých. Napr.: mkdir /srv/ftp/incoming ; chmod o+rwx "
+"/srv/ftp/incoming"

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-ca 0.12\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-08-28 23:34+0200\n"
-"PO-Revision-Date: 2010-08-26 11:23+0200\n"
+"PO-Revision-Date: 2010-10-10 19:02+0200\n"
 "Last-Translator: Vasco Castelo Branco <vcbranco@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
@@ -110,7 +110,7 @@ msgstr "Dias definidos para o máximo permitido {days}: Bug ano 2038"
 
 #: src/EBox/CA.pm:396
 msgid "The remove operation cannot be finished. Reason: "
-msgstr "A operação não pode ser acabada. Motivo:"
+msgstr "A operação não pode ser acabada. Motivo: "
 
 #: src/EBox/CA.pm:951 src/EBox/CA.pm:1297
 #, perl-brace-format
@@ -160,7 +160,7 @@ msgstr "Geral"
 
 #: src/EBox/CA.pm:1889
 msgid "Not created"
-msgstr "Não foi criado "
+msgstr "Não foi criado"
 
 #: src/EBox/CA.pm:1891
 msgid "Available"
@@ -194,7 +194,7 @@ msgstr "Campo ASN1 demasiado longo. Tamanho máximo:"
 
 #: src/EBox/CA.pm:2497
 msgid "Unknown error. Given the OpenSSL output:"
-msgstr "Erro desconhecido. OpenSSL output:"
+msgstr "Erro desconhecido. Saída OpenSSL:"
 
 #: src/EBox/CA.pm:2572
 #, perl-brace-format

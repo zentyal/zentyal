@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: ebox-software 0.12.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-08-28 23:41+0200\n"
-"PO-Revision-Date: 2010-08-26 19:34+0200\n"
+"PO-Revision-Date: 2010-11-26 23:11+0100\n"
 "Last-Translator: Val Budkin <valentin@ktc-ua.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
-"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Pootle 1.1.0\n"
 
 #: migration/0001_add_http_software_rule.pl:39
@@ -40,6 +40,9 @@ msgid ""
 "You cannot modify the automatic update using QA updates from Web UI. To "
 "disable automatic updates, edit {conf} and disable {key} key."
 msgstr ""
+"Вы не можете изменить настройки автоматического обновления из web интерфейса "
+"используя обновления гарантированного качества (QA updates). Для отключения "
+"автоматических обновлений измените {conf} и отключите ключ {key}."
 
 #: src/EBox/Software.pm:597
 msgid "Zentyal Components"
@@ -187,17 +190,20 @@ msgstr "Обновление"
 
 #: src/templates/updates.mas:24 src/templates/ebox.mas:181
 msgid "Package list updated successfully"
-msgstr ""
+msgstr "Список пакетов успешно обновлен"
 
 #: src/templates/updates.mas:28 src/templates/ebox.mas:185
 msgid ""
 "Error updating package list. Please try to execute the following command in "
 "a console to see the problem: sudo apt-get update"
 msgstr ""
+"Ошибка обновления списка пакетов. Для выяснения причины, пожалуйста, "
+"попробуйте выполнить следующую команду в консоли сервера: sudo apt-get "
+"update"
 
 #: src/templates/updates.mas:38
 msgid "Updates are available for the following system components"
-msgstr "Возможно обновление нескольких системных компонент"
+msgstr "Доступны обновления для следующих системных компонент"
 
 #: src/templates/updates.mas:40
 msgid "Community updates are available for the following system components"
@@ -227,22 +233,20 @@ msgid "Security update"
 msgstr "Обновления безопасности"
 
 #: src/templates/updates.mas:69
-#, fuzzy
 msgid "Zentyal QA update"
-msgstr "Обновления QA eBox"
+msgstr "Обновления QA Zentyal"
 
 #: src/templates/updates.mas:91
 msgid "Update all packages"
 msgstr "Обновить все пакеты"
 
 #: src/templates/updates.mas:102
-#, fuzzy
 msgid ""
 "This operation can take some time, don't worry if Zentyal looks unresponsive "
 "after pressing the Upgrade button."
 msgstr ""
-"Эта операция может занять некоторое время, не беспокойтесь, если eBox "
-"выглядит недоступным, после нажатия кнопки обновления."
+"Эта операция может занять некоторое время, не беспокойтесь, если после "
+"нажатия кнопки \"Обновить\" Zentyal будет выглядеть недоступным."
 
 #: src/templates/updates.mas:106
 msgid "Upgrade"
@@ -321,15 +325,17 @@ msgstr ""
 #: src/templates/config.mas:8
 #, fuzzy
 msgid "Perform automatic security updates"
-msgstr "Автоматическое обновление программного обеспечения"
+msgstr "Выполнять обновления безопасности автоматически"
 
 #: src/templates/config.mas:14
 msgid "Zentyal is configured to use automatic QA updates"
 msgstr ""
+"Zentyal настроен для получения автоматических обновлений гарантированного "
+"качества (QA)"
 
 #: src/templates/config.mas:26
 msgid "Automatic operations start time"
-msgstr ""
+msgstr "Время начала автоматического обновления"
 
 #~ msgid "Select Al"
 #~ msgstr "Выделить всё"

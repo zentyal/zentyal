@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-ebackup 1.3.3\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-08-28 23:34+0200\n"
-"PO-Revision-Date: 2009-11-14 18:39+0100\n"
+"PO-Revision-Date: 2010-09-14 14:17+0200\n"
 "Last-Translator: Bokor Pavol <bokor@4enzo.net>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
@@ -23,61 +23,60 @@ msgid "Backup"
 msgstr "Záloha"
 
 #: src/EBox/Event/Watcher/EBackup.pm:141
-#, fuzzy
 msgid "Check if Zentyal backup was not successful."
-msgstr "Sleduje, či zálohovanie prebehlo úspešne."
+msgstr "Sleduje, či zálohovanie neprebehlo úspešne."
 
 #: src/EBox/Model/RemoteRestoreLogs.pm:88 src/EBox/Model/RemoteFileList.pm:143
 #: src/EBox/Model/RemoteStatus.pm:119 src/EBox/Model/RemoteRestoreConf.pm:74
 msgid "There are not backed up files yet"
-msgstr ""
+msgstr "Momentálne nie sú žiadne súbory so zálohou"
 
 #: src/EBox/Model/RemoteRestoreLogs.pm:107
 #: src/EBox/Model/RemoteFileList.pm:166 src/EBox/Model/RemoteRestoreConf.pm:93
-#, fuzzy
 msgid "Backup Date"
-msgstr "Záloha"
+msgstr "Dátum zálohy"
 
 #: src/EBox/Model/RemoteRestoreLogs.pm:118
 msgid "Restore logs database"
-msgstr ""
+msgstr "Obnoviť záznamy databázy"
 
 #: src/EBox/Model/RemoteRestoreLogs.pm:125
 msgid "Restores the Zentyal logs found in the selected backup"
-msgstr ""
+msgstr "Obnoviť záznamy systému Zentyal nájdených v zvolenej zálohe"
 
 #: src/EBox/Model/RemoteFileList.pm:162
 msgid "File"
-msgstr ""
+msgstr "Súbor"
 
 #: src/EBox/Model/RemoteFileList.pm:177
 msgid "Restore Files"
-msgstr ""
+msgstr "Obnoviť súbory"
 
 #: src/EBox/Model/RemoteFileList.pm:178
 msgid "file restore operation"
-msgstr ""
+msgstr "operácia obnovy súboru"
 
 #: src/EBox/Model/RemoteFileList.pm:204
 msgid "File already exists if you continue the current will be deleted"
-msgstr ""
+msgstr "Súbor už existuje. Ak budete pokračovať, existujúci súbor bude zmazaný"
 
 #: src/EBox/Model/RemoteFileList.pm:220
 msgid "File restored successfully"
-msgstr ""
+msgstr "Obnova súboru úspešná"
 
 #: src/EBox/Model/RemoteFileList.pm:269
 #, perl-brace-format
+#, fuzzy
 msgid "Remote URL to be used with duplicity for manual restores: {url}"
-msgstr ""
+msgstr "Vzdialená URL to be used with duplicity for manual restores: {url}"
 
 #: src/EBox/Model/RemoteStatus.pm:138 src/EBox/Model/RemoteExcludes.pm:76
 msgid "Type"
-msgstr ""
+msgstr "Typ"
 
 #: src/EBox/Model/RemoteStatus.pm:142
 msgid "Date"
-msgstr ""
+msgstr "Dátum"
 
 #: src/EBox/Model/RemoteStatus.pm:149
 msgid "Remote Backup Status"

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-dhcp 0.12\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-08-28 23:34+0200\n"
-"PO-Revision-Date: 2010-07-12 11:18+0200\n"
+"PO-Revision-Date: 2010-09-01 17:59+0200\n"
 "Last-Translator: Bulent SENER <bulent.sener@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
@@ -173,7 +173,6 @@ msgid "fixed address"
 msgstr "Sabit adres"
 
 #: src/EBox/Model/ThinClientOptions.pm:138
-#, fuzzy
 msgid "You need to upload a boot image to Zentyal if you set it as next server"
 msgstr "ince istemciler için boot imajını yüklemeniz gerekiyor."
 

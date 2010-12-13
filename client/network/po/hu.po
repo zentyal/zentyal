@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-network 1.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-08-29 01:25+0200\n"
-"PO-Revision-Date: 2010-08-30 15:53+0200\n"
+"PO-Revision-Date: 2010-08-31 08:52+0200\n"
 "Last-Translator: Nagy Ákos <nagy.akos@akos.ro>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
@@ -436,7 +436,7 @@ msgstr "Domain Name Server"
 
 #: src/EBox/Model/DNSResolver.pm:92
 msgid "Domain Name Server Resolver List"
-msgstr "Domain Name Server feoldási lista"
+msgstr "DNS-kiszolgáló lista"
 
 #: src/EBox/Model/DNSResolver.pm:98
 msgid "name server"
@@ -730,7 +730,7 @@ msgstr ""
 
 #: src/EBox/Network/Composite/DNS.pm:60
 msgid "Domain Name Server Resolver"
-msgstr "Tartománynév szerver feloldó"
+msgstr "DNS szerverek"
 
 #: src/EBox/Network/Report/ByteRate.pm:136
 msgid "Running"

@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: EBox-monitor 0.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-08-28 23:36+0200\n"
-"PO-Revision-Date: 2010-08-24 16:31+0200\n"
-"Last-Translator: Luca Erre <LUCA.etrusco@gmail.com>\n"
+"PO-Revision-Date: 2010-09-15 12:05+0200\n"
+"Last-Translator: Simone Bernini <lemorragia@libero.it>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -24,7 +24,7 @@ msgstr "Monitor"
 
 #: src/EBox/Event/Watcher/Monitor.pm:161
 msgid "Notify when a certain value has reached a certain threshold"
-msgstr "Avvisa quando un determito valore ha raggiunto una certa soglia"
+msgstr "Avvisa quando un determinato valore ha raggiunto una certa soglia"
 
 #: src/EBox/Event/Watcher/Monitor.pm:263
 msgid "All data sources are within range again"
@@ -38,32 +38,32 @@ msgstr "{what} \"{dS}\" è {value}."
 #: src/EBox/Event/Watcher/Monitor.pm:280
 #, perl-brace-format
 msgid "That is within the {severity} region of {minBound} and {maxBound}. "
-msgstr ""
+msgstr "Questo e' tra {severity} i valori di {minBound} e {maxBound}."
 
 #: src/EBox/Event/Watcher/Monitor.pm:288
 #, perl-brace-format
 msgid "That is above the {severity} threshold of {bound}. "
-msgstr ""
+msgstr "Questo e' sopra  i {severity} valori di {bound}."
 
 #: src/EBox/Event/Watcher/Monitor.pm:291
 #, perl-brace-format
 msgid "That is below the {severity} threshold of {bound}. "
-msgstr ""
+msgstr "Questo e' sotto  i {severity} valori di {bound}."
 
 #: src/EBox/Monitor.pm:150
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "{daemon} main configuration file"
-msgstr "Raccoglitore principale file di configurazione"
+msgstr "{daemon} file principale di configurazione"
 
 #: src/EBox/Monitor.pm:155
 #, fuzzy, perl-brace-format
 msgid "{daemon} thresholds configuration file"
-msgstr "Raccoglitore soglia file di configurazione"
+msgstr "{daemon} file di configurazione dei range"
 
 #: src/EBox/Monitor.pm:160
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "{daemon} default configuration file"
-msgstr "Raccoglitore principale file di configurazione"
+msgstr "{daemon} file di configurazione di default"
 
 #: src/EBox/Monitor/Measure/CPU.pm:59
 #, perl-brace-format
@@ -102,7 +102,7 @@ msgstr "esatto"
 
 #: src/EBox/Monitor/Measure/CPU.pm:77 src/EBox/Monitor/Measure/CPU.pm:83
 msgid "soft interrupt"
-msgstr ""
+msgstr "soft interrupt"
 
 #: src/EBox/Monitor/Measure/CPU.pm:78 src/EBox/Monitor/Measure/CPU.pm:83
 msgid "steal"
@@ -220,7 +220,7 @@ msgstr "valore"
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:102
 #: src/EBox/Monitor/Model/MeasureWatchers.pm:77
 msgid "Events"
-msgstr ""
+msgstr "Eventi"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:106
 #: src/EBox/Monitor/Model/MeasureWatchers.pm:81
@@ -231,7 +231,7 @@ msgstr "Monitor"
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:110
 #, fuzzy
 msgid "Threshold Configuration"
-msgstr "valore minimo di configurazione"
+msgstr "Configurazione dei valori di soglia"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:144
 msgid "At least a threshold (maximum or minimum) must be set"
@@ -357,7 +357,7 @@ msgid "Threshold"
 msgstr "valore minimo"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:324
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Every check is done with the highest possible resolution: {nSec} seconds"
 msgstr ""
@@ -366,10 +366,13 @@ msgstr ""
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:326
 #, perl-brace-format
+#, fuzzy
 msgid ""
 "Take into account this configuration will be only applied if monitor "
 "{openhref}event watcher is enabled{closehref}"
 msgstr ""
+"Tieni conto che questa configurazione e' applicata solamente se "
+"le{openhref}soglie di osservazione del monitor sono abilitate{closeref}"
 
 #: src/EBox/Monitor/Model/MeasureWatchers.pm:151
 msgid "Measure"
@@ -380,16 +383,19 @@ msgid "Thresholds"
 msgstr "Valore minimo"
 
 #: src/EBox/Monitor/Model/MeasureWatchers.pm:167
+#, fuzzy
 msgid "Configure monitor watchers"
-msgstr ""
+msgstr "Configura le soglie di osservazione del monitor"
 
 #: src/EBox/Monitor/Model/MeasureWatchers.pm:168
+#, fuzzy
 msgid "measure"
-msgstr ""
+msgstr "valore"
 
 #: src/EBox/Monitor/Model/MeasureWatchers.pm:173
+#, fuzzy
 msgid "Every measure may have several thresholds to monitor"
-msgstr ""
+msgstr "Ogni valore puo' avere diverse soglie da monitorare"
 
 #: src/EBox/Monitor/Configuration.pm:121
 msgid "Last hour"
@@ -411,16 +417,17 @@ msgstr "Ultimo anno"
 #: src/EBox/Monitor/Types/MeasureAttribute.pm:146
 #: src/EBox/Monitor/Types/MeasureAttribute.pm:156
 msgid "not applicable"
-msgstr ""
+msgstr "non applicabile"
 
 #: src/EBox/Monitor/Types/MeasureAttribute.pm:134
 #: src/EBox/Monitor/Types/MeasureAttribute.pm:144
 msgid "any"
-msgstr ""
+msgstr "qualsiasi"
 
 #: src/EBox/CGI/Index.pm:44
+#, fuzzy
 msgid "Monitoring"
-msgstr ""
+msgstr "Analizzando"
 
 #: src/EBox/CGI/Index.pm:70
 #, perl-brace-format
@@ -438,3 +445,7 @@ msgid ""
 "{openhref}Save changes{closehref} section. In case it is already enabled you "
 "must wait for a few seconds to collect the first monitor data"
 msgstr ""
+"Devi salvare i cambiamenti nello status del modulo per vedere i grafici del "
+"monitor, nella sezione {openhref}Salva cambiamenti{closehref}.Nel caso sia "
+"gia abilitato devi attendere qualche istante in modo che il monitor raccolga "
+"i primi dati"

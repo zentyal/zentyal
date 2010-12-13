@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-ntp 1.3.3\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-08-28 23:28+0200\n"
-"PO-Revision-Date: 2010-05-05 13:16+0200\n"
+"PO-Revision-Date: 2010-09-06 14:38+0200\n"
 "Last-Translator: Bokor Pavol <bokor@4enzo.net>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
@@ -22,14 +22,12 @@ msgid "Remove ntp init script links"
 msgstr "Odstrániť prepojenia na inicializačný skript"
 
 #: src/EBox/NTP.pm:68
-#, fuzzy
 msgid "Zentyal will take care of starting and stopping the services."
-msgstr "eBox sa postará o spustenia a zastavenia služieb."
+msgstr "Zentyall sa postará o spustenia a zastavenia služieb."
 
 #: src/EBox/NTP.pm:86
-#, fuzzy
 msgid "NTP configuration file"
-msgstr "Nastavenie Časovej zóny"
+msgstr "NTP konfiguračný súbor"
 
 #: src/EBox/NTP.pm:221 src/EBox/CGI/AddServers.pm:45
 #: src/templates/servers.mas:16
@@ -174,11 +172,10 @@ msgid "Enabled"
 msgstr "Povolené"
 
 #: src/templates/date.mas:10
-#, fuzzy
 msgid ""
 "A change in the date or time will cause all Zentyal services to be restarted."
 msgstr ""
-"Zmena dátumu alebo času zapríčiní reštartovanie všetkých služieb eBox-u."
+"Zmena dátumu alebo času zapríčiní reštartovanie všetkých služieb Zentyal-u."
 
 #: src/templates/date.mas:15
 msgid "Date"

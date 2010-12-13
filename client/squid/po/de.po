@@ -13,8 +13,8 @@ msgstr ""
 "Project-Id-Version: ebox-squid 0.12\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-08-28 23:41+0200\n"
-"PO-Revision-Date: 2010-05-10 22:51+0200\n"
-"Last-Translator: Michael Korte <miko71@arcor.de>\n"
+"PO-Revision-Date: 2010-09-12 12:53+0200\n"
+"Last-Translator: J. Schwieder <j.schwieder@gmx.de>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -102,26 +102,27 @@ msgstr "Filtergruppen per IP"
 
 #: src/EBox/Squid.pm:301
 msgid "Overwrite blocked page templates"
-msgstr ""
+msgstr "Überschreibe die Muster für blockierte Webseiten"
 
 #: src/EBox/Squid.pm:302
+#, fuzzy
 msgid ""
 "Dansguardian blocked page templates will be overwritten with Zentyal "
 "customized templates."
 msgstr ""
+"Die Muster für blockierte Webseiten von Dansguardian werden durch die "
+"benutzerdefinierten von Zentyal ersetzt."
 
 #: src/EBox/Squid.pm:342
-#, fuzzy
 msgid "You must set the cache_mem variable in the Zentyal configuration file"
 msgstr ""
-"Sie müssen die Variable cache_mem in der eBox-Konfigurationsdatei setzen"
+"Sie müssen die Variable cache_mem in der Zentyal-Konfigurationsdatei setzen"
 
 #: src/EBox/Squid.pm:351
-#, fuzzy
 msgid ""
 "You must set the max_object_size variable in the Zentyal configuration file"
 msgstr ""
-"Sie müssen die Variable max_object_size in der eBox-Konfigurationsdatei "
+"Sie müssen die Variable max_object_size in der Zentyal-Konfigurationsdatei "
 "setzen"
 
 #: src/EBox/Squid.pm:1080

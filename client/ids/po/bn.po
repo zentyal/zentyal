@@ -5,28 +5,28 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-ids 2.0"
-"Report-Msgid-Bugs-To: developers@zentyal.org\n"
+"Project-Id-Version: ebox-ids 2.0Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2009-03-08 15:17+0000\n"
-"PO-Revision-Date: 2009-03-08 15:17+0000\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2010-10-28 14:33+0200\n"
+"Last-Translator: Mahay Alam Khan <mahayalamkhan@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/Model/Model.pm:73
 msgid "table title"
-msgstr ""
+msgstr "ছকের শিরোনাম "
 
 #: src/EBox/Model/Model.pm:77
 msgid "row"
-msgstr ""
+msgstr "সারি"
 
 #: src/EBox/Model/Model.pm:78 src/EBox/Model/Composite.pm:72
 msgid "help message"
-msgstr ""
+msgstr "সাহায্য বার্তা"
 
 #: src/EBox/Model/Composite.pm:70
 msgid "composite title"
-msgstr ""
+msgstr "শিরোনাম লিখুন"

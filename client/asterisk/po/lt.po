@@ -5,8 +5,8 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-asterisk 2.0"
-"Report-Msgid-Bugs-To: developers@zentyal.org\n"
+"Project-Id-Version: ebox-asterisk 2.0Report-Msgid-Bugs-To: "
+"developers@zentyal.org\n"
 "POT-Creation-Date: 2010-08-28 23:07+0200\n"
 "PO-Revision-Date: 2010-08-28 23:07+0200\n"
 "Last-Translator: Automatically generated\n"
@@ -14,158 +14,159 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n%"
-"100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"(n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: migration/0001_add_firewall_services.pl:45
 msgid "Zentyal VoIP system"
-msgstr ""
+msgstr "Zentyal VoIP sistema"
 
 #: src/EBox/Asterisk.pm:74 src/EBox/Asterisk.pm:715
 #: src/EBox/Composite/General.pm:67
 msgid "VoIP"
-msgstr ""
+msgstr "VoIP"
 
 #: src/EBox/Asterisk.pm:130
 msgid "To configure enabled and disabled modules."
-msgstr ""
+msgstr "Konfigūruoti įjungkite ir išjungite modulį."
 
 #: src/EBox/Asterisk.pm:135
 msgid "To configure the Realtime interface."
-msgstr ""
+msgstr "Konfigūruoti Realaus laiko sąsaja."
 
 #: src/EBox/Asterisk.pm:140
 msgid "To configure the LDAP Realtime driver."
-msgstr ""
+msgstr "Konfigūruoti LDAP Realaus laiko tvarkykles."
 
 #: src/EBox/Asterisk.pm:145
 msgid "To configure the common SIP and IAX users."
-msgstr ""
+msgstr "Konfigūruoti pagrindą SIP ir IAX vartotojams."
 
 #: src/EBox/Asterisk.pm:150
 msgid "To configure the SIP trunk for local users and external providers."
-msgstr ""
+msgstr "Konfigūruoti SIP vietos vartotojams ir išorės paslaugų teikėjams."
 
 #: src/EBox/Asterisk.pm:155
 msgid "To configure the dialplan."
-msgstr ""
+msgstr "Konfigūruoti dialplan."
 
 #: src/EBox/Asterisk.pm:160
 msgid "To configure the voicemail."
-msgstr ""
+msgstr "Konfigūruoti balso paštą."
 
 #: src/EBox/Asterisk.pm:165
 msgid "To configure the conferences."
-msgstr ""
+msgstr "Konfigūruoti konferencijas."
 
 #: src/EBox/Asterisk.pm:169
 msgid "To configure the music on hold."
-msgstr ""
+msgstr "Konfigūruoti užlaikymo muzika."
 
 #: src/EBox/Asterisk.pm:173
 msgid "To configure DTMF behaviour."
-msgstr ""
+msgstr "Konfigūruoti DTMF elgesį."
 
 #: src/EBox/Asterisk.pm:485
 msgid "General"
-msgstr ""
+msgstr "Bendra"
 
 #: src/EBox/Asterisk.pm:489 src/EBox/Model/Meetings.pm:190
 msgid "Meetings"
-msgstr ""
+msgstr "Susitikimai"
 
 #: src/EBox/Asterisk.pm:506
 msgid "Voicemail"
-msgstr ""
+msgstr "Balso paštas"
 
 #: src/EBox/Asterisk.pm:516 src/EBox/Asterisk.pm:625
 msgid "User"
-msgstr ""
+msgstr "Vartotojas"
 
 #: src/EBox/Asterisk.pm:516
 msgid "Address"
-msgstr ""
+msgstr "Adresas"
 
 #: src/EBox/Asterisk.pm:516
 msgid "NAT"
-msgstr ""
+msgstr "NAT"
 
 #: src/EBox/Asterisk.pm:516
 msgid "Status"
-msgstr ""
+msgstr "Statusas"
 
 #: src/EBox/Asterisk.pm:530 src/EBox/Asterisk.pm:634
 msgid "No users connected."
-msgstr ""
+msgstr "Nėra prisijungusių vartotojų."
 
 #: src/EBox/Asterisk.pm:622
 #, perl-brace-format
 msgid "Room {name} active for {rtime}"
-msgstr ""
+msgstr "Kambarys {pavadinimas} aktyvus {rtime}"
 
 #: src/EBox/Asterisk.pm:625
 msgid "Time Connected"
-msgstr ""
+msgstr "Prisijungimo laikas"
 
 #: src/EBox/Asterisk.pm:655
 msgid "VoIP Online Users"
-msgstr ""
+msgstr "VoIP Prisijungę vartotojai"
 
 #: src/EBox/Asterisk.pm:660
 msgid "VoIP Users in Meetings"
-msgstr ""
+msgstr "VoIP Vartotojai Susitikimuose"
 
 #: src/EBox/Asterisk.pm:692
 msgid "Date"
-msgstr ""
+msgstr "Data"
 
 #: src/EBox/Asterisk.pm:693
 msgid "From"
-msgstr ""
+msgstr "Nuo"
 
 #: src/EBox/Asterisk.pm:694
 msgid "To"
-msgstr ""
+msgstr "Iki"
 
 #: src/EBox/Asterisk.pm:695
 msgid "Duration"
-msgstr ""
+msgstr "Trukmė"
 
 #: src/EBox/Asterisk.pm:696
 msgid "Channel"
-msgstr ""
+msgstr "Kanalas"
 
 #: src/EBox/Asterisk.pm:697
 msgid "Destination Channel"
-msgstr ""
+msgstr "Paskirtis kanalas"
 
 #: src/EBox/Asterisk.pm:698
 msgid "Application"
-msgstr ""
+msgstr "Programa"
 
 #: src/EBox/Asterisk.pm:699
 msgid "Application Data"
-msgstr ""
+msgstr "Programos duomenys"
 
 #: src/EBox/Asterisk.pm:700
 msgid "Event"
-msgstr ""
+msgstr "Atveju"
 
 #: src/EBox/Asterisk.pm:708
 msgid "Answered"
-msgstr ""
+msgstr "Atsakyta"
 
 #: src/EBox/Asterisk.pm:709
 msgid "No Answer"
-msgstr ""
+msgstr "Nėra atsakymo"
 
 #: src/EBox/Asterisk.pm:710
 msgid "Busy"
-msgstr ""
+msgstr "Užimtas"
 
 #: src/EBox/Asterisk.pm:711
 msgid "Failed"
-msgstr ""
+msgstr "Nepavyko"
 
 #: src/EBox/Model/Localnets.pm:88
 #, perl-brace-format
@@ -173,22 +174,24 @@ msgid ""
 "Networks attached directly to internal interfaces, like {net}, are always "
 "considered local networks so it is not neccessary to add them."
 msgstr ""
+"Tinklai prijungti tiesiogiai prie vidinės sąsajos, pvz. {net}, visada yra "
+"laikomi vidiniu tinklu tad nebūtina jų įkelti"
 
 #: src/EBox/Model/Localnets.pm:113
 msgid "Local network"
-msgstr ""
+msgstr "Vidinis tinklas"
 
 #: src/EBox/Model/Localnets.pm:119 src/EBox/Model/Meetings.pm:178
 msgid "Description"
-msgstr ""
+msgstr "Apibudinimas"
 
 #: src/EBox/Model/Localnets.pm:130
 msgid "Local networks"
-msgstr ""
+msgstr "Vidiniai tinklai"
 
 #: src/EBox/Model/Localnets.pm:131
 msgid "local network"
-msgstr ""
+msgstr "vidinis tinklas"
 
 #: src/EBox/Model/AsteriskUser.pm:50
 msgid "Asterisk Account"
@@ -196,38 +199,38 @@ msgstr ""
 
 #: src/EBox/Model/AsteriskUser.pm:58
 msgid "Asterisk"
-msgstr ""
+msgstr "Asteriskas"
 
 #: src/EBox/Model/Settings.pm:84 src/EBox/Model/Meetings.pm:119
 #: src/EBox/Model/Meetings.pm:127
 msgid "extension"
-msgstr ""
+msgstr "išplėtimas"
 
 #: src/EBox/Model/Settings.pm:92 src/EBox/Model/Meetings.pm:150
 #: src/EBox/Asterisk/Extensions.pm:323 src/EBox/Asterisk/Extensions.pm:718
 #: src/templates/user.mas:38 src/templates/group.mas:41
 msgid "Extension"
-msgstr ""
+msgstr "Išplėtimas"
 
 #: src/EBox/Model/Settings.pm:117
 msgid "Enable demo extensions"
-msgstr ""
+msgstr "Įjungti demo išplėtimus"
 
 #: src/EBox/Model/Settings.pm:123
 msgid "Enable outgoing calls"
-msgstr ""
+msgstr "Įjungti išeinančius skambučius"
 
 #: src/EBox/Model/Settings.pm:129
 msgid "Voicemail extension"
-msgstr ""
+msgstr "Balso pašto išplėstis"
 
 #: src/EBox/Model/Settings.pm:136
 msgid "VoIP domain"
-msgstr ""
+msgstr "VoIP vardų sritis"
 
 #: src/EBox/Model/Settings.pm:145
 msgid "General configuration"
-msgstr ""
+msgstr "Pagrininė konfigūracija"
 
 #: src/EBox/Model/Settings.pm:149
 msgid "General Asterisk server configuration"
@@ -239,15 +242,15 @@ msgstr ""
 
 #: src/EBox/Model/NAT.pm:96
 msgid "Zentyal is behind NAT"
-msgstr ""
+msgstr "Zentyal yra už NAT"
 
 #: src/EBox/Model/NAT.pm:101
 msgid "No"
-msgstr ""
+msgstr "Ne"
 
 #: src/EBox/Model/NAT.pm:120
 msgid "NAT configuration"
-msgstr ""
+msgstr "NAT konfigūravimas"
 
 #: src/EBox/Model/NAT.pm:124
 msgid "NAT Asterisk server configuration"
@@ -259,15 +262,15 @@ msgstr ""
 
 #: src/EBox/Model/Provider.pm:68
 msgid "Custom"
-msgstr ""
+msgstr "Papildomas"
 
 #: src/EBox/Model/Provider.pm:89
 msgid "Provider"
-msgstr ""
+msgstr "Tiekėjas"
 
 #: src/EBox/Model/Provider.pm:95
 msgid "Name"
-msgstr ""
+msgstr "Vardas"
 
 #: src/EBox/Model/Provider.pm:100
 msgid "VoIP service provider name."
@@ -275,15 +278,15 @@ msgstr ""
 
 #: src/EBox/Model/Provider.pm:104
 msgid "Username"
-msgstr ""
+msgstr "Vartotojas"
 
 #: src/EBox/Model/Provider.pm:111 src/EBox/Model/Meetings.pm:170
 msgid "Password"
-msgstr ""
+msgstr "Slaptažodis"
 
 #: src/EBox/Model/Provider.pm:118
 msgid "Server"
-msgstr ""
+msgstr "Serveris"
 
 #: src/EBox/Model/Provider.pm:126
 msgid "Recipient of incoming calls"
@@ -295,7 +298,7 @@ msgstr ""
 
 #: src/EBox/Model/Provider.pm:137
 msgid "SIP provider"
-msgstr ""
+msgstr "SIP tiekėjas"
 
 #: src/EBox/Model/Provider.pm:141
 msgid "SIP provider for outgoing calls configuration."
@@ -319,31 +322,31 @@ msgstr ""
 
 #: src/EBox/Model/Meetings.pm:189
 msgid "List of Meetings"
-msgstr ""
+msgstr "Sąrašas susitikimų"
 
 #: src/EBox/Model/Meetings.pm:191
 msgid "meeting"
-msgstr ""
+msgstr "susitikimas"
 
 #: src/EBox/Model/Voicemail.pm:75 src/EBox/Model/Voicemail.pm:122
 msgid "Voicemail settings"
-msgstr ""
+msgstr "Balso pašto nustatymai"
 
 #: src/EBox/Model/Voicemail.pm:94
 msgid "New password"
-msgstr ""
+msgstr "Naujas slaptažodis"
 
 #: src/EBox/Model/Voicemail.pm:101
 msgid "Mail address"
-msgstr ""
+msgstr "El.pašto adresas"
 
 #: src/EBox/Model/Voicemail.pm:108
 msgid "Attach messages"
-msgstr ""
+msgstr "Prisegti žinutę"
 
 #: src/EBox/Model/Voicemail.pm:114
 msgid "Delete sent messages"
-msgstr ""
+msgstr "Ištrinti išsiųstas žinutes"
 
 #: src/EBox/Model/Voicemail.pm:126
 msgid "Change your Voicemail settings"
@@ -351,7 +354,7 @@ msgstr ""
 
 #: src/EBox/Model/Voicemail.pm:204
 msgid "Settings successfully updated"
-msgstr ""
+msgstr "Nustatymai atnaujinti"
 
 #: src/EBox/Model/Voicemail.pm:222
 msgid "You have not an VoIP account. Maybe VoIP is not enabled in this server"
@@ -371,11 +374,11 @@ msgstr ""
 
 #: src/EBox/CGI/AsteriskGroupOptions.pm:42
 msgid "group"
-msgstr ""
+msgstr "grupė"
 
 #: src/EBox/CGI/AsteriskUserOptions.pm:43
 msgid "username"
-msgstr ""
+msgstr "vartotojas"
 
 #: src/templates/user.mas:8
 msgid "Asterisk account"
@@ -387,22 +390,22 @@ msgstr ""
 
 #: src/templates/user.mas:21
 msgid "User account"
-msgstr ""
+msgstr "Vartotojo paskyra"
 
 #: src/templates/user.mas:26 src/templates/user.mas:29
 #: src/templates/group.mas:29 src/templates/group.mas:32
 msgid "Disabled"
-msgstr ""
+msgstr "Išjungta"
 
 #: src/templates/user.mas:27 src/templates/user.mas:30
 #: src/templates/group.mas:30 src/templates/group.mas:33
 msgid "Enabled"
-msgstr ""
+msgstr "Įjungta"
 
 #: src/templates/user.mas:49 src/templates/user.mas:50
 #: src/templates/group.mas:52 src/templates/group.mas:53
 msgid "Change"
-msgstr ""
+msgstr "Pakeisti"
 
 #: src/templates/moduleDisabled.mas:5
 msgid ""
@@ -422,4 +425,4 @@ msgstr ""
 
 #: src/templates/group.mas:24
 msgid "Group queue"
-msgstr ""
+msgstr "Grupės užklausos"

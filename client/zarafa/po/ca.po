@@ -6,58 +6,64 @@ msgstr ""
 "Project-Id-Version: ebox-zarafa 0.12\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-08-28 20:28+0200\n"
-"PO-Revision-Date: 2006-11-23 16:53+0100\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2010-09-01 18:26+0200\n"
+"Last-Translator: josefa <jgonza24@xtec.cat>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural= (n != 1);\n"
-"X-Generator: Translate Toolkit 0.10.1\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: migration/0001_add_firewall_services.pl:30
 msgid "Zarafa Server"
-msgstr ""
+msgstr "Servidor Zarafa"
 
 #: src/EBox/ZarafaLdapUser.pm:239
 msgid ""
 "This user has a Zarafa account. If the user currently connected it will "
 "continue connected until Zarafa authorization is again required."
 msgstr ""
+"Aquest usuari té un compte de Zafara. Si l'usuari està actualment connectat, "
+"continuarà així fins que l'autorització de Zafara li sigui requerida de "
+"nou."
 
 #: src/EBox/Zarafa.pm:64
 msgid "Add Zarafa LDAP schema"
-msgstr ""
+msgstr "Afegir l'esquema LDAP de Zafara"
 
 #: src/EBox/Zarafa.pm:65
 msgid "Zentyal will need this schema to store Zarafa users."
 msgstr ""
+"Zentyal necessitarà aquest esquema per emmagatzemar els usuaris de Zafara."
 
 #: src/EBox/Zarafa.pm:69
 msgid "Add vmail system user"
-msgstr ""
+msgstr "Afegir usuari del sistema vmail"
 
 #: src/EBox/Zarafa.pm:70
 msgid "Zentyal will need this to deliver mail to Zarafa."
-msgstr ""
+msgstr "Zentyal necessitarà això per lliurar correu a Zafara."
 
 #: src/EBox/Zarafa.pm:74
 msgid "Create MySQL Zarafa database."
-msgstr ""
+msgstr "Crear base de dades MySQL per Zarafa."
 
 #: src/EBox/Zarafa.pm:75
 msgid "This database will store the data needed by Zarafa."
-msgstr ""
+msgstr "Aquesta base de dades emmagatzemarà les dades necessitades per Zafara."
 
 #: src/EBox/Zarafa.pm:79
 msgid "Create default SSL key/certificates."
-msgstr ""
+msgstr "Crear claus/certificats SSL per defecte."
 
 #: src/EBox/Zarafa.pm:80
 msgid ""
 "This self-signed default certificates will be used by Zarafa POP3/IMAP "
 "gateway."
 msgstr ""
+"Aquest certificat auto-signat per defecte s'utilitzarà per la passarel·la "
+"POP3/IMAP de Zarafa."
 
 #: src/EBox/Zarafa.pm:84
 msgid "Add zarafa link to www data directory."

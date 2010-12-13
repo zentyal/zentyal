@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: ebox-webmail 1.3\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-08-28 23:32+0200\n"
-"PO-Revision-Date: 2010-08-20 12:27+0200\n"
-"Last-Translator: Fabrizio Porcu <fabrizioporcu@tiscali.it>\n"
+"PO-Revision-Date: 2010-09-15 13:56+0200\n"
+"Last-Translator: Simone Bernini <lemorragia@libero.it>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -26,9 +26,8 @@ msgid "Operation mode"
 msgstr "Modalità operazione"
 
 #: src/EBox/WebMail/Model/OperationMode.pm:83
-#, fuzzy
 msgid "Zentyal mail service"
-msgstr "servizio di posta eBox "
+msgstr "servizio di posta di Zentyal"
 
 #: src/EBox/WebMail/Model/OperationMode.pm:94
 msgid "Remote server"
@@ -39,9 +38,8 @@ msgid "Name"
 msgstr "Nome"
 
 #: src/EBox/WebMail/Model/Options.pm:47
-#, fuzzy
 msgid "Zentyal webmail"
-msgstr "Webmail eBox"
+msgstr "Webmail Zentyal"
 
 #: src/EBox/WebMail/Model/Options.pm:49
 msgid ""
@@ -159,13 +157,12 @@ msgid "TLS"
 msgstr "TLS"
 
 #: src/EBox/WebMail/Model/RemoteServerConfiguration.pm:285
-#, fuzzy
 msgid ""
 "No need to configure the connection to a remote server beacuse WebMail is "
 "configured to use Zentyal mail service'"
 msgstr ""
 "Non è necessario configurare la connessione a un server remoto perchè "
-"WebMail è configurato per usare il servizio di posta di eBox"
+"WebMail è configurato per usare il servizio di posta di Zentyal"
 
 #: src/EBox/WebMail/Composite/Backend.pm:63
 msgid "WebMail backend"
@@ -200,14 +197,14 @@ msgid "Webmail will be accesible at http://ip/webmail/."
 msgstr "La webmail sarà accessibile all'indirizzo http://ip/webmail/."
 
 #: src/EBox/WebMail.pm:348
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Webmail module needs IMAP or IMAPS service enabled if using Zentyal mail "
 "service. You can enable it at {openurl}Mail -> General{closeurl}."
 msgstr ""
 "Il modulo webmail richiede il servizio IMAP o IMAPS attivo se usi il "
-"servizio posta di eBox. Puoi attivarlo da {openurl}Posta -> Generale"
-"{closeurl}."
+"servizio posta di Zentyal. Puoi attivarlo da {openurl}Posta -> "
+"Generale{closeurl}."
 
 #: src/EBox/WebMail.pm:405
 msgid ""

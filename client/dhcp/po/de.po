@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: ebox-dhcp 0.12\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-08-28 23:34+0200\n"
-"PO-Revision-Date: 2010-08-30 17:03+0200\n"
-"Last-Translator: Thorsten Fendler <tfendler@tfendler.de>\n"
+"PO-Revision-Date: 2010-09-12 13:44+0200\n"
+"Last-Translator: J. Schwieder <j.schwieder@gmx.de>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -190,7 +190,7 @@ msgstr "Feste Adresse"
 #, fuzzy
 msgid "You need to upload a boot image to Zentyal if you set it as next server"
 msgstr ""
-"Sie müssen ein Bootimage auf den eBox-Server hochladen, falls Sie ihn als "
+"Sie müssen ein Bootimage auf den Zentyal-Server hochladen, falls Sie ihn als "
 "nächsten Server setzen"
 
 #: src/EBox/Model/ThinClientOptions.pm:145
@@ -199,8 +199,8 @@ msgid ""
 "In order to upload a boot image to Zentyal, you need to set Zentyal as next "
 "server"
 msgstr ""
-"Um ein Bootimage auf eBox hochzuladen, müssen Sie die eBox als nächsten "
-"Server angeben"
+"Um ein Bootimage auf Zentyal hochzuladen, müssen Sie die Zentyal als "
+"nächsten Server angeben"
 
 #: src/EBox/Model/ThinClientOptions.pm:152
 msgid "You need to specify a path to the boot image in the remote server"
@@ -213,8 +213,8 @@ msgid ""
 "Zentyal"
 msgstr ""
 "Nur eine Datei möglich\n"
-"_ _ _ _ _ _ _ _ _ _ _ _ _ Name wenn Sie einen weiteren Server der kein eBox-"
-"Server ist, haben"
+"_ _ _ _ _ _ _ _ _ _ _ _ _ Name wenn Sie einen weiteren Server der kein "
+"Zentyal-Server ist, haben"
 
 #: src/EBox/Model/ThinClientOptions.pm:208
 #, fuzzy, perl-brace-format
@@ -222,7 +222,7 @@ msgid ""
 "Removing previously uploaded boot image since next server option has been "
 "changed from Zentyal to {option}"
 msgstr ""
-"Das zuvor hochgeladene Bootimage wurde entfernt, weil nicht mehr die eBox "
+"Das zuvor hochgeladene Bootimage wurde entfernt, weil nicht mehr die Zentyal "
 "der nächste Server ist, sondern {option}"
 
 #: src/EBox/Model/ThinClientOptions.pm:231
@@ -405,7 +405,7 @@ msgid ""
 "If \"Zentyal DNS\" is present and selected, the Zentyal server will act as "
 "cache DNS server"
 msgstr ""
-"Wenn \"eBox DNS\" aktiviert ist, arbeitet der eBox Server als DNS-Cache"
+"Wenn \"Zentyal DNS\" aktiviert ist, arbeitet der Zentyal-Server als DNS-Cache"
 
 #: src/EBox/Model/Options.pm:487 src/templates/options.mas:52
 msgid "Secondary nameserver"
@@ -416,25 +416,23 @@ msgid "NTP server"
 msgstr "NTP Server"
 
 #: src/EBox/Model/Options.pm:496
-#, fuzzy
 msgid ""
 "If \"Zentyal NTP\" is present and selected, Zentyal will be the NTP server "
 "for DHCP clients"
 msgstr ""
-"Wenn \"eBox NTP\" vorhanden und ausgewählt ist, stellt eBox für DHCP-Clients "
-"als NTP-Server zur Verfügung"
+"Wenn \"Zentyal NTP\" vorhanden und ausgewählt ist, steht Zentyal für DHCP-"
+"Clients als NTP-Server zur Verfügung"
 
 #: src/EBox/Model/Options.pm:501
 msgid "WINS server"
 msgstr "WINS Server"
 
 #: src/EBox/Model/Options.pm:504
-#, fuzzy
 msgid ""
 "If \"Zentyal Samba\" is present and selected, Zentyal will be the WINS "
 "server for DHCP clients"
 msgstr ""
-"Wenn \"eBox Samba\" vorhanden und ausgewählt ist, stellt eBox für DHCP-"
+"Wenn \"Zentyal Samba\" vorhanden und ausgewählt ist, steht Zentyal für DHCP-"
 "Clients als WINS-Server zur Verfügung"
 
 #: src/EBox/Model/Options.pm:511
@@ -449,13 +447,13 @@ msgid ""
 "domains on Zentyal might be chosen. All fields are optionals setting its "
 "value as \"None\" or leaving blank."
 msgstr ""
-"Wenn Sie \"eBox\" als Standardgateway setzen, wird die IP-Adresse der "
-"Netzwerkkarte verwendet. Wenn Sie \"Name\" wählen, können Sie aus den "
-"bereits konfigurierten Gateways wählen. Als \"Suchdomäne\" kann eine der DNS-"
-"Domänen gewählt werden, die für diese eBox konfiguriert sind. Falls Sie "
-"\"eBox DNS\" für \"Erster Nameserver\" wählen (falls installiert), kann die "
-"eBox als DNS-Cache verwendet werden. Alle Felder sind optional, sie können "
-"sie leer lassen"
+"Wenn Sie \"Zentyal\" als Standardgateway einsetzen, wird die IP-Adresse der "
+"Netzwerkkarte verwendet. Wenn Sie \"Name\" wählen, können Sie aus den bereits "
+"konfigurierten Gateways wählen. Als \"Suchdomäne\" kann eine der DNS-Domänen "
+"gewählt werden, die für diese Zentyal konfiguriert sind. Falls Sie \"Zentyal "
+"DNS\" für \"Erster Nameserver\" wählen (falls installiert), kann die Zentyal "
+"als DNS-Cache verwendet werden. Alle Felder sind optional, sie können sie "
+"leer lassen"
 
 #: src/EBox/Model/RangeTable.pm:117
 #, perl-brace-format
@@ -650,8 +648,8 @@ msgid ""
 "You can leave empty the Default Gateway field to use Zentyal as default "
 "gateway for this subnet"
 msgstr ""
-"Wenn Sie das Feld \"Standardgateway\" leerlassen, wird der Standardgateway "
-"der eBox für dieses Subnetz verwendet"
+"Wenn Sie das Feld \"Standardgateway\" leerlassen, wird der Standardgateway der "
+"Zentyal für dieses Subnetz verwendet"
 
 #: src/templates/options.mas:64
 msgid "Apply"

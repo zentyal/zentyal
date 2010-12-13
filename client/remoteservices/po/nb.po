@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: ebox-remoteservices 1.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-08-28 23:38+0200\n"
-"PO-Revision-Date: 2010-03-10 10:46+0100\n"
-"Last-Translator: Ronny Gonzales <gonzito@online.no>\n"
+"PO-Revision-Date: 2010-10-08 10:49+0200\n"
+"Last-Translator: Ronny Gonzales <ronny@kcl.no>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -19,7 +19,7 @@ msgstr ""
 
 #: src/EBox/RemoteServices.pm:82
 msgid "Zentyal Cloud Client"
-msgstr ""
+msgstr "Zentyal Sky Klient"
 
 #: src/EBox/RemoteServices.pm:217
 msgid "Not subscribed"
@@ -30,24 +30,21 @@ msgid "Subscribed"
 msgstr "Abonnert"
 
 #: src/EBox/RemoteServices.pm:251
-#, fuzzy
 msgid "Subscription"
-msgstr "Abonner"
+msgstr "Abonnemang"
 
 #: src/EBox/RemoteServices.pm:259
 #: src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:91
-#, fuzzy
 msgid "Remote Support Access"
-msgstr "Eksterne tjenester"
+msgstr "Fjernhjelp Tilgang"
 
 #: src/EBox/RemoteServices.pm:262
 msgid "System"
-msgstr ""
+msgstr "System"
 
 #: src/EBox/RemoteServices.pm:312
-#, fuzzy
 msgid "Zentyal Cloud Connection"
-msgstr "eBox Kontrollsentertilkobling"
+msgstr "Zentyal Sky Tilkobling"
 
 #: src/EBox/RemoteServices.pm:425
 msgid ""
@@ -177,24 +174,21 @@ msgid "Done"
 msgstr "Fullført"
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:259
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Subscribing Zentyal will configure the {mods} and its dependencies "
-msgstr ""
-"Abonnering av en eBox vil aktivere OpenVPN modulen og dens nødvendigheter."
+msgstr "Abonnering på Zentyal vil konfigurere {mods} og dens nødvendigheter."
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:266
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Subscribing Zentyal will enable the {mods} and its dependencies.<br/>"
-msgstr ""
-"Abonnering av en eBox vil aktivere OpenVPN modulen og dens nødvendigheter."
+msgstr "Abonnering på Zentyal vil aktivere {mods} og dens nødvendigheter.<br/>"
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:271
-#, fuzzy
 msgid ""
 "Take into account that subscribing Zentyal could take a minute. Do not touch "
 "anything until subscribing process is done."
 msgstr ""
-"Vær oppmerksom på at abonnering av en eBox kan ta noen minutter. Ikke rør "
+"Vær oppmerksom på at abonnering av en Zentyal kan ta noen minutter. Ikke rør "
 "noe intill abonnerings prosessen er ferdig."
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:307
@@ -210,50 +204,44 @@ msgid "User Name or Email Address"
 msgstr "Bruker Navn eller Epost Adresse"
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:335
-#, fuzzy
 msgid "Server Name"
-msgstr "eBox Navn"
+msgstr "Server Navn"
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:340
-#, fuzzy
 msgid "Choose a name for your server which is a valid subdomain name"
-msgstr "Velg et navn for din eBox som er et gyldig domene navn"
+msgstr "Velg et navn for din server som er et gyldig domene navn"
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:347
 msgid "Password"
 msgstr "Passord"
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:355
-#, fuzzy
 msgid "Zentyal subscription details"
-msgstr "eBox abonnement detaljer"
+msgstr "Zentyal abonnement detaljer"
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:356
 msgid "Delete data"
 msgstr "Slett data"
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:359
-#, fuzzy
 msgid "Subscription to Zentyal Cloud"
-msgstr "Abonnement på eBox Control Center"
+msgstr "Abonnement på Zentyal Sky"
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:360
 msgid "Subscribe"
 msgstr "Abonner"
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:516
-#, fuzzy
 msgid " module"
-msgstr "Modul"
+msgstr "modul"
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:522
 msgid " and "
-msgstr ""
+msgstr "og"
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:522
-#, fuzzy
 msgid " modules"
-msgstr "Modul"
+msgstr "moduler"
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:539
 msgid "Action"
@@ -277,9 +265,8 @@ msgid "Access settings"
 msgstr "Tilgangs instillinger"
 
 #: src/EBox/RemoteServices/Types/EBoxCommonName.pm:56
-#, fuzzy
 msgid "It must be a valid subdomain name"
-msgstr "Det må være et gyldig domene navn"
+msgstr "Det må være et gyldig subdomene navn"
 
 #: src/EBox/RemoteServices/Types/EBoxCommonName.pm:58
 #, perl-brace-format

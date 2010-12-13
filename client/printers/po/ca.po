@@ -7,18 +7,18 @@ msgstr ""
 "Project-Id-Version: ebox-printers 0.12\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-08-28 23:38+0200\n"
-"PO-Revision-Date: 2005-11-11 13:26+0100\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2010-09-01 09:05+0200\n"
+"Last-Translator: jaume ponsa <jaume@calidae.net>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural= (n != 1);\n"
-"X-Generator: Translate Toolkit 0.10.1\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: migration/0001_add_ipp_service.pl:117
 msgid "Cups printer server port"
-msgstr ""
+msgstr "Port del servidor d'impressió cups"
 
 #: src/EBox/Model/CUPS.pm:142
 #, perl-brace-format
@@ -26,22 +26,24 @@ msgid ""
 "Prior to configure printers you need to enable the module in the {openref}"
 "Module Status{closeref}  section and save changes after that."
 msgstr ""
+"Abans de configurar les impresores necessita activar el mòdul a la secció  "
+"{openref}Estat dels mòduls{closeref} i desar els canvis després."
 
 #: src/EBox/Model/CUPS.pm:156
 msgid "Interface"
-msgstr ""
+msgstr "Interfície"
 
 #: src/EBox/Model/CUPS.pm:161
 msgid "Listen"
-msgstr ""
+msgstr "Escoltar"
 
 #: src/EBox/Model/CUPS.pm:170
 msgid "Select CUPS Interfaces"
-msgstr ""
+msgstr "Selecciona les Interfícies de CUPS"
 
 #: src/EBox/Model/CUPS.pm:175
 msgid "interface"
-msgstr ""
+msgstr "interfície"
 
 #: src/EBox/Model/CUPS.pm:176
 msgid ""
@@ -49,6 +51,9 @@ msgid ""
 "account that is not probably a good idea to listen on external interfaces. "
 "If none are selected, it will be listening only at localhost"
 msgstr ""
+"Selecciona en quines interfícies escoltarà el servidor web CUPS. Tingues en "
+"compte que probablement no es bona idea que escolti a les interfícies "
+"externes. Si no es selecciona cap, escoltarà només a localhost"
 
 #: src/EBox/Model/CUPS.pm:187
 #, perl-brace-format
@@ -56,64 +61,68 @@ msgid ""
 "To add or manage printers you have to use the {open_href}CUPS Web Interface"
 "{close_href}"
 msgstr ""
+"Per afegir o modificar impresores ha de fer servir la {open_href}Interfície "
+"Web de CUPS{close_href} "
 
 #: src/EBox/Printers.pm:41 src/EBox/Composite/General.pm:60
 msgid "Printer Sharing"
-msgstr ""
+msgstr "Compartició d'impresores"
 
 #: src/EBox/Printers.pm:56
 msgid "Create spool directory for printers"
-msgstr ""
+msgstr "Crear un directori de cues per impresores"
 
 #: src/EBox/Printers.pm:57
 msgid "Zentyal will create a spool directory under /var/spool/samba"
-msgstr ""
+msgstr "El Zentyal crearà un directori de cues a /var/spool/samba"
 
 #: src/EBox/Printers.pm:62
 msgid "Create log table"
-msgstr ""
+msgstr "Crear una taula de log"
 
 #: src/EBox/Printers.pm:63
 msgid ""
 "Zentyal will create a new table into its log database to store printers logs"
 msgstr ""
+"El Zentyal crearà una taula a la base de dades de log per guardar els logs "
+"de les impresores"
 
 #: src/EBox/Printers.pm:79
 msgid "To configure cupsd"
-msgstr ""
+msgstr "Per configurar el cupsd"
 
 #: src/EBox/Printers.pm:221
 msgid "Job ID"
-msgstr ""
+msgstr "ID de la tasca"
 
 #: src/EBox/Printers.pm:222
 msgid "Printer"
-msgstr ""
+msgstr "Impresora"
 
 #: src/EBox/Printers.pm:223
 msgid "User"
-msgstr ""
+msgstr "Usuari"
 
 #: src/EBox/Printers.pm:224
 msgid "Date"
-msgstr ""
+msgstr "Data"
 
 #: src/EBox/Printers.pm:225
 msgid "Event"
-msgstr ""
+msgstr "Event"
 
 #: src/EBox/Printers.pm:229
 msgid "Queued"
-msgstr ""
+msgstr "Encuat"
 
 #: src/EBox/Printers.pm:230
 msgid "Completed"
-msgstr ""
+msgstr "Completat"
 
 #: src/EBox/Printers.pm:231
 msgid "Canceled"
-msgstr ""
+msgstr "Cancel·lat"
 
 #: src/EBox/Printers.pm:235
 msgid "Printers"
-msgstr ""
+msgstr "Impresores"

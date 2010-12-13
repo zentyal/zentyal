@@ -7,8 +7,8 @@ msgstr ""
 "Project-Id-Version: ebox-software 0.12.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-08-28 23:41+0200\n"
-"PO-Revision-Date: 2010-08-23 08:10+0200\n"
-"Last-Translator: andrea biasi <info@andreabiasi.it>\n"
+"PO-Revision-Date: 2010-09-15 13:57+0200\n"
+"Last-Translator: Simone Bernini <lemorragia@libero.it>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -34,15 +34,18 @@ msgstr "Gestione software"
 
 #: src/EBox/Software.pm:532
 #, perl-brace-format
+#, fuzzy
 msgid ""
 "You cannot modify the automatic update using QA updates from Web UI. To "
 "disable automatic updates, edit {conf} and disable {key} key."
 msgstr ""
+"Non puoi modificare gli aggiornamenti automatici usando aggiornamenti QA da "
+"interfaccia web.Per disabilitare gli aggiornamenti automatici modifica "
+"{conf} e disabilita{key} la chiave."
 
 #: src/EBox/Software.pm:597
-#, fuzzy
 msgid "Zentyal Components"
-msgstr "componenti eBox"
+msgstr "componenti di Zentyal"
 
 #: src/EBox/Software.pm:599
 msgid "System Updates"
@@ -89,14 +92,12 @@ msgid "automatic updates configuration"
 msgstr "configurazione aggiornamenti automatici"
 
 #: src/EBox/CGI/EBox.pm:34
-#, fuzzy
 msgid "Choose Zentyal packages to install"
-msgstr "pacchetti rimasti da installare"
+msgstr "Scegli i pacchetti Zentyal da installare"
 
 #: src/EBox/CGI/EBox.pm:38
-#, fuzzy
 msgid "Zentyal components"
-msgstr "componenti eBox"
+msgstr "Componenti di Zentyal"
 
 #: src/EBox/CGI/Config.pm:31
 msgid "Software management settings"
@@ -111,36 +112,31 @@ msgid "System updates"
 msgstr "Aggiornamenti di sistema"
 
 #: src/EBox/CGI/Updates.pm:58
-#, fuzzy
 msgid "The system components are up to date."
-msgstr "Il sistema è aggiornato"
+msgstr "I componenti del sistema sono aggiornati."
 
 #: src/EBox/CGI/InstallPkgs.pm:100
 msgid "There were no packages to update"
 msgstr "Non ci sono pacchetti da aggiornare"
 
 #: src/EBox/CGI/InstallPkgs.pm:167
-#, fuzzy
 msgid "Installing"
-msgstr "Installa"
+msgstr "Installando"
 
 #: src/EBox/CGI/InstallPkgs.pm:168
-#, fuzzy
 msgid "Installing packages"
-msgstr "Aggiorno pacchetti"
+msgstr "Installando pacchetti"
 
 #: src/EBox/CGI/InstallPkgs.pm:169 src/EBox/CGI/InstallPkgs.pm:193
-#, fuzzy
 msgid "Current operation"
-msgstr "Pacchetto corrente"
+msgstr "Operazione corrente"
 
 #: src/EBox/CGI/InstallPkgs.pm:170
 #, fuzzy
 msgid "actions done"
-msgstr "Azioni"
+msgstr "operazioni completate"
 
 #: src/EBox/CGI/InstallPkgs.pm:171
-#, fuzzy
 msgid ""
 "The packages installation has finished successfully. The administration "
 "interface may become unresponsive for a few seconds. Please wait patiently "
@@ -149,7 +145,8 @@ msgid ""
 msgstr ""
 "L'installazione dei pacchetti è andata a buon fine. L'interfaccia di "
 "amministrazione potrebbe restare congelata per qualche secondo. Per favore "
-"attendere la completa ripartenza del sistema"
+"attendi che il sistema sia completamente configurato.Sarai rediretto "
+"automaticamente ai passaggi successivi dell'installazione"
 
 #: src/EBox/CGI/InstallPkgs.pm:176
 msgid ""
@@ -191,26 +188,30 @@ msgstr ""
 
 #: src/EBox/CGI/CurrentPackage.pm:31
 msgid "Upgrading"
-msgstr "Aggiorno"
+msgstr "In aggiornamento"
 
 #: src/templates/updates.mas:24 src/templates/ebox.mas:181
 msgid "Package list updated successfully"
-msgstr ""
+msgstr "Lista pacchetti aggiornata con successo"
 
 #: src/templates/updates.mas:28 src/templates/ebox.mas:185
 msgid ""
 "Error updating package list. Please try to execute the following command in "
 "a console to see the problem: sudo apt-get update"
 msgstr ""
+"Errore nell'aggiornamento della lista dei pacchetti.Prova a eseguire il "
+"seguente comando in una console per controllare quale sia il problema: sudo "
+"apt-get update"
 
 #: src/templates/updates.mas:38
 msgid "Updates are available for the following system components"
 msgstr "Sono disponibili aggiornamenti per i seguenti componenti di sistema"
 
 #: src/templates/updates.mas:40
-#, fuzzy
 msgid "Community updates are available for the following system components"
-msgstr "Sono disponibili aggiornamenti per i seguenti componenti di sistema"
+msgstr ""
+"Aggiornamenti \"community\" sono disponibili per i seguenti componenti di "
+"sistema"
 
 #: src/templates/updates.mas:46
 msgid "Component"
@@ -230,27 +231,24 @@ msgid "Update"
 msgstr "Aggiornamento"
 
 #: src/templates/updates.mas:66
-#, fuzzy
 msgid "Security update"
-msgstr "Aggiornamenti di sistema"
+msgstr "Aggiornamento di sicurezza"
 
 #: src/templates/updates.mas:69
-#, fuzzy
 msgid "Zentyal QA update"
-msgstr "Aggiornamenti QA di eBox "
+msgstr "Aggiornamenti QA di Zentyal"
 
 #: src/templates/updates.mas:91
 msgid "Update all packages"
 msgstr "Aggiorna tutti i pacchetti"
 
 #: src/templates/updates.mas:102
-#, fuzzy
 msgid ""
 "This operation can take some time, don't worry if Zentyal looks unresponsive "
 "after pressing the Upgrade button."
 msgstr ""
-"Questa operazione può richiedere del tempo, non preoccuparti se eBox sembra "
-"non rispondere dopo aver premuto il bottone Aggiorna."
+"Questa operazione può richiedere del tempo, non preoccuparti se Zentyal "
+"sembra non rispondere dopo aver premuto il bottone Aggiorna."
 
 #: src/templates/updates.mas:106
 msgid "Upgrade"
@@ -260,7 +258,7 @@ msgstr "Aggiorna"
 #: src/templates/ebox.mas:575
 #, fuzzy
 msgid "Update list"
-msgstr "Aggiornamento"
+msgstr "Aggiorna lista"
 
 #: src/templates/ebox.mas:157 src/templates/ebox.mas:524
 #: src/templates/ebox.mas:565
@@ -272,9 +270,8 @@ msgid "View advanced mode"
 msgstr "Visualizza modalità Esperto"
 
 #: src/templates/ebox.mas:526
-#, fuzzy
 msgid "Skip install"
-msgstr "Installa"
+msgstr "Tralascia installazione"
 
 #: src/templates/ebox.mas:539
 msgid "View basic mode"
@@ -282,17 +279,17 @@ msgstr "Visualizza modalita normale"
 
 #: src/templates/ebox.mas:557 src/templates/ebox.mas:586
 msgid "Delete"
-msgstr ""
+msgstr "Cancella"
 
 #: src/templates/ebox.mas:567 src/templates/ebox.mas:576
 #: src/templates/ebox.mas:587
 msgid "Deselect All"
-msgstr ""
+msgstr "Deseleziona tutto"
 
 #: src/templates/ebox.mas:568 src/templates/ebox.mas:577
 #: src/templates/ebox.mas:588
 msgid "Select All"
-msgstr ""
+msgstr "Seleziona tutto"
 
 #: src/templates/del.mas:97
 msgid "The following packages will be installed"
@@ -317,24 +314,24 @@ msgstr "Potresti voler installare anche i pacchetti raccomandati si seguito"
 #: src/templates/del.mas:155
 msgid "Layer 7 filtering for Traffic Shaping (ebox-l7-protocols)"
 msgstr ""
+"Filtering di livello 7 per il modulo di Traffic Shaping (ebox-l7-protocols)"
 
 #: src/templates/del.mas:158
 msgid "Virus scanning for File Sharing (ebox-antivirus and samba-vscan)"
-msgstr ""
+msgstr "Scansione virus per la Condivisione File (ebox-antivirus e samba-vscan)"
 
 #: src/templates/del.mas:161
 msgid "VoIP meetings support (dahdi and linux-headers)"
-msgstr ""
+msgstr "Supporto per riunioni VoIP (dahdi e linux-headers)"
 
 #: src/templates/config.mas:8
-#, fuzzy
 msgid "Perform automatic security updates"
-msgstr "Aggiornamenti software automatici"
+msgstr "Rendi automatici gli aggiornamenti di sicurezza"
 
 #: src/templates/config.mas:14
 msgid "Zentyal is configured to use automatic QA updates"
-msgstr ""
+msgstr "Zentyal e' configurato per usare aggiornamenti QA in automatico"
 
 #: src/templates/config.mas:26
 msgid "Automatic operations start time"
-msgstr "Orario di avvio operazioni automatiche"
+msgstr "Orario di avvio per operazioni automatiche"

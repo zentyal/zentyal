@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-printers 1.4\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-08-28 23:38+0200\n"
-"PO-Revision-Date: 2010-05-03 14:36+0200\n"
+"PO-Revision-Date: 2010-11-07 11:24+0100\n"
 "Last-Translator: Michal Formánek <formi@seznam.cz>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
@@ -27,23 +27,25 @@ msgid ""
 "Prior to configure printers you need to enable the module in the {openref}"
 "Module Status{closeref}  section and save changes after that."
 msgstr ""
+"Před konfigurací tiskárny musíte povolit modul v {openref}Module "
+"Status{closeref} sekci a poté uložit změny."
 
 #: src/EBox/Model/CUPS.pm:156
 msgid "Interface"
-msgstr ""
+msgstr "Rozhraní"
 
 #: src/EBox/Model/CUPS.pm:161
 msgid "Listen"
-msgstr ""
+msgstr "Naslouchat"
 
 #: src/EBox/Model/CUPS.pm:170
 msgid "Select CUPS Interfaces"
-msgstr ""
+msgstr "Zvolit CUPS rozhraní"
 
 #: src/EBox/Model/CUPS.pm:175
 #, fuzzy
 msgid "interface"
-msgstr "Tiskárna"
+msgstr "Rozhraní"
 
 #: src/EBox/Model/CUPS.pm:176
 msgid ""
@@ -51,6 +53,9 @@ msgid ""
 "account that is not probably a good idea to listen on external interfaces. "
 "If none are selected, it will be listening only at localhost"
 msgstr ""
+"Zvolte na kterých rozhraních bude CUPS webserver naslouchat. Vezměte do "
+"úvahy, že není dobrý nápad nastavit naslouchání na externím rozhraní. Pokud "
+"nic nevyberete, potom bude naslouchat jen na localhost-u"
 
 #: src/EBox/Model/CUPS.pm:187
 #, perl-brace-format
@@ -58,6 +63,8 @@ msgid ""
 "To add or manage printers you have to use the {open_href}CUPS Web Interface"
 "{close_href}"
 msgstr ""
+"Přidat, nebo spravovat tiskárny můžete na {open_href}CUPS Web "
+"Interface{close_href}"
 
 #: src/EBox/Printers.pm:41 src/EBox/Composite/General.pm:60
 msgid "Printer Sharing"
@@ -65,12 +72,11 @@ msgstr "Sdílení tiskárny"
 
 #: src/EBox/Printers.pm:56
 msgid "Create spool directory for printers"
-msgstr "Vytvořit spool adresář pro tiskárny"
+msgstr "Vytvořit spoolový adresář pro tiskárny"
 
 #: src/EBox/Printers.pm:57
-#, fuzzy
 msgid "Zentyal will create a spool directory under /var/spool/samba"
-msgstr "eBox vytvoří spoolový adresář v /var/spool/samba"
+msgstr "Zentyal vytvoří spoolový adresář v /var/spool/samba"
 
 #: src/EBox/Printers.pm:62
 msgid "Create log table"

@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: ebox-monitor 0.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-08-28 23:36+0200\n"
-"PO-Revision-Date: 2010-02-01 09:32+0100\n"
-"Last-Translator: Ronny Gonzales <gonzito@online.no>\n"
+"PO-Revision-Date: 2010-10-08 13:21+0200\n"
+"Last-Translator: Ronny Gonzales <ronny@kcl.no>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -28,7 +28,7 @@ msgstr "Varsle når en viss verdi har nådd en viss terskel"
 
 #: src/EBox/Event/Watcher/Monitor.pm:263
 msgid "All data sources are within range again"
-msgstr ""
+msgstr "Alle data kilder er innenfor rekkevidde igjen"
 
 #: src/EBox/Event/Watcher/Monitor.pm:273
 #, perl-brace-format
@@ -36,17 +36,17 @@ msgid "{what} \"{dS}\" is currently {value}."
 msgstr "{what} \"{dS}\" er nå {value}."
 
 #: src/EBox/Event/Watcher/Monitor.pm:280
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "That is within the {severity} region of {minBound} and {maxBound}. "
 msgstr "Det er innenfor de {severity} regionene av {minBound} og {maxBound}."
 
 #: src/EBox/Event/Watcher/Monitor.pm:288
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "That is above the {severity} threshold of {bound}. "
 msgstr "Det er over {severity} terskelen av {bound}."
 
 #: src/EBox/Event/Watcher/Monitor.pm:291
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "That is below the {severity} threshold of {bound}. "
 msgstr "Det er under {severity} terskelen av {bound}."
 
@@ -61,9 +61,9 @@ msgid "{daemon} thresholds configuration file"
 msgstr "{daemon} terskel konfigurasjons fil"
 
 #: src/EBox/Monitor.pm:160
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "{daemon} default configuration file"
-msgstr "{daemon} hoved konfigurasjons fil"
+msgstr "{daemon} standard konfigurasjons fil"
 
 #: src/EBox/Monitor/Measure/CPU.pm:59
 #, perl-brace-format
@@ -214,18 +214,16 @@ msgstr "verdi"
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:102
 #: src/EBox/Monitor/Model/MeasureWatchers.pm:77
 msgid "Events"
-msgstr ""
+msgstr "Hendelser"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:106
 #: src/EBox/Monitor/Model/MeasureWatchers.pm:81
-#, fuzzy
 msgid "Monitor Watcher"
-msgstr "Overvåke"
+msgstr "Overvåker"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:110
-#, fuzzy
 msgid "Threshold Configuration"
-msgstr "Terskel konfigurasjon"
+msgstr "Terskel Konfigurasjon"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:144
 msgid "At least a threshold (maximum or minimum) must be set"

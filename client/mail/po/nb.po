@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: ebox-mail 0.12.99\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-08-28 23:36+0200\n"
-"PO-Revision-Date: 2010-03-10 10:44+0100\n"
-"Last-Translator: Ronny Gonzales <gonzito@online.no>\n"
+"PO-Revision-Date: 2010-10-26 15:07+0200\n"
+"Last-Translator: Ronny Gonzales <ronny@kcl.no>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -18,9 +18,8 @@ msgstr ""
 "X-Generator: Pootle 1.1.0\n"
 
 #: migration/0001_add_firewall_services.pl:45
-#, fuzzy
 msgid "Zentyal Mail System"
-msgstr "eBox Epostsystem"
+msgstr "Zentyal Epostsystem"
 
 #: migration/0005_add_managesieve_firewall_services.pl:43
 msgid "protocol for editing SIEVE filters"
@@ -307,6 +306,9 @@ msgid ""
 "gateway for Zarafa. You can do it at {ohref}Zarafa gateways configuration "
 "settings{chref}."
 msgstr ""
+"For å aktivere {service} epost hente tjenesten, må du deaktivere {service} "
+"gateway for Zarafa. Du kan gjøre dette på {ohref}Zarafa gateways "
+"konfigurasjons instillinger{chref}."
 
 #: src/EBox/Mail/Model/ExternalAliases.pm:54
 msgid "Alias"
@@ -358,7 +360,7 @@ msgstr ""
 #: src/EBox/Mail/Model/ExternalAliases.pm:146
 #, perl-brace-format
 msgid "An account or alias called {al} already exists"
-msgstr ""
+msgstr "En konto eller et alias med navn {al} eksisterer allerede"
 
 #: src/EBox/Mail/Model/ExternalAliases.pm:167
 msgid ""
@@ -470,14 +472,12 @@ msgstr ""
 "for et annet virtuelt domene"
 
 #: src/EBox/Mail/Model/SMTPAuth.pm:65
-#, fuzzy
 msgid "TLS for SMTP server"
-msgstr "Epost SMTP-server"
+msgstr "TLS for SMTP-server"
 
 #: src/EBox/Mail/Model/SMTPAuth.pm:71
-#, fuzzy
 msgid "Require authentication"
-msgstr "Autentisering"
+msgstr "Påkrevd autentisering"
 
 #: src/EBox/Mail/Model/SMTPAuth.pm:74
 msgid ""
@@ -513,9 +513,9 @@ msgid "Subject"
 msgstr "Emne"
 
 #: src/EBox/Mail/Model/Dispatcher/Mail.pm:127
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "[Zentyal-event] An event has happened at {hostName}"
-msgstr "[EBox-event] En hendelse har oppstått på {hostName}"
+msgstr "[Zentyal-event] En hendelse har oppstått på {hostName}"
 
 #: src/EBox/Mail/Model/Dispatcher/Mail.pm:134 src/EBox/Mail.pm:1640
 msgid "To"
@@ -526,13 +526,12 @@ msgid "Configure mail dispatcher"
 msgstr "Konfigurer eposttildeler"
 
 #: src/EBox/Mail/Model/Dispatcher/Mail.pm:146
-#, fuzzy
 msgid ""
 "In order to configure the Mail event dispatcher is required to enable the "
 "mail service from Zentyal"
 msgstr ""
 "For å konfigurere eposthandlingstildeler må e-post tjenesten aktiveres fra "
-"eBox"
+"Zentyal"
 
 #: src/EBox/Mail/Model/Dispatcher/Mail.pm:149
 msgid "Mail dispatcher configuration updated"
@@ -785,40 +784,38 @@ msgid "Generate mail aliases"
 msgstr "Generer epostaliaser"
 
 #: src/EBox/Mail.pm:143
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Zentyal will execute {cmd}"
-msgstr "eBox vil kjøre {cmd}"
+msgstr "Zentyal vil kjøre {cmd}"
 
 #: src/EBox/Mail.pm:148
 msgid "Add LDAP schemas"
 msgstr "Legg til LDAP-skjemaer"
 
 #: src/EBox/Mail.pm:150
-#, fuzzy
 msgid "Zentyal will add two LDAP schemas: authldap.ldif and eboximail.ldif."
-msgstr "eBox vil legge til to LDAP-skjemaer: authldap.ldif og eboximail.ldif."
+msgstr ""
+"Zentyal vil legge til to LDAP-skjemaer: authldap.ldif og eboximail.ldif."
 
 #: src/EBox/Mail.pm:156
 msgid "Create certificates"
 msgstr "Opprett sertifikater"
 
 #: src/EBox/Mail.pm:158
-#, fuzzy
 msgid "Zentyal will create certificates to use in mail services"
-msgstr "eBox vil opprette sertifikater for bruk i eposttjenester"
+msgstr "Zentyal vil opprette sertifikater for bruk i eposttjenester"
 
 #: src/EBox/Mail.pm:163
 msgid "Add fetchmail update cron job"
 msgstr "Legg til fetchmail oppdateringsjobb i cron"
 
 #: src/EBox/Mail.pm:165
-#, fuzzy
 msgid ""
 "Zentyal will schedule a cron job to update fetchmail configuration when the "
 "user add external accounts"
 msgstr ""
-"eBox vil planlegge en jobb i cron, for å oppdatere fetchmail konfigurasjonen "
-"når brukeren legger til eksterne kontoer"
+"Zentyal vil planlegge en jobb i cron, for å oppdatere fetchmail "
+"konfigurasjonen når brukeren legger til eksterne kontoer"
 
 #: src/EBox/Mail.pm:185
 msgid "To configure postfix"
@@ -1002,9 +999,8 @@ msgid "Maximum message size exceeded"
 msgstr "Maksimal meldingsstørrelse overskredet"
 
 #: src/EBox/Mail.pm:1661
-#, fuzzy
 msgid "User quota exceeded"
-msgstr "Brukerkvote overskredet"
+msgstr "Bruker kvote overskredet"
 
 #: src/EBox/Mail.pm:1662
 msgid "Relay access denied"
@@ -1053,9 +1049,8 @@ msgid "Mail address"
 msgstr "Epostadresse"
 
 #: src/EBox/CGI/Wizard/VirtualDomain.pm:47
-#, fuzzy
 msgid "Invalid virtual mail domain"
-msgstr "Epost virtuellt domene"
+msgstr "Ugyldig virtuellt domene"
 
 #: src/EBox/CGI/MQRequeue.pm:42 src/EBox/CGI/MQRemove.pm:42
 #: src/templates/qmanager.mas:17
@@ -1095,19 +1090,16 @@ msgid "user mail"
 msgstr "brukerepost"
 
 #: src/templates/Wizard/virtualdomain.mas:4
-#, fuzzy
 msgid "Virtual mail domain"
-msgstr "Virtuelle Epostdomener"
+msgstr "Virtuelle epost domener"
 
 #: src/templates/Wizard/virtualdomain.mas:7
-#, fuzzy
 msgid "Set up the default virtual mail domain"
-msgstr "Send en kopi av alle epostdomener"
+msgstr "Sett opp standard virtuelt epost domene"
 
 #: src/templates/Wizard/virtualdomain.mas:8
-#, fuzzy
 msgid "This will be the domain for your mail accounts"
-msgstr "Denne brukeren har en epostkonto"
+msgstr "Dette vil bli domenet for dine epost kontoer"
 
 #: src/templates/warnusermdsize.mas:23 src/templates/warnvdmdsize.mas:33
 msgid "Change"

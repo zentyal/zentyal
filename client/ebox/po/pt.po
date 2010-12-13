@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox 0.12\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-08-28 23:35+0200\n"
-"PO-Revision-Date: 2010-08-26 11:54+0200\n"
+"PO-Revision-Date: 2010-10-10 19:10+0200\n"
 "Last-Translator: Vasco Castelo Branco <vcbranco@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
@@ -571,7 +571,7 @@ msgstr "Nome da máquina"
 
 #: src/EBox/SysInfo.pm.in:105
 msgid "Core version"
-msgstr "Versão da eBox"
+msgstr "Versão Zentyal"
 
 #: src/EBox/SysInfo.pm.in:107
 msgid "System load"
@@ -724,7 +724,7 @@ msgstr ""
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:244
 msgid "Configure Jabber dispatcher"
-msgstr "Configurar expedidor Jabber "
+msgstr "Configurar expedidor Jabber"
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:249
 msgid "This dispatcher will send events to an Jabber account"
@@ -747,7 +747,7 @@ msgstr "Eventos"
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:276
 msgid "Jabber Dispatcher"
-msgstr "Expedidor Jabber "
+msgstr "Expedidor Jabber"
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:301
 msgid "It should follow the pattern 'user@domain[/resource]'"
@@ -1239,7 +1239,7 @@ msgstr "Parâmetro para sempre deve ser um número positivo de horas"
 
 #: src/EBox/Common/Model/EnableForm.pm:99
 msgid "Service enabled"
-msgstr "Serviço activado"
+msgstr "Serviço activo"
 
 #: src/EBox/Common/Model/EnableForm.pm:101
 msgid "Service disabled"
@@ -1624,7 +1624,7 @@ msgid ""
 "impossibe. A configuration recovery  may be possible"
 msgstr ""
 "O arquivo não tem um backup completo, o que torna a restauração completa "
-"impossível. No entanto pode ser possível uma recuperação da configuração "
+"impossível. No entanto pode ser possível uma recuperação da configuração"
 
 #: src/EBox/Backup.pm:954
 #, perl-brace-format
@@ -1676,7 +1676,7 @@ msgstr "Forum"
 
 #: src/templates/links-widget.mas:14
 msgid "Report a bug"
-msgstr "Submeter um bug"
+msgstr "Submeter um erro"
 
 #: src/templates/links-widget.mas:16
 msgid "How to Contribute"

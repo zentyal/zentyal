@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: ebox 0.12\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-08-28 23:35+0200\n"
-"PO-Revision-Date: 2010-08-24 12:24+0200\n"
-"Last-Translator: Steffen Gutermann <steffen@gutermann.info>\n"
+"PO-Revision-Date: 2010-09-12 13:35+0200\n"
+"Last-Translator: J. Schwieder <j.schwieder@gmx.de>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -25,7 +25,7 @@ msgstr "Port"
 #: src/EBox/Apache.pm:598
 #, fuzzy
 msgid "Zentyal web server"
-msgstr "interner Webserver dieser eBox"
+msgstr "Zentyals interner Webserver"
 
 #: src/EBox/Event/Dispatcher/Jabber.pm:165
 msgid "Admin Jabber account"
@@ -62,19 +62,19 @@ msgid "RSS"
 msgstr "RSS"
 
 #: src/EBox/Event/Dispatcher/RSS.pm:289
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Zentyal alerts channel for {hostname}"
-msgstr "eBox Alarme für {hostname}"
+msgstr "Zentyal Alarme für {hostname}"
 
 #: src/EBox/Event/Dispatcher/RSS.pm:292
 #, fuzzy
 msgid "This channel tracks what happens on this Zentyal machine along the time"
-msgstr "Dieser RSS-Channel beschreibt, was mit dieser eBox passiert ist"
+msgstr "Dieser RSS-Channel beschreibt, was mit dieser Zentyal passiert ist"
 
 #: src/EBox/Event/Dispatcher/RSS.pm:312
 #, fuzzy, perl-brace-format
 msgid "The event has happened in Zentyal {hostname} from {source}"
-msgstr "Das ist mit der eBox {hostname} von {source} passiert"
+msgstr "Das Ereignis ist im Zentyal {hostname} von {source} passiert"
 
 #: src/EBox/Event/Dispatcher/RSS.pm:316
 #, perl-brace-format
@@ -113,17 +113,16 @@ msgstr ""
 #: src/EBox/Event/Watcher/Runit.pm:112
 #, fuzzy, perl-brace-format
 msgid "The following modules are not running but they are enabled: {modules}\n"
-msgstr "Die folgenden Module sind nicht gestartet: {modules}\n"
+msgstr "Die folgenden Module sind aktiviert aber nicht gestartet: {modules}\n"
 
 #: src/EBox/Event/Watcher/Runit.pm:141
 msgid "Service"
 msgstr "Dienst"
 
 #: src/EBox/Event/Watcher/Runit.pm:158
-#, fuzzy
 msgid "Check if any Zentyal service is not running when it is enabled"
 msgstr ""
-"Überprüfen Sie, ob ein eBox-Dienst nicht läuft, obwohl er laufen sollte"
+"Überprüfen Sie, ob ein Zentyal-Dienst nicht läuft, obwohl er laufen sollte"
 
 #: src/EBox/Event/Watcher/Runit.pm:228
 #, perl-brace-format
@@ -357,12 +356,12 @@ msgstr "Frei"
 #: src/EBox/Event/Watcher/State.pm:125
 #, fuzzy
 msgid "Zentyal is up and running"
-msgstr "eBox läuft"
+msgstr "Zentyal läuft"
 
 #: src/EBox/Event/Watcher/State.pm:131
 #, fuzzy
 msgid "Zentyal is critically down"
-msgstr "eBox ist abgestürzt"
+msgstr "Zentyal ist abgestürzt"
 
 #: src/EBox/Event/Watcher/State.pm:156 src/templates/report/raid.mas:226
 msgid "State"
@@ -371,7 +370,7 @@ msgstr "Status"
 #: src/EBox/Event/Watcher/State.pm:173
 #, fuzzy
 msgid "Check if Zentyal is currently up or down"
-msgstr "Prüfen Sie, ob die eBox läuft oder heruntergefahren ist"
+msgstr "Prüfen Sie, ob die Zentyal läuft oder heruntergefahren ist"
 
 #: src/EBox/Model/DataTable.pm:327
 #, perl-brace-format
@@ -583,7 +582,7 @@ msgstr "Computername (Host)"
 #: src/EBox/SysInfo.pm.in:105
 #, fuzzy
 msgid "Core version"
-msgstr "eBox-Version"
+msgstr "Zentyal-Version"
 
 #: src/EBox/SysInfo.pm.in:107
 msgid "System load"
@@ -724,7 +723,7 @@ msgstr "Einschreiben"
 msgid ""
 "Tick this option if you want Zentyal to create an account for the above user"
 msgstr ""
-"Markieren Sie diese Option wenn Sie wollen, dass eBox für den oben "
+"Markieren Sie diese Option wenn Sie wollen, dass Zentyal für den oben "
 "angeführten Benutzer einen Konto anlegt"
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:232
@@ -739,8 +738,8 @@ msgid ""
 "Zentyal admin. Note that you need to register this  account manually in any "
 "jabber server"
 msgstr ""
-"Jabber-Ziel-ID der Nachricht generiert von eBox, z.B. Sie, der eBox "
-"Administrator. Beachten Sie, dass Sie dieses Konto manuell bei einem "
+"Jabber-Ziel-ID der Nachricht generiert von Zentyal, z.B. von Ihnen, dem "
+"Zentyal-Administrator. Beachten Sie, dass Sie dieses Konto manuell bei einem "
 "beliebigen Jabber-Server anlegen müssen."
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:244
@@ -834,8 +833,8 @@ msgid ""
 "Events module configures Zentyal to help informing you about events that "
 "happen"
 msgstr ""
-"Durch das Ereignis-Modul kann eBox Sie auf verschiedene Wege über Ereignisse "
-"auf der eBox informieren"
+"Durch das Ereignis-Modul kann Zentyal Sie auf verschiedene Wege über "
+"Ereignisse auf der Zentyal informieren"
 
 #: src/EBox/Events/Model/ConfigureEventDataTable.pm:274
 #: src/templates/backup.mas:42 src/templates/backup.mas:124
@@ -1208,7 +1207,8 @@ msgstr "Speicherplatz freigeben"
 #, perl-brace-format
 msgid "You must set the {variable} variable in the ebox configuration file"
 msgstr ""
-"Sie müssen die Variable {variable} in der eBox-Konfigurationsdatei definieren"
+"Sie müssen die Variable {variable} in der Zentyal-Konfigurationsdatei "
+"definieren"
 
 #: src/EBox/PgDBEngine.pm:434
 #, perl-brace-format
@@ -1477,12 +1477,12 @@ msgstr "Ausschalten / Neustart"
 #: src/EBox/CGI/EBox/Halt.pm:43
 #, fuzzy
 msgid "Zentyal is going down for halt"
-msgstr "eBox wird ausgeschaltet"
+msgstr "Zentyal wird ausgeschaltet"
 
 #: src/EBox/CGI/EBox/Halt.pm:46
 #, fuzzy
 msgid "Zentyal is going down for reboot"
-msgstr "eBox startet neu"
+msgstr "Zentyal startet neu"
 
 #: src/EBox/CGI/EBox/RestartService.pm:48
 msgid "module name"
@@ -1576,8 +1576,8 @@ msgid ""
 "There is a script which has asked to run in Zentyal exclusively. Please, "
 "wait patiently until it is done"
 msgstr ""
-"Ein script hat angefragt in eBox ausschließlich zu laufen. Bitte warten Sie, "
-"bis es beendet ist."
+"Ein Script hat angefragt, in Zentyal exclusiv ausgeführt zu werden. Bitte "
+"warten Sie geduldig, bis es beendet ist."
 
 #: src/EBox/CGI/Login/Index.pm:67
 msgid "Incorrect password"
@@ -1666,7 +1666,7 @@ msgid ""
 "using a incompatible Zentyal version"
 msgstr ""
 "Die Sicherungsdatei ist vom falschen Typ. Entweder ist die Datei fehlerhaft "
-"oder sie benutzen eine inkompatible Version der eBox"
+"oder sie benutzen eine inkompatible Version der Zentyal"
 
 #: src/EBox/Backup.pm:919
 msgid ""
@@ -1916,7 +1916,7 @@ msgstr "verbleibende Dinge"
 #: src/templates/progress.mas:27
 #, fuzzy
 msgid "Some error has happened in Zentyal: "
-msgstr "Es traten Fehler in eBox auf: "
+msgstr "Es traten Fehler in Zentyal auf: "
 
 #: src/templates/progress.mas:152
 msgid "Starting..."
@@ -2068,9 +2068,9 @@ msgid ""
 "Backups will be stored in Zentyal and then you will be able to download them "
 "to your hard disk."
 msgstr ""
-"Die Sicherungsdateien werden auf der eBox zwischengespeichert und Sie können "
-"diese herunterladen oder auf CD/DVD brennen. Sie können das auch zu einem "
-"späteren Zeitpunkt nachholen"
+"Die Sicherungsdateien werden auf der Zentyal zwischengespeichert und Sie "
+"können diese herunterladen oder auf CD/DVD brennen. Sie können das auch zu "
+"einem späteren Zeitpunkt nachholen"
 
 #: src/templates/backup.mas:29
 msgid ""
@@ -2182,7 +2182,7 @@ msgstr "Läuft"
 #: src/templates/dashboard/index.mas:22 src/templates/dashboard/status.mas:19
 #, fuzzy
 msgid "The service is enabled and running"
-msgstr "eBox läuft"
+msgstr "Zentyal läuft"
 
 #: src/templates/dashboard/index.mas:26 src/templates/dashboard/status.mas:22
 msgid "Stopped"
@@ -2199,7 +2199,7 @@ msgstr ""
 #: src/templates/dashboard/index.mas:32 src/templates/dashboard/status.mas:28
 #, fuzzy
 msgid "The service is running, but not enabled in Zentyal"
-msgstr "eBox läuft"
+msgstr "Der Dienst läuft, ist aber in Zentyal nicht eingeschaltet"
 
 #: src/templates/dashboard/index.mas:36 src/templates/dashboard/status.mas:31
 msgid "Disabled"
@@ -2208,7 +2208,7 @@ msgstr "Deaktiviert"
 #: src/templates/dashboard/index.mas:37 src/templates/dashboard/status.mas:32
 #, fuzzy
 msgid "The service is not enabled in Zentyal"
-msgstr "eBox läuft"
+msgstr "Der Dienst ist in Zentyal nicht eingeschaltet"
 
 #: src/templates/dashboard/index.mas:42 src/templates/dashboard/status.mas:25
 msgid "Start"
@@ -2322,8 +2322,8 @@ msgid ""
 "Warning: Unfortunately Internet Explorer is not yet supported on Zentyal. "
 "Please use {url} instead."
 msgstr ""
-"Warnung: Unglücklicherweise wird Internet Explorer noch nicht von eBox "
-"unterstützt. Bitte verwenden sie {url} stattdessen."
+"Warnung: Bedauerlicherweise wird der Internet Explorer noch nicht von "
+"Zentyal unterstützt. Bitte verwenden sie {url} stattdessen."
 
 #: src/templates/login/index.mas:46
 #, fuzzy, perl-brace-format
@@ -2332,9 +2332,10 @@ msgid ""
 "supported. Please, take into consideration that you might face some issues "
 "while navigating on Zentyal UI."
 msgstr ""
-"Warnung: Sie verwenden einen Browser welcher nicht {url} entspricht, der "
-"einzige offiziell unterstützte. Bitte ziehen sie in Betracht, dass Probleme "
-"während dem Navigieren auf der eBox-Benutzeroberfläche auftreten können."
+"Warnung: Sie verwenden einen Browser welcher nicht {url} entspricht, dem "
+"einzigen offiziell unterstützten. Bitte ziehen sie in Betracht, dass "
+"Probleme während dem Navigieren auf der Zentyal-Benutzeroberfläche auftreten "
+"können."
 
 #: src/templates/login/index.mas:63
 msgid "Enter"
@@ -2345,25 +2346,22 @@ msgid "Remote services control panel"
 msgstr "Übersicht über entfernte Dienste"
 
 #: src/templates/configureView.mas:12
-#, fuzzy
 msgid ""
 "Enabling this module will cause Zentyal to perform the actions and file "
 "modifications listed below. You must explicitly accept these changes to "
 "enable the module."
 msgstr ""
-"Wenn Sie dieses Modul aktivieren wird eBox die unten aufgelisteten Aktionen "
-"und Dateiänderungen durchführen. Sie müssen diese Änderungen explizit "
-"erlauben um das Modul zu aktivieren."
+"Wenn Sie dieses Modul aktivieren wird Zentyal die unten aufgelisteten "
+"Aktionen und Dateiänderungen durchführen. Sie müssen diese Änderungen "
+"explizit erlauben, um das Modul zu aktivieren."
 
 #: src/templates/configureView.mas:16
-#, fuzzy
 msgid "Actions to perform by Zentyal"
-msgstr "Aktionen, welche eBox ausführen wird"
+msgstr "Aktionen, welche Zentyal ausführen wird"
 
 #: src/templates/configureView.mas:31
-#, fuzzy
 msgid "Files to modify by Zentyal"
-msgstr "Dateien, welche eBox ändern wird"
+msgstr "Dateien, welche Zentyal ändern wird"
 
 #: src/templates/configureView.mas:50
 msgid "Accept"
@@ -2376,7 +2374,8 @@ msgstr "TCP-Port der Administrationsschnittstelle"
 #: src/templates/halt.mas:10
 msgid "You might lose your Internet connection if this machine is halted."
 msgstr ""
-"Sie könnten Ihre Internetverbindung verlieren, falls die eBox ausschalten"
+"Sie könnten Ihre Internetverbindung verlieren, falls Zentyal ausgeschaltet "
+"wird."
 
 #: src/templates/halt.mas:14
 msgid "Halt"
@@ -2387,15 +2386,14 @@ msgid "Reboot"
 msgstr "Neu starten"
 
 #: src/templates/bug.mas:9
-#, fuzzy
 msgid ""
 "This page lets you generate a file with information about the state of your "
 "system. The file will be useful if you want to report a problem or seek "
 "support."
 msgstr ""
 "Diese Seite erlaubt Ihnen eine Datei mit Informationen über Ihr System zu "
-"erstellen. Diese Datei wird hilfreich sein, falls Sie einen Fehler dem eBox-"
-"Team melden möchten"
+"erstellen. Diese Datei wird hilfreich sein, falls Sie einen Fehler dem "
+"Zentyal-Team melden möchten"
 
 #: src/templates/bug.mas:13
 msgid "It may take several minutes to generate the report. Please be patient."

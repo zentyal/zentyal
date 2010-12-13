@@ -5,188 +5,195 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-webmail 2.0"
-"Report-Msgid-Bugs-To: developers@zentyal.org\n"
+"Project-Id-Version: ebox-webmail 2.0Report-Msgid-Bugs-To: "
+"developers@zentyal.org\n"
 "POT-Creation-Date: 2010-08-28 23:32+0200\n"
-"PO-Revision-Date: 2010-08-28 23:32+0200\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2010-12-07 18:37+0100\n"
+"Last-Translator: Vytautas <vytautas@lantraneta.lt>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n%"
-"100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"(n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/WebMail/Model/OperationMode.pm:46
 msgid "Mode"
-msgstr ""
+msgstr "Būdas"
 
 #: src/EBox/WebMail/Model/OperationMode.pm:55
 msgid "Operation mode"
-msgstr ""
+msgstr "Veikimo būdas"
 
 #: src/EBox/WebMail/Model/OperationMode.pm:83
 msgid "Zentyal mail service"
-msgstr ""
+msgstr "Zentyal pašto servisas"
 
 #: src/EBox/WebMail/Model/OperationMode.pm:94
 msgid "Remote server"
-msgstr ""
+msgstr "Nutolęs serveris"
 
 #: src/EBox/WebMail/Model/Options.pm:45
 msgid "Name"
-msgstr ""
+msgstr "Vardas"
 
 #: src/EBox/WebMail/Model/Options.pm:47
 msgid "Zentyal webmail"
-msgstr ""
+msgstr "Zentyal web paštas"
 
 #: src/EBox/WebMail/Model/Options.pm:49
 msgid ""
 "The name of the webmail will be used in the login screen and page titles."
-msgstr ""
+msgstr "Web pašto vardas bus panaudotas prisijungimo puslapyje"
 
 #: src/EBox/WebMail/Model/Options.pm:53
 msgid "Virtual host"
-msgstr ""
+msgstr "Virtualus vardas"
 
 #: src/EBox/WebMail/Model/Options.pm:59
 msgid ""
 "Virtual host where the webmail will be installed. This will disable the "
 "default /webmail url."
 msgstr ""
+"Virtualus vardas kur bus įdiegtas web paštas. Ši opcija išjungs web pašto "
+"nuorodą pagal nutylėjimą."
 
 #: src/EBox/WebMail/Model/Options.pm:65
 msgid "General configuration"
-msgstr ""
+msgstr "Pagrindinė konfigūracija"
 
 #: src/EBox/WebMail/Model/Options.pm:66 src/EBox/WebMail.pm:69
 msgid "Webmail"
-msgstr ""
+msgstr "Web Paštas"
 
 #: src/EBox/WebMail/Model/Options.pm:81
 msgid "Disabled"
-msgstr ""
+msgstr "Išjungta"
 
 #: src/EBox/WebMail/Model/Options.pm:112
 msgid ""
 "The deleted virtual host was selected for Webmail. Maybe you want to select "
 "another one now."
 msgstr ""
+"Ištrintas virtualus vardas buvo pasirinktas Web paštas. Gal norite "
+"pasirinkti kitą dabar."
 
 #: src/EBox/WebMail/Model/RemoteServerConfiguration.pm:54
 msgid "IMAP Server"
-msgstr ""
+msgstr "IMAP Serveris"
 
 #: src/EBox/WebMail/Model/RemoteServerConfiguration.pm:60
 msgid "IMAP connection type"
-msgstr ""
+msgstr "IMAP prisijungimo tipas"
 
 #: src/EBox/WebMail/Model/RemoteServerConfiguration.pm:67
 msgid "IMAP server port"
-msgstr ""
+msgstr "IMAP serverio priega"
 
 #: src/EBox/WebMail/Model/RemoteServerConfiguration.pm:73
 msgid "SMTP Server"
-msgstr ""
+msgstr "SMTP Serveris"
 
 #: src/EBox/WebMail/Model/RemoteServerConfiguration.pm:79
 msgid "SMTP connection type"
-msgstr ""
+msgstr "SMTP prisijungimo tipas"
 
 #: src/EBox/WebMail/Model/RemoteServerConfiguration.pm:86
 msgid "SMTP server port"
-msgstr ""
+msgstr "SMTP serverio prieiga"
 
 #: src/EBox/WebMail/Model/RemoteServerConfiguration.pm:93
 msgid "SMTP authentication"
-msgstr ""
+msgstr "SMTP autentifikacija"
 
 #: src/EBox/WebMail/Model/RemoteServerConfiguration.pm:101
 msgid "None"
-msgstr ""
+msgstr "Nėra"
 
 #: src/EBox/WebMail/Model/RemoteServerConfiguration.pm:105
 msgid "Same user and password than IMAP"
-msgstr ""
+msgstr "Tas pats slaptažodis ir vartotojas kaip ir IMAP"
 
 #: src/EBox/WebMail/Model/RemoteServerConfiguration.pm:109
 msgid "User and password"
-msgstr ""
+msgstr "Vartotojas ir slaptažodis"
 
 #: src/EBox/WebMail/Model/RemoteServerConfiguration.pm:115
 msgid "User"
-msgstr ""
+msgstr "Vartotojas"
 
 #: src/EBox/WebMail/Model/RemoteServerConfiguration.pm:121
 msgid "Password"
-msgstr ""
+msgstr "Slaptažodis"
 
 #: src/EBox/WebMail/Model/RemoteServerConfiguration.pm:134
 msgid "Manage sieve enabled in IMAP server"
-msgstr ""
+msgstr "Tvarkyti IMAP serverio sietyną"
 
 #: src/EBox/WebMail/Model/RemoteServerConfiguration.pm:139
 msgid "Manage sieve port"
-msgstr ""
+msgstr "Tvarkyti sietyno prieiga"
 
 #: src/EBox/WebMail/Model/RemoteServerConfiguration.pm:146
 msgid "Manage sieve connection uses TLS"
-msgstr ""
+msgstr "Tvarkyti sietyno prisijungimo naudojamą TLS"
 
 #: src/EBox/WebMail/Model/RemoteServerConfiguration.pm:153
 msgid "External server connection"
-msgstr ""
+msgstr "Išorinio serverio prisijungimus"
 
 #: src/EBox/WebMail/Model/RemoteServerConfiguration.pm:171
 msgid "unencrypted"
-msgstr ""
+msgstr "Nekoduotas"
 
 #: src/EBox/WebMail/Model/RemoteServerConfiguration.pm:175
 msgid "SSL"
-msgstr ""
+msgstr "SSL"
 
 #: src/EBox/WebMail/Model/RemoteServerConfiguration.pm:179
 msgid "TLS"
-msgstr ""
+msgstr "TLS"
 
 #: src/EBox/WebMail/Model/RemoteServerConfiguration.pm:285
 msgid ""
 "No need to configure the connection to a remote server beacuse WebMail is "
 "configured to use Zentyal mail service'"
 msgstr ""
+"Nėra reikalo konfigūruoti prisijungimo į nutolusį nuotolinį serverį nes Web "
+"paštas jau sukonfigūrutas naudoti Zentyal pašto servisą."
 
 #: src/EBox/WebMail/Composite/Backend.pm:63
 msgid "WebMail backend"
-msgstr ""
+msgstr "Web pašto veidas"
 
 #: src/EBox/WebMail.pm:176
 msgid "Neither IMAP nor IMAPS service enabled."
-msgstr ""
+msgstr "Neįjungti nei IMAP nei IMAPS servisai."
 
 #: src/EBox/WebMail.pm:289
 msgid "To configure Roundcube webmail."
-msgstr ""
+msgstr "Konfigūruoti Roundcube web paštą."
 
 #: src/EBox/WebMail.pm:294
 msgid "To configure managesieve Roundcube webmail plugin."
-msgstr ""
+msgstr "Konfigūruoti Roundcube web pašto įskiepį."
 
 #: src/EBox/WebMail.pm:320
 msgid "Create PostgreSQL Roundcube webmail database."
-msgstr ""
+msgstr "Sukurti PosgreSQL Roundcube web pašto duomenų bazę."
 
 #: src/EBox/WebMail.pm:321
 msgid "This database will store the data needed by Roundcube."
-msgstr ""
+msgstr "Ši duomenų bazė saugos duomenis reikalingus Roundcube."
 
 #: src/EBox/WebMail.pm:325
 msgid "Add webmail link to www data directory."
-msgstr ""
+msgstr "Įkelti web pašto nuorodą į www duomenų katalogą."
 
 #: src/EBox/WebMail.pm:326
 msgid "Webmail will be accesible at http://ip/webmail/."
-msgstr ""
+msgstr "Web paštas bus prieinamas adresu http://ip/webmail/."
 
 #: src/EBox/WebMail.pm:348
 #, perl-brace-format
@@ -194,9 +201,14 @@ msgid ""
 "Webmail module needs IMAP or IMAPS service enabled if using Zentyal mail "
 "service. You can enable it at {openurl}Mail -> General{closeurl}."
 msgstr ""
+"Web pašto moduliui reikalingas įjungtas IMAP ar IMAPS servisas norint "
+"naudoti Zentyal pašto servisą. Galite įjungti {openurl}Paštas -> "
+"Bendra{closeurl}."
 
 #: src/EBox/WebMail.pm:405
 msgid ""
 "You cannot disable both IMAP and IMAPS service because they are used by "
 "Webmail module."
 msgstr ""
+"Jūs negalite išjungti abiejų IMAP ar IMAPS servisų nes jie naudojami Web "
+"pašto modulyje."

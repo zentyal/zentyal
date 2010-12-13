@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: ebox-zarafa 0.12\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-08-28 20:28+0200\n"
-"PO-Revision-Date: 2010-08-30 11:58+0200\n"
+"PO-Revision-Date: 2010-08-30 23:30+0200\n"
 "Last-Translator: Robert Brzozowski <gnutar1@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
@@ -26,6 +26,8 @@ msgid ""
 "This user has a Zarafa account. If the user currently connected it will "
 "continue connected until Zarafa authorization is again required."
 msgstr ""
+"Ten użytkownik posiada konto Zarafa. Użytkownik będzie tak długo połączony "
+"dopóki Zarafa nie zażąda ponownej autoryzacji"
 
 #: src/EBox/Zarafa.pm:64
 msgid "Add Zarafa LDAP schema"
@@ -237,7 +239,7 @@ msgstr "Włącz sprawdzanie pisowni"
 
 #: src/EBox/Zarafa/Model/GeneralSettings.pm:77
 msgid "Enable spell checking on Zarafa Webaccess."
-msgstr ""
+msgstr "Włącz sprawdzanie pisowni w trakcie korzystania z dostępu www"
 
 #: src/EBox/Zarafa/Model/GeneralSettings.pm:81
 msgid "Enable Active Sync"
@@ -255,7 +257,7 @@ msgstr "Host wirtualny"
 msgid ""
 "Enable Zarafa access only on this virtual host under /webaccess and /"
 "webaccess-mobile."
-msgstr ""
+msgstr "Włącz dostęp do Zarafy tylko dla tego wirtualnego hosta"
 
 #: src/EBox/Zarafa/Model/GeneralSettings.pm:102
 msgid "General configuration settings"

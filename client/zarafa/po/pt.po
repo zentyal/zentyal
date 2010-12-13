@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: ebox-zarafa 0.12\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-08-28 20:28+0200\n"
-"PO-Revision-Date: 2010-08-30 19:03+0200\n"
+"PO-Revision-Date: 2010-08-31 16:40+0200\n"
 "Last-Translator: Vasco Castelo Branco <vcbranco@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
@@ -144,7 +144,7 @@ msgstr "Definições da configuração de quota do servidor Zarafa actualizadas"
 
 #: src/EBox/Zarafa/Model/ZarafaUser.pm:49
 msgid "Groupware Account"
-msgstr "Conta do Groupware"
+msgstr "Conta do sistema de Groupware"
 
 #: src/EBox/Zarafa/Model/ZarafaUser.pm:57
 msgid "Zarafa"
@@ -191,19 +191,20 @@ msgid "Zarafa gateways configuration settings"
 msgstr "Definições de configuração de gateways Zarafa"
 
 #: src/EBox/Zarafa/Model/Gateways.pm:185
-#, fuzzy
 msgid "Zarafa gateways configuration settings updated."
-msgstr "Configuração geral"
+msgstr "As definições de configuração das gateways Zarafa foram actualizadas"
 
 #: src/EBox/Zarafa/Model/Gateways.pm:188
 msgid ""
 "Zarafa gateways allow access to users mailboxes using POP3 and IMAP "
 "protocols."
 msgstr ""
+"As gateways Zarafa permitem o acesso a caixas de correio usando os "
+"protocolos POP3 e IMAP"
 
 #: src/EBox/Zarafa/Model/VMailDomain.pm:50
 msgid "No domain selected"
-msgstr ""
+msgstr "Não foi seleccionado domínio"
 
 #: src/EBox/Zarafa/Model/VMailDomain.pm:95
 #, perl-brace-format
@@ -211,60 +212,65 @@ msgid ""
 "To configure Zarafa you must have at least one virtual mail domain. You can "
 "define one at {ohref}Virtual Domains{chref}."
 msgstr ""
+"Para configurar o Zarafa deve ter pelo menos um domínio virtual. Pode "
+"definir um em {ohref}Domínios virtuais{chref}"
 
 #: src/EBox/Zarafa/Model/VMailDomain.pm:122
 msgid ""
 "The deleted virtual domain was selected for Zarafa. Maybe you want to select "
 "another one now."
 msgstr ""
+"O domínio virtual que foi apagado pertence ao Zarafa. Talvez queira escolher "
+"outro agora"
 
 #: src/EBox/Zarafa/Model/VMailDomain.pm:149
 msgid "Virtual domain"
-msgstr ""
+msgstr "Domínio virtual"
 
 #: src/EBox/Zarafa/Model/VMailDomain.pm:158
 msgid "Virtual mail domain"
-msgstr ""
+msgstr "Domínio virtual de correio"
 
 #: src/EBox/Zarafa/Model/VMailDomain.pm:163
 msgid "Select the virtual mail domain to be used for Zarafa."
-msgstr ""
+msgstr "Seleccione o domínio virtual de correio para ser usado com o Zarafa"
 
 #: src/EBox/Zarafa/Model/GeneralSettings.pm:74
 msgid "Enable Spell Checking"
-msgstr ""
+msgstr "Activar verificação de texto"
 
 #: src/EBox/Zarafa/Model/GeneralSettings.pm:77
 msgid "Enable spell checking on Zarafa Webaccess."
-msgstr ""
+msgstr "Activar verificação de texto no acesso Web do Zarafa"
 
 #: src/EBox/Zarafa/Model/GeneralSettings.pm:81
 msgid "Enable Active Sync"
-msgstr ""
+msgstr "Activar Active Sync"
 
 #: src/EBox/Zarafa/Model/GeneralSettings.pm:85
 msgid "Enable Active Sync (Microsoft Exchange syncronization protocol)."
-msgstr ""
+msgstr "Activar Active Sync (Protocolo Microsoft Exchange syncronization)"
 
 #: src/EBox/Zarafa/Model/GeneralSettings.pm:89
 msgid "Virtual host"
-msgstr ""
+msgstr "Máquina virtual"
 
 #: src/EBox/Zarafa/Model/GeneralSettings.pm:95
 msgid ""
 "Enable Zarafa access only on this virtual host under /webaccess and /"
 "webaccess-mobile."
 msgstr ""
+"Activar acesso ao Zarafa apenas nesta máquina virtual em /webaccess and "
+"/webaccess-mobile"
 
 #: src/EBox/Zarafa/Model/GeneralSettings.pm:102
-#, fuzzy
 msgid "General configuration settings"
-msgstr "Configuração geral"
+msgstr "Definições de configuração geral"
 
 #: src/EBox/Zarafa/Model/GeneralSettings.pm:107
-#, fuzzy
 msgid "General Zarafa server configuration settings updated."
-msgstr "Configuração geral"
+msgstr ""
+"As definições de configuração geral do servidor Zarafa foram actualizadas"
 
 #: src/EBox/Zarafa/Model/GeneralSettings.pm:119 src/templates/zarafa.mas:22
 #: src/templates/zarafa.mas:25
@@ -276,30 +282,32 @@ msgid ""
 "The deleted virtual host was selected for Zarafa. Maybe you want to select "
 "another one now."
 msgstr ""
+"O domínio virtual que foi apagado pertence ao Zarafa. Talvez queira escolher "
+"outro agora"
 
 #: src/EBox/Zarafa/Composite/General.pm:67
-#, fuzzy
 msgid "Configuration"
-msgstr "Configuração geral"
+msgstr "Configuração"
 
 #: src/EBox/Zarafa/Composite/General.pm:68
 msgid "Groupware (Zarafa)"
-msgstr ""
+msgstr "Groupware (Zarafa)"
 
 #: src/EBox/Zarafa/Composite/General.pm:70
 msgid ""
 "You can access the Zarafa web interface at http://zentyal_ip/webaccess and "
 "the mobile version at http://zentyal_ip/webaccess-mobile."
 msgstr ""
+"Pode aceder ao interface web Zarafa em http://zentyal_ip/webaccess e a "
+"versão móvel em http://zentyal_ip/webaccess-mobile"
 
 #: src/EBox/CGI/ZarafaUserOptions.pm:46
 msgid "username"
-msgstr "nome do utilizador"
+msgstr "Utilizador"
 
 #: src/templates/zarafa.mas:8
-#, fuzzy
 msgid "Zarafa account"
-msgstr "Conta Jabber"
+msgstr "Conta Zarafa"
 
 #: src/templates/zarafa.mas:17
 msgid "User account"
@@ -315,7 +323,7 @@ msgstr "Direitos de administração"
 
 #: src/templates/zarafa.mas:46
 msgid "Zarafa takes quota settings from mail account settings."
-msgstr ""
+msgstr "O Zarafa usa as definições de quota da conta de correio"
 
 #: src/templates/zarafa.mas:54 src/templates/zarafa.mas:55
 msgid "Change"

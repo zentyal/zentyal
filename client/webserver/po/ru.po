@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: ebox-webserver 0.12\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-08-28 23:42+0200\n"
-"PO-Revision-Date: 2010-08-16 23:05+0200\n"
+"PO-Revision-Date: 2010-08-31 11:36+0200\n"
 "Last-Translator: Val Budkin <valentin@ktc-ua.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
-"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Pootle 1.1.0\n"
 
 #: migration/0001_add_service_and_port.pl:162
@@ -129,13 +129,13 @@ msgid "Listening port"
 msgstr "Слушающий порт"
 
 #: src/EBox/WebServer/Model/GeneralSettings.pm:114
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Zentyal Administration is running on this port, change it on {ohref}System -"
 "> General{chref}."
 msgstr ""
-"Администрирование eBox запущена на этом порту, измените его на {ohref}"
-"Система -> Общее{chref}."
+"Служба администрирования Zentyal запущено на этом порту, измените его на "
+"{ohref}Система -> Общее{chref}."
 
 #: src/EBox/WebServer/Model/GeneralSettings.pm:127
 #, perl-brace-format
@@ -188,21 +188,20 @@ msgid "General configuration settings"
 msgstr "Общие параметры конфигурации"
 
 #: src/EBox/WebServer/Model/GeneralSettings.pm:268
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "General Web server configuration. The listening port must not be used by "
 "another service. If you enable user to publish their own html pages, those "
 "should be loaded from {dirName} directory from their home directories."
 msgstr ""
-"Общая конфигурация Web-сервера. Слушающий порт не должен быть занят другими "
-"службами. Если Вы позволяете пользователям публиковать страницы html, то "
+"Общие настройки Web-сервера. Слушающий порт не должен быть занят другими "
+"службами. Если Вы разрешаете пользователям публиковать страницы html, то "
 "страницы будут загружены из {dirName} каталога относительно их домашних "
-"каталогов самбы"
+"каталогов Samba"
 
 #: src/EBox/WebServer/Model/GeneralSettings.pm:274
-#, fuzzy
 msgid "General Web server configuration settings updated."
-msgstr "Общая конфигурация Web-сервера обновлена."
+msgstr "Общие настройки Web-сервера обновлены."
 
 #: src/EBox/WebServer/Composite/General.pm:76
 msgid "Configuration"
@@ -214,12 +213,11 @@ msgid "Web Server"
 msgstr "Веб сервер"
 
 #: src/EBox/WebServer/Composite/General.pm:79
-#, fuzzy
 msgid ""
 "The Zentyal web service allows you to host Web pages in plain HTML within "
 "different virtual hosts."
 msgstr ""
-"Служба веб-сайтов EBox позволяет вам размещать веб-сайты на чистом HTML с "
+"Служба веб-сайтов Zentyal позволяет вам размещать веб-сайты на чистом HTML с "
 "использованием виртуальных хостов."
 
 #: src/EBox/WebServer.pm:99

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-services 1.3.3\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-08-28 23:41+0200\n"
-"PO-Revision-Date: 2010-04-19 12:06+0200\n"
+"PO-Revision-Date: 2010-09-06 14:43+0200\n"
 "Last-Translator: Bokor Pavol <bokor@4enzo.net>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
@@ -56,9 +56,8 @@ msgid "eBox administration"
 msgstr "Správa eBox-u"
 
 #: migration/0001_import_services_from_firewall.pl:124
-#, fuzzy
 msgid "Zentyal Administration Web Server"
-msgstr "Web server pre správu eBox-u "
+msgstr "Web server pre správu Zentyal-u "
 
 #: src/EBox/Model/ServiceTable.pm:102
 msgid "Domain"
@@ -77,14 +76,13 @@ msgid "Internal"
 msgstr "Interný"
 
 #: src/EBox/Model/ServiceTable.pm:126
-#, fuzzy
 msgid ""
 "Tick this field if there is actually a service on the machine using the "
 "ports configured for this service. This helps Zentyal to know what ports are "
 "already busy"
 msgstr ""
 "Označiť toto pole, ak skutočne služba na tomto zariadení pužíva porty "
-"nastavené pre túto službu. Toto napomáha eBox-u rozoznať, ktoré porty sa "
+"nastavené pre túto službu. Toto napomáha Zentyal-u rozoznať, ktoré porty sa "
 "práve používajú."
 
 #: src/EBox/Model/ServiceTable.pm:133
@@ -141,6 +139,5 @@ msgid "port"
 msgstr "port"
 
 #: src/EBox/Services.pm:402
-#, fuzzy
 msgid "Zentyal Administration port"
-msgstr "Port správy eBox-u"
+msgstr "Port správy Zentyal-u"

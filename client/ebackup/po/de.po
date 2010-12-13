@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: ebox-ebackup 1.3.3\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-08-28 23:34+0200\n"
-"PO-Revision-Date: 2010-08-18 01:25+0200\n"
-"Last-Translator: Private <jkmakowka@yahoo.de>\n"
+"PO-Revision-Date: 2010-09-12 13:57+0200\n"
+"Last-Translator: J. Schwieder <j.schwieder@gmx.de>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -23,9 +23,8 @@ msgid "Backup"
 msgstr "Sicherung"
 
 #: src/EBox/Event/Watcher/EBackup.pm:141
-#, fuzzy
 msgid "Check if Zentyal backup was not successful."
-msgstr "Überprüfe ob die eBox Sicherung fehlgeschlagen ist."
+msgstr "Überprüfe ob die Zentyal Sicherung fehlgeschlagen ist."
 
 #: src/EBox/Model/RemoteRestoreLogs.pm:88 src/EBox/Model/RemoteFileList.pm:143
 #: src/EBox/Model/RemoteStatus.pm:119 src/EBox/Model/RemoteRestoreConf.pm:74
@@ -42,9 +41,9 @@ msgid "Restore logs database"
 msgstr "Stelle Protokollierungsdatenbank wieder her"
 
 #: src/EBox/Model/RemoteRestoreLogs.pm:125
-#, fuzzy
 msgid "Restores the Zentyal logs found in the selected backup"
-msgstr "Stelle die gefunde EBox Protokollierung aus der Sicherung wieder her"
+msgstr ""
+"Stelle die Zentyal Protokollie aus der ausgewählten Sicherung wieder her"
 
 #: src/EBox/Model/RemoteFileList.pm:162
 msgid "File"
@@ -93,9 +92,8 @@ msgid "backup"
 msgstr "Sicherung"
 
 #: src/EBox/Model/RemoteRestoreConf.pm:104
-#, fuzzy
 msgid "Restore Zentyal configuration from backup"
-msgstr "Stelle die eBox Sicherungskonfiguration wieder her"
+msgstr "Stelle die Zentyal Sicherungskonfiguration wieder her"
 
 #: src/EBox/Model/RemoteRestoreConf.pm:111
 msgid "Loads the configuration found in the backup"
@@ -294,8 +292,8 @@ msgid ""
 "the {ohref}Zentyal on-line store{chref}."
 msgstr ""
 "{oi}{brand}{ci} ist ein schneller und sicherer Fernspeicherplatz um die "
-"Daten auf Ihrem eBox Server zu speichern. Kaufen Sie sich die benötigte "
-"Menge Absicherungsspeicherplatz im {ohref}eBox Online Shop{chref}."
+"Daten von Ihrem Zentyal Server zu speichern. Kaufen Sie sich die benötigte "
+"Größe von Absicherungsspeicherplatz im {ohref}Zentyal Online Shop{chref}."
 
 #: src/EBox/Model/RemoteSettings.pm:511
 msgid "1 week"
@@ -438,11 +436,12 @@ msgstr ""
 "späteres Datum."
 
 #: src/EBox/EBackup.pm:204
+#, fuzzy
 msgid ""
 "No backup archives found. Maybe they were deleted?. Run '/etc/init.d/ebox "
 "ebackup restart' to refresh backup's information."
 msgstr ""
-"Keine Sicherungarchive gefunden. Vielleicht würden Sie gelöscht. Starten Sie "
+"Keine Sicherungarchive gefunden. Vielleicht wurden Sie gelöscht. Starten Sie "
 "'/etc/init.d/ebox ebackup restart' um die Sicherungsinformationen zu "
 "aktualisieren."
 

@@ -7,8 +7,8 @@ msgstr ""
 "Project-Id-Version: ebox-mail 0.12\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-08-28 23:36+0200\n"
-"PO-Revision-Date: 2010-08-29 16:35+0200\n"
-"Last-Translator: Cyril MARTY <cyril_marty@yahoo.fr>\n"
+"PO-Revision-Date: 2010-09-07 16:31+0200\n"
+"Last-Translator: Nicolas Liaudat <nliaudat@pompiers-chatel.ch>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -46,8 +46,8 @@ msgstr "Ne peut pas se connecter au serveur de courrier {smtp}"
 #, perl-brace-format
 msgid "Cannot connect to the server {hostname} to send the event through SMTP"
 msgstr ""
-"Ne peut pas se connecter au serveur {hostname} afin d'envoyer l'événement à "
-"travers SMTP"
+"Ne peut pas se connecter au serveur {hostname} pour envoyer le cas à travers "
+"SMTP"
 
 #: src/EBox/MailVDomainsLdap.pm:64 src/EBox/MailVDomainsLdap.pm:117
 #: src/EBox/Mail/Model/VDomains.pm:101 src/EBox/CGI/CreateAccount.pm:48
@@ -533,7 +533,7 @@ msgstr "Sujet"
 #: src/EBox/Mail/Model/Dispatcher/Mail.pm:127
 #, perl-brace-format
 msgid "[Zentyal-event] An event has happened at {hostName}"
-msgstr "[Zentyal-event] Un événement est survenu sur {hostName}"
+msgstr "[Zentyal-event] Un incident est survenu sur {hostName}"
 
 #: src/EBox/Mail/Model/Dispatcher/Mail.pm:134 src/EBox/Mail.pm:1640
 msgid "To"
@@ -541,7 +541,7 @@ msgstr "A"
 
 #: src/EBox/Mail/Model/Dispatcher/Mail.pm:141
 msgid "Configure mail dispatcher"
-msgstr "Configurer l'expéditeur de courrier"
+msgstr "Configurer le répartiteur de courrier"
 
 #: src/EBox/Mail/Model/Dispatcher/Mail.pm:146
 msgid ""
@@ -553,7 +553,7 @@ msgstr ""
 
 #: src/EBox/Mail/Model/Dispatcher/Mail.pm:149
 msgid "Mail dispatcher configuration updated"
-msgstr "Configuration de l'expéditeur de courrier mis-à-jour"
+msgstr "Configuration du répartiteur de courrier mis-à-jour"
 
 #: src/EBox/Mail/Model/ExternalAccounts.pm:68
 #: src/EBox/Mail/Model/ExternalAccounts.pm:120
@@ -1011,7 +1011,7 @@ msgstr "Type de message"
 
 #: src/EBox/Mail.pm:1647
 msgid "Event"
-msgstr "Evénements"
+msgstr "Événement"
 
 #: src/EBox/Mail.pm:1648
 msgid "Additional Info"

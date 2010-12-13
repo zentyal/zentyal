@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: ebox-ebackup 1.3.3\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-08-28 23:34+0200\n"
-"PO-Revision-Date: 2010-08-12 16:12+0200\n"
-"Last-Translator: Ronny Gonzales <gonzito@online.no>\n"
+"PO-Revision-Date: 2010-10-27 14:22+0200\n"
+"Last-Translator: Ronny Gonzales <ronny@kcl.no>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -23,9 +23,8 @@ msgid "Backup"
 msgstr "Sikkerhetskopi"
 
 #: src/EBox/Event/Watcher/EBackup.pm:141
-#, fuzzy
 msgid "Check if Zentyal backup was not successful."
-msgstr "Kontroller om eBox sikkerhetskopi feilet."
+msgstr "Kontroller om Zentyal sikkerhetskopi feilet."
 
 #: src/EBox/Model/RemoteRestoreLogs.pm:88 src/EBox/Model/RemoteFileList.pm:143
 #: src/EBox/Model/RemoteStatus.pm:119 src/EBox/Model/RemoteRestoreConf.pm:74
@@ -39,12 +38,11 @@ msgstr "Sikkerhets kopi Dato"
 
 #: src/EBox/Model/RemoteRestoreLogs.pm:118
 msgid "Restore logs database"
-msgstr ""
+msgstr "Gjenopprett logg database"
 
 #: src/EBox/Model/RemoteRestoreLogs.pm:125
-#, fuzzy
 msgid "Restores the Zentyal logs found in the selected backup"
-msgstr "Laster konfigurasjonen funnet i sikkerhetskopien"
+msgstr "Gjenoppretter Zentyal konfigurasjonen funnet i sikkerhetskopien"
 
 #: src/EBox/Model/RemoteFileList.pm:162
 msgid "File"
@@ -89,9 +87,8 @@ msgid "backup"
 msgstr "sikkerhets kopi"
 
 #: src/EBox/Model/RemoteRestoreConf.pm:104
-#, fuzzy
 msgid "Restore Zentyal configuration from backup"
-msgstr "Gjenopprett eBox konfigurasjon fra sikkerhetskopi"
+msgstr "Gjenopprett Zentyal konfigurasjon fra sikkerhetskopi"
 
 #: src/EBox/Model/RemoteRestoreConf.pm:111
 msgid "Loads the configuration found in the backup"
@@ -107,6 +104,8 @@ msgid ""
 "Configuration backup not found in backup for {d}. Maybe you could try "
 "another date?"
 msgstr ""
+"Konfigurasjons sikkerhetskopi ikke funnet i sikkerhetskopi for {d}. Kansje "
+"du kan prøve en annen dato?"
 
 #: src/EBox/Model/RemoteExcludes.pm:82
 msgid "Exclude or Include"
@@ -126,6 +125,9 @@ msgid ""
 "directory match is applied to all it contents. Files not explicitly excluded "
 "or included are included"
 msgstr ""
+"En fil eller mappe er inkludert eller ekskludert i henhold til første treff. "
+"Et mappe treff utføres på alt dens inhold. Filer som ikke spesifikt er "
+"ekskludert eller inkludert er inkludert"
 
 #: src/EBox/Model/RemoteExcludes.pm:117
 msgid "Exclude path"
@@ -274,15 +276,15 @@ msgid "on the last day"
 msgstr "på siste dag"
 
 #: src/EBox/Model/RemoteSettings.pm:494
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "{oi}{brand}{ci} is a quick and safe remote location to store the data you "
 "keep on your Zentyal servers. Purchase the backup storage space you need at "
 "the {ohref}Zentyal on-line store{chref}."
 msgstr ""
 "{oi}{brand}{ci} er en rask og sikker ekstern plass til å lagre data du har "
-"på dine eBox servere. Kjøp sikkerhetskopi lagringsplassen du trenger på "
-"{ohref}eBox on-line store{chref}."
+"på dine Zentyal servere. Kjøp sikkerhetskopi lagringsplassen du trenger på "
+"{ohref}Zentyal on-line store{chref}."
 
 #: src/EBox/Model/RemoteSettings.pm:511
 msgid "1 week"
@@ -416,7 +418,7 @@ msgstr ""
 #: src/EBox/EBackup.pm:197
 #, perl-brace-format
 msgid "File {f} not found in backup for {d}, try a later date"
-msgstr ""
+msgstr "Fil {f} ikke funnet i sikkerhetskopi for {d}, prøv en senere dato"
 
 #: src/EBox/EBackup.pm:204
 msgid ""
@@ -433,7 +435,7 @@ msgstr ""
 
 #: src/EBox/Composite/ServicesRestore.pm:64
 msgid "Services restore"
-msgstr ""
+msgstr "Tjenester gjenoppretting"
 
 #: src/EBox/Composite/RemoteGeneral.pm:65
 msgid "Configuration and Status"

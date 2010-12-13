@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-webmail 1.4\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-08-28 23:32+0200\n"
-"PO-Revision-Date: 2010-04-16 09:16+0200\n"
+"PO-Revision-Date: 2010-11-04 20:46+0100\n"
 "Last-Translator: Michal Formánek <formi@seznam.cz>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
@@ -26,9 +26,8 @@ msgid "Operation mode"
 msgstr "Operační mód"
 
 #: src/EBox/WebMail/Model/OperationMode.pm:83
-#, fuzzy
 msgid "Zentyal mail service"
-msgstr "eBox mail služba"
+msgstr "Zentyal mail služba"
 
 #: src/EBox/WebMail/Model/OperationMode.pm:94
 msgid "Remote server"
@@ -39,24 +38,27 @@ msgid "Name"
 msgstr "Jméno"
 
 #: src/EBox/WebMail/Model/Options.pm:47
-#, fuzzy
 msgid "Zentyal webmail"
-msgstr "eBox webmail"
+msgstr "Zentyal webmail"
 
 #: src/EBox/WebMail/Model/Options.pm:49
 msgid ""
 "The name of the webmail will be used in the login screen and page titles."
-msgstr "Název webmail bude použit v přihlašovací obrazovce a názvech stránek."
+msgstr ""
+"Jméno webmailu se bude zobrazovat v přihlašovací obrazovce a v názvu "
+"stránky."
 
 #: src/EBox/WebMail/Model/Options.pm:53
 msgid "Virtual host"
-msgstr ""
+msgstr "Virtual host"
 
 #: src/EBox/WebMail/Model/Options.pm:59
 msgid ""
 "Virtual host where the webmail will be installed. This will disable the "
 "default /webmail url."
 msgstr ""
+"Virtual host na kterém bude nainstalovaný webmail. Zablokuje to výchozí "
+"/webmail url."
 
 #: src/EBox/WebMail/Model/Options.pm:65
 msgid "General configuration"
@@ -68,13 +70,15 @@ msgstr "Webmail"
 
 #: src/EBox/WebMail/Model/Options.pm:81
 msgid "Disabled"
-msgstr ""
+msgstr "Zakázaný"
 
 #: src/EBox/WebMail/Model/Options.pm:112
 msgid ""
 "The deleted virtual host was selected for Webmail. Maybe you want to select "
 "another one now."
 msgstr ""
+"Smazaný virtual host byl nastavený pro Webmail. Možná chcete nyní vybrat "
+"jiný."
 
 #: src/EBox/WebMail/Model/RemoteServerConfiguration.pm:54
 msgid "IMAP Server"
@@ -153,13 +157,12 @@ msgid "TLS"
 msgstr "TLS"
 
 #: src/EBox/WebMail/Model/RemoteServerConfiguration.pm:285
-#, fuzzy
 msgid ""
 "No need to configure the connection to a remote server beacuse WebMail is "
 "configured to use Zentyal mail service'"
 msgstr ""
-"Není potřeba nakonfigurovat připojení ke vzdálenému serveru, protože WebMail "
-"je konfigurován pro použití eBox poštovní služby"
+"Není potřeba nastavit připojení ke vzdálenému serveru, protože WebMail "
+"používá Zentyal mail službu"
 
 #: src/EBox/WebMail/Composite/Backend.pm:63
 msgid "WebMail backend"
@@ -167,46 +170,46 @@ msgstr "WebMail backend"
 
 #: src/EBox/WebMail.pm:176
 msgid "Neither IMAP nor IMAPS service enabled."
-msgstr "IMAP ani IMAPS služba povolena."
+msgstr "Není povolena žádná IMAP ani IMAPS služba ."
 
 #: src/EBox/WebMail.pm:289
 msgid "To configure Roundcube webmail."
-msgstr "Chcete-li nakonfigurovat RoundCube webmail."
+msgstr "Nastavit RoundCube webmail."
 
 #: src/EBox/WebMail.pm:294
 msgid "To configure managesieve Roundcube webmail plugin."
-msgstr "Chcete-li nakonfigurovat managesieve RoundCube webmail plugin."
+msgstr "Nastavit síťovou správu RoundCube webmail modulu."
 
 #: src/EBox/WebMail.pm:320
 msgid "Create PostgreSQL Roundcube webmail database."
-msgstr "Vytvoření PostgreSQL RoundCube webmail databáze."
+msgstr "Vytvořit PostgreSQL databázi pro Roundcube webmail ."
 
 #: src/EBox/WebMail.pm:321
 msgid "This database will store the data needed by Roundcube."
-msgstr "Tato databáze bude ukládat data potřebné pro RoundCube."
+msgstr "V této databázi budou uložena data pro potřeby Roundcube."
 
 #: src/EBox/WebMail.pm:325
 msgid "Add webmail link to www data directory."
-msgstr "Přidat odkaz na www webmail data adresáře."
+msgstr "Přidat odkaz na webmail do www datového adresáře."
 
 #: src/EBox/WebMail.pm:326
 msgid "Webmail will be accesible at http://ip/webmail/."
 msgstr "Webmail bude dostupný na http://ip/webmail/."
 
 #: src/EBox/WebMail.pm:348
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Webmail module needs IMAP or IMAPS service enabled if using Zentyal mail "
 "service. You can enable it at {openurl}Mail -> General{closeurl}."
 msgstr ""
-"Webmail modul potřebuje mít IMAP nebo IMAPS službu povolenou, pokud "
-"používáte eBox poštovní službu. Můžete ji povolit na {openurl}Mail -> Obecný"
-"{closeurl}."
+"Webmail modul potřebuje mít povolenou IMAP nebo IMAPS službu, pokud používá "
+"Zentyal poštovní službu. Můžete ji povolit v {openurl}Mail -> "
+"Obecný{closeurl}."
 
 #: src/EBox/WebMail.pm:405
 msgid ""
 "You cannot disable both IMAP and IMAPS service because they are used by "
 "Webmail module."
 msgstr ""
-"Nemůžete zakázat IMAP a IMAPS služby, protože jsou využívány pro modul "
-"Webmail."
+"Nemůžete zakázat obě služby IMAP a IMAPS, protože jsou využívané Webmail "
+"modulem."

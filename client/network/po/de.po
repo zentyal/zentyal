@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: ebox-network 0.12\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-08-29 01:25+0200\n"
-"PO-Revision-Date: 2010-02-04 13:47+0100\n"
-"Last-Translator: Daniel F <sek@daniel2k.de>\n"
+"PO-Revision-Date: 2010-09-12 13:47+0200\n"
+"Last-Translator: J. Schwieder <j.schwieder@gmx.de>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -437,7 +437,8 @@ msgstr "Statische Route"
 #, fuzzy
 msgid "IP address of the DNS server that Zentyal will use to resolve names."
 msgstr ""
-"IP-Adresse des DNS-Servers, den eBox zur Auflösung von Namen verwenden soll"
+"IP-Adresse des DNS-Servers, den Zentyal zur Auflösung von Namen verwenden "
+"soll"
 
 # there's no german expression for 'name server'
 #: src/EBox/Model/DNSResolver.pm:83 src/templates/Wizard/network.mas:86
@@ -461,7 +462,7 @@ msgid ""
 "p><p>Note that these settings may be overriden if you have any network "
 "interface configured via DHCP</p>"
 msgstr ""
-"<p>Hier können Sie den Name-Server Resolver, welchen eBox verwenden wird, "
+"<p>Hier können Sie den Name-Server Resolver, welchen Zentyal verwenden wird, "
 "angeben.</p><p>Beachten Sie, dass diese Einstellungen unter Umständen nicht "
 "berücksichtigt werden, falls eine Netzwerkschnittstelle via DHCP "
 "konfiguriert wird</p>"
@@ -542,7 +543,7 @@ msgstr ""
 #: src/EBox/Network.pm:106
 #, fuzzy
 msgid "Enable Zentyal DHCP hook"
-msgstr "eBox DHCP-Hook aktivieren"
+msgstr "Zentyal DHCP-Hook aktivieren"
 
 #: src/EBox/Network.pm:107
 msgid ""
@@ -556,32 +557,31 @@ msgstr ""
 #: src/EBox/Network.pm:125
 #, fuzzy
 msgid "Zentyal will set your network configuration"
-msgstr "eBox wird Ihre Netzwerk-Konfiguration durchführen"
+msgstr "Zentyal wird Ihre Netzwerk-Konfiguration durchführen"
 
 #: src/EBox/Network.pm:130
 #, fuzzy
 msgid "Zentyal will set your DNS configuration"
-msgstr "eBox wird Ihre DNS-Konfiguration durchführen"
+msgstr "Zentyal wird Ihre DNS-Konfiguration durchführen"
 
 #: src/EBox/Network.pm:135
 #, fuzzy
 msgid "Zentyal will set your DHCP client configuration"
-msgstr "eBox wird Ihre DHCP-Client-Konfiguration durchführen"
+msgstr "Zentyal wird Ihre DHCP-Client-Konfiguration durchführen"
 
 #: src/EBox/Network.pm:140 src/EBox/Network.pm:145
 #, fuzzy
 msgid "Zentyal will set your ddclient configuration"
-msgstr "eBox wird Ihre dynamische DNS-Konfiguration durchführen"
+msgstr "Zentyal wird Ihre dynamische DNS-Konfiguration durchführen"
 
 #: src/EBox/Network.pm:150 src/EBox/Network.pm:155
 #, fuzzy
 msgid "Zentyal will store your PPPoE passwords"
-msgstr "eBox wird ihre PPPoE Passwörter speichern"
+msgstr "Zentyal wird ihre PPPoE Passwörter speichern"
 
 #: src/EBox/Network.pm:162
-#, fuzzy
 msgid "Zentyal will add a DSL provider configuration for PPPoE"
-msgstr "eBox wird eine DSL-Provider Konfiguration für PPPoE hinzufügen"
+msgstr "Zentyal wird eine DSL-Provider-Konfiguration für PPPoE hinzufügen"
 
 #: src/EBox/Network.pm:169
 msgid "Zentyal will set HTTP proxy for all users"
@@ -748,6 +748,7 @@ msgstr ""
 "werden."
 
 #: src/EBox/Network/Composite/MultiGw.pm:82
+#, fuzzy
 msgid ""
 "To be able to use this feature you need at least two enabled gateways. You "
 "can add them <a href=\"/ebox/Network/View/GatewayTable\">here</a> first."
@@ -920,9 +921,8 @@ msgid "Method"
 msgstr "Methode"
 
 #: src/templates/Wizard/network.mas:43
-#, fuzzy
 msgid "Don't configure"
-msgstr "DNS konfiguriert"
+msgstr "Nicht konfigurieren"
 
 #: src/templates/Wizard/network.mas:82
 msgid "Gateway"
@@ -1035,7 +1035,7 @@ msgstr "Virtuelles LAN (802.1q)"
 
 #: src/templates/ifaces.mas:80 src/templates/ifaces.mas:82
 msgid "Bridged"
-msgstr ""
+msgstr "mit Netzwerk-Brücke"
 
 #: src/templates/ifaces.mas:87 src/templates/ifaces.mas:89
 msgid "Not set"
@@ -1051,10 +1051,12 @@ msgid ""
 "Check this if you are using Zentyal as a gateway and this interface is "
 "connected to your Internet router."
 msgstr ""
+"Bitte anwählen, wenn Sie Zantyal als Gateway benutzen und diese "
+"Schnittstelle mit Ihrem Internet-Router verbunden ist."
 
 #: src/templates/ifaces.mas:168
 msgid "Bridge"
-msgstr ""
+msgstr "Netzwerk-Brücke"
 
 #: src/templates/ifaces.mas:189
 #, fuzzy

@@ -8,27 +8,30 @@ msgstr ""
 "Project-Id-Version: ebox-ca 1.3.12\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-08-28 23:34+0200\n"
-"PO-Revision-Date: 2009-12-21 16:59+0100\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2010-12-07 07:31+0100\n"
+"Last-Translator: Luka Kipić <lukakipic@yahoo.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
-"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/CA/TestStub.pm:154 src/EBox/CA/TestStub.pm:254 src/EBox/CA.pm:259
 #: src/EBox/CA.pm:537 src/EBox/CGI/IssueCertificate.pm:102
 #: src/templates/createCA.mas:7 src/templates/index.mas:22
 #: src/templates/formRevoke.mas:22 src/templates/formRenew.mas:37
 msgid "Organization Name"
-msgstr ""
+msgstr "Naziv organizacije"
 
 #: src/EBox/CA/TestStub.pm:259 src/EBox/CA.pm:551
 msgid ""
 "The CA certificates should be revoked  or has expired before issuing a new "
 "certificate"
 msgstr ""
+"CA sertifikat treba biti opozvan_ _ili je istekao pre izdavanja novog "
+"sertifikata."
 
 #: src/EBox/CA/TestStub.pm:438 src/EBox/CA/TestStub.pm:516
 #: src/EBox/CA/TestStub.pm:642 src/EBox/Model/Certificates.pm:264
@@ -39,12 +42,12 @@ msgstr ""
 #: src/EBox/CGI/DownloadFiles.pm:69 src/templates/index.mas:23
 #: src/templates/formRevoke.mas:28 src/templates/formRenew.mas:43
 msgid "Common Name"
-msgstr ""
+msgstr "Zajednički naziv"
 
 #: src/EBox/CA/TestStub.pm:654
 #, perl-brace-format
 msgid "The user {commonName} does NOT exist"
-msgstr ""
+msgstr "Korisnik {commonName} NE POSTOJI"
 
 #: src/EBox/CA/TestStub.pm:720
 msgid "Days set to the maximum allowed: Year 2038 Bug"
@@ -52,7 +55,7 @@ msgstr ""
 
 #: src/EBox/CA/TestStub.pm:729 src/EBox/CA.pm:2608
 msgid "Expiration date later than CA certificate expiration date"
-msgstr ""
+msgstr "Datum isteka je posle datuma isteka CA sertifikata"
 
 #: src/EBox/Model/Certificates.pm:92
 #, perl-brace-format
@@ -60,43 +63,47 @@ msgid ""
 "You must create a Certification Authority first. Go to {openhref}"
 "Certification Authority{closehref} to do so"
 msgstr ""
+"Prvo morate kreirati Sertifikaciono Telo. Da bi ste to uradili idite na "
+"{openhref}Sertifikaciono Telo{closehref}"
 
 #: src/EBox/Model/Certificates.pm:246
 msgid "Module"
-msgstr ""
+msgstr "Modul"
 
 #: src/EBox/Model/Certificates.pm:258
 msgid "Service"
-msgstr ""
+msgstr "Servis"
 
 #: src/EBox/Model/Certificates.pm:270
 msgid "Enable"
-msgstr ""
+msgstr "Omogući"
 
 #: src/EBox/Model/Certificates.pm:272
 msgid "Generate the certificate using CA with the common name set above"
-msgstr ""
+msgstr "Generiši sertifikat koristeći CA zajedničkim imenom iznad"
 
 #: src/EBox/Model/Certificates.pm:280 src/EBox/CA.pm:1802
 msgid "Services Certificates"
-msgstr ""
+msgstr "Sertifikati servisa"
 
 #: src/EBox/Model/Certificates.pm:281
 msgid "certificate"
-msgstr ""
+msgstr "sertifikat"
 
 #: src/EBox/Model/Certificates.pm:287
 msgid ""
 "Here you may set certificates from this CA for those secure services managed "
 "by Zentyal"
 msgstr ""
+"Ovde možete podesiti sertifikate iz ovog CA za bezbednosne servise "
+"kontrolisane od strane Zentyal-a."
 
 #: src/EBox/CA.pm:122 src/EBox/CGI/RevokeCertificate.pm:42
 #: src/EBox/CGI/Index.pm:39 src/EBox/CGI/IssueCertificate.pm:49
 #: src/EBox/CGI/ShowForm.pm:41 src/EBox/CGI/RenewCertificate.pm:42
 #: src/EBox/CGI/DownloadFiles.pm:42 src/EBox/CGI/CreateCA.pm:43
 msgid "Certification Authority"
-msgstr ""
+msgstr "Sertifikaciono Telo"
 
 #: src/EBox/CA.pm:301 src/EBox/CA.pm:782 src/EBox/CA.pm:1433
 #, perl-brace-format

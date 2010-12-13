@@ -8,31 +8,34 @@ msgstr ""
 "Project-Id-Version: ebox-jabber 1.4.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-08-28 23:36+0200\n"
-"PO-Revision-Date: 2010-03-29 16:53+0200\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2010-11-05 21:25+0100\n"
+"Last-Translator: Michal Formánek <formi@seznam.cz>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: migration/0001_add_firewall_services.pl:45 src/EBox/Jabber.pm:221
 msgid "Jabber Server"
-msgstr ""
+msgstr "Jabber server"
 
 #: src/EBox/JabberLdapUser.pm:261
 msgid ""
 "This user has a jabber account. If the user currently connected it will "
 "continue connected until jabber authorization is again required."
 msgstr ""
+"Tento uživatel má jabber účet. Pokud je uživatel právě připojený, bude "
+"pokračovat v připojení, pokud ne bude se muset opět autorizovat."
 
 #: src/EBox/Jabber.pm:56
 msgid "Add Jabber LDAP schema"
-msgstr ""
+msgstr "Přidat Jabber do LDAP schématu"
 
 #: src/EBox/Jabber.pm:57
 msgid "Zentyal will need this schema to store Jabber users."
-msgstr ""
+msgstr "Zentyal bude potřebovat toto schéma na ukládání uživatelů jabber-u"
 
 #: src/EBox/Jabber.pm:73
 msgid "To properly configure ejabberd."

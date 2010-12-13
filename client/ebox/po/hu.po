@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-ebox 1.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-08-28 23:35+0200\n"
-"PO-Revision-Date: 2010-08-30 15:39+0200\n"
+"PO-Revision-Date: 2010-08-31 08:46+0200\n"
 "Last-Translator: Nagy Ákos <nagy.akos@akos.ro>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
@@ -1379,7 +1379,7 @@ msgstr ""
 
 #: src/EBox/CGI/EBox/ConfirmBackup.pm:33 src/templates/backup.mas:18
 msgid "Configuration Backup"
-msgstr "A (biztonsági) mentés beállításai"
+msgstr "Beállítások mentése"
 
 #: src/EBox/CGI/EBox/ConfirmBackup.pm:105
 msgid "Please confirm that you want to delete the following backup file:"
@@ -2029,7 +2029,7 @@ msgstr ""
 
 #: src/templates/backup.mas:50
 msgid "Backup mode"
-msgstr "Mentés mód"
+msgstr "Mentés módja"
 
 #: src/templates/backup.mas:72
 msgid "Restore Backup from File"

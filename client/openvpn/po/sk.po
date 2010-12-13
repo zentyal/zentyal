@@ -8,23 +8,24 @@ msgstr ""
 "Project-Id-Version: ebox-openvpn 1.3.3\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-08-28 23:28+0200\n"
-"PO-Revision-Date: 2009-06-28 00:16+0200\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2010-09-06 15:59+0200\n"
+"Last-Translator: Bokor Pavol <bokor@4enzo.net>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/OpenVPN/Client/ValidateCertificate.pm:46
 #, perl-brace-format
 msgid "Inexistent CA's certificate file {p}"
-msgstr ""
+msgstr "Inexistent CA's certifikačný súbor {p}"
 
 #: src/EBox/OpenVPN/Client/ValidateCertificate.pm:53
 #, perl-brace-format
 msgid "Inexistent client's certificate file {p}"
-msgstr ""
+msgstr "Inexistent client's certifikačný súbor {p}"
 
 #: src/EBox/OpenVPN/Client/ValidateCertificate.pm:60
 #, perl-brace-format

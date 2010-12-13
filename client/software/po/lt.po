@@ -5,33 +5,34 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-software 2.0"
-"Report-Msgid-Bugs-To: developers@zentyal.org\n"
+"Project-Id-Version: ebox-software 2.0Report-Msgid-Bugs-To: "
+"developers@zentyal.org\n"
 "POT-Creation-Date: 2010-08-13 13:42+0200\n"
-"PO-Revision-Date: 2010-08-13 13:42+0200\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2010-12-06 21:25+0100\n"
+"Last-Translator: Vytautas <vytautas@lantraneta.lt>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n%"
-"100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"(n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: migration/0001_add_http_software_rule.pl:24
 msgid "HTTP software"
-msgstr ""
+msgstr "HTTP programa"
 
 #: migration/0001_add_http_software_rule.pl:26
 msgid "software service to update packages via apt"
-msgstr ""
+msgstr "programų servisas atnaujinti paketams per apt"
 
 #: migration/0001_add_http_software_rule.pl:45
 msgid "rule to allow apt updates"
-msgstr ""
+msgstr "tailsyklė leisti apt atnaujinimus"
 
 #: src/EBox/Software.pm:57
 msgid "Software Management"
-msgstr ""
+msgstr "Programų tvarkymas"
 
 #: src/EBox/Software.pm:472
 #, perl-brace-format
@@ -39,100 +40,104 @@ msgid ""
 "You cannot modify the automatic update using QA updates from Web UI. To "
 "disable automatic updates, edit {conf} and disable {key} key."
 msgstr ""
+"Galite pakeisti automatinius atnaujinimus naudodami QA atnaujinimus per Web "
+"UI. Išjungti automatinius atnaujinimus, redaguoti {conf} arba išjungti {key} "
+"klavišą."
 
 #: src/EBox/Software.pm:537
 msgid "eBox Components"
-msgstr ""
+msgstr "eBox Komponanentai"
 
 #: src/EBox/Software.pm:539
 msgid "System Updates"
-msgstr ""
+msgstr "Sistemos atnaujinimai"
 
 #: src/EBox/Software.pm:541 src/templates/config.mas:19
 msgid "Settings"
-msgstr ""
+msgstr "Nustatymai"
 
 #: src/EBox/Software.pm:680
 #, perl-brace-format
 msgid ""
 "Software management is currently  locked by {locker}. Please, try again later"
 msgstr ""
+"Sistemos tvarkymas šiuo metu užrakintas {locker}. Prašome bandyti vėliau"
 
 #: src/EBox/Software.pm:843
 msgid "Welcome"
-msgstr ""
+msgstr "Sveiki"
 
 #: src/EBox/Software.pm:845
 msgid "Package Selection"
-msgstr ""
+msgstr "Paketų pasirinikimas"
 
 #: src/EBox/Software.pm:846
 msgid "Confirmation"
-msgstr ""
+msgstr "Patvirtinimas"
 
 #: src/EBox/Software.pm:847
 msgid "Installation"
-msgstr ""
+msgstr "Diegimas"
 
 #: src/EBox/Software.pm:848
 msgid "Initial Configuration"
-msgstr ""
+msgstr "Pradinė konfigūracija"
 
 #: src/EBox/Software.pm:849
 msgid "Save Changes"
-msgstr ""
+msgstr "Išsaugoti pakeitimus"
 
 #: src/EBox/CGI/Config.pm:33
 msgid "Software management settings"
-msgstr ""
+msgstr "Programų valdymo nustatymai"
 
 #: src/EBox/CGI/Config.pm:43
 msgid "Automatic software updates"
-msgstr ""
+msgstr "Automatiniai programų atnaujinimai"
 
 #: src/EBox/CGI/Enable.pm:43
 msgid "automatic updates configuration"
-msgstr ""
+msgstr "automatinių atnaujinimų konfigūracija"
 
 #: src/EBox/CGI/EBox.pm:36
 msgid "Choose eBox packages to install"
-msgstr ""
+msgstr "Pasirinkite eBox paketus instaliacijai"
 
 #: src/EBox/CGI/EBox.pm:40
 msgid "eBox components"
-msgstr ""
+msgstr "eBox komponentai"
 
 #: src/EBox/CGI/Updates.pm:32 src/EBox/CGI/Updates.pm:50
 msgid "System updates"
-msgstr ""
+msgstr "Sistemos atnaujinimai"
 
 #: src/EBox/CGI/Updates.pm:59
 msgid "The system components are up to date."
-msgstr ""
+msgstr "Sistemos komponentai yra naujausios versijos"
 
 #: src/EBox/CGI/CurrentPackage.pm:32
 msgid "Upgrading"
-msgstr ""
+msgstr "Atnaujina"
 
 #: src/EBox/CGI/InstallPkgs.pm:102
 msgid "There were no packages to update"
-msgstr ""
+msgstr "Nėra paketų atnaujinti"
 
 #: src/EBox/CGI/InstallPkgs.pm:165
 msgid "Installing"
-msgstr ""
+msgstr "Diegiama"
 
 #: src/EBox/CGI/InstallPkgs.pm:166
 msgid "Installing packages"
-msgstr ""
+msgstr "Diegiami paketai"
 
 #: src/EBox/CGI/InstallPkgs.pm:167 src/EBox/CGI/InstallPkgs.pm:191
 msgid "Current operation"
-msgstr ""
+msgstr "Dabartinė operacija"
 
 #: src/EBox/CGI/InstallPkgs.pm:168
 msgid "actions done"
-msgstr ""
+msgstr "įvykdyti veiksmai"
 
 #: src/EBox/CGI/InstallPkgs.pm:169
 msgid ""
@@ -141,24 +146,29 @@ msgid ""
 "until the system has been fully configured. You will be automatically "
 "redirected to the next step"
 msgstr ""
+"Paketų instaliacija įvyko sėkmingai. Administravimo modulis gali tapti "
+"neaktyvus keletui sekundžių. Prašome kantriai palaukti kol sistema pilnai "
+"susikonfigūruos. Jūs būsite automatiškai nukreipti į sekantį žingsnį"
 
 #: src/EBox/CGI/InstallPkgs.pm:174
 msgid ""
 "The packages installation has not finished correctly . More information on "
 "the logs"
 msgstr ""
+"Paketų instaliacija nepavyko. Daugiau informacijos rasite istorijos "
+"įrašuose."
 
 #: src/EBox/CGI/InstallPkgs.pm:189
 msgid "Removing package"
-msgstr ""
+msgstr "Šalinamas paketas"
 
 #: src/EBox/CGI/InstallPkgs.pm:190
 msgid "Removing the selected package and its dependent packages"
-msgstr ""
+msgstr "Šalinimas pasirinktas paketas ir jam priklausantys paketai"
 
 #: src/EBox/CGI/InstallPkgs.pm:192
 msgid "packages left to remove"
-msgstr ""
+msgstr "likę paketai šalinimui"
 
 #: src/EBox/CGI/InstallPkgs.pm:193
 msgid ""
@@ -166,124 +176,131 @@ msgid ""
 "may become unresponsive for a few seconds. Please wait patiently until the "
 "system has been fully restarted"
 msgstr ""
+"Paketų šalinimas pavyko sėkmingai. Administravimo sąsaja gali tapti neaktyvi "
+"keletai akimirkų. Prašome kantriai palaukti kol sistema pilnai persikraus"
 
 #: src/EBox/CGI/InstallPkgs.pm:197
 msgid ""
 "The packages removal has not finished correctly . More information on the "
 "logs"
 msgstr ""
+"Paketų šalinimas nepavyko. Daugiau informacijos rasite istorijos įrašuose"
 
 #: src/templates/ebox.mas:140 src/templates/updates.mas:35
 msgid "Update"
-msgstr ""
+msgstr "Atnaujinti"
 
 #: src/templates/ebox.mas:146
 msgid "Install"
-msgstr ""
+msgstr "Įdiegti"
 
 #: src/templates/ebox.mas:168
 msgid "View advanced mode"
-msgstr ""
+msgstr "Žiūrėti išplėstinį variantą"
 
 #: src/templates/ebox.mas:482
 msgid "View basic mode"
-msgstr ""
+msgstr "Žiūrėti paprastąjį variantą"
 
 #: src/templates/del.mas:96
 msgid "The following packages will be installed"
-msgstr ""
+msgstr "Sekantys paketai bus įdiegti"
 
 #: src/templates/del.mas:98
 msgid "The following packages will be removed"
-msgstr ""
+msgstr "Sekantys paketai bus pašalinti"
 
 #: src/templates/del.mas:141
 msgid "Ok"
-msgstr ""
+msgstr "Gerai"
 
 #: src/templates/del.mas:142
 msgid "Cancel"
-msgstr ""
+msgstr "Atšaukti"
 
 #: src/templates/del.mas:149
 msgid "You may want to install also the following recommended packages:"
-msgstr ""
+msgstr "Jūs taip pat galite norėti įdiegti papildomus rekomenduojamus paketus:"
 
 #: src/templates/del.mas:152
 msgid "Layer 7 filtering for Traffic Shaping (ebox-l7-protocols)"
-msgstr ""
+msgstr "Layer 7 filtravimas srauto ribojimui (ebox-l7-protocols)"
 
 #: src/templates/del.mas:155
 msgid "Virus scanning for File Sharing (ebox-antivirus and samba-vscan)"
-msgstr ""
+msgstr "Virusų skenavimas bylų serveryje (ebox-antivirus ir samba-vscan)"
 
 #: src/templates/del.mas:158
 msgid "VoIP meetings support (dahdi and linux-headers)"
-msgstr ""
+msgstr "VoIP susitikimų palaikymas (dahdi ir linux-headers)"
 
 #: src/templates/config.mas:8
 msgid "Perform automatic security updates"
-msgstr ""
+msgstr "Atlikti automatinius saugumo atnaujinimus"
 
 #: src/templates/config.mas:14
 msgid "This eBox is configured to use automatic QA updates"
-msgstr ""
+msgstr "Šis eBox sukonfigūruotas naudoti automatinius QA atnaujinimus"
 
 #: src/templates/config.mas:26
 msgid "Automatic operations start time"
-msgstr ""
+msgstr "Automatinės operacijos pradžios laikas"
 
 #: src/templates/updates.mas:24
 msgid "Updates are available for the following system components"
-msgstr ""
+msgstr "Atnaujinimai galimi sekantiems sistemos komponentams"
 
 #: src/templates/updates.mas:26
 msgid "Community updates are available for the following system components"
-msgstr ""
+msgstr "Bendrijos atnaujinimai galimi sekantiems sistemos komponentams"
 
 #: src/templates/updates.mas:32
 msgid "Component"
-msgstr ""
+msgstr "Komponentas"
 
 #: src/templates/updates.mas:33
 msgid "Description"
-msgstr ""
+msgstr "Aprašymas"
 
 #: src/templates/updates.mas:34
 msgid "Version"
-msgstr ""
+msgstr "Versija"
 
 #: src/templates/updates.mas:52
 msgid "Security update"
-msgstr ""
+msgstr "Saugumo atnaujinimas"
 
 #: src/templates/updates.mas:55
 msgid "eBox QA update"
-msgstr ""
+msgstr "eBox QA atnaujinimas"
 
 #: src/templates/updates.mas:77
 msgid "Update all packages"
-msgstr ""
+msgstr "Atnaujinti visus paketus"
 
 #: src/templates/updates.mas:88
 msgid ""
 "This operation can take some time, don't worry if eBox looks unresponsive "
 "after pressing the Upgrade button."
 msgstr ""
+"Ši operacija gali užtrukti tam tikrą laiką, nepergyvenkite jei eBox atrodo "
+"nepasiekiamas po Atnaujinti mygtuko paspaudimo."
 
 #: src/templates/updates.mas:95
 msgid "Upgrade"
-msgstr ""
+msgstr "Patobulinti"
 
 #: src/templates/updates.mas:96
 msgid "Update list"
-msgstr ""
+msgstr "Atnaujinimo sąrašas"
 
 #: src/templates/updateNote.mas:10
 msgid ""
 "As you are enjoying a Commercial Server Subscription the updates are Quality "
 "Assured by the eBox Development Team."
 msgstr ""
+"Jūs naudojatės Komercinio Serverio prenumerata todėl QA (Kokybės "
+"atnaujinimai) yra pateikiami eBox kūrėjų komandos."
 
 #: src/templates/updateNote.mas:13
 #, perl-brace-format
@@ -295,3 +312,9 @@ msgid ""
 "extensively tested by the eBox Development Team and you won't be introducing "
 "any regressions on your already working system."
 msgstr ""
+"Įspėjimas: Atnaujinimai yra bendrijos. Jūs galite užsisakyti QA (Kokybės "
+"atnaujinimus) nusipirkdami <a href='{proUrl}'>Professional</a>  ar <a "
+"href='{entUrl}'>Enterprise</a> Serverio  prenumeratą. QA atnaujinimai "
+"garantuoja kad saugumo klaidų pataisymai ar paketų patobulinimai yra pilnai "
+"ištestuoti eBox kūrėjų komandos ir jūs nepatirsite jokių regresijų jūsų "
+"veikiančioja sistemoje."

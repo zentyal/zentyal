@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: EBox-monitor 0.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-08-28 23:36+0200\n"
-"PO-Revision-Date: 2010-08-30 00:47+0200\n"
+"PO-Revision-Date: 2010-08-31 21:13+0200\n"
 "Last-Translator: josefa <jgonza24@xtec.cat>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
@@ -133,118 +133,126 @@ msgstr "Ús del sistema de fitxers"
 msgid ""
 "Collect the mounted file system usage information as \"df\" command does"
 msgstr ""
+"Recull la informació dels sistemes de fitxers muntats com ho fa la comanda "
+"\"df\""
 
 #: src/EBox/Monitor/Measure/Memory.pm:55
 msgid "Physical memory usage"
-msgstr ""
+msgstr "Ús de la memòria física"
 
 #: src/EBox/Monitor/Measure/Memory.pm:56
 msgid "Collect the physical memory usage"
-msgstr ""
+msgstr "Recull l'ús de la memòria física"
 
 #: src/EBox/Monitor/Measure/Memory.pm:57
 msgid "free"
-msgstr ""
+msgstr "lliure"
 
 #: src/EBox/Monitor/Measure/Memory.pm:57
 msgid "page cache"
-msgstr ""
+msgstr "cau de pàgina"
 
 #: src/EBox/Monitor/Measure/Memory.pm:57
 msgid "buffer cache"
-msgstr ""
+msgstr "cau de memòria intermèdia"
 
 #: src/EBox/Monitor/Measure/Memory.pm:57
 msgid "used"
-msgstr ""
+msgstr "utilitzada"
 
 #: src/EBox/Monitor/Measure/Load.pm:55
 msgid "System load"
-msgstr ""
+msgstr "Càrrega del sistema"
 
 #: src/EBox/Monitor/Measure/Load.pm:56
 msgid "Collect the system load that gives a rough overview of the system usage"
 msgstr ""
+"Recollir la càrrega del sistema que dóna una visió molt general de l'ús del "
+"sistema"
 
 #: src/EBox/Monitor/Measure/Load.pm:59
 msgid "short term"
-msgstr ""
+msgstr "a curt termini"
 
 #: src/EBox/Monitor/Measure/Load.pm:59
 msgid "mid term"
-msgstr ""
+msgstr "a mig termini"
 
 #: src/EBox/Monitor/Measure/Load.pm:59
 msgid "long term"
-msgstr ""
+msgstr "a llarg termini"
 
 #: src/EBox/Monitor/Measure/Thermal.pm:111
 #: src/EBox/Monitor/Measure/Thermal.pm:117
 msgid "temperature"
-msgstr ""
+msgstr "temperatura"
 
 #: src/EBox/Monitor/Measure/Thermal.pm:129
 msgid "cooling device"
-msgstr ""
+msgstr "dispositiu de refrigeració"
 
 #: src/EBox/Monitor/Measure/Thermal.pm:131
 msgid "sensor"
-msgstr ""
+msgstr "sensor"
 
 #: src/EBox/Monitor/Measure/Thermal.pm:133
 #, perl-brace-format
 msgid "Temperature for {what}"
-msgstr ""
+msgstr "Temperatura de {what}"
 
 #: src/EBox/Monitor/Measure/Thermal.pm:139
 msgid "Thermal"
-msgstr ""
+msgstr "Tèrmic"
 
 #: src/EBox/Monitor/Measure/Thermal.pm:140
 #, perl-brace-format
 msgid ""
 "Collect thermal information (CPU sensors temperature) if possible from {dir}"
 msgstr ""
+"Recull informació tèrmica (temperatura de sensors de CPU), si és possible, "
+"des de {dir}"
 
 #: src/EBox/Monitor/Measure/Base.pm:684
 msgid "value"
-msgstr ""
+msgstr "valor"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:102
 #: src/EBox/Monitor/Model/MeasureWatchers.pm:77
 msgid "Events"
-msgstr ""
+msgstr "Esdeveniments"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:106
 #: src/EBox/Monitor/Model/MeasureWatchers.pm:81
 msgid "Monitor Watcher"
-msgstr ""
+msgstr "Observador de Monitor"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:110
 msgid "Threshold Configuration"
-msgstr ""
+msgstr "Configuració de Llindar"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:144
 msgid "At least a threshold (maximum or minimum) must be set"
-msgstr ""
+msgstr "S'ha d'establir almenys un llindar (màxim o mínim)"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:149
 msgid "This threshold rule will override the current ones"
-msgstr ""
+msgstr "Aquesta regla de llindar sobreescriurà les existents"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:244
 msgid "Failure minimum"
-msgstr ""
+msgstr "Mínim per fallar"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:247
 msgid ""
 "Set the lower bound of acceptable values. If unset defaults to negative "
 "infinity."
 msgstr ""
+"Estableix un límit inferior de valors acceptats. Si no s'especifica es pren "
+"-infinit per defecte."
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:252
 msgid "Warning minimum"
-msgstr ""
+msgstr "Mínim per avís"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:255
 #, perl-brace-format
@@ -252,15 +260,17 @@ msgid ""
 "If the value is less than this value and greater than {fmin} a warn event is "
 "sent"
 msgstr ""
+"Si el valor és menor que aquest valor i més gran que {fmin} un esdeveniment "
+"d'avís és enviat"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:257
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:283
 msgid "failure minimum"
-msgstr ""
+msgstr "mínim per fallida"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:261
 msgid "Warning maximum"
-msgstr ""
+msgstr "Màxim per avís"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:264
 #, perl-brace-format
@@ -268,25 +278,29 @@ msgid ""
 "If the value is greater than this value and less than {fmax} a warn event is "
 "sent"
 msgstr ""
+"Si el valor és més que aquest valor i menor que {fmax} un esdeveniment "
+"d'avís és enviat"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:266
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:283
 msgid "failure maximum"
-msgstr ""
+msgstr "màxim per fallida"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:270
 msgid "Failure maximum"
-msgstr ""
+msgstr "Màxim per fallida"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:273
 msgid ""
 "Set the upper bound of acceptable values. If unset defaults to positive "
 "infinity."
 msgstr ""
+"Estableix un límit superior de valors acceptables. Si no s'especifica es "
+"pren +infinit per defecte."
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:278
 msgid "Invert"
-msgstr ""
+msgstr "Invertir"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:281
 #, perl-brace-format
@@ -294,18 +308,20 @@ msgid ""
 "If set to true, the range of acceptable values is inverted, i.e. values "
 "between {fmin} and {fmax} ({wmin} and {wmax}) are not okay."
 msgstr ""
+"Si s'habilita, el rang de valors acceptables s'inverteix, és a dir, valors "
+"entre {fmin} i {fmax} ({wmin} i {wmax}) no són correctes."
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:284
 msgid "warning minimum"
-msgstr ""
+msgstr "mínim per avís"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:284
 msgid "warning maximum"
-msgstr ""
+msgstr "màxim per avís"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:288
 msgid "Persistent"
-msgstr ""
+msgstr "Persistent"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:291
 msgid ""
@@ -313,32 +329,37 @@ msgid ""
 "the acceptable range. If set to false, only a change from an acceptable "
 "value to an unacceptable one will be dispatched"
 msgstr ""
+"Si s'activa, un esdeveniment serà emès per cada valor fora del rang "
+"acceptable. Si no, només un canvi d'un valor acceptable a un inacceptable "
+"serà notificat"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:298
 msgid "Measure instance"
-msgstr ""
+msgstr "Exemplar de mesura"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:304
 msgid "Type"
-msgstr ""
+msgstr "Tipus"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:310
 msgid "Data Source"
-msgstr ""
+msgstr "Font de dades"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:318
 msgid "Threshold's list"
-msgstr ""
+msgstr "Llista de llindars"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:320
 msgid "Threshold"
-msgstr ""
+msgstr "Llindar"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:324
 #, perl-brace-format
 msgid ""
 "Every check is done with the highest possible resolution: {nSec} seconds"
 msgstr ""
+"Cada comprovació es realitzada amb la màxima resolució possible: {nSec} "
+"segons"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:326
 #, perl-brace-format
@@ -346,57 +367,59 @@ msgid ""
 "Take into account this configuration will be only applied if monitor "
 "{openhref}event watcher is enabled{closehref}"
 msgstr ""
+"Tingui en compte que aquesta resolució només serà aplicada si el "
+"{openhref}esdeveniment de monitoratge és habilitat{closehref}"
 
 #: src/EBox/Monitor/Model/MeasureWatchers.pm:151
 msgid "Measure"
-msgstr ""
+msgstr "Mesura"
 
 #: src/EBox/Monitor/Model/MeasureWatchers.pm:158
 msgid "Thresholds"
-msgstr ""
+msgstr "Llindars"
 
 #: src/EBox/Monitor/Model/MeasureWatchers.pm:167
 msgid "Configure monitor watchers"
-msgstr ""
+msgstr "Configurar observadors de monitoratge"
 
 #: src/EBox/Monitor/Model/MeasureWatchers.pm:168
 msgid "measure"
-msgstr ""
+msgstr "mesura"
 
 #: src/EBox/Monitor/Model/MeasureWatchers.pm:173
 msgid "Every measure may have several thresholds to monitor"
-msgstr ""
+msgstr "Cada mesura pot tenir varis llindars a monitorar"
 
 #: src/EBox/Monitor/Configuration.pm:121
 msgid "Last hour"
-msgstr ""
+msgstr "Última hora"
 
 #: src/EBox/Monitor/Configuration.pm:127
 msgid "Last day"
-msgstr ""
+msgstr "Últim dia"
 
 #: src/EBox/Monitor/Configuration.pm:133
 msgid "Last month"
-msgstr ""
+msgstr "Últim mes"
 
 #: src/EBox/Monitor/Configuration.pm:139
 msgid "Last year"
-msgstr ""
+msgstr "Últim any"
 
 #: src/EBox/Monitor/Types/MeasureAttribute.pm:132
 #: src/EBox/Monitor/Types/MeasureAttribute.pm:146
 #: src/EBox/Monitor/Types/MeasureAttribute.pm:156
 msgid "not applicable"
-msgstr ""
+msgstr "no aplicable"
 
 #: src/EBox/Monitor/Types/MeasureAttribute.pm:134
 #: src/EBox/Monitor/Types/MeasureAttribute.pm:144
 msgid "any"
-msgstr ""
+msgstr "qualsevol"
 
 #: src/EBox/CGI/Index.pm:44
 msgid "Monitoring"
-msgstr ""
+msgstr "Monitoratge"
 
 #: src/EBox/CGI/Index.pm:70
 #, perl-brace-format
@@ -404,6 +427,8 @@ msgid ""
 "You must enable monitor module to see monitor graphs in {openhref}Module "
 "Status{closehref} section."
 msgstr ""
+"Has d'habilitar el mòdul de monitoratge en la secció {openhref}Estat dels "
+"Mòduls{closehref} per poder veure les gràfiques de monitoratge."
 
 #: src/EBox/CGI/Index.pm:98
 #, perl-brace-format
@@ -412,3 +437,7 @@ msgid ""
 "{openhref}Save changes{closehref} section. In case it is already enabled you "
 "must wait for a few seconds to collect the first monitor data"
 msgstr ""
+"Has de desar els canvis en estat dels mòduls per veure les gràfiques de "
+"monitoratge en la secció {openhref}Desar canvis{closehref}. En cas de que ja "
+"s'hagi habilitat, és possible que hagis d'esperar uns pocs segons per "
+"recollir les primeres dades del monitoratge"

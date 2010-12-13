@@ -5,17 +5,18 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-dhcp 2.0"
-"Report-Msgid-Bugs-To: developers@zentyal.org\n"
+"Project-Id-Version: ebox-dhcp 2.0Report-Msgid-Bugs-To: "
+"developers@zentyal.org\n"
 "POT-Creation-Date: 2008-09-01 08:30+0200\n"
-"PO-Revision-Date: 2008-09-01 08:30+0200\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2010-12-05 23:52+0100\n"
+"Last-Translator: Vytautas <vytautas@lantraneta.lt>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n%"
-"100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"(n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/Model/RangeTable.pm:95 src/EBox/Model/RangeInfo.pm:108
 #: src/EBox/Model/LeaseTimes.pm:113 src/EBox/Model/Options.pm:119
@@ -26,171 +27,181 @@ msgstr ""
 #: src/EBox/Composite/OptionsTab.pm:87
 #, perl-brace-format
 msgid "interface {iface}"
-msgstr ""
+msgstr "sąsaja {iface}"
 
 #: src/EBox/Model/RangeTable.pm:117
 #, perl-brace-format
 msgid "{from} - {to} is an invalid range"
-msgstr ""
+msgstr "{from} - {to} yra neteisingas diapazonas"
 
 #: src/EBox/Model/RangeTable.pm:128
 #, perl-brace-format
 msgid "Range {from}-{to} is not in network {net}"
-msgstr ""
+msgstr "Diapazonas {from} - {to} nėra tinkle {net}"
 
 #: src/EBox/Model/RangeTable.pm:141
 #, perl-brace-format
 msgid "Range {from}-{to} includes interface with IP address: {ifaceIP}"
-msgstr ""
+msgstr "Diapazonas {from} - {to} apima sąsają su IP adresais: {ifaceIP}"
 
 #: src/EBox/Model/RangeTable.pm:163
 #, perl-brace-format
 msgid ""
 "Range {newFrom}-{newTo} overlaps with range '{range}': {oldFrom}-{oldTo}"
 msgstr ""
+"Diapazonas {newFrom} - {newTo} sutampa su diapozonu '{range}': "
+"{oldFrom}-{oldTo}"
 
 #: src/EBox/Model/RangeTable.pm:180
 #, perl-brace-format
 msgid "Range {from}-{to} includes fixed address '{name}': {fixedIP}"
-msgstr ""
+msgstr "Diapazonas {from} - {to} apima nuolatinį adresą '{name}': {fixedIP}"
 
 #: src/EBox/Model/RangeTable.pm:211 src/EBox/Model/FixedAddressTable.pm:209
 #: src/EBox/CGI/AddRange.pm:43 src/EBox/CGI/AddFixed.pm:45
 #: src/templates/fixed.mas:8 src/templates/ranges.mas:53
 msgid "Name"
-msgstr ""
+msgstr "Vardas"
 
 #: src/EBox/Model/RangeTable.pm:217 src/EBox/CGI/AddRange.pm:44
 #: src/templates/ranges.mas:54
 msgid "From"
-msgstr ""
+msgstr "Nuo"
 
 #: src/EBox/Model/RangeTable.pm:223 src/EBox/CGI/AddRange.pm:45
 #: src/templates/ranges.mas:55
 msgid "To"
-msgstr ""
+msgstr "Iki"
 
 #: src/EBox/Model/RangeTable.pm:231 src/templates/ranges.mas:49
 msgid "Ranges"
-msgstr ""
+msgstr "Diapazonai"
 
 #: src/EBox/Model/RangeTable.pm:238
 msgid "range"
-msgstr ""
+msgstr "diapazonas"
 
 #: src/EBox/Model/RangeInfo.pm:143
 msgid "Interface IP address"
-msgstr ""
+msgstr "Sąsaja IP adresas"
 
 #: src/EBox/Model/RangeInfo.pm:147 src/templates/ranges.mas:20
 msgid "Subnet"
-msgstr ""
+msgstr "Potinklio"
 
 #: src/EBox/Model/RangeInfo.pm:151 src/templates/ranges.mas:40
 msgid "Available range"
-msgstr ""
+msgstr "Galimas diapozonas"
 
 #: src/EBox/Model/RangeInfo.pm:157 src/templates/ranges.mas:15
 msgid "DHCP ranges"
-msgstr ""
+msgstr "DHCP diapazonai"
 
 #: src/EBox/Model/LeaseTimes.pm:133
 msgid "Default leased time must be higher than 0 seconds"
-msgstr ""
+msgstr "Numatytasis atidavimo laikas turi būti aukštesnis kaip 0 sekundžių"
 
 #: src/EBox/Model/LeaseTimes.pm:139
 #, perl-brace-format
 msgid "Default leased time {default} must be lower than maximum one {max}"
 msgstr ""
+"Numatytasis atidavimo laikas{default,} turi būti mažesnis nei maksimumas "
+"{max}"
 
 #: src/EBox/Model/LeaseTimes.pm:151
 msgid "Maximum leased time must be higher than 0 seconds"
-msgstr ""
+msgstr "Didžiausias atidavimo laikas turi būti aukštesnis kaip 0 sekundžių"
 
 #: src/EBox/Model/LeaseTimes.pm:157
 #, perl-brace-format
 msgid "Maximum leased time {max} must be higher than default one {default}"
 msgstr ""
+"Didžiausias atidavimo laikas {max} turi būti didesnis nei numatytasis "
+"{default}"
 
 #: src/EBox/Model/LeaseTimes.pm:201
 msgid "Default leased time"
-msgstr ""
+msgstr "Numatytasis atidavimo laikas"
 
 #: src/EBox/Model/LeaseTimes.pm:204 src/EBox/Model/LeaseTimes.pm:211
 msgid "seconds"
-msgstr ""
+msgstr "sekundžių"
 
 #: src/EBox/Model/LeaseTimes.pm:208
 msgid "Maximum leased time"
-msgstr ""
+msgstr "Didžiausias atidavimo laikas"
 
 #: src/EBox/Model/LeaseTimes.pm:217
 msgid "Lease times"
-msgstr ""
+msgstr "Atidavimo laikas"
 
 #: src/EBox/Model/LeaseTimes.pm:222
 msgid ""
 "Leased time is the time which a given IP address is valid by the DHCP server"
 msgstr ""
+"Skirtųjų laikas yra laikas, kuris skiriamas IP adresas yra svarbių, DHCP "
+"serverio"
 
 #: src/EBox/Model/Options.pm:157
 #, perl-brace-format
 msgid "{gateway} is not in the current network"
-msgstr ""
+msgstr "{gateway} nepriklauso dabartiniam tinklui"
 
 #: src/EBox/Model/Options.pm:169
 msgid ""
 "DNS service must be active to as primary nameserver the local eBox DNS server"
 msgstr ""
+"DNS paslauga turi būti aktyvi kaip pirminis vardų srities serveris vidiam "
+"eBox DNS serveriui"
 
 #: src/EBox/Model/Options.pm:315 src/EBox/Model/Options.pm:343
 msgid "Custom"
-msgstr ""
+msgstr "Papildomas"
 
 #: src/EBox/Model/Options.pm:323
 msgid "eBox's domain"
-msgstr ""
+msgstr "Ebox vardų sritys"
 
 #: src/EBox/Model/Options.pm:331
 msgid "local eBox DNS"
-msgstr ""
+msgstr "vidinis eBox DNS"
 
 #: src/EBox/Model/Options.pm:338 src/EBox/Model/Options.pm:349
 #: src/EBox/Model/Options.pm:372 src/EBox/Model/ThinClientOptions.pm:217
 msgid "None"
-msgstr ""
+msgstr "Nėra"
 
 #: src/EBox/Model/Options.pm:356 src/templates/options.mas:18
 msgid "Default gateway"
-msgstr ""
+msgstr "Marsurtas pagal nutylėjimą"
 
 #: src/EBox/Model/Options.pm:362 src/EBox/Model/ThinClientOptions.pm:220
 msgid "eBox"
-msgstr ""
+msgstr "eBox"
 
 #: src/EBox/Model/Options.pm:366
 msgid "Custom IP address"
-msgstr ""
+msgstr "Individualizuotas IP adresas"
 
 #: src/EBox/Model/Options.pm:376
 msgid "Configured ones"
-msgstr ""
+msgstr "Sukonfigūruoti"
 
 #: src/EBox/Model/Options.pm:385 src/templates/options.mas:29
 msgid "Search domain"
-msgstr ""
+msgstr "Ieškoti vardų srities"
 
 #: src/EBox/Model/Options.pm:391 src/templates/options.mas:41
 msgid "Primary nameserver"
-msgstr ""
+msgstr "Pirminis nameserver"
 
 #: src/EBox/Model/Options.pm:397 src/templates/options.mas:52
 msgid "Secondary nameserver"
-msgstr ""
+msgstr "Antrinis nameserver"
 
 #: src/EBox/Model/Options.pm:405
 msgid "Common options"
-msgstr ""
+msgstr "Pagrindinės parinktys"
 
 #: src/EBox/Model/Options.pm:410
 msgid ""
@@ -205,30 +216,30 @@ msgstr ""
 #: src/EBox/Model/FixedAddressTable.pm:120
 #, perl-brace-format
 msgid "IP address {ip} is not in network {net}"
-msgstr ""
+msgstr "IP adresas {ip} nėra tinkle {net}"
 
 #: src/EBox/Model/FixedAddressTable.pm:131
 #, perl-brace-format
 msgid "The selected IP is the interface IP address: {ifaceIP}"
-msgstr ""
+msgstr "Parinktas IP yra sąsajos IP adresas: {ifaceIP}"
 
 #: src/EBox/Model/FixedAddressTable.pm:147
 #, perl-brace-format
 msgid "IP address {ip} is in range '{range}': {from}-{to}"
-msgstr ""
+msgstr "IP adresas {IP} yra diapazone '{range}': {from}-{to}"
 
 #: src/EBox/Model/FixedAddressTable.pm:159
 #, perl-brace-format
 msgid "{name} cannot contain spaces"
-msgstr ""
+msgstr "{name} negali turėti tarpų"
 
 #: src/EBox/Model/FixedAddressTable.pm:177
 msgid "update"
-msgstr ""
+msgstr "atnaujinti"
 
 #: src/EBox/Model/FixedAddressTable.pm:179
 msgid "add"
-msgstr ""
+msgstr "pridėti"
 
 #: src/EBox/Model/FixedAddressTable.pm:181
 #, perl-brace-format
@@ -236,29 +247,31 @@ msgid ""
 "You cannot {action} a fixed address with a name which is already used in "
 "other fixed address table"
 msgstr ""
+"Jūs negalite {action} nuolatinį adresą su pavadinimu, jau yra vartojamas "
+"kitas fiksuotas adresas lentelė"
 
 #: src/EBox/Model/FixedAddressTable.pm:215 src/EBox/CGI/AddFixed.pm:43
 #: src/EBox/DHCP.pm:1238 src/templates/fixed.mas:9
 msgid "MAC address"
-msgstr ""
+msgstr "MAC adresas"
 
 #: src/EBox/Model/FixedAddressTable.pm:221
 #: src/EBox/Model/ThinClientOptions.pm:223 src/EBox/CGI/AddFixed.pm:44
 #: src/templates/fixed.mas:10
 msgid "IP address"
-msgstr ""
+msgstr "IP adresas"
 
 #: src/EBox/Model/FixedAddressTable.pm:224
 msgid "You cannot use an IP address contained in the above ranges."
-msgstr ""
+msgstr "Jūs negalite naudotis IP adresu įtrauktu į sekančius diapazonus."
 
 #: src/EBox/Model/FixedAddressTable.pm:231 src/templates/fixed.mas:5
 msgid "Fixed addresses"
-msgstr ""
+msgstr "Fiksuoti adresai"
 
 #: src/EBox/Model/FixedAddressTable.pm:238
 msgid "fixed address"
-msgstr ""
+msgstr "fiksuoti adresai"
 
 #: src/EBox/Model/ThinClientOptions.pm:137
 msgid ""
@@ -275,19 +288,19 @@ msgstr ""
 
 #: src/EBox/Model/ThinClientOptions.pm:213
 msgid "Next server"
-msgstr ""
+msgstr "Kitas serveris"
 
 #: src/EBox/Model/ThinClientOptions.pm:227
 msgid "name"
-msgstr ""
+msgstr "pavadinimas"
 
 #: src/EBox/Model/ThinClientOptions.pm:233
 msgid "File name"
-msgstr ""
+msgstr "Failo vardas"
 
 #: src/EBox/Model/ThinClientOptions.pm:244
 msgid "Thin client"
-msgstr ""
+msgstr "Plonas klientas"
 
 #: src/EBox/Model/ThinClientOptions.pm:249
 #, perl-brace-format
@@ -295,6 +308,8 @@ msgid ""
 "You may want to customise your thin client options.To do so, you may include "
 "all the files you require under {path} directory"
 msgstr ""
+"Jūs norėsite sukonfigūruoti lengvuosius klientus. Tai atlikti galite įkėlę "
+"visus reikalingus failus į {path} katalogą"
 
 #: src/EBox/CGI/AddRange.pm:39 src/EBox/CGI/AddFixed.pm:39
 #: src/EBox/CGI/RemoveRange.pm:39 src/EBox/CGI/RemoveFixed.pm:39
@@ -303,15 +318,15 @@ msgstr ""
 #: src/EBox/DHCP.pm:735 src/EBox/DHCP.pm:795 src/EBox/DHCP.pm:851
 #: src/EBox/DHCP.pm:1237
 msgid "Interface"
-msgstr ""
+msgstr "Sąsaja"
 
 #: src/EBox/CGI/Enable.pm:39
 msgid "module status"
-msgstr ""
+msgstr "modulio statusą"
 
 #: src/EBox/CGI/Status.pm:42
 msgid "Module Status"
-msgstr ""
+msgstr "Modulio Statusas"
 
 #: src/EBox/Composite/InterfaceConfiguration.pm:112
 #, perl-brace-format
@@ -319,6 +334,8 @@ msgid ""
 "In order to serve IP addresses on a external interface, you must open the "
 "service on {openhref}firewall module{closehref}"
 msgstr ""
+"Norėdami aptarnauti IP adresus išorinėje sąsajoje, jūs privalote atverti "
+"servisus {openhref} ugnesienės mudulyje {closehref}"
 
 #: src/EBox/Composite/General.pm:79
 #, perl-brace-format
@@ -326,38 +343,43 @@ msgid ""
 "An interface must set as static to configure the DHCP service on it. To do "
 "so, change {openhref}interfaces configuration{closehref} in network module"
 msgstr ""
+"Tinklo sąsaja turi būti nustatyta statinė nėorint sukonfigūruoti DHCP "
+"servisą. Tai atlikti galite {openhref}sąsajos konfigūracija{closehref} "
+"tinklo modulyje"
 
 #: src/EBox/Composite/AdvancedOptions.pm:133
 msgid "Advanced options"
-msgstr ""
+msgstr "Papildomi duomenys"
 
 #: src/EBox/Composite/Interfaces.pm:108
 msgid "Choose a static interface to configure:"
-msgstr ""
+msgstr "Pasirinkite statinę sąsaja konfigūruoti:"
 
 #: src/EBox/Composite/Interfaces.pm:109
 msgid "Service configuration"
-msgstr ""
+msgstr "Paslaugos konfigūracija"
 
 #: src/EBox/Composite/Interfaces.pm:110
 msgid ""
 "In order to serve IP addresses on an interface, it is required to set at "
 "least a range or a fixed address."
 msgstr ""
+"Norint aptranauti IP adresus tinklo sąsajoje, privaloma nustatyti bent "
+"diapozoną ar fiksuotus adresus."
 
 #: src/EBox/DHCP.pm:503 src/EBox/DHCP.pm:539 src/EBox/DHCP.pm:589
 #: src/EBox/DHCP.pm:687 src/EBox/DHCP.pm:801 src/EBox/DHCP.pm:857
 #, perl-brace-format
 msgid "{iface} is not static"
-msgstr ""
+msgstr "{iface} yra ne statinis"
 
 #: src/EBox/DHCP.pm:673
 msgid "Not a valid action: add, set and del are available"
-msgstr ""
+msgstr "Negalimas veiksmas: galima įkelti, nustatyti ir trinti"
 
 #: src/EBox/DHCP.pm:787
 msgid "No valid action. Available ones are: add, set and del"
-msgstr ""
+msgstr "Negalimas veiksmas. Galimi yra šie: pridėti, nustatyti ir trinti"
 
 #: src/EBox/DHCP.pm:1024
 #, perl-brace-format
@@ -366,6 +388,9 @@ msgid ""
 "used by the DHCP range '{range}' in the interface '{iface}'. Please, remove "
 "it before trying to add a virtual interface using it."
 msgstr ""
+"IP adresai virtualioje tinklo sąsajoje jau egzisutoja DHCP diapazone "
+"'{range}' sąsajoje '{iface}'. Prašome pašalinti prieš bandant naudoti "
+"virtualiają sąsają."
 
 #: src/EBox/DHCP.pm:1042
 #, perl-brace-format
@@ -377,39 +402,39 @@ msgstr ""
 
 #: src/EBox/DHCP.pm:1236
 msgid "Date"
-msgstr ""
+msgstr "Data"
 
 #: src/EBox/DHCP.pm:1239
 msgid "IP"
-msgstr ""
+msgstr "IP"
 
 #: src/EBox/DHCP.pm:1240
 msgid "Event"
-msgstr ""
+msgstr "Įvykis"
 
 #: src/EBox/DHCP.pm:1243
 msgid "Leased"
-msgstr ""
+msgstr "Atiduotų"
 
 #: src/EBox/DHCP.pm:1243
 msgid "Released"
-msgstr ""
+msgstr "Išleistų"
 
 #: src/EBox/DHCP.pm:1246
 msgid "DHCP"
-msgstr ""
+msgstr "DHCP"
 
 #: migration/0002_add_services.pl:117
 msgid "Trivial File Transfer Protocol"
-msgstr ""
+msgstr "Trivial File Transfer Protocol"
 
 #: migration/0002_add_services.pl:126
 msgid "Dynamic Host Configuration Protocol"
-msgstr ""
+msgstr "Dynamic Host Configuration Protocol"
 
 #: src/templates/options.mas:8
 msgid "Options"
-msgstr ""
+msgstr "Funkcijos"
 
 #: src/templates/options.mas:10
 msgid ""
@@ -419,28 +444,28 @@ msgstr ""
 
 #: src/templates/options.mas:64
 msgid "Apply"
-msgstr ""
+msgstr "Taikyti"
 
 #: src/templates/fixed.mas:11 src/templates/ranges.mas:56
 msgid "Action"
-msgstr ""
+msgstr "Veiksmas"
 
 #: src/templates/fixed.mas:34 src/templates/fixed.mas:37
 #: src/templates/fixed.mas:38 src/templates/ranges.mas:74
 #: src/templates/ranges.mas:75 src/templates/ranges.mas:76
 msgid "Add"
-msgstr ""
+msgstr "Pridėti"
 
 #: src/templates/fixed.mas:51 src/templates/fixed.mas:53
 #: src/templates/fixed.mas:54
 msgid "Remove"
-msgstr ""
+msgstr "Pašalinti"
 
 #: src/templates/ranges.mas:30
 msgid "Subnet netmask"
-msgstr ""
+msgstr "Potinklio netmask"
 
 #: src/templates/ranges.mas:91 src/templates/ranges.mas:92
 #: src/templates/ranges.mas:93
 msgid "Delete"
-msgstr ""
+msgstr "Ištrinti"

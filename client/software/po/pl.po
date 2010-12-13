@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-software 0.12.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-08-28 23:41+0200\n"
-"PO-Revision-Date: 2010-08-28 14:55+0200\n"
+"PO-Revision-Date: 2010-09-01 18:07+0200\n"
 "Last-Translator: Robert Brzozowski <gnutar1@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
@@ -20,7 +20,7 @@ msgstr ""
 
 #: migration/0001_add_http_software_rule.pl:39
 msgid "HTTP software"
-msgstr ""
+msgstr "Oprogramowanie HTTP"
 
 #: migration/0001_add_http_software_rule.pl:41
 msgid "software service to update packages via apt"
@@ -188,13 +188,15 @@ msgstr "Uaktualnianie"
 
 #: src/templates/updates.mas:24 src/templates/ebox.mas:181
 msgid "Package list updated successfully"
-msgstr ""
+msgstr "Uaktualniono listę pakietów"
 
 #: src/templates/updates.mas:28 src/templates/ebox.mas:185
 msgid ""
 "Error updating package list. Please try to execute the following command in "
 "a console to see the problem: sudo apt-get update"
 msgstr ""
+"Wystąpił błąd podczas aktualizacji listy pakietów. Wykonaj następujące "
+"polecenie z linii komend: sudo apt-get update"
 
 #: src/templates/updates.mas:38
 msgid "Updates are available for the following system components"

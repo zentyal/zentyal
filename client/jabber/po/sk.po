@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-jabber 1.3.3\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-08-28 23:36+0200\n"
-"PO-Revision-Date: 2010-05-05 12:54+0200\n"
+"PO-Revision-Date: 2010-09-06 14:57+0200\n"
 "Last-Translator: Bokor Pavol <bokor@4enzo.net>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
@@ -18,9 +18,8 @@ msgstr ""
 "X-Generator: Pootle 1.1.0\n"
 
 #: migration/0001_add_firewall_services.pl:45 src/EBox/Jabber.pm:221
-#, fuzzy
 msgid "Jabber Server"
-msgstr "Jabber server"
+msgstr "Jabber Server"
 
 #: src/EBox/JabberLdapUser.pm:261
 msgid ""
@@ -35,14 +34,12 @@ msgid "Add Jabber LDAP schema"
 msgstr "Pridať Jabber do LDAP schémy"
 
 #: src/EBox/Jabber.pm:57
-#, fuzzy
 msgid "Zentyal will need this schema to store Jabber users."
-msgstr "eBox bude potrebovať túto schému na ukladanie užívateľov jabber-u"
+msgstr "Zentyal bude potrebovať túto schému na ukladanie užívateľov jabber-u"
 
 #: src/EBox/Jabber.pm:73
-#, fuzzy
 msgid "To properly configure ejabberd."
-msgstr "Riadne nastaviť jabberd2"
+msgstr "Riadne nastaviť ejabberd."
 
 #: src/EBox/Jabber/Model/JabberUser.pm:50
 msgid "Jabber Account"
@@ -60,16 +57,15 @@ msgstr "Zakázaný"
 
 #: src/EBox/Jabber/Model/GeneralSettings.pm:93
 msgid "Allow SSL"
-msgstr ""
+msgstr "Povoliť SSL"
 
 #: src/EBox/Jabber/Model/GeneralSettings.pm:94
 msgid "Force SSL"
-msgstr ""
+msgstr "Vynútiť SSL"
 
 #: src/EBox/Jabber/Model/GeneralSettings.pm:113
-#, fuzzy
 msgid "Jabber domain"
-msgstr "Jabber konto"
+msgstr "Jabber doména"
 
 #: src/EBox/Jabber/Model/GeneralSettings.pm:119
 msgid "SSL support"
@@ -84,25 +80,22 @@ msgid "Enable MUC (Multi User Chat)"
 msgstr "Povoliť MUC (Multi User Chat)"
 
 #: src/EBox/Jabber/Model/GeneralSettings.pm:141
-#, fuzzy
 msgid "General configuration settings"
 msgstr "Hlavné nastavenie"
 
 #: src/EBox/Jabber/Model/GeneralSettings.pm:146
 msgid "General Jabber server configuration settings updated."
-msgstr ""
+msgstr "Hlavné nastavenie Jabber servera bolo aktualizované."
 
 #: src/EBox/Jabber/Composite/General.pm:66
-#, fuzzy
 msgid "Configuration"
-msgstr "Hlavné nastavenie"
+msgstr "Nastavenie"
 
 #: src/EBox/CGI/JabberUserOptions.pm:43
 msgid "username"
 msgstr "užívateľské meno"
 
 #: src/templates/jabber.mas:8
-#, fuzzy
 msgid "Jabber account"
 msgstr "Jabber konto"
 

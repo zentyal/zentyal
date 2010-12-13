@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: ebox-firewall 0.12\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-08-28 23:35+0200\n"
-"PO-Revision-Date: 2010-02-03 20:05+0100\n"
-"Last-Translator: MOSAiX Europe <info@mosaix-europe.eu>\n"
+"PO-Revision-Date: 2010-09-12 13:06+0200\n"
+"Last-Translator: J. Schwieder <j.schwieder@gmx.de>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -31,9 +31,8 @@ msgid "rule"
 msgstr "Regel"
 
 #: src/EBox/Firewall/Model/EBoxOutputRuleTable.pm:68
-#, fuzzy
 msgid "Traffic coming out from Zentyal"
-msgstr "Filter-Regeln für Verkehr aus der eBox"
+msgstr "Filter-Regeln für Verkehr aus Zentyal"
 
 #: src/EBox/Firewall/Model/ExternalToInternalRuleTable.pm:68
 msgid "External networks to internal networks"
@@ -135,12 +134,12 @@ msgstr "Portweiterleitung"
 #: src/EBox/Firewall/Model/InternalToEBoxRuleTable.pm:68
 #, fuzzy
 msgid "Internal networks to Zentyal"
-msgstr "Interne Netzwerke zu der eBox"
+msgstr "Interne Netzwerke zu der Zentyal"
 
 #: src/EBox/Firewall/Model/ExternalToEBoxRuleTable.pm:68
 #, fuzzy
 msgid "External networks to Zentyal"
-msgstr "Externe Netzwerke zu eBox"
+msgstr "Externe Netzwerke zu Zentyal"
 
 #: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:37
 msgid "Input"
@@ -291,16 +290,16 @@ msgstr "Firewall Paket-Traffic Bericht"
 msgid ""
 "You must set the iptables_log_limit variable in the ebox configuration file"
 msgstr ""
-"Sie müssen die Variable iptables_log_limit in der eBox-Konfigurationsdatei "
-"setzen"
+"Sie müssen die Variable iptables_log_limit in der Zentyal-"
+"Konfigurationsdatei setzen"
 
 #: src/EBox/Firewall/IptablesRedirectRule.pm:83 src/EBox/Iptables.pm:844
 #: src/EBox/Iptables.pm:881
 msgid ""
 "You must set the iptables_log_burst variable in the ebox configuration file"
 msgstr ""
-"Sie müssen die Variable iptables_log_lburst in der eBox-Konfigurationsdatei "
-"setzen"
+"Sie müssen die Variable iptables_log_lburst in der Zentyal-"
+"Konfigurationsdatei setzen"
 
 #: src/EBox/Firewall.pm:58 src/EBox/Firewall.pm:812
 msgid "Firewall"
@@ -316,8 +315,8 @@ msgid ""
 "The Zentyal firewall will flush any previous firewall rules which have been "
 "added manually or by another tool"
 msgstr ""
-"eBox wird alle vorherigen Firewall-Regeln löschen, welche manuell oder von "
-"einem anderen Programm hinzugefügt wurden"
+"Zentyal wird alle vorherigen Firewall-Regeln löschen, welche manuell oder "
+"von einem anderen Programm hinzugefügt wurden"
 
 #: src/EBox/Firewall.pm:90
 msgid "Secure by default"
@@ -378,17 +377,15 @@ msgid "REDIRECT"
 msgstr ""
 
 #: src/templates/filter.mas:6
-#, fuzzy
 msgid "Filtering rules from internal networks to Zentyal"
-msgstr "Filter-Regeln für Verkehr zwischen internen Netzwerken zu der eBox"
+msgstr "Filter-Regeln für Verkehr zwischen internen Netzwerken zu Zentyal"
 
 #: src/templates/filter.mas:8
-#, fuzzy
 msgid ""
 "These rules allow you to control access from internal networks to services "
 "running on your Zentyal machine."
 msgstr ""
-"Diese Regeln erlauben Ihnen für interne Netzwerke den Zugriff auf eBox-"
+"Diese Regeln erlauben Ihnen für interne Netzwerke den Zugriff auf Zentyal-"
 "Dienste zu konfigurieren."
 
 #: src/templates/filter.mas:10 src/templates/filter.mas:18
@@ -402,20 +399,19 @@ msgid "Filtering rules for internal networks"
 msgstr "Filter-Regeln für interne Netzwerke"
 
 #: src/templates/filter.mas:15
-#, fuzzy
 msgid ""
 "These rules allow you to control access from internal networks to the "
 "Internet and traffic between internal networks. If you wish to provide "
 "access to your Zentyal services, you must use the above section."
 msgstr ""
 "Diese Regeln erlauben Ihnen für interne Netzwerke den Zugriff auf das "
-"Internet zu regeln. Wenn Sie den Zugriff auf eBox-Dienste konfigurieren "
+"Internet zu regeln. Wenn Sie den Zugriff auf Zentyal-Dienste konfigurieren "
 "möchten, benutzen Sie die obige Sektion."
 
 #: src/templates/filter.mas:21
 #, fuzzy
 msgid "Filtering rules for traffic coming out from Zentyal"
-msgstr "Filter-Regeln für Verkehr von der eBox nach anderswo"
+msgstr "Filter-Regeln für Verkehr von der Zentyal nach außerhalb"
 
 #: src/templates/filter.mas:23
 #, fuzzy
@@ -423,7 +419,7 @@ msgid ""
 "These rules allow you to control access from your Zentyal to external "
 "services."
 msgstr ""
-"Diese Regeln erlauben Ihnen, den Zugriff der eBox auf externe Dienste zu "
+"Diese Regeln erlauben Ihnen, den Zugriff der Zentyal auf externe Dienste zu "
 "konfigurieren."
 
 #: src/templates/filter.mas:29
@@ -437,7 +433,7 @@ msgid ""
 "These rules allow you to control access from external networks to sevices "
 "running on your Zentyal machine."
 msgstr ""
-"Diese Regeln erlauben Ihnen den Zugriff auf Dienste der eBox für externe "
+"Diese Regeln erlauben Ihnen den Zugriff auf Dienste der Zentyal für externe "
 "Netzwerke zu konfigurieren"
 
 #: src/templates/filter.mas:34 src/templates/filter.mas:45
@@ -468,7 +464,7 @@ msgstr ""
 #, fuzzy
 msgid "These rules are automatically added by the Zentyal services."
 msgstr ""
-"Diese Regeln erlauben Ihnen, den Zugriff der eBox auf externe Dienste zu "
+"Diese Regeln erlauben Ihnen, den Zugriff der Zentyal auf externe Dienste zu "
 "konfigurieren."
 
 #: src/templates/filter.mas:56

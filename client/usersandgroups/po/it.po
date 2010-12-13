@@ -7,8 +7,8 @@ msgstr ""
 "Project-Id-Version: ebox-usersandgroups 0.12\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-08-28 23:42+0200\n"
-"PO-Revision-Date: 2010-08-17 13:46+0200\n"
-"Last-Translator: Luca Erre <LUCA.etrusco@gmail.com>\n"
+"PO-Revision-Date: 2010-09-15 10:49+0200\n"
+"Last-Translator: Simone Bernini <lemorragia@libero.it>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -61,24 +61,24 @@ msgstr "Non ci sono operazioni in sospeso al momento."
 
 #: src/EBox/UsersAndGroups/Model/PAM.pm:87
 msgid "Enable PAM"
-msgstr ""
+msgstr "Abilita PAM"
 
 #: src/EBox/UsersAndGroups/Model/PAM.pm:90
+#, fuzzy
 msgid "Make LDAP users have system account."
-msgstr ""
+msgstr "Fai in modo che gli utenti LDAP abbiano anche account di sistema."
 
 #: src/EBox/UsersAndGroups/Model/PAM.pm:94
 msgid "Default login shell"
-msgstr ""
+msgstr "Shell di login predefinita"
 
 #: src/EBox/UsersAndGroups/Model/PAM.pm:98
 msgid "This will apply only to new users from now on."
-msgstr ""
+msgstr "Questo si applichera' solo a utenti nuovi da ora in poi."
 
 #: src/EBox/UsersAndGroups/Model/PAM.pm:104
-#, fuzzy
 msgid "PAM settings"
-msgstr "Impostazione sincronizzazione AD"
+msgstr "Impostazioni di PAM"
 
 #: src/EBox/UsersAndGroups/Model/ADSyncSettings.pm:65
 msgid "AD user"
@@ -109,9 +109,8 @@ msgid "AD Secret Key"
 msgstr "Chiave segreta AD"
 
 #: src/EBox/UsersAndGroups/Model/ADSyncSettings.pm:87
-#, fuzzy
 msgid "Secret key to be shared between Windows and Zentyal (16 chars)"
-msgstr "Chiave segreta da condividere tra Windows ed eBox (16 caratteri)"
+msgstr "Chiave segreta da condividere tra Windows ed Zentyal (16 caratteri)"
 
 #: src/EBox/UsersAndGroups/Model/ADSyncSettings.pm:93
 msgid "Windows AD Sync Settings"
@@ -162,24 +161,23 @@ msgid "There are no groups at the moment"
 msgstr "Non ci sono gruppi al momento."
 
 #: src/EBox/UsersAndGroups/Model/Groups.pm:138
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Zentyal is configured as slave and there are no groups at the moment. You "
 "may want to add some in the {openhref}master{closehref}."
 msgstr ""
-"Questo eBox è configurato come slave e non ci sono gruppi al momento. Puoi "
+"Zentyal è configurato come slave e non ci sono gruppi al momento. Puoi "
 "aggiungerne sul {openhref}master{closehref}."
 
 #: src/EBox/UsersAndGroups/Model/Groups.pm:142
-#, fuzzy
 msgid ""
 "Zentyal is configured as Windows AD slave and there are no groups at the "
 "moment. If there are groups in your Domain Controller, maybe the "
 "synchronization process has failed or has not finished yet."
 msgstr ""
-"Questo eBox è configurato come slave Windows AD e non ci sono gruppi al "
-"momento. Se ci sono gruppi sul tuo controller di dominio, forse il processo "
-"di sincronizzazione non ha funzionato o non è ancora terminato."
+"Zentyal è configurato come slave Windows AD e non ci sono gruppi al momento. "
+"Se ci sono gruppi sul tuo controller di dominio, forse il processo di "
+"sincronizzazione non ha funzionato o non è ancora terminato."
 
 #: src/EBox/UsersAndGroups/Model/ForceSync.pm:90
 msgid "Force sync"
@@ -219,24 +217,23 @@ msgid "There are no users at the moment"
 msgstr "Non ci sono utenti al momento"
 
 #: src/EBox/UsersAndGroups/Model/Users.pm:136
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Zentyal is configured as slave and there are no users at the moment. You may "
 "want to add some in the {openhref}master{closehref}."
 msgstr ""
-"Questo eBox è configurato come slave e non ci sono utenti al momento. Puoi "
+"Zentyal è configurato come slave e non ci sono utenti al momento. Puoi "
 "aggiungerne sul {openhref}master{closehref}."
 
 #: src/EBox/UsersAndGroups/Model/Users.pm:140
-#, fuzzy
 msgid ""
 "Zentyal is configured as Windows AD slave and there are no users at the "
 "moment. If there are users in your Domain Controller, maybe the "
 "synchronization process has failed or has not finished yet."
 msgstr ""
-"Questo eBox è configurato come slave Windows AD e non ci sono utenti al "
-"momento. Se non ci sono utenti sul controller di dominio, forse il processo "
-"di sincronizzazione non ha funzionato o non è ancora terminato."
+"Zentyal è configurato come slave Windows AD e non ci sono utenti al momento. "
+"Se non ci sono utenti sul controller di dominio, forse il processo di "
+"sincronizzazione non ha funzionato o non è ancora terminato."
 
 #: src/EBox/UsersAndGroups/Model/Password.pm:49
 msgid "Password management"
@@ -291,27 +288,24 @@ msgid "Master host"
 msgstr "Host master"
 
 #: src/EBox/UsersAndGroups/Model/Mode.pm:89
-#, fuzzy
 msgid "Only for slave configuration: IP of the master Zentyal or Windows AD"
-msgstr "Solo per configurazione slave: IP eBox master o Windows AD"
+msgstr "Solo per configurazione slave: IP del master Zentyal o di Windows AD"
 
 #: src/EBox/UsersAndGroups/Model/Mode.pm:93
 msgid "LDAP password"
 msgstr "Password LDAP"
 
 #: src/EBox/UsersAndGroups/Model/Mode.pm:95
-#, fuzzy
 msgid "Master Zentyal LDAP password"
-msgstr "Password LDAP dell'eBox master"
+msgstr "Password LDAP del master Zentyal"
 
 #: src/EBox/UsersAndGroups/Model/Mode.pm:101
 msgid "Configuration"
 msgstr "Configurazione"
 
 #: src/EBox/UsersAndGroups/Model/Mode.pm:102
-#, fuzzy
 msgid "Zentyal Users Mode"
-msgstr "Modalità utenti eBox"
+msgstr "Modalità utenti Zentyal"
 
 #: src/EBox/UsersAndGroups/Model/LdapInfo.pm:66
 msgid "Base DN"
@@ -319,7 +313,7 @@ msgstr "DN base"
 
 #: src/EBox/UsersAndGroups/Model/LdapInfo.pm:72
 msgid "Root DN"
-msgstr ""
+msgstr "DN root"
 
 #: src/EBox/UsersAndGroups/Model/LdapInfo.pm:84
 msgid "Users DN"
@@ -330,16 +324,15 @@ msgid "Groups DN"
 msgstr "DN gruppi"
 
 #: src/EBox/UsersAndGroups/Model/LdapInfo.pm:98
-#, fuzzy
 msgid "LDAP information"
-msgstr "Informazioni LDAP"
+msgstr "Informazione LDAP"
 
 #: src/EBox/UsersAndGroups/Model/LdapInfo.pm:155
-#, fuzzy
 msgid ""
 "You must enable the Users and Groups module to access the LDAP information."
 msgstr ""
-"Devi abilitare il modulo Utenti e Gruppi per accedere alle informazioni LDAP"
+"Devi abilitare il modulo Utenti e Gruppi per accedere alle informazioni "
+"LDAP."
 
 #: src/EBox/UsersAndGroups/Model/Slaves.pm:60
 #: src/EBox/UserCornerWebServer/Model/Settings.pm:55
@@ -351,10 +344,10 @@ msgid "List of slaves"
 msgstr "Elenco slave"
 
 #: src/EBox/UsersAndGroups/Model/Slaves.pm:74
-#, fuzzy
 msgid ""
 "This is a list of those Zentyal slaves which are subscribed to this Zentyal."
-msgstr "Questo è un elenco degli slave eBox che sono collegati a questo eBox."
+msgstr ""
+"Questo è un elenco degli slave Zentyal che sono collegati a questo Zentyal."
 
 #: src/EBox/UsersAndGroups/Model/Slaves.pm:75
 msgid "slave"
@@ -377,7 +370,6 @@ msgstr ""
 "account utente."
 
 #: src/EBox/UsersAndGroups/Composite/UserTemplate.pm:75
-#, fuzzy
 msgid "There isn't any configurable option."
 msgstr "Non ci sono opzioni configurabili"
 
@@ -389,9 +381,8 @@ msgstr "Modello utente predefinito"
 
 #: src/EBox/UsersAndGroups/Composite/Settings.pm:70
 #: src/EBox/UsersAndGroups.pm:2385
-#, fuzzy
 msgid "LDAP Settings"
-msgstr "Impostazione sincronizzazione AD"
+msgstr "Impostazioni LDAP"
 
 #: src/EBox/LdapUserImplementation.pm:42
 msgid "This group contains users"
@@ -406,15 +397,14 @@ msgstr "Utenti e gruppi"
 msgid ""
 "Your LDAP database will be populated with some basic organizational units"
 msgstr ""
-"Il tuo database openLDAP verrà popolato con alcune unità organizzative di "
-"base"
+"Il tuo database LDAP verrà popolato con alcune unità organizzative di base"
 
 #: src/EBox/UsersAndGroups.pm:102
-#, fuzzy
 msgid ""
 "Zentyal needs this organizational units to add users and groups into them."
 msgstr ""
-"eBox necessita di queste unità organizzative per aggiungervi utenti e gruppi"
+"Zentyal necessita di queste unità organizzative per aggiungervi utenti e "
+"gruppi"
 
 #: src/EBox/UsersAndGroups.pm:106
 #, fuzzy
@@ -422,24 +412,23 @@ msgid "Create directories for slave journals"
 msgstr "Crea le directory per i journal dello slave"
 
 #: src/EBox/UsersAndGroups.pm:107
-#, fuzzy
 msgid "Zentyal needs the directories to record pending slave actions."
 msgstr ""
-"eBox necessita di queste directory per registrare le azioni in sospeso sullo "
-"slave"
+"Zentyal necessita di queste directory per registrare le azioni in sospeso "
+"sullo slave."
 
 #: src/EBox/UsersAndGroups.pm:114
-#, fuzzy
 msgid ""
 "Your Zentyal will be registered as a slave in the Zentyal master specified"
-msgstr "Il tuo eBox sarà registrato come slave sul master eBox specificato"
+msgstr ""
+"Il tuo Zentyal sarà registrato come slave sul master Zentyal specificato"
 
 #: src/EBox/UsersAndGroups.pm:115
-#, fuzzy
 msgid ""
 "This Zentyal needs to have remote access to the users in the Zentyal master."
 msgstr ""
-"Questo eBox deve poter accedere remotamente agli utenti nel master eBox"
+"Questo Zentyal deve poter accedere remotamente agli utenti nel master "
+"Zentyal"
 
 #: src/EBox/UsersAndGroups.pm:122
 msgid "Apparmor profile will be disabled"
@@ -455,43 +444,41 @@ msgid "Install /etc/cron.d/ebox-ad-sync."
 msgstr "Installa /etc/cron.d/ebox-ad-sync."
 
 #: src/EBox/UsersAndGroups.pm:132
-#, fuzzy
 msgid "Zentyal will run a script every 5 minutes to sync with Windows AD."
 msgstr ""
-"eBox eseguirà uno script ogni 5 minuti per la sincronizzazione con Windows "
-"AD."
+"Zentyal eseguirà uno script ogni 5 minuti per la sincronizzazione con "
+"Windows AD."
 
 #: src/EBox/UsersAndGroups.pm:141
 msgid "Configure PAM."
-msgstr ""
+msgstr "Configura PAM."
 
 #: src/EBox/UsersAndGroups.pm:142
-#, fuzzy
 msgid "Zentyal will give LDAP users system account."
-msgstr "eBox creerà un account di sistema per gli utenti LDAP"
+msgstr "Zentyal creerà un account di sistema per gli utenti LDAP"
 
 #: src/EBox/UsersAndGroups.pm:162
 msgid ""
 "To make NSS use LDAP resolution for user and group accounts. Needed for "
 "Samba PDC configuration."
 msgstr ""
+"Per fare in modo che NSS usi una risoluzione LDAP per gli account di utenti "
+"e gruppi.E' richiesto per la configurazione di Samba come PDC."
 
 #: src/EBox/UsersAndGroups.pm:168
 msgid "To let NSS know how to access LDAP accounts."
-msgstr ""
+msgstr "Per fare in modo che NSS sappia come accedere agli account LDAP."
 
 #: src/EBox/UsersAndGroups.pm:177
-#, fuzzy
 msgid "To make LDAP listen on TCP and Unix sockets."
-msgstr "Per fare in modo che openLDAP ascolti su socket TCP e Unix"
+msgstr "Per fare in modo che LDAP ascolti su socket TCP e Unix"
 
 #: src/EBox/UsersAndGroups.pm:182
-#, fuzzy
 msgid ""
 "To copy LDAP admin password generated by Zentyal and allow other modules to "
 "access LDAP."
 msgstr ""
-"Per copiare la password di amministratore di LDAP generata da eBox e "
+"Per copiare la password di amministratore di LDAP generata da Zentyal e "
 "permettere agli altri moduli di accedere ad LDAP"
 
 #: src/EBox/UsersAndGroups.pm:814
@@ -570,9 +557,9 @@ msgid "AD Sync Settings"
 msgstr "Impostazione sincronizzazione AD"
 
 #: src/EBox/UsersAndGroups.pm:2653
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "A host with the name {host} is already registered in this Zentyal"
-msgstr "Una macchina di nome {host} è già registrata su questo eBox"
+msgstr "Una macchina di nome {host} è già registrata su questo Zentyal"
 
 #: src/EBox/UsersAndGroups.pm:2774
 msgid "Replication failed"
@@ -583,13 +570,12 @@ msgid "User"
 msgstr "Utente"
 
 #: src/EBox/UserCorner/CGI/Login/Index.pm:62
-#, fuzzy
 msgid ""
 "There is a script which has asked to run in Zentyal exclusively. Please, "
 "wait patiently until it is done"
 msgstr ""
-"C'è uno script che ha richiesto di eseguire su eBox in modo esclusivo. Per "
-"favore, attendi con pazienza finché non ha terminato"
+"C'è uno script che ha richiesto di eseguire su Zentyal in modo esclusivo. "
+"Per favore, attendi con pazienza finché non ha terminato"
 
 #: src/EBox/UserCorner/CGI/Login/Index.pm:66
 msgid "Incorrect password"
@@ -696,10 +682,14 @@ msgstr "Configurazione avanzata (Master/Slave/AD Sync)"
 
 #: src/templates/Wizard/users.mas:12
 #, perl-brace-format
+#, fuzzy
 msgid ""
 "If you need the advanced features you have to configure them manually. You "
 "can find {open}all the information in our wiki{close}"
 msgstr ""
+"Se hai bisogno di caratteristiche avanzate, devi configurarle "
+"manualmente.Puoi trovare tutte le informazioni a riguardo {open} nel nostro "
+"wiki{close}"
 
 #: src/templates/user.mas:21 src/templates/users.mas:25
 msgid "First name"

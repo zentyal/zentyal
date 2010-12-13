@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-objects 1.5\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-08-28 23:37+0200\n"
-"PO-Revision-Date: 2010-04-18 09:26+0200\n"
+"PO-Revision-Date: 2010-11-05 21:08+0100\n"
 "Last-Translator: Michal Formánek <formi@seznam.cz>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
@@ -22,12 +22,10 @@ msgid "Name"
 msgstr "Jméno"
 
 #: src/EBox/Model/MemberTable.pm:70
-#, fuzzy
 msgid "IP address"
 msgstr "IP adresa"
 
 #: src/EBox/Model/MemberTable.pm:76
-#, fuzzy
 msgid "MAC address"
 msgstr "MAC adresa"
 
@@ -45,9 +43,8 @@ msgid "member"
 msgstr "člen"
 
 #: src/EBox/Model/MemberTable.pm:116
-#, fuzzy
 msgid "You can only use MAC addresses with hosts"
-msgstr "Můžete používat pouze MAC adresy počítače"
+msgstr "Můžete používat pouze MAC adresy"
 
 #: src/EBox/Model/MemberTable.pm:119 src/EBox/Model/MemberTable.pm:120
 msgid "network address"
@@ -56,10 +53,9 @@ msgstr "síťová adresa"
 #: src/EBox/Model/MemberTable.pm:126
 #, perl-brace-format
 msgid "{ip} overlaps with the address or another object's member"
-msgstr ""
+msgstr "{ip} koliduje s adresou, nebo jiným členem objektu"
 
 #: src/EBox/Model/ObjectTable.pm:83
-#, fuzzy
 msgid "Objects List"
 msgstr "Seznam objektů"
 
@@ -72,21 +68,22 @@ msgid "This object is being used by another module"
 msgstr "Tento objekt je používán jiným modulem"
 
 #: src/EBox/Model/ObjectTable.pm:197
-#, fuzzy
 msgid ""
 "Objects are an abstraction of machines and network addresses which can be "
 "used in other modules. Any change on an object is automatically synched in "
 "all the modules using it"
 msgstr ""
-"Objekty jsou abstrakce strojů a síťových adres, které mohou být použity v "
-"jiných modulech. Každá změna na objektu je automaticky synched in all the "
-"modules using it"
+"Objekty jsou pomyslné zařízení a síťové adresy, které mohou být použité v "
+"ostatních modulech. Jakákoliv změna v objektu je automaticky přenesená do "
+"všech modulů využívající daný objekt"
 
 #: src/EBox/Model/ObjectTable.pm:208
 msgid ""
 "'Any' is a reserved word that could not be used as object name to avoid "
 "confusions"
 msgstr ""
+"'Any' je rezervované slovo, které nemůže být použité jako jméno objektu, aby "
+"se předešlo záměnám."
 
 #: src/EBox/Objects.pm:44
 #, perl-brace-format
@@ -96,22 +93,22 @@ msgstr "Přidán objekt {object}"
 #: src/EBox/Objects.pm:46
 #, perl-brace-format
 msgid "Added {nname} ({ip}/{mask} [{mac}]) to object {object}"
-msgstr "Přidán {nname} ({ip}/{mask} [{mac}]) do objektu {object}"
+msgstr "Přidán {nname} ({ip}/{mask} [{mac}]) k objektu {object}"
 
 #: src/EBox/Objects.pm:47
 #, perl-brace-format
 msgid "Removed object {object}"
-msgstr "Objekt smazán {object}"
+msgstr "Odstraněný objekt {object}"
 
 #: src/EBox/Objects.pm:49
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Forcefully removed object {object}"
-msgstr "Objekt důrazně smazán {object}"
+msgstr "Na tvrdo odstraněný objekt {object}"
 
 #: src/EBox/Objects.pm:51
 #, perl-brace-format
 msgid "Removed {nname} from object {object}"
-msgstr "Smazán {nname} z objektu {object}"
+msgstr "{nname} odstraněný z objektu {object}"
 
 #: src/EBox/Objects.pm:270
 msgid "Object"

@@ -5,185 +5,186 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-ebox 2.0.1"
-"Report-Msgid-Bugs-To: developers@zentyal.org\n"
+"Project-Id-Version: ebox-ebox 2.0.1Report-Msgid-Bugs-To: "
+"developers@zentyal.org\n"
 "POT-Creation-Date: 2010-08-26 00:53+0200\n"
-"PO-Revision-Date: 2010-08-26 00:53+0200\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2010-10-05 15:38+0200\n"
+"Last-Translator: Donatas Stonys <teraxit@hotmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n%"
-"100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"(n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/Apache.pm:277 src/EBox/Apache.pm:286
 msgid "port"
-msgstr ""
+msgstr "prievadas"
 
 #: src/EBox/Apache.pm:600
 msgid "Zentyal web server"
-msgstr ""
+msgstr "Zentyal žiniatinklio serveris"
 
 #: src/EBox/Event/Dispatcher/Jabber.pm:166
 msgid "Admin Jabber account"
-msgstr ""
+msgstr "Jabber administratoriaus paskyra"
 
 #: src/EBox/Event/Dispatcher/Jabber.pm:179
 msgid "Jabber"
-msgstr ""
+msgstr "Jabber"
 
 #: src/EBox/Event/Dispatcher/Jabber.pm:229
 #, perl-brace-format
 msgid "Jabber server {serverName} is down or connection is not allowed"
-msgstr ""
+msgstr "Jabber serveris {serverName} nepasiekiamas arba uždrausta prieiga"
 
 #: src/EBox/Event/Dispatcher/Jabber.pm:259
 #, perl-brace-format
 msgid "Subscription failed: {message}"
-msgstr ""
+msgstr "Registracija nepavyko: {message}"
 
 #: src/EBox/Event/Dispatcher/Jabber.pm:266
 #, perl-brace-format
 msgid "Authorization failed: {result} - {message}"
-msgstr ""
+msgstr "Autorizacija nepavyko: {result} - {message}"
 
 #: src/EBox/Event/Dispatcher/RSS.pm:219
 #, perl-brace-format
 msgid "RSS file: {path}"
-msgstr ""
+msgstr "RSS failas: {path}"
 
 #: src/EBox/Event/Dispatcher/RSS.pm:233
 msgid "RSS"
-msgstr ""
+msgstr "RSS"
 
 #: src/EBox/Event/Dispatcher/RSS.pm:290
 #, perl-brace-format
 msgid "Zentyal alerts channel for {hostname}"
-msgstr ""
+msgstr "Zentyal pranešimų kanalas skirtas {hostname}"
 
 #: src/EBox/Event/Dispatcher/RSS.pm:293
 msgid "This channel tracks what happens on this Zentyal machine along the time"
-msgstr ""
+msgstr "Šiuo kanalu stebima kas vyksta šioje Zentyal stotyje bėgant laikui"
 
 #: src/EBox/Event/Dispatcher/RSS.pm:313
 #, perl-brace-format
 msgid "The event has happened in Zentyal {hostname} from {source}"
-msgstr ""
+msgstr "Įvykis Zentyal {hostname} stotyje iš {source}"
 
 #: src/EBox/Event/Dispatcher/RSS.pm:317
 #, perl-brace-format
 msgid "Go to your {url} to check its status."
-msgstr ""
+msgstr "Sekti nuoroda {url} būsenos patikrinimui."
 
 #: src/EBox/Event/Dispatcher/Log.pm:136
 msgid "Log file"
-msgstr ""
+msgstr "Žurnalo failas"
 
 #: src/EBox/Event/Dispatcher/Log.pm:149
 msgid "Log"
-msgstr ""
+msgstr "Žurnalas"
 
 #: src/EBox/Event/Dispatcher/Abstract.pm:141
 #, perl-brace-format
 msgid "Dispatcher {name} is not configured to be enabled"
-msgstr ""
+msgstr "{name} skirstyklė neparuošta paleidimui"
 
 #: src/EBox/Event/Watcher/DiskFreeSpace.pm:134
 #, perl-brace-format
 msgid "The file system {fs}, mounted on {mp}, has no space left"
-msgstr ""
+msgstr "{fs} failų sistemoje, įrengtoje {mp}, trūksta laisvos vietos"
 
 #: src/EBox/Event/Watcher/DiskFreeSpace.pm:168
 msgid "Free storage space"
-msgstr ""
+msgstr "Laisva vieta"
 
 #: src/EBox/Event/Watcher/DiskFreeSpace.pm:185
 msgid "Check if any disk partition has no storage space left"
-msgstr ""
+msgstr "Patikrinti ar visuose skirsniuose pakanka laisvos vietos"
 
 #: src/EBox/Event/Watcher/Runit.pm:113
 #, perl-brace-format
 msgid "The following modules are not running but they are enabled: {modules}\n"
-msgstr ""
+msgstr "Šie moduliai neveikia, tačiau yra įjungti: {modules}\n"
 
 #: src/EBox/Event/Watcher/Runit.pm:142
 msgid "Service"
-msgstr ""
+msgstr "Tarnyba"
 
 #: src/EBox/Event/Watcher/Runit.pm:159
 msgid "Check if any Zentyal service is not running when it is enabled"
-msgstr ""
+msgstr "Patikrinti ar kuri nors Zentyal tarnyba neveikia, nors yra įjungta"
 
 #: src/EBox/Event/Watcher/Runit.pm:229
 #, perl-brace-format
 msgid ""
 "The service {service} has been restarted {restart} times in {time} seconds "
 "and it has been stopped"
-msgstr ""
+msgstr "{service} tarnyba buvo perkrauta {restart} {time} ir sustabdyta"
 
 #: src/EBox/Event/Watcher/Log.pm:203
 msgid "Log observer"
-msgstr ""
+msgstr "Stebėjimų žurnalas"
 
 #: src/EBox/Event/Watcher/Log.pm:241
 #, perl-brace-format
 msgid "Notify when a logger ({loggers}) has logged something"
-msgstr ""
+msgstr "Pranešti kai žurnale ({loggers}) kas nors užfiksuojama"
 
 #: src/EBox/Event/Watcher/RAID.pm:182 src/EBox/SysInfo.pm.in:275
 #: src/EBox/CGI/Report/RAID.pm:31
 msgid "RAID"
-msgstr ""
+msgstr "RAID"
 
 #: src/EBox/Event/Watcher/RAID.pm:199
 msgid "Check if any event has happened in RAID subsystem"
-msgstr ""
+msgstr "Patikrinti ar RAID posistemėje buvo įvykių"
 
 #: src/EBox/Event/Watcher/RAID.pm:265
 #, perl-brace-format
 msgid "New array RAID device {devName} information:"
-msgstr ""
+msgstr "Naujo RAID masyvo įrenginio {devName} informacija:"
 
 #: src/EBox/Event/Watcher/RAID.pm:267
 #, perl-brace-format
 msgid "State: {state}"
-msgstr ""
+msgstr "Būsena: {state}"
 
 #: src/EBox/Event/Watcher/RAID.pm:268
 #, perl-brace-format
 msgid "Type: {type}"
-msgstr ""
+msgstr "Tipas: {type}"
 
 #: src/EBox/Event/Watcher/RAID.pm:269
 #, perl-brace-format
 msgid "Active devices needed: {nb}"
-msgstr ""
+msgstr "Reikalingi aktyvūs įrenginiai: {nb}"
 
 #: src/EBox/Event/Watcher/RAID.pm:270
 #, perl-brace-format
 msgid "Active devices: {nb}"
-msgstr ""
+msgstr "Aktyvūs įrenginiai: {nb}"
 
 #: src/EBox/Event/Watcher/RAID.pm:272
 #, perl-brace-format
 msgid "Operation in progress: {operation}"
-msgstr ""
+msgstr "Proceso progresas: {operation}"
 
 #: src/EBox/Event/Watcher/RAID.pm:274
 #, perl-brace-format
 msgid "Completed operation percentage: {per}"
-msgstr ""
+msgstr "Proceso įvykdymas procentais: {per}"
 
 #: src/EBox/Event/Watcher/RAID.pm:276
 #, perl-brace-format
 msgid "Operation estimated finish time: {time}"
-msgstr ""
+msgstr "Numanomas proceso užbaigimas: {time}"
 
 #: src/EBox/Event/Watcher/RAID.pm:280
 #, perl-brace-format
 msgid "Raid component {nb}: device {device} state {state}"
-msgstr ""
+msgstr "Raid komponentas {nb}: įrenginys {device} būsena {state}"
 
 #: src/EBox/Event/Watcher/RAID.pm:335
 #, perl-brace-format
@@ -191,11 +192,13 @@ msgid ""
 "RAID device {name} has dissappeared: A RAID array which previously was "
 "configured appears to no longer be configured"
 msgstr ""
+"Dingo {name} RAID įrenginys : Anksčiau sukurtas RAID masyvas šiuo metu "
+"nesukonfigūruotas"
 
 #: src/EBox/Event/Watcher/RAID.pm:355
 #, perl-brace-format
 msgid "RAID device {name} has changed its state from {oldState} to {newState}"
-msgstr ""
+msgstr "RAID įrenginio {name} būsena pakito iš {oldState} į {newState}"
 
 #: src/EBox/Event/Watcher/RAID.pm:375
 #, perl-brace-format
@@ -203,16 +206,18 @@ msgid ""
 "RAID device {name} has changed its number of active components from {oldNum} "
 "to {newNum}"
 msgstr ""
+"RAID įrenginį {name} sudarančių aktyvių komponentų kiekis pakito iš {oldNum} "
+"į {newNum}"
 
 #: src/EBox/Event/Watcher/RAID.pm:399
 #, perl-brace-format
 msgid "RAID device {name} has started operation {opName}."
-msgstr ""
+msgstr "RAID įrenginys {name} pradėjo procesą {opName}."
 
 #: src/EBox/Event/Watcher/RAID.pm:405
 #, perl-brace-format
 msgid "RAID device {name} has finished operation {opName} or it was aborted."
-msgstr ""
+msgstr "RAID įrenginys {name} užbaigė procesą {opName} arba jis nutrūko."
 
 #: src/EBox/Event/Watcher/RAID.pm:411
 #, perl-brace-format
@@ -220,16 +225,18 @@ msgid ""
 "RAID device {name} has finished operation {oldOpName} and started "
 "{newOpName}."
 msgstr ""
+"RAID įrenginys {name} užbaigė procesą {oldOpName} ir pradėjo naują "
+"{newOpName}."
 
 #: src/EBox/Event/Watcher/RAID.pm:436
 #, perl-brace-format
 msgid "Status: {percentage} completed."
-msgstr ""
+msgstr "Būsena: baigta {percentage}."
 
 #: src/EBox/Event/Watcher/RAID.pm:439
 #, perl-brace-format
 msgid "Estimated finish time: {time}."
-msgstr ""
+msgstr "Apytikris pabaigos laikas: {time}."
 
 #: src/EBox/Event/Watcher/RAID.pm:471
 #, perl-brace-format
@@ -237,6 +244,8 @@ msgid ""
 "Active component {compName} from RAID array {arrayName} has been marked as "
 "faulty"
 msgstr ""
+"Aktyvus RAID masyvo {arrayName} komponentas {compName} buvo pažymėtas kaip "
+"sugedęs"
 
 #: src/EBox/Event/Watcher/RAID.pm:480
 #, perl-brace-format
@@ -244,6 +253,8 @@ msgid ""
 "Spare component {compName} from RAID array {arrayName} which was being "
 "rebuilt to replace a faulty device has failed"
 msgstr ""
+"Atsarginio komponento {compName} iš {arrayName} RAID masyvo sukeitimas su "
+"sugedusiu komponentu buvo nesėkmingas"
 
 #: src/EBox/Event/Watcher/RAID.pm:490
 #, perl-brace-format
@@ -252,6 +263,8 @@ msgid ""
 "rebuilt to replace a faulty device has been successfully rebuilt and has "
 "been made active"
 msgstr ""
+"Atsarginio komponento {compName} iš {arrayName} RAID masyvo sukeitimas su "
+"sugedusiu komponentu atliktas sėkmingai"
 
 #: src/EBox/Event/Watcher/RAID.pm:503
 #, perl-brace-format
@@ -259,6 +272,8 @@ msgid ""
 "A new component {compName} has been hot added to RAID device {arrayName} "
 "with status {status}"
 msgstr ""
+"Naujas komponentas {compName} buvo pridėtas prie RAID įrenginio {arrayName} "
+"neišjungiant {status} būsenoje"
 
 #: src/EBox/Event/Watcher/RAID.pm:516
 #, perl-brace-format
@@ -266,160 +281,163 @@ msgid ""
 "A component {compName} has been hot removed from RAID array {arrayName} when "
 "its status was {status}"
 msgstr ""
+"Komponentas {compName} buvo pašalintas neišjungiant iš {arrayName} RAID "
+"masyvo, kai jo būsena buvo {status}"
 
 #: src/EBox/Event/Watcher/RAID.pm:542 src/EBox/Event/Watcher/RAID.pm:586
 #: src/templates/report/raid.mas:111
 msgid "active"
-msgstr ""
+msgstr "aktyvus"
 
 #: src/EBox/Event/Watcher/RAID.pm:544 src/templates/report/raid.mas:113
 msgid "degraded"
-msgstr ""
+msgstr "suardytas"
 
 #: src/EBox/Event/Watcher/RAID.pm:546 src/templates/report/raid.mas:115
 msgid "recovering"
-msgstr ""
+msgstr "taisoma"
 
 #: src/EBox/Event/Watcher/RAID.pm:548 src/templates/report/raid.mas:117
 msgid "resyncing"
-msgstr ""
+msgstr "sinchronizuojama"
 
 #: src/EBox/Event/Watcher/RAID.pm:550 src/templates/report/raid.mas:121
 msgid "rebuilding"
-msgstr ""
+msgstr "atstatoma"
 
 #: src/EBox/Event/Watcher/RAID.pm:552 src/templates/report/raid.mas:119
 msgid "reshaping"
-msgstr ""
+msgstr "formuojama"
 
 #: src/EBox/Event/Watcher/RAID.pm:554 src/templates/report/raid.mas:123
 msgid "failed"
-msgstr ""
+msgstr "sugedęs"
 
 #: src/EBox/Event/Watcher/RAID.pm:566
 msgid "resync"
-msgstr ""
+msgstr "sinchronizuoti"
 
 #: src/EBox/Event/Watcher/RAID.pm:568
 msgid "rebuild"
-msgstr ""
+msgstr "atstatyti"
 
 #: src/EBox/Event/Watcher/RAID.pm:570
 msgid "reshape"
-msgstr ""
+msgstr "suformuoti"
 
 #: src/EBox/Event/Watcher/RAID.pm:572
 msgid "recovery"
-msgstr ""
+msgstr "atstatyti"
 
 #: src/EBox/Event/Watcher/RAID.pm:574
 msgid "check"
-msgstr ""
+msgstr "patikrinti"
 
 #: src/EBox/Event/Watcher/RAID.pm:588
 msgid "faulty"
-msgstr ""
+msgstr "sugedęs"
 
 #: src/EBox/Event/Watcher/RAID.pm:590 src/templates/report/raid.mas:233
 msgid "spare"
-msgstr ""
+msgstr "atsarginis"
 
 #: src/EBox/Event/Watcher/State.pm:126
 msgid "Zentyal is up and running"
-msgstr ""
+msgstr "Zentyal paleista ir veikia"
 
 #: src/EBox/Event/Watcher/State.pm:132
 msgid "Zentyal is critically down"
-msgstr ""
+msgstr "Zentyal kritiškai išjungta"
 
 #: src/EBox/Event/Watcher/State.pm:157 src/templates/report/raid.mas:226
 msgid "State"
-msgstr ""
+msgstr "Būsena"
 
 #: src/EBox/Event/Watcher/State.pm:174
 msgid "Check if Zentyal is currently up or down"
-msgstr ""
+msgstr "Patikrinti ar Zentyal veikia"
 
 #: src/EBox/Model/DataTable.pm:328
 #, perl-brace-format
 msgid "{model} in {module} module"
-msgstr ""
+msgstr "{model} {module} modulyje"
 
 #: src/EBox/Model/DataTable.pm:332
 msgid "at"
-msgstr ""
+msgstr "apie"
 
 #: src/EBox/Model/DataTable.pm:543
 msgid "field"
-msgstr ""
+msgstr "laukas"
 
 #: src/EBox/Model/DataTable.pm:1469
 msgid "page"
-msgstr ""
+msgstr "puslapis"
 
 #: src/EBox/Model/DataTable.pm:1472
+#, fuzzy
 msgid "Page must be a number equal or greater than zero"
-msgstr ""
+msgstr "Puslapio numeris turi būti lygus arba daugiau už nulį"
 
 #: src/EBox/Model/DataTable.pm:2132 src/EBox/Model/DataMultiTable.pm:169
 #: src/EBox/Model/Composite.pm:654 src/EBox/Model/Composite.pm:669
 #: src/EBox/Logs.pm:722
 msgid "Action"
-msgstr ""
+msgstr "Veiksmas"
 
 #: src/EBox/Model/DataTable.pm:2834
 #, perl-brace-format
 msgid "Remove {num} rows of {rowName} from {model}{br}"
-msgstr ""
+msgstr "Pašalinti {num} eilutes {rowName} iš {model}{br}"
 
 #: src/EBox/Model/DataTable.pm:2905
 msgid "Page size"
-msgstr ""
+msgstr "Puslapio dydis"
 
 #: src/EBox/Model/DataTable.pm:2908
 msgid "Must be either a positive number or zero"
-msgstr ""
+msgstr "Turi būti teigiamas skaičius arba nulis"
 
 #: src/EBox/Model/DataTable.pm:3215
 #, perl-brace-format
 msgid "{row} added"
-msgstr ""
+msgstr "{row} pridėta"
 
 #: src/EBox/Model/DataTable.pm:3216
 #, perl-brace-format
 msgid "{row} deleted"
-msgstr ""
+msgstr "{row} ištrinta"
 
 #: src/EBox/Model/DataTable.pm:3217
 #, perl-brace-format
 msgid "{row} updated"
-msgstr ""
+msgstr "{row} atnaujinta"
 
 #: src/EBox/Model/DataTable.pm:3218
 #, perl-brace-format
 msgid "{row} moved up"
-msgstr ""
+msgstr "{row} pakelta aukštyn"
 
 #: src/EBox/Model/DataTable.pm:3219
 #, perl-brace-format
 msgid "{row} moved down"
-msgstr ""
+msgstr "{row} nuleista žemyn"
 
 #: src/EBox/Model/DataTable.pm:4541
 #: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:287
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:341
 msgid "Enabled"
-msgstr ""
+msgstr "Įjungta"
 
 #: src/EBox/Model/ProviderBase.pm:247
 #, perl-brace-format
 msgid "Provided object with index {i} does not exist"
-msgstr ""
+msgstr "Pateiktas objektas su {i} indeksu neegzistuoja"
 
 #: src/EBox/Model/Composite.pm:372
 #, perl-brace-format
 msgid "It should be one of following values: {values}"
-msgstr ""
+msgstr "Privalo būti viena iš šių reikšmių: {values}"
 
 #: src/EBox/Model/Composite.pm:656
 #, perl-brace-format
@@ -428,256 +446,264 @@ msgstr ""
 
 #: src/EBox/Model/Composite.pm:779
 msgid "Choose one of the following:"
-msgstr ""
+msgstr "Pasirinkite vieną iš galimų:"
 
 #: src/EBox/Model/ModelManager.pm:469
 msgid ""
 "The data you are removing is being used by\n"
 "                    the following sections:"
 msgstr ""
+"Duomenys, kuriuos šalinate, yra naudojami\n"
+"                    šiose sekcijose:"
 
 #: src/EBox/Model/ModelManager.pm:516
 msgid ""
 "The data you are modifying is being used by\n"
 "\t\t\tthe following sections:"
 msgstr ""
+"Duomenys, kuriuos keičiate, yra naudojami\n"
+"\t\t\tšiose sekcijose:"
 
 #: src/EBox/Model/DataForm.pm:555
 #, perl-brace-format
 msgid "Remove data from {model}{br}"
-msgstr ""
+msgstr "Pašalinti duomenis iš {model}{br}"
 
 #: src/EBox/Model/DataForm.pm:604 src/templates/dataInUse.mas:25
 #: src/templates/dataInUse.mas:34 src/templates/password.mas:67
 #: src/templates/hostname.mas:15 src/templates/port.mas:14
 msgid "Change"
-msgstr ""
+msgstr "Keisti"
 
 #: src/EBox/Model/DataForm.pm:709 src/templates/progress.mas:26
 msgid "Done"
-msgstr ""
+msgstr "Atlikta"
 
 #: src/EBox/Types/Int.pm:155
 msgid "Enter an integer number"
-msgstr ""
+msgstr "Įveskite sveikąjį skaičių"
 
 #: src/EBox/Types/Int.pm:162 src/EBox/Types/Float.pm:120
 #, perl-brace-format
 msgid "The value shouldn't be greater than {m}"
-msgstr ""
+msgstr "Reikšmė negali būti didesnė už {m}"
 
 #: src/EBox/Types/Int.pm:172 src/EBox/Types/Float.pm:129
 #, perl-brace-format
 msgid "The value shouldn't be less than {m}"
-msgstr ""
+msgstr "Reikšmė negali būti mažesnė už {m}"
 
 #: src/EBox/Types/DomainName.pm:118
 msgid "IP addresses are not allowed"
-msgstr ""
+msgstr "IP adresai neleidžiami"
 
 #: src/EBox/Types/Float.pm:112
 msgid "Enter a float number"
-msgstr ""
+msgstr "Įveskite skaičių su kableliu (float number)"
 
 #: src/EBox/Types/Select.pm:341
 #, perl-brace-format
 msgid "Choose a value within the value set: {set}"
-msgstr ""
+msgstr "Įveskite reikšmę iš reikšmių rinkinio: {set}"
 
 #: src/EBox/Types/Service.pm:213 src/EBox/Types/PortRange.pm:290
 #: src/EBox/Events/Model/Watcher/LogFiltering.pm:150
 #: src/templates/logs/index.mas:185
 msgid "Any"
-msgstr ""
+msgstr "Bet kuris"
 
 #: src/EBox/Types/Password.pm:134
 #, perl-brace-format
 msgid "The password should have at least {minLength} characters"
-msgstr ""
+msgstr "Slaptažodį privalo sudaryti mažiausiai {minLength} simboliai"
 
 #: src/EBox/Types/Password.pm:145
 #, perl-brace-format
 msgid "The password should have at most {maxLength} characters"
-msgstr ""
+msgstr "Slaptažodį gali sudaryti daugiausiai {maxLength} simboliai"
 
 #: src/EBox/Types/PortRange.pm:139
 msgid "any"
-msgstr ""
+msgstr "bet koks"
 
 #: src/EBox/Types/PortRange.pm:294
 msgid "Single port"
-msgstr ""
+msgstr "Pavienis prievadas"
 
 #: src/EBox/Types/PortRange.pm:298
 msgid "Port range"
-msgstr ""
+msgstr "Prievadų intervalas"
 
 #: src/EBox/Types/PortRange.pm:415
 #, perl-brace-format
 msgid "\"From\" {from} must be greater than \"To\" {to}"
-msgstr ""
+msgstr "\"Nuo\" {from} turi būti didesnis už \"Iki\" {to}"
 
 #: src/EBox/Html.pm:41 src/templates/wizard.mas:124
 msgid "Save changes"
-msgstr ""
+msgstr "Išsaugoti pakeitimus"
 
 #: src/EBox/Html.pm:42 src/EBox/CGI/Logout/Index.pm:31
 msgid "Logout"
-msgstr ""
+msgstr "Išsiregistruoti"
 
 #: src/EBox/SysInfo.pm.in:52
 msgid "System Information"
-msgstr ""
+msgstr "Sistemos informacija"
 
 #: src/EBox/SysInfo.pm.in:97
 msgid "available"
-msgstr ""
+msgstr "prieinama"
 
 #: src/EBox/SysInfo.pm.in:105
 msgid "Time"
-msgstr ""
+msgstr "Laikas"
 
 #: src/EBox/SysInfo.pm.in:106
 msgid "Hostname"
-msgstr ""
+msgstr "Stoties pavadinimas"
 
 #: src/EBox/SysInfo.pm.in:107
 msgid "Core version"
-msgstr ""
+msgstr "Branduolio versija"
 
 #: src/EBox/SysInfo.pm.in:109
 msgid "System load"
-msgstr ""
+msgstr "Sistemos apkrova"
 
 #: src/EBox/SysInfo.pm.in:110
 msgid "Uptime"
-msgstr ""
+msgstr "Veikimo laikas"
 
 #: src/EBox/SysInfo.pm.in:111
 msgid "Users"
-msgstr ""
+msgstr "Naudotojai"
 
 #: src/EBox/SysInfo.pm.in:165 src/EBox/SysInfo.pm.in:258
 msgid "Module Status"
-msgstr ""
+msgstr "Modulio būsena"
 
 #: src/EBox/SysInfo.pm.in:170
 msgid "General Information"
-msgstr ""
+msgstr "Bendra informacija"
 
 #: src/EBox/SysInfo.pm.in:175
 msgid "Process List"
-msgstr ""
+msgstr "Procesų sąrašas"
 
 #: src/EBox/SysInfo.pm.in:182
 msgid "Resources & Services"
-msgstr ""
+msgstr "Ištekliai ir tarnybos"
 
 #: src/EBox/SysInfo.pm.in:253 src/EBox/CGI/Dashboard/Index.pm:34
 msgid "Dashboard"
-msgstr ""
+msgstr "Skydelis"
 
 #: src/EBox/SysInfo.pm.in:264 src/EBox/Report/DiskUsage.pm:352
 msgid "System"
-msgstr ""
+msgstr "Sistema"
 
 #: src/EBox/SysInfo.pm.in:268
 msgid "General"
-msgstr ""
+msgstr "Bendra"
 
 #: src/EBox/SysInfo.pm.in:271 src/EBox/CGI/Report/DiskUsage.pm:32
 msgid "Disk Usage"
-msgstr ""
+msgstr "Disko panaudojimas"
 
 #: src/EBox/SysInfo.pm.in:280 src/EBox/CGI/EBox/Backup.pm:36
 #: src/EBox/Backup.pm:728 src/templates/backup.mas:62
 msgid "Backup"
-msgstr ""
+msgstr "Atsarginė kopija"
 
 #: src/EBox/SysInfo.pm.in:283
 msgid "Configuration Report"
-msgstr ""
+msgstr "Konfigūracijos ataskaita"
 
 #: src/EBox/SysInfo.pm.in:286
 msgid "Halt/Reboot"
-msgstr ""
+msgstr "Išjungti/Paleisti iš naujo"
 
 #: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:301
 #: src/EBox/Events/Model/ConfigureEventDataTable.pm:267
 msgid "Name"
-msgstr ""
+msgstr "Pavadinimas"
 
 #: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:311
 msgid "Receiver"
-msgstr ""
+msgstr "Gavėjas"
 
 #: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:323
 #: src/EBox/Events/Model/ConfigureEventDataTable.pm:284
 msgid "Configuration"
-msgstr ""
+msgstr "Nustatymai"
 
 #: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:343
 #: src/EBox/Events/Model/ConfigureEventDataTable.pm:300
 msgid "None"
-msgstr ""
+msgstr "Nėra"
 
 #: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:352
 msgid "Configure Dispatchers"
-msgstr ""
+msgstr "Skirstiklių konfigūracija"
 
 #: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:361
 msgid "dispatcher"
-msgstr ""
+msgstr "skirstiklis"
 
 #: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:362
 msgid "Enable/Disable each event dispatcher"
-msgstr ""
+msgstr "Įjungti/išjungti kiekvieną įvykių skirstiklį"
 
 #: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:551
 msgid ""
 "In order to enable a configurable event dispatcher, you need to configure it "
 "first"
 msgstr ""
+"Prieš įjungiant konfigūruojamą įvykio skirstiklį, pirmiausia reikia jį "
+"sukonfigūruoti"
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:193
 msgid "Jabber server name"
-msgstr ""
+msgstr "Jabber serverio pavadinimas"
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:196
 msgid "Jabber server to send the messages"
-msgstr ""
+msgstr "Jabber serveris pranešimų siuntimui"
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:200
 msgid "Port"
-msgstr ""
+msgstr "Prievadas"
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:207
 msgid "Jabber user name"
-msgstr ""
+msgstr "Jabber naudotojo vardas"
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:210
 msgid ""
 "Jabber ID of the account that will send the messages. Hint: do not introduce "
 "@domain, only the user name"
 msgstr ""
+"Paskyros, per kurią bus siunčiami pranešimai Jabber ID. Pastaba: įvesti tik "
+"naudotojo vardą, ne @domenas"
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:216
 msgid "User password"
-msgstr ""
+msgstr "Naudotojo slaptažodis"
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:224
 msgid "Subscribe"
-msgstr ""
+msgstr "Užsisakyti"
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:226
 msgid ""
 "Tick this option if you want Zentyal to create an account for the above user"
-msgstr ""
+msgstr "Pažymėkite, jei norite, kad Zentyal sukurtų paskyrą šiam naudotojui"
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:233
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:300
 msgid "Administrator Jabber Identifier"
-msgstr ""
+msgstr "Jabber administratoriaus identifikatorius"
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:236
 msgid ""
@@ -685,18 +711,21 @@ msgid ""
 "Zentyal admin. Note that you need to register this  account manually in any "
 "jabber server"
 msgstr ""
+"Jabber ID paskirties vieta pranešimams, sugeneruotiems Zentyal,    pvz., "
+"Jūs, Zentyal administratorius. Atminkite, kad Jums reikia užragistruoti šią "
+"  paskyrą rankiniu būdu bet kuriame Jabber serveryje"
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:245
 msgid "Configure Jabber dispatcher"
-msgstr ""
+msgstr "Konfigūruoti Jabber skirstiklį"
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:250
 msgid "This dispatcher will send events to an Jabber account"
-msgstr ""
+msgstr "Šis skirstiklis siųs įvykius į Jabber paskyrą"
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:253
 msgid "Jabber dispatcher configuration updated"
-msgstr ""
+msgstr "Jabber skirstiklio konfigūracija atnaujinta"
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:273
 #: src/EBox/Events/Model/Dispatcher/RSS.pm:325
@@ -707,51 +736,52 @@ msgstr ""
 #: src/EBox/Events/Model/Watcher/Log.pm:386 src/EBox/Events.pm:95
 #: src/EBox/Events.pm:822
 msgid "Events"
-msgstr ""
+msgstr "Įvykiai"
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:277
 msgid "Jabber Dispatcher"
-msgstr ""
+msgstr "Jabber skirstiklis"
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:302
 msgid "It should follow the pattern 'user@domain[/resource]'"
-msgstr ""
+msgstr "Turi atitikti 'user@domain[/resource]' šabloną"
 
 #: src/EBox/Events/Model/Dispatcher/RSS.pm:150
 msgid "Nobody"
-msgstr ""
+msgstr "Niekas"
 
 #: src/EBox/Events/Model/Dispatcher/RSS.pm:154
 msgid "IP address"
-msgstr ""
+msgstr "IP adresas"
 
 #: src/EBox/Events/Model/Dispatcher/RSS.pm:161
 msgid "Object"
-msgstr ""
+msgstr "Objektas"
 
 #: src/EBox/Events/Model/Dispatcher/RSS.pm:170
 msgid "Public"
-msgstr ""
+msgstr "Viešas"
 
 #: src/EBox/Events/Model/Dispatcher/RSS.pm:177
 msgid "Channel link"
-msgstr ""
+msgstr "Ryšio kanalas"
 
 #: src/EBox/Events/Model/Dispatcher/RSS.pm:184
 msgid "Allowed readers"
-msgstr ""
+msgstr "Leidžiami skaitytojai"
 
 #: src/EBox/Events/Model/Dispatcher/RSS.pm:187
 msgid "Use this field to set the access control for the channel"
-msgstr ""
+msgstr "Naudokite šias parinktis kanalo prieigai kontroliuoti"
 
 #: src/EBox/Events/Model/Dispatcher/RSS.pm:192
+#, fuzzy
 msgid "Syndicate this RSS"
-msgstr ""
+msgstr "Platinti šį RSS"
 
 #: src/EBox/Events/Model/Dispatcher/RSS.pm:202
 msgid "Configure RSS dispatcher"
-msgstr ""
+msgstr "RSS skirstiklio konfigūravimas"
 
 #: src/EBox/Events/Model/Dispatcher/RSS.pm:207
 msgid ""
@@ -761,36 +791,36 @@ msgstr ""
 
 #: src/EBox/Events/Model/Dispatcher/RSS.pm:210
 msgid "RSS dispatcher configuration updated"
-msgstr ""
+msgstr "RSS skirstiklio konfigūracija atnaujinta"
 
 #: src/EBox/Events/Model/Dispatcher/RSS.pm:329
 msgid "RSS Dispatcher"
-msgstr ""
+msgstr "RSS skirstiklis"
 
 #: src/EBox/Events/Model/GeneralComposite.pm:80
 msgid ""
 "Events module configures Zentyal to help informing you about events that "
 "happen"
-msgstr ""
+msgstr "Įvykių modulis įgalina Zentyal informuoti Jus apie vykstančius įvykius"
 
 #: src/EBox/Events/Model/ConfigureEventDataTable.pm:275
 #: src/templates/backup.mas:42 src/templates/backup.mas:124
 #: src/templates/confirm-backup.mas:36
 msgid "Description"
-msgstr ""
+msgstr "Aprašymas"
 
 #: src/EBox/Events/Model/ConfigureEventDataTable.pm:309
 msgid "Configure Events"
-msgstr ""
+msgstr "Įvykių konfigūracija"
 
 #: src/EBox/Events/Model/ConfigureEventDataTable.pm:317
 #: src/EBox/Events/Model/Report/EventsDetails.pm:109
 msgid "event"
-msgstr ""
+msgstr "įvykis"
 
 #: src/EBox/Events/Model/ConfigureEventDataTable.pm:318
 msgid "Enable/Disable each event watcher monitoring"
-msgstr ""
+msgstr "Įjungti/išjungti kiekvieno įvykio stebyklės stebėjimą"
 
 #: src/EBox/Events/Model/ConfigureEventDataTable.pm:506
 msgid ""
@@ -798,16 +828,19 @@ msgid ""
 "'Configuration' to enable at least one to be notified when a log in this "
 "domain happens. "
 msgstr ""
+"Įspėjimas! Nėra įjungta adresų srities žurnalo stebyklė. Prašome eiti į "
+"\"Nustatymai\" ir įjungti bent vieną, kad gauti pranešimus įvykiams šioje "
+"adresų srityje įvykus"
 
 #: src/EBox/Events/Model/Watcher/LogFiltering.pm:109
 #, perl-brace-format
 msgid "Log domain {logDomain}"
-msgstr ""
+msgstr "Adresų srities žurnalas {logDomain}"
 
 #: src/EBox/Events/Model/Watcher/LogFiltering.pm:169
 #: src/templates/logs/index.mas:183
 msgid "Event"
-msgstr ""
+msgstr "Įvykis"
 
 #: src/EBox/Events/Model/Watcher/LogFiltering.pm:177
 #, perl-brace-format
@@ -2011,63 +2044,63 @@ msgstr ""
 
 #: src/templates/configurationFiles.mas:12
 msgid "Do you wish to overwrite these files?"
-msgstr ""
+msgstr "Ar pageidaujate perrašyti šiuos failus?"
 
 #: src/templates/configurationFiles.mas:19
 msgid "Keep current file"
-msgstr ""
+msgstr "Išsaugoti esamą failą"
 
 #: src/templates/configurationFiles.mas:23
 msgid "Modify"
-msgstr ""
+msgstr "Pakeisti"
 
 #: src/templates/dashboard/list.mas:43
 msgid "No entries in this list"
-msgstr ""
+msgstr "Nėra įrašų šiame sąraše"
 
 #: src/templates/dashboard/index.mas:21 src/templates/dashboard/status.mas:18
 msgid "Running"
-msgstr ""
+msgstr "Veikianti"
 
 #: src/templates/dashboard/index.mas:22 src/templates/dashboard/status.mas:19
 msgid "The service is enabled and running"
-msgstr ""
+msgstr "Ši tarnyba įjungta ir veikianti"
 
 #: src/templates/dashboard/index.mas:26 src/templates/dashboard/status.mas:22
 msgid "Stopped"
-msgstr ""
+msgstr "Sustabdyta"
 
 #: src/templates/dashboard/index.mas:27 src/templates/dashboard/status.mas:23
 msgid "The service is enabled, but not running"
-msgstr ""
+msgstr "Ši tarnyba įjungta, bet neveikianti"
 
 #: src/templates/dashboard/index.mas:31 src/templates/dashboard/status.mas:27
 msgid "Running unmanaged"
-msgstr ""
+msgstr "Veikianti be valdymo"
 
 #: src/templates/dashboard/index.mas:32 src/templates/dashboard/status.mas:28
 msgid "The service is running, but not enabled in Zentyal"
-msgstr ""
+msgstr "Ši tarnyba yra veikianti, bet neįjungta Zentyal sistemoje"
 
 #: src/templates/dashboard/index.mas:36 src/templates/dashboard/status.mas:31
 msgid "Disabled"
-msgstr ""
+msgstr "Išjungta"
 
 #: src/templates/dashboard/index.mas:37 src/templates/dashboard/status.mas:32
 msgid "The service is not enabled in Zentyal"
-msgstr ""
+msgstr "Ši tarnyba neįjungta Zentyal sistemoje"
 
 #: src/templates/dashboard/index.mas:42 src/templates/dashboard/status.mas:25
 msgid "Start"
-msgstr ""
+msgstr "Paleisti"
 
 #: src/templates/dashboard/index.mas:43 src/templates/dashboard/status.mas:12
 msgid "Restart"
-msgstr ""
+msgstr "Paleisti iš naujo"
 
 #: src/templates/dashboard/index.mas:115
 msgid "Configure widgets"
-msgstr ""
+msgstr "Konfigūruoti valdiklius"
 
 #: src/templates/finish.mas:99
 #, perl-brace-format
@@ -2195,19 +2228,19 @@ msgstr ""
 
 #: src/templates/port.mas:9
 msgid "Administration Interface TCP Port"
-msgstr ""
+msgstr "Administravimo sąsajos TCP prievadas"
 
 #: src/templates/halt.mas:10
 msgid "You might lose your Internet connection if this machine is halted."
-msgstr ""
+msgstr "Galite prarasti interneto ryšį, jei ši stotis bus sustabdyta."
 
 #: src/templates/halt.mas:14
 msgid "Halt"
-msgstr ""
+msgstr "Sustabdyti"
 
 #: src/templates/halt.mas:16
 msgid "Reboot"
-msgstr ""
+msgstr "Paleisti iš naujo"
 
 #: src/templates/bug.mas:9
 msgid ""
@@ -2215,11 +2248,14 @@ msgid ""
 "system. The file will be useful if you want to report a problem or seek "
 "support."
 msgstr ""
+"Šiame puslapyje galite paruošti informacinį failą apie Jūsų sistemos būseną. "
+"Šis failas bus reikalingas, jei norėsite informuoti apie problemą arba "
+"ieškosite palaikymo."
 
 #: src/templates/bug.mas:13
 msgid "It may take several minutes to generate the report. Please be patient."
-msgstr ""
+msgstr "Aprašymo paruošimas gali užtrukti keletą minučių.Prašome palaukti."
 
 #: src/templates/bug.mas:19
 msgid "Download configuration report file"
-msgstr ""
+msgstr "Atsisiųsti konfigūracijos aprašymo failą"

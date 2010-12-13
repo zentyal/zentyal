@@ -8,398 +8,399 @@ msgstr ""
 "Project-Id-Version: EBox-monitor 0.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-08-28 23:36+0200\n"
-"PO-Revision-Date: 2008-12-04 16:22+0100\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2010-11-29 09:43+0100\n"
+"Last-Translator: NiZhiqiang <nessus@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=ASCII\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/Event/Watcher/Monitor.pm:144 src/EBox/Monitor.pm:78
 #: src/EBox/Monitor.pm:177
 msgid "Monitor"
-msgstr ""
+msgstr "系统监控"
 
 #: src/EBox/Event/Watcher/Monitor.pm:161
 msgid "Notify when a certain value has reached a certain threshold"
-msgstr ""
+msgstr "当某个值达到某个特定的阈值时报警"
 
 #: src/EBox/Event/Watcher/Monitor.pm:263
 msgid "All data sources are within range again"
-msgstr ""
+msgstr "所有的数据源都在范围之内"
 
 #: src/EBox/Event/Watcher/Monitor.pm:273
 #, perl-brace-format
 msgid "{what} \"{dS}\" is currently {value}."
-msgstr ""
+msgstr "{what} \"{dS}\"当前的值是{value}."
 
 #: src/EBox/Event/Watcher/Monitor.pm:280
 #, perl-brace-format
 msgid "That is within the {severity} region of {minBound} and {maxBound}. "
-msgstr ""
+msgstr "在{severity}区域{minBound}和{maxBound}之内. "
 
 #: src/EBox/Event/Watcher/Monitor.pm:288
 #, perl-brace-format
 msgid "That is above the {severity} threshold of {bound}. "
-msgstr ""
+msgstr "在{bound}的{severity}阈值之上"
 
 #: src/EBox/Event/Watcher/Monitor.pm:291
 #, perl-brace-format
 msgid "That is below the {severity} threshold of {bound}. "
-msgstr ""
+msgstr "在{bound}的{severity}阈值之下"
 
 #: src/EBox/Monitor.pm:150
 #, perl-brace-format
 msgid "{daemon} main configuration file"
-msgstr ""
+msgstr "{daemon}的主配置文件"
 
 #: src/EBox/Monitor.pm:155
 #, perl-brace-format
 msgid "{daemon} thresholds configuration file"
-msgstr ""
+msgstr "{daemon}的阈值配置文件"
 
 #: src/EBox/Monitor.pm:160
 #, perl-brace-format
 msgid "{daemon} default configuration file"
-msgstr ""
+msgstr "{daemon}的默认配置文件"
 
 #: src/EBox/Monitor/Measure/CPU.pm:59
 #, perl-brace-format
 msgid "CPU {no} usage"
-msgstr ""
+msgstr "CPU {no}占用"
 
 #: src/EBox/Monitor/Measure/CPU.pm:65
 msgid "CPU usage"
-msgstr ""
+msgstr "CPU占用"
 
 #: src/EBox/Monitor/Measure/CPU.pm:66
 msgid ""
 "Collect the amount of time spent by the CPU in various states, most notably "
 "executing user code, executing system code, waiting for IO operations and "
 "being idle"
-msgstr ""
+msgstr "收集CPU各种状态消耗的时间，重点关注执行用户代码、执行系统代码，等待IO操作，以及空闲的时间"
 
 #: src/EBox/Monitor/Measure/CPU.pm:73 src/EBox/Monitor/Measure/CPU.pm:82
 msgid "idle"
-msgstr ""
+msgstr "空闲"
 
 #: src/EBox/Monitor/Measure/CPU.pm:74 src/EBox/Monitor/Measure/CPU.pm:82
 msgid "user"
-msgstr ""
+msgstr "用户"
 
 #: src/EBox/Monitor/Measure/CPU.pm:75 src/EBox/Monitor/Measure/CPU.pm:82
 msgid "interrupt"
-msgstr ""
+msgstr "中断"
 
 #: src/EBox/Monitor/Measure/CPU.pm:76 src/EBox/Monitor/Measure/CPU.pm:83
 msgid "nice"
-msgstr ""
+msgstr "nice"
 
 #: src/EBox/Monitor/Measure/CPU.pm:77 src/EBox/Monitor/Measure/CPU.pm:83
 msgid "soft interrupt"
-msgstr ""
+msgstr "软中断"
 
 #: src/EBox/Monitor/Measure/CPU.pm:78 src/EBox/Monitor/Measure/CPU.pm:83
 msgid "steal"
-msgstr ""
+msgstr "steal"
 
 #: src/EBox/Monitor/Measure/CPU.pm:79 src/EBox/Monitor/Measure/CPU.pm:84
 msgid "system"
-msgstr ""
+msgstr "系统"
 
 #: src/EBox/Monitor/Measure/CPU.pm:80 src/EBox/Monitor/Measure/CPU.pm:84
 msgid "wait"
-msgstr ""
+msgstr "等待"
 
 #: src/EBox/Monitor/Measure/Df.pm:76
 #, perl-brace-format
 msgid "used in {partition}"
-msgstr ""
+msgstr "{partition}占用"
 
 #: src/EBox/Monitor/Measure/Df.pm:78
 #, perl-brace-format
 msgid "free in {partition}"
-msgstr ""
+msgstr "{partition}空闲"
 
 #: src/EBox/Monitor/Measure/Df.pm:83
 msgid "File system usage"
-msgstr ""
+msgstr "文件系统占用"
 
 #: src/EBox/Monitor/Measure/Df.pm:84
 msgid ""
 "Collect the mounted file system usage information as \"df\" command does"
-msgstr ""
+msgstr "模拟\"df\"命令，收集已挂载文件系统的占用信息"
 
 #: src/EBox/Monitor/Measure/Memory.pm:55
 msgid "Physical memory usage"
-msgstr ""
+msgstr "物理内存占用"
 
 #: src/EBox/Monitor/Measure/Memory.pm:56
 msgid "Collect the physical memory usage"
-msgstr ""
+msgstr "收集物理内存占用"
 
 #: src/EBox/Monitor/Measure/Memory.pm:57
 msgid "free"
-msgstr ""
+msgstr "空闲"
 
 #: src/EBox/Monitor/Measure/Memory.pm:57
 msgid "page cache"
-msgstr ""
+msgstr "页高速缓存"
 
 #: src/EBox/Monitor/Measure/Memory.pm:57
 msgid "buffer cache"
-msgstr ""
+msgstr "缓冲区高速缓存"
 
 #: src/EBox/Monitor/Measure/Memory.pm:57
 msgid "used"
-msgstr ""
+msgstr "占用"
 
 #: src/EBox/Monitor/Measure/Load.pm:55
 msgid "System load"
-msgstr ""
+msgstr "系统负载"
 
 #: src/EBox/Monitor/Measure/Load.pm:56
 msgid "Collect the system load that gives a rough overview of the system usage"
-msgstr ""
+msgstr "收集系统负载，给出一个系统负载的概要描述"
 
 #: src/EBox/Monitor/Measure/Load.pm:59
 msgid "short term"
-msgstr ""
+msgstr "短期"
 
 #: src/EBox/Monitor/Measure/Load.pm:59
 msgid "mid term"
-msgstr ""
+msgstr "中期"
 
 #: src/EBox/Monitor/Measure/Load.pm:59
 msgid "long term"
-msgstr ""
+msgstr "长期"
 
 #: src/EBox/Monitor/Measure/Thermal.pm:111
 #: src/EBox/Monitor/Measure/Thermal.pm:117
 msgid "temperature"
-msgstr ""
+msgstr "温度"
 
 #: src/EBox/Monitor/Measure/Thermal.pm:129
 msgid "cooling device"
-msgstr ""
+msgstr "制冷设备"
 
 #: src/EBox/Monitor/Measure/Thermal.pm:131
 msgid "sensor"
-msgstr ""
+msgstr "传感器"
 
 #: src/EBox/Monitor/Measure/Thermal.pm:133
 #, perl-brace-format
 msgid "Temperature for {what}"
-msgstr ""
+msgstr "{what}的温度"
 
 #: src/EBox/Monitor/Measure/Thermal.pm:139
 msgid "Thermal"
-msgstr ""
+msgstr "温度"
 
 #: src/EBox/Monitor/Measure/Thermal.pm:140
 #, perl-brace-format
 msgid ""
 "Collect thermal information (CPU sensors temperature) if possible from {dir}"
-msgstr ""
+msgstr "如果可能，从{dir}收集温度信息(CPU传感器温度)"
 
 #: src/EBox/Monitor/Measure/Base.pm:684
 msgid "value"
-msgstr ""
+msgstr "值"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:102
 #: src/EBox/Monitor/Model/MeasureWatchers.pm:77
 msgid "Events"
-msgstr ""
+msgstr "事件"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:106
 #: src/EBox/Monitor/Model/MeasureWatchers.pm:81
 msgid "Monitor Watcher"
-msgstr ""
+msgstr "监测器"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:110
 msgid "Threshold Configuration"
-msgstr ""
+msgstr "阈值配置"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:144
 msgid "At least a threshold (maximum or minimum) must be set"
-msgstr ""
+msgstr "至少需要设置一个阈值(最大或最小)"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:149
 msgid "This threshold rule will override the current ones"
-msgstr ""
+msgstr "这个阈值规则将覆盖当前规则"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:244
 msgid "Failure minimum"
-msgstr ""
+msgstr "最小失败值"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:247
 msgid ""
 "Set the lower bound of acceptable values. If unset defaults to negative "
 "infinity."
-msgstr ""
+msgstr "设定可接受值的下限。如果未设置默认为负无穷大。"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:252
 msgid "Warning minimum"
-msgstr ""
+msgstr "最小告警值"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:255
 #, perl-brace-format
 msgid ""
 "If the value is less than this value and greater than {fmin} a warn event is "
 "sent"
-msgstr ""
+msgstr "如果该值小于这个值而且大于{fmin}发送一个警告事件"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:257
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:283
 msgid "failure minimum"
-msgstr ""
+msgstr "最小失败值"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:261
 msgid "Warning maximum"
-msgstr ""
+msgstr "最大告警值"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:264
 #, perl-brace-format
 msgid ""
 "If the value is greater than this value and less than {fmax} a warn event is "
 "sent"
-msgstr ""
+msgstr "如果该值大于这个值，小于{fmax} 发送一个警告事件"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:266
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:283
 msgid "failure maximum"
-msgstr ""
+msgstr "最大失败值"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:270
 msgid "Failure maximum"
-msgstr ""
+msgstr "最大失败值"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:273
 msgid ""
 "Set the upper bound of acceptable values. If unset defaults to positive "
 "infinity."
-msgstr ""
+msgstr "设定上限的可接受值. 如果未设置默认为正无穷大."
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:278
 msgid "Invert"
-msgstr ""
+msgstr "倒置"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:281
 #, perl-brace-format
 msgid ""
 "If set to true, the range of acceptable values is inverted, i.e. values "
 "between {fmin} and {fmax} ({wmin} and {wmax}) are not okay."
-msgstr ""
+msgstr "如果设置为真,可接受值的范围是倒置的,{fmin} 与 {fmax} ({wmin} 和 {wmax}) 无效."
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:284
 msgid "warning minimum"
-msgstr ""
+msgstr "最小告警值"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:284
 msgid "warning maximum"
-msgstr ""
+msgstr "最大告警值"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:288
 msgid "Persistent"
-msgstr ""
+msgstr "持久性"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:291
 msgid ""
 "If set to true, an event will be dispatched for each value that is out of "
 "the acceptable range. If set to false, only a change from an acceptable "
 "value to an unacceptable one will be dispatched"
-msgstr ""
+msgstr "如果设置为真，将为每个超出可接受范围的值发送一个事件。如果设置为假，只在可接受的值变为不可接受值的时候，发出事件."
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:298
 msgid "Measure instance"
-msgstr ""
+msgstr "测量实例"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:304
 msgid "Type"
-msgstr ""
+msgstr "类型"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:310
 msgid "Data Source"
-msgstr ""
+msgstr "数据源"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:318
 msgid "Threshold's list"
-msgstr ""
+msgstr "阈值列表"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:320
 msgid "Threshold"
-msgstr ""
+msgstr "阈值"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:324
 #, perl-brace-format
 msgid ""
 "Every check is done with the highest possible resolution: {nSec} seconds"
-msgstr ""
+msgstr "每个检查的最高间隔: {nSec}秒"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:326
 #, perl-brace-format
 msgid ""
 "Take into account this configuration will be only applied if monitor "
 "{openhref}event watcher is enabled{closehref}"
-msgstr ""
+msgstr "该配置只在监视器的{openhref}事件监测器启用{closehref}时才会启用"
 
 #: src/EBox/Monitor/Model/MeasureWatchers.pm:151
 msgid "Measure"
-msgstr ""
+msgstr "测量"
 
 #: src/EBox/Monitor/Model/MeasureWatchers.pm:158
 msgid "Thresholds"
-msgstr ""
+msgstr "阈值"
 
 #: src/EBox/Monitor/Model/MeasureWatchers.pm:167
 msgid "Configure monitor watchers"
-msgstr ""
+msgstr "配置监测监视器"
 
 #: src/EBox/Monitor/Model/MeasureWatchers.pm:168
 msgid "measure"
-msgstr ""
+msgstr "测量"
 
 #: src/EBox/Monitor/Model/MeasureWatchers.pm:173
 msgid "Every measure may have several thresholds to monitor"
-msgstr ""
+msgstr "每个测量指标都可以由几组监控的阈值"
 
 #: src/EBox/Monitor/Configuration.pm:121
 msgid "Last hour"
-msgstr ""
+msgstr "最近一小时"
 
 #: src/EBox/Monitor/Configuration.pm:127
 msgid "Last day"
-msgstr ""
+msgstr "最近一天"
 
 #: src/EBox/Monitor/Configuration.pm:133
 msgid "Last month"
-msgstr ""
+msgstr "最近一月"
 
 #: src/EBox/Monitor/Configuration.pm:139
 msgid "Last year"
-msgstr ""
+msgstr "最近一年"
 
 #: src/EBox/Monitor/Types/MeasureAttribute.pm:132
 #: src/EBox/Monitor/Types/MeasureAttribute.pm:146
 #: src/EBox/Monitor/Types/MeasureAttribute.pm:156
 msgid "not applicable"
-msgstr ""
+msgstr "不适用"
 
 #: src/EBox/Monitor/Types/MeasureAttribute.pm:134
 #: src/EBox/Monitor/Types/MeasureAttribute.pm:144
 msgid "any"
-msgstr ""
+msgstr "任意"
 
 #: src/EBox/CGI/Index.pm:44
 msgid "Monitoring"
-msgstr ""
+msgstr "监测"
 
 #: src/EBox/CGI/Index.pm:70
 #, perl-brace-format
 msgid ""
 "You must enable monitor module to see monitor graphs in {openhref}Module "
 "Status{closehref} section."
-msgstr ""
+msgstr "如果要查看监控图表，需要在{openhref}模块状态{closehref}打开监控模块"
 
 #: src/EBox/CGI/Index.pm:98
 #, perl-brace-format
@@ -408,3 +409,5 @@ msgid ""
 "{openhref}Save changes{closehref} section. In case it is already enabled you "
 "must wait for a few seconds to collect the first monitor data"
 msgstr ""
+"如果要查看监控图表，您必须在{openhref}保存变更{closehref} "
+"保存监控模块的状态。如果已经监控模块已经启用，需要等几秒钟，以便捕获第一组监控数据"

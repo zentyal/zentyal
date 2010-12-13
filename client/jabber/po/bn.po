@@ -5,19 +5,20 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-jabber 2.0"
-"Report-Msgid-Bugs-To: developers@zentyal.org\n"
+"Project-Id-Version: ebox-jabber 2.0Report-Msgid-Bugs-To: "
+"developers@zentyal.org\n"
 "POT-Creation-Date: 2010-08-25 17:41+0200\n"
-"PO-Revision-Date: 2010-08-25 17:41+0200\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2010-10-31 18:20+0100\n"
+"Last-Translator: Kaustav Das Modak <kaustav.dasmodak@yahoo.co.in>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: migration/0001_add_firewall_services.pl:30 src/EBox/Jabber.pm:221
 msgid "Jabber Server"
-msgstr ""
+msgstr "জ্যাবর সার্ভার"
 
 #: src/EBox/JabberLdapUser.pm:263
 msgid ""

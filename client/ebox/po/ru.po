@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: ebox 0.12\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-08-28 23:35+0200\n"
-"PO-Revision-Date: 2010-04-03 06:20+0200\n"
-"Last-Translator: Ruslan Khissamov <ruslan.khissamov@gmail.com>\n"
+"PO-Revision-Date: 2010-11-26 22:47+0100\n"
+"Last-Translator: Val Budkin <valentin@ktc-ua.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
-"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/Apache.pm:275 src/EBox/Apache.pm:284
@@ -23,9 +23,8 @@ msgid "port"
 msgstr "порт"
 
 #: src/EBox/Apache.pm:598
-#, fuzzy
 msgid "Zentyal web server"
-msgstr "Веб сервер eBox"
+msgstr "Веб сервер Zentyal"
 
 #: src/EBox/Event/Dispatcher/Jabber.pm:165
 msgid "Admin Jabber account"
@@ -60,19 +59,18 @@ msgid "RSS"
 msgstr "RSS"
 
 #: src/EBox/Event/Dispatcher/RSS.pm:289
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Zentyal alerts channel for {hostname}"
-msgstr "eBox канал сообщений для {hostname}"
+msgstr "канал сообщений Zentyal для {hostname}"
 
 #: src/EBox/Event/Dispatcher/RSS.pm:292
-#, fuzzy
 msgid "This channel tracks what happens on this Zentyal machine along the time"
-msgstr "Этот канал отслеживает события на машине eBox в течении времени"
+msgstr "Этот канал отслеживает события на хосте Zentyal"
 
 #: src/EBox/Event/Dispatcher/RSS.pm:312
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "The event has happened in Zentyal {hostname} from {source}"
-msgstr "Событие случилось eBox {hostname} из {source}"
+msgstr "Событие случилось на Zentyal {hostname} из {source}"
 
 #: src/EBox/Event/Dispatcher/RSS.pm:316
 #, perl-brace-format
@@ -144,7 +142,7 @@ msgstr "RAID"
 
 #: src/EBox/Event/Watcher/RAID.pm:198
 msgid "Check if any event has happened in RAID subsystem"
-msgstr "Проверьте события подсистемы  RAID"
+msgstr "Проверьте события подсистемы RAID"
 
 #: src/EBox/Event/Watcher/RAID.pm:264
 #, perl-brace-format
@@ -348,23 +346,20 @@ msgid "spare"
 msgstr "запасной"
 
 #: src/EBox/Event/Watcher/State.pm:125
-#, fuzzy
 msgid "Zentyal is up and running"
-msgstr "eBox поднят и запущен"
+msgstr "Zentyal запущен и работает"
 
 #: src/EBox/Event/Watcher/State.pm:131
-#, fuzzy
 msgid "Zentyal is critically down"
-msgstr "eBox аварийно остановлен"
+msgstr "Zentyal аварийно остановлен"
 
 #: src/EBox/Event/Watcher/State.pm:156 src/templates/report/raid.mas:226
 msgid "State"
 msgstr "Состояние"
 
 #: src/EBox/Event/Watcher/State.pm:173
-#, fuzzy
 msgid "Check if Zentyal is currently up or down"
-msgstr "Проверьте eBox сейчас запущен или нет"
+msgstr "Проверьте Zentyal сейчас запущен или нет"
 
 #: src/EBox/Model/DataTable.pm:327
 #, perl-brace-format
@@ -535,14 +530,12 @@ msgid "any"
 msgstr "разное"
 
 #: src/EBox/Types/PortRange.pm:293
-#, fuzzy
 msgid "Single port"
-msgstr "Выборочный отчет"
+msgstr "Выборочный порт"
 
 #: src/EBox/Types/PortRange.pm:297
-#, fuzzy
 msgid "Port range"
-msgstr "Пароль изменен"
+msgstr "Диапазон портов"
 
 #: src/EBox/Types/PortRange.pm:414
 #, perl-brace-format
@@ -582,13 +575,12 @@ msgid "System load"
 msgstr "Загрузка системы"
 
 #: src/EBox/SysInfo.pm.in:108
-#, fuzzy
 msgid "Uptime"
-msgstr "Время"
+msgstr "Аптайм"
 
 #: src/EBox/SysInfo.pm.in:109
 msgid "Users"
-msgstr ""
+msgstr "Пользователи"
 
 #: src/EBox/SysInfo.pm.in:163 src/EBox/SysInfo.pm.in:256
 msgid "Module Status"
@@ -603,9 +595,8 @@ msgid "Process List"
 msgstr "Список процессов"
 
 #: src/EBox/SysInfo.pm.in:180
-#, fuzzy
 msgid "Resources & Services"
-msgstr "Статус службы событий"
+msgstr "Ресурсы и службы"
 
 #: src/EBox/SysInfo.pm.in:251 src/EBox/CGI/Dashboard/Index.pm:32
 msgid "Dashboard"
@@ -629,13 +620,13 @@ msgid "Backup"
 msgstr "Резервная копия"
 
 #: src/EBox/SysInfo.pm.in:281
-#, fuzzy
 msgid "Configuration Report"
-msgstr "Восстановление настроек"
+msgstr "Отчёт о конфигурации"
 
+# The string must be shorter or contain space to place it in menu column
 #: src/EBox/SysInfo.pm.in:284
 msgid "Halt/Reboot"
-msgstr "Выключить/Перезагрузить"
+msgstr "Выкл/Перезапуск"
 
 #: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:300
 #: src/EBox/Events/Model/ConfigureEventDataTable.pm:266
@@ -707,39 +698,37 @@ msgid "Subscribe"
 msgstr "Подписаться"
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:225
-#, fuzzy
 msgid ""
 "Tick this option if you want Zentyal to create an account for the above user"
 msgstr ""
-"Отметьте эту опцию если вы хотите, чтобы eBox создал учетную запись для "
-"пользователя"
+"Отметьте эту опцию если вы хотите, чтобы Zentyal создал учетную запись для "
+"этого пользователя"
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:232
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:299
 msgid "Administrator Jabber Identifier"
-msgstr "Идентификатор администратора жаббер"
+msgstr "Идентификатор администратора Jabber"
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:235
-#, fuzzy
 msgid ""
 "Destination Jabber ID of the messages generated by Zentyal,  i.e: you, the "
 "Zentyal admin. Note that you need to register this  account manually in any "
 "jabber server"
 msgstr ""
-"JID получателя сообщений создаваемых eBox,  т.к. вы админ eBox. Вам "
-"необходимо зарегистрировать вручную этот аккаунт на любом жаббер сервере"
+"JID получателя сообщений создаваемых Zentyal,  т.к. вы админ Zentyal. Вам "
+"необходимо зарегистрировать вручную этот аккаунт на любом Jabber сервере"
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:244
 msgid "Configure Jabber dispatcher"
-msgstr "Настройка диспетчера жаббер"
+msgstr "Настройка диспетчера Jabber"
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:249
 msgid "This dispatcher will send events to an Jabber account"
-msgstr "Этот диспетчер отправляет события на учетную запись жаббера"
+msgstr "Этот диспетчер отправляет события пользователю Jabber"
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:252
 msgid "Jabber dispatcher configuration updated"
-msgstr "Конфигурация диспетчера жаббер обновлена"
+msgstr "Конфигурация диспетчера Jabber обновлена"
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:272
 #: src/EBox/Events/Model/Dispatcher/RSS.pm:324
@@ -754,7 +743,7 @@ msgstr "События"
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:276
 msgid "Jabber Dispatcher"
-msgstr "Диспетчер жаббер"
+msgstr "Диспетчер Jabber"
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:301
 msgid "It should follow the pattern 'user@domain[/resource]'"
@@ -812,13 +801,12 @@ msgid "RSS Dispatcher"
 msgstr "Диспетчер RSS"
 
 #: src/EBox/Events/Model/GeneralComposite.pm:79
-#, fuzzy
 msgid ""
 "Events module configures Zentyal to help informing you about events that "
 "happen"
 msgstr ""
-"Ключ для веб подписки не найденМодуль событий конфигурируется eBox, чтобы "
-"помогать информировать вас о происходящих событиях"
+"Модуль событий настраивает Zentyal чтобы помочь сообщать вам о происходящих "
+"событиях"
 
 #: src/EBox/Events/Model/ConfigureEventDataTable.pm:274
 #: src/templates/backup.mas:42 src/templates/backup.mas:124
@@ -837,7 +825,7 @@ msgstr "событие"
 
 #: src/EBox/Events/Model/ConfigureEventDataTable.pm:317
 msgid "Enable/Disable each event watcher monitoring"
-msgstr "Ключ для службы прокси не найден"
+msgstr "Включить/выключить слежение за событиями."
 
 #: src/EBox/Events/Model/ConfigureEventDataTable.pm:505
 msgid ""
@@ -845,7 +833,7 @@ msgid ""
 "'Configuration' to enable at least one to be notified when a log in this "
 "domain happens. "
 msgstr ""
-"Важно! Не включен наблюдательжурнала домена. Пожалуйста, перейдите "
+"Важно! Не включен наблюдатель журнала домена. Пожалуйста, перейдите "
 "'Configuration' и включите. "
 
 #: src/EBox/Events/Model/Watcher/LogFiltering.pm:108
@@ -990,9 +978,8 @@ msgid "It must be a non-zero positive number"
 msgstr "Должно быть положительным числом больше 0"
 
 #: src/EBox/ProgressIndicator.pm:48
-#, fuzzy
 msgid "To solve it you can try to execute the following commands:"
-msgstr "Пожалуйста подтвердите удаление данного файла резервной копии:"
+msgstr "Для решения проблемы попробуйте выполнить следующие команды:"
 
 #: src/EBox/ProgressIndicator.pm:55
 #, perl-brace-format
@@ -1033,19 +1020,19 @@ msgid "Password changed"
 msgstr "Пароль изменен"
 
 #: src/EBox/Global.pm:482
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Enabling {modName} module"
-msgstr "Сохранение {modName} модуля"
+msgstr "Включение модуля {modName} "
 
 #: src/EBox/Global.pm:512 src/EBox/Global.pm:543
 #, perl-brace-format
 msgid "Saving {modName} module"
-msgstr "Сохранение {modName} модуля"
+msgstr "Сохранение модуля {modName} "
 
 #: src/EBox/Global.pm:1060
 #, perl-brace-format
 msgid "running {scriptName} script"
-msgstr "запуск {scriptName} скрипта"
+msgstr "выполнение сценария {scriptName} "
 
 #: src/EBox/Logs/Model/SelectLog.pm:151
 msgid "Full report"
@@ -1127,11 +1114,11 @@ msgstr "Текущая конфигурация"
 
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:365
 msgid "Logs configuration"
-msgstr "Журналы конфигурации"
+msgstr "Конфигурация журналов"
 
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:371
 msgid "Enable/disable logging per-module basis"
-msgstr "Включить/отключить аутентификацию на основе модулей"
+msgstr "Включить/отключить ведение журналов на основе модулей"
 
 #: src/EBox/Logs/Model/Report/OptionsBase.pm:40
 msgid "hour"
@@ -1151,11 +1138,11 @@ msgstr "месяц"
 
 #: src/EBox/Logs/Model/Report/OptionsBase.pm:79
 msgid "Report time period"
-msgstr "Отчетный период"
+msgstr "Период отчёта"
 
 #: src/EBox/Logs/Model/Report/OptionsBase.pm:101
 msgid "Report options"
-msgstr "Опции отчета"
+msgstr "Настройки отчета"
 
 #: src/EBox/Logs/Model/Report/Details.pm:226
 #: src/EBox/Logs/Model/Report/Details.pm:234
@@ -1210,7 +1197,7 @@ msgstr "Таблица {table} не существует"
 
 #: src/EBox/Logs.pm:701 src/EBox/CGI/Logs/Index.pm:326
 msgid "Query Logs"
-msgstr "Журнал запросов"
+msgstr "Журналы запросов"
 
 #: src/EBox/Logs.pm:704
 msgid "Configure Logs"
@@ -1239,7 +1226,7 @@ msgstr "Админ"
 
 #: src/EBox/Logs.pm:821
 msgid "Log messages"
-msgstr "Журнал сообщений"
+msgstr "Записывать сообщения"
 
 #: src/EBox/Logs.pm:848
 msgid "Lifetime parameter must be a positive number of hours"
@@ -1267,7 +1254,7 @@ msgstr "Включить диспетчер журналов по умолчан
 
 #: src/EBox/Events.pm:497
 msgid "The events module is not enabled to send events"
-msgstr "Модуле событий не включена отправка событий"
+msgstr "Для отправки событий не включен модуль событий"
 
 #: src/EBox/Events.pm:730
 msgid "Event service status"
@@ -1307,13 +1294,12 @@ msgstr ""
 "найти в журналах."
 
 #: src/EBox/CGI/Wizard.pm:29
-#, fuzzy
 msgid "Initial configuration wizard"
-msgstr "Сохранить настройки"
+msgstr "Мастер первичной настройки"
 
 #: src/EBox/CGI/ServiceModule/StatusView.pm:39
 msgid "Module Status Configuration"
-msgstr "Конфигурация статуса модуля"
+msgstr "Настройка статуса модуля"
 
 #: src/EBox/CGI/Dashboard/ConfigureWidgets.pm:30
 #: src/templates/dashboard/index.mas:79
@@ -1428,9 +1414,8 @@ msgid "Bug-report configuration dump"
 msgstr "Хранилище настроек отчетов об ошибках"
 
 #: src/EBox/CGI/EBox/Hostname.pm:44
-#, fuzzy
 msgid "hostname"
-msgstr "Имя узла"
+msgstr "Имя компьютера"
 
 #: src/EBox/CGI/EBox/CurrentProgress.pm:36
 msgid "Upgrading"
@@ -1445,14 +1430,12 @@ msgid "Halt or Reboot"
 msgstr "Выключение или перезагрузка"
 
 #: src/EBox/CGI/EBox/Halt.pm:43
-#, fuzzy
 msgid "Zentyal is going down for halt"
-msgstr "eBox готовится к выключению"
+msgstr "Идёт подготовка к выключению Zentyal "
 
 #: src/EBox/CGI/EBox/Halt.pm:46
-#, fuzzy
 msgid "Zentyal is going down for reboot"
-msgstr "eBox готовится к перезагрузке"
+msgstr "Идёт подготовка к перезагрузке Zentyal"
 
 #: src/EBox/CGI/EBox/RestartService.pm:48
 msgid "module name"
@@ -1464,9 +1447,8 @@ msgstr "Модуль был корректно перезапущен."
 
 #: src/EBox/CGI/EBox/Password.pm:43 src/templates/password.mas:11
 #: src/templates/login/index.mas:49
-#, fuzzy
 msgid "Username"
-msgstr "Имя узла"
+msgstr "Имя пользователя"
 
 #: src/EBox/CGI/EBox/Password.pm:48 src/templates/login/index.mas:54
 msgid "Password"
@@ -1489,14 +1471,13 @@ msgid "The password was changed successfully."
 msgstr "Пароль изменен."
 
 #: src/EBox/CGI/EBox/ConfigurationReport.pm:29
-#, fuzzy
 msgid "Configuration report"
-msgstr "Восстановление настроек"
+msgstr "Отчёт о конфигурации"
 
 #: src/EBox/CGI/EBox/Backup.pm:160
 #, perl-brace-format
 msgid "Unknown backup mode: {mode}"
-msgstr "Неизвестный режим резервной копии: {mode}"
+msgstr "Неизвестный режим резервного копирования: {mode}"
 
 #: src/EBox/CGI/EBox/Backup.pm:226
 #, perl-brace-format
@@ -1529,25 +1510,23 @@ msgstr "Восстановление из резервной копии"
 
 #: src/EBox/CGI/EBox/Backup.pm:255
 msgid "Restoring modules"
-msgstr "Модуль восстановления"
+msgstr "Восстановление модулей"
 
 #: src/EBox/CGI/EBox/Backup.pm:257
-#, fuzzy
 msgid "modules restored"
-msgstr "модули отозваны"
+msgstr "модули восстановлены"
 
 #: src/EBox/CGI/EBox/Backup.pm:258
 msgid "Restore successful"
-msgstr "Восстановление успешно"
+msgstr "Восстановление прошло успешно"
 
 #: src/EBox/CGI/Login/Index.pm:63
-#, fuzzy
 msgid ""
 "There is a script which has asked to run in Zentyal exclusively. Please, "
 "wait patiently until it is done"
 msgstr ""
-"Выполняется скрипт запущенный в eBox эксклюзивно. Пожалуйста, подождите пока "
-"он не выполнится"
+"Выполняется скрипт запущенный в Zentyal эксклюзивно. Пожалуйста, дождитесь "
+"завершения его выполнения"
 
 #: src/EBox/CGI/Login/Index.pm:67
 msgid "Incorrect password"
@@ -1603,13 +1582,13 @@ msgid "Writing backup file to hard disk"
 msgstr "Запись резервной копии файлов на жесткий диск"
 
 #: src/EBox/Backup.pm:789
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Module {mod} has not saved changes. Before doing the backup you must save or "
 "discard them"
 msgstr ""
-"Некоторые модули содержат не сохраненные изменения. Перед созданием "
-"резервной копии Вы должны сохранить или отклонить их"
+"В модуль {mod} не сохранены изменения. Перед созданием резервной копии Вы "
+"должны сохранить или отклонить их"
 
 #: src/EBox/Backup.pm:847
 msgid "Incorrect or corrupt backup file"
@@ -1628,13 +1607,12 @@ msgid "The backup file is corrupt."
 msgstr "Резервный файл поврежден."
 
 #: src/EBox/Backup.pm:913
-#, fuzzy
 msgid ""
 "The backup archive has a invalid type. Maybe the file is corrupt or you are "
 "using a incompatible Zentyal version"
 msgstr ""
-"Архив резервной копии недопустимого формата. Может быть архив поврежден или "
-"Вы используете несовместимую версию eBox."
+"Архив резервной копии имеет недопустимый формат. Возможно, архив поврежден "
+"или Вы используете несовместимую версию Zentyal"
 
 #: src/EBox/Backup.pm:919
 msgid ""
@@ -1680,26 +1658,24 @@ msgid "Cancel"
 msgstr "Отмена"
 
 #: src/templates/links-widget.mas:5
-#, fuzzy
 msgid "Community Resources"
-msgstr "Восстановление настроек"
+msgstr "Ресурсы сообщества"
 
 #: src/templates/links-widget.mas:10
-#, fuzzy
 msgid "Documentation"
-msgstr "Домен"
+msgstr "Документация"
 
 #: src/templates/links-widget.mas:12
 msgid "Forum"
-msgstr ""
+msgstr "Форум"
 
 #: src/templates/links-widget.mas:14
 msgid "Report a bug"
-msgstr ""
+msgstr "Сообщить об ошибке"
 
 #: src/templates/links-widget.mas:16
 msgid "How to Contribute"
-msgstr ""
+msgstr "Как помочь"
 
 #: src/templates/moduleStatusTable.mas:59
 msgid "Depends"
@@ -1712,45 +1688,43 @@ msgstr "Состояние"
 #: src/templates/moduleStatusTable.mas:85
 #, perl-brace-format
 msgid "Configure module: {module}"
-msgstr "Настройка модуля: {module}"
+msgstr "Настроить модуль: {module}"
 
 #: src/templates/wizard.mas:68 src/templates/wizard.mas:69
 msgid "Finish"
-msgstr ""
+msgstr "Готово"
 
 #: src/templates/wizard.mas:121
-#, fuzzy
 msgid "Congratulations!"
-msgstr "Конфигурация"
+msgstr "Поздравляем!"
 
 #: src/templates/wizard.mas:122
 msgid "Now you are ready to save changes and start using your Zentyal server"
-msgstr ""
+msgstr "Теперь вы готовы сохранить настройки и начать использовать Zentyal"
 
 #: src/templates/wizard.mas:144 src/templates/wizard.mas:154
 msgid "Skip"
-msgstr ""
+msgstr "Пропустить"
 
 #: src/templates/wizard.mas:145 src/templates/wizard.mas:155
-#, fuzzy
 msgid "Next"
-msgstr "следующая"
+msgstr "дальше"
 
 #: src/templates/logs/dbtable.mas:87 src/templates/logs/dbtable.mas:88
 msgid "first"
-msgstr "первая"
+msgstr "в начало"
 
 #: src/templates/logs/dbtable.mas:91 src/templates/logs/dbtable.mas:92
 msgid "prev"
-msgstr "предыдущая"
+msgstr "назад"
 
 #: src/templates/logs/dbtable.mas:111 src/templates/logs/dbtable.mas:112
 msgid "next"
-msgstr "следующая"
+msgstr "вперёд"
 
 #: src/templates/logs/dbtable.mas:115 src/templates/logs/dbtable.mas:116
 msgid "last"
-msgstr "последняя"
+msgstr "в конец"
 
 #: src/templates/logs/index.mas:20
 msgid "Log Domain"
@@ -1878,13 +1852,12 @@ msgid "items left"
 msgstr "элементы слева"
 
 #: src/templates/progress.mas:27
-#, fuzzy
 msgid "Some error has happened in Zentyal: "
-msgstr "Произошли ошибки в Ebox:"
+msgstr "Произошли ошибки в Zentyal: "
 
 #: src/templates/progress.mas:152
 msgid "Starting..."
-msgstr "Запуск..."
+msgstr "Запускается..."
 
 #: src/templates/report/raid.mas:20
 #, perl-brace-format
@@ -2021,16 +1994,15 @@ msgstr ""
 
 #: src/templates/backup.mas:26
 msgid "Backup the Current State"
-msgstr "Сделать бэкап текущего состояния"
+msgstr "Сделать резервную копию текущего состояния"
 
 #: src/templates/backup.mas:28
-#, fuzzy
 msgid ""
 "Backups will be stored in Zentyal and then you will be able to download them "
 "to your hard disk."
 msgstr ""
-"Бэкапы будут сохранены в eBox с возможностью загрузки на Ваш жесткий диск "
-"или записи на CD/DVD носители. В любом случае Вы можете сделать копию бэкапа."
+"Резервные копии будут сохранены в Zentyal и вы сможете скопировать их на ваш "
+"жесткий диск."
 
 #: src/templates/backup.mas:29
 msgid ""
@@ -2038,6 +2010,9 @@ msgid ""
 "administration rights will be able to access the backup directory as a "
 "shared resource."
 msgstr ""
+"Если у вас настроен модуль файловых ресурсов, все пользователи с "
+"администраторскими правами смогут получить доступ к каталогу с резервными "
+"копиями, как к файловому ресурсу."
 
 #: src/templates/backup.mas:33
 msgid ""
@@ -2067,7 +2042,7 @@ msgstr ""
 
 #: src/templates/backup.mas:82
 msgid "Backup file"
-msgstr "Файл бэкапа"
+msgstr "Файл резервной копии"
 
 #: src/templates/backup.mas:112
 msgid "Full"
@@ -2099,15 +2074,15 @@ msgstr "Восстановить настройки используя этот 
 
 #: src/templates/backup.mas:159
 msgid "Restore from backup"
-msgstr "Восстановить из бэкапа"
+msgstr "Восстановить из резервной копии"
 
 #: src/templates/backup.mas:164 src/templates/backup.mas:165
 msgid "Download"
-msgstr "Загрузить"
+msgstr "Скачать"
 
 #: src/templates/backup.mas:184
 msgid "download"
-msgstr "загрузить"
+msgstr "скачать"
 
 #: src/templates/backup.mas:186
 msgid "restore"
@@ -2119,7 +2094,7 @@ msgstr "удалить"
 
 #: src/templates/configurationFiles.mas:12
 msgid "Do you wish to overwrite these files?"
-msgstr "Вы хотите переписать эти файлы?"
+msgstr "Вы хотите перезаписать эти файлы?"
 
 #: src/templates/configurationFiles.mas:19
 msgid "Keep current file"
@@ -2135,7 +2110,7 @@ msgstr "Нет записей в списке"
 
 #: src/templates/dashboard/index.mas:21 src/templates/dashboard/status.mas:18
 msgid "Running"
-msgstr "Запущено"
+msgstr "Выполняется"
 
 #: src/templates/dashboard/index.mas:22 src/templates/dashboard/status.mas:19
 msgid "The service is enabled and running"
@@ -2154,30 +2129,28 @@ msgid "Running unmanaged"
 msgstr "Неуправляемый запуск"
 
 #: src/templates/dashboard/index.mas:32 src/templates/dashboard/status.mas:28
-#, fuzzy
 msgid "The service is running, but not enabled in Zentyal"
-msgstr "Эта служба запущена, но не включена в eBox"
+msgstr "Эта служба запущена, но не включена в Zentyal"
 
 #: src/templates/dashboard/index.mas:36 src/templates/dashboard/status.mas:31
 msgid "Disabled"
 msgstr "Отключено"
 
 #: src/templates/dashboard/index.mas:37 src/templates/dashboard/status.mas:32
-#, fuzzy
 msgid "The service is not enabled in Zentyal"
-msgstr "Эта служба не включена в eBox"
+msgstr "Эта служба не включена в Zentyal"
 
 #: src/templates/dashboard/index.mas:42 src/templates/dashboard/status.mas:25
 msgid "Start"
-msgstr "Запуск"
+msgstr "Запустить"
 
 #: src/templates/dashboard/index.mas:43 src/templates/dashboard/status.mas:12
 msgid "Restart"
-msgstr "Перезапуск"
+msgstr "Перезапустить"
 
 #: src/templates/dashboard/index.mas:115
 msgid "Configure widgets"
-msgstr "Настройка виджетов"
+msgstr "Настроить виджетов"
 
 #: src/templates/finish.mas:99
 #, perl-brace-format
@@ -2221,15 +2194,16 @@ msgstr "Несохраненных изменений нет."
 # The value for this field actually was "Change password", I changed it to "Changes saved" as it should be.  
 # No fuzzyness anymore.
 #: src/templates/hostname.mas:9
-#, fuzzy
 msgid "Change Hostname"
-msgstr "Изменения сохранены"
+msgstr "Сменить имя компьютера"
 
 #: src/templates/hostname.mas:10
 msgid ""
 "You will need to restart all the services or reboot the system to apply the "
 "hostname change."
 msgstr ""
+"Вам необходимо перезапустить все службы или перезагрузить систему для смены "
+"имени компьютера."
 
 #: src/templates/confirm-backup.mas:110
 msgid "Full Restore"
@@ -2272,24 +2246,24 @@ msgid "Warning: Caps Lock is enabled"
 msgstr "Предупреждение: включен Caps Lock"
 
 #: src/templates/login/index.mas:43
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Warning: Unfortunately Internet Explorer is not yet supported on Zentyal. "
 "Please use {url} instead."
 msgstr ""
-"Предупреждение: к сожалению Internet Explorer не поддерживается в eBox. "
+"Предупреждение: к сожалению Internet Explorer не поддерживается в Zentyal. "
 "Пожалуйста, используйте {url} ."
 
 #: src/templates/login/index.mas:46
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Warning: You are using a browser which is not {url}, the only one officially "
 "supported. Please, take into consideration that you might face some issues "
 "while navigating on Zentyal UI."
 msgstr ""
 "Предупреждение: вы используете браузер, который не соддержится в списке "
-"официально поддерживаемы {url}. Примите во внимание, что вы можете "
-"столкнуться с проблемами при навигации по интерфейсу eBox."
+"официально поддерживаемых {url}. Примите во внимание, что вы можете "
+"столкнуться с проблемами при навигации по интерфейсу Zentyal."
 
 #: src/templates/login/index.mas:63
 msgid "Enter"
@@ -2300,24 +2274,22 @@ msgid "Remote services control panel"
 msgstr "Удаленная панель управления службами"
 
 #: src/templates/configureView.mas:12
-#, fuzzy
 msgid ""
 "Enabling this module will cause Zentyal to perform the actions and file "
 "modifications listed below. You must explicitly accept these changes to "
 "enable the module."
 msgstr ""
-"Подключение этого модуля приведет к выполнению eBox модификаций описаных "
-"ниже. Вы должны явно подтвердить эти изменения для подключения модуля"
+"Включение этого модуля заставит Zentyal совершить приведённые ниже действия "
+"и изменения файлов. Вы должны явно подтвердить эти изменения для включения "
+"модуля"
 
 #: src/templates/configureView.mas:16
-#, fuzzy
 msgid "Actions to perform by Zentyal"
-msgstr "Действия, которые будут выполнены eBox'ом"
+msgstr "Действия, которые будут выполнены Zentyal'ом"
 
 #: src/templates/configureView.mas:31
-#, fuzzy
 msgid "Files to modify by Zentyal"
-msgstr "Файлы, которые будут модифицированы eBox'ом"
+msgstr "Файлы, которые будут модифицированы Zentyal'ом"
 
 #: src/templates/configureView.mas:50
 msgid "Accept"
@@ -2340,20 +2312,18 @@ msgid "Reboot"
 msgstr "Перезагрузить"
 
 #: src/templates/bug.mas:9
-#, fuzzy
 msgid ""
 "This page lets you generate a file with information about the state of your "
 "system. The file will be useful if you want to report a problem or seek "
 "support."
 msgstr ""
 "Эта страница позволяет генерировать файл с информацией о состоянии Вашей "
-"системы. Файл будет использован при отчете об ошибках eBox."
+"системы. Файл будет использован при отчете об ошибках Zentyal."
 
 #: src/templates/bug.mas:13
 msgid "It may take several minutes to generate the report. Please be patient."
-msgstr ""
+msgstr "Создание отчёта может занять несколько минут. Пожалуйста, подождите."
 
 #: src/templates/bug.mas:19
-#, fuzzy
 msgid "Download configuration report file"
-msgstr "Загрузить файл отчета об ошибках"
+msgstr "Скачать файл отчета о состоянии системы"

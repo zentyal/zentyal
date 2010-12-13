@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: ebox-network 0.12\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-08-29 01:25+0200\n"
-"PO-Revision-Date: 2010-08-11 13:25+0200\n"
+"PO-Revision-Date: 2010-08-31 08:25+0200\n"
 "Last-Translator: Val Budkin <valentin@ktc-ua.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
-"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/Event/Watcher/Gateways.pm:150
@@ -426,10 +426,10 @@ msgid "static route"
 msgstr "статические маршруты"
 
 #: src/EBox/Model/DNSResolver.pm:77
-#, fuzzy
 msgid "IP address of the DNS server that Zentyal will use to resolve names."
 msgstr ""
-"IP-адрес DNS-сервера, который eBox будет использовать для разрешения имен"
+"IP-адрес DNS-сервера, который Zentyal будет использовать для разрешения "
+"имен."
 
 #: src/EBox/Model/DNSResolver.pm:83 src/templates/Wizard/network.mas:86
 #: src/templates/Wizard/network.mas:90
@@ -445,15 +445,14 @@ msgid "name server"
 msgstr "сервер имен"
 
 #: src/EBox/Model/DNSResolver.pm:110
-#, fuzzy
 msgid ""
 "<p>Here you can add the name server resolvers that Zentyal will use.</"
 "p><p>Note that these settings may be overriden if you have any network "
 "interface configured via DHCP</p>"
 msgstr ""
-"<p>Здесь вы можете добавить серверы имен которые будут использованы eBox.</"
-"p><p>Замечание данные параметры могут быть перезаписаны, если како-либо "
-"интерфейс настраивается по DHCP</p>"
+"<p>Здесь вы можете добавить DNS-серверы,которые будут использованы "
+"Zentyal.</p><p>Заметьте, эти параметры могут быть перезаписаны, если для "
+"какого-либо интерфейса настроен DHCP</p>"
 
 #: src/EBox/Model/WANFailoverOptions.pm:71
 msgid "Time between checks"
@@ -472,23 +471,24 @@ msgid "These options affect to all the tests."
 msgstr "Эти парметры влияют на все тесты"
 
 #: src/EBox/Model/Proxy.pm:72
-#, fuzzy
 msgid "Proxy server"
-msgstr "сервер имен"
+msgstr "прокси сервер"
 
 #: src/EBox/Model/Proxy.pm:78
 msgid "Proxy port"
-msgstr ""
+msgstr "порт прокси"
 
 #: src/EBox/Model/Proxy.pm:86
 msgid "Proxy"
-msgstr ""
+msgstr "Прокси"
 
 #: src/EBox/Model/Proxy.pm:90
 msgid ""
 "This settings will be used to allow Zentyal to access the Internet if an "
 "HTTP proxy is needed."
 msgstr ""
+"Эта настройка предназначена для того чтобы Zentyal использовал интернет с "
+"помощью HTTP прокси."
 
 #: src/EBox/Model/MultiGwRulesOptions.pm:43
 msgid "Enable"
@@ -527,55 +527,48 @@ msgstr ""
 "список маршрутов по умолчанию вы должны включить:  "
 
 #: src/EBox/Network.pm:106
-#, fuzzy
 msgid "Enable Zentyal DHCP hook"
-msgstr "Включить eBox перехватчик DHCP "
+msgstr "Включить перехватчик DHCP Zentyal"
 
 #: src/EBox/Network.pm:107
 msgid ""
 "It will take care of adding the default route given by a DHCP server to the "
 "default route table. "
 msgstr ""
-"Это будет заботиться о добавлении маршрута по умолчанию получаемому по DHCP "
-"в таблицу маршрутов по умолчанию "
+"Для добавления маршрута по умолчанию из DHCP в таблицу маршрутов по "
+"умолчанию."
 
 #: src/EBox/Network.pm:125
-#, fuzzy
 msgid "Zentyal will set your network configuration"
-msgstr "eBox установит конфигурацию сети"
+msgstr "Zentyal установит конфигурацию сети."
 
 #: src/EBox/Network.pm:130
-#, fuzzy
 msgid "Zentyal will set your DNS configuration"
-msgstr "eBox установит DNS конфигурацию"
+msgstr "Zentyal установит DNS конфигурацию"
 
 #: src/EBox/Network.pm:135
-#, fuzzy
 msgid "Zentyal will set your DHCP client configuration"
-msgstr "eBox установит конфигурацию DHCP клиента"
+msgstr "Zentyal установит конфигурацию DHCP клиента"
 
 #: src/EBox/Network.pm:140 src/EBox/Network.pm:145
-#, fuzzy
 msgid "Zentyal will set your ddclient configuration"
-msgstr "eBox установит конфигурацию ddclient"
+msgstr "Zentyal установит конфигурацию ddclient"
 
 #: src/EBox/Network.pm:150 src/EBox/Network.pm:155
-#, fuzzy
 msgid "Zentyal will store your PPPoE passwords"
-msgstr "Ebox запомнит пароли PPPoE"
+msgstr "Zentyal запомнит пароли PPPoE"
 
 #: src/EBox/Network.pm:162
-#, fuzzy
 msgid "Zentyal will add a DSL provider configuration for PPPoE"
-msgstr "eBox добавит конфигурацию провайдера DSL для PPPoE"
+msgstr "Zentyal добавит конфигурацию DSL-провайдера для PPPoE"
 
 #: src/EBox/Network.pm:169
 msgid "Zentyal will set HTTP proxy for all users"
-msgstr ""
+msgstr "Zentyal установит HTTP прокси для всех пользователей"
 
 #: src/EBox/Network.pm:172
 msgid "Zentyal will set HTTP proxy for APT"
-msgstr ""
+msgstr "Zentyal установит HTTP прокси для APT"
 
 #: src/EBox/Network.pm:902 src/EBox/Network.pm:906
 msgid "Virtual interface name"
@@ -709,9 +702,8 @@ msgid "Traffic rate monitoring"
 msgstr "Мониторинг трафика"
 
 #: src/EBox/Network/Composite/Gateway.pm:56
-#, fuzzy
 msgid "Gateways and Proxy"
-msgstr "Шлюзы"
+msgstr "Шлюзы и прокси"
 
 #: src/EBox/Network/Composite/WANFailover.pm:77
 msgid ""
@@ -871,7 +863,6 @@ msgid "virtual interface name"
 msgstr "имя вирт. интерфейса"
 
 #: src/templates/Wizard/interfaces.mas:7 src/templates/Wizard/network.mas:23
-#, fuzzy
 msgid "Network interfaces"
 msgstr "Сетевые интерфейсы"
 
@@ -883,24 +874,24 @@ msgstr "Выберите внешние сетевые интерфейсы"
 msgid ""
 "You will not be able to connect to Zentyal administration page through them"
 msgstr ""
+"С помощью них вы не сможете подключиться к страницам администрирования "
+"Zentyal "
 
 #: src/templates/Wizard/network.mas:26
-#, fuzzy
 msgid "Configure network for external interfaces"
-msgstr "Настроить сетевые интерфейсы"
+msgstr "Настроить сеть для внешних интерфейсов"
 
 #: src/templates/Wizard/network.mas:27
 msgid "Now you can set IP addresses and networks for each interface"
-msgstr ""
+msgstr "Теперь вы можете установить IP-адреса и сети для каждого интерфейса"
 
 #: src/templates/Wizard/network.mas:40 src/templates/ifaces.mas:45
 msgid "Method"
 msgstr "Метод"
 
 #: src/templates/Wizard/network.mas:43
-#, fuzzy
 msgid "Don't configure"
-msgstr "DNS сконфигурирован"
+msgstr "Не настраивайте"
 
 #: src/templates/Wizard/network.mas:82
 msgid "Gateway"
@@ -1008,7 +999,7 @@ msgstr "Магистраль (802.1q)"
 
 #: src/templates/ifaces.mas:80 src/templates/ifaces.mas:82
 msgid "Bridged"
-msgstr ""
+msgstr "Мост"
 
 #: src/templates/ifaces.mas:87 src/templates/ifaces.mas:89
 msgid "Not set"
@@ -1019,13 +1010,12 @@ msgid "External (WAN)"
 msgstr "Внешний (WAN)"
 
 #: src/templates/ifaces.mas:111
-#, fuzzy
 msgid ""
 "Check this if you are using Zentyal as a gateway and this interface is "
 "connected to your Internet router."
 msgstr ""
-"Выделите, если вы используете eBox в качестве шлюза, и данный интерфейс "
-"подключен к вашему провайдеру."
+"Отметьте, если вы используете Zentyal в качестве шлюза, и этот  интерфейс "
+"подключен к вашему интернет-провайдеру."
 
 #: src/templates/ifaces.mas:168
 msgid "Bridge"
