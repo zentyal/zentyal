@@ -6,6 +6,7 @@ echo ""
 echo ""
 echo -n "POTFILES_PL = "
 find . \( -path ./tools -prune -o -path ./doc -prune -o -name "*.pm" -o -name "*.pm.in" -o -wholename "./migration/*.pl" \) -type f -exec echo -ne \\\\\\\n {}" " \;
+echo -n " tools/restore-tool tools/ebox-remote-ebackup tools/restore-logs"
 echo ""
 echo ""
 echo -n "POTFILES = "

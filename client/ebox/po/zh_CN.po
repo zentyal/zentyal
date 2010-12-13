@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox 0.12\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-12-13 08:39+0100\n"
+"POT-Creation-Date: 2010-12-13 09:37+0100\n"
 "PO-Revision-Date: 2010-12-02 03:03+0100\n"
 "Last-Translator: NiZhiqiang <nessus@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
@@ -560,8 +560,8 @@ msgid "The module was restarted correctly."
 msgstr "模块成功重启"
 
 #: src/EBox/CGI/EBox/RestartService.pm:58
-msgid ""
-"Error restarting service. See /var/log/ebox/ebox.log for more information."
+#, perl-brace-format
+msgid "Error restarting service. See {logs} for more information."
 msgstr ""
 
 #: src/EBox/CGI/EBox/Hostname.pm:48
@@ -1020,7 +1020,7 @@ msgstr ""
 
 #: src/EBox/PgDBEngine.pm:479
 msgid ""
-"Databse dump file not found. Maybe the backup you are trying to restore was "
+"Database dump file not found. Maybe the backup you are trying to restore was "
 "made in sliced mode?"
 msgstr ""
 
@@ -1081,7 +1081,7 @@ msgstr "设定值内选择一个值：{set}"
 #: src/EBox/Logs/SlicedBackup.pm:104
 #, perl-brace-format
 msgid ""
-"There are {n} log slices not stored; wait or force its storeage and retry"
+"There are {n} log slices not stored; wait or force its storage and retry"
 msgstr ""
 
 #: src/EBox/Logs/SlicedBackup.pm:133 src/EBox/Logs/SlicedBackup.pm:141
@@ -1089,7 +1089,7 @@ msgid "Backup slice time interval"
 msgstr ""
 
 #: src/EBox/Logs/SlicedBackup.pm:438
-msgid "Slices to br archived at once"
+msgid "Slices to be archived at once"
 msgstr ""
 
 #: src/EBox/Logs/SlicedBackup.pm:445
@@ -1495,7 +1495,7 @@ msgstr "硬盘没有足够的空间用于恢复进程。需要{size}Kb。清理�
 
 #: src/EBox/Backup.pm:1187
 #, fuzzy
-msgid "Could not unpack the etc files  archive backup"
+msgid "Could not unpack the etc files archive backup"
 msgstr "无法解包备份文件"
 
 #: src/EBox/Backup.pm:1327

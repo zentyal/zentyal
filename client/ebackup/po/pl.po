@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-ebackup 1.3.3\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-12-13 08:39+0100\n"
+"POT-Creation-Date: 2010-12-13 09:37+0100\n"
 "PO-Revision-Date: 2010-08-28 23:09+0200\n"
 "Last-Translator: Robert Brzozowski <gnutar1@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
@@ -131,7 +131,7 @@ msgstr "Wyłączono"
 msgid "Domains to back up"
 msgstr ""
 
-#: src/EBox/Model/BackupDomains.pm:182
+#: src/EBox/Model/BackupDomains.pm:182 tools/restore-tool:255
 #, fuzzy
 msgid "Backup domain"
 msgstr "Data Utworzenia Kopii"
@@ -173,7 +173,7 @@ msgstr "Status Kopii Zdalnej"
 msgid "Type"
 msgstr "Typ"
 
-#: src/EBox/Model/RemoteStatus.pm:143
+#: src/EBox/Model/RemoteStatus.pm:143 tools/restore-tool:1230
 msgid "Date"
 msgstr "Data"
 
@@ -539,6 +539,496 @@ msgstr "Przywróć usługi"
 #: src/EBox/Composite/RemoteGeneral.pm:66
 msgid "Configuration and Status"
 msgstr "Konfiguracja i Status"
+
+#: tools/restore-tool:66
+#, perl-brace-format
+msgid "Module {mod} should be installed"
+msgstr ""
+
+#: tools/restore-tool:74
+#, perl-brace-format
+msgid "Module {mod} should be configured"
+msgstr ""
+
+#: tools/restore-tool:85
+msgid "Zentyal Cloud User"
+msgstr ""
+
+#: tools/restore-tool:87
+msgid "Zentyal Cloud User: "
+msgstr ""
+
+#: tools/restore-tool:95
+msgid "Zentyal Cloud Password"
+msgstr ""
+
+#: tools/restore-tool:97
+msgid "Zentyal Cloud Password: "
+msgstr ""
+
+#: tools/restore-tool:108
+msgid "Choose the server to restore"
+msgstr ""
+
+#: tools/restore-tool:109
+msgid "Server"
+msgstr ""
+
+#: tools/restore-tool:113
+#, fuzzy
+msgid "Server to restore: "
+msgstr "Przywróć usługi"
+
+#: tools/restore-tool:146
+#, perl-brace-format
+msgid "What encryption mode was used for the backups of {cn}?"
+msgstr ""
+
+#: tools/restore-tool:152
+#, fuzzy
+msgid "No encryption"
+msgstr "Szyfrowanie"
+
+#: tools/restore-tool:153
+#, fuzzy
+msgid "Symmetric password"
+msgstr "Klucz symetryczny"
+
+#: tools/restore-tool:166
+#, fuzzy
+msgid "Mode"
+msgstr "Metoda"
+
+#: tools/restore-tool:173
+#, perl-brace-format
+msgid "Available options: {ops}"
+msgstr ""
+
+#: tools/restore-tool:177
+msgid "Enter selected option: "
+msgstr ""
+
+#: tools/restore-tool:194
+#, perl-brace-format
+msgid "Enter symmetric password used to back up {ser}: "
+msgstr ""
+
+#: tools/restore-tool:211
+#, perl-brace-format
+msgid "Enter ID of encryption key used to back up {ser}"
+msgstr ""
+
+#: tools/restore-tool:228
+#, perl-brace-format
+msgid "Enter passphrase for GPG key {id}"
+msgstr ""
+
+#: tools/restore-tool:254
+msgid "Select backup domains to restore"
+msgstr ""
+
+#: tools/restore-tool:263
+#, perl-brace-format
+msgid "Backup domains available in this server: {l}"
+msgstr ""
+
+#: tools/restore-tool:275
+msgid "No backup domain selected to restore. Doing nothing"
+msgstr ""
+
+#: tools/restore-tool:300
+msgid "Retrieving registered servers list"
+msgstr ""
+
+#: tools/restore-tool:342
+msgid "No key passphrase"
+msgstr ""
+
+#: tools/restore-tool:349
+msgid "No password in retrieved credentials"
+msgstr ""
+
+#: tools/restore-tool:361
+msgid "Retrieving account information"
+msgstr ""
+
+#: tools/restore-tool:427
+msgid "No registered Zentyal Servers"
+msgstr ""
+
+#: tools/restore-tool:433
+msgid "Registered Zentyal Servers"
+msgstr ""
+
+#: tools/restore-tool:486
+#, fuzzy
+msgid "Restoring files"
+msgstr "Przywróć pliki"
+
+#: tools/restore-tool:516
+#, perl-brace-format
+msgid ""
+"Cannot restore file {file} requested by backup domains. Reason: {reason}"
+msgstr ""
+
+#: tools/restore-tool:536
+msgid "Backup log data not found, log database will not be restored"
+msgstr ""
+
+#: tools/restore-tool:541
+#, fuzzy
+msgid "Restoring log database"
+msgstr "Przywróć bazę logów"
+
+#: tools/restore-tool:559
+#, fuzzy
+msgid "Restoring configuration backup"
+msgstr "Przywróć ustawienia Zentyala z plików kopii zapasowej"
+
+#: tools/restore-tool:563 tools/restore-tool:1893
+msgid "Unknown error"
+msgstr ""
+
+#: tools/restore-tool:565
+msgid ""
+"The configuration restore failed. We will continue the process to try to "
+"restore as much as possible but your system will need manual tweaking"
+msgstr ""
+
+#: tools/restore-tool:580
+msgid "Checking configuration compability"
+msgstr ""
+
+#: tools/restore-tool:637
+#, perl-brace-format
+msgid ""
+"Cannot restore backup because there are less interfaces than there are "
+"available. The missing interfaces are: {missing}"
+msgstr ""
+
+#: tools/restore-tool:689
+msgid "Updating software package lists"
+msgstr ""
+
+#: tools/restore-tool:734
+msgid "Installing Zentyal components and their dependencies"
+msgstr ""
+
+#: tools/restore-tool:797
+#, perl-brace-format
+msgid ""
+"Error installing packages: {err}. You can continue but you would not restore "
+"any data for the missing packages"
+msgstr ""
+
+#: tools/restore-tool:802
+msgid ""
+"Error installing packages. You can continue but you would not restore any "
+"data for the missing packages"
+msgstr ""
+
+#: tools/restore-tool:873
+msgid ""
+"Updating package list to allow access to exclusive Zentyal Cloud packages"
+msgstr ""
+
+#: tools/restore-tool:875
+msgid "Install cloud packages"
+msgstr ""
+
+#: tools/restore-tool:889
+msgid "Downloading subscription data"
+msgstr ""
+
+#: tools/restore-tool:908
+msgid ""
+"Connection error when retrieving subscription bundle. Zentyal Cloud "
+"exclusive packages will not be installed"
+msgstr ""
+
+#: tools/restore-tool:913
+msgid ""
+"Cannot retrieve bundle because either installed ebox-remoteservices is "
+"outdated or only outdated bundle is available in the cloud. Zentyal Cloud "
+"exclusive packages will not be installed"
+msgstr ""
+
+#: tools/restore-tool:917
+msgid ""
+"Unknown error retrieving subscription bundle. Zentyal Cloud exclusive "
+"packages will not be installed"
+msgstr ""
+
+#: tools/restore-tool:967
+#, fuzzy
+msgid "Configuring modules"
+msgstr "Konfiguracja i Status"
+
+#: tools/restore-tool:991
+#, perl-format, perl-brace-format
+msgid "Configuring modules {p}% done. Current module {mod}"
+msgstr ""
+
+#: tools/restore-tool:1012
+#, perl-brace-format
+msgid ""
+"Failed to configure module {name}: {err}. This could affect to the restore "
+"from other modules"
+msgstr ""
+
+#: tools/restore-tool:1028
+msgid "Finishing new modules configuration"
+msgstr ""
+
+#: tools/restore-tool:1062
+msgid "Downloading the backup data and configuration"
+msgstr ""
+
+#: tools/restore-tool:1099
+#, fuzzy
+msgid "Downloading configuration"
+msgstr "Konfiguracja ogólna"
+
+#: tools/restore-tool:1124
+msgid "Retrieving backup collection status ..."
+msgstr ""
+
+#: tools/restore-tool:1144 tools/restore-tool:1215
+#, perl-brace-format
+msgid "Last backup date was: {date}"
+msgstr ""
+
+#: tools/restore-tool:1152
+#, perl-brace-format
+msgid "No backups found for server {server}"
+msgstr ""
+
+#: tools/restore-tool:1173
+#, perl-brace-format
+msgid "No automatic configuration backups were made for the server {s}"
+msgstr ""
+
+#: tools/restore-tool:1227
+#, perl-brace-format
+msgid "Choose date to restore the backup from server {cn}"
+msgstr ""
+
+#: tools/restore-tool:1252
+#, perl-brace-format
+msgid "No automatic configuration backups were done for the server {s}"
+msgstr ""
+
+#: tools/restore-tool:1275
+#, perl-brace-format
+msgid "No configuration backups were made for the date {d} in {s} server"
+msgstr ""
+
+#: tools/restore-tool:1292
+#, fuzzy, perl-brace-format
+msgid "Cannot create directory {dir}"
+msgstr "ścieżka względna (relatywna)"
+
+#: tools/restore-tool:1305
+#, perl-brace-format
+msgid "The server {server} is not registered in Zentyal Cloud"
+msgstr ""
+
+#: tools/restore-tool:1362
+#, fuzzy
+msgid "Configuration"
+msgstr "Konfiguracja ogólna"
+
+#: tools/restore-tool:1384
+#, perl-brace-format
+msgid "{domain} is not available to restore in the backup"
+msgstr ""
+
+#: tools/restore-tool:1426
+msgid "Please, enter a value"
+msgstr ""
+
+#: tools/restore-tool:1458
+#, perl-brace-format
+msgid "Backup dates for server {cn}"
+msgstr ""
+
+#: tools/restore-tool:1474
+msgid "Enter backup date to restore:"
+msgstr ""
+
+#: tools/restore-tool:1478
+#, perl-brace-format
+msgid "Invalid date: {d}. Try again"
+msgstr ""
+
+#: tools/restore-tool:1492
+#, perl-brace-format
+msgid "Warning: {msg}"
+msgstr ""
+
+#: tools/restore-tool:1527
+msgid "Zentyal Disaster Recovery"
+msgstr ""
+
+#: tools/restore-tool:1605
+msgid "This entry is mandatory to continue the restoring process. Retry"
+msgstr ""
+
+#: tools/restore-tool:1657
+#, fuzzy
+msgid "Selection"
+msgstr "Szyfrowanie"
+
+#: tools/restore-tool:1698
+msgid ""
+"This entry is mandatory to carry on the restoring process. Choose from the "
+"list"
+msgstr ""
+
+#: tools/restore-tool:1783
+#, fuzzy
+msgid "Please wait"
+msgstr "Proszę czekać..."
+
+#: tools/restore-tool:1797
+msgid "Finished"
+msgstr ""
+
+#: tools/restore-tool:1855
+msgid "Restoring process aborted upon user request"
+msgstr ""
+
+#: tools/restore-tool:1884
+#, fuzzy
+msgid "Saving configuration changes"
+msgstr "Konfiguracja i Status"
+
+#: tools/restore-tool:1895
+msgid ""
+"Error saving configuration changes; some Zentyal modules would remain in a "
+"unknown state"
+msgstr ""
+
+#: tools/restore-tool:2004
+#, fuzzy
+msgid "Restore process aborted"
+msgstr "Przywróć bazę logów"
+
+#: tools/restore-tool:2031
+msgid "User for the authentication"
+msgstr ""
+
+#: tools/restore-tool:2033
+msgid ""
+"Password for the authentication. This password will be shown both in the "
+"command line and in the process list so only use this option when security "
+"is not a concern"
+msgstr ""
+
+#: tools/restore-tool:2037
+msgid "Server from which its backup date the restore will be done"
+msgstr ""
+
+#: tools/restore-tool:2039
+msgid "Use the last backup done for the restore"
+msgstr ""
+
+#: tools/restore-tool:2041
+msgid "Backup domain to restore. It could be repeated several times"
+msgstr ""
+
+#: tools/restore-tool:2043
+msgid ""
+"Check if we use the no encryption, a symmetric scheme with password or "
+"asymmetric scheme with a private key"
+msgstr ""
+
+#: tools/restore-tool:2046
+msgid "Do not use graphical interface"
+msgstr ""
+
+#: tools/restore-tool:2071
+#, perl-brace-format
+msgid "The account {user} do not have any registered Zentyal servers"
+msgstr ""
+
+#: tools/restore-tool:2133
+#, perl-brace-format
+msgid ""
+"The following backup domains could not be restored from a basic "
+"subscription: {domains}"
+msgstr ""
+
+#: tools/restore-tool:2157
+msgid "Your full backup is now successfully restored!"
+msgstr ""
+
+#: tools/restore-tool:2159
+msgid ""
+"You can go now to the Zentyal administration interface to manage your "
+"recovered host."
+msgstr ""
+
+#: tools/restore-tool:2201
+msgid ""
+"You can only specify one of the encryption options: --symmetric-password, --"
+"encription-key and --no-encryption"
+msgstr ""
+
+#: tools/restore-tool:2219
+msgid "Zenity package not found. Falling back to terminal mode"
+msgstr ""
+
+#: tools/ebox-remote-ebackup:69
+msgid "full"
+msgstr ""
+
+#: tools/ebox-remote-ebackup:71
+msgid "incremental"
+msgstr ""
+
+#: tools/ebox-remote-ebackup:78
+#, perl-brace-format
+msgid "Zentyal {mode} backup succeeded"
+msgstr ""
+
+#: tools/ebox-remote-ebackup:83
+#, perl-brace-format
+msgid "Zentyal {mode} backup failed: {error}"
+msgstr ""
+
+#: tools/ebox-remote-ebackup:88
+#, perl-brace-format
+msgid "Zentyal {mode} backup failed"
+msgstr ""
+
+#: tools/ebox-remote-ebackup:111
+#, perl-brace-format
+msgid ""
+"Temp directory '{dir}' has {avail} MB available, backup needs approx {need} "
+"MB. Either free some space or change temporal directory and volume size "
+"settings in /etc/ebox/82ebackup.conf."
+msgstr ""
+
+#: tools/ebox-remote-ebackup:143
+#, fuzzy
+msgid "Usage:"
+msgstr "Użytkownik"
+
+#: tools/ebox-remote-ebackup:193
+#, perl-brace-format
+msgid ""
+"Configuration backup skipped because the following modules have unsaved "
+"changes: {mods}. The rest of the backup will not be affected"
+msgstr ""
+
+#: tools/ebox-remote-ebackup:244
+msgid "Another backup process is running, wait until it finish and try again"
+msgstr ""
+
+#: tools/ebox-remote-ebackup:259
+msgid "The backup module is busy, retry later"
+msgstr ""
 
 #~ msgid "GPG Key"
 #~ msgstr "Klucz GPG"

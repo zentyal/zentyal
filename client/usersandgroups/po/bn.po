@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-usersandgroups 2.0.5Report-Msgid-Bugs-To: "
 "developers@zentyal.org\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-12-13 08:43+0100\n"
+"POT-Creation-Date: 2010-12-13 09:37+0100\n"
 "PO-Revision-Date: 2010-08-25 17:50+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -294,7 +294,7 @@ msgstr ""
 #, perl-brace-format
 msgid ""
 "PAM can not be enabled on slave servers while acting as PDC. You can disable "
-"the PDC functionality at {ohref}Samba General Settings{chref}."
+"the PDC functionality at {ohref}File sharing options{chref}."
 msgstr ""
 
 #: src/EBox/UsersAndGroups/Model/PAM.pm:125
