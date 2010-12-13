@@ -101,7 +101,7 @@ sub slicedRestore
 
         unless ($force) {
             throw EBox::Exceptions::External(
-         __x('There are {n} log slices not stored; wait or force its storeage and retry',
+         __x('There are {n} log slices not stored; wait or force its storage and retry',
              n => $notStored
             )
                                         );
@@ -435,7 +435,7 @@ sub archive
                                                 );
     ($limit > 0) or
         throw EBox::Exceptions::InvalidData(
-                              data => __('Slices to br archived at once'),
+                              data => __('Slices to be archived at once'),
                               value => $limit,
                                            );
 

@@ -476,7 +476,7 @@ sub restoreDB
     } else {
         if (not -e $noSlicesDumpFile) {
             throw EBox::Exceptions::External(
-  __('Databse dump file not found. Maybe the backup you are trying to restore was made in sliced mode?')
+  __('Database dump file not found. Maybe the backup you are trying to restore was made in sliced mode?')
                                             );
         }
 

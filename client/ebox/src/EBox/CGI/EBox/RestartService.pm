@@ -55,7 +55,7 @@ sub _process
     } catch EBox::Exceptions::Internal with {
         my ($ex) = @_;
         EBox::error("Restart of $mod from dashboard failed: " . $ex->text);
-        $self->{msg} = __('Error restarting service. See /var/log/ebox/ebox.log for more information.');
+        $self->{msg} = __x('Error restarting service. See {logs} for more information.', logs => '/var/log/ebox/ebox.log');
     };
     $self->cgi()->delete_all();
 }

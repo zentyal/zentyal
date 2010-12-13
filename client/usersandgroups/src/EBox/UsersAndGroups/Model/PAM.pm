@@ -79,7 +79,7 @@ sub validateTypedRow
     my $pdc = $samba->pdc();
 
     if ($pam and $pdc) {
-        throw EBox::Exceptions::External(__x('PAM can not be enabled on slave servers while acting as PDC. You can disable the PDC functionality at {ohref}Samba General Settings{chref}.',
+        throw EBox::Exceptions::External(__x('PAM can not be enabled on slave servers while acting as PDC. You can disable the PDC functionality at {ohref}File sharing options{chref}.',
 ohref => q{<a href='/ebox/Samba/Composite/General/'>},
 chref => q{</a>}));
     }

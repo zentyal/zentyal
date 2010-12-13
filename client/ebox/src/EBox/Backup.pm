@@ -1184,7 +1184,7 @@ sub _restoreEBoxEtcFiles
     if ($? != 0) {
         system "rm -rf '$tmpEtc'";
         throw EBox::Exceptions::External(
-                __('Could not unpack the etc files  archive backup')
+                __('Could not unpack the etc files archive backup')
                 );
     }
 
