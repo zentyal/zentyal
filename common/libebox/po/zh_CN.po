@@ -7,224 +7,224 @@ msgstr ""
 "Project-Id-Version: libebox 0.12.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-08-28 19:44+0200\n"
-"PO-Revision-Date: 2005-11-26 18:37+0100\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2010-11-02 02:33+0100\n"
+"Last-Translator: NiZhiqiang <nessus@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Translate Toolkit 0.10.1\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/Config.pm.in:74
 #, perl-brace-format
 msgid "Could not open the config file {file}."
-msgstr ""
+msgstr "无法打开配置文件{file}."
 
 #: src/EBox/Config.pm.in:169
 msgid "The ebox user has not been set in the config file."
-msgstr ""
+msgstr "没有在配置文件中设置ebox用户."
 
 #: src/EBox/Exceptions/DataNotFound.pm:35
 #, perl-brace-format
 msgid "{data} {value} does not exist."
-msgstr ""
+msgstr "{data} {value} 不存在."
 
 #: src/EBox/Exceptions/DataExists.pm:36
 #, perl-brace-format
 msgid "{data} {value} already exists."
-msgstr ""
+msgstr "{data} {value} 已经存在."
 
 #: src/EBox/Exceptions/InvalidData.pm:37
 #, perl-brace-format
 msgid "Invalid value for {data}: {value}."
-msgstr ""
+msgstr "{data}的无效值: {value}."
 
 #: src/EBox/Exceptions/DataMissing.pm:36
 #, perl-brace-format
 msgid "{data} is empty."
-msgstr ""
+msgstr "{data}为空."
 
 #: src/EBox/Validate.pm:396 src/EBox/Validate.pm:410
 msgid "Must be a number between 1 and 4096"
-msgstr ""
+msgstr "必须是介于1到4096的数字"
 
 #: src/EBox/Validate.pm:700
 #, perl-brace-format
 msgid ""
 "Cannot stat dir: {dir}. This may mean that the directory does not exist or "
 "the permissions forbid access to it"
-msgstr ""
+msgstr "无法获取目录{dir}的状态. 这可能是因为目录不存在或没有访问权限."
 
 #: src/EBox/Validate.pm:705
 #, perl-brace-format
 msgid "The directory {dir} is not private; because it is owned by another user"
-msgstr ""
+msgstr "目录{dir}不是私有的，因为它的所有者是其它用户"
 
 #: src/EBox/Validate.pm:780
 msgid ""
 "The file path supplied is not valid. (Currently not all of the valid file's  "
 "characters are supported) "
-msgstr ""
+msgstr "文件路径支持无效. (当前不能有效支持所有文件的字符)"
 
 #: src/EBox/Validate.pm:808
 msgid "The file path must be absolute"
-msgstr ""
+msgstr "必须是绝对路径"
 
 #: src/EBox/Sudo.pm:265
 #, perl-brace-format
 msgid "Running command '{cmd}' as {user} failed"
-msgstr ""
+msgstr "以用户{user}运行命令'{cmd}'失败"
 
 #: src/EBox/FileSystem.pm:190 src/EBox/FileSystem.pm:282
 #, perl-brace-format
 msgid "Directory not found: {d}"
-msgstr ""
+msgstr "没找到目录: {d}"
 
 #: src/EBox/NetWrappers.pm:105 src/EBox/NetWrappers.pm:134
 #: src/EBox/NetWrappers.pm:165 src/EBox/NetWrappers.pm:267
 msgid "Interface"
-msgstr ""
+msgstr "接口"
 
 #: src/EBox/CGI/EBox/PageNotFound.pm:27
 msgid "Page not found"
-msgstr ""
+msgstr "没找到页面"
 
 #: src/EBox/CGI/Base.pm:196
 msgid ""
 "The input contains invalid characters. All alphanumeric characters, plus "
 "these non alphanumeric chars: /.?&+:-@ and spaces are allowed."
-msgstr ""
+msgstr "输入中包含无效字符。只允许所有字母和数字，以及/.?&+:-@和空格。"
 
 #: src/EBox/CGI/Base.pm:347
 msgid ""
 "An internal error related to a template has occurred. This is a bug, "
 "relevant information can be found in the logs."
-msgstr ""
+msgstr "模板发生内部错误。这是一个bug，相关信息可以在日志中找到。"
 
 #: src/EBox/CGI/Base.pm:564
 msgid ""
 "An internal error has occurred. This is most probably a bug, relevant "
 "information can be found in the logs."
-msgstr ""
+msgstr "发生内部错误。这是一个bug，相关信息可以在日志中找到。"
 
 #: src/EBox/CGI/Base.pm:570
 msgid ""
 "An unexpected internal error has occurred. This is a bug, relevant "
 "information can be found in the logs."
-msgstr ""
+msgstr "发生不可预知内部错误。这是一个bug，相关信息可以在日志中找到。"
 
 #: src/EBox/CGI/Base.pm:576
 msgid "You have just hit a bug in Zentyal. Please seek technical support."
-msgstr ""
+msgstr "您刚刚遇到Zentyal的一个bug，请联系技术支持。"
 
 #: src/EBox/CGI/Base.pm:662
 msgid ""
 "Your request could not be processed because it had some incorrect parameters"
-msgstr ""
+msgstr "因为存在无效参数，你的请求将不予处理。"
 
 #: src/EBox/CGI/Base.pm:695
 msgid "Wrong HTTP referer detected, operation cancelled for security reasons"
-msgstr ""
+msgstr "检测到错误的HTTP referer，由于安全原因取消操作。"
 
 #: src/EBox/CGI/Base.pm:707
 msgid ""
 "Your request could not be processed because it lacked some required "
 "parameters"
-msgstr ""
+msgstr "由于缺少某些必需的参数，您的请求不会被处理。"
 
 #: src/EBox/CGI/Base.pm:858
 msgid "Invalid uploaded file."
-msgstr ""
+msgstr "无效的上传文件。"
 
 #: src/EBox/CGI/Base.pm:864
 msgid "Cannot create a temporally file for the upload"
-msgstr ""
+msgstr "无法创建用于上传的临时文件"
 
 #: src/templates/language.mas:10
 msgid "Language Selection"
-msgstr ""
+msgstr "选择语言"
 
 #: src/templates/language.mas:11
 msgid ""
 "Language changes happen automatically, saving the configuration it's not "
 "needed."
-msgstr ""
+msgstr "语言切换会自动进行，无须保存配置。"
 
 #: src/templates/language.mas:23 src/templates/ajax/tableBody.mas:348
 #: src/templates/enable.mas:29 src/templates/enable.mas:30
 msgid "Change"
-msgstr ""
+msgstr "修改"
 
 #: src/templates/title.mas:24
 msgid "show help"
-msgstr ""
+msgstr "显示帮助"
 
 #: src/templates/title.mas:25
 msgid "hide help"
-msgstr ""
+msgstr "隐藏帮助"
 
 #: src/templates/ebox/pageNotFound.mas:3
 msgid "Zentyal homepage"
-msgstr ""
+msgstr "Zentyal主页"
 
 #: src/templates/ebox/pageNotFound.mas:7
 msgid "If you typed the URL manually, please check it"
-msgstr ""
+msgstr "如果您是手工输入的URL，请仔细检查一下"
 
 #: src/templates/ebox/pageNotFound.mas:8
 msgid ""
 "Maybe a change in the Zentyal configuration or software made no longer "
 "available the requested page"
-msgstr ""
+msgstr "可能Zentyal的配置发生了变化，或者软件不再生成请求的页面"
 
 #: src/templates/ebox/pageNotFound.mas:9
 #, perl-brace-format
 msgid ""
 "If you need more help, you may want visit {homepage} for documentation and "
 "mailing lists"
-msgstr ""
+msgstr "如果您需要更多帮助，请访问文档{homepage}和邮件列表"
 
 #: src/templates/ebox/pageNotFound.mas:12
 msgid "we're sorry"
-msgstr ""
+msgstr "我们很抱歉"
 
 #: src/templates/ebox/pageNotFound.mas:13
 msgid "The page cannot be found"
-msgstr ""
+msgstr "无法找到页面"
 
 #: src/templates/ajax/setter/inverseMatchUnionSetter.mas:9
 #: src/templates/ajax/setter/inverseMatchSelectSetter.mas:13
 msgid "Inverse match"
-msgstr ""
+msgstr "反向匹配"
 
 #: src/templates/ajax/setter/portRangeSetter.mas:23
 msgid "From"
-msgstr ""
+msgstr "从"
 
 #: src/templates/ajax/setter/portRangeSetter.mas:29
 msgid "To"
-msgstr ""
+msgstr "到"
 
 #: src/templates/ajax/setter/serviceSetter.mas:25
 msgid "port"
-msgstr ""
+msgstr "端口"
 
 #: src/templates/ajax/viewer/file.mas:22 src/templates/ajax/viewer/file.mas:33
 msgid "Download"
-msgstr ""
+msgstr "下载"
 
 #: src/templates/ajax/viewer/file.mas:26
 msgid "Remove"
-msgstr ""
+msgstr "删除"
 
 #: src/templates/ajax/modelViewer.mas:256 src/templates/formTable.mas:85
 msgid "Optional"
-msgstr ""
+msgstr "可选"
 
 #: src/templates/ajax/tablePager.mas:46
 msgid "Page"
-msgstr ""
+msgstr "页面"
 
 #: src/templates/ajax/tablePager.mas:47
 msgid "of"
@@ -232,80 +232,80 @@ msgstr ""
 
 #: src/templates/ajax/tablePager.mas:60 src/templates/ajax/tablePager.mas:66
 msgid "first"
-msgstr ""
+msgstr "第一页"
 
 #: src/templates/ajax/tablePager.mas:62 src/templates/ajax/tablePager.mas:67
 msgid "prev"
-msgstr ""
+msgstr "上一页"
 
 #: src/templates/ajax/tablePager.mas:73 src/templates/ajax/tablePager.mas:74
 #: src/templates/ajax/tablePager.mas:85 src/templates/ajax/tablePager.mas:86
 msgid "next"
-msgstr ""
+msgstr "下一页"
 
 #: src/templates/ajax/tablePager.mas:79 src/templates/ajax/tablePager.mas:80
 #: src/templates/ajax/tablePager.mas:89 src/templates/ajax/tablePager.mas:90
 msgid "last"
-msgstr ""
+msgstr "最后"
 
 #: src/templates/ajax/tableSelector.mas:14
 msgid "Choose one of the options to show the associated table"
-msgstr ""
+msgstr "选择一个选项来显示相应的表"
 
 #: src/templates/ajax/tableSelector.mas:32
 msgid "Choose one..."
-msgstr ""
+msgstr "选择一个..."
 
 #: src/templates/ajax/tableBody.mas:117
 msgid "Add new"
-msgstr ""
+msgstr "新建"
 
 #: src/templates/ajax/tableBody.mas:128
 #, perl-brace-format
 msgid "Adding a new {row}"
-msgstr ""
+msgstr "新建{row}"
 
 #: src/templates/ajax/tableBody.mas:134
 #, perl-brace-format
 msgid "Editing {row}"
-msgstr ""
+msgstr "编辑{row}"
 
 #: src/templates/ajax/tableBody.mas:190
 msgid "Search"
-msgstr ""
+msgstr "搜索"
 
 #: src/templates/ajax/tableBody.mas:336
 msgid "Add"
-msgstr ""
+msgstr "添加"
 
 #: src/templates/ajax/tableBody.mas:360
 msgid "Cancel"
-msgstr ""
+msgstr "取消"
 
 #: src/templates/ajax/tableBody.mas:440
 msgid "Edit"
-msgstr ""
+msgstr "编辑"
 
 #: src/templates/ajax/tableBody.mas:442
 msgid "Delete"
-msgstr ""
+msgstr "删除"
 
 #: src/templates/ajax/tableBody.mas:447
 msgid "Read-only row: edit disabled"
-msgstr ""
+msgstr "只读行：禁止编辑"
 
 #: src/templates/ajax/tableBody.mas:448
 msgid "Read-only row: delete disabled"
-msgstr ""
+msgstr "只读行：禁止删除"
 
 #: src/templates/enable.mas:9
 msgid "Service configuration"
-msgstr ""
+msgstr "服务配置"
 
 #: src/templates/enable.mas:21 src/templates/enable.mas:24
 msgid "Disabled"
-msgstr ""
+msgstr "禁用"
 
 #: src/templates/enable.mas:22 src/templates/enable.mas:25
 msgid "Enabled"
-msgstr ""
+msgstr "启用"

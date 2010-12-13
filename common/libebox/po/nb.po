@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: libebox 0.12.99\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-08-28 19:44+0200\n"
-"PO-Revision-Date: 2010-02-03 21:34+0100\n"
-"Last-Translator: John Martin <john.martin@musicus.no>\n"
+"PO-Revision-Date: 2010-10-08 13:25+0200\n"
+"Last-Translator: Ronny Gonzales <ronny@kcl.no>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -128,9 +128,9 @@ msgstr ""
 "informasjon kan bli funnet i loggene."
 
 #: src/EBox/CGI/Base.pm:576
-#, fuzzy
 msgid "You have just hit a bug in Zentyal. Please seek technical support."
-msgstr "Du har truffet en feil i eBox. Vennligst oppsøkt teknisk brukerstøtte."
+msgstr ""
+"Du har truffet en feil i Zentyal. Vennligst oppsøkt teknisk brukerstøtte."
 
 #: src/EBox/CGI/Base.pm:662
 msgid ""
@@ -140,7 +140,7 @@ msgstr ""
 
 #: src/EBox/CGI/Base.pm:695
 msgid "Wrong HTTP referer detected, operation cancelled for security reasons"
-msgstr ""
+msgstr "Feil HTTP referanse oppdaget, utføring avbrutt av sikkerhets grunner"
 
 #: src/EBox/CGI/Base.pm:707
 msgid ""
@@ -183,21 +183,19 @@ msgid "hide help"
 msgstr "skul hjelp"
 
 #: src/templates/ebox/pageNotFound.mas:3
-#, fuzzy
 msgid "Zentyal homepage"
-msgstr "eBox sin hjemmeside"
+msgstr "Zentyal sin hjemmeside"
 
 #: src/templates/ebox/pageNotFound.mas:7
 msgid "If you typed the URL manually, please check it"
 msgstr "Hvis du skre inn URL manuelt, vennligst sjekk den"
 
 #: src/templates/ebox/pageNotFound.mas:8
-#, fuzzy
 msgid ""
 "Maybe a change in the Zentyal configuration or software made no longer "
 "available the requested page"
 msgstr ""
-"Kansje en endring i eBox sin konfigurasjon eller en programvare stoppet "
+"Kansje en endring i Zentyal sin konfigurasjon eller en programvare stoppet "
 "tilgangen til forespurt side"
 
 #: src/templates/ebox/pageNotFound.mas:9
