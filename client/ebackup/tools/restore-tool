@@ -36,6 +36,8 @@ use Time::Piece;
 use String::ShellQuote ;
 use YAML::Tiny;
 
+use constant FIRST_RUN_FILE => '/var/lib/ebox/.first';
+
 my $usesX = 1; # flag to signal whether graphical environment is available
 
 #  XXX problem when isntalled
@@ -2285,6 +2287,9 @@ try {
         _xhostUnallowLocal();
     }
 
+    if (-f FIRST_RUN_FILE ) {
+        unlink FIRST_RUN_FILE;
+    }
 };
 
 1;
