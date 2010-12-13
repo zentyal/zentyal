@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-ebackup 1.3.3\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-12-13 09:37+0100\n"
+"POT-Creation-Date: 2010-12-13 10:31+0100\n"
 "PO-Revision-Date: 2010-08-17 17:37+0200\n"
 "Last-Translator: Chang Chih-Wei <coldnight.tw@yahoo.com.tw>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
@@ -50,10 +50,11 @@ msgid ""
 msgstr ""
 
 #: src/EBox/EBackup.pm:1149
+#, perl-brace-format
 msgid ""
 "Could not unsubscribe because the backup module is configured to use the "
-"Zentyal Cloud. If you want to unsubscribe, you must change this <a href='/"
-"ebox/EBackup/Composite/Remote#RemoteGeneralSettings'> setting</a>."
+"Zentyal Cloud. If you want to unsubscribe, you must change this {ohref}"
+"setting{chref}."
 msgstr ""
 
 #: src/EBox/Event/Watcher/EBackup.pm:141
@@ -554,7 +555,7 @@ msgid "Zentyal Cloud User"
 msgstr ""
 
 #: tools/restore-tool:87
-msgid "Zentyal Cloud User: "
+msgid "Zentyal Cloud User:"
 msgstr ""
 
 #: tools/restore-tool:95
@@ -562,7 +563,7 @@ msgid "Zentyal Cloud Password"
 msgstr ""
 
 #: tools/restore-tool:97
-msgid "Zentyal Cloud Password: "
+msgid "Zentyal Cloud Password:"
 msgstr ""
 
 #: tools/restore-tool:108
@@ -683,7 +684,7 @@ msgstr "還原紀錄資料庫"
 msgid "Restoring configuration backup"
 msgstr "從備份中還原eBox設定"
 
-#: tools/restore-tool:563 tools/restore-tool:1893
+#: tools/restore-tool:563 tools/restore-tool:1891
 msgid "Unknown error"
 msgstr ""
 
@@ -863,115 +864,110 @@ msgstr ""
 msgid "Warning: {msg}"
 msgstr ""
 
-#: tools/restore-tool:1527
-msgid "Zentyal Disaster Recovery"
-msgstr ""
-
-#: tools/restore-tool:1605
+#: tools/restore-tool:1603
 msgid "This entry is mandatory to continue the restoring process. Retry"
 msgstr ""
 
-#: tools/restore-tool:1657
+#: tools/restore-tool:1655
 #, fuzzy
 msgid "Selection"
 msgstr "加密"
 
-#: tools/restore-tool:1698
+#: tools/restore-tool:1696
 msgid ""
 "This entry is mandatory to carry on the restoring process. Choose from the "
 "list"
 msgstr ""
 
-#: tools/restore-tool:1783
+#: tools/restore-tool:1781
 #, fuzzy
 msgid "Please wait"
 msgstr "請等待..."
 
-#: tools/restore-tool:1797
+#: tools/restore-tool:1795
 msgid "Finished"
 msgstr ""
 
-#: tools/restore-tool:1855
+#: tools/restore-tool:1853
 msgid "Restoring process aborted upon user request"
 msgstr ""
 
-#: tools/restore-tool:1884
+#: tools/restore-tool:1882
 msgid "Saving configuration changes"
 msgstr ""
 
-#: tools/restore-tool:1895
+#: tools/restore-tool:1893
 msgid ""
 "Error saving configuration changes; some Zentyal modules would remain in a "
 "unknown state"
 msgstr ""
 
-#: tools/restore-tool:2004
+#: tools/restore-tool:2002
 #, fuzzy
 msgid "Restore process aborted"
 msgstr "還原紀錄資料庫"
 
-#: tools/restore-tool:2031
+#: tools/restore-tool:2029
 msgid "User for the authentication"
 msgstr ""
 
-#: tools/restore-tool:2033
+#: tools/restore-tool:2031
 msgid ""
 "Password for the authentication. This password will be shown both in the "
 "command line and in the process list so only use this option when security "
 "is not a concern"
 msgstr ""
 
-#: tools/restore-tool:2037
+#: tools/restore-tool:2035
 msgid "Server from which its backup date the restore will be done"
 msgstr ""
 
-#: tools/restore-tool:2039
+#: tools/restore-tool:2037
 msgid "Use the last backup done for the restore"
 msgstr ""
 
-#: tools/restore-tool:2041
+#: tools/restore-tool:2039
 msgid "Backup domain to restore. It could be repeated several times"
 msgstr ""
 
-#: tools/restore-tool:2043
+#: tools/restore-tool:2041
 msgid ""
 "Check if we use the no encryption, a symmetric scheme with password or "
 "asymmetric scheme with a private key"
 msgstr ""
 
-#: tools/restore-tool:2046
+#: tools/restore-tool:2044
 msgid "Do not use graphical interface"
 msgstr ""
 
-#: tools/restore-tool:2071
+#: tools/restore-tool:2069
 #, perl-brace-format
 msgid "The account {user} do not have any registered Zentyal servers"
 msgstr ""
 
-#: tools/restore-tool:2133
+#: tools/restore-tool:2131
 #, perl-brace-format
 msgid ""
 "The following backup domains could not be restored from a basic "
 "subscription: {domains}"
 msgstr ""
 
-#: tools/restore-tool:2157
+#: tools/restore-tool:2155
 msgid "Your full backup is now successfully restored!"
 msgstr ""
 
-#: tools/restore-tool:2159
+#: tools/restore-tool:2157
 msgid ""
 "You can go now to the Zentyal administration interface to manage your "
 "recovered host."
 msgstr ""
 
-#: tools/restore-tool:2201
-msgid ""
-"You can only specify one of the encryption options: --symmetric-password, --"
-"encription-key and --no-encryption"
+#: tools/restore-tool:2199
+#, perl-brace-format
+msgid "You can only specify one of the encryption options: {sy}, {asy} y {no}"
 msgstr ""
 
-#: tools/restore-tool:2219
+#: tools/restore-tool:2220
 msgid "Zenity package not found. Falling back to terminal mode"
 msgstr ""
 
@@ -1003,26 +999,26 @@ msgstr ""
 msgid ""
 "Temp directory '{dir}' has {avail} MB available, backup needs approx {need} "
 "MB. Either free some space or change temporal directory and volume size "
-"settings in /etc/ebox/82ebackup.conf."
+"settings in {conf}."
 msgstr ""
 
-#: tools/ebox-remote-ebackup:143
+#: tools/ebox-remote-ebackup:144
 #, fuzzy
 msgid "Usage:"
 msgstr "使用者"
 
-#: tools/ebox-remote-ebackup:193
+#: tools/ebox-remote-ebackup:194
 #, perl-brace-format
 msgid ""
 "Configuration backup skipped because the following modules have unsaved "
 "changes: {mods}. The rest of the backup will not be affected"
 msgstr ""
 
-#: tools/ebox-remote-ebackup:244
-msgid "Another backup process is running, wait until it finish and try again"
+#: tools/ebox-remote-ebackup:245
+msgid "Another backup process is running, wait until it finishes and try again"
 msgstr ""
 
-#: tools/ebox-remote-ebackup:259
+#: tools/ebox-remote-ebackup:260
 msgid "The backup module is busy, retry later"
 msgstr ""
 
