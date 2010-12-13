@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-ids 1.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-08-28 23:35+0200\n"
+"POT-Creation-Date: 2010-12-13 08:39+0100\n"
 "PO-Revision-Date: 2010-02-26 13:32+0100\n"
 "Last-Translator: Pedro Ugartemendia <pedro@ugartemendia.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
@@ -16,74 +16,13 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: src/EBox/Model/Rules.pm:153
-msgid "Rule Set"
-msgstr "Araua ezarria"
-
-#: src/EBox/Model/Rules.pm:158 src/EBox/Model/Interfaces.pm:134
-msgid "Enabled"
-msgstr "Gaitua"
-
-#: src/EBox/Model/Rules.pm:167
-msgid "Rules"
-msgstr "Arauak"
-
-#: src/EBox/Model/Rules.pm:172
-msgid "rule"
-msgstr "araua"
-
-#: src/EBox/Model/Rules.pm:173
-msgid "help message"
-msgstr "laguntza mezua"
-
-#: src/EBox/Model/Interfaces.pm:129
-msgid "Interface"
-msgstr "Gailua"
-
-#: src/EBox/Model/Interfaces.pm:143
-msgid "Interfaces"
-msgstr "Gailuak"
-
-#: src/EBox/Model/Interfaces.pm:149
-msgid "interface"
-msgstr "gailua"
-
-#: src/EBox/Model/Interfaces.pm:151
-msgid "Select in which interfaces IDS system will be enabled"
-msgstr "Aukera ezazu zein gailutan ahalbidetuko da IDS sistema"
-
-#: src/EBox/Model/Report/AlertGraph.pm:47
-#: src/EBox/Model/Report/AlertDetails.pm:41
-msgid "number of alerts"
-msgstr "alerta kopurua"
-
-#: src/EBox/Model/Report/AlertGraph.pm:52
-msgid "Alerts chart"
-msgstr "Alerta taula"
-
-#: src/EBox/Model/Report/AlertGraph.pm:68
-msgid "Alert Graph"
-msgstr "Alerta grafika"
-
-#: src/EBox/Model/Report/AlertDetails.pm:52 src/EBox/IDS.pm:299
-msgid "Date"
-msgstr "Eguna"
-
-#: src/EBox/Model/Report/AlertDetails.pm:58
-msgid "Number of alerts"
-msgstr "Alerta kopurua"
-
-#: src/EBox/Model/Report/AlertDetails.pm:66
-msgid "Alert details"
-msgstr "Alerta ezaugarriak"
-
-#: src/EBox/Model/Report/AlertDetails.pm:73
-msgid "alerts"
-msgstr "Alertak"
-
 #: src/EBox/IDS.pm:62 src/EBox/IDS.pm:169 src/EBox/IDS.pm:311
 msgid "IDS"
 msgstr "IDS"
+
+#: src/EBox/IDS.pm:299 src/EBox/Model/Report/AlertDetails.pm:52
+msgid "Date"
+msgstr "Eguna"
 
 #: src/EBox/IDS.pm:300
 msgid "Priority"
@@ -113,10 +52,75 @@ msgstr "Gertaera"
 msgid "Alert"
 msgstr "Alerta"
 
-#: src/EBox/Composite/General.pm:70
+#: src/EBox/Model/Interfaces.pm:129
+msgid "Interface"
+msgstr "Gailua"
+
+#: src/EBox/Model/Interfaces.pm:134 src/EBox/Model/Rules.pm:158
+msgid "Enabled"
+msgstr "Gaitua"
+
+#: src/EBox/Model/Interfaces.pm:143
+msgid "Interfaces"
+msgstr "Gailuak"
+
+#: src/EBox/Model/Interfaces.pm:149
+msgid "interface"
+msgstr "gailua"
+
+#: src/EBox/Model/Interfaces.pm:151
+msgid "Select in which interfaces IDS system will be enabled"
+msgstr "Aukera ezazu zein gailutan ahalbidetuko da IDS sistema"
+
+#: src/EBox/Model/Rules.pm:153
+msgid "Rule Set"
+msgstr "Araua ezarria"
+
+#: src/EBox/Model/Rules.pm:167
+msgid "Rules"
+msgstr "Arauak"
+
+#: src/EBox/Model/Rules.pm:172
+msgid "rule"
+msgstr "araua"
+
+#: src/EBox/Model/Rules.pm:173
+msgid ""
+"Select the sets of rules you want apply when scanning the network traffic"
+msgstr ""
+
+#: src/EBox/Model/Report/AlertDetails.pm:41
+#: src/EBox/Model/Report/AlertGraph.pm:47
+msgid "number of alerts"
+msgstr "alerta kopurua"
+
+#: src/EBox/Model/Report/AlertDetails.pm:58
+msgid "Number of alerts"
+msgstr "Alerta kopurua"
+
+#: src/EBox/Model/Report/AlertDetails.pm:66
+msgid "Alert details"
+msgstr "Alerta ezaugarriak"
+
+#: src/EBox/Model/Report/AlertDetails.pm:73
+msgid "alerts"
+msgstr "Alertak"
+
+#: src/EBox/Model/Report/AlertGraph.pm:52
+msgid "Alerts chart"
+msgstr "Alerta taula"
+
+#: src/EBox/Model/Report/AlertGraph.pm:68
+msgid "Alert Graph"
+msgstr "Alerta grafika"
+
+#: src/EBox/Composite/General.pm:101
 msgid "Intrusion Detection System"
 msgstr "Bidegabe-sartzeak Hautemateko Sistema"
 
 #: src/EBox/Composite/Report/AlertReport.pm:66
 msgid "IDS Alerts report"
 msgstr "IDS Alerta txostena"
+
+#~ msgid "help message"
+#~ msgstr "laguntza mezua"

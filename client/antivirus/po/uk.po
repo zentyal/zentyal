@@ -7,62 +7,78 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-antivirus 1.5.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-08-28 23:34+0200\n"
+"POT-Creation-Date: 2010-12-13 08:38+0100\n"
 "PO-Revision-Date: 2010-09-09 09:53+0200\n"
 "Last-Translator: Vladimir Popov <adminlug@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
+"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:57
-msgid "Status"
-msgstr "Статус"
-
-#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:61
-msgid "Date"
-msgstr "Дата"
-
-#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:69
-msgid "Database Update Status"
-msgstr "Статус оновлення бази даних"
-
-#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:70 src/EBox/AntiVirus.pm:69
-#: src/EBox/AntiVirus.pm:385 src/EBox/AntiVirus.pm:390
+#: src/EBox/AntiVirus.pm:75 src/EBox/AntiVirus.pm:384
+#: src/EBox/AntiVirus.pm:389 src/EBox/AntiVirus/Model/FreshclamStatus.pm:104
 msgid "Antivirus"
 msgstr "Антивірус"
 
-#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:125
+#: src/EBox/AntiVirus.pm:210
+msgid " To configure clamd daemon"
+msgstr "Налаштувати демон clamd"
+
+#: src/EBox/AntiVirus.pm:215
+msgid "To schedule the launch of the updater"
+msgstr "Планування запуску оновлень"
+
+#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:89
+msgid "Status"
+msgstr "Статус"
+
+#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:93
+msgid "Date"
+msgstr "Дата"
+
+#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:97
+#, fuzzy
+msgid "Signatures"
+msgstr "Статус"
+
+#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:103
+msgid "Database Update Status"
+msgstr "Статус оновлення бази даних"
+
+#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:162
 msgid ""
 "The antivirus database has not been updated since the module was enabled."
 msgstr ""
 "Антивірусна база даних не була оновлена з часу, як модуль був задіяний."
 
-#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:128
+#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:164
 msgid "The last update failed."
 msgstr "Помилка при останньому оновленню."
 
-#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:131
-#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:134
+#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:165
+#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:166
 msgid "Last update successful."
 msgstr "Останнє оновлення успішно завершене."
 
-#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:137
+#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:168
+msgid ""
+"The antivirus module is not configured. Enable it first in Module Status "
+"section."
+msgstr ""
+
+#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:171
+msgid ""
+"The antivirus module is not enabled. Enable it first to know the antivirus "
+"status."
+msgstr ""
+
+#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:173
 #, perl-brace-format
 msgid "Unknown event {event}."
 msgstr "Невідома подія {event}."
 
-#: src/EBox/AntiVirus.pm:212
-msgid " To configure clamd daemon"
-msgstr "Налаштувати демон clamd"
-
-#: src/EBox/AntiVirus.pm:217
-msgid "To configure freshclam updater"
-msgstr "Настройка оновлень freshclam"
-
-#: src/EBox/AntiVirus.pm:222
-msgid "To schedule the launch of the updater"
-msgstr "Планування запуску оновлень"
+#~ msgid "To configure freshclam updater"
+#~ msgstr "Настройка оновлень freshclam"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-webserver 0.12\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-08-28 23:42+0200\n"
+"POT-Creation-Date: 2010-12-13 08:43+0100\n"
 "PO-Revision-Date: 2010-09-12 12:57+0200\n"
 "Last-Translator: J. Schwieder <j.schwieder@gmx.de>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
@@ -22,6 +22,160 @@ msgid "HyperText Transport Protocol"
 msgstr ""
 "HyperText Transport Protokoll (Protokoll für den Transport von "
 "angereichertem Text)"
+
+#: src/EBox/WebServer.pm:79 src/EBox/WebServer.pm:617
+#: src/EBox/WebServer/Composite/General.pm:77
+#, fuzzy
+msgid "Web Server"
+msgstr "Webserver"
+
+#: src/EBox/WebServer.pm:99
+#, fuzzy
+msgid "To set webserver listening port."
+msgstr "Um den lauschenden Port des Webservers zu setzen"
+
+#: src/EBox/WebServer.pm:104
+msgid "To configure default virtual host."
+msgstr "Um den Standart Virtuellen Host zu konfigurieren"
+
+#: src/EBox/WebServer.pm:109
+msgid "To configure default SSL virtual host."
+msgstr "Um den Standard SSL Virtuellen Server zu konfigurieren"
+
+#: src/EBox/WebServer.pm:114
+#, fuzzy
+msgid "To configure the per-user public_html directory."
+msgstr ""
+"Um die benutzerbezogenen öffentlichen HTML-Verzeichnisse zu konfigurieren"
+
+#: src/EBox/WebServer.pm:139
+#, fuzzy
+msgid "Enable Apache LDAP user module"
+msgstr "Aktiviere Apache LDAP Benutzer Modul"
+
+#: src/EBox/WebServer.pm:141
+#, fuzzy
+msgid "To fetch home directories from LDAP."
+msgstr "Zum Abrufen der Home-Verzeichnisse vom LDAP"
+
+#: src/EBox/WebServer.pm:144
+#, fuzzy
+msgid "Enable Apache SSL module"
+msgstr "Aktiviere Apache LDAP Benutzer Modul"
+
+#: src/EBox/WebServer.pm:146
+msgid "To serve pages over HTTPS."
+msgstr "Bediene Seiten via HTTPS."
+
+#: src/EBox/WebServer.pm:184
+msgid "Web service status"
+msgstr "Status des Webserverdienstes"
+
+#: src/EBox/WebServer.pm:440
+#, fuzzy, perl-brace-format
+msgid "The {userDirConfFile} is missing! Please recover it."
+msgstr "Die Datei {userDirConfFile} wurde nicht gefunden."
+
+#: src/EBox/WebServer.pm:730
+#, fuzzy
+msgid "Web server hosted files"
+msgstr "Status des Webserverdienstes"
+
+#: src/EBox/WebServer.pm:731
+#, fuzzy
+msgid "Virtual hosts data"
+msgstr "Virtuelle Server"
+
+#: src/EBox/WebServer/Model/GeneralSettings.pm:96
+#: src/EBox/WebServer/Model/GeneralSettings.pm:108
+#: src/EBox/WebServer/Model/GeneralSettings.pm:119
+#: src/EBox/WebServer/Model/GeneralSettings.pm:229
+msgid "Listening port"
+msgstr "Port"
+
+#: src/EBox/WebServer/Model/GeneralSettings.pm:114
+#, fuzzy, perl-brace-format
+msgid ""
+"Zentyal Administration is running on this port, change it on {ohref}System -"
+"> General{chref}."
+msgstr ""
+"Zentyal Administration läuft auf diesem Port. Die Portnummern kann  im "
+"{ohref}System -> Allgemein{chref} geändert werden."
+
+#: src/EBox/WebServer/Model/GeneralSettings.pm:127
+#, perl-brace-format
+msgid ""
+"You need a Service Certificate for the Web Server module, enable it on "
+"{ohref}Certification Authority -> Service Certificates{chref}."
+msgstr ""
+"Sie benötigen ein Dienste Zertifikat  für das Webserver Modul. Öffnen Sie "
+"{ohref}Certification Authority -> Service Certificates{chref} um es "
+"einzuschalten."
+
+#: src/EBox/WebServer/Model/GeneralSettings.pm:139
+msgid ""
+"Having installed and configured the Users and Groups module is required to "
+"allow HTML directories for users."
+msgstr ""
+"Um Benutzer HTML Verzeichnisse zu erlauben, müssen Sie das Benutzer/Gruppen "
+"Modul installiert und konfiguriert haben."
+
+#: src/EBox/WebServer/Model/GeneralSettings.pm:145
+msgid ""
+"A properly configured Users and Groups module is required to allow HTML "
+"directories for users. To configure it, please enable it at least one time."
+msgstr ""
+"Ein sauber konfiguriertes Benutzer/Gruppen Modul is nötig, damit Benutzer "
+"HTML Verzeichnisse erlaubt sind. Um dies zu konfigurieren, schalten SIe das "
+"Modul mindestens einmal ein."
+
+#: src/EBox/WebServer/Model/GeneralSettings.pm:235
+#, fuzzy
+msgid "Listening SSL port"
+msgstr "Benützter SSL Port"
+
+#: src/EBox/WebServer/Model/GeneralSettings.pm:239
+#: src/EBox/WebServer/Model/VHostTable.pm:252
+msgid "Disabled"
+msgstr "Ausgeschaltet"
+
+#: src/EBox/WebServer/Model/GeneralSettings.pm:244
+msgid "Enabled"
+msgstr "Eingeschaltet"
+
+#: src/EBox/WebServer/Model/GeneralSettings.pm:252
+#, perl-brace-format
+msgid "Enable per user {dirName}"
+msgstr "Ein {dirName} pro Benutzer"
+
+#: src/EBox/WebServer/Model/GeneralSettings.pm:256
+msgid ""
+"Allow users to publish web documents using the public_html directory on "
+"their home."
+msgstr ""
+"Erlaube Benutzern das publizieren von Web Dokumenten in public_htl "
+"Verzeichnissen in ihrem Heimverzeichnis."
+
+#: src/EBox/WebServer/Model/GeneralSettings.pm:264
+msgid "General configuration settings"
+msgstr "Allgemeine Einstellungen"
+
+#: src/EBox/WebServer/Model/GeneralSettings.pm:268
+#, fuzzy, perl-brace-format
+msgid ""
+"General Web server configuration. The listening port must not be used by "
+"another service. If you enable user to publish their own html pages, those "
+"should be loaded from {dirName} directory from their home directories."
+msgstr ""
+"Allgemeine Einstellungen für den Webserver. Der Port, auf der Webserver die "
+"Anfragen entgegennimmt, darf nicht von anderen Diensten verwendet werden. "
+"Wenn Sie Benutzern erlauben, eigene HTML-Seiten zu veröffentlichen, müssen "
+"sie im Ordner {dirName} ihres eigenen Ordners der Dateifreigabe liegen."
+
+#: src/EBox/WebServer/Model/GeneralSettings.pm:274
+#, fuzzy
+msgid "General Web server configuration settings updated."
+msgstr "Die allgemeinen Einstellungen wurden aktualisiert"
 
 #: src/EBox/WebServer/Model/VHostTable.pm:93
 #, fuzzy
@@ -78,11 +232,6 @@ msgstr ""
 "Es ist keine feste IP-Adresse vorhanden, die als IP-Adresse für den "
 "Webserver dienen könnte"
 
-#: src/EBox/WebServer/Model/VHostTable.pm:252
-#: src/EBox/WebServer/Model/GeneralSettings.pm:239
-msgid "Disabled"
-msgstr "Ausgeschaltet"
-
 #: src/EBox/WebServer/Model/VHostTable.pm:253
 msgid "Allow SSL"
 msgstr "Erlaube SSL Verschlüsselung"
@@ -127,101 +276,9 @@ msgstr ""
 "{open}Das DNS Modul ist ausgeschaltet. Das hinzugefügte Mapping oder Domänen "
 "haben keinen Einfluss bis Sie das Modul einschalten."
 
-#: src/EBox/WebServer/Model/GeneralSettings.pm:96
-#: src/EBox/WebServer/Model/GeneralSettings.pm:108
-#: src/EBox/WebServer/Model/GeneralSettings.pm:119
-#: src/EBox/WebServer/Model/GeneralSettings.pm:229
-msgid "Listening port"
-msgstr "Port"
-
-#: src/EBox/WebServer/Model/GeneralSettings.pm:114
-#, fuzzy, perl-brace-format
-msgid ""
-"Zentyal Administration is running on this port, change it on {ohref}System -"
-"> General{chref}."
-msgstr ""
-"Zentyal Administration läuft auf diesem Port. Die Portnummern kann  im "
-"{ohref}System -> Allgemein{chref} geändert werden."
-
-#: src/EBox/WebServer/Model/GeneralSettings.pm:127
-#, perl-brace-format
-msgid ""
-"You need a Service Certificate for the Web Server module, enable it on "
-"{ohref}Certification Authority -> Service Certificates{chref}."
-msgstr ""
-"Sie benötigen ein Dienste Zertifikat  für das Webserver Modul. Öffnen Sie "
-"{ohref}Certification Authority -> Service Certificates{chref} um es "
-"einzuschalten."
-
-#: src/EBox/WebServer/Model/GeneralSettings.pm:139
-msgid ""
-"Having installed and configured the Users and Groups module is required to "
-"allow HTML directories for users."
-msgstr ""
-"Um Benutzer HTML Verzeichnisse zu erlauben, müssen Sie das Benutzer/Gruppen "
-"Modul installiert und konfiguriert haben."
-
-#: src/EBox/WebServer/Model/GeneralSettings.pm:145
-msgid ""
-"A properly configured Users and Groups module is required to allow HTML "
-"directories for users. To configure it, please enable it at least one time."
-msgstr ""
-"Ein sauber konfiguriertes Benutzer/Gruppen Modul is nötig, damit Benutzer "
-"HTML Verzeichnisse erlaubt sind. Um dies zu konfigurieren, schalten SIe das "
-"Modul mindestens einmal ein."
-
-#: src/EBox/WebServer/Model/GeneralSettings.pm:235
-#, fuzzy
-msgid "Listening SSL port"
-msgstr "Benützter SSL Port"
-
-#: src/EBox/WebServer/Model/GeneralSettings.pm:244
-msgid "Enabled"
-msgstr "Eingeschaltet"
-
-#: src/EBox/WebServer/Model/GeneralSettings.pm:252
-#, perl-brace-format
-msgid "Enable per user {dirName}"
-msgstr "Ein {dirName} pro Benutzer"
-
-#: src/EBox/WebServer/Model/GeneralSettings.pm:256
-msgid ""
-"Allow users to publish web documents using the public_html directory on "
-"their home."
-msgstr ""
-"Erlaube Benutzern das publizieren von Web Dokumenten in public_htl "
-"Verzeichnissen in ihrem Heimverzeichnis."
-
-#: src/EBox/WebServer/Model/GeneralSettings.pm:264
-msgid "General configuration settings"
-msgstr "Allgemeine Einstellungen"
-
-#: src/EBox/WebServer/Model/GeneralSettings.pm:268
-#, fuzzy, perl-brace-format
-msgid ""
-"General Web server configuration. The listening port must not be used by "
-"another service. If you enable user to publish their own html pages, those "
-"should be loaded from {dirName} directory from their home directories."
-msgstr ""
-"Allgemeine Einstellungen für den Webserver. Der Port, auf der Webserver die "
-"Anfragen entgegennimmt, darf nicht von anderen Diensten verwendet werden. "
-"Wenn Sie Benutzern erlauben, eigene HTML-Seiten zu veröffentlichen, müssen "
-"sie im Ordner {dirName} ihres eigenen Ordners der Dateifreigabe liegen."
-
-#: src/EBox/WebServer/Model/GeneralSettings.pm:274
-#, fuzzy
-msgid "General Web server configuration settings updated."
-msgstr "Die allgemeinen Einstellungen wurden aktualisiert"
-
 #: src/EBox/WebServer/Composite/General.pm:76
 msgid "Configuration"
 msgstr "Konfiguration"
-
-#: src/EBox/WebServer/Composite/General.pm:77 src/EBox/WebServer.pm:79
-#: src/EBox/WebServer.pm:617
-#, fuzzy
-msgid "Web Server"
-msgstr "Webserver"
 
 #: src/EBox/WebServer/Composite/General.pm:79
 msgid ""
@@ -230,50 +287,3 @@ msgid ""
 msgstr ""
 "Der Zentyal Webserver erlaubt Ihnen reine HTML-Webseiten in "
 "unterschiedlichen virtuellen Servern bereitzustellen"
-
-#: src/EBox/WebServer.pm:99
-#, fuzzy
-msgid "To set webserver listening port."
-msgstr "Um den lauschenden Port des Webservers zu setzen"
-
-#: src/EBox/WebServer.pm:104
-msgid "To configure default virtual host."
-msgstr "Um den Standart Virtuellen Host zu konfigurieren"
-
-#: src/EBox/WebServer.pm:109
-msgid "To configure default SSL virtual host."
-msgstr "Um den Standard SSL Virtuellen Server zu konfigurieren"
-
-#: src/EBox/WebServer.pm:114
-#, fuzzy
-msgid "To configure the per-user public_html directory."
-msgstr ""
-"Um die benutzerbezogenen öffentlichen HTML-Verzeichnisse zu konfigurieren"
-
-#: src/EBox/WebServer.pm:139
-#, fuzzy
-msgid "Enable Apache LDAP user module"
-msgstr "Aktiviere Apache LDAP Benutzer Modul"
-
-#: src/EBox/WebServer.pm:141
-#, fuzzy
-msgid "To fetch home directories from LDAP."
-msgstr "Zum Abrufen der Home-Verzeichnisse vom LDAP"
-
-#: src/EBox/WebServer.pm:144
-#, fuzzy
-msgid "Enable Apache SSL module"
-msgstr "Aktiviere Apache LDAP Benutzer Modul"
-
-#: src/EBox/WebServer.pm:146
-msgid "To serve pages over HTTPS."
-msgstr "Bediene Seiten via HTTPS."
-
-#: src/EBox/WebServer.pm:184
-msgid "Web service status"
-msgstr "Status des Webserverdienstes"
-
-#: src/EBox/WebServer.pm:440
-#, fuzzy, perl-brace-format
-msgid "The {userDirConfFile} is missing! Please recover it."
-msgstr "Die Datei {userDirConfFile} wurde nicht gefunden."

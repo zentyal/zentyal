@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-antivirus 0.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-08-28 23:34+0200\n"
+"POT-Creation-Date: 2010-12-13 08:38+0100\n"
 "PO-Revision-Date: 2010-01-27 23:43+0100\n"
 "Last-Translator: Mostafa Salem <m@isalem.net>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
@@ -16,50 +16,66 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:57
-msgid "Status"
-msgstr "الحالة"
-
-#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:61
-msgid "Date"
-msgstr "التاريخ"
-
-#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:69
-msgid "Database Update Status"
-msgstr "حالة تحديث قاعدة البيانات"
-
-#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:70 src/EBox/AntiVirus.pm:69
-#: src/EBox/AntiVirus.pm:385 src/EBox/AntiVirus.pm:390
+#: src/EBox/AntiVirus.pm:75 src/EBox/AntiVirus.pm:384
+#: src/EBox/AntiVirus.pm:389 src/EBox/AntiVirus/Model/FreshclamStatus.pm:104
 msgid "Antivirus"
 msgstr "مضاد الفيروسات"
 
-#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:125
+#: src/EBox/AntiVirus.pm:210
+msgid " To configure clamd daemon"
+msgstr "لتهيئة مترقب الclamd"
+
+#: src/EBox/AntiVirus.pm:215
+msgid "To schedule the launch of the updater"
+msgstr "لجدولة عملية إنطلاق المحدِِث."
+
+#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:89
+msgid "Status"
+msgstr "الحالة"
+
+#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:93
+msgid "Date"
+msgstr "التاريخ"
+
+#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:97
+#, fuzzy
+msgid "Signatures"
+msgstr "الحالة"
+
+#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:103
+msgid "Database Update Status"
+msgstr "حالة تحديث قاعدة البيانات"
+
+#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:162
 msgid ""
 "The antivirus database has not been updated since the module was enabled."
 msgstr "لم تتم أي عملية تحديث منذ تشغيل الخدمة."
 
-#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:128
+#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:164
 msgid "The last update failed."
 msgstr "فشلت آخر عملية تحديث"
 
-#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:131
-#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:134
+#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:165
+#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:166
 msgid "Last update successful."
 msgstr "تم التحديث بنجاح"
 
-#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:137
+#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:168
+msgid ""
+"The antivirus module is not configured. Enable it first in Module Status "
+"section."
+msgstr ""
+
+#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:171
+msgid ""
+"The antivirus module is not enabled. Enable it first to know the antivirus "
+"status."
+msgstr ""
+
+#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:173
 #, perl-brace-format
 msgid "Unknown event {event}."
 msgstr "الحدث {event} غير معرًف."
 
-#: src/EBox/AntiVirus.pm:212
-msgid " To configure clamd daemon"
-msgstr "لتهيئة مترقب الclamd"
-
-#: src/EBox/AntiVirus.pm:217
-msgid "To configure freshclam updater"
-msgstr "لتهيئة محدث الfreshclam"
-
-#: src/EBox/AntiVirus.pm:222
-msgid "To schedule the launch of the updater"
-msgstr "لجدولة عملية إنطلاق المحدِِث."
+#~ msgid "To configure freshclam updater"
+#~ msgstr "لتهيئة محدث الfreshclam"

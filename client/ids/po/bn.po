@@ -5,8 +5,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-ids 2.0Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2009-03-08 15:17+0000\n"
+"Project-Id-Version: ebox-ids 2.0Report-Msgid-Bugs-To: developers@zentyal."
+"org\n"
+"Report-Msgid-Bugs-To: developers@zentyal.org\n"
+"POT-Creation-Date: 2010-12-13 08:39+0100\n"
 "PO-Revision-Date: 2010-10-28 14:33+0200\n"
 "Last-Translator: Mahay Alam Khan <mahayalamkhan@gmail.com>\n"
 "Language-Team: none\n"
@@ -15,18 +17,120 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: src/EBox/Model/Model.pm:73
-msgid "table title"
-msgstr "ছকের শিরোনাম "
+#: src/EBox/IDS.pm:62 src/EBox/IDS.pm:169 src/EBox/IDS.pm:311
+msgid "IDS"
+msgstr ""
 
-#: src/EBox/Model/Model.pm:77
-msgid "row"
-msgstr "সারি"
+#: src/EBox/IDS.pm:299 src/EBox/Model/Report/AlertDetails.pm:52
+msgid "Date"
+msgstr ""
 
-#: src/EBox/Model/Model.pm:78 src/EBox/Model/Composite.pm:72
-msgid "help message"
-msgstr "সাহায্য বার্তা"
+#: src/EBox/IDS.pm:300
+msgid "Priority"
+msgstr ""
 
-#: src/EBox/Model/Composite.pm:70
-msgid "composite title"
-msgstr "শিরোনাম লিখুন"
+#: src/EBox/IDS.pm:301
+msgid "Description"
+msgstr ""
+
+#: src/EBox/IDS.pm:302
+msgid "Source"
+msgstr ""
+
+#: src/EBox/IDS.pm:303
+msgid "Destination"
+msgstr ""
+
+#: src/EBox/IDS.pm:304
+msgid "Protocol"
+msgstr ""
+
+#: src/EBox/IDS.pm:305
+msgid "Event"
+msgstr ""
+
+#: src/EBox/IDS.pm:317
+msgid "Alert"
+msgstr ""
+
+#: src/EBox/Model/Interfaces.pm:129
+msgid "Interface"
+msgstr ""
+
+#: src/EBox/Model/Interfaces.pm:134 src/EBox/Model/Rules.pm:158
+msgid "Enabled"
+msgstr ""
+
+#: src/EBox/Model/Interfaces.pm:143
+msgid "Interfaces"
+msgstr ""
+
+#: src/EBox/Model/Interfaces.pm:149
+msgid "interface"
+msgstr ""
+
+#: src/EBox/Model/Interfaces.pm:151
+msgid "Select in which interfaces IDS system will be enabled"
+msgstr ""
+
+#: src/EBox/Model/Rules.pm:153
+msgid "Rule Set"
+msgstr ""
+
+#: src/EBox/Model/Rules.pm:167
+msgid "Rules"
+msgstr ""
+
+#: src/EBox/Model/Rules.pm:172
+msgid "rule"
+msgstr ""
+
+#: src/EBox/Model/Rules.pm:173
+msgid ""
+"Select the sets of rules you want apply when scanning the network traffic"
+msgstr ""
+
+#: src/EBox/Model/Report/AlertDetails.pm:41
+#: src/EBox/Model/Report/AlertGraph.pm:47
+msgid "number of alerts"
+msgstr ""
+
+#: src/EBox/Model/Report/AlertDetails.pm:58
+msgid "Number of alerts"
+msgstr ""
+
+#: src/EBox/Model/Report/AlertDetails.pm:66
+msgid "Alert details"
+msgstr ""
+
+#: src/EBox/Model/Report/AlertDetails.pm:73
+msgid "alerts"
+msgstr ""
+
+#: src/EBox/Model/Report/AlertGraph.pm:52
+msgid "Alerts chart"
+msgstr ""
+
+#: src/EBox/Model/Report/AlertGraph.pm:68
+msgid "Alert Graph"
+msgstr ""
+
+#: src/EBox/Composite/General.pm:101
+msgid "Intrusion Detection System"
+msgstr ""
+
+#: src/EBox/Composite/Report/AlertReport.pm:66
+msgid "IDS Alerts report"
+msgstr ""
+
+#~ msgid "table title"
+#~ msgstr "ছকের শিরোনাম "
+
+#~ msgid "row"
+#~ msgstr "সারি"
+
+#~ msgid "help message"
+#~ msgstr "সাহায্য বার্তা"
+
+#~ msgid "composite title"
+#~ msgstr "শিরোনাম লিখুন"

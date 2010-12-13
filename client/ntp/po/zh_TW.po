@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-ntp 0.12.99\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-08-28 23:28+0200\n"
+"POT-Creation-Date: 2010-12-13 08:40+0100\n"
 "PO-Revision-Date: 2009-08-04 07:16+0200\n"
 "Last-Translator: Chao-Hsiung Liao <j_h_liau@yahoo.com.tw>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
@@ -16,91 +16,23 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: src/EBox/NTP.pm:67
-msgid "Remove ntp init script links"
-msgstr "移除 ntp init script 連結"
-
-#: src/EBox/NTP.pm:68
-#, fuzzy
-msgid "Zentyal will take care of starting and stopping the services."
-msgstr "eBox 會注意服務的啟動和停止"
-
-#: src/EBox/NTP.pm:86
-#, fuzzy
-msgid "NTP configuration file"
-msgstr "時區組態"
-
-#: src/EBox/NTP.pm:221 src/EBox/CGI/AddServers.pm:45
-#: src/templates/servers.mas:16
-msgid "Primary server"
-msgstr "主要伺服器"
-
-#: src/EBox/NTP.pm:223
-msgid "primary server"
-msgstr "主要伺服器"
-
-#: src/EBox/NTP.pm:228 src/EBox/NTP.pm:247
-msgid "Primary and secondary server must be different"
-msgstr "主要跟次要的伺服器必須是不同的"
-
-#: src/EBox/NTP.pm:231
-msgid "secondary server"
-msgstr "次要伺服器"
-
-#: src/EBox/NTP.pm:235 src/EBox/CGI/AddServers.pm:51
-#: src/templates/servers.mas:27
-msgid "Secondary server"
-msgstr "次要伺服器"
-
-#: src/EBox/NTP.pm:244
-msgid "Primary and tertiary server must be different"
-msgstr "主要跟第三的伺服器必須是不同的"
-
-#: src/EBox/NTP.pm:250
-msgid "tertiary server"
-msgstr "第三伺服器"
-
-#: src/EBox/NTP.pm:266
-#, perl-brace-format
-msgid "{name} IP address"
-msgstr "{name} IP 位址"
-
-#: src/EBox/NTP.pm:269
-#, perl-brace-format
-msgid "{name} host name"
-msgstr "{name} 主機名稱"
-
-#: src/EBox/NTP.pm:401
-msgid "System"
-msgstr "系統"
-
-#: src/EBox/NTP.pm:404
-msgid "Date/Time"
-msgstr "日期/時刻"
-
-#: src/EBox/NTP.pm:407
-msgid "Time Zone"
-msgstr "時區"
-
-#: src/EBox/CGI/Timezone.pm:30
-msgid "Time Zone Configuration"
-msgstr "時區組態"
-
 #: src/EBox/CGI/AddServers.pm:42
 msgid "first ntp server"
 msgstr "第一個 NTP 伺服器"
 
+#: src/EBox/CGI/AddServers.pm:45 src/EBox/NTP.pm:222
+#: src/templates/servers.mas:16
+msgid "Primary server"
+msgstr "主要伺服器"
+
+#: src/EBox/CGI/AddServers.pm:51 src/EBox/NTP.pm:236
+#: src/templates/servers.mas:27
+msgid "Secondary server"
+msgstr "次要伺服器"
+
 #: src/EBox/CGI/AddServers.pm:55 src/templates/servers.mas:38
 msgid "Tertiary server"
 msgstr "第三伺服器"
-
-#: src/EBox/CGI/Datetime.pm:30
-msgid "Date and Time Configuration"
-msgstr "日期和時刻組態"
-
-#: src/EBox/CGI/Synch.pm:41
-msgid "external synchronize status"
-msgstr "外部同步狀態"
 
 #: src/EBox/CGI/ChangeDate.pm:41
 msgid "Day"
@@ -134,6 +66,74 @@ msgstr "國家/地區"
 msgid "continent"
 msgstr "大陸"
 
+#: src/EBox/CGI/Datetime.pm:30
+msgid "Date and Time Configuration"
+msgstr "日期和時刻組態"
+
+#: src/EBox/CGI/Timezone.pm:30
+msgid "Time Zone Configuration"
+msgstr "時區組態"
+
+#: src/EBox/CGI/Synch.pm:41
+msgid "external synchronize status"
+msgstr "外部同步狀態"
+
+#: src/EBox/NTP.pm:67
+msgid "Remove ntp init script links"
+msgstr "移除 ntp init script 連結"
+
+#: src/EBox/NTP.pm:68
+#, fuzzy
+msgid "Zentyal will take care of starting and stopping the services."
+msgstr "eBox 會注意服務的啟動和停止"
+
+#: src/EBox/NTP.pm:86
+#, fuzzy
+msgid "NTP configuration file"
+msgstr "時區組態"
+
+#: src/EBox/NTP.pm:224
+msgid "primary server"
+msgstr "主要伺服器"
+
+#: src/EBox/NTP.pm:229 src/EBox/NTP.pm:247
+msgid "Primary and secondary server must be different"
+msgstr "主要跟次要的伺服器必須是不同的"
+
+#: src/EBox/NTP.pm:232
+msgid "secondary server"
+msgstr "次要伺服器"
+
+#: src/EBox/NTP.pm:244
+msgid "Primary and tertiary server must be different"
+msgstr "主要跟第三的伺服器必須是不同的"
+
+#: src/EBox/NTP.pm:250
+msgid "tertiary server"
+msgstr "第三伺服器"
+
+#: src/EBox/NTP.pm:266
+#, perl-brace-format
+msgid "{name} IP address"
+msgstr "{name} IP 位址"
+
+#: src/EBox/NTP.pm:269
+#, perl-brace-format
+msgid "{name} host name"
+msgstr "{name} 主機名稱"
+
+#: src/EBox/NTP.pm:402
+msgid "System"
+msgstr "系統"
+
+#: src/EBox/NTP.pm:405
+msgid "Date/Time"
+msgstr "日期/時刻"
+
+#: src/EBox/NTP.pm:408
+msgid "Time Zone"
+msgstr "時區"
+
 #: src/templates/servers.mas:7
 msgid "NTP servers"
 msgstr "NTP 伺服器"
@@ -144,10 +144,10 @@ msgid ""
 "correctly."
 msgstr "您必須記得去設定您的時區來同步時間"
 
-#: src/templates/servers.mas:50 src/templates/synch.mas:19
+#: src/templates/servers.mas:50 src/templates/timezone.mas:33
+#: src/templates/timezone.mas:34 src/templates/synch.mas:19
 #: src/templates/synch.mas:20 src/templates/date.mas:96
-#: src/templates/date.mas:97 src/templates/timezone.mas:33
-#: src/templates/timezone.mas:34
+#: src/templates/date.mas:97
 msgid "Change"
 msgstr "改變"
 

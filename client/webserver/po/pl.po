@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-webserver 0.12\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-08-28 23:42+0200\n"
+"POT-Creation-Date: 2010-12-13 08:43+0100\n"
 "PO-Revision-Date: 2010-08-27 15:05+0200\n"
 "Last-Translator: Robert Brzozowski <gnutar1@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
@@ -22,102 +22,61 @@ msgstr ""
 msgid "HyperText Transport Protocol"
 msgstr "Protokół HTTP"
 
-#: src/EBox/WebServer/Model/VHostTable.pm:93
-msgid "Virtual host name"
-msgstr "Nazwa hosta wirtualnego"
+#: src/EBox/WebServer.pm:79 src/EBox/WebServer.pm:617
+#: src/EBox/WebServer/Composite/General.pm:77
+msgid "Web Server"
+msgstr "Serwer WWW"
 
-#: src/EBox/WebServer/Model/VHostTable.pm:97
-#: src/EBox/WebServer/Model/VHostTable.pm:310
-msgid "Virtual host"
-msgstr "Host wirtualny"
+#: src/EBox/WebServer.pm:99
+msgid "To set webserver listening port."
+msgstr "Ustawić port serwera WWW"
 
-#: src/EBox/WebServer/Model/VHostTable.pm:104
-msgid "SSL support is disabled. Enable it before adding a SSL virtual host."
-msgstr "SSL wyłączone. Włącz je przed dodaniem wirtualnego hosta z SSL"
+#: src/EBox/WebServer.pm:104
+msgid "To configure default virtual host."
+msgstr "Skonfigurować podstawowy serwer wirtualny"
 
-#: src/EBox/WebServer/Model/VHostTable.pm:169
+#: src/EBox/WebServer.pm:109
+msgid "To configure default SSL virtual host."
+msgstr "Skonfigurować podstawowy serwer wirtualny SSL"
+
+#: src/EBox/WebServer.pm:114
+msgid "To configure the per-user public_html directory."
+msgstr "Skonfigurować publiczny katalog HTML użytkowników"
+
+#: src/EBox/WebServer.pm:139
+msgid "Enable Apache LDAP user module"
+msgstr "Włączyć moduł LDAP serwera APACHE"
+
+#: src/EBox/WebServer.pm:141
+msgid "To fetch home directories from LDAP."
+msgstr "Pobrać katalogi domowe przez LDAP"
+
+#: src/EBox/WebServer.pm:144
+msgid "Enable Apache SSL module"
+msgstr "Włączyć moduł SSL serwera APACHE"
+
+#: src/EBox/WebServer.pm:146
+msgid "To serve pages over HTTPS."
+msgstr "Do obsługiwania stron WWW przez HTTPS"
+
+#: src/EBox/WebServer.pm:184
+msgid "Web service status"
+msgstr "Stan usług serwera WWW"
+
+#: src/EBox/WebServer.pm:440
 #, perl-brace-format
-msgid ""
-"Virtual host {vhost} added. A domain {domain} has been created with the "
-"mapping name {name} - IP address {ip}. {noDnsWarning} "
-msgstr ""
-"Host wirtualny {vhost} dodany. Domena {domain} została utworzona z "
-"przekierowaniem na {name} - adres IP {ip}. {noDnsWarning} "
+msgid "The {userDirConfFile} is missing! Please recover it."
+msgstr "Brak pliku {userDirConfFile} ! Proszę go przywrócić"
 
-#: src/EBox/WebServer/Model/VHostTable.pm:188
-#, perl-brace-format
-msgid ""
-"Virtual host {vhost} added. A mapping name {name} - IP address {ip} has been "
-"added to {domain} domain."
-msgstr ""
-"Host wirtualny {vhost} dodany. Nazwa przekierowania {name} - adres IP {ip} "
-"dostała dodana do domeny {domain}"
+#: src/EBox/WebServer.pm:730
+#, fuzzy
+msgid "Web server hosted files"
+msgstr "Stan usług serwera WWW"
 
-#: src/EBox/WebServer/Model/VHostTable.pm:202
-#, perl-brace-format
-msgid "Virtual host {vhost} added as an alias {alias} to hostname {hostname}."
-msgstr "Host wirtualny {vhost} dodany jako alias {alias} do hosta {hostname}"
-
-#: src/EBox/WebServer/Model/VHostTable.pm:208
-#: src/EBox/WebServer/Model/VHostTable.pm:213
-#, perl-brace-format
-msgid "Virtual host {vhost} added."
-msgstr "Host wirtualny {vhost} dodany"
-
-#: src/EBox/WebServer/Model/VHostTable.pm:218
-msgid "There is no static internal interface to set the Web server IP address."
-msgstr "Nie ma stałego interfejsu aby ustawić adres IP serwera WWW"
-
-#: src/EBox/WebServer/Model/VHostTable.pm:252
-#: src/EBox/WebServer/Model/GeneralSettings.pm:239
-msgid "Disabled"
-msgstr "Wyłączony"
-
-#: src/EBox/WebServer/Model/VHostTable.pm:253
-msgid "Allow SSL"
-msgstr "Zezwalaj na SSL"
-
-#: src/EBox/WebServer/Model/VHostTable.pm:254
-msgid "Force SSL"
-msgstr "Wymuś SSL"
-
-#: src/EBox/WebServer/Model/VHostTable.pm:279
-msgid "SSL support"
-msgstr "Wspomaganie SSL"
-
-#: src/EBox/WebServer/Model/VHostTable.pm:286
-msgid "Name"
-msgstr "Nazwa"
-
-#: src/EBox/WebServer/Model/VHostTable.pm:296
-msgid "Virtual hosts"
+#: src/EBox/WebServer.pm:731
+#, fuzzy
+msgid "Virtual hosts data"
 msgstr "Hosty wirtualne"
-
-#: src/EBox/WebServer/Model/VHostTable.pm:300
-#, perl-brace-format
-msgid ""
-"Virtual hosts are a form of web hosting service where many instances of the "
-"same web server are hosted on a single physical server. Different host names "
-"point to the same web server. If feasible, the DNS entry is automatically "
-"created. The content must be placed under the {docRoot} directory. Any "
-"particular configuration you want to add must be placed in the {userConf} "
-"directory."
-msgstr ""
-"Hosty wirtualne są odmianą serwisu WWW w wypadku których wiele różnych "
-"serwisów WWW jest obsługiwanych przez ten sam serwer. Różne nazwy stron "
-"wskazują na tę samą usługę. Jeśli to możliwe, wpis DNS tworzony jest "
-"automatycznie. Zawartość strony WWW musi zostać umieszczona w katalogu "
-"{docRoot}. Każda inna specyficzna konfiguracja musi zostać umieszczona w "
-"katalogu {userConf}."
-
-#: src/EBox/WebServer/Model/VHostTable.pm:331
-#, perl-brace-format
-msgid ""
-"{open}The DNS module is disabled. The added mapping or domains will not have "
-"any effect until you enable it"
-msgstr ""
-"{open}Moduł DNS jest wyłączony. Do czasu jego włączenia dodane "
-"przekierowania lub domeny nie będą brane pod uwagę."
 
 #: src/EBox/WebServer/Model/GeneralSettings.pm:96
 #: src/EBox/WebServer/Model/GeneralSettings.pm:108
@@ -165,6 +124,11 @@ msgstr ""
 msgid "Listening SSL port"
 msgstr "Port nasłuchujący usługi SSL"
 
+#: src/EBox/WebServer/Model/GeneralSettings.pm:239
+#: src/EBox/WebServer/Model/VHostTable.pm:252
+msgid "Disabled"
+msgstr "Wyłączony"
+
 #: src/EBox/WebServer/Model/GeneralSettings.pm:244
 msgid "Enabled"
 msgstr "Włączony"
@@ -202,14 +166,101 @@ msgstr ""
 msgid "General Web server configuration settings updated."
 msgstr "Zaktualizowano ogólne ustawienia serwera WWW"
 
+#: src/EBox/WebServer/Model/VHostTable.pm:93
+msgid "Virtual host name"
+msgstr "Nazwa hosta wirtualnego"
+
+#: src/EBox/WebServer/Model/VHostTable.pm:97
+#: src/EBox/WebServer/Model/VHostTable.pm:310
+msgid "Virtual host"
+msgstr "Host wirtualny"
+
+#: src/EBox/WebServer/Model/VHostTable.pm:104
+msgid "SSL support is disabled. Enable it before adding a SSL virtual host."
+msgstr "SSL wyłączone. Włącz je przed dodaniem wirtualnego hosta z SSL"
+
+#: src/EBox/WebServer/Model/VHostTable.pm:169
+#, perl-brace-format
+msgid ""
+"Virtual host {vhost} added. A domain {domain} has been created with the "
+"mapping name {name} - IP address {ip}. {noDnsWarning} "
+msgstr ""
+"Host wirtualny {vhost} dodany. Domena {domain} została utworzona z "
+"przekierowaniem na {name} - adres IP {ip}. {noDnsWarning} "
+
+#: src/EBox/WebServer/Model/VHostTable.pm:188
+#, perl-brace-format
+msgid ""
+"Virtual host {vhost} added. A mapping name {name} - IP address {ip} has been "
+"added to {domain} domain."
+msgstr ""
+"Host wirtualny {vhost} dodany. Nazwa przekierowania {name} - adres IP {ip} "
+"dostała dodana do domeny {domain}"
+
+#: src/EBox/WebServer/Model/VHostTable.pm:202
+#, perl-brace-format
+msgid "Virtual host {vhost} added as an alias {alias} to hostname {hostname}."
+msgstr "Host wirtualny {vhost} dodany jako alias {alias} do hosta {hostname}"
+
+#: src/EBox/WebServer/Model/VHostTable.pm:208
+#: src/EBox/WebServer/Model/VHostTable.pm:213
+#, perl-brace-format
+msgid "Virtual host {vhost} added."
+msgstr "Host wirtualny {vhost} dodany"
+
+#: src/EBox/WebServer/Model/VHostTable.pm:218
+msgid "There is no static internal interface to set the Web server IP address."
+msgstr "Nie ma stałego interfejsu aby ustawić adres IP serwera WWW"
+
+#: src/EBox/WebServer/Model/VHostTable.pm:253
+msgid "Allow SSL"
+msgstr "Zezwalaj na SSL"
+
+#: src/EBox/WebServer/Model/VHostTable.pm:254
+msgid "Force SSL"
+msgstr "Wymuś SSL"
+
+#: src/EBox/WebServer/Model/VHostTable.pm:279
+msgid "SSL support"
+msgstr "Wspomaganie SSL"
+
+#: src/EBox/WebServer/Model/VHostTable.pm:286
+msgid "Name"
+msgstr "Nazwa"
+
+#: src/EBox/WebServer/Model/VHostTable.pm:296
+msgid "Virtual hosts"
+msgstr "Hosty wirtualne"
+
+#: src/EBox/WebServer/Model/VHostTable.pm:300
+#, perl-brace-format
+msgid ""
+"Virtual hosts are a form of web hosting service where many instances of the "
+"same web server are hosted on a single physical server. Different host names "
+"point to the same web server. If feasible, the DNS entry is automatically "
+"created. The content must be placed under the {docRoot} directory. Any "
+"particular configuration you want to add must be placed in the {userConf} "
+"directory."
+msgstr ""
+"Hosty wirtualne są odmianą serwisu WWW w wypadku których wiele różnych "
+"serwisów WWW jest obsługiwanych przez ten sam serwer. Różne nazwy stron "
+"wskazują na tę samą usługę. Jeśli to możliwe, wpis DNS tworzony jest "
+"automatycznie. Zawartość strony WWW musi zostać umieszczona w katalogu "
+"{docRoot}. Każda inna specyficzna konfiguracja musi zostać umieszczona w "
+"katalogu {userConf}."
+
+#: src/EBox/WebServer/Model/VHostTable.pm:331
+#, perl-brace-format
+msgid ""
+"{open}The DNS module is disabled. The added mapping or domains will not have "
+"any effect until you enable it"
+msgstr ""
+"{open}Moduł DNS jest wyłączony. Do czasu jego włączenia dodane "
+"przekierowania lub domeny nie będą brane pod uwagę."
+
 #: src/EBox/WebServer/Composite/General.pm:76
 msgid "Configuration"
 msgstr "Konfiguracja"
-
-#: src/EBox/WebServer/Composite/General.pm:77 src/EBox/WebServer.pm:79
-#: src/EBox/WebServer.pm:617
-msgid "Web Server"
-msgstr "Serwer WWW"
 
 #: src/EBox/WebServer/Composite/General.pm:79
 msgid ""
@@ -218,44 +269,3 @@ msgid ""
 msgstr ""
 "Usługa WWW serwera Zentyal pozwala zarządzać stronami WWW w języku HTML "
 "różnych hostów wirtualnych"
-
-#: src/EBox/WebServer.pm:99
-msgid "To set webserver listening port."
-msgstr "Ustawić port serwera WWW"
-
-#: src/EBox/WebServer.pm:104
-msgid "To configure default virtual host."
-msgstr "Skonfigurować podstawowy serwer wirtualny"
-
-#: src/EBox/WebServer.pm:109
-msgid "To configure default SSL virtual host."
-msgstr "Skonfigurować podstawowy serwer wirtualny SSL"
-
-#: src/EBox/WebServer.pm:114
-msgid "To configure the per-user public_html directory."
-msgstr "Skonfigurować publiczny katalog HTML użytkowników"
-
-#: src/EBox/WebServer.pm:139
-msgid "Enable Apache LDAP user module"
-msgstr "Włączyć moduł LDAP serwera APACHE"
-
-#: src/EBox/WebServer.pm:141
-msgid "To fetch home directories from LDAP."
-msgstr "Pobrać katalogi domowe przez LDAP"
-
-#: src/EBox/WebServer.pm:144
-msgid "Enable Apache SSL module"
-msgstr "Włączyć moduł SSL serwera APACHE"
-
-#: src/EBox/WebServer.pm:146
-msgid "To serve pages over HTTPS."
-msgstr "Do obsługiwania stron WWW przez HTTPS"
-
-#: src/EBox/WebServer.pm:184
-msgid "Web service status"
-msgstr "Stan usług serwera WWW"
-
-#: src/EBox/WebServer.pm:440
-#, perl-brace-format
-msgid "The {userDirConfFile} is missing! Please recover it."
-msgstr "Brak pliku {userDirConfFile} ! Proszę go przywrócić"

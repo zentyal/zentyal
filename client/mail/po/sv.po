@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-mail 0.12\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-08-28 23:36+0200\n"
+"POT-Creation-Date: 2010-12-13 08:39+0100\n"
 "PO-Revision-Date: 2010-07-22 13:32+0200\n"
 "Last-Translator: Daniel Hedblom <daniel.hedblom@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
@@ -17,25 +17,150 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 1.1.0\n"
 
+#: migration/0005_add_managesieve_firewall_services.pl:43
+msgid "protocol for editing SIEVE filters"
+msgstr "protokoll för att redigera SIEVE filter"
+
 #: migration/0001_add_firewall_services.pl:45
 #, fuzzy
 msgid "Zentyal Mail System"
 msgstr "eBox e-postsystem"
 
-#: migration/0005_add_managesieve_firewall_services.pl:43
-msgid "protocol for editing SIEVE filters"
-msgstr "protokoll för att redigera SIEVE filter"
+#: src/EBox/MailUserLdap.pm:83 src/EBox/MailUserLdap.pm:88
+#: src/EBox/MailAliasLdap.pm:105 src/EBox/MailAliasLdap.pm:135
+msgid "mail account"
+msgstr "mailkonto"
 
-#: src/EBox/MailQueue.pm:79
-msgid "This message is being delivered"
-msgstr "Detta meddelande skickas"
+#: src/EBox/MailUserLdap.pm:429
+msgid "This group has a mail alias"
+msgstr "Denna grupp har ett e-postalias"
+
+#: src/EBox/MailUserLdap.pm:456
+msgid "This user has a mail account"
+msgstr "Denna användare har ett mailkonto"
+
+#: src/EBox/MailUserLdap.pm:811
+msgid "Quota can only be a positive number or zero for unlimited quota"
+msgstr "Kvot kan bara vara ett positivt nummer eller noll för oändlig kvot"
+
+#: src/EBox/MailAliasLdap.pm:62
+#, perl-brace-format
+msgid "{ac} is not a internal account"
+msgstr "{ac} är inte ett intern konto"
+
+#: src/EBox/MailAliasLdap.pm:79
+#, perl-brace-format
+msgid "{ac} is not a external account"
+msgstr "{ac} är inte ett externt konto"
+
+#: src/EBox/MailAliasLdap.pm:101 src/EBox/CGI/DelAlias.pm:46
+msgid "mail alias"
+msgstr "e-postalias"
+
+#: src/EBox/MailAliasLdap.pm:113
+#, perl-brace-format
+msgid "{ac} is a mail alias. Alias of aliases are not allowed"
+msgstr "{ac} är ett epost alias. Alias av alias är inte tillåtna"
+
+#: src/EBox/MailAliasLdap.pm:132
+msgid "group alias"
+msgstr "grupp alias"
+
+#: src/EBox/MailAliasLdap.pm:171 src/EBox/MailAliasLdap.pm:191
+msgid "Domain alias"
+msgstr "Domän alias"
+
+#: src/EBox/MailAliasLdap.pm:176 src/EBox/MailAliasLdap.pm:215
+#: src/EBox/MailAliasLdap.pm:242
+#, perl-brace-format
+msgid "Mail domain {d} does not exists"
+msgstr "Epost-domänen {d} existerar inte"
+
+#: src/EBox/MailAliasLdap.pm:183
+#, perl-brace-format
+msgid ""
+"Cannot use {d} as alias for a mail domain because a domain which this name "
+"already exists"
+msgstr ""
+"Det går inte att använda {d} som ett alias för en epost-domän vars namn "
+"redan existerar"
+
+#: src/EBox/MailAliasLdap.pm:325 src/EBox/MailAliasLdap.pm:354
+#: src/EBox/MailAliasLdap.pm:389
+msgid "mail alias account"
+msgstr "e-postkonto alias"
+
+#: src/EBox/CGI/MQRequeue.pm:42 src/EBox/CGI/MQRemove.pm:42
+#: src/templates/qmanager.mas:17
+msgid "Queue ID"
+msgstr "Kö ID"
+
+#: src/EBox/CGI/CreateGroupAlias.pm:43 src/EBox/CGI/DelGroupAlias.pm:42
+msgid "group"
+msgstr "grupp"
+
+#: src/EBox/CGI/CreateGroupAlias.pm:49 src/EBox/CGI/CreateAlias.pm:49
+msgid "account name"
+msgstr "kontonamn"
+
+#: src/EBox/CGI/CreateGroupAlias.pm:50 src/EBox/CGI/CreateAlias.pm:50
+msgid "domain name"
+msgstr "domännamn"
+
+#: src/EBox/CGI/DelAlias.pm:42 src/EBox/CGI/DelAccount.pm:42
+#: src/EBox/CGI/SetAccountMaildirQuota.pm:41 src/EBox/CGI/CreateAccount.pm:42
+#: src/EBox/CGI/CreateAlias.pm:42
+msgid "username"
+msgstr "användarnamn"
+
+#: src/EBox/CGI/Wizard/VirtualDomain.pm:43 src/EBox/Mail/Model/VDomains.pm:211
+msgid "Mail virtual domain"
+msgstr "Virtuell domän för e-post"
+
+#: src/EBox/CGI/Wizard/VirtualDomain.pm:47
+msgid "Invalid virtual mail domain"
+msgstr "Felaktig virtuell domän för e-post"
+
+#: src/EBox/CGI/DelAccount.pm:46
+msgid "user mail"
+msgstr "användar e-post"
+
+#: src/EBox/CGI/SetAccountMaildirQuota.pm:60
+msgid "Quota must be a amount of MB greter than zero"
+msgstr "Kvot måste vara antal MB större än noll"
+
+#: src/EBox/CGI/CreateAccount.pm:48 src/EBox/MailVDomainsLdap.pm:64
+#: src/EBox/MailVDomainsLdap.pm:117 src/EBox/Mail/Model/VDomains.pm:101
+msgid "virtual domain"
+msgstr "virtuell domän"
+
+#: src/EBox/CGI/CreateAccount.pm:50
+msgid "Mail address"
+msgstr "E-postadress"
+
+#: src/EBox/CGI/DelGroupAlias.pm:45
+msgid "alias"
+msgstr "alias"
+
+#: src/EBox/CGI/DelGroupAlias.pm:50
+msgid "group alias mail"
+msgstr "gruppalias e-post"
+
+#: src/EBox/CGI/CreateAlias.pm:48
+msgid "maildrop"
+msgstr "maildrop"
+
+#: src/EBox/CGI/QueueManager.pm:34 src/EBox/CGI/QueueManager.pm:52
+#: src/EBox/Mail.pm:1594
+msgid "Queue Management"
+msgstr "Köhantering"
 
 #: src/EBox/Event/Dispatcher/Mail.pm:154
 msgid "Admin mail recipient"
 msgstr "Mottagare av administratörs-epost"
 
 #: src/EBox/Event/Dispatcher/Mail.pm:167 src/EBox/Mail/Model/MailUser.pm:68
-#: src/EBox/Mail.pm:94 src/EBox/Mail.pm:1511 src/EBox/Mail.pm:1671
+#: src/EBox/Mail.pm:94 src/EBox/Mail.pm:1510 src/EBox/Mail.pm:1671
 msgid "Mail"
 msgstr "E-post"
 
@@ -50,10 +175,13 @@ msgid "Cannot connect to the server {hostname} to send the event through SMTP"
 msgstr ""
 "Kan inte ansluta till server {hostname} för att skicka händelsen via SMTP"
 
-#: src/EBox/MailVDomainsLdap.pm:64 src/EBox/MailVDomainsLdap.pm:117
-#: src/EBox/Mail/Model/VDomains.pm:101 src/EBox/CGI/CreateAccount.pm:48
-msgid "virtual domain"
-msgstr "virtuell domän"
+#: src/EBox/Mail/Greylist.pm:53
+msgid "To configure whitelist for greylisting"
+msgstr "För att konfigurera vitlistor för grålistning"
+
+#: src/EBox/Mail/Greylist.pm:277
+msgid "Greylist service"
+msgstr "Tjänst för grålistning"
 
 #: src/EBox/Mail/Model/ObjectPolicy.pm:89
 msgid "Object"
@@ -92,6 +220,97 @@ msgstr ""
 "Det finns inga nätverksobjekt i detta system. Du kan skapa dem i {openurl}"
 "Object's page{closeurl}"
 
+#: src/EBox/Mail/Model/ExternalAliases.pm:54
+msgid "Alias"
+msgstr "Alias"
+
+#: src/EBox/Mail/Model/ExternalAliases.pm:60
+msgid "The mail domain is appended automatically"
+msgstr "E-post domänen läggs till automatiskt"
+
+#: src/EBox/Mail/Model/ExternalAliases.pm:64
+#: src/EBox/Mail/Model/ExternalAccounts.pm:87
+#: src/EBox/Mail/Model/ExternalAccounts.pm:270
+msgid "External account"
+msgstr "Externt konto"
+
+#: src/EBox/Mail/Model/ExternalAliases.pm:75
+msgid "External Aliases"
+msgstr "Externt alias"
+
+#: src/EBox/Mail/Model/ExternalAliases.pm:84
+msgid "External account alias"
+msgstr "Externt alias för konto"
+
+#: src/EBox/Mail/Model/ExternalAliases.pm:86
+msgid "External account alias added. You must save changes to use this alias"
+msgstr ""
+"Externt alias för konto tillagt. Du måste spara ändringarna för att använda "
+"detta alias"
+
+#: src/EBox/Mail/Model/ExternalAliases.pm:127
+#, perl-brace-format
+msgid ""
+"Cannot add alias because domain {vd} is a alias and aliases belonging to "
+"virtual domain aliases are not supported. Please add the alias belonging to "
+"a real domain"
+msgstr ""
+"Kan inte lägga till alias eftersom domänen {vd} är ett alias och sådana "
+"tillhörande virtuella domän alias är inte supporterade. Vänligen lägg till "
+"ett alias tillhörande en riktig domän."
+
+#: src/EBox/Mail/Model/ExternalAliases.pm:134
+#, perl-brace-format
+msgid ""
+"Cannot add alias because domain {vd} is not a virtual domain managed by this "
+"server"
+msgstr ""
+"Kan inte lägga till alias eftersom domänen {vd} inte är en virtuell domän "
+"hanterad av denna server"
+
+#: src/EBox/Mail/Model/ExternalAliases.pm:146
+#, fuzzy, perl-brace-format
+msgid "An account or alias called {al} already exists"
+msgstr "Det finns redan ett konto eller ett alias som heter {al}"
+
+#: src/EBox/Mail/Model/ExternalAliases.pm:167
+msgid ""
+"The alias account should be provided without domain portion. It will be "
+"appended automatically"
+msgstr ""
+"Alias kontot bör vara specificerat utan domänen. Den blir tillagd "
+"automatiskt."
+
+#: src/EBox/Mail/Model/ExternalAliases.pm:245
+#: src/EBox/Mail/Model/VDomainAliases.pm:137
+#: src/EBox/Mail/Model/VDomains.pm:133
+msgid ""
+"You must enable the mail module in module status section in order to use it."
+msgstr ""
+"Du måste aktivera e-postmodulen i modulstatussektionen för att använda den."
+
+#: src/EBox/Mail/Model/SMTPAuth.pm:65
+msgid "TLS for SMTP server"
+msgstr "TLS för SMTP server"
+
+#: src/EBox/Mail/Model/SMTPAuth.pm:71
+msgid "Require authentication"
+msgstr "Kräv autentisering"
+
+#: src/EBox/Mail/Model/SMTPAuth.pm:74
+msgid ""
+"Users will have to authenticate to be able to send mails through this server"
+msgstr ""
+"Användare måste autentisera för att kunna skicka e-post genom denna server"
+
+#: src/EBox/Mail/Model/SMTPAuth.pm:82
+msgid "Authentication"
+msgstr "Autentisering"
+
+#: src/EBox/Mail/Model/SMTPAuth.pm:112
+msgid "Cannot require authentication when TLS is inactive"
+msgstr "Kan inte kräva autentisering när TLS är inaktiv"
+
 #: src/EBox/Mail/Model/ExternalFilter.pm:87
 msgid "Filter in use"
 msgstr "Filter som används"
@@ -121,6 +340,99 @@ msgstr "ingen"
 msgid "custom"
 msgstr "anpassad"
 
+#: src/EBox/Mail/Model/ExternalAccounts.pm:68
+#: src/EBox/Mail/Model/ExternalAccounts.pm:120
+msgid "External mail accounts"
+msgstr "Externa epost konton"
+
+#: src/EBox/Mail/Model/ExternalAccounts.pm:94
+#: src/EBox/Mail/Model/SMTPOptions.pm:105
+msgid "Password"
+msgstr "Lösenord"
+
+#: src/EBox/Mail/Model/ExternalAccounts.pm:101
+#: src/EBox/Mail/Composite/General.pm:77
+msgid "Mail server"
+msgstr "Epost server"
+
+#: src/EBox/Mail/Model/ExternalAccounts.pm:121
+msgid "external mail account"
+msgstr "Externt epost-konto"
+
+#: src/EBox/Mail/Model/ExternalAccounts.pm:127
+msgid "Fetching mail is done every 10 minutes"
+msgstr "Hämtande av epost sker var tionde minut."
+
+#: src/EBox/Mail/Model/ExternalAccounts.pm:144
+msgid "Secure POP3"
+msgstr "Säker POP3"
+
+#: src/EBox/Mail/Model/ExternalAccounts.pm:152
+msgid "Secure IMAP"
+msgstr "Säker IMAP"
+
+#: src/EBox/Mail/Model/ExternalAccounts.pm:276
+#: src/EBox/Mail/Model/ExternalAccounts.pm:283
+msgid "External account username"
+msgstr "Externt användarnamn"
+
+#: src/EBox/Mail/Model/ExternalAccounts.pm:278
+msgid "No spaces allowed"
+msgstr "Inga mellanslag tillåtna"
+
+#: src/EBox/Mail/Model/ExternalAccounts.pm:317
+msgid "External account added"
+msgstr "Externt konto adderat"
+
+#: src/EBox/Mail/Model/ExternalAccounts.pm:341
+#, perl-brace-format
+msgid "External account {ac} removed"
+msgstr "Externt konto {ac} removed"
+
+#: src/EBox/Mail/Model/ExternalAccounts.pm:439
+msgid ""
+"Cannot retrieve mail from external accounts because you do not have a email "
+"account in a local mail domain"
+msgstr ""
+"Kan inte hämta epost från externa konton eftersom du har ett epost-konto i "
+"en lokal e-post domän"
+
+#: src/EBox/Mail/Model/VDomainAliases.pm:57
+msgid "Aliases"
+msgstr "Alias"
+
+#: src/EBox/Mail/Model/VDomainAliases.pm:69
+msgid "List of Aliases"
+msgstr "Alias"
+
+#: src/EBox/Mail/Model/VDomainAliases.pm:78
+msgid "virtual domain alias"
+msgstr "virtuell domän-alias"
+
+#: src/EBox/Mail/Model/VDomainAliases.pm:80
+msgid "Virtual domain alias added. You must save changes to use this domain"
+msgstr ""
+"Virtuell domän alias tillagdt. Du måste spara ändringarna för att använda "
+"denna domän."
+
+#: src/EBox/Mail/Model/VDomainAliases.pm:101
+#, perl-brace-format
+msgid ""
+"Cannot add {al} alias because there is already a virtual domain with the "
+"same name"
+msgstr ""
+"Kan inte lägga till {al} alias eftersom det redan finns en virtuell domän "
+"med samma namn"
+
+#: src/EBox/Mail/Model/VDomainAliases.pm:108
+#, perl-brace-format
+msgid ""
+"Cannot add alias {al} because it is already an identical alias for another "
+"virtual domain"
+msgstr ""
+"Kan inte lägga till alias {al} eftersom det redan finns ett identiskt alias "
+"för en annan virtuell domän"
+
 #: src/EBox/Mail/Model/SMTPOptions.pm:72
 msgid "Smarthost to send mail"
 msgstr "Smarthost för att sända e-post"
@@ -144,11 +456,6 @@ msgstr "Användarnamn och lösenord"
 #: src/EBox/Mail/Model/SMTPOptions.pm:99
 msgid "User"
 msgstr "Användare"
-
-#: src/EBox/Mail/Model/SMTPOptions.pm:105
-#: src/EBox/Mail/Model/ExternalAccounts.pm:94
-msgid "Password"
-msgstr "Lösenord"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:118
 msgid "Server mailname"
@@ -256,6 +563,26 @@ msgstr ""
 "vägrar ta emot epost och att retur adresser blir felaktiga för "
 "systemanvändare"
 
+#: src/EBox/Mail/Model/VDomainSettings.pm:56
+msgid "Send a copy of all mail domains"
+msgstr "Skicka en kopia av alla epost domäner"
+
+#: src/EBox/Mail/Model/VDomainSettings.pm:58
+msgid "The mail will be a Blind Carbon Copy (BCC)."
+msgstr "Eposten blir en dold kopia (BCC)"
+
+#: src/EBox/Mail/Model/VDomainSettings.pm:62
+msgid "Disabled"
+msgstr "Inaktiverad"
+
+#: src/EBox/Mail/Model/VDomainSettings.pm:66
+msgid "Address to sent the copy"
+msgstr "Adress att skicka kopian till"
+
+#: src/EBox/Mail/Model/VDomainSettings.pm:77
+msgid "Virtual domain settings"
+msgstr "Virtuella domän inställningar"
+
 #: src/EBox/Mail/Model/RetrievalServices.pm:61
 msgid "POP3 service enabled"
 msgstr "POP3-tjänst aktiverad"
@@ -310,74 +637,55 @@ msgid ""
 "settings{chref}."
 msgstr ""
 
-#: src/EBox/Mail/Model/ExternalAliases.pm:54
-msgid "Alias"
-msgstr "Alias"
+#: src/EBox/Mail/Model/MailUser.pm:52
+msgid "Mail Account"
+msgstr "E-postkonto"
 
-#: src/EBox/Mail/Model/ExternalAliases.pm:60
-msgid "The mail domain is appended automatically"
-msgstr "E-post domänen läggs till automatiskt"
+#: src/EBox/Mail/Model/MailUser.pm:55
+msgid "Create mail account user@domain"
+msgstr "Skapa e-postkonto användare@domän"
 
-#: src/EBox/Mail/Model/ExternalAliases.pm:64
-#: src/EBox/Mail/Model/ExternalAccounts.pm:87
-#: src/EBox/Mail/Model/ExternalAccounts.pm:270
-msgid "External account"
-msgstr "Externt konto"
+#: src/EBox/Mail/Model/MailUser.pm:59
+msgid "Default Domain"
+msgstr "Standard domän"
 
-#: src/EBox/Mail/Model/ExternalAliases.pm:75
-msgid "External Aliases"
-msgstr "Externt alias"
+#: src/EBox/Mail/Model/MailUser.pm:98
+msgid "You haven't create a mail domain yet"
+msgstr "Du har inte skapat en epost domän ännu"
 
-#: src/EBox/Mail/Model/ExternalAliases.pm:84
-msgid "External account alias"
-msgstr "Externt alias för konto"
+#: src/EBox/Mail/Model/GreylistConfiguration.pm:75
+msgid "Enabled"
+msgstr "Aktiverad"
 
-#: src/EBox/Mail/Model/ExternalAliases.pm:86
-msgid "External account alias added. You must save changes to use this alias"
-msgstr ""
-"Externt alias för konto tillagt. Du måste spara ändringarna för att använda "
-"detta alias"
+#: src/EBox/Mail/Model/GreylistConfiguration.pm:81
+msgid "Greylist duration (seconds)"
+msgstr "Grålistans tidsgräns (sekunder)"
 
-#: src/EBox/Mail/Model/ExternalAliases.pm:127
-#, perl-brace-format
+#: src/EBox/Mail/Model/GreylistConfiguration.pm:82
+msgid "During this interval, the mail sender is deferred"
+msgstr "Under denna tidsrymd undertrycks sändning av epost."
+
+#: src/EBox/Mail/Model/GreylistConfiguration.pm:90
+msgid "Retry window (hours)"
+msgstr "Tidsfönster för återförsök (timmar)"
+
+#: src/EBox/Mail/Model/GreylistConfiguration.pm:91
 msgid ""
-"Cannot add alias because domain {vd} is a alias and aliases belonging to "
-"virtual domain aliases are not supported. Please add the alias belonging to "
-"a real domain"
-msgstr ""
-"Kan inte lägga till alias eftersom domänen {vd} är ett alias och sådana "
-"tillhörande virtuella domän alias är inte supporterade. Vänligen lägg till "
-"ett alias tillhörande en riktig domän."
+"Time that mail sender has to retry to be added before it will be greylisted "
+"again"
+msgstr "Tid som avsändaren har på sig innan denne blir grålistad igen."
 
-#: src/EBox/Mail/Model/ExternalAliases.pm:134
-#, perl-brace-format
-msgid ""
-"Cannot add alias because domain {vd} is not a virtual domain managed by this "
-"server"
-msgstr ""
-"Kan inte lägga till alias eftersom domänen {vd} inte är en virtuell domän "
-"hanterad av denna server"
+#: src/EBox/Mail/Model/GreylistConfiguration.pm:100
+msgid "Entries time to live (days)"
+msgstr "Tid poster ligger kvar (dagar)"
 
-#: src/EBox/Mail/Model/ExternalAliases.pm:146
-#, fuzzy, perl-brace-format
-msgid "An account or alias called {al} already exists"
-msgstr "Det finns redan ett konto eller ett alias som heter {al}"
+#: src/EBox/Mail/Model/GreylistConfiguration.pm:101
+msgid "Period till unseen entries will be deleted"
+msgstr "Tid innan osedda inlägg raderas"
 
-#: src/EBox/Mail/Model/ExternalAliases.pm:167
-msgid ""
-"The alias account should be provided without domain portion. It will be "
-"appended automatically"
-msgstr ""
-"Alias kontot bör vara specificerat utan domänen. Den blir tillagd "
-"automatiskt."
-
-#: src/EBox/Mail/Model/ExternalAliases.pm:245
-#: src/EBox/Mail/Model/VDomains.pm:133
-#: src/EBox/Mail/Model/VDomainAliases.pm:137
-msgid ""
-"You must enable the mail module in module status section in order to use it."
-msgstr ""
-"Du måste aktivera e-postmodulen i modulstatussektionen för att använda den."
+#: src/EBox/Mail/Model/GreylistConfiguration.pm:109
+msgid "Greylist configuration"
+msgstr "Konfiguration av grålistor"
 
 #: src/EBox/Mail/Model/VDomains.pm:57
 msgid "Name"
@@ -424,10 +732,6 @@ msgstr ""
 "\"sieve\" är ett reserverat namn i denna kontext, vänligen välj ett annat "
 "namn"
 
-#: src/EBox/Mail/Model/VDomains.pm:211 src/EBox/CGI/Wizard/VirtualDomain.pm:43
-msgid "Mail virtual domain"
-msgstr "Virtuell domän för e-post"
-
 #: src/EBox/Mail/Model/VDomains.pm:214
 msgid "The virtual domain name cannot be equal to the mailname"
 msgstr "Det virtuella domän namnet kan inte vara samma som epostnamnet"
@@ -440,80 +744,6 @@ msgid ""
 msgstr ""
 "Kan inte lägga till virtuella domänen {vd} eftersom det finns som extern "
 "domän i kontot som hänvisas av  detta alias {al}"
-
-#: src/EBox/Mail/Model/VDomainAliases.pm:57
-msgid "Aliases"
-msgstr "Alias"
-
-#: src/EBox/Mail/Model/VDomainAliases.pm:69
-msgid "List of Aliases"
-msgstr "Alias"
-
-#: src/EBox/Mail/Model/VDomainAliases.pm:78
-msgid "virtual domain alias"
-msgstr "virtuell domän-alias"
-
-#: src/EBox/Mail/Model/VDomainAliases.pm:80
-msgid "Virtual domain alias added. You must save changes to use this domain"
-msgstr ""
-"Virtuell domän alias tillagdt. Du måste spara ändringarna för att använda "
-"denna domän."
-
-#: src/EBox/Mail/Model/VDomainAliases.pm:101
-#, perl-brace-format
-msgid ""
-"Cannot add {al} alias because there is already a virtual domain with the "
-"same name"
-msgstr ""
-"Kan inte lägga till {al} alias eftersom det redan finns en virtuell domän "
-"med samma namn"
-
-#: src/EBox/Mail/Model/VDomainAliases.pm:108
-#, perl-brace-format
-msgid ""
-"Cannot add alias {al} because it is already an identical alias for another "
-"virtual domain"
-msgstr ""
-"Kan inte lägga till alias {al} eftersom det redan finns ett identiskt alias "
-"för en annan virtuell domän"
-
-#: src/EBox/Mail/Model/SMTPAuth.pm:65
-msgid "TLS for SMTP server"
-msgstr "TLS för SMTP server"
-
-#: src/EBox/Mail/Model/SMTPAuth.pm:71
-msgid "Require authentication"
-msgstr "Kräv autentisering"
-
-#: src/EBox/Mail/Model/SMTPAuth.pm:74
-msgid ""
-"Users will have to authenticate to be able to send mails through this server"
-msgstr ""
-"Användare måste autentisera för att kunna skicka e-post genom denna server"
-
-#: src/EBox/Mail/Model/SMTPAuth.pm:82
-msgid "Authentication"
-msgstr "Autentisering"
-
-#: src/EBox/Mail/Model/SMTPAuth.pm:112
-msgid "Cannot require authentication when TLS is inactive"
-msgstr "Kan inte kräva autentisering när TLS är inaktiv"
-
-#: src/EBox/Mail/Model/MailUser.pm:52
-msgid "Mail Account"
-msgstr "E-postkonto"
-
-#: src/EBox/Mail/Model/MailUser.pm:55
-msgid "Create mail account user@domain"
-msgstr "Skapa e-postkonto användare@domän"
-
-#: src/EBox/Mail/Model/MailUser.pm:59
-msgid "Default Domain"
-msgstr "Standard domän"
-
-#: src/EBox/Mail/Model/MailUser.pm:98
-msgid "You haven't create a mail domain yet"
-msgstr "Du har inte skapat en epost domän ännu"
 
 #: src/EBox/Mail/Model/Dispatcher/Mail.pm:125
 msgid "Subject"
@@ -544,107 +774,27 @@ msgstr ""
 msgid "Mail dispatcher configuration updated"
 msgstr "E-post förmedlarens konfiguration är uppdaterad"
 
-#: src/EBox/Mail/Model/ExternalAccounts.pm:68
-#: src/EBox/Mail/Model/ExternalAccounts.pm:120
-msgid "External mail accounts"
-msgstr "Externa epost konton"
-
-#: src/EBox/Mail/Model/ExternalAccounts.pm:101
-#: src/EBox/Mail/Composite/General.pm:77
-msgid "Mail server"
-msgstr "Epost server"
-
-#: src/EBox/Mail/Model/ExternalAccounts.pm:121
-msgid "external mail account"
-msgstr "Externt epost-konto"
-
-#: src/EBox/Mail/Model/ExternalAccounts.pm:127
-msgid "Fetching mail is done every 10 minutes"
-msgstr "Hämtande av epost sker var tionde minut."
-
-#: src/EBox/Mail/Model/ExternalAccounts.pm:144
-msgid "Secure POP3"
-msgstr "Säker POP3"
-
-#: src/EBox/Mail/Model/ExternalAccounts.pm:152
-msgid "Secure IMAP"
-msgstr "Säker IMAP"
-
-#: src/EBox/Mail/Model/ExternalAccounts.pm:276
-#: src/EBox/Mail/Model/ExternalAccounts.pm:283
-msgid "External account username"
-msgstr "Externt användarnamn"
-
-#: src/EBox/Mail/Model/ExternalAccounts.pm:278
-msgid "No spaces allowed"
-msgstr "Inga mellanslag tillåtna"
-
-#: src/EBox/Mail/Model/ExternalAccounts.pm:317
-msgid "External account added"
-msgstr "Externt konto adderat"
-
-#: src/EBox/Mail/Model/ExternalAccounts.pm:341
-#, perl-brace-format
-msgid "External account {ac} removed"
-msgstr "Externt konto {ac} removed"
-
-#: src/EBox/Mail/Model/ExternalAccounts.pm:439
-msgid ""
-"Cannot retrieve mail from external accounts because you do not have a email "
-"account in a local mail domain"
-msgstr ""
-"Kan inte hämta epost från externa konton eftersom du har ett epost-konto i "
-"en lokal e-post domän"
-
-#: src/EBox/Mail/Model/VDomainSettings.pm:56
-msgid "Send a copy of all mail domains"
-msgstr "Skicka en kopia av alla epost domäner"
-
-#: src/EBox/Mail/Model/VDomainSettings.pm:58
-msgid "The mail will be a Blind Carbon Copy (BCC)."
-msgstr "Eposten blir en dold kopia (BCC)"
-
-#: src/EBox/Mail/Model/VDomainSettings.pm:62
-msgid "Disabled"
-msgstr "Inaktiverad"
-
-#: src/EBox/Mail/Model/VDomainSettings.pm:66
-msgid "Address to sent the copy"
-msgstr "Adress att skicka kopian till"
-
-#: src/EBox/Mail/Model/VDomainSettings.pm:77
-msgid "Virtual domain settings"
-msgstr "Virtuella domän inställningar"
-
-#: src/EBox/Mail/Model/Report/TrafficGraph.pm:51
-#: src/EBox/Mail/Model/Report/TrafficDetails.pm:49
-msgid "Sent messsages"
-msgstr "Skickade meddelanden"
-
-#: src/EBox/Mail/Model/Report/TrafficGraph.pm:52
-#: src/EBox/Mail/Model/Report/TrafficDetails.pm:50
-#: src/EBox/Mail/Model/Report/TrafficDetails.pm:78
-msgid "Received messages"
-msgstr "Mottagna meddelanden"
-
-#: src/EBox/Mail/Model/Report/TrafficGraph.pm:53
-#: src/EBox/Mail/Model/Report/TrafficDetails.pm:51
-#: src/EBox/Mail/Model/Report/TrafficDetails.pm:82
-msgid "Rejected messages"
-msgstr "Avvisade meddelanden"
-
-#: src/EBox/Mail/Model/Report/TrafficGraph.pm:62
-msgid "Traffic summary chart"
-msgstr "Summerad tabell över trafiken"
-
-#: src/EBox/Mail/Model/Report/TrafficGraph.pm:84
-msgid "Traffic summary graph"
-msgstr "Summerat diagram över trafiken"
-
 #: src/EBox/Mail/Model/Report/TrafficDetails.pm:48
 #: src/EBox/Mail/Model/Report/TrafficDetails.pm:68
 msgid "Virtual domain"
 msgstr "Virtuell domän"
+
+#: src/EBox/Mail/Model/Report/TrafficDetails.pm:49
+#: src/EBox/Mail/Model/Report/TrafficGraph.pm:51
+msgid "Sent messsages"
+msgstr "Skickade meddelanden"
+
+#: src/EBox/Mail/Model/Report/TrafficDetails.pm:50
+#: src/EBox/Mail/Model/Report/TrafficDetails.pm:78
+#: src/EBox/Mail/Model/Report/TrafficGraph.pm:52
+msgid "Received messages"
+msgstr "Mottagna meddelanden"
+
+#: src/EBox/Mail/Model/Report/TrafficDetails.pm:51
+#: src/EBox/Mail/Model/Report/TrafficDetails.pm:82
+#: src/EBox/Mail/Model/Report/TrafficGraph.pm:53
+msgid "Rejected messages"
+msgstr "Avvisade meddelanden"
 
 #: src/EBox/Mail/Model/Report/TrafficDetails.pm:62 src/EBox/Mail.pm:1637
 #: src/templates/qmanager.mas:19
@@ -663,39 +813,13 @@ msgstr "Detaljer om trafiken för eposten"
 msgid "traffic"
 msgstr "trafik"
 
-#: src/EBox/Mail/Model/GreylistConfiguration.pm:75
-msgid "Enabled"
-msgstr "Aktiverad"
+#: src/EBox/Mail/Model/Report/TrafficGraph.pm:62
+msgid "Traffic summary chart"
+msgstr "Summerad tabell över trafiken"
 
-#: src/EBox/Mail/Model/GreylistConfiguration.pm:81
-msgid "Greylist duration (seconds)"
-msgstr "Grålistans tidsgräns (sekunder)"
-
-#: src/EBox/Mail/Model/GreylistConfiguration.pm:82
-msgid "During this interval, the mail sender is deferred"
-msgstr "Under denna tidsrymd undertrycks sändning av epost."
-
-#: src/EBox/Mail/Model/GreylistConfiguration.pm:90
-msgid "Retry window (hours)"
-msgstr "Tidsfönster för återförsök (timmar)"
-
-#: src/EBox/Mail/Model/GreylistConfiguration.pm:91
-msgid ""
-"Time that mail sender has to retry to be added before it will be greylisted "
-"again"
-msgstr "Tid som avsändaren har på sig innan denne blir grålistad igen."
-
-#: src/EBox/Mail/Model/GreylistConfiguration.pm:100
-msgid "Entries time to live (days)"
-msgstr "Tid poster ligger kvar (dagar)"
-
-#: src/EBox/Mail/Model/GreylistConfiguration.pm:101
-msgid "Period till unseen entries will be deleted"
-msgstr "Tid innan osedda inlägg raderas"
-
-#: src/EBox/Mail/Model/GreylistConfiguration.pm:109
-msgid "Greylist configuration"
-msgstr "Konfiguration av grålistor"
+#: src/EBox/Mail/Model/Report/TrafficGraph.pm:84
+msgid "Traffic summary graph"
+msgstr "Summerat diagram över trafiken"
 
 #: src/EBox/Mail/Composite/General.pm:76
 #: src/EBox/Mail/Composite/ServiceConfiguration.pm:87
@@ -710,81 +834,9 @@ msgstr "Rapporter över epost-trafiken"
 msgid "Mail traffic report"
 msgstr "Rapport över epost-trafiken"
 
-#: src/EBox/Mail/Greylist.pm:53
-msgid "To configure whitelist for greylisting"
-msgstr "För att konfigurera vitlistor för grålistning"
-
-#: src/EBox/Mail/Greylist.pm:277
-msgid "Greylist service"
-msgstr "Tjänst för grålistning"
-
 #: src/EBox/Mail/FetchmailLdap.pm:347
 msgid "External retrieval service"
 msgstr "E-post hämtningstjänst"
-
-#: src/EBox/MailAliasLdap.pm:62
-#, perl-brace-format
-msgid "{ac} is not a internal account"
-msgstr "{ac} är inte ett intern konto"
-
-#: src/EBox/MailAliasLdap.pm:79
-#, perl-brace-format
-msgid "{ac} is not a external account"
-msgstr "{ac} är inte ett externt konto"
-
-#: src/EBox/MailAliasLdap.pm:101 src/EBox/CGI/DelAlias.pm:46
-msgid "mail alias"
-msgstr "e-postalias"
-
-#: src/EBox/MailAliasLdap.pm:105 src/EBox/MailAliasLdap.pm:135
-#: src/EBox/MailUserLdap.pm:83 src/EBox/MailUserLdap.pm:88
-msgid "mail account"
-msgstr "mailkonto"
-
-#: src/EBox/MailAliasLdap.pm:113
-#, perl-brace-format
-msgid "{ac} is a mail alias. Alias of aliases are not allowed"
-msgstr "{ac} är ett epost alias. Alias av alias är inte tillåtna"
-
-#: src/EBox/MailAliasLdap.pm:132
-msgid "group alias"
-msgstr "grupp alias"
-
-#: src/EBox/MailAliasLdap.pm:171 src/EBox/MailAliasLdap.pm:191
-msgid "Domain alias"
-msgstr "Domän alias"
-
-#: src/EBox/MailAliasLdap.pm:176 src/EBox/MailAliasLdap.pm:215
-#: src/EBox/MailAliasLdap.pm:242
-#, perl-brace-format
-msgid "Mail domain {d} does not exists"
-msgstr "Epost-domänen {d} existerar inte"
-
-#: src/EBox/MailAliasLdap.pm:183
-#, perl-brace-format
-msgid ""
-"Cannot use {d} as alias for a mail domain because a domain which this name "
-"already exists"
-msgstr ""
-"Det går inte att använda {d} som ett alias för en epost-domän vars namn "
-"redan existerar"
-
-#: src/EBox/MailAliasLdap.pm:325 src/EBox/MailAliasLdap.pm:354
-#: src/EBox/MailAliasLdap.pm:389
-msgid "mail alias account"
-msgstr "e-postkonto alias"
-
-#: src/EBox/MailUserLdap.pm:430
-msgid "This group has a mail alias"
-msgstr "Denna grupp har ett e-postalias"
-
-#: src/EBox/MailUserLdap.pm:457
-msgid "This user has a mail account"
-msgstr "Denna användare har ett mailkonto"
-
-#: src/EBox/MailUserLdap.pm:812
-msgid "Quota can only be a positive number or zero for unlimited quota"
-msgstr "Kvot kan bara vara ett positivt nummer eller noll för oändlig kvot"
 
 #: src/EBox/Mail.pm:141
 msgid "Generate mail aliases"
@@ -893,23 +945,23 @@ msgstr ""
 "Epostfiltret $name är inte aktivt. Välj ett annat filter eller inaktivera "
 "det."
 
-#: src/EBox/Mail.pm:1457
+#: src/EBox/Mail.pm:1456
 msgid "SMTP service"
 msgstr "SMTP-tjänst"
 
-#: src/EBox/Mail.pm:1464
+#: src/EBox/Mail.pm:1463
 msgid "POP3 service"
 msgstr "POP3-tjänst"
 
-#: src/EBox/Mail.pm:1470
+#: src/EBox/Mail.pm:1469
 msgid "POP3S service"
 msgstr "POP3S-tjänst"
 
-#: src/EBox/Mail.pm:1476
+#: src/EBox/Mail.pm:1475
 msgid "IMAP service"
 msgstr "IMAP-tjänst"
 
-#: src/EBox/Mail.pm:1482
+#: src/EBox/Mail.pm:1481
 msgid "IMAPS service"
 msgstr "IMAPS-tjänst"
 
@@ -952,11 +1004,6 @@ msgstr "Virtuella e-postdomäner"
 #: src/EBox/Mail.pm:1588
 msgid "Greylist"
 msgstr "Grålista"
-
-#: src/EBox/Mail.pm:1594 src/EBox/CGI/QueueManager.pm:34
-#: src/EBox/CGI/QueueManager.pm:52
-msgid "Queue Management"
-msgstr "Köhantering"
 
 #: src/EBox/Mail.pm:1621
 msgid "Mail retrieval from external accounts"
@@ -1034,68 +1081,60 @@ msgstr "Grålistad"
 msgid "Other events"
 msgstr "Övriga händelser"
 
-#: src/EBox/Mail.pm:1854
+#: src/EBox/Mail.pm:1797 src/EBox/Mail.pm:1858
 msgid "Mailboxes"
 msgstr "E-postbrevlådor"
 
-#: src/EBox/Mail.pm:1882
+#: src/EBox/Mail.pm:1798
+msgid "Mail messages from users and group alias"
+msgstr ""
+
+#: src/EBox/Mail.pm:1886
 msgid "Mail SMTP server"
 msgstr "SMTP-server för epost."
 
-#: src/EBox/Mail.pm:1889
+#: src/EBox/Mail.pm:1893
 msgid "Mail POP/IMAP server"
 msgstr "Epostserver POP/IMAP"
 
-#: src/EBox/CGI/DelAlias.pm:42 src/EBox/CGI/CreateAccount.pm:42
-#: src/EBox/CGI/CreateAlias.pm:42 src/EBox/CGI/SetAccountMaildirQuota.pm:41
-#: src/EBox/CGI/DelAccount.pm:42
-msgid "username"
-msgstr "användarnamn"
+#: src/EBox/MailQueue.pm:79
+msgid "This message is being delivered"
+msgstr "Detta meddelande skickas"
 
-#: src/EBox/CGI/CreateAccount.pm:50
-msgid "Mail address"
-msgstr "E-postadress"
+#: src/templates/groupalias.mas:8
+msgid "Mail alias settings"
+msgstr "Inställningar för e-postalias"
 
-#: src/EBox/CGI/Wizard/VirtualDomain.pm:47
-msgid "Invalid virtual mail domain"
-msgstr "Felaktig virtuell domän för e-post"
+#: src/templates/groupalias.mas:13
+msgid ""
+"There are no users in the group or the users do not have a mail account, so "
+"an alias account cannot be created"
+msgstr ""
+"Det finns inga användare i gruppen eller användarna har inte ett e-"
+"postkonto. Därför kan inte ett aliaskonto skapas"
 
-#: src/EBox/CGI/MQRequeue.pm:42 src/EBox/CGI/MQRemove.pm:42
-#: src/templates/qmanager.mas:17
-msgid "Queue ID"
-msgstr "Kö ID"
+#: src/templates/groupalias.mas:23 src/templates/alias.mas:38
+msgid "Mail alias"
+msgstr "E-postalias"
 
-#: src/EBox/CGI/CreateAlias.pm:48
-msgid "maildrop"
-msgstr "maildrop"
+#: src/templates/groupalias.mas:26 src/templates/qmanager.mas:23
+#: src/templates/alias.mas:41
+msgid "Action"
+msgstr "Åtgärd"
 
-#: src/EBox/CGI/CreateAlias.pm:49 src/EBox/CGI/CreateGroupAlias.pm:49
-msgid "account name"
-msgstr "kontonamn"
+#: src/templates/groupalias.mas:66 src/templates/groupalias.mas:67
+#: src/templates/groupalias.mas:68 src/templates/createaccount.mas:47
+#: src/templates/createaccount.mas:48 src/templates/alias.mas:62
+#: src/templates/alias.mas:63 src/templates/alias.mas:64
+msgid "Create"
+msgstr "Skapa"
 
-#: src/EBox/CGI/CreateAlias.pm:50 src/EBox/CGI/CreateGroupAlias.pm:50
-msgid "domain name"
-msgstr "domännamn"
-
-#: src/EBox/CGI/CreateGroupAlias.pm:43 src/EBox/CGI/DelGroupAlias.pm:42
-msgid "group"
-msgstr "grupp"
-
-#: src/EBox/CGI/DelGroupAlias.pm:45
-msgid "alias"
-msgstr "alias"
-
-#: src/EBox/CGI/DelGroupAlias.pm:50
-msgid "group alias mail"
-msgstr "gruppalias e-post"
-
-#: src/EBox/CGI/SetAccountMaildirQuota.pm:60
-msgid "Quota must be a amount of MB greter than zero"
-msgstr "Kvot måste vara antal MB större än noll"
-
-#: src/EBox/CGI/DelAccount.pm:46
-msgid "user mail"
-msgstr "användar e-post"
+#: src/templates/groupalias.mas:87 src/templates/groupalias.mas:88
+#: src/templates/alias.mas:21 src/templates/alias.mas:22
+#: src/templates/alias.mas:23 src/templates/alias.mas:75
+#: src/templates/alias.mas:76 src/templates/warnvd.mas:29
+msgid "Delete"
+msgstr "Ta bort"
 
 #: src/templates/Wizard/virtualdomain.mas:4
 msgid "Virtual mail domain"
@@ -1109,15 +1148,6 @@ msgstr "Skapa standard virtuell epost domän"
 msgid "This will be the domain for your mail accounts"
 msgstr "Detta blir domänen för dina epostkonton"
 
-#: src/templates/warnusermdsize.mas:23 src/templates/warnvdmdsize.mas:33
-msgid "Change"
-msgstr "Ändra"
-
-#: src/templates/warnusermdsize.mas:26 src/templates/warnvdmdsize.mas:36
-#: src/templates/warnvd.mas:32
-msgid "Cancel"
-msgstr "Avbryt"
-
 #: src/templates/qmanager.mas:20
 msgid "Sender"
 msgstr "Avsändare"
@@ -1125,11 +1155,6 @@ msgstr "Avsändare"
 #: src/templates/qmanager.mas:21
 msgid "Recipients"
 msgstr "Mottagare"
-
-#: src/templates/qmanager.mas:23 src/templates/alias.mas:41
-#: src/templates/groupalias.mas:26
-msgid "Action"
-msgstr "Åtgärd"
 
 #: src/templates/qmanager.mas:44 src/templates/qmanager.mas:45
 msgid "Requeue"
@@ -1172,34 +1197,33 @@ msgid "last"
 msgstr "sista"
 
 #: src/templates/qmanager.mas:146
-msgid "There is no messages in queue or the service is stopped"
+#, fuzzy
+msgid "There are no messages in queue or the service is stopped"
 msgstr "Det finns inga meddelanden i kön eller tjänsten är stoppad"
+
+#: src/templates/createaccount.mas:15
+msgid "Create mail account"
+msgstr "Skapa e-postkonto"
+
+#: src/templates/createaccount.mas:23
+msgid "Account name"
+msgstr "Kontonamn"
+
+#: src/templates/createaccount.mas:27
+msgid "Domain name"
+msgstr "Domännamn"
+
+#: src/templates/createaccount.mas:63
+msgid "Maildir size"
+msgstr "Storlek för e-postmapp "
 
 #: src/templates/alias.mas:10
 msgid "Mail account settings"
 msgstr "Inställningar för e-postkonto"
 
-#: src/templates/alias.mas:21 src/templates/alias.mas:22
-#: src/templates/alias.mas:23 src/templates/alias.mas:75
-#: src/templates/alias.mas:76 src/templates/groupalias.mas:87
-#: src/templates/groupalias.mas:88 src/templates/warnvd.mas:29
-msgid "Delete"
-msgstr "Ta bort"
-
 #: src/templates/alias.mas:33
 msgid "Create mail aliases"
 msgstr "Skapa e-postalias"
-
-#: src/templates/alias.mas:38 src/templates/groupalias.mas:23
-msgid "Mail alias"
-msgstr "E-postalias"
-
-#: src/templates/alias.mas:62 src/templates/alias.mas:63
-#: src/templates/alias.mas:64 src/templates/createaccount.mas:47
-#: src/templates/createaccount.mas:48 src/templates/groupalias.mas:66
-#: src/templates/groupalias.mas:67 src/templates/groupalias.mas:68
-msgid "Create"
-msgstr "Skapa"
 
 #: src/templates/alias.mas:124
 msgid "No quota"
@@ -1225,41 +1249,6 @@ msgstr "Max storlek för epostbibliotek i MB"
 msgid "Modify"
 msgstr "Ändra"
 
-#: src/templates/createaccount.mas:15
-msgid "Create mail account"
-msgstr "Skapa e-postkonto"
-
-#: src/templates/createaccount.mas:23
-msgid "Account name"
-msgstr "Kontonamn"
-
-#: src/templates/createaccount.mas:27
-msgid "Domain name"
-msgstr "Domännamn"
-
-#: src/templates/createaccount.mas:63
-msgid "Maildir size"
-msgstr "Storlek för e-postmapp "
-
-#: src/templates/moduleDisabled.mas:5
-msgid ""
-"The following settings only will take effect when the mail module is enabled"
-msgstr ""
-"Följande inställningar kommer endast att aktiveras när e-post modulen är "
-"aktiverad"
-
-#: src/templates/groupalias.mas:8
-msgid "Mail alias settings"
-msgstr "Inställningar för e-postalias"
-
-#: src/templates/groupalias.mas:13
-msgid ""
-"There are no users in the group or the users do not have a mail account, so "
-"an alias account cannot be created"
-msgstr ""
-"Det finns inga användare i gruppen eller användarna har inte ett e-"
-"postkonto. Därför kan inte ett aliaskonto skapas"
-
 #: src/templates/account.mas:22
 msgid "Mail account"
 msgstr "E-postkonto"
@@ -1275,3 +1264,19 @@ msgid ""
 msgstr ""
 "Den virtuella domänen du försökte radera innehåller data i följande moduler. "
 "Vänligen bekräfta om du vill radera detta och all relaterad data"
+
+#: src/templates/warnvd.mas:32 src/templates/warnvdmdsize.mas:36
+#: src/templates/warnusermdsize.mas:26
+msgid "Cancel"
+msgstr "Avbryt"
+
+#: src/templates/moduleDisabled.mas:5
+msgid ""
+"The following settings only will take effect when the mail module is enabled"
+msgstr ""
+"Följande inställningar kommer endast att aktiveras när e-post modulen är "
+"aktiverad"
+
+#: src/templates/warnvdmdsize.mas:33 src/templates/warnusermdsize.mas:23
+msgid "Change"
+msgstr "Ändra"

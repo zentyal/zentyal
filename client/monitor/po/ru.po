@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: EBox-monitor 0.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-08-28 23:36+0200\n"
+"POT-Creation-Date: 2010-12-13 08:40+0100\n"
 "PO-Revision-Date: 2010-08-26 10:05+0200\n"
 "Last-Translator: Dmitry Salynin <dsalynin@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
@@ -18,203 +18,16 @@ msgstr ""
 "10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: src/EBox/Event/Watcher/Monitor.pm:144 src/EBox/Monitor.pm:78
-#: src/EBox/Monitor.pm:177
-msgid "Monitor"
-msgstr "Монитор"
+#: src/EBox/Monitor/Types/MeasureAttribute.pm:132
+#: src/EBox/Monitor/Types/MeasureAttribute.pm:146
+#: src/EBox/Monitor/Types/MeasureAttribute.pm:156
+msgid "not applicable"
+msgstr "не применимо"
 
-#: src/EBox/Event/Watcher/Monitor.pm:161
-msgid "Notify when a certain value has reached a certain threshold"
-msgstr "Сообщить, когда определенное значение достигло определенного порога"
-
-#: src/EBox/Event/Watcher/Monitor.pm:263
-msgid "All data sources are within range again"
-msgstr "Все источники данных находятся снова в диапазоне"
-
-#: src/EBox/Event/Watcher/Monitor.pm:273
-#, perl-brace-format
-msgid "{what} \"{dS}\" is currently {value}."
-msgstr "{what} \"{dS}\" сейчас {value}."
-
-#: src/EBox/Event/Watcher/Monitor.pm:280
-#, perl-brace-format
-msgid "That is within the {severity} region of {minBound} and {maxBound}. "
-msgstr ""
-"Значение находится в пределах {severity} зоны от {minBound} до {maxBound}."
-
-#: src/EBox/Event/Watcher/Monitor.pm:288
-#, perl-brace-format
-msgid "That is above the {severity} threshold of {bound}. "
-msgstr "Значение {severity} выше порога {bound}."
-
-#: src/EBox/Event/Watcher/Monitor.pm:291
-#, perl-brace-format
-msgid "That is below the {severity} threshold of {bound}. "
-msgstr "Значение {severity} ниже порога {bound}."
-
-#: src/EBox/Monitor.pm:150
-#, perl-brace-format
-msgid "{daemon} main configuration file"
-msgstr "Главный конфигурационный файл {daemon}"
-
-#: src/EBox/Monitor.pm:155
-#, perl-brace-format
-msgid "{daemon} thresholds configuration file"
-msgstr "Конфигурационный файл {daemon} порогов"
-
-#: src/EBox/Monitor.pm:160
-#, perl-brace-format
-msgid "{daemon} default configuration file"
-msgstr "Конфигурационный файл по умолчанию {daemon}"
-
-#: src/EBox/Monitor/Measure/CPU.pm:59
-#, perl-brace-format
-msgid "CPU {no} usage"
-msgstr "Использование {no} CPU"
-
-#: src/EBox/Monitor/Measure/CPU.pm:65
-msgid "CPU usage"
-msgstr "Использование CPU"
-
-#: src/EBox/Monitor/Measure/CPU.pm:66
-msgid ""
-"Collect the amount of time spent by the CPU in various states, most notably "
-"executing user code, executing system code, waiting for IO operations and "
-"being idle"
-msgstr ""
-"Подсчёт количества времени, потраченного CPU в разных состояниях: исполнение "
-"пользовательского кода, исполнение системного кода, ожидание операций IO и "
-"простои"
-
-#: src/EBox/Monitor/Measure/CPU.pm:73 src/EBox/Monitor/Measure/CPU.pm:82
-msgid "idle"
-msgstr "простои"
-
-#: src/EBox/Monitor/Measure/CPU.pm:74 src/EBox/Monitor/Measure/CPU.pm:82
-msgid "user"
-msgstr "пользователь"
-
-#: src/EBox/Monitor/Measure/CPU.pm:75 src/EBox/Monitor/Measure/CPU.pm:82
-msgid "interrupt"
-msgstr "прерывания"
-
-#: src/EBox/Monitor/Measure/CPU.pm:76 src/EBox/Monitor/Measure/CPU.pm:83
-msgid "nice"
-msgstr "приоритет"
-
-#: src/EBox/Monitor/Measure/CPU.pm:77 src/EBox/Monitor/Measure/CPU.pm:83
-msgid "soft interrupt"
-msgstr "мягкие прерывания"
-
-#: src/EBox/Monitor/Measure/CPU.pm:78 src/EBox/Monitor/Measure/CPU.pm:83
-msgid "steal"
-msgstr "перехват"
-
-#: src/EBox/Monitor/Measure/CPU.pm:79 src/EBox/Monitor/Measure/CPU.pm:84
-msgid "system"
-msgstr "система"
-
-#: src/EBox/Monitor/Measure/CPU.pm:80 src/EBox/Monitor/Measure/CPU.pm:84
-msgid "wait"
-msgstr "ожидание"
-
-#: src/EBox/Monitor/Measure/Df.pm:76
-#, perl-brace-format
-msgid "used in {partition}"
-msgstr "использовано на {partition}"
-
-#: src/EBox/Monitor/Measure/Df.pm:78
-#, perl-brace-format
-msgid "free in {partition}"
-msgstr "свободно на {partition}"
-
-#: src/EBox/Monitor/Measure/Df.pm:83
-msgid "File system usage"
-msgstr "Использование файловой системы"
-
-#: src/EBox/Monitor/Measure/Df.pm:84
-msgid ""
-"Collect the mounted file system usage information as \"df\" command does"
-msgstr ""
-"Сбор использования смонтированных файловых систем, аналогичен выводу команды "
-"\"df\""
-
-#: src/EBox/Monitor/Measure/Memory.pm:55
-msgid "Physical memory usage"
-msgstr "Использование физической памяти"
-
-#: src/EBox/Monitor/Measure/Memory.pm:56
-msgid "Collect the physical memory usage"
-msgstr "Сбор использования физической памяти"
-
-#: src/EBox/Monitor/Measure/Memory.pm:57
-msgid "free"
-msgstr "свободно"
-
-#: src/EBox/Monitor/Measure/Memory.pm:57
-msgid "page cache"
-msgstr "кэш страниц"
-
-#: src/EBox/Monitor/Measure/Memory.pm:57
-msgid "buffer cache"
-msgstr "кэш-буфер"
-
-#: src/EBox/Monitor/Measure/Memory.pm:57
-msgid "used"
-msgstr "использовано"
-
-#: src/EBox/Monitor/Measure/Load.pm:55
-msgid "System load"
-msgstr "Загрузка системы"
-
-#: src/EBox/Monitor/Measure/Load.pm:56
-msgid "Collect the system load that gives a rough overview of the system usage"
-msgstr "Сбор загрузки системы дает приблизительный обзор использования системы"
-
-#: src/EBox/Monitor/Measure/Load.pm:59
-msgid "short term"
-msgstr "краткосрочный"
-
-#: src/EBox/Monitor/Measure/Load.pm:59
-msgid "mid term"
-msgstr "среднесрочный"
-
-#: src/EBox/Monitor/Measure/Load.pm:59
-msgid "long term"
-msgstr "долгосрочный"
-
-#: src/EBox/Monitor/Measure/Thermal.pm:111
-#: src/EBox/Monitor/Measure/Thermal.pm:117
-msgid "temperature"
-msgstr "температура"
-
-#: src/EBox/Monitor/Measure/Thermal.pm:129
-msgid "cooling device"
-msgstr "устройство охлаждения"
-
-#: src/EBox/Monitor/Measure/Thermal.pm:131
-msgid "sensor"
-msgstr "датчик"
-
-#: src/EBox/Monitor/Measure/Thermal.pm:133
-#, perl-brace-format
-msgid "Temperature for {what}"
-msgstr "Температура на {what}"
-
-#: src/EBox/Monitor/Measure/Thermal.pm:139
-msgid "Thermal"
-msgstr "Тепловой"
-
-#: src/EBox/Monitor/Measure/Thermal.pm:140
-#, perl-brace-format
-msgid ""
-"Collect thermal information (CPU sensors temperature) if possible from {dir}"
-msgstr ""
-"Сбор тепловой информации (датчик температуры CPU), если это возможно из {dir}"
-
-#: src/EBox/Monitor/Measure/Base.pm:684
-msgid "value"
-msgstr "значение"
+#: src/EBox/Monitor/Types/MeasureAttribute.pm:134
+#: src/EBox/Monitor/Types/MeasureAttribute.pm:144
+msgid "any"
+msgstr "любой"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:102
 #: src/EBox/Monitor/Model/MeasureWatchers.pm:77
@@ -407,16 +220,154 @@ msgstr "Последний месяц"
 msgid "Last year"
 msgstr "Последний год"
 
-#: src/EBox/Monitor/Types/MeasureAttribute.pm:132
-#: src/EBox/Monitor/Types/MeasureAttribute.pm:146
-#: src/EBox/Monitor/Types/MeasureAttribute.pm:156
-msgid "not applicable"
-msgstr "не применимо"
+#: src/EBox/Monitor/Measure/Load.pm:55
+msgid "System load"
+msgstr "Загрузка системы"
 
-#: src/EBox/Monitor/Types/MeasureAttribute.pm:134
-#: src/EBox/Monitor/Types/MeasureAttribute.pm:144
-msgid "any"
-msgstr "любой"
+#: src/EBox/Monitor/Measure/Load.pm:56
+msgid "Collect the system load that gives a rough overview of the system usage"
+msgstr "Сбор загрузки системы дает приблизительный обзор использования системы"
+
+#: src/EBox/Monitor/Measure/Load.pm:59
+msgid "short term"
+msgstr "краткосрочный"
+
+#: src/EBox/Monitor/Measure/Load.pm:59
+msgid "mid term"
+msgstr "среднесрочный"
+
+#: src/EBox/Monitor/Measure/Load.pm:59
+msgid "long term"
+msgstr "долгосрочный"
+
+#: src/EBox/Monitor/Measure/Df.pm:76
+#, perl-brace-format
+msgid "used in {partition}"
+msgstr "использовано на {partition}"
+
+#: src/EBox/Monitor/Measure/Df.pm:78
+#, perl-brace-format
+msgid "free in {partition}"
+msgstr "свободно на {partition}"
+
+#: src/EBox/Monitor/Measure/Df.pm:83
+msgid "File system usage"
+msgstr "Использование файловой системы"
+
+#: src/EBox/Monitor/Measure/Df.pm:84
+msgid ""
+"Collect the mounted file system usage information as \"df\" command does"
+msgstr ""
+"Сбор использования смонтированных файловых систем, аналогичен выводу команды "
+"\"df\""
+
+#: src/EBox/Monitor/Measure/Thermal.pm:111
+#: src/EBox/Monitor/Measure/Thermal.pm:117
+msgid "temperature"
+msgstr "температура"
+
+#: src/EBox/Monitor/Measure/Thermal.pm:129
+msgid "cooling device"
+msgstr "устройство охлаждения"
+
+#: src/EBox/Monitor/Measure/Thermal.pm:131
+msgid "sensor"
+msgstr "датчик"
+
+#: src/EBox/Monitor/Measure/Thermal.pm:133
+#, perl-brace-format
+msgid "Temperature for {what}"
+msgstr "Температура на {what}"
+
+#: src/EBox/Monitor/Measure/Thermal.pm:139
+msgid "Thermal"
+msgstr "Тепловой"
+
+#: src/EBox/Monitor/Measure/Thermal.pm:140
+#, perl-brace-format
+msgid ""
+"Collect thermal information (CPU sensors temperature) if possible from {dir}"
+msgstr ""
+"Сбор тепловой информации (датчик температуры CPU), если это возможно из {dir}"
+
+#: src/EBox/Monitor/Measure/Base.pm:684
+msgid "value"
+msgstr "значение"
+
+#: src/EBox/Monitor/Measure/CPU.pm:59
+#, perl-brace-format
+msgid "CPU {no} usage"
+msgstr "Использование {no} CPU"
+
+#: src/EBox/Monitor/Measure/CPU.pm:65
+msgid "CPU usage"
+msgstr "Использование CPU"
+
+#: src/EBox/Monitor/Measure/CPU.pm:66
+msgid ""
+"Collect the amount of time spent by the CPU in various states, most notably "
+"executing user code, executing system code, waiting for IO operations and "
+"being idle"
+msgstr ""
+"Подсчёт количества времени, потраченного CPU в разных состояниях: исполнение "
+"пользовательского кода, исполнение системного кода, ожидание операций IO и "
+"простои"
+
+#: src/EBox/Monitor/Measure/CPU.pm:73 src/EBox/Monitor/Measure/CPU.pm:82
+msgid "idle"
+msgstr "простои"
+
+#: src/EBox/Monitor/Measure/CPU.pm:74 src/EBox/Monitor/Measure/CPU.pm:82
+msgid "user"
+msgstr "пользователь"
+
+#: src/EBox/Monitor/Measure/CPU.pm:75 src/EBox/Monitor/Measure/CPU.pm:82
+msgid "interrupt"
+msgstr "прерывания"
+
+#: src/EBox/Monitor/Measure/CPU.pm:76 src/EBox/Monitor/Measure/CPU.pm:83
+msgid "nice"
+msgstr "приоритет"
+
+#: src/EBox/Monitor/Measure/CPU.pm:77 src/EBox/Monitor/Measure/CPU.pm:83
+msgid "soft interrupt"
+msgstr "мягкие прерывания"
+
+#: src/EBox/Monitor/Measure/CPU.pm:78 src/EBox/Monitor/Measure/CPU.pm:83
+msgid "steal"
+msgstr "перехват"
+
+#: src/EBox/Monitor/Measure/CPU.pm:79 src/EBox/Monitor/Measure/CPU.pm:84
+msgid "system"
+msgstr "система"
+
+#: src/EBox/Monitor/Measure/CPU.pm:80 src/EBox/Monitor/Measure/CPU.pm:84
+msgid "wait"
+msgstr "ожидание"
+
+#: src/EBox/Monitor/Measure/Memory.pm:55
+msgid "Physical memory usage"
+msgstr "Использование физической памяти"
+
+#: src/EBox/Monitor/Measure/Memory.pm:56
+msgid "Collect the physical memory usage"
+msgstr "Сбор использования физической памяти"
+
+#: src/EBox/Monitor/Measure/Memory.pm:57
+msgid "free"
+msgstr "свободно"
+
+#: src/EBox/Monitor/Measure/Memory.pm:57
+msgid "page cache"
+msgstr "кэш страниц"
+
+#: src/EBox/Monitor/Measure/Memory.pm:57
+msgid "buffer cache"
+msgstr "кэш-буфер"
+
+#: src/EBox/Monitor/Measure/Memory.pm:57
+msgid "used"
+msgstr "использовано"
 
 #: src/EBox/CGI/Index.pm:44
 msgid "Monitoring"
@@ -441,3 +392,52 @@ msgstr ""
 "Вы должны записать изменения в модуле состояния для графического мониторинга "
 "в{openhref}Save changes{closehref}. IВ случае если он уже включен, "
 "необходимо подождать несколько секунд для сбора информации"
+
+#: src/EBox/Event/Watcher/Monitor.pm:144 src/EBox/Monitor.pm:78
+#: src/EBox/Monitor.pm:177
+msgid "Monitor"
+msgstr "Монитор"
+
+#: src/EBox/Event/Watcher/Monitor.pm:161
+msgid "Notify when a certain value has reached a certain threshold"
+msgstr "Сообщить, когда определенное значение достигло определенного порога"
+
+#: src/EBox/Event/Watcher/Monitor.pm:263
+msgid "All data sources are within range again"
+msgstr "Все источники данных находятся снова в диапазоне"
+
+#: src/EBox/Event/Watcher/Monitor.pm:273
+#, perl-brace-format
+msgid "{what} \"{dS}\" is currently {value}."
+msgstr "{what} \"{dS}\" сейчас {value}."
+
+#: src/EBox/Event/Watcher/Monitor.pm:280
+#, perl-brace-format
+msgid "That is within the {severity} region of {minBound} and {maxBound}. "
+msgstr ""
+"Значение находится в пределах {severity} зоны от {minBound} до {maxBound}."
+
+#: src/EBox/Event/Watcher/Monitor.pm:288
+#, perl-brace-format
+msgid "That is above the {severity} threshold of {bound}. "
+msgstr "Значение {severity} выше порога {bound}."
+
+#: src/EBox/Event/Watcher/Monitor.pm:291
+#, perl-brace-format
+msgid "That is below the {severity} threshold of {bound}. "
+msgstr "Значение {severity} ниже порога {bound}."
+
+#: src/EBox/Monitor.pm:150
+#, perl-brace-format
+msgid "{daemon} main configuration file"
+msgstr "Главный конфигурационный файл {daemon}"
+
+#: src/EBox/Monitor.pm:155
+#, perl-brace-format
+msgid "{daemon} thresholds configuration file"
+msgstr "Конфигурационный файл {daemon} порогов"
+
+#: src/EBox/Monitor.pm:160
+#, perl-brace-format
+msgid "{daemon} default configuration file"
+msgstr "Конфигурационный файл по умолчанию {daemon}"

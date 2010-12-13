@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-webmail 1.4\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-08-28 23:32+0200\n"
+"POT-Creation-Date: 2010-12-13 08:43+0100\n"
 "PO-Revision-Date: 2010-11-04 20:46+0100\n"
 "Last-Translator: Michal Formánek <formi@seznam.cz>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
@@ -32,53 +32,6 @@ msgstr "Zentyal mail služba"
 #: src/EBox/WebMail/Model/OperationMode.pm:94
 msgid "Remote server"
 msgstr "Vzdálený server"
-
-#: src/EBox/WebMail/Model/Options.pm:45
-msgid "Name"
-msgstr "Jméno"
-
-#: src/EBox/WebMail/Model/Options.pm:47
-msgid "Zentyal webmail"
-msgstr "Zentyal webmail"
-
-#: src/EBox/WebMail/Model/Options.pm:49
-msgid ""
-"The name of the webmail will be used in the login screen and page titles."
-msgstr ""
-"Jméno webmailu se bude zobrazovat v přihlašovací obrazovce a v názvu "
-"stránky."
-
-#: src/EBox/WebMail/Model/Options.pm:53
-msgid "Virtual host"
-msgstr "Virtual host"
-
-#: src/EBox/WebMail/Model/Options.pm:59
-msgid ""
-"Virtual host where the webmail will be installed. This will disable the "
-"default /webmail url."
-msgstr ""
-"Virtual host na kterém bude nainstalovaný webmail. Zablokuje to výchozí "
-"/webmail url."
-
-#: src/EBox/WebMail/Model/Options.pm:65
-msgid "General configuration"
-msgstr "Obecné nastavení"
-
-#: src/EBox/WebMail/Model/Options.pm:66 src/EBox/WebMail.pm:69
-msgid "Webmail"
-msgstr "Webmail"
-
-#: src/EBox/WebMail/Model/Options.pm:81
-msgid "Disabled"
-msgstr "Zakázaný"
-
-#: src/EBox/WebMail/Model/Options.pm:112
-msgid ""
-"The deleted virtual host was selected for Webmail. Maybe you want to select "
-"another one now."
-msgstr ""
-"Smazaný virtual host byl nastavený pro Webmail. Možná chcete nyní vybrat "
-"jiný."
 
 #: src/EBox/WebMail/Model/RemoteServerConfiguration.pm:54
 msgid "IMAP Server"
@@ -157,12 +110,59 @@ msgid "TLS"
 msgstr "TLS"
 
 #: src/EBox/WebMail/Model/RemoteServerConfiguration.pm:285
+#, fuzzy
 msgid ""
-"No need to configure the connection to a remote server beacuse WebMail is "
+"No need to configure the connection to a remote server because WebMail is "
 "configured to use Zentyal mail service'"
 msgstr ""
 "Není potřeba nastavit připojení ke vzdálenému serveru, protože WebMail "
 "používá Zentyal mail službu"
+
+#: src/EBox/WebMail/Model/Options.pm:45
+msgid "Name"
+msgstr "Jméno"
+
+#: src/EBox/WebMail/Model/Options.pm:47
+msgid "Zentyal webmail"
+msgstr "Zentyal webmail"
+
+#: src/EBox/WebMail/Model/Options.pm:49
+msgid ""
+"The name of the webmail will be used in the login screen and page titles."
+msgstr ""
+"Jméno webmailu se bude zobrazovat v přihlašovací obrazovce a v názvu stránky."
+
+#: src/EBox/WebMail/Model/Options.pm:53
+msgid "Virtual host"
+msgstr "Virtual host"
+
+#: src/EBox/WebMail/Model/Options.pm:59
+msgid ""
+"Virtual host where the webmail will be installed. This will disable the "
+"default /webmail url."
+msgstr ""
+"Virtual host na kterém bude nainstalovaný webmail. Zablokuje to výchozí /"
+"webmail url."
+
+#: src/EBox/WebMail/Model/Options.pm:65
+msgid "General configuration"
+msgstr "Obecné nastavení"
+
+#: src/EBox/WebMail/Model/Options.pm:66 src/EBox/WebMail.pm:69
+msgid "Webmail"
+msgstr "Webmail"
+
+#: src/EBox/WebMail/Model/Options.pm:81
+msgid "Disabled"
+msgstr "Zakázaný"
+
+#: src/EBox/WebMail/Model/Options.pm:112
+msgid ""
+"The deleted virtual host was selected for Webmail. Maybe you want to select "
+"another one now."
+msgstr ""
+"Smazaný virtual host byl nastavený pro Webmail. Možná chcete nyní vybrat "
+"jiný."
 
 #: src/EBox/WebMail/Composite/Backend.pm:63
 msgid "WebMail backend"
@@ -203,8 +203,8 @@ msgid ""
 "service. You can enable it at {openurl}Mail -> General{closeurl}."
 msgstr ""
 "Webmail modul potřebuje mít povolenou IMAP nebo IMAPS službu, pokud používá "
-"Zentyal poštovní službu. Můžete ji povolit v {openurl}Mail -> "
-"Obecný{closeurl}."
+"Zentyal poštovní službu. Můžete ji povolit v {openurl}Mail -> Obecný"
+"{closeurl}."
 
 #: src/EBox/WebMail.pm:405
 msgid ""

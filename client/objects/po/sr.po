@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-objects 1.3.12\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-08-28 23:37+0200\n"
+"POT-Creation-Date: 2010-12-13 08:40+0100\n"
 "PO-Revision-Date: 2010-04-29 14:38+0200\n"
 "Last-Translator: Zoran <zoran@atlantisti.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
@@ -18,43 +18,47 @@ msgstr ""
 "10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: src/EBox/Model/MemberTable.pm:63 src/EBox/Model/ObjectTable.pm:63
-msgid "Name"
-msgstr "Ime"
-
-#: src/EBox/Model/MemberTable.pm:70
-msgid "IP address"
-msgstr "IP adresa"
-
-#: src/EBox/Model/MemberTable.pm:76
-msgid "MAC address"
-msgstr "MAC adresa"
-
-#: src/EBox/Model/MemberTable.pm:87 src/EBox/Model/ObjectTable.pm:71
-msgid "Members"
-msgstr "Članovi"
-
-#: src/EBox/Model/MemberTable.pm:93 src/EBox/Model/ObjectTable.pm:82
-#: src/EBox/Objects.pm:39
+#: src/EBox/Objects.pm:39 src/EBox/Model/ObjectTable.pm:82
+#: src/EBox/Model/MemberTable.pm:93
 msgid "Objects"
 msgstr "Objekti"
 
-#: src/EBox/Model/MemberTable.pm:94
-msgid "member"
-msgstr "Član"
-
-#: src/EBox/Model/MemberTable.pm:116
-msgid "You can only use MAC addresses with hosts"
-msgstr "Možete koristiti samo MAC adrese sa sledećih host-ova"
-
-#: src/EBox/Model/MemberTable.pm:119 src/EBox/Model/MemberTable.pm:120
-msgid "network address"
-msgstr "mrežna adresa"
-
-#: src/EBox/Model/MemberTable.pm:126
+#: src/EBox/Objects.pm:44
 #, perl-brace-format
-msgid "{ip} overlaps with the address or another object's member"
-msgstr "{ip} preklapa sa adresom ili drugim objektom čiji je član"
+msgid "Added object {object}"
+msgstr "Dodat objekt {object}"
+
+#: src/EBox/Objects.pm:46
+#, perl-brace-format
+msgid "Added {nname} ({ip}/{mask} [{mac}]) to object {object}"
+msgstr "Dodat {nname} ({ip}/{mask} [{mac}]) objektu {object}"
+
+#: src/EBox/Objects.pm:47
+#, perl-brace-format
+msgid "Removed object {object}"
+msgstr "Uklonjen objekt {object}"
+
+#: src/EBox/Objects.pm:49
+#, perl-brace-format
+msgid "Forcefully removed object {object}"
+msgstr "Nasilno uklonjen objekt {object}"
+
+#: src/EBox/Objects.pm:51
+#, perl-brace-format
+msgid "Removed {nname} from object {object}"
+msgstr "Ukloniti {nname} iz objekta {object}"
+
+#: src/EBox/Objects.pm:270
+msgid "Object"
+msgstr "Objekt"
+
+#: src/EBox/Model/ObjectTable.pm:63 src/EBox/Model/MemberTable.pm:63
+msgid "Name"
+msgstr "Ime"
+
+#: src/EBox/Model/ObjectTable.pm:71 src/EBox/Model/MemberTable.pm:87
+msgid "Members"
+msgstr "Članovi"
 
 #: src/EBox/Model/ObjectTable.pm:83
 msgid "Objects List"
@@ -86,31 +90,27 @@ msgstr ""
 "'Any' Je rezervisana reč koja se ne može koristi kao ime objekata kako bi se "
 "izbegle zabune"
 
-#: src/EBox/Objects.pm:44
-#, perl-brace-format
-msgid "Added object {object}"
-msgstr "Dodat objekt {object}"
+#: src/EBox/Model/MemberTable.pm:70
+msgid "IP address"
+msgstr "IP adresa"
 
-#: src/EBox/Objects.pm:46
-#, perl-brace-format
-msgid "Added {nname} ({ip}/{mask} [{mac}]) to object {object}"
-msgstr "Dodat {nname} ({ip}/{mask} [{mac}]) objektu {object}"
+#: src/EBox/Model/MemberTable.pm:76
+msgid "MAC address"
+msgstr "MAC adresa"
 
-#: src/EBox/Objects.pm:47
-#, perl-brace-format
-msgid "Removed object {object}"
-msgstr "Uklonjen objekt {object}"
+#: src/EBox/Model/MemberTable.pm:94
+msgid "member"
+msgstr "Član"
 
-#: src/EBox/Objects.pm:49
-#, perl-brace-format
-msgid "Forcefully removed object {object}"
-msgstr "Nasilno uklonjen objekt {object}"
+#: src/EBox/Model/MemberTable.pm:116
+msgid "You can only use MAC addresses with hosts"
+msgstr "Možete koristiti samo MAC adrese sa sledećih host-ova"
 
-#: src/EBox/Objects.pm:51
-#, perl-brace-format
-msgid "Removed {nname} from object {object}"
-msgstr "Ukloniti {nname} iz objekta {object}"
+#: src/EBox/Model/MemberTable.pm:119 src/EBox/Model/MemberTable.pm:120
+msgid "network address"
+msgstr "mrežna adresa"
 
-#: src/EBox/Objects.pm:270
-msgid "Object"
-msgstr "Objekt"
+#: src/EBox/Model/MemberTable.pm:126
+#, perl-brace-format
+msgid "{ip} overlaps with the address or another object's member"
+msgstr "{ip} preklapa sa adresom ili drugim objektom čiji je član"

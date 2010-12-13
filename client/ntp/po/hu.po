@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-ntp 1.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-08-28 23:28+0200\n"
+"POT-Creation-Date: 2010-12-13 08:40+0100\n"
 "PO-Revision-Date: 2010-08-28 09:08+0200\n"
 "Last-Translator: Nagy Ákos <nagy.akos@akos.ro>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
@@ -17,89 +17,23 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n !=1);\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: src/EBox/NTP.pm:67
-msgid "Remove ntp init script links"
-msgstr "Az ntp init szkript linkek törlése"
-
-#: src/EBox/NTP.pm:68
-msgid "Zentyal will take care of starting and stopping the services."
-msgstr "A Zentyal gondoskodik a szolgáltatások indításáról és leállításáról."
-
-#: src/EBox/NTP.pm:86
-msgid "NTP configuration file"
-msgstr "Időzóna beállítása"
-
-#: src/EBox/NTP.pm:221 src/EBox/CGI/AddServers.pm:45
-#: src/templates/servers.mas:16
-msgid "Primary server"
-msgstr "Elsődleges kiszolgáló"
-
-#: src/EBox/NTP.pm:223
-msgid "primary server"
-msgstr "elsődleges kiszolgáló"
-
-#: src/EBox/NTP.pm:228 src/EBox/NTP.pm:247
-msgid "Primary and secondary server must be different"
-msgstr "Az elsődleges és másodlagos kiszolgálónak különböznie kell"
-
-#: src/EBox/NTP.pm:231
-msgid "secondary server"
-msgstr "másodlagos kiszolgáló"
-
-#: src/EBox/NTP.pm:235 src/EBox/CGI/AddServers.pm:51
-#: src/templates/servers.mas:27
-msgid "Secondary server"
-msgstr "Másodlagos kiszolgáló"
-
-#: src/EBox/NTP.pm:244
-msgid "Primary and tertiary server must be different"
-msgstr "Az elsődleges és harmadlagos kiszolgálónak különböznie kell"
-
-#: src/EBox/NTP.pm:250
-msgid "tertiary server"
-msgstr "harmadlagos kiszolgáló"
-
-#: src/EBox/NTP.pm:266
-#, perl-brace-format
-msgid "{name} IP address"
-msgstr "{name} IP-címe"
-
-#: src/EBox/NTP.pm:269
-#, perl-brace-format
-msgid "{name} host name"
-msgstr "{name} gépneve"
-
-#: src/EBox/NTP.pm:401
-msgid "System"
-msgstr "Rendszer"
-
-#: src/EBox/NTP.pm:404
-msgid "Date/Time"
-msgstr "Dátum/idő"
-
-#: src/EBox/NTP.pm:407
-msgid "Time Zone"
-msgstr "Időzóna"
-
-#: src/EBox/CGI/Timezone.pm:30
-msgid "Time Zone Configuration"
-msgstr "Időzóna beállítása"
-
 #: src/EBox/CGI/AddServers.pm:42
 msgid "first ntp server"
 msgstr "első ntp kiszolgáló"
 
+#: src/EBox/CGI/AddServers.pm:45 src/EBox/NTP.pm:222
+#: src/templates/servers.mas:16
+msgid "Primary server"
+msgstr "Elsődleges kiszolgáló"
+
+#: src/EBox/CGI/AddServers.pm:51 src/EBox/NTP.pm:236
+#: src/templates/servers.mas:27
+msgid "Secondary server"
+msgstr "Másodlagos kiszolgáló"
+
 #: src/EBox/CGI/AddServers.pm:55 src/templates/servers.mas:38
 msgid "Tertiary server"
 msgstr "Harmadlagos kiszolgáló"
-
-#: src/EBox/CGI/Datetime.pm:30
-msgid "Date and Time Configuration"
-msgstr "Dátum és idő beállítása"
-
-#: src/EBox/CGI/Synch.pm:41
-msgid "external synchronize status"
-msgstr "külső szinkronizálás állapota"
 
 #: src/EBox/CGI/ChangeDate.pm:41
 msgid "Day"
@@ -133,6 +67,72 @@ msgstr "ország"
 msgid "continent"
 msgstr "kontinens"
 
+#: src/EBox/CGI/Datetime.pm:30
+msgid "Date and Time Configuration"
+msgstr "Dátum és idő beállítása"
+
+#: src/EBox/CGI/Timezone.pm:30
+msgid "Time Zone Configuration"
+msgstr "Időzóna beállítása"
+
+#: src/EBox/CGI/Synch.pm:41
+msgid "external synchronize status"
+msgstr "külső szinkronizálás állapota"
+
+#: src/EBox/NTP.pm:67
+msgid "Remove ntp init script links"
+msgstr "Az ntp init szkript linkek törlése"
+
+#: src/EBox/NTP.pm:68
+msgid "Zentyal will take care of starting and stopping the services."
+msgstr "A Zentyal gondoskodik a szolgáltatások indításáról és leállításáról."
+
+#: src/EBox/NTP.pm:86
+msgid "NTP configuration file"
+msgstr "Időzóna beállítása"
+
+#: src/EBox/NTP.pm:224
+msgid "primary server"
+msgstr "elsődleges kiszolgáló"
+
+#: src/EBox/NTP.pm:229 src/EBox/NTP.pm:247
+msgid "Primary and secondary server must be different"
+msgstr "Az elsődleges és másodlagos kiszolgálónak különböznie kell"
+
+#: src/EBox/NTP.pm:232
+msgid "secondary server"
+msgstr "másodlagos kiszolgáló"
+
+#: src/EBox/NTP.pm:244
+msgid "Primary and tertiary server must be different"
+msgstr "Az elsődleges és harmadlagos kiszolgálónak különböznie kell"
+
+#: src/EBox/NTP.pm:250
+msgid "tertiary server"
+msgstr "harmadlagos kiszolgáló"
+
+#: src/EBox/NTP.pm:266
+#, perl-brace-format
+msgid "{name} IP address"
+msgstr "{name} IP-címe"
+
+#: src/EBox/NTP.pm:269
+#, perl-brace-format
+msgid "{name} host name"
+msgstr "{name} gépneve"
+
+#: src/EBox/NTP.pm:402
+msgid "System"
+msgstr "Rendszer"
+
+#: src/EBox/NTP.pm:405
+msgid "Date/Time"
+msgstr "Dátum/idő"
+
+#: src/EBox/NTP.pm:408
+msgid "Time Zone"
+msgstr "Időzóna"
+
 #: src/templates/servers.mas:7
 msgid "NTP servers"
 msgstr "NTP kiszolgálók"
@@ -145,10 +145,10 @@ msgstr ""
 "Ne felejtse el beállítani az időzónát, hogy a szinkronizáció helyesen "
 "működjön."
 
-#: src/templates/servers.mas:50 src/templates/synch.mas:19
+#: src/templates/servers.mas:50 src/templates/timezone.mas:33
+#: src/templates/timezone.mas:34 src/templates/synch.mas:19
 #: src/templates/synch.mas:20 src/templates/date.mas:96
-#: src/templates/date.mas:97 src/templates/timezone.mas:33
-#: src/templates/timezone.mas:34
+#: src/templates/date.mas:97
 msgid "Change"
 msgstr "Módosítás"
 

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-objects 0.12.99\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-08-28 23:37+0200\n"
+"POT-Creation-Date: 2010-12-13 08:40+0100\n"
 "PO-Revision-Date: 2010-10-08 13:27+0200\n"
 "Last-Translator: Ronny Gonzales <ronny@kcl.no>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
@@ -17,43 +17,47 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: src/EBox/Model/MemberTable.pm:63 src/EBox/Model/ObjectTable.pm:63
-msgid "Name"
-msgstr "Navn"
-
-#: src/EBox/Model/MemberTable.pm:70
-msgid "IP address"
-msgstr "IP adresse"
-
-#: src/EBox/Model/MemberTable.pm:76
-msgid "MAC address"
-msgstr "MAC adresse"
-
-#: src/EBox/Model/MemberTable.pm:87 src/EBox/Model/ObjectTable.pm:71
-msgid "Members"
-msgstr "Medlemmer"
-
-#: src/EBox/Model/MemberTable.pm:93 src/EBox/Model/ObjectTable.pm:82
-#: src/EBox/Objects.pm:39
+#: src/EBox/Objects.pm:39 src/EBox/Model/ObjectTable.pm:82
+#: src/EBox/Model/MemberTable.pm:93
 msgid "Objects"
 msgstr "Objekter"
 
-#: src/EBox/Model/MemberTable.pm:94
-msgid "member"
-msgstr "medlem"
-
-#: src/EBox/Model/MemberTable.pm:116
-msgid "You can only use MAC addresses with hosts"
-msgstr "Du kan bare bruke MAC adresse med verter"
-
-#: src/EBox/Model/MemberTable.pm:119 src/EBox/Model/MemberTable.pm:120
-msgid "network address"
-msgstr "nettverks adresse"
-
-#: src/EBox/Model/MemberTable.pm:126
+#: src/EBox/Objects.pm:44
 #, perl-brace-format
-msgid "{ip} overlaps with the address or another object's member"
-msgstr "{ip} overlapper med adressen eller annet objekts medlem"
+msgid "Added object {object}"
+msgstr "Lagt til objekt {object}"
+
+#: src/EBox/Objects.pm:46
+#, perl-brace-format
+msgid "Added {nname} ({ip}/{mask} [{mac}]) to object {object}"
+msgstr "Lagt til  {nname} ({ip}/{mask} [{mac}]) til objekt {object}"
+
+#: src/EBox/Objects.pm:47
+#, perl-brace-format
+msgid "Removed object {object}"
+msgstr "Fjernet objekt {object}"
+
+#: src/EBox/Objects.pm:49
+#, perl-brace-format
+msgid "Forcefully removed object {object}"
+msgstr "Tvangsfjernet objekt {object}"
+
+#: src/EBox/Objects.pm:51
+#, perl-brace-format
+msgid "Removed {nname} from object {object}"
+msgstr "Fjernet {nname} fra objekt {object}"
+
+#: src/EBox/Objects.pm:270
+msgid "Object"
+msgstr "Objekt"
+
+#: src/EBox/Model/ObjectTable.pm:63 src/EBox/Model/MemberTable.pm:63
+msgid "Name"
+msgstr "Navn"
+
+#: src/EBox/Model/ObjectTable.pm:71 src/EBox/Model/MemberTable.pm:87
+msgid "Members"
+msgstr "Medlemmer"
 
 #: src/EBox/Model/ObjectTable.pm:83
 msgid "Objects List"
@@ -85,31 +89,27 @@ msgstr ""
 "'Any' er et reservert ord som ikke kan brukes som objekt navn for å unngå "
 "forvirring"
 
-#: src/EBox/Objects.pm:44
-#, perl-brace-format
-msgid "Added object {object}"
-msgstr "Lagt til objekt {object}"
+#: src/EBox/Model/MemberTable.pm:70
+msgid "IP address"
+msgstr "IP adresse"
 
-#: src/EBox/Objects.pm:46
-#, perl-brace-format
-msgid "Added {nname} ({ip}/{mask} [{mac}]) to object {object}"
-msgstr "Lagt til  {nname} ({ip}/{mask} [{mac}]) til objekt {object}"
+#: src/EBox/Model/MemberTable.pm:76
+msgid "MAC address"
+msgstr "MAC adresse"
 
-#: src/EBox/Objects.pm:47
-#, perl-brace-format
-msgid "Removed object {object}"
-msgstr "Fjernet objekt {object}"
+#: src/EBox/Model/MemberTable.pm:94
+msgid "member"
+msgstr "medlem"
 
-#: src/EBox/Objects.pm:49
-#, perl-brace-format
-msgid "Forcefully removed object {object}"
-msgstr "Tvangsfjernet objekt {object}"
+#: src/EBox/Model/MemberTable.pm:116
+msgid "You can only use MAC addresses with hosts"
+msgstr "Du kan bare bruke MAC adresse med verter"
 
-#: src/EBox/Objects.pm:51
-#, perl-brace-format
-msgid "Removed {nname} from object {object}"
-msgstr "Fjernet {nname} fra objekt {object}"
+#: src/EBox/Model/MemberTable.pm:119 src/EBox/Model/MemberTable.pm:120
+msgid "network address"
+msgstr "nettverks adresse"
 
-#: src/EBox/Objects.pm:270
-msgid "Object"
-msgstr "Objekt"
+#: src/EBox/Model/MemberTable.pm:126
+#, perl-brace-format
+msgid "{ip} overlaps with the address or another object's member"
+msgstr "{ip} overlapper med adressen eller annet objekts medlem"

@@ -7,23 +7,96 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-network 0.12\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-08-29 01:25+0200\n"
+"POT-Creation-Date: 2010-12-13 08:40+0100\n"
 "PO-Revision-Date: 2010-08-31 08:25+0200\n"
 "Last-Translator: Val Budkin <valentin@ktc-ua.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
+"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: src/EBox/Event/Watcher/Gateways.pm:150
+#: src/EBox/CGI/Iface.pm:42 src/EBox/CGI/Iface.pm:59 src/EBox/CGI/Vlan.pm:41
+#: src/EBox/CGI/VIface.pm:43
+msgid "network interface"
+msgstr "сетевой интерфейс"
+
+#: src/EBox/CGI/Iface.pm:58
+msgid "method"
+msgstr "метод"
+
+#: src/EBox/CGI/Iface.pm:88
+msgid "ip address"
+msgstr "IP-адрес"
+
+#: src/EBox/CGI/Iface.pm:89 src/EBox/CGI/VIface.pm:63
+msgid "netmask"
+msgstr "маска подсети"
+
+#: src/EBox/CGI/Iface.pm:95
+msgid "user name"
+msgstr "имя пользователя"
+
+#: src/EBox/CGI/Iface.pm:96
+msgid "password"
+msgstr "пароль"
+
+#: src/EBox/CGI/Iface.pm:106
+msgid "bridge"
+msgstr "мост"
+
+#: src/EBox/CGI/Vlan.pm:43 src/EBox/Network.pm:1637 src/EBox/Network.pm:1666
+#: src/templates/ifaces.mas:229
+msgid "VLAN Id"
+msgstr "VLAN ID"
+
+#: src/EBox/CGI/VIface.pm:44
+msgid "virtual interface action"
+msgstr "виртуальный интерфейс действия"
+
+#: src/EBox/CGI/VIface.pm:62 src/EBox/Network.pm:905 src/EBox/Network.pm:910
+#: src/EBox/Network.pm:1224 src/EBox/Network.pm:1245 src/EBox/Network.pm:3183
+#: src/EBox/Network.pm:3199 src/EBox/Network.pm:3225 src/EBox/Network.pm:3380
+#: src/EBox/Network.pm:3534 src/EBox/Model/GatewayTable.pm:197
+#: src/EBox/Model/GatewayTable.pm:272 src/templates/ifaces.mas:119
+#: src/templates/ifaces.mas:287 src/templates/Wizard/network.mas:53
+msgid "IP address"
+msgstr "IP-адрес"
+
+#: src/EBox/CGI/VIface.pm:64 src/EBox/CGI/VIface.pm:70
+msgid "virtual interface name"
+msgstr "имя вирт. интерфейса"
+
+#: src/EBox/CGI/Diag.pm:29 src/EBox/CGI/Diag.pm:41
+msgid "Network Diagnostic Tools"
+msgstr "Средства Диагностики Сети"
+
+#: src/EBox/CGI/Diag.pm:51 src/EBox/CGI/Diag.pm:58
+#: src/EBox/Model/WANFailoverRules.pm:97 src/templates/diag.mas:14
+#: src/templates/diag.mas:23
+msgid "Host"
+msgstr "Узел"
+
+#: src/EBox/CGI/Diag.pm:65 src/EBox/Network.pm:3463
+msgid "host name"
+msgstr "имя узла"
+
+#: src/EBox/CGI/Ifaces.pm:29 src/EBox/Network.pm:3571
+msgid "Network Interfaces"
+msgstr "Сетевые интерфейсы"
+
+#: src/EBox/CGI/EnableBalanceTraffic.pm:42
+msgid "traffic balance"
+msgstr "балансировка траффика"
+
+#: src/EBox/Event/Watcher/Gateways.pm:163
 #, perl-brace-format
 msgid "Gateway {gw} connected"
 msgstr "Шлюз {gw} подключен"
 
-#: src/EBox/Event/Watcher/Gateways.pm:289
+#: src/EBox/Event/Watcher/Gateways.pm:302
 #, perl-brace-format
 msgid ""
 "Gateway {gw} disconnected ({failRatio}% of '{type}' tests to host '{host}' "
@@ -32,669 +105,14 @@ msgstr ""
 "Шлюз {gw} отключен ({failRatio}% из '{type}' тесты из узла '{host}' "
 "провалены, max={maxFailRatio}%)"
 
-#: src/EBox/Event/Watcher/Gateways.pm:370 src/EBox/Network.pm:3592
-#: src/EBox/Network/Composite/WANFailover.pm:61
+#: src/EBox/Event/Watcher/Gateways.pm:383
+#: src/EBox/Network/Composite/WANFailover.pm:61 src/EBox/Network.pm:3605
 msgid "WAN Failover"
 msgstr "Отказоустойчивая WAN"
 
-#: src/EBox/Event/Watcher/Gateways.pm:386
+#: src/EBox/Event/Watcher/Gateways.pm:399
 msgid "Check if gateways are connected or disconnected."
 msgstr "Отметьте, если шлюз подключен или отключен"
-
-#: src/EBox/Model/SearchDomain.pm:71
-msgid "Domain"
-msgstr "Домен"
-
-#: src/EBox/Model/SearchDomain.pm:79
-msgid "Search Domain"
-msgstr "Поисковый домен"
-
-#: src/EBox/Model/SearchDomain.pm:83
-msgid ""
-"This domain will be appended when trying to resolve hosts if the first "
-"attempt without appending it has failed."
-msgstr ""
-"Этот домен будет добавлен при попытке разрешить имя узла, если первая "
-"попытка без добавления его не удалась."
-
-#: src/EBox/Model/WANFailoverRules.pm:55
-msgid "Ping to gateway"
-msgstr "Пинг шлюза"
-
-#: src/EBox/Model/WANFailoverRules.pm:59
-msgid "Ping to host"
-msgstr "Пинг узла"
-
-#: src/EBox/Model/WANFailoverRules.pm:63
-msgid "DNS resolve"
-msgstr "Разрешение DNS"
-
-#: src/EBox/Model/WANFailoverRules.pm:67
-msgid "HTTP Request"
-msgstr "Запрос HTTP"
-
-#: src/EBox/Model/WANFailoverRules.pm:91
-msgid "Test type"
-msgstr "Тип теста"
-
-#: src/EBox/Model/WANFailoverRules.pm:97 src/EBox/CGI/Diag.pm:51
-#: src/EBox/CGI/Diag.pm:58 src/templates/diag.mas:14 src/templates/diag.mas:23
-msgid "Host"
-msgstr "Узел"
-
-#: src/EBox/Model/WANFailoverRules.pm:103
-msgid "Number of probes"
-msgstr "Число проб"
-
-#: src/EBox/Model/WANFailoverRules.pm:112
-msgid "Required success ratio"
-msgstr "Требуемое успешное завершения"
-
-#: src/EBox/Model/WANFailoverRules.pm:125
-msgid "Test rules"
-msgstr "Правила теста"
-
-#: src/EBox/Model/WANFailoverRules.pm:132
-msgid ""
-"You can define different rules to test if a gateway is working properly. If "
-"one of the test fails the gateway will be disabled. It will be enabled again "
-"when all tests are passed."
-msgstr ""
-"Вы можете определить различные правила проверки нормальной работы шлюза. "
-"Если один из тестов не пройдет, шлюз будет отключен. Он будет снова включен, "
-"когда пройдут успешно все тесты."
-
-#: src/EBox/Model/WANFailoverRules.pm:133
-#: src/EBox/Model/MultiGwRulesDataTable.pm:195
-#: src/EBox/Model/MultiGwRulesOptions.pm:68
-msgid "rule"
-msgstr "правило"
-
-#: src/EBox/Model/WANFailoverRules.pm:192
-msgid "WAN Failover is only available for static interfaces"
-msgstr "WAN Failover доступен только для статических интерфейсов"
-
-#: src/EBox/Model/WANFailoverRules.pm:198
-msgid "Invalid value for Host"
-msgstr "Неверное значение для узла"
-
-#: src/EBox/Model/ByteRateGraphControl.pm:46
-msgid "Select traffic graphic"
-msgstr "Выберите график трафика"
-
-#: src/EBox/Model/ByteRateGraphControl.pm:57
-msgid ""
-"Several views are showed depending on the parameter selection. An host IP "
-"address and a service, which must match the text given by the graphs legend "
-"based on /etc/services, may be required by the graph type. The flow view "
-"will change accordingly"
-msgstr ""
-"Несколько представлений показаны в зависимости от выбранного параметра. IP "
-"адрес узла и службы, которые соответствуют тексту легенды графика "
-"основанного на /etc/services. Представление будут соответственно изменены."
-
-#: src/EBox/Model/ByteRateGraphControl.pm:78
-msgid "Graph type"
-msgstr "Тип графика"
-
-#: src/EBox/Model/ByteRateGraphControl.pm:85
-msgid "All active traffic by source"
-msgstr "Весь активный трафик источника"
-
-#: src/EBox/Model/ByteRateGraphControl.pm:89
-msgid "All active traffic by service"
-msgstr "Весь активный трафик службы"
-
-#: src/EBox/Model/ByteRateGraphControl.pm:93
-msgid "Traffic by selected source"
-msgstr "Трафик выбранного источника"
-
-#: src/EBox/Model/ByteRateGraphControl.pm:99
-msgid "Traffic by selected service"
-msgstr "Трафик выбранной службы"
-
-#: src/EBox/Model/ByteRateGraphControl.pm:105
-msgid "Traffic by source and service"
-msgstr "Трафик выбранного источника и службы"
-
-#: src/EBox/Model/ByteRateGraphControl.pm:111
-#: src/EBox/Model/MultiGwRulesDataTable.pm:110
-msgid "Source"
-msgstr "Источник"
-
-#: src/EBox/Model/ByteRateGraphControl.pm:117 src/EBox/Model/DynDNS.pm:91
-#: src/EBox/Model/MultiGwRulesDataTable.pm:161
-msgid "Service"
-msgstr "Служба"
-
-#: src/EBox/Model/DynDNS.pm:86
-msgid "Enable Dynamic DNS"
-msgstr "Включить Dynamic DNS"
-
-#: src/EBox/Model/DynDNS.pm:97
-msgid "Username"
-msgstr "Имя пользователя"
-
-#: src/EBox/Model/DynDNS.pm:102 src/templates/ifaces.mas:202
-msgid "Password"
-msgstr "Пароль"
-
-#: src/EBox/Model/DynDNS.pm:107
-msgid "Hostname"
-msgstr "Имя узла"
-
-#: src/EBox/Model/DynDNS.pm:115
-msgid "Configuration"
-msgstr "Конфигурация"
-
-#: src/EBox/Model/DynDNS.pm:119
-msgid ""
-"All gateways you enter here must be reachable through one of the network "
-"interfaces currently configured"
-msgstr ""
-"Все шлюзы введенные здесь должны быть доступны через один из настроенных "
-"сетевых интерфейсов."
-
-#: src/EBox/Model/ByteRateEnableForm.pm:70
-msgid ""
-"Starting traffic rate monitoring. Wait patiently until the graph appears"
-msgstr ""
-"Запуск мониторинга трафика. Подождите (терпеливо) пока не появиться график"
-
-#: src/EBox/Model/ByteRateEnableForm.pm:73
-msgid "Stopping traffic rate monitoring"
-msgstr "Остановка мониторинга трафика"
-
-#: src/EBox/Model/ByteRateEnableForm.pm:86
-msgid ""
-"The traffic rate monitor is start/stop on demand without requiring to save "
-"changes first"
-msgstr ""
-"Запуск/Остановка монитора трафика по требованию, требует вначале сохранения "
-"изменений."
-
-#: src/EBox/Model/ByteRateSettings.pm:79
-msgid "Interface to listen"
-msgstr "Слушающий интерфейс"
-
-#: src/EBox/Model/ByteRateSettings.pm:88
-msgid "Traffic rate monitor settings"
-msgstr "Параметры настройки мониторинга трафика"
-
-#: src/EBox/Model/ByteRateSettings.pm:92
-msgid "Changes will be applied immediately to the traffic rate monitor"
-msgstr "Изменения будут немедленно применены к монитору трафика"
-
-#: src/EBox/Model/ByteRateSettings.pm:95
-msgid "Settings changed"
-msgstr "Настройки изменены"
-
-#: src/EBox/Model/ByteRateSettings.pm:114
-#, perl-brace-format
-msgid "{iface} (internal interface)"
-msgstr "{iface} (внутренний интерфейс)"
-
-#: src/EBox/Model/ByteRateSettings.pm:121
-#, perl-brace-format
-msgid "{iface} (external interface)"
-msgstr "{iface} (внешний интерфейс)"
-
-#: src/EBox/Model/ByteRateSettings.pm:128
-msgid "all"
-msgstr "все"
-
-#: src/EBox/Model/GatewayTable.pm:184
-msgid "Auto"
-msgstr "Автоматически"
-
-#: src/EBox/Model/GatewayTable.pm:190 src/templates/ifaces.mas:34
-#: src/templates/ifaces.mas:286
-msgid "Name"
-msgstr "Имя"
-
-#: src/EBox/Model/GatewayTable.pm:197 src/EBox/Model/GatewayTable.pm:272
-#: src/EBox/Network.pm:905 src/EBox/Network.pm:910 src/EBox/Network.pm:1224
-#: src/EBox/Network.pm:1245 src/EBox/Network.pm:3171 src/EBox/Network.pm:3187
-#: src/EBox/Network.pm:3213 src/EBox/Network.pm:3368 src/EBox/Network.pm:3522
-#: src/EBox/CGI/VIface.pm:62 src/templates/Wizard/network.mas:53
-#: src/templates/ifaces.mas:119 src/templates/ifaces.mas:287
-msgid "IP address"
-msgstr "IP-адрес"
-
-#: src/EBox/Model/GatewayTable.pm:204
-#: src/EBox/Model/MultiGwRulesDataTable.pm:101 src/EBox/Network.pm:998
-#: src/EBox/Network.pm:1030 src/EBox/Network.pm:1075 src/EBox/Network.pm:1111
-#: src/EBox/Network.pm:1136 src/EBox/Network.pm:1220 src/EBox/Network.pm:1358
-#: src/EBox/Network.pm:1449 src/EBox/Network.pm:1537 src/EBox/Network.pm:1543
-#: src/EBox/Network.pm:1870 src/EBox/Network.pm:1940 src/EBox/Network.pm:1973
-#: src/EBox/Network.pm:2000 src/EBox/Network.pm:2027 src/EBox/Network.pm:2055
-#: src/EBox/Network.pm:2117 src/EBox/Network.pm:2156 src/EBox/Network.pm:2189
-#: src/EBox/Network.pm:3169 src/EBox/Network.pm:3189 src/EBox/Network.pm:3209
-#: src/EBox/Network.pm:3230 src/EBox/Network.pm:3249 src/EBox/Network.pm:3303
-#: src/EBox/Network.pm:3324 src/EBox/Network.pm:3344 src/EBox/Network.pm:3365
-#: src/EBox/Network.pm:3388
-msgid "Interface"
-msgstr "Интерфейс"
-
-#: src/EBox/Model/GatewayTable.pm:207
-msgid "Interface connected to this gateway"
-msgstr "Интерфейс подключенный к этому шлюзу"
-
-#: src/EBox/Model/GatewayTable.pm:211
-msgid "Weight"
-msgstr "Вес"
-
-#: src/EBox/Model/GatewayTable.pm:216
-msgid ""
-"This field is only useful if you have more than one router and  the balance "
-"traffic feature is enabled."
-msgstr ""
-"Это поле необходимо только если вы используете несколько маршрутов и у вас "
-"включена балансировка трафика между ними."
-
-#: src/EBox/Model/GatewayTable.pm:222
-msgid "Default"
-msgstr "По умолчанию"
-
-#: src/EBox/Model/GatewayTable.pm:232
-msgid "Gateways List"
-msgstr "Список шлюзов"
-
-#: src/EBox/Model/GatewayTable.pm:248
-msgid ""
-"You can add as many gateways as you want. This is very useful if you want to "
-"split your Internet traffic through several links. Note that if you "
-"configure interfaces as DHCP or PPPoE their gateways are added here "
-"automatically."
-msgstr ""
-"Вы можете добавить такое количество шлюзов, какое пожелаете. Это полезно, "
-"если вы хотите распределить ваш трафик через несколько каналов. На заметку: "
-"если интерфейс использует DHCP или PPPoE, то его шлюзы будут добавлены "
-"автоматически."
-
-#: src/EBox/Model/GatewayTable.pm:250
-msgid "gateway"
-msgstr "шлюз"
-
-#: src/EBox/Model/GatewayTable.pm:283
-msgid "You can not manually add a gateway for DHCP or PPPoE interfaces"
-msgstr "Вы не можете вручную добавить шлюз для DHCP или PPPoE интерфейсов"
-
-#: src/EBox/Model/GatewayTable.pm:342
-msgid "Automatically added gateways can not be manually deleted"
-msgstr "Автоматически добавленные шлюзы не могут быть удалены вручную"
-
-#: src/EBox/Model/MultiGwRulesDataTable.pm:77
-msgid "any"
-msgstr "любой"
-
-#: src/EBox/Model/MultiGwRulesDataTable.pm:104
-msgid ""
-"Incoming interface to match packets. If you  want to match a whole subnet "
-"you can  select the interface of that subnet"
-msgstr ""
-"Входящий интерфейс соответствующим пакетам. Если вам нужна  соответствующую "
-"подсеть, вы должны выбрать  интерфейс этой подсети"
-
-#: src/EBox/Model/MultiGwRulesDataTable.pm:115
-#: src/EBox/Model/MultiGwRulesDataTable.pm:142
-msgid "Any"
-msgstr "Любой"
-
-#: src/EBox/Model/MultiGwRulesDataTable.pm:118
-msgid "Source IP"
-msgstr "Исходный IP"
-
-#: src/EBox/Model/MultiGwRulesDataTable.pm:123
-msgid "Source object"
-msgstr "Исходный объект"
-
-#: src/EBox/Model/MultiGwRulesDataTable.pm:137
-msgid "Destination"
-msgstr "Назначение"
-
-#: src/EBox/Model/MultiGwRulesDataTable.pm:145
-msgid "Destination IP"
-msgstr "IP назначения"
-
-#: src/EBox/Model/MultiGwRulesDataTable.pm:150
-msgid "Destination object"
-msgstr "Объект назначения"
-
-#: src/EBox/Model/MultiGwRulesDataTable.pm:172
-msgid "Gateway to route packets matching this rule"
-msgstr "Шлюз для маршрута пакетов соответствующих этому правилу"
-
-#: src/EBox/Model/MultiGwRulesDataTable.pm:180
-msgid "Multigateway rules"
-msgstr "Мультишлюзовые правила"
-
-#: src/EBox/Model/MultiGwRulesDataTable.pm:193
-msgid ""
-"You can decide what kind of traffic goes out by each gateway. This way, you "
-"can force a subnet, service, destination and so forth  to use the router you "
-"choose. Please, bear in mind that rules will be applied in order, from top "
-"to bottom, you can reorder them once they are added. If you do not set a "
-"port or an IP address, then the rule will match all of them"
-msgstr ""
-"Вы можете решать какой тип трафика пускать через каждый шлюз. Таким образом, "
-"Вы можете заставить соответсвующую подсеть, службу, пункт назначения и т.п. "
-"использовать выбранный Вами роутер. Помните: правила применяются в "
-"последовательности \"сверху-вниз\". Вы можете поменять их положение. Если Вы "
-"не указали порт или IP-адрес, правило будет применяться ко всем значениям "
-"этих полей."
-
-#: src/EBox/Model/StaticRoute.pm:147 src/EBox/Network.pm:81
-#: src/EBox/Network.pm:3575
-msgid "Network"
-msgstr "Сеть"
-
-#: src/EBox/Model/StaticRoute.pm:150
-msgid "IP or network address"
-msgstr "IP-адрес или адрес сети"
-
-#: src/EBox/Model/StaticRoute.pm:156
-msgid "Gateway used to reach the above network  address"
-msgstr "Шлюз используемый для доступа к адресам вышеупомянутой сети"
-
-#: src/EBox/Model/StaticRoute.pm:161 src/templates/ifaces.mas:230
-msgid "Description"
-msgstr "Описание"
-
-#: src/EBox/Model/StaticRoute.pm:164
-msgid "Optional description for this route"
-msgstr "Дополнительное описание для этого маршрута"
-
-#: src/EBox/Model/StaticRoute.pm:170
-msgid "Static Routes List"
-msgstr "Список статических маршрутов"
-
-#: src/EBox/Model/StaticRoute.pm:171 src/EBox/Network.pm:3588
-msgid "Static Routes"
-msgstr "Статические маршруты"
-
-#: src/EBox/Model/StaticRoute.pm:176
-msgid ""
-"All gateways you enter here must be reachable through one of the network "
-"interfaces currently configured."
-msgstr ""
-"Все шлюзы введенные здесь должны быть доступны через один из настроенных "
-"сетевых интерфейсов."
-
-#: src/EBox/Model/StaticRoute.pm:179
-msgid "static route"
-msgstr "статические маршруты"
-
-#: src/EBox/Model/DNSResolver.pm:77
-msgid "IP address of the DNS server that Zentyal will use to resolve names."
-msgstr ""
-"IP-адрес DNS-сервера, который Zentyal будет использовать для разрешения "
-"имен."
-
-#: src/EBox/Model/DNSResolver.pm:83 src/templates/Wizard/network.mas:86
-#: src/templates/Wizard/network.mas:90
-msgid "Domain Name Server"
-msgstr "Сервер доменных имен"
-
-#: src/EBox/Model/DNSResolver.pm:92
-msgid "Domain Name Server Resolver List"
-msgstr "Список разрешенных серверов имен"
-
-#: src/EBox/Model/DNSResolver.pm:98
-msgid "name server"
-msgstr "сервер имен"
-
-#: src/EBox/Model/DNSResolver.pm:110
-msgid ""
-"<p>Here you can add the name server resolvers that Zentyal will use.</"
-"p><p>Note that these settings may be overriden if you have any network "
-"interface configured via DHCP</p>"
-msgstr ""
-"<p>Здесь вы можете добавить DNS-серверы,которые будут использованы "
-"Zentyal.</p><p>Заметьте, эти параметры могут быть перезаписаны, если для "
-"какого-либо интерфейса настроен DHCP</p>"
-
-#: src/EBox/Model/WANFailoverOptions.pm:71
-msgid "Time between checks"
-msgstr "Время между проверками"
-
-#: src/EBox/Model/WANFailoverOptions.pm:72
-msgid "seconds"
-msgstr "сек."
-
-#: src/EBox/Model/WANFailoverOptions.pm:82
-msgid "Global options"
-msgstr "Общие настройки"
-
-#: src/EBox/Model/WANFailoverOptions.pm:86
-msgid "These options affect to all the tests."
-msgstr "Эти парметры влияют на все тесты"
-
-#: src/EBox/Model/Proxy.pm:72
-msgid "Proxy server"
-msgstr "прокси сервер"
-
-#: src/EBox/Model/Proxy.pm:78
-msgid "Proxy port"
-msgstr "порт прокси"
-
-#: src/EBox/Model/Proxy.pm:86
-msgid "Proxy"
-msgstr "Прокси"
-
-#: src/EBox/Model/Proxy.pm:90
-msgid ""
-"This settings will be used to allow Zentyal to access the Internet if an "
-"HTTP proxy is needed."
-msgstr ""
-"Эта настройка предназначена для того чтобы Zentyal использовал интернет с "
-"помощью HTTP прокси."
-
-#: src/EBox/Model/MultiGwRulesOptions.pm:43
-msgid "Enable"
-msgstr "Включить"
-
-#: src/EBox/Model/MultiGwRulesOptions.pm:53
-msgid "Traffic balancing"
-msgstr "Балансировка трафика"
-
-#: src/EBox/Model/MultiGwRulesOptions.pm:64
-#, perl-brace-format
-msgid ""
-"By enabling this feature, your traffic will be balanced amongst your "
-"gateways. That is, every new connection will be sent by a different gateway. "
-"You can choose which proportion of traffic goes through each gateway using "
-"the weight parameter of the gateway. You can change that value {openref}here"
-"{closeref}.{br}If you want to explicitily route traffic by a certain "
-"gateway, use the multigateway rules below"
-msgstr ""
-"После включения этой функции, Ваш трафик будет распределяться между "
-"несколькими шлюзами. Вы можете выбрать пропорции распределения используя "
-"весовой параметр шлюза. Вы можете изменить это значение {openref}здесь"
-"{closeref}.{br}Если Вы хотите точной маршрутизации трафика - используйте "
-"мультишлюзовые правила ниже."
-
-#: src/EBox/Network.pm:99
-msgid "Add default routers to the default table"
-msgstr "Добавить маршруты по умолчанию в таблицу по умолчанию"
-
-#: src/EBox/Network.pm:100
-msgid ""
-"This is needed to work with a multigateway configuration. Note that to list "
-"the default routes you must execute: "
-msgstr ""
-"Это необходимо для работы в мульти шлюзовой конфигурации. Замечание, в "
-"список маршрутов по умолчанию вы должны включить:  "
-
-#: src/EBox/Network.pm:106
-msgid "Enable Zentyal DHCP hook"
-msgstr "Включить перехватчик DHCP Zentyal"
-
-#: src/EBox/Network.pm:107
-msgid ""
-"It will take care of adding the default route given by a DHCP server to the "
-"default route table. "
-msgstr ""
-"Для добавления маршрута по умолчанию из DHCP в таблицу маршрутов по "
-"умолчанию."
-
-#: src/EBox/Network.pm:125
-msgid "Zentyal will set your network configuration"
-msgstr "Zentyal установит конфигурацию сети."
-
-#: src/EBox/Network.pm:130
-msgid "Zentyal will set your DNS configuration"
-msgstr "Zentyal установит DNS конфигурацию"
-
-#: src/EBox/Network.pm:135
-msgid "Zentyal will set your DHCP client configuration"
-msgstr "Zentyal установит конфигурацию DHCP клиента"
-
-#: src/EBox/Network.pm:140 src/EBox/Network.pm:145
-msgid "Zentyal will set your ddclient configuration"
-msgstr "Zentyal установит конфигурацию ddclient"
-
-#: src/EBox/Network.pm:150 src/EBox/Network.pm:155
-msgid "Zentyal will store your PPPoE passwords"
-msgstr "Zentyal запомнит пароли PPPoE"
-
-#: src/EBox/Network.pm:162
-msgid "Zentyal will add a DSL provider configuration for PPPoE"
-msgstr "Zentyal добавит конфигурацию DSL-провайдера для PPPoE"
-
-#: src/EBox/Network.pm:169
-msgid "Zentyal will set HTTP proxy for all users"
-msgstr "Zentyal установит HTTP прокси для всех пользователей"
-
-#: src/EBox/Network.pm:172
-msgid "Zentyal will set HTTP proxy for APT"
-msgstr "Zentyal установит HTTP прокси для APT"
-
-#: src/EBox/Network.pm:902 src/EBox/Network.pm:906
-msgid "Virtual interface name"
-msgstr "Имя виртуального интерфейса"
-
-#: src/EBox/Network.pm:905 src/EBox/Network.pm:1224 src/EBox/Network.pm:3171
-#: src/templates/Wizard/network.mas:57 src/templates/ifaces.mas:132
-#: src/templates/ifaces.mas:288
-msgid "Netmask"
-msgstr "Маска подсети"
-
-#: src/EBox/Network.pm:1454
-msgid "This interface cannot be put in trunk mode, it is an vlan interface."
-msgstr ""
-"Данный интерфейс не может быть переведен в trunk режим, так как это "
-"интерфейс vlan."
-
-#: src/EBox/Network.pm:1509
-msgid ""
-"This interface is in trunk mode, you should unconfigure all the vlan "
-"interfaces in this trunk before changing its configuration mode."
-msgstr ""
-"Данный интерфейс в режиме trunk, вам необходимо расконфигурироать все "
-"интерфейсы vlan в trunk перед изменением режима."
-
-#: src/EBox/Network.pm:1637 src/EBox/Network.pm:1666 src/EBox/CGI/Vlan.pm:43
-#: src/templates/ifaces.mas:229
-msgid "VLAN Id"
-msgstr "VLAN ID"
-
-#: src/EBox/Network.pm:1646
-msgid ""
-"Network interfaces need to be in trunk mode before adding vlans to them."
-msgstr ""
-"Сетевые интерфейсы должны быть в режиме trunk перед добавлением к ним vlans."
-
-#: src/EBox/Network.pm:3061
-msgid ""
-"The requested operation will cause one of the configured gateways to become "
-"unreachable. Please remove it first if you really want to make this change."
-msgstr ""
-"Запрошенная операция приведет к тому, что шлюзы станут не доступны. "
-"Пожалуйста удалите сначала их, если вы действительно хотите внести такие "
-"изменения."
-
-#: src/EBox/Network.pm:3126 src/EBox/NetworkUtil.pm:55
-#, perl-brace-format
-msgid "Gateway {gw} not reachable"
-msgstr "Шлюз {gw} недоступен"
-
-#: src/EBox/Network.pm:3129
-#, perl-brace-format
-msgid ""
-"Gateway {gw} must be reachable by a static interface. Currently it is "
-"reachable by {iface} which is not static"
-msgstr ""
-"Шлюз {gw} должен быть доступен со статического интерфейса. Сейчас он "
-"доступен через {iface}, который не статический"
-
-#: src/EBox/Network.pm:3410 src/EBox/Network.pm:3431
-msgid "Host name"
-msgstr "Имя узла"
-
-#: src/EBox/Network.pm:3451 src/EBox/CGI/Diag.pm:65
-msgid "host name"
-msgstr "имя узла"
-
-#: src/EBox/Network.pm:3481
-msgid "down"
-msgstr "лежит"
-
-#: src/EBox/Network.pm:3487
-msgid "up"
-msgstr "поднят"
-
-#: src/EBox/Network.pm:3492
-msgid "external"
-msgstr "Внешний"
-
-#: src/EBox/Network.pm:3494
-msgid "internal"
-msgstr "Внутренний"
-
-#: src/EBox/Network.pm:3500
-msgid "link ok"
-msgstr "линк в норме"
-
-#: src/EBox/Network.pm:3502
-msgid "no link"
-msgstr "нет линка"
-
-#: src/EBox/Network.pm:3511 src/EBox/Network/Report/ByteRate.pm:136
-msgid "Status"
-msgstr "Статус"
-
-#: src/EBox/Network.pm:3516
-msgid "MAC address"
-msgstr "MAC-адрес"
-
-#: src/EBox/Network.pm:3533
-msgid "Tx bytes"
-msgstr "Tx байт"
-
-#: src/EBox/Network.pm:3542
-msgid "Rx bytes"
-msgstr "Rx байт"
-
-#: src/EBox/Network.pm:3559 src/EBox/CGI/Ifaces.pm:29
-msgid "Network Interfaces"
-msgstr "Сетевые интерфейсы"
-
-#: src/EBox/Network.pm:3580
-msgid "Interfaces"
-msgstr "Интерфейсы"
-
-#: src/EBox/Network.pm:3586
-msgid "Gateways"
-msgstr "Шлюзы"
-
-#: src/EBox/Network.pm:3590 src/EBox/Network/Composite/MultiGw.pm:62
-msgid "Balance Traffic"
-msgstr "Балансировка траффика"
-
-#: src/EBox/Network.pm:3594
-msgid "Diagnostic Tools"
-msgstr "Средства диагностики"
 
 #: src/EBox/Network/Composite/ByteRate.pm:73
 #: src/EBox/Network/Report/ByteRate.pm:134
@@ -721,6 +139,14 @@ msgstr ""
 "Событие WAN Failover не включено. Вам необходимо включить его, чтобы "
 "использовать это."
 
+#: src/EBox/Network/Composite/DNS.pm:60
+msgid "Domain Name Server Resolver"
+msgstr "Разрешение Сервера Доменных Имен"
+
+#: src/EBox/Network/Composite/MultiGw.pm:62 src/EBox/Network.pm:3603
+msgid "Balance Traffic"
+msgstr "Балансировка траффика"
+
 #: src/EBox/Network/Composite/MultiGw.pm:82
 msgid ""
 "To be able to use this feature you need at least two enabled gateways. You "
@@ -729,9 +155,9 @@ msgstr ""
 "Для включения этой функции Вам необходимо, как минимум, два шлюза. Вы должны "
 "добавить их сначала <a href=\"/ebox/Network/View/GatewayTable\">здесь</a> "
 
-#: src/EBox/Network/Composite/DNS.pm:60
-msgid "Domain Name Server Resolver"
-msgstr "Разрешение Сервера Доменных Имен"
+#: src/EBox/Network/Report/ByteRate.pm:136 src/EBox/Network.pm:3523
+msgid "Status"
+msgstr "Статус"
 
 #: src/EBox/Network/Report/ByteRate.pm:136
 msgid "Running"
@@ -817,95 +243,635 @@ msgstr "Общий трафик для {service}"
 msgid "Traffic rate from {src} for {service}"
 msgstr "Трафик из {src} для {service}"
 
-#: src/EBox/CGI/Iface.pm:42 src/EBox/CGI/Iface.pm:59 src/EBox/CGI/Vlan.pm:41
-#: src/EBox/CGI/VIface.pm:43
-msgid "network interface"
-msgstr "сетевой интерфейс"
+#: src/EBox/Network.pm:81 src/EBox/Network.pm:3588
+#: src/EBox/Model/StaticRoute.pm:147
+msgid "Network"
+msgstr "Сеть"
 
-#: src/EBox/CGI/Iface.pm:58
-msgid "method"
-msgstr "метод"
+#: src/EBox/Network.pm:99
+msgid "Add default routers to the default table"
+msgstr "Добавить маршруты по умолчанию в таблицу по умолчанию"
 
-#: src/EBox/CGI/Iface.pm:88
-msgid "ip address"
-msgstr "IP-адрес"
-
-#: src/EBox/CGI/Iface.pm:89 src/EBox/CGI/VIface.pm:63
-msgid "netmask"
-msgstr "маска подсети"
-
-#: src/EBox/CGI/Iface.pm:95
-msgid "user name"
-msgstr "имя пользователя"
-
-#: src/EBox/CGI/Iface.pm:96
-msgid "password"
-msgstr "пароль"
-
-#: src/EBox/CGI/Iface.pm:106
-msgid "bridge"
-msgstr "мост"
-
-#: src/EBox/CGI/EnableBalanceTraffic.pm:42
-msgid "traffic balance"
-msgstr "балансировка траффика"
-
-#: src/EBox/CGI/Diag.pm:29 src/EBox/CGI/Diag.pm:41
-msgid "Network Diagnostic Tools"
-msgstr "Средства Диагностики Сети"
-
-#: src/EBox/CGI/VIface.pm:44
-msgid "virtual interface action"
-msgstr "виртуальный интерфейс действия"
-
-#: src/EBox/CGI/VIface.pm:64 src/EBox/CGI/VIface.pm:70
-msgid "virtual interface name"
-msgstr "имя вирт. интерфейса"
-
-#: src/templates/Wizard/interfaces.mas:7 src/templates/Wizard/network.mas:23
-msgid "Network interfaces"
-msgstr "Сетевые интерфейсы"
-
-#: src/templates/Wizard/interfaces.mas:10
-msgid "Select external network interfaces"
-msgstr "Выберите внешние сетевые интерфейсы"
-
-#: src/templates/Wizard/interfaces.mas:11
+#: src/EBox/Network.pm:100
 msgid ""
-"You will not be able to connect to Zentyal administration page through them"
+"This is needed to work with a multigateway configuration. Note that to list "
+"the default routes you must execute: "
 msgstr ""
-"С помощью них вы не сможете подключиться к страницам администрирования "
-"Zentyal "
+"Это необходимо для работы в мульти шлюзовой конфигурации. Замечание, в "
+"список маршрутов по умолчанию вы должны включить:  "
 
-#: src/templates/Wizard/network.mas:26
-msgid "Configure network for external interfaces"
-msgstr "Настроить сеть для внешних интерфейсов"
+#: src/EBox/Network.pm:106
+msgid "Enable Zentyal DHCP hook"
+msgstr "Включить перехватчик DHCP Zentyal"
 
-#: src/templates/Wizard/network.mas:27
-msgid "Now you can set IP addresses and networks for each interface"
-msgstr "Теперь вы можете установить IP-адреса и сети для каждого интерфейса"
-
-#: src/templates/Wizard/network.mas:40 src/templates/ifaces.mas:45
-msgid "Method"
-msgstr "Метод"
-
-#: src/templates/Wizard/network.mas:43
-msgid "Don't configure"
-msgstr "Не настраивайте"
-
-#: src/templates/Wizard/network.mas:82
-msgid "Gateway"
-msgstr "Шлюз"
-
-#: src/templates/confirmVlanDel.mas:9
+#: src/EBox/Network.pm:107
 msgid ""
-"The removal of the vlan interface will affect the configuration of one or "
+"It will take care of adding the default route given by a DHCP server to the "
+"default route table. "
+msgstr ""
+"Для добавления маршрута по умолчанию из DHCP в таблицу маршрутов по "
+"умолчанию."
+
+#: src/EBox/Network.pm:125
+msgid "Zentyal will set your network configuration"
+msgstr "Zentyal установит конфигурацию сети."
+
+#: src/EBox/Network.pm:130
+msgid "Zentyal will set your DNS configuration"
+msgstr "Zentyal установит DNS конфигурацию"
+
+#: src/EBox/Network.pm:135
+msgid "Zentyal will set your DHCP client configuration"
+msgstr "Zentyal установит конфигурацию DHCP клиента"
+
+#: src/EBox/Network.pm:140 src/EBox/Network.pm:145
+msgid "Zentyal will set your ddclient configuration"
+msgstr "Zentyal установит конфигурацию ddclient"
+
+#: src/EBox/Network.pm:150 src/EBox/Network.pm:155
+msgid "Zentyal will store your PPPoE passwords"
+msgstr "Zentyal запомнит пароли PPPoE"
+
+#: src/EBox/Network.pm:162
+msgid "Zentyal will add a DSL provider configuration for PPPoE"
+msgstr "Zentyal добавит конфигурацию DSL-провайдера для PPPoE"
+
+#: src/EBox/Network.pm:169
+msgid "Zentyal will set HTTP proxy for all users"
+msgstr "Zentyal установит HTTP прокси для всех пользователей"
+
+#: src/EBox/Network.pm:172
+msgid "Zentyal will set HTTP proxy for APT"
+msgstr "Zentyal установит HTTP прокси для APT"
+
+#: src/EBox/Network.pm:902 src/EBox/Network.pm:906
+msgid "Virtual interface name"
+msgstr "Имя виртуального интерфейса"
+
+#: src/EBox/Network.pm:905 src/EBox/Network.pm:1224 src/EBox/Network.pm:3183
+#: src/templates/ifaces.mas:132 src/templates/ifaces.mas:288
+#: src/templates/Wizard/network.mas:57
+msgid "Netmask"
+msgstr "Маска подсети"
+
+#: src/EBox/Network.pm:998 src/EBox/Network.pm:1030 src/EBox/Network.pm:1075
+#: src/EBox/Network.pm:1111 src/EBox/Network.pm:1136 src/EBox/Network.pm:1220
+#: src/EBox/Network.pm:1358 src/EBox/Network.pm:1449 src/EBox/Network.pm:1537
+#: src/EBox/Network.pm:1543 src/EBox/Network.pm:1870 src/EBox/Network.pm:1940
+#: src/EBox/Network.pm:1973 src/EBox/Network.pm:2000 src/EBox/Network.pm:2027
+#: src/EBox/Network.pm:2055 src/EBox/Network.pm:2117 src/EBox/Network.pm:2156
+#: src/EBox/Network.pm:2189 src/EBox/Network.pm:3181 src/EBox/Network.pm:3201
+#: src/EBox/Network.pm:3221 src/EBox/Network.pm:3242 src/EBox/Network.pm:3261
+#: src/EBox/Network.pm:3315 src/EBox/Network.pm:3336 src/EBox/Network.pm:3356
+#: src/EBox/Network.pm:3377 src/EBox/Network.pm:3400
+#: src/EBox/Model/MultiGwRulesDataTable.pm:101
+#: src/EBox/Model/GatewayTable.pm:204
+msgid "Interface"
+msgstr "Интерфейс"
+
+#: src/EBox/Network.pm:1454
+msgid "This interface cannot be put in trunk mode, it is an vlan interface."
+msgstr ""
+"Данный интерфейс не может быть переведен в trunk режим, так как это "
+"интерфейс vlan."
+
+#: src/EBox/Network.pm:1509
+msgid ""
+"This interface is in trunk mode, you should unconfigure all the vlan "
+"interfaces in this trunk before changing its configuration mode."
+msgstr ""
+"Данный интерфейс в режиме trunk, вам необходимо расконфигурироать все "
+"интерфейсы vlan в trunk перед изменением режима."
+
+#: src/EBox/Network.pm:1646
+msgid ""
+"Network interfaces need to be in trunk mode before adding vlans to them."
+msgstr ""
+"Сетевые интерфейсы должны быть в режиме trunk перед добавлением к ним vlans."
+
+#: src/EBox/Network.pm:3073
+msgid ""
+"The requested operation will cause one of the configured gateways to become "
+"unreachable. Please remove it first if you really want to make this change."
+msgstr ""
+"Запрошенная операция приведет к тому, что шлюзы станут не доступны. "
+"Пожалуйста удалите сначала их, если вы действительно хотите внести такие "
+"изменения."
+
+#: src/EBox/Network.pm:3138 src/EBox/NetworkUtil.pm:55
+#, perl-brace-format
+msgid "Gateway {gw} not reachable"
+msgstr "Шлюз {gw} недоступен"
+
+#: src/EBox/Network.pm:3141
+#, perl-brace-format
+msgid ""
+"Gateway {gw} must be reachable by a static interface. Currently it is "
+"reachable by {iface} which is not static"
+msgstr ""
+"Шлюз {gw} должен быть доступен со статического интерфейса. Сейчас он "
+"доступен через {iface}, который не статический"
+
+#: src/EBox/Network.pm:3422 src/EBox/Network.pm:3443
+msgid "Host name"
+msgstr "Имя узла"
+
+#: src/EBox/Network.pm:3493
+msgid "down"
+msgstr "лежит"
+
+#: src/EBox/Network.pm:3499
+msgid "up"
+msgstr "поднят"
+
+#: src/EBox/Network.pm:3504
+msgid "external"
+msgstr "Внешний"
+
+#: src/EBox/Network.pm:3506
+msgid "internal"
+msgstr "Внутренний"
+
+#: src/EBox/Network.pm:3512
+msgid "link ok"
+msgstr "линк в норме"
+
+#: src/EBox/Network.pm:3514
+msgid "no link"
+msgstr "нет линка"
+
+#: src/EBox/Network.pm:3528
+msgid "MAC address"
+msgstr "MAC-адрес"
+
+#: src/EBox/Network.pm:3545
+msgid "Tx bytes"
+msgstr "Tx байт"
+
+#: src/EBox/Network.pm:3554
+msgid "Rx bytes"
+msgstr "Rx байт"
+
+#: src/EBox/Network.pm:3593
+msgid "Interfaces"
+msgstr "Интерфейсы"
+
+#: src/EBox/Network.pm:3599
+msgid "Gateways"
+msgstr "Шлюзы"
+
+#: src/EBox/Network.pm:3601 src/EBox/Model/StaticRoute.pm:171
+msgid "Static Routes"
+msgstr "Статические маршруты"
+
+#: src/EBox/Network.pm:3607
+msgid "Diagnostic Tools"
+msgstr "Средства диагностики"
+
+#: src/EBox/Model/StaticRoute.pm:150
+msgid "IP or network address"
+msgstr "IP-адрес или адрес сети"
+
+#: src/EBox/Model/StaticRoute.pm:156
+msgid "Gateway used to reach the above network  address"
+msgstr "Шлюз используемый для доступа к адресам вышеупомянутой сети"
+
+#: src/EBox/Model/StaticRoute.pm:161 src/templates/ifaces.mas:230
+msgid "Description"
+msgstr "Описание"
+
+#: src/EBox/Model/StaticRoute.pm:164
+msgid "Optional description for this route"
+msgstr "Дополнительное описание для этого маршрута"
+
+#: src/EBox/Model/StaticRoute.pm:170
+msgid "Static Routes List"
+msgstr "Список статических маршрутов"
+
+#: src/EBox/Model/StaticRoute.pm:176
+msgid ""
+"All gateways you enter here must be reachable through one of the network "
+"interfaces currently configured."
+msgstr ""
+"Все шлюзы введенные здесь должны быть доступны через один из настроенных "
+"сетевых интерфейсов."
+
+#: src/EBox/Model/StaticRoute.pm:179
+msgid "static route"
+msgstr "статические маршруты"
+
+#: src/EBox/Model/SearchDomain.pm:71
+msgid "Domain"
+msgstr "Домен"
+
+#: src/EBox/Model/SearchDomain.pm:79
+msgid "Search Domain"
+msgstr "Поисковый домен"
+
+#: src/EBox/Model/SearchDomain.pm:83
+msgid ""
+"This domain will be appended when trying to resolve hosts if the first "
+"attempt without appending it has failed."
+msgstr ""
+"Этот домен будет добавлен при попытке разрешить имя узла, если первая "
+"попытка без добавления его не удалась."
+
+#: src/EBox/Model/MultiGwRulesOptions.pm:43
+msgid "Enable"
+msgstr "Включить"
+
+#: src/EBox/Model/MultiGwRulesOptions.pm:53
+msgid "Traffic balancing"
+msgstr "Балансировка трафика"
+
+#: src/EBox/Model/MultiGwRulesOptions.pm:64
+#, perl-brace-format
+msgid ""
+"By enabling this feature, your traffic will be balanced amongst your "
+"gateways. That is, every new connection will be sent by a different gateway. "
+"You can choose which proportion of traffic goes through each gateway using "
+"the weight parameter of the gateway. You can change that value {openref}here"
+"{closeref}.{br}If you want to explicitily route traffic by a certain "
+"gateway, use the multigateway rules below"
+msgstr ""
+"После включения этой функции, Ваш трафик будет распределяться между "
+"несколькими шлюзами. Вы можете выбрать пропорции распределения используя "
+"весовой параметр шлюза. Вы можете изменить это значение {openref}здесь"
+"{closeref}.{br}Если Вы хотите точной маршрутизации трафика - используйте "
+"мультишлюзовые правила ниже."
+
+#: src/EBox/Model/MultiGwRulesOptions.pm:68
+#: src/EBox/Model/MultiGwRulesDataTable.pm:195
+#: src/EBox/Model/WANFailoverRules.pm:133
+msgid "rule"
+msgstr "правило"
+
+#: src/EBox/Model/MultiGwRulesDataTable.pm:77
+msgid "any"
+msgstr "любой"
+
+#: src/EBox/Model/MultiGwRulesDataTable.pm:104
+msgid ""
+"Incoming interface to match packets. If you  want to match a whole subnet "
+"you can  select the interface of that subnet"
+msgstr ""
+"Входящий интерфейс соответствующим пакетам. Если вам нужна  соответствующую "
+"подсеть, вы должны выбрать  интерфейс этой подсети"
+
+#: src/EBox/Model/MultiGwRulesDataTable.pm:110
+#: src/EBox/Model/ByteRateGraphControl.pm:111
+msgid "Source"
+msgstr "Источник"
+
+#: src/EBox/Model/MultiGwRulesDataTable.pm:115
+#: src/EBox/Model/MultiGwRulesDataTable.pm:142
+msgid "Any"
+msgstr "Любой"
+
+#: src/EBox/Model/MultiGwRulesDataTable.pm:118
+msgid "Source IP"
+msgstr "Исходный IP"
+
+#: src/EBox/Model/MultiGwRulesDataTable.pm:123
+msgid "Source object"
+msgstr "Исходный объект"
+
+#: src/EBox/Model/MultiGwRulesDataTable.pm:137
+msgid "Destination"
+msgstr "Назначение"
+
+#: src/EBox/Model/MultiGwRulesDataTable.pm:145
+msgid "Destination IP"
+msgstr "IP назначения"
+
+#: src/EBox/Model/MultiGwRulesDataTable.pm:150
+msgid "Destination object"
+msgstr "Объект назначения"
+
+#: src/EBox/Model/MultiGwRulesDataTable.pm:161 src/EBox/Model/DynDNS.pm:91
+#: src/EBox/Model/ByteRateGraphControl.pm:117
+msgid "Service"
+msgstr "Служба"
+
+#: src/EBox/Model/MultiGwRulesDataTable.pm:172
+msgid "Gateway to route packets matching this rule"
+msgstr "Шлюз для маршрута пакетов соответствующих этому правилу"
+
+#: src/EBox/Model/MultiGwRulesDataTable.pm:180
+msgid "Multigateway rules"
+msgstr "Мультишлюзовые правила"
+
+#: src/EBox/Model/MultiGwRulesDataTable.pm:193
+msgid ""
+"You can decide what kind of traffic goes out by each gateway. This way, you "
+"can force a subnet, service, destination and so forth  to use the router you "
+"choose. Please, bear in mind that rules will be applied in order, from top "
+"to bottom, you can reorder them once they are added. If you do not set a "
+"port or an IP address, then the rule will match all of them"
+msgstr ""
+"Вы можете решать какой тип трафика пускать через каждый шлюз. Таким образом, "
+"Вы можете заставить соответсвующую подсеть, службу, пункт назначения и т.п. "
+"использовать выбранный Вами роутер. Помните: правила применяются в "
+"последовательности \"сверху-вниз\". Вы можете поменять их положение. Если Вы "
+"не указали порт или IP-адрес, правило будет применяться ко всем значениям "
+"этих полей."
+
+#: src/EBox/Model/DNSResolver.pm:77
+msgid "IP address of the DNS server that Zentyal will use to resolve names."
+msgstr ""
+"IP-адрес DNS-сервера, который Zentyal будет использовать для разрешения имен."
+
+#: src/EBox/Model/DNSResolver.pm:83 src/templates/Wizard/network.mas:86
+#: src/templates/Wizard/network.mas:90
+msgid "Domain Name Server"
+msgstr "Сервер доменных имен"
+
+#: src/EBox/Model/DNSResolver.pm:92
+msgid "Domain Name Server Resolver List"
+msgstr "Список разрешенных серверов имен"
+
+#: src/EBox/Model/DNSResolver.pm:98
+msgid "name server"
+msgstr "сервер имен"
+
+#: src/EBox/Model/DNSResolver.pm:110
+msgid ""
+"<p>Here you can add the name server resolvers that Zentyal will use.</"
+"p><p>Note that these settings may be overriden if you have any network "
+"interface configured via DHCP</p>"
+msgstr ""
+"<p>Здесь вы можете добавить DNS-серверы,которые будут использованы Zentyal.</"
+"p><p>Заметьте, эти параметры могут быть перезаписаны, если для какого-либо "
+"интерфейса настроен DHCP</p>"
+
+#: src/EBox/Model/ByteRateSettings.pm:79
+msgid "Interface to listen"
+msgstr "Слушающий интерфейс"
+
+#: src/EBox/Model/ByteRateSettings.pm:88
+msgid "Traffic rate monitor settings"
+msgstr "Параметры настройки мониторинга трафика"
+
+#: src/EBox/Model/ByteRateSettings.pm:92
+msgid "Changes will be applied immediately to the traffic rate monitor"
+msgstr "Изменения будут немедленно применены к монитору трафика"
+
+#: src/EBox/Model/ByteRateSettings.pm:95
+msgid "Settings changed"
+msgstr "Настройки изменены"
+
+#: src/EBox/Model/ByteRateSettings.pm:114
+#, perl-brace-format
+msgid "{iface} (internal interface)"
+msgstr "{iface} (внутренний интерфейс)"
+
+#: src/EBox/Model/ByteRateSettings.pm:121
+#, perl-brace-format
+msgid "{iface} (external interface)"
+msgstr "{iface} (внешний интерфейс)"
+
+#: src/EBox/Model/ByteRateSettings.pm:128
+msgid "all"
+msgstr "все"
+
+#: src/EBox/Model/DynDNS.pm:86
+msgid "Enable Dynamic DNS"
+msgstr "Включить Dynamic DNS"
+
+#: src/EBox/Model/DynDNS.pm:97 src/EBox/Model/Proxy.pm:75
+msgid "Username"
+msgstr "Имя пользователя"
+
+#: src/EBox/Model/DynDNS.pm:102 src/EBox/Model/Proxy.pm:82
+#: src/templates/ifaces.mas:202
+msgid "Password"
+msgstr "Пароль"
+
+#: src/EBox/Model/DynDNS.pm:107
+msgid "Hostname"
+msgstr "Имя узла"
+
+#: src/EBox/Model/DynDNS.pm:115
+msgid "Configuration"
+msgstr "Конфигурация"
+
+#: src/EBox/Model/DynDNS.pm:119
+msgid ""
+"All gateways you enter here must be reachable through one of the network "
+"interfaces currently configured"
+msgstr ""
+"Все шлюзы введенные здесь должны быть доступны через один из настроенных "
+"сетевых интерфейсов."
+
+#: src/EBox/Model/ByteRateEnableForm.pm:70
+msgid ""
+"Starting traffic rate monitoring. Wait patiently until the graph appears"
+msgstr ""
+"Запуск мониторинга трафика. Подождите (терпеливо) пока не появиться график"
+
+#: src/EBox/Model/ByteRateEnableForm.pm:73
+msgid "Stopping traffic rate monitoring"
+msgstr "Остановка мониторинга трафика"
+
+#: src/EBox/Model/ByteRateEnableForm.pm:86
+msgid ""
+"The traffic rate monitor is start/stop on demand without requiring to save "
+"changes first"
+msgstr ""
+"Запуск/Остановка монитора трафика по требованию, требует вначале сохранения "
+"изменений."
+
+#: src/EBox/Model/WANFailoverRules.pm:55
+msgid "Ping to gateway"
+msgstr "Пинг шлюза"
+
+#: src/EBox/Model/WANFailoverRules.pm:59
+msgid "Ping to host"
+msgstr "Пинг узла"
+
+#: src/EBox/Model/WANFailoverRules.pm:63
+msgid "DNS resolve"
+msgstr "Разрешение DNS"
+
+#: src/EBox/Model/WANFailoverRules.pm:67
+msgid "HTTP Request"
+msgstr "Запрос HTTP"
+
+#: src/EBox/Model/WANFailoverRules.pm:91
+msgid "Test type"
+msgstr "Тип теста"
+
+#: src/EBox/Model/WANFailoverRules.pm:103
+msgid "Number of probes"
+msgstr "Число проб"
+
+#: src/EBox/Model/WANFailoverRules.pm:112
+msgid "Required success ratio"
+msgstr "Требуемое успешное завершения"
+
+#: src/EBox/Model/WANFailoverRules.pm:125
+msgid "Test rules"
+msgstr "Правила теста"
+
+#: src/EBox/Model/WANFailoverRules.pm:132
+msgid ""
+"You can define different rules to test if a gateway is working properly. If "
+"one of the test fails the gateway will be disabled. It will be enabled again "
+"when all tests are passed."
+msgstr ""
+"Вы можете определить различные правила проверки нормальной работы шлюза. "
+"Если один из тестов не пройдет, шлюз будет отключен. Он будет снова включен, "
+"когда пройдут успешно все тесты."
+
+#: src/EBox/Model/WANFailoverRules.pm:182
+msgid "Invalid value for Host"
+msgstr "Неверное значение для узла"
+
+#: src/EBox/Model/WANFailoverOptions.pm:71
+msgid "Time between checks"
+msgstr "Время между проверками"
+
+#: src/EBox/Model/WANFailoverOptions.pm:72
+msgid "seconds"
+msgstr "сек."
+
+#: src/EBox/Model/WANFailoverOptions.pm:82
+msgid "Global options"
+msgstr "Общие настройки"
+
+#: src/EBox/Model/WANFailoverOptions.pm:86
+msgid "These options affect to all the tests."
+msgstr "Эти парметры влияют на все тесты"
+
+#: src/EBox/Model/GatewayTable.pm:184
+msgid "Auto"
+msgstr "Автоматически"
+
+#: src/EBox/Model/GatewayTable.pm:190 src/templates/ifaces.mas:34
+#: src/templates/ifaces.mas:286
+msgid "Name"
+msgstr "Имя"
+
+#: src/EBox/Model/GatewayTable.pm:207
+msgid "Interface connected to this gateway"
+msgstr "Интерфейс подключенный к этому шлюзу"
+
+#: src/EBox/Model/GatewayTable.pm:211
+msgid "Weight"
+msgstr "Вес"
+
+#: src/EBox/Model/GatewayTable.pm:216
+msgid ""
+"This field is only useful if you have more than one router and  the balance "
+"traffic feature is enabled."
+msgstr ""
+"Это поле необходимо только если вы используете несколько маршрутов и у вас "
+"включена балансировка трафика между ними."
+
+#: src/EBox/Model/GatewayTable.pm:222
+msgid "Default"
+msgstr "По умолчанию"
+
+#: src/EBox/Model/GatewayTable.pm:232
+msgid "Gateways List"
+msgstr "Список шлюзов"
+
+#: src/EBox/Model/GatewayTable.pm:248
+msgid ""
+"You can add as many gateways as you want. This is very useful if you want to "
+"split your Internet traffic through several links. Note that if you "
+"configure interfaces as DHCP or PPPoE their gateways are added here "
+"automatically."
+msgstr ""
+"Вы можете добавить такое количество шлюзов, какое пожелаете. Это полезно, "
+"если вы хотите распределить ваш трафик через несколько каналов. На заметку: "
+"если интерфейс использует DHCP или PPPoE, то его шлюзы будут добавлены "
+"автоматически."
+
+#: src/EBox/Model/GatewayTable.pm:250
+msgid "gateway"
+msgstr "шлюз"
+
+#: src/EBox/Model/GatewayTable.pm:283
+msgid "You can not manually add a gateway for DHCP or PPPoE interfaces"
+msgstr "Вы не можете вручную добавить шлюз для DHCP или PPPoE интерфейсов"
+
+#: src/EBox/Model/GatewayTable.pm:342
+msgid "Automatically added gateways can not be manually deleted"
+msgstr "Автоматически добавленные шлюзы не могут быть удалены вручную"
+
+#: src/EBox/Model/ByteRateGraphControl.pm:46
+msgid "Select traffic graphic"
+msgstr "Выберите график трафика"
+
+#: src/EBox/Model/ByteRateGraphControl.pm:57
+msgid ""
+"Several views are showed depending on the parameter selection. An host IP "
+"address and a service, which must match the text given by the graphs legend "
+"based on /etc/services, may be required by the graph type. The flow view "
+"will change accordingly"
+msgstr ""
+"Несколько представлений показаны в зависимости от выбранного параметра. IP "
+"адрес узла и службы, которые соответствуют тексту легенды графика "
+"основанного на /etc/services. Представление будут соответственно изменены."
+
+#: src/EBox/Model/ByteRateGraphControl.pm:78
+msgid "Graph type"
+msgstr "Тип графика"
+
+#: src/EBox/Model/ByteRateGraphControl.pm:85
+msgid "All active traffic by source"
+msgstr "Весь активный трафик источника"
+
+#: src/EBox/Model/ByteRateGraphControl.pm:89
+msgid "All active traffic by service"
+msgstr "Весь активный трафик службы"
+
+#: src/EBox/Model/ByteRateGraphControl.pm:93
+msgid "Traffic by selected source"
+msgstr "Трафик выбранного источника"
+
+#: src/EBox/Model/ByteRateGraphControl.pm:99
+msgid "Traffic by selected service"
+msgstr "Трафик выбранной службы"
+
+#: src/EBox/Model/ByteRateGraphControl.pm:105
+msgid "Traffic by source and service"
+msgstr "Трафик выбранного источника и службы"
+
+#: src/EBox/Model/Proxy.pm:89
+msgid "Proxy server"
+msgstr "прокси сервер"
+
+#: src/EBox/Model/Proxy.pm:95
+msgid "Proxy port"
+msgstr "порт прокси"
+
+#: src/EBox/Model/Proxy.pm:103
+msgid "Proxy"
+msgstr "Прокси"
+
+#: src/EBox/Model/Proxy.pm:107
+msgid ""
+"This settings will be used to allow Zentyal to access the Internet if an "
+"HTTP proxy is needed."
+msgstr ""
+"Эта настройка предназначена для того чтобы Zentyal использовал интернет с "
+"помощью HTTP прокси."
+
+#: src/EBox/Model/Proxy.pm:129
+msgid "Proxy username and password will be visible by all system users."
+msgstr ""
+
+#: src/templates/confirmremove.mas:11 src/templates/confirm.mas:17
+msgid ""
+"The change you are trying to make will affect the configuration of one or "
 "more modules that use references to this network interface."
 msgstr ""
-"Удаление интерфейса vlan скажется на конфигурации одного или нескольких "
-"модулей, которые используют этот сетевой интерфейс."
+"Изменение, которое Вы пытаетесь сделать скажется на конфигурации одного или "
+"нескольких модулей, которые используют этот сетевой интерфейс."
 
-#: src/templates/confirmVlanDel.mas:12 src/templates/confirmremove.mas:14
+#: src/templates/confirmremove.mas:14 src/templates/confirmVlanDel.mas:12
 msgid ""
 "If you choose to continue, all modules that make use of this network "
 "interface will delete the relevant parts of their configuration. Choose "
@@ -915,61 +881,15 @@ msgstr ""
 "удалят важные части своей конфигурации. Выберите \"Отмена\" если вы не "
 "хотите этого."
 
-#: src/templates/confirmVlanDel.mas:22 src/templates/confirmremove.mas:24
-#: src/templates/confirm.mas:35
+#: src/templates/confirmremove.mas:24 src/templates/confirmVlanDel.mas:22
+#: src/templates/confirm.mas:37
 msgid "Ok"
 msgstr "Ok"
 
-#: src/templates/confirmVlanDel.mas:24 src/templates/confirmremove.mas:26
-#: src/templates/confirm.mas:37
+#: src/templates/confirmremove.mas:26 src/templates/confirmVlanDel.mas:24
+#: src/templates/confirm.mas:39
 msgid "Cancel"
 msgstr "Отмена"
-
-#: src/templates/confirmremove.mas:11 src/templates/confirm.mas:16
-msgid ""
-"The change you are trying to make will affect the configuration of one or "
-"more modules that use references to this network interface."
-msgstr ""
-"Изменение, которое Вы пытаетесь сделать скажется на конфигурации одного или "
-"нескольких модулей, которые используют этот сетевой интерфейс."
-
-#: src/templates/confirm.mas:19
-msgid ""
-"If you choose to continue, all modules that make use of the current "
-"configuration of this network interface will delete the relevant parts of "
-"their configuration. Choose \"Cancel\" if you are not sure about this."
-msgstr ""
-"Если Вы продолжите то все модули, использующие текущую конфигурацию этого "
-"сетевого интерфейса удалят важные части своей конфигурации. Выберите \"Отмена"
-"\" если вы не хотите этого."
-
-#: src/templates/diag.mas:13 src/templates/diag.mas:18
-msgid "Ping"
-msgstr "Ping"
-
-#: src/templates/diag.mas:22
-msgid "Traceroute"
-msgstr "Traceroute"
-
-#: src/templates/diag.mas:27
-msgid "Trace"
-msgstr "Trace"
-
-#: src/templates/diag.mas:31
-msgid "Domain Name Resolution"
-msgstr "Разрешение доменных имен"
-
-#: src/templates/diag.mas:32
-msgid "Domain name"
-msgstr "Доменное имя"
-
-#: src/templates/diag.mas:36
-msgid "Lookup"
-msgstr "Поиск"
-
-#: src/templates/diag.mas:38
-msgid "Output"
-msgstr "Выход"
 
 #: src/templates/ifaces.mas:13
 msgid ""
@@ -988,6 +908,10 @@ msgstr ""
 "Трафик пущенный через интерфейсы помеченные как внешние будет маскироваться "
 "(NAT). Также, службы предназначенные для локальной сети будут недоступны "
 "через внешние интерфейсы."
+
+#: src/templates/ifaces.mas:45 src/templates/Wizard/network.mas:40
+msgid "Method"
+msgstr "Метод"
 
 #: src/templates/ifaces.mas:51 src/templates/ifaces.mas:53
 msgid "Static"
@@ -1052,6 +976,86 @@ msgstr "Удалить"
 #: src/templates/ifaces.mas:281
 msgid "Virtual Interfaces"
 msgstr "Виртуальные интерфейсы"
+
+#: src/templates/confirmVlanDel.mas:9
+msgid ""
+"The removal of the vlan interface will affect the configuration of one or "
+"more modules that use references to this network interface."
+msgstr ""
+"Удаление интерфейса vlan скажется на конфигурации одного или нескольких "
+"модулей, которые используют этот сетевой интерфейс."
+
+#: src/templates/Wizard/network.mas:23 src/templates/Wizard/interfaces.mas:7
+msgid "Network interfaces"
+msgstr "Сетевые интерфейсы"
+
+#: src/templates/Wizard/network.mas:26
+msgid "Configure network for external interfaces"
+msgstr "Настроить сеть для внешних интерфейсов"
+
+#: src/templates/Wizard/network.mas:27
+msgid "Now you can set IP addresses and networks for each interface"
+msgstr "Теперь вы можете установить IP-адреса и сети для каждого интерфейса"
+
+#: src/templates/Wizard/network.mas:43
+msgid "Don't configure"
+msgstr "Не настраивайте"
+
+#: src/templates/Wizard/network.mas:82
+msgid "Gateway"
+msgstr "Шлюз"
+
+#: src/templates/Wizard/interfaces.mas:10
+msgid "Select external network interfaces"
+msgstr "Выберите внешние сетевые интерфейсы"
+
+#: src/templates/Wizard/interfaces.mas:11
+msgid ""
+"You will not be able to connect to Zentyal administration page through them"
+msgstr ""
+"С помощью них вы не сможете подключиться к страницам администрирования "
+"Zentyal "
+
+#: src/templates/diag.mas:13 src/templates/diag.mas:18
+msgid "Ping"
+msgstr "Ping"
+
+#: src/templates/diag.mas:22
+msgid "Traceroute"
+msgstr "Traceroute"
+
+#: src/templates/diag.mas:27
+msgid "Trace"
+msgstr "Trace"
+
+#: src/templates/diag.mas:31
+msgid "Domain Name Resolution"
+msgstr "Разрешение доменных имен"
+
+#: src/templates/diag.mas:32
+msgid "Domain name"
+msgstr "Доменное имя"
+
+#: src/templates/diag.mas:36
+msgid "Lookup"
+msgstr "Поиск"
+
+#: src/templates/diag.mas:38
+msgid "Output"
+msgstr "Выход"
+
+#: src/templates/confirm.mas:20
+msgid ""
+"If you choose to continue, all modules that make use of the current "
+"configuration of this network interface will delete the relevant parts of "
+"their configuration. Choose \"Cancel\" if you are not sure about this."
+msgstr ""
+"Если Вы продолжите то все модули, использующие текущую конфигурацию этого "
+"сетевого интерфейса удалят важные части своей конфигурации. Выберите \"Отмена"
+"\" если вы не хотите этого."
+
+#~ msgid "WAN Failover is only available for static interfaces"
+#~ msgstr "WAN Failover доступен только для статических интерфейсов"
 
 #, fuzzy
 #~ msgid "Configure network"

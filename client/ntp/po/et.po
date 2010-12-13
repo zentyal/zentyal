@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-ntp 1.4\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-08-28 23:28+0200\n"
+"POT-Creation-Date: 2010-12-13 08:40+0100\n"
 "PO-Revision-Date: 2010-04-23 19:42+0200\n"
 "Last-Translator: Priit-A. Heinsalu <priit.heinsalu@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
@@ -17,95 +17,26 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: src/EBox/NTP.pm:67
-msgid "Remove ntp init script links"
-msgstr "ntp init skripti linkide eemaldamine"
-
-#: src/EBox/NTP.pm:68
-#, fuzzy
-msgid "Zentyal will take care of starting and stopping the services."
-msgstr "eBox kannab hoolt teenuste käivitamise ja peatamise eest."
-
-#: src/EBox/NTP.pm:86
-#, fuzzy
-msgid "NTP configuration file"
-msgstr "Ajavööndi seadistamine"
+#: src/EBox/CGI/AddServers.pm:42
+msgid "first ntp server"
+msgstr "esimene ntp server"
 
 # või ka "esmane server"
-#: src/EBox/NTP.pm:221 src/EBox/CGI/AddServers.pm:45
+#: src/EBox/CGI/AddServers.pm:45 src/EBox/NTP.pm:222
 #: src/templates/servers.mas:16
 msgid "Primary server"
 msgstr "Primaarne server"
 
-#: src/EBox/NTP.pm:223
-msgid "primary server"
-msgstr "primaarne server"
-
-#: src/EBox/NTP.pm:228 src/EBox/NTP.pm:247
-msgid "Primary and secondary server must be different"
-msgstr "primaarne ja sekundaarne server peavad olema erinevad"
-
-#: src/EBox/NTP.pm:231
-msgid "secondary server"
-msgstr "sekundaarne server"
-
 # või ka "teisene server"
-#: src/EBox/NTP.pm:235 src/EBox/CGI/AddServers.pm:51
+#: src/EBox/CGI/AddServers.pm:51 src/EBox/NTP.pm:236
 #: src/templates/servers.mas:27
 msgid "Secondary server"
 msgstr "Sekundaarne server"
-
-#: src/EBox/NTP.pm:244
-msgid "Primary and tertiary server must be different"
-msgstr "Primaarne ja tertsiaarne server peavad olema erinevad"
-
-#: src/EBox/NTP.pm:250
-msgid "tertiary server"
-msgstr "tertsiaarne server"
-
-#: src/EBox/NTP.pm:266
-#, perl-brace-format
-msgid "{name} IP address"
-msgstr "{name} IP aadress"
-
-# või hostinimi?
-#: src/EBox/NTP.pm:269
-#, perl-brace-format
-msgid "{name} host name"
-msgstr "{name} masinanimi"
-
-#: src/EBox/NTP.pm:401
-msgid "System"
-msgstr "Süsteem"
-
-#: src/EBox/NTP.pm:404
-msgid "Date/Time"
-msgstr "Kuupäev/kellaaeg"
-
-#: src/EBox/NTP.pm:407
-msgid "Time Zone"
-msgstr "Ajavöönd"
-
-#: src/EBox/CGI/Timezone.pm:30
-msgid "Time Zone Configuration"
-msgstr "Ajavööndi seadistamine"
-
-#: src/EBox/CGI/AddServers.pm:42
-msgid "first ntp server"
-msgstr "esimene ntp server"
 
 # või ka "kolmandane server"
 #: src/EBox/CGI/AddServers.pm:55 src/templates/servers.mas:38
 msgid "Tertiary server"
 msgstr "Tertsiaarne server"
-
-#: src/EBox/CGI/Datetime.pm:30
-msgid "Date and Time Configuration"
-msgstr "Kuupäeva ja aja seadistamine"
-
-#: src/EBox/CGI/Synch.pm:41
-msgid "external synchronize status"
-msgstr "välise sünkroniseerimise olek"
 
 #: src/EBox/CGI/ChangeDate.pm:41
 msgid "Day"
@@ -139,6 +70,75 @@ msgstr "riik"
 msgid "continent"
 msgstr "kontinent"
 
+#: src/EBox/CGI/Datetime.pm:30
+msgid "Date and Time Configuration"
+msgstr "Kuupäeva ja aja seadistamine"
+
+#: src/EBox/CGI/Timezone.pm:30
+msgid "Time Zone Configuration"
+msgstr "Ajavööndi seadistamine"
+
+#: src/EBox/CGI/Synch.pm:41
+msgid "external synchronize status"
+msgstr "välise sünkroniseerimise olek"
+
+#: src/EBox/NTP.pm:67
+msgid "Remove ntp init script links"
+msgstr "ntp init skripti linkide eemaldamine"
+
+#: src/EBox/NTP.pm:68
+#, fuzzy
+msgid "Zentyal will take care of starting and stopping the services."
+msgstr "eBox kannab hoolt teenuste käivitamise ja peatamise eest."
+
+#: src/EBox/NTP.pm:86
+#, fuzzy
+msgid "NTP configuration file"
+msgstr "Ajavööndi seadistamine"
+
+#: src/EBox/NTP.pm:224
+msgid "primary server"
+msgstr "primaarne server"
+
+#: src/EBox/NTP.pm:229 src/EBox/NTP.pm:247
+msgid "Primary and secondary server must be different"
+msgstr "primaarne ja sekundaarne server peavad olema erinevad"
+
+#: src/EBox/NTP.pm:232
+msgid "secondary server"
+msgstr "sekundaarne server"
+
+#: src/EBox/NTP.pm:244
+msgid "Primary and tertiary server must be different"
+msgstr "Primaarne ja tertsiaarne server peavad olema erinevad"
+
+#: src/EBox/NTP.pm:250
+msgid "tertiary server"
+msgstr "tertsiaarne server"
+
+#: src/EBox/NTP.pm:266
+#, perl-brace-format
+msgid "{name} IP address"
+msgstr "{name} IP aadress"
+
+# või hostinimi?
+#: src/EBox/NTP.pm:269
+#, perl-brace-format
+msgid "{name} host name"
+msgstr "{name} masinanimi"
+
+#: src/EBox/NTP.pm:402
+msgid "System"
+msgstr "Süsteem"
+
+#: src/EBox/NTP.pm:405
+msgid "Date/Time"
+msgstr "Kuupäev/kellaaeg"
+
+#: src/EBox/NTP.pm:408
+msgid "Time Zone"
+msgstr "Ajavöönd"
+
 #: src/templates/servers.mas:7
 msgid "NTP servers"
 msgstr "NTP serverid"
@@ -149,10 +149,10 @@ msgid ""
 "correctly."
 msgstr "Sünkroniseerimise õigesti toimimiseks, peab olema määratud ajavöönd"
 
-#: src/templates/servers.mas:50 src/templates/synch.mas:19
+#: src/templates/servers.mas:50 src/templates/timezone.mas:33
+#: src/templates/timezone.mas:34 src/templates/synch.mas:19
 #: src/templates/synch.mas:20 src/templates/date.mas:96
-#: src/templates/date.mas:97 src/templates/timezone.mas:33
-#: src/templates/timezone.mas:34
+#: src/templates/date.mas:97
 msgid "Change"
 msgstr "Muuda"
 

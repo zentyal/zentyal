@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-openvpn 1.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-08-28 23:28+0200\n"
+"POT-Creation-Date: 2010-12-13 08:40+0100\n"
 "PO-Revision-Date: 2010-08-28 09:11+0200\n"
 "Last-Translator: Nagy Ákos <nagy.akos@akos.ro>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
@@ -16,6 +16,112 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n !=1);\n"
 "X-Generator: Pootle 1.1.0\n"
+
+#: src/EBox/OpenVPN/Server.pm:129
+#, perl-brace-format
+msgid "The port {p}/{pro} is already in use"
+msgstr "A port {p}/{pro} már használatban."
+
+#: src/EBox/OpenVPN/Server.pm:228
+#, perl-brace-format
+msgid "The certificate {cn} does not exist"
+msgstr "A tanúsítvány {cn} nem létezik."
+
+#: src/EBox/OpenVPN/Server.pm:231
+#, perl-brace-format
+msgid "The certificate {cn} has expired"
+msgstr "A tanúsítvány {cn} érvényessége lejárt."
+
+#: src/EBox/OpenVPN/Server.pm:234
+#, perl-brace-format
+msgid "The certificate {cn} has been revoked"
+msgstr "A tanúsítványt {cn} visszavonták."
+
+#: src/EBox/OpenVPN/Server.pm:252
+#, perl-brace-format
+msgid "The server {name} does not have certificate assigned"
+msgstr "A {name} nevű szerverhez nincs tanúsítvány rendelve"
+
+#: src/EBox/OpenVPN/Server.pm:273
+#, perl-brace-format
+msgid ""
+"Cannot get key of server {name} because it does not have any certificate "
+"assigned"
+msgstr ""
+"A {name} szerver kulcs nem elérhető mivel nincs tanúsítvány hozzárendelve"
+
+#: src/EBox/OpenVPN/Server.pm:450
+#, perl-brace-format
+msgid "No IP address found for interface {iface}"
+msgstr "Ennek a csatolónak (interface) nincs IP címe: {iface}."
+
+#: src/EBox/OpenVPN/Server.pm:555
+msgid "OpenVPN servers cannot be used for internal services"
+msgstr "Az OpenVPN szerver nem tudja használni a belső szolgáltatásokat."
+
+#: src/EBox/OpenVPN/Server.pm:582
+#, perl-brace-format
+msgid "Unsupported client type: {ct}"
+msgstr "nem támogatott kliens (ügyfél) típus: {ct}"
+
+#: src/EBox/OpenVPN/Server.pm:779
+#, perl-brace-format
+msgid "Server {name}"
+msgstr "Kiszolgáló {name}"
+
+#: src/EBox/OpenVPN/Server.pm:781 src/EBox/OpenVPN/Client.pm:401
+#: src/EBox/OpenVPN/Model/Servers.pm:68
+msgid "Enabled"
+msgstr "Bekapcsolva"
+
+#: src/EBox/OpenVPN/Server.pm:781 src/EBox/OpenVPN/Client.pm:401
+msgid "Disabled"
+msgstr "Kikapcsolva"
+
+#: src/EBox/OpenVPN/Server.pm:782 src/EBox/OpenVPN/Client.pm:402
+msgid "Service"
+msgstr "Szolgáltatás"
+
+#: src/EBox/OpenVPN/Server.pm:784 src/EBox/OpenVPN/Client.pm:404
+msgid "Running"
+msgstr "Fut"
+
+#: src/EBox/OpenVPN/Server.pm:784 src/EBox/OpenVPN/Client.pm:404
+msgid "Stopped"
+msgstr "Leállítva"
+
+#: src/EBox/OpenVPN/Server.pm:785 src/EBox/OpenVPN/Client.pm:405
+msgid "Daemon status"
+msgstr "Démon állapota"
+
+#: src/EBox/OpenVPN/Server.pm:788
+msgid "All external interfaces"
+msgstr "Összes külső csatoló"
+
+#: src/EBox/OpenVPN/Server.pm:789
+msgid "Local address"
+msgstr "Helyi cím"
+
+#: src/EBox/OpenVPN/Server.pm:794
+msgid "Port"
+msgstr "Port"
+
+#: src/EBox/OpenVPN/Server.pm:797
+msgid "VPN subnet"
+msgstr "VPN alhálózat"
+
+#: src/EBox/OpenVPN/Server.pm:800
+msgid "VPN network interface"
+msgstr "VPN hálózati csatoló (interface)"
+
+#: src/EBox/OpenVPN/Server.pm:804 src/EBox/OpenVPN/Server.pm:806
+#: src/EBox/OpenVPN/Client.pm:417 src/EBox/OpenVPN/Client.pm:419
+msgid "VPN interface address"
+msgstr "VPN csatoló (interface) címe"
+
+#: src/EBox/OpenVPN/Server.pm:806 src/EBox/OpenVPN/Client.pm:419
+msgid "No active"
+msgstr "Nem aktív"
 
 #: src/EBox/OpenVPN/Client/ValidateCertificate.pm:46
 #, perl-brace-format
@@ -59,6 +165,37 @@ msgid ""
 msgstr ""
 "A kliens oldali tanúsítvány fájlja nem egyezik a tanúsítványhoz tartozó "
 "privát kulccsal"
+
+#: src/EBox/OpenVPN/Types/TlsRemote.pm:52
+msgid "disabled"
+msgstr "kikapcsolva"
+
+#: src/EBox/OpenVPN/Client.pm:242
+#, perl-brace-format
+msgid ""
+"VPN client should not be configured to connect to the address {addr} because "
+"is a address of the localhost itsef"
+msgstr ""
+"A VPN ügyfél nincs beállítva, hogy a(z) {addr} címhez csatlakozzon, mivel a "
+"beállított cím az önmagára mutat"
+
+#: src/EBox/OpenVPN/Client.pm:260
+#, perl-brace-format
+msgid ""
+"VPN client should not be configured to connect to the address {addr} because "
+"is a address of a local network interface"
+msgstr ""
+"A VPN ügyfél nincs beállítva, hogy a(z) {addr} címhez csatlakozzon, mivel a "
+"beállított cím egy helyi csatoló címe"
+
+#: src/EBox/OpenVPN/Client.pm:399
+#, perl-brace-format
+msgid "Client {name}"
+msgstr "Kliens {name}"
+
+#: src/EBox/OpenVPN/Client.pm:413
+msgid "Connection target"
+msgstr "Kapcsolat célja"
 
 #: src/EBox/OpenVPN/Model/ServerConfiguration.pm:73
 #: src/EBox/OpenVPN/Model/ClientConfiguration.pm:93
@@ -196,6 +333,96 @@ msgid ""
 "Translation option is on"
 msgstr "Az interfész külső kell legyen, hogy bekapcsolható legyen a NAT opció"
 
+#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:61
+msgid "Client's type"
+msgstr "Kliens típusa"
+
+#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:70
+#: src/EBox/OpenVPN/Model/ClientConfiguration.pm:111
+msgid "Client's certificate"
+msgstr "Kliens tanúsítványa"
+
+#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:76
+msgid "Add OpenVPN's installer to bundle"
+msgstr "Egy OpenVPN telepítő hozzáadása a csomaghoz."
+
+#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:78
+msgid "OpenVPN installer for Microsoft Windows"
+msgstr "Egy OpenVPN telepítő a MS Windowshoz."
+
+#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:82
+msgid "Server address"
+msgstr "Kiszolgáló címe"
+
+#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:84
+msgid ""
+"This is the address that will be used by your clients to connect to the "
+"server. Typically, this will be a public IP or host name"
+msgstr ""
+"Ezt a címet használja az ügyfél a szerverhez történő kapcsolódáskor. "
+"Tipikusan ez egy publikus IP cím vagy egy gépnév"
+
+#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:90
+#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:96
+msgid "Additional server address (optional)"
+msgstr "További szerver címek (opcionális)"
+
+#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:105
+msgid "Download Client Bundle"
+msgstr "Kliens kapcsolatcsomag letöltése"
+
+#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:106
+msgid "Download"
+msgstr ""
+
+#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:148
+msgid "Zentyal to Zentyal tunnel"
+msgstr "Zentyal-Zentyal csatorna"
+
+#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:182
+msgid ""
+"Cannot make a bundle because the server  is not fully configured; please "
+"edit the configuration and retry"
+msgstr ""
+"Nem készíthető ügyfélcsomag mivel a szerver nincs megfelelően beállítva; "
+"kérem egészítse ki a beállításokat és próbálja újra"
+
+#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:197
+msgid "Cannot use for the bundle the server's certificate"
+msgstr "Nem használható a csomaghoz a szerver tanúsítványa"
+
+#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:217
+msgid ""
+"Invalid client type: the server does not allow Zentyal-to-Zentyal tunnels"
+msgstr ""
+"Érvénytelen ügyfél: a szerver nem engedélyezett Zentyal-Zentyal kapcsolathoz"
+
+#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:226
+msgid ""
+"Invalid client type: the server is intended for Zentyal-to-Zentyal tunnels"
+msgstr ""
+"Érvénytelen ügyfél: a szerver Zentyal-Zentyal kapcsolatot kíván létesíteni"
+
+#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:254
+msgid "Installer is only available for Windows clients"
+msgstr "Telepítő csak a Windows ügyfelek számára érhető el"
+
+#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:304
+msgid ""
+"A client bundle is a file which contains a ready to use configuration for "
+"your clients"
+msgstr ""
+"Az ügyfélcsomag az egy fájl ami tartalmaz egy azonnal használható "
+"beállításcsomagot az ügyfeleknek"
+
+#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:362
+msgid ""
+"Cannot make a bundle because the server  is not fully configured; please "
+"complete the configuration and retry"
+msgstr ""
+"Nem készíthető el az ügyfélcsomag mivel a szerver nincs megfelelően "
+"beállítva; kérem egészítse ki a beállításokat és próbálja újra"
+
 #: src/EBox/OpenVPN/Model/ExposedNetworks.pm:60
 #: src/EBox/OpenVPN/Model/ExposedNetworks.pm:75
 msgid "Advertised network"
@@ -221,205 +448,10 @@ msgstr ""
 "elérhetnek.{closepar}{openpar}Tipikusan a helyi hálózatot engedélyezi, "
 "hozzárendelve itt a hálózati címét{closepar}"
 
-#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:59
-msgid "Client's type"
-msgstr "Kliens típusa"
-
-#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:68
-#: src/EBox/OpenVPN/Model/ClientConfiguration.pm:111
-msgid "Client's certificate"
-msgstr "Kliens tanúsítványa"
-
-#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:74
-msgid "Add OpenVPN's installer to bundle"
-msgstr "Egy OpenVPN telepítő hozzáadása a csomaghoz."
-
-#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:76
-msgid "OpenVPN installer for Microsoft Windows"
-msgstr "Egy OpenVPN telepítő a MS Windowshoz."
-
-#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:80
-msgid "Server address"
-msgstr "Kiszolgáló címe"
-
-#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:82
-msgid ""
-"This is the address that will be used by your clients to connect to the "
-"server. Typically, this will be a public IP or host name"
-msgstr ""
-"Ezt a címet használja az ügyfél a szerverhez történő kapcsolódáskor. "
-"Tipikusan ez egy publikus IP cím vagy egy gépnév"
-
-#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:88
-#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:94
-msgid "Additional server address (optional)"
-msgstr "További szerver címek (opcionális)"
-
-#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:103
-msgid "Download Client Bundle"
-msgstr "Kliens kapcsolatcsomag letöltése"
-
-#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:145
-msgid "Zentyal to Zentyal tunnel"
-msgstr "Zentyal-Zentyal csatorna"
-
-#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:179
-msgid ""
-"Cannot make a bundle because the server  is not fully configured; please "
-"edit the configuration and retry"
-msgstr ""
-"Nem készíthető ügyfélcsomag mivel a szerver nincs megfelelően beállítva; "
-"kérem egészítse ki a beállításokat és próbálja újra"
-
-#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:194
-msgid "Cannot use for the bundle the server's certificate"
-msgstr "Nem használható a csomaghoz a szerver tanúsítványa"
-
-#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:214
-msgid ""
-"Invalid client type: the server does not allow Zentyal-to-Zentyal tunnels"
-msgstr ""
-"Érvénytelen ügyfél: a szerver nem engedélyezett Zentyal-Zentyal kapcsolathoz"
-
-#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:223
-msgid ""
-"Invalid client type: the server is intended for Zentyal-to-Zentyal tunnels"
-msgstr ""
-"Érvénytelen ügyfél: a szerver Zentyal-Zentyal kapcsolatot kíván létesíteni"
-
-#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:251
-msgid "Installer is only available for Windows clients"
-msgstr "Telepítő csak a Windows ügyfelek számára érhető el"
-
-#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:301
-msgid ""
-"A client bundle is a file which contains a ready to use configuration for "
-"your clients"
-msgstr ""
-"Az ügyfélcsomag az egy fájl ami tartalmaz egy azonnal használható "
-"beállításcsomagot az ügyfeleknek"
-
-#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:349
-msgid ""
-"Cannot make a bundle because the server  is not fully configured; please "
-"complete the configuration and retry"
-msgstr ""
-"Nem készíthető el az ügyfélcsomag mivel a szerver nincs megfelelően "
-"beállítva; kérem egészítse ki a beállításokat és próbálja újra"
-
-#: src/EBox/OpenVPN/Model/Clients.pm:60 src/EBox/OpenVPN/Model/Servers.pm:76
-#: src/EBox/OpenVPN/Model/DeletedDaemons.pm:42
-msgid "Name"
-msgstr "Név"
-
-#: src/EBox/OpenVPN/Model/Clients.pm:67
-msgid "Enable"
-msgstr "Bekapcsolva"
-
-#: src/EBox/OpenVPN/Model/Clients.pm:75 src/EBox/OpenVPN/Model/Servers.pm:84
 #: src/EBox/OpenVPN/Model/ClientConfiguration.pm:64
+#: src/EBox/OpenVPN/Model/Clients.pm:75 src/EBox/OpenVPN/Model/Servers.pm:84
 msgid "Configuration"
 msgstr "Beállítás"
-
-#: src/EBox/OpenVPN/Model/Clients.pm:94
-msgid "List of Clients"
-msgstr "Kliensek listája"
-
-#: src/EBox/OpenVPN/Model/Clients.pm:95
-msgid "VPN Clients"
-msgstr "VPN kliensek (ügyfelek)"
-
-#: src/EBox/OpenVPN/Model/Clients.pm:102
-#: src/EBox/OpenVPN/Model/ClientConfiguration.pm:150
-msgid "client"
-msgstr "kliens"
-
-#: src/EBox/OpenVPN/Model/Clients.pm:145
-msgid ""
-"Cannot activate the client because is not fully configured; please edit the "
-"configuration and retry"
-msgstr ""
-"Nem lehet aktiválni a klienst (ügyfelet), mert nincs teljes körűen beállítva "
-"(konfigurálva). Állítsd be és próbáld újra."
-
-#: src/EBox/OpenVPN/Model/Clients.pm:182
-msgid "RIP password is mandatory"
-msgstr "RIP jelszó kötelező"
-
-#: src/EBox/OpenVPN/Model/Servers.pm:68 src/EBox/OpenVPN/Server.pm:746
-#: src/EBox/OpenVPN/Client.pm:401
-msgid "Enabled"
-msgstr "Bekapcsolva"
-
-#: src/EBox/OpenVPN/Model/Servers.pm:93
-msgid "Advertised networks"
-msgstr "Hirdetett hálózatok"
-
-#: src/EBox/OpenVPN/Model/Servers.pm:102
-msgid "Download client bundle"
-msgstr "Ügyfélcsomag letöltése"
-
-#: src/EBox/OpenVPN/Model/Servers.pm:114
-msgid "List of servers"
-msgstr "Kiszolgálók listája"
-
-#: src/EBox/OpenVPN/Model/Servers.pm:115
-msgid "VPN servers"
-msgstr "VPN kiszolgálók"
-
-#: src/EBox/OpenVPN/Model/Servers.pm:165
-#, perl-brace-format
-msgid ""
-"{openpar}You need to create a CA certificate to use this module. {closepar}"
-"{openpar}Please, go to the {openhref}certification authority module"
-"{closehref} and create it.{closepar}"
-msgstr ""
-"{openpar}Létre kell hoznia egy CA tanúsítványt, a modul használatához. "
-"{closepar}{openpar}Kérem menjen a {openhref}tanúsító hatóság modulba"
-"{closehref} és hozza létre.{closepar}"
-
-#: src/EBox/OpenVPN/Model/Servers.pm:179
-msgid "Server creation"
-msgstr "Kiszolgáló létrehozása"
-
-#: src/EBox/OpenVPN/Model/Servers.pm:284
-msgid ""
-"Cannot activate the server because  is not fully configured; please edit the "
-"configuration and retry"
-msgstr ""
-"Nem lehet aktiválni a kiszolgálót, mert nincs teljesen beállítva; kérem "
-"konfigurálni és próbálja újra!"
-
-#: src/EBox/OpenVPN/Model/Servers.pm:292
-msgid "Cannot create a server because there is not a CA certificate"
-msgstr "Nem lehet létrehozni a kiszolgálót, mert nincs CA tanúsítványa!"
-
-#: src/EBox/OpenVPN/Model/Servers.pm:318
-#, perl-brace-format
-msgid ""
-"{act} not possible because there aren't any available certificate. Please, "
-"go to the certificate authority module and create new certificates"
-msgstr ""
-"{act} nem lehetséges mivel nincs használható tanúsítvány. Kérem menjen a "
-"tanúsító hatóság modulba és hozzon létre új tanúsítványt"
-
-#: src/EBox/OpenVPN/Model/Servers.pm:331
-#, perl-brace-format
-msgid ""
-"{openpar}You can configure openVPN servers to easily connect remote offices "
-"or users.{closepar}{openpar}Click on {openit}Configuration{closeit} to set "
-"the VPN parameters.{closepar}{openpar}{openit}Advertised networks{closeit} "
-"allows you to configure which networks you want to make accessible to the "
-"remote users.{openpar}Once you are done with the configuration you can "
-"download a file bundle for your operating system to use in your clients."
-msgstr ""
-"{openpar}Beállíthat egy openVPN szerver, hogy becsatlakoztathasson távoli "
-"irodákat vagy személyeket.{closepar}{openpar}Kattintson a {openit}"
-"Beállításokra{closeit} a VPN beállítására.{closepar}{openpar}A {openit}"
-"Hozzárendelt hálózatok{closeit}-ban beállíthatja milyen hálózatok legyenek "
-"elérhetőek a távoli ügyfelek számára.{openpar}Ha kész van a beállításokkal, "
-"letölthet egy ügyfélcsomagot a használt operációs rendszerhez az ügyfelek "
-"számára."
 
 #: src/EBox/OpenVPN/Model/ClientConfiguration.pm:69
 msgid "Manual Configuration"
@@ -453,10 +485,20 @@ msgstr "Kiszolgáló csatorna jelszava"
 msgid "Client configuration"
 msgstr "Kliens beállítás"
 
+#: src/EBox/OpenVPN/Model/ClientConfiguration.pm:150
+#: src/EBox/OpenVPN/Model/Clients.pm:102
+msgid "client"
+msgstr "kliens"
+
 #: src/EBox/OpenVPN/Model/ClientConfiguration.pm:280
 #, perl-brace-format
 msgid "No file supplied or already set for {f}"
 msgstr "Nincs megadott fájt, vagy már be van állítva: {f}"
+
+#: src/EBox/OpenVPN/Model/DeletedDaemons.pm:42
+#: src/EBox/OpenVPN/Model/Clients.pm:60 src/EBox/OpenVPN/Model/Servers.pm:76
+msgid "Name"
+msgstr "Név"
 
 #: src/EBox/OpenVPN/Model/DeletedDaemons.pm:57
 msgid "Deleted daemons"
@@ -466,154 +508,110 @@ msgstr "Démonok törölve"
 msgid "daemon"
 msgstr "démon"
 
-#: src/EBox/OpenVPN/Types/TlsRemote.pm:52
-msgid "disabled"
-msgstr "kikapcsolva"
+#: src/EBox/OpenVPN/Model/Clients.pm:67
+msgid "Enable"
+msgstr "Bekapcsolva"
 
-#: src/EBox/OpenVPN/Server.pm:100
-#, perl-brace-format
-msgid "The port {p}/{pro} is already in use"
-msgstr "A port {p}/{pro} már használatban."
+#: src/EBox/OpenVPN/Model/Clients.pm:94
+msgid "List of Clients"
+msgstr "Kliensek listája"
 
-#: src/EBox/OpenVPN/Server.pm:199
-#, perl-brace-format
-msgid "The certificate {cn} does not exist"
-msgstr "A tanúsítvány {cn} nem létezik."
+#: src/EBox/OpenVPN/Model/Clients.pm:95
+msgid "VPN Clients"
+msgstr "VPN kliensek (ügyfelek)"
 
-#: src/EBox/OpenVPN/Server.pm:202
-#, perl-brace-format
-msgid "The certificate {cn} has expired"
-msgstr "A tanúsítvány {cn} érvényessége lejárt."
+#: src/EBox/OpenVPN/Model/Clients.pm:145
+msgid ""
+"Cannot activate the client because is not fully configured; please edit the "
+"configuration and retry"
+msgstr ""
+"Nem lehet aktiválni a klienst (ügyfelet), mert nincs teljes körűen beállítva "
+"(konfigurálva). Állítsd be és próbáld újra."
 
-#: src/EBox/OpenVPN/Server.pm:205
-#, perl-brace-format
-msgid "The certificate {cn} has been revoked"
-msgstr "A tanúsítványt {cn} visszavonták."
+#: src/EBox/OpenVPN/Model/Clients.pm:182
+msgid "RIP password is mandatory"
+msgstr "RIP jelszó kötelező"
 
-#: src/EBox/OpenVPN/Server.pm:223
-#, perl-brace-format
-msgid "The server {name} does not have certificate assigned"
-msgstr "A {name} nevű szerverhez nincs tanúsítvány rendelve"
+#: src/EBox/OpenVPN/Model/Servers.pm:93
+msgid "Advertised networks"
+msgstr "Hirdetett hálózatok"
 
-#: src/EBox/OpenVPN/Server.pm:244
+#: src/EBox/OpenVPN/Model/Servers.pm:102
+msgid "Download client bundle"
+msgstr "Ügyfélcsomag letöltése"
+
+#: src/EBox/OpenVPN/Model/Servers.pm:114
+msgid "List of servers"
+msgstr "Kiszolgálók listája"
+
+#: src/EBox/OpenVPN/Model/Servers.pm:115
+msgid "VPN servers"
+msgstr "VPN kiszolgálók"
+
+#: src/EBox/OpenVPN/Model/Servers.pm:168
+#, fuzzy, perl-brace-format
+msgid ""
+"{openpar}You need a valid CA certificate to use this module. {closepar}"
+"{openpar}Please, go to the {openhref} certification authority module"
+"{closehref} and renew it.{closepar}"
+msgstr ""
+"{openpar}Létre kell hoznia egy CA tanúsítványt, a modul használatához. "
+"{closepar}{openpar}Kérem menjen a {openhref}tanúsító hatóság modulba"
+"{closehref} és hozza létre.{closepar}"
+
+#: src/EBox/OpenVPN/Model/Servers.pm:175
 #, perl-brace-format
 msgid ""
-"Cannot get key of server {name} because it does not have any certificate "
-"assigned"
+"{openpar}You need to create a CA certificate to use this module. {closepar}"
+"{openpar}Please, go to the {openhref}certification authority module"
+"{closehref} and create it.{closepar}"
 msgstr ""
-"A {name} szerver kulcs nem elérhető mivel nincs tanúsítvány hozzárendelve"
+"{openpar}Létre kell hoznia egy CA tanúsítványt, a modul használatához. "
+"{closepar}{openpar}Kérem menjen a {openhref}tanúsító hatóság modulba"
+"{closehref} és hozza létre.{closepar}"
 
-#: src/EBox/OpenVPN/Server.pm:416
-#, perl-brace-format
-msgid "No IP address found for interface {iface}"
-msgstr "Ennek a csatolónak (interface) nincs IP címe: {iface}."
+#: src/EBox/OpenVPN/Model/Servers.pm:190
+msgid "Server creation"
+msgstr "Kiszolgáló létrehozása"
 
-#: src/EBox/OpenVPN/Server.pm:521
-msgid "OpenVPN servers cannot be used for internal services"
-msgstr "Az OpenVPN szerver nem tudja használni a belső szolgáltatásokat."
+#: src/EBox/OpenVPN/Model/Servers.pm:295
+msgid ""
+"Cannot activate the server because  is not fully configured; please edit the "
+"configuration and retry"
+msgstr ""
+"Nem lehet aktiválni a kiszolgálót, mert nincs teljesen beállítva; kérem "
+"konfigurálni és próbálja újra!"
 
-#: src/EBox/OpenVPN/Server.pm:548
-#, perl-brace-format
-msgid "Unsupported client type: {ct}"
-msgstr "nem támogatott kliens (ügyfél) típus: {ct}"
+#: src/EBox/OpenVPN/Model/Servers.pm:303
+msgid "Cannot create a server because there is not a CA certificate"
+msgstr "Nem lehet létrehozni a kiszolgálót, mert nincs CA tanúsítványa!"
 
-#: src/EBox/OpenVPN/Server.pm:744
-#, perl-brace-format
-msgid "Server {name}"
-msgstr "Kiszolgáló {name}"
-
-#: src/EBox/OpenVPN/Server.pm:746 src/EBox/OpenVPN/Client.pm:401
-msgid "Disabled"
-msgstr "Kikapcsolva"
-
-#: src/EBox/OpenVPN/Server.pm:747 src/EBox/OpenVPN/Client.pm:402
-msgid "Service"
-msgstr "Szolgáltatás"
-
-#: src/EBox/OpenVPN/Server.pm:749 src/EBox/OpenVPN/Client.pm:404
-msgid "Running"
-msgstr "Fut"
-
-#: src/EBox/OpenVPN/Server.pm:749 src/EBox/OpenVPN/Client.pm:404
-msgid "Stopped"
-msgstr "Leállítva"
-
-#: src/EBox/OpenVPN/Server.pm:750 src/EBox/OpenVPN/Client.pm:405
-msgid "Daemon status"
-msgstr "Démon állapota"
-
-#: src/EBox/OpenVPN/Server.pm:753
-msgid "All external interfaces"
-msgstr "Összes külső csatoló"
-
-#: src/EBox/OpenVPN/Server.pm:754
-msgid "Local address"
-msgstr "Helyi cím"
-
-#: src/EBox/OpenVPN/Server.pm:759
-msgid "Port"
-msgstr "Port"
-
-#: src/EBox/OpenVPN/Server.pm:762
-msgid "VPN subnet"
-msgstr "VPN alhálózat"
-
-#: src/EBox/OpenVPN/Server.pm:765
-msgid "VPN network interface"
-msgstr "VPN hálózati csatoló (interface)"
-
-#: src/EBox/OpenVPN/Server.pm:769 src/EBox/OpenVPN/Server.pm:771
-#: src/EBox/OpenVPN/Client.pm:417 src/EBox/OpenVPN/Client.pm:419
-msgid "VPN interface address"
-msgstr "VPN csatoló (interface) címe"
-
-#: src/EBox/OpenVPN/Server.pm:771 src/EBox/OpenVPN/Client.pm:419
-msgid "No active"
-msgstr "Nem aktív"
-
-#: src/EBox/OpenVPN/Client.pm:242
+#: src/EBox/OpenVPN/Model/Servers.pm:329
 #, perl-brace-format
 msgid ""
-"VPN client should not be configured to connect to the address {addr} because "
-"is a address of the localhost itsef"
+"{act} not possible because there aren't any available certificate. Please, "
+"go to the certificate authority module and create new certificates"
 msgstr ""
-"A VPN ügyfél nincs beállítva, hogy a(z) {addr} címhez csatlakozzon, mivel a "
-"beállított cím az önmagára mutat"
+"{act} nem lehetséges mivel nincs használható tanúsítvány. Kérem menjen a "
+"tanúsító hatóság modulba és hozzon létre új tanúsítványt"
 
-#: src/EBox/OpenVPN/Client.pm:260
+#: src/EBox/OpenVPN/Model/Servers.pm:342
 #, perl-brace-format
 msgid ""
-"VPN client should not be configured to connect to the address {addr} because "
-"is a address of a local network interface"
+"{openpar}You can configure openVPN servers to easily connect remote offices "
+"or users.{closepar}{openpar}Click on {openit}Configuration{closeit} to set "
+"the VPN parameters.{closepar}{openpar}{openit}Advertised networks{closeit} "
+"allows you to configure which networks you want to make accessible to the "
+"remote users.{openpar}Once you are done with the configuration you can "
+"download a file bundle for your operating system to use in your clients."
 msgstr ""
-"A VPN ügyfél nincs beállítva, hogy a(z) {addr} címhez csatlakozzon, mivel a "
-"beállított cím egy helyi csatoló címe"
-
-#: src/EBox/OpenVPN/Client.pm:399
-#, perl-brace-format
-msgid "Client {name}"
-msgstr "Kliens {name}"
-
-#: src/EBox/OpenVPN/Client.pm:413
-msgid "Connection target"
-msgstr "Kapcsolat célja"
-
-#: src/EBox/OpenVPN/Server/ClientBundleGenerator.pm:48
-msgid "Server's address"
-msgstr "Kiszolgálók címe"
-
-#: src/EBox/OpenVPN/Server/ClientBundleGenerator.pm:56
-#, perl-brace-format
-msgid "You must provide at least one address for the server {name}"
-msgstr "Itt kell megadni legalább egy kiszolgáló címét: {name}"
-
-#: src/EBox/OpenVPN/Server/ClientBundleGenerator.pm:102
-msgid "Can't get address for this server: no external interfaces present"
-msgstr "A szerver címe nem elérhető: nem található külső interfész"
-
-#: src/EBox/OpenVPN/Server/ClientBundleGenerator.pm:214
-msgid "The client certificate can't be the same than the server's one"
-msgstr "Az ügyfél tanúsítványa nem egyezik a szerverével"
+"{openpar}Beállíthat egy openVPN szerver, hogy becsatlakoztathasson távoli "
+"irodákat vagy személyeket.{closepar}{openpar}Kattintson a {openit}"
+"Beállításokra{closeit} a VPN beállítására.{closepar}{openpar}A {openit}"
+"Hozzárendelt hálózatok{closeit}-ban beállíthatja milyen hálózatok legyenek "
+"elérhetőek a távoli ügyfelek számára.{openpar}Ha kész van a beállításokkal, "
+"letölthet egy ügyfélcsomagot a használt operációs rendszerhez az ügyfelek "
+"számára."
 
 #: src/EBox/OpenVPN/Server/ClientBundleGenerator/EBoxToEBox.pm:132
 msgid ""
@@ -655,27 +653,48 @@ msgstr ""
 "Ez a csomag nem egy érvényes Zentyal-Zentyal beállítócsomag. (Hiányzik a "
 "tanúsítvány személyes kulcsa)"
 
-#: src/EBox/OpenVPN.pm:72
+#: src/EBox/OpenVPN/Server/ClientBundleGenerator.pm:48
+msgid "Server's address"
+msgstr "Kiszolgálók címe"
+
+#: src/EBox/OpenVPN/Server/ClientBundleGenerator.pm:56
+#, perl-brace-format
+msgid "You must provide at least one address for the server {name}"
+msgstr "Itt kell megadni legalább egy kiszolgáló címét: {name}"
+
+#: src/EBox/OpenVPN/Server/ClientBundleGenerator.pm:102
+msgid "Can't get address for this server: no external interfaces present"
+msgstr "A szerver címe nem elérhető: nem található külső interfész"
+
+#: src/EBox/OpenVPN/Server/ClientBundleGenerator.pm:214
+msgid "The client certificate can't be the same than the server's one"
+msgstr "Az ügyfél tanúsítványa nem egyezik a szerverével"
+
+#: src/EBox/OpenVPN.pm:71
 msgid "VPN"
 msgstr "VPN"
 
-#: src/EBox/OpenVPN.pm:157
+#: src/EBox/OpenVPN.pm:156
 msgid "To configure Quagga to run ripd and zebra"
 msgstr "A Quagga beállításához, hogy futtathassa a ripd-t és a zebra-t."
 
-#: src/EBox/OpenVPN.pm:163
+#: src/EBox/OpenVPN.pm:162
 msgid "To configure Quagga to listen on the given interfaces"
 msgstr "Ha szeretné, hogy a Quagga a megadott interfészeken figyeljen"
 
-#: src/EBox/OpenVPN.pm:168
+#: src/EBox/OpenVPN.pm:167
 msgid "Main zebra configuration file"
 msgstr "Fő zebra konfigurációs fájl"
 
-#: src/EBox/OpenVPN.pm:174
+#: src/EBox/OpenVPN.pm:173
 msgid "To configure ripd to exchange routes with client to client connections"
 msgstr "Hogy beállítsa a ripd-t a kliens-kliens routeok optimalizálására"
 
-#: src/EBox/OpenVPN.pm:675
+#: src/EBox/OpenVPN.pm:180
+msgid "To remove system-wide VPN servers autostart"
+msgstr ""
+
+#: src/EBox/OpenVPN.pm:681
 #, perl-brace-format
 msgid ""
 "Invalid name {name}. Only alpahanumeric  and '-', '_', '.' characters are "
@@ -683,18 +702,18 @@ msgid ""
 msgstr ""
 "Érvénytelen név: {name}. Csak betűk és '-', '_', '.' jelek megengedettek"
 
-#: src/EBox/OpenVPN.pm:688
+#: src/EBox/OpenVPN.pm:694
 #, perl-brace-format
 msgid "Cannot use the name {n} because there is a client with the same name"
 msgstr "A(z) {n} nevet nem használhatja mivel már van egy hasonló nevű ügyfél"
 
-#: src/EBox/OpenVPN.pm:699
+#: src/EBox/OpenVPN.pm:705
 #, perl-brace-format
 msgid "Cannot use the name {n} because there is a server with the same name"
 msgstr ""
 "A(z) {n} nevet nem használhatja mivel ezt a nevet egy szerver használja"
 
-#: src/EBox/OpenVPN.pm:721
+#: src/EBox/OpenVPN.pm:727
 #, perl-brace-format
 msgid ""
 "Invalid name {name}. Name which begins with the prefix {pf} are reserved for "
@@ -703,7 +722,7 @@ msgstr ""
 "Érvénytelen név: {name}. A név a {pf} előtaggal kezdődik ami belső "
 "használatra van lefoglalva"
 
-#: src/EBox/OpenVPN.pm:730
+#: src/EBox/OpenVPN.pm:736
 #, perl-brace-format
 msgid ""
 "Invalid name {name}. A internal daemon must have a name which begins with "
@@ -712,91 +731,91 @@ msgstr ""
 "Érvénytelen név: {name}. Egy belső szolgáltatásnak {pf} előtaggal kezdődő "
 "neve kell legyen"
 
-#: src/EBox/OpenVPN.pm:1456
+#: src/EBox/OpenVPN.pm:1462
 #, perl-brace-format
 msgid "Client {c} does not exists"
 msgstr "A kliens (ügyfél) nem létezik: {c}."
 
-#: src/EBox/OpenVPN.pm:1484
+#: src/EBox/OpenVPN.pm:1490
 msgid "Servers"
 msgstr "Kiszolgálók"
 
-#: src/EBox/OpenVPN.pm:1490
+#: src/EBox/OpenVPN.pm:1496
 msgid "Clients"
 msgstr "Kliensek"
 
-#: src/EBox/OpenVPN.pm:1503
+#: src/EBox/OpenVPN.pm:1509
 msgid "Common name"
 msgstr "Közös név"
 
-#: src/EBox/OpenVPN.pm:1503
+#: src/EBox/OpenVPN.pm:1509
 msgid "Address"
 msgstr "Cím"
 
-#: src/EBox/OpenVPN.pm:1503
+#: src/EBox/OpenVPN.pm:1509
 msgid "Connected since"
 msgstr "Kapcsolódás eddigi időtartama"
 
-#: src/EBox/OpenVPN.pm:1530
+#: src/EBox/OpenVPN.pm:1536
 msgid "No users connected to the VPN"
 msgstr "Felhasználó nem kapcsolódik VPN-n keresztül"
 
-#: src/EBox/OpenVPN.pm:1571
+#: src/EBox/OpenVPN.pm:1577
 msgid "OpenVPN daemons"
 msgstr "OpenVPN démonok"
 
-#: src/EBox/OpenVPN.pm:1633
+#: src/EBox/OpenVPN.pm:1640
 msgid "Date"
 msgstr "Dátum"
 
-#: src/EBox/OpenVPN.pm:1634
+#: src/EBox/OpenVPN.pm:1641
 msgid "Event"
 msgstr "Esemény"
 
-#: src/EBox/OpenVPN.pm:1636
+#: src/EBox/OpenVPN.pm:1643
 msgid "Type"
 msgstr "Típus"
 
-#: src/EBox/OpenVPN.pm:1637
+#: src/EBox/OpenVPN.pm:1644
 msgid "Remote IP"
 msgstr "Távoli IP"
 
-#: src/EBox/OpenVPN.pm:1638
+#: src/EBox/OpenVPN.pm:1645
 msgid "Remote Certificate"
 msgstr "Távoli tanúsítvány"
 
-#: src/EBox/OpenVPN.pm:1643
+#: src/EBox/OpenVPN.pm:1650
 msgid "Initialization sequence completed"
 msgstr "Indítási szekvencia befejezve"
 
-#: src/EBox/OpenVPN.pm:1645
+#: src/EBox/OpenVPN.pm:1652
 msgid "Certificate issuer not authorized"
 msgstr "Tanúsítvány kibocsátó nincs azonosítva"
 
-#: src/EBox/OpenVPN.pm:1646
+#: src/EBox/OpenVPN.pm:1653
 msgid "Certificate common name not authorized"
 msgstr "Tanúsítvány közös neve nincs azonosítva"
 
-#: src/EBox/OpenVPN.pm:1647
+#: src/EBox/OpenVPN.pm:1654
 msgid "Certificate verification failed"
 msgstr "Tanúsítvány ellenőrzése hibás"
 
-#: src/EBox/OpenVPN.pm:1649
+#: src/EBox/OpenVPN.pm:1656
 msgid "Client connection initiated"
 msgstr "Kliens kacsolódása kezdeményezve"
 
-#: src/EBox/OpenVPN.pm:1650
+#: src/EBox/OpenVPN.pm:1657
 msgid "Client connection terminated"
 msgstr "Kliens kacsolódása megszakítva"
 
-#: src/EBox/OpenVPN.pm:1652
+#: src/EBox/OpenVPN.pm:1659
 msgid "Connection to server initiated"
 msgstr "Kapcsolat a kiszolgálóval kezdeményezve"
 
-#: src/EBox/OpenVPN.pm:1653
+#: src/EBox/OpenVPN.pm:1660
 msgid "Server connection terminated"
 msgstr "Kiszolgálóval a kapcsolat megszakítva"
 
-#: src/EBox/OpenVPN.pm:1682
+#: src/EBox/OpenVPN.pm:1689
 msgid "You must set insecure_rip_conf to yes or no"
 msgstr "Be kell állítsa az insecure_rip_conf paramétert yes vagy no-ra"

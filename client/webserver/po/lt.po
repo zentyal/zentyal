@@ -7,75 +7,86 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-webserver 2.0Report-Msgid-Bugs-To: "
 "developers@zentyal.org\n"
-"POT-Creation-Date: 2010-08-25 17:50+0200\n"
+"Report-Msgid-Bugs-To: developers@zentyal.org\n"
+"POT-Creation-Date: 2010-12-13 08:43+0100\n"
 "PO-Revision-Date: 2010-12-06 21:53+0100\n"
 "Last-Translator: Vytautas <vytautas@lantraneta.lt>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"(n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n%"
+"100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: migration/0001_add_service_and_port.pl:147
+#: migration/0001_add_service_and_port.pl:162
 msgid "HyperText Transport Protocol"
 msgstr "(HTTP) HyperText Transport Protocol "
 
-#: src/EBox/WebServer.pm:80 src/EBox/WebServer.pm:618
-#: src/EBox/WebServer/Composite/General.pm:78
+#: src/EBox/WebServer.pm:79 src/EBox/WebServer.pm:617
+#: src/EBox/WebServer/Composite/General.pm:77
 msgid "Web Server"
 msgstr "Web Serveris"
 
-#: src/EBox/WebServer.pm:100
+#: src/EBox/WebServer.pm:99
 msgid "To set webserver listening port."
 msgstr "Nustatyti web serverio klausymo prieigą"
 
-#: src/EBox/WebServer.pm:105
+#: src/EBox/WebServer.pm:104
 msgid "To configure default virtual host."
 msgstr "Konfigūruoti virtualų vardą pagal nutylėjimą"
 
-#: src/EBox/WebServer.pm:110
+#: src/EBox/WebServer.pm:109
 msgid "To configure default SSL virtual host."
 msgstr "Konfigūruoti SSL virtualų vardą pagal nutylėjimą"
 
-#: src/EBox/WebServer.pm:115
+#: src/EBox/WebServer.pm:114
 msgid "To configure the per-user public_html directory."
 msgstr "Konfigūruoti vartotojų public_html direktorijas"
 
-#: src/EBox/WebServer.pm:140
+#: src/EBox/WebServer.pm:139
 msgid "Enable Apache LDAP user module"
 msgstr "Įjungti Apache LDAP vartotojų modulį"
 
-#: src/EBox/WebServer.pm:142
+#: src/EBox/WebServer.pm:141
 msgid "To fetch home directories from LDAP."
 msgstr "Gauti namų direktorijas iš LDAP"
 
-#: src/EBox/WebServer.pm:145
+#: src/EBox/WebServer.pm:144
 msgid "Enable Apache SSL module"
 msgstr "Įjungti Apache SSL modulį"
 
-#: src/EBox/WebServer.pm:147
+#: src/EBox/WebServer.pm:146
 msgid "To serve pages over HTTPS."
 msgstr "Aptranauti pulspapius per HTTPS"
 
-#: src/EBox/WebServer.pm:185
+#: src/EBox/WebServer.pm:184
 msgid "Web service status"
 msgstr "Web servisų statusas"
 
-#: src/EBox/WebServer.pm:441
+#: src/EBox/WebServer.pm:440
 #, perl-brace-format
 msgid "The {userDirConfFile} is missing! Please recover it."
 msgstr "Katalogas {userDirConfFile} nerastas! Prašome atstatytį šį katalogą."
 
-#: src/EBox/WebServer/Model/GeneralSettings.pm:97
-#: src/EBox/WebServer/Model/GeneralSettings.pm:109
-#: src/EBox/WebServer/Model/GeneralSettings.pm:120
-#: src/EBox/WebServer/Model/GeneralSettings.pm:230
+#: src/EBox/WebServer.pm:730
+#, fuzzy
+msgid "Web server hosted files"
+msgstr "Web servisų statusas"
+
+#: src/EBox/WebServer.pm:731
+#, fuzzy
+msgid "Virtual hosts data"
+msgstr "Virtualus vardas"
+
+#: src/EBox/WebServer/Model/GeneralSettings.pm:96
+#: src/EBox/WebServer/Model/GeneralSettings.pm:108
+#: src/EBox/WebServer/Model/GeneralSettings.pm:119
+#: src/EBox/WebServer/Model/GeneralSettings.pm:229
 msgid "Listening port"
 msgstr "Klausančioji prieiga"
 
-#: src/EBox/WebServer/Model/GeneralSettings.pm:115
+#: src/EBox/WebServer/Model/GeneralSettings.pm:114
 #, perl-brace-format
 msgid ""
 "Zentyal Administration is running on this port, change it on {ohref}System -"
@@ -84,7 +95,7 @@ msgstr ""
 "Zentyal Administravimas veikia ant šios prieigos, pakeiskite {ohref} Sistema "
 "-> Bendra{chref}."
 
-#: src/EBox/WebServer/Model/GeneralSettings.pm:128
+#: src/EBox/WebServer/Model/GeneralSettings.pm:127
 #, perl-brace-format
 msgid ""
 "You need a Service Certificate for the Web Server module, enable it on "
@@ -93,7 +104,7 @@ msgstr ""
 "Jums reikalingas web serverio servisui sertifikatas, sertifikatą įjungti "
 "galite {ohref}Sertifikavimas -> Servisų sertifikatai{chref}."
 
-#: src/EBox/WebServer/Model/GeneralSettings.pm:140
+#: src/EBox/WebServer/Model/GeneralSettings.pm:139
 msgid ""
 "Having installed and configured the Users and Groups module is required to "
 "allow HTML directories for users."
@@ -101,7 +112,7 @@ msgstr ""
 "Turint įdiegtą ir sukonfigūruota Vartotojų ir Grupių modulį reikia liesti "
 "HTML direktorijas vartotojams"
 
-#: src/EBox/WebServer/Model/GeneralSettings.pm:146
+#: src/EBox/WebServer/Model/GeneralSettings.pm:145
 msgid ""
 "A properly configured Users and Groups module is required to allow HTML "
 "directories for users. To configure it, please enable it at least one time."
@@ -110,25 +121,25 @@ msgstr ""
 "katalogų naudotojams. Norėdami jį sukonfigūruoti, prašome, kad jis bent "
 "vieną kartą."
 
-#: src/EBox/WebServer/Model/GeneralSettings.pm:236
+#: src/EBox/WebServer/Model/GeneralSettings.pm:235
 msgid "Listening SSL port"
 msgstr "Klausomos SSL prieigos"
 
-#: src/EBox/WebServer/Model/GeneralSettings.pm:240
-#: src/EBox/WebServer/Model/VHostTable.pm:253
+#: src/EBox/WebServer/Model/GeneralSettings.pm:239
+#: src/EBox/WebServer/Model/VHostTable.pm:252
 msgid "Disabled"
 msgstr "Įšjuntas"
 
-#: src/EBox/WebServer/Model/GeneralSettings.pm:245
+#: src/EBox/WebServer/Model/GeneralSettings.pm:244
 msgid "Enabled"
 msgstr "Įjungtas"
 
-#: src/EBox/WebServer/Model/GeneralSettings.pm:253
+#: src/EBox/WebServer/Model/GeneralSettings.pm:252
 #, perl-brace-format
 msgid "Enable per user {dirName}"
 msgstr "Leisti per vartotoją {dirName}"
 
-#: src/EBox/WebServer/Model/GeneralSettings.pm:257
+#: src/EBox/WebServer/Model/GeneralSettings.pm:256
 msgid ""
 "Allow users to publish web documents using the public_html directory on "
 "their home."
@@ -136,11 +147,11 @@ msgstr ""
 "Leisti vartotojams publikuoti web dokumentus naudojant public_html "
 "direktoriją jų namų kataloge."
 
-#: src/EBox/WebServer/Model/GeneralSettings.pm:265
+#: src/EBox/WebServer/Model/GeneralSettings.pm:264
 msgid "General configuration settings"
 msgstr "Bendros konfigūracijos parametrai"
 
-#: src/EBox/WebServer/Model/GeneralSettings.pm:269
+#: src/EBox/WebServer/Model/GeneralSettings.pm:268
 #, perl-brace-format
 msgid ""
 "General Web server configuration. The listening port must not be used by "
@@ -151,24 +162,24 @@ msgstr ""
 "kituose servisuose. Jei leidžiate varototojams publikuoti html dokumentus, "
 "jei turi būti pakrauti iš {dirName} katalogo bei jų namų direktorijų."
 
-#: src/EBox/WebServer/Model/GeneralSettings.pm:275
+#: src/EBox/WebServer/Model/GeneralSettings.pm:274
 msgid "General Web server configuration settings updated."
 msgstr "Bendra Web serverio konfigūracija atnaujinta."
 
-#: src/EBox/WebServer/Model/VHostTable.pm:94
+#: src/EBox/WebServer/Model/VHostTable.pm:93
 msgid "Virtual host name"
 msgstr "Virtualaus vardo pavadinimas"
 
-#: src/EBox/WebServer/Model/VHostTable.pm:98
-#: src/EBox/WebServer/Model/VHostTable.pm:311
+#: src/EBox/WebServer/Model/VHostTable.pm:97
+#: src/EBox/WebServer/Model/VHostTable.pm:310
 msgid "Virtual host"
 msgstr "Virtualus vardas"
 
-#: src/EBox/WebServer/Model/VHostTable.pm:105
+#: src/EBox/WebServer/Model/VHostTable.pm:104
 msgid "SSL support is disabled. Enable it before adding a SSL virtual host."
 msgstr "SSL palaikymas išjungtas. Įjungkite prieš įkeldami virtualų SSL vardą."
 
-#: src/EBox/WebServer/Model/VHostTable.pm:170
+#: src/EBox/WebServer/Model/VHostTable.pm:169
 #, perl-brace-format
 msgid ""
 "Virtual host {vhost} added. A domain {domain} has been created with the "
@@ -177,7 +188,7 @@ msgstr ""
 "Virtualus vardas {vhost} įkeltas. Vardų sritis {domain} sukurta ir susieta "
 "su {name} - IP addresu {ip}. {noDnsWarning} "
 
-#: src/EBox/WebServer/Model/VHostTable.pm:189
+#: src/EBox/WebServer/Model/VHostTable.pm:188
 #, perl-brace-format
 msgid ""
 "Virtual host {vhost} added. A mapping name {name} - IP address {ip} has been "
@@ -186,44 +197,44 @@ msgstr ""
 "Virtualus vardas{vhost} įkeltas . Susiejimo vardas {name} - IP addresas {ip} "
 "buvo įtrauktas į {domain} vardų sritį."
 
-#: src/EBox/WebServer/Model/VHostTable.pm:203
+#: src/EBox/WebServer/Model/VHostTable.pm:202
 #, perl-brace-format
 msgid "Virtual host {vhost} added as an alias {alias} to hostname {hostname}."
 msgstr ""
 "Virtualus vardas {vhost} įkeltas ir įkeltas aliasas {alias} vardui "
 "{hostname}."
 
-#: src/EBox/WebServer/Model/VHostTable.pm:209
-#: src/EBox/WebServer/Model/VHostTable.pm:214
+#: src/EBox/WebServer/Model/VHostTable.pm:208
+#: src/EBox/WebServer/Model/VHostTable.pm:213
 #, perl-brace-format
 msgid "Virtual host {vhost} added."
 msgstr "Virtualus vardas {vhost} įkeltas."
 
-#: src/EBox/WebServer/Model/VHostTable.pm:219
+#: src/EBox/WebServer/Model/VHostTable.pm:218
 msgid "There is no static internal interface to set the Web server IP address."
 msgstr "Nėra statinės sąsajos kad nustatyti Web serverio IP adresą."
 
-#: src/EBox/WebServer/Model/VHostTable.pm:254
+#: src/EBox/WebServer/Model/VHostTable.pm:253
 msgid "Allow SSL"
 msgstr "Leisti SSL"
 
-#: src/EBox/WebServer/Model/VHostTable.pm:255
+#: src/EBox/WebServer/Model/VHostTable.pm:254
 msgid "Force SSL"
 msgstr "Priversti SSL"
 
-#: src/EBox/WebServer/Model/VHostTable.pm:280
+#: src/EBox/WebServer/Model/VHostTable.pm:279
 msgid "SSL support"
 msgstr "SSL palaikymas"
 
-#: src/EBox/WebServer/Model/VHostTable.pm:287
+#: src/EBox/WebServer/Model/VHostTable.pm:286
 msgid "Name"
 msgstr "Vardas"
 
-#: src/EBox/WebServer/Model/VHostTable.pm:297
+#: src/EBox/WebServer/Model/VHostTable.pm:296
 msgid "Virtual hosts"
 msgstr "Virtualus vardas"
 
-#: src/EBox/WebServer/Model/VHostTable.pm:301
+#: src/EBox/WebServer/Model/VHostTable.pm:300
 #, perl-brace-format
 msgid ""
 "Virtual hosts are a form of web hosting service where many instances of the "
@@ -239,7 +250,7 @@ msgstr ""
 "automatiškai. Turinys turi būti patalpintas {docRoot} kataloge. Kita "
 "konfigūracija turi būti patalpinta {userConf} kataloge."
 
-#: src/EBox/WebServer/Model/VHostTable.pm:332
+#: src/EBox/WebServer/Model/VHostTable.pm:331
 #, perl-brace-format
 msgid ""
 "{open}The DNS module is disabled. The added mapping or domains will not have "
@@ -248,11 +259,11 @@ msgstr ""
 "{open}DNS modulis išjuntas. Įkelti surišimai ar vardų sritys neturės jokio "
 "veiksnumo kol nebus įjuntas šis modulis"
 
-#: src/EBox/WebServer/Composite/General.pm:77
+#: src/EBox/WebServer/Composite/General.pm:76
 msgid "Configuration"
 msgstr "Konfigūracija"
 
-#: src/EBox/WebServer/Composite/General.pm:80
+#: src/EBox/WebServer/Composite/General.pm:79
 msgid ""
 "The Zentyal web service allows you to host Web pages in plain HTML within "
 "different virtual hosts."

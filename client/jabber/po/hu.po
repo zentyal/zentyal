@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-jabber 1.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-08-28 23:36+0200\n"
+"POT-Creation-Date: 2010-12-13 08:39+0100\n"
 "PO-Revision-Date: 2010-08-28 08:23+0200\n"
 "Last-Translator: Nagy Ákos <nagy.akos@akos.ro>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
@@ -41,14 +41,9 @@ msgstr "A Zentyal a jabber felhasználók tárolására használja ezt a sémát
 msgid "To properly configure ejabberd."
 msgstr "Az ejabberd helyes beállítása érdekében"
 
-#: src/EBox/Jabber/Model/JabberUser.pm:50
-msgid "Jabber Account"
-msgstr "Jabber fiók"
-
-#: src/EBox/Jabber/Model/JabberUser.pm:58
-#: src/EBox/Jabber/Composite/General.pm:67
-msgid "Jabber"
-msgstr "Jabber"
+#: src/EBox/CGI/JabberUserOptions.pm:43
+msgid "username"
+msgstr "felhasználónév"
 
 #: src/EBox/Jabber/Model/GeneralSettings.pm:92 src/templates/jabber.mas:22
 #: src/templates/jabber.mas:25
@@ -87,13 +82,18 @@ msgstr "Általános beállítások"
 msgid "General Jabber server configuration settings updated."
 msgstr "Az általános jabber kiszolgáló beállítások frissítve."
 
+#: src/EBox/Jabber/Model/JabberUser.pm:50
+msgid "Jabber Account"
+msgstr "Jabber fiók"
+
+#: src/EBox/Jabber/Model/JabberUser.pm:58
+#: src/EBox/Jabber/Composite/General.pm:67
+msgid "Jabber"
+msgstr "Jabber"
+
 #: src/EBox/Jabber/Composite/General.pm:66
 msgid "Configuration"
 msgstr "Beállítások"
-
-#: src/EBox/CGI/JabberUserOptions.pm:43
-msgid "username"
-msgstr "felhasználónév"
 
 #: src/templates/jabber.mas:8
 msgid "Jabber account"

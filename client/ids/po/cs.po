@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-ids 1.4\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-08-28 23:35+0200\n"
+"POT-Creation-Date: 2010-12-13 08:39+0100\n"
 "PO-Revision-Date: 2010-11-05 11:25+0100\n"
 "Last-Translator: Michal Formánek <formi@seznam.cz>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
@@ -17,74 +17,13 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: src/EBox/Model/Rules.pm:153
-msgid "Rule Set"
-msgstr "Nastavení pravidla"
-
-#: src/EBox/Model/Rules.pm:158 src/EBox/Model/Interfaces.pm:134
-msgid "Enabled"
-msgstr "Povolený"
-
-#: src/EBox/Model/Rules.pm:167
-msgid "Rules"
-msgstr "Pravidla"
-
-#: src/EBox/Model/Rules.pm:172
-msgid "rule"
-msgstr "pravidlo"
-
-#: src/EBox/Model/Rules.pm:173
-msgid "help message"
-msgstr "Pomocná zpráva"
-
-#: src/EBox/Model/Interfaces.pm:129
-msgid "Interface"
-msgstr "Rozhraní"
-
-#: src/EBox/Model/Interfaces.pm:143
-msgid "Interfaces"
-msgstr "Rozhraní (mn.č.)"
-
-#: src/EBox/Model/Interfaces.pm:149
-msgid "interface"
-msgstr "rozhraní"
-
-#: src/EBox/Model/Interfaces.pm:151
-msgid "Select in which interfaces IDS system will be enabled"
-msgstr "Vyberte, ve kterém rozhraní bude IDS systém povolený"
-
-#: src/EBox/Model/Report/AlertGraph.pm:47
-#: src/EBox/Model/Report/AlertDetails.pm:41
-msgid "number of alerts"
-msgstr "počet upozornění"
-
-#: src/EBox/Model/Report/AlertGraph.pm:52
-msgid "Alerts chart"
-msgstr "Diagram upozornění"
-
-#: src/EBox/Model/Report/AlertGraph.pm:68
-msgid "Alert Graph"
-msgstr "Graf upozornění"
-
-#: src/EBox/Model/Report/AlertDetails.pm:52 src/EBox/IDS.pm:299
-msgid "Date"
-msgstr "Datum"
-
-#: src/EBox/Model/Report/AlertDetails.pm:58
-msgid "Number of alerts"
-msgstr "Počet upozornění"
-
-#: src/EBox/Model/Report/AlertDetails.pm:66
-msgid "Alert details"
-msgstr "Detaily upozornění"
-
-#: src/EBox/Model/Report/AlertDetails.pm:73
-msgid "alerts"
-msgstr "upozornění"
-
 #: src/EBox/IDS.pm:62 src/EBox/IDS.pm:169 src/EBox/IDS.pm:311
 msgid "IDS"
 msgstr "IDS"
+
+#: src/EBox/IDS.pm:299 src/EBox/Model/Report/AlertDetails.pm:52
+msgid "Date"
+msgstr "Datum"
 
 #: src/EBox/IDS.pm:300
 msgid "Priority"
@@ -114,10 +53,75 @@ msgstr "Událost"
 msgid "Alert"
 msgstr "Upozornění"
 
-#: src/EBox/Composite/General.pm:70
+#: src/EBox/Model/Interfaces.pm:129
+msgid "Interface"
+msgstr "Rozhraní"
+
+#: src/EBox/Model/Interfaces.pm:134 src/EBox/Model/Rules.pm:158
+msgid "Enabled"
+msgstr "Povolený"
+
+#: src/EBox/Model/Interfaces.pm:143
+msgid "Interfaces"
+msgstr "Rozhraní (mn.č.)"
+
+#: src/EBox/Model/Interfaces.pm:149
+msgid "interface"
+msgstr "rozhraní"
+
+#: src/EBox/Model/Interfaces.pm:151
+msgid "Select in which interfaces IDS system will be enabled"
+msgstr "Vyberte, ve kterém rozhraní bude IDS systém povolený"
+
+#: src/EBox/Model/Rules.pm:153
+msgid "Rule Set"
+msgstr "Nastavení pravidla"
+
+#: src/EBox/Model/Rules.pm:167
+msgid "Rules"
+msgstr "Pravidla"
+
+#: src/EBox/Model/Rules.pm:172
+msgid "rule"
+msgstr "pravidlo"
+
+#: src/EBox/Model/Rules.pm:173
+msgid ""
+"Select the sets of rules you want apply when scanning the network traffic"
+msgstr ""
+
+#: src/EBox/Model/Report/AlertDetails.pm:41
+#: src/EBox/Model/Report/AlertGraph.pm:47
+msgid "number of alerts"
+msgstr "počet upozornění"
+
+#: src/EBox/Model/Report/AlertDetails.pm:58
+msgid "Number of alerts"
+msgstr "Počet upozornění"
+
+#: src/EBox/Model/Report/AlertDetails.pm:66
+msgid "Alert details"
+msgstr "Detaily upozornění"
+
+#: src/EBox/Model/Report/AlertDetails.pm:73
+msgid "alerts"
+msgstr "upozornění"
+
+#: src/EBox/Model/Report/AlertGraph.pm:52
+msgid "Alerts chart"
+msgstr "Diagram upozornění"
+
+#: src/EBox/Model/Report/AlertGraph.pm:68
+msgid "Alert Graph"
+msgstr "Graf upozornění"
+
+#: src/EBox/Composite/General.pm:101
 msgid "Intrusion Detection System"
 msgstr "Systém Detekce Vniknutí (IDS)"
 
 #: src/EBox/Composite/Report/AlertReport.pm:66
 msgid "IDS Alerts report"
 msgstr "IDS report upozornění"
+
+#~ msgid "help message"
+#~ msgstr "Pomocná zpráva"

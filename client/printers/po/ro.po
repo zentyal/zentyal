@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-printers 0.12.99\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-08-28 23:38+0200\n"
+"POT-Creation-Date: 2010-12-13 08:42+0100\n"
 "PO-Revision-Date: 2010-08-27 09:52+0200\n"
 "Last-Translator: Harald Ersch <harald.ersch@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
@@ -21,51 +21,6 @@ msgstr ""
 #: migration/0001_add_ipp_service.pl:117
 msgid "Cups printer server port"
 msgstr "Portul serverului de tipărire CUPS"
-
-#: src/EBox/Model/CUPS.pm:142
-#, perl-brace-format
-msgid ""
-"Prior to configure printers you need to enable the module in the {openref}"
-"Module Status{closeref}  section and save changes after that."
-msgstr ""
-"Înainte de a configura imprimantele este necesară activarea modulului în "
-"secţiunea {openref}Stare Module{closeref} şi apoi înregistrarea "
-"modificărilor."
-
-#: src/EBox/Model/CUPS.pm:156
-msgid "Interface"
-msgstr "Interfaţa"
-
-#: src/EBox/Model/CUPS.pm:161
-msgid "Listen"
-msgstr "Ascultă"
-
-#: src/EBox/Model/CUPS.pm:170
-msgid "Select CUPS Interfaces"
-msgstr "Selectare interfeţe CUPS"
-
-#: src/EBox/Model/CUPS.pm:175
-msgid "interface"
-msgstr "interfaţă"
-
-#: src/EBox/Model/CUPS.pm:176
-msgid ""
-"Select in which interfaces the CUPS webserver will listen on. Take into "
-"account that is not probably a good idea to listen on external interfaces. "
-"If none are selected, it will be listening only at localhost"
-msgstr ""
-"Selectaţi interfeţele pe care va asculta serverul de Web CUPS. Nu e o idee "
-"bună ca acesta să asculte pe interfeţele externe. Dacă nu selectaţi nici o "
-"interfaţă, va asculta numai pe localhost."
-
-#: src/EBox/Model/CUPS.pm:187
-#, perl-brace-format
-msgid ""
-"To add or manage printers you have to use the {open_href}CUPS Web Interface"
-"{close_href}"
-msgstr ""
-"Pantru a adăuga şi administra imprimante trebuie să folosiţi {open_href}"
-"Interfaţa Web CUPS{close_href}"
 
 #: src/EBox/Printers.pm:41 src/EBox/Composite/General.pm:60
 msgid "Printer Sharing"
@@ -129,3 +84,48 @@ msgstr "Anulat"
 #: src/EBox/Printers.pm:235
 msgid "Printers"
 msgstr "Imprimante"
+
+#: src/EBox/Model/CUPS.pm:142
+#, perl-brace-format
+msgid ""
+"Prior to configure printers you need to enable the module in the {openref}"
+"Module Status{closeref}  section and save changes after that."
+msgstr ""
+"Înainte de a configura imprimantele este necesară activarea modulului în "
+"secţiunea {openref}Stare Module{closeref} şi apoi înregistrarea "
+"modificărilor."
+
+#: src/EBox/Model/CUPS.pm:156
+msgid "Interface"
+msgstr "Interfaţa"
+
+#: src/EBox/Model/CUPS.pm:161
+msgid "Listen"
+msgstr "Ascultă"
+
+#: src/EBox/Model/CUPS.pm:170
+msgid "Select CUPS Interfaces"
+msgstr "Selectare interfeţe CUPS"
+
+#: src/EBox/Model/CUPS.pm:175
+msgid "interface"
+msgstr "interfaţă"
+
+#: src/EBox/Model/CUPS.pm:176
+msgid ""
+"Select in which interfaces the CUPS webserver will listen on. Take into "
+"account that is not probably a good idea to listen on external interfaces. "
+"If none are selected, it will be listening only at localhost"
+msgstr ""
+"Selectaţi interfeţele pe care va asculta serverul de Web CUPS. Nu e o idee "
+"bună ca acesta să asculte pe interfeţele externe. Dacă nu selectaţi nici o "
+"interfaţă, va asculta numai pe localhost."
+
+#: src/EBox/Model/CUPS.pm:187
+#, perl-brace-format
+msgid ""
+"To add or manage printers you have to use the {open_href}CUPS Web Interface"
+"{close_href}"
+msgstr ""
+"Pantru a adăuga şi administra imprimante trebuie să folosiţi {open_href}"
+"Interfaţa Web CUPS{close_href}"

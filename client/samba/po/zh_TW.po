@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-samba 0.12.99\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-08-28 23:41+0200\n"
+"POT-Creation-Date: 2010-12-13 08:42+0100\n"
 "PO-Revision-Date: 2009-08-04 08:00+0200\n"
 "Last-Translator: Chao-Hsiung Liao <j_h_liau@yahoo.com.tw>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
@@ -20,202 +20,327 @@ msgstr ""
 msgid "File sharing (Samba) protocol"
 msgstr "檔案分享(Samba)通訊協定"
 
-#: src/EBox/Samba.pm:74 src/EBox/Samba/Model/SambaUser.pm:58
-#: src/EBox/Samba/Composite/General.pm:67
-msgid "File Sharing"
-msgstr "檔案分享"
-
-#: src/EBox/Samba.pm:89
+#: src/EBox/SambaLdapUser.pm:285
 #, fuzzy
-msgid "Create Samba home directory for shares and groups"
-msgstr "建立使用者和群組的 Samba 家目錄"
+msgid "This user has a sharing directory associated which contains data."
+msgstr "這個使用者有包含資料的分享目錄"
 
-#: src/EBox/Samba.pm:90
+#: src/EBox/SambaLdapUser.pm:344 src/EBox/SambaLdapUser.pm:362
+#, perl-brace-format
+msgid "Incorrect SID: {s}"
+msgstr "不正確的 SID：{s}"
+
+#: src/EBox/SambaLdapUser.pm:348
+#, perl-brace-format
+msgid "User {u} does not exists"
+msgstr "使用者 {u} 不存在"
+
+#: src/EBox/SambaLdapUser.pm:352
+#, perl-brace-format
+msgid "User {u} is not a samba user"
+msgstr "使用者 {u} 不是 samba 使用者"
+
+#: src/EBox/SambaLdapUser.pm:366
+#, perl-brace-format
+msgid "Group {g} does not exists"
+msgstr "群組 {g} 不存在"
+
+#: src/EBox/SambaLdapUser.pm:370
+#, perl-brace-format
+msgid "Group {g} is not a samba group"
+msgstr "群組 {g} 不是 samba 群組"
+
+#: src/EBox/SambaLdapUser.pm:412
 #, fuzzy
-msgid ""
-"Zentyal will create the directories for Samba shares and groups under /home/"
-"samba."
-msgstr "eBox 將建立 Samba 使用者和群組的家目錄在 /home/samba."
+msgid "This group has a sharing directory associated that contains data."
+msgstr "這個群組有包含資料的分享目錄"
 
-#: src/EBox/Samba.pm:95
-msgid "Add LDAP schemas"
-msgstr "新增 LDAP schemas"
+#: src/EBox/SambaLdapUser.pm:610
+#, perl-brace-format
+msgid "{g} group does not exist"
+msgstr "{g} 群組不存在"
 
-#: src/EBox/Samba.pm:96
+#: src/EBox/SambaLdapUser.pm:724 src/EBox/SambaLdapUser.pm:752
+#: src/EBox/SambaLdapUser.pm:801 src/EBox/CGI/ActivePrinting.pm:48
+#: src/EBox/CGI/ActiveSharing.pm:44
+msgid "group name"
+msgstr "群組名稱"
+
+#: src/EBox/SambaLdapUser.pm:757
 #, fuzzy
-msgid ""
-"Zentyal will add two LDAP schemas to the LDAP directory: samba and ebox."
-msgstr "eBox 將會新增兩個 LDAP schemas: samba.schema 和 ebox.schema."
+msgid "A name should be provided for the share."
+msgstr "請提供此分享的名稱"
 
-#: src/EBox/Samba.pm:101
-msgid "Set Samba LDAP admin dn password"
-msgstr "設定 Samba LDAP admin dn password"
+#: src/EBox/SambaLdapUser.pm:765
+msgid "sharing resource"
+msgstr "分享的資源"
 
-#: src/EBox/Samba.pm:102
-#, fuzzy
-msgid "Zentyal will configure Samba to use the LDAP admin dn password."
-msgstr "eBox 會將 Samba 設定為使用 LDAP 管理 dn 密碼。"
-
-#: src/EBox/Samba.pm:118
-#, fuzzy
-msgid "To set up Samba according to your configuration."
-msgstr "要根據您的組態設定 Samba"
-
-#: src/EBox/Samba.pm:123
-#, fuzzy
-msgid "To set up smbldap-tools according to your configuration."
-msgstr "要根據您的組態設定 smbldap-tools"
-
-#: src/EBox/Samba.pm:129
-#, fuzzy
-msgid "To set up smbldap-tools according to your LDAP configuration."
-msgstr "要根據您的 LDAP 組態設定 smbldap-tools"
-
-#: src/EBox/Samba.pm:135
-#, fuzzy
-msgid "To add quota support to /home partition."
-msgstr "加入對 /home 分割區的配額支援"
-
-#: src/EBox/Samba.pm:140
-#, fuzzy
-msgid "To set the antivirus settings for Samba."
-msgstr "設定 Samba 的防毒設定值"
-
-#: src/EBox/Samba.pm:626 src/EBox/Samba/Model/AntivirusExceptions.pm:109
-#: src/EBox/Samba/Model/RecycleExceptions.pm:109
-#: src/templates/ajax/viewer/shareViewer.mas:12
-msgid "Share"
-msgstr "分享"
-
-#: src/EBox/Samba.pm:626 src/EBox/Samba.pm:647
-msgid "Source machine"
-msgstr "來源機器"
-
-#: src/EBox/Samba.pm:626 src/EBox/Samba.pm:647
-msgid "Connected since"
-msgstr "連線時刻"
-
-#: src/EBox/Samba.pm:647 src/EBox/Samba.pm:1662
-#: src/EBox/Samba/Model/SambaSharePermissions.pm:206
-#: src/templates/ajax/viewer/shareViewer.mas:8
-msgid "User"
-msgstr "使用者"
-
-#: src/EBox/Samba.pm:667
-msgid "Shares by user"
-msgstr "依使用者排序分享"
-
-#: src/EBox/Samba.pm:672
-msgid "Users by share"
-msgstr "依分享排序使用者"
-
-#: src/EBox/Samba.pm:1212 src/EBox/Samba.pm:1234
-msgid "user"
-msgstr "使用者"
-
-#: src/EBox/Samba.pm:1216 src/EBox/Samba.pm:1248 src/EBox/SambaLdapUser.pm:864
+#: src/EBox/SambaLdapUser.pm:864 src/EBox/Samba.pm:1237 src/EBox/Samba.pm:1269
 msgid "group"
 msgstr "群組"
 
-#: src/EBox/Samba.pm:1221
-msgid "printer"
-msgstr "印表機"
+#: src/EBox/CGI/ActivePrinting.pm:44 src/EBox/CGI/ActiveSharing.pm:67
+msgid "user name"
+msgstr "使用者名稱"
 
-#: src/EBox/Samba.pm:1329
-msgid "quota"
-msgstr "配額"
+#: src/EBox/CGI/ActiveSharing.pm:47
+msgid "sharing name"
+msgstr "分享名稱"
 
-#: src/EBox/Samba.pm:1642
-msgid "User's files"
-msgstr "使用者的檔案"
+#: src/EBox/CGI/ActiveSharing.pm:70
+msgid "active"
+msgstr "啟動"
 
-#: src/EBox/Samba.pm:1644
-msgid "Group's files"
-msgstr "群組的檔案"
+#: src/EBox/CGI/ActiveSharing.pm:71
+msgid "Disk quota limit"
+msgstr "磁碟配額限制"
 
-#: src/EBox/Samba.pm:1660 src/EBox/Samba.pm:1680 src/EBox/Samba.pm:1690
-msgid "Date"
-msgstr "日期"
+#: src/EBox/Samba/Model/SambaUser.pm:50
+#, fuzzy
+msgid "File Sharing Account"
+msgstr "PDC/檔案分享帳號"
 
-#: src/EBox/Samba.pm:1661 src/EBox/Samba.pm:1681
-msgid "Client address"
-msgstr "客戶端位址"
+#: src/EBox/Samba/Model/SambaUser.pm:58 src/EBox/Samba/Composite/General.pm:67
+#: src/EBox/Samba.pm:74 src/EBox/Samba.pm:1389
+msgid "File Sharing"
+msgstr "檔案分享"
 
-#: src/EBox/Samba.pm:1663
-msgid "Action"
-msgstr "動作"
+#: src/EBox/Samba/Model/DeletedSambaShares.pm:113
+msgid "path"
+msgstr "路徑"
 
-#: src/EBox/Samba.pm:1664
-msgid "Resource"
+#: src/EBox/Samba/Model/DeletedSambaShares.pm:129
+#: src/EBox/Samba/Model/SambaShares.pm:157
+msgid "share"
+msgstr "分享"
+
+#: src/EBox/Samba/Model/GeneralSettings.pm:73
+msgid "Netbios and workgroup must have different names"
+msgstr "Netbios 和工作群組必須是不同的名稱"
+
+#: src/EBox/Samba/Model/GeneralSettings.pm:78
+#, fuzzy
+msgid "Netbios name cannot be longer than 15 characters"
+msgstr "這個資源名稱長度超過 12 個字元。"
+
+#: src/EBox/Samba/Model/GeneralSettings.pm:94
+#, perl-brace-format
+msgid ""
+"A slave server can not act as PDC if PAM is enabled. You can do disable PAM "
+"at {ohref}LDAP Settings{chref}."
 msgstr ""
 
-#: src/EBox/Samba.pm:1668
-msgid "Connect"
-msgstr "連線"
+#: src/EBox/Samba/Model/GeneralSettings.pm:106
+msgid "Enable PDC"
+msgstr "啟用 PDC"
 
-#: src/EBox/Samba.pm:1669
-msgid "Access to directory"
-msgstr "存取目錄"
+#: src/EBox/Samba/Model/GeneralSettings.pm:112
+msgid "Domain name"
+msgstr "網域名稱"
 
-#: src/EBox/Samba.pm:1670
-msgid "Read file"
-msgstr "讀取檔案"
+#: src/EBox/Samba/Model/GeneralSettings.pm:118
+msgid "Netbios name"
+msgstr "Netbios 名稱"
 
-#: src/EBox/Samba.pm:1671
-msgid "Write file"
-msgstr "寫入檔案"
+#: src/EBox/Samba/Model/GeneralSettings.pm:124
+msgid "Description"
+msgstr "描述"
 
-#: src/EBox/Samba.pm:1672
-msgid "Disconnect"
-msgstr "中斷連線"
+#: src/EBox/Samba/Model/GeneralSettings.pm:130
+msgid "Quota limit"
+msgstr "配額限制"
 
-#: src/EBox/Samba.pm:1673
-msgid "Remove"
-msgstr "移除"
+#: src/EBox/Samba/Model/GeneralSettings.pm:134 src/EBox/Samba/Model/PDC.pm:95
+#: src/EBox/Samba/Model/PDC.pm:113
+msgid "Limited to"
+msgstr "限制為"
 
-#: src/EBox/Samba.pm:1674
-msgid "Create directory"
-msgstr "建立目錄"
+#: src/EBox/Samba/Model/GeneralSettings.pm:136
+msgid "Mb"
+msgstr "Mb"
 
-#: src/EBox/Samba.pm:1675
-msgid "Remove directory"
-msgstr "移除目錄"
+#: src/EBox/Samba/Model/GeneralSettings.pm:142 src/EBox/Samba/Model/PDC.pm:91
+#: src/EBox/Samba/Model/PDC.pm:109 src/EBox/Samba/Model/PDC.pm:127
+#: src/templates/samba.mas:21 src/templates/samba.mas:24
+msgid "Disabled"
+msgstr "已停用"
 
-#: src/EBox/Samba.pm:1676
-msgid "Rename"
-msgstr "重新命名"
+#: src/EBox/Samba/Model/GeneralSettings.pm:148
+msgid "Enable roaming profiles"
+msgstr "啟用漫遊設定檔"
 
-#: src/EBox/Samba.pm:1682 src/EBox/Samba.pm:1691
-msgid "File name"
-msgstr "檔案名稱"
+#: src/EBox/Samba/Model/GeneralSettings.pm:154
+msgid "Drive letter"
+msgstr "磁碟機代號"
 
-#: src/EBox/Samba.pm:1683 src/EBox/Samba.pm:1687
-msgid "Virus"
-msgstr "病毒"
-
-#: src/EBox/Samba.pm:1684
-msgid "Type"
-msgstr "類型"
-
-#: src/EBox/Samba.pm:1692
-msgid "Quarantined file name"
-msgstr "隔離的檔案名稱"
-
-#: src/EBox/Samba.pm:1693 src/EBox/Samba.pm:1696
-msgid "Quarantine"
-msgstr "隔離"
-
-#: src/EBox/Samba.pm:1699
-msgid "Samba access"
-msgstr "Samba 存取"
-
-#: src/EBox/Samba.pm:1710
-msgid "Samba virus"
+#: src/EBox/Samba/Model/GeneralSettings.pm:160
+#, fuzzy
+msgid "Samba group"
 msgstr "Samba 防毒"
 
-#: src/EBox/Samba.pm:1721
-msgid "Samba quarantine"
-msgstr "Samba 隔離"
+#: src/EBox/Samba/Model/GeneralSettings.pm:164
+msgid ""
+"Only users belonging to this group will have a samba account. Sync happens "
+"every hour"
+msgstr ""
+
+#: src/EBox/Samba/Model/GeneralSettings.pm:170
+msgid "General settings"
+msgstr "一般設定值"
+
+#: src/EBox/Samba/Model/GeneralSettings.pm:174
+msgid "On this page you can set different general settings for Samba"
+msgstr "在這個頁面您可以設定 Samba 各種的一般設定值"
+
+#: src/EBox/Samba/Model/GeneralSettings.pm:227
+#, fuzzy
+msgid "All users"
+msgstr "使用者"
+
+#: src/EBox/Samba/Model/SambaShares.pm:101
+msgid "Share name"
+msgstr "分享名稱"
+
+#: src/EBox/Samba/Model/SambaShares.pm:107
+msgid "Share path"
+msgstr "分享路徑"
+
+#: src/EBox/Samba/Model/SambaShares.pm:113
+#, fuzzy
+msgid "Directory under Zentyal"
+msgstr "在 eBox 下的目錄"
+
+#: src/EBox/Samba/Model/SambaShares.pm:119
+msgid "File system path"
+msgstr "檔案系統路徑"
+
+#: src/EBox/Samba/Model/SambaShares.pm:127
+msgid "Comment"
+msgstr "註解"
+
+#: src/EBox/Samba/Model/SambaShares.pm:132
+msgid "Guest access"
+msgstr ""
+
+#: src/EBox/Samba/Model/SambaShares.pm:135
+msgid "This share will not require authentication."
+msgstr ""
+
+#: src/EBox/Samba/Model/SambaShares.pm:139
+msgid "Access control"
+msgstr "權限控制"
+
+#: src/EBox/Samba/Model/SambaShares.pm:149
+#: src/EBox/Samba/Model/SambaSharePermissions.pm:165
+msgid "Shares"
+msgstr "分享"
+
+#: src/EBox/Samba/Model/SambaShares.pm:186
+msgid "Path not allowed"
+msgstr "不允許的路徑"
+
+#: src/EBox/Samba/Model/SambaShares.pm:194
+msgid "Only alphanumeric characters plus _ are valid for a path"
+msgstr "只能有數字字元加上 _ 是有效的路徑"
+
+#: src/EBox/Samba/Model/SambaShares.pm:205
+#, fuzzy
+msgid "Only ASCII characters are valid for a share name"
+msgstr "只能有數字字元加上 _ 是有效的路徑"
+
+#: src/EBox/Samba/Model/SambaShares.pm:213
+#, fuzzy
+msgid "Only ASCII characters are valid for a share description"
+msgstr "只能有數字字元加上 _ 是有效的路徑"
+
+#: src/EBox/Samba/Model/SambaShares.pm:245
+msgid "The directory is not empty. Are you sure you want to remove it?"
+msgstr "目錄不是空的.您確定要移除嗎?"
+
+#: src/EBox/Samba/Model/SambaShares.pm:336
+#, fuzzy, perl-brace-format
+msgid ""
+"{openit}Directory under Zentyal{closeit} will automatically create the share."
+"directory in /home/samba/shares {br}{openit}File system path{closeit} will "
+"allow you to share an existing directory within your file system"
+msgstr ""
+"<i>在 eBox 下的目錄</i> 會自動建立網芳分享.目錄在 /home/samba/shares <br><i>"
+"檔案系統路徑</i>將會允許您在您的檔案系統下分享已存在的路徑. "
+
+#: src/EBox/Samba/Model/SambaShares.pm:349
+#, fuzzy
+msgid ""
+"Here you can create shares with more fine-grained permission control. You "
+"can use an existing directory or pick a name and let Zentyal create it for "
+"you."
+msgstr ""
+"在這您可以建立更細部的權限控制.您可以使用在已存在的目錄或是給個名稱讓 eBox 幫"
+"您建立."
+
+#: src/EBox/Samba/Model/SambaSharePermissions.pm:93
+msgid "Read only"
+msgstr "唯讀"
+
+#: src/EBox/Samba/Model/SambaSharePermissions.pm:97
+msgid "Read and write"
+msgstr "可讀寫"
+
+#: src/EBox/Samba/Model/SambaSharePermissions.pm:101
+msgid "Administrator"
+msgstr "管理者(Administrator)"
+
+#: src/EBox/Samba/Model/SambaSharePermissions.pm:125
+#: src/EBox/Samba/Model/SambaSharePermissions.pm:201
+msgid "User/Group"
+msgstr "使用者/群組"
+
+#: src/EBox/Samba/Model/SambaSharePermissions.pm:175
+msgid "Any access control is disabled if the guest access is allowed."
+msgstr ""
+
+#: src/EBox/Samba/Model/SambaSharePermissions.pm:206 src/EBox/Samba.pm:681
+#: src/EBox/Samba.pm:1580 src/templates/ajax/viewer/shareViewer.mas:8
+msgid "User"
+msgstr "使用者"
+
+#: src/EBox/Samba/Model/SambaSharePermissions.pm:211
+#: src/EBox/Samba/Model/AntivirusExceptions.pm:102
+#: src/EBox/Samba/Model/RecycleExceptions.pm:102
+#: src/templates/ajax/viewer/shareViewer.mas:10
+msgid "Group"
+msgstr "群組"
+
+#: src/EBox/Samba/Model/SambaSharePermissions.pm:220
+msgid "Permissions"
+msgstr "權限"
+
+#: src/EBox/Samba/Model/SambaSharePermissions.pm:229
+#, fuzzy
+msgid "Access Control"
+msgstr "權限控制"
+
+#: src/EBox/Samba/Model/SambaSharePermissions.pm:236
+msgid "ACL"
+msgstr ""
+
+#: src/EBox/Samba/Model/SambaSharePermissions.pm:249
+#, fuzzy
+msgid ""
+"Be careful if you grant <i>administrator</i> privileges.User will be able to "
+"read and write any file in the share."
+msgstr ""
+"注意假如您讓 <i>管理者(administrator)</i>使用特殊權限.使用者將在網芳中可以讀"
+"寫任何檔案"
+
+#: src/EBox/Samba/Model/SambaSharePermissions.pm:259
+#, fuzzy
+msgid " (user))"
+msgstr "使用者"
+
+#: src/EBox/Samba/Model/SambaSharePermissions.pm:261
+#, fuzzy
+msgid " (group))"
+msgstr "群組"
 
 #: src/EBox/Samba/Model/PDC.pm:77
 msgid "File sharing module is not enabled."
@@ -228,17 +353,6 @@ msgstr "PDC 尚未啟用。"
 #: src/EBox/Samba/Model/PDC.pm:87
 msgid "Minimum password length"
 msgstr "最小密碼長度"
-
-#: src/EBox/Samba/Model/PDC.pm:91 src/EBox/Samba/Model/PDC.pm:109
-#: src/EBox/Samba/Model/PDC.pm:127 src/EBox/Samba/Model/GeneralSettings.pm:124
-#: src/templates/samba.mas:21 src/templates/samba.mas:24
-msgid "Disabled"
-msgstr "已停用"
-
-#: src/EBox/Samba/Model/PDC.pm:95 src/EBox/Samba/Model/PDC.pm:113
-#: src/EBox/Samba/Model/GeneralSettings.pm:116
-msgid "Limited to"
-msgstr "限制為"
 
 #: src/EBox/Samba/Model/PDC.pm:96
 msgid "characters"
@@ -282,12 +396,11 @@ msgstr "使用者/群組/分享"
 msgid "User homes"
 msgstr "使用者家目錄"
 
-#: src/EBox/Samba/Model/AntivirusExceptions.pm:102
-#: src/EBox/Samba/Model/RecycleExceptions.pm:102
-#: src/EBox/Samba/Model/SambaSharePermissions.pm:211
-#: src/templates/ajax/viewer/shareViewer.mas:10
-msgid "Group"
-msgstr "群組"
+#: src/EBox/Samba/Model/AntivirusExceptions.pm:109
+#: src/EBox/Samba/Model/RecycleExceptions.pm:109 src/EBox/Samba.pm:660
+#: src/templates/ajax/viewer/shareViewer.mas:12
+msgid "Share"
+msgstr "分享"
 
 #: src/EBox/Samba/Model/AntivirusExceptions.pm:120
 msgid "Samba shares antivirus exceptions"
@@ -302,80 +415,15 @@ msgstr "加入對預設防毒設定值的例外"
 msgid "exception"
 msgstr "例外"
 
-#: src/EBox/Samba/Model/SambaShares.pm:100
-msgid "Share name"
-msgstr "分享名稱"
-
-#: src/EBox/Samba/Model/SambaShares.pm:106
-msgid "Share path"
-msgstr "分享路徑"
-
-#: src/EBox/Samba/Model/SambaShares.pm:112
+#: src/EBox/Samba/Model/RecycleExceptions.pm:120
 #, fuzzy
-msgid "Directory under Zentyal"
-msgstr "在 eBox 下的目錄"
+msgid "Samba shares Recycle Bin exceptions"
+msgstr "Samba 分享防毒例外"
 
-#: src/EBox/Samba/Model/SambaShares.pm:118
-msgid "File system path"
-msgstr "檔案系統路徑"
-
-#: src/EBox/Samba/Model/SambaShares.pm:126
-msgid "Comment"
-msgstr "註解"
-
-#: src/EBox/Samba/Model/SambaShares.pm:131
-msgid "Guest access"
-msgstr ""
-
-#: src/EBox/Samba/Model/SambaShares.pm:134
-msgid "This share will not require authentication."
-msgstr ""
-
-#: src/EBox/Samba/Model/SambaShares.pm:138
-msgid "Access control"
-msgstr "權限控制"
-
-#: src/EBox/Samba/Model/SambaShares.pm:148
-#: src/EBox/Samba/Model/SambaSharePermissions.pm:165
-msgid "Shares"
-msgstr "分享"
-
-#: src/EBox/Samba/Model/SambaShares.pm:156
-#: src/EBox/Samba/Model/DeletedSambaShares.pm:129
-msgid "share"
-msgstr "分享"
-
-#: src/EBox/Samba/Model/SambaShares.pm:186
-msgid "Path not allowed"
-msgstr "不允許的路徑"
-
-#: src/EBox/Samba/Model/SambaShares.pm:194
-msgid "Only alphanumeric characters plus _ are valid for a path"
-msgstr "只能有數字字元加上 _ 是有效的路徑"
-
-#: src/EBox/Samba/Model/SambaShares.pm:228
-msgid "The directory is not empty. Are you sure you want to remove it?"
-msgstr "目錄不是空的.您確定要移除嗎?"
-
-#: src/EBox/Samba/Model/SambaShares.pm:318
-#, fuzzy, perl-brace-format
-msgid ""
-"{openit}Directory under Zentyal{closeit} will automatically create the share."
-"directory in /home/samba/shares {br}{openit}File system path{closeit} will "
-"allow you to share an existing directory within your file system"
-msgstr ""
-"<i>在 eBox 下的目錄</i> 會自動建立網芳分享.目錄在 /home/samba/shares <br><i>"
-"檔案系統路徑</i>將會允許您在您的檔案系統下分享已存在的路徑. "
-
-#: src/EBox/Samba/Model/SambaShares.pm:331
+#: src/EBox/Samba/Model/RecycleExceptions.pm:125
 #, fuzzy
-msgid ""
-"Here you can create shares with more fine-grained permission control. You "
-"can use an existing directory or pick a name and let Zentyal create it for "
-"you."
-msgstr ""
-"在這您可以建立更細部的權限控制.您可以使用在已存在的目錄或是給個名稱讓 eBox 幫"
-"您建立."
+msgid "Add exceptions to the default Recycle Bin settings"
+msgstr "加入對預設防毒設定值的例外"
 
 #: src/EBox/Samba/Model/AntivirusDefault.pm:50
 msgid "Scan"
@@ -399,143 +447,6 @@ msgstr ""
 msgid "Recycle Bin default settings"
 msgstr "防毒預設設定值"
 
-#: src/EBox/Samba/Model/RecycleExceptions.pm:120
-#, fuzzy
-msgid "Samba shares Recycle Bin exceptions"
-msgstr "Samba 分享防毒例外"
-
-#: src/EBox/Samba/Model/RecycleExceptions.pm:125
-#, fuzzy
-msgid "Add exceptions to the default Recycle Bin settings"
-msgstr "加入對預設防毒設定值的例外"
-
-#: src/EBox/Samba/Model/SambaUser.pm:50
-#, fuzzy
-msgid "File Sharing Account"
-msgstr "PDC/檔案分享帳號"
-
-#: src/EBox/Samba/Model/GeneralSettings.pm:73
-msgid "Netbios and workgroup must have different names"
-msgstr "Netbios 和工作群組必須是不同的名稱"
-
-#: src/EBox/Samba/Model/GeneralSettings.pm:78
-#, fuzzy
-msgid "Netbios name cannot be longer than 15 characters"
-msgstr "這個資源名稱長度超過 12 個字元。"
-
-#: src/EBox/Samba/Model/GeneralSettings.pm:88
-msgid "Enable PDC"
-msgstr "啟用 PDC"
-
-#: src/EBox/Samba/Model/GeneralSettings.pm:94
-msgid "Domain name"
-msgstr "網域名稱"
-
-#: src/EBox/Samba/Model/GeneralSettings.pm:100
-msgid "Netbios name"
-msgstr "Netbios 名稱"
-
-#: src/EBox/Samba/Model/GeneralSettings.pm:106
-msgid "Description"
-msgstr "描述"
-
-#: src/EBox/Samba/Model/GeneralSettings.pm:112
-msgid "Quota limit"
-msgstr "配額限制"
-
-#: src/EBox/Samba/Model/GeneralSettings.pm:118
-msgid "Mb"
-msgstr "Mb"
-
-#: src/EBox/Samba/Model/GeneralSettings.pm:130
-msgid "Enable roaming profiles"
-msgstr "啟用漫遊設定檔"
-
-#: src/EBox/Samba/Model/GeneralSettings.pm:136
-msgid "Drive letter"
-msgstr "磁碟機代號"
-
-#: src/EBox/Samba/Model/GeneralSettings.pm:142
-#, fuzzy
-msgid "Samba group"
-msgstr "Samba 防毒"
-
-#: src/EBox/Samba/Model/GeneralSettings.pm:146
-msgid ""
-"Only users belonging to this group will have a samba account. Sync happens "
-"every hour"
-msgstr ""
-
-#: src/EBox/Samba/Model/GeneralSettings.pm:152
-msgid "General settings"
-msgstr "一般設定值"
-
-#: src/EBox/Samba/Model/GeneralSettings.pm:156
-msgid "On this page you can set different general settings for Samba"
-msgstr "在這個頁面您可以設定 Samba 各種的一般設定值"
-
-#: src/EBox/Samba/Model/GeneralSettings.pm:209
-#, fuzzy
-msgid "All users"
-msgstr "使用者"
-
-#: src/EBox/Samba/Model/SambaSharePermissions.pm:93
-msgid "Read only"
-msgstr "唯讀"
-
-#: src/EBox/Samba/Model/SambaSharePermissions.pm:97
-msgid "Read and write"
-msgstr "可讀寫"
-
-#: src/EBox/Samba/Model/SambaSharePermissions.pm:101
-msgid "Administrator"
-msgstr "管理者(Administrator)"
-
-#: src/EBox/Samba/Model/SambaSharePermissions.pm:125
-#: src/EBox/Samba/Model/SambaSharePermissions.pm:201
-msgid "User/Group"
-msgstr "使用者/群組"
-
-#: src/EBox/Samba/Model/SambaSharePermissions.pm:175
-msgid "Any access control is disabled if the guest access is allowed."
-msgstr ""
-
-#: src/EBox/Samba/Model/SambaSharePermissions.pm:220
-msgid "Permissions"
-msgstr "權限"
-
-#: src/EBox/Samba/Model/SambaSharePermissions.pm:229
-#, fuzzy
-msgid "Access Control"
-msgstr "權限控制"
-
-#: src/EBox/Samba/Model/SambaSharePermissions.pm:236
-msgid "ACL"
-msgstr ""
-
-#: src/EBox/Samba/Model/SambaSharePermissions.pm:249
-#, fuzzy
-msgid ""
-"Be careful if you grant <i>administrator</i> privileges.User will be able to "
-"read and write any file in the share."
-msgstr ""
-"注意假如您讓 <i>管理者(administrator)</i>使用特殊權限.使用者將在網芳中可以讀"
-"寫任何檔案"
-
-#: src/EBox/Samba/Model/SambaSharePermissions.pm:259
-#, fuzzy
-msgid " (user))"
-msgstr "使用者"
-
-#: src/EBox/Samba/Model/SambaSharePermissions.pm:261
-#, fuzzy
-msgid " (group))"
-msgstr "群組"
-
-#: src/EBox/Samba/Model/DeletedSambaShares.pm:113
-msgid "path"
-msgstr "路徑"
-
 #: src/EBox/Samba/Composite/RecycleBin.pm:64
 msgid "Recycle Bin"
 msgstr ""
@@ -548,85 +459,185 @@ msgstr "檔案分享選項"
 msgid "Antivirus"
 msgstr "防毒"
 
-#: src/EBox/CGI/ActivePrinting.pm:44 src/EBox/CGI/ActiveSharing.pm:67
-msgid "user name"
-msgstr "使用者名稱"
-
-#: src/EBox/CGI/ActivePrinting.pm:48 src/EBox/CGI/ActiveSharing.pm:44
-#: src/EBox/SambaLdapUser.pm:724 src/EBox/SambaLdapUser.pm:752
-#: src/EBox/SambaLdapUser.pm:801
-msgid "group name"
-msgstr "群組名稱"
-
-#: src/EBox/CGI/ActiveSharing.pm:47
-msgid "sharing name"
-msgstr "分享名稱"
-
-#: src/EBox/CGI/ActiveSharing.pm:70
-msgid "active"
-msgstr "啟動"
-
-#: src/EBox/CGI/ActiveSharing.pm:71
-msgid "Disk quota limit"
-msgstr "磁碟配額限制"
-
-#: src/EBox/SambaLdapUser.pm:285
+#: src/EBox/Samba.pm:114
 #, fuzzy
-msgid "This user has a sharing directory associated which contains data."
-msgstr "這個使用者有包含資料的分享目錄"
+msgid "Create Samba home directory for shares and groups"
+msgstr "建立使用者和群組的 Samba 家目錄"
 
-#: src/EBox/SambaLdapUser.pm:344 src/EBox/SambaLdapUser.pm:362
-#, perl-brace-format
-msgid "Incorrect SID: {s}"
-msgstr "不正確的 SID：{s}"
-
-#: src/EBox/SambaLdapUser.pm:348
-#, perl-brace-format
-msgid "User {u} does not exists"
-msgstr "使用者 {u} 不存在"
-
-#: src/EBox/SambaLdapUser.pm:352
-#, perl-brace-format
-msgid "User {u} is not a samba user"
-msgstr "使用者 {u} 不是 samba 使用者"
-
-#: src/EBox/SambaLdapUser.pm:366
-#, perl-brace-format
-msgid "Group {g} does not exists"
-msgstr "群組 {g} 不存在"
-
-#: src/EBox/SambaLdapUser.pm:370
-#, perl-brace-format
-msgid "Group {g} is not a samba group"
-msgstr "群組 {g} 不是 samba 群組"
-
-#: src/EBox/SambaLdapUser.pm:412
+#: src/EBox/Samba.pm:115
 #, fuzzy
-msgid "This group has a sharing directory associated that contains data."
-msgstr "這個群組有包含資料的分享目錄"
+msgid ""
+"Zentyal will create the directories for Samba shares and groups under /home/"
+"samba."
+msgstr "eBox 將建立 Samba 使用者和群組的家目錄在 /home/samba."
 
-#: src/EBox/SambaLdapUser.pm:610
-#, perl-brace-format
-msgid "{g} group does not exist"
-msgstr "{g} 群組不存在"
+#: src/EBox/Samba.pm:120
+msgid "Add LDAP schemas"
+msgstr "新增 LDAP schemas"
 
-#: src/EBox/SambaLdapUser.pm:757
+#: src/EBox/Samba.pm:121
 #, fuzzy
-msgid "A name should be provided for the share."
-msgstr "請提供此分享的名稱"
+msgid ""
+"Zentyal will add two LDAP schemas to the LDAP directory: samba and ebox."
+msgstr "eBox 將會新增兩個 LDAP schemas: samba.schema 和 ebox.schema."
 
-#: src/EBox/SambaLdapUser.pm:765
-msgid "sharing resource"
-msgstr "分享的資源"
+#: src/EBox/Samba.pm:126
+msgid "Set Samba LDAP admin dn password"
+msgstr "設定 Samba LDAP admin dn password"
 
-#: stubs/smb.conf.mas:104
-msgid "Home Directories"
-msgstr "家目錄"
+#: src/EBox/Samba.pm:127
+#, fuzzy
+msgid "Zentyal will configure Samba to use the LDAP admin dn password."
+msgstr "eBox 會將 Samba 設定為使用 LDAP 管理 dn 密碼。"
 
-#: stubs/smb.conf.mas:130
-#, perl-brace-format
-msgid "{group} share directory"
-msgstr "{group} 分享目錄"
+#: src/EBox/Samba.pm:143
+#, fuzzy
+msgid "To set up Samba according to your configuration."
+msgstr "要根據您的組態設定 Samba"
+
+#: src/EBox/Samba.pm:148
+#, fuzzy
+msgid "To set up smbldap-tools according to your configuration."
+msgstr "要根據您的組態設定 smbldap-tools"
+
+#: src/EBox/Samba.pm:154
+#, fuzzy
+msgid "To set up smbldap-tools according to your LDAP configuration."
+msgstr "要根據您的 LDAP 組態設定 smbldap-tools"
+
+#: src/EBox/Samba.pm:160
+#, fuzzy
+msgid "To add quota support to /home partition."
+msgstr "加入對 /home 分割區的配額支援"
+
+#: src/EBox/Samba.pm:165
+#, fuzzy
+msgid "To set the antivirus settings for Samba."
+msgstr "設定 Samba 的防毒設定值"
+
+#: src/EBox/Samba.pm:660 src/EBox/Samba.pm:681
+msgid "Source machine"
+msgstr "來源機器"
+
+#: src/EBox/Samba.pm:660 src/EBox/Samba.pm:681
+msgid "Connected since"
+msgstr "連線時刻"
+
+#: src/EBox/Samba.pm:701
+msgid "Shares by user"
+msgstr "依使用者排序分享"
+
+#: src/EBox/Samba.pm:707
+msgid "Users by share"
+msgstr "依分享排序使用者"
+
+#: src/EBox/Samba.pm:1233 src/EBox/Samba.pm:1255
+msgid "user"
+msgstr "使用者"
+
+#: src/EBox/Samba.pm:1242
+msgid "printer"
+msgstr "印表機"
+
+#: src/EBox/Samba.pm:1350
+msgid "quota"
+msgstr "配額"
+
+#: src/EBox/Samba.pm:1390
+msgid "Shares, users and groups homes and profiles"
+msgstr ""
+
+#: src/EBox/Samba.pm:1560
+msgid "User's files"
+msgstr "使用者的檔案"
+
+#: src/EBox/Samba.pm:1562
+msgid "Group's files"
+msgstr "群組的檔案"
+
+#: src/EBox/Samba.pm:1578 src/EBox/Samba.pm:1598 src/EBox/Samba.pm:1608
+msgid "Date"
+msgstr "日期"
+
+#: src/EBox/Samba.pm:1579 src/EBox/Samba.pm:1599
+msgid "Client address"
+msgstr "客戶端位址"
+
+#: src/EBox/Samba.pm:1581
+msgid "Action"
+msgstr "動作"
+
+#: src/EBox/Samba.pm:1582
+msgid "Resource"
+msgstr ""
+
+#: src/EBox/Samba.pm:1586
+msgid "Connect"
+msgstr "連線"
+
+#: src/EBox/Samba.pm:1587
+msgid "Access to directory"
+msgstr "存取目錄"
+
+#: src/EBox/Samba.pm:1588
+msgid "Read file"
+msgstr "讀取檔案"
+
+#: src/EBox/Samba.pm:1589
+msgid "Write file"
+msgstr "寫入檔案"
+
+#: src/EBox/Samba.pm:1590
+msgid "Disconnect"
+msgstr "中斷連線"
+
+#: src/EBox/Samba.pm:1591
+msgid "Remove"
+msgstr "移除"
+
+#: src/EBox/Samba.pm:1592
+msgid "Create directory"
+msgstr "建立目錄"
+
+#: src/EBox/Samba.pm:1593
+msgid "Remove directory"
+msgstr "移除目錄"
+
+#: src/EBox/Samba.pm:1594
+msgid "Rename"
+msgstr "重新命名"
+
+#: src/EBox/Samba.pm:1600 src/EBox/Samba.pm:1609
+msgid "File name"
+msgstr "檔案名稱"
+
+#: src/EBox/Samba.pm:1601 src/EBox/Samba.pm:1605
+msgid "Virus"
+msgstr "病毒"
+
+#: src/EBox/Samba.pm:1602
+msgid "Type"
+msgstr "類型"
+
+#: src/EBox/Samba.pm:1610
+msgid "Quarantined file name"
+msgstr "隔離的檔案名稱"
+
+#: src/EBox/Samba.pm:1611 src/EBox/Samba.pm:1614
+msgid "Quarantine"
+msgstr "隔離"
+
+#: src/EBox/Samba.pm:1617
+msgid "Samba access"
+msgstr "Samba 存取"
+
+#: src/EBox/Samba.pm:1628
+msgid "Samba virus"
+msgstr "Samba 防毒"
+
+#: src/EBox/Samba.pm:1639
+msgid "Samba quarantine"
+msgstr "Samba 隔離"
 
 #: src/templates/delete.mas:11
 msgid ""
@@ -724,3 +735,12 @@ msgstr "印表機模組"
 #: src/templates/samba.mas:180
 msgid "file sharing module"
 msgstr "檔案分享模組"
+
+#: stubs/smb.conf.mas:105
+msgid "Home Directories"
+msgstr "家目錄"
+
+#: stubs/smb.conf.mas:131
+#, perl-brace-format
+msgid "{group} share directory"
+msgstr "{group} 分享目錄"

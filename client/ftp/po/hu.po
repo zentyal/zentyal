@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-. 1.5\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-08-28 23:35+0200\n"
+"POT-Creation-Date: 2010-12-13 08:39+0100\n"
 "PO-Revision-Date: 2010-08-28 08:23+0200\n"
 "Last-Translator: Nagy Ákos <nagy.akos@akos.ro>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
@@ -20,14 +20,6 @@ msgstr ""
 #: migration/0001_add_firewall_services.pl:45
 msgid "Zentyal FTP Server"
 msgstr "Zentyal FTP szerver"
-
-#: src/EBox/FTP.pm:84
-msgid "To configure vsftpd"
-msgstr "vsftpd beállítása"
-
-#: src/EBox/FTP.pm:88
-msgid "To configure vsftpd with LDAP authentication"
-msgstr "vsftpd beállítása LDAP hitelesítéssel"
 
 #: src/EBox/Model/Options.pm:45
 msgid "Disabled"
@@ -78,3 +70,19 @@ msgstr ""
 "jogot is szeretne adni, akkor hozzon létre almappákat, amelyeknek adjon "
 "írási jogot mindenki számára, pl: mkdir /srv/ftp/incoming ; chmod o+rwx /srv/"
 "ftp/incoming"
+
+#: src/EBox/FTP.pm:84
+msgid "To configure vsftpd"
+msgstr "vsftpd beállítása"
+
+#: src/EBox/FTP.pm:88
+msgid "To configure vsftpd with LDAP authentication"
+msgstr "vsftpd beállítása LDAP hitelesítéssel"
+
+#: src/EBox/FTP.pm:146
+msgid "FTP server hosted files"
+msgstr ""
+
+#: src/EBox/FTP.pm:147
+msgid "User homes and anonymous directory"
+msgstr ""

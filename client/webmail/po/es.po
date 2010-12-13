@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-webmail 1.3\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-08-28 23:32+0200\n"
+"POT-Creation-Date: 2010-12-13 08:43+0100\n"
 "PO-Revision-Date: 2010-08-25 23:55+0200\n"
 "Last-Translator: José Antonio Calvo <jacalvo@ebox-platform.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
@@ -32,53 +32,6 @@ msgstr "Servicio de correo de Zentyal"
 #: src/EBox/WebMail/Model/OperationMode.pm:94
 msgid "Remote server"
 msgstr "Servidor remoto"
-
-#: src/EBox/WebMail/Model/Options.pm:45
-msgid "Name"
-msgstr "Nombre"
-
-#: src/EBox/WebMail/Model/Options.pm:47
-msgid "Zentyal webmail"
-msgstr "Webmail de Zentyal"
-
-#: src/EBox/WebMail/Model/Options.pm:49
-msgid ""
-"The name of the webmail will be used in the login screen and page titles."
-msgstr ""
-"El nombre de webmail será usado en la ventana de login y en los títulos de "
-"las páginas"
-
-#: src/EBox/WebMail/Model/Options.pm:53
-msgid "Virtual host"
-msgstr "Host virtual"
-
-#: src/EBox/WebMail/Model/Options.pm:59
-msgid ""
-"Virtual host where the webmail will be installed. This will disable the "
-"default /webmail url."
-msgstr ""
-"Host virtual donde será instalado el webmail. Esto desactivará la url por "
-"defecto: /webmail."
-
-#: src/EBox/WebMail/Model/Options.pm:65
-msgid "General configuration"
-msgstr "Configuración general"
-
-#: src/EBox/WebMail/Model/Options.pm:66 src/EBox/WebMail.pm:69
-msgid "Webmail"
-msgstr "Webmail"
-
-#: src/EBox/WebMail/Model/Options.pm:81
-msgid "Disabled"
-msgstr "Desactivado"
-
-#: src/EBox/WebMail/Model/Options.pm:112
-msgid ""
-"The deleted virtual host was selected for Webmail. Maybe you want to select "
-"another one now."
-msgstr ""
-"El host virtual eliminado estaba seleccionado para el Webmail. Tal vez "
-"quieras seleccionar otro ahora."
 
 #: src/EBox/WebMail/Model/RemoteServerConfiguration.pm:54
 msgid "IMAP Server"
@@ -157,12 +110,60 @@ msgid "TLS"
 msgstr "TLS"
 
 #: src/EBox/WebMail/Model/RemoteServerConfiguration.pm:285
+#, fuzzy
 msgid ""
-"No need to configure the connection to a remote server beacuse WebMail is "
+"No need to configure the connection to a remote server because WebMail is "
 "configured to use Zentyal mail service'"
 msgstr ""
 "No necesita configurar la conexión a un servidor remoto pues WebMail está "
 "configurado para usar el servicio de correo de Zentyal"
+
+#: src/EBox/WebMail/Model/Options.pm:45
+msgid "Name"
+msgstr "Nombre"
+
+#: src/EBox/WebMail/Model/Options.pm:47
+msgid "Zentyal webmail"
+msgstr "Webmail de Zentyal"
+
+#: src/EBox/WebMail/Model/Options.pm:49
+msgid ""
+"The name of the webmail will be used in the login screen and page titles."
+msgstr ""
+"El nombre de webmail será usado en la ventana de login y en los títulos de "
+"las páginas"
+
+#: src/EBox/WebMail/Model/Options.pm:53
+msgid "Virtual host"
+msgstr "Host virtual"
+
+#: src/EBox/WebMail/Model/Options.pm:59
+msgid ""
+"Virtual host where the webmail will be installed. This will disable the "
+"default /webmail url."
+msgstr ""
+"Host virtual donde será instalado el webmail. Esto desactivará la url por "
+"defecto: /webmail."
+
+#: src/EBox/WebMail/Model/Options.pm:65
+msgid "General configuration"
+msgstr "Configuración general"
+
+#: src/EBox/WebMail/Model/Options.pm:66 src/EBox/WebMail.pm:69
+msgid "Webmail"
+msgstr "Webmail"
+
+#: src/EBox/WebMail/Model/Options.pm:81
+msgid "Disabled"
+msgstr "Desactivado"
+
+#: src/EBox/WebMail/Model/Options.pm:112
+msgid ""
+"The deleted virtual host was selected for Webmail. Maybe you want to select "
+"another one now."
+msgstr ""
+"El host virtual eliminado estaba seleccionado para el Webmail. Tal vez "
+"quieras seleccionar otro ahora."
 
 #: src/EBox/WebMail/Composite/Backend.pm:63
 msgid "WebMail backend"

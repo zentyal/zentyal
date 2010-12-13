@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-services 0.12\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-08-28 23:41+0200\n"
+"POT-Creation-Date: 2010-12-13 08:42+0100\n"
 "PO-Revision-Date: 2010-07-23 13:19+0200\n"
 "Last-Translator: Daniel Hedblom <daniel.hedblom@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
@@ -60,6 +60,19 @@ msgstr "eBox-administration"
 msgid "Zentyal Administration Web Server"
 msgstr "eBox administrations-webserver"
 
+#: src/EBox/Services.pm:47 src/EBox/Model/ServiceTable.pm:144
+msgid "Services"
+msgstr "Tjänster"
+
+#: src/EBox/Services.pm:399
+msgid "port"
+msgstr "port"
+
+#: src/EBox/Services.pm:402
+#, fuzzy
+msgid "Zentyal Administration port"
+msgstr "Administrationsport för eBox"
+
 #: src/EBox/Model/ServiceTable.pm:102
 msgid "Domain"
 msgstr "Domän"
@@ -94,10 +107,6 @@ msgstr "Konfiguration"
 #: src/EBox/Model/ServiceTable.pm:143
 msgid "List of services"
 msgstr "Lista över tjänster"
-
-#: src/EBox/Model/ServiceTable.pm:144 src/EBox/Services.pm:47
-msgid "Services"
-msgstr "Tjänster"
 
 #: src/EBox/Model/ServiceTable.pm:154
 #: src/EBox/Model/ServiceConfigurationTable.pm:172
@@ -135,12 +144,3 @@ msgstr "Tjänstekonfiguration"
 #: src/EBox/Model/ServiceConfigurationTable.pm:196
 msgid "This protocol does not use ports"
 msgstr "Detta protokoll använder inte portar"
-
-#: src/EBox/Services.pm:399
-msgid "port"
-msgstr "port"
-
-#: src/EBox/Services.pm:402
-#, fuzzy
-msgid "Zentyal Administration port"
-msgstr "Administrationsport för eBox"

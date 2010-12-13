@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-webserver 0.12\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-08-28 23:42+0200\n"
+"POT-Creation-Date: 2010-12-13 08:43+0100\n"
 "PO-Revision-Date: 2008-01-08 15:51+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
@@ -20,6 +20,145 @@ msgstr ""
 #: migration/0001_add_service_and_port.pl:162
 msgid "HyperText Transport Protocol"
 msgstr "ハイパーテキストトランスポートプロトコル"
+
+#: src/EBox/WebServer.pm:79 src/EBox/WebServer.pm:617
+#: src/EBox/WebServer/Composite/General.pm:77
+#, fuzzy
+msgid "Web Server"
+msgstr "Webサービス"
+
+#: src/EBox/WebServer.pm:99
+#, fuzzy
+msgid "To set webserver listening port."
+msgstr "受信ポート"
+
+#: src/EBox/WebServer.pm:104
+msgid "To configure default virtual host."
+msgstr ""
+
+#: src/EBox/WebServer.pm:109
+msgid "To configure default SSL virtual host."
+msgstr ""
+
+#: src/EBox/WebServer.pm:114
+msgid "To configure the per-user public_html directory."
+msgstr ""
+
+#: src/EBox/WebServer.pm:139
+#, fuzzy
+msgid "Enable Apache LDAP user module"
+msgstr "Apache LDAPユーザモジュールを有効化"
+
+#: src/EBox/WebServer.pm:141
+#, fuzzy
+msgid "To fetch home directories from LDAP."
+msgstr "LDAPからホームディレクトリを取得"
+
+#: src/EBox/WebServer.pm:144
+#, fuzzy
+msgid "Enable Apache SSL module"
+msgstr "Apache LDAPユーザモジュールを有効化"
+
+#: src/EBox/WebServer.pm:146
+msgid "To serve pages over HTTPS."
+msgstr ""
+
+#: src/EBox/WebServer.pm:184
+msgid "Web service status"
+msgstr "Webサービスの状態"
+
+#: src/EBox/WebServer.pm:440
+#, fuzzy, perl-brace-format
+msgid "The {userDirConfFile} is missing! Please recover it."
+msgstr "ファイル {userDirConfFile} がありません！ 修復してください"
+
+#: src/EBox/WebServer.pm:730
+#, fuzzy
+msgid "Web server hosted files"
+msgstr "Webサービスの状態"
+
+#: src/EBox/WebServer.pm:731
+#, fuzzy
+msgid "Virtual hosts data"
+msgstr "バーチャルホスト"
+
+#: src/EBox/WebServer/Model/GeneralSettings.pm:96
+#: src/EBox/WebServer/Model/GeneralSettings.pm:108
+#: src/EBox/WebServer/Model/GeneralSettings.pm:119
+#: src/EBox/WebServer/Model/GeneralSettings.pm:229
+msgid "Listening port"
+msgstr "受信ポート"
+
+#: src/EBox/WebServer/Model/GeneralSettings.pm:114
+#, perl-brace-format
+msgid ""
+"Zentyal Administration is running on this port, change it on {ohref}System -"
+"> General{chref}."
+msgstr ""
+
+#: src/EBox/WebServer/Model/GeneralSettings.pm:127
+#, perl-brace-format
+msgid ""
+"You need a Service Certificate for the Web Server module, enable it on "
+"{ohref}Certification Authority -> Service Certificates{chref}."
+msgstr ""
+
+#: src/EBox/WebServer/Model/GeneralSettings.pm:139
+msgid ""
+"Having installed and configured the Users and Groups module is required to "
+"allow HTML directories for users."
+msgstr ""
+
+#: src/EBox/WebServer/Model/GeneralSettings.pm:145
+msgid ""
+"A properly configured Users and Groups module is required to allow HTML "
+"directories for users. To configure it, please enable it at least one time."
+msgstr ""
+
+#: src/EBox/WebServer/Model/GeneralSettings.pm:235
+#, fuzzy
+msgid "Listening SSL port"
+msgstr "受信ポート"
+
+#: src/EBox/WebServer/Model/GeneralSettings.pm:239
+#: src/EBox/WebServer/Model/VHostTable.pm:252
+msgid "Disabled"
+msgstr ""
+
+#: src/EBox/WebServer/Model/GeneralSettings.pm:244
+msgid "Enabled"
+msgstr ""
+
+#: src/EBox/WebServer/Model/GeneralSettings.pm:252
+#, perl-brace-format
+msgid "Enable per user {dirName}"
+msgstr "ユーザ {dirName} 毎に有効化"
+
+#: src/EBox/WebServer/Model/GeneralSettings.pm:256
+msgid ""
+"Allow users to publish web documents using the public_html directory on "
+"their home."
+msgstr ""
+
+#: src/EBox/WebServer/Model/GeneralSettings.pm:264
+msgid "General configuration settings"
+msgstr "全般的設定"
+
+#: src/EBox/WebServer/Model/GeneralSettings.pm:268
+#, fuzzy, perl-brace-format
+msgid ""
+"General Web server configuration. The listening port must not be used by "
+"another service. If you enable user to publish their own html pages, those "
+"should be loaded from {dirName} directory from their home directories."
+msgstr ""
+"全般的なWebサーバの設定を行います。受信ポートは他のサービスと競合してはなりま"
+"せん。ユーザ毎の公開ページを有効にする場合、ページSambaホームディレクトリの中"
+"の {dirName} ディレクトリから読み込まれます。"
+
+#: src/EBox/WebServer/Model/GeneralSettings.pm:274
+#, fuzzy
+msgid "General Web server configuration settings updated."
+msgstr "全般的なWebサーバの設定が更新されました"
 
 #: src/EBox/WebServer/Model/VHostTable.pm:93
 #, fuzzy
@@ -72,11 +211,6 @@ msgstr "バーチャルホスト {vhost} が追加されました"
 msgid "There is no static internal interface to set the Web server IP address."
 msgstr "WebサーバのIPアドレスを設定する静的な内部インタフェースがありません"
 
-#: src/EBox/WebServer/Model/VHostTable.pm:252
-#: src/EBox/WebServer/Model/GeneralSettings.pm:239
-msgid "Disabled"
-msgstr ""
-
 #: src/EBox/WebServer/Model/VHostTable.pm:253
 msgid "Allow SSL"
 msgstr ""
@@ -119,88 +253,9 @@ msgid ""
 "any effect until you enable it"
 msgstr ""
 
-#: src/EBox/WebServer/Model/GeneralSettings.pm:96
-#: src/EBox/WebServer/Model/GeneralSettings.pm:108
-#: src/EBox/WebServer/Model/GeneralSettings.pm:119
-#: src/EBox/WebServer/Model/GeneralSettings.pm:229
-msgid "Listening port"
-msgstr "受信ポート"
-
-#: src/EBox/WebServer/Model/GeneralSettings.pm:114
-#, perl-brace-format
-msgid ""
-"Zentyal Administration is running on this port, change it on {ohref}System -"
-"> General{chref}."
-msgstr ""
-
-#: src/EBox/WebServer/Model/GeneralSettings.pm:127
-#, perl-brace-format
-msgid ""
-"You need a Service Certificate for the Web Server module, enable it on "
-"{ohref}Certification Authority -> Service Certificates{chref}."
-msgstr ""
-
-#: src/EBox/WebServer/Model/GeneralSettings.pm:139
-msgid ""
-"Having installed and configured the Users and Groups module is required to "
-"allow HTML directories for users."
-msgstr ""
-
-#: src/EBox/WebServer/Model/GeneralSettings.pm:145
-msgid ""
-"A properly configured Users and Groups module is required to allow HTML "
-"directories for users. To configure it, please enable it at least one time."
-msgstr ""
-
-#: src/EBox/WebServer/Model/GeneralSettings.pm:235
-#, fuzzy
-msgid "Listening SSL port"
-msgstr "受信ポート"
-
-#: src/EBox/WebServer/Model/GeneralSettings.pm:244
-msgid "Enabled"
-msgstr ""
-
-#: src/EBox/WebServer/Model/GeneralSettings.pm:252
-#, perl-brace-format
-msgid "Enable per user {dirName}"
-msgstr "ユーザ {dirName} 毎に有効化"
-
-#: src/EBox/WebServer/Model/GeneralSettings.pm:256
-msgid ""
-"Allow users to publish web documents using the public_html directory on "
-"their home."
-msgstr ""
-
-#: src/EBox/WebServer/Model/GeneralSettings.pm:264
-msgid "General configuration settings"
-msgstr "全般的設定"
-
-#: src/EBox/WebServer/Model/GeneralSettings.pm:268
-#, fuzzy, perl-brace-format
-msgid ""
-"General Web server configuration. The listening port must not be used by "
-"another service. If you enable user to publish their own html pages, those "
-"should be loaded from {dirName} directory from their home directories."
-msgstr ""
-"全般的なWebサーバの設定を行います。受信ポートは他のサービスと競合してはなりま"
-"せん。ユーザ毎の公開ページを有効にする場合、ページSambaホームディレクトリの中"
-"の {dirName} ディレクトリから読み込まれます。"
-
-#: src/EBox/WebServer/Model/GeneralSettings.pm:274
-#, fuzzy
-msgid "General Web server configuration settings updated."
-msgstr "全般的なWebサーバの設定が更新されました"
-
 #: src/EBox/WebServer/Composite/General.pm:76
 msgid "Configuration"
 msgstr ""
-
-#: src/EBox/WebServer/Composite/General.pm:77 src/EBox/WebServer.pm:79
-#: src/EBox/WebServer.pm:617
-#, fuzzy
-msgid "Web Server"
-msgstr "Webサービス"
 
 #: src/EBox/WebServer/Composite/General.pm:79
 #, fuzzy
@@ -210,48 +265,3 @@ msgid ""
 msgstr ""
 "eBox Webサービスでは異なるバーチャルホストでプレーンなHTMLページをホストする"
 "ことを許可しています"
-
-#: src/EBox/WebServer.pm:99
-#, fuzzy
-msgid "To set webserver listening port."
-msgstr "受信ポート"
-
-#: src/EBox/WebServer.pm:104
-msgid "To configure default virtual host."
-msgstr ""
-
-#: src/EBox/WebServer.pm:109
-msgid "To configure default SSL virtual host."
-msgstr ""
-
-#: src/EBox/WebServer.pm:114
-msgid "To configure the per-user public_html directory."
-msgstr ""
-
-#: src/EBox/WebServer.pm:139
-#, fuzzy
-msgid "Enable Apache LDAP user module"
-msgstr "Apache LDAPユーザモジュールを有効化"
-
-#: src/EBox/WebServer.pm:141
-#, fuzzy
-msgid "To fetch home directories from LDAP."
-msgstr "LDAPからホームディレクトリを取得"
-
-#: src/EBox/WebServer.pm:144
-#, fuzzy
-msgid "Enable Apache SSL module"
-msgstr "Apache LDAPユーザモジュールを有効化"
-
-#: src/EBox/WebServer.pm:146
-msgid "To serve pages over HTTPS."
-msgstr ""
-
-#: src/EBox/WebServer.pm:184
-msgid "Web service status"
-msgstr "Webサービスの状態"
-
-#: src/EBox/WebServer.pm:440
-#, fuzzy, perl-brace-format
-msgid "The {userDirConfFile} is missing! Please recover it."
-msgstr "ファイル {userDirConfFile} がありません！ 修復してください"

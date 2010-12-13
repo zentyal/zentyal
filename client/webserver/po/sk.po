@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-webserver 1.3.3\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-08-28 23:42+0200\n"
+"POT-Creation-Date: 2010-12-13 08:43+0100\n"
 "PO-Revision-Date: 2010-09-07 15:29+0200\n"
 "Last-Translator: Bokor Pavol <bokor@4enzo.net>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
@@ -20,6 +20,149 @@ msgstr ""
 #: migration/0001_add_service_and_port.pl:162
 msgid "HyperText Transport Protocol"
 msgstr "HyperTextový Transportný Protokol"
+
+#: src/EBox/WebServer.pm:79 src/EBox/WebServer.pm:617
+#: src/EBox/WebServer/Composite/General.pm:77
+msgid "Web Server"
+msgstr "Web Server"
+
+#: src/EBox/WebServer.pm:99
+#, fuzzy
+msgid "To set webserver listening port."
+msgstr "Nastavenie portu webservera"
+
+#: src/EBox/WebServer.pm:104
+#, fuzzy
+msgid "To configure default virtual host."
+msgstr "Nastavenie východzieho Virtuálneho hostiteľa"
+
+#: src/EBox/WebServer.pm:109
+#, fuzzy
+msgid "To configure default SSL virtual host."
+msgstr "Nastavenie východzieho Virtuálneho hostiteľa"
+
+#: src/EBox/WebServer.pm:114
+#, fuzzy
+msgid "To configure the per-user public_html directory."
+msgstr "Nastavenie per-user verejnej HTML zložky"
+
+#: src/EBox/WebServer.pm:139
+#, fuzzy
+msgid "Enable Apache LDAP user module"
+msgstr "Povoliť Apache LDAP užívateľský modul"
+
+#: src/EBox/WebServer.pm:141
+#, fuzzy
+msgid "To fetch home directories from LDAP."
+msgstr "Vybrať domáce zložky z LDAP"
+
+#: src/EBox/WebServer.pm:144
+#, fuzzy
+msgid "Enable Apache SSL module"
+msgstr "Povoliť Apache LDAP užívateľský modul"
+
+#: src/EBox/WebServer.pm:146
+msgid "To serve pages over HTTPS."
+msgstr ""
+
+#: src/EBox/WebServer.pm:184
+msgid "Web service status"
+msgstr "Stav Web služby"
+
+#: src/EBox/WebServer.pm:440
+#, fuzzy, perl-brace-format
+msgid "The {userDirConfFile} is missing! Please recover it."
+msgstr "Chýba {userDirConfFile}! Obnovte ho!"
+
+#: src/EBox/WebServer.pm:730
+#, fuzzy
+msgid "Web server hosted files"
+msgstr "Stav Web služby"
+
+#: src/EBox/WebServer.pm:731
+#, fuzzy
+msgid "Virtual hosts data"
+msgstr "Virtuálny hostiteľ"
+
+#: src/EBox/WebServer/Model/GeneralSettings.pm:96
+#: src/EBox/WebServer/Model/GeneralSettings.pm:108
+#: src/EBox/WebServer/Model/GeneralSettings.pm:119
+#: src/EBox/WebServer/Model/GeneralSettings.pm:229
+msgid "Listening port"
+msgstr "Načúvací port"
+
+#: src/EBox/WebServer/Model/GeneralSettings.pm:114
+#, perl-brace-format
+msgid ""
+"Zentyal Administration is running on this port, change it on {ohref}System -"
+"> General{chref}."
+msgstr ""
+"Na tomto porte je spustená správa Zentyal-u. Môžete to zmeniť v {ohref}"
+"System -> General{chref}."
+
+#: src/EBox/WebServer/Model/GeneralSettings.pm:127
+#, perl-brace-format
+msgid ""
+"You need a Service Certificate for the Web Server module, enable it on "
+"{ohref}Certification Authority -> Service Certificates{chref}."
+msgstr ""
+
+#: src/EBox/WebServer/Model/GeneralSettings.pm:139
+msgid ""
+"Having installed and configured the Users and Groups module is required to "
+"allow HTML directories for users."
+msgstr ""
+
+#: src/EBox/WebServer/Model/GeneralSettings.pm:145
+msgid ""
+"A properly configured Users and Groups module is required to allow HTML "
+"directories for users. To configure it, please enable it at least one time."
+msgstr ""
+
+#: src/EBox/WebServer/Model/GeneralSettings.pm:235
+msgid "Listening SSL port"
+msgstr "Načúvací SSL port"
+
+#: src/EBox/WebServer/Model/GeneralSettings.pm:239
+#: src/EBox/WebServer/Model/VHostTable.pm:252
+msgid "Disabled"
+msgstr "Zakázaný"
+
+#: src/EBox/WebServer/Model/GeneralSettings.pm:244
+msgid "Enabled"
+msgstr ""
+
+#: src/EBox/WebServer/Model/GeneralSettings.pm:252
+#, perl-brace-format
+msgid "Enable per user {dirName}"
+msgstr "Povoliť podľa užívateľa {dirName}"
+
+#: src/EBox/WebServer/Model/GeneralSettings.pm:256
+msgid ""
+"Allow users to publish web documents using the public_html directory on "
+"their home."
+msgstr ""
+
+#: src/EBox/WebServer/Model/GeneralSettings.pm:264
+msgid "General configuration settings"
+msgstr "Hlavné konfiguračné nastavenia"
+
+#: src/EBox/WebServer/Model/GeneralSettings.pm:268
+#, fuzzy, perl-brace-format
+msgid ""
+"General Web server configuration. The listening port must not be used by "
+"another service. If you enable user to publish their own html pages, those "
+"should be loaded from {dirName} directory from their home directories."
+msgstr ""
+"Hlavné konfiguračné nastavenia Web servera. Načúvací port nesmie byť použitý "
+"z existujúcich služieb. Ak povolíte užívateľom publikovať ich vlastné html "
+"stránky, tak stránky budú sťahované z priečinka {dirName} v ich domácich "
+"priečinkoch."
+
+#: src/EBox/WebServer/Model/GeneralSettings.pm:274
+#, fuzzy
+msgid "General Web server configuration settings updated."
+msgstr "Hlavné konfiguračné nastavenia Web servera aktualizované"
 
 #: src/EBox/WebServer/Model/VHostTable.pm:93
 msgid "Virtual host name"
@@ -71,11 +214,6 @@ msgid "There is no static internal interface to set the Web server IP address."
 msgstr ""
 "Neexistuje statický interný adaptér na nastavenie IP adresy Web servera"
 
-#: src/EBox/WebServer/Model/VHostTable.pm:252
-#: src/EBox/WebServer/Model/GeneralSettings.pm:239
-msgid "Disabled"
-msgstr "Zakázaný"
-
 #: src/EBox/WebServer/Model/VHostTable.pm:253
 msgid "Allow SSL"
 msgstr "Povoliť SSL"
@@ -121,89 +259,9 @@ msgstr ""
 "{open}DNS modul je zakázaný. Pokiaľ nebude povolený, neprejavia sa zmeny v "
 "pridanom mapovaní alebo v doménach."
 
-#: src/EBox/WebServer/Model/GeneralSettings.pm:96
-#: src/EBox/WebServer/Model/GeneralSettings.pm:108
-#: src/EBox/WebServer/Model/GeneralSettings.pm:119
-#: src/EBox/WebServer/Model/GeneralSettings.pm:229
-msgid "Listening port"
-msgstr "Načúvací port"
-
-#: src/EBox/WebServer/Model/GeneralSettings.pm:114
-#, perl-brace-format
-msgid ""
-"Zentyal Administration is running on this port, change it on {ohref}System -"
-"> General{chref}."
-msgstr ""
-"Na tomto porte je spustená správa Zentyal-u. Môžete to zmeniť v "
-"{ohref}System -> General{chref}."
-
-#: src/EBox/WebServer/Model/GeneralSettings.pm:127
-#, perl-brace-format
-msgid ""
-"You need a Service Certificate for the Web Server module, enable it on "
-"{ohref}Certification Authority -> Service Certificates{chref}."
-msgstr ""
-
-#: src/EBox/WebServer/Model/GeneralSettings.pm:139
-msgid ""
-"Having installed and configured the Users and Groups module is required to "
-"allow HTML directories for users."
-msgstr ""
-
-#: src/EBox/WebServer/Model/GeneralSettings.pm:145
-msgid ""
-"A properly configured Users and Groups module is required to allow HTML "
-"directories for users. To configure it, please enable it at least one time."
-msgstr ""
-
-#: src/EBox/WebServer/Model/GeneralSettings.pm:235
-msgid "Listening SSL port"
-msgstr "Načúvací SSL port"
-
-#: src/EBox/WebServer/Model/GeneralSettings.pm:244
-msgid "Enabled"
-msgstr ""
-
-#: src/EBox/WebServer/Model/GeneralSettings.pm:252
-#, perl-brace-format
-msgid "Enable per user {dirName}"
-msgstr "Povoliť podľa užívateľa {dirName}"
-
-#: src/EBox/WebServer/Model/GeneralSettings.pm:256
-msgid ""
-"Allow users to publish web documents using the public_html directory on "
-"their home."
-msgstr ""
-
-#: src/EBox/WebServer/Model/GeneralSettings.pm:264
-msgid "General configuration settings"
-msgstr "Hlavné konfiguračné nastavenia"
-
-#: src/EBox/WebServer/Model/GeneralSettings.pm:268
-#, fuzzy, perl-brace-format
-msgid ""
-"General Web server configuration. The listening port must not be used by "
-"another service. If you enable user to publish their own html pages, those "
-"should be loaded from {dirName} directory from their home directories."
-msgstr ""
-"Hlavné konfiguračné nastavenia Web servera. Načúvací port nesmie byť použitý "
-"z existujúcich služieb. Ak povolíte užívateľom publikovať ich vlastné html "
-"stránky, tak stránky budú sťahované z priečinka {dirName} v ich domácich "
-"priečinkoch."
-
-#: src/EBox/WebServer/Model/GeneralSettings.pm:274
-#, fuzzy
-msgid "General Web server configuration settings updated."
-msgstr "Hlavné konfiguračné nastavenia Web servera aktualizované"
-
 #: src/EBox/WebServer/Composite/General.pm:76
 msgid "Configuration"
 msgstr "Konfigurácia"
-
-#: src/EBox/WebServer/Composite/General.pm:77 src/EBox/WebServer.pm:79
-#: src/EBox/WebServer.pm:617
-msgid "Web Server"
-msgstr "Web Server"
 
 #: src/EBox/WebServer/Composite/General.pm:79
 #, fuzzy
@@ -213,51 +271,3 @@ msgid ""
 msgstr ""
 "eBox web služba vám umožňuje hosťovať webové stránky v obyčajnom HTML medzi "
 "rôznymi virtuálnymi hostiteľmi."
-
-#: src/EBox/WebServer.pm:99
-#, fuzzy
-msgid "To set webserver listening port."
-msgstr "Nastavenie portu webservera"
-
-#: src/EBox/WebServer.pm:104
-#, fuzzy
-msgid "To configure default virtual host."
-msgstr "Nastavenie východzieho Virtuálneho hostiteľa"
-
-#: src/EBox/WebServer.pm:109
-#, fuzzy
-msgid "To configure default SSL virtual host."
-msgstr "Nastavenie východzieho Virtuálneho hostiteľa"
-
-#: src/EBox/WebServer.pm:114
-#, fuzzy
-msgid "To configure the per-user public_html directory."
-msgstr "Nastavenie per-user verejnej HTML zložky"
-
-#: src/EBox/WebServer.pm:139
-#, fuzzy
-msgid "Enable Apache LDAP user module"
-msgstr "Povoliť Apache LDAP užívateľský modul"
-
-#: src/EBox/WebServer.pm:141
-#, fuzzy
-msgid "To fetch home directories from LDAP."
-msgstr "Vybrať domáce zložky z LDAP"
-
-#: src/EBox/WebServer.pm:144
-#, fuzzy
-msgid "Enable Apache SSL module"
-msgstr "Povoliť Apache LDAP užívateľský modul"
-
-#: src/EBox/WebServer.pm:146
-msgid "To serve pages over HTTPS."
-msgstr ""
-
-#: src/EBox/WebServer.pm:184
-msgid "Web service status"
-msgstr "Stav Web služby"
-
-#: src/EBox/WebServer.pm:440
-#, fuzzy, perl-brace-format
-msgid "The {userDirConfFile} is missing! Please recover it."
-msgstr "Chýba {userDirConfFile}! Obnovte ho!"

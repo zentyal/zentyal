@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libebox 0.12.100\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-08-28 19:44+0200\n"
+"POT-Creation-Date: 2010-12-13 08:44+0100\n"
 "PO-Revision-Date: 2009-02-04 06:31+0000\n"
 "Last-Translator: Zahra Khani <belendax@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
@@ -15,25 +15,6 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Pootle 1.1.0\n"
-
-#: src/EBox/Config.pm.in:74
-#, perl-brace-format
-msgid "Could not open the config file {file}."
-msgstr "نمی توان فایل پیکربندی {file} را باز کرد."
-
-#: src/EBox/Config.pm.in:169
-msgid "The ebox user has not been set in the config file."
-msgstr "کاربر ebox در فایل پیکربندی تنظیم نشده است"
-
-#: src/EBox/Exceptions/DataNotFound.pm:35
-#, perl-brace-format
-msgid "{data} {value} does not exist."
-msgstr "{data} {value} موجود نمی باشند"
-
-#: src/EBox/Exceptions/DataExists.pm:36
-#, perl-brace-format
-msgid "{data} {value} already exists."
-msgstr "{data} {value} از قبل وجود دارند"
 
 #: src/EBox/Exceptions/InvalidData.pm:37
 #, perl-brace-format
@@ -45,54 +26,20 @@ msgstr "ارزش برای {data}: {value} نامعتبر می باشد"
 msgid "{data} is empty."
 msgstr "{data} خالی می باشد"
 
-#: src/EBox/Validate.pm:396 src/EBox/Validate.pm:410
-msgid "Must be a number between 1 and 4096"
-msgstr ""
-
-#: src/EBox/Validate.pm:700
-#, fuzzy, perl-brace-format
-msgid ""
-"Cannot stat dir: {dir}. This may mean that the directory does not exist or "
-"the permissions forbid access to it"
-msgstr ""
-"Cannot stat dir: {dir} این ممکن است به این معنی باشد که دایرکتوری موجود نمی "
-"باشد یا مجوزها دسترسی به آن را منع کرده اند"
-
-#: src/EBox/Validate.pm:705
+#: src/EBox/Exceptions/DataExists.pm:36
 #, perl-brace-format
-msgid "The directory {dir} is not private; because it is owned by another user"
-msgstr "دایرکتوری {dir} خصوصی نمی باشد؛ زیرا توسط کاربر دیگری شخصی شده است"
+msgid "{data} {value} already exists."
+msgstr "{data} {value} از قبل وجود دارند"
 
-#: src/EBox/Validate.pm:780
-msgid ""
-"The file path supplied is not valid. (Currently not all of the valid file's  "
-"characters are supported) "
-msgstr ""
-"مسیر تعیین شده برای فایل معتبر نمی باشد. (در حال حاضر تمام کاراکتر های معتبر "
-"فایل پشتیبانی نمی شوند)"
-
-#: src/EBox/Validate.pm:808
-msgid "The file path must be absolute"
-msgstr "مسیر فایل باید کامل باشد"
-
-#: src/EBox/Sudo.pm:265
+#: src/EBox/Exceptions/DataNotFound.pm:35
 #, perl-brace-format
-msgid "Running command '{cmd}' as {user} failed"
-msgstr "اجرای فرمان '{cmd}' به عنوان {user} با شکست مواجه شده است"
+msgid "{data} {value} does not exist."
+msgstr "{data} {value} موجود نمی باشند"
 
-#: src/EBox/FileSystem.pm:190 src/EBox/FileSystem.pm:282
-#, perl-brace-format
-msgid "Directory not found: {d}"
-msgstr "دایرکتوری پیدا نشد: {d}"
-
-#: src/EBox/NetWrappers.pm:105 src/EBox/NetWrappers.pm:134
-#: src/EBox/NetWrappers.pm:165 src/EBox/NetWrappers.pm:267
+#: src/EBox/NetWrappers.pm:104 src/EBox/NetWrappers.pm:133
+#: src/EBox/NetWrappers.pm:229
 msgid "Interface"
 msgstr "واسط"
-
-#: src/EBox/CGI/EBox/PageNotFound.pm:27
-msgid "Page not found"
-msgstr "صفحه مورد نظر یافت نشد"
 
 #: src/EBox/CGI/Base.pm:196
 msgid ""
@@ -134,17 +81,17 @@ msgid "You have just hit a bug in Zentyal. Please seek technical support."
 msgstr ""
 "شما تنها به یک مشکل در eBox برخورده اید. لطفا پشتیبانی فنی را جستجو کنید"
 
-#: src/EBox/CGI/Base.pm:662
+#: src/EBox/CGI/Base.pm:663
 msgid ""
 "Your request could not be processed because it had some incorrect parameters"
 msgstr ""
 "تقاضای شما نمی تواند پردازش شود زیرا شامل تعدادی از پارامترهای نادرست می باشد"
 
-#: src/EBox/CGI/Base.pm:695
+#: src/EBox/CGI/Base.pm:696
 msgid "Wrong HTTP referer detected, operation cancelled for security reasons"
 msgstr ""
 
-#: src/EBox/CGI/Base.pm:707
+#: src/EBox/CGI/Base.pm:708
 msgid ""
 "Your request could not be processed because it lacked some required "
 "parameters"
@@ -152,38 +99,206 @@ msgstr ""
 "تقاضای شما نمی تواند پردازش شود زیرا فاقد تعدادی از پارامترهای مورد نیاز می "
 "باشد"
 
-#: src/EBox/CGI/Base.pm:858
+#: src/EBox/CGI/Base.pm:873
 msgid "Invalid uploaded file."
 msgstr "فایل آپلود شده نامعتبر می باشد."
 
-#: src/EBox/CGI/Base.pm:864
+#: src/EBox/CGI/Base.pm:879
 msgid "Cannot create a temporally file for the upload"
 msgstr "نمی توان یک فایل موقتی برای آپلود ساخت"
 
-#: src/templates/language.mas:10
-#, fuzzy
-msgid "Language Selection"
-msgstr "انتخاب زبان"
+#: src/EBox/CGI/EBox/PageNotFound.pm:27
+msgid "Page not found"
+msgstr "صفحه مورد نظر یافت نشد"
 
-#: src/templates/language.mas:11
-msgid ""
-"Language changes happen automatically, saving the configuration it's not "
-"needed."
+#: src/EBox/Config.pm.in:74
+#, perl-brace-format
+msgid "Could not open the config file {file}."
+msgstr "نمی توان فایل پیکربندی {file} را باز کرد."
+
+#: src/EBox/Config.pm.in:172
+msgid "The ebox user has not been set in the config file."
+msgstr "کاربر ebox در فایل پیکربندی تنظیم نشده است"
+
+#: src/EBox/Sudo.pm:265
+#, perl-brace-format
+msgid "Running command '{cmd}' as {user} failed"
+msgstr "اجرای فرمان '{cmd}' به عنوان {user} با شکست مواجه شده است"
+
+#: src/EBox/FileSystem.pm:190 src/EBox/FileSystem.pm:282
+#, perl-brace-format
+msgid "Directory not found: {d}"
+msgstr "دایرکتوری پیدا نشد: {d}"
+
+#: src/EBox/Validate.pm:390 src/EBox/Validate.pm:404
+msgid "Must be a number between 1 and 4096"
 msgstr ""
-"تغییرات زبان به طور اتوماتیک انجام می شود، نیازی به ذخیره پیکریندی نمی باشد."
 
-#: src/templates/language.mas:23 src/templates/ajax/tableBody.mas:348
+#: src/EBox/Validate.pm:687
+#, fuzzy, perl-brace-format
+msgid ""
+"Cannot stat dir: {dir}. This may mean that the directory does not exist or "
+"the permissions forbid access to it"
+msgstr ""
+"Cannot stat dir: {dir} این ممکن است به این معنی باشد که دایرکتوری موجود نمی "
+"باشد یا مجوزها دسترسی به آن را منع کرده اند"
+
+#: src/EBox/Validate.pm:692
+#, perl-brace-format
+msgid "The directory {dir} is not private; because it is owned by another user"
+msgstr "دایرکتوری {dir} خصوصی نمی باشد؛ زیرا توسط کاربر دیگری شخصی شده است"
+
+#: src/EBox/Validate.pm:767
+msgid ""
+"The file path supplied is not valid. (Currently not all of the valid file's  "
+"characters are supported) "
+msgstr ""
+"مسیر تعیین شده برای فایل معتبر نمی باشد. (در حال حاضر تمام کاراکتر های معتبر "
+"فایل پشتیبانی نمی شوند)"
+
+#: src/EBox/Validate.pm:795
+msgid "The file path must be absolute"
+msgstr "مسیر فایل باید کامل باشد"
+
+#: src/templates/enable.mas:9
+msgid "Service configuration"
+msgstr "پیکربندی سرویس"
+
+#: src/templates/enable.mas:21 src/templates/enable.mas:24
+msgid "Disabled"
+msgstr "غیر فعال شده"
+
+#: src/templates/enable.mas:22 src/templates/enable.mas:25
+msgid "Enabled"
+msgstr "فعال شده"
+
 #: src/templates/enable.mas:29 src/templates/enable.mas:30
+#: src/templates/language.mas:23
 msgid "Change"
 msgstr "تغییر"
 
-#: src/templates/title.mas:24
-msgid "show help"
-msgstr "نمایش کمک"
+#: src/templates/ajax/viewer/file.mas:22 src/templates/ajax/viewer/file.mas:33
+msgid "Download"
+msgstr "دانلود"
 
-#: src/templates/title.mas:25
-msgid "hide help"
-msgstr "پنهان کمک"
+#: src/templates/ajax/viewer/file.mas:26
+msgid "Remove"
+msgstr "حذف"
+
+#: src/templates/ajax/tableBody.mas:135
+msgid "Add new"
+msgstr ""
+
+#: src/templates/ajax/tableBody.mas:146
+#, perl-brace-format
+msgid "Adding a new {row}"
+msgstr ""
+
+#: src/templates/ajax/tableBody.mas:153
+#, perl-brace-format
+msgid "Editing {row}"
+msgstr ""
+
+#: src/templates/ajax/tableBody.mas:209
+msgid "Search"
+msgstr ""
+
+#: src/templates/ajax/tableBody.mas:357
+msgid "Add"
+msgstr ""
+
+#: src/templates/ajax/tableBody.mas:381
+#, fuzzy
+msgid "Cancel"
+msgstr "تغییر"
+
+#: src/templates/ajax/tableBody.mas:465
+msgid "Edit"
+msgstr ""
+
+#: src/templates/ajax/tableBody.mas:467
+msgid "Delete"
+msgstr ""
+
+#: src/templates/ajax/tableBody.mas:472
+msgid "Read-only row: edit disabled"
+msgstr ""
+
+#: src/templates/ajax/tableBody.mas:473
+msgid "Read-only row: delete disabled"
+msgstr ""
+
+#: src/templates/ajax/tableBody.mas:557
+msgid "Read-only row: move up disabled"
+msgstr ""
+
+#: src/templates/ajax/tableBody.mas:561
+msgid "Move up"
+msgstr ""
+
+#: src/templates/ajax/tableBody.mas:573
+msgid "Read-only row: move down  disabled"
+msgstr ""
+
+#: src/templates/ajax/tableBody.mas:577
+msgid "Move down"
+msgstr ""
+
+#: src/templates/ajax/tableSelector.mas:14
+msgid "Choose one of the options to show the associated table"
+msgstr "یکی از گزینه ها را برای نشان دادن جدول مرتبط انتخاب کنید"
+
+#: src/templates/ajax/tableSelector.mas:32
+msgid "Choose one..."
+msgstr "یکی از ... را انتخاب کنید"
+
+#: src/templates/ajax/setter/serviceSetter.mas:25
+msgid "port"
+msgstr "پورت"
+
+#: src/templates/ajax/setter/inverseMatchUnionSetter.mas:9
+#: src/templates/ajax/setter/inverseMatchSelectSetter.mas:13
+msgid "Inverse match"
+msgstr "تطابق معکوس"
+
+#: src/templates/ajax/setter/portRangeSetter.mas:23
+msgid "From"
+msgstr "از"
+
+#: src/templates/ajax/setter/portRangeSetter.mas:29
+msgid "To"
+msgstr "به"
+
+#: src/templates/ajax/modelViewer.mas:258 src/templates/formTable.mas:85
+msgid "Optional"
+msgstr "انتخابی"
+
+#: src/templates/ajax/tablePager.mas:46
+#, fuzzy
+msgid "Page"
+msgstr "تغییر"
+
+#: src/templates/ajax/tablePager.mas:47
+msgid "of"
+msgstr ""
+
+#: src/templates/ajax/tablePager.mas:60 src/templates/ajax/tablePager.mas:66
+msgid "first"
+msgstr "اولین"
+
+#: src/templates/ajax/tablePager.mas:62 src/templates/ajax/tablePager.mas:67
+msgid "prev"
+msgstr "قبلی"
+
+#: src/templates/ajax/tablePager.mas:73 src/templates/ajax/tablePager.mas:74
+#: src/templates/ajax/tablePager.mas:85 src/templates/ajax/tablePager.mas:86
+msgid "next"
+msgstr "بعدی"
+
+#: src/templates/ajax/tablePager.mas:79 src/templates/ajax/tablePager.mas:80
+#: src/templates/ajax/tablePager.mas:89 src/templates/ajax/tablePager.mas:90
+msgid "last"
+msgstr "آخرین"
 
 #: src/templates/ebox/pageNotFound.mas:3
 #, fuzzy
@@ -221,121 +336,22 @@ msgstr "ما متأسفیم"
 msgid "The page cannot be found"
 msgstr "صفحه مورد نظر نمی تواند یافت شود"
 
-#: src/templates/ajax/setter/inverseMatchUnionSetter.mas:9
-#: src/templates/ajax/setter/inverseMatchSelectSetter.mas:13
-msgid "Inverse match"
-msgstr "تطابق معکوس"
+#: src/templates/title.mas:24
+msgid "show help"
+msgstr "نمایش کمک"
 
-#: src/templates/ajax/setter/portRangeSetter.mas:23
-msgid "From"
-msgstr "از"
+#: src/templates/title.mas:25
+msgid "hide help"
+msgstr "پنهان کمک"
 
-#: src/templates/ajax/setter/portRangeSetter.mas:29
-msgid "To"
-msgstr "به"
-
-#: src/templates/ajax/setter/serviceSetter.mas:25
-msgid "port"
-msgstr "پورت"
-
-#: src/templates/ajax/viewer/file.mas:22 src/templates/ajax/viewer/file.mas:33
-msgid "Download"
-msgstr "دانلود"
-
-#: src/templates/ajax/viewer/file.mas:26
-msgid "Remove"
-msgstr "حذف"
-
-#: src/templates/ajax/modelViewer.mas:256 src/templates/formTable.mas:85
-msgid "Optional"
-msgstr "انتخابی"
-
-#: src/templates/ajax/tablePager.mas:46
+#: src/templates/language.mas:10
 #, fuzzy
-msgid "Page"
-msgstr "تغییر"
+msgid "Language Selection"
+msgstr "انتخاب زبان"
 
-#: src/templates/ajax/tablePager.mas:47
-msgid "of"
+#: src/templates/language.mas:11
+msgid ""
+"Language changes happen automatically, saving the configuration it's not "
+"needed."
 msgstr ""
-
-#: src/templates/ajax/tablePager.mas:60 src/templates/ajax/tablePager.mas:66
-msgid "first"
-msgstr "اولین"
-
-#: src/templates/ajax/tablePager.mas:62 src/templates/ajax/tablePager.mas:67
-msgid "prev"
-msgstr "قبلی"
-
-#: src/templates/ajax/tablePager.mas:73 src/templates/ajax/tablePager.mas:74
-#: src/templates/ajax/tablePager.mas:85 src/templates/ajax/tablePager.mas:86
-msgid "next"
-msgstr "بعدی"
-
-#: src/templates/ajax/tablePager.mas:79 src/templates/ajax/tablePager.mas:80
-#: src/templates/ajax/tablePager.mas:89 src/templates/ajax/tablePager.mas:90
-msgid "last"
-msgstr "آخرین"
-
-#: src/templates/ajax/tableSelector.mas:14
-msgid "Choose one of the options to show the associated table"
-msgstr "یکی از گزینه ها را برای نشان دادن جدول مرتبط انتخاب کنید"
-
-#: src/templates/ajax/tableSelector.mas:32
-msgid "Choose one..."
-msgstr "یکی از ... را انتخاب کنید"
-
-#: src/templates/ajax/tableBody.mas:117
-msgid "Add new"
-msgstr ""
-
-#: src/templates/ajax/tableBody.mas:128
-#, perl-brace-format
-msgid "Adding a new {row}"
-msgstr ""
-
-#: src/templates/ajax/tableBody.mas:134
-#, perl-brace-format
-msgid "Editing {row}"
-msgstr ""
-
-#: src/templates/ajax/tableBody.mas:190
-msgid "Search"
-msgstr ""
-
-#: src/templates/ajax/tableBody.mas:336
-msgid "Add"
-msgstr ""
-
-#: src/templates/ajax/tableBody.mas:360
-#, fuzzy
-msgid "Cancel"
-msgstr "تغییر"
-
-#: src/templates/ajax/tableBody.mas:440
-msgid "Edit"
-msgstr ""
-
-#: src/templates/ajax/tableBody.mas:442
-msgid "Delete"
-msgstr ""
-
-#: src/templates/ajax/tableBody.mas:447
-msgid "Read-only row: edit disabled"
-msgstr ""
-
-#: src/templates/ajax/tableBody.mas:448
-msgid "Read-only row: delete disabled"
-msgstr ""
-
-#: src/templates/enable.mas:9
-msgid "Service configuration"
-msgstr "پیکربندی سرویس"
-
-#: src/templates/enable.mas:21 src/templates/enable.mas:24
-msgid "Disabled"
-msgstr "غیر فعال شده"
-
-#: src/templates/enable.mas:22 src/templates/enable.mas:25
-msgid "Enabled"
-msgstr "فعال شده"
+"تغییرات زبان به طور اتوماتیک انجام می شود، نیازی به ذخیره پیکریندی نمی باشد."

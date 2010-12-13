@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-ids 1.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-08-28 23:35+0200\n"
+"POT-Creation-Date: 2010-12-13 08:39+0100\n"
 "PO-Revision-Date: 2009-03-08 15:17+0000\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
@@ -15,73 +15,12 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/EBox/Model/Rules.pm:153
-msgid "Rule Set"
-msgstr ""
-
-#: src/EBox/Model/Rules.pm:158 src/EBox/Model/Interfaces.pm:134
-msgid "Enabled"
-msgstr ""
-
-#: src/EBox/Model/Rules.pm:167
-msgid "Rules"
-msgstr ""
-
-#: src/EBox/Model/Rules.pm:172
-msgid "rule"
-msgstr ""
-
-#: src/EBox/Model/Rules.pm:173
-msgid "help message"
-msgstr ""
-
-#: src/EBox/Model/Interfaces.pm:129
-msgid "Interface"
-msgstr ""
-
-#: src/EBox/Model/Interfaces.pm:143
-msgid "Interfaces"
-msgstr ""
-
-#: src/EBox/Model/Interfaces.pm:149
-msgid "interface"
-msgstr ""
-
-#: src/EBox/Model/Interfaces.pm:151
-msgid "Select in which interfaces IDS system will be enabled"
-msgstr ""
-
-#: src/EBox/Model/Report/AlertGraph.pm:47
-#: src/EBox/Model/Report/AlertDetails.pm:41
-msgid "number of alerts"
-msgstr ""
-
-#: src/EBox/Model/Report/AlertGraph.pm:52
-msgid "Alerts chart"
-msgstr ""
-
-#: src/EBox/Model/Report/AlertGraph.pm:68
-msgid "Alert Graph"
-msgstr ""
-
-#: src/EBox/Model/Report/AlertDetails.pm:52 src/EBox/IDS.pm:299
-msgid "Date"
-msgstr ""
-
-#: src/EBox/Model/Report/AlertDetails.pm:58
-msgid "Number of alerts"
-msgstr ""
-
-#: src/EBox/Model/Report/AlertDetails.pm:66
-msgid "Alert details"
-msgstr ""
-
-#: src/EBox/Model/Report/AlertDetails.pm:73
-msgid "alerts"
-msgstr ""
-
 #: src/EBox/IDS.pm:62 src/EBox/IDS.pm:169 src/EBox/IDS.pm:311
 msgid "IDS"
+msgstr ""
+
+#: src/EBox/IDS.pm:299 src/EBox/Model/Report/AlertDetails.pm:52
+msgid "Date"
 msgstr ""
 
 #: src/EBox/IDS.pm:300
@@ -112,7 +51,69 @@ msgstr ""
 msgid "Alert"
 msgstr ""
 
-#: src/EBox/Composite/General.pm:70
+#: src/EBox/Model/Interfaces.pm:129
+msgid "Interface"
+msgstr ""
+
+#: src/EBox/Model/Interfaces.pm:134 src/EBox/Model/Rules.pm:158
+msgid "Enabled"
+msgstr ""
+
+#: src/EBox/Model/Interfaces.pm:143
+msgid "Interfaces"
+msgstr ""
+
+#: src/EBox/Model/Interfaces.pm:149
+msgid "interface"
+msgstr ""
+
+#: src/EBox/Model/Interfaces.pm:151
+msgid "Select in which interfaces IDS system will be enabled"
+msgstr ""
+
+#: src/EBox/Model/Rules.pm:153
+msgid "Rule Set"
+msgstr ""
+
+#: src/EBox/Model/Rules.pm:167
+msgid "Rules"
+msgstr ""
+
+#: src/EBox/Model/Rules.pm:172
+msgid "rule"
+msgstr ""
+
+#: src/EBox/Model/Rules.pm:173
+msgid ""
+"Select the sets of rules you want apply when scanning the network traffic"
+msgstr ""
+
+#: src/EBox/Model/Report/AlertDetails.pm:41
+#: src/EBox/Model/Report/AlertGraph.pm:47
+msgid "number of alerts"
+msgstr ""
+
+#: src/EBox/Model/Report/AlertDetails.pm:58
+msgid "Number of alerts"
+msgstr ""
+
+#: src/EBox/Model/Report/AlertDetails.pm:66
+msgid "Alert details"
+msgstr ""
+
+#: src/EBox/Model/Report/AlertDetails.pm:73
+msgid "alerts"
+msgstr ""
+
+#: src/EBox/Model/Report/AlertGraph.pm:52
+msgid "Alerts chart"
+msgstr ""
+
+#: src/EBox/Model/Report/AlertGraph.pm:68
+msgid "Alert Graph"
+msgstr ""
+
+#: src/EBox/Composite/General.pm:101
 msgid "Intrusion Detection System"
 msgstr ""
 

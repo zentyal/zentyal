@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-objects 0.12\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-08-28 23:37+0200\n"
+"POT-Creation-Date: 2010-12-13 08:40+0100\n"
 "PO-Revision-Date: 2010-04-16 18:33+0200\n"
 "Last-Translator: Vasco Castelo Branco <vcbranco@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
@@ -17,43 +17,47 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: src/EBox/Model/MemberTable.pm:63 src/EBox/Model/ObjectTable.pm:63
-msgid "Name"
-msgstr "Nome"
-
-#: src/EBox/Model/MemberTable.pm:70
-msgid "IP address"
-msgstr "Endereço IP"
-
-#: src/EBox/Model/MemberTable.pm:76
-msgid "MAC address"
-msgstr "Endereço MAC"
-
-#: src/EBox/Model/MemberTable.pm:87 src/EBox/Model/ObjectTable.pm:71
-msgid "Members"
-msgstr "Membros"
-
-#: src/EBox/Model/MemberTable.pm:93 src/EBox/Model/ObjectTable.pm:82
-#: src/EBox/Objects.pm:39
+#: src/EBox/Objects.pm:39 src/EBox/Model/ObjectTable.pm:82
+#: src/EBox/Model/MemberTable.pm:93
 msgid "Objects"
 msgstr "Objectos"
 
-#: src/EBox/Model/MemberTable.pm:94
-msgid "member"
-msgstr "membro"
-
-#: src/EBox/Model/MemberTable.pm:116
-msgid "You can only use MAC addresses with hosts"
-msgstr "Só pode usar endereços MAC com hospedeiros"
-
-#: src/EBox/Model/MemberTable.pm:119 src/EBox/Model/MemberTable.pm:120
-msgid "network address"
-msgstr "endereço de rede"
-
-#: src/EBox/Model/MemberTable.pm:126
+#: src/EBox/Objects.pm:44
 #, perl-brace-format
-msgid "{ip} overlaps with the address or another object's member"
-msgstr "{ip} está em conflito con o endereço ou outro objecto"
+msgid "Added object {object}"
+msgstr "Foi adicionado o objecto {object}"
+
+#: src/EBox/Objects.pm:46
+#, perl-brace-format
+msgid "Added {nname} ({ip}/{mask} [{mac}]) to object {object}"
+msgstr "Adicionado {nname} ({ip}/{mask} [{mac}]) ao objecto {object}"
+
+#: src/EBox/Objects.pm:47
+#, perl-brace-format
+msgid "Removed object {object}"
+msgstr "Foi removido o objecto {object}"
+
+#: src/EBox/Objects.pm:49
+#, perl-brace-format
+msgid "Forcefully removed object {object}"
+msgstr "A remoção do objecto {object} foi forçada"
+
+#: src/EBox/Objects.pm:51
+#, perl-brace-format
+msgid "Removed {nname} from object {object}"
+msgstr "Removido {nname} do objecto {object}"
+
+#: src/EBox/Objects.pm:270
+msgid "Object"
+msgstr "Objecto"
+
+#: src/EBox/Model/ObjectTable.pm:63 src/EBox/Model/MemberTable.pm:63
+msgid "Name"
+msgstr "Nome"
+
+#: src/EBox/Model/ObjectTable.pm:71 src/EBox/Model/MemberTable.pm:87
+msgid "Members"
+msgstr "Membros"
 
 #: src/EBox/Model/ObjectTable.pm:83
 msgid "Objects List"
@@ -85,31 +89,27 @@ msgstr ""
 "\"Qualquer\" é uma palavra reservada, para evitar confusões, que não pode "
 "ser usada como um objecto"
 
-#: src/EBox/Objects.pm:44
-#, perl-brace-format
-msgid "Added object {object}"
-msgstr "Foi adicionado o objecto {object}"
+#: src/EBox/Model/MemberTable.pm:70
+msgid "IP address"
+msgstr "Endereço IP"
 
-#: src/EBox/Objects.pm:46
-#, perl-brace-format
-msgid "Added {nname} ({ip}/{mask} [{mac}]) to object {object}"
-msgstr "Adicionado {nname} ({ip}/{mask} [{mac}]) ao objecto {object}"
+#: src/EBox/Model/MemberTable.pm:76
+msgid "MAC address"
+msgstr "Endereço MAC"
 
-#: src/EBox/Objects.pm:47
-#, perl-brace-format
-msgid "Removed object {object}"
-msgstr "Foi removido o objecto {object}"
+#: src/EBox/Model/MemberTable.pm:94
+msgid "member"
+msgstr "membro"
 
-#: src/EBox/Objects.pm:49
-#, perl-brace-format
-msgid "Forcefully removed object {object}"
-msgstr "A remoção do objecto {object} foi forçada"
+#: src/EBox/Model/MemberTable.pm:116
+msgid "You can only use MAC addresses with hosts"
+msgstr "Só pode usar endereços MAC com hospedeiros"
 
-#: src/EBox/Objects.pm:51
-#, perl-brace-format
-msgid "Removed {nname} from object {object}"
-msgstr "Removido {nname} do objecto {object}"
+#: src/EBox/Model/MemberTable.pm:119 src/EBox/Model/MemberTable.pm:120
+msgid "network address"
+msgstr "endereço de rede"
 
-#: src/EBox/Objects.pm:270
-msgid "Object"
-msgstr "Objecto"
+#: src/EBox/Model/MemberTable.pm:126
+#, perl-brace-format
+msgid "{ip} overlaps with the address or another object's member"
+msgstr "{ip} está em conflito con o endereço ou outro objecto"

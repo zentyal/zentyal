@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-services 1.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-08-28 23:41+0200\n"
+"POT-Creation-Date: 2010-12-13 08:42+0100\n"
 "PO-Revision-Date: 2010-08-28 09:19+0200\n"
 "Last-Translator: Nagy Ákos <nagy.akos@akos.ro>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
@@ -59,6 +59,18 @@ msgstr "eBox kezelőfelület"
 msgid "Zentyal Administration Web Server"
 msgstr "Zentyal kezelőfelület webszolgáltatója"
 
+#: src/EBox/Services.pm:47 src/EBox/Model/ServiceTable.pm:144
+msgid "Services"
+msgstr "Szolgáltatások"
+
+#: src/EBox/Services.pm:399
+msgid "port"
+msgstr "port"
+
+#: src/EBox/Services.pm:402
+msgid "Zentyal Administration port"
+msgstr "Zentyal kezelőfelület portja"
+
 #: src/EBox/Model/ServiceTable.pm:102
 msgid "Domain"
 msgstr "Tartomány"
@@ -92,10 +104,6 @@ msgstr "Beállítások"
 #: src/EBox/Model/ServiceTable.pm:143
 msgid "List of services"
 msgstr "Szolgáltatások listája"
-
-#: src/EBox/Model/ServiceTable.pm:144 src/EBox/Services.pm:47
-msgid "Services"
-msgstr "Szolgáltatások"
 
 #: src/EBox/Model/ServiceTable.pm:154
 #: src/EBox/Model/ServiceConfigurationTable.pm:172
@@ -133,11 +141,3 @@ msgstr "Szolgáltatás beállítása"
 #: src/EBox/Model/ServiceConfigurationTable.pm:196
 msgid "This protocol does not use ports"
 msgstr "Ez a protokoll nem használ portot"
-
-#: src/EBox/Services.pm:399
-msgid "port"
-msgstr "port"
-
-#: src/EBox/Services.pm:402
-msgid "Zentyal Administration port"
-msgstr "Zentyal kezelőfelület portja"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-egroupware 1.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-08-28 23:35+0200\n"
+"POT-Creation-Date: 2010-12-13 08:39+0100\n"
 "PO-Revision-Date: 2010-09-14 15:12+0200\n"
 "Last-Translator: Simone Bernini <lemorragia@libero.it>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
@@ -17,17 +17,41 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: src/EBox/Model/DefaultApplications.pm:50
-msgid "Default Applications"
-msgstr "Applicazioni di default"
+#: src/EBox/EGroupware.pm:49
+msgid "Groupware"
+msgstr "Groupware"
 
-#: src/EBox/Model/DefaultApplications.pm:51
-msgid ""
-"These are the default application permissions that are given to the new "
-"created users or existing ones before enabling eGroupware module."
-msgstr ""
-"Questi sono i permessi applicazione di default che sono forniti ad un nuovo "
-"utente o ad uno esistente prima di abilitare il modulo eGroupware."
+#: src/EBox/EGroupware.pm:97
+msgid "Create PostgreSQL user egroupware"
+msgstr "Crea utente egroupware su PostgreSQL"
+
+#: src/EBox/EGroupware.pm:98
+msgid "This user will be the owner of the egroupware database"
+msgstr "Questo utente sarà il proprietario del database egroupware"
+
+#: src/EBox/EGroupware.pm:102
+msgid "Create PostgreSQL egroupware database"
+msgstr "Crea database egroupware su PostgreSQL"
+
+#: src/EBox/EGroupware.pm:103
+msgid "This database will store the data needed by eGroupware"
+msgstr "Questo database manterrà i dati necessari ad eGroupware"
+
+#: src/EBox/EGroupware.pm:120
+msgid "To configure eGroupware access settings"
+msgstr "Per configurare le impostazioni di accesso ad eGroupware"
+
+#: src/EBox/EGroupware.pm:125
+msgid "To allow local access to egroupware database"
+msgstr "Per consentire l'accesso locale al database egroupware"
+
+#: src/EBox/CGI/EGroupwareUserOptions.pm:43
+msgid "username"
+msgstr "utente"
+
+#: src/EBox/CGI/EGroupwareGroupOptions.pm:43
+msgid "groupname"
+msgstr "gruppo"
 
 #: src/EBox/Model/Applications.pm:139
 msgid "Application"
@@ -44,6 +68,18 @@ msgstr "Applicazioni"
 #: src/EBox/Model/Applications.pm:153
 msgid "application"
 msgstr "applicazione"
+
+#: src/EBox/Model/DefaultApplications.pm:50
+msgid "Default Applications"
+msgstr "Applicazioni di default"
+
+#: src/EBox/Model/DefaultApplications.pm:51
+msgid ""
+"These are the default application permissions that are given to the new "
+"created users or existing ones before enabling eGroupware module."
+msgstr ""
+"Questi sono i permessi applicazione di default che sono forniti ad un nuovo "
+"utente o ad uno esistente prima di abilitare il modulo eGroupware."
 
 #: src/EBox/Model/PermissionTemplates.pm:66
 msgid "Name"
@@ -83,14 +119,13 @@ msgstr ""
 "{ohref} Sezione domini virtuali{chref}"
 
 #: src/EBox/Model/VMailDomain.pm:109
-#, perl-brace-format
-#, fuzzy
+#, fuzzy, perl-brace-format
 msgid ""
 "You must have IMAP service enabled. You can enable it at {ohref} Mail "
 "General Configuration{chref}."
 msgstr ""
-"Devi avere IMAP come servizio abilitato.Puoi abilitarlo nella "
-"{ohref}Configurazione generale mail{chref}."
+"Devi avere IMAP come servizio abilitato.Puoi abilitarlo nella {ohref}"
+"Configurazione generale mail{chref}."
 
 #: src/EBox/Model/VMailDomain.pm:137
 msgid ""
@@ -112,34 +147,6 @@ msgstr "Dominio virtuale di posta"
 msgid "Select the virtual mail domain to be used for eGroupware"
 msgstr "Seleziona il dominio virtuale di posta da utilizzare per l'eGroupware"
 
-#: src/EBox/EGroupware.pm:49
-msgid "Groupware"
-msgstr "Groupware"
-
-#: src/EBox/EGroupware.pm:97
-msgid "Create PostgreSQL user egroupware"
-msgstr "Crea utente egroupware su PostgreSQL"
-
-#: src/EBox/EGroupware.pm:98
-msgid "This user will be the owner of the egroupware database"
-msgstr "Questo utente sarà il proprietario del database egroupware"
-
-#: src/EBox/EGroupware.pm:102
-msgid "Create PostgreSQL egroupware database"
-msgstr "Crea database egroupware su PostgreSQL"
-
-#: src/EBox/EGroupware.pm:103
-msgid "This database will store the data needed by eGroupware"
-msgstr "Questo database manterrà i dati necessari ad eGroupware"
-
-#: src/EBox/EGroupware.pm:120
-msgid "To configure eGroupware access settings"
-msgstr "Per configurare le impostazioni di accesso ad eGroupware"
-
-#: src/EBox/EGroupware.pm:125
-msgid "To allow local access to egroupware database"
-msgstr "Per consentire l'accesso locale al database egroupware"
-
 #: src/EBox/Composite/General.pm:75
 msgid "eGroupware"
 msgstr "eGroupware"
@@ -156,22 +163,33 @@ msgstr ""
 msgid "EGroupware"
 msgstr "EGroupware"
 
-#: src/EBox/CGI/EGroupwareGroupOptions.pm:43
-msgid "groupname"
-msgstr "gruppo"
-
-#: src/EBox/CGI/EGroupwareUserOptions.pm:43
-msgid "username"
-msgstr "utente"
-
+#: src/templates/egroupware.mas:9
 #, fuzzy
-#~ msgid "eGroupware account"
-#~ msgstr "Groupware"
+msgid "eGroupware account"
+msgstr "Groupware"
 
-#, fuzzy
-#~ msgid "eGroupware group"
-#~ msgstr "Groupware"
+#: src/templates/egroupware.mas:10
+msgid "Password for eGroupware service is the user password"
+msgstr ""
 
+#: src/templates/egroupware.mas:12
 #, fuzzy
-#~ msgid "Permissions template"
-#~ msgstr "Modelli di permessi definiti dall'utente"
+msgid "eGroupware group"
+msgstr "Groupware"
+
+#: src/templates/egroupware.mas:28
+#, fuzzy
+msgid "Permissions template"
+msgstr "Modelli di permessi definiti dall'utente"
+
+#: src/templates/egroupware.mas:39
+msgid "Default"
+msgstr ""
+
+#: src/templates/egroupware.mas:52 src/templates/egroupware.mas:53
+msgid "Change"
+msgstr ""
+
+#: src/templates/egroupware.mas:85
+msgid "Click here to select a virtual domain"
+msgstr ""

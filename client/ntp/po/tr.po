@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-ntp 0.12\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-08-28 23:28+0200\n"
+"POT-Creation-Date: 2010-12-13 08:40+0100\n"
 "PO-Revision-Date: 2010-04-23 21:38+0200\n"
 "Last-Translator: Haluk <khaluk@yahoo.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
@@ -17,91 +17,23 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: src/EBox/NTP.pm:67
-msgid "Remove ntp init script links"
-msgstr "NTP init betiği linkini kaldır"
-
-#: src/EBox/NTP.pm:68
-#, fuzzy
-msgid "Zentyal will take care of starting and stopping the services."
-msgstr "eBox, servislerin durdurulması ve başlatılması ile ilgilenecek."
-
-#: src/EBox/NTP.pm:86
-#, fuzzy
-msgid "NTP configuration file"
-msgstr "Zaman dilimi ayarları"
-
-#: src/EBox/NTP.pm:221 src/EBox/CGI/AddServers.pm:45
-#: src/templates/servers.mas:16
-msgid "Primary server"
-msgstr "Birincil sunucu"
-
-#: src/EBox/NTP.pm:223
-msgid "primary server"
-msgstr "Birincil sunucu"
-
-#: src/EBox/NTP.pm:228 src/EBox/NTP.pm:247
-msgid "Primary and secondary server must be different"
-msgstr "Birincil ve ikincil sunucular birbirinden farklı olmak zorundadır"
-
-#: src/EBox/NTP.pm:231
-msgid "secondary server"
-msgstr "İkincil sunucu"
-
-#: src/EBox/NTP.pm:235 src/EBox/CGI/AddServers.pm:51
-#: src/templates/servers.mas:27
-msgid "Secondary server"
-msgstr "İkincil sunucu"
-
-#: src/EBox/NTP.pm:244
-msgid "Primary and tertiary server must be different"
-msgstr "Birincil ve üçüncül sunucular birbirinden farklı olmak zorundadır"
-
-#: src/EBox/NTP.pm:250
-msgid "tertiary server"
-msgstr "Üçüncül sunucu"
-
-#: src/EBox/NTP.pm:266
-#, perl-brace-format
-msgid "{name} IP address"
-msgstr "{name} IP adresi"
-
-#: src/EBox/NTP.pm:269
-#, perl-brace-format
-msgid "{name} host name"
-msgstr "{name} makina ismi"
-
-#: src/EBox/NTP.pm:401
-msgid "System"
-msgstr "Sistem"
-
-#: src/EBox/NTP.pm:404
-msgid "Date/Time"
-msgstr "Tarih/Zaman"
-
-#: src/EBox/NTP.pm:407
-msgid "Time Zone"
-msgstr "Zaman dilimi"
-
-#: src/EBox/CGI/Timezone.pm:30
-msgid "Time Zone Configuration"
-msgstr "Zaman dilimi ayarları"
-
 #: src/EBox/CGI/AddServers.pm:42
 msgid "first ntp server"
 msgstr "Birincil NTP sunucusu"
 
+#: src/EBox/CGI/AddServers.pm:45 src/EBox/NTP.pm:222
+#: src/templates/servers.mas:16
+msgid "Primary server"
+msgstr "Birincil sunucu"
+
+#: src/EBox/CGI/AddServers.pm:51 src/EBox/NTP.pm:236
+#: src/templates/servers.mas:27
+msgid "Secondary server"
+msgstr "İkincil sunucu"
+
 #: src/EBox/CGI/AddServers.pm:55 src/templates/servers.mas:38
 msgid "Tertiary server"
 msgstr "Üçüncül sunucu"
-
-#: src/EBox/CGI/Datetime.pm:30
-msgid "Date and Time Configuration"
-msgstr "Tarih ve zaman ayarları"
-
-#: src/EBox/CGI/Synch.pm:41
-msgid "external synchronize status"
-msgstr "Harici eşitleme durumu"
 
 #: src/EBox/CGI/ChangeDate.pm:41
 msgid "Day"
@@ -135,6 +67,74 @@ msgstr "Ülke"
 msgid "continent"
 msgstr "Kıta"
 
+#: src/EBox/CGI/Datetime.pm:30
+msgid "Date and Time Configuration"
+msgstr "Tarih ve zaman ayarları"
+
+#: src/EBox/CGI/Timezone.pm:30
+msgid "Time Zone Configuration"
+msgstr "Zaman dilimi ayarları"
+
+#: src/EBox/CGI/Synch.pm:41
+msgid "external synchronize status"
+msgstr "Harici eşitleme durumu"
+
+#: src/EBox/NTP.pm:67
+msgid "Remove ntp init script links"
+msgstr "NTP init betiği linkini kaldır"
+
+#: src/EBox/NTP.pm:68
+#, fuzzy
+msgid "Zentyal will take care of starting and stopping the services."
+msgstr "eBox, servislerin durdurulması ve başlatılması ile ilgilenecek."
+
+#: src/EBox/NTP.pm:86
+#, fuzzy
+msgid "NTP configuration file"
+msgstr "Zaman dilimi ayarları"
+
+#: src/EBox/NTP.pm:224
+msgid "primary server"
+msgstr "Birincil sunucu"
+
+#: src/EBox/NTP.pm:229 src/EBox/NTP.pm:247
+msgid "Primary and secondary server must be different"
+msgstr "Birincil ve ikincil sunucular birbirinden farklı olmak zorundadır"
+
+#: src/EBox/NTP.pm:232
+msgid "secondary server"
+msgstr "İkincil sunucu"
+
+#: src/EBox/NTP.pm:244
+msgid "Primary and tertiary server must be different"
+msgstr "Birincil ve üçüncül sunucular birbirinden farklı olmak zorundadır"
+
+#: src/EBox/NTP.pm:250
+msgid "tertiary server"
+msgstr "Üçüncül sunucu"
+
+#: src/EBox/NTP.pm:266
+#, perl-brace-format
+msgid "{name} IP address"
+msgstr "{name} IP adresi"
+
+#: src/EBox/NTP.pm:269
+#, perl-brace-format
+msgid "{name} host name"
+msgstr "{name} makina ismi"
+
+#: src/EBox/NTP.pm:402
+msgid "System"
+msgstr "Sistem"
+
+#: src/EBox/NTP.pm:405
+msgid "Date/Time"
+msgstr "Tarih/Zaman"
+
+#: src/EBox/NTP.pm:408
+msgid "Time Zone"
+msgstr "Zaman dilimi"
+
 #: src/templates/servers.mas:7
 msgid "NTP servers"
 msgstr "NTP sunucuları"
@@ -147,10 +147,10 @@ msgstr ""
 "Eşleştirmenin doğru olabilmesi için zaman diliminizi doğru olarak "
 "ayarlamanız gereklidir."
 
-#: src/templates/servers.mas:50 src/templates/synch.mas:19
+#: src/templates/servers.mas:50 src/templates/timezone.mas:33
+#: src/templates/timezone.mas:34 src/templates/synch.mas:19
 #: src/templates/synch.mas:20 src/templates/date.mas:96
-#: src/templates/date.mas:97 src/templates/timezone.mas:33
-#: src/templates/timezone.mas:34
+#: src/templates/date.mas:97
 msgid "Change"
 msgstr "Değiştir"
 

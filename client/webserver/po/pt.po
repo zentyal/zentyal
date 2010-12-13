@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-webserver 0.12\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-08-28 23:42+0200\n"
+"POT-Creation-Date: 2010-12-13 08:43+0100\n"
 "PO-Revision-Date: 2010-08-26 13:09+0200\n"
 "Last-Translator: Vasco Castelo Branco <vcbranco@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
@@ -20,6 +20,150 @@ msgstr ""
 #: migration/0001_add_service_and_port.pl:162
 msgid "HyperText Transport Protocol"
 msgstr "Protocolo de transporte Hipertexto"
+
+#: src/EBox/WebServer.pm:79 src/EBox/WebServer.pm:617
+#: src/EBox/WebServer/Composite/General.pm:77
+msgid "Web Server"
+msgstr "Servidor Web"
+
+#: src/EBox/WebServer.pm:99
+msgid "To set webserver listening port."
+msgstr "Para definir o porto de escuta do servidor web"
+
+#: src/EBox/WebServer.pm:104
+msgid "To configure default virtual host."
+msgstr "Para configurar o site virtual pré-definido"
+
+#: src/EBox/WebServer.pm:109
+msgid "To configure default SSL virtual host."
+msgstr "Para configurar o site virtual SSL pré-definido"
+
+#: src/EBox/WebServer.pm:114
+msgid "To configure the per-user public_html directory."
+msgstr "Para configurar o directório HTML público por utilizador"
+
+#: src/EBox/WebServer.pm:139
+msgid "Enable Apache LDAP user module"
+msgstr "Activar o módulo de utilizador apache LDAP"
+
+#: src/EBox/WebServer.pm:141
+msgid "To fetch home directories from LDAP."
+msgstr "Para receber os directórios raiz a partir do LDAP"
+
+#: src/EBox/WebServer.pm:144
+msgid "Enable Apache SSL module"
+msgstr "Activar o módulo LDAP apache"
+
+#: src/EBox/WebServer.pm:146
+msgid "To serve pages over HTTPS."
+msgstr "Para disponibilizar páginas através de HTTPS"
+
+#: src/EBox/WebServer.pm:184
+msgid "Web service status"
+msgstr "Estado do serviço web"
+
+#: src/EBox/WebServer.pm:440
+#, perl-brace-format
+msgid "The {userDirConfFile} is missing! Please recover it."
+msgstr "O {userDirConfFile} não foi encontrado. Recupere-o"
+
+#: src/EBox/WebServer.pm:730
+#, fuzzy
+msgid "Web server hosted files"
+msgstr "Estado do serviço web"
+
+#: src/EBox/WebServer.pm:731
+#, fuzzy
+msgid "Virtual hosts data"
+msgstr "Servidores virtuais"
+
+#: src/EBox/WebServer/Model/GeneralSettings.pm:96
+#: src/EBox/WebServer/Model/GeneralSettings.pm:108
+#: src/EBox/WebServer/Model/GeneralSettings.pm:119
+#: src/EBox/WebServer/Model/GeneralSettings.pm:229
+msgid "Listening port"
+msgstr "Porto a ser escutado"
+
+#: src/EBox/WebServer/Model/GeneralSettings.pm:114
+#, perl-brace-format
+msgid ""
+"Zentyal Administration is running on this port, change it on {ohref}System -"
+"> General{chref}."
+msgstr ""
+"A administração Zentyal está a correr neste porto, altere em {ohref}Sistema -"
+"> Geral{chref}"
+
+#: src/EBox/WebServer/Model/GeneralSettings.pm:127
+#, perl-brace-format
+msgid ""
+"You need a Service Certificate for the Web Server module, enable it on "
+"{ohref}Certification Authority -> Service Certificates{chref}."
+msgstr ""
+"Necessita de um certificado para o módulo Servidor Web, active-o em {ohref}"
+"Autoridade de certificação -> certificados de serviço{chref}"
+
+#: src/EBox/WebServer/Model/GeneralSettings.pm:139
+msgid ""
+"Having installed and configured the Users and Groups module is required to "
+"allow HTML directories for users."
+msgstr ""
+"A configuração do módulo de Utilizadores e grupos é necessária para permitir "
+"directórios HTML para utilizadores"
+
+#: src/EBox/WebServer/Model/GeneralSettings.pm:145
+msgid ""
+"A properly configured Users and Groups module is required to allow HTML "
+"directories for users. To configure it, please enable it at least one time."
+msgstr ""
+"É necessário que o módulo de Utilizadores e grupos esteja correctamente "
+"configurado para permitir directórios HTML aos utilizadores. Para configurá-"
+"lo active-o pelo menos uma vez"
+
+#: src/EBox/WebServer/Model/GeneralSettings.pm:235
+msgid "Listening SSL port"
+msgstr "Porto SSL a ser escutado"
+
+#: src/EBox/WebServer/Model/GeneralSettings.pm:239
+#: src/EBox/WebServer/Model/VHostTable.pm:252
+msgid "Disabled"
+msgstr "Desactivado"
+
+#: src/EBox/WebServer/Model/GeneralSettings.pm:244
+msgid "Enabled"
+msgstr "Activo"
+
+#: src/EBox/WebServer/Model/GeneralSettings.pm:252
+#, perl-brace-format
+msgid "Enable per user {dirName}"
+msgstr "Activar por utilizador {dirName}"
+
+#: src/EBox/WebServer/Model/GeneralSettings.pm:256
+msgid ""
+"Allow users to publish web documents using the public_html directory on "
+"their home."
+msgstr ""
+"Para permitir que utilizadores publiquem documentos web usando o seu "
+"directório"
+
+#: src/EBox/WebServer/Model/GeneralSettings.pm:264
+msgid "General configuration settings"
+msgstr "Definições das configurações gerais"
+
+#: src/EBox/WebServer/Model/GeneralSettings.pm:268
+#, perl-brace-format
+msgid ""
+"General Web server configuration. The listening port must not be used by "
+"another service. If you enable user to publish their own html pages, those "
+"should be loaded from {dirName} directory from their home directories."
+msgstr ""
+"Configuração geral do servidor Web. O porto a ser usado não pode ser usado "
+"por outro serviço. Se permitir que o utilizador publique as suas páginas "
+"HTML, as páginas serão carregadas a partir do directório {dirName} da raiz "
+"do directório pessoal samba"
+
+#: src/EBox/WebServer/Model/GeneralSettings.pm:274
+msgid "General Web server configuration settings updated."
+msgstr "As definições de configuração geral do servidor Web foram actualizadas"
 
 #: src/EBox/WebServer/Model/VHostTable.pm:93
 msgid "Virtual host name"
@@ -72,11 +216,6 @@ msgstr ""
 "Não existe interface interno estático para definir o endereço IP do servidor "
 "Web"
 
-#: src/EBox/WebServer/Model/VHostTable.pm:252
-#: src/EBox/WebServer/Model/GeneralSettings.pm:239
-msgid "Disabled"
-msgstr "Desactivado"
-
 #: src/EBox/WebServer/Model/VHostTable.pm:253
 msgid "Allow SSL"
 msgstr "Permitir SSL"
@@ -123,97 +262,9 @@ msgstr ""
 "{open}O módulo DNS está desactivado. O mapeamento ou domínios adicionados "
 "não terão efeito até os activar"
 
-#: src/EBox/WebServer/Model/GeneralSettings.pm:96
-#: src/EBox/WebServer/Model/GeneralSettings.pm:108
-#: src/EBox/WebServer/Model/GeneralSettings.pm:119
-#: src/EBox/WebServer/Model/GeneralSettings.pm:229
-msgid "Listening port"
-msgstr "Porto a ser escutado"
-
-#: src/EBox/WebServer/Model/GeneralSettings.pm:114
-#, perl-brace-format
-msgid ""
-"Zentyal Administration is running on this port, change it on {ohref}System -"
-"> General{chref}."
-msgstr ""
-"A administração Zentyal está a correr neste porto, altere em {ohref}Sistema -"
-"> Geral{chref}"
-
-#: src/EBox/WebServer/Model/GeneralSettings.pm:127
-#, perl-brace-format
-msgid ""
-"You need a Service Certificate for the Web Server module, enable it on "
-"{ohref}Certification Authority -> Service Certificates{chref}."
-msgstr ""
-"Necessita de um certificado para o módulo Servidor Web, active-o em {ohref}"
-"Autoridade de certificação -> certificados de serviço{chref}"
-
-#: src/EBox/WebServer/Model/GeneralSettings.pm:139
-msgid ""
-"Having installed and configured the Users and Groups module is required to "
-"allow HTML directories for users."
-msgstr ""
-"A configuração do módulo de Utilizadores e grupos é necessária para permitir "
-"directórios HTML para utilizadores"
-
-#: src/EBox/WebServer/Model/GeneralSettings.pm:145
-msgid ""
-"A properly configured Users and Groups module is required to allow HTML "
-"directories for users. To configure it, please enable it at least one time."
-msgstr ""
-"É necessário que o módulo de Utilizadores e grupos esteja correctamente "
-"configurado para permitir directórios HTML aos utilizadores. Para configurá-"
-"lo active-o pelo menos uma vez"
-
-#: src/EBox/WebServer/Model/GeneralSettings.pm:235
-msgid "Listening SSL port"
-msgstr "Porto SSL a ser escutado"
-
-#: src/EBox/WebServer/Model/GeneralSettings.pm:244
-msgid "Enabled"
-msgstr "Activo"
-
-#: src/EBox/WebServer/Model/GeneralSettings.pm:252
-#, perl-brace-format
-msgid "Enable per user {dirName}"
-msgstr "Activar por utilizador {dirName}"
-
-#: src/EBox/WebServer/Model/GeneralSettings.pm:256
-msgid ""
-"Allow users to publish web documents using the public_html directory on "
-"their home."
-msgstr ""
-"Para permitir que utilizadores publiquem documentos web usando o seu "
-"directório"
-
-#: src/EBox/WebServer/Model/GeneralSettings.pm:264
-msgid "General configuration settings"
-msgstr "Definições das configurações gerais"
-
-#: src/EBox/WebServer/Model/GeneralSettings.pm:268
-#, perl-brace-format
-msgid ""
-"General Web server configuration. The listening port must not be used by "
-"another service. If you enable user to publish their own html pages, those "
-"should be loaded from {dirName} directory from their home directories."
-msgstr ""
-"Configuração geral do servidor Web. O porto a ser usado não pode ser usado "
-"por outro serviço. Se permitir que o utilizador publique as suas páginas "
-"HTML, as páginas serão carregadas a partir do directório {dirName} da raiz "
-"do directório pessoal samba"
-
-#: src/EBox/WebServer/Model/GeneralSettings.pm:274
-msgid "General Web server configuration settings updated."
-msgstr "As definições de configuração geral do servidor Web foram actualizadas"
-
 #: src/EBox/WebServer/Composite/General.pm:76
 msgid "Configuration"
 msgstr "Configuração"
-
-#: src/EBox/WebServer/Composite/General.pm:77 src/EBox/WebServer.pm:79
-#: src/EBox/WebServer.pm:617
-msgid "Web Server"
-msgstr "Servidor Web"
 
 #: src/EBox/WebServer/Composite/General.pm:79
 msgid ""
@@ -222,44 +273,3 @@ msgid ""
 msgstr ""
 "O serviço Web Zentyal permite-lhe alojar sites em HTML com diferentes "
 "servidores virtuais"
-
-#: src/EBox/WebServer.pm:99
-msgid "To set webserver listening port."
-msgstr "Para definir o porto de escuta do servidor web"
-
-#: src/EBox/WebServer.pm:104
-msgid "To configure default virtual host."
-msgstr "Para configurar o site virtual pré-definido"
-
-#: src/EBox/WebServer.pm:109
-msgid "To configure default SSL virtual host."
-msgstr "Para configurar o site virtual SSL pré-definido"
-
-#: src/EBox/WebServer.pm:114
-msgid "To configure the per-user public_html directory."
-msgstr "Para configurar o directório HTML público por utilizador"
-
-#: src/EBox/WebServer.pm:139
-msgid "Enable Apache LDAP user module"
-msgstr "Activar o módulo de utilizador apache LDAP"
-
-#: src/EBox/WebServer.pm:141
-msgid "To fetch home directories from LDAP."
-msgstr "Para receber os directórios raiz a partir do LDAP"
-
-#: src/EBox/WebServer.pm:144
-msgid "Enable Apache SSL module"
-msgstr "Activar o módulo LDAP apache"
-
-#: src/EBox/WebServer.pm:146
-msgid "To serve pages over HTTPS."
-msgstr "Para disponibilizar páginas através de HTTPS"
-
-#: src/EBox/WebServer.pm:184
-msgid "Web service status"
-msgstr "Estado do serviço web"
-
-#: src/EBox/WebServer.pm:440
-#, perl-brace-format
-msgid "The {userDirConfFile} is missing! Please recover it."
-msgstr "O {userDirConfFile} não foi encontrado. Recupere-o"

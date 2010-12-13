@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-trafficshaping 0.12.100\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-08-28 23:31+0200\n"
+"POT-Creation-Date: 2010-12-13 08:43+0100\n"
 "PO-Revision-Date: 2009-01-14 15:32+0330\n"
 "Last-Translator: Saied Taghavi <s.taghavi@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
@@ -15,88 +15,60 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/EBox/TrafficShaping.pm:102
-msgid "Traffic Shaping"
-msgstr "شکل‌دهی ترافیک"
+#: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:220
+#, perl-brace-format
+msgid "Guaranteed Rate exceeds the allowed rate: {rate} kbit/s"
+msgstr "سرعت تضمین‌شده از سرعت مجاز بیشتر شده است: {rate} کیلوبیت/ثانیه"
 
-#: src/EBox/TrafficShaping.pm:140
-msgid "Add iptables rules to mangle table"
-msgstr "افزودن قواعد iptables به جدول mangle"
-
-#: src/EBox/TrafficShaping.pm:141
-msgid "To mark packets with different priorities and rates"
-msgstr "نشان‌گذاری بسته‌ها با اولویت‌ها و سرعت‌های متفاوت"
-
-#: src/EBox/TrafficShaping.pm:145
-msgid "Add tc rules"
-msgstr "افزودن قواعد tc"
-
-#: src/EBox/TrafficShaping.pm:146
-msgid "To implement the traffic shaping rules"
-msgstr "برای پیاده‌سازی قواعد شکل‌دهی ترافیک"
-
-#: src/EBox/TrafficShaping.pm:463
-#, fuzzy
-msgid "Rules"
-msgstr "قاعده"
-
-#: src/EBox/TrafficShaping.pm:465
-#, fuzzy
-msgid "Interface Rates"
-msgstr "رابط"
-
-#: src/EBox/TrafficShaping.pm:539 src/EBox/TrafficShaping.pm:691
-#: src/EBox/TrafficShaping.pm:1109 src/EBox/TC.pm:107
-msgid "Interface"
-msgstr "رابط"
-
-#: src/EBox/TrafficShaping.pm:553
+#: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:227
+#: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:412
 #, perl-brace-format
 msgid ""
-"The maximum rule account {max} is reached, please delete at least one in "
-"order to to add a new one"
+"Guaranteed Rate must be in this interval: ( {minRate}, {maxRate} ) kbit/s"
 msgstr ""
-"بیشترین قاعده حساب {max} رسیده شد، لطفا حداقل برای افزودن یک نمونه دیگر یکی "
-"را حذف نمایید"
+"سرعت تضمین شده بایستی در این بازه باشد: ( {minRate}, {maxRate} ) کیلوبیت/"
+"ثانیه"
 
-#: src/EBox/TrafficShaping.pm:1199
-msgid "type"
-msgstr "نوع"
-
-#: src/EBox/TrafficShaping.pm:1222
+#: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:239
+#: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:424
 #, perl-brace-format
 msgid ""
-"Interface {iface} should have a maximum bandwidth rate in order to do "
-"traffic shaping"
+"Limited Rate {lR} kbit/s should be higher than Guaranteed Rate {gR}kbit/s"
 msgstr ""
-"رابط {iface} بایستی یک پهنای باند بیشینه برای انجام شکل‌دهی ترافیک داشته باشد"
+"سرعت محدودشده {lR} کیلوبیت/ثانیه بایستی از سرعت تضمین شده {gR} کیلوبیت/ثانیه "
+"بیشتر باشد"
 
-#: src/EBox/TrafficShaping.pm:1696
-msgid "Protocol"
-msgstr "پروتکل"
+#: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:246
+#, fuzzy, perl-brace-format
+msgid ""
+"Limited Rate {lR} kbit/s should be lower than {maxLR}kbit/s or you should "
+"increase maximum upload traffic associated to external interfaces"
+msgstr ""
+"سرعت محدودشده {lR} کیلوبیت/ثانیه بایستی از {maxLR} کیلوبیت/ثانیه کمتر باشد "
+"یا شما باید بیشینه ترافیک آپلود به گذرگاه‌های مربوط به این رابط خارجی را "
+"افزایش دهید"
 
-#: src/EBox/TrafficShaping.pm:1697
-msgid "Port"
-msgstr "پورت"
+#: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:403
+#, perl-brace-format
+msgid "Guaranteed Rate exceeded the allowed rate: {rate}"
+msgstr "سرعت تضمین شده بر سرعت مجاز برتری یافته است: {rate}"
 
-#: src/EBox/TrafficShaping.pm:1698
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:467
-msgid "Guaranteed Rate"
-msgstr "سرعت تضمین شده"
+#: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:432
+#, perl-brace-format
+msgid ""
+"Limited Rate {lR} kbit/s should be lower than {maxLR} or you should increase "
+"maximum allowed traffic"
+msgstr ""
+"سرعت مجاز {lR} کیلوبیت/ثانیه بایستی از {maxLR} کمتر باشد یا بیشینه ترافیک "
+"مجاز را افزایش دهید"
 
-#: src/EBox/TrafficShaping.pm:1699
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:479
-msgid "Limited Rate"
-msgstr "سرعت محدود"
+#: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:620
+msgid "Leaf class identifier"
+msgstr "شناسه کلاس برگ"
 
-#: src/EBox/TrafficShaping.pm:1700
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:459
-msgid "Priority"
-msgstr "اولویت"
-
-#: src/EBox/TC.pm:69
-msgid "options"
-msgstr "گزینه‌ها"
+#: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:624
+msgid "Address"
+msgstr "نشانی"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:181
 #, perl-brace-format
@@ -167,9 +139,19 @@ msgstr "آی‌پی مقصد"
 msgid "Destination object"
 msgstr "شی مقصد"
 
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:459
+#: src/EBox/TrafficShaping.pm:1700
+msgid "Priority"
+msgstr "اولویت"
+
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:463
 msgid "Lowest priotiry: 7 Highest priority: 0"
 msgstr "پایین‌ترین اولویت: ۷ بالاترین محدودیت: ۰"
+
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:467
+#: src/EBox/TrafficShaping.pm:1698
+msgid "Guaranteed Rate"
+msgstr "سرعت تضمین شده"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:470
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:484
@@ -184,6 +166,11 @@ msgid ""
 msgstr ""
 "توجه نمایید که مجموع تمامی سرعت‌های تضمین شده نمی‌تواند از پهنای باند کلی شما "
 "بیشتر شود. ۰ به معنی سرعت نامحدود است."
+
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:479
+#: src/EBox/TrafficShaping.pm:1699
+msgid "Limited Rate"
+msgstr "سرعت محدود"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:486
 msgid "Traffic will not exceed this rate. 0 means unlimited rate."
@@ -320,57 +307,70 @@ msgstr ""
 msgid "Choose an interface to shape"
 msgstr "انتخاب یک رابط برای شکل‌دهی"
 
-#: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:220
-#, perl-brace-format
-msgid "Guaranteed Rate exceeds the allowed rate: {rate} kbit/s"
-msgstr "سرعت تضمین‌شده از سرعت مجاز بیشتر شده است: {rate} کیلوبیت/ثانیه"
+#: src/EBox/TrafficShaping.pm:102
+msgid "Traffic Shaping"
+msgstr "شکل‌دهی ترافیک"
 
-#: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:227
-#: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:412
-#, perl-brace-format
-msgid ""
-"Guaranteed Rate must be in this interval: ( {minRate}, {maxRate} ) kbit/s"
-msgstr ""
-"سرعت تضمین شده بایستی در این بازه باشد: ( {minRate}, {maxRate} ) کیلوبیت/"
-"ثانیه"
+#: src/EBox/TrafficShaping.pm:140
+msgid "Add iptables rules to mangle table"
+msgstr "افزودن قواعد iptables به جدول mangle"
 
-#: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:239
-#: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:424
-#, perl-brace-format
-msgid ""
-"Limited Rate {lR} kbit/s should be higher than Guaranteed Rate {gR}kbit/s"
-msgstr ""
-"سرعت محدودشده {lR} کیلوبیت/ثانیه بایستی از سرعت تضمین شده {gR} کیلوبیت/ثانیه "
-"بیشتر باشد"
+#: src/EBox/TrafficShaping.pm:141
+msgid "To mark packets with different priorities and rates"
+msgstr "نشان‌گذاری بسته‌ها با اولویت‌ها و سرعت‌های متفاوت"
 
-#: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:246
-#, fuzzy, perl-brace-format
-msgid ""
-"Limited Rate {lR} kbit/s should be lower than {maxLR}kbit/s or you should "
-"increase maximum upload traffic associated to external interfaces"
-msgstr ""
-"سرعت محدودشده {lR} کیلوبیت/ثانیه بایستی از {maxLR} کیلوبیت/ثانیه کمتر باشد "
-"یا شما باید بیشینه ترافیک آپلود به گذرگاه‌های مربوط به این رابط خارجی را "
-"افزایش دهید"
+#: src/EBox/TrafficShaping.pm:145
+msgid "Add tc rules"
+msgstr "افزودن قواعد tc"
 
-#: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:403
-#, perl-brace-format
-msgid "Guaranteed Rate exceeded the allowed rate: {rate}"
-msgstr "سرعت تضمین شده بر سرعت مجاز برتری یافته است: {rate}"
+#: src/EBox/TrafficShaping.pm:146
+msgid "To implement the traffic shaping rules"
+msgstr "برای پیاده‌سازی قواعد شکل‌دهی ترافیک"
 
-#: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:432
+#: src/EBox/TrafficShaping.pm:463
+#, fuzzy
+msgid "Rules"
+msgstr "قاعده"
+
+#: src/EBox/TrafficShaping.pm:465
+#, fuzzy
+msgid "Interface Rates"
+msgstr "رابط"
+
+#: src/EBox/TrafficShaping.pm:539 src/EBox/TrafficShaping.pm:691
+#: src/EBox/TrafficShaping.pm:1109 src/EBox/TC.pm:107
+msgid "Interface"
+msgstr "رابط"
+
+#: src/EBox/TrafficShaping.pm:553
 #, perl-brace-format
 msgid ""
-"Limited Rate {lR} kbit/s should be lower than {maxLR} or you should increase "
-"maximum allowed traffic"
+"The maximum rule account {max} is reached, please delete at least one in "
+"order to to add a new one"
 msgstr ""
-"سرعت مجاز {lR} کیلوبیت/ثانیه بایستی از {maxLR} کمتر باشد یا بیشینه ترافیک "
-"مجاز را افزایش دهید"
+"بیشترین قاعده حساب {max} رسیده شد، لطفا حداقل برای افزودن یک نمونه دیگر یکی "
+"را حذف نمایید"
 
-#: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:620
-msgid "Leaf class identifier"
-msgstr "شناسه کلاس برگ"
+#: src/EBox/TrafficShaping.pm:1199
+msgid "type"
+msgstr "نوع"
 
-#: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:624
-msgid "Address"
-msgstr "نشانی"
+#: src/EBox/TrafficShaping.pm:1222
+#, perl-brace-format
+msgid ""
+"Interface {iface} should have a maximum bandwidth rate in order to do "
+"traffic shaping"
+msgstr ""
+"رابط {iface} بایستی یک پهنای باند بیشینه برای انجام شکل‌دهی ترافیک داشته باشد"
+
+#: src/EBox/TrafficShaping.pm:1696
+msgid "Protocol"
+msgstr "پروتکل"
+
+#: src/EBox/TrafficShaping.pm:1697
+msgid "Port"
+msgstr "پورت"
+
+#: src/EBox/TC.pm:69
+msgid "options"
+msgstr "گزینه‌ها"

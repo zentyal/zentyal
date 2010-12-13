@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libebox 0.12.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-08-28 19:44+0200\n"
+"POT-Creation-Date: 2010-12-13 08:44+0100\n"
 "PO-Revision-Date: 2010-08-28 23:06+0200\n"
 "Last-Translator: Robert Brzozowski <gnutar1@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
@@ -17,25 +17,6 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2);\n"
 "X-Generator: Pootle 1.1.0\n"
-
-#: src/EBox/Config.pm.in:74
-#, perl-brace-format
-msgid "Could not open the config file {file}."
-msgstr "Nie mogę otworzyć pliku konfiguracyjnego {file}."
-
-#: src/EBox/Config.pm.in:169
-msgid "The ebox user has not been set in the config file."
-msgstr "Użytkownik Zentyala nie został ustawiony w pliku konfiguracyjnym."
-
-#: src/EBox/Exceptions/DataNotFound.pm:35
-#, perl-brace-format
-msgid "{data} {value} does not exist."
-msgstr "{data} {value} nie istnieje."
-
-#: src/EBox/Exceptions/DataExists.pm:36
-#, perl-brace-format
-msgid "{data} {value} already exists."
-msgstr "{data} {value} już istnieje."
 
 #: src/EBox/Exceptions/InvalidData.pm:37
 #, perl-brace-format
@@ -47,56 +28,20 @@ msgstr "Nieprawidłowa wartość dla {data}:{value}."
 msgid "{data} is empty."
 msgstr "{data} jest puste."
 
-#: src/EBox/Validate.pm:396 src/EBox/Validate.pm:410
-msgid "Must be a number between 1 and 4096"
-msgstr "Należy wybrać wartość z przedziału 1 do 4096."
-
-#: src/EBox/Validate.pm:700
+#: src/EBox/Exceptions/DataExists.pm:36
 #, perl-brace-format
-msgid ""
-"Cannot stat dir: {dir}. This may mean that the directory does not exist or "
-"the permissions forbid access to it"
-msgstr ""
-"Nie mogę odczytać katalogu: {dir}. Może to oznaczać, że katalog nie istnieje "
-"lub uprawnienia nie pozwalają na dostęp do niego."
+msgid "{data} {value} already exists."
+msgstr "{data} {value} już istnieje."
 
-#: src/EBox/Validate.pm:705
+#: src/EBox/Exceptions/DataNotFound.pm:35
 #, perl-brace-format
-msgid "The directory {dir} is not private; because it is owned by another user"
-msgstr ""
-"Katalog {dir} nie jest katalogiem prywatnym, ponieważ należy do innego "
-"użytkownika."
+msgid "{data} {value} does not exist."
+msgstr "{data} {value} nie istnieje."
 
-#: src/EBox/Validate.pm:780
-msgid ""
-"The file path supplied is not valid. (Currently not all of the valid file's  "
-"characters are supported) "
-msgstr ""
-"Podana ścieżka do pliku jest nieprawidłowa. (Obecnie nie wszystkie dozwolone "
-"w nazwach plików znaki są obsługiwane)."
-
-#: src/EBox/Validate.pm:808
-msgid "The file path must be absolute"
-msgstr "Należy podać pełną ścieżkę."
-
-#: src/EBox/Sudo.pm:265
-#, perl-brace-format
-msgid "Running command '{cmd}' as {user} failed"
-msgstr "Uruchomienie komendy '{cmd}' jako użytkownik {user} nie powiodło się."
-
-#: src/EBox/FileSystem.pm:190 src/EBox/FileSystem.pm:282
-#, perl-brace-format
-msgid "Directory not found: {d}"
-msgstr "Nie odnaleziono katalogu: {d}"
-
-#: src/EBox/NetWrappers.pm:105 src/EBox/NetWrappers.pm:134
-#: src/EBox/NetWrappers.pm:165 src/EBox/NetWrappers.pm:267
+#: src/EBox/NetWrappers.pm:104 src/EBox/NetWrappers.pm:133
+#: src/EBox/NetWrappers.pm:229
 msgid "Interface"
 msgstr "Interfejs"
-
-#: src/EBox/CGI/EBox/PageNotFound.pm:27
-msgid "Page not found"
-msgstr "Nie odnaleziono strony"
 
 #: src/EBox/CGI/Base.pm:196
 msgid ""
@@ -134,18 +79,18 @@ msgid "You have just hit a bug in Zentyal. Please seek technical support."
 msgstr ""
 "Trafiłeś na błąd serwera Zentyal. Prosimy o kontakt ze wsparciem technicznym."
 
-#: src/EBox/CGI/Base.pm:662
+#: src/EBox/CGI/Base.pm:663
 msgid ""
 "Your request could not be processed because it had some incorrect parameters"
 msgstr ""
 "Twoje żądanie nie mogło zostać przetworzone ponieważ zawierało nieprawidłowe "
 "parametry."
 
-#: src/EBox/CGI/Base.pm:695
+#: src/EBox/CGI/Base.pm:696
 msgid "Wrong HTTP referer detected, operation cancelled for security reasons"
 msgstr "Błędny odsyłacz HTTP. Operację przerwano ze względów bezpieczeństwa."
 
-#: src/EBox/CGI/Base.pm:707
+#: src/EBox/CGI/Base.pm:708
 msgid ""
 "Your request could not be processed because it lacked some required "
 "parameters"
@@ -153,36 +98,208 @@ msgstr ""
 "Twoje żądanie nie mogło zostać przetworzone ponieważ brakowało w nim "
 "niektórych wymaganych parametrów."
 
-#: src/EBox/CGI/Base.pm:858
+#: src/EBox/CGI/Base.pm:873
 msgid "Invalid uploaded file."
 msgstr "Nieprawidłowy plik"
 
-#: src/EBox/CGI/Base.pm:864
+#: src/EBox/CGI/Base.pm:879
 msgid "Cannot create a temporally file for the upload"
 msgstr "Nie można utworzyć tymczasowego pliku."
 
-#: src/templates/language.mas:10
-msgid "Language Selection"
-msgstr "Wybór języka"
+#: src/EBox/CGI/EBox/PageNotFound.pm:27
+msgid "Page not found"
+msgstr "Nie odnaleziono strony"
 
-#: src/templates/language.mas:11
+#: src/EBox/Config.pm.in:74
+#, perl-brace-format
+msgid "Could not open the config file {file}."
+msgstr "Nie mogę otworzyć pliku konfiguracyjnego {file}."
+
+#: src/EBox/Config.pm.in:172
+msgid "The ebox user has not been set in the config file."
+msgstr "Użytkownik Zentyala nie został ustawiony w pliku konfiguracyjnym."
+
+#: src/EBox/Sudo.pm:265
+#, perl-brace-format
+msgid "Running command '{cmd}' as {user} failed"
+msgstr "Uruchomienie komendy '{cmd}' jako użytkownik {user} nie powiodło się."
+
+#: src/EBox/FileSystem.pm:190 src/EBox/FileSystem.pm:282
+#, perl-brace-format
+msgid "Directory not found: {d}"
+msgstr "Nie odnaleziono katalogu: {d}"
+
+#: src/EBox/Validate.pm:390 src/EBox/Validate.pm:404
+msgid "Must be a number between 1 and 4096"
+msgstr "Należy wybrać wartość z przedziału 1 do 4096."
+
+#: src/EBox/Validate.pm:687
+#, perl-brace-format
 msgid ""
-"Language changes happen automatically, saving the configuration it's not "
-"needed."
-msgstr "Zmiana języka następuje automatycznie, nie potrzebujesz zapisu zmian"
+"Cannot stat dir: {dir}. This may mean that the directory does not exist or "
+"the permissions forbid access to it"
+msgstr ""
+"Nie mogę odczytać katalogu: {dir}. Może to oznaczać, że katalog nie istnieje "
+"lub uprawnienia nie pozwalają na dostęp do niego."
 
-#: src/templates/language.mas:23 src/templates/ajax/tableBody.mas:348
+#: src/EBox/Validate.pm:692
+#, perl-brace-format
+msgid "The directory {dir} is not private; because it is owned by another user"
+msgstr ""
+"Katalog {dir} nie jest katalogiem prywatnym, ponieważ należy do innego "
+"użytkownika."
+
+#: src/EBox/Validate.pm:767
+msgid ""
+"The file path supplied is not valid. (Currently not all of the valid file's  "
+"characters are supported) "
+msgstr ""
+"Podana ścieżka do pliku jest nieprawidłowa. (Obecnie nie wszystkie dozwolone "
+"w nazwach plików znaki są obsługiwane)."
+
+#: src/EBox/Validate.pm:795
+msgid "The file path must be absolute"
+msgstr "Należy podać pełną ścieżkę."
+
+#: src/templates/enable.mas:9
+msgid "Service configuration"
+msgstr "Konfiguracja usługi"
+
+#: src/templates/enable.mas:21 src/templates/enable.mas:24
+msgid "Disabled"
+msgstr "Wyłączony"
+
+#: src/templates/enable.mas:22 src/templates/enable.mas:25
+msgid "Enabled"
+msgstr "Włączony"
+
 #: src/templates/enable.mas:29 src/templates/enable.mas:30
+#: src/templates/language.mas:23
 msgid "Change"
 msgstr "Zmień"
 
-#: src/templates/title.mas:24
-msgid "show help"
-msgstr "Pokaż pomoc"
+#: src/templates/ajax/viewer/file.mas:22 src/templates/ajax/viewer/file.mas:33
+msgid "Download"
+msgstr "Pobierz"
 
-#: src/templates/title.mas:25
-msgid "hide help"
-msgstr "Ukryj pomoc"
+#: src/templates/ajax/viewer/file.mas:26
+msgid "Remove"
+msgstr "Usuń"
+
+#: src/templates/ajax/tableBody.mas:135
+msgid "Add new"
+msgstr "Dodaj nowy"
+
+#: src/templates/ajax/tableBody.mas:146
+#, perl-brace-format
+msgid "Adding a new {row}"
+msgstr "Dodaję nowy {row}"
+
+#: src/templates/ajax/tableBody.mas:153
+#, perl-brace-format
+msgid "Editing {row}"
+msgstr "Edytuję {row}"
+
+#: src/templates/ajax/tableBody.mas:209
+msgid "Search"
+msgstr "Szukaj"
+
+#: src/templates/ajax/tableBody.mas:357
+msgid "Add"
+msgstr "Dodaj"
+
+#: src/templates/ajax/tableBody.mas:381
+msgid "Cancel"
+msgstr "Przerwij"
+
+#: src/templates/ajax/tableBody.mas:465
+msgid "Edit"
+msgstr "Edytuj"
+
+#: src/templates/ajax/tableBody.mas:467
+msgid "Delete"
+msgstr "Usuń"
+
+#: src/templates/ajax/tableBody.mas:472
+msgid "Read-only row: edit disabled"
+msgstr "Tylko do odczytu: edycja wyłączona."
+
+#: src/templates/ajax/tableBody.mas:473
+msgid "Read-only row: delete disabled"
+msgstr "Tylko do odczytu: nie można usunąć."
+
+#: src/templates/ajax/tableBody.mas:557
+#, fuzzy
+msgid "Read-only row: move up disabled"
+msgstr "Tylko do odczytu: edycja wyłączona."
+
+#: src/templates/ajax/tableBody.mas:561
+msgid "Move up"
+msgstr ""
+
+#: src/templates/ajax/tableBody.mas:573
+#, fuzzy
+msgid "Read-only row: move down  disabled"
+msgstr "Tylko do odczytu: edycja wyłączona."
+
+#: src/templates/ajax/tableBody.mas:577
+msgid "Move down"
+msgstr ""
+
+#: src/templates/ajax/tableSelector.mas:14
+msgid "Choose one of the options to show the associated table"
+msgstr "Wybierz jedną z opcji aby zobaczyć powiązaną tablicę."
+
+#: src/templates/ajax/tableSelector.mas:32
+msgid "Choose one..."
+msgstr "Wybierz jedną..."
+
+#: src/templates/ajax/setter/serviceSetter.mas:25
+msgid "port"
+msgstr "port"
+
+#: src/templates/ajax/setter/inverseMatchUnionSetter.mas:9
+#: src/templates/ajax/setter/inverseMatchSelectSetter.mas:13
+msgid "Inverse match"
+msgstr "Dopasowanie odwrotne"
+
+#: src/templates/ajax/setter/portRangeSetter.mas:23
+msgid "From"
+msgstr "Od"
+
+#: src/templates/ajax/setter/portRangeSetter.mas:29
+msgid "To"
+msgstr "Do"
+
+#: src/templates/ajax/modelViewer.mas:258 src/templates/formTable.mas:85
+msgid "Optional"
+msgstr "Opcja"
+
+#: src/templates/ajax/tablePager.mas:46
+msgid "Page"
+msgstr "Strona"
+
+#: src/templates/ajax/tablePager.mas:47
+msgid "of"
+msgstr "z"
+
+#: src/templates/ajax/tablePager.mas:60 src/templates/ajax/tablePager.mas:66
+msgid "first"
+msgstr "pierwsza"
+
+#: src/templates/ajax/tablePager.mas:62 src/templates/ajax/tablePager.mas:67
+msgid "prev"
+msgstr "poprzednia"
+
+#: src/templates/ajax/tablePager.mas:73 src/templates/ajax/tablePager.mas:74
+#: src/templates/ajax/tablePager.mas:85 src/templates/ajax/tablePager.mas:86
+msgid "next"
+msgstr "następna"
+
+#: src/templates/ajax/tablePager.mas:79 src/templates/ajax/tablePager.mas:80
+#: src/templates/ajax/tablePager.mas:89 src/templates/ajax/tablePager.mas:90
+msgid "last"
+msgstr "ostatnia"
 
 #: src/templates/ebox/pageNotFound.mas:3
 msgid "Zentyal homepage"
@@ -215,119 +332,20 @@ msgstr "przepraszamy"
 msgid "The page cannot be found"
 msgstr "Strony nie odnaleziono."
 
-#: src/templates/ajax/setter/inverseMatchUnionSetter.mas:9
-#: src/templates/ajax/setter/inverseMatchSelectSetter.mas:13
-msgid "Inverse match"
-msgstr "Dopasowanie odwrotne"
+#: src/templates/title.mas:24
+msgid "show help"
+msgstr "Pokaż pomoc"
 
-#: src/templates/ajax/setter/portRangeSetter.mas:23
-msgid "From"
-msgstr "Od"
+#: src/templates/title.mas:25
+msgid "hide help"
+msgstr "Ukryj pomoc"
 
-#: src/templates/ajax/setter/portRangeSetter.mas:29
-msgid "To"
-msgstr "Do"
+#: src/templates/language.mas:10
+msgid "Language Selection"
+msgstr "Wybór języka"
 
-#: src/templates/ajax/setter/serviceSetter.mas:25
-msgid "port"
-msgstr "port"
-
-#: src/templates/ajax/viewer/file.mas:22 src/templates/ajax/viewer/file.mas:33
-msgid "Download"
-msgstr "Pobierz"
-
-#: src/templates/ajax/viewer/file.mas:26
-msgid "Remove"
-msgstr "Usuń"
-
-#: src/templates/ajax/modelViewer.mas:256 src/templates/formTable.mas:85
-msgid "Optional"
-msgstr "Opcja"
-
-#: src/templates/ajax/tablePager.mas:46
-msgid "Page"
-msgstr "Strona"
-
-#: src/templates/ajax/tablePager.mas:47
-msgid "of"
-msgstr "z"
-
-#: src/templates/ajax/tablePager.mas:60 src/templates/ajax/tablePager.mas:66
-msgid "first"
-msgstr "pierwsza"
-
-#: src/templates/ajax/tablePager.mas:62 src/templates/ajax/tablePager.mas:67
-msgid "prev"
-msgstr "poprzednia"
-
-#: src/templates/ajax/tablePager.mas:73 src/templates/ajax/tablePager.mas:74
-#: src/templates/ajax/tablePager.mas:85 src/templates/ajax/tablePager.mas:86
-msgid "next"
-msgstr "następna"
-
-#: src/templates/ajax/tablePager.mas:79 src/templates/ajax/tablePager.mas:80
-#: src/templates/ajax/tablePager.mas:89 src/templates/ajax/tablePager.mas:90
-msgid "last"
-msgstr "ostatnia"
-
-#: src/templates/ajax/tableSelector.mas:14
-msgid "Choose one of the options to show the associated table"
-msgstr "Wybierz jedną z opcji aby zobaczyć powiązaną tablicę."
-
-#: src/templates/ajax/tableSelector.mas:32
-msgid "Choose one..."
-msgstr "Wybierz jedną..."
-
-#: src/templates/ajax/tableBody.mas:117
-msgid "Add new"
-msgstr "Dodaj nowy"
-
-#: src/templates/ajax/tableBody.mas:128
-#, perl-brace-format
-msgid "Adding a new {row}"
-msgstr "Dodaję nowy {row}"
-
-#: src/templates/ajax/tableBody.mas:134
-#, perl-brace-format
-msgid "Editing {row}"
-msgstr "Edytuję {row}"
-
-#: src/templates/ajax/tableBody.mas:190
-msgid "Search"
-msgstr "Szukaj"
-
-#: src/templates/ajax/tableBody.mas:336
-msgid "Add"
-msgstr "Dodaj"
-
-#: src/templates/ajax/tableBody.mas:360
-msgid "Cancel"
-msgstr "Przerwij"
-
-#: src/templates/ajax/tableBody.mas:440
-msgid "Edit"
-msgstr "Edytuj"
-
-#: src/templates/ajax/tableBody.mas:442
-msgid "Delete"
-msgstr "Usuń"
-
-#: src/templates/ajax/tableBody.mas:447
-msgid "Read-only row: edit disabled"
-msgstr "Tylko do odczytu: edycja wyłączona."
-
-#: src/templates/ajax/tableBody.mas:448
-msgid "Read-only row: delete disabled"
-msgstr "Tylko do odczytu: nie można usunąć."
-
-#: src/templates/enable.mas:9
-msgid "Service configuration"
-msgstr "Konfiguracja usługi"
-
-#: src/templates/enable.mas:21 src/templates/enable.mas:24
-msgid "Disabled"
-msgstr "Wyłączony"
-
-#: src/templates/enable.mas:22 src/templates/enable.mas:25
-msgid "Enabled"
-msgstr "Włączony"
+#: src/templates/language.mas:11
+msgid ""
+"Language changes happen automatically, saving the configuration it's not "
+"needed."
+msgstr "Zmiana języka następuje automatycznie, nie potrzebujesz zapisu zmian"

@@ -7,98 +7,71 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-trafficshaping 0.12.2\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-08-28 23:31+0200\n"
+"POT-Creation-Date: 2010-12-13 08:43+0100\n"
 "PO-Revision-Date: 2010-08-31 10:43+0200\n"
 "Last-Translator: Val Budkin <valentin@ktc-ua.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
+"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: src/EBox/TrafficShaping.pm:102
-msgid "Traffic Shaping"
-msgstr "Управление трафиком ( приоретизация трафика)"
+#: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:220
+#, perl-brace-format
+msgid "Guaranteed Rate exceeds the allowed rate: {rate} kbit/s"
+msgstr "Гарантирован скорость превышает допустимую скорость: {rate} кбит/сек"
 
-#: src/EBox/TrafficShaping.pm:140
-msgid "Add iptables rules to mangle table"
-msgstr "Добавить правило iptables в таблицу mangle"
-
-#: src/EBox/TrafficShaping.pm:141
-msgid "To mark packets with different priorities and rates"
-msgstr "Чтобы отметить пакеты с различным приоритетом и скоростью"
-
-#: src/EBox/TrafficShaping.pm:145
-msgid "Add tc rules"
-msgstr "Добавить правила tc"
-
-#: src/EBox/TrafficShaping.pm:146
-msgid "To implement the traffic shaping rules"
-msgstr "Для включения правил управления трафиком"
-
-#: src/EBox/TrafficShaping.pm:463
-msgid "Rules"
-msgstr "Правила"
-
-#: src/EBox/TrafficShaping.pm:465
-msgid "Interface Rates"
-msgstr "Скорости интерфейса"
-
-#: src/EBox/TrafficShaping.pm:539 src/EBox/TrafficShaping.pm:691
-#: src/EBox/TrafficShaping.pm:1109 src/EBox/TC.pm:107
-msgid "Interface"
-msgstr "Интерфейс"
-
-#: src/EBox/TrafficShaping.pm:553
+#: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:227
+#: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:412
 #, perl-brace-format
 msgid ""
-"The maximum rule account {max} is reached, please delete at least one in "
-"order to to add a new one"
+"Guaranteed Rate must be in this interval: ( {minRate}, {maxRate} ) kbit/s"
 msgstr ""
-"Достигнут максимум правил аккаунта {max} , пожалуйста удалите хотябы один "
-"для добавления нового"
+"Гарантированная скорость должна быть в интервале: ( {minRate}, {maxRate} ) "
+"кбит/сек"
 
-#: src/EBox/TrafficShaping.pm:1199
-msgid "type"
-msgstr "тип"
-
-#: src/EBox/TrafficShaping.pm:1222
+#: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:239
+#: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:424
 #, perl-brace-format
 msgid ""
-"Interface {iface} should have a maximum bandwidth rate in order to do "
-"traffic shaping"
+"Limited Rate {lR} kbit/s should be higher than Guaranteed Rate {gR}kbit/s"
 msgstr ""
-"Интерфейс {iface} должен иметь максимальную скорость по пропускной "
-"способности для управления трафиком"
+"Ограничиваемая скорость {lR} кбит/сек должна быть выше гарантированной "
+"скорости {gR} кбит/сек"
 
-#: src/EBox/TrafficShaping.pm:1696
-msgid "Protocol"
-msgstr "Протокол"
+#: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:246
+#, perl-brace-format
+msgid ""
+"Limited Rate {lR} kbit/s should be lower than {maxLR}kbit/s or you should "
+"increase maximum upload traffic associated to external interfaces"
+msgstr ""
+"Ограничиваемая скорость {lR} кбит/сек должна быть ниже {maxLR} кбит/с или "
+"вам необходимо увеличить максимум исходящего трафика на ассоциированном с "
+"внешними интерфейсами"
 
-#: src/EBox/TrafficShaping.pm:1697
-msgid "Port"
-msgstr "Порт"
+#: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:403
+#, perl-brace-format
+msgid "Guaranteed Rate exceeded the allowed rate: {rate}"
+msgstr "Гарантированная скорость превысила разрешенную: {rate}"
 
-#: src/EBox/TrafficShaping.pm:1698
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:467
-msgid "Guaranteed Rate"
-msgstr "Гарантируемая скорость"
+#: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:432
+#, perl-brace-format
+msgid ""
+"Limited Rate {lR} kbit/s should be lower than {maxLR} or you should increase "
+"maximum allowed traffic"
+msgstr ""
+"Ограничиваемая скорость {lR} кбит/сек дожна быть ниже {maxLR}kbit/s или вам "
+"необходимо увеличить максимально допустимый трафик"
 
-#: src/EBox/TrafficShaping.pm:1699
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:479
-msgid "Limited Rate"
-msgstr "Ограниченная скорость"
+#: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:620
+msgid "Leaf class identifier"
+msgstr "Список идентификаторов класса"
 
-#: src/EBox/TrafficShaping.pm:1700
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:459
-msgid "Priority"
-msgstr "Приоритет"
-
-#: src/EBox/TC.pm:69
-msgid "options"
-msgstr "настройки"
+#: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:624
+msgid "Address"
+msgstr "Адрес"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:181
 #, perl-brace-format
@@ -168,9 +141,19 @@ msgstr "Назначение IP"
 msgid "Destination object"
 msgstr "Назначение объект"
 
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:459
+#: src/EBox/TrafficShaping.pm:1700
+msgid "Priority"
+msgstr "Приоритет"
+
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:463
 msgid "Lowest priotiry: 7 Highest priority: 0"
 msgstr "Низший приоритет: 7 Высший приоритет: 0"
+
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:467
+#: src/EBox/TrafficShaping.pm:1698
+msgid "Guaranteed Rate"
+msgstr "Гарантируемая скорость"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:470
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:484
@@ -184,6 +167,11 @@ msgid ""
 msgstr ""
 "Замечание, сумма всех скоростей не должна превышать общую скорость "
 "пропускания. 0 неограниченная скорость."
+
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:479
+#: src/EBox/TrafficShaping.pm:1699
+msgid "Limited Rate"
+msgstr "Ограниченная скорость"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:486
 msgid "Traffic will not exceed this rate. 0 means unlimited rate."
@@ -287,8 +275,8 @@ msgid ""
 msgstr ""
 "Управление трафиком применяется, если Zentyal используется в качестве шлюза. "
 "Для этого необходимо как минимум по одному внешнему и  внутреннему "
-"интерфейсу. Проверте настройки интерфейсов "
-"{openhref}Network->Interfaces{closehref}"
+"интерфейсу. Проверте настройки интерфейсов {openhref}Network->Interfaces"
+"{closehref}"
 
 #: src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:92
 #, perl-brace-format
@@ -318,57 +306,69 @@ msgstr ""
 msgid "Choose an interface to shape"
 msgstr "Выберите интерфейс для управления "
 
-#: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:220
-#, perl-brace-format
-msgid "Guaranteed Rate exceeds the allowed rate: {rate} kbit/s"
-msgstr "Гарантирован скорость превышает допустимую скорость: {rate} кбит/сек"
+#: src/EBox/TrafficShaping.pm:102
+msgid "Traffic Shaping"
+msgstr "Управление трафиком ( приоретизация трафика)"
 
-#: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:227
-#: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:412
-#, perl-brace-format
-msgid ""
-"Guaranteed Rate must be in this interval: ( {minRate}, {maxRate} ) kbit/s"
-msgstr ""
-"Гарантированная скорость должна быть в интервале: ( {minRate}, {maxRate} ) "
-"кбит/сек"
+#: src/EBox/TrafficShaping.pm:140
+msgid "Add iptables rules to mangle table"
+msgstr "Добавить правило iptables в таблицу mangle"
 
-#: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:239
-#: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:424
-#, perl-brace-format
-msgid ""
-"Limited Rate {lR} kbit/s should be higher than Guaranteed Rate {gR}kbit/s"
-msgstr ""
-"Ограничиваемая скорость {lR} кбит/сек должна быть выше гарантированной "
-"скорости {gR} кбит/сек"
+#: src/EBox/TrafficShaping.pm:141
+msgid "To mark packets with different priorities and rates"
+msgstr "Чтобы отметить пакеты с различным приоритетом и скоростью"
 
-#: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:246
-#, perl-brace-format
-msgid ""
-"Limited Rate {lR} kbit/s should be lower than {maxLR}kbit/s or you should "
-"increase maximum upload traffic associated to external interfaces"
-msgstr ""
-"Ограничиваемая скорость {lR} кбит/сек должна быть ниже {maxLR} кбит/с или "
-"вам необходимо увеличить максимум исходящего трафика на ассоциированном с "
-"внешними интерфейсами"
+#: src/EBox/TrafficShaping.pm:145
+msgid "Add tc rules"
+msgstr "Добавить правила tc"
 
-#: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:403
-#, perl-brace-format
-msgid "Guaranteed Rate exceeded the allowed rate: {rate}"
-msgstr "Гарантированная скорость превысила разрешенную: {rate}"
+#: src/EBox/TrafficShaping.pm:146
+msgid "To implement the traffic shaping rules"
+msgstr "Для включения правил управления трафиком"
 
-#: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:432
+#: src/EBox/TrafficShaping.pm:463
+msgid "Rules"
+msgstr "Правила"
+
+#: src/EBox/TrafficShaping.pm:465
+msgid "Interface Rates"
+msgstr "Скорости интерфейса"
+
+#: src/EBox/TrafficShaping.pm:539 src/EBox/TrafficShaping.pm:691
+#: src/EBox/TrafficShaping.pm:1109 src/EBox/TC.pm:107
+msgid "Interface"
+msgstr "Интерфейс"
+
+#: src/EBox/TrafficShaping.pm:553
 #, perl-brace-format
 msgid ""
-"Limited Rate {lR} kbit/s should be lower than {maxLR} or you should increase "
-"maximum allowed traffic"
+"The maximum rule account {max} is reached, please delete at least one in "
+"order to to add a new one"
 msgstr ""
-"Ограничиваемая скорость {lR} кбит/сек дожна быть ниже {maxLR}kbit/s или вам "
-"необходимо увеличить максимально допустимый трафик"
+"Достигнут максимум правил аккаунта {max} , пожалуйста удалите хотябы один "
+"для добавления нового"
 
-#: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:620
-msgid "Leaf class identifier"
-msgstr "Список идентификаторов класса"
+#: src/EBox/TrafficShaping.pm:1199
+msgid "type"
+msgstr "тип"
 
-#: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:624
-msgid "Address"
-msgstr "Адрес"
+#: src/EBox/TrafficShaping.pm:1222
+#, perl-brace-format
+msgid ""
+"Interface {iface} should have a maximum bandwidth rate in order to do "
+"traffic shaping"
+msgstr ""
+"Интерфейс {iface} должен иметь максимальную скорость по пропускной "
+"способности для управления трафиком"
+
+#: src/EBox/TrafficShaping.pm:1696
+msgid "Protocol"
+msgstr "Протокол"
+
+#: src/EBox/TrafficShaping.pm:1697
+msgid "Port"
+msgstr "Порт"
+
+#: src/EBox/TC.pm:69
+msgid "options"
+msgstr "настройки"

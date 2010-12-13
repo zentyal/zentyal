@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-ca 0.12.99\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-08-28 23:34+0200\n"
+"POT-Creation-Date: 2010-12-13 08:38+0100\n"
 "PO-Revision-Date: 2010-10-08 09:37+0200\n"
 "Last-Translator: Ronny Gonzales <ronny@kcl.no>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
@@ -17,92 +17,146 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: src/EBox/CA/TestStub.pm:154 src/EBox/CA/TestStub.pm:254 src/EBox/CA.pm:259
-#: src/EBox/CA.pm:537 src/EBox/CGI/IssueCertificate.pm:102
-#: src/templates/createCA.mas:7 src/templates/index.mas:22
-#: src/templates/formRevoke.mas:22 src/templates/formRenew.mas:37
-msgid "Organization Name"
-msgstr "Organisasjonsnavn"
+#: src/EBox/CGI/CreateCA.pm:43 src/EBox/CGI/RevokeCertificate.pm:42
+#: src/EBox/CGI/RenewCertificate.pm:42 src/EBox/CGI/IssueCertificate.pm:49
+#: src/EBox/CGI/ShowForm.pm:41 src/EBox/CGI/Index.pm:39
+#: src/EBox/CGI/DownloadFiles.pm:42 src/EBox/CA.pm:122
+msgid "Certification Authority"
+msgstr "Sertifiseringsautoritet"
 
-#: src/EBox/CA/TestStub.pm:259 src/EBox/CA.pm:551
-msgid ""
-"The CA certificates should be revoked  or has expired before issuing a new "
-"certificate"
-msgstr ""
-"CA sertifikatet bør tilbakekalles  eller ha utgått før tildeling et nytt "
-"sertifikat"
+#: src/EBox/CGI/CreateCA.pm:110 src/EBox/CGI/IssueCertificate.pm:119
+msgid "CA passphrases do NOT match"
+msgstr "CA passord er IKKE like"
 
-#: src/EBox/CA/TestStub.pm:438 src/EBox/CA/TestStub.pm:516
-#: src/EBox/CA/TestStub.pm:642 src/EBox/Model/Certificates.pm:264
-#: src/EBox/CA.pm:765 src/EBox/CA.pm:938 src/EBox/CA.pm:1286
-#: src/EBox/CA.pm:1358 src/EBox/CA.pm:1454
-#: src/EBox/CGI/RevokeCertificate.pm:77 src/EBox/CGI/IssueCertificate.pm:104
-#: src/EBox/CGI/ShowForm.pm:64 src/EBox/CGI/RenewCertificate.pm:75
-#: src/EBox/CGI/DownloadFiles.pm:69 src/templates/index.mas:23
-#: src/templates/formRevoke.mas:28 src/templates/formRenew.mas:43
+#: src/EBox/CGI/CreateCA.pm:120 src/EBox/CGI/IssueCertificate.pm:127
+#, perl-brace-format
+msgid "CA Passphrase should be at least {length} characters"
+msgstr "CA Passord bør være minst {length} tegn"
+
+#: src/EBox/CGI/CreateCA.pm:125 src/EBox/CGI/RenewCertificate.pm:96
+#: src/EBox/CGI/IssueCertificate.pm:137
+#, perl-brace-format
+msgid "Days to expire ({days}) must be a positive number"
+msgstr "Dager til utløp ({days}) må være et positivt tall"
+
+#: src/EBox/CGI/CreateCA.pm:139
+msgid "Problems creating Certification Authority has happened"
+msgstr "Problemer med å opprette Sertifiseringsautoritet"
+
+#: src/EBox/CGI/RevokeCertificate.pm:64
+msgid "The certificate has NOT been revoked."
+msgstr "Sertifikatet er IKKE tilbakekalt."
+
+#: src/EBox/CGI/RevokeCertificate.pm:71 src/EBox/CGI/RenewCertificate.pm:69
+msgid "Boolean indicating Certification Authority Certificate"
+msgstr "Boolsk anvisning Sertifiseringsautoritets sertifikat"
+
+#: src/EBox/CGI/RevokeCertificate.pm:72 src/templates/formRevoke.mas:67
+msgid "Reason"
+msgstr "Grunn"
+
+#: src/EBox/CGI/RevokeCertificate.pm:77 src/EBox/CGI/RenewCertificate.pm:75
+#: src/EBox/CGI/IssueCertificate.pm:104 src/EBox/CGI/ShowForm.pm:64
+#: src/EBox/CGI/DownloadFiles.pm:69 src/EBox/CA.pm:765 src/EBox/CA.pm:938
+#: src/EBox/CA.pm:1286 src/EBox/CA.pm:1358 src/EBox/CA.pm:1454
+#: src/EBox/Model/Certificates.pm:264 src/EBox/CA/TestStub.pm:438
+#: src/EBox/CA/TestStub.pm:516 src/EBox/CA/TestStub.pm:642
+#: src/templates/formRenew.mas:43 src/templates/formRevoke.mas:28
+#: src/templates/index.mas:23 src/templates/formReissue.mas:33
 msgid "Common Name"
 msgstr "Vanlig Navn"
 
-#: src/EBox/CA/TestStub.pm:654
-#, perl-brace-format
-msgid "The user {commonName} does NOT exist"
-msgstr "Brukeren {commonName} eksisterer IKKE"
+#: src/EBox/CGI/RevokeCertificate.pm:81 src/EBox/CGI/RenewCertificate.pm:79
+#: src/EBox/CGI/ShowForm.pm:68
+msgid ""
+"The input contains invalid characters. All alphanumeric characters, plus "
+"these non alphanumeric chars: .?&+:-@* and spaces are allowed."
+msgstr ""
+"Teksten inneholder ugyldige tegn. Alle alfanumerisk tegn, og disse ikke "
+"alfanumeriske tegnene: .?&+:\\@ og mellomrom er tillatt."
 
-#: src/EBox/CA/TestStub.pm:720
-msgid "Days set to the maximum allowed: Year 2038 Bug"
-msgstr "Dager satt til maksimum tillatt: År 2038 feil"
+#: src/EBox/CGI/RevokeCertificate.pm:139
+msgid "The certificate has been revoked"
+msgstr "Sertifikatet er tilbakekalt"
 
-#: src/EBox/CA/TestStub.pm:729 src/EBox/CA.pm:2608
-msgid "Expiration date later than CA certificate expiration date"
-msgstr "Utløps dato senere enn CA sertifikatets utløps dato"
+#: src/EBox/CGI/RevokeCertificate.pm:140
+msgid "The CA certificate has been revoked"
+msgstr "CA sertifikatet er tilbakekalt"
 
-#: src/EBox/Model/Certificates.pm:92
+#: src/EBox/CGI/RenewCertificate.pm:64
+msgid "The certificate has NOT been renewed"
+msgstr "Sertifikatet er IKKE fornyet"
+
+#: src/EBox/CGI/RenewCertificate.pm:70 src/templates/formRenew.mas:13
+#: src/templates/index.mas:52 src/templates/createCA.mas:19
+#: src/templates/formReissue.mas:13
+msgid "Days to expire"
+msgstr "Dager til utløp"
+
+#: src/EBox/CGI/RenewCertificate.pm:143
+msgid "The certificate CANNOT be renewed"
+msgstr "Sertifikatet kan IKKE fornyes"
+
+#: src/EBox/CGI/RenewCertificate.pm:145
+msgid "The certificate has been renewed"
+msgstr "Sertifikatet er fornyet"
+
+#: src/EBox/CGI/RenewCertificate.pm:146
+msgid "The new CA certificate has been renewed"
+msgstr "Det nye CA sertifikatet er fornyet"
+
+#: src/EBox/CGI/IssueCertificate.pm:102 src/EBox/CA.pm:259 src/EBox/CA.pm:537
+#: src/EBox/CA/TestStub.pm:154 src/EBox/CA/TestStub.pm:254
+#: src/templates/formRenew.mas:37 src/templates/formRevoke.mas:22
+#: src/templates/index.mas:22 src/templates/createCA.mas:7
+msgid "Organization Name"
+msgstr "Organisasjonsnavn"
+
+#: src/EBox/CGI/IssueCertificate.pm:145
 #, perl-brace-format
 msgid ""
-"You must create a Certification Authority first. Go to {openhref}"
-"Certification Authority{closehref} to do so"
+"The input contains invalid characters. All {ascii} alphanumeric characters, "
+"plus these non alphanumeric chars: .?&+:-@* and spaces are allowed."
 msgstr ""
-"Du må opprette Sertifiseringsautoritet. Gå til {openhref}Sertifiserings "
-"Autoritet{closehref} for å gjøre det"
+"Teksten inneholder ugyldige tegn. Alle {ascii} alfanumerisk tegn, og disse "
+"ikke alfanumeriske tegnene: .?&+:\\@ og mellomrom er tillatt."
 
-#: src/EBox/Model/Certificates.pm:246
-msgid "Module"
-msgstr "Modul"
+#: src/EBox/CGI/IssueCertificate.pm:177 src/EBox/CA.pm:2638
+#, perl-brace-format
+msgid "Only {dns}, {ip} and {email} are valid subject alternative name types"
+msgstr ""
 
-#: src/EBox/Model/Certificates.pm:258
-msgid "Service"
-msgstr "Tjeneste"
-
-#: src/EBox/Model/Certificates.pm:270
-msgid "Enable"
-msgstr "Aktiver"
-
-#: src/EBox/Model/Certificates.pm:272
-msgid "Generate the certificate using CA with the common name set above"
-msgstr "Generer sertifikatet ved bruk av CA med det vanlige navnet satt over"
-
-#: src/EBox/Model/Certificates.pm:280 src/EBox/CA.pm:1802
-msgid "Services Certificates"
-msgstr "Tjenestesertifikat"
-
-#: src/EBox/Model/Certificates.pm:281
-msgid "certificate"
-msgstr "sertifikat"
-
-#: src/EBox/Model/Certificates.pm:287
+#: src/EBox/CGI/IssueCertificate.pm:184
 msgid ""
-"Here you may set certificates from this CA for those secure services managed "
-"by Zentyal"
+"The Subject Alternative Name parameter must follow this pattern: type:value, "
+"type:value"
 msgstr ""
-"Her kan du sette sertifikater fra denne CA for de sikre tjenestene "
-"administrert av Zentyal"
 
-#: src/EBox/CA.pm:122 src/EBox/CGI/RevokeCertificate.pm:42
-#: src/EBox/CGI/Index.pm:39 src/EBox/CGI/IssueCertificate.pm:49
-#: src/EBox/CGI/ShowForm.pm:41 src/EBox/CGI/RenewCertificate.pm:42
-#: src/EBox/CGI/DownloadFiles.pm:42 src/EBox/CGI/CreateCA.pm:43
-msgid "Certification Authority"
-msgstr "Sertifiseringsautoritet"
+#: src/EBox/CGI/IssueCertificate.pm:206
+msgid "The certificate has been issued."
+msgstr "Sertifikatet er utgitt."
+
+#: src/EBox/CGI/IssueCertificate.pm:207
+msgid "The new CA certificate has been issued."
+msgstr "Nytt CA sertifikat er utgitt."
+
+#: src/EBox/CGI/ShowForm.pm:74
+msgid "Action"
+msgstr "Handling"
+
+#: src/EBox/CGI/ShowForm.pm:85
+#, fuzzy
+msgid "Only revoke, renew and reissue actions are performed"
+msgstr "Bare tilbakekalle og forny handlinger blir utført"
+
+#: src/EBox/CGI/ShowForm.pm:93 src/EBox/CGI/DownloadFiles.pm:79
+#, perl-brace-format
+msgid "Common name: {cn} does NOT exist in database"
+msgstr "Vanlig navn: {cn} finnes IKKE i databasen"
+
+#: src/EBox/CGI/DownloadFiles.pm:133
+msgid "Error creating file"
+msgstr "Feil ved opprettelse av fil"
 
 #: src/EBox/CA.pm:301 src/EBox/CA.pm:782 src/EBox/CA.pm:1433
 #, perl-brace-format
@@ -112,6 +166,14 @@ msgstr "Dager satt til maksimum tillatt {days}: År 2038 feil"
 #: src/EBox/CA.pm:396
 msgid "The remove operation cannot be finished. Reason: "
 msgstr "Fjerne oppgaven kan ikke fullføres. Grunn: "
+
+#: src/EBox/CA.pm:551 src/EBox/CA/TestStub.pm:259
+msgid ""
+"The CA certificates should be revoked  or has expired before issuing a new "
+"certificate"
+msgstr ""
+"CA sertifikatet bør tilbakekalles  eller ha utgått før tildeling et nytt "
+"sertifikat"
 
 #: src/EBox/CA.pm:951 src/EBox/CA.pm:1297
 #, perl-brace-format
@@ -158,6 +220,10 @@ msgstr "Sertifikatet med dette vanlige navnet {cn} eksisterer IKKE på denne CA"
 #: src/EBox/CA.pm:1799
 msgid "General"
 msgstr "Generell"
+
+#: src/EBox/CA.pm:1802 src/EBox/Model/Certificates.pm:280
+msgid "Services Certificates"
+msgstr "Tjenestesertifikat"
 
 #: src/EBox/CA.pm:1889
 msgid "Not created"
@@ -257,225 +323,110 @@ msgstr "Fornyet sertifikat med vanlig navn {cn} og gyldighet på {days} dager"
 msgid "Updated certificate database. {number} certificates have expired"
 msgstr "Oppdater sertifikatdatabase. {number} sertifikater har utløpt"
 
-#: src/EBox/CA.pm:2638 src/EBox/CGI/IssueCertificate.pm:177
-#, perl-brace-format
-msgid "Only {dns}, {ip} and {email} are valid subject alternative name types"
-msgstr ""
+#: src/EBox/CA.pm:2608 src/EBox/CA/TestStub.pm:729
+msgid "Expiration date later than CA certificate expiration date"
+msgstr "Utløps dato senere enn CA sertifikatets utløps dato"
 
 #: src/EBox/CA.pm:2738
 #, perl-brace-format
 msgid "Cannot start OpenSSL shell. ({errval})"
 msgstr "Kan ikke starte OpenSSL shell. ({errval})"
 
-#: src/EBox/CGI/RevokeCertificate.pm:64
-msgid "The certificate has NOT been revoked."
-msgstr "Sertifikatet er IKKE tilbakekalt."
-
-#: src/EBox/CGI/RevokeCertificate.pm:71 src/EBox/CGI/RenewCertificate.pm:69
-msgid "Boolean indicating Certification Authority Certificate"
-msgstr "Boolsk anvisning Sertifiseringsautoritets sertifikat"
-
-#: src/EBox/CGI/RevokeCertificate.pm:72 src/templates/formRevoke.mas:67
-msgid "Reason"
-msgstr "Grunn"
-
-#: src/EBox/CGI/RevokeCertificate.pm:81 src/EBox/CGI/ShowForm.pm:68
-#: src/EBox/CGI/RenewCertificate.pm:79
-msgid ""
-"The input contains invalid characters. All alphanumeric characters, plus "
-"these non alphanumeric chars: .?&+:-@* and spaces are allowed."
-msgstr ""
-"Teksten inneholder ugyldige tegn. Alle alfanumerisk tegn, og disse ikke "
-"alfanumeriske tegnene: .?&+:\\@ og mellomrom er tillatt."
-
-#: src/EBox/CGI/RevokeCertificate.pm:139
-msgid "The certificate has been revoked"
-msgstr "Sertifikatet er tilbakekalt"
-
-#: src/EBox/CGI/RevokeCertificate.pm:140
-msgid "The CA certificate has been revoked"
-msgstr "CA sertifikatet er tilbakekalt"
-
-#: src/EBox/CGI/IssueCertificate.pm:119 src/EBox/CGI/CreateCA.pm:110
-msgid "CA passphrases do NOT match"
-msgstr "CA passord er IKKE like"
-
-#: src/EBox/CGI/IssueCertificate.pm:127 src/EBox/CGI/CreateCA.pm:120
-#, perl-brace-format
-msgid "CA Passphrase should be at least {length} characters"
-msgstr "CA Passord bør være minst {length} tegn"
-
-#: src/EBox/CGI/IssueCertificate.pm:137 src/EBox/CGI/RenewCertificate.pm:96
-#: src/EBox/CGI/CreateCA.pm:125
-#, perl-brace-format
-msgid "Days to expire ({days}) must be a positive number"
-msgstr "Dager til utløp ({days}) må være et positivt tall"
-
-#: src/EBox/CGI/IssueCertificate.pm:145
+#: src/EBox/Model/Certificates.pm:92
 #, perl-brace-format
 msgid ""
-"The input contains invalid characters. All {ascii} alphanumeric characters, "
-"plus these non alphanumeric chars: .?&+:-@* and spaces are allowed."
+"You must create a Certification Authority first. Go to {openhref}"
+"Certification Authority{closehref} to do so"
 msgstr ""
-"Teksten inneholder ugyldige tegn. Alle {ascii} alfanumerisk tegn, og disse "
-"ikke alfanumeriske tegnene: .?&+:\\@ og mellomrom er tillatt."
+"Du må opprette Sertifiseringsautoritet. Gå til {openhref}Sertifiserings "
+"Autoritet{closehref} for å gjøre det"
 
-#: src/EBox/CGI/IssueCertificate.pm:184
+#: src/EBox/Model/Certificates.pm:246
+msgid "Module"
+msgstr "Modul"
+
+#: src/EBox/Model/Certificates.pm:258
+msgid "Service"
+msgstr "Tjeneste"
+
+#: src/EBox/Model/Certificates.pm:270
+msgid "Enable"
+msgstr "Aktiver"
+
+#: src/EBox/Model/Certificates.pm:272
+msgid "Generate the certificate using CA with the common name set above"
+msgstr "Generer sertifikatet ved bruk av CA med det vanlige navnet satt over"
+
+#: src/EBox/Model/Certificates.pm:281
+msgid "certificate"
+msgstr "sertifikat"
+
+#: src/EBox/Model/Certificates.pm:287
 msgid ""
-"The Subject Alternative Name parameter must follow this pattern: type:value, "
-"type:value"
+"Here you may set certificates from this CA for those secure services managed "
+"by Zentyal"
 msgstr ""
+"Her kan du sette sertifikater fra denne CA for de sikre tjenestene "
+"administrert av Zentyal"
 
-#: src/EBox/CGI/IssueCertificate.pm:206
-msgid "The certificate has been issued."
-msgstr "Sertifikatet er utgitt."
-
-#: src/EBox/CGI/IssueCertificate.pm:207
-msgid "The new CA certificate has been issued."
-msgstr "Nytt CA sertifikat er utgitt."
-
-#: src/EBox/CGI/ShowForm.pm:74
-msgid "Action"
-msgstr "Handling"
-
-#: src/EBox/CGI/ShowForm.pm:83
-msgid "Only revoke and renew actions are performed"
-msgstr "Bare tilbakekalle og forny handlinger blir utført"
-
-#: src/EBox/CGI/ShowForm.pm:91 src/EBox/CGI/DownloadFiles.pm:79
+#: src/EBox/CA/TestStub.pm:654
 #, perl-brace-format
-msgid "Common name: {cn} does NOT exist in database"
-msgstr "Vanlig navn: {cn} finnes IKKE i databasen"
+msgid "The user {commonName} does NOT exist"
+msgstr "Brukeren {commonName} eksisterer IKKE"
 
-#: src/EBox/CGI/RenewCertificate.pm:64
-msgid "The certificate has NOT been renewed"
-msgstr "Sertifikatet er IKKE fornyet"
+#: src/EBox/CA/TestStub.pm:720
+msgid "Days set to the maximum allowed: Year 2038 Bug"
+msgstr "Dager satt til maksimum tillatt: År 2038 feil"
 
-#: src/EBox/CGI/RenewCertificate.pm:70 src/templates/createCA.mas:19
-#: src/templates/index.mas:52 src/templates/formRenew.mas:13
-msgid "Days to expire"
-msgstr "Dager til utløp"
+#: src/templates/formRenew.mas:17 src/templates/formRevoke.mas:75
+#: src/templates/formReissue.mas:20
+msgid "CA Passphrase"
+msgstr "CA Passord"
 
-#: src/EBox/CGI/RenewCertificate.pm:143
-msgid "The certificate CANNOT be renewed"
-msgstr "Sertifikatet kan IKKE fornyes"
-
-#: src/EBox/CGI/RenewCertificate.pm:145
-msgid "The certificate has been renewed"
-msgstr "Sertifikatet er fornyet"
-
-#: src/EBox/CGI/RenewCertificate.pm:146
-msgid "The new CA certificate has been renewed"
-msgstr "Det nye CA sertifikatet er fornyet"
-
-#: src/EBox/CGI/DownloadFiles.pm:133
-msgid "Error creating file"
-msgstr "Feil ved opprettelse av fil"
-
-#: src/EBox/CGI/CreateCA.pm:139
-msgid "Problems creating Certification Authority has happened"
-msgstr "Problemer med å opprette Sertifiseringsautoritet"
-
-#: src/templates/forceRevoke.mas:13
-msgid "Revoking CA certificate"
-msgstr "Tilbakekaller CA sertifikat"
-
-#: src/templates/forceRevoke.mas:15
-msgid "Revoking certificate"
-msgstr "Tilbakekaller sertifikat"
-
-#: src/templates/forceRevoke.mas:21
-#, perl-brace-format
-msgid ""
-"This revokation can affect the functionality from other modules, please "
-"confirm you are very sure to revoke the whole certification authority from "
-"{on} and leave the service(s) unstable or disabled"
-msgstr ""
-"Denne tilbakekallingen kan berøre funksjonaliteten til andre moduler, "
-"vennligst forsikre deg om at du er sikker på å tilbakekalle hele denne "
-"sertifiseringsautoriteten (CA) fra {on} og gjøre tjenesten(e) ustabile eller "
-"deaktivert"
-
-#: src/templates/forceRevoke.mas:24
-#, perl-brace-format
-msgid ""
-"The certificate whose common name is {cn} you tried to revoke is being used "
-"by some module, please confirm you are sure to revoke and leave the service"
-"(s) unstable or disabled"
-msgstr ""
-"Sertifikatet som har vanlig navn {cn} du prøvde å tilbakekalle er brukt av "
-"noen moduler, vennligs forsikre deg om at du er sikker på å tilbakekalle og "
-"gjøre tjenesten(e) ustabile eller deaktivert"
-
-#: src/templates/forceRevoke.mas:42 src/templates/index.mas:165
-#: src/templates/index.mas:197 src/templates/formRevoke.mas:81
-msgid "Revoke"
-msgstr "Tilbakekalle"
-
-#: src/templates/forceRevoke.mas:45
-msgid "Cancel"
-msgstr "Avbryt"
-
-#: src/templates/createCA.mas:9 src/templates/index.mas:41
-msgid "Country code"
-msgstr "Landskode"
-
-#: src/templates/createCA.mas:13 src/templates/index.mas:44
-msgid "City"
-msgstr "By"
-
-#: src/templates/createCA.mas:16 src/templates/index.mas:47
-#: src/templates/index.mas:99
-msgid "State"
-msgstr "Fylke"
-
-#: src/templates/createCA.mas:26
-msgid "Create"
-msgstr "Opprett"
-
-#: src/templates/createCA.mas:34
-msgid "Create Certification Authority Certificate"
-msgstr "Opprett CA Sertifikat"
-
-#: src/templates/forceRenew.mas:27 src/templates/index.mas:184
-#: src/templates/index.mas:201 src/templates/formRenew.mas:23
+#: src/templates/formRenew.mas:23 src/templates/index.mas:187
+#: src/templates/forceRenew.mas:27
 msgid "Renew"
 msgstr "Forny"
 
-#: src/templates/forceRenew.mas:42
-msgid "Renewing CA certificate"
-msgstr "Fornyer CA sertifikat"
+#: src/templates/formRenew.mas:28
+msgid "Renew a certificate"
+msgstr "Forny et sertifikat"
 
-#: src/templates/forceRenew.mas:44
-msgid "Renewing certificate"
-msgstr "Fornyer sertifikat"
+#: src/templates/formRenew.mas:48 src/templates/formRevoke.mas:33
+msgid "Expiration Date"
+msgstr "Utløps Dato"
 
-#: src/templates/forceRenew.mas:50
-#, perl-brace-format
-msgid ""
-"This renewal can affect the functionality from other modules, please confirm "
-"you are very sure to renew the whole certification authority from {on} and "
-"leave the service(s) unstable or disabled"
-msgstr ""
-"Denne fornyingen kan berøre funksjonaliteten til andre moduler, vennligst "
-"forsikre deg om at du er sikker på å fornye hele denne sertifiserings "
-"autoriteten fra {on} og gjøre tjenesten(e) ustabile eller deaktivert"
-
-#: src/templates/forceRenew.mas:53
-#, perl-brace-format
-msgid ""
-"The certificate whose common name is {cn} you tried to renew is being used "
-"by some module, please confirm you are sure to renew and leave the service"
-"(s) unstable or disabled"
-msgstr ""
-"Sertifikatet som har vanlig navn {cn} du prøvde å fornye er brukt av noen "
-"moduler, vennligs forsikre deg om at du er sikker på å tilbakekalle og gjøre "
-"tjenesten(e) ustabile eller deaktivert"
-
-#: src/templates/index.mas:57 src/templates/formRevoke.mas:46
-#: src/templates/formRenew.mas:61
+#: src/templates/formRenew.mas:61 src/templates/formRevoke.mas:46
+#: src/templates/index.mas:57 src/templates/formReissue.mas:15
+#: src/templates/formReissue.mas:41
 msgid "Subject Alternative Names"
 msgstr ""
+
+#: src/templates/formRevoke.mas:10
+msgid "Revoke a Certificate"
+msgstr "Tilbakekalle Sertifikat"
+
+#: src/templates/formRevoke.mas:18
+msgid "Revoke the selected certificate"
+msgstr "Tilbakekalle valgt sertifikat"
+
+#: src/templates/formRevoke.mas:81 src/templates/index.mas:168
+#: src/templates/index.mas:212 src/templates/forceRevoke.mas:42
+msgid "Revoke"
+msgstr "Tilbakekalle"
+
+#: src/templates/index.mas:41 src/templates/createCA.mas:9
+msgid "Country code"
+msgstr "Landskode"
+
+#: src/templates/index.mas:44 src/templates/createCA.mas:13
+msgid "City"
+msgstr "By"
+
+#: src/templates/index.mas:47 src/templates/index.mas:99
+#: src/templates/createCA.mas:16
+msgid "State"
+msgstr "Fylke"
 
 #: src/templates/index.mas:58
 #, perl-brace-format
@@ -528,47 +479,114 @@ msgstr "Dato"
 msgid "Actions"
 msgstr "Handlinger"
 
-#: src/templates/index.mas:117
+#: src/templates/index.mas:120
 msgid "from"
 msgstr "fra"
 
-#: src/templates/index.mas:128
+#: src/templates/index.mas:131
 msgid "Valid"
 msgstr "Gyldig"
 
-#: src/templates/index.mas:130
+#: src/templates/index.mas:133
 msgid "Expired"
 msgstr "Utløpt"
 
-#: src/templates/index.mas:132
+#: src/templates/index.mas:135
 msgid "Revoked"
 msgstr "Tilbakekalt"
 
-#: src/templates/index.mas:137
+#: src/templates/index.mas:140
 #, perl-brace-format
 msgid "Reason: {reason}"
 msgstr "Årsak: {reason}"
 
-#: src/templates/index.mas:174 src/templates/index.mas:199
+#: src/templates/index.mas:177 src/templates/index.mas:214
 msgid "Download Key(s) and Certificate"
 msgstr "Last ned nøkkel(er) og Sertifikat"
 
-#: src/templates/formRevoke.mas:10
-msgid "Revoke a Certificate"
-msgstr "Tilbakekalle Sertifikat"
+#: src/templates/index.mas:199 src/templates/formReissue.mas:26
+#, fuzzy
+msgid "Reissue"
+msgstr "Utgi"
 
-#: src/templates/formRevoke.mas:18
-msgid "Revoke the selected certificate"
-msgstr "Tilbakekalle valgt sertifikat"
+#: src/templates/index.mas:216
+msgid "Renew or reissue"
+msgstr ""
 
-#: src/templates/formRevoke.mas:33 src/templates/formRenew.mas:48
-msgid "Expiration Date"
-msgstr "Utløps Dato"
+#: src/templates/createCA.mas:26
+msgid "Create"
+msgstr "Opprett"
 
-#: src/templates/formRevoke.mas:75 src/templates/formRenew.mas:17
-msgid "CA Passphrase"
-msgstr "CA Passord"
+#: src/templates/createCA.mas:34
+msgid "Create Certification Authority Certificate"
+msgstr "Opprett CA Sertifikat"
 
-#: src/templates/formRenew.mas:28
-msgid "Renew a certificate"
+#: src/templates/formReissue.mas:31
+#, fuzzy
+msgid "Reissue a certificate"
 msgstr "Forny et sertifikat"
+
+#: src/templates/forceRevoke.mas:13
+msgid "Revoking CA certificate"
+msgstr "Tilbakekaller CA sertifikat"
+
+#: src/templates/forceRevoke.mas:15
+msgid "Revoking certificate"
+msgstr "Tilbakekaller sertifikat"
+
+#: src/templates/forceRevoke.mas:21
+#, perl-brace-format
+msgid ""
+"This revokation can affect the functionality from other modules, please "
+"confirm you are very sure to revoke the whole certification authority from "
+"{on} and leave the service(s) unstable or disabled"
+msgstr ""
+"Denne tilbakekallingen kan berøre funksjonaliteten til andre moduler, "
+"vennligst forsikre deg om at du er sikker på å tilbakekalle hele denne "
+"sertifiseringsautoriteten (CA) fra {on} og gjøre tjenesten(e) ustabile eller "
+"deaktivert"
+
+#: src/templates/forceRevoke.mas:24
+#, perl-brace-format
+msgid ""
+"The certificate whose common name is {cn} you tried to revoke is being used "
+"by some module, please confirm you are sure to revoke and leave the service"
+"(s) unstable or disabled"
+msgstr ""
+"Sertifikatet som har vanlig navn {cn} du prøvde å tilbakekalle er brukt av "
+"noen moduler, vennligs forsikre deg om at du er sikker på å tilbakekalle og "
+"gjøre tjenesten(e) ustabile eller deaktivert"
+
+#: src/templates/forceRevoke.mas:45
+msgid "Cancel"
+msgstr "Avbryt"
+
+#: src/templates/forceRenew.mas:42
+msgid "Renewing CA certificate"
+msgstr "Fornyer CA sertifikat"
+
+#: src/templates/forceRenew.mas:44
+msgid "Renewing certificate"
+msgstr "Fornyer sertifikat"
+
+#: src/templates/forceRenew.mas:50
+#, perl-brace-format
+msgid ""
+"This renewal can affect the functionality from other modules, please confirm "
+"you are very sure to renew the whole certification authority from {on} and "
+"leave the service(s) unstable or disabled"
+msgstr ""
+"Denne fornyingen kan berøre funksjonaliteten til andre moduler, vennligst "
+"forsikre deg om at du er sikker på å fornye hele denne sertifiserings "
+"autoriteten fra {on} og gjøre tjenesten(e) ustabile eller deaktivert"
+
+#: src/templates/forceRenew.mas:53
+#, perl-brace-format
+msgid ""
+"The certificate whose common name is {cn} you tried to renew is being used "
+"by some module, please confirm you are sure to renew and leave the service"
+"(s) unstable or disabled"
+msgstr ""
+"Sertifikatet som har vanlig navn {cn} du prøvde å fornye er brukt av noen "
+"moduler, vennligs forsikre deg om at du er sikker på å tilbakekalle og gjøre "
+"tjenesten(e) ustabile eller deaktivert"

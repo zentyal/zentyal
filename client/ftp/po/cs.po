@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-. 1.5\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-08-28 23:35+0200\n"
+"POT-Creation-Date: 2010-12-13 08:39+0100\n"
 "PO-Revision-Date: 2010-11-04 20:25+0100\n"
 "Last-Translator: Michal Formánek <formi@seznam.cz>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
@@ -20,14 +20,6 @@ msgstr ""
 #: migration/0001_add_firewall_services.pl:45
 msgid "Zentyal FTP Server"
 msgstr "Zentyal FTP Server"
-
-#: src/EBox/FTP.pm:84
-msgid "To configure vsftpd"
-msgstr "Konfigurovat vsftpd"
-
-#: src/EBox/FTP.pm:88
-msgid "To configure vsftpd with LDAP authentication"
-msgstr "Konfigurovat vsftpd s LDAP autentizací"
 
 #: src/EBox/Model/Options.pm:45
 msgid "Disabled"
@@ -76,5 +68,21 @@ msgstr ""
 "Adresář pro anonymní přístup je /srv/ftp. Ujistěte se, že soubory, které sem "
 "uložíte, mají práva pro čtení pro všechny (chmod o+r /srv/ftp/*). Pokud "
 "chcete poskytnout přístup také k zápisu, musíte vytvořit podadresáře s "
-"oprávněním k zápis pro všechny. Např.: mkdir /srv/ftp/incoming ; chmod o+rwx "
-"/srv/ftp/incoming"
+"oprávněním k zápis pro všechny. Např.: mkdir /srv/ftp/incoming ; chmod o"
+"+rwx /srv/ftp/incoming"
+
+#: src/EBox/FTP.pm:84
+msgid "To configure vsftpd"
+msgstr "Konfigurovat vsftpd"
+
+#: src/EBox/FTP.pm:88
+msgid "To configure vsftpd with LDAP authentication"
+msgstr "Konfigurovat vsftpd s LDAP autentizací"
+
+#: src/EBox/FTP.pm:146
+msgid "FTP server hosted files"
+msgstr ""
+
+#: src/EBox/FTP.pm:147
+msgid "User homes and anonymous directory"
+msgstr ""

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-radius 1.4\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-08-28 23:38+0200\n"
+"POT-Creation-Date: 2010-12-13 08:42+0100\n"
 "PO-Revision-Date: 2010-11-05 11:53+0100\n"
 "Last-Translator: Michal Formánek <formi@seznam.cz>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
@@ -20,26 +20,6 @@ msgstr ""
 #: migration/0001_add_firewall_services.pl:45
 msgid "Zentyal RADIUS system"
 msgstr "Zentyal RADIUS systém"
-
-#: src/EBox/Model/Clients.pm:105
-msgid "Client"
-msgstr "Klient"
-
-#: src/EBox/Model/Clients.pm:112
-msgid "IP Address"
-msgstr "IP adresa"
-
-#: src/EBox/Model/Clients.pm:118
-msgid "Shared Secret"
-msgstr "Sdílení tajného hesla"
-
-#: src/EBox/Model/Clients.pm:126
-msgid "RADIUS Clients"
-msgstr "RADIUS klienti"
-
-#: src/EBox/Model/Clients.pm:127
-msgid "client"
-msgstr "klient"
 
 #: src/EBox/Model/Auth.pm:103
 msgid "All users"
@@ -61,6 +41,26 @@ msgstr "Nastavení RADIUS serveru"
 msgid "RADIUS server configuration updated"
 msgstr "Aktualizováno nastavení RADIUS serveru"
 
+#: src/EBox/Model/Clients.pm:105
+msgid "Client"
+msgstr "Klient"
+
+#: src/EBox/Model/Clients.pm:112
+msgid "IP Address"
+msgstr "IP adresa"
+
+#: src/EBox/Model/Clients.pm:118
+msgid "Shared Secret"
+msgstr "Sdílení tajného hesla"
+
+#: src/EBox/Model/Clients.pm:126
+msgid "RADIUS Clients"
+msgstr "RADIUS klienti"
+
+#: src/EBox/Model/Clients.pm:127
+msgid "client"
+msgstr "klient"
+
 #: src/EBox/Radius.pm:100
 msgid "Create RADIUS certificates for TTLS"
 msgstr "Vytvořit RADIUS certifikáty pro TTLS"
@@ -70,8 +70,8 @@ msgid ""
 "Zentyal will create the needed certificates for TTLS in /etc/freeradius/"
 "certs/."
 msgstr ""
-"Zentyal vytvoří certifikáty potřebné pro TTLS ve složce "
-"/etc/freeradius/certs/."
+"Zentyal vytvoří certifikáty potřebné pro TTLS ve složce /etc/freeradius/"
+"certs/."
 
 #: src/EBox/Radius.pm:121
 msgid "To configure allowed LDAP group."

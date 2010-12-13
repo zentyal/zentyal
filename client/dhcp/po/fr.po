@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-dhcp 0.12\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-08-28 23:34+0200\n"
+"POT-Creation-Date: 2010-12-13 08:38+0100\n"
 "PO-Revision-Date: 2010-08-29 14:48+0200\n"
 "Last-Translator: Cyril MARTY <cyril_marty@yahoo.fr>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
@@ -23,15 +23,229 @@ msgstr "Protocole de transfert de fichier (TFTP)"
 msgid "Dynamic Host Configuration Protocol"
 msgstr "Dynamic Host Configuration Protocol (DHCP)"
 
-#: src/EBox/Model/DynamicDNS.pm:110 src/EBox/Model/FixedAddressTable.pm:97
-#: src/EBox/Model/ThinClientOptions.pm:117 src/EBox/Model/RangeInfo.pm:107
-#: src/EBox/Model/LeaseTimes.pm:111 src/EBox/Model/Options.pm:118
-#: src/EBox/Model/RangeTable.pm:95 src/EBox/Composite/AdvancedOptions.pm:87
+#: src/EBox/CGI/Status.pm:42
+msgid "Module Status"
+msgstr "Statut du Module"
+
+#: src/EBox/CGI/AddFixed.pm:39 src/EBox/CGI/RemoveRange.pm:39
+#: src/EBox/CGI/AddRange.pm:39 src/EBox/CGI/RemoveFixed.pm:39
+#: src/EBox/CGI/SetIfaceOptions.pm:39 src/EBox/DHCP.pm:446
+#: src/EBox/DHCP.pm:482 src/EBox/DHCP.pm:532 src/EBox/DHCP.pm:578
+#: src/EBox/DHCP.pm:624 src/EBox/DHCP.pm:722 src/EBox/DHCP.pm:776
+#: src/EBox/DHCP.pm:837 src/EBox/DHCP.pm:893 src/EBox/DHCP.pm:1284
+msgid "Interface"
+msgstr "Interface"
+
+#: src/EBox/CGI/AddFixed.pm:43 src/EBox/Model/FixedAddressTable.pm:214
+#: src/EBox/DHCP.pm:1285 src/EBox/DHCP.pm:1353 src/templates/fixed.mas:9
+msgid "MAC address"
+msgstr "Adresse MAC"
+
+#: src/EBox/CGI/AddFixed.pm:44 src/EBox/Model/ThinClientOptions.pm:241
+#: src/EBox/Model/FixedAddressTable.pm:220 src/EBox/DHCP.pm:1353
+#: src/templates/fixed.mas:10
+msgid "IP address"
+msgstr "Adresse IP"
+
+#: src/EBox/CGI/AddFixed.pm:45 src/EBox/CGI/AddRange.pm:43
+#: src/EBox/Model/FixedAddressTable.pm:208 src/EBox/Model/RangeTable.pm:213
+#: src/templates/fixed.mas:8 src/templates/ranges.mas:53
+msgid "Name"
+msgstr "Nom"
+
+#: src/EBox/CGI/AddRange.pm:44 src/EBox/Model/RangeTable.pm:219
+#: src/templates/ranges.mas:54
+msgid "From"
+msgstr "De"
+
+#: src/EBox/CGI/AddRange.pm:45 src/EBox/Model/RangeTable.pm:225
+#: src/templates/ranges.mas:55
+msgid "To"
+msgstr "À"
+
+#: src/EBox/CGI/Enable.pm:39
+msgid "module status"
+msgstr "statut du module"
+
+#: src/EBox/Model/ThinClientOptions.pm:117 src/EBox/Model/LeaseTimes.pm:111
+#: src/EBox/Model/FixedAddressTable.pm:97 src/EBox/Model/DynamicDNS.pm:110
+#: src/EBox/Model/RangeInfo.pm:107 src/EBox/Model/Options.pm:118
+#: src/EBox/Model/RangeTable.pm:95 src/EBox/Composite/OptionsTab.pm:86
 #: src/EBox/Composite/InterfaceConfiguration.pm:86
-#: src/EBox/Composite/OptionsTab.pm:86
+#: src/EBox/Composite/AdvancedOptions.pm:87
 #, perl-brace-format
 msgid "interface {iface}"
 msgstr "interface {iface}"
+
+# adaptation au changement de nom du produit
+#: src/EBox/Model/ThinClientOptions.pm:138
+msgid "You need to upload a boot image to Zentyal if you set it as next server"
+msgstr ""
+"Vous devez envoyer une image de boot à Zentyal si vous le sélectionnez comme "
+"serveur suivant"
+
+# adaptation au changement de nom du produit
+#: src/EBox/Model/ThinClientOptions.pm:145
+msgid ""
+"In order to upload a boot image to Zentyal, you need to set Zentyal as next "
+"server"
+msgstr ""
+"Pour pouvoir envoyer une image de boot à Zentyal, vous devez définir Zentyal "
+"comme serveur suivant"
+
+#: src/EBox/Model/ThinClientOptions.pm:152
+msgid "You need to specify a path to the boot image in the remote server"
+msgstr ""
+"Vous devez spécifier le chemin de l'image de boot sur le serveur distant"
+
+#: src/EBox/Model/ThinClientOptions.pm:157
+msgid ""
+"You can only specify a file name if you have a next server and it is not "
+"Zentyal"
+msgstr ""
+"Vous pouvez seulement spécifier un nom de fichier si vous possédez un "
+"serveur suivant et que ce dernier n'est pas un Zentyal"
+
+# adaptation au changement de nom du produit
+#: src/EBox/Model/ThinClientOptions.pm:208
+#, perl-brace-format
+msgid ""
+"Removing previously uploaded boot image since next server option has been "
+"changed from Zentyal to {option}"
+msgstr ""
+"Suppression de l'image de boot existante tant que l'option du serveur "
+"suivant ne sera pas changé de Zentyal à {option}"
+
+#: src/EBox/Model/ThinClientOptions.pm:231
+msgid "Next server"
+msgstr "Prochain serveur"
+
+#: src/EBox/Model/ThinClientOptions.pm:235 src/EBox/Model/Options.pm:370
+#: src/EBox/Model/Options.pm:404 src/EBox/Model/Options.pm:408
+#: src/EBox/Model/Options.pm:422 src/EBox/Model/Options.pm:455
+msgid "None"
+msgstr "Aucun"
+
+#: src/EBox/Model/ThinClientOptions.pm:245
+msgid "name"
+msgstr "nom"
+
+#: src/EBox/Model/ThinClientOptions.pm:251
+msgid "File name"
+msgstr "Nom de fichier"
+
+#: src/EBox/Model/ThinClientOptions.pm:260
+msgid "File path in next server"
+msgstr "Chemin d'accès au prochain serveur"
+
+#: src/EBox/Model/ThinClientOptions.pm:268
+msgid "Thin client"
+msgstr "Client léger"
+
+#: src/EBox/Model/ThinClientOptions.pm:273
+#, perl-brace-format
+msgid ""
+"You may want to customise your thin client options.To do so, you may include "
+"all the files you require under {path} directory"
+msgstr ""
+"Vous pouvez vouloir modifier les options de votre client léger. Afin de le "
+"faire, vous pouvez inclure tous les fichiers dont vous avez besoin sous "
+"{path}"
+
+#: src/EBox/Model/LeaseTimes.pm:131
+msgid "Default leased time must be higher than 0 seconds"
+msgstr "Le temps alloué par défaut doit être supérieur à 0 secondes"
+
+#: src/EBox/Model/LeaseTimes.pm:137
+#, perl-brace-format
+msgid "Default leased time {default} must be lower than maximum one {max}"
+msgstr ""
+"Le temps alloué par défaut {default} doit être inférieur au temps maximum "
+"{max}"
+
+#: src/EBox/Model/LeaseTimes.pm:149
+msgid "Maximum leased time must be higher than 0 seconds"
+msgstr "Le temps alloué maximum doit être supérieur à 0 secondes"
+
+#: src/EBox/Model/LeaseTimes.pm:155
+#, perl-brace-format
+msgid "Maximum leased time {max} must be higher than default one {default}"
+msgstr ""
+"Le temps alloué maximum {max} doit être supérieur au temps par défaut "
+"{default}"
+
+#: src/EBox/Model/LeaseTimes.pm:199
+msgid "Default leased time"
+msgstr "Temps alloué par défaut"
+
+#: src/EBox/Model/LeaseTimes.pm:202 src/EBox/Model/LeaseTimes.pm:209
+msgid "seconds"
+msgstr "secondes"
+
+#: src/EBox/Model/LeaseTimes.pm:206
+msgid "Maximum leased time"
+msgstr "Temps alloué maximum"
+
+#: src/EBox/Model/LeaseTimes.pm:215
+msgid "Lease times"
+msgstr "Temps alloués"
+
+#: src/EBox/Model/LeaseTimes.pm:220
+msgid ""
+"Leased time is the time which a given IP address is valid by the DHCP server"
+msgstr ""
+"Le temps alloué est le temps pour lequel une adresse IP donnée est validée "
+"par le serveur DHCP"
+
+#: src/EBox/Model/FixedAddressTable.pm:123
+#, perl-brace-format
+msgid "IP address {ip} is not in network {net}"
+msgstr "L'adresse IP {ip} n'est pas dans le réseau {net}"
+
+#: src/EBox/Model/FixedAddressTable.pm:134
+#, perl-brace-format
+msgid "The selected IP is the interface IP address: {ifaceIP}"
+msgstr "L'adresse IP choisie est l'adresse IP de l'interface: {ifaceIP}"
+
+#: src/EBox/Model/FixedAddressTable.pm:151
+#, perl-brace-format
+msgid "IP address {ip} is in range '{range}': {from}-{to}"
+msgstr "L'adresse IP {ip} est dans la plage '{range}': {from}-{to}"
+
+#: src/EBox/Model/FixedAddressTable.pm:176
+msgid "update"
+msgstr "mis-à-jour"
+
+#: src/EBox/Model/FixedAddressTable.pm:178
+msgid "add"
+msgstr "ajouter"
+
+#: src/EBox/Model/FixedAddressTable.pm:180
+#, perl-brace-format
+msgid ""
+"You cannot {action} a fixed address with a name which is already used in "
+"other fixed address table"
+msgstr ""
+"Vous ne pouvez pas {action} une adresse fixe avec un nom qui est déjà "
+"utilisé dans une autre table d'adresses fixes"
+
+#: src/EBox/Model/FixedAddressTable.pm:223
+msgid "You cannot use an IP address contained in the above ranges."
+msgstr ""
+"Vous ne pouvez pas utiliser une adresse IP comprise dans les intervalles ci-"
+"dessus."
+
+#: src/EBox/Model/FixedAddressTable.pm:228
+msgid "Description"
+msgstr "Description"
+
+#: src/EBox/Model/FixedAddressTable.pm:236 src/templates/fixed.mas:5
+msgid "Fixed addresses"
+msgstr "Adresses fixes"
+
+#: src/EBox/Model/FixedAddressTable.pm:243
+msgid "fixed address"
+msgstr "adresse fixe"
 
 #: src/EBox/Model/DynamicDNS.pm:131 src/EBox/Model/DynamicDNS.pm:139
 #: src/EBox/Model/DynamicDNS.pm:386
@@ -114,148 +328,6 @@ msgstr "Domaine \"{domain}\" ajouté à la section DNS"
 msgid "Domain \"{domain}\" removed from DNS section"
 msgstr "Domaine \"{domain}\" supprimé de la section DNS"
 
-#: src/EBox/Model/FixedAddressTable.pm:123
-#, perl-brace-format
-msgid "IP address {ip} is not in network {net}"
-msgstr "L'adresse IP {ip} n'est pas dans le réseau {net}"
-
-#: src/EBox/Model/FixedAddressTable.pm:134
-#, perl-brace-format
-msgid "The selected IP is the interface IP address: {ifaceIP}"
-msgstr "L'adresse IP choisie est l'adresse IP de l'interface: {ifaceIP}"
-
-#: src/EBox/Model/FixedAddressTable.pm:151
-#, perl-brace-format
-msgid "IP address {ip} is in range '{range}': {from}-{to}"
-msgstr "L'adresse IP {ip} est dans la plage '{range}': {from}-{to}"
-
-#: src/EBox/Model/FixedAddressTable.pm:176
-msgid "update"
-msgstr "mis-à-jour"
-
-#: src/EBox/Model/FixedAddressTable.pm:178
-msgid "add"
-msgstr "ajouter"
-
-#: src/EBox/Model/FixedAddressTable.pm:180
-#, perl-brace-format
-msgid ""
-"You cannot {action} a fixed address with a name which is already used in "
-"other fixed address table"
-msgstr ""
-"Vous ne pouvez pas {action} une adresse fixe avec un nom qui est déjà "
-"utilisé dans une autre table d'adresses fixes"
-
-#: src/EBox/Model/FixedAddressTable.pm:208 src/EBox/Model/RangeTable.pm:213
-#: src/EBox/CGI/AddFixed.pm:45 src/EBox/CGI/AddRange.pm:43
-#: src/templates/fixed.mas:8 src/templates/ranges.mas:53
-msgid "Name"
-msgstr "Nom"
-
-#: src/EBox/Model/FixedAddressTable.pm:214 src/EBox/DHCP.pm:1263
-#: src/EBox/DHCP.pm:1331 src/EBox/CGI/AddFixed.pm:43 src/templates/fixed.mas:9
-msgid "MAC address"
-msgstr "Adresse MAC"
-
-#: src/EBox/Model/FixedAddressTable.pm:220
-#: src/EBox/Model/ThinClientOptions.pm:241 src/EBox/DHCP.pm:1331
-#: src/EBox/CGI/AddFixed.pm:44 src/templates/fixed.mas:10
-msgid "IP address"
-msgstr "Adresse IP"
-
-#: src/EBox/Model/FixedAddressTable.pm:223
-msgid "You cannot use an IP address contained in the above ranges."
-msgstr ""
-"Vous ne pouvez pas utiliser une adresse IP comprise dans les intervalles ci-"
-"dessus."
-
-#: src/EBox/Model/FixedAddressTable.pm:228
-msgid "Description"
-msgstr "Description"
-
-#: src/EBox/Model/FixedAddressTable.pm:236 src/templates/fixed.mas:5
-msgid "Fixed addresses"
-msgstr "Adresses fixes"
-
-#: src/EBox/Model/FixedAddressTable.pm:243
-msgid "fixed address"
-msgstr "adresse fixe"
-
-# adaptation au changement de nom du produit
-#: src/EBox/Model/ThinClientOptions.pm:138
-msgid "You need to upload a boot image to Zentyal if you set it as next server"
-msgstr ""
-"Vous devez envoyer une image de boot à Zentyal si vous le sélectionnez comme "
-"serveur suivant"
-
-# adaptation au changement de nom du produit
-#: src/EBox/Model/ThinClientOptions.pm:145
-msgid ""
-"In order to upload a boot image to Zentyal, you need to set Zentyal as next "
-"server"
-msgstr ""
-"Pour pouvoir envoyer une image de boot à Zentyal, vous devez définir Zentyal "
-"comme serveur suivant"
-
-#: src/EBox/Model/ThinClientOptions.pm:152
-msgid "You need to specify a path to the boot image in the remote server"
-msgstr ""
-"Vous devez spécifier le chemin de l'image de boot sur le serveur distant"
-
-#: src/EBox/Model/ThinClientOptions.pm:157
-msgid ""
-"You can only specify a file name if you have a next server and it is not "
-"Zentyal"
-msgstr ""
-"Vous pouvez seulement spécifier un nom de fichier si vous possédez un "
-"serveur suivant et que ce dernier n'est pas un Zentyal"
-
-# adaptation au changement de nom du produit
-#: src/EBox/Model/ThinClientOptions.pm:208
-#, perl-brace-format
-msgid ""
-"Removing previously uploaded boot image since next server option has been "
-"changed from Zentyal to {option}"
-msgstr ""
-"Suppression de l'image de boot existante tant que l'option du serveur "
-"suivant ne sera pas changé de Zentyal à {option}"
-
-#: src/EBox/Model/ThinClientOptions.pm:231
-msgid "Next server"
-msgstr "Prochain serveur"
-
-#: src/EBox/Model/ThinClientOptions.pm:235 src/EBox/Model/Options.pm:370
-#: src/EBox/Model/Options.pm:404 src/EBox/Model/Options.pm:408
-#: src/EBox/Model/Options.pm:422 src/EBox/Model/Options.pm:455
-msgid "None"
-msgstr "Aucun"
-
-#: src/EBox/Model/ThinClientOptions.pm:245
-msgid "name"
-msgstr "nom"
-
-#: src/EBox/Model/ThinClientOptions.pm:251
-msgid "File name"
-msgstr "Nom de fichier"
-
-#: src/EBox/Model/ThinClientOptions.pm:260
-msgid "File path in next server"
-msgstr "Chemin d'accès au prochain serveur"
-
-#: src/EBox/Model/ThinClientOptions.pm:268
-msgid "Thin client"
-msgstr "Client léger"
-
-#: src/EBox/Model/ThinClientOptions.pm:273
-#, perl-brace-format
-msgid ""
-"You may want to customise your thin client options.To do so, you may include "
-"all the files you require under {path} directory"
-msgstr ""
-"Vous pouvez vouloir modifier les options de votre client léger. Afin de le "
-"faire, vous pouvez inclure tous les fichiers dont vous avez besoin sous "
-"{path}"
-
 #: src/EBox/Model/RangeInfo.pm:142
 msgid "Interface IP address"
 msgstr "Adresse IP de l'interface"
@@ -271,51 +343,6 @@ msgstr "Plage disponible"
 #: src/EBox/Model/RangeInfo.pm:156 src/templates/ranges.mas:15
 msgid "DHCP ranges"
 msgstr "Plage DHCP"
-
-#: src/EBox/Model/LeaseTimes.pm:131
-msgid "Default leased time must be higher than 0 seconds"
-msgstr "Le temps alloué par défaut doit être supérieur à 0 secondes"
-
-#: src/EBox/Model/LeaseTimes.pm:137
-#, perl-brace-format
-msgid "Default leased time {default} must be lower than maximum one {max}"
-msgstr ""
-"Le temps alloué par défaut {default} doit être inférieur au temps maximum "
-"{max}"
-
-#: src/EBox/Model/LeaseTimes.pm:149
-msgid "Maximum leased time must be higher than 0 seconds"
-msgstr "Le temps alloué maximum doit être supérieur à 0 secondes"
-
-#: src/EBox/Model/LeaseTimes.pm:155
-#, perl-brace-format
-msgid "Maximum leased time {max} must be higher than default one {default}"
-msgstr ""
-"Le temps alloué maximum {max} doit être supérieur au temps par défaut "
-"{default}"
-
-#: src/EBox/Model/LeaseTimes.pm:199
-msgid "Default leased time"
-msgstr "Temps alloué par défaut"
-
-#: src/EBox/Model/LeaseTimes.pm:202 src/EBox/Model/LeaseTimes.pm:209
-msgid "seconds"
-msgstr "secondes"
-
-#: src/EBox/Model/LeaseTimes.pm:206
-msgid "Maximum leased time"
-msgstr "Temps alloué maximum"
-
-#: src/EBox/Model/LeaseTimes.pm:215
-msgid "Lease times"
-msgstr "Temps alloués"
-
-#: src/EBox/Model/LeaseTimes.pm:220
-msgid ""
-"Leased time is the time which a given IP address is valid by the DHCP server"
-msgstr ""
-"Le temps alloué est le temps pour lequel une adresse IP donnée est validée "
-"par le serveur DHCP"
 
 #: src/EBox/Model/Options.pm:156
 #, perl-brace-format
@@ -407,8 +434,8 @@ msgid ""
 "If \"Zentyal DNS\" is present and selected, the Zentyal server will act as "
 "cache DNS server"
 msgstr ""
-"Si le \"DSN Zentyal\" est présent et sélectionné, le serveur Zentyal agira en "
-"tant que serveur de cache DNS"
+"Si le \"DSN Zentyal\" est présent et sélectionné, le serveur Zentyal agira "
+"en tant que serveur de cache DNS"
 
 #: src/EBox/Model/Options.pm:487 src/templates/options.mas:52
 msgid "Secondary nameserver"
@@ -423,8 +450,8 @@ msgid ""
 "If \"Zentyal NTP\" is present and selected, Zentyal will be the NTP server "
 "for DHCP clients"
 msgstr ""
-"Si le \"NTP Zentyal\" est présent et sélectionné, le serveur Zentyal agira en "
-"tant que serveur de temps NTP pour les clients DHCP"
+"Si le \"NTP Zentyal\" est présent et sélectionné, le serveur Zentyal agira "
+"en tant que serveur de temps NTP pour les clients DHCP"
 
 #: src/EBox/Model/Options.pm:501
 msgid "WINS server"
@@ -483,16 +510,6 @@ msgstr ""
 msgid "Range {from}-{to} includes fixed address '{name}': {fixedIP}"
 msgstr "La plage {from}-{to} inclue l'adresse fixe '{name}': {fixedIP}"
 
-#: src/EBox/Model/RangeTable.pm:219 src/EBox/CGI/AddRange.pm:44
-#: src/templates/ranges.mas:54
-msgid "From"
-msgstr "De"
-
-#: src/EBox/Model/RangeTable.pm:225 src/EBox/CGI/AddRange.pm:45
-#: src/templates/ranges.mas:55
-msgid "To"
-msgstr "À"
-
 #: src/EBox/Model/RangeTable.pm:233 src/templates/ranges.mas:49
 msgid "Ranges"
 msgstr "Plages"
@@ -500,6 +517,91 @@ msgstr "Plages"
 #: src/EBox/Model/RangeTable.pm:240
 msgid "range"
 msgstr "plage"
+
+#: src/EBox/DHCP.pm:119
+#, perl-brace-format
+msgid "{server} configuration file"
+msgstr "Fichier de configuration de {server}"
+
+#: src/EBox/DHCP.pm:132
+#, perl-brace-format
+msgid "Disable {server} init sctript"
+msgstr ""
+
+#: src/EBox/DHCP.pm:133
+msgid "Zentyal will take care of start and stop the service"
+msgstr ""
+
+#: src/EBox/DHCP.pm:452 src/EBox/DHCP.pm:488 src/EBox/DHCP.pm:538
+#: src/EBox/DHCP.pm:584 src/EBox/DHCP.pm:630 src/EBox/DHCP.pm:728
+#: src/EBox/DHCP.pm:843 src/EBox/DHCP.pm:899
+#, perl-brace-format
+msgid "{iface} is not static"
+msgstr "{iface} n'est pas statique"
+
+#: src/EBox/DHCP.pm:714
+msgid "Not a valid action: add, set and del are available"
+msgstr "N'est pas une action valide : ajouter, définir et effacer en sont"
+
+#: src/EBox/DHCP.pm:829
+msgid "No valid action. Available ones are: add, set and del"
+msgstr ""
+"N'est pas une action valide. Action disponibles : ajouter, définir et effacer"
+
+#: src/EBox/DHCP.pm:1068
+#, perl-brace-format
+msgid ""
+"The IP address of the virtual interface you are trying to add is already "
+"used by the DHCP range '{range}' in the interface '{iface}'. Please, remove "
+"it before trying to add a virtual interface using it."
+msgstr ""
+"L'adresse IP de l'interface virtuelle que vous essayez d'ajouter est déjà "
+"employée par la plage DHCP '{range} 'dans l'interface '{iface} '. Svp, "
+"enlevez-la avant d'ajouter une interface virtuelle avec cette adresse."
+
+#: src/EBox/DHCP.pm:1087
+#, perl-brace-format
+msgid ""
+"The IP address of the virtual interface you are trying to add is already "
+"used by the DHCP fixed address '{fixed}' in the interface '{iface}'. Please, "
+"remove it before trying to add a virtual interface using it."
+msgstr ""
+"L'adresse IP de l'interface virtuelle que vous essayez d'ajouter est déjà "
+"employée par l'adresse fixe DHCP '{fixed} 'dans l'interface '{iface} '. Svp, "
+"enlevez-la avant d'ajouter une interface virtuelle avec cette adresse."
+
+#: src/EBox/DHCP.pm:1283
+msgid "Date"
+msgstr "Date"
+
+#: src/EBox/DHCP.pm:1286
+msgid "IP"
+msgstr "IP"
+
+# corrrection typo
+#: src/EBox/DHCP.pm:1287
+msgid "Event"
+msgstr "Evènement"
+
+#: src/EBox/DHCP.pm:1290
+msgid "Leased"
+msgstr "Alloué"
+
+#: src/EBox/DHCP.pm:1290
+msgid "Released"
+msgstr "Libre"
+
+#: src/EBox/DHCP.pm:1293
+msgid "DHCP"
+msgstr "DHCP"
+
+#: src/EBox/DHCP.pm:1353
+msgid "Host name"
+msgstr "Nom d'hôte"
+
+#: src/EBox/DHCP.pm:1380
+msgid "DHCP leases"
+msgstr "Baux DHCP"
 
 #: src/EBox/Composite/General.pm:78
 #, perl-brace-format
@@ -510,10 +612,6 @@ msgstr ""
 "Une interface doit être définie comme statique, afin de configurer son "
 "service DHCP. Pour le faire, modifier {openhref}la configuration des "
 "interfaces{closehref} dans le module réseau"
-
-#: src/EBox/Composite/AdvancedOptions.pm:132
-msgid "Advanced options"
-msgstr "Options avancées"
 
 #: src/EBox/Composite/Interfaces.pm:107
 msgid "Choose a static interface to configure:"
@@ -540,115 +638,9 @@ msgstr ""
 "Afin de fournir des adresses IP sur une interface externe, vous devez ouvrir "
 "le service sur {openhref}le module pare-feu{closehref}"
 
-#: src/EBox/DHCP.pm:117
-#, perl-brace-format
-msgid "{server} configuration file"
-msgstr "Fichier de configuration de {server}"
-
-#: src/EBox/DHCP.pm:424 src/EBox/DHCP.pm:460 src/EBox/DHCP.pm:510
-#: src/EBox/DHCP.pm:556 src/EBox/DHCP.pm:602 src/EBox/DHCP.pm:700
-#: src/EBox/DHCP.pm:754 src/EBox/DHCP.pm:815 src/EBox/DHCP.pm:871
-#: src/EBox/DHCP.pm:1262 src/EBox/CGI/AddFixed.pm:39
-#: src/EBox/CGI/AddRange.pm:39 src/EBox/CGI/SetIfaceOptions.pm:39
-#: src/EBox/CGI/RemoveFixed.pm:39 src/EBox/CGI/RemoveRange.pm:39
-msgid "Interface"
-msgstr "Interface"
-
-#: src/EBox/DHCP.pm:430 src/EBox/DHCP.pm:466 src/EBox/DHCP.pm:516
-#: src/EBox/DHCP.pm:562 src/EBox/DHCP.pm:608 src/EBox/DHCP.pm:706
-#: src/EBox/DHCP.pm:821 src/EBox/DHCP.pm:877
-#, perl-brace-format
-msgid "{iface} is not static"
-msgstr "{iface} n'est pas statique"
-
-#: src/EBox/DHCP.pm:692
-msgid "Not a valid action: add, set and del are available"
-msgstr "N'est pas une action valide : ajouter, définir et effacer en sont"
-
-#: src/EBox/DHCP.pm:807
-msgid "No valid action. Available ones are: add, set and del"
-msgstr ""
-"N'est pas une action valide. Action disponibles : ajouter, définir et effacer"
-
-#: src/EBox/DHCP.pm:1046
-#, perl-brace-format
-msgid ""
-"The IP address of the virtual interface you are trying to add is already "
-"used by the DHCP range '{range}' in the interface '{iface}'. Please, remove "
-"it before trying to add a virtual interface using it."
-msgstr ""
-"L'adresse IP de l'interface virtuelle que vous essayez d'ajouter est déjà "
-"employée par la plage DHCP '{range} 'dans l'interface '{iface} '. Svp, "
-"enlevez-la avant d'ajouter une interface virtuelle avec cette adresse."
-
-#: src/EBox/DHCP.pm:1065
-#, perl-brace-format
-msgid ""
-"The IP address of the virtual interface you are trying to add is already "
-"used by the DHCP fixed address '{fixed}' in the interface '{iface}'. Please, "
-"remove it before trying to add a virtual interface using it."
-msgstr ""
-"L'adresse IP de l'interface virtuelle que vous essayez d'ajouter est déjà "
-"employée par l'adresse fixe DHCP '{fixed} 'dans l'interface '{iface} '. Svp, "
-"enlevez-la avant d'ajouter une interface virtuelle avec cette adresse."
-
-#: src/EBox/DHCP.pm:1261
-msgid "Date"
-msgstr "Date"
-
-#: src/EBox/DHCP.pm:1264
-msgid "IP"
-msgstr "IP"
-
-# corrrection typo
-#: src/EBox/DHCP.pm:1265
-msgid "Event"
-msgstr "Evènement"
-
-#: src/EBox/DHCP.pm:1268
-msgid "Leased"
-msgstr "Alloué"
-
-#: src/EBox/DHCP.pm:1268
-msgid "Released"
-msgstr "Libre"
-
-#: src/EBox/DHCP.pm:1271
-msgid "DHCP"
-msgstr "DHCP"
-
-#: src/EBox/DHCP.pm:1331
-msgid "Host name"
-msgstr "Nom d'hôte"
-
-#: src/EBox/DHCP.pm:1358
-msgid "DHCP leases"
-msgstr "Baux DHCP"
-
-#: src/EBox/CGI/Enable.pm:39
-msgid "module status"
-msgstr "statut du module"
-
-#: src/EBox/CGI/Status.pm:42
-msgid "Module Status"
-msgstr "Statut du Module"
-
-#: src/templates/options.mas:8
-msgid "Options"
-msgstr "Options"
-
-# Adaptation au nouveau nom du produit
-#: src/templates/options.mas:10
-msgid ""
-"You can leave empty the Default Gateway field to use Zentyal as default "
-"gateway for this subnet"
-msgstr ""
-"Vous pouvez laisser vide le champ \"Passerelle par Défaut\" pour utiliser "
-"Zentyal comme passerelle par défaut pour ce sous-réseau"
-
-#: src/templates/options.mas:64
-msgid "Apply"
-msgstr "Appliquer"
+#: src/EBox/Composite/AdvancedOptions.pm:132
+msgid "Advanced options"
+msgstr "Options avancées"
 
 #: src/templates/fixed.mas:11 src/templates/ranges.mas:56
 msgid "Action"
@@ -673,3 +665,20 @@ msgstr "Masque de sous-réseau"
 #: src/templates/ranges.mas:93
 msgid "Delete"
 msgstr "Supprimer"
+
+#: src/templates/options.mas:8
+msgid "Options"
+msgstr "Options"
+
+# Adaptation au nouveau nom du produit
+#: src/templates/options.mas:10
+msgid ""
+"You can leave empty the Default Gateway field to use Zentyal as default "
+"gateway for this subnet"
+msgstr ""
+"Vous pouvez laisser vide le champ \"Passerelle par Défaut\" pour utiliser "
+"Zentyal comme passerelle par défaut pour ce sous-réseau"
+
+#: src/templates/options.mas:64
+msgid "Apply"
+msgstr "Appliquer"

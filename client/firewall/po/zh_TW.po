@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-firewall 0.12.99\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-08-28 23:35+0200\n"
+"POT-Creation-Date: 2010-12-13 08:39+0100\n"
 "PO-Revision-Date: 2009-08-04 06:02+0200\n"
 "Last-Translator: Chao-Hsiung Liao <j_h_liau@yahoo.com.tw>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
@@ -16,24 +16,138 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: src/EBox/Firewall/Model/ToInternetRuleTable.pm:65
-#, fuzzy
-msgid "Internal networks"
-msgstr "外網連接埠"
+#: src/EBox/Iptables.pm:838 src/EBox/Iptables.pm:875
+#: src/EBox/Firewall/IptablesRedirectRule.pm:78
+msgid ""
+"You must set the iptables_log_limit variable in the ebox configuration file"
+msgstr "您必須在 ebox 設置檔中設定 iptables_log_limit 變數"
 
-#: src/EBox/Firewall/Model/ToInternetRuleTable.pm:77
-#: src/EBox/Firewall/Model/EBoxOutputRuleTable.pm:77
-#: src/EBox/Firewall/Model/ExternalToInternalRuleTable.pm:80
-#: src/EBox/Firewall/Model/InternalToEBoxRuleTable.pm:77
-#: src/EBox/Firewall/Model/ExternalToEBoxRuleTable.pm:79
-#: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:161
-msgid "rule"
-msgstr "規則"
+#: src/EBox/Iptables.pm:844 src/EBox/Iptables.pm:881
+#: src/EBox/Firewall/IptablesRedirectRule.pm:83
+msgid ""
+"You must set the iptables_log_burst variable in the ebox configuration file"
+msgstr "您必須在 ebox 設置檔中設定 iptables_log_burst 變數"
+
+#: src/EBox/Firewall.pm:58 src/EBox/Firewall.pm:812
+msgid "Firewall"
+msgstr "防火牆"
+
+#: src/EBox/Firewall.pm:84
+msgid "Flush previous firewall rules"
+msgstr "清空之前的防火牆規則"
+
+#: src/EBox/Firewall.pm:85
+#, fuzzy
+msgid ""
+"The Zentyal firewall will flush any previous firewall rules which have been "
+"added manually or by another tool"
+msgstr "eBox 防火牆將會清空任何之前的防火牆規則然後可以手動新增或是用其他工具"
+
+#: src/EBox/Firewall.pm:90
+msgid "Secure by default"
+msgstr "預設是以安全"
+
+#: src/EBox/Firewall.pm:91
+msgid ""
+"Just a few connections are allowed by default. Make sure you add the proper "
+"incoming and outcoming rules to make your system work as expected. Usually, "
+"all outcoming connections are denied by default, and only SSH and HTTPS "
+"incoming connections are allowed."
+msgstr ""
+"預設中只有一些連線是允許的. 請確定您所新增的連入跟連出的規則能使您的系統工作"
+"正常.通常,預設中所有連出的連線是禁止的,只有 SSH 和 HTTPS 連入連線是允許的."
+
+#: src/EBox/Firewall.pm:268
+msgid "action"
+msgstr "動作"
+
+#: src/EBox/Firewall.pm:389 src/EBox/Firewall.pm:434 src/EBox/Firewall.pm:458
+#, perl-brace-format
+msgid "Name '{name}' is invalid"
+msgstr "名稱 '{name}' 是無效的"
+
+#: src/EBox/Firewall.pm:390 src/EBox/Firewall.pm:569 src/EBox/Firewall.pm:594
+msgid "port"
+msgstr "連接埠"
+
+#: src/EBox/Firewall.pm:568 src/EBox/Firewall.pm:593
+msgid "protocol"
+msgstr "通訊協定"
+
+#: src/EBox/Firewall.pm:782 src/EBox/CGI/Filter.pm:28
+#: src/EBox/Firewall/Model/BaseRuleTable.pm:213
+#: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:180
+msgid "Packet Filter"
+msgstr "封包過濾"
+
+#: src/EBox/Firewall.pm:785 src/EBox/Firewall/Model/RedirectsTable.pm:362
+msgid "Port Forwarding"
+msgstr ""
+
+#: src/EBox/Firewall.pm:796
+#: src/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:60
+msgid "Date"
+msgstr "日期"
+
+#: src/EBox/Firewall.pm:797
+msgid "Input interface"
+msgstr "連入介面"
+
+#: src/EBox/Firewall.pm:798
+msgid "Output interface"
+msgstr "連出介面"
+
+#: src/EBox/Firewall.pm:799 src/EBox/Firewall/Model/RedirectsTable.pm:292
+#: src/EBox/Firewall/Model/BaseRuleTable.pm:121
+msgid "Source"
+msgstr "來源"
+
+#: src/EBox/Firewall.pm:800 src/EBox/Firewall/Model/BaseRuleTable.pm:147
+msgid "Destination"
+msgstr "目的"
+
+#: src/EBox/Firewall.pm:801 src/EBox/Firewall/Model/RedirectsTable.pm:285
+msgid "Protocol"
+msgstr "通訊協定"
+
+#: src/EBox/Firewall.pm:802
+msgid "Source port"
+msgstr "來源連接埠"
+
+#: src/EBox/Firewall.pm:803
+msgid "Destination port"
+msgstr "目的連接埠"
+
+#: src/EBox/Firewall.pm:804 src/EBox/Firewall/Model/BaseRuleTable.pm:112
+#: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:144
+msgid "Decision"
+msgstr "動作"
+
+#: src/EBox/Firewall.pm:809
+msgid "DROP"
+msgstr "丟棄"
+
+#: src/EBox/Firewall.pm:809 src/EBox/Firewall/Model/BaseRuleTable.pm:70
+msgid "LOG"
+msgstr "紀錄"
+
+#: src/EBox/Firewall.pm:809
+msgid "REDIRECT"
+msgstr ""
 
 #: src/EBox/Firewall/Model/EBoxOutputRuleTable.pm:68
 #, fuzzy
 msgid "Traffic coming out from Zentyal"
 msgstr "過濾從 eBox 出去的規則"
+
+#: src/EBox/Firewall/Model/EBoxOutputRuleTable.pm:77
+#: src/EBox/Firewall/Model/ExternalToInternalRuleTable.pm:80
+#: src/EBox/Firewall/Model/ExternalToEBoxRuleTable.pm:79
+#: src/EBox/Firewall/Model/InternalToEBoxRuleTable.pm:77
+#: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:161
+#: src/EBox/Firewall/Model/ToInternetRuleTable.pm:77
+msgid "rule"
+msgstr "規則"
 
 #: src/EBox/Firewall/Model/ExternalToInternalRuleTable.pm:68
 #, fuzzy
@@ -63,15 +177,6 @@ msgstr "Object"
 #: src/EBox/Firewall/Model/RedirectsTable.pm:279
 msgid "Original destination port"
 msgstr "原始的目的連接埠"
-
-#: src/EBox/Firewall/Model/RedirectsTable.pm:285 src/EBox/Firewall.pm:801
-msgid "Protocol"
-msgstr "通訊協定"
-
-#: src/EBox/Firewall/Model/RedirectsTable.pm:292
-#: src/EBox/Firewall/Model/BaseRuleTable.pm:121 src/EBox/Firewall.pm:799
-msgid "Source"
-msgstr "來源"
 
 #: src/EBox/Firewall/Model/RedirectsTable.pm:297
 #: src/EBox/Firewall/Model/BaseRuleTable.pm:126
@@ -123,23 +228,51 @@ msgstr "目的"
 msgid "List of forwarded ports"
 msgstr ""
 
-#: src/EBox/Firewall/Model/RedirectsTable.pm:362 src/EBox/Firewall.pm:785
-msgid "Port Forwarding"
-msgstr ""
-
 #: src/EBox/Firewall/Model/RedirectsTable.pm:370
 msgid "forwarding"
 msgstr ""
 
-#: src/EBox/Firewall/Model/InternalToEBoxRuleTable.pm:68
+#: src/EBox/Firewall/Model/BaseRuleTable.pm:66
+msgid "ACCEPT"
+msgstr "允許"
+
+#: src/EBox/Firewall/Model/BaseRuleTable.pm:68
+msgid "DENY"
+msgstr "拒絕"
+
+#: src/EBox/Firewall/Model/BaseRuleTable.pm:160
+msgid "Destination object"
+msgstr "目的 object"
+
+#: src/EBox/Firewall/Model/BaseRuleTable.pm:175
+msgid "Service"
+msgstr "服務"
+
+#: src/EBox/Firewall/Model/BaseRuleTable.pm:179
+msgid ""
+"If inverse match is ticked, any service but the selected one will match this "
+"rule"
+msgstr "假如勾選反向符合,任何服務除了所選擇的都將符合這個規則"
+
+#: src/EBox/Firewall/Model/BaseRuleTable.pm:227
+#: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:194
 #, fuzzy
-msgid "Internal networks to Zentyal"
-msgstr "過濾從內部網路連到 eBox 的規則"
+msgid "Configure Rules"
+msgstr "設置規則"
+
+#: src/EBox/Firewall/Model/BaseRuleTable.pm:242
+msgid "'any service' cannot have a inverse march"
+msgstr ""
 
 #: src/EBox/Firewall/Model/ExternalToEBoxRuleTable.pm:68
 #, fuzzy
 msgid "External networks to Zentyal"
 msgstr "過濾從外網到 eBox 的規則"
+
+#: src/EBox/Firewall/Model/InternalToEBoxRuleTable.pm:68
+#, fuzzy
+msgid "Internal networks to Zentyal"
+msgstr "過濾從內部網路連到 eBox 的規則"
 
 #: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:37
 msgid "Input"
@@ -188,37 +321,28 @@ msgstr "規則"
 msgid "Condition"
 msgstr ""
 
-#: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:144
-#: src/EBox/Firewall/Model/BaseRuleTable.pm:112 src/EBox/Firewall.pm:804
-msgid "Decision"
-msgstr "動作"
-
 #: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:153
 #: src/templates/filter.mas:51
 msgid "Rules added by Zentyal services (Advanced)"
 msgstr ""
 
-#: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:180
-#: src/EBox/Firewall/Model/BaseRuleTable.pm:213 src/EBox/Firewall.pm:782
-#: src/EBox/CGI/Filter.pm:28
-msgid "Packet Filter"
-msgstr "封包過濾"
-
-#: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:194
-#: src/EBox/Firewall/Model/BaseRuleTable.pm:227
+#: src/EBox/Firewall/Model/ToInternetRuleTable.pm:65
 #, fuzzy
-msgid "Configure Rules"
-msgstr "設置規則"
+msgid "Internal networks"
+msgstr "外網連接埠"
 
-#: src/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:46
 #: src/EBox/Firewall/Model/Report/PacketTrafficGraph.pm:52
+#: src/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:46
 msgid "packets dropped"
 msgstr "封包丟棄"
 
-#: src/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:60
-#: src/EBox/Firewall.pm:796
-msgid "Date"
-msgstr "日期"
+#: src/EBox/Firewall/Model/Report/PacketTrafficGraph.pm:64
+msgid "Firewall packet traffic chart"
+msgstr "防火牆封包流量圖表"
+
+#: src/EBox/Firewall/Model/Report/PacketTrafficGraph.pm:86
+msgid "Packet traffic"
+msgstr "封包流量"
 
 #: src/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:66
 msgid "Packets dropped"
@@ -232,48 +356,6 @@ msgstr "封包流量詳細資料"
 msgid "traffic"
 msgstr "流量"
 
-#: src/EBox/Firewall/Model/Report/PacketTrafficGraph.pm:64
-msgid "Firewall packet traffic chart"
-msgstr "防火牆封包流量圖表"
-
-#: src/EBox/Firewall/Model/Report/PacketTrafficGraph.pm:86
-msgid "Packet traffic"
-msgstr "封包流量"
-
-#: src/EBox/Firewall/Model/BaseRuleTable.pm:66
-msgid "ACCEPT"
-msgstr "允許"
-
-#: src/EBox/Firewall/Model/BaseRuleTable.pm:68
-msgid "DENY"
-msgstr "拒絕"
-
-#: src/EBox/Firewall/Model/BaseRuleTable.pm:70 src/EBox/Firewall.pm:809
-msgid "LOG"
-msgstr "紀錄"
-
-#: src/EBox/Firewall/Model/BaseRuleTable.pm:147 src/EBox/Firewall.pm:800
-msgid "Destination"
-msgstr "目的"
-
-#: src/EBox/Firewall/Model/BaseRuleTable.pm:160
-msgid "Destination object"
-msgstr "目的 object"
-
-#: src/EBox/Firewall/Model/BaseRuleTable.pm:175
-msgid "Service"
-msgstr "服務"
-
-#: src/EBox/Firewall/Model/BaseRuleTable.pm:179
-msgid ""
-"If inverse match is ticked, any service but the selected one will match this "
-"rule"
-msgstr "假如勾選反向符合,任何服務除了所選擇的都將符合這個規則"
-
-#: src/EBox/Firewall/Model/BaseRuleTable.pm:242
-msgid "'any service' cannot have a inverse march"
-msgstr ""
-
 #: src/EBox/Firewall/Composite/Report/PacketTrafficReport.pm:69
 msgid "Packet traffic report"
 msgstr "封包流量報告"
@@ -281,88 +363,6 @@ msgstr "封包流量報告"
 #: src/EBox/Firewall/Composite/Report/PacketTrafficReport.pm:70
 msgid "Firewall packet traffic report"
 msgstr "防火牆封包流量報告"
-
-#: src/EBox/Firewall/IptablesRedirectRule.pm:78 src/EBox/Iptables.pm:838
-#: src/EBox/Iptables.pm:875
-msgid ""
-"You must set the iptables_log_limit variable in the ebox configuration file"
-msgstr "您必須在 ebox 設置檔中設定 iptables_log_limit 變數"
-
-#: src/EBox/Firewall/IptablesRedirectRule.pm:83 src/EBox/Iptables.pm:844
-#: src/EBox/Iptables.pm:881
-msgid ""
-"You must set the iptables_log_burst variable in the ebox configuration file"
-msgstr "您必須在 ebox 設置檔中設定 iptables_log_burst 變數"
-
-#: src/EBox/Firewall.pm:58 src/EBox/Firewall.pm:812
-msgid "Firewall"
-msgstr "防火牆"
-
-#: src/EBox/Firewall.pm:84
-msgid "Flush previous firewall rules"
-msgstr "清空之前的防火牆規則"
-
-#: src/EBox/Firewall.pm:85
-#, fuzzy
-msgid ""
-"The Zentyal firewall will flush any previous firewall rules which have been "
-"added manually or by another tool"
-msgstr "eBox 防火牆將會清空任何之前的防火牆規則然後可以手動新增或是用其他工具"
-
-#: src/EBox/Firewall.pm:90
-msgid "Secure by default"
-msgstr "預設是以安全"
-
-#: src/EBox/Firewall.pm:91
-msgid ""
-"Just a few connections are allowed by default. Make sure you add the proper "
-"incoming and outcoming rules to make your system work as expected. Usually, "
-"all outcoming connections are denied by default, and only SSH and HTTPS "
-"incoming connections are allowed."
-msgstr ""
-"預設中只有一些連線是允許的. 請確定您所新增的連入跟連出的規則能使您的系統工作"
-"正常.通常,預設中所有連出的連線是禁止的,只有 SSH 和 HTTPS 連入連線是允許的."
-
-#: src/EBox/Firewall.pm:268
-msgid "action"
-msgstr "動作"
-
-#: src/EBox/Firewall.pm:389 src/EBox/Firewall.pm:434 src/EBox/Firewall.pm:458
-#, perl-brace-format
-msgid "Name '{name}' is invalid"
-msgstr "名稱 '{name}' 是無效的"
-
-#: src/EBox/Firewall.pm:390 src/EBox/Firewall.pm:569 src/EBox/Firewall.pm:594
-msgid "port"
-msgstr "連接埠"
-
-#: src/EBox/Firewall.pm:568 src/EBox/Firewall.pm:593
-msgid "protocol"
-msgstr "通訊協定"
-
-#: src/EBox/Firewall.pm:797
-msgid "Input interface"
-msgstr "連入介面"
-
-#: src/EBox/Firewall.pm:798
-msgid "Output interface"
-msgstr "連出介面"
-
-#: src/EBox/Firewall.pm:802
-msgid "Source port"
-msgstr "來源連接埠"
-
-#: src/EBox/Firewall.pm:803
-msgid "Destination port"
-msgstr "目的連接埠"
-
-#: src/EBox/Firewall.pm:809
-msgid "DROP"
-msgstr "丟棄"
-
-#: src/EBox/Firewall.pm:809
-msgid "REDIRECT"
-msgstr ""
 
 #: src/templates/filter.mas:6
 #, fuzzy

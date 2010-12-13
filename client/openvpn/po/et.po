@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-openvpn 1.4\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-08-28 23:28+0200\n"
+"POT-Creation-Date: 2010-12-13 08:40+0100\n"
 "PO-Revision-Date: 2010-05-06 17:27+0200\n"
 "Last-Translator: Priit-A. Heinsalu <priit.heinsalu@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
@@ -16,6 +16,113 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 1.1.0\n"
+
+#: src/EBox/OpenVPN/Server.pm:129
+#, perl-brace-format
+msgid "The port {p}/{pro} is already in use"
+msgstr "Port {p}/{pro} on juba kasutusel"
+
+#: src/EBox/OpenVPN/Server.pm:228
+#, perl-brace-format
+msgid "The certificate {cn} does not exist"
+msgstr "Sertifikaati {cn} ei ole olemas"
+
+#: src/EBox/OpenVPN/Server.pm:231
+#, perl-brace-format
+msgid "The certificate {cn} has expired"
+msgstr "Sertifikaat {cn} on aegunud"
+
+#: src/EBox/OpenVPN/Server.pm:234
+#, perl-brace-format
+msgid "The certificate {cn} has been revoked"
+msgstr "Sertifikaat {cn} on tühistatud"
+
+#: src/EBox/OpenVPN/Server.pm:252
+#, perl-brace-format
+msgid "The server {name} does not have certificate assigned"
+msgstr "Serverile {name} ei ole sertifikaati omistatud"
+
+#: src/EBox/OpenVPN/Server.pm:273
+#, perl-brace-format
+msgid ""
+"Cannot get key of server {name} because it does not have any certificate "
+"assigned"
+msgstr ""
+"Serverile {name} ei olnud võimalik võtit saada, kuna sellele ei ole ühtegi "
+"sertifikaati omistatud"
+
+#: src/EBox/OpenVPN/Server.pm:450
+#, perl-brace-format
+msgid "No IP address found for interface {iface}"
+msgstr "Liidese {iface} jaoks IP aadresse ei leitud"
+
+#: src/EBox/OpenVPN/Server.pm:555
+msgid "OpenVPN servers cannot be used for internal services"
+msgstr "OpenVPN servereid ei saa sisemiste teenuste jaoks kasutada"
+
+#: src/EBox/OpenVPN/Server.pm:582
+#, perl-brace-format
+msgid "Unsupported client type: {ct}"
+msgstr "Ilma toeta kliendi tüüp: {ct}"
+
+#: src/EBox/OpenVPN/Server.pm:779
+#, perl-brace-format
+msgid "Server {name}"
+msgstr "Server {name}"
+
+#: src/EBox/OpenVPN/Server.pm:781 src/EBox/OpenVPN/Client.pm:401
+#: src/EBox/OpenVPN/Model/Servers.pm:68
+msgid "Enabled"
+msgstr "Lubatud"
+
+#: src/EBox/OpenVPN/Server.pm:781 src/EBox/OpenVPN/Client.pm:401
+msgid "Disabled"
+msgstr "Keelatud"
+
+#: src/EBox/OpenVPN/Server.pm:782 src/EBox/OpenVPN/Client.pm:402
+msgid "Service"
+msgstr "Teenus"
+
+#: src/EBox/OpenVPN/Server.pm:784 src/EBox/OpenVPN/Client.pm:404
+msgid "Running"
+msgstr "Töötab"
+
+#: src/EBox/OpenVPN/Server.pm:784 src/EBox/OpenVPN/Client.pm:404
+msgid "Stopped"
+msgstr "Peatunud"
+
+#: src/EBox/OpenVPN/Server.pm:785 src/EBox/OpenVPN/Client.pm:405
+msgid "Daemon status"
+msgstr "Deemoni olek"
+
+#: src/EBox/OpenVPN/Server.pm:788
+msgid "All external interfaces"
+msgstr "Kõik välised liidesed"
+
+#: src/EBox/OpenVPN/Server.pm:789
+msgid "Local address"
+msgstr "Kohalik aadress"
+
+#: src/EBox/OpenVPN/Server.pm:794
+msgid "Port"
+msgstr "Port"
+
+#: src/EBox/OpenVPN/Server.pm:797
+msgid "VPN subnet"
+msgstr "VPN alamvõrk"
+
+#: src/EBox/OpenVPN/Server.pm:800
+msgid "VPN network interface"
+msgstr "VPN võrguliides"
+
+#: src/EBox/OpenVPN/Server.pm:804 src/EBox/OpenVPN/Server.pm:806
+#: src/EBox/OpenVPN/Client.pm:417 src/EBox/OpenVPN/Client.pm:419
+msgid "VPN interface address"
+msgstr "VPN liidese aadress"
+
+#: src/EBox/OpenVPN/Server.pm:806 src/EBox/OpenVPN/Client.pm:419
+msgid "No active"
+msgstr "Ei ole aktiivne"
 
 #: src/EBox/OpenVPN/Client/ValidateCertificate.pm:46
 #, perl-brace-format
@@ -59,6 +166,37 @@ msgid ""
 msgstr ""
 "Kliendi sertifikaadina pakutav fail ei kattu failiga, mida pakutakse "
 "sertifikaadi privaatvõtmena"
+
+#: src/EBox/OpenVPN/Types/TlsRemote.pm:52
+msgid "disabled"
+msgstr "keelatud"
+
+#: src/EBox/OpenVPN/Client.pm:242
+#, perl-brace-format
+msgid ""
+"VPN client should not be configured to connect to the address {addr} because "
+"is a address of the localhost itsef"
+msgstr ""
+"VPN kliendi ühenduse loomiseks seadistatud aadress {addr}, ei ole sobiv, "
+"kuna see on localhost aadress."
+
+#: src/EBox/OpenVPN/Client.pm:260
+#, perl-brace-format
+msgid ""
+"VPN client should not be configured to connect to the address {addr} because "
+"is a address of a local network interface"
+msgstr ""
+"VPN kliendi ühenduse loomiseks seadistatud aadress {addr}, ei ole sobiv, "
+"kuna see on kohaliku võrguliidese aadress"
+
+#: src/EBox/OpenVPN/Client.pm:399
+#, perl-brace-format
+msgid "Client {name}"
+msgstr "Klient {name}"
+
+#: src/EBox/OpenVPN/Client.pm:413
+msgid "Connection target"
+msgstr "Ühenduskoht"
 
 #: src/EBox/OpenVPN/Model/ServerConfiguration.pm:73
 #: src/EBox/OpenVPN/Model/ClientConfiguration.pm:93
@@ -205,6 +343,97 @@ msgstr ""
 "Liides peab olema väline liides, välja arvatud juhul kui NAT valik on "
 "aktiivne"
 
+#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:61
+msgid "Client's type"
+msgstr "Kliendi tüüp"
+
+#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:70
+#: src/EBox/OpenVPN/Model/ClientConfiguration.pm:111
+msgid "Client's certificate"
+msgstr "Kliendi sertifikaat"
+
+# bundle?
+#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:76
+msgid "Add OpenVPN's installer to bundle"
+msgstr "Lisa komplekti OpenVPNi paigaldaja"
+
+#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:78
+msgid "OpenVPN installer for Microsoft Windows"
+msgstr "OpenVPN paigaldaja Microsoft Windowsi jaoks"
+
+#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:82
+msgid "Server address"
+msgstr "Serveri aadress"
+
+#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:84
+msgid ""
+"This is the address that will be used by your clients to connect to the "
+"server. Typically, this will be a public IP or host name"
+msgstr ""
+"Aadress, mida kliendid kasutavad serveriga ühenduse loomiseks. Tavaliselt on "
+"see avalik IP või masinanimi"
+
+# vt kasutajaliides
+#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:90
+#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:96
+msgid "Additional server address (optional)"
+msgstr "Täiendav serveri aadress"
+
+# bundle?
+#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:105
+msgid "Download Client Bundle"
+msgstr "Laadi kliendi komplekt alla"
+
+#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:106
+msgid "Download"
+msgstr ""
+
+#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:148
+msgid "Zentyal to Zentyal tunnel"
+msgstr ""
+
+#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:182
+msgid ""
+"Cannot make a bundle because the server  is not fully configured; please "
+"edit the configuration and retry"
+msgstr ""
+"Komplekti ei loodud, kuna server ei ole täielikult seadistatud; palun "
+"redigeeri seadistusi ja proovi uuesti"
+
+#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:197
+msgid "Cannot use for the bundle the server's certificate"
+msgstr "Komplekti jaoks ei saa serveri sertifikaati kasutada"
+
+#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:217
+#, fuzzy
+msgid ""
+"Invalid client type: the server does not allow Zentyal-to-Zentyal tunnels"
+msgstr "Vigane kliendi tüüp: server ei luba tunneleid eBoxist-eBoxi"
+
+#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:226
+#, fuzzy
+msgid ""
+"Invalid client type: the server is intended for Zentyal-to-Zentyal tunnels"
+msgstr "Vigane kliendi tüüp: server on määratud eBoxist-eBoxi tunneli jaoks"
+
+#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:254
+msgid "Installer is only available for Windows clients"
+msgstr "Paigaldaja on saadaval ainult Windowsi klientide jaoks"
+
+#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:304
+msgid ""
+"A client bundle is a file which contains a ready to use configuration for "
+"your clients"
+msgstr "Kliendi komplekt on fail mis sisaldab juba seadistatud klienti."
+
+#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:362
+msgid ""
+"Cannot make a bundle because the server  is not fully configured; please "
+"complete the configuration and retry"
+msgstr ""
+"Komplekti ei suudetud luua, kuna server ei ole täielikult seadistatud; palun "
+"lõpeta seadistamine ja proovi uuesti"
+
 # Kuulutatav võrk v Reklaamitav võrk
 #: src/EBox/OpenVPN/Model/ExposedNetworks.pm:60
 #: src/EBox/OpenVPN/Model/ExposedNetworks.pm:75
@@ -231,206 +460,10 @@ msgstr ""
 "võrke.{closepar}{openpar}Tavaliselt lubatakse ligipääs LANile propageerides "
 "selle võrguaadressi siin.{closepar}"
 
-#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:59
-msgid "Client's type"
-msgstr "Kliendi tüüp"
-
-#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:68
-#: src/EBox/OpenVPN/Model/ClientConfiguration.pm:111
-msgid "Client's certificate"
-msgstr "Kliendi sertifikaat"
-
-# bundle?
-#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:74
-msgid "Add OpenVPN's installer to bundle"
-msgstr "Lisa komplekti OpenVPNi paigaldaja"
-
-#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:76
-msgid "OpenVPN installer for Microsoft Windows"
-msgstr "OpenVPN paigaldaja Microsoft Windowsi jaoks"
-
-#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:80
-msgid "Server address"
-msgstr "Serveri aadress"
-
-#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:82
-msgid ""
-"This is the address that will be used by your clients to connect to the "
-"server. Typically, this will be a public IP or host name"
-msgstr ""
-"Aadress, mida kliendid kasutavad serveriga ühenduse loomiseks. Tavaliselt on "
-"see avalik IP või masinanimi"
-
-# vt kasutajaliides
-#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:88
-#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:94
-msgid "Additional server address (optional)"
-msgstr "Täiendav serveri aadress"
-
-# bundle?
-#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:103
-msgid "Download Client Bundle"
-msgstr "Laadi kliendi komplekt alla"
-
-#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:145
-msgid "Zentyal to Zentyal tunnel"
-msgstr ""
-
-#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:179
-msgid ""
-"Cannot make a bundle because the server  is not fully configured; please "
-"edit the configuration and retry"
-msgstr ""
-"Komplekti ei loodud, kuna server ei ole täielikult seadistatud; palun "
-"redigeeri seadistusi ja proovi uuesti"
-
-#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:194
-msgid "Cannot use for the bundle the server's certificate"
-msgstr "Komplekti jaoks ei saa serveri sertifikaati kasutada"
-
-#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:214
-#, fuzzy
-msgid ""
-"Invalid client type: the server does not allow Zentyal-to-Zentyal tunnels"
-msgstr "Vigane kliendi tüüp: server ei luba tunneleid eBoxist-eBoxi"
-
-#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:223
-#, fuzzy
-msgid ""
-"Invalid client type: the server is intended for Zentyal-to-Zentyal tunnels"
-msgstr "Vigane kliendi tüüp: server on määratud eBoxist-eBoxi tunneli jaoks"
-
-#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:251
-msgid "Installer is only available for Windows clients"
-msgstr "Paigaldaja on saadaval ainult Windowsi klientide jaoks"
-
-#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:301
-msgid ""
-"A client bundle is a file which contains a ready to use configuration for "
-"your clients"
-msgstr "Kliendi komplekt on fail mis sisaldab juba seadistatud klienti."
-
-#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:349
-msgid ""
-"Cannot make a bundle because the server  is not fully configured; please "
-"complete the configuration and retry"
-msgstr ""
-"Komplekti ei suudetud luua, kuna server ei ole täielikult seadistatud; palun "
-"lõpeta seadistamine ja proovi uuesti"
-
-#: src/EBox/OpenVPN/Model/Clients.pm:60 src/EBox/OpenVPN/Model/Servers.pm:76
-#: src/EBox/OpenVPN/Model/DeletedDaemons.pm:42
-msgid "Name"
-msgstr "Nimi"
-
-#: src/EBox/OpenVPN/Model/Clients.pm:67
-msgid "Enable"
-msgstr "Luba"
-
-#: src/EBox/OpenVPN/Model/Clients.pm:75 src/EBox/OpenVPN/Model/Servers.pm:84
 #: src/EBox/OpenVPN/Model/ClientConfiguration.pm:64
+#: src/EBox/OpenVPN/Model/Clients.pm:75 src/EBox/OpenVPN/Model/Servers.pm:84
 msgid "Configuration"
 msgstr "Seadistamine"
-
-#: src/EBox/OpenVPN/Model/Clients.pm:94
-msgid "List of Clients"
-msgstr "Klientide loend"
-
-#: src/EBox/OpenVPN/Model/Clients.pm:95
-msgid "VPN Clients"
-msgstr "VPN kliendid"
-
-#: src/EBox/OpenVPN/Model/Clients.pm:102
-#: src/EBox/OpenVPN/Model/ClientConfiguration.pm:150
-msgid "client"
-msgstr "klient"
-
-#: src/EBox/OpenVPN/Model/Clients.pm:145
-msgid ""
-"Cannot activate the client because is not fully configured; please edit the "
-"configuration and retry"
-msgstr ""
-"Klienti polnud võimalik aktiveerida, kuna see ei ole täielikult seadistatud; "
-"palun redigeeri seadistusi ja proovi uuesti"
-
-#: src/EBox/OpenVPN/Model/Clients.pm:182
-msgid "RIP password is mandatory"
-msgstr "RIP parool on kohustulik"
-
-#: src/EBox/OpenVPN/Model/Servers.pm:68 src/EBox/OpenVPN/Server.pm:746
-#: src/EBox/OpenVPN/Client.pm:401
-msgid "Enabled"
-msgstr "Lubatud"
-
-#: src/EBox/OpenVPN/Model/Servers.pm:93
-msgid "Advertised networks"
-msgstr "Propageeritavad võrgud"
-
-#: src/EBox/OpenVPN/Model/Servers.pm:102
-msgid "Download client bundle"
-msgstr "Laadi kliendi komplekt alla"
-
-#: src/EBox/OpenVPN/Model/Servers.pm:114
-msgid "List of servers"
-msgstr "Serverite loend"
-
-#: src/EBox/OpenVPN/Model/Servers.pm:115
-msgid "VPN servers"
-msgstr "VPN serverid"
-
-#: src/EBox/OpenVPN/Model/Servers.pm:165
-#, perl-brace-format
-msgid ""
-"{openpar}You need to create a CA certificate to use this module. {closepar}"
-"{openpar}Please, go to the {openhref}certification authority module"
-"{closehref} and create it.{closepar}"
-msgstr ""
-"{openpar}Sa pead selle mooduli kasutamiseks looma SK sertifikaadi. {closepar}"
-"{openpar}Palun mine selleks {openhref}Sertifitseerimiskeskuse moodulisse"
-"{closehref} ning loo see.{closepar}"
-
-#: src/EBox/OpenVPN/Model/Servers.pm:179
-msgid "Server creation"
-msgstr "Serveri loomine"
-
-#: src/EBox/OpenVPN/Model/Servers.pm:284
-msgid ""
-"Cannot activate the server because  is not fully configured; please edit the "
-"configuration and retry"
-msgstr ""
-"Serverit polnud võimalik aktiveerida, kuna see ei ole täielikult "
-"seadistatud; palun redigeeri seadistusi ja proovi uuesti"
-
-#: src/EBox/OpenVPN/Model/Servers.pm:292
-msgid "Cannot create a server because there is not a CA certificate"
-msgstr "Serverit ei ole võimalik luua, kuna ei ole SK sertifikaati"
-
-#: src/EBox/OpenVPN/Model/Servers.pm:318
-#, perl-brace-format
-msgid ""
-"{act} not possible because there aren't any available certificate. Please, "
-"go to the certificate authority module and create new certificates"
-msgstr ""
-"{act} ei ole võimalik, kuna saada ei ole ühtegi serifikaati. Palun mine "
-"selleks sertifitseerimiskeskuse moodulisse ja loo uued sertifikaadid"
-
-#: src/EBox/OpenVPN/Model/Servers.pm:331
-#, perl-brace-format
-msgid ""
-"{openpar}You can configure openVPN servers to easily connect remote offices "
-"or users.{closepar}{openpar}Click on {openit}Configuration{closeit} to set "
-"the VPN parameters.{closepar}{openpar}{openit}Advertised networks{closeit} "
-"allows you to configure which networks you want to make accessible to the "
-"remote users.{openpar}Once you are done with the configuration you can "
-"download a file bundle for your operating system to use in your clients."
-msgstr ""
-"{openpar}OpenVPN servereid saab seadistada lihtsa ühenduse loomiseks "
-"kontorite või kasutajatega.{closepar}{openpar}Klõpsa {openit}seadistamisele"
-"{closeit}, et määrata VPN parameetreid.{closepar}{openpar}{openit}"
-"Propageeritud võrgud{closeit} lubavad sul seadistada seda milliseid võrke "
-"tahad teha kaugkasutajatele kättesaadavaks.{openpar}Kui seadistamine on "
-"lõppenud, saad oma operatsioonisüsteemi jaoks alla laadida failikomplekti, "
-"mida klientides kasutada."
 
 #: src/EBox/OpenVPN/Model/ClientConfiguration.pm:69
 msgid "Manual Configuration"
@@ -465,10 +498,20 @@ msgstr "Serveri tunneli parool"
 msgid "Client configuration"
 msgstr "Kliendi seadistamine"
 
+#: src/EBox/OpenVPN/Model/ClientConfiguration.pm:150
+#: src/EBox/OpenVPN/Model/Clients.pm:102
+msgid "client"
+msgstr "klient"
+
 #: src/EBox/OpenVPN/Model/ClientConfiguration.pm:280
 #, perl-brace-format
 msgid "No file supplied or already set for {f}"
 msgstr "Faili ei pakutud või on see määratud {f} jaoks"
+
+#: src/EBox/OpenVPN/Model/DeletedDaemons.pm:42
+#: src/EBox/OpenVPN/Model/Clients.pm:60 src/EBox/OpenVPN/Model/Servers.pm:76
+msgid "Name"
+msgstr "Nimi"
 
 #: src/EBox/OpenVPN/Model/DeletedDaemons.pm:57
 msgid "Deleted daemons"
@@ -478,155 +521,110 @@ msgstr "Kustutatud deemonid"
 msgid "daemon"
 msgstr "deemon"
 
-#: src/EBox/OpenVPN/Types/TlsRemote.pm:52
-msgid "disabled"
-msgstr "keelatud"
+#: src/EBox/OpenVPN/Model/Clients.pm:67
+msgid "Enable"
+msgstr "Luba"
 
-#: src/EBox/OpenVPN/Server.pm:100
-#, perl-brace-format
-msgid "The port {p}/{pro} is already in use"
-msgstr "Port {p}/{pro} on juba kasutusel"
+#: src/EBox/OpenVPN/Model/Clients.pm:94
+msgid "List of Clients"
+msgstr "Klientide loend"
 
-#: src/EBox/OpenVPN/Server.pm:199
-#, perl-brace-format
-msgid "The certificate {cn} does not exist"
-msgstr "Sertifikaati {cn} ei ole olemas"
+#: src/EBox/OpenVPN/Model/Clients.pm:95
+msgid "VPN Clients"
+msgstr "VPN kliendid"
 
-#: src/EBox/OpenVPN/Server.pm:202
-#, perl-brace-format
-msgid "The certificate {cn} has expired"
-msgstr "Sertifikaat {cn} on aegunud"
+#: src/EBox/OpenVPN/Model/Clients.pm:145
+msgid ""
+"Cannot activate the client because is not fully configured; please edit the "
+"configuration and retry"
+msgstr ""
+"Klienti polnud võimalik aktiveerida, kuna see ei ole täielikult seadistatud; "
+"palun redigeeri seadistusi ja proovi uuesti"
 
-#: src/EBox/OpenVPN/Server.pm:205
-#, perl-brace-format
-msgid "The certificate {cn} has been revoked"
-msgstr "Sertifikaat {cn} on tühistatud"
+#: src/EBox/OpenVPN/Model/Clients.pm:182
+msgid "RIP password is mandatory"
+msgstr "RIP parool on kohustulik"
 
-#: src/EBox/OpenVPN/Server.pm:223
-#, perl-brace-format
-msgid "The server {name} does not have certificate assigned"
-msgstr "Serverile {name} ei ole sertifikaati omistatud"
+#: src/EBox/OpenVPN/Model/Servers.pm:93
+msgid "Advertised networks"
+msgstr "Propageeritavad võrgud"
 
-#: src/EBox/OpenVPN/Server.pm:244
+#: src/EBox/OpenVPN/Model/Servers.pm:102
+msgid "Download client bundle"
+msgstr "Laadi kliendi komplekt alla"
+
+#: src/EBox/OpenVPN/Model/Servers.pm:114
+msgid "List of servers"
+msgstr "Serverite loend"
+
+#: src/EBox/OpenVPN/Model/Servers.pm:115
+msgid "VPN servers"
+msgstr "VPN serverid"
+
+#: src/EBox/OpenVPN/Model/Servers.pm:168
+#, fuzzy, perl-brace-format
+msgid ""
+"{openpar}You need a valid CA certificate to use this module. {closepar}"
+"{openpar}Please, go to the {openhref} certification authority module"
+"{closehref} and renew it.{closepar}"
+msgstr ""
+"{openpar}Sa pead selle mooduli kasutamiseks looma SK sertifikaadi. {closepar}"
+"{openpar}Palun mine selleks {openhref}Sertifitseerimiskeskuse moodulisse"
+"{closehref} ning loo see.{closepar}"
+
+#: src/EBox/OpenVPN/Model/Servers.pm:175
 #, perl-brace-format
 msgid ""
-"Cannot get key of server {name} because it does not have any certificate "
-"assigned"
+"{openpar}You need to create a CA certificate to use this module. {closepar}"
+"{openpar}Please, go to the {openhref}certification authority module"
+"{closehref} and create it.{closepar}"
 msgstr ""
-"Serverile {name} ei olnud võimalik võtit saada, kuna sellele ei ole ühtegi "
-"sertifikaati omistatud"
+"{openpar}Sa pead selle mooduli kasutamiseks looma SK sertifikaadi. {closepar}"
+"{openpar}Palun mine selleks {openhref}Sertifitseerimiskeskuse moodulisse"
+"{closehref} ning loo see.{closepar}"
 
-#: src/EBox/OpenVPN/Server.pm:416
-#, perl-brace-format
-msgid "No IP address found for interface {iface}"
-msgstr "Liidese {iface} jaoks IP aadresse ei leitud"
+#: src/EBox/OpenVPN/Model/Servers.pm:190
+msgid "Server creation"
+msgstr "Serveri loomine"
 
-#: src/EBox/OpenVPN/Server.pm:521
-msgid "OpenVPN servers cannot be used for internal services"
-msgstr "OpenVPN servereid ei saa sisemiste teenuste jaoks kasutada"
+#: src/EBox/OpenVPN/Model/Servers.pm:295
+msgid ""
+"Cannot activate the server because  is not fully configured; please edit the "
+"configuration and retry"
+msgstr ""
+"Serverit polnud võimalik aktiveerida, kuna see ei ole täielikult "
+"seadistatud; palun redigeeri seadistusi ja proovi uuesti"
 
-#: src/EBox/OpenVPN/Server.pm:548
-#, perl-brace-format
-msgid "Unsupported client type: {ct}"
-msgstr "Ilma toeta kliendi tüüp: {ct}"
+#: src/EBox/OpenVPN/Model/Servers.pm:303
+msgid "Cannot create a server because there is not a CA certificate"
+msgstr "Serverit ei ole võimalik luua, kuna ei ole SK sertifikaati"
 
-#: src/EBox/OpenVPN/Server.pm:744
-#, perl-brace-format
-msgid "Server {name}"
-msgstr "Server {name}"
-
-#: src/EBox/OpenVPN/Server.pm:746 src/EBox/OpenVPN/Client.pm:401
-msgid "Disabled"
-msgstr "Keelatud"
-
-#: src/EBox/OpenVPN/Server.pm:747 src/EBox/OpenVPN/Client.pm:402
-msgid "Service"
-msgstr "Teenus"
-
-#: src/EBox/OpenVPN/Server.pm:749 src/EBox/OpenVPN/Client.pm:404
-msgid "Running"
-msgstr "Töötab"
-
-#: src/EBox/OpenVPN/Server.pm:749 src/EBox/OpenVPN/Client.pm:404
-msgid "Stopped"
-msgstr "Peatunud"
-
-#: src/EBox/OpenVPN/Server.pm:750 src/EBox/OpenVPN/Client.pm:405
-msgid "Daemon status"
-msgstr "Deemoni olek"
-
-#: src/EBox/OpenVPN/Server.pm:753
-msgid "All external interfaces"
-msgstr "Kõik välised liidesed"
-
-#: src/EBox/OpenVPN/Server.pm:754
-msgid "Local address"
-msgstr "Kohalik aadress"
-
-#: src/EBox/OpenVPN/Server.pm:759
-msgid "Port"
-msgstr "Port"
-
-#: src/EBox/OpenVPN/Server.pm:762
-msgid "VPN subnet"
-msgstr "VPN alamvõrk"
-
-#: src/EBox/OpenVPN/Server.pm:765
-msgid "VPN network interface"
-msgstr "VPN võrguliides"
-
-#: src/EBox/OpenVPN/Server.pm:769 src/EBox/OpenVPN/Server.pm:771
-#: src/EBox/OpenVPN/Client.pm:417 src/EBox/OpenVPN/Client.pm:419
-msgid "VPN interface address"
-msgstr "VPN liidese aadress"
-
-#: src/EBox/OpenVPN/Server.pm:771 src/EBox/OpenVPN/Client.pm:419
-msgid "No active"
-msgstr "Ei ole aktiivne"
-
-#: src/EBox/OpenVPN/Client.pm:242
+#: src/EBox/OpenVPN/Model/Servers.pm:329
 #, perl-brace-format
 msgid ""
-"VPN client should not be configured to connect to the address {addr} because "
-"is a address of the localhost itsef"
+"{act} not possible because there aren't any available certificate. Please, "
+"go to the certificate authority module and create new certificates"
 msgstr ""
-"VPN kliendi ühenduse loomiseks seadistatud aadress {addr}, ei ole sobiv, "
-"kuna see on localhost aadress."
+"{act} ei ole võimalik, kuna saada ei ole ühtegi serifikaati. Palun mine "
+"selleks sertifitseerimiskeskuse moodulisse ja loo uued sertifikaadid"
 
-#: src/EBox/OpenVPN/Client.pm:260
+#: src/EBox/OpenVPN/Model/Servers.pm:342
 #, perl-brace-format
 msgid ""
-"VPN client should not be configured to connect to the address {addr} because "
-"is a address of a local network interface"
+"{openpar}You can configure openVPN servers to easily connect remote offices "
+"or users.{closepar}{openpar}Click on {openit}Configuration{closeit} to set "
+"the VPN parameters.{closepar}{openpar}{openit}Advertised networks{closeit} "
+"allows you to configure which networks you want to make accessible to the "
+"remote users.{openpar}Once you are done with the configuration you can "
+"download a file bundle for your operating system to use in your clients."
 msgstr ""
-"VPN kliendi ühenduse loomiseks seadistatud aadress {addr}, ei ole sobiv, "
-"kuna see on kohaliku võrguliidese aadress"
-
-#: src/EBox/OpenVPN/Client.pm:399
-#, perl-brace-format
-msgid "Client {name}"
-msgstr "Klient {name}"
-
-#: src/EBox/OpenVPN/Client.pm:413
-msgid "Connection target"
-msgstr "Ühenduskoht"
-
-#: src/EBox/OpenVPN/Server/ClientBundleGenerator.pm:48
-msgid "Server's address"
-msgstr "Serveri aadress"
-
-#: src/EBox/OpenVPN/Server/ClientBundleGenerator.pm:56
-#, perl-brace-format
-msgid "You must provide at least one address for the server {name}"
-msgstr "Sa pead määrama vähemalt ühe aadressi serveri {name} jaoks"
-
-#: src/EBox/OpenVPN/Server/ClientBundleGenerator.pm:102
-msgid "Can't get address for this server: no external interfaces present"
-msgstr "Serverile ei ole võimalik aadressi hankida: välised liidesed puuduvad"
-
-#: src/EBox/OpenVPN/Server/ClientBundleGenerator.pm:214
-msgid "The client certificate can't be the same than the server's one"
-msgstr "Kliendi sertifikaat ei saa olla sama, mis serveri oma"
+"{openpar}OpenVPN servereid saab seadistada lihtsa ühenduse loomiseks "
+"kontorite või kasutajatega.{closepar}{openpar}Klõpsa {openit}seadistamisele"
+"{closeit}, et määrata VPN parameetreid.{closepar}{openpar}{openit}"
+"Propageeritud võrgud{closeit} lubavad sul seadistada seda milliseid võrke "
+"tahad teha kaugkasutajatele kättesaadavaks.{openpar}Kui seadistamine on "
+"lõppenud, saad oma operatsioonisüsteemi jaoks alla laadida failikomplekti, "
+"mida klientides kasutada."
 
 #: src/EBox/OpenVPN/Server/ClientBundleGenerator/EBoxToEBox.pm:132
 msgid ""
@@ -658,28 +656,49 @@ msgid ""
 "certificate private key file)"
 msgstr ""
 
-#: src/EBox/OpenVPN.pm:72
+#: src/EBox/OpenVPN/Server/ClientBundleGenerator.pm:48
+msgid "Server's address"
+msgstr "Serveri aadress"
+
+#: src/EBox/OpenVPN/Server/ClientBundleGenerator.pm:56
+#, perl-brace-format
+msgid "You must provide at least one address for the server {name}"
+msgstr "Sa pead määrama vähemalt ühe aadressi serveri {name} jaoks"
+
+#: src/EBox/OpenVPN/Server/ClientBundleGenerator.pm:102
+msgid "Can't get address for this server: no external interfaces present"
+msgstr "Serverile ei ole võimalik aadressi hankida: välised liidesed puuduvad"
+
+#: src/EBox/OpenVPN/Server/ClientBundleGenerator.pm:214
+msgid "The client certificate can't be the same than the server's one"
+msgstr "Kliendi sertifikaat ei saa olla sama, mis serveri oma"
+
+#: src/EBox/OpenVPN.pm:71
 msgid "VPN"
 msgstr "VPN"
 
-#: src/EBox/OpenVPN.pm:157
+#: src/EBox/OpenVPN.pm:156
 msgid "To configure Quagga to run ripd and zebra"
 msgstr "Quagga seadistamiseks, et käivitada ripdi ja zebrat"
 
-#: src/EBox/OpenVPN.pm:163
+#: src/EBox/OpenVPN.pm:162
 msgid "To configure Quagga to listen on the given interfaces"
 msgstr "Quagga seadistamiseks, et kuulata määratud liideseid"
 
-#: src/EBox/OpenVPN.pm:168
+#: src/EBox/OpenVPN.pm:167
 msgid "Main zebra configuration file"
 msgstr "Peamine zebra seadistuste fail"
 
-#: src/EBox/OpenVPN.pm:174
+#: src/EBox/OpenVPN.pm:173
 msgid "To configure ripd to exchange routes with client to client connections"
 msgstr ""
 "ripd seadistamiseks, et vahetada marsruute kliendilt-kliendile ühendustega"
 
-#: src/EBox/OpenVPN.pm:675
+#: src/EBox/OpenVPN.pm:180
+msgid "To remove system-wide VPN servers autostart"
+msgstr ""
+
+#: src/EBox/OpenVPN.pm:681
 #, perl-brace-format
 msgid ""
 "Invalid name {name}. Only alpahanumeric  and '-', '_', '.' characters are "
@@ -688,19 +707,19 @@ msgstr ""
 "Vigane nimi {name}. Lubatud on ainult tähed ja numbrid ning märgid '-', '_', "
 "'.' "
 
-#: src/EBox/OpenVPN.pm:688
+#: src/EBox/OpenVPN.pm:694
 #, perl-brace-format
 msgid "Cannot use the name {n} because there is a client with the same name"
 msgstr ""
 "Nime {n} ei ole võimalik kasutada, kuna sellise nimega klient on juba olemas"
 
-#: src/EBox/OpenVPN.pm:699
+#: src/EBox/OpenVPN.pm:705
 #, perl-brace-format
 msgid "Cannot use the name {n} because there is a server with the same name"
 msgstr ""
 "Nime {n} ei ole võimalik kasutada, kuna sellise nimega server on juba olemas"
 
-#: src/EBox/OpenVPN.pm:721
+#: src/EBox/OpenVPN.pm:727
 #, perl-brace-format
 msgid ""
 "Invalid name {name}. Name which begins with the prefix {pf} are reserved for "
@@ -709,7 +728,7 @@ msgstr ""
 "Vigane nimi {name}. Nimi, mis algab prefiksiga {pf}, on reserveeritud "
 "sisemiseks kasutamiseks"
 
-#: src/EBox/OpenVPN.pm:730
+#: src/EBox/OpenVPN.pm:736
 #, perl-brace-format
 msgid ""
 "Invalid name {name}. A internal daemon must have a name which begins with "
@@ -718,91 +737,91 @@ msgstr ""
 "Vigane nimi {name}. Sisemisel deemonil peab olema nimi, mis algab prefiksiga "
 "{pf}"
 
-#: src/EBox/OpenVPN.pm:1456
+#: src/EBox/OpenVPN.pm:1462
 #, perl-brace-format
 msgid "Client {c} does not exists"
 msgstr "Klienti {c} ei ole olemas"
 
-#: src/EBox/OpenVPN.pm:1484
+#: src/EBox/OpenVPN.pm:1490
 msgid "Servers"
 msgstr "Serverid"
 
-#: src/EBox/OpenVPN.pm:1490
+#: src/EBox/OpenVPN.pm:1496
 msgid "Clients"
 msgstr "Kliendid"
 
-#: src/EBox/OpenVPN.pm:1503
+#: src/EBox/OpenVPN.pm:1509
 msgid "Common name"
 msgstr "Üldine nimi"
 
-#: src/EBox/OpenVPN.pm:1503
+#: src/EBox/OpenVPN.pm:1509
 msgid "Address"
 msgstr "Aadress"
 
-#: src/EBox/OpenVPN.pm:1503
+#: src/EBox/OpenVPN.pm:1509
 msgid "Connected since"
 msgstr "Ühendatud alates"
 
-#: src/EBox/OpenVPN.pm:1530
+#: src/EBox/OpenVPN.pm:1536
 msgid "No users connected to the VPN"
 msgstr "VPNiga ühendatud kasutajad puuduvad"
 
-#: src/EBox/OpenVPN.pm:1571
+#: src/EBox/OpenVPN.pm:1577
 msgid "OpenVPN daemons"
 msgstr "OpenVPN deemonid"
 
-#: src/EBox/OpenVPN.pm:1633
+#: src/EBox/OpenVPN.pm:1640
 msgid "Date"
 msgstr "Kuupäev"
 
-#: src/EBox/OpenVPN.pm:1634
+#: src/EBox/OpenVPN.pm:1641
 msgid "Event"
 msgstr "Sündmus"
 
-#: src/EBox/OpenVPN.pm:1636
+#: src/EBox/OpenVPN.pm:1643
 msgid "Type"
 msgstr "Tüüp"
 
-#: src/EBox/OpenVPN.pm:1637
+#: src/EBox/OpenVPN.pm:1644
 msgid "Remote IP"
 msgstr "Kaug IP"
 
-#: src/EBox/OpenVPN.pm:1638
+#: src/EBox/OpenVPN.pm:1645
 msgid "Remote Certificate"
 msgstr "Kaugsertifikaat"
 
-#: src/EBox/OpenVPN.pm:1643
+#: src/EBox/OpenVPN.pm:1650
 msgid "Initialization sequence completed"
 msgstr "Initsialiseerimise jada lõpuni viidud"
 
-#: src/EBox/OpenVPN.pm:1645
+#: src/EBox/OpenVPN.pm:1652
 msgid "Certificate issuer not authorized"
 msgstr "Sertifikaadi väljaandja ei ole autoriseeritud"
 
-#: src/EBox/OpenVPN.pm:1646
+#: src/EBox/OpenVPN.pm:1653
 msgid "Certificate common name not authorized"
 msgstr "Sertifikaadi üldist nime ei ole autoriseeritud"
 
-#: src/EBox/OpenVPN.pm:1647
+#: src/EBox/OpenVPN.pm:1654
 msgid "Certificate verification failed"
 msgstr "Sertifikaadi kontrollimine nurjus"
 
-#: src/EBox/OpenVPN.pm:1649
+#: src/EBox/OpenVPN.pm:1656
 msgid "Client connection initiated"
 msgstr "Kliendiga ühenduse loomine algatatud"
 
-#: src/EBox/OpenVPN.pm:1650
+#: src/EBox/OpenVPN.pm:1657
 msgid "Client connection terminated"
 msgstr "Kliendi ühendus lõpetatud"
 
-#: src/EBox/OpenVPN.pm:1652
+#: src/EBox/OpenVPN.pm:1659
 msgid "Connection to server initiated"
 msgstr "Serveriga ühenduse loomine initsialiseeritud"
 
-#: src/EBox/OpenVPN.pm:1653
+#: src/EBox/OpenVPN.pm:1660
 msgid "Server connection terminated"
 msgstr "Serveriga ühendamine lõpetatud"
 
-#: src/EBox/OpenVPN.pm:1682
+#: src/EBox/OpenVPN.pm:1689
 msgid "You must set insecure_rip_conf to yes or no"
 msgstr "insecure_rip_conf väärtuseks peab määrama 'yes' või 'no'"

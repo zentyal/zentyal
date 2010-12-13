@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-webmail 1.3\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-08-28 23:32+0200\n"
+"POT-Creation-Date: 2010-12-13 08:43+0100\n"
 "PO-Revision-Date: 2010-05-03 13:54+0200\n"
 "Last-Translator: Bulent SENER <bulent.sener@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
@@ -33,48 +33,6 @@ msgstr "eBox mail servisi"
 #: src/EBox/WebMail/Model/OperationMode.pm:94
 msgid "Remote server"
 msgstr "Uzak sunucu"
-
-#: src/EBox/WebMail/Model/Options.pm:45
-msgid "Name"
-msgstr "Adı"
-
-#: src/EBox/WebMail/Model/Options.pm:47
-#, fuzzy
-msgid "Zentyal webmail"
-msgstr "eBox webmail"
-
-#: src/EBox/WebMail/Model/Options.pm:49
-msgid ""
-"The name of the webmail will be used in the login screen and page titles."
-msgstr "web adı giriş ekranında ve sayfa başlığında kullanılacaktır."
-
-#: src/EBox/WebMail/Model/Options.pm:53
-msgid "Virtual host"
-msgstr ""
-
-#: src/EBox/WebMail/Model/Options.pm:59
-msgid ""
-"Virtual host where the webmail will be installed. This will disable the "
-"default /webmail url."
-msgstr ""
-
-#: src/EBox/WebMail/Model/Options.pm:65
-msgid "General configuration"
-msgstr "Genel Ayarlar"
-
-#: src/EBox/WebMail/Model/Options.pm:66 src/EBox/WebMail.pm:69
-msgid "Webmail"
-msgstr "Webmail"
-
-#: src/EBox/WebMail/Model/Options.pm:81
-msgid "Disabled"
-msgstr ""
-
-#: src/EBox/WebMail/Model/Options.pm:112
-msgid ""
-"The deleted virtual host was selected for Webmail. Maybe you want to select "
-"another one now."
-msgstr ""
 
 #: src/EBox/WebMail/Model/RemoteServerConfiguration.pm:54
 msgid "IMAP Server"
@@ -155,11 +113,53 @@ msgstr "TLS"
 #: src/EBox/WebMail/Model/RemoteServerConfiguration.pm:285
 #, fuzzy
 msgid ""
-"No need to configure the connection to a remote server beacuse WebMail is "
+"No need to configure the connection to a remote server because WebMail is "
 "configured to use Zentyal mail service'"
 msgstr ""
 "Uzak sunucu bağlantısı ayarlamak gerekmiyor. Çünkü eBox Mail Servisi WebMail "
 "olarak ayarlanmış durumdadır."
+
+#: src/EBox/WebMail/Model/Options.pm:45
+msgid "Name"
+msgstr "Adı"
+
+#: src/EBox/WebMail/Model/Options.pm:47
+#, fuzzy
+msgid "Zentyal webmail"
+msgstr "eBox webmail"
+
+#: src/EBox/WebMail/Model/Options.pm:49
+msgid ""
+"The name of the webmail will be used in the login screen and page titles."
+msgstr "web adı giriş ekranında ve sayfa başlığında kullanılacaktır."
+
+#: src/EBox/WebMail/Model/Options.pm:53
+msgid "Virtual host"
+msgstr ""
+
+#: src/EBox/WebMail/Model/Options.pm:59
+msgid ""
+"Virtual host where the webmail will be installed. This will disable the "
+"default /webmail url."
+msgstr ""
+
+#: src/EBox/WebMail/Model/Options.pm:65
+msgid "General configuration"
+msgstr "Genel Ayarlar"
+
+#: src/EBox/WebMail/Model/Options.pm:66 src/EBox/WebMail.pm:69
+msgid "Webmail"
+msgstr "Webmail"
+
+#: src/EBox/WebMail/Model/Options.pm:81
+msgid "Disabled"
+msgstr ""
+
+#: src/EBox/WebMail/Model/Options.pm:112
+msgid ""
+"The deleted virtual host was selected for Webmail. Maybe you want to select "
+"another one now."
+msgstr ""
 
 #: src/EBox/WebMail/Composite/Backend.pm:63
 msgid "WebMail backend"

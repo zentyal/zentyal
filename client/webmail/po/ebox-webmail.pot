@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-08-28 23:32+0200\n"
+"POT-Creation-Date: 2010-12-13 08:43+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -30,47 +30,6 @@ msgstr ""
 
 #: src/EBox/WebMail/Model/OperationMode.pm:94
 msgid "Remote server"
-msgstr ""
-
-#: src/EBox/WebMail/Model/Options.pm:45
-msgid "Name"
-msgstr ""
-
-#: src/EBox/WebMail/Model/Options.pm:47
-msgid "Zentyal webmail"
-msgstr ""
-
-#: src/EBox/WebMail/Model/Options.pm:49
-msgid ""
-"The name of the webmail will be used in the login screen and page titles."
-msgstr ""
-
-#: src/EBox/WebMail/Model/Options.pm:53
-msgid "Virtual host"
-msgstr ""
-
-#: src/EBox/WebMail/Model/Options.pm:59
-msgid ""
-"Virtual host where the webmail will be installed. This will disable the "
-"default /webmail url."
-msgstr ""
-
-#: src/EBox/WebMail/Model/Options.pm:65
-msgid "General configuration"
-msgstr ""
-
-#: src/EBox/WebMail/Model/Options.pm:66 src/EBox/WebMail.pm:69
-msgid "Webmail"
-msgstr ""
-
-#: src/EBox/WebMail/Model/Options.pm:81
-msgid "Disabled"
-msgstr ""
-
-#: src/EBox/WebMail/Model/Options.pm:112
-msgid ""
-"The deleted virtual host was selected for Webmail. Maybe you want to select "
-"another one now."
 msgstr ""
 
 #: src/EBox/WebMail/Model/RemoteServerConfiguration.pm:54
@@ -151,8 +110,49 @@ msgstr ""
 
 #: src/EBox/WebMail/Model/RemoteServerConfiguration.pm:285
 msgid ""
-"No need to configure the connection to a remote server beacuse WebMail is "
+"No need to configure the connection to a remote server because WebMail is "
 "configured to use Zentyal mail service'"
+msgstr ""
+
+#: src/EBox/WebMail/Model/Options.pm:45
+msgid "Name"
+msgstr ""
+
+#: src/EBox/WebMail/Model/Options.pm:47
+msgid "Zentyal webmail"
+msgstr ""
+
+#: src/EBox/WebMail/Model/Options.pm:49
+msgid ""
+"The name of the webmail will be used in the login screen and page titles."
+msgstr ""
+
+#: src/EBox/WebMail/Model/Options.pm:53
+msgid "Virtual host"
+msgstr ""
+
+#: src/EBox/WebMail/Model/Options.pm:59
+msgid ""
+"Virtual host where the webmail will be installed. This will disable the "
+"default /webmail url."
+msgstr ""
+
+#: src/EBox/WebMail/Model/Options.pm:65
+msgid "General configuration"
+msgstr ""
+
+#: src/EBox/WebMail/Model/Options.pm:66 src/EBox/WebMail.pm:69
+msgid "Webmail"
+msgstr ""
+
+#: src/EBox/WebMail/Model/Options.pm:81
+msgid "Disabled"
+msgstr ""
+
+#: src/EBox/WebMail/Model/Options.pm:112
+msgid ""
+"The deleted virtual host was selected for Webmail. Maybe you want to select "
+"another one now."
 msgstr ""
 
 #: src/EBox/WebMail/Composite/Backend.pm:63

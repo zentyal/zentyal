@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libebox 1.5\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-08-28 19:44+0200\n"
+"POT-Creation-Date: 2010-12-13 08:44+0100\n"
 "PO-Revision-Date: 2010-11-05 20:57+0100\n"
 "Last-Translator: Michal Formánek <formi@seznam.cz>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
@@ -16,25 +16,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 "X-Generator: Pootle 1.1.0\n"
-
-#: src/EBox/Config.pm.in:74
-#, perl-brace-format
-msgid "Could not open the config file {file}."
-msgstr "Nejde otevřít konfigurační soubor {file}."
-
-#: src/EBox/Config.pm.in:169
-msgid "The ebox user has not been set in the config file."
-msgstr "Uživatel nebyl nastavený v konfiguračním souboru."
-
-#: src/EBox/Exceptions/DataNotFound.pm:35
-#, perl-brace-format
-msgid "{data} {value} does not exist."
-msgstr "{data} {value} neexistuje."
-
-#: src/EBox/Exceptions/DataExists.pm:36
-#, perl-brace-format
-msgid "{data} {value} already exists."
-msgstr "{data} {value} již existuje."
 
 #: src/EBox/Exceptions/InvalidData.pm:37
 #, perl-brace-format
@@ -46,54 +27,20 @@ msgstr "Chybná hodnota pro {data}: {value}."
 msgid "{data} is empty."
 msgstr "{data} je prázdná."
 
-#: src/EBox/Validate.pm:396 src/EBox/Validate.pm:410
-msgid "Must be a number between 1 and 4096"
-msgstr "Musí být číslo mezi 1 až 4096"
-
-#: src/EBox/Validate.pm:700
+#: src/EBox/Exceptions/DataExists.pm:36
 #, perl-brace-format
-msgid ""
-"Cannot stat dir: {dir}. This may mean that the directory does not exist or "
-"the permissions forbid access to it"
-msgstr ""
-"Nelze určit složku: {dir}. Zdá se, že složka neexistuje, nebo není povolený "
-"přístup."
+msgid "{data} {value} already exists."
+msgstr "{data} {value} již existuje."
 
-#: src/EBox/Validate.pm:705
+#: src/EBox/Exceptions/DataNotFound.pm:35
 #, perl-brace-format
-msgid "The directory {dir} is not private; because it is owned by another user"
-msgstr "Složka {dir} není privátní, protože je vlastněná jiným uživatelem"
+msgid "{data} {value} does not exist."
+msgstr "{data} {value} neexistuje."
 
-#: src/EBox/Validate.pm:780
-msgid ""
-"The file path supplied is not valid. (Currently not all of the valid file's  "
-"characters are supported) "
-msgstr ""
-"Dodaná cesta k souboru není validní. (Některé znaky nejsou v názvech souborů "
-"povoleny)"
-
-#: src/EBox/Validate.pm:808
-msgid "The file path must be absolute"
-msgstr "Cesta k souboru musí být absolutní"
-
-#: src/EBox/Sudo.pm:265
-#, perl-brace-format
-msgid "Running command '{cmd}' as {user} failed"
-msgstr "Spuštění příkazu '{cmd}' jako {user} bylo neúspešné"
-
-#: src/EBox/FileSystem.pm:190 src/EBox/FileSystem.pm:282
-#, perl-brace-format
-msgid "Directory not found: {d}"
-msgstr "Složka nenalezena: {d}"
-
-#: src/EBox/NetWrappers.pm:105 src/EBox/NetWrappers.pm:134
-#: src/EBox/NetWrappers.pm:165 src/EBox/NetWrappers.pm:267
+#: src/EBox/NetWrappers.pm:104 src/EBox/NetWrappers.pm:133
+#: src/EBox/NetWrappers.pm:229
 msgid "Interface"
 msgstr "Rozhraní"
-
-#: src/EBox/CGI/EBox/PageNotFound.pm:27
-msgid "Page not found"
-msgstr "Stránka nenalezena"
 
 #: src/EBox/CGI/Base.pm:196
 msgid ""
@@ -131,17 +78,18 @@ msgstr ""
 msgid "You have just hit a bug in Zentyal. Please seek technical support."
 msgstr "Narazili jste na chybu v Zentyal-u. Vyhledejte technickou podporu."
 
-#: src/EBox/CGI/Base.pm:662
+#: src/EBox/CGI/Base.pm:663
 msgid ""
 "Your request could not be processed because it had some incorrect parameters"
 msgstr ""
 "Váš požadavek nemůže být zpracován, protože obsahuje nesprávné parametry."
 
-#: src/EBox/CGI/Base.pm:695
+#: src/EBox/CGI/Base.pm:696
 msgid "Wrong HTTP referer detected, operation cancelled for security reasons"
-msgstr "Detekován nesprávný HTTP odkaz. Operace zrušená z bezpečnostních důvodů"
+msgstr ""
+"Detekován nesprávný HTTP odkaz. Operace zrušená z bezpečnostních důvodů"
 
-#: src/EBox/CGI/Base.pm:707
+#: src/EBox/CGI/Base.pm:708
 msgid ""
 "Your request could not be processed because it lacked some required "
 "parameters"
@@ -149,36 +97,206 @@ msgstr ""
 "Váš požadavek nemůže být zpracován, protože chybějí některé požadované "
 "parametry"
 
-#: src/EBox/CGI/Base.pm:858
+#: src/EBox/CGI/Base.pm:873
 msgid "Invalid uploaded file."
 msgstr "Chybný nahrávaný soubor."
 
-#: src/EBox/CGI/Base.pm:864
+#: src/EBox/CGI/Base.pm:879
 msgid "Cannot create a temporally file for the upload"
 msgstr "Nelze vytvořit dočasný soubor pro upload"
 
-#: src/templates/language.mas:10
-msgid "Language Selection"
-msgstr "Volba jazyka"
+#: src/EBox/CGI/EBox/PageNotFound.pm:27
+msgid "Page not found"
+msgstr "Stránka nenalezena"
 
-#: src/templates/language.mas:11
+#: src/EBox/Config.pm.in:74
+#, perl-brace-format
+msgid "Could not open the config file {file}."
+msgstr "Nejde otevřít konfigurační soubor {file}."
+
+#: src/EBox/Config.pm.in:172
+msgid "The ebox user has not been set in the config file."
+msgstr "Uživatel nebyl nastavený v konfiguračním souboru."
+
+#: src/EBox/Sudo.pm:265
+#, perl-brace-format
+msgid "Running command '{cmd}' as {user} failed"
+msgstr "Spuštění příkazu '{cmd}' jako {user} bylo neúspešné"
+
+#: src/EBox/FileSystem.pm:190 src/EBox/FileSystem.pm:282
+#, perl-brace-format
+msgid "Directory not found: {d}"
+msgstr "Složka nenalezena: {d}"
+
+#: src/EBox/Validate.pm:390 src/EBox/Validate.pm:404
+msgid "Must be a number between 1 and 4096"
+msgstr "Musí být číslo mezi 1 až 4096"
+
+#: src/EBox/Validate.pm:687
+#, perl-brace-format
 msgid ""
-"Language changes happen automatically, saving the configuration it's not "
-"needed."
-msgstr "Změna jazyka proběhne automaticky, ukládat nastavení není potřeba."
+"Cannot stat dir: {dir}. This may mean that the directory does not exist or "
+"the permissions forbid access to it"
+msgstr ""
+"Nelze určit složku: {dir}. Zdá se, že složka neexistuje, nebo není povolený "
+"přístup."
 
-#: src/templates/language.mas:23 src/templates/ajax/tableBody.mas:348
+#: src/EBox/Validate.pm:692
+#, perl-brace-format
+msgid "The directory {dir} is not private; because it is owned by another user"
+msgstr "Složka {dir} není privátní, protože je vlastněná jiným uživatelem"
+
+#: src/EBox/Validate.pm:767
+msgid ""
+"The file path supplied is not valid. (Currently not all of the valid file's  "
+"characters are supported) "
+msgstr ""
+"Dodaná cesta k souboru není validní. (Některé znaky nejsou v názvech souborů "
+"povoleny)"
+
+#: src/EBox/Validate.pm:795
+msgid "The file path must be absolute"
+msgstr "Cesta k souboru musí být absolutní"
+
+#: src/templates/enable.mas:9
+msgid "Service configuration"
+msgstr "Nastavení služby"
+
+#: src/templates/enable.mas:21 src/templates/enable.mas:24
+msgid "Disabled"
+msgstr "Zakázaný"
+
+#: src/templates/enable.mas:22 src/templates/enable.mas:25
+msgid "Enabled"
+msgstr "Povolený"
+
 #: src/templates/enable.mas:29 src/templates/enable.mas:30
+#: src/templates/language.mas:23
 msgid "Change"
 msgstr "Změnit"
 
-#: src/templates/title.mas:24
-msgid "show help"
-msgstr "zobraz nápovědu"
+#: src/templates/ajax/viewer/file.mas:22 src/templates/ajax/viewer/file.mas:33
+msgid "Download"
+msgstr "Stáhnout"
 
-#: src/templates/title.mas:25
-msgid "hide help"
-msgstr "schovat nápovědu"
+#: src/templates/ajax/viewer/file.mas:26
+msgid "Remove"
+msgstr "Smazat"
+
+#: src/templates/ajax/tableBody.mas:135
+msgid "Add new"
+msgstr "Přidat nový"
+
+#: src/templates/ajax/tableBody.mas:146
+#, perl-brace-format
+msgid "Adding a new {row}"
+msgstr "Přidávám nový {row}"
+
+#: src/templates/ajax/tableBody.mas:153
+#, perl-brace-format
+msgid "Editing {row}"
+msgstr "Upravuju {row}"
+
+#: src/templates/ajax/tableBody.mas:209
+msgid "Search"
+msgstr "Hledat"
+
+#: src/templates/ajax/tableBody.mas:357
+msgid "Add"
+msgstr "Přidat"
+
+#: src/templates/ajax/tableBody.mas:381
+msgid "Cancel"
+msgstr "Zrušit"
+
+#: src/templates/ajax/tableBody.mas:465
+msgid "Edit"
+msgstr "Upravit"
+
+#: src/templates/ajax/tableBody.mas:467
+msgid "Delete"
+msgstr "Smazat"
+
+#: src/templates/ajax/tableBody.mas:472
+msgid "Read-only row: edit disabled"
+msgstr "Řádek pouze pro čtení: úprava zakázaná"
+
+#: src/templates/ajax/tableBody.mas:473
+msgid "Read-only row: delete disabled"
+msgstr "Řádek pouze pro čtení: smazání zakázané"
+
+#: src/templates/ajax/tableBody.mas:557
+#, fuzzy
+msgid "Read-only row: move up disabled"
+msgstr "Řádek pouze pro čtení: úprava zakázaná"
+
+#: src/templates/ajax/tableBody.mas:561
+msgid "Move up"
+msgstr ""
+
+#: src/templates/ajax/tableBody.mas:573
+#, fuzzy
+msgid "Read-only row: move down  disabled"
+msgstr "Řádek pouze pro čtení: úprava zakázaná"
+
+#: src/templates/ajax/tableBody.mas:577
+msgid "Move down"
+msgstr ""
+
+#: src/templates/ajax/tableSelector.mas:14
+msgid "Choose one of the options to show the associated table"
+msgstr "Vyberte jednu z možností pro zobrazení tabulky"
+
+#: src/templates/ajax/tableSelector.mas:32
+msgid "Choose one..."
+msgstr "Zvolte jedno(u)..."
+
+#: src/templates/ajax/setter/serviceSetter.mas:25
+msgid "port"
+msgstr "port"
+
+#: src/templates/ajax/setter/inverseMatchUnionSetter.mas:9
+#: src/templates/ajax/setter/inverseMatchSelectSetter.mas:13
+msgid "Inverse match"
+msgstr "Inverzní shoda"
+
+#: src/templates/ajax/setter/portRangeSetter.mas:23
+msgid "From"
+msgstr "Od"
+
+#: src/templates/ajax/setter/portRangeSetter.mas:29
+msgid "To"
+msgstr "Do"
+
+#: src/templates/ajax/modelViewer.mas:258 src/templates/formTable.mas:85
+msgid "Optional"
+msgstr "Volitelný"
+
+#: src/templates/ajax/tablePager.mas:46
+msgid "Page"
+msgstr "Stránka"
+
+#: src/templates/ajax/tablePager.mas:47
+msgid "of"
+msgstr "z"
+
+#: src/templates/ajax/tablePager.mas:60 src/templates/ajax/tablePager.mas:66
+msgid "first"
+msgstr "první"
+
+#: src/templates/ajax/tablePager.mas:62 src/templates/ajax/tablePager.mas:67
+msgid "prev"
+msgstr "předchozí"
+
+#: src/templates/ajax/tablePager.mas:73 src/templates/ajax/tablePager.mas:74
+#: src/templates/ajax/tablePager.mas:85 src/templates/ajax/tablePager.mas:86
+msgid "next"
+msgstr "další"
+
+#: src/templates/ajax/tablePager.mas:79 src/templates/ajax/tablePager.mas:80
+#: src/templates/ajax/tablePager.mas:89 src/templates/ajax/tablePager.mas:90
+msgid "last"
+msgstr "poslední"
 
 #: src/templates/ebox/pageNotFound.mas:3
 msgid "Zentyal homepage"
@@ -212,119 +330,20 @@ msgstr "Je nám líto"
 msgid "The page cannot be found"
 msgstr "Stránku nelze najít"
 
-#: src/templates/ajax/setter/inverseMatchUnionSetter.mas:9
-#: src/templates/ajax/setter/inverseMatchSelectSetter.mas:13
-msgid "Inverse match"
-msgstr "Inverzní shoda"
+#: src/templates/title.mas:24
+msgid "show help"
+msgstr "zobraz nápovědu"
 
-#: src/templates/ajax/setter/portRangeSetter.mas:23
-msgid "From"
-msgstr "Od"
+#: src/templates/title.mas:25
+msgid "hide help"
+msgstr "schovat nápovědu"
 
-#: src/templates/ajax/setter/portRangeSetter.mas:29
-msgid "To"
-msgstr "Do"
+#: src/templates/language.mas:10
+msgid "Language Selection"
+msgstr "Volba jazyka"
 
-#: src/templates/ajax/setter/serviceSetter.mas:25
-msgid "port"
-msgstr "port"
-
-#: src/templates/ajax/viewer/file.mas:22 src/templates/ajax/viewer/file.mas:33
-msgid "Download"
-msgstr "Stáhnout"
-
-#: src/templates/ajax/viewer/file.mas:26
-msgid "Remove"
-msgstr "Smazat"
-
-#: src/templates/ajax/modelViewer.mas:256 src/templates/formTable.mas:85
-msgid "Optional"
-msgstr "Volitelný"
-
-#: src/templates/ajax/tablePager.mas:46
-msgid "Page"
-msgstr "Stránka"
-
-#: src/templates/ajax/tablePager.mas:47
-msgid "of"
-msgstr "z"
-
-#: src/templates/ajax/tablePager.mas:60 src/templates/ajax/tablePager.mas:66
-msgid "first"
-msgstr "první"
-
-#: src/templates/ajax/tablePager.mas:62 src/templates/ajax/tablePager.mas:67
-msgid "prev"
-msgstr "předchozí"
-
-#: src/templates/ajax/tablePager.mas:73 src/templates/ajax/tablePager.mas:74
-#: src/templates/ajax/tablePager.mas:85 src/templates/ajax/tablePager.mas:86
-msgid "next"
-msgstr "další"
-
-#: src/templates/ajax/tablePager.mas:79 src/templates/ajax/tablePager.mas:80
-#: src/templates/ajax/tablePager.mas:89 src/templates/ajax/tablePager.mas:90
-msgid "last"
-msgstr "poslední"
-
-#: src/templates/ajax/tableSelector.mas:14
-msgid "Choose one of the options to show the associated table"
-msgstr "Vyberte jednu z možností pro zobrazení tabulky"
-
-#: src/templates/ajax/tableSelector.mas:32
-msgid "Choose one..."
-msgstr "Zvolte jedno(u)..."
-
-#: src/templates/ajax/tableBody.mas:117
-msgid "Add new"
-msgstr "Přidat nový"
-
-#: src/templates/ajax/tableBody.mas:128
-#, perl-brace-format
-msgid "Adding a new {row}"
-msgstr "Přidávám nový {row}"
-
-#: src/templates/ajax/tableBody.mas:134
-#, perl-brace-format
-msgid "Editing {row}"
-msgstr "Upravuju {row}"
-
-#: src/templates/ajax/tableBody.mas:190
-msgid "Search"
-msgstr "Hledat"
-
-#: src/templates/ajax/tableBody.mas:336
-msgid "Add"
-msgstr "Přidat"
-
-#: src/templates/ajax/tableBody.mas:360
-msgid "Cancel"
-msgstr "Zrušit"
-
-#: src/templates/ajax/tableBody.mas:440
-msgid "Edit"
-msgstr "Upravit"
-
-#: src/templates/ajax/tableBody.mas:442
-msgid "Delete"
-msgstr "Smazat"
-
-#: src/templates/ajax/tableBody.mas:447
-msgid "Read-only row: edit disabled"
-msgstr "Řádek pouze pro čtení: úprava zakázaná"
-
-#: src/templates/ajax/tableBody.mas:448
-msgid "Read-only row: delete disabled"
-msgstr "Řádek pouze pro čtení: smazání zakázané"
-
-#: src/templates/enable.mas:9
-msgid "Service configuration"
-msgstr "Nastavení služby"
-
-#: src/templates/enable.mas:21 src/templates/enable.mas:24
-msgid "Disabled"
-msgstr "Zakázaný"
-
-#: src/templates/enable.mas:22 src/templates/enable.mas:25
-msgid "Enabled"
-msgstr "Povolený"
+#: src/templates/language.mas:11
+msgid ""
+"Language changes happen automatically, saving the configuration it's not "
+"needed."
+msgstr "Změna jazyka proběhne automaticky, ukládat nastavení není potřeba."

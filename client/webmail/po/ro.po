@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-webmail 1.3\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-08-28 23:32+0200\n"
+"POT-Creation-Date: 2010-12-13 08:43+0100\n"
 "PO-Revision-Date: 2010-08-27 08:37+0200\n"
 "Last-Translator: Harald Ersch <harald.ersch@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
@@ -33,52 +33,6 @@ msgstr "Serviciu mail Zentyal"
 #: src/EBox/WebMail/Model/OperationMode.pm:94
 msgid "Remote server"
 msgstr "Server la distanţă"
-
-#: src/EBox/WebMail/Model/Options.pm:45
-msgid "Name"
-msgstr "Nume"
-
-#: src/EBox/WebMail/Model/Options.pm:47
-msgid "Zentyal webmail"
-msgstr "Webmail Zentyal"
-
-#: src/EBox/WebMail/Model/Options.pm:49
-msgid ""
-"The name of the webmail will be used in the login screen and page titles."
-msgstr ""
-"Numele webmail va fi folosit în fereastra de login şi în titlul paginii."
-
-#: src/EBox/WebMail/Model/Options.pm:53
-msgid "Virtual host"
-msgstr "Host virtual"
-
-#: src/EBox/WebMail/Model/Options.pm:59
-msgid ""
-"Virtual host where the webmail will be installed. This will disable the "
-"default /webmail url."
-msgstr ""
-"Hostul virtual unde va fi instalat webmail. Aceasta va dezactiva URL-ul "
-"implicit /webmail."
-
-#: src/EBox/WebMail/Model/Options.pm:65
-msgid "General configuration"
-msgstr "Configurare generală"
-
-#: src/EBox/WebMail/Model/Options.pm:66 src/EBox/WebMail.pm:69
-msgid "Webmail"
-msgstr "Webmail"
-
-#: src/EBox/WebMail/Model/Options.pm:81
-msgid "Disabled"
-msgstr "Dezactivat"
-
-#: src/EBox/WebMail/Model/Options.pm:112
-msgid ""
-"The deleted virtual host was selected for Webmail. Maybe you want to select "
-"another one now."
-msgstr ""
-"Hostul virtual şters era selectat pentru webmail. Poate doriţi să selactaţi "
-"un alt host acum."
 
 #: src/EBox/WebMail/Model/RemoteServerConfiguration.pm:54
 msgid "IMAP Server"
@@ -157,12 +111,59 @@ msgid "TLS"
 msgstr "TLS"
 
 #: src/EBox/WebMail/Model/RemoteServerConfiguration.pm:285
+#, fuzzy
 msgid ""
-"No need to configure the connection to a remote server beacuse WebMail is "
+"No need to configure the connection to a remote server because WebMail is "
 "configured to use Zentyal mail service'"
 msgstr ""
 "Nu e necesară configurarea unei conexiuni la un server extern pt. că Webmail "
 "e configurat să folosească serviciul mail al Zentyal."
+
+#: src/EBox/WebMail/Model/Options.pm:45
+msgid "Name"
+msgstr "Nume"
+
+#: src/EBox/WebMail/Model/Options.pm:47
+msgid "Zentyal webmail"
+msgstr "Webmail Zentyal"
+
+#: src/EBox/WebMail/Model/Options.pm:49
+msgid ""
+"The name of the webmail will be used in the login screen and page titles."
+msgstr ""
+"Numele webmail va fi folosit în fereastra de login şi în titlul paginii."
+
+#: src/EBox/WebMail/Model/Options.pm:53
+msgid "Virtual host"
+msgstr "Host virtual"
+
+#: src/EBox/WebMail/Model/Options.pm:59
+msgid ""
+"Virtual host where the webmail will be installed. This will disable the "
+"default /webmail url."
+msgstr ""
+"Hostul virtual unde va fi instalat webmail. Aceasta va dezactiva URL-ul "
+"implicit /webmail."
+
+#: src/EBox/WebMail/Model/Options.pm:65
+msgid "General configuration"
+msgstr "Configurare generală"
+
+#: src/EBox/WebMail/Model/Options.pm:66 src/EBox/WebMail.pm:69
+msgid "Webmail"
+msgstr "Webmail"
+
+#: src/EBox/WebMail/Model/Options.pm:81
+msgid "Disabled"
+msgstr "Dezactivat"
+
+#: src/EBox/WebMail/Model/Options.pm:112
+msgid ""
+"The deleted virtual host was selected for Webmail. Maybe you want to select "
+"another one now."
+msgstr ""
+"Hostul virtual şters era selectat pentru webmail. Poate doriţi să selactaţi "
+"un alt host acum."
 
 #: src/EBox/WebMail/Composite/Backend.pm:63
 msgid "WebMail backend"

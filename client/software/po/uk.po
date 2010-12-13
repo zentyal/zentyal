@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-software 1.5.3\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-08-28 23:41+0200\n"
+"POT-Creation-Date: 2010-12-13 08:43+0100\n"
 "PO-Revision-Date: 2010-08-13 13:42+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
@@ -29,69 +29,57 @@ msgstr ""
 msgid "rule to allow apt updates"
 msgstr ""
 
-#: src/EBox/Software.pm:55
+#: src/EBox/Software.pm:56
 msgid "Software Management"
 msgstr ""
 
-#: src/EBox/Software.pm:532
+#: src/EBox/Software.pm:537
 #, perl-brace-format
 msgid ""
 "You cannot modify the automatic update using QA updates from Web UI. To "
 "disable automatic updates, edit {conf} and disable {key} key."
 msgstr ""
 
-#: src/EBox/Software.pm:597
+#: src/EBox/Software.pm:627
 msgid "Zentyal Components"
 msgstr ""
 
-#: src/EBox/Software.pm:599
+#: src/EBox/Software.pm:629
 msgid "System Updates"
 msgstr ""
 
-#: src/EBox/Software.pm:601 src/templates/config.mas:19
+#: src/EBox/Software.pm:631 src/templates/config.mas:19
 msgid "Settings"
 msgstr ""
 
-#: src/EBox/Software.pm:770
+#: src/EBox/Software.pm:833
 #, perl-brace-format
 msgid ""
 "Software management is currently  locked by {locker}. Please, try again later"
 msgstr ""
 
-#: src/EBox/Software.pm:933
+#: src/EBox/Software.pm:993
 msgid "Welcome"
 msgstr ""
 
-#: src/EBox/Software.pm:935
+#: src/EBox/Software.pm:995
 msgid "Package Selection"
 msgstr ""
 
-#: src/EBox/Software.pm:936
+#: src/EBox/Software.pm:996
 msgid "Confirmation"
 msgstr ""
 
-#: src/EBox/Software.pm:937
+#: src/EBox/Software.pm:997
 msgid "Installation"
 msgstr ""
 
-#: src/EBox/Software.pm:938
+#: src/EBox/Software.pm:998
 msgid "Initial Configuration"
 msgstr ""
 
-#: src/EBox/Software.pm:939
+#: src/EBox/Software.pm:999
 msgid "Save Changes"
-msgstr ""
-
-#: src/EBox/CGI/Enable.pm:41
-msgid "automatic updates configuration"
-msgstr ""
-
-#: src/EBox/CGI/EBox.pm:34
-msgid "Choose Zentyal packages to install"
-msgstr ""
-
-#: src/EBox/CGI/EBox.pm:38
-msgid "Zentyal components"
 msgstr ""
 
 #: src/EBox/CGI/Config.pm:31
@@ -102,12 +90,28 @@ msgstr ""
 msgid "Automatic software updates"
 msgstr ""
 
-#: src/EBox/CGI/Updates.pm:30 src/EBox/CGI/Updates.pm:53
+#: src/EBox/CGI/Enable.pm:41
+msgid "automatic updates configuration"
+msgstr ""
+
+#: src/EBox/CGI/EBox.pm:35
+msgid "Choose Zentyal packages to install"
+msgstr ""
+
+#: src/EBox/CGI/EBox.pm:40
+msgid "Zentyal components"
+msgstr ""
+
+#: src/EBox/CGI/Updates.pm:32
 msgid "System updates"
 msgstr ""
 
-#: src/EBox/CGI/Updates.pm:58
+#: src/EBox/CGI/Updates.pm:59
 msgid "The system components are up to date."
+msgstr ""
+
+#: src/EBox/CGI/CurrentPackage.pm:31
+msgid "Upgrading"
 msgstr ""
 
 #: src/EBox/CGI/InstallPkgs.pm:100
@@ -169,100 +173,78 @@ msgid ""
 "logs"
 msgstr ""
 
-#: src/EBox/CGI/CurrentPackage.pm:31
-msgid "Upgrading"
+#: src/templates/ebox.mas:152 src/templates/ebox.mas:587
+#: src/templates/ebox.mas:611 src/templates/updates.mas:46
+msgid "Update"
 msgstr ""
 
-#: src/templates/updates.mas:24 src/templates/ebox.mas:181
+#: src/templates/ebox.mas:158 src/templates/ebox.mas:561
+#: src/templates/ebox.mas:602
+msgid "Install"
+msgstr ""
+
+#: src/templates/ebox.mas:182 src/templates/updates.mas:21
 msgid "Package list updated successfully"
 msgstr ""
 
-#: src/templates/updates.mas:28 src/templates/ebox.mas:185
+#: src/templates/ebox.mas:186 src/templates/updates.mas:25
 msgid ""
 "Error updating package list. Please try to execute the following command in "
 "a console to see the problem: sudo apt-get update"
 msgstr ""
 
-#: src/templates/updates.mas:38
-msgid "Updates are available for the following system components"
+#: src/templates/ebox.mas:193
+msgid ""
+"The following packages are not properly installed. You need to fix this "
+"before trying to use them or install new modules."
 msgstr ""
 
-#: src/templates/updates.mas:40
-msgid "Community updates are available for the following system components"
-msgstr ""
-
-#: src/templates/updates.mas:46
+#: src/templates/ebox.mas:200 src/templates/updates.mas:43
 msgid "Component"
 msgstr ""
 
-#: src/templates/updates.mas:47
+#: src/templates/ebox.mas:201 src/templates/updates.mas:44
 msgid "Description"
 msgstr ""
 
-#: src/templates/updates.mas:48
+#: src/templates/ebox.mas:202 src/templates/updates.mas:45
 msgid "Version"
 msgstr ""
 
-#: src/templates/updates.mas:49 src/templates/ebox.mas:151
-#: src/templates/ebox.mas:550 src/templates/ebox.mas:574
-msgid "Update"
-msgstr ""
-
-#: src/templates/updates.mas:66
-msgid "Security update"
-msgstr ""
-
-#: src/templates/updates.mas:69
-msgid "Zentyal QA update"
-msgstr ""
-
-#: src/templates/updates.mas:91
-msgid "Update all packages"
-msgstr ""
-
-#: src/templates/updates.mas:102
+#: src/templates/ebox.mas:216
 msgid ""
-"This operation can take some time, don't worry if Zentyal looks unresponsive "
-"after pressing the Upgrade button."
+"To solve this situation, please try to execute the following command in the "
+"console:"
 msgstr ""
 
-#: src/templates/updates.mas:106
-msgid "Upgrade"
-msgstr ""
-
-#: src/templates/updates.mas:111 src/templates/ebox.mas:566
-#: src/templates/ebox.mas:575
-msgid "Update list"
-msgstr ""
-
-#: src/templates/ebox.mas:157 src/templates/ebox.mas:524
-#: src/templates/ebox.mas:565
-msgid "Install"
-msgstr ""
-
-#: src/templates/ebox.mas:192
+#: src/templates/ebox.mas:229
 msgid "View advanced mode"
 msgstr ""
 
-#: src/templates/ebox.mas:526
+#: src/templates/ebox.mas:563
 msgid "Skip install"
 msgstr ""
 
-#: src/templates/ebox.mas:539
+#: src/templates/ebox.mas:576
 msgid "View basic mode"
 msgstr ""
 
-#: src/templates/ebox.mas:557 src/templates/ebox.mas:586
+#: src/templates/ebox.mas:594 src/templates/ebox.mas:623
 msgid "Delete"
 msgstr ""
 
-#: src/templates/ebox.mas:567 src/templates/ebox.mas:576
-#: src/templates/ebox.mas:587
+#: src/templates/ebox.mas:603 src/templates/ebox.mas:612
+#: src/templates/updates.mas:108
+msgid "Update list"
+msgstr ""
+
+#: src/templates/ebox.mas:604 src/templates/ebox.mas:613
+#: src/templates/ebox.mas:624
 msgid "Deselect All"
 msgstr ""
 
-#: src/templates/ebox.mas:568 src/templates/ebox.mas:577
-#: src/templates/ebox.mas:588
+#: src/templates/ebox.mas:605 src/templates/ebox.mas:614
+#: src/templates/ebox.mas:625
 msgid "Select All"
 msgstr ""
 
@@ -308,4 +290,34 @@ msgstr ""
 
 #: src/templates/config.mas:26
 msgid "Automatic operations start time"
+msgstr ""
+
+#: src/templates/updates.mas:35
+msgid "Updates are available for the following system components"
+msgstr ""
+
+#: src/templates/updates.mas:37
+msgid "Community updates are available for the following system components"
+msgstr ""
+
+#: src/templates/updates.mas:55 src/templates/updates.mas:56
+msgid "Security update"
+msgstr ""
+
+#: src/templates/updates.mas:59 src/templates/updates.mas:60
+msgid "Zentyal QA update"
+msgstr ""
+
+#: src/templates/updates.mas:88
+msgid "Update all packages"
+msgstr ""
+
+#: src/templates/updates.mas:99
+msgid ""
+"This operation can take some time, don't worry if Zentyal looks unresponsive "
+"after pressing the Upgrade button."
+msgstr ""
+
+#: src/templates/updates.mas:103
+msgid "Upgrade"
 msgstr ""

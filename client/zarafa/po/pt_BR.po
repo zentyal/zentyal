@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-zarafa 0.12\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-08-28 20:28+0200\n"
+"POT-Creation-Date: 2010-12-13 08:43+0100\n"
 "PO-Revision-Date: 2010-08-30 17:06+0200\n"
 "Last-Translator: Jorge Eduardo Quintao <jorge@netsol.com.br>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
@@ -19,14 +19,212 @@ msgstr ""
 msgid "Zarafa Server"
 msgstr "Servidor Zarafa"
 
-#: src/EBox/ZarafaLdapUser.pm:239
+#: src/EBox/CGI/ZarafaUserOptions.pm:46
+msgid "username"
+msgstr "usuário"
+
+#: src/EBox/Zarafa/Model/Gateways.pm:95
+#, perl-brace-format
 msgid ""
-"This user has a Zarafa account. If the user currently connected it will "
-"continue connected until Zarafa authorization is again required."
+"To enable Zarafa {service} gateway you must disable {service} mail retrieval "
+"service. You can do it at {ohref}Mail General Configuration{chref}."
 msgstr ""
-"Este usuário possui uma conta Zarafa. Se o usuário estiver conectado, "
-"permanecerá conectado até que a autorização do Zarafa seja requerida "
-"novamente"
+"Para habilitar o Zarafa, desabilite o serviço {service}Recuperar e-mails de "
+"contas externas{service}. Você pode fazer isto em {ohref}Configuração Geral "
+"do Correio{chref}."
+
+#: src/EBox/Zarafa/Model/Gateways.pm:129
+#, perl-brace-format
+msgid ""
+"To enable Zarafa POP3 and IMAP gateways you need at least one virtual "
+"domain. You can do it at {ohref}Virtual Mail Domains{chref}."
+msgstr ""
+"Para habilitar os gateways POP3 e IMAP do Zarafa você deve ter pelo menos um "
+"domínio virtual. Você pode fazer isto em {ohref}Domínios Virtuais de Correio"
+"{chref}."
+
+#: src/EBox/Zarafa/Model/Gateways.pm:151
+msgid "Enable POP3 gateway"
+msgstr "Habilitar gateway POP3"
+
+#: src/EBox/Zarafa/Model/Gateways.pm:157
+msgid "Enable POP3S gateway"
+msgstr "Habilitar gateway POP3S"
+
+#: src/EBox/Zarafa/Model/Gateways.pm:163
+msgid "Enable IMAP gateway"
+msgstr "Habilitar gateway IMAP"
+
+#: src/EBox/Zarafa/Model/Gateways.pm:169
+msgid "Enable IMAPS gateway"
+msgstr "Habilitar gateway IMAPS"
+
+#: src/EBox/Zarafa/Model/Gateways.pm:180
+msgid "Zarafa gateways configuration settings"
+msgstr "Definições de configuração de gateways do Zarafa"
+
+#: src/EBox/Zarafa/Model/Gateways.pm:185
+msgid "Zarafa gateways configuration settings updated."
+msgstr "Definições de configuração de gateways do Zarafa atualizadas."
+
+#: src/EBox/Zarafa/Model/Gateways.pm:188
+msgid ""
+"Zarafa gateways allow access to users mailboxes using POP3 and IMAP "
+"protocols."
+msgstr ""
+"Os gatgeways do Zarafa permitem acesso para as caixas de correio dos "
+"usuários usando os protocolos POP3 e IMAP."
+
+#: src/EBox/Zarafa/Model/Quota.pm:75
+msgid "Maximum mailbox size"
+msgstr "Tamanho máximo da caixa de correio (mailbox)"
+
+#: src/EBox/Zarafa/Model/Quota.pm:77
+msgid "When a mailbox reaches this size futher messages will be rejected."
+msgstr ""
+"Quando a caixa de correio (mailbox) atingir este tamanho as novas mensagens "
+"serão rejeitadas."
+
+#: src/EBox/Zarafa/Model/Quota.pm:81
+msgid "Unlimited size"
+msgstr "Tamanho ilimitado"
+
+#: src/EBox/Zarafa/Model/Quota.pm:85
+msgid "Limited to"
+msgstr "Limitado em"
+
+#: src/EBox/Zarafa/Model/Quota.pm:96
+msgid "Warn user over"
+msgstr "Avisar usuário acima de"
+
+#: src/EBox/Zarafa/Model/Quota.pm:109
+msgid "Stop user sending mails over"
+msgstr "Parar usuários enviando correio acima de"
+
+#: src/EBox/Zarafa/Model/Quota.pm:124
+msgid "Quota configuration settings"
+msgstr "Definições da configuração de cota"
+
+#: src/EBox/Zarafa/Model/Quota.pm:129
+msgid "Zarafa server quota configuration settings updated."
+msgstr ""
+"As definições de configuração de cota do servidor Zarafa foram atualizadas."
+
+#: src/EBox/Zarafa/Model/GeneralSettings.pm:74
+msgid "Enable Spell Checking"
+msgstr "Habilitar Corrertor Ortográfico"
+
+#: src/EBox/Zarafa/Model/GeneralSettings.pm:77
+msgid "Enable spell checking on Zarafa Webaccess."
+msgstr "Habilitar corretor ortográfico no Acesso Web do Zarafa."
+
+#: src/EBox/Zarafa/Model/GeneralSettings.pm:81
+msgid "Enable Active Sync"
+msgstr "Habilitar Active Sync"
+
+#: src/EBox/Zarafa/Model/GeneralSettings.pm:85
+msgid "Enable Active Sync (Microsoft Exchange syncronization protocol)."
+msgstr ""
+"Habilitar Active Sync (protocolo de sincronização do Microsoft Exchange)"
+
+#: src/EBox/Zarafa/Model/GeneralSettings.pm:89
+msgid "Virtual host"
+msgstr "Host virtual"
+
+#: src/EBox/Zarafa/Model/GeneralSettings.pm:95
+msgid ""
+"Enable Zarafa access only on this virtual host under /webaccess and /"
+"webaccess-mobile."
+msgstr ""
+"Habilitar acesso ao Zarafa somente neste host virtual debaixo de /webaccess "
+"e /webaccess-mobile."
+
+#: src/EBox/Zarafa/Model/GeneralSettings.pm:102
+msgid "General configuration settings"
+msgstr "Definições gerais de configuração"
+
+#: src/EBox/Zarafa/Model/GeneralSettings.pm:107
+msgid "General Zarafa server configuration settings updated."
+msgstr "Definições gerais de configuração do servidor Zarafa atualizadas."
+
+#: src/EBox/Zarafa/Model/GeneralSettings.pm:119 src/templates/zarafa.mas:22
+#: src/templates/zarafa.mas:25
+msgid "Disabled"
+msgstr "Desabilitado"
+
+#: src/EBox/Zarafa/Model/GeneralSettings.pm:149
+msgid ""
+"The deleted virtual host was selected for Zarafa. Maybe you want to select "
+"another one now."
+msgstr ""
+"O host virtual apagado estava selecionado pelo Zarafa. Talvez você queira "
+"selecionar outro agora."
+
+#: src/EBox/Zarafa/Model/ZarafaUser.pm:49
+msgid "Groupware Account"
+msgstr "Conta do servidor de colaboração"
+
+#: src/EBox/Zarafa/Model/ZarafaUser.pm:55
+#, fuzzy
+msgid "Groupware Contact"
+msgstr "Conta do servidor de colaboração"
+
+#: src/EBox/Zarafa/Model/ZarafaUser.pm:56
+msgid "Enable contact in the addressbook even if account is disabled."
+msgstr ""
+
+#: src/EBox/Zarafa/Model/ZarafaUser.pm:64
+msgid "Zarafa"
+msgstr "Zarafa"
+
+#: src/EBox/Zarafa/Model/VMailDomain.pm:50
+msgid "No domain selected"
+msgstr "Nenhum domínio selecionado"
+
+#: src/EBox/Zarafa/Model/VMailDomain.pm:95
+#, perl-brace-format
+msgid ""
+"To configure Zarafa you must have at least one virtual mail domain. You can "
+"define one at {ohref}Virtual Domains{chref}."
+msgstr ""
+"Para configurar o Zarafa você deve ter pelo menos um domínio virtual de "
+"correio. Você pode definir isto em {ohref}Domínios Virtuais{chref}."
+
+#: src/EBox/Zarafa/Model/VMailDomain.pm:122
+msgid ""
+"The deleted virtual domain was selected for Zarafa. Maybe you want to select "
+"another one now."
+msgstr ""
+"O domínio virtual apagado era usado pelo Zarafa. Talvez você queira "
+"selecionar outro agora."
+
+#: src/EBox/Zarafa/Model/VMailDomain.pm:149
+msgid "Virtual domain"
+msgstr "Domínio virtual"
+
+#: src/EBox/Zarafa/Model/VMailDomain.pm:158
+msgid "Virtual mail domain"
+msgstr "Domínio virtual de correio"
+
+#: src/EBox/Zarafa/Model/VMailDomain.pm:163
+msgid "Select the virtual mail domain to be used for Zarafa."
+msgstr "Selecione o domínio virtual de correio que será usado pelo Zarafa."
+
+#: src/EBox/Zarafa/Composite/General.pm:67
+msgid "Configuration"
+msgstr "Configuração"
+
+#: src/EBox/Zarafa/Composite/General.pm:68
+msgid "Groupware (Zarafa)"
+msgstr "Servidor de colaboração (Zarafa)"
+
+#: src/EBox/Zarafa/Composite/General.pm:70
+msgid ""
+"You can access the Zarafa web interface at http://zentyal_ip/webaccess and "
+"the mobile version at http://zentyal_ip/webaccess-mobile."
+msgstr ""
+"Você pode acessar a interface web do Zarafa em http://zentyal_ip/webaccess e "
+"a versão móvel em http://zentyal_ip/webaccess-mobile."
 
 #: src/EBox/Zarafa.pm:64
 msgid "Add Zarafa LDAP schema"
@@ -109,203 +307,14 @@ msgstr "Para configurar corretamente o servidor de indexação Zarafa."
 msgid "Zarafa Gateway Server"
 msgstr "Servidor de Gateway Zarafa"
 
-#: src/EBox/Zarafa/Model/Quota.pm:75
-msgid "Maximum mailbox size"
-msgstr "Tamanho máximo da caixa de correio (mailbox)"
-
-#: src/EBox/Zarafa/Model/Quota.pm:77
-msgid "When a mailbox reaches this size futher messages will be rejected."
-msgstr ""
-"Quando a caixa de correio (mailbox) atingir este tamanho as novas mensagens "
-"serão rejeitadas."
-
-#: src/EBox/Zarafa/Model/Quota.pm:81
-msgid "Unlimited size"
-msgstr "Tamanho ilimitado"
-
-#: src/EBox/Zarafa/Model/Quota.pm:85
-msgid "Limited to"
-msgstr "Limitado em"
-
-#: src/EBox/Zarafa/Model/Quota.pm:96
-msgid "Warn user over"
-msgstr "Avisar usuário acima de"
-
-#: src/EBox/Zarafa/Model/Quota.pm:109
-msgid "Stop user sending mails over"
-msgstr "Parar usuários enviando correio acima de"
-
-#: src/EBox/Zarafa/Model/Quota.pm:124
-msgid "Quota configuration settings"
-msgstr "Definições da configuração de cota"
-
-#: src/EBox/Zarafa/Model/Quota.pm:129
-msgid "Zarafa server quota configuration settings updated."
-msgstr ""
-"As definições de configuração de cota do servidor Zarafa foram atualizadas."
-
-#: src/EBox/Zarafa/Model/ZarafaUser.pm:49
-msgid "Groupware Account"
-msgstr "Conta do servidor de colaboração"
-
-#: src/EBox/Zarafa/Model/ZarafaUser.pm:57
-msgid "Zarafa"
-msgstr "Zarafa"
-
-#: src/EBox/Zarafa/Model/Gateways.pm:95
-#, perl-brace-format
+#: src/EBox/ZarafaLdapUser.pm:319
 msgid ""
-"To enable Zarafa {service} gateway you must disable {service} mail retrieval "
-"service. You can do it at {ohref}Mail General Configuration{chref}."
+"This user has a Zarafa account. If the user currently connected it will "
+"continue connected until Zarafa authorization is again required."
 msgstr ""
-"Para habilitar o Zarafa, desabilite o serviço {service}Recuperar e-mails de "
-"contas externas{service}. Você pode fazer isto em {ohref}Configuração Geral "
-"do Correio{chref}."
-
-#: src/EBox/Zarafa/Model/Gateways.pm:129
-#, perl-brace-format
-msgid ""
-"To enable Zarafa POP3 and IMAP gateways you need at least one virtual "
-"domain. You can do it at {ohref}Virtual Mail Domains{chref}."
-msgstr ""
-"Para habilitar os gateways POP3 e IMAP do Zarafa você deve ter pelo menos um "
-"domínio virtual. Você pode fazer isto em {ohref}Domínios Virtuais de "
-"Correio{chref}."
-
-#: src/EBox/Zarafa/Model/Gateways.pm:151
-msgid "Enable POP3 gateway"
-msgstr "Habilitar gateway POP3"
-
-#: src/EBox/Zarafa/Model/Gateways.pm:157
-msgid "Enable POP3S gateway"
-msgstr "Habilitar gateway POP3S"
-
-#: src/EBox/Zarafa/Model/Gateways.pm:163
-msgid "Enable IMAP gateway"
-msgstr "Habilitar gateway IMAP"
-
-#: src/EBox/Zarafa/Model/Gateways.pm:169
-msgid "Enable IMAPS gateway"
-msgstr "Habilitar gateway IMAPS"
-
-#: src/EBox/Zarafa/Model/Gateways.pm:180
-msgid "Zarafa gateways configuration settings"
-msgstr "Definições de configuração de gateways do Zarafa"
-
-#: src/EBox/Zarafa/Model/Gateways.pm:185
-msgid "Zarafa gateways configuration settings updated."
-msgstr "Definições de configuração de gateways do Zarafa atualizadas."
-
-#: src/EBox/Zarafa/Model/Gateways.pm:188
-msgid ""
-"Zarafa gateways allow access to users mailboxes using POP3 and IMAP "
-"protocols."
-msgstr ""
-"Os gatgeways do Zarafa permitem acesso para as caixas de correio dos "
-"usuários usando os protocolos POP3 e IMAP."
-
-#: src/EBox/Zarafa/Model/VMailDomain.pm:50
-msgid "No domain selected"
-msgstr "Nenhum domínio selecionado"
-
-#: src/EBox/Zarafa/Model/VMailDomain.pm:95
-#, perl-brace-format
-msgid ""
-"To configure Zarafa you must have at least one virtual mail domain. You can "
-"define one at {ohref}Virtual Domains{chref}."
-msgstr ""
-"Para configurar o Zarafa você deve ter pelo menos um domínio virtual de "
-"correio. Você pode definir isto em {ohref}Domínios Virtuais{chref}."
-
-#: src/EBox/Zarafa/Model/VMailDomain.pm:122
-msgid ""
-"The deleted virtual domain was selected for Zarafa. Maybe you want to select "
-"another one now."
-msgstr ""
-"O domínio virtual apagado era usado pelo Zarafa. Talvez você queira "
-"selecionar outro agora."
-
-#: src/EBox/Zarafa/Model/VMailDomain.pm:149
-msgid "Virtual domain"
-msgstr "Domínio virtual"
-
-#: src/EBox/Zarafa/Model/VMailDomain.pm:158
-msgid "Virtual mail domain"
-msgstr "Domínio virtual de correio"
-
-#: src/EBox/Zarafa/Model/VMailDomain.pm:163
-msgid "Select the virtual mail domain to be used for Zarafa."
-msgstr "Selecione o domínio virtual de correio que será usado pelo Zarafa."
-
-#: src/EBox/Zarafa/Model/GeneralSettings.pm:74
-msgid "Enable Spell Checking"
-msgstr "Habilitar Corrertor Ortográfico"
-
-#: src/EBox/Zarafa/Model/GeneralSettings.pm:77
-msgid "Enable spell checking on Zarafa Webaccess."
-msgstr "Habilitar corretor ortográfico no Acesso Web do Zarafa."
-
-#: src/EBox/Zarafa/Model/GeneralSettings.pm:81
-msgid "Enable Active Sync"
-msgstr "Habilitar Active Sync"
-
-#: src/EBox/Zarafa/Model/GeneralSettings.pm:85
-msgid "Enable Active Sync (Microsoft Exchange syncronization protocol)."
-msgstr ""
-"Habilitar Active Sync (protocolo de sincronização do Microsoft Exchange)"
-
-#: src/EBox/Zarafa/Model/GeneralSettings.pm:89
-msgid "Virtual host"
-msgstr "Host virtual"
-
-#: src/EBox/Zarafa/Model/GeneralSettings.pm:95
-msgid ""
-"Enable Zarafa access only on this virtual host under /webaccess and /"
-"webaccess-mobile."
-msgstr ""
-"Habilitar acesso ao Zarafa somente neste host virtual debaixo de /webaccess "
-"e /webaccess-mobile."
-
-#: src/EBox/Zarafa/Model/GeneralSettings.pm:102
-msgid "General configuration settings"
-msgstr "Definições gerais de configuração"
-
-#: src/EBox/Zarafa/Model/GeneralSettings.pm:107
-msgid "General Zarafa server configuration settings updated."
-msgstr "Definições gerais de configuração do servidor Zarafa atualizadas."
-
-#: src/EBox/Zarafa/Model/GeneralSettings.pm:119 src/templates/zarafa.mas:22
-#: src/templates/zarafa.mas:25
-msgid "Disabled"
-msgstr "Desabilitado"
-
-#: src/EBox/Zarafa/Model/GeneralSettings.pm:149
-msgid ""
-"The deleted virtual host was selected for Zarafa. Maybe you want to select "
-"another one now."
-msgstr ""
-"O host virtual apagado estava selecionado pelo Zarafa. Talvez você queira "
-"selecionar outro agora."
-
-#: src/EBox/Zarafa/Composite/General.pm:67
-msgid "Configuration"
-msgstr "Configuração"
-
-#: src/EBox/Zarafa/Composite/General.pm:68
-msgid "Groupware (Zarafa)"
-msgstr "Servidor de colaboração (Zarafa)"
-
-#: src/EBox/Zarafa/Composite/General.pm:70
-msgid ""
-"You can access the Zarafa web interface at http://zentyal_ip/webaccess and "
-"the mobile version at http://zentyal_ip/webaccess-mobile."
-msgstr ""
-"Você pode acessar a interface web do Zarafa em http://zentyal_ip/webaccess e "
-"a versão móvel em http://zentyal_ip/webaccess-mobile."
-
-#: src/EBox/CGI/ZarafaUserOptions.pm:46
-msgid "username"
-msgstr "usuário"
+"Este usuário possui uma conta Zarafa. Se o usuário estiver conectado, "
+"permanecerá conectado até que a autorização do Zarafa seja requerida "
+"novamente"
 
 #: src/templates/zarafa.mas:8
 msgid "Zarafa account"
@@ -329,6 +338,11 @@ msgstr ""
 "O Zarafa configurou suas definições de cota de acordo com as  cotas das "
 "contas de correio."
 
-#: src/templates/zarafa.mas:54 src/templates/zarafa.mas:55
+#: src/templates/zarafa.mas:53
+#, fuzzy
+msgid "Groupware contact"
+msgstr "Conta do servidor de colaboração"
+
+#: src/templates/zarafa.mas:68 src/templates/zarafa.mas:69
 msgid "Change"
 msgstr "Alterar"

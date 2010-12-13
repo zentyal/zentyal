@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-dns 1.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-08-28 23:34+0200\n"
+"POT-Creation-Date: 2010-12-13 08:39+0100\n"
 "PO-Revision-Date: 2010-02-14 01:33+0100\n"
 "Last-Translator: Gabor Kelemen <kelemeng@gnome.hu>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
@@ -17,13 +17,90 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n !=1);\n"
 "X-Generator: Pootle 1.1.0\n"
 
+#: src/EBox/DNS.pm.in:264 src/EBox/Model/DomainTable.pm:248
+msgid "domain"
+msgstr "tartomány"
+
+#: src/EBox/DNS.pm.in:517
+msgid "main bind9 configuration file"
+msgstr "elsődleges bind9 konfigurációs fájl"
+
+#: src/EBox/DNS.pm.in:522
+msgid "bind9 options configuration file"
+msgstr "bind9 beállítások konfigurációs fájlja"
+
+#: src/EBox/DNS.pm.in:527
+msgid "local bind9 configuration file"
+msgstr "helyi bind9 konfigurációs fájl"
+
+#: src/EBox/DNS.pm.in:532
+msgid "Keys configuration file"
+msgstr "Kulcsok konfigurációs fájlja"
+
+#: src/EBox/DNS.pm.in:549
+#, perl-brace-format
+msgid "configuration file for zone {zone}"
+msgstr "konfigurációs fájl a(z) {zone} zónának"
+
+#: src/EBox/DNS.pm.in:565
+#, perl-brace-format
+msgid "configuration file for reverse resolution zone {zone}"
+msgstr "a(z) {zone} fordított feloldási zóna konfigurációs fájlja"
+
+#: src/EBox/DNS.pm.in:583
+#, perl-brace-format
+msgid "Change the permissions for {dir} to allow writing to bind group"
+msgstr ""
+"Módosítsa a(z) {dir} könyvtár írási jogosultságát a bind csoportba írás "
+"engedélyezéséhez"
+
+#: src/EBox/DNS.pm.in:585
+msgid "Let the bind daemon to be dynamically updated"
+msgstr "A bind démon dinamikus frissítésének engedélyezése"
+
+#: src/EBox/Model/HostnameTable.pm:135
+#, perl-brace-format
+msgid ""
+"There is an alias with the same name \"{name}\" for \"{hostname}\" in the "
+"same domain"
+msgstr ""
+"Már létezik „{name}” nevű álnév ezen „{hostname}” nevű géphez ebben a "
+"tartományban"
+
+#: src/EBox/Model/HostnameTable.pm:169
+msgid "The domain is set as read only. You cannot add host names"
+msgstr "A tartomány csak olvasható. Nem adhat hozzá gépneveket"
+
+#: src/EBox/Model/HostnameTable.pm:187 src/EBox/Model/MailExchanger.pm:151
+#: src/EBox/Model/NameServer.pm:130 src/templates/edit.mas:20
+msgid "Host name"
+msgstr "Gépnév"
+
+#: src/EBox/Model/HostnameTable.pm:195 src/EBox/Model/DomainTable.pm:210
+msgid "IP Address"
+msgstr "IP-cím"
+
+#: src/EBox/Model/HostnameTable.pm:203 src/EBox/Model/AliasTable.pm:130
+#: src/EBox/Model/AliasTable.pm:140 src/EBox/Model/AliasTable.pm:146
+#: src/templates/edit.mas:64 src/templates/edit.mas:85
+msgid "Alias"
+msgstr "Álnév"
+
+#: src/EBox/Model/HostnameTable.pm:215
+msgid "Host names"
+msgstr "Gépnevek"
+
+#: src/EBox/Model/HostnameTable.pm:222 src/EBox/Model/DomainTable.pm:185
+msgid "Hostnames"
+msgstr "Gépnevek"
+
+#: src/EBox/Model/HostnameTable.pm:223
+msgid "host name"
+msgstr "gépnév"
+
 #: src/EBox/Model/DomainTable.pm:177
 msgid "Domain"
 msgstr "Tartomány"
-
-#: src/EBox/Model/DomainTable.pm:185 src/EBox/Model/HostnameTable.pm:222
-msgid "Hostnames"
-msgstr "Gépnevek"
 
 #: src/EBox/Model/DomainTable.pm:194
 msgid "Mail Exchangers"
@@ -32,10 +109,6 @@ msgstr "Levelezőkiszolgálók"
 #: src/EBox/Model/DomainTable.pm:202
 msgid "Name Servers"
 msgstr "DNS-kiszolgálók"
-
-#: src/EBox/Model/DomainTable.pm:210 src/EBox/Model/HostnameTable.pm:195
-msgid "IP Address"
-msgstr "IP-cím"
 
 #: src/EBox/Model/DomainTable.pm:218
 msgid "Dynamic"
@@ -54,9 +127,11 @@ msgstr "Tartományok listája"
 msgid "DNS"
 msgstr "DNS"
 
-#: src/EBox/Model/DomainTable.pm:248 src/EBox/DNS.pm.in:263
-msgid "domain"
-msgstr "tartomány"
+#: src/EBox/Model/DNSComposite.pm:77
+msgid "The DNS server allows you to resolve names for your own domains."
+msgstr ""
+"A DNS-kiszolgáló lehetővé teszi a nevek feloldását a saját tartományai "
+"számára."
 
 #: src/EBox/Model/MailExchanger.pm:86
 #, perl-brace-format
@@ -76,11 +151,6 @@ msgstr ""
 #: src/EBox/Model/MailExchanger.pm:132
 msgid "The domain is set as read only. You cannot add mail exchangers"
 msgstr "A tartomány csak olvasható. Nem adhat hozzá levelezőkiszolgálókat."
-
-#: src/EBox/Model/MailExchanger.pm:151 src/EBox/Model/NameServer.pm:130
-#: src/EBox/Model/HostnameTable.pm:187 src/templates/edit.mas:20
-msgid "Host name"
-msgstr "Gépnév"
 
 #: src/EBox/Model/MailExchanger.pm:154 src/EBox/Model/NameServer.pm:133
 msgid "If you choose \"Custom\", it should be a Fully Qualified Domain Name"
@@ -142,12 +212,6 @@ msgstr ""
 "Már létezik álnév a gépnévhez ({hostname}) „{name}” néven ugyanabban a "
 "tartományban"
 
-#: src/EBox/Model/AliasTable.pm:130 src/EBox/Model/AliasTable.pm:140
-#: src/EBox/Model/AliasTable.pm:146 src/EBox/Model/HostnameTable.pm:203
-#: src/templates/edit.mas:64 src/templates/edit.mas:85
-msgid "Alias"
-msgstr "Álnév"
-
 #: src/EBox/Model/AliasTable.pm:147
 msgid "alias"
 msgstr "álnév"
@@ -177,69 +241,43 @@ msgstr "A tartomány névkiszolgáló-rekordjainak (NS) kezelése"
 msgid "name server record"
 msgstr "Névkiszolgáló-rekord"
 
-#: src/EBox/Model/HostnameTable.pm:135
-#, perl-brace-format
-msgid ""
-"There is an alias with the same name \"{name}\" for \"{hostname}\" in the "
-"same domain"
-msgstr ""
-"Már létezik „{name}” nevű álnév ezen „{hostname}” nevű géphez ebben a "
-"tartományban"
+#: src/templates/index.mas:16
+msgid "Domain list"
+msgstr "Tartománylista"
 
-#: src/EBox/Model/HostnameTable.pm:169
-msgid "The domain is set as read only. You cannot add host names"
-msgstr "A tartomány csak olvasható. Nem adhat hozzá gépneveket"
+#: src/templates/index.mas:21
+msgid "Name"
+msgstr "Név"
 
-#: src/EBox/Model/HostnameTable.pm:215
-msgid "Host names"
-msgstr "Gépnevek"
+#: src/templates/index.mas:24 src/templates/edit.mas:23
+msgid "Action"
+msgstr "Művelet"
 
-#: src/EBox/Model/HostnameTable.pm:223
-msgid "host name"
-msgstr "gépnév"
+#: src/templates/index.mas:37 src/templates/index.mas:38
+#: src/templates/index.mas:39 src/templates/edit.mas:40
+#: src/templates/edit.mas:41 src/templates/edit.mas:42
+#: src/templates/edit.mas:74 src/templates/edit.mas:75
+#: src/templates/edit.mas:76
+msgid "Add"
+msgstr "Hozzáadás"
 
-#: src/EBox/Model/DNSComposite.pm:77
-msgid "The DNS server allows you to resolve names for your own domains."
-msgstr ""
-"A DNS-kiszolgáló lehetővé teszi a nevek feloldását a saját tartományai "
-"számára."
+#: src/templates/index.mas:49
+msgid "Edit"
+msgstr "Szerkesztés"
 
-#: src/EBox/DNS.pm.in:516
-msgid "main bind9 configuration file"
-msgstr "elsődleges bind9 konfigurációs fájl"
+#: src/templates/index.mas:53 src/templates/index.mas:54
+#: src/templates/edit.mas:54 src/templates/edit.mas:55
+#: src/templates/edit.mas:93 src/templates/edit.mas:94
+msgid "Delete"
+msgstr "Törlés"
 
-#: src/EBox/DNS.pm.in:521
-msgid "bind9 options configuration file"
-msgstr "bind9 beállítások konfigurációs fájlja"
+#: src/templates/index.mas:65
+msgid "edit"
+msgstr "szerkesztés"
 
-#: src/EBox/DNS.pm.in:526
-msgid "local bind9 configuration file"
-msgstr "helyi bind9 konfigurációs fájl"
-
-#: src/EBox/DNS.pm.in:531
-msgid "Keys configuration file"
-msgstr "Kulcsok konfigurációs fájlja"
-
-#: src/EBox/DNS.pm.in:548
-#, perl-brace-format
-msgid "configuration file for zone {zone}"
-msgstr "konfigurációs fájl a(z) {zone} zónának"
-
-#: src/EBox/DNS.pm.in:564
-#, perl-brace-format
-msgid "configuration file for reverse resolution zone {zone}"
-msgstr "a(z) {zone} fordított feloldási zóna konfigurációs fájlja"
-
-#: src/EBox/DNS.pm.in:582
-#, perl-brace-format
-msgid "Change the permissions for {dir} to allow writing to bind group"
-msgstr ""
-"Módosítsa a(z) {dir} könyvtár írási jogosultságát a bind csoportba írás "
-"engedélyezéséhez"
-
-#: src/EBox/DNS.pm.in:584
-msgid "Let the bind daemon to be dynamically updated"
-msgstr "A bind démon dinamikus frissítésének engedélyezése"
+#: src/templates/index.mas:70 src/templates/edit.mas:110
+msgid "delete"
+msgstr "törlés"
 
 #: src/templates/edit.mas:12
 #, perl-brace-format
@@ -249,41 +287,3 @@ msgstr "A(z) {domain} tartomány gépeinek listája"
 #: src/templates/edit.mas:17
 msgid "IP"
 msgstr "IP"
-
-#: src/templates/edit.mas:23 src/templates/index.mas:24
-msgid "Action"
-msgstr "Művelet"
-
-#: src/templates/edit.mas:40 src/templates/edit.mas:41
-#: src/templates/edit.mas:42 src/templates/edit.mas:74
-#: src/templates/edit.mas:75 src/templates/edit.mas:76
-#: src/templates/index.mas:37 src/templates/index.mas:38
-#: src/templates/index.mas:39
-msgid "Add"
-msgstr "Hozzáadás"
-
-#: src/templates/edit.mas:54 src/templates/edit.mas:55
-#: src/templates/edit.mas:93 src/templates/edit.mas:94
-#: src/templates/index.mas:53 src/templates/index.mas:54
-msgid "Delete"
-msgstr "Törlés"
-
-#: src/templates/edit.mas:110 src/templates/index.mas:70
-msgid "delete"
-msgstr "törlés"
-
-#: src/templates/index.mas:16
-msgid "Domain list"
-msgstr "Tartománylista"
-
-#: src/templates/index.mas:21
-msgid "Name"
-msgstr "Név"
-
-#: src/templates/index.mas:49
-msgid "Edit"
-msgstr "Szerkesztés"
-
-#: src/templates/index.mas:65
-msgid "edit"
-msgstr "szerkesztés"

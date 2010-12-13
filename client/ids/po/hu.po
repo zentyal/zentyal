@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-ids 1.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-08-28 23:35+0200\n"
+"POT-Creation-Date: 2010-12-13 08:39+0100\n"
 "PO-Revision-Date: 2010-02-04 11:08+0100\n"
 "Last-Translator: Gabor Kelemen <kelemeng@gnome.hu>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
@@ -17,75 +17,13 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n !=1);\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: src/EBox/Model/Rules.pm:153
-msgid "Rule Set"
-msgstr "Szabályhalmaz"
-
-#: src/EBox/Model/Rules.pm:158 src/EBox/Model/Interfaces.pm:134
-msgid "Enabled"
-msgstr "Engedélyezve"
-
-#: src/EBox/Model/Rules.pm:167
-msgid "Rules"
-msgstr "Szabályok"
-
-#: src/EBox/Model/Rules.pm:172
-msgid "rule"
-msgstr "szabály"
-
-#: src/EBox/Model/Rules.pm:173
-msgid "help message"
-msgstr "súgóüzenet"
-
-#: src/EBox/Model/Interfaces.pm:129
-msgid "Interface"
-msgstr "Csatoló"
-
-#: src/EBox/Model/Interfaces.pm:143
-msgid "Interfaces"
-msgstr "Csatolók"
-
-#: src/EBox/Model/Interfaces.pm:149
-msgid "interface"
-msgstr "csatoló"
-
-#: src/EBox/Model/Interfaces.pm:151
-msgid "Select in which interfaces IDS system will be enabled"
-msgstr ""
-"Válassza ki, mely csatolók behatolásérzékelő rendszerei lesznek engedélyezve"
-
-#: src/EBox/Model/Report/AlertGraph.pm:47
-#: src/EBox/Model/Report/AlertDetails.pm:41
-msgid "number of alerts"
-msgstr "riasztások száma"
-
-#: src/EBox/Model/Report/AlertGraph.pm:52
-msgid "Alerts chart"
-msgstr "Riasztásdiagram"
-
-#: src/EBox/Model/Report/AlertGraph.pm:68
-msgid "Alert Graph"
-msgstr "Riasztásgrafikon"
-
-#: src/EBox/Model/Report/AlertDetails.pm:52 src/EBox/IDS.pm:299
-msgid "Date"
-msgstr "Dátum"
-
-#: src/EBox/Model/Report/AlertDetails.pm:58
-msgid "Number of alerts"
-msgstr "Riasztások száma"
-
-#: src/EBox/Model/Report/AlertDetails.pm:66
-msgid "Alert details"
-msgstr "Riasztás részletei"
-
-#: src/EBox/Model/Report/AlertDetails.pm:73
-msgid "alerts"
-msgstr "riasztások"
-
 #: src/EBox/IDS.pm:62 src/EBox/IDS.pm:169 src/EBox/IDS.pm:311
 msgid "IDS"
 msgstr "Behatolásérzékelő rendszer (IDS)"
+
+#: src/EBox/IDS.pm:299 src/EBox/Model/Report/AlertDetails.pm:52
+msgid "Date"
+msgstr "Dátum"
 
 #: src/EBox/IDS.pm:300
 msgid "Priority"
@@ -115,10 +53,76 @@ msgstr "Esemény"
 msgid "Alert"
 msgstr "Riasztás"
 
-#: src/EBox/Composite/General.pm:70
+#: src/EBox/Model/Interfaces.pm:129
+msgid "Interface"
+msgstr "Csatoló"
+
+#: src/EBox/Model/Interfaces.pm:134 src/EBox/Model/Rules.pm:158
+msgid "Enabled"
+msgstr "Engedélyezve"
+
+#: src/EBox/Model/Interfaces.pm:143
+msgid "Interfaces"
+msgstr "Csatolók"
+
+#: src/EBox/Model/Interfaces.pm:149
+msgid "interface"
+msgstr "csatoló"
+
+#: src/EBox/Model/Interfaces.pm:151
+msgid "Select in which interfaces IDS system will be enabled"
+msgstr ""
+"Válassza ki, mely csatolók behatolásérzékelő rendszerei lesznek engedélyezve"
+
+#: src/EBox/Model/Rules.pm:153
+msgid "Rule Set"
+msgstr "Szabályhalmaz"
+
+#: src/EBox/Model/Rules.pm:167
+msgid "Rules"
+msgstr "Szabályok"
+
+#: src/EBox/Model/Rules.pm:172
+msgid "rule"
+msgstr "szabály"
+
+#: src/EBox/Model/Rules.pm:173
+msgid ""
+"Select the sets of rules you want apply when scanning the network traffic"
+msgstr ""
+
+#: src/EBox/Model/Report/AlertDetails.pm:41
+#: src/EBox/Model/Report/AlertGraph.pm:47
+msgid "number of alerts"
+msgstr "riasztások száma"
+
+#: src/EBox/Model/Report/AlertDetails.pm:58
+msgid "Number of alerts"
+msgstr "Riasztások száma"
+
+#: src/EBox/Model/Report/AlertDetails.pm:66
+msgid "Alert details"
+msgstr "Riasztás részletei"
+
+#: src/EBox/Model/Report/AlertDetails.pm:73
+msgid "alerts"
+msgstr "riasztások"
+
+#: src/EBox/Model/Report/AlertGraph.pm:52
+msgid "Alerts chart"
+msgstr "Riasztásdiagram"
+
+#: src/EBox/Model/Report/AlertGraph.pm:68
+msgid "Alert Graph"
+msgstr "Riasztásgrafikon"
+
+#: src/EBox/Composite/General.pm:101
 msgid "Intrusion Detection System"
 msgstr "Behatolásérzékelő rendszer"
 
 #: src/EBox/Composite/Report/AlertReport.pm:66
 msgid "IDS Alerts report"
 msgstr "Behatolásérzékelő riasztásjelentése"
+
+#~ msgid "help message"
+#~ msgstr "súgóüzenet"

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-asterisk 1.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-08-28 23:07+0200\n"
+"POT-Creation-Date: 2010-12-13 08:28+0100\n"
 "PO-Revision-Date: 2010-08-25 20:47+0200\n"
 "Last-Translator: José Antonio Calvo <jacalvo@ebox-platform.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
@@ -22,7 +22,7 @@ msgstr ""
 msgid "Zentyal VoIP system"
 msgstr "Sistema Voz IP de Zentyal"
 
-#: src/EBox/Asterisk.pm:74 src/EBox/Asterisk.pm:715
+#: src/EBox/Asterisk.pm:74 src/EBox/Asterisk.pm:719
 #: src/EBox/Composite/General.pm:67
 msgid "VoIP"
 msgstr "Voz sobre IP"
@@ -73,7 +73,7 @@ msgstr "Para configurar el comportamiento DTMF."
 msgid "General"
 msgstr "General"
 
-#: src/EBox/Asterisk.pm:489 src/EBox/Model/Meetings.pm:190
+#: src/EBox/Asterisk.pm:489 src/EBox/Model/Meetings.pm:191
 msgid "Meetings"
 msgstr "Conferencias"
 
@@ -115,203 +115,85 @@ msgid "VoIP Online Users"
 msgstr "Usarios on-line de Voz IP"
 
 # salas de reuniones?
-#: src/EBox/Asterisk.pm:660
+#: src/EBox/Asterisk.pm:661
 msgid "VoIP Users in Meetings"
 msgstr "Usuarios de Voz IP en conferencias"
 
-#: src/EBox/Asterisk.pm:692
+#: src/EBox/Asterisk.pm:696
 msgid "Date"
 msgstr "Fecha"
 
-#: src/EBox/Asterisk.pm:693
+#: src/EBox/Asterisk.pm:697
 msgid "From"
 msgstr "De"
 
-#: src/EBox/Asterisk.pm:694
+#: src/EBox/Asterisk.pm:698
 msgid "To"
 msgstr "Para"
 
-#: src/EBox/Asterisk.pm:695
+#: src/EBox/Asterisk.pm:699
 msgid "Duration"
 msgstr "Duración"
 
-#: src/EBox/Asterisk.pm:696
+#: src/EBox/Asterisk.pm:700
 msgid "Channel"
 msgstr "Canal"
 
-#: src/EBox/Asterisk.pm:697
+#: src/EBox/Asterisk.pm:701
 msgid "Destination Channel"
 msgstr "Canal destino"
 
-#: src/EBox/Asterisk.pm:698
+#: src/EBox/Asterisk.pm:702
 msgid "Application"
 msgstr "Aplicación"
 
-#: src/EBox/Asterisk.pm:699
+#: src/EBox/Asterisk.pm:703
 msgid "Application Data"
 msgstr "Datos de aplicación"
 
-#: src/EBox/Asterisk.pm:700
+#: src/EBox/Asterisk.pm:704
 msgid "Event"
 msgstr "Evento"
 
-#: src/EBox/Asterisk.pm:708
+#: src/EBox/Asterisk.pm:712
 msgid "Answered"
 msgstr "Respondida"
 
-#: src/EBox/Asterisk.pm:709
+#: src/EBox/Asterisk.pm:713
 msgid "No Answer"
 msgstr "Sin respuesta"
 
-#: src/EBox/Asterisk.pm:710
+#: src/EBox/Asterisk.pm:714
 msgid "Busy"
 msgstr "Ocupado"
 
-#: src/EBox/Asterisk.pm:711
+#: src/EBox/Asterisk.pm:715
 msgid "Failed"
 msgstr "Fallada"
 
-#: src/EBox/Model/Localnets.pm:88
-#, perl-brace-format
-msgid ""
-"Networks attached directly to internal interfaces, like {net}, are always "
-"considered local networks so it is not neccessary to add them."
-msgstr ""
-"Las redes asociadas directamente a interfaces internos, como {net} son "
-"siempre consideradas redes locales, así que es no necesario añadirlas."
+#: src/EBox/Asterisk/Extensions.pm:230
+msgid "User extension"
+msgstr "Extensión del usuario"
 
-#: src/EBox/Model/Localnets.pm:113
-msgid "Local network"
-msgstr "Red local"
-
-#: src/EBox/Model/Localnets.pm:119 src/EBox/Model/Meetings.pm:178
-msgid "Description"
-msgstr "Descripción"
-
-#: src/EBox/Model/Localnets.pm:130
-msgid "Local networks"
-msgstr "Redes locales"
-
-#: src/EBox/Model/Localnets.pm:131
-msgid "local network"
-msgstr "red local"
-
-#: src/EBox/Model/AsteriskUser.pm:50
-msgid "Asterisk Account"
-msgstr "Cuenta Asterisk"
-
-#: src/EBox/Model/AsteriskUser.pm:58
-msgid "Asterisk"
-msgstr "Asterisk"
-
-#: src/EBox/Model/Settings.pm:84 src/EBox/Model/Meetings.pm:119
-#: src/EBox/Model/Meetings.pm:127
-msgid "extension"
-msgstr "extensión"
-
-#: src/EBox/Model/Settings.pm:92 src/EBox/Model/Meetings.pm:150
 #: src/EBox/Asterisk/Extensions.pm:323 src/EBox/Asterisk/Extensions.pm:718
-#: src/templates/user.mas:38 src/templates/group.mas:41
+#: src/EBox/Model/Meetings.pm:151 src/EBox/Model/Settings.pm:92
+#: src/templates/group.mas:41 src/templates/user.mas:38
 msgid "Extension"
 msgstr "Extensión"
 
-#: src/EBox/Model/Settings.pm:117
-msgid "Enable demo extensions"
-msgstr "Habilitar extensiones de prueba"
+#: src/EBox/Asterisk/Extensions.pm:642
+msgid "Queue extension"
+msgstr "Extensión de cola"
 
-#: src/EBox/Model/Settings.pm:123
-msgid "Enable outgoing calls"
-msgstr "Llamadas salientes habilitada."
+#: src/EBox/CGI/AsteriskGroupOptions.pm:42
+msgid "group"
+msgstr "grupo"
 
-#: src/EBox/Model/Settings.pm:129
-msgid "Voicemail extension"
-msgstr "Extensión del buzón de voz"
+#: src/EBox/CGI/AsteriskUserOptions.pm:43
+msgid "username"
+msgstr "usuario"
 
-#: src/EBox/Model/Settings.pm:136
-msgid "VoIP domain"
-msgstr "Dominio Voz IP"
-
-#: src/EBox/Model/Settings.pm:145
-msgid "General configuration"
-msgstr "Ajustes de la configuración general"
-
-#: src/EBox/Model/Settings.pm:149
-msgid "General Asterisk server configuration"
-msgstr "Configuración general del servidor Asterisk"
-
-#: src/EBox/Model/Settings.pm:151
-msgid "General Asterisk server configuration updated."
-msgstr "Configuración general del servidor Asterisk actualizada."
-
-#: src/EBox/Model/NAT.pm:96
-msgid "Zentyal is behind NAT"
-msgstr "Zentyal está detrás de NAT"
-
-#: src/EBox/Model/NAT.pm:101
-msgid "No"
-msgstr "No"
-
-#: src/EBox/Model/NAT.pm:120
-msgid "NAT configuration"
-msgstr "Configuración NAT"
-
-#: src/EBox/Model/NAT.pm:124
-msgid "NAT Asterisk server configuration"
-msgstr "Configuración NAT del servidor Asterisk"
-
-#: src/EBox/Model/NAT.pm:126
-msgid "NAT Asterisk server configuration updated."
-msgstr "Configuración NAT del servidor Asterisk actualizada."
-
-#: src/EBox/Model/Provider.pm:68
-msgid "Custom"
-msgstr "Personalizado"
-
-#: src/EBox/Model/Provider.pm:89
-msgid "Provider"
-msgstr "Proveedor"
-
-#: src/EBox/Model/Provider.pm:95
-msgid "Name"
-msgstr "Nombre"
-
-#: src/EBox/Model/Provider.pm:100
-msgid "VoIP service provider name."
-msgstr "Nombre del proveedor del servicio Voz IP."
-
-#: src/EBox/Model/Provider.pm:104
-msgid "Username"
-msgstr "Usuario"
-
-#: src/EBox/Model/Provider.pm:111 src/EBox/Model/Meetings.pm:170
-msgid "Password"
-msgstr "Contraseña"
-
-#: src/EBox/Model/Provider.pm:118
-msgid "Server"
-msgstr "Servidor"
-
-#: src/EBox/Model/Provider.pm:126
-msgid "Recipient of incoming calls"
-msgstr "Receptor de llamadas entrantes"
-
-#: src/EBox/Model/Provider.pm:130
-msgid "Extension recipient of incoming calls through the provider."
-msgstr "Extensión receptora de llamadas entrantes a través del proveedor."
-
-#: src/EBox/Model/Provider.pm:137
-msgid "SIP provider"
-msgstr "Proveedor SIP"
-
-#: src/EBox/Model/Provider.pm:141
-msgid "SIP provider for outgoing calls configuration."
-msgstr "Configuración del proveedor SIP para llamadas salientes."
-
-#: src/EBox/Model/Provider.pm:143
-msgid "SIP provider configuration updated."
-msgstr "Configuración del proveedor SIP actualizada."
-
-#: src/EBox/Model/Meetings.pm:94
+#: src/EBox/Model/Meetings.pm:95
 #, perl-brace-format
 msgid ""
 "You must install dahdi and linux-headers packages to use Meetings.{br}Run "
@@ -320,18 +202,39 @@ msgstr ""
 "Debe instalar dahdi y paquetes linux-headers para usar Conferencias.{br}"
 "Ejecute el siguiente comando: sudo apt-get install {kernels} dahdi."
 
-#: src/EBox/Model/Meetings.pm:154
+#: src/EBox/Model/Meetings.pm:120 src/EBox/Model/Meetings.pm:128
+#: src/EBox/Model/Settings.pm:84
+msgid "extension"
+msgstr "extensión"
+
+#: src/EBox/Model/Meetings.pm:155
 #, perl-brace-format
 msgid "A number between {min} and {max}."
 msgstr "Un número entre {min} y {max}"
 
-#: src/EBox/Model/Meetings.pm:189
+#: src/EBox/Model/Meetings.pm:171 src/EBox/Model/Provider.pm:111
+msgid "Password"
+msgstr "Contraseña"
+
+#: src/EBox/Model/Meetings.pm:179 src/EBox/Model/Localnets.pm:119
+msgid "Description"
+msgstr "Descripción"
+
+#: src/EBox/Model/Meetings.pm:190
 msgid "List of Meetings"
 msgstr "Listas de Conferencia"
 
-#: src/EBox/Model/Meetings.pm:191
+#: src/EBox/Model/Meetings.pm:192
 msgid "meeting"
 msgstr "conferencia"
+
+#: src/EBox/Model/AsteriskUser.pm:50
+msgid "Asterisk Account"
+msgstr "Cuenta Asterisk"
+
+#: src/EBox/Model/AsteriskUser.pm:58
+msgid "Asterisk"
+msgstr "Asterisk"
 
 #: src/EBox/Model/Voicemail.pm:75 src/EBox/Model/Voicemail.pm:122
 msgid "Voicemail settings"
@@ -367,60 +270,122 @@ msgstr ""
 "No dispone de una cuenta de Voz IP. Tal vez el módulo de Voz IP esté "
 "desactivado en este servidor"
 
+#: src/EBox/Model/Localnets.pm:88
+#, perl-brace-format
+msgid ""
+"Networks attached directly to internal interfaces, like {net}, are always "
+"considered local networks so it is not neccessary to add them."
+msgstr ""
+"Las redes asociadas directamente a interfaces internos, como {net} son "
+"siempre consideradas redes locales, así que es no necesario añadirlas."
+
+#: src/EBox/Model/Localnets.pm:113
+msgid "Local network"
+msgstr "Red local"
+
+#: src/EBox/Model/Localnets.pm:130
+msgid "Local networks"
+msgstr "Redes locales"
+
+#: src/EBox/Model/Localnets.pm:131
+msgid "local network"
+msgstr "red local"
+
+#: src/EBox/Model/Settings.pm:117
+msgid "Enable demo extensions"
+msgstr "Habilitar extensiones de prueba"
+
+#: src/EBox/Model/Settings.pm:123
+msgid "Enable outgoing calls"
+msgstr "Llamadas salientes habilitada."
+
+#: src/EBox/Model/Settings.pm:129
+msgid "Voicemail extension"
+msgstr "Extensión del buzón de voz"
+
+#: src/EBox/Model/Settings.pm:136
+msgid "VoIP domain"
+msgstr "Dominio Voz IP"
+
+#: src/EBox/Model/Settings.pm:145
+msgid "General configuration"
+msgstr "Ajustes de la configuración general"
+
+#: src/EBox/Model/Settings.pm:149
+msgid "General Asterisk server configuration"
+msgstr "Configuración general del servidor Asterisk"
+
+#: src/EBox/Model/Settings.pm:151
+msgid "General Asterisk server configuration updated."
+msgstr "Configuración general del servidor Asterisk actualizada."
+
+#: src/EBox/Model/Provider.pm:68
+msgid "Custom"
+msgstr "Personalizado"
+
+#: src/EBox/Model/Provider.pm:89
+msgid "Provider"
+msgstr "Proveedor"
+
+#: src/EBox/Model/Provider.pm:95
+msgid "Name"
+msgstr "Nombre"
+
+#: src/EBox/Model/Provider.pm:100
+msgid "VoIP service provider name."
+msgstr "Nombre del proveedor del servicio Voz IP."
+
+#: src/EBox/Model/Provider.pm:104
+msgid "Username"
+msgstr "Usuario"
+
+#: src/EBox/Model/Provider.pm:118
+msgid "Server"
+msgstr "Servidor"
+
+#: src/EBox/Model/Provider.pm:126
+msgid "Recipient of incoming calls"
+msgstr "Receptor de llamadas entrantes"
+
+#: src/EBox/Model/Provider.pm:130
+msgid "Extension recipient of incoming calls through the provider."
+msgstr "Extensión receptora de llamadas entrantes a través del proveedor."
+
+#: src/EBox/Model/Provider.pm:137
+msgid "SIP provider"
+msgstr "Proveedor SIP"
+
+#: src/EBox/Model/Provider.pm:141
+msgid "SIP provider for outgoing calls configuration."
+msgstr "Configuración del proveedor SIP para llamadas salientes."
+
+#: src/EBox/Model/Provider.pm:143
+msgid "SIP provider configuration updated."
+msgstr "Configuración del proveedor SIP actualizada."
+
+#: src/EBox/Model/NAT.pm:96
+msgid "Zentyal is behind NAT"
+msgstr "Zentyal está detrás de NAT"
+
+#: src/EBox/Model/NAT.pm:101
+msgid "No"
+msgstr "No"
+
+#: src/EBox/Model/NAT.pm:120
+msgid "NAT configuration"
+msgstr "Configuración NAT"
+
+#: src/EBox/Model/NAT.pm:124
+msgid "NAT Asterisk server configuration"
+msgstr "Configuración NAT del servidor Asterisk"
+
+#: src/EBox/Model/NAT.pm:126
+msgid "NAT Asterisk server configuration updated."
+msgstr "Configuración NAT del servidor Asterisk actualizada."
+
 #: src/EBox/Composite/General.pm:66
 msgid "Asterisk module"
 msgstr "Módulo Asterisk"
-
-#: src/EBox/Asterisk/Extensions.pm:230
-msgid "User extension"
-msgstr "Extensión del usuario"
-
-#: src/EBox/Asterisk/Extensions.pm:642
-msgid "Queue extension"
-msgstr "Extensión de cola"
-
-#: src/EBox/CGI/AsteriskGroupOptions.pm:42
-msgid "group"
-msgstr "grupo"
-
-#: src/EBox/CGI/AsteriskUserOptions.pm:43
-msgid "username"
-msgstr "usuario"
-
-#: src/templates/user.mas:8
-msgid "Asterisk account"
-msgstr "Cuenta Asterisk"
-
-#: src/templates/user.mas:10
-msgid "Password for Asterisk service is the user password"
-msgstr "La contraseña para el servicio de Asterisk es la contraseña de usuario"
-
-#: src/templates/user.mas:21
-msgid "User account"
-msgstr "Cuenta de usuario"
-
-#: src/templates/user.mas:26 src/templates/user.mas:29
-#: src/templates/group.mas:29 src/templates/group.mas:32
-msgid "Disabled"
-msgstr "Deshabilitado"
-
-#: src/templates/user.mas:27 src/templates/user.mas:30
-#: src/templates/group.mas:30 src/templates/group.mas:33
-msgid "Enabled"
-msgstr "Habilitado"
-
-#: src/templates/user.mas:49 src/templates/user.mas:50
-#: src/templates/group.mas:52 src/templates/group.mas:53
-msgid "Change"
-msgstr "Cambiar"
-
-#: src/templates/moduleDisabled.mas:5
-msgid ""
-"The following settings only will take effect when the Asterisk module is "
-"enabled."
-msgstr ""
-"Las siguientes opciones solo serán efectivas cuando se active el módulo de "
-"Voz IP."
 
 #: src/templates/group.mas:8
 msgid "Asterisk group queue"
@@ -437,3 +402,38 @@ msgstr ""
 #: src/templates/group.mas:24
 msgid "Group queue"
 msgstr "Cola de grupo"
+
+#: src/templates/group.mas:29 src/templates/group.mas:32
+#: src/templates/user.mas:26 src/templates/user.mas:29
+msgid "Disabled"
+msgstr "Deshabilitado"
+
+#: src/templates/group.mas:30 src/templates/group.mas:33
+#: src/templates/user.mas:27 src/templates/user.mas:30
+msgid "Enabled"
+msgstr "Habilitado"
+
+#: src/templates/group.mas:52 src/templates/group.mas:53
+#: src/templates/user.mas:49 src/templates/user.mas:50
+msgid "Change"
+msgstr "Cambiar"
+
+#: src/templates/moduleDisabled.mas:5
+msgid ""
+"The following settings only will take effect when the Asterisk module is "
+"enabled."
+msgstr ""
+"Las siguientes opciones solo serán efectivas cuando se active el módulo de "
+"Voz IP."
+
+#: src/templates/user.mas:8
+msgid "Asterisk account"
+msgstr "Cuenta Asterisk"
+
+#: src/templates/user.mas:10
+msgid "Password for Asterisk service is the user password"
+msgstr "La contraseña para el servicio de Asterisk es la contraseña de usuario"
+
+#: src/templates/user.mas:21
+msgid "User account"
+msgstr "Cuenta de usuario"

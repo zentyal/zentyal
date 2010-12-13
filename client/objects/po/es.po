@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-objects 0.12\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-08-28 23:37+0200\n"
+"POT-Creation-Date: 2010-12-13 08:40+0100\n"
 "PO-Revision-Date: 2010-04-06 02:08+0200\n"
 "Last-Translator: Carlos Rojas <rojasc@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
@@ -14,43 +14,47 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: src/EBox/Model/MemberTable.pm:63 src/EBox/Model/ObjectTable.pm:63
-msgid "Name"
-msgstr "Nombre"
-
-#: src/EBox/Model/MemberTable.pm:70
-msgid "IP address"
-msgstr "Dirección IP"
-
-#: src/EBox/Model/MemberTable.pm:76
-msgid "MAC address"
-msgstr "Dirección MAC"
-
-#: src/EBox/Model/MemberTable.pm:87 src/EBox/Model/ObjectTable.pm:71
-msgid "Members"
-msgstr "Miembros"
-
-#: src/EBox/Model/MemberTable.pm:93 src/EBox/Model/ObjectTable.pm:82
-#: src/EBox/Objects.pm:39
+#: src/EBox/Objects.pm:39 src/EBox/Model/ObjectTable.pm:82
+#: src/EBox/Model/MemberTable.pm:93
 msgid "Objects"
 msgstr "Objetos"
 
-#: src/EBox/Model/MemberTable.pm:94
-msgid "member"
-msgstr "miembro"
-
-#: src/EBox/Model/MemberTable.pm:116
-msgid "You can only use MAC addresses with hosts"
-msgstr "Sólo puedes usar direcciones MAC con máquinas"
-
-#: src/EBox/Model/MemberTable.pm:119 src/EBox/Model/MemberTable.pm:120
-msgid "network address"
-msgstr "dirección de red"
-
-#: src/EBox/Model/MemberTable.pm:126
+#: src/EBox/Objects.pm:44
 #, perl-brace-format
-msgid "{ip} overlaps with the address or another object's member"
-msgstr "{ip} se solapa con la dirección u otro miembro de objeto"
+msgid "Added object {object}"
+msgstr "Añadido objeto {object}"
+
+#: src/EBox/Objects.pm:46
+#, perl-brace-format
+msgid "Added {nname} ({ip}/{mask} [{mac}]) to object {object}"
+msgstr "Añadido {nname} ({ip}/{mask} [{mac}]) al objeto {object}"
+
+#: src/EBox/Objects.pm:47
+#, perl-brace-format
+msgid "Removed object {object}"
+msgstr "Borrado objeto {object}"
+
+#: src/EBox/Objects.pm:49
+#, perl-brace-format
+msgid "Forcefully removed object {object}"
+msgstr "Borrado forzado del objeto {object}"
+
+#: src/EBox/Objects.pm:51
+#, perl-brace-format
+msgid "Removed {nname} from object {object}"
+msgstr "Borrado {nname} del objeto {object}"
+
+#: src/EBox/Objects.pm:270
+msgid "Object"
+msgstr "Objeto"
+
+#: src/EBox/Model/ObjectTable.pm:63 src/EBox/Model/MemberTable.pm:63
+msgid "Name"
+msgstr "Nombre"
+
+#: src/EBox/Model/ObjectTable.pm:71 src/EBox/Model/MemberTable.pm:87
+msgid "Members"
+msgstr "Miembros"
 
 #: src/EBox/Model/ObjectTable.pm:83
 msgid "Objects List"
@@ -82,31 +86,27 @@ msgstr ""
 "'Any' es una palabra reservada que no puede ser usada como nombre de objeto "
 "para evitar confusión "
 
-#: src/EBox/Objects.pm:44
-#, perl-brace-format
-msgid "Added object {object}"
-msgstr "Añadido objeto {object}"
+#: src/EBox/Model/MemberTable.pm:70
+msgid "IP address"
+msgstr "Dirección IP"
 
-#: src/EBox/Objects.pm:46
-#, perl-brace-format
-msgid "Added {nname} ({ip}/{mask} [{mac}]) to object {object}"
-msgstr "Añadido {nname} ({ip}/{mask} [{mac}]) al objeto {object}"
+#: src/EBox/Model/MemberTable.pm:76
+msgid "MAC address"
+msgstr "Dirección MAC"
 
-#: src/EBox/Objects.pm:47
-#, perl-brace-format
-msgid "Removed object {object}"
-msgstr "Borrado objeto {object}"
+#: src/EBox/Model/MemberTable.pm:94
+msgid "member"
+msgstr "miembro"
 
-#: src/EBox/Objects.pm:49
-#, perl-brace-format
-msgid "Forcefully removed object {object}"
-msgstr "Borrado forzado del objeto {object}"
+#: src/EBox/Model/MemberTable.pm:116
+msgid "You can only use MAC addresses with hosts"
+msgstr "Sólo puedes usar direcciones MAC con máquinas"
 
-#: src/EBox/Objects.pm:51
-#, perl-brace-format
-msgid "Removed {nname} from object {object}"
-msgstr "Borrado {nname} del objeto {object}"
+#: src/EBox/Model/MemberTable.pm:119 src/EBox/Model/MemberTable.pm:120
+msgid "network address"
+msgstr "dirección de red"
 
-#: src/EBox/Objects.pm:270
-msgid "Object"
-msgstr "Objeto"
+#: src/EBox/Model/MemberTable.pm:126
+#, perl-brace-format
+msgid "{ip} overlaps with the address or another object's member"
+msgstr "{ip} se solapa con la dirección u otro miembro de objeto"

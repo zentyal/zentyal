@@ -5,9 +5,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-improxy 2.0"
+"Project-Id-Version: ebox-improxy 2.0Report-Msgid-Bugs-To: developers@zentyal."
+"org\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2009-03-08 15:17+0000\n"
+"POT-Creation-Date: 2010-12-13 08:39+0100\n"
 "PO-Revision-Date: 2009-03-08 15:17+0000\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -15,18 +16,46 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/EBox/Model/Model.pm:73
-msgid "table title"
+#: src/EBox/IMProxy.pm:59 src/EBox/IMProxy.pm:115
+msgid "IM Proxy"
 msgstr ""
 
-#: src/EBox/Model/Model.pm:77
-msgid "row"
+#: src/EBox/Model/Composite.pm:69
+msgid "composite title"
 msgstr ""
 
-#: src/EBox/Model/Model.pm:78 src/EBox/Model/Composite.pm:72
+#: src/EBox/Model/Composite.pm:71 src/EBox/Model/Rules.pm:128
 msgid "help message"
 msgstr ""
 
-#: src/EBox/Model/Composite.pm:70
-msgid "composite title"
+#: src/EBox/Model/Rules.pm:69
+msgid "Allow"
+msgstr ""
+
+#: src/EBox/Model/Rules.pm:73
+msgid "Block"
+msgstr ""
+
+#: src/EBox/Model/Rules.pm:94
+msgid "Object"
+msgstr ""
+
+#: src/EBox/Model/Rules.pm:98
+msgid "Any source"
+msgstr ""
+
+#: src/EBox/Model/Rules.pm:101
+msgid "Source object"
+msgstr ""
+
+#: src/EBox/Model/Rules.pm:110
+msgid "Decision"
+msgstr ""
+
+#: src/EBox/Model/Rules.pm:120
+msgid "Filtering rules"
+msgstr ""
+
+#: src/EBox/Model/Rules.pm:127
+msgid "rule"
 msgstr ""

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-remoteservices 1.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-08-28 23:38+0200\n"
+"POT-Creation-Date: 2010-12-13 08:42+0100\n"
 "PO-Revision-Date: 2010-07-14 13:48+0200\n"
 "Last-Translator: Harald Ersch <harald.ersch@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
@@ -18,68 +18,149 @@ msgstr ""
 "20)) ? 1 : 2);;\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: src/EBox/RemoteServices.pm:82
-msgid "Zentyal Cloud Client"
+#: src/EBox/CGI/Backup/DeleteRemoteBackup.pm:65
+msgid "Backup deleted"
 msgstr ""
 
-#: src/EBox/RemoteServices.pm:217
-msgid "Not subscribed"
+#: src/EBox/CGI/Backup/MakeRemoteBackup.pm:70
+msgid "Making remote backup"
 msgstr ""
 
-#: src/EBox/RemoteServices.pm:219
-msgid "Subscribed"
+#: src/EBox/CGI/Backup/MakeRemoteBackup.pm:71
+msgid "Backing up modules "
 msgstr ""
 
-#: src/EBox/RemoteServices.pm:251
-msgid "Subscription"
+#: src/EBox/CGI/Backup/MakeRemoteBackup.pm:72
+msgid "Operation"
 msgstr ""
 
-#: src/EBox/RemoteServices.pm:259
-#: src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:91
-msgid "Remote Support Access"
+#: src/EBox/CGI/Backup/MakeRemoteBackup.pm:73
+msgid "operations left to finish backup"
 msgstr ""
 
-#: src/EBox/RemoteServices.pm:262
-msgid "System"
+#: src/EBox/CGI/Backup/MakeRemoteBackup.pm:74
+msgid "Backup successful"
 msgstr ""
 
-#: src/EBox/RemoteServices.pm:312
-msgid "Zentyal Cloud Connection"
+#: src/EBox/CGI/Backup/RestoreProxyRemoteBackup.pm:81
+#: src/EBox/CGI/Backup/RestoreRemoteBackup.pm:72
+msgid "Restoring remote backup"
 msgstr ""
 
-#: src/EBox/RemoteServices.pm:425
+#: src/EBox/CGI/Backup/RestoreProxyRemoteBackup.pm:82
+#: src/EBox/CGI/Backup/RestoreRemoteBackup.pm:73
+msgid "Restoring modules from remote backup"
+msgstr ""
+
+#: src/EBox/CGI/Backup/RestoreProxyRemoteBackup.pm:83
+#: src/EBox/CGI/Backup/RestoreRemoteBackup.pm:74
+msgid "Module"
+msgstr ""
+
+#: src/EBox/CGI/Backup/RestoreProxyRemoteBackup.pm:84
+#: src/EBox/CGI/Backup/RestoreRemoteBackup.pm:75
+msgid "modules left to restore"
+msgstr ""
+
+#: src/EBox/CGI/Backup/RestoreProxyRemoteBackup.pm:85
+#: src/EBox/CGI/Backup/RestoreRemoteBackup.pm:76
+msgid "Restore successful"
+msgstr ""
+
+#: src/EBox/CGI/Backup/Index.pm:36
+msgid "Remote system backups"
+msgstr ""
+
+#: src/EBox/CGI/Backup/Confirm.pm:35
+msgid "Configuration backup"
+msgstr ""
+
+#: src/EBox/CGI/Backup/Confirm.pm:92 src/EBox/CGI/Backup/Confirm.pm:105
 msgid ""
-"The subscribed hostname is only available if the host is subscribed to "
-"Zentyal Cloud"
+"Please confirm that you want to restore the configuraction using the "
+"following remote backup:"
 msgstr ""
 
-#: src/EBox/RemoteServices.pm:454
-msgid ""
-"The monitor gatherer IP addresses are only available if the host is "
-"subscribed to Zentyal Cloud"
+#: src/EBox/CGI/Backup/Confirm.pm:98 src/EBox/CGI/Backup/Confirm.pm:111
+msgid "Restore"
 msgstr ""
 
-#: src/EBox/RemoteServices.pm:599
-msgid "Zentyal must be subscribed to reload the bundle"
+#: src/EBox/CGI/Backup/Confirm.pm:119
+msgid "Please confirm that you want to delete the following remote backup:"
 msgstr ""
 
-#: src/EBox/RemoteServices.pm:993
+#: src/EBox/CGI/Backup/Confirm.pm:125
+msgid "Delete"
+msgstr ""
+
+#: src/EBox/CGI/Backup/Confirm.pm:173
 #, perl-brace-format
-msgid "Not connected. Check VPN logs in {path}"
+msgid "Inexistent action: {a}"
 msgstr ""
 
-#: src/EBox/RemoteServices.pm:997
-msgid "Connected"
-msgstr "Conectat"
-
-#: src/EBox/RemoteServices.pm:1000
-#: src/EBox/Event/Dispatcher/ControlCenter.pm:160
-#: src/EBox/RemoteServices/Composite/General.pm:62
-msgid "Zentyal Cloud"
+#: src/EBox/CGI/Backup/Proxy.pm:35
+msgid "Remote system backups proxy"
 msgstr ""
 
-#: src/EBox/Event/Dispatcher/ControlCenter.pm:147
-msgid "Control panel"
+#: src/EBox/CGI/NoConnection.pm:31
+msgid "Connection error"
+msgstr ""
+
+#: src/EBox/RemoteServices/Auth.pm:125
+#, perl-brace-format
+msgid "Cannot retrieve service URN; key \"{key}\" not found in {file}"
+msgstr ""
+
+#: src/EBox/RemoteServices/Auth.pm:165
+#, perl-brace-format
+msgid "Value for key {k} not found"
+msgstr ""
+
+#: src/EBox/RemoteServices/Subscription.pm:110
+msgid "Key for web subscription service not found"
+msgstr ""
+
+#: src/EBox/RemoteServices/Subscription.pm:456
+#, perl-brace-format
+msgid "Cannot contact to {host}. Check your connection to the Internet"
+msgstr ""
+
+#: src/EBox/RemoteServices/Types/EBoxCommonName.pm:56
+msgid ""
+"It must be a valid subdomain name. It can only contain alphanumeric and - "
+"characters"
+msgstr ""
+
+#: src/EBox/RemoteServices/Types/EBoxCommonName.pm:59
+#, perl-brace-format
+msgid "It cannot contain \"{char}\" character"
+msgstr ""
+
+#: src/EBox/RemoteServices/Types/EBoxCommonName.pm:62
+#, perl-brace-format
+msgid "It cannot be greater than {n} characters"
+msgstr ""
+
+#: src/EBox/RemoteServices/CSV.pm:78
+#, perl-brace-format
+msgid "Skipping bad formed line: {l}"
+msgstr ""
+
+#: src/EBox/RemoteServices/Base.pm:214
+msgid "No ebox-services DNS key found"
+msgstr ""
+
+#: src/EBox/RemoteServices/Base.pm:259
+#, perl-brace-format
+msgid "Server {s} not found via DNS server {d}"
+msgstr ""
+
+#: src/EBox/RemoteServices/Base.pm:367
+msgid "Cannot create SOAP connection"
+msgstr ""
+
+#: src/EBox/RemoteServices/Base.pm:381
+msgid "No domain key found for this service"
 msgstr ""
 
 #: src/EBox/RemoteServices/Audit/Password.pm:225
@@ -116,138 +197,102 @@ msgid ""
 "remote support access"
 msgstr ""
 
-#: src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:75
-msgid "Allow remote access to Zentyal staff"
-msgstr ""
-
-#: src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:81
-msgid "Allow access from any internet address"
-msgstr ""
-
-#: src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:85
+#: src/EBox/RemoteServices/Model/Subscription.pm:132
 msgid ""
-"By default the acces is only granted to hosts inside the Zentyal Cloud "
-"private network. If you enable this option access is granted from any "
-"address. Use this option only if you could not connect to the Zentyal Cloud"
+"Subscription was done correctly. Save changes and then, wait a minute to "
+"guarantee the system carries out the process of subscribing. Later you can "
+"start using the cloud based services you are entitled to with your "
+"subscription (remote backup, updates, alerts, etc.)"
 msgstr ""
 
-#: src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:121
-msgid ""
-"Remote access from any address requires that remote access support is enabled"
-msgstr ""
-
-#: src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:129
-msgid ""
-"To restrict addresses you need that your Zentyal Server is subscribed to "
-"Zentyal Cloud. Either subscribe it or allow access from any address"
-msgstr ""
-
-#: src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:140
-#, perl-brace-format
-msgid ""
-"Enabling remote support will allow staff from Zentyal to freely access your "
-"computer.\n"
-"You could use the 'screen' command to join their shell option. To allow "
-"that, the SUID bit of the 'screen' program is enabled. This change is undone "
-"when this option is disabled\n"
-"To join the remote session, login in the shell as a user belonging to the "
-"'adm' group and use the command: '{cmd}'."
-msgstr ""
-
-#: src/EBox/RemoteServices/Model/Subscription.pm:130
-msgid ""
-"Subscription was done correctly. Wait a minute to let the subscription be "
-"propagated throughout the system."
-msgstr ""
-
-#: src/EBox/RemoteServices/Model/Subscription.pm:133
+#: src/EBox/RemoteServices/Model/Subscription.pm:138
 msgid "Subscription data retrieved correctly."
 msgstr ""
 
-#: src/EBox/RemoteServices/Model/Subscription.pm:135
+#: src/EBox/RemoteServices/Model/Subscription.pm:140
 msgid "Please, save changes"
 msgstr ""
 
-#: src/EBox/RemoteServices/Model/Subscription.pm:163
+#: src/EBox/RemoteServices/Model/Subscription.pm:172
 msgid "Done"
 msgstr "Terminat"
 
-#: src/EBox/RemoteServices/Model/Subscription.pm:259
+#: src/EBox/RemoteServices/Model/Subscription.pm:268
 #, perl-brace-format
 msgid "Subscribing Zentyal will configure the {mods} and its dependencies "
 msgstr ""
 
-#: src/EBox/RemoteServices/Model/Subscription.pm:266
+#: src/EBox/RemoteServices/Model/Subscription.pm:275
 #, perl-brace-format
 msgid "Subscribing Zentyal will enable the {mods} and its dependencies.<br/>"
 msgstr ""
 
-#: src/EBox/RemoteServices/Model/Subscription.pm:271
+#: src/EBox/RemoteServices/Model/Subscription.pm:280
 msgid ""
 "Take into account that subscribing Zentyal could take a minute. Do not touch "
 "anything until subscribing process is done."
 msgstr ""
 
-#: src/EBox/RemoteServices/Model/Subscription.pm:307
+#: src/EBox/RemoteServices/Model/Subscription.pm:315
 msgid ""
 "Prior to make a subscription on remote services, save or discard changes in "
 "the OpenVPN module"
 msgstr ""
 
-#: src/EBox/RemoteServices/Model/Subscription.pm:327
+#: src/EBox/RemoteServices/Model/Subscription.pm:340
 msgid "User Name or Email Address"
 msgstr ""
 
-#: src/EBox/RemoteServices/Model/Subscription.pm:335
+#: src/EBox/RemoteServices/Model/Subscription.pm:348
 msgid "Server Name"
 msgstr ""
 
-#: src/EBox/RemoteServices/Model/Subscription.pm:340
+#: src/EBox/RemoteServices/Model/Subscription.pm:353
 msgid "Choose a name for your server which is a valid subdomain name"
 msgstr ""
 
-#: src/EBox/RemoteServices/Model/Subscription.pm:347
+#: src/EBox/RemoteServices/Model/Subscription.pm:361
 msgid "Password"
 msgstr ""
 
-#: src/EBox/RemoteServices/Model/Subscription.pm:355
+#: src/EBox/RemoteServices/Model/Subscription.pm:369
 msgid "Zentyal subscription details"
 msgstr ""
 
-#: src/EBox/RemoteServices/Model/Subscription.pm:356
-msgid "Delete data"
+#: src/EBox/RemoteServices/Model/Subscription.pm:370
+msgid "Unsubscribe"
 msgstr ""
 
-#: src/EBox/RemoteServices/Model/Subscription.pm:359
+#: src/EBox/RemoteServices/Model/Subscription.pm:373
 msgid "Subscription to Zentyal Cloud"
 msgstr ""
 
-#: src/EBox/RemoteServices/Model/Subscription.pm:360
+#: src/EBox/RemoteServices/Model/Subscription.pm:374
 msgid "Subscribe"
 msgstr ""
 
-#: src/EBox/RemoteServices/Model/Subscription.pm:516
+#: src/EBox/RemoteServices/Model/Subscription.pm:533
 msgid " module"
 msgstr ""
 
-#: src/EBox/RemoteServices/Model/Subscription.pm:522
+#: src/EBox/RemoteServices/Model/Subscription.pm:539
 msgid " and "
 msgstr ""
 
-#: src/EBox/RemoteServices/Model/Subscription.pm:522
+#: src/EBox/RemoteServices/Model/Subscription.pm:539
 msgid " modules"
 msgstr ""
 
-#: src/EBox/RemoteServices/Model/Subscription.pm:539
+#: src/EBox/RemoteServices/Model/Subscription.pm:556
 msgid "Action"
 msgstr ""
 
-#: src/EBox/RemoteServices/Model/Subscription.pm:540
-#: src/EBox/RemoteServices/Model/Subscription.pm:561
+#: src/EBox/RemoteServices/Model/Subscription.pm:557
+#: src/EBox/RemoteServices/Model/Subscription.pm:578
 msgid "Reason"
 msgstr ""
 
-#: src/EBox/RemoteServices/Model/Subscription.pm:560
+#: src/EBox/RemoteServices/Model/Subscription.pm:577
 msgid "File"
 msgstr ""
 
@@ -259,40 +304,57 @@ msgstr ""
 msgid "Access settings"
 msgstr ""
 
-#: src/EBox/RemoteServices/Types/EBoxCommonName.pm:56
-msgid "It must be a valid subdomain name"
+#: src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:75
+msgid "Allow remote access to Zentyal staff"
 msgstr ""
 
-#: src/EBox/RemoteServices/Types/EBoxCommonName.pm:58
+#: src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:81
+msgid "Allow access from any internet address"
+msgstr ""
+
+#: src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:85
+msgid ""
+"By default, the access is only granted to hosts inside the Zentyal Cloud "
+"private network. If you enable this option, the access is granted from any "
+"address. Use this option only if you could not connect to the Zentyal Cloud"
+msgstr ""
+
+#: src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:91
+msgid "Enable Remote Support Access"
+msgstr ""
+
+#: src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:92
+#: src/EBox/RemoteServices.pm:268
+msgid "Remote Support Access"
+msgstr ""
+
+#: src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:122
+msgid ""
+"Remote access from any address requires that remote access support is enabled"
+msgstr ""
+
+#: src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:130
+msgid ""
+"To restrict addresses you need that your Zentyal Server is subscribed to "
+"Zentyal Cloud. Either subscribe it or allow access from any address"
+msgstr ""
+
+#: src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:141
 #, perl-brace-format
-msgid "It cannot contain \"{char}\" character"
+msgid ""
+"Enabling remote support will allow staff from Zentyal to freely access your "
+"computer.\n"
+"You could use the 'screen' command to join their shell option. To allow "
+"that, the SUID bit of the 'screen' program is enabled. This change is undone "
+"when this option is disabled\n"
+"To join the remote session, login in the shell as a user belonging to the "
+"'adm' group and use the command: '{cmd}'."
 msgstr ""
 
-#: src/EBox/RemoteServices/Types/EBoxCommonName.pm:61
+#: src/EBox/RemoteServices/Backup.pm:259
+#: src/EBox/RemoteServices/ProxyBackup.pm:208
 #, perl-brace-format
-msgid "It cannot be greater than {n} characters"
-msgstr ""
-
-#: src/EBox/RemoteServices/CSV.pm:78
-#, perl-brace-format
-msgid "Skipping bad formed line: {l}"
-msgstr ""
-
-#: src/EBox/RemoteServices/Base.pm:214
-msgid "No ebox-services DNS key found"
-msgstr ""
-
-#: src/EBox/RemoteServices/Base.pm:259
-#, perl-brace-format
-msgid "Server {s} not found via DNS server {d}"
-msgstr ""
-
-#: src/EBox/RemoteServices/Base.pm:367
-msgid "Cannot create SOAP connection"
-msgstr ""
-
-#: src/EBox/RemoteServices/Base.pm:381
-msgid "No domain key found for this service"
+msgid "Inexistent backup: {n}"
 msgstr ""
 
 #: src/EBox/RemoteServices/ProxyBackup.pm:203
@@ -300,118 +362,69 @@ msgstr ""
 msgid "No backups in server for host: {h}"
 msgstr ""
 
-#: src/EBox/RemoteServices/ProxyBackup.pm:208
-#: src/EBox/RemoteServices/Backup.pm:259
-#, perl-brace-format
-msgid "Inexistent backup: {n}"
-msgstr ""
-
 #: src/EBox/RemoteServices/ProxyBackup.pm:243
 msgid "Key for proxy backup service not found"
 msgstr ""
 
-#: src/EBox/RemoteServices/Subscription.pm:110
-msgid "Key for web subscription service not found"
+#: src/EBox/RemoteServices/Composite/General.pm:62
+#: src/EBox/Event/Dispatcher/ControlCenter.pm:160
+#: src/EBox/RemoteServices.pm:1340
+msgid "Zentyal Cloud"
 msgstr ""
 
-#: src/EBox/RemoteServices/Subscription.pm:421
-#, perl-brace-format
-msgid "Cannot contact to {host}. Check your connection to the Internet"
+#: src/EBox/RemoteServices/DisasterRecoveryProxy.pm:118
+msgid "Key for disaster recovery service not found"
 msgstr ""
 
-#: src/EBox/RemoteServices/Auth.pm:124
-msgid "Key for service URN not found"
+#: src/EBox/Event/Dispatcher/ControlCenter.pm:147
+msgid "Control panel"
 msgstr ""
 
-#: src/EBox/RemoteServices/Auth.pm:160
-#, perl-brace-format
-msgid "Value for key {k} not found"
+#: src/EBox/RemoteServices.pm:90
+msgid "Zentyal Cloud Client"
 msgstr ""
 
-#: src/EBox/CGI/NoConnection.pm:31
-msgid "Connection error"
+#: src/EBox/RemoteServices.pm:226
+msgid "Not subscribed"
 msgstr ""
 
-#: src/EBox/CGI/Backup/MakeRemoteBackup.pm:70
-msgid "Making remote backup"
+#: src/EBox/RemoteServices.pm:228
+msgid "Subscribed"
 msgstr ""
 
-#: src/EBox/CGI/Backup/MakeRemoteBackup.pm:71
-msgid "Backing up modules "
+#: src/EBox/RemoteServices.pm:260
+msgid "Subscription"
 msgstr ""
 
-#: src/EBox/CGI/Backup/MakeRemoteBackup.pm:72
-msgid "Operation"
+#: src/EBox/RemoteServices.pm:271
+msgid "System"
 msgstr ""
 
-#: src/EBox/CGI/Backup/MakeRemoteBackup.pm:73
-msgid "operations left to finish backup"
+#: src/EBox/RemoteServices.pm:321
+msgid "Zentyal Cloud Connection"
 msgstr ""
 
-#: src/EBox/CGI/Backup/MakeRemoteBackup.pm:74
-msgid "Backup successful"
-msgstr ""
-
-#: src/EBox/CGI/Backup/Index.pm:36
-msgid "Remote system backups"
-msgstr ""
-
-#: src/EBox/CGI/Backup/Confirm.pm:35
-msgid "Configuration backup"
-msgstr ""
-
-#: src/EBox/CGI/Backup/Confirm.pm:92 src/EBox/CGI/Backup/Confirm.pm:105
+#: src/EBox/RemoteServices.pm:435
 msgid ""
-"Please confirm that you want to restore the configuraction using the "
-"following remote backup:"
+"The subscribed hostname is only available if the host is subscribed to "
+"Zentyal Cloud"
 msgstr ""
 
-#: src/EBox/CGI/Backup/Confirm.pm:98 src/EBox/CGI/Backup/Confirm.pm:111
-msgid "Restore"
+#: src/EBox/RemoteServices.pm:464
+msgid ""
+"The monitor gatherer IP addresses are only available if the host is "
+"subscribed to Zentyal Cloud"
 msgstr ""
 
-#: src/EBox/CGI/Backup/Confirm.pm:119
-msgid "Please confirm that you want to delete the following remote backup:"
+#: src/EBox/RemoteServices.pm:609
+msgid "Zentyal must be subscribed to reload the bundle"
 msgstr ""
 
-#: src/EBox/CGI/Backup/Confirm.pm:125
-msgid "Delete"
-msgstr ""
-
-#: src/EBox/CGI/Backup/Confirm.pm:173
+#: src/EBox/RemoteServices.pm:1333
 #, perl-brace-format
-msgid "Inexistent action: {a}"
+msgid "Not connected. Check VPN logs in {path}"
 msgstr ""
 
-#: src/EBox/CGI/Backup/RestoreRemoteBackup.pm:72
-#: src/EBox/CGI/Backup/RestoreProxyRemoteBackup.pm:81
-msgid "Restoring remote backup"
-msgstr ""
-
-#: src/EBox/CGI/Backup/RestoreRemoteBackup.pm:73
-#: src/EBox/CGI/Backup/RestoreProxyRemoteBackup.pm:82
-msgid "Restoring modules from remote backup"
-msgstr ""
-
-#: src/EBox/CGI/Backup/RestoreRemoteBackup.pm:74
-#: src/EBox/CGI/Backup/RestoreProxyRemoteBackup.pm:83
-msgid "Module"
-msgstr ""
-
-#: src/EBox/CGI/Backup/RestoreRemoteBackup.pm:75
-#: src/EBox/CGI/Backup/RestoreProxyRemoteBackup.pm:84
-msgid "modules left to restore"
-msgstr ""
-
-#: src/EBox/CGI/Backup/RestoreRemoteBackup.pm:76
-#: src/EBox/CGI/Backup/RestoreProxyRemoteBackup.pm:85
-msgid "Restore successful"
-msgstr ""
-
-#: src/EBox/CGI/Backup/DeleteRemoteBackup.pm:65
-msgid "Backup deleted"
-msgstr ""
-
-#: src/EBox/CGI/Backup/Proxy.pm:35
-msgid "Remote system backups proxy"
-msgstr ""
+#: src/EBox/RemoteServices.pm:1337
+msgid "Connected"
+msgstr "Conectat"

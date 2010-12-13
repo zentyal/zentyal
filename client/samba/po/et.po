@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-samba 1.4.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-08-28 23:41+0200\n"
+"POT-Creation-Date: 2010-12-13 08:42+0100\n"
 "PO-Revision-Date: 2010-05-09 21:49+0200\n"
 "Last-Translator: Priit-A. Heinsalu <priit.heinsalu@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
@@ -21,205 +21,331 @@ msgstr ""
 msgid "File sharing (Samba) protocol"
 msgstr "Failijagamise (Samba) protokoll"
 
-#: src/EBox/Samba.pm:74 src/EBox/Samba/Model/SambaUser.pm:58
-#: src/EBox/Samba/Composite/General.pm:67
-msgid "File Sharing"
-msgstr "Failide jagamine"
-
-#: src/EBox/Samba.pm:89
+#: src/EBox/SambaLdapUser.pm:285
 #, fuzzy
-msgid "Create Samba home directory for shares and groups"
-msgstr "Loo kasutajatele ja gruppidele Samba kodukataloog"
+msgid "This user has a sharing directory associated which contains data."
+msgstr "Selle kasutajaga on seotud jagatud kataloog mis sisaldab andmeid"
 
-#: src/EBox/Samba.pm:90
+#: src/EBox/SambaLdapUser.pm:344 src/EBox/SambaLdapUser.pm:362
+#, perl-brace-format
+msgid "Incorrect SID: {s}"
+msgstr "Vale SID: {s}"
+
+#: src/EBox/SambaLdapUser.pm:348
+#, perl-brace-format
+msgid "User {u} does not exists"
+msgstr "Kasutajat {u} ei ole olemas"
+
+#: src/EBox/SambaLdapUser.pm:352
+#, perl-brace-format
+msgid "User {u} is not a samba user"
+msgstr "Kasutaja {u} ei ole samba kasutaja"
+
+#: src/EBox/SambaLdapUser.pm:366
+#, perl-brace-format
+msgid "Group {g} does not exists"
+msgstr "Gruppi {g} ei ole olemas"
+
+#: src/EBox/SambaLdapUser.pm:370
+#, perl-brace-format
+msgid "Group {g} is not a samba group"
+msgstr "Grupp {g} ei ole samba grupp"
+
+#: src/EBox/SambaLdapUser.pm:412
 #, fuzzy
-msgid ""
-"Zentyal will create the directories for Samba shares and groups under /home/"
-"samba."
-msgstr ""
-"eBox loob kodukataloogid Samba kasutajatele ja gruppidele /home/samba alla."
+msgid "This group has a sharing directory associated that contains data."
+msgstr "Selle grupiga on seotud jagatud kataloog mis sisaldab andmeid"
 
-#: src/EBox/Samba.pm:95
-msgid "Add LDAP schemas"
-msgstr "Lisa LDAP skeeme"
+#: src/EBox/SambaLdapUser.pm:610
+#, perl-brace-format
+msgid "{g} group does not exist"
+msgstr "gruppi {g} ei ole olemas"
 
-#: src/EBox/Samba.pm:96
+#: src/EBox/SambaLdapUser.pm:724 src/EBox/SambaLdapUser.pm:752
+#: src/EBox/SambaLdapUser.pm:801 src/EBox/CGI/ActivePrinting.pm:48
+#: src/EBox/CGI/ActiveSharing.pm:44
+msgid "group name"
+msgstr "grupi nimi"
+
+# Jagatavale peab olema määratud nimi
+#: src/EBox/SambaLdapUser.pm:757
 #, fuzzy
-msgid ""
-"Zentyal will add two LDAP schemas to the LDAP directory: samba and ebox."
-msgstr "eBox lisab LDAP kataloogile kaks LDAP skeemi: samba ja ebox."
+msgid "A name should be provided for the share."
+msgstr "Jagamiseks peab olema määratud nimi"
 
-#: src/EBox/Samba.pm:101
-#, fuzzy
-msgid "Set Samba LDAP admin dn password"
-msgstr "Samba LDAP admin dn parooli määramine"
+#: src/EBox/SambaLdapUser.pm:765
+msgid "sharing resource"
+msgstr "jagatav ressurss"
 
-#: src/EBox/Samba.pm:102
-#, fuzzy
-msgid "Zentyal will configure Samba to use the LDAP admin dn password."
-msgstr "eBoxi poolt Samba seadistamine, LDAP admin dn parooli kasutamiseks"
-
-#: src/EBox/Samba.pm:118
-#, fuzzy
-msgid "To set up Samba according to your configuration."
-msgstr "Samba häälestamine seadistuste järgi"
-
-#: src/EBox/Samba.pm:123
-#, fuzzy
-msgid "To set up smbldap-tools according to your configuration."
-msgstr "smbldap-toolsi häälestamine seadistuste järgi"
-
-#: src/EBox/Samba.pm:129
-#, fuzzy
-msgid "To set up smbldap-tools according to your LDAP configuration."
-msgstr "smbldap-toolsi häälestamine LDAP seadistuste järgi"
-
-#  
-#: src/EBox/Samba.pm:135
-#, fuzzy
-msgid "To add quota support to /home partition."
-msgstr "Kvoodi toe lisamiseks /home partitsioonile"
-
-#: src/EBox/Samba.pm:140
-#, fuzzy
-msgid "To set the antivirus settings for Samba."
-msgstr "Samba viirusetõrje seadistuste määramiseks"
-
-#: src/EBox/Samba.pm:626 src/EBox/Samba/Model/AntivirusExceptions.pm:109
-#: src/EBox/Samba/Model/RecycleExceptions.pm:109
-#: src/templates/ajax/viewer/shareViewer.mas:12
-msgid "Share"
-msgstr "Jagamine"
-
-#: src/EBox/Samba.pm:626 src/EBox/Samba.pm:647
-msgid "Source machine"
-msgstr "Lähtekoha masin"
-
-#: src/EBox/Samba.pm:626 src/EBox/Samba.pm:647
-msgid "Connected since"
-msgstr "Ühendatud alates"
-
-#: src/EBox/Samba.pm:647 src/EBox/Samba.pm:1662
-#: src/EBox/Samba/Model/SambaSharePermissions.pm:206
-#: src/templates/ajax/viewer/shareViewer.mas:8
-msgid "User"
-msgstr "Kasutaja"
-
-#: src/EBox/Samba.pm:667
-msgid "Shares by user"
-msgstr "Jagamisi kasutaja järgi"
-
-#: src/EBox/Samba.pm:672
-msgid "Users by share"
-msgstr "Kasutajaid jagamiste järgi"
-
-#: src/EBox/Samba.pm:1212 src/EBox/Samba.pm:1234
-msgid "user"
-msgstr "kasutaja"
-
-#: src/EBox/Samba.pm:1216 src/EBox/Samba.pm:1248 src/EBox/SambaLdapUser.pm:864
+#: src/EBox/SambaLdapUser.pm:864 src/EBox/Samba.pm:1237 src/EBox/Samba.pm:1269
 msgid "group"
 msgstr "grupp"
 
-#: src/EBox/Samba.pm:1221
-msgid "printer"
-msgstr "printer"
+#: src/EBox/CGI/ActivePrinting.pm:44 src/EBox/CGI/ActiveSharing.pm:67
+msgid "user name"
+msgstr "kasutajanimi"
 
-#: src/EBox/Samba.pm:1329
-msgid "quota"
-msgstr "kvoot"
+#: src/EBox/CGI/ActiveSharing.pm:47
+msgid "sharing name"
+msgstr "jagamise nimi"
 
-#: src/EBox/Samba.pm:1642
-msgid "User's files"
-msgstr "Kasutajate failid"
+#: src/EBox/CGI/ActiveSharing.pm:70
+msgid "active"
+msgstr "aktiivne"
 
-#: src/EBox/Samba.pm:1644
-msgid "Group's files"
-msgstr "Gruppide failid"
+#: src/EBox/CGI/ActiveSharing.pm:71
+msgid "Disk quota limit"
+msgstr "Kettakvoodi limiit"
 
-#: src/EBox/Samba.pm:1660 src/EBox/Samba.pm:1680 src/EBox/Samba.pm:1690
-msgid "Date"
-msgstr "Kuupäev"
+#: src/EBox/Samba/Model/SambaUser.pm:50
+msgid "File Sharing Account"
+msgstr "Failide jagamise konto"
 
-#: src/EBox/Samba.pm:1661 src/EBox/Samba.pm:1681
-msgid "Client address"
-msgstr "Kliendi aadress"
+#: src/EBox/Samba/Model/SambaUser.pm:58 src/EBox/Samba/Composite/General.pm:67
+#: src/EBox/Samba.pm:74 src/EBox/Samba.pm:1389
+msgid "File Sharing"
+msgstr "Failide jagamine"
 
-#: src/EBox/Samba.pm:1663
-msgid "Action"
-msgstr "Toiming"
+#: src/EBox/Samba/Model/DeletedSambaShares.pm:113
+msgid "path"
+msgstr "asukoht"
 
-#: src/EBox/Samba.pm:1664
-msgid "Resource"
-msgstr "Ressurss"
+#: src/EBox/Samba/Model/DeletedSambaShares.pm:129
+#: src/EBox/Samba/Model/SambaShares.pm:157
+msgid "share"
+msgstr "jagatav ressurss"
 
-#: src/EBox/Samba.pm:1668
-msgid "Connect"
-msgstr "Ühenda"
+#  
+#: src/EBox/Samba/Model/GeneralSettings.pm:73
+msgid "Netbios and workgroup must have different names"
+msgstr "Netbiosil ja Windowsi töögrupil peavad olema erinevad nimed"
 
-#: src/EBox/Samba.pm:1669
-msgid "Access to directory"
-msgstr "Kataloogile ligipääs"
+#: src/EBox/Samba/Model/GeneralSettings.pm:78
+msgid "Netbios name cannot be longer than 15 characters"
+msgstr "Netbiosi nimi ei tohi olla pikem kui 15 märki"
 
-#: src/EBox/Samba.pm:1670
-msgid "Read file"
-msgstr "Loe faili"
+#: src/EBox/Samba/Model/GeneralSettings.pm:94
+#, perl-brace-format
+msgid ""
+"A slave server can not act as PDC if PAM is enabled. You can do disable PAM "
+"at {ohref}LDAP Settings{chref}."
+msgstr ""
 
-#: src/EBox/Samba.pm:1671
-msgid "Write file"
-msgstr "Kirjuta faili"
+#: src/EBox/Samba/Model/GeneralSettings.pm:106
+msgid "Enable PDC"
+msgstr "PDC lubamine"
 
-#: src/EBox/Samba.pm:1672
-msgid "Disconnect"
-msgstr "Katkesta ühendus"
+#: src/EBox/Samba/Model/GeneralSettings.pm:112
+msgid "Domain name"
+msgstr "Domeeni nimi"
 
-#: src/EBox/Samba.pm:1673
-msgid "Remove"
-msgstr "Eemalda"
+#: src/EBox/Samba/Model/GeneralSettings.pm:118
+msgid "Netbios name"
+msgstr "Netbiosi nimi"
 
-#: src/EBox/Samba.pm:1674
-msgid "Create directory"
-msgstr "Loo kataloog"
+#: src/EBox/Samba/Model/GeneralSettings.pm:124
+msgid "Description"
+msgstr "Kirjeldus"
 
-#: src/EBox/Samba.pm:1675
-msgid "Remove directory"
-msgstr "Eemalda kataloog"
+#: src/EBox/Samba/Model/GeneralSettings.pm:130
+msgid "Quota limit"
+msgstr "Kvoodi limiit"
 
-#: src/EBox/Samba.pm:1676
-msgid "Rename"
-msgstr "Muuda nime"
+#  
+#: src/EBox/Samba/Model/GeneralSettings.pm:134 src/EBox/Samba/Model/PDC.pm:95
+#: src/EBox/Samba/Model/PDC.pm:113
+msgid "Limited to"
+msgstr "Limiteeritud kuni"
 
-#: src/EBox/Samba.pm:1682 src/EBox/Samba.pm:1691
-msgid "File name"
-msgstr "Faili nimi"
+#: src/EBox/Samba/Model/GeneralSettings.pm:136
+msgid "Mb"
+msgstr "Mb"
 
-#: src/EBox/Samba.pm:1683 src/EBox/Samba.pm:1687
-msgid "Virus"
-msgstr "Viirus"
+#: src/EBox/Samba/Model/GeneralSettings.pm:142 src/EBox/Samba/Model/PDC.pm:91
+#: src/EBox/Samba/Model/PDC.pm:109 src/EBox/Samba/Model/PDC.pm:127
+#: src/templates/samba.mas:21 src/templates/samba.mas:24
+msgid "Disabled"
+msgstr "Keelatud"
 
-#: src/EBox/Samba.pm:1684
-msgid "Type"
-msgstr "Tüüp"
+# või leida "roaming"ule mingi muu termin?
+#: src/EBox/Samba/Model/GeneralSettings.pm:148
+msgid "Enable roaming profiles"
+msgstr "Uitühenduse profiilide lubamine"
 
-#: src/EBox/Samba.pm:1692
-msgid "Quarantined file name"
-msgstr "Karantiinis oleva faili nimi"
+#: src/EBox/Samba/Model/GeneralSettings.pm:154
+msgid "Drive letter"
+msgstr "Ketta täht"
 
-#: src/EBox/Samba.pm:1693 src/EBox/Samba.pm:1696
-msgid "Quarantine"
-msgstr "Karantiin"
+#: src/EBox/Samba/Model/GeneralSettings.pm:160
+msgid "Samba group"
+msgstr "Samba grupp"
 
-#: src/EBox/Samba.pm:1699
-msgid "Samba access"
-msgstr "Samba ligipääs"
+#: src/EBox/Samba/Model/GeneralSettings.pm:164
+msgid ""
+"Only users belonging to this group will have a samba account. Sync happens "
+"every hour"
+msgstr ""
+"Ainult sellesse gruppi kuuluvad kasutajad saavad samba konto. "
+"Sünkroniseerimine toimub iga tunni järel"
 
-#: src/EBox/Samba.pm:1710
-msgid "Samba virus"
-msgstr "Samba viirus"
+#: src/EBox/Samba/Model/GeneralSettings.pm:170
+msgid "General settings"
+msgstr "Üldised seadistused"
 
-#: src/EBox/Samba.pm:1721
-msgid "Samba quarantine"
-msgstr "Samba karantiin"
+#: src/EBox/Samba/Model/GeneralSettings.pm:174
+msgid "On this page you can set different general settings for Samba"
+msgstr "Sellel leheküljel saab määrata üldiseid Samba seadistusi"
+
+#: src/EBox/Samba/Model/GeneralSettings.pm:227
+msgid "All users"
+msgstr "Kõik kasutajad"
+
+#: src/EBox/Samba/Model/SambaShares.pm:101
+msgid "Share name"
+msgstr "Jagamise nimi"
+
+#: src/EBox/Samba/Model/SambaShares.pm:107
+msgid "Share path"
+msgstr "Jagamise asukoht"
+
+#: src/EBox/Samba/Model/SambaShares.pm:113
+#, fuzzy
+msgid "Directory under Zentyal"
+msgstr "eBoxi samba kataloog"
+
+#: src/EBox/Samba/Model/SambaShares.pm:119
+msgid "File system path"
+msgstr "Failisüsteemi asukoht"
+
+#: src/EBox/Samba/Model/SambaShares.pm:127
+msgid "Comment"
+msgstr "Kommentaar"
+
+#: src/EBox/Samba/Model/SambaShares.pm:132
+msgid "Guest access"
+msgstr "Külalise ligipääs"
+
+#: src/EBox/Samba/Model/SambaShares.pm:135
+msgid "This share will not require authentication."
+msgstr ""
+
+#: src/EBox/Samba/Model/SambaShares.pm:139
+msgid "Access control"
+msgstr "Ligipääsu kontroll"
+
+#: src/EBox/Samba/Model/SambaShares.pm:149
+#: src/EBox/Samba/Model/SambaSharePermissions.pm:165
+msgid "Shares"
+msgstr "Jagamised"
+
+#: src/EBox/Samba/Model/SambaShares.pm:186
+msgid "Path not allowed"
+msgstr "Asukoht ei ole lubatud"
+
+#: src/EBox/Samba/Model/SambaShares.pm:194
+msgid "Only alphanumeric characters plus _ are valid for a path"
+msgstr "Ainult tähted, numbrid ja _ on asukoha jaoks lubatud"
+
+#: src/EBox/Samba/Model/SambaShares.pm:205
+#, fuzzy
+msgid "Only ASCII characters are valid for a share name"
+msgstr "Ainult tähted, numbrid ja _ on asukoha jaoks lubatud"
+
+#: src/EBox/Samba/Model/SambaShares.pm:213
+#, fuzzy
+msgid "Only ASCII characters are valid for a share description"
+msgstr "Ainult tähted, numbrid ja _ on asukoha jaoks lubatud"
+
+#: src/EBox/Samba/Model/SambaShares.pm:245
+msgid "The directory is not empty. Are you sure you want to remove it?"
+msgstr "Kataloog ei ole tühi. Oled sa kindel, et tahad seda eemaldada?"
+
+#: src/EBox/Samba/Model/SambaShares.pm:336
+#, fuzzy, perl-brace-format
+msgid ""
+"{openit}Directory under Zentyal{closeit} will automatically create the share."
+"directory in /home/samba/shares {br}{openit}File system path{closeit} will "
+"allow you to share an existing directory within your file system"
+msgstr ""
+"{openit}eBoxi samba kataloog{closeit} valimisel luuakse jagatav kataloogi "
+"automaatselt asukohta /home/samba/shares {br}{openit}Failisüsteemi asukoht"
+"{closeit} valimisel lubatakse jagada failisüsteemis olemasolevat kataloogi."
+
+#  
+#: src/EBox/Samba/Model/SambaShares.pm:349
+#, fuzzy
+msgid ""
+"Here you can create shares with more fine-grained permission control. You "
+"can use an existing directory or pick a name and let Zentyal create it for "
+"you."
+msgstr ""
+"Sellel leheküljel saab jagamisi luua koos täpse õigustekontrolli süsteemiga. "
+"Valida võib juba olemasoleva kataloogi või lihtsalt nime, mille puhul eBoxil "
+"loob kataloogi ise."
+
+#: src/EBox/Samba/Model/SambaSharePermissions.pm:93
+msgid "Read only"
+msgstr "Kirjutuskaitsega"
+
+#: src/EBox/Samba/Model/SambaSharePermissions.pm:97
+msgid "Read and write"
+msgstr "Lugemine ja kirjutamine"
+
+#: src/EBox/Samba/Model/SambaSharePermissions.pm:101
+msgid "Administrator"
+msgstr "Administraator"
+
+#: src/EBox/Samba/Model/SambaSharePermissions.pm:125
+#: src/EBox/Samba/Model/SambaSharePermissions.pm:201
+msgid "User/Group"
+msgstr "Kasutaja/grupp"
+
+#: src/EBox/Samba/Model/SambaSharePermissions.pm:175
+msgid "Any access control is disabled if the guest access is allowed."
+msgstr ""
+
+#: src/EBox/Samba/Model/SambaSharePermissions.pm:206 src/EBox/Samba.pm:681
+#: src/EBox/Samba.pm:1580 src/templates/ajax/viewer/shareViewer.mas:8
+msgid "User"
+msgstr "Kasutaja"
+
+#: src/EBox/Samba/Model/SambaSharePermissions.pm:211
+#: src/EBox/Samba/Model/AntivirusExceptions.pm:102
+#: src/EBox/Samba/Model/RecycleExceptions.pm:102
+#: src/templates/ajax/viewer/shareViewer.mas:10
+msgid "Group"
+msgstr "Grupp"
+
+#: src/EBox/Samba/Model/SambaSharePermissions.pm:220
+msgid "Permissions"
+msgstr "Õigused"
+
+#: src/EBox/Samba/Model/SambaSharePermissions.pm:229
+msgid "Access Control"
+msgstr "Ligipääsu kontroll"
+
+#: src/EBox/Samba/Model/SambaSharePermissions.pm:236
+msgid "ACL"
+msgstr "Pääsuloend"
+
+#: src/EBox/Samba/Model/SambaSharePermissions.pm:249
+#, fuzzy
+msgid ""
+"Be careful if you grant <i>administrator</i> privileges.User will be able to "
+"read and write any file in the share."
+msgstr ""
+"<i>Administraatori</i> õiguste andmisega peab olema ettevaatlik. Kasutaja "
+"saab lugemis- ja kirjutamisõiguse jagatud kataloogi kõikidele failidele."
+
+#: src/EBox/Samba/Model/SambaSharePermissions.pm:259
+#, fuzzy
+msgid " (user))"
+msgstr "kasutaja"
+
+#: src/EBox/Samba/Model/SambaSharePermissions.pm:261
+#, fuzzy
+msgid " (group))"
+msgstr "grupp"
 
 #: src/EBox/Samba/Model/PDC.pm:77
 msgid "File sharing module is not enabled."
@@ -232,18 +358,6 @@ msgstr "PDC ei ole lubatud."
 #: src/EBox/Samba/Model/PDC.pm:87
 msgid "Minimum password length"
 msgstr "Minimaalne parooli pikkus"
-
-#: src/EBox/Samba/Model/PDC.pm:91 src/EBox/Samba/Model/PDC.pm:109
-#: src/EBox/Samba/Model/PDC.pm:127 src/EBox/Samba/Model/GeneralSettings.pm:124
-#: src/templates/samba.mas:21 src/templates/samba.mas:24
-msgid "Disabled"
-msgstr "Keelatud"
-
-#  
-#: src/EBox/Samba/Model/PDC.pm:95 src/EBox/Samba/Model/PDC.pm:113
-#: src/EBox/Samba/Model/GeneralSettings.pm:116
-msgid "Limited to"
-msgstr "Limiteeritud kuni"
 
 #: src/EBox/Samba/Model/PDC.pm:96
 msgid "characters"
@@ -288,12 +402,11 @@ msgstr "Kasutaja/grupp/jagamised"
 msgid "User homes"
 msgstr "Kasutajate kodukataloogid"
 
-#: src/EBox/Samba/Model/AntivirusExceptions.pm:102
-#: src/EBox/Samba/Model/RecycleExceptions.pm:102
-#: src/EBox/Samba/Model/SambaSharePermissions.pm:211
-#: src/templates/ajax/viewer/shareViewer.mas:10
-msgid "Group"
-msgstr "Grupp"
+#: src/EBox/Samba/Model/AntivirusExceptions.pm:109
+#: src/EBox/Samba/Model/RecycleExceptions.pm:109 src/EBox/Samba.pm:660
+#: src/templates/ajax/viewer/shareViewer.mas:12
+msgid "Share"
+msgstr "Jagamine"
 
 #: src/EBox/Samba/Model/AntivirusExceptions.pm:120
 msgid "Samba shares antivirus exceptions"
@@ -308,83 +421,13 @@ msgstr "Erandite lisamine vaikimisi viirusetõrje seadistustele"
 msgid "exception"
 msgstr "erand"
 
-#: src/EBox/Samba/Model/SambaShares.pm:100
-msgid "Share name"
-msgstr "Jagamise nimi"
+#: src/EBox/Samba/Model/RecycleExceptions.pm:120
+msgid "Samba shares Recycle Bin exceptions"
+msgstr "Samba jagamiste prügikasti erandid"
 
-#: src/EBox/Samba/Model/SambaShares.pm:106
-msgid "Share path"
-msgstr "Jagamise asukoht"
-
-#: src/EBox/Samba/Model/SambaShares.pm:112
-#, fuzzy
-msgid "Directory under Zentyal"
-msgstr "eBoxi samba kataloog"
-
-#: src/EBox/Samba/Model/SambaShares.pm:118
-msgid "File system path"
-msgstr "Failisüsteemi asukoht"
-
-#: src/EBox/Samba/Model/SambaShares.pm:126
-msgid "Comment"
-msgstr "Kommentaar"
-
-#: src/EBox/Samba/Model/SambaShares.pm:131
-msgid "Guest access"
-msgstr "Külalise ligipääs"
-
-#: src/EBox/Samba/Model/SambaShares.pm:134
-msgid "This share will not require authentication."
-msgstr ""
-
-#: src/EBox/Samba/Model/SambaShares.pm:138
-msgid "Access control"
-msgstr "Ligipääsu kontroll"
-
-#: src/EBox/Samba/Model/SambaShares.pm:148
-#: src/EBox/Samba/Model/SambaSharePermissions.pm:165
-msgid "Shares"
-msgstr "Jagamised"
-
-#: src/EBox/Samba/Model/SambaShares.pm:156
-#: src/EBox/Samba/Model/DeletedSambaShares.pm:129
-msgid "share"
-msgstr "jagatav ressurss"
-
-#: src/EBox/Samba/Model/SambaShares.pm:186
-msgid "Path not allowed"
-msgstr "Asukoht ei ole lubatud"
-
-#: src/EBox/Samba/Model/SambaShares.pm:194
-msgid "Only alphanumeric characters plus _ are valid for a path"
-msgstr "Ainult tähted, numbrid ja _ on asukoha jaoks lubatud"
-
-#: src/EBox/Samba/Model/SambaShares.pm:228
-msgid "The directory is not empty. Are you sure you want to remove it?"
-msgstr "Kataloog ei ole tühi. Oled sa kindel, et tahad seda eemaldada?"
-
-#: src/EBox/Samba/Model/SambaShares.pm:318
-#, fuzzy, perl-brace-format
-msgid ""
-"{openit}Directory under Zentyal{closeit} will automatically create the share."
-"directory in /home/samba/shares {br}{openit}File system path{closeit} will "
-"allow you to share an existing directory within your file system"
-msgstr ""
-"{openit}eBoxi samba kataloog{closeit} valimisel luuakse jagatav kataloogi "
-"automaatselt asukohta /home/samba/shares {br}{openit}Failisüsteemi asukoht"
-"{closeit} valimisel lubatakse jagada failisüsteemis olemasolevat kataloogi."
-
-#  
-#: src/EBox/Samba/Model/SambaShares.pm:331
-#, fuzzy
-msgid ""
-"Here you can create shares with more fine-grained permission control. You "
-"can use an existing directory or pick a name and let Zentyal create it for "
-"you."
-msgstr ""
-"Sellel leheküljel saab jagamisi luua koos täpse õigustekontrolli süsteemiga. "
-"Valida võib juba olemasoleva kataloogi või lihtsalt nime, mille puhul eBoxil "
-"loob kataloogi ise."
+#: src/EBox/Samba/Model/RecycleExceptions.pm:125
+msgid "Add exceptions to the default Recycle Bin settings"
+msgstr "Erandite lisamine vaikimisi prügikasti seadistustele"
 
 #: src/EBox/Samba/Model/AntivirusDefault.pm:50
 msgid "Scan"
@@ -406,140 +449,6 @@ msgstr "Luba prügikast"
 msgid "Recycle Bin default settings"
 msgstr "Prügikasti vaikimisi seadistused"
 
-#: src/EBox/Samba/Model/RecycleExceptions.pm:120
-msgid "Samba shares Recycle Bin exceptions"
-msgstr "Samba jagamiste prügikasti erandid"
-
-#: src/EBox/Samba/Model/RecycleExceptions.pm:125
-msgid "Add exceptions to the default Recycle Bin settings"
-msgstr "Erandite lisamine vaikimisi prügikasti seadistustele"
-
-#: src/EBox/Samba/Model/SambaUser.pm:50
-msgid "File Sharing Account"
-msgstr "Failide jagamise konto"
-
-#  
-#: src/EBox/Samba/Model/GeneralSettings.pm:73
-msgid "Netbios and workgroup must have different names"
-msgstr "Netbiosil ja Windowsi töögrupil peavad olema erinevad nimed"
-
-#: src/EBox/Samba/Model/GeneralSettings.pm:78
-msgid "Netbios name cannot be longer than 15 characters"
-msgstr "Netbiosi nimi ei tohi olla pikem kui 15 märki"
-
-#: src/EBox/Samba/Model/GeneralSettings.pm:88
-msgid "Enable PDC"
-msgstr "PDC lubamine"
-
-#: src/EBox/Samba/Model/GeneralSettings.pm:94
-msgid "Domain name"
-msgstr "Domeeni nimi"
-
-#: src/EBox/Samba/Model/GeneralSettings.pm:100
-msgid "Netbios name"
-msgstr "Netbiosi nimi"
-
-#: src/EBox/Samba/Model/GeneralSettings.pm:106
-msgid "Description"
-msgstr "Kirjeldus"
-
-#: src/EBox/Samba/Model/GeneralSettings.pm:112
-msgid "Quota limit"
-msgstr "Kvoodi limiit"
-
-#: src/EBox/Samba/Model/GeneralSettings.pm:118
-msgid "Mb"
-msgstr "Mb"
-
-# või leida "roaming"ule mingi muu termin?
-#: src/EBox/Samba/Model/GeneralSettings.pm:130
-msgid "Enable roaming profiles"
-msgstr "Uitühenduse profiilide lubamine"
-
-#: src/EBox/Samba/Model/GeneralSettings.pm:136
-msgid "Drive letter"
-msgstr "Ketta täht"
-
-#: src/EBox/Samba/Model/GeneralSettings.pm:142
-msgid "Samba group"
-msgstr "Samba grupp"
-
-#: src/EBox/Samba/Model/GeneralSettings.pm:146
-msgid ""
-"Only users belonging to this group will have a samba account. Sync happens "
-"every hour"
-msgstr ""
-"Ainult sellesse gruppi kuuluvad kasutajad saavad samba konto. "
-"Sünkroniseerimine toimub iga tunni järel"
-
-#: src/EBox/Samba/Model/GeneralSettings.pm:152
-msgid "General settings"
-msgstr "Üldised seadistused"
-
-#: src/EBox/Samba/Model/GeneralSettings.pm:156
-msgid "On this page you can set different general settings for Samba"
-msgstr "Sellel leheküljel saab määrata üldiseid Samba seadistusi"
-
-#: src/EBox/Samba/Model/GeneralSettings.pm:209
-msgid "All users"
-msgstr "Kõik kasutajad"
-
-#: src/EBox/Samba/Model/SambaSharePermissions.pm:93
-msgid "Read only"
-msgstr "Kirjutuskaitsega"
-
-#: src/EBox/Samba/Model/SambaSharePermissions.pm:97
-msgid "Read and write"
-msgstr "Lugemine ja kirjutamine"
-
-#: src/EBox/Samba/Model/SambaSharePermissions.pm:101
-msgid "Administrator"
-msgstr "Administraator"
-
-#: src/EBox/Samba/Model/SambaSharePermissions.pm:125
-#: src/EBox/Samba/Model/SambaSharePermissions.pm:201
-msgid "User/Group"
-msgstr "Kasutaja/grupp"
-
-#: src/EBox/Samba/Model/SambaSharePermissions.pm:175
-msgid "Any access control is disabled if the guest access is allowed."
-msgstr ""
-
-#: src/EBox/Samba/Model/SambaSharePermissions.pm:220
-msgid "Permissions"
-msgstr "Õigused"
-
-#: src/EBox/Samba/Model/SambaSharePermissions.pm:229
-msgid "Access Control"
-msgstr "Ligipääsu kontroll"
-
-#: src/EBox/Samba/Model/SambaSharePermissions.pm:236
-msgid "ACL"
-msgstr "Pääsuloend"
-
-#: src/EBox/Samba/Model/SambaSharePermissions.pm:249
-#, fuzzy
-msgid ""
-"Be careful if you grant <i>administrator</i> privileges.User will be able to "
-"read and write any file in the share."
-msgstr ""
-"<i>Administraatori</i> õiguste andmisega peab olema ettevaatlik. Kasutaja "
-"saab lugemis- ja kirjutamisõiguse jagatud kataloogi kõikidele failidele."
-
-#: src/EBox/Samba/Model/SambaSharePermissions.pm:259
-#, fuzzy
-msgid " (user))"
-msgstr "kasutaja"
-
-#: src/EBox/Samba/Model/SambaSharePermissions.pm:261
-#, fuzzy
-msgid " (group))"
-msgstr "grupp"
-
-#: src/EBox/Samba/Model/DeletedSambaShares.pm:113
-msgid "path"
-msgstr "asukoht"
-
 #: src/EBox/Samba/Composite/RecycleBin.pm:64
 msgid "Recycle Bin"
 msgstr "Prügikast"
@@ -552,86 +461,188 @@ msgstr "Failijagamise valikud"
 msgid "Antivirus"
 msgstr "Viirusetõrje"
 
-#: src/EBox/CGI/ActivePrinting.pm:44 src/EBox/CGI/ActiveSharing.pm:67
-msgid "user name"
-msgstr "kasutajanimi"
-
-#: src/EBox/CGI/ActivePrinting.pm:48 src/EBox/CGI/ActiveSharing.pm:44
-#: src/EBox/SambaLdapUser.pm:724 src/EBox/SambaLdapUser.pm:752
-#: src/EBox/SambaLdapUser.pm:801
-msgid "group name"
-msgstr "grupi nimi"
-
-#: src/EBox/CGI/ActiveSharing.pm:47
-msgid "sharing name"
-msgstr "jagamise nimi"
-
-#: src/EBox/CGI/ActiveSharing.pm:70
-msgid "active"
-msgstr "aktiivne"
-
-#: src/EBox/CGI/ActiveSharing.pm:71
-msgid "Disk quota limit"
-msgstr "Kettakvoodi limiit"
-
-#: src/EBox/SambaLdapUser.pm:285
+#: src/EBox/Samba.pm:114
 #, fuzzy
-msgid "This user has a sharing directory associated which contains data."
-msgstr "Selle kasutajaga on seotud jagatud kataloog mis sisaldab andmeid"
+msgid "Create Samba home directory for shares and groups"
+msgstr "Loo kasutajatele ja gruppidele Samba kodukataloog"
 
-#: src/EBox/SambaLdapUser.pm:344 src/EBox/SambaLdapUser.pm:362
-#, perl-brace-format
-msgid "Incorrect SID: {s}"
-msgstr "Vale SID: {s}"
-
-#: src/EBox/SambaLdapUser.pm:348
-#, perl-brace-format
-msgid "User {u} does not exists"
-msgstr "Kasutajat {u} ei ole olemas"
-
-#: src/EBox/SambaLdapUser.pm:352
-#, perl-brace-format
-msgid "User {u} is not a samba user"
-msgstr "Kasutaja {u} ei ole samba kasutaja"
-
-#: src/EBox/SambaLdapUser.pm:366
-#, perl-brace-format
-msgid "Group {g} does not exists"
-msgstr "Gruppi {g} ei ole olemas"
-
-#: src/EBox/SambaLdapUser.pm:370
-#, perl-brace-format
-msgid "Group {g} is not a samba group"
-msgstr "Grupp {g} ei ole samba grupp"
-
-#: src/EBox/SambaLdapUser.pm:412
+#: src/EBox/Samba.pm:115
 #, fuzzy
-msgid "This group has a sharing directory associated that contains data."
-msgstr "Selle grupiga on seotud jagatud kataloog mis sisaldab andmeid"
+msgid ""
+"Zentyal will create the directories for Samba shares and groups under /home/"
+"samba."
+msgstr ""
+"eBox loob kodukataloogid Samba kasutajatele ja gruppidele /home/samba alla."
 
-#: src/EBox/SambaLdapUser.pm:610
-#, perl-brace-format
-msgid "{g} group does not exist"
-msgstr "gruppi {g} ei ole olemas"
+#: src/EBox/Samba.pm:120
+msgid "Add LDAP schemas"
+msgstr "Lisa LDAP skeeme"
 
-# Jagatavale peab olema määratud nimi
-#: src/EBox/SambaLdapUser.pm:757
+#: src/EBox/Samba.pm:121
 #, fuzzy
-msgid "A name should be provided for the share."
-msgstr "Jagamiseks peab olema määratud nimi"
+msgid ""
+"Zentyal will add two LDAP schemas to the LDAP directory: samba and ebox."
+msgstr "eBox lisab LDAP kataloogile kaks LDAP skeemi: samba ja ebox."
 
-#: src/EBox/SambaLdapUser.pm:765
-msgid "sharing resource"
-msgstr "jagatav ressurss"
+#: src/EBox/Samba.pm:126
+#, fuzzy
+msgid "Set Samba LDAP admin dn password"
+msgstr "Samba LDAP admin dn parooli määramine"
 
-#: stubs/smb.conf.mas:104
-msgid "Home Directories"
-msgstr "Kodukataloogid"
+#: src/EBox/Samba.pm:127
+#, fuzzy
+msgid "Zentyal will configure Samba to use the LDAP admin dn password."
+msgstr "eBoxi poolt Samba seadistamine, LDAP admin dn parooli kasutamiseks"
 
-#: stubs/smb.conf.mas:130
-#, perl-brace-format
-msgid "{group} share directory"
-msgstr "{group} jagatud kataloog"
+#: src/EBox/Samba.pm:143
+#, fuzzy
+msgid "To set up Samba according to your configuration."
+msgstr "Samba häälestamine seadistuste järgi"
+
+#: src/EBox/Samba.pm:148
+#, fuzzy
+msgid "To set up smbldap-tools according to your configuration."
+msgstr "smbldap-toolsi häälestamine seadistuste järgi"
+
+#: src/EBox/Samba.pm:154
+#, fuzzy
+msgid "To set up smbldap-tools according to your LDAP configuration."
+msgstr "smbldap-toolsi häälestamine LDAP seadistuste järgi"
+
+#  
+#: src/EBox/Samba.pm:160
+#, fuzzy
+msgid "To add quota support to /home partition."
+msgstr "Kvoodi toe lisamiseks /home partitsioonile"
+
+#: src/EBox/Samba.pm:165
+#, fuzzy
+msgid "To set the antivirus settings for Samba."
+msgstr "Samba viirusetõrje seadistuste määramiseks"
+
+#: src/EBox/Samba.pm:660 src/EBox/Samba.pm:681
+msgid "Source machine"
+msgstr "Lähtekoha masin"
+
+#: src/EBox/Samba.pm:660 src/EBox/Samba.pm:681
+msgid "Connected since"
+msgstr "Ühendatud alates"
+
+#: src/EBox/Samba.pm:701
+msgid "Shares by user"
+msgstr "Jagamisi kasutaja järgi"
+
+#: src/EBox/Samba.pm:707
+msgid "Users by share"
+msgstr "Kasutajaid jagamiste järgi"
+
+#: src/EBox/Samba.pm:1233 src/EBox/Samba.pm:1255
+msgid "user"
+msgstr "kasutaja"
+
+#: src/EBox/Samba.pm:1242
+msgid "printer"
+msgstr "printer"
+
+#: src/EBox/Samba.pm:1350
+msgid "quota"
+msgstr "kvoot"
+
+#: src/EBox/Samba.pm:1390
+msgid "Shares, users and groups homes and profiles"
+msgstr ""
+
+#: src/EBox/Samba.pm:1560
+msgid "User's files"
+msgstr "Kasutajate failid"
+
+#: src/EBox/Samba.pm:1562
+msgid "Group's files"
+msgstr "Gruppide failid"
+
+#: src/EBox/Samba.pm:1578 src/EBox/Samba.pm:1598 src/EBox/Samba.pm:1608
+msgid "Date"
+msgstr "Kuupäev"
+
+#: src/EBox/Samba.pm:1579 src/EBox/Samba.pm:1599
+msgid "Client address"
+msgstr "Kliendi aadress"
+
+#: src/EBox/Samba.pm:1581
+msgid "Action"
+msgstr "Toiming"
+
+#: src/EBox/Samba.pm:1582
+msgid "Resource"
+msgstr "Ressurss"
+
+#: src/EBox/Samba.pm:1586
+msgid "Connect"
+msgstr "Ühenda"
+
+#: src/EBox/Samba.pm:1587
+msgid "Access to directory"
+msgstr "Kataloogile ligipääs"
+
+#: src/EBox/Samba.pm:1588
+msgid "Read file"
+msgstr "Loe faili"
+
+#: src/EBox/Samba.pm:1589
+msgid "Write file"
+msgstr "Kirjuta faili"
+
+#: src/EBox/Samba.pm:1590
+msgid "Disconnect"
+msgstr "Katkesta ühendus"
+
+#: src/EBox/Samba.pm:1591
+msgid "Remove"
+msgstr "Eemalda"
+
+#: src/EBox/Samba.pm:1592
+msgid "Create directory"
+msgstr "Loo kataloog"
+
+#: src/EBox/Samba.pm:1593
+msgid "Remove directory"
+msgstr "Eemalda kataloog"
+
+#: src/EBox/Samba.pm:1594
+msgid "Rename"
+msgstr "Muuda nime"
+
+#: src/EBox/Samba.pm:1600 src/EBox/Samba.pm:1609
+msgid "File name"
+msgstr "Faili nimi"
+
+#: src/EBox/Samba.pm:1601 src/EBox/Samba.pm:1605
+msgid "Virus"
+msgstr "Viirus"
+
+#: src/EBox/Samba.pm:1602
+msgid "Type"
+msgstr "Tüüp"
+
+#: src/EBox/Samba.pm:1610
+msgid "Quarantined file name"
+msgstr "Karantiinis oleva faili nimi"
+
+#: src/EBox/Samba.pm:1611 src/EBox/Samba.pm:1614
+msgid "Quarantine"
+msgstr "Karantiin"
+
+#: src/EBox/Samba.pm:1617
+msgid "Samba access"
+msgstr "Samba ligipääs"
+
+#: src/EBox/Samba.pm:1628
+msgid "Samba virus"
+msgstr "Samba viirus"
+
+#: src/EBox/Samba.pm:1639
+msgid "Samba quarantine"
+msgstr "Samba karantiin"
 
 #: src/templates/delete.mas:11
 msgid ""
@@ -731,3 +742,12 @@ msgstr "printerite moodul"
 #: src/templates/samba.mas:180
 msgid "file sharing module"
 msgstr "failide jagamise moodul"
+
+#: stubs/smb.conf.mas:105
+msgid "Home Directories"
+msgstr "Kodukataloogid"
+
+#: stubs/smb.conf.mas:131
+#, perl-brace-format
+msgid "{group} share directory"
+msgstr "{group} jagatud kataloog"

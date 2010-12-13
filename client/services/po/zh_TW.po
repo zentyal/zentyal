@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-services 0.12.99\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-08-28 23:41+0200\n"
+"POT-Creation-Date: 2010-12-13 08:42+0100\n"
 "PO-Revision-Date: 2009-08-04 08:01+0200\n"
 "Last-Translator: Chao-Hsiung Liao <j_h_liau@yahoo.com.tw>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
@@ -59,6 +59,19 @@ msgstr "eBox 管理"
 msgid "Zentyal Administration Web Server"
 msgstr "eBox 管理埠"
 
+#: src/EBox/Services.pm:47 src/EBox/Model/ServiceTable.pm:144
+msgid "Services"
+msgstr "服務"
+
+#: src/EBox/Services.pm:399
+msgid "port"
+msgstr "連接埠"
+
+#: src/EBox/Services.pm:402
+#, fuzzy
+msgid "Zentyal Administration port"
+msgstr "eBox 管理埠"
+
 #: src/EBox/Model/ServiceTable.pm:102
 msgid "Domain"
 msgstr "網域"
@@ -94,10 +107,6 @@ msgstr "設置"
 #: src/EBox/Model/ServiceTable.pm:143
 msgid "List of services"
 msgstr "服務列表"
-
-#: src/EBox/Model/ServiceTable.pm:144 src/EBox/Services.pm:47
-msgid "Services"
-msgstr "服務"
 
 #: src/EBox/Model/ServiceTable.pm:154
 #: src/EBox/Model/ServiceConfigurationTable.pm:172
@@ -136,12 +145,3 @@ msgstr "服務設定"
 #: src/EBox/Model/ServiceConfigurationTable.pm:196
 msgid "This protocol does not use ports"
 msgstr "這個通訊協定不使用連接埠"
-
-#: src/EBox/Services.pm:399
-msgid "port"
-msgstr "連接埠"
-
-#: src/EBox/Services.pm:402
-#, fuzzy
-msgid "Zentyal Administration port"
-msgstr "eBox 管理埠"

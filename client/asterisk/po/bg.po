@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-asterisk 1.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-08-28 23:07+0200\n"
+"POT-Creation-Date: 2010-12-13 08:28+0100\n"
 "PO-Revision-Date: 2009-10-04 07:55+0200\n"
 "Last-Translator: Тони Стоев <ebox@tonistoev.info>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
@@ -23,7 +23,7 @@ msgstr ""
 msgid "Zentyal VoIP system"
 msgstr "eBox VoIP система"
 
-#: src/EBox/Asterisk.pm:74 src/EBox/Asterisk.pm:715
+#: src/EBox/Asterisk.pm:74 src/EBox/Asterisk.pm:719
 #: src/EBox/Composite/General.pm:67
 msgid "VoIP"
 msgstr "VoIP"
@@ -75,7 +75,7 @@ msgstr "Настройване на гласовата поща"
 msgid "General"
 msgstr "Общи"
 
-#: src/EBox/Asterisk.pm:489 src/EBox/Model/Meetings.pm:190
+#: src/EBox/Asterisk.pm:489 src/EBox/Model/Meetings.pm:191
 msgid "Meetings"
 msgstr "Събрания"
 
@@ -116,89 +116,122 @@ msgstr "Време на връзка"
 msgid "VoIP Online Users"
 msgstr "Включени потребители на VoIP"
 
-#: src/EBox/Asterisk.pm:660
+#: src/EBox/Asterisk.pm:661
 msgid "VoIP Users in Meetings"
 msgstr "Потребители на VoIP в срещи"
 
-#: src/EBox/Asterisk.pm:692
+#: src/EBox/Asterisk.pm:696
 msgid "Date"
 msgstr ""
 
-#: src/EBox/Asterisk.pm:693
+#: src/EBox/Asterisk.pm:697
 msgid "From"
 msgstr ""
 
-#: src/EBox/Asterisk.pm:694
+#: src/EBox/Asterisk.pm:698
 msgid "To"
 msgstr ""
 
-#: src/EBox/Asterisk.pm:695
+#: src/EBox/Asterisk.pm:699
 #, fuzzy
 msgid "Duration"
 msgstr "Описание"
 
-#: src/EBox/Asterisk.pm:696
+#: src/EBox/Asterisk.pm:700
 #, fuzzy
 msgid "Channel"
 msgstr "Промяна"
 
-#: src/EBox/Asterisk.pm:697
+#: src/EBox/Asterisk.pm:701
 msgid "Destination Channel"
 msgstr ""
 
-#: src/EBox/Asterisk.pm:698
+#: src/EBox/Asterisk.pm:702
 msgid "Application"
 msgstr ""
 
-#: src/EBox/Asterisk.pm:699
+#: src/EBox/Asterisk.pm:703
 msgid "Application Data"
 msgstr ""
 
-#: src/EBox/Asterisk.pm:700
+#: src/EBox/Asterisk.pm:704
 msgid "Event"
 msgstr ""
 
-#: src/EBox/Asterisk.pm:708
+#: src/EBox/Asterisk.pm:712
 msgid "Answered"
 msgstr ""
 
-#: src/EBox/Asterisk.pm:709
+#: src/EBox/Asterisk.pm:713
 msgid "No Answer"
 msgstr ""
 
-#: src/EBox/Asterisk.pm:710
+#: src/EBox/Asterisk.pm:714
 msgid "Busy"
 msgstr ""
 
-#: src/EBox/Asterisk.pm:711
+#: src/EBox/Asterisk.pm:715
 #, fuzzy
 msgid "Failed"
 msgstr "Включено"
 
-#: src/EBox/Model/Localnets.pm:88
-#, fuzzy, perl-brace-format
-msgid ""
-"Networks attached directly to internal interfaces, like {net}, are always "
-"considered local networks so it is not neccessary to add them."
+#: src/EBox/Asterisk/Extensions.pm:230
+#, fuzzy
+msgid "User extension"
+msgstr "Вътрешен номер на потребителя"
+
+#: src/EBox/Asterisk/Extensions.pm:323 src/EBox/Asterisk/Extensions.pm:718
+#: src/EBox/Model/Meetings.pm:151 src/EBox/Model/Settings.pm:92
+#: src/templates/group.mas:41 src/templates/user.mas:38
+msgid "Extension"
+msgstr "Вътрешен номер"
+
+#: src/EBox/Asterisk/Extensions.pm:642
+#, fuzzy
+msgid "Queue extension"
+msgstr "вътрешен номер"
+
+#: src/EBox/CGI/AsteriskGroupOptions.pm:42
+msgid "group"
 msgstr ""
-"Мрежите свързани пряко към вътрешни интерфейси, като {net}, се считат за "
-"локални, така че не е необходимо да бъдат добавяни."
 
-#: src/EBox/Model/Localnets.pm:113
-msgid "Local network"
-msgstr "Локална мрежа"
+#: src/EBox/CGI/AsteriskUserOptions.pm:43
+msgid "username"
+msgstr "потребителско име"
 
-#: src/EBox/Model/Localnets.pm:119 src/EBox/Model/Meetings.pm:178
+#: src/EBox/Model/Meetings.pm:95
+#, perl-brace-format
+msgid ""
+"You must install dahdi and linux-headers packages to use Meetings.{br}Run "
+"the following command: sudo apt-get install {kernels} dahdi."
+msgstr ""
+
+#: src/EBox/Model/Meetings.pm:120 src/EBox/Model/Meetings.pm:128
+#: src/EBox/Model/Settings.pm:84
+msgid "extension"
+msgstr "вътрешен номер"
+
+#: src/EBox/Model/Meetings.pm:155
+#, fuzzy, perl-brace-format
+msgid "A number between {min} and {max}."
+msgstr "Число между {min} и {max}"
+
+#: src/EBox/Model/Meetings.pm:171 src/EBox/Model/Provider.pm:111
+msgid "Password"
+msgstr "Парола"
+
+#: src/EBox/Model/Meetings.pm:179 src/EBox/Model/Localnets.pm:119
 msgid "Description"
 msgstr "Описание"
 
-#: src/EBox/Model/Localnets.pm:130
-msgid "Local networks"
-msgstr "Локални мрежи"
+#: src/EBox/Model/Meetings.pm:190
+#, fuzzy
+msgid "List of Meetings"
+msgstr "Събрания"
 
-#: src/EBox/Model/Localnets.pm:131
-msgid "local network"
-msgstr "локална мрежа"
+#: src/EBox/Model/Meetings.pm:192
+msgid "meeting"
+msgstr "среща"
 
 #: src/EBox/Model/AsteriskUser.pm:50
 #, fuzzy
@@ -208,141 +241,6 @@ msgstr "Астериск сметка"
 #: src/EBox/Model/AsteriskUser.pm:58
 msgid "Asterisk"
 msgstr "Астериск"
-
-#: src/EBox/Model/Settings.pm:84 src/EBox/Model/Meetings.pm:119
-#: src/EBox/Model/Meetings.pm:127
-msgid "extension"
-msgstr "вътрешен номер"
-
-#: src/EBox/Model/Settings.pm:92 src/EBox/Model/Meetings.pm:150
-#: src/EBox/Asterisk/Extensions.pm:323 src/EBox/Asterisk/Extensions.pm:718
-#: src/templates/user.mas:38 src/templates/group.mas:41
-msgid "Extension"
-msgstr "Вътрешен номер"
-
-#: src/EBox/Model/Settings.pm:117
-msgid "Enable demo extensions"
-msgstr "Включване на демо вътрешни номера"
-
-#: src/EBox/Model/Settings.pm:123
-msgid "Enable outgoing calls"
-msgstr "Допускане на изходящи обаждания"
-
-#: src/EBox/Model/Settings.pm:129
-msgid "Voicemail extension"
-msgstr "Вътрешен номер за гласова поща"
-
-#: src/EBox/Model/Settings.pm:136
-msgid "VoIP domain"
-msgstr "VoIP област"
-
-#: src/EBox/Model/Settings.pm:145
-msgid "General configuration"
-msgstr "Общи настройки"
-
-#: src/EBox/Model/Settings.pm:149
-msgid "General Asterisk server configuration"
-msgstr "Общи настройки на Астериск сървър"
-
-#: src/EBox/Model/Settings.pm:151
-#, fuzzy
-msgid "General Asterisk server configuration updated."
-msgstr "Общите настройки на Астериск сървър са обновени."
-
-#: src/EBox/Model/NAT.pm:96
-#, fuzzy
-msgid "Zentyal is behind NAT"
-msgstr "eBox е зад NAT."
-
-#: src/EBox/Model/NAT.pm:101
-msgid "No"
-msgstr "Не"
-
-#: src/EBox/Model/NAT.pm:120
-msgid "NAT configuration"
-msgstr "Настройки за NAT"
-
-#: src/EBox/Model/NAT.pm:124
-msgid "NAT Asterisk server configuration"
-msgstr "Настройки на Астериск сървър за NAT"
-
-#: src/EBox/Model/NAT.pm:126
-#, fuzzy
-msgid "NAT Asterisk server configuration updated."
-msgstr "Настройките на Астериск сървър за NAT са обновени."
-
-#: src/EBox/Model/Provider.pm:68
-msgid "Custom"
-msgstr ""
-
-#: src/EBox/Model/Provider.pm:89
-#, fuzzy
-msgid "Provider"
-msgstr "SIP доставчик"
-
-#: src/EBox/Model/Provider.pm:95
-msgid "Name"
-msgstr "Име"
-
-#: src/EBox/Model/Provider.pm:100
-msgid "VoIP service provider name."
-msgstr ""
-
-#: src/EBox/Model/Provider.pm:104
-msgid "Username"
-msgstr "Потребителско име"
-
-#: src/EBox/Model/Provider.pm:111 src/EBox/Model/Meetings.pm:170
-msgid "Password"
-msgstr "Парола"
-
-#: src/EBox/Model/Provider.pm:118
-msgid "Server"
-msgstr "Сървър"
-
-#: src/EBox/Model/Provider.pm:126
-msgid "Recipient of incoming calls"
-msgstr "Получател на входящи обаждания"
-
-#: src/EBox/Model/Provider.pm:130
-#, fuzzy
-msgid "Extension recipient of incoming calls through the provider."
-msgstr "Получател на входящи обаждания"
-
-#: src/EBox/Model/Provider.pm:137
-msgid "SIP provider"
-msgstr "SIP доставчик"
-
-#: src/EBox/Model/Provider.pm:141
-#, fuzzy
-msgid "SIP provider for outgoing calls configuration."
-msgstr "Настройки на SIP доставчик за изходящи обаждания"
-
-#: src/EBox/Model/Provider.pm:143
-#, fuzzy
-msgid "SIP provider configuration updated."
-msgstr "Настройките на SIP доставчик са обновени."
-
-#: src/EBox/Model/Meetings.pm:94
-#, perl-brace-format
-msgid ""
-"You must install dahdi and linux-headers packages to use Meetings.{br}Run "
-"the following command: sudo apt-get install {kernels} dahdi."
-msgstr ""
-
-#: src/EBox/Model/Meetings.pm:154
-#, fuzzy, perl-brace-format
-msgid "A number between {min} and {max}."
-msgstr "Число между {min} и {max}"
-
-#: src/EBox/Model/Meetings.pm:189
-#, fuzzy
-msgid "List of Meetings"
-msgstr "Събрания"
-
-#: src/EBox/Model/Meetings.pm:191
-msgid "meeting"
-msgstr "среща"
 
 #: src/EBox/Model/Voicemail.pm:75 src/EBox/Model/Voicemail.pm:122
 msgid "Voicemail settings"
@@ -377,60 +275,129 @@ msgstr "Настройките са успешно обновени."
 msgid "You have not an VoIP account. Maybe VoIP is not enabled in this server"
 msgstr ""
 
+#: src/EBox/Model/Localnets.pm:88
+#, fuzzy, perl-brace-format
+msgid ""
+"Networks attached directly to internal interfaces, like {net}, are always "
+"considered local networks so it is not neccessary to add them."
+msgstr ""
+"Мрежите свързани пряко към вътрешни интерфейси, като {net}, се считат за "
+"локални, така че не е необходимо да бъдат добавяни."
+
+#: src/EBox/Model/Localnets.pm:113
+msgid "Local network"
+msgstr "Локална мрежа"
+
+#: src/EBox/Model/Localnets.pm:130
+msgid "Local networks"
+msgstr "Локални мрежи"
+
+#: src/EBox/Model/Localnets.pm:131
+msgid "local network"
+msgstr "локална мрежа"
+
+#: src/EBox/Model/Settings.pm:117
+msgid "Enable demo extensions"
+msgstr "Включване на демо вътрешни номера"
+
+#: src/EBox/Model/Settings.pm:123
+msgid "Enable outgoing calls"
+msgstr "Допускане на изходящи обаждания"
+
+#: src/EBox/Model/Settings.pm:129
+msgid "Voicemail extension"
+msgstr "Вътрешен номер за гласова поща"
+
+#: src/EBox/Model/Settings.pm:136
+msgid "VoIP domain"
+msgstr "VoIP област"
+
+#: src/EBox/Model/Settings.pm:145
+msgid "General configuration"
+msgstr "Общи настройки"
+
+#: src/EBox/Model/Settings.pm:149
+msgid "General Asterisk server configuration"
+msgstr "Общи настройки на Астериск сървър"
+
+#: src/EBox/Model/Settings.pm:151
+#, fuzzy
+msgid "General Asterisk server configuration updated."
+msgstr "Общите настройки на Астериск сървър са обновени."
+
+#: src/EBox/Model/Provider.pm:68
+msgid "Custom"
+msgstr ""
+
+#: src/EBox/Model/Provider.pm:89
+#, fuzzy
+msgid "Provider"
+msgstr "SIP доставчик"
+
+#: src/EBox/Model/Provider.pm:95
+msgid "Name"
+msgstr "Име"
+
+#: src/EBox/Model/Provider.pm:100
+msgid "VoIP service provider name."
+msgstr ""
+
+#: src/EBox/Model/Provider.pm:104
+msgid "Username"
+msgstr "Потребителско име"
+
+#: src/EBox/Model/Provider.pm:118
+msgid "Server"
+msgstr "Сървър"
+
+#: src/EBox/Model/Provider.pm:126
+msgid "Recipient of incoming calls"
+msgstr "Получател на входящи обаждания"
+
+#: src/EBox/Model/Provider.pm:130
+#, fuzzy
+msgid "Extension recipient of incoming calls through the provider."
+msgstr "Получател на входящи обаждания"
+
+#: src/EBox/Model/Provider.pm:137
+msgid "SIP provider"
+msgstr "SIP доставчик"
+
+#: src/EBox/Model/Provider.pm:141
+#, fuzzy
+msgid "SIP provider for outgoing calls configuration."
+msgstr "Настройки на SIP доставчик за изходящи обаждания"
+
+#: src/EBox/Model/Provider.pm:143
+#, fuzzy
+msgid "SIP provider configuration updated."
+msgstr "Настройките на SIP доставчик са обновени."
+
+#: src/EBox/Model/NAT.pm:96
+#, fuzzy
+msgid "Zentyal is behind NAT"
+msgstr "eBox е зад NAT."
+
+#: src/EBox/Model/NAT.pm:101
+msgid "No"
+msgstr "Не"
+
+#: src/EBox/Model/NAT.pm:120
+msgid "NAT configuration"
+msgstr "Настройки за NAT"
+
+#: src/EBox/Model/NAT.pm:124
+msgid "NAT Asterisk server configuration"
+msgstr "Настройки на Астериск сървър за NAT"
+
+#: src/EBox/Model/NAT.pm:126
+#, fuzzy
+msgid "NAT Asterisk server configuration updated."
+msgstr "Настройките на Астериск сървър за NAT са обновени."
+
 #: src/EBox/Composite/General.pm:66
 msgid "Asterisk module"
 msgstr "Астериск модул"
-
-#: src/EBox/Asterisk/Extensions.pm:230
-#, fuzzy
-msgid "User extension"
-msgstr "Вътрешен номер на потребителя"
-
-#: src/EBox/Asterisk/Extensions.pm:642
-#, fuzzy
-msgid "Queue extension"
-msgstr "вътрешен номер"
-
-#: src/EBox/CGI/AsteriskGroupOptions.pm:42
-msgid "group"
-msgstr ""
-
-#: src/EBox/CGI/AsteriskUserOptions.pm:43
-msgid "username"
-msgstr "потребителско име"
-
-#: src/templates/user.mas:8
-msgid "Asterisk account"
-msgstr "Астериск сметка"
-
-#: src/templates/user.mas:10
-msgid "Password for Asterisk service is the user password"
-msgstr "Паролата за Астериск услуга е потребителската парола."
-
-#: src/templates/user.mas:21
-msgid "User account"
-msgstr "Потребителска сметка"
-
-#: src/templates/user.mas:26 src/templates/user.mas:29
-#: src/templates/group.mas:29 src/templates/group.mas:32
-msgid "Disabled"
-msgstr "Изключено"
-
-#: src/templates/user.mas:27 src/templates/user.mas:30
-#: src/templates/group.mas:30 src/templates/group.mas:33
-msgid "Enabled"
-msgstr "Включено"
-
-#: src/templates/user.mas:49 src/templates/user.mas:50
-#: src/templates/group.mas:52 src/templates/group.mas:53
-msgid "Change"
-msgstr "Промяна"
-
-#: src/templates/moduleDisabled.mas:5
-msgid ""
-"The following settings only will take effect when the Asterisk module is "
-"enabled."
-msgstr ""
 
 #: src/templates/group.mas:8
 #, fuzzy
@@ -446,3 +413,36 @@ msgstr ""
 #: src/templates/group.mas:24
 msgid "Group queue"
 msgstr ""
+
+#: src/templates/group.mas:29 src/templates/group.mas:32
+#: src/templates/user.mas:26 src/templates/user.mas:29
+msgid "Disabled"
+msgstr "Изключено"
+
+#: src/templates/group.mas:30 src/templates/group.mas:33
+#: src/templates/user.mas:27 src/templates/user.mas:30
+msgid "Enabled"
+msgstr "Включено"
+
+#: src/templates/group.mas:52 src/templates/group.mas:53
+#: src/templates/user.mas:49 src/templates/user.mas:50
+msgid "Change"
+msgstr "Промяна"
+
+#: src/templates/moduleDisabled.mas:5
+msgid ""
+"The following settings only will take effect when the Asterisk module is "
+"enabled."
+msgstr ""
+
+#: src/templates/user.mas:8
+msgid "Asterisk account"
+msgstr "Астериск сметка"
+
+#: src/templates/user.mas:10
+msgid "Password for Asterisk service is the user password"
+msgstr "Паролата за Астериск услуга е потребителската парола."
+
+#: src/templates/user.mas:21
+msgid "User account"
+msgstr "Потребителска сметка"

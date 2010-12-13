@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-firewall 1.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-08-28 23:35+0200\n"
+"POT-Creation-Date: 2010-12-13 08:39+0100\n"
 "PO-Revision-Date: 2010-08-28 08:22+0200\n"
 "Last-Translator: Nagy Ákos <nagy.akos@akos.ro>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
@@ -17,275 +17,16 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n !=1);\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: src/EBox/Firewall/Model/ToInternetRuleTable.pm:65
-msgid "Internal networks"
-msgstr "Belső hálózatok"
-
-#: src/EBox/Firewall/Model/ToInternetRuleTable.pm:77
-#: src/EBox/Firewall/Model/EBoxOutputRuleTable.pm:77
-#: src/EBox/Firewall/Model/ExternalToInternalRuleTable.pm:80
-#: src/EBox/Firewall/Model/InternalToEBoxRuleTable.pm:77
-#: src/EBox/Firewall/Model/ExternalToEBoxRuleTable.pm:79
-#: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:161
-msgid "rule"
-msgstr "szabály"
-
-#: src/EBox/Firewall/Model/EBoxOutputRuleTable.pm:68
-msgid "Traffic coming out from Zentyal"
-msgstr "A Zentyalra kívülről jövő forgalom szűrő szabályai"
-
-#: src/EBox/Firewall/Model/ExternalToInternalRuleTable.pm:68
-msgid "External networks to internal networks"
-msgstr "A külső hálózatból a belső hálózat fele haladó szűrő szabályok"
-
-#: src/EBox/Firewall/Model/RedirectsTable.pm:145
-msgid "Contradictory rule found. Remove it first"
-msgstr "Egymásnak ellentmondó szabályok találhatók. Törölje előbb őket"
-
-#: src/EBox/Firewall/Model/RedirectsTable.pm:249
-msgid "Interface"
-msgstr "Adapter"
-
-#: src/EBox/Firewall/Model/RedirectsTable.pm:256
-msgid "Original destination"
-msgstr "Eredeti cél"
-
-#: src/EBox/Firewall/Model/RedirectsTable.pm:264
-msgid "IP Address"
-msgstr "IP cím"
-
-#: src/EBox/Firewall/Model/RedirectsTable.pm:268
-msgid "Object"
-msgstr "Objektum"
-
-#: src/EBox/Firewall/Model/RedirectsTable.pm:279
-msgid "Original destination port"
-msgstr "Eredeti cél port"
-
-#: src/EBox/Firewall/Model/RedirectsTable.pm:285 src/EBox/Firewall.pm:801
-msgid "Protocol"
-msgstr "Protokol"
-
-#: src/EBox/Firewall/Model/RedirectsTable.pm:292
-#: src/EBox/Firewall/Model/BaseRuleTable.pm:121 src/EBox/Firewall.pm:799
-msgid "Source"
-msgstr "Forrás"
-
-#: src/EBox/Firewall/Model/RedirectsTable.pm:297
-#: src/EBox/Firewall/Model/BaseRuleTable.pm:126
-#: src/EBox/Firewall/Model/BaseRuleTable.pm:152
-msgid "Any"
-msgstr "Bármely"
-
-#: src/EBox/Firewall/Model/RedirectsTable.pm:300
-#: src/EBox/Firewall/Model/BaseRuleTable.pm:129
-msgid "Source IP"
-msgstr "Forrás IP"
-
-#: src/EBox/Firewall/Model/RedirectsTable.pm:304
-#: src/EBox/Firewall/Model/BaseRuleTable.pm:133
-msgid "Source object"
-msgstr "Forrás objektum"
-
-#: src/EBox/Firewall/Model/RedirectsTable.pm:315
-#: src/EBox/Firewall/Model/BaseRuleTable.pm:155
-msgid "Destination IP"
-msgstr "Cél IP"
-
-#: src/EBox/Firewall/Model/RedirectsTable.pm:321
-msgid "Port"
-msgstr "Port"
-
-#: src/EBox/Firewall/Model/RedirectsTable.pm:326
-msgid "Same"
-msgstr "Ugyanaz"
-
-#: src/EBox/Firewall/Model/RedirectsTable.pm:329
-msgid "Other"
-msgstr "Másik"
-
-#: src/EBox/Firewall/Model/RedirectsTable.pm:337
-msgid "Log"
-msgstr "Log"
-
-#: src/EBox/Firewall/Model/RedirectsTable.pm:339
-msgid "Log new forwarded connections"
-msgstr "Az új, továbbított kapcsolatok naplózása"
-
-#: src/EBox/Firewall/Model/RedirectsTable.pm:344
-#: src/EBox/Firewall/Model/BaseRuleTable.pm:185
-msgid "Description"
-msgstr "Leírás"
-
-#: src/EBox/Firewall/Model/RedirectsTable.pm:361
-msgid "List of forwarded ports"
-msgstr "A továbbított portok listája"
-
-#: src/EBox/Firewall/Model/RedirectsTable.pm:362 src/EBox/Firewall.pm:785
-msgid "Port Forwarding"
-msgstr "Port átirányítás"
-
-#: src/EBox/Firewall/Model/RedirectsTable.pm:370
-msgid "forwarding"
-msgstr "átirányítás"
-
-#: src/EBox/Firewall/Model/InternalToEBoxRuleTable.pm:68
-msgid "Internal networks to Zentyal"
-msgstr "A belső hálózatból a Zentyal fele haladó szűrő szabályok"
-
-#: src/EBox/Firewall/Model/ExternalToEBoxRuleTable.pm:68
-msgid "External networks to Zentyal"
-msgstr "A külső hálózatokból a Zentyal felé szűrő szabályok"
-
-#: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:37
-msgid "Input"
-msgstr "Bejövet"
-
-#: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:38
-msgid "External Input"
-msgstr "Külső bejövet"
-
-#: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:39
-msgid "Output"
-msgstr "Kimenet"
-
-#: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:40
-msgid "Forward"
-msgstr "Átirányítás"
-
-#: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:41
-msgid "NAT prerouting"
-msgstr "NAT prerouting"
-
-#: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:42
-msgid "NAT postrouting"
-msgstr "NAT postrouting"
-
-#: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:118
-msgid "Rule"
-msgstr "Szabály"
-
-#: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:123
-msgid "Enabled"
-msgstr "Engedélyezve"
-
-#: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:129
-msgid "Type"
-msgstr "Típus"
-
-#: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:134
-msgid "Module"
-msgstr "Modul"
-
-#: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:139
-msgid "Condition"
-msgstr "Feltétel"
-
-#: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:144
-#: src/EBox/Firewall/Model/BaseRuleTable.pm:112 src/EBox/Firewall.pm:804
-msgid "Decision"
-msgstr "Döntés"
-
-#: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:153
-#: src/templates/filter.mas:51
-msgid "Rules added by Zentyal services (Advanced)"
-msgstr "A Zentyal szolgáltatások által hozzáadott szabályok (Haladó)"
-
-#: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:180
-#: src/EBox/Firewall/Model/BaseRuleTable.pm:213 src/EBox/Firewall.pm:782
-#: src/EBox/CGI/Filter.pm:28
-msgid "Packet Filter"
-msgstr "Csomagszűrő"
-
-#: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:194
-#: src/EBox/Firewall/Model/BaseRuleTable.pm:227
-msgid "Configure Rules"
-msgstr "Szabályok beállítása"
-
-#: src/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:46
-#: src/EBox/Firewall/Model/Report/PacketTrafficGraph.pm:52
-msgid "packets dropped"
-msgstr "csomag eldobva"
-
-#: src/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:60
-#: src/EBox/Firewall.pm:796
-msgid "Date"
-msgstr "Dátum"
-
-#: src/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:66
-msgid "Packets dropped"
-msgstr "Eldobott csomagok"
-
-#: src/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:78
-msgid "Packet traffic details"
-msgstr "Csomagforgalom részletezve"
-
-#: src/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:86
-msgid "traffic"
-msgstr "forgalom"
-
-#: src/EBox/Firewall/Model/Report/PacketTrafficGraph.pm:64
-msgid "Firewall packet traffic chart"
-msgstr "A tűzfal csomagforgalom-grafikonja"
-
-#: src/EBox/Firewall/Model/Report/PacketTrafficGraph.pm:86
-msgid "Packet traffic"
-msgstr "Csomagforgalom"
-
-#: src/EBox/Firewall/Model/BaseRuleTable.pm:66
-msgid "ACCEPT"
-msgstr "ACCEPT"
-
-#: src/EBox/Firewall/Model/BaseRuleTable.pm:68
-msgid "DENY"
-msgstr "DENY"
-
-#: src/EBox/Firewall/Model/BaseRuleTable.pm:70 src/EBox/Firewall.pm:809
-msgid "LOG"
-msgstr "LOG"
-
-#: src/EBox/Firewall/Model/BaseRuleTable.pm:147 src/EBox/Firewall.pm:800
-msgid "Destination"
-msgstr "Cél"
-
-#: src/EBox/Firewall/Model/BaseRuleTable.pm:160
-msgid "Destination object"
-msgstr "Cél objektum"
-
-#: src/EBox/Firewall/Model/BaseRuleTable.pm:175
-msgid "Service"
-msgstr "Szolgáltatás"
-
-#: src/EBox/Firewall/Model/BaseRuleTable.pm:179
-msgid ""
-"If inverse match is ticked, any service but the selected one will match this "
-"rule"
-msgstr ""
-"Ha az inverz egyezés be van jelölve, a bejelöltön kívül minden más "
-"szolgáltatásra vonatkozik a szabály"
-
-#: src/EBox/Firewall/Model/BaseRuleTable.pm:242
-msgid "'any service' cannot have a inverse march"
-msgstr "a 'bármely szolgáltatás'-nak nem lehet inverze"
-
-#: src/EBox/Firewall/Composite/Report/PacketTrafficReport.pm:69
-msgid "Packet traffic report"
-msgstr "Csomagforgalom összesítő"
-
-#: src/EBox/Firewall/Composite/Report/PacketTrafficReport.pm:70
-msgid "Firewall packet traffic report"
-msgstr "A tűzfal csomagforgalom összesítője"
-
-#: src/EBox/Firewall/IptablesRedirectRule.pm:78 src/EBox/Iptables.pm:838
-#: src/EBox/Iptables.pm:875
+#: src/EBox/Iptables.pm:838 src/EBox/Iptables.pm:875
+#: src/EBox/Firewall/IptablesRedirectRule.pm:78
 msgid ""
 "You must set the iptables_log_limit variable in the ebox configuration file"
 msgstr ""
 "Be kell állítsa az iptables_log_limit változót az ebox konfigurációs "
 "fájljában"
 
-#: src/EBox/Firewall/IptablesRedirectRule.pm:83 src/EBox/Iptables.pm:844
-#: src/EBox/Iptables.pm:881
+#: src/EBox/Iptables.pm:844 src/EBox/Iptables.pm:881
+#: src/EBox/Firewall/IptablesRedirectRule.pm:83
 msgid ""
 "You must set the iptables_log_burst variable in the ebox configuration file"
 msgstr ""
@@ -341,6 +82,21 @@ msgstr "port"
 msgid "protocol"
 msgstr "protokol"
 
+#: src/EBox/Firewall.pm:782 src/EBox/CGI/Filter.pm:28
+#: src/EBox/Firewall/Model/BaseRuleTable.pm:213
+#: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:180
+msgid "Packet Filter"
+msgstr "Csomagszűrő"
+
+#: src/EBox/Firewall.pm:785 src/EBox/Firewall/Model/RedirectsTable.pm:362
+msgid "Port Forwarding"
+msgstr "Port átirányítás"
+
+#: src/EBox/Firewall.pm:796
+#: src/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:60
+msgid "Date"
+msgstr "Dátum"
+
 #: src/EBox/Firewall.pm:797
 msgid "Input interface"
 msgstr "Bejövő adapter"
@@ -348,6 +104,19 @@ msgstr "Bejövő adapter"
 #: src/EBox/Firewall.pm:798
 msgid "Output interface"
 msgstr "Kimenő adapter"
+
+#: src/EBox/Firewall.pm:799 src/EBox/Firewall/Model/RedirectsTable.pm:292
+#: src/EBox/Firewall/Model/BaseRuleTable.pm:121
+msgid "Source"
+msgstr "Forrás"
+
+#: src/EBox/Firewall.pm:800 src/EBox/Firewall/Model/BaseRuleTable.pm:147
+msgid "Destination"
+msgstr "Cél"
+
+#: src/EBox/Firewall.pm:801 src/EBox/Firewall/Model/RedirectsTable.pm:285
+msgid "Protocol"
+msgstr "Protokol"
 
 #: src/EBox/Firewall.pm:802
 msgid "Source port"
@@ -357,13 +126,244 @@ msgstr "Forrásport"
 msgid "Destination port"
 msgstr "Célport"
 
+#: src/EBox/Firewall.pm:804 src/EBox/Firewall/Model/BaseRuleTable.pm:112
+#: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:144
+msgid "Decision"
+msgstr "Döntés"
+
 #: src/EBox/Firewall.pm:809
 msgid "DROP"
 msgstr "DROP"
 
+#: src/EBox/Firewall.pm:809 src/EBox/Firewall/Model/BaseRuleTable.pm:70
+msgid "LOG"
+msgstr "LOG"
+
 #: src/EBox/Firewall.pm:809
 msgid "REDIRECT"
 msgstr "REDIRECT"
+
+#: src/EBox/Firewall/Model/EBoxOutputRuleTable.pm:68
+msgid "Traffic coming out from Zentyal"
+msgstr "A Zentyalra kívülről jövő forgalom szűrő szabályai"
+
+#: src/EBox/Firewall/Model/EBoxOutputRuleTable.pm:77
+#: src/EBox/Firewall/Model/ExternalToInternalRuleTable.pm:80
+#: src/EBox/Firewall/Model/ExternalToEBoxRuleTable.pm:79
+#: src/EBox/Firewall/Model/InternalToEBoxRuleTable.pm:77
+#: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:161
+#: src/EBox/Firewall/Model/ToInternetRuleTable.pm:77
+msgid "rule"
+msgstr "szabály"
+
+#: src/EBox/Firewall/Model/ExternalToInternalRuleTable.pm:68
+msgid "External networks to internal networks"
+msgstr "A külső hálózatból a belső hálózat fele haladó szűrő szabályok"
+
+#: src/EBox/Firewall/Model/RedirectsTable.pm:145
+msgid "Contradictory rule found. Remove it first"
+msgstr "Egymásnak ellentmondó szabályok találhatók. Törölje előbb őket"
+
+#: src/EBox/Firewall/Model/RedirectsTable.pm:249
+msgid "Interface"
+msgstr "Adapter"
+
+#: src/EBox/Firewall/Model/RedirectsTable.pm:256
+msgid "Original destination"
+msgstr "Eredeti cél"
+
+#: src/EBox/Firewall/Model/RedirectsTable.pm:264
+msgid "IP Address"
+msgstr "IP cím"
+
+#: src/EBox/Firewall/Model/RedirectsTable.pm:268
+msgid "Object"
+msgstr "Objektum"
+
+#: src/EBox/Firewall/Model/RedirectsTable.pm:279
+msgid "Original destination port"
+msgstr "Eredeti cél port"
+
+#: src/EBox/Firewall/Model/RedirectsTable.pm:297
+#: src/EBox/Firewall/Model/BaseRuleTable.pm:126
+#: src/EBox/Firewall/Model/BaseRuleTable.pm:152
+msgid "Any"
+msgstr "Bármely"
+
+#: src/EBox/Firewall/Model/RedirectsTable.pm:300
+#: src/EBox/Firewall/Model/BaseRuleTable.pm:129
+msgid "Source IP"
+msgstr "Forrás IP"
+
+#: src/EBox/Firewall/Model/RedirectsTable.pm:304
+#: src/EBox/Firewall/Model/BaseRuleTable.pm:133
+msgid "Source object"
+msgstr "Forrás objektum"
+
+#: src/EBox/Firewall/Model/RedirectsTable.pm:315
+#: src/EBox/Firewall/Model/BaseRuleTable.pm:155
+msgid "Destination IP"
+msgstr "Cél IP"
+
+#: src/EBox/Firewall/Model/RedirectsTable.pm:321
+msgid "Port"
+msgstr "Port"
+
+#: src/EBox/Firewall/Model/RedirectsTable.pm:326
+msgid "Same"
+msgstr "Ugyanaz"
+
+#: src/EBox/Firewall/Model/RedirectsTable.pm:329
+msgid "Other"
+msgstr "Másik"
+
+#: src/EBox/Firewall/Model/RedirectsTable.pm:337
+msgid "Log"
+msgstr "Log"
+
+#: src/EBox/Firewall/Model/RedirectsTable.pm:339
+msgid "Log new forwarded connections"
+msgstr "Az új, továbbított kapcsolatok naplózása"
+
+#: src/EBox/Firewall/Model/RedirectsTable.pm:344
+#: src/EBox/Firewall/Model/BaseRuleTable.pm:185
+msgid "Description"
+msgstr "Leírás"
+
+#: src/EBox/Firewall/Model/RedirectsTable.pm:361
+msgid "List of forwarded ports"
+msgstr "A továbbított portok listája"
+
+#: src/EBox/Firewall/Model/RedirectsTable.pm:370
+msgid "forwarding"
+msgstr "átirányítás"
+
+#: src/EBox/Firewall/Model/BaseRuleTable.pm:66
+msgid "ACCEPT"
+msgstr "ACCEPT"
+
+#: src/EBox/Firewall/Model/BaseRuleTable.pm:68
+msgid "DENY"
+msgstr "DENY"
+
+#: src/EBox/Firewall/Model/BaseRuleTable.pm:160
+msgid "Destination object"
+msgstr "Cél objektum"
+
+#: src/EBox/Firewall/Model/BaseRuleTable.pm:175
+msgid "Service"
+msgstr "Szolgáltatás"
+
+#: src/EBox/Firewall/Model/BaseRuleTable.pm:179
+msgid ""
+"If inverse match is ticked, any service but the selected one will match this "
+"rule"
+msgstr ""
+"Ha az inverz egyezés be van jelölve, a bejelöltön kívül minden más "
+"szolgáltatásra vonatkozik a szabály"
+
+#: src/EBox/Firewall/Model/BaseRuleTable.pm:227
+#: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:194
+msgid "Configure Rules"
+msgstr "Szabályok beállítása"
+
+#: src/EBox/Firewall/Model/BaseRuleTable.pm:242
+msgid "'any service' cannot have a inverse march"
+msgstr "a 'bármely szolgáltatás'-nak nem lehet inverze"
+
+#: src/EBox/Firewall/Model/ExternalToEBoxRuleTable.pm:68
+msgid "External networks to Zentyal"
+msgstr "A külső hálózatokból a Zentyal felé szűrő szabályok"
+
+#: src/EBox/Firewall/Model/InternalToEBoxRuleTable.pm:68
+msgid "Internal networks to Zentyal"
+msgstr "A belső hálózatból a Zentyal fele haladó szűrő szabályok"
+
+#: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:37
+msgid "Input"
+msgstr "Bejövet"
+
+#: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:38
+msgid "External Input"
+msgstr "Külső bejövet"
+
+#: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:39
+msgid "Output"
+msgstr "Kimenet"
+
+#: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:40
+msgid "Forward"
+msgstr "Átirányítás"
+
+#: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:41
+msgid "NAT prerouting"
+msgstr "NAT prerouting"
+
+#: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:42
+msgid "NAT postrouting"
+msgstr "NAT postrouting"
+
+#: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:118
+msgid "Rule"
+msgstr "Szabály"
+
+#: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:123
+msgid "Enabled"
+msgstr "Engedélyezve"
+
+#: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:129
+msgid "Type"
+msgstr "Típus"
+
+#: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:134
+msgid "Module"
+msgstr "Modul"
+
+#: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:139
+msgid "Condition"
+msgstr "Feltétel"
+
+#: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:153
+#: src/templates/filter.mas:51
+msgid "Rules added by Zentyal services (Advanced)"
+msgstr "A Zentyal szolgáltatások által hozzáadott szabályok (Haladó)"
+
+#: src/EBox/Firewall/Model/ToInternetRuleTable.pm:65
+msgid "Internal networks"
+msgstr "Belső hálózatok"
+
+#: src/EBox/Firewall/Model/Report/PacketTrafficGraph.pm:52
+#: src/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:46
+msgid "packets dropped"
+msgstr "csomag eldobva"
+
+#: src/EBox/Firewall/Model/Report/PacketTrafficGraph.pm:64
+msgid "Firewall packet traffic chart"
+msgstr "A tűzfal csomagforgalom-grafikonja"
+
+#: src/EBox/Firewall/Model/Report/PacketTrafficGraph.pm:86
+msgid "Packet traffic"
+msgstr "Csomagforgalom"
+
+#: src/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:66
+msgid "Packets dropped"
+msgstr "Eldobott csomagok"
+
+#: src/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:78
+msgid "Packet traffic details"
+msgstr "Csomagforgalom részletezve"
+
+#: src/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:86
+msgid "traffic"
+msgstr "forgalom"
+
+#: src/EBox/Firewall/Composite/Report/PacketTrafficReport.pm:69
+msgid "Packet traffic report"
+msgstr "Csomagforgalom összesítő"
+
+#: src/EBox/Firewall/Composite/Report/PacketTrafficReport.pm:70
+msgid "Firewall packet traffic report"
+msgstr "A tűzfal csomagforgalom összesítője"
 
 #: src/templates/filter.mas:6
 msgid "Filtering rules from internal networks to Zentyal"

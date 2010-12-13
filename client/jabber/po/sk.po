@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-jabber 1.3.3\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-08-28 23:36+0200\n"
+"POT-Creation-Date: 2010-12-13 08:39+0100\n"
 "PO-Revision-Date: 2010-09-06 14:57+0200\n"
 "Last-Translator: Bokor Pavol <bokor@4enzo.net>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
@@ -41,14 +41,9 @@ msgstr "Zentyal bude potrebovať túto schému na ukladanie užívateľov jabber
 msgid "To properly configure ejabberd."
 msgstr "Riadne nastaviť ejabberd."
 
-#: src/EBox/Jabber/Model/JabberUser.pm:50
-msgid "Jabber Account"
-msgstr "Jabber konto"
-
-#: src/EBox/Jabber/Model/JabberUser.pm:58
-#: src/EBox/Jabber/Composite/General.pm:67
-msgid "Jabber"
-msgstr "Jabber"
+#: src/EBox/CGI/JabberUserOptions.pm:43
+msgid "username"
+msgstr "užívateľské meno"
 
 #: src/EBox/Jabber/Model/GeneralSettings.pm:92 src/templates/jabber.mas:22
 #: src/templates/jabber.mas:25
@@ -87,13 +82,18 @@ msgstr "Hlavné nastavenie"
 msgid "General Jabber server configuration settings updated."
 msgstr "Hlavné nastavenie Jabber servera bolo aktualizované."
 
+#: src/EBox/Jabber/Model/JabberUser.pm:50
+msgid "Jabber Account"
+msgstr "Jabber konto"
+
+#: src/EBox/Jabber/Model/JabberUser.pm:58
+#: src/EBox/Jabber/Composite/General.pm:67
+msgid "Jabber"
+msgstr "Jabber"
+
 #: src/EBox/Jabber/Composite/General.pm:66
 msgid "Configuration"
 msgstr "Nastavenie"
-
-#: src/EBox/CGI/JabberUserOptions.pm:43
-msgid "username"
-msgstr "užívateľské meno"
 
 #: src/templates/jabber.mas:8
 msgid "Jabber account"

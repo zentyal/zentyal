@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-. 1.5\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-08-28 23:35+0200\n"
+"POT-Creation-Date: 2010-12-13 08:39+0100\n"
 "PO-Revision-Date: 2010-07-21 07:41+0200\n"
 "Last-Translator: Daniel Hedblom <daniel.hedblom@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
@@ -21,14 +21,6 @@ msgstr ""
 #, fuzzy
 msgid "Zentyal FTP Server"
 msgstr "eBox FTP server"
-
-#: src/EBox/FTP.pm:84
-msgid "To configure vsftpd"
-msgstr "För att konfigurera vsftpd"
-
-#: src/EBox/FTP.pm:88
-msgid "To configure vsftpd with LDAP authentication"
-msgstr "För att konfigurera vsftpd med LDAP autentisering"
 
 #: src/EBox/Model/Options.pm:45
 msgid "Disabled"
@@ -78,3 +70,19 @@ msgstr ""
 "är läsbara för alla (chmod o+r /srv/ftp/*). Om du också vill ge ut "
 "skrivrättigheter behöver du skapa ett underbibliotek med skrivrättigheter "
 "för alla. T.ex: mkdir /srv/ftp/incoming ; chmod o+rwx /srv/ftp/incoming"
+
+#: src/EBox/FTP.pm:84
+msgid "To configure vsftpd"
+msgstr "För att konfigurera vsftpd"
+
+#: src/EBox/FTP.pm:88
+msgid "To configure vsftpd with LDAP authentication"
+msgstr "För att konfigurera vsftpd med LDAP autentisering"
+
+#: src/EBox/FTP.pm:146
+msgid "FTP server hosted files"
+msgstr ""
+
+#: src/EBox/FTP.pm:147
+msgid "User homes and anonymous directory"
+msgstr ""

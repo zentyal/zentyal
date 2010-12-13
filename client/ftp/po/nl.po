@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-. 1.5\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-08-28 23:35+0200\n"
+"POT-Creation-Date: 2010-12-13 08:39+0100\n"
 "PO-Revision-Date: 2010-08-20 15:45+0200\n"
 "Last-Translator: Indra Pharazijn <indra6oc@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
@@ -21,14 +21,6 @@ msgstr ""
 #, fuzzy
 msgid "Zentyal FTP Server"
 msgstr "eBox FTP Server"
-
-#: src/EBox/FTP.pm:84
-msgid "To configure vsftpd"
-msgstr "Vsftpd instellen"
-
-#: src/EBox/FTP.pm:88
-msgid "To configure vsftpd with LDAP authentication"
-msgstr "Vsftpd met LDAP authenticatie instellen"
 
 #: src/EBox/Model/Options.pm:45
 msgid "Disabled"
@@ -83,3 +75,19 @@ msgstr ""
 "schrijf rechten wil toekennen dient u een subfolder te maken met schrijf "
 "rechten voor iedereen, bijvoorbeeld: mkdir /srv/ftp/incoming ; chmod o+rwx /"
 "srv/ftp/incoming"
+
+#: src/EBox/FTP.pm:84
+msgid "To configure vsftpd"
+msgstr "Vsftpd instellen"
+
+#: src/EBox/FTP.pm:88
+msgid "To configure vsftpd with LDAP authentication"
+msgstr "Vsftpd met LDAP authenticatie instellen"
+
+#: src/EBox/FTP.pm:146
+msgid "FTP server hosted files"
+msgstr ""
+
+#: src/EBox/FTP.pm:147
+msgid "User homes and anonymous directory"
+msgstr ""

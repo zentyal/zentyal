@@ -5,9 +5,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-jabber 2.0Report-Msgid-Bugs-To: "
-"developers@zentyal.org\n"
-"POT-Creation-Date: 2010-08-25 17:41+0200\n"
+"Project-Id-Version: ebox-jabber 2.0Report-Msgid-Bugs-To: developers@zentyal."
+"org\n"
+"Report-Msgid-Bugs-To: developers@zentyal.org\n"
+"POT-Creation-Date: 2010-12-13 08:39+0100\n"
 "PO-Revision-Date: 2010-10-31 18:20+0100\n"
 "Last-Translator: Kaustav Das Modak <kaustav.dasmodak@yahoo.co.in>\n"
 "Language-Team: none\n"
@@ -16,11 +17,11 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: migration/0001_add_firewall_services.pl:30 src/EBox/Jabber.pm:221
+#: migration/0001_add_firewall_services.pl:45 src/EBox/Jabber.pm:221
 msgid "Jabber Server"
 msgstr "জ্যাবর সার্ভার"
 
-#: src/EBox/JabberLdapUser.pm:263
+#: src/EBox/JabberLdapUser.pm:261
 msgid ""
 "This user has a jabber account. If the user currently connected it will "
 "continue connected until jabber authorization is again required."
@@ -38,7 +39,7 @@ msgstr ""
 msgid "To properly configure ejabberd."
 msgstr ""
 
-#: src/EBox/CGI/JabberUserOptions.pm:45
+#: src/EBox/CGI/JabberUserOptions.pm:43
 msgid "username"
 msgstr ""
 

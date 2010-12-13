@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-software 0.12.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-08-28 23:41+0200\n"
+"POT-Creation-Date: 2010-12-13 08:43+0100\n"
 "PO-Revision-Date: 2010-11-30 02:03+0100\n"
 "Last-Translator: NiZhiqiang <nessus@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
@@ -28,70 +28,59 @@ msgstr "软件服务利用apt升级软件包"
 msgid "rule to allow apt updates"
 msgstr "apt升级规则"
 
-#: src/EBox/Software.pm:55
+#: src/EBox/Software.pm:56
 msgid "Software Management"
 msgstr "软件管理"
 
-#: src/EBox/Software.pm:532
+#: src/EBox/Software.pm:537
 #, perl-brace-format
 msgid ""
 "You cannot modify the automatic update using QA updates from Web UI. To "
 "disable automatic updates, edit {conf} and disable {key} key."
-msgstr "你不能从web界面修改QA自动更新。关闭自动更新，请编辑{conf}文件，禁用{key}。"
+msgstr ""
+"你不能从web界面修改QA自动更新。关闭自动更新，请编辑{conf}文件，禁用{key}。"
 
-#: src/EBox/Software.pm:597
+#: src/EBox/Software.pm:627
 msgid "Zentyal Components"
 msgstr "Zentyal模块"
 
-#: src/EBox/Software.pm:599
+#: src/EBox/Software.pm:629
 msgid "System Updates"
 msgstr "系统升级"
 
-#: src/EBox/Software.pm:601 src/templates/config.mas:19
+#: src/EBox/Software.pm:631 src/templates/config.mas:19
 msgid "Settings"
 msgstr "设置"
 
-#: src/EBox/Software.pm:770
+#: src/EBox/Software.pm:833
 #, perl-brace-format
 msgid ""
 "Software management is currently  locked by {locker}. Please, try again later"
 msgstr "软件管理已被{locker}加锁。请稍后再试"
 
-#: src/EBox/Software.pm:933
+#: src/EBox/Software.pm:993
 msgid "Welcome"
 msgstr "欢迎"
 
-#: src/EBox/Software.pm:935
+#: src/EBox/Software.pm:995
 msgid "Package Selection"
 msgstr "软件包选择"
 
-#: src/EBox/Software.pm:936
+#: src/EBox/Software.pm:996
 msgid "Confirmation"
 msgstr "确认"
 
-#: src/EBox/Software.pm:937
+#: src/EBox/Software.pm:997
 msgid "Installation"
 msgstr "安装"
 
-#: src/EBox/Software.pm:938
+#: src/EBox/Software.pm:998
 msgid "Initial Configuration"
 msgstr "初始配置"
 
-#: src/EBox/Software.pm:939
+#: src/EBox/Software.pm:999
 msgid "Save Changes"
 msgstr "保存变更"
-
-#: src/EBox/CGI/Enable.pm:41
-msgid "automatic updates configuration"
-msgstr "自动更新配置"
-
-#: src/EBox/CGI/EBox.pm:34
-msgid "Choose Zentyal packages to install"
-msgstr "选择要安装的Zentyal软件包"
-
-#: src/EBox/CGI/EBox.pm:38
-msgid "Zentyal components"
-msgstr "Zentyal组件"
 
 #: src/EBox/CGI/Config.pm:31
 msgid "Software management settings"
@@ -101,13 +90,29 @@ msgstr "软件管理设置"
 msgid "Automatic software updates"
 msgstr "自动软件更新"
 
-#: src/EBox/CGI/Updates.pm:30 src/EBox/CGI/Updates.pm:53
+#: src/EBox/CGI/Enable.pm:41
+msgid "automatic updates configuration"
+msgstr "自动更新配置"
+
+#: src/EBox/CGI/EBox.pm:35
+msgid "Choose Zentyal packages to install"
+msgstr "选择要安装的Zentyal软件包"
+
+#: src/EBox/CGI/EBox.pm:40
+msgid "Zentyal components"
+msgstr "Zentyal组件"
+
+#: src/EBox/CGI/Updates.pm:32
 msgid "System updates"
 msgstr "系统升级"
 
-#: src/EBox/CGI/Updates.pm:58
+#: src/EBox/CGI/Updates.pm:59
 msgid "The system components are up to date."
 msgstr "系统组件是最新版本."
+
+#: src/EBox/CGI/CurrentPackage.pm:31
+msgid "Upgrading"
+msgstr "正在升级"
 
 #: src/EBox/CGI/InstallPkgs.pm:100
 msgid "There were no packages to update"
@@ -135,7 +140,9 @@ msgid ""
 "interface may become unresponsive for a few seconds. Please wait patiently "
 "until the system has been fully configured. You will be automatically "
 "redirected to the next step"
-msgstr "软件包安装成功。管理界面将有几秒钟无法响应。请耐心等待，直到系统完成配置。然后将自动跳转到下一步"
+msgstr ""
+"软件包安装成功。管理界面将有几秒钟无法响应。请耐心等待，直到系统完成配置。然"
+"后将自动跳转到下一步"
 
 #: src/EBox/CGI/InstallPkgs.pm:176
 msgid ""
@@ -160,7 +167,8 @@ msgid ""
 "The packages removal has finished successfully. The administration interface "
 "may become unresponsive for a few seconds. Please wait patiently until the "
 "system has been fully restarted"
-msgstr "软件包删除成功。管理界面可能会有几秒钟没有响应。请耐心等待，知道系统重启完成"
+msgstr ""
+"软件包删除成功。管理界面可能会有几秒钟没有响应。请耐心等待，知道系统重启完成"
 
 #: src/EBox/CGI/InstallPkgs.pm:199
 msgid ""
@@ -168,100 +176,83 @@ msgid ""
 "logs"
 msgstr "软件包没有正确删除。更多信息在日志中"
 
-#: src/EBox/CGI/CurrentPackage.pm:31
-msgid "Upgrading"
-msgstr "正在升级"
-
-#: src/templates/updates.mas:24 src/templates/ebox.mas:181
-msgid "Package list updated successfully"
-msgstr "软件包列表更新成功"
-
-#: src/templates/updates.mas:28 src/templates/ebox.mas:185
-msgid ""
-"Error updating package list. Please try to execute the following command in "
-"a console to see the problem: sudo apt-get update"
-msgstr "软件包列表更新错误。请在控制台手工执行命令: sudo apt-get update，检查出现的错误"
-
-#: src/templates/updates.mas:38
-msgid "Updates are available for the following system components"
-msgstr "以下系统组件有升级包"
-
-#: src/templates/updates.mas:40
-msgid "Community updates are available for the following system components"
-msgstr "以下系统组件由社团升级包"
-
-#: src/templates/updates.mas:46
-msgid "Component"
-msgstr "组件"
-
-#: src/templates/updates.mas:47
-msgid "Description"
-msgstr "说明"
-
-#: src/templates/updates.mas:48
-msgid "Version"
-msgstr "版本"
-
-#: src/templates/updates.mas:49 src/templates/ebox.mas:151
-#: src/templates/ebox.mas:550 src/templates/ebox.mas:574
+#: src/templates/ebox.mas:152 src/templates/ebox.mas:587
+#: src/templates/ebox.mas:611 src/templates/updates.mas:46
 msgid "Update"
 msgstr "升级"
 
-#: src/templates/updates.mas:66
-msgid "Security update"
-msgstr "安全升级"
-
-#: src/templates/updates.mas:69
-msgid "Zentyal QA update"
-msgstr "Zentyal QA升级"
-
-#: src/templates/updates.mas:91
-msgid "Update all packages"
-msgstr "升级所有软件包"
-
-#: src/templates/updates.mas:102
-msgid ""
-"This operation can take some time, don't worry if Zentyal looks unresponsive "
-"after pressing the Upgrade button."
-msgstr "该项操作需要一些时间，如果点击升级按钮之后，Zentyal看起来没有响应，请不要担心。"
-
-#: src/templates/updates.mas:106
-msgid "Upgrade"
-msgstr "升级"
-
-#: src/templates/updates.mas:111 src/templates/ebox.mas:566
-#: src/templates/ebox.mas:575
-msgid "Update list"
-msgstr "更新列表"
-
-#: src/templates/ebox.mas:157 src/templates/ebox.mas:524
-#: src/templates/ebox.mas:565
+#: src/templates/ebox.mas:158 src/templates/ebox.mas:561
+#: src/templates/ebox.mas:602
 msgid "Install"
 msgstr "安装"
 
-#: src/templates/ebox.mas:192
+#: src/templates/ebox.mas:182 src/templates/updates.mas:21
+msgid "Package list updated successfully"
+msgstr "软件包列表更新成功"
+
+#: src/templates/ebox.mas:186 src/templates/updates.mas:25
+msgid ""
+"Error updating package list. Please try to execute the following command in "
+"a console to see the problem: sudo apt-get update"
+msgstr ""
+"软件包列表更新错误。请在控制台手工执行命令: sudo apt-get update，检查出现的错"
+"误"
+
+#: src/templates/ebox.mas:193
+msgid ""
+"The following packages are not properly installed. You need to fix this "
+"before trying to use them or install new modules."
+msgstr ""
+
+#: src/templates/ebox.mas:200 src/templates/updates.mas:43
+msgid "Component"
+msgstr "组件"
+
+#: src/templates/ebox.mas:201 src/templates/updates.mas:44
+msgid "Description"
+msgstr "说明"
+
+#: src/templates/ebox.mas:202 src/templates/updates.mas:45
+msgid "Version"
+msgstr "版本"
+
+#: src/templates/ebox.mas:216
+#, fuzzy
+msgid ""
+"To solve this situation, please try to execute the following command in the "
+"console:"
+msgstr ""
+"软件包列表更新错误。请在控制台手工执行命令: sudo apt-get update，检查出现的错"
+"误"
+
+#: src/templates/ebox.mas:229
 msgid "View advanced mode"
 msgstr "显示高级模式"
 
-#: src/templates/ebox.mas:526
+#: src/templates/ebox.mas:563
 msgid "Skip install"
 msgstr "跳过安装"
 
-#: src/templates/ebox.mas:539
+#: src/templates/ebox.mas:576
 msgid "View basic mode"
 msgstr "显示基础模式"
 
-#: src/templates/ebox.mas:557 src/templates/ebox.mas:586
+#: src/templates/ebox.mas:594 src/templates/ebox.mas:623
 msgid "Delete"
 msgstr "删除"
 
-#: src/templates/ebox.mas:567 src/templates/ebox.mas:576
-#: src/templates/ebox.mas:587
+#: src/templates/ebox.mas:603 src/templates/ebox.mas:612
+#: src/templates/updates.mas:108
+msgid "Update list"
+msgstr "更新列表"
+
+#: src/templates/ebox.mas:604 src/templates/ebox.mas:613
+#: src/templates/ebox.mas:624
 msgid "Deselect All"
 msgstr "取消所有选择"
 
-#: src/templates/ebox.mas:568 src/templates/ebox.mas:577
-#: src/templates/ebox.mas:588
+#: src/templates/ebox.mas:605 src/templates/ebox.mas:614
+#: src/templates/ebox.mas:625
 msgid "Select All"
 msgstr "选择全部"
 
@@ -308,3 +299,35 @@ msgstr "Zentyal被配置为自动QA升级"
 #: src/templates/config.mas:26
 msgid "Automatic operations start time"
 msgstr "启动时的自动操作"
+
+#: src/templates/updates.mas:35
+msgid "Updates are available for the following system components"
+msgstr "以下系统组件有升级包"
+
+#: src/templates/updates.mas:37
+msgid "Community updates are available for the following system components"
+msgstr "以下系统组件由社团升级包"
+
+#: src/templates/updates.mas:55 src/templates/updates.mas:56
+msgid "Security update"
+msgstr "安全升级"
+
+#: src/templates/updates.mas:59 src/templates/updates.mas:60
+msgid "Zentyal QA update"
+msgstr "Zentyal QA升级"
+
+#: src/templates/updates.mas:88
+msgid "Update all packages"
+msgstr "升级所有软件包"
+
+#: src/templates/updates.mas:99
+msgid ""
+"This operation can take some time, don't worry if Zentyal looks unresponsive "
+"after pressing the Upgrade button."
+msgstr ""
+"该项操作需要一些时间，如果点击升级按钮之后，Zentyal看起来没有响应，请不要担"
+"心。"
+
+#: src/templates/updates.mas:103
+msgid "Upgrade"
+msgstr "升级"

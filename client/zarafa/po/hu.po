@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-zarafa 1.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-08-28 20:28+0200\n"
+"POT-Creation-Date: 2010-12-13 08:43+0100\n"
 "PO-Revision-Date: 2010-08-30 10:52+0200\n"
 "Last-Translator: Nagy Ákos <nagy.akos@akos.ro>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
@@ -21,13 +21,210 @@ msgstr ""
 msgid "Zarafa Server"
 msgstr "Zarafa szerver"
 
-#: src/EBox/ZarafaLdapUser.pm:239
+#: src/EBox/CGI/ZarafaUserOptions.pm:46
+msgid "username"
+msgstr "felhasználónév"
+
+#: src/EBox/Zarafa/Model/Gateways.pm:95
+#, perl-brace-format
 msgid ""
-"This user has a Zarafa account. If the user currently connected it will "
-"continue connected until Zarafa authorization is again required."
+"To enable Zarafa {service} gateway you must disable {service} mail retrieval "
+"service. You can do it at {ohref}Mail General Configuration{chref}."
 msgstr ""
-"Ennek a felhasználónak van Zarafa fiókja. Ha a felhasználó csatlakozik, "
-"csatlakozva marad amíg a Zarafa hitelesítés újra szükséges nem lesz."
+"A Zarafa {service} átjáró bekapcsolása érdekében, ki kell kapcsolja a "
+"{service} levélletöltő szolgáltatást. Ezt megteheti a {ohref}Levelezés "
+"általános beállítások{chref} lapon."
+
+#: src/EBox/Zarafa/Model/Gateways.pm:129
+#, perl-brace-format
+msgid ""
+"To enable Zarafa POP3 and IMAP gateways you need at least one virtual "
+"domain. You can do it at {ohref}Virtual Mail Domains{chref}."
+msgstr ""
+"Hogy bekapcsolja a Zarafa POP3 és IMAP átjárót, szüksége van legalább egy "
+"virtuális levelezőtartományra. Ezt beállíthatja a {ohref}Virtuális "
+"levelezőtartomány{chref} lapon."
+
+#: src/EBox/Zarafa/Model/Gateways.pm:151
+msgid "Enable POP3 gateway"
+msgstr "POP3 átjáró bekapcsolása"
+
+#: src/EBox/Zarafa/Model/Gateways.pm:157
+msgid "Enable POP3S gateway"
+msgstr "POP3s átjáró bekapcsolása"
+
+#: src/EBox/Zarafa/Model/Gateways.pm:163
+msgid "Enable IMAP gateway"
+msgstr "IMAP átjáró bekapcsolása"
+
+#: src/EBox/Zarafa/Model/Gateways.pm:169
+msgid "Enable IMAPS gateway"
+msgstr "IMAPs átjáró bekapcsolása"
+
+#: src/EBox/Zarafa/Model/Gateways.pm:180
+msgid "Zarafa gateways configuration settings"
+msgstr "Zarafa átjáró beállítása"
+
+#: src/EBox/Zarafa/Model/Gateways.pm:185
+msgid "Zarafa gateways configuration settings updated."
+msgstr "Zarafa átjáró beállításai frissítve."
+
+#: src/EBox/Zarafa/Model/Gateways.pm:188
+msgid ""
+"Zarafa gateways allow access to users mailboxes using POP3 and IMAP "
+"protocols."
+msgstr ""
+"A Zarafa átjáró engedélyezi a POP3 és IMAP hozzáférést a felhasználók "
+"postafiókjához."
+
+#: src/EBox/Zarafa/Model/Quota.pm:75
+msgid "Maximum mailbox size"
+msgstr "Maximális postafiók méret"
+
+#: src/EBox/Zarafa/Model/Quota.pm:77
+msgid "When a mailbox reaches this size futher messages will be rejected."
+msgstr ""
+"Ha a postafiók mérete meghaladja ezt, az új üzenetek vissza lesznek utasítva."
+
+#: src/EBox/Zarafa/Model/Quota.pm:81
+msgid "Unlimited size"
+msgstr "Korlátlan méret"
+
+#: src/EBox/Zarafa/Model/Quota.pm:85
+msgid "Limited to"
+msgstr "Méretkorlát"
+
+#: src/EBox/Zarafa/Model/Quota.pm:96
+msgid "Warn user over"
+msgstr "Felhasználó figyelmeztetési korlát"
+
+#: src/EBox/Zarafa/Model/Quota.pm:109
+msgid "Stop user sending mails over"
+msgstr "Levélküldés blokkolási korlát"
+
+#: src/EBox/Zarafa/Model/Quota.pm:124
+msgid "Quota configuration settings"
+msgstr "Quota beállítások"
+
+#: src/EBox/Zarafa/Model/Quota.pm:129
+msgid "Zarafa server quota configuration settings updated."
+msgstr "A Zarafa szerver quota beállításai frissítve."
+
+#: src/EBox/Zarafa/Model/GeneralSettings.pm:74
+msgid "Enable Spell Checking"
+msgstr "Helyesírás-ellenőrzés bekapcsolása"
+
+#: src/EBox/Zarafa/Model/GeneralSettings.pm:77
+msgid "Enable spell checking on Zarafa Webaccess."
+msgstr "Helyesírás-ellenőrzés bekapcsolása a Zarafa webfelületén."
+
+#: src/EBox/Zarafa/Model/GeneralSettings.pm:81
+msgid "Enable Active Sync"
+msgstr "Active Sync bekapcsolása"
+
+#: src/EBox/Zarafa/Model/GeneralSettings.pm:85
+msgid "Enable Active Sync (Microsoft Exchange syncronization protocol)."
+msgstr ""
+"Active Sync bekapcsolása (Microsoft Exchange szinkronizációs protokoll)."
+
+#: src/EBox/Zarafa/Model/GeneralSettings.pm:89
+msgid "Virtual host"
+msgstr "Virtuális gép"
+
+#: src/EBox/Zarafa/Model/GeneralSettings.pm:95
+msgid ""
+"Enable Zarafa access only on this virtual host under /webaccess and /"
+"webaccess-mobile."
+msgstr ""
+"A Zarafahoz való hozzáférés csak a /webaccess és /webaccess-mobile virtuális "
+"gépen keresztül lehetséges."
+
+#: src/EBox/Zarafa/Model/GeneralSettings.pm:102
+msgid "General configuration settings"
+msgstr "Általános beállítások"
+
+#: src/EBox/Zarafa/Model/GeneralSettings.pm:107
+msgid "General Zarafa server configuration settings updated."
+msgstr "A Zarafa szerver általános beállításai frissítve."
+
+#: src/EBox/Zarafa/Model/GeneralSettings.pm:119 src/templates/zarafa.mas:22
+#: src/templates/zarafa.mas:25
+msgid "Disabled"
+msgstr "Kikapcsolva"
+
+#: src/EBox/Zarafa/Model/GeneralSettings.pm:149
+msgid ""
+"The deleted virtual host was selected for Zarafa. Maybe you want to select "
+"another one now."
+msgstr ""
+"A kitörölt virtuális tartományt a Zarafa használta. Most talán ki szeretne "
+"választani egy másik tartományt."
+
+#: src/EBox/Zarafa/Model/ZarafaUser.pm:49
+msgid "Groupware Account"
+msgstr "Csoportmunka fiók"
+
+#: src/EBox/Zarafa/Model/ZarafaUser.pm:55
+#, fuzzy
+msgid "Groupware Contact"
+msgstr "Csoportmunka fiók"
+
+#: src/EBox/Zarafa/Model/ZarafaUser.pm:56
+msgid "Enable contact in the addressbook even if account is disabled."
+msgstr ""
+
+#: src/EBox/Zarafa/Model/ZarafaUser.pm:64
+msgid "Zarafa"
+msgstr "Zarafa"
+
+#: src/EBox/Zarafa/Model/VMailDomain.pm:50
+msgid "No domain selected"
+msgstr "Nincs kiválasztott tartomány"
+
+#: src/EBox/Zarafa/Model/VMailDomain.pm:95
+#, perl-brace-format
+msgid ""
+"To configure Zarafa you must have at least one virtual mail domain. You can "
+"define one at {ohref}Virtual Domains{chref}."
+msgstr ""
+"A Zarafa beállítsa érdekében legalább egy levelező tartomány be kell legyen "
+"állítva. Ezt megteheti a {ohref}Virtuális levelezőtartományok{chref} lapon."
+
+#: src/EBox/Zarafa/Model/VMailDomain.pm:122
+msgid ""
+"The deleted virtual domain was selected for Zarafa. Maybe you want to select "
+"another one now."
+msgstr ""
+"A kitörölt virtuális tartományt a Zarafa használta. Most valószínű ki "
+"szeretne választani egy másik tartományt."
+
+#: src/EBox/Zarafa/Model/VMailDomain.pm:149
+msgid "Virtual domain"
+msgstr "Virtuális tartomány"
+
+#: src/EBox/Zarafa/Model/VMailDomain.pm:158
+msgid "Virtual mail domain"
+msgstr "Virtuális levelező tartomány"
+
+#: src/EBox/Zarafa/Model/VMailDomain.pm:163
+msgid "Select the virtual mail domain to be used for Zarafa."
+msgstr "Virtuális levelező tartomány kiválasztása a Zarafa számára."
+
+#: src/EBox/Zarafa/Composite/General.pm:67
+msgid "Configuration"
+msgstr "Beállítások"
+
+#: src/EBox/Zarafa/Composite/General.pm:68
+msgid "Groupware (Zarafa)"
+msgstr "Csoportmunka (Zarafa)"
+
+#: src/EBox/Zarafa/Composite/General.pm:70
+msgid ""
+"You can access the Zarafa web interface at http://zentyal_ip/webaccess and "
+"the mobile version at http://zentyal_ip/webaccess-mobile."
+msgstr ""
+"A Zarafa webfelületét a http://zentyal_ip/webaccess és a mobilváltozatot a "
+"http://zentyal_ip/webaccess-mobile lapokon érheti le."
 
 #: src/EBox/Zarafa.pm:64
 msgid "Add Zarafa LDAP schema"
@@ -109,202 +306,13 @@ msgstr "A Zarafa indexelő szerver helyes beállítása érdekében."
 msgid "Zarafa Gateway Server"
 msgstr "Zarafa átjárószerver"
 
-#: src/EBox/Zarafa/Model/Quota.pm:75
-msgid "Maximum mailbox size"
-msgstr "Maximális postafiók méret"
-
-#: src/EBox/Zarafa/Model/Quota.pm:77
-msgid "When a mailbox reaches this size futher messages will be rejected."
-msgstr ""
-"Ha a postafiók mérete meghaladja ezt, az új üzenetek vissza lesznek "
-"utasítva."
-
-#: src/EBox/Zarafa/Model/Quota.pm:81
-msgid "Unlimited size"
-msgstr "Korlátlan méret"
-
-#: src/EBox/Zarafa/Model/Quota.pm:85
-msgid "Limited to"
-msgstr "Méretkorlát"
-
-#: src/EBox/Zarafa/Model/Quota.pm:96
-msgid "Warn user over"
-msgstr "Felhasználó figyelmeztetési korlát"
-
-#: src/EBox/Zarafa/Model/Quota.pm:109
-msgid "Stop user sending mails over"
-msgstr "Levélküldés blokkolási korlát"
-
-#: src/EBox/Zarafa/Model/Quota.pm:124
-msgid "Quota configuration settings"
-msgstr "Quota beállítások"
-
-#: src/EBox/Zarafa/Model/Quota.pm:129
-msgid "Zarafa server quota configuration settings updated."
-msgstr "A Zarafa szerver quota beállításai frissítve."
-
-#: src/EBox/Zarafa/Model/ZarafaUser.pm:49
-msgid "Groupware Account"
-msgstr "Csoportmunka fiók"
-
-#: src/EBox/Zarafa/Model/ZarafaUser.pm:57
-msgid "Zarafa"
-msgstr "Zarafa"
-
-#: src/EBox/Zarafa/Model/Gateways.pm:95
-#, perl-brace-format
+#: src/EBox/ZarafaLdapUser.pm:319
 msgid ""
-"To enable Zarafa {service} gateway you must disable {service} mail retrieval "
-"service. You can do it at {ohref}Mail General Configuration{chref}."
+"This user has a Zarafa account. If the user currently connected it will "
+"continue connected until Zarafa authorization is again required."
 msgstr ""
-"A Zarafa {service} átjáró bekapcsolása érdekében, ki kell kapcsolja a "
-"{service} levélletöltő szolgáltatást. Ezt megteheti a {ohref}Levelezés "
-"általános beállítások{chref} lapon."
-
-#: src/EBox/Zarafa/Model/Gateways.pm:129
-#, perl-brace-format
-msgid ""
-"To enable Zarafa POP3 and IMAP gateways you need at least one virtual "
-"domain. You can do it at {ohref}Virtual Mail Domains{chref}."
-msgstr ""
-"Hogy bekapcsolja a Zarafa POP3 és IMAP átjárót, szüksége van legalább egy "
-"virtuális levelezőtartományra. Ezt beállíthatja a {ohref}Virtuális "
-"levelezőtartomány{chref} lapon."
-
-#: src/EBox/Zarafa/Model/Gateways.pm:151
-msgid "Enable POP3 gateway"
-msgstr "POP3 átjáró bekapcsolása"
-
-#: src/EBox/Zarafa/Model/Gateways.pm:157
-msgid "Enable POP3S gateway"
-msgstr "POP3s átjáró bekapcsolása"
-
-#: src/EBox/Zarafa/Model/Gateways.pm:163
-msgid "Enable IMAP gateway"
-msgstr "IMAP átjáró bekapcsolása"
-
-#: src/EBox/Zarafa/Model/Gateways.pm:169
-msgid "Enable IMAPS gateway"
-msgstr "IMAPs átjáró bekapcsolása"
-
-#: src/EBox/Zarafa/Model/Gateways.pm:180
-msgid "Zarafa gateways configuration settings"
-msgstr "Zarafa átjáró beállítása"
-
-#: src/EBox/Zarafa/Model/Gateways.pm:185
-msgid "Zarafa gateways configuration settings updated."
-msgstr "Zarafa átjáró beállításai frissítve."
-
-#: src/EBox/Zarafa/Model/Gateways.pm:188
-msgid ""
-"Zarafa gateways allow access to users mailboxes using POP3 and IMAP "
-"protocols."
-msgstr ""
-"A Zarafa átjáró engedélyezi a POP3 és IMAP hozzáférést a felhasználók "
-"postafiókjához."
-
-#: src/EBox/Zarafa/Model/VMailDomain.pm:50
-msgid "No domain selected"
-msgstr "Nincs kiválasztott tartomány"
-
-#: src/EBox/Zarafa/Model/VMailDomain.pm:95
-#, perl-brace-format
-msgid ""
-"To configure Zarafa you must have at least one virtual mail domain. You can "
-"define one at {ohref}Virtual Domains{chref}."
-msgstr ""
-"A Zarafa beállítsa érdekében legalább egy levelező tartomány be kell legyen "
-"állítva. Ezt megteheti a {ohref}Virtuális levelezőtartományok{chref} lapon."
-
-#: src/EBox/Zarafa/Model/VMailDomain.pm:122
-msgid ""
-"The deleted virtual domain was selected for Zarafa. Maybe you want to select "
-"another one now."
-msgstr ""
-"A kitörölt virtuális tartományt a Zarafa használta. Most valószínű ki "
-"szeretne választani egy másik tartományt."
-
-#: src/EBox/Zarafa/Model/VMailDomain.pm:149
-msgid "Virtual domain"
-msgstr "Virtuális tartomány"
-
-#: src/EBox/Zarafa/Model/VMailDomain.pm:158
-msgid "Virtual mail domain"
-msgstr "Virtuális levelező tartomány"
-
-#: src/EBox/Zarafa/Model/VMailDomain.pm:163
-msgid "Select the virtual mail domain to be used for Zarafa."
-msgstr "Virtuális levelező tartomány kiválasztása a Zarafa számára."
-
-#: src/EBox/Zarafa/Model/GeneralSettings.pm:74
-msgid "Enable Spell Checking"
-msgstr "Helyesírás-ellenőrzés bekapcsolása"
-
-#: src/EBox/Zarafa/Model/GeneralSettings.pm:77
-msgid "Enable spell checking on Zarafa Webaccess."
-msgstr "Helyesírás-ellenőrzés bekapcsolása a Zarafa webfelületén."
-
-#: src/EBox/Zarafa/Model/GeneralSettings.pm:81
-msgid "Enable Active Sync"
-msgstr "Active Sync bekapcsolása"
-
-#: src/EBox/Zarafa/Model/GeneralSettings.pm:85
-msgid "Enable Active Sync (Microsoft Exchange syncronization protocol)."
-msgstr ""
-"Active Sync bekapcsolása (Microsoft Exchange szinkronizációs protokoll)."
-
-#: src/EBox/Zarafa/Model/GeneralSettings.pm:89
-msgid "Virtual host"
-msgstr "Virtuális gép"
-
-#: src/EBox/Zarafa/Model/GeneralSettings.pm:95
-msgid ""
-"Enable Zarafa access only on this virtual host under /webaccess and /"
-"webaccess-mobile."
-msgstr ""
-"A Zarafahoz való hozzáférés csak a /webaccess és /webaccess-mobile virtuális "
-"gépen keresztül lehetséges."
-
-#: src/EBox/Zarafa/Model/GeneralSettings.pm:102
-msgid "General configuration settings"
-msgstr "Általános beállítások"
-
-#: src/EBox/Zarafa/Model/GeneralSettings.pm:107
-msgid "General Zarafa server configuration settings updated."
-msgstr "A Zarafa szerver általános beállításai frissítve."
-
-#: src/EBox/Zarafa/Model/GeneralSettings.pm:119 src/templates/zarafa.mas:22
-#: src/templates/zarafa.mas:25
-msgid "Disabled"
-msgstr "Kikapcsolva"
-
-#: src/EBox/Zarafa/Model/GeneralSettings.pm:149
-msgid ""
-"The deleted virtual host was selected for Zarafa. Maybe you want to select "
-"another one now."
-msgstr ""
-"A kitörölt virtuális tartományt a Zarafa használta. Most talán ki szeretne "
-"választani egy másik tartományt."
-
-#: src/EBox/Zarafa/Composite/General.pm:67
-msgid "Configuration"
-msgstr "Beállítások"
-
-#: src/EBox/Zarafa/Composite/General.pm:68
-msgid "Groupware (Zarafa)"
-msgstr "Csoportmunka (Zarafa)"
-
-#: src/EBox/Zarafa/Composite/General.pm:70
-msgid ""
-"You can access the Zarafa web interface at http://zentyal_ip/webaccess and "
-"the mobile version at http://zentyal_ip/webaccess-mobile."
-msgstr ""
-"A Zarafa webfelületét a http://zentyal_ip/webaccess és a mobilváltozatot a "
-"http://zentyal_ip/webaccess-mobile lapokon érheti le."
-
-#: src/EBox/CGI/ZarafaUserOptions.pm:46
-msgid "username"
-msgstr "felhasználónév"
+"Ennek a felhasználónak van Zarafa fiókja. Ha a felhasználó csatlakozik, "
+"csatlakozva marad amíg a Zarafa hitelesítés újra szükséges nem lesz."
 
 #: src/templates/zarafa.mas:8
 msgid "Zarafa account"
@@ -326,6 +334,11 @@ msgstr "Rendszergazdai jogok"
 msgid "Zarafa takes quota settings from mail account settings."
 msgstr "A Zarafa a levelező fiók quota beállításait használja."
 
-#: src/templates/zarafa.mas:54 src/templates/zarafa.mas:55
+#: src/templates/zarafa.mas:53
+#, fuzzy
+msgid "Groupware contact"
+msgstr "Csoportmunka fiók"
+
+#: src/templates/zarafa.mas:68 src/templates/zarafa.mas:69
 msgid "Change"
 msgstr "Módosítás"

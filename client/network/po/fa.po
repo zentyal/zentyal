@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-network 0.12.100\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-08-29 01:25+0200\n"
+"POT-Creation-Date: 2010-12-13 08:40+0100\n"
 "PO-Revision-Date: 2009-02-24 16:17+0330\n"
 "Last-Translator: Zahra Khani <belendax@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
@@ -15,687 +15,102 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/EBox/Event/Watcher/Gateways.pm:150
+#: src/EBox/CGI/Iface.pm:42 src/EBox/CGI/Iface.pm:59 src/EBox/CGI/Vlan.pm:41
+#: src/EBox/CGI/VIface.pm:43
+msgid "network interface"
+msgstr "واسط شبکه"
+
+#: src/EBox/CGI/Iface.pm:58
+msgid "method"
+msgstr "روش"
+
+#: src/EBox/CGI/Iface.pm:88
+msgid "ip address"
+msgstr "آدرس آی‌پی"
+
+#: src/EBox/CGI/Iface.pm:89 src/EBox/CGI/VIface.pm:63
+msgid "netmask"
+msgstr "ماسک شبکه"
+
+#: src/EBox/CGI/Iface.pm:95
+#, fuzzy
+msgid "user name"
+msgstr "نام میزبان"
+
+#: src/EBox/CGI/Iface.pm:96
+msgid "password"
+msgstr ""
+
+#: src/EBox/CGI/Iface.pm:106
+msgid "bridge"
+msgstr ""
+
+#: src/EBox/CGI/Vlan.pm:43 src/EBox/Network.pm:1637 src/EBox/Network.pm:1666
+#: src/templates/ifaces.mas:229
+msgid "VLAN Id"
+msgstr "شناسه VLAN"
+
+#: src/EBox/CGI/VIface.pm:44
+msgid "virtual interface action"
+msgstr "فعالیت واسط مجازی"
+
+#: src/EBox/CGI/VIface.pm:62 src/EBox/Network.pm:905 src/EBox/Network.pm:910
+#: src/EBox/Network.pm:1224 src/EBox/Network.pm:1245 src/EBox/Network.pm:3183
+#: src/EBox/Network.pm:3199 src/EBox/Network.pm:3225 src/EBox/Network.pm:3380
+#: src/EBox/Network.pm:3534 src/EBox/Model/GatewayTable.pm:197
+#: src/EBox/Model/GatewayTable.pm:272 src/templates/ifaces.mas:119
+#: src/templates/ifaces.mas:287 src/templates/Wizard/network.mas:53
+msgid "IP address"
+msgstr "آدرس آی‌پی"
+
+#: src/EBox/CGI/VIface.pm:64 src/EBox/CGI/VIface.pm:70
+msgid "virtual interface name"
+msgstr "نام واسط مجازی"
+
+#: src/EBox/CGI/Diag.pm:29 src/EBox/CGI/Diag.pm:41
+#, fuzzy
+msgid "Network Diagnostic Tools"
+msgstr "عیب یابی شبکه"
+
+#: src/EBox/CGI/Diag.pm:51 src/EBox/CGI/Diag.pm:58
+#: src/EBox/Model/WANFailoverRules.pm:97 src/templates/diag.mas:14
+#: src/templates/diag.mas:23
+msgid "Host"
+msgstr "میزبان"
+
+#: src/EBox/CGI/Diag.pm:65 src/EBox/Network.pm:3463
+msgid "host name"
+msgstr "نام میزبان"
+
+#: src/EBox/CGI/Ifaces.pm:29 src/EBox/Network.pm:3571
+#, fuzzy
+msgid "Network Interfaces"
+msgstr "واسط های شبکه"
+
+#: src/EBox/CGI/EnableBalanceTraffic.pm:42
+msgid "traffic balance"
+msgstr "تراز ترافیک"
+
+#: src/EBox/Event/Watcher/Gateways.pm:163
 #, fuzzy, perl-brace-format
 msgid "Gateway {gw} connected"
 msgstr "گذرگاه {gw} غیر قابل دسترس می باشد"
 
-#: src/EBox/Event/Watcher/Gateways.pm:289
+#: src/EBox/Event/Watcher/Gateways.pm:302
 #, perl-brace-format
 msgid ""
 "Gateway {gw} disconnected ({failRatio}% of '{type}' tests to host '{host}' "
 "failed, max={maxFailRatio}%)"
 msgstr ""
 
-#: src/EBox/Event/Watcher/Gateways.pm:370 src/EBox/Network.pm:3592
-#: src/EBox/Network/Composite/WANFailover.pm:61
+#: src/EBox/Event/Watcher/Gateways.pm:383
+#: src/EBox/Network/Composite/WANFailover.pm:61 src/EBox/Network.pm:3605
 msgid "WAN Failover"
 msgstr ""
 
-#: src/EBox/Event/Watcher/Gateways.pm:386
+#: src/EBox/Event/Watcher/Gateways.pm:399
 msgid "Check if gateways are connected or disconnected."
 msgstr ""
-
-#: src/EBox/Model/SearchDomain.pm:71
-msgid "Domain"
-msgstr ""
-
-#: src/EBox/Model/SearchDomain.pm:79
-msgid "Search Domain"
-msgstr ""
-
-#: src/EBox/Model/SearchDomain.pm:83
-msgid ""
-"This domain will be appended when trying to resolve hosts if the first "
-"attempt without appending it has failed."
-msgstr ""
-
-#: src/EBox/Model/WANFailoverRules.pm:55
-#, fuzzy
-msgid "Ping to gateway"
-msgstr "گذرگاه"
-
-#: src/EBox/Model/WANFailoverRules.pm:59
-msgid "Ping to host"
-msgstr ""
-
-#: src/EBox/Model/WANFailoverRules.pm:63
-msgid "DNS resolve"
-msgstr ""
-
-#: src/EBox/Model/WANFailoverRules.pm:67
-msgid "HTTP Request"
-msgstr ""
-
-#: src/EBox/Model/WANFailoverRules.pm:91
-msgid "Test type"
-msgstr ""
-
-#: src/EBox/Model/WANFailoverRules.pm:97 src/EBox/CGI/Diag.pm:51
-#: src/EBox/CGI/Diag.pm:58 src/templates/diag.mas:14 src/templates/diag.mas:23
-msgid "Host"
-msgstr "میزبان"
-
-#: src/EBox/Model/WANFailoverRules.pm:103
-msgid "Number of probes"
-msgstr ""
-
-#: src/EBox/Model/WANFailoverRules.pm:112
-msgid "Required success ratio"
-msgstr ""
-
-#: src/EBox/Model/WANFailoverRules.pm:125
-msgid "Test rules"
-msgstr ""
-
-#: src/EBox/Model/WANFailoverRules.pm:132
-msgid ""
-"You can define different rules to test if a gateway is working properly. If "
-"one of the test fails the gateway will be disabled. It will be enabled again "
-"when all tests are passed."
-msgstr ""
-
-#: src/EBox/Model/WANFailoverRules.pm:133
-#: src/EBox/Model/MultiGwRulesDataTable.pm:195
-#: src/EBox/Model/MultiGwRulesOptions.pm:68
-msgid "rule"
-msgstr "قانون"
-
-#: src/EBox/Model/WANFailoverRules.pm:192
-msgid "WAN Failover is only available for static interfaces"
-msgstr ""
-
-#: src/EBox/Model/WANFailoverRules.pm:198
-msgid "Invalid value for Host"
-msgstr ""
-
-#: src/EBox/Model/ByteRateGraphControl.pm:46
-msgid "Select traffic graphic"
-msgstr "نگاره ترافیک را انتخاب کنید"
-
-#: src/EBox/Model/ByteRateGraphControl.pm:57
-msgid ""
-"Several views are showed depending on the parameter selection. An host IP "
-"address and a service, which must match the text given by the graphs legend "
-"based on /etc/services, may be required by the graph type. The flow view "
-"will change accordingly"
-msgstr ""
-
-#: src/EBox/Model/ByteRateGraphControl.pm:78
-msgid "Graph type"
-msgstr "نوع گراف"
-
-#: src/EBox/Model/ByteRateGraphControl.pm:85
-msgid "All active traffic by source"
-msgstr "تمام ترافیک های فعال توسط مبدأ"
-
-#: src/EBox/Model/ByteRateGraphControl.pm:89
-msgid "All active traffic by service"
-msgstr "تمام ترافیک های فعال توسط سرویس"
-
-#: src/EBox/Model/ByteRateGraphControl.pm:93
-msgid "Traffic by selected source"
-msgstr "ترافیک توسط مبدأ انتخاب شده"
-
-#: src/EBox/Model/ByteRateGraphControl.pm:99
-msgid "Traffic by selected service"
-msgstr "ترافیک توسط سرویس انتخاب شده"
-
-#: src/EBox/Model/ByteRateGraphControl.pm:105
-msgid "Traffic by source and service"
-msgstr "ترافیک توسط مبدأ و سرویس"
-
-#: src/EBox/Model/ByteRateGraphControl.pm:111
-#: src/EBox/Model/MultiGwRulesDataTable.pm:110
-msgid "Source"
-msgstr "مبدأ"
-
-#: src/EBox/Model/ByteRateGraphControl.pm:117 src/EBox/Model/DynDNS.pm:91
-#: src/EBox/Model/MultiGwRulesDataTable.pm:161
-msgid "Service"
-msgstr "سرویس"
-
-#: src/EBox/Model/DynDNS.pm:86
-msgid "Enable Dynamic DNS"
-msgstr ""
-
-#: src/EBox/Model/DynDNS.pm:97
-msgid "Username"
-msgstr ""
-
-#: src/EBox/Model/DynDNS.pm:102 src/templates/ifaces.mas:202
-msgid "Password"
-msgstr ""
-
-#: src/EBox/Model/DynDNS.pm:107
-#, fuzzy
-msgid "Hostname"
-msgstr "نام میزبان"
-
-#: src/EBox/Model/DynDNS.pm:115
-msgid "Configuration"
-msgstr ""
-
-#: src/EBox/Model/DynDNS.pm:119
-msgid ""
-"All gateways you enter here must be reachable through one of the network "
-"interfaces currently configured"
-msgstr ""
-"تمام گذرگاه هایی که شما اینجا وارد کرده اید باید از میان یکی از واسط های "
-"شبکه ای که در حال حاضر پیکربندی شده؛ قابل عبور باشند"
-
-#: src/EBox/Model/ByteRateEnableForm.pm:70
-msgid ""
-"Starting traffic rate monitoring. Wait patiently until the graph appears"
-msgstr ""
-"مانیتورینگ نرخ ترافیک آغاز شد. لطفا تا زمانی که گراف پدیدار شود منتظر بمانید"
-
-#: src/EBox/Model/ByteRateEnableForm.pm:73
-msgid "Stopping traffic rate monitoring"
-msgstr "مانیتورینگ نرخ ترافیک پایان یافت"
-
-#: src/EBox/Model/ByteRateEnableForm.pm:86
-msgid ""
-"The traffic rate monitor is start/stop on demand without requiring to save "
-"changes first"
-msgstr ""
-"مانیتور نرخ ترافیک برحسب نیاز؛ بدون نیاز به ذخیره تغییرات اولیه شروع/متوقف "
-"می شود"
-
-#: src/EBox/Model/ByteRateSettings.pm:79
-msgid "Interface to listen"
-msgstr ""
-
-#: src/EBox/Model/ByteRateSettings.pm:88
-msgid "Traffic rate monitor settings"
-msgstr "تنظیمات مانیتور نرخ ترافیک"
-
-#: src/EBox/Model/ByteRateSettings.pm:92
-msgid "Changes will be applied immediately to the traffic rate monitor"
-msgstr "تغییرات فورا برای مانیتور نرخ ترافیک اعمال خواهند شد"
-
-#: src/EBox/Model/ByteRateSettings.pm:95
-msgid "Settings changed"
-msgstr "تنظیمات تغییر یافت"
-
-#: src/EBox/Model/ByteRateSettings.pm:114
-#, perl-brace-format
-msgid "{iface} (internal interface)"
-msgstr "{iface} ( واسط داخلی )"
-
-#: src/EBox/Model/ByteRateSettings.pm:121
-#, perl-brace-format
-msgid "{iface} (external interface)"
-msgstr "{iface} ( واسط خارجی )"
-
-#: src/EBox/Model/ByteRateSettings.pm:128
-msgid "all"
-msgstr "همه"
-
-#: src/EBox/Model/GatewayTable.pm:184
-msgid "Auto"
-msgstr ""
-
-#: src/EBox/Model/GatewayTable.pm:190 src/templates/ifaces.mas:34
-#: src/templates/ifaces.mas:286
-msgid "Name"
-msgstr "نام"
-
-#: src/EBox/Model/GatewayTable.pm:197 src/EBox/Model/GatewayTable.pm:272
-#: src/EBox/Network.pm:905 src/EBox/Network.pm:910 src/EBox/Network.pm:1224
-#: src/EBox/Network.pm:1245 src/EBox/Network.pm:3171 src/EBox/Network.pm:3187
-#: src/EBox/Network.pm:3213 src/EBox/Network.pm:3368 src/EBox/Network.pm:3522
-#: src/EBox/CGI/VIface.pm:62 src/templates/Wizard/network.mas:53
-#: src/templates/ifaces.mas:119 src/templates/ifaces.mas:287
-msgid "IP address"
-msgstr "آدرس آی‌پی"
-
-#: src/EBox/Model/GatewayTable.pm:204
-#: src/EBox/Model/MultiGwRulesDataTable.pm:101 src/EBox/Network.pm:998
-#: src/EBox/Network.pm:1030 src/EBox/Network.pm:1075 src/EBox/Network.pm:1111
-#: src/EBox/Network.pm:1136 src/EBox/Network.pm:1220 src/EBox/Network.pm:1358
-#: src/EBox/Network.pm:1449 src/EBox/Network.pm:1537 src/EBox/Network.pm:1543
-#: src/EBox/Network.pm:1870 src/EBox/Network.pm:1940 src/EBox/Network.pm:1973
-#: src/EBox/Network.pm:2000 src/EBox/Network.pm:2027 src/EBox/Network.pm:2055
-#: src/EBox/Network.pm:2117 src/EBox/Network.pm:2156 src/EBox/Network.pm:2189
-#: src/EBox/Network.pm:3169 src/EBox/Network.pm:3189 src/EBox/Network.pm:3209
-#: src/EBox/Network.pm:3230 src/EBox/Network.pm:3249 src/EBox/Network.pm:3303
-#: src/EBox/Network.pm:3324 src/EBox/Network.pm:3344 src/EBox/Network.pm:3365
-#: src/EBox/Network.pm:3388
-msgid "Interface"
-msgstr "واسط"
-
-#: src/EBox/Model/GatewayTable.pm:207
-msgid "Interface connected to this gateway"
-msgstr "واسط به این گذرگاه متصل شده"
-
-#: src/EBox/Model/GatewayTable.pm:211
-msgid "Weight"
-msgstr "وزن"
-
-#: src/EBox/Model/GatewayTable.pm:216
-msgid ""
-"This field is only useful if you have more than one router and  the balance "
-"traffic feature is enabled."
-msgstr ""
-"این فیلد تنها زمانی مفید است که شما بیشتر از یک مسیریاب داشته باشید و مشخصه "
-"تراز ترافیک فعال باشد"
-
-#: src/EBox/Model/GatewayTable.pm:222
-msgid "Default"
-msgstr "پیش فرض"
-
-#: src/EBox/Model/GatewayTable.pm:232
-#, fuzzy
-msgid "Gateways List"
-msgstr "لیست گذرگاه"
-
-#: src/EBox/Model/GatewayTable.pm:248
-#, fuzzy
-msgid ""
-"You can add as many gateways as you want. This is very useful if you want to "
-"split your Internet traffic through several links. Note that if you "
-"configure interfaces as DHCP or PPPoE their gateways are added here "
-"automatically."
-msgstr ""
-"شما می توانید هر چقدر گذرگاه که می خواهید اضافه کنید. اگر شما می خواهید "
-"ترافیک اینترنت خود را از میان پیوندهای مختلف جدا کنید این کار بسیار مفید می "
-"باشد.{br} فیلدهای دانلود و آپلود باید به اندازه سرعت اتصال شما به گذرگاه "
-"تنظیم شوند. مقدار صحیح این فیلدها برای تضمین یک عملکرد صحیح از ماژول شکل دهی "
-"ترافیک بحرانی است"
-
-#: src/EBox/Model/GatewayTable.pm:250
-msgid "gateway"
-msgstr "گذرگاه"
-
-#: src/EBox/Model/GatewayTable.pm:283
-msgid "You can not manually add a gateway for DHCP or PPPoE interfaces"
-msgstr ""
-
-#: src/EBox/Model/GatewayTable.pm:342
-msgid "Automatically added gateways can not be manually deleted"
-msgstr ""
-
-#: src/EBox/Model/MultiGwRulesDataTable.pm:77
-msgid "any"
-msgstr "هیچ"
-
-#: src/EBox/Model/MultiGwRulesDataTable.pm:104
-msgid ""
-"Incoming interface to match packets. If you  want to match a whole subnet "
-"you can  select the interface of that subnet"
-msgstr ""
-"واسط ورودی برای تطابق بسته ها. اگر شما می خواهید تمام زیر شبکه را تطبیق دهید "
-"می توانید واسط آن زیر شبکه را انتخاب کنید"
-
-#: src/EBox/Model/MultiGwRulesDataTable.pm:115
-#: src/EBox/Model/MultiGwRulesDataTable.pm:142
-msgid "Any"
-msgstr "هیچ"
-
-#: src/EBox/Model/MultiGwRulesDataTable.pm:118
-msgid "Source IP"
-msgstr "آی‌پی مبدأ"
-
-#: src/EBox/Model/MultiGwRulesDataTable.pm:123
-msgid "Source object"
-msgstr "شیء مبدأ"
-
-#: src/EBox/Model/MultiGwRulesDataTable.pm:137
-msgid "Destination"
-msgstr "مقصد"
-
-#: src/EBox/Model/MultiGwRulesDataTable.pm:145
-msgid "Destination IP"
-msgstr "آی‌پی مقصد"
-
-#: src/EBox/Model/MultiGwRulesDataTable.pm:150
-msgid "Destination object"
-msgstr "شیء مقصد"
-
-#: src/EBox/Model/MultiGwRulesDataTable.pm:172
-#, fuzzy
-msgid "Gateway to route packets matching this rule"
-msgstr "گذرگاه برای مسیریابی بسته ها با این قانون مطابقت می کند"
-
-#: src/EBox/Model/MultiGwRulesDataTable.pm:180
-msgid "Multigateway rules"
-msgstr "قوانین چند گذرگاهی"
-
-#: src/EBox/Model/MultiGwRulesDataTable.pm:193
-msgid ""
-"You can decide what kind of traffic goes out by each gateway. This way, you "
-"can force a subnet, service, destination and so forth  to use the router you "
-"choose. Please, bear in mind that rules will be applied in order, from top "
-"to bottom, you can reorder them once they are added. If you do not set a "
-"port or an IP address, then the rule will match all of them"
-msgstr ""
-"شما می توانید تصمیم بگیرید که چه نوع ترافیکی توسط هر گذرگاه بیرون می رود. از "
-"این راه شما می توانید یک زیرشبکه، سرویس، مقصد و همچنین استفاده از مسیریابی "
-"که انتخاب کرده اید را تحمیل کنید. "
-
-#: src/EBox/Model/StaticRoute.pm:147 src/EBox/Network.pm:81
-#: src/EBox/Network.pm:3575
-msgid "Network"
-msgstr "شبکه"
-
-#: src/EBox/Model/StaticRoute.pm:150
-msgid "IP or network address"
-msgstr "آی‌پی یا آدرس شبکه"
-
-#: src/EBox/Model/StaticRoute.pm:156
-msgid "Gateway used to reach the above network  address"
-msgstr "گذرگاه؛ استفاده شده تا به آدرس شبکه فوق برسد"
-
-#: src/EBox/Model/StaticRoute.pm:161 src/templates/ifaces.mas:230
-msgid "Description"
-msgstr "شرح"
-
-#: src/EBox/Model/StaticRoute.pm:164
-msgid "Optional description for this route"
-msgstr "شرح اختیاری برای این مسیر"
-
-#: src/EBox/Model/StaticRoute.pm:170
-#, fuzzy
-msgid "Static Routes List"
-msgstr "لیست مسیرهای ایستا"
-
-#: src/EBox/Model/StaticRoute.pm:171 src/EBox/Network.pm:3588
-#, fuzzy
-msgid "Static Routes"
-msgstr "مسیرهای ایستا"
-
-#: src/EBox/Model/StaticRoute.pm:176
-#, fuzzy
-msgid ""
-"All gateways you enter here must be reachable through one of the network "
-"interfaces currently configured."
-msgstr ""
-"تمام گذرگاه هایی که شما اینجا وارد کرده اید باید از میان یکی از واسط های "
-"شبکه ای که در حال حاضر پیکربندی شده؛ قابل عبور باشند"
-
-#: src/EBox/Model/StaticRoute.pm:179
-msgid "static route"
-msgstr "مسیر ایستا"
-
-#: src/EBox/Model/DNSResolver.pm:77
-#, fuzzy
-msgid "IP address of the DNS server that Zentyal will use to resolve names."
-msgstr "آدرس آی‌پی سرور DNS که eBox برای تحلیل نام ها از آن استفاده خواهد کرد"
-
-#: src/EBox/Model/DNSResolver.pm:83 src/templates/Wizard/network.mas:86
-#: src/templates/Wizard/network.mas:90
-#, fuzzy
-msgid "Domain Name Server"
-msgstr "سرویس دهنده نام"
-
-#: src/EBox/Model/DNSResolver.pm:92
-#, fuzzy
-msgid "Domain Name Server Resolver List"
-msgstr "لیست تحلیل گر سرویس دهنده نام"
-
-#: src/EBox/Model/DNSResolver.pm:98
-msgid "name server"
-msgstr "سرویس دهنده نام"
-
-#: src/EBox/Model/DNSResolver.pm:110
-#, fuzzy
-msgid ""
-"<p>Here you can add the name server resolvers that Zentyal will use.</"
-"p><p>Note that these settings may be overriden if you have any network "
-"interface configured via DHCP</p>"
-msgstr ""
-"<p> اینجا شما می توانید تحلیل گرهای سرویس دهنده نام را که eBox از آنها "
-"استفاده خواهد کرد اضافه کنید. </p><p> به خاطر داشته باشید که اگر شما هر واسط "
-"شبکه پیکربندی شده از طریق DHCP  داشته باشید؛ این تنظیمات ممکن است لغو شوند </"
-"p>"
-
-#: src/EBox/Model/WANFailoverOptions.pm:71
-msgid "Time between checks"
-msgstr ""
-
-#: src/EBox/Model/WANFailoverOptions.pm:72
-#, fuzzy
-msgid "seconds"
-msgstr "بایت بر ثانیه"
-
-#: src/EBox/Model/WANFailoverOptions.pm:82
-msgid "Global options"
-msgstr ""
-
-#: src/EBox/Model/WANFailoverOptions.pm:86
-msgid "These options affect to all the tests."
-msgstr ""
-
-#: src/EBox/Model/Proxy.pm:72
-#, fuzzy
-msgid "Proxy server"
-msgstr "سرویس دهنده نام"
-
-#: src/EBox/Model/Proxy.pm:78
-msgid "Proxy port"
-msgstr ""
-
-#: src/EBox/Model/Proxy.pm:86
-msgid "Proxy"
-msgstr ""
-
-#: src/EBox/Model/Proxy.pm:90
-msgid ""
-"This settings will be used to allow Zentyal to access the Internet if an "
-"HTTP proxy is needed."
-msgstr ""
-
-#: src/EBox/Model/MultiGwRulesOptions.pm:43
-msgid "Enable"
-msgstr ""
-
-#: src/EBox/Model/MultiGwRulesOptions.pm:53
-msgid "Traffic balancing"
-msgstr ""
-
-#: src/EBox/Model/MultiGwRulesOptions.pm:64
-#, perl-brace-format
-msgid ""
-"By enabling this feature, your traffic will be balanced amongst your "
-"gateways. That is, every new connection will be sent by a different gateway. "
-"You can choose which proportion of traffic goes through each gateway using "
-"the weight parameter of the gateway. You can change that value {openref}here"
-"{closeref}.{br}If you want to explicitily route traffic by a certain "
-"gateway, use the multigateway rules below"
-msgstr ""
-
-#: src/EBox/Network.pm:99
-msgid "Add default routers to the default table"
-msgstr "مسیریاب های پیش فرض را به جدول پیش فرض اضافه کن"
-
-#: src/EBox/Network.pm:100
-msgid ""
-"This is needed to work with a multigateway configuration. Note that to list "
-"the default routes you must execute: "
-msgstr ""
-"این نیاز دارد که با یک پیکریندی چند گذرگاهه کار کند. به خاطر داشته باشید که "
-"برای لیست کردن مسیرهای پیش فرض؛ شما باید این فرمان را اجرا کنید:"
-
-#: src/EBox/Network.pm:106
-msgid "Enable Zentyal DHCP hook"
-msgstr ""
-
-#: src/EBox/Network.pm:107
-msgid ""
-"It will take care of adding the default route given by a DHCP server to the "
-"default route table. "
-msgstr ""
-"آن مراقب اضافه کردن مسیر پیش فرضی که توسط یک سرویس دهنده DHCP گرفته شده به "
-"جدول مسیر پیش فرض، خواهد بود"
-
-#: src/EBox/Network.pm:125
-#, fuzzy
-msgid "Zentyal will set your network configuration"
-msgstr "eBox پیکربندی شبکه شما را تنظیم خواهد کرد "
-
-#: src/EBox/Network.pm:130
-#, fuzzy
-msgid "Zentyal will set your DNS configuration"
-msgstr "eBox پیکربندی شبکه شما را تنظیم خواهد کرد "
-
-#: src/EBox/Network.pm:135
-#, fuzzy
-msgid "Zentyal will set your DHCP client configuration"
-msgstr "eBox پیکربندی شبکه شما را تنظیم خواهد کرد "
-
-#: src/EBox/Network.pm:140 src/EBox/Network.pm:145
-#, fuzzy
-msgid "Zentyal will set your ddclient configuration"
-msgstr "eBox پیکربندی شبکه شما را تنظیم خواهد کرد "
-
-#: src/EBox/Network.pm:150 src/EBox/Network.pm:155
-msgid "Zentyal will store your PPPoE passwords"
-msgstr ""
-
-#: src/EBox/Network.pm:162
-#, fuzzy
-msgid "Zentyal will add a DSL provider configuration for PPPoE"
-msgstr "eBox پیکربندی شبکه شما را تنظیم خواهد کرد "
-
-#: src/EBox/Network.pm:169
-msgid "Zentyal will set HTTP proxy for all users"
-msgstr ""
-
-#: src/EBox/Network.pm:172
-msgid "Zentyal will set HTTP proxy for APT"
-msgstr ""
-
-#: src/EBox/Network.pm:902 src/EBox/Network.pm:906
-msgid "Virtual interface name"
-msgstr "نام واسط مجازی"
-
-#: src/EBox/Network.pm:905 src/EBox/Network.pm:1224 src/EBox/Network.pm:3171
-#: src/templates/Wizard/network.mas:57 src/templates/ifaces.mas:132
-#: src/templates/ifaces.mas:288
-msgid "Netmask"
-msgstr "ماسک شبکه"
-
-#: src/EBox/Network.pm:1454
-msgid "This interface cannot be put in trunk mode, it is an vlan interface."
-msgstr "واسط نمی تواند در وضعیت ترانک قرار داده شود، زیرا یک واسط vlan می باشد"
-
-#: src/EBox/Network.pm:1509
-msgid ""
-"This interface is in trunk mode, you should unconfigure all the vlan "
-"interfaces in this trunk before changing its configuration mode."
-msgstr ""
-"واسط در وضعیت ترانک می باشد، شما باید قبل از تغییر وضعیت پیکربندی آن، تمام "
-"واسط های vlan  در این ترانک را از حالت پیکربندی خارج کنید"
-
-#: src/EBox/Network.pm:1637 src/EBox/Network.pm:1666 src/EBox/CGI/Vlan.pm:43
-#: src/templates/ifaces.mas:229
-msgid "VLAN Id"
-msgstr "شناسه VLAN"
-
-#: src/EBox/Network.pm:1646
-msgid ""
-"Network interfaces need to be in trunk mode before adding vlans to them."
-msgstr ""
-"واسط های شبکه نیاز دارند که قبل از اینکه vlan ها به آنها اضافه شوند در وضعیت "
-"ترانک باشند"
-
-#: src/EBox/Network.pm:3061
-#, fuzzy
-msgid ""
-"The requested operation will cause one of the configured gateways to become "
-"unreachable. Please remove it first if you really want to make this change."
-msgstr ""
-"عمل درخواست شده سبب خواهد شد که یکی از مسیریاب های پیکریندی شده غیر قابل "
-"دسترس شود. اگر واقعا می خواهید این تغییر را انجام دهید، لطفا ابتدا آن را حذف "
-"کنید"
-
-#: src/EBox/Network.pm:3126 src/EBox/NetworkUtil.pm:55
-#, perl-brace-format
-msgid "Gateway {gw} not reachable"
-msgstr "گذرگاه {gw} غیر قابل دسترس می باشد"
-
-#: src/EBox/Network.pm:3129
-#, perl-brace-format
-msgid ""
-"Gateway {gw} must be reachable by a static interface. Currently it is "
-"reachable by {iface} which is not static"
-msgstr ""
-"گذرگاه {gw} باید توسط یک واسط ایستا قابل دسترس باشد. در حال حاضر توسط "
-"{iface} که ایستا نمی باشد، قابل دسترس است"
-
-#: src/EBox/Network.pm:3410 src/EBox/Network.pm:3431
-msgid "Host name"
-msgstr "نام میزبان"
-
-#: src/EBox/Network.pm:3451 src/EBox/CGI/Diag.pm:65
-msgid "host name"
-msgstr "نام میزبان"
-
-#: src/EBox/Network.pm:3481
-msgid "down"
-msgstr "از کار افتاده"
-
-#: src/EBox/Network.pm:3487
-msgid "up"
-msgstr "در حال کار"
-
-#: src/EBox/Network.pm:3492
-#, fuzzy
-msgid "external"
-msgstr "خارجی"
-
-#: src/EBox/Network.pm:3494
-#, fuzzy
-msgid "internal"
-msgstr "خارجی"
-
-#: src/EBox/Network.pm:3500
-msgid "link ok"
-msgstr "پیوند صحیح است"
-
-#: src/EBox/Network.pm:3502
-msgid "no link"
-msgstr "بدون پیوند"
-
-#: src/EBox/Network.pm:3511 src/EBox/Network/Report/ByteRate.pm:136
-msgid "Status"
-msgstr "وضعیت"
-
-#: src/EBox/Network.pm:3516
-msgid "MAC address"
-msgstr "آدرس MAC"
-
-#: src/EBox/Network.pm:3533
-msgid "Tx bytes"
-msgstr "بایت های Tx"
-
-#: src/EBox/Network.pm:3542
-msgid "Rx bytes"
-msgstr "بایت های Rx"
-
-#: src/EBox/Network.pm:3559 src/EBox/CGI/Ifaces.pm:29
-#, fuzzy
-msgid "Network Interfaces"
-msgstr "واسط های شبکه"
-
-#: src/EBox/Network.pm:3580
-msgid "Interfaces"
-msgstr "واسط ها"
-
-#: src/EBox/Network.pm:3586
-msgid "Gateways"
-msgstr "گذرگاه ها"
-
-#: src/EBox/Network.pm:3590 src/EBox/Network/Composite/MultiGw.pm:62
-#, fuzzy
-msgid "Balance Traffic"
-msgstr "تراز ترافیک"
-
-#: src/EBox/Network.pm:3594
-#, fuzzy
-msgid "Diagnostic Tools"
-msgstr "عیب یابی"
 
 #: src/EBox/Network/Composite/ByteRate.pm:73
 #: src/EBox/Network/Report/ByteRate.pm:134
@@ -719,16 +134,25 @@ msgid ""
 "this feature"
 msgstr ""
 
+#: src/EBox/Network/Composite/DNS.pm:60
+#, fuzzy
+msgid "Domain Name Server Resolver"
+msgstr "تحلیل گر سرویس دهنده نام"
+
+#: src/EBox/Network/Composite/MultiGw.pm:62 src/EBox/Network.pm:3603
+#, fuzzy
+msgid "Balance Traffic"
+msgstr "تراز ترافیک"
+
 #: src/EBox/Network/Composite/MultiGw.pm:82
 msgid ""
 "To be able to use this feature you need at least two enabled gateways. You "
 "can add them <a href=\"/ebox/Network/View/GatewayTable\">here</a> first."
 msgstr ""
 
-#: src/EBox/Network/Composite/DNS.pm:60
-#, fuzzy
-msgid "Domain Name Server Resolver"
-msgstr "تحلیل گر سرویس دهنده نام"
+#: src/EBox/Network/Report/ByteRate.pm:136 src/EBox/Network.pm:3523
+msgid "Status"
+msgstr "وضعیت"
 
 #: src/EBox/Network/Report/ByteRate.pm:136
 msgid "Running"
@@ -814,153 +238,652 @@ msgstr "مجموع نرخ ترافیک برای {service}"
 msgid "Traffic rate from {src} for {service}"
 msgstr "نرخ ترافیک از {src} برای {service}"
 
-#: src/EBox/CGI/Iface.pm:42 src/EBox/CGI/Iface.pm:59 src/EBox/CGI/Vlan.pm:41
-#: src/EBox/CGI/VIface.pm:43
-msgid "network interface"
-msgstr "واسط شبکه"
+#: src/EBox/Network.pm:81 src/EBox/Network.pm:3588
+#: src/EBox/Model/StaticRoute.pm:147
+msgid "Network"
+msgstr "شبکه"
 
-#: src/EBox/CGI/Iface.pm:58
-msgid "method"
-msgstr "روش"
+#: src/EBox/Network.pm:99
+msgid "Add default routers to the default table"
+msgstr "مسیریاب های پیش فرض را به جدول پیش فرض اضافه کن"
 
-#: src/EBox/CGI/Iface.pm:88
-msgid "ip address"
-msgstr "آدرس آی‌پی"
+#: src/EBox/Network.pm:100
+msgid ""
+"This is needed to work with a multigateway configuration. Note that to list "
+"the default routes you must execute: "
+msgstr ""
+"این نیاز دارد که با یک پیکریندی چند گذرگاهه کار کند. به خاطر داشته باشید که "
+"برای لیست کردن مسیرهای پیش فرض؛ شما باید این فرمان را اجرا کنید:"
 
-#: src/EBox/CGI/Iface.pm:89 src/EBox/CGI/VIface.pm:63
-msgid "netmask"
-msgstr "ماسک شبکه"
-
-#: src/EBox/CGI/Iface.pm:95
-#, fuzzy
-msgid "user name"
-msgstr "نام میزبان"
-
-#: src/EBox/CGI/Iface.pm:96
-msgid "password"
+#: src/EBox/Network.pm:106
+msgid "Enable Zentyal DHCP hook"
 msgstr ""
 
-#: src/EBox/CGI/Iface.pm:106
-msgid "bridge"
+#: src/EBox/Network.pm:107
+msgid ""
+"It will take care of adding the default route given by a DHCP server to the "
+"default route table. "
+msgstr ""
+"آن مراقب اضافه کردن مسیر پیش فرضی که توسط یک سرویس دهنده DHCP گرفته شده به "
+"جدول مسیر پیش فرض، خواهد بود"
+
+#: src/EBox/Network.pm:125
+#, fuzzy
+msgid "Zentyal will set your network configuration"
+msgstr "eBox پیکربندی شبکه شما را تنظیم خواهد کرد "
+
+#: src/EBox/Network.pm:130
+#, fuzzy
+msgid "Zentyal will set your DNS configuration"
+msgstr "eBox پیکربندی شبکه شما را تنظیم خواهد کرد "
+
+#: src/EBox/Network.pm:135
+#, fuzzy
+msgid "Zentyal will set your DHCP client configuration"
+msgstr "eBox پیکربندی شبکه شما را تنظیم خواهد کرد "
+
+#: src/EBox/Network.pm:140 src/EBox/Network.pm:145
+#, fuzzy
+msgid "Zentyal will set your ddclient configuration"
+msgstr "eBox پیکربندی شبکه شما را تنظیم خواهد کرد "
+
+#: src/EBox/Network.pm:150 src/EBox/Network.pm:155
+msgid "Zentyal will store your PPPoE passwords"
 msgstr ""
 
-#: src/EBox/CGI/EnableBalanceTraffic.pm:42
-msgid "traffic balance"
-msgstr "تراز ترافیک"
-
-#: src/EBox/CGI/Diag.pm:29 src/EBox/CGI/Diag.pm:41
+#: src/EBox/Network.pm:162
 #, fuzzy
-msgid "Network Diagnostic Tools"
-msgstr "عیب یابی شبکه"
+msgid "Zentyal will add a DSL provider configuration for PPPoE"
+msgstr "eBox پیکربندی شبکه شما را تنظیم خواهد کرد "
 
-#: src/EBox/CGI/VIface.pm:44
-msgid "virtual interface action"
-msgstr "فعالیت واسط مجازی"
+#: src/EBox/Network.pm:169
+msgid "Zentyal will set HTTP proxy for all users"
+msgstr ""
 
-#: src/EBox/CGI/VIface.pm:64 src/EBox/CGI/VIface.pm:70
-msgid "virtual interface name"
+#: src/EBox/Network.pm:172
+msgid "Zentyal will set HTTP proxy for APT"
+msgstr ""
+
+#: src/EBox/Network.pm:902 src/EBox/Network.pm:906
+msgid "Virtual interface name"
 msgstr "نام واسط مجازی"
 
-#: src/templates/Wizard/interfaces.mas:7 src/templates/Wizard/network.mas:23
-#, fuzzy
-msgid "Network interfaces"
-msgstr "واسط های شبکه"
+#: src/EBox/Network.pm:905 src/EBox/Network.pm:1224 src/EBox/Network.pm:3183
+#: src/templates/ifaces.mas:132 src/templates/ifaces.mas:288
+#: src/templates/Wizard/network.mas:57
+msgid "Netmask"
+msgstr "ماسک شبکه"
 
-#: src/templates/Wizard/interfaces.mas:10
-#, fuzzy
-msgid "Select external network interfaces"
-msgstr "واسط شبکه"
+#: src/EBox/Network.pm:998 src/EBox/Network.pm:1030 src/EBox/Network.pm:1075
+#: src/EBox/Network.pm:1111 src/EBox/Network.pm:1136 src/EBox/Network.pm:1220
+#: src/EBox/Network.pm:1358 src/EBox/Network.pm:1449 src/EBox/Network.pm:1537
+#: src/EBox/Network.pm:1543 src/EBox/Network.pm:1870 src/EBox/Network.pm:1940
+#: src/EBox/Network.pm:1973 src/EBox/Network.pm:2000 src/EBox/Network.pm:2027
+#: src/EBox/Network.pm:2055 src/EBox/Network.pm:2117 src/EBox/Network.pm:2156
+#: src/EBox/Network.pm:2189 src/EBox/Network.pm:3181 src/EBox/Network.pm:3201
+#: src/EBox/Network.pm:3221 src/EBox/Network.pm:3242 src/EBox/Network.pm:3261
+#: src/EBox/Network.pm:3315 src/EBox/Network.pm:3336 src/EBox/Network.pm:3356
+#: src/EBox/Network.pm:3377 src/EBox/Network.pm:3400
+#: src/EBox/Model/MultiGwRulesDataTable.pm:101
+#: src/EBox/Model/GatewayTable.pm:204
+msgid "Interface"
+msgstr "واسط"
 
-#: src/templates/Wizard/interfaces.mas:11
+#: src/EBox/Network.pm:1454
+msgid "This interface cannot be put in trunk mode, it is an vlan interface."
+msgstr "واسط نمی تواند در وضعیت ترانک قرار داده شود، زیرا یک واسط vlan می باشد"
+
+#: src/EBox/Network.pm:1509
 msgid ""
-"You will not be able to connect to Zentyal administration page through them"
+"This interface is in trunk mode, you should unconfigure all the vlan "
+"interfaces in this trunk before changing its configuration mode."
+msgstr ""
+"واسط در وضعیت ترانک می باشد، شما باید قبل از تغییر وضعیت پیکربندی آن، تمام "
+"واسط های vlan  در این ترانک را از حالت پیکربندی خارج کنید"
+
+#: src/EBox/Network.pm:1646
+msgid ""
+"Network interfaces need to be in trunk mode before adding vlans to them."
+msgstr ""
+"واسط های شبکه نیاز دارند که قبل از اینکه vlan ها به آنها اضافه شوند در وضعیت "
+"ترانک باشند"
+
+#: src/EBox/Network.pm:3073
+#, fuzzy
+msgid ""
+"The requested operation will cause one of the configured gateways to become "
+"unreachable. Please remove it first if you really want to make this change."
+msgstr ""
+"عمل درخواست شده سبب خواهد شد که یکی از مسیریاب های پیکریندی شده غیر قابل "
+"دسترس شود. اگر واقعا می خواهید این تغییر را انجام دهید، لطفا ابتدا آن را حذف "
+"کنید"
+
+#: src/EBox/Network.pm:3138 src/EBox/NetworkUtil.pm:55
+#, perl-brace-format
+msgid "Gateway {gw} not reachable"
+msgstr "گذرگاه {gw} غیر قابل دسترس می باشد"
+
+#: src/EBox/Network.pm:3141
+#, perl-brace-format
+msgid ""
+"Gateway {gw} must be reachable by a static interface. Currently it is "
+"reachable by {iface} which is not static"
+msgstr ""
+"گذرگاه {gw} باید توسط یک واسط ایستا قابل دسترس باشد. در حال حاضر توسط "
+"{iface} که ایستا نمی باشد، قابل دسترس است"
+
+#: src/EBox/Network.pm:3422 src/EBox/Network.pm:3443
+msgid "Host name"
+msgstr "نام میزبان"
+
+#: src/EBox/Network.pm:3493
+msgid "down"
+msgstr "از کار افتاده"
+
+#: src/EBox/Network.pm:3499
+msgid "up"
+msgstr "در حال کار"
+
+#: src/EBox/Network.pm:3504
+#, fuzzy
+msgid "external"
+msgstr "خارجی"
+
+#: src/EBox/Network.pm:3506
+#, fuzzy
+msgid "internal"
+msgstr "خارجی"
+
+#: src/EBox/Network.pm:3512
+msgid "link ok"
+msgstr "پیوند صحیح است"
+
+#: src/EBox/Network.pm:3514
+msgid "no link"
+msgstr "بدون پیوند"
+
+#: src/EBox/Network.pm:3528
+msgid "MAC address"
+msgstr "آدرس MAC"
+
+#: src/EBox/Network.pm:3545
+msgid "Tx bytes"
+msgstr "بایت های Tx"
+
+#: src/EBox/Network.pm:3554
+msgid "Rx bytes"
+msgstr "بایت های Rx"
+
+#: src/EBox/Network.pm:3593
+msgid "Interfaces"
+msgstr "واسط ها"
+
+#: src/EBox/Network.pm:3599
+msgid "Gateways"
+msgstr "گذرگاه ها"
+
+#: src/EBox/Network.pm:3601 src/EBox/Model/StaticRoute.pm:171
+#, fuzzy
+msgid "Static Routes"
+msgstr "مسیرهای ایستا"
+
+#: src/EBox/Network.pm:3607
+#, fuzzy
+msgid "Diagnostic Tools"
+msgstr "عیب یابی"
+
+#: src/EBox/Model/StaticRoute.pm:150
+msgid "IP or network address"
+msgstr "آی‌پی یا آدرس شبکه"
+
+#: src/EBox/Model/StaticRoute.pm:156
+msgid "Gateway used to reach the above network  address"
+msgstr "گذرگاه؛ استفاده شده تا به آدرس شبکه فوق برسد"
+
+#: src/EBox/Model/StaticRoute.pm:161 src/templates/ifaces.mas:230
+msgid "Description"
+msgstr "شرح"
+
+#: src/EBox/Model/StaticRoute.pm:164
+msgid "Optional description for this route"
+msgstr "شرح اختیاری برای این مسیر"
+
+#: src/EBox/Model/StaticRoute.pm:170
+#, fuzzy
+msgid "Static Routes List"
+msgstr "لیست مسیرهای ایستا"
+
+#: src/EBox/Model/StaticRoute.pm:176
+#, fuzzy
+msgid ""
+"All gateways you enter here must be reachable through one of the network "
+"interfaces currently configured."
+msgstr ""
+"تمام گذرگاه هایی که شما اینجا وارد کرده اید باید از میان یکی از واسط های "
+"شبکه ای که در حال حاضر پیکربندی شده؛ قابل عبور باشند"
+
+#: src/EBox/Model/StaticRoute.pm:179
+msgid "static route"
+msgstr "مسیر ایستا"
+
+#: src/EBox/Model/SearchDomain.pm:71
+msgid "Domain"
 msgstr ""
 
-#: src/templates/Wizard/network.mas:26
-#, fuzzy
-msgid "Configure network for external interfaces"
-msgstr "واسط های شبکه را پیکربندی کن"
-
-#: src/templates/Wizard/network.mas:27
-msgid "Now you can set IP addresses and networks for each interface"
+#: src/EBox/Model/SearchDomain.pm:79
+msgid "Search Domain"
 msgstr ""
 
-#: src/templates/Wizard/network.mas:40 src/templates/ifaces.mas:45
-msgid "Method"
-msgstr "روش"
+#: src/EBox/Model/SearchDomain.pm:83
+msgid ""
+"This domain will be appended when trying to resolve hosts if the first "
+"attempt without appending it has failed."
+msgstr ""
 
-#: src/templates/Wizard/network.mas:43
+#: src/EBox/Model/MultiGwRulesOptions.pm:43
+msgid "Enable"
+msgstr ""
+
+#: src/EBox/Model/MultiGwRulesOptions.pm:53
+msgid "Traffic balancing"
+msgstr ""
+
+#: src/EBox/Model/MultiGwRulesOptions.pm:64
+#, perl-brace-format
+msgid ""
+"By enabling this feature, your traffic will be balanced amongst your "
+"gateways. That is, every new connection will be sent by a different gateway. "
+"You can choose which proportion of traffic goes through each gateway using "
+"the weight parameter of the gateway. You can change that value {openref}here"
+"{closeref}.{br}If you want to explicitily route traffic by a certain "
+"gateway, use the multigateway rules below"
+msgstr ""
+
+#: src/EBox/Model/MultiGwRulesOptions.pm:68
+#: src/EBox/Model/MultiGwRulesDataTable.pm:195
+#: src/EBox/Model/WANFailoverRules.pm:133
+msgid "rule"
+msgstr "قانون"
+
+#: src/EBox/Model/MultiGwRulesDataTable.pm:77
+msgid "any"
+msgstr "هیچ"
+
+#: src/EBox/Model/MultiGwRulesDataTable.pm:104
+msgid ""
+"Incoming interface to match packets. If you  want to match a whole subnet "
+"you can  select the interface of that subnet"
+msgstr ""
+"واسط ورودی برای تطابق بسته ها. اگر شما می خواهید تمام زیر شبکه را تطبیق دهید "
+"می توانید واسط آن زیر شبکه را انتخاب کنید"
+
+#: src/EBox/Model/MultiGwRulesDataTable.pm:110
+#: src/EBox/Model/ByteRateGraphControl.pm:111
+msgid "Source"
+msgstr "مبدأ"
+
+#: src/EBox/Model/MultiGwRulesDataTable.pm:115
+#: src/EBox/Model/MultiGwRulesDataTable.pm:142
+msgid "Any"
+msgstr "هیچ"
+
+#: src/EBox/Model/MultiGwRulesDataTable.pm:118
+msgid "Source IP"
+msgstr "آی‌پی مبدأ"
+
+#: src/EBox/Model/MultiGwRulesDataTable.pm:123
+msgid "Source object"
+msgstr "شیء مبدأ"
+
+#: src/EBox/Model/MultiGwRulesDataTable.pm:137
+msgid "Destination"
+msgstr "مقصد"
+
+#: src/EBox/Model/MultiGwRulesDataTable.pm:145
+msgid "Destination IP"
+msgstr "آی‌پی مقصد"
+
+#: src/EBox/Model/MultiGwRulesDataTable.pm:150
+msgid "Destination object"
+msgstr "شیء مقصد"
+
+#: src/EBox/Model/MultiGwRulesDataTable.pm:161 src/EBox/Model/DynDNS.pm:91
+#: src/EBox/Model/ByteRateGraphControl.pm:117
+msgid "Service"
+msgstr "سرویس"
+
+#: src/EBox/Model/MultiGwRulesDataTable.pm:172
 #, fuzzy
-msgid "Don't configure"
-msgstr "DNS پیکربندی شد"
+msgid "Gateway to route packets matching this rule"
+msgstr "گذرگاه برای مسیریابی بسته ها با این قانون مطابقت می کند"
 
-#: src/templates/Wizard/network.mas:82
-msgid "Gateway"
+#: src/EBox/Model/MultiGwRulesDataTable.pm:180
+msgid "Multigateway rules"
+msgstr "قوانین چند گذرگاهی"
+
+#: src/EBox/Model/MultiGwRulesDataTable.pm:193
+msgid ""
+"You can decide what kind of traffic goes out by each gateway. This way, you "
+"can force a subnet, service, destination and so forth  to use the router you "
+"choose. Please, bear in mind that rules will be applied in order, from top "
+"to bottom, you can reorder them once they are added. If you do not set a "
+"port or an IP address, then the rule will match all of them"
+msgstr ""
+"شما می توانید تصمیم بگیرید که چه نوع ترافیکی توسط هر گذرگاه بیرون می رود. از "
+"این راه شما می توانید یک زیرشبکه، سرویس، مقصد و همچنین استفاده از مسیریابی "
+"که انتخاب کرده اید را تحمیل کنید. "
+
+#: src/EBox/Model/DNSResolver.pm:77
+#, fuzzy
+msgid "IP address of the DNS server that Zentyal will use to resolve names."
+msgstr "آدرس آی‌پی سرور DNS که eBox برای تحلیل نام ها از آن استفاده خواهد کرد"
+
+#: src/EBox/Model/DNSResolver.pm:83 src/templates/Wizard/network.mas:86
+#: src/templates/Wizard/network.mas:90
+#, fuzzy
+msgid "Domain Name Server"
+msgstr "سرویس دهنده نام"
+
+#: src/EBox/Model/DNSResolver.pm:92
+#, fuzzy
+msgid "Domain Name Server Resolver List"
+msgstr "لیست تحلیل گر سرویس دهنده نام"
+
+#: src/EBox/Model/DNSResolver.pm:98
+msgid "name server"
+msgstr "سرویس دهنده نام"
+
+#: src/EBox/Model/DNSResolver.pm:110
+#, fuzzy
+msgid ""
+"<p>Here you can add the name server resolvers that Zentyal will use.</"
+"p><p>Note that these settings may be overriden if you have any network "
+"interface configured via DHCP</p>"
+msgstr ""
+"<p> اینجا شما می توانید تحلیل گرهای سرویس دهنده نام را که eBox از آنها "
+"استفاده خواهد کرد اضافه کنید. </p><p> به خاطر داشته باشید که اگر شما هر واسط "
+"شبکه پیکربندی شده از طریق DHCP  داشته باشید؛ این تنظیمات ممکن است لغو شوند </"
+"p>"
+
+#: src/EBox/Model/ByteRateSettings.pm:79
+msgid "Interface to listen"
+msgstr ""
+
+#: src/EBox/Model/ByteRateSettings.pm:88
+msgid "Traffic rate monitor settings"
+msgstr "تنظیمات مانیتور نرخ ترافیک"
+
+#: src/EBox/Model/ByteRateSettings.pm:92
+msgid "Changes will be applied immediately to the traffic rate monitor"
+msgstr "تغییرات فورا برای مانیتور نرخ ترافیک اعمال خواهند شد"
+
+#: src/EBox/Model/ByteRateSettings.pm:95
+msgid "Settings changed"
+msgstr "تنظیمات تغییر یافت"
+
+#: src/EBox/Model/ByteRateSettings.pm:114
+#, perl-brace-format
+msgid "{iface} (internal interface)"
+msgstr "{iface} ( واسط داخلی )"
+
+#: src/EBox/Model/ByteRateSettings.pm:121
+#, perl-brace-format
+msgid "{iface} (external interface)"
+msgstr "{iface} ( واسط خارجی )"
+
+#: src/EBox/Model/ByteRateSettings.pm:128
+msgid "all"
+msgstr "همه"
+
+#: src/EBox/Model/DynDNS.pm:86
+msgid "Enable Dynamic DNS"
+msgstr ""
+
+#: src/EBox/Model/DynDNS.pm:97 src/EBox/Model/Proxy.pm:75
+msgid "Username"
+msgstr ""
+
+#: src/EBox/Model/DynDNS.pm:102 src/EBox/Model/Proxy.pm:82
+#: src/templates/ifaces.mas:202
+msgid "Password"
+msgstr ""
+
+#: src/EBox/Model/DynDNS.pm:107
+#, fuzzy
+msgid "Hostname"
+msgstr "نام میزبان"
+
+#: src/EBox/Model/DynDNS.pm:115
+msgid "Configuration"
+msgstr ""
+
+#: src/EBox/Model/DynDNS.pm:119
+msgid ""
+"All gateways you enter here must be reachable through one of the network "
+"interfaces currently configured"
+msgstr ""
+"تمام گذرگاه هایی که شما اینجا وارد کرده اید باید از میان یکی از واسط های "
+"شبکه ای که در حال حاضر پیکربندی شده؛ قابل عبور باشند"
+
+#: src/EBox/Model/ByteRateEnableForm.pm:70
+msgid ""
+"Starting traffic rate monitoring. Wait patiently until the graph appears"
+msgstr ""
+"مانیتورینگ نرخ ترافیک آغاز شد. لطفا تا زمانی که گراف پدیدار شود منتظر بمانید"
+
+#: src/EBox/Model/ByteRateEnableForm.pm:73
+msgid "Stopping traffic rate monitoring"
+msgstr "مانیتورینگ نرخ ترافیک پایان یافت"
+
+#: src/EBox/Model/ByteRateEnableForm.pm:86
+msgid ""
+"The traffic rate monitor is start/stop on demand without requiring to save "
+"changes first"
+msgstr ""
+"مانیتور نرخ ترافیک برحسب نیاز؛ بدون نیاز به ذخیره تغییرات اولیه شروع/متوقف "
+"می شود"
+
+#: src/EBox/Model/WANFailoverRules.pm:55
+#, fuzzy
+msgid "Ping to gateway"
 msgstr "گذرگاه"
 
-#: src/templates/confirmVlanDel.mas:9
+#: src/EBox/Model/WANFailoverRules.pm:59
+msgid "Ping to host"
+msgstr ""
+
+#: src/EBox/Model/WANFailoverRules.pm:63
+msgid "DNS resolve"
+msgstr ""
+
+#: src/EBox/Model/WANFailoverRules.pm:67
+msgid "HTTP Request"
+msgstr ""
+
+#: src/EBox/Model/WANFailoverRules.pm:91
+msgid "Test type"
+msgstr ""
+
+#: src/EBox/Model/WANFailoverRules.pm:103
+msgid "Number of probes"
+msgstr ""
+
+#: src/EBox/Model/WANFailoverRules.pm:112
+msgid "Required success ratio"
+msgstr ""
+
+#: src/EBox/Model/WANFailoverRules.pm:125
+msgid "Test rules"
+msgstr ""
+
+#: src/EBox/Model/WANFailoverRules.pm:132
 msgid ""
-"The removal of the vlan interface will affect the configuration of one or "
+"You can define different rules to test if a gateway is working properly. If "
+"one of the test fails the gateway will be disabled. It will be enabled again "
+"when all tests are passed."
+msgstr ""
+
+#: src/EBox/Model/WANFailoverRules.pm:182
+msgid "Invalid value for Host"
+msgstr ""
+
+#: src/EBox/Model/WANFailoverOptions.pm:71
+msgid "Time between checks"
+msgstr ""
+
+#: src/EBox/Model/WANFailoverOptions.pm:72
+#, fuzzy
+msgid "seconds"
+msgstr "بایت بر ثانیه"
+
+#: src/EBox/Model/WANFailoverOptions.pm:82
+msgid "Global options"
+msgstr ""
+
+#: src/EBox/Model/WANFailoverOptions.pm:86
+msgid "These options affect to all the tests."
+msgstr ""
+
+#: src/EBox/Model/GatewayTable.pm:184
+msgid "Auto"
+msgstr ""
+
+#: src/EBox/Model/GatewayTable.pm:190 src/templates/ifaces.mas:34
+#: src/templates/ifaces.mas:286
+msgid "Name"
+msgstr "نام"
+
+#: src/EBox/Model/GatewayTable.pm:207
+msgid "Interface connected to this gateway"
+msgstr "واسط به این گذرگاه متصل شده"
+
+#: src/EBox/Model/GatewayTable.pm:211
+msgid "Weight"
+msgstr "وزن"
+
+#: src/EBox/Model/GatewayTable.pm:216
+msgid ""
+"This field is only useful if you have more than one router and  the balance "
+"traffic feature is enabled."
+msgstr ""
+"این فیلد تنها زمانی مفید است که شما بیشتر از یک مسیریاب داشته باشید و مشخصه "
+"تراز ترافیک فعال باشد"
+
+#: src/EBox/Model/GatewayTable.pm:222
+msgid "Default"
+msgstr "پیش فرض"
+
+#: src/EBox/Model/GatewayTable.pm:232
+#, fuzzy
+msgid "Gateways List"
+msgstr "لیست گذرگاه"
+
+#: src/EBox/Model/GatewayTable.pm:248
+#, fuzzy
+msgid ""
+"You can add as many gateways as you want. This is very useful if you want to "
+"split your Internet traffic through several links. Note that if you "
+"configure interfaces as DHCP or PPPoE their gateways are added here "
+"automatically."
+msgstr ""
+"شما می توانید هر چقدر گذرگاه که می خواهید اضافه کنید. اگر شما می خواهید "
+"ترافیک اینترنت خود را از میان پیوندهای مختلف جدا کنید این کار بسیار مفید می "
+"باشد.{br} فیلدهای دانلود و آپلود باید به اندازه سرعت اتصال شما به گذرگاه "
+"تنظیم شوند. مقدار صحیح این فیلدها برای تضمین یک عملکرد صحیح از ماژول شکل دهی "
+"ترافیک بحرانی است"
+
+#: src/EBox/Model/GatewayTable.pm:250
+msgid "gateway"
+msgstr "گذرگاه"
+
+#: src/EBox/Model/GatewayTable.pm:283
+msgid "You can not manually add a gateway for DHCP or PPPoE interfaces"
+msgstr ""
+
+#: src/EBox/Model/GatewayTable.pm:342
+msgid "Automatically added gateways can not be manually deleted"
+msgstr ""
+
+#: src/EBox/Model/ByteRateGraphControl.pm:46
+msgid "Select traffic graphic"
+msgstr "نگاره ترافیک را انتخاب کنید"
+
+#: src/EBox/Model/ByteRateGraphControl.pm:57
+msgid ""
+"Several views are showed depending on the parameter selection. An host IP "
+"address and a service, which must match the text given by the graphs legend "
+"based on /etc/services, may be required by the graph type. The flow view "
+"will change accordingly"
+msgstr ""
+
+#: src/EBox/Model/ByteRateGraphControl.pm:78
+msgid "Graph type"
+msgstr "نوع گراف"
+
+#: src/EBox/Model/ByteRateGraphControl.pm:85
+msgid "All active traffic by source"
+msgstr "تمام ترافیک های فعال توسط مبدأ"
+
+#: src/EBox/Model/ByteRateGraphControl.pm:89
+msgid "All active traffic by service"
+msgstr "تمام ترافیک های فعال توسط سرویس"
+
+#: src/EBox/Model/ByteRateGraphControl.pm:93
+msgid "Traffic by selected source"
+msgstr "ترافیک توسط مبدأ انتخاب شده"
+
+#: src/EBox/Model/ByteRateGraphControl.pm:99
+msgid "Traffic by selected service"
+msgstr "ترافیک توسط سرویس انتخاب شده"
+
+#: src/EBox/Model/ByteRateGraphControl.pm:105
+msgid "Traffic by source and service"
+msgstr "ترافیک توسط مبدأ و سرویس"
+
+#: src/EBox/Model/Proxy.pm:89
+#, fuzzy
+msgid "Proxy server"
+msgstr "سرویس دهنده نام"
+
+#: src/EBox/Model/Proxy.pm:95
+msgid "Proxy port"
+msgstr ""
+
+#: src/EBox/Model/Proxy.pm:103
+msgid "Proxy"
+msgstr ""
+
+#: src/EBox/Model/Proxy.pm:107
+msgid ""
+"This settings will be used to allow Zentyal to access the Internet if an "
+"HTTP proxy is needed."
+msgstr ""
+
+#: src/EBox/Model/Proxy.pm:129
+msgid "Proxy username and password will be visible by all system users."
+msgstr ""
+
+#: src/templates/confirmremove.mas:11 src/templates/confirm.mas:17
+msgid ""
+"The change you are trying to make will affect the configuration of one or "
 "more modules that use references to this network interface."
 msgstr ""
 
-#: src/templates/confirmVlanDel.mas:12 src/templates/confirmremove.mas:14
+#: src/templates/confirmremove.mas:14 src/templates/confirmVlanDel.mas:12
 msgid ""
 "If you choose to continue, all modules that make use of this network "
 "interface will delete the relevant parts of their configuration. Choose "
 "\"Cancel\" if you are not sure about this."
 msgstr ""
 
-#: src/templates/confirmVlanDel.mas:22 src/templates/confirmremove.mas:24
-#: src/templates/confirm.mas:35
+#: src/templates/confirmremove.mas:24 src/templates/confirmVlanDel.mas:22
+#: src/templates/confirm.mas:37
 msgid "Ok"
 msgstr ""
 
-#: src/templates/confirmVlanDel.mas:24 src/templates/confirmremove.mas:26
-#: src/templates/confirm.mas:37
+#: src/templates/confirmremove.mas:26 src/templates/confirmVlanDel.mas:24
+#: src/templates/confirm.mas:39
 msgid "Cancel"
-msgstr ""
-
-#: src/templates/confirmremove.mas:11 src/templates/confirm.mas:16
-msgid ""
-"The change you are trying to make will affect the configuration of one or "
-"more modules that use references to this network interface."
-msgstr ""
-
-#: src/templates/confirm.mas:19
-msgid ""
-"If you choose to continue, all modules that make use of the current "
-"configuration of this network interface will delete the relevant parts of "
-"their configuration. Choose \"Cancel\" if you are not sure about this."
-msgstr ""
-
-#: src/templates/diag.mas:13 src/templates/diag.mas:18
-msgid "Ping"
-msgstr ""
-
-#: src/templates/diag.mas:22
-#, fuzzy
-msgid "Traceroute"
-msgstr "مسیر ایستا"
-
-#: src/templates/diag.mas:27
-msgid "Trace"
-msgstr ""
-
-#: src/templates/diag.mas:31
-msgid "Domain Name Resolution"
-msgstr ""
-
-#: src/templates/diag.mas:32
-msgid "Domain name"
-msgstr ""
-
-#: src/templates/diag.mas:36
-msgid "Lookup"
-msgstr ""
-
-#: src/templates/diag.mas:38
-msgid "Output"
 msgstr ""
 
 #: src/templates/ifaces.mas:13
@@ -975,6 +898,10 @@ msgid ""
 "Also, services meant for the LAN users will not be available on external "
 "interfaces."
 msgstr ""
+
+#: src/templates/ifaces.mas:45 src/templates/Wizard/network.mas:40
+msgid "Method"
+msgstr "روش"
 
 #: src/templates/ifaces.mas:51 src/templates/ifaces.mas:53
 msgid "Static"
@@ -1040,3 +967,78 @@ msgstr ""
 #, fuzzy
 msgid "Virtual Interfaces"
 msgstr "نام واسط مجازی"
+
+#: src/templates/confirmVlanDel.mas:9
+msgid ""
+"The removal of the vlan interface will affect the configuration of one or "
+"more modules that use references to this network interface."
+msgstr ""
+
+#: src/templates/Wizard/network.mas:23 src/templates/Wizard/interfaces.mas:7
+#, fuzzy
+msgid "Network interfaces"
+msgstr "واسط های شبکه"
+
+#: src/templates/Wizard/network.mas:26
+#, fuzzy
+msgid "Configure network for external interfaces"
+msgstr "واسط های شبکه را پیکربندی کن"
+
+#: src/templates/Wizard/network.mas:27
+msgid "Now you can set IP addresses and networks for each interface"
+msgstr ""
+
+#: src/templates/Wizard/network.mas:43
+#, fuzzy
+msgid "Don't configure"
+msgstr "DNS پیکربندی شد"
+
+#: src/templates/Wizard/network.mas:82
+msgid "Gateway"
+msgstr "گذرگاه"
+
+#: src/templates/Wizard/interfaces.mas:10
+#, fuzzy
+msgid "Select external network interfaces"
+msgstr "واسط شبکه"
+
+#: src/templates/Wizard/interfaces.mas:11
+msgid ""
+"You will not be able to connect to Zentyal administration page through them"
+msgstr ""
+
+#: src/templates/diag.mas:13 src/templates/diag.mas:18
+msgid "Ping"
+msgstr ""
+
+#: src/templates/diag.mas:22
+#, fuzzy
+msgid "Traceroute"
+msgstr "مسیر ایستا"
+
+#: src/templates/diag.mas:27
+msgid "Trace"
+msgstr ""
+
+#: src/templates/diag.mas:31
+msgid "Domain Name Resolution"
+msgstr ""
+
+#: src/templates/diag.mas:32
+msgid "Domain name"
+msgstr ""
+
+#: src/templates/diag.mas:36
+msgid "Lookup"
+msgstr ""
+
+#: src/templates/diag.mas:38
+msgid "Output"
+msgstr ""
+
+#: src/templates/confirm.mas:20
+msgid ""
+"If you choose to continue, all modules that make use of the current "
+"configuration of this network interface will delete the relevant parts of "
+"their configuration. Choose \"Cancel\" if you are not sure about this."
+msgstr ""

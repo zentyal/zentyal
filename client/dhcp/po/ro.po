@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-dhcp 0.12.99\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-08-28 23:34+0200\n"
+"POT-Creation-Date: 2010-12-13 08:38+0100\n"
 "PO-Revision-Date: 2010-08-27 07:56+0200\n"
 "Last-Translator: Harald Ersch <harald.ersch@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
@@ -27,15 +27,225 @@ msgstr "Protocolul Transferului Trivial al Fişierelor  (TFTP)"
 msgid "Dynamic Host Configuration Protocol"
 msgstr "Protocol de configurare dinamică a gazdelor (DHCP)"
 
-#: src/EBox/Model/DynamicDNS.pm:110 src/EBox/Model/FixedAddressTable.pm:97
-#: src/EBox/Model/ThinClientOptions.pm:117 src/EBox/Model/RangeInfo.pm:107
-#: src/EBox/Model/LeaseTimes.pm:111 src/EBox/Model/Options.pm:118
-#: src/EBox/Model/RangeTable.pm:95 src/EBox/Composite/AdvancedOptions.pm:87
+#: src/EBox/CGI/Status.pm:42
+msgid "Module Status"
+msgstr "Stare Modul"
+
+#: src/EBox/CGI/AddFixed.pm:39 src/EBox/CGI/RemoveRange.pm:39
+#: src/EBox/CGI/AddRange.pm:39 src/EBox/CGI/RemoveFixed.pm:39
+#: src/EBox/CGI/SetIfaceOptions.pm:39 src/EBox/DHCP.pm:446
+#: src/EBox/DHCP.pm:482 src/EBox/DHCP.pm:532 src/EBox/DHCP.pm:578
+#: src/EBox/DHCP.pm:624 src/EBox/DHCP.pm:722 src/EBox/DHCP.pm:776
+#: src/EBox/DHCP.pm:837 src/EBox/DHCP.pm:893 src/EBox/DHCP.pm:1284
+msgid "Interface"
+msgstr "Interfata"
+
+#: src/EBox/CGI/AddFixed.pm:43 src/EBox/Model/FixedAddressTable.pm:214
+#: src/EBox/DHCP.pm:1285 src/EBox/DHCP.pm:1353 src/templates/fixed.mas:9
+msgid "MAC address"
+msgstr "Adresa MAC"
+
+#: src/EBox/CGI/AddFixed.pm:44 src/EBox/Model/ThinClientOptions.pm:241
+#: src/EBox/Model/FixedAddressTable.pm:220 src/EBox/DHCP.pm:1353
+#: src/templates/fixed.mas:10
+msgid "IP address"
+msgstr "Adresa IP"
+
+#: src/EBox/CGI/AddFixed.pm:45 src/EBox/CGI/AddRange.pm:43
+#: src/EBox/Model/FixedAddressTable.pm:208 src/EBox/Model/RangeTable.pm:213
+#: src/templates/fixed.mas:8 src/templates/ranges.mas:53
+msgid "Name"
+msgstr "Nume"
+
+#: src/EBox/CGI/AddRange.pm:44 src/EBox/Model/RangeTable.pm:219
+#: src/templates/ranges.mas:54
+msgid "From"
+msgstr "De la"
+
+#: src/EBox/CGI/AddRange.pm:45 src/EBox/Model/RangeTable.pm:225
+#: src/templates/ranges.mas:55
+msgid "To"
+msgstr "Catre"
+
+#: src/EBox/CGI/Enable.pm:39
+msgid "module status"
+msgstr "stare modul"
+
+#: src/EBox/Model/ThinClientOptions.pm:117 src/EBox/Model/LeaseTimes.pm:111
+#: src/EBox/Model/FixedAddressTable.pm:97 src/EBox/Model/DynamicDNS.pm:110
+#: src/EBox/Model/RangeInfo.pm:107 src/EBox/Model/Options.pm:118
+#: src/EBox/Model/RangeTable.pm:95 src/EBox/Composite/OptionsTab.pm:86
 #: src/EBox/Composite/InterfaceConfiguration.pm:86
-#: src/EBox/Composite/OptionsTab.pm:86
+#: src/EBox/Composite/AdvancedOptions.pm:87
 #, perl-brace-format
 msgid "interface {iface}"
 msgstr "interfaţa {iface}"
+
+#: src/EBox/Model/ThinClientOptions.pm:138
+msgid "You need to upload a boot image to Zentyal if you set it as next server"
+msgstr ""
+"Trebuie să încarci o imagine de boot in Zentyal daca vrei sa il setezi ca "
+"următorul server"
+
+#: src/EBox/Model/ThinClientOptions.pm:145
+msgid ""
+"In order to upload a boot image to Zentyal, you need to set Zentyal as next "
+"server"
+msgstr ""
+"Pentru a putea incarca o imagine de boot, Zentyal trebuie setat ca urmatorul "
+"server"
+
+#: src/EBox/Model/ThinClientOptions.pm:152
+msgid "You need to specify a path to the boot image in the remote server"
+msgstr ""
+"Trebuie specificata calea catre imaginea de boot pe serverul de la distanta"
+
+# Putin cam neclara fraza 
+#: src/EBox/Model/ThinClientOptions.pm:157
+msgid ""
+"You can only specify a file name if you have a next server and it is not "
+"Zentyal"
+msgstr ""
+"Poti specifica un nume de fisier doar daca exista un alt server \"urmatorul "
+"server\" diferit de serverul Zentyal"
+
+#: src/EBox/Model/ThinClientOptions.pm:208
+#, perl-brace-format
+msgid ""
+"Removing previously uploaded boot image since next server option has been "
+"changed from Zentyal to {option}"
+msgstr ""
+"Se sterge imaginea de boot incarcata anterior deoarece optiunea de urmatorul "
+"server a fost schimbata din Zentyal in {option}"
+
+#: src/EBox/Model/ThinClientOptions.pm:231
+msgid "Next server"
+msgstr "Următorul server"
+
+#: src/EBox/Model/ThinClientOptions.pm:235 src/EBox/Model/Options.pm:370
+#: src/EBox/Model/Options.pm:404 src/EBox/Model/Options.pm:408
+#: src/EBox/Model/Options.pm:422 src/EBox/Model/Options.pm:455
+msgid "None"
+msgstr "Niciunul"
+
+#: src/EBox/Model/ThinClientOptions.pm:245
+msgid "name"
+msgstr "nume"
+
+#: src/EBox/Model/ThinClientOptions.pm:251
+msgid "File name"
+msgstr "Nume fisier"
+
+#: src/EBox/Model/ThinClientOptions.pm:260
+msgid "File path in next server"
+msgstr "Calea catre fisier pe urmatorul server"
+
+#: src/EBox/Model/ThinClientOptions.pm:268
+msgid "Thin client"
+msgstr "Client \"Thin\""
+
+#: src/EBox/Model/ThinClientOptions.pm:273
+#, perl-brace-format
+msgid ""
+"You may want to customise your thin client options.To do so, you may include "
+"all the files you require under {path} directory"
+msgstr ""
+"Este posibil sa doriti particularizarea optiunilor pentru clienti \"Thin\". "
+"Pentru a face asta puteti include toate fisierele necesare in directorul "
+"{path}"
+
+#: src/EBox/Model/LeaseTimes.pm:131
+msgid "Default leased time must be higher than 0 seconds"
+msgstr "Timpul de licentiere initial trebuie sa fie mai mare de 0 secunde"
+
+#: src/EBox/Model/LeaseTimes.pm:137
+#, perl-brace-format
+msgid "Default leased time {default} must be lower than maximum one {max}"
+msgstr ""
+"Timpul de licentiere initial {default} trebuie sa fie mai mic decat maximum "
+"de {max}"
+
+#: src/EBox/Model/LeaseTimes.pm:149
+msgid "Maximum leased time must be higher than 0 seconds"
+msgstr "Timpul de licentiere maxim trebuie sa fie mai mare de 0 secunde"
+
+#: src/EBox/Model/LeaseTimes.pm:155
+#, perl-brace-format
+msgid "Maximum leased time {max} must be higher than default one {default}"
+msgstr ""
+"Timpul de licentiere {max} trebuie sa fie mai mare decat cel initial de "
+"{default}"
+
+#: src/EBox/Model/LeaseTimes.pm:199
+msgid "Default leased time"
+msgstr "Timpul initial de licentiere"
+
+#: src/EBox/Model/LeaseTimes.pm:202 src/EBox/Model/LeaseTimes.pm:209
+msgid "seconds"
+msgstr "secunde"
+
+#: src/EBox/Model/LeaseTimes.pm:206
+msgid "Maximum leased time"
+msgstr "Timpul maxim de licentiere"
+
+#: src/EBox/Model/LeaseTimes.pm:215
+msgid "Lease times"
+msgstr "Timpi de licentiere"
+
+#: src/EBox/Model/LeaseTimes.pm:220
+msgid ""
+"Leased time is the time which a given IP address is valid by the DHCP server"
+msgstr ""
+"Timpul de licentiere este timpul in care o adresa IP acordata de catre "
+"serverul DHCP este valida "
+
+#: src/EBox/Model/FixedAddressTable.pm:123
+#, perl-brace-format
+msgid "IP address {ip} is not in network {net}"
+msgstr "Adresa IP {ip} nu este in reteaua {net}"
+
+#: src/EBox/Model/FixedAddressTable.pm:134
+#, perl-brace-format
+msgid "The selected IP is the interface IP address: {ifaceIP}"
+msgstr "Adresa selectata este adresa IP a interfetei: {ifaceIP}"
+
+#: src/EBox/Model/FixedAddressTable.pm:151
+#, perl-brace-format
+msgid "IP address {ip} is in range '{range}': {from}-{to}"
+msgstr "Adresa IP {ip} este in intervalul '{range}': {from}-{to}"
+
+#: src/EBox/Model/FixedAddressTable.pm:176
+msgid "update"
+msgstr "actualizare"
+
+#: src/EBox/Model/FixedAddressTable.pm:178
+msgid "add"
+msgstr "adauga"
+
+#: src/EBox/Model/FixedAddressTable.pm:180
+#, perl-brace-format
+msgid ""
+"You cannot {action} a fixed address with a name which is already used in "
+"other fixed address table"
+msgstr ""
+"Nu se poate {action} o adresa fixa cu un nume ce este deja folosit la o alta "
+"adresa din tabelul de adrese fixe"
+
+#: src/EBox/Model/FixedAddressTable.pm:223
+msgid "You cannot use an IP address contained in the above ranges."
+msgstr "Nu puteti folosi o adresa IP ce se afla in intervalurile de mai sus"
+
+#: src/EBox/Model/FixedAddressTable.pm:228
+msgid "Description"
+msgstr "Descriere"
+
+#: src/EBox/Model/FixedAddressTable.pm:236 src/templates/fixed.mas:5
+msgid "Fixed addresses"
+msgstr "Adrese fixe"
+
+#: src/EBox/Model/FixedAddressTable.pm:243
+msgid "fixed address"
+msgstr "adresa fixa"
 
 #: src/EBox/Model/DynamicDNS.pm:131 src/EBox/Model/DynamicDNS.pm:139
 #: src/EBox/Model/DynamicDNS.pm:386
@@ -114,144 +324,6 @@ msgstr "Domeniul \"{domain}\" adaugat in sectiunea DNS"
 msgid "Domain \"{domain}\" removed from DNS section"
 msgstr "Domeniul \"{domain}\" sters din sectiunea DNS"
 
-#: src/EBox/Model/FixedAddressTable.pm:123
-#, perl-brace-format
-msgid "IP address {ip} is not in network {net}"
-msgstr "Adresa IP {ip} nu este in reteaua {net}"
-
-#: src/EBox/Model/FixedAddressTable.pm:134
-#, perl-brace-format
-msgid "The selected IP is the interface IP address: {ifaceIP}"
-msgstr "Adresa selectata este adresa IP a interfetei: {ifaceIP}"
-
-#: src/EBox/Model/FixedAddressTable.pm:151
-#, perl-brace-format
-msgid "IP address {ip} is in range '{range}': {from}-{to}"
-msgstr "Adresa IP {ip} este in intervalul '{range}': {from}-{to}"
-
-#: src/EBox/Model/FixedAddressTable.pm:176
-msgid "update"
-msgstr "actualizare"
-
-#: src/EBox/Model/FixedAddressTable.pm:178
-msgid "add"
-msgstr "adauga"
-
-#: src/EBox/Model/FixedAddressTable.pm:180
-#, perl-brace-format
-msgid ""
-"You cannot {action} a fixed address with a name which is already used in "
-"other fixed address table"
-msgstr ""
-"Nu se poate {action} o adresa fixa cu un nume ce este deja folosit la o alta "
-"adresa din tabelul de adrese fixe"
-
-#: src/EBox/Model/FixedAddressTable.pm:208 src/EBox/Model/RangeTable.pm:213
-#: src/EBox/CGI/AddFixed.pm:45 src/EBox/CGI/AddRange.pm:43
-#: src/templates/fixed.mas:8 src/templates/ranges.mas:53
-msgid "Name"
-msgstr "Nume"
-
-#: src/EBox/Model/FixedAddressTable.pm:214 src/EBox/DHCP.pm:1263
-#: src/EBox/DHCP.pm:1331 src/EBox/CGI/AddFixed.pm:43 src/templates/fixed.mas:9
-msgid "MAC address"
-msgstr "Adresa MAC"
-
-#: src/EBox/Model/FixedAddressTable.pm:220
-#: src/EBox/Model/ThinClientOptions.pm:241 src/EBox/DHCP.pm:1331
-#: src/EBox/CGI/AddFixed.pm:44 src/templates/fixed.mas:10
-msgid "IP address"
-msgstr "Adresa IP"
-
-#: src/EBox/Model/FixedAddressTable.pm:223
-msgid "You cannot use an IP address contained in the above ranges."
-msgstr "Nu puteti folosi o adresa IP ce se afla in intervalurile de mai sus"
-
-#: src/EBox/Model/FixedAddressTable.pm:228
-msgid "Description"
-msgstr "Descriere"
-
-#: src/EBox/Model/FixedAddressTable.pm:236 src/templates/fixed.mas:5
-msgid "Fixed addresses"
-msgstr "Adrese fixe"
-
-#: src/EBox/Model/FixedAddressTable.pm:243
-msgid "fixed address"
-msgstr "adresa fixa"
-
-#: src/EBox/Model/ThinClientOptions.pm:138
-msgid "You need to upload a boot image to Zentyal if you set it as next server"
-msgstr ""
-"Trebuie să încarci o imagine de boot in Zentyal daca vrei sa il setezi ca "
-"următorul server"
-
-#: src/EBox/Model/ThinClientOptions.pm:145
-msgid ""
-"In order to upload a boot image to Zentyal, you need to set Zentyal as next "
-"server"
-msgstr ""
-"Pentru a putea incarca o imagine de boot, Zentyal trebuie setat ca urmatorul "
-"server"
-
-#: src/EBox/Model/ThinClientOptions.pm:152
-msgid "You need to specify a path to the boot image in the remote server"
-msgstr ""
-"Trebuie specificata calea catre imaginea de boot pe serverul de la distanta"
-
-# Putin cam neclara fraza 
-#: src/EBox/Model/ThinClientOptions.pm:157
-msgid ""
-"You can only specify a file name if you have a next server and it is not "
-"Zentyal"
-msgstr ""
-"Poti specifica un nume de fisier doar daca exista un alt server \"urmatorul "
-"server\" diferit de serverul Zentyal"
-
-#: src/EBox/Model/ThinClientOptions.pm:208
-#, perl-brace-format
-msgid ""
-"Removing previously uploaded boot image since next server option has been "
-"changed from Zentyal to {option}"
-msgstr ""
-"Se sterge imaginea de boot incarcata anterior deoarece optiunea de urmatorul "
-"server a fost schimbata din Zentyal in {option}"
-
-#: src/EBox/Model/ThinClientOptions.pm:231
-msgid "Next server"
-msgstr "Următorul server"
-
-#: src/EBox/Model/ThinClientOptions.pm:235 src/EBox/Model/Options.pm:370
-#: src/EBox/Model/Options.pm:404 src/EBox/Model/Options.pm:408
-#: src/EBox/Model/Options.pm:422 src/EBox/Model/Options.pm:455
-msgid "None"
-msgstr "Niciunul"
-
-#: src/EBox/Model/ThinClientOptions.pm:245
-msgid "name"
-msgstr "nume"
-
-#: src/EBox/Model/ThinClientOptions.pm:251
-msgid "File name"
-msgstr "Nume fisier"
-
-#: src/EBox/Model/ThinClientOptions.pm:260
-msgid "File path in next server"
-msgstr "Calea catre fisier pe urmatorul server"
-
-#: src/EBox/Model/ThinClientOptions.pm:268
-msgid "Thin client"
-msgstr "Client \"Thin\""
-
-#: src/EBox/Model/ThinClientOptions.pm:273
-#, perl-brace-format
-msgid ""
-"You may want to customise your thin client options.To do so, you may include "
-"all the files you require under {path} directory"
-msgstr ""
-"Este posibil sa doriti particularizarea optiunilor pentru clienti \"Thin\". "
-"Pentru a face asta puteti include toate fisierele necesare in directorul "
-"{path}"
-
 #: src/EBox/Model/RangeInfo.pm:142
 msgid "Interface IP address"
 msgstr "Adresa IP a interfetei"
@@ -267,51 +339,6 @@ msgstr "Interval disponibil"
 #: src/EBox/Model/RangeInfo.pm:156 src/templates/ranges.mas:15
 msgid "DHCP ranges"
 msgstr "Interval DHCP"
-
-#: src/EBox/Model/LeaseTimes.pm:131
-msgid "Default leased time must be higher than 0 seconds"
-msgstr "Timpul de licentiere initial trebuie sa fie mai mare de 0 secunde"
-
-#: src/EBox/Model/LeaseTimes.pm:137
-#, perl-brace-format
-msgid "Default leased time {default} must be lower than maximum one {max}"
-msgstr ""
-"Timpul de licentiere initial {default} trebuie sa fie mai mic decat maximum "
-"de {max}"
-
-#: src/EBox/Model/LeaseTimes.pm:149
-msgid "Maximum leased time must be higher than 0 seconds"
-msgstr "Timpul de licentiere maxim trebuie sa fie mai mare de 0 secunde"
-
-#: src/EBox/Model/LeaseTimes.pm:155
-#, perl-brace-format
-msgid "Maximum leased time {max} must be higher than default one {default}"
-msgstr ""
-"Timpul de licentiere {max} trebuie sa fie mai mare decat cel initial de "
-"{default}"
-
-#: src/EBox/Model/LeaseTimes.pm:199
-msgid "Default leased time"
-msgstr "Timpul initial de licentiere"
-
-#: src/EBox/Model/LeaseTimes.pm:202 src/EBox/Model/LeaseTimes.pm:209
-msgid "seconds"
-msgstr "secunde"
-
-#: src/EBox/Model/LeaseTimes.pm:206
-msgid "Maximum leased time"
-msgstr "Timpul maxim de licentiere"
-
-#: src/EBox/Model/LeaseTimes.pm:215
-msgid "Lease times"
-msgstr "Timpi de licentiere"
-
-#: src/EBox/Model/LeaseTimes.pm:220
-msgid ""
-"Leased time is the time which a given IP address is valid by the DHCP server"
-msgstr ""
-"Timpul de licentiere este timpul in care o adresa IP acordata de catre "
-"serverul DHCP este valida "
 
 #: src/EBox/Model/Options.pm:156
 #, perl-brace-format
@@ -471,16 +498,6 @@ msgstr ""
 msgid "Range {from}-{to} includes fixed address '{name}': {fixedIP}"
 msgstr "Intervalul {from} - {to} include adresa fixa '{name}':{fixedIP}"
 
-#: src/EBox/Model/RangeTable.pm:219 src/EBox/CGI/AddRange.pm:44
-#: src/templates/ranges.mas:54
-msgid "From"
-msgstr "De la"
-
-#: src/EBox/Model/RangeTable.pm:225 src/EBox/CGI/AddRange.pm:45
-#: src/templates/ranges.mas:55
-msgid "To"
-msgstr "Catre"
-
 #: src/EBox/Model/RangeTable.pm:233 src/templates/ranges.mas:49
 msgid "Ranges"
 msgstr "Intervale"
@@ -488,6 +505,91 @@ msgstr "Intervale"
 #: src/EBox/Model/RangeTable.pm:240
 msgid "range"
 msgstr "interval"
+
+#: src/EBox/DHCP.pm:119
+#, perl-brace-format
+msgid "{server} configuration file"
+msgstr "Fisier configuratie {server} "
+
+#: src/EBox/DHCP.pm:132
+#, perl-brace-format
+msgid "Disable {server} init sctript"
+msgstr ""
+
+#: src/EBox/DHCP.pm:133
+msgid "Zentyal will take care of start and stop the service"
+msgstr ""
+
+#: src/EBox/DHCP.pm:452 src/EBox/DHCP.pm:488 src/EBox/DHCP.pm:538
+#: src/EBox/DHCP.pm:584 src/EBox/DHCP.pm:630 src/EBox/DHCP.pm:728
+#: src/EBox/DHCP.pm:843 src/EBox/DHCP.pm:899
+#, perl-brace-format
+msgid "{iface} is not static"
+msgstr "{iface} nu este statica"
+
+#: src/EBox/DHCP.pm:714
+msgid "Not a valid action: add, set and del are available"
+msgstr "Nu este o actiune valida: adauga, seteaza si sterge sunt disponibile"
+
+#: src/EBox/DHCP.pm:829
+msgid "No valid action. Available ones are: add, set and del"
+msgstr "Nu este o actiune valida. Cele valide sunt: adauga, seteaza si sterge"
+
+#: src/EBox/DHCP.pm:1068
+#, perl-brace-format
+msgid ""
+"The IP address of the virtual interface you are trying to add is already "
+"used by the DHCP range '{range}' in the interface '{iface}'. Please, remove "
+"it before trying to add a virtual interface using it."
+msgstr ""
+"Adresa IP a interfetei virtuale pe care incercati sa o adaugati este "
+"folosita deja de catre intervalul din DHCP '{range}' pe interfata '{iface}'. "
+"Va rog, ilaturati adresa IP inainte de a adauga o interfata virtuala cu acea "
+"adresa."
+
+#: src/EBox/DHCP.pm:1087
+#, perl-brace-format
+msgid ""
+"The IP address of the virtual interface you are trying to add is already "
+"used by the DHCP fixed address '{fixed}' in the interface '{iface}'. Please, "
+"remove it before trying to add a virtual interface using it."
+msgstr ""
+"Adresa IP a interfetei virtuale pe care incercati sa o adaugati este "
+"folosita deja de catre adresa fixa '{fixed}' din DHCP pe interfata "
+"'{iface}'. Va rog, ilaturati adresa IP inainte de a adauga o interfata "
+"virtuala cu acea adresa."
+
+#: src/EBox/DHCP.pm:1283
+msgid "Date"
+msgstr "Data"
+
+#: src/EBox/DHCP.pm:1286
+msgid "IP"
+msgstr "IP"
+
+#: src/EBox/DHCP.pm:1287
+msgid "Event"
+msgstr "Eveniment"
+
+#: src/EBox/DHCP.pm:1290
+msgid "Leased"
+msgstr "Licentiata"
+
+#: src/EBox/DHCP.pm:1290
+msgid "Released"
+msgstr "Eliberata"
+
+#: src/EBox/DHCP.pm:1293
+msgid "DHCP"
+msgstr "DHCP"
+
+#: src/EBox/DHCP.pm:1353
+msgid "Host name"
+msgstr "Nume gazda"
+
+#: src/EBox/DHCP.pm:1380
+msgid "DHCP leases"
+msgstr "Licenta DHCP"
 
 #: src/EBox/Composite/General.pm:78
 #, perl-brace-format
@@ -498,10 +600,6 @@ msgstr ""
 "O interfata trebuie setata static pentru a putea configura serviciul DHCP pe "
 "acea interfata. Pentru a face aceasta operatie, schimbati {openhref} "
 "configuratia interfetelor{closehref} in modulul Retea"
-
-#: src/EBox/Composite/AdvancedOptions.pm:132
-msgid "Advanced options"
-msgstr "Optiuni avansate"
 
 #: src/EBox/Composite/Interfaces.pm:107
 msgid "Choose a static interface to configure:"
@@ -528,114 +626,9 @@ msgstr ""
 "Pentru a putea servi adrese IP pe o interfata externa, este necesar sa "
 "deschideti serviciul in {openhref}modul firewall{closehref}"
 
-#: src/EBox/DHCP.pm:117
-#, perl-brace-format
-msgid "{server} configuration file"
-msgstr "Fisier configuratie {server} "
-
-#: src/EBox/DHCP.pm:424 src/EBox/DHCP.pm:460 src/EBox/DHCP.pm:510
-#: src/EBox/DHCP.pm:556 src/EBox/DHCP.pm:602 src/EBox/DHCP.pm:700
-#: src/EBox/DHCP.pm:754 src/EBox/DHCP.pm:815 src/EBox/DHCP.pm:871
-#: src/EBox/DHCP.pm:1262 src/EBox/CGI/AddFixed.pm:39
-#: src/EBox/CGI/AddRange.pm:39 src/EBox/CGI/SetIfaceOptions.pm:39
-#: src/EBox/CGI/RemoveFixed.pm:39 src/EBox/CGI/RemoveRange.pm:39
-msgid "Interface"
-msgstr "Interfata"
-
-#: src/EBox/DHCP.pm:430 src/EBox/DHCP.pm:466 src/EBox/DHCP.pm:516
-#: src/EBox/DHCP.pm:562 src/EBox/DHCP.pm:608 src/EBox/DHCP.pm:706
-#: src/EBox/DHCP.pm:821 src/EBox/DHCP.pm:877
-#, perl-brace-format
-msgid "{iface} is not static"
-msgstr "{iface} nu este statica"
-
-#: src/EBox/DHCP.pm:692
-msgid "Not a valid action: add, set and del are available"
-msgstr "Nu este o actiune valida: adauga, seteaza si sterge sunt disponibile"
-
-#: src/EBox/DHCP.pm:807
-msgid "No valid action. Available ones are: add, set and del"
-msgstr "Nu este o actiune valida. Cele valide sunt: adauga, seteaza si sterge"
-
-#: src/EBox/DHCP.pm:1046
-#, perl-brace-format
-msgid ""
-"The IP address of the virtual interface you are trying to add is already "
-"used by the DHCP range '{range}' in the interface '{iface}'. Please, remove "
-"it before trying to add a virtual interface using it."
-msgstr ""
-"Adresa IP a interfetei virtuale pe care incercati sa o adaugati este "
-"folosita deja de catre intervalul din DHCP '{range}' pe interfata '{iface}'. "
-"Va rog, ilaturati adresa IP inainte de a adauga o interfata virtuala cu acea "
-"adresa."
-
-#: src/EBox/DHCP.pm:1065
-#, perl-brace-format
-msgid ""
-"The IP address of the virtual interface you are trying to add is already "
-"used by the DHCP fixed address '{fixed}' in the interface '{iface}'. Please, "
-"remove it before trying to add a virtual interface using it."
-msgstr ""
-"Adresa IP a interfetei virtuale pe care incercati sa o adaugati este "
-"folosita deja de catre adresa fixa '{fixed}' din DHCP pe interfata "
-"'{iface}'. Va rog, ilaturati adresa IP inainte de a adauga o interfata "
-"virtuala cu acea adresa."
-
-#: src/EBox/DHCP.pm:1261
-msgid "Date"
-msgstr "Data"
-
-#: src/EBox/DHCP.pm:1264
-msgid "IP"
-msgstr "IP"
-
-#: src/EBox/DHCP.pm:1265
-msgid "Event"
-msgstr "Eveniment"
-
-#: src/EBox/DHCP.pm:1268
-msgid "Leased"
-msgstr "Licentiata"
-
-#: src/EBox/DHCP.pm:1268
-msgid "Released"
-msgstr "Eliberata"
-
-#: src/EBox/DHCP.pm:1271
-msgid "DHCP"
-msgstr "DHCP"
-
-#: src/EBox/DHCP.pm:1331
-msgid "Host name"
-msgstr "Nume gazda"
-
-#: src/EBox/DHCP.pm:1358
-msgid "DHCP leases"
-msgstr "Licenta DHCP"
-
-#: src/EBox/CGI/Enable.pm:39
-msgid "module status"
-msgstr "stare modul"
-
-#: src/EBox/CGI/Status.pm:42
-msgid "Module Status"
-msgstr "Stare Modul"
-
-#: src/templates/options.mas:8
-msgid "Options"
-msgstr "Optiuni"
-
-#: src/templates/options.mas:10
-msgid ""
-"You can leave empty the Default Gateway field to use Zentyal as default "
-"gateway for this subnet"
-msgstr ""
-"Puteti lasa gol campul de Gateway implicit pentru a utiliza gateway-ul "
-"Zentyal pentru aceasta subretea"
-
-#: src/templates/options.mas:64
-msgid "Apply"
-msgstr "Aplică"
+#: src/EBox/Composite/AdvancedOptions.pm:132
+msgid "Advanced options"
+msgstr "Optiuni avansate"
 
 #: src/templates/fixed.mas:11 src/templates/ranges.mas:56
 msgid "Action"
@@ -660,3 +653,19 @@ msgstr "Mască subreţea"
 #: src/templates/ranges.mas:93
 msgid "Delete"
 msgstr "Şterge"
+
+#: src/templates/options.mas:8
+msgid "Options"
+msgstr "Optiuni"
+
+#: src/templates/options.mas:10
+msgid ""
+"You can leave empty the Default Gateway field to use Zentyal as default "
+"gateway for this subnet"
+msgstr ""
+"Puteti lasa gol campul de Gateway implicit pentru a utiliza gateway-ul "
+"Zentyal pentru aceasta subretea"
+
+#: src/templates/options.mas:64
+msgid "Apply"
+msgstr "Aplică"

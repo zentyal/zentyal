@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-samba 0.12.100\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-08-28 23:41+0200\n"
+"POT-Creation-Date: 2010-12-13 08:42+0100\n"
 "PO-Revision-Date: 2009-02-11 09:39+0330\n"
 "Last-Translator: Saied Taghavi <s.taghavi@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
@@ -19,210 +19,318 @@ msgstr ""
 msgid "File sharing (Samba) protocol"
 msgstr "پروتکل اشتراک‌گذاری فایل (سامبا)"
 
-#: src/EBox/Samba.pm:74 src/EBox/Samba/Model/SambaUser.pm:58
-#: src/EBox/Samba/Composite/General.pm:67
+#: src/EBox/SambaLdapUser.pm:285
+msgid "This user has a sharing directory associated which contains data."
+msgstr ""
+
+#: src/EBox/SambaLdapUser.pm:344 src/EBox/SambaLdapUser.pm:362
+#, perl-brace-format
+msgid "Incorrect SID: {s}"
+msgstr "SID نادرست: {s}"
+
+#: src/EBox/SambaLdapUser.pm:348
+#, perl-brace-format
+msgid "User {u} does not exists"
+msgstr "کاربر {u} وجود ندارد"
+
+#: src/EBox/SambaLdapUser.pm:352
+#, perl-brace-format
+msgid "User {u} is not a samba user"
+msgstr "کاربر {u} یک کاربر سامبا نیست"
+
+#: src/EBox/SambaLdapUser.pm:366
+#, perl-brace-format
+msgid "Group {g} does not exists"
+msgstr "گروه {g} وجود ندارد"
+
+#: src/EBox/SambaLdapUser.pm:370
+#, perl-brace-format
+msgid "Group {g} is not a samba group"
+msgstr "گروه {g} یک گروه سامبا نیست"
+
+#: src/EBox/SambaLdapUser.pm:412
+msgid "This group has a sharing directory associated that contains data."
+msgstr ""
+
+#: src/EBox/SambaLdapUser.pm:610
+#, perl-brace-format
+msgid "{g} group does not exist"
+msgstr "گروه {g} وجود ندارد"
+
+#: src/EBox/SambaLdapUser.pm:724 src/EBox/SambaLdapUser.pm:752
+#: src/EBox/SambaLdapUser.pm:801 src/EBox/CGI/ActivePrinting.pm:48
+#: src/EBox/CGI/ActiveSharing.pm:44
+msgid "group name"
+msgstr "نام گروه"
+
+#: src/EBox/SambaLdapUser.pm:757
+msgid "A name should be provided for the share."
+msgstr ""
+
+#: src/EBox/SambaLdapUser.pm:765
+msgid "sharing resource"
+msgstr "اشتراک‌گذاری منابع"
+
+#: src/EBox/SambaLdapUser.pm:864 src/EBox/Samba.pm:1237 src/EBox/Samba.pm:1269
+msgid "group"
+msgstr "گروه"
+
+#: src/EBox/CGI/ActivePrinting.pm:44 src/EBox/CGI/ActiveSharing.pm:67
+msgid "user name"
+msgstr "نام‌کاربری"
+
+#: src/EBox/CGI/ActiveSharing.pm:47
+msgid "sharing name"
+msgstr "نام اشتراک‌گذاری"
+
+#: src/EBox/CGI/ActiveSharing.pm:70
+msgid "active"
+msgstr "فعال"
+
+#: src/EBox/CGI/ActiveSharing.pm:71
+msgid "Disk quota limit"
+msgstr "محدودیت سهمیه دیسک"
+
+#: src/EBox/Samba/Model/SambaUser.pm:50
+#, fuzzy
+msgid "File Sharing Account"
+msgstr "حساب PDC/اشتراک‌گذاری فایل"
+
+#: src/EBox/Samba/Model/SambaUser.pm:58 src/EBox/Samba/Composite/General.pm:67
+#: src/EBox/Samba.pm:74 src/EBox/Samba.pm:1389
 #, fuzzy
 msgid "File Sharing"
 msgstr "اشتراک‌گذاری فایل"
 
-#: src/EBox/Samba.pm:89
-#, fuzzy
-msgid "Create Samba home directory for shares and groups"
-msgstr "پوشه اشتراک‌گذاری برای این گروه"
+#: src/EBox/Samba/Model/DeletedSambaShares.pm:113
+msgid "path"
+msgstr "مسیر"
 
-#: src/EBox/Samba.pm:90
+#: src/EBox/Samba/Model/DeletedSambaShares.pm:129
+#: src/EBox/Samba/Model/SambaShares.pm:157
+msgid "share"
+msgstr "اشتراک‌گذاری"
+
+#: src/EBox/Samba/Model/GeneralSettings.pm:73
+msgid "Netbios and workgroup must have different names"
+msgstr ""
+
+#: src/EBox/Samba/Model/GeneralSettings.pm:78
+#, fuzzy
+msgid "Netbios name cannot be longer than 15 characters"
+msgstr "نام این منبع از ۱۲ کاراکتر بیشتر است."
+
+#: src/EBox/Samba/Model/GeneralSettings.pm:94
+#, perl-brace-format
 msgid ""
-"Zentyal will create the directories for Samba shares and groups under /home/"
-"samba."
+"A slave server can not act as PDC if PAM is enabled. You can do disable PAM "
+"at {ohref}LDAP Settings{chref}."
 msgstr ""
 
-#: src/EBox/Samba.pm:95
-msgid "Add LDAP schemas"
-msgstr "افزودن طرح‌های LDAP"
+#: src/EBox/Samba/Model/GeneralSettings.pm:106
+#, fuzzy
+msgid "Enable PDC"
+msgstr "فعال"
 
-#: src/EBox/Samba.pm:96
+#: src/EBox/Samba/Model/GeneralSettings.pm:112
+msgid "Domain name"
+msgstr "نام دامنه"
+
+#: src/EBox/Samba/Model/GeneralSettings.pm:118
+msgid "Netbios name"
+msgstr "نام netbios"
+
+#: src/EBox/Samba/Model/GeneralSettings.pm:124
+msgid "Description"
+msgstr "توضیح"
+
+#: src/EBox/Samba/Model/GeneralSettings.pm:130
+msgid "Quota limit"
+msgstr "محدودیت سهمیه"
+
+#: src/EBox/Samba/Model/GeneralSettings.pm:134 src/EBox/Samba/Model/PDC.pm:95
+#: src/EBox/Samba/Model/PDC.pm:113
+msgid "Limited to"
+msgstr ""
+
+#: src/EBox/Samba/Model/GeneralSettings.pm:136
+msgid "Mb"
+msgstr ""
+
+#: src/EBox/Samba/Model/GeneralSettings.pm:142 src/EBox/Samba/Model/PDC.pm:91
+#: src/EBox/Samba/Model/PDC.pm:109 src/EBox/Samba/Model/PDC.pm:127
+#: src/templates/samba.mas:21 src/templates/samba.mas:24
+msgid "Disabled"
+msgstr "غیرفعال"
+
+#: src/EBox/Samba/Model/GeneralSettings.pm:148
+#, fuzzy
+msgid "Enable roaming profiles"
+msgstr "پروفایل‌های رومینگ"
+
+#: src/EBox/Samba/Model/GeneralSettings.pm:154
+#, fuzzy
+msgid "Drive letter"
+msgstr "حذف"
+
+#: src/EBox/Samba/Model/GeneralSettings.pm:160
+#, fuzzy
+msgid "Samba group"
+msgstr "اشتراک‌گذاری‌های سامبا"
+
+#: src/EBox/Samba/Model/GeneralSettings.pm:164
 msgid ""
-"Zentyal will add two LDAP schemas to the LDAP directory: samba and ebox."
+"Only users belonging to this group will have a samba account. Sync happens "
+"every hour"
 msgstr ""
 
-#: src/EBox/Samba.pm:101
-msgid "Set Samba LDAP admin dn password"
-msgstr "تنظیم گذرواژه dn مدیر LDAP سامبا"
+#: src/EBox/Samba/Model/GeneralSettings.pm:170
+msgid "General settings"
+msgstr "تنظیمات عمومی"
 
-#: src/EBox/Samba.pm:102
-#, fuzzy
-msgid "Zentyal will configure Samba to use the LDAP admin dn password."
-msgstr "تنظیم گذرواژه dn مدیر LDAP سامبا"
-
-#: src/EBox/Samba.pm:118
-#, fuzzy
-msgid "To set up Samba according to your configuration."
-msgstr "برای نصب سامبا برطبق پیکربندی شما"
-
-#: src/EBox/Samba.pm:123
-#, fuzzy
-msgid "To set up smbldap-tools according to your configuration."
-msgstr "برای نصب سامبا برطبق پیکربندی شما"
-
-#: src/EBox/Samba.pm:129
-#, fuzzy
-msgid "To set up smbldap-tools according to your LDAP configuration."
-msgstr "برای نصب سامبا برطبق پیکربندی شما"
-
-#: src/EBox/Samba.pm:135
-msgid "To add quota support to /home partition."
+#: src/EBox/Samba/Model/GeneralSettings.pm:174
+msgid "On this page you can set different general settings for Samba"
 msgstr ""
 
-#: src/EBox/Samba.pm:140
-msgid "To set the antivirus settings for Samba."
+#: src/EBox/Samba/Model/GeneralSettings.pm:227
+#, fuzzy
+msgid "All users"
+msgstr "کاربر"
+
+#: src/EBox/Samba/Model/SambaShares.pm:101
+msgid "Share name"
+msgstr "نام اشتراک‌گذاری"
+
+#: src/EBox/Samba/Model/SambaShares.pm:107
+msgid "Share path"
+msgstr "مسیر اشتراک‌گذاری"
+
+#: src/EBox/Samba/Model/SambaShares.pm:113
+#, fuzzy
+msgid "Directory under Zentyal"
+msgstr "پوشه در زیر ای‌باکس"
+
+#: src/EBox/Samba/Model/SambaShares.pm:119
+msgid "File system path"
+msgstr "مسیر فایل‌سیستم"
+
+#: src/EBox/Samba/Model/SambaShares.pm:127
+msgid "Comment"
+msgstr "توضیح"
+
+#: src/EBox/Samba/Model/SambaShares.pm:132
+msgid "Guest access"
 msgstr ""
 
-#: src/EBox/Samba.pm:626 src/EBox/Samba/Model/AntivirusExceptions.pm:109
-#: src/EBox/Samba/Model/RecycleExceptions.pm:109
-#: src/templates/ajax/viewer/shareViewer.mas:12
-msgid "Share"
-msgstr "اشتراک"
+#: src/EBox/Samba/Model/SambaShares.pm:135
+msgid "This share will not require authentication."
+msgstr ""
 
-#: src/EBox/Samba.pm:626 src/EBox/Samba.pm:647
-msgid "Source machine"
-msgstr "ماشین مبدا"
+#: src/EBox/Samba/Model/SambaShares.pm:139
+msgid "Access control"
+msgstr "کنترل دسترسی"
 
-#: src/EBox/Samba.pm:626 src/EBox/Samba.pm:647
-msgid "Connected since"
-msgstr "متصل تاکنون"
+#: src/EBox/Samba/Model/SambaShares.pm:149
+#: src/EBox/Samba/Model/SambaSharePermissions.pm:165
+msgid "Shares"
+msgstr "اشتراک‌ها"
 
-#: src/EBox/Samba.pm:647 src/EBox/Samba.pm:1662
-#: src/EBox/Samba/Model/SambaSharePermissions.pm:206
-#: src/templates/ajax/viewer/shareViewer.mas:8
+#: src/EBox/Samba/Model/SambaShares.pm:186
+msgid "Path not allowed"
+msgstr "مسیر اجازه داده نشده‌ است"
+
+#: src/EBox/Samba/Model/SambaShares.pm:194
+msgid "Only alphanumeric characters plus _ are valid for a path"
+msgstr ""
+
+#: src/EBox/Samba/Model/SambaShares.pm:205
+msgid "Only ASCII characters are valid for a share name"
+msgstr ""
+
+#: src/EBox/Samba/Model/SambaShares.pm:213
+msgid "Only ASCII characters are valid for a share description"
+msgstr ""
+
+#: src/EBox/Samba/Model/SambaShares.pm:245
+msgid "The directory is not empty. Are you sure you want to remove it?"
+msgstr ""
+
+#: src/EBox/Samba/Model/SambaShares.pm:336
+#, perl-brace-format
+msgid ""
+"{openit}Directory under Zentyal{closeit} will automatically create the share."
+"directory in /home/samba/shares {br}{openit}File system path{closeit} will "
+"allow you to share an existing directory within your file system"
+msgstr ""
+
+#: src/EBox/Samba/Model/SambaShares.pm:349
+msgid ""
+"Here you can create shares with more fine-grained permission control. You "
+"can use an existing directory or pick a name and let Zentyal create it for "
+"you."
+msgstr ""
+
+#: src/EBox/Samba/Model/SambaSharePermissions.pm:93
+msgid "Read only"
+msgstr "فقط خواندنی"
+
+#: src/EBox/Samba/Model/SambaSharePermissions.pm:97
+msgid "Read and write"
+msgstr "خواندن و نوشتن"
+
+#: src/EBox/Samba/Model/SambaSharePermissions.pm:101
+msgid "Administrator"
+msgstr "مدیر"
+
+#: src/EBox/Samba/Model/SambaSharePermissions.pm:125
+#: src/EBox/Samba/Model/SambaSharePermissions.pm:201
+msgid "User/Group"
+msgstr "کاربر/گروه"
+
+#: src/EBox/Samba/Model/SambaSharePermissions.pm:175
+msgid "Any access control is disabled if the guest access is allowed."
+msgstr ""
+
+#: src/EBox/Samba/Model/SambaSharePermissions.pm:206 src/EBox/Samba.pm:681
+#: src/EBox/Samba.pm:1580 src/templates/ajax/viewer/shareViewer.mas:8
 msgid "User"
 msgstr "کاربر"
 
-#: src/EBox/Samba.pm:667
-msgid "Shares by user"
-msgstr "اشتراک‌گذاشته توسط کاربر"
-
-#: src/EBox/Samba.pm:672
-msgid "Users by share"
-msgstr "کاربران توسط اشتراک"
-
-#: src/EBox/Samba.pm:1212 src/EBox/Samba.pm:1234
-msgid "user"
-msgstr "کاربر"
-
-#: src/EBox/Samba.pm:1216 src/EBox/Samba.pm:1248 src/EBox/SambaLdapUser.pm:864
-msgid "group"
+#: src/EBox/Samba/Model/SambaSharePermissions.pm:211
+#: src/EBox/Samba/Model/AntivirusExceptions.pm:102
+#: src/EBox/Samba/Model/RecycleExceptions.pm:102
+#: src/templates/ajax/viewer/shareViewer.mas:10
+msgid "Group"
 msgstr "گروه"
 
-#: src/EBox/Samba.pm:1221
-msgid "printer"
-msgstr "چاپگر"
+#: src/EBox/Samba/Model/SambaSharePermissions.pm:220
+msgid "Permissions"
+msgstr "مجوز‌ها"
 
-#: src/EBox/Samba.pm:1329
-msgid "quota"
-msgstr "سهمیه"
-
-#: src/EBox/Samba.pm:1642
-msgid "User's files"
-msgstr "فایل‌های کاربر"
-
-#: src/EBox/Samba.pm:1644
-msgid "Group's files"
-msgstr "فایل‌های گروه"
-
-#: src/EBox/Samba.pm:1660 src/EBox/Samba.pm:1680 src/EBox/Samba.pm:1690
+#: src/EBox/Samba/Model/SambaSharePermissions.pm:229
 #, fuzzy
-msgid "Date"
-msgstr "فعال"
-
-#: src/EBox/Samba.pm:1661 src/EBox/Samba.pm:1681
-msgid "Client address"
-msgstr ""
-
-#: src/EBox/Samba.pm:1663
-msgid "Action"
-msgstr ""
-
-#: src/EBox/Samba.pm:1664
-msgid "Resource"
-msgstr ""
-
-#: src/EBox/Samba.pm:1668
-#, fuzzy
-msgid "Connect"
-msgstr "متصل تاکنون"
-
-#: src/EBox/Samba.pm:1669
-#, fuzzy
-msgid "Access to directory"
+msgid "Access Control"
 msgstr "کنترل دسترسی"
 
-#: src/EBox/Samba.pm:1670
-#, fuzzy
-msgid "Read file"
-msgstr "فقط خواندنی"
-
-#: src/EBox/Samba.pm:1671
-msgid "Write file"
+#: src/EBox/Samba/Model/SambaSharePermissions.pm:236
+msgid "ACL"
 msgstr ""
 
-#: src/EBox/Samba.pm:1672
-msgid "Disconnect"
+#: src/EBox/Samba/Model/SambaSharePermissions.pm:249
+msgid ""
+"Be careful if you grant <i>administrator</i> privileges.User will be able to "
+"read and write any file in the share."
 msgstr ""
 
-#: src/EBox/Samba.pm:1673
-msgid "Remove"
-msgstr ""
-
-#: src/EBox/Samba.pm:1674
+#: src/EBox/Samba/Model/SambaSharePermissions.pm:259
 #, fuzzy
-msgid "Create directory"
-msgstr "پوشه اشتراک‌گذاری {group}"
+msgid " (user))"
+msgstr "کاربر"
 
-#: src/EBox/Samba.pm:1675
+#: src/EBox/Samba/Model/SambaSharePermissions.pm:261
 #, fuzzy
-msgid "Remove directory"
-msgstr "پوشه‌های خانه"
-
-#: src/EBox/Samba.pm:1676
-#, fuzzy
-msgid "Rename"
-msgstr "نام‌کاربری"
-
-#: src/EBox/Samba.pm:1682 src/EBox/Samba.pm:1691
-#, fuzzy
-msgid "File name"
-msgstr "نام‌کاربری"
-
-#: src/EBox/Samba.pm:1683 src/EBox/Samba.pm:1687
-msgid "Virus"
-msgstr ""
-
-#: src/EBox/Samba.pm:1684
-msgid "Type"
-msgstr ""
-
-#: src/EBox/Samba.pm:1692
-msgid "Quarantined file name"
-msgstr ""
-
-#: src/EBox/Samba.pm:1693 src/EBox/Samba.pm:1696
-msgid "Quarantine"
-msgstr ""
-
-#: src/EBox/Samba.pm:1699
-#, fuzzy
-msgid "Samba access"
-msgstr "اشتراک‌گذاری‌های سامبا"
-
-#: src/EBox/Samba.pm:1710
-#, fuzzy
-msgid "Samba virus"
-msgstr "اشتراک‌گذاری‌های سامبا"
-
-#: src/EBox/Samba.pm:1721
-#, fuzzy
-msgid "Samba quarantine"
-msgstr "اشتراک‌گذاری‌های سامبا"
+msgid " (group))"
+msgstr "گروه"
 
 #: src/EBox/Samba/Model/PDC.pm:77
 #, fuzzy
@@ -235,17 +343,6 @@ msgstr ""
 
 #: src/EBox/Samba/Model/PDC.pm:87
 msgid "Minimum password length"
-msgstr ""
-
-#: src/EBox/Samba/Model/PDC.pm:91 src/EBox/Samba/Model/PDC.pm:109
-#: src/EBox/Samba/Model/PDC.pm:127 src/EBox/Samba/Model/GeneralSettings.pm:124
-#: src/templates/samba.mas:21 src/templates/samba.mas:24
-msgid "Disabled"
-msgstr "غیرفعال"
-
-#: src/EBox/Samba/Model/PDC.pm:95 src/EBox/Samba/Model/PDC.pm:113
-#: src/EBox/Samba/Model/GeneralSettings.pm:116
-msgid "Limited to"
 msgstr ""
 
 #: src/EBox/Samba/Model/PDC.pm:96
@@ -293,12 +390,11 @@ msgstr "کاربر/گروه"
 msgid "User homes"
 msgstr "فایل‌های کاربر"
 
-#: src/EBox/Samba/Model/AntivirusExceptions.pm:102
-#: src/EBox/Samba/Model/RecycleExceptions.pm:102
-#: src/EBox/Samba/Model/SambaSharePermissions.pm:211
-#: src/templates/ajax/viewer/shareViewer.mas:10
-msgid "Group"
-msgstr "گروه"
+#: src/EBox/Samba/Model/AntivirusExceptions.pm:109
+#: src/EBox/Samba/Model/RecycleExceptions.pm:109 src/EBox/Samba.pm:660
+#: src/templates/ajax/viewer/shareViewer.mas:12
+msgid "Share"
+msgstr "اشتراک"
 
 #: src/EBox/Samba/Model/AntivirusExceptions.pm:120
 #, fuzzy
@@ -315,74 +411,13 @@ msgstr ""
 msgid "exception"
 msgstr "توضیح"
 
-#: src/EBox/Samba/Model/SambaShares.pm:100
-msgid "Share name"
-msgstr "نام اشتراک‌گذاری"
-
-#: src/EBox/Samba/Model/SambaShares.pm:106
-msgid "Share path"
-msgstr "مسیر اشتراک‌گذاری"
-
-#: src/EBox/Samba/Model/SambaShares.pm:112
+#: src/EBox/Samba/Model/RecycleExceptions.pm:120
 #, fuzzy
-msgid "Directory under Zentyal"
-msgstr "پوشه در زیر ای‌باکس"
+msgid "Samba shares Recycle Bin exceptions"
+msgstr "پیکربندی اشتراک‌گذاری سامبا"
 
-#: src/EBox/Samba/Model/SambaShares.pm:118
-msgid "File system path"
-msgstr "مسیر فایل‌سیستم"
-
-#: src/EBox/Samba/Model/SambaShares.pm:126
-msgid "Comment"
-msgstr "توضیح"
-
-#: src/EBox/Samba/Model/SambaShares.pm:131
-msgid "Guest access"
-msgstr ""
-
-#: src/EBox/Samba/Model/SambaShares.pm:134
-msgid "This share will not require authentication."
-msgstr ""
-
-#: src/EBox/Samba/Model/SambaShares.pm:138
-msgid "Access control"
-msgstr "کنترل دسترسی"
-
-#: src/EBox/Samba/Model/SambaShares.pm:148
-#: src/EBox/Samba/Model/SambaSharePermissions.pm:165
-msgid "Shares"
-msgstr "اشتراک‌ها"
-
-#: src/EBox/Samba/Model/SambaShares.pm:156
-#: src/EBox/Samba/Model/DeletedSambaShares.pm:129
-msgid "share"
-msgstr "اشتراک‌گذاری"
-
-#: src/EBox/Samba/Model/SambaShares.pm:186
-msgid "Path not allowed"
-msgstr "مسیر اجازه داده نشده‌ است"
-
-#: src/EBox/Samba/Model/SambaShares.pm:194
-msgid "Only alphanumeric characters plus _ are valid for a path"
-msgstr ""
-
-#: src/EBox/Samba/Model/SambaShares.pm:228
-msgid "The directory is not empty. Are you sure you want to remove it?"
-msgstr ""
-
-#: src/EBox/Samba/Model/SambaShares.pm:318
-#, perl-brace-format
-msgid ""
-"{openit}Directory under Zentyal{closeit} will automatically create the share."
-"directory in /home/samba/shares {br}{openit}File system path{closeit} will "
-"allow you to share an existing directory within your file system"
-msgstr ""
-
-#: src/EBox/Samba/Model/SambaShares.pm:331
-msgid ""
-"Here you can create shares with more fine-grained permission control. You "
-"can use an existing directory or pick a name and let Zentyal create it for "
-"you."
+#: src/EBox/Samba/Model/RecycleExceptions.pm:125
+msgid "Add exceptions to the default Recycle Bin settings"
 msgstr ""
 
 #: src/EBox/Samba/Model/AntivirusDefault.pm:50
@@ -408,142 +443,6 @@ msgstr ""
 msgid "Recycle Bin default settings"
 msgstr "تنظیمات عمومی"
 
-#: src/EBox/Samba/Model/RecycleExceptions.pm:120
-#, fuzzy
-msgid "Samba shares Recycle Bin exceptions"
-msgstr "پیکربندی اشتراک‌گذاری سامبا"
-
-#: src/EBox/Samba/Model/RecycleExceptions.pm:125
-msgid "Add exceptions to the default Recycle Bin settings"
-msgstr ""
-
-#: src/EBox/Samba/Model/SambaUser.pm:50
-#, fuzzy
-msgid "File Sharing Account"
-msgstr "حساب PDC/اشتراک‌گذاری فایل"
-
-#: src/EBox/Samba/Model/GeneralSettings.pm:73
-msgid "Netbios and workgroup must have different names"
-msgstr ""
-
-#: src/EBox/Samba/Model/GeneralSettings.pm:78
-#, fuzzy
-msgid "Netbios name cannot be longer than 15 characters"
-msgstr "نام این منبع از ۱۲ کاراکتر بیشتر است."
-
-#: src/EBox/Samba/Model/GeneralSettings.pm:88
-#, fuzzy
-msgid "Enable PDC"
-msgstr "فعال"
-
-#: src/EBox/Samba/Model/GeneralSettings.pm:94
-msgid "Domain name"
-msgstr "نام دامنه"
-
-#: src/EBox/Samba/Model/GeneralSettings.pm:100
-msgid "Netbios name"
-msgstr "نام netbios"
-
-#: src/EBox/Samba/Model/GeneralSettings.pm:106
-msgid "Description"
-msgstr "توضیح"
-
-#: src/EBox/Samba/Model/GeneralSettings.pm:112
-msgid "Quota limit"
-msgstr "محدودیت سهمیه"
-
-#: src/EBox/Samba/Model/GeneralSettings.pm:118
-msgid "Mb"
-msgstr ""
-
-#: src/EBox/Samba/Model/GeneralSettings.pm:130
-#, fuzzy
-msgid "Enable roaming profiles"
-msgstr "پروفایل‌های رومینگ"
-
-#: src/EBox/Samba/Model/GeneralSettings.pm:136
-#, fuzzy
-msgid "Drive letter"
-msgstr "حذف"
-
-#: src/EBox/Samba/Model/GeneralSettings.pm:142
-#, fuzzy
-msgid "Samba group"
-msgstr "اشتراک‌گذاری‌های سامبا"
-
-#: src/EBox/Samba/Model/GeneralSettings.pm:146
-msgid ""
-"Only users belonging to this group will have a samba account. Sync happens "
-"every hour"
-msgstr ""
-
-#: src/EBox/Samba/Model/GeneralSettings.pm:152
-msgid "General settings"
-msgstr "تنظیمات عمومی"
-
-#: src/EBox/Samba/Model/GeneralSettings.pm:156
-msgid "On this page you can set different general settings for Samba"
-msgstr ""
-
-#: src/EBox/Samba/Model/GeneralSettings.pm:209
-#, fuzzy
-msgid "All users"
-msgstr "کاربر"
-
-#: src/EBox/Samba/Model/SambaSharePermissions.pm:93
-msgid "Read only"
-msgstr "فقط خواندنی"
-
-#: src/EBox/Samba/Model/SambaSharePermissions.pm:97
-msgid "Read and write"
-msgstr "خواندن و نوشتن"
-
-#: src/EBox/Samba/Model/SambaSharePermissions.pm:101
-msgid "Administrator"
-msgstr "مدیر"
-
-#: src/EBox/Samba/Model/SambaSharePermissions.pm:125
-#: src/EBox/Samba/Model/SambaSharePermissions.pm:201
-msgid "User/Group"
-msgstr "کاربر/گروه"
-
-#: src/EBox/Samba/Model/SambaSharePermissions.pm:175
-msgid "Any access control is disabled if the guest access is allowed."
-msgstr ""
-
-#: src/EBox/Samba/Model/SambaSharePermissions.pm:220
-msgid "Permissions"
-msgstr "مجوز‌ها"
-
-#: src/EBox/Samba/Model/SambaSharePermissions.pm:229
-#, fuzzy
-msgid "Access Control"
-msgstr "کنترل دسترسی"
-
-#: src/EBox/Samba/Model/SambaSharePermissions.pm:236
-msgid "ACL"
-msgstr ""
-
-#: src/EBox/Samba/Model/SambaSharePermissions.pm:249
-msgid ""
-"Be careful if you grant <i>administrator</i> privileges.User will be able to "
-"read and write any file in the share."
-msgstr ""
-
-#: src/EBox/Samba/Model/SambaSharePermissions.pm:259
-#, fuzzy
-msgid " (user))"
-msgstr "کاربر"
-
-#: src/EBox/Samba/Model/SambaSharePermissions.pm:261
-#, fuzzy
-msgid " (group))"
-msgstr "گروه"
-
-#: src/EBox/Samba/Model/DeletedSambaShares.pm:113
-msgid "path"
-msgstr "مسیر"
-
 #: src/EBox/Samba/Composite/RecycleBin.pm:64
 msgid "Recycle Bin"
 msgstr ""
@@ -557,82 +456,192 @@ msgstr "اشتراک‌گذاری فایل"
 msgid "Antivirus"
 msgstr ""
 
-#: src/EBox/CGI/ActivePrinting.pm:44 src/EBox/CGI/ActiveSharing.pm:67
-msgid "user name"
-msgstr "نام‌کاربری"
+#: src/EBox/Samba.pm:114
+#, fuzzy
+msgid "Create Samba home directory for shares and groups"
+msgstr "پوشه اشتراک‌گذاری برای این گروه"
 
-#: src/EBox/CGI/ActivePrinting.pm:48 src/EBox/CGI/ActiveSharing.pm:44
-#: src/EBox/SambaLdapUser.pm:724 src/EBox/SambaLdapUser.pm:752
-#: src/EBox/SambaLdapUser.pm:801
-msgid "group name"
-msgstr "نام گروه"
+#: src/EBox/Samba.pm:115
+msgid ""
+"Zentyal will create the directories for Samba shares and groups under /home/"
+"samba."
+msgstr ""
 
-#: src/EBox/CGI/ActiveSharing.pm:47
-msgid "sharing name"
-msgstr "نام اشتراک‌گذاری"
+#: src/EBox/Samba.pm:120
+msgid "Add LDAP schemas"
+msgstr "افزودن طرح‌های LDAP"
 
-#: src/EBox/CGI/ActiveSharing.pm:70
-msgid "active"
+#: src/EBox/Samba.pm:121
+msgid ""
+"Zentyal will add two LDAP schemas to the LDAP directory: samba and ebox."
+msgstr ""
+
+#: src/EBox/Samba.pm:126
+msgid "Set Samba LDAP admin dn password"
+msgstr "تنظیم گذرواژه dn مدیر LDAP سامبا"
+
+#: src/EBox/Samba.pm:127
+#, fuzzy
+msgid "Zentyal will configure Samba to use the LDAP admin dn password."
+msgstr "تنظیم گذرواژه dn مدیر LDAP سامبا"
+
+#: src/EBox/Samba.pm:143
+#, fuzzy
+msgid "To set up Samba according to your configuration."
+msgstr "برای نصب سامبا برطبق پیکربندی شما"
+
+#: src/EBox/Samba.pm:148
+#, fuzzy
+msgid "To set up smbldap-tools according to your configuration."
+msgstr "برای نصب سامبا برطبق پیکربندی شما"
+
+#: src/EBox/Samba.pm:154
+#, fuzzy
+msgid "To set up smbldap-tools according to your LDAP configuration."
+msgstr "برای نصب سامبا برطبق پیکربندی شما"
+
+#: src/EBox/Samba.pm:160
+msgid "To add quota support to /home partition."
+msgstr ""
+
+#: src/EBox/Samba.pm:165
+msgid "To set the antivirus settings for Samba."
+msgstr ""
+
+#: src/EBox/Samba.pm:660 src/EBox/Samba.pm:681
+msgid "Source machine"
+msgstr "ماشین مبدا"
+
+#: src/EBox/Samba.pm:660 src/EBox/Samba.pm:681
+msgid "Connected since"
+msgstr "متصل تاکنون"
+
+#: src/EBox/Samba.pm:701
+msgid "Shares by user"
+msgstr "اشتراک‌گذاشته توسط کاربر"
+
+#: src/EBox/Samba.pm:707
+msgid "Users by share"
+msgstr "کاربران توسط اشتراک"
+
+#: src/EBox/Samba.pm:1233 src/EBox/Samba.pm:1255
+msgid "user"
+msgstr "کاربر"
+
+#: src/EBox/Samba.pm:1242
+msgid "printer"
+msgstr "چاپگر"
+
+#: src/EBox/Samba.pm:1350
+msgid "quota"
+msgstr "سهمیه"
+
+#: src/EBox/Samba.pm:1390
+msgid "Shares, users and groups homes and profiles"
+msgstr ""
+
+#: src/EBox/Samba.pm:1560
+msgid "User's files"
+msgstr "فایل‌های کاربر"
+
+#: src/EBox/Samba.pm:1562
+msgid "Group's files"
+msgstr "فایل‌های گروه"
+
+#: src/EBox/Samba.pm:1578 src/EBox/Samba.pm:1598 src/EBox/Samba.pm:1608
+#, fuzzy
+msgid "Date"
 msgstr "فعال"
 
-#: src/EBox/CGI/ActiveSharing.pm:71
-msgid "Disk quota limit"
-msgstr "محدودیت سهمیه دیسک"
-
-#: src/EBox/SambaLdapUser.pm:285
-msgid "This user has a sharing directory associated which contains data."
+#: src/EBox/Samba.pm:1579 src/EBox/Samba.pm:1599
+msgid "Client address"
 msgstr ""
 
-#: src/EBox/SambaLdapUser.pm:344 src/EBox/SambaLdapUser.pm:362
-#, perl-brace-format
-msgid "Incorrect SID: {s}"
-msgstr "SID نادرست: {s}"
-
-#: src/EBox/SambaLdapUser.pm:348
-#, perl-brace-format
-msgid "User {u} does not exists"
-msgstr "کاربر {u} وجود ندارد"
-
-#: src/EBox/SambaLdapUser.pm:352
-#, perl-brace-format
-msgid "User {u} is not a samba user"
-msgstr "کاربر {u} یک کاربر سامبا نیست"
-
-#: src/EBox/SambaLdapUser.pm:366
-#, perl-brace-format
-msgid "Group {g} does not exists"
-msgstr "گروه {g} وجود ندارد"
-
-#: src/EBox/SambaLdapUser.pm:370
-#, perl-brace-format
-msgid "Group {g} is not a samba group"
-msgstr "گروه {g} یک گروه سامبا نیست"
-
-#: src/EBox/SambaLdapUser.pm:412
-msgid "This group has a sharing directory associated that contains data."
+#: src/EBox/Samba.pm:1581
+msgid "Action"
 msgstr ""
 
-#: src/EBox/SambaLdapUser.pm:610
-#, perl-brace-format
-msgid "{g} group does not exist"
-msgstr "گروه {g} وجود ندارد"
-
-#: src/EBox/SambaLdapUser.pm:757
-msgid "A name should be provided for the share."
+#: src/EBox/Samba.pm:1582
+msgid "Resource"
 msgstr ""
 
-#: src/EBox/SambaLdapUser.pm:765
-msgid "sharing resource"
-msgstr "اشتراک‌گذاری منابع"
+#: src/EBox/Samba.pm:1586
+#, fuzzy
+msgid "Connect"
+msgstr "متصل تاکنون"
 
-#: stubs/smb.conf.mas:104
-msgid "Home Directories"
+#: src/EBox/Samba.pm:1587
+#, fuzzy
+msgid "Access to directory"
+msgstr "کنترل دسترسی"
+
+#: src/EBox/Samba.pm:1588
+#, fuzzy
+msgid "Read file"
+msgstr "فقط خواندنی"
+
+#: src/EBox/Samba.pm:1589
+msgid "Write file"
+msgstr ""
+
+#: src/EBox/Samba.pm:1590
+msgid "Disconnect"
+msgstr ""
+
+#: src/EBox/Samba.pm:1591
+msgid "Remove"
+msgstr ""
+
+#: src/EBox/Samba.pm:1592
+#, fuzzy
+msgid "Create directory"
+msgstr "پوشه اشتراک‌گذاری {group}"
+
+#: src/EBox/Samba.pm:1593
+#, fuzzy
+msgid "Remove directory"
 msgstr "پوشه‌های خانه"
 
-#: stubs/smb.conf.mas:130
-#, perl-brace-format
-msgid "{group} share directory"
-msgstr "پوشه اشتراک‌گذاری {group}"
+#: src/EBox/Samba.pm:1594
+#, fuzzy
+msgid "Rename"
+msgstr "نام‌کاربری"
+
+#: src/EBox/Samba.pm:1600 src/EBox/Samba.pm:1609
+#, fuzzy
+msgid "File name"
+msgstr "نام‌کاربری"
+
+#: src/EBox/Samba.pm:1601 src/EBox/Samba.pm:1605
+msgid "Virus"
+msgstr ""
+
+#: src/EBox/Samba.pm:1602
+msgid "Type"
+msgstr ""
+
+#: src/EBox/Samba.pm:1610
+msgid "Quarantined file name"
+msgstr ""
+
+#: src/EBox/Samba.pm:1611 src/EBox/Samba.pm:1614
+msgid "Quarantine"
+msgstr ""
+
+#: src/EBox/Samba.pm:1617
+#, fuzzy
+msgid "Samba access"
+msgstr "اشتراک‌گذاری‌های سامبا"
+
+#: src/EBox/Samba.pm:1628
+#, fuzzy
+msgid "Samba virus"
+msgstr "اشتراک‌گذاری‌های سامبا"
+
+#: src/EBox/Samba.pm:1639
+#, fuzzy
+msgid "Samba quarantine"
+msgstr "اشتراک‌گذاری‌های سامبا"
 
 #: src/templates/delete.mas:11
 msgid ""
@@ -726,3 +735,12 @@ msgstr "ماجول پرینترها"
 #: src/templates/samba.mas:180
 msgid "file sharing module"
 msgstr "ماجول اشتراک‌گذاری فایل"
+
+#: stubs/smb.conf.mas:105
+msgid "Home Directories"
+msgstr "پوشه‌های خانه"
+
+#: stubs/smb.conf.mas:131
+#, perl-brace-format
+msgid "{group} share directory"
+msgstr "پوشه اشتراک‌گذاری {group}"

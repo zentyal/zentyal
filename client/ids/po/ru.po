@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-ids 1.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-08-28 23:35+0200\n"
+"POT-Creation-Date: 2010-12-13 08:39+0100\n"
 "PO-Revision-Date: 2010-02-03 21:35+0100\n"
 "Last-Translator: Alexander Kuzmenko <alex@engp.su>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
@@ -18,74 +18,13 @@ msgstr ""
 "10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: src/EBox/Model/Rules.pm:153
-msgid "Rule Set"
-msgstr "Набор правил"
-
-#: src/EBox/Model/Rules.pm:158 src/EBox/Model/Interfaces.pm:134
-msgid "Enabled"
-msgstr "Включён"
-
-#: src/EBox/Model/Rules.pm:167
-msgid "Rules"
-msgstr "Правила"
-
-#: src/EBox/Model/Rules.pm:172
-msgid "rule"
-msgstr "правило"
-
-#: src/EBox/Model/Rules.pm:173
-msgid "help message"
-msgstr "справочное сообщение"
-
-#: src/EBox/Model/Interfaces.pm:129
-msgid "Interface"
-msgstr "Интерфейс"
-
-#: src/EBox/Model/Interfaces.pm:143
-msgid "Interfaces"
-msgstr "Интерфейсы"
-
-#: src/EBox/Model/Interfaces.pm:149
-msgid "interface"
-msgstr "интерфейс"
-
-#: src/EBox/Model/Interfaces.pm:151
-msgid "Select in which interfaces IDS system will be enabled"
-msgstr "Укажите на каких интерфейсах СОВ будет активна"
-
-#: src/EBox/Model/Report/AlertGraph.pm:47
-#: src/EBox/Model/Report/AlertDetails.pm:41
-msgid "number of alerts"
-msgstr "количество тревог"
-
-#: src/EBox/Model/Report/AlertGraph.pm:52
-msgid "Alerts chart"
-msgstr "Диаграмма оповещений"
-
-#: src/EBox/Model/Report/AlertGraph.pm:68
-msgid "Alert Graph"
-msgstr "График оповещений"
-
-#: src/EBox/Model/Report/AlertDetails.pm:52 src/EBox/IDS.pm:299
-msgid "Date"
-msgstr "Дата"
-
-#: src/EBox/Model/Report/AlertDetails.pm:58
-msgid "Number of alerts"
-msgstr "Количество тревог"
-
-#: src/EBox/Model/Report/AlertDetails.pm:66
-msgid "Alert details"
-msgstr "Детали оповещения"
-
-#: src/EBox/Model/Report/AlertDetails.pm:73
-msgid "alerts"
-msgstr "оповещения"
-
 #: src/EBox/IDS.pm:62 src/EBox/IDS.pm:169 src/EBox/IDS.pm:311
 msgid "IDS"
 msgstr "Система обнаружения вторжений (СОВ)"
+
+#: src/EBox/IDS.pm:299 src/EBox/Model/Report/AlertDetails.pm:52
+msgid "Date"
+msgstr "Дата"
 
 #: src/EBox/IDS.pm:300
 msgid "Priority"
@@ -115,10 +54,75 @@ msgstr "Событие"
 msgid "Alert"
 msgstr "Оповещение"
 
-#: src/EBox/Composite/General.pm:70
+#: src/EBox/Model/Interfaces.pm:129
+msgid "Interface"
+msgstr "Интерфейс"
+
+#: src/EBox/Model/Interfaces.pm:134 src/EBox/Model/Rules.pm:158
+msgid "Enabled"
+msgstr "Включён"
+
+#: src/EBox/Model/Interfaces.pm:143
+msgid "Interfaces"
+msgstr "Интерфейсы"
+
+#: src/EBox/Model/Interfaces.pm:149
+msgid "interface"
+msgstr "интерфейс"
+
+#: src/EBox/Model/Interfaces.pm:151
+msgid "Select in which interfaces IDS system will be enabled"
+msgstr "Укажите на каких интерфейсах СОВ будет активна"
+
+#: src/EBox/Model/Rules.pm:153
+msgid "Rule Set"
+msgstr "Набор правил"
+
+#: src/EBox/Model/Rules.pm:167
+msgid "Rules"
+msgstr "Правила"
+
+#: src/EBox/Model/Rules.pm:172
+msgid "rule"
+msgstr "правило"
+
+#: src/EBox/Model/Rules.pm:173
+msgid ""
+"Select the sets of rules you want apply when scanning the network traffic"
+msgstr ""
+
+#: src/EBox/Model/Report/AlertDetails.pm:41
+#: src/EBox/Model/Report/AlertGraph.pm:47
+msgid "number of alerts"
+msgstr "количество тревог"
+
+#: src/EBox/Model/Report/AlertDetails.pm:58
+msgid "Number of alerts"
+msgstr "Количество тревог"
+
+#: src/EBox/Model/Report/AlertDetails.pm:66
+msgid "Alert details"
+msgstr "Детали оповещения"
+
+#: src/EBox/Model/Report/AlertDetails.pm:73
+msgid "alerts"
+msgstr "оповещения"
+
+#: src/EBox/Model/Report/AlertGraph.pm:52
+msgid "Alerts chart"
+msgstr "Диаграмма оповещений"
+
+#: src/EBox/Model/Report/AlertGraph.pm:68
+msgid "Alert Graph"
+msgstr "График оповещений"
+
+#: src/EBox/Composite/General.pm:101
 msgid "Intrusion Detection System"
 msgstr "Система обнаружения вторжений"
 
 #: src/EBox/Composite/Report/AlertReport.pm:66
 msgid "IDS Alerts report"
 msgstr "Отчёт оповещений СОВ"
+
+#~ msgid "help message"
+#~ msgstr "справочное сообщение"

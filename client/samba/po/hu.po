@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-samba 1.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-08-28 23:41+0200\n"
+"POT-Creation-Date: 2010-12-13 08:42+0100\n"
 "PO-Revision-Date: 2010-08-28 09:19+0200\n"
 "Last-Translator: Nagy Ákos <nagy.akos@akos.ro>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
@@ -21,196 +21,331 @@ msgstr ""
 msgid "File sharing (Samba) protocol"
 msgstr "Fájlmegosztó protokoll (Samba)"
 
-#: src/EBox/Samba.pm:74 src/EBox/Samba/Model/SambaUser.pm:58
-#: src/EBox/Samba/Composite/General.pm:67
-msgid "File Sharing"
-msgstr "Fájlmegosztás"
-
-#: src/EBox/Samba.pm:89
-msgid "Create Samba home directory for shares and groups"
-msgstr "Samba home könyvtár létrehozása megosztásoknak és csoportoknak"
-
-#: src/EBox/Samba.pm:90
-msgid ""
-"Zentyal will create the directories for Samba shares and groups under /home/"
-"samba."
+#: src/EBox/SambaLdapUser.pm:285
+msgid "This user has a sharing directory associated which contains data."
 msgstr ""
-"A Zentyal létrehozza a home könyvtárat a Samba megosztásoknak és "
-"csoportoknak a /home/samba alatt."
+"A felhasználó társított egy megosztási könyvtárat, mely adatokat tartalmaz."
 
-#: src/EBox/Samba.pm:95
-msgid "Add LDAP schemas"
-msgstr "LDAP séma hozzáadása"
+#: src/EBox/SambaLdapUser.pm:344 src/EBox/SambaLdapUser.pm:362
+#, perl-brace-format
+msgid "Incorrect SID: {s}"
+msgstr "Érvénytelen SID: {s}"
 
-#: src/EBox/Samba.pm:96
-msgid ""
-"Zentyal will add two LDAP schemas to the LDAP directory: samba and ebox."
-msgstr "A Zentyal hozzáad két LDAP sémát az LDAP könyvtárhoz: samba és ebox."
+#: src/EBox/SambaLdapUser.pm:348
+#, perl-brace-format
+msgid "User {u} does not exists"
+msgstr "A felhasználó {u} nem létezik!"
 
-#: src/EBox/Samba.pm:101
-msgid "Set Samba LDAP admin dn password"
-msgstr "Samba LDAP adminisztrátorának dn (?) jelszavának beállítása."
+#: src/EBox/SambaLdapUser.pm:352
+#, perl-brace-format
+msgid "User {u} is not a samba user"
+msgstr "A felhasználó {u} nem Samba felhasználó!"
 
-#: src/EBox/Samba.pm:102
-msgid "Zentyal will configure Samba to use the LDAP admin dn password."
-msgstr "A Zentyal beállítja a Samba LDAP adminisztrátorának dn (?) jelszavát."
+#: src/EBox/SambaLdapUser.pm:366
+#, perl-brace-format
+msgid "Group {g} does not exists"
+msgstr "A csoport {g} nem létezik!"
 
-#: src/EBox/Samba.pm:118
-msgid "To set up Samba according to your configuration."
-msgstr "Samba beállításai, amennyiben be szeretné állítani."
+#: src/EBox/SambaLdapUser.pm:370
+#, perl-brace-format
+msgid "Group {g} is not a samba group"
+msgstr "A csoport {g} nem egy Samba csoport!"
 
-#: src/EBox/Samba.pm:123
-msgid "To set up smbldap-tools according to your configuration."
-msgstr "'smbldap-tools' beállításai, amennyiben be szeretné állítani."
-
-#: src/EBox/Samba.pm:129
-msgid "To set up smbldap-tools according to your LDAP configuration."
+#: src/EBox/SambaLdapUser.pm:412
+msgid "This group has a sharing directory associated that contains data."
 msgstr ""
-"'smbldap-tools' beállításai, amennyiben be szeretné állítani az LDAP-ot."
+"Ennek a csoportnak van egy megosztott mappája, mely adatokat tartalmaz."
 
-#: src/EBox/Samba.pm:135
-msgid "To add quota support to /home partition."
-msgstr "Kvóta támogatás hozzáadása a /home mappához."
+#: src/EBox/SambaLdapUser.pm:610
+#, perl-brace-format
+msgid "{g} group does not exist"
+msgstr "A {g} csoport nem létezik"
 
-#: src/EBox/Samba.pm:140
-msgid "To set the antivirus settings for Samba."
-msgstr "Samba alapértelmezett vírusirtójának beállításai."
+#: src/EBox/SambaLdapUser.pm:724 src/EBox/SambaLdapUser.pm:752
+#: src/EBox/SambaLdapUser.pm:801 src/EBox/CGI/ActivePrinting.pm:48
+#: src/EBox/CGI/ActiveSharing.pm:44
+msgid "group name"
+msgstr "csoportnév"
 
-#: src/EBox/Samba.pm:626 src/EBox/Samba/Model/AntivirusExceptions.pm:109
-#: src/EBox/Samba/Model/RecycleExceptions.pm:109
-#: src/templates/ajax/viewer/shareViewer.mas:12
-msgid "Share"
-msgstr "Megosztás"
+#: src/EBox/SambaLdapUser.pm:757
+msgid "A name should be provided for the share."
+msgstr "A megosztáshoz egy név szükséges."
 
-#: src/EBox/Samba.pm:626 src/EBox/Samba.pm:647
-msgid "Source machine"
-msgstr "Forrásszámítógép"
+#: src/EBox/SambaLdapUser.pm:765
+msgid "sharing resource"
+msgstr "erőforrás megosztás"
 
-#: src/EBox/Samba.pm:626 src/EBox/Samba.pm:647
-msgid "Connected since"
-msgstr "A csatlakozás óta eltelt idő"
-
-#: src/EBox/Samba.pm:647 src/EBox/Samba.pm:1662
-#: src/EBox/Samba/Model/SambaSharePermissions.pm:206
-#: src/templates/ajax/viewer/shareViewer.mas:8
-msgid "User"
-msgstr "Felhasználó"
-
-#: src/EBox/Samba.pm:667
-msgid "Shares by user"
-msgstr "Megosztások felhasználók szerint"
-
-#: src/EBox/Samba.pm:672
-msgid "Users by share"
-msgstr "Felhasználók megosztások szerint"
-
-#: src/EBox/Samba.pm:1212 src/EBox/Samba.pm:1234
-msgid "user"
-msgstr "felhasználó"
-
-#: src/EBox/Samba.pm:1216 src/EBox/Samba.pm:1248 src/EBox/SambaLdapUser.pm:864
+#: src/EBox/SambaLdapUser.pm:864 src/EBox/Samba.pm:1237 src/EBox/Samba.pm:1269
 msgid "group"
 msgstr "csoport"
 
-#: src/EBox/Samba.pm:1221
-msgid "printer"
-msgstr "nyomtató"
+#: src/EBox/CGI/ActivePrinting.pm:44 src/EBox/CGI/ActiveSharing.pm:67
+msgid "user name"
+msgstr "felhasználói név"
 
-#: src/EBox/Samba.pm:1329
-msgid "quota"
-msgstr "kvóta"
+#: src/EBox/CGI/ActiveSharing.pm:47
+msgid "sharing name"
+msgstr "megosztási név"
 
-#: src/EBox/Samba.pm:1642
-msgid "User's files"
-msgstr "Felhasználó fájljai"
+#: src/EBox/CGI/ActiveSharing.pm:70
+msgid "active"
+msgstr "aktív"
 
-#: src/EBox/Samba.pm:1644
-msgid "Group's files"
-msgstr "Csoport fájljai"
+#: src/EBox/CGI/ActiveSharing.pm:71
+msgid "Disk quota limit"
+msgstr "lemez kvóta határ"
 
-#: src/EBox/Samba.pm:1660 src/EBox/Samba.pm:1680 src/EBox/Samba.pm:1690
-msgid "Date"
-msgstr "Dátum"
+#: src/EBox/Samba/Model/SambaUser.pm:50
+msgid "File Sharing Account"
+msgstr "Fájlmegosztási felhasználói fiók"
 
-#: src/EBox/Samba.pm:1661 src/EBox/Samba.pm:1681
-msgid "Client address"
-msgstr "Kliens címe"
+#: src/EBox/Samba/Model/SambaUser.pm:58 src/EBox/Samba/Composite/General.pm:67
+#: src/EBox/Samba.pm:74 src/EBox/Samba.pm:1389
+msgid "File Sharing"
+msgstr "Fájlmegosztás"
 
-#: src/EBox/Samba.pm:1663
-msgid "Action"
-msgstr "Művelet"
+#: src/EBox/Samba/Model/DeletedSambaShares.pm:113
+msgid "path"
+msgstr "útvonal"
 
-#: src/EBox/Samba.pm:1664
-msgid "Resource"
-msgstr "Erőforrás"
+#: src/EBox/Samba/Model/DeletedSambaShares.pm:129
+#: src/EBox/Samba/Model/SambaShares.pm:157
+msgid "share"
+msgstr "megosztás"
 
-#: src/EBox/Samba.pm:1668
-msgid "Connect"
-msgstr "Kapcsolat"
+#: src/EBox/Samba/Model/GeneralSettings.pm:73
+msgid "Netbios and workgroup must have different names"
+msgstr "A NetBIOS és a munkacsoport nevének eltérőnek kell lenni!"
 
-#: src/EBox/Samba.pm:1669
-msgid "Access to directory"
-msgstr "Könyvtárhoz való hozzáférés"
+#: src/EBox/Samba/Model/GeneralSettings.pm:78
+msgid "Netbios name cannot be longer than 15 characters"
+msgstr "A NetBIOS neve nem lehet hosszabb mint 15 karakter!"
 
-#: src/EBox/Samba.pm:1670
-msgid "Read file"
-msgstr "Fájl olvasás"
+#: src/EBox/Samba/Model/GeneralSettings.pm:94
+#, perl-brace-format
+msgid ""
+"A slave server can not act as PDC if PAM is enabled. You can do disable PAM "
+"at {ohref}LDAP Settings{chref}."
+msgstr ""
 
-#: src/EBox/Samba.pm:1671
-msgid "Write file"
-msgstr "Fájl írás"
+#: src/EBox/Samba/Model/GeneralSettings.pm:106
+msgid "Enable PDC"
+msgstr "PDC bekapcsolása"
 
-#: src/EBox/Samba.pm:1672
-msgid "Disconnect"
-msgstr "Szétkapcsolódás"
+#: src/EBox/Samba/Model/GeneralSettings.pm:112
+msgid "Domain name"
+msgstr "Tartománynév"
 
-#: src/EBox/Samba.pm:1673
-msgid "Remove"
-msgstr "Eltávolítás"
+#: src/EBox/Samba/Model/GeneralSettings.pm:118
+msgid "Netbios name"
+msgstr "NetBIOS név"
 
-#: src/EBox/Samba.pm:1674
-msgid "Create directory"
-msgstr "Könyvtár létrehozása"
+#: src/EBox/Samba/Model/GeneralSettings.pm:124
+msgid "Description"
+msgstr "Leírás"
 
-#: src/EBox/Samba.pm:1675
-msgid "Remove directory"
-msgstr "Könyvtár törlése"
+#: src/EBox/Samba/Model/GeneralSettings.pm:130
+msgid "Quota limit"
+msgstr "Kvóta határ"
 
-#: src/EBox/Samba.pm:1676
-msgid "Rename"
-msgstr "Átnevez"
+#: src/EBox/Samba/Model/GeneralSettings.pm:134 src/EBox/Samba/Model/PDC.pm:95
+#: src/EBox/Samba/Model/PDC.pm:113
+msgid "Limited to"
+msgstr "Határig"
 
-#: src/EBox/Samba.pm:1682 src/EBox/Samba.pm:1691
-msgid "File name"
-msgstr "Fájl neve"
+#: src/EBox/Samba/Model/GeneralSettings.pm:136
+msgid "Mb"
+msgstr "MB"
 
-#: src/EBox/Samba.pm:1683 src/EBox/Samba.pm:1687
-msgid "Virus"
-msgstr "Vírus"
+#: src/EBox/Samba/Model/GeneralSettings.pm:142 src/EBox/Samba/Model/PDC.pm:91
+#: src/EBox/Samba/Model/PDC.pm:109 src/EBox/Samba/Model/PDC.pm:127
+#: src/templates/samba.mas:21 src/templates/samba.mas:24
+msgid "Disabled"
+msgstr "Kikapcsolva"
 
-#: src/EBox/Samba.pm:1684
-msgid "Type"
-msgstr "Típus"
+#: src/EBox/Samba/Model/GeneralSettings.pm:148
+msgid "Enable roaming profiles"
+msgstr "Barangolási profil bekapcsolása"
 
-#: src/EBox/Samba.pm:1692
-msgid "Quarantined file name"
-msgstr "Karanténba helyezett fájl neve"
+#: src/EBox/Samba/Model/GeneralSettings.pm:154
+msgid "Drive letter"
+msgstr "Meghajtó betűjele"
 
-#: src/EBox/Samba.pm:1693 src/EBox/Samba.pm:1696
-msgid "Quarantine"
-msgstr "Karantén"
+#: src/EBox/Samba/Model/GeneralSettings.pm:160
+msgid "Samba group"
+msgstr "Samba csoport"
 
-#: src/EBox/Samba.pm:1699
-msgid "Samba access"
-msgstr "Samba hozzáférés"
+#: src/EBox/Samba/Model/GeneralSettings.pm:164
+msgid ""
+"Only users belonging to this group will have a samba account. Sync happens "
+"every hour"
+msgstr ""
+"Csak a csoporthoz tartozó felhasználóknak van Samba jogosultsága. Minden "
+"órában szinkronizáció történik."
 
-#: src/EBox/Samba.pm:1710
-msgid "Samba virus"
-msgstr "Samba vírus"
+#: src/EBox/Samba/Model/GeneralSettings.pm:170
+msgid "General settings"
+msgstr "Általános beállítások"
 
-#: src/EBox/Samba.pm:1721
-msgid "Samba quarantine"
-msgstr "Samba karantén"
+#: src/EBox/Samba/Model/GeneralSettings.pm:174
+msgid "On this page you can set different general settings for Samba"
+msgstr ""
+"Ezen az oldalon lehet a Samba általános beállításaitól eltérőeket megadni!"
+
+#: src/EBox/Samba/Model/GeneralSettings.pm:227
+msgid "All users"
+msgstr "Összes felhasználó"
+
+#: src/EBox/Samba/Model/SambaShares.pm:101
+msgid "Share name"
+msgstr "Megosztás neve"
+
+#: src/EBox/Samba/Model/SambaShares.pm:107
+msgid "Share path"
+msgstr "Megosztás útvonala"
+
+#: src/EBox/Samba/Model/SambaShares.pm:113
+msgid "Directory under Zentyal"
+msgstr "Könyvtár a Zentyal alatt"
+
+#: src/EBox/Samba/Model/SambaShares.pm:119
+msgid "File system path"
+msgstr "Fájlrendszer útvonal"
+
+#: src/EBox/Samba/Model/SambaShares.pm:127
+msgid "Comment"
+msgstr "Megjegyzés"
+
+#: src/EBox/Samba/Model/SambaShares.pm:132
+msgid "Guest access"
+msgstr "Vendég hozzáférés"
+
+#: src/EBox/Samba/Model/SambaShares.pm:135
+msgid "This share will not require authentication."
+msgstr "Ez a megosztás nem igényel hitelesítést."
+
+#: src/EBox/Samba/Model/SambaShares.pm:139
+msgid "Access control"
+msgstr "Hozzáférés beállítás"
+
+#: src/EBox/Samba/Model/SambaShares.pm:149
+#: src/EBox/Samba/Model/SambaSharePermissions.pm:165
+msgid "Shares"
+msgstr "Megosztások"
+
+#: src/EBox/Samba/Model/SambaShares.pm:186
+msgid "Path not allowed"
+msgstr "Az útvonal nem engedélyezett!"
+
+#: src/EBox/Samba/Model/SambaShares.pm:194
+msgid "Only alphanumeric characters plus _ are valid for a path"
+msgstr ""
+"Csak az alfanumerikus karakterek, valamint az _ (aláhúzás) karakter érvényes "
+"az útvonal megadásakor."
+
+#: src/EBox/Samba/Model/SambaShares.pm:205
+#, fuzzy
+msgid "Only ASCII characters are valid for a share name"
+msgstr ""
+"Csak az alfanumerikus karakterek, valamint az _ (aláhúzás) karakter érvényes "
+"az útvonal megadásakor."
+
+#: src/EBox/Samba/Model/SambaShares.pm:213
+#, fuzzy
+msgid "Only ASCII characters are valid for a share description"
+msgstr ""
+"Csak az alfanumerikus karakterek, valamint az _ (aláhúzás) karakter érvényes "
+"az útvonal megadásakor."
+
+#: src/EBox/Samba/Model/SambaShares.pm:245
+msgid "The directory is not empty. Are you sure you want to remove it?"
+msgstr "A könyvtár nem üres. Biztos, hogy törölni akarod?"
+
+#: src/EBox/Samba/Model/SambaShares.pm:336
+#, perl-brace-format
+msgid ""
+"{openit}Directory under Zentyal{closeit} will automatically create the share."
+"directory in /home/samba/shares {br}{openit}File system path{closeit} will "
+"allow you to share an existing directory within your file system"
+msgstr ""
+"A {openit}Zentyal könyvtára alatt{closeit} automatikusan létrejön a share."
+"directory könyvtár a /home/samba/shares mappán belül. {br}A {openit}"
+"Fájlrendszer útvonal{closeit} engedélyezi egy már létező könyvtár "
+"megosztását."
+
+#: src/EBox/Samba/Model/SambaShares.pm:349
+msgid ""
+"Here you can create shares with more fine-grained permission control. You "
+"can use an existing directory or pick a name and let Zentyal create it for "
+"you."
+msgstr ""
+"Itt lehet létrehozni megosztásokat részletesen szabályozható engedélyekkel. "
+"Megoszthat egy már létező könyvtárat vagy adja meg a nevét és a Zentyal "
+"létrehozza azt."
+
+#: src/EBox/Samba/Model/SambaSharePermissions.pm:93
+msgid "Read only"
+msgstr "Csak olvasható"
+
+#: src/EBox/Samba/Model/SambaSharePermissions.pm:97
+msgid "Read and write"
+msgstr "Olvasható és írható"
+
+#: src/EBox/Samba/Model/SambaSharePermissions.pm:101
+msgid "Administrator"
+msgstr "Rendszergazda"
+
+#: src/EBox/Samba/Model/SambaSharePermissions.pm:125
+#: src/EBox/Samba/Model/SambaSharePermissions.pm:201
+msgid "User/Group"
+msgstr "Felhasználó/Csoport"
+
+#: src/EBox/Samba/Model/SambaSharePermissions.pm:175
+msgid "Any access control is disabled if the guest access is allowed."
+msgstr ""
+"Az összese hozzáférési szabály érvényét veszti ha a vendég hozzáférés "
+"engedélyezett."
+
+#: src/EBox/Samba/Model/SambaSharePermissions.pm:206 src/EBox/Samba.pm:681
+#: src/EBox/Samba.pm:1580 src/templates/ajax/viewer/shareViewer.mas:8
+msgid "User"
+msgstr "Felhasználó"
+
+#: src/EBox/Samba/Model/SambaSharePermissions.pm:211
+#: src/EBox/Samba/Model/AntivirusExceptions.pm:102
+#: src/EBox/Samba/Model/RecycleExceptions.pm:102
+#: src/templates/ajax/viewer/shareViewer.mas:10
+msgid "Group"
+msgstr "Csoport"
+
+#: src/EBox/Samba/Model/SambaSharePermissions.pm:220
+msgid "Permissions"
+msgstr "Engedélyek"
+
+#: src/EBox/Samba/Model/SambaSharePermissions.pm:229
+msgid "Access Control"
+msgstr "Hozzáférés vezérlés"
+
+#: src/EBox/Samba/Model/SambaSharePermissions.pm:236
+msgid "ACL"
+msgstr "ACL"
+
+#: src/EBox/Samba/Model/SambaSharePermissions.pm:249
+msgid ""
+"Be careful if you grant <i>administrator</i> privileges.User will be able to "
+"read and write any file in the share."
+msgstr ""
+"Körültekintően bánjunk az <i>adminisztrátori</i> jogkörrel. Ezen joggal "
+"felruházott felhasználók olvashatnak vagy írhatnak bármely fájlt a "
+"megosztásokban."
+
+#: src/EBox/Samba/Model/SambaSharePermissions.pm:259
+msgid " (user))"
+msgstr " (felhasználó))"
+
+#: src/EBox/Samba/Model/SambaSharePermissions.pm:261
+msgid " (group))"
+msgstr " (csoport))"
 
 #: src/EBox/Samba/Model/PDC.pm:77
 msgid "File sharing module is not enabled."
@@ -223,17 +358,6 @@ msgstr "A PDC (Primary Domain Controller) nincs bekapcsolva."
 #: src/EBox/Samba/Model/PDC.pm:87
 msgid "Minimum password length"
 msgstr "Minimális jelszó hossz"
-
-#: src/EBox/Samba/Model/PDC.pm:91 src/EBox/Samba/Model/PDC.pm:109
-#: src/EBox/Samba/Model/PDC.pm:127 src/EBox/Samba/Model/GeneralSettings.pm:124
-#: src/templates/samba.mas:21 src/templates/samba.mas:24
-msgid "Disabled"
-msgstr "Kikapcsolva"
-
-#: src/EBox/Samba/Model/PDC.pm:95 src/EBox/Samba/Model/PDC.pm:113
-#: src/EBox/Samba/Model/GeneralSettings.pm:116
-msgid "Limited to"
-msgstr "Határig"
 
 #: src/EBox/Samba/Model/PDC.pm:96
 msgid "characters"
@@ -279,12 +403,11 @@ msgstr "Felhasználó/Csoport/Megosztás"
 msgid "User homes"
 msgstr "Felhasználó saját könyvtára"
 
-#: src/EBox/Samba/Model/AntivirusExceptions.pm:102
-#: src/EBox/Samba/Model/RecycleExceptions.pm:102
-#: src/EBox/Samba/Model/SambaSharePermissions.pm:211
-#: src/templates/ajax/viewer/shareViewer.mas:10
-msgid "Group"
-msgstr "Csoport"
+#: src/EBox/Samba/Model/AntivirusExceptions.pm:109
+#: src/EBox/Samba/Model/RecycleExceptions.pm:109 src/EBox/Samba.pm:660
+#: src/templates/ajax/viewer/shareViewer.mas:12
+msgid "Share"
+msgstr "Megosztás"
 
 #: src/EBox/Samba/Model/AntivirusExceptions.pm:120
 msgid "Samba shares antivirus exceptions"
@@ -299,83 +422,13 @@ msgstr "Kivételek hozzáadása az alapértelmezett vírusirtó beállításaiho
 msgid "exception"
 msgstr "kivétel"
 
-#: src/EBox/Samba/Model/SambaShares.pm:100
-msgid "Share name"
-msgstr "Megosztás neve"
+#: src/EBox/Samba/Model/RecycleExceptions.pm:120
+msgid "Samba shares Recycle Bin exceptions"
+msgstr "Samba megosztások kuka kivételekkel"
 
-#: src/EBox/Samba/Model/SambaShares.pm:106
-msgid "Share path"
-msgstr "Megosztás útvonala"
-
-#: src/EBox/Samba/Model/SambaShares.pm:112
-msgid "Directory under Zentyal"
-msgstr "Könyvtár a Zentyal alatt"
-
-#: src/EBox/Samba/Model/SambaShares.pm:118
-msgid "File system path"
-msgstr "Fájlrendszer útvonal"
-
-#: src/EBox/Samba/Model/SambaShares.pm:126
-msgid "Comment"
-msgstr "Megjegyzés"
-
-#: src/EBox/Samba/Model/SambaShares.pm:131
-msgid "Guest access"
-msgstr "Vendég hozzáférés"
-
-#: src/EBox/Samba/Model/SambaShares.pm:134
-msgid "This share will not require authentication."
-msgstr "Ez a megosztás nem igényel hitelesítést."
-
-#: src/EBox/Samba/Model/SambaShares.pm:138
-msgid "Access control"
-msgstr "Hozzáférés beállítás"
-
-#: src/EBox/Samba/Model/SambaShares.pm:148
-#: src/EBox/Samba/Model/SambaSharePermissions.pm:165
-msgid "Shares"
-msgstr "Megosztások"
-
-#: src/EBox/Samba/Model/SambaShares.pm:156
-#: src/EBox/Samba/Model/DeletedSambaShares.pm:129
-msgid "share"
-msgstr "megosztás"
-
-#: src/EBox/Samba/Model/SambaShares.pm:186
-msgid "Path not allowed"
-msgstr "Az útvonal nem engedélyezett!"
-
-#: src/EBox/Samba/Model/SambaShares.pm:194
-msgid "Only alphanumeric characters plus _ are valid for a path"
-msgstr ""
-"Csak az alfanumerikus karakterek, valamint az _ (aláhúzás) karakter érvényes "
-"az útvonal megadásakor."
-
-#: src/EBox/Samba/Model/SambaShares.pm:228
-msgid "The directory is not empty. Are you sure you want to remove it?"
-msgstr "A könyvtár nem üres. Biztos, hogy törölni akarod?"
-
-#: src/EBox/Samba/Model/SambaShares.pm:318
-#, perl-brace-format
-msgid ""
-"{openit}Directory under Zentyal{closeit} will automatically create the share."
-"directory in /home/samba/shares {br}{openit}File system path{closeit} will "
-"allow you to share an existing directory within your file system"
-msgstr ""
-"A {openit}Zentyal könyvtára alatt{closeit} automatikusan létrejön a share."
-"directory könyvtár a /home/samba/shares mappán belül. {br}A {openit}"
-"Fájlrendszer útvonal{closeit} engedélyezi egy már létező könyvtár "
-"megosztását."
-
-#: src/EBox/Samba/Model/SambaShares.pm:331
-msgid ""
-"Here you can create shares with more fine-grained permission control. You "
-"can use an existing directory or pick a name and let Zentyal create it for "
-"you."
-msgstr ""
-"Itt lehet létrehozni megosztásokat részletesen szabályozható engedélyekkel. "
-"Megoszthat egy már létező könyvtárat vagy adja meg a nevét és a Zentyal "
-"létrehozza azt."
+#: src/EBox/Samba/Model/RecycleExceptions.pm:125
+msgid "Add exceptions to the default Recycle Bin settings"
+msgstr "Kivétel hozzáadása a kuka alapértelmezett beállításaihoz"
 
 #: src/EBox/Samba/Model/AntivirusDefault.pm:50
 msgid "Scan"
@@ -397,139 +450,6 @@ msgstr "Kuka bekapcsolása"
 msgid "Recycle Bin default settings"
 msgstr "Kuka alapértelmezett beállításai"
 
-#: src/EBox/Samba/Model/RecycleExceptions.pm:120
-msgid "Samba shares Recycle Bin exceptions"
-msgstr "Samba megosztások kuka kivételekkel"
-
-#: src/EBox/Samba/Model/RecycleExceptions.pm:125
-msgid "Add exceptions to the default Recycle Bin settings"
-msgstr "Kivétel hozzáadása a kuka alapértelmezett beállításaihoz"
-
-#: src/EBox/Samba/Model/SambaUser.pm:50
-msgid "File Sharing Account"
-msgstr "Fájlmegosztási felhasználói fiók"
-
-#: src/EBox/Samba/Model/GeneralSettings.pm:73
-msgid "Netbios and workgroup must have different names"
-msgstr "A NetBIOS és a munkacsoport nevének eltérőnek kell lenni!"
-
-#: src/EBox/Samba/Model/GeneralSettings.pm:78
-msgid "Netbios name cannot be longer than 15 characters"
-msgstr "A NetBIOS neve nem lehet hosszabb mint 15 karakter!"
-
-#: src/EBox/Samba/Model/GeneralSettings.pm:88
-msgid "Enable PDC"
-msgstr "PDC bekapcsolása"
-
-#: src/EBox/Samba/Model/GeneralSettings.pm:94
-msgid "Domain name"
-msgstr "Tartománynév"
-
-#: src/EBox/Samba/Model/GeneralSettings.pm:100
-msgid "Netbios name"
-msgstr "NetBIOS név"
-
-#: src/EBox/Samba/Model/GeneralSettings.pm:106
-msgid "Description"
-msgstr "Leírás"
-
-#: src/EBox/Samba/Model/GeneralSettings.pm:112
-msgid "Quota limit"
-msgstr "Kvóta határ"
-
-#: src/EBox/Samba/Model/GeneralSettings.pm:118
-msgid "Mb"
-msgstr "MB"
-
-#: src/EBox/Samba/Model/GeneralSettings.pm:130
-msgid "Enable roaming profiles"
-msgstr "Barangolási profil bekapcsolása"
-
-#: src/EBox/Samba/Model/GeneralSettings.pm:136
-msgid "Drive letter"
-msgstr "Meghajtó betűjele"
-
-#: src/EBox/Samba/Model/GeneralSettings.pm:142
-msgid "Samba group"
-msgstr "Samba csoport"
-
-#: src/EBox/Samba/Model/GeneralSettings.pm:146
-msgid ""
-"Only users belonging to this group will have a samba account. Sync happens "
-"every hour"
-msgstr ""
-"Csak a csoporthoz tartozó felhasználóknak van Samba jogosultsága. Minden "
-"órában szinkronizáció történik."
-
-#: src/EBox/Samba/Model/GeneralSettings.pm:152
-msgid "General settings"
-msgstr "Általános beállítások"
-
-#: src/EBox/Samba/Model/GeneralSettings.pm:156
-msgid "On this page you can set different general settings for Samba"
-msgstr ""
-"Ezen az oldalon lehet a Samba általános beállításaitól eltérőeket megadni!"
-
-#: src/EBox/Samba/Model/GeneralSettings.pm:209
-msgid "All users"
-msgstr "Összes felhasználó"
-
-#: src/EBox/Samba/Model/SambaSharePermissions.pm:93
-msgid "Read only"
-msgstr "Csak olvasható"
-
-#: src/EBox/Samba/Model/SambaSharePermissions.pm:97
-msgid "Read and write"
-msgstr "Olvasható és írható"
-
-#: src/EBox/Samba/Model/SambaSharePermissions.pm:101
-msgid "Administrator"
-msgstr "Rendszergazda"
-
-#: src/EBox/Samba/Model/SambaSharePermissions.pm:125
-#: src/EBox/Samba/Model/SambaSharePermissions.pm:201
-msgid "User/Group"
-msgstr "Felhasználó/Csoport"
-
-#: src/EBox/Samba/Model/SambaSharePermissions.pm:175
-msgid "Any access control is disabled if the guest access is allowed."
-msgstr ""
-"Az összese hozzáférési szabály érvényét veszti ha a vendég hozzáférés "
-"engedélyezett."
-
-#: src/EBox/Samba/Model/SambaSharePermissions.pm:220
-msgid "Permissions"
-msgstr "Engedélyek"
-
-#: src/EBox/Samba/Model/SambaSharePermissions.pm:229
-msgid "Access Control"
-msgstr "Hozzáférés vezérlés"
-
-#: src/EBox/Samba/Model/SambaSharePermissions.pm:236
-msgid "ACL"
-msgstr "ACL"
-
-#: src/EBox/Samba/Model/SambaSharePermissions.pm:249
-msgid ""
-"Be careful if you grant <i>administrator</i> privileges.User will be able to "
-"read and write any file in the share."
-msgstr ""
-"Körültekintően bánjunk az <i>adminisztrátori</i> jogkörrel. Ezen joggal "
-"felruházott felhasználók olvashatnak vagy írhatnak bármely fájlt a "
-"megosztásokban."
-
-#: src/EBox/Samba/Model/SambaSharePermissions.pm:259
-msgid " (user))"
-msgstr " (felhasználó))"
-
-#: src/EBox/Samba/Model/SambaSharePermissions.pm:261
-msgid " (group))"
-msgstr " (csoport))"
-
-#: src/EBox/Samba/Model/DeletedSambaShares.pm:113
-msgid "path"
-msgstr "útvonal"
-
 #: src/EBox/Samba/Composite/RecycleBin.pm:64
 msgid "Recycle Bin"
 msgstr "Kuka"
@@ -542,84 +462,179 @@ msgstr "Fájlmegosztási beállítások"
 msgid "Antivirus"
 msgstr "Vírusirtó"
 
-#: src/EBox/CGI/ActivePrinting.pm:44 src/EBox/CGI/ActiveSharing.pm:67
-msgid "user name"
-msgstr "felhasználói név"
+#: src/EBox/Samba.pm:114
+msgid "Create Samba home directory for shares and groups"
+msgstr "Samba home könyvtár létrehozása megosztásoknak és csoportoknak"
 
-#: src/EBox/CGI/ActivePrinting.pm:48 src/EBox/CGI/ActiveSharing.pm:44
-#: src/EBox/SambaLdapUser.pm:724 src/EBox/SambaLdapUser.pm:752
-#: src/EBox/SambaLdapUser.pm:801
-msgid "group name"
-msgstr "csoportnév"
-
-#: src/EBox/CGI/ActiveSharing.pm:47
-msgid "sharing name"
-msgstr "megosztási név"
-
-#: src/EBox/CGI/ActiveSharing.pm:70
-msgid "active"
-msgstr "aktív"
-
-#: src/EBox/CGI/ActiveSharing.pm:71
-msgid "Disk quota limit"
-msgstr "lemez kvóta határ"
-
-#: src/EBox/SambaLdapUser.pm:285
-msgid "This user has a sharing directory associated which contains data."
+#: src/EBox/Samba.pm:115
+msgid ""
+"Zentyal will create the directories for Samba shares and groups under /home/"
+"samba."
 msgstr ""
-"A felhasználó társított egy megosztási könyvtárat, mely adatokat tartalmaz."
+"A Zentyal létrehozza a home könyvtárat a Samba megosztásoknak és "
+"csoportoknak a /home/samba alatt."
 
-#: src/EBox/SambaLdapUser.pm:344 src/EBox/SambaLdapUser.pm:362
-#, perl-brace-format
-msgid "Incorrect SID: {s}"
-msgstr "Érvénytelen SID: {s}"
+#: src/EBox/Samba.pm:120
+msgid "Add LDAP schemas"
+msgstr "LDAP séma hozzáadása"
 
-#: src/EBox/SambaLdapUser.pm:348
-#, perl-brace-format
-msgid "User {u} does not exists"
-msgstr "A felhasználó {u} nem létezik!"
+#: src/EBox/Samba.pm:121
+msgid ""
+"Zentyal will add two LDAP schemas to the LDAP directory: samba and ebox."
+msgstr "A Zentyal hozzáad két LDAP sémát az LDAP könyvtárhoz: samba és ebox."
 
-#: src/EBox/SambaLdapUser.pm:352
-#, perl-brace-format
-msgid "User {u} is not a samba user"
-msgstr "A felhasználó {u} nem Samba felhasználó!"
+#: src/EBox/Samba.pm:126
+msgid "Set Samba LDAP admin dn password"
+msgstr "Samba LDAP adminisztrátorának dn (?) jelszavának beállítása."
 
-#: src/EBox/SambaLdapUser.pm:366
-#, perl-brace-format
-msgid "Group {g} does not exists"
-msgstr "A csoport {g} nem létezik!"
+#: src/EBox/Samba.pm:127
+msgid "Zentyal will configure Samba to use the LDAP admin dn password."
+msgstr "A Zentyal beállítja a Samba LDAP adminisztrátorának dn (?) jelszavát."
 
-#: src/EBox/SambaLdapUser.pm:370
-#, perl-brace-format
-msgid "Group {g} is not a samba group"
-msgstr "A csoport {g} nem egy Samba csoport!"
+#: src/EBox/Samba.pm:143
+msgid "To set up Samba according to your configuration."
+msgstr "Samba beállításai, amennyiben be szeretné állítani."
 
-#: src/EBox/SambaLdapUser.pm:412
-msgid "This group has a sharing directory associated that contains data."
+#: src/EBox/Samba.pm:148
+msgid "To set up smbldap-tools according to your configuration."
+msgstr "'smbldap-tools' beállításai, amennyiben be szeretné állítani."
+
+#: src/EBox/Samba.pm:154
+msgid "To set up smbldap-tools according to your LDAP configuration."
 msgstr ""
-"Ennek a csoportnak van egy megosztott mappája, mely adatokat tartalmaz."
+"'smbldap-tools' beállításai, amennyiben be szeretné állítani az LDAP-ot."
 
-#: src/EBox/SambaLdapUser.pm:610
-#, perl-brace-format
-msgid "{g} group does not exist"
-msgstr "A {g} csoport nem létezik"
+#: src/EBox/Samba.pm:160
+msgid "To add quota support to /home partition."
+msgstr "Kvóta támogatás hozzáadása a /home mappához."
 
-#: src/EBox/SambaLdapUser.pm:757
-msgid "A name should be provided for the share."
-msgstr "A megosztáshoz egy név szükséges."
+#: src/EBox/Samba.pm:165
+msgid "To set the antivirus settings for Samba."
+msgstr "Samba alapértelmezett vírusirtójának beállításai."
 
-#: src/EBox/SambaLdapUser.pm:765
-msgid "sharing resource"
-msgstr "erőforrás megosztás"
+#: src/EBox/Samba.pm:660 src/EBox/Samba.pm:681
+msgid "Source machine"
+msgstr "Forrásszámítógép"
 
-#: stubs/smb.conf.mas:104
-msgid "Home Directories"
-msgstr "Saját mappák"
+#: src/EBox/Samba.pm:660 src/EBox/Samba.pm:681
+msgid "Connected since"
+msgstr "A csatlakozás óta eltelt idő"
 
-#: stubs/smb.conf.mas:130
-#, perl-brace-format
-msgid "{group} share directory"
-msgstr "{group} megosztási könyvtár"
+#: src/EBox/Samba.pm:701
+msgid "Shares by user"
+msgstr "Megosztások felhasználók szerint"
+
+#: src/EBox/Samba.pm:707
+msgid "Users by share"
+msgstr "Felhasználók megosztások szerint"
+
+#: src/EBox/Samba.pm:1233 src/EBox/Samba.pm:1255
+msgid "user"
+msgstr "felhasználó"
+
+#: src/EBox/Samba.pm:1242
+msgid "printer"
+msgstr "nyomtató"
+
+#: src/EBox/Samba.pm:1350
+msgid "quota"
+msgstr "kvóta"
+
+#: src/EBox/Samba.pm:1390
+msgid "Shares, users and groups homes and profiles"
+msgstr ""
+
+#: src/EBox/Samba.pm:1560
+msgid "User's files"
+msgstr "Felhasználó fájljai"
+
+#: src/EBox/Samba.pm:1562
+msgid "Group's files"
+msgstr "Csoport fájljai"
+
+#: src/EBox/Samba.pm:1578 src/EBox/Samba.pm:1598 src/EBox/Samba.pm:1608
+msgid "Date"
+msgstr "Dátum"
+
+#: src/EBox/Samba.pm:1579 src/EBox/Samba.pm:1599
+msgid "Client address"
+msgstr "Kliens címe"
+
+#: src/EBox/Samba.pm:1581
+msgid "Action"
+msgstr "Művelet"
+
+#: src/EBox/Samba.pm:1582
+msgid "Resource"
+msgstr "Erőforrás"
+
+#: src/EBox/Samba.pm:1586
+msgid "Connect"
+msgstr "Kapcsolat"
+
+#: src/EBox/Samba.pm:1587
+msgid "Access to directory"
+msgstr "Könyvtárhoz való hozzáférés"
+
+#: src/EBox/Samba.pm:1588
+msgid "Read file"
+msgstr "Fájl olvasás"
+
+#: src/EBox/Samba.pm:1589
+msgid "Write file"
+msgstr "Fájl írás"
+
+#: src/EBox/Samba.pm:1590
+msgid "Disconnect"
+msgstr "Szétkapcsolódás"
+
+#: src/EBox/Samba.pm:1591
+msgid "Remove"
+msgstr "Eltávolítás"
+
+#: src/EBox/Samba.pm:1592
+msgid "Create directory"
+msgstr "Könyvtár létrehozása"
+
+#: src/EBox/Samba.pm:1593
+msgid "Remove directory"
+msgstr "Könyvtár törlése"
+
+#: src/EBox/Samba.pm:1594
+msgid "Rename"
+msgstr "Átnevez"
+
+#: src/EBox/Samba.pm:1600 src/EBox/Samba.pm:1609
+msgid "File name"
+msgstr "Fájl neve"
+
+#: src/EBox/Samba.pm:1601 src/EBox/Samba.pm:1605
+msgid "Virus"
+msgstr "Vírus"
+
+#: src/EBox/Samba.pm:1602
+msgid "Type"
+msgstr "Típus"
+
+#: src/EBox/Samba.pm:1610
+msgid "Quarantined file name"
+msgstr "Karanténba helyezett fájl neve"
+
+#: src/EBox/Samba.pm:1611 src/EBox/Samba.pm:1614
+msgid "Quarantine"
+msgstr "Karantén"
+
+#: src/EBox/Samba.pm:1617
+msgid "Samba access"
+msgstr "Samba hozzáférés"
+
+#: src/EBox/Samba.pm:1628
+msgid "Samba virus"
+msgstr "Samba vírus"
+
+#: src/EBox/Samba.pm:1639
+msgid "Samba quarantine"
+msgstr "Samba karantén"
 
 #: src/templates/delete.mas:11
 msgid ""
@@ -719,3 +734,12 @@ msgstr "nyomtató modulok"
 #: src/templates/samba.mas:180
 msgid "file sharing module"
 msgstr "fájlmegosztó modul"
+
+#: stubs/smb.conf.mas:105
+msgid "Home Directories"
+msgstr "Saját mappák"
+
+#: stubs/smb.conf.mas:131
+#, perl-brace-format
+msgid "{group} share directory"
+msgstr "{group} megosztási könyvtár"

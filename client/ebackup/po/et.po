@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-ebackup 1.4\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-08-28 23:34+0200\n"
+"POT-Creation-Date: 2010-12-13 08:39+0100\n"
 "PO-Revision-Date: 2010-05-09 00:40+0200\n"
 "Last-Translator: Priit-A. Heinsalu <priit.heinsalu@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
@@ -17,38 +17,74 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: src/EBox/Event/Watcher/EBackup.pm:123 src/EBox/EBackup.pm:72
-#: src/EBox/Composite/Remote.pm:65
+#: src/EBox/EBackup.pm:71 src/EBox/Event/Watcher/EBackup.pm:123
+#: src/EBox/Composite/Remote.pm:66
 msgid "Backup"
 msgstr "Varundamine"
+
+#: src/EBox/EBackup.pm:209
+#, perl-brace-format
+msgid "File {f} not found in backup for {d}, try a later date"
+msgstr "Faili {f} ei leitud varukoopiast {d}, proovi hilisemat kuupäeva"
+
+#: src/EBox/EBackup.pm:216
+msgid ""
+"No backup archives found. Maybe they were deleted?. Run '/etc/init.d/ebox "
+"ebackup restart' to refresh backup's information."
+msgstr ""
+"Varundusarhiive ei leitud, varundusinfo värskendamiseks käivita käsureal '/"
+"etc/init.d/ebox ebackup restart'"
+
+#: src/EBox/EBackup.pm:687
+msgid ""
+"Could not get backup collection status, check whether the parameters and "
+"passwords are correct"
+msgstr ""
+
+#: src/EBox/EBackup.pm:1051
+msgid "You need to have the disaster recovery add-on to use this backup method"
+msgstr ""
+
+#: src/EBox/EBackup.pm:1058
+msgid ""
+"Could not retrieve backup credentials, check your conexion to Zentyal Cloud"
+msgstr ""
+
+#: src/EBox/EBackup.pm:1149
+msgid ""
+"Could not unsubscribe because the backup module is configured to use the "
+"Zentyal Cloud. If you want to unsubscribe, you must change this <a href='/"
+"ebox/EBackup/Composite/Remote#RemoteGeneralSettings'> setting</a>."
+msgstr ""
 
 #: src/EBox/Event/Watcher/EBackup.pm:141
 #, fuzzy
 msgid "Check if Zentyal backup was not successful."
 msgstr "Kontrolli kas eBoxi varundamine ebaõnnestus."
 
-#: src/EBox/Model/RemoteRestoreLogs.pm:88 src/EBox/Model/RemoteFileList.pm:143
-#: src/EBox/Model/RemoteStatus.pm:119 src/EBox/Model/RemoteRestoreConf.pm:74
+#: src/EBox/EBackup/DBRestore.pm:46
+#, perl-brace-format
+msgid ""
+"Logs backup data not found in backup for {d}. Maybe you could try another "
+"date?"
+msgstr ""
+"Logide taastamiseks vajalikke andmeid ei leitud varukoopiast {d} jaoks. Võib "
+"olla proovid mõnda teist kuupäeva?"
+
+#: src/EBox/Model/RemoteFileList.pm:143 src/EBox/Model/RemoteStatus.pm:121
+#: src/EBox/Model/RemoteRestoreConf.pm:74
+#: src/EBox/Model/RemoteRestoreLogs.pm:88
 msgid "There are not backed up files yet"
 msgstr "Varundatud faile ei ole veel"
-
-#: src/EBox/Model/RemoteRestoreLogs.pm:107
-#: src/EBox/Model/RemoteFileList.pm:166 src/EBox/Model/RemoteRestoreConf.pm:93
-msgid "Backup Date"
-msgstr "Varundamise kuupäev"
-
-#: src/EBox/Model/RemoteRestoreLogs.pm:118
-msgid "Restore logs database"
-msgstr "Logide andmebaasi taastamine"
-
-#: src/EBox/Model/RemoteRestoreLogs.pm:125
-#, fuzzy
-msgid "Restores the Zentyal logs found in the selected backup"
-msgstr "Valitud varukoopias leiduvate eBoxi logide taastamine"
 
 #: src/EBox/Model/RemoteFileList.pm:162
 msgid "File"
 msgstr "Fail"
+
+#: src/EBox/Model/RemoteFileList.pm:166 src/EBox/Model/RemoteRestoreConf.pm:93
+#: src/EBox/Model/RemoteRestoreLogs.pm:107
+msgid "Backup Date"
+msgstr "Varundamise kuupäev"
 
 #: src/EBox/Model/RemoteFileList.pm:177
 msgid "Restore Files"
@@ -58,34 +94,436 @@ msgstr "Failide taastamine"
 msgid "file restore operation"
 msgstr "faili taastamistoiming"
 
-#: src/EBox/Model/RemoteFileList.pm:204
+#: src/EBox/Model/RemoteFileList.pm:179
+#, fuzzy
+msgid "Restore"
+msgstr "Failide taastamine"
+
+#: src/EBox/Model/RemoteFileList.pm:205
 msgid "File already exists if you continue the current will be deleted"
 msgstr "Fail on juba olemas, kui jätkad siis algne fail kustutatakse"
 
-#: src/EBox/Model/RemoteFileList.pm:220
+#: src/EBox/Model/RemoteFileList.pm:221
 msgid "File restored successfully"
 msgstr "Fail edukalt taastatud"
 
-#: src/EBox/Model/RemoteFileList.pm:269
+#: src/EBox/Model/RemoteFileList.pm:270
 #, perl-brace-format
 msgid "Remote URL to be used with duplicity for manual restores: {url}"
 msgstr "URL, mida kasutada manuaalseks taastamiseks duplicityga: {url}"
 
-#: src/EBox/Model/RemoteStatus.pm:138 src/EBox/Model/RemoteExcludes.pm:76
-msgid "Type"
-msgstr "Tüüp"
+#: src/EBox/Model/BackupDomains.pm:156
+msgid "Name"
+msgstr ""
 
-#: src/EBox/Model/RemoteStatus.pm:142
-msgid "Date"
-msgstr "Kuupäev"
+#: src/EBox/Model/BackupDomains.pm:162
+#, fuzzy
+msgid "Description"
+msgstr "Krüpteerimine"
 
-#: src/EBox/Model/RemoteStatus.pm:149
+#: src/EBox/Model/BackupDomains.pm:168
+#, fuzzy
+msgid "Enabled"
+msgstr "Keelatud"
+
+#: src/EBox/Model/BackupDomains.pm:177
+msgid "Domains to back up"
+msgstr ""
+
+#: src/EBox/Model/BackupDomains.pm:182
+#, fuzzy
+msgid "Backup domain"
+msgstr "Varundamise kuupäev"
+
+#: src/EBox/Model/BackupDomains.pm:183
+msgid "Select the domains you want to back up."
+msgstr ""
+
+#: src/EBox/Model/RemoteStorage.pm:68 src/EBox/Model/RemoteStorage.pm:69
+#: src/EBox/Model/RemoteStorage.pm:70
+msgid "Unknown"
+msgstr ""
+
+#: src/EBox/Model/RemoteStorage.pm:128
+msgid "Used storage"
+msgstr ""
+
+#: src/EBox/Model/RemoteStorage.pm:132
+msgid "Available storage"
+msgstr ""
+
+#: src/EBox/Model/RemoteStorage.pm:136
+msgid "Total storage"
+msgstr ""
+
+#: src/EBox/Model/RemoteStorage.pm:143
+msgid "Remote Storage Usage"
+msgstr ""
+
+#: src/EBox/Model/RemoteStorage.pm:144 src/EBox/Model/RemoteStatus.pm:152
+msgid "backup"
+msgstr "varundamine"
+
+#: src/EBox/Model/RemoteStatus.pm:121 src/EBox/Model/RemoteStatus.pm:151
 msgid "Remote Backup Status"
 msgstr "Kaugvarundamise olek"
 
-#: src/EBox/Model/RemoteStatus.pm:150
-msgid "backup"
-msgstr "varundamine"
+#: src/EBox/Model/RemoteStatus.pm:139 src/EBox/Model/RemoteExcludes.pm:76
+msgid "Type"
+msgstr "Tüüp"
+
+#: src/EBox/Model/RemoteStatus.pm:143
+msgid "Date"
+msgstr "Kuupäev"
+
+#: src/EBox/Model/RemoteSettings.pm:174
+msgid "Method"
+msgstr "Meetod"
+
+#: src/EBox/Model/RemoteSettings.pm:180
+msgid "Host or destination"
+msgstr "Masin või sihtkoht"
+
+#: src/EBox/Model/RemoteSettings.pm:182
+#, fuzzy
+msgid "If the selected method is file system, only set the target directory"
+msgstr "Kui valitud meetod on {brand}, määra ainult sihtkataloog"
+
+#: src/EBox/Model/RemoteSettings.pm:186
+msgid "User"
+msgstr "Kasutaja"
+
+#: src/EBox/Model/RemoteSettings.pm:191
+msgid "Password"
+msgstr "Parool"
+
+#: src/EBox/Model/RemoteSettings.pm:196
+msgid "Encryption"
+msgstr "Krüpteerimine"
+
+#: src/EBox/Model/RemoteSettings.pm:201 src/EBox/Model/RemoteSettings.pm:275
+#: src/EBox/Model/RemoteSettings.pm:547
+msgid "Disabled"
+msgstr "Keelatud"
+
+#: src/EBox/Model/RemoteSettings.pm:206
+msgid "Symmetric Key"
+msgstr "Sümmeetriline võti"
+
+#: src/EBox/Model/RemoteSettings.pm:222
+msgid "Full Backup Frequency"
+msgstr "Täisvarundamise sagedus"
+
+#: src/EBox/Model/RemoteSettings.pm:227
+msgid "Only the first time"
+msgstr ""
+
+#: src/EBox/Model/RemoteSettings.pm:232 src/EBox/Model/RemoteSettings.pm:264
+msgid "Daily"
+msgstr "Igapäevane"
+
+#: src/EBox/Model/RemoteSettings.pm:237 src/EBox/Model/RemoteSettings.pm:269
+msgid "Weekly"
+msgstr "Iganädalane"
+
+#: src/EBox/Model/RemoteSettings.pm:243
+#, fuzzy
+msgid "Twice a month"
+msgstr "1 kuu"
+
+#: src/EBox/Model/RemoteSettings.pm:249
+msgid "Monthly"
+msgstr "Igakuine"
+
+# või "kasvav varundamise sagedus" ?
+#: src/EBox/Model/RemoteSettings.pm:259
+msgid "Incremental Backup Frequency"
+msgstr "Muutvarundamise sagedus"
+
+#: src/EBox/Model/RemoteSettings.pm:285
+msgid "Backup process starts at"
+msgstr "Varundamine algab kell"
+
+#: src/EBox/Model/RemoteSettings.pm:291
+msgid "Keep previous full copies"
+msgstr "Eelmiste täiskoopiate säilitamine"
+
+#: src/EBox/Model/RemoteSettings.pm:296
+msgid "maximum number"
+msgstr "suurim arv"
+
+#: src/EBox/Model/RemoteSettings.pm:304
+msgid "no older than"
+msgstr "mitte vanemad kui"
+
+#: src/EBox/Model/RemoteSettings.pm:317
+msgid "General Configuration"
+msgstr "Üldine seadistamine"
+
+#: src/EBox/Model/RemoteSettings.pm:322
+msgid "General backup server configuration updated"
+msgstr "Varundusserveri üldised seadistused on uuendatud"
+
+#: src/EBox/Model/RemoteSettings.pm:334
+msgid "on Monday"
+msgstr "esmaspäeval"
+
+#: src/EBox/Model/RemoteSettings.pm:335
+msgid "on Tuesday"
+msgstr "teisipäeval"
+
+#: src/EBox/Model/RemoteSettings.pm:336
+msgid "on Wednesday"
+msgstr "kolmapäeval"
+
+#: src/EBox/Model/RemoteSettings.pm:337
+msgid "on Thursday"
+msgstr "neljapäeval"
+
+#: src/EBox/Model/RemoteSettings.pm:338
+msgid "on Friday"
+msgstr "reedel"
+
+#: src/EBox/Model/RemoteSettings.pm:339
+msgid "on Saturday"
+msgstr "laupäeval"
+
+#: src/EBox/Model/RemoteSettings.pm:340
+msgid "on Sunday"
+msgstr "pühapäeval"
+
+#: src/EBox/Model/RemoteSettings.pm:352
+#, perl-brace-format
+msgid "on the {mday}th"
+msgstr "kuu {mday}. päeval"
+
+#: src/EBox/Model/RemoteSettings.pm:361
+msgid "on the last day"
+msgstr "viimasel päeval"
+
+#: src/EBox/Model/RemoteSettings.pm:512
+msgid "File System"
+msgstr ""
+
+#: src/EBox/Model/RemoteSettings.pm:581
+msgid "1 week"
+msgstr "1 nädal"
+
+#: src/EBox/Model/RemoteSettings.pm:585
+msgid "2 weeks"
+msgstr "2 nädalat"
+
+#: src/EBox/Model/RemoteSettings.pm:589
+msgid "3 weeks"
+msgstr "3 nädalat"
+
+#: src/EBox/Model/RemoteSettings.pm:593
+msgid "1 month"
+msgstr "1 kuu"
+
+#: src/EBox/Model/RemoteSettings.pm:597
+msgid "2 months"
+msgstr "2 kuud"
+
+#: src/EBox/Model/RemoteSettings.pm:601
+msgid "3 months"
+msgstr "3 kuud"
+
+#: src/EBox/Model/RemoteSettings.pm:605
+msgid "4 months"
+msgstr "4 kuud"
+
+#: src/EBox/Model/RemoteSettings.pm:609
+msgid "6 months"
+msgstr "6 kuud"
+
+#: src/EBox/Model/RemoteSettings.pm:613
+msgid "9 months"
+msgstr "9 kuud"
+
+#: src/EBox/Model/RemoteSettings.pm:617
+msgid "1 year"
+msgstr "1 aasta"
+
+#: src/EBox/Model/RemoteSettings.pm:621
+msgid "1 year and half"
+msgstr "1 aasta ja 6 kuud"
+
+#: src/EBox/Model/RemoteSettings.pm:625
+msgid "2 years"
+msgstr "2 aastat"
+
+#: src/EBox/Model/RemoteSettings.pm:629
+msgid "3 years"
+msgstr "3 aastat"
+
+#: src/EBox/Model/RemoteSettings.pm:695
+msgid ""
+"You cannot switch encryption options when there are existent backups with "
+"the original encryption options. You must remove previous backup to change "
+"the encryption options"
+msgstr ""
+
+# "target parameter"?
+#: src/EBox/Model/RemoteSettings.pm:720
+msgid "The target parameter that must be like 'other.host[:port]/some_dir"
+msgstr "Sihtparameeter peab olema kujul 'teine.masin[:port]/kataloog"
+
+# või lihtsalt "siht"?
+#: src/EBox/Model/RemoteSettings.pm:731 src/EBox/Model/RemoteSettings.pm:764
+msgid "target"
+msgstr "sihtkoht"
+
+#: src/EBox/Model/RemoteSettings.pm:733
+msgid "Must be a like 'other.host[:port]/some_dir'"
+msgstr "Peab olema kujul 'teine.masin[:port]/kataloog"
+
+#: src/EBox/Model/RemoteSettings.pm:740 src/EBox/Model/RemoteSettings.pm:773
+msgid "host"
+msgstr "masin"
+
+#: src/EBox/Model/RemoteSettings.pm:742 src/EBox/Model/RemoteSettings.pm:775
+msgid "port"
+msgstr "port"
+
+#: src/EBox/Model/RemoteSettings.pm:744
+msgid "directory"
+msgstr "kataloog"
+
+# "target parameter"?
+#: src/EBox/Model/RemoteSettings.pm:753
+msgid ""
+"The RSYNC target parameter that must be like 'other.host[:port]/"
+"relative_path' or 'other.host[:port]/absolute_path'"
+msgstr ""
+"RSYNC sihtparameeter peab olema kujul 'teine.masin[:port]/suhteline_asukoht' "
+"või 'teine.masin[:port]/absoluutne_asukoht'"
+
+#: src/EBox/Model/RemoteSettings.pm:767
+msgid ""
+"Must be a like 'other.host[:port]/relative_path' or 'other.host[:port]/"
+"absolute_path'"
+msgstr ""
+"Peab olema kujul 'teine.masin[:port]/suhteline_asukoht' või 'teine.masin[:"
+"port]/absoluutne_asukoht'"
+
+# või "absoluutkataloog"?
+#: src/EBox/Model/RemoteSettings.pm:778
+msgid "absolute directory"
+msgstr "absoluutse asukohaga kataloog"
+
+# äkki "siduskataloog" või "relatiivne kataloog"?
+#: src/EBox/Model/RemoteSettings.pm:780
+msgid "relative directory"
+msgstr "suhtelise asukohaga kataloog"
+
+#: src/EBox/Model/RemoteSettings.pm:791
+msgid ""
+"File system method needs a target parameter that should be a directory path"
+msgstr ""
+"Failisüsteemi meetod vajab sihtparameetrit, mis peab olema kataloogi asukoht"
+
+#: src/EBox/Model/RemoteSettings.pm:796 src/EBox/Model/RemoteSettings.pm:800
+msgid "Directory for backup"
+msgstr "Kataloog varundamiseks"
+
+#: src/EBox/Model/RemoteSettings.pm:803
+msgid "File exists and it is not a directory"
+msgstr "Fail on olemas ja see ei ole kataloog"
+
+#: src/EBox/Model/RemoteSettings.pm:817
+msgid ""
+"You must enable incremental backups when you enable 'Only the first time' "
+"full backup frequency"
+msgstr ""
+
+#  
+#: src/EBox/Model/RemoteSettings.pm:837
+msgid "Incremental backup must be more frequent than full backup"
+msgstr "Muutvarundamine peab olema sagedam kui täisvarundamine"
+
+#: src/EBox/Model/RemoteSettings.pm:850 src/EBox/Model/RemoteSettings.pm:859
+#, fuzzy
+msgid "General backup configuration updated."
+msgstr "Varundusserveri üldised seadistused on uuendatud"
+
+#: src/EBox/Model/RemoteSettings.pm:851
+msgid ""
+"Backup method or target changed; you must save changes to refresh the "
+"backups list"
+msgstr ""
+
+# suht segane lause ning "target host " vaste?
+#: src/EBox/Model/RemoteSettings.pm:861
+#, fuzzy
+msgid ""
+"SCP method selected. Remember to add your target host to the list of known "
+"hosts by SSH"
+msgstr ""
+"Varundusserveri üldised seadistused on uuendatud. Valitud SCP meetod; "
+"<em>pea meeles</em> sihtmärk masin lisada SSH tuntud masinate nimekirja"
+
+#: src/EBox/Model/RemoteSettings.pm:977
+msgid "Retention policy type"
+msgstr ""
+
+# Kõrvaldamine või kaasamine
+#: src/EBox/Model/RemoteExcludes.pm:82
+msgid "Exclude or Include"
+msgstr "Välja jätmine või kaasamine"
+
+#: src/EBox/Model/RemoteExcludes.pm:98
+msgid "Includes and Excludes"
+msgstr "Kaasatud või välja jäetud"
+
+#  
+#: src/EBox/Model/RemoteExcludes.pm:99
+msgid "exclude or include"
+msgstr "Välja jätmine või kaasamine"
+
+#: src/EBox/Model/RemoteExcludes.pm:108
+msgid ""
+"A file or directory is included or excluded according the first match. A "
+"directory match is applied to all it contents. Files not explicitly excluded "
+"or included are included"
+msgstr ""
+"Faili või kataloogi kaasamine või välja jätmine toimub esimese sobivuse "
+"järgi. Kataloogi sobivus rakendub rekursiivselt. Failid mille välja jätmine "
+"või kaasamine ei ole täpsustatud, kaasatakse vaikimisi."
+
+# Välja jäetav asukoht
+#: src/EBox/Model/RemoteExcludes.pm:123
+msgid "Exclude path"
+msgstr "Asukoht välja jätmiseks"
+
+#  
+#: src/EBox/Model/RemoteExcludes.pm:127
+msgid "Exclude by regular expression"
+msgstr "regulaaravaldis välja jätmise jaoks"
+
+# Kaasatav asukoht
+#: src/EBox/Model/RemoteExcludes.pm:131
+msgid "Include Path"
+msgstr "Asukoht kaasamiseks"
+
+# või "path" on hoopis "tee" või "rada"?
+#: src/EBox/Model/RemoteExcludes.pm:153
+msgid "exclude path"
+msgstr "jäta asukoht välja"
+
+#  
+#: src/EBox/Model/RemoteExcludes.pm:166
+msgid "exclude path regular expression"
+msgstr "regulaaravaldis asukoha välja jätmiseks"
+
+#: src/EBox/Model/RemoteExcludes.pm:168
+msgid "Incorrect regular expression"
+msgstr "Vigane regulaaravaldis"
+
+#  
+#: src/EBox/Model/RemoteExcludes.pm:189
+msgid "include path"
+msgstr "asukoht kaasamiseks"
 
 #: src/EBox/Model/RemoteRestoreConf.pm:104
 #, fuzzy
@@ -109,359 +547,37 @@ msgstr ""
 "Seadistuste varundust ei leitud varukoopiast {d} jaoks. Võib olla proovid "
 "mõnda teist kuupäeva?"
 
-# Kõrvaldamine või kaasamine
-#: src/EBox/Model/RemoteExcludes.pm:82
-msgid "Exclude or Include"
-msgstr "Välja jätmine või kaasamine"
+#: src/EBox/Model/RemoteRestoreLogs.pm:118
+msgid "Restore logs database"
+msgstr "Logide andmebaasi taastamine"
 
-#: src/EBox/Model/RemoteExcludes.pm:93
-msgid "Includes and Excludes"
-msgstr "Kaasatud või välja jäetud"
-
-#  
-#: src/EBox/Model/RemoteExcludes.pm:94
-msgid "exclude or include"
-msgstr "Välja jätmine või kaasamine"
-
-#: src/EBox/Model/RemoteExcludes.pm:102
-msgid ""
-"A file or directory is included or excluded according the first match. A "
-"directory match is applied to all it contents. Files not explicitly excluded "
-"or included are included"
-msgstr ""
-"Faili või kataloogi kaasamine või välja jätmine toimub esimese sobivuse "
-"järgi. Kataloogi sobivus rakendub rekursiivselt. Failid mille välja jätmine "
-"või kaasamine ei ole täpsustatud, kaasatakse vaikimisi."
-
-# Välja jäetav asukoht
-#: src/EBox/Model/RemoteExcludes.pm:117
-msgid "Exclude path"
-msgstr "Asukoht välja jätmiseks"
-
-#  
-#: src/EBox/Model/RemoteExcludes.pm:121
-msgid "Exclude by regular expression"
-msgstr "regulaaravaldis välja jätmise jaoks"
-
-# Kaasatav asukoht
-#: src/EBox/Model/RemoteExcludes.pm:125
-msgid "Include Path"
-msgstr "Asukoht kaasamiseks"
-
-# või "path" on hoopis "tee" või "rada"?
-#: src/EBox/Model/RemoteExcludes.pm:147
-msgid "exclude path"
-msgstr "jäta asukoht välja"
-
-#  
-#: src/EBox/Model/RemoteExcludes.pm:160
-msgid "exclude path regular expression"
-msgstr "regulaaravaldis asukoha välja jätmiseks"
-
-#: src/EBox/Model/RemoteExcludes.pm:162
-msgid "Incorrect regular expression"
-msgstr "Vigane regulaaravaldis"
-
-#  
-#: src/EBox/Model/RemoteExcludes.pm:183
-msgid "include path"
-msgstr "asukoht kaasamiseks"
-
-#: src/EBox/Model/RemoteSettings.pm:161
-msgid "Method"
-msgstr "Meetod"
-
-#: src/EBox/Model/RemoteSettings.pm:167
-msgid "Host or destination"
-msgstr "Masin või sihtkoht"
-
-#: src/EBox/Model/RemoteSettings.pm:169
+#: src/EBox/Model/RemoteRestoreLogs.pm:125
 #, fuzzy
-msgid "If the selected method is file system, only set the target directory"
-msgstr "Kui valitud meetod on {brand}, määra ainult sihtkataloog"
-
-#: src/EBox/Model/RemoteSettings.pm:173
-msgid "User"
-msgstr "Kasutaja"
-
-#: src/EBox/Model/RemoteSettings.pm:178
-msgid "Password"
-msgstr "Parool"
-
-#: src/EBox/Model/RemoteSettings.pm:183
-msgid "Encryption"
-msgstr "Krüpteerimine"
-
-#: src/EBox/Model/RemoteSettings.pm:188 src/EBox/Model/RemoteSettings.pm:240
-#: src/EBox/Model/RemoteSettings.pm:477
-msgid "Disabled"
-msgstr "Keelatud"
-
-#: src/EBox/Model/RemoteSettings.pm:193
-msgid "Symmetric Key"
-msgstr "Sümmeetriline võti"
-
-#: src/EBox/Model/RemoteSettings.pm:198
-msgid "GPG Key"
-msgstr "GPG võti"
-
-#: src/EBox/Model/RemoteSettings.pm:209
-msgid "Full Backup Frequency"
-msgstr "Täisvarundamise sagedus"
-
-#: src/EBox/Model/RemoteSettings.pm:214 src/EBox/Model/RemoteSettings.pm:245
-msgid "Daily"
-msgstr "Igapäevane"
-
-#: src/EBox/Model/RemoteSettings.pm:219 src/EBox/Model/RemoteSettings.pm:250
-msgid "Weekly"
-msgstr "Iganädalane"
-
-#: src/EBox/Model/RemoteSettings.pm:225
-msgid "Monthly"
-msgstr "Igakuine"
-
-# või "kasvav varundamise sagedus" ?
-#: src/EBox/Model/RemoteSettings.pm:235
-msgid "Incremental Backup Frequency"
-msgstr "Muutvarundamise sagedus"
-
-#: src/EBox/Model/RemoteSettings.pm:261
-msgid "Backup process starts at"
-msgstr "Varundamine algab kell"
-
-#: src/EBox/Model/RemoteSettings.pm:267
-msgid "Keep previous full copies"
-msgstr "Eelmiste täiskoopiate säilitamine"
-
-#: src/EBox/Model/RemoteSettings.pm:272
-msgid "maximum number"
-msgstr "suurim arv"
-
-#: src/EBox/Model/RemoteSettings.pm:280
-msgid "no older than"
-msgstr "mitte vanemad kui"
-
-#: src/EBox/Model/RemoteSettings.pm:294
-msgid "General Configuration"
-msgstr "Üldine seadistamine"
-
-#: src/EBox/Model/RemoteSettings.pm:299
-msgid "General backup server configuration updated"
-msgstr "Varundusserveri üldised seadistused on uuendatud"
-
-#: src/EBox/Model/RemoteSettings.pm:312
-msgid "on Monday"
-msgstr "esmaspäeval"
-
-#: src/EBox/Model/RemoteSettings.pm:313
-msgid "on Tuesday"
-msgstr "teisipäeval"
-
-#: src/EBox/Model/RemoteSettings.pm:314
-msgid "on Wednesday"
-msgstr "kolmapäeval"
-
-#: src/EBox/Model/RemoteSettings.pm:315
-msgid "on Thursday"
-msgstr "neljapäeval"
-
-#: src/EBox/Model/RemoteSettings.pm:316
-msgid "on Friday"
-msgstr "reedel"
-
-#: src/EBox/Model/RemoteSettings.pm:317
-msgid "on Saturday"
-msgstr "laupäeval"
-
-#: src/EBox/Model/RemoteSettings.pm:318
-msgid "on Sunday"
-msgstr "pühapäeval"
-
-#: src/EBox/Model/RemoteSettings.pm:331
-#, perl-brace-format
-msgid "on the {mday}th"
-msgstr "kuu {mday}. päeval"
-
-#: src/EBox/Model/RemoteSettings.pm:339
-msgid "on the last day"
-msgstr "viimasel päeval"
-
-#: src/EBox/Model/RemoteSettings.pm:494
-#, fuzzy, perl-brace-format
-msgid ""
-"{oi}{brand}{ci} is a quick and safe remote location to store the data you "
-"keep on your Zentyal servers. Purchase the backup storage space you need at "
-"the {ohref}Zentyal on-line store{chref}."
-msgstr ""
-"{oi}{brand}{ci} on kiire ja turvaline kaugasukoht sinu eBoxi serverite "
-"andmete hoidmiseks. Vajatavat salvestusmahtu saad osta {ohref}eBoxi "
-"veebipoest{chref}."
-
-#: src/EBox/Model/RemoteSettings.pm:511
-msgid "1 week"
-msgstr "1 nädal"
-
-#: src/EBox/Model/RemoteSettings.pm:515
-msgid "2 weeks"
-msgstr "2 nädalat"
-
-#: src/EBox/Model/RemoteSettings.pm:519
-msgid "3 weeks"
-msgstr "3 nädalat"
-
-#: src/EBox/Model/RemoteSettings.pm:523
-msgid "1 month"
-msgstr "1 kuu"
-
-#: src/EBox/Model/RemoteSettings.pm:527
-msgid "2 months"
-msgstr "2 kuud"
-
-#: src/EBox/Model/RemoteSettings.pm:531
-msgid "3 months"
-msgstr "3 kuud"
-
-#: src/EBox/Model/RemoteSettings.pm:535
-msgid "4 months"
-msgstr "4 kuud"
-
-#: src/EBox/Model/RemoteSettings.pm:539
-msgid "6 months"
-msgstr "6 kuud"
-
-#: src/EBox/Model/RemoteSettings.pm:543
-msgid "9 months"
-msgstr "9 kuud"
-
-#: src/EBox/Model/RemoteSettings.pm:547
-msgid "1 year"
-msgstr "1 aasta"
-
-#: src/EBox/Model/RemoteSettings.pm:551
-msgid "1 year and half"
-msgstr "1 aasta ja 6 kuud"
-
-#: src/EBox/Model/RemoteSettings.pm:555
-msgid "2 years"
-msgstr "2 aastat"
-
-#: src/EBox/Model/RemoteSettings.pm:559
-msgid "3 years"
-msgstr "3 aastat"
-
-#  
-#: src/EBox/Model/RemoteSettings.pm:591
-msgid "Destination must be a relative directory"
-msgstr "Sihtkoht peab olema suhteline kataloog"
-
-# "target parameter"?
-#: src/EBox/Model/RemoteSettings.pm:646
-msgid "The target parameter that must be like 'other.host[:port]/some_dir"
-msgstr "Sihtparameeter peab olema kujul 'teine.masin[:port]/kataloog"
-
-# või lihtsalt "siht"?
-#: src/EBox/Model/RemoteSettings.pm:657 src/EBox/Model/RemoteSettings.pm:691
-msgid "target"
-msgstr "sihtkoht"
-
-#: src/EBox/Model/RemoteSettings.pm:659
-msgid "Must be a like 'other.host[:port]/some_dir'"
-msgstr "Peab olema kujul 'teine.masin[:port]/kataloog"
-
-#: src/EBox/Model/RemoteSettings.pm:666 src/EBox/Model/RemoteSettings.pm:701
-msgid "host"
-msgstr "masin"
-
-#: src/EBox/Model/RemoteSettings.pm:668 src/EBox/Model/RemoteSettings.pm:703
-msgid "port"
-msgstr "port"
-
-#: src/EBox/Model/RemoteSettings.pm:670
-msgid "directory"
-msgstr "kataloog"
-
-# "target parameter"?
-#: src/EBox/Model/RemoteSettings.pm:680
-msgid ""
-"The RSYNC target parameter that must be like 'other.host[:port]/"
-"relative_path' or 'other.host[:port]/absolute_path'"
-msgstr ""
-"RSYNC sihtparameeter peab olema kujul 'teine.masin[:port]/suhteline_asukoht' "
-"või 'teine.masin[:port]/absoluutne_asukoht'"
-
-#: src/EBox/Model/RemoteSettings.pm:694
-msgid ""
-"Must be a like 'other.host[:port]/relative_path' or 'other.host[:port]/"
-"absolute_path'"
-msgstr ""
-"Peab olema kujul 'teine.masin[:port]/suhteline_asukoht' või 'teine.masin[:"
-"port]/absoluutne_asukoht'"
-
-# või "absoluutkataloog"?
-#: src/EBox/Model/RemoteSettings.pm:706
-msgid "absolute directory"
-msgstr "absoluutse asukohaga kataloog"
-
-# äkki "siduskataloog" või "relatiivne kataloog"?
-#: src/EBox/Model/RemoteSettings.pm:708
-msgid "relative directory"
-msgstr "suhtelise asukohaga kataloog"
-
-#: src/EBox/Model/RemoteSettings.pm:719
-msgid ""
-"File system method needs a target parameter that should be a directory path"
-msgstr ""
-"Failisüsteemi meetod vajab sihtparameetrit, mis peab olema kataloogi asukoht"
-
-#: src/EBox/Model/RemoteSettings.pm:724 src/EBox/Model/RemoteSettings.pm:728
-msgid "Directory for backup"
-msgstr "Kataloog varundamiseks"
-
-#: src/EBox/Model/RemoteSettings.pm:731
-msgid "File exists and it is not a directory"
-msgstr "Fail on olemas ja see ei ole kataloog"
-
-#  
-#: src/EBox/Model/RemoteSettings.pm:751
-msgid "Incremental backup must be more frequent than full backup"
-msgstr "Muutvarundamine peab olema sagedam kui täisvarundamine"
-
-# suht segane lause ning "target host " vaste?
-#: src/EBox/Model/RemoteSettings.pm:763
-msgid ""
-"General backup server configuration updated. SCP method selected; "
-"<em>remember</em> to add your target host to the list of known hosts by SSH"
-msgstr ""
-"Varundusserveri üldised seadistused on uuendatud. Valitud SCP meetod; "
-"<em>pea meeles</em> sihtmärk masin lisada SSH tuntud masinate nimekirja"
-
-#: src/EBox/EBackup.pm:197
-#, perl-brace-format
-msgid "File {f} not found in backup for {d}, try a later date"
-msgstr "Faili {f} ei leitud varukoopiast {d}, proovi hilisemat kuupäeva"
-
-#: src/EBox/EBackup.pm:204
-msgid ""
-"No backup archives found. Maybe they were deleted?. Run '/etc/init.d/ebox "
-"ebackup restart' to refresh backup's information."
-msgstr ""
-"Varundusarhiive ei leitud, varundusinfo värskendamiseks käivita käsureal '/"
-"etc/init.d/ebox ebackup restart'"
-
-#: src/EBox/EBackup/DBRestore.pm:46
-#, perl-brace-format
-msgid ""
-"Logs backup data not found in backup for {d}. Maybe you could try another "
-"date?"
-msgstr ""
-"Logide taastamiseks vajalikke andmeid ei leitud varukoopiast {d} jaoks. Võib "
-"olla proovid mõnda teist kuupäeva?"
+msgid "Restores the Zentyal logs found in the selected backup"
+msgstr "Valitud varukoopias leiduvate eBoxi logide taastamine"
 
 #: src/EBox/Composite/ServicesRestore.pm:64
-msgid "Services restore"
+#, fuzzy
+msgid "Services Restore"
 msgstr "Teenuste taastamine"
 
-#: src/EBox/Composite/RemoteGeneral.pm:65
+#: src/EBox/Composite/RemoteGeneral.pm:66
 msgid "Configuration and Status"
 msgstr "Seadistamine ja olek"
+
+#~ msgid "GPG Key"
+#~ msgstr "GPG võti"
+
+#, fuzzy
+#~ msgid ""
+#~ "{oi}{brand}{ci} is a quick and safe remote location to store the data you "
+#~ "keep on your Zentyal servers. Purchase the backup storage space you need "
+#~ "at the {ohref}Zentyal on-line store{chref}."
+#~ msgstr ""
+#~ "{oi}{brand}{ci} on kiire ja turvaline kaugasukoht sinu eBoxi serverite "
+#~ "andmete hoidmiseks. Vajatavat salvestusmahtu saad osta {ohref}eBoxi "
+#~ "veebipoest{chref}."
+
+#  
+#~ msgid "Destination must be a relative directory"
+#~ msgstr "Sihtkoht peab olema suhteline kataloog"

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-objects 0.12\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-08-28 23:37+0200\n"
+"POT-Creation-Date: 2010-12-13 08:40+0100\n"
 "PO-Revision-Date: 2005-11-11 13:18+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
@@ -16,71 +16,10 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural= (n != 1);\n"
 "X-Generator: Translate Toolkit 0.10.1\n"
 
-#: src/EBox/Model/MemberTable.pm:63 src/EBox/Model/ObjectTable.pm:63
-msgid "Name"
-msgstr "Nombre"
-
-#: src/EBox/Model/MemberTable.pm:70
-msgid "IP address"
-msgstr "Adreza IP"
-
-#: src/EBox/Model/MemberTable.pm:76
-#, fuzzy
-msgid "MAC address"
-msgstr "Adreza IP"
-
-#: src/EBox/Model/MemberTable.pm:87 src/EBox/Model/ObjectTable.pm:71
-msgid "Members"
-msgstr ""
-
-#: src/EBox/Model/MemberTable.pm:93 src/EBox/Model/ObjectTable.pm:82
-#: src/EBox/Objects.pm:39
+#: src/EBox/Objects.pm:39 src/EBox/Model/ObjectTable.pm:82
+#: src/EBox/Model/MemberTable.pm:93
 msgid "Objects"
 msgstr "Ochetos"
-
-#: src/EBox/Model/MemberTable.pm:94
-msgid "member"
-msgstr ""
-
-#: src/EBox/Model/MemberTable.pm:116
-msgid "You can only use MAC addresses with hosts"
-msgstr ""
-
-#: src/EBox/Model/MemberTable.pm:119 src/EBox/Model/MemberTable.pm:120
-msgid "network address"
-msgstr "adreza de rete"
-
-#: src/EBox/Model/MemberTable.pm:126
-#, perl-brace-format
-msgid "{ip} overlaps with the address or another object's member"
-msgstr ""
-
-#: src/EBox/Model/ObjectTable.pm:83
-#, fuzzy
-msgid "Objects List"
-msgstr "Lista d'ochetos"
-
-#: src/EBox/Model/ObjectTable.pm:91
-#, fuzzy
-msgid "object"
-msgstr "Ocheto"
-
-#: src/EBox/Model/ObjectTable.pm:113
-msgid "This object is being used by another module"
-msgstr ""
-
-#: src/EBox/Model/ObjectTable.pm:197
-msgid ""
-"Objects are an abstraction of machines and network addresses which can be "
-"used in other modules. Any change on an object is automatically synched in "
-"all the modules using it"
-msgstr ""
-
-#: src/EBox/Model/ObjectTable.pm:208
-msgid ""
-"'Any' is a reserved word that could not be used as object name to avoid "
-"confusions"
-msgstr ""
 
 #: src/EBox/Objects.pm:44
 #, perl-brace-format
@@ -110,3 +49,64 @@ msgstr "Borrato {nname} de l'ocheto {object}"
 #: src/EBox/Objects.pm:270
 msgid "Object"
 msgstr "Ocheto"
+
+#: src/EBox/Model/ObjectTable.pm:63 src/EBox/Model/MemberTable.pm:63
+msgid "Name"
+msgstr "Nombre"
+
+#: src/EBox/Model/ObjectTable.pm:71 src/EBox/Model/MemberTable.pm:87
+msgid "Members"
+msgstr ""
+
+#: src/EBox/Model/ObjectTable.pm:83
+#, fuzzy
+msgid "Objects List"
+msgstr "Lista d'ochetos"
+
+#: src/EBox/Model/ObjectTable.pm:91
+#, fuzzy
+msgid "object"
+msgstr "Ocheto"
+
+#: src/EBox/Model/ObjectTable.pm:113
+msgid "This object is being used by another module"
+msgstr ""
+
+#: src/EBox/Model/ObjectTable.pm:197
+msgid ""
+"Objects are an abstraction of machines and network addresses which can be "
+"used in other modules. Any change on an object is automatically synched in "
+"all the modules using it"
+msgstr ""
+
+#: src/EBox/Model/ObjectTable.pm:208
+msgid ""
+"'Any' is a reserved word that could not be used as object name to avoid "
+"confusions"
+msgstr ""
+
+#: src/EBox/Model/MemberTable.pm:70
+msgid "IP address"
+msgstr "Adreza IP"
+
+#: src/EBox/Model/MemberTable.pm:76
+#, fuzzy
+msgid "MAC address"
+msgstr "Adreza IP"
+
+#: src/EBox/Model/MemberTable.pm:94
+msgid "member"
+msgstr ""
+
+#: src/EBox/Model/MemberTable.pm:116
+msgid "You can only use MAC addresses with hosts"
+msgstr ""
+
+#: src/EBox/Model/MemberTable.pm:119 src/EBox/Model/MemberTable.pm:120
+msgid "network address"
+msgstr "adreza de rete"
+
+#: src/EBox/Model/MemberTable.pm:126
+#, perl-brace-format
+msgid "{ip} overlaps with the address or another object's member"
+msgstr ""

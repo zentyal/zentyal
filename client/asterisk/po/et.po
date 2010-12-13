@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-asterisk 1.4\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-08-28 23:07+0200\n"
+"POT-Creation-Date: 2010-12-13 08:28+0100\n"
 "PO-Revision-Date: 2010-05-14 18:43+0200\n"
 "Last-Translator: Priit-A. Heinsalu <priit.heinsalu@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
@@ -22,7 +22,7 @@ msgstr ""
 msgid "Zentyal VoIP system"
 msgstr "eBoxi VoIP süsteem"
 
-#: src/EBox/Asterisk.pm:74 src/EBox/Asterisk.pm:715
+#: src/EBox/Asterisk.pm:74 src/EBox/Asterisk.pm:719
 #: src/EBox/Composite/General.pm:67
 msgid "VoIP"
 msgstr "VoIP"
@@ -77,7 +77,7 @@ msgstr "DTMFi käitumise seadistamiseks."
 msgid "General"
 msgstr "Üldine"
 
-#: src/EBox/Asterisk.pm:489 src/EBox/Model/Meetings.pm:190
+#: src/EBox/Asterisk.pm:489 src/EBox/Model/Meetings.pm:191
 msgid "Meetings"
 msgstr "Koosolekud"
 
@@ -118,88 +118,118 @@ msgstr "Ühenduse aeg"
 msgid "VoIP Online Users"
 msgstr "VoIP kasutajaid võrgus"
 
-#: src/EBox/Asterisk.pm:660
+#: src/EBox/Asterisk.pm:661
 msgid "VoIP Users in Meetings"
 msgstr "VoIP kasutajaid koosolekutel"
 
-#: src/EBox/Asterisk.pm:692
+#: src/EBox/Asterisk.pm:696
 msgid "Date"
 msgstr "Kuupäev"
 
-#: src/EBox/Asterisk.pm:693
+#: src/EBox/Asterisk.pm:697
 msgid "From"
 msgstr "Alates"
 
-#: src/EBox/Asterisk.pm:694
+#: src/EBox/Asterisk.pm:698
 msgid "To"
 msgstr "Kuni"
 
-#: src/EBox/Asterisk.pm:695
+#: src/EBox/Asterisk.pm:699
 msgid "Duration"
 msgstr "Kestus"
 
-#: src/EBox/Asterisk.pm:696
+#: src/EBox/Asterisk.pm:700
 msgid "Channel"
 msgstr "Kanal"
 
 # Sihtkoha kanal
-#: src/EBox/Asterisk.pm:697
+#: src/EBox/Asterisk.pm:701
 msgid "Destination Channel"
 msgstr "Adressaadi kanal"
 
-#: src/EBox/Asterisk.pm:698
+#: src/EBox/Asterisk.pm:702
 msgid "Application"
 msgstr "Rakendus"
 
-#: src/EBox/Asterisk.pm:699
+#: src/EBox/Asterisk.pm:703
 msgid "Application Data"
 msgstr "Rakenduse andmed"
 
-#: src/EBox/Asterisk.pm:700
+#: src/EBox/Asterisk.pm:704
 msgid "Event"
 msgstr "Sündmus"
 
-#: src/EBox/Asterisk.pm:708
+#: src/EBox/Asterisk.pm:712
 msgid "Answered"
 msgstr "Vastuvõetud"
 
-#: src/EBox/Asterisk.pm:709
+#: src/EBox/Asterisk.pm:713
 msgid "No Answer"
 msgstr "Vastamata"
 
-#: src/EBox/Asterisk.pm:710
+#: src/EBox/Asterisk.pm:714
 msgid "Busy"
 msgstr "Hõivatud"
 
-#: src/EBox/Asterisk.pm:711
+#: src/EBox/Asterisk.pm:715
 msgid "Failed"
 msgstr "Ebaõnnestunud"
 
-#  
-#: src/EBox/Model/Localnets.pm:88
+# või "laiend"
+#: src/EBox/Asterisk/Extensions.pm:230
+msgid "User extension"
+msgstr "Kasutaja laiend"
+
+#: src/EBox/Asterisk/Extensions.pm:323 src/EBox/Asterisk/Extensions.pm:718
+#: src/EBox/Model/Meetings.pm:151 src/EBox/Model/Settings.pm:92
+#: src/templates/group.mas:41 src/templates/user.mas:38
+msgid "Extension"
+msgstr "Laiend"
+
+#: src/EBox/Asterisk/Extensions.pm:642
+msgid "Queue extension"
+msgstr "Järjekorra laiend"
+
+#: src/EBox/CGI/AsteriskGroupOptions.pm:42
+msgid "group"
+msgstr "grupp"
+
+#: src/EBox/CGI/AsteriskUserOptions.pm:43
+msgid "username"
+msgstr "kasutajanimi"
+
+#: src/EBox/Model/Meetings.pm:95
 #, perl-brace-format
 msgid ""
-"Networks attached directly to internal interfaces, like {net}, are always "
-"considered local networks so it is not neccessary to add them."
+"You must install dahdi and linux-headers packages to use Meetings.{br}Run "
+"the following command: sudo apt-get install {kernels} dahdi."
 msgstr ""
-"Sisemiste liidestega ühendatud võrke, nagu {net}, peetakse alati "
-"kohtvõrkudeks seega ei ole nende lisamine vajalik."
 
-#: src/EBox/Model/Localnets.pm:113
-msgid "Local network"
-msgstr "Kohtvõrk"
+#: src/EBox/Model/Meetings.pm:120 src/EBox/Model/Meetings.pm:128
+#: src/EBox/Model/Settings.pm:84
+msgid "extension"
+msgstr "laiend"
 
-#: src/EBox/Model/Localnets.pm:119 src/EBox/Model/Meetings.pm:178
+#: src/EBox/Model/Meetings.pm:155
+#, perl-brace-format
+msgid "A number between {min} and {max}."
+msgstr "Arv {min} ja {max} vahel."
+
+#: src/EBox/Model/Meetings.pm:171 src/EBox/Model/Provider.pm:111
+msgid "Password"
+msgstr "Parool"
+
+#: src/EBox/Model/Meetings.pm:179 src/EBox/Model/Localnets.pm:119
 msgid "Description"
 msgstr "Kirjeldus"
 
-#: src/EBox/Model/Localnets.pm:130
-msgid "Local networks"
-msgstr "Kohtvõrgud"
+#: src/EBox/Model/Meetings.pm:190
+msgid "List of Meetings"
+msgstr "Koosolekute loend"
 
-#: src/EBox/Model/Localnets.pm:131
-msgid "local network"
-msgstr "kohtvõrk"
+#: src/EBox/Model/Meetings.pm:192
+msgid "meeting"
+msgstr "koosolek"
 
 #: src/EBox/Model/AsteriskUser.pm:50
 msgid "Asterisk Account"
@@ -208,137 +238,6 @@ msgstr "Asteriski konto"
 #: src/EBox/Model/AsteriskUser.pm:58
 msgid "Asterisk"
 msgstr "Asterisk"
-
-#: src/EBox/Model/Settings.pm:84 src/EBox/Model/Meetings.pm:119
-#: src/EBox/Model/Meetings.pm:127
-msgid "extension"
-msgstr "laiend"
-
-#: src/EBox/Model/Settings.pm:92 src/EBox/Model/Meetings.pm:150
-#: src/EBox/Asterisk/Extensions.pm:323 src/EBox/Asterisk/Extensions.pm:718
-#: src/templates/user.mas:38 src/templates/group.mas:41
-msgid "Extension"
-msgstr "Laiend"
-
-#: src/EBox/Model/Settings.pm:117
-msgid "Enable demo extensions"
-msgstr "Demolaiendite lubamine"
-
-#: src/EBox/Model/Settings.pm:123
-msgid "Enable outgoing calls"
-msgstr "Väljuvate kõnede lubamine"
-
-#: src/EBox/Model/Settings.pm:129
-msgid "Voicemail extension"
-msgstr "Kõneposti laiend"
-
-#: src/EBox/Model/Settings.pm:136
-msgid "VoIP domain"
-msgstr "VoIP domeen"
-
-#: src/EBox/Model/Settings.pm:145
-msgid "General configuration"
-msgstr "Üldine seadistamine"
-
-#: src/EBox/Model/Settings.pm:149
-msgid "General Asterisk server configuration"
-msgstr "Asterisk serveri üldine seadistamine"
-
-#: src/EBox/Model/Settings.pm:151
-msgid "General Asterisk server configuration updated."
-msgstr "Asterisk serveri üldine seadistus uuendatud."
-
-#: src/EBox/Model/NAT.pm:96
-#, fuzzy
-msgid "Zentyal is behind NAT"
-msgstr "eBox on NATi taga"
-
-#: src/EBox/Model/NAT.pm:101
-msgid "No"
-msgstr "Ei"
-
-#: src/EBox/Model/NAT.pm:120
-msgid "NAT configuration"
-msgstr "NATi seadistamine"
-
-#: src/EBox/Model/NAT.pm:124
-msgid "NAT Asterisk server configuration"
-msgstr "NAT Asterisk serveri seadistamine"
-
-#: src/EBox/Model/NAT.pm:126
-msgid "NAT Asterisk server configuration updated."
-msgstr "NAT Asterisk serveri seadistused uuendatud."
-
-#: src/EBox/Model/Provider.pm:68
-msgid "Custom"
-msgstr "Kohandatud"
-
-#: src/EBox/Model/Provider.pm:89
-msgid "Provider"
-msgstr "Pakkuja"
-
-#: src/EBox/Model/Provider.pm:95
-msgid "Name"
-msgstr "Nimi"
-
-#: src/EBox/Model/Provider.pm:100
-msgid "VoIP service provider name."
-msgstr "VoIP teenusepakkuja nimi"
-
-#: src/EBox/Model/Provider.pm:104
-msgid "Username"
-msgstr "Kasutajanimi"
-
-#: src/EBox/Model/Provider.pm:111 src/EBox/Model/Meetings.pm:170
-msgid "Password"
-msgstr "Parool"
-
-#: src/EBox/Model/Provider.pm:118
-msgid "Server"
-msgstr "Server"
-
-#: src/EBox/Model/Provider.pm:126
-msgid "Recipient of incoming calls"
-msgstr "Saabuvate kõnede vastuvõtja"
-
-#  
-#: src/EBox/Model/Provider.pm:130
-msgid "Extension recipient of incoming calls through the provider."
-msgstr ""
-"Sisemine eBoxi laiend kuhu suunatakse kõik väliselt pakkujalt saabuvad kõned"
-
-# vt kasutajaliidest
-#: src/EBox/Model/Provider.pm:137
-msgid "SIP provider"
-msgstr "SIP pakkuja seadistamine"
-
-#: src/EBox/Model/Provider.pm:141
-msgid "SIP provider for outgoing calls configuration."
-msgstr "Väljuvate kõnede jaoks SIP pakkuja seadistamine"
-
-#: src/EBox/Model/Provider.pm:143
-msgid "SIP provider configuration updated."
-msgstr "SIP pakkuja seadistused on uuendatud"
-
-#: src/EBox/Model/Meetings.pm:94
-#, perl-brace-format
-msgid ""
-"You must install dahdi and linux-headers packages to use Meetings.{br}Run "
-"the following command: sudo apt-get install {kernels} dahdi."
-msgstr ""
-
-#: src/EBox/Model/Meetings.pm:154
-#, perl-brace-format
-msgid "A number between {min} and {max}."
-msgstr "Arv {min} ja {max} vahel."
-
-#: src/EBox/Model/Meetings.pm:189
-msgid "List of Meetings"
-msgstr "Koosolekute loend"
-
-#: src/EBox/Model/Meetings.pm:191
-msgid "meeting"
-msgstr "koosolek"
 
 #: src/EBox/Model/Voicemail.pm:75 src/EBox/Model/Voicemail.pm:122
 msgid "Voicemail settings"
@@ -375,60 +274,127 @@ msgid "You have not an VoIP account. Maybe VoIP is not enabled in this server"
 msgstr ""
 "Sul ei ole VoIP kontot. Võimalik, et VoIP ei ole selles serveris lubatud"
 
+#  
+#: src/EBox/Model/Localnets.pm:88
+#, perl-brace-format
+msgid ""
+"Networks attached directly to internal interfaces, like {net}, are always "
+"considered local networks so it is not neccessary to add them."
+msgstr ""
+"Sisemiste liidestega ühendatud võrke, nagu {net}, peetakse alati "
+"kohtvõrkudeks seega ei ole nende lisamine vajalik."
+
+#: src/EBox/Model/Localnets.pm:113
+msgid "Local network"
+msgstr "Kohtvõrk"
+
+#: src/EBox/Model/Localnets.pm:130
+msgid "Local networks"
+msgstr "Kohtvõrgud"
+
+#: src/EBox/Model/Localnets.pm:131
+msgid "local network"
+msgstr "kohtvõrk"
+
+#: src/EBox/Model/Settings.pm:117
+msgid "Enable demo extensions"
+msgstr "Demolaiendite lubamine"
+
+#: src/EBox/Model/Settings.pm:123
+msgid "Enable outgoing calls"
+msgstr "Väljuvate kõnede lubamine"
+
+#: src/EBox/Model/Settings.pm:129
+msgid "Voicemail extension"
+msgstr "Kõneposti laiend"
+
+#: src/EBox/Model/Settings.pm:136
+msgid "VoIP domain"
+msgstr "VoIP domeen"
+
+#: src/EBox/Model/Settings.pm:145
+msgid "General configuration"
+msgstr "Üldine seadistamine"
+
+#: src/EBox/Model/Settings.pm:149
+msgid "General Asterisk server configuration"
+msgstr "Asterisk serveri üldine seadistamine"
+
+#: src/EBox/Model/Settings.pm:151
+msgid "General Asterisk server configuration updated."
+msgstr "Asterisk serveri üldine seadistus uuendatud."
+
+#: src/EBox/Model/Provider.pm:68
+msgid "Custom"
+msgstr "Kohandatud"
+
+#: src/EBox/Model/Provider.pm:89
+msgid "Provider"
+msgstr "Pakkuja"
+
+#: src/EBox/Model/Provider.pm:95
+msgid "Name"
+msgstr "Nimi"
+
+#: src/EBox/Model/Provider.pm:100
+msgid "VoIP service provider name."
+msgstr "VoIP teenusepakkuja nimi"
+
+#: src/EBox/Model/Provider.pm:104
+msgid "Username"
+msgstr "Kasutajanimi"
+
+#: src/EBox/Model/Provider.pm:118
+msgid "Server"
+msgstr "Server"
+
+#: src/EBox/Model/Provider.pm:126
+msgid "Recipient of incoming calls"
+msgstr "Saabuvate kõnede vastuvõtja"
+
+#  
+#: src/EBox/Model/Provider.pm:130
+msgid "Extension recipient of incoming calls through the provider."
+msgstr ""
+"Sisemine eBoxi laiend kuhu suunatakse kõik väliselt pakkujalt saabuvad kõned"
+
+# vt kasutajaliidest
+#: src/EBox/Model/Provider.pm:137
+msgid "SIP provider"
+msgstr "SIP pakkuja seadistamine"
+
+#: src/EBox/Model/Provider.pm:141
+msgid "SIP provider for outgoing calls configuration."
+msgstr "Väljuvate kõnede jaoks SIP pakkuja seadistamine"
+
+#: src/EBox/Model/Provider.pm:143
+msgid "SIP provider configuration updated."
+msgstr "SIP pakkuja seadistused on uuendatud"
+
+#: src/EBox/Model/NAT.pm:96
+#, fuzzy
+msgid "Zentyal is behind NAT"
+msgstr "eBox on NATi taga"
+
+#: src/EBox/Model/NAT.pm:101
+msgid "No"
+msgstr "Ei"
+
+#: src/EBox/Model/NAT.pm:120
+msgid "NAT configuration"
+msgstr "NATi seadistamine"
+
+#: src/EBox/Model/NAT.pm:124
+msgid "NAT Asterisk server configuration"
+msgstr "NAT Asterisk serveri seadistamine"
+
+#: src/EBox/Model/NAT.pm:126
+msgid "NAT Asterisk server configuration updated."
+msgstr "NAT Asterisk serveri seadistused uuendatud."
+
 #: src/EBox/Composite/General.pm:66
 msgid "Asterisk module"
 msgstr "Asterisk moodul"
-
-# või "laiend"
-#: src/EBox/Asterisk/Extensions.pm:230
-msgid "User extension"
-msgstr "Kasutaja laiend"
-
-#: src/EBox/Asterisk/Extensions.pm:642
-msgid "Queue extension"
-msgstr "Järjekorra laiend"
-
-#: src/EBox/CGI/AsteriskGroupOptions.pm:42
-msgid "group"
-msgstr "grupp"
-
-#: src/EBox/CGI/AsteriskUserOptions.pm:43
-msgid "username"
-msgstr "kasutajanimi"
-
-#: src/templates/user.mas:8
-msgid "Asterisk account"
-msgstr "Asteriski konto"
-
-#: src/templates/user.mas:10
-msgid "Password for Asterisk service is the user password"
-msgstr "Asteriski teenuse parool on sama kui kasutaja parool"
-
-#: src/templates/user.mas:21
-msgid "User account"
-msgstr "Kasutajakonto"
-
-#: src/templates/user.mas:26 src/templates/user.mas:29
-#: src/templates/group.mas:29 src/templates/group.mas:32
-msgid "Disabled"
-msgstr "Keelatud"
-
-#: src/templates/user.mas:27 src/templates/user.mas:30
-#: src/templates/group.mas:30 src/templates/group.mas:33
-msgid "Enabled"
-msgstr "Lubatud"
-
-#: src/templates/user.mas:49 src/templates/user.mas:50
-#: src/templates/group.mas:52 src/templates/group.mas:53
-msgid "Change"
-msgstr "Muuda"
-
-#: src/templates/moduleDisabled.mas:5
-msgid ""
-"The following settings only will take effect when the Asterisk module is "
-"enabled."
-msgstr ""
-"Järgnevad seadistused rakenduvad ainult siis, kui Asterisk moodul on lubatud."
 
 #: src/templates/group.mas:8
 msgid "Asterisk group queue"
@@ -445,3 +411,37 @@ msgstr ""
 #: src/templates/group.mas:24
 msgid "Group queue"
 msgstr "Grupi järjekord"
+
+#: src/templates/group.mas:29 src/templates/group.mas:32
+#: src/templates/user.mas:26 src/templates/user.mas:29
+msgid "Disabled"
+msgstr "Keelatud"
+
+#: src/templates/group.mas:30 src/templates/group.mas:33
+#: src/templates/user.mas:27 src/templates/user.mas:30
+msgid "Enabled"
+msgstr "Lubatud"
+
+#: src/templates/group.mas:52 src/templates/group.mas:53
+#: src/templates/user.mas:49 src/templates/user.mas:50
+msgid "Change"
+msgstr "Muuda"
+
+#: src/templates/moduleDisabled.mas:5
+msgid ""
+"The following settings only will take effect when the Asterisk module is "
+"enabled."
+msgstr ""
+"Järgnevad seadistused rakenduvad ainult siis, kui Asterisk moodul on lubatud."
+
+#: src/templates/user.mas:8
+msgid "Asterisk account"
+msgstr "Asteriski konto"
+
+#: src/templates/user.mas:10
+msgid "Password for Asterisk service is the user password"
+msgstr "Asteriski teenuse parool on sama kui kasutaja parool"
+
+#: src/templates/user.mas:21
+msgid "User account"
+msgstr "Kasutajakonto"

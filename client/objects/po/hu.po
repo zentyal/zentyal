@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-objects 1.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-08-28 23:37+0200\n"
+"POT-Creation-Date: 2010-12-13 08:40+0100\n"
 "PO-Revision-Date: 2010-04-06 16:23+0200\n"
 "Last-Translator: Nagy Ákos <reg@pecska.ro>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
@@ -17,43 +17,47 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n !=1);\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: src/EBox/Model/MemberTable.pm:63 src/EBox/Model/ObjectTable.pm:63
-msgid "Name"
-msgstr "Név"
-
-#: src/EBox/Model/MemberTable.pm:70
-msgid "IP address"
-msgstr "IP-cím"
-
-#: src/EBox/Model/MemberTable.pm:76
-msgid "MAC address"
-msgstr "MAC-cím"
-
-#: src/EBox/Model/MemberTable.pm:87 src/EBox/Model/ObjectTable.pm:71
-msgid "Members"
-msgstr "Tagok"
-
-#: src/EBox/Model/MemberTable.pm:93 src/EBox/Model/ObjectTable.pm:82
-#: src/EBox/Objects.pm:39
+#: src/EBox/Objects.pm:39 src/EBox/Model/ObjectTable.pm:82
+#: src/EBox/Model/MemberTable.pm:93
 msgid "Objects"
 msgstr "Objektumok"
 
-#: src/EBox/Model/MemberTable.pm:94
-msgid "member"
-msgstr "tag"
-
-#: src/EBox/Model/MemberTable.pm:116
-msgid "You can only use MAC addresses with hosts"
-msgstr "Gépek esetén csak a MAC-címek használhatók"
-
-#: src/EBox/Model/MemberTable.pm:119 src/EBox/Model/MemberTable.pm:120
-msgid "network address"
-msgstr "hálózati cím"
-
-#: src/EBox/Model/MemberTable.pm:126
+#: src/EBox/Objects.pm:44
 #, perl-brace-format
-msgid "{ip} overlaps with the address or another object's member"
-msgstr "A(z) {ip} ütközik a címmel, vagy másik objektum tagjával"
+msgid "Added object {object}"
+msgstr "{object} objektum hozzáadva"
+
+#: src/EBox/Objects.pm:46
+#, perl-brace-format
+msgid "Added {nname} ({ip}/{mask} [{mac}]) to object {object}"
+msgstr "A(z) {nname} ({ip}/{mask} [{mac}]) hozzáadva a(z) {object} objektumhoz"
+
+#: src/EBox/Objects.pm:47
+#, perl-brace-format
+msgid "Removed object {object}"
+msgstr "A(z) {object} objektum törölve"
+
+#: src/EBox/Objects.pm:49
+#, perl-brace-format
+msgid "Forcefully removed object {object}"
+msgstr "A(z) {object} objektum törlése kikényszerítve"
+
+#: src/EBox/Objects.pm:51
+#, perl-brace-format
+msgid "Removed {nname} from object {object}"
+msgstr "A(z) {nname} eltávolítva a(z) {object} objektumból"
+
+#: src/EBox/Objects.pm:270
+msgid "Object"
+msgstr "Objektum"
+
+#: src/EBox/Model/ObjectTable.pm:63 src/EBox/Model/MemberTable.pm:63
+msgid "Name"
+msgstr "Név"
+
+#: src/EBox/Model/ObjectTable.pm:71 src/EBox/Model/MemberTable.pm:87
+msgid "Members"
+msgstr "Tagok"
 
 #: src/EBox/Model/ObjectTable.pm:83
 msgid "Objects List"
@@ -85,31 +89,27 @@ msgstr ""
 "Az 'Any/Minden/Bármely' szavak foglaltak, nem használhatja őket "
 "objektumnévként"
 
-#: src/EBox/Objects.pm:44
-#, perl-brace-format
-msgid "Added object {object}"
-msgstr "{object} objektum hozzáadva"
+#: src/EBox/Model/MemberTable.pm:70
+msgid "IP address"
+msgstr "IP-cím"
 
-#: src/EBox/Objects.pm:46
-#, perl-brace-format
-msgid "Added {nname} ({ip}/{mask} [{mac}]) to object {object}"
-msgstr "A(z) {nname} ({ip}/{mask} [{mac}]) hozzáadva a(z) {object} objektumhoz"
+#: src/EBox/Model/MemberTable.pm:76
+msgid "MAC address"
+msgstr "MAC-cím"
 
-#: src/EBox/Objects.pm:47
-#, perl-brace-format
-msgid "Removed object {object}"
-msgstr "A(z) {object} objektum törölve"
+#: src/EBox/Model/MemberTable.pm:94
+msgid "member"
+msgstr "tag"
 
-#: src/EBox/Objects.pm:49
-#, perl-brace-format
-msgid "Forcefully removed object {object}"
-msgstr "A(z) {object} objektum törlése kikényszerítve"
+#: src/EBox/Model/MemberTable.pm:116
+msgid "You can only use MAC addresses with hosts"
+msgstr "Gépek esetén csak a MAC-címek használhatók"
 
-#: src/EBox/Objects.pm:51
-#, perl-brace-format
-msgid "Removed {nname} from object {object}"
-msgstr "A(z) {nname} eltávolítva a(z) {object} objektumból"
+#: src/EBox/Model/MemberTable.pm:119 src/EBox/Model/MemberTable.pm:120
+msgid "network address"
+msgstr "hálózati cím"
 
-#: src/EBox/Objects.pm:270
-msgid "Object"
-msgstr "Objektum"
+#: src/EBox/Model/MemberTable.pm:126
+#, perl-brace-format
+msgid "{ip} overlaps with the address or another object's member"
+msgstr "A(z) {ip} ütközik a címmel, vagy másik objektum tagjával"

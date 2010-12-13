@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libebox 0.12.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-08-28 19:44+0200\n"
+"POT-Creation-Date: 2010-12-13 08:44+0100\n"
 "PO-Revision-Date: 2010-09-14 15:16+0200\n"
 "Last-Translator: Simone Bernini <lemorragia@libero.it>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
@@ -15,25 +15,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 1.1.0\n"
-
-#: src/EBox/Config.pm.in:74
-#, perl-brace-format
-msgid "Could not open the config file {file}."
-msgstr "Impossibile aprire il file di configurazione {file}."
-
-#: src/EBox/Config.pm.in:169
-msgid "The ebox user has not been set in the config file."
-msgstr "L'utente ebox non è stato impostato nel file di configurazione."
-
-#: src/EBox/Exceptions/DataNotFound.pm:35
-#, perl-brace-format
-msgid "{data} {value} does not exist."
-msgstr "{data} {value} not esiste."
-
-#: src/EBox/Exceptions/DataExists.pm:36
-#, perl-brace-format
-msgid "{data} {value} already exists."
-msgstr "{data} {value} esiste già"
 
 #: src/EBox/Exceptions/InvalidData.pm:37
 #, perl-brace-format
@@ -45,55 +26,20 @@ msgstr "Valore non valido per {data}: {value}."
 msgid "{data} is empty."
 msgstr "{data} è vuoto."
 
-#: src/EBox/Validate.pm:396 src/EBox/Validate.pm:410
-msgid "Must be a number between 1 and 4096"
-msgstr "Deve essere un numero tra 1 e 4096"
-
-#: src/EBox/Validate.pm:700
+#: src/EBox/Exceptions/DataExists.pm:36
 #, perl-brace-format
-msgid ""
-"Cannot stat dir: {dir}. This may mean that the directory does not exist or "
-"the permissions forbid access to it"
-msgstr ""
-"Impossibile eseguire stat sulla directory: {dir}. Ciò può significare che la "
-"directory non esiste o i permessi ne impediscono l'accesso"
+msgid "{data} {value} already exists."
+msgstr "{data} {value} esiste già"
 
-#: src/EBox/Validate.pm:705
+#: src/EBox/Exceptions/DataNotFound.pm:35
 #, perl-brace-format
-msgid "The directory {dir} is not private; because it is owned by another user"
-msgstr ""
-"La directory {dir} non è privata; perché il possessore è un altro utente"
+msgid "{data} {value} does not exist."
+msgstr "{data} {value} not esiste."
 
-#: src/EBox/Validate.pm:780
-msgid ""
-"The file path supplied is not valid. (Currently not all of the valid file's  "
-"characters are supported) "
-msgstr ""
-"Il percorso di file fornito non è valido. (Al momento non sono supportati "
-"tutti i caratteri validi per un file)"
-
-#: src/EBox/Validate.pm:808
-msgid "The file path must be absolute"
-msgstr "Il percorso del file deve essere assoluto"
-
-#: src/EBox/Sudo.pm:265
-#, perl-brace-format
-msgid "Running command '{cmd}' as {user} failed"
-msgstr "L'esecuzione del comando '{cmd}' come {user} è fallita"
-
-#: src/EBox/FileSystem.pm:190 src/EBox/FileSystem.pm:282
-#, perl-brace-format
-msgid "Directory not found: {d}"
-msgstr "Directory non trovata: {d}"
-
-#: src/EBox/NetWrappers.pm:105 src/EBox/NetWrappers.pm:134
-#: src/EBox/NetWrappers.pm:165 src/EBox/NetWrappers.pm:267
+#: src/EBox/NetWrappers.pm:104 src/EBox/NetWrappers.pm:133
+#: src/EBox/NetWrappers.pm:229
 msgid "Interface"
 msgstr "Interfaccia"
-
-#: src/EBox/CGI/EBox/PageNotFound.pm:27
-msgid "Page not found"
-msgstr "Pagina non trovata"
 
 #: src/EBox/CGI/Base.pm:196
 msgid ""
@@ -134,18 +80,18 @@ msgstr ""
 "Hai appena trovato un bug in Zentyal. Per favore, contatta il supporto "
 "tecnico. "
 
-#: src/EBox/CGI/Base.pm:662
+#: src/EBox/CGI/Base.pm:663
 msgid ""
 "Your request could not be processed because it had some incorrect parameters"
 msgstr ""
 "Non è stato possibile elaborare la tua richiesta in quanto conteneva alcuni "
 "parametri non corretti"
 
-#: src/EBox/CGI/Base.pm:695
+#: src/EBox/CGI/Base.pm:696
 msgid "Wrong HTTP referer detected, operation cancelled for security reasons"
 msgstr "Riferimento HTTP errato, operazione annullata per ragioni di sicurezza"
 
-#: src/EBox/CGI/Base.pm:707
+#: src/EBox/CGI/Base.pm:708
 msgid ""
 "Your request could not be processed because it lacked some required "
 "parameters"
@@ -153,38 +99,207 @@ msgstr ""
 "Non è stato possibile elaborare la tua richiesta in quanto mancavano alcuni "
 "parametri"
 
-#: src/EBox/CGI/Base.pm:858
+#: src/EBox/CGI/Base.pm:873
 msgid "Invalid uploaded file."
 msgstr "File caricato non valido."
 
-#: src/EBox/CGI/Base.pm:864
+#: src/EBox/CGI/Base.pm:879
 msgid "Cannot create a temporally file for the upload"
 msgstr "Impossibile creare un file temporaneo per il caricamento"
 
-#: src/templates/language.mas:10
-msgid "Language Selection"
-msgstr "Selezione la lingua"
+#: src/EBox/CGI/EBox/PageNotFound.pm:27
+msgid "Page not found"
+msgstr "Pagina non trovata"
 
-#: src/templates/language.mas:11
+#: src/EBox/Config.pm.in:74
+#, perl-brace-format
+msgid "Could not open the config file {file}."
+msgstr "Impossibile aprire il file di configurazione {file}."
+
+#: src/EBox/Config.pm.in:172
+msgid "The ebox user has not been set in the config file."
+msgstr "L'utente ebox non è stato impostato nel file di configurazione."
+
+#: src/EBox/Sudo.pm:265
+#, perl-brace-format
+msgid "Running command '{cmd}' as {user} failed"
+msgstr "L'esecuzione del comando '{cmd}' come {user} è fallita"
+
+#: src/EBox/FileSystem.pm:190 src/EBox/FileSystem.pm:282
+#, perl-brace-format
+msgid "Directory not found: {d}"
+msgstr "Directory non trovata: {d}"
+
+#: src/EBox/Validate.pm:390 src/EBox/Validate.pm:404
+msgid "Must be a number between 1 and 4096"
+msgstr "Deve essere un numero tra 1 e 4096"
+
+#: src/EBox/Validate.pm:687
+#, perl-brace-format
 msgid ""
-"Language changes happen automatically, saving the configuration it's not "
-"needed."
+"Cannot stat dir: {dir}. This may mean that the directory does not exist or "
+"the permissions forbid access to it"
 msgstr ""
-"La modifica della lingua ha effetto immediato, non è necessario registrarla "
-"in configurazione."
+"Impossibile eseguire stat sulla directory: {dir}. Ciò può significare che la "
+"directory non esiste o i permessi ne impediscono l'accesso"
 
-#: src/templates/language.mas:23 src/templates/ajax/tableBody.mas:348
+#: src/EBox/Validate.pm:692
+#, perl-brace-format
+msgid "The directory {dir} is not private; because it is owned by another user"
+msgstr ""
+"La directory {dir} non è privata; perché il possessore è un altro utente"
+
+#: src/EBox/Validate.pm:767
+msgid ""
+"The file path supplied is not valid. (Currently not all of the valid file's  "
+"characters are supported) "
+msgstr ""
+"Il percorso di file fornito non è valido. (Al momento non sono supportati "
+"tutti i caratteri validi per un file)"
+
+#: src/EBox/Validate.pm:795
+msgid "The file path must be absolute"
+msgstr "Il percorso del file deve essere assoluto"
+
+#: src/templates/enable.mas:9
+msgid "Service configuration"
+msgstr "Configurazione servizio"
+
+#: src/templates/enable.mas:21 src/templates/enable.mas:24
+msgid "Disabled"
+msgstr "Inattivo"
+
+#: src/templates/enable.mas:22 src/templates/enable.mas:25
+msgid "Enabled"
+msgstr "Attivo"
+
 #: src/templates/enable.mas:29 src/templates/enable.mas:30
+#: src/templates/language.mas:23
 msgid "Change"
 msgstr "Modifica"
 
-#: src/templates/title.mas:24
-msgid "show help"
-msgstr "mostra aiuto"
+#: src/templates/ajax/viewer/file.mas:22 src/templates/ajax/viewer/file.mas:33
+msgid "Download"
+msgstr "Scaricamento"
 
-#: src/templates/title.mas:25
-msgid "hide help"
-msgstr "nascondi aiuto"
+#: src/templates/ajax/viewer/file.mas:26
+msgid "Remove"
+msgstr "Rimuovi"
+
+#: src/templates/ajax/tableBody.mas:135
+msgid "Add new"
+msgstr "Aggiungi nuovo"
+
+#: src/templates/ajax/tableBody.mas:146
+#, perl-brace-format
+msgid "Adding a new {row}"
+msgstr "Aggiungo un nuovo {row}"
+
+#: src/templates/ajax/tableBody.mas:153
+#, perl-brace-format
+msgid "Editing {row}"
+msgstr "Modifico {row}"
+
+#: src/templates/ajax/tableBody.mas:209
+msgid "Search"
+msgstr "Cerca"
+
+#: src/templates/ajax/tableBody.mas:357
+msgid "Add"
+msgstr "Aggiungi"
+
+#: src/templates/ajax/tableBody.mas:381
+msgid "Cancel"
+msgstr "Annulla"
+
+#: src/templates/ajax/tableBody.mas:465
+msgid "Edit"
+msgstr "Modifica"
+
+#: src/templates/ajax/tableBody.mas:467
+msgid "Delete"
+msgstr "Elimina"
+
+#: src/templates/ajax/tableBody.mas:472
+msgid "Read-only row: edit disabled"
+msgstr "Riga in sola lettura: modifiche disabilitata"
+
+#: src/templates/ajax/tableBody.mas:473
+msgid "Read-only row: delete disabled"
+msgstr "Riga in sola lettura: cancellazione disabilitata"
+
+#: src/templates/ajax/tableBody.mas:557
+#, fuzzy
+msgid "Read-only row: move up disabled"
+msgstr "Riga in sola lettura: modifiche disabilitata"
+
+#: src/templates/ajax/tableBody.mas:561
+msgid "Move up"
+msgstr ""
+
+#: src/templates/ajax/tableBody.mas:573
+#, fuzzy
+msgid "Read-only row: move down  disabled"
+msgstr "Riga in sola lettura: modifiche disabilitata"
+
+#: src/templates/ajax/tableBody.mas:577
+msgid "Move down"
+msgstr ""
+
+#: src/templates/ajax/tableSelector.mas:14
+msgid "Choose one of the options to show the associated table"
+msgstr "Scegli una delle opzioni per mostrare la tabella associata"
+
+#: src/templates/ajax/tableSelector.mas:32
+msgid "Choose one..."
+msgstr "Scegli una..."
+
+#: src/templates/ajax/setter/serviceSetter.mas:25
+msgid "port"
+msgstr "porta"
+
+#: src/templates/ajax/setter/inverseMatchUnionSetter.mas:9
+#: src/templates/ajax/setter/inverseMatchSelectSetter.mas:13
+msgid "Inverse match"
+msgstr "Corrispondenza inversa"
+
+#: src/templates/ajax/setter/portRangeSetter.mas:23
+msgid "From"
+msgstr "Da"
+
+#: src/templates/ajax/setter/portRangeSetter.mas:29
+msgid "To"
+msgstr "A"
+
+#: src/templates/ajax/modelViewer.mas:258 src/templates/formTable.mas:85
+msgid "Optional"
+msgstr "Facoltativo"
+
+#: src/templates/ajax/tablePager.mas:46
+msgid "Page"
+msgstr "Pagina"
+
+#: src/templates/ajax/tablePager.mas:47
+msgid "of"
+msgstr "di"
+
+#: src/templates/ajax/tablePager.mas:60 src/templates/ajax/tablePager.mas:66
+msgid "first"
+msgstr "primo"
+
+#: src/templates/ajax/tablePager.mas:62 src/templates/ajax/tablePager.mas:67
+msgid "prev"
+msgstr "prec."
+
+#: src/templates/ajax/tablePager.mas:73 src/templates/ajax/tablePager.mas:74
+#: src/templates/ajax/tablePager.mas:85 src/templates/ajax/tablePager.mas:86
+msgid "next"
+msgstr "succ."
+
+#: src/templates/ajax/tablePager.mas:79 src/templates/ajax/tablePager.mas:80
+#: src/templates/ajax/tablePager.mas:89 src/templates/ajax/tablePager.mas:90
+msgid "last"
+msgstr "ultimo"
 
 #: src/templates/ebox/pageNotFound.mas:3
 msgid "Zentyal homepage"
@@ -219,119 +334,22 @@ msgstr "siamo spiacenti"
 msgid "The page cannot be found"
 msgstr "Impossibile trovare la pagina"
 
-#: src/templates/ajax/setter/inverseMatchUnionSetter.mas:9
-#: src/templates/ajax/setter/inverseMatchSelectSetter.mas:13
-msgid "Inverse match"
-msgstr "Corrispondenza inversa"
+#: src/templates/title.mas:24
+msgid "show help"
+msgstr "mostra aiuto"
 
-#: src/templates/ajax/setter/portRangeSetter.mas:23
-msgid "From"
-msgstr "Da"
+#: src/templates/title.mas:25
+msgid "hide help"
+msgstr "nascondi aiuto"
 
-#: src/templates/ajax/setter/portRangeSetter.mas:29
-msgid "To"
-msgstr "A"
+#: src/templates/language.mas:10
+msgid "Language Selection"
+msgstr "Selezione la lingua"
 
-#: src/templates/ajax/setter/serviceSetter.mas:25
-msgid "port"
-msgstr "porta"
-
-#: src/templates/ajax/viewer/file.mas:22 src/templates/ajax/viewer/file.mas:33
-msgid "Download"
-msgstr "Scaricamento"
-
-#: src/templates/ajax/viewer/file.mas:26
-msgid "Remove"
-msgstr "Rimuovi"
-
-#: src/templates/ajax/modelViewer.mas:256 src/templates/formTable.mas:85
-msgid "Optional"
-msgstr "Facoltativo"
-
-#: src/templates/ajax/tablePager.mas:46
-msgid "Page"
-msgstr "Pagina"
-
-#: src/templates/ajax/tablePager.mas:47
-msgid "of"
-msgstr "di"
-
-#: src/templates/ajax/tablePager.mas:60 src/templates/ajax/tablePager.mas:66
-msgid "first"
-msgstr "primo"
-
-#: src/templates/ajax/tablePager.mas:62 src/templates/ajax/tablePager.mas:67
-msgid "prev"
-msgstr "prec."
-
-#: src/templates/ajax/tablePager.mas:73 src/templates/ajax/tablePager.mas:74
-#: src/templates/ajax/tablePager.mas:85 src/templates/ajax/tablePager.mas:86
-msgid "next"
-msgstr "succ."
-
-#: src/templates/ajax/tablePager.mas:79 src/templates/ajax/tablePager.mas:80
-#: src/templates/ajax/tablePager.mas:89 src/templates/ajax/tablePager.mas:90
-msgid "last"
-msgstr "ultimo"
-
-#: src/templates/ajax/tableSelector.mas:14
-msgid "Choose one of the options to show the associated table"
-msgstr "Scegli una delle opzioni per mostrare la tabella associata"
-
-#: src/templates/ajax/tableSelector.mas:32
-msgid "Choose one..."
-msgstr "Scegli una..."
-
-#: src/templates/ajax/tableBody.mas:117
-msgid "Add new"
-msgstr "Aggiungi nuovo"
-
-#: src/templates/ajax/tableBody.mas:128
-#, perl-brace-format
-msgid "Adding a new {row}"
-msgstr "Aggiungo un nuovo {row}"
-
-#: src/templates/ajax/tableBody.mas:134
-#, perl-brace-format
-msgid "Editing {row}"
-msgstr "Modifico {row}"
-
-#: src/templates/ajax/tableBody.mas:190
-msgid "Search"
-msgstr "Cerca"
-
-#: src/templates/ajax/tableBody.mas:336
-msgid "Add"
-msgstr "Aggiungi"
-
-#: src/templates/ajax/tableBody.mas:360
-msgid "Cancel"
-msgstr "Annulla"
-
-#: src/templates/ajax/tableBody.mas:440
-msgid "Edit"
-msgstr "Modifica"
-
-#: src/templates/ajax/tableBody.mas:442
-msgid "Delete"
-msgstr "Elimina"
-
-#: src/templates/ajax/tableBody.mas:447
-msgid "Read-only row: edit disabled"
-msgstr "Riga in sola lettura: modifiche disabilitata"
-
-#: src/templates/ajax/tableBody.mas:448
-msgid "Read-only row: delete disabled"
-msgstr "Riga in sola lettura: cancellazione disabilitata"
-
-#: src/templates/enable.mas:9
-msgid "Service configuration"
-msgstr "Configurazione servizio"
-
-#: src/templates/enable.mas:21 src/templates/enable.mas:24
-msgid "Disabled"
-msgstr "Inattivo"
-
-#: src/templates/enable.mas:22 src/templates/enable.mas:25
-msgid "Enabled"
-msgstr "Attivo"
+#: src/templates/language.mas:11
+msgid ""
+"Language changes happen automatically, saving the configuration it's not "
+"needed."
+msgstr ""
+"La modifica della lingua ha effetto immediato, non è necessario registrarla "
+"in configurazione."

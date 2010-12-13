@@ -7,15 +7,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-services 0.12\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-08-28 23:41+0200\n"
+"POT-Creation-Date: 2010-12-13 08:42+0100\n"
 "PO-Revision-Date: 2010-08-31 09:59+0200\n"
 "Last-Translator: Val Budkin <valentin@ktc-ua.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
+"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Pootle 1.1.0\n"
 
 #: migration/0001_import_services_from_firewall.pl:84
@@ -60,6 +60,18 @@ msgstr "eBox администрирование"
 msgid "Zentyal Administration Web Server"
 msgstr "Веб-сервер администрирования Zentyal "
 
+#: src/EBox/Services.pm:47 src/EBox/Model/ServiceTable.pm:144
+msgid "Services"
+msgstr "Службы"
+
+#: src/EBox/Services.pm:399
+msgid "port"
+msgstr "порт"
+
+#: src/EBox/Services.pm:402
+msgid "Zentyal Administration port"
+msgstr "порт администрирования Zentyal"
+
 #: src/EBox/Model/ServiceTable.pm:102
 msgid "Domain"
 msgstr "Домен"
@@ -92,10 +104,6 @@ msgstr "Настройка"
 #: src/EBox/Model/ServiceTable.pm:143
 msgid "List of services"
 msgstr "Список служб"
-
-#: src/EBox/Model/ServiceTable.pm:144 src/EBox/Services.pm:47
-msgid "Services"
-msgstr "Службы"
 
 #: src/EBox/Model/ServiceTable.pm:154
 #: src/EBox/Model/ServiceConfigurationTable.pm:172
@@ -133,11 +141,3 @@ msgstr "Настройка служб"
 #: src/EBox/Model/ServiceConfigurationTable.pm:196
 msgid "This protocol does not use ports"
 msgstr "Этот протокол не использует порты"
-
-#: src/EBox/Services.pm:399
-msgid "port"
-msgstr "порт"
-
-#: src/EBox/Services.pm:402
-msgid "Zentyal Administration port"
-msgstr "порт администрирования Zentyal"

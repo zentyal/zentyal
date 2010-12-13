@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-services 0.12\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-08-29 01:26+0200\n"
+"POT-Creation-Date: 2010-12-13 08:42+0100\n"
 "PO-Revision-Date: 2010-08-28 21:26+0200\n"
 "Last-Translator: Robert Brzozowski <gnutar1@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
@@ -60,6 +60,18 @@ msgstr "zarządzanie Zentyalem"
 msgid "Zentyal Administration Web Server"
 msgstr "Serwer Zarządzający"
 
+#: src/EBox/Services.pm:47 src/EBox/Model/ServiceTable.pm:144
+msgid "Services"
+msgstr "Usługi"
+
+#: src/EBox/Services.pm:399
+msgid "port"
+msgstr "port"
+
+#: src/EBox/Services.pm:402
+msgid "Zentyal Administration port"
+msgstr "Port do zarządzania Zentyalem"
+
 #: src/EBox/Model/ServiceTable.pm:102
 msgid "Domain"
 msgstr "Domena"
@@ -92,10 +104,6 @@ msgstr "Konfiguracja"
 #: src/EBox/Model/ServiceTable.pm:143
 msgid "List of services"
 msgstr "Wykaz usług"
-
-#: src/EBox/Model/ServiceTable.pm:144 src/EBox/Services.pm:47
-msgid "Services"
-msgstr "Usługi"
 
 #: src/EBox/Model/ServiceTable.pm:154
 #: src/EBox/Model/ServiceConfigurationTable.pm:172
@@ -133,11 +141,3 @@ msgstr "Konfiguracja usług"
 #: src/EBox/Model/ServiceConfigurationTable.pm:196
 msgid "This protocol does not use ports"
 msgstr "Ten protokół nie korzysta z portów"
-
-#: src/EBox/Services.pm:399
-msgid "port"
-msgstr "port"
-
-#: src/EBox/Services.pm:402
-msgid "Zentyal Administration port"
-msgstr "Port do zarządzania Zentyalem"

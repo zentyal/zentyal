@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-jabber 0.12.100\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-08-28 23:36+0200\n"
+"POT-Creation-Date: 2010-12-13 08:39+0100\n"
 "PO-Revision-Date: 2008-12-04 10:37+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
@@ -37,13 +37,8 @@ msgstr ""
 msgid "To properly configure ejabberd."
 msgstr ""
 
-#: src/EBox/Jabber/Model/JabberUser.pm:50
-msgid "Jabber Account"
-msgstr ""
-
-#: src/EBox/Jabber/Model/JabberUser.pm:58
-#: src/EBox/Jabber/Composite/General.pm:67
-msgid "Jabber"
+#: src/EBox/CGI/JabberUserOptions.pm:43
+msgid "username"
 msgstr ""
 
 #: src/EBox/Jabber/Model/GeneralSettings.pm:92 src/templates/jabber.mas:22
@@ -83,12 +78,17 @@ msgstr ""
 msgid "General Jabber server configuration settings updated."
 msgstr ""
 
-#: src/EBox/Jabber/Composite/General.pm:66
-msgid "Configuration"
+#: src/EBox/Jabber/Model/JabberUser.pm:50
+msgid "Jabber Account"
 msgstr ""
 
-#: src/EBox/CGI/JabberUserOptions.pm:43
-msgid "username"
+#: src/EBox/Jabber/Model/JabberUser.pm:58
+#: src/EBox/Jabber/Composite/General.pm:67
+msgid "Jabber"
+msgstr ""
+
+#: src/EBox/Jabber/Composite/General.pm:66
+msgid "Configuration"
 msgstr ""
 
 #: src/templates/jabber.mas:8

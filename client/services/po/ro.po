@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-services 0.12.99\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-08-28 23:41+0200\n"
+"POT-Creation-Date: 2010-12-13 08:42+0100\n"
 "PO-Revision-Date: 2010-08-27 08:31+0200\n"
 "Last-Translator: Harald Ersch <harald.ersch@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
@@ -60,6 +60,18 @@ msgstr "administrare eBox"
 msgid "Zentyal Administration Web Server"
 msgstr "Web server pt. administrarea Zentyal"
 
+#: src/EBox/Services.pm:47 src/EBox/Model/ServiceTable.pm:144
+msgid "Services"
+msgstr "Servicii"
+
+#: src/EBox/Services.pm:399
+msgid "port"
+msgstr "port"
+
+#: src/EBox/Services.pm:402
+msgid "Zentyal Administration port"
+msgstr "Port administrare Zentyal"
+
 #: src/EBox/Model/ServiceTable.pm:102
 msgid "Domain"
 msgstr "Domeniu"
@@ -93,10 +105,6 @@ msgstr "Configurare"
 #: src/EBox/Model/ServiceTable.pm:143
 msgid "List of services"
 msgstr "Lista serviciilor"
-
-#: src/EBox/Model/ServiceTable.pm:144 src/EBox/Services.pm:47
-msgid "Services"
-msgstr "Servicii"
 
 #: src/EBox/Model/ServiceTable.pm:154
 #: src/EBox/Model/ServiceConfigurationTable.pm:172
@@ -134,11 +142,3 @@ msgstr "Configurare serviciu"
 #: src/EBox/Model/ServiceConfigurationTable.pm:196
 msgid "This protocol does not use ports"
 msgstr "Acest protocol nu foloseşte porturi"
-
-#: src/EBox/Services.pm:399
-msgid "port"
-msgstr "port"
-
-#: src/EBox/Services.pm:402
-msgid "Zentyal Administration port"
-msgstr "Port administrare Zentyal"

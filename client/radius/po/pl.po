@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-radius 1.3.10\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-08-29 01:26+0200\n"
+"POT-Creation-Date: 2010-12-13 08:42+0100\n"
 "PO-Revision-Date: 2010-08-29 21:43+0200\n"
 "Last-Translator: Robert Brzozowski <gnutar1@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
@@ -22,26 +22,6 @@ msgstr ""
 #: migration/0001_add_firewall_services.pl:45
 msgid "Zentyal RADIUS system"
 msgstr "RADIUS system"
-
-#: src/EBox/Model/Clients.pm:105
-msgid "Client"
-msgstr "Klient"
-
-#: src/EBox/Model/Clients.pm:112
-msgid "IP Address"
-msgstr "Adres IP"
-
-#: src/EBox/Model/Clients.pm:118
-msgid "Shared Secret"
-msgstr "Klucz Shared Secret"
-
-#: src/EBox/Model/Clients.pm:126
-msgid "RADIUS Clients"
-msgstr "Klienci RADIUS"
-
-#: src/EBox/Model/Clients.pm:127
-msgid "client"
-msgstr "klient"
 
 #: src/EBox/Model/Auth.pm:103
 msgid "All users"
@@ -62,6 +42,26 @@ msgstr "Konfiguracja serwera RADIUS"
 #: src/EBox/Model/Auth.pm:144
 msgid "RADIUS server configuration updated"
 msgstr "Konfiguracja serwera RADIUS zaktualizowana"
+
+#: src/EBox/Model/Clients.pm:105
+msgid "Client"
+msgstr "Klient"
+
+#: src/EBox/Model/Clients.pm:112
+msgid "IP Address"
+msgstr "Adres IP"
+
+#: src/EBox/Model/Clients.pm:118
+msgid "Shared Secret"
+msgstr "Klucz Shared Secret"
+
+#: src/EBox/Model/Clients.pm:126
+msgid "RADIUS Clients"
+msgstr "Klienci RADIUS"
+
+#: src/EBox/Model/Clients.pm:127
+msgid "client"
+msgstr "klient"
 
 #: src/EBox/Radius.pm:100
 msgid "Create RADIUS certificates for TTLS"

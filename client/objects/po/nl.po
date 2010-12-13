@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-objects 0.12\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-08-28 23:37+0200\n"
+"POT-Creation-Date: 2010-12-13 08:40+0100\n"
 "PO-Revision-Date: 2010-08-20 15:34+0200\n"
 "Last-Translator: Indra Pharazijn <indra6oc@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
@@ -16,43 +16,47 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: src/EBox/Model/MemberTable.pm:63 src/EBox/Model/ObjectTable.pm:63
-msgid "Name"
-msgstr "Naam"
-
-#: src/EBox/Model/MemberTable.pm:70
-msgid "IP address"
-msgstr "IP adres"
-
-#: src/EBox/Model/MemberTable.pm:76
-msgid "MAC address"
-msgstr "MAC adres"
-
-#: src/EBox/Model/MemberTable.pm:87 src/EBox/Model/ObjectTable.pm:71
-msgid "Members"
-msgstr "Leden"
-
-#: src/EBox/Model/MemberTable.pm:93 src/EBox/Model/ObjectTable.pm:82
-#: src/EBox/Objects.pm:39
+#: src/EBox/Objects.pm:39 src/EBox/Model/ObjectTable.pm:82
+#: src/EBox/Model/MemberTable.pm:93
 msgid "Objects"
 msgstr "Objecten"
 
-#: src/EBox/Model/MemberTable.pm:94
-msgid "member"
-msgstr "lid"
+#: src/EBox/Objects.pm:44
+#, perl-brace-format
+msgid "Added object {object}"
+msgstr "Object {object} toegevoegd"
 
-#: src/EBox/Model/MemberTable.pm:116
-msgid "You can only use MAC addresses with hosts"
-msgstr "U kunt enkel MAC adressen gebruiken met hosts"
+#: src/EBox/Objects.pm:46
+#, perl-brace-format
+msgid "Added {nname} ({ip}/{mask} [{mac}]) to object {object}"
+msgstr "{nname} ({ip}/{mask}[{mac}]) aan object {object} toegevoegd"
 
-#: src/EBox/Model/MemberTable.pm:119 src/EBox/Model/MemberTable.pm:120
-msgid "network address"
-msgstr "netwerk adres"
+#: src/EBox/Objects.pm:47
+#, perl-brace-format
+msgid "Removed object {object}"
+msgstr "Object {object} verwijderd"
 
-#: src/EBox/Model/MemberTable.pm:126
-#, fuzzy, perl-brace-format
-msgid "{ip} overlaps with the address or another object's member"
-msgstr "{ip} overlapt met het adres of een ander object lid."
+#: src/EBox/Objects.pm:49
+#, perl-brace-format
+msgid "Forcefully removed object {object}"
+msgstr "Object {object} gedwongen verwijderd"
+
+#: src/EBox/Objects.pm:51
+#, perl-brace-format
+msgid "Removed {nname} from object {object}"
+msgstr "{nname} van object {object} verwijderd"
+
+#: src/EBox/Objects.pm:270
+msgid "Object"
+msgstr "Object"
+
+#: src/EBox/Model/ObjectTable.pm:63 src/EBox/Model/MemberTable.pm:63
+msgid "Name"
+msgstr "Naam"
+
+#: src/EBox/Model/ObjectTable.pm:71 src/EBox/Model/MemberTable.pm:87
+msgid "Members"
+msgstr "Leden"
 
 #: src/EBox/Model/ObjectTable.pm:83
 msgid "Objects List"
@@ -85,31 +89,27 @@ msgstr ""
 "'Elke' is een gereserveerd woord dat niet kan gebruikt worden als object "
 "naam om verwarring te vermijden"
 
-#: src/EBox/Objects.pm:44
-#, perl-brace-format
-msgid "Added object {object}"
-msgstr "Object {object} toegevoegd"
+#: src/EBox/Model/MemberTable.pm:70
+msgid "IP address"
+msgstr "IP adres"
 
-#: src/EBox/Objects.pm:46
-#, perl-brace-format
-msgid "Added {nname} ({ip}/{mask} [{mac}]) to object {object}"
-msgstr "{nname} ({ip}/{mask}[{mac}]) aan object {object} toegevoegd"
+#: src/EBox/Model/MemberTable.pm:76
+msgid "MAC address"
+msgstr "MAC adres"
 
-#: src/EBox/Objects.pm:47
-#, perl-brace-format
-msgid "Removed object {object}"
-msgstr "Object {object} verwijderd"
+#: src/EBox/Model/MemberTable.pm:94
+msgid "member"
+msgstr "lid"
 
-#: src/EBox/Objects.pm:49
-#, perl-brace-format
-msgid "Forcefully removed object {object}"
-msgstr "Object {object} gedwongen verwijderd"
+#: src/EBox/Model/MemberTable.pm:116
+msgid "You can only use MAC addresses with hosts"
+msgstr "U kunt enkel MAC adressen gebruiken met hosts"
 
-#: src/EBox/Objects.pm:51
-#, perl-brace-format
-msgid "Removed {nname} from object {object}"
-msgstr "{nname} van object {object} verwijderd"
+#: src/EBox/Model/MemberTable.pm:119 src/EBox/Model/MemberTable.pm:120
+msgid "network address"
+msgstr "netwerk adres"
 
-#: src/EBox/Objects.pm:270
-msgid "Object"
-msgstr "Object"
+#: src/EBox/Model/MemberTable.pm:126
+#, fuzzy, perl-brace-format
+msgid "{ip} overlaps with the address or another object's member"
+msgstr "{ip} overlapt met het adres of een ander object lid."

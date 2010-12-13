@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-ids 1.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-08-28 23:35+0200\n"
+"POT-Creation-Date: 2010-12-13 08:39+0100\n"
 "PO-Revision-Date: 2010-08-24 16:21+0200\n"
 "Last-Translator: Robert Brzozowski <gnutar1@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
@@ -18,74 +18,13 @@ msgstr ""
 "|| n%100>=20) ? 1 : 2);\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: src/EBox/Model/Rules.pm:153
-msgid "Rule Set"
-msgstr "Ustaw regułę"
-
-#: src/EBox/Model/Rules.pm:158 src/EBox/Model/Interfaces.pm:134
-msgid "Enabled"
-msgstr "Włączony"
-
-#: src/EBox/Model/Rules.pm:167
-msgid "Rules"
-msgstr "Reguły"
-
-#: src/EBox/Model/Rules.pm:172
-msgid "rule"
-msgstr "reguła"
-
-#: src/EBox/Model/Rules.pm:173
-msgid "help message"
-msgstr "pomoc"
-
-#: src/EBox/Model/Interfaces.pm:129
-msgid "Interface"
-msgstr "Interfejs"
-
-#: src/EBox/Model/Interfaces.pm:143
-msgid "Interfaces"
-msgstr "Interfejsy"
-
-#: src/EBox/Model/Interfaces.pm:149
-msgid "interface"
-msgstr "interfejs"
-
-#: src/EBox/Model/Interfaces.pm:151
-msgid "Select in which interfaces IDS system will be enabled"
-msgstr "Wybierz interfejs, na którym chcesz uruchomić IDS"
-
-#: src/EBox/Model/Report/AlertGraph.pm:47
-#: src/EBox/Model/Report/AlertDetails.pm:41
-msgid "number of alerts"
-msgstr "liczba ostrzeżeń"
-
-#: src/EBox/Model/Report/AlertGraph.pm:52
-msgid "Alerts chart"
-msgstr "Tabela ostrzeżeń"
-
-#: src/EBox/Model/Report/AlertGraph.pm:68
-msgid "Alert Graph"
-msgstr "Wykres ostrzeżeń"
-
-#: src/EBox/Model/Report/AlertDetails.pm:52 src/EBox/IDS.pm:299
-msgid "Date"
-msgstr "Data"
-
-#: src/EBox/Model/Report/AlertDetails.pm:58
-msgid "Number of alerts"
-msgstr "Liczba ostrzeżeń"
-
-#: src/EBox/Model/Report/AlertDetails.pm:66
-msgid "Alert details"
-msgstr "Szczegóły ostrzeżenia"
-
-#: src/EBox/Model/Report/AlertDetails.pm:73
-msgid "alerts"
-msgstr "ostrzeżenia"
-
 #: src/EBox/IDS.pm:62 src/EBox/IDS.pm:169 src/EBox/IDS.pm:311
 msgid "IDS"
 msgstr "IDS (system wykrywania i zapobiegania włamaniom)"
+
+#: src/EBox/IDS.pm:299 src/EBox/Model/Report/AlertDetails.pm:52
+msgid "Date"
+msgstr "Data"
 
 #: src/EBox/IDS.pm:300
 msgid "Priority"
@@ -115,10 +54,75 @@ msgstr "Zdarzenie"
 msgid "Alert"
 msgstr "Ostrzeżenie"
 
-#: src/EBox/Composite/General.pm:70
+#: src/EBox/Model/Interfaces.pm:129
+msgid "Interface"
+msgstr "Interfejs"
+
+#: src/EBox/Model/Interfaces.pm:134 src/EBox/Model/Rules.pm:158
+msgid "Enabled"
+msgstr "Włączony"
+
+#: src/EBox/Model/Interfaces.pm:143
+msgid "Interfaces"
+msgstr "Interfejsy"
+
+#: src/EBox/Model/Interfaces.pm:149
+msgid "interface"
+msgstr "interfejs"
+
+#: src/EBox/Model/Interfaces.pm:151
+msgid "Select in which interfaces IDS system will be enabled"
+msgstr "Wybierz interfejs, na którym chcesz uruchomić IDS"
+
+#: src/EBox/Model/Rules.pm:153
+msgid "Rule Set"
+msgstr "Ustaw regułę"
+
+#: src/EBox/Model/Rules.pm:167
+msgid "Rules"
+msgstr "Reguły"
+
+#: src/EBox/Model/Rules.pm:172
+msgid "rule"
+msgstr "reguła"
+
+#: src/EBox/Model/Rules.pm:173
+msgid ""
+"Select the sets of rules you want apply when scanning the network traffic"
+msgstr ""
+
+#: src/EBox/Model/Report/AlertDetails.pm:41
+#: src/EBox/Model/Report/AlertGraph.pm:47
+msgid "number of alerts"
+msgstr "liczba ostrzeżeń"
+
+#: src/EBox/Model/Report/AlertDetails.pm:58
+msgid "Number of alerts"
+msgstr "Liczba ostrzeżeń"
+
+#: src/EBox/Model/Report/AlertDetails.pm:66
+msgid "Alert details"
+msgstr "Szczegóły ostrzeżenia"
+
+#: src/EBox/Model/Report/AlertDetails.pm:73
+msgid "alerts"
+msgstr "ostrzeżenia"
+
+#: src/EBox/Model/Report/AlertGraph.pm:52
+msgid "Alerts chart"
+msgstr "Tabela ostrzeżeń"
+
+#: src/EBox/Model/Report/AlertGraph.pm:68
+msgid "Alert Graph"
+msgstr "Wykres ostrzeżeń"
+
+#: src/EBox/Composite/General.pm:101
 msgid "Intrusion Detection System"
 msgstr "IDS (system wykrywania i zapobiegania włamaniom)"
 
 #: src/EBox/Composite/Report/AlertReport.pm:66
 msgid "IDS Alerts report"
 msgstr "Zestawienie ostrzeżeń"
+
+#~ msgid "help message"
+#~ msgstr "pomoc"

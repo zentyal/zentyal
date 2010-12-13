@@ -5,17 +5,18 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-webmail 2.0Report-Msgid-Bugs-To: "
-"developers@zentyal.org\n"
-"POT-Creation-Date: 2010-08-28 23:32+0200\n"
+"Project-Id-Version: ebox-webmail 2.0Report-Msgid-Bugs-To: developers@zentyal."
+"org\n"
+"Report-Msgid-Bugs-To: developers@zentyal.org\n"
+"POT-Creation-Date: 2010-12-13 08:43+0100\n"
 "PO-Revision-Date: 2010-12-07 18:37+0100\n"
 "Last-Translator: Vytautas <vytautas@lantraneta.lt>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"(n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n%"
+"100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/WebMail/Model/OperationMode.pm:46
@@ -33,51 +34,6 @@ msgstr "Zentyal pašto servisas"
 #: src/EBox/WebMail/Model/OperationMode.pm:94
 msgid "Remote server"
 msgstr "Nutolęs serveris"
-
-#: src/EBox/WebMail/Model/Options.pm:45
-msgid "Name"
-msgstr "Vardas"
-
-#: src/EBox/WebMail/Model/Options.pm:47
-msgid "Zentyal webmail"
-msgstr "Zentyal web paštas"
-
-#: src/EBox/WebMail/Model/Options.pm:49
-msgid ""
-"The name of the webmail will be used in the login screen and page titles."
-msgstr "Web pašto vardas bus panaudotas prisijungimo puslapyje"
-
-#: src/EBox/WebMail/Model/Options.pm:53
-msgid "Virtual host"
-msgstr "Virtualus vardas"
-
-#: src/EBox/WebMail/Model/Options.pm:59
-msgid ""
-"Virtual host where the webmail will be installed. This will disable the "
-"default /webmail url."
-msgstr ""
-"Virtualus vardas kur bus įdiegtas web paštas. Ši opcija išjungs web pašto "
-"nuorodą pagal nutylėjimą."
-
-#: src/EBox/WebMail/Model/Options.pm:65
-msgid "General configuration"
-msgstr "Pagrindinė konfigūracija"
-
-#: src/EBox/WebMail/Model/Options.pm:66 src/EBox/WebMail.pm:69
-msgid "Webmail"
-msgstr "Web Paštas"
-
-#: src/EBox/WebMail/Model/Options.pm:81
-msgid "Disabled"
-msgstr "Išjungta"
-
-#: src/EBox/WebMail/Model/Options.pm:112
-msgid ""
-"The deleted virtual host was selected for Webmail. Maybe you want to select "
-"another one now."
-msgstr ""
-"Ištrintas virtualus vardas buvo pasirinktas Web paštas. Gal norite "
-"pasirinkti kitą dabar."
 
 #: src/EBox/WebMail/Model/RemoteServerConfiguration.pm:54
 msgid "IMAP Server"
@@ -156,12 +112,58 @@ msgid "TLS"
 msgstr "TLS"
 
 #: src/EBox/WebMail/Model/RemoteServerConfiguration.pm:285
+#, fuzzy
 msgid ""
-"No need to configure the connection to a remote server beacuse WebMail is "
+"No need to configure the connection to a remote server because WebMail is "
 "configured to use Zentyal mail service'"
 msgstr ""
 "Nėra reikalo konfigūruoti prisijungimo į nutolusį nuotolinį serverį nes Web "
 "paštas jau sukonfigūrutas naudoti Zentyal pašto servisą."
+
+#: src/EBox/WebMail/Model/Options.pm:45
+msgid "Name"
+msgstr "Vardas"
+
+#: src/EBox/WebMail/Model/Options.pm:47
+msgid "Zentyal webmail"
+msgstr "Zentyal web paštas"
+
+#: src/EBox/WebMail/Model/Options.pm:49
+msgid ""
+"The name of the webmail will be used in the login screen and page titles."
+msgstr "Web pašto vardas bus panaudotas prisijungimo puslapyje"
+
+#: src/EBox/WebMail/Model/Options.pm:53
+msgid "Virtual host"
+msgstr "Virtualus vardas"
+
+#: src/EBox/WebMail/Model/Options.pm:59
+msgid ""
+"Virtual host where the webmail will be installed. This will disable the "
+"default /webmail url."
+msgstr ""
+"Virtualus vardas kur bus įdiegtas web paštas. Ši opcija išjungs web pašto "
+"nuorodą pagal nutylėjimą."
+
+#: src/EBox/WebMail/Model/Options.pm:65
+msgid "General configuration"
+msgstr "Pagrindinė konfigūracija"
+
+#: src/EBox/WebMail/Model/Options.pm:66 src/EBox/WebMail.pm:69
+msgid "Webmail"
+msgstr "Web Paštas"
+
+#: src/EBox/WebMail/Model/Options.pm:81
+msgid "Disabled"
+msgstr "Išjungta"
+
+#: src/EBox/WebMail/Model/Options.pm:112
+msgid ""
+"The deleted virtual host was selected for Webmail. Maybe you want to select "
+"another one now."
+msgstr ""
+"Ištrintas virtualus vardas buvo pasirinktas Web paštas. Gal norite "
+"pasirinkti kitą dabar."
 
 #: src/EBox/WebMail/Composite/Backend.pm:63
 msgid "WebMail backend"
@@ -202,8 +204,8 @@ msgid ""
 "service. You can enable it at {openurl}Mail -> General{closeurl}."
 msgstr ""
 "Web pašto moduliui reikalingas įjungtas IMAP ar IMAPS servisas norint "
-"naudoti Zentyal pašto servisą. Galite įjungti {openurl}Paštas -> "
-"Bendra{closeurl}."
+"naudoti Zentyal pašto servisą. Galite įjungti {openurl}Paštas -> Bendra"
+"{closeurl}."
 
 #: src/EBox/WebMail.pm:405
 msgid ""

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-. 1.5\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-08-28 23:35+0200\n"
+"POT-Creation-Date: 2010-12-13 08:39+0100\n"
 "PO-Revision-Date: 2010-08-13 23:02+0200\n"
 "Last-Translator: Haluk <khaluk@yahoo.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
@@ -21,14 +21,6 @@ msgstr ""
 #, fuzzy
 msgid "Zentyal FTP Server"
 msgstr "eBox FTP Sunucusu"
-
-#: src/EBox/FTP.pm:84
-msgid "To configure vsftpd"
-msgstr "vsftpd konfigürasyonu için"
-
-#: src/EBox/FTP.pm:88
-msgid "To configure vsftpd with LDAP authentication"
-msgstr "vsftpd yi LDAP kimlik kontrolü ile konfigüre etmek için"
 
 #: src/EBox/Model/Options.pm:45
 msgid "Disabled"
@@ -81,3 +73,19 @@ msgstr ""
 "(chmod o+r /srv/ftp/*). Yazma hakkı vermek isterseniz yeni bir alt klasör "
 "oluşturun ve bu klasöre yazma hakkı verin. örneğin mkdir /srv/ftp/incoming ; "
 "chmod o+rwx /srv/ftp/incoming"
+
+#: src/EBox/FTP.pm:84
+msgid "To configure vsftpd"
+msgstr "vsftpd konfigürasyonu için"
+
+#: src/EBox/FTP.pm:88
+msgid "To configure vsftpd with LDAP authentication"
+msgstr "vsftpd yi LDAP kimlik kontrolü ile konfigüre etmek için"
+
+#: src/EBox/FTP.pm:146
+msgid "FTP server hosted files"
+msgstr ""
+
+#: src/EBox/FTP.pm:147
+msgid "User homes and anonymous directory"
+msgstr ""

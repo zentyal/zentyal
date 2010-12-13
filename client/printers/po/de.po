@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-printers 0.12\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-08-28 23:38+0200\n"
+"POT-Creation-Date: 2010-12-13 08:42+0100\n"
 "PO-Revision-Date: 2010-09-12 12:47+0200\n"
 "Last-Translator: J. Schwieder <j.schwieder@gmx.de>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
@@ -22,54 +22,6 @@ msgstr ""
 #: migration/0001_add_ipp_service.pl:117
 msgid "Cups printer server port"
 msgstr "Cups-Drucker-Server Port"
-
-#: src/EBox/Model/CUPS.pm:142
-#, perl-brace-format
-msgid ""
-"Prior to configure printers you need to enable the module in the {openref}"
-"Module Status{closeref}  section and save changes after that."
-msgstr ""
-"Bevor Sie Drucker konfigurieren, müssen Sie das Modul in der {openref}Modul-"
-"Status{closeref} Sektion aktivieren und die Änderungen speichern."
-
-#: src/EBox/Model/CUPS.pm:156
-msgid "Interface"
-msgstr "Schnittstelle"
-
-#: src/EBox/Model/CUPS.pm:161
-#, fuzzy
-msgid "Listen"
-msgstr "Horchen"
-
-#: src/EBox/Model/CUPS.pm:170
-#, fuzzy
-msgid "Select CUPS Interfaces"
-msgstr "CUPS-Schnittstellen auswählen"
-
-#: src/EBox/Model/CUPS.pm:175
-#, fuzzy
-msgid "interface"
-msgstr "Schnittstelle"
-
-#: src/EBox/Model/CUPS.pm:176
-#, fuzzy
-msgid ""
-"Select in which interfaces the CUPS webserver will listen on. Take into "
-"account that is not probably a good idea to listen on external interfaces. "
-"If none are selected, it will be listening only at localhost"
-msgstr ""
-"Wähle das Netzwerk-Interface für den CUPS-Webserver aus. Bedenke dabei, dass "
-"es möglicherweisekeine gute Idee ist, ein externes Netzwerk-Interface "
-"auszuwählen. Wenn gar keines ausgewählt ist, wird nur Localhost benutzt."
-
-#: src/EBox/Model/CUPS.pm:187
-#, perl-brace-format
-msgid ""
-"To add or manage printers you have to use the {open_href}CUPS Web Interface"
-"{close_href}"
-msgstr ""
-"Zum Hinzufügen oder Ändern von Druckern muss das {open_href}CUPS Web "
-"Interface{close_href} benutzt werden"
 
 #: src/EBox/Printers.pm:41 src/EBox/Composite/General.pm:60
 msgid "Printer Sharing"
@@ -136,3 +88,51 @@ msgstr "Abgebrochen"
 #: src/EBox/Printers.pm:235
 msgid "Printers"
 msgstr "Drucker"
+
+#: src/EBox/Model/CUPS.pm:142
+#, perl-brace-format
+msgid ""
+"Prior to configure printers you need to enable the module in the {openref}"
+"Module Status{closeref}  section and save changes after that."
+msgstr ""
+"Bevor Sie Drucker konfigurieren, müssen Sie das Modul in der {openref}Modul-"
+"Status{closeref} Sektion aktivieren und die Änderungen speichern."
+
+#: src/EBox/Model/CUPS.pm:156
+msgid "Interface"
+msgstr "Schnittstelle"
+
+#: src/EBox/Model/CUPS.pm:161
+#, fuzzy
+msgid "Listen"
+msgstr "Horchen"
+
+#: src/EBox/Model/CUPS.pm:170
+#, fuzzy
+msgid "Select CUPS Interfaces"
+msgstr "CUPS-Schnittstellen auswählen"
+
+#: src/EBox/Model/CUPS.pm:175
+#, fuzzy
+msgid "interface"
+msgstr "Schnittstelle"
+
+#: src/EBox/Model/CUPS.pm:176
+#, fuzzy
+msgid ""
+"Select in which interfaces the CUPS webserver will listen on. Take into "
+"account that is not probably a good idea to listen on external interfaces. "
+"If none are selected, it will be listening only at localhost"
+msgstr ""
+"Wähle das Netzwerk-Interface für den CUPS-Webserver aus. Bedenke dabei, dass "
+"es möglicherweisekeine gute Idee ist, ein externes Netzwerk-Interface "
+"auszuwählen. Wenn gar keines ausgewählt ist, wird nur Localhost benutzt."
+
+#: src/EBox/Model/CUPS.pm:187
+#, perl-brace-format
+msgid ""
+"To add or manage printers you have to use the {open_href}CUPS Web Interface"
+"{close_href}"
+msgstr ""
+"Zum Hinzufügen oder Ändern von Druckern muss das {open_href}CUPS Web "
+"Interface{close_href} benutzt werden"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-dhcp 0.12\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-08-28 23:34+0200\n"
+"POT-Creation-Date: 2010-12-13 08:38+0100\n"
 "PO-Revision-Date: 2010-01-13 22:15+0100\n"
 "Last-Translator: Тони Стоев <ebox@tonistoev.info>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
@@ -24,15 +24,225 @@ msgstr "Тривиален протокол за прехвърляне на ф�
 msgid "Dynamic Host Configuration Protocol"
 msgstr "Протокол за динамично настройване на хостове"
 
-#: src/EBox/Model/DynamicDNS.pm:110 src/EBox/Model/FixedAddressTable.pm:97
-#: src/EBox/Model/ThinClientOptions.pm:117 src/EBox/Model/RangeInfo.pm:107
-#: src/EBox/Model/LeaseTimes.pm:111 src/EBox/Model/Options.pm:118
-#: src/EBox/Model/RangeTable.pm:95 src/EBox/Composite/AdvancedOptions.pm:87
+#: src/EBox/CGI/Status.pm:42
+msgid "Module Status"
+msgstr "Състояние на модула"
+
+#: src/EBox/CGI/AddFixed.pm:39 src/EBox/CGI/RemoveRange.pm:39
+#: src/EBox/CGI/AddRange.pm:39 src/EBox/CGI/RemoveFixed.pm:39
+#: src/EBox/CGI/SetIfaceOptions.pm:39 src/EBox/DHCP.pm:446
+#: src/EBox/DHCP.pm:482 src/EBox/DHCP.pm:532 src/EBox/DHCP.pm:578
+#: src/EBox/DHCP.pm:624 src/EBox/DHCP.pm:722 src/EBox/DHCP.pm:776
+#: src/EBox/DHCP.pm:837 src/EBox/DHCP.pm:893 src/EBox/DHCP.pm:1284
+msgid "Interface"
+msgstr "Интерфейс"
+
+#: src/EBox/CGI/AddFixed.pm:43 src/EBox/Model/FixedAddressTable.pm:214
+#: src/EBox/DHCP.pm:1285 src/EBox/DHCP.pm:1353 src/templates/fixed.mas:9
+msgid "MAC address"
+msgstr "MAC адрес"
+
+#: src/EBox/CGI/AddFixed.pm:44 src/EBox/Model/ThinClientOptions.pm:241
+#: src/EBox/Model/FixedAddressTable.pm:220 src/EBox/DHCP.pm:1353
+#: src/templates/fixed.mas:10
+msgid "IP address"
+msgstr "IP адрес"
+
+#: src/EBox/CGI/AddFixed.pm:45 src/EBox/CGI/AddRange.pm:43
+#: src/EBox/Model/FixedAddressTable.pm:208 src/EBox/Model/RangeTable.pm:213
+#: src/templates/fixed.mas:8 src/templates/ranges.mas:53
+msgid "Name"
+msgstr "Име"
+
+#: src/EBox/CGI/AddRange.pm:44 src/EBox/Model/RangeTable.pm:219
+#: src/templates/ranges.mas:54
+msgid "From"
+msgstr "От"
+
+#: src/EBox/CGI/AddRange.pm:45 src/EBox/Model/RangeTable.pm:225
+#: src/templates/ranges.mas:55
+msgid "To"
+msgstr "До"
+
+#: src/EBox/CGI/Enable.pm:39
+msgid "module status"
+msgstr "състояние на модула"
+
+#: src/EBox/Model/ThinClientOptions.pm:117 src/EBox/Model/LeaseTimes.pm:111
+#: src/EBox/Model/FixedAddressTable.pm:97 src/EBox/Model/DynamicDNS.pm:110
+#: src/EBox/Model/RangeInfo.pm:107 src/EBox/Model/Options.pm:118
+#: src/EBox/Model/RangeTable.pm:95 src/EBox/Composite/OptionsTab.pm:86
 #: src/EBox/Composite/InterfaceConfiguration.pm:86
-#: src/EBox/Composite/OptionsTab.pm:86
+#: src/EBox/Composite/AdvancedOptions.pm:87
 #, perl-brace-format
 msgid "interface {iface}"
 msgstr "интерфейс {iface}"
+
+#: src/EBox/Model/ThinClientOptions.pm:138
+#, fuzzy
+msgid "You need to upload a boot image to Zentyal if you set it as next server"
+msgstr ""
+"Трябва да качите образ за зареждане в eBox, ако го зададете като следващ "
+"сървър."
+
+#: src/EBox/Model/ThinClientOptions.pm:145
+#, fuzzy
+msgid ""
+"In order to upload a boot image to Zentyal, you need to set Zentyal as next "
+"server"
+msgstr ""
+"За да качите образ за зареждане в eBox, трябва да зададете eBox като следващ "
+"сървър."
+
+#: src/EBox/Model/ThinClientOptions.pm:152
+msgid "You need to specify a path to the boot image in the remote server"
+msgstr "Трябва да зададете път до образа за зареждане на отдалечения сървър."
+
+#: src/EBox/Model/ThinClientOptions.pm:157
+#, fuzzy
+msgid ""
+"You can only specify a file name if you have a next server and it is not "
+"Zentyal"
+msgstr ""
+"Можете да зададете име на файл, само ако имате следващ сървър и той не е "
+"eBox."
+
+#: src/EBox/Model/ThinClientOptions.pm:208
+#, fuzzy, perl-brace-format
+msgid ""
+"Removing previously uploaded boot image since next server option has been "
+"changed from Zentyal to {option}"
+msgstr ""
+"Премахва се каченият образ за зареждане, тъй като опцията следващ сървър е "
+"променена от eBox на {option}."
+
+#: src/EBox/Model/ThinClientOptions.pm:231
+msgid "Next server"
+msgstr "Следващ сървър"
+
+#: src/EBox/Model/ThinClientOptions.pm:235 src/EBox/Model/Options.pm:370
+#: src/EBox/Model/Options.pm:404 src/EBox/Model/Options.pm:408
+#: src/EBox/Model/Options.pm:422 src/EBox/Model/Options.pm:455
+msgid "None"
+msgstr "Няма"
+
+#: src/EBox/Model/ThinClientOptions.pm:245
+msgid "name"
+msgstr "име"
+
+#: src/EBox/Model/ThinClientOptions.pm:251
+msgid "File name"
+msgstr "Име на файл"
+
+#: src/EBox/Model/ThinClientOptions.pm:260
+msgid "File path in next server"
+msgstr "Файлов път на следващия сървър"
+
+#: src/EBox/Model/ThinClientOptions.pm:268
+msgid "Thin client"
+msgstr "Тънък клиент"
+
+#: src/EBox/Model/ThinClientOptions.pm:273
+#, perl-brace-format
+msgid ""
+"You may want to customise your thin client options.To do so, you may include "
+"all the files you require under {path} directory"
+msgstr ""
+"Може да искате да изберете опции за вашия тънък клиент. За да го направите, "
+"може да добавите всички файлове, които ви трябват в директория {path}."
+
+#: src/EBox/Model/LeaseTimes.pm:131
+msgid "Default leased time must be higher than 0 seconds"
+msgstr "Времето на заемане по подразбиране трябва да е повече от 0 секунди."
+
+#: src/EBox/Model/LeaseTimes.pm:137
+#, perl-brace-format
+msgid "Default leased time {default} must be lower than maximum one {max}"
+msgstr ""
+"Времето на заемане по подразбиране {default} трябва да е по-малко от "
+"максималното {max}."
+
+#: src/EBox/Model/LeaseTimes.pm:149
+msgid "Maximum leased time must be higher than 0 seconds"
+msgstr "Максималното време на заемане трябва да е повече от 0 секунди."
+
+#: src/EBox/Model/LeaseTimes.pm:155
+#, perl-brace-format
+msgid "Maximum leased time {max} must be higher than default one {default}"
+msgstr ""
+"Максималното време на заемане {max} трябва да е по-голямо от това по "
+"подразбиране {default}."
+
+#: src/EBox/Model/LeaseTimes.pm:199
+msgid "Default leased time"
+msgstr "Време на заемане по подразбиране"
+
+#: src/EBox/Model/LeaseTimes.pm:202 src/EBox/Model/LeaseTimes.pm:209
+msgid "seconds"
+msgstr "секунди"
+
+#: src/EBox/Model/LeaseTimes.pm:206
+msgid "Maximum leased time"
+msgstr "Максимално време на заемане"
+
+#: src/EBox/Model/LeaseTimes.pm:215
+msgid "Lease times"
+msgstr "Времена на заемане"
+
+#: src/EBox/Model/LeaseTimes.pm:220
+msgid ""
+"Leased time is the time which a given IP address is valid by the DHCP server"
+msgstr ""
+"Време на заемане е времето, през което даден IP адрес е валиден според DHCP "
+"сървъра."
+
+#: src/EBox/Model/FixedAddressTable.pm:123
+#, perl-brace-format
+msgid "IP address {ip} is not in network {net}"
+msgstr "IP адресът {ip} не е в мрежа {net}."
+
+#: src/EBox/Model/FixedAddressTable.pm:134
+#, perl-brace-format
+msgid "The selected IP is the interface IP address: {ifaceIP}"
+msgstr "Избраното IP е IP адресът на интерфейса: {ifaceIP}"
+
+#: src/EBox/Model/FixedAddressTable.pm:151
+#, perl-brace-format
+msgid "IP address {ip} is in range '{range}': {from}-{to}"
+msgstr "IP адресът {ip} е в обхват '{range}': {from} - {to}"
+
+#: src/EBox/Model/FixedAddressTable.pm:176
+msgid "update"
+msgstr "обновяване"
+
+#: src/EBox/Model/FixedAddressTable.pm:178
+msgid "add"
+msgstr "добавяне"
+
+#: src/EBox/Model/FixedAddressTable.pm:180
+#, perl-brace-format
+msgid ""
+"You cannot {action} a fixed address with a name which is already used in "
+"other fixed address table"
+msgstr ""
+"Не можете да извършите действие {action} за фиксиран адрес с име, което вече "
+"се ползва в друга таблица на фиксирани адреси."
+
+#: src/EBox/Model/FixedAddressTable.pm:223
+msgid "You cannot use an IP address contained in the above ranges."
+msgstr "Не можете да използвате IP адрес, съдържан в горните обхвати."
+
+#: src/EBox/Model/FixedAddressTable.pm:228
+msgid "Description"
+msgstr "Описание"
+
+#: src/EBox/Model/FixedAddressTable.pm:236 src/templates/fixed.mas:5
+msgid "Fixed addresses"
+msgstr "Постоянни адреси"
+
+#: src/EBox/Model/FixedAddressTable.pm:243
+msgid "fixed address"
+msgstr "Постоянен адрес"
 
 #: src/EBox/Model/DynamicDNS.pm:131 src/EBox/Model/DynamicDNS.pm:139
 #: src/EBox/Model/DynamicDNS.pm:386
@@ -108,144 +318,6 @@ msgstr ""
 msgid "Domain \"{domain}\" removed from DNS section"
 msgstr ""
 
-#: src/EBox/Model/FixedAddressTable.pm:123
-#, perl-brace-format
-msgid "IP address {ip} is not in network {net}"
-msgstr "IP адресът {ip} не е в мрежа {net}."
-
-#: src/EBox/Model/FixedAddressTable.pm:134
-#, perl-brace-format
-msgid "The selected IP is the interface IP address: {ifaceIP}"
-msgstr "Избраното IP е IP адресът на интерфейса: {ifaceIP}"
-
-#: src/EBox/Model/FixedAddressTable.pm:151
-#, perl-brace-format
-msgid "IP address {ip} is in range '{range}': {from}-{to}"
-msgstr "IP адресът {ip} е в обхват '{range}': {from} - {to}"
-
-#: src/EBox/Model/FixedAddressTable.pm:176
-msgid "update"
-msgstr "обновяване"
-
-#: src/EBox/Model/FixedAddressTable.pm:178
-msgid "add"
-msgstr "добавяне"
-
-#: src/EBox/Model/FixedAddressTable.pm:180
-#, perl-brace-format
-msgid ""
-"You cannot {action} a fixed address with a name which is already used in "
-"other fixed address table"
-msgstr ""
-"Не можете да извършите действие {action} за фиксиран адрес с име, което вече "
-"се ползва в друга таблица на фиксирани адреси."
-
-#: src/EBox/Model/FixedAddressTable.pm:208 src/EBox/Model/RangeTable.pm:213
-#: src/EBox/CGI/AddFixed.pm:45 src/EBox/CGI/AddRange.pm:43
-#: src/templates/fixed.mas:8 src/templates/ranges.mas:53
-msgid "Name"
-msgstr "Име"
-
-#: src/EBox/Model/FixedAddressTable.pm:214 src/EBox/DHCP.pm:1263
-#: src/EBox/DHCP.pm:1331 src/EBox/CGI/AddFixed.pm:43 src/templates/fixed.mas:9
-msgid "MAC address"
-msgstr "MAC адрес"
-
-#: src/EBox/Model/FixedAddressTable.pm:220
-#: src/EBox/Model/ThinClientOptions.pm:241 src/EBox/DHCP.pm:1331
-#: src/EBox/CGI/AddFixed.pm:44 src/templates/fixed.mas:10
-msgid "IP address"
-msgstr "IP адрес"
-
-#: src/EBox/Model/FixedAddressTable.pm:223
-msgid "You cannot use an IP address contained in the above ranges."
-msgstr "Не можете да използвате IP адрес, съдържан в горните обхвати."
-
-#: src/EBox/Model/FixedAddressTable.pm:228
-msgid "Description"
-msgstr "Описание"
-
-#: src/EBox/Model/FixedAddressTable.pm:236 src/templates/fixed.mas:5
-msgid "Fixed addresses"
-msgstr "Постоянни адреси"
-
-#: src/EBox/Model/FixedAddressTable.pm:243
-msgid "fixed address"
-msgstr "Постоянен адрес"
-
-#: src/EBox/Model/ThinClientOptions.pm:138
-#, fuzzy
-msgid "You need to upload a boot image to Zentyal if you set it as next server"
-msgstr ""
-"Трябва да качите образ за зареждане в eBox, ако го зададете като следващ "
-"сървър."
-
-#: src/EBox/Model/ThinClientOptions.pm:145
-#, fuzzy
-msgid ""
-"In order to upload a boot image to Zentyal, you need to set Zentyal as next "
-"server"
-msgstr ""
-"За да качите образ за зареждане в eBox, трябва да зададете eBox като следващ "
-"сървър."
-
-#: src/EBox/Model/ThinClientOptions.pm:152
-msgid "You need to specify a path to the boot image in the remote server"
-msgstr "Трябва да зададете път до образа за зареждане на отдалечения сървър."
-
-#: src/EBox/Model/ThinClientOptions.pm:157
-#, fuzzy
-msgid ""
-"You can only specify a file name if you have a next server and it is not "
-"Zentyal"
-msgstr ""
-"Можете да зададете име на файл, само ако имате следващ сървър и той не е "
-"eBox."
-
-#: src/EBox/Model/ThinClientOptions.pm:208
-#, fuzzy, perl-brace-format
-msgid ""
-"Removing previously uploaded boot image since next server option has been "
-"changed from Zentyal to {option}"
-msgstr ""
-"Премахва се каченият образ за зареждане, тъй като опцията следващ сървър е "
-"променена от eBox на {option}."
-
-#: src/EBox/Model/ThinClientOptions.pm:231
-msgid "Next server"
-msgstr "Следващ сървър"
-
-#: src/EBox/Model/ThinClientOptions.pm:235 src/EBox/Model/Options.pm:370
-#: src/EBox/Model/Options.pm:404 src/EBox/Model/Options.pm:408
-#: src/EBox/Model/Options.pm:422 src/EBox/Model/Options.pm:455
-msgid "None"
-msgstr "Няма"
-
-#: src/EBox/Model/ThinClientOptions.pm:245
-msgid "name"
-msgstr "име"
-
-#: src/EBox/Model/ThinClientOptions.pm:251
-msgid "File name"
-msgstr "Име на файл"
-
-#: src/EBox/Model/ThinClientOptions.pm:260
-msgid "File path in next server"
-msgstr "Файлов път на следващия сървър"
-
-#: src/EBox/Model/ThinClientOptions.pm:268
-msgid "Thin client"
-msgstr "Тънък клиент"
-
-#: src/EBox/Model/ThinClientOptions.pm:273
-#, perl-brace-format
-msgid ""
-"You may want to customise your thin client options.To do so, you may include "
-"all the files you require under {path} directory"
-msgstr ""
-"Може да искате да изберете опции за вашия тънък клиент. За да го направите, "
-"може да добавите всички файлове, които ви трябват в директория {path}."
-
 #: src/EBox/Model/RangeInfo.pm:142
 msgid "Interface IP address"
 msgstr "IP адрес на интерфейса"
@@ -261,51 +333,6 @@ msgstr "Наличен обхват"
 #: src/EBox/Model/RangeInfo.pm:156 src/templates/ranges.mas:15
 msgid "DHCP ranges"
 msgstr "DHCP обхвати"
-
-#: src/EBox/Model/LeaseTimes.pm:131
-msgid "Default leased time must be higher than 0 seconds"
-msgstr "Времето на заемане по подразбиране трябва да е повече от 0 секунди."
-
-#: src/EBox/Model/LeaseTimes.pm:137
-#, perl-brace-format
-msgid "Default leased time {default} must be lower than maximum one {max}"
-msgstr ""
-"Времето на заемане по подразбиране {default} трябва да е по-малко от "
-"максималното {max}."
-
-#: src/EBox/Model/LeaseTimes.pm:149
-msgid "Maximum leased time must be higher than 0 seconds"
-msgstr "Максималното време на заемане трябва да е повече от 0 секунди."
-
-#: src/EBox/Model/LeaseTimes.pm:155
-#, perl-brace-format
-msgid "Maximum leased time {max} must be higher than default one {default}"
-msgstr ""
-"Максималното време на заемане {max} трябва да е по-голямо от това по "
-"подразбиране {default}."
-
-#: src/EBox/Model/LeaseTimes.pm:199
-msgid "Default leased time"
-msgstr "Време на заемане по подразбиране"
-
-#: src/EBox/Model/LeaseTimes.pm:202 src/EBox/Model/LeaseTimes.pm:209
-msgid "seconds"
-msgstr "секунди"
-
-#: src/EBox/Model/LeaseTimes.pm:206
-msgid "Maximum leased time"
-msgstr "Максимално време на заемане"
-
-#: src/EBox/Model/LeaseTimes.pm:215
-msgid "Lease times"
-msgstr "Времена на заемане"
-
-#: src/EBox/Model/LeaseTimes.pm:220
-msgid ""
-"Leased time is the time which a given IP address is valid by the DHCP server"
-msgstr ""
-"Време на заемане е времето, през което даден IP адрес е валиден според DHCP "
-"сървъра."
 
 #: src/EBox/Model/Options.pm:156
 #, perl-brace-format
@@ -482,16 +509,6 @@ msgstr ""
 msgid "Range {from}-{to} includes fixed address '{name}': {fixedIP}"
 msgstr "Обхватът {from} - {to} включва фиксиран адрес '{name}': {fixedIP}"
 
-#: src/EBox/Model/RangeTable.pm:219 src/EBox/CGI/AddRange.pm:44
-#: src/templates/ranges.mas:54
-msgid "From"
-msgstr "От"
-
-#: src/EBox/Model/RangeTable.pm:225 src/EBox/CGI/AddRange.pm:45
-#: src/templates/ranges.mas:55
-msgid "To"
-msgstr "До"
-
 #: src/EBox/Model/RangeTable.pm:233 src/templates/ranges.mas:49
 msgid "Ranges"
 msgstr "Обхвати"
@@ -499,6 +516,91 @@ msgstr "Обхвати"
 #: src/EBox/Model/RangeTable.pm:240
 msgid "range"
 msgstr "обхват"
+
+#: src/EBox/DHCP.pm:119
+#, fuzzy, perl-brace-format
+msgid "{server} configuration file"
+msgstr "Настройки на услуги"
+
+#: src/EBox/DHCP.pm:132
+#, perl-brace-format
+msgid "Disable {server} init sctript"
+msgstr ""
+
+#: src/EBox/DHCP.pm:133
+msgid "Zentyal will take care of start and stop the service"
+msgstr ""
+
+#: src/EBox/DHCP.pm:452 src/EBox/DHCP.pm:488 src/EBox/DHCP.pm:538
+#: src/EBox/DHCP.pm:584 src/EBox/DHCP.pm:630 src/EBox/DHCP.pm:728
+#: src/EBox/DHCP.pm:843 src/EBox/DHCP.pm:899
+#, perl-brace-format
+msgid "{iface} is not static"
+msgstr "{iface} не е статичен."
+
+#: src/EBox/DHCP.pm:714
+msgid "Not a valid action: add, set and del are available"
+msgstr "Невалидно действие: Валидни са добавяне, задаване и изтриване."
+
+#: src/EBox/DHCP.pm:829
+msgid "No valid action. Available ones are: add, set and del"
+msgstr "Невалидно действие. Валидни са: добавяне, задаване и изтриване."
+
+#: src/EBox/DHCP.pm:1068
+#, perl-brace-format
+msgid ""
+"The IP address of the virtual interface you are trying to add is already "
+"used by the DHCP range '{range}' in the interface '{iface}'. Please, remove "
+"it before trying to add a virtual interface using it."
+msgstr ""
+"IP адресът на виртуалния интерфейс, който опитвате да добавите, вече се "
+"използва от DHCP обхват '{range}' в интерфейс '{iface}'. Моля, премахнете го "
+"преди да опитате да добавите виртуален интерфейс, който го ползва."
+
+#: src/EBox/DHCP.pm:1087
+#, perl-brace-format
+msgid ""
+"The IP address of the virtual interface you are trying to add is already "
+"used by the DHCP fixed address '{fixed}' in the interface '{iface}'. Please, "
+"remove it before trying to add a virtual interface using it."
+msgstr ""
+"IP адресът на виртуалния интерфейс, който опитвате да добавите, вече се "
+"използва от DHCP фиксиран адрес '{fixed}' в интерфейс '{iface}'. Моля, "
+"премахнете го преди да опитате да добавите виртуален интерфейс, който го "
+"ползва."
+
+#: src/EBox/DHCP.pm:1283
+msgid "Date"
+msgstr "Дата"
+
+#: src/EBox/DHCP.pm:1286
+msgid "IP"
+msgstr "IP"
+
+#: src/EBox/DHCP.pm:1287
+msgid "Event"
+msgstr "Събитие"
+
+#: src/EBox/DHCP.pm:1290
+msgid "Leased"
+msgstr "Зает"
+
+#: src/EBox/DHCP.pm:1290
+msgid "Released"
+msgstr "Освободен"
+
+#: src/EBox/DHCP.pm:1293
+msgid "DHCP"
+msgstr "DHCP"
+
+# Име на компютър
+#: src/EBox/DHCP.pm:1353
+msgid "Host name"
+msgstr "Име на хост"
+
+#: src/EBox/DHCP.pm:1380
+msgid "DHCP leases"
+msgstr "DHCP заеми"
 
 #: src/EBox/Composite/General.pm:78
 #, perl-brace-format
@@ -509,10 +611,6 @@ msgstr ""
 "За да се настройва DHCP услугата на интерфейс, той трябва да бъде зададен "
 "като статичен. За да го направите, променете {openhref}Настройки на "
 "интерфейси{closehref} в модул Мрежа."
-
-#: src/EBox/Composite/AdvancedOptions.pm:132
-msgid "Advanced options"
-msgstr "Разширени опции"
 
 #: src/EBox/Composite/Interfaces.pm:107
 msgid "Choose a static interface to configure:"
@@ -539,115 +637,9 @@ msgstr ""
 "За да обслужвате IP адреси на външен интерфейс, трябва да пуснете услугата в "
 "{openhref}модул Защитна стена{closehref}."
 
-#: src/EBox/DHCP.pm:117
-#, fuzzy, perl-brace-format
-msgid "{server} configuration file"
-msgstr "Настройки на услуги"
-
-#: src/EBox/DHCP.pm:424 src/EBox/DHCP.pm:460 src/EBox/DHCP.pm:510
-#: src/EBox/DHCP.pm:556 src/EBox/DHCP.pm:602 src/EBox/DHCP.pm:700
-#: src/EBox/DHCP.pm:754 src/EBox/DHCP.pm:815 src/EBox/DHCP.pm:871
-#: src/EBox/DHCP.pm:1262 src/EBox/CGI/AddFixed.pm:39
-#: src/EBox/CGI/AddRange.pm:39 src/EBox/CGI/SetIfaceOptions.pm:39
-#: src/EBox/CGI/RemoveFixed.pm:39 src/EBox/CGI/RemoveRange.pm:39
-msgid "Interface"
-msgstr "Интерфейс"
-
-#: src/EBox/DHCP.pm:430 src/EBox/DHCP.pm:466 src/EBox/DHCP.pm:516
-#: src/EBox/DHCP.pm:562 src/EBox/DHCP.pm:608 src/EBox/DHCP.pm:706
-#: src/EBox/DHCP.pm:821 src/EBox/DHCP.pm:877
-#, perl-brace-format
-msgid "{iface} is not static"
-msgstr "{iface} не е статичен."
-
-#: src/EBox/DHCP.pm:692
-msgid "Not a valid action: add, set and del are available"
-msgstr "Невалидно действие: Валидни са добавяне, задаване и изтриване."
-
-#: src/EBox/DHCP.pm:807
-msgid "No valid action. Available ones are: add, set and del"
-msgstr "Невалидно действие. Валидни са: добавяне, задаване и изтриване."
-
-#: src/EBox/DHCP.pm:1046
-#, perl-brace-format
-msgid ""
-"The IP address of the virtual interface you are trying to add is already "
-"used by the DHCP range '{range}' in the interface '{iface}'. Please, remove "
-"it before trying to add a virtual interface using it."
-msgstr ""
-"IP адресът на виртуалния интерфейс, който опитвате да добавите, вече се "
-"използва от DHCP обхват '{range}' в интерфейс '{iface}'. Моля, премахнете го "
-"преди да опитате да добавите виртуален интерфейс, който го ползва."
-
-#: src/EBox/DHCP.pm:1065
-#, perl-brace-format
-msgid ""
-"The IP address of the virtual interface you are trying to add is already "
-"used by the DHCP fixed address '{fixed}' in the interface '{iface}'. Please, "
-"remove it before trying to add a virtual interface using it."
-msgstr ""
-"IP адресът на виртуалния интерфейс, който опитвате да добавите, вече се "
-"използва от DHCP фиксиран адрес '{fixed}' в интерфейс '{iface}'. Моля, "
-"премахнете го преди да опитате да добавите виртуален интерфейс, който го "
-"ползва."
-
-#: src/EBox/DHCP.pm:1261
-msgid "Date"
-msgstr "Дата"
-
-#: src/EBox/DHCP.pm:1264
-msgid "IP"
-msgstr "IP"
-
-#: src/EBox/DHCP.pm:1265
-msgid "Event"
-msgstr "Събитие"
-
-#: src/EBox/DHCP.pm:1268
-msgid "Leased"
-msgstr "Зает"
-
-#: src/EBox/DHCP.pm:1268
-msgid "Released"
-msgstr "Освободен"
-
-#: src/EBox/DHCP.pm:1271
-msgid "DHCP"
-msgstr "DHCP"
-
-# Име на компютър
-#: src/EBox/DHCP.pm:1331
-msgid "Host name"
-msgstr "Име на хост"
-
-#: src/EBox/DHCP.pm:1358
-msgid "DHCP leases"
-msgstr "DHCP заеми"
-
-#: src/EBox/CGI/Enable.pm:39
-msgid "module status"
-msgstr "състояние на модула"
-
-#: src/EBox/CGI/Status.pm:42
-msgid "Module Status"
-msgstr "Състояние на модула"
-
-#: src/templates/options.mas:8
-msgid "Options"
-msgstr "Опции"
-
-#: src/templates/options.mas:10
-#, fuzzy
-msgid ""
-"You can leave empty the Default Gateway field to use Zentyal as default "
-"gateway for this subnet"
-msgstr ""
-"Можете да оставите празно полето Шлюз по подразбиране, за да използвате eBox "
-"като шлюз за тази подмрежа."
-
-#: src/templates/options.mas:64
-msgid "Apply"
-msgstr "Прилагане"
+#: src/EBox/Composite/AdvancedOptions.pm:132
+msgid "Advanced options"
+msgstr "Разширени опции"
 
 #: src/templates/fixed.mas:11 src/templates/ranges.mas:56
 msgid "Action"
@@ -672,3 +664,20 @@ msgstr "Маска на подмрежа"
 #: src/templates/ranges.mas:93
 msgid "Delete"
 msgstr "Изтриване"
+
+#: src/templates/options.mas:8
+msgid "Options"
+msgstr "Опции"
+
+#: src/templates/options.mas:10
+#, fuzzy
+msgid ""
+"You can leave empty the Default Gateway field to use Zentyal as default "
+"gateway for this subnet"
+msgstr ""
+"Можете да оставите празно полето Шлюз по подразбиране, за да използвате eBox "
+"като шлюз за тази подмрежа."
+
+#: src/templates/options.mas:64
+msgid "Apply"
+msgstr "Прилагане"

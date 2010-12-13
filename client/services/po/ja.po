@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-services 0.12\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-08-28 23:41+0200\n"
+"POT-Creation-Date: 2010-12-13 08:42+0100\n"
 "PO-Revision-Date: 2008-01-08 15:51+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
@@ -59,6 +59,19 @@ msgstr "eBoxの管理"
 msgid "Zentyal Administration Web Server"
 msgstr "eBoxの管理ポート"
 
+#: src/EBox/Services.pm:47 src/EBox/Model/ServiceTable.pm:144
+msgid "Services"
+msgstr "サービス"
+
+#: src/EBox/Services.pm:399
+msgid "port"
+msgstr "ポート"
+
+#: src/EBox/Services.pm:402
+#, fuzzy
+msgid "Zentyal Administration port"
+msgstr "eBoxの管理ポート"
+
 #: src/EBox/Model/ServiceTable.pm:102
 msgid "Domain"
 msgstr "ドメイン"
@@ -90,10 +103,6 @@ msgstr "設定"
 #, fuzzy
 msgid "List of services"
 msgstr "eBoxサービス"
-
-#: src/EBox/Model/ServiceTable.pm:144 src/EBox/Services.pm:47
-msgid "Services"
-msgstr "サービス"
 
 #: src/EBox/Model/ServiceTable.pm:154
 #: src/EBox/Model/ServiceConfigurationTable.pm:172
@@ -129,12 +138,3 @@ msgstr "サービス設定"
 #: src/EBox/Model/ServiceConfigurationTable.pm:196
 msgid "This protocol does not use ports"
 msgstr "このプロトコルはポートを利用しません"
-
-#: src/EBox/Services.pm:399
-msgid "port"
-msgstr "ポート"
-
-#: src/EBox/Services.pm:402
-#, fuzzy
-msgid "Zentyal Administration port"
-msgstr "eBoxの管理ポート"

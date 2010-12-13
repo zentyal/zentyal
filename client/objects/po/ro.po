@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-objects 0.12.99\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-08-28 23:37+0200\n"
+"POT-Creation-Date: 2010-12-13 08:40+0100\n"
 "PO-Revision-Date: 2010-04-22 11:49+0200\n"
 "Last-Translator: Harald Ersch <harald.ersch@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
@@ -18,43 +18,47 @@ msgstr ""
 "20)) ? 1 : 2);;\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: src/EBox/Model/MemberTable.pm:63 src/EBox/Model/ObjectTable.pm:63
-msgid "Name"
-msgstr "Nume"
-
-#: src/EBox/Model/MemberTable.pm:70
-msgid "IP address"
-msgstr "Adresa IP"
-
-#: src/EBox/Model/MemberTable.pm:76
-msgid "MAC address"
-msgstr "Adresa MAC"
-
-#: src/EBox/Model/MemberTable.pm:87 src/EBox/Model/ObjectTable.pm:71
-msgid "Members"
-msgstr "Membri"
-
-#: src/EBox/Model/MemberTable.pm:93 src/EBox/Model/ObjectTable.pm:82
-#: src/EBox/Objects.pm:39
+#: src/EBox/Objects.pm:39 src/EBox/Model/ObjectTable.pm:82
+#: src/EBox/Model/MemberTable.pm:93
 msgid "Objects"
 msgstr "Obiecte"
 
-#: src/EBox/Model/MemberTable.pm:94
-msgid "member"
-msgstr "membru"
-
-#: src/EBox/Model/MemberTable.pm:116
-msgid "You can only use MAC addresses with hosts"
-msgstr "Adresele MAC se pot folosi doar la host-uri"
-
-#: src/EBox/Model/MemberTable.pm:119 src/EBox/Model/MemberTable.pm:120
-msgid "network address"
-msgstr "adresa din reţea"
-
-#: src/EBox/Model/MemberTable.pm:126
+#: src/EBox/Objects.pm:44
 #, perl-brace-format
-msgid "{ip} overlaps with the address or another object's member"
-msgstr "{ip} se suprapune cu adresa sau membrul altui obiect"
+msgid "Added object {object}"
+msgstr "Obiect adăugat: {object}"
+
+#: src/EBox/Objects.pm:46
+#, perl-brace-format
+msgid "Added {nname} ({ip}/{mask} [{mac}]) to object {object}"
+msgstr "Adăugat {nname} ({ip}/{mask} [{mac}]) la objectul {object}"
+
+#: src/EBox/Objects.pm:47
+#, perl-brace-format
+msgid "Removed object {object}"
+msgstr "Obiect şters: {object}"
+
+#: src/EBox/Objects.pm:49
+#, perl-brace-format
+msgid "Forcefully removed object {object}"
+msgstr "Obiect şters cu forţa: {object}"
+
+#: src/EBox/Objects.pm:51
+#, perl-brace-format
+msgid "Removed {nname} from object {object}"
+msgstr "{nname} şters din obiectul: {object}"
+
+#: src/EBox/Objects.pm:270
+msgid "Object"
+msgstr "Obiect"
+
+#: src/EBox/Model/ObjectTable.pm:63 src/EBox/Model/MemberTable.pm:63
+msgid "Name"
+msgstr "Nume"
+
+#: src/EBox/Model/ObjectTable.pm:71 src/EBox/Model/MemberTable.pm:87
+msgid "Members"
+msgstr "Membri"
 
 #: src/EBox/Model/ObjectTable.pm:83
 msgid "Objects List"
@@ -86,31 +90,27 @@ msgstr ""
 "'Any' este un cuvânt rezervat ce nu poate fi folosit drept nume de obiect "
 "pt. a evita confuziile."
 
-#: src/EBox/Objects.pm:44
-#, perl-brace-format
-msgid "Added object {object}"
-msgstr "Obiect adăugat: {object}"
+#: src/EBox/Model/MemberTable.pm:70
+msgid "IP address"
+msgstr "Adresa IP"
 
-#: src/EBox/Objects.pm:46
-#, perl-brace-format
-msgid "Added {nname} ({ip}/{mask} [{mac}]) to object {object}"
-msgstr "Adăugat {nname} ({ip}/{mask} [{mac}]) la objectul {object}"
+#: src/EBox/Model/MemberTable.pm:76
+msgid "MAC address"
+msgstr "Adresa MAC"
 
-#: src/EBox/Objects.pm:47
-#, perl-brace-format
-msgid "Removed object {object}"
-msgstr "Obiect şters: {object}"
+#: src/EBox/Model/MemberTable.pm:94
+msgid "member"
+msgstr "membru"
 
-#: src/EBox/Objects.pm:49
-#, perl-brace-format
-msgid "Forcefully removed object {object}"
-msgstr "Obiect şters cu forţa: {object}"
+#: src/EBox/Model/MemberTable.pm:116
+msgid "You can only use MAC addresses with hosts"
+msgstr "Adresele MAC se pot folosi doar la host-uri"
 
-#: src/EBox/Objects.pm:51
-#, perl-brace-format
-msgid "Removed {nname} from object {object}"
-msgstr "{nname} şters din obiectul: {object}"
+#: src/EBox/Model/MemberTable.pm:119 src/EBox/Model/MemberTable.pm:120
+msgid "network address"
+msgstr "adresa din reţea"
 
-#: src/EBox/Objects.pm:270
-msgid "Object"
-msgstr "Obiect"
+#: src/EBox/Model/MemberTable.pm:126
+#, perl-brace-format
+msgid "{ip} overlaps with the address or another object's member"
+msgstr "{ip} se suprapune cu adresa sau membrul altui obiect"
