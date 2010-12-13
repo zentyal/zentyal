@@ -93,6 +93,11 @@ mv /var/tmp/ebox/ebox-x11-setup /etc/rc.local
 mv /var/tmp/ebox/plymouth-zentyal /lib/plymouth/themes/zentyal
 ln -sf /lib/plymouth/themes/zentyal/zentyal.plymouth /etc/alternatives/default.plymouth
 
+if grep -q disaster-recovery /proc/cmdline
+then
+    touch /var/tmp/ebox/.disaster-recovery
+fi
+
 sync
 
 exit 0

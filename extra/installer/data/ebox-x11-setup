@@ -6,9 +6,9 @@ DIR=/home/$USER_NAME
 sed -i "s/.*autologin=.*/autologin=$USER_NAME/" /etc/lxdm/default.conf
 sed -i "s/theme=.*/theme=Zentyal/" /etc/lxdm/default.conf
 
-cp /var/tmp/ebox/ebox-xsession $DIR/.xsession
-chmod +x $DIR/.xsession
-chown $USER_NAME:$USER_NAME $DIR/.xsession
+cp /var/tmp/ebox/zentyal-session /usr/local/bin
+chmod +x /usr/local/bin/zentyal-session
+echo "@/usr/local/bin/zentyal-session" >> /etc/xdg/lxsession/LXDE/autostart
 
 echo "mode: off" > $DIR/.xscreensaver
 echo "selected: -1" >> $DIR/.xscreensaver

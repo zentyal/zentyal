@@ -1,0 +1,13 @@
+#!/bin/bash
+
+if [ -f /var/tmp/ebox/.disaster-recovery ]
+then
+    /usr/share/ebox-ebackup/restore-tool
+    rm /var/tmp/ebox/.disaster-recovery
+fi
+
+firefox https://localhost &
+
+xset s off
+xset -dpms
+xset s noblank

@@ -1,9 +1,0 @@
-#!/bin/bash
-
-firefox https://localhost &
-
-xset s off
-xset -dpms
-xset s noblank
-
-exec lxsession
