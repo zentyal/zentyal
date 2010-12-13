@@ -1313,7 +1313,6 @@ sub _preRestoreActions
     my ($self, $archive) = @_;
 
     my $global = EBox::Global->getInstance();
-
     my @inBackup = @{ $self->_modulesInBackup($archive) };
 
     my @missing;
@@ -1329,11 +1328,13 @@ sub _preRestoreActions
                 );
     }
 
-    my @installed = @{ $global->modInstances() };
+    my $mgr = EBox::ServiceManager->new();
+    my @mods = @{$mgr->_dependencyTree()};
 
-    # TODO: Integrate with progressIndicator?
-    foreach my $mod (@installed) {
-        my $name = $mod->name();
+    # TODO: Integrate with progressIndicator
+    foreach my $name (@mods) {
+        my $mod = $global->modInstance($name);
+
         if ($name eq any(@inBackup)) {
             next unless $mod->can('configured');
             # The module is present in the backup but has
