@@ -2479,6 +2479,9 @@ sub restoreConfig
         $self->ldap->restoreLdapMaster($dir);
         EBox::Sudo::root('/etc/init.d/slapd start');
         $self->ldap->clearConn();
+
+        # Save conf to enable NSS (and/or) PAM
+        $self->_setConf();
         for my $user ($self->users()) {
             $self->initUser($user->{'username'});
         }
@@ -2490,6 +2493,9 @@ sub restoreConfig
         $self->ldap->clearConn();
         $self->_manageService('start');
         $self->waitSync();
+
+        # Save conf to enable NSS (and/or) PAM
+        $self->_setConf();
         for my $user ($self->users()) {
             $self->initUser($user->{'username'});
         }

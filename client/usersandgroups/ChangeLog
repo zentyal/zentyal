@@ -1,5 +1,6 @@
 HEAD
 	+ Reconnect to LDAP on backup restore
+	+ Save configuration files during restore
 	+ Catch possible SIGPIPE on LDAP reconnect
 2.0.8
 	+ Fix Samba PDC on slaves
