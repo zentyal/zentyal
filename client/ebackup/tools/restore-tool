@@ -39,6 +39,7 @@ use YAML::Tiny;
 use constant FIRST_RUN_FILE => '/var/lib/ebox/.first';
 
 my $usesX = 1; # flag to signal whether graphical environment is available
+my $zenityBaseCmd = 'zenity --width=300';
 
 #  XXX problem when isntalled
 # early versions of modules which no have bakcupDomains enabled..
@@ -1028,7 +1029,7 @@ sub _configureModules
     }
 
     my $saveChangesMsg = __('Finishing new modules configuration');
-    print "Saving chagnes for new modules\n"; # DDD
+    print "Saving changes for new modules\n"; # DDD
     saveChanges($saveChangesMsg);
 }
 
@@ -1538,13 +1539,13 @@ sub _zenityIcon
     return '';
 }
 
-sub _zenityFatal
+sub _zenityException
 {
     my ($text) = @_;
 
     my $commonArgs = _zenityCommonArgs();
     $text = _zenityQuote($text);
-    my $cmd = qq{zenity --error $commonArgs --text=$text};
+    my $cmd = qq{$zenityBaseCmd --error $commonArgs --text=$text};
 
     EBox::Sudo::command($cmd);
 }
@@ -1555,7 +1556,7 @@ sub _zenityWarning
 
     my $commonArgs = _zenityCommonArgs();
     $text = _zenityQuote($text);
-    my $cmd = qq{zenity --warning $commonArgs --text=$text};
+    my $cmd = qq{$zenityBaseCmd --warning $commonArgs --text=$text};
     EBox::Sudo::command($cmd);
 }
 
@@ -1565,7 +1566,7 @@ sub _zenityInfo
 
     my $commonArgs = _zenityCommonArgs();
     $text = _zenityQuote($text);
-    my $cmd = qq{zenity --info $commonArgs --text=$text};
+    my $cmd = qq{$zenityBaseCmd --info $commonArgs --text=$text};
     EBox::Sudo::command($cmd);
 }
 
@@ -1576,7 +1577,7 @@ sub _zenityEntry
 
     $text = _zenityQuote($text);
     my $commonArgs = _zenityCommonArgs();
-    my $cmd = qq{zenity --entry $commonArgs --text=$text};
+    my $cmd = qq{$zenityBaseCmd --entry $commonArgs --text=$text};
     if ($hide) {
         $cmd .= ' --hide-text';
     }
@@ -1616,7 +1617,7 @@ sub _zenityQuestion
 
     $text = _zenityQuote($text);
     my $commonArgs = _zenityCommonArgs();
-    my $cmd = qq{zenity --question $commonArgs --text=$text};
+    my $cmd = qq{$zenityBaseCmd --question $commonArgs --text=$text};
 
     my $ret;
     try {
@@ -1647,7 +1648,7 @@ sub _zenityList
 
     my $commonArgs = _zenityCommonArgs();
 
-    my $cmd = qq{zenity --list $commonArgs --text=$text };
+    my $cmd = qq{$zenityBaseCmd --height 250 --list $commonArgs --text=$text };
     if ($multiple) {
         $cmd .=  "--checklist";
     } else {
@@ -1731,7 +1732,7 @@ sub _zenityProgressBarCmd
     $text = _zenityQuote($text);
     my $commonArgs = _zenityCommonArgs();
 
-    my $cmd = qq{zenity --progress $commonArgs --text=$text --auto-close --auto-kill}; 
+    my $cmd = qq{$zenityBaseCmd --progress $commonArgs --text=$text --auto-close --auto-kill}; 
     return $cmd;
 }
 
@@ -1804,7 +1805,7 @@ sub _zenityPulsateCmd
     my ($text) = @_;
     $text = _zenityQuote($text);
     my $commonArgs = _zenityCommonArgs();
-    my $zenityCmd = qq{zenity --progress $commonArgs --text=$text} .
+    my $zenityCmd = qq{$zenityBaseCmd --progress $commonArgs --text=$text} .
           q{ --pulsate --auto-close};
     return $zenityCmd;
 }
@@ -1969,6 +1970,30 @@ sub warning
     }
 }
 
+sub showException
+{
+    my ($input) = @_;
+
+    my $msg;
+    if (ref $input) {
+        if ($input->can('stringify')) {
+            $msg = $input->stringify();
+        } elsif ($input->can('text')){
+            $msg = $input->text();
+        }
+    }
+    if (not $msg) {
+        $msg = "$input";
+    }
+
+    if ($usesX) {
+        _zenityException($msg);
+    }
+    print STDERR $msg;
+    print "\n";
+
+    return $msg;
+}
 
 my $_fatalShow = 0;
 sub fatal
@@ -1976,23 +2001,7 @@ sub fatal
     my ($input) = @_;
 
     if (not $_fatalShow) {
-        my $msg;
-        if (ref $input) {
-            if ($input->can('stringify')) {
-                $msg = $input->stringify();
-            } elsif ($input->can('text')){
-                $msg = $input->text();
-            }
-        }
-        if (not $msg) {
-            $msg = "$input";
-        }
-
-        if ($usesX) {
-            _zenityFatal($msg);
-        }
-        print STDERR $msg;
-        print "\n";
+        my $msg = showException($input);
         $_fatalShow = 1;
         die $msg;
     }
@@ -2057,16 +2066,26 @@ sub getCredentials
     my $encryptionKey     = $params{encryptionKey};
     my $keyPassphrase     = $params{keyPassphrase};
 
-    if (not $user) {
-        $user = askUser();
-    }
-    if (not $password) {
-        $password = askPassword();
-    }
-
     my $remoteServices = EBox::Global->modInstance('remoteservices');
+    my $servers;
 
-    my $servers = serverList($remoteServices, $user, $password);
+    while (not ($user and $password)) {
+        if (not $user) {
+            $user = askUser();
+        }
+        if (not $password) {
+            $password = askPassword();
+        }
+
+        try {
+            $servers = serverList($remoteServices, $user, $password);
+        } otherwise {
+            my $ex = shift;
+            showException($ex);
+            $user = $password = '';
+        }
+    }
+
     if (not @{ $servers} ) {
         fatal(__x("The account {user} do not have any registered Zentyal servers",
                   user => $user)
@@ -2286,7 +2305,6 @@ try {
     if ($usesX) {
         _xhostUnallowLocal();
     }
-
     if (-f FIRST_RUN_FILE ) {
         unlink FIRST_RUN_FILE;
     }
