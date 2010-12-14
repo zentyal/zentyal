@@ -14,6 +14,6 @@ then
     rm -rf /var/tmp/ebox
 fi
 
-/etc/init.d/lxdm restart
+initctl emit zentyal-lxdm
 
 exit 0

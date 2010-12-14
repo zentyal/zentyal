@@ -10,6 +10,11 @@ cp /var/tmp/ebox/zentyal-session /usr/local/bin
 chmod +x /usr/local/bin/zentyal-session
 echo "@/usr/local/bin/zentyal-session" >> /etc/xdg/lxsession/LXDE/autostart
 
+if [ -f /var/tmp/ebox/.disaster-recovery ]
+then
+    echo "$USER_NAME ALL = NOPASSWD:/usr/share/ebox-ebackup/restore-tool" >> /etc/sudoers
+fi
+
 echo "mode: off" > $DIR/.xscreensaver
 echo "selected: -1" >> $DIR/.xscreensaver
 chown $USER_NAME:$USER_NAME $DIR/.xscreensaver
@@ -51,6 +56,6 @@ chown -R $USER_NAME:$USER_NAME $DIR/.config
 
 mv /var/tmp/ebox/second-boot.sh /etc/rc.local
 
-/etc/init.d/lxdm restart
+initctl emit zentyal-lxdm
 
 exit 0

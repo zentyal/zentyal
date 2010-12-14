@@ -58,6 +58,13 @@ tasksel tasksel/first multiselect
 # postfix answers
 postfix postfix/main_mailer_type select No configuration
 
+# ddclient answers
+d-i ddclient/username   string  
+d-i ddclient/service    select  www.dyndns.com
+d-i ddclient/fetchhosts select  From list
+d-i ddclient/blankhostslist error   
+d-i ddclient/checkip    boolean true
+
 # eBox answers
 ebox ebox/port string 443
 
@@ -70,5 +77,6 @@ d-i pkgsel/language-packs string
 d-i preseed/late_command string \
     cp -r /cdrom/ebox /target/tmp/ || \
     cp -r /target/cdrom/ebox /target/tmp/ && \
+    touch /target/tmp/INSTALL_MODE && \
     chroot /target sh /tmp/ebox/prepare-ebox-install.sh
 

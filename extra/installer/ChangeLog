@@ -1,4 +1,5 @@
 HEAD
+    + Disaster recovery support
     + Replace slim with lxdm
     + Fixed .config dir permissions
     + Install apcid by default

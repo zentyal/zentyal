@@ -2,7 +2,7 @@
 
 if [ -f /var/tmp/ebox/.disaster-recovery ]
 then
-    /usr/share/ebox-ebackup/restore-tool
+    sudo /usr/share/ebox-ebackup/restore-tool
     rm /var/tmp/ebox/.disaster-recovery
 fi
 

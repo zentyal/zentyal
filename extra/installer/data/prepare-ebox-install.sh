@@ -93,10 +93,15 @@ mv /var/tmp/ebox/ebox-x11-setup /etc/rc.local
 mv /var/tmp/ebox/plymouth-zentyal /lib/plymouth/themes/zentyal
 ln -sf /lib/plymouth/themes/zentyal/zentyal.plymouth /etc/alternatives/default.plymouth
 
-if grep -q disaster-recovery /proc/cmdline
+if [ -f /tmp/RECOVER_MODE ]
 then
-    touch /var/tmp/ebox/.disaster-recovery
+    DISASTER_FILE=/var/tmp/ebox/.disaster-recovery
+    touch $DISASTER_FILE
+    chown :admin $DISASTER_FILE
+    chown g+w $DISASTER_FILE
 fi
+
+sed -i 's/start on/start on zentyal-lxdm and/' /etc/init/lxdm.conf
 
 sync
 

@@ -9,6 +9,14 @@ LABEL auto
   menu label ^Install Zentyal VERSION (expert mode)
   kernel /install/vmlinuz
   append  file=/cdrom/preseed/ubuntu-server.seed initrd=/install/initrd.gz quiet --
+LABEL disaster
+  menu label ^Recover subscribed Zentyal server (delete all disk)
+  kernel /install/vmlinuz
+  append  file=/cdrom/preseed/disaster-recovery-auto.seed initrd=/install/initrd.gz quiet --
+LABEL disaster-expert
+  menu label ^Recover subscribed Zentyal server (expert mode)
+  kernel /install/vmlinuz
+  append  file=/cdrom/preseed/disaster-recovery.seed initrd=/install/initrd.gz quiet --
 LABEL linux
   menu hide
   kernel /install/vmlinuz
