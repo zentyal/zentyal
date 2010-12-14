@@ -15,6 +15,7 @@ HEAD
 	+ Added support for printableActionName in DataTable's
 	+ Added information about automatic configuration backup
 	+ Removed warning on non existent file digest
+	+ Safer way to check if core modules exist during installation
 2.0.9
 	+ Treat wrong installed packages as not-existent modules
 	+ Added a warning in dashboard informing about broken packages

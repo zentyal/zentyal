@@ -154,7 +154,7 @@ sub modExists # (module)
     # of this is going to work at all.
     #
     if ($name eq any(@CORE_MODULES)) {
-        return 1;
+        return defined($self->_className($name));
     } else {
         # Fall back to the classical implementation
         # if we are in middle of a package installation
