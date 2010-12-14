@@ -1086,6 +1086,10 @@ sub safeConnect
             "FATAL: Couldn't connect to LDAP server");
     }
 
+    if ($retries < 3) {
+        EBox::info('LDAP reconnect successful');
+    }
+
     return $ldap;
 }
 
