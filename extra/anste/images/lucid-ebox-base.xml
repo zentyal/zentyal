@@ -17,7 +17,7 @@
         <package>postfix</package>
         <package>postgresql</package>
         <package>apache2-mpm-prefork</package>
-        <profile>ebox</profile>	
+        <profile>ebox</profile>
     </packages>
 
     <pre-install>
@@ -33,6 +33,7 @@
         <script>ebox-no-login.sh</script>
         <script>ebox-set-debug-on.sh</script>
         <script>set-ldap-pass.sh</script>
+        <script>zentyal-ignore-anste-iface.sh</script>
     </post-install>
 
 </image>
