@@ -59,11 +59,20 @@ tasksel tasksel/first multiselect
 postfix postfix/main_mailer_type select No configuration
 
 # ddclient answers
-d-i ddclient/username   string  
-d-i ddclient/service    select  www.dyndns.com
-d-i ddclient/fetchhosts select  From list
-d-i ddclient/blankhostslist error   
-d-i ddclient/checkip    boolean true
+ddclient    ddclient/fetchhosts select  Manually
+ddclient    ddclient/blankhostslist error   
+ddclient    ddclient/run_daemon boolean false
+ddclient    ddclient/hostslist  multiselect 
+ddclient    ddclient/names  string  
+ddclient    ddclient/interface  string  
+ddclient    ddclient/modifiedconfig error   
+ddclient    ddclient/checkip    boolean false
+ddclient    ddclient/server string  members.dyndns.org
+ddclient    ddclient/protocol   select  dyndns2
+ddclient    ddclient/run_ipup   boolean true
+ddclient    ddclient/username   string  
+ddclient    ddclient/daemon_interval    string  300
+ddclient    ddclient/service    select  www.dyndns.com
 
 # eBox answers
 ebox ebox/port string 443
