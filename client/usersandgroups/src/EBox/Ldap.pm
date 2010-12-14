@@ -1071,10 +1071,13 @@ sub safeConnect
     my $retries = 4;
     my $ldap;
 
+    local $SIG{PIPE};
+       $SIG{PIPE} = sub {
+       EBox::warn("SIGPIPE received connecting to LDAP");
+    };
     while (not $ldap = Net::LDAP->new($ldapurl) and $retries--) {
         _tryToStartSlapd();
-        EBox::error(
-            "Couldn't connect to LDAP server $ldapurl, retrying");
+        EBox::error("Couldn't connect to LDAP server $ldapurl, retrying");
         sleep(1);
     }
 
