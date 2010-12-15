@@ -268,14 +268,9 @@ sub _prepareLogFiles
     my $logDir = $self->logDir();
     foreach my $name (@{$self->daemonsNames()}) {
         for my $file ("$logDir/$name.log", "$logDir/status-$name.log") {
-            try {
-                EBox::Sudo::root("test -e '$file'");
-            }
-            otherwise {
-                EBox::Sudo::root("touch '$file'");
-            };
-            EBox::Sudo::root("chown root:ebox '$file'");
-            EBox::Sudo::root("chmod 0640 '$file'");
+            EBox::Sudo::root("touch '$file'",
+                             "chown root:ebox '$file'",
+                             "chmod 0640 '$file'");
         }
     }
 
