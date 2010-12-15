@@ -37,17 +37,10 @@ use String::ShellQuote ;
 use YAML::Tiny;
 
 use constant FIRST_RUN_FILE => '/var/lib/ebox/.first';
+use constant NTP_SERVER     => 'pool.ntp.org';
 
 my $usesX = 1; # flag to signal whether graphical environment is available
 my $zenityBaseCmd = 'zenity --width=300';
-
-#  XXX problem when isntalled
-# early versions of modules which no have bakcupDomains enabled..
-
-
-# XXX remtoe services does nto store its backup state in backup so subscritions
-# are lost and which happens with vpn?
-
 
 sub tmpDir
 {
@@ -82,6 +75,19 @@ sub modPreConditions
     }
 }
 
+
+sub setSystemDate
+{
+    my $cmd = 'ntpdate ' . NTP_SERVER;
+    try {
+        EBox::Sudo::root($cmd);
+    } otherwise {
+        warning(
+            __('Could not automatically update system hour. Some restoration oeprations oculd fail if the date is not correct')
+           );
+    };
+}
+
 sub askUser
 {
     if ($usesX) {
@@ -89,7 +95,6 @@ sub askUser
     } else {
         return terminalPrompt(__("Zentyal Cloud User:") . ' ');
     }
-
 }
 
 sub askPassword
@@ -136,7 +141,6 @@ sub askEncryption
         $keyPassphrase = _askKeyPassphrase($encryptionKey);
     }
 
-
     return  [$symmetricPassword, $encryptionKey, $keyPassphrase];
 }
 
@@ -149,7 +153,6 @@ sub _askEncryptionMode
                   'What encryption mode was used for the backups of {cn}?',
                   cn => $serverCN
                  );
-
 
     my %printableByOption = (
                               none => __('No encryption'),
@@ -237,7 +240,6 @@ sub _askKeyPassphrase
         $passphrase = terminalPrompt($msg);
     }
 
-
     return $passphrase;
 }
 
@@ -248,9 +250,7 @@ sub askDomainsToRestore
 
     my %availableDomains = %{ _backupDomainsAvailableByPrintableName($configBackup, $credentials, $date) };
 
-
     my @availablePrintableNames = keys %availableDomains;
-
 
     my @domains;
     if ($usesX) {
@@ -274,23 +274,16 @@ sub askDomainsToRestore
         }
     }
 
+    # get domain name form printable name
+    @domains = map {
+        exists $availableDomains{$_} ? $availableDomains{$_} : ()
+    } @domains;
+
     if (not @domains) {
         fatal(__('No backup domain selected to restore. Doing nothing'));
     }
 
-    # get domain name form printable name
-    @domains = map {
-        $availableDomains{$_}
-    } @domains;
-
-
-    my %toRestore = map {
-        $_ => 1
-    } @domains;
-
-
-    # use Data::Dumper;
-    # print Dumper(\%toRestore);
+    my %toRestore = map { $_ => 1 } @domains;
 
     return \%toRestore;
 }
@@ -298,7 +291,6 @@ sub askDomainsToRestore
 sub serverList
 {
     my ($remoteServices, $user, $password)  = @_;
-
 
     my $msg = __('Retrieving registered servers list');
     my $pulsatePid = _showUnanticipatedProgress($msg);
@@ -402,6 +394,7 @@ sub backupCredentials
 sub addEncryptionToCredentials
 {
     my ($credentials, %params) = @_;
+
     if ($credentials->{type} ne 'subscribed') {
         return $credentials;
     }
@@ -446,6 +439,7 @@ sub showServerList
 sub doRestore
 {
     my %params = @_;
+
     my $configBackup = $params{configBackup};
     my $credentials = $params{credentials};
     my $date        = $params{date};
@@ -461,7 +455,6 @@ sub doRestore
                                                   # granted by remoteservices
         }
     }
-
 
     if ($credentials->{type} eq 'basic') {
         # basic subscriptions backups only store the configuration, so we have
@@ -488,7 +481,6 @@ sub _restoreBackupDomainsFiles
     my $tmpDir = filesTmpDir();
     my $msg = __('Restoring files');
     my $pulsatePid = _showUnanticipatedProgress($msg);
-
 
     try {
         # restore backup domains
@@ -527,7 +519,6 @@ sub _restoreBackupDomainsFiles
     } finally {
         _finishUnanticipatedProgress($pulsatePid);
     };
-
 }
 
 sub _restoreLogs
@@ -539,7 +530,6 @@ sub _restoreLogs
         warning(__('Backup log data not found, log database will not be restored'));
         return;
     }
-
 
     my $msg = __('Restoring log database');
     my $pulsatePid = _showUnanticipatedProgress($msg);
@@ -571,8 +561,6 @@ sub restoreConfig
         return;
     }
 
-
-#    EBox::Backup->restoreBackup($configBackup);
     postRestoreConfigMangling();
 }
 
@@ -1064,7 +1052,6 @@ sub _downloadBackupData
     my $dstDir = filesTmpDir();
     my $msg = __('Downloading the backup data and configuration');
 
-
     my $pulsatePid = _showUnanticipatedProgress($msg);
     try {
         my $ebackup = EBox::Global->modInstance('ebackup');
@@ -1082,7 +1069,6 @@ sub _fileFromBackup
 {
     my ($file) = @_;
     return filesTmpDir() . '/' . $file;
-
 }
 
 
@@ -1239,7 +1225,6 @@ sub _backupDateInput
 }
 
 
-
 sub _downloadBasicConfigurationBackup
 {
     my ($credentials, $date, $dstFile) = @_;
@@ -1261,7 +1246,7 @@ sub _downloadBasicConfigurationBackup
 
 #     use Data::Dumper;
 #     print "ALL BASIC conf backups " . Dumper($allBackups);
-#     print "Available BASIC copnf backups " . Dumper($backups);
+#     print "Available BASIC conf backups " . Dumper($backups);
 
     my $chosen;
     while (my ($name, $attrs) = each %{ $backups }) {
@@ -1444,15 +1429,15 @@ sub terminalQuestion
     $msg .= '(y/n):';
     my $answer;
     while (not $answer) {
-    $answer = terminalPrompt($msg);
-    if (($answer eq 'yes') or ($answer eq 'y')) {
-        return 1;
-    } elsif (($answer eq 'no') or $answer eq 'n') {
-        return 0;
-    } else {
-        print __('Please answer yes or no') , "\n";
-        $answer = undef;
-    }
+        $answer = terminalPrompt($msg);
+        if (($answer eq 'yes') or ($answer eq 'y')) {
+            return 1;
+        } elsif (($answer eq 'no') or $answer eq 'n') {
+            return 0;
+        } else {
+            print __('Please answer yes or no') , "\n";
+            $answer = undef;
+        }
     }
 }
 
@@ -1523,7 +1508,7 @@ sub _zenityQuote
     $text =shell_quote($text);
 
     if ($text =~ m/a href/) {
-        # GTK need this changes in URLs
+        # GTK needs these changes in URLs
         # escape ampersand
         $text =~ s/&/&amp;/g;
         # remove target attr
@@ -1742,7 +1727,6 @@ sub _zenityAnswerFromOutput
 }
 
 
-
 sub _zenityProgressBarCmd
 {
     my ($text) = @_;
@@ -1942,14 +1926,6 @@ sub _xauthEBox
     }
 }
 
-
-# This sub is intended to set the VM overcommit as tailoring the
-# process from redis server
-# sub _setVMOvercommit
-# {
-#     EBox::Sudo::silentRoot('sysctl -q -w vm.overcommit_memory=1');
-# }
-
 sub warning
 {
     my ($msg) = @_;
@@ -2103,7 +2079,6 @@ sub getCredentials
                                         username       => $user,
                                         password       => $password,
                                         serverCN       => $serverCN,
-
                                        );
 
     if ($credentials->{type} eq 'basic') {
@@ -2129,7 +2104,8 @@ sub getCredentials
 sub getBackupDomainsToRestore
 {
     my ($credentials, $configBackup,  $date, $domainsCli) = @_;
-    my @domainsCli = @{  $domainsCli };
+
+    my @domainsCli = @{ $domainsCli };
     my $domains;
 
     if ($credentials->{type} eq 'subscribed') {
@@ -2138,10 +2114,10 @@ sub getBackupDomainsToRestore
             $domains = askDomainsToRestore($configBackup, $credentials, $date);
         } else {
             $domains = {
-                          map {
-                              $_ => 1
-                          } @domainsCli
-                         };
+                map {
+                    $_ => 1
+                } @domainsCli
+            };
         }
 
         _checkToRestore($configBackup, $credentials, $date, $domains);
@@ -2154,7 +2130,7 @@ sub getBackupDomainsToRestore
                       )
                   );
         }
-        $domains = { configuration => 1};
+        $domains = { configuration => 1 };
     }
 
     return $domains;
@@ -2251,6 +2227,7 @@ if ($usesX) {
 try {
     clearTmpDir();
     modPreConditions();
+    setSystemDate();
 
     my $basicInfo   = getUserAndPasswordAndServers($user, $password);
     my $credentials;
@@ -2291,7 +2268,6 @@ try {
      my $configBackup = _getConfigBackup($credentials, $date);
     # install missing modules to get a correct list of availabe domains to restore
     _installMissingModules($configBackup);
-
 
     my $toRestore = getBackupDomainsToRestore($credentials, $configBackup,
                                               $date,
