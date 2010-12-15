@@ -1129,6 +1129,7 @@ sub askBackupDate
 
     my @dates;
     my $lastDate;
+    my $fail = 0;
     try {
         my $urlParams = _remoteUrlParamsFromCredentials($credentials);
         if ($restoreLast) {
@@ -1139,24 +1140,30 @@ sub askBackupDate
                 $_->{date};
             } @{ $status };
         }
+    } otherwise {
+        my $ex = shift;
+        warning($ex);
+        $fail = 1;
     } finally {
         _finishUnanticipatedProgress($pulsatePid);
     };
 
+    if ($fail) {
+        return undef;
+    }
+
     if ($lastDate) {
-        print __x('Last backup date was: {date}',
-                      date => $lastDate);
-        print "\n";
+        print __x('Last backup date was: {date}', date => $lastDate) . "\n";
         return $lastDate;
     }
 
     if (not @dates) {
-        fatal(__x(
-                  'No backups found for server {server}',
-                  server => $credentials->{commonName}
-                 )
-
-             );
+        # fatal(__x(
+        #           'No backups found for server {server}',
+        #           server => $credentials->{commonName}
+        #          )
+        #      );
+        return undef;
     }
 
     return _backupDateInput($commonName, \@dates);
@@ -1184,11 +1191,9 @@ sub _basicBackupDate
         return _lastBasicBackupDate($backups);
     }
 
-
     my @dates = map {
         $_->{Date}
     } values %{ $backups };
-
 
     return _backupDateInput($commonName, \@dates);
 }
@@ -1204,20 +1209,14 @@ sub _lastBasicBackupDate
         my ($dateStr) = split '\+', $attrs->{Date};
         my $date = Time::Piece->strptime($dateStr,
                                          '%a, %d %b %Y %T ');
-        if (
-            (not defined $lastDate) or
-            ($date > $lastDate)
-           ) {
 
+        if ((not defined $lastDate) or ($date > $lastDate)) {
             $lastDate = $date;
             $lastDateStr = $attrs->{Date};
         }
-
     }
 
-    print __x('Last backup date was: {date}',
-              date => $lastDateStr);
-    print "\n";
+    print __x('Last backup date was: {date}', date => $lastDateStr) . "\n";
     return $lastDateStr;
 }
 
@@ -1438,6 +1437,24 @@ sub terminalPrompt
     return $input;
 }
 
+
+sub terminalQuestion
+{
+    my ($msg) = @_;
+    $msg .= '(y/n):';
+    my $answer;
+    while (not $answer) {
+    $answer = terminalPrompt($msg);
+    if (($answer eq 'yes') or ($answer eq 'y')) {
+        return 1;
+    } elsif (($answer eq 'no') or $answer eq 'n') {
+        return 0;
+    } else {
+        print __('Please answer yes or no') , "\n";
+        $answer = undef;
+    }
+    }
+}
 
 sub _terminalProgressIndicator
 {
@@ -1920,11 +1937,9 @@ sub _xauthEBox
     EBox::Sudo::root("touch $xauthFile");
     EBox::Sudo::root("chown ebox.ebox $xauthFile");
 
-
     foreach my $cookie (@{ $cookieList }) {
-        EBox::Sudo::command("xauth -f $xauthFile  add $cookie");
+        EBox::Sudo::command("xauth -f $xauthFile add $cookie");
     }
-
 }
 
 
@@ -2029,13 +2044,9 @@ sub usage
 }
 
 
-sub getCredentials
+sub getUserAndPasswordAndServers
 {
-    my ($user, $password, $serverCN, %params) = @_;
-    my $noEncryption      = $params{noEncryption};
-    my $symmetricPassword = $params{symmetricPassword};
-    my $encryptionKey     = $params{encryptionKey};
-    my $keyPassphrase     = $params{keyPassphrase};
+    my ($user, $password) = @_;
 
     my $remoteServices = EBox::Global->modInstance('remoteservices');
     my $servers;
@@ -2054,14 +2065,31 @@ sub getCredentials
             my $ex = shift;
             showException($ex);
             $user = $password = '';
-        }
+        };
     }
 
-    if (not @{ $servers} ) {
+    if ((not defined $servers) or (not @{$servers})) {
         fatal(__x("The account {user} do not have any registered Zentyal servers",
                   user => $user)
              );
     }
+
+    return {
+        user => $user,
+        password => $password,
+        servers => $servers,
+    };
+}
+
+
+
+sub getCredentials
+{
+    my ($user, $password, $servers, $serverCN, %params) = @_;
+    my $noEncryption      = $params{noEncryption};
+    my $symmetricPassword = $params{symmetricPassword};
+    my $encryptionKey     = $params{encryptionKey};
+    my $keyPassphrase     = $params{keyPassphrase};
 
     if (not $serverCN) {
         $serverCN = askServerCN($servers);
@@ -2069,6 +2097,7 @@ sub getCredentials
         _checkServerCN($serverCN, $servers);
     }
 
+    my $remoteServices = EBox::Global->modInstance('remoteservices');
     my $credentials = backupCredentials(
                                         remoteServices => $remoteServices,
                                         username       => $user,
@@ -2080,7 +2109,7 @@ sub getCredentials
     if ($credentials->{type} eq 'basic') {
         _commercialMessage();
     } else {
-        if ((not$noEncryption) and
+        if ((not $noEncryption) and
             (not defined $symmetricPassword) and
             (not defined $encryptionKey) )  {
             ($symmetricPassword, $encryptionKey, $keyPassphrase) = @{ askEncryption($serverCN) };
@@ -2223,22 +2252,36 @@ try {
     clearTmpDir();
     modPreConditions();
 
-    my $credentials = getCredentials($user, $password, $serverCN,
-                                     symmetricPassword => $symmetricPassword,
-                                     encryptionKey     => $encryptKey,
-                                     keyPassphrase     => $keyPassphrase,
-                                     noEncryption      => $noEncryption,
-                                    );
+    my $basicInfo   = getUserAndPasswordAndServers($user, $password);
+    my $credentials;
+    my $date;
 
-    # use Data::Dumper; # DDD
-    # print      "CRECENTIALs\n " . Dumper($credentials); # DDD
+    while (not $date) {
+        $credentials = getCredentials($basicInfo->{user},
+                                      $basicInfo->{password},
+                                      $basicInfo->{servers},
+                                      $serverCN,
+                                      symmetricPassword => $symmetricPassword,
+                                      encryptionKey     => $encryptKey,
+                                      keyPassphrase     => $keyPassphrase,
+                                      noEncryption      => $noEncryption,
+                                     );
 
-    _setupPasswords($credentials);
+        _setupPasswords($credentials);
 
-    # Restore last backup for basic users always
-    $restoreLast = ($restoreLast or ($credentials->{type} eq 'basic'));
+        # Restore last backup for basic users always
+        $restoreLast = ($restoreLast or ($credentials->{type} eq 'basic'));
 
-    my $date     = askBackupDate($credentials, $restoreLast);
+        $date = askBackupDate($credentials, $restoreLast);
+
+        if (not $date) {
+            my $msg = __('No backups found in this server with this encryption mode. Want to retry with a different server or encryption mode?');
+            my $retry = $usesX ? _zenityQuestion($msg) : terminalQuestion($msg);
+            if (not $retry) {
+                exit 0;
+            }
+        }
+    }
 
     # Stop any interrupting process
     _stopInterruptingProcesses();
@@ -2252,7 +2295,7 @@ try {
 
     my $toRestore = getBackupDomainsToRestore($credentials, $configBackup,
                                               $date,
-                                               \@toRestoreCli);
+                                              \@toRestoreCli);
 
     # print Dumper($credentials); # DDD
     # print "TORESTORE\n"; # DDD
