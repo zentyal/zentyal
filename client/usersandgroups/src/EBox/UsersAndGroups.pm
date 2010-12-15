@@ -734,13 +734,15 @@ sub initUser
     my $perms = sprintf("%#o", 00777 &~ $dir_umask);
 
     unless (-e $home) {
-      my @cmds;
-      my $quser = shell_quote($user);
-      my $qhome = shell_quote($home);
-      push(@cmds, "cp -dR --preserve=mode /etc/skel $qhome");
-      push(@cmds, "chown -R $quser:" .DEFAULTGROUP. " $qhome");
-      push(@cmds, "chmod $perms $qhome");
-      EBox::Sudo::root(@cmds);
+        my @cmds;
+        my $quser = shell_quote($user);
+        my $qhome = shell_quote($home);
+        my $group = DEFAULTGROUP;
+        push(@cmds, "mkdir -p `dirname $qhome`");
+        push(@cmds, "cp -dR --preserve=mode /etc/skel $qhome");
+        push(@cmds, "chown -R $quser:$group $qhome");
+        push(@cmds, "chmod $perms $qhome");
+        EBox::Sudo::root(@cmds);
     }
 
     # Tell modules depending on users and groups

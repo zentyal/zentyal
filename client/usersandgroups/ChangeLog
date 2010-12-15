@@ -1,4 +1,5 @@
 HEAD
+	+ Make sure to create the base directory for user homes before create them
 	+ Reconnect to LDAP on backup restore
 	+ Save configuration files during restore
 	+ Catch possible SIGPIPE on LDAP reconnect
