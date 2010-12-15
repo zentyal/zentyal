@@ -71,6 +71,7 @@ ddclient    ddclient/server string  members.dyndns.org
 ddclient    ddclient/protocol   select  dyndns2
 ddclient    ddclient/run_ipup   boolean true
 ddclient    ddclient/username   string  
+ddclient    ddclient/password   password  
 ddclient    ddclient/daemon_interval    string  300
 ddclient    ddclient/service    select  www.dyndns.com
 
