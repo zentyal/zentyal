@@ -107,6 +107,11 @@ sub enableService
     $samba->setPrinterService($status);
 }
 
+sub restoreDependencies
+{
+    return [ 'network' ];
+}
+
 # Method: modelClasses
 #
 # Overrides:
