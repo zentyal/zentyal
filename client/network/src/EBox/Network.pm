@@ -3772,12 +3772,12 @@ sub regenGateways
     # Special rule for PPPoE interfaces to avoid problems with large packets
     foreach my $if (@{$self->pppIfaces()}) {
         $if = $self->realIface($if);
-        my $cmd = '/sbin/iptables -t mangle ';
-        my $params = " POSTROUTING -o $if -p tcp " .
+        my $cmd = '/sbin/iptables -t mangle';
+        my $params = "POSTROUTING -o $if -p tcp " .
             "-m tcp --tcp-flags SYN,RST SYN -j TCPMSS --clamp-mss-to-pmtu";
 
-        EBox::Sudo::silentRoot($cmd . '-D' . $params);
-        push(@commands, $cmd . '-A' . $params);
+        EBox::Sudo::silentRoot("$cmd -D $params");
+        push(@commands, "$cmd -A $params");
     }
 
     try {
