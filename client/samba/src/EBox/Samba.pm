@@ -1375,8 +1375,15 @@ sub restoreConfig
 
 sub restoreDependencies
 {
-    my ($self) = @_;
-    return ['users'];
+    my @depends = ();
+
+    push(@depends, 'users');
+
+    if ( EBox::Global->modExists('printers') )  {
+        push(@depends, 'printers');
+    }
+
+    return \@depends;
 }
 
 

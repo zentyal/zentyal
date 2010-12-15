@@ -1,5 +1,6 @@
 HEAD
 	+ Added backup domain
+	+ Added printers as restore dependency
 2.0.6
 	+ Check for incompatibility between PDC and PAM on slaves
 	+ Improved performance by adding samba LDAP indexes
