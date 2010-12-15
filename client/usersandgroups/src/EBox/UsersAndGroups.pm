@@ -351,7 +351,7 @@ sub _enforceServiceState
 #            use it in the future
 #            my ($ldap, $dn) = $self->_connRemoteLDAP();
 #            $self->_getCertificates($ldap, $dn);
-        }
+#        }
     }
 }
 
