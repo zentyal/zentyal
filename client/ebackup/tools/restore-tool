@@ -1927,31 +1927,6 @@ sub _xauthEBox
 
 }
 
-sub _xhostAllowLocal
-{
-    system 'which xhost > /dev/null';
-    if ($? != 0) {
-        # no xhost program present
-        return;
-    }
-
-    my $cmd ='xhost +local: > /dev/null';
-    system $cmd;
-}
-
-
-sub _xhostUnallowLocal
-{
-    system 'which xhost > /dev/null';
-    if ($? != 0) {
-        # no xhost program present
-        return;
-    }
-
-    my $cmd ='xhost -local: > /dev/null';
-    system $cmd;
-    $usesX = 0;
-}
 
 # This sub is intended to set the VM overcommit as tailoring the
 # process from redis server
@@ -2004,10 +1979,6 @@ sub fatal
         my $msg = showException($input);
         $_fatalShow = 1;
         die $msg;
-    }
-
-    if ($usesX) {
-        _xhostUnallowLocal();
     }
 
     die __('Restore process aborted');
@@ -2229,7 +2200,6 @@ if ($noEncryption) {
 }
 
 if ($usesX) {
-    _xhostAllowLocal();
     $xauthCookie = _xauthCookie();
 }
 
@@ -2302,9 +2272,6 @@ try {
     my $ex = shift @_;
     fatal($ex);
 } finally {
-    if ($usesX) {
-        _xhostUnallowLocal();
-    }
     if (-f FIRST_RUN_FILE ) {
         unlink FIRST_RUN_FILE;
     }
