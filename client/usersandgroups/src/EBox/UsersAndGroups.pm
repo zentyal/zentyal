@@ -346,9 +346,11 @@ sub _enforceServiceState
     } else {
         $self->SUPER::_enforceServiceState();
 
-        if ($mode eq 'slave') {
-            my ($ldap, $dn) = $self->_connRemoteLDAP();
-            $self->_getCertificates($ldap, $dn);
+#        if ($mode eq 'slave') {
+#            Do not download certificates because we are not using it,
+#            use it in the future
+#            my ($ldap, $dn) = $self->_connRemoteLDAP();
+#            $self->_getCertificates($ldap, $dn);
         }
     }
 }

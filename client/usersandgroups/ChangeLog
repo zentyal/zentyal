@@ -1,6 +1,8 @@
 HEAD
 	+ Make sure to create the base directory for user homes before create them
 	+ Reconnect to LDAP on backup restore
+	+ Better log messages
+	+ Fixed restore on slave when master is down
 	+ Save configuration files during restore
 	+ Catch possible SIGPIPE on LDAP reconnect
 2.0.8

@@ -1083,7 +1083,7 @@ sub safeConnect
 
     unless ($ldap) {
         throw EBox::Exceptions::Internal(
-            "FATAL: Couldn't connect to LDAP server");
+            "FATAL: Couldn't connect to LDAP server: $ldapurl");
     }
 
     if ($retries < 3) {
