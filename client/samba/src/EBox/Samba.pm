@@ -1482,20 +1482,18 @@ sub _loadSharesTree
         @shares = split '\s+', $contents;
     }
 
-
+    my @commands;
     foreach my $dirInfo (@shares) {
         my ($dir, $uid, $gid, $perm) = split ':', $dirInfo;
-        my @commands;
 
-        unless ( -d $dir) {
-            push(@commands, "/bin/mkdir -p  '$dir'");
+        unless (-d $dir) {
+            push (@commands, "mkdir -p  '$dir'");
         }
 
-        push(@commands, "/bin/chmod $perm '$dir'"); # restore permissions
-        push(@commands, "/bin/chown $uid:$gid '$dir'");
-        EBox::Sudo::root(@commands);
-
+        push (@commands, "chmod $perm '$dir'"); # restore permissions
+        push (@commands, "chown $uid:$gid '$dir'");
     }
+    EBox::Sudo::root(@commands);
 }
 
 sub fixSIDs
