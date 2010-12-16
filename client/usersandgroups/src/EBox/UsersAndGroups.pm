@@ -346,11 +346,9 @@ sub _enforceServiceState
     } else {
         $self->SUPER::_enforceServiceState();
 
-#        if ($mode eq 'slave') {
-#            Do not download certificates because we are not using it,
-#            use it in the future
-#            my ($ldap, $dn) = $self->_connRemoteLDAP();
-#            $self->_getCertificates($ldap, $dn);
+        if ($mode eq 'slave') {
+            my ($ldap, $dn) = $self->_connRemoteLDAP();
+            $self->_getCertificates($ldap, $dn);
 #        }
     }
 }
@@ -2496,7 +2494,13 @@ sub restoreConfig
         $self->ldap->restoreLdapFrontend($dir);
         $self->ldap->clearConn();
         $self->_manageService('start');
-        $self->waitSync();
+        try {
+            $self->waitSync();
+        } otherwise {
+            my $model = EBox::Model::ModelManager->instance()->model('Mode');
+            my $remote = $model->remoteValue();
+            throw EBox::Exceptions::Internal("Cannot restore slave machine when master is down: $remote");
+        };
 
         # Save conf to enable NSS (and/or) PAM
         $self->_setConf();
