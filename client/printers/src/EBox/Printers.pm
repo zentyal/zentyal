@@ -193,6 +193,31 @@ sub menu
 	$root->add($item);
 }
 
+# Method:  dumpConfig
+#
+#   Overrides EBox::Module::Base::dumpConfig
+#
+sub dumpConfig
+{
+    my ($self, $dir, %options) = @_;
+    EBox::Sudo::root("cp -a /etc/cups $dir");
+}
+
+# Method:  restoreConfig
+#
+#   Overrides EBox::Module::Base::dumpConfig
+#
+sub restoreConfig
+{
+    my ($self, $dir) = @_;
+    if (EBox::Sudo::fileTest('-d', "$dir/cups")) {
+        EBox::Sudo::root("cp -af $dir/cups /etc");
+    } else {
+        # This case can happen with old backups
+        EBox::warn('Backup doesn\'t contain CUPS configuration files');
+    }
+}
+
 # Method: networkPrinters
 #
 #   Returns the printers configured as network printer

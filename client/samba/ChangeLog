@@ -1,4 +1,5 @@
 HEAD
+	+ Removed printers are ignored during backup restore
 	+ Added backup domain
 	+ Added printers as restore dependency
 2.0.6

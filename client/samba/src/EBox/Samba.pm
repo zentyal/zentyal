@@ -1041,13 +1041,30 @@ sub printers
     return [sort @printers];
 }
 
+sub ignorePrinterNotFound
+{
+    my ($self) = @_;
+
+    return $self->get_bool('ignorePrinterNotFound');
+}
+
+sub _printerNotFound
+{
+    my ($self, $printer) = @_;
+
+    unless ($self->ignorePrinterNotFound()) {
+        throw EBox::Exceptions::DataNotFound('data' => 'printer',
+                'value' => $printer);
+    }
+}
+
 sub _addUsersToPrinter # (printer, users)
 {
     my ($self, $printer, $users) = @_;
 
     unless ($self->dir_exists("printers/$printer")) {
-        throw EBox::Exceptions::DataNotFound('data' => 'printer',
-                'value' => $printer);
+        $self->_printerNotFound($printer);
+        return;
     }
 
     for my $username (@{$users}) {
@@ -1062,8 +1079,8 @@ sub _addGroupsToPrinter # (printer, groups)
     my ($self, $printer, $groups) = @_;
 
     unless ($self->dir_exists("printers/$printer")) {
-        throw EBox::Exceptions::DataNotFound('data' => 'printer',
-                'value' => $printer);
+        $self->_printerNotFound($printer);
+        return;
     }
 
     my $groupmod = EBox::Global->modInstance('users');
@@ -1081,8 +1098,8 @@ sub _printerUsers # (printer)
     my ($self, $printer) = @_;
 
     unless ($self->dir_exists("printers/$printer")) {
-        throw EBox::Exceptions::DataNotFound('data' => 'printer',
-                'value' => $printer);
+        $self->_printerNotFound($printer);
+        return [];
     }
 
     return $self->get_list("printers/$printer/users");
@@ -1093,8 +1110,8 @@ sub _printerGroups # (group)
     my ($self, $printer) = @_;
 
     unless ($self->dir_exists("printers/$printer")) {
-        throw EBox::Exceptions::DataNotFound('data' => 'printer',
-                'value' => $printer);
+        $self->_printerNotFound($printer);
+        return [];
     }
 
     return $self->get_list("printers/$printer/groups");
@@ -1209,7 +1226,6 @@ sub setPrintersForGroup # (user, printers)
         $self->_addGroupsToPrinter($name, \@groups) if ($new);
     }
 }
-
 
 sub delPrinter # (resource)
 {
@@ -1366,11 +1382,17 @@ sub restoreConfig
 {
     my ($self, $dir) = @_;
 
-    $self->_loadSharesTree($dir);
-    $self->fixSIDs();
+    $self->set_bool('ignorePrinterNotFound', 1);
 
-    my $sambaLdapUser = new EBox::SambaLdapUser;
-    $sambaLdapUser->migrateUsers();
+    try {
+        $self->_loadSharesTree($dir);
+        $self->fixSIDs();
+
+        my $sambaLdapUser = new EBox::SambaLdapUser;
+        $sambaLdapUser->migrateUsers();
+    } finally {
+        $self->set_bool('ignorePrinterNotFound', 0);
+    }
 }
 
 sub restoreDependencies
@@ -1463,13 +1485,15 @@ sub _loadSharesTree
 
     foreach my $dirInfo (@shares) {
         my ($dir, $uid, $gid, $perm) = split ':', $dirInfo;
+        my @commands;
 
         unless ( -d $dir) {
-            EBox::Sudo::root("/bin/mkdir -p  '$dir'");
+            push(@commands, "/bin/mkdir -p  '$dir'");
         }
 
-        EBox::Sudo::root("/bin/chmod $perm '$dir'"); # restore permissions
-        EBox::Sudo::root("/bin/chown $uid.$gid '$dir'");
+        push(@commands, "/bin/chmod $perm '$dir'"); # restore permissions
+        push(@commands, "/bin/chown $uid:$gid '$dir'");
+        EBox::Sudo::root(@commands);
 
     }
 }
