@@ -349,7 +349,7 @@ sub _enforceServiceState
         if ($mode eq 'slave') {
             my ($ldap, $dn) = $self->_connRemoteLDAP();
             $self->_getCertificates($ldap, $dn);
-#        }
+        }
     }
 }
 
