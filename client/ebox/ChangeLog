@@ -1,4 +1,5 @@
 HEAD
+	+ Now redis backend returns undef on get for undefined values
 	+ Allow custom mason templates under /etc/ebox/stubs
 	+ Better checks before restoring a configuration backup with
 	  a set of modules different than the installed one

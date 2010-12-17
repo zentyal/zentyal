@@ -74,6 +74,7 @@ sub get_string
 {
     my ($self, $key) = @_;
 
+    return undef unless ($self->exists($key));
     return $self->_redis_call('get', $key);
 }
 
