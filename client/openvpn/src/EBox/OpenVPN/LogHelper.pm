@@ -218,6 +218,12 @@ my %callbackByRe = (
       }x =>\&_connectionResetEvent,
 
     qr{
+        ^(.*?)/(.*?):\d+\s #[client cn]/[ip]:[port]
+        .+[.+]\sreceived,\s # Reason for conection reset
+        client-instance\srestarting.*$
+      }x =>\&_connectionResetEvent,
+
+    qr{
          ^Connection\sreset,\srestarting.*$
      }x =>\&_connectionResetByServerEvent,
 

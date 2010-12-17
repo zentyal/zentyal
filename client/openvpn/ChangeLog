@@ -1,6 +1,6 @@
 HEAD
 	+ Avoid useless log messages on VPN log files recreation
-	+ Bugfix: VPN client connections are logged again
+	+ Bugfix: VPN client connections and disconnections are logged again
 	+ Changed download client bundle text to "Download"
 	+ Set default order for dashboard widgets
 2.0.4
