@@ -1,4 +1,4 @@
-HEAD
+2.0.9
 	+ Make sure to create the base directory for user homes before create them
 	+ Reconnect to LDAP on backup restore
 	+ Better log messages

@@ -1,4 +1,4 @@
-HEAD
+2.0.2
 	+ CUPS configuration is saved when backing up
 	+ Override restoreDepends to remove samba
 	+ Added network as dependency of printers
