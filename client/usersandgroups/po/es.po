@@ -7,8 +7,9 @@ msgstr ""
 "Project-Id-Version: ebox-usersandgroups 0.12\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-12-13 09:37+0100\n"
-"PO-Revision-Date: 2010-08-29 16:51+0200\n"
-"Last-Translator: José Antonio Calvo <jacalvo@zentyal.org>\n"
+"PO-Revision-Date: 2010-12-13 09:27+0100\n"
+"Last-Translator: Enrique José Hernández Blasco <quique@ebox-"
+"technologies.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 0.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -311,6 +312,9 @@ msgid ""
 "PAM can not be enabled on slave servers while acting as PDC. You can disable "
 "the PDC functionality at {ohref}File sharing options{chref}."
 msgstr ""
+"PAM no puede ser habilitado en los servidores esclavo mientras actúa como "
+"PDC. Puedes deshabilitar la funcionalidad de PDC en {ohref}Opciones de "
+"compartición de ficheros{chref}."
 
 #: src/EBox/UsersAndGroups/Model/PAM.pm:125
 msgid "Enable PAM"
@@ -672,7 +676,7 @@ msgstr "puerto de escucha"
 
 #: src/EBox/UserCornerWebServer/Model/Settings.pm:137
 msgid "User Corner is not supported on slave servers."
-msgstr ""
+msgstr "El rincón del usuario no está soportado en servidores esclavos."
 
 #: src/templates/ajax/tableUser.mas:88
 msgid "Add new"

@@ -6,8 +6,9 @@ msgstr ""
 "Project-Id-Version: ebox-ca 0.12\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-12-13 08:38+0100\n"
-"PO-Revision-Date: 2010-08-25 21:21+0200\n"
-"Last-Translator: José Antonio Calvo <jacalvo@ebox-platform.com>\n"
+"PO-Revision-Date: 2010-12-13 10:26+0100\n"
+"Last-Translator: Enrique José Hernández Blasco <quique@ebox-"
+"technologies.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -148,9 +149,8 @@ msgid "Action"
 msgstr "Acción"
 
 #: src/EBox/CGI/ShowForm.pm:85
-#, fuzzy
 msgid "Only revoke, renew and reissue actions are performed"
-msgstr "Sólo se realizan las acciones \"revoke\" y \"renew\""
+msgstr "Sólo se realizan las acciones revocar, renovar y re-emitir"
 
 #: src/EBox/CGI/ShowForm.pm:93 src/EBox/CGI/DownloadFiles.pm:79
 #, perl-brace-format
@@ -520,13 +520,12 @@ msgid "Download Key(s) and Certificate"
 msgstr "Descargar clave(s) y certificado"
 
 #: src/templates/index.mas:199 src/templates/formReissue.mas:26
-#, fuzzy
 msgid "Reissue"
-msgstr "Expedir"
+msgstr "Re-emitir"
 
 #: src/templates/index.mas:216
 msgid "Renew or reissue"
-msgstr ""
+msgstr "Renovar o re-emitir"
 
 #: src/templates/createCA.mas:26
 msgid "Create"
@@ -537,9 +536,8 @@ msgid "Create Certification Authority Certificate"
 msgstr "Crear Certificado de la Autoridad de Certificación"
 
 #: src/templates/formReissue.mas:31
-#, fuzzy
 msgid "Reissue a certificate"
-msgstr "Renovar un certificado"
+msgstr "Re-emitir un certificado"
 
 #: src/templates/forceRevoke.mas:13
 msgid "Revoking CA certificate"

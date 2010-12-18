@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-ca 1.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-12-13 08:38+0100\n"
-"PO-Revision-Date: 2010-08-28 07:57+0200\n"
+"PO-Revision-Date: 2010-12-13 12:06+0100\n"
 "Last-Translator: Nagy Ákos <nagy.akos@akos.ro>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
@@ -150,7 +150,6 @@ msgid "Action"
 msgstr "Művelet"
 
 #: src/EBox/CGI/ShowForm.pm:85
-#, fuzzy
 msgid "Only revoke, renew and reissue actions are performed"
 msgstr "Csak a visszavonás és a megújítás műveletek lesznek végrehajtva"
 
@@ -518,13 +517,12 @@ msgid "Download Key(s) and Certificate"
 msgstr "Kulcsok és tanúsítványok letöltése"
 
 #: src/templates/index.mas:199 src/templates/formReissue.mas:26
-#, fuzzy
 msgid "Reissue"
-msgstr "Kiállítás"
+msgstr "Megújít"
 
 #: src/templates/index.mas:216
 msgid "Renew or reissue"
-msgstr ""
+msgstr "Felújít vagy kibocsájt"
 
 #: src/templates/createCA.mas:26
 msgid "Create"
@@ -535,7 +533,6 @@ msgid "Create Certification Authority Certificate"
 msgstr "Hitelesítésszolgáltató tanúsítványának létrehozása"
 
 #: src/templates/formReissue.mas:31
-#, fuzzy
 msgid "Reissue a certificate"
 msgstr "Tanúsítvány megújítása"
 

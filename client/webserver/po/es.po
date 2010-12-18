@@ -8,8 +8,9 @@ msgstr ""
 "Project-Id-Version: ebox-webserver 0.12\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-12-13 08:43+0100\n"
-"PO-Revision-Date: 2010-08-25 23:52+0200\n"
-"Last-Translator: José Antonio Calvo <jacalvo@ebox-platform.com>\n"
+"PO-Revision-Date: 2010-12-13 09:41+0100\n"
+"Last-Translator: Enrique José Hernández Blasco <quique@ebox-"
+"technologies.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -68,14 +69,12 @@ msgid "The {userDirConfFile} is missing! Please recover it."
 msgstr "No se encuentra el fichero {userDirConfFile}! Por favor, recupéralo."
 
 #: src/EBox/WebServer.pm:730
-#, fuzzy
 msgid "Web server hosted files"
-msgstr "Estado del servicio Web"
+msgstr "Ficheros alojados por el servidor Web"
 
 #: src/EBox/WebServer.pm:731
-#, fuzzy
 msgid "Virtual hosts data"
-msgstr "Hosts virtuales"
+msgstr "Datos de los hosts virtuales"
 
 #: src/EBox/WebServer/Model/GeneralSettings.pm:96
 #: src/EBox/WebServer/Model/GeneralSettings.pm:108

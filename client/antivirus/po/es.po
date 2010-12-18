@@ -8,8 +8,9 @@ msgstr ""
 "Project-Id-Version: ebox-antivirus 0.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-12-13 08:38+0100\n"
-"PO-Revision-Date: 2010-01-23 17:39+0100\n"
-"Last-Translator: Javi Vázquez <javivazquez@ebox-technologies.com>\n"
+"PO-Revision-Date: 2010-12-13 10:28+0100\n"
+"Last-Translator: Enrique José Hernández Blasco <quique@ebox-"
+"technologies.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -39,9 +40,8 @@ msgid "Date"
 msgstr "Fecha"
 
 #: src/EBox/AntiVirus/Model/FreshclamStatus.pm:97
-#, fuzzy
 msgid "Signatures"
-msgstr "Estado"
+msgstr "Firmas"
 
 #: src/EBox/AntiVirus/Model/FreshclamStatus.pm:103
 msgid "Database Update Status"
@@ -69,12 +69,16 @@ msgid ""
 "The antivirus module is not configured. Enable it first in Module Status "
 "section."
 msgstr ""
+"El módulo de antivirus no está configurado. Habilitalo primero en la sección "
+"de Estado de Módulos."
 
 #: src/EBox/AntiVirus/Model/FreshclamStatus.pm:171
 msgid ""
 "The antivirus module is not enabled. Enable it first to know the antivirus "
 "status."
 msgstr ""
+"El módulo de antivirus no está habilitado. Habilitalo primero para saber el "
+"estado del antivirus."
 
 #: src/EBox/AntiVirus/Model/FreshclamStatus.pm:173
 #, perl-brace-format

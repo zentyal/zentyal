@@ -8,8 +8,9 @@ msgstr ""
 "Project-Id-Version: ebox-zarafa 0.12\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-12-13 08:43+0100\n"
-"PO-Revision-Date: 2010-08-29 20:36+0200\n"
-"Last-Translator: José Antonio Calvo <jacalvo@zentyal.org>\n"
+"PO-Revision-Date: 2010-12-13 09:46+0100\n"
+"Last-Translator: Enrique José Hernández Blasco <quique@ebox-"
+"technologies.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -166,13 +167,14 @@ msgid "Groupware Account"
 msgstr "Cuenta de Groupware"
 
 #: src/EBox/Zarafa/Model/ZarafaUser.pm:55
-#, fuzzy
 msgid "Groupware Contact"
-msgstr "Cuenta de Groupware"
+msgstr "Contacto de Groupware"
 
 #: src/EBox/Zarafa/Model/ZarafaUser.pm:56
 msgid "Enable contact in the addressbook even if account is disabled."
 msgstr ""
+"Habilitar el contacto en la lista de contactos aunque la cuenta esté "
+"deshabilitada."
 
 #: src/EBox/Zarafa/Model/ZarafaUser.pm:64
 msgid "Zarafa"
@@ -337,7 +339,6 @@ msgstr ""
 "correo"
 
 #: src/templates/zarafa.mas:53
-#, fuzzy
 msgid "Groupware contact"
 msgstr "Cuenta de Groupware"
 

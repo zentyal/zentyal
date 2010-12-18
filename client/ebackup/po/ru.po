@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: ebox-ebackup 1.3.3\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-12-13 10:31+0100\n"
-"PO-Revision-Date: 2010-09-25 20:06+0200\n"
-"Last-Translator: Alexander V Redyuk <aredyuk@gmail.com>\n"
+"PO-Revision-Date: 2010-12-17 00:23+0100\n"
+"Last-Translator: Val Budkin <valentin@ktc-ua.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
-"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/EBackup.pm:71 src/EBox/Event/Watcher/EBackup.pm:123
@@ -33,24 +33,29 @@ msgid ""
 "No backup archives found. Maybe they were deleted?. Run '/etc/init.d/ebox "
 "ebackup restart' to refresh backup's information."
 msgstr ""
-"Не найдено архивов с бэкапом. Возможно они были удалены?. Запустите '/etc/"
-"init.d/ebox ebackup restart' для обновления для обновления информации о "
-"бэкапах."
+"Не найдены архивы с бэкапом. Возможно они были удалены?. Запустите "
+"'/etc/init.d/ebox ebackup restart' для обновления информации о бэкапах."
 
 #: src/EBox/EBackup.pm:687
 msgid ""
 "Could not get backup collection status, check whether the parameters and "
 "passwords are correct"
 msgstr ""
+"Невозможно получить статус коллекции бэкапов, проверьте правильность паролей "
+"и параметров."
 
 #: src/EBox/EBackup.pm:1051
 msgid "You need to have the disaster recovery add-on to use this backup method"
 msgstr ""
+"Для использования этого метода бэкапа, необходимо использовать дополнение "
+"восстановления после сбоев"
 
 #: src/EBox/EBackup.pm:1058
 msgid ""
 "Could not retrieve backup credentials, check your conexion to Zentyal Cloud"
 msgstr ""
+"Не могу получить учётную запись для бэкапа, проверьте соединения с Zentyal "
+"Cloud"
 
 #: src/EBox/EBackup.pm:1149
 #, perl-brace-format
@@ -59,10 +64,13 @@ msgid ""
 "Zentyal Cloud. If you want to unsubscribe, you must change this {ohref}"
 "setting{chref}."
 msgstr ""
+"Не могу отписаться потому что модуль бэкапа настроен для использования "
+"Zentyal Cloud. Если вы хотите отписаться, необходимо изменить эту "
+"{ohref}настройку{chref}."
 
 #: src/EBox/Event/Watcher/EBackup.pm:141
 msgid "Check if Zentyal backup was not successful."
-msgstr "Проверить, удалось ли Zentyal выполнить бэкап "
+msgstr "Проверить, удалось ли Zentyal выполнить бэкап."
 
 #: src/EBox/EBackup/DBRestore.pm:46
 #, perl-brace-format
@@ -90,16 +98,15 @@ msgstr "Дата бэкапа"
 
 #: src/EBox/Model/RemoteFileList.pm:177
 msgid "Restore Files"
-msgstr "Восстановление файлов"
+msgstr "Восстановить файлы"
 
 #: src/EBox/Model/RemoteFileList.pm:178
 msgid "file restore operation"
 msgstr "операция востановления файлов"
 
 #: src/EBox/Model/RemoteFileList.pm:179
-#, fuzzy
 msgid "Restore"
-msgstr "Восстановление файлов"
+msgstr "Восстановить"
 
 #: src/EBox/Model/RemoteFileList.pm:205
 msgid "File already exists if you continue the current will be deleted"
@@ -116,51 +123,48 @@ msgstr "Удаленный URL используемый для ручного в
 
 #: src/EBox/Model/BackupDomains.pm:156
 msgid "Name"
-msgstr ""
+msgstr "Имя"
 
 #: src/EBox/Model/BackupDomains.pm:162
-#, fuzzy
 msgid "Description"
-msgstr "Шифрование"
+msgstr "Описание"
 
 #: src/EBox/Model/BackupDomains.pm:168
-#, fuzzy
 msgid "Enabled"
-msgstr "Отключенный"
+msgstr "Включено"
 
 #: src/EBox/Model/BackupDomains.pm:177
 msgid "Domains to back up"
-msgstr ""
+msgstr "Домены, которые необходимо зарезервировать"
 
 #: src/EBox/Model/BackupDomains.pm:182 tools/restore-tool:255
-#, fuzzy
 msgid "Backup domain"
-msgstr "Дата бэкапа"
+msgstr "Домен бэкапа"
 
 #: src/EBox/Model/BackupDomains.pm:183
 msgid "Select the domains you want to back up."
-msgstr ""
+msgstr "Выберите домены, которые вы хотите зарезервировать."
 
 #: src/EBox/Model/RemoteStorage.pm:68 src/EBox/Model/RemoteStorage.pm:69
 #: src/EBox/Model/RemoteStorage.pm:70
 msgid "Unknown"
-msgstr ""
+msgstr "Неизвестно"
 
 #: src/EBox/Model/RemoteStorage.pm:128
 msgid "Used storage"
-msgstr ""
+msgstr "Используемое место"
 
 #: src/EBox/Model/RemoteStorage.pm:132
 msgid "Available storage"
-msgstr ""
+msgstr "Доступное место"
 
 #: src/EBox/Model/RemoteStorage.pm:136
 msgid "Total storage"
-msgstr ""
+msgstr "Всего доступно"
 
 #: src/EBox/Model/RemoteStorage.pm:143
 msgid "Remote Storage Usage"
-msgstr ""
+msgstr "Использование удалённого хранилища"
 
 #: src/EBox/Model/RemoteStorage.pm:144 src/EBox/Model/RemoteStatus.pm:152
 msgid "backup"
@@ -218,24 +222,23 @@ msgstr "Переодичность полного бэкапа"
 
 #: src/EBox/Model/RemoteSettings.pm:227
 msgid "Only the first time"
-msgstr ""
+msgstr "Только в первый раз"
 
 #: src/EBox/Model/RemoteSettings.pm:232 src/EBox/Model/RemoteSettings.pm:264
 msgid "Daily"
-msgstr "Ежедневный"
+msgstr "Ежедневно"
 
 #: src/EBox/Model/RemoteSettings.pm:237 src/EBox/Model/RemoteSettings.pm:269
 msgid "Weekly"
-msgstr "Еженедельный"
+msgstr "Еженедельно"
 
 #: src/EBox/Model/RemoteSettings.pm:243
-#, fuzzy
 msgid "Twice a month"
-msgstr "1 месяц"
+msgstr "Дважды в месяц"
 
 #: src/EBox/Model/RemoteSettings.pm:249
 msgid "Monthly"
-msgstr "Ежемесячный"
+msgstr "Ежемесячно"
 
 #: src/EBox/Model/RemoteSettings.pm:259
 msgid "Incremental Backup Frequency"
@@ -304,7 +307,7 @@ msgstr "на предыдущий день"
 
 #: src/EBox/Model/RemoteSettings.pm:512
 msgid "File System"
-msgstr ""
+msgstr "Файловая система"
 
 #: src/EBox/Model/RemoteSettings.pm:581
 msgid "1 week"
@@ -364,6 +367,9 @@ msgid ""
 "the original encryption options. You must remove previous backup to change "
 "the encryption options"
 msgstr ""
+"Нельзя переключить настройки шифрования, когда есть в наличии бэкапы с "
+"текущими настройками шифрования. Для смены настроек шифрования необходимо "
+"удалить предыдущие бэкапы."
 
 #: src/EBox/Model/RemoteSettings.pm:720
 msgid "The target parameter that must be like 'other.host[:port]/some_dir"
@@ -433,36 +439,37 @@ msgid ""
 "You must enable incremental backups when you enable 'Only the first time' "
 "full backup frequency"
 msgstr ""
+"При включении \"Только один раз\" необходимо включить инкрементальные бэкапы"
 
 #: src/EBox/Model/RemoteSettings.pm:837
 msgid "Incremental backup must be more frequent than full backup"
 msgstr "Инкрементальный бэкап должен производится чаще, чем полный"
 
 #: src/EBox/Model/RemoteSettings.pm:850 src/EBox/Model/RemoteSettings.pm:859
-#, fuzzy
 msgid "General backup configuration updated."
-msgstr "Общие настройки сервера бэкапа обновлены"
+msgstr "Общие настройки бэкапа обновлены."
 
 #: src/EBox/Model/RemoteSettings.pm:851
 msgid ""
 "Backup method or target changed; you must save changes to refresh the "
 "backups list"
 msgstr ""
+"Метод или цели бэкапа изменены; необходимо сохранить изменения для "
+"обновления списка бэкапов"
 
 # аффтар АХТУНГА жжот :)
 #: src/EBox/Model/RemoteSettings.pm:861
-#, fuzzy
 msgid ""
 "SCP method selected. Remember to add your target host to the list of known "
 "hosts by SSH"
 msgstr ""
-"Конфигурация главного сервера бэкапа обновлена. Выбран метод SCP; "
-"<em>АХТУНГ</em> не забудьте добавить целевой хост в список извесных SSH "
-"серверов"
+"Выбран метод SCP . Не забудьте добавить  целевой хост к списку известных SSH "
+"хостов"
 
 #: src/EBox/Model/RemoteSettings.pm:977
+#, fuzzy
 msgid "Retention policy type"
-msgstr ""
+msgstr "Правила продолжительного хранения"
 
 #: src/EBox/Model/RemoteExcludes.pm:82
 msgid "Exclude or Include"
@@ -542,105 +549,100 @@ msgid "Restores the Zentyal logs found in the selected backup"
 msgstr "Восстанавливает журналы Zentyal найденые в выбраном бэкапе"
 
 #: src/EBox/Composite/ServicesRestore.pm:64
-#, fuzzy
 msgid "Services Restore"
 msgstr "Восстановление служб"
 
 #: src/EBox/Composite/RemoteGeneral.pm:66
 msgid "Configuration and Status"
-msgstr "Конфигурация и состояние"
+msgstr "Конфигурация и статус"
 
 #: tools/restore-tool:66
 #, perl-brace-format
 msgid "Module {mod} should be installed"
-msgstr ""
+msgstr "Необходимо установить модуль {mod}"
 
 #: tools/restore-tool:74
 #, perl-brace-format
 msgid "Module {mod} should be configured"
-msgstr ""
+msgstr "Необходимо настроить модуль {mod}"
 
 #: tools/restore-tool:85
 msgid "Zentyal Cloud User"
-msgstr ""
+msgstr "Пользователь Zentyal Cloud"
 
 #: tools/restore-tool:87
 msgid "Zentyal Cloud User:"
-msgstr ""
+msgstr "Пользователь Zentyal Cloud:"
 
 #: tools/restore-tool:95
 msgid "Zentyal Cloud Password"
-msgstr ""
+msgstr "Пароль Zentyal Cloud"
 
 #: tools/restore-tool:97
 msgid "Zentyal Cloud Password:"
-msgstr ""
+msgstr "Пароль Zentyal Cloud:"
 
 #: tools/restore-tool:108
 msgid "Choose the server to restore"
-msgstr ""
+msgstr "Выберите сервер для восстановления"
 
 #: tools/restore-tool:109
 msgid "Server"
-msgstr ""
+msgstr "Сервер"
 
 #: tools/restore-tool:113
-#, fuzzy
 msgid "Server to restore: "
-msgstr "Восстановление служб"
+msgstr "Сервер для восстановления: "
 
 #: tools/restore-tool:146
 #, perl-brace-format
 msgid "What encryption mode was used for the backups of {cn}?"
-msgstr ""
+msgstr "Какой режим шифрования был использован для бэкапов {cn}?"
 
 #: tools/restore-tool:152
-#, fuzzy
 msgid "No encryption"
-msgstr "Шифрование"
+msgstr "Без шифрования"
 
 #: tools/restore-tool:153
-#, fuzzy
 msgid "Symmetric password"
-msgstr "Симметричный ключ"
+msgstr "Симметричный пароль"
 
 #: tools/restore-tool:166
-#, fuzzy
 msgid "Mode"
-msgstr "Метод"
+msgstr "Режим"
 
 #: tools/restore-tool:173
 #, perl-brace-format
 msgid "Available options: {ops}"
-msgstr ""
+msgstr "Доступные опции: {ops}"
 
 #: tools/restore-tool:177
 msgid "Enter selected option: "
-msgstr ""
+msgstr "Введите выбраную опцию: "
 
 #: tools/restore-tool:194
 #, perl-brace-format
 msgid "Enter symmetric password used to back up {ser}: "
-msgstr ""
+msgstr "Введите симметричный пароль используемый для бэкапа {ser}: "
 
 #: tools/restore-tool:211
 #, perl-brace-format
 msgid "Enter ID of encryption key used to back up {ser}"
-msgstr ""
+msgstr "Введите ID ключа шифрования использованного для бэкапа {ser}"
 
 #: tools/restore-tool:228
 #, perl-brace-format
 msgid "Enter passphrase for GPG key {id}"
-msgstr ""
+msgstr "Введите парольную фразу для GPG ключа {id}"
 
 #: tools/restore-tool:254
 msgid "Select backup domains to restore"
-msgstr ""
+msgstr "Выберите бэкапы доменов для восстановления"
 
 #: tools/restore-tool:263
 #, perl-brace-format
 msgid "Backup domains available in this server: {l}"
-msgstr ""
+msgstr "Бэкапы доменов доступные на сервере: {l}"
 
 #: tools/restore-tool:275
 msgid "No backup domain selected to restore. Doing nothing"
@@ -951,7 +953,7 @@ msgstr ""
 
 #: tools/restore-tool:2044
 msgid "Do not use graphical interface"
-msgstr ""
+msgstr "Не используйте графический интерфейс"
 
 #: tools/restore-tool:2069
 #, perl-brace-format
@@ -967,7 +969,7 @@ msgstr ""
 
 #: tools/restore-tool:2155
 msgid "Your full backup is now successfully restored!"
-msgstr ""
+msgstr "Ваш полный бэкап успешно восстановлен!"
 
 #: tools/restore-tool:2157
 msgid ""
@@ -986,16 +988,16 @@ msgstr ""
 
 #: tools/ebox-remote-ebackup:69
 msgid "full"
-msgstr ""
+msgstr "полный"
 
 #: tools/ebox-remote-ebackup:71
 msgid "incremental"
-msgstr ""
+msgstr "инкрементальный"
 
 #: tools/ebox-remote-ebackup:78
 #, perl-brace-format
 msgid "Zentyal {mode} backup succeeded"
-msgstr ""
+msgstr "{mode} бэкап Zentyal успешно завершён"
 
 #: tools/ebox-remote-ebackup:83
 #, perl-brace-format

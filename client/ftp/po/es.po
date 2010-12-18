@@ -8,8 +8,9 @@ msgstr ""
 "Project-Id-Version: ebox-. 1.5\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-12-13 08:39+0100\n"
-"PO-Revision-Date: 2010-08-25 23:02+0200\n"
-"Last-Translator: José Antonio Calvo <jacalvo@ebox-platform.com>\n"
+"PO-Revision-Date: 2010-12-13 09:23+0100\n"
+"Last-Translator: Enrique José Hernández Blasco <quique@ebox-"
+"technologies.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -81,8 +82,8 @@ msgstr "Configurar vsftpd con autenticación LDAP"
 
 #: src/EBox/FTP.pm:146
 msgid "FTP server hosted files"
-msgstr ""
+msgstr "Ficheros almacenados por el servidor FTP"
 
 #: src/EBox/FTP.pm:147
 msgid "User homes and anonymous directory"
-msgstr ""
+msgstr "Directorios personales de los usuarios y el directorio anónimo"

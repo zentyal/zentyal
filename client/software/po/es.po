@@ -4,8 +4,9 @@ msgstr ""
 "Project-Id-Version: ebox-software 0.12.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-12-13 08:43+0100\n"
-"PO-Revision-Date: 2010-08-29 16:59+0200\n"
-"Last-Translator: José Antonio Calvo <jacalvo@zentyal.org>\n"
+"PO-Revision-Date: 2010-12-13 09:42+0100\n"
+"Last-Translator: Enrique José Hernández Blasco <quique@ebox-"
+"technologies.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -212,6 +213,8 @@ msgid ""
 "The following packages are not properly installed. You need to fix this "
 "before trying to use them or install new modules."
 msgstr ""
+"Los siguientes paquetes no se instalaron correctamente. Necesitas arreglar "
+"esto antes de intentar usarlos o instalar nuevos módulos."
 
 #: src/templates/ebox.mas:200 src/templates/updates.mas:43
 msgid "Component"
@@ -226,13 +229,12 @@ msgid "Version"
 msgstr "Versión"
 
 #: src/templates/ebox.mas:216
-#, fuzzy
 msgid ""
 "To solve this situation, please try to execute the following command in the "
 "console:"
 msgstr ""
-"Error actualizando la lista de paquetes. Por favor, ejecuta el siguiente "
-"comando en una consola para averiguar el problema: sudo apt-get update"
+"Para arreglar esta situación, por favor ejecuta el siguiente comando en la "
+"consola:"
 
 #: src/templates/ebox.mas:229
 msgid "View advanced mode"

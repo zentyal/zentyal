@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-ebox 1.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-12-13 09:37+0100\n"
-"PO-Revision-Date: 2010-08-31 08:46+0200\n"
+"PO-Revision-Date: 2010-12-13 12:21+0100\n"
 "Last-Translator: Nagy Ákos <nagy.akos@akos.ro>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
@@ -589,6 +589,8 @@ msgstr "A modul rendben újraindult."
 #, perl-brace-format
 msgid "Error restarting service. See {logs} for more information."
 msgstr ""
+"Hiba a szolgáltatás újraindításakor. További információk a naplózásban: "
+"{logs}"
 
 #: src/EBox/CGI/EBox/Hostname.pm:48
 msgid "hostname"
@@ -599,9 +601,8 @@ msgid "Upgrading"
 msgstr "Frissítés"
 
 #: src/EBox/CGI/EBox/Backup.pm:34 src/EBox/SysInfo.pm.in:280
-#, fuzzy
 msgid "Import/Export Configuration"
-msgstr "Jelenlegi beállítások"
+msgstr "Import/Export beállítások"
 
 #: src/EBox/CGI/EBox/Backup.pm:163
 #, perl-brace-format
@@ -1068,12 +1069,16 @@ msgstr "Be kell állítsa a(z) {variable} változót az ebox beállítófájljá
 msgid ""
 "You are using sliced backup mode and this backup was made in no-sliced mode"
 msgstr ""
+"A szerveren a szeletelt mentési mód van beállítva, de ez a mentés nem lesz "
+"szeletelve"
 
 #: src/EBox/PgDBEngine.pm:479
 msgid ""
 "Database dump file not found. Maybe the backup you are trying to restore was "
 "made in sliced mode?"
 msgstr ""
+"Nem található az adatbázis dump fájlja. Talán a mentés amit vissza szeretne "
+"állítani szeletelt módban futott le?"
 
 #: src/EBox/Types/Int.pm:154
 msgid "Enter an integer number"
@@ -1134,18 +1139,20 @@ msgstr "Adjon meg egy értéket ezen az értéken belül: {set}"
 msgid ""
 "There are {n} log slices not stored; wait or force its storage and retry"
 msgstr ""
+"{n} darab naplózási szelet nincs tárolva; várjon vagy ellenőrizze a tárolót "
+"majd próbálj újra"
 
 #: src/EBox/Logs/SlicedBackup.pm:133 src/EBox/Logs/SlicedBackup.pm:141
 msgid "Backup slice time interval"
-msgstr ""
+msgstr "Szeletelt mentés időintervalluma"
 
 #: src/EBox/Logs/SlicedBackup.pm:438
 msgid "Slices to be archived at once"
-msgstr ""
+msgstr "A szeletek egyként lettek archiválva"
 
 #: src/EBox/Logs/SlicedBackup.pm:445
 msgid "Slices timeline"
-msgstr ""
+msgstr "Szeletek idővonala"
 
 #: src/EBox/Logs/Model/SelectLog.pm:157
 msgid "Full report"
@@ -1313,7 +1320,7 @@ msgstr "Üzenet"
 
 #: src/EBox/Logs.pm:384
 msgid "Zentyal Server logs database"
-msgstr ""
+msgstr "Zentyal Szerver naplózó adatbázisa"
 
 #: src/EBox/Logs.pm:470
 #, perl-brace-format
@@ -1557,9 +1564,8 @@ msgstr ""
 "{size} kB szükséges hozzá. Szabadítson fel elegendő helyet és próbálja újra."
 
 #: src/EBox/Backup.pm:1187
-#, fuzzy
 msgid "Could not unpack the etc files archive backup"
-msgstr "Nem lehet kicsomagolni a mentést"
+msgstr "Nem lehet kicsomagolni az etc fájlok mentését"
 
 #: src/EBox/Backup.pm:1327
 #, perl-brace-format
@@ -1567,11 +1573,15 @@ msgid ""
 "The following modules present in the backup are not installed: {mods}. You "
 "need to install them before restoring."
 msgstr ""
+"A következő mentésben található modulok nem lettek telepítve: {mods}. Ezeket "
+"a visszaállítás után telepítheti."
 
 #: src/EBox/Backup.pm:1353
 #, perl-brace-format
 msgid "Cannot restore backup, error enabling module {m}: {err}"
 msgstr ""
+"A mentést nem lehet visszaállítani, hiba a(z) {m} modul bekapcsolásakor: "
+"{err}"
 
 #: src/EBox/Backup.pm:1386
 #, perl-brace-format
@@ -1592,7 +1602,6 @@ msgstr ""
 "{modName} modul nincs telepítve"
 
 #: src/EBox/Backup.pm:1502
-#, fuzzy
 msgid "Backup archives"
 msgstr "Mentések archívuma"
 
@@ -1665,9 +1674,8 @@ msgid "port"
 msgstr "port"
 
 #: src/EBox/Apache.pm:626
-#, fuzzy
 msgid "Zentyal Administration Web Server"
-msgstr "Zentyal webkiszolgáló"
+msgstr "Zentyal Adminisztrációs webkiszolgáló"
 
 #: src/EBox/Global.pm:536
 #, perl-brace-format
@@ -1736,14 +1744,13 @@ msgstr "Távoli szolgáltatások vezérlőpultja"
 
 #: src/templates/backupTabs.mas:13
 msgid "Local"
-msgstr ""
+msgstr "Helyi"
 
 #: src/templates/backupTabs.mas:18
 msgid "Remote in Zentyal Cloud"
-msgstr ""
+msgstr "Távoli a Zentyal Cloudban"
 
 #: src/templates/backupTabs.mas:23
-#, fuzzy
 msgid "Remote in Zentyal Cloud from other subscribed hosts"
 msgstr "Más bejegyzett gépek távoli mentései"
 
@@ -1822,6 +1829,8 @@ msgid ""
 "Browse the available widgets in the left menu and drag&drop them to the "
 "dashboard."
 msgstr ""
+"Böngéssze az elérhető widgetseket a bal menüben majd húzza a Vezérlőpultra "
+"őket."
 
 #: src/templates/halt.mas:10
 msgid "You might lose your Internet connection if this machine is halted."
@@ -2377,7 +2386,7 @@ msgstr ""
 #: src/templates/hostname.mas:13
 #, perl-brace-format
 msgid "The hostname will be changed to {newHostname} after saving changes."
-msgstr ""
+msgstr "A beállítások mentése után a gépnév a következő lesz: {newHostname}"
 
 #~ msgid "Free space"
 #~ msgstr "Szabad hely"

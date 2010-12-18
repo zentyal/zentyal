@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-dhcp 1.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-12-13 08:38+0100\n"
-"PO-Revision-Date: 2010-08-28 08:04+0200\n"
+"PO-Revision-Date: 2010-12-13 12:08+0100\n"
 "Last-Translator: Nagy Ákos <nagy.akos@akos.ro>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
@@ -514,11 +514,11 @@ msgstr "{server} beállító fájl"
 #: src/EBox/DHCP.pm:132
 #, perl-brace-format
 msgid "Disable {server} init sctript"
-msgstr ""
+msgstr "{server} init szkript kikapcsolása"
 
 #: src/EBox/DHCP.pm:133
 msgid "Zentyal will take care of start and stop the service"
-msgstr ""
+msgstr "A Zentyal foglalkozik a szolgáltatások elindításával és leállításával"
 
 #: src/EBox/DHCP.pm:452 src/EBox/DHCP.pm:488 src/EBox/DHCP.pm:538
 #: src/EBox/DHCP.pm:584 src/EBox/DHCP.pm:630 src/EBox/DHCP.pm:728

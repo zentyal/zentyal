@@ -7,8 +7,9 @@ msgstr ""
 "Project-Id-Version: ebox-openvpn 0.12\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-12-13 08:40+0100\n"
-"PO-Revision-Date: 2010-09-29 16:37+0200\n"
-"Last-Translator: Josefa González <jgonza24@xtec.cat>\n"
+"PO-Revision-Date: 2010-12-13 09:44+0100\n"
+"Last-Translator: Enrique José Hernández Blasco <quique@ebox-"
+"technologies.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -375,7 +376,7 @@ msgstr "Descargar paquete de configuración de cliente"
 
 #: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:106
 msgid "Download"
-msgstr ""
+msgstr "Descargar"
 
 #: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:148
 msgid "Zentyal to Zentyal tunnel"
@@ -558,15 +559,15 @@ msgid "VPN servers"
 msgstr "Servidores VPN"
 
 #: src/EBox/OpenVPN/Model/Servers.pm:168
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "{openpar}You need a valid CA certificate to use this module. {closepar}"
 "{openpar}Please, go to the {openhref} certification authority module"
 "{closehref} and renew it.{closepar}"
 msgstr ""
-"{openpar}Debe crear un certificado de CA para usar este módulo. {closepar}"
-"{openpar}Por favor, vaya al {openhref}módulo de autoridad de certificación"
-"{closehref} y créelo.{closepar}"
+"{openpar}Necesitas un certificado válido de CA para usar este módulo. "
+"{closepar}{openpar}Por favor, vaya al {openhref}módulo de autoridad de "
+"certificación{closehref} y renovalo.{closepar}"
 
 #: src/EBox/OpenVPN/Model/Servers.pm:175
 #, perl-brace-format
@@ -705,7 +706,7 @@ msgstr ""
 
 #: src/EBox/OpenVPN.pm:180
 msgid "To remove system-wide VPN servers autostart"
-msgstr ""
+msgstr "Para borrar el autoinicio de los servidores VPN del sistema"
 
 #: src/EBox/OpenVPN.pm:681
 #, perl-brace-format

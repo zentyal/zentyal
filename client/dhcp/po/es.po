@@ -3,8 +3,9 @@ msgstr ""
 "Project-Id-Version: ebox-dhcp 2.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-12-13 08:38+0100\n"
-"PO-Revision-Date: 2010-08-25 23:01+0200\n"
-"Last-Translator: José Antonio Calvo <jacalvo@ebox-platform.com>\n"
+"PO-Revision-Date: 2010-12-13 10:25+0100\n"
+"Last-Translator: Enrique José Hernández Blasco <quique@ebox-"
+"technologies.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -508,11 +509,11 @@ msgstr "Fichero de configuración de {server}"
 #: src/EBox/DHCP.pm:132
 #, perl-brace-format
 msgid "Disable {server} init sctript"
-msgstr ""
+msgstr "Deshabilitar el script de inicio {server}"
 
 #: src/EBox/DHCP.pm:133
 msgid "Zentyal will take care of start and stop the service"
-msgstr ""
+msgstr "Zentyal se encargará de parar e iniciar el servicio"
 
 #: src/EBox/DHCP.pm:452 src/EBox/DHCP.pm:488 src/EBox/DHCP.pm:538
 #: src/EBox/DHCP.pm:584 src/EBox/DHCP.pm:630 src/EBox/DHCP.pm:728

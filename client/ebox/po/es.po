@@ -6,8 +6,9 @@ msgstr ""
 "Project-Id-Version: ebox 0.12\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-12-13 09:37+0100\n"
-"PO-Revision-Date: 2010-08-26 21:41+0200\n"
-"Last-Translator: Rolando Blanco <rolando@ubuntu.com>\n"
+"PO-Revision-Date: 2010-12-13 09:45+0100\n"
+"Last-Translator: Enrique José Hernández Blasco <quique@ebox-"
+"technologies.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -586,6 +587,8 @@ msgstr "El módulo se ha reiniciado correctamente."
 #, perl-brace-format
 msgid "Error restarting service. See {logs} for more information."
 msgstr ""
+"Error reiniciando el servicio. Ver /var/log/ebox/ebox.log para más "
+"información"
 
 #: src/EBox/CGI/EBox/Hostname.pm:48
 msgid "hostname"
@@ -596,9 +599,8 @@ msgid "Upgrading"
 msgstr "Actualizando"
 
 #: src/EBox/CGI/EBox/Backup.pm:34 src/EBox/SysInfo.pm.in:280
-#, fuzzy
 msgid "Import/Export Configuration"
-msgstr "Configuración actual"
+msgstr "Importar/Exportar configuración"
 
 #: src/EBox/CGI/EBox/Backup.pm:163
 #, perl-brace-format
@@ -1072,12 +1074,16 @@ msgstr ""
 msgid ""
 "You are using sliced backup mode and this backup was made in no-sliced mode"
 msgstr ""
+"Estás usando el modo de backup por partes y este backup fue hecho sin el "
+"modo por partes"
 
 #: src/EBox/PgDBEngine.pm:479
 msgid ""
 "Database dump file not found. Maybe the backup you are trying to restore was "
 "made in sliced mode?"
 msgstr ""
+"Fichero de backup de la base de datos no encontrado. ¿Quizás el backup que "
+"estás intentando restaurar se hizo en modo por partes?"
 
 #: src/EBox/Types/Int.pm:154
 msgid "Enter an integer number"
@@ -1138,18 +1144,20 @@ msgstr "Elije un valor dentro del conjunto de valores: {set}"
 msgid ""
 "There are {n} log slices not stored; wait or force its storage and retry"
 msgstr ""
+"Hay {n} partes del registro no guardados; espere o fuerce su almacenamiento "
+"e inténtelo de nuevo"
 
 #: src/EBox/Logs/SlicedBackup.pm:133 src/EBox/Logs/SlicedBackup.pm:141
 msgid "Backup slice time interval"
-msgstr ""
+msgstr "Intervalo de tiempo para partes del backup "
 
 #: src/EBox/Logs/SlicedBackup.pm:438
 msgid "Slices to be archived at once"
-msgstr ""
+msgstr "Partes a ser archivadas de vez"
 
 #: src/EBox/Logs/SlicedBackup.pm:445
 msgid "Slices timeline"
-msgstr ""
+msgstr "Línea de tiempo de las partes"
 
 #: src/EBox/Logs/Model/SelectLog.pm:157
 msgid "Full report"
@@ -1317,7 +1325,7 @@ msgstr "Mensaje"
 
 #: src/EBox/Logs.pm:384
 msgid "Zentyal Server logs database"
-msgstr ""
+msgstr "Base de datos de los registros de Zentyal Server"
 
 #: src/EBox/Logs.pm:470
 #, perl-brace-format
@@ -1562,9 +1570,8 @@ msgstr ""
 "reintente"
 
 #: src/EBox/Backup.pm:1187
-#, fuzzy
 msgid "Could not unpack the etc files archive backup"
-msgstr "No pudo desempaquetarse el backup"
+msgstr "No pudo desempaquetarse los ficheros etc del archivo de backup"
 
 #: src/EBox/Backup.pm:1327
 #, perl-brace-format
@@ -1572,11 +1579,14 @@ msgid ""
 "The following modules present in the backup are not installed: {mods}. You "
 "need to install them before restoring."
 msgstr ""
+"Los siguientes módulos presentes en el backup no están instalados: {mods}. "
+"Necesitas instalarlos antes de restaurarlos."
 
 #: src/EBox/Backup.pm:1353
 #, perl-brace-format
 msgid "Cannot restore backup, error enabling module {m}: {err}"
 msgstr ""
+"No se puede restaurar el backup, error restaurando el módulo {m} : {err}"
 
 #: src/EBox/Backup.pm:1386
 #, perl-brace-format
@@ -1597,7 +1607,6 @@ msgstr ""
 "{modName} no está instalado"
 
 #: src/EBox/Backup.pm:1502
-#, fuzzy
 msgid "Backup archives"
 msgstr "Archivos de backup"
 
@@ -1670,9 +1679,8 @@ msgid "port"
 msgstr "puerto"
 
 #: src/EBox/Apache.pm:626
-#, fuzzy
 msgid "Zentyal Administration Web Server"
-msgstr "Servidor web de Zentyal"
+msgstr "Servidor web de administración de Zentyal"
 
 #: src/EBox/Global.pm:536
 #, perl-brace-format
@@ -1743,16 +1751,15 @@ msgstr "Panel de control de servicios remotos"
 
 #: src/templates/backupTabs.mas:13
 msgid "Local"
-msgstr ""
+msgstr "Local"
 
 #: src/templates/backupTabs.mas:18
 msgid "Remote in Zentyal Cloud"
-msgstr ""
+msgstr "Remoto en Zentyal Cloud"
 
 #: src/templates/backupTabs.mas:23
-#, fuzzy
 msgid "Remote in Zentyal Cloud from other subscribed hosts"
-msgstr "Backup remoto de otras máquinas suscritas"
+msgstr "Remoto de otras máquinas suscritas en Zentyal Cloud"
 
 #: src/templates/configureView.mas:12
 msgid ""
@@ -1830,6 +1837,8 @@ msgid ""
 "Browse the available widgets in the left menu and drag&drop them to the "
 "dashboard."
 msgstr ""
+"Navega por los widgets disponibles en el menú de la izquierda y arrástralos "
+"y suéltalos en el dashboard"
 
 #: src/templates/halt.mas:10
 msgid "You might lose your Internet connection if this machine is halted."
@@ -2390,6 +2399,7 @@ msgstr ""
 #, perl-brace-format
 msgid "The hostname will be changed to {newHostname} after saving changes."
 msgstr ""
+"El nombre de máquina cambiará a {newHostname} después de guardar cambios."
 
 #~ msgid "Free space"
 #~ msgstr "Espacio libre"
