@@ -4,9 +4,10 @@ HEAD
 	+ Added support for disaster recovery
 	+ Allowed to restore the root directory in
 	  EBox::EBackup::restoreFile
-	+ Method for restore log datbase from a directory
+	+ Method for restore log database from a directory
 	+ Disabled asymmetric encryption method until we can support in in
 	  disaster recovery
+	+ Fixed non-internationalizable strings in RemoteSettings model
 2.0.6
 	+ Using /etc/cron.d instead of ebox crontab for scheduled
 	  backups
