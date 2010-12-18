@@ -6,143 +6,32 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-firewall 0.12\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-12-13 08:39+0100\n"
+"POT-Creation-Date: 2010-12-18 01:43+0100\n"
 "PO-Revision-Date: 2007-02-02 19:14+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=ASCII\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural= (n != 1);\n"
 "X-Generator: Translate Toolkit 0.10.1\n"
 
-#: src/EBox/Iptables.pm:838 src/EBox/Iptables.pm:875
-#: src/EBox/Firewall/IptablesRedirectRule.pm:78
-msgid ""
-"You must set the iptables_log_limit variable in the ebox configuration file"
+#: src/EBox/Firewall/Model/ToInternetRuleTable.pm:65
+msgid "Internal networks"
 msgstr ""
 
-#: src/EBox/Iptables.pm:844 src/EBox/Iptables.pm:881
-#: src/EBox/Firewall/IptablesRedirectRule.pm:83
-msgid ""
-"You must set the iptables_log_burst variable in the ebox configuration file"
-msgstr ""
-
-#: src/EBox/Firewall.pm:58 src/EBox/Firewall.pm:812
-msgid "Firewall"
-msgstr ""
-
-#: src/EBox/Firewall.pm:84
-msgid "Flush previous firewall rules"
-msgstr ""
-
-#: src/EBox/Firewall.pm:85
-msgid ""
-"The Zentyal firewall will flush any previous firewall rules which have been "
-"added manually or by another tool"
-msgstr ""
-
-#: src/EBox/Firewall.pm:90
-msgid "Secure by default"
-msgstr ""
-
-#: src/EBox/Firewall.pm:91
-msgid ""
-"Just a few connections are allowed by default. Make sure you add the proper "
-"incoming and outcoming rules to make your system work as expected. Usually, "
-"all outcoming connections are denied by default, and only SSH and HTTPS "
-"incoming connections are allowed."
-msgstr ""
-
-#: src/EBox/Firewall.pm:268
-msgid "action"
-msgstr ""
-
-#: src/EBox/Firewall.pm:389 src/EBox/Firewall.pm:434 src/EBox/Firewall.pm:458
-#, perl-brace-format
-msgid "Name '{name}' is invalid"
-msgstr ""
-
-#: src/EBox/Firewall.pm:390 src/EBox/Firewall.pm:569 src/EBox/Firewall.pm:594
-msgid "port"
-msgstr ""
-
-#: src/EBox/Firewall.pm:568 src/EBox/Firewall.pm:593
-msgid "protocol"
-msgstr ""
-
-#: src/EBox/Firewall.pm:782 src/EBox/CGI/Filter.pm:28
-#: src/EBox/Firewall/Model/BaseRuleTable.pm:213
-#: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:180
-msgid "Packet Filter"
-msgstr ""
-
-#: src/EBox/Firewall.pm:785 src/EBox/Firewall/Model/RedirectsTable.pm:362
-msgid "Port Forwarding"
-msgstr ""
-
-#: src/EBox/Firewall.pm:796
-#: src/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:60
-msgid "Date"
-msgstr ""
-
-#: src/EBox/Firewall.pm:797
-msgid "Input interface"
-msgstr ""
-
-#: src/EBox/Firewall.pm:798
-msgid "Output interface"
-msgstr ""
-
-#: src/EBox/Firewall.pm:799 src/EBox/Firewall/Model/RedirectsTable.pm:292
-#: src/EBox/Firewall/Model/BaseRuleTable.pm:121
-msgid "Source"
-msgstr ""
-
-#: src/EBox/Firewall.pm:800 src/EBox/Firewall/Model/BaseRuleTable.pm:147
-msgid "Destination"
-msgstr ""
-
-#: src/EBox/Firewall.pm:801 src/EBox/Firewall/Model/RedirectsTable.pm:285
-msgid "Protocol"
-msgstr ""
-
-#: src/EBox/Firewall.pm:802
-msgid "Source port"
-msgstr ""
-
-#: src/EBox/Firewall.pm:803
-msgid "Destination port"
-msgstr ""
-
-#: src/EBox/Firewall.pm:804 src/EBox/Firewall/Model/BaseRuleTable.pm:112
-#: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:144
-msgid "Decision"
-msgstr ""
-
-#: src/EBox/Firewall.pm:809
-msgid "DROP"
-msgstr ""
-
-#: src/EBox/Firewall.pm:809 src/EBox/Firewall/Model/BaseRuleTable.pm:70
-msgid "LOG"
-msgstr ""
-
-#: src/EBox/Firewall.pm:809
-msgid "REDIRECT"
+#: src/EBox/Firewall/Model/ToInternetRuleTable.pm:77
+#: src/EBox/Firewall/Model/EBoxOutputRuleTable.pm:77
+#: src/EBox/Firewall/Model/ExternalToInternalRuleTable.pm:80
+#: src/EBox/Firewall/Model/InternalToEBoxRuleTable.pm:77
+#: src/EBox/Firewall/Model/ExternalToEBoxRuleTable.pm:79
+#: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:161
+msgid "rule"
 msgstr ""
 
 #: src/EBox/Firewall/Model/EBoxOutputRuleTable.pm:68
 msgid "Traffic coming out from Zentyal"
-msgstr ""
-
-#: src/EBox/Firewall/Model/EBoxOutputRuleTable.pm:77
-#: src/EBox/Firewall/Model/ExternalToInternalRuleTable.pm:80
-#: src/EBox/Firewall/Model/ExternalToEBoxRuleTable.pm:79
-#: src/EBox/Firewall/Model/InternalToEBoxRuleTable.pm:77
-#: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:161
-#: src/EBox/Firewall/Model/ToInternetRuleTable.pm:77
-msgid "rule"
 msgstr ""
 
 #: src/EBox/Firewall/Model/ExternalToInternalRuleTable.pm:68
@@ -171,6 +60,15 @@ msgstr ""
 
 #: src/EBox/Firewall/Model/RedirectsTable.pm:279
 msgid "Original destination port"
+msgstr ""
+
+#: src/EBox/Firewall/Model/RedirectsTable.pm:285 src/EBox/Firewall.pm:801
+msgid "Protocol"
+msgstr ""
+
+#: src/EBox/Firewall/Model/RedirectsTable.pm:292
+#: src/EBox/Firewall/Model/BaseRuleTable.pm:121 src/EBox/Firewall.pm:799
+msgid "Source"
 msgstr ""
 
 #: src/EBox/Firewall/Model/RedirectsTable.pm:297
@@ -223,47 +121,20 @@ msgstr ""
 msgid "List of forwarded ports"
 msgstr ""
 
+#: src/EBox/Firewall/Model/RedirectsTable.pm:362 src/EBox/Firewall.pm:785
+msgid "Port Forwarding"
+msgstr ""
+
 #: src/EBox/Firewall/Model/RedirectsTable.pm:370
 msgid "forwarding"
 msgstr ""
 
-#: src/EBox/Firewall/Model/BaseRuleTable.pm:66
-msgid "ACCEPT"
-msgstr ""
-
-#: src/EBox/Firewall/Model/BaseRuleTable.pm:68
-msgid "DENY"
-msgstr ""
-
-#: src/EBox/Firewall/Model/BaseRuleTable.pm:160
-msgid "Destination object"
-msgstr ""
-
-#: src/EBox/Firewall/Model/BaseRuleTable.pm:175
-msgid "Service"
-msgstr ""
-
-#: src/EBox/Firewall/Model/BaseRuleTable.pm:179
-msgid ""
-"If inverse match is ticked, any service but the selected one will match this "
-"rule"
-msgstr ""
-
-#: src/EBox/Firewall/Model/BaseRuleTable.pm:227
-#: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:194
-msgid "Configure Rules"
-msgstr ""
-
-#: src/EBox/Firewall/Model/BaseRuleTable.pm:242
-msgid "'any service' cannot have a inverse march"
+#: src/EBox/Firewall/Model/InternalToEBoxRuleTable.pm:68
+msgid "Internal networks to Zentyal"
 msgstr ""
 
 #: src/EBox/Firewall/Model/ExternalToEBoxRuleTable.pm:68
 msgid "External networks to Zentyal"
-msgstr ""
-
-#: src/EBox/Firewall/Model/InternalToEBoxRuleTable.pm:68
-msgid "Internal networks to Zentyal"
 msgstr ""
 
 #: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:37
@@ -310,26 +181,35 @@ msgstr ""
 msgid "Condition"
 msgstr ""
 
+#: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:144
+#: src/EBox/Firewall/Model/BaseRuleTable.pm:112 src/EBox/Firewall.pm:804
+msgid "Decision"
+msgstr ""
+
 #: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:153
 #: src/templates/filter.mas:51
 msgid "Rules added by Zentyal services (Advanced)"
 msgstr ""
 
-#: src/EBox/Firewall/Model/ToInternetRuleTable.pm:65
-msgid "Internal networks"
+#: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:180
+#: src/EBox/Firewall/Model/BaseRuleTable.pm:213 src/EBox/Firewall.pm:782
+#: src/EBox/CGI/Filter.pm:28
+msgid "Packet Filter"
 msgstr ""
 
-#: src/EBox/Firewall/Model/Report/PacketTrafficGraph.pm:52
+#: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:194
+#: src/EBox/Firewall/Model/BaseRuleTable.pm:227
+msgid "Configure Rules"
+msgstr ""
+
 #: src/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:46
+#: src/EBox/Firewall/Model/Report/PacketTrafficGraph.pm:52
 msgid "packets dropped"
 msgstr ""
 
-#: src/EBox/Firewall/Model/Report/PacketTrafficGraph.pm:64
-msgid "Firewall packet traffic chart"
-msgstr ""
-
-#: src/EBox/Firewall/Model/Report/PacketTrafficGraph.pm:86
-msgid "Packet traffic"
+#: src/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:60
+#: src/EBox/Firewall.pm:796
+msgid "Date"
 msgstr ""
 
 #: src/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:66
@@ -344,12 +224,133 @@ msgstr ""
 msgid "traffic"
 msgstr ""
 
+#: src/EBox/Firewall/Model/Report/PacketTrafficGraph.pm:64
+msgid "Firewall packet traffic chart"
+msgstr ""
+
+#: src/EBox/Firewall/Model/Report/PacketTrafficGraph.pm:86
+msgid "Packet traffic"
+msgstr ""
+
+#: src/EBox/Firewall/Model/BaseRuleTable.pm:66
+msgid "ACCEPT"
+msgstr ""
+
+#: src/EBox/Firewall/Model/BaseRuleTable.pm:68
+msgid "DENY"
+msgstr ""
+
+#: src/EBox/Firewall/Model/BaseRuleTable.pm:70 src/EBox/Firewall.pm:809
+msgid "LOG"
+msgstr ""
+
+#: src/EBox/Firewall/Model/BaseRuleTable.pm:147 src/EBox/Firewall.pm:800
+msgid "Destination"
+msgstr ""
+
+#: src/EBox/Firewall/Model/BaseRuleTable.pm:160
+msgid "Destination object"
+msgstr ""
+
+#: src/EBox/Firewall/Model/BaseRuleTable.pm:175
+msgid "Service"
+msgstr ""
+
+#: src/EBox/Firewall/Model/BaseRuleTable.pm:179
+msgid ""
+"If inverse match is ticked, any service but the selected one will match this "
+"rule"
+msgstr ""
+
+#: src/EBox/Firewall/Model/BaseRuleTable.pm:242
+msgid "'any service' cannot have a inverse march"
+msgstr ""
+
 #: src/EBox/Firewall/Composite/Report/PacketTrafficReport.pm:69
 msgid "Packet traffic report"
 msgstr ""
 
 #: src/EBox/Firewall/Composite/Report/PacketTrafficReport.pm:70
 msgid "Firewall packet traffic report"
+msgstr ""
+
+#: src/EBox/Firewall/IptablesRedirectRule.pm:78 src/EBox/Iptables.pm:829
+#: src/EBox/Iptables.pm:866
+msgid ""
+"You must set the iptables_log_limit variable in the ebox configuration file"
+msgstr ""
+
+#: src/EBox/Firewall/IptablesRedirectRule.pm:83 src/EBox/Iptables.pm:835
+#: src/EBox/Iptables.pm:872
+msgid ""
+"You must set the iptables_log_burst variable in the ebox configuration file"
+msgstr ""
+
+#: src/EBox/Firewall.pm:58 src/EBox/Firewall.pm:812
+msgid "Firewall"
+msgstr ""
+
+#: src/EBox/Firewall.pm:84
+msgid "Flush previous firewall rules"
+msgstr ""
+
+#: src/EBox/Firewall.pm:85
+msgid ""
+"The Zentyal firewall will flush any previous firewall rules which have been "
+"added manually or by another tool"
+msgstr ""
+
+#: src/EBox/Firewall.pm:90
+msgid "Secure by default"
+msgstr ""
+
+#: src/EBox/Firewall.pm:91
+msgid ""
+"Just a few connections are allowed by default. Make sure you add the proper "
+"incoming and outcoming rules to make your system work as expected. Usually, "
+"all outcoming connections are denied by default, and only SSH and HTTPS "
+"incoming connections are allowed."
+msgstr ""
+
+#: src/EBox/Firewall.pm:268
+msgid "action"
+msgstr ""
+
+#: src/EBox/Firewall.pm:389 src/EBox/Firewall.pm:434 src/EBox/Firewall.pm:458
+#, perl-brace-format
+msgid "Name '{name}' is invalid"
+msgstr ""
+
+#: src/EBox/Firewall.pm:390 src/EBox/Firewall.pm:569 src/EBox/Firewall.pm:594
+msgid "port"
+msgstr ""
+
+#: src/EBox/Firewall.pm:568 src/EBox/Firewall.pm:593
+msgid "protocol"
+msgstr ""
+
+#: src/EBox/Firewall.pm:797
+msgid "Input interface"
+msgstr ""
+
+#: src/EBox/Firewall.pm:798
+msgid "Output interface"
+msgstr ""
+
+#: src/EBox/Firewall.pm:802
+msgid "Source port"
+msgstr ""
+
+#: src/EBox/Firewall.pm:803
+msgid "Destination port"
+msgstr ""
+
+#: src/EBox/Firewall.pm:809
+msgid "DROP"
+msgstr ""
+
+#: src/EBox/Firewall.pm:809
+msgid "REDIRECT"
 msgstr ""
 
 #: src/templates/filter.mas:6

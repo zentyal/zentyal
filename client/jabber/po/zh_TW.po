@@ -7,10 +7,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-jabber 0.12.99\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-12-13 08:39+0100\n"
+"POT-Creation-Date: 2010-12-18 01:44+0100\n"
 "PO-Revision-Date: 2009-08-04 06:08+0200\n"
 "Last-Translator: Chao-Hsiung Liao <j_h_liau@yahoo.com.tw>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -41,9 +42,14 @@ msgstr "eBox 需要這個 schema 來儲存 jabber 使用者"
 msgid "To properly configure ejabberd."
 msgstr "要適當的設定 jabberd2"
 
-#: src/EBox/CGI/JabberUserOptions.pm:43
-msgid "username"
-msgstr "使用者名稱"
+#: src/EBox/Jabber/Model/JabberUser.pm:50
+msgid "Jabber Account"
+msgstr "Jabber 帳號"
+
+#: src/EBox/Jabber/Model/JabberUser.pm:58
+#: src/EBox/Jabber/Composite/General.pm:67
+msgid "Jabber"
+msgstr "Jabber"
 
 #: src/EBox/Jabber/Model/GeneralSettings.pm:92 src/templates/jabber.mas:22
 #: src/templates/jabber.mas:25
@@ -84,19 +90,14 @@ msgstr "一般組態"
 msgid "General Jabber server configuration settings updated."
 msgstr ""
 
-#: src/EBox/Jabber/Model/JabberUser.pm:50
-msgid "Jabber Account"
-msgstr "Jabber 帳號"
-
-#: src/EBox/Jabber/Model/JabberUser.pm:58
-#: src/EBox/Jabber/Composite/General.pm:67
-msgid "Jabber"
-msgstr "Jabber"
-
 #: src/EBox/Jabber/Composite/General.pm:66
 #, fuzzy
 msgid "Configuration"
 msgstr "一般組態"
+
+#: src/EBox/CGI/JabberUserOptions.pm:43
+msgid "username"
+msgstr "使用者名稱"
 
 #: src/templates/jabber.mas:8
 #, fuzzy

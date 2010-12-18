@@ -7,10 +7,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-webserver 0.12\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-12-13 08:43+0100\n"
+"POT-Creation-Date: 2010-12-18 01:46+0100\n"
 "PO-Revision-Date: 2010-08-30 00:17+0200\n"
 "Last-Translator: josefa <jgonza24@xtec.cat>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -19,149 +20,6 @@ msgstr ""
 #: migration/0001_add_service_and_port.pl:162
 msgid "HyperText Transport Protocol"
 msgstr "Protocol de Transport Hipertexte"
-
-#: src/EBox/WebServer.pm:79 src/EBox/WebServer.pm:617
-#: src/EBox/WebServer/Composite/General.pm:77
-msgid "Web Server"
-msgstr "Servidor Web"
-
-#: src/EBox/WebServer.pm:99
-msgid "To set webserver listening port."
-msgstr "Per configurar el port del servidor web"
-
-#: src/EBox/WebServer.pm:104
-msgid "To configure default virtual host."
-msgstr "Per configurar el host virtual per defecte."
-
-#: src/EBox/WebServer.pm:109
-msgid "To configure default SSL virtual host."
-msgstr "Per configurar el host virtual SSL per defecte."
-
-#: src/EBox/WebServer.pm:114
-msgid "To configure the per-user public_html directory."
-msgstr "Per configurar el directori public_html per usuari."
-
-#: src/EBox/WebServer.pm:139
-msgid "Enable Apache LDAP user module"
-msgstr "Habilita el mòdul d'usuari LDAP de l'Apache"
-
-#: src/EBox/WebServer.pm:141
-msgid "To fetch home directories from LDAP."
-msgstr "Per contrastar el directoris personals des de l'LDAP"
-
-#: src/EBox/WebServer.pm:144
-msgid "Enable Apache SSL module"
-msgstr "Habilitar el mòdul SSL d'Apache"
-
-#: src/EBox/WebServer.pm:146
-msgid "To serve pages over HTTPS."
-msgstr "Per servir pàgines en HTTPS"
-
-#: src/EBox/WebServer.pm:184
-msgid "Web service status"
-msgstr "Estat del servidor web"
-
-#: src/EBox/WebServer.pm:440
-#, perl-brace-format
-msgid "The {userDirConfFile} is missing! Please recover it."
-msgstr "S'ha perdut {userDirConfFile}. Restaura'l !"
-
-#: src/EBox/WebServer.pm:730
-#, fuzzy
-msgid "Web server hosted files"
-msgstr "Estat del servidor web"
-
-#: src/EBox/WebServer.pm:731
-#, fuzzy
-msgid "Virtual hosts data"
-msgstr "Host Virtual"
-
-#: src/EBox/WebServer/Model/GeneralSettings.pm:96
-#: src/EBox/WebServer/Model/GeneralSettings.pm:108
-#: src/EBox/WebServer/Model/GeneralSettings.pm:119
-#: src/EBox/WebServer/Model/GeneralSettings.pm:229
-msgid "Listening port"
-msgstr "Port"
-
-#: src/EBox/WebServer/Model/GeneralSettings.pm:114
-#, perl-brace-format
-msgid ""
-"Zentyal Administration is running on this port, change it on {ohref}System -"
-"> General{chref}."
-msgstr ""
-"L'administració de Zentyal està escoltant en aquest port, canvia-ho a {ohref}"
-"Sistema -> General{chref}."
-
-#: src/EBox/WebServer/Model/GeneralSettings.pm:127
-#, perl-brace-format
-msgid ""
-"You need a Service Certificate for the Web Server module, enable it on "
-"{ohref}Certification Authority -> Service Certificates{chref}."
-msgstr ""
-"Necessita un Certificat de Servei pel mòdul de Servidor Web, activi'l a "
-"{ohref}Entitat Certificadora -> Certificat de Serveis{chref}."
-
-#: src/EBox/WebServer/Model/GeneralSettings.pm:139
-msgid ""
-"Having installed and configured the Users and Groups module is required to "
-"allow HTML directories for users."
-msgstr ""
-"Per permetre directoris HTML als usuaris ha de tenir instal·lat i configurat "
-"el mòdul d'Usuaris i Grups."
-
-#: src/EBox/WebServer/Model/GeneralSettings.pm:145
-msgid ""
-"A properly configured Users and Groups module is required to allow HTML "
-"directories for users. To configure it, please enable it at least one time."
-msgstr ""
-"Per permetre directoris HTML als usuaris ha de tenir instal·lat i configurat "
-"el mòdul d'Usuaris i Grups. Per configurar-lo, activi'l."
-
-#: src/EBox/WebServer/Model/GeneralSettings.pm:235
-msgid "Listening SSL port"
-msgstr "Port de l'SSL"
-
-#: src/EBox/WebServer/Model/GeneralSettings.pm:239
-#: src/EBox/WebServer/Model/VHostTable.pm:252
-msgid "Disabled"
-msgstr "Desactivat"
-
-#: src/EBox/WebServer/Model/GeneralSettings.pm:244
-msgid "Enabled"
-msgstr "Activat"
-
-#: src/EBox/WebServer/Model/GeneralSettings.pm:252
-#, perl-brace-format
-msgid "Enable per user {dirName}"
-msgstr "Activar {dirName} per usuari"
-
-#: src/EBox/WebServer/Model/GeneralSettings.pm:256
-msgid ""
-"Allow users to publish web documents using the public_html directory on "
-"their home."
-msgstr ""
-"Permetre als usuaris publicar documents web fent servir el directori "
-"public_html de la seva home."
-
-#: src/EBox/WebServer/Model/GeneralSettings.pm:264
-msgid "General configuration settings"
-msgstr "Opcions de configuració general"
-
-#: src/EBox/WebServer/Model/GeneralSettings.pm:268
-#, perl-brace-format
-msgid ""
-"General Web server configuration. The listening port must not be used by "
-"another service. If you enable user to publish their own html pages, those "
-"should be loaded from {dirName} directory from their home directories."
-msgstr ""
-"Configuració general del servidor Web. El port no pot estar en ús per un "
-"altre servei. Si activa l'usuari per permetre publicar les seves pàgines "
-"html, aquestes s'hauran de carregar des del directori {dirName} del seu "
-"directori personal."
-
-#: src/EBox/WebServer/Model/GeneralSettings.pm:274
-msgid "General Web server configuration settings updated."
-msgstr "Opcions de configuració general del servidor web actualitzades."
 
 #: src/EBox/WebServer/Model/VHostTable.pm:93
 msgid "Virtual host name"
@@ -215,6 +73,11 @@ msgstr ""
 "No hi ha una interfície interna estàtica per establir una adreça IP pel "
 "servidor Web."
 
+#: src/EBox/WebServer/Model/VHostTable.pm:252
+#: src/EBox/WebServer/Model/GeneralSettings.pm:239
+msgid "Disabled"
+msgstr "Desactivat"
+
 #: src/EBox/WebServer/Model/VHostTable.pm:253
 msgid "Allow SSL"
 msgstr "Permetre SSL"
@@ -260,9 +123,96 @@ msgstr ""
 "{open} El mòdul DNS està desactivat. El mapeig afegit o dominis no estaran "
 "disponibles fins que s'activi"
 
+#: src/EBox/WebServer/Model/GeneralSettings.pm:96
+#: src/EBox/WebServer/Model/GeneralSettings.pm:108
+#: src/EBox/WebServer/Model/GeneralSettings.pm:119
+#: src/EBox/WebServer/Model/GeneralSettings.pm:229
+msgid "Listening port"
+msgstr "Port"
+
+#: src/EBox/WebServer/Model/GeneralSettings.pm:114
+#, perl-brace-format
+msgid ""
+"Zentyal Administration is running on this port, change it on {ohref}System -"
+"> General{chref}."
+msgstr ""
+"L'administració de Zentyal està escoltant en aquest port, canvia-ho a {ohref}"
+"Sistema -> General{chref}."
+
+#: src/EBox/WebServer/Model/GeneralSettings.pm:127
+#, perl-brace-format
+msgid ""
+"You need a Service Certificate for the Web Server module, enable it on "
+"{ohref}Certification Authority -> Service Certificates{chref}."
+msgstr ""
+"Necessita un Certificat de Servei pel mòdul de Servidor Web, activi'l a "
+"{ohref}Entitat Certificadora -> Certificat de Serveis{chref}."
+
+#: src/EBox/WebServer/Model/GeneralSettings.pm:139
+msgid ""
+"Having installed and configured the Users and Groups module is required to "
+"allow HTML directories for users."
+msgstr ""
+"Per permetre directoris HTML als usuaris ha de tenir instal·lat i configurat "
+"el mòdul d'Usuaris i Grups."
+
+#: src/EBox/WebServer/Model/GeneralSettings.pm:145
+msgid ""
+"A properly configured Users and Groups module is required to allow HTML "
+"directories for users. To configure it, please enable it at least one time."
+msgstr ""
+"Per permetre directoris HTML als usuaris ha de tenir instal·lat i configurat "
+"el mòdul d'Usuaris i Grups. Per configurar-lo, activi'l."
+
+#: src/EBox/WebServer/Model/GeneralSettings.pm:235
+msgid "Listening SSL port"
+msgstr "Port de l'SSL"
+
+#: src/EBox/WebServer/Model/GeneralSettings.pm:244
+msgid "Enabled"
+msgstr "Activat"
+
+#: src/EBox/WebServer/Model/GeneralSettings.pm:252
+#, perl-brace-format
+msgid "Enable per user {dirName}"
+msgstr "Activar {dirName} per usuari"
+
+#: src/EBox/WebServer/Model/GeneralSettings.pm:256
+msgid ""
+"Allow users to publish web documents using the public_html directory on "
+"their home."
+msgstr ""
+"Permetre als usuaris publicar documents web fent servir el directori "
+"public_html de la seva home."
+
+#: src/EBox/WebServer/Model/GeneralSettings.pm:264
+msgid "General configuration settings"
+msgstr "Opcions de configuració general"
+
+#: src/EBox/WebServer/Model/GeneralSettings.pm:268
+#, perl-brace-format
+msgid ""
+"General Web server configuration. The listening port must not be used by "
+"another service. If you enable user to publish their own html pages, those "
+"should be loaded from {dirName} directory from their home directories."
+msgstr ""
+"Configuració general del servidor Web. El port no pot estar en ús per un "
+"altre servei. Si activa l'usuari per permetre publicar les seves pàgines "
+"html, aquestes s'hauran de carregar des del directori {dirName} del seu "
+"directori personal."
+
+#: src/EBox/WebServer/Model/GeneralSettings.pm:274
+msgid "General Web server configuration settings updated."
+msgstr "Opcions de configuració general del servidor web actualitzades."
+
 #: src/EBox/WebServer/Composite/General.pm:76
 msgid "Configuration"
 msgstr "Configuració"
+
+#: src/EBox/WebServer/Composite/General.pm:77 src/EBox/WebServer.pm:79
+#: src/EBox/WebServer.pm:617
+msgid "Web Server"
+msgstr "Servidor Web"
 
 #: src/EBox/WebServer/Composite/General.pm:79
 msgid ""
@@ -271,3 +221,54 @@ msgid ""
 msgstr ""
 "El servidor Web Zentyal permet servir pàgines en HTML plà dins de diferents "
 "hosts virtuals."
+
+#: src/EBox/WebServer.pm:99
+msgid "To set webserver listening port."
+msgstr "Per configurar el port del servidor web"
+
+#: src/EBox/WebServer.pm:104
+msgid "To configure default virtual host."
+msgstr "Per configurar el host virtual per defecte."
+
+#: src/EBox/WebServer.pm:109
+msgid "To configure default SSL virtual host."
+msgstr "Per configurar el host virtual SSL per defecte."
+
+#: src/EBox/WebServer.pm:114
+msgid "To configure the per-user public_html directory."
+msgstr "Per configurar el directori public_html per usuari."
+
+#: src/EBox/WebServer.pm:139
+msgid "Enable Apache LDAP user module"
+msgstr "Habilita el mòdul d'usuari LDAP de l'Apache"
+
+#: src/EBox/WebServer.pm:141
+msgid "To fetch home directories from LDAP."
+msgstr "Per contrastar el directoris personals des de l'LDAP"
+
+#: src/EBox/WebServer.pm:144
+msgid "Enable Apache SSL module"
+msgstr "Habilitar el mòdul SSL d'Apache"
+
+#: src/EBox/WebServer.pm:146
+msgid "To serve pages over HTTPS."
+msgstr "Per servir pàgines en HTTPS"
+
+#: src/EBox/WebServer.pm:184
+msgid "Web service status"
+msgstr "Estat del servidor web"
+
+#: src/EBox/WebServer.pm:440
+#, perl-brace-format
+msgid "The {userDirConfFile} is missing! Please recover it."
+msgstr "S'ha perdut {userDirConfFile}. Restaura'l !"
+
+#: src/EBox/WebServer.pm:730
+#, fuzzy
+msgid "Web server hosted files"
+msgstr "Estat del servidor web"
+
+#: src/EBox/WebServer.pm:731
+#, fuzzy
+msgid "Virtual hosts data"
+msgstr "Host Virtual"

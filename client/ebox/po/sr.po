@@ -7,732 +7,140 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-ebox 1.3.14\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-12-13 09:37+0100\n"
+"POT-Creation-Date: 2010-12-18 01:43+0100\n"
 "PO-Revision-Date: 2010-10-11 21:11+0200\n"
 "Last-Translator: Zoran <zoran@atlantisti.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
-"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Pootle 1.1.0\n"
 
-# Total ticks of what ?
-#: src/EBox/ProgressIndicator.pm:42
-msgid "Total ticks"
-msgstr "Ukupno obeleženih"
+#: src/EBox/Apache.pm:289 src/EBox/Apache.pm:298
+msgid "port"
+msgstr "port"
 
-#: src/EBox/ProgressIndicator.pm:44
-msgid "It must be a non-zero positive number"
-msgstr "Broj mora biti pozitivan ne sme biti 0"
+#: src/EBox/Apache.pm:626
+#, fuzzy
+msgid "Zentyal Administration Web Server"
+msgstr "Zentyal WEB Server"
 
-#: src/EBox/ProgressIndicator.pm:49
-msgid "To solve it you can try to execute the following commands:"
-msgstr "Da bi razrešili probajte da ukucate sledeće komande:"
+#: src/EBox/Event/Dispatcher/Jabber.pm:165
+msgid "Admin Jabber account"
+msgstr "Admin Jabber nalog"
 
-#: src/EBox/ProgressIndicator.pm:56
+#: src/EBox/Event/Dispatcher/Jabber.pm:178
+msgid "Jabber"
+msgstr "Jabber"
+
+#: src/EBox/Event/Dispatcher/Jabber.pm:228
 #, perl-brace-format
-msgid "Cannot execute {exe}"
-msgstr "Ne mogu da izvršim {exe}"
+msgid "Jabber server {serverName} is down or connection is not allowed"
+msgstr "Jabber server {serverName} ne radi ili nije dozvoljena konekcija"
 
-#: src/EBox/ProgressIndicator.pm:106
+#: src/EBox/Event/Dispatcher/Jabber.pm:258
 #, perl-brace-format
-msgid "Progress indicator with id {id} not found"
-msgstr "Progres indikator sa id-em {id} nije nađen"
+msgid "Subscription failed: {message}"
+msgstr "Podpis neuspešan : {message}"
 
-#: src/EBox/ProgressIndicator.pm:144
-msgid "Number of ticks to notify"
-msgstr "Obaveštenje o broju obeleženih"
-
-#: src/EBox/ProgressIndicator.pm:146
-msgid "must be greater than zero"
-msgstr "mora biti veće od 0"
-
-#: src/EBox/ProgressIndicator.pm:152
-msgid "Executable has not been run"
-msgstr "(Executable) nije bio pokrenut"
-
-#: src/EBox/ProgressIndicator.pm:293
-msgid "The executable has not run"
-msgstr "(Executable) nije pokrenut"
-
-#: src/EBox/ProgressIndicator.pm:437
-msgid "The executable has already been started"
-msgstr "(Executable) je pokrenut i radi"
-
-#: src/EBox/ProgressIndicator.pm:441
-msgid "The executable has already finished"
-msgstr "(Executable) je završio sa radom"
-
-#: src/EBox/Events/Model/Watcher/Log.pm:214
-#: src/EBox/Events/Model/Watcher/Log.pm:238
-msgid ""
-"Warning! The log watcher is not enabled. Enable to be notified when logs "
-"happen. "
-msgstr ""
-"Upozorenje! (log-watcher) nije pokrenut. Pokrenite ga da bi pratili logove."
-
-#: src/EBox/Events/Model/Watcher/Log.pm:262
-#: src/EBox/Logs/Model/SelectLog.pm:149
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:332
-msgid "Domain"
-msgstr "Domain"
-
-#: src/EBox/Events/Model/Watcher/Log.pm:267
-msgid "Filtering"
-msgstr "Filtracija"
-
-#: src/EBox/Events/Model/Watcher/Log.pm:275
-msgid "Configure log watchers"
-msgstr "Konfiguriši (log-watcher)e"
-
-#: src/EBox/Events/Model/Watcher/Log.pm:277
-msgid "Log watcher"
-msgstr "(Log-watcher)"
-
-#: src/EBox/Events/Model/Watcher/Log.pm:385
-#: src/EBox/Events/Model/Watcher/LogFiltering.pm:211
-#: src/EBox/Events/Model/Watcher/DiskFreeSpace.pm:136
-#: src/EBox/Events/Model/GeneralComposite.pm:72
-#: src/EBox/Events/Model/GeneralComposite.pm:73
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:272
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:324 src/EBox/Events.pm:94
-#: src/EBox/Events.pm:838
-msgid "Events"
-msgstr "Događaji"
-
-#: src/EBox/Events/Model/Watcher/Log.pm:389
-#: src/EBox/Events/Model/Watcher/LogFiltering.pm:215
-msgid "Log Observer Watcher"
-msgstr "Log-Observer-Watcher"
-
-#: src/EBox/Events/Model/Watcher/LogFiltering.pm:108
+#: src/EBox/Event/Dispatcher/Jabber.pm:265
 #, perl-brace-format
-msgid "Log domain {logDomain}"
-msgstr "Log domain-a {logDomain}"
+msgid "Authorization failed: {result} - {message}"
+msgstr "Autorizacija neuspešna: {result} - {message}"
 
-#: src/EBox/Events/Model/Watcher/LogFiltering.pm:149
-#: src/EBox/Types/PortRange.pm:289 src/EBox/Types/Service.pm:212
-#: src/templates/logs/index.mas:185
-msgid "Any"
-msgstr "Svaki"
-
-#: src/EBox/Events/Model/Watcher/LogFiltering.pm:168
-#: src/templates/logs/index.mas:183
-msgid "Event"
-msgstr "Događaj"
-
-#: src/EBox/Events/Model/Watcher/LogFiltering.pm:176
+#: src/EBox/Event/Dispatcher/RSS.pm:218
 #, perl-brace-format
-msgid "Filters to apply to notify logs from {logDomain}"
-msgstr "Filteri koje primenjujete za upis u log-ove za {logDomain}"
+msgid "RSS file: {path}"
+msgstr "RSS datoteka: {path}"
 
-#: src/EBox/Events/Model/Watcher/LogFiltering.pm:184
-msgid ""
-"Every filter added is cumulative.Then every log line which matches with any "
-"filter given will be notified"
-msgstr ""
-"Svaki dodati filter je kumulativ.Pa će biti upisan svaki red log koji se "
-"poklapa sa bilo kojim filterom"
+#: src/EBox/Event/Dispatcher/RSS.pm:232
+msgid "RSS"
+msgstr "RSS"
 
-#: src/EBox/Events/Model/Watcher/LogFiltering.pm:188
-msgid "filter"
-msgstr "filter"
-
-#: src/EBox/Events/Model/Watcher/DiskFreeSpace.pm:100
-msgid "Minimum free disk space per filesystem"
-msgstr "Minimalni prostor slobodan na disku"
-
-# what event is triggered ? expl.
-#: src/EBox/Events/Model/Watcher/DiskFreeSpace.pm:105
-msgid ""
-"When the free space percentage of any disk partition is under this value the "
-"event is triggered."
-msgstr ""
-"Kada je procenat slobodnog prostora manji od dozvoljene vrednosti log će "
-"zabeležiti."
-
-#: src/EBox/Events/Model/Watcher/DiskFreeSpace.pm:112
-msgid "Configure disk free space watcher"
-msgstr "Konfiguriši disk (free-space-watcher)"
-
-#: src/EBox/Events/Model/Watcher/DiskFreeSpace.pm:140
-msgid "Free Disk Space Watcher"
-msgstr "Free Disk Space Watcher"
-
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:269
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:304
-msgid "Name"
-msgstr "Ime"
-
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:277
-#: src/templates/backup.mas:55 src/templates/backup.mas:129
-#: src/templates/confirm-backup.mas:36
-msgid "Description"
-msgstr "Opis"
-
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:286
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:326
-msgid "Configuration"
-msgstr "Konfiguracija"
-
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:302
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:346
-msgid "None"
-msgstr "Nijedan"
-
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:311
-msgid "Configure Events"
-msgstr "Konfiguriši (Events-servis)"
-
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:319
-#: src/EBox/Events/Model/Report/EventsDetails.pm:109
-msgid "event"
-msgstr "Događaj (Event)"
-
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:320
-msgid "Enable/Disable each event watcher monitoring"
-msgstr "Omogući/Onemogući svaki (event-watcher) monitoring"
-
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:498
-msgid ""
-"Warning! There is no log domain watcher enabled. Please, go to "
-"'Configuration' to enable at least one to be notified when a log in this "
-"domain happens. "
-msgstr ""
-"Upozorenje! (log domain watcher) nije pokrenut. Molimo vas, da odete na "
-"konfiguraciju i pokrenete barem jedan, da bi mogli da pratite logove i "
-"dešavanja sa tog domain-a."
-
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:290
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:340
-#: src/EBox/Model/DataTable.pm:4560
-msgid "Enabled"
-msgstr "Omogućen"
-
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:314
-msgid "Receiver"
-msgstr "Prijemnik"
-
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:355
-msgid "Configure Dispatchers"
-msgstr "Konfiguriši Dispečere"
-
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:364
-msgid "dispatcher"
-msgstr "Dispečer"
-
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:365
-msgid "Enable/Disable each event dispatcher"
-msgstr "Omogući/Onemogući dispečer svakog događaja"
-
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:554
-msgid ""
-"In order to enable a configurable event dispatcher, you need to configure it "
-"first"
-msgstr ""
-"Da bi se omogućio konfigurabilan dispečer događaja, potrebno je da ga "
-"konfigurišete"
-
-#: src/EBox/Events/Model/GeneralComposite.pm:76
-msgid ""
-"Events module configures Zentyal to help informing you about events that "
-"happen"
-msgstr ""
-"(Events module) se konfiguriše da bi vam pomogao u praćenju dešavanja na "
-"Zentyal-u"
-
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:192
-msgid "Jabber server name"
-msgstr "Ime Jabber server-a"
-
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:195
-msgid "Jabber server to send the messages"
-msgstr "Jabber server za slanje poruka"
-
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:199
-msgid "Port"
-msgstr "Port"
-
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:206
-msgid "Jabber user name"
-msgstr "Jabber korisničko ime"
-
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:209
-msgid ""
-"Jabber ID of the account that will send the messages. Hint: do not introduce "
-"@domain, only the user name"
-msgstr ""
-"Jabber ID nalog koji će poslati poruke. Savet: nemojte kucati @domain, samo "
-"korisniko ime"
-
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:215
-msgid "User password"
-msgstr "Korisnička šifra"
-
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:223
-msgid "Subscribe"
-msgstr "Podpiši"
-
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:225
-msgid ""
-"Tick this option if you want Zentyal to create an account for the above user"
-msgstr ""
-"Obeležite ovu opciju ako želite da napravite nalog iznad korisnika na "
-"Zentyal-u"
-
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:232
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:299
-msgid "Administrator Jabber Identifier"
-msgstr "Identifikator Jabber Administratora"
-
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:235
-msgid ""
-"Destination Jabber ID of the messages generated by Zentyal,  i.e: you, the "
-"Zentyal admin. Note that you need to register this  account manually in any "
-"jabber server"
-msgstr ""
-"Odredište Jabber ID poruke generisan od Zentyal-a, tJ: ti kao eBoks "
-"administrator.VAŽNO:Morate registrovati ovaj nalog ručno na bilo koji Jabber "
-"server"
-
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:244
-msgid "Configure Jabber dispatcher"
-msgstr "Konfiguriši Jabber dispečer"
-
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:249
-msgid "This dispatcher will send events to an Jabber account"
-msgstr "Ovaj dispečer ce slati event-logove na Jabber nalog"
-
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:252
-msgid "Jabber dispatcher configuration updated"
-msgstr "Jabber dispečer konfiguracija ažurirana"
-
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:276
-msgid "Jabber Dispatcher"
-msgstr "Jabber Dispečer"
-
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:301
-msgid "It should follow the pattern 'user@domain[/resource]'"
-msgstr "Treba da isprati sledeću putanju 'user@domain[/resource]'"
-
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:149
-msgid "Nobody"
-msgstr "Niko"
-
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:153
-msgid "IP address"
-msgstr "IP adresa"
-
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:160
-msgid "Object"
-msgstr "Objekat"
-
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:169
-msgid "Public"
-msgstr "Javno"
-
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:176
-msgid "Channel link"
-msgstr "Link kanal"
-
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:183
-msgid "Allowed readers"
-msgstr "Dozvoljeno čitalaca"
-
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:186
-msgid "Use this field to set the access control for the channel"
-msgstr "Koristite ovo polje da biste podesili kontrolu pristupa na kanal"
-
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:191
-msgid "Syndicate this RSS"
-msgstr "Podeli svima ovaj RSS"
-
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:201
-msgid "Configure RSS dispatcher"
-msgstr "Konfiguriši RSS dispečer"
-
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:206
-msgid ""
-"The channel link is the link which is used to syndicate the content to your "
-"favourite RSS. "
-msgstr ""
-"Kanal link je link koji koristite da distribuirali sadržaj vaših omiljenih "
-"RSS Feed-ova."
-
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:209
-msgid "RSS dispatcher configuration updated"
-msgstr "RSS dispečer konfiguracija ažurirana"
-
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:328
-msgid "RSS Dispatcher"
-msgstr "RSS Dispečer"
-
-#: src/EBox/Events/Model/Report/EventsDetails.pm:50
-#: src/EBox/Events/Model/Report/EventsDetails.pm:74 src/EBox/Events.pm:823
-msgid "Source"
-msgstr "Izvor (Source)"
-
-#: src/EBox/Events/Model/Report/EventsDetails.pm:51
-#: src/EBox/Events/Model/Report/EventsDetails.pm:80
-#: src/EBox/Events/Model/Report/EventsGraph.pm:51 src/EBox/Events.pm:830
-msgid "Informative"
-msgstr "Informativan"
-
-#: src/EBox/Events/Model/Report/EventsDetails.pm:52
-#: src/EBox/Events/Model/Report/EventsDetails.pm:84
-#: src/EBox/Events/Model/Report/EventsGraph.pm:52 src/EBox/Events.pm:831
-#: src/templates/finish.mas:83
-msgid "Warning"
-msgstr "Upozorenje"
-
-#: src/EBox/Events/Model/Report/EventsDetails.pm:53
-#: src/EBox/Events/Model/Report/EventsDetails.pm:88
-#: src/EBox/Events/Model/Report/EventsGraph.pm:53 src/EBox/Events.pm:832
-msgid "Error"
-msgstr "Greška (Error)"
-
-#: src/EBox/Events/Model/Report/EventsDetails.pm:54
-#: src/EBox/Events/Model/Report/EventsDetails.pm:92
-#: src/EBox/Events/Model/Report/EventsGraph.pm:54 src/EBox/Events.pm:833
-msgid "Fatal error"
-msgstr "Fatalna greška (Fatal error)"
-
-#: src/EBox/Events/Model/Report/EventsDetails.pm:68 src/EBox/Logs.pm:737
-#: src/templates/finish.mas:116 src/templates/backup.mas:130
-#: src/templates/confirm-backup.mas:28
-msgid "Date"
-msgstr "Datum"
-
-#: src/EBox/Events/Model/Report/EventsDetails.pm:101
-msgid "Events details"
-msgstr "Detalji događaja"
-
-#: src/EBox/Events/Model/Report/EventsGraph.pm:60
-msgid "Events summarized chart"
-msgstr "Rezimirans mapa događaja"
-
-#: src/EBox/Events/Model/Report/EventsGraph.pm:77
-msgid "Events summarized graph"
-msgstr "Rezimirani grafikon događaja"
-
-#: src/EBox/Events/Composite/Report/EventsReport.pm:69
-msgid "Events reports"
-msgstr "Izveštaji o događajima"
-
-#: src/EBox/Events/Composite/Report/EventsReport.pm:70
-msgid "Events report"
-msgstr "Izveštaj o događajima"
-
-#: src/EBox/Auth.pm:133
-msgid "Password changed"
-msgstr "Lozinka promenjena"
-
-#: src/EBox/CGI/ClientRawBase.pm:212 src/EBox/CGI/WizardPage.pm:155
-msgid ""
-"An internal error related to a template has occurred. This is a bug, "
-"relevant information can be found in the logs."
-msgstr ""
-"Pojavila se greska u (template)u.Informacije o ovom bug-u možete naći u "
-"logovima."
-
-#: src/EBox/CGI/Wizard.pm:29
-#, fuzzy
-msgid "Initial configuration wizard"
-msgstr "Opšta konfiguracija"
-
-#: src/EBox/CGI/Logs/Index.pm:35 src/EBox/Logs.pm:58 src/EBox/Logs.pm:383
-msgid "Logs"
-msgstr "Logovi"
-
-#: src/EBox/CGI/Logs/Index.pm:326 src/EBox/Logs.pm:721
-msgid "Query Logs"
-msgstr "Pretraga logova"
-
-#: src/EBox/CGI/Logs/Index.pm:329
-msgid "Full Reports"
-msgstr "Detaljni izveštaji"
-
-#: src/EBox/CGI/Dashboard/Index.pm:32 src/EBox/SysInfo.pm.in:253
-msgid "Dashboard"
-msgstr "Kotrolna tabla"
-
-#: src/EBox/CGI/Dashboard/ConfigureWidgets.pm:30
-#: src/templates/dashboard/index.mas:81
-msgid "Configure Widgets"
-msgstr "Konfiguriši (Widget)e"
-
-#: src/EBox/CGI/Progress.pm:81 src/EBox/CGI/Progress.pm:107
-#: src/EBox/CGI/Finish.pm:77
-msgid "Saving changes"
-msgstr "Sačuvaj promene"
-
-#: src/EBox/CGI/Login/Index.pm:63
-#, fuzzy
-msgid ""
-"There is a script which has asked to run in Zentyal exclusively. Please, "
-"wait patiently until it is done"
-msgstr ""
-"Na eBoks-u postoiji pokrenuta skripta koja radi u exluziv modu . Molimo za "
-"strpljenje, sačekajte dok se ne završi."
-
-#: src/EBox/CGI/Login/Index.pm:67
-msgid "Incorrect password"
-msgstr "Pogrešna lozinka"
-
-#: src/EBox/CGI/Login/Index.pm:70
-msgid "For security reasons your session has expired due to inactivity"
-msgstr "Iz bezbednosnih razloga vaša sesija je istekla usled neaktivnosti"
-
-#: src/EBox/CGI/Login/Index.pm:73
-msgid "You have been logged out because a new session has been opened"
-msgstr "Trenutno ste razlogovani zbog otvorene nove sesije"
-
-#: src/EBox/CGI/ServiceModule/StatusView.pm:39
-msgid "Module Status Configuration"
-msgstr "Konfiguracija Status Modula"
-
-#: src/EBox/CGI/Logout/Index.pm:29 src/EBox/Html.pm:40
-msgid "Logout"
-msgstr "Odjava"
-
-#: src/EBox/CGI/EBox/General.pm:32
-msgid "General Configuration"
-msgstr "Opšta konfiguracija"
-
-#: src/EBox/CGI/EBox/Halt.pm:30
-msgid "Halt or Reboot"
-msgstr "Zaustavi ili Restartuj"
-
-#: src/EBox/CGI/EBox/Halt.pm:43
-#, fuzzy
-msgid "Zentyal is going down for halt"
-msgstr "eBoks ide dole za zaustavljanje"
-
-#: src/EBox/CGI/EBox/Halt.pm:46
-#, fuzzy
-msgid "Zentyal is going down for reboot"
-msgstr "eBoks ide dole za restartovanje"
-
-#: src/EBox/CGI/EBox/Password.pm:43 src/templates/password.mas:11
-#: src/templates/login/index.mas:49
-#, fuzzy
-msgid "Username"
-msgstr "Hostname"
-
-#: src/EBox/CGI/EBox/Password.pm:48 src/templates/login/index.mas:54
-msgid "Password"
-msgstr "Lozinka"
-
-#: src/EBox/CGI/EBox/Password.pm:57
-msgid "Incorrect password."
-msgstr "Pogršna Lozinka"
-
-#: src/EBox/CGI/EBox/Password.pm:62
-msgid "New passwords do not match."
-msgstr "Nova lozinka se ne poklapa"
-
-#: src/EBox/CGI/EBox/Password.pm:67
-msgid "The password must be at least 6 characters long"
-msgstr "Lozinka mora biti od najmanje 6 karaktera"
-
-#: src/EBox/CGI/EBox/Password.pm:71
-msgid "The password was changed successfully."
-msgstr "Lozinka je uspešno promenjena"
-
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:33 src/templates/backup.mas:30
-msgid "Configuration Backup"
-msgstr "Backup Konfiguracije"
-
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:105
-msgid "Please confirm that you want to delete the following backup file:"
-msgstr "Molim da potvrdite brisanje ovog (backup file)a:"
-
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:107 src/templates/backup.mas:168
-#: src/templates/backup.mas:169
-msgid "Delete"
-msgstr "Obriši"
-
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:114
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:130
-msgid "Please confirm that you want to restore using this backup file:"
-msgstr "Molim da potvrdite (restore) korišćenjem ovog (backup file)a:"
-
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:116
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:132 src/templates/backup.mas:98
-msgid "Restore"
-msgstr "Restore"
-
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:147 src/EBox/CGI/EBox/Backup.pm:193
-#: src/EBox/CGI/EBox/Backup.pm:271 src/EBox/CGI/EBox/Backup.pm:284
-#: src/EBox/Backup.pm:1481
-msgid "The input contains invalid characters"
-msgstr "Unos sadrži pogrešne karaktere"
-
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:176
-msgid "Configuration backup"
-msgstr "Backup Konfiguracije"
-
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:179
-msgid "Full data and configuration backup"
-msgstr "Potpuni backup koniguracije i podataka"
-
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:182
-msgid "Bug-report configuration dump"
-msgstr "(Bug-Report) i (dump) konfiguracije "
-
-#: src/EBox/CGI/EBox/RestartService.pm:49
-msgid "module name"
-msgstr "Ime Modula"
-
-#: src/EBox/CGI/EBox/RestartService.pm:54
-msgid "The module was restarted correctly."
-msgstr "Modul je korektno restartovan."
-
-#: src/EBox/CGI/EBox/RestartService.pm:58
+#: src/EBox/Event/Dispatcher/RSS.pm:289
 #, perl-brace-format
-msgid "Error restarting service. See {logs} for more information."
+msgid "Zentyal alerts channel for {hostname}"
+msgstr "Zentyal alarmni kanali za {hostname}"
+
+#: src/EBox/Event/Dispatcher/RSS.pm:292
+msgid "This channel tracks what happens on this Zentyal machine along the time"
+msgstr "Ovaj kanal prati dešavanja svo vreme na Zentyal mašini "
+
+#: src/EBox/Event/Dispatcher/RSS.pm:312
+#, perl-brace-format
+msgid "The event has happened in Zentyal {hostname} from {source}"
+msgstr "Desilo se nešto na Zentyal-u {hostname} od {source}"
+
+#: src/EBox/Event/Dispatcher/RSS.pm:316
+#, perl-brace-format
+msgid "Go to your {url} to check its status."
+msgstr "Idi na svoju {url} da bi proverio status."
+
+#: src/EBox/Event/Dispatcher/Log.pm:135
+msgid "Log file"
+msgstr "Log datoteka"
+
+#: src/EBox/Event/Dispatcher/Log.pm:148
+msgid "Log"
+msgstr "Log"
+
+#: src/EBox/Event/Dispatcher/Abstract.pm:140
+#, perl-brace-format
+msgid "Dispatcher {name} is not configured to be enabled"
+msgstr "Dispečer {name} nije konfigurisan da bi radio"
+
+#: src/EBox/Event/Watcher/DiskFreeSpace.pm:133
+#, perl-brace-format
+msgid "The file system {fs}, mounted on {mp}, has no space left"
+msgstr "HDisk format {fs}, montiran na {mp}, nema slobodnog prostora"
+
+#: src/EBox/Event/Watcher/DiskFreeSpace.pm:167
+msgid "Free storage space"
+msgstr "Slobodan prostor na HDD-u"
+
+#: src/EBox/Event/Watcher/DiskFreeSpace.pm:184
+msgid "Check if any disk partition has no storage space left"
+msgstr "Proveri da li je i na jednoj particiji ostalo slobodnog prostora"
+
+#: src/EBox/Event/Watcher/Runit.pm:112
+#, perl-brace-format
+msgid "The following modules are not running but they are enabled: {modules}\n"
+msgstr "Moduli koji ne rade su: {modules}\n"
+
+#: src/EBox/Event/Watcher/Runit.pm:141
+msgid "Service"
+msgstr "Servis"
+
+#: src/EBox/Event/Watcher/Runit.pm:158
+msgid "Check if any Zentyal service is not running when it is enabled"
+msgstr "Proverite da li ijedan Zentyal servis ne radi a trebalo bi da radi"
+
+#: src/EBox/Event/Watcher/Runit.pm:228
+#, perl-brace-format
+msgid ""
+"The service {service} has been restarted {restart} times in {time} seconds "
+"and it has been stopped"
 msgstr ""
+"Servis {service} je restartovan {restart} toliko puta {time} u sekundi a "
+"onda stopiran"
 
-#: src/EBox/CGI/EBox/Hostname.pm:48
-#, fuzzy
-msgid "hostname"
-msgstr "Hostname"
+#: src/EBox/Event/Watcher/Log.pm:202
+msgid "Log observer"
+msgstr "Pratilac log-ova"
 
-#: src/EBox/CGI/EBox/CurrentProgress.pm:36
-msgid "Upgrading"
-msgstr "Nadogradnja-Usavršavanje"
-
-#: src/EBox/CGI/EBox/Backup.pm:34 src/EBox/SysInfo.pm.in:280
-#, fuzzy
-msgid "Import/Export Configuration"
-msgstr "Trenutna konfiguracija"
-
-#: src/EBox/CGI/EBox/Backup.pm:163
+#: src/EBox/Event/Watcher/Log.pm:240
 #, perl-brace-format
-msgid "Unknown backup mode: {mode}"
-msgstr "Nepoznat backup mode: {mode}"
-
-#: src/EBox/CGI/EBox/Backup.pm:226
-#, perl-brace-format
-msgid "Unknown restore mode: {mode}"
-msgstr "Nepoznat restore mode: {mode}"
-
-#: src/EBox/CGI/EBox/Backup.pm:239
-msgid "Backing up"
-msgstr "(Backup)ujem"
-
-#: src/EBox/CGI/EBox/Backup.pm:240
-msgid "Backing up modules"
-msgstr "(Backup) moduli"
-
-#: src/EBox/CGI/EBox/Backup.pm:241
-msgid "Operation"
-msgstr "Operacija"
-
-#: src/EBox/CGI/EBox/Backup.pm:242
-msgid "operations left to finish backup"
-msgstr "Operacija ostavljena da završi (backup)"
-
-#: src/EBox/CGI/EBox/Backup.pm:243
-msgid "Backup successful"
-msgstr "(Backup) uspešan"
-
-#: src/EBox/CGI/EBox/Backup.pm:255
-msgid "Restoring backup"
-msgstr "(Restor)ujem backup"
-
-#: src/EBox/CGI/EBox/Backup.pm:256
-msgid "Restoring modules"
-msgstr "(Restor)ujem Module"
-
-#: src/EBox/CGI/EBox/Backup.pm:257 src/EBox/Logs.pm:739
-#: src/templates/moduleStatusTable.mas:58 src/templates/finish.mas:117
-msgid "Module"
-msgstr "Modul"
-
-#: src/EBox/CGI/EBox/Backup.pm:258
-#, fuzzy
-msgid "modules restored"
-msgstr "moduli opozvani"
-
-#: src/EBox/CGI/EBox/Backup.pm:259
-msgid "Restore successful"
-msgstr "(Restore) uspešan"
-
-#: src/EBox/CGI/EBox/ConfigurationReport.pm:29
-#, fuzzy
-msgid "Configuration report"
-msgstr "(Restore) Konfiguracije"
+msgid "Notify when a logger ({loggers}) has logged something"
+msgstr "Obavesti da li je logger ({loggers}) logovao nešto"
 
 # redundant array of independent disks
-#: src/EBox/CGI/Report/RAID.pm:30 src/EBox/Event/Watcher/RAID.pm:181
-#: src/EBox/SysInfo.pm.in:275
+#: src/EBox/Event/Watcher/RAID.pm:181 src/EBox/SysInfo.pm.in:275
+#: src/EBox/CGI/Report/RAID.pm:30
 msgid "RAID"
 msgstr "RAID"
-
-#: src/EBox/CGI/Report/DiskUsage.pm:31 src/EBox/SysInfo.pm.in:271
-msgid "Disk Usage"
-msgstr "Disk upotreba"
-
-#: src/EBox/CGI/Finish.pm:32
-msgid "Save configuration"
-msgstr "Sačuvaj konfiguraciju"
-
-#: src/EBox/CGI/Finish.pm:78
-msgid "Saving changes in modules"
-msgstr "Sačuvaj promene u modulima"
-
-#: src/EBox/CGI/Finish.pm:79 src/templates/report/raid.mas:213
-msgid "Current operation"
-msgstr "Trenutne operacije"
-
-#: src/EBox/CGI/Finish.pm:80
-msgid "operations performed"
-msgstr "Obavljene Operacije"
-
-#: src/EBox/CGI/Finish.pm:81
-msgid "Changes saved"
-msgstr "Promene Sačuvane"
-
-#: src/EBox/CGI/Finish.pm:82
-#, perl-brace-format
-msgid ""
-"Some modules reported error when saving changes . More information on the "
-"logs in {dir}"
-msgstr ""
-"Neki moduli su prijavili grešku prilikom upisivanja promena.Više informacija "
-"se nalayi u logdirektorijumu{dir}"
-
-#: src/EBox/CGI/Finish.pm:101
-msgid "Revoking changes"
-msgstr "Opoziv promena"
-
-#: src/EBox/CGI/Finish.pm:102
-msgid "Revoking changes in modules"
-msgstr "Opoziv promena u modulima"
-
-#: src/EBox/CGI/Finish.pm:103
-msgid "Current module"
-msgstr "Trenutni modul"
-
-#: src/EBox/CGI/Finish.pm:104
-msgid "modules revoked"
-msgstr "moduli opozvani"
-
-#: src/EBox/CGI/Finish.pm:105
-msgid "Changes revoked"
-msgstr "promene opozvane"
-
-#: src/EBox/CGI/Finish.pm:106
-#, perl-brace-format
-msgid ""
-"Some modules reported error when discarding changes . More information on "
-"the logs in {dir}"
-msgstr ""
-"određeni moduli su prijavili grešku pri vraćanju u predhodno stanje . Više "
-"inormacija u logdirektorijumu{dir}"
 
 #: src/EBox/Event/Watcher/RAID.pm:198
 msgid "Check if any event has happened in RAID subsystem"
@@ -939,28 +347,6 @@ msgstr "neispravan"
 msgid "spare"
 msgstr "rezervni"
 
-#: src/EBox/Event/Watcher/Runit.pm:112
-#, perl-brace-format
-msgid "The following modules are not running but they are enabled: {modules}\n"
-msgstr "Moduli koji ne rade su: {modules}\n"
-
-#: src/EBox/Event/Watcher/Runit.pm:141
-msgid "Service"
-msgstr "Servis"
-
-#: src/EBox/Event/Watcher/Runit.pm:158
-msgid "Check if any Zentyal service is not running when it is enabled"
-msgstr "Proverite da li ijedan Zentyal servis ne radi a trebalo bi da radi"
-
-#: src/EBox/Event/Watcher/Runit.pm:228
-#, perl-brace-format
-msgid ""
-"The service {service} has been restarted {restart} times in {time} seconds "
-"and it has been stopped"
-msgstr ""
-"Servis {service} je restartovan {restart} toliko puta {time} u sekundi a "
-"onda stopiran"
-
 #: src/EBox/Event/Watcher/State.pm:125
 msgid "Zentyal is up and running"
 msgstr "Zentyal je podignut i radi"
@@ -977,108 +363,126 @@ msgstr "Stanje"
 msgid "Check if Zentyal is currently up or down"
 msgstr "Proverite da li je Zentyal trenutno oboren ili radi"
 
-#: src/EBox/Event/Watcher/Log.pm:202
-msgid "Log observer"
-msgstr "Pratilac log-ova"
-
-#: src/EBox/Event/Watcher/Log.pm:240
+#: src/EBox/Model/DataTable.pm:327
 #, perl-brace-format
-msgid "Notify when a logger ({loggers}) has logged something"
-msgstr "Obavesti da li je logger ({loggers}) logovao nešto"
+msgid "{model} in {module} module"
+msgstr "{model} u {module} modul"
 
-#: src/EBox/Event/Watcher/DiskFreeSpace.pm:133
+#: src/EBox/Model/DataTable.pm:331
+msgid "at"
+msgstr "u"
+
+#: src/EBox/Model/DataTable.pm:542
+msgid "field"
+msgstr "polje"
+
+#: src/EBox/Model/DataTable.pm:1468
+msgid "page"
+msgstr "strana"
+
+#: src/EBox/Model/DataTable.pm:1471
+msgid "Page must be a number equal or greater than zero"
+msgstr "Broj strana mora biti jednak ili veći od nule"
+
+#: src/EBox/Model/DataTable.pm:2129 src/EBox/Model/DataMultiTable.pm:168
+#: src/EBox/Model/Composite.pm:671 src/EBox/Model/Composite.pm:686
+#: src/EBox/Logs.pm:740
+msgid "Action"
+msgstr "Akcija"
+
+#: src/EBox/Model/DataTable.pm:2831
 #, perl-brace-format
-msgid "The file system {fs}, mounted on {mp}, has no space left"
-msgstr "HDisk format {fs}, montiran na {mp}, nema slobodnog prostora"
+msgid "Remove {num} rows of {rowName} from {model}{br}"
+msgstr "Ukloni {num} red-a-ova {rowName} od {model}{br}"
 
-#: src/EBox/Event/Watcher/DiskFreeSpace.pm:167
-msgid "Free storage space"
-msgstr "Slobodan prostor na HDD-u"
+#: src/EBox/Model/DataTable.pm:2902
+msgid "Page size"
+msgstr "Veličina strane"
 
-#: src/EBox/Event/Watcher/DiskFreeSpace.pm:184
-msgid "Check if any disk partition has no storage space left"
-msgstr "Proveri da li je i na jednoj particiji ostalo slobodnog prostora"
+#: src/EBox/Model/DataTable.pm:2905
+msgid "Must be either a positive number or zero"
+msgstr "Mora biti 0 ili pozitivan broj"
 
-#: src/EBox/Event/Dispatcher/Jabber.pm:165
-msgid "Admin Jabber account"
-msgstr "Admin Jabber nalog"
-
-#: src/EBox/Event/Dispatcher/Jabber.pm:178
-msgid "Jabber"
-msgstr "Jabber"
-
-#: src/EBox/Event/Dispatcher/Jabber.pm:228
+#: src/EBox/Model/DataTable.pm:3212
 #, perl-brace-format
-msgid "Jabber server {serverName} is down or connection is not allowed"
-msgstr "Jabber server {serverName} ne radi ili nije dozvoljena konekcija"
+msgid "{row} added"
+msgstr "{row} dodaj"
 
-#: src/EBox/Event/Dispatcher/Jabber.pm:258
+#: src/EBox/Model/DataTable.pm:3213
 #, perl-brace-format
-msgid "Subscription failed: {message}"
-msgstr "Podpis neuspešan : {message}"
+msgid "{row} deleted"
+msgstr "{row} obriši"
 
-#: src/EBox/Event/Dispatcher/Jabber.pm:265
+#: src/EBox/Model/DataTable.pm:3214
 #, perl-brace-format
-msgid "Authorization failed: {result} - {message}"
-msgstr "Autorizacija neuspešna: {result} - {message}"
+msgid "{row} updated"
+msgstr "{row} ažuriraj"
 
-#: src/EBox/Event/Dispatcher/Abstract.pm:140
+#: src/EBox/Model/DataTable.pm:3215
 #, perl-brace-format
-msgid "Dispatcher {name} is not configured to be enabled"
-msgstr "Dispečer {name} nije konfigurisan da bi radio"
+msgid "{row} moved up"
+msgstr "{row} pomeren gore"
 
-#: src/EBox/Event/Dispatcher/Log.pm:135
-msgid "Log file"
-msgstr "Log datoteka"
-
-#: src/EBox/Event/Dispatcher/Log.pm:148
-msgid "Log"
-msgstr "Log"
-
-#: src/EBox/Event/Dispatcher/RSS.pm:218
+#: src/EBox/Model/DataTable.pm:3216
 #, perl-brace-format
-msgid "RSS file: {path}"
-msgstr "RSS datoteka: {path}"
+msgid "{row} moved down"
+msgstr "{row} pomeren dole"
 
-#: src/EBox/Event/Dispatcher/RSS.pm:232
-msgid "RSS"
-msgstr "RSS"
+#: src/EBox/Model/DataTable.pm:4402 src/templates/dataInUse.mas:25
+#: src/templates/dataInUse.mas:34 src/templates/password.mas:67
+#: src/templates/hostname.mas:19 src/templates/port.mas:14
+msgid "Change"
+msgstr "Promeni"
 
-#: src/EBox/Event/Dispatcher/RSS.pm:289
+#: src/EBox/Model/DataTable.pm:4560
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:290
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:340
+msgid "Enabled"
+msgstr "Omogućen"
+
+#: src/EBox/Model/ProviderBase.pm:246
 #, perl-brace-format
-msgid "Zentyal alerts channel for {hostname}"
-msgstr "Zentyal alarmni kanali za {hostname}"
+msgid "Provided object with index {i} does not exist"
+msgstr "Dati objekat sa indexom {i} nepostoji"
 
-#: src/EBox/Event/Dispatcher/RSS.pm:292
-msgid "This channel tracks what happens on this Zentyal machine along the time"
-msgstr "Ovaj kanal prati dešavanja svo vreme na Zentyal mašini "
-
-#: src/EBox/Event/Dispatcher/RSS.pm:312
+#: src/EBox/Model/Composite.pm:371
 #, perl-brace-format
-msgid "The event has happened in Zentyal {hostname} from {source}"
-msgstr "Desilo se nešto na Zentyal-u {hostname} od {source}"
+msgid "It should be one of following values: {values}"
+msgstr "Trebalo bi da glasi jedna od sledećih vrednosti: {values}"
 
-#: src/EBox/Event/Dispatcher/RSS.pm:316
+#: src/EBox/Model/Composite.pm:673
 #, perl-brace-format
-msgid "Go to your {url} to check its status."
-msgstr "Idi na svoju {url} da bi proverio status."
+msgid "Actions to be taken allowed are: {view} and {cView}"
+msgstr "Dozvoljene akcije koje treba preduzeti: {view} i {cView}"
 
-#: src/EBox/PgDBEngine.pm:60 src/EBox/PgDBEngine.pm:74
-#: src/EBox/PgDBEngine.pm:88
-#, perl-brace-format
-msgid "You must set the {variable} variable in the ebox configuration file"
-msgstr "Morate podesiti sledeće {variable} u ebox varijabla konfiguraciji"
+#: src/EBox/Model/Composite.pm:801
+msgid "Choose one of the following:"
+msgstr "Izabrati jednu od ponuđenih:"
 
-#: src/EBox/PgDBEngine.pm:471
+#: src/EBox/Model/ModelManager.pm:468
 msgid ""
-"You are using sliced backup mode and this backup was made in no-sliced mode"
+"The data you are removing is being used by\n"
+"                    the following sections:"
 msgstr ""
+"Podaci koji se uklanjaju se koriste od strane \n"
+"                    u sledećim delovima:"
 
-#: src/EBox/PgDBEngine.pm:479
+#: src/EBox/Model/ModelManager.pm:515
 msgid ""
-"Database dump file not found. Maybe the backup you are trying to restore was "
-"made in sliced mode?"
+"The data you are modifying is being used by\n"
+"\t\t\tthe following sections:"
 msgstr ""
+"Podaci koji se menjaju se koriste od strane\n"
+"\t\t\tu sledećim delovima:"
+
+#: src/EBox/Model/DataForm.pm:554
+#, perl-brace-format
+msgid "Remove data from {model}{br}"
+msgstr "Ukloni podatke od {model}{br}"
+
+#: src/EBox/Model/DataForm.pm:688 src/templates/progress.mas:26
+msgid "Done"
+msgstr "Gotovo"
 
 #: src/EBox/Types/Int.pm:154
 msgid "Enter an integer number"
@@ -1094,6 +498,25 @@ msgstr "Vrednost ne sme biti veća od {m}"
 msgid "The value shouldn't be less than {m}"
 msgstr "Vrednost ne sme biti manja od {m}"
 
+#: src/EBox/Types/DomainName.pm:117
+msgid "IP addresses are not allowed"
+msgstr "IP adrese nisu dozvoljene"
+
+#: src/EBox/Types/Float.pm:112
+msgid "Enter a float number"
+msgstr "Unesite floating-point broj"
+
+#: src/EBox/Types/Select.pm:340
+#, perl-brace-format
+msgid "Choose a value within the value set: {set}"
+msgstr "Izaberi vrednosti iz liste: {set}"
+
+#: src/EBox/Types/Service.pm:212 src/EBox/Types/PortRange.pm:289
+#: src/EBox/Events/Model/Watcher/LogFiltering.pm:149
+#: src/templates/logs/index.mas:185
+msgid "Any"
+msgstr "Svaki"
+
 #: src/EBox/Types/Password.pm:133
 #, perl-brace-format
 msgid "The password should have at least {minLength} characters"
@@ -1103,10 +526,6 @@ msgstr "Lozinka bi najmanje trebalo da ima {minLength} karaktera"
 #, perl-brace-format
 msgid "The password should have at most {maxLength} characters"
 msgstr "Lozinka bi najviše trebalo da ima {maxLength} karaktera"
-
-#: src/EBox/Types/DomainName.pm:117
-msgid "IP addresses are not allowed"
-msgstr "IP adrese nisu dozvoljene"
 
 #: src/EBox/Types/PortRange.pm:138
 msgid "any"
@@ -1125,31 +544,503 @@ msgstr "Opseg portova"
 msgid "\"From\" {from} must be greater than \"To\" {to}"
 msgstr "\"Od\" {from} mora biti veći \"Do\" {to}"
 
-#: src/EBox/Types/Float.pm:112
-msgid "Enter a float number"
-msgstr "Unesite floating-point broj"
+#: src/EBox/Html.pm:39 src/templates/wizard.mas:124
+msgid "Save changes"
+msgstr "Sačuvaj promene"
 
-#: src/EBox/Types/Select.pm:340
-#, perl-brace-format
-msgid "Choose a value within the value set: {set}"
-msgstr "Izaberi vrednosti iz liste: {set}"
+#: src/EBox/Html.pm:40 src/EBox/CGI/Logout/Index.pm:29
+msgid "Logout"
+msgstr "Odjava"
 
-#: src/EBox/Logs/SlicedBackup.pm:104
-#, perl-brace-format
+#: src/EBox/SysInfo.pm.in:50
+msgid "System Information"
+msgstr "Sistemske Informacije"
+
+#: src/EBox/SysInfo.pm.in:95
+msgid "available"
+msgstr "dostupan"
+
+#: src/EBox/SysInfo.pm.in:103
+msgid "Time"
+msgstr "Vreme"
+
+#: src/EBox/SysInfo.pm.in:104
+msgid "Hostname"
+msgstr "Hostname"
+
+#: src/EBox/SysInfo.pm.in:105
+msgid "Core version"
+msgstr "verzija jezgra"
+
+#: src/EBox/SysInfo.pm.in:107
+msgid "System load"
+msgstr "Sistem podignut"
+
+#: src/EBox/SysInfo.pm.in:108
+msgid "Uptime"
+msgstr "Vreme rada"
+
+#: src/EBox/SysInfo.pm.in:109
+msgid "Users"
+msgstr "Koisnici"
+
+#: src/EBox/SysInfo.pm.in:162 src/EBox/SysInfo.pm.in:258
+msgid "Module Status"
+msgstr "Status modula"
+
+#: src/EBox/SysInfo.pm.in:168
+msgid "General Information"
+msgstr "Generalne Informacije"
+
+#: src/EBox/SysInfo.pm.in:174
+msgid "Process List"
+msgstr "Lista procesa"
+
+#: src/EBox/SysInfo.pm.in:181
+msgid "Resources & Services"
+msgstr "Resursi & Servisi"
+
+#: src/EBox/SysInfo.pm.in:253 src/EBox/CGI/Dashboard/Index.pm:32
+msgid "Dashboard"
+msgstr "Kotrolna tabla"
+
+#: src/EBox/SysInfo.pm.in:264
+msgid "System"
+msgstr "Sistem"
+
+#: src/EBox/SysInfo.pm.in:268
+msgid "General"
+msgstr "Generalni"
+
+#: src/EBox/SysInfo.pm.in:271 src/EBox/CGI/Report/DiskUsage.pm:31
+msgid "Disk Usage"
+msgstr "Disk upotreba"
+
+#: src/EBox/SysInfo.pm.in:280 src/EBox/CGI/EBox/Backup.pm:34
+#, fuzzy
+msgid "Import/Export Configuration"
+msgstr "Trenutna konfiguracija"
+
+#: src/EBox/SysInfo.pm.in:283
+msgid "Configuration Report"
+msgstr "Konfiguracija izveštaja"
+
+#: src/EBox/SysInfo.pm.in:286
+msgid "Halt/Reboot"
+msgstr "Zaustavi/Restartuj"
+
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:304
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:269
+msgid "Name"
+msgstr "Ime"
+
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:314
+msgid "Receiver"
+msgstr "Prijemnik"
+
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:326
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:286
+msgid "Configuration"
+msgstr "Konfiguracija"
+
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:346
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:302
+msgid "None"
+msgstr "Nijedan"
+
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:355
+msgid "Configure Dispatchers"
+msgstr "Konfiguriši Dispečere"
+
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:364
+msgid "dispatcher"
+msgstr "Dispečer"
+
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:365
+msgid "Enable/Disable each event dispatcher"
+msgstr "Omogući/Onemogući dispečer svakog događaja"
+
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:554
 msgid ""
-"There are {n} log slices not stored; wait or force its storage and retry"
+"In order to enable a configurable event dispatcher, you need to configure it "
+"first"
+msgstr ""
+"Da bi se omogućio konfigurabilan dispečer događaja, potrebno je da ga "
+"konfigurišete"
+
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:192
+msgid "Jabber server name"
+msgstr "Ime Jabber server-a"
+
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:195
+msgid "Jabber server to send the messages"
+msgstr "Jabber server za slanje poruka"
+
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:199
+msgid "Port"
+msgstr "Port"
+
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:206
+msgid "Jabber user name"
+msgstr "Jabber korisničko ime"
+
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:209
+msgid ""
+"Jabber ID of the account that will send the messages. Hint: do not introduce "
+"@domain, only the user name"
+msgstr ""
+"Jabber ID nalog koji će poslati poruke. Savet: nemojte kucati @domain, samo "
+"korisniko ime"
+
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:215
+msgid "User password"
+msgstr "Korisnička šifra"
+
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:223
+msgid "Subscribe"
+msgstr "Podpiši"
+
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:225
+msgid ""
+"Tick this option if you want Zentyal to create an account for the above user"
+msgstr ""
+"Obeležite ovu opciju ako želite da napravite nalog iznad korisnika na "
+"Zentyal-u"
+
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:232
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:299
+msgid "Administrator Jabber Identifier"
+msgstr "Identifikator Jabber Administratora"
+
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:235
+msgid ""
+"Destination Jabber ID of the messages generated by Zentyal,  i.e: you, the "
+"Zentyal admin. Note that you need to register this  account manually in any "
+"jabber server"
+msgstr ""
+"Odredište Jabber ID poruke generisan od Zentyal-a, tJ: ti kao eBoks "
+"administrator.VAŽNO:Morate registrovati ovaj nalog ručno na bilo koji Jabber "
+"server"
+
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:244
+msgid "Configure Jabber dispatcher"
+msgstr "Konfiguriši Jabber dispečer"
+
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:249
+msgid "This dispatcher will send events to an Jabber account"
+msgstr "Ovaj dispečer ce slati event-logove na Jabber nalog"
+
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:252
+msgid "Jabber dispatcher configuration updated"
+msgstr "Jabber dispečer konfiguracija ažurirana"
+
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:272
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:324
+#: src/EBox/Events/Model/GeneralComposite.pm:72
+#: src/EBox/Events/Model/GeneralComposite.pm:73
+#: src/EBox/Events/Model/Watcher/LogFiltering.pm:211
+#: src/EBox/Events/Model/Watcher/DiskFreeSpace.pm:136
+#: src/EBox/Events/Model/Watcher/Log.pm:385 src/EBox/Events.pm:94
+#: src/EBox/Events.pm:838
+msgid "Events"
+msgstr "Događaji"
+
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:276
+msgid "Jabber Dispatcher"
+msgstr "Jabber Dispečer"
+
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:301
+msgid "It should follow the pattern 'user@domain[/resource]'"
+msgstr "Treba da isprati sledeću putanju 'user@domain[/resource]'"
+
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:149
+msgid "Nobody"
+msgstr "Niko"
+
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:153
+msgid "IP address"
+msgstr "IP adresa"
+
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:160
+msgid "Object"
+msgstr "Objekat"
+
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:169
+msgid "Public"
+msgstr "Javno"
+
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:176
+msgid "Channel link"
+msgstr "Link kanal"
+
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:183
+msgid "Allowed readers"
+msgstr "Dozvoljeno čitalaca"
+
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:186
+msgid "Use this field to set the access control for the channel"
+msgstr "Koristite ovo polje da biste podesili kontrolu pristupa na kanal"
+
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:191
+msgid "Syndicate this RSS"
+msgstr "Podeli svima ovaj RSS"
+
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:201
+msgid "Configure RSS dispatcher"
+msgstr "Konfiguriši RSS dispečer"
+
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:206
+msgid ""
+"The channel link is the link which is used to syndicate the content to your "
+"favourite RSS. "
+msgstr ""
+"Kanal link je link koji koristite da distribuirali sadržaj vaših omiljenih "
+"RSS Feed-ova."
+
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:209
+msgid "RSS dispatcher configuration updated"
+msgstr "RSS dispečer konfiguracija ažurirana"
+
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:328
+msgid "RSS Dispatcher"
+msgstr "RSS Dispečer"
+
+#: src/EBox/Events/Model/GeneralComposite.pm:76
+msgid ""
+"Events module configures Zentyal to help informing you about events that "
+"happen"
+msgstr ""
+"(Events module) se konfiguriše da bi vam pomogao u praćenju dešavanja na "
+"Zentyal-u"
+
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:277
+#: src/templates/backup.mas:55 src/templates/backup.mas:129
+#: src/templates/confirm-backup.mas:36
+msgid "Description"
+msgstr "Opis"
+
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:311
+msgid "Configure Events"
+msgstr "Konfiguriši (Events-servis)"
+
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:319
+#: src/EBox/Events/Model/Report/EventsDetails.pm:109
+msgid "event"
+msgstr "Događaj (Event)"
+
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:320
+msgid "Enable/Disable each event watcher monitoring"
+msgstr "Omogući/Onemogući svaki (event-watcher) monitoring"
+
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:498
+msgid ""
+"Warning! There is no log domain watcher enabled. Please, go to "
+"'Configuration' to enable at least one to be notified when a log in this "
+"domain happens. "
+msgstr ""
+"Upozorenje! (log domain watcher) nije pokrenut. Molimo vas, da odete na "
+"konfiguraciju i pokrenete barem jedan, da bi mogli da pratite logove i "
+"dešavanja sa tog domain-a."
+
+#: src/EBox/Events/Model/Watcher/LogFiltering.pm:108
+#, perl-brace-format
+msgid "Log domain {logDomain}"
+msgstr "Log domain-a {logDomain}"
+
+#: src/EBox/Events/Model/Watcher/LogFiltering.pm:168
+#: src/templates/logs/index.mas:183
+msgid "Event"
+msgstr "Događaj"
+
+#: src/EBox/Events/Model/Watcher/LogFiltering.pm:176
+#, perl-brace-format
+msgid "Filters to apply to notify logs from {logDomain}"
+msgstr "Filteri koje primenjujete za upis u log-ove za {logDomain}"
+
+#: src/EBox/Events/Model/Watcher/LogFiltering.pm:184
+msgid ""
+"Every filter added is cumulative.Then every log line which matches with any "
+"filter given will be notified"
+msgstr ""
+"Svaki dodati filter je kumulativ.Pa će biti upisan svaki red log koji se "
+"poklapa sa bilo kojim filterom"
+
+#: src/EBox/Events/Model/Watcher/LogFiltering.pm:188
+msgid "filter"
+msgstr "filter"
+
+#: src/EBox/Events/Model/Watcher/LogFiltering.pm:215
+#: src/EBox/Events/Model/Watcher/Log.pm:389
+msgid "Log Observer Watcher"
+msgstr "Log-Observer-Watcher"
+
+#: src/EBox/Events/Model/Watcher/DiskFreeSpace.pm:100
+msgid "Minimum free disk space per filesystem"
+msgstr "Minimalni prostor slobodan na disku"
+
+# what event is triggered ? expl.
+#: src/EBox/Events/Model/Watcher/DiskFreeSpace.pm:105
+msgid ""
+"When the free space percentage of any disk partition is under this value the "
+"event is triggered."
+msgstr ""
+"Kada je procenat slobodnog prostora manji od dozvoljene vrednosti log će "
+"zabeležiti."
+
+#: src/EBox/Events/Model/Watcher/DiskFreeSpace.pm:112
+msgid "Configure disk free space watcher"
+msgstr "Konfiguriši disk (free-space-watcher)"
+
+#: src/EBox/Events/Model/Watcher/DiskFreeSpace.pm:140
+msgid "Free Disk Space Watcher"
+msgstr "Free Disk Space Watcher"
+
+#: src/EBox/Events/Model/Watcher/Log.pm:214
+#: src/EBox/Events/Model/Watcher/Log.pm:238
+msgid ""
+"Warning! The log watcher is not enabled. Enable to be notified when logs "
+"happen. "
+msgstr ""
+"Upozorenje! (log-watcher) nije pokrenut. Pokrenite ga da bi pratili logove."
+
+#: src/EBox/Events/Model/Watcher/Log.pm:262
+#: src/EBox/Logs/Model/SelectLog.pm:149
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:332
+msgid "Domain"
+msgstr "Domain"
+
+#: src/EBox/Events/Model/Watcher/Log.pm:267
+msgid "Filtering"
+msgstr "Filtracija"
+
+#: src/EBox/Events/Model/Watcher/Log.pm:275
+msgid "Configure log watchers"
+msgstr "Konfiguriši (log-watcher)e"
+
+#: src/EBox/Events/Model/Watcher/Log.pm:277
+msgid "Log watcher"
+msgstr "(Log-watcher)"
+
+#: src/EBox/Events/Model/Report/EventsGraph.pm:51
+#: src/EBox/Events/Model/Report/EventsDetails.pm:51
+#: src/EBox/Events/Model/Report/EventsDetails.pm:80 src/EBox/Events.pm:830
+msgid "Informative"
+msgstr "Informativan"
+
+#: src/EBox/Events/Model/Report/EventsGraph.pm:52
+#: src/EBox/Events/Model/Report/EventsDetails.pm:52
+#: src/EBox/Events/Model/Report/EventsDetails.pm:84 src/EBox/Events.pm:831
+#: src/templates/finish.mas:83
+msgid "Warning"
+msgstr "Upozorenje"
+
+#: src/EBox/Events/Model/Report/EventsGraph.pm:53
+#: src/EBox/Events/Model/Report/EventsDetails.pm:53
+#: src/EBox/Events/Model/Report/EventsDetails.pm:88 src/EBox/Events.pm:832
+msgid "Error"
+msgstr "Greška (Error)"
+
+#: src/EBox/Events/Model/Report/EventsGraph.pm:54
+#: src/EBox/Events/Model/Report/EventsDetails.pm:54
+#: src/EBox/Events/Model/Report/EventsDetails.pm:92 src/EBox/Events.pm:833
+msgid "Fatal error"
+msgstr "Fatalna greška (Fatal error)"
+
+#: src/EBox/Events/Model/Report/EventsGraph.pm:60
+msgid "Events summarized chart"
+msgstr "Rezimirans mapa događaja"
+
+#: src/EBox/Events/Model/Report/EventsGraph.pm:77
+msgid "Events summarized graph"
+msgstr "Rezimirani grafikon događaja"
+
+#: src/EBox/Events/Model/Report/EventsDetails.pm:50
+#: src/EBox/Events/Model/Report/EventsDetails.pm:74 src/EBox/Events.pm:823
+msgid "Source"
+msgstr "Izvor (Source)"
+
+#: src/EBox/Events/Model/Report/EventsDetails.pm:68 src/EBox/Logs.pm:737
+#: src/templates/backup.mas:130 src/templates/finish.mas:116
+#: src/templates/confirm-backup.mas:28
+msgid "Date"
+msgstr "Datum"
+
+#: src/EBox/Events/Model/Report/EventsDetails.pm:101
+msgid "Events details"
+msgstr "Detalji događaja"
+
+#: src/EBox/Events/Composite/Report/EventsReport.pm:69
+msgid "Events reports"
+msgstr "Izveštaji o događajima"
+
+#: src/EBox/Events/Composite/Report/EventsReport.pm:70
+msgid "Events report"
+msgstr "Izveštaj o događajima"
+
+# Total ticks of what ?
+#: src/EBox/ProgressIndicator.pm:42
+msgid "Total ticks"
+msgstr "Ukupno obeleženih"
+
+#: src/EBox/ProgressIndicator.pm:44
+msgid "It must be a non-zero positive number"
+msgstr "Broj mora biti pozitivan ne sme biti 0"
+
+#: src/EBox/ProgressIndicator.pm:49
+msgid "To solve it you can try to execute the following commands:"
+msgstr "Da bi razrešili probajte da ukucate sledeće komande:"
+
+#: src/EBox/ProgressIndicator.pm:56
+#, perl-brace-format
+msgid "Cannot execute {exe}"
+msgstr "Ne mogu da izvršim {exe}"
+
+#: src/EBox/ProgressIndicator.pm:106
+#, perl-brace-format
+msgid "Progress indicator with id {id} not found"
+msgstr "Progres indikator sa id-em {id} nije nađen"
+
+#: src/EBox/ProgressIndicator.pm:144
+msgid "Number of ticks to notify"
+msgstr "Obaveštenje o broju obeleženih"
+
+#: src/EBox/ProgressIndicator.pm:146
+msgid "must be greater than zero"
+msgstr "mora biti veće od 0"
+
+#: src/EBox/ProgressIndicator.pm:152
+msgid "Executable has not been run"
+msgstr "(Executable) nije bio pokrenut"
+
+#: src/EBox/ProgressIndicator.pm:293
+msgid "The executable has not run"
+msgstr "(Executable) nije pokrenut"
+
+#: src/EBox/ProgressIndicator.pm:437
+msgid "The executable has already been started"
+msgstr "(Executable) je pokrenut i radi"
+
+#: src/EBox/ProgressIndicator.pm:441
+msgid "The executable has already finished"
+msgstr "(Executable) je završio sa radom"
+
+#: src/EBox/Auth.pm:133
+msgid "Password changed"
+msgstr "Lozinka promenjena"
+
+#: src/EBox/Global.pm:536
+#, fuzzy, perl-brace-format
+msgid "Enabling {modName} module"
+msgstr "{model} u {module} modul"
+
+#: src/EBox/Global.pm:566 src/EBox/Global.pm:597
+#, perl-brace-format
+msgid "Saving {modName} module"
 msgstr ""
 
-#: src/EBox/Logs/SlicedBackup.pm:133 src/EBox/Logs/SlicedBackup.pm:141
-msgid "Backup slice time interval"
-msgstr ""
-
-#: src/EBox/Logs/SlicedBackup.pm:438
-msgid "Slices to be archived at once"
-msgstr ""
-
-#: src/EBox/Logs/SlicedBackup.pm:445
-msgid "Slices timeline"
+#: src/EBox/Global.pm:1114
+#, perl-brace-format
+msgid "running {scriptName} script"
 msgstr ""
 
 #: src/EBox/Logs/Model/SelectLog.pm:157
@@ -1169,54 +1060,62 @@ msgstr "Izaberite izveštaj"
 msgid "logs"
 msgstr "logovi"
 
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:228
-msgid "never purge"
-msgstr "nesme se čistiti"
+#: src/EBox/Logs/Model/ForcePurge.pm:99
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:347
+msgid "Purge logs older than"
+msgstr "Počisti logove starije od"
 
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:232
+#: src/EBox/Logs/Model/ForcePurge.pm:108
+msgid "Force log purge"
+msgstr "Explicitno čišćenje loga"
+
+#: src/EBox/Logs/Model/ForcePurge.pm:111
+msgid "Purge"
+msgstr "Očisti"
+
 #: src/EBox/Logs/Model/ForcePurge.pm:125
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:232
 msgid "one hour"
 msgstr "1 sat"
 
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:236
 #: src/EBox/Logs/Model/ForcePurge.pm:129
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:236
 msgid "twelve hours"
 msgstr "12 sati"
 
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:240
 #: src/EBox/Logs/Model/ForcePurge.pm:133
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:240
 msgid "one day"
 msgstr "1 dan"
 
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:244
 #: src/EBox/Logs/Model/ForcePurge.pm:137
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:244
 msgid "three days"
 msgstr "3 dana"
 
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:248
 #: src/EBox/Logs/Model/ForcePurge.pm:141
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:248
 msgid "one week"
 msgstr "1 nedelja"
 
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:252
 #: src/EBox/Logs/Model/ForcePurge.pm:145
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:252
 msgid "fifteeen days"
 msgstr "15 dana"
 
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:256
 #: src/EBox/Logs/Model/ForcePurge.pm:149
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:256
 msgid "thirty days"
 msgstr "30 dana"
 
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:260
 #: src/EBox/Logs/Model/ForcePurge.pm:153
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:260
 msgid "ninety days"
 msgstr "90 dana"
 
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:347
-#: src/EBox/Logs/Model/ForcePurge.pm:99
-msgid "Purge logs older than"
-msgstr "Počisti logove starije od"
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:228
+msgid "never purge"
+msgstr "nesme se čistiti"
 
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:364
 msgid "Current configuration"
@@ -1229,20 +1128,6 @@ msgstr "konfiguracija logova"
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:371
 msgid "Enable/disable logging per-module basis"
 msgstr "Enable/disable logovanje po modulu pojedinačno"
-
-#: src/EBox/Logs/Model/ForcePurge.pm:108
-msgid "Force log purge"
-msgstr "Explicitno čišćenje loga"
-
-#: src/EBox/Logs/Model/ForcePurge.pm:111
-msgid "Purge"
-msgstr "Očisti"
-
-#: src/EBox/Logs/Model/Report/Details.pm:226
-#: src/EBox/Logs/Model/Report/Details.pm:234
-#: src/EBox/Logs/Model/Report/Details.pm:269
-msgid "All"
-msgstr "Sve"
 
 #: src/EBox/Logs/Model/Report/OptionsBase.pm:40
 msgid "hour"
@@ -1267,6 +1152,109 @@ msgstr "Izveštaj vremenski za period"
 #: src/EBox/Logs/Model/Report/OptionsBase.pm:101
 msgid "Report options"
 msgstr "Opcije izveštaja"
+
+#: src/EBox/Logs/Model/Report/Details.pm:226
+#: src/EBox/Logs/Model/Report/Details.pm:234
+#: src/EBox/Logs/Model/Report/Details.pm:269
+msgid "All"
+msgstr "Sve"
+
+#: src/EBox/Logs/SlicedBackup.pm:104
+#, perl-brace-format
+msgid ""
+"There are {n} log slices not stored; wait or force its storage and retry"
+msgstr ""
+
+#: src/EBox/Logs/SlicedBackup.pm:133 src/EBox/Logs/SlicedBackup.pm:141
+msgid "Backup slice time interval"
+msgstr ""
+
+#: src/EBox/Logs/SlicedBackup.pm:438
+msgid "Slices to be archived at once"
+msgstr ""
+
+#: src/EBox/Logs/SlicedBackup.pm:445
+msgid "Slices timeline"
+msgstr ""
+
+#: src/EBox/Report/DiskUsage.pm:76
+#, perl-brace-format
+msgid "No usage data for {d}. Are you sure is a valid disk?"
+msgstr ""
+
+#: src/EBox/Report/DiskUsage.pm:222
+#, perl-brace-format
+msgid ""
+"Invalid file system: {f}. Only regular and no removable media file systems "
+"are accepted"
+msgstr ""
+
+#: src/EBox/PgDBEngine.pm:60 src/EBox/PgDBEngine.pm:74
+#: src/EBox/PgDBEngine.pm:88
+#, perl-brace-format
+msgid "You must set the {variable} variable in the ebox configuration file"
+msgstr "Morate podesiti sledeće {variable} u ebox varijabla konfiguraciji"
+
+#: src/EBox/PgDBEngine.pm:471
+msgid ""
+"You are using sliced backup mode and this backup was made in no-sliced mode"
+msgstr ""
+
+#: src/EBox/PgDBEngine.pm:479
+msgid ""
+"Database dump file not found. Maybe the backup you are trying to restore was "
+"made in sliced mode?"
+msgstr ""
+
+#: src/EBox/Logs.pm:58 src/EBox/Logs.pm:383 src/EBox/CGI/Logs/Index.pm:35
+msgid "Logs"
+msgstr "Logovi"
+
+#: src/EBox/Logs.pm:384
+msgid "Zentyal Server logs database"
+msgstr ""
+
+#: src/EBox/Logs.pm:470
+#, perl-brace-format
+msgid "Table {table} does not exist"
+msgstr "Tabela {table} nepostoji"
+
+#: src/EBox/Logs.pm:721 src/EBox/CGI/Logs/Index.pm:326
+msgid "Query Logs"
+msgstr "Pretraga logova"
+
+#: src/EBox/Logs.pm:724
+msgid "Configure Logs"
+msgstr "Konfigurisanje logova"
+
+#: src/EBox/Logs.pm:738
+msgid "Client Address"
+msgstr "Adresa klijenta"
+
+#: src/EBox/Logs.pm:739 src/EBox/CGI/EBox/Backup.pm:257
+#: src/templates/moduleStatusTable.mas:58 src/templates/finish.mas:117
+msgid "Module"
+msgstr "Modul"
+
+#: src/EBox/Logs.pm:741
+msgid "Params"
+msgstr "Params"
+
+#: src/EBox/Logs.pm:742
+msgid "Committed"
+msgstr "Počinio"
+
+#: src/EBox/Logs.pm:747
+msgid "Admin"
+msgstr "Admin"
+
+#: src/EBox/Logs.pm:841
+msgid "Log messages"
+msgstr "Loguj poruke"
+
+#: src/EBox/Logs.pm:868
+msgid "Lifetime parameter must be a positive number of hours"
+msgstr "Lifetime parametar mora biti pozitivan broj"
 
 #: src/EBox/Common/Model/EnableForm.pm:99
 msgid "Service enabled"
@@ -1316,161 +1304,274 @@ msgstr "Nivo"
 msgid "Message"
 msgstr "Poruka"
 
-#: src/EBox/Logs.pm:384
-msgid "Zentyal Server logs database"
-msgstr ""
-
-#: src/EBox/Logs.pm:470
-#, perl-brace-format
-msgid "Table {table} does not exist"
-msgstr "Tabela {table} nepostoji"
-
-#: src/EBox/Logs.pm:724
-msgid "Configure Logs"
-msgstr "Konfigurisanje logova"
-
-#: src/EBox/Logs.pm:738
-msgid "Client Address"
-msgstr "Adresa klijenta"
-
-#: src/EBox/Logs.pm:740 src/EBox/Model/Composite.pm:671
-#: src/EBox/Model/Composite.pm:686 src/EBox/Model/DataMultiTable.pm:168
-#: src/EBox/Model/DataTable.pm:2129
-msgid "Action"
-msgstr "Akcija"
-
-#: src/EBox/Logs.pm:741
-msgid "Params"
-msgstr "Params"
-
-#: src/EBox/Logs.pm:742
-msgid "Committed"
-msgstr "Počinio"
-
-#: src/EBox/Logs.pm:747
-msgid "Admin"
-msgstr "Admin"
-
-#: src/EBox/Logs.pm:841
-msgid "Log messages"
-msgstr "Loguj poruke"
-
-#: src/EBox/Logs.pm:868
-msgid "Lifetime parameter must be a positive number of hours"
-msgstr "Lifetime parametar mora biti pozitivan broj"
-
-#: src/EBox/Model/ProviderBase.pm:246
-#, perl-brace-format
-msgid "Provided object with index {i} does not exist"
-msgstr "Dati objekat sa indexom {i} nepostoji"
-
-#: src/EBox/Model/DataForm.pm:554
-#, perl-brace-format
-msgid "Remove data from {model}{br}"
-msgstr "Ukloni podatke od {model}{br}"
-
-#: src/EBox/Model/DataForm.pm:688 src/templates/progress.mas:26
-msgid "Done"
-msgstr "Gotovo"
-
-#: src/EBox/Model/Composite.pm:371
-#, perl-brace-format
-msgid "It should be one of following values: {values}"
-msgstr "Trebalo bi da glasi jedna od sledećih vrednosti: {values}"
-
-#: src/EBox/Model/Composite.pm:673
-#, perl-brace-format
-msgid "Actions to be taken allowed are: {view} and {cView}"
-msgstr "Dozvoljene akcije koje treba preduzeti: {view} i {cView}"
-
-#: src/EBox/Model/Composite.pm:801
-msgid "Choose one of the following:"
-msgstr "Izabrati jednu od ponuđenih:"
-
-#: src/EBox/Model/ModelManager.pm:468
+#: src/EBox/CGI/ClientRawBase.pm:212 src/EBox/CGI/WizardPage.pm:155
 msgid ""
-"The data you are removing is being used by\n"
-"                    the following sections:"
+"An internal error related to a template has occurred. This is a bug, "
+"relevant information can be found in the logs."
 msgstr ""
-"Podaci koji se uklanjaju se koriste od strane \n"
-"                    u sledećim delovima:"
+"Pojavila se greska u (template)u.Informacije o ovom bug-u možete naći u "
+"logovima."
 
-#: src/EBox/Model/ModelManager.pm:515
-msgid ""
-"The data you are modifying is being used by\n"
-"\t\t\tthe following sections:"
-msgstr ""
-"Podaci koji se menjaju se koriste od strane\n"
-"\t\t\tu sledećim delovima:"
+#: src/EBox/CGI/Wizard.pm:29
+#, fuzzy
+msgid "Initial configuration wizard"
+msgstr "Opšta konfiguracija"
 
-#: src/EBox/Model/DataTable.pm:327
-#, perl-brace-format
-msgid "{model} in {module} module"
-msgstr "{model} u {module} modul"
+#: src/EBox/CGI/ServiceModule/StatusView.pm:39
+msgid "Module Status Configuration"
+msgstr "Konfiguracija Status Modula"
 
-#: src/EBox/Model/DataTable.pm:331
-msgid "at"
-msgstr "u"
+#: src/EBox/CGI/Dashboard/ConfigureWidgets.pm:30
+#: src/templates/dashboard/index.mas:81
+msgid "Configure Widgets"
+msgstr "Konfiguriši (Widget)e"
 
-#: src/EBox/Model/DataTable.pm:542
-msgid "field"
-msgstr "polje"
+#: src/EBox/CGI/Finish.pm:32
+msgid "Save configuration"
+msgstr "Sačuvaj konfiguraciju"
 
-#: src/EBox/Model/DataTable.pm:1468
-msgid "page"
-msgstr "strana"
-
-#: src/EBox/Model/DataTable.pm:1471
-msgid "Page must be a number equal or greater than zero"
-msgstr "Broj strana mora biti jednak ili veći od nule"
-
-#: src/EBox/Model/DataTable.pm:2831
-#, perl-brace-format
-msgid "Remove {num} rows of {rowName} from {model}{br}"
-msgstr "Ukloni {num} red-a-ova {rowName} od {model}{br}"
-
-#: src/EBox/Model/DataTable.pm:2902
-msgid "Page size"
-msgstr "Veličina strane"
-
-#: src/EBox/Model/DataTable.pm:2905
-msgid "Must be either a positive number or zero"
-msgstr "Mora biti 0 ili pozitivan broj"
-
-#: src/EBox/Model/DataTable.pm:3212
-#, perl-brace-format
-msgid "{row} added"
-msgstr "{row} dodaj"
-
-#: src/EBox/Model/DataTable.pm:3213
-#, perl-brace-format
-msgid "{row} deleted"
-msgstr "{row} obriši"
-
-#: src/EBox/Model/DataTable.pm:3214
-#, perl-brace-format
-msgid "{row} updated"
-msgstr "{row} ažuriraj"
-
-#: src/EBox/Model/DataTable.pm:3215
-#, perl-brace-format
-msgid "{row} moved up"
-msgstr "{row} pomeren gore"
-
-#: src/EBox/Model/DataTable.pm:3216
-#, perl-brace-format
-msgid "{row} moved down"
-msgstr "{row} pomeren dole"
-
-#: src/EBox/Model/DataTable.pm:4402 src/templates/password.mas:67
-#: src/templates/dataInUse.mas:25 src/templates/dataInUse.mas:34
-#: src/templates/port.mas:14 src/templates/hostname.mas:19
-msgid "Change"
-msgstr "Promeni"
-
-#: src/EBox/Html.pm:39 src/templates/wizard.mas:124
-msgid "Save changes"
+#: src/EBox/CGI/Finish.pm:77 src/EBox/CGI/Progress.pm:81
+#: src/EBox/CGI/Progress.pm:107
+msgid "Saving changes"
 msgstr "Sačuvaj promene"
+
+#: src/EBox/CGI/Finish.pm:78
+msgid "Saving changes in modules"
+msgstr "Sačuvaj promene u modulima"
+
+#: src/EBox/CGI/Finish.pm:79 src/templates/report/raid.mas:213
+msgid "Current operation"
+msgstr "Trenutne operacije"
+
+#: src/EBox/CGI/Finish.pm:80
+msgid "operations performed"
+msgstr "Obavljene Operacije"
+
+#: src/EBox/CGI/Finish.pm:81
+msgid "Changes saved"
+msgstr "Promene Sačuvane"
+
+#: src/EBox/CGI/Finish.pm:82
+#, perl-brace-format
+msgid ""
+"Some modules reported error when saving changes . More information on the "
+"logs in {dir}"
+msgstr ""
+"Neki moduli su prijavili grešku prilikom upisivanja promena.Više informacija "
+"se nalayi u logdirektorijumu{dir}"
+
+#: src/EBox/CGI/Finish.pm:101
+msgid "Revoking changes"
+msgstr "Opoziv promena"
+
+#: src/EBox/CGI/Finish.pm:102
+msgid "Revoking changes in modules"
+msgstr "Opoziv promena u modulima"
+
+#: src/EBox/CGI/Finish.pm:103
+msgid "Current module"
+msgstr "Trenutni modul"
+
+#: src/EBox/CGI/Finish.pm:104
+msgid "modules revoked"
+msgstr "moduli opozvani"
+
+#: src/EBox/CGI/Finish.pm:105
+msgid "Changes revoked"
+msgstr "promene opozvane"
+
+#: src/EBox/CGI/Finish.pm:106
+#, perl-brace-format
+msgid ""
+"Some modules reported error when discarding changes . More information on "
+"the logs in {dir}"
+msgstr ""
+"određeni moduli su prijavili grešku pri vraćanju u predhodno stanje . Više "
+"inormacija u logdirektorijumu{dir}"
+
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:33 src/templates/backup.mas:30
+msgid "Configuration Backup"
+msgstr "Backup Konfiguracije"
+
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:105
+msgid "Please confirm that you want to delete the following backup file:"
+msgstr "Molim da potvrdite brisanje ovog (backup file)a:"
+
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:107 src/templates/backup.mas:168
+#: src/templates/backup.mas:169
+msgid "Delete"
+msgstr "Obriši"
+
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:114
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:130
+msgid "Please confirm that you want to restore using this backup file:"
+msgstr "Molim da potvrdite (restore) korišćenjem ovog (backup file)a:"
+
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:116
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:132 src/templates/backup.mas:98
+msgid "Restore"
+msgstr "Restore"
+
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:147 src/EBox/CGI/EBox/Backup.pm:193
+#: src/EBox/CGI/EBox/Backup.pm:271 src/EBox/CGI/EBox/Backup.pm:284
+#: src/EBox/Backup.pm:1482
+msgid "The input contains invalid characters"
+msgstr "Unos sadrži pogrešne karaktere"
+
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:176
+msgid "Configuration backup"
+msgstr "Backup Konfiguracije"
+
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:179
+msgid "Full data and configuration backup"
+msgstr "Potpuni backup koniguracije i podataka"
+
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:182
+msgid "Bug-report configuration dump"
+msgstr "(Bug-Report) i (dump) konfiguracije "
+
+#: src/EBox/CGI/EBox/Hostname.pm:48
+#, fuzzy
+msgid "hostname"
+msgstr "Hostname"
+
+#: src/EBox/CGI/EBox/CurrentProgress.pm:36
+msgid "Upgrading"
+msgstr "Nadogradnja-Usavršavanje"
+
+#: src/EBox/CGI/EBox/General.pm:32
+msgid "General Configuration"
+msgstr "Opšta konfiguracija"
+
+#: src/EBox/CGI/EBox/Halt.pm:30
+msgid "Halt or Reboot"
+msgstr "Zaustavi ili Restartuj"
+
+#: src/EBox/CGI/EBox/Halt.pm:43
+#, fuzzy
+msgid "Zentyal is going down for halt"
+msgstr "eBoks ide dole za zaustavljanje"
+
+#: src/EBox/CGI/EBox/Halt.pm:46
+#, fuzzy
+msgid "Zentyal is going down for reboot"
+msgstr "eBoks ide dole za restartovanje"
+
+#: src/EBox/CGI/EBox/RestartService.pm:49
+msgid "module name"
+msgstr "Ime Modula"
+
+#: src/EBox/CGI/EBox/RestartService.pm:54
+msgid "The module was restarted correctly."
+msgstr "Modul je korektno restartovan."
+
+#: src/EBox/CGI/EBox/RestartService.pm:58
+#, perl-brace-format
+msgid "Error restarting service. See {logs} for more information."
+msgstr ""
+
+#: src/EBox/CGI/EBox/Password.pm:43 src/templates/password.mas:11
+#: src/templates/login/index.mas:49
+#, fuzzy
+msgid "Username"
+msgstr "Hostname"
+
+#: src/EBox/CGI/EBox/Password.pm:48 src/templates/login/index.mas:54
+msgid "Password"
+msgstr "Lozinka"
+
+#: src/EBox/CGI/EBox/Password.pm:57
+msgid "Incorrect password."
+msgstr "Pogršna Lozinka"
+
+#: src/EBox/CGI/EBox/Password.pm:62
+msgid "New passwords do not match."
+msgstr "Nova lozinka se ne poklapa"
+
+#: src/EBox/CGI/EBox/Password.pm:67
+msgid "The password must be at least 6 characters long"
+msgstr "Lozinka mora biti od najmanje 6 karaktera"
+
+#: src/EBox/CGI/EBox/Password.pm:71
+msgid "The password was changed successfully."
+msgstr "Lozinka je uspešno promenjena"
+
+#: src/EBox/CGI/EBox/ConfigurationReport.pm:29
+#, fuzzy
+msgid "Configuration report"
+msgstr "(Restore) Konfiguracije"
+
+#: src/EBox/CGI/EBox/Backup.pm:163
+#, perl-brace-format
+msgid "Unknown backup mode: {mode}"
+msgstr "Nepoznat backup mode: {mode}"
+
+#: src/EBox/CGI/EBox/Backup.pm:226
+#, perl-brace-format
+msgid "Unknown restore mode: {mode}"
+msgstr "Nepoznat restore mode: {mode}"
+
+#: src/EBox/CGI/EBox/Backup.pm:239
+msgid "Backing up"
+msgstr "(Backup)ujem"
+
+#: src/EBox/CGI/EBox/Backup.pm:240
+msgid "Backing up modules"
+msgstr "(Backup) moduli"
+
+#: src/EBox/CGI/EBox/Backup.pm:241
+msgid "Operation"
+msgstr "Operacija"
+
+#: src/EBox/CGI/EBox/Backup.pm:242
+msgid "operations left to finish backup"
+msgstr "Operacija ostavljena da završi (backup)"
+
+#: src/EBox/CGI/EBox/Backup.pm:243
+msgid "Backup successful"
+msgstr "(Backup) uspešan"
+
+#: src/EBox/CGI/EBox/Backup.pm:255
+msgid "Restoring backup"
+msgstr "(Restor)ujem backup"
+
+#: src/EBox/CGI/EBox/Backup.pm:256
+msgid "Restoring modules"
+msgstr "(Restor)ujem Module"
+
+#: src/EBox/CGI/EBox/Backup.pm:258
+#, fuzzy
+msgid "modules restored"
+msgstr "moduli opozvani"
+
+#: src/EBox/CGI/EBox/Backup.pm:259
+msgid "Restore successful"
+msgstr "(Restore) uspešan"
+
+#: src/EBox/CGI/Login/Index.pm:63
+#, fuzzy
+msgid ""
+"There is a script which has asked to run in Zentyal exclusively. Please, "
+"wait patiently until it is done"
+msgstr ""
+"Na eBoks-u postoiji pokrenuta skripta koja radi u exluziv modu . Molimo za "
+"strpljenje, sačekajte dok se ne završi."
+
+#: src/EBox/CGI/Login/Index.pm:67
+msgid "Incorrect password"
+msgstr "Pogrešna lozinka"
+
+#: src/EBox/CGI/Login/Index.pm:70
+msgid "For security reasons your session has expired due to inactivity"
+msgstr "Iz bezbednosnih razloga vaša sesija je istekla usled neaktivnosti"
+
+#: src/EBox/CGI/Login/Index.pm:73
+msgid "You have been logged out because a new session has been opened"
+msgstr "Trenutno ste razlogovani zbog otvorene nove sesije"
+
+#: src/EBox/CGI/Logs/Index.pm:329
+msgid "Full Reports"
+msgstr "Detaljni izveštaji"
 
 #: src/EBox/Backup.pm:96
 msgid "Creating backup archive"
@@ -1566,149 +1667,76 @@ msgstr ""
 msgid "Could not unpack the etc files archive backup"
 msgstr "Nemoguće raspakovati (backup)"
 
-#: src/EBox/Backup.pm:1327
+#: src/EBox/Backup.pm:1326
 #, perl-brace-format
 msgid ""
 "The following modules present in the backup are not installed: {mods}. You "
 "need to install them before restoring."
 msgstr ""
 
-#: src/EBox/Backup.pm:1353
+#: src/EBox/Backup.pm:1354
 #, perl-brace-format
 msgid "Cannot restore backup, error enabling module {m}: {err}"
 msgstr ""
 
-#: src/EBox/Backup.pm:1386
+#: src/EBox/Backup.pm:1387
 #, perl-brace-format
 msgid "No module {m} found in backup"
 msgstr "Nema modula {m} pronađenih u (backup)u"
 
-#: src/EBox/Backup.pm:1408
+#: src/EBox/Backup.pm:1409
 msgid "No modules to restore"
 msgstr "Nema modula za oporavak"
 
-#: src/EBox/Backup.pm:1460
+#: src/EBox/Backup.pm:1461
 #, perl-brace-format
 msgid ""
 "Unresolved restore dependency for module {topModule}: {modName} is not "
 "installed"
 msgstr ""
 
-#: src/EBox/Backup.pm:1502
+#: src/EBox/Backup.pm:1503
 #, fuzzy
 msgid "Backup archives"
 msgstr "(Backup)ovane arhive"
 
-#: src/EBox/SysInfo.pm.in:50
-msgid "System Information"
-msgstr "Sistemske Informacije"
+#: src/templates/dataInUse.mas:41 src/templates/confirm-backup.mas:66
+msgid "Cancel"
+msgstr "Odkaži"
 
-#: src/EBox/SysInfo.pm.in:95
-msgid "available"
-msgstr "dostupan"
-
-#: src/EBox/SysInfo.pm.in:103
-msgid "Time"
-msgstr "Vreme"
-
-#: src/EBox/SysInfo.pm.in:104
-msgid "Hostname"
-msgstr "Hostname"
-
-#: src/EBox/SysInfo.pm.in:105
-msgid "Core version"
-msgstr "verzija jezgra"
-
-#: src/EBox/SysInfo.pm.in:107
-msgid "System load"
-msgstr "Sistem podignut"
-
-#: src/EBox/SysInfo.pm.in:108
-msgid "Uptime"
-msgstr "Vreme rada"
-
-#: src/EBox/SysInfo.pm.in:109
-msgid "Users"
-msgstr "Koisnici"
-
-#: src/EBox/SysInfo.pm.in:162 src/EBox/SysInfo.pm.in:258
-msgid "Module Status"
-msgstr "Status modula"
-
-#: src/EBox/SysInfo.pm.in:168
-msgid "General Information"
-msgstr "Generalne Informacije"
-
-#: src/EBox/SysInfo.pm.in:174
-msgid "Process List"
-msgstr "Lista procesa"
-
-#: src/EBox/SysInfo.pm.in:181
-msgid "Resources & Services"
-msgstr "Resursi & Servisi"
-
-#: src/EBox/SysInfo.pm.in:264
-msgid "System"
-msgstr "Sistem"
-
-#: src/EBox/SysInfo.pm.in:268
-msgid "General"
-msgstr "Generalni"
-
-#: src/EBox/SysInfo.pm.in:283
-msgid "Configuration Report"
-msgstr "Konfiguracija izveštaja"
-
-#: src/EBox/SysInfo.pm.in:286
-msgid "Halt/Reboot"
-msgstr "Zaustavi/Restartuj"
-
-#: src/EBox/Apache.pm:289 src/EBox/Apache.pm:298
-msgid "port"
-msgstr "port"
-
-#: src/EBox/Apache.pm:626
+#: src/templates/links-widget.mas:5
 #, fuzzy
-msgid "Zentyal Administration Web Server"
-msgstr "Zentyal WEB Server"
+msgid "Community Resources"
+msgstr "(Restore) Konfiguracije"
 
-#: src/EBox/Global.pm:536
-#, fuzzy, perl-brace-format
-msgid "Enabling {modName} module"
-msgstr "{model} u {module} modul"
+#: src/templates/links-widget.mas:10
+#, fuzzy
+msgid "Documentation"
+msgstr "Domain"
 
-#: src/EBox/Global.pm:566 src/EBox/Global.pm:597
+#: src/templates/links-widget.mas:12
+msgid "Forum"
+msgstr ""
+
+#: src/templates/links-widget.mas:14
+msgid "Report a bug"
+msgstr ""
+
+#: src/templates/links-widget.mas:16
+msgid "How to Contribute"
+msgstr ""
+
+#: src/templates/moduleStatusTable.mas:59
+msgid "Depends"
+msgstr "Zavisi"
+
+#: src/templates/moduleStatusTable.mas:60 src/templates/report/raid.mas:104
+msgid "Status"
+msgstr "Status"
+
+#: src/templates/moduleStatusTable.mas:85
 #, perl-brace-format
-msgid "Saving {modName} module"
-msgstr ""
-
-#: src/EBox/Global.pm:1114
-#, perl-brace-format
-msgid "running {scriptName} script"
-msgstr ""
-
-#: src/EBox/Report/DiskUsage.pm:76
-#, perl-brace-format
-msgid "No usage data for {d}. Are you sure is a valid disk?"
-msgstr ""
-
-#: src/EBox/Report/DiskUsage.pm:222
-#, perl-brace-format
-msgid ""
-"Invalid file system: {f}. Only regular and no removable media file systems "
-"are accepted"
-msgstr ""
-
-#: src/templates/configurationFiles.mas:12
-msgid "Do you wish to overwrite these files?"
-msgstr ""
-
-#: src/templates/configurationFiles.mas:19
-msgid "Keep current file"
-msgstr ""
-
-#: src/templates/configurationFiles.mas:23
-msgid "Modify"
+msgid "Configure module: {module}"
 msgstr ""
 
 #: src/templates/wizard.mas:68 src/templates/wizard.mas:69
@@ -1733,120 +1761,153 @@ msgstr ""
 msgid "Next"
 msgstr "sled"
 
-#: src/templates/headTitle.mas:20
-msgid "Remote services control panel"
+#: src/templates/logs/dbtable.mas:87 src/templates/logs/dbtable.mas:88
+msgid "first"
+msgstr "prvo"
+
+#: src/templates/logs/dbtable.mas:91 src/templates/logs/dbtable.mas:92
+msgid "prev"
+msgstr "pred"
+
+#: src/templates/logs/dbtable.mas:111 src/templates/logs/dbtable.mas:112
+msgid "next"
+msgstr "sled"
+
+#: src/templates/logs/dbtable.mas:115 src/templates/logs/dbtable.mas:116
+msgid "last"
+msgstr "zadnje"
+
+#: src/templates/logs/index.mas:20
+msgid "Log Domain"
 msgstr ""
 
-#: src/templates/backupTabs.mas:13
-msgid "Local"
+#: src/templates/logs/index.mas:22
+msgid "Last hour logs will be showed when selecting a component"
 msgstr ""
 
-#: src/templates/backupTabs.mas:18
-msgid "Remote in Zentyal Cloud"
+#: src/templates/logs/index.mas:23
+msgid "Select available full reports"
 msgstr ""
 
-#: src/templates/backupTabs.mas:23
-msgid "Remote in Zentyal Cloud from other subscribed hosts"
+#: src/templates/logs/index.mas:35 src/templates/logs/index.mas:36
+#: src/templates/logs/index.mas:37
+msgid "View"
+msgstr "Pogled"
+
+#: src/templates/logs/index.mas:44
+msgid "Custom query"
 msgstr ""
 
-#: src/templates/configureView.mas:12
-msgid ""
-"Enabling this module will cause Zentyal to perform the actions and file "
-"modifications listed below. You must explicitly accept these changes to "
-"enable the module."
+#: src/templates/logs/index.mas:50
+msgid "From date:"
+msgstr "Od datuma:"
+
+#: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
+msgid "January"
+msgstr "Januar"
+
+#: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
+msgid "February"
+msgstr "Februar"
+
+#: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
+msgid "March"
+msgstr "Mart"
+
+#: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
+msgid "April"
+msgstr "April"
+
+#: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
+msgid "May"
+msgstr "Maj"
+
+#: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
+msgid "June"
+msgstr "Jun"
+
+#: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
+msgid "July"
+msgstr "Juli"
+
+#: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
+msgid "August"
+msgstr "August"
+
+#: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
+msgid "September"
+msgstr "Septembar"
+
+#: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
+msgid "October"
+msgstr "Oktobar"
+
+#: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
+msgid "November"
+msgstr "Novembar"
+
+#: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
+msgid "December"
+msgstr "Decembar"
+
+#: src/templates/logs/index.mas:108
+msgid "Refresh logs"
+msgstr "Osveži logove"
+
+#: src/templates/logs/index.mas:116
+msgid "To date:"
+msgstr "Do datuma:"
+
+#: src/templates/logs/index.mas:203 src/templates/logs/index.mas:204
+msgid "Search"
+msgstr "Traži"
+
+#: src/templates/logs/index.mas:208 src/templates/logs/index.mas:209
+msgid "Save as event"
 msgstr ""
 
-#: src/templates/configureView.mas:16
-msgid "Actions to perform by Zentyal"
+#: src/templates/logs/index.mas:235
+msgid "No logs matching current criterion"
 msgstr ""
 
-#: src/templates/configureView.mas:31
-msgid "Files to modify by Zentyal"
+#: src/templates/logs/index.mas:239
+msgid "There are no logs for this domain"
 msgstr ""
 
-#: src/templates/configureView.mas:51
-msgid "Accept"
+#: src/templates/password.mas:4
+msgid "Change Password"
+msgstr "Promeni Lozinku"
+
+#: src/templates/password.mas:5
+msgid "Your password must be at least 6 characters long."
+msgstr "Vaša lozinka mora sadržati najmanje 6 karaktera"
+
+#: src/templates/password.mas:25
+msgid "Current password"
+msgstr "Trenutna Lozinka"
+
+#: src/templates/password.mas:39
+msgid "New password"
+msgstr "Nova Lozinka"
+
+#: src/templates/password.mas:53
+msgid "Confirm password"
+msgstr "Potvrdi Lozinku"
+
+#: src/templates/progress.mas:24
+msgid "Item"
 msgstr ""
 
-#: src/templates/dashboard/index.mas:23 src/templates/dashboard/status.mas:18
-msgid "Running"
+#: src/templates/progress.mas:25
+msgid "items left"
 msgstr ""
 
-#: src/templates/dashboard/index.mas:24 src/templates/dashboard/status.mas:19
-msgid "The service is enabled and running"
-msgstr "Servis je podignut i radi"
-
-#: src/templates/dashboard/index.mas:28 src/templates/dashboard/status.mas:22
-msgid "Stopped"
-msgstr "Stopiran"
-
-#: src/templates/dashboard/index.mas:29 src/templates/dashboard/status.mas:23
-msgid "The service is enabled, but not running"
+#: src/templates/progress.mas:27
+msgid "Some error has happened in Zentyal: "
 msgstr ""
 
-#: src/templates/dashboard/index.mas:33 src/templates/dashboard/status.mas:27
-msgid "Running unmanaged"
-msgstr ""
-
-#: src/templates/dashboard/index.mas:34 src/templates/dashboard/status.mas:28
-#, fuzzy
-msgid "The service is running, but not enabled in Zentyal"
-msgstr "Servis je podignut i radi"
-
-#: src/templates/dashboard/index.mas:38 src/templates/dashboard/status.mas:31
-msgid "Disabled"
-msgstr "Onemogućen"
-
-#: src/templates/dashboard/index.mas:39 src/templates/dashboard/status.mas:32
-#, fuzzy
-msgid "The service is not enabled in Zentyal"
-msgstr "Servis je podignut i radi"
-
-#: src/templates/dashboard/index.mas:44 src/templates/dashboard/status.mas:25
-msgid "Start"
-msgstr "Start"
-
-#: src/templates/dashboard/index.mas:45 src/templates/dashboard/status.mas:12
-msgid "Restart"
-msgstr "Restart"
-
-#: src/templates/dashboard/index.mas:117
-msgid "Configure widgets"
-msgstr ""
-
-#: src/templates/dashboard/list.mas:43
-msgid "No entries in this list"
-msgstr ""
-
-#: src/templates/dashboard/configurewidgets.mas:164
-msgid ""
-"Browse the available widgets in the left menu and drag&drop them to the "
-"dashboard."
-msgstr ""
-
-#: src/templates/halt.mas:10
-msgid "You might lose your Internet connection if this machine is halted."
-msgstr ""
-
-#: src/templates/halt.mas:14
-msgid "Halt"
-msgstr "Zaustavi"
-
-#: src/templates/halt.mas:16
-msgid "Reboot"
-msgstr "Reboot"
-
-#: src/templates/moduleStatusTable.mas:59
-msgid "Depends"
-msgstr "Zavisi"
-
-#: src/templates/moduleStatusTable.mas:60 src/templates/report/raid.mas:104
-msgid "Status"
-msgstr "Status"
-
-#: src/templates/moduleStatusTable.mas:85
-#, perl-brace-format
-msgid "Configure module: {module}"
+#: src/templates/progress.mas:152
+msgid "Starting..."
 msgstr ""
 
 #: src/templates/report/raid.mas:20
@@ -1966,167 +2027,6 @@ msgstr "Opcije"
 msgid "Partition Properties"
 msgstr ""
 
-#: src/templates/progress.mas:24
-msgid "Item"
-msgstr ""
-
-#: src/templates/progress.mas:25
-msgid "items left"
-msgstr ""
-
-#: src/templates/progress.mas:27
-msgid "Some error has happened in Zentyal: "
-msgstr ""
-
-#: src/templates/progress.mas:152
-msgid "Starting..."
-msgstr ""
-
-#: src/templates/logs/index.mas:20
-msgid "Log Domain"
-msgstr ""
-
-#: src/templates/logs/index.mas:22
-msgid "Last hour logs will be showed when selecting a component"
-msgstr ""
-
-#: src/templates/logs/index.mas:23
-msgid "Select available full reports"
-msgstr ""
-
-#: src/templates/logs/index.mas:35 src/templates/logs/index.mas:36
-#: src/templates/logs/index.mas:37
-msgid "View"
-msgstr "Pogled"
-
-#: src/templates/logs/index.mas:44
-msgid "Custom query"
-msgstr ""
-
-#: src/templates/logs/index.mas:50
-msgid "From date:"
-msgstr "Od datuma:"
-
-#: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
-msgid "January"
-msgstr "Januar"
-
-#: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
-msgid "February"
-msgstr "Februar"
-
-#: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
-msgid "March"
-msgstr "Mart"
-
-#: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
-msgid "April"
-msgstr "April"
-
-#: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
-msgid "May"
-msgstr "Maj"
-
-#: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
-msgid "June"
-msgstr "Jun"
-
-#: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
-msgid "July"
-msgstr "Juli"
-
-#: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
-msgid "August"
-msgstr "August"
-
-#: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
-msgid "September"
-msgstr "Septembar"
-
-#: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
-msgid "October"
-msgstr "Oktobar"
-
-#: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
-msgid "November"
-msgstr "Novembar"
-
-#: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
-msgid "December"
-msgstr "Decembar"
-
-#: src/templates/logs/index.mas:108
-msgid "Refresh logs"
-msgstr "Osveži logove"
-
-#: src/templates/logs/index.mas:116
-msgid "To date:"
-msgstr "Do datuma:"
-
-#: src/templates/logs/index.mas:203 src/templates/logs/index.mas:204
-msgid "Search"
-msgstr "Traži"
-
-#: src/templates/logs/index.mas:208 src/templates/logs/index.mas:209
-msgid "Save as event"
-msgstr ""
-
-#: src/templates/logs/index.mas:235
-msgid "No logs matching current criterion"
-msgstr ""
-
-#: src/templates/logs/index.mas:239
-msgid "There are no logs for this domain"
-msgstr ""
-
-#: src/templates/logs/dbtable.mas:87 src/templates/logs/dbtable.mas:88
-msgid "first"
-msgstr "prvo"
-
-#: src/templates/logs/dbtable.mas:91 src/templates/logs/dbtable.mas:92
-msgid "prev"
-msgstr "pred"
-
-#: src/templates/logs/dbtable.mas:111 src/templates/logs/dbtable.mas:112
-msgid "next"
-msgstr "sled"
-
-#: src/templates/logs/dbtable.mas:115 src/templates/logs/dbtable.mas:116
-msgid "last"
-msgstr "zadnje"
-
-#: src/templates/finish.mas:99
-#, perl-brace-format
-msgid ""
-"The following modules have unsaved changes but are <b>disabled</b>. If you "
-"need to enable them go to {openref}Module Status{closeref}."
-msgstr ""
-
-#: src/templates/finish.mas:106
-msgid ""
-"There are unsaved changes in one or more modules, you can save or discard "
-"those changes."
-msgstr ""
-
-#: src/templates/finish.mas:110
-msgid ""
-"If you made changes to the network interfaces or the administration port, "
-"you may need to manually rewrite the url in order to access this "
-"administration interface again."
-msgstr ""
-
-#: src/templates/finish.mas:134
-msgid "Save"
-msgstr ""
-
-#: src/templates/finish.mas:136
-msgid "Discard changes"
-msgstr ""
-
-#: src/templates/finish.mas:141
-msgid "There are no unsaved changes."
-msgstr ""
-
 #: src/templates/backup.mas:29
 msgid "Full Backup"
 msgstr ""
@@ -2224,43 +2124,133 @@ msgstr "Povrati"
 msgid "delete"
 msgstr "Obriši"
 
-#: src/templates/links-widget.mas:5
-#, fuzzy
-msgid "Community Resources"
-msgstr "(Restore) Konfiguracije"
-
-#: src/templates/links-widget.mas:10
-#, fuzzy
-msgid "Documentation"
-msgstr "Domain"
-
-#: src/templates/links-widget.mas:12
-msgid "Forum"
+#: src/templates/configurationFiles.mas:12
+msgid "Do you wish to overwrite these files?"
 msgstr ""
 
-#: src/templates/links-widget.mas:14
-msgid "Report a bug"
+#: src/templates/configurationFiles.mas:19
+msgid "Keep current file"
 msgstr ""
 
-#: src/templates/links-widget.mas:16
-msgid "How to Contribute"
+#: src/templates/configurationFiles.mas:23
+msgid "Modify"
 msgstr ""
 
-#: src/templates/bug.mas:9
+#: src/templates/dashboard/configurewidgets.mas:164
 msgid ""
-"This page lets you generate a file with information about the state of your "
-"system. The file will be useful if you want to report a problem or seek "
-"support."
+"Browse the available widgets in the left menu and drag&drop them to the "
+"dashboard."
 msgstr ""
 
-#: src/templates/bug.mas:13
-msgid "It may take several minutes to generate the report. Please be patient."
+#: src/templates/dashboard/list.mas:43
+msgid "No entries in this list"
 msgstr ""
 
-#: src/templates/bug.mas:19
+#: src/templates/dashboard/index.mas:23 src/templates/dashboard/status.mas:18
+msgid "Running"
+msgstr ""
+
+#: src/templates/dashboard/index.mas:24 src/templates/dashboard/status.mas:19
+msgid "The service is enabled and running"
+msgstr "Servis je podignut i radi"
+
+#: src/templates/dashboard/index.mas:28 src/templates/dashboard/status.mas:22
+msgid "Stopped"
+msgstr "Stopiran"
+
+#: src/templates/dashboard/index.mas:29 src/templates/dashboard/status.mas:23
+msgid "The service is enabled, but not running"
+msgstr ""
+
+#: src/templates/dashboard/index.mas:33 src/templates/dashboard/status.mas:27
+msgid "Running unmanaged"
+msgstr ""
+
+#: src/templates/dashboard/index.mas:34 src/templates/dashboard/status.mas:28
 #, fuzzy
-msgid "Download configuration report file"
+msgid "The service is running, but not enabled in Zentyal"
+msgstr "Servis je podignut i radi"
+
+#: src/templates/dashboard/index.mas:38 src/templates/dashboard/status.mas:31
+msgid "Disabled"
+msgstr "Onemogućen"
+
+#: src/templates/dashboard/index.mas:39 src/templates/dashboard/status.mas:32
+#, fuzzy
+msgid "The service is not enabled in Zentyal"
+msgstr "Servis je podignut i radi"
+
+#: src/templates/dashboard/index.mas:44 src/templates/dashboard/status.mas:25
+msgid "Start"
+msgstr "Start"
+
+#: src/templates/dashboard/index.mas:45 src/templates/dashboard/status.mas:12
+msgid "Restart"
+msgstr "Restart"
+
+#: src/templates/dashboard/index.mas:117
+msgid "Configure widgets"
+msgstr ""
+
+#: src/templates/finish.mas:99
+#, perl-brace-format
+msgid ""
+"The following modules have unsaved changes but are <b>disabled</b>. If you "
+"need to enable them go to {openref}Module Status{closeref}."
+msgstr ""
+
+#: src/templates/finish.mas:106
+msgid ""
+"There are unsaved changes in one or more modules, you can save or discard "
+"those changes."
+msgstr ""
+
+#: src/templates/finish.mas:110
+msgid ""
+"If you made changes to the network interfaces or the administration port, "
+"you may need to manually rewrite the url in order to access this "
+"administration interface again."
+msgstr ""
+
+#: src/templates/finish.mas:134
+msgid "Save"
+msgstr ""
+
+#: src/templates/finish.mas:136
+msgid "Discard changes"
+msgstr ""
+
+#: src/templates/finish.mas:141
+msgid "There are no unsaved changes."
+msgstr ""
+
+#: src/templates/hostname.mas:10
+#, fuzzy
+msgid "Change Hostname"
+msgstr "Promene Sačuvane"
+
+#: src/templates/hostname.mas:11
+msgid ""
+"You will need to restart all the services or reboot the system to apply the "
+"hostname change."
+msgstr ""
+
+#: src/templates/hostname.mas:13
+#, perl-brace-format
+msgid "The hostname will be changed to {newHostname} after saving changes."
+msgstr ""
+
+#: src/templates/confirm-backup.mas:102
+msgid "Full Restore"
+msgstr "Potpun (Restore)"
+
+#: src/templates/confirm-backup.mas:103
+msgid "Configuration Restore"
 msgstr "(Restore) Konfiguracije"
+
+#: src/templates/confirm-backup.mas:108
+msgid "Restore mode"
+msgstr "(Restore) mod"
 
 #: src/templates/logout/index.mas:11
 msgid "There are unsaved changes, if you log out now they will be lost."
@@ -2274,25 +2264,17 @@ msgstr ""
 msgid "Exit"
 msgstr "Izlaz"
 
-#: src/templates/password.mas:4
-msgid "Change Password"
-msgstr "Promeni Lozinku"
+#: src/templates/backupTabs.mas:13
+msgid "Local"
+msgstr ""
 
-#: src/templates/password.mas:5
-msgid "Your password must be at least 6 characters long."
-msgstr "Vaša lozinka mora sadržati najmanje 6 karaktera"
+#: src/templates/backupTabs.mas:18
+msgid "Remote in Zentyal Cloud"
+msgstr ""
 
-#: src/templates/password.mas:25
-msgid "Current password"
-msgstr "Trenutna Lozinka"
-
-#: src/templates/password.mas:39
-msgid "New password"
-msgstr "Nova Lozinka"
-
-#: src/templates/password.mas:53
-msgid "Confirm password"
-msgstr "Potvrdi Lozinku"
+#: src/templates/backupTabs.mas:23
+msgid "Remote in Zentyal Cloud from other subscribed hosts"
+msgstr ""
 
 #: src/templates/login/index.mas:40
 msgid "Warning: Caps Lock is enabled"
@@ -2322,41 +2304,60 @@ msgstr ""
 msgid "Enter"
 msgstr "Uđi"
 
-#: src/templates/dataInUse.mas:41 src/templates/confirm-backup.mas:66
-msgid "Cancel"
-msgstr "Odkaži"
+#: src/templates/headTitle.mas:20
+msgid "Remote services control panel"
+msgstr ""
 
-#: src/templates/confirm-backup.mas:102
-msgid "Full Restore"
-msgstr "Potpun (Restore)"
+#: src/templates/configureView.mas:12
+msgid ""
+"Enabling this module will cause Zentyal to perform the actions and file "
+"modifications listed below. You must explicitly accept these changes to "
+"enable the module."
+msgstr ""
 
-#: src/templates/confirm-backup.mas:103
-msgid "Configuration Restore"
-msgstr "(Restore) Konfiguracije"
+#: src/templates/configureView.mas:16
+msgid "Actions to perform by Zentyal"
+msgstr ""
 
-#: src/templates/confirm-backup.mas:108
-msgid "Restore mode"
-msgstr "(Restore) mod"
+#: src/templates/configureView.mas:31
+msgid "Files to modify by Zentyal"
+msgstr ""
+
+#: src/templates/configureView.mas:51
+msgid "Accept"
+msgstr ""
 
 #: src/templates/port.mas:9
 msgid "Administration Interface TCP Port"
 msgstr "Administratorski (Interface)  TCP Portova"
 
-#: src/templates/hostname.mas:10
-#, fuzzy
-msgid "Change Hostname"
-msgstr "Promene Sačuvane"
+#: src/templates/halt.mas:10
+msgid "You might lose your Internet connection if this machine is halted."
+msgstr ""
 
-#: src/templates/hostname.mas:11
+#: src/templates/halt.mas:14
+msgid "Halt"
+msgstr "Zaustavi"
+
+#: src/templates/halt.mas:16
+msgid "Reboot"
+msgstr "Reboot"
+
+#: src/templates/bug.mas:9
 msgid ""
-"You will need to restart all the services or reboot the system to apply the "
-"hostname change."
+"This page lets you generate a file with information about the state of your "
+"system. The file will be useful if you want to report a problem or seek "
+"support."
 msgstr ""
 
-#: src/templates/hostname.mas:13
-#, perl-brace-format
-msgid "The hostname will be changed to {newHostname} after saving changes."
+#: src/templates/bug.mas:13
+msgid "It may take several minutes to generate the report. Please be patient."
 msgstr ""
+
+#: src/templates/bug.mas:19
+#, fuzzy
+msgid "Download configuration report file"
+msgstr "(Restore) Konfiguracije"
 
 #~ msgid "Error dumping the postgresql database {name}"
 #~ msgstr "Greška pri dampiranju postgresql data-baze {name}"

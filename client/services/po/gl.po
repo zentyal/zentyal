@@ -7,10 +7,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-services 0.12.99\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-12-13 08:42+0100\n"
+"POT-Creation-Date: 2010-12-18 01:45+0100\n"
 "PO-Revision-Date: 2008-11-10 19:05+0000\n"
 "Last-Translator: Tomás Vilariño <tomas.vilarino@aitire.es>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -59,19 +60,6 @@ msgstr "Administración eBox"
 msgid "Zentyal Administration Web Server"
 msgstr "Porto de Administración eBox"
 
-#: src/EBox/Services.pm:47 src/EBox/Model/ServiceTable.pm:144
-msgid "Services"
-msgstr "Servizos"
-
-#: src/EBox/Services.pm:399
-msgid "port"
-msgstr "porto"
-
-#: src/EBox/Services.pm:402
-#, fuzzy
-msgid "Zentyal Administration port"
-msgstr "Porto de Administración eBox"
-
 #: src/EBox/Model/ServiceTable.pm:102
 msgid "Domain"
 msgstr "Dominio"
@@ -106,6 +94,10 @@ msgstr "Configuración"
 #: src/EBox/Model/ServiceTable.pm:143
 msgid "List of services"
 msgstr "Listado de servizos"
+
+#: src/EBox/Model/ServiceTable.pm:144 src/EBox/Services.pm:47
+msgid "Services"
+msgstr "Servizos"
 
 #: src/EBox/Model/ServiceTable.pm:154
 #: src/EBox/Model/ServiceConfigurationTable.pm:172
@@ -143,3 +135,12 @@ msgstr "Configuración do servizo"
 #: src/EBox/Model/ServiceConfigurationTable.pm:196
 msgid "This protocol does not use ports"
 msgstr "Este protocolo non emprega portos"
+
+#: src/EBox/Services.pm:399
+msgid "port"
+msgstr "porto"
+
+#: src/EBox/Services.pm:402
+#, fuzzy
+msgid "Zentyal Administration port"
+msgstr "Porto de Administración eBox"

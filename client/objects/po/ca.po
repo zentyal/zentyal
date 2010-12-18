@@ -7,57 +7,54 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-objects 0.12\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-12-13 08:40+0100\n"
+"POT-Creation-Date: 2010-12-18 01:44+0100\n"
 "PO-Revision-Date: 2010-08-29 23:57+0200\n"
 "Last-Translator: josefa <jgonza24@xtec.cat>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: src/EBox/Objects.pm:39 src/EBox/Model/ObjectTable.pm:82
-#: src/EBox/Model/MemberTable.pm:93
-msgid "Objects"
-msgstr "Objectes"
-
-#: src/EBox/Objects.pm:44
-#, perl-brace-format
-msgid "Added object {object}"
-msgstr "Objecte {object} afegit "
-
-#: src/EBox/Objects.pm:46
-#, perl-brace-format
-msgid "Added {nname} ({ip}/{mask} [{mac}]) to object {object}"
-msgstr "Afegit {nname} ({ip}/{mask} [{mac}]) a l'objecte {object}"
-
-#: src/EBox/Objects.pm:47
-#, perl-brace-format
-msgid "Removed object {object}"
-msgstr "Objecte {object} eliminat"
-
-#: src/EBox/Objects.pm:49
-#, perl-brace-format
-msgid "Forcefully removed object {object}"
-msgstr "Objecte {object} eliminat forçadament"
-
-#: src/EBox/Objects.pm:51
-#, perl-brace-format
-msgid "Removed {nname} from object {object}"
-msgstr "Objecte {nname} eliminat de l'objecte {object}"
-
-#: src/EBox/Objects.pm:270
-msgid "Object"
-msgstr "Objecte"
-
-#: src/EBox/Model/ObjectTable.pm:63 src/EBox/Model/MemberTable.pm:63
+#: src/EBox/Model/MemberTable.pm:63 src/EBox/Model/ObjectTable.pm:63
 msgid "Name"
 msgstr "Nom"
 
-#: src/EBox/Model/ObjectTable.pm:71 src/EBox/Model/MemberTable.pm:87
+#: src/EBox/Model/MemberTable.pm:70
+msgid "IP address"
+msgstr "Adreça IP"
+
+#: src/EBox/Model/MemberTable.pm:76
+msgid "MAC address"
+msgstr "Adreça MAC"
+
+#: src/EBox/Model/MemberTable.pm:87 src/EBox/Model/ObjectTable.pm:71
 msgid "Members"
 msgstr "Membres"
+
+#: src/EBox/Model/MemberTable.pm:93 src/EBox/Model/ObjectTable.pm:82
+#: src/EBox/Objects.pm:39
+msgid "Objects"
+msgstr "Objectes"
+
+#: src/EBox/Model/MemberTable.pm:94
+msgid "member"
+msgstr "membre"
+
+#: src/EBox/Model/MemberTable.pm:116
+msgid "You can only use MAC addresses with hosts"
+msgstr "Només es pot fer servir adreces MAC amb els hosts"
+
+#: src/EBox/Model/MemberTable.pm:119 src/EBox/Model/MemberTable.pm:120
+msgid "network address"
+msgstr "adreça de xarxa"
+
+#: src/EBox/Model/MemberTable.pm:126
+#, perl-brace-format
+msgid "{ip} overlaps with the address or another object's member"
+msgstr "{ip} sobreescriu a les adreces o altres membres d'objectes"
 
 #: src/EBox/Model/ObjectTable.pm:83
 msgid "Objects List"
@@ -89,27 +86,31 @@ msgstr ""
 "'Any' es una paraula reservada que no es pot fer servir com a nom d'un "
 "objecte per evitar confusions"
 
-#: src/EBox/Model/MemberTable.pm:70
-msgid "IP address"
-msgstr "Adreça IP"
-
-#: src/EBox/Model/MemberTable.pm:76
-msgid "MAC address"
-msgstr "Adreça MAC"
-
-#: src/EBox/Model/MemberTable.pm:94
-msgid "member"
-msgstr "membre"
-
-#: src/EBox/Model/MemberTable.pm:116
-msgid "You can only use MAC addresses with hosts"
-msgstr "Només es pot fer servir adreces MAC amb els hosts"
-
-#: src/EBox/Model/MemberTable.pm:119 src/EBox/Model/MemberTable.pm:120
-msgid "network address"
-msgstr "adreça de xarxa"
-
-#: src/EBox/Model/MemberTable.pm:126
+#: src/EBox/Objects.pm:44
 #, perl-brace-format
-msgid "{ip} overlaps with the address or another object's member"
-msgstr "{ip} sobreescriu a les adreces o altres membres d'objectes"
+msgid "Added object {object}"
+msgstr "Objecte {object} afegit "
+
+#: src/EBox/Objects.pm:46
+#, perl-brace-format
+msgid "Added {nname} ({ip}/{mask} [{mac}]) to object {object}"
+msgstr "Afegit {nname} ({ip}/{mask} [{mac}]) a l'objecte {object}"
+
+#: src/EBox/Objects.pm:47
+#, perl-brace-format
+msgid "Removed object {object}"
+msgstr "Objecte {object} eliminat"
+
+#: src/EBox/Objects.pm:49
+#, perl-brace-format
+msgid "Forcefully removed object {object}"
+msgstr "Objecte {object} eliminat forçadament"
+
+#: src/EBox/Objects.pm:51
+#, perl-brace-format
+msgid "Removed {nname} from object {object}"
+msgstr "Objecte {nname} eliminat de l'objecte {object}"
+
+#: src/EBox/Objects.pm:270
+msgid "Object"
+msgstr "Objecte"

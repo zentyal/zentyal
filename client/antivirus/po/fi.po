@@ -7,29 +7,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-antivirus 0.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-12-13 08:38+0100\n"
+"POT-Creation-Date: 2010-12-18 01:42+0100\n"
 "PO-Revision-Date: 2009-05-14 10:04+0200\n"
 "Last-Translator: Alexander Elo <alexander.elo@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 1.1.0\n"
-
-#: src/EBox/AntiVirus.pm:75 src/EBox/AntiVirus.pm:384
-#: src/EBox/AntiVirus.pm:389 src/EBox/AntiVirus/Model/FreshclamStatus.pm:104
-msgid "Antivirus"
-msgstr "Antivirus"
-
-#: src/EBox/AntiVirus.pm:210
-#, fuzzy
-msgid " To configure clamd daemon"
-msgstr "Konfiguroimaan clamd daemon"
-
-#: src/EBox/AntiVirus.pm:215
-msgid "To schedule the launch of the updater"
-msgstr "Ajasta päivitys"
 
 #: src/EBox/AntiVirus/Model/FreshclamStatus.pm:89
 msgid "Status"
@@ -48,6 +35,11 @@ msgstr "Tila"
 #, fuzzy
 msgid "Database Update Status"
 msgstr "Antivirus tietokannan päivityksen tila"
+
+#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:104 src/EBox/AntiVirus.pm:75
+#: src/EBox/AntiVirus.pm:384 src/EBox/AntiVirus.pm:389
+msgid "Antivirus"
+msgstr "Antivirus"
 
 #: src/EBox/AntiVirus/Model/FreshclamStatus.pm:162
 #, fuzzy
@@ -84,6 +76,15 @@ msgstr ""
 #, fuzzy, perl-brace-format
 msgid "Unknown event {event}."
 msgstr "Tuntematon tapahtuma {event}"
+
+#: src/EBox/AntiVirus.pm:210
+#, fuzzy
+msgid " To configure clamd daemon"
+msgstr "Konfiguroimaan clamd daemon"
+
+#: src/EBox/AntiVirus.pm:215
+msgid "To schedule the launch of the updater"
+msgstr "Ajasta päivitys"
 
 #, fuzzy
 #~ msgid "To configure freshclam updater"

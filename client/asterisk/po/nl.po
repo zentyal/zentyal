@@ -8,10 +8,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-asterisk 1.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-12-13 08:28+0100\n"
+"POT-Creation-Date: 2010-12-18 01:20+0100\n"
 "PO-Revision-Date: 2010-08-19 21:31+0200\n"
 "Last-Translator: Willy Geerts <willy@willygeerts.be>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -170,28 +171,149 @@ msgstr "Bezet"
 msgid "Failed"
 msgstr "Mislukt"
 
-#: src/EBox/Asterisk/Extensions.pm:230
-msgid "User extension"
-msgstr "Gebruikers nummer"
+#: src/EBox/Model/Localnets.pm:88
+#, perl-brace-format
+msgid ""
+"Networks attached directly to internal interfaces, like {net}, are always "
+"considered local networks so it is not neccessary to add them."
+msgstr ""
+"Netwerken direct verbonden met interne interfacen, zoals {net}, worden "
+"altijd beschouwd als lokale netwerken en deze hoeven niet toegevoegd te "
+"worden."
 
+#: src/EBox/Model/Localnets.pm:113
+msgid "Local network"
+msgstr "Lokaal netwerk"
+
+#: src/EBox/Model/Localnets.pm:119 src/EBox/Model/Meetings.pm:179
+msgid "Description"
+msgstr "Omschrijving"
+
+#: src/EBox/Model/Localnets.pm:130
+msgid "Local networks"
+msgstr "Lokale netwerken"
+
+#: src/EBox/Model/Localnets.pm:131
+msgid "local network"
+msgstr "lokaal netwerk"
+
+#: src/EBox/Model/AsteriskUser.pm:50
+msgid "Asterisk Account"
+msgstr "Asterisk Login"
+
+#: src/EBox/Model/AsteriskUser.pm:58
+msgid "Asterisk"
+msgstr "Asterisk"
+
+# very fuzzy as toestel also means device as in hardware
+#: src/EBox/Model/Settings.pm:84 src/EBox/Model/Meetings.pm:120
+#: src/EBox/Model/Meetings.pm:128
+msgid "extension"
+msgstr "toestel"
+
+#: src/EBox/Model/Settings.pm:92 src/EBox/Model/Meetings.pm:151
 #: src/EBox/Asterisk/Extensions.pm:323 src/EBox/Asterisk/Extensions.pm:718
-#: src/EBox/Model/Meetings.pm:151 src/EBox/Model/Settings.pm:92
-#: src/templates/group.mas:41 src/templates/user.mas:38
+#: src/templates/user.mas:38 src/templates/group.mas:41
 msgid "Extension"
 msgstr "Toestel"
 
-# very fuzzy as toestel also means device as in hardware
-#: src/EBox/Asterisk/Extensions.pm:642
-msgid "Queue extension"
-msgstr "Wachtlijst Toestel"
+# extension = uitbreidingen or nummers: nummers if its about extension numbers
+#: src/EBox/Model/Settings.pm:117
+msgid "Enable demo extensions"
+msgstr "Activeer demo nummers"
 
-#: src/EBox/CGI/AsteriskGroupOptions.pm:42
-msgid "group"
-msgstr "groep"
+#: src/EBox/Model/Settings.pm:123
+msgid "Enable outgoing calls"
+msgstr "Activeer uitgaande gesprekken"
 
-#: src/EBox/CGI/AsteriskUserOptions.pm:43
-msgid "username"
-msgstr "gebruikersnaam"
+#: src/EBox/Model/Settings.pm:129
+msgid "Voicemail extension"
+msgstr "Antwoordapparaat nummer"
+
+#: src/EBox/Model/Settings.pm:136
+msgid "VoIP domain"
+msgstr "VoIP domein"
+
+#: src/EBox/Model/Settings.pm:145
+msgid "General configuration"
+msgstr "Algemene configuratie"
+
+#: src/EBox/Model/Settings.pm:149
+msgid "General Asterisk server configuration"
+msgstr "Algemene Asterisk server configuratie"
+
+#: src/EBox/Model/Settings.pm:151
+msgid "General Asterisk server configuration updated."
+msgstr "Algemene Asterisk server configuratie bijgewerkt."
+
+#: src/EBox/Model/NAT.pm:96
+#, fuzzy
+msgid "Zentyal is behind NAT"
+msgstr "De server bevindt zich achter NAT"
+
+#: src/EBox/Model/NAT.pm:101
+msgid "No"
+msgstr "Nee"
+
+#: src/EBox/Model/NAT.pm:120
+msgid "NAT configuration"
+msgstr "NAT configuratie"
+
+#: src/EBox/Model/NAT.pm:124
+msgid "NAT Asterisk server configuration"
+msgstr "NAT Asterisk server configuratie"
+
+#: src/EBox/Model/NAT.pm:126
+msgid "NAT Asterisk server configuration updated."
+msgstr "NAT Asterisk server configuratie bijgewerkt."
+
+#: src/EBox/Model/Provider.pm:68
+msgid "Custom"
+msgstr "Op maat"
+
+#: src/EBox/Model/Provider.pm:89
+msgid "Provider"
+msgstr "Leverancier"
+
+#: src/EBox/Model/Provider.pm:95
+msgid "Name"
+msgstr "Naam"
+
+#: src/EBox/Model/Provider.pm:100
+msgid "VoIP service provider name."
+msgstr "Naam VoIP leverancier"
+
+#: src/EBox/Model/Provider.pm:104
+msgid "Username"
+msgstr "Gebruikersnaam"
+
+#: src/EBox/Model/Provider.pm:111 src/EBox/Model/Meetings.pm:171
+msgid "Password"
+msgstr "Wachtwoord"
+
+#: src/EBox/Model/Provider.pm:118
+msgid "Server"
+msgstr "Server"
+
+#: src/EBox/Model/Provider.pm:126
+msgid "Recipient of incoming calls"
+msgstr "Ontvanger van inkomende gesprekken"
+
+#: src/EBox/Model/Provider.pm:130
+msgid "Extension recipient of incoming calls through the provider."
+msgstr "Toestelnummer ontvanger van inkomende gesprekken"
+
+#: src/EBox/Model/Provider.pm:137
+msgid "SIP provider"
+msgstr "SIP leverancier"
+
+#: src/EBox/Model/Provider.pm:141
+msgid "SIP provider for outgoing calls configuration."
+msgstr "Configuratie SIP leverancier voor uitgaande gesprekken"
+
+#: src/EBox/Model/Provider.pm:143
+msgid "SIP provider configuration updated."
+msgstr "Configuratie SIP leverancier aangepast"
 
 #: src/EBox/Model/Meetings.pm:95
 #, perl-brace-format
@@ -203,24 +325,10 @@ msgstr ""
 "kunnen gebruiken. {br}Voer het volgende commando uit: sudo apt-get install "
 "{kernels} dahdi."
 
-# very fuzzy as toestel also means device as in hardware
-#: src/EBox/Model/Meetings.pm:120 src/EBox/Model/Meetings.pm:128
-#: src/EBox/Model/Settings.pm:84
-msgid "extension"
-msgstr "toestel"
-
 #: src/EBox/Model/Meetings.pm:155
 #, perl-brace-format
 msgid "A number between {min} and {max}."
 msgstr "Een nummer tussen {min} en {max}"
-
-#: src/EBox/Model/Meetings.pm:171 src/EBox/Model/Provider.pm:111
-msgid "Password"
-msgstr "Wachtwoord"
-
-#: src/EBox/Model/Meetings.pm:179 src/EBox/Model/Localnets.pm:119
-msgid "Description"
-msgstr "Omschrijving"
 
 #: src/EBox/Model/Meetings.pm:190
 msgid "List of Meetings"
@@ -229,14 +337,6 @@ msgstr "Vergaderingen lijst"
 #: src/EBox/Model/Meetings.pm:192
 msgid "meeting"
 msgstr "vergadering"
-
-#: src/EBox/Model/AsteriskUser.pm:50
-msgid "Asterisk Account"
-msgstr "Asterisk Login"
-
-#: src/EBox/Model/AsteriskUser.pm:58
-msgid "Asterisk"
-msgstr "Asterisk"
 
 #: src/EBox/Model/Voicemail.pm:75 src/EBox/Model/Voicemail.pm:122
 msgid "Voicemail settings"
@@ -271,125 +371,62 @@ msgid "You have not an VoIP account. Maybe VoIP is not enabled in this server"
 msgstr ""
 "U hebt geen VoIP profiel. Misschien is VoIP niet ingeschakeld op deze server"
 
-#: src/EBox/Model/Localnets.pm:88
-#, perl-brace-format
-msgid ""
-"Networks attached directly to internal interfaces, like {net}, are always "
-"considered local networks so it is not neccessary to add them."
-msgstr ""
-"Netwerken direct verbonden met interne interfacen, zoals {net}, worden "
-"altijd beschouwd als lokale netwerken en deze hoeven niet toegevoegd te "
-"worden."
-
-#: src/EBox/Model/Localnets.pm:113
-msgid "Local network"
-msgstr "Lokaal netwerk"
-
-#: src/EBox/Model/Localnets.pm:130
-msgid "Local networks"
-msgstr "Lokale netwerken"
-
-#: src/EBox/Model/Localnets.pm:131
-msgid "local network"
-msgstr "lokaal netwerk"
-
-# extension = uitbreidingen or nummers: nummers if its about extension numbers
-#: src/EBox/Model/Settings.pm:117
-msgid "Enable demo extensions"
-msgstr "Activeer demo nummers"
-
-#: src/EBox/Model/Settings.pm:123
-msgid "Enable outgoing calls"
-msgstr "Activeer uitgaande gesprekken"
-
-#: src/EBox/Model/Settings.pm:129
-msgid "Voicemail extension"
-msgstr "Antwoordapparaat nummer"
-
-#: src/EBox/Model/Settings.pm:136
-msgid "VoIP domain"
-msgstr "VoIP domein"
-
-#: src/EBox/Model/Settings.pm:145
-msgid "General configuration"
-msgstr "Algemene configuratie"
-
-#: src/EBox/Model/Settings.pm:149
-msgid "General Asterisk server configuration"
-msgstr "Algemene Asterisk server configuratie"
-
-#: src/EBox/Model/Settings.pm:151
-msgid "General Asterisk server configuration updated."
-msgstr "Algemene Asterisk server configuratie bijgewerkt."
-
-#: src/EBox/Model/Provider.pm:68
-msgid "Custom"
-msgstr "Op maat"
-
-#: src/EBox/Model/Provider.pm:89
-msgid "Provider"
-msgstr "Leverancier"
-
-#: src/EBox/Model/Provider.pm:95
-msgid "Name"
-msgstr "Naam"
-
-#: src/EBox/Model/Provider.pm:100
-msgid "VoIP service provider name."
-msgstr "Naam VoIP leverancier"
-
-#: src/EBox/Model/Provider.pm:104
-msgid "Username"
-msgstr "Gebruikersnaam"
-
-#: src/EBox/Model/Provider.pm:118
-msgid "Server"
-msgstr "Server"
-
-#: src/EBox/Model/Provider.pm:126
-msgid "Recipient of incoming calls"
-msgstr "Ontvanger van inkomende gesprekken"
-
-#: src/EBox/Model/Provider.pm:130
-msgid "Extension recipient of incoming calls through the provider."
-msgstr "Toestelnummer ontvanger van inkomende gesprekken"
-
-#: src/EBox/Model/Provider.pm:137
-msgid "SIP provider"
-msgstr "SIP leverancier"
-
-#: src/EBox/Model/Provider.pm:141
-msgid "SIP provider for outgoing calls configuration."
-msgstr "Configuratie SIP leverancier voor uitgaande gesprekken"
-
-#: src/EBox/Model/Provider.pm:143
-msgid "SIP provider configuration updated."
-msgstr "Configuratie SIP leverancier aangepast"
-
-#: src/EBox/Model/NAT.pm:96
-#, fuzzy
-msgid "Zentyal is behind NAT"
-msgstr "De server bevindt zich achter NAT"
-
-#: src/EBox/Model/NAT.pm:101
-msgid "No"
-msgstr "Nee"
-
-#: src/EBox/Model/NAT.pm:120
-msgid "NAT configuration"
-msgstr "NAT configuratie"
-
-#: src/EBox/Model/NAT.pm:124
-msgid "NAT Asterisk server configuration"
-msgstr "NAT Asterisk server configuratie"
-
-#: src/EBox/Model/NAT.pm:126
-msgid "NAT Asterisk server configuration updated."
-msgstr "NAT Asterisk server configuratie bijgewerkt."
-
 #: src/EBox/Composite/General.pm:66
 msgid "Asterisk module"
 msgstr "Asterisk module"
+
+#: src/EBox/Asterisk/Extensions.pm:230
+msgid "User extension"
+msgstr "Gebruikers nummer"
+
+# very fuzzy as toestel also means device as in hardware
+#: src/EBox/Asterisk/Extensions.pm:642
+msgid "Queue extension"
+msgstr "Wachtlijst Toestel"
+
+#: src/EBox/CGI/AsteriskGroupOptions.pm:42
+msgid "group"
+msgstr "groep"
+
+#: src/EBox/CGI/AsteriskUserOptions.pm:43
+msgid "username"
+msgstr "gebruikersnaam"
+
+#: src/templates/user.mas:8
+msgid "Asterisk account"
+msgstr "Asterisk gebruiker"
+
+#: src/templates/user.mas:10
+msgid "Password for Asterisk service is the user password"
+msgstr "Wachtwoord voor Asterisk dienst is het gebruiker wachtwoord"
+
+# need more context to translate
+#: src/templates/user.mas:21
+msgid "User account"
+msgstr "Gebruikersaccount"
+
+#: src/templates/user.mas:26 src/templates/user.mas:29
+#: src/templates/group.mas:29 src/templates/group.mas:32
+msgid "Disabled"
+msgstr "Uitgeschakeld"
+
+#: src/templates/user.mas:27 src/templates/user.mas:30
+#: src/templates/group.mas:30 src/templates/group.mas:33
+msgid "Enabled"
+msgstr "Ingeschakeld"
+
+#: src/templates/user.mas:49 src/templates/user.mas:50
+#: src/templates/group.mas:52 src/templates/group.mas:53
+msgid "Change"
+msgstr "Wijzig"
+
+#: src/templates/moduleDisabled.mas:5
+msgid ""
+"The following settings only will take effect when the Asterisk module is "
+"enabled."
+msgstr ""
+"De volgende instellingen hebben alleen effect als de module Asterisk is "
+"ingeschakeld."
 
 # a queue is a row, but in what context is it used here? 
 #: src/templates/group.mas:8
@@ -407,39 +444,3 @@ msgstr ""
 #: src/templates/group.mas:24
 msgid "Group queue"
 msgstr "Groep wachtrij"
-
-#: src/templates/group.mas:29 src/templates/group.mas:32
-#: src/templates/user.mas:26 src/templates/user.mas:29
-msgid "Disabled"
-msgstr "Uitgeschakeld"
-
-#: src/templates/group.mas:30 src/templates/group.mas:33
-#: src/templates/user.mas:27 src/templates/user.mas:30
-msgid "Enabled"
-msgstr "Ingeschakeld"
-
-#: src/templates/group.mas:52 src/templates/group.mas:53
-#: src/templates/user.mas:49 src/templates/user.mas:50
-msgid "Change"
-msgstr "Wijzig"
-
-#: src/templates/moduleDisabled.mas:5
-msgid ""
-"The following settings only will take effect when the Asterisk module is "
-"enabled."
-msgstr ""
-"De volgende instellingen hebben alleen effect als de module Asterisk is "
-"ingeschakeld."
-
-#: src/templates/user.mas:8
-msgid "Asterisk account"
-msgstr "Asterisk gebruiker"
-
-#: src/templates/user.mas:10
-msgid "Password for Asterisk service is the user password"
-msgstr "Wachtwoord voor Asterisk dienst is het gebruiker wachtwoord"
-
-# need more context to translate
-#: src/templates/user.mas:21
-msgid "User account"
-msgstr "Gebruikersaccount"

@@ -7,26 +7,19 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-improxy 1.5\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-12-13 08:39+0100\n"
+"POT-Creation-Date: 2010-12-18 01:44+0100\n"
 "PO-Revision-Date: 2009-03-08 15:17+0000\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
-"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
 #: src/EBox/IMProxy.pm:59 src/EBox/IMProxy.pm:115
 msgid "IM Proxy"
-msgstr ""
-
-#: src/EBox/Model/Composite.pm:69
-msgid "composite title"
-msgstr ""
-
-#: src/EBox/Model/Composite.pm:71 src/EBox/Model/Rules.pm:128
-msgid "help message"
 msgstr ""
 
 #: src/EBox/Model/Rules.pm:69
@@ -59,4 +52,12 @@ msgstr ""
 
 #: src/EBox/Model/Rules.pm:127
 msgid "rule"
+msgstr ""
+
+#: src/EBox/Model/Rules.pm:128 src/EBox/Model/Composite.pm:71
+msgid "help message"
+msgstr ""
+
+#: src/EBox/Model/Composite.pm:69
+msgid "composite title"
 msgstr ""

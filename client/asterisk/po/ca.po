@@ -8,10 +8,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-asterisk 1.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-12-13 08:28+0100\n"
+"POT-Creation-Date: 2010-12-18 01:20+0100\n"
 "PO-Revision-Date: 2010-08-29 20:55+0200\n"
 "Last-Translator: josefa <jgonza24@xtec.cat>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -168,27 +169,145 @@ msgstr "Ocupat"
 msgid "Failed"
 msgstr "Fallat"
 
-#: src/EBox/Asterisk/Extensions.pm:230
-msgid "User extension"
-msgstr "Extensió d'usuari"
+#: src/EBox/Model/Localnets.pm:88
+#, perl-brace-format
+msgid ""
+"Networks attached directly to internal interfaces, like {net}, are always "
+"considered local networks so it is not neccessary to add them."
+msgstr ""
+"Les xarxes adjuntes directament a la interficie interna, com {net}, son "
+"sempre considerades xarxes locals per tant no es necessari afegir-les."
 
+#: src/EBox/Model/Localnets.pm:113
+msgid "Local network"
+msgstr "Xarxa local"
+
+#: src/EBox/Model/Localnets.pm:119 src/EBox/Model/Meetings.pm:179
+msgid "Description"
+msgstr "Descripció"
+
+#: src/EBox/Model/Localnets.pm:130
+msgid "Local networks"
+msgstr "Xarxes locals"
+
+#: src/EBox/Model/Localnets.pm:131
+msgid "local network"
+msgstr "xarxa local"
+
+#: src/EBox/Model/AsteriskUser.pm:50
+msgid "Asterisk Account"
+msgstr "Compte d'asterisk"
+
+#: src/EBox/Model/AsteriskUser.pm:58
+msgid "Asterisk"
+msgstr "Asterisk"
+
+#: src/EBox/Model/Settings.pm:84 src/EBox/Model/Meetings.pm:120
+#: src/EBox/Model/Meetings.pm:128
+msgid "extension"
+msgstr "extensió"
+
+#: src/EBox/Model/Settings.pm:92 src/EBox/Model/Meetings.pm:151
 #: src/EBox/Asterisk/Extensions.pm:323 src/EBox/Asterisk/Extensions.pm:718
-#: src/EBox/Model/Meetings.pm:151 src/EBox/Model/Settings.pm:92
-#: src/templates/group.mas:41 src/templates/user.mas:38
+#: src/templates/user.mas:38 src/templates/group.mas:41
 msgid "Extension"
 msgstr "Extensió"
 
-#: src/EBox/Asterisk/Extensions.pm:642
-msgid "Queue extension"
-msgstr "Extensió de cua"
+#: src/EBox/Model/Settings.pm:117
+msgid "Enable demo extensions"
+msgstr "Activar extensions demo"
 
-#: src/EBox/CGI/AsteriskGroupOptions.pm:42
-msgid "group"
-msgstr "grup"
+#: src/EBox/Model/Settings.pm:123
+msgid "Enable outgoing calls"
+msgstr "Activar trucades sortints"
 
-#: src/EBox/CGI/AsteriskUserOptions.pm:43
-msgid "username"
-msgstr "nom d'usuari"
+#: src/EBox/Model/Settings.pm:129
+msgid "Voicemail extension"
+msgstr "Extensió de bústia de veu"
+
+#: src/EBox/Model/Settings.pm:136
+msgid "VoIP domain"
+msgstr "Domini Veu IP"
+
+#: src/EBox/Model/Settings.pm:145
+msgid "General configuration"
+msgstr "Configuració General"
+
+#: src/EBox/Model/Settings.pm:149
+msgid "General Asterisk server configuration"
+msgstr "Configuració general del servidor  Asterisk"
+
+#: src/EBox/Model/Settings.pm:151
+msgid "General Asterisk server configuration updated."
+msgstr "S'ha actualitzat la configuració general del servidor Asterisk."
+
+#: src/EBox/Model/NAT.pm:96
+msgid "Zentyal is behind NAT"
+msgstr "Zentyal darrera NAT"
+
+#: src/EBox/Model/NAT.pm:101
+msgid "No"
+msgstr "No"
+
+#: src/EBox/Model/NAT.pm:120
+msgid "NAT configuration"
+msgstr "Configuració NAT"
+
+#: src/EBox/Model/NAT.pm:124
+msgid "NAT Asterisk server configuration"
+msgstr "Configuració del NAT del servidor Asterisk"
+
+#: src/EBox/Model/NAT.pm:126
+msgid "NAT Asterisk server configuration updated."
+msgstr "Configuració del Nat del servidor Asterisk actualitzada."
+
+#: src/EBox/Model/Provider.pm:68
+msgid "Custom"
+msgstr "Personalitzar"
+
+#: src/EBox/Model/Provider.pm:89
+msgid "Provider"
+msgstr "Proveïdor"
+
+#: src/EBox/Model/Provider.pm:95
+msgid "Name"
+msgstr "Nom"
+
+#: src/EBox/Model/Provider.pm:100
+msgid "VoIP service provider name."
+msgstr "Nom del proveïdor de serveis Veu IP"
+
+#: src/EBox/Model/Provider.pm:104
+msgid "Username"
+msgstr "Nom d'usuari"
+
+#: src/EBox/Model/Provider.pm:111 src/EBox/Model/Meetings.pm:171
+msgid "Password"
+msgstr "Clau d'accés"
+
+#: src/EBox/Model/Provider.pm:118
+msgid "Server"
+msgstr "Servidor"
+
+#: src/EBox/Model/Provider.pm:126
+msgid "Recipient of incoming calls"
+msgstr "Destinetari de les trucades entrants"
+
+#: src/EBox/Model/Provider.pm:130
+msgid "Extension recipient of incoming calls through the provider."
+msgstr "Extensió destí per trucades entrants a través del proveïdor."
+
+#: src/EBox/Model/Provider.pm:137
+msgid "SIP provider"
+msgstr "Preveïdor SIP"
+
+#: src/EBox/Model/Provider.pm:141
+msgid "SIP provider for outgoing calls configuration."
+msgstr "Configuració per trucades sortints a través d'un proveïdor SIP."
+
+#: src/EBox/Model/Provider.pm:143
+msgid "SIP provider configuration updated."
+msgstr "Configuració de proveïdor SIP actualitzada."
 
 #: src/EBox/Model/Meetings.pm:95
 #, perl-brace-format
@@ -199,23 +318,10 @@ msgstr ""
 "Has d'instal·lar els paquets dahdi i linux-headers per fer servir sales. "
 "{br} Executa la següent comanda: sudo apt-get install {kernels} dahdi."
 
-#: src/EBox/Model/Meetings.pm:120 src/EBox/Model/Meetings.pm:128
-#: src/EBox/Model/Settings.pm:84
-msgid "extension"
-msgstr "extensió"
-
 #: src/EBox/Model/Meetings.pm:155
 #, perl-brace-format
 msgid "A number between {min} and {max}."
 msgstr "Un número entre {min} i {max}"
-
-#: src/EBox/Model/Meetings.pm:171 src/EBox/Model/Provider.pm:111
-msgid "Password"
-msgstr "Clau d'accés"
-
-#: src/EBox/Model/Meetings.pm:179 src/EBox/Model/Localnets.pm:119
-msgid "Description"
-msgstr "Descripció"
 
 #: src/EBox/Model/Meetings.pm:190
 msgid "List of Meetings"
@@ -224,14 +330,6 @@ msgstr "Llista de sales"
 #: src/EBox/Model/Meetings.pm:192
 msgid "meeting"
 msgstr "conferència"
-
-#: src/EBox/Model/AsteriskUser.pm:50
-msgid "Asterisk Account"
-msgstr "Compte d'asterisk"
-
-#: src/EBox/Model/AsteriskUser.pm:58
-msgid "Asterisk"
-msgstr "Asterisk"
 
 #: src/EBox/Model/Voicemail.pm:75 src/EBox/Model/Voicemail.pm:122
 msgid "Voicemail settings"
@@ -267,122 +365,59 @@ msgstr ""
 "Vostè no té un compte de Veu IP. Potser la Veu IP no està activada en aquest "
 "servidor"
 
-#: src/EBox/Model/Localnets.pm:88
-#, perl-brace-format
-msgid ""
-"Networks attached directly to internal interfaces, like {net}, are always "
-"considered local networks so it is not neccessary to add them."
-msgstr ""
-"Les xarxes adjuntes directament a la interficie interna, com {net}, son "
-"sempre considerades xarxes locals per tant no es necessari afegir-les."
-
-#: src/EBox/Model/Localnets.pm:113
-msgid "Local network"
-msgstr "Xarxa local"
-
-#: src/EBox/Model/Localnets.pm:130
-msgid "Local networks"
-msgstr "Xarxes locals"
-
-#: src/EBox/Model/Localnets.pm:131
-msgid "local network"
-msgstr "xarxa local"
-
-#: src/EBox/Model/Settings.pm:117
-msgid "Enable demo extensions"
-msgstr "Activar extensions demo"
-
-#: src/EBox/Model/Settings.pm:123
-msgid "Enable outgoing calls"
-msgstr "Activar trucades sortints"
-
-#: src/EBox/Model/Settings.pm:129
-msgid "Voicemail extension"
-msgstr "Extensió de bústia de veu"
-
-#: src/EBox/Model/Settings.pm:136
-msgid "VoIP domain"
-msgstr "Domini Veu IP"
-
-#: src/EBox/Model/Settings.pm:145
-msgid "General configuration"
-msgstr "Configuració General"
-
-#: src/EBox/Model/Settings.pm:149
-msgid "General Asterisk server configuration"
-msgstr "Configuració general del servidor  Asterisk"
-
-#: src/EBox/Model/Settings.pm:151
-msgid "General Asterisk server configuration updated."
-msgstr "S'ha actualitzat la configuració general del servidor Asterisk."
-
-#: src/EBox/Model/Provider.pm:68
-msgid "Custom"
-msgstr "Personalitzar"
-
-#: src/EBox/Model/Provider.pm:89
-msgid "Provider"
-msgstr "Proveïdor"
-
-#: src/EBox/Model/Provider.pm:95
-msgid "Name"
-msgstr "Nom"
-
-#: src/EBox/Model/Provider.pm:100
-msgid "VoIP service provider name."
-msgstr "Nom del proveïdor de serveis Veu IP"
-
-#: src/EBox/Model/Provider.pm:104
-msgid "Username"
-msgstr "Nom d'usuari"
-
-#: src/EBox/Model/Provider.pm:118
-msgid "Server"
-msgstr "Servidor"
-
-#: src/EBox/Model/Provider.pm:126
-msgid "Recipient of incoming calls"
-msgstr "Destinetari de les trucades entrants"
-
-#: src/EBox/Model/Provider.pm:130
-msgid "Extension recipient of incoming calls through the provider."
-msgstr "Extensió destí per trucades entrants a través del proveïdor."
-
-#: src/EBox/Model/Provider.pm:137
-msgid "SIP provider"
-msgstr "Preveïdor SIP"
-
-#: src/EBox/Model/Provider.pm:141
-msgid "SIP provider for outgoing calls configuration."
-msgstr "Configuració per trucades sortints a través d'un proveïdor SIP."
-
-#: src/EBox/Model/Provider.pm:143
-msgid "SIP provider configuration updated."
-msgstr "Configuració de proveïdor SIP actualitzada."
-
-#: src/EBox/Model/NAT.pm:96
-msgid "Zentyal is behind NAT"
-msgstr "Zentyal darrera NAT"
-
-#: src/EBox/Model/NAT.pm:101
-msgid "No"
-msgstr "No"
-
-#: src/EBox/Model/NAT.pm:120
-msgid "NAT configuration"
-msgstr "Configuració NAT"
-
-#: src/EBox/Model/NAT.pm:124
-msgid "NAT Asterisk server configuration"
-msgstr "Configuració del NAT del servidor Asterisk"
-
-#: src/EBox/Model/NAT.pm:126
-msgid "NAT Asterisk server configuration updated."
-msgstr "Configuració del Nat del servidor Asterisk actualitzada."
-
 #: src/EBox/Composite/General.pm:66
 msgid "Asterisk module"
 msgstr "Mòdul Asterisk"
+
+#: src/EBox/Asterisk/Extensions.pm:230
+msgid "User extension"
+msgstr "Extensió d'usuari"
+
+#: src/EBox/Asterisk/Extensions.pm:642
+msgid "Queue extension"
+msgstr "Extensió de cua"
+
+#: src/EBox/CGI/AsteriskGroupOptions.pm:42
+msgid "group"
+msgstr "grup"
+
+#: src/EBox/CGI/AsteriskUserOptions.pm:43
+msgid "username"
+msgstr "nom d'usuari"
+
+#: src/templates/user.mas:8
+msgid "Asterisk account"
+msgstr "Compte d'Asterisk"
+
+#: src/templates/user.mas:10
+msgid "Password for Asterisk service is the user password"
+msgstr "La clau d'accés pel servei d'Asterisk es la de l'usuari."
+
+#: src/templates/user.mas:21
+msgid "User account"
+msgstr "Compte d'usuari"
+
+#: src/templates/user.mas:26 src/templates/user.mas:29
+#: src/templates/group.mas:29 src/templates/group.mas:32
+msgid "Disabled"
+msgstr "Desactivat"
+
+#: src/templates/user.mas:27 src/templates/user.mas:30
+#: src/templates/group.mas:30 src/templates/group.mas:33
+msgid "Enabled"
+msgstr "Activat"
+
+#: src/templates/user.mas:49 src/templates/user.mas:50
+#: src/templates/group.mas:52 src/templates/group.mas:53
+msgid "Change"
+msgstr "Canvi"
+
+#: src/templates/moduleDisabled.mas:5
+msgid ""
+"The following settings only will take effect when the Asterisk module is "
+"enabled."
+msgstr ""
+"La configuració següent només afecta si el mòdul Asterisk està activat."
 
 #: src/templates/group.mas:8
 msgid "Asterisk group queue"
@@ -399,37 +434,3 @@ msgstr ""
 #: src/templates/group.mas:24
 msgid "Group queue"
 msgstr "Cua de grup"
-
-#: src/templates/group.mas:29 src/templates/group.mas:32
-#: src/templates/user.mas:26 src/templates/user.mas:29
-msgid "Disabled"
-msgstr "Desactivat"
-
-#: src/templates/group.mas:30 src/templates/group.mas:33
-#: src/templates/user.mas:27 src/templates/user.mas:30
-msgid "Enabled"
-msgstr "Activat"
-
-#: src/templates/group.mas:52 src/templates/group.mas:53
-#: src/templates/user.mas:49 src/templates/user.mas:50
-msgid "Change"
-msgstr "Canvi"
-
-#: src/templates/moduleDisabled.mas:5
-msgid ""
-"The following settings only will take effect when the Asterisk module is "
-"enabled."
-msgstr ""
-"La configuració següent només afecta si el mòdul Asterisk està activat."
-
-#: src/templates/user.mas:8
-msgid "Asterisk account"
-msgstr "Compte d'Asterisk"
-
-#: src/templates/user.mas:10
-msgid "Password for Asterisk service is the user password"
-msgstr "La clau d'accés pel servei d'Asterisk es la de l'usuari."
-
-#: src/templates/user.mas:21
-msgid "User account"
-msgstr "Compte d'usuari"

@@ -7,32 +7,99 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-ntp 1.3.12\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-12-13 08:40+0100\n"
+"POT-Creation-Date: 2010-12-18 01:44+0100\n"
 "PO-Revision-Date: 2009-12-03 13:01+0000\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
-"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+
+#: src/EBox/NTP.pm:67
+msgid "Remove ntp init script links"
+msgstr ""
+
+#: src/EBox/NTP.pm:68
+msgid "Zentyal will take care of starting and stopping the services."
+msgstr ""
+
+#: src/EBox/NTP.pm:86
+msgid "NTP configuration file"
+msgstr ""
+
+#: src/EBox/NTP.pm:222 src/EBox/CGI/AddServers.pm:45
+#: src/templates/servers.mas:16
+msgid "Primary server"
+msgstr ""
+
+#: src/EBox/NTP.pm:224
+msgid "primary server"
+msgstr ""
+
+#: src/EBox/NTP.pm:229 src/EBox/NTP.pm:247
+msgid "Primary and secondary server must be different"
+msgstr ""
+
+#: src/EBox/NTP.pm:232
+msgid "secondary server"
+msgstr ""
+
+#: src/EBox/NTP.pm:236 src/EBox/CGI/AddServers.pm:51
+#: src/templates/servers.mas:27
+msgid "Secondary server"
+msgstr ""
+
+#: src/EBox/NTP.pm:244
+msgid "Primary and tertiary server must be different"
+msgstr ""
+
+#: src/EBox/NTP.pm:250
+msgid "tertiary server"
+msgstr ""
+
+#: src/EBox/NTP.pm:266
+#, perl-brace-format
+msgid "{name} IP address"
+msgstr ""
+
+#: src/EBox/NTP.pm:269
+#, perl-brace-format
+msgid "{name} host name"
+msgstr ""
+
+#: src/EBox/NTP.pm:402
+msgid "System"
+msgstr ""
+
+#: src/EBox/NTP.pm:405
+msgid "Date/Time"
+msgstr ""
+
+#: src/EBox/NTP.pm:408
+msgid "Time Zone"
+msgstr ""
+
+#: src/EBox/CGI/Timezone.pm:30
+msgid "Time Zone Configuration"
+msgstr ""
 
 #: src/EBox/CGI/AddServers.pm:42
 msgid "first ntp server"
 msgstr ""
 
-#: src/EBox/CGI/AddServers.pm:45 src/EBox/NTP.pm:222
-#: src/templates/servers.mas:16
-msgid "Primary server"
-msgstr ""
-
-#: src/EBox/CGI/AddServers.pm:51 src/EBox/NTP.pm:236
-#: src/templates/servers.mas:27
-msgid "Secondary server"
-msgstr ""
-
 #: src/EBox/CGI/AddServers.pm:55 src/templates/servers.mas:38
 msgid "Tertiary server"
+msgstr ""
+
+#: src/EBox/CGI/Datetime.pm:30
+msgid "Date and Time Configuration"
+msgstr ""
+
+#: src/EBox/CGI/Synch.pm:41
+msgid "external synchronize status"
 msgstr ""
 
 #: src/EBox/CGI/ChangeDate.pm:41
@@ -67,72 +134,6 @@ msgstr ""
 msgid "continent"
 msgstr ""
 
-#: src/EBox/CGI/Datetime.pm:30
-msgid "Date and Time Configuration"
-msgstr ""
-
-#: src/EBox/CGI/Timezone.pm:30
-msgid "Time Zone Configuration"
-msgstr ""
-
-#: src/EBox/CGI/Synch.pm:41
-msgid "external synchronize status"
-msgstr ""
-
-#: src/EBox/NTP.pm:67
-msgid "Remove ntp init script links"
-msgstr ""
-
-#: src/EBox/NTP.pm:68
-msgid "Zentyal will take care of starting and stopping the services."
-msgstr ""
-
-#: src/EBox/NTP.pm:86
-msgid "NTP configuration file"
-msgstr ""
-
-#: src/EBox/NTP.pm:224
-msgid "primary server"
-msgstr ""
-
-#: src/EBox/NTP.pm:229 src/EBox/NTP.pm:247
-msgid "Primary and secondary server must be different"
-msgstr ""
-
-#: src/EBox/NTP.pm:232
-msgid "secondary server"
-msgstr ""
-
-#: src/EBox/NTP.pm:244
-msgid "Primary and tertiary server must be different"
-msgstr ""
-
-#: src/EBox/NTP.pm:250
-msgid "tertiary server"
-msgstr ""
-
-#: src/EBox/NTP.pm:266
-#, perl-brace-format
-msgid "{name} IP address"
-msgstr ""
-
-#: src/EBox/NTP.pm:269
-#, perl-brace-format
-msgid "{name} host name"
-msgstr ""
-
-#: src/EBox/NTP.pm:402
-msgid "System"
-msgstr ""
-
-#: src/EBox/NTP.pm:405
-msgid "Date/Time"
-msgstr ""
-
-#: src/EBox/NTP.pm:408
-msgid "Time Zone"
-msgstr ""
-
 #: src/templates/servers.mas:7
 msgid "NTP servers"
 msgstr ""
@@ -143,10 +144,10 @@ msgid ""
 "correctly."
 msgstr ""
 
-#: src/templates/servers.mas:50 src/templates/timezone.mas:33
-#: src/templates/timezone.mas:34 src/templates/synch.mas:19
+#: src/templates/servers.mas:50 src/templates/synch.mas:19
 #: src/templates/synch.mas:20 src/templates/date.mas:96
-#: src/templates/date.mas:97
+#: src/templates/date.mas:97 src/templates/timezone.mas:33
+#: src/templates/timezone.mas:34
 msgid "Change"
 msgstr ""
 

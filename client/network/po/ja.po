@@ -7,90 +7,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-network 0.12\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-12-13 08:40+0100\n"
+"POT-Creation-Date: 2010-12-18 01:44+0100\n"
 "PO-Revision-Date: 2008-01-08 15:50+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-
-#: src/EBox/CGI/Iface.pm:42 src/EBox/CGI/Iface.pm:59 src/EBox/CGI/Vlan.pm:41
-#: src/EBox/CGI/VIface.pm:43
-msgid "network interface"
-msgstr "ネットワークインタフェース"
-
-#: src/EBox/CGI/Iface.pm:58
-msgid "method"
-msgstr "方式"
-
-#: src/EBox/CGI/Iface.pm:88
-msgid "ip address"
-msgstr "IPアドレス"
-
-#: src/EBox/CGI/Iface.pm:89 src/EBox/CGI/VIface.pm:63
-msgid "netmask"
-msgstr "ネットマスク"
-
-#: src/EBox/CGI/Iface.pm:95
-#, fuzzy
-msgid "user name"
-msgstr "ホスト名"
-
-#: src/EBox/CGI/Iface.pm:96
-msgid "password"
-msgstr ""
-
-#: src/EBox/CGI/Iface.pm:106
-msgid "bridge"
-msgstr ""
-
-#: src/EBox/CGI/Vlan.pm:43 src/EBox/Network.pm:1637 src/EBox/Network.pm:1666
-#: src/templates/ifaces.mas:229
-msgid "VLAN Id"
-msgstr "VLAN ID"
-
-#: src/EBox/CGI/VIface.pm:44
-msgid "virtual interface action"
-msgstr "バーチャルインタフェースアクション"
-
-#: src/EBox/CGI/VIface.pm:62 src/EBox/Network.pm:905 src/EBox/Network.pm:910
-#: src/EBox/Network.pm:1224 src/EBox/Network.pm:1245 src/EBox/Network.pm:3183
-#: src/EBox/Network.pm:3199 src/EBox/Network.pm:3225 src/EBox/Network.pm:3380
-#: src/EBox/Network.pm:3534 src/EBox/Model/GatewayTable.pm:197
-#: src/EBox/Model/GatewayTable.pm:272 src/templates/ifaces.mas:119
-#: src/templates/ifaces.mas:287 src/templates/Wizard/network.mas:53
-msgid "IP address"
-msgstr "IPアドレス"
-
-#: src/EBox/CGI/VIface.pm:64 src/EBox/CGI/VIface.pm:70
-msgid "virtual interface name"
-msgstr "バーチャルインタフェース名"
-
-#: src/EBox/CGI/Diag.pm:29 src/EBox/CGI/Diag.pm:41
-#, fuzzy
-msgid "Network Diagnostic Tools"
-msgstr "ネットワーク診断"
-
-#: src/EBox/CGI/Diag.pm:51 src/EBox/CGI/Diag.pm:58
-#: src/EBox/Model/WANFailoverRules.pm:97 src/templates/diag.mas:14
-#: src/templates/diag.mas:23
-msgid "Host"
-msgstr "ホスト"
-
-#: src/EBox/CGI/Diag.pm:65 src/EBox/Network.pm:3463
-msgid "host name"
-msgstr "ホスト名"
-
-#: src/EBox/CGI/Ifaces.pm:29 src/EBox/Network.pm:3571
-#, fuzzy
-msgid "Network Interfaces"
-msgstr "ネットワークインタフェース"
-
-#: src/EBox/CGI/EnableBalanceTraffic.pm:42
-msgid "traffic balance"
-msgstr "トラフィックバランス"
 
 #: src/EBox/Event/Watcher/Gateways.pm:163
 #, fuzzy, perl-brace-format
@@ -104,14 +29,677 @@ msgid ""
 "failed, max={maxFailRatio}%)"
 msgstr ""
 
-#: src/EBox/Event/Watcher/Gateways.pm:383
-#: src/EBox/Network/Composite/WANFailover.pm:61 src/EBox/Network.pm:3605
+#: src/EBox/Event/Watcher/Gateways.pm:383 src/EBox/Network.pm:3605
+#: src/EBox/Network/Composite/WANFailover.pm:61
 msgid "WAN Failover"
 msgstr ""
 
 #: src/EBox/Event/Watcher/Gateways.pm:399
 msgid "Check if gateways are connected or disconnected."
 msgstr ""
+
+#: src/EBox/Model/SearchDomain.pm:71
+#, fuzzy
+msgid "Domain"
+msgstr "ドメイン名"
+
+#: src/EBox/Model/SearchDomain.pm:79
+msgid "Search Domain"
+msgstr ""
+
+#: src/EBox/Model/SearchDomain.pm:83
+msgid ""
+"This domain will be appended when trying to resolve hosts if the first "
+"attempt without appending it has failed."
+msgstr ""
+
+#: src/EBox/Model/WANFailoverRules.pm:55
+#, fuzzy
+msgid "Ping to gateway"
+msgstr "ゲートウェイ"
+
+#: src/EBox/Model/WANFailoverRules.pm:59
+msgid "Ping to host"
+msgstr ""
+
+#: src/EBox/Model/WANFailoverRules.pm:63
+msgid "DNS resolve"
+msgstr ""
+
+#: src/EBox/Model/WANFailoverRules.pm:67
+msgid "HTTP Request"
+msgstr ""
+
+#: src/EBox/Model/WANFailoverRules.pm:91
+msgid "Test type"
+msgstr ""
+
+#: src/EBox/Model/WANFailoverRules.pm:97 src/EBox/CGI/Diag.pm:51
+#: src/EBox/CGI/Diag.pm:58 src/templates/diag.mas:14 src/templates/diag.mas:23
+msgid "Host"
+msgstr "ホスト"
+
+#: src/EBox/Model/WANFailoverRules.pm:103
+msgid "Number of probes"
+msgstr ""
+
+#: src/EBox/Model/WANFailoverRules.pm:112
+msgid "Required success ratio"
+msgstr ""
+
+#: src/EBox/Model/WANFailoverRules.pm:125
+msgid "Test rules"
+msgstr ""
+
+#: src/EBox/Model/WANFailoverRules.pm:132
+msgid ""
+"You can define different rules to test if a gateway is working properly. If "
+"one of the test fails the gateway will be disabled. It will be enabled again "
+"when all tests are passed."
+msgstr ""
+
+#: src/EBox/Model/WANFailoverRules.pm:133
+#: src/EBox/Model/MultiGwRulesDataTable.pm:195
+#: src/EBox/Model/MultiGwRulesOptions.pm:68
+msgid "rule"
+msgstr "ルール"
+
+#: src/EBox/Model/WANFailoverRules.pm:182
+msgid "Invalid value for Host"
+msgstr ""
+
+#: src/EBox/Model/ByteRateGraphControl.pm:46
+msgid "Select traffic graphic"
+msgstr "トラフィックのグラフィックを選択"
+
+#: src/EBox/Model/ByteRateGraphControl.pm:57
+msgid ""
+"Several views are showed depending on the parameter selection. An host IP "
+"address and a service, which must match the text given by the graphs legend "
+"based on /etc/services, may be required by the graph type. The flow view "
+"will change accordingly"
+msgstr ""
+"パラメタ設定に応じて表示が変わります。グラフの種類によってはホストIPアドレス"
+"とサービスを/etc/servicesに基づいて設定されたグラフ凡例のテキストと一致させる"
+"必要があるかもしれません。フロー表示はそれに従って変更されます。"
+
+#: src/EBox/Model/ByteRateGraphControl.pm:78
+msgid "Graph type"
+msgstr "グラフの種類"
+
+#: src/EBox/Model/ByteRateGraphControl.pm:85
+msgid "All active traffic by source"
+msgstr "送信元による全てのアクティブなトラフィック"
+
+#: src/EBox/Model/ByteRateGraphControl.pm:89
+msgid "All active traffic by service"
+msgstr "サービスによる全てのアクティブなトラフィック"
+
+#: src/EBox/Model/ByteRateGraphControl.pm:93
+msgid "Traffic by selected source"
+msgstr "選択された送信元によるトラフィック"
+
+#: src/EBox/Model/ByteRateGraphControl.pm:99
+msgid "Traffic by selected service"
+msgstr "選択されたサービスによるトラフィック"
+
+#: src/EBox/Model/ByteRateGraphControl.pm:105
+msgid "Traffic by source and service"
+msgstr "送信元とサービスによるトラフィック"
+
+#: src/EBox/Model/ByteRateGraphControl.pm:111
+#: src/EBox/Model/MultiGwRulesDataTable.pm:110
+msgid "Source"
+msgstr "送信元"
+
+#: src/EBox/Model/ByteRateGraphControl.pm:117 src/EBox/Model/DynDNS.pm:91
+#: src/EBox/Model/MultiGwRulesDataTable.pm:161
+msgid "Service"
+msgstr "サービス"
+
+#: src/EBox/Model/DynDNS.pm:86
+msgid "Enable Dynamic DNS"
+msgstr ""
+
+#: src/EBox/Model/DynDNS.pm:97 src/EBox/Model/Proxy.pm:75
+msgid "Username"
+msgstr ""
+
+#: src/EBox/Model/DynDNS.pm:102 src/EBox/Model/Proxy.pm:82
+#: src/templates/ifaces.mas:202
+msgid "Password"
+msgstr ""
+
+#: src/EBox/Model/DynDNS.pm:107
+#, fuzzy
+msgid "Hostname"
+msgstr "ホスト名"
+
+#: src/EBox/Model/DynDNS.pm:115
+msgid "Configuration"
+msgstr ""
+
+#: src/EBox/Model/DynDNS.pm:119
+msgid ""
+"All gateways you enter here must be reachable through one of the network "
+"interfaces currently configured"
+msgstr ""
+"入力したすべてのゲートウェイは設定済みのネットワークインタフェースから接続可"
+"能である必要があります"
+
+#: src/EBox/Model/ByteRateEnableForm.pm:70
+msgid ""
+"Starting traffic rate monitoring. Wait patiently until the graph appears"
+msgstr ""
+"トラフィックレート監視を開始しています。グラフが表示されるまでお待ちください"
+
+#: src/EBox/Model/ByteRateEnableForm.pm:73
+msgid "Stopping traffic rate monitoring"
+msgstr "トラフィックレート監視を停止しています。"
+
+#: src/EBox/Model/ByteRateEnableForm.pm:86
+msgid ""
+"The traffic rate monitor is start/stop on demand without requiring to save "
+"changes first"
+msgstr ""
+"トラフィックレート監視は要求に応じて自動で開始/停止します。最初に変更を保存す"
+"る必要はありません。"
+
+#: src/EBox/Model/ByteRateSettings.pm:79
+msgid "Interface to listen"
+msgstr "受信するインタフェース"
+
+#: src/EBox/Model/ByteRateSettings.pm:88
+msgid "Traffic rate monitor settings"
+msgstr "トラフィックレート監視設定"
+
+#: src/EBox/Model/ByteRateSettings.pm:92
+msgid "Changes will be applied immediately to the traffic rate monitor"
+msgstr "変更はすぐにトラフィックレート監視に適用されます"
+
+#: src/EBox/Model/ByteRateSettings.pm:95
+msgid "Settings changed"
+msgstr "設定が変更されました"
+
+#: src/EBox/Model/ByteRateSettings.pm:114
+#, perl-brace-format
+msgid "{iface} (internal interface)"
+msgstr "{iface} (内部インタフェース)"
+
+#: src/EBox/Model/ByteRateSettings.pm:121
+#, perl-brace-format
+msgid "{iface} (external interface)"
+msgstr "{iface} (外部インタフェース)"
+
+#: src/EBox/Model/ByteRateSettings.pm:128
+msgid "all"
+msgstr "全て"
+
+#: src/EBox/Model/GatewayTable.pm:184
+#, fuzzy
+msgid "Auto"
+msgstr "アクション"
+
+#: src/EBox/Model/GatewayTable.pm:190 src/templates/ifaces.mas:34
+#: src/templates/ifaces.mas:286
+msgid "Name"
+msgstr "名前"
+
+#: src/EBox/Model/GatewayTable.pm:197 src/EBox/Model/GatewayTable.pm:272
+#: src/EBox/Network.pm:905 src/EBox/Network.pm:910 src/EBox/Network.pm:1224
+#: src/EBox/Network.pm:1245 src/EBox/Network.pm:3183 src/EBox/Network.pm:3199
+#: src/EBox/Network.pm:3225 src/EBox/Network.pm:3380 src/EBox/Network.pm:3534
+#: src/EBox/CGI/VIface.pm:62 src/templates/Wizard/network.mas:53
+#: src/templates/ifaces.mas:119 src/templates/ifaces.mas:287
+msgid "IP address"
+msgstr "IPアドレス"
+
+#: src/EBox/Model/GatewayTable.pm:204
+#: src/EBox/Model/MultiGwRulesDataTable.pm:101 src/EBox/Network.pm:998
+#: src/EBox/Network.pm:1030 src/EBox/Network.pm:1075 src/EBox/Network.pm:1111
+#: src/EBox/Network.pm:1136 src/EBox/Network.pm:1220 src/EBox/Network.pm:1358
+#: src/EBox/Network.pm:1449 src/EBox/Network.pm:1537 src/EBox/Network.pm:1543
+#: src/EBox/Network.pm:1870 src/EBox/Network.pm:1940 src/EBox/Network.pm:1973
+#: src/EBox/Network.pm:2000 src/EBox/Network.pm:2027 src/EBox/Network.pm:2055
+#: src/EBox/Network.pm:2117 src/EBox/Network.pm:2156 src/EBox/Network.pm:2189
+#: src/EBox/Network.pm:3181 src/EBox/Network.pm:3201 src/EBox/Network.pm:3221
+#: src/EBox/Network.pm:3242 src/EBox/Network.pm:3261 src/EBox/Network.pm:3315
+#: src/EBox/Network.pm:3336 src/EBox/Network.pm:3356 src/EBox/Network.pm:3377
+#: src/EBox/Network.pm:3400
+msgid "Interface"
+msgstr "インタフェース"
+
+#: src/EBox/Model/GatewayTable.pm:207
+#, fuzzy
+msgid "Interface connected to this gateway"
+msgstr "受信するインタフェース"
+
+#: src/EBox/Model/GatewayTable.pm:211
+msgid "Weight"
+msgstr "ウェイト"
+
+#: src/EBox/Model/GatewayTable.pm:216
+msgid ""
+"This field is only useful if you have more than one router and  the balance "
+"traffic feature is enabled."
+msgstr ""
+
+#: src/EBox/Model/GatewayTable.pm:222
+msgid "Default"
+msgstr "デフォルト"
+
+#: src/EBox/Model/GatewayTable.pm:232
+#, fuzzy
+msgid "Gateways List"
+msgstr "ゲートウェイ一覧"
+
+#: src/EBox/Model/GatewayTable.pm:248
+#, fuzzy
+msgid ""
+"You can add as many gateways as you want. This is very useful if you want to "
+"split your Internet traffic through several links. Note that if you "
+"configure interfaces as DHCP or PPPoE their gateways are added here "
+"automatically."
+msgstr ""
+"ゲートウェイは追加したいだけ追加することができます。これはインターネットトラ"
+"フィックをいくつかのリンクに分散させる際に有用です。 {br}アップロード、ダウン"
+"ロードフィールドはゲートウェイに向かう接続に対して同等のレートである必要があ"
+"ります。トラフィック整形モジュールが正しく動作するためにはこのフィールドに正"
+"しい値が設定されている必要があります。"
+
+#: src/EBox/Model/GatewayTable.pm:250
+msgid "gateway"
+msgstr "ゲートウェイ"
+
+#: src/EBox/Model/GatewayTable.pm:283
+msgid "You can not manually add a gateway for DHCP or PPPoE interfaces"
+msgstr ""
+
+#: src/EBox/Model/GatewayTable.pm:342
+msgid "Automatically added gateways can not be manually deleted"
+msgstr ""
+
+#: src/EBox/Model/MultiGwRulesDataTable.pm:77
+msgid "any"
+msgstr "全て"
+
+#: src/EBox/Model/MultiGwRulesDataTable.pm:104
+msgid ""
+"Incoming interface to match packets. If you  want to match a whole subnet "
+"you can  select the interface of that subnet"
+msgstr ""
+
+#: src/EBox/Model/MultiGwRulesDataTable.pm:115
+#: src/EBox/Model/MultiGwRulesDataTable.pm:142
+msgid "Any"
+msgstr "全て"
+
+#: src/EBox/Model/MultiGwRulesDataTable.pm:118
+msgid "Source IP"
+msgstr "送信元IP"
+
+#: src/EBox/Model/MultiGwRulesDataTable.pm:123
+msgid "Source object"
+msgstr "送信元オブジェクト"
+
+#: src/EBox/Model/MultiGwRulesDataTable.pm:137
+msgid "Destination"
+msgstr "送信先"
+
+#: src/EBox/Model/MultiGwRulesDataTable.pm:145
+msgid "Destination IP"
+msgstr "送信先IP"
+
+#: src/EBox/Model/MultiGwRulesDataTable.pm:150
+msgid "Destination object"
+msgstr "送信先オブジェクト"
+
+#: src/EBox/Model/MultiGwRulesDataTable.pm:172
+msgid "Gateway to route packets matching this rule"
+msgstr ""
+
+#: src/EBox/Model/MultiGwRulesDataTable.pm:180
+msgid "Multigateway rules"
+msgstr "マルチゲートウェイルール"
+
+#: src/EBox/Model/MultiGwRulesDataTable.pm:193
+#, fuzzy
+msgid ""
+"You can decide what kind of traffic goes out by each gateway. This way, you "
+"can force a subnet, service, destination and so forth  to use the router you "
+"choose. Please, bear in mind that rules will be applied in order, from top "
+"to bottom, you can reorder them once they are added. If you do not set a "
+"port or an IP address, then the rule will match all of them"
+msgstr ""
+"ゲートウェイ毎にトラフィックの種類を決めることができます。この方法を取ること"
+"で、サブネット、サービス、送信先などに対して通過するルータを強制させることが"
+"できます。ルールは最初の行から最後の行まで順番に適用されます。追加された後で"
+"も順番は並び替えることができます。ポートやIPアドレスを別途設定していない場"
+"合、ルールは全てのものに適用されます。"
+
+#: src/EBox/Model/StaticRoute.pm:147 src/EBox/Network.pm:81
+#: src/EBox/Network.pm:3588
+msgid "Network"
+msgstr "ネットワーク"
+
+#: src/EBox/Model/StaticRoute.pm:150
+#, fuzzy
+msgid "IP or network address"
+msgstr "ネットワークアドレス"
+
+#: src/EBox/Model/StaticRoute.pm:156
+msgid "Gateway used to reach the above network  address"
+msgstr ""
+
+#: src/EBox/Model/StaticRoute.pm:161 src/templates/ifaces.mas:230
+msgid "Description"
+msgstr "内容"
+
+#: src/EBox/Model/StaticRoute.pm:164
+msgid "Optional description for this route"
+msgstr ""
+
+#: src/EBox/Model/StaticRoute.pm:170
+#, fuzzy
+msgid "Static Routes List"
+msgstr "静的経路"
+
+#: src/EBox/Model/StaticRoute.pm:171 src/EBox/Network.pm:3601
+#, fuzzy
+msgid "Static Routes"
+msgstr "静的経路"
+
+#: src/EBox/Model/StaticRoute.pm:176
+#, fuzzy
+msgid ""
+"All gateways you enter here must be reachable through one of the network "
+"interfaces currently configured."
+msgstr ""
+"入力したすべてのゲートウェイは設定済みのネットワークインタフェースから接続可"
+"能である必要があります"
+
+#: src/EBox/Model/StaticRoute.pm:179
+msgid "static route"
+msgstr "静的ルート"
+
+#: src/EBox/Model/DNSResolver.pm:77
+msgid "IP address of the DNS server that Zentyal will use to resolve names."
+msgstr ""
+
+#: src/EBox/Model/DNSResolver.pm:83 src/templates/Wizard/network.mas:86
+#: src/templates/Wizard/network.mas:90
+#, fuzzy
+msgid "Domain Name Server"
+msgstr "ネームサーバ"
+
+#: src/EBox/Model/DNSResolver.pm:92
+#, fuzzy
+msgid "Domain Name Server Resolver List"
+msgstr "ネームサーバリゾルバ"
+
+#: src/EBox/Model/DNSResolver.pm:98
+msgid "name server"
+msgstr "ネームサーバ"
+
+#: src/EBox/Model/DNSResolver.pm:110
+msgid ""
+"<p>Here you can add the name server resolvers that Zentyal will use.</"
+"p><p>Note that these settings may be overriden if you have any network "
+"interface configured via DHCP</p>"
+msgstr ""
+
+#: src/EBox/Model/WANFailoverOptions.pm:71
+msgid "Time between checks"
+msgstr ""
+
+#: src/EBox/Model/WANFailoverOptions.pm:72
+#, fuzzy
+msgid "seconds"
+msgstr "bytes/second"
+
+#: src/EBox/Model/WANFailoverOptions.pm:82
+msgid "Global options"
+msgstr ""
+
+#: src/EBox/Model/WANFailoverOptions.pm:86
+msgid "These options affect to all the tests."
+msgstr ""
+
+#: src/EBox/Model/Proxy.pm:89
+#, fuzzy
+msgid "Proxy server"
+msgstr "ネームサーバ"
+
+#: src/EBox/Model/Proxy.pm:95
+msgid "Proxy port"
+msgstr ""
+
+#: src/EBox/Model/Proxy.pm:103
+msgid "Proxy"
+msgstr ""
+
+#: src/EBox/Model/Proxy.pm:107
+msgid ""
+"This settings will be used to allow Zentyal to access the Internet if an "
+"HTTP proxy is needed."
+msgstr ""
+
+#: src/EBox/Model/Proxy.pm:129
+msgid "Proxy username and password will be visible by all system users."
+msgstr ""
+
+#: src/EBox/Model/MultiGwRulesOptions.pm:43
+msgid "Enable"
+msgstr ""
+
+#: src/EBox/Model/MultiGwRulesOptions.pm:53
+msgid "Traffic balancing"
+msgstr "トラフィック調整"
+
+#: src/EBox/Model/MultiGwRulesOptions.pm:64
+#, perl-brace-format
+msgid ""
+"By enabling this feature, your traffic will be balanced amongst your "
+"gateways. That is, every new connection will be sent by a different gateway. "
+"You can choose which proportion of traffic goes through each gateway using "
+"the weight parameter of the gateway. You can change that value {openref}here"
+"{closeref}.{br}If you want to explicitily route traffic by a certain "
+"gateway, use the multigateway rules below"
+msgstr ""
+
+#: src/EBox/Network.pm:99
+msgid "Add default routers to the default table"
+msgstr "デフォルトルータをデフォルトテーブルに追加"
+
+#: src/EBox/Network.pm:100
+msgid ""
+"This is needed to work with a multigateway configuration. Note that to list "
+"the default routes you must execute: "
+msgstr ""
+"複数ゲートウェイ構成の場合にこれは必要になります。デフォルトのルートを表示す"
+"るには次のものを実行します: "
+
+#: src/EBox/Network.pm:106
+#, fuzzy
+msgid "Enable Zentyal DHCP hook"
+msgstr "eBox DHCP hookを有効化"
+
+#: src/EBox/Network.pm:107
+msgid ""
+"It will take care of adding the default route given by a DHCP server to the "
+"default route table. "
+msgstr ""
+"これはDHCPサーバから提供されたデフォルトルートをデフォルトテーブルに追加しま"
+"す"
+
+#: src/EBox/Network.pm:125
+#, fuzzy
+msgid "Zentyal will set your network configuration"
+msgstr "eBoxはネットワーク情報を設定します"
+
+#: src/EBox/Network.pm:130
+#, fuzzy
+msgid "Zentyal will set your DNS configuration"
+msgstr "eBoxはネットワーク情報を設定します"
+
+#: src/EBox/Network.pm:135
+#, fuzzy
+msgid "Zentyal will set your DHCP client configuration"
+msgstr "eBoxはネットワーク情報を設定します"
+
+#: src/EBox/Network.pm:140 src/EBox/Network.pm:145
+#, fuzzy
+msgid "Zentyal will set your ddclient configuration"
+msgstr "eBoxはネットワーク情報を設定します"
+
+#: src/EBox/Network.pm:150 src/EBox/Network.pm:155
+msgid "Zentyal will store your PPPoE passwords"
+msgstr ""
+
+#: src/EBox/Network.pm:162
+#, fuzzy
+msgid "Zentyal will add a DSL provider configuration for PPPoE"
+msgstr "eBoxはネットワーク情報を設定します"
+
+#: src/EBox/Network.pm:169
+msgid "Zentyal will set HTTP proxy for all users"
+msgstr ""
+
+#: src/EBox/Network.pm:172
+msgid "Zentyal will set HTTP proxy for APT"
+msgstr ""
+
+#: src/EBox/Network.pm:902 src/EBox/Network.pm:906
+msgid "Virtual interface name"
+msgstr "バーチャルインタフェース名"
+
+#: src/EBox/Network.pm:905 src/EBox/Network.pm:1224 src/EBox/Network.pm:3183
+#: src/templates/Wizard/network.mas:57 src/templates/ifaces.mas:132
+#: src/templates/ifaces.mas:288
+msgid "Netmask"
+msgstr "ネットマスク"
+
+#: src/EBox/Network.pm:1454
+msgid "This interface cannot be put in trunk mode, it is an vlan interface."
+msgstr ""
+"このインタフェースはトランクモードでは使用できません。VLANのインタフェースで"
+"す。"
+
+#: src/EBox/Network.pm:1509
+msgid ""
+"This interface is in trunk mode, you should unconfigure all the vlan "
+"interfaces in this trunk before changing its configuration mode."
+msgstr ""
+"このインタフェースはトランクモードです。設定モードを変更する前にこのトランク"
+"の全てのVLANインタフェースの設定を解除してください。"
+
+#: src/EBox/Network.pm:1637 src/EBox/Network.pm:1666 src/EBox/CGI/Vlan.pm:43
+#: src/templates/ifaces.mas:229
+msgid "VLAN Id"
+msgstr "VLAN ID"
+
+#: src/EBox/Network.pm:1646
+msgid ""
+"Network interfaces need to be in trunk mode before adding vlans to them."
+msgstr ""
+"VLANを追加する前にネットワークインタフェースはトランクモードになっている必要"
+"があります。"
+
+#: src/EBox/Network.pm:3073
+#, fuzzy
+msgid ""
+"The requested operation will cause one of the configured gateways to become "
+"unreachable. Please remove it first if you really want to make this change."
+msgstr ""
+"リクエストされた操作によって設定済みのルータに到達できなくなります。変更を適"
+"用する前にルータを削除してください。"
+
+#: src/EBox/Network.pm:3138 src/EBox/NetworkUtil.pm:55
+#, perl-brace-format
+msgid "Gateway {gw} not reachable"
+msgstr "ゲートウェイ {gw} に到達できません"
+
+#: src/EBox/Network.pm:3141
+#, fuzzy, perl-brace-format
+msgid ""
+"Gateway {gw} must be reachable by a static interface. Currently it is "
+"reachable by {iface} which is not static"
+msgstr ""
+"ゲートウェイ {gw} は静的インタフェースから到達できる場所に存在する必要があり"
+"ます。 現在は静的でないインタフェース {iface} から到達可能です。"
+
+#: src/EBox/Network.pm:3422 src/EBox/Network.pm:3443
+msgid "Host name"
+msgstr "ホスト名"
+
+#: src/EBox/Network.pm:3463 src/EBox/CGI/Diag.pm:65
+msgid "host name"
+msgstr "ホスト名"
+
+#: src/EBox/Network.pm:3493
+msgid "down"
+msgstr "停止"
+
+#: src/EBox/Network.pm:3499
+msgid "up"
+msgstr "正常"
+
+#: src/EBox/Network.pm:3504
+#, fuzzy
+msgid "external"
+msgstr "外部"
+
+#: src/EBox/Network.pm:3506
+#, fuzzy
+msgid "internal"
+msgstr "外部"
+
+#: src/EBox/Network.pm:3512
+msgid "link ok"
+msgstr "正常なリンク"
+
+#: src/EBox/Network.pm:3514
+msgid "no link"
+msgstr "リンクなし"
+
+#: src/EBox/Network.pm:3523 src/EBox/Network/Report/ByteRate.pm:136
+msgid "Status"
+msgstr "状態"
+
+#: src/EBox/Network.pm:3528
+msgid "MAC address"
+msgstr "MACアドレス"
+
+#: src/EBox/Network.pm:3545
+msgid "Tx bytes"
+msgstr ""
+
+#: src/EBox/Network.pm:3554
+msgid "Rx bytes"
+msgstr ""
+
+#: src/EBox/Network.pm:3571 src/EBox/CGI/Ifaces.pm:29
+#, fuzzy
+msgid "Network Interfaces"
+msgstr "ネットワークインタフェース"
+
+#: src/EBox/Network.pm:3593
+msgid "Interfaces"
+msgstr "インタフェース"
+
+#: src/EBox/Network.pm:3599
+msgid "Gateways"
+msgstr "ゲートウェイ"
+
+#: src/EBox/Network.pm:3603 src/EBox/Network/Composite/MultiGw.pm:62
+#, fuzzy
+msgid "Balance Traffic"
+msgstr "トラフィック調整"
+
+#: src/EBox/Network.pm:3607
+#, fuzzy
+msgid "Diagnostic Tools"
+msgstr "診断"
 
 #: src/EBox/Network/Composite/ByteRate.pm:73
 #: src/EBox/Network/Report/ByteRate.pm:134
@@ -135,16 +723,6 @@ msgid ""
 "this feature"
 msgstr ""
 
-#: src/EBox/Network/Composite/DNS.pm:60
-#, fuzzy
-msgid "Domain Name Server Resolver"
-msgstr "ネームサーバリゾルバ"
-
-#: src/EBox/Network/Composite/MultiGw.pm:62 src/EBox/Network.pm:3603
-#, fuzzy
-msgid "Balance Traffic"
-msgstr "トラフィック調整"
-
 #: src/EBox/Network/Composite/MultiGw.pm:82
 #, fuzzy
 msgid ""
@@ -154,9 +732,10 @@ msgstr ""
 "この機能を使うには、少なくとも2つのゲートウェイが必要です。<a href=\"/ebox/"
 "Network/View/GatewayDataTable\">ここから</a>追加できます。"
 
-#: src/EBox/Network/Report/ByteRate.pm:136 src/EBox/Network.pm:3523
-msgid "Status"
-msgstr "状態"
+#: src/EBox/Network/Composite/DNS.pm:60
+#, fuzzy
+msgid "Domain Name Server Resolver"
+msgstr "ネームサーバリゾルバ"
 
 #: src/EBox/Network/Report/ByteRate.pm:136
 msgid "Running"
@@ -242,641 +821,100 @@ msgstr "{service} へのトラフィックレート合計"
 msgid "Traffic rate from {src} for {service}"
 msgstr "{src} から {service} へのトラフィックレート"
 
-#: src/EBox/Network.pm:81 src/EBox/Network.pm:3588
-#: src/EBox/Model/StaticRoute.pm:147
-msgid "Network"
-msgstr "ネットワーク"
+#: src/EBox/CGI/Iface.pm:42 src/EBox/CGI/Iface.pm:59 src/EBox/CGI/Vlan.pm:41
+#: src/EBox/CGI/VIface.pm:43
+msgid "network interface"
+msgstr "ネットワークインタフェース"
 
-#: src/EBox/Network.pm:99
-msgid "Add default routers to the default table"
-msgstr "デフォルトルータをデフォルトテーブルに追加"
+#: src/EBox/CGI/Iface.pm:58
+msgid "method"
+msgstr "方式"
 
-#: src/EBox/Network.pm:100
-msgid ""
-"This is needed to work with a multigateway configuration. Note that to list "
-"the default routes you must execute: "
-msgstr ""
-"複数ゲートウェイ構成の場合にこれは必要になります。デフォルトのルートを表示す"
-"るには次のものを実行します: "
+#: src/EBox/CGI/Iface.pm:88
+msgid "ip address"
+msgstr "IPアドレス"
 
-#: src/EBox/Network.pm:106
-#, fuzzy
-msgid "Enable Zentyal DHCP hook"
-msgstr "eBox DHCP hookを有効化"
-
-#: src/EBox/Network.pm:107
-msgid ""
-"It will take care of adding the default route given by a DHCP server to the "
-"default route table. "
-msgstr ""
-"これはDHCPサーバから提供されたデフォルトルートをデフォルトテーブルに追加しま"
-"す"
-
-#: src/EBox/Network.pm:125
-#, fuzzy
-msgid "Zentyal will set your network configuration"
-msgstr "eBoxはネットワーク情報を設定します"
-
-#: src/EBox/Network.pm:130
-#, fuzzy
-msgid "Zentyal will set your DNS configuration"
-msgstr "eBoxはネットワーク情報を設定します"
-
-#: src/EBox/Network.pm:135
-#, fuzzy
-msgid "Zentyal will set your DHCP client configuration"
-msgstr "eBoxはネットワーク情報を設定します"
-
-#: src/EBox/Network.pm:140 src/EBox/Network.pm:145
-#, fuzzy
-msgid "Zentyal will set your ddclient configuration"
-msgstr "eBoxはネットワーク情報を設定します"
-
-#: src/EBox/Network.pm:150 src/EBox/Network.pm:155
-msgid "Zentyal will store your PPPoE passwords"
-msgstr ""
-
-#: src/EBox/Network.pm:162
-#, fuzzy
-msgid "Zentyal will add a DSL provider configuration for PPPoE"
-msgstr "eBoxはネットワーク情報を設定します"
-
-#: src/EBox/Network.pm:169
-msgid "Zentyal will set HTTP proxy for all users"
-msgstr ""
-
-#: src/EBox/Network.pm:172
-msgid "Zentyal will set HTTP proxy for APT"
-msgstr ""
-
-#: src/EBox/Network.pm:902 src/EBox/Network.pm:906
-msgid "Virtual interface name"
-msgstr "バーチャルインタフェース名"
-
-#: src/EBox/Network.pm:905 src/EBox/Network.pm:1224 src/EBox/Network.pm:3183
-#: src/templates/ifaces.mas:132 src/templates/ifaces.mas:288
-#: src/templates/Wizard/network.mas:57
-msgid "Netmask"
+#: src/EBox/CGI/Iface.pm:89 src/EBox/CGI/VIface.pm:63
+msgid "netmask"
 msgstr "ネットマスク"
 
-#: src/EBox/Network.pm:998 src/EBox/Network.pm:1030 src/EBox/Network.pm:1075
-#: src/EBox/Network.pm:1111 src/EBox/Network.pm:1136 src/EBox/Network.pm:1220
-#: src/EBox/Network.pm:1358 src/EBox/Network.pm:1449 src/EBox/Network.pm:1537
-#: src/EBox/Network.pm:1543 src/EBox/Network.pm:1870 src/EBox/Network.pm:1940
-#: src/EBox/Network.pm:1973 src/EBox/Network.pm:2000 src/EBox/Network.pm:2027
-#: src/EBox/Network.pm:2055 src/EBox/Network.pm:2117 src/EBox/Network.pm:2156
-#: src/EBox/Network.pm:2189 src/EBox/Network.pm:3181 src/EBox/Network.pm:3201
-#: src/EBox/Network.pm:3221 src/EBox/Network.pm:3242 src/EBox/Network.pm:3261
-#: src/EBox/Network.pm:3315 src/EBox/Network.pm:3336 src/EBox/Network.pm:3356
-#: src/EBox/Network.pm:3377 src/EBox/Network.pm:3400
-#: src/EBox/Model/MultiGwRulesDataTable.pm:101
-#: src/EBox/Model/GatewayTable.pm:204
-msgid "Interface"
-msgstr "インタフェース"
-
-#: src/EBox/Network.pm:1454
-msgid "This interface cannot be put in trunk mode, it is an vlan interface."
-msgstr ""
-"このインタフェースはトランクモードでは使用できません。VLANのインタフェースで"
-"す。"
-
-#: src/EBox/Network.pm:1509
-msgid ""
-"This interface is in trunk mode, you should unconfigure all the vlan "
-"interfaces in this trunk before changing its configuration mode."
-msgstr ""
-"このインタフェースはトランクモードです。設定モードを変更する前にこのトランク"
-"の全てのVLANインタフェースの設定を解除してください。"
-
-#: src/EBox/Network.pm:1646
-msgid ""
-"Network interfaces need to be in trunk mode before adding vlans to them."
-msgstr ""
-"VLANを追加する前にネットワークインタフェースはトランクモードになっている必要"
-"があります。"
-
-#: src/EBox/Network.pm:3073
+#: src/EBox/CGI/Iface.pm:95
 #, fuzzy
-msgid ""
-"The requested operation will cause one of the configured gateways to become "
-"unreachable. Please remove it first if you really want to make this change."
-msgstr ""
-"リクエストされた操作によって設定済みのルータに到達できなくなります。変更を適"
-"用する前にルータを削除してください。"
-
-#: src/EBox/Network.pm:3138 src/EBox/NetworkUtil.pm:55
-#, perl-brace-format
-msgid "Gateway {gw} not reachable"
-msgstr "ゲートウェイ {gw} に到達できません"
-
-#: src/EBox/Network.pm:3141
-#, fuzzy, perl-brace-format
-msgid ""
-"Gateway {gw} must be reachable by a static interface. Currently it is "
-"reachable by {iface} which is not static"
-msgstr ""
-"ゲートウェイ {gw} は静的インタフェースから到達できる場所に存在する必要があり"
-"ます。 現在は静的でないインタフェース {iface} から到達可能です。"
-
-#: src/EBox/Network.pm:3422 src/EBox/Network.pm:3443
-msgid "Host name"
+msgid "user name"
 msgstr "ホスト名"
 
-#: src/EBox/Network.pm:3493
-msgid "down"
-msgstr "停止"
-
-#: src/EBox/Network.pm:3499
-msgid "up"
-msgstr "正常"
-
-#: src/EBox/Network.pm:3504
-#, fuzzy
-msgid "external"
-msgstr "外部"
-
-#: src/EBox/Network.pm:3506
-#, fuzzy
-msgid "internal"
-msgstr "外部"
-
-#: src/EBox/Network.pm:3512
-msgid "link ok"
-msgstr "正常なリンク"
-
-#: src/EBox/Network.pm:3514
-msgid "no link"
-msgstr "リンクなし"
-
-#: src/EBox/Network.pm:3528
-msgid "MAC address"
-msgstr "MACアドレス"
-
-#: src/EBox/Network.pm:3545
-msgid "Tx bytes"
+#: src/EBox/CGI/Iface.pm:96
+msgid "password"
 msgstr ""
 
-#: src/EBox/Network.pm:3554
-msgid "Rx bytes"
+#: src/EBox/CGI/Iface.pm:106
+msgid "bridge"
 msgstr ""
 
-#: src/EBox/Network.pm:3593
-msgid "Interfaces"
-msgstr "インタフェース"
+#: src/EBox/CGI/EnableBalanceTraffic.pm:42
+msgid "traffic balance"
+msgstr "トラフィックバランス"
 
-#: src/EBox/Network.pm:3599
-msgid "Gateways"
+#: src/EBox/CGI/Diag.pm:29 src/EBox/CGI/Diag.pm:41
+#, fuzzy
+msgid "Network Diagnostic Tools"
+msgstr "ネットワーク診断"
+
+#: src/EBox/CGI/VIface.pm:44
+msgid "virtual interface action"
+msgstr "バーチャルインタフェースアクション"
+
+#: src/EBox/CGI/VIface.pm:64 src/EBox/CGI/VIface.pm:70
+msgid "virtual interface name"
+msgstr "バーチャルインタフェース名"
+
+#: src/templates/Wizard/interfaces.mas:7 src/templates/Wizard/network.mas:23
+#, fuzzy
+msgid "Network interfaces"
+msgstr "ネットワークインタフェース"
+
+#: src/templates/Wizard/interfaces.mas:10
+#, fuzzy
+msgid "Select external network interfaces"
+msgstr "ネットワークインタフェース"
+
+#: src/templates/Wizard/interfaces.mas:11
+msgid ""
+"You will not be able to connect to Zentyal administration page through them"
+msgstr ""
+
+#: src/templates/Wizard/network.mas:26
+#, fuzzy
+msgid "Configure network for external interfaces"
+msgstr "ネットワークインタフェースを設定"
+
+#: src/templates/Wizard/network.mas:27
+msgid "Now you can set IP addresses and networks for each interface"
+msgstr ""
+
+#: src/templates/Wizard/network.mas:40 src/templates/ifaces.mas:45
+msgid "Method"
+msgstr "方式"
+
+#: src/templates/Wizard/network.mas:43
+#, fuzzy
+msgid "Don't configure"
+msgstr "DNSが設定されました"
+
+#: src/templates/Wizard/network.mas:82
+msgid "Gateway"
 msgstr "ゲートウェイ"
 
-#: src/EBox/Network.pm:3601 src/EBox/Model/StaticRoute.pm:171
-#, fuzzy
-msgid "Static Routes"
-msgstr "静的経路"
-
-#: src/EBox/Network.pm:3607
-#, fuzzy
-msgid "Diagnostic Tools"
-msgstr "診断"
-
-#: src/EBox/Model/StaticRoute.pm:150
-#, fuzzy
-msgid "IP or network address"
-msgstr "ネットワークアドレス"
-
-#: src/EBox/Model/StaticRoute.pm:156
-msgid "Gateway used to reach the above network  address"
-msgstr ""
-
-#: src/EBox/Model/StaticRoute.pm:161 src/templates/ifaces.mas:230
-msgid "Description"
-msgstr "内容"
-
-#: src/EBox/Model/StaticRoute.pm:164
-msgid "Optional description for this route"
-msgstr ""
-
-#: src/EBox/Model/StaticRoute.pm:170
-#, fuzzy
-msgid "Static Routes List"
-msgstr "静的経路"
-
-#: src/EBox/Model/StaticRoute.pm:176
+#: src/templates/confirmVlanDel.mas:9
 #, fuzzy
 msgid ""
-"All gateways you enter here must be reachable through one of the network "
-"interfaces currently configured."
-msgstr ""
-"入力したすべてのゲートウェイは設定済みのネットワークインタフェースから接続可"
-"能である必要があります"
-
-#: src/EBox/Model/StaticRoute.pm:179
-msgid "static route"
-msgstr "静的ルート"
-
-#: src/EBox/Model/SearchDomain.pm:71
-#, fuzzy
-msgid "Domain"
-msgstr "ドメイン名"
-
-#: src/EBox/Model/SearchDomain.pm:79
-msgid "Search Domain"
-msgstr ""
-
-#: src/EBox/Model/SearchDomain.pm:83
-msgid ""
-"This domain will be appended when trying to resolve hosts if the first "
-"attempt without appending it has failed."
-msgstr ""
-
-#: src/EBox/Model/MultiGwRulesOptions.pm:43
-msgid "Enable"
-msgstr ""
-
-#: src/EBox/Model/MultiGwRulesOptions.pm:53
-msgid "Traffic balancing"
-msgstr "トラフィック調整"
-
-#: src/EBox/Model/MultiGwRulesOptions.pm:64
-#, perl-brace-format
-msgid ""
-"By enabling this feature, your traffic will be balanced amongst your "
-"gateways. That is, every new connection will be sent by a different gateway. "
-"You can choose which proportion of traffic goes through each gateway using "
-"the weight parameter of the gateway. You can change that value {openref}here"
-"{closeref}.{br}If you want to explicitily route traffic by a certain "
-"gateway, use the multigateway rules below"
-msgstr ""
-
-#: src/EBox/Model/MultiGwRulesOptions.pm:68
-#: src/EBox/Model/MultiGwRulesDataTable.pm:195
-#: src/EBox/Model/WANFailoverRules.pm:133
-msgid "rule"
-msgstr "ルール"
-
-#: src/EBox/Model/MultiGwRulesDataTable.pm:77
-msgid "any"
-msgstr "全て"
-
-#: src/EBox/Model/MultiGwRulesDataTable.pm:104
-msgid ""
-"Incoming interface to match packets. If you  want to match a whole subnet "
-"you can  select the interface of that subnet"
-msgstr ""
-
-#: src/EBox/Model/MultiGwRulesDataTable.pm:110
-#: src/EBox/Model/ByteRateGraphControl.pm:111
-msgid "Source"
-msgstr "送信元"
-
-#: src/EBox/Model/MultiGwRulesDataTable.pm:115
-#: src/EBox/Model/MultiGwRulesDataTable.pm:142
-msgid "Any"
-msgstr "全て"
-
-#: src/EBox/Model/MultiGwRulesDataTable.pm:118
-msgid "Source IP"
-msgstr "送信元IP"
-
-#: src/EBox/Model/MultiGwRulesDataTable.pm:123
-msgid "Source object"
-msgstr "送信元オブジェクト"
-
-#: src/EBox/Model/MultiGwRulesDataTable.pm:137
-msgid "Destination"
-msgstr "送信先"
-
-#: src/EBox/Model/MultiGwRulesDataTable.pm:145
-msgid "Destination IP"
-msgstr "送信先IP"
-
-#: src/EBox/Model/MultiGwRulesDataTable.pm:150
-msgid "Destination object"
-msgstr "送信先オブジェクト"
-
-#: src/EBox/Model/MultiGwRulesDataTable.pm:161 src/EBox/Model/DynDNS.pm:91
-#: src/EBox/Model/ByteRateGraphControl.pm:117
-msgid "Service"
-msgstr "サービス"
-
-#: src/EBox/Model/MultiGwRulesDataTable.pm:172
-msgid "Gateway to route packets matching this rule"
-msgstr ""
-
-#: src/EBox/Model/MultiGwRulesDataTable.pm:180
-msgid "Multigateway rules"
-msgstr "マルチゲートウェイルール"
-
-#: src/EBox/Model/MultiGwRulesDataTable.pm:193
-#, fuzzy
-msgid ""
-"You can decide what kind of traffic goes out by each gateway. This way, you "
-"can force a subnet, service, destination and so forth  to use the router you "
-"choose. Please, bear in mind that rules will be applied in order, from top "
-"to bottom, you can reorder them once they are added. If you do not set a "
-"port or an IP address, then the rule will match all of them"
-msgstr ""
-"ゲートウェイ毎にトラフィックの種類を決めることができます。この方法を取ること"
-"で、サブネット、サービス、送信先などに対して通過するルータを強制させることが"
-"できます。ルールは最初の行から最後の行まで順番に適用されます。追加された後で"
-"も順番は並び替えることができます。ポートやIPアドレスを別途設定していない場"
-"合、ルールは全てのものに適用されます。"
-
-#: src/EBox/Model/DNSResolver.pm:77
-msgid "IP address of the DNS server that Zentyal will use to resolve names."
-msgstr ""
-
-#: src/EBox/Model/DNSResolver.pm:83 src/templates/Wizard/network.mas:86
-#: src/templates/Wizard/network.mas:90
-#, fuzzy
-msgid "Domain Name Server"
-msgstr "ネームサーバ"
-
-#: src/EBox/Model/DNSResolver.pm:92
-#, fuzzy
-msgid "Domain Name Server Resolver List"
-msgstr "ネームサーバリゾルバ"
-
-#: src/EBox/Model/DNSResolver.pm:98
-msgid "name server"
-msgstr "ネームサーバ"
-
-#: src/EBox/Model/DNSResolver.pm:110
-msgid ""
-"<p>Here you can add the name server resolvers that Zentyal will use.</"
-"p><p>Note that these settings may be overriden if you have any network "
-"interface configured via DHCP</p>"
-msgstr ""
-
-#: src/EBox/Model/ByteRateSettings.pm:79
-msgid "Interface to listen"
-msgstr "受信するインタフェース"
-
-#: src/EBox/Model/ByteRateSettings.pm:88
-msgid "Traffic rate monitor settings"
-msgstr "トラフィックレート監視設定"
-
-#: src/EBox/Model/ByteRateSettings.pm:92
-msgid "Changes will be applied immediately to the traffic rate monitor"
-msgstr "変更はすぐにトラフィックレート監視に適用されます"
-
-#: src/EBox/Model/ByteRateSettings.pm:95
-msgid "Settings changed"
-msgstr "設定が変更されました"
-
-#: src/EBox/Model/ByteRateSettings.pm:114
-#, perl-brace-format
-msgid "{iface} (internal interface)"
-msgstr "{iface} (内部インタフェース)"
-
-#: src/EBox/Model/ByteRateSettings.pm:121
-#, perl-brace-format
-msgid "{iface} (external interface)"
-msgstr "{iface} (外部インタフェース)"
-
-#: src/EBox/Model/ByteRateSettings.pm:128
-msgid "all"
-msgstr "全て"
-
-#: src/EBox/Model/DynDNS.pm:86
-msgid "Enable Dynamic DNS"
-msgstr ""
-
-#: src/EBox/Model/DynDNS.pm:97 src/EBox/Model/Proxy.pm:75
-msgid "Username"
-msgstr ""
-
-#: src/EBox/Model/DynDNS.pm:102 src/EBox/Model/Proxy.pm:82
-#: src/templates/ifaces.mas:202
-msgid "Password"
-msgstr ""
-
-#: src/EBox/Model/DynDNS.pm:107
-#, fuzzy
-msgid "Hostname"
-msgstr "ホスト名"
-
-#: src/EBox/Model/DynDNS.pm:115
-msgid "Configuration"
-msgstr ""
-
-#: src/EBox/Model/DynDNS.pm:119
-msgid ""
-"All gateways you enter here must be reachable through one of the network "
-"interfaces currently configured"
-msgstr ""
-"入力したすべてのゲートウェイは設定済みのネットワークインタフェースから接続可"
-"能である必要があります"
-
-#: src/EBox/Model/ByteRateEnableForm.pm:70
-msgid ""
-"Starting traffic rate monitoring. Wait patiently until the graph appears"
-msgstr ""
-"トラフィックレート監視を開始しています。グラフが表示されるまでお待ちください"
-
-#: src/EBox/Model/ByteRateEnableForm.pm:73
-msgid "Stopping traffic rate monitoring"
-msgstr "トラフィックレート監視を停止しています。"
-
-#: src/EBox/Model/ByteRateEnableForm.pm:86
-msgid ""
-"The traffic rate monitor is start/stop on demand without requiring to save "
-"changes first"
-msgstr ""
-"トラフィックレート監視は要求に応じて自動で開始/停止します。最初に変更を保存す"
-"る必要はありません。"
-
-#: src/EBox/Model/WANFailoverRules.pm:55
-#, fuzzy
-msgid "Ping to gateway"
-msgstr "ゲートウェイ"
-
-#: src/EBox/Model/WANFailoverRules.pm:59
-msgid "Ping to host"
-msgstr ""
-
-#: src/EBox/Model/WANFailoverRules.pm:63
-msgid "DNS resolve"
-msgstr ""
-
-#: src/EBox/Model/WANFailoverRules.pm:67
-msgid "HTTP Request"
-msgstr ""
-
-#: src/EBox/Model/WANFailoverRules.pm:91
-msgid "Test type"
-msgstr ""
-
-#: src/EBox/Model/WANFailoverRules.pm:103
-msgid "Number of probes"
-msgstr ""
-
-#: src/EBox/Model/WANFailoverRules.pm:112
-msgid "Required success ratio"
-msgstr ""
-
-#: src/EBox/Model/WANFailoverRules.pm:125
-msgid "Test rules"
-msgstr ""
-
-#: src/EBox/Model/WANFailoverRules.pm:132
-msgid ""
-"You can define different rules to test if a gateway is working properly. If "
-"one of the test fails the gateway will be disabled. It will be enabled again "
-"when all tests are passed."
-msgstr ""
-
-#: src/EBox/Model/WANFailoverRules.pm:182
-msgid "Invalid value for Host"
-msgstr ""
-
-#: src/EBox/Model/WANFailoverOptions.pm:71
-msgid "Time between checks"
-msgstr ""
-
-#: src/EBox/Model/WANFailoverOptions.pm:72
-#, fuzzy
-msgid "seconds"
-msgstr "bytes/second"
-
-#: src/EBox/Model/WANFailoverOptions.pm:82
-msgid "Global options"
-msgstr ""
-
-#: src/EBox/Model/WANFailoverOptions.pm:86
-msgid "These options affect to all the tests."
-msgstr ""
-
-#: src/EBox/Model/GatewayTable.pm:184
-#, fuzzy
-msgid "Auto"
-msgstr "アクション"
-
-#: src/EBox/Model/GatewayTable.pm:190 src/templates/ifaces.mas:34
-#: src/templates/ifaces.mas:286
-msgid "Name"
-msgstr "名前"
-
-#: src/EBox/Model/GatewayTable.pm:207
-#, fuzzy
-msgid "Interface connected to this gateway"
-msgstr "受信するインタフェース"
-
-#: src/EBox/Model/GatewayTable.pm:211
-msgid "Weight"
-msgstr "ウェイト"
-
-#: src/EBox/Model/GatewayTable.pm:216
-msgid ""
-"This field is only useful if you have more than one router and  the balance "
-"traffic feature is enabled."
-msgstr ""
-
-#: src/EBox/Model/GatewayTable.pm:222
-msgid "Default"
-msgstr "デフォルト"
-
-#: src/EBox/Model/GatewayTable.pm:232
-#, fuzzy
-msgid "Gateways List"
-msgstr "ゲートウェイ一覧"
-
-#: src/EBox/Model/GatewayTable.pm:248
-#, fuzzy
-msgid ""
-"You can add as many gateways as you want. This is very useful if you want to "
-"split your Internet traffic through several links. Note that if you "
-"configure interfaces as DHCP or PPPoE their gateways are added here "
-"automatically."
-msgstr ""
-"ゲートウェイは追加したいだけ追加することができます。これはインターネットトラ"
-"フィックをいくつかのリンクに分散させる際に有用です。 {br}アップロード、ダウン"
-"ロードフィールドはゲートウェイに向かう接続に対して同等のレートである必要があ"
-"ります。トラフィック整形モジュールが正しく動作するためにはこのフィールドに正"
-"しい値が設定されている必要があります。"
-
-#: src/EBox/Model/GatewayTable.pm:250
-msgid "gateway"
-msgstr "ゲートウェイ"
-
-#: src/EBox/Model/GatewayTable.pm:283
-msgid "You can not manually add a gateway for DHCP or PPPoE interfaces"
-msgstr ""
-
-#: src/EBox/Model/GatewayTable.pm:342
-msgid "Automatically added gateways can not be manually deleted"
-msgstr ""
-
-#: src/EBox/Model/ByteRateGraphControl.pm:46
-msgid "Select traffic graphic"
-msgstr "トラフィックのグラフィックを選択"
-
-#: src/EBox/Model/ByteRateGraphControl.pm:57
-msgid ""
-"Several views are showed depending on the parameter selection. An host IP "
-"address and a service, which must match the text given by the graphs legend "
-"based on /etc/services, may be required by the graph type. The flow view "
-"will change accordingly"
-msgstr ""
-"パラメタ設定に応じて表示が変わります。グラフの種類によってはホストIPアドレス"
-"とサービスを/etc/servicesに基づいて設定されたグラフ凡例のテキストと一致させる"
-"必要があるかもしれません。フロー表示はそれに従って変更されます。"
-
-#: src/EBox/Model/ByteRateGraphControl.pm:78
-msgid "Graph type"
-msgstr "グラフの種類"
-
-#: src/EBox/Model/ByteRateGraphControl.pm:85
-msgid "All active traffic by source"
-msgstr "送信元による全てのアクティブなトラフィック"
-
-#: src/EBox/Model/ByteRateGraphControl.pm:89
-msgid "All active traffic by service"
-msgstr "サービスによる全てのアクティブなトラフィック"
-
-#: src/EBox/Model/ByteRateGraphControl.pm:93
-msgid "Traffic by selected source"
-msgstr "選択された送信元によるトラフィック"
-
-#: src/EBox/Model/ByteRateGraphControl.pm:99
-msgid "Traffic by selected service"
-msgstr "選択されたサービスによるトラフィック"
-
-#: src/EBox/Model/ByteRateGraphControl.pm:105
-msgid "Traffic by source and service"
-msgstr "送信元とサービスによるトラフィック"
-
-#: src/EBox/Model/Proxy.pm:89
-#, fuzzy
-msgid "Proxy server"
-msgstr "ネームサーバ"
-
-#: src/EBox/Model/Proxy.pm:95
-msgid "Proxy port"
-msgstr ""
-
-#: src/EBox/Model/Proxy.pm:103
-msgid "Proxy"
-msgstr ""
-
-#: src/EBox/Model/Proxy.pm:107
-msgid ""
-"This settings will be used to allow Zentyal to access the Internet if an "
-"HTTP proxy is needed."
-msgstr ""
-
-#: src/EBox/Model/Proxy.pm:129
-msgid "Proxy username and password will be visible by all system users."
-msgstr ""
-
-#: src/templates/confirmremove.mas:11 src/templates/confirm.mas:17
-msgid ""
-"The change you are trying to make will affect the configuration of one or "
+"The removal of the vlan interface will affect the configuration of one or "
 "more modules that use references to this network interface."
 msgstr ""
 "適用しようとしている変更はこのネットワークインタフェースを参照する1つ以上のモ"
 "ジュールに影響します。"
 
-#: src/templates/confirmremove.mas:14 src/templates/confirmVlanDel.mas:12
+#: src/templates/confirmVlanDel.mas:12 src/templates/confirmremove.mas:14
 #, fuzzy
 msgid ""
 "If you choose to continue, all modules that make use of this network "
@@ -887,15 +925,63 @@ msgstr ""
 "ンタフェースに関する設定を消去します。設定状況がよくわからない場合はキャンセ"
 "ルしてください。"
 
-#: src/templates/confirmremove.mas:24 src/templates/confirmVlanDel.mas:22
+#: src/templates/confirmVlanDel.mas:22 src/templates/confirmremove.mas:24
 #: src/templates/confirm.mas:37
 msgid "Ok"
 msgstr "はい"
 
-#: src/templates/confirmremove.mas:26 src/templates/confirmVlanDel.mas:24
+#: src/templates/confirmVlanDel.mas:24 src/templates/confirmremove.mas:26
 #: src/templates/confirm.mas:39
 msgid "Cancel"
 msgstr "キャンセル"
+
+#: src/templates/confirmremove.mas:11 src/templates/confirm.mas:17
+msgid ""
+"The change you are trying to make will affect the configuration of one or "
+"more modules that use references to this network interface."
+msgstr ""
+"適用しようとしている変更はこのネットワークインタフェースを参照する1つ以上のモ"
+"ジュールに影響します。"
+
+#: src/templates/confirm.mas:20
+msgid ""
+"If you choose to continue, all modules that make use of the current "
+"configuration of this network interface will delete the relevant parts of "
+"their configuration. Choose \"Cancel\" if you are not sure about this."
+msgstr ""
+"現在のこのネットワークインタフェースの設定に依存する全てのモジュールはこのイ"
+"ンタフェースに関する設定を消去します。設定状況がよくわからない場合はキャンセ"
+"ルしてください。"
+
+#: src/templates/diag.mas:13 src/templates/diag.mas:18
+msgid "Ping"
+msgstr "PING"
+
+#: src/templates/diag.mas:22
+#, fuzzy
+msgid "Traceroute"
+msgstr "静的ルート"
+
+#: src/templates/diag.mas:27
+msgid "Trace"
+msgstr ""
+
+#: src/templates/diag.mas:31
+#, fuzzy
+msgid "Domain Name Resolution"
+msgstr "名前解決"
+
+#: src/templates/diag.mas:32
+msgid "Domain name"
+msgstr "ドメイン名"
+
+#: src/templates/diag.mas:36
+msgid "Lookup"
+msgstr "参照"
+
+#: src/templates/diag.mas:38
+msgid "Output"
+msgstr "出力"
 
 #: src/templates/ifaces.mas:13
 msgid ""
@@ -914,10 +1000,6 @@ msgstr ""
 "外部インタフェースとマークされたインタフェースを経由するトラフィックはNAT経由"
 "となります。また、LAN内のユーザ向けのサービスは外部インタフェースでは利用でき"
 "ません。"
-
-#: src/templates/ifaces.mas:45 src/templates/Wizard/network.mas:40
-msgid "Method"
-msgstr "方式"
 
 #: src/templates/ifaces.mas:51 src/templates/ifaces.mas:53
 msgid "Static"
@@ -983,85 +1065,3 @@ msgstr "削除"
 #, fuzzy
 msgid "Virtual Interfaces"
 msgstr "バーチャルインタフェース"
-
-#: src/templates/confirmVlanDel.mas:9
-#, fuzzy
-msgid ""
-"The removal of the vlan interface will affect the configuration of one or "
-"more modules that use references to this network interface."
-msgstr ""
-"適用しようとしている変更はこのネットワークインタフェースを参照する1つ以上のモ"
-"ジュールに影響します。"
-
-#: src/templates/Wizard/network.mas:23 src/templates/Wizard/interfaces.mas:7
-#, fuzzy
-msgid "Network interfaces"
-msgstr "ネットワークインタフェース"
-
-#: src/templates/Wizard/network.mas:26
-#, fuzzy
-msgid "Configure network for external interfaces"
-msgstr "ネットワークインタフェースを設定"
-
-#: src/templates/Wizard/network.mas:27
-msgid "Now you can set IP addresses and networks for each interface"
-msgstr ""
-
-#: src/templates/Wizard/network.mas:43
-#, fuzzy
-msgid "Don't configure"
-msgstr "DNSが設定されました"
-
-#: src/templates/Wizard/network.mas:82
-msgid "Gateway"
-msgstr "ゲートウェイ"
-
-#: src/templates/Wizard/interfaces.mas:10
-#, fuzzy
-msgid "Select external network interfaces"
-msgstr "ネットワークインタフェース"
-
-#: src/templates/Wizard/interfaces.mas:11
-msgid ""
-"You will not be able to connect to Zentyal administration page through them"
-msgstr ""
-
-#: src/templates/diag.mas:13 src/templates/diag.mas:18
-msgid "Ping"
-msgstr "PING"
-
-#: src/templates/diag.mas:22
-#, fuzzy
-msgid "Traceroute"
-msgstr "静的ルート"
-
-#: src/templates/diag.mas:27
-msgid "Trace"
-msgstr ""
-
-#: src/templates/diag.mas:31
-#, fuzzy
-msgid "Domain Name Resolution"
-msgstr "名前解決"
-
-#: src/templates/diag.mas:32
-msgid "Domain name"
-msgstr "ドメイン名"
-
-#: src/templates/diag.mas:36
-msgid "Lookup"
-msgstr "参照"
-
-#: src/templates/diag.mas:38
-msgid "Output"
-msgstr "出力"
-
-#: src/templates/confirm.mas:20
-msgid ""
-"If you choose to continue, all modules that make use of the current "
-"configuration of this network interface will delete the relevant parts of "
-"their configuration. Choose \"Cancel\" if you are not sure about this."
-msgstr ""
-"現在のこのネットワークインタフェースの設定に依存する全てのモジュールはこのイ"
-"ンタフェースに関する設定を消去します。設定状況がよくわからない場合はキャンセ"
-"ルしてください。"

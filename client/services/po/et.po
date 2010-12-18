@@ -7,10 +7,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-services 1.4\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-12-13 08:42+0100\n"
+"POT-Creation-Date: 2010-12-18 01:45+0100\n"
 "PO-Revision-Date: 2010-05-09 00:38+0200\n"
 "Last-Translator: Priit-A. Heinsalu <priit.heinsalu@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -61,19 +62,6 @@ msgstr "eBoxi haldus"
 msgid "Zentyal Administration Web Server"
 msgstr "eBoxi haldamise veebiserver"
 
-#: src/EBox/Services.pm:47 src/EBox/Model/ServiceTable.pm:144
-msgid "Services"
-msgstr "Teenused"
-
-#: src/EBox/Services.pm:399
-msgid "port"
-msgstr "port"
-
-#: src/EBox/Services.pm:402
-#, fuzzy
-msgid "Zentyal Administration port"
-msgstr "eBoxi haldamise port"
-
 #: src/EBox/Model/ServiceTable.pm:102
 msgid "Domain"
 msgstr "Domeen"
@@ -108,6 +96,10 @@ msgstr "Seadistamine"
 #: src/EBox/Model/ServiceTable.pm:143
 msgid "List of services"
 msgstr "Teenuste loend"
+
+#: src/EBox/Model/ServiceTable.pm:144 src/EBox/Services.pm:47
+msgid "Services"
+msgstr "Teenused"
 
 #: src/EBox/Model/ServiceTable.pm:154
 #: src/EBox/Model/ServiceConfigurationTable.pm:172
@@ -146,3 +138,12 @@ msgstr "Teenuse seadistamine"
 #: src/EBox/Model/ServiceConfigurationTable.pm:196
 msgid "This protocol does not use ports"
 msgstr "See protokoll ei kasuta porte"
+
+#: src/EBox/Services.pm:399
+msgid "port"
+msgstr "port"
+
+#: src/EBox/Services.pm:402
+#, fuzzy
+msgid "Zentyal Administration port"
+msgstr "eBoxi haldamise port"

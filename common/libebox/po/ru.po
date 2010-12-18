@@ -7,16 +7,36 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libebox 0.12.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-12-13 08:44+0100\n"
+"POT-Creation-Date: 2010-12-18 01:20+0100\n"
 "PO-Revision-Date: 2010-08-26 10:43+0200\n"
 "Last-Translator: Dmitry Salynin <dsalynin@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
-"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Pootle 1.1.0\n"
+
+#: src/EBox/Config.pm.in:74
+#, perl-brace-format
+msgid "Could not open the config file {file}."
+msgstr "Не могу открыть конфигурационный файл {file}."
+
+#: src/EBox/Config.pm.in:172
+msgid "The ebox user has not been set in the config file."
+msgstr "Пользователь eBox не указан в конфигурационном файле."
+
+#: src/EBox/Exceptions/DataNotFound.pm:35
+#, perl-brace-format
+msgid "{data} {value} does not exist."
+msgstr "{data} {value} не существует."
+
+#: src/EBox/Exceptions/DataExists.pm:36
+#, perl-brace-format
+msgid "{data} {value} already exists."
+msgstr "{data} {value} уже существует."
 
 #: src/EBox/Exceptions/InvalidData.pm:37
 #, perl-brace-format
@@ -28,20 +48,55 @@ msgstr "Неправильное значение {data}: {value}."
 msgid "{data} is empty."
 msgstr "{data} пусто."
 
-#: src/EBox/Exceptions/DataExists.pm:36
-#, perl-brace-format
-msgid "{data} {value} already exists."
-msgstr "{data} {value} уже существует."
+#: src/EBox/Validate.pm:390 src/EBox/Validate.pm:404
+msgid "Must be a number between 1 and 4096"
+msgstr "Значение должно быть числом между 1 и 4096"
 
-#: src/EBox/Exceptions/DataNotFound.pm:35
+#: src/EBox/Validate.pm:687
 #, perl-brace-format
-msgid "{data} {value} does not exist."
-msgstr "{data} {value} не существует."
+msgid ""
+"Cannot stat dir: {dir}. This may mean that the directory does not exist or "
+"the permissions forbid access to it"
+msgstr ""
+"Нет статистики по каталогу {dir}. Это может значить что каталог не "
+"существует или права доступа запрещают доступ к нему"
+
+#: src/EBox/Validate.pm:692
+#, perl-brace-format
+msgid "The directory {dir} is not private; because it is owned by another user"
+msgstr ""
+"Каталог {dir} не приватный; пока владельцем являеться другой пользователь."
+
+#: src/EBox/Validate.pm:767
+msgid ""
+"The file path supplied is not valid. (Currently not all of the valid file's  "
+"characters are supported) "
+msgstr ""
+"Путь к файлу не дейстивителен. (В настоящее время не все символы  имени "
+"файлов поддерживаются) "
+
+#: src/EBox/Validate.pm:795
+msgid "The file path must be absolute"
+msgstr "Путь может быть абсолютным"
+
+#: src/EBox/Sudo.pm:265
+#, perl-brace-format
+msgid "Running command '{cmd}' as {user} failed"
+msgstr "Запуск команды '{cmd}' от {user} не удался"
+
+#: src/EBox/FileSystem.pm:190 src/EBox/FileSystem.pm:282
+#, perl-brace-format
+msgid "Directory not found: {d}"
+msgstr "Каталог не найден: {d}"
 
 #: src/EBox/NetWrappers.pm:104 src/EBox/NetWrappers.pm:133
 #: src/EBox/NetWrappers.pm:229
 msgid "Interface"
 msgstr "Интерфейс"
+
+#: src/EBox/CGI/EBox/PageNotFound.pm:27
+msgid "Page not found"
+msgstr "Страница не найдена"
 
 #: src/EBox/CGI/Base.pm:196
 msgid ""
@@ -108,76 +163,78 @@ msgstr "Недопустимый загруженный файл."
 msgid "Cannot create a temporally file for the upload"
 msgstr "Не могу создать временный файл для загрузки"
 
-#: src/EBox/CGI/EBox/PageNotFound.pm:27
-msgid "Page not found"
-msgstr "Страница не найдена"
+#: src/templates/language.mas:10
+msgid "Language Selection"
+msgstr "Выбор языка"
 
-#: src/EBox/Config.pm.in:74
-#, perl-brace-format
-msgid "Could not open the config file {file}."
-msgstr "Не могу открыть конфигурационный файл {file}."
-
-#: src/EBox/Config.pm.in:172
-msgid "The ebox user has not been set in the config file."
-msgstr "Пользователь eBox не указан в конфигурационном файле."
-
-#: src/EBox/Sudo.pm:265
-#, perl-brace-format
-msgid "Running command '{cmd}' as {user} failed"
-msgstr "Запуск команды '{cmd}' от {user} не удался"
-
-#: src/EBox/FileSystem.pm:190 src/EBox/FileSystem.pm:282
-#, perl-brace-format
-msgid "Directory not found: {d}"
-msgstr "Каталог не найден: {d}"
-
-#: src/EBox/Validate.pm:390 src/EBox/Validate.pm:404
-msgid "Must be a number between 1 and 4096"
-msgstr "Значение должно быть числом между 1 и 4096"
-
-#: src/EBox/Validate.pm:687
-#, perl-brace-format
+#: src/templates/language.mas:11
 msgid ""
-"Cannot stat dir: {dir}. This may mean that the directory does not exist or "
-"the permissions forbid access to it"
-msgstr ""
-"Нет статистики по каталогу {dir}. Это может значить что каталог не "
-"существует или права доступа запрещают доступ к нему"
+"Language changes happen automatically, saving the configuration it's not "
+"needed."
+msgstr "Изменение языка происходит автоматически, запись конфигурации не нужна"
 
-#: src/EBox/Validate.pm:692
-#, perl-brace-format
-msgid "The directory {dir} is not private; because it is owned by another user"
-msgstr ""
-"Каталог {dir} не приватный; пока владельцем являеться другой пользователь."
-
-#: src/EBox/Validate.pm:767
-msgid ""
-"The file path supplied is not valid. (Currently not all of the valid file's  "
-"characters are supported) "
-msgstr ""
-"Путь к файлу не дейстивителен. (В настоящее время не все символы  имени "
-"файлов поддерживаются) "
-
-#: src/EBox/Validate.pm:795
-msgid "The file path must be absolute"
-msgstr "Путь может быть абсолютным"
-
-#: src/templates/enable.mas:9
-msgid "Service configuration"
-msgstr "Настройка службы"
-
-#: src/templates/enable.mas:21 src/templates/enable.mas:24
-msgid "Disabled"
-msgstr "Отключено"
-
-#: src/templates/enable.mas:22 src/templates/enable.mas:25
-msgid "Enabled"
-msgstr "Включено"
-
-#: src/templates/enable.mas:29 src/templates/enable.mas:30
-#: src/templates/language.mas:23
+#: src/templates/language.mas:23 src/templates/enable.mas:29
+#: src/templates/enable.mas:30
 msgid "Change"
 msgstr "Изменить"
+
+#: src/templates/title.mas:24
+msgid "show help"
+msgstr "показать помощь"
+
+#: src/templates/title.mas:25
+msgid "hide help"
+msgstr "скрыть помощь"
+
+#: src/templates/ebox/pageNotFound.mas:3
+msgid "Zentyal homepage"
+msgstr "Домашняя страница Zentyal"
+
+#: src/templates/ebox/pageNotFound.mas:7
+msgid "If you typed the URL manually, please check it"
+msgstr "Если вы ввели URL вручную, пожалуйста проверьте еще раз."
+
+#: src/templates/ebox/pageNotFound.mas:8
+msgid ""
+"Maybe a change in the Zentyal configuration or software made no longer "
+"available the requested page"
+msgstr ""
+"Возможно изменение конфигурации Zentyal или программного обеспечение сделало "
+"запрашиваемую страницу недоступной"
+
+#: src/templates/ebox/pageNotFound.mas:9
+#, perl-brace-format
+msgid ""
+"If you need more help, you may want visit {homepage} for documentation and "
+"mailing lists"
+msgstr ""
+"Если вам необходима помощь, вы можете посетить {homepage} для чтения  "
+"документации и списков рассылки"
+
+#: src/templates/ebox/pageNotFound.mas:12
+msgid "we're sorry"
+msgstr "мы извиняемся "
+
+#: src/templates/ebox/pageNotFound.mas:13
+msgid "The page cannot be found"
+msgstr "Страница не найдена"
+
+#: src/templates/ajax/setter/inverseMatchUnionSetter.mas:9
+#: src/templates/ajax/setter/inverseMatchSelectSetter.mas:13
+msgid "Inverse match"
+msgstr "Обратное соответствие"
+
+#: src/templates/ajax/setter/portRangeSetter.mas:23
+msgid "From"
+msgstr "Из"
+
+#: src/templates/ajax/setter/portRangeSetter.mas:29
+msgid "To"
+msgstr "На"
+
+#: src/templates/ajax/setter/serviceSetter.mas:25
+msgid "port"
+msgstr "порт"
 
 #: src/templates/ajax/viewer/file.mas:22 src/templates/ajax/viewer/file.mas:33
 msgid "Download"
@@ -186,6 +243,44 @@ msgstr "Загрузить"
 #: src/templates/ajax/viewer/file.mas:26
 msgid "Remove"
 msgstr "Удалить"
+
+#: src/templates/ajax/modelViewer.mas:258 src/templates/formTable.mas:85
+msgid "Optional"
+msgstr "Дополнительно"
+
+#: src/templates/ajax/tablePager.mas:46
+msgid "Page"
+msgstr "Страница"
+
+#: src/templates/ajax/tablePager.mas:47
+msgid "of"
+msgstr "из"
+
+#: src/templates/ajax/tablePager.mas:60 src/templates/ajax/tablePager.mas:66
+msgid "first"
+msgstr "первый"
+
+#: src/templates/ajax/tablePager.mas:62 src/templates/ajax/tablePager.mas:67
+msgid "prev"
+msgstr "пред."
+
+#: src/templates/ajax/tablePager.mas:73 src/templates/ajax/tablePager.mas:74
+#: src/templates/ajax/tablePager.mas:85 src/templates/ajax/tablePager.mas:86
+msgid "next"
+msgstr "след."
+
+#: src/templates/ajax/tablePager.mas:79 src/templates/ajax/tablePager.mas:80
+#: src/templates/ajax/tablePager.mas:89 src/templates/ajax/tablePager.mas:90
+msgid "last"
+msgstr "последний"
+
+#: src/templates/ajax/tableSelector.mas:14
+msgid "Choose one of the options to show the associated table"
+msgstr "Выберите один из параметров, чтобы показать связанную таблицу"
+
+#: src/templates/ajax/tableSelector.mas:32
+msgid "Choose one..."
+msgstr "Выберите одно ..."
 
 #: src/templates/ajax/tableBody.mas:135
 msgid "Add new"
@@ -247,108 +342,14 @@ msgstr "Строка только для чтения: редактирован�
 msgid "Move down"
 msgstr ""
 
-#: src/templates/ajax/tableSelector.mas:14
-msgid "Choose one of the options to show the associated table"
-msgstr "Выберите один из параметров, чтобы показать связанную таблицу"
+#: src/templates/enable.mas:9
+msgid "Service configuration"
+msgstr "Настройка службы"
 
-#: src/templates/ajax/tableSelector.mas:32
-msgid "Choose one..."
-msgstr "Выберите одно ..."
+#: src/templates/enable.mas:21 src/templates/enable.mas:24
+msgid "Disabled"
+msgstr "Отключено"
 
-#: src/templates/ajax/setter/serviceSetter.mas:25
-msgid "port"
-msgstr "порт"
-
-#: src/templates/ajax/setter/inverseMatchUnionSetter.mas:9
-#: src/templates/ajax/setter/inverseMatchSelectSetter.mas:13
-msgid "Inverse match"
-msgstr "Обратное соответствие"
-
-#: src/templates/ajax/setter/portRangeSetter.mas:23
-msgid "From"
-msgstr "Из"
-
-#: src/templates/ajax/setter/portRangeSetter.mas:29
-msgid "To"
-msgstr "На"
-
-#: src/templates/ajax/modelViewer.mas:258 src/templates/formTable.mas:85
-msgid "Optional"
-msgstr "Дополнительно"
-
-#: src/templates/ajax/tablePager.mas:46
-msgid "Page"
-msgstr "Страница"
-
-#: src/templates/ajax/tablePager.mas:47
-msgid "of"
-msgstr "из"
-
-#: src/templates/ajax/tablePager.mas:60 src/templates/ajax/tablePager.mas:66
-msgid "first"
-msgstr "первый"
-
-#: src/templates/ajax/tablePager.mas:62 src/templates/ajax/tablePager.mas:67
-msgid "prev"
-msgstr "пред."
-
-#: src/templates/ajax/tablePager.mas:73 src/templates/ajax/tablePager.mas:74
-#: src/templates/ajax/tablePager.mas:85 src/templates/ajax/tablePager.mas:86
-msgid "next"
-msgstr "след."
-
-#: src/templates/ajax/tablePager.mas:79 src/templates/ajax/tablePager.mas:80
-#: src/templates/ajax/tablePager.mas:89 src/templates/ajax/tablePager.mas:90
-msgid "last"
-msgstr "последний"
-
-#: src/templates/ebox/pageNotFound.mas:3
-msgid "Zentyal homepage"
-msgstr "Домашняя страница Zentyal"
-
-#: src/templates/ebox/pageNotFound.mas:7
-msgid "If you typed the URL manually, please check it"
-msgstr "Если вы ввели URL вручную, пожалуйста проверьте еще раз."
-
-#: src/templates/ebox/pageNotFound.mas:8
-msgid ""
-"Maybe a change in the Zentyal configuration or software made no longer "
-"available the requested page"
-msgstr ""
-"Возможно изменение конфигурации Zentyal или программного обеспечение сделало "
-"запрашиваемую страницу недоступной"
-
-#: src/templates/ebox/pageNotFound.mas:9
-#, perl-brace-format
-msgid ""
-"If you need more help, you may want visit {homepage} for documentation and "
-"mailing lists"
-msgstr ""
-"Если вам необходима помощь, вы можете посетить {homepage} для чтения  "
-"документации и списков рассылки"
-
-#: src/templates/ebox/pageNotFound.mas:12
-msgid "we're sorry"
-msgstr "мы извиняемся "
-
-#: src/templates/ebox/pageNotFound.mas:13
-msgid "The page cannot be found"
-msgstr "Страница не найдена"
-
-#: src/templates/title.mas:24
-msgid "show help"
-msgstr "показать помощь"
-
-#: src/templates/title.mas:25
-msgid "hide help"
-msgstr "скрыть помощь"
-
-#: src/templates/language.mas:10
-msgid "Language Selection"
-msgstr "Выбор языка"
-
-#: src/templates/language.mas:11
-msgid ""
-"Language changes happen automatically, saving the configuration it's not "
-"needed."
-msgstr "Изменение языка происходит автоматически, запись конфигурации не нужна"
+#: src/templates/enable.mas:22 src/templates/enable.mas:25
+msgid "Enabled"
+msgstr "Включено"

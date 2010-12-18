@@ -6,78 +6,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-ntp 0.12\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-12-13 08:40+0100\n"
+"POT-Creation-Date: 2010-12-18 01:44+0100\n"
 "PO-Revision-Date: 2006-11-16 13:25+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural= (n != 1);\n"
 "X-Generator: Translate Toolkit 0.10.1\n"
-
-#: src/EBox/CGI/AddServers.pm:42
-msgid "first ntp server"
-msgstr "primer serbidor ntp"
-
-#: src/EBox/CGI/AddServers.pm:45 src/EBox/NTP.pm:222
-#: src/templates/servers.mas:16
-msgid "Primary server"
-msgstr "Serbidor primario"
-
-#: src/EBox/CGI/AddServers.pm:51 src/EBox/NTP.pm:236
-#: src/templates/servers.mas:27
-msgid "Secondary server"
-msgstr "Serbidor secundario"
-
-#: src/EBox/CGI/AddServers.pm:55 src/templates/servers.mas:38
-msgid "Tertiary server"
-msgstr "Serbidor terziario"
-
-#: src/EBox/CGI/ChangeDate.pm:41
-msgid "Day"
-msgstr "Día"
-
-#: src/EBox/CGI/ChangeDate.pm:42
-msgid "Month"
-msgstr "Mes"
-
-#: src/EBox/CGI/ChangeDate.pm:43
-msgid "Year"
-msgstr "Año"
-
-#: src/EBox/CGI/ChangeDate.pm:44
-msgid "Hour"
-msgstr "Ora"
-
-#: src/EBox/CGI/ChangeDate.pm:45
-msgid "Minutes"
-msgstr "Menutos"
-
-#: src/EBox/CGI/ChangeDate.pm:46
-msgid "Seconds"
-msgstr "Segundos"
-
-#: src/EBox/CGI/ChangeTimeZone.pm:41
-msgid "country"
-msgstr "país"
-
-#: src/EBox/CGI/ChangeTimeZone.pm:42
-msgid "continent"
-msgstr "continent"
-
-#: src/EBox/CGI/Datetime.pm:30
-#, fuzzy
-msgid "Date and Time Configuration"
-msgstr "Ozions de calendata e ora"
-
-#: src/EBox/CGI/Timezone.pm:30
-msgid "Time Zone Configuration"
-msgstr ""
-
-#: src/EBox/CGI/Synch.pm:41
-msgid "external synchronize status"
-msgstr "estato de sincronizazión esterna"
 
 #: src/EBox/NTP.pm:67
 msgid "Remove ntp init script links"
@@ -91,6 +29,11 @@ msgstr ""
 msgid "NTP configuration file"
 msgstr ""
 
+#: src/EBox/NTP.pm:222 src/EBox/CGI/AddServers.pm:45
+#: src/templates/servers.mas:16
+msgid "Primary server"
+msgstr "Serbidor primario"
+
 #: src/EBox/NTP.pm:224
 msgid "primary server"
 msgstr "serbidor primario"
@@ -102,6 +45,11 @@ msgstr "Os serbidors primario e secundario han d'estar diferents"
 #: src/EBox/NTP.pm:232
 msgid "secondary server"
 msgstr "serbidor secundario"
+
+#: src/EBox/NTP.pm:236 src/EBox/CGI/AddServers.pm:51
+#: src/templates/servers.mas:27
+msgid "Secondary server"
+msgstr "Serbidor secundario"
 
 #: src/EBox/NTP.pm:244
 msgid "Primary and tertiary server must be different"
@@ -135,6 +83,59 @@ msgstr "Calendata/ora"
 msgid "Time Zone"
 msgstr "Zona oraria"
 
+#: src/EBox/CGI/Timezone.pm:30
+msgid "Time Zone Configuration"
+msgstr ""
+
+#: src/EBox/CGI/AddServers.pm:42
+msgid "first ntp server"
+msgstr "primer serbidor ntp"
+
+#: src/EBox/CGI/AddServers.pm:55 src/templates/servers.mas:38
+msgid "Tertiary server"
+msgstr "Serbidor terziario"
+
+#: src/EBox/CGI/Datetime.pm:30
+#, fuzzy
+msgid "Date and Time Configuration"
+msgstr "Ozions de calendata e ora"
+
+#: src/EBox/CGI/Synch.pm:41
+msgid "external synchronize status"
+msgstr "estato de sincronizazión esterna"
+
+#: src/EBox/CGI/ChangeDate.pm:41
+msgid "Day"
+msgstr "Día"
+
+#: src/EBox/CGI/ChangeDate.pm:42
+msgid "Month"
+msgstr "Mes"
+
+#: src/EBox/CGI/ChangeDate.pm:43
+msgid "Year"
+msgstr "Año"
+
+#: src/EBox/CGI/ChangeDate.pm:44
+msgid "Hour"
+msgstr "Ora"
+
+#: src/EBox/CGI/ChangeDate.pm:45
+msgid "Minutes"
+msgstr "Menutos"
+
+#: src/EBox/CGI/ChangeDate.pm:46
+msgid "Seconds"
+msgstr "Segundos"
+
+#: src/EBox/CGI/ChangeTimeZone.pm:41
+msgid "country"
+msgstr "país"
+
+#: src/EBox/CGI/ChangeTimeZone.pm:42
+msgid "continent"
+msgstr "continent"
+
 #: src/templates/servers.mas:7
 msgid "NTP servers"
 msgstr "Serbidors NTP"
@@ -147,10 +148,10 @@ msgstr ""
 "Recuerde confegurar a suya zona oraria ta que a sincronizazión funzione "
 "correutament."
 
-#: src/templates/servers.mas:50 src/templates/timezone.mas:33
-#: src/templates/timezone.mas:34 src/templates/synch.mas:19
+#: src/templates/servers.mas:50 src/templates/synch.mas:19
 #: src/templates/synch.mas:20 src/templates/date.mas:96
-#: src/templates/date.mas:97
+#: src/templates/date.mas:97 src/templates/timezone.mas:33
+#: src/templates/timezone.mas:34
 msgid "Change"
 msgstr "Cambear"
 

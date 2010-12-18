@@ -6,10 +6,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-usersandgroups 0.12\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-12-13 09:37+0100\n"
+"POT-Creation-Date: 2010-12-18 01:45+0100\n"
 "PO-Revision-Date: 2010-08-20 13:58+0200\n"
 "Last-Translator: Indra Pharazijn <indra6oc@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -20,120 +21,6 @@ msgstr ""
 #, fuzzy
 msgid "User Corner Web Server"
 msgstr "Web Server Gebruikers Hoek"
-
-#: src/EBox/LdapUserImplementation.pm:42
-msgid "This group contains users"
-msgstr "Deze groep bevat gebruikers"
-
-#: src/EBox/CGI/User.pm:42 src/EBox/CGI/User.pm:62 src/EBox/CGI/Groups.pm:52
-#: src/EBox/CGI/Users.pm:31 src/EBox/CGI/Users.pm:56
-#: src/EBox/UsersAndGroups/Model/Users.pm:77 src/EBox/UsersAndGroups.pm:2394
-#: src/EBox/UsersAndGroups.pm:2402
-msgid "Users"
-msgstr "Gebruikers"
-
-#: src/EBox/CGI/User.pm:46
-msgid "username"
-msgstr "gebruikersnaam"
-
-#: src/EBox/CGI/AddGroupToUser.pm:45 src/EBox/CGI/AddUserToGroup.pm:49
-#: src/EBox/CGI/DelUserFromGroup.pm:50 src/EBox/CGI/DelGroupFromUser.pm:45
-#: src/EBox/UsersAndGroups/Model/Users.pm:84
-msgid "user"
-msgstr "gebruiker"
-
-#: src/EBox/CGI/AddGroupToUser.pm:50 src/EBox/CGI/Group.pm:45
-#: src/EBox/CGI/AddUserToGroup.pm:44 src/EBox/CGI/DelUserFromGroup.pm:45
-#: src/EBox/CGI/DelGroupFromUser.pm:50
-#: src/EBox/UsersAndGroups/Model/Groups.pm:84
-msgid "group"
-msgstr "groep"
-
-#: src/EBox/CGI/Group.pm:30
-msgid "Edit group"
-msgstr "Groep wijzigen"
-
-#: src/EBox/CGI/Group.pm:61 src/EBox/CGI/Groups.pm:43
-#: src/EBox/UsersAndGroups/Model/Groups.pm:76 src/EBox/UsersAndGroups.pm:2396
-#: src/EBox/UsersAndGroups.pm:2405
-msgid "Groups"
-msgstr "Groepen"
-
-#: src/EBox/CGI/ModifyGroup.pm:40 src/EBox/CGI/AddGroup.pm:45
-#: src/EBox/UsersAndGroups.pm:1498 src/EBox/UsersAndGroups.pm:1503
-#: src/EBox/UsersAndGroups.pm:1696 src/EBox/UsersAndGroups.pm:1846
-#: src/EBox/UsersAndGroups.pm:1880 src/EBox/UsersAndGroups.pm:1997
-#: src/EBox/UsersAndGroups.pm:2100
-msgid "group name"
-msgstr "groepnaam"
-
-#: src/EBox/CGI/ModifyGroup.pm:47 src/EBox/CGI/ModifyUser.pm:48
-#: src/EBox/CGI/AddUser.pm:47
-msgid "comment"
-msgstr "commentaar"
-
-#: src/EBox/CGI/ModifyUser.pm:42 src/EBox/CGI/AddUser.pm:45
-#: src/EBox/UsersAndGroups.pm:851 src/EBox/UsersAndGroups.pm:857
-#: src/EBox/UsersAndGroups.pm:1099 src/EBox/UsersAndGroups.pm:1149
-#: src/EBox/UsersAndGroups.pm:1201 src/EBox/UsersAndGroups.pm:1662
-#: src/EBox/UsersAndGroups.pm:1740 src/EBox/UsersAndGroups.pm:1841
-#: src/EBox/UsersAndGroups.pm:1875 src/EBox/UsersAndGroups.pm:1946
-msgid "user name"
-msgstr "gebruikersnaam"
-
-#: src/EBox/CGI/ModifyUser.pm:47 src/EBox/CGI/AddUser.pm:46
-msgid "last name"
-msgstr "familie naam"
-
-#: src/EBox/CGI/ModifyUser.pm:49
-msgid "password"
-msgstr "wachtwoord"
-
-#: src/EBox/CGI/ModifyUser.pm:50
-msgid "confirm password"
-msgstr "wachtwoord bevestigen"
-
-#: src/EBox/CGI/ModifyUser.pm:76 src/EBox/CGI/AddUser.pm:73
-#: src/EBox/UsersAndGroups/Model/Password.pm:98
-msgid "Passwords do not match."
-msgstr "Wachtwoorden komen niet overeen."
-
-#: src/EBox/CGI/Del.pm:65
-msgid "object name"
-msgstr "object naam"
-
-#: src/EBox/CGI/Del.pm:70
-msgid "object type"
-msgstr "object type"
-
-#: src/EBox/CGI/Del.pm:90
-msgid "User removed successfully"
-msgstr "Gebruiker succesvol verwijderd"
-
-#: src/EBox/CGI/Del.pm:94
-msgid "Group removed successfully"
-msgstr "Groep succesvol verwijderd"
-
-#: src/EBox/UserCornerWebServer.pm:39
-#: src/EBox/UserCornerWebServer/Model/Settings.pm:45
-#, fuzzy
-msgid "User Corner"
-msgstr "Gebruikers Hoek"
-
-#: src/EBox/UserCornerWebServer.pm:65
-msgid "Migrate configured modules"
-msgstr "Migreer ingestelde modules"
-
-# gebruikershoek
-#: src/EBox/UserCornerWebServer.pm:66
-#, fuzzy
-msgid "Required for usercorner access to configured modules"
-msgstr "Vereist voor gebruikershoek toegang tot ingestelde modules"
-
-#: src/EBox/UserCornerWebServer.pm:179
-#, fuzzy
-msgid "User Corner web server"
-msgstr "Gebruikers Hoek web server"
 
 #: src/EBox/UsersAndGroups/Model/PendingSync.pm:59
 #: src/EBox/UsersAndGroups/Model/Mode.pm:70
@@ -178,6 +65,33 @@ msgstr "U dient de Gebruikers module in te schakelen in meester modus."
 msgid "There are no pending operations at the moment."
 msgstr "Er zijn geen hangende bewerkingen op het moment."
 
+#: src/EBox/UsersAndGroups/Model/PAM.pm:82
+#, perl-brace-format
+msgid ""
+"PAM can not be enabled on slave servers while acting as PDC. You can disable "
+"the PDC functionality at {ohref}File sharing options{chref}."
+msgstr ""
+
+#: src/EBox/UsersAndGroups/Model/PAM.pm:125
+msgid "Enable PAM"
+msgstr ""
+
+#: src/EBox/UsersAndGroups/Model/PAM.pm:128
+msgid "Make LDAP users have system account."
+msgstr ""
+
+#: src/EBox/UsersAndGroups/Model/PAM.pm:136
+msgid "Default login shell"
+msgstr ""
+
+#: src/EBox/UsersAndGroups/Model/PAM.pm:140
+msgid "This will apply only to new users from now on."
+msgstr ""
+
+#: src/EBox/UsersAndGroups/Model/PAM.pm:147
+msgid "PAM settings"
+msgstr ""
+
 #: src/EBox/UsersAndGroups/Model/ADSyncSettings.pm:65
 msgid "AD user"
 msgstr "AD gebruiker "
@@ -221,7 +135,148 @@ msgstr ""
 msgid "The secret key needs to have 16 characters."
 msgstr ""
 
-#: src/EBox/UsersAndGroups/Model/Mode.pm:67 src/EBox/UsersAndGroups.pm:2427
+#: src/EBox/UsersAndGroups/Model/Groups.pm:58
+#: src/EBox/UsersAndGroups/Model/Users.pm:59
+msgid "Name"
+msgstr "Naam"
+
+#: src/EBox/UsersAndGroups/Model/Groups.pm:63
+msgid "Description"
+msgstr ""
+
+#: src/EBox/UsersAndGroups/Model/Groups.pm:68
+#: src/EBox/UsersAndGroups/Model/Users.pm:69
+msgid "Edit"
+msgstr "Wijzigen"
+
+#: src/EBox/UsersAndGroups/Model/Groups.pm:76 src/EBox/UsersAndGroups.pm:2398
+#: src/EBox/UsersAndGroups.pm:2407 src/EBox/CGI/Groups.pm:43
+#: src/EBox/CGI/Group.pm:61
+msgid "Groups"
+msgstr "Groepen"
+
+#: src/EBox/UsersAndGroups/Model/Groups.pm:84
+#: src/EBox/CGI/AddUserToGroup.pm:44 src/EBox/CGI/DelGroupFromUser.pm:50
+#: src/EBox/CGI/Group.pm:45 src/EBox/CGI/DelUserFromGroup.pm:45
+#: src/EBox/CGI/AddGroupToUser.pm:50
+msgid "group"
+msgstr "groep"
+
+#: src/EBox/UsersAndGroups/Model/Groups.pm:129
+#: src/EBox/UsersAndGroups/Model/Users.pm:127
+msgid ""
+"You must enable the module Users in the module status section in order to "
+"use it."
+msgstr ""
+"Module Gebruikers moet geselecteerd worden in de module-status sectie om het "
+"te kunnen gebruiken "
+
+#: src/EBox/UsersAndGroups/Model/Groups.pm:135
+#, fuzzy
+msgid "There are no groups at the moment"
+msgstr "Er zijn geen gebruikers op het moment."
+
+#: src/EBox/UsersAndGroups/Model/Groups.pm:138
+#, fuzzy, perl-brace-format
+msgid ""
+"Zentyal is configured as slave and there are no groups at the moment. You "
+"may want to add some in the {openhref}master{closehref}."
+msgstr ""
+"Er zijn geen gebruikers. Er moet er minstens één_ _zijn om deze groep te "
+"kunnen beheren"
+
+#: src/EBox/UsersAndGroups/Model/Groups.pm:142
+msgid ""
+"Zentyal is configured as Windows AD slave and there are no groups at the "
+"moment. If there are groups in your Domain Controller, maybe the "
+"synchronization process has failed or has not finished yet."
+msgstr ""
+
+#: src/EBox/UsersAndGroups/Model/ForceSync.pm:90
+msgid "Force sync"
+msgstr ""
+
+#: src/EBox/UsersAndGroups/Model/ForceSync.pm:92
+msgid "on slaves"
+msgstr ""
+
+#: src/EBox/UsersAndGroups/Model/ForceSync.pm:98
+msgid "Force sync of pending operations"
+msgstr ""
+
+#: src/EBox/UsersAndGroups/Model/ForceSync.pm:101
+msgid "Sync now"
+msgstr ""
+
+#: src/EBox/UsersAndGroups/Model/Users.pm:64
+msgid "Full name"
+msgstr "Volledige naam"
+
+#: src/EBox/UsersAndGroups/Model/Users.pm:77 src/EBox/UsersAndGroups.pm:2396
+#: src/EBox/UsersAndGroups.pm:2404 src/EBox/CGI/User.pm:42
+#: src/EBox/CGI/User.pm:62 src/EBox/CGI/Groups.pm:52 src/EBox/CGI/Users.pm:31
+#: src/EBox/CGI/Users.pm:56
+msgid "Users"
+msgstr "Gebruikers"
+
+#: src/EBox/UsersAndGroups/Model/Users.pm:84 src/EBox/CGI/AddUserToGroup.pm:49
+#: src/EBox/CGI/DelGroupFromUser.pm:45 src/EBox/CGI/DelUserFromGroup.pm:50
+#: src/EBox/CGI/AddGroupToUser.pm:45
+msgid "user"
+msgstr "gebruiker"
+
+#: src/EBox/UsersAndGroups/Model/Users.pm:133
+#, fuzzy
+msgid "There are no users at the moment"
+msgstr "Er zijn geen gebruikers op het moment."
+
+#: src/EBox/UsersAndGroups/Model/Users.pm:136
+#, fuzzy, perl-brace-format
+msgid ""
+"Zentyal is configured as slave and there are no users at the moment. You may "
+"want to add some in the {openhref}master{closehref}."
+msgstr ""
+"Er zijn geen gebruikers. Er moet er minstens één_ _zijn om deze groep te "
+"kunnen beheren"
+
+#: src/EBox/UsersAndGroups/Model/Users.pm:140
+msgid ""
+"Zentyal is configured as Windows AD slave and there are no users at the "
+"moment. If there are users in your Domain Controller, maybe the "
+"synchronization process has failed or has not finished yet."
+msgstr ""
+
+#: src/EBox/UsersAndGroups/Model/Password.pm:49
+msgid "Password management"
+msgstr ""
+
+#: src/EBox/UsersAndGroups/Model/Password.pm:59
+#, fuzzy
+msgid "New password"
+msgstr "wachtwoord"
+
+#: src/EBox/UsersAndGroups/Model/Password.pm:66
+#, fuzzy
+msgid "Re-type new password"
+msgstr "Wachtwoord herhalen"
+
+#: src/EBox/UsersAndGroups/Model/Password.pm:75
+#: src/EBox/UsersAndGroups/Model/LdapInfo.pm:78 src/EBox/UsersAndGroups.pm:872
+#: src/EBox/UsersAndGroups.pm:2443 src/templates/user.mas:52
+#: src/templates/usercorner/login/index.mas:34 src/templates/users.mas:49
+msgid "Password"
+msgstr "Wachtwoord"
+
+#: src/EBox/UsersAndGroups/Model/Password.pm:98 src/EBox/CGI/AddUser.pm:73
+#: src/EBox/CGI/ModifyUser.pm:76
+msgid "Passwords do not match."
+msgstr "Wachtwoorden komen niet overeen."
+
+#: src/EBox/UsersAndGroups/Model/Password.pm:117
+msgid "Password successfully updated"
+msgstr ""
+
+#: src/EBox/UsersAndGroups/Model/Mode.pm:67 src/EBox/UsersAndGroups.pm:2429
 msgid "Mode"
 msgstr ""
 
@@ -269,118 +324,6 @@ msgstr ""
 msgid "Zentyal Users Mode"
 msgstr ""
 
-#: src/EBox/UsersAndGroups/Model/Groups.pm:58
-#: src/EBox/UsersAndGroups/Model/Users.pm:59
-msgid "Name"
-msgstr "Naam"
-
-#: src/EBox/UsersAndGroups/Model/Groups.pm:63
-msgid "Description"
-msgstr ""
-
-#: src/EBox/UsersAndGroups/Model/Groups.pm:68
-#: src/EBox/UsersAndGroups/Model/Users.pm:69
-msgid "Edit"
-msgstr "Wijzigen"
-
-#: src/EBox/UsersAndGroups/Model/Groups.pm:129
-#: src/EBox/UsersAndGroups/Model/Users.pm:127
-msgid ""
-"You must enable the module Users in the module status section in order to "
-"use it."
-msgstr ""
-"Module Gebruikers moet geselecteerd worden in de module-status sectie om het "
-"te kunnen gebruiken "
-
-#: src/EBox/UsersAndGroups/Model/Groups.pm:135
-#, fuzzy
-msgid "There are no groups at the moment"
-msgstr "Er zijn geen gebruikers op het moment."
-
-#: src/EBox/UsersAndGroups/Model/Groups.pm:138
-#, fuzzy, perl-brace-format
-msgid ""
-"Zentyal is configured as slave and there are no groups at the moment. You "
-"may want to add some in the {openhref}master{closehref}."
-msgstr ""
-"Er zijn geen gebruikers. Er moet er minstens één_ _zijn om deze groep te "
-"kunnen beheren"
-
-#: src/EBox/UsersAndGroups/Model/Groups.pm:142
-msgid ""
-"Zentyal is configured as Windows AD slave and there are no groups at the "
-"moment. If there are groups in your Domain Controller, maybe the "
-"synchronization process has failed or has not finished yet."
-msgstr ""
-
-#: src/EBox/UsersAndGroups/Model/PAM.pm:82
-#, perl-brace-format
-msgid ""
-"PAM can not be enabled on slave servers while acting as PDC. You can disable "
-"the PDC functionality at {ohref}File sharing options{chref}."
-msgstr ""
-
-#: src/EBox/UsersAndGroups/Model/PAM.pm:125
-msgid "Enable PAM"
-msgstr ""
-
-#: src/EBox/UsersAndGroups/Model/PAM.pm:128
-msgid "Make LDAP users have system account."
-msgstr ""
-
-#: src/EBox/UsersAndGroups/Model/PAM.pm:136
-msgid "Default login shell"
-msgstr ""
-
-#: src/EBox/UsersAndGroups/Model/PAM.pm:140
-msgid "This will apply only to new users from now on."
-msgstr ""
-
-#: src/EBox/UsersAndGroups/Model/PAM.pm:147
-msgid "PAM settings"
-msgstr ""
-
-#: src/EBox/UsersAndGroups/Model/Password.pm:49
-msgid "Password management"
-msgstr ""
-
-#: src/EBox/UsersAndGroups/Model/Password.pm:59
-#, fuzzy
-msgid "New password"
-msgstr "wachtwoord"
-
-#: src/EBox/UsersAndGroups/Model/Password.pm:66
-#, fuzzy
-msgid "Re-type new password"
-msgstr "Wachtwoord herhalen"
-
-#: src/EBox/UsersAndGroups/Model/Password.pm:75
-#: src/EBox/UsersAndGroups/Model/LdapInfo.pm:78 src/EBox/UsersAndGroups.pm:870
-#: src/EBox/UsersAndGroups.pm:2441 src/templates/users.mas:49
-#: src/templates/user.mas:52 src/templates/usercorner/login/index.mas:34
-msgid "Password"
-msgstr "Wachtwoord"
-
-#: src/EBox/UsersAndGroups/Model/Password.pm:117
-msgid "Password successfully updated"
-msgstr ""
-
-#: src/EBox/UsersAndGroups/Model/ForceSync.pm:90
-msgid "Force sync"
-msgstr ""
-
-#: src/EBox/UsersAndGroups/Model/ForceSync.pm:92
-msgid "on slaves"
-msgstr ""
-
-#: src/EBox/UsersAndGroups/Model/ForceSync.pm:98
-msgid "Force sync of pending operations"
-msgstr ""
-
-#: src/EBox/UsersAndGroups/Model/ForceSync.pm:101
-msgid "Sync now"
-msgstr ""
-
 #: src/EBox/UsersAndGroups/Model/LdapInfo.pm:66
 msgid "Base DN"
 msgstr ""
@@ -411,31 +354,6 @@ msgstr ""
 "Module Gebruikers moet geselecteerd worden in de module-status sectie om het "
 "te kunnen gebruiken "
 
-#: src/EBox/UsersAndGroups/Model/Users.pm:64
-msgid "Full name"
-msgstr "Volledige naam"
-
-#: src/EBox/UsersAndGroups/Model/Users.pm:133
-#, fuzzy
-msgid "There are no users at the moment"
-msgstr "Er zijn geen gebruikers op het moment."
-
-#: src/EBox/UsersAndGroups/Model/Users.pm:136
-#, fuzzy, perl-brace-format
-msgid ""
-"Zentyal is configured as slave and there are no users at the moment. You may "
-"want to add some in the {openhref}master{closehref}."
-msgstr ""
-"Er zijn geen gebruikers. Er moet er minstens één_ _zijn om deze groep te "
-"kunnen beheren"
-
-#: src/EBox/UsersAndGroups/Model/Users.pm:140
-msgid ""
-"Zentyal is configured as Windows AD slave and there are no users at the "
-"moment. If there are users in your Domain Controller, maybe the "
-"synchronization process has failed or has not finished yet."
-msgstr ""
-
 #: src/EBox/UsersAndGroups/Model/Slaves.pm:60
 #: src/EBox/UserCornerWebServer/Model/Settings.pm:55
 msgid "Port"
@@ -460,7 +378,7 @@ msgid "There are no slaves at the moment."
 msgstr "Er zijn geen gebruikers op het moment."
 
 #: src/EBox/UsersAndGroups/Composite/SlaveInfo.pm:73
-#: src/EBox/UsersAndGroups.pm:2417
+#: src/EBox/UsersAndGroups.pm:2419
 msgid "Slave Status"
 msgstr ""
 
@@ -474,15 +392,19 @@ msgid "There isn't any configurable option."
 msgstr ""
 
 #: src/EBox/UsersAndGroups/Composite/UserTemplate.pm:86
-#: src/EBox/UsersAndGroups.pm:2398 src/EBox/UsersAndGroups.pm:2407
+#: src/EBox/UsersAndGroups.pm:2400 src/EBox/UsersAndGroups.pm:2409
 #, fuzzy
 msgid "User Template"
 msgstr "Gebruikersnaam"
 
 #: src/EBox/UsersAndGroups/Composite/Settings.pm:70
-#: src/EBox/UsersAndGroups.pm:2412
+#: src/EBox/UsersAndGroups.pm:2414
 msgid "LDAP Settings"
 msgstr ""
+
+#: src/EBox/LdapUserImplementation.pm:42
+msgid "This group contains users"
+msgstr "Deze groep bevat gebruikers"
 
 #: src/EBox/UsersAndGroups.pm:82 src/templates/Wizard/users.mas:4
 #, fuzzy
@@ -562,20 +484,29 @@ msgid ""
 "access LDAP."
 msgstr ""
 
-#: src/EBox/UsersAndGroups.pm:841
+#: src/EBox/UsersAndGroups.pm:843
 #, perl-brace-format
 msgid "Username must not be longer than {maxuserlength} characters"
 msgstr "Gebruikersnaam mag niet langer zijn dan {maxuserlength} tekens"
 
-#: src/EBox/UsersAndGroups.pm:846
+#: src/EBox/UsersAndGroups.pm:848
 msgid "Username already exists on the system"
 msgstr ""
 
-#: src/EBox/UsersAndGroups.pm:946 src/EBox/UsersAndGroups.pm:1562
+#: src/EBox/UsersAndGroups.pm:853 src/EBox/UsersAndGroups.pm:859
+#: src/EBox/UsersAndGroups.pm:1101 src/EBox/UsersAndGroups.pm:1151
+#: src/EBox/UsersAndGroups.pm:1203 src/EBox/UsersAndGroups.pm:1664
+#: src/EBox/UsersAndGroups.pm:1742 src/EBox/UsersAndGroups.pm:1843
+#: src/EBox/UsersAndGroups.pm:1877 src/EBox/UsersAndGroups.pm:1948
+#: src/EBox/CGI/AddUser.pm:45 src/EBox/CGI/ModifyUser.pm:42
+msgid "user name"
+msgstr "gebruikersnaam"
+
+#: src/EBox/UsersAndGroups.pm:948 src/EBox/UsersAndGroups.pm:1564
 msgid "Maximum number of system users reached"
 msgstr "Maximum aantal gebruikers voor systeem bereikt"
 
-#: src/EBox/UsersAndGroups.pm:963
+#: src/EBox/UsersAndGroups.pm:965
 #, perl-brace-format
 msgid ""
 "Incorrect UID {uid} for a user . UID must be equal or greater than {min}"
@@ -583,23 +514,31 @@ msgstr ""
 "Incorrecte UID {uid} voor een gebruiker . UID moet gelijk zijn aan of groter "
 "dan {min}"
 
-#: src/EBox/UsersAndGroups.pm:974
+#: src/EBox/UsersAndGroups.pm:976
 #, perl-brace-format
 msgid "Incorrect UID {uid} for a system user . UID must be lesser than {max}"
 msgstr ""
 "Incorrecte UID {uid} voor een systeemgebruiker . UID moet lager zijn dan "
 "{max}"
 
-#: src/EBox/UsersAndGroups.pm:1486
+#: src/EBox/UsersAndGroups.pm:1488
 #, perl-brace-format
 msgid "Groupname must not be longer than {maxGroupLength} characters"
 msgstr "Groepnaam mag niet langer zijn dan {maxGroupLength} tekens"
 
-#: src/EBox/UsersAndGroups.pm:1492
+#: src/EBox/UsersAndGroups.pm:1494
 msgid "The group name is not valid because it is used internally"
 msgstr "De naam van de groep is niet geldig omdat hij intern gereserveerd is"
 
-#: src/EBox/UsersAndGroups.pm:1579
+#: src/EBox/UsersAndGroups.pm:1500 src/EBox/UsersAndGroups.pm:1505
+#: src/EBox/UsersAndGroups.pm:1698 src/EBox/UsersAndGroups.pm:1848
+#: src/EBox/UsersAndGroups.pm:1882 src/EBox/UsersAndGroups.pm:1999
+#: src/EBox/UsersAndGroups.pm:2102 src/EBox/CGI/AddGroup.pm:45
+#: src/EBox/CGI/ModifyGroup.pm:40
+msgid "group name"
+msgstr "groepnaam"
+
+#: src/EBox/UsersAndGroups.pm:1581
 #, perl-brace-format
 msgid ""
 "Incorrect GID {gid} for a group . GID must be equal or greater than {min}"
@@ -607,27 +546,27 @@ msgstr ""
 "Incorrecte GID {gid} voor een groep . GID moet gelijk zijn aan of groter dan "
 "{min}"
 
-#: src/EBox/UsersAndGroups.pm:1589
+#: src/EBox/UsersAndGroups.pm:1591
 #, perl-brace-format
 msgid "Incorrect GID {gid} for a system group . GID must be lesser than {max}"
 msgstr ""
 "Incorrecte GID {gid} voor een systeemgroep . GID moet minder zijn dan {max}"
 
-#: src/EBox/UsersAndGroups.pm:2176
+#: src/EBox/UsersAndGroups.pm:2178
 #, perl-brace-format
 msgid "Password must not be longer than {maxPwdLength} characters"
 msgstr "Wachtwoord mag niet langer zijn dan {maxPwdLength} tekens"
 
-#: src/EBox/UsersAndGroups.pm:2421
+#: src/EBox/UsersAndGroups.pm:2423
 msgid "AD Sync Settings"
 msgstr ""
 
-#: src/EBox/UsersAndGroups.pm:2697
+#: src/EBox/UsersAndGroups.pm:2711
 #, perl-brace-format
 msgid "A host with the name {host} is already registered in this Zentyal"
 msgstr ""
 
-#: src/EBox/UsersAndGroups.pm:2821
+#: src/EBox/UsersAndGroups.pm:2835
 msgid "Replication failed"
 msgstr ""
 
@@ -659,6 +598,27 @@ msgstr ""
 msgid "You are not logged in"
 msgstr ""
 
+#: src/EBox/UserCornerWebServer.pm:39
+#: src/EBox/UserCornerWebServer/Model/Settings.pm:45
+#, fuzzy
+msgid "User Corner"
+msgstr "Gebruikers Hoek"
+
+#: src/EBox/UserCornerWebServer.pm:65
+msgid "Migrate configured modules"
+msgstr "Migreer ingestelde modules"
+
+# gebruikershoek
+#: src/EBox/UserCornerWebServer.pm:66
+#, fuzzy
+msgid "Required for usercorner access to configured modules"
+msgstr "Vereist voor gebruikershoek toegang tot ingestelde modules"
+
+#: src/EBox/UserCornerWebServer.pm:179
+#, fuzzy
+msgid "User Corner web server"
+msgstr "Gebruikers Hoek web server"
+
 #: src/EBox/UserCornerWebServer/Model/Settings.pm:63
 msgid "General configuration"
 msgstr ""
@@ -671,34 +631,46 @@ msgstr ""
 msgid "User Corner is not supported on slave servers."
 msgstr ""
 
-#: src/templates/ajax/tableUser.mas:88
-msgid "Add new"
-msgstr "Nieuwe gebruiker toevoegen"
+#: src/EBox/CGI/AddUser.pm:46 src/EBox/CGI/ModifyUser.pm:47
+msgid "last name"
+msgstr "familie naam"
 
-#: src/templates/del.mas:15
-msgid ""
-"The user you tried to delete contains data in the following modules. Please "
-"confirm you want to remove it and all its related data"
-msgstr ""
-"De gebruiker die je probeert te verwijderen bevat gegevens in de volgende "
-"modules. Bevestig dat u de gebruiker en al zijn data wenst te verwijderen "
-"AUB. "
+#: src/EBox/CGI/AddUser.pm:47 src/EBox/CGI/ModifyGroup.pm:47
+#: src/EBox/CGI/ModifyUser.pm:48
+msgid "comment"
+msgstr "commentaar"
 
-#: src/templates/del.mas:20
-msgid ""
-"The group you tried to delete contains data in the following modules. Please "
-"confirm you want to remove it and all its related data"
-msgstr ""
-"De groep die je probeert te verwijderen bevat gegevens in de volgende "
-"modules. Bevestig dat u de groep en al zijn data wenst te verwijderen. "
+#: src/EBox/CGI/User.pm:46
+msgid "username"
+msgstr "gebruikersnaam"
 
-#: src/templates/del.mas:43
-msgid "Delete"
-msgstr "Verwijderen"
+#: src/EBox/CGI/ModifyUser.pm:49
+msgid "password"
+msgstr "wachtwoord"
 
-#: src/templates/del.mas:46
-msgid "Cancel"
-msgstr "Annuleren"
+#: src/EBox/CGI/ModifyUser.pm:50
+msgid "confirm password"
+msgstr "wachtwoord bevestigen"
+
+#: src/EBox/CGI/Group.pm:30
+msgid "Edit group"
+msgstr "Groep wijzigen"
+
+#: src/EBox/CGI/Del.pm:65
+msgid "object name"
+msgstr "object naam"
+
+#: src/EBox/CGI/Del.pm:70
+msgid "object type"
+msgstr "object type"
+
+#: src/EBox/CGI/Del.pm:90
+msgid "User removed successfully"
+msgstr "Gebruiker succesvol verwijderd"
+
+#: src/EBox/CGI/Del.pm:94
+msgid "Group removed successfully"
+msgstr "Groep succesvol verwijderd"
 
 #: src/templates/Wizard/users.mas:7
 msgid "Select the type of the server"
@@ -725,113 +697,29 @@ msgid ""
 "can find {open}all the information in our wiki{close}"
 msgstr ""
 
-#: src/templates/groups.mas:10
-msgid "Add Group"
-msgstr "Groep toevoegen"
-
-#: src/templates/groups.mas:16
-msgid "Group name"
-msgstr "Naam groep"
-
-#: src/templates/groups.mas:26 src/templates/users.mas:41
-#: src/templates/group.mas:20 src/templates/user.mas:41
-msgid "Comment"
-msgstr "Commentaar"
-
-#: src/templates/groups.mas:31
-msgid "Optional value"
-msgstr "Optionele waarde"
-
-#: src/templates/groups.mas:38 src/templates/groups.mas:39
-#: src/templates/users.mas:73 src/templates/users.mas:74
-msgid "Add and Edit"
-msgstr ""
-
-#: src/templates/groups.mas:41 src/templates/groups.mas:42
-#: src/templates/users.mas:69 src/templates/users.mas:70
-#, fuzzy
-msgid "Add"
-msgstr "Nieuwe gebruiker toevoegen"
-
-#: src/templates/users.mas:12
-msgid "Add User"
-msgstr "Gebruiker toevoegen"
-
-#: src/templates/users.mas:17 src/templates/usercorner/login/index.mas:29
-msgid "User name"
-msgstr "Gebruikersnaam"
-
-#: src/templates/users.mas:25 src/templates/user.mas:21
+#: src/templates/user.mas:21 src/templates/users.mas:25
 #, fuzzy
 msgid "First name"
 msgstr "Naam gebruiker"
 
-#: src/templates/users.mas:33 src/templates/user.mas:31
+#: src/templates/user.mas:31 src/templates/users.mas:33
 #, fuzzy
 msgid "Last name"
 msgstr "Naam gebruiker"
 
-#: src/templates/users.mas:56 src/templates/user.mas:62
+#: src/templates/user.mas:41 src/templates/users.mas:41
+#: src/templates/group.mas:20 src/templates/groups.mas:26
+msgid "Comment"
+msgstr "Commentaar"
+
+#: src/templates/user.mas:62 src/templates/users.mas:56
 msgid "Retype password"
 msgstr "Wachtwoord herhalen"
 
-#: src/templates/users.mas:88
-msgid "Group"
-msgstr "Groep"
-
-#: src/templates/group.mas:14
-#, fuzzy
-msgid ""
-"There are no users at the moment. You need at least one to manage this group "
-"properly."
-msgstr ""
-"Er zijn geen gebruikers. Er moet er minstens één_ _zijn om deze groep te "
-"kunnen beheren"
-
-#: src/templates/group.mas:25 src/templates/group.mas:26
 #: src/templates/user.mas:74 src/templates/user.mas:75
+#: src/templates/group.mas:25 src/templates/group.mas:26
 msgid "Change"
 msgstr "Wijzigen"
-
-#: src/templates/group.mas:33
-msgid "Users in group"
-msgstr "Gebruikers in groep"
-
-#: src/templates/group.mas:35
-msgid "Users not in group"
-msgstr "Gebruikers niet in groep"
-
-#: src/templates/group.mas:51 src/templates/group.mas:92
-#: src/templates/user.mas:106 src/templates/user.mas:141
-msgid "Empty list"
-msgstr "Lege lijst"
-
-#: src/templates/group.mas:61 src/templates/user.mas:114
-msgid "Remove"
-msgstr "Verwijderen"
-
-#: src/templates/group.mas:64
-msgid "Remove users from group"
-msgstr "Gebruikers uit groep verwijderen"
-
-#: src/templates/group.mas:75 src/templates/group.mas:78
-#: src/templates/user.mas:125 src/templates/user.mas:128
-msgid "Add users to group"
-msgstr "Gebruikers aan groep toevoegen"
-
-#: src/templates/group.mas:108 src/templates/group.mas:117
-#: src/templates/group.mas:118
-msgid "Delete group"
-msgstr "Groep verwijderen"
-
-#: src/templates/group.mas:110
-#, fuzzy
-msgid ""
-"This operation will cause the removal of the group and all dependent data "
-"such as shared directory, etc."
-msgstr ""
-"Deze wijziging verwijdert de gebruiker en al zijn gegevens; zoals mail "
-"accounts, gebruikers gegevens..."
 
 #: src/templates/user.mas:88
 #, fuzzy
@@ -843,10 +731,24 @@ msgstr "Gebruikers in groep"
 msgid "Other groups"
 msgstr "Groep verwijderen"
 
+#: src/templates/user.mas:106 src/templates/user.mas:141
+#: src/templates/group.mas:51 src/templates/group.mas:92
+msgid "Empty list"
+msgstr "Lege lijst"
+
+#: src/templates/user.mas:114 src/templates/group.mas:61
+msgid "Remove"
+msgstr "Verwijderen"
+
 #: src/templates/user.mas:117
 #, fuzzy
 msgid "Remove groups from user"
 msgstr "Gebruikers uit groep verwijderen"
+
+#: src/templates/user.mas:125 src/templates/user.mas:128
+#: src/templates/group.mas:75 src/templates/group.mas:78
+msgid "Add users to group"
+msgstr "Gebruikers aan groep toevoegen"
 
 #: src/templates/user.mas:159 src/templates/user.mas:167
 #: src/templates/user.mas:168
@@ -862,14 +764,113 @@ msgstr ""
 "Deze wijziging verwijdert de gebruiker en al zijn gegevens; zoals mail "
 "accounts, gebruikers gegevens..."
 
-#: src/templates/usercorner/headTitle.mas:11
-msgid "Logout"
+#: src/templates/del.mas:15
+msgid ""
+"The user you tried to delete contains data in the following modules. Please "
+"confirm you want to remove it and all its related data"
 msgstr ""
+"De gebruiker die je probeert te verwijderen bevat gegevens in de volgende "
+"modules. Bevestig dat u de gebruiker en al zijn data wenst te verwijderen "
+"AUB. "
+
+#: src/templates/del.mas:20
+msgid ""
+"The group you tried to delete contains data in the following modules. Please "
+"confirm you want to remove it and all its related data"
+msgstr ""
+"De groep die je probeert te verwijderen bevat gegevens in de volgende "
+"modules. Bevestig dat u de groep en al zijn data wenst te verwijderen. "
+
+#: src/templates/del.mas:43
+msgid "Delete"
+msgstr "Verwijderen"
+
+#: src/templates/del.mas:46
+msgid "Cancel"
+msgstr "Annuleren"
 
 #: src/templates/usercorner/login/index.mas:26
 msgid "Warning: Caps Lock is enabled"
 msgstr ""
 
+#: src/templates/usercorner/login/index.mas:29 src/templates/users.mas:17
+msgid "User name"
+msgstr "Gebruikersnaam"
+
 #: src/templates/usercorner/login/index.mas:41
 msgid "Enter"
 msgstr ""
+
+#: src/templates/usercorner/headTitle.mas:11
+msgid "Logout"
+msgstr ""
+
+#: src/templates/ajax/tableUser.mas:88
+msgid "Add new"
+msgstr "Nieuwe gebruiker toevoegen"
+
+#: src/templates/users.mas:12
+msgid "Add User"
+msgstr "Gebruiker toevoegen"
+
+#: src/templates/users.mas:69 src/templates/users.mas:70
+#: src/templates/groups.mas:41 src/templates/groups.mas:42
+#, fuzzy
+msgid "Add"
+msgstr "Nieuwe gebruiker toevoegen"
+
+#: src/templates/users.mas:73 src/templates/users.mas:74
+#: src/templates/groups.mas:38 src/templates/groups.mas:39
+msgid "Add and Edit"
+msgstr ""
+
+#: src/templates/users.mas:88
+msgid "Group"
+msgstr "Groep"
+
+#: src/templates/group.mas:14
+#, fuzzy
+msgid ""
+"There are no users at the moment. You need at least one to manage this group "
+"properly."
+msgstr ""
+"Er zijn geen gebruikers. Er moet er minstens één_ _zijn om deze groep te "
+"kunnen beheren"
+
+#: src/templates/group.mas:33
+msgid "Users in group"
+msgstr "Gebruikers in groep"
+
+#: src/templates/group.mas:35
+msgid "Users not in group"
+msgstr "Gebruikers niet in groep"
+
+#: src/templates/group.mas:64
+msgid "Remove users from group"
+msgstr "Gebruikers uit groep verwijderen"
+
+#: src/templates/group.mas:108 src/templates/group.mas:117
+#: src/templates/group.mas:118
+msgid "Delete group"
+msgstr "Groep verwijderen"
+
+#: src/templates/group.mas:110
+#, fuzzy
+msgid ""
+"This operation will cause the removal of the group and all dependent data "
+"such as shared directory, etc."
+msgstr ""
+"Deze wijziging verwijdert de gebruiker en al zijn gegevens; zoals mail "
+"accounts, gebruikers gegevens..."
+
+#: src/templates/groups.mas:10
+msgid "Add Group"
+msgstr "Groep toevoegen"
+
+#: src/templates/groups.mas:16
+msgid "Group name"
+msgstr "Naam groep"
+
+#: src/templates/groups.mas:31
+msgid "Optional value"
+msgstr "Optionele waarde"

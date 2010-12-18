@@ -7,10 +7,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-asterisk 1.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-12-13 08:28+0100\n"
+"POT-Creation-Date: 2010-12-18 01:20+0100\n"
 "PO-Revision-Date: 2010-08-30 11:25+0200\n"
 "Last-Translator: Nagy Ákos <nagy.akos@akos.ro>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -168,27 +169,146 @@ msgstr "Foglalt"
 msgid "Failed"
 msgstr "Sikertelen"
 
-#: src/EBox/Asterisk/Extensions.pm:230
-msgid "User extension"
-msgstr "Felhasználó melléke"
+#: src/EBox/Model/Localnets.pm:88
+#, perl-brace-format
+msgid ""
+"Networks attached directly to internal interfaces, like {net}, are always "
+"considered local networks so it is not neccessary to add them."
+msgstr ""
+"A belső felületekhez kapcsolódó hálózatok, mint a(z) {net}, "
+"alapértelmezetten helyinek vannak minősítve, nem szükséges külön hozzáadni "
+"őket"
 
+#: src/EBox/Model/Localnets.pm:113
+msgid "Local network"
+msgstr "Helyi hálózat"
+
+#: src/EBox/Model/Localnets.pm:119 src/EBox/Model/Meetings.pm:179
+msgid "Description"
+msgstr "Leírás"
+
+#: src/EBox/Model/Localnets.pm:130
+msgid "Local networks"
+msgstr "Helyi hálózatok"
+
+#: src/EBox/Model/Localnets.pm:131
+msgid "local network"
+msgstr "helyi hálózat"
+
+#: src/EBox/Model/AsteriskUser.pm:50
+msgid "Asterisk Account"
+msgstr "Asterisk fiók"
+
+#: src/EBox/Model/AsteriskUser.pm:58
+msgid "Asterisk"
+msgstr "Asterisk"
+
+#: src/EBox/Model/Settings.pm:84 src/EBox/Model/Meetings.pm:120
+#: src/EBox/Model/Meetings.pm:128
+msgid "extension"
+msgstr "mellék"
+
+#: src/EBox/Model/Settings.pm:92 src/EBox/Model/Meetings.pm:151
 #: src/EBox/Asterisk/Extensions.pm:323 src/EBox/Asterisk/Extensions.pm:718
-#: src/EBox/Model/Meetings.pm:151 src/EBox/Model/Settings.pm:92
-#: src/templates/group.mas:41 src/templates/user.mas:38
+#: src/templates/user.mas:38 src/templates/group.mas:41
 msgid "Extension"
 msgstr "Mellék"
 
-#: src/EBox/Asterisk/Extensions.pm:642
-msgid "Queue extension"
-msgstr "Sormellék"
+#: src/EBox/Model/Settings.pm:117
+msgid "Enable demo extensions"
+msgstr "Demo mellékek engedélyezése"
 
-#: src/EBox/CGI/AsteriskGroupOptions.pm:42
-msgid "group"
-msgstr "csoport"
+#: src/EBox/Model/Settings.pm:123
+msgid "Enable outgoing calls"
+msgstr "Kimenő hívások engedélyezése"
 
-#: src/EBox/CGI/AsteriskUserOptions.pm:43
-msgid "username"
-msgstr "felhasználónév"
+#: src/EBox/Model/Settings.pm:129
+msgid "Voicemail extension"
+msgstr "Hangposta melléke"
+
+#: src/EBox/Model/Settings.pm:136
+msgid "VoIP domain"
+msgstr "VoIP tartomány"
+
+#: src/EBox/Model/Settings.pm:145
+msgid "General configuration"
+msgstr "Általános beállítások"
+
+#: src/EBox/Model/Settings.pm:149
+msgid "General Asterisk server configuration"
+msgstr "Asterisk kiszolgáló általános beállításai"
+
+#: src/EBox/Model/Settings.pm:151
+msgid "General Asterisk server configuration updated."
+msgstr "Az Asterisk kiszolgáló általános beállításai frissültek."
+
+#: src/EBox/Model/NAT.pm:96
+msgid "Zentyal is behind NAT"
+msgstr "A Zentyal NAT mögött található"
+
+#: src/EBox/Model/NAT.pm:101
+msgid "No"
+msgstr "Nem"
+
+#: src/EBox/Model/NAT.pm:120
+msgid "NAT configuration"
+msgstr "NAT beállítások"
+
+#: src/EBox/Model/NAT.pm:124
+msgid "NAT Asterisk server configuration"
+msgstr "NAT Asterisk kiszolgáló beállításai"
+
+#: src/EBox/Model/NAT.pm:126
+msgid "NAT Asterisk server configuration updated."
+msgstr "A NAT Asterisk kiszolgáló beállításai frissültek."
+
+#: src/EBox/Model/Provider.pm:68
+msgid "Custom"
+msgstr "Egyéni"
+
+#: src/EBox/Model/Provider.pm:89
+msgid "Provider"
+msgstr "Szolgáltató"
+
+#: src/EBox/Model/Provider.pm:95
+msgid "Name"
+msgstr "Név"
+
+#: src/EBox/Model/Provider.pm:100
+msgid "VoIP service provider name."
+msgstr "VoIP szolgáltató neve."
+
+#: src/EBox/Model/Provider.pm:104
+msgid "Username"
+msgstr "Felhasználónév"
+
+#: src/EBox/Model/Provider.pm:111 src/EBox/Model/Meetings.pm:171
+msgid "Password"
+msgstr "Jelszó"
+
+#: src/EBox/Model/Provider.pm:118
+msgid "Server"
+msgstr "Kiszolgáló"
+
+#: src/EBox/Model/Provider.pm:126
+msgid "Recipient of incoming calls"
+msgstr "Bejövő hívások címzettje"
+
+#: src/EBox/Model/Provider.pm:130
+msgid "Extension recipient of incoming calls through the provider."
+msgstr "A szolgáltatótól bejövő hívások kiegészítő fogadója."
+
+#: src/EBox/Model/Provider.pm:137
+msgid "SIP provider"
+msgstr "SIP szolgáltató"
+
+#: src/EBox/Model/Provider.pm:141
+msgid "SIP provider for outgoing calls configuration."
+msgstr "SIP szolgáltató a kimenő hívások beállításához."
+
+#: src/EBox/Model/Provider.pm:143
+msgid "SIP provider configuration updated."
+msgstr "A SIP szolgáltató beállításai frissültek."
 
 #: src/EBox/Model/Meetings.pm:95
 #, perl-brace-format
@@ -200,23 +320,10 @@ msgstr ""
 "használatához.{br}Ennek érdekében futtassa a következő parancsot: sudo apt-"
 "get install {kernels} dahdi."
 
-#: src/EBox/Model/Meetings.pm:120 src/EBox/Model/Meetings.pm:128
-#: src/EBox/Model/Settings.pm:84
-msgid "extension"
-msgstr "mellék"
-
 #: src/EBox/Model/Meetings.pm:155
 #, perl-brace-format
 msgid "A number between {min} and {max}."
 msgstr "{min} és {max} közötti szám."
-
-#: src/EBox/Model/Meetings.pm:171 src/EBox/Model/Provider.pm:111
-msgid "Password"
-msgstr "Jelszó"
-
-#: src/EBox/Model/Meetings.pm:179 src/EBox/Model/Localnets.pm:119
-msgid "Description"
-msgstr "Leírás"
 
 #: src/EBox/Model/Meetings.pm:190
 msgid "List of Meetings"
@@ -225,14 +332,6 @@ msgstr "Találkozók listája"
 #: src/EBox/Model/Meetings.pm:192
 msgid "meeting"
 msgstr "találkozó"
-
-#: src/EBox/Model/AsteriskUser.pm:50
-msgid "Asterisk Account"
-msgstr "Asterisk fiók"
-
-#: src/EBox/Model/AsteriskUser.pm:58
-msgid "Asterisk"
-msgstr "Asterisk"
 
 #: src/EBox/Model/Voicemail.pm:75 src/EBox/Model/Voicemail.pm:122
 msgid "Voicemail settings"
@@ -268,123 +367,59 @@ msgstr ""
 "Nincs érvényes VoIP fiókja. Elképzelhető, hogy nincs bekapcsolva a VoIP a "
 "kiszolgálón."
 
-#: src/EBox/Model/Localnets.pm:88
-#, perl-brace-format
-msgid ""
-"Networks attached directly to internal interfaces, like {net}, are always "
-"considered local networks so it is not neccessary to add them."
-msgstr ""
-"A belső felületekhez kapcsolódó hálózatok, mint a(z) {net}, "
-"alapértelmezetten helyinek vannak minősítve, nem szükséges külön hozzáadni "
-"őket"
-
-#: src/EBox/Model/Localnets.pm:113
-msgid "Local network"
-msgstr "Helyi hálózat"
-
-#: src/EBox/Model/Localnets.pm:130
-msgid "Local networks"
-msgstr "Helyi hálózatok"
-
-#: src/EBox/Model/Localnets.pm:131
-msgid "local network"
-msgstr "helyi hálózat"
-
-#: src/EBox/Model/Settings.pm:117
-msgid "Enable demo extensions"
-msgstr "Demo mellékek engedélyezése"
-
-#: src/EBox/Model/Settings.pm:123
-msgid "Enable outgoing calls"
-msgstr "Kimenő hívások engedélyezése"
-
-#: src/EBox/Model/Settings.pm:129
-msgid "Voicemail extension"
-msgstr "Hangposta melléke"
-
-#: src/EBox/Model/Settings.pm:136
-msgid "VoIP domain"
-msgstr "VoIP tartomány"
-
-#: src/EBox/Model/Settings.pm:145
-msgid "General configuration"
-msgstr "Általános beállítások"
-
-#: src/EBox/Model/Settings.pm:149
-msgid "General Asterisk server configuration"
-msgstr "Asterisk kiszolgáló általános beállításai"
-
-#: src/EBox/Model/Settings.pm:151
-msgid "General Asterisk server configuration updated."
-msgstr "Az Asterisk kiszolgáló általános beállításai frissültek."
-
-#: src/EBox/Model/Provider.pm:68
-msgid "Custom"
-msgstr "Egyéni"
-
-#: src/EBox/Model/Provider.pm:89
-msgid "Provider"
-msgstr "Szolgáltató"
-
-#: src/EBox/Model/Provider.pm:95
-msgid "Name"
-msgstr "Név"
-
-#: src/EBox/Model/Provider.pm:100
-msgid "VoIP service provider name."
-msgstr "VoIP szolgáltató neve."
-
-#: src/EBox/Model/Provider.pm:104
-msgid "Username"
-msgstr "Felhasználónév"
-
-#: src/EBox/Model/Provider.pm:118
-msgid "Server"
-msgstr "Kiszolgáló"
-
-#: src/EBox/Model/Provider.pm:126
-msgid "Recipient of incoming calls"
-msgstr "Bejövő hívások címzettje"
-
-#: src/EBox/Model/Provider.pm:130
-msgid "Extension recipient of incoming calls through the provider."
-msgstr "A szolgáltatótól bejövő hívások kiegészítő fogadója."
-
-#: src/EBox/Model/Provider.pm:137
-msgid "SIP provider"
-msgstr "SIP szolgáltató"
-
-#: src/EBox/Model/Provider.pm:141
-msgid "SIP provider for outgoing calls configuration."
-msgstr "SIP szolgáltató a kimenő hívások beállításához."
-
-#: src/EBox/Model/Provider.pm:143
-msgid "SIP provider configuration updated."
-msgstr "A SIP szolgáltató beállításai frissültek."
-
-#: src/EBox/Model/NAT.pm:96
-msgid "Zentyal is behind NAT"
-msgstr "A Zentyal NAT mögött található"
-
-#: src/EBox/Model/NAT.pm:101
-msgid "No"
-msgstr "Nem"
-
-#: src/EBox/Model/NAT.pm:120
-msgid "NAT configuration"
-msgstr "NAT beállítások"
-
-#: src/EBox/Model/NAT.pm:124
-msgid "NAT Asterisk server configuration"
-msgstr "NAT Asterisk kiszolgáló beállításai"
-
-#: src/EBox/Model/NAT.pm:126
-msgid "NAT Asterisk server configuration updated."
-msgstr "A NAT Asterisk kiszolgáló beállításai frissültek."
-
 #: src/EBox/Composite/General.pm:66
 msgid "Asterisk module"
 msgstr "Asterisk modul"
+
+#: src/EBox/Asterisk/Extensions.pm:230
+msgid "User extension"
+msgstr "Felhasználó melléke"
+
+#: src/EBox/Asterisk/Extensions.pm:642
+msgid "Queue extension"
+msgstr "Sormellék"
+
+#: src/EBox/CGI/AsteriskGroupOptions.pm:42
+msgid "group"
+msgstr "csoport"
+
+#: src/EBox/CGI/AsteriskUserOptions.pm:43
+msgid "username"
+msgstr "felhasználónév"
+
+#: src/templates/user.mas:8
+msgid "Asterisk account"
+msgstr "Asterisk fiók"
+
+#: src/templates/user.mas:10
+msgid "Password for Asterisk service is the user password"
+msgstr "Az Asterisk szolgáltatás jelszava a felhasználói jelszó"
+
+#: src/templates/user.mas:21
+msgid "User account"
+msgstr "Felhasználói fiók"
+
+#: src/templates/user.mas:26 src/templates/user.mas:29
+#: src/templates/group.mas:29 src/templates/group.mas:32
+msgid "Disabled"
+msgstr "Kikapcsolva"
+
+#: src/templates/user.mas:27 src/templates/user.mas:30
+#: src/templates/group.mas:30 src/templates/group.mas:33
+msgid "Enabled"
+msgstr "Bekapcsolva"
+
+#: src/templates/user.mas:49 src/templates/user.mas:50
+#: src/templates/group.mas:52 src/templates/group.mas:53
+msgid "Change"
+msgstr "Módosítás"
+
+#: src/templates/moduleDisabled.mas:5
+msgid ""
+"The following settings only will take effect when the Asterisk module is "
+"enabled."
+msgstr ""
+"A következő beállítások csak az Asterisk modul bekapcsolásakor lépnek életbe."
 
 #: src/templates/group.mas:8
 msgid "Asterisk group queue"
@@ -401,37 +436,3 @@ msgstr ""
 #: src/templates/group.mas:24
 msgid "Group queue"
 msgstr "Csoportsor"
-
-#: src/templates/group.mas:29 src/templates/group.mas:32
-#: src/templates/user.mas:26 src/templates/user.mas:29
-msgid "Disabled"
-msgstr "Kikapcsolva"
-
-#: src/templates/group.mas:30 src/templates/group.mas:33
-#: src/templates/user.mas:27 src/templates/user.mas:30
-msgid "Enabled"
-msgstr "Bekapcsolva"
-
-#: src/templates/group.mas:52 src/templates/group.mas:53
-#: src/templates/user.mas:49 src/templates/user.mas:50
-msgid "Change"
-msgstr "Módosítás"
-
-#: src/templates/moduleDisabled.mas:5
-msgid ""
-"The following settings only will take effect when the Asterisk module is "
-"enabled."
-msgstr ""
-"A következő beállítások csak az Asterisk modul bekapcsolásakor lépnek életbe."
-
-#: src/templates/user.mas:8
-msgid "Asterisk account"
-msgstr "Asterisk fiók"
-
-#: src/templates/user.mas:10
-msgid "Password for Asterisk service is the user password"
-msgstr "Az Asterisk szolgáltatás jelszava a felhasználói jelszó"
-
-#: src/templates/user.mas:21
-msgid "User account"
-msgstr "Felhasználói fiók"

@@ -7,744 +7,141 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox 0.12\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-12-13 09:37+0100\n"
+"POT-Creation-Date: 2010-12-18 01:43+0100\n"
 "PO-Revision-Date: 2010-08-26 21:16+0200\n"
 "Last-Translator: Bo Dalbjerg <bo@dalbjerg.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: src/EBox/ProgressIndicator.pm:42
-msgid "Total ticks"
-msgstr "Totalt antal ticks"
+#: src/EBox/Apache.pm:289 src/EBox/Apache.pm:298
+msgid "port"
+msgstr "port"
 
-#: src/EBox/ProgressIndicator.pm:44
-msgid "It must be a non-zero positive number"
-msgstr "Det skal være et positivt tal støre end nul"
-
-#: src/EBox/ProgressIndicator.pm:49
-msgid "To solve it you can try to execute the following commands:"
-msgstr "For at løse det kan du prøve følgende kommando:"
-
-#: src/EBox/ProgressIndicator.pm:56
-#, fuzzy, perl-brace-format
-msgid "Cannot execute {exe}"
-msgstr "Kan ikke udføre {exe}"
-
-#: src/EBox/ProgressIndicator.pm:106
-#, perl-brace-format
-msgid "Progress indicator with id {id} not found"
-msgstr "Fremskridts indikator med id {id} kunne ikke findes"
-
-#: src/EBox/ProgressIndicator.pm:144
-msgid "Number of ticks to notify"
-msgstr "Antal ticks før der skal gives besked"
-
-#: src/EBox/ProgressIndicator.pm:146
-msgid "must be greater than zero"
-msgstr "skal være større end nul"
-
-#: src/EBox/ProgressIndicator.pm:152
-msgid "Executable has not been run"
-msgstr "Programmet er ikke udført"
-
-#: src/EBox/ProgressIndicator.pm:293
-msgid "The executable has not run"
-msgstr "Programmet er ikke udført"
-
-#: src/EBox/ProgressIndicator.pm:437
-msgid "The executable has already been started"
-msgstr "Programmet kører allerede"
-
-#: src/EBox/ProgressIndicator.pm:441
-msgid "The executable has already finished"
-msgstr "Programmet er kørt færdig"
-
-#: src/EBox/Events/Model/Watcher/Log.pm:214
-#: src/EBox/Events/Model/Watcher/Log.pm:238
-msgid ""
-"Warning! The log watcher is not enabled. Enable to be notified when logs "
-"happen. "
-msgstr ""
-
-#: src/EBox/Events/Model/Watcher/Log.pm:262
-#: src/EBox/Logs/Model/SelectLog.pm:149
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:332
-msgid "Domain"
-msgstr "Domæne"
-
-#: src/EBox/Events/Model/Watcher/Log.pm:267
-msgid "Filtering"
-msgstr ""
-
-#: src/EBox/Events/Model/Watcher/Log.pm:275
+#: src/EBox/Apache.pm:626
 #, fuzzy
-msgid "Configure log watchers"
-msgstr "Konfigurer sendere"
-
-#: src/EBox/Events/Model/Watcher/Log.pm:277
-msgid "Log watcher"
-msgstr ""
-
-#: src/EBox/Events/Model/Watcher/Log.pm:385
-#: src/EBox/Events/Model/Watcher/LogFiltering.pm:211
-#: src/EBox/Events/Model/Watcher/DiskFreeSpace.pm:136
-#: src/EBox/Events/Model/GeneralComposite.pm:72
-#: src/EBox/Events/Model/GeneralComposite.pm:73
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:272
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:324 src/EBox/Events.pm:94
-#: src/EBox/Events.pm:838
-msgid "Events"
-msgstr "Handlinger"
-
-#: src/EBox/Events/Model/Watcher/Log.pm:389
-#: src/EBox/Events/Model/Watcher/LogFiltering.pm:215
-msgid "Log Observer Watcher"
-msgstr ""
-
-#: src/EBox/Events/Model/Watcher/LogFiltering.pm:108
-#, perl-brace-format
-msgid "Log domain {logDomain}"
-msgstr ""
-
-#: src/EBox/Events/Model/Watcher/LogFiltering.pm:149
-#: src/EBox/Types/PortRange.pm:289 src/EBox/Types/Service.pm:212
-#: src/templates/logs/index.mas:185
-msgid "Any"
-msgstr "Alle"
-
-#: src/EBox/Events/Model/Watcher/LogFiltering.pm:168
-#: src/templates/logs/index.mas:183
-msgid "Event"
-msgstr "Handling"
-
-#: src/EBox/Events/Model/Watcher/LogFiltering.pm:176
-#, perl-brace-format
-msgid "Filters to apply to notify logs from {logDomain}"
-msgstr ""
-
-#: src/EBox/Events/Model/Watcher/LogFiltering.pm:184
-msgid ""
-"Every filter added is cumulative.Then every log line which matches with any "
-"filter given will be notified"
-msgstr ""
-
-#: src/EBox/Events/Model/Watcher/LogFiltering.pm:188
-#, fuzzy
-msgid "filter"
-msgstr "fejl"
-
-#: src/EBox/Events/Model/Watcher/DiskFreeSpace.pm:100
-msgid "Minimum free disk space per filesystem"
-msgstr ""
-
-#: src/EBox/Events/Model/Watcher/DiskFreeSpace.pm:105
-msgid ""
-"When the free space percentage of any disk partition is under this value the "
-"event is triggered."
-msgstr ""
-
-#: src/EBox/Events/Model/Watcher/DiskFreeSpace.pm:112
-#, fuzzy
-msgid "Configure disk free space watcher"
-msgstr "Konfigurer sendere"
-
-#: src/EBox/Events/Model/Watcher/DiskFreeSpace.pm:140
-#, fuzzy
-msgid "Free Disk Space Watcher"
-msgstr "Konfigurer sendere"
-
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:269
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:304
-msgid "Name"
-msgstr "Navn"
-
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:277
-#: src/templates/backup.mas:55 src/templates/backup.mas:129
-#: src/templates/confirm-backup.mas:36
-msgid "Description"
-msgstr "Beskrivelse"
-
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:286
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:326
-msgid "Configuration"
-msgstr "Konfiguration"
-
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:302
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:346
-msgid "None"
-msgstr "Ingen"
-
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:311
-#, fuzzy
-msgid "Configure Events"
-msgstr "Sæt handlinger op"
-
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:319
-#: src/EBox/Events/Model/Report/EventsDetails.pm:109
-msgid "event"
-msgstr "handling"
-
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:320
-msgid "Enable/Disable each event watcher monitoring"
-msgstr "Enable/disable hver overvågning af handlinger"
-
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:498
-msgid ""
-"Warning! There is no log domain watcher enabled. Please, go to "
-"'Configuration' to enable at least one to be notified when a log in this "
-"domain happens. "
-msgstr ""
-
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:290
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:340
-#: src/EBox/Model/DataTable.pm:4560
-msgid "Enabled"
-msgstr "Slået til"
-
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:314
-msgid "Receiver"
-msgstr "Modtager"
-
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:355
-#, fuzzy
-msgid "Configure Dispatchers"
-msgstr "Konfigurer sendere"
-
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:364
-msgid "dispatcher"
-msgstr "sender"
-
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:365
-msgid "Enable/Disable each event dispatcher"
-msgstr "Enable/disable hver handlings sender"
-
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:554
-msgid ""
-"In order to enable a configurable event dispatcher, you need to configure it "
-"first"
-msgstr ""
-"For at kunne slå en konfigurerbar handlings sender til, skal den først "
-"konfigureres"
-
-#: src/EBox/Events/Model/GeneralComposite.pm:76
-#, fuzzy
-msgid ""
-"Events module configures Zentyal to help informing you about events that "
-"happen"
-msgstr ""
-"Handlingsmoduler kan hjælpe dig til at få eBox til at informere dig om "
-"handlinger i eBox på forskellige måder"
-
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:192
-msgid "Jabber server name"
-msgstr "Jabber server navn"
-
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:195
-#, fuzzy
-msgid "Jabber server to send the messages"
-msgstr "Jabber server navn"
-
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:199
-msgid "Port"
-msgstr "Port"
-
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:206
-msgid "Jabber user name"
-msgstr "Jabber bruger navn"
-
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:209
-msgid ""
-"Jabber ID of the account that will send the messages. Hint: do not introduce "
-"@domain, only the user name"
-msgstr ""
-
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:215
-msgid "User password"
-msgstr "Bruger password"
-
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:223
-msgid "Subscribe"
-msgstr "Tilmeld"
-
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:225
-msgid ""
-"Tick this option if you want Zentyal to create an account for the above user"
-msgstr ""
-
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:232
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:299
-msgid "Administrator Jabber Identifier"
-msgstr "Administrator Jabber id"
-
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:235
-msgid ""
-"Destination Jabber ID of the messages generated by Zentyal,  i.e: you, the "
-"Zentyal admin. Note that you need to register this  account manually in any "
-"jabber server"
-msgstr ""
-
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:244
-msgid "Configure Jabber dispatcher"
-msgstr "Konfigurer Jabber sender"
-
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:249
-msgid "This dispatcher will send events to an Jabber account"
-msgstr ""
-
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:252
-msgid "Jabber dispatcher configuration updated"
-msgstr "Jabber senderens konfiguration er ændret"
-
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:276
-#, fuzzy
-msgid "Jabber Dispatcher"
-msgstr "Konfigurer Jabber sender"
-
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:301
-msgid "It should follow the pattern 'user@domain[/resource]'"
-msgstr "Det skal se sådan ud: 'bruger@domæne[/resource]'"
-
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:149
-msgid "Nobody"
-msgstr "Ingen"
-
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:153
-#, fuzzy
-msgid "IP address"
-msgstr "Frivillig ip adresse"
-
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:160
-msgid "Object"
-msgstr ""
-
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:169
-msgid "Public"
-msgstr ""
-
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:176
-msgid "Channel link"
-msgstr ""
-
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:183
-msgid "Allowed readers"
-msgstr ""
-
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:186
-msgid "Use this field to set the access control for the channel"
-msgstr ""
-
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:191
-msgid "Syndicate this RSS"
-msgstr ""
-
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:201
-#, fuzzy
-msgid "Configure RSS dispatcher"
-msgstr "Konfigurer sendere"
-
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:206
-msgid ""
-"The channel link is the link which is used to syndicate the content to your "
-"favourite RSS. "
-msgstr ""
-
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:209
-#, fuzzy
-msgid "RSS dispatcher configuration updated"
-msgstr "Jabber senderens konfiguration er ændret"
-
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:328
-#, fuzzy
-msgid "RSS Dispatcher"
-msgstr "sender"
-
-#: src/EBox/Events/Model/Report/EventsDetails.pm:50
-#: src/EBox/Events/Model/Report/EventsDetails.pm:74 src/EBox/Events.pm:823
-#, fuzzy
-msgid "Source"
-msgstr "Service"
-
-#: src/EBox/Events/Model/Report/EventsDetails.pm:51
-#: src/EBox/Events/Model/Report/EventsDetails.pm:80
-#: src/EBox/Events/Model/Report/EventsGraph.pm:51 src/EBox/Events.pm:830
-#, fuzzy
-msgid "Informative"
-msgstr "RAID information"
-
-#: src/EBox/Events/Model/Report/EventsDetails.pm:52
-#: src/EBox/Events/Model/Report/EventsDetails.pm:84
-#: src/EBox/Events/Model/Report/EventsGraph.pm:52 src/EBox/Events.pm:831
-#: src/templates/finish.mas:83
-#, fuzzy
-msgid "Warning"
-msgstr "Arrayet syncer"
-
-#: src/EBox/Events/Model/Report/EventsDetails.pm:53
-#: src/EBox/Events/Model/Report/EventsDetails.pm:88
-#: src/EBox/Events/Model/Report/EventsGraph.pm:53 src/EBox/Events.pm:832
-msgid "Error"
-msgstr "Fejl"
-
-#: src/EBox/Events/Model/Report/EventsDetails.pm:54
-#: src/EBox/Events/Model/Report/EventsDetails.pm:92
-#: src/EBox/Events/Model/Report/EventsGraph.pm:54 src/EBox/Events.pm:833
-msgid "Fatal error"
-msgstr ""
-
-#: src/EBox/Events/Model/Report/EventsDetails.pm:68 src/EBox/Logs.pm:737
-#: src/templates/finish.mas:116 src/templates/backup.mas:130
-#: src/templates/confirm-backup.mas:28
-msgid "Date"
-msgstr "Dato"
-
-#: src/EBox/Events/Model/Report/EventsDetails.pm:101
-#, fuzzy
-msgid "Events details"
-msgstr "Handlinger"
-
-#: src/EBox/Events/Model/Report/EventsGraph.pm:60
-#, fuzzy
-msgid "Events summarized chart"
+msgid "Zentyal Administration Web Server"
 msgstr "Handlings status"
 
-#: src/EBox/Events/Model/Report/EventsGraph.pm:77
-msgid "Events summarized graph"
+#: src/EBox/Event/Dispatcher/Jabber.pm:165
+msgid "Admin Jabber account"
+msgstr "Administrator jabber konto"
+
+#: src/EBox/Event/Dispatcher/Jabber.pm:178
+msgid "Jabber"
+msgstr "Jabber"
+
+#: src/EBox/Event/Dispatcher/Jabber.pm:228
+#, perl-brace-format
+msgid "Jabber server {serverName} is down or connection is not allowed"
 msgstr ""
+"Jabber serveren {serverName} er nede eller forbindelsen bliver ikke tilladt"
 
-#: src/EBox/Events/Composite/Report/EventsReport.pm:69
+#: src/EBox/Event/Dispatcher/Jabber.pm:258
+#, perl-brace-format
+msgid "Subscription failed: {message}"
+msgstr "Tilmeldingen fejlede: {message}"
+
+#: src/EBox/Event/Dispatcher/Jabber.pm:265
+#, perl-brace-format
+msgid "Authorization failed: {result} - {message}"
+msgstr "Login fejlede: {result} - {message}"
+
+#: src/EBox/Event/Dispatcher/RSS.pm:218
+#, perl-brace-format
+msgid "RSS file: {path}"
+msgstr "RSS fil: {path}"
+
+#: src/EBox/Event/Dispatcher/RSS.pm:232
+msgid "RSS"
+msgstr "RSS"
+
+#: src/EBox/Event/Dispatcher/RSS.pm:289
+#, fuzzy, perl-brace-format
+msgid "Zentyal alerts channel for {hostname}"
+msgstr "eBox alarm kanal for {hostname}"
+
+#: src/EBox/Event/Dispatcher/RSS.pm:292
 #, fuzzy
-msgid "Events reports"
-msgstr "Fejl report"
+msgid "This channel tracks what happens on this Zentyal machine along the time"
+msgstr "Denne kanal følger hvad der sker på denne eBox maskine med tiden"
 
-#: src/EBox/Events/Composite/Report/EventsReport.pm:70
+#: src/EBox/Event/Dispatcher/RSS.pm:312
+#, fuzzy, perl-brace-format
+msgid "The event has happened in Zentyal {hostname} from {source}"
+msgstr "Eventen er sket i eBox {hostname} fra {source}"
+
+#: src/EBox/Event/Dispatcher/RSS.pm:316
+#, perl-brace-format
+msgid "Go to your {url} to check its status."
+msgstr "Gå til {url} for at checke status"
+
+#: src/EBox/Event/Dispatcher/Log.pm:135
+msgid "Log file"
+msgstr "Logfil"
+
+#: src/EBox/Event/Dispatcher/Log.pm:148
+msgid "Log"
+msgstr "Log"
+
+#: src/EBox/Event/Dispatcher/Abstract.pm:140
+#, perl-brace-format
+msgid "Dispatcher {name} is not configured to be enabled"
+msgstr "Senderen {name} er ikke sat til."
+
+#: src/EBox/Event/Watcher/DiskFreeSpace.pm:133
+#, perl-brace-format
+msgid "The file system {fs}, mounted on {mp}, has no space left"
+msgstr "Filsystemet {fs}, der er mounted på {mp}, er fyldt op"
+
+#: src/EBox/Event/Watcher/DiskFreeSpace.pm:167
+msgid "Free storage space"
+msgstr "Ledig diskplads"
+
+#: src/EBox/Event/Watcher/DiskFreeSpace.pm:184
 #, fuzzy
-msgid "Events report"
-msgstr "Fejl report"
+msgid "Check if any disk partition has no storage space left"
+msgstr "Check om noget filsystem har ledig plads"
 
-#: src/EBox/Auth.pm:133
-msgid "Password changed"
-msgstr "Passwordet er ændret"
+#: src/EBox/Event/Watcher/Runit.pm:112
+#, perl-brace-format
+msgid "The following modules are not running but they are enabled: {modules}\n"
+msgstr "De følgende moduler er aktiverede men kører ikke: {modules}\n"
 
-#: src/EBox/CGI/ClientRawBase.pm:212 src/EBox/CGI/WizardPage.pm:155
+#: src/EBox/Event/Watcher/Runit.pm:141
+msgid "Service"
+msgstr "Service"
+
+#: src/EBox/Event/Watcher/Runit.pm:158
+msgid "Check if any Zentyal service is not running when it is enabled"
+msgstr "Check om nogen Zentyal tjenester ikke kører, selv om de er aktiverede"
+
+#: src/EBox/Event/Watcher/Runit.pm:228
+#, perl-brace-format
 msgid ""
-"An internal error related to a template has occurred. This is a bug, "
-"relevant information can be found in the logs."
+"The service {service} has been restarted {restart} times in {time} seconds "
+"and it has been stopped"
 msgstr ""
-"En intern fejl i forbindelse med en skabelon er opstået. Dette er en fejl, "
-"relevant information kan findes i loggen."
+"Servicen {service} er blevet genstartet {restart} gange på {time} sekunder "
+"og er blevet stoppet"
 
-#: src/EBox/CGI/Wizard.pm:29
-#, fuzzy
-msgid "Initial configuration wizard"
-msgstr "Intern konfigurations guide"
+#: src/EBox/Event/Watcher/Log.pm:202
+msgid "Log observer"
+msgstr "Log overvågning"
 
-#: src/EBox/CGI/Logs/Index.pm:35 src/EBox/Logs.pm:58 src/EBox/Logs.pm:383
-msgid "Logs"
-msgstr "Logs"
-
-#: src/EBox/CGI/Logs/Index.pm:326 src/EBox/Logs.pm:721
-#, fuzzy
-msgid "Query Logs"
-msgstr "Database logfiler"
-
-#: src/EBox/CGI/Logs/Index.pm:329
-#, fuzzy
-msgid "Full Reports"
-msgstr "Fejl report"
-
-#: src/EBox/CGI/Dashboard/Index.pm:32 src/EBox/SysInfo.pm.in:253
-msgid "Dashboard"
-msgstr "Instrumentbræt"
-
-#: src/EBox/CGI/Dashboard/ConfigureWidgets.pm:30
-#: src/templates/dashboard/index.mas:81
-#, fuzzy
-msgid "Configure Widgets"
-msgstr "Sæt handlinger op"
-
-#: src/EBox/CGI/Progress.pm:81 src/EBox/CGI/Progress.pm:107
-#: src/EBox/CGI/Finish.pm:77
-#, fuzzy
-msgid "Saving changes"
-msgstr "Gem ændringer"
-
-#: src/EBox/CGI/Login/Index.pm:63
-#, fuzzy
-msgid ""
-"There is a script which has asked to run in Zentyal exclusively. Please, "
-"wait patiently until it is done"
-msgstr "En web-service er i gang. Vent venligst på at den bliver færdig"
-
-#: src/EBox/CGI/Login/Index.pm:67
-msgid "Incorrect password"
-msgstr "Forkert password"
-
-#: src/EBox/CGI/Login/Index.pm:70
-msgid "For security reasons your session has expired due to inactivity"
-msgstr "Af sikkerhedsårsager er dit login udløbet på grund af inaktivitet"
-
-#: src/EBox/CGI/Login/Index.pm:73
-msgid "You have been logged out because a new session has been opened"
-msgstr "Du er blevet logget ud fordi en anden login er åbnet"
-
-#: src/EBox/CGI/ServiceModule/StatusView.pm:39
-#, fuzzy
-msgid "Module Status Configuration"
-msgstr "Status for modul konfiguration"
-
-#: src/EBox/CGI/Logout/Index.pm:29 src/EBox/Html.pm:40
-msgid "Logout"
-msgstr "Logud"
-
-#: src/EBox/CGI/EBox/General.pm:32
-#, fuzzy
-msgid "General Configuration"
-msgstr "Generelle indstillinger"
-
-#: src/EBox/CGI/EBox/Halt.pm:30
-#, fuzzy
-msgid "Halt or Reboot"
-msgstr "Stop eller reboot"
-
-#: src/EBox/CGI/EBox/Halt.pm:43
-#, fuzzy
-msgid "Zentyal is going down for halt"
-msgstr "Zentyal lukker ned til stop"
-
-#: src/EBox/CGI/EBox/Halt.pm:46
-#, fuzzy
-msgid "Zentyal is going down for reboot"
-msgstr "Zentyal lukker ned til genstart"
-
-#: src/EBox/CGI/EBox/Password.pm:43 src/templates/password.mas:11
-#: src/templates/login/index.mas:49
-#, fuzzy
-msgid "Username"
-msgstr "Bruger navn"
-
-#: src/EBox/CGI/EBox/Password.pm:48 src/templates/login/index.mas:54
-msgid "Password"
-msgstr "Password"
-
-#: src/EBox/CGI/EBox/Password.pm:57
-msgid "Incorrect password."
-msgstr "Forkert password"
-
-#: src/EBox/CGI/EBox/Password.pm:62
-msgid "New passwords do not match."
-msgstr "De nye password er ikke ens"
-
-#: src/EBox/CGI/EBox/Password.pm:67
-msgid "The password must be at least 6 characters long"
-msgstr "Passwordet skal være mindst 6 tegn langt"
-
-#: src/EBox/CGI/EBox/Password.pm:71
-msgid "The password was changed successfully."
-msgstr "Passwordet blev ændret"
-
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:33 src/templates/backup.mas:30
-msgid "Configuration Backup"
-msgstr "Konfigurations backup"
-
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:105
-msgid "Please confirm that you want to delete the following backup file:"
-msgstr "Bekræft venligst at du vil slette følgende backup fil:"
-
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:107 src/templates/backup.mas:168
-#: src/templates/backup.mas:169
-msgid "Delete"
-msgstr "Slet"
-
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:114
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:130
-msgid "Please confirm that you want to restore using this backup file:"
-msgstr "Bekræft at du vil læse denne backup ind:"
-
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:116
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:132 src/templates/backup.mas:98
-msgid "Restore"
-msgstr "Genetabler"
-
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:147 src/EBox/CGI/EBox/Backup.pm:193
-#: src/EBox/CGI/EBox/Backup.pm:271 src/EBox/CGI/EBox/Backup.pm:284
-#: src/EBox/Backup.pm:1481
-msgid "The input contains invalid characters"
-msgstr "Inputtet indeholder ugyldige tegn"
-
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:176
-msgid "Configuration backup"
-msgstr "Backup af konfiguration"
-
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:179
-msgid "Full data and configuration backup"
-msgstr "Fuld backup af data og konfiguration"
-
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:182
-msgid "Bug-report configuration dump"
-msgstr "Lav en bug-report konfigurations dump"
-
-#: src/EBox/CGI/EBox/RestartService.pm:49
-msgid "module name"
-msgstr "modul navn"
-
-#: src/EBox/CGI/EBox/RestartService.pm:54
-msgid "The module was restarted correctly."
-msgstr "Modulet blev genstartet korrekt"
-
-#: src/EBox/CGI/EBox/RestartService.pm:58
+#: src/EBox/Event/Watcher/Log.pm:240
 #, perl-brace-format
-msgid "Error restarting service. See {logs} for more information."
-msgstr ""
+msgid "Notify when a logger ({loggers}) has logged something"
+msgstr "Giv besked hvis en log ({loggers}) har logget noget"
 
-#: src/EBox/CGI/EBox/Hostname.pm:48
-#, fuzzy
-msgid "hostname"
-msgstr "Hostnavn"
-
-#: src/EBox/CGI/EBox/CurrentProgress.pm:36
-msgid "Upgrading"
-msgstr "opgradere"
-
-#: src/EBox/CGI/EBox/Backup.pm:34 src/EBox/SysInfo.pm.in:280
-#, fuzzy
-msgid "Import/Export Configuration"
-msgstr "Nuværende konfiguration"
-
-#: src/EBox/CGI/EBox/Backup.pm:163
-#, perl-brace-format
-msgid "Unknown backup mode: {mode}"
-msgstr "Ukendt backup måde: {mode}"
-
-#: src/EBox/CGI/EBox/Backup.pm:226
-#, perl-brace-format
-msgid "Unknown restore mode: {mode}"
-msgstr "Ukendt restore måde: {mode}"
-
-#: src/EBox/CGI/EBox/Backup.pm:239
-msgid "Backing up"
-msgstr "Backup kører"
-
-#: src/EBox/CGI/EBox/Backup.pm:240
-msgid "Backing up modules"
-msgstr "Backup af moduler"
-
-#: src/EBox/CGI/EBox/Backup.pm:241
-msgid "Operation"
-msgstr "Operation"
-
-#: src/EBox/CGI/EBox/Backup.pm:242
-msgid "operations left to finish backup"
-msgstr "Operationer der mangler før backup er færdig"
-
-#: src/EBox/CGI/EBox/Backup.pm:243
-msgid "Backup successful"
-msgstr "Backup lykkedes"
-
-#: src/EBox/CGI/EBox/Backup.pm:255
-msgid "Restoring backup"
-msgstr "Restore af backup"
-
-#: src/EBox/CGI/EBox/Backup.pm:256
-msgid "Restoring modules"
-msgstr "Restore af moduler"
-
-#: src/EBox/CGI/EBox/Backup.pm:257 src/EBox/Logs.pm:739
-#: src/templates/moduleStatusTable.mas:58 src/templates/finish.mas:117
-msgid "Module"
-msgstr "Modul"
-
-#: src/EBox/CGI/EBox/Backup.pm:258
-#, fuzzy
-msgid "modules restored"
-msgstr "moduler der mangler at bliver restored"
-
-#: src/EBox/CGI/EBox/Backup.pm:259
-msgid "Restore successful"
-msgstr "Restore lykkedes"
-
-#: src/EBox/CGI/EBox/ConfigurationReport.pm:29
-#, fuzzy
-msgid "Configuration report"
-msgstr "Konfigurations rapport"
-
-#: src/EBox/CGI/Report/RAID.pm:30 src/EBox/Event/Watcher/RAID.pm:181
-#: src/EBox/SysInfo.pm.in:275
+#: src/EBox/Event/Watcher/RAID.pm:181 src/EBox/SysInfo.pm.in:275
+#: src/EBox/CGI/Report/RAID.pm:30
 msgid "RAID"
 msgstr "RAID"
-
-#: src/EBox/CGI/Report/DiskUsage.pm:31 src/EBox/SysInfo.pm.in:271
-msgid "Disk Usage"
-msgstr "Disk forbrug"
-
-#: src/EBox/CGI/Finish.pm:32
-msgid "Save configuration"
-msgstr "Gem konfiguration"
-
-#: src/EBox/CGI/Finish.pm:78
-#, fuzzy
-msgid "Saving changes in modules"
-msgstr "Backup af modul ændringer"
-
-#: src/EBox/CGI/Finish.pm:79 src/templates/report/raid.mas:213
-msgid "Current operation"
-msgstr "Nuværende operation"
-
-#: src/EBox/CGI/Finish.pm:80
-#, fuzzy
-msgid "operations performed"
-msgstr "gennemførte operationer"
-
-#: src/EBox/CGI/Finish.pm:81
-#, fuzzy
-msgid "Changes saved"
-msgstr "Ændringer gemt"
-
-#: src/EBox/CGI/Finish.pm:82
-#, perl-brace-format
-msgid ""
-"Some modules reported error when saving changes . More information on the "
-"logs in {dir}"
-msgstr ""
-"Nogle moduler meldte om fejl da der blev gemt ændringer. Mere information i "
-"log filerne i {dir}"
-
-#: src/EBox/CGI/Finish.pm:101
-#, fuzzy
-msgid "Revoking changes"
-msgstr "Fortryd ændringer"
-
-#: src/EBox/CGI/Finish.pm:102
-#, fuzzy
-msgid "Revoking changes in modules"
-msgstr "Fortryd ændringer i moduler"
-
-#: src/EBox/CGI/Finish.pm:103
-#, fuzzy
-msgid "Current module"
-msgstr "Nuværende modul"
-
-#: src/EBox/CGI/Finish.pm:104
-#, fuzzy
-msgid "modules revoked"
-msgstr "moduler der fortrydes"
-
-#: src/EBox/CGI/Finish.pm:105
-#, fuzzy
-msgid "Changes revoked"
-msgstr "Fortrudte ændringer"
-
-#: src/EBox/CGI/Finish.pm:106
-#, perl-brace-format
-msgid ""
-"Some modules reported error when discarding changes . More information on "
-"the logs in {dir}"
-msgstr ""
-"Nogle moduler rapporterede fejl, da de skiftede ændringer. Flere oplysninger "
-"i loggen i {dir}"
 
 #: src/EBox/Event/Watcher/RAID.pm:198
 msgid "Check if any event has happened in RAID subsystem"
@@ -961,28 +358,6 @@ msgstr "defekt/fejl"
 msgid "spare"
 msgstr "reserve"
 
-#: src/EBox/Event/Watcher/Runit.pm:112
-#, perl-brace-format
-msgid "The following modules are not running but they are enabled: {modules}\n"
-msgstr "De følgende moduler er aktiverede men kører ikke: {modules}\n"
-
-#: src/EBox/Event/Watcher/Runit.pm:141
-msgid "Service"
-msgstr "Service"
-
-#: src/EBox/Event/Watcher/Runit.pm:158
-msgid "Check if any Zentyal service is not running when it is enabled"
-msgstr "Check om nogen Zentyal tjenester ikke kører, selv om de er aktiverede"
-
-#: src/EBox/Event/Watcher/Runit.pm:228
-#, perl-brace-format
-msgid ""
-"The service {service} has been restarted {restart} times in {time} seconds "
-"and it has been stopped"
-msgstr ""
-"Servicen {service} er blevet genstartet {restart} gange på {time} sekunder "
-"og er blevet stoppet"
-
 #: src/EBox/Event/Watcher/State.pm:125
 #, fuzzy
 msgid "Zentyal is up and running"
@@ -1002,111 +377,131 @@ msgstr "Status"
 msgid "Check if Zentyal is currently up or down"
 msgstr "Check om Zentyal kører nu"
 
-#: src/EBox/Event/Watcher/Log.pm:202
-msgid "Log observer"
-msgstr "Log overvågning"
-
-#: src/EBox/Event/Watcher/Log.pm:240
+#: src/EBox/Model/DataTable.pm:327
 #, perl-brace-format
-msgid "Notify when a logger ({loggers}) has logged something"
-msgstr "Giv besked hvis en log ({loggers}) har logget noget"
+msgid "{model} in {module} module"
+msgstr "{model} i {module} modul"
 
-#: src/EBox/Event/Watcher/DiskFreeSpace.pm:133
-#, perl-brace-format
-msgid "The file system {fs}, mounted on {mp}, has no space left"
-msgstr "Filsystemet {fs}, der er mounted på {mp}, er fyldt op"
-
-#: src/EBox/Event/Watcher/DiskFreeSpace.pm:167
-msgid "Free storage space"
-msgstr "Ledig diskplads"
-
-#: src/EBox/Event/Watcher/DiskFreeSpace.pm:184
+#: src/EBox/Model/DataTable.pm:331
 #, fuzzy
-msgid "Check if any disk partition has no storage space left"
-msgstr "Check om noget filsystem har ledig plads"
+msgid "at"
+msgstr "i"
 
-#: src/EBox/Event/Dispatcher/Jabber.pm:165
-msgid "Admin Jabber account"
-msgstr "Administrator jabber konto"
+#: src/EBox/Model/DataTable.pm:542
+msgid "field"
+msgstr "felt"
 
-#: src/EBox/Event/Dispatcher/Jabber.pm:178
-msgid "Jabber"
-msgstr "Jabber"
-
-#: src/EBox/Event/Dispatcher/Jabber.pm:228
-#, perl-brace-format
-msgid "Jabber server {serverName} is down or connection is not allowed"
-msgstr ""
-"Jabber serveren {serverName} er nede eller forbindelsen bliver ikke tilladt"
-
-#: src/EBox/Event/Dispatcher/Jabber.pm:258
-#, perl-brace-format
-msgid "Subscription failed: {message}"
-msgstr "Tilmeldingen fejlede: {message}"
-
-#: src/EBox/Event/Dispatcher/Jabber.pm:265
-#, perl-brace-format
-msgid "Authorization failed: {result} - {message}"
-msgstr "Login fejlede: {result} - {message}"
-
-#: src/EBox/Event/Dispatcher/Abstract.pm:140
-#, perl-brace-format
-msgid "Dispatcher {name} is not configured to be enabled"
-msgstr "Senderen {name} er ikke sat til."
-
-#: src/EBox/Event/Dispatcher/Log.pm:135
-msgid "Log file"
-msgstr "Logfil"
-
-#: src/EBox/Event/Dispatcher/Log.pm:148
-msgid "Log"
-msgstr "Log"
-
-#: src/EBox/Event/Dispatcher/RSS.pm:218
-#, perl-brace-format
-msgid "RSS file: {path}"
-msgstr "RSS fil: {path}"
-
-#: src/EBox/Event/Dispatcher/RSS.pm:232
-msgid "RSS"
-msgstr "RSS"
-
-#: src/EBox/Event/Dispatcher/RSS.pm:289
-#, fuzzy, perl-brace-format
-msgid "Zentyal alerts channel for {hostname}"
-msgstr "eBox alarm kanal for {hostname}"
-
-#: src/EBox/Event/Dispatcher/RSS.pm:292
+#: src/EBox/Model/DataTable.pm:1468
 #, fuzzy
-msgid "This channel tracks what happens on this Zentyal machine along the time"
-msgstr "Denne kanal følger hvad der sker på denne eBox maskine med tiden"
+msgid "page"
+msgstr "side/område"
 
-#: src/EBox/Event/Dispatcher/RSS.pm:312
+#: src/EBox/Model/DataTable.pm:1471
+#, fuzzy
+msgid "Page must be a number equal or greater than zero"
+msgstr "skal være større end nul"
+
+#: src/EBox/Model/DataTable.pm:2129 src/EBox/Model/DataMultiTable.pm:168
+#: src/EBox/Model/Composite.pm:671 src/EBox/Model/Composite.pm:686
+#: src/EBox/Logs.pm:740
+msgid "Action"
+msgstr "Handling"
+
+#: src/EBox/Model/DataTable.pm:2831
+#, perl-brace-format
+msgid "Remove {num} rows of {rowName} from {model}{br}"
+msgstr "Fjern {num} rækker{rowName} fra {model}{br}"
+
+#: src/EBox/Model/DataTable.pm:2902
+msgid "Page size"
+msgstr "Side/område størrelse"
+
+#: src/EBox/Model/DataTable.pm:2905
+#, fuzzy
+msgid "Must be either a positive number or zero"
+msgstr "Det skal være enten et positivt tal eller nul"
+
+#: src/EBox/Model/DataTable.pm:3212
+#, perl-brace-format
+msgid "{row} added"
+msgstr "{row} tilføjet"
+
+#: src/EBox/Model/DataTable.pm:3213
+#, perl-brace-format
+msgid "{row} deleted"
+msgstr "{row} slettet"
+
+#: src/EBox/Model/DataTable.pm:3214
+#, perl-brace-format
+msgid "{row} updated"
+msgstr "{row} ændret"
+
+#: src/EBox/Model/DataTable.pm:3215
+#, perl-brace-format
+msgid "{row} moved up"
+msgstr "{row} flyttet op"
+
+#: src/EBox/Model/DataTable.pm:3216
+#, perl-brace-format
+msgid "{row} moved down"
+msgstr "{row} flyttet ned"
+
+#: src/EBox/Model/DataTable.pm:4402 src/templates/dataInUse.mas:25
+#: src/templates/dataInUse.mas:34 src/templates/password.mas:67
+#: src/templates/hostname.mas:19 src/templates/port.mas:14
+msgid "Change"
+msgstr "Foretag ændring"
+
+#: src/EBox/Model/DataTable.pm:4560
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:290
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:340
+msgid "Enabled"
+msgstr "Slået til"
+
+#: src/EBox/Model/ProviderBase.pm:246
 #, fuzzy, perl-brace-format
-msgid "The event has happened in Zentyal {hostname} from {source}"
-msgstr "Eventen er sket i eBox {hostname} fra {source}"
+msgid "Provided object with index {i} does not exist"
+msgstr "Objektet med index {i} eksisterer ikke"
 
-#: src/EBox/Event/Dispatcher/RSS.pm:316
+#: src/EBox/Model/Composite.pm:371
 #, perl-brace-format
-msgid "Go to your {url} to check its status."
-msgstr "Gå til {url} for at checke status"
+msgid "It should be one of following values: {values}"
+msgstr "Det bør være en af følgende værdier: {values}"
 
-#: src/EBox/PgDBEngine.pm:60 src/EBox/PgDBEngine.pm:74
-#: src/EBox/PgDBEngine.pm:88
+#: src/EBox/Model/Composite.pm:673
 #, perl-brace-format
-msgid "You must set the {variable} variable in the ebox configuration file"
-msgstr "Du skal sætte variablen {variable} i Zentyal's konfigurationsfil"
+msgid "Actions to be taken allowed are: {view} and {cView}"
+msgstr "De tilladte handlinger er: {view} og {cView}"
 
-#: src/EBox/PgDBEngine.pm:471
-msgid ""
-"You are using sliced backup mode and this backup was made in no-sliced mode"
-msgstr ""
+#: src/EBox/Model/Composite.pm:801
+msgid "Choose one of the following:"
+msgstr "Vælg en af følgende: "
 
-#: src/EBox/PgDBEngine.pm:479
+#: src/EBox/Model/ModelManager.pm:468
+#, fuzzy
 msgid ""
-"Database dump file not found. Maybe the backup you are trying to restore was "
-"made in sliced mode?"
+"The data you are removing is being used by\n"
+"                    the following sections:"
 msgstr ""
+"De data som du sletter bliver brugt af\n"
+"følgende moduler:"
+
+#: src/EBox/Model/ModelManager.pm:515
+msgid ""
+"The data you are modifying is being used by\n"
+"\t\t\tthe following sections:"
+msgstr ""
+"De data som du ændrer er i brug af\n"
+"\t\tfølgende moduler:"
+
+#: src/EBox/Model/DataForm.pm:554
+#, perl-brace-format
+msgid "Remove data from {model}{br}"
+msgstr "Slet data fra {model}{br}"
+
+#: src/EBox/Model/DataForm.pm:688 src/templates/progress.mas:26
+msgid "Done"
+msgstr "Færdig"
 
 #: src/EBox/Types/Int.pm:154
 msgid "Enter an integer number"
@@ -1122,6 +517,26 @@ msgstr "Skal ikke være større end {m}"
 msgid "The value shouldn't be less than {m}"
 msgstr "Skal ikke være mindre end {m}"
 
+#: src/EBox/Types/DomainName.pm:117
+msgid "IP addresses are not allowed"
+msgstr "IP adresse ikke tilladt"
+
+#: src/EBox/Types/Float.pm:112
+#, fuzzy
+msgid "Enter a float number"
+msgstr "Skriv et komma tal"
+
+#: src/EBox/Types/Select.pm:340
+#, fuzzy, perl-brace-format
+msgid "Choose a value within the value set: {set}"
+msgstr "Vælg en værdi indenfor værdierne: {set}"
+
+#: src/EBox/Types/Service.pm:212 src/EBox/Types/PortRange.pm:289
+#: src/EBox/Events/Model/Watcher/LogFiltering.pm:149
+#: src/templates/logs/index.mas:185
+msgid "Any"
+msgstr "Alle"
+
 #: src/EBox/Types/Password.pm:133
 #, perl-brace-format
 msgid "The password should have at least {minLength} characters"
@@ -1131,10 +546,6 @@ msgstr "Passwordet skal have mindst {minLength} tegn"
 #, perl-brace-format
 msgid "The password should have at most {maxLength} characters"
 msgstr "Passwordet skal højest have  {maxLength} tegn"
-
-#: src/EBox/Types/DomainName.pm:117
-msgid "IP addresses are not allowed"
-msgstr "IP adresse ikke tilladt"
 
 #: src/EBox/Types/PortRange.pm:138
 msgid "any"
@@ -1154,33 +565,514 @@ msgstr "Port område"
 msgid "\"From\" {from} must be greater than \"To\" {to}"
 msgstr "\"Fra\" {from} skal være større end \"Til\" {to}"
 
-#: src/EBox/Types/Float.pm:112
+#: src/EBox/Html.pm:39 src/templates/wizard.mas:124
+msgid "Save changes"
+msgstr "Gem ændringer"
+
+#: src/EBox/Html.pm:40 src/EBox/CGI/Logout/Index.pm:29
+msgid "Logout"
+msgstr "Logud"
+
+#: src/EBox/SysInfo.pm.in:50
 #, fuzzy
-msgid "Enter a float number"
-msgstr "Skriv et komma tal"
+msgid "System Information"
+msgstr "system information"
 
-#: src/EBox/Types/Select.pm:340
-#, fuzzy, perl-brace-format
-msgid "Choose a value within the value set: {set}"
-msgstr "Vælg en værdi indenfor værdierne: {set}"
+#: src/EBox/SysInfo.pm.in:95
+msgid "available"
+msgstr "mulige"
 
-#: src/EBox/Logs/SlicedBackup.pm:104
-#, perl-brace-format
+#: src/EBox/SysInfo.pm.in:103
+msgid "Time"
+msgstr "Tid"
+
+#: src/EBox/SysInfo.pm.in:104
+#, fuzzy
+msgid "Hostname"
+msgstr "Hostnavn"
+
+#: src/EBox/SysInfo.pm.in:105
+#, fuzzy
+msgid "Core version"
+msgstr "eBox version"
+
+#: src/EBox/SysInfo.pm.in:107
+msgid "System load"
+msgstr "Serverens belastning"
+
+#: src/EBox/SysInfo.pm.in:108
+#, fuzzy
+msgid "Uptime"
+msgstr "Oppe tid"
+
+#: src/EBox/SysInfo.pm.in:109
+msgid "Users"
+msgstr "Brugere"
+
+#: src/EBox/SysInfo.pm.in:162 src/EBox/SysInfo.pm.in:258
+#, fuzzy
+msgid "Module Status"
+msgstr "Modul"
+
+#: src/EBox/SysInfo.pm.in:168
+#, fuzzy
+msgid "General Information"
+msgstr "Generel information"
+
+#: src/EBox/SysInfo.pm.in:174
+#, fuzzy
+msgid "Process List"
+msgstr "Proces liste"
+
+#: src/EBox/SysInfo.pm.in:181
+#, fuzzy
+msgid "Resources & Services"
+msgstr "Resurser & Servicer"
+
+#: src/EBox/SysInfo.pm.in:253 src/EBox/CGI/Dashboard/Index.pm:32
+msgid "Dashboard"
+msgstr "Instrumentbræt"
+
+#: src/EBox/SysInfo.pm.in:264
+msgid "System"
+msgstr "System"
+
+#: src/EBox/SysInfo.pm.in:268
+msgid "General"
+msgstr "Generelt"
+
+#: src/EBox/SysInfo.pm.in:271 src/EBox/CGI/Report/DiskUsage.pm:31
+msgid "Disk Usage"
+msgstr "Disk forbrug"
+
+#: src/EBox/SysInfo.pm.in:280 src/EBox/CGI/EBox/Backup.pm:34
+#, fuzzy
+msgid "Import/Export Configuration"
+msgstr "Nuværende konfiguration"
+
+#: src/EBox/SysInfo.pm.in:283
+#, fuzzy
+msgid "Configuration Report"
+msgstr "Konfiguration restore"
+
+#: src/EBox/SysInfo.pm.in:286
+msgid "Halt/Reboot"
+msgstr "Stop/reboot"
+
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:304
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:269
+msgid "Name"
+msgstr "Navn"
+
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:314
+msgid "Receiver"
+msgstr "Modtager"
+
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:326
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:286
+msgid "Configuration"
+msgstr "Konfiguration"
+
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:346
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:302
+msgid "None"
+msgstr "Ingen"
+
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:355
+#, fuzzy
+msgid "Configure Dispatchers"
+msgstr "Konfigurer sendere"
+
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:364
+msgid "dispatcher"
+msgstr "sender"
+
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:365
+msgid "Enable/Disable each event dispatcher"
+msgstr "Enable/disable hver handlings sender"
+
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:554
 msgid ""
-"There are {n} log slices not stored; wait or force its storage and retry"
+"In order to enable a configurable event dispatcher, you need to configure it "
+"first"
+msgstr ""
+"For at kunne slå en konfigurerbar handlings sender til, skal den først "
+"konfigureres"
+
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:192
+msgid "Jabber server name"
+msgstr "Jabber server navn"
+
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:195
+#, fuzzy
+msgid "Jabber server to send the messages"
+msgstr "Jabber server navn"
+
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:199
+msgid "Port"
+msgstr "Port"
+
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:206
+msgid "Jabber user name"
+msgstr "Jabber bruger navn"
+
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:209
+msgid ""
+"Jabber ID of the account that will send the messages. Hint: do not introduce "
+"@domain, only the user name"
 msgstr ""
 
-#: src/EBox/Logs/SlicedBackup.pm:133 src/EBox/Logs/SlicedBackup.pm:141
-msgid "Backup slice time interval"
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:215
+msgid "User password"
+msgstr "Bruger password"
+
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:223
+msgid "Subscribe"
+msgstr "Tilmeld"
+
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:225
+msgid ""
+"Tick this option if you want Zentyal to create an account for the above user"
 msgstr ""
 
-#: src/EBox/Logs/SlicedBackup.pm:438
-msgid "Slices to be archived at once"
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:232
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:299
+msgid "Administrator Jabber Identifier"
+msgstr "Administrator Jabber id"
+
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:235
+msgid ""
+"Destination Jabber ID of the messages generated by Zentyal,  i.e: you, the "
+"Zentyal admin. Note that you need to register this  account manually in any "
+"jabber server"
 msgstr ""
 
-#: src/EBox/Logs/SlicedBackup.pm:445
-msgid "Slices timeline"
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:244
+msgid "Configure Jabber dispatcher"
+msgstr "Konfigurer Jabber sender"
+
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:249
+msgid "This dispatcher will send events to an Jabber account"
 msgstr ""
+
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:252
+msgid "Jabber dispatcher configuration updated"
+msgstr "Jabber senderens konfiguration er ændret"
+
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:272
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:324
+#: src/EBox/Events/Model/GeneralComposite.pm:72
+#: src/EBox/Events/Model/GeneralComposite.pm:73
+#: src/EBox/Events/Model/Watcher/LogFiltering.pm:211
+#: src/EBox/Events/Model/Watcher/DiskFreeSpace.pm:136
+#: src/EBox/Events/Model/Watcher/Log.pm:385 src/EBox/Events.pm:94
+#: src/EBox/Events.pm:838
+msgid "Events"
+msgstr "Handlinger"
+
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:276
+#, fuzzy
+msgid "Jabber Dispatcher"
+msgstr "Konfigurer Jabber sender"
+
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:301
+msgid "It should follow the pattern 'user@domain[/resource]'"
+msgstr "Det skal se sådan ud: 'bruger@domæne[/resource]'"
+
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:149
+msgid "Nobody"
+msgstr "Ingen"
+
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:153
+#, fuzzy
+msgid "IP address"
+msgstr "Frivillig ip adresse"
+
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:160
+msgid "Object"
+msgstr ""
+
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:169
+msgid "Public"
+msgstr ""
+
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:176
+msgid "Channel link"
+msgstr ""
+
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:183
+msgid "Allowed readers"
+msgstr ""
+
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:186
+msgid "Use this field to set the access control for the channel"
+msgstr ""
+
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:191
+msgid "Syndicate this RSS"
+msgstr ""
+
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:201
+#, fuzzy
+msgid "Configure RSS dispatcher"
+msgstr "Konfigurer sendere"
+
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:206
+msgid ""
+"The channel link is the link which is used to syndicate the content to your "
+"favourite RSS. "
+msgstr ""
+
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:209
+#, fuzzy
+msgid "RSS dispatcher configuration updated"
+msgstr "Jabber senderens konfiguration er ændret"
+
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:328
+#, fuzzy
+msgid "RSS Dispatcher"
+msgstr "sender"
+
+#: src/EBox/Events/Model/GeneralComposite.pm:76
+#, fuzzy
+msgid ""
+"Events module configures Zentyal to help informing you about events that "
+"happen"
+msgstr ""
+"Handlingsmoduler kan hjælpe dig til at få eBox til at informere dig om "
+"handlinger i eBox på forskellige måder"
+
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:277
+#: src/templates/backup.mas:55 src/templates/backup.mas:129
+#: src/templates/confirm-backup.mas:36
+msgid "Description"
+msgstr "Beskrivelse"
+
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:311
+#, fuzzy
+msgid "Configure Events"
+msgstr "Sæt handlinger op"
+
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:319
+#: src/EBox/Events/Model/Report/EventsDetails.pm:109
+msgid "event"
+msgstr "handling"
+
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:320
+msgid "Enable/Disable each event watcher monitoring"
+msgstr "Enable/disable hver overvågning af handlinger"
+
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:498
+msgid ""
+"Warning! There is no log domain watcher enabled. Please, go to "
+"'Configuration' to enable at least one to be notified when a log in this "
+"domain happens. "
+msgstr ""
+
+#: src/EBox/Events/Model/Watcher/LogFiltering.pm:108
+#, perl-brace-format
+msgid "Log domain {logDomain}"
+msgstr ""
+
+#: src/EBox/Events/Model/Watcher/LogFiltering.pm:168
+#: src/templates/logs/index.mas:183
+msgid "Event"
+msgstr "Handling"
+
+#: src/EBox/Events/Model/Watcher/LogFiltering.pm:176
+#, perl-brace-format
+msgid "Filters to apply to notify logs from {logDomain}"
+msgstr ""
+
+#: src/EBox/Events/Model/Watcher/LogFiltering.pm:184
+msgid ""
+"Every filter added is cumulative.Then every log line which matches with any "
+"filter given will be notified"
+msgstr ""
+
+#: src/EBox/Events/Model/Watcher/LogFiltering.pm:188
+#, fuzzy
+msgid "filter"
+msgstr "fejl"
+
+#: src/EBox/Events/Model/Watcher/LogFiltering.pm:215
+#: src/EBox/Events/Model/Watcher/Log.pm:389
+msgid "Log Observer Watcher"
+msgstr ""
+
+#: src/EBox/Events/Model/Watcher/DiskFreeSpace.pm:100
+msgid "Minimum free disk space per filesystem"
+msgstr ""
+
+#: src/EBox/Events/Model/Watcher/DiskFreeSpace.pm:105
+msgid ""
+"When the free space percentage of any disk partition is under this value the "
+"event is triggered."
+msgstr ""
+
+#: src/EBox/Events/Model/Watcher/DiskFreeSpace.pm:112
+#, fuzzy
+msgid "Configure disk free space watcher"
+msgstr "Konfigurer sendere"
+
+#: src/EBox/Events/Model/Watcher/DiskFreeSpace.pm:140
+#, fuzzy
+msgid "Free Disk Space Watcher"
+msgstr "Konfigurer sendere"
+
+#: src/EBox/Events/Model/Watcher/Log.pm:214
+#: src/EBox/Events/Model/Watcher/Log.pm:238
+msgid ""
+"Warning! The log watcher is not enabled. Enable to be notified when logs "
+"happen. "
+msgstr ""
+
+#: src/EBox/Events/Model/Watcher/Log.pm:262
+#: src/EBox/Logs/Model/SelectLog.pm:149
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:332
+msgid "Domain"
+msgstr "Domæne"
+
+#: src/EBox/Events/Model/Watcher/Log.pm:267
+msgid "Filtering"
+msgstr ""
+
+#: src/EBox/Events/Model/Watcher/Log.pm:275
+#, fuzzy
+msgid "Configure log watchers"
+msgstr "Konfigurer sendere"
+
+#: src/EBox/Events/Model/Watcher/Log.pm:277
+msgid "Log watcher"
+msgstr ""
+
+#: src/EBox/Events/Model/Report/EventsGraph.pm:51
+#: src/EBox/Events/Model/Report/EventsDetails.pm:51
+#: src/EBox/Events/Model/Report/EventsDetails.pm:80 src/EBox/Events.pm:830
+#, fuzzy
+msgid "Informative"
+msgstr "RAID information"
+
+#: src/EBox/Events/Model/Report/EventsGraph.pm:52
+#: src/EBox/Events/Model/Report/EventsDetails.pm:52
+#: src/EBox/Events/Model/Report/EventsDetails.pm:84 src/EBox/Events.pm:831
+#: src/templates/finish.mas:83
+#, fuzzy
+msgid "Warning"
+msgstr "Arrayet syncer"
+
+#: src/EBox/Events/Model/Report/EventsGraph.pm:53
+#: src/EBox/Events/Model/Report/EventsDetails.pm:53
+#: src/EBox/Events/Model/Report/EventsDetails.pm:88 src/EBox/Events.pm:832
+msgid "Error"
+msgstr "Fejl"
+
+#: src/EBox/Events/Model/Report/EventsGraph.pm:54
+#: src/EBox/Events/Model/Report/EventsDetails.pm:54
+#: src/EBox/Events/Model/Report/EventsDetails.pm:92 src/EBox/Events.pm:833
+msgid "Fatal error"
+msgstr ""
+
+#: src/EBox/Events/Model/Report/EventsGraph.pm:60
+#, fuzzy
+msgid "Events summarized chart"
+msgstr "Handlings status"
+
+#: src/EBox/Events/Model/Report/EventsGraph.pm:77
+msgid "Events summarized graph"
+msgstr ""
+
+#: src/EBox/Events/Model/Report/EventsDetails.pm:50
+#: src/EBox/Events/Model/Report/EventsDetails.pm:74 src/EBox/Events.pm:823
+#, fuzzy
+msgid "Source"
+msgstr "Service"
+
+#: src/EBox/Events/Model/Report/EventsDetails.pm:68 src/EBox/Logs.pm:737
+#: src/templates/backup.mas:130 src/templates/finish.mas:116
+#: src/templates/confirm-backup.mas:28
+msgid "Date"
+msgstr "Dato"
+
+#: src/EBox/Events/Model/Report/EventsDetails.pm:101
+#, fuzzy
+msgid "Events details"
+msgstr "Handlinger"
+
+#: src/EBox/Events/Composite/Report/EventsReport.pm:69
+#, fuzzy
+msgid "Events reports"
+msgstr "Fejl report"
+
+#: src/EBox/Events/Composite/Report/EventsReport.pm:70
+#, fuzzy
+msgid "Events report"
+msgstr "Fejl report"
+
+#: src/EBox/ProgressIndicator.pm:42
+msgid "Total ticks"
+msgstr "Totalt antal ticks"
+
+#: src/EBox/ProgressIndicator.pm:44
+msgid "It must be a non-zero positive number"
+msgstr "Det skal være et positivt tal støre end nul"
+
+#: src/EBox/ProgressIndicator.pm:49
+msgid "To solve it you can try to execute the following commands:"
+msgstr "For at løse det kan du prøve følgende kommando:"
+
+#: src/EBox/ProgressIndicator.pm:56
+#, fuzzy, perl-brace-format
+msgid "Cannot execute {exe}"
+msgstr "Kan ikke udføre {exe}"
+
+#: src/EBox/ProgressIndicator.pm:106
+#, perl-brace-format
+msgid "Progress indicator with id {id} not found"
+msgstr "Fremskridts indikator med id {id} kunne ikke findes"
+
+#: src/EBox/ProgressIndicator.pm:144
+msgid "Number of ticks to notify"
+msgstr "Antal ticks før der skal gives besked"
+
+#: src/EBox/ProgressIndicator.pm:146
+msgid "must be greater than zero"
+msgstr "skal være større end nul"
+
+#: src/EBox/ProgressIndicator.pm:152
+msgid "Executable has not been run"
+msgstr "Programmet er ikke udført"
+
+#: src/EBox/ProgressIndicator.pm:293
+msgid "The executable has not run"
+msgstr "Programmet er ikke udført"
+
+#: src/EBox/ProgressIndicator.pm:437
+msgid "The executable has already been started"
+msgstr "Programmet kører allerede"
+
+#: src/EBox/ProgressIndicator.pm:441
+msgid "The executable has already finished"
+msgstr "Programmet er kørt færdig"
+
+#: src/EBox/Auth.pm:133
+msgid "Password changed"
+msgstr "Passwordet er ændret"
+
+#: src/EBox/Global.pm:536
+#, perl-brace-format
+msgid "Enabling {modName} module"
+msgstr "Aktiver {modName} modulet"
+
+#: src/EBox/Global.pm:566 src/EBox/Global.pm:597
+#, fuzzy, perl-brace-format
+msgid "Saving {modName} module"
+msgstr "Backup af {modName} modulet"
+
+#: src/EBox/Global.pm:1114
+#, perl-brace-format
+msgid "running {scriptName} script"
+msgstr "kører {scriptName} scriptet"
 
 #: src/EBox/Logs/Model/SelectLog.pm:157
 #, fuzzy
@@ -1201,54 +1093,62 @@ msgstr "Vælg rapport"
 msgid "logs"
 msgstr "Logs"
 
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:228
-msgid "never purge"
-msgstr "Slet aldrig"
+#: src/EBox/Logs/Model/ForcePurge.pm:99
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:347
+msgid "Purge logs older than"
+msgstr "Slet logfiler, der er ældre end"
 
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:232
+#: src/EBox/Logs/Model/ForcePurge.pm:108
+msgid "Force log purge"
+msgstr "Slet logfiler nu"
+
+#: src/EBox/Logs/Model/ForcePurge.pm:111
+msgid "Purge"
+msgstr "Slet"
+
 #: src/EBox/Logs/Model/ForcePurge.pm:125
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:232
 msgid "one hour"
 msgstr "En time"
 
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:236
 #: src/EBox/Logs/Model/ForcePurge.pm:129
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:236
 msgid "twelve hours"
 msgstr "12 timer"
 
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:240
 #: src/EBox/Logs/Model/ForcePurge.pm:133
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:240
 msgid "one day"
 msgstr "En dag"
 
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:244
 #: src/EBox/Logs/Model/ForcePurge.pm:137
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:244
 msgid "three days"
 msgstr "3 dage"
 
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:248
 #: src/EBox/Logs/Model/ForcePurge.pm:141
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:248
 msgid "one week"
 msgstr "En uge"
 
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:252
 #: src/EBox/Logs/Model/ForcePurge.pm:145
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:252
 msgid "fifteeen days"
 msgstr "15 dage"
 
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:256
 #: src/EBox/Logs/Model/ForcePurge.pm:149
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:256
 msgid "thirty days"
 msgstr "30 dage"
 
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:260
 #: src/EBox/Logs/Model/ForcePurge.pm:153
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:260
 msgid "ninety days"
 msgstr "90 dage"
 
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:347
-#: src/EBox/Logs/Model/ForcePurge.pm:99
-msgid "Purge logs older than"
-msgstr "Slet logfiler, der er ældre end"
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:228
+msgid "never purge"
+msgstr "Slet aldrig"
 
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:364
 #, fuzzy
@@ -1263,20 +1163,6 @@ msgstr "Log's konfiguration"
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:371
 msgid "Enable/disable logging per-module basis"
 msgstr "Ja/Nej til lognig på modul basis"
-
-#: src/EBox/Logs/Model/ForcePurge.pm:108
-msgid "Force log purge"
-msgstr "Slet logfiler nu"
-
-#: src/EBox/Logs/Model/ForcePurge.pm:111
-msgid "Purge"
-msgstr "Slet"
-
-#: src/EBox/Logs/Model/Report/Details.pm:226
-#: src/EBox/Logs/Model/Report/Details.pm:234
-#: src/EBox/Logs/Model/Report/Details.pm:269
-msgid "All"
-msgstr "Alle"
 
 #: src/EBox/Logs/Model/Report/OptionsBase.pm:40
 #, fuzzy
@@ -1305,6 +1191,113 @@ msgstr "Rapport tids periode"
 #, fuzzy
 msgid "Report options"
 msgstr "Rapport muligheder"
+
+#: src/EBox/Logs/Model/Report/Details.pm:226
+#: src/EBox/Logs/Model/Report/Details.pm:234
+#: src/EBox/Logs/Model/Report/Details.pm:269
+msgid "All"
+msgstr "Alle"
+
+#: src/EBox/Logs/SlicedBackup.pm:104
+#, perl-brace-format
+msgid ""
+"There are {n} log slices not stored; wait or force its storage and retry"
+msgstr ""
+
+#: src/EBox/Logs/SlicedBackup.pm:133 src/EBox/Logs/SlicedBackup.pm:141
+msgid "Backup slice time interval"
+msgstr ""
+
+#: src/EBox/Logs/SlicedBackup.pm:438
+msgid "Slices to be archived at once"
+msgstr ""
+
+#: src/EBox/Logs/SlicedBackup.pm:445
+msgid "Slices timeline"
+msgstr ""
+
+#: src/EBox/Report/DiskUsage.pm:76
+#, perl-brace-format
+msgid "No usage data for {d}. Are you sure is a valid disk?"
+msgstr "Ingen data for {d}. Er du sikker på at det er en disk ?"
+
+#: src/EBox/Report/DiskUsage.pm:222
+#, fuzzy, perl-brace-format
+msgid ""
+"Invalid file system: {f}. Only regular and no removable media file systems "
+"are accepted"
+msgstr ""
+"Ugyldigt filsystem: {f}. Det er kun almindelige og ikke flytbare medier, der "
+"kan accepteres"
+
+#: src/EBox/PgDBEngine.pm:60 src/EBox/PgDBEngine.pm:74
+#: src/EBox/PgDBEngine.pm:88
+#, perl-brace-format
+msgid "You must set the {variable} variable in the ebox configuration file"
+msgstr "Du skal sætte variablen {variable} i Zentyal's konfigurationsfil"
+
+#: src/EBox/PgDBEngine.pm:471
+msgid ""
+"You are using sliced backup mode and this backup was made in no-sliced mode"
+msgstr ""
+
+#: src/EBox/PgDBEngine.pm:479
+msgid ""
+"Database dump file not found. Maybe the backup you are trying to restore was "
+"made in sliced mode?"
+msgstr ""
+
+#: src/EBox/Logs.pm:58 src/EBox/Logs.pm:383 src/EBox/CGI/Logs/Index.pm:35
+msgid "Logs"
+msgstr "Logs"
+
+#: src/EBox/Logs.pm:384
+msgid "Zentyal Server logs database"
+msgstr ""
+
+#: src/EBox/Logs.pm:470
+#, perl-brace-format
+msgid "Table {table} does not exist"
+msgstr "Tabellen {table} findes ikke"
+
+#: src/EBox/Logs.pm:721 src/EBox/CGI/Logs/Index.pm:326
+#, fuzzy
+msgid "Query Logs"
+msgstr "Database logfiler"
+
+#: src/EBox/Logs.pm:724
+#, fuzzy
+msgid "Configure Logs"
+msgstr "Konfigurer logfiler"
+
+#: src/EBox/Logs.pm:738
+msgid "Client Address"
+msgstr "Klient adresse"
+
+#: src/EBox/Logs.pm:739 src/EBox/CGI/EBox/Backup.pm:257
+#: src/templates/moduleStatusTable.mas:58 src/templates/finish.mas:117
+msgid "Module"
+msgstr "Modul"
+
+#: src/EBox/Logs.pm:741
+msgid "Params"
+msgstr "Parametre"
+
+#: src/EBox/Logs.pm:742
+msgid "Committed"
+msgstr "Er gemt"
+
+#: src/EBox/Logs.pm:747
+msgid "Admin"
+msgstr "Administrator"
+
+#: src/EBox/Logs.pm:841
+msgid "Log messages"
+msgstr "Log meddelelser"
+
+#: src/EBox/Logs.pm:868
+msgid "Lifetime parameter must be a positive number of hours"
+msgstr "Levetids parameter skal være et positivt antal timer"
 
 #: src/EBox/Common/Model/EnableForm.pm:99
 msgid "Service enabled"
@@ -1359,167 +1352,286 @@ msgstr "Niveau"
 msgid "Message"
 msgstr "Meddelelse"
 
-#: src/EBox/Logs.pm:384
-msgid "Zentyal Server logs database"
-msgstr ""
-
-#: src/EBox/Logs.pm:470
-#, perl-brace-format
-msgid "Table {table} does not exist"
-msgstr "Tabellen {table} findes ikke"
-
-#: src/EBox/Logs.pm:724
-#, fuzzy
-msgid "Configure Logs"
-msgstr "Konfigurer logfiler"
-
-#: src/EBox/Logs.pm:738
-msgid "Client Address"
-msgstr "Klient adresse"
-
-#: src/EBox/Logs.pm:740 src/EBox/Model/Composite.pm:671
-#: src/EBox/Model/Composite.pm:686 src/EBox/Model/DataMultiTable.pm:168
-#: src/EBox/Model/DataTable.pm:2129
-msgid "Action"
-msgstr "Handling"
-
-#: src/EBox/Logs.pm:741
-msgid "Params"
-msgstr "Parametre"
-
-#: src/EBox/Logs.pm:742
-msgid "Committed"
-msgstr "Er gemt"
-
-#: src/EBox/Logs.pm:747
-msgid "Admin"
-msgstr "Administrator"
-
-#: src/EBox/Logs.pm:841
-msgid "Log messages"
-msgstr "Log meddelelser"
-
-#: src/EBox/Logs.pm:868
-msgid "Lifetime parameter must be a positive number of hours"
-msgstr "Levetids parameter skal være et positivt antal timer"
-
-#: src/EBox/Model/ProviderBase.pm:246
-#, fuzzy, perl-brace-format
-msgid "Provided object with index {i} does not exist"
-msgstr "Objektet med index {i} eksisterer ikke"
-
-#: src/EBox/Model/DataForm.pm:554
-#, perl-brace-format
-msgid "Remove data from {model}{br}"
-msgstr "Slet data fra {model}{br}"
-
-#: src/EBox/Model/DataForm.pm:688 src/templates/progress.mas:26
-msgid "Done"
-msgstr "Færdig"
-
-#: src/EBox/Model/Composite.pm:371
-#, perl-brace-format
-msgid "It should be one of following values: {values}"
-msgstr "Det bør være en af følgende værdier: {values}"
-
-#: src/EBox/Model/Composite.pm:673
-#, perl-brace-format
-msgid "Actions to be taken allowed are: {view} and {cView}"
-msgstr "De tilladte handlinger er: {view} og {cView}"
-
-#: src/EBox/Model/Composite.pm:801
-msgid "Choose one of the following:"
-msgstr "Vælg en af følgende: "
-
-#: src/EBox/Model/ModelManager.pm:468
-#, fuzzy
+#: src/EBox/CGI/ClientRawBase.pm:212 src/EBox/CGI/WizardPage.pm:155
 msgid ""
-"The data you are removing is being used by\n"
-"                    the following sections:"
+"An internal error related to a template has occurred. This is a bug, "
+"relevant information can be found in the logs."
 msgstr ""
-"De data som du sletter bliver brugt af\n"
-"følgende moduler:"
+"En intern fejl i forbindelse med en skabelon er opstået. Dette er en fejl, "
+"relevant information kan findes i loggen."
 
-#: src/EBox/Model/ModelManager.pm:515
-msgid ""
-"The data you are modifying is being used by\n"
-"\t\t\tthe following sections:"
-msgstr ""
-"De data som du ændrer er i brug af\n"
-"\t\tfølgende moduler:"
-
-#: src/EBox/Model/DataTable.pm:327
-#, perl-brace-format
-msgid "{model} in {module} module"
-msgstr "{model} i {module} modul"
-
-#: src/EBox/Model/DataTable.pm:331
+#: src/EBox/CGI/Wizard.pm:29
 #, fuzzy
-msgid "at"
-msgstr "i"
+msgid "Initial configuration wizard"
+msgstr "Intern konfigurations guide"
 
-#: src/EBox/Model/DataTable.pm:542
-msgid "field"
-msgstr "felt"
-
-#: src/EBox/Model/DataTable.pm:1468
+#: src/EBox/CGI/ServiceModule/StatusView.pm:39
 #, fuzzy
-msgid "page"
-msgstr "side/område"
+msgid "Module Status Configuration"
+msgstr "Status for modul konfiguration"
 
-#: src/EBox/Model/DataTable.pm:1471
+#: src/EBox/CGI/Dashboard/ConfigureWidgets.pm:30
+#: src/templates/dashboard/index.mas:81
 #, fuzzy
-msgid "Page must be a number equal or greater than zero"
-msgstr "skal være større end nul"
+msgid "Configure Widgets"
+msgstr "Sæt handlinger op"
 
-#: src/EBox/Model/DataTable.pm:2831
-#, perl-brace-format
-msgid "Remove {num} rows of {rowName} from {model}{br}"
-msgstr "Fjern {num} rækker{rowName} fra {model}{br}"
+#: src/EBox/CGI/Finish.pm:32
+msgid "Save configuration"
+msgstr "Gem konfiguration"
 
-#: src/EBox/Model/DataTable.pm:2902
-msgid "Page size"
-msgstr "Side/område størrelse"
-
-#: src/EBox/Model/DataTable.pm:2905
+#: src/EBox/CGI/Finish.pm:77 src/EBox/CGI/Progress.pm:81
+#: src/EBox/CGI/Progress.pm:107
 #, fuzzy
-msgid "Must be either a positive number or zero"
-msgstr "Det skal være enten et positivt tal eller nul"
-
-#: src/EBox/Model/DataTable.pm:3212
-#, perl-brace-format
-msgid "{row} added"
-msgstr "{row} tilføjet"
-
-#: src/EBox/Model/DataTable.pm:3213
-#, perl-brace-format
-msgid "{row} deleted"
-msgstr "{row} slettet"
-
-#: src/EBox/Model/DataTable.pm:3214
-#, perl-brace-format
-msgid "{row} updated"
-msgstr "{row} ændret"
-
-#: src/EBox/Model/DataTable.pm:3215
-#, perl-brace-format
-msgid "{row} moved up"
-msgstr "{row} flyttet op"
-
-#: src/EBox/Model/DataTable.pm:3216
-#, perl-brace-format
-msgid "{row} moved down"
-msgstr "{row} flyttet ned"
-
-#: src/EBox/Model/DataTable.pm:4402 src/templates/password.mas:67
-#: src/templates/dataInUse.mas:25 src/templates/dataInUse.mas:34
-#: src/templates/port.mas:14 src/templates/hostname.mas:19
-msgid "Change"
-msgstr "Foretag ændring"
-
-#: src/EBox/Html.pm:39 src/templates/wizard.mas:124
-msgid "Save changes"
+msgid "Saving changes"
 msgstr "Gem ændringer"
+
+#: src/EBox/CGI/Finish.pm:78
+#, fuzzy
+msgid "Saving changes in modules"
+msgstr "Backup af modul ændringer"
+
+#: src/EBox/CGI/Finish.pm:79 src/templates/report/raid.mas:213
+msgid "Current operation"
+msgstr "Nuværende operation"
+
+#: src/EBox/CGI/Finish.pm:80
+#, fuzzy
+msgid "operations performed"
+msgstr "gennemførte operationer"
+
+#: src/EBox/CGI/Finish.pm:81
+#, fuzzy
+msgid "Changes saved"
+msgstr "Ændringer gemt"
+
+#: src/EBox/CGI/Finish.pm:82
+#, perl-brace-format
+msgid ""
+"Some modules reported error when saving changes . More information on the "
+"logs in {dir}"
+msgstr ""
+"Nogle moduler meldte om fejl da der blev gemt ændringer. Mere information i "
+"log filerne i {dir}"
+
+#: src/EBox/CGI/Finish.pm:101
+#, fuzzy
+msgid "Revoking changes"
+msgstr "Fortryd ændringer"
+
+#: src/EBox/CGI/Finish.pm:102
+#, fuzzy
+msgid "Revoking changes in modules"
+msgstr "Fortryd ændringer i moduler"
+
+#: src/EBox/CGI/Finish.pm:103
+#, fuzzy
+msgid "Current module"
+msgstr "Nuværende modul"
+
+#: src/EBox/CGI/Finish.pm:104
+#, fuzzy
+msgid "modules revoked"
+msgstr "moduler der fortrydes"
+
+#: src/EBox/CGI/Finish.pm:105
+#, fuzzy
+msgid "Changes revoked"
+msgstr "Fortrudte ændringer"
+
+#: src/EBox/CGI/Finish.pm:106
+#, perl-brace-format
+msgid ""
+"Some modules reported error when discarding changes . More information on "
+"the logs in {dir}"
+msgstr ""
+"Nogle moduler rapporterede fejl, da de skiftede ændringer. Flere oplysninger "
+"i loggen i {dir}"
+
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:33 src/templates/backup.mas:30
+msgid "Configuration Backup"
+msgstr "Konfigurations backup"
+
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:105
+msgid "Please confirm that you want to delete the following backup file:"
+msgstr "Bekræft venligst at du vil slette følgende backup fil:"
+
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:107 src/templates/backup.mas:168
+#: src/templates/backup.mas:169
+msgid "Delete"
+msgstr "Slet"
+
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:114
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:130
+msgid "Please confirm that you want to restore using this backup file:"
+msgstr "Bekræft at du vil læse denne backup ind:"
+
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:116
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:132 src/templates/backup.mas:98
+msgid "Restore"
+msgstr "Genetabler"
+
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:147 src/EBox/CGI/EBox/Backup.pm:193
+#: src/EBox/CGI/EBox/Backup.pm:271 src/EBox/CGI/EBox/Backup.pm:284
+#: src/EBox/Backup.pm:1482
+msgid "The input contains invalid characters"
+msgstr "Inputtet indeholder ugyldige tegn"
+
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:176
+msgid "Configuration backup"
+msgstr "Backup af konfiguration"
+
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:179
+msgid "Full data and configuration backup"
+msgstr "Fuld backup af data og konfiguration"
+
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:182
+msgid "Bug-report configuration dump"
+msgstr "Lav en bug-report konfigurations dump"
+
+#: src/EBox/CGI/EBox/Hostname.pm:48
+#, fuzzy
+msgid "hostname"
+msgstr "Hostnavn"
+
+#: src/EBox/CGI/EBox/CurrentProgress.pm:36
+msgid "Upgrading"
+msgstr "opgradere"
+
+#: src/EBox/CGI/EBox/General.pm:32
+#, fuzzy
+msgid "General Configuration"
+msgstr "Generelle indstillinger"
+
+#: src/EBox/CGI/EBox/Halt.pm:30
+#, fuzzy
+msgid "Halt or Reboot"
+msgstr "Stop eller reboot"
+
+#: src/EBox/CGI/EBox/Halt.pm:43
+#, fuzzy
+msgid "Zentyal is going down for halt"
+msgstr "Zentyal lukker ned til stop"
+
+#: src/EBox/CGI/EBox/Halt.pm:46
+#, fuzzy
+msgid "Zentyal is going down for reboot"
+msgstr "Zentyal lukker ned til genstart"
+
+#: src/EBox/CGI/EBox/RestartService.pm:49
+msgid "module name"
+msgstr "modul navn"
+
+#: src/EBox/CGI/EBox/RestartService.pm:54
+msgid "The module was restarted correctly."
+msgstr "Modulet blev genstartet korrekt"
+
+#: src/EBox/CGI/EBox/RestartService.pm:58
+#, perl-brace-format
+msgid "Error restarting service. See {logs} for more information."
+msgstr ""
+
+#: src/EBox/CGI/EBox/Password.pm:43 src/templates/password.mas:11
+#: src/templates/login/index.mas:49
+#, fuzzy
+msgid "Username"
+msgstr "Bruger navn"
+
+#: src/EBox/CGI/EBox/Password.pm:48 src/templates/login/index.mas:54
+msgid "Password"
+msgstr "Password"
+
+#: src/EBox/CGI/EBox/Password.pm:57
+msgid "Incorrect password."
+msgstr "Forkert password"
+
+#: src/EBox/CGI/EBox/Password.pm:62
+msgid "New passwords do not match."
+msgstr "De nye password er ikke ens"
+
+#: src/EBox/CGI/EBox/Password.pm:67
+msgid "The password must be at least 6 characters long"
+msgstr "Passwordet skal være mindst 6 tegn langt"
+
+#: src/EBox/CGI/EBox/Password.pm:71
+msgid "The password was changed successfully."
+msgstr "Passwordet blev ændret"
+
+#: src/EBox/CGI/EBox/ConfigurationReport.pm:29
+#, fuzzy
+msgid "Configuration report"
+msgstr "Konfigurations rapport"
+
+#: src/EBox/CGI/EBox/Backup.pm:163
+#, perl-brace-format
+msgid "Unknown backup mode: {mode}"
+msgstr "Ukendt backup måde: {mode}"
+
+#: src/EBox/CGI/EBox/Backup.pm:226
+#, perl-brace-format
+msgid "Unknown restore mode: {mode}"
+msgstr "Ukendt restore måde: {mode}"
+
+#: src/EBox/CGI/EBox/Backup.pm:239
+msgid "Backing up"
+msgstr "Backup kører"
+
+#: src/EBox/CGI/EBox/Backup.pm:240
+msgid "Backing up modules"
+msgstr "Backup af moduler"
+
+#: src/EBox/CGI/EBox/Backup.pm:241
+msgid "Operation"
+msgstr "Operation"
+
+#: src/EBox/CGI/EBox/Backup.pm:242
+msgid "operations left to finish backup"
+msgstr "Operationer der mangler før backup er færdig"
+
+#: src/EBox/CGI/EBox/Backup.pm:243
+msgid "Backup successful"
+msgstr "Backup lykkedes"
+
+#: src/EBox/CGI/EBox/Backup.pm:255
+msgid "Restoring backup"
+msgstr "Restore af backup"
+
+#: src/EBox/CGI/EBox/Backup.pm:256
+msgid "Restoring modules"
+msgstr "Restore af moduler"
+
+#: src/EBox/CGI/EBox/Backup.pm:258
+#, fuzzy
+msgid "modules restored"
+msgstr "moduler der mangler at bliver restored"
+
+#: src/EBox/CGI/EBox/Backup.pm:259
+msgid "Restore successful"
+msgstr "Restore lykkedes"
+
+#: src/EBox/CGI/Login/Index.pm:63
+#, fuzzy
+msgid ""
+"There is a script which has asked to run in Zentyal exclusively. Please, "
+"wait patiently until it is done"
+msgstr "En web-service er i gang. Vent venligst på at den bliver færdig"
+
+#: src/EBox/CGI/Login/Index.pm:67
+msgid "Incorrect password"
+msgstr "Forkert password"
+
+#: src/EBox/CGI/Login/Index.pm:70
+msgid "For security reasons your session has expired due to inactivity"
+msgstr "Af sikkerhedsårsager er dit login udløbet på grund af inaktivitet"
+
+#: src/EBox/CGI/Login/Index.pm:73
+msgid "You have been logged out because a new session has been opened"
+msgstr "Du er blevet logget ud fordi en anden login er åbnet"
+
+#: src/EBox/CGI/Logs/Index.pm:329
+#, fuzzy
+msgid "Full Reports"
+msgstr "Fejl report"
 
 #: src/EBox/Backup.pm:96
 msgid "Creating backup archive"
@@ -1616,29 +1728,29 @@ msgstr ""
 msgid "Could not unpack the etc files archive backup"
 msgstr "Kunne ikke pakke backuppen ud"
 
-#: src/EBox/Backup.pm:1327
+#: src/EBox/Backup.pm:1326
 #, perl-brace-format
 msgid ""
 "The following modules present in the backup are not installed: {mods}. You "
 "need to install them before restoring."
 msgstr ""
 
-#: src/EBox/Backup.pm:1353
+#: src/EBox/Backup.pm:1354
 #, perl-brace-format
 msgid "Cannot restore backup, error enabling module {m}: {err}"
 msgstr ""
 
-#: src/EBox/Backup.pm:1386
+#: src/EBox/Backup.pm:1387
 #, perl-brace-format
 msgid "No module {m} found in backup"
 msgstr "Intet modul {m} fundet i backup."
 
-#: src/EBox/Backup.pm:1408
+#: src/EBox/Backup.pm:1409
 #, fuzzy
 msgid "No modules to restore"
 msgstr "Ingen moduler at restore"
 
-#: src/EBox/Backup.pm:1460
+#: src/EBox/Backup.pm:1461
 #, perl-brace-format
 msgid ""
 "Unresolved restore dependency for module {topModule}: {modName} is not "
@@ -1647,133 +1759,50 @@ msgstr ""
 "Nogle afhængigheder er ikke opfyldt for at kunne lave en restore af "
 "{topModule}: {modName} er ikke installeret"
 
-#: src/EBox/Backup.pm:1502
+#: src/EBox/Backup.pm:1503
 #, fuzzy
 msgid "Backup archives"
 msgstr "Backup filer"
 
-#: src/EBox/SysInfo.pm.in:50
+#: src/templates/dataInUse.mas:41 src/templates/confirm-backup.mas:66
+msgid "Cancel"
+msgstr "Fortryd"
+
+#: src/templates/links-widget.mas:5
 #, fuzzy
-msgid "System Information"
-msgstr "system information"
+msgid "Community Resources"
+msgstr "Community Resources"
 
-#: src/EBox/SysInfo.pm.in:95
-msgid "available"
-msgstr "mulige"
-
-#: src/EBox/SysInfo.pm.in:103
-msgid "Time"
-msgstr "Tid"
-
-#: src/EBox/SysInfo.pm.in:104
+#: src/templates/links-widget.mas:10
 #, fuzzy
-msgid "Hostname"
-msgstr "Hostnavn"
+msgid "Documentation"
+msgstr "Dokumention"
 
-#: src/EBox/SysInfo.pm.in:105
+#: src/templates/links-widget.mas:12
+msgid "Forum"
+msgstr "Forum (mødested)"
+
+#: src/templates/links-widget.mas:14
+msgid "Report a bug"
+msgstr "Rapporter en fejl"
+
+#: src/templates/links-widget.mas:16
+msgid "How to Contribute"
+msgstr "Hvordan kan du yde dit bidrag"
+
+#: src/templates/moduleStatusTable.mas:59
 #, fuzzy
-msgid "Core version"
-msgstr "eBox version"
+msgid "Depends"
+msgstr "Afhængig"
 
-#: src/EBox/SysInfo.pm.in:107
-msgid "System load"
-msgstr "Serverens belastning"
+#: src/templates/moduleStatusTable.mas:60 src/templates/report/raid.mas:104
+msgid "Status"
+msgstr "Status"
 
-#: src/EBox/SysInfo.pm.in:108
-#, fuzzy
-msgid "Uptime"
-msgstr "Oppe tid"
-
-#: src/EBox/SysInfo.pm.in:109
-msgid "Users"
-msgstr "Brugere"
-
-#: src/EBox/SysInfo.pm.in:162 src/EBox/SysInfo.pm.in:258
-#, fuzzy
-msgid "Module Status"
-msgstr "Modul"
-
-#: src/EBox/SysInfo.pm.in:168
-#, fuzzy
-msgid "General Information"
-msgstr "Generel information"
-
-#: src/EBox/SysInfo.pm.in:174
-#, fuzzy
-msgid "Process List"
-msgstr "Proces liste"
-
-#: src/EBox/SysInfo.pm.in:181
-#, fuzzy
-msgid "Resources & Services"
-msgstr "Resurser & Servicer"
-
-#: src/EBox/SysInfo.pm.in:264
-msgid "System"
-msgstr "System"
-
-#: src/EBox/SysInfo.pm.in:268
-msgid "General"
-msgstr "Generelt"
-
-#: src/EBox/SysInfo.pm.in:283
-#, fuzzy
-msgid "Configuration Report"
-msgstr "Konfiguration restore"
-
-#: src/EBox/SysInfo.pm.in:286
-msgid "Halt/Reboot"
-msgstr "Stop/reboot"
-
-#: src/EBox/Apache.pm:289 src/EBox/Apache.pm:298
-msgid "port"
-msgstr "port"
-
-#: src/EBox/Apache.pm:626
-#, fuzzy
-msgid "Zentyal Administration Web Server"
-msgstr "Handlings status"
-
-#: src/EBox/Global.pm:536
-#, perl-brace-format
-msgid "Enabling {modName} module"
-msgstr "Aktiver {modName} modulet"
-
-#: src/EBox/Global.pm:566 src/EBox/Global.pm:597
+#: src/templates/moduleStatusTable.mas:85
 #, fuzzy, perl-brace-format
-msgid "Saving {modName} module"
-msgstr "Backup af {modName} modulet"
-
-#: src/EBox/Global.pm:1114
-#, perl-brace-format
-msgid "running {scriptName} script"
-msgstr "kører {scriptName} scriptet"
-
-#: src/EBox/Report/DiskUsage.pm:76
-#, perl-brace-format
-msgid "No usage data for {d}. Are you sure is a valid disk?"
-msgstr "Ingen data for {d}. Er du sikker på at det er en disk ?"
-
-#: src/EBox/Report/DiskUsage.pm:222
-#, fuzzy, perl-brace-format
-msgid ""
-"Invalid file system: {f}. Only regular and no removable media file systems "
-"are accepted"
-msgstr ""
-"Ugyldigt filsystem: {f}. Det er kun almindelige og ikke flytbare medier, der "
-"kan accepteres"
-
-#: src/templates/configurationFiles.mas:12
-msgid "Do you wish to overwrite these files?"
-msgstr "Ønsker du at overskrive disse filer?:"
-
-#: src/templates/configurationFiles.mas:19
-msgid "Keep current file"
-msgstr "Behold nuværende fil"
-
-#: src/templates/configurationFiles.mas:23
-msgid "Modify"
-msgstr "Modificer"
+msgid "Configure module: {module}"
+msgstr "Konfigurations modul: {module}"
 
 #: src/templates/wizard.mas:68 src/templates/wizard.mas:69
 msgid "Finish"
@@ -1799,129 +1828,159 @@ msgstr "Spring over"
 msgid "Next"
 msgstr "Næste"
 
-#: src/templates/headTitle.mas:20
-msgid "Remote services control panel"
-msgstr "Kontrol panel for fjernbetjenings tjenesten. "
+#: src/templates/logs/dbtable.mas:87 src/templates/logs/dbtable.mas:88
+msgid "first"
+msgstr "første"
 
-#: src/templates/backupTabs.mas:13
-msgid "Local"
-msgstr ""
+#: src/templates/logs/dbtable.mas:91 src/templates/logs/dbtable.mas:92
+msgid "prev"
+msgstr "forrige"
 
-#: src/templates/backupTabs.mas:18
-msgid "Remote in Zentyal Cloud"
-msgstr ""
+#: src/templates/logs/dbtable.mas:111 src/templates/logs/dbtable.mas:112
+msgid "next"
+msgstr "næste"
 
-#: src/templates/backupTabs.mas:23
+#: src/templates/logs/dbtable.mas:115 src/templates/logs/dbtable.mas:116
+msgid "last"
+msgstr "sidste"
+
+#: src/templates/logs/index.mas:20
 #, fuzzy
-msgid "Remote in Zentyal Cloud from other subscribed hosts"
-msgstr "Fejern (remote) backup  fra andre tilmeldte værter."
+msgid "Log Domain"
+msgstr "Domæne"
 
-#: src/templates/configureView.mas:12
-msgid ""
-"Enabling this module will cause Zentyal to perform the actions and file "
-"modifications listed below. You must explicitly accept these changes to "
-"enable the module."
-msgstr ""
-"Aktivering af dette modul vil få Zentyal til at gennemføre de ændringer som "
-"er listet herunder. Du skal acceptere alle disse hændelser for at aktivere "
-"modulet."
+#: src/templates/logs/index.mas:22
+msgid "Last hour logs will be showed when selecting a component"
+msgstr "Den sidste times log vil blive vist når du vælger en komponent"
 
-#: src/templates/configureView.mas:16
-msgid "Actions to perform by Zentyal"
-msgstr "Hændelser som skal køres af Zentyal."
-
-#: src/templates/configureView.mas:31
-msgid "Files to modify by Zentyal"
-msgstr "Filer som skal modificeres af Zentyal"
-
-#: src/templates/configureView.mas:51
-msgid "Accept"
-msgstr "Accepter"
-
-#: src/templates/dashboard/index.mas:23 src/templates/dashboard/status.mas:18
-msgid "Running"
-msgstr "Kører"
-
-#: src/templates/dashboard/index.mas:24 src/templates/dashboard/status.mas:19
+#: src/templates/logs/index.mas:23
 #, fuzzy
-msgid "The service is enabled and running"
-msgstr "eBox er started og kører"
+msgid "Select available full reports"
+msgstr "Vælg de logs der er tilgængelige"
 
-#: src/templates/dashboard/index.mas:28 src/templates/dashboard/status.mas:22
-msgid "Stopped"
-msgstr "Stoppet"
+#: src/templates/logs/index.mas:35 src/templates/logs/index.mas:36
+#: src/templates/logs/index.mas:37
+msgid "View"
+msgstr "Vis"
 
-#: src/templates/dashboard/index.mas:29 src/templates/dashboard/status.mas:23
-msgid "The service is enabled, but not running"
-msgstr "Tjenesten er aktiveret men kører ikke"
+#: src/templates/logs/index.mas:44
+msgid "Custom query"
+msgstr "Tilpas database forespørgsel (query)"
 
-#: src/templates/dashboard/index.mas:33 src/templates/dashboard/status.mas:27
-msgid "Running unmanaged"
-msgstr "Kører uden indblanding"
+#: src/templates/logs/index.mas:50
+msgid "From date:"
+msgstr "Fra dato:"
 
-#: src/templates/dashboard/index.mas:34 src/templates/dashboard/status.mas:28
+#: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
+msgid "January"
+msgstr "Januar"
+
+#: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
+msgid "February"
+msgstr "Februar"
+
+#: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
+msgid "March"
+msgstr "Marts"
+
+#: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
+msgid "April"
+msgstr "April"
+
+#: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
+msgid "May"
+msgstr "Maj"
+
+#: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
+msgid "June"
+msgstr "Juni"
+
+#: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
+msgid "July"
+msgstr "Juli"
+
+#: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
+msgid "August"
+msgstr "August"
+
+#: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
+msgid "September"
+msgstr "September"
+
+#: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
+msgid "October"
+msgstr "Oktober"
+
+#: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
+msgid "November"
+msgstr "November"
+
+#: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
+msgid "December"
+msgstr "December"
+
+#: src/templates/logs/index.mas:108
 #, fuzzy
-msgid "The service is running, but not enabled in Zentyal"
-msgstr "Tjensten kører, men er ikke aktiveret i Zentyal"
+msgid "Refresh logs"
+msgstr "opfrisk (refresh) database logfiler"
 
-#: src/templates/dashboard/index.mas:38 src/templates/dashboard/status.mas:31
-msgid "Disabled"
-msgstr "Slået fra"
+#: src/templates/logs/index.mas:116
+msgid "To date:"
+msgstr "Til dato:"
 
-#: src/templates/dashboard/index.mas:39 src/templates/dashboard/status.mas:32
+#: src/templates/logs/index.mas:203 src/templates/logs/index.mas:204
+msgid "Search"
+msgstr "Søg"
+
+#: src/templates/logs/index.mas:208 src/templates/logs/index.mas:209
+msgid "Save as event"
+msgstr "Gem som en hændelse"
+
+#: src/templates/logs/index.mas:235
+msgid "No logs matching current criterion"
+msgstr "Der var ingen logs der passede"
+
+#: src/templates/logs/index.mas:239
 #, fuzzy
-msgid "The service is not enabled in Zentyal"
-msgstr "Denne tjeneste er ikke aktiveret i Zentyal"
+msgid "There are no logs for this domain"
+msgstr "Der er ingen log filer for dette domæne"
 
-#: src/templates/dashboard/index.mas:44 src/templates/dashboard/status.mas:25
-msgid "Start"
-msgstr "Start"
-
-#: src/templates/dashboard/index.mas:45 src/templates/dashboard/status.mas:12
-msgid "Restart"
-msgstr "Genstart"
-
-#: src/templates/dashboard/index.mas:117
+#: src/templates/password.mas:4
 #, fuzzy
-msgid "Configure widgets"
-msgstr "Sæt handlinger op"
+msgid "Change Password"
+msgstr "Skift password"
 
-#: src/templates/dashboard/list.mas:43
-msgid "No entries in this list"
-msgstr "Ingen ændringer i denne liste"
+#: src/templates/password.mas:5
+msgid "Your password must be at least 6 characters long."
+msgstr "Passwordet skal være mindst 6 tegn langt"
 
-#: src/templates/dashboard/configurewidgets.mas:164
-msgid ""
-"Browse the available widgets in the left menu and drag&drop them to the "
-"dashboard."
-msgstr ""
+#: src/templates/password.mas:25
+msgid "Current password"
+msgstr "Nuværende password"
 
-#: src/templates/halt.mas:10
-msgid "You might lose your Internet connection if this machine is halted."
-msgstr ""
-"Du mister måske din forbindelse til internettet hvis denne server lukkes ned."
+#: src/templates/password.mas:39
+msgid "New password"
+msgstr "Nyt password"
 
-#: src/templates/halt.mas:14
-msgid "Halt"
-msgstr "Stop"
+#: src/templates/password.mas:53
+msgid "Confirm password"
+msgstr "Bekræft password"
 
-#: src/templates/halt.mas:16
-msgid "Reboot"
-msgstr "Genstart (reboot)"
+#: src/templates/progress.mas:24
+msgid "Item"
+msgstr "Ting"
 
-#: src/templates/moduleStatusTable.mas:59
-#, fuzzy
-msgid "Depends"
-msgstr "Afhængig"
+#: src/templates/progress.mas:25
+msgid "items left"
+msgstr "Ting tilbage"
 
-#: src/templates/moduleStatusTable.mas:60 src/templates/report/raid.mas:104
-msgid "Status"
-msgstr "Status"
+#: src/templates/progress.mas:27
+msgid "Some error has happened in Zentyal: "
+msgstr "Der er sket en fejl i Zentyal:"
 
-#: src/templates/moduleStatusTable.mas:85
-#, fuzzy, perl-brace-format
-msgid "Configure module: {module}"
-msgstr "Konfigurations modul: {module}"
+#: src/templates/progress.mas:152
+msgid "Starting..."
+msgstr "Starter...."
 
 #: src/templates/report/raid.mas:20
 #, perl-brace-format
@@ -2041,178 +2100,6 @@ msgstr "Muligheder"
 msgid "Partition Properties"
 msgstr "Partitionens værdier"
 
-#: src/templates/progress.mas:24
-msgid "Item"
-msgstr "Ting"
-
-#: src/templates/progress.mas:25
-msgid "items left"
-msgstr "Ting tilbage"
-
-#: src/templates/progress.mas:27
-msgid "Some error has happened in Zentyal: "
-msgstr "Der er sket en fejl i Zentyal:"
-
-#: src/templates/progress.mas:152
-msgid "Starting..."
-msgstr "Starter...."
-
-#: src/templates/logs/index.mas:20
-#, fuzzy
-msgid "Log Domain"
-msgstr "Domæne"
-
-#: src/templates/logs/index.mas:22
-msgid "Last hour logs will be showed when selecting a component"
-msgstr "Den sidste times log vil blive vist når du vælger en komponent"
-
-#: src/templates/logs/index.mas:23
-#, fuzzy
-msgid "Select available full reports"
-msgstr "Vælg de logs der er tilgængelige"
-
-#: src/templates/logs/index.mas:35 src/templates/logs/index.mas:36
-#: src/templates/logs/index.mas:37
-msgid "View"
-msgstr "Vis"
-
-#: src/templates/logs/index.mas:44
-msgid "Custom query"
-msgstr "Tilpas database forespørgsel (query)"
-
-#: src/templates/logs/index.mas:50
-msgid "From date:"
-msgstr "Fra dato:"
-
-#: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
-msgid "January"
-msgstr "Januar"
-
-#: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
-msgid "February"
-msgstr "Februar"
-
-#: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
-msgid "March"
-msgstr "Marts"
-
-#: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
-msgid "April"
-msgstr "April"
-
-#: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
-msgid "May"
-msgstr "Maj"
-
-#: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
-msgid "June"
-msgstr "Juni"
-
-#: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
-msgid "July"
-msgstr "Juli"
-
-#: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
-msgid "August"
-msgstr "August"
-
-#: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
-msgid "September"
-msgstr "September"
-
-#: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
-msgid "October"
-msgstr "Oktober"
-
-#: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
-msgid "November"
-msgstr "November"
-
-#: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
-msgid "December"
-msgstr "December"
-
-#: src/templates/logs/index.mas:108
-#, fuzzy
-msgid "Refresh logs"
-msgstr "opfrisk (refresh) database logfiler"
-
-#: src/templates/logs/index.mas:116
-msgid "To date:"
-msgstr "Til dato:"
-
-#: src/templates/logs/index.mas:203 src/templates/logs/index.mas:204
-msgid "Search"
-msgstr "Søg"
-
-#: src/templates/logs/index.mas:208 src/templates/logs/index.mas:209
-msgid "Save as event"
-msgstr "Gem som en hændelse"
-
-#: src/templates/logs/index.mas:235
-msgid "No logs matching current criterion"
-msgstr "Der var ingen logs der passede"
-
-#: src/templates/logs/index.mas:239
-#, fuzzy
-msgid "There are no logs for this domain"
-msgstr "Der er ingen log filer for dette domæne"
-
-#: src/templates/logs/dbtable.mas:87 src/templates/logs/dbtable.mas:88
-msgid "first"
-msgstr "første"
-
-#: src/templates/logs/dbtable.mas:91 src/templates/logs/dbtable.mas:92
-msgid "prev"
-msgstr "forrige"
-
-#: src/templates/logs/dbtable.mas:111 src/templates/logs/dbtable.mas:112
-msgid "next"
-msgstr "næste"
-
-#: src/templates/logs/dbtable.mas:115 src/templates/logs/dbtable.mas:116
-msgid "last"
-msgstr "sidste"
-
-#: src/templates/finish.mas:99
-#, perl-brace-format
-msgid ""
-"The following modules have unsaved changes but are <b>disabled</b>. If you "
-"need to enable them go to {openref}Module Status{closeref}."
-msgstr ""
-"De følgende moduler har ikke gemte ændringer men er <b>deaktiverede</b>. "
-"hvis du ønsker at aktivere dem, gå da til {openref}Module Status{closeref}."
-
-#: src/templates/finish.mas:106
-msgid ""
-"There are unsaved changes in one or more modules, you can save or discard "
-"those changes."
-msgstr ""
-"Der er ikke gemte ændringer i et eller flere moduler, du kan gemme eller "
-"slette ændringerne."
-
-#: src/templates/finish.mas:110
-msgid ""
-"If you made changes to the network interfaces or the administration port, "
-"you may need to manually rewrite the url in order to access this "
-"administration interface again."
-msgstr ""
-"Hvis du har lavet ændringer til et netværks interface eller administrations "
-"porten, kan det være nødvendigt at du manuelt skal skrive den nye adresse i "
-"browserens URL linie."
-
-#: src/templates/finish.mas:134
-msgid "Save"
-msgstr "Gem"
-
-#: src/templates/finish.mas:136
-msgid "Discard changes"
-msgstr "Slet ændringer"
-
-#: src/templates/finish.mas:141
-msgid "There are no unsaved changes."
-msgstr "Der er ikke nogen ændringer, der ikke er gemt."
-
 #: src/templates/backup.mas:29
 msgid "Full Backup"
 msgstr "Fuld backup"
@@ -2325,46 +2212,144 @@ msgstr "restore"
 msgid "delete"
 msgstr "slet"
 
-#: src/templates/links-widget.mas:5
-#, fuzzy
-msgid "Community Resources"
-msgstr "Community Resources"
+#: src/templates/configurationFiles.mas:12
+msgid "Do you wish to overwrite these files?"
+msgstr "Ønsker du at overskrive disse filer?:"
 
-#: src/templates/links-widget.mas:10
-#, fuzzy
-msgid "Documentation"
-msgstr "Dokumention"
+#: src/templates/configurationFiles.mas:19
+msgid "Keep current file"
+msgstr "Behold nuværende fil"
 
-#: src/templates/links-widget.mas:12
-msgid "Forum"
-msgstr "Forum (mødested)"
+#: src/templates/configurationFiles.mas:23
+msgid "Modify"
+msgstr "Modificer"
 
-#: src/templates/links-widget.mas:14
-msgid "Report a bug"
-msgstr "Rapporter en fejl"
-
-#: src/templates/links-widget.mas:16
-msgid "How to Contribute"
-msgstr "Hvordan kan du yde dit bidrag"
-
-#: src/templates/bug.mas:9
-#, fuzzy
+#: src/templates/dashboard/configurewidgets.mas:164
 msgid ""
-"This page lets you generate a file with information about the state of your "
-"system. The file will be useful if you want to report a problem or seek "
-"support."
+"Browse the available widgets in the left menu and drag&drop them to the "
+"dashboard."
 msgstr ""
-"Denne side lader dig skabe en file med den aktuelle status af dit system. "
-"Denne fil er nyttig hvis du vil sende en fejlrapport til Zentyal's udviklere."
 
-#: src/templates/bug.mas:13
-msgid "It may take several minutes to generate the report. Please be patient."
-msgstr "Det kan tage flere minutter at genere denne rapport. Vent venligst."
+#: src/templates/dashboard/list.mas:43
+msgid "No entries in this list"
+msgstr "Ingen ændringer i denne liste"
 
-#: src/templates/bug.mas:19
+#: src/templates/dashboard/index.mas:23 src/templates/dashboard/status.mas:18
+msgid "Running"
+msgstr "Kører"
+
+#: src/templates/dashboard/index.mas:24 src/templates/dashboard/status.mas:19
 #, fuzzy
-msgid "Download configuration report file"
-msgstr "Download konfigurations rapport fil"
+msgid "The service is enabled and running"
+msgstr "eBox er started og kører"
+
+#: src/templates/dashboard/index.mas:28 src/templates/dashboard/status.mas:22
+msgid "Stopped"
+msgstr "Stoppet"
+
+#: src/templates/dashboard/index.mas:29 src/templates/dashboard/status.mas:23
+msgid "The service is enabled, but not running"
+msgstr "Tjenesten er aktiveret men kører ikke"
+
+#: src/templates/dashboard/index.mas:33 src/templates/dashboard/status.mas:27
+msgid "Running unmanaged"
+msgstr "Kører uden indblanding"
+
+#: src/templates/dashboard/index.mas:34 src/templates/dashboard/status.mas:28
+#, fuzzy
+msgid "The service is running, but not enabled in Zentyal"
+msgstr "Tjensten kører, men er ikke aktiveret i Zentyal"
+
+#: src/templates/dashboard/index.mas:38 src/templates/dashboard/status.mas:31
+msgid "Disabled"
+msgstr "Slået fra"
+
+#: src/templates/dashboard/index.mas:39 src/templates/dashboard/status.mas:32
+#, fuzzy
+msgid "The service is not enabled in Zentyal"
+msgstr "Denne tjeneste er ikke aktiveret i Zentyal"
+
+#: src/templates/dashboard/index.mas:44 src/templates/dashboard/status.mas:25
+msgid "Start"
+msgstr "Start"
+
+#: src/templates/dashboard/index.mas:45 src/templates/dashboard/status.mas:12
+msgid "Restart"
+msgstr "Genstart"
+
+#: src/templates/dashboard/index.mas:117
+#, fuzzy
+msgid "Configure widgets"
+msgstr "Sæt handlinger op"
+
+#: src/templates/finish.mas:99
+#, perl-brace-format
+msgid ""
+"The following modules have unsaved changes but are <b>disabled</b>. If you "
+"need to enable them go to {openref}Module Status{closeref}."
+msgstr ""
+"De følgende moduler har ikke gemte ændringer men er <b>deaktiverede</b>. "
+"hvis du ønsker at aktivere dem, gå da til {openref}Module Status{closeref}."
+
+#: src/templates/finish.mas:106
+msgid ""
+"There are unsaved changes in one or more modules, you can save or discard "
+"those changes."
+msgstr ""
+"Der er ikke gemte ændringer i et eller flere moduler, du kan gemme eller "
+"slette ændringerne."
+
+#: src/templates/finish.mas:110
+msgid ""
+"If you made changes to the network interfaces or the administration port, "
+"you may need to manually rewrite the url in order to access this "
+"administration interface again."
+msgstr ""
+"Hvis du har lavet ændringer til et netværks interface eller administrations "
+"porten, kan det være nødvendigt at du manuelt skal skrive den nye adresse i "
+"browserens URL linie."
+
+#: src/templates/finish.mas:134
+msgid "Save"
+msgstr "Gem"
+
+#: src/templates/finish.mas:136
+msgid "Discard changes"
+msgstr "Slet ændringer"
+
+#: src/templates/finish.mas:141
+msgid "There are no unsaved changes."
+msgstr "Der er ikke nogen ændringer, der ikke er gemt."
+
+#: src/templates/hostname.mas:10
+#, fuzzy
+msgid "Change Hostname"
+msgstr "Skift værts navn (hostname)"
+
+#: src/templates/hostname.mas:11
+msgid ""
+"You will need to restart all the services or reboot the system to apply the "
+"hostname change."
+msgstr ""
+"Du skal genstarte alle tjenester eller genstarte systemet (reboot) for at "
+"værts navn ændringen slår i gennem."
+
+#: src/templates/hostname.mas:13
+#, perl-brace-format
+msgid "The hostname will be changed to {newHostname} after saving changes."
+msgstr ""
+
+#: src/templates/confirm-backup.mas:102
+msgid "Full Restore"
+msgstr "Fuld restore"
+
+#: src/templates/confirm-backup.mas:103
+msgid "Configuration Restore"
+msgstr "Konfiguration restore"
+
+#: src/templates/confirm-backup.mas:108
+msgid "Restore mode"
+msgstr "Restore metode"
 
 #: src/templates/logout/index.mas:11
 msgid "There are unsaved changes, if you log out now they will be lost."
@@ -2379,26 +2364,18 @@ msgstr "Der er ingen ændringer, der ikke er gemt."
 msgid "Exit"
 msgstr "Exit"
 
-#: src/templates/password.mas:4
+#: src/templates/backupTabs.mas:13
+msgid "Local"
+msgstr ""
+
+#: src/templates/backupTabs.mas:18
+msgid "Remote in Zentyal Cloud"
+msgstr ""
+
+#: src/templates/backupTabs.mas:23
 #, fuzzy
-msgid "Change Password"
-msgstr "Skift password"
-
-#: src/templates/password.mas:5
-msgid "Your password must be at least 6 characters long."
-msgstr "Passwordet skal være mindst 6 tegn langt"
-
-#: src/templates/password.mas:25
-msgid "Current password"
-msgstr "Nuværende password"
-
-#: src/templates/password.mas:39
-msgid "New password"
-msgstr "Nyt password"
-
-#: src/templates/password.mas:53
-msgid "Confirm password"
-msgstr "Bekræft password"
+msgid "Remote in Zentyal Cloud from other subscribed hosts"
+msgstr "Fejern (remote) backup  fra andre tilmeldte værter."
 
 #: src/templates/login/index.mas:40
 msgid "Warning: Caps Lock is enabled"
@@ -2427,44 +2404,68 @@ msgstr ""
 msgid "Enter"
 msgstr "Enter"
 
-#: src/templates/dataInUse.mas:41 src/templates/confirm-backup.mas:66
-msgid "Cancel"
-msgstr "Fortryd"
+#: src/templates/headTitle.mas:20
+msgid "Remote services control panel"
+msgstr "Kontrol panel for fjernbetjenings tjenesten. "
 
-#: src/templates/confirm-backup.mas:102
-msgid "Full Restore"
-msgstr "Fuld restore"
+#: src/templates/configureView.mas:12
+msgid ""
+"Enabling this module will cause Zentyal to perform the actions and file "
+"modifications listed below. You must explicitly accept these changes to "
+"enable the module."
+msgstr ""
+"Aktivering af dette modul vil få Zentyal til at gennemføre de ændringer som "
+"er listet herunder. Du skal acceptere alle disse hændelser for at aktivere "
+"modulet."
 
-#: src/templates/confirm-backup.mas:103
-msgid "Configuration Restore"
-msgstr "Konfiguration restore"
+#: src/templates/configureView.mas:16
+msgid "Actions to perform by Zentyal"
+msgstr "Hændelser som skal køres af Zentyal."
 
-#: src/templates/confirm-backup.mas:108
-msgid "Restore mode"
-msgstr "Restore metode"
+#: src/templates/configureView.mas:31
+msgid "Files to modify by Zentyal"
+msgstr "Filer som skal modificeres af Zentyal"
+
+#: src/templates/configureView.mas:51
+msgid "Accept"
+msgstr "Accepter"
 
 #: src/templates/port.mas:9
 #, fuzzy
 msgid "Administration Interface TCP Port"
 msgstr "Administrations interfacets TCP port"
 
-#: src/templates/hostname.mas:10
+#: src/templates/halt.mas:10
+msgid "You might lose your Internet connection if this machine is halted."
+msgstr ""
+"Du mister måske din forbindelse til internettet hvis denne server lukkes ned."
+
+#: src/templates/halt.mas:14
+msgid "Halt"
+msgstr "Stop"
+
+#: src/templates/halt.mas:16
+msgid "Reboot"
+msgstr "Genstart (reboot)"
+
+#: src/templates/bug.mas:9
 #, fuzzy
-msgid "Change Hostname"
-msgstr "Skift værts navn (hostname)"
-
-#: src/templates/hostname.mas:11
 msgid ""
-"You will need to restart all the services or reboot the system to apply the "
-"hostname change."
+"This page lets you generate a file with information about the state of your "
+"system. The file will be useful if you want to report a problem or seek "
+"support."
 msgstr ""
-"Du skal genstarte alle tjenester eller genstarte systemet (reboot) for at "
-"værts navn ændringen slår i gennem."
+"Denne side lader dig skabe en file med den aktuelle status af dit system. "
+"Denne fil er nyttig hvis du vil sende en fejlrapport til Zentyal's udviklere."
 
-#: src/templates/hostname.mas:13
-#, perl-brace-format
-msgid "The hostname will be changed to {newHostname} after saving changes."
-msgstr ""
+#: src/templates/bug.mas:13
+msgid "It may take several minutes to generate the report. Please be patient."
+msgstr "Det kan tage flere minutter at genere denne rapport. Vent venligst."
+
+#: src/templates/bug.mas:19
+#, fuzzy
+msgid "Download configuration report file"
+msgstr "Download konfigurations rapport fil"
 
 #~ msgid "Free space"
 #~ msgstr "Ledig plads"

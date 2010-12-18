@@ -7,10 +7,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-software 0.12.99\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-12-13 08:43+0100\n"
+"POT-Creation-Date: 2010-12-18 01:45+0100\n"
 "PO-Revision-Date: 2009-08-04 08:15+0200\n"
 "Last-Translator: Chao-Hsiung Liao <j_h_liau@yahoo.com.tw>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -84,15 +85,6 @@ msgstr "自動更新設置"
 msgid "Save Changes"
 msgstr ""
 
-#: src/EBox/CGI/Config.pm:31
-#, fuzzy
-msgid "Software management settings"
-msgstr "軟體管理"
-
-#: src/EBox/CGI/Config.pm:41
-msgid "Automatic software updates"
-msgstr "自動軟體更新"
-
 #: src/EBox/CGI/Enable.pm:41
 msgid "automatic updates configuration"
 msgstr "自動更新設置"
@@ -107,6 +99,15 @@ msgstr "套件安裝"
 msgid "Zentyal components"
 msgstr "eBox 元件"
 
+#: src/EBox/CGI/Config.pm:31
+#, fuzzy
+msgid "Software management settings"
+msgstr "軟體管理"
+
+#: src/EBox/CGI/Config.pm:41
+msgid "Automatic software updates"
+msgstr "自動軟體更新"
+
 #: src/EBox/CGI/Updates.pm:32
 msgid "System updates"
 msgstr "系統更新"
@@ -115,10 +116,6 @@ msgstr "系統更新"
 #, fuzzy
 msgid "The system components are up to date."
 msgstr "系統已經是最新的"
-
-#: src/EBox/CGI/CurrentPackage.pm:31
-msgid "Upgrading"
-msgstr "更新中"
 
 #: src/EBox/CGI/InstallPkgs.pm:100
 msgid "There were no packages to update"
@@ -188,9 +185,76 @@ msgid ""
 "logs"
 msgstr "套件移除沒有完成.在日誌上有更多資訊"
 
-#: src/templates/ebox.mas:152 src/templates/ebox.mas:587
-#: src/templates/ebox.mas:611 src/templates/updates.mas:46
+#: src/EBox/CGI/CurrentPackage.pm:31
+msgid "Upgrading"
+msgstr "更新中"
+
+#: src/templates/updates.mas:21 src/templates/ebox.mas:182
+msgid "Package list updated successfully"
+msgstr ""
+
+#: src/templates/updates.mas:25 src/templates/ebox.mas:186
+msgid ""
+"Error updating package list. Please try to execute the following command in "
+"a console to see the problem: sudo apt-get update"
+msgstr ""
+
+#: src/templates/updates.mas:35
+msgid "Updates are available for the following system components"
+msgstr "以下的系統元件有可用的更新"
+
+#: src/templates/updates.mas:37
+#, fuzzy
+msgid "Community updates are available for the following system components"
+msgstr "以下的系統元件有可用的更新"
+
+#: src/templates/updates.mas:43 src/templates/ebox.mas:200
+msgid "Component"
+msgstr "元件"
+
+#: src/templates/updates.mas:44 src/templates/ebox.mas:201
+msgid "Description"
+msgstr "說明"
+
+#: src/templates/updates.mas:45 src/templates/ebox.mas:202
+msgid "Version"
+msgstr "版本"
+
+#: src/templates/updates.mas:46 src/templates/ebox.mas:152
+#: src/templates/ebox.mas:587 src/templates/ebox.mas:611
 msgid "Update"
+msgstr "更新"
+
+#: src/templates/updates.mas:55 src/templates/updates.mas:56
+#, fuzzy
+msgid "Security update"
+msgstr "系統更新"
+
+#: src/templates/updates.mas:59 src/templates/updates.mas:60
+#, fuzzy
+msgid "Zentyal QA update"
+msgstr "eBox - eGroupware"
+
+#: src/templates/updates.mas:88
+msgid "Update all packages"
+msgstr "更新所有套件"
+
+#: src/templates/updates.mas:99
+#, fuzzy
+msgid ""
+"This operation can take some time, don't worry if Zentyal looks unresponsive "
+"after pressing the Upgrade button."
+msgstr ""
+"這個動作會花一些時間,假如 eBox 在按下升級按鈕後看起來沒有回應請不用擔心"
+
+#: src/templates/updates.mas:103
+msgid "Upgrade"
+msgstr "升級"
+
+#: src/templates/updates.mas:108 src/templates/ebox.mas:603
+#: src/templates/ebox.mas:612
+#, fuzzy
+msgid "Update list"
 msgstr "更新"
 
 #: src/templates/ebox.mas:158 src/templates/ebox.mas:561
@@ -198,33 +262,11 @@ msgstr "更新"
 msgid "Install"
 msgstr "安裝"
 
-#: src/templates/ebox.mas:182 src/templates/updates.mas:21
-msgid "Package list updated successfully"
-msgstr ""
-
-#: src/templates/ebox.mas:186 src/templates/updates.mas:25
-msgid ""
-"Error updating package list. Please try to execute the following command in "
-"a console to see the problem: sudo apt-get update"
-msgstr ""
-
 #: src/templates/ebox.mas:193
 msgid ""
 "The following packages are not properly installed. You need to fix this "
 "before trying to use them or install new modules."
 msgstr ""
-
-#: src/templates/ebox.mas:200 src/templates/updates.mas:43
-msgid "Component"
-msgstr "元件"
-
-#: src/templates/ebox.mas:201 src/templates/updates.mas:44
-msgid "Description"
-msgstr "說明"
-
-#: src/templates/ebox.mas:202 src/templates/updates.mas:45
-msgid "Version"
-msgstr "版本"
 
 #: src/templates/ebox.mas:216
 msgid ""
@@ -248,12 +290,6 @@ msgstr ""
 #: src/templates/ebox.mas:594 src/templates/ebox.mas:623
 msgid "Delete"
 msgstr ""
-
-#: src/templates/ebox.mas:603 src/templates/ebox.mas:612
-#: src/templates/updates.mas:108
-#, fuzzy
-msgid "Update list"
-msgstr "更新"
 
 #: src/templates/ebox.mas:604 src/templates/ebox.mas:613
 #: src/templates/ebox.mas:624
@@ -309,38 +345,3 @@ msgstr ""
 #: src/templates/config.mas:26
 msgid "Automatic operations start time"
 msgstr ""
-
-#: src/templates/updates.mas:35
-msgid "Updates are available for the following system components"
-msgstr "以下的系統元件有可用的更新"
-
-#: src/templates/updates.mas:37
-#, fuzzy
-msgid "Community updates are available for the following system components"
-msgstr "以下的系統元件有可用的更新"
-
-#: src/templates/updates.mas:55 src/templates/updates.mas:56
-#, fuzzy
-msgid "Security update"
-msgstr "系統更新"
-
-#: src/templates/updates.mas:59 src/templates/updates.mas:60
-#, fuzzy
-msgid "Zentyal QA update"
-msgstr "eBox - eGroupware"
-
-#: src/templates/updates.mas:88
-msgid "Update all packages"
-msgstr "更新所有套件"
-
-#: src/templates/updates.mas:99
-#, fuzzy
-msgid ""
-"This operation can take some time, don't worry if Zentyal looks unresponsive "
-"after pressing the Upgrade button."
-msgstr ""
-"這個動作會花一些時間,假如 eBox 在按下升級按鈕後看起來沒有回應請不用擔心"
-
-#: src/templates/updates.mas:103
-msgid "Upgrade"
-msgstr "升級"

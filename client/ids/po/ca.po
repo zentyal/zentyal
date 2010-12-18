@@ -7,22 +7,68 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-ids 1.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-12-13 08:39+0100\n"
+"POT-Creation-Date: 2010-12-18 01:44+0100\n"
 "PO-Revision-Date: 2010-08-16 19:58+0200\n"
 "Last-Translator: jaume ponsa <jaume@calidae.net>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Pootle 1.1.0\n"
 
+#: src/EBox/Model/Interfaces.pm:129
+msgid "Interface"
+msgstr "Interfície"
+
+#: src/EBox/Model/Interfaces.pm:134
+msgid "Enabled"
+msgstr "Activat"
+
+#: src/EBox/Model/Interfaces.pm:143
+msgid "Interfaces"
+msgstr "Interfícies"
+
+#: src/EBox/Model/Interfaces.pm:149
+msgid "interface"
+msgstr "interfície"
+
+#: src/EBox/Model/Interfaces.pm:151
+msgid "Select in which interfaces IDS system will be enabled"
+msgstr "Selecciona a quina interfície s'activarà el sistema IDS"
+
+#: src/EBox/Model/Report/AlertGraph.pm:47
+#: src/EBox/Model/Report/AlertDetails.pm:41
+msgid "number of alerts"
+msgstr "nombre d'alertes"
+
+#: src/EBox/Model/Report/AlertGraph.pm:52
+msgid "Alerts chart"
+msgstr "Gràfic d'alertes"
+
+#: src/EBox/Model/Report/AlertGraph.pm:68
+msgid "Alert Graph"
+msgstr "Gràfic de l'alerta"
+
+#: src/EBox/Model/Report/AlertDetails.pm:52 src/EBox/IDS.pm:299
+msgid "Date"
+msgstr "Data"
+
+#: src/EBox/Model/Report/AlertDetails.pm:58
+msgid "Number of alerts"
+msgstr "Nombre d'alertes"
+
+#: src/EBox/Model/Report/AlertDetails.pm:66
+msgid "Alert details"
+msgstr "Detall de l'alerta"
+
+#: src/EBox/Model/Report/AlertDetails.pm:73
+msgid "alerts"
+msgstr "alertes"
+
 #: src/EBox/IDS.pm:62 src/EBox/IDS.pm:169 src/EBox/IDS.pm:311
 msgid "IDS"
 msgstr "IDS"
-
-#: src/EBox/IDS.pm:299 src/EBox/Model/Report/AlertDetails.pm:52
-msgid "Date"
-msgstr "Data"
 
 #: src/EBox/IDS.pm:300
 msgid "Priority"
@@ -52,68 +98,6 @@ msgstr "Event"
 msgid "Alert"
 msgstr "Alerta"
 
-#: src/EBox/Model/Interfaces.pm:129
-msgid "Interface"
-msgstr "Interfície"
-
-#: src/EBox/Model/Interfaces.pm:134 src/EBox/Model/Rules.pm:158
-msgid "Enabled"
-msgstr "Activat"
-
-#: src/EBox/Model/Interfaces.pm:143
-msgid "Interfaces"
-msgstr "Interfícies"
-
-#: src/EBox/Model/Interfaces.pm:149
-msgid "interface"
-msgstr "interfície"
-
-#: src/EBox/Model/Interfaces.pm:151
-msgid "Select in which interfaces IDS system will be enabled"
-msgstr "Selecciona a quina interfície s'activarà el sistema IDS"
-
-#: src/EBox/Model/Rules.pm:153
-msgid "Rule Set"
-msgstr "Regla establerta"
-
-#: src/EBox/Model/Rules.pm:167
-msgid "Rules"
-msgstr "Regles"
-
-#: src/EBox/Model/Rules.pm:172
-msgid "rule"
-msgstr "regla"
-
-#: src/EBox/Model/Rules.pm:173
-msgid ""
-"Select the sets of rules you want apply when scanning the network traffic"
-msgstr ""
-
-#: src/EBox/Model/Report/AlertDetails.pm:41
-#: src/EBox/Model/Report/AlertGraph.pm:47
-msgid "number of alerts"
-msgstr "nombre d'alertes"
-
-#: src/EBox/Model/Report/AlertDetails.pm:58
-msgid "Number of alerts"
-msgstr "Nombre d'alertes"
-
-#: src/EBox/Model/Report/AlertDetails.pm:66
-msgid "Alert details"
-msgstr "Detall de l'alerta"
-
-#: src/EBox/Model/Report/AlertDetails.pm:73
-msgid "alerts"
-msgstr "alertes"
-
-#: src/EBox/Model/Report/AlertGraph.pm:52
-msgid "Alerts chart"
-msgstr "Gràfic d'alertes"
-
-#: src/EBox/Model/Report/AlertGraph.pm:68
-msgid "Alert Graph"
-msgstr "Gràfic de l'alerta"
-
 #: src/EBox/Composite/General.pm:101
 msgid "Intrusion Detection System"
 msgstr "Sistema de Detecció d'Intrusos"
@@ -121,6 +105,15 @@ msgstr "Sistema de Detecció d'Intrusos"
 #: src/EBox/Composite/Report/AlertReport.pm:66
 msgid "IDS Alerts report"
 msgstr "Informe d'alertes IDS"
+
+#~ msgid "Rule Set"
+#~ msgstr "Regla establerta"
+
+#~ msgid "Rules"
+#~ msgstr "Regles"
+
+#~ msgid "rule"
+#~ msgstr "regla"
 
 #~ msgid "help message"
 #~ msgstr "missatge d'ajut"

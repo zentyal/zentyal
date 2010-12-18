@@ -6,103 +6,24 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-dns 0.12\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-12-13 08:39+0100\n"
+"POT-Creation-Date: 2010-12-18 01:43+0100\n"
 "PO-Revision-Date: 2010-08-26 18:00+0200\n"
 "Last-Translator: Claudio Brocco <claudiob@ethicalsoftware.it>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: src/EBox/DNS.pm.in:264 src/EBox/Model/DomainTable.pm:248
-msgid "domain"
-msgstr "dominio"
-
-#: src/EBox/DNS.pm.in:517
-msgid "main bind9 configuration file"
-msgstr "file di configurazione principale di bind9"
-
-#: src/EBox/DNS.pm.in:522
-msgid "bind9 options configuration file"
-msgstr "file di configurazione delle opzioni di bind9"
-
-#: src/EBox/DNS.pm.in:527
-msgid "local bind9 configuration file"
-msgstr "file delle configurazioni locali di bind9"
-
-#: src/EBox/DNS.pm.in:532
-#, fuzzy
-msgid "Keys configuration file"
-msgstr "configurazione file per zona {zone}"
-
-#: src/EBox/DNS.pm.in:549
-#, perl-brace-format
-msgid "configuration file for zone {zone}"
-msgstr "configurazione file per zona {zone}"
-
-#: src/EBox/DNS.pm.in:565
-#, perl-brace-format
-msgid "configuration file for reverse resolution zone {zone}"
-msgstr "configuratzione file per reverse resolution zone {zone}"
-
-#: src/EBox/DNS.pm.in:583
-#, perl-brace-format
-msgid "Change the permissions for {dir} to allow writing to bind group"
-msgstr ""
-"Cambia i permessi per la directory {dir} per consentire la scrittura al "
-"gruppo bind"
-
-#: src/EBox/DNS.pm.in:585
-msgid "Let the bind daemon to be dynamically updated"
-msgstr "Consenti al deamon bind di essere aggiornato dinamicamente"
-
-#: src/EBox/Model/HostnameTable.pm:135
-#, perl-brace-format
-msgid ""
-"There is an alias with the same name \"{name}\" for \"{hostname}\" in the "
-"same domain"
-msgstr ""
-"C'è un alias con lo stesso nome \"{name}\" per \"{hostname}\" nello stesso "
-"dominio"
-
-#: src/EBox/Model/HostnameTable.pm:169
-msgid "The domain is set as read only. You cannot add host names"
-msgstr ""
-"Questo dominio è configurato in sola lettura. Non è possibile aggiungere "
-"host names"
-
-#: src/EBox/Model/HostnameTable.pm:187 src/EBox/Model/MailExchanger.pm:151
-#: src/EBox/Model/NameServer.pm:130 src/templates/edit.mas:20
-msgid "Host name"
-msgstr "Nome host"
-
-#: src/EBox/Model/HostnameTable.pm:195 src/EBox/Model/DomainTable.pm:210
-msgid "IP Address"
-msgstr "indirizzo IP"
-
-#: src/EBox/Model/HostnameTable.pm:203 src/EBox/Model/AliasTable.pm:130
-#: src/EBox/Model/AliasTable.pm:140 src/EBox/Model/AliasTable.pm:146
-#: src/templates/edit.mas:64 src/templates/edit.mas:85
-msgid "Alias"
-msgstr "Alias"
-
-#: src/EBox/Model/HostnameTable.pm:215
-msgid "Host names"
-msgstr "Nomi host"
-
-#: src/EBox/Model/HostnameTable.pm:222 src/EBox/Model/DomainTable.pm:185
-msgid "Hostnames"
-msgstr "Nomi host"
-
-#: src/EBox/Model/HostnameTable.pm:223
-msgid "host name"
-msgstr "nome host"
-
 #: src/EBox/Model/DomainTable.pm:177
 msgid "Domain"
 msgstr "Dominio"
+
+#: src/EBox/Model/DomainTable.pm:185 src/EBox/Model/HostnameTable.pm:222
+msgid "Hostnames"
+msgstr "Nomi host"
 
 #: src/EBox/Model/DomainTable.pm:194
 msgid "Mail Exchangers"
@@ -111,6 +32,10 @@ msgstr "Mail Exchangers"
 #: src/EBox/Model/DomainTable.pm:202
 msgid "Name Servers"
 msgstr "Server DNS"
+
+#: src/EBox/Model/DomainTable.pm:210 src/EBox/Model/HostnameTable.pm:195
+msgid "IP Address"
+msgstr "indirizzo IP"
 
 #: src/EBox/Model/DomainTable.pm:218
 msgid "Dynamic"
@@ -129,10 +54,9 @@ msgstr "Lista dei Domini"
 msgid "DNS"
 msgstr "DNS"
 
-#: src/EBox/Model/DNSComposite.pm:77
-msgid "The DNS server allows you to resolve names for your own domains."
-msgstr ""
-"Il server DNS permette la risoluzione dei nomi all'interno del dominio."
+#: src/EBox/Model/DomainTable.pm:248 src/EBox/DNS.pm.in:264
+msgid "domain"
+msgstr "dominio"
 
 #: src/EBox/Model/MailExchanger.pm:86
 #, perl-brace-format
@@ -153,6 +77,11 @@ msgid "The domain is set as read only. You cannot add mail exchangers"
 msgstr ""
 "Il dominio è configurato in sola lettura. Non è possibile aggiungere mail "
 "exchangers"
+
+#: src/EBox/Model/MailExchanger.pm:151 src/EBox/Model/NameServer.pm:130
+#: src/EBox/Model/HostnameTable.pm:187 src/templates/edit.mas:20
+msgid "Host name"
+msgstr "Nome host"
 
 #: src/EBox/Model/MailExchanger.pm:154 src/EBox/Model/NameServer.pm:133
 #, fuzzy
@@ -214,6 +143,12 @@ msgstr ""
 "C'è un nome host {hostname} di tipo alias con lo stesso nome \"{name}\" "
 "nello stesso dominio"
 
+#: src/EBox/Model/AliasTable.pm:130 src/EBox/Model/AliasTable.pm:140
+#: src/EBox/Model/AliasTable.pm:146 src/EBox/Model/HostnameTable.pm:203
+#: src/templates/edit.mas:64 src/templates/edit.mas:85
+msgid "Alias"
+msgstr "Alias"
+
 #: src/EBox/Model/AliasTable.pm:147
 msgid "alias"
 msgstr "alias"
@@ -245,43 +180,71 @@ msgstr "Gestisce il registro name server (NS) per questo dominio"
 msgid "name server record"
 msgstr "voce name server"
 
-#: src/templates/index.mas:16
-msgid "Domain list"
-msgstr "Elenco domini"
+#: src/EBox/Model/HostnameTable.pm:135
+#, perl-brace-format
+msgid ""
+"There is an alias with the same name \"{name}\" for \"{hostname}\" in the "
+"same domain"
+msgstr ""
+"C'è un alias con lo stesso nome \"{name}\" per \"{hostname}\" nello stesso "
+"dominio"
 
-#: src/templates/index.mas:21
-msgid "Name"
-msgstr "Nome"
+#: src/EBox/Model/HostnameTable.pm:169
+msgid "The domain is set as read only. You cannot add host names"
+msgstr ""
+"Questo dominio è configurato in sola lettura. Non è possibile aggiungere "
+"host names"
 
-#: src/templates/index.mas:24 src/templates/edit.mas:23
-msgid "Action"
-msgstr "Azione"
+#: src/EBox/Model/HostnameTable.pm:215
+msgid "Host names"
+msgstr "Nomi host"
 
-#: src/templates/index.mas:37 src/templates/index.mas:38
-#: src/templates/index.mas:39 src/templates/edit.mas:40
-#: src/templates/edit.mas:41 src/templates/edit.mas:42
-#: src/templates/edit.mas:74 src/templates/edit.mas:75
-#: src/templates/edit.mas:76
-msgid "Add"
-msgstr "Aggiungi"
+#: src/EBox/Model/HostnameTable.pm:223
+msgid "host name"
+msgstr "nome host"
 
-#: src/templates/index.mas:49
-msgid "Edit"
-msgstr "Modifica"
+#: src/EBox/Model/DNSComposite.pm:77
+msgid "The DNS server allows you to resolve names for your own domains."
+msgstr ""
+"Il server DNS permette la risoluzione dei nomi all'interno del dominio."
 
-#: src/templates/index.mas:53 src/templates/index.mas:54
-#: src/templates/edit.mas:54 src/templates/edit.mas:55
-#: src/templates/edit.mas:93 src/templates/edit.mas:94
-msgid "Delete"
-msgstr "Elimina"
+#: src/EBox/DNS.pm.in:517
+msgid "main bind9 configuration file"
+msgstr "file di configurazione principale di bind9"
 
-#: src/templates/index.mas:65
-msgid "edit"
-msgstr "modifica"
+#: src/EBox/DNS.pm.in:522
+msgid "bind9 options configuration file"
+msgstr "file di configurazione delle opzioni di bind9"
 
-#: src/templates/index.mas:70 src/templates/edit.mas:110
-msgid "delete"
-msgstr "elimina"
+#: src/EBox/DNS.pm.in:527
+msgid "local bind9 configuration file"
+msgstr "file delle configurazioni locali di bind9"
+
+#: src/EBox/DNS.pm.in:532
+#, fuzzy
+msgid "Keys configuration file"
+msgstr "configurazione file per zona {zone}"
+
+#: src/EBox/DNS.pm.in:549
+#, perl-brace-format
+msgid "configuration file for zone {zone}"
+msgstr "configurazione file per zona {zone}"
+
+#: src/EBox/DNS.pm.in:565
+#, perl-brace-format
+msgid "configuration file for reverse resolution zone {zone}"
+msgstr "configuratzione file per reverse resolution zone {zone}"
+
+#: src/EBox/DNS.pm.in:583
+#, perl-brace-format
+msgid "Change the permissions for {dir} to allow writing to bind group"
+msgstr ""
+"Cambia i permessi per la directory {dir} per consentire la scrittura al "
+"gruppo bind"
+
+#: src/EBox/DNS.pm.in:585
+msgid "Let the bind daemon to be dynamically updated"
+msgstr "Consenti al deamon bind di essere aggiornato dinamicamente"
 
 #: src/templates/edit.mas:12
 #, perl-brace-format
@@ -291,3 +254,41 @@ msgstr "Lista di host per il dominio {domain}"
 #: src/templates/edit.mas:17
 msgid "IP"
 msgstr "IP"
+
+#: src/templates/edit.mas:23 src/templates/index.mas:24
+msgid "Action"
+msgstr "Azione"
+
+#: src/templates/edit.mas:40 src/templates/edit.mas:41
+#: src/templates/edit.mas:42 src/templates/edit.mas:74
+#: src/templates/edit.mas:75 src/templates/edit.mas:76
+#: src/templates/index.mas:37 src/templates/index.mas:38
+#: src/templates/index.mas:39
+msgid "Add"
+msgstr "Aggiungi"
+
+#: src/templates/edit.mas:54 src/templates/edit.mas:55
+#: src/templates/edit.mas:93 src/templates/edit.mas:94
+#: src/templates/index.mas:53 src/templates/index.mas:54
+msgid "Delete"
+msgstr "Elimina"
+
+#: src/templates/edit.mas:110 src/templates/index.mas:70
+msgid "delete"
+msgstr "elimina"
+
+#: src/templates/index.mas:16
+msgid "Domain list"
+msgstr "Elenco domini"
+
+#: src/templates/index.mas:21
+msgid "Name"
+msgstr "Nome"
+
+#: src/templates/index.mas:49
+msgid "Edit"
+msgstr "Modifica"
+
+#: src/templates/index.mas:65
+msgid "edit"
+msgstr "modifica"

@@ -7,10 +7,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-services 0.12\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-12-13 08:42+0100\n"
+"POT-Creation-Date: 2010-12-18 01:45+0100\n"
 "PO-Revision-Date: 2010-11-30 22:35+0100\n"
 "Last-Translator: NiZhiqiang <nessus@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -58,18 +59,6 @@ msgstr "eBox管理"
 msgid "Zentyal Administration Web Server"
 msgstr "Zentyal管理web服务器"
 
-#: src/EBox/Services.pm:47 src/EBox/Model/ServiceTable.pm:144
-msgid "Services"
-msgstr "服务管理"
-
-#: src/EBox/Services.pm:399
-msgid "port"
-msgstr "端口"
-
-#: src/EBox/Services.pm:402
-msgid "Zentyal Administration port"
-msgstr "Zentyal管理端口"
-
 #: src/EBox/Model/ServiceTable.pm:102
 msgid "Domain"
 msgstr "域名"
@@ -101,6 +90,10 @@ msgstr "配置"
 #: src/EBox/Model/ServiceTable.pm:143
 msgid "List of services"
 msgstr "服务列表"
+
+#: src/EBox/Model/ServiceTable.pm:144 src/EBox/Services.pm:47
+msgid "Services"
+msgstr "服务管理"
 
 #: src/EBox/Model/ServiceTable.pm:154
 #: src/EBox/Model/ServiceConfigurationTable.pm:172
@@ -137,3 +130,11 @@ msgstr "服务配置"
 #: src/EBox/Model/ServiceConfigurationTable.pm:196
 msgid "This protocol does not use ports"
 msgstr "这个协议没有使用端口"
+
+#: src/EBox/Services.pm:399
+msgid "port"
+msgstr "端口"
+
+#: src/EBox/Services.pm:402
+msgid "Zentyal Administration port"
+msgstr "Zentyal管理端口"

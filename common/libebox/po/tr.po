@@ -7,15 +7,35 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libebox 0.12.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-12-13 08:44+0100\n"
+"POT-Creation-Date: 2010-12-18 01:20+0100\n"
 "PO-Revision-Date: 2010-04-30 14:01+0200\n"
 "Last-Translator: Bulent SENER <bulent.sener@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Pootle 1.1.0\n"
+
+#: src/EBox/Config.pm.in:74
+#, perl-brace-format
+msgid "Could not open the config file {file}."
+msgstr "{file} yapılandırma dosyası açılamadı."
+
+#: src/EBox/Config.pm.in:172
+msgid "The ebox user has not been set in the config file."
+msgstr "eBox kullanıcısı yapılandırma dosyasında ayarlanmamış."
+
+#: src/EBox/Exceptions/DataNotFound.pm:35
+#, perl-brace-format
+msgid "{data} {value} does not exist."
+msgstr "{data} {value} mevcut değil."
+
+#: src/EBox/Exceptions/DataExists.pm:36
+#, perl-brace-format
+msgid "{data} {value} already exists."
+msgstr "{data} {value} önceden mevcut."
 
 #: src/EBox/Exceptions/InvalidData.pm:37
 #, perl-brace-format
@@ -27,20 +47,53 @@ msgstr "{data} için geçersiz değer : {value} ."
 msgid "{data} is empty."
 msgstr "{data} boş."
 
-#: src/EBox/Exceptions/DataExists.pm:36
-#, perl-brace-format
-msgid "{data} {value} already exists."
-msgstr "{data} {value} önceden mevcut."
+#: src/EBox/Validate.pm:390 src/EBox/Validate.pm:404
+msgid "Must be a number between 1 and 4096"
+msgstr "Sayı 1 ile 4096 arasında olmalıdır"
 
-#: src/EBox/Exceptions/DataNotFound.pm:35
+#: src/EBox/Validate.pm:687
 #, perl-brace-format
-msgid "{data} {value} does not exist."
-msgstr "{data} {value} mevcut değil."
+msgid ""
+"Cannot stat dir: {dir}. This may mean that the directory does not exist or "
+"the permissions forbid access to it"
+msgstr ""
+"{dir} dizinine girilemiyor. Dizin mevcut değil veya erişim yetkiniz yok"
+
+#: src/EBox/Validate.pm:692
+#, perl-brace-format
+msgid "The directory {dir} is not private; because it is owned by another user"
+msgstr "{dir} dizini özel değil; çünkü başka bir kullanıcı sahipliği altında"
+
+#: src/EBox/Validate.pm:767
+msgid ""
+"The file path supplied is not valid. (Currently not all of the valid file's  "
+"characters are supported) "
+msgstr ""
+"Verilen dosya yolu gerçerli değil. (Şu an geçerli olan tüm dosya "
+"karakterleri desteklenmiyor)"
+
+#: src/EBox/Validate.pm:795
+msgid "The file path must be absolute"
+msgstr "Dosya yolu mutlak olmalı"
+
+#: src/EBox/Sudo.pm:265
+#, perl-brace-format
+msgid "Running command '{cmd}' as {user} failed"
+msgstr "{user} ile çalıştırılan '{cmd}' komutu başarısız oldu"
+
+#: src/EBox/FileSystem.pm:190 src/EBox/FileSystem.pm:282
+#, perl-brace-format
+msgid "Directory not found: {d}"
+msgstr "Dizin bulunamadı: {d}"
 
 #: src/EBox/NetWrappers.pm:104 src/EBox/NetWrappers.pm:133
 #: src/EBox/NetWrappers.pm:229
 msgid "Interface"
 msgstr "Arabirim"
+
+#: src/EBox/CGI/EBox/PageNotFound.pm:27
+msgid "Page not found"
+msgstr "Sayfa bulunamadı"
 
 #: src/EBox/CGI/Base.pm:196
 msgid ""
@@ -102,74 +155,82 @@ msgstr "Geçersiz gönderilen dosya."
 msgid "Cannot create a temporally file for the upload"
 msgstr "Dosya göndermek için geçici dosya yaratılamıyor"
 
-#: src/EBox/CGI/EBox/PageNotFound.pm:27
-msgid "Page not found"
-msgstr "Sayfa bulunamadı"
+#: src/templates/language.mas:10
+msgid "Language Selection"
+msgstr "Dil seçimi"
 
-#: src/EBox/Config.pm.in:74
-#, perl-brace-format
-msgid "Could not open the config file {file}."
-msgstr "{file} yapılandırma dosyası açılamadı."
-
-#: src/EBox/Config.pm.in:172
-msgid "The ebox user has not been set in the config file."
-msgstr "eBox kullanıcısı yapılandırma dosyasında ayarlanmamış."
-
-#: src/EBox/Sudo.pm:265
-#, perl-brace-format
-msgid "Running command '{cmd}' as {user} failed"
-msgstr "{user} ile çalıştırılan '{cmd}' komutu başarısız oldu"
-
-#: src/EBox/FileSystem.pm:190 src/EBox/FileSystem.pm:282
-#, perl-brace-format
-msgid "Directory not found: {d}"
-msgstr "Dizin bulunamadı: {d}"
-
-#: src/EBox/Validate.pm:390 src/EBox/Validate.pm:404
-msgid "Must be a number between 1 and 4096"
-msgstr "Sayı 1 ile 4096 arasında olmalıdır"
-
-#: src/EBox/Validate.pm:687
-#, perl-brace-format
+#: src/templates/language.mas:11
 msgid ""
-"Cannot stat dir: {dir}. This may mean that the directory does not exist or "
-"the permissions forbid access to it"
+"Language changes happen automatically, saving the configuration it's not "
+"needed."
 msgstr ""
-"{dir} dizinine girilemiyor. Dizin mevcut değil veya erişim yetkiniz yok"
+"Dil değişikliği kendiliğinden olacaktır, yapılandırmayı kayıt etmeyi "
+"gerektirmez."
 
-#: src/EBox/Validate.pm:692
-#, perl-brace-format
-msgid "The directory {dir} is not private; because it is owned by another user"
-msgstr "{dir} dizini özel değil; çünkü başka bir kullanıcı sahipliği altında"
-
-#: src/EBox/Validate.pm:767
-msgid ""
-"The file path supplied is not valid. (Currently not all of the valid file's  "
-"characters are supported) "
-msgstr ""
-"Verilen dosya yolu gerçerli değil. (Şu an geçerli olan tüm dosya "
-"karakterleri desteklenmiyor)"
-
-#: src/EBox/Validate.pm:795
-msgid "The file path must be absolute"
-msgstr "Dosya yolu mutlak olmalı"
-
-#: src/templates/enable.mas:9
-msgid "Service configuration"
-msgstr "Servis ayarları"
-
-#: src/templates/enable.mas:21 src/templates/enable.mas:24
-msgid "Disabled"
-msgstr "Etkisiz"
-
-#: src/templates/enable.mas:22 src/templates/enable.mas:25
-msgid "Enabled"
-msgstr "Etkin"
-
-#: src/templates/enable.mas:29 src/templates/enable.mas:30
-#: src/templates/language.mas:23
+#: src/templates/language.mas:23 src/templates/enable.mas:29
+#: src/templates/enable.mas:30
 msgid "Change"
 msgstr "Değiştir"
+
+#: src/templates/title.mas:24
+msgid "show help"
+msgstr "Yardımı göster"
+
+#: src/templates/title.mas:25
+msgid "hide help"
+msgstr "Yardımları gizle"
+
+#: src/templates/ebox/pageNotFound.mas:3
+#, fuzzy
+msgid "Zentyal homepage"
+msgstr "eBox web sayfası"
+
+#: src/templates/ebox/pageNotFound.mas:7
+msgid "If you typed the URL manually, please check it"
+msgstr "Eğer URL adresini eliniz ile girdiyseniz, lütfen tekrar kontrol edin"
+
+#: src/templates/ebox/pageNotFound.mas:8
+#, fuzzy
+msgid ""
+"Maybe a change in the Zentyal configuration or software made no longer "
+"available the requested page"
+msgstr ""
+"Ebox ayarlarının değiştirişmesi veya yeni bir yazılımın yüklenmesinden "
+"dolayı istenen sayfa mevcut olmayabilir."
+
+#: src/templates/ebox/pageNotFound.mas:9
+#, perl-brace-format
+msgid ""
+"If you need more help, you may want visit {homepage} for documentation and "
+"mailing lists"
+msgstr ""
+"Detaylı yardım, belge, posta listesi ve açıklama için {homepage} adresini "
+"ziyaret edin."
+
+#: src/templates/ebox/pageNotFound.mas:12
+msgid "we're sorry"
+msgstr "Çok üzgünüz"
+
+#: src/templates/ebox/pageNotFound.mas:13
+msgid "The page cannot be found"
+msgstr "Sayfa bulunamadı"
+
+#: src/templates/ajax/setter/inverseMatchUnionSetter.mas:9
+#: src/templates/ajax/setter/inverseMatchSelectSetter.mas:13
+msgid "Inverse match"
+msgstr "Eşleşenleri tersine çevir"
+
+#: src/templates/ajax/setter/portRangeSetter.mas:23
+msgid "From"
+msgstr "Gönderen"
+
+#: src/templates/ajax/setter/portRangeSetter.mas:29
+msgid "To"
+msgstr "Kime"
+
+#: src/templates/ajax/setter/serviceSetter.mas:25
+msgid "port"
+msgstr "port"
 
 #: src/templates/ajax/viewer/file.mas:22 src/templates/ajax/viewer/file.mas:33
 msgid "Download"
@@ -178,6 +239,44 @@ msgstr "İndirmek"
 #: src/templates/ajax/viewer/file.mas:26
 msgid "Remove"
 msgstr "Silmek"
+
+#: src/templates/ajax/modelViewer.mas:258 src/templates/formTable.mas:85
+msgid "Optional"
+msgstr "Opsiyonel"
+
+#: src/templates/ajax/tablePager.mas:46
+msgid "Page"
+msgstr "Sayfa"
+
+#: src/templates/ajax/tablePager.mas:47
+msgid "of"
+msgstr "  "
+
+#: src/templates/ajax/tablePager.mas:60 src/templates/ajax/tablePager.mas:66
+msgid "first"
+msgstr "birinci"
+
+#: src/templates/ajax/tablePager.mas:62 src/templates/ajax/tablePager.mas:67
+msgid "prev"
+msgstr "önceki"
+
+#: src/templates/ajax/tablePager.mas:73 src/templates/ajax/tablePager.mas:74
+#: src/templates/ajax/tablePager.mas:85 src/templates/ajax/tablePager.mas:86
+msgid "next"
+msgstr "sonraki"
+
+#: src/templates/ajax/tablePager.mas:79 src/templates/ajax/tablePager.mas:80
+#: src/templates/ajax/tablePager.mas:89 src/templates/ajax/tablePager.mas:90
+msgid "last"
+msgstr "sonuncu"
+
+#: src/templates/ajax/tableSelector.mas:14
+msgid "Choose one of the options to show the associated table"
+msgstr "İlgili tabloyu göstermek için bir tane seçeneği işaretleyin"
+
+#: src/templates/ajax/tableSelector.mas:32
+msgid "Choose one..."
+msgstr "Birtanesini seçin..."
 
 #: src/templates/ajax/tableBody.mas:135
 msgid "Add new"
@@ -239,112 +338,14 @@ msgstr "Salt-okunur satır: Düzenleme yapılamaz"
 msgid "Move down"
 msgstr ""
 
-#: src/templates/ajax/tableSelector.mas:14
-msgid "Choose one of the options to show the associated table"
-msgstr "İlgili tabloyu göstermek için bir tane seçeneği işaretleyin"
+#: src/templates/enable.mas:9
+msgid "Service configuration"
+msgstr "Servis ayarları"
 
-#: src/templates/ajax/tableSelector.mas:32
-msgid "Choose one..."
-msgstr "Birtanesini seçin..."
+#: src/templates/enable.mas:21 src/templates/enable.mas:24
+msgid "Disabled"
+msgstr "Etkisiz"
 
-#: src/templates/ajax/setter/serviceSetter.mas:25
-msgid "port"
-msgstr "port"
-
-#: src/templates/ajax/setter/inverseMatchUnionSetter.mas:9
-#: src/templates/ajax/setter/inverseMatchSelectSetter.mas:13
-msgid "Inverse match"
-msgstr "Eşleşenleri tersine çevir"
-
-#: src/templates/ajax/setter/portRangeSetter.mas:23
-msgid "From"
-msgstr "Gönderen"
-
-#: src/templates/ajax/setter/portRangeSetter.mas:29
-msgid "To"
-msgstr "Kime"
-
-#: src/templates/ajax/modelViewer.mas:258 src/templates/formTable.mas:85
-msgid "Optional"
-msgstr "Opsiyonel"
-
-#: src/templates/ajax/tablePager.mas:46
-msgid "Page"
-msgstr "Sayfa"
-
-#: src/templates/ajax/tablePager.mas:47
-msgid "of"
-msgstr "  "
-
-#: src/templates/ajax/tablePager.mas:60 src/templates/ajax/tablePager.mas:66
-msgid "first"
-msgstr "birinci"
-
-#: src/templates/ajax/tablePager.mas:62 src/templates/ajax/tablePager.mas:67
-msgid "prev"
-msgstr "önceki"
-
-#: src/templates/ajax/tablePager.mas:73 src/templates/ajax/tablePager.mas:74
-#: src/templates/ajax/tablePager.mas:85 src/templates/ajax/tablePager.mas:86
-msgid "next"
-msgstr "sonraki"
-
-#: src/templates/ajax/tablePager.mas:79 src/templates/ajax/tablePager.mas:80
-#: src/templates/ajax/tablePager.mas:89 src/templates/ajax/tablePager.mas:90
-msgid "last"
-msgstr "sonuncu"
-
-#: src/templates/ebox/pageNotFound.mas:3
-#, fuzzy
-msgid "Zentyal homepage"
-msgstr "eBox web sayfası"
-
-#: src/templates/ebox/pageNotFound.mas:7
-msgid "If you typed the URL manually, please check it"
-msgstr "Eğer URL adresini eliniz ile girdiyseniz, lütfen tekrar kontrol edin"
-
-#: src/templates/ebox/pageNotFound.mas:8
-#, fuzzy
-msgid ""
-"Maybe a change in the Zentyal configuration or software made no longer "
-"available the requested page"
-msgstr ""
-"Ebox ayarlarının değiştirişmesi veya yeni bir yazılımın yüklenmesinden "
-"dolayı istenen sayfa mevcut olmayabilir."
-
-#: src/templates/ebox/pageNotFound.mas:9
-#, perl-brace-format
-msgid ""
-"If you need more help, you may want visit {homepage} for documentation and "
-"mailing lists"
-msgstr ""
-"Detaylı yardım, belge, posta listesi ve açıklama için {homepage} adresini "
-"ziyaret edin."
-
-#: src/templates/ebox/pageNotFound.mas:12
-msgid "we're sorry"
-msgstr "Çok üzgünüz"
-
-#: src/templates/ebox/pageNotFound.mas:13
-msgid "The page cannot be found"
-msgstr "Sayfa bulunamadı"
-
-#: src/templates/title.mas:24
-msgid "show help"
-msgstr "Yardımı göster"
-
-#: src/templates/title.mas:25
-msgid "hide help"
-msgstr "Yardımları gizle"
-
-#: src/templates/language.mas:10
-msgid "Language Selection"
-msgstr "Dil seçimi"
-
-#: src/templates/language.mas:11
-msgid ""
-"Language changes happen automatically, saving the configuration it's not "
-"needed."
-msgstr ""
-"Dil değişikliği kendiliğinden olacaktır, yapılandırmayı kayıt etmeyi "
-"gerektirmez."
+#: src/templates/enable.mas:22 src/templates/enable.mas:25
+msgid "Enabled"
+msgstr "Etkin"

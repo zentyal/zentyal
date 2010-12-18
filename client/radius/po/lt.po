@@ -8,40 +8,21 @@ msgstr ""
 "Project-Id-Version: ebox-radius 2.0Report-Msgid-Bugs-To: developers@zentyal."
 "org\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-12-13 08:42+0100\n"
+"POT-Creation-Date: 2010-12-18 01:45+0100\n"
 "PO-Revision-Date: 2010-12-06 17:58+0100\n"
 "Last-Translator: Vytautas <vytautas@lantraneta.lt>\n"
 "Language-Team: none\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n%"
-"100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n"
+"%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Pootle 1.1.0\n"
 
 #: migration/0001_add_firewall_services.pl:45
 msgid "Zentyal RADIUS system"
 msgstr "Zentyal RADIUS sistema"
-
-#: src/EBox/Model/Auth.pm:103
-msgid "All users"
-msgstr "Visi vartotojai"
-
-#: src/EBox/Model/Auth.pm:128
-msgid "Group allowed to authenticate"
-msgstr "Leidžiama autentifikuotis grupei"
-
-#: src/EBox/Model/Auth.pm:138
-msgid "General configuration"
-msgstr "Pagrindiniai nustatymai"
-
-#: src/EBox/Model/Auth.pm:142
-msgid "RADIUS server configuration"
-msgstr "RADIUS serverio nustatymai"
-
-#: src/EBox/Model/Auth.pm:144
-msgid "RADIUS server configuration updated"
-msgstr "RADIUS serverio nustatymai atnaujinti"
 
 #: src/EBox/Model/Clients.pm:105
 msgid "Client"
@@ -62,6 +43,26 @@ msgstr "RADIUS klientai"
 #: src/EBox/Model/Clients.pm:127
 msgid "client"
 msgstr "klientas"
+
+#: src/EBox/Model/Auth.pm:103
+msgid "All users"
+msgstr "Visi vartotojai"
+
+#: src/EBox/Model/Auth.pm:128
+msgid "Group allowed to authenticate"
+msgstr "Leidžiama autentifikuotis grupei"
+
+#: src/EBox/Model/Auth.pm:138
+msgid "General configuration"
+msgstr "Pagrindiniai nustatymai"
+
+#: src/EBox/Model/Auth.pm:142
+msgid "RADIUS server configuration"
+msgstr "RADIUS serverio nustatymai"
+
+#: src/EBox/Model/Auth.pm:144
+msgid "RADIUS server configuration updated"
+msgstr "RADIUS serverio nustatymai atnaujinti"
 
 #: src/EBox/Radius.pm:100
 msgid "Create RADIUS certificates for TTLS"

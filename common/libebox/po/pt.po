@@ -7,15 +7,35 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libebox 0.12.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-12-13 08:44+0100\n"
+"POT-Creation-Date: 2010-12-18 01:20+0100\n"
 "PO-Revision-Date: 2010-08-26 12:02+0200\n"
 "Last-Translator: Vasco Castelo Branco <vcbranco@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 1.1.0\n"
+
+#: src/EBox/Config.pm.in:74
+#, perl-brace-format
+msgid "Could not open the config file {file}."
+msgstr "Não é possível abrir o ficheiro de configuração {file}"
+
+#: src/EBox/Config.pm.in:172
+msgid "The ebox user has not been set in the config file."
+msgstr "O utilizador eBox não foi definido no ficheiro de configuração"
+
+#: src/EBox/Exceptions/DataNotFound.pm:35
+#, perl-brace-format
+msgid "{data} {value} does not exist."
+msgstr "{data} {value} não existe"
+
+#: src/EBox/Exceptions/DataExists.pm:36
+#, perl-brace-format
+msgid "{data} {value} already exists."
+msgstr "Já existe {data} {value}"
 
 #: src/EBox/Exceptions/InvalidData.pm:37
 #, perl-brace-format
@@ -27,20 +47,53 @@ msgstr "Valor inválido para {data}: {value}."
 msgid "{data} is empty."
 msgstr "{data} está vazio"
 
-#: src/EBox/Exceptions/DataExists.pm:36
-#, perl-brace-format
-msgid "{data} {value} already exists."
-msgstr "Já existe {data} {value}"
+#: src/EBox/Validate.pm:390 src/EBox/Validate.pm:404
+msgid "Must be a number between 1 and 4096"
+msgstr "Deve ser um número entre 1 e 4096"
 
-#: src/EBox/Exceptions/DataNotFound.pm:35
+#: src/EBox/Validate.pm:687
 #, perl-brace-format
-msgid "{data} {value} does not exist."
-msgstr "{data} {value} não existe"
+msgid ""
+"Cannot stat dir: {dir}. This may mean that the directory does not exist or "
+"the permissions forbid access to it"
+msgstr ""
+"Não é possível encontrar: {dir}. Isto quer dizer que o directório não existe "
+"ou as permissões não permitem acede-lo"
+
+#: src/EBox/Validate.pm:692
+#, perl-brace-format
+msgid "The directory {dir} is not private; because it is owned by another user"
+msgstr ""
+"O directório {dir} não é privado porque existe outro utilizador que é o dono"
+
+#: src/EBox/Validate.pm:767
+msgid ""
+"The file path supplied is not valid. (Currently not all of the valid file's  "
+"characters are supported) "
+msgstr "O caminho do ficheiro que foi fornecido não é válido."
+
+#: src/EBox/Validate.pm:795
+msgid "The file path must be absolute"
+msgstr "O caminho do ficheiro deve ser absoluto"
+
+#: src/EBox/Sudo.pm:265
+#, perl-brace-format
+msgid "Running command '{cmd}' as {user} failed"
+msgstr "O comando '{cmd}' como {user} falhou"
+
+#: src/EBox/FileSystem.pm:190 src/EBox/FileSystem.pm:282
+#, perl-brace-format
+msgid "Directory not found: {d}"
+msgstr "O directório não foi encontrado: {d}"
 
 #: src/EBox/NetWrappers.pm:104 src/EBox/NetWrappers.pm:133
 #: src/EBox/NetWrappers.pm:229
 msgid "Interface"
 msgstr "Interface"
+
+#: src/EBox/CGI/EBox/PageNotFound.pm:27
+msgid "Page not found"
+msgstr "Não foi encontrada a página"
 
 #: src/EBox/CGI/Base.pm:196
 msgid ""
@@ -101,74 +154,80 @@ msgstr "O ficheiro carregado é inválido"
 msgid "Cannot create a temporally file for the upload"
 msgstr "Não é possível criar um ficheiro temporário para a carga"
 
-#: src/EBox/CGI/EBox/PageNotFound.pm:27
-msgid "Page not found"
-msgstr "Não foi encontrada a página"
+#: src/templates/language.mas:10
+msgid "Language Selection"
+msgstr "Selecção da linguagem"
 
-#: src/EBox/Config.pm.in:74
-#, perl-brace-format
-msgid "Could not open the config file {file}."
-msgstr "Não é possível abrir o ficheiro de configuração {file}"
-
-#: src/EBox/Config.pm.in:172
-msgid "The ebox user has not been set in the config file."
-msgstr "O utilizador eBox não foi definido no ficheiro de configuração"
-
-#: src/EBox/Sudo.pm:265
-#, perl-brace-format
-msgid "Running command '{cmd}' as {user} failed"
-msgstr "O comando '{cmd}' como {user} falhou"
-
-#: src/EBox/FileSystem.pm:190 src/EBox/FileSystem.pm:282
-#, perl-brace-format
-msgid "Directory not found: {d}"
-msgstr "O directório não foi encontrado: {d}"
-
-#: src/EBox/Validate.pm:390 src/EBox/Validate.pm:404
-msgid "Must be a number between 1 and 4096"
-msgstr "Deve ser um número entre 1 e 4096"
-
-#: src/EBox/Validate.pm:687
-#, perl-brace-format
+#: src/templates/language.mas:11
 msgid ""
-"Cannot stat dir: {dir}. This may mean that the directory does not exist or "
-"the permissions forbid access to it"
+"Language changes happen automatically, saving the configuration it's not "
+"needed."
 msgstr ""
-"Não é possível encontrar: {dir}. Isto quer dizer que o directório não existe "
-"ou as permissões não permitem acede-lo"
+"As alterações à linguagem acontecem automaticamente, não é necessário guardá-"
+"las"
 
-#: src/EBox/Validate.pm:692
-#, perl-brace-format
-msgid "The directory {dir} is not private; because it is owned by another user"
-msgstr ""
-"O directório {dir} não é privado porque existe outro utilizador que é o dono"
-
-#: src/EBox/Validate.pm:767
-msgid ""
-"The file path supplied is not valid. (Currently not all of the valid file's  "
-"characters are supported) "
-msgstr "O caminho do ficheiro que foi fornecido não é válido."
-
-#: src/EBox/Validate.pm:795
-msgid "The file path must be absolute"
-msgstr "O caminho do ficheiro deve ser absoluto"
-
-#: src/templates/enable.mas:9
-msgid "Service configuration"
-msgstr "Configuração do serviço"
-
-#: src/templates/enable.mas:21 src/templates/enable.mas:24
-msgid "Disabled"
-msgstr "Desactivado"
-
-#: src/templates/enable.mas:22 src/templates/enable.mas:25
-msgid "Enabled"
-msgstr "Activado"
-
-#: src/templates/enable.mas:29 src/templates/enable.mas:30
-#: src/templates/language.mas:23
+#: src/templates/language.mas:23 src/templates/enable.mas:29
+#: src/templates/enable.mas:30
 msgid "Change"
 msgstr "Alterar"
+
+#: src/templates/title.mas:24
+msgid "show help"
+msgstr "Mostrar a ajuda"
+
+#: src/templates/title.mas:25
+msgid "hide help"
+msgstr "Esconder a ajuda"
+
+#: src/templates/ebox/pageNotFound.mas:3
+msgid "Zentyal homepage"
+msgstr "Página inicial da Zentyal"
+
+#: src/templates/ebox/pageNotFound.mas:7
+msgid "If you typed the URL manually, please check it"
+msgstr "Se digitou o endereço manualmente confirme-o"
+
+#: src/templates/ebox/pageNotFound.mas:8
+msgid ""
+"Maybe a change in the Zentyal configuration or software made no longer "
+"available the requested page"
+msgstr ""
+"A página requisitada não está disponível provavelmente devido a alterações "
+"na configuração da Zentyal ou de software"
+
+#: src/templates/ebox/pageNotFound.mas:9
+#, perl-brace-format
+msgid ""
+"If you need more help, you may want visit {homepage} for documentation and "
+"mailing lists"
+msgstr ""
+"Se necessitar de mais ajuda pode visitar {homepage} para documentação e "
+"listas de correio"
+
+#: src/templates/ebox/pageNotFound.mas:12
+msgid "we're sorry"
+msgstr "Pedimos desculpa"
+
+#: src/templates/ebox/pageNotFound.mas:13
+msgid "The page cannot be found"
+msgstr "A página não foi encontrada"
+
+#: src/templates/ajax/setter/inverseMatchUnionSetter.mas:9
+#: src/templates/ajax/setter/inverseMatchSelectSetter.mas:13
+msgid "Inverse match"
+msgstr "Correspondência inversa"
+
+#: src/templates/ajax/setter/portRangeSetter.mas:23
+msgid "From"
+msgstr "De"
+
+#: src/templates/ajax/setter/portRangeSetter.mas:29
+msgid "To"
+msgstr "Para"
+
+#: src/templates/ajax/setter/serviceSetter.mas:25
+msgid "port"
+msgstr "porto"
 
 #: src/templates/ajax/viewer/file.mas:22 src/templates/ajax/viewer/file.mas:33
 msgid "Download"
@@ -177,6 +236,44 @@ msgstr "Descarregar"
 #: src/templates/ajax/viewer/file.mas:26
 msgid "Remove"
 msgstr "Remover"
+
+#: src/templates/ajax/modelViewer.mas:258 src/templates/formTable.mas:85
+msgid "Optional"
+msgstr "Opcional"
+
+#: src/templates/ajax/tablePager.mas:46
+msgid "Page"
+msgstr "Página"
+
+#: src/templates/ajax/tablePager.mas:47
+msgid "of"
+msgstr "de"
+
+#: src/templates/ajax/tablePager.mas:60 src/templates/ajax/tablePager.mas:66
+msgid "first"
+msgstr "primeiro"
+
+#: src/templates/ajax/tablePager.mas:62 src/templates/ajax/tablePager.mas:67
+msgid "prev"
+msgstr "anterior"
+
+#: src/templates/ajax/tablePager.mas:73 src/templates/ajax/tablePager.mas:74
+#: src/templates/ajax/tablePager.mas:85 src/templates/ajax/tablePager.mas:86
+msgid "next"
+msgstr "próximo"
+
+#: src/templates/ajax/tablePager.mas:79 src/templates/ajax/tablePager.mas:80
+#: src/templates/ajax/tablePager.mas:89 src/templates/ajax/tablePager.mas:90
+msgid "last"
+msgstr "ultimo"
+
+#: src/templates/ajax/tableSelector.mas:14
+msgid "Choose one of the options to show the associated table"
+msgstr "Escolha uma das opções para mostrar a tabela associada"
+
+#: src/templates/ajax/tableSelector.mas:32
+msgid "Choose one..."
+msgstr "Escolha uma..."
 
 #: src/templates/ajax/tableBody.mas:135
 msgid "Add new"
@@ -238,110 +335,14 @@ msgstr "Célula de leitura: Edição desactivada"
 msgid "Move down"
 msgstr ""
 
-#: src/templates/ajax/tableSelector.mas:14
-msgid "Choose one of the options to show the associated table"
-msgstr "Escolha uma das opções para mostrar a tabela associada"
+#: src/templates/enable.mas:9
+msgid "Service configuration"
+msgstr "Configuração do serviço"
 
-#: src/templates/ajax/tableSelector.mas:32
-msgid "Choose one..."
-msgstr "Escolha uma..."
+#: src/templates/enable.mas:21 src/templates/enable.mas:24
+msgid "Disabled"
+msgstr "Desactivado"
 
-#: src/templates/ajax/setter/serviceSetter.mas:25
-msgid "port"
-msgstr "porto"
-
-#: src/templates/ajax/setter/inverseMatchUnionSetter.mas:9
-#: src/templates/ajax/setter/inverseMatchSelectSetter.mas:13
-msgid "Inverse match"
-msgstr "Correspondência inversa"
-
-#: src/templates/ajax/setter/portRangeSetter.mas:23
-msgid "From"
-msgstr "De"
-
-#: src/templates/ajax/setter/portRangeSetter.mas:29
-msgid "To"
-msgstr "Para"
-
-#: src/templates/ajax/modelViewer.mas:258 src/templates/formTable.mas:85
-msgid "Optional"
-msgstr "Opcional"
-
-#: src/templates/ajax/tablePager.mas:46
-msgid "Page"
-msgstr "Página"
-
-#: src/templates/ajax/tablePager.mas:47
-msgid "of"
-msgstr "de"
-
-#: src/templates/ajax/tablePager.mas:60 src/templates/ajax/tablePager.mas:66
-msgid "first"
-msgstr "primeiro"
-
-#: src/templates/ajax/tablePager.mas:62 src/templates/ajax/tablePager.mas:67
-msgid "prev"
-msgstr "anterior"
-
-#: src/templates/ajax/tablePager.mas:73 src/templates/ajax/tablePager.mas:74
-#: src/templates/ajax/tablePager.mas:85 src/templates/ajax/tablePager.mas:86
-msgid "next"
-msgstr "próximo"
-
-#: src/templates/ajax/tablePager.mas:79 src/templates/ajax/tablePager.mas:80
-#: src/templates/ajax/tablePager.mas:89 src/templates/ajax/tablePager.mas:90
-msgid "last"
-msgstr "ultimo"
-
-#: src/templates/ebox/pageNotFound.mas:3
-msgid "Zentyal homepage"
-msgstr "Página inicial da Zentyal"
-
-#: src/templates/ebox/pageNotFound.mas:7
-msgid "If you typed the URL manually, please check it"
-msgstr "Se digitou o endereço manualmente confirme-o"
-
-#: src/templates/ebox/pageNotFound.mas:8
-msgid ""
-"Maybe a change in the Zentyal configuration or software made no longer "
-"available the requested page"
-msgstr ""
-"A página requisitada não está disponível provavelmente devido a alterações "
-"na configuração da Zentyal ou de software"
-
-#: src/templates/ebox/pageNotFound.mas:9
-#, perl-brace-format
-msgid ""
-"If you need more help, you may want visit {homepage} for documentation and "
-"mailing lists"
-msgstr ""
-"Se necessitar de mais ajuda pode visitar {homepage} para documentação e "
-"listas de correio"
-
-#: src/templates/ebox/pageNotFound.mas:12
-msgid "we're sorry"
-msgstr "Pedimos desculpa"
-
-#: src/templates/ebox/pageNotFound.mas:13
-msgid "The page cannot be found"
-msgstr "A página não foi encontrada"
-
-#: src/templates/title.mas:24
-msgid "show help"
-msgstr "Mostrar a ajuda"
-
-#: src/templates/title.mas:25
-msgid "hide help"
-msgstr "Esconder a ajuda"
-
-#: src/templates/language.mas:10
-msgid "Language Selection"
-msgstr "Selecção da linguagem"
-
-#: src/templates/language.mas:11
-msgid ""
-"Language changes happen automatically, saving the configuration it's not "
-"needed."
-msgstr ""
-"As alterações à linguagem acontecem automaticamente, não é necessário guardá-"
-"las"
+#: src/templates/enable.mas:22 src/templates/enable.mas:25
+msgid "Enabled"
+msgstr "Activado"

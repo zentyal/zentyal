@@ -7,77 +7,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-ntp 0.12\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-12-13 08:40+0100\n"
+"POT-Creation-Date: 2010-12-18 01:44+0100\n"
 "PO-Revision-Date: 2007-09-28 10:36+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-
-#: src/EBox/CGI/AddServers.pm:42
-msgid "first ntp server"
-msgstr "første ntp server"
-
-#: src/EBox/CGI/AddServers.pm:45 src/EBox/NTP.pm:222
-#: src/templates/servers.mas:16
-msgid "Primary server"
-msgstr "første server"
-
-#: src/EBox/CGI/AddServers.pm:51 src/EBox/NTP.pm:236
-#: src/templates/servers.mas:27
-msgid "Secondary server"
-msgstr "anden server"
-
-#: src/EBox/CGI/AddServers.pm:55 src/templates/servers.mas:38
-msgid "Tertiary server"
-msgstr "tredje server"
-
-#: src/EBox/CGI/ChangeDate.pm:41
-msgid "Day"
-msgstr "dag"
-
-#: src/EBox/CGI/ChangeDate.pm:42
-msgid "Month"
-msgstr "måned"
-
-#: src/EBox/CGI/ChangeDate.pm:43
-msgid "Year"
-msgstr "år"
-
-#: src/EBox/CGI/ChangeDate.pm:44
-msgid "Hour"
-msgstr "time"
-
-#: src/EBox/CGI/ChangeDate.pm:45
-msgid "Minutes"
-msgstr "minutter"
-
-#: src/EBox/CGI/ChangeDate.pm:46
-msgid "Seconds"
-msgstr "sekunder"
-
-#: src/EBox/CGI/ChangeTimeZone.pm:41
-msgid "country"
-msgstr "Land"
-
-#: src/EBox/CGI/ChangeTimeZone.pm:42
-msgid "continent"
-msgstr "Kontinent"
-
-#: src/EBox/CGI/Datetime.pm:30
-#, fuzzy
-msgid "Date and Time Configuration"
-msgstr "Dato og tidsindstillinger"
-
-#: src/EBox/CGI/Timezone.pm:30
-msgid "Time Zone Configuration"
-msgstr ""
-
-#: src/EBox/CGI/Synch.pm:41
-msgid "external synchronize status"
-msgstr "extern synkroniserings status"
 
 #: src/EBox/NTP.pm:67
 msgid "Remove ntp init script links"
@@ -92,6 +30,11 @@ msgstr "eBox vil håndtere start og stop af de forskellige services"
 msgid "NTP configuration file"
 msgstr ""
 
+#: src/EBox/NTP.pm:222 src/EBox/CGI/AddServers.pm:45
+#: src/templates/servers.mas:16
+msgid "Primary server"
+msgstr "første server"
+
 #: src/EBox/NTP.pm:224
 msgid "primary server"
 msgstr "første server"
@@ -102,6 +45,11 @@ msgstr "første og anden server skal være forskellige"
 
 #: src/EBox/NTP.pm:232
 msgid "secondary server"
+msgstr "anden server"
+
+#: src/EBox/NTP.pm:236 src/EBox/CGI/AddServers.pm:51
+#: src/templates/servers.mas:27
+msgid "Secondary server"
 msgstr "anden server"
 
 #: src/EBox/NTP.pm:244
@@ -136,6 +84,59 @@ msgstr "Dato/Tid"
 msgid "Time Zone"
 msgstr "Tidszone"
 
+#: src/EBox/CGI/Timezone.pm:30
+msgid "Time Zone Configuration"
+msgstr ""
+
+#: src/EBox/CGI/AddServers.pm:42
+msgid "first ntp server"
+msgstr "første ntp server"
+
+#: src/EBox/CGI/AddServers.pm:55 src/templates/servers.mas:38
+msgid "Tertiary server"
+msgstr "tredje server"
+
+#: src/EBox/CGI/Datetime.pm:30
+#, fuzzy
+msgid "Date and Time Configuration"
+msgstr "Dato og tidsindstillinger"
+
+#: src/EBox/CGI/Synch.pm:41
+msgid "external synchronize status"
+msgstr "extern synkroniserings status"
+
+#: src/EBox/CGI/ChangeDate.pm:41
+msgid "Day"
+msgstr "dag"
+
+#: src/EBox/CGI/ChangeDate.pm:42
+msgid "Month"
+msgstr "måned"
+
+#: src/EBox/CGI/ChangeDate.pm:43
+msgid "Year"
+msgstr "år"
+
+#: src/EBox/CGI/ChangeDate.pm:44
+msgid "Hour"
+msgstr "time"
+
+#: src/EBox/CGI/ChangeDate.pm:45
+msgid "Minutes"
+msgstr "minutter"
+
+#: src/EBox/CGI/ChangeDate.pm:46
+msgid "Seconds"
+msgstr "sekunder"
+
+#: src/EBox/CGI/ChangeTimeZone.pm:41
+msgid "country"
+msgstr "Land"
+
+#: src/EBox/CGI/ChangeTimeZone.pm:42
+msgid "continent"
+msgstr "Kontinent"
+
 #: src/templates/servers.mas:7
 msgid "NTP servers"
 msgstr "NTP servere"
@@ -146,10 +147,10 @@ msgid ""
 "correctly."
 msgstr "Husk at sætte den rigtige tidszone så synkroniseringen virker korrekt."
 
-#: src/templates/servers.mas:50 src/templates/timezone.mas:33
-#: src/templates/timezone.mas:34 src/templates/synch.mas:19
+#: src/templates/servers.mas:50 src/templates/synch.mas:19
 #: src/templates/synch.mas:20 src/templates/date.mas:96
-#: src/templates/date.mas:97
+#: src/templates/date.mas:97 src/templates/timezone.mas:33
+#: src/templates/timezone.mas:34
 msgid "Change"
 msgstr "Ændre"
 

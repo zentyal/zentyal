@@ -7,28 +7,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-antivirus 0.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-12-13 08:38+0100\n"
+"POT-Creation-Date: 2010-12-18 01:42+0100\n"
 "PO-Revision-Date: 2010-01-18 11:13+0100\n"
 "Last-Translator: Nicolas Liaudat <nliaudat@pompiers-chatel.ch>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Generator: Pootle 1.1.0\n"
-
-#: src/EBox/AntiVirus.pm:75 src/EBox/AntiVirus.pm:384
-#: src/EBox/AntiVirus.pm:389 src/EBox/AntiVirus/Model/FreshclamStatus.pm:104
-msgid "Antivirus"
-msgstr "Antivirus"
-
-#: src/EBox/AntiVirus.pm:210
-msgid " To configure clamd daemon"
-msgstr "Configurer le service clamd"
-
-#: src/EBox/AntiVirus.pm:215
-msgid "To schedule the launch of the updater"
-msgstr "Planifier l'exécution de l'outil de mise à jour"
 
 #: src/EBox/AntiVirus/Model/FreshclamStatus.pm:89
 msgid "Status"
@@ -46,6 +34,11 @@ msgstr "Etat"
 #: src/EBox/AntiVirus/Model/FreshclamStatus.pm:103
 msgid "Database Update Status"
 msgstr "État de la mise à jour des bases antivirus"
+
+#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:104 src/EBox/AntiVirus.pm:75
+#: src/EBox/AntiVirus.pm:384 src/EBox/AntiVirus.pm:389
+msgid "Antivirus"
+msgstr "Antivirus"
 
 #: src/EBox/AntiVirus/Model/FreshclamStatus.pm:162
 msgid ""
@@ -79,6 +72,14 @@ msgstr ""
 #, perl-brace-format
 msgid "Unknown event {event}."
 msgstr "Évènement inconnu {event}."
+
+#: src/EBox/AntiVirus.pm:210
+msgid " To configure clamd daemon"
+msgstr "Configurer le service clamd"
+
+#: src/EBox/AntiVirus.pm:215
+msgid "To schedule the launch of the updater"
+msgstr "Planifier l'exécution de l'outil de mise à jour"
 
 #~ msgid "To configure freshclam updater"
 #~ msgstr "Configurer l'outil de mise à jour freshclam"

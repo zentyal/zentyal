@@ -6,70 +6,101 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-trafficshaping 0.12.2\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-12-13 08:43+0100\n"
+"POT-Creation-Date: 2010-12-18 01:45+0100\n"
 "PO-Revision-Date: 2010-09-15 11:03+0200\n"
 "Last-Translator: Simone Bernini <lemorragia@libero.it>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:220
-#, perl-brace-format
-msgid "Guaranteed Rate exceeds the allowed rate: {rate} kbit/s"
-msgstr "Il Valore Garantito supera il valore consentito: {rate} kbit/s"
+#: src/EBox/TrafficShaping.pm:102
+msgid "Traffic Shaping"
+msgstr "Traffic Shaping"
 
-#: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:227
-#: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:412
-#, perl-brace-format
-msgid ""
-"Guaranteed Rate must be in this interval: ( {minRate}, {maxRate} ) kbit/s"
-msgstr ""
-"Il Valore Garantito deve essere all'interno di questo intervallo: "
-"( {minRate}, {maxRate} ) kbit/s"
+#: src/EBox/TrafficShaping.pm:140
+#, fuzzy
+msgid "Add iptables rules to mangle table"
+msgstr "Aggiungi regole di iptables alla tabella di filtraggio"
 
-#: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:239
-#: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:424
-#, perl-brace-format
-msgid ""
-"Limited Rate {lR} kbit/s should be higher than Guaranteed Rate {gR}kbit/s"
-msgstr ""
-"Il Valore Limite {lR} kbit/s dovrebbe essere superiore al Valore Garantito "
-"{gR}kbit/s"
+#: src/EBox/TrafficShaping.pm:141
+#, fuzzy
+msgid "To mark packets with different priorities and rates"
+msgstr "Per marcare i pacchetti con differenti priorita' e quantita' precise"
 
-#: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:246
-#, fuzzy, perl-brace-format
-msgid ""
-"Limited Rate {lR} kbit/s should be lower than {maxLR}kbit/s or you should "
-"increase maximum upload traffic associated to external interfaces"
-msgstr ""
-"Il Valore Limite {lR} kbit/s dovrebbe essere inferiore a {maxLR}kbit/s o "
-"dovresti aumentare il valore massimo del traffico in upload per i gateway "
-"associati a questa interfaccia esterna"
+#: src/EBox/TrafficShaping.pm:145
+msgid "Add tc rules"
+msgstr "Aggiungi regole tc"
 
-#: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:403
-#, perl-brace-format
-msgid "Guaranteed Rate exceeded the allowed rate: {rate}"
-msgstr "Il Valore Garantito supera il valore consentito: {rate}"
+#: src/EBox/TrafficShaping.pm:146
+msgid "To implement the traffic shaping rules"
+msgstr "Per implementare le regole di traffic shaping"
 
-#: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:432
+#: src/EBox/TrafficShaping.pm:463
+msgid "Rules"
+msgstr "Regole"
+
+#: src/EBox/TrafficShaping.pm:465
+#, fuzzy
+msgid "Interface Rates"
+msgstr "Quantita' di traffico dell'interfaccia"
+
+#: src/EBox/TrafficShaping.pm:539 src/EBox/TrafficShaping.pm:691
+#: src/EBox/TrafficShaping.pm:1109 src/EBox/TC.pm:107
+msgid "Interface"
+msgstr "Interfaccia"
+
+#: src/EBox/TrafficShaping.pm:553
 #, perl-brace-format
 msgid ""
-"Limited Rate {lR} kbit/s should be lower than {maxLR} or you should increase "
-"maximum allowed traffic"
+"The maximum rule account {max} is reached, please delete at least one in "
+"order to to add a new one"
 msgstr ""
-"Il Valore Limite {lR} kbit/s dovrebbe essere inferiore a {maxLR}kbit/s o "
-"dovresti aumentare il valore massimo di traffico consentito"
+"É stato raggiunto il numero massimo di regole {max}, prego eliminale almeno "
+"una per aggiungerne una nuova"
 
-#: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:620
-msgid "Leaf class identifier"
-msgstr "Identificativo classe foglia"
+#: src/EBox/TrafficShaping.pm:1199
+msgid "type"
+msgstr "tipo"
 
-#: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:624
-msgid "Address"
-msgstr "Indirizzo"
+#: src/EBox/TrafficShaping.pm:1222
+#, perl-brace-format
+msgid ""
+"Interface {iface} should have a maximum bandwidth rate in order to do "
+"traffic shaping"
+msgstr ""
+"L'interfaccia {iface} dovrebbe avere un valore di banda massimo per poter "
+"applicare il traffic shaping"
+
+#: src/EBox/TrafficShaping.pm:1696
+msgid "Protocol"
+msgstr "Protocollo"
+
+#: src/EBox/TrafficShaping.pm:1697
+msgid "Port"
+msgstr "Porta"
+
+#: src/EBox/TrafficShaping.pm:1698
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:467
+msgid "Guaranteed Rate"
+msgstr "Valore garantito"
+
+#: src/EBox/TrafficShaping.pm:1699
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:479
+msgid "Limited Rate"
+msgstr "Valore limite"
+
+#: src/EBox/TrafficShaping.pm:1700
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:459
+msgid "Priority"
+msgstr "Priorità"
+
+#: src/EBox/TC.pm:69
+msgid "options"
+msgstr "opzioni"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:181
 #, perl-brace-format
@@ -141,19 +172,9 @@ msgstr "IP destinazione"
 msgid "Destination object"
 msgstr "Oggetto destinazione"
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:459
-#: src/EBox/TrafficShaping.pm:1700
-msgid "Priority"
-msgstr "Priorità"
-
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:463
 msgid "Lowest priotiry: 7 Highest priority: 0"
 msgstr "Priorità bassa: 7 Priorità alta: 0"
-
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:467
-#: src/EBox/TrafficShaping.pm:1698
-msgid "Guaranteed Rate"
-msgstr "Valore garantito"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:470
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:484
@@ -168,11 +189,6 @@ msgid ""
 msgstr ""
 "Nota che la somma di tutte le quantita' di banda garantite, non puo' "
 "eccedere la tua banda totale.0 significa traffico non garantito."
-
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:479
-#: src/EBox/TrafficShaping.pm:1699
-msgid "Limited Rate"
-msgstr "Valore limite"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:486
 msgid "Traffic will not exceed this rate. 0 means unlimited rate."
@@ -320,72 +336,57 @@ msgstr ""
 msgid "Choose an interface to shape"
 msgstr "Scegli un'interfaccia"
 
-#: src/EBox/TrafficShaping.pm:102
-msgid "Traffic Shaping"
-msgstr "Traffic Shaping"
+#: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:220
+#, perl-brace-format
+msgid "Guaranteed Rate exceeds the allowed rate: {rate} kbit/s"
+msgstr "Il Valore Garantito supera il valore consentito: {rate} kbit/s"
 
-#: src/EBox/TrafficShaping.pm:140
-#, fuzzy
-msgid "Add iptables rules to mangle table"
-msgstr "Aggiungi regole di iptables alla tabella di filtraggio"
-
-#: src/EBox/TrafficShaping.pm:141
-#, fuzzy
-msgid "To mark packets with different priorities and rates"
-msgstr "Per marcare i pacchetti con differenti priorita' e quantita' precise"
-
-#: src/EBox/TrafficShaping.pm:145
-msgid "Add tc rules"
-msgstr "Aggiungi regole tc"
-
-#: src/EBox/TrafficShaping.pm:146
-msgid "To implement the traffic shaping rules"
-msgstr "Per implementare le regole di traffic shaping"
-
-#: src/EBox/TrafficShaping.pm:463
-msgid "Rules"
-msgstr "Regole"
-
-#: src/EBox/TrafficShaping.pm:465
-#, fuzzy
-msgid "Interface Rates"
-msgstr "Quantita' di traffico dell'interfaccia"
-
-#: src/EBox/TrafficShaping.pm:539 src/EBox/TrafficShaping.pm:691
-#: src/EBox/TrafficShaping.pm:1109 src/EBox/TC.pm:107
-msgid "Interface"
-msgstr "Interfaccia"
-
-#: src/EBox/TrafficShaping.pm:553
+#: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:227
+#: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:412
 #, perl-brace-format
 msgid ""
-"The maximum rule account {max} is reached, please delete at least one in "
-"order to to add a new one"
+"Guaranteed Rate must be in this interval: ( {minRate}, {maxRate} ) kbit/s"
 msgstr ""
-"É stato raggiunto il numero massimo di regole {max}, prego eliminale almeno "
-"una per aggiungerne una nuova"
+"Il Valore Garantito deve essere all'interno di questo intervallo: "
+"( {minRate}, {maxRate} ) kbit/s"
 
-#: src/EBox/TrafficShaping.pm:1199
-msgid "type"
-msgstr "tipo"
-
-#: src/EBox/TrafficShaping.pm:1222
+#: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:239
+#: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:424
 #, perl-brace-format
 msgid ""
-"Interface {iface} should have a maximum bandwidth rate in order to do "
-"traffic shaping"
+"Limited Rate {lR} kbit/s should be higher than Guaranteed Rate {gR}kbit/s"
 msgstr ""
-"L'interfaccia {iface} dovrebbe avere un valore di banda massimo per poter "
-"applicare il traffic shaping"
+"Il Valore Limite {lR} kbit/s dovrebbe essere superiore al Valore Garantito "
+"{gR}kbit/s"
 
-#: src/EBox/TrafficShaping.pm:1696
-msgid "Protocol"
-msgstr "Protocollo"
+#: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:246
+#, fuzzy, perl-brace-format
+msgid ""
+"Limited Rate {lR} kbit/s should be lower than {maxLR}kbit/s or you should "
+"increase maximum upload traffic associated to external interfaces"
+msgstr ""
+"Il Valore Limite {lR} kbit/s dovrebbe essere inferiore a {maxLR}kbit/s o "
+"dovresti aumentare il valore massimo del traffico in upload per i gateway "
+"associati a questa interfaccia esterna"
 
-#: src/EBox/TrafficShaping.pm:1697
-msgid "Port"
-msgstr "Porta"
+#: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:403
+#, perl-brace-format
+msgid "Guaranteed Rate exceeded the allowed rate: {rate}"
+msgstr "Il Valore Garantito supera il valore consentito: {rate}"
 
-#: src/EBox/TC.pm:69
-msgid "options"
-msgstr "opzioni"
+#: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:432
+#, perl-brace-format
+msgid ""
+"Limited Rate {lR} kbit/s should be lower than {maxLR} or you should increase "
+"maximum allowed traffic"
+msgstr ""
+"Il Valore Limite {lR} kbit/s dovrebbe essere inferiore a {maxLR}kbit/s o "
+"dovresti aumentare il valore massimo di traffico consentito"
+
+#: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:620
+msgid "Leaf class identifier"
+msgstr "Identificativo classe foglia"
+
+#: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:624
+msgid "Address"
+msgstr "Indirizzo"

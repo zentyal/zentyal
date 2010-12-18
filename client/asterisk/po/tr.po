@@ -8,10 +8,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-asterisk 1.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-12-13 08:28+0100\n"
+"POT-Creation-Date: 2010-12-18 01:20+0100\n"
 "PO-Revision-Date: 2010-05-04 10:43+0200\n"
 "Last-Translator: Bulent SENER <bulent.sener@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -169,60 +170,28 @@ msgstr "Meşgul"
 msgid "Failed"
 msgstr "Hata oluştu"
 
-#: src/EBox/Asterisk/Extensions.pm:230
-msgid "User extension"
-msgstr "Kullanıcı dahili numarası"
-
-#: src/EBox/Asterisk/Extensions.pm:323 src/EBox/Asterisk/Extensions.pm:718
-#: src/EBox/Model/Meetings.pm:151 src/EBox/Model/Settings.pm:92
-#: src/templates/group.mas:41 src/templates/user.mas:38
-msgid "Extension"
-msgstr "Dahili numara"
-
-#: src/EBox/Asterisk/Extensions.pm:642
-msgid "Queue extension"
-msgstr "Kuyruktaki dahili numara"
-
-#: src/EBox/CGI/AsteriskGroupOptions.pm:42
-msgid "group"
-msgstr "grup"
-
-#: src/EBox/CGI/AsteriskUserOptions.pm:43
-msgid "username"
-msgstr "kullanıcı adı"
-
-#: src/EBox/Model/Meetings.pm:95
+#: src/EBox/Model/Localnets.pm:88
 #, perl-brace-format
 msgid ""
-"You must install dahdi and linux-headers packages to use Meetings.{br}Run "
-"the following command: sudo apt-get install {kernels} dahdi."
-msgstr ""
+"Networks attached directly to internal interfaces, like {net}, are always "
+"considered local networks so it is not neccessary to add them."
+msgstr "Ağ doğrudan {net} bnzeri bir arayüze bağlı. "
 
-#: src/EBox/Model/Meetings.pm:120 src/EBox/Model/Meetings.pm:128
-#: src/EBox/Model/Settings.pm:84
-msgid "extension"
-msgstr "Dahili numara"
+#: src/EBox/Model/Localnets.pm:113
+msgid "Local network"
+msgstr "Yerel ağ"
 
-#: src/EBox/Model/Meetings.pm:155
-#, perl-brace-format
-msgid "A number between {min} and {max}."
-msgstr "{min} ve {max} arasında bir sayı"
-
-#: src/EBox/Model/Meetings.pm:171 src/EBox/Model/Provider.pm:111
-msgid "Password"
-msgstr "Şifre"
-
-#: src/EBox/Model/Meetings.pm:179 src/EBox/Model/Localnets.pm:119
+#: src/EBox/Model/Localnets.pm:119 src/EBox/Model/Meetings.pm:179
 msgid "Description"
 msgstr "Açıklamalar"
 
-#: src/EBox/Model/Meetings.pm:190
-msgid "List of Meetings"
-msgstr "Toplantı Listesi"
+#: src/EBox/Model/Localnets.pm:130
+msgid "Local networks"
+msgstr "Yerel ağlar"
 
-#: src/EBox/Model/Meetings.pm:192
-msgid "meeting"
-msgstr "Toplantı"
+#: src/EBox/Model/Localnets.pm:131
+msgid "local network"
+msgstr "yerel ağ"
 
 #: src/EBox/Model/AsteriskUser.pm:50
 msgid "Asterisk Account"
@@ -231,6 +200,134 @@ msgstr "Asterisk hesabı"
 #: src/EBox/Model/AsteriskUser.pm:58
 msgid "Asterisk"
 msgstr "Asterisk"
+
+#: src/EBox/Model/Settings.pm:84 src/EBox/Model/Meetings.pm:120
+#: src/EBox/Model/Meetings.pm:128
+msgid "extension"
+msgstr "Dahili numara"
+
+#: src/EBox/Model/Settings.pm:92 src/EBox/Model/Meetings.pm:151
+#: src/EBox/Asterisk/Extensions.pm:323 src/EBox/Asterisk/Extensions.pm:718
+#: src/templates/user.mas:38 src/templates/group.mas:41
+msgid "Extension"
+msgstr "Dahili numara"
+
+#: src/EBox/Model/Settings.pm:117
+msgid "Enable demo extensions"
+msgstr "Demo dahili numara aktif etme"
+
+#: src/EBox/Model/Settings.pm:123
+msgid "Enable outgoing calls"
+msgstr "Dışarı aramaları aktif etme"
+
+#: src/EBox/Model/Settings.pm:129
+msgid "Voicemail extension"
+msgstr "Sesli eposta numarası"
+
+#: src/EBox/Model/Settings.pm:136
+msgid "VoIP domain"
+msgstr "VoIP etki alanı"
+
+#: src/EBox/Model/Settings.pm:145
+msgid "General configuration"
+msgstr "Genel konfigürasyon"
+
+#: src/EBox/Model/Settings.pm:149
+msgid "General Asterisk server configuration"
+msgstr "Asterisk sunucu genel ayarları "
+
+#: src/EBox/Model/Settings.pm:151
+msgid "General Asterisk server configuration updated."
+msgstr "Asterisk sunucu genel ayarları güncellendi"
+
+#: src/EBox/Model/NAT.pm:96
+#, fuzzy
+msgid "Zentyal is behind NAT"
+msgstr "Asterisk sunucu NAT arkasında"
+
+#: src/EBox/Model/NAT.pm:101
+msgid "No"
+msgstr "Hayır"
+
+#: src/EBox/Model/NAT.pm:120
+msgid "NAT configuration"
+msgstr "NAT ayarları"
+
+#: src/EBox/Model/NAT.pm:124
+msgid "NAT Asterisk server configuration"
+msgstr "Asterisk sunucu NAT ayarları"
+
+#: src/EBox/Model/NAT.pm:126
+msgid "NAT Asterisk server configuration updated."
+msgstr "Asterisk sunucu NAT ayarları güncellendi"
+
+#: src/EBox/Model/Provider.pm:68
+msgid "Custom"
+msgstr "Özel"
+
+#: src/EBox/Model/Provider.pm:89
+msgid "Provider"
+msgstr "SIP sağlayıcı"
+
+#: src/EBox/Model/Provider.pm:95
+msgid "Name"
+msgstr "İsim"
+
+#: src/EBox/Model/Provider.pm:100
+msgid "VoIP service provider name."
+msgstr "VoIP servis sağlayıcısı adı"
+
+#: src/EBox/Model/Provider.pm:104
+msgid "Username"
+msgstr "Kullanıcı adı"
+
+#: src/EBox/Model/Provider.pm:111 src/EBox/Model/Meetings.pm:171
+msgid "Password"
+msgstr "Şifre"
+
+#: src/EBox/Model/Provider.pm:118
+msgid "Server"
+msgstr "Sunucu"
+
+#: src/EBox/Model/Provider.pm:126
+msgid "Recipient of incoming calls"
+msgstr "Gelen Aramalar "
+
+#: src/EBox/Model/Provider.pm:130
+msgid "Extension recipient of incoming calls through the provider."
+msgstr "Gelen Aramalar "
+
+#: src/EBox/Model/Provider.pm:137
+msgid "SIP provider"
+msgstr "SIP sağlayıcı"
+
+#: src/EBox/Model/Provider.pm:141
+msgid "SIP provider for outgoing calls configuration."
+msgstr "Giden aramalar için SIP sağlayıcı yapılandırması"
+
+#: src/EBox/Model/Provider.pm:143
+msgid "SIP provider configuration updated."
+msgstr "SIP sağlayıcı konfigürasyonu güncellendi"
+
+#: src/EBox/Model/Meetings.pm:95
+#, perl-brace-format
+msgid ""
+"You must install dahdi and linux-headers packages to use Meetings.{br}Run "
+"the following command: sudo apt-get install {kernels} dahdi."
+msgstr ""
+
+#: src/EBox/Model/Meetings.pm:155
+#, perl-brace-format
+msgid "A number between {min} and {max}."
+msgstr "{min} ve {max} arasında bir sayı"
+
+#: src/EBox/Model/Meetings.pm:190
+msgid "List of Meetings"
+msgstr "Toplantı Listesi"
+
+#: src/EBox/Model/Meetings.pm:192
+msgid "meeting"
+msgstr "Toplantı"
 
 #: src/EBox/Model/Voicemail.pm:75 src/EBox/Model/Voicemail.pm:122
 msgid "Voicemail settings"
@@ -266,121 +363,58 @@ msgstr ""
 "Herhangi bir VoIP hesabınız yok. Belkide VoIP bu sunucu üzerinde aktif "
 "edilmemiş olabilir."
 
-#: src/EBox/Model/Localnets.pm:88
-#, perl-brace-format
-msgid ""
-"Networks attached directly to internal interfaces, like {net}, are always "
-"considered local networks so it is not neccessary to add them."
-msgstr "Ağ doğrudan {net} bnzeri bir arayüze bağlı. "
-
-#: src/EBox/Model/Localnets.pm:113
-msgid "Local network"
-msgstr "Yerel ağ"
-
-#: src/EBox/Model/Localnets.pm:130
-msgid "Local networks"
-msgstr "Yerel ağlar"
-
-#: src/EBox/Model/Localnets.pm:131
-msgid "local network"
-msgstr "yerel ağ"
-
-#: src/EBox/Model/Settings.pm:117
-msgid "Enable demo extensions"
-msgstr "Demo dahili numara aktif etme"
-
-#: src/EBox/Model/Settings.pm:123
-msgid "Enable outgoing calls"
-msgstr "Dışarı aramaları aktif etme"
-
-#: src/EBox/Model/Settings.pm:129
-msgid "Voicemail extension"
-msgstr "Sesli eposta numarası"
-
-#: src/EBox/Model/Settings.pm:136
-msgid "VoIP domain"
-msgstr "VoIP etki alanı"
-
-#: src/EBox/Model/Settings.pm:145
-msgid "General configuration"
-msgstr "Genel konfigürasyon"
-
-#: src/EBox/Model/Settings.pm:149
-msgid "General Asterisk server configuration"
-msgstr "Asterisk sunucu genel ayarları "
-
-#: src/EBox/Model/Settings.pm:151
-msgid "General Asterisk server configuration updated."
-msgstr "Asterisk sunucu genel ayarları güncellendi"
-
-#: src/EBox/Model/Provider.pm:68
-msgid "Custom"
-msgstr "Özel"
-
-#: src/EBox/Model/Provider.pm:89
-msgid "Provider"
-msgstr "SIP sağlayıcı"
-
-#: src/EBox/Model/Provider.pm:95
-msgid "Name"
-msgstr "İsim"
-
-#: src/EBox/Model/Provider.pm:100
-msgid "VoIP service provider name."
-msgstr "VoIP servis sağlayıcısı adı"
-
-#: src/EBox/Model/Provider.pm:104
-msgid "Username"
-msgstr "Kullanıcı adı"
-
-#: src/EBox/Model/Provider.pm:118
-msgid "Server"
-msgstr "Sunucu"
-
-#: src/EBox/Model/Provider.pm:126
-msgid "Recipient of incoming calls"
-msgstr "Gelen Aramalar "
-
-#: src/EBox/Model/Provider.pm:130
-msgid "Extension recipient of incoming calls through the provider."
-msgstr "Gelen Aramalar "
-
-#: src/EBox/Model/Provider.pm:137
-msgid "SIP provider"
-msgstr "SIP sağlayıcı"
-
-#: src/EBox/Model/Provider.pm:141
-msgid "SIP provider for outgoing calls configuration."
-msgstr "Giden aramalar için SIP sağlayıcı yapılandırması"
-
-#: src/EBox/Model/Provider.pm:143
-msgid "SIP provider configuration updated."
-msgstr "SIP sağlayıcı konfigürasyonu güncellendi"
-
-#: src/EBox/Model/NAT.pm:96
-#, fuzzy
-msgid "Zentyal is behind NAT"
-msgstr "Asterisk sunucu NAT arkasında"
-
-#: src/EBox/Model/NAT.pm:101
-msgid "No"
-msgstr "Hayır"
-
-#: src/EBox/Model/NAT.pm:120
-msgid "NAT configuration"
-msgstr "NAT ayarları"
-
-#: src/EBox/Model/NAT.pm:124
-msgid "NAT Asterisk server configuration"
-msgstr "Asterisk sunucu NAT ayarları"
-
-#: src/EBox/Model/NAT.pm:126
-msgid "NAT Asterisk server configuration updated."
-msgstr "Asterisk sunucu NAT ayarları güncellendi"
-
 #: src/EBox/Composite/General.pm:66
 msgid "Asterisk module"
 msgstr "Asterisk modülü"
+
+#: src/EBox/Asterisk/Extensions.pm:230
+msgid "User extension"
+msgstr "Kullanıcı dahili numarası"
+
+#: src/EBox/Asterisk/Extensions.pm:642
+msgid "Queue extension"
+msgstr "Kuyruktaki dahili numara"
+
+#: src/EBox/CGI/AsteriskGroupOptions.pm:42
+msgid "group"
+msgstr "grup"
+
+#: src/EBox/CGI/AsteriskUserOptions.pm:43
+msgid "username"
+msgstr "kullanıcı adı"
+
+#: src/templates/user.mas:8
+msgid "Asterisk account"
+msgstr "Asterisk hesabı"
+
+#: src/templates/user.mas:10
+msgid "Password for Asterisk service is the user password"
+msgstr "Kullanıcı şifrelerini yönetecek Asterisk servis şifresi "
+
+#: src/templates/user.mas:21
+msgid "User account"
+msgstr "Kullanıcı hesabı"
+
+#: src/templates/user.mas:26 src/templates/user.mas:29
+#: src/templates/group.mas:29 src/templates/group.mas:32
+msgid "Disabled"
+msgstr "Devre dışı"
+
+#: src/templates/user.mas:27 src/templates/user.mas:30
+#: src/templates/group.mas:30 src/templates/group.mas:33
+msgid "Enabled"
+msgstr "Aktif"
+
+#: src/templates/user.mas:49 src/templates/user.mas:50
+#: src/templates/group.mas:52 src/templates/group.mas:53
+msgid "Change"
+msgstr "Değişiklik"
+
+#: src/templates/moduleDisabled.mas:5
+msgid ""
+"The following settings only will take effect when the Asterisk module is "
+"enabled."
+msgstr "Asterix modülü etkin olduğunda aşağıdaki ayarlar uygulanacaktır"
 
 #: src/templates/group.mas:8
 msgid "Asterisk group queue"
@@ -397,36 +431,3 @@ msgstr ""
 #: src/templates/group.mas:24
 msgid "Group queue"
 msgstr "Grup Kuyruğu"
-
-#: src/templates/group.mas:29 src/templates/group.mas:32
-#: src/templates/user.mas:26 src/templates/user.mas:29
-msgid "Disabled"
-msgstr "Devre dışı"
-
-#: src/templates/group.mas:30 src/templates/group.mas:33
-#: src/templates/user.mas:27 src/templates/user.mas:30
-msgid "Enabled"
-msgstr "Aktif"
-
-#: src/templates/group.mas:52 src/templates/group.mas:53
-#: src/templates/user.mas:49 src/templates/user.mas:50
-msgid "Change"
-msgstr "Değişiklik"
-
-#: src/templates/moduleDisabled.mas:5
-msgid ""
-"The following settings only will take effect when the Asterisk module is "
-"enabled."
-msgstr "Asterix modülü etkin olduğunda aşağıdaki ayarlar uygulanacaktır"
-
-#: src/templates/user.mas:8
-msgid "Asterisk account"
-msgstr "Asterisk hesabı"
-
-#: src/templates/user.mas:10
-msgid "Password for Asterisk service is the user password"
-msgstr "Kullanıcı şifrelerini yönetecek Asterisk servis şifresi "
-
-#: src/templates/user.mas:21
-msgid "User account"
-msgstr "Kullanıcı hesabı"

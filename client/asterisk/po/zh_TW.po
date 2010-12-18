@@ -8,10 +8,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-asterisk 1.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-12-13 08:28+0100\n"
+"POT-Creation-Date: 2010-12-18 01:20+0100\n"
 "PO-Revision-Date: 2010-08-20 15:28+0200\n"
 "Last-Translator: Yaochiu Huang <taiwuco@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -174,29 +175,153 @@ msgstr "忙線"
 msgid "Failed"
 msgstr "失敗"
 
-# 原譯為"使用者延伸功能"
-#: src/EBox/Asterisk/Extensions.pm:230
-msgid "User extension"
-msgstr "使用者分機"
+#: src/EBox/Model/Localnets.pm:88
+#, perl-brace-format
+msgid ""
+"Networks attached directly to internal interfaces, like {net}, are always "
+"considered local networks so it is not neccessary to add them."
+msgstr ""
+"直接介入內置介面的網路, 如 {net}, 永遠當做是本地端網路, 所以不必加入這些網路."
+
+#: src/EBox/Model/Localnets.pm:113
+msgid "Local network"
+msgstr "本地端網路"
+
+#: src/EBox/Model/Localnets.pm:119 src/EBox/Model/Meetings.pm:179
+msgid "Description"
+msgstr "描述"
+
+#: src/EBox/Model/Localnets.pm:130
+msgid "Local networks"
+msgstr "本地端網路"
+
+#: src/EBox/Model/Localnets.pm:131
+msgid "local network"
+msgstr "本地端網路"
+
+#: src/EBox/Model/AsteriskUser.pm:50
+msgid "Asterisk Account"
+msgstr "Asterisk帳號"
+
+#: src/EBox/Model/AsteriskUser.pm:58
+msgid "Asterisk"
+msgstr "Asterisk"
+
+#: src/EBox/Model/Settings.pm:84 src/EBox/Model/Meetings.pm:120
+#: src/EBox/Model/Meetings.pm:128
+msgid "extension"
+msgstr "延伸功能"
 
 # 原譯為"延伸功能"
+#: src/EBox/Model/Settings.pm:92 src/EBox/Model/Meetings.pm:151
 #: src/EBox/Asterisk/Extensions.pm:323 src/EBox/Asterisk/Extensions.pm:718
-#: src/EBox/Model/Meetings.pm:151 src/EBox/Model/Settings.pm:92
-#: src/templates/group.mas:41 src/templates/user.mas:38
+#: src/templates/user.mas:38 src/templates/group.mas:41
 msgid "Extension"
 msgstr "分機"
 
-#: src/EBox/Asterisk/Extensions.pm:642
-msgid "Queue extension"
-msgstr "佇列分機"
+# 原譯為"啟用展示延伸功能"
+#: src/EBox/Model/Settings.pm:117
+msgid "Enable demo extensions"
+msgstr "啟用展示分機"
 
-#: src/EBox/CGI/AsteriskGroupOptions.pm:42
-msgid "group"
-msgstr "群組"
+#: src/EBox/Model/Settings.pm:123
+msgid "Enable outgoing calls"
+msgstr "啟動撥出功能"
 
-#: src/EBox/CGI/AsteriskUserOptions.pm:43
-msgid "username"
-msgstr "使用者名稱"
+#: src/EBox/Model/Settings.pm:129
+msgid "Voicemail extension"
+msgstr "語音郵件分機"
+
+#: src/EBox/Model/Settings.pm:136
+msgid "VoIP domain"
+msgstr "VoIP 網域"
+
+#: src/EBox/Model/Settings.pm:145
+msgid "General configuration"
+msgstr "一般組態"
+
+# Asterisk是一款實現用戶電話交換機（PBX）功能的自由軟體、開源軟體。Asterisk提供完善PBX功能，可以連接多種不同的電話終端，包括普通電話機，IP電話機，軟電話等，支持多種主流的IP電話協議和系統介面。軟體名稱Asterisk－星號（*），在Unix（包括Linux）和DOS作業系統中是通配符，用來在查找中適配任何字元，寓意該軟體廣泛的適用性。
+#: src/EBox/Model/Settings.pm:149
+msgid "General Asterisk server configuration"
+msgstr "一般 Asterisk 伺服器組態"
+
+#: src/EBox/Model/Settings.pm:151
+msgid "General Asterisk server configuration updated."
+msgstr "一般 Asterisk 伺服器組態已更新"
+
+#: src/EBox/Model/NAT.pm:96
+#, fuzzy
+msgid "Zentyal is behind NAT"
+msgstr "eBox在 NAT 後"
+
+#: src/EBox/Model/NAT.pm:101
+msgid "No"
+msgstr "否"
+
+#: src/EBox/Model/NAT.pm:120
+msgid "NAT configuration"
+msgstr "NAT 組態"
+
+# Asterisk是一款實現用戶電話交換機（PBX）功能的自由軟體、開源軟體。Asterisk提供完善PBX功能，可以連接多種不同的電話終端，包括普通電話機，IP電話機，軟電話等，支持多種主流的IP電話協議和系統介面。軟體名稱Asterisk－星號（*），在Unix（包括Linux）和DOS作業系統中是通配符，用來在查找中適配任何字元，寓意該軟體廣泛的適用性。
+#: src/EBox/Model/NAT.pm:124
+msgid "NAT Asterisk server configuration"
+msgstr "NAT Asterisk 伺服器組態"
+
+#: src/EBox/Model/NAT.pm:126
+msgid "NAT Asterisk server configuration updated."
+msgstr "NAT Asterisk 伺服器組態已更新"
+
+# Is this correct? I need to know where this is used.
+#: src/EBox/Model/Provider.pm:68
+msgid "Custom"
+msgstr "關"
+
+# SIP 是由網際網路工程任務小組 ( Internet Engineer Task Force ; IETF ) 制定的媒體會議訊息通訊協定。SIP 是以 ASCII 文字資料為基礎，用來建立、維持與結束兩點或多點之間通訊應用程式層次之控制協定。如同其他的 VoIP 通訊協定，SIP的設計目的也是用來定義封包式資料電話網路中的訊號取樣 ( single sampling ) 與通訊階段管理工作。訊號取樣讓通訊內容能轉換成為數位化資訊，得以傳遞到網路各個地區；通訊階段管理則提供通話從開始到結束的所有狀態控制功能。
+#: src/EBox/Model/Provider.pm:89
+#, fuzzy
+msgid "Provider"
+msgstr "SIP 供應商"
+
+#: src/EBox/Model/Provider.pm:95
+msgid "Name"
+msgstr "名稱"
+
+#: src/EBox/Model/Provider.pm:100
+msgid "VoIP service provider name."
+msgstr "VoIP服務提供者名稱"
+
+#: src/EBox/Model/Provider.pm:104
+msgid "Username"
+msgstr "帳號"
+
+#: src/EBox/Model/Provider.pm:111 src/EBox/Model/Meetings.pm:171
+msgid "Password"
+msgstr "密碼"
+
+#: src/EBox/Model/Provider.pm:118
+msgid "Server"
+msgstr "伺服器"
+
+#: src/EBox/Model/Provider.pm:126
+msgid "Recipient of incoming calls"
+msgstr "來電接收者"
+
+#: src/EBox/Model/Provider.pm:130
+msgid "Extension recipient of incoming calls through the provider."
+msgstr "經供應商進線的分機接收者."
+
+# SIP 是由網際網路工程任務小組 ( Internet Engineer Task Force ; IETF ) 制定的媒體會議訊息通訊協定。SIP 是以 ASCII 文字資料為基礎，用來建立、維持與結束兩點或多點之間通訊應用程式層次之控制協定。如同其他的 VoIP 通訊協定，SIP的設計目的也是用來定義封包式資料電話網路中的訊號取樣 ( single sampling ) 與通訊階段管理工作。訊號取樣讓通訊內容能轉換成為數位化資訊，得以傳遞到網路各個地區；通訊階段管理則提供通話從開始到結束的所有狀態控制功能。
+#: src/EBox/Model/Provider.pm:137
+msgid "SIP provider"
+msgstr "SIP 供應商"
+
+#: src/EBox/Model/Provider.pm:141
+msgid "SIP provider for outgoing calls configuration."
+msgstr "作為外線設定的 SIP 供應商"
+
+#: src/EBox/Model/Provider.pm:143
+msgid "SIP provider configuration updated."
+msgstr "SIP 供應商組態已更新"
 
 #: src/EBox/Model/Meetings.pm:95
 #, perl-brace-format
@@ -207,23 +332,10 @@ msgstr ""
 "您必需安裝dahdi和linux-headers套件以使用Meetings(會議). {br}執行以下命令: "
 "sudo apt-get install {kernels} dahdi."
 
-#: src/EBox/Model/Meetings.pm:120 src/EBox/Model/Meetings.pm:128
-#: src/EBox/Model/Settings.pm:84
-msgid "extension"
-msgstr "延伸功能"
-
 #: src/EBox/Model/Meetings.pm:155
 #, perl-brace-format
 msgid "A number between {min} and {max}."
 msgstr "在 {min} 到 {max} 之間的數字"
-
-#: src/EBox/Model/Meetings.pm:171 src/EBox/Model/Provider.pm:111
-msgid "Password"
-msgstr "密碼"
-
-#: src/EBox/Model/Meetings.pm:179 src/EBox/Model/Localnets.pm:119
-msgid "Description"
-msgstr "描述"
 
 #: src/EBox/Model/Meetings.pm:190
 msgid "List of Meetings"
@@ -232,14 +344,6 @@ msgstr "會議清單"
 #: src/EBox/Model/Meetings.pm:192
 msgid "meeting"
 msgstr "會議"
-
-#: src/EBox/Model/AsteriskUser.pm:50
-msgid "Asterisk Account"
-msgstr "Asterisk帳號"
-
-#: src/EBox/Model/AsteriskUser.pm:58
-msgid "Asterisk"
-msgstr "Asterisk"
 
 #: src/EBox/Model/Voicemail.pm:75 src/EBox/Model/Voicemail.pm:122
 msgid "Voicemail settings"
@@ -274,129 +378,59 @@ msgstr "設定值已成功的更新"
 msgid "You have not an VoIP account. Maybe VoIP is not enabled in this server"
 msgstr "您沒有VoIP帳號. 也許這主機上並未啟用VoIP"
 
-#: src/EBox/Model/Localnets.pm:88
-#, perl-brace-format
-msgid ""
-"Networks attached directly to internal interfaces, like {net}, are always "
-"considered local networks so it is not neccessary to add them."
-msgstr ""
-"直接介入內置介面的網路, 如 {net}, 永遠當做是本地端網路, 所以不必加入這些網路."
-
-#: src/EBox/Model/Localnets.pm:113
-msgid "Local network"
-msgstr "本地端網路"
-
-#: src/EBox/Model/Localnets.pm:130
-msgid "Local networks"
-msgstr "本地端網路"
-
-#: src/EBox/Model/Localnets.pm:131
-msgid "local network"
-msgstr "本地端網路"
-
-# 原譯為"啟用展示延伸功能"
-#: src/EBox/Model/Settings.pm:117
-msgid "Enable demo extensions"
-msgstr "啟用展示分機"
-
-#: src/EBox/Model/Settings.pm:123
-msgid "Enable outgoing calls"
-msgstr "啟動撥出功能"
-
-#: src/EBox/Model/Settings.pm:129
-msgid "Voicemail extension"
-msgstr "語音郵件分機"
-
-#: src/EBox/Model/Settings.pm:136
-msgid "VoIP domain"
-msgstr "VoIP 網域"
-
-#: src/EBox/Model/Settings.pm:145
-msgid "General configuration"
-msgstr "一般組態"
-
-# Asterisk是一款實現用戶電話交換機（PBX）功能的自由軟體、開源軟體。Asterisk提供完善PBX功能，可以連接多種不同的電話終端，包括普通電話機，IP電話機，軟電話等，支持多種主流的IP電話協議和系統介面。軟體名稱Asterisk－星號（*），在Unix（包括Linux）和DOS作業系統中是通配符，用來在查找中適配任何字元，寓意該軟體廣泛的適用性。
-#: src/EBox/Model/Settings.pm:149
-msgid "General Asterisk server configuration"
-msgstr "一般 Asterisk 伺服器組態"
-
-#: src/EBox/Model/Settings.pm:151
-msgid "General Asterisk server configuration updated."
-msgstr "一般 Asterisk 伺服器組態已更新"
-
-# Is this correct? I need to know where this is used.
-#: src/EBox/Model/Provider.pm:68
-msgid "Custom"
-msgstr "關"
-
-# SIP 是由網際網路工程任務小組 ( Internet Engineer Task Force ; IETF ) 制定的媒體會議訊息通訊協定。SIP 是以 ASCII 文字資料為基礎，用來建立、維持與結束兩點或多點之間通訊應用程式層次之控制協定。如同其他的 VoIP 通訊協定，SIP的設計目的也是用來定義封包式資料電話網路中的訊號取樣 ( single sampling ) 與通訊階段管理工作。訊號取樣讓通訊內容能轉換成為數位化資訊，得以傳遞到網路各個地區；通訊階段管理則提供通話從開始到結束的所有狀態控制功能。
-#: src/EBox/Model/Provider.pm:89
-#, fuzzy
-msgid "Provider"
-msgstr "SIP 供應商"
-
-#: src/EBox/Model/Provider.pm:95
-msgid "Name"
-msgstr "名稱"
-
-#: src/EBox/Model/Provider.pm:100
-msgid "VoIP service provider name."
-msgstr "VoIP服務提供者名稱"
-
-#: src/EBox/Model/Provider.pm:104
-msgid "Username"
-msgstr "帳號"
-
-#: src/EBox/Model/Provider.pm:118
-msgid "Server"
-msgstr "伺服器"
-
-#: src/EBox/Model/Provider.pm:126
-msgid "Recipient of incoming calls"
-msgstr "來電接收者"
-
-#: src/EBox/Model/Provider.pm:130
-msgid "Extension recipient of incoming calls through the provider."
-msgstr "經供應商進線的分機接收者."
-
-# SIP 是由網際網路工程任務小組 ( Internet Engineer Task Force ; IETF ) 制定的媒體會議訊息通訊協定。SIP 是以 ASCII 文字資料為基礎，用來建立、維持與結束兩點或多點之間通訊應用程式層次之控制協定。如同其他的 VoIP 通訊協定，SIP的設計目的也是用來定義封包式資料電話網路中的訊號取樣 ( single sampling ) 與通訊階段管理工作。訊號取樣讓通訊內容能轉換成為數位化資訊，得以傳遞到網路各個地區；通訊階段管理則提供通話從開始到結束的所有狀態控制功能。
-#: src/EBox/Model/Provider.pm:137
-msgid "SIP provider"
-msgstr "SIP 供應商"
-
-#: src/EBox/Model/Provider.pm:141
-msgid "SIP provider for outgoing calls configuration."
-msgstr "作為外線設定的 SIP 供應商"
-
-#: src/EBox/Model/Provider.pm:143
-msgid "SIP provider configuration updated."
-msgstr "SIP 供應商組態已更新"
-
-#: src/EBox/Model/NAT.pm:96
-#, fuzzy
-msgid "Zentyal is behind NAT"
-msgstr "eBox在 NAT 後"
-
-#: src/EBox/Model/NAT.pm:101
-msgid "No"
-msgstr "否"
-
-#: src/EBox/Model/NAT.pm:120
-msgid "NAT configuration"
-msgstr "NAT 組態"
-
-# Asterisk是一款實現用戶電話交換機（PBX）功能的自由軟體、開源軟體。Asterisk提供完善PBX功能，可以連接多種不同的電話終端，包括普通電話機，IP電話機，軟電話等，支持多種主流的IP電話協議和系統介面。軟體名稱Asterisk－星號（*），在Unix（包括Linux）和DOS作業系統中是通配符，用來在查找中適配任何字元，寓意該軟體廣泛的適用性。
-#: src/EBox/Model/NAT.pm:124
-msgid "NAT Asterisk server configuration"
-msgstr "NAT Asterisk 伺服器組態"
-
-#: src/EBox/Model/NAT.pm:126
-msgid "NAT Asterisk server configuration updated."
-msgstr "NAT Asterisk 伺服器組態已更新"
-
 #: src/EBox/Composite/General.pm:66
 msgid "Asterisk module"
 msgstr "Asterisk 模組"
+
+# 原譯為"使用者延伸功能"
+#: src/EBox/Asterisk/Extensions.pm:230
+msgid "User extension"
+msgstr "使用者分機"
+
+#: src/EBox/Asterisk/Extensions.pm:642
+msgid "Queue extension"
+msgstr "佇列分機"
+
+#: src/EBox/CGI/AsteriskGroupOptions.pm:42
+msgid "group"
+msgstr "群組"
+
+#: src/EBox/CGI/AsteriskUserOptions.pm:43
+msgid "username"
+msgstr "使用者名稱"
+
+#: src/templates/user.mas:8
+msgid "Asterisk account"
+msgstr "Asterisk帳號"
+
+#: src/templates/user.mas:10
+msgid "Password for Asterisk service is the user password"
+msgstr "Asterisk伺服器的密碼就是使用的密碼"
+
+#: src/templates/user.mas:21
+msgid "User account"
+msgstr "使用者帳號"
+
+#: src/templates/user.mas:26 src/templates/user.mas:29
+#: src/templates/group.mas:29 src/templates/group.mas:32
+msgid "Disabled"
+msgstr "禁止"
+
+#: src/templates/user.mas:27 src/templates/user.mas:30
+#: src/templates/group.mas:30 src/templates/group.mas:33
+msgid "Enabled"
+msgstr "啟動"
+
+#: src/templates/user.mas:49 src/templates/user.mas:50
+#: src/templates/group.mas:52 src/templates/group.mas:53
+msgid "Change"
+msgstr "修改"
+
+#: src/templates/moduleDisabled.mas:5
+msgid ""
+"The following settings only will take effect when the Asterisk module is "
+"enabled."
+msgstr "以下的設定只有當Asterisk模組啟用後才有作用"
 
 #: src/templates/group.mas:8
 msgid "Asterisk group queue"
@@ -411,36 +445,3 @@ msgstr "在這群組中沒有用戶或用戶並無任何Asterisk帳號, 所以�
 #: src/templates/group.mas:24
 msgid "Group queue"
 msgstr "群儲列"
-
-#: src/templates/group.mas:29 src/templates/group.mas:32
-#: src/templates/user.mas:26 src/templates/user.mas:29
-msgid "Disabled"
-msgstr "禁止"
-
-#: src/templates/group.mas:30 src/templates/group.mas:33
-#: src/templates/user.mas:27 src/templates/user.mas:30
-msgid "Enabled"
-msgstr "啟動"
-
-#: src/templates/group.mas:52 src/templates/group.mas:53
-#: src/templates/user.mas:49 src/templates/user.mas:50
-msgid "Change"
-msgstr "修改"
-
-#: src/templates/moduleDisabled.mas:5
-msgid ""
-"The following settings only will take effect when the Asterisk module is "
-"enabled."
-msgstr "以下的設定只有當Asterisk模組啟用後才有作用"
-
-#: src/templates/user.mas:8
-msgid "Asterisk account"
-msgstr "Asterisk帳號"
-
-#: src/templates/user.mas:10
-msgid "Password for Asterisk service is the user password"
-msgstr "Asterisk伺服器的密碼就是使用的密碼"
-
-#: src/templates/user.mas:21
-msgid "User account"
-msgstr "使用者帳號"

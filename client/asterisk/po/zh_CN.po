@@ -8,10 +8,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-asterisk 1.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-12-13 08:28+0100\n"
+"POT-Creation-Date: 2010-12-18 01:20+0100\n"
 "PO-Revision-Date: 2010-07-12 08:06+0200\n"
 "Last-Translator: zhoumeng <zhourimeng@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -169,60 +170,28 @@ msgstr "忙"
 msgid "Failed"
 msgstr "失败"
 
-#: src/EBox/Asterisk/Extensions.pm:230
-msgid "User extension"
-msgstr "用户扩展"
-
-#: src/EBox/Asterisk/Extensions.pm:323 src/EBox/Asterisk/Extensions.pm:718
-#: src/EBox/Model/Meetings.pm:151 src/EBox/Model/Settings.pm:92
-#: src/templates/group.mas:41 src/templates/user.mas:38
-msgid "Extension"
-msgstr "扩展"
-
-#: src/EBox/Asterisk/Extensions.pm:642
-msgid "Queue extension"
-msgstr "队列扩展"
-
-#: src/EBox/CGI/AsteriskGroupOptions.pm:42
-msgid "group"
-msgstr "组"
-
-#: src/EBox/CGI/AsteriskUserOptions.pm:43
-msgid "username"
-msgstr "用户名"
-
-#: src/EBox/Model/Meetings.pm:95
+#: src/EBox/Model/Localnets.pm:88
 #, perl-brace-format
 msgid ""
-"You must install dahdi and linux-headers packages to use Meetings.{br}Run "
-"the following command: sudo apt-get install {kernels} dahdi."
+"Networks attached directly to internal interfaces, like {net}, are always "
+"considered local networks so it is not neccessary to add them."
 msgstr ""
 
-#: src/EBox/Model/Meetings.pm:120 src/EBox/Model/Meetings.pm:128
-#: src/EBox/Model/Settings.pm:84
-msgid "extension"
-msgstr "扩展"
+#: src/EBox/Model/Localnets.pm:113
+msgid "Local network"
+msgstr "本地网络"
 
-#: src/EBox/Model/Meetings.pm:155
-#, perl-brace-format
-msgid "A number between {min} and {max}."
-msgstr "{min} 和 {max}之间的数"
-
-#: src/EBox/Model/Meetings.pm:171 src/EBox/Model/Provider.pm:111
-msgid "Password"
-msgstr "密码"
-
-#: src/EBox/Model/Meetings.pm:179 src/EBox/Model/Localnets.pm:119
+#: src/EBox/Model/Localnets.pm:119 src/EBox/Model/Meetings.pm:179
 msgid "Description"
 msgstr "描述"
 
-#: src/EBox/Model/Meetings.pm:190
-msgid "List of Meetings"
-msgstr "会议列表"
+#: src/EBox/Model/Localnets.pm:130
+msgid "Local networks"
+msgstr "本地网络"
 
-#: src/EBox/Model/Meetings.pm:192
-msgid "meeting"
-msgstr "会议"
+#: src/EBox/Model/Localnets.pm:131
+msgid "local network"
+msgstr "本地网络"
 
 #: src/EBox/Model/AsteriskUser.pm:50
 msgid "Asterisk Account"
@@ -231,6 +200,134 @@ msgstr "Asterisk 帐号"
 #: src/EBox/Model/AsteriskUser.pm:58
 msgid "Asterisk"
 msgstr "Asterisk"
+
+#: src/EBox/Model/Settings.pm:84 src/EBox/Model/Meetings.pm:120
+#: src/EBox/Model/Meetings.pm:128
+msgid "extension"
+msgstr "扩展"
+
+#: src/EBox/Model/Settings.pm:92 src/EBox/Model/Meetings.pm:151
+#: src/EBox/Asterisk/Extensions.pm:323 src/EBox/Asterisk/Extensions.pm:718
+#: src/templates/user.mas:38 src/templates/group.mas:41
+msgid "Extension"
+msgstr "扩展"
+
+#: src/EBox/Model/Settings.pm:117
+msgid "Enable demo extensions"
+msgstr "启动demo扩展"
+
+#: src/EBox/Model/Settings.pm:123
+msgid "Enable outgoing calls"
+msgstr "启动呼出通话"
+
+#: src/EBox/Model/Settings.pm:129
+msgid "Voicemail extension"
+msgstr "语音邮件扩展"
+
+#: src/EBox/Model/Settings.pm:136
+msgid "VoIP domain"
+msgstr "VoIP 域"
+
+#: src/EBox/Model/Settings.pm:145
+msgid "General configuration"
+msgstr "常用配置"
+
+#: src/EBox/Model/Settings.pm:149
+msgid "General Asterisk server configuration"
+msgstr "常用Asterisk服务器配置"
+
+#: src/EBox/Model/Settings.pm:151
+msgid "General Asterisk server configuration updated."
+msgstr "常用Asterisk服务器配置已更新。"
+
+#: src/EBox/Model/NAT.pm:96
+#, fuzzy
+msgid "Zentyal is behind NAT"
+msgstr "eBox处于NAT网络模式下"
+
+#: src/EBox/Model/NAT.pm:101
+msgid "No"
+msgstr "否"
+
+#: src/EBox/Model/NAT.pm:120
+msgid "NAT configuration"
+msgstr "NAT配置"
+
+#: src/EBox/Model/NAT.pm:124
+msgid "NAT Asterisk server configuration"
+msgstr "NAT Asterisk 服务器配置"
+
+#: src/EBox/Model/NAT.pm:126
+msgid "NAT Asterisk server configuration updated."
+msgstr "NAT Asterisk 服务器配置已更新"
+
+#: src/EBox/Model/Provider.pm:68
+msgid "Custom"
+msgstr "定制"
+
+#: src/EBox/Model/Provider.pm:89
+msgid "Provider"
+msgstr "运营商"
+
+#: src/EBox/Model/Provider.pm:95
+msgid "Name"
+msgstr "名称"
+
+#: src/EBox/Model/Provider.pm:100
+msgid "VoIP service provider name."
+msgstr "VoIP 服务运营商名."
+
+#: src/EBox/Model/Provider.pm:104
+msgid "Username"
+msgstr "用户名"
+
+#: src/EBox/Model/Provider.pm:111 src/EBox/Model/Meetings.pm:171
+msgid "Password"
+msgstr "密码"
+
+#: src/EBox/Model/Provider.pm:118
+msgid "Server"
+msgstr "服务器"
+
+#: src/EBox/Model/Provider.pm:126
+msgid "Recipient of incoming calls"
+msgstr "收件人"
+
+#: src/EBox/Model/Provider.pm:130
+msgid "Extension recipient of incoming calls through the provider."
+msgstr "通过运营商的来电的扩展收件人"
+
+#: src/EBox/Model/Provider.pm:137
+msgid "SIP provider"
+msgstr "SIP 提供商"
+
+#: src/EBox/Model/Provider.pm:141
+msgid "SIP provider for outgoing calls configuration."
+msgstr "呼出通话配置的SIP提供商"
+
+#: src/EBox/Model/Provider.pm:143
+msgid "SIP provider configuration updated."
+msgstr "SIP提供商配置已更新"
+
+#: src/EBox/Model/Meetings.pm:95
+#, perl-brace-format
+msgid ""
+"You must install dahdi and linux-headers packages to use Meetings.{br}Run "
+"the following command: sudo apt-get install {kernels} dahdi."
+msgstr ""
+
+#: src/EBox/Model/Meetings.pm:155
+#, perl-brace-format
+msgid "A number between {min} and {max}."
+msgstr "{min} 和 {max}之间的数"
+
+#: src/EBox/Model/Meetings.pm:190
+msgid "List of Meetings"
+msgstr "会议列表"
+
+#: src/EBox/Model/Meetings.pm:192
+msgid "meeting"
+msgstr "会议"
 
 #: src/EBox/Model/Voicemail.pm:75 src/EBox/Model/Voicemail.pm:122
 msgid "Voicemail settings"
@@ -264,121 +361,58 @@ msgstr "设定更新成功"
 msgid "You have not an VoIP account. Maybe VoIP is not enabled in this server"
 msgstr "您没有VoIP帐号。或许是服务器没有启用VoIP功能"
 
-#: src/EBox/Model/Localnets.pm:88
-#, perl-brace-format
-msgid ""
-"Networks attached directly to internal interfaces, like {net}, are always "
-"considered local networks so it is not neccessary to add them."
-msgstr ""
-
-#: src/EBox/Model/Localnets.pm:113
-msgid "Local network"
-msgstr "本地网络"
-
-#: src/EBox/Model/Localnets.pm:130
-msgid "Local networks"
-msgstr "本地网络"
-
-#: src/EBox/Model/Localnets.pm:131
-msgid "local network"
-msgstr "本地网络"
-
-#: src/EBox/Model/Settings.pm:117
-msgid "Enable demo extensions"
-msgstr "启动demo扩展"
-
-#: src/EBox/Model/Settings.pm:123
-msgid "Enable outgoing calls"
-msgstr "启动呼出通话"
-
-#: src/EBox/Model/Settings.pm:129
-msgid "Voicemail extension"
-msgstr "语音邮件扩展"
-
-#: src/EBox/Model/Settings.pm:136
-msgid "VoIP domain"
-msgstr "VoIP 域"
-
-#: src/EBox/Model/Settings.pm:145
-msgid "General configuration"
-msgstr "常用配置"
-
-#: src/EBox/Model/Settings.pm:149
-msgid "General Asterisk server configuration"
-msgstr "常用Asterisk服务器配置"
-
-#: src/EBox/Model/Settings.pm:151
-msgid "General Asterisk server configuration updated."
-msgstr "常用Asterisk服务器配置已更新。"
-
-#: src/EBox/Model/Provider.pm:68
-msgid "Custom"
-msgstr "定制"
-
-#: src/EBox/Model/Provider.pm:89
-msgid "Provider"
-msgstr "运营商"
-
-#: src/EBox/Model/Provider.pm:95
-msgid "Name"
-msgstr "名称"
-
-#: src/EBox/Model/Provider.pm:100
-msgid "VoIP service provider name."
-msgstr "VoIP 服务运营商名."
-
-#: src/EBox/Model/Provider.pm:104
-msgid "Username"
-msgstr "用户名"
-
-#: src/EBox/Model/Provider.pm:118
-msgid "Server"
-msgstr "服务器"
-
-#: src/EBox/Model/Provider.pm:126
-msgid "Recipient of incoming calls"
-msgstr "收件人"
-
-#: src/EBox/Model/Provider.pm:130
-msgid "Extension recipient of incoming calls through the provider."
-msgstr "通过运营商的来电的扩展收件人"
-
-#: src/EBox/Model/Provider.pm:137
-msgid "SIP provider"
-msgstr "SIP 提供商"
-
-#: src/EBox/Model/Provider.pm:141
-msgid "SIP provider for outgoing calls configuration."
-msgstr "呼出通话配置的SIP提供商"
-
-#: src/EBox/Model/Provider.pm:143
-msgid "SIP provider configuration updated."
-msgstr "SIP提供商配置已更新"
-
-#: src/EBox/Model/NAT.pm:96
-#, fuzzy
-msgid "Zentyal is behind NAT"
-msgstr "eBox处于NAT网络模式下"
-
-#: src/EBox/Model/NAT.pm:101
-msgid "No"
-msgstr "否"
-
-#: src/EBox/Model/NAT.pm:120
-msgid "NAT configuration"
-msgstr "NAT配置"
-
-#: src/EBox/Model/NAT.pm:124
-msgid "NAT Asterisk server configuration"
-msgstr "NAT Asterisk 服务器配置"
-
-#: src/EBox/Model/NAT.pm:126
-msgid "NAT Asterisk server configuration updated."
-msgstr "NAT Asterisk 服务器配置已更新"
-
 #: src/EBox/Composite/General.pm:66
 msgid "Asterisk module"
 msgstr "Asterisk 模块"
+
+#: src/EBox/Asterisk/Extensions.pm:230
+msgid "User extension"
+msgstr "用户扩展"
+
+#: src/EBox/Asterisk/Extensions.pm:642
+msgid "Queue extension"
+msgstr "队列扩展"
+
+#: src/EBox/CGI/AsteriskGroupOptions.pm:42
+msgid "group"
+msgstr "组"
+
+#: src/EBox/CGI/AsteriskUserOptions.pm:43
+msgid "username"
+msgstr "用户名"
+
+#: src/templates/user.mas:8
+msgid "Asterisk account"
+msgstr "Asterisk 帐号"
+
+#: src/templates/user.mas:10
+msgid "Password for Asterisk service is the user password"
+msgstr "Asterisk服务密码是用户密码"
+
+#: src/templates/user.mas:21
+msgid "User account"
+msgstr "用户帐号"
+
+#: src/templates/user.mas:26 src/templates/user.mas:29
+#: src/templates/group.mas:29 src/templates/group.mas:32
+msgid "Disabled"
+msgstr "禁用"
+
+#: src/templates/user.mas:27 src/templates/user.mas:30
+#: src/templates/group.mas:30 src/templates/group.mas:33
+msgid "Enabled"
+msgstr "启用"
+
+#: src/templates/user.mas:49 src/templates/user.mas:50
+#: src/templates/group.mas:52 src/templates/group.mas:53
+msgid "Change"
+msgstr "变更"
+
+#: src/templates/moduleDisabled.mas:5
+msgid ""
+"The following settings only will take effect when the Asterisk module is "
+"enabled."
+msgstr "以下设定仅在Asterisk module启动时有效"
 
 #: src/templates/group.mas:8
 msgid "Asterisk group queue"
@@ -393,36 +427,3 @@ msgstr "队列不能创建，因为该组中没有用户或用户没有Asterisk�
 #: src/templates/group.mas:24
 msgid "Group queue"
 msgstr "组队列"
-
-#: src/templates/group.mas:29 src/templates/group.mas:32
-#: src/templates/user.mas:26 src/templates/user.mas:29
-msgid "Disabled"
-msgstr "禁用"
-
-#: src/templates/group.mas:30 src/templates/group.mas:33
-#: src/templates/user.mas:27 src/templates/user.mas:30
-msgid "Enabled"
-msgstr "启用"
-
-#: src/templates/group.mas:52 src/templates/group.mas:53
-#: src/templates/user.mas:49 src/templates/user.mas:50
-msgid "Change"
-msgstr "变更"
-
-#: src/templates/moduleDisabled.mas:5
-msgid ""
-"The following settings only will take effect when the Asterisk module is "
-"enabled."
-msgstr "以下设定仅在Asterisk module启动时有效"
-
-#: src/templates/user.mas:8
-msgid "Asterisk account"
-msgstr "Asterisk 帐号"
-
-#: src/templates/user.mas:10
-msgid "Password for Asterisk service is the user password"
-msgstr "Asterisk服务密码是用户密码"
-
-#: src/templates/user.mas:21
-msgid "User account"
-msgstr "用户帐号"

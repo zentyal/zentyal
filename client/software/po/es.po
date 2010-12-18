@@ -3,11 +3,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-software 0.12.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-12-13 08:43+0100\n"
+"POT-Creation-Date: 2010-12-18 01:45+0100\n"
 "PO-Revision-Date: 2010-12-13 09:42+0100\n"
-"Last-Translator: Enrique José Hernández Blasco <quique@ebox-"
-"technologies.com>\n"
+"Last-Translator: Enrique José Hernández Blasco <quique@ebox-technologies."
+"com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -84,14 +85,6 @@ msgstr "Configuración inicial"
 msgid "Save Changes"
 msgstr "Guardar cambios"
 
-#: src/EBox/CGI/Config.pm:31
-msgid "Software management settings"
-msgstr "Configuración de la gestión de software"
-
-#: src/EBox/CGI/Config.pm:41
-msgid "Automatic software updates"
-msgstr "Actualizaciones automáticas de software"
-
 #: src/EBox/CGI/Enable.pm:41
 msgid "automatic updates configuration"
 msgstr "configuración de las actualizaciones automáticas"
@@ -104,6 +97,14 @@ msgstr "Seleccione los paquetes de Zentyal a instalar"
 msgid "Zentyal components"
 msgstr "Componentes Zentyal"
 
+#: src/EBox/CGI/Config.pm:31
+msgid "Software management settings"
+msgstr "Configuración de la gestión de software"
+
+#: src/EBox/CGI/Config.pm:41
+msgid "Automatic software updates"
+msgstr "Actualizaciones automáticas de software"
+
 #: src/EBox/CGI/Updates.pm:32
 msgid "System updates"
 msgstr "Actualizaciones del sistema"
@@ -111,10 +112,6 @@ msgstr "Actualizaciones del sistema"
 #: src/EBox/CGI/Updates.pm:59
 msgid "The system components are up to date."
 msgstr "Todos los componentes del sistema están actualizados."
-
-#: src/EBox/CGI/CurrentPackage.pm:31
-msgid "Upgrading"
-msgstr "Actualizando"
 
 #: src/EBox/CGI/InstallPkgs.pm:100
 msgid "There were no packages to update"
@@ -186,27 +183,83 @@ msgstr ""
 "La eliminación de los paquetes se ha completado con éxito. Más información "
 "en los logs"
 
-#: src/templates/ebox.mas:152 src/templates/ebox.mas:587
-#: src/templates/ebox.mas:611 src/templates/updates.mas:46
-msgid "Update"
-msgstr "Actualizar"
+#: src/EBox/CGI/CurrentPackage.pm:31
+msgid "Upgrading"
+msgstr "Actualizando"
 
-#: src/templates/ebox.mas:158 src/templates/ebox.mas:561
-#: src/templates/ebox.mas:602
-msgid "Install"
-msgstr "Instalar"
-
-#: src/templates/ebox.mas:182 src/templates/updates.mas:21
+#: src/templates/updates.mas:21 src/templates/ebox.mas:182
 msgid "Package list updated successfully"
 msgstr "Lista de paquetes actualizada satisfactoriamente"
 
-#: src/templates/ebox.mas:186 src/templates/updates.mas:25
+#: src/templates/updates.mas:25 src/templates/ebox.mas:186
 msgid ""
 "Error updating package list. Please try to execute the following command in "
 "a console to see the problem: sudo apt-get update"
 msgstr ""
 "Error actualizando la lista de paquetes. Por favor, ejecuta el siguiente "
 "comando en una consola para averiguar el problema: sudo apt-get update"
+
+#: src/templates/updates.mas:35
+msgid "Updates are available for the following system components"
+msgstr ""
+"Hay actualizaciones disponibles para los siguientes componentes del sistema"
+
+#: src/templates/updates.mas:37
+msgid "Community updates are available for the following system components"
+msgstr ""
+"Hay actualizaciones de la comunidad disponibles para los siguientes "
+"componentes del sistema"
+
+#: src/templates/updates.mas:43 src/templates/ebox.mas:200
+msgid "Component"
+msgstr "Componente"
+
+#: src/templates/updates.mas:44 src/templates/ebox.mas:201
+msgid "Description"
+msgstr "Descripción"
+
+#: src/templates/updates.mas:45 src/templates/ebox.mas:202
+msgid "Version"
+msgstr "Versión"
+
+#: src/templates/updates.mas:46 src/templates/ebox.mas:152
+#: src/templates/ebox.mas:587 src/templates/ebox.mas:611
+msgid "Update"
+msgstr "Actualizar"
+
+#: src/templates/updates.mas:55 src/templates/updates.mas:56
+msgid "Security update"
+msgstr "Actualización de seguridad"
+
+#: src/templates/updates.mas:59 src/templates/updates.mas:60
+msgid "Zentyal QA update"
+msgstr "Actualización verificada por el equipo de QA de Zentyal"
+
+#: src/templates/updates.mas:88
+msgid "Update all packages"
+msgstr "Actualizar todos los paquetes"
+
+#: src/templates/updates.mas:99
+msgid ""
+"This operation can take some time, don't worry if Zentyal looks unresponsive "
+"after pressing the Upgrade button."
+msgstr ""
+"Esta operación puede tomar un tiempo, no se preocupe si Zentyal no responde "
+"después de presionar el botón de Actualizar."
+
+#: src/templates/updates.mas:103
+msgid "Upgrade"
+msgstr "Actualizar"
+
+#: src/templates/updates.mas:108 src/templates/ebox.mas:603
+#: src/templates/ebox.mas:612
+msgid "Update list"
+msgstr "Lista de actualizaciones"
+
+#: src/templates/ebox.mas:158 src/templates/ebox.mas:561
+#: src/templates/ebox.mas:602
+msgid "Install"
+msgstr "Instalar"
 
 #: src/templates/ebox.mas:193
 msgid ""
@@ -215,18 +268,6 @@ msgid ""
 msgstr ""
 "Los siguientes paquetes no se instalaron correctamente. Necesitas arreglar "
 "esto antes de intentar usarlos o instalar nuevos módulos."
-
-#: src/templates/ebox.mas:200 src/templates/updates.mas:43
-msgid "Component"
-msgstr "Componente"
-
-#: src/templates/ebox.mas:201 src/templates/updates.mas:44
-msgid "Description"
-msgstr "Descripción"
-
-#: src/templates/ebox.mas:202 src/templates/updates.mas:45
-msgid "Version"
-msgstr "Versión"
 
 #: src/templates/ebox.mas:216
 msgid ""
@@ -251,11 +292,6 @@ msgstr "Ver modo básico"
 #: src/templates/ebox.mas:594 src/templates/ebox.mas:623
 msgid "Delete"
 msgstr "Borrar"
-
-#: src/templates/ebox.mas:603 src/templates/ebox.mas:612
-#: src/templates/updates.mas:108
-msgid "Update list"
-msgstr "Lista de actualizaciones"
 
 #: src/templates/ebox.mas:604 src/templates/ebox.mas:613
 #: src/templates/ebox.mas:624
@@ -313,41 +349,6 @@ msgstr ""
 #: src/templates/config.mas:26
 msgid "Automatic operations start time"
 msgstr "Hora de inicio de las operaciones automáticas"
-
-#: src/templates/updates.mas:35
-msgid "Updates are available for the following system components"
-msgstr ""
-"Hay actualizaciones disponibles para los siguientes componentes del sistema"
-
-#: src/templates/updates.mas:37
-msgid "Community updates are available for the following system components"
-msgstr ""
-"Hay actualizaciones de la comunidad disponibles para los siguientes "
-"componentes del sistema"
-
-#: src/templates/updates.mas:55 src/templates/updates.mas:56
-msgid "Security update"
-msgstr "Actualización de seguridad"
-
-#: src/templates/updates.mas:59 src/templates/updates.mas:60
-msgid "Zentyal QA update"
-msgstr "Actualización verificada por el equipo de QA de Zentyal"
-
-#: src/templates/updates.mas:88
-msgid "Update all packages"
-msgstr "Actualizar todos los paquetes"
-
-#: src/templates/updates.mas:99
-msgid ""
-"This operation can take some time, don't worry if Zentyal looks unresponsive "
-"after pressing the Upgrade button."
-msgstr ""
-"Esta operación puede tomar un tiempo, no se preocupe si Zentyal no responde "
-"después de presionar el botón de Actualizar."
-
-#: src/templates/updates.mas:103
-msgid "Upgrade"
-msgstr "Actualizar"
 
 #~ msgid "Select Al"
 #~ msgstr "Seleccionar todo"

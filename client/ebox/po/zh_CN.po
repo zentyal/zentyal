@@ -6,694 +6,136 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox 0.12\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-12-13 09:37+0100\n"
+"POT-Creation-Date: 2010-12-18 01:43+0100\n"
 "PO-Revision-Date: 2010-12-02 03:03+0100\n"
 "Last-Translator: NiZhiqiang <nessus@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: src/EBox/ProgressIndicator.pm:42
-msgid "Total ticks"
-msgstr "合计滴答数"
-
-#: src/EBox/ProgressIndicator.pm:44
-msgid "It must be a non-zero positive number"
-msgstr "必须是零以外的正整数"
-
-#: src/EBox/ProgressIndicator.pm:49
-msgid "To solve it you can try to execute the following commands:"
-msgstr "你可以尝试执行以下命令，来解决这个问题: "
-
-#: src/EBox/ProgressIndicator.pm:56
-#, perl-brace-format
-msgid "Cannot execute {exe}"
-msgstr "无法执行 {exe}"
-
-#: src/EBox/ProgressIndicator.pm:106
-#, perl-brace-format
-msgid "Progress indicator with id {id} not found"
-msgstr "不能找到Id为{id}的进度指示"
-
-#: src/EBox/ProgressIndicator.pm:144
-msgid "Number of ticks to notify"
-msgstr "通知的滴答声数量"
-
-#: src/EBox/ProgressIndicator.pm:146
-msgid "must be greater than zero"
-msgstr "必须大于零"
-
-#: src/EBox/ProgressIndicator.pm:152
-msgid "Executable has not been run"
-msgstr "可执行文件尚未运行"
-
-#: src/EBox/ProgressIndicator.pm:293
-msgid "The executable has not run"
-msgstr "该可执行文件没有运行"
-
-#: src/EBox/ProgressIndicator.pm:437
-msgid "The executable has already been started"
-msgstr "该可执行文件已经开始"
-
-#: src/EBox/ProgressIndicator.pm:441
-msgid "The executable has already finished"
-msgstr "该可执行文件已经完成"
-
-#: src/EBox/Events/Model/Watcher/Log.pm:214
-#: src/EBox/Events/Model/Watcher/Log.pm:238
-msgid ""
-"Warning! The log watcher is not enabled. Enable to be notified when logs "
-"happen. "
-msgstr "警告！日志监视器没启用。启用后才能进行日志报警。"
-
-#: src/EBox/Events/Model/Watcher/Log.pm:262
-#: src/EBox/Logs/Model/SelectLog.pm:149
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:332
-msgid "Domain"
-msgstr "域"
-
-#: src/EBox/Events/Model/Watcher/Log.pm:267
-msgid "Filtering"
-msgstr "过滤"
-
-#: src/EBox/Events/Model/Watcher/Log.pm:275
-msgid "Configure log watchers"
-msgstr "配置日志监视程序"
-
-#: src/EBox/Events/Model/Watcher/Log.pm:277
-msgid "Log watcher"
-msgstr "日志监视程序"
-
-#: src/EBox/Events/Model/Watcher/Log.pm:385
-#: src/EBox/Events/Model/Watcher/LogFiltering.pm:211
-#: src/EBox/Events/Model/Watcher/DiskFreeSpace.pm:136
-#: src/EBox/Events/Model/GeneralComposite.pm:72
-#: src/EBox/Events/Model/GeneralComposite.pm:73
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:272
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:324 src/EBox/Events.pm:94
-#: src/EBox/Events.pm:838
-msgid "Events"
-msgstr "事件管理"
-
-#: src/EBox/Events/Model/Watcher/Log.pm:389
-#: src/EBox/Events/Model/Watcher/LogFiltering.pm:215
-msgid "Log Observer Watcher"
-msgstr "日志观察员检测器"
-
-#: src/EBox/Events/Model/Watcher/LogFiltering.pm:108
-#, perl-brace-format
-msgid "Log domain {logDomain}"
-msgstr "日志域{logDomain}"
-
-#: src/EBox/Events/Model/Watcher/LogFiltering.pm:149
-#: src/EBox/Types/PortRange.pm:289 src/EBox/Types/Service.pm:212
-#: src/templates/logs/index.mas:185
-msgid "Any"
-msgstr "任意"
-
-#: src/EBox/Events/Model/Watcher/LogFiltering.pm:168
-#: src/templates/logs/index.mas:183
-msgid "Event"
-msgstr "事件"
-
-#: src/EBox/Events/Model/Watcher/LogFiltering.pm:176
-#, perl-brace-format
-msgid "Filters to apply to notify logs from {logDomain}"
-msgstr "用于{logDomain}日志的过滤器"
-
-#: src/EBox/Events/Model/Watcher/LogFiltering.pm:184
-msgid ""
-"Every filter added is cumulative.Then every log line which matches with any "
-"filter given will be notified"
-msgstr "每一个过滤器将是累积的。然后匹配到任意过滤器的每个日志线将被通知"
-
-#: src/EBox/Events/Model/Watcher/LogFiltering.pm:188
-msgid "filter"
-msgstr "过滤器"
-
-#: src/EBox/Events/Model/Watcher/DiskFreeSpace.pm:100
-msgid "Minimum free disk space per filesystem"
-msgstr "每个文件系统的最小空闲磁盘空间"
-
-#: src/EBox/Events/Model/Watcher/DiskFreeSpace.pm:105
-msgid ""
-"When the free space percentage of any disk partition is under this value the "
-"event is triggered."
-msgstr "当任意磁盘分区的空闲空间小于这个值，就触发事件。"
-
-#: src/EBox/Events/Model/Watcher/DiskFreeSpace.pm:112
-msgid "Configure disk free space watcher"
-msgstr "配置磁盘空间监视程序"
-
-#: src/EBox/Events/Model/Watcher/DiskFreeSpace.pm:140
-msgid "Free Disk Space Watcher"
-msgstr "空闲磁盘空间监视器"
-
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:269
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:304
-msgid "Name"
-msgstr "名称"
-
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:277
-#: src/templates/backup.mas:55 src/templates/backup.mas:129
-#: src/templates/confirm-backup.mas:36
-msgid "Description"
-msgstr "说明"
-
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:286
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:326
-msgid "Configuration"
-msgstr "配置"
-
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:302
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:346
-msgid "None"
-msgstr "无"
-
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:311
-msgid "Configure Events"
-msgstr "配置事件"
-
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:319
-#: src/EBox/Events/Model/Report/EventsDetails.pm:109
-msgid "event"
-msgstr "事件"
-
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:320
-msgid "Enable/Disable each event watcher monitoring"
-msgstr "启用/禁用每个事件监视程序"
-
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:498
-msgid ""
-"Warning! There is no log domain watcher enabled. Please, go to "
-"'Configuration' to enable at least one to be notified when a log in this "
-"domain happens. "
-msgstr ""
-"警告！没有启用日志域监视器。请到'配置'启用至少一个有关该日志域的监视器。"
-
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:290
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:340
-#: src/EBox/Model/DataTable.pm:4560
-msgid "Enabled"
-msgstr "启用"
-
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:314
-msgid "Receiver"
-msgstr "接收器"
-
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:355
-msgid "Configure Dispatchers"
-msgstr "配置调度程序"
-
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:364
-msgid "dispatcher"
-msgstr "调度程序"
-
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:365
-msgid "Enable/Disable each event dispatcher"
-msgstr "启用/禁用每个事件调度程序"
-
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:554
-msgid ""
-"In order to enable a configurable event dispatcher, you need to configure it "
-"first"
-msgstr "启用一个可配置的事件调度程序之前，需要首先进行配置"
-
-#: src/EBox/Events/Model/GeneralComposite.pm:76
-msgid ""
-"Events module configures Zentyal to help informing you about events that "
-"happen"
-msgstr "事件模块配置事件发生后，Zentyal为你发送的有关该事件的帮助信息。"
-
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:192
-msgid "Jabber server name"
-msgstr "Jabber服务器名"
-
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:195
-msgid "Jabber server to send the messages"
-msgstr "发送消息的Jabber服务器"
-
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:199
-msgid "Port"
+#: src/EBox/Apache.pm:289 src/EBox/Apache.pm:298
+msgid "port"
 msgstr "端口"
 
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:206
-msgid "Jabber user name"
-msgstr "Jabber用户名"
-
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:209
-msgid ""
-"Jabber ID of the account that will send the messages. Hint: do not introduce "
-"@domain, only the user name"
-msgstr "用于发送消息的Jabber ID. 注意: 只要用户名，不用@domain."
-
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:215
-msgid "User password"
-msgstr "用户密码"
-
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:223
-msgid "Subscribe"
-msgstr "订阅"
-
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:225
-msgid ""
-"Tick this option if you want Zentyal to create an account for the above user"
-msgstr "如果希望为上述用户创建账户，就勾选该项"
-
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:232
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:299
-msgid "Administrator Jabber Identifier"
-msgstr "管理员的Jabber标识"
-
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:235
-msgid ""
-"Destination Jabber ID of the messages generated by Zentyal,  i.e: you, the "
-"Zentyal admin. Note that you need to register this  account manually in any "
-"jabber server"
-msgstr ""
-"Zentyal产生信息的目标Jabber ID可以是：you，Zentyal admin等。注意，您需要在"
-"jabber服务器手工注册这些账户。"
-
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:244
-msgid "Configure Jabber dispatcher"
-msgstr "配置Jabber调度程序"
-
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:249
-msgid "This dispatcher will send events to an Jabber account"
-msgstr "这个调度程序将通过一个Jabber账户发送事件"
-
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:252
-msgid "Jabber dispatcher configuration updated"
-msgstr "Jabber调度程序配置已更新"
-
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:276
-msgid "Jabber Dispatcher"
-msgstr "Jabber调度程序"
-
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:301
-msgid "It should follow the pattern 'user@domain[/resource]'"
-msgstr "它应该遵循的模式，user@domain[/resource]'"
-
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:149
-msgid "Nobody"
-msgstr "Nobody"
-
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:153
-msgid "IP address"
-msgstr "IP地址"
-
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:160
-msgid "Object"
-msgstr "对象"
-
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:169
-msgid "Public"
-msgstr "公开"
-
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:176
-msgid "Channel link"
-msgstr "频道连接"
-
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:183
-msgid "Allowed readers"
-msgstr "允许的读者"
-
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:186
-msgid "Use this field to set the access control for the channel"
-msgstr "使用此字段来设置频道的访问控制"
-
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:191
-msgid "Syndicate this RSS"
-msgstr "联播该RSS"
-
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:201
-msgid "Configure RSS dispatcher"
-msgstr "配置RSS调度程序"
-
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:206
-msgid ""
-"The channel link is the link which is used to syndicate the content to your "
-"favourite RSS. "
-msgstr "该频道的连接用来联播您最喜爱的RSS内容的链接。"
-
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:209
-msgid "RSS dispatcher configuration updated"
-msgstr "RSS调度程序配置已更新"
-
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:328
-msgid "RSS Dispatcher"
-msgstr "RSS调度程序"
-
-#: src/EBox/Events/Model/Report/EventsDetails.pm:50
-#: src/EBox/Events/Model/Report/EventsDetails.pm:74 src/EBox/Events.pm:823
-msgid "Source"
-msgstr "来源"
-
-#: src/EBox/Events/Model/Report/EventsDetails.pm:51
-#: src/EBox/Events/Model/Report/EventsDetails.pm:80
-#: src/EBox/Events/Model/Report/EventsGraph.pm:51 src/EBox/Events.pm:830
-msgid "Informative"
-msgstr "信息"
-
-#: src/EBox/Events/Model/Report/EventsDetails.pm:52
-#: src/EBox/Events/Model/Report/EventsDetails.pm:84
-#: src/EBox/Events/Model/Report/EventsGraph.pm:52 src/EBox/Events.pm:831
-#: src/templates/finish.mas:83
-msgid "Warning"
-msgstr "警告"
-
-#: src/EBox/Events/Model/Report/EventsDetails.pm:53
-#: src/EBox/Events/Model/Report/EventsDetails.pm:88
-#: src/EBox/Events/Model/Report/EventsGraph.pm:53 src/EBox/Events.pm:832
-msgid "Error"
-msgstr "错误"
-
-#: src/EBox/Events/Model/Report/EventsDetails.pm:54
-#: src/EBox/Events/Model/Report/EventsDetails.pm:92
-#: src/EBox/Events/Model/Report/EventsGraph.pm:54 src/EBox/Events.pm:833
-msgid "Fatal error"
-msgstr "严重错误"
-
-#: src/EBox/Events/Model/Report/EventsDetails.pm:68 src/EBox/Logs.pm:737
-#: src/templates/finish.mas:116 src/templates/backup.mas:130
-#: src/templates/confirm-backup.mas:28
-msgid "Date"
-msgstr "日期"
-
-#: src/EBox/Events/Model/Report/EventsDetails.pm:101
-msgid "Events details"
-msgstr "事件细节"
-
-#: src/EBox/Events/Model/Report/EventsGraph.pm:60
-msgid "Events summarized chart"
-msgstr "事件综合图表"
-
-#: src/EBox/Events/Model/Report/EventsGraph.pm:77
-msgid "Events summarized graph"
-msgstr "事件综合图"
-
-#: src/EBox/Events/Composite/Report/EventsReport.pm:69
-msgid "Events reports"
-msgstr "事件报告"
-
-#: src/EBox/Events/Composite/Report/EventsReport.pm:70
-msgid "Events report"
-msgstr "事件报告"
-
-#: src/EBox/Auth.pm:133
-msgid "Password changed"
-msgstr "密码已更新"
-
-#: src/EBox/CGI/ClientRawBase.pm:212 src/EBox/CGI/WizardPage.pm:155
-msgid ""
-"An internal error related to a template has occurred. This is a bug, "
-"relevant information can be found in the logs."
-msgstr "发生一个模板相关的内部错误。这是一个bug，相关信息可以在日志中找到。"
-
-#: src/EBox/CGI/Wizard.pm:29
-msgid "Initial configuration wizard"
-msgstr "初始配置指南"
-
-#: src/EBox/CGI/Logs/Index.pm:35 src/EBox/Logs.pm:58 src/EBox/Logs.pm:383
-msgid "Logs"
-msgstr "日志管理"
-
-#: src/EBox/CGI/Logs/Index.pm:326 src/EBox/Logs.pm:721
-msgid "Query Logs"
-msgstr "查询日志"
-
-#: src/EBox/CGI/Logs/Index.pm:329
-msgid "Full Reports"
-msgstr "完整的报告"
-
-#: src/EBox/CGI/Dashboard/Index.pm:32 src/EBox/SysInfo.pm.in:253
-msgid "Dashboard"
-msgstr "仪表盘"
-
-#: src/EBox/CGI/Dashboard/ConfigureWidgets.pm:30
-#: src/templates/dashboard/index.mas:81
-msgid "Configure Widgets"
-msgstr "配置组件"
-
-#: src/EBox/CGI/Progress.pm:81 src/EBox/CGI/Progress.pm:107
-#: src/EBox/CGI/Finish.pm:77
-msgid "Saving changes"
-msgstr "保存变更"
-
-#: src/EBox/CGI/Login/Index.pm:63
-msgid ""
-"There is a script which has asked to run in Zentyal exclusively. Please, "
-"wait patiently until it is done"
-msgstr "有一个已经要求在Zentyal运行的脚本。请耐心等待，直到它完成"
-
-#: src/EBox/CGI/Login/Index.pm:67
-msgid "Incorrect password"
-msgstr "无效的密码"
-
-#: src/EBox/CGI/Login/Index.pm:70
-msgid "For security reasons your session has expired due to inactivity"
-msgstr "由于没有活动，出于安全原因，您的会话已过期"
-
-#: src/EBox/CGI/Login/Index.pm:73
-msgid "You have been logged out because a new session has been opened"
-msgstr "因为打开新的会话，您需要注销当前会话"
-
-#: src/EBox/CGI/ServiceModule/StatusView.pm:39
-msgid "Module Status Configuration"
-msgstr "模块状态配置"
-
-#: src/EBox/CGI/Logout/Index.pm:29 src/EBox/Html.pm:40
-msgid "Logout"
-msgstr "注销"
-
-#: src/EBox/CGI/EBox/General.pm:32
-msgid "General Configuration"
-msgstr "一般配置"
-
-#: src/EBox/CGI/EBox/Halt.pm:30
-msgid "Halt or Reboot"
-msgstr "关机或重启"
-
-#: src/EBox/CGI/EBox/Halt.pm:43
-msgid "Zentyal is going down for halt"
-msgstr "由于关机，Zentyal将要关闭"
-
-#: src/EBox/CGI/EBox/Halt.pm:46
-msgid "Zentyal is going down for reboot"
-msgstr "由于重启，Zentyal将要关闭"
-
-#: src/EBox/CGI/EBox/Password.pm:43 src/templates/password.mas:11
-#: src/templates/login/index.mas:49
-msgid "Username"
-msgstr "用户名"
-
-#: src/EBox/CGI/EBox/Password.pm:48 src/templates/login/index.mas:54
-msgid "Password"
-msgstr "密码"
-
-#: src/EBox/CGI/EBox/Password.pm:57
-msgid "Incorrect password."
-msgstr "无效密码"
-
-#: src/EBox/CGI/EBox/Password.pm:62
-msgid "New passwords do not match."
-msgstr "新密码不匹配"
-
-#: src/EBox/CGI/EBox/Password.pm:67
-msgid "The password must be at least 6 characters long"
-msgstr "密码至少6个字符"
-
-#: src/EBox/CGI/EBox/Password.pm:71
-msgid "The password was changed successfully."
-msgstr "密码成功更新"
-
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:33 src/templates/backup.mas:30
-msgid "Configuration Backup"
-msgstr "配置备份"
-
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:105
-msgid "Please confirm that you want to delete the following backup file:"
-msgstr "请确认将删除以下备份文件："
-
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:107 src/templates/backup.mas:168
-#: src/templates/backup.mas:169
-msgid "Delete"
-msgstr "删除"
-
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:114
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:130
-msgid "Please confirm that you want to restore using this backup file:"
-msgstr "请确认将从这个备份文件恢复："
-
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:116
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:132 src/templates/backup.mas:98
-msgid "Restore"
-msgstr "恢复"
-
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:147 src/EBox/CGI/EBox/Backup.pm:193
-#: src/EBox/CGI/EBox/Backup.pm:271 src/EBox/CGI/EBox/Backup.pm:284
-#: src/EBox/Backup.pm:1481
-msgid "The input contains invalid characters"
-msgstr "输入中存在非法字符"
-
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:176
-msgid "Configuration backup"
-msgstr "配置备份"
-
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:179
-msgid "Full data and configuration backup"
-msgstr "备份全部数据和配置"
-
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:182
-msgid "Bug-report configuration dump"
-msgstr "错误报告配置备份"
-
-#: src/EBox/CGI/EBox/RestartService.pm:49
-msgid "module name"
-msgstr "模块名称"
-
-#: src/EBox/CGI/EBox/RestartService.pm:54
-msgid "The module was restarted correctly."
-msgstr "模块成功重启"
-
-#: src/EBox/CGI/EBox/RestartService.pm:58
-#, perl-brace-format
-msgid "Error restarting service. See {logs} for more information."
-msgstr ""
-
-#: src/EBox/CGI/EBox/Hostname.pm:48
-msgid "hostname"
-msgstr "主机名"
-
-#: src/EBox/CGI/EBox/CurrentProgress.pm:36
-msgid "Upgrading"
-msgstr "正在升级"
-
-#: src/EBox/CGI/EBox/Backup.pm:34 src/EBox/SysInfo.pm.in:280
+#: src/EBox/Apache.pm:626
 #, fuzzy
-msgid "Import/Export Configuration"
-msgstr "当前配置"
+msgid "Zentyal Administration Web Server"
+msgstr "Zentyal Web服务器"
 
-#: src/EBox/CGI/EBox/Backup.pm:163
+#: src/EBox/Event/Dispatcher/Jabber.pm:165
+msgid "Admin Jabber account"
+msgstr "管理Jabber账户"
+
+#: src/EBox/Event/Dispatcher/Jabber.pm:178
+msgid "Jabber"
+msgstr "Jabber"
+
+#: src/EBox/Event/Dispatcher/Jabber.pm:228
 #, perl-brace-format
-msgid "Unknown backup mode: {mode}"
-msgstr "未知的备份模式: {mode}"
+msgid "Jabber server {serverName} is down or connection is not allowed"
+msgstr "Jabber服务器 {serverName} 宕机或者不允许连接"
 
-#: src/EBox/CGI/EBox/Backup.pm:226
+#: src/EBox/Event/Dispatcher/Jabber.pm:258
 #, perl-brace-format
-msgid "Unknown restore mode: {mode}"
-msgstr "未知的恢复模式: {mode}"
+msgid "Subscription failed: {message}"
+msgstr "订阅失败: {message}"
 
-#: src/EBox/CGI/EBox/Backup.pm:239
-msgid "Backing up"
-msgstr "备份"
+#: src/EBox/Event/Dispatcher/Jabber.pm:265
+#, perl-brace-format
+msgid "Authorization failed: {result} - {message}"
+msgstr "认证失败: {result} - {message}"
 
-#: src/EBox/CGI/EBox/Backup.pm:240
-msgid "Backing up modules"
-msgstr "备份模块"
+#: src/EBox/Event/Dispatcher/RSS.pm:218
+#, perl-brace-format
+msgid "RSS file: {path}"
+msgstr "RSS文件: {path}"
 
-#: src/EBox/CGI/EBox/Backup.pm:241
-msgid "Operation"
-msgstr "操作"
+#: src/EBox/Event/Dispatcher/RSS.pm:232
+msgid "RSS"
+msgstr "RSS"
 
-#: src/EBox/CGI/EBox/Backup.pm:242
-msgid "operations left to finish backup"
-msgstr "剩余的备份操作"
+#: src/EBox/Event/Dispatcher/RSS.pm:289
+#, perl-brace-format
+msgid "Zentyal alerts channel for {hostname}"
+msgstr "{hostname} 的报警频道"
 
-#: src/EBox/CGI/EBox/Backup.pm:243
-msgid "Backup successful"
-msgstr "备份成功"
+#: src/EBox/Event/Dispatcher/RSS.pm:292
+msgid "This channel tracks what happens on this Zentyal machine along the time"
+msgstr "这个频道跟踪Zentyal主机发生的事件及发生时间"
 
-#: src/EBox/CGI/EBox/Backup.pm:255
-msgid "Restoring backup"
-msgstr "正在恢复备份"
+#: src/EBox/Event/Dispatcher/RSS.pm:312
+#, perl-brace-format
+msgid "The event has happened in Zentyal {hostname} from {source}"
+msgstr "这个发生于Zentyal主机 {hostname} 的事件源于 {source}"
 
-#: src/EBox/CGI/EBox/Backup.pm:256
-msgid "Restoring modules"
-msgstr "正在恢复模块"
+#: src/EBox/Event/Dispatcher/RSS.pm:316
+#, perl-brace-format
+msgid "Go to your {url} to check its status."
+msgstr "跳转到 {url} 检查其状态."
 
-#: src/EBox/CGI/EBox/Backup.pm:257 src/EBox/Logs.pm:739
-#: src/templates/moduleStatusTable.mas:58 src/templates/finish.mas:117
-msgid "Module"
-msgstr "模块"
+#: src/EBox/Event/Dispatcher/Log.pm:135
+msgid "Log file"
+msgstr "日志文件"
 
-#: src/EBox/CGI/EBox/Backup.pm:258
-msgid "modules restored"
-msgstr "模块已恢复"
+#: src/EBox/Event/Dispatcher/Log.pm:148
+msgid "Log"
+msgstr "日志"
 
-#: src/EBox/CGI/EBox/Backup.pm:259
-msgid "Restore successful"
-msgstr "恢复成功"
+#: src/EBox/Event/Dispatcher/Abstract.pm:140
+#, perl-brace-format
+msgid "Dispatcher {name} is not configured to be enabled"
+msgstr "调度程序 {name} 没有启用"
 
-#: src/EBox/CGI/EBox/ConfigurationReport.pm:29
-msgid "Configuration report"
-msgstr "配置报告"
+#: src/EBox/Event/Watcher/DiskFreeSpace.pm:133
+#, perl-brace-format
+msgid "The file system {fs}, mounted on {mp}, has no space left"
+msgstr "挂载于 {mp} 的文件系统 {fs} 没有剩余空间了 "
 
-#: src/EBox/CGI/Report/RAID.pm:30 src/EBox/Event/Watcher/RAID.pm:181
-#: src/EBox/SysInfo.pm.in:275
+#: src/EBox/Event/Watcher/DiskFreeSpace.pm:167
+msgid "Free storage space"
+msgstr "空闲存储空间"
+
+#: src/EBox/Event/Watcher/DiskFreeSpace.pm:184
+msgid "Check if any disk partition has no storage space left"
+msgstr "检查磁盘分区是否没有剩余空间"
+
+#: src/EBox/Event/Watcher/Runit.pm:112
+#, perl-brace-format
+msgid "The following modules are not running but they are enabled: {modules}\n"
+msgstr "模块已被启用但没有运行: {modules}\n"
+
+#: src/EBox/Event/Watcher/Runit.pm:141
+msgid "Service"
+msgstr "服务"
+
+#: src/EBox/Event/Watcher/Runit.pm:158
+msgid "Check if any Zentyal service is not running when it is enabled"
+msgstr "检查Zentyal服务是否启用后没有运行"
+
+#: src/EBox/Event/Watcher/Runit.pm:228
+#, perl-brace-format
+msgid ""
+"The service {service} has been restarted {restart} times in {time} seconds "
+"and it has been stopped"
+msgstr "服务 {service} 在 {time} 秒内被重启 {restart} 次，已被终止"
+
+#: src/EBox/Event/Watcher/Log.pm:202
+msgid "Log observer"
+msgstr "日志观察器"
+
+#: src/EBox/Event/Watcher/Log.pm:240
+#, perl-brace-format
+msgid "Notify when a logger ({loggers}) has logged something"
+msgstr "{loggers}产生记录时发出通知"
+
+#: src/EBox/Event/Watcher/RAID.pm:181 src/EBox/SysInfo.pm.in:275
+#: src/EBox/CGI/Report/RAID.pm:30
 msgid "RAID"
 msgstr "RAID"
-
-#: src/EBox/CGI/Report/DiskUsage.pm:31 src/EBox/SysInfo.pm.in:271
-msgid "Disk Usage"
-msgstr "磁盘利用率"
-
-#: src/EBox/CGI/Finish.pm:32
-msgid "Save configuration"
-msgstr "保存配置"
-
-#: src/EBox/CGI/Finish.pm:78
-msgid "Saving changes in modules"
-msgstr "保存模块的变更"
-
-#: src/EBox/CGI/Finish.pm:79 src/templates/report/raid.mas:213
-msgid "Current operation"
-msgstr "当前操作"
-
-#: src/EBox/CGI/Finish.pm:80
-msgid "operations performed"
-msgstr "操作已执行"
-
-#: src/EBox/CGI/Finish.pm:81
-msgid "Changes saved"
-msgstr "变更已保存"
-
-#: src/EBox/CGI/Finish.pm:82
-#, perl-brace-format
-msgid ""
-"Some modules reported error when saving changes . More information on the "
-"logs in {dir}"
-msgstr "某些模块保存变更时报告错误。更多的信息在目录{dir}的日志中"
-
-#: src/EBox/CGI/Finish.pm:101
-msgid "Revoking changes"
-msgstr "撤销变更"
-
-#: src/EBox/CGI/Finish.pm:102
-msgid "Revoking changes in modules"
-msgstr "撤销模块的变更"
-
-#: src/EBox/CGI/Finish.pm:103
-msgid "Current module"
-msgstr "当前模块"
-
-#: src/EBox/CGI/Finish.pm:104
-msgid "modules revoked"
-msgstr "撤销的模块"
-
-#: src/EBox/CGI/Finish.pm:105
-msgid "Changes revoked"
-msgstr "撤销的变更"
-
-#: src/EBox/CGI/Finish.pm:106
-#, perl-brace-format
-msgid ""
-"Some modules reported error when discarding changes . More information on "
-"the logs in {dir}"
-msgstr "在放弃变更时，某些模块报告错误。更多信息在{dir}目录的日志中"
 
 #: src/EBox/Event/Watcher/RAID.pm:198
 msgid "Check if any event has happened in RAID subsystem"
@@ -885,26 +327,6 @@ msgstr "故障"
 msgid "spare"
 msgstr "备用"
 
-#: src/EBox/Event/Watcher/Runit.pm:112
-#, perl-brace-format
-msgid "The following modules are not running but they are enabled: {modules}\n"
-msgstr "模块已被启用但没有运行: {modules}\n"
-
-#: src/EBox/Event/Watcher/Runit.pm:141
-msgid "Service"
-msgstr "服务"
-
-#: src/EBox/Event/Watcher/Runit.pm:158
-msgid "Check if any Zentyal service is not running when it is enabled"
-msgstr "检查Zentyal服务是否启用后没有运行"
-
-#: src/EBox/Event/Watcher/Runit.pm:228
-#, perl-brace-format
-msgid ""
-"The service {service} has been restarted {restart} times in {time} seconds "
-"and it has been stopped"
-msgstr "服务 {service} 在 {time} 秒内被重启 {restart} 次，已被终止"
-
 #: src/EBox/Event/Watcher/State.pm:125
 msgid "Zentyal is up and running"
 msgstr "Zentyal正在运行"
@@ -921,108 +343,122 @@ msgstr "状态"
 msgid "Check if Zentyal is currently up or down"
 msgstr "检查Zentyal目前启动还是关闭"
 
-#: src/EBox/Event/Watcher/Log.pm:202
-msgid "Log observer"
-msgstr "日志观察器"
-
-#: src/EBox/Event/Watcher/Log.pm:240
+#: src/EBox/Model/DataTable.pm:327
 #, perl-brace-format
-msgid "Notify when a logger ({loggers}) has logged something"
-msgstr "{loggers}产生记录时发出通知"
+msgid "{model} in {module} module"
+msgstr "{module}模块的模型{model}"
 
-#: src/EBox/Event/Watcher/DiskFreeSpace.pm:133
+#: src/EBox/Model/DataTable.pm:331
+msgid "at"
+msgstr "在"
+
+#: src/EBox/Model/DataTable.pm:542
+msgid "field"
+msgstr "字段"
+
+#: src/EBox/Model/DataTable.pm:1468
+msgid "page"
+msgstr "页"
+
+#: src/EBox/Model/DataTable.pm:1471
+msgid "Page must be a number equal or greater than zero"
+msgstr "页面编号应该大于等于0"
+
+#: src/EBox/Model/DataTable.pm:2129 src/EBox/Model/DataMultiTable.pm:168
+#: src/EBox/Model/Composite.pm:671 src/EBox/Model/Composite.pm:686
+#: src/EBox/Logs.pm:740
+msgid "Action"
+msgstr "操作"
+
+#: src/EBox/Model/DataTable.pm:2831
 #, perl-brace-format
-msgid "The file system {fs}, mounted on {mp}, has no space left"
-msgstr "挂载于 {mp} 的文件系统 {fs} 没有剩余空间了 "
+msgid "Remove {num} rows of {rowName} from {model}{br}"
+msgstr "从{model}删除{num}行{rowName}{br}"
 
-#: src/EBox/Event/Watcher/DiskFreeSpace.pm:167
-msgid "Free storage space"
-msgstr "空闲存储空间"
+#: src/EBox/Model/DataTable.pm:2902
+msgid "Page size"
+msgstr "页面大小"
 
-#: src/EBox/Event/Watcher/DiskFreeSpace.pm:184
-msgid "Check if any disk partition has no storage space left"
-msgstr "检查磁盘分区是否没有剩余空间"
+#: src/EBox/Model/DataTable.pm:2905
+msgid "Must be either a positive number or zero"
+msgstr "必须是正整数或者0"
 
-#: src/EBox/Event/Dispatcher/Jabber.pm:165
-msgid "Admin Jabber account"
-msgstr "管理Jabber账户"
-
-#: src/EBox/Event/Dispatcher/Jabber.pm:178
-msgid "Jabber"
-msgstr "Jabber"
-
-#: src/EBox/Event/Dispatcher/Jabber.pm:228
+#: src/EBox/Model/DataTable.pm:3212
 #, perl-brace-format
-msgid "Jabber server {serverName} is down or connection is not allowed"
-msgstr "Jabber服务器 {serverName} 宕机或者不允许连接"
+msgid "{row} added"
+msgstr "{row}已添加"
 
-#: src/EBox/Event/Dispatcher/Jabber.pm:258
+#: src/EBox/Model/DataTable.pm:3213
 #, perl-brace-format
-msgid "Subscription failed: {message}"
-msgstr "订阅失败: {message}"
+msgid "{row} deleted"
+msgstr "{row}已删除"
 
-#: src/EBox/Event/Dispatcher/Jabber.pm:265
+#: src/EBox/Model/DataTable.pm:3214
 #, perl-brace-format
-msgid "Authorization failed: {result} - {message}"
-msgstr "认证失败: {result} - {message}"
+msgid "{row} updated"
+msgstr "{row}已更新"
 
-#: src/EBox/Event/Dispatcher/Abstract.pm:140
+#: src/EBox/Model/DataTable.pm:3215
 #, perl-brace-format
-msgid "Dispatcher {name} is not configured to be enabled"
-msgstr "调度程序 {name} 没有启用"
+msgid "{row} moved up"
+msgstr "{row}已上移"
 
-#: src/EBox/Event/Dispatcher/Log.pm:135
-msgid "Log file"
-msgstr "日志文件"
-
-#: src/EBox/Event/Dispatcher/Log.pm:148
-msgid "Log"
-msgstr "日志"
-
-#: src/EBox/Event/Dispatcher/RSS.pm:218
+#: src/EBox/Model/DataTable.pm:3216
 #, perl-brace-format
-msgid "RSS file: {path}"
-msgstr "RSS文件: {path}"
+msgid "{row} moved down"
+msgstr "{row}已下移"
 
-#: src/EBox/Event/Dispatcher/RSS.pm:232
-msgid "RSS"
-msgstr "RSS"
+#: src/EBox/Model/DataTable.pm:4402 src/templates/dataInUse.mas:25
+#: src/templates/dataInUse.mas:34 src/templates/password.mas:67
+#: src/templates/hostname.mas:19 src/templates/port.mas:14
+msgid "Change"
+msgstr "修改"
 
-#: src/EBox/Event/Dispatcher/RSS.pm:289
+#: src/EBox/Model/DataTable.pm:4560
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:290
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:340
+msgid "Enabled"
+msgstr "启用"
+
+#: src/EBox/Model/ProviderBase.pm:246
 #, perl-brace-format
-msgid "Zentyal alerts channel for {hostname}"
-msgstr "{hostname} 的报警频道"
+msgid "Provided object with index {i} does not exist"
+msgstr "由索引{i}提供的对象不存在"
 
-#: src/EBox/Event/Dispatcher/RSS.pm:292
-msgid "This channel tracks what happens on this Zentyal machine along the time"
-msgstr "这个频道跟踪Zentyal主机发生的事件及发生时间"
-
-#: src/EBox/Event/Dispatcher/RSS.pm:312
+#: src/EBox/Model/Composite.pm:371
 #, perl-brace-format
-msgid "The event has happened in Zentyal {hostname} from {source}"
-msgstr "这个发生于Zentyal主机 {hostname} 的事件源于 {source}"
+msgid "It should be one of following values: {values}"
+msgstr "应该是以下值之一: {values}"
 
-#: src/EBox/Event/Dispatcher/RSS.pm:316
+#: src/EBox/Model/Composite.pm:673
 #, perl-brace-format
-msgid "Go to your {url} to check its status."
-msgstr "跳转到 {url} 检查其状态."
+msgid "Actions to be taken allowed are: {view} and {cView}"
+msgstr "允许的操作是：{view}和{cView}"
 
-#: src/EBox/PgDBEngine.pm:60 src/EBox/PgDBEngine.pm:74
-#: src/EBox/PgDBEngine.pm:88
-#, perl-brace-format
-msgid "You must set the {variable} variable in the ebox configuration file"
-msgstr "您必须在ebox配置文件中设置变量{variable}"
+#: src/EBox/Model/Composite.pm:801
+msgid "Choose one of the following:"
+msgstr "选择下列之一："
 
-#: src/EBox/PgDBEngine.pm:471
+#: src/EBox/Model/ModelManager.pm:468
 msgid ""
-"You are using sliced backup mode and this backup was made in no-sliced mode"
-msgstr ""
+"The data you are removing is being used by\n"
+"                    the following sections:"
+msgstr "要删除的数据正由以下部分使用："
 
-#: src/EBox/PgDBEngine.pm:479
+#: src/EBox/Model/ModelManager.pm:515
 msgid ""
-"Database dump file not found. Maybe the backup you are trying to restore was "
-"made in sliced mode?"
-msgstr ""
+"The data you are modifying is being used by\n"
+"\t\t\tthe following sections:"
+msgstr "修改的数据正由以下部分使用："
+
+#: src/EBox/Model/DataForm.pm:554
+#, perl-brace-format
+msgid "Remove data from {model}{br}"
+msgstr "从{model}删除数据{br}"
+
+#: src/EBox/Model/DataForm.pm:688 src/templates/progress.mas:26
+msgid "Done"
+msgstr "完成"
 
 #: src/EBox/Types/Int.pm:154
 msgid "Enter an integer number"
@@ -1038,6 +474,25 @@ msgstr "值不应大于 {m}"
 msgid "The value shouldn't be less than {m}"
 msgstr "值不应小于 {m}"
 
+#: src/EBox/Types/DomainName.pm:117
+msgid "IP addresses are not allowed"
+msgstr "IP地址不符合要求"
+
+#: src/EBox/Types/Float.pm:112
+msgid "Enter a float number"
+msgstr "输入一个浮点数"
+
+#: src/EBox/Types/Select.pm:340
+#, perl-brace-format
+msgid "Choose a value within the value set: {set}"
+msgstr "设定值内选择一个值：{set}"
+
+#: src/EBox/Types/Service.pm:212 src/EBox/Types/PortRange.pm:289
+#: src/EBox/Events/Model/Watcher/LogFiltering.pm:149
+#: src/templates/logs/index.mas:185
+msgid "Any"
+msgstr "任意"
+
 #: src/EBox/Types/Password.pm:133
 #, perl-brace-format
 msgid "The password should have at least {minLength} characters"
@@ -1047,10 +502,6 @@ msgstr "密码至少{minLength}个字符"
 #, perl-brace-format
 msgid "The password should have at most {maxLength} characters"
 msgstr "密码最多{maxLength}个字符"
-
-#: src/EBox/Types/DomainName.pm:117
-msgid "IP addresses are not allowed"
-msgstr "IP地址不符合要求"
 
 #: src/EBox/Types/PortRange.pm:138
 msgid "any"
@@ -1069,32 +520,484 @@ msgstr "端口范围"
 msgid "\"From\" {from} must be greater than \"To\" {to}"
 msgstr "\"From\"变量{from}必须大于\"To\"变量{to}"
 
-#: src/EBox/Types/Float.pm:112
-msgid "Enter a float number"
-msgstr "输入一个浮点数"
+#: src/EBox/Html.pm:39 src/templates/wizard.mas:124
+msgid "Save changes"
+msgstr "保存变更"
 
-#: src/EBox/Types/Select.pm:340
-#, perl-brace-format
-msgid "Choose a value within the value set: {set}"
-msgstr "设定值内选择一个值：{set}"
+#: src/EBox/Html.pm:40 src/EBox/CGI/Logout/Index.pm:29
+msgid "Logout"
+msgstr "注销"
 
-#: src/EBox/Logs/SlicedBackup.pm:104
-#, perl-brace-format
+#: src/EBox/SysInfo.pm.in:50
+msgid "System Information"
+msgstr "系统信息"
+
+#: src/EBox/SysInfo.pm.in:95
+msgid "available"
+msgstr "可用"
+
+#: src/EBox/SysInfo.pm.in:103
+msgid "Time"
+msgstr "时间"
+
+#: src/EBox/SysInfo.pm.in:104
+msgid "Hostname"
+msgstr "主机名"
+
+#: src/EBox/SysInfo.pm.in:105
+msgid "Core version"
+msgstr "核心版本"
+
+#: src/EBox/SysInfo.pm.in:107
+msgid "System load"
+msgstr "系统负载"
+
+#: src/EBox/SysInfo.pm.in:108
+msgid "Uptime"
+msgstr "运行时间"
+
+#: src/EBox/SysInfo.pm.in:109
+msgid "Users"
+msgstr "用户"
+
+#: src/EBox/SysInfo.pm.in:162 src/EBox/SysInfo.pm.in:258
+msgid "Module Status"
+msgstr "模块管理"
+
+#: src/EBox/SysInfo.pm.in:168
+msgid "General Information"
+msgstr "一般信息"
+
+#: src/EBox/SysInfo.pm.in:174
+msgid "Process List"
+msgstr "进程列表"
+
+#: src/EBox/SysInfo.pm.in:181
+msgid "Resources & Services"
+msgstr "资源和服务"
+
+#: src/EBox/SysInfo.pm.in:253 src/EBox/CGI/Dashboard/Index.pm:32
+msgid "Dashboard"
+msgstr "仪表盘"
+
+#: src/EBox/SysInfo.pm.in:264
+msgid "System"
+msgstr "系统管理"
+
+#: src/EBox/SysInfo.pm.in:268
+msgid "General"
+msgstr "一般配置"
+
+#: src/EBox/SysInfo.pm.in:271 src/EBox/CGI/Report/DiskUsage.pm:31
+msgid "Disk Usage"
+msgstr "磁盘利用率"
+
+#: src/EBox/SysInfo.pm.in:280 src/EBox/CGI/EBox/Backup.pm:34
+#, fuzzy
+msgid "Import/Export Configuration"
+msgstr "当前配置"
+
+#: src/EBox/SysInfo.pm.in:283
+msgid "Configuration Report"
+msgstr "配置报告"
+
+#: src/EBox/SysInfo.pm.in:286
+msgid "Halt/Reboot"
+msgstr "关机/重启"
+
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:304
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:269
+msgid "Name"
+msgstr "名称"
+
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:314
+msgid "Receiver"
+msgstr "接收器"
+
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:326
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:286
+msgid "Configuration"
+msgstr "配置"
+
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:346
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:302
+msgid "None"
+msgstr "无"
+
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:355
+msgid "Configure Dispatchers"
+msgstr "配置调度程序"
+
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:364
+msgid "dispatcher"
+msgstr "调度程序"
+
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:365
+msgid "Enable/Disable each event dispatcher"
+msgstr "启用/禁用每个事件调度程序"
+
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:554
 msgid ""
-"There are {n} log slices not stored; wait or force its storage and retry"
-msgstr ""
+"In order to enable a configurable event dispatcher, you need to configure it "
+"first"
+msgstr "启用一个可配置的事件调度程序之前，需要首先进行配置"
 
-#: src/EBox/Logs/SlicedBackup.pm:133 src/EBox/Logs/SlicedBackup.pm:141
-msgid "Backup slice time interval"
-msgstr ""
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:192
+msgid "Jabber server name"
+msgstr "Jabber服务器名"
 
-#: src/EBox/Logs/SlicedBackup.pm:438
-msgid "Slices to be archived at once"
-msgstr ""
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:195
+msgid "Jabber server to send the messages"
+msgstr "发送消息的Jabber服务器"
 
-#: src/EBox/Logs/SlicedBackup.pm:445
-msgid "Slices timeline"
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:199
+msgid "Port"
+msgstr "端口"
+
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:206
+msgid "Jabber user name"
+msgstr "Jabber用户名"
+
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:209
+msgid ""
+"Jabber ID of the account that will send the messages. Hint: do not introduce "
+"@domain, only the user name"
+msgstr "用于发送消息的Jabber ID. 注意: 只要用户名，不用@domain."
+
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:215
+msgid "User password"
+msgstr "用户密码"
+
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:223
+msgid "Subscribe"
+msgstr "订阅"
+
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:225
+msgid ""
+"Tick this option if you want Zentyal to create an account for the above user"
+msgstr "如果希望为上述用户创建账户，就勾选该项"
+
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:232
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:299
+msgid "Administrator Jabber Identifier"
+msgstr "管理员的Jabber标识"
+
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:235
+msgid ""
+"Destination Jabber ID of the messages generated by Zentyal,  i.e: you, the "
+"Zentyal admin. Note that you need to register this  account manually in any "
+"jabber server"
 msgstr ""
+"Zentyal产生信息的目标Jabber ID可以是：you，Zentyal admin等。注意，您需要在"
+"jabber服务器手工注册这些账户。"
+
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:244
+msgid "Configure Jabber dispatcher"
+msgstr "配置Jabber调度程序"
+
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:249
+msgid "This dispatcher will send events to an Jabber account"
+msgstr "这个调度程序将通过一个Jabber账户发送事件"
+
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:252
+msgid "Jabber dispatcher configuration updated"
+msgstr "Jabber调度程序配置已更新"
+
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:272
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:324
+#: src/EBox/Events/Model/GeneralComposite.pm:72
+#: src/EBox/Events/Model/GeneralComposite.pm:73
+#: src/EBox/Events/Model/Watcher/LogFiltering.pm:211
+#: src/EBox/Events/Model/Watcher/DiskFreeSpace.pm:136
+#: src/EBox/Events/Model/Watcher/Log.pm:385 src/EBox/Events.pm:94
+#: src/EBox/Events.pm:838
+msgid "Events"
+msgstr "事件管理"
+
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:276
+msgid "Jabber Dispatcher"
+msgstr "Jabber调度程序"
+
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:301
+msgid "It should follow the pattern 'user@domain[/resource]'"
+msgstr "它应该遵循的模式，user@domain[/resource]'"
+
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:149
+msgid "Nobody"
+msgstr "Nobody"
+
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:153
+msgid "IP address"
+msgstr "IP地址"
+
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:160
+msgid "Object"
+msgstr "对象"
+
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:169
+msgid "Public"
+msgstr "公开"
+
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:176
+msgid "Channel link"
+msgstr "频道连接"
+
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:183
+msgid "Allowed readers"
+msgstr "允许的读者"
+
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:186
+msgid "Use this field to set the access control for the channel"
+msgstr "使用此字段来设置频道的访问控制"
+
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:191
+msgid "Syndicate this RSS"
+msgstr "联播该RSS"
+
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:201
+msgid "Configure RSS dispatcher"
+msgstr "配置RSS调度程序"
+
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:206
+msgid ""
+"The channel link is the link which is used to syndicate the content to your "
+"favourite RSS. "
+msgstr "该频道的连接用来联播您最喜爱的RSS内容的链接。"
+
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:209
+msgid "RSS dispatcher configuration updated"
+msgstr "RSS调度程序配置已更新"
+
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:328
+msgid "RSS Dispatcher"
+msgstr "RSS调度程序"
+
+#: src/EBox/Events/Model/GeneralComposite.pm:76
+msgid ""
+"Events module configures Zentyal to help informing you about events that "
+"happen"
+msgstr "事件模块配置事件发生后，Zentyal为你发送的有关该事件的帮助信息。"
+
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:277
+#: src/templates/backup.mas:55 src/templates/backup.mas:129
+#: src/templates/confirm-backup.mas:36
+msgid "Description"
+msgstr "说明"
+
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:311
+msgid "Configure Events"
+msgstr "配置事件"
+
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:319
+#: src/EBox/Events/Model/Report/EventsDetails.pm:109
+msgid "event"
+msgstr "事件"
+
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:320
+msgid "Enable/Disable each event watcher monitoring"
+msgstr "启用/禁用每个事件监视程序"
+
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:498
+msgid ""
+"Warning! There is no log domain watcher enabled. Please, go to "
+"'Configuration' to enable at least one to be notified when a log in this "
+"domain happens. "
+msgstr ""
+"警告！没有启用日志域监视器。请到'配置'启用至少一个有关该日志域的监视器。"
+
+#: src/EBox/Events/Model/Watcher/LogFiltering.pm:108
+#, perl-brace-format
+msgid "Log domain {logDomain}"
+msgstr "日志域{logDomain}"
+
+#: src/EBox/Events/Model/Watcher/LogFiltering.pm:168
+#: src/templates/logs/index.mas:183
+msgid "Event"
+msgstr "事件"
+
+#: src/EBox/Events/Model/Watcher/LogFiltering.pm:176
+#, perl-brace-format
+msgid "Filters to apply to notify logs from {logDomain}"
+msgstr "用于{logDomain}日志的过滤器"
+
+#: src/EBox/Events/Model/Watcher/LogFiltering.pm:184
+msgid ""
+"Every filter added is cumulative.Then every log line which matches with any "
+"filter given will be notified"
+msgstr "每一个过滤器将是累积的。然后匹配到任意过滤器的每个日志线将被通知"
+
+#: src/EBox/Events/Model/Watcher/LogFiltering.pm:188
+msgid "filter"
+msgstr "过滤器"
+
+#: src/EBox/Events/Model/Watcher/LogFiltering.pm:215
+#: src/EBox/Events/Model/Watcher/Log.pm:389
+msgid "Log Observer Watcher"
+msgstr "日志观察员检测器"
+
+#: src/EBox/Events/Model/Watcher/DiskFreeSpace.pm:100
+msgid "Minimum free disk space per filesystem"
+msgstr "每个文件系统的最小空闲磁盘空间"
+
+#: src/EBox/Events/Model/Watcher/DiskFreeSpace.pm:105
+msgid ""
+"When the free space percentage of any disk partition is under this value the "
+"event is triggered."
+msgstr "当任意磁盘分区的空闲空间小于这个值，就触发事件。"
+
+#: src/EBox/Events/Model/Watcher/DiskFreeSpace.pm:112
+msgid "Configure disk free space watcher"
+msgstr "配置磁盘空间监视程序"
+
+#: src/EBox/Events/Model/Watcher/DiskFreeSpace.pm:140
+msgid "Free Disk Space Watcher"
+msgstr "空闲磁盘空间监视器"
+
+#: src/EBox/Events/Model/Watcher/Log.pm:214
+#: src/EBox/Events/Model/Watcher/Log.pm:238
+msgid ""
+"Warning! The log watcher is not enabled. Enable to be notified when logs "
+"happen. "
+msgstr "警告！日志监视器没启用。启用后才能进行日志报警。"
+
+#: src/EBox/Events/Model/Watcher/Log.pm:262
+#: src/EBox/Logs/Model/SelectLog.pm:149
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:332
+msgid "Domain"
+msgstr "域"
+
+#: src/EBox/Events/Model/Watcher/Log.pm:267
+msgid "Filtering"
+msgstr "过滤"
+
+#: src/EBox/Events/Model/Watcher/Log.pm:275
+msgid "Configure log watchers"
+msgstr "配置日志监视程序"
+
+#: src/EBox/Events/Model/Watcher/Log.pm:277
+msgid "Log watcher"
+msgstr "日志监视程序"
+
+#: src/EBox/Events/Model/Report/EventsGraph.pm:51
+#: src/EBox/Events/Model/Report/EventsDetails.pm:51
+#: src/EBox/Events/Model/Report/EventsDetails.pm:80 src/EBox/Events.pm:830
+msgid "Informative"
+msgstr "信息"
+
+#: src/EBox/Events/Model/Report/EventsGraph.pm:52
+#: src/EBox/Events/Model/Report/EventsDetails.pm:52
+#: src/EBox/Events/Model/Report/EventsDetails.pm:84 src/EBox/Events.pm:831
+#: src/templates/finish.mas:83
+msgid "Warning"
+msgstr "警告"
+
+#: src/EBox/Events/Model/Report/EventsGraph.pm:53
+#: src/EBox/Events/Model/Report/EventsDetails.pm:53
+#: src/EBox/Events/Model/Report/EventsDetails.pm:88 src/EBox/Events.pm:832
+msgid "Error"
+msgstr "错误"
+
+#: src/EBox/Events/Model/Report/EventsGraph.pm:54
+#: src/EBox/Events/Model/Report/EventsDetails.pm:54
+#: src/EBox/Events/Model/Report/EventsDetails.pm:92 src/EBox/Events.pm:833
+msgid "Fatal error"
+msgstr "严重错误"
+
+#: src/EBox/Events/Model/Report/EventsGraph.pm:60
+msgid "Events summarized chart"
+msgstr "事件综合图表"
+
+#: src/EBox/Events/Model/Report/EventsGraph.pm:77
+msgid "Events summarized graph"
+msgstr "事件综合图"
+
+#: src/EBox/Events/Model/Report/EventsDetails.pm:50
+#: src/EBox/Events/Model/Report/EventsDetails.pm:74 src/EBox/Events.pm:823
+msgid "Source"
+msgstr "来源"
+
+#: src/EBox/Events/Model/Report/EventsDetails.pm:68 src/EBox/Logs.pm:737
+#: src/templates/backup.mas:130 src/templates/finish.mas:116
+#: src/templates/confirm-backup.mas:28
+msgid "Date"
+msgstr "日期"
+
+#: src/EBox/Events/Model/Report/EventsDetails.pm:101
+msgid "Events details"
+msgstr "事件细节"
+
+#: src/EBox/Events/Composite/Report/EventsReport.pm:69
+msgid "Events reports"
+msgstr "事件报告"
+
+#: src/EBox/Events/Composite/Report/EventsReport.pm:70
+msgid "Events report"
+msgstr "事件报告"
+
+#: src/EBox/ProgressIndicator.pm:42
+msgid "Total ticks"
+msgstr "合计滴答数"
+
+#: src/EBox/ProgressIndicator.pm:44
+msgid "It must be a non-zero positive number"
+msgstr "必须是零以外的正整数"
+
+#: src/EBox/ProgressIndicator.pm:49
+msgid "To solve it you can try to execute the following commands:"
+msgstr "你可以尝试执行以下命令，来解决这个问题: "
+
+#: src/EBox/ProgressIndicator.pm:56
+#, perl-brace-format
+msgid "Cannot execute {exe}"
+msgstr "无法执行 {exe}"
+
+#: src/EBox/ProgressIndicator.pm:106
+#, perl-brace-format
+msgid "Progress indicator with id {id} not found"
+msgstr "不能找到Id为{id}的进度指示"
+
+#: src/EBox/ProgressIndicator.pm:144
+msgid "Number of ticks to notify"
+msgstr "通知的滴答声数量"
+
+#: src/EBox/ProgressIndicator.pm:146
+msgid "must be greater than zero"
+msgstr "必须大于零"
+
+#: src/EBox/ProgressIndicator.pm:152
+msgid "Executable has not been run"
+msgstr "可执行文件尚未运行"
+
+#: src/EBox/ProgressIndicator.pm:293
+msgid "The executable has not run"
+msgstr "该可执行文件没有运行"
+
+#: src/EBox/ProgressIndicator.pm:437
+msgid "The executable has already been started"
+msgstr "该可执行文件已经开始"
+
+#: src/EBox/ProgressIndicator.pm:441
+msgid "The executable has already finished"
+msgstr "该可执行文件已经完成"
+
+#: src/EBox/Auth.pm:133
+msgid "Password changed"
+msgstr "密码已更新"
+
+#: src/EBox/Global.pm:536
+#, perl-brace-format
+msgid "Enabling {modName} module"
+msgstr "正在启用{modName}模块"
+
+#: src/EBox/Global.pm:566 src/EBox/Global.pm:597
+#, perl-brace-format
+msgid "Saving {modName} module"
+msgstr "正在保存{modName}模块"
+
+#: src/EBox/Global.pm:1114
+#, perl-brace-format
+msgid "running {scriptName} script"
+msgstr "正在运行{scriptName}脚本"
 
 #: src/EBox/Logs/Model/SelectLog.pm:157
 msgid "Full report"
@@ -1113,54 +1016,62 @@ msgstr "选择报告"
 msgid "logs"
 msgstr "日志"
 
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:228
-msgid "never purge"
-msgstr "永不清除"
+#: src/EBox/Logs/Model/ForcePurge.pm:99
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:347
+msgid "Purge logs older than"
+msgstr "清除以前的日志"
 
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:232
+#: src/EBox/Logs/Model/ForcePurge.pm:108
+msgid "Force log purge"
+msgstr "强制清除日志"
+
+#: src/EBox/Logs/Model/ForcePurge.pm:111
+msgid "Purge"
+msgstr "清除"
+
 #: src/EBox/Logs/Model/ForcePurge.pm:125
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:232
 msgid "one hour"
 msgstr "1小时"
 
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:236
 #: src/EBox/Logs/Model/ForcePurge.pm:129
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:236
 msgid "twelve hours"
 msgstr "12小时"
 
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:240
 #: src/EBox/Logs/Model/ForcePurge.pm:133
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:240
 msgid "one day"
 msgstr "1天"
 
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:244
 #: src/EBox/Logs/Model/ForcePurge.pm:137
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:244
 msgid "three days"
 msgstr "3天"
 
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:248
 #: src/EBox/Logs/Model/ForcePurge.pm:141
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:248
 msgid "one week"
 msgstr "1周"
 
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:252
 #: src/EBox/Logs/Model/ForcePurge.pm:145
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:252
 msgid "fifteeen days"
 msgstr "15天"
 
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:256
 #: src/EBox/Logs/Model/ForcePurge.pm:149
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:256
 msgid "thirty days"
 msgstr "30天"
 
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:260
 #: src/EBox/Logs/Model/ForcePurge.pm:153
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:260
 msgid "ninety days"
 msgstr "90天"
 
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:347
-#: src/EBox/Logs/Model/ForcePurge.pm:99
-msgid "Purge logs older than"
-msgstr "清除以前的日志"
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:228
+msgid "never purge"
+msgstr "永不清除"
 
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:364
 msgid "Current configuration"
@@ -1173,20 +1084,6 @@ msgstr "日志配置"
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:371
 msgid "Enable/disable logging per-module basis"
 msgstr "启用/禁用针对每个模块的日志"
-
-#: src/EBox/Logs/Model/ForcePurge.pm:108
-msgid "Force log purge"
-msgstr "强制清除日志"
-
-#: src/EBox/Logs/Model/ForcePurge.pm:111
-msgid "Purge"
-msgstr "清除"
-
-#: src/EBox/Logs/Model/Report/Details.pm:226
-#: src/EBox/Logs/Model/Report/Details.pm:234
-#: src/EBox/Logs/Model/Report/Details.pm:269
-msgid "All"
-msgstr "全部"
 
 #: src/EBox/Logs/Model/Report/OptionsBase.pm:40
 msgid "hour"
@@ -1211,6 +1108,109 @@ msgstr "报告的时间周期"
 #: src/EBox/Logs/Model/Report/OptionsBase.pm:101
 msgid "Report options"
 msgstr "报告选项"
+
+#: src/EBox/Logs/Model/Report/Details.pm:226
+#: src/EBox/Logs/Model/Report/Details.pm:234
+#: src/EBox/Logs/Model/Report/Details.pm:269
+msgid "All"
+msgstr "全部"
+
+#: src/EBox/Logs/SlicedBackup.pm:104
+#, perl-brace-format
+msgid ""
+"There are {n} log slices not stored; wait or force its storage and retry"
+msgstr ""
+
+#: src/EBox/Logs/SlicedBackup.pm:133 src/EBox/Logs/SlicedBackup.pm:141
+msgid "Backup slice time interval"
+msgstr ""
+
+#: src/EBox/Logs/SlicedBackup.pm:438
+msgid "Slices to be archived at once"
+msgstr ""
+
+#: src/EBox/Logs/SlicedBackup.pm:445
+msgid "Slices timeline"
+msgstr ""
+
+#: src/EBox/Report/DiskUsage.pm:76
+#, perl-brace-format
+msgid "No usage data for {d}. Are you sure is a valid disk?"
+msgstr "没有{d}的可用数据。您确认这是一个有效的磁盘？"
+
+#: src/EBox/Report/DiskUsage.pm:222
+#, perl-brace-format
+msgid ""
+"Invalid file system: {f}. Only regular and no removable media file systems "
+"are accepted"
+msgstr "无效的文件系统：{f}。只接收通常的非移动介质文件系统。"
+
+#: src/EBox/PgDBEngine.pm:60 src/EBox/PgDBEngine.pm:74
+#: src/EBox/PgDBEngine.pm:88
+#, perl-brace-format
+msgid "You must set the {variable} variable in the ebox configuration file"
+msgstr "您必须在ebox配置文件中设置变量{variable}"
+
+#: src/EBox/PgDBEngine.pm:471
+msgid ""
+"You are using sliced backup mode and this backup was made in no-sliced mode"
+msgstr ""
+
+#: src/EBox/PgDBEngine.pm:479
+msgid ""
+"Database dump file not found. Maybe the backup you are trying to restore was "
+"made in sliced mode?"
+msgstr ""
+
+#: src/EBox/Logs.pm:58 src/EBox/Logs.pm:383 src/EBox/CGI/Logs/Index.pm:35
+msgid "Logs"
+msgstr "日志管理"
+
+#: src/EBox/Logs.pm:384
+msgid "Zentyal Server logs database"
+msgstr ""
+
+#: src/EBox/Logs.pm:470
+#, perl-brace-format
+msgid "Table {table} does not exist"
+msgstr "表{table}不存在"
+
+#: src/EBox/Logs.pm:721 src/EBox/CGI/Logs/Index.pm:326
+msgid "Query Logs"
+msgstr "查询日志"
+
+#: src/EBox/Logs.pm:724
+msgid "Configure Logs"
+msgstr "配置日志"
+
+#: src/EBox/Logs.pm:738
+msgid "Client Address"
+msgstr "客户端地址"
+
+#: src/EBox/Logs.pm:739 src/EBox/CGI/EBox/Backup.pm:257
+#: src/templates/moduleStatusTable.mas:58 src/templates/finish.mas:117
+msgid "Module"
+msgstr "模块"
+
+#: src/EBox/Logs.pm:741
+msgid "Params"
+msgstr "参数"
+
+#: src/EBox/Logs.pm:742
+msgid "Committed"
+msgstr "已提交"
+
+#: src/EBox/Logs.pm:747
+msgid "Admin"
+msgstr "管理"
+
+#: src/EBox/Logs.pm:841
+msgid "Log messages"
+msgstr "日志消息"
+
+#: src/EBox/Logs.pm:868
+msgid "Lifetime parameter must be a positive number of hours"
+msgstr "生命期参数必须是正的小时数"
 
 #: src/EBox/Common/Model/EnableForm.pm:99
 msgid "Service enabled"
@@ -1260,157 +1260,258 @@ msgstr "级别"
 msgid "Message"
 msgstr "消息"
 
-#: src/EBox/Logs.pm:384
-msgid "Zentyal Server logs database"
+#: src/EBox/CGI/ClientRawBase.pm:212 src/EBox/CGI/WizardPage.pm:155
+msgid ""
+"An internal error related to a template has occurred. This is a bug, "
+"relevant information can be found in the logs."
+msgstr "发生一个模板相关的内部错误。这是一个bug，相关信息可以在日志中找到。"
+
+#: src/EBox/CGI/Wizard.pm:29
+msgid "Initial configuration wizard"
+msgstr "初始配置指南"
+
+#: src/EBox/CGI/ServiceModule/StatusView.pm:39
+msgid "Module Status Configuration"
+msgstr "模块状态配置"
+
+#: src/EBox/CGI/Dashboard/ConfigureWidgets.pm:30
+#: src/templates/dashboard/index.mas:81
+msgid "Configure Widgets"
+msgstr "配置组件"
+
+#: src/EBox/CGI/Finish.pm:32
+msgid "Save configuration"
+msgstr "保存配置"
+
+#: src/EBox/CGI/Finish.pm:77 src/EBox/CGI/Progress.pm:81
+#: src/EBox/CGI/Progress.pm:107
+msgid "Saving changes"
+msgstr "保存变更"
+
+#: src/EBox/CGI/Finish.pm:78
+msgid "Saving changes in modules"
+msgstr "保存模块的变更"
+
+#: src/EBox/CGI/Finish.pm:79 src/templates/report/raid.mas:213
+msgid "Current operation"
+msgstr "当前操作"
+
+#: src/EBox/CGI/Finish.pm:80
+msgid "operations performed"
+msgstr "操作已执行"
+
+#: src/EBox/CGI/Finish.pm:81
+msgid "Changes saved"
+msgstr "变更已保存"
+
+#: src/EBox/CGI/Finish.pm:82
+#, perl-brace-format
+msgid ""
+"Some modules reported error when saving changes . More information on the "
+"logs in {dir}"
+msgstr "某些模块保存变更时报告错误。更多的信息在目录{dir}的日志中"
+
+#: src/EBox/CGI/Finish.pm:101
+msgid "Revoking changes"
+msgstr "撤销变更"
+
+#: src/EBox/CGI/Finish.pm:102
+msgid "Revoking changes in modules"
+msgstr "撤销模块的变更"
+
+#: src/EBox/CGI/Finish.pm:103
+msgid "Current module"
+msgstr "当前模块"
+
+#: src/EBox/CGI/Finish.pm:104
+msgid "modules revoked"
+msgstr "撤销的模块"
+
+#: src/EBox/CGI/Finish.pm:105
+msgid "Changes revoked"
+msgstr "撤销的变更"
+
+#: src/EBox/CGI/Finish.pm:106
+#, perl-brace-format
+msgid ""
+"Some modules reported error when discarding changes . More information on "
+"the logs in {dir}"
+msgstr "在放弃变更时，某些模块报告错误。更多信息在{dir}目录的日志中"
+
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:33 src/templates/backup.mas:30
+msgid "Configuration Backup"
+msgstr "配置备份"
+
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:105
+msgid "Please confirm that you want to delete the following backup file:"
+msgstr "请确认将删除以下备份文件："
+
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:107 src/templates/backup.mas:168
+#: src/templates/backup.mas:169
+msgid "Delete"
+msgstr "删除"
+
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:114
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:130
+msgid "Please confirm that you want to restore using this backup file:"
+msgstr "请确认将从这个备份文件恢复："
+
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:116
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:132 src/templates/backup.mas:98
+msgid "Restore"
+msgstr "恢复"
+
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:147 src/EBox/CGI/EBox/Backup.pm:193
+#: src/EBox/CGI/EBox/Backup.pm:271 src/EBox/CGI/EBox/Backup.pm:284
+#: src/EBox/Backup.pm:1482
+msgid "The input contains invalid characters"
+msgstr "输入中存在非法字符"
+
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:176
+msgid "Configuration backup"
+msgstr "配置备份"
+
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:179
+msgid "Full data and configuration backup"
+msgstr "备份全部数据和配置"
+
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:182
+msgid "Bug-report configuration dump"
+msgstr "错误报告配置备份"
+
+#: src/EBox/CGI/EBox/Hostname.pm:48
+msgid "hostname"
+msgstr "主机名"
+
+#: src/EBox/CGI/EBox/CurrentProgress.pm:36
+msgid "Upgrading"
+msgstr "正在升级"
+
+#: src/EBox/CGI/EBox/General.pm:32
+msgid "General Configuration"
+msgstr "一般配置"
+
+#: src/EBox/CGI/EBox/Halt.pm:30
+msgid "Halt or Reboot"
+msgstr "关机或重启"
+
+#: src/EBox/CGI/EBox/Halt.pm:43
+msgid "Zentyal is going down for halt"
+msgstr "由于关机，Zentyal将要关闭"
+
+#: src/EBox/CGI/EBox/Halt.pm:46
+msgid "Zentyal is going down for reboot"
+msgstr "由于重启，Zentyal将要关闭"
+
+#: src/EBox/CGI/EBox/RestartService.pm:49
+msgid "module name"
+msgstr "模块名称"
+
+#: src/EBox/CGI/EBox/RestartService.pm:54
+msgid "The module was restarted correctly."
+msgstr "模块成功重启"
+
+#: src/EBox/CGI/EBox/RestartService.pm:58
+#, perl-brace-format
+msgid "Error restarting service. See {logs} for more information."
 msgstr ""
 
-#: src/EBox/Logs.pm:470
+#: src/EBox/CGI/EBox/Password.pm:43 src/templates/password.mas:11
+#: src/templates/login/index.mas:49
+msgid "Username"
+msgstr "用户名"
+
+#: src/EBox/CGI/EBox/Password.pm:48 src/templates/login/index.mas:54
+msgid "Password"
+msgstr "密码"
+
+#: src/EBox/CGI/EBox/Password.pm:57
+msgid "Incorrect password."
+msgstr "无效密码"
+
+#: src/EBox/CGI/EBox/Password.pm:62
+msgid "New passwords do not match."
+msgstr "新密码不匹配"
+
+#: src/EBox/CGI/EBox/Password.pm:67
+msgid "The password must be at least 6 characters long"
+msgstr "密码至少6个字符"
+
+#: src/EBox/CGI/EBox/Password.pm:71
+msgid "The password was changed successfully."
+msgstr "密码成功更新"
+
+#: src/EBox/CGI/EBox/ConfigurationReport.pm:29
+msgid "Configuration report"
+msgstr "配置报告"
+
+#: src/EBox/CGI/EBox/Backup.pm:163
 #, perl-brace-format
-msgid "Table {table} does not exist"
-msgstr "表{table}不存在"
+msgid "Unknown backup mode: {mode}"
+msgstr "未知的备份模式: {mode}"
 
-#: src/EBox/Logs.pm:724
-msgid "Configure Logs"
-msgstr "配置日志"
+#: src/EBox/CGI/EBox/Backup.pm:226
+#, perl-brace-format
+msgid "Unknown restore mode: {mode}"
+msgstr "未知的恢复模式: {mode}"
 
-#: src/EBox/Logs.pm:738
-msgid "Client Address"
-msgstr "客户端地址"
+#: src/EBox/CGI/EBox/Backup.pm:239
+msgid "Backing up"
+msgstr "备份"
 
-#: src/EBox/Logs.pm:740 src/EBox/Model/Composite.pm:671
-#: src/EBox/Model/Composite.pm:686 src/EBox/Model/DataMultiTable.pm:168
-#: src/EBox/Model/DataTable.pm:2129
-msgid "Action"
+#: src/EBox/CGI/EBox/Backup.pm:240
+msgid "Backing up modules"
+msgstr "备份模块"
+
+#: src/EBox/CGI/EBox/Backup.pm:241
+msgid "Operation"
 msgstr "操作"
 
-#: src/EBox/Logs.pm:741
-msgid "Params"
-msgstr "参数"
+#: src/EBox/CGI/EBox/Backup.pm:242
+msgid "operations left to finish backup"
+msgstr "剩余的备份操作"
 
-#: src/EBox/Logs.pm:742
-msgid "Committed"
-msgstr "已提交"
+#: src/EBox/CGI/EBox/Backup.pm:243
+msgid "Backup successful"
+msgstr "备份成功"
 
-#: src/EBox/Logs.pm:747
-msgid "Admin"
-msgstr "管理"
+#: src/EBox/CGI/EBox/Backup.pm:255
+msgid "Restoring backup"
+msgstr "正在恢复备份"
 
-#: src/EBox/Logs.pm:841
-msgid "Log messages"
-msgstr "日志消息"
+#: src/EBox/CGI/EBox/Backup.pm:256
+msgid "Restoring modules"
+msgstr "正在恢复模块"
 
-#: src/EBox/Logs.pm:868
-msgid "Lifetime parameter must be a positive number of hours"
-msgstr "生命期参数必须是正的小时数"
+#: src/EBox/CGI/EBox/Backup.pm:258
+msgid "modules restored"
+msgstr "模块已恢复"
 
-#: src/EBox/Model/ProviderBase.pm:246
-#, perl-brace-format
-msgid "Provided object with index {i} does not exist"
-msgstr "由索引{i}提供的对象不存在"
+#: src/EBox/CGI/EBox/Backup.pm:259
+msgid "Restore successful"
+msgstr "恢复成功"
 
-#: src/EBox/Model/DataForm.pm:554
-#, perl-brace-format
-msgid "Remove data from {model}{br}"
-msgstr "从{model}删除数据{br}"
-
-#: src/EBox/Model/DataForm.pm:688 src/templates/progress.mas:26
-msgid "Done"
-msgstr "完成"
-
-#: src/EBox/Model/Composite.pm:371
-#, perl-brace-format
-msgid "It should be one of following values: {values}"
-msgstr "应该是以下值之一: {values}"
-
-#: src/EBox/Model/Composite.pm:673
-#, perl-brace-format
-msgid "Actions to be taken allowed are: {view} and {cView}"
-msgstr "允许的操作是：{view}和{cView}"
-
-#: src/EBox/Model/Composite.pm:801
-msgid "Choose one of the following:"
-msgstr "选择下列之一："
-
-#: src/EBox/Model/ModelManager.pm:468
+#: src/EBox/CGI/Login/Index.pm:63
 msgid ""
-"The data you are removing is being used by\n"
-"                    the following sections:"
-msgstr "要删除的数据正由以下部分使用："
+"There is a script which has asked to run in Zentyal exclusively. Please, "
+"wait patiently until it is done"
+msgstr "有一个已经要求在Zentyal运行的脚本。请耐心等待，直到它完成"
 
-#: src/EBox/Model/ModelManager.pm:515
-msgid ""
-"The data you are modifying is being used by\n"
-"\t\t\tthe following sections:"
-msgstr "修改的数据正由以下部分使用："
+#: src/EBox/CGI/Login/Index.pm:67
+msgid "Incorrect password"
+msgstr "无效的密码"
 
-#: src/EBox/Model/DataTable.pm:327
-#, perl-brace-format
-msgid "{model} in {module} module"
-msgstr "{module}模块的模型{model}"
+#: src/EBox/CGI/Login/Index.pm:70
+msgid "For security reasons your session has expired due to inactivity"
+msgstr "由于没有活动，出于安全原因，您的会话已过期"
 
-#: src/EBox/Model/DataTable.pm:331
-msgid "at"
-msgstr "在"
+#: src/EBox/CGI/Login/Index.pm:73
+msgid "You have been logged out because a new session has been opened"
+msgstr "因为打开新的会话，您需要注销当前会话"
 
-#: src/EBox/Model/DataTable.pm:542
-msgid "field"
-msgstr "字段"
-
-#: src/EBox/Model/DataTable.pm:1468
-msgid "page"
-msgstr "页"
-
-#: src/EBox/Model/DataTable.pm:1471
-msgid "Page must be a number equal or greater than zero"
-msgstr "页面编号应该大于等于0"
-
-#: src/EBox/Model/DataTable.pm:2831
-#, perl-brace-format
-msgid "Remove {num} rows of {rowName} from {model}{br}"
-msgstr "从{model}删除{num}行{rowName}{br}"
-
-#: src/EBox/Model/DataTable.pm:2902
-msgid "Page size"
-msgstr "页面大小"
-
-#: src/EBox/Model/DataTable.pm:2905
-msgid "Must be either a positive number or zero"
-msgstr "必须是正整数或者0"
-
-#: src/EBox/Model/DataTable.pm:3212
-#, perl-brace-format
-msgid "{row} added"
-msgstr "{row}已添加"
-
-#: src/EBox/Model/DataTable.pm:3213
-#, perl-brace-format
-msgid "{row} deleted"
-msgstr "{row}已删除"
-
-#: src/EBox/Model/DataTable.pm:3214
-#, perl-brace-format
-msgid "{row} updated"
-msgstr "{row}已更新"
-
-#: src/EBox/Model/DataTable.pm:3215
-#, perl-brace-format
-msgid "{row} moved up"
-msgstr "{row}已上移"
-
-#: src/EBox/Model/DataTable.pm:3216
-#, perl-brace-format
-msgid "{row} moved down"
-msgstr "{row}已下移"
-
-#: src/EBox/Model/DataTable.pm:4402 src/templates/password.mas:67
-#: src/templates/dataInUse.mas:25 src/templates/dataInUse.mas:34
-#: src/templates/port.mas:14 src/templates/hostname.mas:19
-msgid "Change"
-msgstr "修改"
-
-#: src/EBox/Html.pm:39 src/templates/wizard.mas:124
-msgid "Save changes"
-msgstr "保存变更"
+#: src/EBox/CGI/Logs/Index.pm:329
+msgid "Full Reports"
+msgstr "完整的报告"
 
 #: src/EBox/Backup.pm:96
 msgid "Creating backup archive"
@@ -1498,150 +1599,75 @@ msgstr "硬盘没有足够的空间用于恢复进程。需要{size}Kb。清理�
 msgid "Could not unpack the etc files archive backup"
 msgstr "无法解包备份文件"
 
-#: src/EBox/Backup.pm:1327
+#: src/EBox/Backup.pm:1326
 #, perl-brace-format
 msgid ""
 "The following modules present in the backup are not installed: {mods}. You "
 "need to install them before restoring."
 msgstr ""
 
-#: src/EBox/Backup.pm:1353
+#: src/EBox/Backup.pm:1354
 #, perl-brace-format
 msgid "Cannot restore backup, error enabling module {m}: {err}"
 msgstr ""
 
-#: src/EBox/Backup.pm:1386
+#: src/EBox/Backup.pm:1387
 #, perl-brace-format
 msgid "No module {m} found in backup"
 msgstr "备份中没有发现{m}模块的配置"
 
-#: src/EBox/Backup.pm:1408
+#: src/EBox/Backup.pm:1409
 msgid "No modules to restore"
 msgstr "没有需要恢复的模块"
 
-#: src/EBox/Backup.pm:1460
+#: src/EBox/Backup.pm:1461
 #, perl-brace-format
 msgid ""
 "Unresolved restore dependency for module {topModule}: {modName} is not "
 "installed"
 msgstr "无法解决模块{topModule}的依赖性：{modName}没有安装"
 
-#: src/EBox/Backup.pm:1502
+#: src/EBox/Backup.pm:1503
 #, fuzzy
 msgid "Backup archives"
 msgstr "备份的归档文件"
 
-#: src/EBox/SysInfo.pm.in:50
-msgid "System Information"
-msgstr "系统信息"
+#: src/templates/dataInUse.mas:41 src/templates/confirm-backup.mas:66
+msgid "Cancel"
+msgstr "取消"
 
-#: src/EBox/SysInfo.pm.in:95
-msgid "available"
-msgstr "可用"
+#: src/templates/links-widget.mas:5
+msgid "Community Resources"
+msgstr "社区资源"
 
-#: src/EBox/SysInfo.pm.in:103
-msgid "Time"
-msgstr "时间"
+#: src/templates/links-widget.mas:10
+msgid "Documentation"
+msgstr "文档"
 
-#: src/EBox/SysInfo.pm.in:104
-msgid "Hostname"
-msgstr "主机名"
+#: src/templates/links-widget.mas:12
+msgid "Forum"
+msgstr "论坛"
 
-#: src/EBox/SysInfo.pm.in:105
-msgid "Core version"
-msgstr "核心版本"
+#: src/templates/links-widget.mas:14
+msgid "Report a bug"
+msgstr "报告BUG"
 
-#: src/EBox/SysInfo.pm.in:107
-msgid "System load"
-msgstr "系统负载"
+#: src/templates/links-widget.mas:16
+msgid "How to Contribute"
+msgstr "如何贡献"
 
-#: src/EBox/SysInfo.pm.in:108
-msgid "Uptime"
-msgstr "运行时间"
+#: src/templates/moduleStatusTable.mas:59
+msgid "Depends"
+msgstr "依赖"
 
-#: src/EBox/SysInfo.pm.in:109
-msgid "Users"
-msgstr "用户"
+#: src/templates/moduleStatusTable.mas:60 src/templates/report/raid.mas:104
+msgid "Status"
+msgstr "状态"
 
-#: src/EBox/SysInfo.pm.in:162 src/EBox/SysInfo.pm.in:258
-msgid "Module Status"
-msgstr "模块管理"
-
-#: src/EBox/SysInfo.pm.in:168
-msgid "General Information"
-msgstr "一般信息"
-
-#: src/EBox/SysInfo.pm.in:174
-msgid "Process List"
-msgstr "进程列表"
-
-#: src/EBox/SysInfo.pm.in:181
-msgid "Resources & Services"
-msgstr "资源和服务"
-
-#: src/EBox/SysInfo.pm.in:264
-msgid "System"
-msgstr "系统管理"
-
-#: src/EBox/SysInfo.pm.in:268
-msgid "General"
-msgstr "一般配置"
-
-#: src/EBox/SysInfo.pm.in:283
-msgid "Configuration Report"
-msgstr "配置报告"
-
-#: src/EBox/SysInfo.pm.in:286
-msgid "Halt/Reboot"
-msgstr "关机/重启"
-
-#: src/EBox/Apache.pm:289 src/EBox/Apache.pm:298
-msgid "port"
-msgstr "端口"
-
-#: src/EBox/Apache.pm:626
-#, fuzzy
-msgid "Zentyal Administration Web Server"
-msgstr "Zentyal Web服务器"
-
-#: src/EBox/Global.pm:536
+#: src/templates/moduleStatusTable.mas:85
 #, perl-brace-format
-msgid "Enabling {modName} module"
-msgstr "正在启用{modName}模块"
-
-#: src/EBox/Global.pm:566 src/EBox/Global.pm:597
-#, perl-brace-format
-msgid "Saving {modName} module"
-msgstr "正在保存{modName}模块"
-
-#: src/EBox/Global.pm:1114
-#, perl-brace-format
-msgid "running {scriptName} script"
-msgstr "正在运行{scriptName}脚本"
-
-#: src/EBox/Report/DiskUsage.pm:76
-#, perl-brace-format
-msgid "No usage data for {d}. Are you sure is a valid disk?"
-msgstr "没有{d}的可用数据。您确认这是一个有效的磁盘？"
-
-#: src/EBox/Report/DiskUsage.pm:222
-#, perl-brace-format
-msgid ""
-"Invalid file system: {f}. Only regular and no removable media file systems "
-"are accepted"
-msgstr "无效的文件系统：{f}。只接收通常的非移动介质文件系统。"
-
-#: src/templates/configurationFiles.mas:12
-msgid "Do you wish to overwrite these files?"
-msgstr "确认要覆盖这些文件？"
-
-#: src/templates/configurationFiles.mas:19
-msgid "Keep current file"
-msgstr "保留当前文件"
-
-#: src/templates/configurationFiles.mas:23
-msgid "Modify"
-msgstr "修改"
+msgid "Configure module: {module}"
+msgstr "配置模块: {module}"
 
 #: src/templates/wizard.mas:68 src/templates/wizard.mas:69
 msgid "Finish"
@@ -1663,122 +1689,154 @@ msgstr "忽略"
 msgid "Next"
 msgstr "下一步"
 
-#: src/templates/headTitle.mas:20
-msgid "Remote services control panel"
-msgstr "远程服务控制面板"
+#: src/templates/logs/dbtable.mas:87 src/templates/logs/dbtable.mas:88
+msgid "first"
+msgstr "首页"
 
-#: src/templates/backupTabs.mas:13
-msgid "Local"
-msgstr ""
+#: src/templates/logs/dbtable.mas:91 src/templates/logs/dbtable.mas:92
+msgid "prev"
+msgstr "前页"
 
-#: src/templates/backupTabs.mas:18
-msgid "Remote in Zentyal Cloud"
-msgstr ""
+#: src/templates/logs/dbtable.mas:111 src/templates/logs/dbtable.mas:112
+msgid "next"
+msgstr "下页"
 
-#: src/templates/backupTabs.mas:23
-#, fuzzy
-msgid "Remote in Zentyal Cloud from other subscribed hosts"
-msgstr "从其它订阅的主机远程备份"
+#: src/templates/logs/dbtable.mas:115 src/templates/logs/dbtable.mas:116
+msgid "last"
+msgstr "尾页"
 
-#: src/templates/configureView.mas:12
-msgid ""
-"Enabling this module will cause Zentyal to perform the actions and file "
-"modifications listed below. You must explicitly accept these changes to "
-"enable the module."
-msgstr ""
-"启用这个模块会执行针对下列文件的修改操作。你必须接受这些操作才能启用这个模"
-"块。"
+#: src/templates/logs/index.mas:20
+msgid "Log Domain"
+msgstr "日志域"
 
-#: src/templates/configureView.mas:16
-msgid "Actions to perform by Zentyal"
-msgstr "Zentyal要执行的操作"
+#: src/templates/logs/index.mas:22
+msgid "Last hour logs will be showed when selecting a component"
+msgstr "当选择某个组件时，会显示最近一小时的日志"
 
-#: src/templates/configureView.mas:31
-msgid "Files to modify by Zentyal"
-msgstr "Zentyal将要修改的文件"
+#: src/templates/logs/index.mas:23
+msgid "Select available full reports"
+msgstr "选择可用的完整报告"
 
-#: src/templates/configureView.mas:51
-msgid "Accept"
-msgstr "接受"
+#: src/templates/logs/index.mas:35 src/templates/logs/index.mas:36
+#: src/templates/logs/index.mas:37
+msgid "View"
+msgstr "显示"
 
-#: src/templates/dashboard/index.mas:23 src/templates/dashboard/status.mas:18
-msgid "Running"
-msgstr "正在运行"
+#: src/templates/logs/index.mas:44
+msgid "Custom query"
+msgstr "定制查询"
 
-#: src/templates/dashboard/index.mas:24 src/templates/dashboard/status.mas:19
-msgid "The service is enabled and running"
-msgstr "服务已启用，且正在运行"
+#: src/templates/logs/index.mas:50
+msgid "From date:"
+msgstr "开始日期:"
 
-#: src/templates/dashboard/index.mas:28 src/templates/dashboard/status.mas:22
-msgid "Stopped"
-msgstr "已停止"
+#: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
+msgid "January"
+msgstr "一月"
 
-#: src/templates/dashboard/index.mas:29 src/templates/dashboard/status.mas:23
-msgid "The service is enabled, but not running"
-msgstr "服务已启用，但没有运行"
+#: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
+msgid "February"
+msgstr "二月"
 
-#: src/templates/dashboard/index.mas:33 src/templates/dashboard/status.mas:27
-msgid "Running unmanaged"
-msgstr "未被管理的服务正在运行"
+#: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
+msgid "March"
+msgstr "三月"
 
-#: src/templates/dashboard/index.mas:34 src/templates/dashboard/status.mas:28
-msgid "The service is running, but not enabled in Zentyal"
-msgstr "服务正在运行，但未在Zentyal启用"
+#: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
+msgid "April"
+msgstr "四月"
 
-#: src/templates/dashboard/index.mas:38 src/templates/dashboard/status.mas:31
-msgid "Disabled"
-msgstr "已禁用"
+#: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
+msgid "May"
+msgstr "五月"
 
-#: src/templates/dashboard/index.mas:39 src/templates/dashboard/status.mas:32
-msgid "The service is not enabled in Zentyal"
-msgstr "服务未在Zentyal启用"
+#: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
+msgid "June"
+msgstr "六月"
 
-#: src/templates/dashboard/index.mas:44 src/templates/dashboard/status.mas:25
-msgid "Start"
-msgstr "启动"
+#: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
+msgid "July"
+msgstr "七月"
 
-#: src/templates/dashboard/index.mas:45 src/templates/dashboard/status.mas:12
-msgid "Restart"
-msgstr "重启"
+#: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
+msgid "August"
+msgstr "八月"
 
-#: src/templates/dashboard/index.mas:117
-msgid "Configure widgets"
-msgstr "配置组件"
+#: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
+msgid "September"
+msgstr "九月"
 
-#: src/templates/dashboard/list.mas:43
-msgid "No entries in this list"
-msgstr "此列表没有条目"
+#: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
+msgid "October"
+msgstr "十月"
 
-#: src/templates/dashboard/configurewidgets.mas:164
-msgid ""
-"Browse the available widgets in the left menu and drag&drop them to the "
-"dashboard."
-msgstr ""
+#: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
+msgid "November"
+msgstr "十一月"
 
-#: src/templates/halt.mas:10
-msgid "You might lose your Internet connection if this machine is halted."
-msgstr "如果关机，你会被断开Internet连接."
+#: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
+msgid "December"
+msgstr "十二月"
 
-#: src/templates/halt.mas:14
-msgid "Halt"
-msgstr "关机"
+#: src/templates/logs/index.mas:108
+msgid "Refresh logs"
+msgstr "刷新日志"
 
-#: src/templates/halt.mas:16
-msgid "Reboot"
-msgstr "重启"
+#: src/templates/logs/index.mas:116
+msgid "To date:"
+msgstr "结束日期:"
 
-#: src/templates/moduleStatusTable.mas:59
-msgid "Depends"
-msgstr "依赖"
+#: src/templates/logs/index.mas:203 src/templates/logs/index.mas:204
+msgid "Search"
+msgstr "搜索"
 
-#: src/templates/moduleStatusTable.mas:60 src/templates/report/raid.mas:104
-msgid "Status"
-msgstr "状态"
+#: src/templates/logs/index.mas:208 src/templates/logs/index.mas:209
+msgid "Save as event"
+msgstr "保存为事件"
 
-#: src/templates/moduleStatusTable.mas:85
-#, perl-brace-format
-msgid "Configure module: {module}"
-msgstr "配置模块: {module}"
+#: src/templates/logs/index.mas:235
+msgid "No logs matching current criterion"
+msgstr "没有符合条件的日志"
+
+#: src/templates/logs/index.mas:239
+msgid "There are no logs for this domain"
+msgstr "这个域没有日志"
+
+#: src/templates/password.mas:4
+msgid "Change Password"
+msgstr "修改密码"
+
+#: src/templates/password.mas:5
+msgid "Your password must be at least 6 characters long."
+msgstr "密码长度至少6字节"
+
+#: src/templates/password.mas:25
+msgid "Current password"
+msgstr "当前密码"
+
+#: src/templates/password.mas:39
+msgid "New password"
+msgstr "新密码"
+
+#: src/templates/password.mas:53
+msgid "Confirm password"
+msgstr "确认密码"
+
+#: src/templates/progress.mas:24
+msgid "Item"
+msgstr "项目"
+
+#: src/templates/progress.mas:25
+msgid "items left"
+msgstr "剩余项"
+
+#: src/templates/progress.mas:27
+msgid "Some error has happened in Zentyal: "
+msgstr "Zentyal发生错误:"
+
+#: src/templates/progress.mas:152
+msgid "Starting..."
+msgstr "开始..."
 
 #: src/templates/report/raid.mas:20
 #, perl-brace-format
@@ -1897,169 +1955,6 @@ msgstr "选项"
 msgid "Partition Properties"
 msgstr "分区属性"
 
-#: src/templates/progress.mas:24
-msgid "Item"
-msgstr "项目"
-
-#: src/templates/progress.mas:25
-msgid "items left"
-msgstr "剩余项"
-
-#: src/templates/progress.mas:27
-msgid "Some error has happened in Zentyal: "
-msgstr "Zentyal发生错误:"
-
-#: src/templates/progress.mas:152
-msgid "Starting..."
-msgstr "开始..."
-
-#: src/templates/logs/index.mas:20
-msgid "Log Domain"
-msgstr "日志域"
-
-#: src/templates/logs/index.mas:22
-msgid "Last hour logs will be showed when selecting a component"
-msgstr "当选择某个组件时，会显示最近一小时的日志"
-
-#: src/templates/logs/index.mas:23
-msgid "Select available full reports"
-msgstr "选择可用的完整报告"
-
-#: src/templates/logs/index.mas:35 src/templates/logs/index.mas:36
-#: src/templates/logs/index.mas:37
-msgid "View"
-msgstr "显示"
-
-#: src/templates/logs/index.mas:44
-msgid "Custom query"
-msgstr "定制查询"
-
-#: src/templates/logs/index.mas:50
-msgid "From date:"
-msgstr "开始日期:"
-
-#: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
-msgid "January"
-msgstr "一月"
-
-#: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
-msgid "February"
-msgstr "二月"
-
-#: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
-msgid "March"
-msgstr "三月"
-
-#: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
-msgid "April"
-msgstr "四月"
-
-#: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
-msgid "May"
-msgstr "五月"
-
-#: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
-msgid "June"
-msgstr "六月"
-
-#: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
-msgid "July"
-msgstr "七月"
-
-#: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
-msgid "August"
-msgstr "八月"
-
-#: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
-msgid "September"
-msgstr "九月"
-
-#: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
-msgid "October"
-msgstr "十月"
-
-#: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
-msgid "November"
-msgstr "十一月"
-
-#: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
-msgid "December"
-msgstr "十二月"
-
-#: src/templates/logs/index.mas:108
-msgid "Refresh logs"
-msgstr "刷新日志"
-
-#: src/templates/logs/index.mas:116
-msgid "To date:"
-msgstr "结束日期:"
-
-#: src/templates/logs/index.mas:203 src/templates/logs/index.mas:204
-msgid "Search"
-msgstr "搜索"
-
-#: src/templates/logs/index.mas:208 src/templates/logs/index.mas:209
-msgid "Save as event"
-msgstr "保存为事件"
-
-#: src/templates/logs/index.mas:235
-msgid "No logs matching current criterion"
-msgstr "没有符合条件的日志"
-
-#: src/templates/logs/index.mas:239
-msgid "There are no logs for this domain"
-msgstr "这个域没有日志"
-
-#: src/templates/logs/dbtable.mas:87 src/templates/logs/dbtable.mas:88
-msgid "first"
-msgstr "首页"
-
-#: src/templates/logs/dbtable.mas:91 src/templates/logs/dbtable.mas:92
-msgid "prev"
-msgstr "前页"
-
-#: src/templates/logs/dbtable.mas:111 src/templates/logs/dbtable.mas:112
-msgid "next"
-msgstr "下页"
-
-#: src/templates/logs/dbtable.mas:115 src/templates/logs/dbtable.mas:116
-msgid "last"
-msgstr "尾页"
-
-#: src/templates/finish.mas:99
-#, perl-brace-format
-msgid ""
-"The following modules have unsaved changes but are <b>disabled</b>. If you "
-"need to enable them go to {openref}Module Status{closeref}."
-msgstr ""
-"以下模块没有保存变更，但是已经被<b>禁用</b>。你需要到{openref}模块管理"
-"{closeref}启用这些模块。"
-
-#: src/templates/finish.mas:106
-msgid ""
-"There are unsaved changes in one or more modules, you can save or discard "
-"those changes."
-msgstr "一个或多个模块的变更尚未保存，你可以保存或忽略这些变更。"
-
-#: src/templates/finish.mas:110
-msgid ""
-"If you made changes to the network interfaces or the administration port, "
-"you may need to manually rewrite the url in order to access this "
-"administration interface again."
-msgstr "如果修改网络接口或管理端口，你需要修改访问连接才能再次访问管理界面。"
-
-#: src/templates/finish.mas:134
-msgid "Save"
-msgstr "保存"
-
-#: src/templates/finish.mas:136
-msgid "Discard changes"
-msgstr "忽略变更"
-
-#: src/templates/finish.mas:141
-msgid "There are no unsaved changes."
-msgstr "没有尚未保存的变更."
-
 #: src/templates/backup.mas:29
 msgid "Full Backup"
 msgstr "全备份"
@@ -2165,42 +2060,132 @@ msgstr "恢复"
 msgid "delete"
 msgstr "删除"
 
-#: src/templates/links-widget.mas:5
-msgid "Community Resources"
-msgstr "社区资源"
+#: src/templates/configurationFiles.mas:12
+msgid "Do you wish to overwrite these files?"
+msgstr "确认要覆盖这些文件？"
 
-#: src/templates/links-widget.mas:10
-msgid "Documentation"
-msgstr "文档"
+#: src/templates/configurationFiles.mas:19
+msgid "Keep current file"
+msgstr "保留当前文件"
 
-#: src/templates/links-widget.mas:12
-msgid "Forum"
-msgstr "论坛"
+#: src/templates/configurationFiles.mas:23
+msgid "Modify"
+msgstr "修改"
 
-#: src/templates/links-widget.mas:14
-msgid "Report a bug"
-msgstr "报告BUG"
-
-#: src/templates/links-widget.mas:16
-msgid "How to Contribute"
-msgstr "如何贡献"
-
-#: src/templates/bug.mas:9
+#: src/templates/dashboard/configurewidgets.mas:164
 msgid ""
-"This page lets you generate a file with information about the state of your "
-"system. The file will be useful if you want to report a problem or seek "
-"support."
+"Browse the available widgets in the left menu and drag&drop them to the "
+"dashboard."
 msgstr ""
-"这个网页会生成一个包含系统状态信息的文件。如果你需要报告问题，或寻求帮助，这"
-"个文件会用的上。"
 
-#: src/templates/bug.mas:13
-msgid "It may take several minutes to generate the report. Please be patient."
-msgstr "生成这个报告可能需要几分钟。请耐心等待。"
+#: src/templates/dashboard/list.mas:43
+msgid "No entries in this list"
+msgstr "此列表没有条目"
 
-#: src/templates/bug.mas:19
-msgid "Download configuration report file"
-msgstr "下载配置报告文件"
+#: src/templates/dashboard/index.mas:23 src/templates/dashboard/status.mas:18
+msgid "Running"
+msgstr "正在运行"
+
+#: src/templates/dashboard/index.mas:24 src/templates/dashboard/status.mas:19
+msgid "The service is enabled and running"
+msgstr "服务已启用，且正在运行"
+
+#: src/templates/dashboard/index.mas:28 src/templates/dashboard/status.mas:22
+msgid "Stopped"
+msgstr "已停止"
+
+#: src/templates/dashboard/index.mas:29 src/templates/dashboard/status.mas:23
+msgid "The service is enabled, but not running"
+msgstr "服务已启用，但没有运行"
+
+#: src/templates/dashboard/index.mas:33 src/templates/dashboard/status.mas:27
+msgid "Running unmanaged"
+msgstr "未被管理的服务正在运行"
+
+#: src/templates/dashboard/index.mas:34 src/templates/dashboard/status.mas:28
+msgid "The service is running, but not enabled in Zentyal"
+msgstr "服务正在运行，但未在Zentyal启用"
+
+#: src/templates/dashboard/index.mas:38 src/templates/dashboard/status.mas:31
+msgid "Disabled"
+msgstr "已禁用"
+
+#: src/templates/dashboard/index.mas:39 src/templates/dashboard/status.mas:32
+msgid "The service is not enabled in Zentyal"
+msgstr "服务未在Zentyal启用"
+
+#: src/templates/dashboard/index.mas:44 src/templates/dashboard/status.mas:25
+msgid "Start"
+msgstr "启动"
+
+#: src/templates/dashboard/index.mas:45 src/templates/dashboard/status.mas:12
+msgid "Restart"
+msgstr "重启"
+
+#: src/templates/dashboard/index.mas:117
+msgid "Configure widgets"
+msgstr "配置组件"
+
+#: src/templates/finish.mas:99
+#, perl-brace-format
+msgid ""
+"The following modules have unsaved changes but are <b>disabled</b>. If you "
+"need to enable them go to {openref}Module Status{closeref}."
+msgstr ""
+"以下模块没有保存变更，但是已经被<b>禁用</b>。你需要到{openref}模块管理"
+"{closeref}启用这些模块。"
+
+#: src/templates/finish.mas:106
+msgid ""
+"There are unsaved changes in one or more modules, you can save or discard "
+"those changes."
+msgstr "一个或多个模块的变更尚未保存，你可以保存或忽略这些变更。"
+
+#: src/templates/finish.mas:110
+msgid ""
+"If you made changes to the network interfaces or the administration port, "
+"you may need to manually rewrite the url in order to access this "
+"administration interface again."
+msgstr "如果修改网络接口或管理端口，你需要修改访问连接才能再次访问管理界面。"
+
+#: src/templates/finish.mas:134
+msgid "Save"
+msgstr "保存"
+
+#: src/templates/finish.mas:136
+msgid "Discard changes"
+msgstr "忽略变更"
+
+#: src/templates/finish.mas:141
+msgid "There are no unsaved changes."
+msgstr "没有尚未保存的变更."
+
+#: src/templates/hostname.mas:10
+msgid "Change Hostname"
+msgstr "修改主机名"
+
+#: src/templates/hostname.mas:11
+msgid ""
+"You will need to restart all the services or reboot the system to apply the "
+"hostname change."
+msgstr "您需要重启所有服务或者重启系统才能应用主机名变更。"
+
+#: src/templates/hostname.mas:13
+#, perl-brace-format
+msgid "The hostname will be changed to {newHostname} after saving changes."
+msgstr ""
+
+#: src/templates/confirm-backup.mas:102
+msgid "Full Restore"
+msgstr "全部恢复"
+
+#: src/templates/confirm-backup.mas:103
+msgid "Configuration Restore"
+msgstr "配置恢复"
+
+#: src/templates/confirm-backup.mas:108
+msgid "Restore mode"
+msgstr "恢复模式"
 
 #: src/templates/logout/index.mas:11
 msgid "There are unsaved changes, if you log out now they will be lost."
@@ -2214,25 +2199,18 @@ msgstr "本次会话没有尚未保存的变更."
 msgid "Exit"
 msgstr "退出"
 
-#: src/templates/password.mas:4
-msgid "Change Password"
-msgstr "修改密码"
+#: src/templates/backupTabs.mas:13
+msgid "Local"
+msgstr ""
 
-#: src/templates/password.mas:5
-msgid "Your password must be at least 6 characters long."
-msgstr "密码长度至少6字节"
+#: src/templates/backupTabs.mas:18
+msgid "Remote in Zentyal Cloud"
+msgstr ""
 
-#: src/templates/password.mas:25
-msgid "Current password"
-msgstr "当前密码"
-
-#: src/templates/password.mas:39
-msgid "New password"
-msgstr "新密码"
-
-#: src/templates/password.mas:53
-msgid "Confirm password"
-msgstr "确认密码"
+#: src/templates/backupTabs.mas:23
+#, fuzzy
+msgid "Remote in Zentyal Cloud from other subscribed hosts"
+msgstr "从其它订阅的主机远程备份"
 
 #: src/templates/login/index.mas:40
 msgid "Warning: Caps Lock is enabled"
@@ -2259,40 +2237,63 @@ msgstr ""
 msgid "Enter"
 msgstr "进入"
 
-#: src/templates/dataInUse.mas:41 src/templates/confirm-backup.mas:66
-msgid "Cancel"
-msgstr "取消"
+#: src/templates/headTitle.mas:20
+msgid "Remote services control panel"
+msgstr "远程服务控制面板"
 
-#: src/templates/confirm-backup.mas:102
-msgid "Full Restore"
-msgstr "全部恢复"
+#: src/templates/configureView.mas:12
+msgid ""
+"Enabling this module will cause Zentyal to perform the actions and file "
+"modifications listed below. You must explicitly accept these changes to "
+"enable the module."
+msgstr ""
+"启用这个模块会执行针对下列文件的修改操作。你必须接受这些操作才能启用这个模"
+"块。"
 
-#: src/templates/confirm-backup.mas:103
-msgid "Configuration Restore"
-msgstr "配置恢复"
+#: src/templates/configureView.mas:16
+msgid "Actions to perform by Zentyal"
+msgstr "Zentyal要执行的操作"
 
-#: src/templates/confirm-backup.mas:108
-msgid "Restore mode"
-msgstr "恢复模式"
+#: src/templates/configureView.mas:31
+msgid "Files to modify by Zentyal"
+msgstr "Zentyal将要修改的文件"
+
+#: src/templates/configureView.mas:51
+msgid "Accept"
+msgstr "接受"
 
 #: src/templates/port.mas:9
 msgid "Administration Interface TCP Port"
 msgstr "管理界面的TCP端口"
 
-#: src/templates/hostname.mas:10
-msgid "Change Hostname"
-msgstr "修改主机名"
+#: src/templates/halt.mas:10
+msgid "You might lose your Internet connection if this machine is halted."
+msgstr "如果关机，你会被断开Internet连接."
 
-#: src/templates/hostname.mas:11
+#: src/templates/halt.mas:14
+msgid "Halt"
+msgstr "关机"
+
+#: src/templates/halt.mas:16
+msgid "Reboot"
+msgstr "重启"
+
+#: src/templates/bug.mas:9
 msgid ""
-"You will need to restart all the services or reboot the system to apply the "
-"hostname change."
-msgstr "您需要重启所有服务或者重启系统才能应用主机名变更。"
-
-#: src/templates/hostname.mas:13
-#, perl-brace-format
-msgid "The hostname will be changed to {newHostname} after saving changes."
+"This page lets you generate a file with information about the state of your "
+"system. The file will be useful if you want to report a problem or seek "
+"support."
 msgstr ""
+"这个网页会生成一个包含系统状态信息的文件。如果你需要报告问题，或寻求帮助，这"
+"个文件会用的上。"
+
+#: src/templates/bug.mas:13
+msgid "It may take several minutes to generate the report. Please be patient."
+msgstr "生成这个报告可能需要几分钟。请耐心等待。"
+
+#: src/templates/bug.mas:19
+msgid "Download configuration report file"
+msgstr "下载配置报告文件"
 
 #~ msgid "Free space"
 #~ msgstr "空闲空间"

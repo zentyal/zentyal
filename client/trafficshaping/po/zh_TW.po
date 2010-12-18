@@ -8,63 +8,95 @@ msgstr ""
 "Project-Id-Version: ebox-trafficshaping 0.12.99Report-Msgid-Bugs-To: "
 "developers@zentyal.org\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-12-13 08:43+0100\n"
+"POT-Creation-Date: 2010-12-18 01:45+0100\n"
 "PO-Revision-Date: 2009-08-04 08:16+0200\n"
 "Last-Translator: Chao-Hsiung Liao <j_h_liau@yahoo.com.tw>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:220
-#, perl-brace-format
-msgid "Guaranteed Rate exceeds the allowed rate: {rate} kbit/s"
-msgstr "保證速率超過允許的速率：{rate} kbit/s"
+#: src/EBox/TrafficShaping.pm:102
+msgid "Traffic Shaping"
+msgstr "流量控管"
 
-#: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:227
-#: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:412
-#, perl-brace-format
-msgid ""
-"Guaranteed Rate must be in this interval: ( {minRate}, {maxRate} ) kbit/s"
-msgstr "保證速率必須在這個區間中：( {minRate}, {maxRate} ) kbit/s"
+#: src/EBox/TrafficShaping.pm:140
+msgid "Add iptables rules to mangle table"
+msgstr "加入 iptables 規則至 mangle 表"
 
-#: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:239
-#: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:424
-#, perl-brace-format
-msgid ""
-"Limited Rate {lR} kbit/s should be higher than Guaranteed Rate {gR}kbit/s"
-msgstr "限制的速率 {lR} kbit/s 應該高於保證速率 {gR}kbit/s"
+#: src/EBox/TrafficShaping.pm:141
+msgid "To mark packets with different priorities and rates"
+msgstr "將封包標記為不同的優先順序與速率"
 
-#: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:246
-#, fuzzy, perl-brace-format
-msgid ""
-"Limited Rate {lR} kbit/s should be lower than {maxLR}kbit/s or you should "
-"increase maximum upload traffic associated to external interfaces"
-msgstr ""
-"限制的速率 {lR} kbit/s 應該低於 {maxLR}kbit/s ，或者您應該增加該閘道器在外部"
-"介面上的最大上傳流量"
+#: src/EBox/TrafficShaping.pm:145
+msgid "Add tc rules"
+msgstr "加入 tc 規則"
 
-#: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:403
-#, perl-brace-format
-msgid "Guaranteed Rate exceeded the allowed rate: {rate}"
-msgstr "保證速率超過允許的速率：{rate}"
+#: src/EBox/TrafficShaping.pm:146
+msgid "To implement the traffic shaping rules"
+msgstr "實作流量控管規則"
 
-#: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:432
-#, perl-brace-format
-msgid ""
-"Limited Rate {lR} kbit/s should be lower than {maxLR} or you should increase "
-"maximum allowed traffic"
-msgstr "限制的速率 {lR} kbit/s 應該低於 {maxLR} ，或者您應該增加最大允許的流量"
-
-#: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:620
+#: src/EBox/TrafficShaping.pm:463
 #, fuzzy
-msgid "Leaf class identifier"
-msgstr "憑證管理中心金鑰識別碼"
+msgid "Rules"
+msgstr "規則"
 
-#: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:624
-msgid "Address"
-msgstr "位址"
+#: src/EBox/TrafficShaping.pm:465
+#, fuzzy
+msgid "Interface Rates"
+msgstr "介面"
+
+#: src/EBox/TrafficShaping.pm:539 src/EBox/TrafficShaping.pm:691
+#: src/EBox/TrafficShaping.pm:1109 src/EBox/TC.pm:107
+msgid "Interface"
+msgstr "介面"
+
+#: src/EBox/TrafficShaping.pm:553
+#, perl-brace-format
+msgid ""
+"The maximum rule account {max} is reached, please delete at least one in "
+"order to to add a new one"
+msgstr "已達最大規則總數 {max} ，請至少刪除一條規則後才能加入新的規則"
+
+#: src/EBox/TrafficShaping.pm:1199
+msgid "type"
+msgstr "類型"
+
+#: src/EBox/TrafficShaping.pm:1222
+#, perl-brace-format
+msgid ""
+"Interface {iface} should have a maximum bandwidth rate in order to do "
+"traffic shaping"
+msgstr "介面 {iface} 應該有最大頻寬率才能進行流量控管"
+
+#: src/EBox/TrafficShaping.pm:1696
+msgid "Protocol"
+msgstr "通訊協定"
+
+#: src/EBox/TrafficShaping.pm:1697
+msgid "Port"
+msgstr "連接埠"
+
+#: src/EBox/TrafficShaping.pm:1698
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:467
+msgid "Guaranteed Rate"
+msgstr "保證速率"
+
+#: src/EBox/TrafficShaping.pm:1699
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:479
+msgid "Limited Rate"
+msgstr "限制的速率"
+
+#: src/EBox/TrafficShaping.pm:1700
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:459
+msgid "Priority"
+msgstr "優先順序"
+
+#: src/EBox/TC.pm:69
+msgid "options"
+msgstr "選項"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:181
 #, perl-brace-format
@@ -133,19 +165,9 @@ msgstr "目的 IP"
 msgid "Destination object"
 msgstr "目的物件"
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:459
-#: src/EBox/TrafficShaping.pm:1700
-msgid "Priority"
-msgstr "優先順序"
-
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:463
 msgid "Lowest priotiry: 7 Highest priority: 0"
 msgstr "最低優先順序：7 最高優先順序：0"
-
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:467
-#: src/EBox/TrafficShaping.pm:1698
-msgid "Guaranteed Rate"
-msgstr "保證速率"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:470
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:484
@@ -158,11 +180,6 @@ msgid ""
 "Note that The sum of all guaranteed rates cannot exceed your total "
 "bandwidth. 0 means unguaranteed rate."
 msgstr "請注意  所有保證速率的總和不得超過您的總頻寬。0 表示不限制速率。"
-
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:479
-#: src/EBox/TrafficShaping.pm:1699
-msgid "Limited Rate"
-msgstr "限制的速率"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:486
 msgid "Traffic will not exceed this rate. 0 means unlimited rate."
@@ -292,67 +309,51 @@ msgstr ""
 msgid "Choose an interface to shape"
 msgstr "選擇要控管的介面"
 
-#: src/EBox/TrafficShaping.pm:102
-msgid "Traffic Shaping"
-msgstr "流量控管"
+#: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:220
+#, perl-brace-format
+msgid "Guaranteed Rate exceeds the allowed rate: {rate} kbit/s"
+msgstr "保證速率超過允許的速率：{rate} kbit/s"
 
-#: src/EBox/TrafficShaping.pm:140
-msgid "Add iptables rules to mangle table"
-msgstr "加入 iptables 規則至 mangle 表"
-
-#: src/EBox/TrafficShaping.pm:141
-msgid "To mark packets with different priorities and rates"
-msgstr "將封包標記為不同的優先順序與速率"
-
-#: src/EBox/TrafficShaping.pm:145
-msgid "Add tc rules"
-msgstr "加入 tc 規則"
-
-#: src/EBox/TrafficShaping.pm:146
-msgid "To implement the traffic shaping rules"
-msgstr "實作流量控管規則"
-
-#: src/EBox/TrafficShaping.pm:463
-#, fuzzy
-msgid "Rules"
-msgstr "規則"
-
-#: src/EBox/TrafficShaping.pm:465
-#, fuzzy
-msgid "Interface Rates"
-msgstr "介面"
-
-#: src/EBox/TrafficShaping.pm:539 src/EBox/TrafficShaping.pm:691
-#: src/EBox/TrafficShaping.pm:1109 src/EBox/TC.pm:107
-msgid "Interface"
-msgstr "介面"
-
-#: src/EBox/TrafficShaping.pm:553
+#: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:227
+#: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:412
 #, perl-brace-format
 msgid ""
-"The maximum rule account {max} is reached, please delete at least one in "
-"order to to add a new one"
-msgstr "已達最大規則總數 {max} ，請至少刪除一條規則後才能加入新的規則"
+"Guaranteed Rate must be in this interval: ( {minRate}, {maxRate} ) kbit/s"
+msgstr "保證速率必須在這個區間中：( {minRate}, {maxRate} ) kbit/s"
 
-#: src/EBox/TrafficShaping.pm:1199
-msgid "type"
-msgstr "類型"
-
-#: src/EBox/TrafficShaping.pm:1222
+#: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:239
+#: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:424
 #, perl-brace-format
 msgid ""
-"Interface {iface} should have a maximum bandwidth rate in order to do "
-"traffic shaping"
-msgstr "介面 {iface} 應該有最大頻寬率才能進行流量控管"
+"Limited Rate {lR} kbit/s should be higher than Guaranteed Rate {gR}kbit/s"
+msgstr "限制的速率 {lR} kbit/s 應該高於保證速率 {gR}kbit/s"
 
-#: src/EBox/TrafficShaping.pm:1696
-msgid "Protocol"
-msgstr "通訊協定"
+#: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:246
+#, fuzzy, perl-brace-format
+msgid ""
+"Limited Rate {lR} kbit/s should be lower than {maxLR}kbit/s or you should "
+"increase maximum upload traffic associated to external interfaces"
+msgstr ""
+"限制的速率 {lR} kbit/s 應該低於 {maxLR}kbit/s ，或者您應該增加該閘道器在外部"
+"介面上的最大上傳流量"
 
-#: src/EBox/TrafficShaping.pm:1697
-msgid "Port"
-msgstr "連接埠"
+#: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:403
+#, perl-brace-format
+msgid "Guaranteed Rate exceeded the allowed rate: {rate}"
+msgstr "保證速率超過允許的速率：{rate}"
 
-#: src/EBox/TC.pm:69
-msgid "options"
-msgstr "選項"
+#: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:432
+#, perl-brace-format
+msgid ""
+"Limited Rate {lR} kbit/s should be lower than {maxLR} or you should increase "
+"maximum allowed traffic"
+msgstr "限制的速率 {lR} kbit/s 應該低於 {maxLR} ，或者您應該增加最大允許的流量"
+
+#: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:620
+#, fuzzy
+msgid "Leaf class identifier"
+msgstr "憑證管理中心金鑰識別碼"
+
+#: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:624
+msgid "Address"
+msgstr "位址"

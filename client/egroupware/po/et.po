@@ -7,53 +7,29 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-egroupware 1.4\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-12-13 08:39+0100\n"
+"POT-Creation-Date: 2010-12-18 01:43+0100\n"
 "PO-Revision-Date: 2010-05-06 16:33+0200\n"
 "Last-Translator: Priit-A. Heinsalu <priit.heinsalu@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 1.1.0\n"
 
-# Rühmatarkvara, Grupitöö tarkvara
-#: src/EBox/EGroupware.pm:49
-msgid "Groupware"
-msgstr "Rühmavara"
+#: src/EBox/Model/DefaultApplications.pm:50
+msgid "Default Applications"
+msgstr "Vaikimisi õigused rakendustele"
 
-#: src/EBox/EGroupware.pm:97
-msgid "Create PostgreSQL user egroupware"
-msgstr "PostgreSQL kasutaja egroupware loomine"
-
-#: src/EBox/EGroupware.pm:98
-msgid "This user will be the owner of the egroupware database"
-msgstr "See kasutaja saab eGroupware andmebaasi omanikuks"
-
-#: src/EBox/EGroupware.pm:102
-msgid "Create PostgreSQL egroupware database"
-msgstr "PostgreSQL eGroupware andmebaasi loomine"
-
-#: src/EBox/EGroupware.pm:103
-msgid "This database will store the data needed by eGroupware"
-msgstr "Selles andmebaasis hoitakse eGroupware jaoks vajalikke andmeid"
-
-# eRühmavara juurdepääsu seadete seadistamiseks
-#: src/EBox/EGroupware.pm:120
-msgid "To configure eGroupware access settings"
-msgstr "eGroupware juurdepääsu seadistamiseks"
-
-#: src/EBox/EGroupware.pm:125
-msgid "To allow local access to egroupware database"
-msgstr "eGroupware andmebaasi kohaliku juurdepääsu lubamiseks"
-
-#: src/EBox/CGI/EGroupwareUserOptions.pm:43
-msgid "username"
-msgstr "kasutajanimi"
-
-#: src/EBox/CGI/EGroupwareGroupOptions.pm:43
-msgid "groupname"
-msgstr "grupi nimi"
+#  
+#: src/EBox/Model/DefaultApplications.pm:51
+msgid ""
+"These are the default application permissions that are given to the new "
+"created users or existing ones before enabling eGroupware module."
+msgstr ""
+"Need on vaikimisi õigused rakendustele, mis määratakse uutele või loodud "
+"kasutajatele, enne eGroupware mooduli lubamist."
 
 #: src/EBox/Model/Applications.pm:139
 msgid "Application"
@@ -70,19 +46,6 @@ msgstr "Rakendused"
 #: src/EBox/Model/Applications.pm:153
 msgid "application"
 msgstr "rakendus"
-
-#: src/EBox/Model/DefaultApplications.pm:50
-msgid "Default Applications"
-msgstr "Vaikimisi õigused rakendustele"
-
-#  
-#: src/EBox/Model/DefaultApplications.pm:51
-msgid ""
-"These are the default application permissions that are given to the new "
-"created users or existing ones before enabling eGroupware module."
-msgstr ""
-"Need on vaikimisi õigused rakendustele, mis määratakse uutele või loodud "
-"kasutajatele, enne eGroupware mooduli lubamist."
 
 #: src/EBox/Model/PermissionTemplates.pm:66
 msgid "Name"
@@ -152,6 +115,36 @@ msgstr "Virtuaalne e-posti domeen"
 msgid "Select the virtual mail domain to be used for eGroupware"
 msgstr "Vali virtuaalne e-posti domeen, mida eGroupware poolt kasutatakse"
 
+# Rühmatarkvara, Grupitöö tarkvara
+#: src/EBox/EGroupware.pm:49
+msgid "Groupware"
+msgstr "Rühmavara"
+
+#: src/EBox/EGroupware.pm:97
+msgid "Create PostgreSQL user egroupware"
+msgstr "PostgreSQL kasutaja egroupware loomine"
+
+#: src/EBox/EGroupware.pm:98
+msgid "This user will be the owner of the egroupware database"
+msgstr "See kasutaja saab eGroupware andmebaasi omanikuks"
+
+#: src/EBox/EGroupware.pm:102
+msgid "Create PostgreSQL egroupware database"
+msgstr "PostgreSQL eGroupware andmebaasi loomine"
+
+#: src/EBox/EGroupware.pm:103
+msgid "This database will store the data needed by eGroupware"
+msgstr "Selles andmebaasis hoitakse eGroupware jaoks vajalikke andmeid"
+
+# eRühmavara juurdepääsu seadete seadistamiseks
+#: src/EBox/EGroupware.pm:120
+msgid "To configure eGroupware access settings"
+msgstr "eGroupware juurdepääsu seadistamiseks"
+
+#: src/EBox/EGroupware.pm:125
+msgid "To allow local access to egroupware database"
+msgstr "eGroupware andmebaasi kohaliku juurdepääsu lubamiseks"
+
 #: src/EBox/Composite/General.pm:75
 msgid "eGroupware"
 msgstr "eGroupware"
@@ -169,31 +162,32 @@ msgstr ""
 msgid "EGroupware"
 msgstr "eGroupware"
 
-#: src/templates/egroupware.mas:9
-msgid "eGroupware account"
-msgstr "eGroupware konto"
+#: src/EBox/CGI/EGroupwareGroupOptions.pm:43
+msgid "groupname"
+msgstr "grupi nimi"
 
-#: src/templates/egroupware.mas:10
-msgid "Password for eGroupware service is the user password"
-msgstr "eGroupware teenuse parool on sama kui kasutaja parool"
+#: src/EBox/CGI/EGroupwareUserOptions.pm:43
+msgid "username"
+msgstr "kasutajanimi"
 
-#: src/templates/egroupware.mas:12
-msgid "eGroupware group"
-msgstr "eGroupware grupp"
+#~ msgid "eGroupware account"
+#~ msgstr "eGroupware konto"
+
+#~ msgid "Password for eGroupware service is the user password"
+#~ msgstr "eGroupware teenuse parool on sama kui kasutaja parool"
+
+#~ msgid "eGroupware group"
+#~ msgstr "eGroupware grupp"
 
 #  
-#: src/templates/egroupware.mas:28
-msgid "Permissions template"
-msgstr "Kohandatud õiguste mallid"
+#~ msgid "Permissions template"
+#~ msgstr "Kohandatud õiguste mallid"
 
-#: src/templates/egroupware.mas:39
-msgid "Default"
-msgstr "Vaikimisi"
+#~ msgid "Default"
+#~ msgstr "Vaikimisi"
 
-#: src/templates/egroupware.mas:52 src/templates/egroupware.mas:53
-msgid "Change"
-msgstr "Muuda"
+#~ msgid "Change"
+#~ msgstr "Muuda"
 
-#: src/templates/egroupware.mas:85
-msgid "Click here to select a virtual domain"
-msgstr "Virtuaaldomeeni valimiseks klõpsa siia"
+#~ msgid "Click here to select a virtual domain"
+#~ msgstr "Virtuaaldomeeni valimiseks klõpsa siia"

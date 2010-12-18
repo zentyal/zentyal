@@ -7,29 +7,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: EBox-captiveportal 1.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-12-13 08:29+0100\n"
+"POT-Creation-Date: 2010-12-18 01:20+0100\n"
 "PO-Revision-Date: 2009-03-09 17:42+0000\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-
-#: src/EBox/CaptivePortal.pm:63 src/EBox/CaptivePortal.pm:169
-#: src/EBox/CaptivePortal.pm:216 src/EBox/UserCorner/CGI/Index.pm:30
-#: src/EBox/UserCorner/CGI/PopUp.pm:30
-msgid "Captive Portal"
-msgstr "Captive Portal"
-
-#: src/EBox/CaptivePortal.pm:181
-msgid "User"
-msgstr ""
-
-#: src/EBox/CaptivePortal.pm:201
-#, fuzzy
-msgid "Captive Portal Users"
-msgstr "Captive Portal"
 
 #: src/EBox/Model/Interfaces.pm:50
 msgid "Interface"
@@ -55,3 +41,18 @@ msgstr ""
 #: src/EBox/Model/Settings.pm:97
 msgid "listening port"
 msgstr ""
+
+#: src/EBox/UserCorner/CGI/PopUp.pm:30 src/EBox/UserCorner/CGI/Index.pm:30
+#: src/EBox/CaptivePortal.pm:63 src/EBox/CaptivePortal.pm:169
+#: src/EBox/CaptivePortal.pm:216
+msgid "Captive Portal"
+msgstr "Captive Portal"
+
+#: src/EBox/CaptivePortal.pm:181
+msgid "User"
+msgstr ""
+
+#: src/EBox/CaptivePortal.pm:201
+#, fuzzy
+msgid "Captive Portal Users"
+msgstr "Captive Portal"

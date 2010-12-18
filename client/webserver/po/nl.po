@@ -7,10 +7,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-webserver 0.12\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-12-13 08:43+0100\n"
+"POT-Creation-Date: 2010-12-18 01:46+0100\n"
 "PO-Revision-Date: 2010-08-25 17:51+0200\n"
 "Last-Translator: Indra Pharazijn <indra6oc@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -21,154 +22,6 @@ msgstr ""
 #: migration/0001_add_service_and_port.pl:162
 msgid "HyperText Transport Protocol"
 msgstr "HyperText Transport Protocol"
-
-#: src/EBox/WebServer.pm:79 src/EBox/WebServer.pm:617
-#: src/EBox/WebServer/Composite/General.pm:77
-msgid "Web Server"
-msgstr "Web Server"
-
-#: src/EBox/WebServer.pm:99
-msgid "To set webserver listening port."
-msgstr "Luisterende webserver poort instellen."
-
-#: src/EBox/WebServer.pm:104
-msgid "To configure default virtual host."
-msgstr "Standaard virtuele gastheer instellen."
-
-#: src/EBox/WebServer.pm:109
-msgid "To configure default SSL virtual host."
-msgstr "Standaard SSL virtuele gastheer instellen."
-
-#: src/EBox/WebServer.pm:114
-msgid "To configure the per-user public_html directory."
-msgstr "Gebruikers eigen public_html folder instellen."
-
-#: src/EBox/WebServer.pm:139
-msgid "Enable Apache LDAP user module"
-msgstr "Schakel de Apache LDAP gebruikers module in."
-
-#: src/EBox/WebServer.pm:141
-msgid "To fetch home directories from LDAP."
-msgstr "Haal de profiel mappen op via LDAP."
-
-#: src/EBox/WebServer.pm:144
-msgid "Enable Apache SSL module"
-msgstr "Schakel de Apache SSL module in."
-
-#: src/EBox/WebServer.pm:146
-msgid "To serve pages over HTTPS."
-msgstr "Pagina's aanbieden over HTTPS."
-
-#: src/EBox/WebServer.pm:184
-msgid "Web service status"
-msgstr "Web dienst status"
-
-# of een meer letterlijke vertaling: "Gelieve deze te herstellen/recht te zetten"
-#: src/EBox/WebServer.pm:440
-#, perl-brace-format
-msgid "The {userDirConfFile} is missing! Please recover it."
-msgstr "De {userDirConfFile} ontbreekt! Gelieve deze aan te maken."
-
-#: src/EBox/WebServer.pm:730
-#, fuzzy
-msgid "Web server hosted files"
-msgstr "Web dienst status"
-
-#: src/EBox/WebServer.pm:731
-#, fuzzy
-msgid "Virtual hosts data"
-msgstr "Virtuele gastheren"
-
-# Luisteren op poort
-#: src/EBox/WebServer/Model/GeneralSettings.pm:96
-#: src/EBox/WebServer/Model/GeneralSettings.pm:108
-#: src/EBox/WebServer/Model/GeneralSettings.pm:119
-#: src/EBox/WebServer/Model/GeneralSettings.pm:229
-msgid "Listening port"
-msgstr "Luisterende poort"
-
-#: src/EBox/WebServer/Model/GeneralSettings.pm:114
-#, fuzzy, perl-brace-format
-msgid ""
-"Zentyal Administration is running on this port, change it on {ohref}System -"
-"> General{chref}."
-msgstr ""
-"eBox Beheer gebruikt deze poort, verander deze via  {ohref}System -> General"
-"{chref}."
-
-#: src/EBox/WebServer/Model/GeneralSettings.pm:127
-#, perl-brace-format
-msgid ""
-"You need a Service Certificate for the Web Server module, enable it on "
-"{ohref}Certification Authority -> Service Certificates{chref}."
-msgstr ""
-"U heeft een Server Certificaat nodig voor de Web Server module, schakel dit "
-"in via {ohref}Certification Authority -> Service Certificates{chref}."
-
-#: src/EBox/WebServer/Model/GeneralSettings.pm:139
-msgid ""
-"Having installed and configured the Users and Groups module is required to "
-"allow HTML directories for users."
-msgstr ""
-"Het is vereist dat de Gebruikers en Groepen module geïnstalleerd en "
-"geconfigureerd is om HTML folders voor gebruikers toe te staan."
-
-# iets letterlijker:
-# Een correct ingestelde Gebruikers en Groepen module is vereist om HTML folders voor gebruikers tot te staan. Om deze in te stellen, gelieve ze minstens eenmaal in te schakelen.
-#: src/EBox/WebServer/Model/GeneralSettings.pm:145
-msgid ""
-"A properly configured Users and Groups module is required to allow HTML "
-"directories for users. To configure it, please enable it at least one time."
-msgstr ""
-"Om HTML folders voor gebruikers tot te staan is een correct ingestelde "
-"Gebruikers en Groepen module vereist. Om deze in te stellen, gelieve ze "
-"minstens eenmaal in te schakelen."
-
-#: src/EBox/WebServer/Model/GeneralSettings.pm:235
-msgid "Listening SSL port"
-msgstr "Luisterende SSL poort"
-
-#: src/EBox/WebServer/Model/GeneralSettings.pm:239
-#: src/EBox/WebServer/Model/VHostTable.pm:252
-msgid "Disabled"
-msgstr "Uitgeschakeld"
-
-#: src/EBox/WebServer/Model/GeneralSettings.pm:244
-msgid "Enabled"
-msgstr "Ingeschakeld"
-
-#: src/EBox/WebServer/Model/GeneralSettings.pm:252
-#, perl-brace-format
-msgid "Enable per user {dirName}"
-msgstr "Per gebruiker inschakelen {dirName}"
-
-#: src/EBox/WebServer/Model/GeneralSettings.pm:256
-msgid ""
-"Allow users to publish web documents using the public_html directory on "
-"their home."
-msgstr ""
-"Gebruikers toestaan om web pagina's via de public_html folder in hun profiel "
-"map te publiceren."
-
-#: src/EBox/WebServer/Model/GeneralSettings.pm:264
-msgid "General configuration settings"
-msgstr "Algemene configuratie instellingen"
-
-#: src/EBox/WebServer/Model/GeneralSettings.pm:268
-#, perl-brace-format
-msgid ""
-"General Web server configuration. The listening port must not be used by "
-"another service. If you enable user to publish their own html pages, those "
-"should be loaded from {dirName} directory from their home directories."
-msgstr ""
-"Algemene Web server configuratie. De ingestelde poort mag niet door een "
-"andere dienst gebruikt worden. Als u gebruikers toestaat om hun eigen web "
-"pagina's te publiceren, dienen deze geladen te worden vanuit de {dirName} "
-"folder in hun profiel map."
-
-#: src/EBox/WebServer/Model/GeneralSettings.pm:274
-msgid "General Web server configuration settings updated."
-msgstr "Algemene Web server configuratie instellingen bijgewerkt."
 
 #: src/EBox/WebServer/Model/VHostTable.pm:93
 msgid "Virtual host name"
@@ -224,6 +77,11 @@ msgstr ""
 "Er is geen interne netwerkverbinding met vast IP adres beschikbaar om de Web "
 "server aan te koppelen."
 
+#: src/EBox/WebServer/Model/VHostTable.pm:252
+#: src/EBox/WebServer/Model/GeneralSettings.pm:239
+msgid "Disabled"
+msgstr "Uitgeschakeld"
+
 #: src/EBox/WebServer/Model/VHostTable.pm:253
 msgid "Allow SSL"
 msgstr "SSL toestaan"
@@ -274,9 +132,100 @@ msgstr ""
 "{open}De DNS module is uitgeschakeld. De toegevoegde koppeling of domeinen "
 "zullen geen uitwerking hebben totdat u deze inschakelt"
 
+# Luisteren op poort
+#: src/EBox/WebServer/Model/GeneralSettings.pm:96
+#: src/EBox/WebServer/Model/GeneralSettings.pm:108
+#: src/EBox/WebServer/Model/GeneralSettings.pm:119
+#: src/EBox/WebServer/Model/GeneralSettings.pm:229
+msgid "Listening port"
+msgstr "Luisterende poort"
+
+#: src/EBox/WebServer/Model/GeneralSettings.pm:114
+#, fuzzy, perl-brace-format
+msgid ""
+"Zentyal Administration is running on this port, change it on {ohref}System -"
+"> General{chref}."
+msgstr ""
+"eBox Beheer gebruikt deze poort, verander deze via  {ohref}System -> General"
+"{chref}."
+
+#: src/EBox/WebServer/Model/GeneralSettings.pm:127
+#, perl-brace-format
+msgid ""
+"You need a Service Certificate for the Web Server module, enable it on "
+"{ohref}Certification Authority -> Service Certificates{chref}."
+msgstr ""
+"U heeft een Server Certificaat nodig voor de Web Server module, schakel dit "
+"in via {ohref}Certification Authority -> Service Certificates{chref}."
+
+#: src/EBox/WebServer/Model/GeneralSettings.pm:139
+msgid ""
+"Having installed and configured the Users and Groups module is required to "
+"allow HTML directories for users."
+msgstr ""
+"Het is vereist dat de Gebruikers en Groepen module geïnstalleerd en "
+"geconfigureerd is om HTML folders voor gebruikers toe te staan."
+
+# iets letterlijker:
+# Een correct ingestelde Gebruikers en Groepen module is vereist om HTML folders voor gebruikers tot te staan. Om deze in te stellen, gelieve ze minstens eenmaal in te schakelen.
+#: src/EBox/WebServer/Model/GeneralSettings.pm:145
+msgid ""
+"A properly configured Users and Groups module is required to allow HTML "
+"directories for users. To configure it, please enable it at least one time."
+msgstr ""
+"Om HTML folders voor gebruikers tot te staan is een correct ingestelde "
+"Gebruikers en Groepen module vereist. Om deze in te stellen, gelieve ze "
+"minstens eenmaal in te schakelen."
+
+#: src/EBox/WebServer/Model/GeneralSettings.pm:235
+msgid "Listening SSL port"
+msgstr "Luisterende SSL poort"
+
+#: src/EBox/WebServer/Model/GeneralSettings.pm:244
+msgid "Enabled"
+msgstr "Ingeschakeld"
+
+#: src/EBox/WebServer/Model/GeneralSettings.pm:252
+#, perl-brace-format
+msgid "Enable per user {dirName}"
+msgstr "Per gebruiker inschakelen {dirName}"
+
+#: src/EBox/WebServer/Model/GeneralSettings.pm:256
+msgid ""
+"Allow users to publish web documents using the public_html directory on "
+"their home."
+msgstr ""
+"Gebruikers toestaan om web pagina's via de public_html folder in hun profiel "
+"map te publiceren."
+
+#: src/EBox/WebServer/Model/GeneralSettings.pm:264
+msgid "General configuration settings"
+msgstr "Algemene configuratie instellingen"
+
+#: src/EBox/WebServer/Model/GeneralSettings.pm:268
+#, perl-brace-format
+msgid ""
+"General Web server configuration. The listening port must not be used by "
+"another service. If you enable user to publish their own html pages, those "
+"should be loaded from {dirName} directory from their home directories."
+msgstr ""
+"Algemene Web server configuratie. De ingestelde poort mag niet door een "
+"andere dienst gebruikt worden. Als u gebruikers toestaat om hun eigen web "
+"pagina's te publiceren, dienen deze geladen te worden vanuit de {dirName} "
+"folder in hun profiel map."
+
+#: src/EBox/WebServer/Model/GeneralSettings.pm:274
+msgid "General Web server configuration settings updated."
+msgstr "Algemene Web server configuratie instellingen bijgewerkt."
+
 #: src/EBox/WebServer/Composite/General.pm:76
 msgid "Configuration"
 msgstr "Configuratie"
+
+#: src/EBox/WebServer/Composite/General.pm:77 src/EBox/WebServer.pm:79
+#: src/EBox/WebServer.pm:617
+msgid "Web Server"
+msgstr "Web Server"
 
 #: src/EBox/WebServer/Composite/General.pm:79
 #, fuzzy
@@ -286,3 +235,55 @@ msgid ""
 msgstr ""
 "De eBox web dienst maakt het u mogelijk om meerdere Web pagina's in zuivere "
 "HTML aan te bieden binnenin verschillende virtuele gastheren."
+
+#: src/EBox/WebServer.pm:99
+msgid "To set webserver listening port."
+msgstr "Luisterende webserver poort instellen."
+
+#: src/EBox/WebServer.pm:104
+msgid "To configure default virtual host."
+msgstr "Standaard virtuele gastheer instellen."
+
+#: src/EBox/WebServer.pm:109
+msgid "To configure default SSL virtual host."
+msgstr "Standaard SSL virtuele gastheer instellen."
+
+#: src/EBox/WebServer.pm:114
+msgid "To configure the per-user public_html directory."
+msgstr "Gebruikers eigen public_html folder instellen."
+
+#: src/EBox/WebServer.pm:139
+msgid "Enable Apache LDAP user module"
+msgstr "Schakel de Apache LDAP gebruikers module in."
+
+#: src/EBox/WebServer.pm:141
+msgid "To fetch home directories from LDAP."
+msgstr "Haal de profiel mappen op via LDAP."
+
+#: src/EBox/WebServer.pm:144
+msgid "Enable Apache SSL module"
+msgstr "Schakel de Apache SSL module in."
+
+#: src/EBox/WebServer.pm:146
+msgid "To serve pages over HTTPS."
+msgstr "Pagina's aanbieden over HTTPS."
+
+#: src/EBox/WebServer.pm:184
+msgid "Web service status"
+msgstr "Web dienst status"
+
+# of een meer letterlijke vertaling: "Gelieve deze te herstellen/recht te zetten"
+#: src/EBox/WebServer.pm:440
+#, perl-brace-format
+msgid "The {userDirConfFile} is missing! Please recover it."
+msgstr "De {userDirConfFile} ontbreekt! Gelieve deze aan te maken."
+
+#: src/EBox/WebServer.pm:730
+#, fuzzy
+msgid "Web server hosted files"
+msgstr "Web dienst status"
+
+#: src/EBox/WebServer.pm:731
+#, fuzzy
+msgid "Virtual hosts data"
+msgstr "Virtuele gastheren"

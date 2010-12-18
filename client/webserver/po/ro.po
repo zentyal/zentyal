@@ -7,10 +7,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-webserver 0.12.99\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-12-13 08:43+0100\n"
+"POT-Creation-Date: 2010-12-18 01:46+0100\n"
 "PO-Revision-Date: 2010-08-27 09:43+0200\n"
 "Last-Translator: Harald Ersch <harald.ersch@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -21,150 +22,6 @@ msgstr ""
 #: migration/0001_add_service_and_port.pl:162
 msgid "HyperText Transport Protocol"
 msgstr "HyperText Transport Protocol"
-
-#: src/EBox/WebServer.pm:79 src/EBox/WebServer.pm:617
-#: src/EBox/WebServer/Composite/General.pm:77
-msgid "Web Server"
-msgstr "Server Web"
-
-#: src/EBox/WebServer.pm:99
-msgid "To set webserver listening port."
-msgstr "Setare port ascultare server web"
-
-#: src/EBox/WebServer.pm:104
-msgid "To configure default virtual host."
-msgstr "Configurare gazdă virtuală implicită."
-
-#: src/EBox/WebServer.pm:109
-msgid "To configure default SSL virtual host."
-msgstr "Configurare gazdă virtuală SSL implicită."
-
-#: src/EBox/WebServer.pm:114
-msgid "To configure the per-user public_html directory."
-msgstr "Configurare director public HTML per utilizator."
-
-#: src/EBox/WebServer.pm:139
-msgid "Enable Apache LDAP user module"
-msgstr "Activare modul utilizator Apache LDAP"
-
-#: src/EBox/WebServer.pm:141
-msgid "To fetch home directories from LDAP."
-msgstr "Extragere directoare home din LDAP"
-
-#: src/EBox/WebServer.pm:144
-msgid "Enable Apache SSL module"
-msgstr "Activare modul utilizator apache SSL"
-
-#: src/EBox/WebServer.pm:146
-msgid "To serve pages over HTTPS."
-msgstr "Pentru servirea paginilor prin HTTPS."
-
-#: src/EBox/WebServer.pm:184
-msgid "Web service status"
-msgstr "Stare serviciu web"
-
-#: src/EBox/WebServer.pm:440
-#, perl-brace-format
-msgid "The {userDirConfFile} is missing! Please recover it."
-msgstr "Utilizatorul{userDirConfFile} lipseste! Vă rugăm recuperaţi-l."
-
-#: src/EBox/WebServer.pm:730
-#, fuzzy
-msgid "Web server hosted files"
-msgstr "Stare serviciu web"
-
-#: src/EBox/WebServer.pm:731
-#, fuzzy
-msgid "Virtual hosts data"
-msgstr "Gazde virtuale"
-
-#: src/EBox/WebServer/Model/GeneralSettings.pm:96
-#: src/EBox/WebServer/Model/GeneralSettings.pm:108
-#: src/EBox/WebServer/Model/GeneralSettings.pm:119
-#: src/EBox/WebServer/Model/GeneralSettings.pm:229
-msgid "Listening port"
-msgstr "Port ascultare"
-
-#: src/EBox/WebServer/Model/GeneralSettings.pm:114
-#, perl-brace-format
-msgid ""
-"Zentyal Administration is running on this port, change it on {ohref}System -"
-"> General{chref}."
-msgstr ""
-"Administrarea Zentyal foloseşte acest port, modificaţi-l la{ohref}Sistem -> "
-"General{chref}."
-
-#: src/EBox/WebServer/Model/GeneralSettings.pm:127
-#, perl-brace-format
-msgid ""
-"You need a Service Certificate for the Web Server module, enable it on "
-"{ohref}Certification Authority -> Service Certificates{chref}."
-msgstr ""
-"Este necesar serviciul Certificate pentru modulul Server Web, activaţi-l la "
-"{ohref}Autoritate de certificare -> Certificate Servicii{chref}."
-
-#: src/EBox/WebServer/Model/GeneralSettings.pm:139
-msgid ""
-"Having installed and configured the Users and Groups module is required to "
-"allow HTML directories for users."
-msgstr ""
-"Pentru a permite directoare HTML pentru utilizatori este necesară instalarea "
-"şi configurarea modulului Utilizatori şi Grupuri."
-
-#: src/EBox/WebServer/Model/GeneralSettings.pm:145
-msgid ""
-"A properly configured Users and Groups module is required to allow HTML "
-"directories for users. To configure it, please enable it at least one time."
-msgstr ""
-"Pentru a permite directoare HTML pentru utilizatori este necesară "
-"configurarea corespunzătoare a modulului Utilizatori şi Grupuri.Pentru "
-"confogurarea lui, activaţi-l cel puţin odată."
-
-#: src/EBox/WebServer/Model/GeneralSettings.pm:235
-msgid "Listening SSL port"
-msgstr "Port ascultare SSL"
-
-#: src/EBox/WebServer/Model/GeneralSettings.pm:239
-#: src/EBox/WebServer/Model/VHostTable.pm:252
-msgid "Disabled"
-msgstr "Dezactivat"
-
-#: src/EBox/WebServer/Model/GeneralSettings.pm:244
-msgid "Enabled"
-msgstr "Activat"
-
-#: src/EBox/WebServer/Model/GeneralSettings.pm:252
-#, perl-brace-format
-msgid "Enable per user {dirName}"
-msgstr "Activare {dirName} per utilizator"
-
-#: src/EBox/WebServer/Model/GeneralSettings.pm:256
-msgid ""
-"Allow users to publish web documents using the public_html directory on "
-"their home."
-msgstr ""
-"Permite utilizatorilor publicarea de documente Web folosind directorul "
-"public_html din home-ul personal."
-
-#: src/EBox/WebServer/Model/GeneralSettings.pm:264
-msgid "General configuration settings"
-msgstr "Configurari generale"
-
-#: src/EBox/WebServer/Model/GeneralSettings.pm:268
-#, perl-brace-format
-msgid ""
-"General Web server configuration. The listening port must not be used by "
-"another service. If you enable user to publish their own html pages, those "
-"should be loaded from {dirName} directory from their home directories."
-msgstr ""
-"Configurare generală a serverului Web. Portul de ascultare nu trebuie "
-"folosit de nici un alt serviciu. Dacă activaţi publicarea de către "
-"utilizatori a propriilor pagini html, acestea trebuie încărcate din "
-"directoarele {dirName} din home-urile lor."
-
-#: src/EBox/WebServer/Model/GeneralSettings.pm:274
-msgid "General Web server configuration settings updated."
-msgstr "Configuraţia generală a serverului Web a fost actualizată."
 
 #: src/EBox/WebServer/Model/VHostTable.pm:93
 msgid "Virtual host name"
@@ -217,6 +74,11 @@ msgstr ""
 "Nu există interfaţă statică internă pentru a aloca adresa IP a serverului "
 "Web."
 
+#: src/EBox/WebServer/Model/VHostTable.pm:252
+#: src/EBox/WebServer/Model/GeneralSettings.pm:239
+msgid "Disabled"
+msgstr "Dezactivat"
+
 #: src/EBox/WebServer/Model/VHostTable.pm:253
 msgid "Allow SSL"
 msgstr "Permite SSL"
@@ -262,9 +124,97 @@ msgstr ""
 "{open} Modulul DNS este dezactivat. Asocierile adăugate sau domeniile nu vor "
 "avea efecte decât după activarea lui."
 
+#: src/EBox/WebServer/Model/GeneralSettings.pm:96
+#: src/EBox/WebServer/Model/GeneralSettings.pm:108
+#: src/EBox/WebServer/Model/GeneralSettings.pm:119
+#: src/EBox/WebServer/Model/GeneralSettings.pm:229
+msgid "Listening port"
+msgstr "Port ascultare"
+
+#: src/EBox/WebServer/Model/GeneralSettings.pm:114
+#, perl-brace-format
+msgid ""
+"Zentyal Administration is running on this port, change it on {ohref}System -"
+"> General{chref}."
+msgstr ""
+"Administrarea Zentyal foloseşte acest port, modificaţi-l la{ohref}Sistem -> "
+"General{chref}."
+
+#: src/EBox/WebServer/Model/GeneralSettings.pm:127
+#, perl-brace-format
+msgid ""
+"You need a Service Certificate for the Web Server module, enable it on "
+"{ohref}Certification Authority -> Service Certificates{chref}."
+msgstr ""
+"Este necesar serviciul Certificate pentru modulul Server Web, activaţi-l la "
+"{ohref}Autoritate de certificare -> Certificate Servicii{chref}."
+
+#: src/EBox/WebServer/Model/GeneralSettings.pm:139
+msgid ""
+"Having installed and configured the Users and Groups module is required to "
+"allow HTML directories for users."
+msgstr ""
+"Pentru a permite directoare HTML pentru utilizatori este necesară instalarea "
+"şi configurarea modulului Utilizatori şi Grupuri."
+
+#: src/EBox/WebServer/Model/GeneralSettings.pm:145
+msgid ""
+"A properly configured Users and Groups module is required to allow HTML "
+"directories for users. To configure it, please enable it at least one time."
+msgstr ""
+"Pentru a permite directoare HTML pentru utilizatori este necesară "
+"configurarea corespunzătoare a modulului Utilizatori şi Grupuri.Pentru "
+"confogurarea lui, activaţi-l cel puţin odată."
+
+#: src/EBox/WebServer/Model/GeneralSettings.pm:235
+msgid "Listening SSL port"
+msgstr "Port ascultare SSL"
+
+#: src/EBox/WebServer/Model/GeneralSettings.pm:244
+msgid "Enabled"
+msgstr "Activat"
+
+#: src/EBox/WebServer/Model/GeneralSettings.pm:252
+#, perl-brace-format
+msgid "Enable per user {dirName}"
+msgstr "Activare {dirName} per utilizator"
+
+#: src/EBox/WebServer/Model/GeneralSettings.pm:256
+msgid ""
+"Allow users to publish web documents using the public_html directory on "
+"their home."
+msgstr ""
+"Permite utilizatorilor publicarea de documente Web folosind directorul "
+"public_html din home-ul personal."
+
+#: src/EBox/WebServer/Model/GeneralSettings.pm:264
+msgid "General configuration settings"
+msgstr "Configurari generale"
+
+#: src/EBox/WebServer/Model/GeneralSettings.pm:268
+#, perl-brace-format
+msgid ""
+"General Web server configuration. The listening port must not be used by "
+"another service. If you enable user to publish their own html pages, those "
+"should be loaded from {dirName} directory from their home directories."
+msgstr ""
+"Configurare generală a serverului Web. Portul de ascultare nu trebuie "
+"folosit de nici un alt serviciu. Dacă activaţi publicarea de către "
+"utilizatori a propriilor pagini html, acestea trebuie încărcate din "
+"directoarele {dirName} din home-urile lor."
+
+#: src/EBox/WebServer/Model/GeneralSettings.pm:274
+msgid "General Web server configuration settings updated."
+msgstr "Configuraţia generală a serverului Web a fost actualizată."
+
 #: src/EBox/WebServer/Composite/General.pm:76
 msgid "Configuration"
 msgstr "Configuraţie"
+
+#: src/EBox/WebServer/Composite/General.pm:77 src/EBox/WebServer.pm:79
+#: src/EBox/WebServer.pm:617
+msgid "Web Server"
+msgstr "Server Web"
 
 #: src/EBox/WebServer/Composite/General.pm:79
 msgid ""
@@ -273,3 +223,54 @@ msgid ""
 msgstr ""
 "Serviciul Web Zentyal permite găzduirea paginilor Web HTML simple prin "
 "intermediul gazdelor virtuale diferite."
+
+#: src/EBox/WebServer.pm:99
+msgid "To set webserver listening port."
+msgstr "Setare port ascultare server web"
+
+#: src/EBox/WebServer.pm:104
+msgid "To configure default virtual host."
+msgstr "Configurare gazdă virtuală implicită."
+
+#: src/EBox/WebServer.pm:109
+msgid "To configure default SSL virtual host."
+msgstr "Configurare gazdă virtuală SSL implicită."
+
+#: src/EBox/WebServer.pm:114
+msgid "To configure the per-user public_html directory."
+msgstr "Configurare director public HTML per utilizator."
+
+#: src/EBox/WebServer.pm:139
+msgid "Enable Apache LDAP user module"
+msgstr "Activare modul utilizator Apache LDAP"
+
+#: src/EBox/WebServer.pm:141
+msgid "To fetch home directories from LDAP."
+msgstr "Extragere directoare home din LDAP"
+
+#: src/EBox/WebServer.pm:144
+msgid "Enable Apache SSL module"
+msgstr "Activare modul utilizator apache SSL"
+
+#: src/EBox/WebServer.pm:146
+msgid "To serve pages over HTTPS."
+msgstr "Pentru servirea paginilor prin HTTPS."
+
+#: src/EBox/WebServer.pm:184
+msgid "Web service status"
+msgstr "Stare serviciu web"
+
+#: src/EBox/WebServer.pm:440
+#, perl-brace-format
+msgid "The {userDirConfFile} is missing! Please recover it."
+msgstr "Utilizatorul{userDirConfFile} lipseste! Vă rugăm recuperaţi-l."
+
+#: src/EBox/WebServer.pm:730
+#, fuzzy
+msgid "Web server hosted files"
+msgstr "Stare serviciu web"
+
+#: src/EBox/WebServer.pm:731
+#, fuzzy
+msgid "Virtual hosts data"
+msgstr "Gazde virtuale"

@@ -7,96 +7,23 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-dns 0.12.100\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-12-13 08:39+0100\n"
+"POT-Creation-Date: 2010-12-18 01:43+0100\n"
 "PO-Revision-Date: 2010-08-14 04:59+0200\n"
 "Last-Translator: Aryin Wu <aryin@aryin.org>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: src/EBox/DNS.pm.in:264 src/EBox/Model/DomainTable.pm:248
-msgid "domain"
-msgstr "網域"
-
-#: src/EBox/DNS.pm.in:517
-msgid "main bind9 configuration file"
-msgstr "bind9 主要設置檔"
-
-#: src/EBox/DNS.pm.in:522
-msgid "bind9 options configuration file"
-msgstr "bind9 options 設置檔"
-
-#: src/EBox/DNS.pm.in:527
-msgid "local bind9 configuration file"
-msgstr "bind9 local 設置檔"
-
-#: src/EBox/DNS.pm.in:532
-#, fuzzy
-msgid "Keys configuration file"
-msgstr "金鑰設置檔"
-
-#: src/EBox/DNS.pm.in:549
-#, perl-brace-format
-msgid "configuration file for zone {zone}"
-msgstr "{zone} 網域設置檔"
-
-#: src/EBox/DNS.pm.in:565
-#, perl-brace-format
-msgid "configuration file for reverse resolution zone {zone}"
-msgstr "{zone} 網域反解設置檔"
-
-#: src/EBox/DNS.pm.in:583
-#, perl-brace-format
-msgid "Change the permissions for {dir} to allow writing to bind group"
-msgstr "修改 {dir} 的權限, 讓 bind 群組可作寫入"
-
-#: src/EBox/DNS.pm.in:585
-msgid "Let the bind daemon to be dynamically updated"
-msgstr "讓 bind 服務可作動態更新"
-
-#: src/EBox/Model/HostnameTable.pm:135
-#, perl-brace-format
-msgid ""
-"There is an alias with the same name \"{name}\" for \"{hostname}\" in the "
-"same domain"
-msgstr "同一個網域, 別名和 \"{hostname}\" 的名稱 \"{name}\" 相同"
-
-#: src/EBox/Model/HostnameTable.pm:169
-msgid "The domain is set as read only. You cannot add host names"
-msgstr "網域被設定為唯讀模式. 您不能修改主機名稱"
-
-#: src/EBox/Model/HostnameTable.pm:187 src/EBox/Model/MailExchanger.pm:151
-#: src/EBox/Model/NameServer.pm:130 src/templates/edit.mas:20
-msgid "Host name"
-msgstr "主機名稱"
-
-#: src/EBox/Model/HostnameTable.pm:195 src/EBox/Model/DomainTable.pm:210
-msgid "IP Address"
-msgstr "IP 位址"
-
-#: src/EBox/Model/HostnameTable.pm:203 src/EBox/Model/AliasTable.pm:130
-#: src/EBox/Model/AliasTable.pm:140 src/EBox/Model/AliasTable.pm:146
-#: src/templates/edit.mas:64 src/templates/edit.mas:85
-msgid "Alias"
-msgstr "別名"
-
-#: src/EBox/Model/HostnameTable.pm:215
-msgid "Host names"
-msgstr "主機名稱"
-
-#: src/EBox/Model/HostnameTable.pm:222 src/EBox/Model/DomainTable.pm:185
-msgid "Hostnames"
-msgstr "主機名稱"
-
-#: src/EBox/Model/HostnameTable.pm:223
-msgid "host name"
-msgstr "主機名稱"
-
 #: src/EBox/Model/DomainTable.pm:177
 msgid "Domain"
 msgstr "網域"
+
+#: src/EBox/Model/DomainTable.pm:185 src/EBox/Model/HostnameTable.pm:222
+msgid "Hostnames"
+msgstr "主機名稱"
 
 #: src/EBox/Model/DomainTable.pm:194
 msgid "Mail Exchangers"
@@ -105,6 +32,10 @@ msgstr "郵件伺服器"
 #: src/EBox/Model/DomainTable.pm:202
 msgid "Name Servers"
 msgstr "域名伺服器"
+
+#: src/EBox/Model/DomainTable.pm:210 src/EBox/Model/HostnameTable.pm:195
+msgid "IP Address"
+msgstr "IP 位址"
 
 #: src/EBox/Model/DomainTable.pm:218
 msgid "Dynamic"
@@ -123,9 +54,9 @@ msgstr "網域列表"
 msgid "DNS"
 msgstr "DNS"
 
-#: src/EBox/Model/DNSComposite.pm:77
-msgid "The DNS server allows you to resolve names for your own domains."
-msgstr "DNS 伺服器允許您對閣下的網域進行解析."
+#: src/EBox/Model/DomainTable.pm:248 src/EBox/DNS.pm.in:264
+msgid "domain"
+msgstr "網域"
 
 #: src/EBox/Model/MailExchanger.pm:86
 #, perl-brace-format
@@ -142,6 +73,11 @@ msgstr "您提供的主機名稱不是全域名稱. 您是指 mx.{name} 嗎?"
 #: src/EBox/Model/MailExchanger.pm:132
 msgid "The domain is set as read only. You cannot add mail exchangers"
 msgstr "網域被設定為唯讀模式. 您不能修改郵件伺服器"
+
+#: src/EBox/Model/MailExchanger.pm:151 src/EBox/Model/NameServer.pm:130
+#: src/EBox/Model/HostnameTable.pm:187 src/templates/edit.mas:20
+msgid "Host name"
+msgstr "主機名稱"
 
 #: src/EBox/Model/MailExchanger.pm:154 src/EBox/Model/NameServer.pm:133
 msgid "If you choose \"Custom\", it should be a Fully Qualified Domain Name"
@@ -196,6 +132,12 @@ msgid ""
 "the same domain"
 msgstr "同一個網域, 別名和 \"{hostname}\" 的別名 \"{name}\" 相同"
 
+#: src/EBox/Model/AliasTable.pm:130 src/EBox/Model/AliasTable.pm:140
+#: src/EBox/Model/AliasTable.pm:146 src/EBox/Model/HostnameTable.pm:203
+#: src/templates/edit.mas:64 src/templates/edit.mas:85
+msgid "Alias"
+msgstr "別名"
+
 #: src/EBox/Model/AliasTable.pm:147
 msgid "alias"
 msgstr "別名"
@@ -223,43 +165,64 @@ msgstr "它為此網域管理域名紀錄"
 msgid "name server record"
 msgstr "域名伺服器紀錄"
 
-#: src/templates/index.mas:16
-msgid "Domain list"
-msgstr "網域列表"
+#: src/EBox/Model/HostnameTable.pm:135
+#, perl-brace-format
+msgid ""
+"There is an alias with the same name \"{name}\" for \"{hostname}\" in the "
+"same domain"
+msgstr "同一個網域, 別名和 \"{hostname}\" 的名稱 \"{name}\" 相同"
 
-#: src/templates/index.mas:21
-msgid "Name"
-msgstr "名稱"
+#: src/EBox/Model/HostnameTable.pm:169
+msgid "The domain is set as read only. You cannot add host names"
+msgstr "網域被設定為唯讀模式. 您不能修改主機名稱"
 
-#: src/templates/index.mas:24 src/templates/edit.mas:23
-msgid "Action"
-msgstr "動作"
+#: src/EBox/Model/HostnameTable.pm:215
+msgid "Host names"
+msgstr "主機名稱"
 
-#: src/templates/index.mas:37 src/templates/index.mas:38
-#: src/templates/index.mas:39 src/templates/edit.mas:40
-#: src/templates/edit.mas:41 src/templates/edit.mas:42
-#: src/templates/edit.mas:74 src/templates/edit.mas:75
-#: src/templates/edit.mas:76
-msgid "Add"
-msgstr "新增"
+#: src/EBox/Model/HostnameTable.pm:223
+msgid "host name"
+msgstr "主機名稱"
 
-#: src/templates/index.mas:49
-msgid "Edit"
-msgstr "編輯"
+#: src/EBox/Model/DNSComposite.pm:77
+msgid "The DNS server allows you to resolve names for your own domains."
+msgstr "DNS 伺服器允許您對閣下的網域進行解析."
 
-#: src/templates/index.mas:53 src/templates/index.mas:54
-#: src/templates/edit.mas:54 src/templates/edit.mas:55
-#: src/templates/edit.mas:93 src/templates/edit.mas:94
-msgid "Delete"
-msgstr "刪除"
+#: src/EBox/DNS.pm.in:517
+msgid "main bind9 configuration file"
+msgstr "bind9 主要設置檔"
 
-#: src/templates/index.mas:65
-msgid "edit"
-msgstr "編輯"
+#: src/EBox/DNS.pm.in:522
+msgid "bind9 options configuration file"
+msgstr "bind9 options 設置檔"
 
-#: src/templates/index.mas:70 src/templates/edit.mas:110
-msgid "delete"
-msgstr "刪除"
+#: src/EBox/DNS.pm.in:527
+msgid "local bind9 configuration file"
+msgstr "bind9 local 設置檔"
+
+#: src/EBox/DNS.pm.in:532
+#, fuzzy
+msgid "Keys configuration file"
+msgstr "金鑰設置檔"
+
+#: src/EBox/DNS.pm.in:549
+#, perl-brace-format
+msgid "configuration file for zone {zone}"
+msgstr "{zone} 網域設置檔"
+
+#: src/EBox/DNS.pm.in:565
+#, perl-brace-format
+msgid "configuration file for reverse resolution zone {zone}"
+msgstr "{zone} 網域反解設置檔"
+
+#: src/EBox/DNS.pm.in:583
+#, perl-brace-format
+msgid "Change the permissions for {dir} to allow writing to bind group"
+msgstr "修改 {dir} 的權限, 讓 bind 群組可作寫入"
+
+#: src/EBox/DNS.pm.in:585
+msgid "Let the bind daemon to be dynamically updated"
+msgstr "讓 bind 服務可作動態更新"
 
 #: src/templates/edit.mas:12
 #, perl-brace-format
@@ -269,3 +232,41 @@ msgstr "網域的主機列表 {domain}"
 #: src/templates/edit.mas:17
 msgid "IP"
 msgstr "IP"
+
+#: src/templates/edit.mas:23 src/templates/index.mas:24
+msgid "Action"
+msgstr "動作"
+
+#: src/templates/edit.mas:40 src/templates/edit.mas:41
+#: src/templates/edit.mas:42 src/templates/edit.mas:74
+#: src/templates/edit.mas:75 src/templates/edit.mas:76
+#: src/templates/index.mas:37 src/templates/index.mas:38
+#: src/templates/index.mas:39
+msgid "Add"
+msgstr "新增"
+
+#: src/templates/edit.mas:54 src/templates/edit.mas:55
+#: src/templates/edit.mas:93 src/templates/edit.mas:94
+#: src/templates/index.mas:53 src/templates/index.mas:54
+msgid "Delete"
+msgstr "刪除"
+
+#: src/templates/edit.mas:110 src/templates/index.mas:70
+msgid "delete"
+msgstr "刪除"
+
+#: src/templates/index.mas:16
+msgid "Domain list"
+msgstr "網域列表"
+
+#: src/templates/index.mas:21
+msgid "Name"
+msgstr "名稱"
+
+#: src/templates/index.mas:49
+msgid "Edit"
+msgstr "編輯"
+
+#: src/templates/index.mas:65
+msgid "edit"
+msgstr "編輯"

@@ -6,10 +6,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-usersandgroups 0.12\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-12-13 09:37+0100\n"
+"POT-Creation-Date: 2010-12-18 01:45+0100\n"
 "PO-Revision-Date: 2010-08-31 17:52+0200\n"
 "Last-Translator: jaume ponsa <jaume@calidae.net>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -19,116 +20,6 @@ msgstr ""
 #: migration/0001_usercorner_add_webserver_service.pl:69
 msgid "User Corner Web Server"
 msgstr "Servidor Web del Racó de l'usuari"
-
-#: src/EBox/LdapUserImplementation.pm:42
-msgid "This group contains users"
-msgstr "Aquest grup conté usuaris"
-
-#: src/EBox/CGI/User.pm:42 src/EBox/CGI/User.pm:62 src/EBox/CGI/Groups.pm:52
-#: src/EBox/CGI/Users.pm:31 src/EBox/CGI/Users.pm:56
-#: src/EBox/UsersAndGroups/Model/Users.pm:77 src/EBox/UsersAndGroups.pm:2394
-#: src/EBox/UsersAndGroups.pm:2402
-msgid "Users"
-msgstr "Usuaris"
-
-#: src/EBox/CGI/User.pm:46
-msgid "username"
-msgstr "nom d'usuari"
-
-#: src/EBox/CGI/AddGroupToUser.pm:45 src/EBox/CGI/AddUserToGroup.pm:49
-#: src/EBox/CGI/DelUserFromGroup.pm:50 src/EBox/CGI/DelGroupFromUser.pm:45
-#: src/EBox/UsersAndGroups/Model/Users.pm:84
-msgid "user"
-msgstr "usuari"
-
-#: src/EBox/CGI/AddGroupToUser.pm:50 src/EBox/CGI/Group.pm:45
-#: src/EBox/CGI/AddUserToGroup.pm:44 src/EBox/CGI/DelUserFromGroup.pm:45
-#: src/EBox/CGI/DelGroupFromUser.pm:50
-#: src/EBox/UsersAndGroups/Model/Groups.pm:84
-msgid "group"
-msgstr "grup"
-
-#: src/EBox/CGI/Group.pm:30
-msgid "Edit group"
-msgstr "Editar grup"
-
-#: src/EBox/CGI/Group.pm:61 src/EBox/CGI/Groups.pm:43
-#: src/EBox/UsersAndGroups/Model/Groups.pm:76 src/EBox/UsersAndGroups.pm:2396
-#: src/EBox/UsersAndGroups.pm:2405
-msgid "Groups"
-msgstr "Grups"
-
-#: src/EBox/CGI/ModifyGroup.pm:40 src/EBox/CGI/AddGroup.pm:45
-#: src/EBox/UsersAndGroups.pm:1498 src/EBox/UsersAndGroups.pm:1503
-#: src/EBox/UsersAndGroups.pm:1696 src/EBox/UsersAndGroups.pm:1846
-#: src/EBox/UsersAndGroups.pm:1880 src/EBox/UsersAndGroups.pm:1997
-#: src/EBox/UsersAndGroups.pm:2100
-msgid "group name"
-msgstr "nom del grup"
-
-#: src/EBox/CGI/ModifyGroup.pm:47 src/EBox/CGI/ModifyUser.pm:48
-#: src/EBox/CGI/AddUser.pm:47
-msgid "comment"
-msgstr "comentari"
-
-#: src/EBox/CGI/ModifyUser.pm:42 src/EBox/CGI/AddUser.pm:45
-#: src/EBox/UsersAndGroups.pm:851 src/EBox/UsersAndGroups.pm:857
-#: src/EBox/UsersAndGroups.pm:1099 src/EBox/UsersAndGroups.pm:1149
-#: src/EBox/UsersAndGroups.pm:1201 src/EBox/UsersAndGroups.pm:1662
-#: src/EBox/UsersAndGroups.pm:1740 src/EBox/UsersAndGroups.pm:1841
-#: src/EBox/UsersAndGroups.pm:1875 src/EBox/UsersAndGroups.pm:1946
-msgid "user name"
-msgstr "nom de l'usuari"
-
-#: src/EBox/CGI/ModifyUser.pm:47 src/EBox/CGI/AddUser.pm:46
-msgid "last name"
-msgstr "cognom"
-
-#: src/EBox/CGI/ModifyUser.pm:49
-msgid "password"
-msgstr "clau d'accés"
-
-#: src/EBox/CGI/ModifyUser.pm:50
-msgid "confirm password"
-msgstr "confirma la clau d'accés"
-
-#: src/EBox/CGI/ModifyUser.pm:76 src/EBox/CGI/AddUser.pm:73
-#: src/EBox/UsersAndGroups/Model/Password.pm:98
-msgid "Passwords do not match."
-msgstr "Les claus d'accés no coincideixen."
-
-#: src/EBox/CGI/Del.pm:65
-msgid "object name"
-msgstr "nom de l'objecte"
-
-#: src/EBox/CGI/Del.pm:70
-msgid "object type"
-msgstr "tipus d'objecte"
-
-#: src/EBox/CGI/Del.pm:90
-msgid "User removed successfully"
-msgstr "Usuari eliminat correctament"
-
-#: src/EBox/CGI/Del.pm:94
-msgid "Group removed successfully"
-msgstr "Grup eliminat correctament"
-
-#: src/EBox/UserCornerWebServer.pm:39
-#: src/EBox/UserCornerWebServer/Model/Settings.pm:45
-msgid "User Corner"
-msgstr "Racó d'usuari"
-
-#: src/EBox/UserCornerWebServer.pm:65
-msgid "Migrate configured modules"
-msgstr "Migrar els mòduls configurats"
-
-#: src/EBox/UserCornerWebServer.pm:66
-msgid "Required for usercorner access to configured modules"
-msgstr "Requerit per l'accés al racó de l'usuari als mòduls configurats"
-
-#: src/EBox/UserCornerWebServer.pm:179
-msgid "User Corner web server"
-msgstr "Servidor web del racó de l'usuari"
 
 #: src/EBox/UsersAndGroups/Model/PendingSync.pm:59
 #: src/EBox/UsersAndGroups/Model/Mode.pm:70
@@ -168,6 +59,33 @@ msgstr "Ha d'activar el mòdul d'Usuaris al servidor principal."
 #: src/EBox/UsersAndGroups/Model/PendingSync.pm:131
 msgid "There are no pending operations at the moment."
 msgstr "No hi ha operacions pendents."
+
+#: src/EBox/UsersAndGroups/Model/PAM.pm:82
+#, perl-brace-format
+msgid ""
+"PAM can not be enabled on slave servers while acting as PDC. You can disable "
+"the PDC functionality at {ohref}File sharing options{chref}."
+msgstr ""
+
+#: src/EBox/UsersAndGroups/Model/PAM.pm:125
+msgid "Enable PAM"
+msgstr "Activar PAM"
+
+#: src/EBox/UsersAndGroups/Model/PAM.pm:128
+msgid "Make LDAP users have system account."
+msgstr "Fer que els usuaris d'LDAP tinguin conta de sistema."
+
+#: src/EBox/UsersAndGroups/Model/PAM.pm:136
+msgid "Default login shell"
+msgstr "Shell d'entrada per defecte"
+
+#: src/EBox/UsersAndGroups/Model/PAM.pm:140
+msgid "This will apply only to new users from now on."
+msgstr "Això s'aplicarà només als nous usuaris a partir d'ara."
+
+#: src/EBox/UsersAndGroups/Model/PAM.pm:147
+msgid "PAM settings"
+msgstr "Configuració PAM"
 
 #: src/EBox/UsersAndGroups/Model/ADSyncSettings.pm:65
 msgid "AD user"
@@ -213,7 +131,150 @@ msgstr "Configuració de sincronització AD amb windows"
 msgid "The secret key needs to have 16 characters."
 msgstr "La clau secreta ha de tenir 16 caràcters"
 
-#: src/EBox/UsersAndGroups/Model/Mode.pm:67 src/EBox/UsersAndGroups.pm:2427
+#: src/EBox/UsersAndGroups/Model/Groups.pm:58
+#: src/EBox/UsersAndGroups/Model/Users.pm:59
+msgid "Name"
+msgstr "Nom"
+
+#: src/EBox/UsersAndGroups/Model/Groups.pm:63
+msgid "Description"
+msgstr "Descripció"
+
+#: src/EBox/UsersAndGroups/Model/Groups.pm:68
+#: src/EBox/UsersAndGroups/Model/Users.pm:69
+msgid "Edit"
+msgstr "Edició"
+
+#: src/EBox/UsersAndGroups/Model/Groups.pm:76 src/EBox/UsersAndGroups.pm:2398
+#: src/EBox/UsersAndGroups.pm:2407 src/EBox/CGI/Groups.pm:43
+#: src/EBox/CGI/Group.pm:61
+msgid "Groups"
+msgstr "Grups"
+
+#: src/EBox/UsersAndGroups/Model/Groups.pm:84
+#: src/EBox/CGI/AddUserToGroup.pm:44 src/EBox/CGI/DelGroupFromUser.pm:50
+#: src/EBox/CGI/Group.pm:45 src/EBox/CGI/DelUserFromGroup.pm:45
+#: src/EBox/CGI/AddGroupToUser.pm:50
+msgid "group"
+msgstr "grup"
+
+#: src/EBox/UsersAndGroups/Model/Groups.pm:129
+#: src/EBox/UsersAndGroups/Model/Users.pm:127
+msgid ""
+"You must enable the module Users in the module status section in order to "
+"use it."
+msgstr ""
+"Ha d'activar el mòdul d'Usuaris a la secció d'estat del mòdul per poder usar-"
+"lo."
+
+#: src/EBox/UsersAndGroups/Model/Groups.pm:135
+msgid "There are no groups at the moment"
+msgstr "No hi ha grups en aquest moment"
+
+#: src/EBox/UsersAndGroups/Model/Groups.pm:138
+#, perl-brace-format
+msgid ""
+"Zentyal is configured as slave and there are no groups at the moment. You "
+"may want to add some in the {openhref}master{closehref}."
+msgstr ""
+"El Zentyal està configurat com esclau i no hi ha grups ara mateix. Pot "
+"afegir-ne a {openhref}mestre{closehref}."
+
+#: src/EBox/UsersAndGroups/Model/Groups.pm:142
+msgid ""
+"Zentyal is configured as Windows AD slave and there are no groups at the "
+"moment. If there are groups in your Domain Controller, maybe the "
+"synchronization process has failed or has not finished yet."
+msgstr ""
+"El Zentyal està configurat com esclau del Windows AD i no hi ha grups ara "
+"mateix. Si hi ha grups al controlador de domini, potser ha fallat el procés "
+"de sincronització o no ha acabat encara."
+
+#: src/EBox/UsersAndGroups/Model/ForceSync.pm:90
+msgid "Force sync"
+msgstr "Forçar la sincronització"
+
+#: src/EBox/UsersAndGroups/Model/ForceSync.pm:92
+msgid "on slaves"
+msgstr "als esclaus"
+
+#: src/EBox/UsersAndGroups/Model/ForceSync.pm:98
+msgid "Force sync of pending operations"
+msgstr "Forçar la sincronització d'operacions pendents"
+
+#: src/EBox/UsersAndGroups/Model/ForceSync.pm:101
+msgid "Sync now"
+msgstr "Sincronitzar ara"
+
+#: src/EBox/UsersAndGroups/Model/Users.pm:64
+msgid "Full name"
+msgstr "Nom complet "
+
+#: src/EBox/UsersAndGroups/Model/Users.pm:77 src/EBox/UsersAndGroups.pm:2396
+#: src/EBox/UsersAndGroups.pm:2404 src/EBox/CGI/User.pm:42
+#: src/EBox/CGI/User.pm:62 src/EBox/CGI/Groups.pm:52 src/EBox/CGI/Users.pm:31
+#: src/EBox/CGI/Users.pm:56
+msgid "Users"
+msgstr "Usuaris"
+
+#: src/EBox/UsersAndGroups/Model/Users.pm:84 src/EBox/CGI/AddUserToGroup.pm:49
+#: src/EBox/CGI/DelGroupFromUser.pm:45 src/EBox/CGI/DelUserFromGroup.pm:50
+#: src/EBox/CGI/AddGroupToUser.pm:45
+msgid "user"
+msgstr "usuari"
+
+#: src/EBox/UsersAndGroups/Model/Users.pm:133
+msgid "There are no users at the moment"
+msgstr "No hi ha usuaris ara mateix"
+
+#: src/EBox/UsersAndGroups/Model/Users.pm:136
+#, perl-brace-format
+msgid ""
+"Zentyal is configured as slave and there are no users at the moment. You may "
+"want to add some in the {openhref}master{closehref}."
+msgstr ""
+"El Zentyal està configurat com esclau i no hi ha usuaris ara mateix. Potser "
+"vol afegir-los a {openhref}mestre{closehref}."
+
+#: src/EBox/UsersAndGroups/Model/Users.pm:140
+msgid ""
+"Zentyal is configured as Windows AD slave and there are no users at the "
+"moment. If there are users in your Domain Controller, maybe the "
+"synchronization process has failed or has not finished yet."
+msgstr ""
+"El Zentyal està configurat com esclau de windows AD i no hi ha usuaris ara "
+"mateix. Si hi ha usuaris al controlador de domini, potser el procés de "
+"sincronització ha fallat o no ha acabat encara."
+
+#: src/EBox/UsersAndGroups/Model/Password.pm:49
+msgid "Password management"
+msgstr "Configuració de la clau d'accés"
+
+#: src/EBox/UsersAndGroups/Model/Password.pm:59
+msgid "New password"
+msgstr "Nova clau d'accés"
+
+#: src/EBox/UsersAndGroups/Model/Password.pm:66
+msgid "Re-type new password"
+msgstr "Torni a introduir la clau d'accés"
+
+#: src/EBox/UsersAndGroups/Model/Password.pm:75
+#: src/EBox/UsersAndGroups/Model/LdapInfo.pm:78 src/EBox/UsersAndGroups.pm:872
+#: src/EBox/UsersAndGroups.pm:2443 src/templates/user.mas:52
+#: src/templates/usercorner/login/index.mas:34 src/templates/users.mas:49
+msgid "Password"
+msgstr "Clau d'accés"
+
+#: src/EBox/UsersAndGroups/Model/Password.pm:98 src/EBox/CGI/AddUser.pm:73
+#: src/EBox/CGI/ModifyUser.pm:76
+msgid "Passwords do not match."
+msgstr "Les claus d'accés no coincideixen."
+
+#: src/EBox/UsersAndGroups/Model/Password.pm:117
+msgid "Password successfully updated"
+msgstr "La clau d'accés s'ha actualitzat correctament"
+
+#: src/EBox/UsersAndGroups/Model/Mode.pm:67 src/EBox/UsersAndGroups.pm:2429
 msgid "Mode"
 msgstr "Mode"
 
@@ -257,118 +318,6 @@ msgstr "Configuració"
 msgid "Zentyal Users Mode"
 msgstr "Mode d'usuaris del Zentyal"
 
-#: src/EBox/UsersAndGroups/Model/Groups.pm:58
-#: src/EBox/UsersAndGroups/Model/Users.pm:59
-msgid "Name"
-msgstr "Nom"
-
-#: src/EBox/UsersAndGroups/Model/Groups.pm:63
-msgid "Description"
-msgstr "Descripció"
-
-#: src/EBox/UsersAndGroups/Model/Groups.pm:68
-#: src/EBox/UsersAndGroups/Model/Users.pm:69
-msgid "Edit"
-msgstr "Edició"
-
-#: src/EBox/UsersAndGroups/Model/Groups.pm:129
-#: src/EBox/UsersAndGroups/Model/Users.pm:127
-msgid ""
-"You must enable the module Users in the module status section in order to "
-"use it."
-msgstr ""
-"Ha d'activar el mòdul d'Usuaris a la secció d'estat del mòdul per poder usar-"
-"lo."
-
-#: src/EBox/UsersAndGroups/Model/Groups.pm:135
-msgid "There are no groups at the moment"
-msgstr "No hi ha grups en aquest moment"
-
-#: src/EBox/UsersAndGroups/Model/Groups.pm:138
-#, perl-brace-format
-msgid ""
-"Zentyal is configured as slave and there are no groups at the moment. You "
-"may want to add some in the {openhref}master{closehref}."
-msgstr ""
-"El Zentyal està configurat com esclau i no hi ha grups ara mateix. Pot "
-"afegir-ne a {openhref}mestre{closehref}."
-
-#: src/EBox/UsersAndGroups/Model/Groups.pm:142
-msgid ""
-"Zentyal is configured as Windows AD slave and there are no groups at the "
-"moment. If there are groups in your Domain Controller, maybe the "
-"synchronization process has failed or has not finished yet."
-msgstr ""
-"El Zentyal està configurat com esclau del Windows AD i no hi ha grups ara "
-"mateix. Si hi ha grups al controlador de domini, potser ha fallat el procés "
-"de sincronització o no ha acabat encara."
-
-#: src/EBox/UsersAndGroups/Model/PAM.pm:82
-#, perl-brace-format
-msgid ""
-"PAM can not be enabled on slave servers while acting as PDC. You can disable "
-"the PDC functionality at {ohref}File sharing options{chref}."
-msgstr ""
-
-#: src/EBox/UsersAndGroups/Model/PAM.pm:125
-msgid "Enable PAM"
-msgstr "Activar PAM"
-
-#: src/EBox/UsersAndGroups/Model/PAM.pm:128
-msgid "Make LDAP users have system account."
-msgstr "Fer que els usuaris d'LDAP tinguin conta de sistema."
-
-#: src/EBox/UsersAndGroups/Model/PAM.pm:136
-msgid "Default login shell"
-msgstr "Shell d'entrada per defecte"
-
-#: src/EBox/UsersAndGroups/Model/PAM.pm:140
-msgid "This will apply only to new users from now on."
-msgstr "Això s'aplicarà només als nous usuaris a partir d'ara."
-
-#: src/EBox/UsersAndGroups/Model/PAM.pm:147
-msgid "PAM settings"
-msgstr "Configuració PAM"
-
-#: src/EBox/UsersAndGroups/Model/Password.pm:49
-msgid "Password management"
-msgstr "Configuració de la clau d'accés"
-
-#: src/EBox/UsersAndGroups/Model/Password.pm:59
-msgid "New password"
-msgstr "Nova clau d'accés"
-
-#: src/EBox/UsersAndGroups/Model/Password.pm:66
-msgid "Re-type new password"
-msgstr "Torni a introduir la clau d'accés"
-
-#: src/EBox/UsersAndGroups/Model/Password.pm:75
-#: src/EBox/UsersAndGroups/Model/LdapInfo.pm:78 src/EBox/UsersAndGroups.pm:870
-#: src/EBox/UsersAndGroups.pm:2441 src/templates/users.mas:49
-#: src/templates/user.mas:52 src/templates/usercorner/login/index.mas:34
-msgid "Password"
-msgstr "Clau d'accés"
-
-#: src/EBox/UsersAndGroups/Model/Password.pm:117
-msgid "Password successfully updated"
-msgstr "La clau d'accés s'ha actualitzat correctament"
-
-#: src/EBox/UsersAndGroups/Model/ForceSync.pm:90
-msgid "Force sync"
-msgstr "Forçar la sincronització"
-
-#: src/EBox/UsersAndGroups/Model/ForceSync.pm:92
-msgid "on slaves"
-msgstr "als esclaus"
-
-#: src/EBox/UsersAndGroups/Model/ForceSync.pm:98
-msgid "Force sync of pending operations"
-msgstr "Forçar la sincronització d'operacions pendents"
-
-#: src/EBox/UsersAndGroups/Model/ForceSync.pm:101
-msgid "Sync now"
-msgstr "Sincronitzar ara"
-
 #: src/EBox/UsersAndGroups/Model/LdapInfo.pm:66
 msgid "Base DN"
 msgstr "DN Base"
@@ -395,33 +344,6 @@ msgid ""
 msgstr ""
 "Ha d'activar el mòdul d'usuaris i grups per accedir a la informació de l'LDAP"
 
-#: src/EBox/UsersAndGroups/Model/Users.pm:64
-msgid "Full name"
-msgstr "Nom complet "
-
-#: src/EBox/UsersAndGroups/Model/Users.pm:133
-msgid "There are no users at the moment"
-msgstr "No hi ha usuaris ara mateix"
-
-#: src/EBox/UsersAndGroups/Model/Users.pm:136
-#, perl-brace-format
-msgid ""
-"Zentyal is configured as slave and there are no users at the moment. You may "
-"want to add some in the {openhref}master{closehref}."
-msgstr ""
-"El Zentyal està configurat com esclau i no hi ha usuaris ara mateix. Potser "
-"vol afegir-los a {openhref}mestre{closehref}."
-
-#: src/EBox/UsersAndGroups/Model/Users.pm:140
-msgid ""
-"Zentyal is configured as Windows AD slave and there are no users at the "
-"moment. If there are users in your Domain Controller, maybe the "
-"synchronization process has failed or has not finished yet."
-msgstr ""
-"El Zentyal està configurat com esclau de windows AD i no hi ha usuaris ara "
-"mateix. Si hi ha usuaris al controlador de domini, potser el procés de "
-"sincronització ha fallat o no ha acabat encara."
-
 #: src/EBox/UsersAndGroups/Model/Slaves.pm:60
 #: src/EBox/UserCornerWebServer/Model/Settings.pm:55
 msgid "Port"
@@ -445,7 +367,7 @@ msgid "There are no slaves at the moment."
 msgstr "No hi ha esclaus."
 
 #: src/EBox/UsersAndGroups/Composite/SlaveInfo.pm:73
-#: src/EBox/UsersAndGroups.pm:2417
+#: src/EBox/UsersAndGroups.pm:2419
 msgid "Slave Status"
 msgstr "Estat dels esclaus."
 
@@ -460,14 +382,18 @@ msgid "There isn't any configurable option."
 msgstr "No hi ha opcions configurables."
 
 #: src/EBox/UsersAndGroups/Composite/UserTemplate.pm:86
-#: src/EBox/UsersAndGroups.pm:2398 src/EBox/UsersAndGroups.pm:2407
+#: src/EBox/UsersAndGroups.pm:2400 src/EBox/UsersAndGroups.pm:2409
 msgid "User Template"
 msgstr "Plantilla d'usuari"
 
 #: src/EBox/UsersAndGroups/Composite/Settings.pm:70
-#: src/EBox/UsersAndGroups.pm:2412
+#: src/EBox/UsersAndGroups.pm:2414
 msgid "LDAP Settings"
 msgstr "Configuració LDAP"
+
+#: src/EBox/LdapUserImplementation.pm:42
+msgid "This group contains users"
+msgstr "Aquest grup conté usuaris"
 
 #: src/EBox/UsersAndGroups.pm:82 src/templates/Wizard/users.mas:4
 msgid "Users and Groups"
@@ -558,71 +484,88 @@ msgstr ""
 "Per copiar la clau d'accés a l'LDAP generada pel Zentyal i permetre altres "
 "mòduls accedir a l'LDAP."
 
-#: src/EBox/UsersAndGroups.pm:841
+#: src/EBox/UsersAndGroups.pm:843
 #, perl-brace-format
 msgid "Username must not be longer than {maxuserlength} characters"
 msgstr "El nom d'usuari no pot ser més llarg de {maxuserlength} caràcters "
 
-#: src/EBox/UsersAndGroups.pm:846
+#: src/EBox/UsersAndGroups.pm:848
 msgid "Username already exists on the system"
 msgstr "Aquest usuari ja existeix al sistema"
 
-#: src/EBox/UsersAndGroups.pm:946 src/EBox/UsersAndGroups.pm:1562
+#: src/EBox/UsersAndGroups.pm:853 src/EBox/UsersAndGroups.pm:859
+#: src/EBox/UsersAndGroups.pm:1101 src/EBox/UsersAndGroups.pm:1151
+#: src/EBox/UsersAndGroups.pm:1203 src/EBox/UsersAndGroups.pm:1664
+#: src/EBox/UsersAndGroups.pm:1742 src/EBox/UsersAndGroups.pm:1843
+#: src/EBox/UsersAndGroups.pm:1877 src/EBox/UsersAndGroups.pm:1948
+#: src/EBox/CGI/AddUser.pm:45 src/EBox/CGI/ModifyUser.pm:42
+msgid "user name"
+msgstr "nom de l'usuari"
+
+#: src/EBox/UsersAndGroups.pm:948 src/EBox/UsersAndGroups.pm:1564
 msgid "Maximum number of system users reached"
 msgstr "Ha superat el nombre màxim d'usuaris del sistema"
 
-#: src/EBox/UsersAndGroups.pm:963
+#: src/EBox/UsersAndGroups.pm:965
 #, perl-brace-format
 msgid ""
 "Incorrect UID {uid} for a user . UID must be equal or greater than {min}"
 msgstr ""
 "UID {uid} incorrecte per l'usuari. l'UID ha de ser igual o més gran que {min}"
 
-#: src/EBox/UsersAndGroups.pm:974
+#: src/EBox/UsersAndGroups.pm:976
 #, perl-brace-format
 msgid "Incorrect UID {uid} for a system user . UID must be lesser than {max}"
 msgstr ""
 "UID {uid} incorrecte per un usuari de sistema. l'UID ha de ser més petit que "
 "{max}"
 
-#: src/EBox/UsersAndGroups.pm:1486
+#: src/EBox/UsersAndGroups.pm:1488
 #, perl-brace-format
 msgid "Groupname must not be longer than {maxGroupLength} characters"
 msgstr "El nom del grup no pot ser més llarg que {maxGroupLength}  caràcters "
 
-#: src/EBox/UsersAndGroups.pm:1492
+#: src/EBox/UsersAndGroups.pm:1494
 msgid "The group name is not valid because it is used internally"
 msgstr "El nom del grup no és vàlid perquè es fa servir internament"
 
-#: src/EBox/UsersAndGroups.pm:1579
+#: src/EBox/UsersAndGroups.pm:1500 src/EBox/UsersAndGroups.pm:1505
+#: src/EBox/UsersAndGroups.pm:1698 src/EBox/UsersAndGroups.pm:1848
+#: src/EBox/UsersAndGroups.pm:1882 src/EBox/UsersAndGroups.pm:1999
+#: src/EBox/UsersAndGroups.pm:2102 src/EBox/CGI/AddGroup.pm:45
+#: src/EBox/CGI/ModifyGroup.pm:40
+msgid "group name"
+msgstr "nom del grup"
+
+#: src/EBox/UsersAndGroups.pm:1581
 #, perl-brace-format
 msgid ""
 "Incorrect GID {gid} for a group . GID must be equal or greater than {min}"
 msgstr ""
 "GID  {gid} incorrecte pel grup. El GID ha de ser igual o més gran que {min}"
 
-#: src/EBox/UsersAndGroups.pm:1589
+#: src/EBox/UsersAndGroups.pm:1591
 #, perl-brace-format
 msgid "Incorrect GID {gid} for a system group . GID must be lesser than {max}"
 msgstr ""
 "GID  {gid} incorrecte per un grup de sistema. El GID ha de ser més petit que "
 "{max}"
 
-#: src/EBox/UsersAndGroups.pm:2176
+#: src/EBox/UsersAndGroups.pm:2178
 #, perl-brace-format
 msgid "Password must not be longer than {maxPwdLength} characters"
 msgstr "La clau d'accés no pot ser més gran de {maxPwdLength} caràcters"
 
-#: src/EBox/UsersAndGroups.pm:2421
+#: src/EBox/UsersAndGroups.pm:2423
 msgid "AD Sync Settings"
 msgstr "Configuració Sincronització AD"
 
-#: src/EBox/UsersAndGroups.pm:2697
+#: src/EBox/UsersAndGroups.pm:2711
 #, perl-brace-format
 msgid "A host with the name {host} is already registered in this Zentyal"
 msgstr "El host amb el nom {host} ja està registrat."
 
-#: src/EBox/UsersAndGroups.pm:2821
+#: src/EBox/UsersAndGroups.pm:2835
 msgid "Replication failed"
 msgstr "Ha fallat la replicació"
 
@@ -654,6 +597,23 @@ msgstr "Ha estat exclòs de la sessió perquè se n'ha obert una altra de nova."
 msgid "You are not logged in"
 msgstr "No està validat"
 
+#: src/EBox/UserCornerWebServer.pm:39
+#: src/EBox/UserCornerWebServer/Model/Settings.pm:45
+msgid "User Corner"
+msgstr "Racó d'usuari"
+
+#: src/EBox/UserCornerWebServer.pm:65
+msgid "Migrate configured modules"
+msgstr "Migrar els mòduls configurats"
+
+#: src/EBox/UserCornerWebServer.pm:66
+msgid "Required for usercorner access to configured modules"
+msgstr "Requerit per l'accés al racó de l'usuari als mòduls configurats"
+
+#: src/EBox/UserCornerWebServer.pm:179
+msgid "User Corner web server"
+msgstr "Servidor web del racó de l'usuari"
+
 #: src/EBox/UserCornerWebServer/Model/Settings.pm:63
 msgid "General configuration"
 msgstr "Configuració general"
@@ -666,33 +626,46 @@ msgstr "port d'escolta"
 msgid "User Corner is not supported on slave servers."
 msgstr ""
 
-#: src/templates/ajax/tableUser.mas:88
-msgid "Add new"
-msgstr "Afegir nou"
+#: src/EBox/CGI/AddUser.pm:46 src/EBox/CGI/ModifyUser.pm:47
+msgid "last name"
+msgstr "cognom"
 
-#: src/templates/del.mas:15
-msgid ""
-"The user you tried to delete contains data in the following modules. Please "
-"confirm you want to remove it and all its related data"
-msgstr ""
-"L'usuari que intenta eliminar té dades als següents mòduls. Si us plau "
-"confirmi que el vol eliminar junt amb les dades relacionades"
+#: src/EBox/CGI/AddUser.pm:47 src/EBox/CGI/ModifyGroup.pm:47
+#: src/EBox/CGI/ModifyUser.pm:48
+msgid "comment"
+msgstr "comentari"
 
-#: src/templates/del.mas:20
-msgid ""
-"The group you tried to delete contains data in the following modules. Please "
-"confirm you want to remove it and all its related data"
-msgstr ""
-"El grup que intenta eliminar té dades als següents mòduls. Si us plau "
-"confirmi que el vol eliminar junt amb les dades relacionades"
+#: src/EBox/CGI/User.pm:46
+msgid "username"
+msgstr "nom d'usuari"
 
-#: src/templates/del.mas:43
-msgid "Delete"
-msgstr "Eliminar"
+#: src/EBox/CGI/ModifyUser.pm:49
+msgid "password"
+msgstr "clau d'accés"
 
-#: src/templates/del.mas:46
-msgid "Cancel"
-msgstr "Cancel·lar"
+#: src/EBox/CGI/ModifyUser.pm:50
+msgid "confirm password"
+msgstr "confirma la clau d'accés"
+
+#: src/EBox/CGI/Group.pm:30
+msgid "Edit group"
+msgstr "Editar grup"
+
+#: src/EBox/CGI/Del.pm:65
+msgid "object name"
+msgstr "nom de l'objecte"
+
+#: src/EBox/CGI/Del.pm:70
+msgid "object type"
+msgstr "tipus d'objecte"
+
+#: src/EBox/CGI/Del.pm:90
+msgid "User removed successfully"
+msgstr "Usuari eliminat correctament"
+
+#: src/EBox/CGI/Del.pm:94
+msgid "Group removed successfully"
+msgstr "Grup eliminat correctament"
 
 #: src/templates/Wizard/users.mas:7
 msgid "Select the type of the server"
@@ -723,108 +696,27 @@ msgstr ""
 "Si necessita funcionalitats avançades ho ha de configurar manualment. Pot "
 "trobar {open}tota la informació al wiki{close}"
 
-#: src/templates/groups.mas:10
-msgid "Add Group"
-msgstr "Afegir grup"
-
-#: src/templates/groups.mas:16
-msgid "Group name"
-msgstr "Nom del grup"
-
-#: src/templates/groups.mas:26 src/templates/users.mas:41
-#: src/templates/group.mas:20 src/templates/user.mas:41
-msgid "Comment"
-msgstr "Comentari"
-
-#: src/templates/groups.mas:31
-msgid "Optional value"
-msgstr "Valor opcional"
-
-#: src/templates/groups.mas:38 src/templates/groups.mas:39
-#: src/templates/users.mas:73 src/templates/users.mas:74
-msgid "Add and Edit"
-msgstr "Afegir i Editar"
-
-#: src/templates/groups.mas:41 src/templates/groups.mas:42
-#: src/templates/users.mas:69 src/templates/users.mas:70
-msgid "Add"
-msgstr "Afegir"
-
-#: src/templates/users.mas:12
-msgid "Add User"
-msgstr "Afegir usuari"
-
-#: src/templates/users.mas:17 src/templates/usercorner/login/index.mas:29
-msgid "User name"
-msgstr "Nom d'usuari"
-
-#: src/templates/users.mas:25 src/templates/user.mas:21
+#: src/templates/user.mas:21 src/templates/users.mas:25
 msgid "First name"
 msgstr "Nom"
 
-#: src/templates/users.mas:33 src/templates/user.mas:31
+#: src/templates/user.mas:31 src/templates/users.mas:33
 msgid "Last name"
 msgstr "Cognom"
 
-#: src/templates/users.mas:56 src/templates/user.mas:62
+#: src/templates/user.mas:41 src/templates/users.mas:41
+#: src/templates/group.mas:20 src/templates/groups.mas:26
+msgid "Comment"
+msgstr "Comentari"
+
+#: src/templates/user.mas:62 src/templates/users.mas:56
 msgid "Retype password"
 msgstr "Torni a escriu-re la clau d'accés"
 
-#: src/templates/users.mas:88
-msgid "Group"
-msgstr "Grup"
-
-#: src/templates/group.mas:14
-msgid ""
-"There are no users at the moment. You need at least one to manage this group "
-"properly."
-msgstr ""
-"No hi ha usuaris en aquest moment. En necessita al menys un per poder "
-"modificar el grup correctament."
-
-#: src/templates/group.mas:25 src/templates/group.mas:26
 #: src/templates/user.mas:74 src/templates/user.mas:75
+#: src/templates/group.mas:25 src/templates/group.mas:26
 msgid "Change"
 msgstr "Canvia "
-
-#: src/templates/group.mas:33
-msgid "Users in group"
-msgstr "Usuaris en el grup"
-
-#: src/templates/group.mas:35
-msgid "Users not in group"
-msgstr "Usuaris fora el grup"
-
-#: src/templates/group.mas:51 src/templates/group.mas:92
-#: src/templates/user.mas:106 src/templates/user.mas:141
-msgid "Empty list"
-msgstr "Llista buida"
-
-#: src/templates/group.mas:61 src/templates/user.mas:114
-msgid "Remove"
-msgstr "Elimina"
-
-#: src/templates/group.mas:64
-msgid "Remove users from group"
-msgstr "Treu usuaris del grup"
-
-#: src/templates/group.mas:75 src/templates/group.mas:78
-#: src/templates/user.mas:125 src/templates/user.mas:128
-msgid "Add users to group"
-msgstr "Afegeix usuaris al grup"
-
-#: src/templates/group.mas:108 src/templates/group.mas:117
-#: src/templates/group.mas:118
-msgid "Delete group"
-msgstr "Elimina el grup"
-
-#: src/templates/group.mas:110
-msgid ""
-"This operation will cause the removal of the group and all dependent data "
-"such as shared directory, etc."
-msgstr ""
-"Aquesta operació farà que s'elimini el grup i totes les dades dependents com "
-"un directori compartit, etc..."
 
 #: src/templates/user.mas:88
 msgid "User groups"
@@ -834,9 +726,23 @@ msgstr "Grups d'usuari"
 msgid "Other groups"
 msgstr "Altres grups"
 
+#: src/templates/user.mas:106 src/templates/user.mas:141
+#: src/templates/group.mas:51 src/templates/group.mas:92
+msgid "Empty list"
+msgstr "Llista buida"
+
+#: src/templates/user.mas:114 src/templates/group.mas:61
+msgid "Remove"
+msgstr "Elimina"
+
 #: src/templates/user.mas:117
 msgid "Remove groups from user"
 msgstr "Elimina grups de l'usuari"
+
+#: src/templates/user.mas:125 src/templates/user.mas:128
+#: src/templates/group.mas:75 src/templates/group.mas:78
+msgid "Add users to group"
+msgstr "Afegeix usuaris al grup"
 
 #: src/templates/user.mas:159 src/templates/user.mas:167
 #: src/templates/user.mas:168
@@ -851,14 +757,109 @@ msgstr ""
 "La operació farà que s'elimini l'usuari i totes les dades depenents com el "
 "correu, arxius, etc."
 
-#: src/templates/usercorner/headTitle.mas:11
-msgid "Logout"
-msgstr "Sortir"
+#: src/templates/del.mas:15
+msgid ""
+"The user you tried to delete contains data in the following modules. Please "
+"confirm you want to remove it and all its related data"
+msgstr ""
+"L'usuari que intenta eliminar té dades als següents mòduls. Si us plau "
+"confirmi que el vol eliminar junt amb les dades relacionades"
+
+#: src/templates/del.mas:20
+msgid ""
+"The group you tried to delete contains data in the following modules. Please "
+"confirm you want to remove it and all its related data"
+msgstr ""
+"El grup que intenta eliminar té dades als següents mòduls. Si us plau "
+"confirmi que el vol eliminar junt amb les dades relacionades"
+
+#: src/templates/del.mas:43
+msgid "Delete"
+msgstr "Eliminar"
+
+#: src/templates/del.mas:46
+msgid "Cancel"
+msgstr "Cancel·lar"
 
 #: src/templates/usercorner/login/index.mas:26
 msgid "Warning: Caps Lock is enabled"
 msgstr "Avís: La tecla de bloquejar majúscules està activa"
 
+#: src/templates/usercorner/login/index.mas:29 src/templates/users.mas:17
+msgid "User name"
+msgstr "Nom d'usuari"
+
 #: src/templates/usercorner/login/index.mas:41
 msgid "Enter"
 msgstr "Entrar"
+
+#: src/templates/usercorner/headTitle.mas:11
+msgid "Logout"
+msgstr "Sortir"
+
+#: src/templates/ajax/tableUser.mas:88
+msgid "Add new"
+msgstr "Afegir nou"
+
+#: src/templates/users.mas:12
+msgid "Add User"
+msgstr "Afegir usuari"
+
+#: src/templates/users.mas:69 src/templates/users.mas:70
+#: src/templates/groups.mas:41 src/templates/groups.mas:42
+msgid "Add"
+msgstr "Afegir"
+
+#: src/templates/users.mas:73 src/templates/users.mas:74
+#: src/templates/groups.mas:38 src/templates/groups.mas:39
+msgid "Add and Edit"
+msgstr "Afegir i Editar"
+
+#: src/templates/users.mas:88
+msgid "Group"
+msgstr "Grup"
+
+#: src/templates/group.mas:14
+msgid ""
+"There are no users at the moment. You need at least one to manage this group "
+"properly."
+msgstr ""
+"No hi ha usuaris en aquest moment. En necessita al menys un per poder "
+"modificar el grup correctament."
+
+#: src/templates/group.mas:33
+msgid "Users in group"
+msgstr "Usuaris en el grup"
+
+#: src/templates/group.mas:35
+msgid "Users not in group"
+msgstr "Usuaris fora el grup"
+
+#: src/templates/group.mas:64
+msgid "Remove users from group"
+msgstr "Treu usuaris del grup"
+
+#: src/templates/group.mas:108 src/templates/group.mas:117
+#: src/templates/group.mas:118
+msgid "Delete group"
+msgstr "Elimina el grup"
+
+#: src/templates/group.mas:110
+msgid ""
+"This operation will cause the removal of the group and all dependent data "
+"such as shared directory, etc."
+msgstr ""
+"Aquesta operació farà que s'elimini el grup i totes les dades dependents com "
+"un directori compartit, etc..."
+
+#: src/templates/groups.mas:10
+msgid "Add Group"
+msgstr "Afegir grup"
+
+#: src/templates/groups.mas:16
+msgid "Group name"
+msgstr "Nom del grup"
+
+#: src/templates/groups.mas:31
+msgid "Optional value"
+msgstr "Valor opcional"

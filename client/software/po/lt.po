@@ -8,15 +8,16 @@ msgstr ""
 "Project-Id-Version: ebox-software 2.0Report-Msgid-Bugs-To: "
 "developers@zentyal.org\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-12-13 08:43+0100\n"
+"POT-Creation-Date: 2010-12-18 01:45+0100\n"
 "PO-Revision-Date: 2010-12-06 21:25+0100\n"
 "Last-Translator: Vytautas <vytautas@lantraneta.lt>\n"
 "Language-Team: none\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n%"
-"100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n"
+"%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Pootle 1.1.0\n"
 
 #: migration/0001_add_http_software_rule.pl:39
@@ -89,14 +90,6 @@ msgstr "Pradinė konfigūracija"
 msgid "Save Changes"
 msgstr "Išsaugoti pakeitimus"
 
-#: src/EBox/CGI/Config.pm:31
-msgid "Software management settings"
-msgstr "Programų valdymo nustatymai"
-
-#: src/EBox/CGI/Config.pm:41
-msgid "Automatic software updates"
-msgstr "Automatiniai programų atnaujinimai"
-
 #: src/EBox/CGI/Enable.pm:41
 msgid "automatic updates configuration"
 msgstr "automatinių atnaujinimų konfigūracija"
@@ -111,6 +104,14 @@ msgstr "Pasirinkite eBox paketus instaliacijai"
 msgid "Zentyal components"
 msgstr "eBox komponentai"
 
+#: src/EBox/CGI/Config.pm:31
+msgid "Software management settings"
+msgstr "Programų valdymo nustatymai"
+
+#: src/EBox/CGI/Config.pm:41
+msgid "Automatic software updates"
+msgstr "Automatiniai programų atnaujinimai"
+
 #: src/EBox/CGI/Updates.pm:32
 msgid "System updates"
 msgstr "Sistemos atnaujinimai"
@@ -118,10 +119,6 @@ msgstr "Sistemos atnaujinimai"
 #: src/EBox/CGI/Updates.pm:59
 msgid "The system components are up to date."
 msgstr "Sistemos komponentai yra naujausios versijos"
-
-#: src/EBox/CGI/CurrentPackage.pm:31
-msgid "Upgrading"
-msgstr "Atnaujina"
 
 #: src/EBox/CGI/InstallPkgs.pm:100
 msgid "There were no packages to update"
@@ -189,43 +186,86 @@ msgid ""
 msgstr ""
 "Paketų šalinimas nepavyko. Daugiau informacijos rasite istorijos įrašuose"
 
-#: src/templates/ebox.mas:152 src/templates/ebox.mas:587
-#: src/templates/ebox.mas:611 src/templates/updates.mas:46
+#: src/EBox/CGI/CurrentPackage.pm:31
+msgid "Upgrading"
+msgstr "Atnaujina"
+
+#: src/templates/updates.mas:21 src/templates/ebox.mas:182
+msgid "Package list updated successfully"
+msgstr ""
+
+#: src/templates/updates.mas:25 src/templates/ebox.mas:186
+msgid ""
+"Error updating package list. Please try to execute the following command in "
+"a console to see the problem: sudo apt-get update"
+msgstr ""
+
+#: src/templates/updates.mas:35
+msgid "Updates are available for the following system components"
+msgstr "Atnaujinimai galimi sekantiems sistemos komponentams"
+
+#: src/templates/updates.mas:37
+msgid "Community updates are available for the following system components"
+msgstr "Bendrijos atnaujinimai galimi sekantiems sistemos komponentams"
+
+#: src/templates/updates.mas:43 src/templates/ebox.mas:200
+msgid "Component"
+msgstr "Komponentas"
+
+#: src/templates/updates.mas:44 src/templates/ebox.mas:201
+msgid "Description"
+msgstr "Aprašymas"
+
+#: src/templates/updates.mas:45 src/templates/ebox.mas:202
+msgid "Version"
+msgstr "Versija"
+
+#: src/templates/updates.mas:46 src/templates/ebox.mas:152
+#: src/templates/ebox.mas:587 src/templates/ebox.mas:611
 msgid "Update"
 msgstr "Atnaujinti"
+
+#: src/templates/updates.mas:55 src/templates/updates.mas:56
+msgid "Security update"
+msgstr "Saugumo atnaujinimas"
+
+#: src/templates/updates.mas:59 src/templates/updates.mas:60
+#, fuzzy
+msgid "Zentyal QA update"
+msgstr "eBox QA atnaujinimas"
+
+#: src/templates/updates.mas:88
+msgid "Update all packages"
+msgstr "Atnaujinti visus paketus"
+
+#: src/templates/updates.mas:99
+#, fuzzy
+msgid ""
+"This operation can take some time, don't worry if Zentyal looks unresponsive "
+"after pressing the Upgrade button."
+msgstr ""
+"Ši operacija gali užtrukti tam tikrą laiką, nepergyvenkite jei eBox atrodo "
+"nepasiekiamas po Atnaujinti mygtuko paspaudimo."
+
+#: src/templates/updates.mas:103
+msgid "Upgrade"
+msgstr "Patobulinti"
+
+#: src/templates/updates.mas:108 src/templates/ebox.mas:603
+#: src/templates/ebox.mas:612
+msgid "Update list"
+msgstr "Atnaujinimo sąrašas"
 
 #: src/templates/ebox.mas:158 src/templates/ebox.mas:561
 #: src/templates/ebox.mas:602
 msgid "Install"
 msgstr "Įdiegti"
 
-#: src/templates/ebox.mas:182 src/templates/updates.mas:21
-msgid "Package list updated successfully"
-msgstr ""
-
-#: src/templates/ebox.mas:186 src/templates/updates.mas:25
-msgid ""
-"Error updating package list. Please try to execute the following command in "
-"a console to see the problem: sudo apt-get update"
-msgstr ""
-
 #: src/templates/ebox.mas:193
 msgid ""
 "The following packages are not properly installed. You need to fix this "
 "before trying to use them or install new modules."
 msgstr ""
-
-#: src/templates/ebox.mas:200 src/templates/updates.mas:43
-msgid "Component"
-msgstr "Komponentas"
-
-#: src/templates/ebox.mas:201 src/templates/updates.mas:44
-msgid "Description"
-msgstr "Aprašymas"
-
-#: src/templates/ebox.mas:202 src/templates/updates.mas:45
-msgid "Version"
-msgstr "Versija"
 
 #: src/templates/ebox.mas:216
 msgid ""
@@ -249,11 +289,6 @@ msgstr "Žiūrėti paprastąjį variantą"
 #: src/templates/ebox.mas:594 src/templates/ebox.mas:623
 msgid "Delete"
 msgstr ""
-
-#: src/templates/ebox.mas:603 src/templates/ebox.mas:612
-#: src/templates/updates.mas:108
-msgid "Update list"
-msgstr "Atnaujinimo sąrašas"
 
 #: src/templates/ebox.mas:604 src/templates/ebox.mas:613
 #: src/templates/ebox.mas:624
@@ -309,40 +344,6 @@ msgstr "Šis eBox sukonfigūruotas naudoti automatinius QA atnaujinimus"
 #: src/templates/config.mas:26
 msgid "Automatic operations start time"
 msgstr "Automatinės operacijos pradžios laikas"
-
-#: src/templates/updates.mas:35
-msgid "Updates are available for the following system components"
-msgstr "Atnaujinimai galimi sekantiems sistemos komponentams"
-
-#: src/templates/updates.mas:37
-msgid "Community updates are available for the following system components"
-msgstr "Bendrijos atnaujinimai galimi sekantiems sistemos komponentams"
-
-#: src/templates/updates.mas:55 src/templates/updates.mas:56
-msgid "Security update"
-msgstr "Saugumo atnaujinimas"
-
-#: src/templates/updates.mas:59 src/templates/updates.mas:60
-#, fuzzy
-msgid "Zentyal QA update"
-msgstr "eBox QA atnaujinimas"
-
-#: src/templates/updates.mas:88
-msgid "Update all packages"
-msgstr "Atnaujinti visus paketus"
-
-#: src/templates/updates.mas:99
-#, fuzzy
-msgid ""
-"This operation can take some time, don't worry if Zentyal looks unresponsive "
-"after pressing the Upgrade button."
-msgstr ""
-"Ši operacija gali užtrukti tam tikrą laiką, nepergyvenkite jei eBox atrodo "
-"nepasiekiamas po Atnaujinti mygtuko paspaudimo."
-
-#: src/templates/updates.mas:103
-msgid "Upgrade"
-msgstr "Patobulinti"
 
 #~ msgid ""
 #~ "As you are enjoying a Commercial Server Subscription the updates are "

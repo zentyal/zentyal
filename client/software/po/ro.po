@@ -7,10 +7,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-software 0.12.99\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-12-13 08:43+0100\n"
+"POT-Creation-Date: 2010-12-18 01:45+0100\n"
 "PO-Revision-Date: 2010-08-30 08:17+0200\n"
 "Last-Translator: Harald Ersch <harald.ersch@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -87,14 +88,6 @@ msgstr "Configurare iniţială"
 msgid "Save Changes"
 msgstr "Înregistrare modificări"
 
-#: src/EBox/CGI/Config.pm:31
-msgid "Software management settings"
-msgstr "Configurare administrare Software"
-
-#: src/EBox/CGI/Config.pm:41
-msgid "Automatic software updates"
-msgstr "Actualizări automate ale software-ului"
-
 #: src/EBox/CGI/Enable.pm:41
 msgid "automatic updates configuration"
 msgstr "configurarea actualizărilor automate"
@@ -107,6 +100,14 @@ msgstr "Alegeţi pachetele Zentyal de instalat"
 msgid "Zentyal components"
 msgstr "Componente Zentyal"
 
+#: src/EBox/CGI/Config.pm:31
+msgid "Software management settings"
+msgstr "Configurare administrare Software"
+
+#: src/EBox/CGI/Config.pm:41
+msgid "Automatic software updates"
+msgstr "Actualizări automate ale software-ului"
+
 #: src/EBox/CGI/Updates.pm:32
 msgid "System updates"
 msgstr "Actualizări sistem"
@@ -114,10 +115,6 @@ msgstr "Actualizări sistem"
 #: src/EBox/CGI/Updates.pm:59
 msgid "The system components are up to date."
 msgstr "Componentele sistemului sunt la zi."
-
-#: src/EBox/CGI/CurrentPackage.pm:31
-msgid "Upgrading"
-msgstr "In curs de actualizare"
 
 #: src/EBox/CGI/InstallPkgs.pm:100
 msgid "There were no packages to update"
@@ -184,21 +181,15 @@ msgid ""
 "logs"
 msgstr "Dezinstalarea pachetelor nu a reuşit. Detalii în jurnal."
 
-#: src/templates/ebox.mas:152 src/templates/ebox.mas:587
-#: src/templates/ebox.mas:611 src/templates/updates.mas:46
-msgid "Update"
-msgstr "Actualizare"
+#: src/EBox/CGI/CurrentPackage.pm:31
+msgid "Upgrading"
+msgstr "In curs de actualizare"
 
-#: src/templates/ebox.mas:158 src/templates/ebox.mas:561
-#: src/templates/ebox.mas:602
-msgid "Install"
-msgstr "Instalare"
-
-#: src/templates/ebox.mas:182 src/templates/updates.mas:21
+#: src/templates/updates.mas:21 src/templates/ebox.mas:182
 msgid "Package list updated successfully"
 msgstr "Lista pachetelor a fost actualizată cu succes"
 
-#: src/templates/ebox.mas:186 src/templates/updates.mas:25
+#: src/templates/updates.mas:25 src/templates/ebox.mas:186
 msgid ""
 "Error updating package list. Please try to execute the following command in "
 "a console to see the problem: sudo apt-get update"
@@ -206,23 +197,70 @@ msgstr ""
 "Eroare la actualizarea listei pachetelor. Pentru a vedea detalii despre "
 "problemă executați într-o consolă comanda: sudo apt-get update"
 
+#: src/templates/updates.mas:35
+msgid "Updates are available for the following system components"
+msgstr "Există actualizări pentru următoarele componente de sistem"
+
+#: src/templates/updates.mas:37
+msgid "Community updates are available for the following system components"
+msgstr "Există actualizări comunitare pentru următoarele componente de sistem"
+
+#: src/templates/updates.mas:43 src/templates/ebox.mas:200
+msgid "Component"
+msgstr "Componentă"
+
+#: src/templates/updates.mas:44 src/templates/ebox.mas:201
+msgid "Description"
+msgstr "Descriere"
+
+#: src/templates/updates.mas:45 src/templates/ebox.mas:202
+msgid "Version"
+msgstr "Versiune"
+
+#: src/templates/updates.mas:46 src/templates/ebox.mas:152
+#: src/templates/ebox.mas:587 src/templates/ebox.mas:611
+msgid "Update"
+msgstr "Actualizare"
+
+#: src/templates/updates.mas:55 src/templates/updates.mas:56
+msgid "Security update"
+msgstr "Actualizări de securitate"
+
+#: src/templates/updates.mas:59 src/templates/updates.mas:60
+msgid "Zentyal QA update"
+msgstr "Actualizare Zentyal QA (Asigurarea calităţii)"
+
+#: src/templates/updates.mas:88
+msgid "Update all packages"
+msgstr "Actualizarea tuturor pachetelor"
+
+#: src/templates/updates.mas:99
+msgid ""
+"This operation can take some time, don't worry if Zentyal looks unresponsive "
+"after pressing the Upgrade button."
+msgstr ""
+"Această operaţiune poate dura, nu vă îngrijoraţi dacă Zentyal pare blocat "
+"după apăsarea butonului Actualizare."
+
+#: src/templates/updates.mas:103
+msgid "Upgrade"
+msgstr "Actualizare"
+
+#: src/templates/updates.mas:108 src/templates/ebox.mas:603
+#: src/templates/ebox.mas:612
+msgid "Update list"
+msgstr "Actualizare listă"
+
+#: src/templates/ebox.mas:158 src/templates/ebox.mas:561
+#: src/templates/ebox.mas:602
+msgid "Install"
+msgstr "Instalare"
+
 #: src/templates/ebox.mas:193
 msgid ""
 "The following packages are not properly installed. You need to fix this "
 "before trying to use them or install new modules."
 msgstr ""
-
-#: src/templates/ebox.mas:200 src/templates/updates.mas:43
-msgid "Component"
-msgstr "Componentă"
-
-#: src/templates/ebox.mas:201 src/templates/updates.mas:44
-msgid "Description"
-msgstr "Descriere"
-
-#: src/templates/ebox.mas:202 src/templates/updates.mas:45
-msgid "Version"
-msgstr "Versiune"
 
 #: src/templates/ebox.mas:216
 #, fuzzy
@@ -248,11 +286,6 @@ msgstr "Vizualizare mod succint"
 #: src/templates/ebox.mas:594 src/templates/ebox.mas:623
 msgid "Delete"
 msgstr "Şterge"
-
-#: src/templates/ebox.mas:603 src/templates/ebox.mas:612
-#: src/templates/updates.mas:108
-msgid "Update list"
-msgstr "Actualizare listă"
 
 #: src/templates/ebox.mas:604 src/templates/ebox.mas:613
 #: src/templates/ebox.mas:624
@@ -309,38 +342,6 @@ msgstr "Acest Zentyal este configurat să utilizeze actualizări automate QA"
 #: src/templates/config.mas:26
 msgid "Automatic operations start time"
 msgstr "Ora de pornire a operaţiunilor automate"
-
-#: src/templates/updates.mas:35
-msgid "Updates are available for the following system components"
-msgstr "Există actualizări pentru următoarele componente de sistem"
-
-#: src/templates/updates.mas:37
-msgid "Community updates are available for the following system components"
-msgstr "Există actualizări comunitare pentru următoarele componente de sistem"
-
-#: src/templates/updates.mas:55 src/templates/updates.mas:56
-msgid "Security update"
-msgstr "Actualizări de securitate"
-
-#: src/templates/updates.mas:59 src/templates/updates.mas:60
-msgid "Zentyal QA update"
-msgstr "Actualizare Zentyal QA (Asigurarea calităţii)"
-
-#: src/templates/updates.mas:88
-msgid "Update all packages"
-msgstr "Actualizarea tuturor pachetelor"
-
-#: src/templates/updates.mas:99
-msgid ""
-"This operation can take some time, don't worry if Zentyal looks unresponsive "
-"after pressing the Upgrade button."
-msgstr ""
-"Această operaţiune poate dura, nu vă îngrijoraţi dacă Zentyal pare blocat "
-"după apăsarea butonului Actualizare."
-
-#: src/templates/updates.mas:103
-msgid "Upgrade"
-msgstr "Actualizare"
 
 #~ msgid "Select Al"
 #~ msgstr "Selectare AI"

@@ -8,15 +8,16 @@ msgstr ""
 "Project-Id-Version: ebox-services 2.0Report-Msgid-Bugs-To: "
 "developers@zentyal.org\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-12-13 08:42+0100\n"
+"POT-Creation-Date: 2010-12-18 01:45+0100\n"
 "PO-Revision-Date: 2010-12-06 20:53+0100\n"
 "Last-Translator: Vytautas <vytautas@lantraneta.lt>\n"
 "Language-Team: none\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n%"
-"100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n"
+"%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Pootle 1.1.0\n"
 
 #: migration/0001_import_services_from_firewall.pl:84
@@ -61,18 +62,6 @@ msgstr "eBox administravimas"
 msgid "Zentyal Administration Web Server"
 msgstr "Zentyal Web Serverio administravimas"
 
-#: src/EBox/Services.pm:47 src/EBox/Model/ServiceTable.pm:144
-msgid "Services"
-msgstr "Servisai"
-
-#: src/EBox/Services.pm:399
-msgid "port"
-msgstr "portas"
-
-#: src/EBox/Services.pm:402
-msgid "Zentyal Administration port"
-msgstr "Zentyal Administravimo prieiga"
-
 #: src/EBox/Model/ServiceTable.pm:102
 msgid "Domain"
 msgstr "Vardų sritis"
@@ -105,6 +94,10 @@ msgstr "Konfigūracija"
 #: src/EBox/Model/ServiceTable.pm:143
 msgid "List of services"
 msgstr "Sąrašas servisų"
+
+#: src/EBox/Model/ServiceTable.pm:144 src/EBox/Services.pm:47
+msgid "Services"
+msgstr "Servisai"
 
 #: src/EBox/Model/ServiceTable.pm:154
 #: src/EBox/Model/ServiceConfigurationTable.pm:172
@@ -142,3 +135,11 @@ msgstr "Serviso konfigūracija"
 #: src/EBox/Model/ServiceConfigurationTable.pm:196
 msgid "This protocol does not use ports"
 msgstr "Šis protokolas nenaudoja jokių prieigų"
+
+#: src/EBox/Services.pm:399
+msgid "port"
+msgstr "portas"
+
+#: src/EBox/Services.pm:402
+msgid "Zentyal Administration port"
+msgstr "Zentyal Administravimo prieiga"

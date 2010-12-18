@@ -6,730 +6,143 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox 0.12\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-12-13 09:37+0100\n"
+"POT-Creation-Date: 2010-12-18 01:43+0100\n"
 "PO-Revision-Date: 2010-09-07 16:47+0200\n"
 "Last-Translator: Nicolas Liaudat <nliaudat@pompiers-chatel.ch>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: src/EBox/ProgressIndicator.pm:42
-msgid "Total ticks"
-msgstr "Coutils (ticks) totaux"
-
-#: src/EBox/ProgressIndicator.pm:44
-msgid "It must be a non-zero positive number"
-msgstr "Cela doit être un nombre positif non égal à zéro"
-
-#: src/EBox/ProgressIndicator.pm:49
-msgid "To solve it you can try to execute the following commands:"
-msgstr ""
-"Pour résoudre le problème, vous pouvez essayer d’exécuter les commandes "
-"suivantes: "
-
-#: src/EBox/ProgressIndicator.pm:56
-#, perl-brace-format
-msgid "Cannot execute {exe}"
-msgstr "Ne peut pas exécuter {exe}"
-
-#: src/EBox/ProgressIndicator.pm:106
-#, perl-brace-format
-msgid "Progress indicator with id {id} not found"
-msgstr "L'indicateur de progression avec l'id {id} pas trouvé"
-
-#: src/EBox/ProgressIndicator.pm:144
-msgid "Number of ticks to notify"
-msgstr "Nombre de coutils (ticks) à notifier"
-
-#: src/EBox/ProgressIndicator.pm:146
-msgid "must be greater than zero"
-msgstr "doit être plus grand que zéro"
-
-#: src/EBox/ProgressIndicator.pm:152
-msgid "Executable has not been run"
-msgstr "L'exécutable n'a pas été démarré"
-
-#: src/EBox/ProgressIndicator.pm:293
-msgid "The executable has not run"
-msgstr "L'exécutable n'a pas démarré"
-
-#: src/EBox/ProgressIndicator.pm:437
-msgid "The executable has already been started"
-msgstr "L'exécutable a déjà été démarré"
-
-#: src/EBox/ProgressIndicator.pm:441
-msgid "The executable has already finished"
-msgstr "L'exécutable s'est déjà terminé"
-
-#: src/EBox/Events/Model/Watcher/Log.pm:214
-#: src/EBox/Events/Model/Watcher/Log.pm:238
-msgid ""
-"Warning! The log watcher is not enabled. Enable to be notified when logs "
-"happen. "
-msgstr ""
-"Attention ! La surveillance n'est pas activée. Activez-la pour être notifié "
-"lorsqu'un évènement se produit"
-
-#: src/EBox/Events/Model/Watcher/Log.pm:262
-#: src/EBox/Logs/Model/SelectLog.pm:149
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:332
-msgid "Domain"
-msgstr "Domaine"
-
-#: src/EBox/Events/Model/Watcher/Log.pm:267
-msgid "Filtering"
-msgstr "Filtrage"
-
-#: src/EBox/Events/Model/Watcher/Log.pm:275
-msgid "Configure log watchers"
-msgstr "Configurez les observateurs d'évènements"
-
-#: src/EBox/Events/Model/Watcher/Log.pm:277
-msgid "Log watcher"
-msgstr "Observateur d'évènements"
-
-#: src/EBox/Events/Model/Watcher/Log.pm:385
-#: src/EBox/Events/Model/Watcher/LogFiltering.pm:211
-#: src/EBox/Events/Model/Watcher/DiskFreeSpace.pm:136
-#: src/EBox/Events/Model/GeneralComposite.pm:72
-#: src/EBox/Events/Model/GeneralComposite.pm:73
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:272
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:324 src/EBox/Events.pm:94
-#: src/EBox/Events.pm:838
-msgid "Events"
-msgstr "Événements"
-
-#: src/EBox/Events/Model/Watcher/Log.pm:389
-#: src/EBox/Events/Model/Watcher/LogFiltering.pm:215
-msgid "Log Observer Watcher"
-msgstr "Surveillance de l'observateur d'évènement"
-
-#: src/EBox/Events/Model/Watcher/LogFiltering.pm:108
-#, perl-brace-format
-msgid "Log domain {logDomain}"
-msgstr "Surveiller le domaine {logDomain}"
-
-#: src/EBox/Events/Model/Watcher/LogFiltering.pm:149
-#: src/EBox/Types/PortRange.pm:289 src/EBox/Types/Service.pm:212
-#: src/templates/logs/index.mas:185
-msgid "Any"
-msgstr "Tous"
-
-#: src/EBox/Events/Model/Watcher/LogFiltering.pm:168
-#: src/templates/logs/index.mas:183
-msgid "Event"
-msgstr "Événement"
-
-#: src/EBox/Events/Model/Watcher/LogFiltering.pm:176
-#, perl-brace-format
-msgid "Filters to apply to notify logs from {logDomain}"
-msgstr ""
-"Filtres à appliquer pour notifier les enregistrements depuis {logDomain}"
-
-#: src/EBox/Events/Model/Watcher/LogFiltering.pm:184
-msgid ""
-"Every filter added is cumulative.Then every log line which matches with any "
-"filter given will be notified"
-msgstr ""
-"Tous les filtres ajoutés sont cumulés. Ensuite, chaque enregistrement qui "
-"correspond à n'importe quel filtre sera notifié"
-
-#: src/EBox/Events/Model/Watcher/LogFiltering.pm:188
-msgid "filter"
-msgstr "filtre"
-
-#: src/EBox/Events/Model/Watcher/DiskFreeSpace.pm:100
-msgid "Minimum free disk space per filesystem"
-msgstr "Espace disque libre minimum par système de fichier"
-
-#: src/EBox/Events/Model/Watcher/DiskFreeSpace.pm:105
-msgid ""
-"When the free space percentage of any disk partition is under this value the "
-"event is triggered."
-msgstr ""
-"Quand le pourcentage de l'espace libre de n'importe quelle partition disque "
-"est en dessous de cette valeur un évènement sera déclenché. "
-
-#: src/EBox/Events/Model/Watcher/DiskFreeSpace.pm:112
-msgid "Configure disk free space watcher"
-msgstr "Configurer la surveillance de l'espace disque libre"
-
-#: src/EBox/Events/Model/Watcher/DiskFreeSpace.pm:140
-msgid "Free Disk Space Watcher"
-msgstr "Surveillance de l'espace disque libre"
-
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:269
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:304
-msgid "Name"
-msgstr "Nom"
-
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:277
-#: src/templates/backup.mas:55 src/templates/backup.mas:129
-#: src/templates/confirm-backup.mas:36
-msgid "Description"
-msgstr "Description"
-
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:286
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:326
-msgid "Configuration"
-msgstr "Configuration"
-
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:302
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:346
-msgid "None"
-msgstr "Aucun"
-
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:311
-msgid "Configure Events"
-msgstr "Configurer les tâches événementielles"
-
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:319
-#: src/EBox/Events/Model/Report/EventsDetails.pm:109
-msgid "event"
-msgstr "événement"
-
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:320
-msgid "Enable/Disable each event watcher monitoring"
-msgstr "Activé/Désactiver chaque événement du moniteur"
-
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:498
-msgid ""
-"Warning! There is no log domain watcher enabled. Please, go to "
-"'Configuration' to enable at least one to be notified when a log in this "
-"domain happens. "
-msgstr ""
-"Attention ! Il n'y aucun observateur d'évènements pour le domaine. Svp, "
-"aller à 'Configuration' pour en activer au moins un"
-
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:290
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:340
-#: src/EBox/Model/DataTable.pm:4560
-msgid "Enabled"
-msgstr "Activé"
-
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:314
-msgid "Receiver"
-msgstr "Récepteur"
-
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:355
-msgid "Configure Dispatchers"
-msgstr "Configurer les répartiteurs"
-
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:364
-msgid "dispatcher"
-msgstr "répartiteur"
-
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:365
-msgid "Enable/Disable each event dispatcher"
-msgstr "Activer/désactiver chaque événement du répartiteur"
-
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:554
-msgid ""
-"In order to enable a configurable event dispatcher, you need to configure it "
-"first"
-msgstr ""
-"Afin d'activer un événement du répartiteur, vous devez le configurer "
-"préalablement"
-
-#: src/EBox/Events/Model/GeneralComposite.pm:76
-msgid ""
-"Events module configures Zentyal to help informing you about events that "
-"happen"
-msgstr ""
-"Le module d'évènements configure Zentyal pour vous tenir informer des "
-"évènements qui se passe"
-
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:192
-msgid "Jabber server name"
-msgstr "Nom du serveur Jabber"
-
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:195
-msgid "Jabber server to send the messages"
-msgstr "Nom du serveur Jabber pour l'envoi de message"
-
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:199
-msgid "Port"
-msgstr "Port"
-
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:206
-msgid "Jabber user name"
-msgstr "Nom d'utilisateur Jabber"
-
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:209
-msgid ""
-"Jabber ID of the account that will send the messages. Hint: do not introduce "
-"@domain, only the user name"
-msgstr ""
-"Identifiant Jabber du compte qui devra envoyer les messages.Astuce: Ne pas "
-"mettre @domain, mais uniquement le nom de l'utilisateur"
-
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:215
-msgid "User password"
-msgstr "Mot de passe utilisateur"
-
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:223
-msgid "Subscribe"
-msgstr "S'enregistrer"
-
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:225
-msgid ""
-"Tick this option if you want Zentyal to create an account for the above user"
-msgstr ""
-"Cocher cette option si vous souhaitez que Zentyal créé un compte pour "
-"l'utilisateur ci-dessus"
-
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:232
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:299
-msgid "Administrator Jabber Identifier"
-msgstr "Identifiant de l'administrateur Jabber"
-
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:235
-msgid ""
-"Destination Jabber ID of the messages generated by Zentyal,  i.e: you, the "
-"Zentyal admin. Note that you need to register this  account manually in any "
-"jabber server"
-msgstr ""
-"Identifiant Jabber du destinataire des messages générés par Zentyal, ex: "
-"vous, l'administrateur de Zentyal. Notez que vous devez enregistrer ce "
-"compte manuellement dans tous les serveurs Jabber"
-
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:244
-msgid "Configure Jabber dispatcher"
-msgstr "Configurer le répartiteur Jabber"
-
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:249
-msgid "This dispatcher will send events to an Jabber account"
-msgstr "Ce répartiteur enverra les évènements à un compte Jabber"
-
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:252
-msgid "Jabber dispatcher configuration updated"
-msgstr "Configuration du répartiteur Jabber mis-à-jour"
-
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:276
-msgid "Jabber Dispatcher"
-msgstr "Configurer le répartiteur Jabber"
-
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:301
-msgid "It should follow the pattern 'user@domain[/resource]'"
-msgstr "Doit être formé comme suit : 'user@domain[/resource]'"
-
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:149
-msgid "Nobody"
-msgstr "Personne"
-
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:153
-msgid "IP address"
-msgstr "Adresse IP"
-
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:160
-msgid "Object"
-msgstr "Objet"
-
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:169
-msgid "Public"
-msgstr "Publique"
-
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:176
-msgid "Channel link"
-msgstr "Lien du canal"
-
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:183
-msgid "Allowed readers"
-msgstr "Lecteurs permis"
-
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:186
-msgid "Use this field to set the access control for the channel"
-msgstr "Utiliser ce champs pour paramétrer le contrôle d'accès pour cet chaîne"
-
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:191
-msgid "Syndicate this RSS"
-msgstr "S'abonner à ce flux RSS"
-
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:201
-msgid "Configure RSS dispatcher"
-msgstr "Configurer le répartiteur RSS"
-
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:206
-msgid ""
-"The channel link is the link which is used to syndicate the content to your "
-"favourite RSS. "
-msgstr ""
-"Le lien de canal est le lien utilisé pour s'abonner au contenu de votre flux "
-"RSS favoris"
-
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:209
-msgid "RSS dispatcher configuration updated"
-msgstr "Configuration du répartiteur RSS mis-à-jour"
-
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:328
-msgid "RSS Dispatcher"
-msgstr "Répartiteur RSS"
-
-#: src/EBox/Events/Model/Report/EventsDetails.pm:50
-#: src/EBox/Events/Model/Report/EventsDetails.pm:74 src/EBox/Events.pm:823
-msgid "Source"
-msgstr "Source"
-
-#: src/EBox/Events/Model/Report/EventsDetails.pm:51
-#: src/EBox/Events/Model/Report/EventsDetails.pm:80
-#: src/EBox/Events/Model/Report/EventsGraph.pm:51 src/EBox/Events.pm:830
-msgid "Informative"
-msgstr "Instructif"
-
-#: src/EBox/Events/Model/Report/EventsDetails.pm:52
-#: src/EBox/Events/Model/Report/EventsDetails.pm:84
-#: src/EBox/Events/Model/Report/EventsGraph.pm:52 src/EBox/Events.pm:831
-#: src/templates/finish.mas:83
-msgid "Warning"
-msgstr "Attention"
-
-#: src/EBox/Events/Model/Report/EventsDetails.pm:53
-#: src/EBox/Events/Model/Report/EventsDetails.pm:88
-#: src/EBox/Events/Model/Report/EventsGraph.pm:53 src/EBox/Events.pm:832
-msgid "Error"
-msgstr "Erreur"
-
-#: src/EBox/Events/Model/Report/EventsDetails.pm:54
-#: src/EBox/Events/Model/Report/EventsDetails.pm:92
-#: src/EBox/Events/Model/Report/EventsGraph.pm:54 src/EBox/Events.pm:833
-msgid "Fatal error"
-msgstr "Erreur fatale"
-
-#: src/EBox/Events/Model/Report/EventsDetails.pm:68 src/EBox/Logs.pm:737
-#: src/templates/finish.mas:116 src/templates/backup.mas:130
-#: src/templates/confirm-backup.mas:28
-msgid "Date"
-msgstr "Date"
-
-#: src/EBox/Events/Model/Report/EventsDetails.pm:101
-msgid "Events details"
-msgstr "Détails des évènements"
-
-#: src/EBox/Events/Model/Report/EventsGraph.pm:60
-msgid "Events summarized chart"
-msgstr "Tableau résumé des événements"
-
-#: src/EBox/Events/Model/Report/EventsGraph.pm:77
-msgid "Events summarized graph"
-msgstr "Graphique résumé des événements"
-
-#: src/EBox/Events/Composite/Report/EventsReport.pm:69
-msgid "Events reports"
-msgstr "Rapports des événements"
-
-#: src/EBox/Events/Composite/Report/EventsReport.pm:70
-msgid "Events report"
-msgstr "Rapport des événements"
-
-#: src/EBox/Auth.pm:133
-msgid "Password changed"
-msgstr "Mot de passe modifié"
-
-#: src/EBox/CGI/ClientRawBase.pm:212 src/EBox/CGI/WizardPage.pm:155
-msgid ""
-"An internal error related to a template has occurred. This is a bug, "
-"relevant information can be found in the logs."
-msgstr ""
-"Une erreur interne liée au modèle s'est produite. Cela est du à un bug, des "
-"informations pertinentes peuvent être trouvées dans les logs."
-
-#: src/EBox/CGI/Wizard.pm:29
-msgid "Initial configuration wizard"
-msgstr "Assistant de première configuration"
-
-#: src/EBox/CGI/Logs/Index.pm:35 src/EBox/Logs.pm:58 src/EBox/Logs.pm:383
-msgid "Logs"
-msgstr "Journaux"
-
-#: src/EBox/CGI/Logs/Index.pm:326 src/EBox/Logs.pm:721
-msgid "Query Logs"
-msgstr "Journaux de requêtes"
-
-#: src/EBox/CGI/Logs/Index.pm:329
-msgid "Full Reports"
-msgstr "Rapports complets"
-
-#: src/EBox/CGI/Dashboard/Index.pm:32 src/EBox/SysInfo.pm.in:253
-msgid "Dashboard"
-msgstr "Panneau de contrôle"
-
-#: src/EBox/CGI/Dashboard/ConfigureWidgets.pm:30
-#: src/templates/dashboard/index.mas:81
-msgid "Configure Widgets"
-msgstr "Configurer les Widgets"
-
-#: src/EBox/CGI/Progress.pm:81 src/EBox/CGI/Progress.pm:107
-#: src/EBox/CGI/Finish.pm:77
-msgid "Saving changes"
-msgstr "Sauvegarde des modifications"
-
-#: src/EBox/CGI/Login/Index.pm:63
-msgid ""
-"There is a script which has asked to run in Zentyal exclusively. Please, "
-"wait patiently until it is done"
-msgstr ""
-"Un script a demandé une exécution exclusive sur Zentyal. Veuillez patientez "
-"jusqu'à la fin de son exécution"
-
-#: src/EBox/CGI/Login/Index.pm:67
-msgid "Incorrect password"
-msgstr "Mot de passe incorrect."
-
-#: src/EBox/CGI/Login/Index.pm:70
-msgid "For security reasons your session has expired due to inactivity"
-msgstr ""
-"Votre session a expiré pour raisons de sécurité suite à votre inactivité"
-
-#: src/EBox/CGI/Login/Index.pm:73
-msgid "You have been logged out because a new session has been opened"
-msgstr ""
-"Vous avez été deconnecté de cette session suite à l'ouverture d'une nouvelle"
-
-#: src/EBox/CGI/ServiceModule/StatusView.pm:39
-msgid "Module Status Configuration"
-msgstr "Configuration de l'état du module"
-
-#: src/EBox/CGI/Logout/Index.pm:29 src/EBox/Html.pm:40
-msgid "Logout"
-msgstr "Déconnexion"
-
-#: src/EBox/CGI/EBox/General.pm:32
-msgid "General Configuration"
-msgstr "Configuration générale"
-
-#: src/EBox/CGI/EBox/Halt.pm:30
-msgid "Halt or Reboot"
-msgstr "Arrêt ou redémarrage"
-
-#: src/EBox/CGI/EBox/Halt.pm:43
-msgid "Zentyal is going down for halt"
-msgstr "Zentyal est en cours d'arrêt"
-
-#: src/EBox/CGI/EBox/Halt.pm:46
-msgid "Zentyal is going down for reboot"
-msgstr "Zentyal est en cours de redémarrage"
-
-#: src/EBox/CGI/EBox/Password.pm:43 src/templates/password.mas:11
-#: src/templates/login/index.mas:49
-msgid "Username"
-msgstr "Nom d'utilisateur"
-
-#: src/EBox/CGI/EBox/Password.pm:48 src/templates/login/index.mas:54
-msgid "Password"
-msgstr "Mot de passe"
-
-#: src/EBox/CGI/EBox/Password.pm:57
-msgid "Incorrect password."
-msgstr "Mot de passe incorrect."
-
-#: src/EBox/CGI/EBox/Password.pm:62
-msgid "New passwords do not match."
-msgstr "Les nouveaux mots de passe ne correspondent pas."
-
-#: src/EBox/CGI/EBox/Password.pm:67
-msgid "The password must be at least 6 characters long"
-msgstr "Le mot de passe doit comporter un minimum de 6 caractères"
-
-#: src/EBox/CGI/EBox/Password.pm:71
-msgid "The password was changed successfully."
-msgstr "Le mot de passe a été modifié avec succès"
-
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:33 src/templates/backup.mas:30
-msgid "Configuration Backup"
-msgstr "Configuration des sauvegardes"
-
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:105
-msgid "Please confirm that you want to delete the following backup file:"
-msgstr ""
-"Veuillez confirmer votre intention d'effacer le fichier de sauvegarde "
-"suivant :"
-
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:107 src/templates/backup.mas:168
-#: src/templates/backup.mas:169
-msgid "Delete"
-msgstr "Effacer"
-
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:114
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:130
-msgid "Please confirm that you want to restore using this backup file:"
-msgstr ""
-"Veuillez confirmer votre intention de restaurer la configuration à partir de "
-"ce fichier de sauvegarde :"
-
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:116
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:132 src/templates/backup.mas:98
-msgid "Restore"
-msgstr "Restaurer"
-
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:147 src/EBox/CGI/EBox/Backup.pm:193
-#: src/EBox/CGI/EBox/Backup.pm:271 src/EBox/CGI/EBox/Backup.pm:284
-#: src/EBox/Backup.pm:1481
-msgid "The input contains invalid characters"
-msgstr "L'entrée contient des caractères invalides"
-
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:176
-msgid "Configuration backup"
-msgstr "Configuration des sauvegardes"
-
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:179
-msgid "Full data and configuration backup"
-msgstr "Configuration des sauvegardes et données complètes"
-
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:182
-msgid "Bug-report configuration dump"
-msgstr "Configuration du rapport de bug"
-
-#: src/EBox/CGI/EBox/RestartService.pm:49
-msgid "module name"
-msgstr "Nom du module"
-
-#: src/EBox/CGI/EBox/RestartService.pm:54
-msgid "The module was restarted correctly."
-msgstr "Le module a redémarré correctement"
-
-#: src/EBox/CGI/EBox/RestartService.pm:58
-#, perl-brace-format
-msgid "Error restarting service. See {logs} for more information."
-msgstr ""
-
-#: src/EBox/CGI/EBox/Hostname.pm:48
-msgid "hostname"
-msgstr "Nom d'hôte"
-
-#: src/EBox/CGI/EBox/CurrentProgress.pm:36
-msgid "Upgrading"
-msgstr "Mise-à-jour"
-
-#: src/EBox/CGI/EBox/Backup.pm:34 src/EBox/SysInfo.pm.in:280
+#: src/EBox/Apache.pm:289 src/EBox/Apache.pm:298
+msgid "port"
+msgstr "port"
+
+#: src/EBox/Apache.pm:626
 #, fuzzy
-msgid "Import/Export Configuration"
-msgstr "Configuration actuelle"
+msgid "Zentyal Administration Web Server"
+msgstr "Serveur web de Zentyal"
 
-#: src/EBox/CGI/EBox/Backup.pm:163
+#: src/EBox/Event/Dispatcher/Jabber.pm:165
+msgid "Admin Jabber account"
+msgstr "Administrer les comptes Jabber"
+
+#: src/EBox/Event/Dispatcher/Jabber.pm:178
+msgid "Jabber"
+msgstr "Jabber"
+
+#: src/EBox/Event/Dispatcher/Jabber.pm:228
 #, perl-brace-format
-msgid "Unknown backup mode: {mode}"
-msgstr "Type de sauvegarde inconnue : {mode}"
+msgid "Jabber server {serverName} is down or connection is not allowed"
+msgstr ""
+"Le serveur Jabber {serverName} est tombé ou la connexion n'est pas permise"
 
-#: src/EBox/CGI/EBox/Backup.pm:226
+#: src/EBox/Event/Dispatcher/Jabber.pm:258
 #, perl-brace-format
-msgid "Unknown restore mode: {mode}"
-msgstr "Mode de restauration inconnu : {mode}"
+msgid "Subscription failed: {message}"
+msgstr "Inscription échouée : {message}"
 
-#: src/EBox/CGI/EBox/Backup.pm:239
-msgid "Backing up"
-msgstr "Sauvegarde"
+#: src/EBox/Event/Dispatcher/Jabber.pm:265
+#, perl-brace-format
+msgid "Authorization failed: {result} - {message}"
+msgstr "Autorisation échouée : {result} - {message}"
 
-#: src/EBox/CGI/EBox/Backup.pm:240
-msgid "Backing up modules"
-msgstr "Sauvegarde des modules"
+#: src/EBox/Event/Dispatcher/RSS.pm:218
+#, perl-brace-format
+msgid "RSS file: {path}"
+msgstr "Fichier RSS : {path}"
 
-#: src/EBox/CGI/EBox/Backup.pm:241
-msgid "Operation"
-msgstr "Opération"
+#: src/EBox/Event/Dispatcher/RSS.pm:232
+msgid "RSS"
+msgstr "RSS"
 
-#: src/EBox/CGI/EBox/Backup.pm:242
-msgid "operations left to finish backup"
-msgstr "Opérations restantes pour terminer la sauvegarde"
+#: src/EBox/Event/Dispatcher/RSS.pm:289
+#, perl-brace-format
+msgid "Zentyal alerts channel for {hostname}"
+msgstr "Canal d'alerte de Zentyal pour {hostname}"
 
-#: src/EBox/CGI/EBox/Backup.pm:243
-msgid "Backup successful"
-msgstr "Sauvegarde réussie"
+#: src/EBox/Event/Dispatcher/RSS.pm:292
+msgid "This channel tracks what happens on this Zentyal machine along the time"
+msgstr ""
+"Ce canal enregistre ce qui se passe sur cette machine Zentyal au fil du temps"
 
-#: src/EBox/CGI/EBox/Backup.pm:255
-msgid "Restoring backup"
-msgstr "Restauration à partir de la sauvegarde"
+#: src/EBox/Event/Dispatcher/RSS.pm:312
+#, perl-brace-format
+msgid "The event has happened in Zentyal {hostname} from {source}"
+msgstr "L'évènement est survenu dans Zentyal {hostname} de {source}"
 
-#: src/EBox/CGI/EBox/Backup.pm:256
-msgid "Restoring modules"
-msgstr "Restauration des modules"
+#: src/EBox/Event/Dispatcher/RSS.pm:316
+#, perl-brace-format
+msgid "Go to your {url} to check its status."
+msgstr "Allez à {url} pour vérifier son statut"
 
-#: src/EBox/CGI/EBox/Backup.pm:257 src/EBox/Logs.pm:739
-#: src/templates/moduleStatusTable.mas:58 src/templates/finish.mas:117
-msgid "Module"
-msgstr "Module"
+#: src/EBox/Event/Dispatcher/Log.pm:135
+msgid "Log file"
+msgstr "fichier journal"
 
-#: src/EBox/CGI/EBox/Backup.pm:258
-msgid "modules restored"
-msgstr "les modules ont été restaurés"
+#: src/EBox/Event/Dispatcher/Log.pm:148
+msgid "Log"
+msgstr "Journal"
 
-#: src/EBox/CGI/EBox/Backup.pm:259
-msgid "Restore successful"
-msgstr "Restauration réussie"
+#: src/EBox/Event/Dispatcher/Abstract.pm:140
+#, perl-brace-format
+msgid "Dispatcher {name} is not configured to be enabled"
+msgstr "Le répartiteur {name} n'est pas activé"
 
-#: src/EBox/CGI/EBox/ConfigurationReport.pm:29
-msgid "Configuration report"
-msgstr "Rapport de configuration"
+#: src/EBox/Event/Watcher/DiskFreeSpace.pm:133
+#, perl-brace-format
+msgid "The file system {fs}, mounted on {mp}, has no space left"
+msgstr "Le système de fichiers {fs}, monté sur {mp}, n'a plus d'espace libre"
 
-#: src/EBox/CGI/Report/RAID.pm:30 src/EBox/Event/Watcher/RAID.pm:181
-#: src/EBox/SysInfo.pm.in:275
+#: src/EBox/Event/Watcher/DiskFreeSpace.pm:167
+msgid "Free storage space"
+msgstr "Espace de stockage libre"
+
+#: src/EBox/Event/Watcher/DiskFreeSpace.pm:184
+msgid "Check if any disk partition has no storage space left"
+msgstr "Vérifier qu'aucune partition du disque n'ait plus d'espace libre"
+
+#: src/EBox/Event/Watcher/Runit.pm:112
+#, perl-brace-format
+msgid "The following modules are not running but they are enabled: {modules}\n"
+msgstr ""
+"Les modules suivants ne sont pas chargés, mais sont activés : {modules}\n"
+
+#: src/EBox/Event/Watcher/Runit.pm:141
+msgid "Service"
+msgstr "Service"
+
+#: src/EBox/Event/Watcher/Runit.pm:158
+msgid "Check if any Zentyal service is not running when it is enabled"
+msgstr ""
+"Vérifier qu'aucun service de Zentyal n'est en cours d'exécution au moment de "
+"l'activer"
+
+#: src/EBox/Event/Watcher/Runit.pm:228
+#, perl-brace-format
+msgid ""
+"The service {service} has been restarted {restart} times in {time} seconds "
+"and it has been stopped"
+msgstr ""
+"Le service {service} a été redémarré {restart} fois en {time} secondes et a "
+"été stoppé"
+
+#: src/EBox/Event/Watcher/Log.pm:202
+msgid "Log observer"
+msgstr "Observateur d'évènement"
+
+#: src/EBox/Event/Watcher/Log.pm:240
+#, perl-brace-format
+msgid "Notify when a logger ({loggers}) has logged something"
+msgstr "Notifier lorsqu'un enregistreur ({loggers}) a détecté quelquechose"
+
+#: src/EBox/Event/Watcher/RAID.pm:181 src/EBox/SysInfo.pm.in:275
+#: src/EBox/CGI/Report/RAID.pm:30
 msgid "RAID"
 msgstr "RAID"
-
-#: src/EBox/CGI/Report/DiskUsage.pm:31 src/EBox/SysInfo.pm.in:271
-msgid "Disk Usage"
-msgstr "Utilisation du disque"
-
-#: src/EBox/CGI/Finish.pm:32
-msgid "Save configuration"
-msgstr "Sauver la configuration"
-
-#: src/EBox/CGI/Finish.pm:78
-msgid "Saving changes in modules"
-msgstr "Sauvegarde des modifications aux modules"
-
-#: src/EBox/CGI/Finish.pm:79 src/templates/report/raid.mas:213
-msgid "Current operation"
-msgstr "Opération en cours"
-
-#: src/EBox/CGI/Finish.pm:80
-msgid "operations performed"
-msgstr "Opérations effectuées"
-
-#: src/EBox/CGI/Finish.pm:81
-msgid "Changes saved"
-msgstr "Modifications sauvegardées"
-
-#: src/EBox/CGI/Finish.pm:82
-#, perl-brace-format
-msgid ""
-"Some modules reported error when saving changes . More information on the "
-"logs in {dir}"
-msgstr ""
-"Quelques modules ont reporté des erreurs lors de la sauvegarde . Plus "
-"d'informations sont disponibles dans les rapports d'événements sous {dir}"
-
-#: src/EBox/CGI/Finish.pm:101
-msgid "Revoking changes"
-msgstr "Annulation des modifications"
-
-#: src/EBox/CGI/Finish.pm:102
-msgid "Revoking changes in modules"
-msgstr "Annulation des modifications aux modules"
-
-#: src/EBox/CGI/Finish.pm:103
-msgid "Current module"
-msgstr "Module actuel"
-
-#: src/EBox/CGI/Finish.pm:104
-msgid "modules revoked"
-msgstr "les modules ont été retirés"
-
-#: src/EBox/CGI/Finish.pm:105
-msgid "Changes revoked"
-msgstr "Les modifications ont été retirée"
-
-#: src/EBox/CGI/Finish.pm:106
-#, perl-brace-format
-msgid ""
-"Some modules reported error when discarding changes . More information on "
-"the logs in {dir}"
-msgstr ""
-"Quelques modules ont reporté des erreurs lors de l'annulation des "
-"changements . Plus d'informations sont disponibles dans les rapports "
-"d'événements sous {dir}"
 
 #: src/EBox/Event/Watcher/RAID.pm:198
 msgid "Check if any event has happened in RAID subsystem"
@@ -940,31 +353,6 @@ msgstr "erroné"
 msgid "spare"
 msgstr "espace perdu"
 
-#: src/EBox/Event/Watcher/Runit.pm:112
-#, perl-brace-format
-msgid "The following modules are not running but they are enabled: {modules}\n"
-msgstr ""
-"Les modules suivants ne sont pas chargés, mais sont activés : {modules}\n"
-
-#: src/EBox/Event/Watcher/Runit.pm:141
-msgid "Service"
-msgstr "Service"
-
-#: src/EBox/Event/Watcher/Runit.pm:158
-msgid "Check if any Zentyal service is not running when it is enabled"
-msgstr ""
-"Vérifier qu'aucun service de Zentyal n'est en cours d'exécution au moment de "
-"l'activer"
-
-#: src/EBox/Event/Watcher/Runit.pm:228
-#, perl-brace-format
-msgid ""
-"The service {service} has been restarted {restart} times in {time} seconds "
-"and it has been stopped"
-msgstr ""
-"Le service {service} a été redémarré {restart} fois en {time} secondes et a "
-"été stoppé"
-
 #: src/EBox/Event/Watcher/State.pm:125
 msgid "Zentyal is up and running"
 msgstr "Zentyal est chargé et en cours d'exécution"
@@ -981,110 +369,127 @@ msgstr "Status"
 msgid "Check if Zentyal is currently up or down"
 msgstr "Vérifier si Zentyal est actuellement démarré ou arrété"
 
-#: src/EBox/Event/Watcher/Log.pm:202
-msgid "Log observer"
-msgstr "Observateur d'évènement"
-
-#: src/EBox/Event/Watcher/Log.pm:240
+#: src/EBox/Model/DataTable.pm:327
 #, perl-brace-format
-msgid "Notify when a logger ({loggers}) has logged something"
-msgstr "Notifier lorsqu'un enregistreur ({loggers}) a détecté quelquechose"
+msgid "{model} in {module} module"
+msgstr "{model} dans {module} module"
 
-#: src/EBox/Event/Watcher/DiskFreeSpace.pm:133
+#: src/EBox/Model/DataTable.pm:331
+msgid "at"
+msgstr "à"
+
+#: src/EBox/Model/DataTable.pm:542
+msgid "field"
+msgstr "champs"
+
+# typo
+#: src/EBox/Model/DataTable.pm:1468
+msgid "page"
+msgstr "page"
+
+#: src/EBox/Model/DataTable.pm:1471
+msgid "Page must be a number equal or greater than zero"
+msgstr "La page doit être un nombre égal ou plus grand que zéro"
+
+#: src/EBox/Model/DataTable.pm:2129 src/EBox/Model/DataMultiTable.pm:168
+#: src/EBox/Model/Composite.pm:671 src/EBox/Model/Composite.pm:686
+#: src/EBox/Logs.pm:740
+msgid "Action"
+msgstr "Action"
+
+#: src/EBox/Model/DataTable.pm:2831
 #, perl-brace-format
-msgid "The file system {fs}, mounted on {mp}, has no space left"
-msgstr "Le système de fichiers {fs}, monté sur {mp}, n'a plus d'espace libre"
+msgid "Remove {num} rows of {rowName} from {model}{br}"
+msgstr "Effacer {num} colonnes de {rowName} depuis {model}{br}"
 
-#: src/EBox/Event/Watcher/DiskFreeSpace.pm:167
-msgid "Free storage space"
-msgstr "Espace de stockage libre"
+#: src/EBox/Model/DataTable.pm:2902
+msgid "Page size"
+msgstr "Taille de la page"
 
-#: src/EBox/Event/Watcher/DiskFreeSpace.pm:184
-msgid "Check if any disk partition has no storage space left"
-msgstr "Vérifier qu'aucune partition du disque n'ait plus d'espace libre"
+#: src/EBox/Model/DataTable.pm:2905
+msgid "Must be either a positive number or zero"
+msgstr "Cela doit être soit un nombre positif soit un zéro"
 
-#: src/EBox/Event/Dispatcher/Jabber.pm:165
-msgid "Admin Jabber account"
-msgstr "Administrer les comptes Jabber"
-
-#: src/EBox/Event/Dispatcher/Jabber.pm:178
-msgid "Jabber"
-msgstr "Jabber"
-
-#: src/EBox/Event/Dispatcher/Jabber.pm:228
+#: src/EBox/Model/DataTable.pm:3212
 #, perl-brace-format
-msgid "Jabber server {serverName} is down or connection is not allowed"
-msgstr ""
-"Le serveur Jabber {serverName} est tombé ou la connexion n'est pas permise"
+msgid "{row} added"
+msgstr "{row} ajoutée(s)"
 
-#: src/EBox/Event/Dispatcher/Jabber.pm:258
+#: src/EBox/Model/DataTable.pm:3213
 #, perl-brace-format
-msgid "Subscription failed: {message}"
-msgstr "Inscription échouée : {message}"
+msgid "{row} deleted"
+msgstr "{row} effacée(s)"
 
-#: src/EBox/Event/Dispatcher/Jabber.pm:265
+#: src/EBox/Model/DataTable.pm:3214
 #, perl-brace-format
-msgid "Authorization failed: {result} - {message}"
-msgstr "Autorisation échouée : {result} - {message}"
+msgid "{row} updated"
+msgstr "{row} mise-à-jours"
 
-#: src/EBox/Event/Dispatcher/Abstract.pm:140
+#: src/EBox/Model/DataTable.pm:3215
 #, perl-brace-format
-msgid "Dispatcher {name} is not configured to be enabled"
-msgstr "Le répartiteur {name} n'est pas activé"
+msgid "{row} moved up"
+msgstr "{row} montée(s)"
 
-#: src/EBox/Event/Dispatcher/Log.pm:135
-msgid "Log file"
-msgstr "fichier journal"
-
-#: src/EBox/Event/Dispatcher/Log.pm:148
-msgid "Log"
-msgstr "Journal"
-
-#: src/EBox/Event/Dispatcher/RSS.pm:218
+#: src/EBox/Model/DataTable.pm:3216
 #, perl-brace-format
-msgid "RSS file: {path}"
-msgstr "Fichier RSS : {path}"
+msgid "{row} moved down"
+msgstr "{row} descendue(s)"
 
-#: src/EBox/Event/Dispatcher/RSS.pm:232
-msgid "RSS"
-msgstr "RSS"
+#: src/EBox/Model/DataTable.pm:4402 src/templates/dataInUse.mas:25
+#: src/templates/dataInUse.mas:34 src/templates/password.mas:67
+#: src/templates/hostname.mas:19 src/templates/port.mas:14
+msgid "Change"
+msgstr "Modifier"
 
-#: src/EBox/Event/Dispatcher/RSS.pm:289
+#: src/EBox/Model/DataTable.pm:4560
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:290
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:340
+msgid "Enabled"
+msgstr "Activé"
+
+#: src/EBox/Model/ProviderBase.pm:246
 #, perl-brace-format
-msgid "Zentyal alerts channel for {hostname}"
-msgstr "Canal d'alerte de Zentyal pour {hostname}"
+msgid "Provided object with index {i} does not exist"
+msgstr "L'objet fourni avec l'index {i} n'existe pas"
 
-#: src/EBox/Event/Dispatcher/RSS.pm:292
-msgid "This channel tracks what happens on this Zentyal machine along the time"
-msgstr ""
-"Ce canal enregistre ce qui se passe sur cette machine Zentyal au fil du temps"
-
-#: src/EBox/Event/Dispatcher/RSS.pm:312
+#: src/EBox/Model/Composite.pm:371
 #, perl-brace-format
-msgid "The event has happened in Zentyal {hostname} from {source}"
-msgstr "L'évènement est survenu dans Zentyal {hostname} de {source}"
+msgid "It should be one of following values: {values}"
+msgstr "Cela doit être une des valeurs suivantes : {values}"
 
-#: src/EBox/Event/Dispatcher/RSS.pm:316
+#: src/EBox/Model/Composite.pm:673
 #, perl-brace-format
-msgid "Go to your {url} to check its status."
-msgstr "Allez à {url} pour vérifier son statut"
+msgid "Actions to be taken allowed are: {view} and {cView}"
+msgstr "Les actions permises sont : {view} et {cView}"
 
-#: src/EBox/PgDBEngine.pm:60 src/EBox/PgDBEngine.pm:74
-#: src/EBox/PgDBEngine.pm:88
-#, perl-brace-format
-msgid "You must set the {variable} variable in the ebox configuration file"
-msgstr "Vous devez définir la variable {variable} dans la configuration d'eBox"
+#: src/EBox/Model/Composite.pm:801
+msgid "Choose one of the following:"
+msgstr "Choisissez-en une parmi les suivantes : "
 
-#: src/EBox/PgDBEngine.pm:471
+#: src/EBox/Model/ModelManager.pm:468
 msgid ""
-"You are using sliced backup mode and this backup was made in no-sliced mode"
+"The data you are removing is being used by\n"
+"                    the following sections:"
 msgstr ""
+"Les données que vous essayez de supprimer sont utilisées par \n"
+"\t\t\t les sections suivantes : "
 
-#: src/EBox/PgDBEngine.pm:479
+#: src/EBox/Model/ModelManager.pm:515
 msgid ""
-"Database dump file not found. Maybe the backup you are trying to restore was "
-"made in sliced mode?"
+"The data you are modifying is being used by\n"
+"\t\t\tthe following sections:"
 msgstr ""
+"Les données que vous essayez de modifier sont utilisées par \n"
+"\t\t\t les sections suivantes :"
+
+#: src/EBox/Model/DataForm.pm:554
+#, perl-brace-format
+msgid "Remove data from {model}{br}"
+msgstr "Supprimer les données de {model}{br}"
+
+#: src/EBox/Model/DataForm.pm:688 src/templates/progress.mas:26
+msgid "Done"
+msgstr "Réussit"
 
 #: src/EBox/Types/Int.pm:154
 msgid "Enter an integer number"
@@ -1100,6 +505,25 @@ msgstr "La valeur ne doit pas être plus grande que {m}"
 msgid "The value shouldn't be less than {m}"
 msgstr "La valeur ne doit pas être plus petite que {m}"
 
+#: src/EBox/Types/DomainName.pm:117
+msgid "IP addresses are not allowed"
+msgstr "Adresses IP ne sont pas autorisées"
+
+#: src/EBox/Types/Float.pm:112
+msgid "Enter a float number"
+msgstr "Entrer un nombre décimal"
+
+#: src/EBox/Types/Select.pm:340
+#, perl-brace-format
+msgid "Choose a value within the value set: {set}"
+msgstr "Choisir une valeur parmi : {set}"
+
+#: src/EBox/Types/Service.pm:212 src/EBox/Types/PortRange.pm:289
+#: src/EBox/Events/Model/Watcher/LogFiltering.pm:149
+#: src/templates/logs/index.mas:185
+msgid "Any"
+msgstr "Tous"
+
 #: src/EBox/Types/Password.pm:133
 #, perl-brace-format
 msgid "The password should have at least {minLength} characters"
@@ -1109,10 +533,6 @@ msgstr "Le mot de passe doit comporter un minimum de {minLength} caractères"
 #, perl-brace-format
 msgid "The password should have at most {maxLength} characters"
 msgstr "Le mot de passe doit comporter un maximum de {maxLength} caractères"
-
-#: src/EBox/Types/DomainName.pm:117
-msgid "IP addresses are not allowed"
-msgstr "Adresses IP ne sont pas autorisées"
 
 #: src/EBox/Types/PortRange.pm:138
 msgid "any"
@@ -1131,32 +551,505 @@ msgstr "Plage de ports"
 msgid "\"From\" {from} must be greater than \"To\" {to}"
 msgstr "\"De\" {from} doit être supérieur que \"à\" {to}"
 
-#: src/EBox/Types/Float.pm:112
-msgid "Enter a float number"
-msgstr "Entrer un nombre décimal"
+#: src/EBox/Html.pm:39 src/templates/wizard.mas:124
+msgid "Save changes"
+msgstr "Sauver les modifications"
 
-#: src/EBox/Types/Select.pm:340
-#, perl-brace-format
-msgid "Choose a value within the value set: {set}"
-msgstr "Choisir une valeur parmi : {set}"
+#: src/EBox/Html.pm:40 src/EBox/CGI/Logout/Index.pm:29
+msgid "Logout"
+msgstr "Déconnexion"
 
-#: src/EBox/Logs/SlicedBackup.pm:104
-#, perl-brace-format
+#: src/EBox/SysInfo.pm.in:50
+msgid "System Information"
+msgstr "Information système"
+
+#: src/EBox/SysInfo.pm.in:95
+msgid "available"
+msgstr "disponible"
+
+#: src/EBox/SysInfo.pm.in:103
+msgid "Time"
+msgstr "Heure"
+
+#: src/EBox/SysInfo.pm.in:104
+msgid "Hostname"
+msgstr "Nom de l'hôte"
+
+#: src/EBox/SysInfo.pm.in:105
+msgid "Core version"
+msgstr "Version de base de l'eBox"
+
+#: src/EBox/SysInfo.pm.in:107
+msgid "System load"
+msgstr "Charge du système"
+
+#: src/EBox/SysInfo.pm.in:108
+msgid "Uptime"
+msgstr "Temps de fonctionnement"
+
+#: src/EBox/SysInfo.pm.in:109
+msgid "Users"
+msgstr "Utilisateurs"
+
+#: src/EBox/SysInfo.pm.in:162 src/EBox/SysInfo.pm.in:258
+msgid "Module Status"
+msgstr "Statut des modules"
+
+#: src/EBox/SysInfo.pm.in:168
+msgid "General Information"
+msgstr "Information générale"
+
+#: src/EBox/SysInfo.pm.in:174
+msgid "Process List"
+msgstr "Liste des processus"
+
+#: src/EBox/SysInfo.pm.in:181
+msgid "Resources & Services"
+msgstr "Ressources et Services"
+
+#: src/EBox/SysInfo.pm.in:253 src/EBox/CGI/Dashboard/Index.pm:32
+msgid "Dashboard"
+msgstr "Panneau de contrôle"
+
+#: src/EBox/SysInfo.pm.in:264
+msgid "System"
+msgstr "Système"
+
+#: src/EBox/SysInfo.pm.in:268
+msgid "General"
+msgstr "Général"
+
+#: src/EBox/SysInfo.pm.in:271 src/EBox/CGI/Report/DiskUsage.pm:31
+msgid "Disk Usage"
+msgstr "Utilisation du disque"
+
+#: src/EBox/SysInfo.pm.in:280 src/EBox/CGI/EBox/Backup.pm:34
+#, fuzzy
+msgid "Import/Export Configuration"
+msgstr "Configuration actuelle"
+
+#: src/EBox/SysInfo.pm.in:283
+msgid "Configuration Report"
+msgstr "Rapport de configuration"
+
+#: src/EBox/SysInfo.pm.in:286
+msgid "Halt/Reboot"
+msgstr "Arrêt/Redémarrage"
+
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:304
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:269
+msgid "Name"
+msgstr "Nom"
+
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:314
+msgid "Receiver"
+msgstr "Récepteur"
+
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:326
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:286
+msgid "Configuration"
+msgstr "Configuration"
+
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:346
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:302
+msgid "None"
+msgstr "Aucun"
+
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:355
+msgid "Configure Dispatchers"
+msgstr "Configurer les répartiteurs"
+
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:364
+msgid "dispatcher"
+msgstr "répartiteur"
+
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:365
+msgid "Enable/Disable each event dispatcher"
+msgstr "Activer/désactiver chaque événement du répartiteur"
+
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:554
 msgid ""
-"There are {n} log slices not stored; wait or force its storage and retry"
+"In order to enable a configurable event dispatcher, you need to configure it "
+"first"
 msgstr ""
+"Afin d'activer un événement du répartiteur, vous devez le configurer "
+"préalablement"
 
-#: src/EBox/Logs/SlicedBackup.pm:133 src/EBox/Logs/SlicedBackup.pm:141
-msgid "Backup slice time interval"
-msgstr ""
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:192
+msgid "Jabber server name"
+msgstr "Nom du serveur Jabber"
 
-#: src/EBox/Logs/SlicedBackup.pm:438
-msgid "Slices to be archived at once"
-msgstr ""
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:195
+msgid "Jabber server to send the messages"
+msgstr "Nom du serveur Jabber pour l'envoi de message"
 
-#: src/EBox/Logs/SlicedBackup.pm:445
-msgid "Slices timeline"
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:199
+msgid "Port"
+msgstr "Port"
+
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:206
+msgid "Jabber user name"
+msgstr "Nom d'utilisateur Jabber"
+
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:209
+msgid ""
+"Jabber ID of the account that will send the messages. Hint: do not introduce "
+"@domain, only the user name"
 msgstr ""
+"Identifiant Jabber du compte qui devra envoyer les messages.Astuce: Ne pas "
+"mettre @domain, mais uniquement le nom de l'utilisateur"
+
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:215
+msgid "User password"
+msgstr "Mot de passe utilisateur"
+
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:223
+msgid "Subscribe"
+msgstr "S'enregistrer"
+
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:225
+msgid ""
+"Tick this option if you want Zentyal to create an account for the above user"
+msgstr ""
+"Cocher cette option si vous souhaitez que Zentyal créé un compte pour "
+"l'utilisateur ci-dessus"
+
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:232
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:299
+msgid "Administrator Jabber Identifier"
+msgstr "Identifiant de l'administrateur Jabber"
+
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:235
+msgid ""
+"Destination Jabber ID of the messages generated by Zentyal,  i.e: you, the "
+"Zentyal admin. Note that you need to register this  account manually in any "
+"jabber server"
+msgstr ""
+"Identifiant Jabber du destinataire des messages générés par Zentyal, ex: "
+"vous, l'administrateur de Zentyal. Notez que vous devez enregistrer ce "
+"compte manuellement dans tous les serveurs Jabber"
+
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:244
+msgid "Configure Jabber dispatcher"
+msgstr "Configurer le répartiteur Jabber"
+
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:249
+msgid "This dispatcher will send events to an Jabber account"
+msgstr "Ce répartiteur enverra les évènements à un compte Jabber"
+
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:252
+msgid "Jabber dispatcher configuration updated"
+msgstr "Configuration du répartiteur Jabber mis-à-jour"
+
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:272
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:324
+#: src/EBox/Events/Model/GeneralComposite.pm:72
+#: src/EBox/Events/Model/GeneralComposite.pm:73
+#: src/EBox/Events/Model/Watcher/LogFiltering.pm:211
+#: src/EBox/Events/Model/Watcher/DiskFreeSpace.pm:136
+#: src/EBox/Events/Model/Watcher/Log.pm:385 src/EBox/Events.pm:94
+#: src/EBox/Events.pm:838
+msgid "Events"
+msgstr "Événements"
+
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:276
+msgid "Jabber Dispatcher"
+msgstr "Configurer le répartiteur Jabber"
+
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:301
+msgid "It should follow the pattern 'user@domain[/resource]'"
+msgstr "Doit être formé comme suit : 'user@domain[/resource]'"
+
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:149
+msgid "Nobody"
+msgstr "Personne"
+
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:153
+msgid "IP address"
+msgstr "Adresse IP"
+
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:160
+msgid "Object"
+msgstr "Objet"
+
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:169
+msgid "Public"
+msgstr "Publique"
+
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:176
+msgid "Channel link"
+msgstr "Lien du canal"
+
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:183
+msgid "Allowed readers"
+msgstr "Lecteurs permis"
+
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:186
+msgid "Use this field to set the access control for the channel"
+msgstr "Utiliser ce champs pour paramétrer le contrôle d'accès pour cet chaîne"
+
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:191
+msgid "Syndicate this RSS"
+msgstr "S'abonner à ce flux RSS"
+
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:201
+msgid "Configure RSS dispatcher"
+msgstr "Configurer le répartiteur RSS"
+
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:206
+msgid ""
+"The channel link is the link which is used to syndicate the content to your "
+"favourite RSS. "
+msgstr ""
+"Le lien de canal est le lien utilisé pour s'abonner au contenu de votre flux "
+"RSS favoris"
+
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:209
+msgid "RSS dispatcher configuration updated"
+msgstr "Configuration du répartiteur RSS mis-à-jour"
+
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:328
+msgid "RSS Dispatcher"
+msgstr "Répartiteur RSS"
+
+#: src/EBox/Events/Model/GeneralComposite.pm:76
+msgid ""
+"Events module configures Zentyal to help informing you about events that "
+"happen"
+msgstr ""
+"Le module d'évènements configure Zentyal pour vous tenir informer des "
+"évènements qui se passe"
+
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:277
+#: src/templates/backup.mas:55 src/templates/backup.mas:129
+#: src/templates/confirm-backup.mas:36
+msgid "Description"
+msgstr "Description"
+
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:311
+msgid "Configure Events"
+msgstr "Configurer les tâches événementielles"
+
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:319
+#: src/EBox/Events/Model/Report/EventsDetails.pm:109
+msgid "event"
+msgstr "événement"
+
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:320
+msgid "Enable/Disable each event watcher monitoring"
+msgstr "Activé/Désactiver chaque événement du moniteur"
+
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:498
+msgid ""
+"Warning! There is no log domain watcher enabled. Please, go to "
+"'Configuration' to enable at least one to be notified when a log in this "
+"domain happens. "
+msgstr ""
+"Attention ! Il n'y aucun observateur d'évènements pour le domaine. Svp, "
+"aller à 'Configuration' pour en activer au moins un"
+
+#: src/EBox/Events/Model/Watcher/LogFiltering.pm:108
+#, perl-brace-format
+msgid "Log domain {logDomain}"
+msgstr "Surveiller le domaine {logDomain}"
+
+#: src/EBox/Events/Model/Watcher/LogFiltering.pm:168
+#: src/templates/logs/index.mas:183
+msgid "Event"
+msgstr "Événement"
+
+#: src/EBox/Events/Model/Watcher/LogFiltering.pm:176
+#, perl-brace-format
+msgid "Filters to apply to notify logs from {logDomain}"
+msgstr ""
+"Filtres à appliquer pour notifier les enregistrements depuis {logDomain}"
+
+#: src/EBox/Events/Model/Watcher/LogFiltering.pm:184
+msgid ""
+"Every filter added is cumulative.Then every log line which matches with any "
+"filter given will be notified"
+msgstr ""
+"Tous les filtres ajoutés sont cumulés. Ensuite, chaque enregistrement qui "
+"correspond à n'importe quel filtre sera notifié"
+
+#: src/EBox/Events/Model/Watcher/LogFiltering.pm:188
+msgid "filter"
+msgstr "filtre"
+
+#: src/EBox/Events/Model/Watcher/LogFiltering.pm:215
+#: src/EBox/Events/Model/Watcher/Log.pm:389
+msgid "Log Observer Watcher"
+msgstr "Surveillance de l'observateur d'évènement"
+
+#: src/EBox/Events/Model/Watcher/DiskFreeSpace.pm:100
+msgid "Minimum free disk space per filesystem"
+msgstr "Espace disque libre minimum par système de fichier"
+
+#: src/EBox/Events/Model/Watcher/DiskFreeSpace.pm:105
+msgid ""
+"When the free space percentage of any disk partition is under this value the "
+"event is triggered."
+msgstr ""
+"Quand le pourcentage de l'espace libre de n'importe quelle partition disque "
+"est en dessous de cette valeur un évènement sera déclenché. "
+
+#: src/EBox/Events/Model/Watcher/DiskFreeSpace.pm:112
+msgid "Configure disk free space watcher"
+msgstr "Configurer la surveillance de l'espace disque libre"
+
+#: src/EBox/Events/Model/Watcher/DiskFreeSpace.pm:140
+msgid "Free Disk Space Watcher"
+msgstr "Surveillance de l'espace disque libre"
+
+#: src/EBox/Events/Model/Watcher/Log.pm:214
+#: src/EBox/Events/Model/Watcher/Log.pm:238
+msgid ""
+"Warning! The log watcher is not enabled. Enable to be notified when logs "
+"happen. "
+msgstr ""
+"Attention ! La surveillance n'est pas activée. Activez-la pour être notifié "
+"lorsqu'un évènement se produit"
+
+#: src/EBox/Events/Model/Watcher/Log.pm:262
+#: src/EBox/Logs/Model/SelectLog.pm:149
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:332
+msgid "Domain"
+msgstr "Domaine"
+
+#: src/EBox/Events/Model/Watcher/Log.pm:267
+msgid "Filtering"
+msgstr "Filtrage"
+
+#: src/EBox/Events/Model/Watcher/Log.pm:275
+msgid "Configure log watchers"
+msgstr "Configurez les observateurs d'évènements"
+
+#: src/EBox/Events/Model/Watcher/Log.pm:277
+msgid "Log watcher"
+msgstr "Observateur d'évènements"
+
+#: src/EBox/Events/Model/Report/EventsGraph.pm:51
+#: src/EBox/Events/Model/Report/EventsDetails.pm:51
+#: src/EBox/Events/Model/Report/EventsDetails.pm:80 src/EBox/Events.pm:830
+msgid "Informative"
+msgstr "Instructif"
+
+#: src/EBox/Events/Model/Report/EventsGraph.pm:52
+#: src/EBox/Events/Model/Report/EventsDetails.pm:52
+#: src/EBox/Events/Model/Report/EventsDetails.pm:84 src/EBox/Events.pm:831
+#: src/templates/finish.mas:83
+msgid "Warning"
+msgstr "Attention"
+
+#: src/EBox/Events/Model/Report/EventsGraph.pm:53
+#: src/EBox/Events/Model/Report/EventsDetails.pm:53
+#: src/EBox/Events/Model/Report/EventsDetails.pm:88 src/EBox/Events.pm:832
+msgid "Error"
+msgstr "Erreur"
+
+#: src/EBox/Events/Model/Report/EventsGraph.pm:54
+#: src/EBox/Events/Model/Report/EventsDetails.pm:54
+#: src/EBox/Events/Model/Report/EventsDetails.pm:92 src/EBox/Events.pm:833
+msgid "Fatal error"
+msgstr "Erreur fatale"
+
+#: src/EBox/Events/Model/Report/EventsGraph.pm:60
+msgid "Events summarized chart"
+msgstr "Tableau résumé des événements"
+
+#: src/EBox/Events/Model/Report/EventsGraph.pm:77
+msgid "Events summarized graph"
+msgstr "Graphique résumé des événements"
+
+#: src/EBox/Events/Model/Report/EventsDetails.pm:50
+#: src/EBox/Events/Model/Report/EventsDetails.pm:74 src/EBox/Events.pm:823
+msgid "Source"
+msgstr "Source"
+
+#: src/EBox/Events/Model/Report/EventsDetails.pm:68 src/EBox/Logs.pm:737
+#: src/templates/backup.mas:130 src/templates/finish.mas:116
+#: src/templates/confirm-backup.mas:28
+msgid "Date"
+msgstr "Date"
+
+#: src/EBox/Events/Model/Report/EventsDetails.pm:101
+msgid "Events details"
+msgstr "Détails des évènements"
+
+#: src/EBox/Events/Composite/Report/EventsReport.pm:69
+msgid "Events reports"
+msgstr "Rapports des événements"
+
+#: src/EBox/Events/Composite/Report/EventsReport.pm:70
+msgid "Events report"
+msgstr "Rapport des événements"
+
+#: src/EBox/ProgressIndicator.pm:42
+msgid "Total ticks"
+msgstr "Coutils (ticks) totaux"
+
+#: src/EBox/ProgressIndicator.pm:44
+msgid "It must be a non-zero positive number"
+msgstr "Cela doit être un nombre positif non égal à zéro"
+
+#: src/EBox/ProgressIndicator.pm:49
+msgid "To solve it you can try to execute the following commands:"
+msgstr ""
+"Pour résoudre le problème, vous pouvez essayer d’exécuter les commandes "
+"suivantes: "
+
+#: src/EBox/ProgressIndicator.pm:56
+#, perl-brace-format
+msgid "Cannot execute {exe}"
+msgstr "Ne peut pas exécuter {exe}"
+
+#: src/EBox/ProgressIndicator.pm:106
+#, perl-brace-format
+msgid "Progress indicator with id {id} not found"
+msgstr "L'indicateur de progression avec l'id {id} pas trouvé"
+
+#: src/EBox/ProgressIndicator.pm:144
+msgid "Number of ticks to notify"
+msgstr "Nombre de coutils (ticks) à notifier"
+
+#: src/EBox/ProgressIndicator.pm:146
+msgid "must be greater than zero"
+msgstr "doit être plus grand que zéro"
+
+#: src/EBox/ProgressIndicator.pm:152
+msgid "Executable has not been run"
+msgstr "L'exécutable n'a pas été démarré"
+
+#: src/EBox/ProgressIndicator.pm:293
+msgid "The executable has not run"
+msgstr "L'exécutable n'a pas démarré"
+
+#: src/EBox/ProgressIndicator.pm:437
+msgid "The executable has already been started"
+msgstr "L'exécutable a déjà été démarré"
+
+#: src/EBox/ProgressIndicator.pm:441
+msgid "The executable has already finished"
+msgstr "L'exécutable s'est déjà terminé"
+
+#: src/EBox/Auth.pm:133
+msgid "Password changed"
+msgstr "Mot de passe modifié"
+
+#: src/EBox/Global.pm:536
+#, perl-brace-format
+msgid "Enabling {modName} module"
+msgstr "Activation du module {modName}"
+
+#: src/EBox/Global.pm:566 src/EBox/Global.pm:597
+#, perl-brace-format
+msgid "Saving {modName} module"
+msgstr "Sauvegarde en cours du module {modName}"
+
+#: src/EBox/Global.pm:1114
+#, perl-brace-format
+msgid "running {scriptName} script"
+msgstr "Script {scriptName} en cours d'exécution"
 
 #: src/EBox/Logs/Model/SelectLog.pm:157
 msgid "Full report"
@@ -1175,54 +1068,62 @@ msgstr "Rapport sélectionné"
 msgid "logs"
 msgstr "journaux"
 
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:228
-msgid "never purge"
-msgstr "ne jamais purger"
+#: src/EBox/Logs/Model/ForcePurge.pm:99
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:347
+msgid "Purge logs older than"
+msgstr "Purger les journaux antérieurs à "
 
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:232
+#: src/EBox/Logs/Model/ForcePurge.pm:108
+msgid "Force log purge"
+msgstr "Forcer la purge des journaux"
+
+#: src/EBox/Logs/Model/ForcePurge.pm:111
+msgid "Purge"
+msgstr "Purge"
+
 #: src/EBox/Logs/Model/ForcePurge.pm:125
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:232
 msgid "one hour"
 msgstr "une heure"
 
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:236
 #: src/EBox/Logs/Model/ForcePurge.pm:129
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:236
 msgid "twelve hours"
 msgstr "12 heures"
 
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:240
 #: src/EBox/Logs/Model/ForcePurge.pm:133
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:240
 msgid "one day"
 msgstr "un jour"
 
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:244
 #: src/EBox/Logs/Model/ForcePurge.pm:137
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:244
 msgid "three days"
 msgstr "3 jours"
 
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:248
 #: src/EBox/Logs/Model/ForcePurge.pm:141
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:248
 msgid "one week"
 msgstr "une semaine"
 
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:252
 #: src/EBox/Logs/Model/ForcePurge.pm:145
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:252
 msgid "fifteeen days"
 msgstr "15 jours"
 
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:256
 #: src/EBox/Logs/Model/ForcePurge.pm:149
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:256
 msgid "thirty days"
 msgstr "30 jours"
 
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:260
 #: src/EBox/Logs/Model/ForcePurge.pm:153
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:260
 msgid "ninety days"
 msgstr "90 jours"
 
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:347
-#: src/EBox/Logs/Model/ForcePurge.pm:99
-msgid "Purge logs older than"
-msgstr "Purger les journaux antérieurs à "
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:228
+msgid "never purge"
+msgstr "ne jamais purger"
 
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:364
 msgid "Current configuration"
@@ -1235,20 +1136,6 @@ msgstr "Configuration des journaux"
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:371
 msgid "Enable/disable logging per-module basis"
 msgstr "Activer/Désactiver les journaux sur la base des modules"
-
-#: src/EBox/Logs/Model/ForcePurge.pm:108
-msgid "Force log purge"
-msgstr "Forcer la purge des journaux"
-
-#: src/EBox/Logs/Model/ForcePurge.pm:111
-msgid "Purge"
-msgstr "Purge"
-
-#: src/EBox/Logs/Model/Report/Details.pm:226
-#: src/EBox/Logs/Model/Report/Details.pm:234
-#: src/EBox/Logs/Model/Report/Details.pm:269
-msgid "All"
-msgstr "Tous"
 
 #: src/EBox/Logs/Model/Report/OptionsBase.pm:40
 msgid "hour"
@@ -1273,6 +1160,113 @@ msgstr "Périodicité du rapport"
 #: src/EBox/Logs/Model/Report/OptionsBase.pm:101
 msgid "Report options"
 msgstr "Options du rapport"
+
+#: src/EBox/Logs/Model/Report/Details.pm:226
+#: src/EBox/Logs/Model/Report/Details.pm:234
+#: src/EBox/Logs/Model/Report/Details.pm:269
+msgid "All"
+msgstr "Tous"
+
+#: src/EBox/Logs/SlicedBackup.pm:104
+#, perl-brace-format
+msgid ""
+"There are {n} log slices not stored; wait or force its storage and retry"
+msgstr ""
+
+#: src/EBox/Logs/SlicedBackup.pm:133 src/EBox/Logs/SlicedBackup.pm:141
+msgid "Backup slice time interval"
+msgstr ""
+
+#: src/EBox/Logs/SlicedBackup.pm:438
+msgid "Slices to be archived at once"
+msgstr ""
+
+#: src/EBox/Logs/SlicedBackup.pm:445
+msgid "Slices timeline"
+msgstr ""
+
+#: src/EBox/Report/DiskUsage.pm:76
+#, perl-brace-format
+msgid "No usage data for {d}. Are you sure is a valid disk?"
+msgstr ""
+"Aucune donnée d'utilisation pour {d}. Etes-vous sûr que c'est un disque "
+"valide ?"
+
+#: src/EBox/Report/DiskUsage.pm:222
+#, perl-brace-format
+msgid ""
+"Invalid file system: {f}. Only regular and no removable media file systems "
+"are accepted"
+msgstr ""
+"Système de fichier invalide : {f}. Uniquement les médias standards et non-"
+"amovibles sont acceptés"
+
+#: src/EBox/PgDBEngine.pm:60 src/EBox/PgDBEngine.pm:74
+#: src/EBox/PgDBEngine.pm:88
+#, perl-brace-format
+msgid "You must set the {variable} variable in the ebox configuration file"
+msgstr "Vous devez définir la variable {variable} dans la configuration d'eBox"
+
+#: src/EBox/PgDBEngine.pm:471
+msgid ""
+"You are using sliced backup mode and this backup was made in no-sliced mode"
+msgstr ""
+
+#: src/EBox/PgDBEngine.pm:479
+msgid ""
+"Database dump file not found. Maybe the backup you are trying to restore was "
+"made in sliced mode?"
+msgstr ""
+
+#: src/EBox/Logs.pm:58 src/EBox/Logs.pm:383 src/EBox/CGI/Logs/Index.pm:35
+msgid "Logs"
+msgstr "Journaux"
+
+#: src/EBox/Logs.pm:384
+msgid "Zentyal Server logs database"
+msgstr ""
+
+#: src/EBox/Logs.pm:470
+#, perl-brace-format
+msgid "Table {table} does not exist"
+msgstr "Tableau {table} n'existe pas"
+
+#: src/EBox/Logs.pm:721 src/EBox/CGI/Logs/Index.pm:326
+msgid "Query Logs"
+msgstr "Journaux de requêtes"
+
+#: src/EBox/Logs.pm:724
+msgid "Configure Logs"
+msgstr "Configurer les journaux d'activité"
+
+#: src/EBox/Logs.pm:738
+msgid "Client Address"
+msgstr "Adresse du client"
+
+#: src/EBox/Logs.pm:739 src/EBox/CGI/EBox/Backup.pm:257
+#: src/templates/moduleStatusTable.mas:58 src/templates/finish.mas:117
+msgid "Module"
+msgstr "Module"
+
+#: src/EBox/Logs.pm:741
+msgid "Params"
+msgstr "Paramètres"
+
+#: src/EBox/Logs.pm:742
+msgid "Committed"
+msgstr "Effectué"
+
+#: src/EBox/Logs.pm:747
+msgid "Admin"
+msgstr "Admin"
+
+#: src/EBox/Logs.pm:841
+msgid "Log messages"
+msgstr "Messages du journal"
+
+#: src/EBox/Logs.pm:868
+msgid "Lifetime parameter must be a positive number of hours"
+msgstr "Le paramètre de durée de vie doit être une nombre positif d'heures"
 
 #: src/EBox/Common/Model/EnableForm.pm:99
 msgid "Service enabled"
@@ -1322,162 +1316,273 @@ msgstr "Niveau"
 msgid "Message"
 msgstr "Message"
 
-#: src/EBox/Logs.pm:384
-msgid "Zentyal Server logs database"
-msgstr ""
-
-#: src/EBox/Logs.pm:470
-#, perl-brace-format
-msgid "Table {table} does not exist"
-msgstr "Tableau {table} n'existe pas"
-
-#: src/EBox/Logs.pm:724
-msgid "Configure Logs"
-msgstr "Configurer les journaux d'activité"
-
-#: src/EBox/Logs.pm:738
-msgid "Client Address"
-msgstr "Adresse du client"
-
-#: src/EBox/Logs.pm:740 src/EBox/Model/Composite.pm:671
-#: src/EBox/Model/Composite.pm:686 src/EBox/Model/DataMultiTable.pm:168
-#: src/EBox/Model/DataTable.pm:2129
-msgid "Action"
-msgstr "Action"
-
-#: src/EBox/Logs.pm:741
-msgid "Params"
-msgstr "Paramètres"
-
-#: src/EBox/Logs.pm:742
-msgid "Committed"
-msgstr "Effectué"
-
-#: src/EBox/Logs.pm:747
-msgid "Admin"
-msgstr "Admin"
-
-#: src/EBox/Logs.pm:841
-msgid "Log messages"
-msgstr "Messages du journal"
-
-#: src/EBox/Logs.pm:868
-msgid "Lifetime parameter must be a positive number of hours"
-msgstr "Le paramètre de durée de vie doit être une nombre positif d'heures"
-
-#: src/EBox/Model/ProviderBase.pm:246
-#, perl-brace-format
-msgid "Provided object with index {i} does not exist"
-msgstr "L'objet fourni avec l'index {i} n'existe pas"
-
-#: src/EBox/Model/DataForm.pm:554
-#, perl-brace-format
-msgid "Remove data from {model}{br}"
-msgstr "Supprimer les données de {model}{br}"
-
-#: src/EBox/Model/DataForm.pm:688 src/templates/progress.mas:26
-msgid "Done"
-msgstr "Réussit"
-
-#: src/EBox/Model/Composite.pm:371
-#, perl-brace-format
-msgid "It should be one of following values: {values}"
-msgstr "Cela doit être une des valeurs suivantes : {values}"
-
-#: src/EBox/Model/Composite.pm:673
-#, perl-brace-format
-msgid "Actions to be taken allowed are: {view} and {cView}"
-msgstr "Les actions permises sont : {view} et {cView}"
-
-#: src/EBox/Model/Composite.pm:801
-msgid "Choose one of the following:"
-msgstr "Choisissez-en une parmi les suivantes : "
-
-#: src/EBox/Model/ModelManager.pm:468
+#: src/EBox/CGI/ClientRawBase.pm:212 src/EBox/CGI/WizardPage.pm:155
 msgid ""
-"The data you are removing is being used by\n"
-"                    the following sections:"
+"An internal error related to a template has occurred. This is a bug, "
+"relevant information can be found in the logs."
 msgstr ""
-"Les données que vous essayez de supprimer sont utilisées par \n"
-"\t\t\t les sections suivantes : "
+"Une erreur interne liée au modèle s'est produite. Cela est du à un bug, des "
+"informations pertinentes peuvent être trouvées dans les logs."
 
-#: src/EBox/Model/ModelManager.pm:515
+#: src/EBox/CGI/Wizard.pm:29
+msgid "Initial configuration wizard"
+msgstr "Assistant de première configuration"
+
+#: src/EBox/CGI/ServiceModule/StatusView.pm:39
+msgid "Module Status Configuration"
+msgstr "Configuration de l'état du module"
+
+#: src/EBox/CGI/Dashboard/ConfigureWidgets.pm:30
+#: src/templates/dashboard/index.mas:81
+msgid "Configure Widgets"
+msgstr "Configurer les Widgets"
+
+#: src/EBox/CGI/Finish.pm:32
+msgid "Save configuration"
+msgstr "Sauver la configuration"
+
+#: src/EBox/CGI/Finish.pm:77 src/EBox/CGI/Progress.pm:81
+#: src/EBox/CGI/Progress.pm:107
+msgid "Saving changes"
+msgstr "Sauvegarde des modifications"
+
+#: src/EBox/CGI/Finish.pm:78
+msgid "Saving changes in modules"
+msgstr "Sauvegarde des modifications aux modules"
+
+#: src/EBox/CGI/Finish.pm:79 src/templates/report/raid.mas:213
+msgid "Current operation"
+msgstr "Opération en cours"
+
+#: src/EBox/CGI/Finish.pm:80
+msgid "operations performed"
+msgstr "Opérations effectuées"
+
+#: src/EBox/CGI/Finish.pm:81
+msgid "Changes saved"
+msgstr "Modifications sauvegardées"
+
+#: src/EBox/CGI/Finish.pm:82
+#, perl-brace-format
 msgid ""
-"The data you are modifying is being used by\n"
-"\t\t\tthe following sections:"
+"Some modules reported error when saving changes . More information on the "
+"logs in {dir}"
 msgstr ""
-"Les données que vous essayez de modifier sont utilisées par \n"
-"\t\t\t les sections suivantes :"
+"Quelques modules ont reporté des erreurs lors de la sauvegarde . Plus "
+"d'informations sont disponibles dans les rapports d'événements sous {dir}"
 
-#: src/EBox/Model/DataTable.pm:327
+#: src/EBox/CGI/Finish.pm:101
+msgid "Revoking changes"
+msgstr "Annulation des modifications"
+
+#: src/EBox/CGI/Finish.pm:102
+msgid "Revoking changes in modules"
+msgstr "Annulation des modifications aux modules"
+
+#: src/EBox/CGI/Finish.pm:103
+msgid "Current module"
+msgstr "Module actuel"
+
+#: src/EBox/CGI/Finish.pm:104
+msgid "modules revoked"
+msgstr "les modules ont été retirés"
+
+#: src/EBox/CGI/Finish.pm:105
+msgid "Changes revoked"
+msgstr "Les modifications ont été retirée"
+
+#: src/EBox/CGI/Finish.pm:106
 #, perl-brace-format
-msgid "{model} in {module} module"
-msgstr "{model} dans {module} module"
+msgid ""
+"Some modules reported error when discarding changes . More information on "
+"the logs in {dir}"
+msgstr ""
+"Quelques modules ont reporté des erreurs lors de l'annulation des "
+"changements . Plus d'informations sont disponibles dans les rapports "
+"d'événements sous {dir}"
 
-#: src/EBox/Model/DataTable.pm:331
-msgid "at"
-msgstr "à"
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:33 src/templates/backup.mas:30
+msgid "Configuration Backup"
+msgstr "Configuration des sauvegardes"
 
-#: src/EBox/Model/DataTable.pm:542
-msgid "field"
-msgstr "champs"
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:105
+msgid "Please confirm that you want to delete the following backup file:"
+msgstr ""
+"Veuillez confirmer votre intention d'effacer le fichier de sauvegarde "
+"suivant :"
 
-# typo
-#: src/EBox/Model/DataTable.pm:1468
-msgid "page"
-msgstr "page"
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:107 src/templates/backup.mas:168
+#: src/templates/backup.mas:169
+msgid "Delete"
+msgstr "Effacer"
 
-#: src/EBox/Model/DataTable.pm:1471
-msgid "Page must be a number equal or greater than zero"
-msgstr "La page doit être un nombre égal ou plus grand que zéro"
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:114
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:130
+msgid "Please confirm that you want to restore using this backup file:"
+msgstr ""
+"Veuillez confirmer votre intention de restaurer la configuration à partir de "
+"ce fichier de sauvegarde :"
 
-#: src/EBox/Model/DataTable.pm:2831
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:116
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:132 src/templates/backup.mas:98
+msgid "Restore"
+msgstr "Restaurer"
+
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:147 src/EBox/CGI/EBox/Backup.pm:193
+#: src/EBox/CGI/EBox/Backup.pm:271 src/EBox/CGI/EBox/Backup.pm:284
+#: src/EBox/Backup.pm:1482
+msgid "The input contains invalid characters"
+msgstr "L'entrée contient des caractères invalides"
+
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:176
+msgid "Configuration backup"
+msgstr "Configuration des sauvegardes"
+
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:179
+msgid "Full data and configuration backup"
+msgstr "Configuration des sauvegardes et données complètes"
+
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:182
+msgid "Bug-report configuration dump"
+msgstr "Configuration du rapport de bug"
+
+#: src/EBox/CGI/EBox/Hostname.pm:48
+msgid "hostname"
+msgstr "Nom d'hôte"
+
+#: src/EBox/CGI/EBox/CurrentProgress.pm:36
+msgid "Upgrading"
+msgstr "Mise-à-jour"
+
+#: src/EBox/CGI/EBox/General.pm:32
+msgid "General Configuration"
+msgstr "Configuration générale"
+
+#: src/EBox/CGI/EBox/Halt.pm:30
+msgid "Halt or Reboot"
+msgstr "Arrêt ou redémarrage"
+
+#: src/EBox/CGI/EBox/Halt.pm:43
+msgid "Zentyal is going down for halt"
+msgstr "Zentyal est en cours d'arrêt"
+
+#: src/EBox/CGI/EBox/Halt.pm:46
+msgid "Zentyal is going down for reboot"
+msgstr "Zentyal est en cours de redémarrage"
+
+#: src/EBox/CGI/EBox/RestartService.pm:49
+msgid "module name"
+msgstr "Nom du module"
+
+#: src/EBox/CGI/EBox/RestartService.pm:54
+msgid "The module was restarted correctly."
+msgstr "Le module a redémarré correctement"
+
+#: src/EBox/CGI/EBox/RestartService.pm:58
 #, perl-brace-format
-msgid "Remove {num} rows of {rowName} from {model}{br}"
-msgstr "Effacer {num} colonnes de {rowName} depuis {model}{br}"
+msgid "Error restarting service. See {logs} for more information."
+msgstr ""
 
-#: src/EBox/Model/DataTable.pm:2902
-msgid "Page size"
-msgstr "Taille de la page"
+#: src/EBox/CGI/EBox/Password.pm:43 src/templates/password.mas:11
+#: src/templates/login/index.mas:49
+msgid "Username"
+msgstr "Nom d'utilisateur"
 
-#: src/EBox/Model/DataTable.pm:2905
-msgid "Must be either a positive number or zero"
-msgstr "Cela doit être soit un nombre positif soit un zéro"
+#: src/EBox/CGI/EBox/Password.pm:48 src/templates/login/index.mas:54
+msgid "Password"
+msgstr "Mot de passe"
 
-#: src/EBox/Model/DataTable.pm:3212
+#: src/EBox/CGI/EBox/Password.pm:57
+msgid "Incorrect password."
+msgstr "Mot de passe incorrect."
+
+#: src/EBox/CGI/EBox/Password.pm:62
+msgid "New passwords do not match."
+msgstr "Les nouveaux mots de passe ne correspondent pas."
+
+#: src/EBox/CGI/EBox/Password.pm:67
+msgid "The password must be at least 6 characters long"
+msgstr "Le mot de passe doit comporter un minimum de 6 caractères"
+
+#: src/EBox/CGI/EBox/Password.pm:71
+msgid "The password was changed successfully."
+msgstr "Le mot de passe a été modifié avec succès"
+
+#: src/EBox/CGI/EBox/ConfigurationReport.pm:29
+msgid "Configuration report"
+msgstr "Rapport de configuration"
+
+#: src/EBox/CGI/EBox/Backup.pm:163
 #, perl-brace-format
-msgid "{row} added"
-msgstr "{row} ajoutée(s)"
+msgid "Unknown backup mode: {mode}"
+msgstr "Type de sauvegarde inconnue : {mode}"
 
-#: src/EBox/Model/DataTable.pm:3213
+#: src/EBox/CGI/EBox/Backup.pm:226
 #, perl-brace-format
-msgid "{row} deleted"
-msgstr "{row} effacée(s)"
+msgid "Unknown restore mode: {mode}"
+msgstr "Mode de restauration inconnu : {mode}"
 
-#: src/EBox/Model/DataTable.pm:3214
-#, perl-brace-format
-msgid "{row} updated"
-msgstr "{row} mise-à-jours"
+#: src/EBox/CGI/EBox/Backup.pm:239
+msgid "Backing up"
+msgstr "Sauvegarde"
 
-#: src/EBox/Model/DataTable.pm:3215
-#, perl-brace-format
-msgid "{row} moved up"
-msgstr "{row} montée(s)"
+#: src/EBox/CGI/EBox/Backup.pm:240
+msgid "Backing up modules"
+msgstr "Sauvegarde des modules"
 
-#: src/EBox/Model/DataTable.pm:3216
-#, perl-brace-format
-msgid "{row} moved down"
-msgstr "{row} descendue(s)"
+#: src/EBox/CGI/EBox/Backup.pm:241
+msgid "Operation"
+msgstr "Opération"
 
-#: src/EBox/Model/DataTable.pm:4402 src/templates/password.mas:67
-#: src/templates/dataInUse.mas:25 src/templates/dataInUse.mas:34
-#: src/templates/port.mas:14 src/templates/hostname.mas:19
-msgid "Change"
-msgstr "Modifier"
+#: src/EBox/CGI/EBox/Backup.pm:242
+msgid "operations left to finish backup"
+msgstr "Opérations restantes pour terminer la sauvegarde"
 
-#: src/EBox/Html.pm:39 src/templates/wizard.mas:124
-msgid "Save changes"
-msgstr "Sauver les modifications"
+#: src/EBox/CGI/EBox/Backup.pm:243
+msgid "Backup successful"
+msgstr "Sauvegarde réussie"
+
+#: src/EBox/CGI/EBox/Backup.pm:255
+msgid "Restoring backup"
+msgstr "Restauration à partir de la sauvegarde"
+
+#: src/EBox/CGI/EBox/Backup.pm:256
+msgid "Restoring modules"
+msgstr "Restauration des modules"
+
+#: src/EBox/CGI/EBox/Backup.pm:258
+msgid "modules restored"
+msgstr "les modules ont été restaurés"
+
+#: src/EBox/CGI/EBox/Backup.pm:259
+msgid "Restore successful"
+msgstr "Restauration réussie"
+
+#: src/EBox/CGI/Login/Index.pm:63
+msgid ""
+"There is a script which has asked to run in Zentyal exclusively. Please, "
+"wait patiently until it is done"
+msgstr ""
+"Un script a demandé une exécution exclusive sur Zentyal. Veuillez patientez "
+"jusqu'à la fin de son exécution"
+
+#: src/EBox/CGI/Login/Index.pm:67
+msgid "Incorrect password"
+msgstr "Mot de passe incorrect."
+
+#: src/EBox/CGI/Login/Index.pm:70
+msgid "For security reasons your session has expired due to inactivity"
+msgstr ""
+"Votre session a expiré pour raisons de sécurité suite à votre inactivité"
+
+#: src/EBox/CGI/Login/Index.pm:73
+msgid "You have been logged out because a new session has been opened"
+msgstr ""
+"Vous avez été deconnecté de cette session suite à l'ouverture d'une nouvelle"
+
+#: src/EBox/CGI/Logs/Index.pm:329
+msgid "Full Reports"
+msgstr "Rapports complets"
 
 #: src/EBox/Backup.pm:96
 msgid "Creating backup archive"
@@ -1572,28 +1677,28 @@ msgstr ""
 msgid "Could not unpack the etc files archive backup"
 msgstr "Impossible de désarchiver la sauvegarde"
 
-#: src/EBox/Backup.pm:1327
+#: src/EBox/Backup.pm:1326
 #, perl-brace-format
 msgid ""
 "The following modules present in the backup are not installed: {mods}. You "
 "need to install them before restoring."
 msgstr ""
 
-#: src/EBox/Backup.pm:1353
+#: src/EBox/Backup.pm:1354
 #, perl-brace-format
 msgid "Cannot restore backup, error enabling module {m}: {err}"
 msgstr ""
 
-#: src/EBox/Backup.pm:1386
+#: src/EBox/Backup.pm:1387
 #, perl-brace-format
 msgid "No module {m} found in backup"
 msgstr "Aucun module {m} trouvé dans la sauvegarde"
 
-#: src/EBox/Backup.pm:1408
+#: src/EBox/Backup.pm:1409
 msgid "No modules to restore"
 msgstr "Aucun module à restaurer"
 
-#: src/EBox/Backup.pm:1460
+#: src/EBox/Backup.pm:1461
 #, perl-brace-format
 msgid ""
 "Unresolved restore dependency for module {topModule}: {modName} is not "
@@ -1601,126 +1706,47 @@ msgid ""
 msgstr ""
 "Dépendance du module {topModule} incomplète. {modName} n'est pas installé"
 
-#: src/EBox/Backup.pm:1502
+#: src/EBox/Backup.pm:1503
 #, fuzzy
 msgid "Backup archives"
 msgstr "Archives des sauvegardes"
 
-#: src/EBox/SysInfo.pm.in:50
-msgid "System Information"
-msgstr "Information système"
+#: src/templates/dataInUse.mas:41 src/templates/confirm-backup.mas:66
+msgid "Cancel"
+msgstr "Annuler"
 
-#: src/EBox/SysInfo.pm.in:95
-msgid "available"
-msgstr "disponible"
+#: src/templates/links-widget.mas:5
+msgid "Community Resources"
+msgstr "Ressources Communautaires"
 
-#: src/EBox/SysInfo.pm.in:103
-msgid "Time"
-msgstr "Heure"
+#: src/templates/links-widget.mas:10
+msgid "Documentation"
+msgstr "Documentation"
 
-#: src/EBox/SysInfo.pm.in:104
-msgid "Hostname"
-msgstr "Nom de l'hôte"
+#: src/templates/links-widget.mas:12
+msgid "Forum"
+msgstr "Forum"
 
-#: src/EBox/SysInfo.pm.in:105
-msgid "Core version"
-msgstr "Version de base de l'eBox"
+#: src/templates/links-widget.mas:14
+msgid "Report a bug"
+msgstr "Rapporté un bug"
 
-#: src/EBox/SysInfo.pm.in:107
-msgid "System load"
-msgstr "Charge du système"
+#: src/templates/links-widget.mas:16
+msgid "How to Contribute"
+msgstr "Comment contribuer"
 
-#: src/EBox/SysInfo.pm.in:108
-msgid "Uptime"
-msgstr "Temps de fonctionnement"
+#: src/templates/moduleStatusTable.mas:59
+msgid "Depends"
+msgstr "Dépend"
 
-#: src/EBox/SysInfo.pm.in:109
-msgid "Users"
-msgstr "Utilisateurs"
+#: src/templates/moduleStatusTable.mas:60 src/templates/report/raid.mas:104
+msgid "Status"
+msgstr "Statut"
 
-#: src/EBox/SysInfo.pm.in:162 src/EBox/SysInfo.pm.in:258
-msgid "Module Status"
-msgstr "Statut des modules"
-
-#: src/EBox/SysInfo.pm.in:168
-msgid "General Information"
-msgstr "Information générale"
-
-#: src/EBox/SysInfo.pm.in:174
-msgid "Process List"
-msgstr "Liste des processus"
-
-#: src/EBox/SysInfo.pm.in:181
-msgid "Resources & Services"
-msgstr "Ressources et Services"
-
-#: src/EBox/SysInfo.pm.in:264
-msgid "System"
-msgstr "Système"
-
-#: src/EBox/SysInfo.pm.in:268
-msgid "General"
-msgstr "Général"
-
-#: src/EBox/SysInfo.pm.in:283
-msgid "Configuration Report"
-msgstr "Rapport de configuration"
-
-#: src/EBox/SysInfo.pm.in:286
-msgid "Halt/Reboot"
-msgstr "Arrêt/Redémarrage"
-
-#: src/EBox/Apache.pm:289 src/EBox/Apache.pm:298
-msgid "port"
-msgstr "port"
-
-#: src/EBox/Apache.pm:626
-#, fuzzy
-msgid "Zentyal Administration Web Server"
-msgstr "Serveur web de Zentyal"
-
-#: src/EBox/Global.pm:536
+#: src/templates/moduleStatusTable.mas:85
 #, perl-brace-format
-msgid "Enabling {modName} module"
-msgstr "Activation du module {modName}"
-
-#: src/EBox/Global.pm:566 src/EBox/Global.pm:597
-#, perl-brace-format
-msgid "Saving {modName} module"
-msgstr "Sauvegarde en cours du module {modName}"
-
-#: src/EBox/Global.pm:1114
-#, perl-brace-format
-msgid "running {scriptName} script"
-msgstr "Script {scriptName} en cours d'exécution"
-
-#: src/EBox/Report/DiskUsage.pm:76
-#, perl-brace-format
-msgid "No usage data for {d}. Are you sure is a valid disk?"
-msgstr ""
-"Aucune donnée d'utilisation pour {d}. Etes-vous sûr que c'est un disque "
-"valide ?"
-
-#: src/EBox/Report/DiskUsage.pm:222
-#, perl-brace-format
-msgid ""
-"Invalid file system: {f}. Only regular and no removable media file systems "
-"are accepted"
-msgstr ""
-"Système de fichier invalide : {f}. Uniquement les médias standards et non-"
-"amovibles sont acceptés"
-
-#: src/templates/configurationFiles.mas:12
-msgid "Do you wish to overwrite these files?"
-msgstr "Voulez-vous écraser ces fichiers ?"
-
-#: src/templates/configurationFiles.mas:19
-msgid "Keep current file"
-msgstr "Conserver le fichier courant"
-
-#: src/templates/configurationFiles.mas:23
-msgid "Modify"
-msgstr "Modifier"
+msgid "Configure module: {module}"
+msgstr "Configurer le module : {module}"
 
 #: src/templates/wizard.mas:68 src/templates/wizard.mas:69
 msgid "Finish"
@@ -1744,124 +1770,157 @@ msgstr "Passer"
 msgid "Next"
 msgstr "Suivant"
 
-#: src/templates/headTitle.mas:20
-msgid "Remote services control panel"
-msgstr "Panneau de configuration des services distants"
+#: src/templates/logs/dbtable.mas:87 src/templates/logs/dbtable.mas:88
+msgid "first"
+msgstr "Premier"
 
-#: src/templates/backupTabs.mas:13
-msgid "Local"
+#: src/templates/logs/dbtable.mas:91 src/templates/logs/dbtable.mas:92
+msgid "prev"
+msgstr "Précédent"
+
+#: src/templates/logs/dbtable.mas:111 src/templates/logs/dbtable.mas:112
+msgid "next"
+msgstr "Suivant"
+
+#: src/templates/logs/dbtable.mas:115 src/templates/logs/dbtable.mas:116
+msgid "last"
+msgstr "Dernier"
+
+# ou journal du domaine ?
+#: src/templates/logs/index.mas:20
+msgid "Log Domain"
+msgstr "Connexion au domaine"
+
+#: src/templates/logs/index.mas:22
+msgid "Last hour logs will be showed when selecting a component"
 msgstr ""
+"Les logs de la dernière heure seront affichés lors de la sélection d'un "
+"composant"
 
-#: src/templates/backupTabs.mas:18
-msgid "Remote in Zentyal Cloud"
-msgstr ""
+#: src/templates/logs/index.mas:23
+msgid "Select available full reports"
+msgstr "Sélectionner les rapports complets disponibles"
 
-#: src/templates/backupTabs.mas:23
-#, fuzzy
-msgid "Remote in Zentyal Cloud from other subscribed hosts"
-msgstr "Sauvegarde distante depuis d'autres hôtes enregistrés"
+#: src/templates/logs/index.mas:35 src/templates/logs/index.mas:36
+#: src/templates/logs/index.mas:37
+msgid "View"
+msgstr "Visualiser"
 
-#: src/templates/configureView.mas:12
-msgid ""
-"Enabling this module will cause Zentyal to perform the actions and file "
-"modifications listed below. You must explicitly accept these changes to "
-"enable the module."
-msgstr ""
-"L'activation de ce module va forcer Zentyal à exécuter les actions et les "
-"modifications de fichier listées dessous. Vous devez accepter explicitement "
-"ces modifications pour activer le module."
+#: src/templates/logs/index.mas:44
+msgid "Custom query"
+msgstr "Requête personnalisée"
 
-#: src/templates/configureView.mas:16
-msgid "Actions to perform by Zentyal"
-msgstr "Actions devant être effectuées par Zentyal"
+#: src/templates/logs/index.mas:50
+msgid "From date:"
+msgstr "De la date :"
 
-#: src/templates/configureView.mas:31
-msgid "Files to modify by Zentyal"
-msgstr "Fichiers devant être modifiés par Zentyal"
+#: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
+msgid "January"
+msgstr "Janvier"
 
-#: src/templates/configureView.mas:51
-msgid "Accept"
-msgstr "Accepter"
+#: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
+msgid "February"
+msgstr "Février"
 
-#: src/templates/dashboard/index.mas:23 src/templates/dashboard/status.mas:18
-msgid "Running"
-msgstr "En fonction"
+#: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
+msgid "March"
+msgstr "Mars"
 
-#: src/templates/dashboard/index.mas:24 src/templates/dashboard/status.mas:19
-msgid "The service is enabled and running"
-msgstr "Le service est activé et en fonction"
+#: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
+msgid "April"
+msgstr "Avril"
 
-#: src/templates/dashboard/index.mas:28 src/templates/dashboard/status.mas:22
-msgid "Stopped"
-msgstr "Stoppé"
+#: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
+msgid "May"
+msgstr "Mai"
 
-#: src/templates/dashboard/index.mas:29 src/templates/dashboard/status.mas:23
-msgid "The service is enabled, but not running"
-msgstr "Le service est activé, mais ne fonctionne pas"
+#: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
+msgid "June"
+msgstr "Juin"
 
-#: src/templates/dashboard/index.mas:33 src/templates/dashboard/status.mas:27
-msgid "Running unmanaged"
-msgstr "non géré(s) en fonction"
+#: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
+msgid "July"
+msgstr "Juillet"
 
-#: src/templates/dashboard/index.mas:34 src/templates/dashboard/status.mas:28
-msgid "The service is running, but not enabled in Zentyal"
-msgstr "Ce service est en fonction, mais pas activé dans Zentyal"
+#: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
+msgid "August"
+msgstr "Août"
 
-#: src/templates/dashboard/index.mas:38 src/templates/dashboard/status.mas:31
-msgid "Disabled"
-msgstr "Désactivé"
+#: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
+msgid "September"
+msgstr "Septembre"
 
-#: src/templates/dashboard/index.mas:39 src/templates/dashboard/status.mas:32
-msgid "The service is not enabled in Zentyal"
-msgstr "Le service n'est pas activé dans Zentyal"
+#: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
+msgid "October"
+msgstr "Octobre"
 
-#: src/templates/dashboard/index.mas:44 src/templates/dashboard/status.mas:25
-msgid "Start"
-msgstr "Démarrer"
+#: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
+msgid "November"
+msgstr "Novembre"
 
-#: src/templates/dashboard/index.mas:45 src/templates/dashboard/status.mas:12
-msgid "Restart"
-msgstr "Redémarrer"
+#: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
+msgid "December"
+msgstr "Décembre"
 
-#: src/templates/dashboard/index.mas:117
-msgid "Configure widgets"
-msgstr "Configurer les widgets"
+#: src/templates/logs/index.mas:108
+msgid "Refresh logs"
+msgstr "Rafraichir les journaux"
 
-#: src/templates/dashboard/list.mas:43
-msgid "No entries in this list"
-msgstr "Pas d'élément dans cette liste"
+#: src/templates/logs/index.mas:116
+msgid "To date:"
+msgstr "à la date :"
 
-#: src/templates/dashboard/configurewidgets.mas:164
-msgid ""
-"Browse the available widgets in the left menu and drag&drop them to the "
-"dashboard."
-msgstr ""
+#: src/templates/logs/index.mas:203 src/templates/logs/index.mas:204
+msgid "Search"
+msgstr "Recherche"
 
-#: src/templates/halt.mas:10
-msgid "You might lose your Internet connection if this machine is halted."
-msgstr ""
-"Vous pourriez perdre votre connexion Internet si vous éteignez cette machine."
+#: src/templates/logs/index.mas:208 src/templates/logs/index.mas:209
+msgid "Save as event"
+msgstr "Sauver en tant qu'évènement"
 
-#: src/templates/halt.mas:14
-msgid "Halt"
-msgstr "Arrêt"
+#: src/templates/logs/index.mas:235
+msgid "No logs matching current criterion"
+msgstr "Aucun journal correspondant à vos critères"
 
-#: src/templates/halt.mas:16
-msgid "Reboot"
-msgstr "Redémarrage"
+#: src/templates/logs/index.mas:239
+msgid "There are no logs for this domain"
+msgstr "Il n'y a aucun enregistrement pour ce domaine"
 
-#: src/templates/moduleStatusTable.mas:59
-msgid "Depends"
-msgstr "Dépend"
+#: src/templates/password.mas:4
+msgid "Change Password"
+msgstr "Modifier le mot de passe"
 
-#: src/templates/moduleStatusTable.mas:60 src/templates/report/raid.mas:104
-msgid "Status"
-msgstr "Statut"
+#: src/templates/password.mas:5
+msgid "Your password must be at least 6 characters long."
+msgstr "Le mot de passe doit comporter un minimum de 6 caractères"
 
-#: src/templates/moduleStatusTable.mas:85
-#, perl-brace-format
-msgid "Configure module: {module}"
-msgstr "Configurer le module : {module}"
+#: src/templates/password.mas:25
+msgid "Current password"
+msgstr "Mot de passe actuel"
+
+#: src/templates/password.mas:39
+msgid "New password"
+msgstr "Nouveau mot de passe"
+
+#: src/templates/password.mas:53
+msgid "Confirm password"
+msgstr "Confirmer le mot de passe"
+
+#: src/templates/progress.mas:24
+msgid "Item"
+msgstr "Elément"
+
+#: src/templates/progress.mas:25
+msgid "items left"
+msgstr "éléments restants"
+
+#: src/templates/progress.mas:27
+msgid "Some error has happened in Zentyal: "
+msgstr "Une erreur est apparue dans Zentyal : "
+
+#: src/templates/progress.mas:152
+msgid "Starting..."
+msgstr "Démarrage ..."
 
 #: src/templates/report/raid.mas:20
 #, perl-brace-format
@@ -1980,178 +2039,6 @@ msgstr "Options"
 msgid "Partition Properties"
 msgstr "Propriétés de la partition"
 
-#: src/templates/progress.mas:24
-msgid "Item"
-msgstr "Elément"
-
-#: src/templates/progress.mas:25
-msgid "items left"
-msgstr "éléments restants"
-
-#: src/templates/progress.mas:27
-msgid "Some error has happened in Zentyal: "
-msgstr "Une erreur est apparue dans Zentyal : "
-
-#: src/templates/progress.mas:152
-msgid "Starting..."
-msgstr "Démarrage ..."
-
-# ou journal du domaine ?
-#: src/templates/logs/index.mas:20
-msgid "Log Domain"
-msgstr "Connexion au domaine"
-
-#: src/templates/logs/index.mas:22
-msgid "Last hour logs will be showed when selecting a component"
-msgstr ""
-"Les logs de la dernière heure seront affichés lors de la sélection d'un "
-"composant"
-
-#: src/templates/logs/index.mas:23
-msgid "Select available full reports"
-msgstr "Sélectionner les rapports complets disponibles"
-
-#: src/templates/logs/index.mas:35 src/templates/logs/index.mas:36
-#: src/templates/logs/index.mas:37
-msgid "View"
-msgstr "Visualiser"
-
-#: src/templates/logs/index.mas:44
-msgid "Custom query"
-msgstr "Requête personnalisée"
-
-#: src/templates/logs/index.mas:50
-msgid "From date:"
-msgstr "De la date :"
-
-#: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
-msgid "January"
-msgstr "Janvier"
-
-#: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
-msgid "February"
-msgstr "Février"
-
-#: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
-msgid "March"
-msgstr "Mars"
-
-#: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
-msgid "April"
-msgstr "Avril"
-
-#: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
-msgid "May"
-msgstr "Mai"
-
-#: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
-msgid "June"
-msgstr "Juin"
-
-#: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
-msgid "July"
-msgstr "Juillet"
-
-#: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
-msgid "August"
-msgstr "Août"
-
-#: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
-msgid "September"
-msgstr "Septembre"
-
-#: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
-msgid "October"
-msgstr "Octobre"
-
-#: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
-msgid "November"
-msgstr "Novembre"
-
-#: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
-msgid "December"
-msgstr "Décembre"
-
-#: src/templates/logs/index.mas:108
-msgid "Refresh logs"
-msgstr "Rafraichir les journaux"
-
-#: src/templates/logs/index.mas:116
-msgid "To date:"
-msgstr "à la date :"
-
-#: src/templates/logs/index.mas:203 src/templates/logs/index.mas:204
-msgid "Search"
-msgstr "Recherche"
-
-#: src/templates/logs/index.mas:208 src/templates/logs/index.mas:209
-msgid "Save as event"
-msgstr "Sauver en tant qu'évènement"
-
-#: src/templates/logs/index.mas:235
-msgid "No logs matching current criterion"
-msgstr "Aucun journal correspondant à vos critères"
-
-#: src/templates/logs/index.mas:239
-msgid "There are no logs for this domain"
-msgstr "Il n'y a aucun enregistrement pour ce domaine"
-
-#: src/templates/logs/dbtable.mas:87 src/templates/logs/dbtable.mas:88
-msgid "first"
-msgstr "Premier"
-
-#: src/templates/logs/dbtable.mas:91 src/templates/logs/dbtable.mas:92
-msgid "prev"
-msgstr "Précédent"
-
-#: src/templates/logs/dbtable.mas:111 src/templates/logs/dbtable.mas:112
-msgid "next"
-msgstr "Suivant"
-
-#: src/templates/logs/dbtable.mas:115 src/templates/logs/dbtable.mas:116
-msgid "last"
-msgstr "Dernier"
-
-#: src/templates/finish.mas:99
-#, perl-brace-format
-msgid ""
-"The following modules have unsaved changes but are <b>disabled</b>. If you "
-"need to enable them go to {openref}Module Status{closeref}."
-msgstr ""
-"Les modules suivants ont des modifications non sauvegardées mais ils sont "
-"<b>désactivés</b>. Si vous souhaitez les activer, allez à {openref}Statut "
-"des Modules{closeref}"
-
-#: src/templates/finish.mas:106
-msgid ""
-"There are unsaved changes in one or more modules, you can save or discard "
-"those changes."
-msgstr ""
-"Certaines modifications dans un ou plusieurs modules n'ont pas été sauvées. "
-"Vous pouvez les sauver ou les annuler."
-
-#: src/templates/finish.mas:110
-msgid ""
-"If you made changes to the network interfaces or the administration port, "
-"you may need to manually rewrite the url in order to access this "
-"administration interface again."
-msgstr ""
-"Si vous avez effectué des modifications sur les interfaces réseau ou le port "
-"d'administration, vous pouvez avoir à réécrire manuellement l'URL afin de "
-"pouvoir accéder à nouveau à cette interface d'administration."
-
-#: src/templates/finish.mas:134
-msgid "Save"
-msgstr "Sauver"
-
-#: src/templates/finish.mas:136
-msgid "Discard changes"
-msgstr "Annuler les modifications"
-
-#: src/templates/finish.mas:141
-msgid "There are no unsaved changes."
-msgstr "Il n'y a aucune modification non sauvegardée"
-
 #: src/templates/backup.mas:29
 msgid "Full Backup"
 msgstr "Sauvegarde complète"
@@ -2261,45 +2148,140 @@ msgstr "Restaurer"
 msgid "delete"
 msgstr "Effacer"
 
-#: src/templates/links-widget.mas:5
-msgid "Community Resources"
-msgstr "Ressources Communautaires"
+#: src/templates/configurationFiles.mas:12
+msgid "Do you wish to overwrite these files?"
+msgstr "Voulez-vous écraser ces fichiers ?"
 
-#: src/templates/links-widget.mas:10
-msgid "Documentation"
-msgstr "Documentation"
+#: src/templates/configurationFiles.mas:19
+msgid "Keep current file"
+msgstr "Conserver le fichier courant"
 
-#: src/templates/links-widget.mas:12
-msgid "Forum"
-msgstr "Forum"
+#: src/templates/configurationFiles.mas:23
+msgid "Modify"
+msgstr "Modifier"
 
-#: src/templates/links-widget.mas:14
-msgid "Report a bug"
-msgstr "Rapporté un bug"
-
-#: src/templates/links-widget.mas:16
-msgid "How to Contribute"
-msgstr "Comment contribuer"
-
-#: src/templates/bug.mas:9
+#: src/templates/dashboard/configurewidgets.mas:164
 msgid ""
-"This page lets you generate a file with information about the state of your "
-"system. The file will be useful if you want to report a problem or seek "
-"support."
+"Browse the available widgets in the left menu and drag&drop them to the "
+"dashboard."
 msgstr ""
-"Cette page vous permet de générer un fichier avec les informations "
-"concernant l'état de votre système. Le fichier pourra vous être utile si "
-"vous souhaitez signaler un problème ou demander de l'aide."
 
-#: src/templates/bug.mas:13
-msgid "It may take several minutes to generate the report. Please be patient."
+#: src/templates/dashboard/list.mas:43
+msgid "No entries in this list"
+msgstr "Pas d'élément dans cette liste"
+
+#: src/templates/dashboard/index.mas:23 src/templates/dashboard/status.mas:18
+msgid "Running"
+msgstr "En fonction"
+
+#: src/templates/dashboard/index.mas:24 src/templates/dashboard/status.mas:19
+msgid "The service is enabled and running"
+msgstr "Le service est activé et en fonction"
+
+#: src/templates/dashboard/index.mas:28 src/templates/dashboard/status.mas:22
+msgid "Stopped"
+msgstr "Stoppé"
+
+#: src/templates/dashboard/index.mas:29 src/templates/dashboard/status.mas:23
+msgid "The service is enabled, but not running"
+msgstr "Le service est activé, mais ne fonctionne pas"
+
+#: src/templates/dashboard/index.mas:33 src/templates/dashboard/status.mas:27
+msgid "Running unmanaged"
+msgstr "non géré(s) en fonction"
+
+#: src/templates/dashboard/index.mas:34 src/templates/dashboard/status.mas:28
+msgid "The service is running, but not enabled in Zentyal"
+msgstr "Ce service est en fonction, mais pas activé dans Zentyal"
+
+#: src/templates/dashboard/index.mas:38 src/templates/dashboard/status.mas:31
+msgid "Disabled"
+msgstr "Désactivé"
+
+#: src/templates/dashboard/index.mas:39 src/templates/dashboard/status.mas:32
+msgid "The service is not enabled in Zentyal"
+msgstr "Le service n'est pas activé dans Zentyal"
+
+#: src/templates/dashboard/index.mas:44 src/templates/dashboard/status.mas:25
+msgid "Start"
+msgstr "Démarrer"
+
+#: src/templates/dashboard/index.mas:45 src/templates/dashboard/status.mas:12
+msgid "Restart"
+msgstr "Redémarrer"
+
+#: src/templates/dashboard/index.mas:117
+msgid "Configure widgets"
+msgstr "Configurer les widgets"
+
+#: src/templates/finish.mas:99
+#, perl-brace-format
+msgid ""
+"The following modules have unsaved changes but are <b>disabled</b>. If you "
+"need to enable them go to {openref}Module Status{closeref}."
 msgstr ""
-"Cela peut prendre plusieurs minutes pour générer le rapport. Merci de "
-"patienter."
+"Les modules suivants ont des modifications non sauvegardées mais ils sont "
+"<b>désactivés</b>. Si vous souhaitez les activer, allez à {openref}Statut "
+"des Modules{closeref}"
 
-#: src/templates/bug.mas:19
-msgid "Download configuration report file"
-msgstr "Télécharger le rapport de configuration"
+#: src/templates/finish.mas:106
+msgid ""
+"There are unsaved changes in one or more modules, you can save or discard "
+"those changes."
+msgstr ""
+"Certaines modifications dans un ou plusieurs modules n'ont pas été sauvées. "
+"Vous pouvez les sauver ou les annuler."
+
+#: src/templates/finish.mas:110
+msgid ""
+"If you made changes to the network interfaces or the administration port, "
+"you may need to manually rewrite the url in order to access this "
+"administration interface again."
+msgstr ""
+"Si vous avez effectué des modifications sur les interfaces réseau ou le port "
+"d'administration, vous pouvez avoir à réécrire manuellement l'URL afin de "
+"pouvoir accéder à nouveau à cette interface d'administration."
+
+#: src/templates/finish.mas:134
+msgid "Save"
+msgstr "Sauver"
+
+#: src/templates/finish.mas:136
+msgid "Discard changes"
+msgstr "Annuler les modifications"
+
+#: src/templates/finish.mas:141
+msgid "There are no unsaved changes."
+msgstr "Il n'y a aucune modification non sauvegardée"
+
+#: src/templates/hostname.mas:10
+msgid "Change Hostname"
+msgstr "Modifier le nom d'hôte"
+
+#: src/templates/hostname.mas:11
+msgid ""
+"You will need to restart all the services or reboot the system to apply the "
+"hostname change."
+msgstr ""
+"Vous allez devoir redémarrer tous les services ou redémarrer le système pour "
+"appliquer la modification du nom d'hôte."
+
+#: src/templates/hostname.mas:13
+#, perl-brace-format
+msgid "The hostname will be changed to {newHostname} after saving changes."
+msgstr ""
+
+#: src/templates/confirm-backup.mas:102
+msgid "Full Restore"
+msgstr "Restauration complète"
+
+#: src/templates/confirm-backup.mas:103
+msgid "Configuration Restore"
+msgstr "Configuraton de la restauration"
+
+#: src/templates/confirm-backup.mas:108
+msgid "Restore mode"
+msgstr "Mode de restauraton"
 
 #: src/templates/logout/index.mas:11
 msgid "There are unsaved changes, if you log out now they will be lost."
@@ -2315,25 +2297,18 @@ msgstr "Il n'y a aucune modification non sauvegardée"
 msgid "Exit"
 msgstr "Quitter"
 
-#: src/templates/password.mas:4
-msgid "Change Password"
-msgstr "Modifier le mot de passe"
+#: src/templates/backupTabs.mas:13
+msgid "Local"
+msgstr ""
 
-#: src/templates/password.mas:5
-msgid "Your password must be at least 6 characters long."
-msgstr "Le mot de passe doit comporter un minimum de 6 caractères"
+#: src/templates/backupTabs.mas:18
+msgid "Remote in Zentyal Cloud"
+msgstr ""
 
-#: src/templates/password.mas:25
-msgid "Current password"
-msgstr "Mot de passe actuel"
-
-#: src/templates/password.mas:39
-msgid "New password"
-msgstr "Nouveau mot de passe"
-
-#: src/templates/password.mas:53
-msgid "Confirm password"
-msgstr "Confirmer le mot de passe"
+#: src/templates/backupTabs.mas:23
+#, fuzzy
+msgid "Remote in Zentyal Cloud from other subscribed hosts"
+msgstr "Sauvegarde distante depuis d'autres hôtes enregistrés"
 
 #: src/templates/login/index.mas:40
 msgid "Warning: Caps Lock is enabled"
@@ -2364,42 +2339,68 @@ msgstr ""
 msgid "Enter"
 msgstr "Se connecter"
 
-#: src/templates/dataInUse.mas:41 src/templates/confirm-backup.mas:66
-msgid "Cancel"
-msgstr "Annuler"
+#: src/templates/headTitle.mas:20
+msgid "Remote services control panel"
+msgstr "Panneau de configuration des services distants"
 
-#: src/templates/confirm-backup.mas:102
-msgid "Full Restore"
-msgstr "Restauration complète"
+#: src/templates/configureView.mas:12
+msgid ""
+"Enabling this module will cause Zentyal to perform the actions and file "
+"modifications listed below. You must explicitly accept these changes to "
+"enable the module."
+msgstr ""
+"L'activation de ce module va forcer Zentyal à exécuter les actions et les "
+"modifications de fichier listées dessous. Vous devez accepter explicitement "
+"ces modifications pour activer le module."
 
-#: src/templates/confirm-backup.mas:103
-msgid "Configuration Restore"
-msgstr "Configuraton de la restauration"
+#: src/templates/configureView.mas:16
+msgid "Actions to perform by Zentyal"
+msgstr "Actions devant être effectuées par Zentyal"
 
-#: src/templates/confirm-backup.mas:108
-msgid "Restore mode"
-msgstr "Mode de restauraton"
+#: src/templates/configureView.mas:31
+msgid "Files to modify by Zentyal"
+msgstr "Fichiers devant être modifiés par Zentyal"
+
+#: src/templates/configureView.mas:51
+msgid "Accept"
+msgstr "Accepter"
 
 #: src/templates/port.mas:9
 msgid "Administration Interface TCP Port"
 msgstr "Port TCP de l'interface d'administration"
 
-#: src/templates/hostname.mas:10
-msgid "Change Hostname"
-msgstr "Modifier le nom d'hôte"
+#: src/templates/halt.mas:10
+msgid "You might lose your Internet connection if this machine is halted."
+msgstr ""
+"Vous pourriez perdre votre connexion Internet si vous éteignez cette machine."
 
-#: src/templates/hostname.mas:11
+#: src/templates/halt.mas:14
+msgid "Halt"
+msgstr "Arrêt"
+
+#: src/templates/halt.mas:16
+msgid "Reboot"
+msgstr "Redémarrage"
+
+#: src/templates/bug.mas:9
 msgid ""
-"You will need to restart all the services or reboot the system to apply the "
-"hostname change."
+"This page lets you generate a file with information about the state of your "
+"system. The file will be useful if you want to report a problem or seek "
+"support."
 msgstr ""
-"Vous allez devoir redémarrer tous les services ou redémarrer le système pour "
-"appliquer la modification du nom d'hôte."
+"Cette page vous permet de générer un fichier avec les informations "
+"concernant l'état de votre système. Le fichier pourra vous être utile si "
+"vous souhaitez signaler un problème ou demander de l'aide."
 
-#: src/templates/hostname.mas:13
-#, perl-brace-format
-msgid "The hostname will be changed to {newHostname} after saving changes."
+#: src/templates/bug.mas:13
+msgid "It may take several minutes to generate the report. Please be patient."
 msgstr ""
+"Cela peut prendre plusieurs minutes pour générer le rapport. Merci de "
+"patienter."
+
+#: src/templates/bug.mas:19
+msgid "Download configuration report file"
+msgstr "Télécharger le rapport de configuration"
 
 #~ msgid "Free space"
 #~ msgstr "Espace libre"

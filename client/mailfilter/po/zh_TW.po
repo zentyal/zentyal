@@ -7,10 +7,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-mailfilter 0.12.99\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-12-13 08:40+0100\n"
+"POT-Creation-Date: 2010-12-18 01:44+0100\n"
 "PO-Revision-Date: 2009-08-04 06:23+0200\n"
 "Last-Translator: Chao-Hsiung Liao <j_h_liau@yahoo.com.tw>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -70,8 +71,8 @@ msgid "Mail filter"
 msgstr "郵件過濾"
 
 #: src/EBox/MailFilter.pm:534 src/EBox/MailFilter.pm:579
-#: src/EBox/MailFilter/Model/Report/FilterDetails.pm:74
 #: src/EBox/MailFilter/Model/Report/POPProxyDetails.pm:69
+#: src/EBox/MailFilter/Model/Report/FilterDetails.pm:74
 msgid "Date"
 msgstr "日期"
 
@@ -196,131 +197,219 @@ msgstr "通透式 POP 代理伺服器"
 msgid "Status"
 msgstr "狀態"
 
-#: src/EBox/MailFilter/Types/FileExtension.pm:58
-#: src/EBox/MailFilter/Model/FileExtensionACL.pm:93
-msgid "file extension"
-msgstr "副檔名"
-
-#: src/EBox/MailFilter/Types/AmavisSender.pm:78
-msgid "domain name"
-msgstr "網域名稱"
-
-#: src/EBox/MailFilter/Types/AmavisSender.pm:82
-msgid "email address"
-msgstr "郵件地址"
-
-#: src/EBox/MailFilter/Types/AmavisSender.pm:86
-msgid ""
-"The sender ought be either an email address or a domain name prefixed with "
-"'@'"
-msgstr "寄件者應該不是一個郵件地址或是網域前有 '@'"
-
-#: src/EBox/MailFilter/Types/Policy.pm:45
-msgid "Pass"
-msgstr "過關"
-
-#: src/EBox/MailFilter/Types/Policy.pm:46
-msgid "Reject"
-msgstr "拒絕"
-
-#: src/EBox/MailFilter/Types/Policy.pm:47
-msgid "Bounce"
-msgstr "退回"
-
-#: src/EBox/MailFilter/Types/Policy.pm:48
-msgid "Discard"
-msgstr "捨棄"
-
-#: src/EBox/MailFilter/Types/Policy.pm:68
-msgid "Mailfilter's policy"
-msgstr "郵件過濾的政策"
-
-#: src/EBox/MailFilter/Types/MIMEType.pm:60
-#: src/EBox/MailFilter/Model/MIMETypeACL.pm:93
-msgid "MIME type"
-msgstr "MIME 類型"
-
-#: src/EBox/MailFilter/Types/AntispamThreshold.pm:135
-msgid "Write down a decimal number"
-msgstr "寫下十進位數字"
-
-#: src/EBox/MailFilter/Types/AntispamThreshold.pm:140
-msgid "Only non-zero positive numbers are allowed"
-msgstr "只允許不是0的整數"
-
-#: src/EBox/MailFilter/Types/AntispamThreshold.pm:149
-#, perl-brace-format
-msgid "Write down a number lesser than {m}"
-msgstr "寫下小於 {m} 的數字"
-
-#: src/EBox/MailFilter/Types/AntispamThreshold.pm:156
-#, perl-brace-format
-msgid "Write down a number greater  than {m}"
-msgstr "寫下大於 {m} 的數字"
-
 #: src/EBox/MailFilter/VDomainsLdap.pm:604
 #, perl-brace-format
 msgid "Virtual mail domain {vd} does not exist"
 msgstr "虛擬郵件網域 {vd} 不存在"
 
-#: src/EBox/MailFilter/Model/AntispamACL.pm:61
-#: src/EBox/MailFilter/Model/AntispamVDomainACL.pm:61
-msgid "Mail sender"
-msgstr "郵件寄件者"
+#: src/EBox/MailFilter/Model/ExternalMTA.pm:67
+msgid "External mail server"
+msgstr "外部郵件伺服器"
 
-#: src/EBox/MailFilter/Model/AntispamACL.pm:67
-#: src/EBox/MailFilter/Model/AntispamVDomainACL.pm:67
-msgid "Policy"
-msgstr "政策"
+#: src/EBox/MailFilter/Model/ExternalMTA.pm:70
+msgid "IP address of the server"
+msgstr ""
 
-#: src/EBox/MailFilter/Model/AntispamACL.pm:76
-msgid "Sender policy"
-msgstr "寄件者政策"
+#: src/EBox/MailFilter/Model/ExternalMTA.pm:74
+#: src/EBox/MailFilter/Model/ExternalDomain.pm:74
+msgid "Allow connection"
+msgstr "允許連線"
 
-#: src/EBox/MailFilter/Model/AntispamACL.pm:88
-#: src/EBox/MailFilter/Model/AntispamVDomainACL.pm:88
-msgid "sender policy"
-msgstr "寄件者政策"
+#: src/EBox/MailFilter/Model/ExternalMTA.pm:82
+msgid "External mail servers"
+msgstr "外部郵件伺服器"
 
-#: src/EBox/MailFilter/Model/AntispamACL.pm:97
-#: src/EBox/MailFilter/Model/AntispamVDomainACL.pm:97
-msgid "whitelist"
-msgstr "白名單"
+#: src/EBox/MailFilter/Model/ExternalMTA.pm:94
+msgid "external mail server"
+msgstr "外部郵件伺服器"
 
-#: src/EBox/MailFilter/Model/AntispamACL.pm:98
-#: src/EBox/MailFilter/Model/AntispamVDomainACL.pm:98
-msgid "blacklist"
-msgstr "黑名單"
+#: src/EBox/MailFilter/Model/ExternalMTA.pm:95
+msgid ""
+"Here you can specify which external mail servers can connect to the mail "
+"filter"
+msgstr "這裡您可以指定讓外部的郵件伺服器能連到郵件過濾器"
 
-#: src/EBox/MailFilter/Model/AntispamACL.pm:99
-#: src/EBox/MailFilter/Model/AntispamVDomainACL.pm:99
-msgid "process"
-msgstr "執行"
+#: src/EBox/MailFilter/Model/ExternalMTA.pm:142
+#, perl-brace-format
+msgid "Invalid external MTA {mta}. Local network addresses are not allowed"
+msgstr "無效的外部 MTA {mta}.不允許本機的網路位址"
 
-#: src/EBox/MailFilter/Model/AntispamACL.pm:164
+#: src/EBox/MailFilter/Model/ExternalDomain.pm:68
+msgid "External mail domain"
+msgstr "外部網域郵件"
+
+#: src/EBox/MailFilter/Model/ExternalDomain.pm:82
+msgid "External mail domains"
+msgstr "外部網域郵件"
+
+#: src/EBox/MailFilter/Model/ExternalDomain.pm:94
+msgid "external mail domain"
+msgstr "外部網域郵件"
+
+#: src/EBox/MailFilter/Model/ExternalDomain.pm:95
+msgid ""
+"Here you can specify which external mail domains can connect to the mail "
+"filter"
+msgstr "這裡您可以指定可以連線到郵件過濾器的外部網域郵件"
+
+#: src/EBox/MailFilter/Model/ExternalDomain.pm:113
+#, fuzzy, perl-brace-format
+msgid "{d} is a internal Zentyal virtual main domain"
+msgstr "{d} 是內部 eBox 的虛擬網域郵件"
+
+#: src/EBox/MailFilter/Model/AntispamTraining.pm:58
+msgid "Mailbox"
+msgstr "郵件信箱"
+
+#: src/EBox/MailFilter/Model/AntispamTraining.pm:64
+msgid "Mailbox contains"
+msgstr "信箱內容"
+
+#: src/EBox/MailFilter/Model/AntispamTraining.pm:74
+msgid "Train bayesian spam filter"
+msgstr "訓練貝氏(bayesian)垃圾信過濾"
+
+#: src/EBox/MailFilter/Model/AntispamTraining.pm:79
+msgid "Learned from messages"
+msgstr "從郵件中學習"
+
+#: src/EBox/MailFilter/Model/AntispamTraining.pm:81
+msgid "Train"
+msgstr ""
+
+#: src/EBox/MailFilter/Model/AntispamTraining.pm:96
+#: src/EBox/MailFilter/Model/Report/FilterGraph.pm:64
+#: src/EBox/MailFilter/Model/Report/FilterDetails.pm:49
+#: src/EBox/MailFilter/Model/Report/FilterDetails.pm:90
+msgid "spam"
+msgstr "垃圾信"
+
+#: src/EBox/MailFilter/Model/AntispamTraining.pm:97
+msgid "ham"
+msgstr "非垃圾信"
+
+#: src/EBox/MailFilter/Model/AntispamTraining.pm:129
+#, perl-brace-format
+msgid "Invalid mailbox type: {type}"
+msgstr "無效的信箱類型: {type}"
+
+#: src/EBox/MailFilter/Model/VDomains.pm:68
+msgid "Domain"
+msgstr "網域"
+
+#: src/EBox/MailFilter/Model/VDomains.pm:78
+msgid "Use virus filtering"
+msgstr "使用病毒過濾"
+
+#: src/EBox/MailFilter/Model/VDomains.pm:84
+msgid "Use spam filtering"
+msgstr "使用垃圾信過濾"
+
+#: src/EBox/MailFilter/Model/VDomains.pm:90
+#: src/EBox/MailFilter/Model/AntispamConfiguration.pm:61
+#: src/EBox/MailFilter/SpamAssassin.pm:336
+msgid "Spam threshold"
+msgstr "垃圾信分數"
+
+#: src/EBox/MailFilter/Model/VDomains.pm:97
+msgid "default"
+msgstr "預設"
+
+#: src/EBox/MailFilter/Model/VDomains.pm:101
+msgid "custom threshold"
+msgstr "自訂分數"
+
+#: src/EBox/MailFilter/Model/VDomains.pm:113
+msgid "Learn from accounts' Spam IMAP folders"
+msgstr ""
+
+#: src/EBox/MailFilter/Model/VDomains.pm:115
+msgid ""
+"Every time that a email moved into or out of the IMAP spam folder the filter "
+"will be trained with it"
+msgstr ""
+
+#: src/EBox/MailFilter/Model/VDomains.pm:122
+msgid "Learning ham account"
+msgstr "學習非垃圾信的帳號"
+
+#: src/EBox/MailFilter/Model/VDomains.pm:123
+msgid ""
+"An address (ham@domain) will be created for this domain, ham messages "
+"incorrectly classified as spam may be forwarded to this addres to train the "
+"filter"
+msgstr ""
+"地址 (ham@domain) 將在這個網域中建立,非垃圾信被錯誤的歸納為垃圾信,您可以轉寄"
+"到這裡來訓練過濾器"
+
+#: src/EBox/MailFilter/Model/VDomains.pm:134
+msgid "Learning spam account"
+msgstr "學習垃圾信的帳號"
+
+#: src/EBox/MailFilter/Model/VDomains.pm:135
+msgid ""
+"An address (spam@domain) will be created for this domain, spam messages "
+"incorrectly classified as ham may be forwarded to this addres to train the "
+"filter"
+msgstr ""
+"地址 (spam@domain) 將在這個網域中建立,垃圾信被錯誤的歸納為非垃圾信,您可以轉寄"
+"到這裡來訓練過濾器"
+
+#: src/EBox/MailFilter/Model/VDomains.pm:146
+msgid "Antispam sender policy"
+msgstr "防垃圾信寄件者政策"
+
 #: src/EBox/MailFilter/Model/VDomains.pm:157
+#: src/EBox/MailFilter/Model/AntispamACL.pm:164
 #, fuzzy
 msgid "Virtual Domains"
 msgstr "虛擬網域"
 
-#: src/EBox/MailFilter/Model/MIMETypeACL.pm:67
-msgid "MIME Type"
-msgstr "MIME 類型"
+#: src/EBox/MailFilter/Model/VDomains.pm:168
+msgid "virtual domain"
+msgstr "虛擬網域"
 
-#: src/EBox/MailFilter/Model/MIMETypeACL.pm:73
-#: src/EBox/MailFilter/Model/FileExtensionACL.pm:73
-msgid "Allow"
-msgstr "允許"
-
-#: src/EBox/MailFilter/Model/MIMETypeACL.pm:81
-msgid "MIME types"
-msgstr "MIME 類型"
-
-#: src/EBox/MailFilter/Model/MIMETypeACL.pm:94
+#: src/EBox/MailFilter/Model/VDomains.pm:186
+#, perl-brace-format
 msgid ""
-"MIME types which are not listed below are allowed. MIME types aren't used by "
-"POP transparent proxy"
-msgstr "允許不是以下列表中的 MIME 類型。MIME 類型不使用於 POP 通透式代理伺服器"
+"There are no virtual mail domains managed by this server. You can create "
+"some in the {openA}virtual domains mail page{closeA}."
+msgstr ""
+
+#: src/EBox/MailFilter/Model/AntispamVDomainACL.pm:61
+#: src/EBox/MailFilter/Model/AntispamACL.pm:61
+msgid "Mail sender"
+msgstr "郵件寄件者"
+
+#: src/EBox/MailFilter/Model/AntispamVDomainACL.pm:67
+#: src/EBox/MailFilter/Model/AntispamACL.pm:67
+msgid "Policy"
+msgstr "政策"
+
+#: src/EBox/MailFilter/Model/AntispamVDomainACL.pm:76
+#, fuzzy
+msgid "Sender policy for virtual domain"
+msgstr "虛擬網域"
+
+#: src/EBox/MailFilter/Model/AntispamVDomainACL.pm:88
+#: src/EBox/MailFilter/Model/AntispamACL.pm:88
+msgid "sender policy"
+msgstr "寄件者政策"
+
+#: src/EBox/MailFilter/Model/AntispamVDomainACL.pm:97
+#: src/EBox/MailFilter/Model/AntispamACL.pm:97
+msgid "whitelist"
+msgstr "白名單"
+
+#: src/EBox/MailFilter/Model/AntispamVDomainACL.pm:98
+#: src/EBox/MailFilter/Model/AntispamACL.pm:98
+msgid "blacklist"
+msgstr "黑名單"
+
+#: src/EBox/MailFilter/Model/AntispamVDomainACL.pm:99
+#: src/EBox/MailFilter/Model/AntispamACL.pm:99
+msgid "process"
+msgstr "執行"
 
 #: src/EBox/MailFilter/Model/AmavisConfiguration.pm:63
 #: src/EBox/MailFilter/Model/POPProxyConfiguration.pm:57
@@ -360,60 +449,176 @@ msgstr ""
 msgid "The port {port} is already used by module {mod}"
 msgstr "連接埠 {port} 已經被 {mod} 模組使用"
 
-#: src/EBox/MailFilter/Model/AntispamVDomainACL.pm:76
+#: src/EBox/MailFilter/Model/AmavisPolicy.pm:61
+msgid "Virus policy"
+msgstr "防毒政策"
+
+#: src/EBox/MailFilter/Model/AmavisPolicy.pm:67
+msgid "Spam policy"
+msgstr "垃圾信政策"
+
+#: src/EBox/MailFilter/Model/AmavisPolicy.pm:73
+msgid "Banned files policy"
+msgstr "禁止檔案政策"
+
+#: src/EBox/MailFilter/Model/AmavisPolicy.pm:79
+msgid "Bad header policy"
+msgstr "錯誤表頭政策"
+
+#: src/EBox/MailFilter/Model/AmavisPolicy.pm:89
 #, fuzzy
-msgid "Sender policy for virtual domain"
-msgstr "虛擬網域"
+msgid "Filter Policies"
+msgstr "SMTP 過濾政策"
 
-#: src/EBox/MailFilter/Model/FileExtensionACL.pm:67
-msgid "File extension"
-msgstr "副檔名"
+#: src/EBox/MailFilter/Model/POPProxyConfiguration.pm:69
+msgid "Filter virus"
+msgstr "過濾病毒"
 
-#: src/EBox/MailFilter/Model/FileExtensionACL.pm:81
-msgid "File extensions"
-msgstr "副檔名"
+#: src/EBox/MailFilter/Model/POPProxyConfiguration.pm:75
+msgid "Filter spam"
+msgstr "過濾垃圾郵件"
 
-#: src/EBox/MailFilter/Model/FileExtensionACL.pm:94
-msgid "Extensions which are not listed below are allowed"
-msgstr "允許不在以下列表的副檔名"
+#: src/EBox/MailFilter/Model/POPProxyConfiguration.pm:81
+msgid "ISP spam subject"
+msgstr "ISP 垃圾信主旨"
 
-#: src/EBox/MailFilter/Model/ExternalMTA.pm:67
-msgid "External mail server"
-msgstr "外部郵件伺服器"
-
-#: src/EBox/MailFilter/Model/ExternalMTA.pm:70
-msgid "IP address of the server"
-msgstr ""
-
-#: src/EBox/MailFilter/Model/ExternalMTA.pm:74
-#: src/EBox/MailFilter/Model/ExternalDomain.pm:74
-msgid "Allow connection"
-msgstr "允許連線"
-
-#: src/EBox/MailFilter/Model/ExternalMTA.pm:82
-msgid "External mail servers"
-msgstr "外部郵件伺服器"
-
-#: src/EBox/MailFilter/Model/ExternalMTA.pm:94
-msgid "external mail server"
-msgstr "外部郵件伺服器"
-
-#: src/EBox/MailFilter/Model/ExternalMTA.pm:95
+#: src/EBox/MailFilter/Model/POPProxyConfiguration.pm:85
 msgid ""
-"Here you can specify which external mail servers can connect to the mail "
-"filter"
-msgstr "這裡您可以指定讓外部的郵件伺服器能連到郵件過濾器"
+"This option allows you to set the string your ISP uses if\n"
+"it processes your email for SPAM."
+msgstr ""
+"這個選項讓您可以指定當您的 ISP 有事先為您處理垃圾郵件時\n"
+"所設定的主旨為何。"
 
-#: src/EBox/MailFilter/Model/ExternalMTA.pm:142
-#, perl-brace-format
-msgid "Invalid external MTA {mta}. Local network addresses are not allowed"
-msgstr "無效的外部 MTA {mta}.不允許本機的網路位址"
+#: src/EBox/MailFilter/Model/POPProxyConfiguration.pm:93
+#, fuzzy
+msgid "Configuration"
+msgstr "防垃圾信設置"
 
-#: src/EBox/MailFilter/Model/AntispamConfiguration.pm:61
-#: src/EBox/MailFilter/Model/VDomains.pm:90
-#: src/EBox/MailFilter/SpamAssassin.pm:336
-msgid "Spam threshold"
-msgstr "垃圾信分數"
+#: src/EBox/MailFilter/Model/POPProxyConfiguration.pm:113
+msgid ""
+"The POP transparent proxy must scan for something to be useful. If you do "
+"not need either antivirus of spam scan we suggest you turn it off"
+msgstr ""
+"POP 通透式代理伺服器必須用來掃描一些有用處的東西。如果您不需要掃描病毒或垃圾"
+"郵件，我們建議您將它關閉"
+
+#: src/EBox/MailFilter/Model/AntispamACL.pm:76
+msgid "Sender policy"
+msgstr "寄件者政策"
+
+#: src/EBox/MailFilter/Model/MIMETypeACL.pm:67
+msgid "MIME Type"
+msgstr "MIME 類型"
+
+#: src/EBox/MailFilter/Model/MIMETypeACL.pm:73
+#: src/EBox/MailFilter/Model/FileExtensionACL.pm:73
+msgid "Allow"
+msgstr "允許"
+
+#: src/EBox/MailFilter/Model/MIMETypeACL.pm:81
+msgid "MIME types"
+msgstr "MIME 類型"
+
+#: src/EBox/MailFilter/Model/MIMETypeACL.pm:93
+#: src/EBox/MailFilter/Types/MIMEType.pm:60
+msgid "MIME type"
+msgstr "MIME 類型"
+
+#: src/EBox/MailFilter/Model/MIMETypeACL.pm:94
+msgid ""
+"MIME types which are not listed below are allowed. MIME types aren't used by "
+"POP transparent proxy"
+msgstr "允許不是以下列表中的 MIME 類型。MIME 類型不使用於 POP 通透式代理伺服器"
+
+#: src/EBox/MailFilter/Model/Report/FilterGraph.pm:51
+msgid "Mail filter graph"
+msgstr "郵件過濾圖表"
+
+#: src/EBox/MailFilter/Model/Report/FilterGraph.pm:60
+#: src/EBox/MailFilter/Model/Report/POPProxyDetails.pm:49
+#: src/EBox/MailFilter/Model/Report/POPProxyDetails.pm:80
+#: src/EBox/MailFilter/Model/Report/POPProxyGraph.pm:66
+#: src/EBox/MailFilter/Model/Report/FilterDetails.pm:46
+#: src/EBox/MailFilter/Model/Report/FilterDetails.pm:80
+msgid "clean messages"
+msgstr "乾淨郵件"
+
+#: src/EBox/MailFilter/Model/Report/FilterGraph.pm:68
+#: src/EBox/MailFilter/Model/Report/FilterDetails.pm:52
+#: src/EBox/MailFilter/Model/Report/FilterDetails.pm:95
+msgid "banned files"
+msgstr "禁止檔案"
+
+#: src/EBox/MailFilter/Model/Report/FilterGraph.pm:72
+#: src/EBox/MailFilter/Model/Report/FilterDetails.pm:55
+#: src/EBox/MailFilter/Model/Report/FilterDetails.pm:85
+msgid "infected"
+msgstr "已感染"
+
+#: src/EBox/MailFilter/Model/Report/FilterGraph.pm:76
+#: src/EBox/MailFilter/Model/Report/FilterDetails.pm:58
+msgid "bad header"
+msgstr "錯誤表頭"
+
+#: src/EBox/MailFilter/Model/Report/FilterGraph.pm:80
+#: src/EBox/MailFilter/Model/Report/FilterDetails.pm:61
+msgid "blacklisted"
+msgstr "黑名單"
+
+#: src/EBox/MailFilter/Model/Report/FilterGraph.pm:103
+msgid "Filter traffic"
+msgstr "過濾流量"
+
+#: src/EBox/MailFilter/Model/Report/POPProxyDetails.pm:46
+#: src/EBox/MailFilter/Model/Report/POPProxyDetails.pm:75
+#: src/EBox/MailFilter/Model/Report/POPProxyGraph.pm:63
+msgid "total messages"
+msgstr "全部郵件"
+
+#: src/EBox/MailFilter/Model/Report/POPProxyDetails.pm:52
+#: src/EBox/MailFilter/Model/Report/POPProxyGraph.pm:69
+msgid "infected messages "
+msgstr "受感染的郵件 "
+
+#: src/EBox/MailFilter/Model/Report/POPProxyDetails.pm:56
+#: src/EBox/MailFilter/Model/Report/POPProxyDetails.pm:90
+#: src/EBox/MailFilter/Model/Report/POPProxyGraph.pm:73
+msgid "spam messages"
+msgstr "垃圾郵件"
+
+#: src/EBox/MailFilter/Model/Report/POPProxyDetails.pm:85
+msgid "infected messages"
+msgstr "受感染的郵件"
+
+#: src/EBox/MailFilter/Model/Report/POPProxyDetails.pm:102
+msgid "Transparent POP proxy traffic details"
+msgstr "通透式 POP 代理伺服器流量內容"
+
+#: src/EBox/MailFilter/Model/Report/POPProxyDetails.pm:110
+#: src/EBox/MailFilter/Model/Report/FilterDetails.pm:125
+msgid "traffic"
+msgstr "流量"
+
+#: src/EBox/MailFilter/Model/Report/POPProxyGraph.pm:51
+msgid "POP proxy graph"
+msgstr "POP 代理伺服器圖表"
+
+#: src/EBox/MailFilter/Model/Report/POPProxyGraph.pm:95
+msgid "Transparent POP proxy traffic"
+msgstr "通透式 POP 代理伺服器流量"
+
+#: src/EBox/MailFilter/Model/Report/FilterDetails.pm:101
+msgid "blacklisted senders"
+msgstr "黑名單寄件者"
+
+#: src/EBox/MailFilter/Model/Report/FilterDetails.pm:106
+msgid "bad message header"
+msgstr "錯誤郵件表頭"
+
+#: src/EBox/MailFilter/Model/Report/FilterDetails.pm:117
+msgid "Filter traffic details"
+msgstr "過濾流量內容"
 
 #: src/EBox/MailFilter/Model/AntispamConfiguration.pm:65
 msgid "The score threshold to mark a message as spam"
@@ -493,278 +698,74 @@ msgid ""
 "level"
 msgstr "非垃圾信的自動學習分數不能高於或等於預設垃圾信等級"
 
-#: src/EBox/MailFilter/Model/ExternalDomain.pm:68
-msgid "External mail domain"
-msgstr "外部網域郵件"
+#: src/EBox/MailFilter/Model/FileExtensionACL.pm:67
+msgid "File extension"
+msgstr "副檔名"
 
-#: src/EBox/MailFilter/Model/ExternalDomain.pm:82
-msgid "External mail domains"
-msgstr "外部網域郵件"
+#: src/EBox/MailFilter/Model/FileExtensionACL.pm:81
+msgid "File extensions"
+msgstr "副檔名"
 
-#: src/EBox/MailFilter/Model/ExternalDomain.pm:94
-msgid "external mail domain"
-msgstr "外部網域郵件"
+#: src/EBox/MailFilter/Model/FileExtensionACL.pm:93
+#: src/EBox/MailFilter/Types/FileExtension.pm:58
+msgid "file extension"
+msgstr "副檔名"
 
-#: src/EBox/MailFilter/Model/ExternalDomain.pm:95
+#: src/EBox/MailFilter/Model/FileExtensionACL.pm:94
+msgid "Extensions which are not listed below are allowed"
+msgstr "允許不在以下列表的副檔名"
+
+#: src/EBox/MailFilter/Types/AmavisSender.pm:78
+msgid "domain name"
+msgstr "網域名稱"
+
+#: src/EBox/MailFilter/Types/AmavisSender.pm:82
+msgid "email address"
+msgstr "郵件地址"
+
+#: src/EBox/MailFilter/Types/AmavisSender.pm:86
 msgid ""
-"Here you can specify which external mail domains can connect to the mail "
-"filter"
-msgstr "這裡您可以指定可以連線到郵件過濾器的外部網域郵件"
+"The sender ought be either an email address or a domain name prefixed with "
+"'@'"
+msgstr "寄件者應該不是一個郵件地址或是網域前有 '@'"
 
-#: src/EBox/MailFilter/Model/ExternalDomain.pm:113
-#, fuzzy, perl-brace-format
-msgid "{d} is a internal Zentyal virtual main domain"
-msgstr "{d} 是內部 eBox 的虛擬網域郵件"
+#: src/EBox/MailFilter/Types/Policy.pm:45
+msgid "Pass"
+msgstr "過關"
 
-#: src/EBox/MailFilter/Model/POPProxyConfiguration.pm:69
-msgid "Filter virus"
-msgstr "過濾病毒"
+#: src/EBox/MailFilter/Types/Policy.pm:46
+msgid "Reject"
+msgstr "拒絕"
 
-#: src/EBox/MailFilter/Model/POPProxyConfiguration.pm:75
-msgid "Filter spam"
-msgstr "過濾垃圾郵件"
+#: src/EBox/MailFilter/Types/Policy.pm:47
+msgid "Bounce"
+msgstr "退回"
 
-#: src/EBox/MailFilter/Model/POPProxyConfiguration.pm:81
-msgid "ISP spam subject"
-msgstr "ISP 垃圾信主旨"
+#: src/EBox/MailFilter/Types/Policy.pm:48
+msgid "Discard"
+msgstr "捨棄"
 
-#: src/EBox/MailFilter/Model/POPProxyConfiguration.pm:85
-msgid ""
-"This option allows you to set the string your ISP uses if\n"
-"it processes your email for SPAM."
-msgstr ""
-"這個選項讓您可以指定當您的 ISP 有事先為您處理垃圾郵件時\n"
-"所設定的主旨為何。"
+#: src/EBox/MailFilter/Types/Policy.pm:68
+msgid "Mailfilter's policy"
+msgstr "郵件過濾的政策"
 
-#: src/EBox/MailFilter/Model/POPProxyConfiguration.pm:93
-#, fuzzy
-msgid "Configuration"
-msgstr "防垃圾信設置"
+#: src/EBox/MailFilter/Types/AntispamThreshold.pm:135
+msgid "Write down a decimal number"
+msgstr "寫下十進位數字"
 
-#: src/EBox/MailFilter/Model/POPProxyConfiguration.pm:113
-msgid ""
-"The POP transparent proxy must scan for something to be useful. If you do "
-"not need either antivirus of spam scan we suggest you turn it off"
-msgstr ""
-"POP 通透式代理伺服器必須用來掃描一些有用處的東西。如果您不需要掃描病毒或垃圾"
-"郵件，我們建議您將它關閉"
+#: src/EBox/MailFilter/Types/AntispamThreshold.pm:140
+msgid "Only non-zero positive numbers are allowed"
+msgstr "只允許不是0的整數"
 
-#: src/EBox/MailFilter/Model/AmavisPolicy.pm:61
-msgid "Virus policy"
-msgstr "防毒政策"
-
-#: src/EBox/MailFilter/Model/AmavisPolicy.pm:67
-msgid "Spam policy"
-msgstr "垃圾信政策"
-
-#: src/EBox/MailFilter/Model/AmavisPolicy.pm:73
-msgid "Banned files policy"
-msgstr "禁止檔案政策"
-
-#: src/EBox/MailFilter/Model/AmavisPolicy.pm:79
-msgid "Bad header policy"
-msgstr "錯誤表頭政策"
-
-#: src/EBox/MailFilter/Model/AmavisPolicy.pm:89
-#, fuzzy
-msgid "Filter Policies"
-msgstr "SMTP 過濾政策"
-
-#: src/EBox/MailFilter/Model/AntispamTraining.pm:58
-msgid "Mailbox"
-msgstr "郵件信箱"
-
-#: src/EBox/MailFilter/Model/AntispamTraining.pm:64
-msgid "Mailbox contains"
-msgstr "信箱內容"
-
-#: src/EBox/MailFilter/Model/AntispamTraining.pm:74
-msgid "Train bayesian spam filter"
-msgstr "訓練貝氏(bayesian)垃圾信過濾"
-
-#: src/EBox/MailFilter/Model/AntispamTraining.pm:79
-msgid "Learned from messages"
-msgstr "從郵件中學習"
-
-#: src/EBox/MailFilter/Model/AntispamTraining.pm:81
-msgid "Train"
-msgstr ""
-
-#: src/EBox/MailFilter/Model/AntispamTraining.pm:96
-#: src/EBox/MailFilter/Model/Report/FilterGraph.pm:64
-#: src/EBox/MailFilter/Model/Report/FilterDetails.pm:49
-#: src/EBox/MailFilter/Model/Report/FilterDetails.pm:90
-msgid "spam"
-msgstr "垃圾信"
-
-#: src/EBox/MailFilter/Model/AntispamTraining.pm:97
-msgid "ham"
-msgstr "非垃圾信"
-
-#: src/EBox/MailFilter/Model/AntispamTraining.pm:129
+#: src/EBox/MailFilter/Types/AntispamThreshold.pm:149
 #, perl-brace-format
-msgid "Invalid mailbox type: {type}"
-msgstr "無效的信箱類型: {type}"
+msgid "Write down a number lesser than {m}"
+msgstr "寫下小於 {m} 的數字"
 
-#: src/EBox/MailFilter/Model/VDomains.pm:68
-msgid "Domain"
-msgstr "網域"
-
-#: src/EBox/MailFilter/Model/VDomains.pm:78
-msgid "Use virus filtering"
-msgstr "使用病毒過濾"
-
-#: src/EBox/MailFilter/Model/VDomains.pm:84
-msgid "Use spam filtering"
-msgstr "使用垃圾信過濾"
-
-#: src/EBox/MailFilter/Model/VDomains.pm:97
-msgid "default"
-msgstr "預設"
-
-#: src/EBox/MailFilter/Model/VDomains.pm:101
-msgid "custom threshold"
-msgstr "自訂分數"
-
-#: src/EBox/MailFilter/Model/VDomains.pm:113
-msgid "Learn from accounts' Spam IMAP folders"
-msgstr ""
-
-#: src/EBox/MailFilter/Model/VDomains.pm:115
-msgid ""
-"Every time that a email moved into or out of the IMAP spam folder the filter "
-"will be trained with it"
-msgstr ""
-
-#: src/EBox/MailFilter/Model/VDomains.pm:122
-msgid "Learning ham account"
-msgstr "學習非垃圾信的帳號"
-
-#: src/EBox/MailFilter/Model/VDomains.pm:123
-msgid ""
-"An address (ham@domain) will be created for this domain, ham messages "
-"incorrectly classified as spam may be forwarded to this addres to train the "
-"filter"
-msgstr ""
-"地址 (ham@domain) 將在這個網域中建立,非垃圾信被錯誤的歸納為垃圾信,您可以轉寄"
-"到這裡來訓練過濾器"
-
-#: src/EBox/MailFilter/Model/VDomains.pm:134
-msgid "Learning spam account"
-msgstr "學習垃圾信的帳號"
-
-#: src/EBox/MailFilter/Model/VDomains.pm:135
-msgid ""
-"An address (spam@domain) will be created for this domain, spam messages "
-"incorrectly classified as ham may be forwarded to this addres to train the "
-"filter"
-msgstr ""
-"地址 (spam@domain) 將在這個網域中建立,垃圾信被錯誤的歸納為非垃圾信,您可以轉寄"
-"到這裡來訓練過濾器"
-
-#: src/EBox/MailFilter/Model/VDomains.pm:146
-msgid "Antispam sender policy"
-msgstr "防垃圾信寄件者政策"
-
-#: src/EBox/MailFilter/Model/VDomains.pm:168
-msgid "virtual domain"
-msgstr "虛擬網域"
-
-#: src/EBox/MailFilter/Model/VDomains.pm:186
+#: src/EBox/MailFilter/Types/AntispamThreshold.pm:156
 #, perl-brace-format
-msgid ""
-"There are no virtual mail domains managed by this server. You can create "
-"some in the {openA}virtual domains mail page{closeA}."
-msgstr ""
-
-#: src/EBox/MailFilter/Model/Report/FilterGraph.pm:51
-msgid "Mail filter graph"
-msgstr "郵件過濾圖表"
-
-#: src/EBox/MailFilter/Model/Report/FilterGraph.pm:60
-#: src/EBox/MailFilter/Model/Report/FilterDetails.pm:46
-#: src/EBox/MailFilter/Model/Report/FilterDetails.pm:80
-#: src/EBox/MailFilter/Model/Report/POPProxyDetails.pm:49
-#: src/EBox/MailFilter/Model/Report/POPProxyDetails.pm:80
-#: src/EBox/MailFilter/Model/Report/POPProxyGraph.pm:66
-msgid "clean messages"
-msgstr "乾淨郵件"
-
-#: src/EBox/MailFilter/Model/Report/FilterGraph.pm:68
-#: src/EBox/MailFilter/Model/Report/FilterDetails.pm:52
-#: src/EBox/MailFilter/Model/Report/FilterDetails.pm:95
-msgid "banned files"
-msgstr "禁止檔案"
-
-#: src/EBox/MailFilter/Model/Report/FilterGraph.pm:72
-#: src/EBox/MailFilter/Model/Report/FilterDetails.pm:55
-#: src/EBox/MailFilter/Model/Report/FilterDetails.pm:85
-msgid "infected"
-msgstr "已感染"
-
-#: src/EBox/MailFilter/Model/Report/FilterGraph.pm:76
-#: src/EBox/MailFilter/Model/Report/FilterDetails.pm:58
-msgid "bad header"
-msgstr "錯誤表頭"
-
-#: src/EBox/MailFilter/Model/Report/FilterGraph.pm:80
-#: src/EBox/MailFilter/Model/Report/FilterDetails.pm:61
-msgid "blacklisted"
-msgstr "黑名單"
-
-#: src/EBox/MailFilter/Model/Report/FilterGraph.pm:103
-msgid "Filter traffic"
-msgstr "過濾流量"
-
-#: src/EBox/MailFilter/Model/Report/FilterDetails.pm:101
-msgid "blacklisted senders"
-msgstr "黑名單寄件者"
-
-#: src/EBox/MailFilter/Model/Report/FilterDetails.pm:106
-msgid "bad message header"
-msgstr "錯誤郵件表頭"
-
-#: src/EBox/MailFilter/Model/Report/FilterDetails.pm:117
-msgid "Filter traffic details"
-msgstr "過濾流量內容"
-
-#: src/EBox/MailFilter/Model/Report/FilterDetails.pm:125
-#: src/EBox/MailFilter/Model/Report/POPProxyDetails.pm:110
-msgid "traffic"
-msgstr "流量"
-
-#: src/EBox/MailFilter/Model/Report/POPProxyDetails.pm:46
-#: src/EBox/MailFilter/Model/Report/POPProxyDetails.pm:75
-#: src/EBox/MailFilter/Model/Report/POPProxyGraph.pm:63
-msgid "total messages"
-msgstr "全部郵件"
-
-#: src/EBox/MailFilter/Model/Report/POPProxyDetails.pm:52
-#: src/EBox/MailFilter/Model/Report/POPProxyGraph.pm:69
-msgid "infected messages "
-msgstr "受感染的郵件 "
-
-#: src/EBox/MailFilter/Model/Report/POPProxyDetails.pm:56
-#: src/EBox/MailFilter/Model/Report/POPProxyDetails.pm:90
-#: src/EBox/MailFilter/Model/Report/POPProxyGraph.pm:73
-msgid "spam messages"
-msgstr "垃圾郵件"
-
-#: src/EBox/MailFilter/Model/Report/POPProxyDetails.pm:85
-msgid "infected messages"
-msgstr "受感染的郵件"
-
-#: src/EBox/MailFilter/Model/Report/POPProxyDetails.pm:102
-msgid "Transparent POP proxy traffic details"
-msgstr "通透式 POP 代理伺服器流量內容"
-
-#: src/EBox/MailFilter/Model/Report/POPProxyGraph.pm:51
-msgid "POP proxy graph"
-msgstr "POP 代理伺服器圖表"
-
-#: src/EBox/MailFilter/Model/Report/POPProxyGraph.pm:95
-msgid "Transparent POP proxy traffic"
-msgstr "通透式 POP 代理伺服器流量"
+msgid "Write down a number greater  than {m}"
+msgstr "寫下大於 {m} 的數字"
 
 #: src/EBox/MailFilter/Amavis.pm:64
 msgid "To configure amavis"
@@ -811,9 +812,18 @@ msgstr ""
 msgid "Accounts from the domain {d} cannot train the bayesian filter"
 msgstr ""
 
-#: src/EBox/MailFilter/Composite/ExternalConnections.pm:59
-msgid "External connections"
-msgstr "外部連線"
+#: src/EBox/MailFilter/Composite/Report/POPProxyReport.pm:69
+#: src/EBox/MailFilter/Composite/Report/FilterReport.pm:69
+msgid "Mail filter report"
+msgstr "郵件過濾報告"
+
+#: src/EBox/MailFilter/Composite/Report/POPProxyReport.pm:70
+msgid "Transparent POP proxy report"
+msgstr "通透式 POP 代理伺服器報告"
+
+#: src/EBox/MailFilter/Composite/Report/FilterReport.pm:70
+msgid "Mail Filter report"
+msgstr "郵件過濾報告"
 
 #: src/EBox/MailFilter/Composite/FileFilter.pm:58
 #, fuzzy
@@ -826,18 +836,9 @@ msgid ""
 "only filters by extension"
 msgstr "根據附加檔案過濾郵件。通透式 POP 代理伺服器只會以副檔名來過濾檔案"
 
-#: src/EBox/MailFilter/Composite/Report/FilterReport.pm:69
-#: src/EBox/MailFilter/Composite/Report/POPProxyReport.pm:69
-msgid "Mail filter report"
-msgstr "郵件過濾報告"
-
-#: src/EBox/MailFilter/Composite/Report/FilterReport.pm:70
-msgid "Mail Filter report"
-msgstr "郵件過濾報告"
-
-#: src/EBox/MailFilter/Composite/Report/POPProxyReport.pm:70
-msgid "Transparent POP proxy report"
-msgstr "通透式 POP 代理伺服器報告"
+#: src/EBox/MailFilter/Composite/ExternalConnections.pm:59
+msgid "External connections"
+msgstr "外部連線"
 
 #: stubs/p3scan.conf.mas:15
 msgid "[Virus] found in a mail to you:"

@@ -7,58 +7,55 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-objects 1.4\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-12-13 08:40+0100\n"
+"POT-Creation-Date: 2010-12-18 01:44+0100\n"
 "PO-Revision-Date: 2010-05-06 17:13+0200\n"
 "Last-Translator: Priit-A. Heinsalu <priit.heinsalu@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: src/EBox/Objects.pm:39 src/EBox/Model/ObjectTable.pm:82
-#: src/EBox/Model/MemberTable.pm:93
-msgid "Objects"
-msgstr "Objektid"
-
-#: src/EBox/Objects.pm:44
-#, perl-brace-format
-msgid "Added object {object}"
-msgstr "Lisatud objekt {object}"
-
-#: src/EBox/Objects.pm:46
-#, perl-brace-format
-msgid "Added {nname} ({ip}/{mask} [{mac}]) to object {object}"
-msgstr "{nname} ({ip}/{mask} [{mac}]) lisatud objektile {object}"
-
-#: src/EBox/Objects.pm:47
-#, perl-brace-format
-msgid "Removed object {object}"
-msgstr "Eemaldatud objekt {object}"
-
-#  
-#: src/EBox/Objects.pm:49
-#, perl-brace-format
-msgid "Forcefully removed object {object}"
-msgstr "Jõuga eemaldatud objekt {object}"
-
-#: src/EBox/Objects.pm:51
-#, perl-brace-format
-msgid "Removed {nname} from object {object}"
-msgstr "{nname} eemaldatud objektist {object}"
-
-#: src/EBox/Objects.pm:270
-msgid "Object"
-msgstr "Objekt"
-
-#: src/EBox/Model/ObjectTable.pm:63 src/EBox/Model/MemberTable.pm:63
+#: src/EBox/Model/MemberTable.pm:63 src/EBox/Model/ObjectTable.pm:63
 msgid "Name"
 msgstr "Nimi"
 
-#: src/EBox/Model/ObjectTable.pm:71 src/EBox/Model/MemberTable.pm:87
+#: src/EBox/Model/MemberTable.pm:70
+msgid "IP address"
+msgstr "IP aadress"
+
+#: src/EBox/Model/MemberTable.pm:76
+msgid "MAC address"
+msgstr "MAC aadress"
+
+#: src/EBox/Model/MemberTable.pm:87 src/EBox/Model/ObjectTable.pm:71
 msgid "Members"
 msgstr "Liikmed"
+
+#: src/EBox/Model/MemberTable.pm:93 src/EBox/Model/ObjectTable.pm:82
+#: src/EBox/Objects.pm:39
+msgid "Objects"
+msgstr "Objektid"
+
+#: src/EBox/Model/MemberTable.pm:94
+msgid "member"
+msgstr "liige"
+
+#  
+#: src/EBox/Model/MemberTable.pm:116
+msgid "You can only use MAC addresses with hosts"
+msgstr "MAC aadresse saab kasutada ainult masinatega"
+
+#: src/EBox/Model/MemberTable.pm:119 src/EBox/Model/MemberTable.pm:120
+msgid "network address"
+msgstr "võrguaadress"
+
+#: src/EBox/Model/MemberTable.pm:126
+#, perl-brace-format
+msgid "{ip} overlaps with the address or another object's member"
+msgstr "{ip} kattub aadressi või teise objekti liikmega"
 
 #: src/EBox/Model/ObjectTable.pm:83
 msgid "Objects List"
@@ -91,28 +88,32 @@ msgid ""
 msgstr ""
 "Segaduste vältimiseks ei saa reserveeritud sõna 'any' objekti nimena kasutada"
 
-#: src/EBox/Model/MemberTable.pm:70
-msgid "IP address"
-msgstr "IP aadress"
+#: src/EBox/Objects.pm:44
+#, perl-brace-format
+msgid "Added object {object}"
+msgstr "Lisatud objekt {object}"
 
-#: src/EBox/Model/MemberTable.pm:76
-msgid "MAC address"
-msgstr "MAC aadress"
+#: src/EBox/Objects.pm:46
+#, perl-brace-format
+msgid "Added {nname} ({ip}/{mask} [{mac}]) to object {object}"
+msgstr "{nname} ({ip}/{mask} [{mac}]) lisatud objektile {object}"
 
-#: src/EBox/Model/MemberTable.pm:94
-msgid "member"
-msgstr "liige"
+#: src/EBox/Objects.pm:47
+#, perl-brace-format
+msgid "Removed object {object}"
+msgstr "Eemaldatud objekt {object}"
 
 #  
-#: src/EBox/Model/MemberTable.pm:116
-msgid "You can only use MAC addresses with hosts"
-msgstr "MAC aadresse saab kasutada ainult masinatega"
-
-#: src/EBox/Model/MemberTable.pm:119 src/EBox/Model/MemberTable.pm:120
-msgid "network address"
-msgstr "võrguaadress"
-
-#: src/EBox/Model/MemberTable.pm:126
+#: src/EBox/Objects.pm:49
 #, perl-brace-format
-msgid "{ip} overlaps with the address or another object's member"
-msgstr "{ip} kattub aadressi või teise objekti liikmega"
+msgid "Forcefully removed object {object}"
+msgstr "Jõuga eemaldatud objekt {object}"
+
+#: src/EBox/Objects.pm:51
+#, perl-brace-format
+msgid "Removed {nname} from object {object}"
+msgstr "{nname} eemaldatud objektist {object}"
+
+#: src/EBox/Objects.pm:270
+msgid "Object"
+msgstr "Objekt"

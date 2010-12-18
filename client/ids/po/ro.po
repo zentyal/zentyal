@@ -7,10 +7,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-ids 1.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-12-13 08:39+0100\n"
+"POT-Creation-Date: 2010-12-18 01:44+0100\n"
 "PO-Revision-Date: 2010-07-20 13:08+0200\n"
 "Last-Translator: Harald Ersch <harald.ersch@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -18,13 +19,58 @@ msgstr ""
 "20)) ? 1 : 2);;\n"
 "X-Generator: Pootle 1.1.0\n"
 
+#: src/EBox/Model/Interfaces.pm:129
+msgid "Interface"
+msgstr "Interfaţă"
+
+#: src/EBox/Model/Interfaces.pm:134
+msgid "Enabled"
+msgstr "Activat"
+
+#: src/EBox/Model/Interfaces.pm:143
+msgid "Interfaces"
+msgstr "Interfeţe"
+
+#: src/EBox/Model/Interfaces.pm:149
+msgid "interface"
+msgstr "interfaţa"
+
+#: src/EBox/Model/Interfaces.pm:151
+msgid "Select in which interfaces IDS system will be enabled"
+msgstr "Selectaţi interfeţele pe care sistemul IDS va fi activat"
+
+#: src/EBox/Model/Report/AlertGraph.pm:47
+#: src/EBox/Model/Report/AlertDetails.pm:41
+msgid "number of alerts"
+msgstr "număr de alerte"
+
+#: src/EBox/Model/Report/AlertGraph.pm:52
+msgid "Alerts chart"
+msgstr "Diagrama alerte"
+
+#: src/EBox/Model/Report/AlertGraph.pm:68
+msgid "Alert Graph"
+msgstr "Grafic alerte"
+
+#: src/EBox/Model/Report/AlertDetails.pm:52 src/EBox/IDS.pm:299
+msgid "Date"
+msgstr "Data"
+
+#: src/EBox/Model/Report/AlertDetails.pm:58
+msgid "Number of alerts"
+msgstr "Număr de alerte"
+
+#: src/EBox/Model/Report/AlertDetails.pm:66
+msgid "Alert details"
+msgstr "Detalii alerte"
+
+#: src/EBox/Model/Report/AlertDetails.pm:73
+msgid "alerts"
+msgstr "alerte"
+
 #: src/EBox/IDS.pm:62 src/EBox/IDS.pm:169 src/EBox/IDS.pm:311
 msgid "IDS"
 msgstr "IDS sistem de detecţie a intruziunilor"
-
-#: src/EBox/IDS.pm:299 src/EBox/Model/Report/AlertDetails.pm:52
-msgid "Date"
-msgstr "Data"
 
 #: src/EBox/IDS.pm:300
 msgid "Priority"
@@ -54,68 +100,6 @@ msgstr "Eveniment"
 msgid "Alert"
 msgstr "Alertă"
 
-#: src/EBox/Model/Interfaces.pm:129
-msgid "Interface"
-msgstr "Interfaţă"
-
-#: src/EBox/Model/Interfaces.pm:134 src/EBox/Model/Rules.pm:158
-msgid "Enabled"
-msgstr "Activat"
-
-#: src/EBox/Model/Interfaces.pm:143
-msgid "Interfaces"
-msgstr "Interfeţe"
-
-#: src/EBox/Model/Interfaces.pm:149
-msgid "interface"
-msgstr "interfaţa"
-
-#: src/EBox/Model/Interfaces.pm:151
-msgid "Select in which interfaces IDS system will be enabled"
-msgstr "Selectaţi interfeţele pe care sistemul IDS va fi activat"
-
-#: src/EBox/Model/Rules.pm:153
-msgid "Rule Set"
-msgstr "Set de reguli"
-
-#: src/EBox/Model/Rules.pm:167
-msgid "Rules"
-msgstr "Reguli"
-
-#: src/EBox/Model/Rules.pm:172
-msgid "rule"
-msgstr "regula"
-
-#: src/EBox/Model/Rules.pm:173
-msgid ""
-"Select the sets of rules you want apply when scanning the network traffic"
-msgstr ""
-
-#: src/EBox/Model/Report/AlertDetails.pm:41
-#: src/EBox/Model/Report/AlertGraph.pm:47
-msgid "number of alerts"
-msgstr "număr de alerte"
-
-#: src/EBox/Model/Report/AlertDetails.pm:58
-msgid "Number of alerts"
-msgstr "Număr de alerte"
-
-#: src/EBox/Model/Report/AlertDetails.pm:66
-msgid "Alert details"
-msgstr "Detalii alerte"
-
-#: src/EBox/Model/Report/AlertDetails.pm:73
-msgid "alerts"
-msgstr "alerte"
-
-#: src/EBox/Model/Report/AlertGraph.pm:52
-msgid "Alerts chart"
-msgstr "Diagrama alerte"
-
-#: src/EBox/Model/Report/AlertGraph.pm:68
-msgid "Alert Graph"
-msgstr "Grafic alerte"
-
 #: src/EBox/Composite/General.pm:101
 msgid "Intrusion Detection System"
 msgstr "Sistem de detecţie a intruziunilor"
@@ -123,6 +107,15 @@ msgstr "Sistem de detecţie a intruziunilor"
 #: src/EBox/Composite/Report/AlertReport.pm:66
 msgid "IDS Alerts report"
 msgstr "Raport alerte IDS"
+
+#~ msgid "Rule Set"
+#~ msgstr "Set de reguli"
+
+#~ msgid "Rules"
+#~ msgstr "Reguli"
+
+#~ msgid "rule"
+#~ msgstr "regula"
 
 #~ msgid "help message"
 #~ msgstr "mesaj de ajutor"

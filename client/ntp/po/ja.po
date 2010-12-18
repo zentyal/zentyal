@@ -7,77 +7,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-ntp 0.12\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-12-13 08:40+0100\n"
+"POT-Creation-Date: 2010-12-18 01:44+0100\n"
 "PO-Revision-Date: 2008-01-08 15:50+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-
-#: src/EBox/CGI/AddServers.pm:42
-msgid "first ntp server"
-msgstr "第一NTPサーバ"
-
-#: src/EBox/CGI/AddServers.pm:45 src/EBox/NTP.pm:222
-#: src/templates/servers.mas:16
-msgid "Primary server"
-msgstr "一番目のサーバ"
-
-#: src/EBox/CGI/AddServers.pm:51 src/EBox/NTP.pm:236
-#: src/templates/servers.mas:27
-msgid "Secondary server"
-msgstr "二番目のサーバ"
-
-#: src/EBox/CGI/AddServers.pm:55 src/templates/servers.mas:38
-msgid "Tertiary server"
-msgstr "三番目のサーバ"
-
-#: src/EBox/CGI/ChangeDate.pm:41
-msgid "Day"
-msgstr "日"
-
-#: src/EBox/CGI/ChangeDate.pm:42
-msgid "Month"
-msgstr "月"
-
-#: src/EBox/CGI/ChangeDate.pm:43
-msgid "Year"
-msgstr "年"
-
-#: src/EBox/CGI/ChangeDate.pm:44
-msgid "Hour"
-msgstr "時"
-
-#: src/EBox/CGI/ChangeDate.pm:45
-msgid "Minutes"
-msgstr "分"
-
-#: src/EBox/CGI/ChangeDate.pm:46
-msgid "Seconds"
-msgstr "秒"
-
-#: src/EBox/CGI/ChangeTimeZone.pm:41
-msgid "country"
-msgstr "国"
-
-#: src/EBox/CGI/ChangeTimeZone.pm:42
-msgid "continent"
-msgstr "大陸"
-
-#: src/EBox/CGI/Datetime.pm:30
-#, fuzzy
-msgid "Date and Time Configuration"
-msgstr "日付と時刻の設定"
-
-#: src/EBox/CGI/Timezone.pm:30
-msgid "Time Zone Configuration"
-msgstr ""
-
-#: src/EBox/CGI/Synch.pm:41
-msgid "external synchronize status"
-msgstr "外部同期状況"
 
 #: src/EBox/NTP.pm:67
 msgid "Remove ntp init script links"
@@ -92,6 +30,11 @@ msgstr "eBoxがサービスの開始と停止をします"
 msgid "NTP configuration file"
 msgstr ""
 
+#: src/EBox/NTP.pm:222 src/EBox/CGI/AddServers.pm:45
+#: src/templates/servers.mas:16
+msgid "Primary server"
+msgstr "一番目のサーバ"
+
 #: src/EBox/NTP.pm:224
 msgid "primary server"
 msgstr "一番目のサーバ"
@@ -102,6 +45,11 @@ msgstr "一番目と二番目のサーバは違うものを選んでください
 
 #: src/EBox/NTP.pm:232
 msgid "secondary server"
+msgstr "二番目のサーバ"
+
+#: src/EBox/NTP.pm:236 src/EBox/CGI/AddServers.pm:51
+#: src/templates/servers.mas:27
+msgid "Secondary server"
 msgstr "二番目のサーバ"
 
 #: src/EBox/NTP.pm:244
@@ -136,6 +84,59 @@ msgstr "日時"
 msgid "Time Zone"
 msgstr "タイムゾーン"
 
+#: src/EBox/CGI/Timezone.pm:30
+msgid "Time Zone Configuration"
+msgstr ""
+
+#: src/EBox/CGI/AddServers.pm:42
+msgid "first ntp server"
+msgstr "第一NTPサーバ"
+
+#: src/EBox/CGI/AddServers.pm:55 src/templates/servers.mas:38
+msgid "Tertiary server"
+msgstr "三番目のサーバ"
+
+#: src/EBox/CGI/Datetime.pm:30
+#, fuzzy
+msgid "Date and Time Configuration"
+msgstr "日付と時刻の設定"
+
+#: src/EBox/CGI/Synch.pm:41
+msgid "external synchronize status"
+msgstr "外部同期状況"
+
+#: src/EBox/CGI/ChangeDate.pm:41
+msgid "Day"
+msgstr "日"
+
+#: src/EBox/CGI/ChangeDate.pm:42
+msgid "Month"
+msgstr "月"
+
+#: src/EBox/CGI/ChangeDate.pm:43
+msgid "Year"
+msgstr "年"
+
+#: src/EBox/CGI/ChangeDate.pm:44
+msgid "Hour"
+msgstr "時"
+
+#: src/EBox/CGI/ChangeDate.pm:45
+msgid "Minutes"
+msgstr "分"
+
+#: src/EBox/CGI/ChangeDate.pm:46
+msgid "Seconds"
+msgstr "秒"
+
+#: src/EBox/CGI/ChangeTimeZone.pm:41
+msgid "country"
+msgstr "国"
+
+#: src/EBox/CGI/ChangeTimeZone.pm:42
+msgid "continent"
+msgstr "大陸"
+
 #: src/templates/servers.mas:7
 msgid "NTP servers"
 msgstr "NTPサーバ"
@@ -147,10 +148,10 @@ msgid ""
 msgstr ""
 "同期が正しく行われるようにタイムゾーンを設定することを忘れないでください"
 
-#: src/templates/servers.mas:50 src/templates/timezone.mas:33
-#: src/templates/timezone.mas:34 src/templates/synch.mas:19
+#: src/templates/servers.mas:50 src/templates/synch.mas:19
 #: src/templates/synch.mas:20 src/templates/date.mas:96
-#: src/templates/date.mas:97
+#: src/templates/date.mas:97 src/templates/timezone.mas:33
+#: src/templates/timezone.mas:34
 msgid "Change"
 msgstr "変更"
 

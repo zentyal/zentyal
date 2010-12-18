@@ -7,51 +7,28 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-egroupware 1.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-12-13 08:39+0100\n"
+"POT-Creation-Date: 2010-12-18 01:43+0100\n"
 "PO-Revision-Date: 2010-07-16 14:08+0200\n"
 "Last-Translator: Daniel Hedblom <daniel.hedblom@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: src/EBox/EGroupware.pm:49
-msgid "Groupware"
-msgstr "Groupware"
+#: src/EBox/Model/DefaultApplications.pm:50
+msgid "Default Applications"
+msgstr "Standardapplikationer"
 
-#: src/EBox/EGroupware.pm:97
-msgid "Create PostgreSQL user egroupware"
-msgstr "Skapa PostgreSQL användare egroupware"
-
-#: src/EBox/EGroupware.pm:98
-msgid "This user will be the owner of the egroupware database"
-msgstr "Den här användaren kommer att bli ägaren av egroupware databasen"
-
-#: src/EBox/EGroupware.pm:102
-msgid "Create PostgreSQL egroupware database"
-msgstr "Skapa PostgreeSQL databas"
-
-#: src/EBox/EGroupware.pm:103
-msgid "This database will store the data needed by eGroupware"
-msgstr "Den här databasen kommer att lagra data som behövs av eGroupware"
-
-#: src/EBox/EGroupware.pm:120
-msgid "To configure eGroupware access settings"
-msgstr "För att konfigurera eGroupware åtkomstinställningar"
-
-#: src/EBox/EGroupware.pm:125
-msgid "To allow local access to egroupware database"
-msgstr "För att tillåta access till eGroupware databasen"
-
-#: src/EBox/CGI/EGroupwareUserOptions.pm:43
-msgid "username"
-msgstr "användarnamn"
-
-#: src/EBox/CGI/EGroupwareGroupOptions.pm:43
-msgid "groupname"
-msgstr "gruppnamn"
+#: src/EBox/Model/DefaultApplications.pm:51
+msgid ""
+"These are the default application permissions that are given to the new "
+"created users or existing ones before enabling eGroupware module."
+msgstr ""
+"Det här är standard applikationsrättigheter som tilldelas nya användare "
+"eller redan existerande före aktivering av eGroupware modulen."
 
 #: src/EBox/Model/Applications.pm:139
 msgid "Application"
@@ -68,18 +45,6 @@ msgstr "Applikationer"
 #: src/EBox/Model/Applications.pm:153
 msgid "application"
 msgstr "applikation"
-
-#: src/EBox/Model/DefaultApplications.pm:50
-msgid "Default Applications"
-msgstr "Standardapplikationer"
-
-#: src/EBox/Model/DefaultApplications.pm:51
-msgid ""
-"These are the default application permissions that are given to the new "
-"created users or existing ones before enabling eGroupware module."
-msgstr ""
-"Det här är standard applikationsrättigheter som tilldelas nya användare "
-"eller redan existerande före aktivering av eGroupware modulen."
 
 #: src/EBox/Model/PermissionTemplates.pm:66
 msgid "Name"
@@ -147,6 +112,34 @@ msgstr "Virtuell E-post domän"
 msgid "Select the virtual mail domain to be used for eGroupware"
 msgstr "Välj den virtuella epost-domänen att användas med eGroupware"
 
+#: src/EBox/EGroupware.pm:49
+msgid "Groupware"
+msgstr "Groupware"
+
+#: src/EBox/EGroupware.pm:97
+msgid "Create PostgreSQL user egroupware"
+msgstr "Skapa PostgreSQL användare egroupware"
+
+#: src/EBox/EGroupware.pm:98
+msgid "This user will be the owner of the egroupware database"
+msgstr "Den här användaren kommer att bli ägaren av egroupware databasen"
+
+#: src/EBox/EGroupware.pm:102
+msgid "Create PostgreSQL egroupware database"
+msgstr "Skapa PostgreeSQL databas"
+
+#: src/EBox/EGroupware.pm:103
+msgid "This database will store the data needed by eGroupware"
+msgstr "Den här databasen kommer att lagra data som behövs av eGroupware"
+
+#: src/EBox/EGroupware.pm:120
+msgid "To configure eGroupware access settings"
+msgstr "För att konfigurera eGroupware åtkomstinställningar"
+
+#: src/EBox/EGroupware.pm:125
+msgid "To allow local access to egroupware database"
+msgstr "För att tillåta access till eGroupware databasen"
+
 #: src/EBox/Composite/General.pm:75
 msgid "eGroupware"
 msgstr "eGroupware"
@@ -163,30 +156,31 @@ msgstr ""
 msgid "EGroupware"
 msgstr "eGroupware"
 
-#: src/templates/egroupware.mas:9
-msgid "eGroupware account"
-msgstr "eGroupware konto"
+#: src/EBox/CGI/EGroupwareGroupOptions.pm:43
+msgid "groupname"
+msgstr "gruppnamn"
 
-#: src/templates/egroupware.mas:10
-msgid "Password for eGroupware service is the user password"
-msgstr "Lösenord för eGroupware tjänsten är användarens lösenord"
+#: src/EBox/CGI/EGroupwareUserOptions.pm:43
+msgid "username"
+msgstr "användarnamn"
 
-#: src/templates/egroupware.mas:12
-msgid "eGroupware group"
-msgstr "eGroupware grupp"
+#~ msgid "eGroupware account"
+#~ msgstr "eGroupware konto"
 
-#: src/templates/egroupware.mas:28
-msgid "Permissions template"
-msgstr "Rättighetsmallar"
+#~ msgid "Password for eGroupware service is the user password"
+#~ msgstr "Lösenord för eGroupware tjänsten är användarens lösenord"
 
-#: src/templates/egroupware.mas:39
-msgid "Default"
-msgstr "Standard"
+#~ msgid "eGroupware group"
+#~ msgstr "eGroupware grupp"
 
-#: src/templates/egroupware.mas:52 src/templates/egroupware.mas:53
-msgid "Change"
-msgstr "Ändring"
+#~ msgid "Permissions template"
+#~ msgstr "Rättighetsmallar"
 
-#: src/templates/egroupware.mas:85
-msgid "Click here to select a virtual domain"
-msgstr "Klicka här för att välja en virtuell domän"
+#~ msgid "Default"
+#~ msgstr "Standard"
+
+#~ msgid "Change"
+#~ msgstr "Ändring"
+
+#~ msgid "Click here to select a virtual domain"
+#~ msgstr "Klicka här för att välja en virtuell domän"

@@ -7,10 +7,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-printers 1.4\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-12-13 08:42+0100\n"
+"POT-Creation-Date: 2010-12-18 01:45+0100\n"
 "PO-Revision-Date: 2010-11-07 11:24+0100\n"
 "Last-Translator: Michal Formánek <formi@seznam.cz>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -20,72 +21,6 @@ msgstr ""
 #: migration/0001_add_ipp_service.pl:117
 msgid "Cups printer server port"
 msgstr "port tiskového serveru"
-
-#: src/EBox/Printers.pm:41 src/EBox/Composite/General.pm:60
-msgid "Printer Sharing"
-msgstr "Sdílení tiskárny"
-
-#: src/EBox/Printers.pm:56
-msgid "Create spool directory for printers"
-msgstr "Vytvořit spoolový adresář pro tiskárny"
-
-#: src/EBox/Printers.pm:57
-msgid "Zentyal will create a spool directory under /var/spool/samba"
-msgstr "Zentyal vytvoří spoolový adresář v /var/spool/samba"
-
-#: src/EBox/Printers.pm:62
-msgid "Create log table"
-msgstr "Vytvoř tabulku záznamů (logů)"
-
-#: src/EBox/Printers.pm:63
-#, fuzzy
-msgid ""
-"Zentyal will create a new table into its log database to store printers logs"
-msgstr ""
-"eBox vytvoří novou tabulku v databázi záznamů (logů) pro ukládání záznamů o "
-"činnosti tiskáren"
-
-#: src/EBox/Printers.pm:79
-#, fuzzy
-msgid "To configure cupsd"
-msgstr "Tiskárna není nakonfigurovaná"
-
-#: src/EBox/Printers.pm:221
-msgid "Job ID"
-msgstr "ID Úlohy"
-
-#: src/EBox/Printers.pm:222
-msgid "Printer"
-msgstr "Tiskárna"
-
-#: src/EBox/Printers.pm:223
-msgid "User"
-msgstr "Uživatel"
-
-#: src/EBox/Printers.pm:224
-#, fuzzy
-msgid "Date"
-msgstr "Smazat"
-
-#: src/EBox/Printers.pm:225
-msgid "Event"
-msgstr "Událost"
-
-#: src/EBox/Printers.pm:229
-msgid "Queued"
-msgstr "Ve frontě"
-
-#: src/EBox/Printers.pm:230
-msgid "Completed"
-msgstr ""
-
-#: src/EBox/Printers.pm:231
-msgid "Canceled"
-msgstr "Zrušeno"
-
-#: src/EBox/Printers.pm:235
-msgid "Printers"
-msgstr "Tiskárny"
 
 #: src/EBox/Model/CUPS.pm:142
 #, perl-brace-format
@@ -131,3 +66,69 @@ msgid ""
 msgstr ""
 "Přidat, nebo spravovat tiskárny můžete na {open_href}CUPS Web Interface"
 "{close_href}"
+
+#: src/EBox/Printers.pm:41 src/EBox/Composite/General.pm:60
+msgid "Printer Sharing"
+msgstr "Sdílení tiskárny"
+
+#: src/EBox/Printers.pm:56
+msgid "Create spool directory for printers"
+msgstr "Vytvořit spoolový adresář pro tiskárny"
+
+#: src/EBox/Printers.pm:57
+msgid "Zentyal will create a spool directory under /var/spool/samba"
+msgstr "Zentyal vytvoří spoolový adresář v /var/spool/samba"
+
+#: src/EBox/Printers.pm:62
+msgid "Create log table"
+msgstr "Vytvoř tabulku záznamů (logů)"
+
+#: src/EBox/Printers.pm:63
+#, fuzzy
+msgid ""
+"Zentyal will create a new table into its log database to store printers logs"
+msgstr ""
+"eBox vytvoří novou tabulku v databázi záznamů (logů) pro ukládání záznamů o "
+"činnosti tiskáren"
+
+#: src/EBox/Printers.pm:79
+#, fuzzy
+msgid "To configure cupsd"
+msgstr "Tiskárna není nakonfigurovaná"
+
+#: src/EBox/Printers.pm:251
+msgid "Job ID"
+msgstr "ID Úlohy"
+
+#: src/EBox/Printers.pm:252
+msgid "Printer"
+msgstr "Tiskárna"
+
+#: src/EBox/Printers.pm:253
+msgid "User"
+msgstr "Uživatel"
+
+#: src/EBox/Printers.pm:254
+#, fuzzy
+msgid "Date"
+msgstr "Smazat"
+
+#: src/EBox/Printers.pm:255
+msgid "Event"
+msgstr "Událost"
+
+#: src/EBox/Printers.pm:259
+msgid "Queued"
+msgstr "Ve frontě"
+
+#: src/EBox/Printers.pm:260
+msgid "Completed"
+msgstr ""
+
+#: src/EBox/Printers.pm:261
+msgid "Canceled"
+msgstr "Zrušeno"
+
+#: src/EBox/Printers.pm:265
+msgid "Printers"
+msgstr "Tiskárny"

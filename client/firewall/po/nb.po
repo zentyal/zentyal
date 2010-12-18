@@ -7,24 +7,284 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-firewall 0.12.99\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-12-13 08:39+0100\n"
+"POT-Creation-Date: 2010-12-18 01:43+0100\n"
 "PO-Revision-Date: 2010-10-26 15:12+0200\n"
 "Last-Translator: Ronny Gonzales <ronny@kcl.no>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: src/EBox/Iptables.pm:838 src/EBox/Iptables.pm:875
-#: src/EBox/Firewall/IptablesRedirectRule.pm:78
+#: src/EBox/Firewall/Model/ToInternetRuleTable.pm:65
+msgid "Internal networks"
+msgstr "Interne nettverk"
+
+#: src/EBox/Firewall/Model/ToInternetRuleTable.pm:77
+#: src/EBox/Firewall/Model/EBoxOutputRuleTable.pm:77
+#: src/EBox/Firewall/Model/ExternalToInternalRuleTable.pm:80
+#: src/EBox/Firewall/Model/InternalToEBoxRuleTable.pm:77
+#: src/EBox/Firewall/Model/ExternalToEBoxRuleTable.pm:79
+#: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:161
+msgid "rule"
+msgstr "regel"
+
+#: src/EBox/Firewall/Model/EBoxOutputRuleTable.pm:68
+msgid "Traffic coming out from Zentyal"
+msgstr "Trafikk ut fra Zentyal"
+
+#: src/EBox/Firewall/Model/ExternalToInternalRuleTable.pm:68
+msgid "External networks to internal networks"
+msgstr "Eksterne nettverk til interne nettverk"
+
+#: src/EBox/Firewall/Model/RedirectsTable.pm:145
+msgid "Contradictory rule found. Remove it first"
+msgstr "Selvmotsigende regel funnet. Fjern den først"
+
+#: src/EBox/Firewall/Model/RedirectsTable.pm:249
+msgid "Interface"
+msgstr "Grensesnitt"
+
+#: src/EBox/Firewall/Model/RedirectsTable.pm:256
+msgid "Original destination"
+msgstr "Orginal destinasjon"
+
+#: src/EBox/Firewall/Model/RedirectsTable.pm:264
+msgid "IP Address"
+msgstr "IP Adresse"
+
+#: src/EBox/Firewall/Model/RedirectsTable.pm:268
+msgid "Object"
+msgstr "Objekt"
+
+#: src/EBox/Firewall/Model/RedirectsTable.pm:279
+msgid "Original destination port"
+msgstr "Orginal destinasjons port"
+
+#: src/EBox/Firewall/Model/RedirectsTable.pm:285 src/EBox/Firewall.pm:801
+msgid "Protocol"
+msgstr "Protokoll"
+
+#: src/EBox/Firewall/Model/RedirectsTable.pm:292
+#: src/EBox/Firewall/Model/BaseRuleTable.pm:121 src/EBox/Firewall.pm:799
+msgid "Source"
+msgstr "Kilde"
+
+#: src/EBox/Firewall/Model/RedirectsTable.pm:297
+#: src/EBox/Firewall/Model/BaseRuleTable.pm:126
+#: src/EBox/Firewall/Model/BaseRuleTable.pm:152
+msgid "Any"
+msgstr "Hvilken som helst"
+
+#: src/EBox/Firewall/Model/RedirectsTable.pm:300
+#: src/EBox/Firewall/Model/BaseRuleTable.pm:129
+msgid "Source IP"
+msgstr "Kilde IP"
+
+#: src/EBox/Firewall/Model/RedirectsTable.pm:304
+#: src/EBox/Firewall/Model/BaseRuleTable.pm:133
+msgid "Source object"
+msgstr "Kilde objekt"
+
+#: src/EBox/Firewall/Model/RedirectsTable.pm:315
+#: src/EBox/Firewall/Model/BaseRuleTable.pm:155
+msgid "Destination IP"
+msgstr "Destinasjons IP"
+
+#: src/EBox/Firewall/Model/RedirectsTable.pm:321
+msgid "Port"
+msgstr "Port"
+
+#: src/EBox/Firewall/Model/RedirectsTable.pm:326
+msgid "Same"
+msgstr "Samme"
+
+#: src/EBox/Firewall/Model/RedirectsTable.pm:329
+msgid "Other"
+msgstr "Annen"
+
+#: src/EBox/Firewall/Model/RedirectsTable.pm:337
+msgid "Log"
+msgstr "Logg"
+
+#: src/EBox/Firewall/Model/RedirectsTable.pm:339
+msgid "Log new forwarded connections"
+msgstr "Logg nye videresendte forbindelser"
+
+#: src/EBox/Firewall/Model/RedirectsTable.pm:344
+#: src/EBox/Firewall/Model/BaseRuleTable.pm:185
+msgid "Description"
+msgstr "Beskrivelse"
+
+#: src/EBox/Firewall/Model/RedirectsTable.pm:361
+msgid "List of forwarded ports"
+msgstr "Liste over videresendte porter"
+
+#: src/EBox/Firewall/Model/RedirectsTable.pm:362 src/EBox/Firewall.pm:785
+msgid "Port Forwarding"
+msgstr "Port Videresending"
+
+#: src/EBox/Firewall/Model/RedirectsTable.pm:370
+msgid "forwarding"
+msgstr "videresending"
+
+#: src/EBox/Firewall/Model/InternalToEBoxRuleTable.pm:68
+msgid "Internal networks to Zentyal"
+msgstr "Interne nettverk til Zentyal"
+
+#: src/EBox/Firewall/Model/ExternalToEBoxRuleTable.pm:68
+msgid "External networks to Zentyal"
+msgstr "Eksterne nettverk til eBox"
+
+#: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:37
+msgid "Input"
+msgstr "Inndata"
+
+#: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:38
+msgid "External Input"
+msgstr "Ekstern Inndata"
+
+#: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:39
+msgid "Output"
+msgstr "Utdata"
+
+#: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:40
+msgid "Forward"
+msgstr "Videresend"
+
+#: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:41
+msgid "NAT prerouting"
+msgstr "NAT pre ruting"
+
+#: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:42
+msgid "NAT postrouting"
+msgstr "NAT etter ruting"
+
+#: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:118
+msgid "Rule"
+msgstr "Regel"
+
+#: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:123
+msgid "Enabled"
+msgstr "Aktivert"
+
+#: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:129
+msgid "Type"
+msgstr "Skriv"
+
+#: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:134
+msgid "Module"
+msgstr "Modul"
+
+#: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:139
+msgid "Condition"
+msgstr "Tilstand"
+
+#: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:144
+#: src/EBox/Firewall/Model/BaseRuleTable.pm:112 src/EBox/Firewall.pm:804
+msgid "Decision"
+msgstr "Valg"
+
+#: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:153
+#: src/templates/filter.mas:51
+msgid "Rules added by Zentyal services (Advanced)"
+msgstr "Regler lagt til av Zentyal tjenester (Avansert)"
+
+#: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:180
+#: src/EBox/Firewall/Model/BaseRuleTable.pm:213 src/EBox/Firewall.pm:782
+#: src/EBox/CGI/Filter.pm:28
+msgid "Packet Filter"
+msgstr "Pakke filter"
+
+#: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:194
+#: src/EBox/Firewall/Model/BaseRuleTable.pm:227
+msgid "Configure Rules"
+msgstr "Konfigurer Regler"
+
+#: src/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:46
+#: src/EBox/Firewall/Model/Report/PacketTrafficGraph.pm:52
+msgid "packets dropped"
+msgstr "tapte pakker"
+
+#: src/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:60
+#: src/EBox/Firewall.pm:796
+msgid "Date"
+msgstr "Dato"
+
+#: src/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:66
+msgid "Packets dropped"
+msgstr "Tapte pakker"
+
+#: src/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:78
+msgid "Packet traffic details"
+msgstr "Pakke trafikk detaljer"
+
+#: src/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:86
+msgid "traffic"
+msgstr "trafikk"
+
+#: src/EBox/Firewall/Model/Report/PacketTrafficGraph.pm:64
+msgid "Firewall packet traffic chart"
+msgstr "Brannmur pakke trafikk kart"
+
+#: src/EBox/Firewall/Model/Report/PacketTrafficGraph.pm:86
+msgid "Packet traffic"
+msgstr "Pakke trafikk"
+
+#: src/EBox/Firewall/Model/BaseRuleTable.pm:66
+msgid "ACCEPT"
+msgstr "GODKJENN"
+
+#: src/EBox/Firewall/Model/BaseRuleTable.pm:68
+msgid "DENY"
+msgstr "AVVIS"
+
+#: src/EBox/Firewall/Model/BaseRuleTable.pm:70 src/EBox/Firewall.pm:809
+msgid "LOG"
+msgstr "LOGG"
+
+#: src/EBox/Firewall/Model/BaseRuleTable.pm:147 src/EBox/Firewall.pm:800
+msgid "Destination"
+msgstr "Destinasjon"
+
+#: src/EBox/Firewall/Model/BaseRuleTable.pm:160
+msgid "Destination object"
+msgstr "Destinasjons objekt"
+
+#: src/EBox/Firewall/Model/BaseRuleTable.pm:175
+msgid "Service"
+msgstr "Tjeneste"
+
+#: src/EBox/Firewall/Model/BaseRuleTable.pm:179
+msgid ""
+"If inverse match is ticked, any service but the selected one will match this "
+"rule"
+msgstr ""
+"Hvis omvendt treff er huket av, hvilken som helst tjeneste enn den valgte "
+"vil treffe denne regelen"
+
+#: src/EBox/Firewall/Model/BaseRuleTable.pm:242
+msgid "'any service' cannot have a inverse march"
+msgstr "'hvilken som helst tjeneste' kan ikke ha en invers marsj"
+
+#: src/EBox/Firewall/Composite/Report/PacketTrafficReport.pm:69
+msgid "Packet traffic report"
+msgstr "Pakke trafikk rapport"
+
+#: src/EBox/Firewall/Composite/Report/PacketTrafficReport.pm:70
+msgid "Firewall packet traffic report"
+msgstr "Brannmur pakke trafikk rapport"
+
+#: src/EBox/Firewall/IptablesRedirectRule.pm:78 src/EBox/Iptables.pm:829
+#: src/EBox/Iptables.pm:866
 msgid ""
 "You must set the iptables_log_limit variable in the ebox configuration file"
 msgstr "Du må sette iptables_log_limit variabelen i ebox konfigurasjons filen"
 
-#: src/EBox/Iptables.pm:844 src/EBox/Iptables.pm:881
-#: src/EBox/Firewall/IptablesRedirectRule.pm:83
+#: src/EBox/Firewall/IptablesRedirectRule.pm:83 src/EBox/Iptables.pm:835
+#: src/EBox/Iptables.pm:872
 msgid ""
 "You must set the iptables_log_burst variable in the ebox configuration file"
 msgstr "Du må sette iptables_log_burst variabelen i ebox konfigurasjons filen"
@@ -78,21 +338,6 @@ msgstr "port"
 msgid "protocol"
 msgstr "protokoll"
 
-#: src/EBox/Firewall.pm:782 src/EBox/CGI/Filter.pm:28
-#: src/EBox/Firewall/Model/BaseRuleTable.pm:213
-#: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:180
-msgid "Packet Filter"
-msgstr "Pakke filter"
-
-#: src/EBox/Firewall.pm:785 src/EBox/Firewall/Model/RedirectsTable.pm:362
-msgid "Port Forwarding"
-msgstr "Port Videresending"
-
-#: src/EBox/Firewall.pm:796
-#: src/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:60
-msgid "Date"
-msgstr "Dato"
-
 #: src/EBox/Firewall.pm:797
 msgid "Input interface"
 msgstr "Inndata grensesnitt"
@@ -100,19 +345,6 @@ msgstr "Inndata grensesnitt"
 #: src/EBox/Firewall.pm:798
 msgid "Output interface"
 msgstr "Utdata grensesnitt"
-
-#: src/EBox/Firewall.pm:799 src/EBox/Firewall/Model/RedirectsTable.pm:292
-#: src/EBox/Firewall/Model/BaseRuleTable.pm:121
-msgid "Source"
-msgstr "Kilde"
-
-#: src/EBox/Firewall.pm:800 src/EBox/Firewall/Model/BaseRuleTable.pm:147
-msgid "Destination"
-msgstr "Destinasjon"
-
-#: src/EBox/Firewall.pm:801 src/EBox/Firewall/Model/RedirectsTable.pm:285
-msgid "Protocol"
-msgstr "Protokoll"
 
 #: src/EBox/Firewall.pm:802
 msgid "Source port"
@@ -122,244 +354,13 @@ msgstr "Kilde port"
 msgid "Destination port"
 msgstr "Destinasjons port"
 
-#: src/EBox/Firewall.pm:804 src/EBox/Firewall/Model/BaseRuleTable.pm:112
-#: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:144
-msgid "Decision"
-msgstr "Valg"
-
 #: src/EBox/Firewall.pm:809
 msgid "DROP"
 msgstr "TAP"
 
-#: src/EBox/Firewall.pm:809 src/EBox/Firewall/Model/BaseRuleTable.pm:70
-msgid "LOG"
-msgstr "LOGG"
-
 #: src/EBox/Firewall.pm:809
 msgid "REDIRECT"
 msgstr "VIDEREKOBLE"
-
-#: src/EBox/Firewall/Model/EBoxOutputRuleTable.pm:68
-msgid "Traffic coming out from Zentyal"
-msgstr "Trafikk ut fra Zentyal"
-
-#: src/EBox/Firewall/Model/EBoxOutputRuleTable.pm:77
-#: src/EBox/Firewall/Model/ExternalToInternalRuleTable.pm:80
-#: src/EBox/Firewall/Model/ExternalToEBoxRuleTable.pm:79
-#: src/EBox/Firewall/Model/InternalToEBoxRuleTable.pm:77
-#: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:161
-#: src/EBox/Firewall/Model/ToInternetRuleTable.pm:77
-msgid "rule"
-msgstr "regel"
-
-#: src/EBox/Firewall/Model/ExternalToInternalRuleTable.pm:68
-msgid "External networks to internal networks"
-msgstr "Eksterne nettverk til interne nettverk"
-
-#: src/EBox/Firewall/Model/RedirectsTable.pm:145
-msgid "Contradictory rule found. Remove it first"
-msgstr "Selvmotsigende regel funnet. Fjern den først"
-
-#: src/EBox/Firewall/Model/RedirectsTable.pm:249
-msgid "Interface"
-msgstr "Grensesnitt"
-
-#: src/EBox/Firewall/Model/RedirectsTable.pm:256
-msgid "Original destination"
-msgstr "Orginal destinasjon"
-
-#: src/EBox/Firewall/Model/RedirectsTable.pm:264
-msgid "IP Address"
-msgstr "IP Adresse"
-
-#: src/EBox/Firewall/Model/RedirectsTable.pm:268
-msgid "Object"
-msgstr "Objekt"
-
-#: src/EBox/Firewall/Model/RedirectsTable.pm:279
-msgid "Original destination port"
-msgstr "Orginal destinasjons port"
-
-#: src/EBox/Firewall/Model/RedirectsTable.pm:297
-#: src/EBox/Firewall/Model/BaseRuleTable.pm:126
-#: src/EBox/Firewall/Model/BaseRuleTable.pm:152
-msgid "Any"
-msgstr "Hvilken som helst"
-
-#: src/EBox/Firewall/Model/RedirectsTable.pm:300
-#: src/EBox/Firewall/Model/BaseRuleTable.pm:129
-msgid "Source IP"
-msgstr "Kilde IP"
-
-#: src/EBox/Firewall/Model/RedirectsTable.pm:304
-#: src/EBox/Firewall/Model/BaseRuleTable.pm:133
-msgid "Source object"
-msgstr "Kilde objekt"
-
-#: src/EBox/Firewall/Model/RedirectsTable.pm:315
-#: src/EBox/Firewall/Model/BaseRuleTable.pm:155
-msgid "Destination IP"
-msgstr "Destinasjons IP"
-
-#: src/EBox/Firewall/Model/RedirectsTable.pm:321
-msgid "Port"
-msgstr "Port"
-
-#: src/EBox/Firewall/Model/RedirectsTable.pm:326
-msgid "Same"
-msgstr "Samme"
-
-#: src/EBox/Firewall/Model/RedirectsTable.pm:329
-msgid "Other"
-msgstr "Annen"
-
-#: src/EBox/Firewall/Model/RedirectsTable.pm:337
-msgid "Log"
-msgstr "Logg"
-
-#: src/EBox/Firewall/Model/RedirectsTable.pm:339
-msgid "Log new forwarded connections"
-msgstr "Logg nye videresendte forbindelser"
-
-#: src/EBox/Firewall/Model/RedirectsTable.pm:344
-#: src/EBox/Firewall/Model/BaseRuleTable.pm:185
-msgid "Description"
-msgstr "Beskrivelse"
-
-#: src/EBox/Firewall/Model/RedirectsTable.pm:361
-msgid "List of forwarded ports"
-msgstr "Liste over videresendte porter"
-
-#: src/EBox/Firewall/Model/RedirectsTable.pm:370
-msgid "forwarding"
-msgstr "videresending"
-
-#: src/EBox/Firewall/Model/BaseRuleTable.pm:66
-msgid "ACCEPT"
-msgstr "GODKJENN"
-
-#: src/EBox/Firewall/Model/BaseRuleTable.pm:68
-msgid "DENY"
-msgstr "AVVIS"
-
-#: src/EBox/Firewall/Model/BaseRuleTable.pm:160
-msgid "Destination object"
-msgstr "Destinasjons objekt"
-
-#: src/EBox/Firewall/Model/BaseRuleTable.pm:175
-msgid "Service"
-msgstr "Tjeneste"
-
-#: src/EBox/Firewall/Model/BaseRuleTable.pm:179
-msgid ""
-"If inverse match is ticked, any service but the selected one will match this "
-"rule"
-msgstr ""
-"Hvis omvendt treff er huket av, hvilken som helst tjeneste enn den valgte "
-"vil treffe denne regelen"
-
-#: src/EBox/Firewall/Model/BaseRuleTable.pm:227
-#: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:194
-msgid "Configure Rules"
-msgstr "Konfigurer Regler"
-
-#: src/EBox/Firewall/Model/BaseRuleTable.pm:242
-msgid "'any service' cannot have a inverse march"
-msgstr "'hvilken som helst tjeneste' kan ikke ha en invers marsj"
-
-#: src/EBox/Firewall/Model/ExternalToEBoxRuleTable.pm:68
-msgid "External networks to Zentyal"
-msgstr "Eksterne nettverk til eBox"
-
-#: src/EBox/Firewall/Model/InternalToEBoxRuleTable.pm:68
-msgid "Internal networks to Zentyal"
-msgstr "Interne nettverk til Zentyal"
-
-#: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:37
-msgid "Input"
-msgstr "Inndata"
-
-#: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:38
-msgid "External Input"
-msgstr "Ekstern Inndata"
-
-#: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:39
-msgid "Output"
-msgstr "Utdata"
-
-#: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:40
-msgid "Forward"
-msgstr "Videresend"
-
-#: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:41
-msgid "NAT prerouting"
-msgstr "NAT pre ruting"
-
-#: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:42
-msgid "NAT postrouting"
-msgstr "NAT etter ruting"
-
-#: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:118
-msgid "Rule"
-msgstr "Regel"
-
-#: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:123
-msgid "Enabled"
-msgstr "Aktivert"
-
-#: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:129
-msgid "Type"
-msgstr "Skriv"
-
-#: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:134
-msgid "Module"
-msgstr "Modul"
-
-#: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:139
-msgid "Condition"
-msgstr "Tilstand"
-
-#: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:153
-#: src/templates/filter.mas:51
-msgid "Rules added by Zentyal services (Advanced)"
-msgstr "Regler lagt til av Zentyal tjenester (Avansert)"
-
-#: src/EBox/Firewall/Model/ToInternetRuleTable.pm:65
-msgid "Internal networks"
-msgstr "Interne nettverk"
-
-#: src/EBox/Firewall/Model/Report/PacketTrafficGraph.pm:52
-#: src/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:46
-msgid "packets dropped"
-msgstr "tapte pakker"
-
-#: src/EBox/Firewall/Model/Report/PacketTrafficGraph.pm:64
-msgid "Firewall packet traffic chart"
-msgstr "Brannmur pakke trafikk kart"
-
-#: src/EBox/Firewall/Model/Report/PacketTrafficGraph.pm:86
-msgid "Packet traffic"
-msgstr "Pakke trafikk"
-
-#: src/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:66
-msgid "Packets dropped"
-msgstr "Tapte pakker"
-
-#: src/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:78
-msgid "Packet traffic details"
-msgstr "Pakke trafikk detaljer"
-
-#: src/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:86
-msgid "traffic"
-msgstr "trafikk"
-
-#: src/EBox/Firewall/Composite/Report/PacketTrafficReport.pm:69
-msgid "Packet traffic report"
-msgstr "Pakke trafikk rapport"
-
-#: src/EBox/Firewall/Composite/Report/PacketTrafficReport.pm:70
-msgid "Firewall packet traffic report"
-msgstr "Brannmur pakke trafikk rapport"
 
 #: src/templates/filter.mas:6
 msgid "Filtering rules from internal networks to Zentyal"

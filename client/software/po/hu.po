@@ -7,10 +7,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-software 1.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-12-13 08:43+0100\n"
+"POT-Creation-Date: 2010-12-18 01:45+0100\n"
 "PO-Revision-Date: 2010-08-29 11:07+0200\n"
 "Last-Translator: Nagy Ákos <nagy.akos@akos.ro>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -87,14 +88,6 @@ msgstr "Alapértelmezett beállítások"
 msgid "Save Changes"
 msgstr "Módosítások mentése"
 
-#: src/EBox/CGI/Config.pm:31
-msgid "Software management settings"
-msgstr "Szoftvermenedzsment beállítások"
-
-#: src/EBox/CGI/Config.pm:41
-msgid "Automatic software updates"
-msgstr "Automatikus szoftverfrissítések"
-
 #: src/EBox/CGI/Enable.pm:41
 msgid "automatic updates configuration"
 msgstr "automatikus frissítések beállítása"
@@ -107,6 +100,14 @@ msgstr "Válassza ki a telepítendő Zentyal csomagokat"
 msgid "Zentyal components"
 msgstr "Zentyal komponensek"
 
+#: src/EBox/CGI/Config.pm:31
+msgid "Software management settings"
+msgstr "Szoftvermenedzsment beállítások"
+
+#: src/EBox/CGI/Config.pm:41
+msgid "Automatic software updates"
+msgstr "Automatikus szoftverfrissítések"
+
 #: src/EBox/CGI/Updates.pm:32
 msgid "System updates"
 msgstr "Rendszerfrissítések"
@@ -114,10 +115,6 @@ msgstr "Rendszerfrissítések"
 #: src/EBox/CGI/Updates.pm:59
 msgid "The system components are up to date."
 msgstr "A rendszer naprakész"
-
-#: src/EBox/CGI/CurrentPackage.pm:31
-msgid "Upgrading"
-msgstr "Frissítés"
 
 #: src/EBox/CGI/InstallPkgs.pm:100
 msgid "There were no packages to update"
@@ -186,21 +183,15 @@ msgstr ""
 "A csomagok eltávolítása sikertelen volt. Bővebb információkat a naplókban "
 "talál."
 
-#: src/templates/ebox.mas:152 src/templates/ebox.mas:587
-#: src/templates/ebox.mas:611 src/templates/updates.mas:46
-msgid "Update"
+#: src/EBox/CGI/CurrentPackage.pm:31
+msgid "Upgrading"
 msgstr "Frissítés"
 
-#: src/templates/ebox.mas:158 src/templates/ebox.mas:561
-#: src/templates/ebox.mas:602
-msgid "Install"
-msgstr "Telepítés"
-
-#: src/templates/ebox.mas:182 src/templates/updates.mas:21
+#: src/templates/updates.mas:21 src/templates/ebox.mas:182
 msgid "Package list updated successfully"
 msgstr "A csomaglista sikeresen frissítve"
 
-#: src/templates/ebox.mas:186 src/templates/updates.mas:25
+#: src/templates/updates.mas:25 src/templates/ebox.mas:186
 msgid ""
 "Error updating package list. Please try to execute the following command in "
 "a console to see the problem: sudo apt-get update"
@@ -208,23 +199,70 @@ msgstr ""
 "Hiba történt a csomaglista frissítésekor. A hiba megoldása érdekében, kérem "
 "próbálja meg futtatni a következő parancsot a konzolban: sudo apt-get update"
 
+#: src/templates/updates.mas:35
+msgid "Updates are available for the following system components"
+msgstr "A következő rendszerkomponensekhez érhetők el frissítések"
+
+#: src/templates/updates.mas:37
+msgid "Community updates are available for the following system components"
+msgstr "A következő rendszerkomponensekhez érhetők el frissítések"
+
+#: src/templates/updates.mas:43 src/templates/ebox.mas:200
+msgid "Component"
+msgstr "Komponens"
+
+#: src/templates/updates.mas:44 src/templates/ebox.mas:201
+msgid "Description"
+msgstr "Leírás"
+
+#: src/templates/updates.mas:45 src/templates/ebox.mas:202
+msgid "Version"
+msgstr "Verzió"
+
+#: src/templates/updates.mas:46 src/templates/ebox.mas:152
+#: src/templates/ebox.mas:587 src/templates/ebox.mas:611
+msgid "Update"
+msgstr "Frissítés"
+
+#: src/templates/updates.mas:55 src/templates/updates.mas:56
+msgid "Security update"
+msgstr "Biztonsági frissítések"
+
+#: src/templates/updates.mas:59 src/templates/updates.mas:60
+msgid "Zentyal QA update"
+msgstr "Zentyal QA frissítés"
+
+#: src/templates/updates.mas:88
+msgid "Update all packages"
+msgstr "Minden csomag frissítése"
+
+#: src/templates/updates.mas:99
+msgid ""
+"This operation can take some time, don't worry if Zentyal looks unresponsive "
+"after pressing the Upgrade button."
+msgstr ""
+"A művelet eltarthat egy ideig, ne aggódjon ha a Zentyal nem válaszol a "
+"Frissítés gomb megnyomása után."
+
+#: src/templates/updates.mas:103
+msgid "Upgrade"
+msgstr "Frissítés"
+
+#: src/templates/updates.mas:108 src/templates/ebox.mas:603
+#: src/templates/ebox.mas:612
+msgid "Update list"
+msgstr "Lista frissítése"
+
+#: src/templates/ebox.mas:158 src/templates/ebox.mas:561
+#: src/templates/ebox.mas:602
+msgid "Install"
+msgstr "Telepítés"
+
 #: src/templates/ebox.mas:193
 msgid ""
 "The following packages are not properly installed. You need to fix this "
 "before trying to use them or install new modules."
 msgstr ""
-
-#: src/templates/ebox.mas:200 src/templates/updates.mas:43
-msgid "Component"
-msgstr "Komponens"
-
-#: src/templates/ebox.mas:201 src/templates/updates.mas:44
-msgid "Description"
-msgstr "Leírás"
-
-#: src/templates/ebox.mas:202 src/templates/updates.mas:45
-msgid "Version"
-msgstr "Verzió"
 
 #: src/templates/ebox.mas:216
 #, fuzzy
@@ -250,11 +288,6 @@ msgstr "Kezdő mód használata"
 #: src/templates/ebox.mas:594 src/templates/ebox.mas:623
 msgid "Delete"
 msgstr "Töröl"
-
-#: src/templates/ebox.mas:603 src/templates/ebox.mas:612
-#: src/templates/updates.mas:108
-msgid "Update list"
-msgstr "Lista frissítése"
 
 #: src/templates/ebox.mas:604 src/templates/ebox.mas:613
 #: src/templates/ebox.mas:624
@@ -309,38 +342,6 @@ msgstr "A Zentyal alapból engedélyezi a QA frissítéseket"
 #: src/templates/config.mas:26
 msgid "Automatic operations start time"
 msgstr "Automatikus műveletek indítási ideje"
-
-#: src/templates/updates.mas:35
-msgid "Updates are available for the following system components"
-msgstr "A következő rendszerkomponensekhez érhetők el frissítések"
-
-#: src/templates/updates.mas:37
-msgid "Community updates are available for the following system components"
-msgstr "A következő rendszerkomponensekhez érhetők el frissítések"
-
-#: src/templates/updates.mas:55 src/templates/updates.mas:56
-msgid "Security update"
-msgstr "Biztonsági frissítések"
-
-#: src/templates/updates.mas:59 src/templates/updates.mas:60
-msgid "Zentyal QA update"
-msgstr "Zentyal QA frissítés"
-
-#: src/templates/updates.mas:88
-msgid "Update all packages"
-msgstr "Minden csomag frissítése"
-
-#: src/templates/updates.mas:99
-msgid ""
-"This operation can take some time, don't worry if Zentyal looks unresponsive "
-"after pressing the Upgrade button."
-msgstr ""
-"A művelet eltarthat egy ideig, ne aggódjon ha a Zentyal nem válaszol a "
-"Frissítés gomb megnyomása után."
-
-#: src/templates/updates.mas:103
-msgid "Upgrade"
-msgstr "Frissítés"
 
 #~ msgid "Select Al"
 #~ msgstr "Összes kijelölése"

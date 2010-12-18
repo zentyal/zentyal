@@ -7,159 +7,83 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-remoteservices 1.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-12-13 08:42+0100\n"
+"POT-Creation-Date: 2010-12-18 01:45+0100\n"
 "PO-Revision-Date: 2009-08-04 07:48+0200\n"
 "Last-Translator: Chao-Hsiung Liao <j_h_liau@yahoo.com.tw>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: src/EBox/CGI/Backup/DeleteRemoteBackup.pm:65
-msgid "Backup deleted"
-msgstr "備份模式"
+#: src/EBox/RemoteServices.pm:90
+msgid "Zentyal Cloud Client"
+msgstr ""
 
-#: src/EBox/CGI/Backup/MakeRemoteBackup.pm:70
-msgid "Making remote backup"
-msgstr "建立遠端備份"
+#: src/EBox/RemoteServices.pm:226
+msgid "Not subscribed"
+msgstr "未訂閱"
 
-#: src/EBox/CGI/Backup/MakeRemoteBackup.pm:71
-msgid "Backing up modules "
-msgstr "正在備份模組"
+#: src/EBox/RemoteServices.pm:228
+msgid "Subscribed"
+msgstr "已訂閱"
 
-#: src/EBox/CGI/Backup/MakeRemoteBackup.pm:72
-msgid "Operation"
-msgstr "操作"
+#: src/EBox/RemoteServices.pm:260
+#, fuzzy
+msgid "Subscription"
+msgstr "說明"
 
-#: src/EBox/CGI/Backup/MakeRemoteBackup.pm:73
-msgid "operations left to finish backup"
-msgstr "完成備份的操作"
+#: src/EBox/RemoteServices.pm:268
+#: src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:92
+#, fuzzy
+msgid "Remote Support Access"
+msgstr "遠端服務"
 
-#: src/EBox/CGI/Backup/MakeRemoteBackup.pm:74
-msgid "Backup successful"
-msgstr "備份成功"
+#: src/EBox/RemoteServices.pm:271
+msgid "System"
+msgstr ""
 
-#: src/EBox/CGI/Backup/RestoreProxyRemoteBackup.pm:81
-#: src/EBox/CGI/Backup/RestoreRemoteBackup.pm:72
-msgid "Restoring remote backup"
-msgstr "正在還原遠端備份"
+#: src/EBox/RemoteServices.pm:321
+#, fuzzy
+msgid "Zentyal Cloud Connection"
+msgstr "控制中心"
 
-#: src/EBox/CGI/Backup/RestoreProxyRemoteBackup.pm:82
-#: src/EBox/CGI/Backup/RestoreRemoteBackup.pm:73
-msgid "Restoring modules from remote backup"
-msgstr "正在從遠端備份還原模組"
-
-#: src/EBox/CGI/Backup/RestoreProxyRemoteBackup.pm:83
-#: src/EBox/CGI/Backup/RestoreRemoteBackup.pm:74
-msgid "Module"
-msgstr "模組"
-
-#: src/EBox/CGI/Backup/RestoreProxyRemoteBackup.pm:84
-#: src/EBox/CGI/Backup/RestoreRemoteBackup.pm:75
-msgid "modules left to restore"
-msgstr "剩下要還原的模組"
-
-#: src/EBox/CGI/Backup/RestoreProxyRemoteBackup.pm:85
-#: src/EBox/CGI/Backup/RestoreRemoteBackup.pm:76
-msgid "Restore successful"
-msgstr "還原成功"
-
-#: src/EBox/CGI/Backup/Index.pm:36
-msgid "Remote system backups"
-msgstr "系統備份"
-
-#: src/EBox/CGI/Backup/Confirm.pm:35
-msgid "Configuration backup"
-msgstr "組態備份"
-
-#: src/EBox/CGI/Backup/Confirm.pm:92 src/EBox/CGI/Backup/Confirm.pm:105
+#: src/EBox/RemoteServices.pm:435
 msgid ""
-"Please confirm that you want to restore the configuraction using the "
-"following remote backup:"
-msgstr "請確認您想要使用下列遠端備份檔還原組態："
+"The subscribed hostname is only available if the host is subscribed to "
+"Zentyal Cloud"
+msgstr ""
 
-#: src/EBox/CGI/Backup/Confirm.pm:98 src/EBox/CGI/Backup/Confirm.pm:111
-msgid "Restore"
-msgstr "還原"
+#: src/EBox/RemoteServices.pm:464
+msgid ""
+"The monitor gatherer IP addresses are only available if the host is "
+"subscribed to Zentyal Cloud"
+msgstr ""
 
-#: src/EBox/CGI/Backup/Confirm.pm:119
-msgid "Please confirm that you want to delete the following remote backup:"
-msgstr "請確認您想要刪除下列遠端備份檔："
+#: src/EBox/RemoteServices.pm:609
+msgid "Zentyal must be subscribed to reload the bundle"
+msgstr ""
 
-#: src/EBox/CGI/Backup/Confirm.pm:125
-msgid "Delete"
-msgstr "刪除"
-
-#: src/EBox/CGI/Backup/Confirm.pm:173
+#: src/EBox/RemoteServices.pm:1333
 #, perl-brace-format
-msgid "Inexistent action: {a}"
-msgstr "不存在的動作：{a}"
+msgid "Not connected. Check VPN logs in {path}"
+msgstr ""
 
-#: src/EBox/CGI/Backup/Proxy.pm:35
-msgid "Remote system backups proxy"
-msgstr "遠端系統備份代理伺服器"
-
-#: src/EBox/CGI/NoConnection.pm:31
-msgid "Connection error"
+#: src/EBox/RemoteServices.pm:1337
+#, fuzzy
+msgid "Connected"
 msgstr "連線錯誤"
 
-#: src/EBox/RemoteServices/Auth.pm:125
-#, perl-brace-format
-msgid "Cannot retrieve service URN; key \"{key}\" not found in {file}"
+#: src/EBox/RemoteServices.pm:1340
+#: src/EBox/Event/Dispatcher/ControlCenter.pm:160
+#: src/EBox/RemoteServices/Composite/General.pm:62
+msgid "Zentyal Cloud"
 msgstr ""
 
-#: src/EBox/RemoteServices/Auth.pm:165
-#, perl-brace-format
-msgid "Value for key {k} not found"
-msgstr "找不到設定鍵 {k} 的數值"
-
-#: src/EBox/RemoteServices/Subscription.pm:110
-msgid "Key for web subscription service not found"
-msgstr "找不到網頁訂閱服務的設定鍵"
-
-#: src/EBox/RemoteServices/Subscription.pm:456
-#, perl-brace-format
-msgid "Cannot contact to {host}. Check your connection to the Internet"
-msgstr ""
-
-#: src/EBox/RemoteServices/Types/EBoxCommonName.pm:56
-msgid ""
-"It must be a valid subdomain name. It can only contain alphanumeric and - "
-"characters"
-msgstr ""
-
-#: src/EBox/RemoteServices/Types/EBoxCommonName.pm:59
-#, perl-brace-format
-msgid "It cannot contain \"{char}\" character"
-msgstr ""
-
-#: src/EBox/RemoteServices/Types/EBoxCommonName.pm:62
-#, perl-brace-format
-msgid "It cannot be greater than {n} characters"
-msgstr ""
-
-#: src/EBox/RemoteServices/CSV.pm:78
-#, perl-brace-format
-msgid "Skipping bad formed line: {l}"
-msgstr ""
-
-#: src/EBox/RemoteServices/Base.pm:214
-msgid "No ebox-services DNS key found"
-msgstr "找不到 ebox-服務 DNS 設定鍵"
-
-#: src/EBox/RemoteServices/Base.pm:259
-#, perl-brace-format
-msgid "Server {s} not found via DNS server {d}"
-msgstr "無法透過 DNS 伺服器 {d} 找到伺服器 {s}"
-
-#: src/EBox/RemoteServices/Base.pm:367
-msgid "Cannot create SOAP connection"
-msgstr "不能建立 SOAP 連線"
-
-#: src/EBox/RemoteServices/Base.pm:381
-msgid "No domain key found for this service"
-msgstr "找不到這個服務的網域設定鍵"
+#: src/EBox/Event/Dispatcher/ControlCenter.pm:147
+msgid "Control panel"
+msgstr "控制面板"
 
 #: src/EBox/RemoteServices/Audit/Password.pm:225
 msgid "system"
@@ -193,6 +117,49 @@ msgid ""
 "There exists already a user {u} and it does not seem created by Zentyal. "
 "Until this user is renamed or removed it would be impossible to set up "
 "remote support access"
+msgstr ""
+
+#: src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:75
+msgid "Allow remote access to Zentyal staff"
+msgstr ""
+
+#: src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:81
+msgid "Allow access from any internet address"
+msgstr ""
+
+#: src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:85
+msgid ""
+"By default, the access is only granted to hosts inside the Zentyal Cloud "
+"private network. If you enable this option, the access is granted from any "
+"address. Use this option only if you could not connect to the Zentyal Cloud"
+msgstr ""
+
+#: src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:91
+#, fuzzy
+msgid "Enable Remote Support Access"
+msgstr "遠端服務"
+
+#: src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:122
+msgid ""
+"Remote access from any address requires that remote access support is enabled"
+msgstr ""
+
+#: src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:130
+msgid ""
+"To restrict addresses you need that your Zentyal Server is subscribed to "
+"Zentyal Cloud. Either subscribe it or allow access from any address"
+msgstr ""
+
+#: src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:141
+#, perl-brace-format
+msgid ""
+"Enabling remote support will allow staff from Zentyal to freely access your "
+"computer.\n"
+"You could use the 'screen' command to join their shell option. To allow "
+"that, the SUID bit of the 'screen' program is enabled. This change is undone "
+"when this option is disabled\n"
+"To join the remote session, login in the shell as a user belonging to the "
+"'adm' group and use the command: '{cmd}'."
 msgstr ""
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:132
@@ -312,136 +279,170 @@ msgstr "不使用密碼存取控制面板"
 msgid "Access settings"
 msgstr "存取設定值"
 
-#: src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:75
-msgid "Allow remote access to Zentyal staff"
-msgstr ""
-
-#: src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:81
-msgid "Allow access from any internet address"
-msgstr ""
-
-#: src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:85
+#: src/EBox/RemoteServices/Types/EBoxCommonName.pm:56
 msgid ""
-"By default, the access is only granted to hosts inside the Zentyal Cloud "
-"private network. If you enable this option, the access is granted from any "
-"address. Use this option only if you could not connect to the Zentyal Cloud"
+"It must be a valid subdomain name. It can only contain alphanumeric and - "
+"characters"
 msgstr ""
 
-#: src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:91
-#, fuzzy
-msgid "Enable Remote Support Access"
-msgstr "遠端服務"
-
-#: src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:92
-#: src/EBox/RemoteServices.pm:268
-#, fuzzy
-msgid "Remote Support Access"
-msgstr "遠端服務"
-
-#: src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:122
-msgid ""
-"Remote access from any address requires that remote access support is enabled"
-msgstr ""
-
-#: src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:130
-msgid ""
-"To restrict addresses you need that your Zentyal Server is subscribed to "
-"Zentyal Cloud. Either subscribe it or allow access from any address"
-msgstr ""
-
-#: src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:141
+#: src/EBox/RemoteServices/Types/EBoxCommonName.pm:59
 #, perl-brace-format
-msgid ""
-"Enabling remote support will allow staff from Zentyal to freely access your "
-"computer.\n"
-"You could use the 'screen' command to join their shell option. To allow "
-"that, the SUID bit of the 'screen' program is enabled. This change is undone "
-"when this option is disabled\n"
-"To join the remote session, login in the shell as a user belonging to the "
-"'adm' group and use the command: '{cmd}'."
+msgid "It cannot contain \"{char}\" character"
 msgstr ""
 
-#: src/EBox/RemoteServices/Backup.pm:259
-#: src/EBox/RemoteServices/ProxyBackup.pm:208
+#: src/EBox/RemoteServices/Types/EBoxCommonName.pm:62
 #, perl-brace-format
-msgid "Inexistent backup: {n}"
-msgstr "不存在的備份： {n}"
-
-#: src/EBox/RemoteServices/ProxyBackup.pm:203
-#, perl-brace-format
-msgid "No backups in server for host: {h}"
-msgstr "訂閱 {h}"
-
-#: src/EBox/RemoteServices/ProxyBackup.pm:243
-msgid "Key for proxy backup service not found"
-msgstr "找不到代理伺服器備份服務的設定鍵"
-
-#: src/EBox/RemoteServices/Composite/General.pm:62
-#: src/EBox/Event/Dispatcher/ControlCenter.pm:160
-#: src/EBox/RemoteServices.pm:1340
-msgid "Zentyal Cloud"
+msgid "It cannot be greater than {n} characters"
 msgstr ""
+
+#: src/EBox/RemoteServices/CSV.pm:78
+#, perl-brace-format
+msgid "Skipping bad formed line: {l}"
+msgstr ""
+
+#: src/EBox/RemoteServices/Base.pm:214
+msgid "No ebox-services DNS key found"
+msgstr "找不到 ebox-服務 DNS 設定鍵"
+
+#: src/EBox/RemoteServices/Base.pm:259
+#, perl-brace-format
+msgid "Server {s} not found via DNS server {d}"
+msgstr "無法透過 DNS 伺服器 {d} 找到伺服器 {s}"
+
+#: src/EBox/RemoteServices/Base.pm:367
+msgid "Cannot create SOAP connection"
+msgstr "不能建立 SOAP 連線"
+
+#: src/EBox/RemoteServices/Base.pm:381
+msgid "No domain key found for this service"
+msgstr "找不到這個服務的網域設定鍵"
 
 #: src/EBox/RemoteServices/DisasterRecoveryProxy.pm:118
 #, fuzzy
 msgid "Key for disaster recovery service not found"
 msgstr "找不到代理伺服器備份服務的設定鍵"
 
-#: src/EBox/Event/Dispatcher/ControlCenter.pm:147
-msgid "Control panel"
-msgstr "控制面板"
-
-#: src/EBox/RemoteServices.pm:90
-msgid "Zentyal Cloud Client"
-msgstr ""
-
-#: src/EBox/RemoteServices.pm:226
-msgid "Not subscribed"
-msgstr "未訂閱"
-
-#: src/EBox/RemoteServices.pm:228
-msgid "Subscribed"
-msgstr "已訂閱"
-
-#: src/EBox/RemoteServices.pm:260
-#, fuzzy
-msgid "Subscription"
-msgstr "說明"
-
-#: src/EBox/RemoteServices.pm:271
-msgid "System"
-msgstr ""
-
-#: src/EBox/RemoteServices.pm:321
-#, fuzzy
-msgid "Zentyal Cloud Connection"
-msgstr "控制中心"
-
-#: src/EBox/RemoteServices.pm:435
-msgid ""
-"The subscribed hostname is only available if the host is subscribed to "
-"Zentyal Cloud"
-msgstr ""
-
-#: src/EBox/RemoteServices.pm:464
-msgid ""
-"The monitor gatherer IP addresses are only available if the host is "
-"subscribed to Zentyal Cloud"
-msgstr ""
-
-#: src/EBox/RemoteServices.pm:609
-msgid "Zentyal must be subscribed to reload the bundle"
-msgstr ""
-
-#: src/EBox/RemoteServices.pm:1333
+#: src/EBox/RemoteServices/ProxyBackup.pm:203
 #, perl-brace-format
-msgid "Not connected. Check VPN logs in {path}"
+msgid "No backups in server for host: {h}"
+msgstr "訂閱 {h}"
+
+#: src/EBox/RemoteServices/ProxyBackup.pm:208
+#: src/EBox/RemoteServices/Backup.pm:259
+#, perl-brace-format
+msgid "Inexistent backup: {n}"
+msgstr "不存在的備份： {n}"
+
+#: src/EBox/RemoteServices/ProxyBackup.pm:243
+msgid "Key for proxy backup service not found"
+msgstr "找不到代理伺服器備份服務的設定鍵"
+
+#: src/EBox/RemoteServices/Subscription.pm:110
+msgid "Key for web subscription service not found"
+msgstr "找不到網頁訂閱服務的設定鍵"
+
+#: src/EBox/RemoteServices/Subscription.pm:456
+#, perl-brace-format
+msgid "Cannot contact to {host}. Check your connection to the Internet"
 msgstr ""
 
-#: src/EBox/RemoteServices.pm:1337
-#, fuzzy
-msgid "Connected"
+#: src/EBox/RemoteServices/Auth.pm:125
+#, perl-brace-format
+msgid "Cannot retrieve service URN; key \"{key}\" not found in {file}"
+msgstr ""
+
+#: src/EBox/RemoteServices/Auth.pm:165
+#, perl-brace-format
+msgid "Value for key {k} not found"
+msgstr "找不到設定鍵 {k} 的數值"
+
+#: src/EBox/CGI/NoConnection.pm:31
+msgid "Connection error"
 msgstr "連線錯誤"
+
+#: src/EBox/CGI/Backup/MakeRemoteBackup.pm:70
+msgid "Making remote backup"
+msgstr "建立遠端備份"
+
+#: src/EBox/CGI/Backup/MakeRemoteBackup.pm:71
+msgid "Backing up modules "
+msgstr "正在備份模組"
+
+#: src/EBox/CGI/Backup/MakeRemoteBackup.pm:72
+msgid "Operation"
+msgstr "操作"
+
+#: src/EBox/CGI/Backup/MakeRemoteBackup.pm:73
+msgid "operations left to finish backup"
+msgstr "完成備份的操作"
+
+#: src/EBox/CGI/Backup/MakeRemoteBackup.pm:74
+msgid "Backup successful"
+msgstr "備份成功"
+
+#: src/EBox/CGI/Backup/Index.pm:36
+msgid "Remote system backups"
+msgstr "系統備份"
+
+#: src/EBox/CGI/Backup/Confirm.pm:35
+msgid "Configuration backup"
+msgstr "組態備份"
+
+#: src/EBox/CGI/Backup/Confirm.pm:92 src/EBox/CGI/Backup/Confirm.pm:105
+msgid ""
+"Please confirm that you want to restore the configuraction using the "
+"following remote backup:"
+msgstr "請確認您想要使用下列遠端備份檔還原組態："
+
+#: src/EBox/CGI/Backup/Confirm.pm:98 src/EBox/CGI/Backup/Confirm.pm:111
+msgid "Restore"
+msgstr "還原"
+
+#: src/EBox/CGI/Backup/Confirm.pm:119
+msgid "Please confirm that you want to delete the following remote backup:"
+msgstr "請確認您想要刪除下列遠端備份檔："
+
+#: src/EBox/CGI/Backup/Confirm.pm:125
+msgid "Delete"
+msgstr "刪除"
+
+#: src/EBox/CGI/Backup/Confirm.pm:173
+#, perl-brace-format
+msgid "Inexistent action: {a}"
+msgstr "不存在的動作：{a}"
+
+#: src/EBox/CGI/Backup/RestoreRemoteBackup.pm:72
+#: src/EBox/CGI/Backup/RestoreProxyRemoteBackup.pm:81
+msgid "Restoring remote backup"
+msgstr "正在還原遠端備份"
+
+#: src/EBox/CGI/Backup/RestoreRemoteBackup.pm:73
+#: src/EBox/CGI/Backup/RestoreProxyRemoteBackup.pm:82
+msgid "Restoring modules from remote backup"
+msgstr "正在從遠端備份還原模組"
+
+#: src/EBox/CGI/Backup/RestoreRemoteBackup.pm:74
+#: src/EBox/CGI/Backup/RestoreProxyRemoteBackup.pm:83
+msgid "Module"
+msgstr "模組"
+
+#: src/EBox/CGI/Backup/RestoreRemoteBackup.pm:75
+#: src/EBox/CGI/Backup/RestoreProxyRemoteBackup.pm:84
+msgid "modules left to restore"
+msgstr "剩下要還原的模組"
+
+#: src/EBox/CGI/Backup/RestoreRemoteBackup.pm:76
+#: src/EBox/CGI/Backup/RestoreProxyRemoteBackup.pm:85
+msgid "Restore successful"
+msgstr "還原成功"
+
+#: src/EBox/CGI/Backup/DeleteRemoteBackup.pm:65
+msgid "Backup deleted"
+msgstr "備份模式"
+
+#: src/EBox/CGI/Backup/Proxy.pm:35
+msgid "Remote system backups proxy"
+msgstr "遠端系統備份代理伺服器"
 
 #, fuzzy
 #~ msgid ""

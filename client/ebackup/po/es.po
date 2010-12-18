@@ -8,97 +8,51 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-ebackup 1.3.3\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-12-13 10:31+0100\n"
+"POT-Creation-Date: 2010-12-18 01:43+0100\n"
 "PO-Revision-Date: 2010-12-13 10:33+0100\n"
-"Last-Translator: Enrique José Hernández Blasco <quique@ebox-"
-"technologies.com>\n"
+"Last-Translator: Enrique José Hernández Blasco <quique@ebox-technologies."
+"com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: src/EBox/EBackup.pm:71 src/EBox/Event/Watcher/EBackup.pm:123
+#: src/EBox/Event/Watcher/EBackup.pm:123 src/EBox/EBackup.pm:71
 #: src/EBox/Composite/Remote.pm:66
 msgid "Backup"
 msgstr "Copia de seguridad"
-
-#: src/EBox/EBackup.pm:209
-#, perl-brace-format
-msgid "File {f} not found in backup for {d}, try a later date"
-msgstr ""
-"Archivo {f} no encontrado en el backup para {d}, prueba una data posterior"
-
-#: src/EBox/EBackup.pm:216
-msgid ""
-"No backup archives found. Maybe they were deleted?. Run '/etc/init.d/ebox "
-"ebackup restart' to refresh backup's information."
-msgstr ""
-"No se han encontrado copias de seguridad. Tal vez han sido borradas? Ejecuta "
-"'/etc/init.d/ebox ebackup restart' para recargar la información sobre las "
-"copias de seguridad."
-
-#: src/EBox/EBackup.pm:687
-msgid ""
-"Could not get backup collection status, check whether the parameters and "
-"passwords are correct"
-msgstr ""
-"No se puede obtener el estado de los backup, comprueba si los parámetros y "
-"contraseñas son correctos"
-
-#: src/EBox/EBackup.pm:1051
-msgid "You need to have the disaster recovery add-on to use this backup method"
-msgstr ""
-"Necesitas tener el add-on de Disaster Recovery para usar este método de "
-"backup"
-
-#: src/EBox/EBackup.pm:1058
-msgid ""
-"Could not retrieve backup credentials, check your conexion to Zentyal Cloud"
-msgstr ""
-"No se pueden obtener las credenciales del backup, comprueba tu conexión a "
-"Zentyal Cloud"
-
-#: src/EBox/EBackup.pm:1149
-#, perl-brace-format
-msgid ""
-"Could not unsubscribe because the backup module is configured to use the "
-"Zentyal Cloud. If you want to unsubscribe, you must change this {ohref}"
-"setting{chref}."
-msgstr ""
-"No puedes desuscribir ya que el módulo de backup está configurado para usar "
-"Zentyal Cloud. Si quieres desuscribir, debes cambiar este <a "
-"href='/ebox/EBackup/Composite/Remote#RemoteGeneralSettings'>parámetro</a>."
 
 #: src/EBox/Event/Watcher/EBackup.pm:141
 msgid "Check if Zentyal backup was not successful."
 msgstr ""
 "Comprobar si la copia de seguridad de Zentyal no se realizó correctamente."
 
-#: src/EBox/EBackup/DBRestore.pm:46
-#, perl-brace-format
-msgid ""
-"Logs backup data not found in backup for {d}. Maybe you could try another "
-"date?"
-msgstr ""
-"No se han encontrado data de logs de copias de seguridad para {d}. Podrías "
-"probar con otra fecha?"
-
-#: src/EBox/Model/RemoteFileList.pm:143 src/EBox/Model/RemoteStatus.pm:121
-#: src/EBox/Model/RemoteRestoreConf.pm:74
-#: src/EBox/Model/RemoteRestoreLogs.pm:88
+#: src/EBox/Model/RemoteRestoreLogs.pm:88 src/EBox/Model/RemoteFileList.pm:143
+#: src/EBox/Model/RemoteStatus.pm:121 src/EBox/Model/RemoteRestoreConf.pm:74
 msgid "There are not backed up files yet"
 msgstr "No hay ningún fichero de copias de seguridad"
+
+#: src/EBox/Model/RemoteRestoreLogs.pm:107
+#: src/EBox/Model/RemoteFileList.pm:166 src/EBox/Model/RemoteRestoreConf.pm:93
+msgid "Backup Date"
+msgstr "Fecha de la copia de seguridad"
+
+#: src/EBox/Model/RemoteRestoreLogs.pm:118
+msgid "Restore logs database"
+msgstr "Restaurar la base de datos de logs"
+
+#: src/EBox/Model/RemoteRestoreLogs.pm:125
+msgid "Restores the Zentyal logs found in the selected backup"
+msgstr ""
+"Restaura los logs de Zentyal encontrados en la copia de seguridad "
+"seleccionada"
 
 #: src/EBox/Model/RemoteFileList.pm:162
 msgid "File"
 msgstr "Fichero"
-
-#: src/EBox/Model/RemoteFileList.pm:166 src/EBox/Model/RemoteRestoreConf.pm:93
-#: src/EBox/Model/RemoteRestoreLogs.pm:107
-msgid "Backup Date"
-msgstr "Fecha de la copia de seguridad"
 
 #: src/EBox/Model/RemoteFileList.pm:177
 msgid "Restore Files"
@@ -126,6 +80,22 @@ msgid "Remote URL to be used with duplicity for manual restores: {url}"
 msgstr ""
 "URL usada para ser usada con duplicity para restauraciones manuales: {url}"
 
+#: src/EBox/Model/RemoteStatus.pm:121 src/EBox/Model/RemoteStatus.pm:151
+msgid "Remote Backup Status"
+msgstr "Estado de la copia de seguridad remota"
+
+#: src/EBox/Model/RemoteStatus.pm:139 src/EBox/Model/RemoteExcludes.pm:76
+msgid "Type"
+msgstr "Tipo"
+
+#: src/EBox/Model/RemoteStatus.pm:143 tools/restore-tool:1218
+msgid "Date"
+msgstr "Fecha"
+
+#: src/EBox/Model/RemoteStatus.pm:152 src/EBox/Model/RemoteStorage.pm:144
+msgid "backup"
+msgstr "copia de seguridad"
+
 #: src/EBox/Model/BackupDomains.pm:156
 msgid "Name"
 msgstr "Nombre"
@@ -142,7 +112,7 @@ msgstr "Habilitado"
 msgid "Domains to back up"
 msgstr "Dominios a guardar copia de seguridad"
 
-#: src/EBox/Model/BackupDomains.pm:182 tools/restore-tool:255
+#: src/EBox/Model/BackupDomains.pm:182 tools/restore-tool:258
 msgid "Backup domain"
 msgstr "Dominio de backup"
 
@@ -150,42 +120,77 @@ msgstr "Dominio de backup"
 msgid "Select the domains you want to back up."
 msgstr "Selecciona los dominios que quieres guardar copia de seguridad."
 
-#: src/EBox/Model/RemoteStorage.pm:68 src/EBox/Model/RemoteStorage.pm:69
-#: src/EBox/Model/RemoteStorage.pm:70
-msgid "Unknown"
-msgstr "Desconocido"
+#: src/EBox/Model/RemoteRestoreConf.pm:104
+msgid "Restore Zentyal configuration from backup"
+msgstr "Restaurar la configuración Zentyal de la copia de seguridad"
 
-#: src/EBox/Model/RemoteStorage.pm:128
-msgid "Used storage"
-msgstr "Almacenamiento usado"
+#: src/EBox/Model/RemoteRestoreConf.pm:111
+msgid "Loads the configuration found in the backup"
+msgstr "Carga la configuración encontrada en la copia de seguridad"
 
-#: src/EBox/Model/RemoteStorage.pm:132
-msgid "Available storage"
-msgstr "Almacenamiento disponible"
+#: src/EBox/Model/RemoteRestoreConf.pm:113
+msgid "Please wait..."
+msgstr "Espere, por favor..."
 
-#: src/EBox/Model/RemoteStorage.pm:136
-msgid "Total storage"
-msgstr "Almacenamiento total"
+#: src/EBox/Model/RemoteRestoreConf.pm:169
+#, perl-brace-format
+msgid ""
+"Configuration backup not found in backup for {d}. Maybe you could try "
+"another date?"
+msgstr ""
+"La copia de seguridad de la configuración no se ha encontrado en la copia de "
+"seguridad del {d}. Podrías probar con otra fecha?"
 
-#: src/EBox/Model/RemoteStorage.pm:143
-msgid "Remote Storage Usage"
-msgstr "Uso del almacenamiento remoto"
+#: src/EBox/Model/RemoteExcludes.pm:82
+msgid "Exclude or Include"
+msgstr "Excluir o Incluir"
 
-#: src/EBox/Model/RemoteStorage.pm:144 src/EBox/Model/RemoteStatus.pm:152
-msgid "backup"
-msgstr "copia de seguridad"
+#: src/EBox/Model/RemoteExcludes.pm:98
+msgid "Includes and Excludes"
+msgstr "Inclusiones y Exclusiones"
 
-#: src/EBox/Model/RemoteStatus.pm:121 src/EBox/Model/RemoteStatus.pm:151
-msgid "Remote Backup Status"
-msgstr "Estado de la copia de seguridad remota"
+#: src/EBox/Model/RemoteExcludes.pm:99
+msgid "exclude or include"
+msgstr "exclusión o inclusión"
 
-#: src/EBox/Model/RemoteStatus.pm:139 src/EBox/Model/RemoteExcludes.pm:76
-msgid "Type"
-msgstr "Tipo"
+#: src/EBox/Model/RemoteExcludes.pm:108
+msgid ""
+"A file or directory is included or excluded according the first match. A "
+"directory match is applied to all it contents. Files not explicitly excluded "
+"or included are included"
+msgstr ""
+"Un archivo o directorio se incluye o excluye de acuerdo a la primera "
+"coincidencia. Una coincidencia de directorio se aplica a todos los "
+"contenidos. Los archivos no excluidos o incluidos explícitamente son "
+"incluidos."
 
-#: src/EBox/Model/RemoteStatus.pm:143 tools/restore-tool:1230
-msgid "Date"
-msgstr "Fecha"
+#: src/EBox/Model/RemoteExcludes.pm:123
+msgid "Exclude path"
+msgstr "Excluir ruta"
+
+#: src/EBox/Model/RemoteExcludes.pm:127
+msgid "Exclude by regular expression"
+msgstr "Excluir por expresión regular"
+
+#: src/EBox/Model/RemoteExcludes.pm:131
+msgid "Include Path"
+msgstr "Incluir ruta"
+
+#: src/EBox/Model/RemoteExcludes.pm:153
+msgid "exclude path"
+msgstr "ruta a excluir"
+
+#: src/EBox/Model/RemoteExcludes.pm:166
+msgid "exclude path regular expression"
+msgstr "expresión regular para ruta a excluir"
+
+#: src/EBox/Model/RemoteExcludes.pm:168
+msgid "Incorrect regular expression"
+msgstr "Expresión regular incorrecta"
+
+#: src/EBox/Model/RemoteExcludes.pm:189
+msgid "include path"
+msgstr "ruta de inclusión"
 
 #: src/EBox/Model/RemoteSettings.pm:174
 msgid "Method"
@@ -477,87 +482,82 @@ msgstr ""
 msgid "Retention policy type"
 msgstr "Tipo de política de retención"
 
-#: src/EBox/Model/RemoteExcludes.pm:82
-msgid "Exclude or Include"
-msgstr "Excluir o Incluir"
+#: src/EBox/Model/RemoteStorage.pm:68 src/EBox/Model/RemoteStorage.pm:69
+#: src/EBox/Model/RemoteStorage.pm:70
+msgid "Unknown"
+msgstr "Desconocido"
 
-#: src/EBox/Model/RemoteExcludes.pm:98
-msgid "Includes and Excludes"
-msgstr "Inclusiones y Exclusiones"
+#: src/EBox/Model/RemoteStorage.pm:128
+msgid "Used storage"
+msgstr "Almacenamiento usado"
 
-#: src/EBox/Model/RemoteExcludes.pm:99
-msgid "exclude or include"
-msgstr "exclusión o inclusión"
+#: src/EBox/Model/RemoteStorage.pm:132
+msgid "Available storage"
+msgstr "Almacenamiento disponible"
 
-#: src/EBox/Model/RemoteExcludes.pm:108
-msgid ""
-"A file or directory is included or excluded according the first match. A "
-"directory match is applied to all it contents. Files not explicitly excluded "
-"or included are included"
+#: src/EBox/Model/RemoteStorage.pm:136
+msgid "Total storage"
+msgstr "Almacenamiento total"
+
+#: src/EBox/Model/RemoteStorage.pm:143
+msgid "Remote Storage Usage"
+msgstr "Uso del almacenamiento remoto"
+
+#: src/EBox/EBackup.pm:209
+#, perl-brace-format
+msgid "File {f} not found in backup for {d}, try a later date"
 msgstr ""
-"Un archivo o directorio se incluye o excluye de acuerdo a la primera "
-"coincidencia. Una coincidencia de directorio se aplica a todos los "
-"contenidos. Los archivos no excluidos o incluidos explícitamente son "
-"incluidos."
+"Archivo {f} no encontrado en el backup para {d}, prueba una data posterior"
 
-#: src/EBox/Model/RemoteExcludes.pm:123
-msgid "Exclude path"
-msgstr "Excluir ruta"
+#: src/EBox/EBackup.pm:216
+msgid ""
+"No backup archives found. Maybe they were deleted?. Run '/etc/init.d/ebox "
+"ebackup restart' to refresh backup's information."
+msgstr ""
+"No se han encontrado copias de seguridad. Tal vez han sido borradas? Ejecuta "
+"'/etc/init.d/ebox ebackup restart' para recargar la información sobre las "
+"copias de seguridad."
 
-#: src/EBox/Model/RemoteExcludes.pm:127
-msgid "Exclude by regular expression"
-msgstr "Excluir por expresión regular"
+#: src/EBox/EBackup.pm:687
+msgid ""
+"Could not get backup collection status, check whether the parameters and "
+"passwords are correct"
+msgstr ""
+"No se puede obtener el estado de los backup, comprueba si los parámetros y "
+"contraseñas son correctos"
 
-#: src/EBox/Model/RemoteExcludes.pm:131
-msgid "Include Path"
-msgstr "Incluir ruta"
+#: src/EBox/EBackup.pm:1051
+msgid "You need to have the disaster recovery add-on to use this backup method"
+msgstr ""
+"Necesitas tener el add-on de Disaster Recovery para usar este método de "
+"backup"
 
-#: src/EBox/Model/RemoteExcludes.pm:153
-msgid "exclude path"
-msgstr "ruta a excluir"
+#: src/EBox/EBackup.pm:1058
+msgid ""
+"Could not retrieve backup credentials, check your conexion to Zentyal Cloud"
+msgstr ""
+"No se pueden obtener las credenciales del backup, comprueba tu conexión a "
+"Zentyal Cloud"
 
-#: src/EBox/Model/RemoteExcludes.pm:166
-msgid "exclude path regular expression"
-msgstr "expresión regular para ruta a excluir"
-
-#: src/EBox/Model/RemoteExcludes.pm:168
-msgid "Incorrect regular expression"
-msgstr "Expresión regular incorrecta"
-
-#: src/EBox/Model/RemoteExcludes.pm:189
-msgid "include path"
-msgstr "ruta de inclusión"
-
-#: src/EBox/Model/RemoteRestoreConf.pm:104
-msgid "Restore Zentyal configuration from backup"
-msgstr "Restaurar la configuración Zentyal de la copia de seguridad"
-
-#: src/EBox/Model/RemoteRestoreConf.pm:111
-msgid "Loads the configuration found in the backup"
-msgstr "Carga la configuración encontrada en la copia de seguridad"
-
-#: src/EBox/Model/RemoteRestoreConf.pm:113
-msgid "Please wait..."
-msgstr "Espere, por favor..."
-
-#: src/EBox/Model/RemoteRestoreConf.pm:169
+#: src/EBox/EBackup.pm:1149
 #, perl-brace-format
 msgid ""
-"Configuration backup not found in backup for {d}. Maybe you could try "
-"another date?"
+"Could not unsubscribe because the backup module is configured to use the "
+"Zentyal Cloud. If you want to unsubscribe, you must change this {ohref}"
+"setting{chref}."
 msgstr ""
-"La copia de seguridad de la configuración no se ha encontrado en la copia de "
-"seguridad del {d}. Podrías probar con otra fecha?"
+"No puedes desuscribir ya que el módulo de backup está configurado para usar "
+"Zentyal Cloud. Si quieres desuscribir, debes cambiar este {ohref}parámetro"
+"{chref}."
 
-#: src/EBox/Model/RemoteRestoreLogs.pm:118
-msgid "Restore logs database"
-msgstr "Restaurar la base de datos de logs"
-
-#: src/EBox/Model/RemoteRestoreLogs.pm:125
-msgid "Restores the Zentyal logs found in the selected backup"
+#: src/EBox/EBackup/DBRestore.pm:46
+#, perl-brace-format
+msgid ""
+"Logs backup data not found in backup for {d}. Maybe you could try another "
+"date?"
 msgstr ""
-"Restaura los logs de Zentyal encontrados en la copia de seguridad "
-"seleccionada"
+"No se han encontrado data de logs de copias de seguridad para {d}. Podrías "
+"probar con otra fecha?"
 
 #: src/EBox/Composite/ServicesRestore.pm:64
 msgid "Services Restore"
@@ -567,130 +567,136 @@ msgstr "Restauración de servicios"
 msgid "Configuration and Status"
 msgstr "Configuración y Estado"
 
-#: tools/restore-tool:66
+#: tools/restore-tool:62
 #, perl-brace-format
 msgid "Module {mod} should be installed"
 msgstr "El módulo {mod} debe ser instalado"
 
-#: tools/restore-tool:74
+#: tools/restore-tool:70
 #, perl-brace-format
 msgid "Module {mod} should be configured"
 msgstr "El módulo {mod} debe ser configurado"
 
-#: tools/restore-tool:85
+#: tools/restore-tool:86
+msgid ""
+"Could not automatically update system hour. Some restoration oeprations "
+"oculd fail if the date is not correct"
+msgstr ""
+
+#: tools/restore-tool:94
 msgid "Zentyal Cloud User"
 msgstr "Usuario de Zentyal Cloud"
 
-#: tools/restore-tool:87
+#: tools/restore-tool:96
 msgid "Zentyal Cloud User:"
 msgstr "Usuario de Zentyal Cloud:"
 
-#: tools/restore-tool:95
+#: tools/restore-tool:103
 msgid "Zentyal Cloud Password"
 msgstr "Contraseña en Zentyal Cloud"
 
-#: tools/restore-tool:97
+#: tools/restore-tool:105
 msgid "Zentyal Cloud Password:"
 msgstr "Contraseña en Zentyal Cloud:"
 
-#: tools/restore-tool:108
+#: tools/restore-tool:116
 msgid "Choose the server to restore"
 msgstr "Elije el servidor a restaurar"
 
-#: tools/restore-tool:109
+#: tools/restore-tool:117
 msgid "Server"
 msgstr "Servidor"
 
-#: tools/restore-tool:113
+#: tools/restore-tool:121
 msgid "Server to restore: "
 msgstr "Servidor a restaurar: "
 
-#: tools/restore-tool:146
+#: tools/restore-tool:153
 #, perl-brace-format
 msgid "What encryption mode was used for the backups of {cn}?"
 msgstr "¿Que tipo de cifrado se usó para los backups de {cn}?"
 
-#: tools/restore-tool:152
+#: tools/restore-tool:158
 msgid "No encryption"
 msgstr "Sin cifrado"
 
-#: tools/restore-tool:153
+#: tools/restore-tool:159
 msgid "Symmetric password"
 msgstr "Clave simétrica"
 
-#: tools/restore-tool:166
+#: tools/restore-tool:172
 msgid "Mode"
 msgstr "Modo"
 
-#: tools/restore-tool:173
+#: tools/restore-tool:179
 #, perl-brace-format
 msgid "Available options: {ops}"
 msgstr "Opciones disponibles: {ops}"
 
-#: tools/restore-tool:177
+#: tools/restore-tool:183
 msgid "Enter selected option: "
 msgstr "Introduce la opción seleccionada: "
 
-#: tools/restore-tool:194
+#: tools/restore-tool:200
 #, perl-brace-format
 msgid "Enter symmetric password used to back up {ser}: "
 msgstr ""
 "Introduce la clave simétrica usada para hacer la copia de seguridad {ser}: "
 
-#: tools/restore-tool:211
+#: tools/restore-tool:217
 #, perl-brace-format
 msgid "Enter ID of encryption key used to back up {ser}"
 msgstr ""
 "Introduce el ID de la clave de cifrado usada para hacer la copia de "
 "seguridad {ser}: "
 
-#: tools/restore-tool:228
+#: tools/restore-tool:234
 #, perl-brace-format
 msgid "Enter passphrase for GPG key {id}"
 msgstr "Introduce la palabra de paso para la clave GPG {id}"
 
-#: tools/restore-tool:254
+#: tools/restore-tool:257
 msgid "Select backup domains to restore"
 msgstr "Selecciona los dominios de backup a restaurar"
 
-#: tools/restore-tool:263
+#: tools/restore-tool:266
 #, perl-brace-format
 msgid "Backup domains available in this server: {l}"
 msgstr "Dominios de backup disponibles en este servidor: {l}"
 
-#: tools/restore-tool:275
+#: tools/restore-tool:283
 msgid "No backup domain selected to restore. Doing nothing"
 msgstr "No se han seleccionado dominios de backup a restaurar. No hacemos nada"
 
-#: tools/restore-tool:300
+#: tools/restore-tool:295
 msgid "Retrieving registered servers list"
 msgstr "Obteniendo la lista de servidores registrados"
 
-#: tools/restore-tool:342
+#: tools/restore-tool:337
 msgid "No key passphrase"
 msgstr "No hay contraseña para la clave"
 
-#: tools/restore-tool:349
+#: tools/restore-tool:344
 msgid "No password in retrieved credentials"
 msgstr "No hay contraseña en los credenciales obtenidos"
 
-#: tools/restore-tool:361
+#: tools/restore-tool:356
 msgid "Retrieving account information"
 msgstr "Obteniendo la información de la cuenta"
 
-#: tools/restore-tool:427
+#: tools/restore-tool:423
 msgid "No registered Zentyal Servers"
 msgstr "No hay servidores Zentyal registrados"
 
-#: tools/restore-tool:433
+#: tools/restore-tool:429
 msgid "Registered Zentyal Servers"
 msgstr "Servidores Zentyal registrados"
 
-#: tools/restore-tool:486
+#: tools/restore-tool:482
 msgid "Restoring files"
 msgstr "Restaurando ficheros"
 
-#: tools/restore-tool:516
+#: tools/restore-tool:511
 #, perl-brace-format
 msgid ""
 "Cannot restore file {file} requested by backup domains. Reason: {reason}"
@@ -698,25 +704,25 @@ msgstr ""
 "No se puede restaurar el fichero solicitado {file} para los dominios de "
 "backup. Razón: {reason}"
 
-#: tools/restore-tool:536
+#: tools/restore-tool:530
 msgid "Backup log data not found, log database will not be restored"
 msgstr ""
 "Los datos de registro de backup no se encuentran, la base de datos de "
 "registros no será restaurada"
 
-#: tools/restore-tool:541
+#: tools/restore-tool:534
 msgid "Restoring log database"
 msgstr "Restaurando la base de datos de logs"
 
-#: tools/restore-tool:559
+#: tools/restore-tool:552
 msgid "Restoring configuration backup"
 msgstr "Restaurando la copia de seguridad de la configuración Zentyal"
 
-#: tools/restore-tool:563 tools/restore-tool:1891
+#: tools/restore-tool:556 tools/restore-tool:1895
 msgid "Unknown error"
 msgstr "Error desconocido"
 
-#: tools/restore-tool:565
+#: tools/restore-tool:558
 msgid ""
 "The configuration restore failed. We will continue the process to try to "
 "restore as much as possible but your system will need manual tweaking"
@@ -725,11 +731,11 @@ msgstr ""
 "intentar restaurar tanto como sea posible pero tu sistema necesitará la "
 "gestión manual"
 
-#: tools/restore-tool:580
+#: tools/restore-tool:571
 msgid "Checking configuration compability"
 msgstr "Comprobando la compatibilidad en la configuración"
 
-#: tools/restore-tool:637
+#: tools/restore-tool:628
 #, perl-brace-format
 msgid ""
 "Cannot restore backup because there are less interfaces than there are "
@@ -738,15 +744,15 @@ msgstr ""
 "No se puede restaurar el backup porque hay menos interfaces que los "
 "disponibles. Los interfaces que faltan son: {missing}"
 
-#: tools/restore-tool:689
+#: tools/restore-tool:680
 msgid "Updating software package lists"
 msgstr "Actualizando la lista de paquetes software"
 
-#: tools/restore-tool:734
+#: tools/restore-tool:725
 msgid "Installing Zentyal components and their dependencies"
 msgstr "Instalando los componentes Zentyal y sus dependencias"
 
-#: tools/restore-tool:797
+#: tools/restore-tool:788
 #, perl-brace-format
 msgid ""
 "Error installing packages: {err}. You can continue but you would not restore "
@@ -755,7 +761,7 @@ msgstr ""
 "Error instalando los paquetes: {err}. Puedes continuar por no se restaurará "
 "ningún dato de los paquetes que faltan"
 
-#: tools/restore-tool:802
+#: tools/restore-tool:793
 msgid ""
 "Error installing packages. You can continue but you would not restore any "
 "data for the missing packages"
@@ -763,22 +769,22 @@ msgstr ""
 "Error instalando paquetes. Puedes continuar pero no se restaurará los datos "
 "de los paquetes que faltan"
 
-#: tools/restore-tool:873
+#: tools/restore-tool:864
 msgid ""
 "Updating package list to allow access to exclusive Zentyal Cloud packages"
 msgstr ""
 "Actualizando la lista de paquetes para permitir el acceso los paquetes "
 "exclusivos de Zentyal Cloud"
 
-#: tools/restore-tool:875
+#: tools/restore-tool:866
 msgid "Install cloud packages"
 msgstr "Instalar los paquetes de la nube"
 
-#: tools/restore-tool:889
+#: tools/restore-tool:880
 msgid "Downloading subscription data"
 msgstr "Descargando los datos de la suscripción"
 
-#: tools/restore-tool:908
+#: tools/restore-tool:899
 msgid ""
 "Connection error when retrieving subscription bundle. Zentyal Cloud "
 "exclusive packages will not be installed"
@@ -786,7 +792,7 @@ msgstr ""
 "Error de conexión cuando se estaba obteniendo el bundle de suscripción. Los "
 "paquetes exclusivos de Zentyal Cloud no se instalarán."
 
-#: tools/restore-tool:913
+#: tools/restore-tool:904
 msgid ""
 "Cannot retrieve bundle because either installed ebox-remoteservices is "
 "outdated or only outdated bundle is available in the cloud. Zentyal Cloud "
@@ -796,7 +802,7 @@ msgstr ""
 "desactualizado o sólo un bundle desactualizado está disponible en la nubeLos "
 "paquetes exclusivos de Zentyal Cloud no se instalarán.. "
 
-#: tools/restore-tool:917
+#: tools/restore-tool:908
 msgid ""
 "Unknown error retrieving subscription bundle. Zentyal Cloud exclusive "
 "packages will not be installed"
@@ -804,16 +810,16 @@ msgstr ""
 "Error desconocido al recoger el bundle de suscripción. Los paquetes "
 "exclusivos de Zentyal Cloud no se instalarán."
 
-#: tools/restore-tool:967
+#: tools/restore-tool:958
 msgid "Configuring modules"
 msgstr "Configurando módulos"
 
-#: tools/restore-tool:991
-#, perl-format, perl-brace-format
+#: tools/restore-tool:982
+#, fuzzy, perl-format, perl-brace-format
 msgid "Configuring modules {p}% done. Current module {mod}"
-msgstr "Configurando módulos {p}% hecho. Módulo actual {mod}"
+msgstr "Configurando módulos {p}%% hecho. Módulo actual {mod}"
 
-#: tools/restore-tool:1012
+#: tools/restore-tool:1003
 #, perl-brace-format
 msgid ""
 "Failed to configure module {name}: {err}. This could affect to the restore "
@@ -822,105 +828,104 @@ msgstr ""
 "Fallo al configurar el módulo {name}: {err}. Esto podría afectar a la "
 "restauración del resto de módulos"
 
-#: tools/restore-tool:1028
+#: tools/restore-tool:1019
 msgid "Finishing new modules configuration"
 msgstr "Finalizando la configuración de nuevos módulos"
 
-#: tools/restore-tool:1062
+#: tools/restore-tool:1053
 msgid "Downloading the backup data and configuration"
 msgstr "Descargando los datos de backup y configuración"
 
-#: tools/restore-tool:1099
+#: tools/restore-tool:1088
 msgid "Downloading configuration"
 msgstr "Descargando la configuración"
 
-#: tools/restore-tool:1124
+#: tools/restore-tool:1113
 msgid "Retrieving backup collection status ..."
 msgstr "Obteniendo el estado del backup..."
 
-#: tools/restore-tool:1144 tools/restore-tool:1215
+#: tools/restore-tool:1142 tools/restore-tool:1205
 #, perl-brace-format
 msgid "Last backup date was: {date}"
 msgstr "La fecha del último backup fue: {date}"
 
-#: tools/restore-tool:1152
-#, perl-brace-format
-msgid "No backups found for server {server}"
-msgstr "No se encontraron backup para el servidor: {server}"
-
-#: tools/restore-tool:1173
+#: tools/restore-tool:1169
 #, perl-brace-format
 msgid "No automatic configuration backups were made for the server {s}"
 msgstr "No hay backup de configuración para el servidor {s}"
 
-#: tools/restore-tool:1227
+#: tools/restore-tool:1215
 #, perl-brace-format
 msgid "Choose date to restore the backup from server {cn}"
 msgstr "Elije la fecha para restaurar el backup del servidor {cn}"
 
-#: tools/restore-tool:1252
+#: tools/restore-tool:1239
 #, perl-brace-format
 msgid "No automatic configuration backups were done for the server {s}"
 msgstr "No hay backup de configuración para el servidor {s}"
 
-#: tools/restore-tool:1275
+#: tools/restore-tool:1262
 #, perl-brace-format
 msgid "No configuration backups were made for the date {d} in {s} server"
 msgstr "No hay backup de configuración para el servidor {s} en la fecha {d}"
 
-#: tools/restore-tool:1292
+#: tools/restore-tool:1279
 #, perl-brace-format
 msgid "Cannot create directory {dir}"
 msgstr "No puede crear el directorio {dir}"
 
-#: tools/restore-tool:1305
+#: tools/restore-tool:1292
 #, perl-brace-format
 msgid "The server {server} is not registered in Zentyal Cloud"
 msgstr "El servidor {server} no está registrado en Zentyal Cloud"
 
-#: tools/restore-tool:1362
+#: tools/restore-tool:1349
 msgid "Configuration"
 msgstr "Configuración"
 
-#: tools/restore-tool:1384
+#: tools/restore-tool:1371
 #, perl-brace-format
 msgid "{domain} is not available to restore in the backup"
 msgstr "No está disponible {domain} para restaurar en el backup"
 
-#: tools/restore-tool:1426
+#: tools/restore-tool:1413
 msgid "Please, enter a value"
 msgstr "Por favor, introduce un valor"
 
-#: tools/restore-tool:1458
+#: tools/restore-tool:1438
+msgid "Please answer yes or no"
+msgstr ""
+
+#: tools/restore-tool:1463
 #, perl-brace-format
 msgid "Backup dates for server {cn}"
 msgstr "Fechas del backup para el servidor {cn}"
 
-#: tools/restore-tool:1474
+#: tools/restore-tool:1479
 msgid "Enter backup date to restore:"
 msgstr "Introduce la fecha del backup a restaurar:"
 
-#: tools/restore-tool:1478
+#: tools/restore-tool:1483
 #, perl-brace-format
 msgid "Invalid date: {d}. Try again"
 msgstr "Fecha inválida: {d}. Inténtalo de nuevo."
 
-#: tools/restore-tool:1492
+#: tools/restore-tool:1497
 #, perl-brace-format
 msgid "Warning: {msg}"
 msgstr "Advertencia: {msg}"
 
-#: tools/restore-tool:1603
+#: tools/restore-tool:1608
 msgid "This entry is mandatory to continue the restoring process. Retry"
 msgstr ""
 "Esta entrada es obligatoria para continuar el proceso de restauración. "
 "Reintentar"
 
-#: tools/restore-tool:1655
+#: tools/restore-tool:1660
 msgid "Selection"
 msgstr "Selección"
 
-#: tools/restore-tool:1696
+#: tools/restore-tool:1701
 msgid ""
 "This entry is mandatory to carry on the restoring process. Choose from the "
 "list"
@@ -928,23 +933,23 @@ msgstr ""
 "Esta entrada es obligatoria para continuar el proceso de restauración. Elije "
 "de la lista"
 
-#: tools/restore-tool:1781
+#: tools/restore-tool:1785
 msgid "Please wait"
 msgstr "Espere, por favor"
 
-#: tools/restore-tool:1795
+#: tools/restore-tool:1799
 msgid "Finished"
 msgstr "Finalizado"
 
-#: tools/restore-tool:1853
+#: tools/restore-tool:1857
 msgid "Restoring process aborted upon user request"
 msgstr "Proceso de restauración abortado por petición del usuario"
 
-#: tools/restore-tool:1882
+#: tools/restore-tool:1886
 msgid "Saving configuration changes"
 msgstr "Guardando los cambios en la configuración"
 
-#: tools/restore-tool:1893
+#: tools/restore-tool:1897
 msgid ""
 "Error saving configuration changes; some Zentyal modules would remain in a "
 "unknown state"
@@ -952,15 +957,15 @@ msgstr ""
 "Error guardando los cambios de configuración; algunos módulos de Zentyal "
 "permanecerán en un estado desconocido"
 
-#: tools/restore-tool:2002
+#: tools/restore-tool:1975
 msgid "Restore process aborted"
 msgstr "Proceso de restauración abortado"
 
-#: tools/restore-tool:2029
+#: tools/restore-tool:2002
 msgid "User for the authentication"
 msgstr "Usuario para la autenticación"
 
-#: tools/restore-tool:2031
+#: tools/restore-tool:2004
 msgid ""
 "Password for the authentication. This password will be shown both in the "
 "command line and in the process list so only use this option when security "
@@ -970,19 +975,19 @@ msgstr ""
 "línea de comandos como en la lista de procesos así que usa esta opción "
 "cuando la seguridad no es una preocupación"
 
-#: tools/restore-tool:2035
+#: tools/restore-tool:2008
 msgid "Server from which its backup date the restore will be done"
 msgstr "Servidor desde que su fecha de backup se realizará la restauración"
 
-#: tools/restore-tool:2037
+#: tools/restore-tool:2010
 msgid "Use the last backup done for the restore"
 msgstr "Usar el último backup hecho para la restauración"
 
-#: tools/restore-tool:2039
+#: tools/restore-tool:2012
 msgid "Backup domain to restore. It could be repeated several times"
 msgstr "Dominio de backup a restaurar. Se puede repetir varias veces"
 
-#: tools/restore-tool:2041
+#: tools/restore-tool:2014
 msgid ""
 "Check if we use the no encryption, a symmetric scheme with password or "
 "asymmetric scheme with a private key"
@@ -990,16 +995,16 @@ msgstr ""
 "Comprueba si usamos no cifrado, un esquema simétrico con contraseña o un "
 "esquema asimétrico con una clave privada"
 
-#: tools/restore-tool:2044
+#: tools/restore-tool:2017
 msgid "Do not use graphical interface"
 msgstr "No usar la interfaz gráfica"
 
-#: tools/restore-tool:2069
+#: tools/restore-tool:2048
 #, perl-brace-format
 msgid "The account {user} do not have any registered Zentyal servers"
 msgstr "La cuenta {user} no tiene suscrito ningún servidor Zentyal"
 
-#: tools/restore-tool:2131
+#: tools/restore-tool:2128
 #, perl-brace-format
 msgid ""
 "The following backup domains could not be restored from a basic "
@@ -1008,11 +1013,11 @@ msgstr ""
 "Los siguientes dominios de backup no podrían ser restaurados desde una "
 "suscripción básica: {domains}"
 
-#: tools/restore-tool:2155
+#: tools/restore-tool:2152
 msgid "Your full backup is now successfully restored!"
 msgstr "¡Tu backup completo se ha restaurado con éxito!"
 
-#: tools/restore-tool:2157
+#: tools/restore-tool:2154
 msgid ""
 "You can go now to the Zentyal administration interface to manage your "
 "recovered host."
@@ -1020,14 +1025,22 @@ msgstr ""
 "Puedes ir ahora a la interfaz de administracion de Zentyal para gestionar la "
 "máquina recuperada."
 
-#: tools/restore-tool:2199
+#: tools/restore-tool:2196
 #, perl-brace-format
 msgid "You can only specify one of the encryption options: {sy}, {asy} y {no}"
-msgstr "Sólo puedes especificar una de las opciones de cifrado"
+msgstr ""
+"Sólo puedes especificar una de las siguientes opciones de cifrado: {sy}, "
+"{asy} and {no}"
 
-#: tools/restore-tool:2220
+#: tools/restore-tool:2216
 msgid "Zenity package not found. Falling back to terminal mode"
 msgstr "Paquete zenity no encontrado. Usando el modo terminal"
+
+#: tools/restore-tool:2255
+msgid ""
+"No backups found in this server with this encryption mode. Want to retry "
+"with a different server or encryption mode?"
+msgstr ""
 
 #: tools/ebox-remote-ebackup:69
 msgid "full"
@@ -1061,7 +1074,7 @@ msgid ""
 msgstr ""
 "El directorio temporal '{dir}' tiene {avail} MB disponibles, el backup "
 "necesita aproximadamente {need} MB. O liberas espacio o cambias el "
-"directorio temporal y el tamaño de volumen en /etc/ebox/82ebackup.conf."
+"directorio temporal y el tamaño de volumen en {conf}."
 
 #: tools/ebox-remote-ebackup:144
 msgid "Usage:"
@@ -1086,6 +1099,9 @@ msgstr ""
 #: tools/ebox-remote-ebackup:260
 msgid "The backup module is busy, retry later"
 msgstr "El módulo de backup está ocupado, inténtalo de nuevo más tarde"
+
+#~ msgid "No backups found for server {server}"
+#~ msgstr "No se encontraron backup para el servidor: {server}"
 
 #~ msgid "GPG Key"
 #~ msgstr "Clave GPG"

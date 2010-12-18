@@ -7,25 +7,215 @@ msgid ""
 msgstr ""
 "Project-Id-Version: EBox-monitor 0.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-12-13 08:40+0100\n"
+"POT-Creation-Date: 2010-12-18 01:44+0100\n"
 "PO-Revision-Date: 2010-08-31 21:13+0200\n"
 "Last-Translator: josefa <jgonza24@xtec.cat>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: src/EBox/Monitor/Types/MeasureAttribute.pm:132
-#: src/EBox/Monitor/Types/MeasureAttribute.pm:146
-#: src/EBox/Monitor/Types/MeasureAttribute.pm:156
-msgid "not applicable"
-msgstr "no aplicable"
+#: src/EBox/Event/Watcher/Monitor.pm:144 src/EBox/Monitor.pm:78
+#: src/EBox/Monitor.pm:177
+msgid "Monitor"
+msgstr "Monitoratge"
 
-#: src/EBox/Monitor/Types/MeasureAttribute.pm:134
-#: src/EBox/Monitor/Types/MeasureAttribute.pm:144
-msgid "any"
-msgstr "qualsevol"
+#: src/EBox/Event/Watcher/Monitor.pm:161
+msgid "Notify when a certain value has reached a certain threshold"
+msgstr "Notificar quan un valor concret ha arribat a un cert llindar"
+
+#: src/EBox/Event/Watcher/Monitor.pm:263
+msgid "All data sources are within range again"
+msgstr "Totes les fonts de dadas són de nou dins del rang"
+
+#: src/EBox/Event/Watcher/Monitor.pm:273
+#, perl-brace-format
+msgid "{what} \"{dS}\" is currently {value}."
+msgstr "{what} \"{dS}\" és actualment {value}."
+
+#: src/EBox/Event/Watcher/Monitor.pm:280
+#, perl-brace-format
+msgid "That is within the {severity} region of {minBound} and {maxBound}. "
+msgstr "Està dins de la regió {severity} entre {minBound} i {maxBound}."
+
+#: src/EBox/Event/Watcher/Monitor.pm:288
+#, perl-brace-format
+msgid "That is above the {severity} threshold of {bound}. "
+msgstr "Està per sobre del llindar {severity} de {bound}."
+
+#: src/EBox/Event/Watcher/Monitor.pm:291
+#, perl-brace-format
+msgid "That is below the {severity} threshold of {bound}. "
+msgstr "Està per sota del llindar {severity} de {bound}."
+
+#: src/EBox/Monitor.pm:150
+#, perl-brace-format
+msgid "{daemon} main configuration file"
+msgstr "Fitxer de configuració principal de {daemon}"
+
+#: src/EBox/Monitor.pm:155
+#, perl-brace-format
+msgid "{daemon} thresholds configuration file"
+msgstr "Fitxer de configuració de llindars de {daemon}"
+
+#: src/EBox/Monitor.pm:160
+#, perl-brace-format
+msgid "{daemon} default configuration file"
+msgstr "Fitxer de configuració per defecte {daemon}"
+
+#: src/EBox/Monitor/Measure/CPU.pm:59
+#, perl-brace-format
+msgid "CPU {no} usage"
+msgstr "ús de CPU {no}"
+
+#: src/EBox/Monitor/Measure/CPU.pm:65
+msgid "CPU usage"
+msgstr "Ús de la CPU"
+
+#: src/EBox/Monitor/Measure/CPU.pm:66
+msgid ""
+"Collect the amount of time spent by the CPU in various states, most notably "
+"executing user code, executing system code, waiting for IO operations and "
+"being idle"
+msgstr ""
+"Recull la quantitat de temps emprada per la CPU en varis estats, els més "
+"notables són executant codi d'usuari, de sistema, esperant una operació E/S "
+"i inactiu"
+
+#: src/EBox/Monitor/Measure/CPU.pm:73 src/EBox/Monitor/Measure/CPU.pm:82
+msgid "idle"
+msgstr "inactiu"
+
+#: src/EBox/Monitor/Measure/CPU.pm:74 src/EBox/Monitor/Measure/CPU.pm:82
+msgid "user"
+msgstr "usuari"
+
+#: src/EBox/Monitor/Measure/CPU.pm:75 src/EBox/Monitor/Measure/CPU.pm:82
+msgid "interrupt"
+msgstr "interrupció"
+
+#: src/EBox/Monitor/Measure/CPU.pm:76 src/EBox/Monitor/Measure/CPU.pm:83
+msgid "nice"
+msgstr "nice"
+
+#: src/EBox/Monitor/Measure/CPU.pm:77 src/EBox/Monitor/Measure/CPU.pm:83
+msgid "soft interrupt"
+msgstr "interrupció soft"
+
+#: src/EBox/Monitor/Measure/CPU.pm:78 src/EBox/Monitor/Measure/CPU.pm:83
+msgid "steal"
+msgstr "temps 'robat'"
+
+#: src/EBox/Monitor/Measure/CPU.pm:79 src/EBox/Monitor/Measure/CPU.pm:84
+msgid "system"
+msgstr "sistema"
+
+#: src/EBox/Monitor/Measure/CPU.pm:80 src/EBox/Monitor/Measure/CPU.pm:84
+msgid "wait"
+msgstr "espera"
+
+#: src/EBox/Monitor/Measure/Df.pm:76
+#, perl-brace-format
+msgid "used in {partition}"
+msgstr "utilitzat en {partition}"
+
+#: src/EBox/Monitor/Measure/Df.pm:78
+#, perl-brace-format
+msgid "free in {partition}"
+msgstr "disponible en {partition}"
+
+#: src/EBox/Monitor/Measure/Df.pm:83
+msgid "File system usage"
+msgstr "Ús del sistema de fitxers"
+
+#: src/EBox/Monitor/Measure/Df.pm:84
+msgid ""
+"Collect the mounted file system usage information as \"df\" command does"
+msgstr ""
+"Recull la informació dels sistemes de fitxers muntats com ho fa la comanda "
+"\"df\""
+
+#: src/EBox/Monitor/Measure/Memory.pm:55
+msgid "Physical memory usage"
+msgstr "Ús de la memòria física"
+
+#: src/EBox/Monitor/Measure/Memory.pm:56
+msgid "Collect the physical memory usage"
+msgstr "Recull l'ús de la memòria física"
+
+#: src/EBox/Monitor/Measure/Memory.pm:57
+msgid "free"
+msgstr "lliure"
+
+#: src/EBox/Monitor/Measure/Memory.pm:57
+msgid "page cache"
+msgstr "cau de pàgina"
+
+#: src/EBox/Monitor/Measure/Memory.pm:57
+msgid "buffer cache"
+msgstr "cau de memòria intermèdia"
+
+#: src/EBox/Monitor/Measure/Memory.pm:57
+msgid "used"
+msgstr "utilitzada"
+
+#: src/EBox/Monitor/Measure/Load.pm:55
+msgid "System load"
+msgstr "Càrrega del sistema"
+
+#: src/EBox/Monitor/Measure/Load.pm:56
+msgid "Collect the system load that gives a rough overview of the system usage"
+msgstr ""
+"Recollir la càrrega del sistema que dóna una visió molt general de l'ús del "
+"sistema"
+
+#: src/EBox/Monitor/Measure/Load.pm:59
+msgid "short term"
+msgstr "a curt termini"
+
+#: src/EBox/Monitor/Measure/Load.pm:59
+msgid "mid term"
+msgstr "a mig termini"
+
+#: src/EBox/Monitor/Measure/Load.pm:59
+msgid "long term"
+msgstr "a llarg termini"
+
+#: src/EBox/Monitor/Measure/Thermal.pm:111
+#: src/EBox/Monitor/Measure/Thermal.pm:117
+msgid "temperature"
+msgstr "temperatura"
+
+#: src/EBox/Monitor/Measure/Thermal.pm:129
+msgid "cooling device"
+msgstr "dispositiu de refrigeració"
+
+#: src/EBox/Monitor/Measure/Thermal.pm:131
+msgid "sensor"
+msgstr "sensor"
+
+#: src/EBox/Monitor/Measure/Thermal.pm:133
+#, perl-brace-format
+msgid "Temperature for {what}"
+msgstr "Temperatura de {what}"
+
+#: src/EBox/Monitor/Measure/Thermal.pm:139
+msgid "Thermal"
+msgstr "Tèrmic"
+
+#: src/EBox/Monitor/Measure/Thermal.pm:140
+#, perl-brace-format
+msgid ""
+"Collect thermal information (CPU sensors temperature) if possible from {dir}"
+msgstr ""
+"Recull informació tèrmica (temperatura de sensors de CPU), si és possible, "
+"des de {dir}"
+
+#: src/EBox/Monitor/Measure/Base.pm:684
+msgid "value"
+msgstr "valor"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:102
 #: src/EBox/Monitor/Model/MeasureWatchers.pm:77
@@ -217,157 +407,16 @@ msgstr "Últim mes"
 msgid "Last year"
 msgstr "Últim any"
 
-#: src/EBox/Monitor/Measure/Load.pm:55
-msgid "System load"
-msgstr "Càrrega del sistema"
+#: src/EBox/Monitor/Types/MeasureAttribute.pm:132
+#: src/EBox/Monitor/Types/MeasureAttribute.pm:146
+#: src/EBox/Monitor/Types/MeasureAttribute.pm:156
+msgid "not applicable"
+msgstr "no aplicable"
 
-#: src/EBox/Monitor/Measure/Load.pm:56
-msgid "Collect the system load that gives a rough overview of the system usage"
-msgstr ""
-"Recollir la càrrega del sistema que dóna una visió molt general de l'ús del "
-"sistema"
-
-#: src/EBox/Monitor/Measure/Load.pm:59
-msgid "short term"
-msgstr "a curt termini"
-
-#: src/EBox/Monitor/Measure/Load.pm:59
-msgid "mid term"
-msgstr "a mig termini"
-
-#: src/EBox/Monitor/Measure/Load.pm:59
-msgid "long term"
-msgstr "a llarg termini"
-
-#: src/EBox/Monitor/Measure/Df.pm:76
-#, perl-brace-format
-msgid "used in {partition}"
-msgstr "utilitzat en {partition}"
-
-#: src/EBox/Monitor/Measure/Df.pm:78
-#, perl-brace-format
-msgid "free in {partition}"
-msgstr "disponible en {partition}"
-
-#: src/EBox/Monitor/Measure/Df.pm:83
-msgid "File system usage"
-msgstr "Ús del sistema de fitxers"
-
-#: src/EBox/Monitor/Measure/Df.pm:84
-msgid ""
-"Collect the mounted file system usage information as \"df\" command does"
-msgstr ""
-"Recull la informació dels sistemes de fitxers muntats com ho fa la comanda "
-"\"df\""
-
-#: src/EBox/Monitor/Measure/Thermal.pm:111
-#: src/EBox/Monitor/Measure/Thermal.pm:117
-msgid "temperature"
-msgstr "temperatura"
-
-#: src/EBox/Monitor/Measure/Thermal.pm:129
-msgid "cooling device"
-msgstr "dispositiu de refrigeració"
-
-#: src/EBox/Monitor/Measure/Thermal.pm:131
-msgid "sensor"
-msgstr "sensor"
-
-#: src/EBox/Monitor/Measure/Thermal.pm:133
-#, perl-brace-format
-msgid "Temperature for {what}"
-msgstr "Temperatura de {what}"
-
-#: src/EBox/Monitor/Measure/Thermal.pm:139
-msgid "Thermal"
-msgstr "Tèrmic"
-
-#: src/EBox/Monitor/Measure/Thermal.pm:140
-#, perl-brace-format
-msgid ""
-"Collect thermal information (CPU sensors temperature) if possible from {dir}"
-msgstr ""
-"Recull informació tèrmica (temperatura de sensors de CPU), si és possible, "
-"des de {dir}"
-
-#: src/EBox/Monitor/Measure/Base.pm:684
-msgid "value"
-msgstr "valor"
-
-#: src/EBox/Monitor/Measure/CPU.pm:59
-#, perl-brace-format
-msgid "CPU {no} usage"
-msgstr "ús de CPU {no}"
-
-#: src/EBox/Monitor/Measure/CPU.pm:65
-msgid "CPU usage"
-msgstr "Ús de la CPU"
-
-#: src/EBox/Monitor/Measure/CPU.pm:66
-msgid ""
-"Collect the amount of time spent by the CPU in various states, most notably "
-"executing user code, executing system code, waiting for IO operations and "
-"being idle"
-msgstr ""
-"Recull la quantitat de temps emprada per la CPU en varis estats, els més "
-"notables són executant codi d'usuari, de sistema, esperant una operació E/S "
-"i inactiu"
-
-#: src/EBox/Monitor/Measure/CPU.pm:73 src/EBox/Monitor/Measure/CPU.pm:82
-msgid "idle"
-msgstr "inactiu"
-
-#: src/EBox/Monitor/Measure/CPU.pm:74 src/EBox/Monitor/Measure/CPU.pm:82
-msgid "user"
-msgstr "usuari"
-
-#: src/EBox/Monitor/Measure/CPU.pm:75 src/EBox/Monitor/Measure/CPU.pm:82
-msgid "interrupt"
-msgstr "interrupció"
-
-#: src/EBox/Monitor/Measure/CPU.pm:76 src/EBox/Monitor/Measure/CPU.pm:83
-msgid "nice"
-msgstr "nice"
-
-#: src/EBox/Monitor/Measure/CPU.pm:77 src/EBox/Monitor/Measure/CPU.pm:83
-msgid "soft interrupt"
-msgstr "interrupció soft"
-
-#: src/EBox/Monitor/Measure/CPU.pm:78 src/EBox/Monitor/Measure/CPU.pm:83
-msgid "steal"
-msgstr "temps 'robat'"
-
-#: src/EBox/Monitor/Measure/CPU.pm:79 src/EBox/Monitor/Measure/CPU.pm:84
-msgid "system"
-msgstr "sistema"
-
-#: src/EBox/Monitor/Measure/CPU.pm:80 src/EBox/Monitor/Measure/CPU.pm:84
-msgid "wait"
-msgstr "espera"
-
-#: src/EBox/Monitor/Measure/Memory.pm:55
-msgid "Physical memory usage"
-msgstr "Ús de la memòria física"
-
-#: src/EBox/Monitor/Measure/Memory.pm:56
-msgid "Collect the physical memory usage"
-msgstr "Recull l'ús de la memòria física"
-
-#: src/EBox/Monitor/Measure/Memory.pm:57
-msgid "free"
-msgstr "lliure"
-
-#: src/EBox/Monitor/Measure/Memory.pm:57
-msgid "page cache"
-msgstr "cau de pàgina"
-
-#: src/EBox/Monitor/Measure/Memory.pm:57
-msgid "buffer cache"
-msgstr "cau de memòria intermèdia"
-
-#: src/EBox/Monitor/Measure/Memory.pm:57
-msgid "used"
-msgstr "utilitzada"
+#: src/EBox/Monitor/Types/MeasureAttribute.pm:134
+#: src/EBox/Monitor/Types/MeasureAttribute.pm:144
+msgid "any"
+msgstr "qualsevol"
 
 #: src/EBox/CGI/Index.pm:44
 msgid "Monitoring"
@@ -393,51 +442,3 @@ msgstr ""
 "monitoratge en la secció {openhref}Desar canvis{closehref}. En cas de que ja "
 "s'hagi habilitat, és possible que hagis d'esperar uns pocs segons per "
 "recollir les primeres dades del monitoratge"
-
-#: src/EBox/Event/Watcher/Monitor.pm:144 src/EBox/Monitor.pm:78
-#: src/EBox/Monitor.pm:177
-msgid "Monitor"
-msgstr "Monitoratge"
-
-#: src/EBox/Event/Watcher/Monitor.pm:161
-msgid "Notify when a certain value has reached a certain threshold"
-msgstr "Notificar quan un valor concret ha arribat a un cert llindar"
-
-#: src/EBox/Event/Watcher/Monitor.pm:263
-msgid "All data sources are within range again"
-msgstr "Totes les fonts de dadas són de nou dins del rang"
-
-#: src/EBox/Event/Watcher/Monitor.pm:273
-#, perl-brace-format
-msgid "{what} \"{dS}\" is currently {value}."
-msgstr "{what} \"{dS}\" és actualment {value}."
-
-#: src/EBox/Event/Watcher/Monitor.pm:280
-#, perl-brace-format
-msgid "That is within the {severity} region of {minBound} and {maxBound}. "
-msgstr "Està dins de la regió {severity} entre {minBound} i {maxBound}."
-
-#: src/EBox/Event/Watcher/Monitor.pm:288
-#, perl-brace-format
-msgid "That is above the {severity} threshold of {bound}. "
-msgstr "Està per sobre del llindar {severity} de {bound}."
-
-#: src/EBox/Event/Watcher/Monitor.pm:291
-#, perl-brace-format
-msgid "That is below the {severity} threshold of {bound}. "
-msgstr "Està per sota del llindar {severity} de {bound}."
-
-#: src/EBox/Monitor.pm:150
-#, perl-brace-format
-msgid "{daemon} main configuration file"
-msgstr "Fitxer de configuració principal de {daemon}"
-
-#: src/EBox/Monitor.pm:155
-#, perl-brace-format
-msgid "{daemon} thresholds configuration file"
-msgstr "Fitxer de configuració de llindars de {daemon}"
-
-#: src/EBox/Monitor.pm:160
-#, perl-brace-format
-msgid "{daemon} default configuration file"
-msgstr "Fitxer de configuració per defecte {daemon}"

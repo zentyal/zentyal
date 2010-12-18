@@ -7,10 +7,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-webserver 1.3.3\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-12-13 08:43+0100\n"
+"POT-Creation-Date: 2010-12-18 01:46+0100\n"
 "PO-Revision-Date: 2010-09-07 15:29+0200\n"
 "Last-Translator: Bokor Pavol <bokor@4enzo.net>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -21,10 +22,198 @@ msgstr ""
 msgid "HyperText Transport Protocol"
 msgstr "HyperTextový Transportný Protokol"
 
-#: src/EBox/WebServer.pm:79 src/EBox/WebServer.pm:617
-#: src/EBox/WebServer/Composite/General.pm:77
+#: src/EBox/WebServer/Model/VHostTable.pm:93
+msgid "Virtual host name"
+msgstr "Mená virtuálnych hostiteľov"
+
+#: src/EBox/WebServer/Model/VHostTable.pm:97
+#: src/EBox/WebServer/Model/VHostTable.pm:310
+msgid "Virtual host"
+msgstr "Virtuálny hostiteľ"
+
+#: src/EBox/WebServer/Model/VHostTable.pm:104
+msgid "SSL support is disabled. Enable it before adding a SSL virtual host."
+msgstr ""
+"SSL podpora je zakázaná. Povoľte ju pred pridaním SSL virtuálneho hostiteľa."
+
+#: src/EBox/WebServer/Model/VHostTable.pm:169
+#, perl-brace-format
+msgid ""
+"Virtual host {vhost} added. A domain {domain} has been created with the "
+"mapping name {name} - IP address {ip}. {noDnsWarning} "
+msgstr ""
+"Virtuálny hostiteľ {vhost} pridaný. Doména {domain} bola vytvorená s menom "
+"{name} - IP adresou {ip}. {noDnsWarning} "
+
+#: src/EBox/WebServer/Model/VHostTable.pm:188
+#, perl-brace-format
+msgid ""
+"Virtual host {vhost} added. A mapping name {name} - IP address {ip} has been "
+"added to {domain} domain."
+msgstr ""
+"Virtuálny hostiteľ {vhost} pridaný. Meno {name} - IP adresa {ip} boli "
+"pridané do {domain} domény"
+
+#: src/EBox/WebServer/Model/VHostTable.pm:202
+#, perl-brace-format
+msgid "Virtual host {vhost} added as an alias {alias} to hostname {hostname}."
+msgstr ""
+"Virtuálny hostiteľ {vhost} pridaný ako alias {alias} k hostiteľskému menu "
+"{hostname}"
+
+#: src/EBox/WebServer/Model/VHostTable.pm:208
+#: src/EBox/WebServer/Model/VHostTable.pm:213
+#, perl-brace-format
+msgid "Virtual host {vhost} added."
+msgstr "Virtuálny hostiteľ {vhost} pridaný"
+
+#: src/EBox/WebServer/Model/VHostTable.pm:218
+msgid "There is no static internal interface to set the Web server IP address."
+msgstr ""
+"Neexistuje statický interný adaptér na nastavenie IP adresy Web servera"
+
+#: src/EBox/WebServer/Model/VHostTable.pm:252
+#: src/EBox/WebServer/Model/GeneralSettings.pm:239
+msgid "Disabled"
+msgstr "Zakázaný"
+
+#: src/EBox/WebServer/Model/VHostTable.pm:253
+msgid "Allow SSL"
+msgstr "Povoliť SSL"
+
+#: src/EBox/WebServer/Model/VHostTable.pm:254
+msgid "Force SSL"
+msgstr "Vynútiť SSL"
+
+#: src/EBox/WebServer/Model/VHostTable.pm:279
+msgid "SSL support"
+msgstr "SSL podpora"
+
+#: src/EBox/WebServer/Model/VHostTable.pm:286
+msgid "Name"
+msgstr "Meno"
+
+#: src/EBox/WebServer/Model/VHostTable.pm:296
+msgid "Virtual hosts"
+msgstr "Virtuálny hostiteľ"
+
+#: src/EBox/WebServer/Model/VHostTable.pm:300
+#, perl-brace-format
+msgid ""
+"Virtual hosts are a form of web hosting service where many instances of the "
+"same web server are hosted on a single physical server. Different host names "
+"point to the same web server. If feasible, the DNS entry is automatically "
+"created. The content must be placed under the {docRoot} directory. Any "
+"particular configuration you want to add must be placed in the {userConf} "
+"directory."
+msgstr ""
+"Virtuálny hostiteľ je forma hosťovania webových stránok, kde na viac "
+"webových sídiel je použitý fyzicky jeden server. Rôzne mená hostiteľov "
+"ukazujú na ten istý server. Ak je to možné, DNS záznam sa vytvorí "
+"automaticky. Obsah web sídla musí byť uložený v {docRoot} priečinku. "
+"Príslušná konfigurácia musí byť uložená v {userConf} priečinku"
+
+#: src/EBox/WebServer/Model/VHostTable.pm:331
+#, perl-brace-format
+msgid ""
+"{open}The DNS module is disabled. The added mapping or domains will not have "
+"any effect until you enable it"
+msgstr ""
+"{open}DNS modul je zakázaný. Pokiaľ nebude povolený, neprejavia sa zmeny v "
+"pridanom mapovaní alebo v doménach."
+
+#: src/EBox/WebServer/Model/GeneralSettings.pm:96
+#: src/EBox/WebServer/Model/GeneralSettings.pm:108
+#: src/EBox/WebServer/Model/GeneralSettings.pm:119
+#: src/EBox/WebServer/Model/GeneralSettings.pm:229
+msgid "Listening port"
+msgstr "Načúvací port"
+
+#: src/EBox/WebServer/Model/GeneralSettings.pm:114
+#, perl-brace-format
+msgid ""
+"Zentyal Administration is running on this port, change it on {ohref}System -"
+"> General{chref}."
+msgstr ""
+"Na tomto porte je spustená správa Zentyal-u. Môžete to zmeniť v {ohref}"
+"System -> General{chref}."
+
+#: src/EBox/WebServer/Model/GeneralSettings.pm:127
+#, perl-brace-format
+msgid ""
+"You need a Service Certificate for the Web Server module, enable it on "
+"{ohref}Certification Authority -> Service Certificates{chref}."
+msgstr ""
+
+#: src/EBox/WebServer/Model/GeneralSettings.pm:139
+msgid ""
+"Having installed and configured the Users and Groups module is required to "
+"allow HTML directories for users."
+msgstr ""
+
+#: src/EBox/WebServer/Model/GeneralSettings.pm:145
+msgid ""
+"A properly configured Users and Groups module is required to allow HTML "
+"directories for users. To configure it, please enable it at least one time."
+msgstr ""
+
+#: src/EBox/WebServer/Model/GeneralSettings.pm:235
+msgid "Listening SSL port"
+msgstr "Načúvací SSL port"
+
+#: src/EBox/WebServer/Model/GeneralSettings.pm:244
+msgid "Enabled"
+msgstr ""
+
+#: src/EBox/WebServer/Model/GeneralSettings.pm:252
+#, perl-brace-format
+msgid "Enable per user {dirName}"
+msgstr "Povoliť podľa užívateľa {dirName}"
+
+#: src/EBox/WebServer/Model/GeneralSettings.pm:256
+msgid ""
+"Allow users to publish web documents using the public_html directory on "
+"their home."
+msgstr ""
+
+#: src/EBox/WebServer/Model/GeneralSettings.pm:264
+msgid "General configuration settings"
+msgstr "Hlavné konfiguračné nastavenia"
+
+#: src/EBox/WebServer/Model/GeneralSettings.pm:268
+#, fuzzy, perl-brace-format
+msgid ""
+"General Web server configuration. The listening port must not be used by "
+"another service. If you enable user to publish their own html pages, those "
+"should be loaded from {dirName} directory from their home directories."
+msgstr ""
+"Hlavné konfiguračné nastavenia Web servera. Načúvací port nesmie byť použitý "
+"z existujúcich služieb. Ak povolíte užívateľom publikovať ich vlastné html "
+"stránky, tak stránky budú sťahované z priečinka {dirName} v ich domácich "
+"priečinkoch."
+
+#: src/EBox/WebServer/Model/GeneralSettings.pm:274
+#, fuzzy
+msgid "General Web server configuration settings updated."
+msgstr "Hlavné konfiguračné nastavenia Web servera aktualizované"
+
+#: src/EBox/WebServer/Composite/General.pm:76
+msgid "Configuration"
+msgstr "Konfigurácia"
+
+#: src/EBox/WebServer/Composite/General.pm:77 src/EBox/WebServer.pm:79
+#: src/EBox/WebServer.pm:617
 msgid "Web Server"
 msgstr "Web Server"
+
+#: src/EBox/WebServer/Composite/General.pm:79
+#, fuzzy
+msgid ""
+"The Zentyal web service allows you to host Web pages in plain HTML within "
+"different virtual hosts."
+msgstr ""
+"eBox web služba vám umožňuje hosťovať webové stránky v obyčajnom HTML medzi "
+"rôznymi virtuálnymi hostiteľmi."
 
 #: src/EBox/WebServer.pm:99
 #, fuzzy
@@ -83,191 +272,3 @@ msgstr "Stav Web služby"
 #, fuzzy
 msgid "Virtual hosts data"
 msgstr "Virtuálny hostiteľ"
-
-#: src/EBox/WebServer/Model/GeneralSettings.pm:96
-#: src/EBox/WebServer/Model/GeneralSettings.pm:108
-#: src/EBox/WebServer/Model/GeneralSettings.pm:119
-#: src/EBox/WebServer/Model/GeneralSettings.pm:229
-msgid "Listening port"
-msgstr "Načúvací port"
-
-#: src/EBox/WebServer/Model/GeneralSettings.pm:114
-#, perl-brace-format
-msgid ""
-"Zentyal Administration is running on this port, change it on {ohref}System -"
-"> General{chref}."
-msgstr ""
-"Na tomto porte je spustená správa Zentyal-u. Môžete to zmeniť v {ohref}"
-"System -> General{chref}."
-
-#: src/EBox/WebServer/Model/GeneralSettings.pm:127
-#, perl-brace-format
-msgid ""
-"You need a Service Certificate for the Web Server module, enable it on "
-"{ohref}Certification Authority -> Service Certificates{chref}."
-msgstr ""
-
-#: src/EBox/WebServer/Model/GeneralSettings.pm:139
-msgid ""
-"Having installed and configured the Users and Groups module is required to "
-"allow HTML directories for users."
-msgstr ""
-
-#: src/EBox/WebServer/Model/GeneralSettings.pm:145
-msgid ""
-"A properly configured Users and Groups module is required to allow HTML "
-"directories for users. To configure it, please enable it at least one time."
-msgstr ""
-
-#: src/EBox/WebServer/Model/GeneralSettings.pm:235
-msgid "Listening SSL port"
-msgstr "Načúvací SSL port"
-
-#: src/EBox/WebServer/Model/GeneralSettings.pm:239
-#: src/EBox/WebServer/Model/VHostTable.pm:252
-msgid "Disabled"
-msgstr "Zakázaný"
-
-#: src/EBox/WebServer/Model/GeneralSettings.pm:244
-msgid "Enabled"
-msgstr ""
-
-#: src/EBox/WebServer/Model/GeneralSettings.pm:252
-#, perl-brace-format
-msgid "Enable per user {dirName}"
-msgstr "Povoliť podľa užívateľa {dirName}"
-
-#: src/EBox/WebServer/Model/GeneralSettings.pm:256
-msgid ""
-"Allow users to publish web documents using the public_html directory on "
-"their home."
-msgstr ""
-
-#: src/EBox/WebServer/Model/GeneralSettings.pm:264
-msgid "General configuration settings"
-msgstr "Hlavné konfiguračné nastavenia"
-
-#: src/EBox/WebServer/Model/GeneralSettings.pm:268
-#, fuzzy, perl-brace-format
-msgid ""
-"General Web server configuration. The listening port must not be used by "
-"another service. If you enable user to publish their own html pages, those "
-"should be loaded from {dirName} directory from their home directories."
-msgstr ""
-"Hlavné konfiguračné nastavenia Web servera. Načúvací port nesmie byť použitý "
-"z existujúcich služieb. Ak povolíte užívateľom publikovať ich vlastné html "
-"stránky, tak stránky budú sťahované z priečinka {dirName} v ich domácich "
-"priečinkoch."
-
-#: src/EBox/WebServer/Model/GeneralSettings.pm:274
-#, fuzzy
-msgid "General Web server configuration settings updated."
-msgstr "Hlavné konfiguračné nastavenia Web servera aktualizované"
-
-#: src/EBox/WebServer/Model/VHostTable.pm:93
-msgid "Virtual host name"
-msgstr "Mená virtuálnych hostiteľov"
-
-#: src/EBox/WebServer/Model/VHostTable.pm:97
-#: src/EBox/WebServer/Model/VHostTable.pm:310
-msgid "Virtual host"
-msgstr "Virtuálny hostiteľ"
-
-#: src/EBox/WebServer/Model/VHostTable.pm:104
-msgid "SSL support is disabled. Enable it before adding a SSL virtual host."
-msgstr ""
-"SSL podpora je zakázaná. Povoľte ju pred pridaním SSL virtuálneho hostiteľa."
-
-#: src/EBox/WebServer/Model/VHostTable.pm:169
-#, perl-brace-format
-msgid ""
-"Virtual host {vhost} added. A domain {domain} has been created with the "
-"mapping name {name} - IP address {ip}. {noDnsWarning} "
-msgstr ""
-"Virtuálny hostiteľ {vhost} pridaný. Doména {domain} bola vytvorená s menom "
-"{name} - IP adresou {ip}. {noDnsWarning} "
-
-#: src/EBox/WebServer/Model/VHostTable.pm:188
-#, perl-brace-format
-msgid ""
-"Virtual host {vhost} added. A mapping name {name} - IP address {ip} has been "
-"added to {domain} domain."
-msgstr ""
-"Virtuálny hostiteľ {vhost} pridaný. Meno {name} - IP adresa {ip} boli "
-"pridané do {domain} domény"
-
-#: src/EBox/WebServer/Model/VHostTable.pm:202
-#, perl-brace-format
-msgid "Virtual host {vhost} added as an alias {alias} to hostname {hostname}."
-msgstr ""
-"Virtuálny hostiteľ {vhost} pridaný ako alias {alias} k hostiteľskému menu "
-"{hostname}"
-
-#: src/EBox/WebServer/Model/VHostTable.pm:208
-#: src/EBox/WebServer/Model/VHostTable.pm:213
-#, perl-brace-format
-msgid "Virtual host {vhost} added."
-msgstr "Virtuálny hostiteľ {vhost} pridaný"
-
-#: src/EBox/WebServer/Model/VHostTable.pm:218
-msgid "There is no static internal interface to set the Web server IP address."
-msgstr ""
-"Neexistuje statický interný adaptér na nastavenie IP adresy Web servera"
-
-#: src/EBox/WebServer/Model/VHostTable.pm:253
-msgid "Allow SSL"
-msgstr "Povoliť SSL"
-
-#: src/EBox/WebServer/Model/VHostTable.pm:254
-msgid "Force SSL"
-msgstr "Vynútiť SSL"
-
-#: src/EBox/WebServer/Model/VHostTable.pm:279
-msgid "SSL support"
-msgstr "SSL podpora"
-
-#: src/EBox/WebServer/Model/VHostTable.pm:286
-msgid "Name"
-msgstr "Meno"
-
-#: src/EBox/WebServer/Model/VHostTable.pm:296
-msgid "Virtual hosts"
-msgstr "Virtuálny hostiteľ"
-
-#: src/EBox/WebServer/Model/VHostTable.pm:300
-#, perl-brace-format
-msgid ""
-"Virtual hosts are a form of web hosting service where many instances of the "
-"same web server are hosted on a single physical server. Different host names "
-"point to the same web server. If feasible, the DNS entry is automatically "
-"created. The content must be placed under the {docRoot} directory. Any "
-"particular configuration you want to add must be placed in the {userConf} "
-"directory."
-msgstr ""
-"Virtuálny hostiteľ je forma hosťovania webových stránok, kde na viac "
-"webových sídiel je použitý fyzicky jeden server. Rôzne mená hostiteľov "
-"ukazujú na ten istý server. Ak je to možné, DNS záznam sa vytvorí "
-"automaticky. Obsah web sídla musí byť uložený v {docRoot} priečinku. "
-"Príslušná konfigurácia musí byť uložená v {userConf} priečinku"
-
-#: src/EBox/WebServer/Model/VHostTable.pm:331
-#, perl-brace-format
-msgid ""
-"{open}The DNS module is disabled. The added mapping or domains will not have "
-"any effect until you enable it"
-msgstr ""
-"{open}DNS modul je zakázaný. Pokiaľ nebude povolený, neprejavia sa zmeny v "
-"pridanom mapovaní alebo v doménach."
-
-#: src/EBox/WebServer/Composite/General.pm:76
-msgid "Configuration"
-msgstr "Konfigurácia"
-
-#: src/EBox/WebServer/Composite/General.pm:79
-#, fuzzy
-msgid ""
-"The Zentyal web service allows you to host Web pages in plain HTML within "
-"different virtual hosts."
-msgstr ""
-"eBox web služba vám umožňuje hosťovať webové stránky v obyčajnom HTML medzi "
-"rôznymi virtuálnymi hostiteľmi."

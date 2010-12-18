@@ -7,120 +7,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-openvpn 0.12\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-12-13 08:40+0100\n"
+"POT-Creation-Date: 2010-12-18 01:44+0100\n"
 "PO-Revision-Date: 2009-05-19 15:40+0200\n"
 "Last-Translator: Taro Yamazaki <taro@plum-systems.co.jp>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Pootle 1.1.0\n"
-
-#: src/EBox/OpenVPN/Server.pm:129
-#, perl-brace-format
-msgid "The port {p}/{pro} is already in use"
-msgstr "ポート {p}/{pro} はすでに使用中です"
-
-#: src/EBox/OpenVPN/Server.pm:228
-#, perl-brace-format
-msgid "The certificate {cn} does not exist"
-msgstr "証明書 {cn} が存在しません"
-
-#: src/EBox/OpenVPN/Server.pm:231
-#, perl-brace-format
-msgid "The certificate {cn} has expired"
-msgstr "証明書 {cn} は期限切れです"
-
-#: src/EBox/OpenVPN/Server.pm:234
-#, perl-brace-format
-msgid "The certificate {cn} has been revoked"
-msgstr "証明書 {cn} は無効です"
-
-#: src/EBox/OpenVPN/Server.pm:252
-#, perl-brace-format
-msgid "The server {name} does not have certificate assigned"
-msgstr "サーバ {name} は証明書を保有していません"
-
-#: src/EBox/OpenVPN/Server.pm:273
-#, perl-brace-format
-msgid ""
-"Cannot get key of server {name} because it does not have any certificate "
-"assigned"
-msgstr "サーバ {name} は証明書を保有していないため、鍵を取得できません"
-
-#: src/EBox/OpenVPN/Server.pm:450
-#, perl-brace-format
-msgid "No IP address found for interface {iface}"
-msgstr "インタフェース {iface} のIPアドレスが見つかりません"
-
-#: src/EBox/OpenVPN/Server.pm:555
-msgid "OpenVPN servers cannot be used for internal services"
-msgstr "OpenVPNサーバは内部サービスには使用できません"
-
-#: src/EBox/OpenVPN/Server.pm:582
-#, perl-brace-format
-msgid "Unsupported client type: {ct}"
-msgstr "サポートされていないクライアントタイプです: {ct}"
-
-#: src/EBox/OpenVPN/Server.pm:779
-#, perl-brace-format
-msgid "Server {name}"
-msgstr "サーバ {name}"
-
-#: src/EBox/OpenVPN/Server.pm:781 src/EBox/OpenVPN/Client.pm:401
-#: src/EBox/OpenVPN/Model/Servers.pm:68
-msgid "Enabled"
-msgstr "有効"
-
-#: src/EBox/OpenVPN/Server.pm:781 src/EBox/OpenVPN/Client.pm:401
-msgid "Disabled"
-msgstr "無効"
-
-#: src/EBox/OpenVPN/Server.pm:782 src/EBox/OpenVPN/Client.pm:402
-msgid "Service"
-msgstr "サービス"
-
-#: src/EBox/OpenVPN/Server.pm:784 src/EBox/OpenVPN/Client.pm:404
-msgid "Running"
-msgstr "動作"
-
-#: src/EBox/OpenVPN/Server.pm:784 src/EBox/OpenVPN/Client.pm:404
-msgid "Stopped"
-msgstr "停止"
-
-#: src/EBox/OpenVPN/Server.pm:785 src/EBox/OpenVPN/Client.pm:405
-msgid "Daemon status"
-msgstr "デーモン状態"
-
-#: src/EBox/OpenVPN/Server.pm:788
-msgid "All external interfaces"
-msgstr "全ての外部インタフェース"
-
-#: src/EBox/OpenVPN/Server.pm:789
-msgid "Local address"
-msgstr "ローカルアドレス"
-
-#: src/EBox/OpenVPN/Server.pm:794
-msgid "Port"
-msgstr "ポート"
-
-#: src/EBox/OpenVPN/Server.pm:797
-msgid "VPN subnet"
-msgstr "VPNサブネット"
-
-#: src/EBox/OpenVPN/Server.pm:800
-msgid "VPN network interface"
-msgstr "VPNネットワークインタフェース"
-
-#: src/EBox/OpenVPN/Server.pm:804 src/EBox/OpenVPN/Server.pm:806
-#: src/EBox/OpenVPN/Client.pm:417 src/EBox/OpenVPN/Client.pm:419
-msgid "VPN interface address"
-msgstr "VPNインタフェースアドレス"
-
-#: src/EBox/OpenVPN/Server.pm:806 src/EBox/OpenVPN/Client.pm:419
-msgid "No active"
-msgstr "アクティブなものはありません"
 
 #: src/EBox/OpenVPN/Client/ValidateCertificate.pm:46
 #, perl-brace-format
@@ -166,33 +62,6 @@ msgid ""
 msgstr ""
 "クライアント証明書として渡されたファイルが証明書のプライベート鍵として渡され"
 "たファイルと一致しません"
-
-#: src/EBox/OpenVPN/Types/TlsRemote.pm:52
-msgid "disabled"
-msgstr "無効"
-
-#: src/EBox/OpenVPN/Client.pm:242
-#, perl-brace-format
-msgid ""
-"VPN client should not be configured to connect to the address {addr} because "
-"is a address of the localhost itsef"
-msgstr ""
-
-#: src/EBox/OpenVPN/Client.pm:260
-#, perl-brace-format
-msgid ""
-"VPN client should not be configured to connect to the address {addr} because "
-"is a address of a local network interface"
-msgstr ""
-
-#: src/EBox/OpenVPN/Client.pm:399
-#, perl-brace-format
-msgid "Client {name}"
-msgstr "クライアント {name}"
-
-#: src/EBox/OpenVPN/Client.pm:413
-msgid "Connection target"
-msgstr "接続ターゲット"
 
 #: src/EBox/OpenVPN/Model/ServerConfiguration.pm:73
 #: src/EBox/OpenVPN/Model/ClientConfiguration.pm:93
@@ -326,6 +195,30 @@ msgstr ""
 "内部インタフェースで動作させるVPNサーバはネットワークアドレス変換オプションを"
 "アクティブに設定する必要があります"
 
+#: src/EBox/OpenVPN/Model/ExposedNetworks.pm:60
+#: src/EBox/OpenVPN/Model/ExposedNetworks.pm:75
+#, fuzzy
+msgid "Advertised network"
+msgstr "アドバタイズされたネットワーク"
+
+#: src/EBox/OpenVPN/Model/ExposedNetworks.pm:69
+#, fuzzy
+msgid "List of Advertised Networks"
+msgstr "アドバタイズされたネットワーク"
+
+#: src/EBox/OpenVPN/Model/ExposedNetworks.pm:101
+msgid ""
+"The advertised network address could not be the same than the VPN address"
+msgstr ""
+
+#: src/EBox/OpenVPN/Model/ExposedNetworks.pm:126
+#, perl-brace-format
+msgid ""
+"{openpar}You can add here those networks which you want to make available to "
+"clients connecting to this VPN.{closepar}{openpar}Typically, you will allow "
+"access to your LAN by advertising its network address here{closepar}"
+msgstr ""
+
 #: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:61
 msgid "Client's type"
 msgstr "クライアントタイプ"
@@ -411,98 +304,20 @@ msgid ""
 "complete the configuration and retry"
 msgstr ""
 
-#: src/EBox/OpenVPN/Model/ExposedNetworks.pm:60
-#: src/EBox/OpenVPN/Model/ExposedNetworks.pm:75
-#, fuzzy
-msgid "Advertised network"
-msgstr "アドバタイズされたネットワーク"
-
-#: src/EBox/OpenVPN/Model/ExposedNetworks.pm:69
-#, fuzzy
-msgid "List of Advertised Networks"
-msgstr "アドバタイズされたネットワーク"
-
-#: src/EBox/OpenVPN/Model/ExposedNetworks.pm:101
-msgid ""
-"The advertised network address could not be the same than the VPN address"
-msgstr ""
-
-#: src/EBox/OpenVPN/Model/ExposedNetworks.pm:126
-#, perl-brace-format
-msgid ""
-"{openpar}You can add here those networks which you want to make available to "
-"clients connecting to this VPN.{closepar}{openpar}Typically, you will allow "
-"access to your LAN by advertising its network address here{closepar}"
-msgstr ""
-
-#: src/EBox/OpenVPN/Model/ClientConfiguration.pm:64
-#: src/EBox/OpenVPN/Model/Clients.pm:75 src/EBox/OpenVPN/Model/Servers.pm:84
-msgid "Configuration"
-msgstr "設定"
-
-#: src/EBox/OpenVPN/Model/ClientConfiguration.pm:69
-#, fuzzy
-msgid "Manual Configuration"
-msgstr "設定"
-
-#: src/EBox/OpenVPN/Model/ClientConfiguration.pm:72
-msgid "Zentyal bundle"
-msgstr ""
-
-#: src/EBox/OpenVPN/Model/ClientConfiguration.pm:78
-#, fuzzy
-msgid "Upload configuration's bundle"
-msgstr "クライアント {name} の設定が更新されました"
-
-#: src/EBox/OpenVPN/Model/ClientConfiguration.pm:87
-msgid "Server"
-msgstr "サーバ"
-
-#: src/EBox/OpenVPN/Model/ClientConfiguration.pm:100
-msgid "CA's certificate"
-msgstr "CA証明書"
-
-#: src/EBox/OpenVPN/Model/ClientConfiguration.pm:122
-msgid "Client's private key"
-msgstr "クライアントのプライベート鍵"
-
-#: src/EBox/OpenVPN/Model/ClientConfiguration.pm:133
-msgid "Server tunnel password"
-msgstr ""
-
-#: src/EBox/OpenVPN/Model/ClientConfiguration.pm:144
-msgid "Client configuration"
-msgstr "クライアント設定"
-
-#: src/EBox/OpenVPN/Model/ClientConfiguration.pm:150
-#: src/EBox/OpenVPN/Model/Clients.pm:102
-#, fuzzy
-msgid "client"
-msgstr "クライアント"
-
-#: src/EBox/OpenVPN/Model/ClientConfiguration.pm:280
-#, perl-brace-format
-msgid "No file supplied or already set for {f}"
-msgstr ""
-
-#: src/EBox/OpenVPN/Model/DeletedDaemons.pm:42
 #: src/EBox/OpenVPN/Model/Clients.pm:60 src/EBox/OpenVPN/Model/Servers.pm:76
+#: src/EBox/OpenVPN/Model/DeletedDaemons.pm:42
 msgid "Name"
 msgstr "名前"
-
-#: src/EBox/OpenVPN/Model/DeletedDaemons.pm:57
-#, fuzzy
-msgid "Deleted daemons"
-msgstr "OpenVPNデーモン"
-
-#: src/EBox/OpenVPN/Model/DeletedDaemons.pm:63
-msgid "daemon"
-msgstr ""
 
 #: src/EBox/OpenVPN/Model/Clients.pm:67
 #, fuzzy
 msgid "Enable"
 msgstr "有効"
+
+#: src/EBox/OpenVPN/Model/Clients.pm:75 src/EBox/OpenVPN/Model/Servers.pm:84
+#: src/EBox/OpenVPN/Model/ClientConfiguration.pm:64
+msgid "Configuration"
+msgstr "設定"
 
 #: src/EBox/OpenVPN/Model/Clients.pm:94
 #, fuzzy
@@ -514,6 +329,12 @@ msgstr "アドバタイズされたネットワーク"
 msgid "VPN Clients"
 msgstr "クライアント"
 
+#: src/EBox/OpenVPN/Model/Clients.pm:102
+#: src/EBox/OpenVPN/Model/ClientConfiguration.pm:150
+#, fuzzy
+msgid "client"
+msgstr "クライアント"
+
 #: src/EBox/OpenVPN/Model/Clients.pm:145
 msgid ""
 "Cannot activate the client because is not fully configured; please edit the "
@@ -523,6 +344,11 @@ msgstr ""
 #: src/EBox/OpenVPN/Model/Clients.pm:182
 msgid "RIP password is mandatory"
 msgstr ""
+
+#: src/EBox/OpenVPN/Model/Servers.pm:68 src/EBox/OpenVPN/Server.pm:781
+#: src/EBox/OpenVPN/Client.pm:401
+msgid "Enabled"
+msgstr "有効"
 
 #: src/EBox/OpenVPN/Model/Servers.pm:93
 msgid "Advertised networks"
@@ -591,6 +417,200 @@ msgid ""
 "download a file bundle for your operating system to use in your clients."
 msgstr ""
 
+#: src/EBox/OpenVPN/Model/ClientConfiguration.pm:69
+#, fuzzy
+msgid "Manual Configuration"
+msgstr "設定"
+
+#: src/EBox/OpenVPN/Model/ClientConfiguration.pm:72
+msgid "Zentyal bundle"
+msgstr ""
+
+#: src/EBox/OpenVPN/Model/ClientConfiguration.pm:78
+#, fuzzy
+msgid "Upload configuration's bundle"
+msgstr "クライアント {name} の設定が更新されました"
+
+#: src/EBox/OpenVPN/Model/ClientConfiguration.pm:87
+msgid "Server"
+msgstr "サーバ"
+
+#: src/EBox/OpenVPN/Model/ClientConfiguration.pm:100
+msgid "CA's certificate"
+msgstr "CA証明書"
+
+#: src/EBox/OpenVPN/Model/ClientConfiguration.pm:122
+msgid "Client's private key"
+msgstr "クライアントのプライベート鍵"
+
+#: src/EBox/OpenVPN/Model/ClientConfiguration.pm:133
+msgid "Server tunnel password"
+msgstr ""
+
+#: src/EBox/OpenVPN/Model/ClientConfiguration.pm:144
+msgid "Client configuration"
+msgstr "クライアント設定"
+
+#: src/EBox/OpenVPN/Model/ClientConfiguration.pm:280
+#, perl-brace-format
+msgid "No file supplied or already set for {f}"
+msgstr ""
+
+#: src/EBox/OpenVPN/Model/DeletedDaemons.pm:57
+#, fuzzy
+msgid "Deleted daemons"
+msgstr "OpenVPNデーモン"
+
+#: src/EBox/OpenVPN/Model/DeletedDaemons.pm:63
+msgid "daemon"
+msgstr ""
+
+#: src/EBox/OpenVPN/Types/TlsRemote.pm:52
+msgid "disabled"
+msgstr "無効"
+
+#: src/EBox/OpenVPN/Server.pm:129
+#, perl-brace-format
+msgid "The port {p}/{pro} is already in use"
+msgstr "ポート {p}/{pro} はすでに使用中です"
+
+#: src/EBox/OpenVPN/Server.pm:228
+#, perl-brace-format
+msgid "The certificate {cn} does not exist"
+msgstr "証明書 {cn} が存在しません"
+
+#: src/EBox/OpenVPN/Server.pm:231
+#, perl-brace-format
+msgid "The certificate {cn} has expired"
+msgstr "証明書 {cn} は期限切れです"
+
+#: src/EBox/OpenVPN/Server.pm:234
+#, perl-brace-format
+msgid "The certificate {cn} has been revoked"
+msgstr "証明書 {cn} は無効です"
+
+#: src/EBox/OpenVPN/Server.pm:252
+#, perl-brace-format
+msgid "The server {name} does not have certificate assigned"
+msgstr "サーバ {name} は証明書を保有していません"
+
+#: src/EBox/OpenVPN/Server.pm:273
+#, perl-brace-format
+msgid ""
+"Cannot get key of server {name} because it does not have any certificate "
+"assigned"
+msgstr "サーバ {name} は証明書を保有していないため、鍵を取得できません"
+
+#: src/EBox/OpenVPN/Server.pm:450
+#, perl-brace-format
+msgid "No IP address found for interface {iface}"
+msgstr "インタフェース {iface} のIPアドレスが見つかりません"
+
+#: src/EBox/OpenVPN/Server.pm:555
+msgid "OpenVPN servers cannot be used for internal services"
+msgstr "OpenVPNサーバは内部サービスには使用できません"
+
+#: src/EBox/OpenVPN/Server.pm:582
+#, perl-brace-format
+msgid "Unsupported client type: {ct}"
+msgstr "サポートされていないクライアントタイプです: {ct}"
+
+#: src/EBox/OpenVPN/Server.pm:779
+#, perl-brace-format
+msgid "Server {name}"
+msgstr "サーバ {name}"
+
+#: src/EBox/OpenVPN/Server.pm:781 src/EBox/OpenVPN/Client.pm:401
+msgid "Disabled"
+msgstr "無効"
+
+#: src/EBox/OpenVPN/Server.pm:782 src/EBox/OpenVPN/Client.pm:402
+msgid "Service"
+msgstr "サービス"
+
+#: src/EBox/OpenVPN/Server.pm:784 src/EBox/OpenVPN/Client.pm:404
+msgid "Running"
+msgstr "動作"
+
+#: src/EBox/OpenVPN/Server.pm:784 src/EBox/OpenVPN/Client.pm:404
+msgid "Stopped"
+msgstr "停止"
+
+#: src/EBox/OpenVPN/Server.pm:785 src/EBox/OpenVPN/Client.pm:405
+msgid "Daemon status"
+msgstr "デーモン状態"
+
+#: src/EBox/OpenVPN/Server.pm:788
+msgid "All external interfaces"
+msgstr "全ての外部インタフェース"
+
+#: src/EBox/OpenVPN/Server.pm:789
+msgid "Local address"
+msgstr "ローカルアドレス"
+
+#: src/EBox/OpenVPN/Server.pm:794
+msgid "Port"
+msgstr "ポート"
+
+#: src/EBox/OpenVPN/Server.pm:797
+msgid "VPN subnet"
+msgstr "VPNサブネット"
+
+#: src/EBox/OpenVPN/Server.pm:800
+msgid "VPN network interface"
+msgstr "VPNネットワークインタフェース"
+
+#: src/EBox/OpenVPN/Server.pm:804 src/EBox/OpenVPN/Server.pm:806
+#: src/EBox/OpenVPN/Client.pm:417 src/EBox/OpenVPN/Client.pm:419
+msgid "VPN interface address"
+msgstr "VPNインタフェースアドレス"
+
+#: src/EBox/OpenVPN/Server.pm:806 src/EBox/OpenVPN/Client.pm:419
+msgid "No active"
+msgstr "アクティブなものはありません"
+
+#: src/EBox/OpenVPN/Client.pm:242
+#, perl-brace-format
+msgid ""
+"VPN client should not be configured to connect to the address {addr} because "
+"is a address of the localhost itsef"
+msgstr ""
+
+#: src/EBox/OpenVPN/Client.pm:260
+#, perl-brace-format
+msgid ""
+"VPN client should not be configured to connect to the address {addr} because "
+"is a address of a local network interface"
+msgstr ""
+
+#: src/EBox/OpenVPN/Client.pm:399
+#, perl-brace-format
+msgid "Client {name}"
+msgstr "クライアント {name}"
+
+#: src/EBox/OpenVPN/Client.pm:413
+msgid "Connection target"
+msgstr "接続ターゲット"
+
+#: src/EBox/OpenVPN/Server/ClientBundleGenerator.pm:48
+msgid "Server's address"
+msgstr "サーバのアドレス"
+
+#: src/EBox/OpenVPN/Server/ClientBundleGenerator.pm:56
+#, perl-brace-format
+msgid "You must provide at least one address for the server {name}"
+msgstr "少なくとも1つのアドレスをサーバ {name} に与える必要があります"
+
+#: src/EBox/OpenVPN/Server/ClientBundleGenerator.pm:102
+msgid "Can't get address for this server: no external interfaces present"
+msgstr ""
+"このサーバのためにアドレスを取得することができません: 外部インタフェースがあ"
+"りません"
+
+#: src/EBox/OpenVPN/Server/ClientBundleGenerator.pm:214
+msgid "The client certificate can't be the same than the server's one"
+msgstr "クライアント証明書はサーバ証明書と同一であってはいけません"
+
 #: src/EBox/OpenVPN/Server/ClientBundleGenerator/EBoxToEBox.pm:132
 msgid ""
 "This bundle is not a valid Zentyal-to-Zentyal configuration bundle. (Cannot "
@@ -621,25 +641,6 @@ msgid ""
 "certificate private key file)"
 msgstr ""
 
-#: src/EBox/OpenVPN/Server/ClientBundleGenerator.pm:48
-msgid "Server's address"
-msgstr "サーバのアドレス"
-
-#: src/EBox/OpenVPN/Server/ClientBundleGenerator.pm:56
-#, perl-brace-format
-msgid "You must provide at least one address for the server {name}"
-msgstr "少なくとも1つのアドレスをサーバ {name} に与える必要があります"
-
-#: src/EBox/OpenVPN/Server/ClientBundleGenerator.pm:102
-msgid "Can't get address for this server: no external interfaces present"
-msgstr ""
-"このサーバのためにアドレスを取得することができません: 外部インタフェースがあ"
-"りません"
-
-#: src/EBox/OpenVPN/Server/ClientBundleGenerator.pm:214
-msgid "The client certificate can't be the same than the server's one"
-msgstr "クライアント証明書はサーバ証明書と同一であってはいけません"
-
 #: src/EBox/OpenVPN.pm:71
 #, fuzzy
 msgid "VPN"
@@ -665,7 +666,7 @@ msgstr "ripdがクライアント間接続と経路を交換するよう設定"
 msgid "To remove system-wide VPN servers autostart"
 msgstr ""
 
-#: src/EBox/OpenVPN.pm:681
+#: src/EBox/OpenVPN.pm:676
 #, fuzzy, perl-brace-format
 msgid ""
 "Invalid name {name}. Only alpahanumeric  and '-', '_', '.' characters are "
@@ -674,17 +675,17 @@ msgstr ""
 "{name} は無効な名前です。最大で20文字の半角英数字及びアンダースコア_のみ使用"
 "可能です"
 
-#: src/EBox/OpenVPN.pm:694
+#: src/EBox/OpenVPN.pm:689
 #, perl-brace-format
 msgid "Cannot use the name {n} because there is a client with the same name"
 msgstr ""
 
-#: src/EBox/OpenVPN.pm:705
+#: src/EBox/OpenVPN.pm:700
 #, perl-brace-format
 msgid "Cannot use the name {n} because there is a server with the same name"
 msgstr ""
 
-#: src/EBox/OpenVPN.pm:727
+#: src/EBox/OpenVPN.pm:722
 #, perl-brace-format
 msgid ""
 "Invalid name {name}. Name which begins with the prefix {pf} are reserved for "
@@ -693,7 +694,7 @@ msgstr ""
 "{name} は無効な名前です。プリフィックス {pf} から始まる名前は内部的に使用され"
 "ます"
 
-#: src/EBox/OpenVPN.pm:736
+#: src/EBox/OpenVPN.pm:731
 #, perl-brace-format
 msgid ""
 "Invalid name {name}. A internal daemon must have a name which begins with "
@@ -702,94 +703,94 @@ msgstr ""
 "名前{name}は無効です。内部デーモンにはプリフィックス{pf}で始まる名前を付けて"
 "ください。"
 
-#: src/EBox/OpenVPN.pm:1462
+#: src/EBox/OpenVPN.pm:1457
 #, fuzzy, perl-brace-format
 msgid "Client {c} does not exists"
 msgstr "インタフェース{iface}は存在しません"
 
-#: src/EBox/OpenVPN.pm:1490
+#: src/EBox/OpenVPN.pm:1485
 msgid "Servers"
 msgstr "サーバ"
 
-#: src/EBox/OpenVPN.pm:1496
+#: src/EBox/OpenVPN.pm:1491
 msgid "Clients"
 msgstr "クライアント"
 
-#: src/EBox/OpenVPN.pm:1509
+#: src/EBox/OpenVPN.pm:1504
 #, fuzzy
 msgid "Common name"
 msgstr "クライアント名"
 
-#: src/EBox/OpenVPN.pm:1509
+#: src/EBox/OpenVPN.pm:1504
 #, fuzzy
 msgid "Address"
 msgstr "ネットアドレス"
 
-#: src/EBox/OpenVPN.pm:1509
+#: src/EBox/OpenVPN.pm:1504
 #, fuzzy
 msgid "Connected since"
 msgstr "接続ターゲット"
 
-#: src/EBox/OpenVPN.pm:1536
+#: src/EBox/OpenVPN.pm:1531
 msgid "No users connected to the VPN"
 msgstr ""
 
-#: src/EBox/OpenVPN.pm:1577
+#: src/EBox/OpenVPN.pm:1572
 msgid "OpenVPN daemons"
 msgstr "OpenVPNデーモン"
 
-#: src/EBox/OpenVPN.pm:1640
+#: src/EBox/OpenVPN.pm:1635
 msgid "Date"
 msgstr "日付"
 
-#: src/EBox/OpenVPN.pm:1641
+#: src/EBox/OpenVPN.pm:1636
 msgid "Event"
 msgstr "イベント"
 
-#: src/EBox/OpenVPN.pm:1643
+#: src/EBox/OpenVPN.pm:1638
 msgid "Type"
 msgstr "タイプ"
 
-#: src/EBox/OpenVPN.pm:1644
+#: src/EBox/OpenVPN.pm:1639
 msgid "Remote IP"
 msgstr "リモートIP"
 
-#: src/EBox/OpenVPN.pm:1645
+#: src/EBox/OpenVPN.pm:1640
 msgid "Remote Certificate"
 msgstr "リモート証明書"
 
-#: src/EBox/OpenVPN.pm:1650
+#: src/EBox/OpenVPN.pm:1645
 msgid "Initialization sequence completed"
 msgstr "初期化が終了しました"
 
-#: src/EBox/OpenVPN.pm:1652
+#: src/EBox/OpenVPN.pm:1647
 msgid "Certificate issuer not authorized"
 msgstr "証明書発行者は認証されていません"
 
-#: src/EBox/OpenVPN.pm:1653
+#: src/EBox/OpenVPN.pm:1648
 msgid "Certificate common name not authorized"
 msgstr "証明書共通名は認証されていません"
 
-#: src/EBox/OpenVPN.pm:1654
+#: src/EBox/OpenVPN.pm:1649
 msgid "Certificate verification failed"
 msgstr "証明書の確認に失敗しました"
 
-#: src/EBox/OpenVPN.pm:1656
+#: src/EBox/OpenVPN.pm:1651
 msgid "Client connection initiated"
 msgstr "クライアントとの接続が開始されました"
 
-#: src/EBox/OpenVPN.pm:1657
+#: src/EBox/OpenVPN.pm:1652
 msgid "Client connection terminated"
 msgstr "クライアントとの接続が切断されました"
 
-#: src/EBox/OpenVPN.pm:1659
+#: src/EBox/OpenVPN.pm:1654
 msgid "Connection to server initiated"
 msgstr "サーバとの接続が開始されました"
 
-#: src/EBox/OpenVPN.pm:1660
+#: src/EBox/OpenVPN.pm:1655
 msgid "Server connection terminated"
 msgstr "サーバとの接続が切断されました"
 
-#: src/EBox/OpenVPN.pm:1689
+#: src/EBox/OpenVPN.pm:1684
 msgid "You must set insecure_rip_conf to yes or no"
 msgstr ""

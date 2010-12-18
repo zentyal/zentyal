@@ -7,10 +7,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-printers 0.12.99\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-12-13 08:42+0100\n"
+"POT-Creation-Date: 2010-12-18 01:45+0100\n"
 "PO-Revision-Date: 2009-08-04 07:47+0200\n"
 "Last-Translator: Chao-Hsiung Liao <j_h_liau@yahoo.com.tw>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -19,72 +20,6 @@ msgstr ""
 #: migration/0001_add_ipp_service.pl:117
 msgid "Cups printer server port"
 msgstr "Cups 印表機伺服器連接埠"
-
-#: src/EBox/Printers.pm:41 src/EBox/Composite/General.pm:60
-#, fuzzy
-msgid "Printer Sharing"
-msgstr "印表機分享"
-
-#: src/EBox/Printers.pm:56
-msgid "Create spool directory for printers"
-msgstr "建立印表機的 spool 目錄"
-
-#: src/EBox/Printers.pm:57
-#, fuzzy
-msgid "Zentyal will create a spool directory under /var/spool/samba"
-msgstr "eBox 將會建立 spool 目錄在 /var/spool/samba"
-
-#: src/EBox/Printers.pm:62
-msgid "Create log table"
-msgstr "建立日誌表"
-
-#: src/EBox/Printers.pm:63
-#, fuzzy
-msgid ""
-"Zentyal will create a new table into its log database to store printers logs"
-msgstr "eBox 將會建立新表單到日誌資料庫來儲存印表日誌"
-
-#: src/EBox/Printers.pm:79
-#, fuzzy
-msgid "To configure cupsd"
-msgstr "印表機尚未設置"
-
-#: src/EBox/Printers.pm:221
-msgid "Job ID"
-msgstr "列印 ID"
-
-#: src/EBox/Printers.pm:222
-msgid "Printer"
-msgstr "印表機"
-
-#: src/EBox/Printers.pm:223
-msgid "User"
-msgstr "使用者"
-
-#: src/EBox/Printers.pm:224
-#, fuzzy
-msgid "Date"
-msgstr "刪除"
-
-#: src/EBox/Printers.pm:225
-msgid "Event"
-msgstr "事件"
-
-#: src/EBox/Printers.pm:229
-msgid "Queued"
-msgstr "佇列"
-
-#: src/EBox/Printers.pm:230
-msgid "Completed"
-msgstr ""
-
-#: src/EBox/Printers.pm:231
-msgid "Canceled"
-msgstr "取消"
-
-#: src/EBox/Printers.pm:235
-msgid "Printers"
-msgstr "印表機"
 
 #: src/EBox/Model/CUPS.pm:142
 #, perl-brace-format
@@ -123,3 +58,69 @@ msgid ""
 "To add or manage printers you have to use the {open_href}CUPS Web Interface"
 "{close_href}"
 msgstr ""
+
+#: src/EBox/Printers.pm:41 src/EBox/Composite/General.pm:60
+#, fuzzy
+msgid "Printer Sharing"
+msgstr "印表機分享"
+
+#: src/EBox/Printers.pm:56
+msgid "Create spool directory for printers"
+msgstr "建立印表機的 spool 目錄"
+
+#: src/EBox/Printers.pm:57
+#, fuzzy
+msgid "Zentyal will create a spool directory under /var/spool/samba"
+msgstr "eBox 將會建立 spool 目錄在 /var/spool/samba"
+
+#: src/EBox/Printers.pm:62
+msgid "Create log table"
+msgstr "建立日誌表"
+
+#: src/EBox/Printers.pm:63
+#, fuzzy
+msgid ""
+"Zentyal will create a new table into its log database to store printers logs"
+msgstr "eBox 將會建立新表單到日誌資料庫來儲存印表日誌"
+
+#: src/EBox/Printers.pm:79
+#, fuzzy
+msgid "To configure cupsd"
+msgstr "印表機尚未設置"
+
+#: src/EBox/Printers.pm:251
+msgid "Job ID"
+msgstr "列印 ID"
+
+#: src/EBox/Printers.pm:252
+msgid "Printer"
+msgstr "印表機"
+
+#: src/EBox/Printers.pm:253
+msgid "User"
+msgstr "使用者"
+
+#: src/EBox/Printers.pm:254
+#, fuzzy
+msgid "Date"
+msgstr "刪除"
+
+#: src/EBox/Printers.pm:255
+msgid "Event"
+msgstr "事件"
+
+#: src/EBox/Printers.pm:259
+msgid "Queued"
+msgstr "佇列"
+
+#: src/EBox/Printers.pm:260
+msgid "Completed"
+msgstr ""
+
+#: src/EBox/Printers.pm:261
+msgid "Canceled"
+msgstr "取消"
+
+#: src/EBox/Printers.pm:265
+msgid "Printers"
+msgstr "印表機"

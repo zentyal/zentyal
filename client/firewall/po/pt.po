@@ -7,24 +7,284 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-firewall 0.12\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-12-13 08:39+0100\n"
+"POT-Creation-Date: 2010-12-18 01:43+0100\n"
 "PO-Revision-Date: 2010-08-26 11:59+0200\n"
 "Last-Translator: Vasco Castelo Branco <vcbranco@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: src/EBox/Iptables.pm:838 src/EBox/Iptables.pm:875
-#: src/EBox/Firewall/IptablesRedirectRule.pm:78
+#: src/EBox/Firewall/Model/ToInternetRuleTable.pm:65
+msgid "Internal networks"
+msgstr "Redes internas"
+
+#: src/EBox/Firewall/Model/ToInternetRuleTable.pm:77
+#: src/EBox/Firewall/Model/EBoxOutputRuleTable.pm:77
+#: src/EBox/Firewall/Model/ExternalToInternalRuleTable.pm:80
+#: src/EBox/Firewall/Model/InternalToEBoxRuleTable.pm:77
+#: src/EBox/Firewall/Model/ExternalToEBoxRuleTable.pm:79
+#: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:161
+msgid "rule"
+msgstr "regra"
+
+#: src/EBox/Firewall/Model/EBoxOutputRuleTable.pm:68
+msgid "Traffic coming out from Zentyal"
+msgstr "Tráfego que sai da Zentyal"
+
+#: src/EBox/Firewall/Model/ExternalToInternalRuleTable.pm:68
+msgid "External networks to internal networks"
+msgstr "Redes externas para as redes internas"
+
+#: src/EBox/Firewall/Model/RedirectsTable.pm:145
+msgid "Contradictory rule found. Remove it first"
+msgstr "Foi encontrada uma regra contraditória. Remova-a primeiro"
+
+#: src/EBox/Firewall/Model/RedirectsTable.pm:249
+msgid "Interface"
+msgstr "Interface"
+
+#: src/EBox/Firewall/Model/RedirectsTable.pm:256
+msgid "Original destination"
+msgstr "Destino original"
+
+#: src/EBox/Firewall/Model/RedirectsTable.pm:264
+msgid "IP Address"
+msgstr "Endereço IP"
+
+#: src/EBox/Firewall/Model/RedirectsTable.pm:268
+msgid "Object"
+msgstr "Objecto"
+
+#: src/EBox/Firewall/Model/RedirectsTable.pm:279
+msgid "Original destination port"
+msgstr "Porto de destino original"
+
+#: src/EBox/Firewall/Model/RedirectsTable.pm:285 src/EBox/Firewall.pm:801
+msgid "Protocol"
+msgstr "Protocolo"
+
+#: src/EBox/Firewall/Model/RedirectsTable.pm:292
+#: src/EBox/Firewall/Model/BaseRuleTable.pm:121 src/EBox/Firewall.pm:799
+msgid "Source"
+msgstr "Fonte"
+
+#: src/EBox/Firewall/Model/RedirectsTable.pm:297
+#: src/EBox/Firewall/Model/BaseRuleTable.pm:126
+#: src/EBox/Firewall/Model/BaseRuleTable.pm:152
+msgid "Any"
+msgstr "Qualquer"
+
+#: src/EBox/Firewall/Model/RedirectsTable.pm:300
+#: src/EBox/Firewall/Model/BaseRuleTable.pm:129
+msgid "Source IP"
+msgstr "IP de origem"
+
+#: src/EBox/Firewall/Model/RedirectsTable.pm:304
+#: src/EBox/Firewall/Model/BaseRuleTable.pm:133
+msgid "Source object"
+msgstr "Objecto de origem"
+
+#: src/EBox/Firewall/Model/RedirectsTable.pm:315
+#: src/EBox/Firewall/Model/BaseRuleTable.pm:155
+msgid "Destination IP"
+msgstr "IP de destino"
+
+#: src/EBox/Firewall/Model/RedirectsTable.pm:321
+msgid "Port"
+msgstr "Porto"
+
+#: src/EBox/Firewall/Model/RedirectsTable.pm:326
+msgid "Same"
+msgstr "Mesmo"
+
+#: src/EBox/Firewall/Model/RedirectsTable.pm:329
+msgid "Other"
+msgstr "Outro"
+
+#: src/EBox/Firewall/Model/RedirectsTable.pm:337
+msgid "Log"
+msgstr "Registo"
+
+#: src/EBox/Firewall/Model/RedirectsTable.pm:339
+msgid "Log new forwarded connections"
+msgstr "Registar novas ligações encaminhadas"
+
+#: src/EBox/Firewall/Model/RedirectsTable.pm:344
+#: src/EBox/Firewall/Model/BaseRuleTable.pm:185
+msgid "Description"
+msgstr "Descrição"
+
+#: src/EBox/Firewall/Model/RedirectsTable.pm:361
+msgid "List of forwarded ports"
+msgstr "Lista dos portos reencaminhados"
+
+#: src/EBox/Firewall/Model/RedirectsTable.pm:362 src/EBox/Firewall.pm:785
+msgid "Port Forwarding"
+msgstr "Reencaminhamento de portos"
+
+#: src/EBox/Firewall/Model/RedirectsTable.pm:370
+msgid "forwarding"
+msgstr "reencaminhar"
+
+#: src/EBox/Firewall/Model/InternalToEBoxRuleTable.pm:68
+msgid "Internal networks to Zentyal"
+msgstr "Redes internas para a Zentyal"
+
+#: src/EBox/Firewall/Model/ExternalToEBoxRuleTable.pm:68
+msgid "External networks to Zentyal"
+msgstr "Redes externas para a Zentyal"
+
+#: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:37
+msgid "Input"
+msgstr "Entrada"
+
+#: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:38
+msgid "External Input"
+msgstr "Entrada externa"
+
+#: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:39
+msgid "Output"
+msgstr "Saída"
+
+#: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:40
+msgid "Forward"
+msgstr "Encaminhar"
+
+#: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:41
+msgid "NAT prerouting"
+msgstr "Rota prévia NAT"
+
+#: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:42
+msgid "NAT postrouting"
+msgstr "Rota seguinte NAT"
+
+#: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:118
+msgid "Rule"
+msgstr "Regra"
+
+#: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:123
+msgid "Enabled"
+msgstr "Activo"
+
+#: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:129
+msgid "Type"
+msgstr "Tipo"
+
+#: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:134
+msgid "Module"
+msgstr "Módulo"
+
+#: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:139
+msgid "Condition"
+msgstr "Condição"
+
+#: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:144
+#: src/EBox/Firewall/Model/BaseRuleTable.pm:112 src/EBox/Firewall.pm:804
+msgid "Decision"
+msgstr "Decisão"
+
+#: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:153
+#: src/templates/filter.mas:51
+msgid "Rules added by Zentyal services (Advanced)"
+msgstr "Regras adicionadas pelos serviços Zentyal (Avançado)"
+
+#: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:180
+#: src/EBox/Firewall/Model/BaseRuleTable.pm:213 src/EBox/Firewall.pm:782
+#: src/EBox/CGI/Filter.pm:28
+msgid "Packet Filter"
+msgstr "Filtro de pacotes"
+
+#: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:194
+#: src/EBox/Firewall/Model/BaseRuleTable.pm:227
+msgid "Configure Rules"
+msgstr "Configurar regras"
+
+#: src/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:46
+#: src/EBox/Firewall/Model/Report/PacketTrafficGraph.pm:52
+msgid "packets dropped"
+msgstr "pacotes descartados"
+
+#: src/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:60
+#: src/EBox/Firewall.pm:796
+msgid "Date"
+msgstr "Data"
+
+#: src/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:66
+msgid "Packets dropped"
+msgstr "Pacotes descartados"
+
+#: src/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:78
+msgid "Packet traffic details"
+msgstr "Detalhes do tráfego de pacotes"
+
+#: src/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:86
+msgid "traffic"
+msgstr "Tráfego"
+
+#: src/EBox/Firewall/Model/Report/PacketTrafficGraph.pm:64
+msgid "Firewall packet traffic chart"
+msgstr "Gráfico da filtragem de tráfego de pacotes"
+
+#: src/EBox/Firewall/Model/Report/PacketTrafficGraph.pm:86
+msgid "Packet traffic"
+msgstr "Tráfego de pacotes"
+
+#: src/EBox/Firewall/Model/BaseRuleTable.pm:66
+msgid "ACCEPT"
+msgstr "ACEITAR"
+
+#: src/EBox/Firewall/Model/BaseRuleTable.pm:68
+msgid "DENY"
+msgstr "NEGAR"
+
+#: src/EBox/Firewall/Model/BaseRuleTable.pm:70 src/EBox/Firewall.pm:809
+msgid "LOG"
+msgstr "REGISTO"
+
+#: src/EBox/Firewall/Model/BaseRuleTable.pm:147 src/EBox/Firewall.pm:800
+msgid "Destination"
+msgstr "Destino"
+
+#: src/EBox/Firewall/Model/BaseRuleTable.pm:160
+msgid "Destination object"
+msgstr "Objecto de destino"
+
+#: src/EBox/Firewall/Model/BaseRuleTable.pm:175
+msgid "Service"
+msgstr "Serviço"
+
+#: src/EBox/Firewall/Model/BaseRuleTable.pm:179
+msgid ""
+"If inverse match is ticked, any service but the selected one will match this "
+"rule"
+msgstr ""
+"Se a correspondência inversa estiver marcada todos os serviços menos o "
+"seleccionado corresponderão a esta regra"
+
+#: src/EBox/Firewall/Model/BaseRuleTable.pm:242
+msgid "'any service' cannot have a inverse march"
+msgstr "'qualquer serviço' não pode ter uma correspondência inversa"
+
+#: src/EBox/Firewall/Composite/Report/PacketTrafficReport.pm:69
+msgid "Packet traffic report"
+msgstr "Relatório de tráfego de pacotes"
+
+#: src/EBox/Firewall/Composite/Report/PacketTrafficReport.pm:70
+msgid "Firewall packet traffic report"
+msgstr "Relatório de tráfego de pacotes na firewall"
+
+#: src/EBox/Firewall/IptablesRedirectRule.pm:78 src/EBox/Iptables.pm:829
+#: src/EBox/Iptables.pm:866
 msgid ""
 "You must set the iptables_log_limit variable in the ebox configuration file"
 msgstr "Deve definir a variável iptables_log_limit no ficheiro de configuração"
 
-#: src/EBox/Iptables.pm:844 src/EBox/Iptables.pm:881
-#: src/EBox/Firewall/IptablesRedirectRule.pm:83
+#: src/EBox/Firewall/IptablesRedirectRule.pm:83 src/EBox/Iptables.pm:835
+#: src/EBox/Iptables.pm:872
 msgid ""
 "You must set the iptables_log_burst variable in the ebox configuration file"
 msgstr "Deve definir a variável iptables_log_burst no ficheiro de configuração"
@@ -78,21 +338,6 @@ msgstr "porto"
 msgid "protocol"
 msgstr "protocolo"
 
-#: src/EBox/Firewall.pm:782 src/EBox/CGI/Filter.pm:28
-#: src/EBox/Firewall/Model/BaseRuleTable.pm:213
-#: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:180
-msgid "Packet Filter"
-msgstr "Filtro de pacotes"
-
-#: src/EBox/Firewall.pm:785 src/EBox/Firewall/Model/RedirectsTable.pm:362
-msgid "Port Forwarding"
-msgstr "Reencaminhamento de portos"
-
-#: src/EBox/Firewall.pm:796
-#: src/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:60
-msgid "Date"
-msgstr "Data"
-
 #: src/EBox/Firewall.pm:797
 msgid "Input interface"
 msgstr "Interface de entrada"
@@ -100,19 +345,6 @@ msgstr "Interface de entrada"
 #: src/EBox/Firewall.pm:798
 msgid "Output interface"
 msgstr "Interface de saída"
-
-#: src/EBox/Firewall.pm:799 src/EBox/Firewall/Model/RedirectsTable.pm:292
-#: src/EBox/Firewall/Model/BaseRuleTable.pm:121
-msgid "Source"
-msgstr "Fonte"
-
-#: src/EBox/Firewall.pm:800 src/EBox/Firewall/Model/BaseRuleTable.pm:147
-msgid "Destination"
-msgstr "Destino"
-
-#: src/EBox/Firewall.pm:801 src/EBox/Firewall/Model/RedirectsTable.pm:285
-msgid "Protocol"
-msgstr "Protocolo"
 
 #: src/EBox/Firewall.pm:802
 msgid "Source port"
@@ -122,244 +354,13 @@ msgstr "Porto de origem"
 msgid "Destination port"
 msgstr "Porto de destino"
 
-#: src/EBox/Firewall.pm:804 src/EBox/Firewall/Model/BaseRuleTable.pm:112
-#: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:144
-msgid "Decision"
-msgstr "Decisão"
-
 #: src/EBox/Firewall.pm:809
 msgid "DROP"
 msgstr "DESCARTAR"
 
-#: src/EBox/Firewall.pm:809 src/EBox/Firewall/Model/BaseRuleTable.pm:70
-msgid "LOG"
-msgstr "REGISTO"
-
 #: src/EBox/Firewall.pm:809
 msgid "REDIRECT"
 msgstr "REENCAMINHAR"
-
-#: src/EBox/Firewall/Model/EBoxOutputRuleTable.pm:68
-msgid "Traffic coming out from Zentyal"
-msgstr "Tráfego que sai da Zentyal"
-
-#: src/EBox/Firewall/Model/EBoxOutputRuleTable.pm:77
-#: src/EBox/Firewall/Model/ExternalToInternalRuleTable.pm:80
-#: src/EBox/Firewall/Model/ExternalToEBoxRuleTable.pm:79
-#: src/EBox/Firewall/Model/InternalToEBoxRuleTable.pm:77
-#: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:161
-#: src/EBox/Firewall/Model/ToInternetRuleTable.pm:77
-msgid "rule"
-msgstr "regra"
-
-#: src/EBox/Firewall/Model/ExternalToInternalRuleTable.pm:68
-msgid "External networks to internal networks"
-msgstr "Redes externas para as redes internas"
-
-#: src/EBox/Firewall/Model/RedirectsTable.pm:145
-msgid "Contradictory rule found. Remove it first"
-msgstr "Foi encontrada uma regra contraditória. Remova-a primeiro"
-
-#: src/EBox/Firewall/Model/RedirectsTable.pm:249
-msgid "Interface"
-msgstr "Interface"
-
-#: src/EBox/Firewall/Model/RedirectsTable.pm:256
-msgid "Original destination"
-msgstr "Destino original"
-
-#: src/EBox/Firewall/Model/RedirectsTable.pm:264
-msgid "IP Address"
-msgstr "Endereço IP"
-
-#: src/EBox/Firewall/Model/RedirectsTable.pm:268
-msgid "Object"
-msgstr "Objecto"
-
-#: src/EBox/Firewall/Model/RedirectsTable.pm:279
-msgid "Original destination port"
-msgstr "Porto de destino original"
-
-#: src/EBox/Firewall/Model/RedirectsTable.pm:297
-#: src/EBox/Firewall/Model/BaseRuleTable.pm:126
-#: src/EBox/Firewall/Model/BaseRuleTable.pm:152
-msgid "Any"
-msgstr "Qualquer"
-
-#: src/EBox/Firewall/Model/RedirectsTable.pm:300
-#: src/EBox/Firewall/Model/BaseRuleTable.pm:129
-msgid "Source IP"
-msgstr "IP de origem"
-
-#: src/EBox/Firewall/Model/RedirectsTable.pm:304
-#: src/EBox/Firewall/Model/BaseRuleTable.pm:133
-msgid "Source object"
-msgstr "Objecto de origem"
-
-#: src/EBox/Firewall/Model/RedirectsTable.pm:315
-#: src/EBox/Firewall/Model/BaseRuleTable.pm:155
-msgid "Destination IP"
-msgstr "IP de destino"
-
-#: src/EBox/Firewall/Model/RedirectsTable.pm:321
-msgid "Port"
-msgstr "Porto"
-
-#: src/EBox/Firewall/Model/RedirectsTable.pm:326
-msgid "Same"
-msgstr "Mesmo"
-
-#: src/EBox/Firewall/Model/RedirectsTable.pm:329
-msgid "Other"
-msgstr "Outro"
-
-#: src/EBox/Firewall/Model/RedirectsTable.pm:337
-msgid "Log"
-msgstr "Registo"
-
-#: src/EBox/Firewall/Model/RedirectsTable.pm:339
-msgid "Log new forwarded connections"
-msgstr "Registar novas ligações encaminhadas"
-
-#: src/EBox/Firewall/Model/RedirectsTable.pm:344
-#: src/EBox/Firewall/Model/BaseRuleTable.pm:185
-msgid "Description"
-msgstr "Descrição"
-
-#: src/EBox/Firewall/Model/RedirectsTable.pm:361
-msgid "List of forwarded ports"
-msgstr "Lista dos portos reencaminhados"
-
-#: src/EBox/Firewall/Model/RedirectsTable.pm:370
-msgid "forwarding"
-msgstr "reencaminhar"
-
-#: src/EBox/Firewall/Model/BaseRuleTable.pm:66
-msgid "ACCEPT"
-msgstr "ACEITAR"
-
-#: src/EBox/Firewall/Model/BaseRuleTable.pm:68
-msgid "DENY"
-msgstr "NEGAR"
-
-#: src/EBox/Firewall/Model/BaseRuleTable.pm:160
-msgid "Destination object"
-msgstr "Objecto de destino"
-
-#: src/EBox/Firewall/Model/BaseRuleTable.pm:175
-msgid "Service"
-msgstr "Serviço"
-
-#: src/EBox/Firewall/Model/BaseRuleTable.pm:179
-msgid ""
-"If inverse match is ticked, any service but the selected one will match this "
-"rule"
-msgstr ""
-"Se a correspondência inversa estiver marcada todos os serviços menos o "
-"seleccionado corresponderão a esta regra"
-
-#: src/EBox/Firewall/Model/BaseRuleTable.pm:227
-#: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:194
-msgid "Configure Rules"
-msgstr "Configurar regras"
-
-#: src/EBox/Firewall/Model/BaseRuleTable.pm:242
-msgid "'any service' cannot have a inverse march"
-msgstr "'qualquer serviço' não pode ter uma correspondência inversa"
-
-#: src/EBox/Firewall/Model/ExternalToEBoxRuleTable.pm:68
-msgid "External networks to Zentyal"
-msgstr "Redes externas para a Zentyal"
-
-#: src/EBox/Firewall/Model/InternalToEBoxRuleTable.pm:68
-msgid "Internal networks to Zentyal"
-msgstr "Redes internas para a Zentyal"
-
-#: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:37
-msgid "Input"
-msgstr "Entrada"
-
-#: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:38
-msgid "External Input"
-msgstr "Entrada externa"
-
-#: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:39
-msgid "Output"
-msgstr "Saída"
-
-#: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:40
-msgid "Forward"
-msgstr "Encaminhar"
-
-#: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:41
-msgid "NAT prerouting"
-msgstr "Rota prévia NAT"
-
-#: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:42
-msgid "NAT postrouting"
-msgstr "Rota seguinte NAT"
-
-#: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:118
-msgid "Rule"
-msgstr "Regra"
-
-#: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:123
-msgid "Enabled"
-msgstr "Activo"
-
-#: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:129
-msgid "Type"
-msgstr "Tipo"
-
-#: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:134
-msgid "Module"
-msgstr "Módulo"
-
-#: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:139
-msgid "Condition"
-msgstr "Condição"
-
-#: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:153
-#: src/templates/filter.mas:51
-msgid "Rules added by Zentyal services (Advanced)"
-msgstr "Regras adicionadas pelos serviços Zentyal (Avançado)"
-
-#: src/EBox/Firewall/Model/ToInternetRuleTable.pm:65
-msgid "Internal networks"
-msgstr "Redes internas"
-
-#: src/EBox/Firewall/Model/Report/PacketTrafficGraph.pm:52
-#: src/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:46
-msgid "packets dropped"
-msgstr "pacotes descartados"
-
-#: src/EBox/Firewall/Model/Report/PacketTrafficGraph.pm:64
-msgid "Firewall packet traffic chart"
-msgstr "Gráfico da filtragem de tráfego de pacotes"
-
-#: src/EBox/Firewall/Model/Report/PacketTrafficGraph.pm:86
-msgid "Packet traffic"
-msgstr "Tráfego de pacotes"
-
-#: src/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:66
-msgid "Packets dropped"
-msgstr "Pacotes descartados"
-
-#: src/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:78
-msgid "Packet traffic details"
-msgstr "Detalhes do tráfego de pacotes"
-
-#: src/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:86
-msgid "traffic"
-msgstr "Tráfego"
-
-#: src/EBox/Firewall/Composite/Report/PacketTrafficReport.pm:69
-msgid "Packet traffic report"
-msgstr "Relatório de tráfego de pacotes"
-
-#: src/EBox/Firewall/Composite/Report/PacketTrafficReport.pm:70
-msgid "Firewall packet traffic report"
-msgstr "Relatório de tráfego de pacotes na firewall"
 
 #: src/templates/filter.mas:6
 msgid "Filtering rules from internal networks to Zentyal"

@@ -7,729 +7,142 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox 0.12\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-12-13 09:37+0100\n"
+"POT-Creation-Date: 2010-12-18 01:43+0100\n"
 "PO-Revision-Date: 2010-07-21 07:25+0200\n"
 "Last-Translator: Daniel Hedblom <daniel.hedblom@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: src/EBox/ProgressIndicator.pm:42
-msgid "Total ticks"
-msgstr "Totala ticks"
-
-#: src/EBox/ProgressIndicator.pm:44
-msgid "It must be a non-zero positive number"
-msgstr "Det måste vara ett positivt nummer."
-
-#: src/EBox/ProgressIndicator.pm:49
-#, fuzzy
-msgid "To solve it you can try to execute the following commands:"
-msgstr "Bekräfta att du vill ta bort följande säkerhetskopia:"
-
-#: src/EBox/ProgressIndicator.pm:56
-#, perl-brace-format
-msgid "Cannot execute {exe}"
-msgstr "Kan inte exekvera {exe}"
-
-#: src/EBox/ProgressIndicator.pm:106
-#, perl-brace-format
-msgid "Progress indicator with id {id} not found"
-msgstr "Mätare med id {id} hittas ej"
-
-#: src/EBox/ProgressIndicator.pm:144
-msgid "Number of ticks to notify"
-msgstr "Antal ticks att meddela"
-
-#: src/EBox/ProgressIndicator.pm:146
-msgid "must be greater than zero"
-msgstr "måste vara högre än noll"
-
-#: src/EBox/ProgressIndicator.pm:152
-msgid "Executable has not been run"
-msgstr "Körbar fil har ej körts"
-
-#: src/EBox/ProgressIndicator.pm:293
-msgid "The executable has not run"
-msgstr "Den körbara filen har inte körts"
-
-#: src/EBox/ProgressIndicator.pm:437
-msgid "The executable has already been started"
-msgstr "Den körbara filen har redan startats"
-
-#: src/EBox/ProgressIndicator.pm:441
-msgid "The executable has already finished"
-msgstr "Den körbara filen har redan kört klart"
-
-#: src/EBox/Events/Model/Watcher/Log.pm:214
-#: src/EBox/Events/Model/Watcher/Log.pm:238
-msgid ""
-"Warning! The log watcher is not enabled. Enable to be notified when logs "
-"happen. "
-msgstr ""
-"Varning! Loggövervakningen är avaktiverad. Aktivera för att bli meddelad när "
-"något händer med loggarna"
-
-#: src/EBox/Events/Model/Watcher/Log.pm:262
-#: src/EBox/Logs/Model/SelectLog.pm:149
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:332
-msgid "Domain"
-msgstr "Domän"
-
-#: src/EBox/Events/Model/Watcher/Log.pm:267
-msgid "Filtering"
-msgstr "Filtrerar"
-
-#: src/EBox/Events/Model/Watcher/Log.pm:275
-msgid "Configure log watchers"
-msgstr "Konfigurera loggövervakning"
-
-#: src/EBox/Events/Model/Watcher/Log.pm:277
-msgid "Log watcher"
-msgstr "Logg övervakare"
-
-#: src/EBox/Events/Model/Watcher/Log.pm:385
-#: src/EBox/Events/Model/Watcher/LogFiltering.pm:211
-#: src/EBox/Events/Model/Watcher/DiskFreeSpace.pm:136
-#: src/EBox/Events/Model/GeneralComposite.pm:72
-#: src/EBox/Events/Model/GeneralComposite.pm:73
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:272
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:324 src/EBox/Events.pm:94
-#: src/EBox/Events.pm:838
-msgid "Events"
-msgstr "Händelser"
-
-#: src/EBox/Events/Model/Watcher/Log.pm:389
-#: src/EBox/Events/Model/Watcher/LogFiltering.pm:215
-msgid "Log Observer Watcher"
-msgstr "Logg observatör-övervakare"
-
-#: src/EBox/Events/Model/Watcher/LogFiltering.pm:108
-#, perl-brace-format
-msgid "Log domain {logDomain}"
-msgstr "Log domän {logDomain}"
-
-#: src/EBox/Events/Model/Watcher/LogFiltering.pm:149
-#: src/EBox/Types/PortRange.pm:289 src/EBox/Types/Service.pm:212
-#: src/templates/logs/index.mas:185
-msgid "Any"
-msgstr "Alla"
-
-#: src/EBox/Events/Model/Watcher/LogFiltering.pm:168
-#: src/templates/logs/index.mas:183
-msgid "Event"
-msgstr "Händelse"
-
-#: src/EBox/Events/Model/Watcher/LogFiltering.pm:176
-#, perl-brace-format
-msgid "Filters to apply to notify logs from {logDomain}"
-msgstr "Filter för att applicera meddelandeloggar från {logDomain}"
-
-#: src/EBox/Events/Model/Watcher/LogFiltering.pm:184
-msgid ""
-"Every filter added is cumulative.Then every log line which matches with any "
-"filter given will be notified"
-msgstr ""
-"Filtren som läggs till adderas. Alla logg rader som matchar alla filter "
-"kommer att notifieras"
-
-#: src/EBox/Events/Model/Watcher/LogFiltering.pm:188
-msgid "filter"
-msgstr "filter"
-
-#: src/EBox/Events/Model/Watcher/DiskFreeSpace.pm:100
-msgid "Minimum free disk space per filesystem"
-msgstr "Minimum fritt utrymme per filsystem"
-
-#: src/EBox/Events/Model/Watcher/DiskFreeSpace.pm:105
-msgid ""
-"When the free space percentage of any disk partition is under this value the "
-"event is triggered."
-msgstr ""
-"När andelen fritt utrymme är under detta värde i procent triggas denna "
-"händelse"
-
-#: src/EBox/Events/Model/Watcher/DiskFreeSpace.pm:112
-msgid "Configure disk free space watcher"
-msgstr "Konfigurera övervakare för fritt diskutrymme"
-
-#: src/EBox/Events/Model/Watcher/DiskFreeSpace.pm:140
-msgid "Free Disk Space Watcher"
-msgstr "Övervakare för fritt diskutrymme"
-
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:269
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:304
-msgid "Name"
-msgstr "Namn"
-
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:277
-#: src/templates/backup.mas:55 src/templates/backup.mas:129
-#: src/templates/confirm-backup.mas:36
-msgid "Description"
-msgstr "Beskrivning"
-
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:286
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:326
-msgid "Configuration"
-msgstr "Konfiguration"
-
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:302
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:346
-msgid "None"
-msgstr "Ingen"
-
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:311
-msgid "Configure Events"
-msgstr "Konfigurera händelser"
-
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:319
-#: src/EBox/Events/Model/Report/EventsDetails.pm:109
-msgid "event"
-msgstr "Händelse"
-
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:320
-msgid "Enable/Disable each event watcher monitoring"
-msgstr "Aktivera/inaktivera händelseövervakare"
-
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:498
-msgid ""
-"Warning! There is no log domain watcher enabled. Please, go to "
-"'Configuration' to enable at least one to be notified when a log in this "
-"domain happens. "
-msgstr ""
-"Varning! Det finns ingen övervakare för loggdomän aktiverad. Vänligen gå "
-"till \"Konfiguration\" och aktivera iallafall en som blir notifierad när ett "
-"login på denna domän händer."
-
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:290
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:340
-#: src/EBox/Model/DataTable.pm:4560
-msgid "Enabled"
-msgstr "Aktiverad"
-
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:314
-msgid "Receiver"
-msgstr "Mottagare"
-
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:355
-msgid "Configure Dispatchers"
-msgstr "Konfigurera förmedlare"
-
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:364
-msgid "dispatcher"
-msgstr "förmedlare"
-
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:365
-msgid "Enable/Disable each event dispatcher"
-msgstr "Aktivera/Inaktivera varje händelseförmedlare"
-
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:554
-msgid ""
-"In order to enable a configurable event dispatcher, you need to configure it "
-"first"
-msgstr ""
-"För att aktivera en konfigurerbar händelseförmedlare måste du först "
-"konfigurera den"
-
-#: src/EBox/Events/Model/GeneralComposite.pm:76
-#, fuzzy
-msgid ""
-"Events module configures Zentyal to help informing you about events that "
-"happen"
-msgstr ""
-"Händelsemodulen konfigurerar eBox att hjälpa informera dig om händelser"
-
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:192
-msgid "Jabber server name"
-msgstr "Jabber server namn"
-
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:195
-msgid "Jabber server to send the messages"
-msgstr "Jabber server att sända dessa meddelanden"
-
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:199
-msgid "Port"
+#: src/EBox/Apache.pm:289 src/EBox/Apache.pm:298
+msgid "port"
 msgstr "port"
 
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:206
-msgid "Jabber user name"
-msgstr "Jabber användarnamn"
-
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:209
-msgid ""
-"Jabber ID of the account that will send the messages. Hint: do not introduce "
-"@domain, only the user name"
-msgstr ""
-"Jabber ID från det konto som kommer att sända meddelandena. Tips: ange inte "
-"@domän, bara användarnamnet."
-
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:215
-msgid "User password"
-msgstr "Lösenord"
-
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:223
-msgid "Subscribe"
-msgstr "Prenumerera"
-
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:225
+#: src/EBox/Apache.pm:626
 #, fuzzy
-msgid ""
-"Tick this option if you want Zentyal to create an account for the above user"
+msgid "Zentyal Administration Web Server"
+msgstr "eBox webbserver"
+
+#: src/EBox/Event/Dispatcher/Jabber.pm:165
+msgid "Admin Jabber account"
+msgstr "Jabber administratörskonto"
+
+#: src/EBox/Event/Dispatcher/Jabber.pm:178
+msgid "Jabber"
+msgstr "Jabber"
+
+#: src/EBox/Event/Dispatcher/Jabber.pm:228
+#, perl-brace-format
+msgid "Jabber server {serverName} is down or connection is not allowed"
 msgstr ""
-"Klicka i detta val om du vill att ebox ska skapa ett konto för ovanstående "
-"användare"
+"Jabber servern {serverName} ligger nere eller kontakt med den är inte "
+"tillåten."
 
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:232
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:299
-msgid "Administrator Jabber Identifier"
-msgstr "Administratörs Jabber Identifierare"
+#: src/EBox/Event/Dispatcher/Jabber.pm:258
+#, perl-brace-format
+msgid "Subscription failed: {message}"
+msgstr "Prenumeration misslyckades: {message}"
 
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:235
+#: src/EBox/Event/Dispatcher/Jabber.pm:265
+#, perl-brace-format
+msgid "Authorization failed: {result} - {message}"
+msgstr "Autentiseringen misslyckades: {result} - {message}"
+
+#: src/EBox/Event/Dispatcher/RSS.pm:218
+#, perl-brace-format
+msgid "RSS file: {path}"
+msgstr "Rss fil: {path}"
+
+#: src/EBox/Event/Dispatcher/RSS.pm:232
+msgid "RSS"
+msgstr "RSS"
+
+#: src/EBox/Event/Dispatcher/RSS.pm:289
+#, fuzzy, perl-brace-format
+msgid "Zentyal alerts channel for {hostname}"
+msgstr "eBox meddelandekanal för {hostname}"
+
+#: src/EBox/Event/Dispatcher/RSS.pm:292
 #, fuzzy
-msgid ""
-"Destination Jabber ID of the messages generated by Zentyal,  i.e: you, the "
-"Zentyal admin. Note that you need to register this  account manually in any "
-"jabber server"
-msgstr ""
-"Mål jabber ID för meddelanden genererade av eBox, dvs. du, eBox "
-"administratören. Observera att du behöver registrera detta konto manuellt i "
-"en jabber servrar"
+msgid "This channel tracks what happens on this Zentyal machine along the time"
+msgstr "Den här kanalen följer vad som händer på denna eBox maskin över tiden"
 
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:244
-msgid "Configure Jabber dispatcher"
-msgstr "Konfigurera Jabber förmedlare"
+#: src/EBox/Event/Dispatcher/RSS.pm:312
+#, fuzzy, perl-brace-format
+msgid "The event has happened in Zentyal {hostname} from {source}"
+msgstr "Denna händelse hände i eBox {hostname} från {source}"
 
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:249
-msgid "This dispatcher will send events to an Jabber account"
-msgstr "Den här förmedlaren kommer att sända händelser till ett Jabber konto"
+#: src/EBox/Event/Dispatcher/RSS.pm:316
+#, perl-brace-format
+msgid "Go to your {url} to check its status."
+msgstr "Gå till din {url} för att se dess status"
 
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:252
-msgid "Jabber dispatcher configuration updated"
-msgstr "Jabber förmedlarkonfiguration uppdaterad"
+#: src/EBox/Event/Dispatcher/Log.pm:135
+msgid "Log file"
+msgstr "Loggfil"
 
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:276
-msgid "Jabber Dispatcher"
-msgstr "Jabber förmedlare"
-
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:301
-msgid "It should follow the pattern 'user@domain[/resource]'"
-msgstr "Det borde följa mönstret 'user@domain[/resurs]'"
-
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:149
-msgid "Nobody"
-msgstr "Ingen"
-
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:153
-msgid "IP address"
-msgstr "IP adress"
-
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:160
-msgid "Object"
-msgstr "Objekt"
-
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:169
-msgid "Public"
-msgstr "Publik"
-
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:176
-msgid "Channel link"
-msgstr "Kanal-länk"
-
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:183
-msgid "Allowed readers"
-msgstr "Tillåtna läsare"
-
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:186
-msgid "Use this field to set the access control for the channel"
-msgstr "Använd det här fältet för att sätta åtkomsten till denna kanal"
-
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:191
-msgid "Syndicate this RSS"
-msgstr "Publicera denna RSS"
-
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:201
-msgid "Configure RSS dispatcher"
-msgstr "Konfigurera RSS förmedlare"
-
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:206
-msgid ""
-"The channel link is the link which is used to syndicate the content to your "
-"favourite RSS. "
-msgstr ""
-"Kanal-länken är den länk som används för att publicera innehåll till din "
-"favorit RSS."
-
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:209
-msgid "RSS dispatcher configuration updated"
-msgstr "RSS förmedlarkonfiguration uppdaterad"
-
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:328
-msgid "RSS Dispatcher"
-msgstr "RSS förmedlare"
-
-#: src/EBox/Events/Model/Report/EventsDetails.pm:50
-#: src/EBox/Events/Model/Report/EventsDetails.pm:74 src/EBox/Events.pm:823
-msgid "Source"
-msgstr "Källa"
-
-#: src/EBox/Events/Model/Report/EventsDetails.pm:51
-#: src/EBox/Events/Model/Report/EventsDetails.pm:80
-#: src/EBox/Events/Model/Report/EventsGraph.pm:51 src/EBox/Events.pm:830
-msgid "Informative"
-msgstr "Informativ"
-
-#: src/EBox/Events/Model/Report/EventsDetails.pm:52
-#: src/EBox/Events/Model/Report/EventsDetails.pm:84
-#: src/EBox/Events/Model/Report/EventsGraph.pm:52 src/EBox/Events.pm:831
-#: src/templates/finish.mas:83
-msgid "Warning"
-msgstr "Varning"
-
-#: src/EBox/Events/Model/Report/EventsDetails.pm:53
-#: src/EBox/Events/Model/Report/EventsDetails.pm:88
-#: src/EBox/Events/Model/Report/EventsGraph.pm:53 src/EBox/Events.pm:832
-msgid "Error"
-msgstr "Fel"
-
-#: src/EBox/Events/Model/Report/EventsDetails.pm:54
-#: src/EBox/Events/Model/Report/EventsDetails.pm:92
-#: src/EBox/Events/Model/Report/EventsGraph.pm:54 src/EBox/Events.pm:833
-msgid "Fatal error"
-msgstr "Allvarligt fel"
-
-#: src/EBox/Events/Model/Report/EventsDetails.pm:68 src/EBox/Logs.pm:737
-#: src/templates/finish.mas:116 src/templates/backup.mas:130
-#: src/templates/confirm-backup.mas:28
-msgid "Date"
-msgstr "Datum"
-
-#: src/EBox/Events/Model/Report/EventsDetails.pm:101
-msgid "Events details"
-msgstr "Detaljer för händelse"
-
-#: src/EBox/Events/Model/Report/EventsGraph.pm:60
-msgid "Events summarized chart"
-msgstr "Diagram över händelser"
-
-#: src/EBox/Events/Model/Report/EventsGraph.pm:77
-msgid "Events summarized graph"
-msgstr "Graf över händelser"
-
-#: src/EBox/Events/Composite/Report/EventsReport.pm:69
-msgid "Events reports"
-msgstr "Rapporter för händelser"
-
-#: src/EBox/Events/Composite/Report/EventsReport.pm:70
-msgid "Events report"
-msgstr "Rapport över händelse"
-
-#: src/EBox/Auth.pm:133
-msgid "Password changed"
-msgstr "Lösenordet ändrat"
-
-#: src/EBox/CGI/ClientRawBase.pm:212 src/EBox/CGI/WizardPage.pm:155
-msgid ""
-"An internal error related to a template has occurred. This is a bug, "
-"relevant information can be found in the logs."
-msgstr ""
-"Ett internt fel relaterat till en mall har inträffat. Det här är ett "
-"programfel. Relevant information kan hittas i loggarna."
-
-#: src/EBox/CGI/Wizard.pm:29
-msgid "Initial configuration wizard"
-msgstr "Inledande konfigurationshjälp"
-
-#: src/EBox/CGI/Logs/Index.pm:35 src/EBox/Logs.pm:58 src/EBox/Logs.pm:383
-msgid "Logs"
+#: src/EBox/Event/Dispatcher/Log.pm:148
+msgid "Log"
 msgstr "Loggar"
 
-#: src/EBox/CGI/Logs/Index.pm:326 src/EBox/Logs.pm:721
-msgid "Query Logs"
-msgstr "Sök i loggar"
+#: src/EBox/Event/Dispatcher/Abstract.pm:140
+#, perl-brace-format
+msgid "Dispatcher {name} is not configured to be enabled"
+msgstr "Förmedlare {name} är inte konfigurerad att vara aktiverad"
 
-#: src/EBox/CGI/Logs/Index.pm:329
-msgid "Full Reports"
-msgstr "Fulla rapporter"
+#: src/EBox/Event/Watcher/DiskFreeSpace.pm:133
+#, perl-brace-format
+msgid "The file system {fs}, mounted on {mp}, has no space left"
+msgstr "Filsystemet {fs} monterat på {mp} har slut på utrymme"
 
-#: src/EBox/CGI/Dashboard/Index.pm:32 src/EBox/SysInfo.pm.in:253
-msgid "Dashboard"
-msgstr "Instrumentpanel"
+#: src/EBox/Event/Watcher/DiskFreeSpace.pm:167
+msgid "Free storage space"
+msgstr "Tillgängligt lagringsutrymme"
 
-#: src/EBox/CGI/Dashboard/ConfigureWidgets.pm:30
-#: src/templates/dashboard/index.mas:81
-msgid "Configure Widgets"
-msgstr "Konfigurera widgets"
+#: src/EBox/Event/Watcher/DiskFreeSpace.pm:184
+msgid "Check if any disk partition has no storage space left"
+msgstr "Kontrollera om en disk partition inte har något utrymme kvar"
 
-#: src/EBox/CGI/Progress.pm:81 src/EBox/CGI/Progress.pm:107
-#: src/EBox/CGI/Finish.pm:77
-msgid "Saving changes"
-msgstr "Sparar ändringar"
+#: src/EBox/Event/Watcher/Runit.pm:112
+#, perl-brace-format
+msgid "The following modules are not running but they are enabled: {modules}\n"
+msgstr "Följande moduler körs ej men är aktiverade: {modules}\n"
 
-#: src/EBox/CGI/Login/Index.pm:63
+#: src/EBox/Event/Watcher/Runit.pm:141
+msgid "Service"
+msgstr "Tjänst"
+
+#: src/EBox/Event/Watcher/Runit.pm:158
 #, fuzzy
+msgid "Check if any Zentyal service is not running when it is enabled"
+msgstr "Kontrollera om någon eBox tjänst inte körs när den är aktiverad"
+
+#: src/EBox/Event/Watcher/Runit.pm:228
+#, perl-brace-format
 msgid ""
-"There is a script which has asked to run in Zentyal exclusively. Please, "
-"wait patiently until it is done"
+"The service {service} has been restarted {restart} times in {time} seconds "
+"and it has been stopped"
 msgstr ""
-"Det finns ett skript som har bett om att köra i eBox ensamt.Vänta med "
-"tålamod tills det är klart"
+"Tjänsten {service} har blivit omstartad {restart} gånger under {time} "
+"sekunder och har stoppats."
 
-#: src/EBox/CGI/Login/Index.pm:67
-msgid "Incorrect password"
-msgstr "Felaktigt lösenord"
+#: src/EBox/Event/Watcher/Log.pm:202
+msgid "Log observer"
+msgstr "Logg observatör"
 
-#: src/EBox/CGI/Login/Index.pm:70
-msgid "For security reasons your session has expired due to inactivity"
-msgstr "Av säkerhetsskäl har din session utgått på grund av inaktivitet"
-
-#: src/EBox/CGI/Login/Index.pm:73
-msgid "You have been logged out because a new session has been opened"
-msgstr "Du har blivit utloggad på grund av att en ny session har öppnats"
-
-#: src/EBox/CGI/ServiceModule/StatusView.pm:39
-msgid "Module Status Configuration"
-msgstr "Konfiguration av modulernas status"
-
-#: src/EBox/CGI/Logout/Index.pm:29 src/EBox/Html.pm:40
-msgid "Logout"
-msgstr "Logga ut"
-
-#: src/EBox/CGI/EBox/General.pm:32
-msgid "General Configuration"
-msgstr "Allmän konfiguration"
-
-#: src/EBox/CGI/EBox/Halt.pm:30
-msgid "Halt or Reboot"
-msgstr "Stäng av eller starta om"
-
-#: src/EBox/CGI/EBox/Halt.pm:43
-#, fuzzy
-msgid "Zentyal is going down for halt"
-msgstr "eBox är på väg att stängas av"
-
-#: src/EBox/CGI/EBox/Halt.pm:46
-#, fuzzy
-msgid "Zentyal is going down for reboot"
-msgstr "eBox är på väg att startas om"
-
-#: src/EBox/CGI/EBox/Password.pm:43 src/templates/password.mas:11
-#: src/templates/login/index.mas:49
-#, fuzzy
-msgid "Username"
-msgstr "Värdnamn"
-
-#: src/EBox/CGI/EBox/Password.pm:48 src/templates/login/index.mas:54
-msgid "Password"
-msgstr "Lösenord"
-
-#: src/EBox/CGI/EBox/Password.pm:57
-msgid "Incorrect password."
-msgstr "Felaktigt lösenord."
-
-#: src/EBox/CGI/EBox/Password.pm:62
-msgid "New passwords do not match."
-msgstr "Nya lösenorden stämmer inte överens."
-
-#: src/EBox/CGI/EBox/Password.pm:67
-msgid "The password must be at least 6 characters long"
-msgstr "Lösenordet måste vara minst 6 tecken långt"
-
-#: src/EBox/CGI/EBox/Password.pm:71
-msgid "The password was changed successfully."
-msgstr "Lösenordet ändrades."
-
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:33 src/templates/backup.mas:30
-msgid "Configuration Backup"
-msgstr "Säkerhetskopia av konfiguration"
-
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:105
-msgid "Please confirm that you want to delete the following backup file:"
-msgstr "Bekräfta att du vill ta bort följande säkerhetskopia:"
-
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:107 src/templates/backup.mas:168
-#: src/templates/backup.mas:169
-msgid "Delete"
-msgstr "Ta bort"
-
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:114
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:130
-msgid "Please confirm that you want to restore using this backup file:"
-msgstr "Bekräfta att du vill återskapa med den här säkerhetskopian:"
-
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:116
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:132 src/templates/backup.mas:98
-msgid "Restore"
-msgstr "Återskapa"
-
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:147 src/EBox/CGI/EBox/Backup.pm:193
-#: src/EBox/CGI/EBox/Backup.pm:271 src/EBox/CGI/EBox/Backup.pm:284
-#: src/EBox/Backup.pm:1481
-msgid "The input contains invalid characters"
-msgstr "Inmatningen innehåller ogiltiga tecken"
-
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:176
-msgid "Configuration backup"
-msgstr "Säkerhetskopia av konfiguration"
-
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:179
-msgid "Full data and configuration backup"
-msgstr "Säkerhetskopia av fullständigt data och konfiguration"
-
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:182
-msgid "Bug-report configuration dump"
-msgstr "Dump av konfiguration för felrapport"
-
-#: src/EBox/CGI/EBox/RestartService.pm:49
-msgid "module name"
-msgstr "modulnamn"
-
-#: src/EBox/CGI/EBox/RestartService.pm:54
-msgid "The module was restarted correctly."
-msgstr "Modulen startades om korrekt."
-
-#: src/EBox/CGI/EBox/RestartService.pm:58
+#: src/EBox/Event/Watcher/Log.pm:240
 #, perl-brace-format
-msgid "Error restarting service. See {logs} for more information."
-msgstr ""
+msgid "Notify when a logger ({loggers}) has logged something"
+msgstr "Meddela när en logger ({loggers}) har loggat något"
 
-#: src/EBox/CGI/EBox/Hostname.pm:48
-#, fuzzy
-msgid "hostname"
-msgstr "Värdnamn"
-
-#: src/EBox/CGI/EBox/CurrentProgress.pm:36
-msgid "Upgrading"
-msgstr "Uppgraderar"
-
-#: src/EBox/CGI/EBox/Backup.pm:34 src/EBox/SysInfo.pm.in:280
-#, fuzzy
-msgid "Import/Export Configuration"
-msgstr "Aktuell konfiguration"
-
-#: src/EBox/CGI/EBox/Backup.pm:163
-#, perl-brace-format
-msgid "Unknown backup mode: {mode}"
-msgstr "Okänt läge för säkerhetskopiering: {mode}"
-
-#: src/EBox/CGI/EBox/Backup.pm:226
-#, perl-brace-format
-msgid "Unknown restore mode: {mode}"
-msgstr "Okänt läge för återskapning: {mode}"
-
-#: src/EBox/CGI/EBox/Backup.pm:239
-msgid "Backing up"
-msgstr "Säkerhetskopierar"
-
-#: src/EBox/CGI/EBox/Backup.pm:240
-msgid "Backing up modules"
-msgstr "Säkerhetskopierar moduler"
-
-#: src/EBox/CGI/EBox/Backup.pm:241
-msgid "Operation"
-msgstr "Modifiering"
-
-#: src/EBox/CGI/EBox/Backup.pm:242
-msgid "operations left to finish backup"
-msgstr "Modifieringar kvar för att slutföra säkerhetskopiering"
-
-#: src/EBox/CGI/EBox/Backup.pm:243
-msgid "Backup successful"
-msgstr "Säkerhetskopiering lyckad"
-
-#: src/EBox/CGI/EBox/Backup.pm:255
-msgid "Restoring backup"
-msgstr "Återskapar från säkerhetskopia"
-
-#: src/EBox/CGI/EBox/Backup.pm:256
-msgid "Restoring modules"
-msgstr "Återskapar moduler"
-
-#: src/EBox/CGI/EBox/Backup.pm:257 src/EBox/Logs.pm:739
-#: src/templates/moduleStatusTable.mas:58 src/templates/finish.mas:117
-msgid "Module"
-msgstr "Modul"
-
-#: src/EBox/CGI/EBox/Backup.pm:258
-msgid "modules restored"
-msgstr "moduler återställda"
-
-#: src/EBox/CGI/EBox/Backup.pm:259
-msgid "Restore successful"
-msgstr "Återskapning lyckad"
-
-#: src/EBox/CGI/EBox/ConfigurationReport.pm:29
-msgid "Configuration report"
-msgstr "Rapport över konfiguration"
-
-#: src/EBox/CGI/Report/RAID.pm:30 src/EBox/Event/Watcher/RAID.pm:181
-#: src/EBox/SysInfo.pm.in:275
+#: src/EBox/Event/Watcher/RAID.pm:181 src/EBox/SysInfo.pm.in:275
+#: src/EBox/CGI/Report/RAID.pm:30
 msgid "RAID"
 msgstr "RAID"
-
-#: src/EBox/CGI/Report/DiskUsage.pm:31 src/EBox/SysInfo.pm.in:271
-msgid "Disk Usage"
-msgstr "Diskanvändning"
-
-#: src/EBox/CGI/Finish.pm:32
-msgid "Save configuration"
-msgstr "Spara konfiguration"
-
-#: src/EBox/CGI/Finish.pm:78
-msgid "Saving changes in modules"
-msgstr "Sparar ändringar i moduler"
-
-#: src/EBox/CGI/Finish.pm:79 src/templates/report/raid.mas:213
-msgid "Current operation"
-msgstr "Aktuellt åtgärd"
-
-#: src/EBox/CGI/Finish.pm:80
-msgid "operations performed"
-msgstr "Utförda åtgärder"
-
-#: src/EBox/CGI/Finish.pm:81
-msgid "Changes saved"
-msgstr "Sparade ändringar"
-
-#: src/EBox/CGI/Finish.pm:82
-#, perl-brace-format
-msgid ""
-"Some modules reported error when saving changes . More information on the "
-"logs in {dir}"
-msgstr ""
-"Några moduler rapporterade fel när ändringarna sparades. Mer information "
-"finns i loggarna i {dir}"
-
-#: src/EBox/CGI/Finish.pm:101
-msgid "Revoking changes"
-msgstr "Upphäver ändringar"
-
-#: src/EBox/CGI/Finish.pm:102
-msgid "Revoking changes in modules"
-msgstr "Upphäver ändringar i moduler"
-
-#: src/EBox/CGI/Finish.pm:103
-msgid "Current module"
-msgstr "Aktuell modul"
-
-#: src/EBox/CGI/Finish.pm:104
-msgid "modules revoked"
-msgstr "moduler upphävda"
-
-#: src/EBox/CGI/Finish.pm:105
-msgid "Changes revoked"
-msgstr "Ändringar upphävda"
-
-#: src/EBox/CGI/Finish.pm:106
-#, perl-brace-format
-msgid ""
-"Some modules reported error when discarding changes . More information on "
-"the logs in {dir}"
-msgstr ""
-"Några moduler rapporterade fel när de förkastade ändringar Mer information "
-"finns i loggarna i {dir}"
 
 #: src/EBox/Event/Watcher/RAID.pm:198
 msgid "Check if any event has happened in RAID subsystem"
@@ -938,29 +351,6 @@ msgstr "trasig"
 msgid "spare"
 msgstr "reserv"
 
-#: src/EBox/Event/Watcher/Runit.pm:112
-#, perl-brace-format
-msgid "The following modules are not running but they are enabled: {modules}\n"
-msgstr "Följande moduler körs ej men är aktiverade: {modules}\n"
-
-#: src/EBox/Event/Watcher/Runit.pm:141
-msgid "Service"
-msgstr "Tjänst"
-
-#: src/EBox/Event/Watcher/Runit.pm:158
-#, fuzzy
-msgid "Check if any Zentyal service is not running when it is enabled"
-msgstr "Kontrollera om någon eBox tjänst inte körs när den är aktiverad"
-
-#: src/EBox/Event/Watcher/Runit.pm:228
-#, perl-brace-format
-msgid ""
-"The service {service} has been restarted {restart} times in {time} seconds "
-"and it has been stopped"
-msgstr ""
-"Tjänsten {service} har blivit omstartad {restart} gånger under {time} "
-"sekunder och har stoppats."
-
 #: src/EBox/Event/Watcher/State.pm:125
 #, fuzzy
 msgid "Zentyal is up and running"
@@ -980,111 +370,126 @@ msgstr "Läge"
 msgid "Check if Zentyal is currently up or down"
 msgstr "Kontrollera om eBox är uppe eller avslagen"
 
-#: src/EBox/Event/Watcher/Log.pm:202
-msgid "Log observer"
-msgstr "Logg observatör"
-
-#: src/EBox/Event/Watcher/Log.pm:240
+#: src/EBox/Model/DataTable.pm:327
 #, perl-brace-format
-msgid "Notify when a logger ({loggers}) has logged something"
-msgstr "Meddela när en logger ({loggers}) har loggat något"
+msgid "{model} in {module} module"
+msgstr "{model} i {module} modul"
 
-#: src/EBox/Event/Watcher/DiskFreeSpace.pm:133
+#: src/EBox/Model/DataTable.pm:331
+msgid "at"
+msgstr "på"
+
+#: src/EBox/Model/DataTable.pm:542
+msgid "field"
+msgstr "fält"
+
+#: src/EBox/Model/DataTable.pm:1468
+msgid "page"
+msgstr "sida"
+
+#: src/EBox/Model/DataTable.pm:1471
+msgid "Page must be a number equal or greater than zero"
+msgstr "Sida måste vara en siffra som noll eller större."
+
+#: src/EBox/Model/DataTable.pm:2129 src/EBox/Model/DataMultiTable.pm:168
+#: src/EBox/Model/Composite.pm:671 src/EBox/Model/Composite.pm:686
+#: src/EBox/Logs.pm:740
+msgid "Action"
+msgstr "Åtgärd"
+
+#: src/EBox/Model/DataTable.pm:2831
 #, perl-brace-format
-msgid "The file system {fs}, mounted on {mp}, has no space left"
-msgstr "Filsystemet {fs} monterat på {mp} har slut på utrymme"
+msgid "Remove {num} rows of {rowName} from {model}{br}"
+msgstr "Ta bort {num} rader av {rowName} från {model}{br}"
 
-#: src/EBox/Event/Watcher/DiskFreeSpace.pm:167
-msgid "Free storage space"
-msgstr "Tillgängligt lagringsutrymme"
+#: src/EBox/Model/DataTable.pm:2902
+msgid "Page size"
+msgstr "Sidstorlek"
 
-#: src/EBox/Event/Watcher/DiskFreeSpace.pm:184
-msgid "Check if any disk partition has no storage space left"
-msgstr "Kontrollera om en disk partition inte har något utrymme kvar"
+#: src/EBox/Model/DataTable.pm:2905
+msgid "Must be either a positive number or zero"
+msgstr "Måste vara ett positivt nummer eller noll"
 
-#: src/EBox/Event/Dispatcher/Jabber.pm:165
-msgid "Admin Jabber account"
-msgstr "Jabber administratörskonto"
-
-#: src/EBox/Event/Dispatcher/Jabber.pm:178
-msgid "Jabber"
-msgstr "Jabber"
-
-#: src/EBox/Event/Dispatcher/Jabber.pm:228
+#: src/EBox/Model/DataTable.pm:3212
 #, perl-brace-format
-msgid "Jabber server {serverName} is down or connection is not allowed"
-msgstr ""
-"Jabber servern {serverName} ligger nere eller kontakt med den är inte "
-"tillåten."
+msgid "{row} added"
+msgstr "{row} tillagd"
 
-#: src/EBox/Event/Dispatcher/Jabber.pm:258
+#: src/EBox/Model/DataTable.pm:3213
 #, perl-brace-format
-msgid "Subscription failed: {message}"
-msgstr "Prenumeration misslyckades: {message}"
+msgid "{row} deleted"
+msgstr "{row} raderad"
 
-#: src/EBox/Event/Dispatcher/Jabber.pm:265
+#: src/EBox/Model/DataTable.pm:3214
 #, perl-brace-format
-msgid "Authorization failed: {result} - {message}"
-msgstr "Autentiseringen misslyckades: {result} - {message}"
+msgid "{row} updated"
+msgstr "{row} uppdaterad"
 
-#: src/EBox/Event/Dispatcher/Abstract.pm:140
+#: src/EBox/Model/DataTable.pm:3215
 #, perl-brace-format
-msgid "Dispatcher {name} is not configured to be enabled"
-msgstr "Förmedlare {name} är inte konfigurerad att vara aktiverad"
+msgid "{row} moved up"
+msgstr "{row} uppflyttad"
 
-#: src/EBox/Event/Dispatcher/Log.pm:135
-msgid "Log file"
-msgstr "Loggfil"
-
-#: src/EBox/Event/Dispatcher/Log.pm:148
-msgid "Log"
-msgstr "Loggar"
-
-#: src/EBox/Event/Dispatcher/RSS.pm:218
+#: src/EBox/Model/DataTable.pm:3216
 #, perl-brace-format
-msgid "RSS file: {path}"
-msgstr "Rss fil: {path}"
+msgid "{row} moved down"
+msgstr "{row} nedflyttad"
 
-#: src/EBox/Event/Dispatcher/RSS.pm:232
-msgid "RSS"
-msgstr "RSS"
+#: src/EBox/Model/DataTable.pm:4402 src/templates/dataInUse.mas:25
+#: src/templates/dataInUse.mas:34 src/templates/password.mas:67
+#: src/templates/hostname.mas:19 src/templates/port.mas:14
+msgid "Change"
+msgstr "Byt"
 
-#: src/EBox/Event/Dispatcher/RSS.pm:289
-#, fuzzy, perl-brace-format
-msgid "Zentyal alerts channel for {hostname}"
-msgstr "eBox meddelandekanal för {hostname}"
+#: src/EBox/Model/DataTable.pm:4560
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:290
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:340
+msgid "Enabled"
+msgstr "Aktiverad"
 
-#: src/EBox/Event/Dispatcher/RSS.pm:292
-#, fuzzy
-msgid "This channel tracks what happens on this Zentyal machine along the time"
-msgstr "Den här kanalen följer vad som händer på denna eBox maskin över tiden"
-
-#: src/EBox/Event/Dispatcher/RSS.pm:312
-#, fuzzy, perl-brace-format
-msgid "The event has happened in Zentyal {hostname} from {source}"
-msgstr "Denna händelse hände i eBox {hostname} från {source}"
-
-#: src/EBox/Event/Dispatcher/RSS.pm:316
+#: src/EBox/Model/ProviderBase.pm:246
 #, perl-brace-format
-msgid "Go to your {url} to check its status."
-msgstr "Gå till din {url} för att se dess status"
+msgid "Provided object with index {i} does not exist"
+msgstr "Objektet med index {i} finns inte"
 
-#: src/EBox/PgDBEngine.pm:60 src/EBox/PgDBEngine.pm:74
-#: src/EBox/PgDBEngine.pm:88
+#: src/EBox/Model/Composite.pm:371
 #, perl-brace-format
-msgid "You must set the {variable} variable in the ebox configuration file"
-msgstr "Du måste ställa in variabeln {variable} i ebox konfigurationsfil"
+msgid "It should be one of following values: {values}"
+msgstr "Det borde ha ett av följande värden:{values}"
 
-#: src/EBox/PgDBEngine.pm:471
+#: src/EBox/Model/Composite.pm:673
+#, perl-brace-format
+msgid "Actions to be taken allowed are: {view} and {cView}"
+msgstr "Tillåtna åtgärder att utföra är: {view} och {cView}"
+
+#: src/EBox/Model/Composite.pm:801
+msgid "Choose one of the following:"
+msgstr "Välj en av följande:"
+
+#: src/EBox/Model/ModelManager.pm:468
 msgid ""
-"You are using sliced backup mode and this backup was made in no-sliced mode"
+"The data you are removing is being used by\n"
+"                    the following sections:"
 msgstr ""
+"The data you are removing is being used by\n"
+"the following sections:"
 
-#: src/EBox/PgDBEngine.pm:479
+#: src/EBox/Model/ModelManager.pm:515
 msgid ""
-"Database dump file not found. Maybe the backup you are trying to restore was "
-"made in sliced mode?"
+"The data you are modifying is being used by\n"
+"\t\t\tthe following sections:"
 msgstr ""
+"Det data du ändrar används av\n"
+"\t\t\tföljande sektioner:"
+
+#: src/EBox/Model/DataForm.pm:554
+#, perl-brace-format
+msgid "Remove data from {model}{br}"
+msgstr "Radera data från {model}{br}"
+
+#: src/EBox/Model/DataForm.pm:688 src/templates/progress.mas:26
+msgid "Done"
+msgstr "Färdig"
 
 #: src/EBox/Types/Int.pm:154
 msgid "Enter an integer number"
@@ -1100,6 +505,25 @@ msgstr "Värdet borde inte vara större än {m}"
 msgid "The value shouldn't be less than {m}"
 msgstr "Värdet borde inte vara mindre än {m}"
 
+#: src/EBox/Types/DomainName.pm:117
+msgid "IP addresses are not allowed"
+msgstr "IP-adresser är inte tillåtna."
+
+#: src/EBox/Types/Float.pm:112
+msgid "Enter a float number"
+msgstr "Ange ett float nummer"
+
+#: src/EBox/Types/Select.pm:340
+#, perl-brace-format
+msgid "Choose a value within the value set: {set}"
+msgstr "Välj ett värde inom detta omfång: {set}"
+
+#: src/EBox/Types/Service.pm:212 src/EBox/Types/PortRange.pm:289
+#: src/EBox/Events/Model/Watcher/LogFiltering.pm:149
+#: src/templates/logs/index.mas:185
+msgid "Any"
+msgstr "Alla"
+
 #: src/EBox/Types/Password.pm:133
 #, perl-brace-format
 msgid "The password should have at least {minLength} characters"
@@ -1109,10 +533,6 @@ msgstr "Lösenordet måste vara minst {minLength} tecken långt"
 #, perl-brace-format
 msgid "The password should have at most {maxLength} characters"
 msgstr "Lösenordet kan vara max {maxLength} tecken långt"
-
-#: src/EBox/Types/DomainName.pm:117
-msgid "IP addresses are not allowed"
-msgstr "IP-adresser är inte tillåtna."
 
 #: src/EBox/Types/PortRange.pm:138
 msgid "any"
@@ -1131,32 +551,506 @@ msgstr "Portintervall"
 msgid "\"From\" {from} must be greater than \"To\" {to}"
 msgstr "\"Från\" {from} måste vara större än \"Till\" {to}"
 
-#: src/EBox/Types/Float.pm:112
-msgid "Enter a float number"
-msgstr "Ange ett float nummer"
+#: src/EBox/Html.pm:39 src/templates/wizard.mas:124
+msgid "Save changes"
+msgstr "Spara ändringar"
 
-#: src/EBox/Types/Select.pm:340
-#, perl-brace-format
-msgid "Choose a value within the value set: {set}"
-msgstr "Välj ett värde inom detta omfång: {set}"
+#: src/EBox/Html.pm:40 src/EBox/CGI/Logout/Index.pm:29
+msgid "Logout"
+msgstr "Logga ut"
 
-#: src/EBox/Logs/SlicedBackup.pm:104
-#, perl-brace-format
+#: src/EBox/SysInfo.pm.in:50
+msgid "System Information"
+msgstr "Systeminformation"
+
+#: src/EBox/SysInfo.pm.in:95
+msgid "available"
+msgstr "tillgänglig"
+
+#: src/EBox/SysInfo.pm.in:103
+msgid "Time"
+msgstr "Tid"
+
+#: src/EBox/SysInfo.pm.in:104
+msgid "Hostname"
+msgstr "Värdnamn"
+
+#: src/EBox/SysInfo.pm.in:105
+msgid "Core version"
+msgstr "Grundversion"
+
+#: src/EBox/SysInfo.pm.in:107
+msgid "System load"
+msgstr "Systembelastning"
+
+#: src/EBox/SysInfo.pm.in:108
+msgid "Uptime"
+msgstr "Upptid"
+
+#: src/EBox/SysInfo.pm.in:109
+msgid "Users"
+msgstr "Användare"
+
+#: src/EBox/SysInfo.pm.in:162 src/EBox/SysInfo.pm.in:258
+msgid "Module Status"
+msgstr "Modulstatus"
+
+#: src/EBox/SysInfo.pm.in:168
+msgid "General Information"
+msgstr "Allmän information"
+
+#: src/EBox/SysInfo.pm.in:174
+msgid "Process List"
+msgstr "Lista över processer"
+
+#: src/EBox/SysInfo.pm.in:181
+msgid "Resources & Services"
+msgstr "Resurser och tjänster"
+
+#: src/EBox/SysInfo.pm.in:253 src/EBox/CGI/Dashboard/Index.pm:32
+msgid "Dashboard"
+msgstr "Instrumentpanel"
+
+#: src/EBox/SysInfo.pm.in:264
+msgid "System"
+msgstr "System"
+
+#: src/EBox/SysInfo.pm.in:268
+msgid "General"
+msgstr "Allmänt"
+
+#: src/EBox/SysInfo.pm.in:271 src/EBox/CGI/Report/DiskUsage.pm:31
+msgid "Disk Usage"
+msgstr "Diskanvändning"
+
+#: src/EBox/SysInfo.pm.in:280 src/EBox/CGI/EBox/Backup.pm:34
+#, fuzzy
+msgid "Import/Export Configuration"
+msgstr "Aktuell konfiguration"
+
+#: src/EBox/SysInfo.pm.in:283
+msgid "Configuration Report"
+msgstr "Rapport över konfiguration"
+
+#: src/EBox/SysInfo.pm.in:286
+msgid "Halt/Reboot"
+msgstr "Stäng av/Starta om"
+
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:304
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:269
+msgid "Name"
+msgstr "Namn"
+
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:314
+msgid "Receiver"
+msgstr "Mottagare"
+
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:326
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:286
+msgid "Configuration"
+msgstr "Konfiguration"
+
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:346
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:302
+msgid "None"
+msgstr "Ingen"
+
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:355
+msgid "Configure Dispatchers"
+msgstr "Konfigurera förmedlare"
+
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:364
+msgid "dispatcher"
+msgstr "förmedlare"
+
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:365
+msgid "Enable/Disable each event dispatcher"
+msgstr "Aktivera/Inaktivera varje händelseförmedlare"
+
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:554
 msgid ""
-"There are {n} log slices not stored; wait or force its storage and retry"
+"In order to enable a configurable event dispatcher, you need to configure it "
+"first"
 msgstr ""
+"För att aktivera en konfigurerbar händelseförmedlare måste du först "
+"konfigurera den"
 
-#: src/EBox/Logs/SlicedBackup.pm:133 src/EBox/Logs/SlicedBackup.pm:141
-msgid "Backup slice time interval"
-msgstr ""
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:192
+msgid "Jabber server name"
+msgstr "Jabber server namn"
 
-#: src/EBox/Logs/SlicedBackup.pm:438
-msgid "Slices to be archived at once"
-msgstr ""
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:195
+msgid "Jabber server to send the messages"
+msgstr "Jabber server att sända dessa meddelanden"
 
-#: src/EBox/Logs/SlicedBackup.pm:445
-msgid "Slices timeline"
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:199
+msgid "Port"
+msgstr "port"
+
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:206
+msgid "Jabber user name"
+msgstr "Jabber användarnamn"
+
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:209
+msgid ""
+"Jabber ID of the account that will send the messages. Hint: do not introduce "
+"@domain, only the user name"
 msgstr ""
+"Jabber ID från det konto som kommer att sända meddelandena. Tips: ange inte "
+"@domän, bara användarnamnet."
+
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:215
+msgid "User password"
+msgstr "Lösenord"
+
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:223
+msgid "Subscribe"
+msgstr "Prenumerera"
+
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:225
+#, fuzzy
+msgid ""
+"Tick this option if you want Zentyal to create an account for the above user"
+msgstr ""
+"Klicka i detta val om du vill att ebox ska skapa ett konto för ovanstående "
+"användare"
+
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:232
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:299
+msgid "Administrator Jabber Identifier"
+msgstr "Administratörs Jabber Identifierare"
+
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:235
+#, fuzzy
+msgid ""
+"Destination Jabber ID of the messages generated by Zentyal,  i.e: you, the "
+"Zentyal admin. Note that you need to register this  account manually in any "
+"jabber server"
+msgstr ""
+"Mål jabber ID för meddelanden genererade av eBox, dvs. du, eBox "
+"administratören. Observera att du behöver registrera detta konto manuellt i "
+"en jabber servrar"
+
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:244
+msgid "Configure Jabber dispatcher"
+msgstr "Konfigurera Jabber förmedlare"
+
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:249
+msgid "This dispatcher will send events to an Jabber account"
+msgstr "Den här förmedlaren kommer att sända händelser till ett Jabber konto"
+
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:252
+msgid "Jabber dispatcher configuration updated"
+msgstr "Jabber förmedlarkonfiguration uppdaterad"
+
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:272
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:324
+#: src/EBox/Events/Model/GeneralComposite.pm:72
+#: src/EBox/Events/Model/GeneralComposite.pm:73
+#: src/EBox/Events/Model/Watcher/LogFiltering.pm:211
+#: src/EBox/Events/Model/Watcher/DiskFreeSpace.pm:136
+#: src/EBox/Events/Model/Watcher/Log.pm:385 src/EBox/Events.pm:94
+#: src/EBox/Events.pm:838
+msgid "Events"
+msgstr "Händelser"
+
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:276
+msgid "Jabber Dispatcher"
+msgstr "Jabber förmedlare"
+
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:301
+msgid "It should follow the pattern 'user@domain[/resource]'"
+msgstr "Det borde följa mönstret 'user@domain[/resurs]'"
+
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:149
+msgid "Nobody"
+msgstr "Ingen"
+
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:153
+msgid "IP address"
+msgstr "IP adress"
+
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:160
+msgid "Object"
+msgstr "Objekt"
+
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:169
+msgid "Public"
+msgstr "Publik"
+
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:176
+msgid "Channel link"
+msgstr "Kanal-länk"
+
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:183
+msgid "Allowed readers"
+msgstr "Tillåtna läsare"
+
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:186
+msgid "Use this field to set the access control for the channel"
+msgstr "Använd det här fältet för att sätta åtkomsten till denna kanal"
+
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:191
+msgid "Syndicate this RSS"
+msgstr "Publicera denna RSS"
+
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:201
+msgid "Configure RSS dispatcher"
+msgstr "Konfigurera RSS förmedlare"
+
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:206
+msgid ""
+"The channel link is the link which is used to syndicate the content to your "
+"favourite RSS. "
+msgstr ""
+"Kanal-länken är den länk som används för att publicera innehåll till din "
+"favorit RSS."
+
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:209
+msgid "RSS dispatcher configuration updated"
+msgstr "RSS förmedlarkonfiguration uppdaterad"
+
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:328
+msgid "RSS Dispatcher"
+msgstr "RSS förmedlare"
+
+#: src/EBox/Events/Model/GeneralComposite.pm:76
+#, fuzzy
+msgid ""
+"Events module configures Zentyal to help informing you about events that "
+"happen"
+msgstr ""
+"Händelsemodulen konfigurerar eBox att hjälpa informera dig om händelser"
+
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:277
+#: src/templates/backup.mas:55 src/templates/backup.mas:129
+#: src/templates/confirm-backup.mas:36
+msgid "Description"
+msgstr "Beskrivning"
+
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:311
+msgid "Configure Events"
+msgstr "Konfigurera händelser"
+
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:319
+#: src/EBox/Events/Model/Report/EventsDetails.pm:109
+msgid "event"
+msgstr "Händelse"
+
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:320
+msgid "Enable/Disable each event watcher monitoring"
+msgstr "Aktivera/inaktivera händelseövervakare"
+
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:498
+msgid ""
+"Warning! There is no log domain watcher enabled. Please, go to "
+"'Configuration' to enable at least one to be notified when a log in this "
+"domain happens. "
+msgstr ""
+"Varning! Det finns ingen övervakare för loggdomän aktiverad. Vänligen gå "
+"till \"Konfiguration\" och aktivera iallafall en som blir notifierad när ett "
+"login på denna domän händer."
+
+#: src/EBox/Events/Model/Watcher/LogFiltering.pm:108
+#, perl-brace-format
+msgid "Log domain {logDomain}"
+msgstr "Log domän {logDomain}"
+
+#: src/EBox/Events/Model/Watcher/LogFiltering.pm:168
+#: src/templates/logs/index.mas:183
+msgid "Event"
+msgstr "Händelse"
+
+#: src/EBox/Events/Model/Watcher/LogFiltering.pm:176
+#, perl-brace-format
+msgid "Filters to apply to notify logs from {logDomain}"
+msgstr "Filter för att applicera meddelandeloggar från {logDomain}"
+
+#: src/EBox/Events/Model/Watcher/LogFiltering.pm:184
+msgid ""
+"Every filter added is cumulative.Then every log line which matches with any "
+"filter given will be notified"
+msgstr ""
+"Filtren som läggs till adderas. Alla logg rader som matchar alla filter "
+"kommer att notifieras"
+
+#: src/EBox/Events/Model/Watcher/LogFiltering.pm:188
+msgid "filter"
+msgstr "filter"
+
+#: src/EBox/Events/Model/Watcher/LogFiltering.pm:215
+#: src/EBox/Events/Model/Watcher/Log.pm:389
+msgid "Log Observer Watcher"
+msgstr "Logg observatör-övervakare"
+
+#: src/EBox/Events/Model/Watcher/DiskFreeSpace.pm:100
+msgid "Minimum free disk space per filesystem"
+msgstr "Minimum fritt utrymme per filsystem"
+
+#: src/EBox/Events/Model/Watcher/DiskFreeSpace.pm:105
+msgid ""
+"When the free space percentage of any disk partition is under this value the "
+"event is triggered."
+msgstr ""
+"När andelen fritt utrymme är under detta värde i procent triggas denna "
+"händelse"
+
+#: src/EBox/Events/Model/Watcher/DiskFreeSpace.pm:112
+msgid "Configure disk free space watcher"
+msgstr "Konfigurera övervakare för fritt diskutrymme"
+
+#: src/EBox/Events/Model/Watcher/DiskFreeSpace.pm:140
+msgid "Free Disk Space Watcher"
+msgstr "Övervakare för fritt diskutrymme"
+
+#: src/EBox/Events/Model/Watcher/Log.pm:214
+#: src/EBox/Events/Model/Watcher/Log.pm:238
+msgid ""
+"Warning! The log watcher is not enabled. Enable to be notified when logs "
+"happen. "
+msgstr ""
+"Varning! Loggövervakningen är avaktiverad. Aktivera för att bli meddelad när "
+"något händer med loggarna"
+
+#: src/EBox/Events/Model/Watcher/Log.pm:262
+#: src/EBox/Logs/Model/SelectLog.pm:149
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:332
+msgid "Domain"
+msgstr "Domän"
+
+#: src/EBox/Events/Model/Watcher/Log.pm:267
+msgid "Filtering"
+msgstr "Filtrerar"
+
+#: src/EBox/Events/Model/Watcher/Log.pm:275
+msgid "Configure log watchers"
+msgstr "Konfigurera loggövervakning"
+
+#: src/EBox/Events/Model/Watcher/Log.pm:277
+msgid "Log watcher"
+msgstr "Logg övervakare"
+
+#: src/EBox/Events/Model/Report/EventsGraph.pm:51
+#: src/EBox/Events/Model/Report/EventsDetails.pm:51
+#: src/EBox/Events/Model/Report/EventsDetails.pm:80 src/EBox/Events.pm:830
+msgid "Informative"
+msgstr "Informativ"
+
+#: src/EBox/Events/Model/Report/EventsGraph.pm:52
+#: src/EBox/Events/Model/Report/EventsDetails.pm:52
+#: src/EBox/Events/Model/Report/EventsDetails.pm:84 src/EBox/Events.pm:831
+#: src/templates/finish.mas:83
+msgid "Warning"
+msgstr "Varning"
+
+#: src/EBox/Events/Model/Report/EventsGraph.pm:53
+#: src/EBox/Events/Model/Report/EventsDetails.pm:53
+#: src/EBox/Events/Model/Report/EventsDetails.pm:88 src/EBox/Events.pm:832
+msgid "Error"
+msgstr "Fel"
+
+#: src/EBox/Events/Model/Report/EventsGraph.pm:54
+#: src/EBox/Events/Model/Report/EventsDetails.pm:54
+#: src/EBox/Events/Model/Report/EventsDetails.pm:92 src/EBox/Events.pm:833
+msgid "Fatal error"
+msgstr "Allvarligt fel"
+
+#: src/EBox/Events/Model/Report/EventsGraph.pm:60
+msgid "Events summarized chart"
+msgstr "Diagram över händelser"
+
+#: src/EBox/Events/Model/Report/EventsGraph.pm:77
+msgid "Events summarized graph"
+msgstr "Graf över händelser"
+
+#: src/EBox/Events/Model/Report/EventsDetails.pm:50
+#: src/EBox/Events/Model/Report/EventsDetails.pm:74 src/EBox/Events.pm:823
+msgid "Source"
+msgstr "Källa"
+
+#: src/EBox/Events/Model/Report/EventsDetails.pm:68 src/EBox/Logs.pm:737
+#: src/templates/backup.mas:130 src/templates/finish.mas:116
+#: src/templates/confirm-backup.mas:28
+msgid "Date"
+msgstr "Datum"
+
+#: src/EBox/Events/Model/Report/EventsDetails.pm:101
+msgid "Events details"
+msgstr "Detaljer för händelse"
+
+#: src/EBox/Events/Composite/Report/EventsReport.pm:69
+msgid "Events reports"
+msgstr "Rapporter för händelser"
+
+#: src/EBox/Events/Composite/Report/EventsReport.pm:70
+msgid "Events report"
+msgstr "Rapport över händelse"
+
+#: src/EBox/ProgressIndicator.pm:42
+msgid "Total ticks"
+msgstr "Totala ticks"
+
+#: src/EBox/ProgressIndicator.pm:44
+msgid "It must be a non-zero positive number"
+msgstr "Det måste vara ett positivt nummer."
+
+#: src/EBox/ProgressIndicator.pm:49
+#, fuzzy
+msgid "To solve it you can try to execute the following commands:"
+msgstr "Bekräfta att du vill ta bort följande säkerhetskopia:"
+
+#: src/EBox/ProgressIndicator.pm:56
+#, perl-brace-format
+msgid "Cannot execute {exe}"
+msgstr "Kan inte exekvera {exe}"
+
+#: src/EBox/ProgressIndicator.pm:106
+#, perl-brace-format
+msgid "Progress indicator with id {id} not found"
+msgstr "Mätare med id {id} hittas ej"
+
+#: src/EBox/ProgressIndicator.pm:144
+msgid "Number of ticks to notify"
+msgstr "Antal ticks att meddela"
+
+#: src/EBox/ProgressIndicator.pm:146
+msgid "must be greater than zero"
+msgstr "måste vara högre än noll"
+
+#: src/EBox/ProgressIndicator.pm:152
+msgid "Executable has not been run"
+msgstr "Körbar fil har ej körts"
+
+#: src/EBox/ProgressIndicator.pm:293
+msgid "The executable has not run"
+msgstr "Den körbara filen har inte körts"
+
+#: src/EBox/ProgressIndicator.pm:437
+msgid "The executable has already been started"
+msgstr "Den körbara filen har redan startats"
+
+#: src/EBox/ProgressIndicator.pm:441
+msgid "The executable has already finished"
+msgstr "Den körbara filen har redan kört klart"
+
+#: src/EBox/Auth.pm:133
+msgid "Password changed"
+msgstr "Lösenordet ändrat"
+
+#: src/EBox/Global.pm:536
+#, perl-brace-format
+msgid "Enabling {modName} module"
+msgstr "Aktiverar {modName} modul"
+
+#: src/EBox/Global.pm:566 src/EBox/Global.pm:597
+#, perl-brace-format
+msgid "Saving {modName} module"
+msgstr "Sparar {modName} modul"
+
+#: src/EBox/Global.pm:1114
+#, perl-brace-format
+msgid "running {scriptName} script"
+msgstr "kör {scriptName} skript"
 
 #: src/EBox/Logs/Model/SelectLog.pm:157
 msgid "Full report"
@@ -1175,54 +1069,62 @@ msgstr "Välj rapport"
 msgid "logs"
 msgstr "loggar"
 
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:228
-msgid "never purge"
-msgstr "rensa aldrig"
+#: src/EBox/Logs/Model/ForcePurge.pm:99
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:347
+msgid "Purge logs older than"
+msgstr "Rensa loggar äldre än"
 
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:232
+#: src/EBox/Logs/Model/ForcePurge.pm:108
+msgid "Force log purge"
+msgstr "Tvinga logg rensning"
+
+#: src/EBox/Logs/Model/ForcePurge.pm:111
+msgid "Purge"
+msgstr "Rensa"
+
 #: src/EBox/Logs/Model/ForcePurge.pm:125
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:232
 msgid "one hour"
 msgstr "en timme"
 
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:236
 #: src/EBox/Logs/Model/ForcePurge.pm:129
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:236
 msgid "twelve hours"
 msgstr "tolv timmar"
 
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:240
 #: src/EBox/Logs/Model/ForcePurge.pm:133
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:240
 msgid "one day"
 msgstr "en dag"
 
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:244
 #: src/EBox/Logs/Model/ForcePurge.pm:137
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:244
 msgid "three days"
 msgstr "tre dagar"
 
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:248
 #: src/EBox/Logs/Model/ForcePurge.pm:141
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:248
 msgid "one week"
 msgstr "en vecka"
 
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:252
 #: src/EBox/Logs/Model/ForcePurge.pm:145
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:252
 msgid "fifteeen days"
 msgstr "femton dagar"
 
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:256
 #: src/EBox/Logs/Model/ForcePurge.pm:149
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:256
 msgid "thirty days"
 msgstr "trettio dagar"
 
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:260
 #: src/EBox/Logs/Model/ForcePurge.pm:153
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:260
 msgid "ninety days"
 msgstr "nittio dagar"
 
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:347
-#: src/EBox/Logs/Model/ForcePurge.pm:99
-msgid "Purge logs older than"
-msgstr "Rensa loggar äldre än"
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:228
+msgid "never purge"
+msgstr "rensa aldrig"
 
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:364
 msgid "Current configuration"
@@ -1235,20 +1137,6 @@ msgstr "Logg konfiguration"
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:371
 msgid "Enable/disable logging per-module basis"
 msgstr "Aktivera/inaktivera loggning per modul"
-
-#: src/EBox/Logs/Model/ForcePurge.pm:108
-msgid "Force log purge"
-msgstr "Tvinga logg rensning"
-
-#: src/EBox/Logs/Model/ForcePurge.pm:111
-msgid "Purge"
-msgstr "Rensa"
-
-#: src/EBox/Logs/Model/Report/Details.pm:226
-#: src/EBox/Logs/Model/Report/Details.pm:234
-#: src/EBox/Logs/Model/Report/Details.pm:269
-msgid "All"
-msgstr "Alla"
 
 #: src/EBox/Logs/Model/Report/OptionsBase.pm:40
 msgid "hour"
@@ -1273,6 +1161,112 @@ msgstr "Tidsperiod för rapport"
 #: src/EBox/Logs/Model/Report/OptionsBase.pm:101
 msgid "Report options"
 msgstr "Rapportinställningar"
+
+#: src/EBox/Logs/Model/Report/Details.pm:226
+#: src/EBox/Logs/Model/Report/Details.pm:234
+#: src/EBox/Logs/Model/Report/Details.pm:269
+msgid "All"
+msgstr "Alla"
+
+#: src/EBox/Logs/SlicedBackup.pm:104
+#, perl-brace-format
+msgid ""
+"There are {n} log slices not stored; wait or force its storage and retry"
+msgstr ""
+
+#: src/EBox/Logs/SlicedBackup.pm:133 src/EBox/Logs/SlicedBackup.pm:141
+msgid "Backup slice time interval"
+msgstr ""
+
+#: src/EBox/Logs/SlicedBackup.pm:438
+msgid "Slices to be archived at once"
+msgstr ""
+
+#: src/EBox/Logs/SlicedBackup.pm:445
+msgid "Slices timeline"
+msgstr ""
+
+#: src/EBox/Report/DiskUsage.pm:76
+#, perl-brace-format
+msgid "No usage data for {d}. Are you sure is a valid disk?"
+msgstr ""
+"Inget användningsdata för  {d}. Är du säker på att det är en giltig disk?"
+
+#: src/EBox/Report/DiskUsage.pm:222
+#, perl-brace-format
+msgid ""
+"Invalid file system: {f}. Only regular and no removable media file systems "
+"are accepted"
+msgstr ""
+"Felaktigt filsystem: {f}. Bara vanliga och inte löstagbara filsystem "
+"accepteras"
+
+#: src/EBox/PgDBEngine.pm:60 src/EBox/PgDBEngine.pm:74
+#: src/EBox/PgDBEngine.pm:88
+#, perl-brace-format
+msgid "You must set the {variable} variable in the ebox configuration file"
+msgstr "Du måste ställa in variabeln {variable} i ebox konfigurationsfil"
+
+#: src/EBox/PgDBEngine.pm:471
+msgid ""
+"You are using sliced backup mode and this backup was made in no-sliced mode"
+msgstr ""
+
+#: src/EBox/PgDBEngine.pm:479
+msgid ""
+"Database dump file not found. Maybe the backup you are trying to restore was "
+"made in sliced mode?"
+msgstr ""
+
+#: src/EBox/Logs.pm:58 src/EBox/Logs.pm:383 src/EBox/CGI/Logs/Index.pm:35
+msgid "Logs"
+msgstr "Loggar"
+
+#: src/EBox/Logs.pm:384
+msgid "Zentyal Server logs database"
+msgstr ""
+
+#: src/EBox/Logs.pm:470
+#, perl-brace-format
+msgid "Table {table} does not exist"
+msgstr "Tabellen {table} finns inte"
+
+#: src/EBox/Logs.pm:721 src/EBox/CGI/Logs/Index.pm:326
+msgid "Query Logs"
+msgstr "Sök i loggar"
+
+#: src/EBox/Logs.pm:724
+msgid "Configure Logs"
+msgstr "Konfigurera loggar"
+
+#: src/EBox/Logs.pm:738
+msgid "Client Address"
+msgstr "Klientadress"
+
+#: src/EBox/Logs.pm:739 src/EBox/CGI/EBox/Backup.pm:257
+#: src/templates/moduleStatusTable.mas:58 src/templates/finish.mas:117
+msgid "Module"
+msgstr "Modul"
+
+#: src/EBox/Logs.pm:741
+msgid "Params"
+msgstr "Parametrar"
+
+#: src/EBox/Logs.pm:742
+msgid "Committed"
+msgstr "Verkställd"
+
+#: src/EBox/Logs.pm:747
+msgid "Admin"
+msgstr "Admin"
+
+#: src/EBox/Logs.pm:841
+msgid "Log messages"
+msgstr "Logg meddelanden"
+
+#: src/EBox/Logs.pm:868
+msgid "Lifetime parameter must be a positive number of hours"
+msgstr "Livstidsparameter måste vara ett positivt antal timmar"
 
 #: src/EBox/Common/Model/EnableForm.pm:99
 msgid "Service enabled"
@@ -1322,161 +1316,271 @@ msgstr "Nivå"
 msgid "Message"
 msgstr "Meddelande"
 
-#: src/EBox/Logs.pm:384
-msgid "Zentyal Server logs database"
-msgstr ""
-
-#: src/EBox/Logs.pm:470
-#, perl-brace-format
-msgid "Table {table} does not exist"
-msgstr "Tabellen {table} finns inte"
-
-#: src/EBox/Logs.pm:724
-msgid "Configure Logs"
-msgstr "Konfigurera loggar"
-
-#: src/EBox/Logs.pm:738
-msgid "Client Address"
-msgstr "Klientadress"
-
-#: src/EBox/Logs.pm:740 src/EBox/Model/Composite.pm:671
-#: src/EBox/Model/Composite.pm:686 src/EBox/Model/DataMultiTable.pm:168
-#: src/EBox/Model/DataTable.pm:2129
-msgid "Action"
-msgstr "Åtgärd"
-
-#: src/EBox/Logs.pm:741
-msgid "Params"
-msgstr "Parametrar"
-
-#: src/EBox/Logs.pm:742
-msgid "Committed"
-msgstr "Verkställd"
-
-#: src/EBox/Logs.pm:747
-msgid "Admin"
-msgstr "Admin"
-
-#: src/EBox/Logs.pm:841
-msgid "Log messages"
-msgstr "Logg meddelanden"
-
-#: src/EBox/Logs.pm:868
-msgid "Lifetime parameter must be a positive number of hours"
-msgstr "Livstidsparameter måste vara ett positivt antal timmar"
-
-#: src/EBox/Model/ProviderBase.pm:246
-#, perl-brace-format
-msgid "Provided object with index {i} does not exist"
-msgstr "Objektet med index {i} finns inte"
-
-#: src/EBox/Model/DataForm.pm:554
-#, perl-brace-format
-msgid "Remove data from {model}{br}"
-msgstr "Radera data från {model}{br}"
-
-#: src/EBox/Model/DataForm.pm:688 src/templates/progress.mas:26
-msgid "Done"
-msgstr "Färdig"
-
-#: src/EBox/Model/Composite.pm:371
-#, perl-brace-format
-msgid "It should be one of following values: {values}"
-msgstr "Det borde ha ett av följande värden:{values}"
-
-#: src/EBox/Model/Composite.pm:673
-#, perl-brace-format
-msgid "Actions to be taken allowed are: {view} and {cView}"
-msgstr "Tillåtna åtgärder att utföra är: {view} och {cView}"
-
-#: src/EBox/Model/Composite.pm:801
-msgid "Choose one of the following:"
-msgstr "Välj en av följande:"
-
-#: src/EBox/Model/ModelManager.pm:468
+#: src/EBox/CGI/ClientRawBase.pm:212 src/EBox/CGI/WizardPage.pm:155
 msgid ""
-"The data you are removing is being used by\n"
-"                    the following sections:"
+"An internal error related to a template has occurred. This is a bug, "
+"relevant information can be found in the logs."
 msgstr ""
-"The data you are removing is being used by\n"
-"the following sections:"
+"Ett internt fel relaterat till en mall har inträffat. Det här är ett "
+"programfel. Relevant information kan hittas i loggarna."
 
-#: src/EBox/Model/ModelManager.pm:515
+#: src/EBox/CGI/Wizard.pm:29
+msgid "Initial configuration wizard"
+msgstr "Inledande konfigurationshjälp"
+
+#: src/EBox/CGI/ServiceModule/StatusView.pm:39
+msgid "Module Status Configuration"
+msgstr "Konfiguration av modulernas status"
+
+#: src/EBox/CGI/Dashboard/ConfigureWidgets.pm:30
+#: src/templates/dashboard/index.mas:81
+msgid "Configure Widgets"
+msgstr "Konfigurera widgets"
+
+#: src/EBox/CGI/Finish.pm:32
+msgid "Save configuration"
+msgstr "Spara konfiguration"
+
+#: src/EBox/CGI/Finish.pm:77 src/EBox/CGI/Progress.pm:81
+#: src/EBox/CGI/Progress.pm:107
+msgid "Saving changes"
+msgstr "Sparar ändringar"
+
+#: src/EBox/CGI/Finish.pm:78
+msgid "Saving changes in modules"
+msgstr "Sparar ändringar i moduler"
+
+#: src/EBox/CGI/Finish.pm:79 src/templates/report/raid.mas:213
+msgid "Current operation"
+msgstr "Aktuellt åtgärd"
+
+#: src/EBox/CGI/Finish.pm:80
+msgid "operations performed"
+msgstr "Utförda åtgärder"
+
+#: src/EBox/CGI/Finish.pm:81
+msgid "Changes saved"
+msgstr "Sparade ändringar"
+
+#: src/EBox/CGI/Finish.pm:82
+#, perl-brace-format
 msgid ""
-"The data you are modifying is being used by\n"
-"\t\t\tthe following sections:"
+"Some modules reported error when saving changes . More information on the "
+"logs in {dir}"
 msgstr ""
-"Det data du ändrar används av\n"
-"\t\t\tföljande sektioner:"
+"Några moduler rapporterade fel när ändringarna sparades. Mer information "
+"finns i loggarna i {dir}"
 
-#: src/EBox/Model/DataTable.pm:327
+#: src/EBox/CGI/Finish.pm:101
+msgid "Revoking changes"
+msgstr "Upphäver ändringar"
+
+#: src/EBox/CGI/Finish.pm:102
+msgid "Revoking changes in modules"
+msgstr "Upphäver ändringar i moduler"
+
+#: src/EBox/CGI/Finish.pm:103
+msgid "Current module"
+msgstr "Aktuell modul"
+
+#: src/EBox/CGI/Finish.pm:104
+msgid "modules revoked"
+msgstr "moduler upphävda"
+
+#: src/EBox/CGI/Finish.pm:105
+msgid "Changes revoked"
+msgstr "Ändringar upphävda"
+
+#: src/EBox/CGI/Finish.pm:106
 #, perl-brace-format
-msgid "{model} in {module} module"
-msgstr "{model} i {module} modul"
+msgid ""
+"Some modules reported error when discarding changes . More information on "
+"the logs in {dir}"
+msgstr ""
+"Några moduler rapporterade fel när de förkastade ändringar Mer information "
+"finns i loggarna i {dir}"
 
-#: src/EBox/Model/DataTable.pm:331
-msgid "at"
-msgstr "på"
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:33 src/templates/backup.mas:30
+msgid "Configuration Backup"
+msgstr "Säkerhetskopia av konfiguration"
 
-#: src/EBox/Model/DataTable.pm:542
-msgid "field"
-msgstr "fält"
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:105
+msgid "Please confirm that you want to delete the following backup file:"
+msgstr "Bekräfta att du vill ta bort följande säkerhetskopia:"
 
-#: src/EBox/Model/DataTable.pm:1468
-msgid "page"
-msgstr "sida"
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:107 src/templates/backup.mas:168
+#: src/templates/backup.mas:169
+msgid "Delete"
+msgstr "Ta bort"
 
-#: src/EBox/Model/DataTable.pm:1471
-msgid "Page must be a number equal or greater than zero"
-msgstr "Sida måste vara en siffra som noll eller större."
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:114
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:130
+msgid "Please confirm that you want to restore using this backup file:"
+msgstr "Bekräfta att du vill återskapa med den här säkerhetskopian:"
 
-#: src/EBox/Model/DataTable.pm:2831
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:116
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:132 src/templates/backup.mas:98
+msgid "Restore"
+msgstr "Återskapa"
+
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:147 src/EBox/CGI/EBox/Backup.pm:193
+#: src/EBox/CGI/EBox/Backup.pm:271 src/EBox/CGI/EBox/Backup.pm:284
+#: src/EBox/Backup.pm:1482
+msgid "The input contains invalid characters"
+msgstr "Inmatningen innehåller ogiltiga tecken"
+
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:176
+msgid "Configuration backup"
+msgstr "Säkerhetskopia av konfiguration"
+
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:179
+msgid "Full data and configuration backup"
+msgstr "Säkerhetskopia av fullständigt data och konfiguration"
+
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:182
+msgid "Bug-report configuration dump"
+msgstr "Dump av konfiguration för felrapport"
+
+#: src/EBox/CGI/EBox/Hostname.pm:48
+#, fuzzy
+msgid "hostname"
+msgstr "Värdnamn"
+
+#: src/EBox/CGI/EBox/CurrentProgress.pm:36
+msgid "Upgrading"
+msgstr "Uppgraderar"
+
+#: src/EBox/CGI/EBox/General.pm:32
+msgid "General Configuration"
+msgstr "Allmän konfiguration"
+
+#: src/EBox/CGI/EBox/Halt.pm:30
+msgid "Halt or Reboot"
+msgstr "Stäng av eller starta om"
+
+#: src/EBox/CGI/EBox/Halt.pm:43
+#, fuzzy
+msgid "Zentyal is going down for halt"
+msgstr "eBox är på väg att stängas av"
+
+#: src/EBox/CGI/EBox/Halt.pm:46
+#, fuzzy
+msgid "Zentyal is going down for reboot"
+msgstr "eBox är på väg att startas om"
+
+#: src/EBox/CGI/EBox/RestartService.pm:49
+msgid "module name"
+msgstr "modulnamn"
+
+#: src/EBox/CGI/EBox/RestartService.pm:54
+msgid "The module was restarted correctly."
+msgstr "Modulen startades om korrekt."
+
+#: src/EBox/CGI/EBox/RestartService.pm:58
 #, perl-brace-format
-msgid "Remove {num} rows of {rowName} from {model}{br}"
-msgstr "Ta bort {num} rader av {rowName} från {model}{br}"
+msgid "Error restarting service. See {logs} for more information."
+msgstr ""
 
-#: src/EBox/Model/DataTable.pm:2902
-msgid "Page size"
-msgstr "Sidstorlek"
+#: src/EBox/CGI/EBox/Password.pm:43 src/templates/password.mas:11
+#: src/templates/login/index.mas:49
+#, fuzzy
+msgid "Username"
+msgstr "Värdnamn"
 
-#: src/EBox/Model/DataTable.pm:2905
-msgid "Must be either a positive number or zero"
-msgstr "Måste vara ett positivt nummer eller noll"
+#: src/EBox/CGI/EBox/Password.pm:48 src/templates/login/index.mas:54
+msgid "Password"
+msgstr "Lösenord"
 
-#: src/EBox/Model/DataTable.pm:3212
+#: src/EBox/CGI/EBox/Password.pm:57
+msgid "Incorrect password."
+msgstr "Felaktigt lösenord."
+
+#: src/EBox/CGI/EBox/Password.pm:62
+msgid "New passwords do not match."
+msgstr "Nya lösenorden stämmer inte överens."
+
+#: src/EBox/CGI/EBox/Password.pm:67
+msgid "The password must be at least 6 characters long"
+msgstr "Lösenordet måste vara minst 6 tecken långt"
+
+#: src/EBox/CGI/EBox/Password.pm:71
+msgid "The password was changed successfully."
+msgstr "Lösenordet ändrades."
+
+#: src/EBox/CGI/EBox/ConfigurationReport.pm:29
+msgid "Configuration report"
+msgstr "Rapport över konfiguration"
+
+#: src/EBox/CGI/EBox/Backup.pm:163
 #, perl-brace-format
-msgid "{row} added"
-msgstr "{row} tillagd"
+msgid "Unknown backup mode: {mode}"
+msgstr "Okänt läge för säkerhetskopiering: {mode}"
 
-#: src/EBox/Model/DataTable.pm:3213
+#: src/EBox/CGI/EBox/Backup.pm:226
 #, perl-brace-format
-msgid "{row} deleted"
-msgstr "{row} raderad"
+msgid "Unknown restore mode: {mode}"
+msgstr "Okänt läge för återskapning: {mode}"
 
-#: src/EBox/Model/DataTable.pm:3214
-#, perl-brace-format
-msgid "{row} updated"
-msgstr "{row} uppdaterad"
+#: src/EBox/CGI/EBox/Backup.pm:239
+msgid "Backing up"
+msgstr "Säkerhetskopierar"
 
-#: src/EBox/Model/DataTable.pm:3215
-#, perl-brace-format
-msgid "{row} moved up"
-msgstr "{row} uppflyttad"
+#: src/EBox/CGI/EBox/Backup.pm:240
+msgid "Backing up modules"
+msgstr "Säkerhetskopierar moduler"
 
-#: src/EBox/Model/DataTable.pm:3216
-#, perl-brace-format
-msgid "{row} moved down"
-msgstr "{row} nedflyttad"
+#: src/EBox/CGI/EBox/Backup.pm:241
+msgid "Operation"
+msgstr "Modifiering"
 
-#: src/EBox/Model/DataTable.pm:4402 src/templates/password.mas:67
-#: src/templates/dataInUse.mas:25 src/templates/dataInUse.mas:34
-#: src/templates/port.mas:14 src/templates/hostname.mas:19
-msgid "Change"
-msgstr "Byt"
+#: src/EBox/CGI/EBox/Backup.pm:242
+msgid "operations left to finish backup"
+msgstr "Modifieringar kvar för att slutföra säkerhetskopiering"
 
-#: src/EBox/Html.pm:39 src/templates/wizard.mas:124
-msgid "Save changes"
-msgstr "Spara ändringar"
+#: src/EBox/CGI/EBox/Backup.pm:243
+msgid "Backup successful"
+msgstr "Säkerhetskopiering lyckad"
+
+#: src/EBox/CGI/EBox/Backup.pm:255
+msgid "Restoring backup"
+msgstr "Återskapar från säkerhetskopia"
+
+#: src/EBox/CGI/EBox/Backup.pm:256
+msgid "Restoring modules"
+msgstr "Återskapar moduler"
+
+#: src/EBox/CGI/EBox/Backup.pm:258
+msgid "modules restored"
+msgstr "moduler återställda"
+
+#: src/EBox/CGI/EBox/Backup.pm:259
+msgid "Restore successful"
+msgstr "Återskapning lyckad"
+
+#: src/EBox/CGI/Login/Index.pm:63
+#, fuzzy
+msgid ""
+"There is a script which has asked to run in Zentyal exclusively. Please, "
+"wait patiently until it is done"
+msgstr ""
+"Det finns ett skript som har bett om att köra i eBox ensamt.Vänta med "
+"tålamod tills det är klart"
+
+#: src/EBox/CGI/Login/Index.pm:67
+msgid "Incorrect password"
+msgstr "Felaktigt lösenord"
+
+#: src/EBox/CGI/Login/Index.pm:70
+msgid "For security reasons your session has expired due to inactivity"
+msgstr "Av säkerhetsskäl har din session utgått på grund av inaktivitet"
+
+#: src/EBox/CGI/Login/Index.pm:73
+msgid "You have been logged out because a new session has been opened"
+msgstr "Du har blivit utloggad på grund av att en ny session har öppnats"
+
+#: src/EBox/CGI/Logs/Index.pm:329
+msgid "Full Reports"
+msgstr "Fulla rapporter"
 
 #: src/EBox/Backup.pm:96
 msgid "Creating backup archive"
@@ -1575,28 +1679,28 @@ msgstr ""
 msgid "Could not unpack the etc files archive backup"
 msgstr "Kunde inte packa upp säkerhetskopian"
 
-#: src/EBox/Backup.pm:1327
+#: src/EBox/Backup.pm:1326
 #, perl-brace-format
 msgid ""
 "The following modules present in the backup are not installed: {mods}. You "
 "need to install them before restoring."
 msgstr ""
 
-#: src/EBox/Backup.pm:1353
+#: src/EBox/Backup.pm:1354
 #, perl-brace-format
 msgid "Cannot restore backup, error enabling module {m}: {err}"
 msgstr ""
 
-#: src/EBox/Backup.pm:1386
+#: src/EBox/Backup.pm:1387
 #, perl-brace-format
 msgid "No module {m} found in backup"
 msgstr "Ingen modul {m} funnen i säkerhetskopia"
 
-#: src/EBox/Backup.pm:1408
+#: src/EBox/Backup.pm:1409
 msgid "No modules to restore"
 msgstr "Inga moduler att återställa"
 
-#: src/EBox/Backup.pm:1460
+#: src/EBox/Backup.pm:1461
 #, perl-brace-format
 msgid ""
 "Unresolved restore dependency for module {topModule}: {modName} is not "
@@ -1605,125 +1709,49 @@ msgstr ""
 "Oläst återskapningsberoende för modulen {topModule}: {modName} är inte "
 "installerad"
 
-#: src/EBox/Backup.pm:1502
+#: src/EBox/Backup.pm:1503
 #, fuzzy
 msgid "Backup archives"
 msgstr "Lista över säkerhetskopior"
 
-#: src/EBox/SysInfo.pm.in:50
-msgid "System Information"
-msgstr "Systeminformation"
+#: src/templates/dataInUse.mas:41 src/templates/confirm-backup.mas:66
+msgid "Cancel"
+msgstr "Avbryt"
 
-#: src/EBox/SysInfo.pm.in:95
-msgid "available"
-msgstr "tillgänglig"
-
-#: src/EBox/SysInfo.pm.in:103
-msgid "Time"
-msgstr "Tid"
-
-#: src/EBox/SysInfo.pm.in:104
-msgid "Hostname"
-msgstr "Värdnamn"
-
-#: src/EBox/SysInfo.pm.in:105
-msgid "Core version"
-msgstr "Grundversion"
-
-#: src/EBox/SysInfo.pm.in:107
-msgid "System load"
-msgstr "Systembelastning"
-
-#: src/EBox/SysInfo.pm.in:108
-msgid "Uptime"
-msgstr "Upptid"
-
-#: src/EBox/SysInfo.pm.in:109
-msgid "Users"
-msgstr "Användare"
-
-#: src/EBox/SysInfo.pm.in:162 src/EBox/SysInfo.pm.in:258
-msgid "Module Status"
-msgstr "Modulstatus"
-
-#: src/EBox/SysInfo.pm.in:168
-msgid "General Information"
-msgstr "Allmän information"
-
-#: src/EBox/SysInfo.pm.in:174
-msgid "Process List"
-msgstr "Lista över processer"
-
-#: src/EBox/SysInfo.pm.in:181
-msgid "Resources & Services"
-msgstr "Resurser och tjänster"
-
-#: src/EBox/SysInfo.pm.in:264
-msgid "System"
-msgstr "System"
-
-#: src/EBox/SysInfo.pm.in:268
-msgid "General"
-msgstr "Allmänt"
-
-#: src/EBox/SysInfo.pm.in:283
-msgid "Configuration Report"
-msgstr "Rapport över konfiguration"
-
-#: src/EBox/SysInfo.pm.in:286
-msgid "Halt/Reboot"
-msgstr "Stäng av/Starta om"
-
-#: src/EBox/Apache.pm:289 src/EBox/Apache.pm:298
-msgid "port"
-msgstr "port"
-
-#: src/EBox/Apache.pm:626
+#: src/templates/links-widget.mas:5
 #, fuzzy
-msgid "Zentyal Administration Web Server"
-msgstr "eBox webbserver"
+msgid "Community Resources"
+msgstr "Återskapning av konfiguration"
 
-#: src/EBox/Global.pm:536
-#, perl-brace-format
-msgid "Enabling {modName} module"
-msgstr "Aktiverar {modName} modul"
+#: src/templates/links-widget.mas:10
+#, fuzzy
+msgid "Documentation"
+msgstr "Domän"
 
-#: src/EBox/Global.pm:566 src/EBox/Global.pm:597
-#, perl-brace-format
-msgid "Saving {modName} module"
-msgstr "Sparar {modName} modul"
-
-#: src/EBox/Global.pm:1114
-#, perl-brace-format
-msgid "running {scriptName} script"
-msgstr "kör {scriptName} skript"
-
-#: src/EBox/Report/DiskUsage.pm:76
-#, perl-brace-format
-msgid "No usage data for {d}. Are you sure is a valid disk?"
+#: src/templates/links-widget.mas:12
+msgid "Forum"
 msgstr ""
-"Inget användningsdata för  {d}. Är du säker på att det är en giltig disk?"
 
-#: src/EBox/Report/DiskUsage.pm:222
-#, perl-brace-format
-msgid ""
-"Invalid file system: {f}. Only regular and no removable media file systems "
-"are accepted"
+#: src/templates/links-widget.mas:14
+msgid "Report a bug"
 msgstr ""
-"Felaktigt filsystem: {f}. Bara vanliga och inte löstagbara filsystem "
-"accepteras"
 
-#: src/templates/configurationFiles.mas:12
-msgid "Do you wish to overwrite these files?"
-msgstr "Vill du skriva över dessa filer?"
+#: src/templates/links-widget.mas:16
+msgid "How to Contribute"
+msgstr ""
 
-#: src/templates/configurationFiles.mas:19
-msgid "Keep current file"
-msgstr "Behåll aktuell fil"
+#: src/templates/moduleStatusTable.mas:59
+msgid "Depends"
+msgstr "Beror"
 
-#: src/templates/configurationFiles.mas:23
-msgid "Modify"
-msgstr "Ändra"
+#: src/templates/moduleStatusTable.mas:60 src/templates/report/raid.mas:104
+msgid "Status"
+msgstr "Status"
+
+#: src/templates/moduleStatusTable.mas:85
+#, perl-brace-format
+msgid "Configure module: {module}"
+msgstr "Konfigurera modul: {module}"
 
 #: src/templates/wizard.mas:68 src/templates/wizard.mas:69
 msgid "Finish"
@@ -1746,128 +1774,155 @@ msgstr "Hoppa över"
 msgid "Next"
 msgstr "Nästa"
 
-#: src/templates/headTitle.mas:20
-msgid "Remote services control panel"
-msgstr "Kontrollpanel för fjärrtjänster"
+#: src/templates/logs/dbtable.mas:87 src/templates/logs/dbtable.mas:88
+msgid "first"
+msgstr "första"
 
-#: src/templates/backupTabs.mas:13
-msgid "Local"
-msgstr ""
+#: src/templates/logs/dbtable.mas:91 src/templates/logs/dbtable.mas:92
+msgid "prev"
+msgstr "föreg"
 
-#: src/templates/backupTabs.mas:18
-msgid "Remote in Zentyal Cloud"
-msgstr ""
+#: src/templates/logs/dbtable.mas:111 src/templates/logs/dbtable.mas:112
+msgid "next"
+msgstr "nästa"
 
-#: src/templates/backupTabs.mas:23
+#: src/templates/logs/dbtable.mas:115 src/templates/logs/dbtable.mas:116
+msgid "last"
+msgstr "sista"
+
+#: src/templates/logs/index.mas:20
+msgid "Log Domain"
+msgstr "Logg Domän"
+
+#: src/templates/logs/index.mas:22
+msgid "Last hour logs will be showed when selecting a component"
+msgstr "Loggar för senaste timmarna kommer att visas när en komponent väljs"
+
+#: src/templates/logs/index.mas:23
+msgid "Select available full reports"
+msgstr "Välj tillgängliga rapporter"
+
+#: src/templates/logs/index.mas:35 src/templates/logs/index.mas:36
+#: src/templates/logs/index.mas:37
+msgid "View"
+msgstr "Visa"
+
+#: src/templates/logs/index.mas:44
+msgid "Custom query"
+msgstr "Anpassad fråga"
+
+#: src/templates/logs/index.mas:50
+msgid "From date:"
+msgstr "Från datum:"
+
+#: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
+msgid "January"
+msgstr "Januari"
+
+#: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
+msgid "February"
+msgstr "Februari"
+
+#: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
+msgid "March"
+msgstr "Mars"
+
+#: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
+msgid "April"
+msgstr "April"
+
+#: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
+msgid "May"
+msgstr "Maj"
+
+#: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
+msgid "June"
+msgstr "Juni"
+
+#: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
+msgid "July"
+msgstr "Juli"
+
+#: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
+msgid "August"
+msgstr "Augusti"
+
+#: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
+msgid "September"
+msgstr "September"
+
+#: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
+msgid "October"
+msgstr "Oktober"
+
+#: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
+msgid "November"
+msgstr "November"
+
+#: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
+msgid "December"
+msgstr "December"
+
+#: src/templates/logs/index.mas:108
+msgid "Refresh logs"
+msgstr "Förnya loggar"
+
+#: src/templates/logs/index.mas:116
+msgid "To date:"
+msgstr "Till datum:"
+
+#: src/templates/logs/index.mas:203 src/templates/logs/index.mas:204
+msgid "Search"
+msgstr "Sök"
+
+#: src/templates/logs/index.mas:208 src/templates/logs/index.mas:209
+msgid "Save as event"
+msgstr "Spara som händelse"
+
+#: src/templates/logs/index.mas:235
+msgid "No logs matching current criterion"
+msgstr "Inga loggar matchade aktuellt kriteria"
+
+#: src/templates/logs/index.mas:239
+msgid "There are no logs for this domain"
+msgstr "Det finns inga loggar för denna domän"
+
+#: src/templates/password.mas:4
+msgid "Change Password"
+msgstr "Byt lösenord"
+
+#: src/templates/password.mas:5
+msgid "Your password must be at least 6 characters long."
+msgstr "Ditt lösenord måste vara minst 6 tecken långt."
+
+#: src/templates/password.mas:25
+msgid "Current password"
+msgstr "Aktuellt lösenord"
+
+#: src/templates/password.mas:39
+msgid "New password"
+msgstr "Nytt lösenord"
+
+#: src/templates/password.mas:53
+msgid "Confirm password"
+msgstr "Bekräfta lösenord"
+
+#: src/templates/progress.mas:24
+msgid "Item"
+msgstr "Sak"
+
+#: src/templates/progress.mas:25
+msgid "items left"
+msgstr "Saker kvar"
+
+#: src/templates/progress.mas:27
 #, fuzzy
-msgid "Remote in Zentyal Cloud from other subscribed hosts"
-msgstr "Säkerhetskopia som lagras på andra prenumererade värdar"
+msgid "Some error has happened in Zentyal: "
+msgstr "Ett fel har hänt i eBox:"
 
-#: src/templates/configureView.mas:12
-#, fuzzy
-msgid ""
-"Enabling this module will cause Zentyal to perform the actions and file "
-"modifications listed below. You must explicitly accept these changes to "
-"enable the module."
-msgstr ""
-"Att aktivera denna modul kommer att få eBox att utföra vissa åtgärder och "
-"filändringar listade nedan. Du måste specifikt acceptera dessa ändringar för "
-"att aktivera modulen."
-
-#: src/templates/configureView.mas:16
-#, fuzzy
-msgid "Actions to perform by Zentyal"
-msgstr "Åtgärder att utföra av eBox"
-
-#: src/templates/configureView.mas:31
-#, fuzzy
-msgid "Files to modify by Zentyal"
-msgstr "Filer att modifiera av eBox"
-
-#: src/templates/configureView.mas:51
-msgid "Accept"
-msgstr "Acceptera"
-
-#: src/templates/dashboard/index.mas:23 src/templates/dashboard/status.mas:18
-msgid "Running"
-msgstr "Kör"
-
-#: src/templates/dashboard/index.mas:24 src/templates/dashboard/status.mas:19
-msgid "The service is enabled and running"
-msgstr "Tjänsten är aktiverad och igång"
-
-#: src/templates/dashboard/index.mas:28 src/templates/dashboard/status.mas:22
-msgid "Stopped"
-msgstr "Stoppad"
-
-#: src/templates/dashboard/index.mas:29 src/templates/dashboard/status.mas:23
-msgid "The service is enabled, but not running"
-msgstr "Tjänsten är aktiverad men ej igång."
-
-#: src/templates/dashboard/index.mas:33 src/templates/dashboard/status.mas:27
-msgid "Running unmanaged"
-msgstr "Igång men ej managerad"
-
-#: src/templates/dashboard/index.mas:34 src/templates/dashboard/status.mas:28
-#, fuzzy
-msgid "The service is running, but not enabled in Zentyal"
-msgstr "Tjänsten är igång men ej aktiverad i eBox"
-
-#: src/templates/dashboard/index.mas:38 src/templates/dashboard/status.mas:31
-msgid "Disabled"
-msgstr "Inaktiverad"
-
-#: src/templates/dashboard/index.mas:39 src/templates/dashboard/status.mas:32
-#, fuzzy
-msgid "The service is not enabled in Zentyal"
-msgstr "Tjänsten är ej aktiverad i eBox"
-
-#: src/templates/dashboard/index.mas:44 src/templates/dashboard/status.mas:25
-msgid "Start"
-msgstr "Starta"
-
-#: src/templates/dashboard/index.mas:45 src/templates/dashboard/status.mas:12
-msgid "Restart"
-msgstr "Starta om"
-
-#: src/templates/dashboard/index.mas:117
-msgid "Configure widgets"
-msgstr "Konfigurera widgets"
-
-#: src/templates/dashboard/list.mas:43
-msgid "No entries in this list"
-msgstr "Inga anteckningar i denna lista"
-
-#: src/templates/dashboard/configurewidgets.mas:164
-msgid ""
-"Browse the available widgets in the left menu and drag&drop them to the "
-"dashboard."
-msgstr ""
-
-#: src/templates/halt.mas:10
-msgid "You might lose your Internet connection if this machine is halted."
-msgstr "Du kan förlora din internetanslutning om den här maskinen stängs av."
-
-#: src/templates/halt.mas:14
-msgid "Halt"
-msgstr "Stäng av"
-
-#: src/templates/halt.mas:16
-msgid "Reboot"
-msgstr "Starta om"
-
-#: src/templates/moduleStatusTable.mas:59
-msgid "Depends"
-msgstr "Beror"
-
-#: src/templates/moduleStatusTable.mas:60 src/templates/report/raid.mas:104
-msgid "Status"
-msgstr "Status"
-
-#: src/templates/moduleStatusTable.mas:85
-#, perl-brace-format
-msgid "Configure module: {module}"
-msgstr "Konfigurera modul: {module}"
+#: src/templates/progress.mas:152
+msgid "Starting..."
+msgstr "Startar..."
 
 #: src/templates/report/raid.mas:20
 #, perl-brace-format
@@ -1986,175 +2041,6 @@ msgstr "Inställningar"
 msgid "Partition Properties"
 msgstr "Inställningar för partitioner"
 
-#: src/templates/progress.mas:24
-msgid "Item"
-msgstr "Sak"
-
-#: src/templates/progress.mas:25
-msgid "items left"
-msgstr "Saker kvar"
-
-#: src/templates/progress.mas:27
-#, fuzzy
-msgid "Some error has happened in Zentyal: "
-msgstr "Ett fel har hänt i eBox:"
-
-#: src/templates/progress.mas:152
-msgid "Starting..."
-msgstr "Startar..."
-
-#: src/templates/logs/index.mas:20
-msgid "Log Domain"
-msgstr "Logg Domän"
-
-#: src/templates/logs/index.mas:22
-msgid "Last hour logs will be showed when selecting a component"
-msgstr "Loggar för senaste timmarna kommer att visas när en komponent väljs"
-
-#: src/templates/logs/index.mas:23
-msgid "Select available full reports"
-msgstr "Välj tillgängliga rapporter"
-
-#: src/templates/logs/index.mas:35 src/templates/logs/index.mas:36
-#: src/templates/logs/index.mas:37
-msgid "View"
-msgstr "Visa"
-
-#: src/templates/logs/index.mas:44
-msgid "Custom query"
-msgstr "Anpassad fråga"
-
-#: src/templates/logs/index.mas:50
-msgid "From date:"
-msgstr "Från datum:"
-
-#: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
-msgid "January"
-msgstr "Januari"
-
-#: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
-msgid "February"
-msgstr "Februari"
-
-#: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
-msgid "March"
-msgstr "Mars"
-
-#: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
-msgid "April"
-msgstr "April"
-
-#: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
-msgid "May"
-msgstr "Maj"
-
-#: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
-msgid "June"
-msgstr "Juni"
-
-#: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
-msgid "July"
-msgstr "Juli"
-
-#: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
-msgid "August"
-msgstr "Augusti"
-
-#: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
-msgid "September"
-msgstr "September"
-
-#: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
-msgid "October"
-msgstr "Oktober"
-
-#: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
-msgid "November"
-msgstr "November"
-
-#: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
-msgid "December"
-msgstr "December"
-
-#: src/templates/logs/index.mas:108
-msgid "Refresh logs"
-msgstr "Förnya loggar"
-
-#: src/templates/logs/index.mas:116
-msgid "To date:"
-msgstr "Till datum:"
-
-#: src/templates/logs/index.mas:203 src/templates/logs/index.mas:204
-msgid "Search"
-msgstr "Sök"
-
-#: src/templates/logs/index.mas:208 src/templates/logs/index.mas:209
-msgid "Save as event"
-msgstr "Spara som händelse"
-
-#: src/templates/logs/index.mas:235
-msgid "No logs matching current criterion"
-msgstr "Inga loggar matchade aktuellt kriteria"
-
-#: src/templates/logs/index.mas:239
-msgid "There are no logs for this domain"
-msgstr "Det finns inga loggar för denna domän"
-
-#: src/templates/logs/dbtable.mas:87 src/templates/logs/dbtable.mas:88
-msgid "first"
-msgstr "första"
-
-#: src/templates/logs/dbtable.mas:91 src/templates/logs/dbtable.mas:92
-msgid "prev"
-msgstr "föreg"
-
-#: src/templates/logs/dbtable.mas:111 src/templates/logs/dbtable.mas:112
-msgid "next"
-msgstr "nästa"
-
-#: src/templates/logs/dbtable.mas:115 src/templates/logs/dbtable.mas:116
-msgid "last"
-msgstr "sista"
-
-#: src/templates/finish.mas:99
-#, perl-brace-format
-msgid ""
-"The following modules have unsaved changes but are <b>disabled</b>. If you "
-"need to enable them go to {openref}Module Status{closeref}."
-msgstr ""
-"Följande moduler har osparade ändringar men är <inaktiverade>. Om du behöver "
-"aktivera dem gå till  {openref}Module Status{closeref}."
-
-#: src/templates/finish.mas:106
-msgid ""
-"There are unsaved changes in one or more modules, you can save or discard "
-"those changes."
-msgstr ""
-"Det finns osparade ändringar i en eller flera moduler. Du kan spara eller "
-"förkasta dessa ändringar."
-
-#: src/templates/finish.mas:110
-msgid ""
-"If you made changes to the network interfaces or the administration port, "
-"you may need to manually rewrite the url in order to access this "
-"administration interface again."
-msgstr ""
-"Om du gjort ändringar i nätverksgränssnitten eller administrationsporten kan "
-"du manuellt behöva skriva om url:en för att komma åt "
-"administrationsgränssnitten igen. "
-
-#: src/templates/finish.mas:134
-msgid "Save"
-msgstr "Spara"
-
-#: src/templates/finish.mas:136
-msgid "Discard changes"
-msgstr "Förkasta ändringar"
-
-#: src/templates/finish.mas:141
-msgid "There are no unsaved changes."
-msgstr "Det finns inga osparade ändringar."
-
 #: src/templates/backup.mas:29
 msgid "Full Backup"
 msgstr "Fullständig säkerhetskopia"
@@ -2267,45 +2153,140 @@ msgstr "återskapa"
 msgid "delete"
 msgstr "ta bort"
 
-#: src/templates/links-widget.mas:5
+#: src/templates/configurationFiles.mas:12
+msgid "Do you wish to overwrite these files?"
+msgstr "Vill du skriva över dessa filer?"
+
+#: src/templates/configurationFiles.mas:19
+msgid "Keep current file"
+msgstr "Behåll aktuell fil"
+
+#: src/templates/configurationFiles.mas:23
+msgid "Modify"
+msgstr "Ändra"
+
+#: src/templates/dashboard/configurewidgets.mas:164
+msgid ""
+"Browse the available widgets in the left menu and drag&drop them to the "
+"dashboard."
+msgstr ""
+
+#: src/templates/dashboard/list.mas:43
+msgid "No entries in this list"
+msgstr "Inga anteckningar i denna lista"
+
+#: src/templates/dashboard/index.mas:23 src/templates/dashboard/status.mas:18
+msgid "Running"
+msgstr "Kör"
+
+#: src/templates/dashboard/index.mas:24 src/templates/dashboard/status.mas:19
+msgid "The service is enabled and running"
+msgstr "Tjänsten är aktiverad och igång"
+
+#: src/templates/dashboard/index.mas:28 src/templates/dashboard/status.mas:22
+msgid "Stopped"
+msgstr "Stoppad"
+
+#: src/templates/dashboard/index.mas:29 src/templates/dashboard/status.mas:23
+msgid "The service is enabled, but not running"
+msgstr "Tjänsten är aktiverad men ej igång."
+
+#: src/templates/dashboard/index.mas:33 src/templates/dashboard/status.mas:27
+msgid "Running unmanaged"
+msgstr "Igång men ej managerad"
+
+#: src/templates/dashboard/index.mas:34 src/templates/dashboard/status.mas:28
 #, fuzzy
-msgid "Community Resources"
+msgid "The service is running, but not enabled in Zentyal"
+msgstr "Tjänsten är igång men ej aktiverad i eBox"
+
+#: src/templates/dashboard/index.mas:38 src/templates/dashboard/status.mas:31
+msgid "Disabled"
+msgstr "Inaktiverad"
+
+#: src/templates/dashboard/index.mas:39 src/templates/dashboard/status.mas:32
+#, fuzzy
+msgid "The service is not enabled in Zentyal"
+msgstr "Tjänsten är ej aktiverad i eBox"
+
+#: src/templates/dashboard/index.mas:44 src/templates/dashboard/status.mas:25
+msgid "Start"
+msgstr "Starta"
+
+#: src/templates/dashboard/index.mas:45 src/templates/dashboard/status.mas:12
+msgid "Restart"
+msgstr "Starta om"
+
+#: src/templates/dashboard/index.mas:117
+msgid "Configure widgets"
+msgstr "Konfigurera widgets"
+
+#: src/templates/finish.mas:99
+#, perl-brace-format
+msgid ""
+"The following modules have unsaved changes but are <b>disabled</b>. If you "
+"need to enable them go to {openref}Module Status{closeref}."
+msgstr ""
+"Följande moduler har osparade ändringar men är <inaktiverade>. Om du behöver "
+"aktivera dem gå till  {openref}Module Status{closeref}."
+
+#: src/templates/finish.mas:106
+msgid ""
+"There are unsaved changes in one or more modules, you can save or discard "
+"those changes."
+msgstr ""
+"Det finns osparade ändringar i en eller flera moduler. Du kan spara eller "
+"förkasta dessa ändringar."
+
+#: src/templates/finish.mas:110
+msgid ""
+"If you made changes to the network interfaces or the administration port, "
+"you may need to manually rewrite the url in order to access this "
+"administration interface again."
+msgstr ""
+"Om du gjort ändringar i nätverksgränssnitten eller administrationsporten kan "
+"du manuellt behöva skriva om url:en för att komma åt "
+"administrationsgränssnitten igen. "
+
+#: src/templates/finish.mas:134
+msgid "Save"
+msgstr "Spara"
+
+#: src/templates/finish.mas:136
+msgid "Discard changes"
+msgstr "Förkasta ändringar"
+
+#: src/templates/finish.mas:141
+msgid "There are no unsaved changes."
+msgstr "Det finns inga osparade ändringar."
+
+#: src/templates/hostname.mas:10
+#, fuzzy
+msgid "Change Hostname"
+msgstr "Sparade ändringar"
+
+#: src/templates/hostname.mas:11
+msgid ""
+"You will need to restart all the services or reboot the system to apply the "
+"hostname change."
+msgstr ""
+
+#: src/templates/hostname.mas:13
+#, perl-brace-format
+msgid "The hostname will be changed to {newHostname} after saving changes."
+msgstr ""
+
+#: src/templates/confirm-backup.mas:102
+msgid "Full Restore"
+msgstr "Fullständig återskapning"
+
+#: src/templates/confirm-backup.mas:103
+msgid "Configuration Restore"
 msgstr "Återskapning av konfiguration"
 
-#: src/templates/links-widget.mas:10
-#, fuzzy
-msgid "Documentation"
-msgstr "Domän"
-
-#: src/templates/links-widget.mas:12
-msgid "Forum"
-msgstr ""
-
-#: src/templates/links-widget.mas:14
-msgid "Report a bug"
-msgstr ""
-
-#: src/templates/links-widget.mas:16
-msgid "How to Contribute"
-msgstr ""
-
-#: src/templates/bug.mas:9
-msgid ""
-"This page lets you generate a file with information about the state of your "
-"system. The file will be useful if you want to report a problem or seek "
-"support."
-msgstr ""
-"Den här sidan låter dig generera en fil med information om tillståndet för "
-"ditt system. Filen är användbar om du vill rapportera ett programfel i eBox "
-"eller uppsöker support."
-
-#: src/templates/bug.mas:13
-msgid "It may take several minutes to generate the report. Please be patient."
-msgstr "Det kan ta flera minuter att generera repporten. Vänligen ha tålamod."
-
-#: src/templates/bug.mas:19
-msgid "Download configuration report file"
-msgstr "Hämta ner fil för konfigurationsrapport"
+#: src/templates/confirm-backup.mas:108
+msgid "Restore mode"
+msgstr "Återskapningsläge"
 
 #: src/templates/logout/index.mas:11
 msgid "There are unsaved changes, if you log out now they will be lost."
@@ -2320,25 +2301,18 @@ msgstr "Det finns inga osparade ändringar i den här sessionen."
 msgid "Exit"
 msgstr "Avsluta"
 
-#: src/templates/password.mas:4
-msgid "Change Password"
-msgstr "Byt lösenord"
+#: src/templates/backupTabs.mas:13
+msgid "Local"
+msgstr ""
 
-#: src/templates/password.mas:5
-msgid "Your password must be at least 6 characters long."
-msgstr "Ditt lösenord måste vara minst 6 tecken långt."
+#: src/templates/backupTabs.mas:18
+msgid "Remote in Zentyal Cloud"
+msgstr ""
 
-#: src/templates/password.mas:25
-msgid "Current password"
-msgstr "Aktuellt lösenord"
-
-#: src/templates/password.mas:39
-msgid "New password"
-msgstr "Nytt lösenord"
-
-#: src/templates/password.mas:53
-msgid "Confirm password"
-msgstr "Bekräfta lösenord"
+#: src/templates/backupTabs.mas:23
+#, fuzzy
+msgid "Remote in Zentyal Cloud from other subscribed hosts"
+msgstr "Säkerhetskopia som lagras på andra prenumererade värdar"
 
 #: src/templates/login/index.mas:40
 msgid "Warning: Caps Lock is enabled"
@@ -2368,41 +2342,68 @@ msgstr ""
 msgid "Enter"
 msgstr "Ange"
 
-#: src/templates/dataInUse.mas:41 src/templates/confirm-backup.mas:66
-msgid "Cancel"
-msgstr "Avbryt"
+#: src/templates/headTitle.mas:20
+msgid "Remote services control panel"
+msgstr "Kontrollpanel för fjärrtjänster"
 
-#: src/templates/confirm-backup.mas:102
-msgid "Full Restore"
-msgstr "Fullständig återskapning"
+#: src/templates/configureView.mas:12
+#, fuzzy
+msgid ""
+"Enabling this module will cause Zentyal to perform the actions and file "
+"modifications listed below. You must explicitly accept these changes to "
+"enable the module."
+msgstr ""
+"Att aktivera denna modul kommer att få eBox att utföra vissa åtgärder och "
+"filändringar listade nedan. Du måste specifikt acceptera dessa ändringar för "
+"att aktivera modulen."
 
-#: src/templates/confirm-backup.mas:103
-msgid "Configuration Restore"
-msgstr "Återskapning av konfiguration"
+#: src/templates/configureView.mas:16
+#, fuzzy
+msgid "Actions to perform by Zentyal"
+msgstr "Åtgärder att utföra av eBox"
 
-#: src/templates/confirm-backup.mas:108
-msgid "Restore mode"
-msgstr "Återskapningsläge"
+#: src/templates/configureView.mas:31
+#, fuzzy
+msgid "Files to modify by Zentyal"
+msgstr "Filer att modifiera av eBox"
+
+#: src/templates/configureView.mas:51
+msgid "Accept"
+msgstr "Acceptera"
 
 #: src/templates/port.mas:9
 msgid "Administration Interface TCP Port"
 msgstr "Administrationsgränssnittets TCP-port"
 
-#: src/templates/hostname.mas:10
-#, fuzzy
-msgid "Change Hostname"
-msgstr "Sparade ändringar"
+#: src/templates/halt.mas:10
+msgid "You might lose your Internet connection if this machine is halted."
+msgstr "Du kan förlora din internetanslutning om den här maskinen stängs av."
 
-#: src/templates/hostname.mas:11
+#: src/templates/halt.mas:14
+msgid "Halt"
+msgstr "Stäng av"
+
+#: src/templates/halt.mas:16
+msgid "Reboot"
+msgstr "Starta om"
+
+#: src/templates/bug.mas:9
 msgid ""
-"You will need to restart all the services or reboot the system to apply the "
-"hostname change."
+"This page lets you generate a file with information about the state of your "
+"system. The file will be useful if you want to report a problem or seek "
+"support."
 msgstr ""
+"Den här sidan låter dig generera en fil med information om tillståndet för "
+"ditt system. Filen är användbar om du vill rapportera ett programfel i eBox "
+"eller uppsöker support."
 
-#: src/templates/hostname.mas:13
-#, perl-brace-format
-msgid "The hostname will be changed to {newHostname} after saving changes."
-msgstr ""
+#: src/templates/bug.mas:13
+msgid "It may take several minutes to generate the report. Please be patient."
+msgstr "Det kan ta flera minuter att generera repporten. Vänligen ha tålamod."
+
+#: src/templates/bug.mas:19
+msgid "Download configuration report file"
+msgstr "Hämta ner fil för konfigurationsrapport"
 
 #~ msgid "Free space"
 #~ msgstr "Fritt utrymme"

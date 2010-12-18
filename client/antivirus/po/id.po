@@ -7,27 +7,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-antivirus 1.3.12\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-12-13 08:38+0100\n"
+"POT-Creation-Date: 2010-12-18 01:42+0100\n"
 "PO-Revision-Date: 2010-02-19 12:48+0100\n"
 "Last-Translator: damar <damar@damar.web.id>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Pootle 1.1.0\n"
-
-#: src/EBox/AntiVirus.pm:75 src/EBox/AntiVirus.pm:384
-#: src/EBox/AntiVirus.pm:389 src/EBox/AntiVirus/Model/FreshclamStatus.pm:104
-msgid "Antivirus"
-msgstr "Antivirus"
-
-#: src/EBox/AntiVirus.pm:210
-msgid " To configure clamd daemon"
-msgstr "Untuk mengkonfigurasi daemon clamd"
-
-#: src/EBox/AntiVirus.pm:215
-msgid "To schedule the launch of the updater"
-msgstr "Untuk menjadwal jalannya updater/pemutakhir"
 
 #: src/EBox/AntiVirus/Model/FreshclamStatus.pm:89
 msgid "Status"
@@ -45,6 +33,11 @@ msgstr "Status"
 #: src/EBox/AntiVirus/Model/FreshclamStatus.pm:103
 msgid "Database Update Status"
 msgstr "Database Update Status"
+
+#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:104 src/EBox/AntiVirus.pm:75
+#: src/EBox/AntiVirus.pm:384 src/EBox/AntiVirus.pm:389
+msgid "Antivirus"
+msgstr "Antivirus"
 
 #: src/EBox/AntiVirus/Model/FreshclamStatus.pm:162
 msgid ""
@@ -76,6 +69,14 @@ msgstr ""
 #, perl-brace-format
 msgid "Unknown event {event}."
 msgstr "Unknown event {event}."
+
+#: src/EBox/AntiVirus.pm:210
+msgid " To configure clamd daemon"
+msgstr "Untuk mengkonfigurasi daemon clamd"
+
+#: src/EBox/AntiVirus.pm:215
+msgid "To schedule the launch of the updater"
+msgstr "Untuk menjadwal jalannya updater/pemutakhir"
 
 #~ msgid "To configure freshclam updater"
 #~ msgstr "Mengkonfigurasi pemutakhiran freshclam"

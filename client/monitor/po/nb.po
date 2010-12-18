@@ -7,26 +7,210 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-monitor 0.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-12-13 08:40+0100\n"
+"POT-Creation-Date: 2010-12-18 01:44+0100\n"
 "PO-Revision-Date: 2010-10-08 13:21+0200\n"
 "Last-Translator: Ronny Gonzales <ronny@kcl.no>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: src/EBox/Monitor/Types/MeasureAttribute.pm:132
-#: src/EBox/Monitor/Types/MeasureAttribute.pm:146
-#: src/EBox/Monitor/Types/MeasureAttribute.pm:156
-msgid "not applicable"
-msgstr "ikke utførbart"
+#: src/EBox/Event/Watcher/Monitor.pm:144 src/EBox/Monitor.pm:78
+#: src/EBox/Monitor.pm:177
+msgid "Monitor"
+msgstr "Overvåke"
 
-#: src/EBox/Monitor/Types/MeasureAttribute.pm:134
-#: src/EBox/Monitor/Types/MeasureAttribute.pm:144
-msgid "any"
-msgstr "hvilken som helst"
+#: src/EBox/Event/Watcher/Monitor.pm:161
+msgid "Notify when a certain value has reached a certain threshold"
+msgstr "Varsle når en viss verdi har nådd en viss terskel"
+
+#: src/EBox/Event/Watcher/Monitor.pm:263
+msgid "All data sources are within range again"
+msgstr "Alle data kilder er innenfor rekkevidde igjen"
+
+#: src/EBox/Event/Watcher/Monitor.pm:273
+#, perl-brace-format
+msgid "{what} \"{dS}\" is currently {value}."
+msgstr "{what} \"{dS}\" er nå {value}."
+
+#: src/EBox/Event/Watcher/Monitor.pm:280
+#, perl-brace-format
+msgid "That is within the {severity} region of {minBound} and {maxBound}. "
+msgstr "Det er innenfor de {severity} regionene av {minBound} og {maxBound}."
+
+#: src/EBox/Event/Watcher/Monitor.pm:288
+#, perl-brace-format
+msgid "That is above the {severity} threshold of {bound}. "
+msgstr "Det er over {severity} terskelen av {bound}."
+
+#: src/EBox/Event/Watcher/Monitor.pm:291
+#, perl-brace-format
+msgid "That is below the {severity} threshold of {bound}. "
+msgstr "Det er under {severity} terskelen av {bound}."
+
+#: src/EBox/Monitor.pm:150
+#, perl-brace-format
+msgid "{daemon} main configuration file"
+msgstr "{daemon} hoved konfigurasjons fil"
+
+#: src/EBox/Monitor.pm:155
+#, perl-brace-format
+msgid "{daemon} thresholds configuration file"
+msgstr "{daemon} terskel konfigurasjons fil"
+
+#: src/EBox/Monitor.pm:160
+#, perl-brace-format
+msgid "{daemon} default configuration file"
+msgstr "{daemon} standard konfigurasjons fil"
+
+#: src/EBox/Monitor/Measure/CPU.pm:59
+#, perl-brace-format
+msgid "CPU {no} usage"
+msgstr "CPU {no} bruk"
+
+#: src/EBox/Monitor/Measure/CPU.pm:65
+msgid "CPU usage"
+msgstr "CPU bruk"
+
+#: src/EBox/Monitor/Measure/CPU.pm:66
+msgid ""
+"Collect the amount of time spent by the CPU in various states, most notably "
+"executing user code, executing system code, waiting for IO operations and "
+"being idle"
+msgstr ""
+"Samle tidsbruk av CPU i ulike statuser, mest kjent utføring bruker kode, "
+"utføring systemkode, venting på IO operasjoner og være inaktiv"
+
+#: src/EBox/Monitor/Measure/CPU.pm:73 src/EBox/Monitor/Measure/CPU.pm:82
+msgid "idle"
+msgstr "inaktiv"
+
+#: src/EBox/Monitor/Measure/CPU.pm:74 src/EBox/Monitor/Measure/CPU.pm:82
+msgid "user"
+msgstr "bruker"
+
+#: src/EBox/Monitor/Measure/CPU.pm:75 src/EBox/Monitor/Measure/CPU.pm:82
+msgid "interrupt"
+msgstr "avbryte"
+
+#: src/EBox/Monitor/Measure/CPU.pm:76 src/EBox/Monitor/Measure/CPU.pm:83
+msgid "nice"
+msgstr "bra"
+
+#: src/EBox/Monitor/Measure/CPU.pm:77 src/EBox/Monitor/Measure/CPU.pm:83
+msgid "soft interrupt"
+msgstr "myk avbrytning"
+
+#: src/EBox/Monitor/Measure/CPU.pm:78 src/EBox/Monitor/Measure/CPU.pm:83
+msgid "steal"
+msgstr "stjel"
+
+#: src/EBox/Monitor/Measure/CPU.pm:79 src/EBox/Monitor/Measure/CPU.pm:84
+msgid "system"
+msgstr "system"
+
+#: src/EBox/Monitor/Measure/CPU.pm:80 src/EBox/Monitor/Measure/CPU.pm:84
+msgid "wait"
+msgstr "vent"
+
+#: src/EBox/Monitor/Measure/Df.pm:76
+#, perl-brace-format
+msgid "used in {partition}"
+msgstr "brukt i {partition}"
+
+#: src/EBox/Monitor/Measure/Df.pm:78
+#, perl-brace-format
+msgid "free in {partition}"
+msgstr "ledig i {partition}"
+
+#: src/EBox/Monitor/Measure/Df.pm:83
+msgid "File system usage"
+msgstr "Fil system bruk"
+
+#: src/EBox/Monitor/Measure/Df.pm:84
+msgid ""
+"Collect the mounted file system usage information as \"df\" command does"
+msgstr "Samle inn montert fil system bruk informasjon som \"df\" kommando gjør"
+
+#: src/EBox/Monitor/Measure/Memory.pm:55
+msgid "Physical memory usage"
+msgstr "Fysisk minne bruk"
+
+#: src/EBox/Monitor/Measure/Memory.pm:56
+msgid "Collect the physical memory usage"
+msgstr "Samle inn fysksk minne bruk"
+
+#: src/EBox/Monitor/Measure/Memory.pm:57
+msgid "free"
+msgstr "ledig"
+
+#: src/EBox/Monitor/Measure/Memory.pm:57
+msgid "page cache"
+msgstr "side mellomlagring"
+
+#: src/EBox/Monitor/Measure/Memory.pm:57
+msgid "buffer cache"
+msgstr "sikkerhets mellomlagring"
+
+#: src/EBox/Monitor/Measure/Memory.pm:57
+msgid "used"
+msgstr "brukt"
+
+#: src/EBox/Monitor/Measure/Load.pm:55
+msgid "System load"
+msgstr "System belastning"
+
+#: src/EBox/Monitor/Measure/Load.pm:56
+msgid "Collect the system load that gives a rough overview of the system usage"
+msgstr "Samle systemet belastning som gir en grov oversikt over systemets bruk"
+
+#: src/EBox/Monitor/Measure/Load.pm:59
+msgid "short term"
+msgstr "kortsiktig"
+
+#: src/EBox/Monitor/Measure/Load.pm:59
+msgid "mid term"
+msgstr "midtsiktig"
+
+#: src/EBox/Monitor/Measure/Load.pm:59
+msgid "long term"
+msgstr "langsiktig"
+
+#: src/EBox/Monitor/Measure/Thermal.pm:111
+#: src/EBox/Monitor/Measure/Thermal.pm:117
+msgid "temperature"
+msgstr "temperatur"
+
+#: src/EBox/Monitor/Measure/Thermal.pm:129
+msgid "cooling device"
+msgstr "kjøle enhet"
+
+#: src/EBox/Monitor/Measure/Thermal.pm:131
+msgid "sensor"
+msgstr "sensor"
+
+#: src/EBox/Monitor/Measure/Thermal.pm:133
+#, perl-brace-format
+msgid "Temperature for {what}"
+msgstr "Temperatur for {what}"
+
+#: src/EBox/Monitor/Measure/Thermal.pm:139
+msgid "Thermal"
+msgstr "Termisk"
+
+#: src/EBox/Monitor/Measure/Thermal.pm:140
+#, perl-brace-format
+msgid ""
+"Collect thermal information (CPU sensors temperature) if possible from {dir}"
+msgstr ""
+"Samle inn termisk informasjon (CPU sensors temperatur) hvis mulig fra {dir}"
+
+#: src/EBox/Monitor/Measure/Base.pm:684
+msgid "value"
+msgstr "verdi"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:102
 #: src/EBox/Monitor/Model/MeasureWatchers.pm:77
@@ -213,151 +397,16 @@ msgstr "Siste måned"
 msgid "Last year"
 msgstr "Siste år"
 
-#: src/EBox/Monitor/Measure/Load.pm:55
-msgid "System load"
-msgstr "System belastning"
+#: src/EBox/Monitor/Types/MeasureAttribute.pm:132
+#: src/EBox/Monitor/Types/MeasureAttribute.pm:146
+#: src/EBox/Monitor/Types/MeasureAttribute.pm:156
+msgid "not applicable"
+msgstr "ikke utførbart"
 
-#: src/EBox/Monitor/Measure/Load.pm:56
-msgid "Collect the system load that gives a rough overview of the system usage"
-msgstr "Samle systemet belastning som gir en grov oversikt over systemets bruk"
-
-#: src/EBox/Monitor/Measure/Load.pm:59
-msgid "short term"
-msgstr "kortsiktig"
-
-#: src/EBox/Monitor/Measure/Load.pm:59
-msgid "mid term"
-msgstr "midtsiktig"
-
-#: src/EBox/Monitor/Measure/Load.pm:59
-msgid "long term"
-msgstr "langsiktig"
-
-#: src/EBox/Monitor/Measure/Df.pm:76
-#, perl-brace-format
-msgid "used in {partition}"
-msgstr "brukt i {partition}"
-
-#: src/EBox/Monitor/Measure/Df.pm:78
-#, perl-brace-format
-msgid "free in {partition}"
-msgstr "ledig i {partition}"
-
-#: src/EBox/Monitor/Measure/Df.pm:83
-msgid "File system usage"
-msgstr "Fil system bruk"
-
-#: src/EBox/Monitor/Measure/Df.pm:84
-msgid ""
-"Collect the mounted file system usage information as \"df\" command does"
-msgstr "Samle inn montert fil system bruk informasjon som \"df\" kommando gjør"
-
-#: src/EBox/Monitor/Measure/Thermal.pm:111
-#: src/EBox/Monitor/Measure/Thermal.pm:117
-msgid "temperature"
-msgstr "temperatur"
-
-#: src/EBox/Monitor/Measure/Thermal.pm:129
-msgid "cooling device"
-msgstr "kjøle enhet"
-
-#: src/EBox/Monitor/Measure/Thermal.pm:131
-msgid "sensor"
-msgstr "sensor"
-
-#: src/EBox/Monitor/Measure/Thermal.pm:133
-#, perl-brace-format
-msgid "Temperature for {what}"
-msgstr "Temperatur for {what}"
-
-#: src/EBox/Monitor/Measure/Thermal.pm:139
-msgid "Thermal"
-msgstr "Termisk"
-
-#: src/EBox/Monitor/Measure/Thermal.pm:140
-#, perl-brace-format
-msgid ""
-"Collect thermal information (CPU sensors temperature) if possible from {dir}"
-msgstr ""
-"Samle inn termisk informasjon (CPU sensors temperatur) hvis mulig fra {dir}"
-
-#: src/EBox/Monitor/Measure/Base.pm:684
-msgid "value"
-msgstr "verdi"
-
-#: src/EBox/Monitor/Measure/CPU.pm:59
-#, perl-brace-format
-msgid "CPU {no} usage"
-msgstr "CPU {no} bruk"
-
-#: src/EBox/Monitor/Measure/CPU.pm:65
-msgid "CPU usage"
-msgstr "CPU bruk"
-
-#: src/EBox/Monitor/Measure/CPU.pm:66
-msgid ""
-"Collect the amount of time spent by the CPU in various states, most notably "
-"executing user code, executing system code, waiting for IO operations and "
-"being idle"
-msgstr ""
-"Samle tidsbruk av CPU i ulike statuser, mest kjent utføring bruker kode, "
-"utføring systemkode, venting på IO operasjoner og være inaktiv"
-
-#: src/EBox/Monitor/Measure/CPU.pm:73 src/EBox/Monitor/Measure/CPU.pm:82
-msgid "idle"
-msgstr "inaktiv"
-
-#: src/EBox/Monitor/Measure/CPU.pm:74 src/EBox/Monitor/Measure/CPU.pm:82
-msgid "user"
-msgstr "bruker"
-
-#: src/EBox/Monitor/Measure/CPU.pm:75 src/EBox/Monitor/Measure/CPU.pm:82
-msgid "interrupt"
-msgstr "avbryte"
-
-#: src/EBox/Monitor/Measure/CPU.pm:76 src/EBox/Monitor/Measure/CPU.pm:83
-msgid "nice"
-msgstr "bra"
-
-#: src/EBox/Monitor/Measure/CPU.pm:77 src/EBox/Monitor/Measure/CPU.pm:83
-msgid "soft interrupt"
-msgstr "myk avbrytning"
-
-#: src/EBox/Monitor/Measure/CPU.pm:78 src/EBox/Monitor/Measure/CPU.pm:83
-msgid "steal"
-msgstr "stjel"
-
-#: src/EBox/Monitor/Measure/CPU.pm:79 src/EBox/Monitor/Measure/CPU.pm:84
-msgid "system"
-msgstr "system"
-
-#: src/EBox/Monitor/Measure/CPU.pm:80 src/EBox/Monitor/Measure/CPU.pm:84
-msgid "wait"
-msgstr "vent"
-
-#: src/EBox/Monitor/Measure/Memory.pm:55
-msgid "Physical memory usage"
-msgstr "Fysisk minne bruk"
-
-#: src/EBox/Monitor/Measure/Memory.pm:56
-msgid "Collect the physical memory usage"
-msgstr "Samle inn fysksk minne bruk"
-
-#: src/EBox/Monitor/Measure/Memory.pm:57
-msgid "free"
-msgstr "ledig"
-
-#: src/EBox/Monitor/Measure/Memory.pm:57
-msgid "page cache"
-msgstr "side mellomlagring"
-
-#: src/EBox/Monitor/Measure/Memory.pm:57
-msgid "buffer cache"
-msgstr "sikkerhets mellomlagring"
-
-#: src/EBox/Monitor/Measure/Memory.pm:57
-msgid "used"
-msgstr "brukt"
+#: src/EBox/Monitor/Types/MeasureAttribute.pm:134
+#: src/EBox/Monitor/Types/MeasureAttribute.pm:144
+msgid "any"
+msgstr "hvilken som helst"
 
 #: src/EBox/CGI/Index.pm:44
 msgid "Monitoring"
@@ -382,51 +431,3 @@ msgstr ""
 "Du må lagre endringene i modul status for å se overvåknings graver i "
 "{openhref}Lagre endringer{closehref} feltet. Hvis det allerede er aktivert "
 "må du vente noen sekunder for at den skal samle første overvåknings data"
-
-#: src/EBox/Event/Watcher/Monitor.pm:144 src/EBox/Monitor.pm:78
-#: src/EBox/Monitor.pm:177
-msgid "Monitor"
-msgstr "Overvåke"
-
-#: src/EBox/Event/Watcher/Monitor.pm:161
-msgid "Notify when a certain value has reached a certain threshold"
-msgstr "Varsle når en viss verdi har nådd en viss terskel"
-
-#: src/EBox/Event/Watcher/Monitor.pm:263
-msgid "All data sources are within range again"
-msgstr "Alle data kilder er innenfor rekkevidde igjen"
-
-#: src/EBox/Event/Watcher/Monitor.pm:273
-#, perl-brace-format
-msgid "{what} \"{dS}\" is currently {value}."
-msgstr "{what} \"{dS}\" er nå {value}."
-
-#: src/EBox/Event/Watcher/Monitor.pm:280
-#, perl-brace-format
-msgid "That is within the {severity} region of {minBound} and {maxBound}. "
-msgstr "Det er innenfor de {severity} regionene av {minBound} og {maxBound}."
-
-#: src/EBox/Event/Watcher/Monitor.pm:288
-#, perl-brace-format
-msgid "That is above the {severity} threshold of {bound}. "
-msgstr "Det er over {severity} terskelen av {bound}."
-
-#: src/EBox/Event/Watcher/Monitor.pm:291
-#, perl-brace-format
-msgid "That is below the {severity} threshold of {bound}. "
-msgstr "Det er under {severity} terskelen av {bound}."
-
-#: src/EBox/Monitor.pm:150
-#, perl-brace-format
-msgid "{daemon} main configuration file"
-msgstr "{daemon} hoved konfigurasjons fil"
-
-#: src/EBox/Monitor.pm:155
-#, perl-brace-format
-msgid "{daemon} thresholds configuration file"
-msgstr "{daemon} terskel konfigurasjons fil"
-
-#: src/EBox/Monitor.pm:160
-#, perl-brace-format
-msgid "{daemon} default configuration file"
-msgstr "{daemon} standard konfigurasjons fil"

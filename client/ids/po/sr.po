@@ -7,25 +7,72 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-ids 1.3.12\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-12-13 08:39+0100\n"
+"POT-Creation-Date: 2010-12-18 01:44+0100\n"
 "PO-Revision-Date: 2010-02-08 14:46+0100\n"
 "Last-Translator: Zoran <zoran@atlantisti.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
-"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Pootle 1.1.0\n"
+
+#: src/EBox/Model/Interfaces.pm:129
+msgid "Interface"
+msgstr "Interface"
+
+# Omogućen
+#: src/EBox/Model/Interfaces.pm:134
+msgid "Enabled"
+msgstr "Uključen"
+
+#: src/EBox/Model/Interfaces.pm:143
+msgid "Interfaces"
+msgstr "Interfaces"
+
+#: src/EBox/Model/Interfaces.pm:149
+msgid "interface"
+msgstr "interface"
+
+#: src/EBox/Model/Interfaces.pm:151
+msgid "Select in which interfaces IDS system will be enabled"
+msgstr "Odaberi koji od IDS interface-a ce biti uključen"
+
+#: src/EBox/Model/Report/AlertGraph.pm:47
+#: src/EBox/Model/Report/AlertDetails.pm:41
+msgid "number of alerts"
+msgstr "Broj upozorenja"
+
+#: src/EBox/Model/Report/AlertGraph.pm:52
+msgid "Alerts chart"
+msgstr "Karta upozorenja"
+
+#: src/EBox/Model/Report/AlertGraph.pm:68
+msgid "Alert Graph"
+msgstr "Grafikon upozorenja"
+
+#: src/EBox/Model/Report/AlertDetails.pm:52 src/EBox/IDS.pm:299
+msgid "Date"
+msgstr "Datum"
+
+#: src/EBox/Model/Report/AlertDetails.pm:58
+msgid "Number of alerts"
+msgstr "Broj upozorenja"
+
+#: src/EBox/Model/Report/AlertDetails.pm:66
+msgid "Alert details"
+msgstr "Detalji upozorenja"
+
+#: src/EBox/Model/Report/AlertDetails.pm:73
+msgid "alerts"
+msgstr "Upozorenja"
 
 # (intrusion detection system)
 #: src/EBox/IDS.pm:62 src/EBox/IDS.pm:169 src/EBox/IDS.pm:311
 msgid "IDS"
 msgstr "IDS Sistem za detekciju upada (intrusion detection system)"
-
-#: src/EBox/IDS.pm:299 src/EBox/Model/Report/AlertDetails.pm:52
-msgid "Date"
-msgstr "Datum"
 
 #: src/EBox/IDS.pm:300
 msgid "Priority"
@@ -57,69 +104,6 @@ msgstr "Događaj"
 msgid "Alert"
 msgstr "Upozorenje"
 
-#: src/EBox/Model/Interfaces.pm:129
-msgid "Interface"
-msgstr "Interface"
-
-# Omogućen
-#: src/EBox/Model/Interfaces.pm:134 src/EBox/Model/Rules.pm:158
-msgid "Enabled"
-msgstr "Uključen"
-
-#: src/EBox/Model/Interfaces.pm:143
-msgid "Interfaces"
-msgstr "Interfaces"
-
-#: src/EBox/Model/Interfaces.pm:149
-msgid "interface"
-msgstr "interface"
-
-#: src/EBox/Model/Interfaces.pm:151
-msgid "Select in which interfaces IDS system will be enabled"
-msgstr "Odaberi koji od IDS interface-a ce biti uključen"
-
-#: src/EBox/Model/Rules.pm:153
-msgid "Rule Set"
-msgstr "Podesi pravilo"
-
-#: src/EBox/Model/Rules.pm:167
-msgid "Rules"
-msgstr "Pravila"
-
-#: src/EBox/Model/Rules.pm:172
-msgid "rule"
-msgstr "Pravilo"
-
-#: src/EBox/Model/Rules.pm:173
-msgid ""
-"Select the sets of rules you want apply when scanning the network traffic"
-msgstr ""
-
-#: src/EBox/Model/Report/AlertDetails.pm:41
-#: src/EBox/Model/Report/AlertGraph.pm:47
-msgid "number of alerts"
-msgstr "Broj upozorenja"
-
-#: src/EBox/Model/Report/AlertDetails.pm:58
-msgid "Number of alerts"
-msgstr "Broj upozorenja"
-
-#: src/EBox/Model/Report/AlertDetails.pm:66
-msgid "Alert details"
-msgstr "Detalji upozorenja"
-
-#: src/EBox/Model/Report/AlertDetails.pm:73
-msgid "alerts"
-msgstr "Upozorenja"
-
-#: src/EBox/Model/Report/AlertGraph.pm:52
-msgid "Alerts chart"
-msgstr "Karta upozorenja"
-
-#: src/EBox/Model/Report/AlertGraph.pm:68
-msgid "Alert Graph"
-msgstr "Grafikon upozorenja"
-
 #: src/EBox/Composite/General.pm:101
 msgid "Intrusion Detection System"
 msgstr "Sitem Detekcije Upada (IDS)"
@@ -127,6 +111,15 @@ msgstr "Sitem Detekcije Upada (IDS)"
 #: src/EBox/Composite/Report/AlertReport.pm:66
 msgid "IDS Alerts report"
 msgstr "Izveštaj IDS upozorenja"
+
+#~ msgid "Rule Set"
+#~ msgstr "Podesi pravilo"
+
+#~ msgid "Rules"
+#~ msgstr "Pravila"
+
+#~ msgid "rule"
+#~ msgstr "Pravilo"
 
 #~ msgid "help message"
 #~ msgstr "Poruka pomoći"

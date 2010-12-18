@@ -7,84 +7,47 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-ebackup 1.3.3\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-12-13 10:31+0100\n"
+"POT-Creation-Date: 2010-12-18 01:43+0100\n"
 "PO-Revision-Date: 2010-08-28 08:05+0200\n"
 "Last-Translator: Nagy Ákos <nagy.akos@akos.ro>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n !=1);\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: src/EBox/EBackup.pm:71 src/EBox/Event/Watcher/EBackup.pm:123
+#: src/EBox/Event/Watcher/EBackup.pm:123 src/EBox/EBackup.pm:71
 #: src/EBox/Composite/Remote.pm:66
 msgid "Backup"
 msgstr "Biztonsági mentés"
-
-#: src/EBox/EBackup.pm:209
-#, perl-brace-format
-msgid "File {f} not found in backup for {d}, try a later date"
-msgstr ""
-"A(z) {f} fájl nem található a {d} mentésben, próbálja későbbi időponttal"
-
-#: src/EBox/EBackup.pm:216
-msgid ""
-"No backup archives found. Maybe they were deleted?. Run '/etc/init.d/ebox "
-"ebackup restart' to refresh backup's information."
-msgstr ""
-"Nem találhatók biztonsági mentések. Talán törölve lettek? Esetleg próbálja "
-"újraindítani a szolgáltatást: /etc/init.d/ebox ebackup restart"
-
-#: src/EBox/EBackup.pm:687
-msgid ""
-"Could not get backup collection status, check whether the parameters and "
-"passwords are correct"
-msgstr ""
-
-#: src/EBox/EBackup.pm:1051
-msgid "You need to have the disaster recovery add-on to use this backup method"
-msgstr ""
-
-#: src/EBox/EBackup.pm:1058
-msgid ""
-"Could not retrieve backup credentials, check your conexion to Zentyal Cloud"
-msgstr ""
-
-#: src/EBox/EBackup.pm:1149
-#, perl-brace-format
-msgid ""
-"Could not unsubscribe because the backup module is configured to use the "
-"Zentyal Cloud. If you want to unsubscribe, you must change this {ohref}"
-"setting{chref}."
-msgstr ""
 
 #: src/EBox/Event/Watcher/EBackup.pm:141
 msgid "Check if Zentyal backup was not successful."
 msgstr "Ellenőrizze, hogy a Zentyal biztonsági mentés hibás-e."
 
-#: src/EBox/EBackup/DBRestore.pm:46
-#, perl-brace-format
-msgid ""
-"Logs backup data not found in backup for {d}. Maybe you could try another "
-"date?"
-msgstr ""
-"A mentés adatai nem találhatók a {d} mentésben. Talán próbálja más dátumon."
-
-#: src/EBox/Model/RemoteFileList.pm:143 src/EBox/Model/RemoteStatus.pm:121
-#: src/EBox/Model/RemoteRestoreConf.pm:74
-#: src/EBox/Model/RemoteRestoreLogs.pm:88
+#: src/EBox/Model/RemoteRestoreLogs.pm:88 src/EBox/Model/RemoteFileList.pm:143
+#: src/EBox/Model/RemoteStatus.pm:121 src/EBox/Model/RemoteRestoreConf.pm:74
 msgid "There are not backed up files yet"
 msgstr "Jelenleg nincsenek mentett fájlok"
+
+#: src/EBox/Model/RemoteRestoreLogs.pm:107
+#: src/EBox/Model/RemoteFileList.pm:166 src/EBox/Model/RemoteRestoreConf.pm:93
+msgid "Backup Date"
+msgstr "Biztonsági mentés ideje"
+
+#: src/EBox/Model/RemoteRestoreLogs.pm:118
+msgid "Restore logs database"
+msgstr "Naplóadatbázisok visszaállítása"
+
+#: src/EBox/Model/RemoteRestoreLogs.pm:125
+msgid "Restores the Zentyal logs found in the selected backup"
+msgstr "Zentyal naplózások visszaállítása a kiválasztott mentésből"
 
 #: src/EBox/Model/RemoteFileList.pm:162
 msgid "File"
 msgstr "Fájl"
-
-#: src/EBox/Model/RemoteFileList.pm:166 src/EBox/Model/RemoteRestoreConf.pm:93
-#: src/EBox/Model/RemoteRestoreLogs.pm:107
-msgid "Backup Date"
-msgstr "Biztonsági mentés ideje"
 
 #: src/EBox/Model/RemoteFileList.pm:177
 msgid "Restore Files"
@@ -113,6 +76,22 @@ msgstr "A fájl visszaállítása sikerült."
 msgid "Remote URL to be used with duplicity for manual restores: {url}"
 msgstr "A távoli URL a kézi visszaállítást megkettőzve használja itt: {url}"
 
+#: src/EBox/Model/RemoteStatus.pm:121 src/EBox/Model/RemoteStatus.pm:151
+msgid "Remote Backup Status"
+msgstr "A távoli mentés állapota."
+
+#: src/EBox/Model/RemoteStatus.pm:139 src/EBox/Model/RemoteExcludes.pm:76
+msgid "Type"
+msgstr "Típus"
+
+#: src/EBox/Model/RemoteStatus.pm:143 tools/restore-tool:1218
+msgid "Date"
+msgstr "Dátum"
+
+#: src/EBox/Model/RemoteStatus.pm:152 src/EBox/Model/RemoteStorage.pm:144
+msgid "backup"
+msgstr "Biztonsági mentés"
+
 #: src/EBox/Model/BackupDomains.pm:156
 msgid "Name"
 msgstr ""
@@ -131,7 +110,7 @@ msgstr "Kikapcsolva"
 msgid "Domains to back up"
 msgstr ""
 
-#: src/EBox/Model/BackupDomains.pm:182 tools/restore-tool:255
+#: src/EBox/Model/BackupDomains.pm:182 tools/restore-tool:258
 #, fuzzy
 msgid "Backup domain"
 msgstr "Biztonsági mentés ideje"
@@ -140,42 +119,76 @@ msgstr "Biztonsági mentés ideje"
 msgid "Select the domains you want to back up."
 msgstr ""
 
-#: src/EBox/Model/RemoteStorage.pm:68 src/EBox/Model/RemoteStorage.pm:69
-#: src/EBox/Model/RemoteStorage.pm:70
-msgid "Unknown"
+#: src/EBox/Model/RemoteRestoreConf.pm:104
+msgid "Restore Zentyal configuration from backup"
+msgstr "Zentyal beállítások visszaállítása mentésből"
+
+#: src/EBox/Model/RemoteRestoreConf.pm:111
+msgid "Loads the configuration found in the backup"
+msgstr "A mentésben található beállítások betöltése"
+
+#: src/EBox/Model/RemoteRestoreConf.pm:113
+msgid "Please wait..."
+msgstr "Kérem várjon..."
+
+#: src/EBox/Model/RemoteRestoreConf.pm:169
+#, perl-brace-format
+msgid ""
+"Configuration backup not found in backup for {d}. Maybe you could try "
+"another date?"
 msgstr ""
+"A beállítások mentése nem található a {d} mentésben. Talán próbáljon más "
+"dátumot."
 
-#: src/EBox/Model/RemoteStorage.pm:128
-msgid "Used storage"
+#: src/EBox/Model/RemoteExcludes.pm:82
+msgid "Exclude or Include"
+msgstr "Kizárva vagy beleértve"
+
+#: src/EBox/Model/RemoteExcludes.pm:98
+msgid "Includes and Excludes"
+msgstr "Beleértve vagy kizárva"
+
+#: src/EBox/Model/RemoteExcludes.pm:99
+msgid "exclude or include"
+msgstr "kizárva vagy beleértve"
+
+#: src/EBox/Model/RemoteExcludes.pm:108
+msgid ""
+"A file or directory is included or excluded according the first match. A "
+"directory match is applied to all it contents. Files not explicitly excluded "
+"or included are included"
 msgstr ""
+"A fájlok vagy mappák beleértése vagy kizárása az első találattól függ. "
+"Mappák esetén a teljes tartalmára vonatkozik a szabály. A fájlok "
+"alapértelmezetten nincsenek kizárva vagy beleértve a mentésbe"
 
-#: src/EBox/Model/RemoteStorage.pm:132
-msgid "Available storage"
-msgstr ""
+#: src/EBox/Model/RemoteExcludes.pm:123
+msgid "Exclude path"
+msgstr "Kizárási útvonal"
 
-#: src/EBox/Model/RemoteStorage.pm:136
-msgid "Total storage"
-msgstr ""
+#: src/EBox/Model/RemoteExcludes.pm:127
+msgid "Exclude by regular expression"
+msgstr "Kizárás reguláris kifejezéssel"
 
-#: src/EBox/Model/RemoteStorage.pm:143
-msgid "Remote Storage Usage"
-msgstr ""
+#: src/EBox/Model/RemoteExcludes.pm:131
+msgid "Include Path"
+msgstr "A mentésbe belefoglalt útvonal"
 
-#: src/EBox/Model/RemoteStorage.pm:144 src/EBox/Model/RemoteStatus.pm:152
-msgid "backup"
-msgstr "Biztonsági mentés"
+#: src/EBox/Model/RemoteExcludes.pm:153
+msgid "exclude path"
+msgstr "kizárási útvonal"
 
-#: src/EBox/Model/RemoteStatus.pm:121 src/EBox/Model/RemoteStatus.pm:151
-msgid "Remote Backup Status"
-msgstr "A távoli mentés állapota."
+#: src/EBox/Model/RemoteExcludes.pm:166
+msgid "exclude path regular expression"
+msgstr "reguláris kifejezések kizárási útvonala"
 
-#: src/EBox/Model/RemoteStatus.pm:139 src/EBox/Model/RemoteExcludes.pm:76
-msgid "Type"
-msgstr "Típus"
+#: src/EBox/Model/RemoteExcludes.pm:168
+msgid "Incorrect regular expression"
+msgstr "Hibás reguláris kifejezések"
 
-#: src/EBox/Model/RemoteStatus.pm:143 tools/restore-tool:1230
-msgid "Date"
-msgstr "Dátum"
+#: src/EBox/Model/RemoteExcludes.pm:189
+msgid "include path"
+msgstr "mentésbe foglalt útvonal"
 
 #: src/EBox/Model/RemoteSettings.pm:174
 msgid "Method"
@@ -461,84 +474,71 @@ msgstr ""
 msgid "Retention policy type"
 msgstr ""
 
-#: src/EBox/Model/RemoteExcludes.pm:82
-msgid "Exclude or Include"
-msgstr "Kizárva vagy beleértve"
-
-#: src/EBox/Model/RemoteExcludes.pm:98
-msgid "Includes and Excludes"
-msgstr "Beleértve vagy kizárva"
-
-#: src/EBox/Model/RemoteExcludes.pm:99
-msgid "exclude or include"
-msgstr "kizárva vagy beleértve"
-
-#: src/EBox/Model/RemoteExcludes.pm:108
-msgid ""
-"A file or directory is included or excluded according the first match. A "
-"directory match is applied to all it contents. Files not explicitly excluded "
-"or included are included"
+#: src/EBox/Model/RemoteStorage.pm:68 src/EBox/Model/RemoteStorage.pm:69
+#: src/EBox/Model/RemoteStorage.pm:70
+msgid "Unknown"
 msgstr ""
-"A fájlok vagy mappák beleértése vagy kizárása az első találattól függ. "
-"Mappák esetén a teljes tartalmára vonatkozik a szabály. A fájlok "
-"alapértelmezetten nincsenek kizárva vagy beleértve a mentésbe"
 
-#: src/EBox/Model/RemoteExcludes.pm:123
-msgid "Exclude path"
-msgstr "Kizárási útvonal"
+#: src/EBox/Model/RemoteStorage.pm:128
+msgid "Used storage"
+msgstr ""
 
-#: src/EBox/Model/RemoteExcludes.pm:127
-msgid "Exclude by regular expression"
-msgstr "Kizárás reguláris kifejezéssel"
+#: src/EBox/Model/RemoteStorage.pm:132
+msgid "Available storage"
+msgstr ""
 
-#: src/EBox/Model/RemoteExcludes.pm:131
-msgid "Include Path"
-msgstr "A mentésbe belefoglalt útvonal"
+#: src/EBox/Model/RemoteStorage.pm:136
+msgid "Total storage"
+msgstr ""
 
-#: src/EBox/Model/RemoteExcludes.pm:153
-msgid "exclude path"
-msgstr "kizárási útvonal"
+#: src/EBox/Model/RemoteStorage.pm:143
+msgid "Remote Storage Usage"
+msgstr ""
 
-#: src/EBox/Model/RemoteExcludes.pm:166
-msgid "exclude path regular expression"
-msgstr "reguláris kifejezések kizárási útvonala"
+#: src/EBox/EBackup.pm:209
+#, perl-brace-format
+msgid "File {f} not found in backup for {d}, try a later date"
+msgstr ""
+"A(z) {f} fájl nem található a {d} mentésben, próbálja későbbi időponttal"
 
-#: src/EBox/Model/RemoteExcludes.pm:168
-msgid "Incorrect regular expression"
-msgstr "Hibás reguláris kifejezések"
+#: src/EBox/EBackup.pm:216
+msgid ""
+"No backup archives found. Maybe they were deleted?. Run '/etc/init.d/ebox "
+"ebackup restart' to refresh backup's information."
+msgstr ""
+"Nem találhatók biztonsági mentések. Talán törölve lettek? Esetleg próbálja "
+"újraindítani a szolgáltatást: /etc/init.d/ebox ebackup restart"
 
-#: src/EBox/Model/RemoteExcludes.pm:189
-msgid "include path"
-msgstr "mentésbe foglalt útvonal"
+#: src/EBox/EBackup.pm:687
+msgid ""
+"Could not get backup collection status, check whether the parameters and "
+"passwords are correct"
+msgstr ""
 
-#: src/EBox/Model/RemoteRestoreConf.pm:104
-msgid "Restore Zentyal configuration from backup"
-msgstr "Zentyal beállítások visszaállítása mentésből"
+#: src/EBox/EBackup.pm:1051
+msgid "You need to have the disaster recovery add-on to use this backup method"
+msgstr ""
 
-#: src/EBox/Model/RemoteRestoreConf.pm:111
-msgid "Loads the configuration found in the backup"
-msgstr "A mentésben található beállítások betöltése"
+#: src/EBox/EBackup.pm:1058
+msgid ""
+"Could not retrieve backup credentials, check your conexion to Zentyal Cloud"
+msgstr ""
 
-#: src/EBox/Model/RemoteRestoreConf.pm:113
-msgid "Please wait..."
-msgstr "Kérem várjon..."
-
-#: src/EBox/Model/RemoteRestoreConf.pm:169
+#: src/EBox/EBackup.pm:1149
 #, perl-brace-format
 msgid ""
-"Configuration backup not found in backup for {d}. Maybe you could try "
-"another date?"
+"Could not unsubscribe because the backup module is configured to use the "
+"Zentyal Cloud. If you want to unsubscribe, you must change this {ohref}"
+"setting{chref}."
 msgstr ""
-"A beállítások mentése nem található a {d} mentésben. Talán próbáljon más "
-"dátumot."
 
-#: src/EBox/Model/RemoteRestoreLogs.pm:118
-msgid "Restore logs database"
-msgstr "Naplóadatbázisok visszaállítása"
-
-#: src/EBox/Model/RemoteRestoreLogs.pm:125
-msgid "Restores the Zentyal logs found in the selected backup"
-msgstr "Zentyal naplózások visszaállítása a kiválasztott mentésből"
+#: src/EBox/EBackup/DBRestore.pm:46
+#, perl-brace-format
+msgid ""
+"Logs backup data not found in backup for {d}. Maybe you could try another "
+"date?"
+msgstr ""
+"A mentés adatai nem találhatók a {d} mentésben. Talán próbálja más dátumon."
 
 #: src/EBox/Composite/ServicesRestore.pm:64
 #, fuzzy
@@ -549,438 +549,449 @@ msgstr "Szolgáltatások visszaállítása"
 msgid "Configuration and Status"
 msgstr "Beállítás és állapot"
 
-#: tools/restore-tool:66
+#: tools/restore-tool:62
 #, perl-brace-format
 msgid "Module {mod} should be installed"
 msgstr ""
 
-#: tools/restore-tool:74
+#: tools/restore-tool:70
 #, perl-brace-format
 msgid "Module {mod} should be configured"
 msgstr ""
 
-#: tools/restore-tool:85
+#: tools/restore-tool:86
+msgid ""
+"Could not automatically update system hour. Some restoration oeprations "
+"oculd fail if the date is not correct"
+msgstr ""
+
+#: tools/restore-tool:94
 msgid "Zentyal Cloud User"
 msgstr ""
 
-#: tools/restore-tool:87
+#: tools/restore-tool:96
 msgid "Zentyal Cloud User:"
 msgstr ""
 
-#: tools/restore-tool:95
+#: tools/restore-tool:103
 msgid "Zentyal Cloud Password"
 msgstr ""
 
-#: tools/restore-tool:97
+#: tools/restore-tool:105
 msgid "Zentyal Cloud Password:"
 msgstr ""
 
-#: tools/restore-tool:108
+#: tools/restore-tool:116
 msgid "Choose the server to restore"
 msgstr ""
 
-#: tools/restore-tool:109
+#: tools/restore-tool:117
 msgid "Server"
 msgstr ""
 
-#: tools/restore-tool:113
+#: tools/restore-tool:121
 #, fuzzy
 msgid "Server to restore: "
 msgstr "Szolgáltatások visszaállítása"
 
-#: tools/restore-tool:146
+#: tools/restore-tool:153
 #, perl-brace-format
 msgid "What encryption mode was used for the backups of {cn}?"
 msgstr ""
 
-#: tools/restore-tool:152
+#: tools/restore-tool:158
 #, fuzzy
 msgid "No encryption"
 msgstr "Kódolás"
 
-#: tools/restore-tool:153
+#: tools/restore-tool:159
 #, fuzzy
 msgid "Symmetric password"
 msgstr "Szimmetrikus kulcs"
 
-#: tools/restore-tool:166
+#: tools/restore-tool:172
 #, fuzzy
 msgid "Mode"
 msgstr "Módszer"
 
-#: tools/restore-tool:173
+#: tools/restore-tool:179
 #, perl-brace-format
 msgid "Available options: {ops}"
 msgstr ""
 
-#: tools/restore-tool:177
+#: tools/restore-tool:183
 msgid "Enter selected option: "
 msgstr ""
 
-#: tools/restore-tool:194
+#: tools/restore-tool:200
 #, perl-brace-format
 msgid "Enter symmetric password used to back up {ser}: "
 msgstr ""
 
-#: tools/restore-tool:211
+#: tools/restore-tool:217
 #, perl-brace-format
 msgid "Enter ID of encryption key used to back up {ser}"
 msgstr ""
 
-#: tools/restore-tool:228
+#: tools/restore-tool:234
 #, perl-brace-format
 msgid "Enter passphrase for GPG key {id}"
 msgstr ""
 
-#: tools/restore-tool:254
+#: tools/restore-tool:257
 msgid "Select backup domains to restore"
 msgstr ""
 
-#: tools/restore-tool:263
+#: tools/restore-tool:266
 #, perl-brace-format
 msgid "Backup domains available in this server: {l}"
 msgstr ""
 
-#: tools/restore-tool:275
+#: tools/restore-tool:283
 msgid "No backup domain selected to restore. Doing nothing"
 msgstr ""
 
-#: tools/restore-tool:300
+#: tools/restore-tool:295
 msgid "Retrieving registered servers list"
 msgstr ""
 
-#: tools/restore-tool:342
+#: tools/restore-tool:337
 msgid "No key passphrase"
 msgstr ""
 
-#: tools/restore-tool:349
+#: tools/restore-tool:344
 msgid "No password in retrieved credentials"
 msgstr ""
 
-#: tools/restore-tool:361
+#: tools/restore-tool:356
 msgid "Retrieving account information"
 msgstr ""
 
-#: tools/restore-tool:427
+#: tools/restore-tool:423
 msgid "No registered Zentyal Servers"
 msgstr ""
 
-#: tools/restore-tool:433
+#: tools/restore-tool:429
 msgid "Registered Zentyal Servers"
 msgstr ""
 
-#: tools/restore-tool:486
+#: tools/restore-tool:482
 #, fuzzy
 msgid "Restoring files"
 msgstr "Fájlok visszaállítása"
 
-#: tools/restore-tool:516
+#: tools/restore-tool:511
 #, perl-brace-format
 msgid ""
 "Cannot restore file {file} requested by backup domains. Reason: {reason}"
 msgstr ""
 
-#: tools/restore-tool:536
+#: tools/restore-tool:530
 msgid "Backup log data not found, log database will not be restored"
 msgstr ""
 
-#: tools/restore-tool:541
+#: tools/restore-tool:534
 #, fuzzy
 msgid "Restoring log database"
 msgstr "Naplóadatbázisok visszaállítása"
 
-#: tools/restore-tool:559
+#: tools/restore-tool:552
 #, fuzzy
 msgid "Restoring configuration backup"
 msgstr "Zentyal beállítások visszaállítása mentésből"
 
-#: tools/restore-tool:563 tools/restore-tool:1891
+#: tools/restore-tool:556 tools/restore-tool:1895
 msgid "Unknown error"
 msgstr ""
 
-#: tools/restore-tool:565
+#: tools/restore-tool:558
 msgid ""
 "The configuration restore failed. We will continue the process to try to "
 "restore as much as possible but your system will need manual tweaking"
 msgstr ""
 
-#: tools/restore-tool:580
+#: tools/restore-tool:571
 msgid "Checking configuration compability"
 msgstr ""
 
-#: tools/restore-tool:637
+#: tools/restore-tool:628
 #, perl-brace-format
 msgid ""
 "Cannot restore backup because there are less interfaces than there are "
 "available. The missing interfaces are: {missing}"
 msgstr ""
 
-#: tools/restore-tool:689
+#: tools/restore-tool:680
 msgid "Updating software package lists"
 msgstr ""
 
-#: tools/restore-tool:734
+#: tools/restore-tool:725
 msgid "Installing Zentyal components and their dependencies"
 msgstr ""
 
-#: tools/restore-tool:797
+#: tools/restore-tool:788
 #, perl-brace-format
 msgid ""
 "Error installing packages: {err}. You can continue but you would not restore "
 "any data for the missing packages"
 msgstr ""
 
-#: tools/restore-tool:802
+#: tools/restore-tool:793
 msgid ""
 "Error installing packages. You can continue but you would not restore any "
 "data for the missing packages"
 msgstr ""
 
-#: tools/restore-tool:873
+#: tools/restore-tool:864
 msgid ""
 "Updating package list to allow access to exclusive Zentyal Cloud packages"
 msgstr ""
 
-#: tools/restore-tool:875
+#: tools/restore-tool:866
 msgid "Install cloud packages"
 msgstr ""
 
-#: tools/restore-tool:889
+#: tools/restore-tool:880
 msgid "Downloading subscription data"
 msgstr ""
 
-#: tools/restore-tool:908
+#: tools/restore-tool:899
 msgid ""
 "Connection error when retrieving subscription bundle. Zentyal Cloud "
 "exclusive packages will not be installed"
 msgstr ""
 
-#: tools/restore-tool:913
+#: tools/restore-tool:904
 msgid ""
 "Cannot retrieve bundle because either installed ebox-remoteservices is "
 "outdated or only outdated bundle is available in the cloud. Zentyal Cloud "
 "exclusive packages will not be installed"
 msgstr ""
 
-#: tools/restore-tool:917
+#: tools/restore-tool:908
 msgid ""
 "Unknown error retrieving subscription bundle. Zentyal Cloud exclusive "
 "packages will not be installed"
 msgstr ""
 
-#: tools/restore-tool:967
+#: tools/restore-tool:958
 #, fuzzy
 msgid "Configuring modules"
 msgstr "Beállítás és állapot"
 
-#: tools/restore-tool:991
+#: tools/restore-tool:982
 #, perl-format, perl-brace-format
 msgid "Configuring modules {p}% done. Current module {mod}"
 msgstr ""
 
-#: tools/restore-tool:1012
+#: tools/restore-tool:1003
 #, perl-brace-format
 msgid ""
 "Failed to configure module {name}: {err}. This could affect to the restore "
 "from other modules"
 msgstr ""
 
-#: tools/restore-tool:1028
+#: tools/restore-tool:1019
 msgid "Finishing new modules configuration"
 msgstr ""
 
-#: tools/restore-tool:1062
+#: tools/restore-tool:1053
 msgid "Downloading the backup data and configuration"
 msgstr ""
 
-#: tools/restore-tool:1099
+#: tools/restore-tool:1088
 #, fuzzy
 msgid "Downloading configuration"
 msgstr "Általános beállítások"
 
-#: tools/restore-tool:1124
+#: tools/restore-tool:1113
 msgid "Retrieving backup collection status ..."
 msgstr ""
 
-#: tools/restore-tool:1144 tools/restore-tool:1215
+#: tools/restore-tool:1142 tools/restore-tool:1205
 #, perl-brace-format
 msgid "Last backup date was: {date}"
 msgstr ""
 
-#: tools/restore-tool:1152
-#, perl-brace-format
-msgid "No backups found for server {server}"
-msgstr ""
-
-#: tools/restore-tool:1173
+#: tools/restore-tool:1169
 #, perl-brace-format
 msgid "No automatic configuration backups were made for the server {s}"
 msgstr ""
 
-#: tools/restore-tool:1227
+#: tools/restore-tool:1215
 #, perl-brace-format
 msgid "Choose date to restore the backup from server {cn}"
 msgstr ""
 
-#: tools/restore-tool:1252
+#: tools/restore-tool:1239
 #, perl-brace-format
 msgid "No automatic configuration backups were done for the server {s}"
 msgstr ""
 
-#: tools/restore-tool:1275
+#: tools/restore-tool:1262
 #, perl-brace-format
 msgid "No configuration backups were made for the date {d} in {s} server"
 msgstr ""
 
-#: tools/restore-tool:1292
+#: tools/restore-tool:1279
 #, fuzzy, perl-brace-format
 msgid "Cannot create directory {dir}"
 msgstr "relatív mappa"
 
-#: tools/restore-tool:1305
+#: tools/restore-tool:1292
 #, perl-brace-format
 msgid "The server {server} is not registered in Zentyal Cloud"
 msgstr ""
 
-#: tools/restore-tool:1362
+#: tools/restore-tool:1349
 #, fuzzy
 msgid "Configuration"
 msgstr "Általános beállítások"
 
-#: tools/restore-tool:1384
+#: tools/restore-tool:1371
 #, perl-brace-format
 msgid "{domain} is not available to restore in the backup"
 msgstr ""
 
-#: tools/restore-tool:1426
+#: tools/restore-tool:1413
 msgid "Please, enter a value"
 msgstr ""
 
-#: tools/restore-tool:1458
+#: tools/restore-tool:1438
+msgid "Please answer yes or no"
+msgstr ""
+
+#: tools/restore-tool:1463
 #, perl-brace-format
 msgid "Backup dates for server {cn}"
 msgstr ""
 
-#: tools/restore-tool:1474
+#: tools/restore-tool:1479
 msgid "Enter backup date to restore:"
 msgstr ""
 
-#: tools/restore-tool:1478
+#: tools/restore-tool:1483
 #, perl-brace-format
 msgid "Invalid date: {d}. Try again"
 msgstr ""
 
-#: tools/restore-tool:1492
+#: tools/restore-tool:1497
 #, perl-brace-format
 msgid "Warning: {msg}"
 msgstr ""
 
-#: tools/restore-tool:1603
+#: tools/restore-tool:1608
 msgid "This entry is mandatory to continue the restoring process. Retry"
 msgstr ""
 
-#: tools/restore-tool:1655
+#: tools/restore-tool:1660
 #, fuzzy
 msgid "Selection"
 msgstr "Kódolás"
 
-#: tools/restore-tool:1696
+#: tools/restore-tool:1701
 msgid ""
 "This entry is mandatory to carry on the restoring process. Choose from the "
 "list"
 msgstr ""
 
-#: tools/restore-tool:1781
+#: tools/restore-tool:1785
 #, fuzzy
 msgid "Please wait"
 msgstr "Kérem várjon..."
 
-#: tools/restore-tool:1795
+#: tools/restore-tool:1799
 msgid "Finished"
 msgstr ""
 
-#: tools/restore-tool:1853
+#: tools/restore-tool:1857
 msgid "Restoring process aborted upon user request"
 msgstr ""
 
-#: tools/restore-tool:1882
+#: tools/restore-tool:1886
 #, fuzzy
 msgid "Saving configuration changes"
 msgstr "Beállítás és állapot"
 
-#: tools/restore-tool:1893
+#: tools/restore-tool:1897
 msgid ""
 "Error saving configuration changes; some Zentyal modules would remain in a "
 "unknown state"
 msgstr ""
 
-#: tools/restore-tool:2002
+#: tools/restore-tool:1975
 #, fuzzy
 msgid "Restore process aborted"
 msgstr "Naplóadatbázisok visszaállítása"
 
-#: tools/restore-tool:2029
+#: tools/restore-tool:2002
 msgid "User for the authentication"
 msgstr ""
 
-#: tools/restore-tool:2031
+#: tools/restore-tool:2004
 msgid ""
 "Password for the authentication. This password will be shown both in the "
 "command line and in the process list so only use this option when security "
 "is not a concern"
 msgstr ""
 
-#: tools/restore-tool:2035
+#: tools/restore-tool:2008
 msgid "Server from which its backup date the restore will be done"
 msgstr ""
 
-#: tools/restore-tool:2037
+#: tools/restore-tool:2010
 msgid "Use the last backup done for the restore"
 msgstr ""
 
-#: tools/restore-tool:2039
+#: tools/restore-tool:2012
 msgid "Backup domain to restore. It could be repeated several times"
 msgstr ""
 
-#: tools/restore-tool:2041
+#: tools/restore-tool:2014
 msgid ""
 "Check if we use the no encryption, a symmetric scheme with password or "
 "asymmetric scheme with a private key"
 msgstr ""
 
-#: tools/restore-tool:2044
+#: tools/restore-tool:2017
 msgid "Do not use graphical interface"
 msgstr ""
 
-#: tools/restore-tool:2069
+#: tools/restore-tool:2048
 #, perl-brace-format
 msgid "The account {user} do not have any registered Zentyal servers"
 msgstr ""
 
-#: tools/restore-tool:2131
+#: tools/restore-tool:2128
 #, perl-brace-format
 msgid ""
 "The following backup domains could not be restored from a basic "
 "subscription: {domains}"
 msgstr ""
 
-#: tools/restore-tool:2155
+#: tools/restore-tool:2152
 msgid "Your full backup is now successfully restored!"
 msgstr ""
 
-#: tools/restore-tool:2157
+#: tools/restore-tool:2154
 msgid ""
 "You can go now to the Zentyal administration interface to manage your "
 "recovered host."
 msgstr ""
 
-#: tools/restore-tool:2199
+#: tools/restore-tool:2196
 #, perl-brace-format
 msgid "You can only specify one of the encryption options: {sy}, {asy} y {no}"
 msgstr ""
 
-#: tools/restore-tool:2220
+#: tools/restore-tool:2216
 msgid "Zenity package not found. Falling back to terminal mode"
+msgstr ""
+
+#: tools/restore-tool:2255
+msgid ""
+"No backups found in this server with this encryption mode. Want to retry "
+"with a different server or encryption mode?"
 msgstr ""
 
 #: tools/ebox-remote-ebackup:69

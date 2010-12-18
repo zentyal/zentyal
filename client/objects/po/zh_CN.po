@@ -6,20 +6,81 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-objects 0.12\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-12-13 08:40+0100\n"
+"POT-Creation-Date: 2010-12-18 01:44+0100\n"
 "PO-Revision-Date: 2010-09-25 07:37+0200\n"
 "Last-Translator: NiZhiqiang <nessus@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: src/EBox/Objects.pm:39 src/EBox/Model/ObjectTable.pm:82
-#: src/EBox/Model/MemberTable.pm:93
+#: src/EBox/Model/MemberTable.pm:63 src/EBox/Model/ObjectTable.pm:63
+msgid "Name"
+msgstr "名字"
+
+#: src/EBox/Model/MemberTable.pm:70
+msgid "IP address"
+msgstr "IP地址"
+
+#: src/EBox/Model/MemberTable.pm:76
+msgid "MAC address"
+msgstr "MAC地址"
+
+#: src/EBox/Model/MemberTable.pm:87 src/EBox/Model/ObjectTable.pm:71
+msgid "Members"
+msgstr "成员"
+
+#: src/EBox/Model/MemberTable.pm:93 src/EBox/Model/ObjectTable.pm:82
+#: src/EBox/Objects.pm:39
 msgid "Objects"
 msgstr "对象管理"
+
+#: src/EBox/Model/MemberTable.pm:94
+msgid "member"
+msgstr "成员"
+
+#: src/EBox/Model/MemberTable.pm:116
+msgid "You can only use MAC addresses with hosts"
+msgstr "只能使用主机的MAC地址"
+
+#: src/EBox/Model/MemberTable.pm:119 src/EBox/Model/MemberTable.pm:120
+msgid "network address"
+msgstr "网络地址"
+
+#: src/EBox/Model/MemberTable.pm:126
+#, perl-brace-format
+msgid "{ip} overlaps with the address or another object's member"
+msgstr "{ip}覆盖这个地址或其它对象的成员"
+
+#: src/EBox/Model/ObjectTable.pm:83
+msgid "Objects List"
+msgstr "对象列表"
+
+#: src/EBox/Model/ObjectTable.pm:91
+msgid "object"
+msgstr "对象"
+
+#: src/EBox/Model/ObjectTable.pm:113
+msgid "This object is being used by another module"
+msgstr "这个对象正被其它模块使用"
+
+#: src/EBox/Model/ObjectTable.pm:197
+msgid ""
+"Objects are an abstraction of machines and network addresses which can be "
+"used in other modules. Any change on an object is automatically synched in "
+"all the modules using it"
+msgstr ""
+"对象是一组可被其它模块实用的主机或网络地址的抽象。某个对象的变更会自动同步到"
+"使用它的模块。"
+
+#: src/EBox/Model/ObjectTable.pm:208
+msgid ""
+"'Any' is a reserved word that could not be used as object name to avoid "
+"confusions"
+msgstr "'Any'是一个保留词，不能用于对象名，否则会引起冲突"
 
 #: src/EBox/Objects.pm:44
 #, perl-brace-format
@@ -49,63 +110,3 @@ msgstr "从对象{object}中成功删除{nname}"
 #: src/EBox/Objects.pm:270
 msgid "Object"
 msgstr "对象"
-
-#: src/EBox/Model/ObjectTable.pm:63 src/EBox/Model/MemberTable.pm:63
-msgid "Name"
-msgstr "名字"
-
-#: src/EBox/Model/ObjectTable.pm:71 src/EBox/Model/MemberTable.pm:87
-msgid "Members"
-msgstr "成员"
-
-#: src/EBox/Model/ObjectTable.pm:83
-msgid "Objects List"
-msgstr "对象列表"
-
-#: src/EBox/Model/ObjectTable.pm:91
-msgid "object"
-msgstr "对象"
-
-#: src/EBox/Model/ObjectTable.pm:113
-msgid "This object is being used by another module"
-msgstr "这个对象正被其它模块使用"
-
-#: src/EBox/Model/ObjectTable.pm:197
-msgid ""
-"Objects are an abstraction of machines and network addresses which can be "
-"used in other modules. Any change on an object is automatically synched in "
-"all the modules using it"
-msgstr ""
-"对象是一组可被其它模块实用的主机或网络地址的抽象。某个对象的变更会自动同步到"
-"使用它的模块。"
-
-#: src/EBox/Model/ObjectTable.pm:208
-msgid ""
-"'Any' is a reserved word that could not be used as object name to avoid "
-"confusions"
-msgstr "'Any'是一个保留词，不能用于对象名，否则会引起冲突"
-
-#: src/EBox/Model/MemberTable.pm:70
-msgid "IP address"
-msgstr "IP地址"
-
-#: src/EBox/Model/MemberTable.pm:76
-msgid "MAC address"
-msgstr "MAC地址"
-
-#: src/EBox/Model/MemberTable.pm:94
-msgid "member"
-msgstr "成员"
-
-#: src/EBox/Model/MemberTable.pm:116
-msgid "You can only use MAC addresses with hosts"
-msgstr "只能使用主机的MAC地址"
-
-#: src/EBox/Model/MemberTable.pm:119 src/EBox/Model/MemberTable.pm:120
-msgid "network address"
-msgstr "网络地址"
-
-#: src/EBox/Model/MemberTable.pm:126
-#, perl-brace-format
-msgid "{ip} overlaps with the address or another object's member"
-msgstr "{ip}覆盖这个地址或其它对象的成员"

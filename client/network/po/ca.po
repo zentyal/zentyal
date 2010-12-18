@@ -7,89 +7,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-network 0.12\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-12-13 08:40+0100\n"
+"POT-Creation-Date: 2010-12-18 01:44+0100\n"
 "PO-Revision-Date: 2010-08-31 17:15+0200\n"
 "Last-Translator: josefa <jgonza24@xtec.cat>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 1.1.0\n"
-
-#: src/EBox/CGI/Iface.pm:42 src/EBox/CGI/Iface.pm:59 src/EBox/CGI/Vlan.pm:41
-#: src/EBox/CGI/VIface.pm:43
-msgid "network interface"
-msgstr "interfície de xarxa"
-
-#: src/EBox/CGI/Iface.pm:58
-msgid "method"
-msgstr "mètode"
-
-#: src/EBox/CGI/Iface.pm:88
-msgid "ip address"
-msgstr "adreça ip"
-
-#: src/EBox/CGI/Iface.pm:89 src/EBox/CGI/VIface.pm:63
-msgid "netmask"
-msgstr "màscara de xarxa"
-
-#: src/EBox/CGI/Iface.pm:95
-msgid "user name"
-msgstr "nom d'usuari"
-
-#: src/EBox/CGI/Iface.pm:96
-msgid "password"
-msgstr "contrasenya"
-
-#: src/EBox/CGI/Iface.pm:106
-msgid "bridge"
-msgstr "pont"
-
-#: src/EBox/CGI/Vlan.pm:43 src/EBox/Network.pm:1637 src/EBox/Network.pm:1666
-#: src/templates/ifaces.mas:229
-msgid "VLAN Id"
-msgstr "Identificador de VLAN"
-
-#: src/EBox/CGI/VIface.pm:44
-#, fuzzy
-msgid "virtual interface action"
-msgstr "acció d'interfície virtual"
-
-#: src/EBox/CGI/VIface.pm:62 src/EBox/Network.pm:905 src/EBox/Network.pm:910
-#: src/EBox/Network.pm:1224 src/EBox/Network.pm:1245 src/EBox/Network.pm:3183
-#: src/EBox/Network.pm:3199 src/EBox/Network.pm:3225 src/EBox/Network.pm:3380
-#: src/EBox/Network.pm:3534 src/EBox/Model/GatewayTable.pm:197
-#: src/EBox/Model/GatewayTable.pm:272 src/templates/ifaces.mas:119
-#: src/templates/ifaces.mas:287 src/templates/Wizard/network.mas:53
-msgid "IP address"
-msgstr "Adreça IP"
-
-#: src/EBox/CGI/VIface.pm:64 src/EBox/CGI/VIface.pm:70
-msgid "virtual interface name"
-msgstr "nom de la interfície virtual"
-
-#: src/EBox/CGI/Diag.pm:29 src/EBox/CGI/Diag.pm:41
-msgid "Network Diagnostic Tools"
-msgstr "Eines de Diagnòstic de Xarxa"
-
-#: src/EBox/CGI/Diag.pm:51 src/EBox/CGI/Diag.pm:58
-#: src/EBox/Model/WANFailoverRules.pm:97 src/templates/diag.mas:14
-#: src/templates/diag.mas:23
-msgid "Host"
-msgstr "Màquina"
-
-#: src/EBox/CGI/Diag.pm:65 src/EBox/Network.pm:3463
-msgid "host name"
-msgstr "nom de màquina"
-
-#: src/EBox/CGI/Ifaces.pm:29 src/EBox/Network.pm:3571
-msgid "Network Interfaces"
-msgstr "Interfícies de xarxa"
-
-#: src/EBox/CGI/EnableBalanceTraffic.pm:42
-msgid "traffic balance"
-msgstr "balanceig de trànsit"
 
 #: src/EBox/Event/Watcher/Gateways.pm:163
 #, perl-brace-format
@@ -105,14 +32,681 @@ msgstr ""
 "Passarel·la {gw} desconnectada ({failRatio}% de '{type}' proves de "
 "màquina'{host}' fallaren, max={maxFailRatio}%)"
 
-#: src/EBox/Event/Watcher/Gateways.pm:383
-#: src/EBox/Network/Composite/WANFailover.pm:61 src/EBox/Network.pm:3605
+#: src/EBox/Event/Watcher/Gateways.pm:383 src/EBox/Network.pm:3605
+#: src/EBox/Network/Composite/WANFailover.pm:61
 msgid "WAN Failover"
 msgstr "WAN Failover"
 
 #: src/EBox/Event/Watcher/Gateways.pm:399
 msgid "Check if gateways are connected or disconnected."
 msgstr "Verificar si les passarel·les estan connectades o desconnectades."
+
+#: src/EBox/Model/SearchDomain.pm:71
+msgid "Domain"
+msgstr "Domini"
+
+#: src/EBox/Model/SearchDomain.pm:79
+msgid "Search Domain"
+msgstr "Domini de Cerca"
+
+#: src/EBox/Model/SearchDomain.pm:83
+msgid ""
+"This domain will be appended when trying to resolve hosts if the first "
+"attempt without appending it has failed."
+msgstr ""
+"Aquest domini s'afegirà a l'intentar resoldre màquines si el primer intent "
+"sense afegir-lo ha fallat."
+
+#: src/EBox/Model/WANFailoverRules.pm:55
+msgid "Ping to gateway"
+msgstr "Fer ping a la passarel·la"
+
+#: src/EBox/Model/WANFailoverRules.pm:59
+msgid "Ping to host"
+msgstr "Fer ping a la màquina"
+
+#: src/EBox/Model/WANFailoverRules.pm:63
+msgid "DNS resolve"
+msgstr "Resolució de DNS"
+
+#: src/EBox/Model/WANFailoverRules.pm:67
+msgid "HTTP Request"
+msgstr "Petició d'HTTP"
+
+#: src/EBox/Model/WANFailoverRules.pm:91
+msgid "Test type"
+msgstr "Tipus de prova"
+
+#: src/EBox/Model/WANFailoverRules.pm:97 src/EBox/CGI/Diag.pm:51
+#: src/EBox/CGI/Diag.pm:58 src/templates/diag.mas:14 src/templates/diag.mas:23
+msgid "Host"
+msgstr "Màquina"
+
+#: src/EBox/Model/WANFailoverRules.pm:103
+msgid "Number of probes"
+msgstr "Nombre de proves"
+
+#: src/EBox/Model/WANFailoverRules.pm:112
+msgid "Required success ratio"
+msgstr "Ratio d'èxit requerit"
+
+#: src/EBox/Model/WANFailoverRules.pm:125
+msgid "Test rules"
+msgstr "Regles de prova"
+
+#: src/EBox/Model/WANFailoverRules.pm:132
+msgid ""
+"You can define different rules to test if a gateway is working properly. If "
+"one of the test fails the gateway will be disabled. It will be enabled again "
+"when all tests are passed."
+msgstr ""
+"Pots definir diferents regles per provar si una passarel·la està funcionant "
+"correctament. Si una de les proves falla la passarel·la es deshabilitarà. "
+"Serà habilitada de nou quan es passin totes les proves. "
+
+#: src/EBox/Model/WANFailoverRules.pm:133
+#: src/EBox/Model/MultiGwRulesDataTable.pm:195
+#: src/EBox/Model/MultiGwRulesOptions.pm:68
+msgid "rule"
+msgstr "regla"
+
+#: src/EBox/Model/WANFailoverRules.pm:182
+msgid "Invalid value for Host"
+msgstr "Valor invàlid per la màquina"
+
+#: src/EBox/Model/ByteRateGraphControl.pm:46
+msgid "Select traffic graphic"
+msgstr "Selecciona el gràfic de trànsit"
+
+#: src/EBox/Model/ByteRateGraphControl.pm:57
+msgid ""
+"Several views are showed depending on the parameter selection. An host IP "
+"address and a service, which must match the text given by the graphs legend "
+"based on /etc/services, may be required by the graph type. The flow view "
+"will change accordingly"
+msgstr ""
+"Vàries vistes es mostren depenent de la selecció dels paràmetres. Una adreça "
+"IP de màquina i un servei, el qual ha de coincidir amb el text donat en la "
+"llegenda dels gràfics basat en /etc/services, pot ser requerit pel tipus de "
+"gràfic. El flux de la vista canviarà d'acord amb els nous paràmetres"
+
+#: src/EBox/Model/ByteRateGraphControl.pm:78
+msgid "Graph type"
+msgstr "Tipus de gràfic"
+
+#: src/EBox/Model/ByteRateGraphControl.pm:85
+msgid "All active traffic by source"
+msgstr "Tot el trànsit actiu per origen"
+
+#: src/EBox/Model/ByteRateGraphControl.pm:89
+msgid "All active traffic by service"
+msgstr "Tot el trànsit actiu per servei"
+
+#: src/EBox/Model/ByteRateGraphControl.pm:93
+msgid "Traffic by selected source"
+msgstr "Trànsit per l'origen seleccionat"
+
+#: src/EBox/Model/ByteRateGraphControl.pm:99
+msgid "Traffic by selected service"
+msgstr "Trànsit pel servei seleccionat"
+
+#: src/EBox/Model/ByteRateGraphControl.pm:105
+msgid "Traffic by source and service"
+msgstr "Trànsit per l'origen i el servei"
+
+#: src/EBox/Model/ByteRateGraphControl.pm:111
+#: src/EBox/Model/MultiGwRulesDataTable.pm:110
+msgid "Source"
+msgstr "Origen"
+
+#: src/EBox/Model/ByteRateGraphControl.pm:117 src/EBox/Model/DynDNS.pm:91
+#: src/EBox/Model/MultiGwRulesDataTable.pm:161
+msgid "Service"
+msgstr "Servei"
+
+#: src/EBox/Model/DynDNS.pm:86
+msgid "Enable Dynamic DNS"
+msgstr "Habilitar DNS dinàmic"
+
+#: src/EBox/Model/DynDNS.pm:97 src/EBox/Model/Proxy.pm:75
+msgid "Username"
+msgstr "Nom d'usuari"
+
+#: src/EBox/Model/DynDNS.pm:102 src/EBox/Model/Proxy.pm:82
+#: src/templates/ifaces.mas:202
+msgid "Password"
+msgstr "Contrasenya "
+
+#: src/EBox/Model/DynDNS.pm:107
+msgid "Hostname"
+msgstr "Nom de màquina"
+
+#: src/EBox/Model/DynDNS.pm:115
+msgid "Configuration"
+msgstr "Configuració"
+
+#: src/EBox/Model/DynDNS.pm:119
+msgid ""
+"All gateways you enter here must be reachable through one of the network "
+"interfaces currently configured"
+msgstr ""
+"Totes les passarel·les que introdueixi aquí han de ser accessibles des d'una "
+"de les interfícies de xarxa actualment configurades."
+
+#: src/EBox/Model/ByteRateEnableForm.pm:70
+msgid ""
+"Starting traffic rate monitoring. Wait patiently until the graph appears"
+msgstr ""
+"Començant el monitoratge de la taxa de trànsit. Espere pacientment fins que "
+"aparegui el gràfic"
+
+#: src/EBox/Model/ByteRateEnableForm.pm:73
+msgid "Stopping traffic rate monitoring"
+msgstr "Aturant el monitoratge de la taxa de trànsit"
+
+#: src/EBox/Model/ByteRateEnableForm.pm:86
+msgid ""
+"The traffic rate monitor is start/stop on demand without requiring to save "
+"changes first"
+msgstr ""
+"El monitoratge de la taxa de trànsit s'atura/inicia sota demanda sense haver "
+"primer de desar els canvis"
+
+#: src/EBox/Model/ByteRateSettings.pm:79
+msgid "Interface to listen"
+msgstr "Interfície a escoltar"
+
+#: src/EBox/Model/ByteRateSettings.pm:88
+msgid "Traffic rate monitor settings"
+msgstr "Configuració del monitoratge de la taxa"
+
+#: src/EBox/Model/ByteRateSettings.pm:92
+msgid "Changes will be applied immediately to the traffic rate monitor"
+msgstr ""
+"Els canvis seran aplicats immediatament al monitoratge de la taxa de trànsit"
+
+#: src/EBox/Model/ByteRateSettings.pm:95
+msgid "Settings changed"
+msgstr "Configuració canviada"
+
+#: src/EBox/Model/ByteRateSettings.pm:114
+#, perl-brace-format
+msgid "{iface} (internal interface)"
+msgstr "{iface} (interfície interna)"
+
+#: src/EBox/Model/ByteRateSettings.pm:121
+#, perl-brace-format
+msgid "{iface} (external interface)"
+msgstr "{iface} (interfície externa)"
+
+#: src/EBox/Model/ByteRateSettings.pm:128
+msgid "all"
+msgstr "totes"
+
+#: src/EBox/Model/GatewayTable.pm:184
+msgid "Auto"
+msgstr "Automàtic"
+
+#: src/EBox/Model/GatewayTable.pm:190 src/templates/ifaces.mas:34
+#: src/templates/ifaces.mas:286
+msgid "Name"
+msgstr "Nom"
+
+#: src/EBox/Model/GatewayTable.pm:197 src/EBox/Model/GatewayTable.pm:272
+#: src/EBox/Network.pm:905 src/EBox/Network.pm:910 src/EBox/Network.pm:1224
+#: src/EBox/Network.pm:1245 src/EBox/Network.pm:3183 src/EBox/Network.pm:3199
+#: src/EBox/Network.pm:3225 src/EBox/Network.pm:3380 src/EBox/Network.pm:3534
+#: src/EBox/CGI/VIface.pm:62 src/templates/Wizard/network.mas:53
+#: src/templates/ifaces.mas:119 src/templates/ifaces.mas:287
+msgid "IP address"
+msgstr "Adreça IP"
+
+#: src/EBox/Model/GatewayTable.pm:204
+#: src/EBox/Model/MultiGwRulesDataTable.pm:101 src/EBox/Network.pm:998
+#: src/EBox/Network.pm:1030 src/EBox/Network.pm:1075 src/EBox/Network.pm:1111
+#: src/EBox/Network.pm:1136 src/EBox/Network.pm:1220 src/EBox/Network.pm:1358
+#: src/EBox/Network.pm:1449 src/EBox/Network.pm:1537 src/EBox/Network.pm:1543
+#: src/EBox/Network.pm:1870 src/EBox/Network.pm:1940 src/EBox/Network.pm:1973
+#: src/EBox/Network.pm:2000 src/EBox/Network.pm:2027 src/EBox/Network.pm:2055
+#: src/EBox/Network.pm:2117 src/EBox/Network.pm:2156 src/EBox/Network.pm:2189
+#: src/EBox/Network.pm:3181 src/EBox/Network.pm:3201 src/EBox/Network.pm:3221
+#: src/EBox/Network.pm:3242 src/EBox/Network.pm:3261 src/EBox/Network.pm:3315
+#: src/EBox/Network.pm:3336 src/EBox/Network.pm:3356 src/EBox/Network.pm:3377
+#: src/EBox/Network.pm:3400
+msgid "Interface"
+msgstr "Interfície"
+
+#: src/EBox/Model/GatewayTable.pm:207
+msgid "Interface connected to this gateway"
+msgstr "Interfície connectada a aquesta passarel·la"
+
+#: src/EBox/Model/GatewayTable.pm:211
+msgid "Weight"
+msgstr "Pes"
+
+#: src/EBox/Model/GatewayTable.pm:216
+msgid ""
+"This field is only useful if you have more than one router and  the balance "
+"traffic feature is enabled."
+msgstr ""
+"Aquest camp només és útil si en té més d'un encaminador i la funció de "
+"balanceig de trànsit és habilitada."
+
+#: src/EBox/Model/GatewayTable.pm:222
+msgid "Default"
+msgstr "Per defecte"
+
+#: src/EBox/Model/GatewayTable.pm:232
+msgid "Gateways List"
+msgstr "Llista de passarel·les"
+
+#: src/EBox/Model/GatewayTable.pm:248
+msgid ""
+"You can add as many gateways as you want. This is very useful if you want to "
+"split your Internet traffic through several links. Note that if you "
+"configure interfaces as DHCP or PPPoE their gateways are added here "
+"automatically."
+msgstr ""
+"Pots afegir tantes passarel·les com desitgis. És força útil si vols separar "
+"el trànsit d'Internet en vàries connexions. Tingues en compte que si "
+"configures interfícies com DHCP o PPPoE les seves passarel·les són afegides "
+"aquí automàticament."
+
+#: src/EBox/Model/GatewayTable.pm:250
+msgid "gateway"
+msgstr "passarel·la"
+
+#: src/EBox/Model/GatewayTable.pm:283
+msgid "You can not manually add a gateway for DHCP or PPPoE interfaces"
+msgstr ""
+"No pots afegir manualment una passarel·la per interfícies DHCP or PPPoE"
+
+#: src/EBox/Model/GatewayTable.pm:342
+msgid "Automatically added gateways can not be manually deleted"
+msgstr ""
+"No es poden eliminar manualment les passarel·les que han estat afegides "
+"automàticament"
+
+#: src/EBox/Model/MultiGwRulesDataTable.pm:77
+msgid "any"
+msgstr "qualsevol"
+
+#: src/EBox/Model/MultiGwRulesDataTable.pm:104
+msgid ""
+"Incoming interface to match packets. If you  want to match a whole subnet "
+"you can  select the interface of that subnet"
+msgstr ""
+"Interfície d'entrada per seleccionar paquets. Si vols seleccionar una "
+"subxarxa sencera, pots seleccionar la interfície d'aquesta subxarxa"
+
+#: src/EBox/Model/MultiGwRulesDataTable.pm:115
+#: src/EBox/Model/MultiGwRulesDataTable.pm:142
+msgid "Any"
+msgstr "Qualsevol"
+
+#: src/EBox/Model/MultiGwRulesDataTable.pm:118
+msgid "Source IP"
+msgstr "IP d'origen"
+
+#: src/EBox/Model/MultiGwRulesDataTable.pm:123
+msgid "Source object"
+msgstr "Objecte origen"
+
+#: src/EBox/Model/MultiGwRulesDataTable.pm:137
+msgid "Destination"
+msgstr "Destí"
+
+#: src/EBox/Model/MultiGwRulesDataTable.pm:145
+msgid "Destination IP"
+msgstr "IP de destí"
+
+#: src/EBox/Model/MultiGwRulesDataTable.pm:150
+msgid "Destination object"
+msgstr "Objecte destí"
+
+#: src/EBox/Model/MultiGwRulesDataTable.pm:172
+msgid "Gateway to route packets matching this rule"
+msgstr ""
+"Passarel·la per encaminar els paquets que corresponguin per aquesta regla"
+
+#: src/EBox/Model/MultiGwRulesDataTable.pm:180
+msgid "Multigateway rules"
+msgstr "Regles de múltiples passarel·les"
+
+#: src/EBox/Model/MultiGwRulesDataTable.pm:193
+msgid ""
+"You can decide what kind of traffic goes out by each gateway. This way, you "
+"can force a subnet, service, destination and so forth  to use the router you "
+"choose. Please, bear in mind that rules will be applied in order, from top "
+"to bottom, you can reorder them once they are added. If you do not set a "
+"port or an IP address, then the rule will match all of them"
+msgstr ""
+"Pots decidir quin tipus de trànsit surt per cadascuna de les passarel·les. "
+"D'aquesta manera pots forçar que una subxarxa, servei, adreça de destí, etc. "
+"utilitzi l'encaminador triat. Si us plau, tingues en compte que les regles "
+"s'apliquen en ordre, de dalt a baix. Pots reordenar-les un cop hagin sigut "
+"afegides. Si no configures un port o una adreça IP, aleshores la regla "
+"acceptarà a tots ells."
+
+#: src/EBox/Model/StaticRoute.pm:147 src/EBox/Network.pm:81
+#: src/EBox/Network.pm:3588
+msgid "Network"
+msgstr "Xarxa"
+
+#: src/EBox/Model/StaticRoute.pm:150
+msgid "IP or network address"
+msgstr "Adreça IP o adreça de xarxa"
+
+#: src/EBox/Model/StaticRoute.pm:156
+msgid "Gateway used to reach the above network  address"
+msgstr "Passarel·la utilitzada per arribar a l'anterior adreça de xarxa"
+
+#: src/EBox/Model/StaticRoute.pm:161 src/templates/ifaces.mas:230
+msgid "Description"
+msgstr "Descripció"
+
+#: src/EBox/Model/StaticRoute.pm:164
+msgid "Optional description for this route"
+msgstr "Descripció opcional per aquesta ruta"
+
+#: src/EBox/Model/StaticRoute.pm:170
+msgid "Static Routes List"
+msgstr "Llista de Rutes Estàtiques"
+
+#: src/EBox/Model/StaticRoute.pm:171 src/EBox/Network.pm:3601
+msgid "Static Routes"
+msgstr "Rutes estàtiques"
+
+#: src/EBox/Model/StaticRoute.pm:176
+msgid ""
+"All gateways you enter here must be reachable through one of the network "
+"interfaces currently configured."
+msgstr ""
+"Totes les passarel·les que introdueixi aquí han de ser accessibles des d'una "
+"de les interfícies de xarxa actualment configurades."
+
+#: src/EBox/Model/StaticRoute.pm:179
+msgid "static route"
+msgstr "Ruta estàtica"
+
+#: src/EBox/Model/DNSResolver.pm:77
+msgid "IP address of the DNS server that Zentyal will use to resolve names."
+msgstr ""
+"Adreça IP del servidor de DNS que Zentyal utilitzarà per resoldre noms."
+
+#: src/EBox/Model/DNSResolver.pm:83 src/templates/Wizard/network.mas:86
+#: src/templates/Wizard/network.mas:90
+msgid "Domain Name Server"
+msgstr "Servidor de Noms de Domini"
+
+#: src/EBox/Model/DNSResolver.pm:92
+msgid "Domain Name Server Resolver List"
+msgstr "Llista de Traductors de Servidors de Noms de Domini"
+
+#: src/EBox/Model/DNSResolver.pm:98
+msgid "name server"
+msgstr "servidor de noms"
+
+#: src/EBox/Model/DNSResolver.pm:110
+msgid ""
+"<p>Here you can add the name server resolvers that Zentyal will use.</"
+"p><p>Note that these settings may be overriden if you have any network "
+"interface configured via DHCP</p>"
+msgstr ""
+"<p>Aquí pots afegir els traductors de servidors de noms que Zentyal "
+"utilitzarà.<p><p>Ten en compte que aquesta configuració pot ser sobreescrita "
+"si teniu alguna interfície de xarxa configurada mitjançant DHCP<p>"
+
+#: src/EBox/Model/WANFailoverOptions.pm:71
+msgid "Time between checks"
+msgstr "Temps entre comprovacions"
+
+#: src/EBox/Model/WANFailoverOptions.pm:72
+msgid "seconds"
+msgstr "segons"
+
+#: src/EBox/Model/WANFailoverOptions.pm:82
+msgid "Global options"
+msgstr "Opcions generals"
+
+#: src/EBox/Model/WANFailoverOptions.pm:86
+msgid "These options affect to all the tests."
+msgstr "Aquestes opcions afecten a totes les proves."
+
+#: src/EBox/Model/Proxy.pm:89
+msgid "Proxy server"
+msgstr "Servidor proxy"
+
+#: src/EBox/Model/Proxy.pm:95
+msgid "Proxy port"
+msgstr "Port del proxy"
+
+#: src/EBox/Model/Proxy.pm:103
+msgid "Proxy"
+msgstr "Proxy"
+
+#: src/EBox/Model/Proxy.pm:107
+msgid ""
+"This settings will be used to allow Zentyal to access the Internet if an "
+"HTTP proxy is needed."
+msgstr ""
+"Aquests valors s'utilitzaran per permetre a Zentyal accedir a Internet si es "
+"necessita un proxy HTTP"
+
+#: src/EBox/Model/Proxy.pm:129
+msgid "Proxy username and password will be visible by all system users."
+msgstr ""
+
+#: src/EBox/Model/MultiGwRulesOptions.pm:43
+msgid "Enable"
+msgstr "Habilitar"
+
+#: src/EBox/Model/MultiGwRulesOptions.pm:53
+msgid "Traffic balancing"
+msgstr "Balanceig de trànsit"
+
+#: src/EBox/Model/MultiGwRulesOptions.pm:64
+#, perl-brace-format
+msgid ""
+"By enabling this feature, your traffic will be balanced amongst your "
+"gateways. That is, every new connection will be sent by a different gateway. "
+"You can choose which proportion of traffic goes through each gateway using "
+"the weight parameter of the gateway. You can change that value {openref}here"
+"{closeref}.{br}If you want to explicitily route traffic by a certain "
+"gateway, use the multigateway rules below"
+msgstr ""
+"Habilitant aquesta propietat, el trànsit es balancejarà entre les "
+"passarel·les. Això vol dir, que cada nova connexió serà enviada per una "
+"passarel·la diferent. Pot triar quina proporció de trànsit passarà a través "
+"de cadascuna de les passarel·les utilitzant el paràmetre pes de la "
+"passarel·la. Pot canviar aquest valor {openref}aquí{closeref}.{br}Si vol "
+"encaminar trànsit explícitament per una passarel·la concreta, utilitzi les "
+"regles de múltiples passarel·les de més avall"
+
+#: src/EBox/Network.pm:99
+msgid "Add default routers to the default table"
+msgstr "Afegir encaminadors predeterminats en la taula de defecte"
+
+#: src/EBox/Network.pm:100
+msgid ""
+"This is needed to work with a multigateway configuration. Note that to list "
+"the default routes you must execute: "
+msgstr ""
+"Això es necessari per treballar amb una configuració de múltiples "
+"passarel·les. Tingues en compte que per la llista de rutes predeterminades "
+"has d'executar:"
+
+#: src/EBox/Network.pm:106
+msgid "Enable Zentyal DHCP hook"
+msgstr "Habilitar el hook DHCP de Zentyal"
+
+#: src/EBox/Network.pm:107
+msgid ""
+"It will take care of adding the default route given by a DHCP server to the "
+"default route table. "
+msgstr ""
+"S'encarregarà d'afegir la ruta predeterminada inserida per un servidor DHCP "
+"a la taula de rutes per defecte."
+
+#: src/EBox/Network.pm:125
+msgid "Zentyal will set your network configuration"
+msgstr "Zentyal establirà la seva configuració de xarxa"
+
+#: src/EBox/Network.pm:130
+msgid "Zentyal will set your DNS configuration"
+msgstr "Zentyal establirà la seva configuració de DNS"
+
+#: src/EBox/Network.pm:135
+msgid "Zentyal will set your DHCP client configuration"
+msgstr "Zentyal establirà la seva configuració de client DHCP"
+
+#: src/EBox/Network.pm:140 src/EBox/Network.pm:145
+msgid "Zentyal will set your ddclient configuration"
+msgstr "Zentyal establirà la seva configuració de client ddclient"
+
+#: src/EBox/Network.pm:150 src/EBox/Network.pm:155
+msgid "Zentyal will store your PPPoE passwords"
+msgstr "Zentyal emmagatzemara les seves contrasenyes de PPPoE"
+
+#: src/EBox/Network.pm:162
+msgid "Zentyal will add a DSL provider configuration for PPPoE"
+msgstr "Zentyal afegirà la configuració d'un proveïdor DSL per PPPoE"
+
+#: src/EBox/Network.pm:169
+msgid "Zentyal will set HTTP proxy for all users"
+msgstr "Zentyal configurarà el proxy HTTP per a tots els usuaris"
+
+#: src/EBox/Network.pm:172
+msgid "Zentyal will set HTTP proxy for APT"
+msgstr "Zentyal configurarà el proxy HTTP per APT"
+
+#: src/EBox/Network.pm:902 src/EBox/Network.pm:906
+msgid "Virtual interface name"
+msgstr "Nom de la interfície virtual"
+
+#: src/EBox/Network.pm:905 src/EBox/Network.pm:1224 src/EBox/Network.pm:3183
+#: src/templates/Wizard/network.mas:57 src/templates/ifaces.mas:132
+#: src/templates/ifaces.mas:288
+msgid "Netmask"
+msgstr "Màscara de xarxa"
+
+#: src/EBox/Network.pm:1454
+msgid "This interface cannot be put in trunk mode, it is an vlan interface."
+msgstr ""
+"Aquesta interfície no pot configurar-se en mode trunk, és una interfície "
+"vlan."
+
+#: src/EBox/Network.pm:1509
+msgid ""
+"This interface is in trunk mode, you should unconfigure all the vlan "
+"interfaces in this trunk before changing its configuration mode."
+msgstr ""
+"Aquesta interfície està en mode trunk, hauria de treure la configuració de "
+"totes les interfícies vlan d'aquest trunk abans de canviar el seu mode de "
+"configuració."
+
+#: src/EBox/Network.pm:1637 src/EBox/Network.pm:1666 src/EBox/CGI/Vlan.pm:43
+#: src/templates/ifaces.mas:229
+msgid "VLAN Id"
+msgstr "Identificador de VLAN"
+
+#: src/EBox/Network.pm:1646
+msgid ""
+"Network interfaces need to be in trunk mode before adding vlans to them."
+msgstr ""
+"Les interfícies de xarxa necessiten estar en mode trunk abans d'afegir-hi "
+"les vlans."
+
+#: src/EBox/Network.pm:3073
+msgid ""
+"The requested operation will cause one of the configured gateways to become "
+"unreachable. Please remove it first if you really want to make this change."
+msgstr ""
+"L'operació sol·licitada farà que una de les passarel·les configurades no "
+"estigui accessible. Si us plau, elimini·la primer si realment desitja fer "
+"aquest canvi."
+
+#: src/EBox/Network.pm:3138 src/EBox/NetworkUtil.pm:55
+#, perl-brace-format
+msgid "Gateway {gw} not reachable"
+msgstr "La passarel·la {gw} no és accessible"
+
+#: src/EBox/Network.pm:3141
+#, perl-brace-format
+msgid ""
+"Gateway {gw} must be reachable by a static interface. Currently it is "
+"reachable by {iface} which is not static"
+msgstr ""
+"La passarel·la {gw} ha de ser accessible per una interfície estàtica. "
+"Actualment n'és accessible per {iface} la qual no és estàtica"
+
+#: src/EBox/Network.pm:3422 src/EBox/Network.pm:3443
+msgid "Host name"
+msgstr "Nom de màquina"
+
+#: src/EBox/Network.pm:3463 src/EBox/CGI/Diag.pm:65
+msgid "host name"
+msgstr "nom de màquina"
+
+#: src/EBox/Network.pm:3493
+msgid "down"
+msgstr "desactivat"
+
+#: src/EBox/Network.pm:3499
+msgid "up"
+msgstr "activat"
+
+#: src/EBox/Network.pm:3504
+msgid "external"
+msgstr "extern"
+
+#: src/EBox/Network.pm:3506
+msgid "internal"
+msgstr "intern"
+
+#: src/EBox/Network.pm:3512
+msgid "link ok"
+msgstr "enllaç ok"
+
+#: src/EBox/Network.pm:3514
+msgid "no link"
+msgstr "sense enllaç"
+
+#: src/EBox/Network.pm:3523 src/EBox/Network/Report/ByteRate.pm:136
+msgid "Status"
+msgstr "Estat"
+
+#: src/EBox/Network.pm:3528
+msgid "MAC address"
+msgstr "Adreça MAC"
+
+#: src/EBox/Network.pm:3545
+msgid "Tx bytes"
+msgstr "Bytes Tx"
+
+#: src/EBox/Network.pm:3554
+msgid "Rx bytes"
+msgstr "Bytes Rx"
+
+#: src/EBox/Network.pm:3571 src/EBox/CGI/Ifaces.pm:29
+msgid "Network Interfaces"
+msgstr "Interfícies de xarxa"
+
+#: src/EBox/Network.pm:3593
+msgid "Interfaces"
+msgstr "Interfícies"
+
+#: src/EBox/Network.pm:3599
+msgid "Gateways"
+msgstr "Passarel·les"
+
+#: src/EBox/Network.pm:3603 src/EBox/Network/Composite/MultiGw.pm:62
+msgid "Balance Traffic"
+msgstr "Balanceig de trànsit"
+
+#: src/EBox/Network.pm:3607
+msgid "Diagnostic Tools"
+msgstr "Eines de diagnòstic"
 
 #: src/EBox/Network/Composite/ByteRate.pm:73
 #: src/EBox/Network/Report/ByteRate.pm:134
@@ -139,14 +733,6 @@ msgstr ""
 "L'esdeveniment WAN Failover no està habilitat. Has d'habilitar-lo per "
 "utilitzar aquesta funcionalitat"
 
-#: src/EBox/Network/Composite/DNS.pm:60
-msgid "Domain Name Server Resolver"
-msgstr "Traductor de Servidors de Noms de Domini"
-
-#: src/EBox/Network/Composite/MultiGw.pm:62 src/EBox/Network.pm:3603
-msgid "Balance Traffic"
-msgstr "Balanceig de trànsit"
-
 #: src/EBox/Network/Composite/MultiGw.pm:82
 msgid ""
 "To be able to use this feature you need at least two enabled gateways. You "
@@ -156,9 +742,9 @@ msgstr ""
 "passarel·les habilitades. Pots afegir-les <a href=\"/ebox/Network/View/"
 "GatewayTable\">aquí</a> primer."
 
-#: src/EBox/Network/Report/ByteRate.pm:136 src/EBox/Network.pm:3523
-msgid "Status"
-msgstr "Estat"
+#: src/EBox/Network/Composite/DNS.pm:60
+msgid "Domain Name Server Resolver"
+msgstr "Traductor de Servidors de Noms de Domini"
 
 #: src/EBox/Network/Report/ByteRate.pm:136
 msgid "Running"
@@ -244,647 +830,97 @@ msgstr "Taxa total de trànsit per {service}"
 msgid "Traffic rate from {src} for {service}"
 msgstr "Taxa de trànsit des de {src} per {service}"
 
-#: src/EBox/Network.pm:81 src/EBox/Network.pm:3588
-#: src/EBox/Model/StaticRoute.pm:147
-msgid "Network"
-msgstr "Xarxa"
+#: src/EBox/CGI/Iface.pm:42 src/EBox/CGI/Iface.pm:59 src/EBox/CGI/Vlan.pm:41
+#: src/EBox/CGI/VIface.pm:43
+msgid "network interface"
+msgstr "interfície de xarxa"
 
-#: src/EBox/Network.pm:99
-msgid "Add default routers to the default table"
-msgstr "Afegir encaminadors predeterminats en la taula de defecte"
+#: src/EBox/CGI/Iface.pm:58
+msgid "method"
+msgstr "mètode"
 
-#: src/EBox/Network.pm:100
+#: src/EBox/CGI/Iface.pm:88
+msgid "ip address"
+msgstr "adreça ip"
+
+#: src/EBox/CGI/Iface.pm:89 src/EBox/CGI/VIface.pm:63
+msgid "netmask"
+msgstr "màscara de xarxa"
+
+#: src/EBox/CGI/Iface.pm:95
+msgid "user name"
+msgstr "nom d'usuari"
+
+#: src/EBox/CGI/Iface.pm:96
+msgid "password"
+msgstr "contrasenya"
+
+#: src/EBox/CGI/Iface.pm:106
+msgid "bridge"
+msgstr "pont"
+
+#: src/EBox/CGI/EnableBalanceTraffic.pm:42
+msgid "traffic balance"
+msgstr "balanceig de trànsit"
+
+#: src/EBox/CGI/Diag.pm:29 src/EBox/CGI/Diag.pm:41
+msgid "Network Diagnostic Tools"
+msgstr "Eines de Diagnòstic de Xarxa"
+
+#: src/EBox/CGI/VIface.pm:44
+#, fuzzy
+msgid "virtual interface action"
+msgstr "acció d'interfície virtual"
+
+#: src/EBox/CGI/VIface.pm:64 src/EBox/CGI/VIface.pm:70
+msgid "virtual interface name"
+msgstr "nom de la interfície virtual"
+
+#: src/templates/Wizard/interfaces.mas:7 src/templates/Wizard/network.mas:23
+#, fuzzy
+msgid "Network interfaces"
+msgstr "Interfícies de xarxa"
+
+#: src/templates/Wizard/interfaces.mas:10
+msgid "Select external network interfaces"
+msgstr "Selecciona interfícies de xarxa externes"
+
+#: src/templates/Wizard/interfaces.mas:11
 msgid ""
-"This is needed to work with a multigateway configuration. Note that to list "
-"the default routes you must execute: "
+"You will not be able to connect to Zentyal administration page through them"
 msgstr ""
-"Això es necessari per treballar amb una configuració de múltiples "
-"passarel·les. Tingues en compte que per la llista de rutes predeterminades "
-"has d'executar:"
+"No podràs connectar-te a la pàgina d'administració de Zentyal a través "
+"d'elles"
 
-#: src/EBox/Network.pm:106
-msgid "Enable Zentyal DHCP hook"
-msgstr "Habilitar el hook DHCP de Zentyal"
+#: src/templates/Wizard/network.mas:26
+msgid "Configure network for external interfaces"
+msgstr "Configurar xarxa per interfícies externes"
 
-#: src/EBox/Network.pm:107
+#: src/templates/Wizard/network.mas:27
+msgid "Now you can set IP addresses and networks for each interface"
+msgstr "Ara no pots configurar adreces IP i xarxes per cada interfície"
+
+#: src/templates/Wizard/network.mas:40 src/templates/ifaces.mas:45
+msgid "Method"
+msgstr "Mètode"
+
+#: src/templates/Wizard/network.mas:43
+msgid "Don't configure"
+msgstr "No configurar"
+
+#: src/templates/Wizard/network.mas:82
+msgid "Gateway"
+msgstr "Passarel·la"
+
+#: src/templates/confirmVlanDel.mas:9
 msgid ""
-"It will take care of adding the default route given by a DHCP server to the "
-"default route table. "
-msgstr ""
-"S'encarregarà d'afegir la ruta predeterminada inserida per un servidor DHCP "
-"a la taula de rutes per defecte."
-
-#: src/EBox/Network.pm:125
-msgid "Zentyal will set your network configuration"
-msgstr "Zentyal establirà la seva configuració de xarxa"
-
-#: src/EBox/Network.pm:130
-msgid "Zentyal will set your DNS configuration"
-msgstr "Zentyal establirà la seva configuració de DNS"
-
-#: src/EBox/Network.pm:135
-msgid "Zentyal will set your DHCP client configuration"
-msgstr "Zentyal establirà la seva configuració de client DHCP"
-
-#: src/EBox/Network.pm:140 src/EBox/Network.pm:145
-msgid "Zentyal will set your ddclient configuration"
-msgstr "Zentyal establirà la seva configuració de client ddclient"
-
-#: src/EBox/Network.pm:150 src/EBox/Network.pm:155
-msgid "Zentyal will store your PPPoE passwords"
-msgstr "Zentyal emmagatzemara les seves contrasenyes de PPPoE"
-
-#: src/EBox/Network.pm:162
-msgid "Zentyal will add a DSL provider configuration for PPPoE"
-msgstr "Zentyal afegirà la configuració d'un proveïdor DSL per PPPoE"
-
-#: src/EBox/Network.pm:169
-msgid "Zentyal will set HTTP proxy for all users"
-msgstr "Zentyal configurarà el proxy HTTP per a tots els usuaris"
-
-#: src/EBox/Network.pm:172
-msgid "Zentyal will set HTTP proxy for APT"
-msgstr "Zentyal configurarà el proxy HTTP per APT"
-
-#: src/EBox/Network.pm:902 src/EBox/Network.pm:906
-msgid "Virtual interface name"
-msgstr "Nom de la interfície virtual"
-
-#: src/EBox/Network.pm:905 src/EBox/Network.pm:1224 src/EBox/Network.pm:3183
-#: src/templates/ifaces.mas:132 src/templates/ifaces.mas:288
-#: src/templates/Wizard/network.mas:57
-msgid "Netmask"
-msgstr "Màscara de xarxa"
-
-#: src/EBox/Network.pm:998 src/EBox/Network.pm:1030 src/EBox/Network.pm:1075
-#: src/EBox/Network.pm:1111 src/EBox/Network.pm:1136 src/EBox/Network.pm:1220
-#: src/EBox/Network.pm:1358 src/EBox/Network.pm:1449 src/EBox/Network.pm:1537
-#: src/EBox/Network.pm:1543 src/EBox/Network.pm:1870 src/EBox/Network.pm:1940
-#: src/EBox/Network.pm:1973 src/EBox/Network.pm:2000 src/EBox/Network.pm:2027
-#: src/EBox/Network.pm:2055 src/EBox/Network.pm:2117 src/EBox/Network.pm:2156
-#: src/EBox/Network.pm:2189 src/EBox/Network.pm:3181 src/EBox/Network.pm:3201
-#: src/EBox/Network.pm:3221 src/EBox/Network.pm:3242 src/EBox/Network.pm:3261
-#: src/EBox/Network.pm:3315 src/EBox/Network.pm:3336 src/EBox/Network.pm:3356
-#: src/EBox/Network.pm:3377 src/EBox/Network.pm:3400
-#: src/EBox/Model/MultiGwRulesDataTable.pm:101
-#: src/EBox/Model/GatewayTable.pm:204
-msgid "Interface"
-msgstr "Interfície"
-
-#: src/EBox/Network.pm:1454
-msgid "This interface cannot be put in trunk mode, it is an vlan interface."
-msgstr ""
-"Aquesta interfície no pot configurar-se en mode trunk, és una interfície "
-"vlan."
-
-#: src/EBox/Network.pm:1509
-msgid ""
-"This interface is in trunk mode, you should unconfigure all the vlan "
-"interfaces in this trunk before changing its configuration mode."
-msgstr ""
-"Aquesta interfície està en mode trunk, hauria de treure la configuració de "
-"totes les interfícies vlan d'aquest trunk abans de canviar el seu mode de "
-"configuració."
-
-#: src/EBox/Network.pm:1646
-msgid ""
-"Network interfaces need to be in trunk mode before adding vlans to them."
-msgstr ""
-"Les interfícies de xarxa necessiten estar en mode trunk abans d'afegir-hi "
-"les vlans."
-
-#: src/EBox/Network.pm:3073
-msgid ""
-"The requested operation will cause one of the configured gateways to become "
-"unreachable. Please remove it first if you really want to make this change."
-msgstr ""
-"L'operació sol·licitada farà que una de les passarel·les configurades no "
-"estigui accessible. Si us plau, elimini·la primer si realment desitja fer "
-"aquest canvi."
-
-#: src/EBox/Network.pm:3138 src/EBox/NetworkUtil.pm:55
-#, perl-brace-format
-msgid "Gateway {gw} not reachable"
-msgstr "La passarel·la {gw} no és accessible"
-
-#: src/EBox/Network.pm:3141
-#, perl-brace-format
-msgid ""
-"Gateway {gw} must be reachable by a static interface. Currently it is "
-"reachable by {iface} which is not static"
-msgstr ""
-"La passarel·la {gw} ha de ser accessible per una interfície estàtica. "
-"Actualment n'és accessible per {iface} la qual no és estàtica"
-
-#: src/EBox/Network.pm:3422 src/EBox/Network.pm:3443
-msgid "Host name"
-msgstr "Nom de màquina"
-
-#: src/EBox/Network.pm:3493
-msgid "down"
-msgstr "desactivat"
-
-#: src/EBox/Network.pm:3499
-msgid "up"
-msgstr "activat"
-
-#: src/EBox/Network.pm:3504
-msgid "external"
-msgstr "extern"
-
-#: src/EBox/Network.pm:3506
-msgid "internal"
-msgstr "intern"
-
-#: src/EBox/Network.pm:3512
-msgid "link ok"
-msgstr "enllaç ok"
-
-#: src/EBox/Network.pm:3514
-msgid "no link"
-msgstr "sense enllaç"
-
-#: src/EBox/Network.pm:3528
-msgid "MAC address"
-msgstr "Adreça MAC"
-
-#: src/EBox/Network.pm:3545
-msgid "Tx bytes"
-msgstr "Bytes Tx"
-
-#: src/EBox/Network.pm:3554
-msgid "Rx bytes"
-msgstr "Bytes Rx"
-
-#: src/EBox/Network.pm:3593
-msgid "Interfaces"
-msgstr "Interfícies"
-
-#: src/EBox/Network.pm:3599
-msgid "Gateways"
-msgstr "Passarel·les"
-
-#: src/EBox/Network.pm:3601 src/EBox/Model/StaticRoute.pm:171
-msgid "Static Routes"
-msgstr "Rutes estàtiques"
-
-#: src/EBox/Network.pm:3607
-msgid "Diagnostic Tools"
-msgstr "Eines de diagnòstic"
-
-#: src/EBox/Model/StaticRoute.pm:150
-msgid "IP or network address"
-msgstr "Adreça IP o adreça de xarxa"
-
-#: src/EBox/Model/StaticRoute.pm:156
-msgid "Gateway used to reach the above network  address"
-msgstr "Passarel·la utilitzada per arribar a l'anterior adreça de xarxa"
-
-#: src/EBox/Model/StaticRoute.pm:161 src/templates/ifaces.mas:230
-msgid "Description"
-msgstr "Descripció"
-
-#: src/EBox/Model/StaticRoute.pm:164
-msgid "Optional description for this route"
-msgstr "Descripció opcional per aquesta ruta"
-
-#: src/EBox/Model/StaticRoute.pm:170
-msgid "Static Routes List"
-msgstr "Llista de Rutes Estàtiques"
-
-#: src/EBox/Model/StaticRoute.pm:176
-msgid ""
-"All gateways you enter here must be reachable through one of the network "
-"interfaces currently configured."
-msgstr ""
-"Totes les passarel·les que introdueixi aquí han de ser accessibles des d'una "
-"de les interfícies de xarxa actualment configurades."
-
-#: src/EBox/Model/StaticRoute.pm:179
-msgid "static route"
-msgstr "Ruta estàtica"
-
-#: src/EBox/Model/SearchDomain.pm:71
-msgid "Domain"
-msgstr "Domini"
-
-#: src/EBox/Model/SearchDomain.pm:79
-msgid "Search Domain"
-msgstr "Domini de Cerca"
-
-#: src/EBox/Model/SearchDomain.pm:83
-msgid ""
-"This domain will be appended when trying to resolve hosts if the first "
-"attempt without appending it has failed."
-msgstr ""
-"Aquest domini s'afegirà a l'intentar resoldre màquines si el primer intent "
-"sense afegir-lo ha fallat."
-
-#: src/EBox/Model/MultiGwRulesOptions.pm:43
-msgid "Enable"
-msgstr "Habilitar"
-
-#: src/EBox/Model/MultiGwRulesOptions.pm:53
-msgid "Traffic balancing"
-msgstr "Balanceig de trànsit"
-
-#: src/EBox/Model/MultiGwRulesOptions.pm:64
-#, perl-brace-format
-msgid ""
-"By enabling this feature, your traffic will be balanced amongst your "
-"gateways. That is, every new connection will be sent by a different gateway. "
-"You can choose which proportion of traffic goes through each gateway using "
-"the weight parameter of the gateway. You can change that value {openref}here"
-"{closeref}.{br}If you want to explicitily route traffic by a certain "
-"gateway, use the multigateway rules below"
-msgstr ""
-"Habilitant aquesta propietat, el trànsit es balancejarà entre les "
-"passarel·les. Això vol dir, que cada nova connexió serà enviada per una "
-"passarel·la diferent. Pot triar quina proporció de trànsit passarà a través "
-"de cadascuna de les passarel·les utilitzant el paràmetre pes de la "
-"passarel·la. Pot canviar aquest valor {openref}aquí{closeref}.{br}Si vol "
-"encaminar trànsit explícitament per una passarel·la concreta, utilitzi les "
-"regles de múltiples passarel·les de més avall"
-
-#: src/EBox/Model/MultiGwRulesOptions.pm:68
-#: src/EBox/Model/MultiGwRulesDataTable.pm:195
-#: src/EBox/Model/WANFailoverRules.pm:133
-msgid "rule"
-msgstr "regla"
-
-#: src/EBox/Model/MultiGwRulesDataTable.pm:77
-msgid "any"
-msgstr "qualsevol"
-
-#: src/EBox/Model/MultiGwRulesDataTable.pm:104
-msgid ""
-"Incoming interface to match packets. If you  want to match a whole subnet "
-"you can  select the interface of that subnet"
-msgstr ""
-"Interfície d'entrada per seleccionar paquets. Si vols seleccionar una "
-"subxarxa sencera, pots seleccionar la interfície d'aquesta subxarxa"
-
-#: src/EBox/Model/MultiGwRulesDataTable.pm:110
-#: src/EBox/Model/ByteRateGraphControl.pm:111
-msgid "Source"
-msgstr "Origen"
-
-#: src/EBox/Model/MultiGwRulesDataTable.pm:115
-#: src/EBox/Model/MultiGwRulesDataTable.pm:142
-msgid "Any"
-msgstr "Qualsevol"
-
-#: src/EBox/Model/MultiGwRulesDataTable.pm:118
-msgid "Source IP"
-msgstr "IP d'origen"
-
-#: src/EBox/Model/MultiGwRulesDataTable.pm:123
-msgid "Source object"
-msgstr "Objecte origen"
-
-#: src/EBox/Model/MultiGwRulesDataTable.pm:137
-msgid "Destination"
-msgstr "Destí"
-
-#: src/EBox/Model/MultiGwRulesDataTable.pm:145
-msgid "Destination IP"
-msgstr "IP de destí"
-
-#: src/EBox/Model/MultiGwRulesDataTable.pm:150
-msgid "Destination object"
-msgstr "Objecte destí"
-
-#: src/EBox/Model/MultiGwRulesDataTable.pm:161 src/EBox/Model/DynDNS.pm:91
-#: src/EBox/Model/ByteRateGraphControl.pm:117
-msgid "Service"
-msgstr "Servei"
-
-#: src/EBox/Model/MultiGwRulesDataTable.pm:172
-msgid "Gateway to route packets matching this rule"
-msgstr ""
-"Passarel·la per encaminar els paquets que corresponguin per aquesta regla"
-
-#: src/EBox/Model/MultiGwRulesDataTable.pm:180
-msgid "Multigateway rules"
-msgstr "Regles de múltiples passarel·les"
-
-#: src/EBox/Model/MultiGwRulesDataTable.pm:193
-msgid ""
-"You can decide what kind of traffic goes out by each gateway. This way, you "
-"can force a subnet, service, destination and so forth  to use the router you "
-"choose. Please, bear in mind that rules will be applied in order, from top "
-"to bottom, you can reorder them once they are added. If you do not set a "
-"port or an IP address, then the rule will match all of them"
-msgstr ""
-"Pots decidir quin tipus de trànsit surt per cadascuna de les passarel·les. "
-"D'aquesta manera pots forçar que una subxarxa, servei, adreça de destí, etc. "
-"utilitzi l'encaminador triat. Si us plau, tingues en compte que les regles "
-"s'apliquen en ordre, de dalt a baix. Pots reordenar-les un cop hagin sigut "
-"afegides. Si no configures un port o una adreça IP, aleshores la regla "
-"acceptarà a tots ells."
-
-#: src/EBox/Model/DNSResolver.pm:77
-msgid "IP address of the DNS server that Zentyal will use to resolve names."
-msgstr ""
-"Adreça IP del servidor de DNS que Zentyal utilitzarà per resoldre noms."
-
-#: src/EBox/Model/DNSResolver.pm:83 src/templates/Wizard/network.mas:86
-#: src/templates/Wizard/network.mas:90
-msgid "Domain Name Server"
-msgstr "Servidor de Noms de Domini"
-
-#: src/EBox/Model/DNSResolver.pm:92
-msgid "Domain Name Server Resolver List"
-msgstr "Llista de Traductors de Servidors de Noms de Domini"
-
-#: src/EBox/Model/DNSResolver.pm:98
-msgid "name server"
-msgstr "servidor de noms"
-
-#: src/EBox/Model/DNSResolver.pm:110
-msgid ""
-"<p>Here you can add the name server resolvers that Zentyal will use.</"
-"p><p>Note that these settings may be overriden if you have any network "
-"interface configured via DHCP</p>"
-msgstr ""
-"<p>Aquí pots afegir els traductors de servidors de noms que Zentyal "
-"utilitzarà.<p><p>Ten en compte que aquesta configuració pot ser sobreescrita "
-"si teniu alguna interfície de xarxa configurada mitjançant DHCP<p>"
-
-#: src/EBox/Model/ByteRateSettings.pm:79
-msgid "Interface to listen"
-msgstr "Interfície a escoltar"
-
-#: src/EBox/Model/ByteRateSettings.pm:88
-msgid "Traffic rate monitor settings"
-msgstr "Configuració del monitoratge de la taxa"
-
-#: src/EBox/Model/ByteRateSettings.pm:92
-msgid "Changes will be applied immediately to the traffic rate monitor"
-msgstr ""
-"Els canvis seran aplicats immediatament al monitoratge de la taxa de trànsit"
-
-#: src/EBox/Model/ByteRateSettings.pm:95
-msgid "Settings changed"
-msgstr "Configuració canviada"
-
-#: src/EBox/Model/ByteRateSettings.pm:114
-#, perl-brace-format
-msgid "{iface} (internal interface)"
-msgstr "{iface} (interfície interna)"
-
-#: src/EBox/Model/ByteRateSettings.pm:121
-#, perl-brace-format
-msgid "{iface} (external interface)"
-msgstr "{iface} (interfície externa)"
-
-#: src/EBox/Model/ByteRateSettings.pm:128
-msgid "all"
-msgstr "totes"
-
-#: src/EBox/Model/DynDNS.pm:86
-msgid "Enable Dynamic DNS"
-msgstr "Habilitar DNS dinàmic"
-
-#: src/EBox/Model/DynDNS.pm:97 src/EBox/Model/Proxy.pm:75
-msgid "Username"
-msgstr "Nom d'usuari"
-
-#: src/EBox/Model/DynDNS.pm:102 src/EBox/Model/Proxy.pm:82
-#: src/templates/ifaces.mas:202
-msgid "Password"
-msgstr "Contrasenya "
-
-#: src/EBox/Model/DynDNS.pm:107
-msgid "Hostname"
-msgstr "Nom de màquina"
-
-#: src/EBox/Model/DynDNS.pm:115
-msgid "Configuration"
-msgstr "Configuració"
-
-#: src/EBox/Model/DynDNS.pm:119
-msgid ""
-"All gateways you enter here must be reachable through one of the network "
-"interfaces currently configured"
-msgstr ""
-"Totes les passarel·les que introdueixi aquí han de ser accessibles des d'una "
-"de les interfícies de xarxa actualment configurades."
-
-#: src/EBox/Model/ByteRateEnableForm.pm:70
-msgid ""
-"Starting traffic rate monitoring. Wait patiently until the graph appears"
-msgstr ""
-"Començant el monitoratge de la taxa de trànsit. Espere pacientment fins que "
-"aparegui el gràfic"
-
-#: src/EBox/Model/ByteRateEnableForm.pm:73
-msgid "Stopping traffic rate monitoring"
-msgstr "Aturant el monitoratge de la taxa de trànsit"
-
-#: src/EBox/Model/ByteRateEnableForm.pm:86
-msgid ""
-"The traffic rate monitor is start/stop on demand without requiring to save "
-"changes first"
-msgstr ""
-"El monitoratge de la taxa de trànsit s'atura/inicia sota demanda sense haver "
-"primer de desar els canvis"
-
-#: src/EBox/Model/WANFailoverRules.pm:55
-msgid "Ping to gateway"
-msgstr "Fer ping a la passarel·la"
-
-#: src/EBox/Model/WANFailoverRules.pm:59
-msgid "Ping to host"
-msgstr "Fer ping a la màquina"
-
-#: src/EBox/Model/WANFailoverRules.pm:63
-msgid "DNS resolve"
-msgstr "Resolució de DNS"
-
-#: src/EBox/Model/WANFailoverRules.pm:67
-msgid "HTTP Request"
-msgstr "Petició d'HTTP"
-
-#: src/EBox/Model/WANFailoverRules.pm:91
-msgid "Test type"
-msgstr "Tipus de prova"
-
-#: src/EBox/Model/WANFailoverRules.pm:103
-msgid "Number of probes"
-msgstr "Nombre de proves"
-
-#: src/EBox/Model/WANFailoverRules.pm:112
-msgid "Required success ratio"
-msgstr "Ratio d'èxit requerit"
-
-#: src/EBox/Model/WANFailoverRules.pm:125
-msgid "Test rules"
-msgstr "Regles de prova"
-
-#: src/EBox/Model/WANFailoverRules.pm:132
-msgid ""
-"You can define different rules to test if a gateway is working properly. If "
-"one of the test fails the gateway will be disabled. It will be enabled again "
-"when all tests are passed."
-msgstr ""
-"Pots definir diferents regles per provar si una passarel·la està funcionant "
-"correctament. Si una de les proves falla la passarel·la es deshabilitarà. "
-"Serà habilitada de nou quan es passin totes les proves. "
-
-#: src/EBox/Model/WANFailoverRules.pm:182
-msgid "Invalid value for Host"
-msgstr "Valor invàlid per la màquina"
-
-#: src/EBox/Model/WANFailoverOptions.pm:71
-msgid "Time between checks"
-msgstr "Temps entre comprovacions"
-
-#: src/EBox/Model/WANFailoverOptions.pm:72
-msgid "seconds"
-msgstr "segons"
-
-#: src/EBox/Model/WANFailoverOptions.pm:82
-msgid "Global options"
-msgstr "Opcions generals"
-
-#: src/EBox/Model/WANFailoverOptions.pm:86
-msgid "These options affect to all the tests."
-msgstr "Aquestes opcions afecten a totes les proves."
-
-#: src/EBox/Model/GatewayTable.pm:184
-msgid "Auto"
-msgstr "Automàtic"
-
-#: src/EBox/Model/GatewayTable.pm:190 src/templates/ifaces.mas:34
-#: src/templates/ifaces.mas:286
-msgid "Name"
-msgstr "Nom"
-
-#: src/EBox/Model/GatewayTable.pm:207
-msgid "Interface connected to this gateway"
-msgstr "Interfície connectada a aquesta passarel·la"
-
-#: src/EBox/Model/GatewayTable.pm:211
-msgid "Weight"
-msgstr "Pes"
-
-#: src/EBox/Model/GatewayTable.pm:216
-msgid ""
-"This field is only useful if you have more than one router and  the balance "
-"traffic feature is enabled."
-msgstr ""
-"Aquest camp només és útil si en té més d'un encaminador i la funció de "
-"balanceig de trànsit és habilitada."
-
-#: src/EBox/Model/GatewayTable.pm:222
-msgid "Default"
-msgstr "Per defecte"
-
-#: src/EBox/Model/GatewayTable.pm:232
-msgid "Gateways List"
-msgstr "Llista de passarel·les"
-
-#: src/EBox/Model/GatewayTable.pm:248
-msgid ""
-"You can add as many gateways as you want. This is very useful if you want to "
-"split your Internet traffic through several links. Note that if you "
-"configure interfaces as DHCP or PPPoE their gateways are added here "
-"automatically."
-msgstr ""
-"Pots afegir tantes passarel·les com desitgis. És força útil si vols separar "
-"el trànsit d'Internet en vàries connexions. Tingues en compte que si "
-"configures interfícies com DHCP o PPPoE les seves passarel·les són afegides "
-"aquí automàticament."
-
-#: src/EBox/Model/GatewayTable.pm:250
-msgid "gateway"
-msgstr "passarel·la"
-
-#: src/EBox/Model/GatewayTable.pm:283
-msgid "You can not manually add a gateway for DHCP or PPPoE interfaces"
-msgstr ""
-"No pots afegir manualment una passarel·la per interfícies DHCP or PPPoE"
-
-#: src/EBox/Model/GatewayTable.pm:342
-msgid "Automatically added gateways can not be manually deleted"
-msgstr ""
-"No es poden eliminar manualment les passarel·les que han estat afegides "
-"automàticament"
-
-#: src/EBox/Model/ByteRateGraphControl.pm:46
-msgid "Select traffic graphic"
-msgstr "Selecciona el gràfic de trànsit"
-
-#: src/EBox/Model/ByteRateGraphControl.pm:57
-msgid ""
-"Several views are showed depending on the parameter selection. An host IP "
-"address and a service, which must match the text given by the graphs legend "
-"based on /etc/services, may be required by the graph type. The flow view "
-"will change accordingly"
-msgstr ""
-"Vàries vistes es mostren depenent de la selecció dels paràmetres. Una adreça "
-"IP de màquina i un servei, el qual ha de coincidir amb el text donat en la "
-"llegenda dels gràfics basat en /etc/services, pot ser requerit pel tipus de "
-"gràfic. El flux de la vista canviarà d'acord amb els nous paràmetres"
-
-#: src/EBox/Model/ByteRateGraphControl.pm:78
-msgid "Graph type"
-msgstr "Tipus de gràfic"
-
-#: src/EBox/Model/ByteRateGraphControl.pm:85
-msgid "All active traffic by source"
-msgstr "Tot el trànsit actiu per origen"
-
-#: src/EBox/Model/ByteRateGraphControl.pm:89
-msgid "All active traffic by service"
-msgstr "Tot el trànsit actiu per servei"
-
-#: src/EBox/Model/ByteRateGraphControl.pm:93
-msgid "Traffic by selected source"
-msgstr "Trànsit per l'origen seleccionat"
-
-#: src/EBox/Model/ByteRateGraphControl.pm:99
-msgid "Traffic by selected service"
-msgstr "Trànsit pel servei seleccionat"
-
-#: src/EBox/Model/ByteRateGraphControl.pm:105
-msgid "Traffic by source and service"
-msgstr "Trànsit per l'origen i el servei"
-
-#: src/EBox/Model/Proxy.pm:89
-msgid "Proxy server"
-msgstr "Servidor proxy"
-
-#: src/EBox/Model/Proxy.pm:95
-msgid "Proxy port"
-msgstr "Port del proxy"
-
-#: src/EBox/Model/Proxy.pm:103
-msgid "Proxy"
-msgstr "Proxy"
-
-#: src/EBox/Model/Proxy.pm:107
-msgid ""
-"This settings will be used to allow Zentyal to access the Internet if an "
-"HTTP proxy is needed."
-msgstr ""
-"Aquests valors s'utilitzaran per permetre a Zentyal accedir a Internet si es "
-"necessita un proxy HTTP"
-
-#: src/EBox/Model/Proxy.pm:129
-msgid "Proxy username and password will be visible by all system users."
-msgstr ""
-
-#: src/templates/confirmremove.mas:11 src/templates/confirm.mas:17
-msgid ""
-"The change you are trying to make will affect the configuration of one or "
+"The removal of the vlan interface will affect the configuration of one or "
 "more modules that use references to this network interface."
 msgstr ""
-"El canvi que està intentant realitzar afectarà a la configuració d'un o més "
+"L'eliminació de la interfície vlan afectarà a la configuració d'un o més "
 "mòduls que utilitzen referències a aquesta interfície de xarxa."
 
-#: src/templates/confirmremove.mas:14 src/templates/confirmVlanDel.mas:12
+#: src/templates/confirmVlanDel.mas:12 src/templates/confirmremove.mas:14
 msgid ""
 "If you choose to continue, all modules that make use of this network "
 "interface will delete the relevant parts of their configuration. Choose "
@@ -894,15 +930,61 @@ msgstr ""
 "xarxa esborraran les parts més rellevants de la seva configuració. Tria "
 "\"Cancel·lar\" si no estàs segur sobre això."
 
-#: src/templates/confirmremove.mas:24 src/templates/confirmVlanDel.mas:22
+#: src/templates/confirmVlanDel.mas:22 src/templates/confirmremove.mas:24
 #: src/templates/confirm.mas:37
 msgid "Ok"
 msgstr "Acceptar"
 
-#: src/templates/confirmremove.mas:26 src/templates/confirmVlanDel.mas:24
+#: src/templates/confirmVlanDel.mas:24 src/templates/confirmremove.mas:26
 #: src/templates/confirm.mas:39
 msgid "Cancel"
 msgstr "Cancel·lar"
+
+#: src/templates/confirmremove.mas:11 src/templates/confirm.mas:17
+msgid ""
+"The change you are trying to make will affect the configuration of one or "
+"more modules that use references to this network interface."
+msgstr ""
+"El canvi que està intentant realitzar afectarà a la configuració d'un o més "
+"mòduls que utilitzen referències a aquesta interfície de xarxa."
+
+#: src/templates/confirm.mas:20
+msgid ""
+"If you choose to continue, all modules that make use of the current "
+"configuration of this network interface will delete the relevant parts of "
+"their configuration. Choose \"Cancel\" if you are not sure about this."
+msgstr ""
+"Si tries continuar, tots els mòduls que utilitzen la configuració actual "
+"d'aquesta interfície de xarxa esborraran les parts més rellevants de la seva "
+"configuració. Tria \"Cancel·lar\" si no estàs segur sobre això."
+
+#: src/templates/diag.mas:13 src/templates/diag.mas:18
+msgid "Ping"
+msgstr "Ping"
+
+#: src/templates/diag.mas:22
+msgid "Traceroute"
+msgstr "Traceroute"
+
+#: src/templates/diag.mas:27
+msgid "Trace"
+msgstr "Traça"
+
+#: src/templates/diag.mas:31
+msgid "Domain Name Resolution"
+msgstr "Resolució de Noms de Domini"
+
+#: src/templates/diag.mas:32
+msgid "Domain name"
+msgstr "Nom de domini"
+
+#: src/templates/diag.mas:36
+msgid "Lookup"
+msgstr "Cerca"
+
+#: src/templates/diag.mas:38
+msgid "Output"
+msgstr "Sortida"
 
 #: src/templates/ifaces.mas:13
 msgid ""
@@ -921,10 +1003,6 @@ msgstr ""
 "S'aplicarà NAT al trànsit que s'encamini a través de les interfícies "
 "marcades com externes. A més, els serveis adreçats als usuaris de la LAN no "
 "estaran disponibles en les interfícies externes."
-
-#: src/templates/ifaces.mas:45 src/templates/Wizard/network.mas:40
-msgid "Method"
-msgstr "Mètode"
 
 #: src/templates/ifaces.mas:51 src/templates/ifaces.mas:53
 msgid "Static"
@@ -989,84 +1067,6 @@ msgstr "Esborrar"
 #: src/templates/ifaces.mas:281
 msgid "Virtual Interfaces"
 msgstr "Interfícies virtuals"
-
-#: src/templates/confirmVlanDel.mas:9
-msgid ""
-"The removal of the vlan interface will affect the configuration of one or "
-"more modules that use references to this network interface."
-msgstr ""
-"L'eliminació de la interfície vlan afectarà a la configuració d'un o més "
-"mòduls que utilitzen referències a aquesta interfície de xarxa."
-
-#: src/templates/Wizard/network.mas:23 src/templates/Wizard/interfaces.mas:7
-#, fuzzy
-msgid "Network interfaces"
-msgstr "Interfícies de xarxa"
-
-#: src/templates/Wizard/network.mas:26
-msgid "Configure network for external interfaces"
-msgstr "Configurar xarxa per interfícies externes"
-
-#: src/templates/Wizard/network.mas:27
-msgid "Now you can set IP addresses and networks for each interface"
-msgstr "Ara no pots configurar adreces IP i xarxes per cada interfície"
-
-#: src/templates/Wizard/network.mas:43
-msgid "Don't configure"
-msgstr "No configurar"
-
-#: src/templates/Wizard/network.mas:82
-msgid "Gateway"
-msgstr "Passarel·la"
-
-#: src/templates/Wizard/interfaces.mas:10
-msgid "Select external network interfaces"
-msgstr "Selecciona interfícies de xarxa externes"
-
-#: src/templates/Wizard/interfaces.mas:11
-msgid ""
-"You will not be able to connect to Zentyal administration page through them"
-msgstr ""
-"No podràs connectar-te a la pàgina d'administració de Zentyal a través "
-"d'elles"
-
-#: src/templates/diag.mas:13 src/templates/diag.mas:18
-msgid "Ping"
-msgstr "Ping"
-
-#: src/templates/diag.mas:22
-msgid "Traceroute"
-msgstr "Traceroute"
-
-#: src/templates/diag.mas:27
-msgid "Trace"
-msgstr "Traça"
-
-#: src/templates/diag.mas:31
-msgid "Domain Name Resolution"
-msgstr "Resolució de Noms de Domini"
-
-#: src/templates/diag.mas:32
-msgid "Domain name"
-msgstr "Nom de domini"
-
-#: src/templates/diag.mas:36
-msgid "Lookup"
-msgstr "Cerca"
-
-#: src/templates/diag.mas:38
-msgid "Output"
-msgstr "Sortida"
-
-#: src/templates/confirm.mas:20
-msgid ""
-"If you choose to continue, all modules that make use of the current "
-"configuration of this network interface will delete the relevant parts of "
-"their configuration. Choose \"Cancel\" if you are not sure about this."
-msgstr ""
-"Si tries continuar, tots els mòduls que utilitzen la configuració actual "
-"d'aquesta interfície de xarxa esborraran les parts més rellevants de la seva "
-"configuració. Tria \"Cancel·lar\" si no estàs segur sobre això."
 
 #~ msgid "WAN Failover is only available for static interfaces"
 #~ msgstr "WAN Failover només està disponible per interfícies estàtiques"

@@ -7,26 +7,218 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-monitor 1.4\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-12-13 08:40+0100\n"
+"POT-Creation-Date: 2010-12-18 01:44+0100\n"
 "PO-Revision-Date: 2010-05-06 17:07+0200\n"
 "Last-Translator: Priit-A. Heinsalu <priit.heinsalu@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: src/EBox/Monitor/Types/MeasureAttribute.pm:132
-#: src/EBox/Monitor/Types/MeasureAttribute.pm:146
-#: src/EBox/Monitor/Types/MeasureAttribute.pm:156
-msgid "not applicable"
-msgstr "ei ole rakendatav"
+#: src/EBox/Event/Watcher/Monitor.pm:144 src/EBox/Monitor.pm:78
+#: src/EBox/Monitor.pm:177
+msgid "Monitor"
+msgstr "Monitooring"
 
-#: src/EBox/Monitor/Types/MeasureAttribute.pm:134
-#: src/EBox/Monitor/Types/MeasureAttribute.pm:144
-msgid "any"
-msgstr "suvaline"
+#: src/EBox/Event/Watcher/Monitor.pm:161
+msgid "Notify when a certain value has reached a certain threshold"
+msgstr "Teata kui mõni väärtus on saavutanud määratud läve"
+
+#: src/EBox/Event/Watcher/Monitor.pm:263
+msgid "All data sources are within range again"
+msgstr ""
+
+#: src/EBox/Event/Watcher/Monitor.pm:273
+#, fuzzy, perl-brace-format
+msgid "{what} \"{dS}\" is currently {value}."
+msgstr "{what} \"{dS}\" on hetkel {value}."
+
+#: src/EBox/Event/Watcher/Monitor.pm:280
+#, fuzzy, perl-brace-format
+msgid "That is within the {severity} region of {minBound} and {maxBound}. "
+msgstr "See on {severity} piires, piirkonnas {minBound} kuni {maxBound}"
+
+#: src/EBox/Event/Watcher/Monitor.pm:288
+#, fuzzy, perl-brace-format
+msgid "That is above the {severity} threshold of {bound}. "
+msgstr "See on üle {severity} {bound} läve"
+
+#: src/EBox/Event/Watcher/Monitor.pm:291
+#, fuzzy, perl-brace-format
+msgid "That is below the {severity} threshold of {bound}. "
+msgstr "See on alla {severity} {bound} läve"
+
+#: src/EBox/Monitor.pm:150
+#, perl-brace-format
+msgid "{daemon} main configuration file"
+msgstr "{daemon} peamine seadistusfail"
+
+#: src/EBox/Monitor.pm:155
+#, perl-brace-format
+msgid "{daemon} thresholds configuration file"
+msgstr "{daemon} lävede seadistusfail"
+
+#: src/EBox/Monitor.pm:160
+#, fuzzy, perl-brace-format
+msgid "{daemon} default configuration file"
+msgstr "{daemon} peamine seadistusfail"
+
+#: src/EBox/Monitor/Measure/CPU.pm:59
+#, perl-brace-format
+msgid "CPU {no} usage"
+msgstr "Protsessori {no} kasutus"
+
+#: src/EBox/Monitor/Measure/CPU.pm:65
+msgid "CPU usage"
+msgstr "Protsessori kasutus"
+
+#: src/EBox/Monitor/Measure/CPU.pm:66
+msgid ""
+"Collect the amount of time spent by the CPU in various states, most notably "
+"executing user code, executing system code, waiting for IO operations and "
+"being idle"
+msgstr ""
+"Protsessori erinevate olekute ajakulu kogumine. Palju aega on kulutatud "
+"kasutaja käske täites, süsteemi käske täites, oodates IO operatsioonide "
+"järel ja kui suur on olnud jõudeaeg."
+
+#: src/EBox/Monitor/Measure/CPU.pm:73 src/EBox/Monitor/Measure/CPU.pm:82
+msgid "idle"
+msgstr "jõude"
+
+#: src/EBox/Monitor/Measure/CPU.pm:74 src/EBox/Monitor/Measure/CPU.pm:82
+msgid "user"
+msgstr "kasutaja"
+
+#: src/EBox/Monitor/Measure/CPU.pm:75 src/EBox/Monitor/Measure/CPU.pm:82
+msgid "interrupt"
+msgstr "katkestused"
+
+# :)
+#: src/EBox/Monitor/Measure/CPU.pm:76 src/EBox/Monitor/Measure/CPU.pm:83
+msgid "nice"
+msgstr "kena"
+
+#: src/EBox/Monitor/Measure/CPU.pm:77 src/EBox/Monitor/Measure/CPU.pm:83
+msgid "soft interrupt"
+msgstr "tarkvara katkestused"
+
+#: src/EBox/Monitor/Measure/CPU.pm:78 src/EBox/Monitor/Measure/CPU.pm:83
+#, fuzzy
+msgid "steal"
+msgstr "varastatud"
+
+#: src/EBox/Monitor/Measure/CPU.pm:79 src/EBox/Monitor/Measure/CPU.pm:84
+msgid "system"
+msgstr "süsteem"
+
+#: src/EBox/Monitor/Measure/CPU.pm:80 src/EBox/Monitor/Measure/CPU.pm:84
+msgid "wait"
+msgstr "ootamine"
+
+#: src/EBox/Monitor/Measure/Df.pm:76
+#, perl-brace-format
+msgid "used in {partition}"
+msgstr "kasutusel partitsioonis {partition}"
+
+#: src/EBox/Monitor/Measure/Df.pm:78
+#, perl-brace-format
+msgid "free in {partition}"
+msgstr "vaba partitsioonis {partition}"
+
+#: src/EBox/Monitor/Measure/Df.pm:83
+msgid "File system usage"
+msgstr "Failisüsteemi kasutus"
+
+#: src/EBox/Monitor/Measure/Df.pm:84
+msgid ""
+"Collect the mounted file system usage information as \"df\" command does"
+msgstr "Ühendatud failisüsteemi kasutusinfo kogumine, nagu käsk \"df\""
+
+#: src/EBox/Monitor/Measure/Memory.pm:55
+msgid "Physical memory usage"
+msgstr "Füüsilise mälu kasutus"
+
+#: src/EBox/Monitor/Measure/Memory.pm:56
+msgid "Collect the physical memory usage"
+msgstr "Füüsilise mälu kasutuse kogumine"
+
+#: src/EBox/Monitor/Measure/Memory.pm:57
+msgid "free"
+msgstr "vaba"
+
+#: src/EBox/Monitor/Measure/Memory.pm:57
+msgid "page cache"
+msgstr "lehekülje vahemälu"
+
+#: src/EBox/Monitor/Measure/Memory.pm:57
+#, fuzzy
+msgid "buffer cache"
+msgstr "ketta vahemälu"
+
+#: src/EBox/Monitor/Measure/Memory.pm:57
+msgid "used"
+msgstr "kasutatud"
+
+#: src/EBox/Monitor/Measure/Load.pm:55
+msgid "System load"
+msgstr "Süsteemi koormus"
+
+#: src/EBox/Monitor/Measure/Load.pm:56
+msgid "Collect the system load that gives a rough overview of the system usage"
+msgstr ""
+"Süsteemi koormuse andmete kogumine, mis annab esialgse ülevaate süsteemi "
+"kasutusest"
+
+#: src/EBox/Monitor/Measure/Load.pm:59
+msgid "short term"
+msgstr "lühike periood"
+
+#: src/EBox/Monitor/Measure/Load.pm:59
+msgid "mid term"
+msgstr "keskmine periood"
+
+#: src/EBox/Monitor/Measure/Load.pm:59
+msgid "long term"
+msgstr "pikk periood"
+
+#: src/EBox/Monitor/Measure/Thermal.pm:111
+#: src/EBox/Monitor/Measure/Thermal.pm:117
+msgid "temperature"
+msgstr "temperatuur"
+
+#: src/EBox/Monitor/Measure/Thermal.pm:129
+msgid "cooling device"
+msgstr "jahutusseade"
+
+#: src/EBox/Monitor/Measure/Thermal.pm:131
+msgid "sensor"
+msgstr "sensor"
+
+#: src/EBox/Monitor/Measure/Thermal.pm:133
+#, perl-brace-format
+msgid "Temperature for {what}"
+msgstr "{what} temperatuur"
+
+# Soojusteave; soojavärk :)
+#: src/EBox/Monitor/Measure/Thermal.pm:139
+msgid "Thermal"
+msgstr "Temperatuurid"
+
+#: src/EBox/Monitor/Measure/Thermal.pm:140
+#, perl-brace-format
+msgid ""
+"Collect thermal information (CPU sensors temperature) if possible from {dir}"
+msgstr ""
+"Soojusteabe (CPU sensori temperatuuri) kogumine, kui võimalik siis {dir} "
+"kohta"
+
+#: src/EBox/Monitor/Measure/Base.pm:684
+msgid "value"
+msgstr "väärtus"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:102
 #: src/EBox/Monitor/Model/MeasureWatchers.pm:77
@@ -230,159 +422,16 @@ msgstr "Viimane kuu"
 msgid "Last year"
 msgstr "Viimane aasta"
 
-#: src/EBox/Monitor/Measure/Load.pm:55
-msgid "System load"
-msgstr "Süsteemi koormus"
+#: src/EBox/Monitor/Types/MeasureAttribute.pm:132
+#: src/EBox/Monitor/Types/MeasureAttribute.pm:146
+#: src/EBox/Monitor/Types/MeasureAttribute.pm:156
+msgid "not applicable"
+msgstr "ei ole rakendatav"
 
-#: src/EBox/Monitor/Measure/Load.pm:56
-msgid "Collect the system load that gives a rough overview of the system usage"
-msgstr ""
-"Süsteemi koormuse andmete kogumine, mis annab esialgse ülevaate süsteemi "
-"kasutusest"
-
-#: src/EBox/Monitor/Measure/Load.pm:59
-msgid "short term"
-msgstr "lühike periood"
-
-#: src/EBox/Monitor/Measure/Load.pm:59
-msgid "mid term"
-msgstr "keskmine periood"
-
-#: src/EBox/Monitor/Measure/Load.pm:59
-msgid "long term"
-msgstr "pikk periood"
-
-#: src/EBox/Monitor/Measure/Df.pm:76
-#, perl-brace-format
-msgid "used in {partition}"
-msgstr "kasutusel partitsioonis {partition}"
-
-#: src/EBox/Monitor/Measure/Df.pm:78
-#, perl-brace-format
-msgid "free in {partition}"
-msgstr "vaba partitsioonis {partition}"
-
-#: src/EBox/Monitor/Measure/Df.pm:83
-msgid "File system usage"
-msgstr "Failisüsteemi kasutus"
-
-#: src/EBox/Monitor/Measure/Df.pm:84
-msgid ""
-"Collect the mounted file system usage information as \"df\" command does"
-msgstr "Ühendatud failisüsteemi kasutusinfo kogumine, nagu käsk \"df\""
-
-#: src/EBox/Monitor/Measure/Thermal.pm:111
-#: src/EBox/Monitor/Measure/Thermal.pm:117
-msgid "temperature"
-msgstr "temperatuur"
-
-#: src/EBox/Monitor/Measure/Thermal.pm:129
-msgid "cooling device"
-msgstr "jahutusseade"
-
-#: src/EBox/Monitor/Measure/Thermal.pm:131
-msgid "sensor"
-msgstr "sensor"
-
-#: src/EBox/Monitor/Measure/Thermal.pm:133
-#, perl-brace-format
-msgid "Temperature for {what}"
-msgstr "{what} temperatuur"
-
-# Soojusteave; soojavärk :)
-#: src/EBox/Monitor/Measure/Thermal.pm:139
-msgid "Thermal"
-msgstr "Temperatuurid"
-
-#: src/EBox/Monitor/Measure/Thermal.pm:140
-#, perl-brace-format
-msgid ""
-"Collect thermal information (CPU sensors temperature) if possible from {dir}"
-msgstr ""
-"Soojusteabe (CPU sensori temperatuuri) kogumine, kui võimalik siis {dir} "
-"kohta"
-
-#: src/EBox/Monitor/Measure/Base.pm:684
-msgid "value"
-msgstr "väärtus"
-
-#: src/EBox/Monitor/Measure/CPU.pm:59
-#, perl-brace-format
-msgid "CPU {no} usage"
-msgstr "Protsessori {no} kasutus"
-
-#: src/EBox/Monitor/Measure/CPU.pm:65
-msgid "CPU usage"
-msgstr "Protsessori kasutus"
-
-#: src/EBox/Monitor/Measure/CPU.pm:66
-msgid ""
-"Collect the amount of time spent by the CPU in various states, most notably "
-"executing user code, executing system code, waiting for IO operations and "
-"being idle"
-msgstr ""
-"Protsessori erinevate olekute ajakulu kogumine. Palju aega on kulutatud "
-"kasutaja käske täites, süsteemi käske täites, oodates IO operatsioonide "
-"järel ja kui suur on olnud jõudeaeg."
-
-#: src/EBox/Monitor/Measure/CPU.pm:73 src/EBox/Monitor/Measure/CPU.pm:82
-msgid "idle"
-msgstr "jõude"
-
-#: src/EBox/Monitor/Measure/CPU.pm:74 src/EBox/Monitor/Measure/CPU.pm:82
-msgid "user"
-msgstr "kasutaja"
-
-#: src/EBox/Monitor/Measure/CPU.pm:75 src/EBox/Monitor/Measure/CPU.pm:82
-msgid "interrupt"
-msgstr "katkestused"
-
-# :)
-#: src/EBox/Monitor/Measure/CPU.pm:76 src/EBox/Monitor/Measure/CPU.pm:83
-msgid "nice"
-msgstr "kena"
-
-#: src/EBox/Monitor/Measure/CPU.pm:77 src/EBox/Monitor/Measure/CPU.pm:83
-msgid "soft interrupt"
-msgstr "tarkvara katkestused"
-
-#: src/EBox/Monitor/Measure/CPU.pm:78 src/EBox/Monitor/Measure/CPU.pm:83
-#, fuzzy
-msgid "steal"
-msgstr "varastatud"
-
-#: src/EBox/Monitor/Measure/CPU.pm:79 src/EBox/Monitor/Measure/CPU.pm:84
-msgid "system"
-msgstr "süsteem"
-
-#: src/EBox/Monitor/Measure/CPU.pm:80 src/EBox/Monitor/Measure/CPU.pm:84
-msgid "wait"
-msgstr "ootamine"
-
-#: src/EBox/Monitor/Measure/Memory.pm:55
-msgid "Physical memory usage"
-msgstr "Füüsilise mälu kasutus"
-
-#: src/EBox/Monitor/Measure/Memory.pm:56
-msgid "Collect the physical memory usage"
-msgstr "Füüsilise mälu kasutuse kogumine"
-
-#: src/EBox/Monitor/Measure/Memory.pm:57
-msgid "free"
-msgstr "vaba"
-
-#: src/EBox/Monitor/Measure/Memory.pm:57
-msgid "page cache"
-msgstr "lehekülje vahemälu"
-
-#: src/EBox/Monitor/Measure/Memory.pm:57
-#, fuzzy
-msgid "buffer cache"
-msgstr "ketta vahemälu"
-
-#: src/EBox/Monitor/Measure/Memory.pm:57
-msgid "used"
-msgstr "kasutatud"
+#: src/EBox/Monitor/Types/MeasureAttribute.pm:134
+#: src/EBox/Monitor/Types/MeasureAttribute.pm:144
+msgid "any"
+msgstr "suvaline"
 
 #: src/EBox/CGI/Index.pm:44
 msgid "Monitoring"
@@ -408,51 +457,3 @@ msgstr ""
 "Monitooringu graafikute nägemiseks peab {openhref}muudatused salvestama"
 "{closehref}. Juhul kui oled seda juba teinud, oota paar sekundit, et jõutaks "
 "koguda esimesed monitooringuandmed."
-
-#: src/EBox/Event/Watcher/Monitor.pm:144 src/EBox/Monitor.pm:78
-#: src/EBox/Monitor.pm:177
-msgid "Monitor"
-msgstr "Monitooring"
-
-#: src/EBox/Event/Watcher/Monitor.pm:161
-msgid "Notify when a certain value has reached a certain threshold"
-msgstr "Teata kui mõni väärtus on saavutanud määratud läve"
-
-#: src/EBox/Event/Watcher/Monitor.pm:263
-msgid "All data sources are within range again"
-msgstr ""
-
-#: src/EBox/Event/Watcher/Monitor.pm:273
-#, fuzzy, perl-brace-format
-msgid "{what} \"{dS}\" is currently {value}."
-msgstr "{what} \"{dS}\" on hetkel {value}."
-
-#: src/EBox/Event/Watcher/Monitor.pm:280
-#, fuzzy, perl-brace-format
-msgid "That is within the {severity} region of {minBound} and {maxBound}. "
-msgstr "See on {severity} piires, piirkonnas {minBound} kuni {maxBound}"
-
-#: src/EBox/Event/Watcher/Monitor.pm:288
-#, fuzzy, perl-brace-format
-msgid "That is above the {severity} threshold of {bound}. "
-msgstr "See on üle {severity} {bound} läve"
-
-#: src/EBox/Event/Watcher/Monitor.pm:291
-#, fuzzy, perl-brace-format
-msgid "That is below the {severity} threshold of {bound}. "
-msgstr "See on alla {severity} {bound} läve"
-
-#: src/EBox/Monitor.pm:150
-#, perl-brace-format
-msgid "{daemon} main configuration file"
-msgstr "{daemon} peamine seadistusfail"
-
-#: src/EBox/Monitor.pm:155
-#, perl-brace-format
-msgid "{daemon} thresholds configuration file"
-msgstr "{daemon} lävede seadistusfail"
-
-#: src/EBox/Monitor.pm:160
-#, fuzzy, perl-brace-format
-msgid "{daemon} default configuration file"
-msgstr "{daemon} peamine seadistusfail"

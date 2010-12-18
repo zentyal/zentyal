@@ -8,67 +8,98 @@ msgstr ""
 "Project-Id-Version: ebox-trafficshaping 0.12.99Report-Msgid-Bugs-To: "
 "developers@zentyal.org\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-12-13 08:43+0100\n"
+"POT-Creation-Date: 2010-12-18 01:45+0100\n"
 "PO-Revision-Date: 2010-10-08 11:17+0200\n"
 "Last-Translator: Ronny Gonzales <ronny@kcl.no>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:220
-#, perl-brace-format
-msgid "Guaranteed Rate exceeds the allowed rate: {rate} kbit/s"
-msgstr "Garantert Rate overstiger tillatt rate: {rate} kbit/s"
+#: src/EBox/TrafficShaping.pm:102
+msgid "Traffic Shaping"
+msgstr "Trafikk Forming"
 
-#: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:227
-#: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:412
-#, perl-brace-format
-msgid ""
-"Guaranteed Rate must be in this interval: ( {minRate}, {maxRate} ) kbit/s"
-msgstr ""
-"Garantert Rate må være innen intervallet: : ( {minRate}, {maxRate} ) kbit/s"
+#: src/EBox/TrafficShaping.pm:140
+msgid "Add iptables rules to mangle table"
+msgstr "Legg til ip tabell regler for å rulle tabell"
 
-#: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:239
-#: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:424
-#, perl-brace-format
-msgid ""
-"Limited Rate {lR} kbit/s should be higher than Guaranteed Rate {gR}kbit/s"
-msgstr ""
-"Begrenset Rate {lR} kbit/s bør være høyere enn Garantert Rate {gR}kbit/s"
+#: src/EBox/TrafficShaping.pm:141
+msgid "To mark packets with different priorities and rates"
+msgstr "For å markere pakker med forskjellig prioritet og rater"
 
-#: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:246
-#, perl-brace-format
-msgid ""
-"Limited Rate {lR} kbit/s should be lower than {maxLR}kbit/s or you should "
-"increase maximum upload traffic associated to external interfaces"
-msgstr ""
-"Begrenset Rate {lR} kbit/s bør være lavere enn {maxLR}kbit/s ellers bør du "
-"du øke maksimums opplastings trafikk tildelt til eksterne grensesnitt"
+#: src/EBox/TrafficShaping.pm:145
+msgid "Add tc rules"
+msgstr "Legg til tc regler"
 
-#: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:403
-#, perl-brace-format
-msgid "Guaranteed Rate exceeded the allowed rate: {rate}"
-msgstr "Garantert Rate overstiger tillat rate: {rate}"
+#: src/EBox/TrafficShaping.pm:146
+msgid "To implement the traffic shaping rules"
+msgstr "For å implementere trafikk formings regler"
 
-#: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:432
+#: src/EBox/TrafficShaping.pm:463
+msgid "Rules"
+msgstr "Regeler"
+
+#: src/EBox/TrafficShaping.pm:465
+msgid "Interface Rates"
+msgstr "Grensesnitt Rater"
+
+#: src/EBox/TrafficShaping.pm:539 src/EBox/TrafficShaping.pm:691
+#: src/EBox/TrafficShaping.pm:1109 src/EBox/TC.pm:107
+msgid "Interface"
+msgstr "Grensesnitt"
+
+#: src/EBox/TrafficShaping.pm:553
 #, perl-brace-format
 msgid ""
-"Limited Rate {lR} kbit/s should be lower than {maxLR} or you should increase "
-"maximum allowed traffic"
+"The maximum rule account {max} is reached, please delete at least one in "
+"order to to add a new one"
 msgstr ""
-"Begrenset Rate {lR} kbit/s bør være lavere enn {maxLR} ellers bør du øke "
-"maksimum tillatt trafikk"
+"Maksimum regel kotno {max} er nådd, vennligst slett minst en for å kunne "
+"legge til en ny"
 
-#: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:620
-msgid "Leaf class identifier"
-msgstr "Blad klasse identifikator"
+#: src/EBox/TrafficShaping.pm:1199
+msgid "type"
+msgstr "type"
 
-#: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:624
-msgid "Address"
-msgstr "Adresse"
+#: src/EBox/TrafficShaping.pm:1222
+#, perl-brace-format
+msgid ""
+"Interface {iface} should have a maximum bandwidth rate in order to do "
+"traffic shaping"
+msgstr ""
+"Grensesnitt {iface} bør ha maksimum båndbredde rate for å utføre trafikk "
+"forming"
+
+#: src/EBox/TrafficShaping.pm:1696
+msgid "Protocol"
+msgstr "Protokoll"
+
+#: src/EBox/TrafficShaping.pm:1697
+msgid "Port"
+msgstr "Port"
+
+#: src/EBox/TrafficShaping.pm:1698
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:467
+msgid "Guaranteed Rate"
+msgstr "Garantert Rate"
+
+#: src/EBox/TrafficShaping.pm:1699
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:479
+msgid "Limited Rate"
+msgstr "Begrenset Rate"
+
+#: src/EBox/TrafficShaping.pm:1700
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:459
+msgid "Priority"
+msgstr "Prioritet"
+
+#: src/EBox/TC.pm:69
+msgid "options"
+msgstr "alternativ"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:181
 #, perl-brace-format
@@ -139,19 +170,9 @@ msgstr "Destinasjons IP"
 msgid "Destination object"
 msgstr "Destinasjons objekt"
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:459
-#: src/EBox/TrafficShaping.pm:1700
-msgid "Priority"
-msgstr "Prioritet"
-
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:463
 msgid "Lowest priotiry: 7 Highest priority: 0"
 msgstr "Laveste prioritet: 7 Høyeste prioritet: 0"
-
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:467
-#: src/EBox/TrafficShaping.pm:1698
-msgid "Guaranteed Rate"
-msgstr "Garantert Rate"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:470
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:484
@@ -165,11 +186,6 @@ msgid ""
 msgstr ""
 "NB. Summen av alle garanterte rater kan ikke overstige din totale båndvidde. "
 "0 betyr ikke garantert rate."
-
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:479
-#: src/EBox/TrafficShaping.pm:1699
-msgid "Limited Rate"
-msgstr "Begrenset Rate"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:486
 msgid "Traffic will not exceed this rate. 0 means unlimited rate."
@@ -303,69 +319,54 @@ msgstr ""
 msgid "Choose an interface to shape"
 msgstr "Velg grensesnitt til forming"
 
-#: src/EBox/TrafficShaping.pm:102
-msgid "Traffic Shaping"
-msgstr "Trafikk Forming"
+#: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:220
+#, perl-brace-format
+msgid "Guaranteed Rate exceeds the allowed rate: {rate} kbit/s"
+msgstr "Garantert Rate overstiger tillatt rate: {rate} kbit/s"
 
-#: src/EBox/TrafficShaping.pm:140
-msgid "Add iptables rules to mangle table"
-msgstr "Legg til ip tabell regler for å rulle tabell"
-
-#: src/EBox/TrafficShaping.pm:141
-msgid "To mark packets with different priorities and rates"
-msgstr "For å markere pakker med forskjellig prioritet og rater"
-
-#: src/EBox/TrafficShaping.pm:145
-msgid "Add tc rules"
-msgstr "Legg til tc regler"
-
-#: src/EBox/TrafficShaping.pm:146
-msgid "To implement the traffic shaping rules"
-msgstr "For å implementere trafikk formings regler"
-
-#: src/EBox/TrafficShaping.pm:463
-msgid "Rules"
-msgstr "Regeler"
-
-#: src/EBox/TrafficShaping.pm:465
-msgid "Interface Rates"
-msgstr "Grensesnitt Rater"
-
-#: src/EBox/TrafficShaping.pm:539 src/EBox/TrafficShaping.pm:691
-#: src/EBox/TrafficShaping.pm:1109 src/EBox/TC.pm:107
-msgid "Interface"
-msgstr "Grensesnitt"
-
-#: src/EBox/TrafficShaping.pm:553
+#: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:227
+#: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:412
 #, perl-brace-format
 msgid ""
-"The maximum rule account {max} is reached, please delete at least one in "
-"order to to add a new one"
+"Guaranteed Rate must be in this interval: ( {minRate}, {maxRate} ) kbit/s"
 msgstr ""
-"Maksimum regel kotno {max} er nådd, vennligst slett minst en for å kunne "
-"legge til en ny"
+"Garantert Rate må være innen intervallet: : ( {minRate}, {maxRate} ) kbit/s"
 
-#: src/EBox/TrafficShaping.pm:1199
-msgid "type"
-msgstr "type"
-
-#: src/EBox/TrafficShaping.pm:1222
+#: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:239
+#: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:424
 #, perl-brace-format
 msgid ""
-"Interface {iface} should have a maximum bandwidth rate in order to do "
-"traffic shaping"
+"Limited Rate {lR} kbit/s should be higher than Guaranteed Rate {gR}kbit/s"
 msgstr ""
-"Grensesnitt {iface} bør ha maksimum båndbredde rate for å utføre trafikk "
-"forming"
+"Begrenset Rate {lR} kbit/s bør være høyere enn Garantert Rate {gR}kbit/s"
 
-#: src/EBox/TrafficShaping.pm:1696
-msgid "Protocol"
-msgstr "Protokoll"
+#: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:246
+#, perl-brace-format
+msgid ""
+"Limited Rate {lR} kbit/s should be lower than {maxLR}kbit/s or you should "
+"increase maximum upload traffic associated to external interfaces"
+msgstr ""
+"Begrenset Rate {lR} kbit/s bør være lavere enn {maxLR}kbit/s ellers bør du "
+"du øke maksimums opplastings trafikk tildelt til eksterne grensesnitt"
 
-#: src/EBox/TrafficShaping.pm:1697
-msgid "Port"
-msgstr "Port"
+#: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:403
+#, perl-brace-format
+msgid "Guaranteed Rate exceeded the allowed rate: {rate}"
+msgstr "Garantert Rate overstiger tillat rate: {rate}"
 
-#: src/EBox/TC.pm:69
-msgid "options"
-msgstr "alternativ"
+#: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:432
+#, perl-brace-format
+msgid ""
+"Limited Rate {lR} kbit/s should be lower than {maxLR} or you should increase "
+"maximum allowed traffic"
+msgstr ""
+"Begrenset Rate {lR} kbit/s bør være lavere enn {maxLR} ellers bør du øke "
+"maksimum tillatt trafikk"
+
+#: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:620
+msgid "Leaf class identifier"
+msgstr "Blad klasse identifikator"
+
+#: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:624
+msgid "Address"
+msgstr "Adresse"

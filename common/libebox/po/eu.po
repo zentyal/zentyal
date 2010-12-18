@@ -6,15 +6,35 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libebox 0.12.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-12-13 08:44+0100\n"
+"POT-Creation-Date: 2010-12-18 01:20+0100\n"
 "PO-Revision-Date: 2007-03-28 23:18+0000\n"
 "Last-Translator: Kong <kong@noworkteam.org>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=ASCII\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 0.10.1\n"
+
+#: src/EBox/Config.pm.in:74
+#, perl-brace-format
+msgid "Could not open the config file {file}."
+msgstr "Ezin da {file} konfigurazio fitxategia ireki."
+
+#: src/EBox/Config.pm.in:172
+msgid "The ebox user has not been set in the config file."
+msgstr "Ez da konfigurazio fitxategian ebox erabiltzailea ezarri."
+
+#: src/EBox/Exceptions/DataNotFound.pm:35
+#, perl-brace-format
+msgid "{data} {value} does not exist."
+msgstr "{data} {value} ez dago."
+
+#: src/EBox/Exceptions/DataExists.pm:36
+#, perl-brace-format
+msgid "{data} {value} already exists."
+msgstr "{data} {value} badago dagoeneko."
 
 #: src/EBox/Exceptions/InvalidData.pm:37
 #, perl-brace-format
@@ -26,20 +46,55 @@ msgstr "Balio baliogabea {data}: {value}-rentzat."
 msgid "{data} is empty."
 msgstr "{data} hutsik dago."
 
-#: src/EBox/Exceptions/DataExists.pm:36
-#, perl-brace-format
-msgid "{data} {value} already exists."
-msgstr "{data} {value} badago dagoeneko."
+#: src/EBox/Validate.pm:390 src/EBox/Validate.pm:404
+msgid "Must be a number between 1 and 4096"
+msgstr ""
 
-#: src/EBox/Exceptions/DataNotFound.pm:35
+#: src/EBox/Validate.pm:687
 #, perl-brace-format
-msgid "{data} {value} does not exist."
-msgstr "{data} {value} ez dago."
+msgid ""
+"Cannot stat dir: {dir}. This may mean that the directory does not exist or "
+"the permissions forbid access to it"
+msgstr ""
+"Ezin da direktorio egoera ebatzi: {dir}. Honek direktorioa ez dagoela edo "
+"sartzeko baimena galerazia dagoela esan nahi du."
+
+#: src/EBox/Validate.pm:692
+#, perl-brace-format
+msgid "The directory {dir} is not private; because it is owned by another user"
+msgstr ""
+"{dir} direktorioa ez da pribatua, beste erabiltzaile baten jabegoan dago eta."
+
+#: src/EBox/Validate.pm:767
+msgid ""
+"The file path supplied is not valid. (Currently not all of the valid file's  "
+"characters are supported) "
+msgstr ""
+"Emandako fitxategi bidea ez da baliozkoa. (Oraingoz ez dira baliozko "
+"fitxategi karaktere guztiak onartzen) "
+
+#: src/EBox/Validate.pm:795
+msgid "The file path must be absolute"
+msgstr "Fitxategi bidea absolutua izan behar da"
+
+#: src/EBox/Sudo.pm:265
+#, perl-brace-format
+msgid "Running command '{cmd}' as {user} failed"
+msgstr "Huts '{cmd}' komandoa {user} bezala abiaraztean"
+
+#: src/EBox/FileSystem.pm:190 src/EBox/FileSystem.pm:282
+#, perl-brace-format
+msgid "Directory not found: {d}"
+msgstr ""
 
 #: src/EBox/NetWrappers.pm:104 src/EBox/NetWrappers.pm:133
 #: src/EBox/NetWrappers.pm:229
 msgid "Interface"
 msgstr "Interfazea"
+
+#: src/EBox/CGI/EBox/PageNotFound.pm:27
+msgid "Page not found"
+msgstr "Ez da orria aurkitu"
 
 #: src/EBox/CGI/Base.pm:196
 msgid ""
@@ -106,76 +161,78 @@ msgstr "Igotako fitxategi baliogabea."
 msgid "Cannot create a temporally file for the upload"
 msgstr "Ezin da igotakoarentzat aldizkako fitxategi at sortu."
 
-#: src/EBox/CGI/EBox/PageNotFound.pm:27
-msgid "Page not found"
-msgstr "Ez da orria aurkitu"
+#: src/templates/language.mas:10
+#, fuzzy
+msgid "Language Selection"
+msgstr "Hizkuntza hautapena"
 
-#: src/EBox/Config.pm.in:74
-#, perl-brace-format
-msgid "Could not open the config file {file}."
-msgstr "Ezin da {file} konfigurazio fitxategia ireki."
-
-#: src/EBox/Config.pm.in:172
-msgid "The ebox user has not been set in the config file."
-msgstr "Ez da konfigurazio fitxategian ebox erabiltzailea ezarri."
-
-#: src/EBox/Sudo.pm:265
-#, perl-brace-format
-msgid "Running command '{cmd}' as {user} failed"
-msgstr "Huts '{cmd}' komandoa {user} bezala abiaraztean"
-
-#: src/EBox/FileSystem.pm:190 src/EBox/FileSystem.pm:282
-#, perl-brace-format
-msgid "Directory not found: {d}"
-msgstr ""
-
-#: src/EBox/Validate.pm:390 src/EBox/Validate.pm:404
-msgid "Must be a number between 1 and 4096"
-msgstr ""
-
-#: src/EBox/Validate.pm:687
-#, perl-brace-format
+#: src/templates/language.mas:11
 msgid ""
-"Cannot stat dir: {dir}. This may mean that the directory does not exist or "
-"the permissions forbid access to it"
+"Language changes happen automatically, saving the configuration it's not "
+"needed."
 msgstr ""
-"Ezin da direktorio egoera ebatzi: {dir}. Honek direktorioa ez dagoela edo "
-"sartzeko baimena galerazia dagoela esan nahi du."
+"Hizkuntza aldaketak automatikoki geratzen dira , ez da konfigurazioa gorde "
+"behar."
 
-#: src/EBox/Validate.pm:692
-#, perl-brace-format
-msgid "The directory {dir} is not private; because it is owned by another user"
-msgstr ""
-"{dir} direktorioa ez da pribatua, beste erabiltzaile baten jabegoan dago eta."
-
-#: src/EBox/Validate.pm:767
-msgid ""
-"The file path supplied is not valid. (Currently not all of the valid file's  "
-"characters are supported) "
-msgstr ""
-"Emandako fitxategi bidea ez da baliozkoa. (Oraingoz ez dira baliozko "
-"fitxategi karaktere guztiak onartzen) "
-
-#: src/EBox/Validate.pm:795
-msgid "The file path must be absolute"
-msgstr "Fitxategi bidea absolutua izan behar da"
-
-#: src/templates/enable.mas:9
-msgid "Service configuration"
-msgstr "Zerbitzu konfigurazioa"
-
-#: src/templates/enable.mas:21 src/templates/enable.mas:24
-msgid "Disabled"
-msgstr "Ezgaiturik"
-
-#: src/templates/enable.mas:22 src/templates/enable.mas:25
-msgid "Enabled"
-msgstr "Gaiturik"
-
-#: src/templates/enable.mas:29 src/templates/enable.mas:30
-#: src/templates/language.mas:23
+#: src/templates/language.mas:23 src/templates/enable.mas:29
+#: src/templates/enable.mas:30
 msgid "Change"
 msgstr "Aldatu"
+
+#: src/templates/title.mas:24
+msgid "show help"
+msgstr "laguntza ikusi"
+
+#: src/templates/title.mas:25
+msgid "hide help"
+msgstr "laguntza ezkutatu"
+
+#: src/templates/ebox/pageNotFound.mas:3
+msgid "Zentyal homepage"
+msgstr ""
+
+#: src/templates/ebox/pageNotFound.mas:7
+msgid "If you typed the URL manually, please check it"
+msgstr ""
+
+#: src/templates/ebox/pageNotFound.mas:8
+msgid ""
+"Maybe a change in the Zentyal configuration or software made no longer "
+"available the requested page"
+msgstr ""
+
+#: src/templates/ebox/pageNotFound.mas:9
+#, perl-brace-format
+msgid ""
+"If you need more help, you may want visit {homepage} for documentation and "
+"mailing lists"
+msgstr ""
+
+#: src/templates/ebox/pageNotFound.mas:12
+msgid "we're sorry"
+msgstr ""
+
+#: src/templates/ebox/pageNotFound.mas:13
+#, fuzzy
+msgid "The page cannot be found"
+msgstr "Ezin da orrialdea aurkitu"
+
+#: src/templates/ajax/setter/inverseMatchUnionSetter.mas:9
+#: src/templates/ajax/setter/inverseMatchSelectSetter.mas:13
+msgid "Inverse match"
+msgstr ""
+
+#: src/templates/ajax/setter/portRangeSetter.mas:23
+msgid "From"
+msgstr ""
+
+#: src/templates/ajax/setter/portRangeSetter.mas:29
+msgid "To"
+msgstr ""
+
+#: src/templates/ajax/setter/serviceSetter.mas:25
+msgid "port"
+msgstr "ataka"
 
 #: src/templates/ajax/viewer/file.mas:22 src/templates/ajax/viewer/file.mas:33
 msgid "Download"
@@ -184,6 +241,45 @@ msgstr ""
 #: src/templates/ajax/viewer/file.mas:26
 msgid "Remove"
 msgstr ""
+
+#: src/templates/ajax/modelViewer.mas:258 src/templates/formTable.mas:85
+msgid "Optional"
+msgstr ""
+
+#: src/templates/ajax/tablePager.mas:46
+#, fuzzy
+msgid "Page"
+msgstr "Aldatu"
+
+#: src/templates/ajax/tablePager.mas:47
+msgid "of"
+msgstr ""
+
+#: src/templates/ajax/tablePager.mas:60 src/templates/ajax/tablePager.mas:66
+msgid "first"
+msgstr ""
+
+#: src/templates/ajax/tablePager.mas:62 src/templates/ajax/tablePager.mas:67
+msgid "prev"
+msgstr ""
+
+#: src/templates/ajax/tablePager.mas:73 src/templates/ajax/tablePager.mas:74
+#: src/templates/ajax/tablePager.mas:85 src/templates/ajax/tablePager.mas:86
+msgid "next"
+msgstr ""
+
+#: src/templates/ajax/tablePager.mas:79 src/templates/ajax/tablePager.mas:80
+#: src/templates/ajax/tablePager.mas:89 src/templates/ajax/tablePager.mas:90
+msgid "last"
+msgstr ""
+
+#: src/templates/ajax/tableSelector.mas:14
+msgid "Choose one of the options to show the associated table"
+msgstr "Hautatu erlazionaturiko taula bistaratzeko aukeretako bat"
+
+#: src/templates/ajax/tableSelector.mas:32
+msgid "Choose one..."
+msgstr "Bat hautatu..."
 
 #: src/templates/ajax/tableBody.mas:135
 msgid "Add new"
@@ -245,109 +341,14 @@ msgstr ""
 msgid "Move down"
 msgstr ""
 
-#: src/templates/ajax/tableSelector.mas:14
-msgid "Choose one of the options to show the associated table"
-msgstr "Hautatu erlazionaturiko taula bistaratzeko aukeretako bat"
+#: src/templates/enable.mas:9
+msgid "Service configuration"
+msgstr "Zerbitzu konfigurazioa"
 
-#: src/templates/ajax/tableSelector.mas:32
-msgid "Choose one..."
-msgstr "Bat hautatu..."
+#: src/templates/enable.mas:21 src/templates/enable.mas:24
+msgid "Disabled"
+msgstr "Ezgaiturik"
 
-#: src/templates/ajax/setter/serviceSetter.mas:25
-msgid "port"
-msgstr "ataka"
-
-#: src/templates/ajax/setter/inverseMatchUnionSetter.mas:9
-#: src/templates/ajax/setter/inverseMatchSelectSetter.mas:13
-msgid "Inverse match"
-msgstr ""
-
-#: src/templates/ajax/setter/portRangeSetter.mas:23
-msgid "From"
-msgstr ""
-
-#: src/templates/ajax/setter/portRangeSetter.mas:29
-msgid "To"
-msgstr ""
-
-#: src/templates/ajax/modelViewer.mas:258 src/templates/formTable.mas:85
-msgid "Optional"
-msgstr ""
-
-#: src/templates/ajax/tablePager.mas:46
-#, fuzzy
-msgid "Page"
-msgstr "Aldatu"
-
-#: src/templates/ajax/tablePager.mas:47
-msgid "of"
-msgstr ""
-
-#: src/templates/ajax/tablePager.mas:60 src/templates/ajax/tablePager.mas:66
-msgid "first"
-msgstr ""
-
-#: src/templates/ajax/tablePager.mas:62 src/templates/ajax/tablePager.mas:67
-msgid "prev"
-msgstr ""
-
-#: src/templates/ajax/tablePager.mas:73 src/templates/ajax/tablePager.mas:74
-#: src/templates/ajax/tablePager.mas:85 src/templates/ajax/tablePager.mas:86
-msgid "next"
-msgstr ""
-
-#: src/templates/ajax/tablePager.mas:79 src/templates/ajax/tablePager.mas:80
-#: src/templates/ajax/tablePager.mas:89 src/templates/ajax/tablePager.mas:90
-msgid "last"
-msgstr ""
-
-#: src/templates/ebox/pageNotFound.mas:3
-msgid "Zentyal homepage"
-msgstr ""
-
-#: src/templates/ebox/pageNotFound.mas:7
-msgid "If you typed the URL manually, please check it"
-msgstr ""
-
-#: src/templates/ebox/pageNotFound.mas:8
-msgid ""
-"Maybe a change in the Zentyal configuration or software made no longer "
-"available the requested page"
-msgstr ""
-
-#: src/templates/ebox/pageNotFound.mas:9
-#, perl-brace-format
-msgid ""
-"If you need more help, you may want visit {homepage} for documentation and "
-"mailing lists"
-msgstr ""
-
-#: src/templates/ebox/pageNotFound.mas:12
-msgid "we're sorry"
-msgstr ""
-
-#: src/templates/ebox/pageNotFound.mas:13
-#, fuzzy
-msgid "The page cannot be found"
-msgstr "Ezin da orrialdea aurkitu"
-
-#: src/templates/title.mas:24
-msgid "show help"
-msgstr "laguntza ikusi"
-
-#: src/templates/title.mas:25
-msgid "hide help"
-msgstr "laguntza ezkutatu"
-
-#: src/templates/language.mas:10
-#, fuzzy
-msgid "Language Selection"
-msgstr "Hizkuntza hautapena"
-
-#: src/templates/language.mas:11
-msgid ""
-"Language changes happen automatically, saving the configuration it's not "
-"needed."
-msgstr ""
-"Hizkuntza aldaketak automatikoki geratzen dira , ez da konfigurazioa gorde "
-"behar."
+#: src/templates/enable.mas:22 src/templates/enable.mas:25
+msgid "Enabled"
+msgstr "Gaiturik"
