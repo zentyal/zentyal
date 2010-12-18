@@ -6,8 +6,9 @@ msgstr ""
 "Project-Id-Version: libebox 0.12.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-12-13 08:44+0100\n"
-"PO-Revision-Date: 2010-08-25 23:04+0200\n"
-"Last-Translator: José Antonio Calvo <jacalvo@ebox-platform.com>\n"
+"PO-Revision-Date: 2010-12-13 09:28+0100\n"
+"Last-Translator: Enrique José Hernández Blasco <quique@ebox-"
+"technologies.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -230,22 +231,20 @@ msgid "Read-only row: delete disabled"
 msgstr "Fila de solo lectura: borrado desactivado"
 
 #: src/templates/ajax/tableBody.mas:557
-#, fuzzy
 msgid "Read-only row: move up disabled"
-msgstr "Fila de solo lectura: edición desactivada"
+msgstr "Fila de solo lectura: movimiento hacia arriba desactivado"
 
 #: src/templates/ajax/tableBody.mas:561
 msgid "Move up"
-msgstr ""
+msgstr "Subir"
 
 #: src/templates/ajax/tableBody.mas:573
-#, fuzzy
 msgid "Read-only row: move down  disabled"
-msgstr "Fila de solo lectura: edición desactivada"
+msgstr "Fila de sólo lectura: movimiento hacia abajo desactivado"
 
 #: src/templates/ajax/tableBody.mas:577
 msgid "Move down"
-msgstr ""
+msgstr "Bajar"
 
 #: src/templates/ajax/tableSelector.mas:14
 msgid "Choose one of the options to show the associated table"
