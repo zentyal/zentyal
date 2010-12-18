@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2010 Zentyal Technologies S.L.
+# Copyright (C) 2008-2010 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -26,28 +26,29 @@ use EBox::Gettext;
 use EBox::Config;
 use EBox::Service;
 use EBox::Menu::Item;
-use EBox::Sudo qw( :all );
+use EBox::Sudo;
 use EBox::PrinterFirewall;
 use EBox::Printers::LogHelper;
 use Net::CUPS::Destination;
 use Net::CUPS;
+use Error qw(:try);
 
 use constant CUPSD => '/etc/cups/cupsd.conf';
 
 sub _create
 {
-	my $class = shift;
-	my $self = $class->SUPER::_create(name => 'printers',
-					  printableName => __n('Printer Sharing'),
-					  domain => 'ebox-printers' );
-	bless($self, $class);
-	$self->{'cups'} = new Net::CUPS;
-	return $self;
+    my $class = shift;
+    my $self = $class->SUPER::_create(name => 'printers',
+                                      printableName => __n('Printer Sharing'),
+                                      domain => 'ebox-printers' );
+    bless($self, $class);
+    $self->{'cups'} = new Net::CUPS;
+    return $self;
 }
 
 # Method: actions
 #
-#	Override EBox::Module::Service::actions
+#   Override EBox::Module::Service::actions
 #
 sub actions
 {
@@ -69,7 +70,7 @@ sub actions
 
 # Method: usedFiles
 #
-#	Override EBox::Module::Service::files
+#   Override EBox::Module::Service::files
 #
 sub usedFiles
 {
@@ -84,11 +85,12 @@ sub usedFiles
 
 # Method: enableActions
 #
-#	Override EBox::Module::Service::enableActions
+#   Override EBox::Module::Service::enableActions
 #
 sub enableActions
 {
-    root(EBox::Config::share() . '/ebox-printers/ebox-printers-enable');
+    EBox::Sudo::root(EBox::Config::share() .
+                     '/ebox-printers/ebox-printers-enable');
 }
 
 # Method: enableService
@@ -99,9 +101,9 @@ sub enableActions
 #
 sub enableService
 {
-	my ($self, $status) = @_;
+    my ($self, $status) = @_;
 
-	$self->SUPER::enableService($status);
+    $self->SUPER::enableService($status);
 
     my $samba = EBox::Global->modInstance('samba');
     $samba->setPrinterService($status);
@@ -150,7 +152,7 @@ sub firewallHelper
 
 # Method: _setConf
 #
-#	Override EBox::Module::Base::_setConf
+#   Override EBox::Module::Base::_setConf
 #
 sub _setConf
 {
@@ -182,36 +184,51 @@ sub _daemons
 
 sub menu
 {
-	my ($self, $root) = @_;
+    my ($self, $root) = @_;
 
-	my $item = new EBox::Menu::Item('name' => 'Printers Sharing',
-					    'url' => 'Printers/Composite/General',
-					    'text' => $self->printableName(),
-                        'separator' => 'Office',
-                        'order' => 550);
+    my $item = new EBox::Menu::Item('name' => 'Printers Sharing',
+                                    'url' => 'Printers/Composite/General',
+                                    'text' => $self->printableName(),
+                                    'separator' => 'Office',
+                                    'order' => 550);
 
-	$root->add($item);
+    $root->add($item);
 }
 
-# Method:  dumpConfig
+# Method: dumpConfig
 #
 #   Overrides EBox::Module::Base::dumpConfig
 #
 sub dumpConfig
 {
     my ($self, $dir, %options) = @_;
-    EBox::Sudo::root("cp -a /etc/cups $dir");
+
+    my $files = '/etc/cups/printers.conf /etc/cups/ppd';
+    try {
+        $self->_stopService();
+        EBox::Sudo::root("tar cf $dir/etc_cups.tar $files");
+        $self->_startService();
+    } otherwise {
+        EBox::error("Error dumping cups config to backup");
+    };
 }
 
-# Method:  restoreConfig
+# Method: restoreConfig
 #
 #   Overrides EBox::Module::Base::dumpConfig
 #
 sub restoreConfig
 {
     my ($self, $dir) = @_;
-    if (EBox::Sudo::fileTest('-d', "$dir/cups")) {
-        EBox::Sudo::root("cp -af $dir/cups /etc");
+
+    if (EBox::Sudo::fileTest('-f', "$dir/etc_cups.tar")) {
+        try {
+            $self->_stopService();
+            EBox::Sudo::root("tar xf $dir/etc_cups.tar -C /");
+            $self->_startService();
+        } otherwise {
+            EBox::error("Error restoring cups config from backup");
+        };
     } else {
         # This case can happen with old backups
         EBox::warn('Backup doesn\'t contain CUPS configuration files');
@@ -246,7 +263,7 @@ sub networkPrinters
 
 sub tableInfo
 {
-	my ($self) = @_;
+    my ($self) = @_;
 
     my $titles = { 'job' => __('Job ID'),
                    'printer' => __('Printer'),
@@ -303,16 +320,6 @@ sub consolidateReportQueries
                           'where' => q{(printers_jobs.job = printers_pages.job) and(event='queued')}
                         }
             }
-#            {
-#              target_table => 'printers_usage_per_user_report',
-#              'query' => {
-#                          'select' => 'username, SUM(pages) AS used_pages, COUNT(DISTINCT printers_jobs.printer) AS used_printers',
-#                           'from' => 'printers_pages,printers_jobs',
-#                           'group' => 'username',
-#                           'where' => q{(printers_jobs.job = printers_pages.job) and(event='queued')}
-#                         }
-#             }
-
            ];
 }
 
@@ -394,32 +401,32 @@ sub report
 
 sub logHelper
 {
-	my ($self) = @_;
+    my ($self) = @_;
 
-	return (new EBox::Printers::LogHelper());
+    return (new EBox::Printers::LogHelper());
 }
 
 # Method: fetchExternalCUPSPrinters
 #
-#	This method returns those printers that haven been configured
-#	by the user using CUPS.
+#   This method returns those printers that haven been configured
+#   by the user using CUPS.
 #
 # Returns:
 #
-#	Array ref - containing the printer names
+#   Array ref - containing the printer names
 #
 sub fetchExternalCUPSPrinters
 {
     my ($self) = @_;
 
-	my $cups = Net::CUPS->new();
+    my $cups = Net::CUPS->new();
 
-	my @printers;
-	foreach my $printer ($cups->getDestinations()) {
-		my $name = $printer->getName();
-		push (@printers, $name);
-	}
-	return \@printers;
+    my @printers;
+    foreach my $printer ($cups->getDestinations()) {
+        my $name = $printer->getName();
+        push (@printers, $name);
+    }
+    return \@printers;
 }
 
 1;
