@@ -1,3 +1,6 @@
+HEAD
+	+ Bugfix: Certificate generation works now when the base directory doesn't
+	  exist
 2.0.1
 	+ Certificates can be reissued after expiration or revocation
 1.5.4

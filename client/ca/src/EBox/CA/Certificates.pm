@@ -215,15 +215,20 @@ sub _genCert
     print $tempfile_fh @privkeydata;
     close($tempfile_fh);
 
+    my @commands;
+
     my $user = $srvcert->{'user'};
     my $group = $srvcert->{'group'};
-    EBox::Sudo::root("/bin/chown $user:$group $tempfile");
+    push (@commands, "/bin/chown $user:$group $tempfile");
 
     my $mode = $srvcert->{'mode'};
-    EBox::Sudo::root("/bin/chmod $mode $tempfile");
+    push (@commands, "/bin/chmod $mode $tempfile");
 
     my $path = $srvcert->{'path'};
-    EBox::Sudo::root("mv -f $tempfile $path");
+    push (@commands, "mkdir -p `dirname $path`");
+    push (@commands, "mv -f $tempfile $path");
+
+    EBox::Sudo::root(@commands);
 }
 
 # Method: _modsService
