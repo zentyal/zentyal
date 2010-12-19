@@ -316,7 +316,7 @@ sub _delUserWarning
         return;
 
     settextdomain('ebox-zarafa');
-    my $txt = __('This user has a Zarafa account. If the user currently connected it will continue connected until Zarafa authorization is again required.');
+    my $txt = __('This user has a Zarafa account. If the user is currently connected it will continue connected until Zarafa authorization is again required.');
     settextdomain('ebox-usersandgroups');
 
     return $txt;
