@@ -24,8 +24,13 @@ use base 'EBox::OpenVPN::Server::ClientBundleGenerator';
 
 sub bundleFilename
 {
-    my ($class, $serverName) = @_;
-    return EBox::Config::downloads() . "$serverName-client.tar.gz";
+    my ($class, $serverName, $cn) = @_;
+
+    my $filename = "$serverName-client";
+    if ($cn) {
+        $filename .= "-$cn";
+    }
+    return EBox::Config::downloads() . "$filename.tar.gz";
 }
 
 sub createBundleCmds

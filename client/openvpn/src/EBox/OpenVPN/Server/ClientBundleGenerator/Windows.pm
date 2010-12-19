@@ -29,8 +29,13 @@ use constant ZIP_PATH => '/usr/bin/zip';
 
 sub bundleFilename
 {
-    my ($class, $serverName) = @_;
-    return EBox::Config::downloads() . "$serverName-client.zip";
+    my ($class, $serverName, $cn) = @_;
+
+    my $filename = "$serverName-client";
+    if ($cn) {
+        $filename .= "-$cn";
+    }
+    return EBox::Config::downloads() . "$filename.zip";
 }
 
 sub createBundleCmds

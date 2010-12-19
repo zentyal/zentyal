@@ -1,6 +1,7 @@
 HEAD
 	+ Avoid useless log messages on VPN log files recreation
 	+ Bugfix: VPN client connections and disconnections are logged again
+	+ Client bundle filename includes now the certificate name
 	+ Changed download client bundle text to "Download"
 	+ Set default order for dashboard widgets
 2.0.4

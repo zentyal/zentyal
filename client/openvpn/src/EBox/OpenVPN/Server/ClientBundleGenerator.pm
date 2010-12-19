@@ -257,11 +257,12 @@ sub _confFile
 
 sub _createBundle
 {
-    my ($class, $server,  $tmpDir, @extraParams) = @_;
+    my ($class, $server,  $tmpDir, %extraParams) = @_;
 
-    my $bundle = $class->bundleFilename($server->name);
+    my $cn = $extraParams{clientCertificate};
+    my $bundle = $class->bundleFilename($server->name, $cn);
     my @createCmds    =
-      $class->createBundleCmds($bundle, $tmpDir, @extraParams);
+      $class->createBundleCmds($bundle, $tmpDir, %extraParams);
 
     try {
         foreach my $cmd (@createCmds) {
