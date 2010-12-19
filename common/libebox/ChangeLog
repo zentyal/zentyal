@@ -1,4 +1,4 @@
-HEAD
+2.0.5
 	+ Removed error message on file tests
 	+ Workaround for POST params validation with webkit based browsers
 	+ Added support for printableActionName in DataTable's
