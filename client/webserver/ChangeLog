@@ -1,5 +1,6 @@
 HEAD
-	+ Added backup domain  
+	+ Bugfix: certificate is re-issued if the hostname changes
+	+ Added backup domain
 1.5.5
 	+ Zentyal rebrand
 1.5.4

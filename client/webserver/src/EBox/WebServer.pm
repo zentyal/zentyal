@@ -632,6 +632,8 @@ sub _getCertificateSAN
 
     my $ca = EBox::Global->modInstance('ca');
     my $meta = $ca->getCertificateMetadata(cn => $cn);
+    return [] unless $meta;
+
     my @san = @{$meta->{subjAltNames}};
 
     my @vhosts;
