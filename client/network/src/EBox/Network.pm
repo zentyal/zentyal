@@ -3002,6 +3002,27 @@ sub _enforceServiceState
 #   EBox::Network::Report::ByteRate->_regenConfig();
 }
 
+
+# Method:  restoreConfig
+#
+#   Restore its configuration from the backup file.
+#
+# Parameters:
+#  dir - Directory where are located the backup files
+#
+sub restoreConfig
+{
+    my ($self, $dir) = @_;
+
+    # Set all configured ifaces as changed
+    foreach my $iface (@{$self->allIfaces()}) {
+        $self->_setChanged($iface);
+    }
+
+    $self->SUPER::restoreConfig();
+}
+
+
 sub _stopService
 {
     my $self = shift;

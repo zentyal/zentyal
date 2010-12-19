@@ -1,4 +1,5 @@
 HEAD
+	+ Set all interfaces as changed on backup restore
 	+ PPPOE MTU is now changed when reconfiguring gateways
 	+ Set default order for dashboard widgets
 2.0.6
