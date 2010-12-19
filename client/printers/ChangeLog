@@ -4,6 +4,7 @@
 	+ Added network as dependency of printers
 	+ Include support for HP printers by default
 	+ Remove duplicated table creation in enable script
+	+ cups init.d script is disabled when enabling the module
 2.0.1
 	+ Bug fix: cups daemon is now started before samba one
 1.5.2

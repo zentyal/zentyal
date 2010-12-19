@@ -64,6 +64,12 @@ sub actions
         'reason' => __('Zentyal will create a new table into its log database ' .
                        'to store printers logs'),
         'module' => 'printers'
+    },
+    {
+        'action' => __x('Disable {server} init script', server => 'cups'),
+        'reason' => __('Zentyal will take care of start and stop ' .
+                       'the service'),
+        'module' => 'printers',
     }
     ];
 }

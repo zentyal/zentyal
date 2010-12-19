@@ -1,7 +1,8 @@
 #!/bin/bash
 
-# stop cups
+# stop and disable cups
 invoke-rc.d cups stop
+update-rc.d cups disable
 
 # create spool
 if [ ! -d /var/spool/samba ]; then
