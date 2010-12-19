@@ -1,19 +1,34 @@
 #!/bin/bash
 
+ARCH=$1
+
+if [ "$ARCH" != "i386" -a "$ARCH" != "amd64" ]
+then
+    echo "Usage: $0 [i386|amd64]"
+    exit 1
+fi
+
+CD_IMAGE="cd-image-$ARCH/pool"
+BASE="../.."
+
+cd $CD_IMAGE
+
 for dir in main extras
 do
-	echo -n > ${dir}_WITH_VERSIONS
-	echo -n > ${dir}_WITHOUT_VERSIONS
-	echo -n > REMOVE_${dir}
+	echo -n > $BASE/${dir}_WITH_VERSIONS
+	echo -n > $BASE/${dir}_WITHOUT_VERSIONS
+	echo -n > $BASE/REMOVE_${dir}
 
 	for i in `find $dir -name "*.deb"`
 	do
 		NAME=`echo $i | sed 's/.*\///g' | cut -d'_' -f1`
 		VERSION=`dpkg-deb --info $i | grep ^" Version:" | cut -d' ' -f3`
-		echo "$NAME $VERSION" >> ${dir}_WITH_VERSIONS
-		echo $NAME >> ${dir}_WITHOUT_VERSIONS
+		echo "$NAME $VERSION" >> $BASE/${dir}_WITH_VERSIONS
+		echo $NAME >> $BASE/${dir}_WITHOUT_VERSIONS
 	done
 done
+
+cd -
 
 cat main_WITHOUT_VERSIONS extras_WITHOUT_VERSIONS | sort | uniq -c | cut -c7- | grep -v ^1 | cut -d' ' -f2 > DUPLICATED_PACKAGES
 
@@ -34,7 +49,7 @@ done
 
 # be careful with duplicated packages in extras
 # the older version has to be removed manually by now
-ls extras | cut -d'_' -f1 | uniq -c | grep -v "    1" | cut -d' ' -f8- > NO_REMOVE
+ls extras-$ARCH | cut -d'_' -f1 | uniq -c | grep -v "    1" | cut -d' ' -f8- > NO_REMOVE
 
 cp REMOVE_extras FINAL_REMOVE
 
