@@ -267,6 +267,40 @@ sub _key # (key)
     my ($self, $key) = @_;
     return $self->_helper->key($key);
 }
+#############
+
+sub _entry_exists # (key)
+{
+    my ($self, $key) = @_;
+    $key = $self->_key($key);
+    return $self->{redis}->exists($key);
+}
+
+# Method: entry_exists
+#
+#       Given a key referencing an entry tells you if it exists
+#
+# Parameters:
+#
+#       key - entry key
+#
+# Returns:
+#
+#       boolean - True if it exists
+#
+sub entry_exists # (key)
+{
+    my ($self, $key) = @_;
+    $self->_config;
+    return $self->_entry_exists($key);
+}
+
+sub st_entry_exists # (key)
+{
+    my ($self, $key) = @_;
+    $self->_state;
+    return $self->_entry_exists($key);
+}
 
 #############
 
