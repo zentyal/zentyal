@@ -691,15 +691,22 @@ sub _issueCertificate
     my $caMD = $ca->getCACertificateMetadata();
     my $certMD = $ca->getCertificateMetadata(cn => $cn);
 
-    if ((not defined($certMD)) or ($certMD->{state} eq 'V')) {
-        $ca->renewCertificate(commonName => $cn,
-                              endDate => $caMD->{expiryDate},
-                              subjAltNames => $self->_subjAltNames());
-    } else {
-        $ca->issueCertificate(commonName => $cn,
-                              endDate => $caMD->{expiryDate},
-                              subjAltNames => $self->_subjAltNames());
+    # If a certificate exists, check if it can still be used
+    if (defined($certMD)) {
+        my $isStillValid = ($certMD->{state} eq 'V');
+        my $isAvailable = (-f $certMD->{path});
+
+        if ($isStillValid and $isAvailable) {
+            $ca->renewCertificate(commonName => $cn,
+                                  endDate => $caMD->{expiryDate},
+                                  subjAltNames => $self->_subjAltNames());
+            return;
+        }
     }
+
+    $ca->issueCertificate(commonName => $cn,
+                          endDate => $caMD->{expiryDate},
+                          subjAltNames => $self->_subjAltNames());
 }
 
 # Check if we need to regenerate the certificate

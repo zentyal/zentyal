@@ -1,3 +1,6 @@
+HEAD
+	+ Bugfix: webserver ssl certificate is reissued instead of renewed if
+	  the file is not found
 2.0.1
 	+ Bugfix: certificate is re-issued if the hostname changes
 	+ Added backup domain
