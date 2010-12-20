@@ -2,10 +2,10 @@ Howto create the install CD
 
 1) Edit configuration file
 
-You must edit the file 'build_cd.conf' to reflect your environment. At least you
-will need to change the MAINTAINER_ADRESS and YOURKEYID items, probably also the
-BASE_DIR variable.  The UBUNTU_KEYRING_TAR and UBUNTU_KEYRING_DIR must changed
-to reflect the version number of the package.  The VERSION and the
+You must edit the file 'build_cd.conf.local' to reflect your environment.
+At least you will need to specify the SVN_ROOT, MAINTAINER_ADRESS and
+YOURKEYID variables. The UBUNTU_KEYRING_TAR and UBUNTU_KEYRING_DIR must be
+changed to reflect the version number of the package.  The VERSION and the
 VERSION_NUMBER keys must reflect the version name and number of the Ubuntu
 version remastered for create the CD.
 Instead of editing 'build_cd.conf' directly you should put your local data
