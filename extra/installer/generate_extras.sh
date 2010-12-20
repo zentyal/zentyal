@@ -40,3 +40,5 @@ cat /tmp/extra-packages.list | xargs sudo chroot $CHROOT apt-get install --downl
 rm /tmp/extra-packages.list
 
 cp $CHROOT/var/cache/apt/archives/*.deb $EXTRAS_DIR/
+
+./replace-metapackages.sh $ARCH
