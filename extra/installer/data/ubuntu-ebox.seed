@@ -75,6 +75,8 @@ ddclient    ddclient/password   password
 ddclient    ddclient/daemon_interval    string  300
 ddclient    ddclient/service    select  www.dyndns.com
 
+snort    snort/interface   string  
+
 # eBox answers
 ebox ebox/port string 443
 
