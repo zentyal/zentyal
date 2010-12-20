@@ -3,8 +3,15 @@
 test -r build_cd.conf || exit 1
 . ./build_cd.conf
 
+SELECTED_ARCH=$1
+
 for ARCH in $ARCHS
 do
+    if [ $ARCH != $SELECTED_ARCH ]
+    then
+        continue
+    fi
+
     CD_BUILD_DIR="$CD_BUILD_DIR_BASE-$ARCH"
     EXTRAS_DIR="$EXTRAS_DIR_BASE-$ARCH"
     ISO_IMAGE="$ISO_IMAGE_BASE-$ARCH.iso"
