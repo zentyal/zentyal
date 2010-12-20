@@ -58,6 +58,7 @@ parseArgs();
 $xauthCookie = _xauthCookie();
 
 EBox::init();
+settextdomain('ebox-ebackup');
 
 if ($usesX) {
     zenityPrecondition();
