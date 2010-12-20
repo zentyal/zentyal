@@ -47,6 +47,7 @@ use EBox::Exceptions::DataInUse;
 use EBox;
 use EBox::CA::Certificates;
 use EBox::Validate;
+use EBox::Sudo;
 
 use constant TEMPDIR     => "/tmp"; # EBox::Config->tmp();
 use constant OPENSSLPATH => "/usr/bin/openssl";
@@ -1813,24 +1814,35 @@ sub menu
 #       dir - Directory where the modules backup files are dumped
 #
 sub dumpConfig
-  {
-
+{
     my ($self, $dir) = @_;
 
     # Call super
     $self->SUPER::dumpConfig($dir);
 
     if ( -d CATOPDIR ) {
-      # Storing all OpenSSL directory tree where Certs/keys and DB are stored
-      dircopy(CATOPDIR, $dir . "/CA");
+        # Storing all OpenSSL directory tree where Certs/keys and DB are stored
+        dircopy(CATOPDIR, $dir . "/CA");
     }
 
     if ( -f SSLCONFFILE ) {
-      # Storing OpenSSL config file
-      fcopy(SSLCONFFILE, $dir . "/openssl.cnf");
+        # Storing OpenSSL config file
+        fcopy(SSLCONFFILE, $dir . "/openssl.cnf");
     }
 
-  }
+    # Dump services certificates
+    my @srvCerts = @{EBox::CA::Certificates->srvsCerts()};
+    my @paths;
+    foreach my $certificate (@srvCerts) {
+        if (-f $certificate->{'path'}) {
+            push(@paths, $certificate->{'path'});
+        }
+    }
+    if (@paths) {
+        my $pathsStr = join(' ', @paths);
+        EBox::Sudo::root("tar cf $dir/srvCerts.tar $pathsStr");
+    }
+}
 
 # Method:  restoreConfig
 #
@@ -1841,7 +1853,7 @@ sub dumpConfig
 #  dir - Directory where are located the backup files
 #
 sub restoreConfig
-  {
+{
 
     my ($self, $dir) = @_;
 
@@ -1852,13 +1864,29 @@ sub restoreConfig
     # Restoring all OpenSSL directory tree where Certs/keys and DB are stored
     my $dataDir = $dir . '/CA';
     if (-d $dataDir) {
-      dircopy($dataDir, CATOPDIR);
+        dircopy($dataDir, CATOPDIR);
     }
 
     # Restoring OpenSSL config file
     fcopy($dir . "/openssl.cnf", SSLCONFFILE);
 
-  }
+    # Restore services certificates
+    if (-f "$dir/srvCerts.tar") {
+        my @commands;
+        push(@commands, "tar xfp $dir/srvCerts.tar -C /");
+
+        my @srvCerts = @{EBox::CA::Certificates->srvsCerts()};
+        foreach my $certificate  (@srvCerts) {
+            my $certPath = $certificate->{'path'};
+            if (-f $certPath) {
+                my $certUser = $certificate->{'user'};
+                my $certGroup = $certificate->{'group'};
+                push(@commands, "chown $certUser:$certGroup $certPath");
+            }
+        }
+        EBox::Sudo::root(@commands);
+    }
+}
 
 # Method: showModuleStatus
 #

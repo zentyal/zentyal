@@ -1,3 +1,5 @@
+HEAD
+	+ Services certificates are stored in backups
 2.0.2
 	+ Bugfix: Certificate generation works now when the base directory doesn't
 	  exist
