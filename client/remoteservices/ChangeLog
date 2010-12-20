@@ -3,6 +3,7 @@ HEAD
 	+ Added API to get the list of registered Zentyal servers
 	+ Added API to get the backup credentials if available
 	+ Added API to know if the disaster recovery add-on is on
+	+ Fixed problems with cache values
 2.0.6
 	+ Typo fix to run cron job when the period says to do
 	+ Set default order for dashboard widgets
