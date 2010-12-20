@@ -1,4 +1,7 @@
 HEAD
+	+ Show DHCP as default option in wizards if there is only one interface
+	+ Avoid problems when removing interfaces (vlan, briges)
+	+ Fixed support for bridged vlans configuration
 	+ Set all interfaces as changed on backup restore
 	+ PPPOE MTU is now changed when reconfiguring gateways
 	+ Set default order for dashboard widgets

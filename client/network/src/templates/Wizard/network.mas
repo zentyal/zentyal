@@ -9,6 +9,14 @@ my @ifaces = ( @extifaces, @intifaces );
 my $numExt = scalar @extifaces;
 my $counter = 0;
 
+# Set DCHP as default value if there is only one iface
+my $selectedNotSet = 'selected';
+my $selectedDHCP = '';
+if (scalar @ifaces == 1) {
+    $selectedNotSet = '';
+    $selectedDHCP = 'selected';
+}
+
 </%init>
 <script type="text/javascript">
     changeState = function(iface) {
@@ -40,9 +48,9 @@ my $counter = 0;
                    <td><% __('Method') %>:</td>
                    <td>
                      <select id='<% $iface %>_method' name='<% $iface %>_method' onchange="changeState('<% $iface %>')">
-                       <option selected value='notset'><% __('Don\'t configure') %></option>
+                       <option <% $selectedNotSet %> value='notset'><% __('Don\'t configure') %></option>
 % unless ($limit) {
-                       <option value='dhcp'>DHCP</option>
+                       <option <% $selectedDHCP %> value='dhcp'>DHCP</option>
 % }
                        <option value='static'>Static</option>
                      </select>

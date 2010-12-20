@@ -2583,10 +2583,12 @@ sub generateInterfaces
     print IFACES "\n\niface lo inet loopback\n";
     foreach my $ifname (@{$iflist}) {
         my $method = $self->ifaceMethod($ifname);
+        my $bridgedVlan = $method eq 'bridged' and $ifname =~ /^vlan/;
 
         if (($method ne 'static') and
             ($method ne 'ppp') and
-            ($method ne 'dhcp')) {
+            ($method ne 'dhcp') and
+            (not $bridgedVlan)) {
             next;
         }
 
@@ -2594,6 +2596,10 @@ sub generateInterfaces
         if ($method eq 'ppp') {
             $name = "ebox-ppp-$ifname";
             print IFACES "auto $name\n";
+        }
+
+        if ($bridgedVlan) {
+            $method = 'manual';
         }
 
         print IFACES "iface $name inet $method\n";
@@ -2894,14 +2900,16 @@ sub _preSetConf
     foreach my $if (@{$iflist}) {
         if ($self->_hasChanged($if)) {
             try {
-                my $ifname = $if;
-                if ($self->ifaceMethod($if) eq 'ppp') {
-                    $ifname = "ebox-ppp-$if";
-                } else {
-                    root("/sbin/ip address flush label $if");
-                    root("/sbin/ip address flush label $if:*");
+                if ($self->ifaceExists($if)) {
+                    my $ifname = $if;
+                    if ($self->ifaceMethod($if) eq 'ppp') {
+                        $ifname = "ebox-ppp-$if";
+                    } else {
+                        root("/sbin/ip address flush label $if");
+                        root("/sbin/ip address flush label $if:*");
+                    }
+                    root("/sbin/ifdown --force -i $file $ifname");
                 }
-                root("/sbin/ifdown --force -i $file $ifname");
             } catch EBox::Exceptions::Internal with {};
             #remove if empty
             if ($self->_isEmpty($if)) {
@@ -2913,8 +2921,10 @@ sub _preSetConf
         # Clean up dhcp state if interface is not DHCP or
         # PPPoE it should be done by the dhcp, but sometimes
         # cruft is left
-        unless ($self->ifaceMethod($if) eq any('dhcp', 'ppp')) {
-            $self->DHCPCleanUp($if);
+        if ($self->ifaceExists($if)) {
+            unless ($self->ifaceMethod($if) eq any('dhcp', 'ppp')) {
+                $self->DHCPCleanUp($if);
+            }
         }
     }
 }
@@ -2955,7 +2965,6 @@ sub _enforceServiceState
 
     my @ifups = ();
     my $iflist = $self->allIfacesWithRemoved();
-    $iflist = $self->allIfacesWithRemoved();
     foreach my $iface (@{$iflist}) {
         if ($self->_hasChanged($iface) or $restart) {
             if ($self->ifaceMethod($iface) eq 'ppp') {
@@ -3285,7 +3294,9 @@ sub BridgedCleanUp # (interface)
     my $bridge = $self->ifaceBridge($iface);
 
     # this changes the bridge
-    $self->_setChanged("br$bridge");
+    if ($self->ifaceIsBridge("br$bridge")) {
+        $self->_setChanged("br$bridge");
+    }
 
     $self->unset("interfaces/$iface/bridge_id");
     $self->_removeEmptyBridges();
