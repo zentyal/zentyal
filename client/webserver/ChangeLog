@@ -1,4 +1,4 @@
-HEAD
+2.0.2
 	+ Bugfix: webserver ssl certificate is reissued instead of renewed if
 	  the file is not found
 2.0.1

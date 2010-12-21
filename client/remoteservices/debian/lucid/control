@@ -7,7 +7,7 @@ Standards-Version: 3.8.2
 
 Package: ebox-remoteservices
 Architecture: all
-Depends: ebox (>= 2.0), ebox (<< 2.0.100), ebox-monitor, ebox-openvpn, libarchive-tar-perl, libsoap-lite-perl, libnet-dns-perl, liblinux-inotify2-perl, libdigest-sha-perl, libdate-calc-perl, libtext-csv-perl, screen, john (>= 1.7.6), libapt-pkg-perl, apache2 (>=2.2.14-5ubuntu8.2), ${misc:Depends}
+Depends: ebox (>= 2.0.11), ebox (<< 2.0.100), ebox-monitor, ebox-openvpn, libarchive-tar-perl, libsoap-lite-perl, libnet-dns-perl, liblinux-inotify2-perl, libdigest-sha-perl, libdate-calc-perl, libtext-csv-perl, screen, john (>= 1.7.6), libapt-pkg-perl, apache2 (>=2.2.14-5ubuntu8.2), ${misc:Depends}
 Description: Zentyal - Zentyal Cloud Client
  Zentyal is a Linux small business server that can act as
  a Gateway, Unified Threat Manager, Office Server, Infrastructure

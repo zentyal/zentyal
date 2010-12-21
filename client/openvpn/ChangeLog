@@ -1,4 +1,4 @@
-HEAD
+2.0.5
 	+ Avoid useless log messages on VPN log files recreation
 	+ Bugfix: VPN client connections and disconnections are logged again
 	+ Client bundle filename includes now the certificate name
