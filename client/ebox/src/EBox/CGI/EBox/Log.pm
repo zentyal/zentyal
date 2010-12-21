@@ -58,7 +58,7 @@ sub _print
 
     print "Installed packages\n";
     print "------------------\n\n";
-    my $output = EBox::Sudo::root("dpkg -l | grep ebox | awk '{ print " . '$2 ": " $3 ' . "}'");
+    my $output = EBox::Sudo::root("dpkg -l | grep ebox | awk '{ print " . '$1 " " $2 ": " $3 ' . "}'");
     print @ { $output };
     print "\n\n";
 

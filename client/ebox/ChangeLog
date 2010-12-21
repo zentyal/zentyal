@@ -1,4 +1,5 @@
 HEAD
+	+ Include status of packages in the downloadable bug report
 	+ Bugfix: Avoid possible problems deleting redis.first file if not exist
 2.0.11
 	+ New methods entry_exists and st_entry_exists in config backend
