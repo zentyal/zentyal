@@ -628,17 +628,16 @@ sub restoreConfig
                                            revokeAllOnModuleFail => 0);
 
     my $retValue = progress($progressIndicator, __('Restoring configuration backup'));
-    if ($retValue > 0) {
+    if ($retValue != 0) {
         my $errorMsg = $progressIndicator->errorMsg();
-        $errorMsg or
-            $errorMsg = __('Unknown error');
-        my $msg = $errorMsg . "\n";
-        $msg .= __('The configuration restore failed. We will continue the process to try to restore as much as possible but your system will need manual tweaking');
-
-        warning($msg);
-        return;
-    } elsif ($retValue < 0) {
-        EBox::warn("Progress indicator give a undetermined return value: $retValue. Probably this would be harmless");
+        if ($errorMsg) {
+            my $msg = $errorMsg . "\n";
+            $msg .= __('The configuration restore failed. We will continue the process to try to restore as much as possible but your system will need manual tweaking');
+            error($msg);
+            return;
+        } else {
+            EBox::warn("Progress indicator for restoreConfig does not specify any error but has returned the following value: $retValue.");
+        }
     }
 
     postRestoreConfigMangling();
@@ -1849,13 +1848,14 @@ sub saveChanges
     my $retValue = progress($progressIndicator, $msg);
     if ($retValue != 0) {
         my $errorMsg = $progressIndicator->errorMsg();
-        $errorMsg or
-            $errorMsg = __('Unknown error');
-        my $msg = $errorMsg . "\n";
-        $msg .= __('Error saving configuration changes; some Zentyal modules would remain in a unknown state');
-
-        warning($msg);
-        return;
+        if ($errorMsg) {
+            my $msg = $errorMsg . "\n";
+            $msg .= __('Error saving configuration changes; some Zentyal modules would remain in a unknown state');
+            error($msg);
+            return;
+        } else {
+            EBox::warn("Progress indicator for saveChanges does not specify any error but has returned the following value: $retValue.");
+        }
     }
 }
 
