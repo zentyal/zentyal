@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-12-20 23:49+0100\n"
+"POT-Creation-Date: 2010-12-21 19:24+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -110,6 +110,23 @@ msgid ""
 "monitored and recovered easily quickly in case of a disaster. You gain "
 "access to this service by obtaining the {service} service and Professional "
 "or Enterprise Server Subscription."
+msgstr ""
+
+#: ../ebackup/tools/restore-tool:1970
+msgid ""
+"If you had Zentyal Disaster Recovery, you would have been able to restore "
+"module data as well as the configuration you are about to recover"
+msgstr ""
+
+#: ../ebackup/tools/restore-tool:2025
+msgid "Your configuration backup is now restored!"
+msgstr ""
+
+#: ../ebackup/tools/restore-tool:2026
+msgid ""
+"Perhaps you were interested in the Zentyal Disaster Recovery service? It "
+"allows you to store critical data easily and safely in a remote location, as "
+"well as to restore this data and system configuration in case of a disaster."
 msgstr ""
 
 #: ../software/src/templates/ebox.mas:246
