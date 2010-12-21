@@ -140,7 +140,7 @@ sub proxyDomain
 sub _setConf
 {
     my ($self) = @_;
-    
+
     if ($self->eBoxSubscribed()) {
         $self->_confSOAPService();
         $self->_establishVPNConnection();
@@ -677,7 +677,7 @@ sub subscriptionLevel
 
     $force = 0 unless defined($force);
 
-    if ( (not $force) and ($self->st_keyInSubdirExists('subscription/level')) ) {
+    if ( (not $force) and ($self->st_entry_exists('subscription/level')) ) {
         return $self->st_get_int('subscription/level');
     } else {
         # Ask to the cloud if connected
@@ -716,7 +716,7 @@ sub subscriptionCodename
     $force = 0 unless defined($force);
 
     if ( (not $force)
-         and ($self->st_keyInSubdirExists('subscription/codename')) ) {
+         and ($self->st_entry_exists('subscription/codename')) ) {
         return $self->st_get_string('subscription/codename');
     } else {
         # Ask to the cloud if connected
@@ -751,7 +751,7 @@ sub securityUpdatesAddOn
     $force = 0 unless defined($force);
 
     if ( (not $force)
-         and ($self->st_keyInSubdirExists('subscription/securityUpdates')) ) {
+         and ($self->st_entry_exists('subscription/securityUpdates')) ) {
         return $self->st_get_bool('subscription/securityUpdates');
     } else {
         # Ask to the cloud if connected
@@ -786,7 +786,7 @@ sub disasterRecoveryAddOn
     $force = 0 unless defined($force);
 
     if ( (not $force)
-         and ($self->st_keyInSubdirExists('subscription/disasterRecovery')) ) {
+         and ($self->st_entry_exists('subscription/disasterRecovery')) ) {
         return $self->st_get_bool('subscription/disasterRecovery');
     } else {
         # Ask to the cloud if connected
@@ -835,7 +835,7 @@ sub backupCredentials
 {
     my ($self, %args) = @_;
 
-    if ( $args{force} or not $self->st_keyInSubdirExists('disaster_recovery/username')  ) {
+    if ( $args{force} or not $self->st_entry_exists('disaster_recovery/username')  ) {
         my $cred;
         if ( $self->isConnected() ) {
             my $disRecAgent = new EBox::RemoteServices::DisasterRecovery();
@@ -1453,31 +1453,11 @@ sub restoreConfig
 sub clearCache
 {
     my ($self) = @_;
-    
+
     my @cacheDirs = qw(subscription disaster_recovery);
     foreach my $dir (@cacheDirs) {
         $self->st_delete_dir($dir);
     }
-}
-
-
-sub st_keyInSubdirExists
-{
-    my ($self, $key) = @_;
-    my @parts = split '/', $key;
-    if (@parts != 2) {
-        throw EBox::Exceptions::Internal("This method is only for keys in 1-depth subdir like 'foo/bar'");
-    }
-
-    my ($dir, $entryKey) = @parts;
-    my @entries = @{ $self->st_all_entries_base($dir) };
-    foreach my $entryInDir (@entries) {
-        if ($entryInDir eq $entryKey) {
-            return 1;
-        }
-    }
-    
-    return 0;
 }
 
 1;
