@@ -111,7 +111,7 @@ case "$1" in
         if [ -f /var/lib/ebox/.first -a -z "$2" ]; then
             kill -9 `cat /var/lib/ebox/redis.ebox.pid`
         fi
-        rm /var/lib/ebox/conf/redis.first
+        rm -f /var/lib/ebox/conf/redis.first
 
         ;;
 	triggered)
