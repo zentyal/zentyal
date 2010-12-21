@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-ebackup 1.3.3\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-12-21 23:00+0100\n"
+"POT-Creation-Date: 2010-12-21 23:09+0100\n"
 "PO-Revision-Date: 2010-01-17 21:53+0100\n"
 "Last-Translator: Ersan YILDIRIM <yakazan@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
@@ -790,8 +790,8 @@ msgid "Configuring modules"
 msgstr "Yapılandırma ve Durum"
 
 #: tools/restore-tool:1029
-#, perl-format, perl-brace-format
-msgid "Configuring modules {p}% done. Current module {mod}"
+#, perl-brace-format
+msgid "Configuring modules {p} done. Current module {mod}"
 msgstr ""
 
 #: tools/restore-tool:1048
