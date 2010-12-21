@@ -1207,7 +1207,7 @@ sub _basicBackupDate
     my $commonName = $credentials->{commonName};
     my $allBackups = $remoteBackup->listRemoteBackups();
     if (not exists $allBackups->{$commonName}) {
-        fatal(__x('No automatic configuration backups were made for the server {s}',
+        warning(__x('No automatic configuration backups were made for the server {s}',
                   s => $commonName
                  )
             );
@@ -1920,15 +1920,15 @@ sub getUserAndPasswordAndServers
         if (not $password) {
             $password = password(__('Zentyal Cloud Password'));
         }
-    }
 
-    try {
-        $servers = serverList($remoteServices, $user, $password);
-    } otherwise {
-        my $ex = shift;
-        showException($ex);
-        $user = $password = '';
-    };
+        try {
+            $servers = serverList($remoteServices, $user, $password);
+        } otherwise {
+            my $ex = shift;
+            showException($ex);
+            $user = $password = '';
+        };
+    }
 
     unless (defined $servers and @{$servers}) {
         fatal(__x("The account {user} do not have any registered Zentyal servers",

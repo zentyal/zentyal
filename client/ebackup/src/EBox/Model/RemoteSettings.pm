@@ -880,7 +880,7 @@ sub _actualValues
 
 
 # we check that we have the target/user/password complete if eBox storage is selected
-# bz is the defualt configuration and it is not complete. The validation methods
+# bz is the default configuration and it is not complete. The validation methods
 # avoids that the configuration is incomplete in other cases so we must only
 # check this
 sub configurationIsComplete
