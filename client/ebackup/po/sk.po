@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-ebackup 1.3.3\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-12-21 00:20+0100\n"
+"POT-Creation-Date: 2010-12-21 23:00+0100\n"
 "PO-Revision-Date: 2010-09-14 14:17+0200\n"
 "Last-Translator: Bokor Pavol <bokor@4enzo.net>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
@@ -108,7 +108,7 @@ msgstr ""
 msgid "Domains to back up"
 msgstr ""
 
-#: src/EBox/Model/BackupDomains.pm:182 tools/restore-tool:340
+#: src/EBox/Model/BackupDomains.pm:182 tools/restore-tool:341
 #, fuzzy
 msgid "Backup domain"
 msgstr "Dátum zálohy"
@@ -527,186 +527,182 @@ msgstr ""
 msgid "Configuration and Status"
 msgstr ""
 
-#: tools/restore-tool:97
+#: tools/restore-tool:98
 msgid ""
 "No backups found in this server with this encryption mode. Do you want to "
 "retry with a different server or encryption mode?"
 msgstr ""
 
-#: tools/restore-tool:163
+#: tools/restore-tool:164
 #, perl-brace-format
 msgid "You can only specify one of the encryption options: {sy}, {asy} y {no}"
 msgstr ""
 
-#: tools/restore-tool:180
+#: tools/restore-tool:181
 msgid "Zenity package not found. Falling back to terminal mode"
 msgstr ""
 
-#: tools/restore-tool:193
+#: tools/restore-tool:194
 msgid "User for the authentication"
 msgstr ""
 
-#: tools/restore-tool:195
+#: tools/restore-tool:196
 msgid ""
 "Password for the authentication. This password will be shown both in the "
 "command line and in the process list so only use this option when security "
 "is not a concern"
 msgstr ""
 
-#: tools/restore-tool:199
+#: tools/restore-tool:200
 msgid "Server from which its backup date the restore will be done"
 msgstr ""
 
-#: tools/restore-tool:201
+#: tools/restore-tool:202
 msgid "Use the last backup done for the restore"
 msgstr ""
 
-#: tools/restore-tool:203
+#: tools/restore-tool:204
 msgid "Backup domain to restore. It could be repeated several times"
 msgstr ""
 
-#: tools/restore-tool:205
+#: tools/restore-tool:206
 msgid ""
 "Check if we use the no encryption, a symmetric scheme with password or "
 "asymmetric scheme with a private key"
 msgstr ""
 
-#: tools/restore-tool:208
+#: tools/restore-tool:209
 msgid "Do not use graphical interface"
 msgstr ""
 
-#: tools/restore-tool:229
+#: tools/restore-tool:230
 #, perl-brace-format
 msgid "Module {mod} should be installed"
 msgstr ""
 
-#: tools/restore-tool:235
+#: tools/restore-tool:236
 #, perl-brace-format
 msgid "Module {mod} should be configured"
 msgstr ""
 
-#: tools/restore-tool:247
+#: tools/restore-tool:248
 msgid ""
 "Could not automatically update system hour. Some restoration operations "
 "could fail if the date is not correct"
 msgstr ""
 
-#: tools/restore-tool:257
+#: tools/restore-tool:258
 msgid "Choose the server to restore"
 msgstr ""
 
-#: tools/restore-tool:258
+#: tools/restore-tool:259
 msgid "Server"
 msgstr ""
 
-#: tools/restore-tool:262
+#: tools/restore-tool:263
 msgid "Server to restore: "
 msgstr ""
 
-#: tools/restore-tool:277
+#: tools/restore-tool:278
 #, perl-brace-format
 msgid "Enter symmetric password used to back up {ser}: "
 msgstr ""
 
-#: tools/restore-tool:279
+#: tools/restore-tool:280
 #, perl-brace-format
 msgid "Enter ID of encryption key used to back up {ser}"
 msgstr ""
 
-#: tools/restore-tool:280
+#: tools/restore-tool:281
 #, perl-brace-format
 msgid "Enter passphrase for GPG key {id}"
 msgstr ""
 
-#: tools/restore-tool:290
+#: tools/restore-tool:291
 #, perl-brace-format
 msgid "What encryption mode was used for the backups of {cn}?"
 msgstr ""
 
-#: tools/restore-tool:294
+#: tools/restore-tool:295
 msgid "No encryption"
 msgstr ""
 
-#: tools/restore-tool:295
+#: tools/restore-tool:296
 msgid "Symmetric password"
 msgstr ""
 
-#: tools/restore-tool:307
+#: tools/restore-tool:308
 msgid "Mode"
 msgstr ""
 
-#: tools/restore-tool:313
+#: tools/restore-tool:314
 #, perl-brace-format
 msgid "Available options: {ops}"
 msgstr ""
 
-#: tools/restore-tool:317
+#: tools/restore-tool:318
 msgid "Enter selected option: "
 msgstr ""
 
-#: tools/restore-tool:339
+#: tools/restore-tool:340
 msgid "Select backup domains to restore"
 msgstr ""
 
-#: tools/restore-tool:348
+#: tools/restore-tool:349
 #, perl-brace-format
 msgid "Backup domains available in this server: {l}"
 msgstr ""
 
-#: tools/restore-tool:365
+#: tools/restore-tool:366
 msgid "No backup domain selected to restore. Doing nothing"
 msgstr ""
 
-#: tools/restore-tool:377
+#: tools/restore-tool:378
 msgid "Retrieving registered servers list"
 msgstr ""
 
-#: tools/restore-tool:417
+#: tools/restore-tool:418
 msgid "No key passphrase"
 msgstr ""
 
-#: tools/restore-tool:424
+#: tools/restore-tool:425
 msgid "No password in retrieved credentials"
 msgstr ""
 
-#: tools/restore-tool:436
+#: tools/restore-tool:437
 msgid "Retrieving account information"
 msgstr ""
 
-#: tools/restore-tool:503
+#: tools/restore-tool:504
 msgid "No registered Zentyal Servers"
 msgstr ""
 
-#: tools/restore-tool:509
+#: tools/restore-tool:510
 msgid "Registered Zentyal Servers"
 msgstr ""
 
-#: tools/restore-tool:562
+#: tools/restore-tool:563
 #, fuzzy
 msgid "Restoring files"
 msgstr "Obnoviť súbory"
 
-#: tools/restore-tool:588
+#: tools/restore-tool:589
 #, perl-brace-format
 msgid ""
 "Cannot restore file {file} requested by backup domains. Reason: {reason}"
 msgstr ""
 
-#: tools/restore-tool:607
+#: tools/restore-tool:608
 msgid "Backup log data not found, log database will not be restored"
 msgstr ""
 
-#: tools/restore-tool:611
+#: tools/restore-tool:612
 #, fuzzy
 msgid "Restoring log database"
 msgstr "Obnoviť záznamy databázy"
 
-#: tools/restore-tool:629
+#: tools/restore-tool:630
 msgid "Restoring configuration backup"
-msgstr ""
-
-#: tools/restore-tool:633 tools/restore-tool:1852
-msgid "Unknown error"
 msgstr ""
 
 #: tools/restore-tool:635
@@ -904,48 +900,48 @@ msgstr ""
 msgid "Saving configuration changes"
 msgstr ""
 
-#: tools/restore-tool:1854
+#: tools/restore-tool:1853
 msgid ""
 "Error saving configuration changes; some Zentyal modules would remain in a "
 "unknown state"
 msgstr ""
 
-#: tools/restore-tool:1917
+#: tools/restore-tool:1918
 msgid "Zentyal Cloud User"
 msgstr ""
 
-#: tools/restore-tool:1920
+#: tools/restore-tool:1921
 msgid "Zentyal Cloud Password"
 msgstr ""
 
-#: tools/restore-tool:1933
+#: tools/restore-tool:1934
 #, perl-brace-format
 msgid "The account {user} do not have any registered Zentyal servers"
 msgstr ""
 
-#: tools/restore-tool:2008
+#: tools/restore-tool:2009
 #, perl-brace-format
 msgid ""
 "The following backup domains could not be restored from a basic "
 "subscription: {domains}"
 msgstr ""
 
-#: tools/restore-tool:2030
+#: tools/restore-tool:2031
 msgid "Your full backup is now successfully restored!"
 msgstr ""
 
-#: tools/restore-tool:2032
+#: tools/restore-tool:2033
 msgid ""
 "You can go now to the Zentyal administration interface to manage your "
 "recovered host."
 msgstr ""
 
-#: tools/restore-tool:2071
+#: tools/restore-tool:2072
 #, perl-brace-format
 msgid "Warning: {msg}"
 msgstr ""
 
-#: tools/restore-tool:2126
+#: tools/restore-tool:2127
 #, fuzzy
 msgid "Restore process aborted"
 msgstr "Obnoviť záznamy databázy"

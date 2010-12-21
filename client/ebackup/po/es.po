@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-ebackup 1.3.3\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-12-21 00:20+0100\n"
+"POT-Creation-Date: 2010-12-21 23:00+0100\n"
 "PO-Revision-Date: 2010-12-18 17:56+0100\n"
 "Last-Translator: Enrique José Hernández Blasco <quique@ebox-technologies."
 "com>\n"
@@ -112,7 +112,7 @@ msgstr "Habilitado"
 msgid "Domains to back up"
 msgstr "Dominios a guardar copia de seguridad"
 
-#: src/EBox/Model/BackupDomains.pm:182 tools/restore-tool:340
+#: src/EBox/Model/BackupDomains.pm:182 tools/restore-tool:341
 msgid "Backup domain"
 msgstr "Dominio de backup"
 
@@ -567,7 +567,7 @@ msgstr "Restauración de servicios"
 msgid "Configuration and Status"
 msgstr "Configuración y Estado"
 
-#: tools/restore-tool:97
+#: tools/restore-tool:98
 #, fuzzy
 msgid ""
 "No backups found in this server with this encryption mode. Do you want to "
@@ -576,22 +576,22 @@ msgstr ""
 "No se han encontrado copias de seguridad con este modo de cifrado. ¿Quieres "
 "intentarlo con otro servidor o modo de cifrado?"
 
-#: tools/restore-tool:163
+#: tools/restore-tool:164
 #, perl-brace-format
 msgid "You can only specify one of the encryption options: {sy}, {asy} y {no}"
 msgstr ""
 "Sólo puedes especificar una de las siguientes opciones de cifrado: {sy}, "
 "{asy} and {no}"
 
-#: tools/restore-tool:180
+#: tools/restore-tool:181
 msgid "Zenity package not found. Falling back to terminal mode"
 msgstr "Paquete zenity no encontrado. Usando el modo terminal"
 
-#: tools/restore-tool:193
+#: tools/restore-tool:194
 msgid "User for the authentication"
 msgstr "Usuario para la autenticación"
 
-#: tools/restore-tool:195
+#: tools/restore-tool:196
 msgid ""
 "Password for the authentication. This password will be shown both in the "
 "command line and in the process list so only use this option when security "
@@ -601,19 +601,19 @@ msgstr ""
 "línea de comandos como en la lista de procesos así que usa esta opción "
 "cuando la seguridad no es una preocupación"
 
-#: tools/restore-tool:199
+#: tools/restore-tool:200
 msgid "Server from which its backup date the restore will be done"
 msgstr "Servidor desde que su fecha de backup se realizará la restauración"
 
-#: tools/restore-tool:201
+#: tools/restore-tool:202
 msgid "Use the last backup done for the restore"
 msgstr "Usar el último backup hecho para la restauración"
 
-#: tools/restore-tool:203
+#: tools/restore-tool:204
 msgid "Backup domain to restore. It could be repeated several times"
 msgstr "Dominio de backup a restaurar. Se puede repetir varias veces"
 
-#: tools/restore-tool:205
+#: tools/restore-tool:206
 msgid ""
 "Check if we use the no encryption, a symmetric scheme with password or "
 "asymmetric scheme with a private key"
@@ -621,124 +621,124 @@ msgstr ""
 "Comprueba si usamos no cifrado, un esquema simétrico con contraseña o un "
 "esquema asimétrico con una clave privada"
 
-#: tools/restore-tool:208
+#: tools/restore-tool:209
 msgid "Do not use graphical interface"
 msgstr "No usar la interfaz gráfica"
 
-#: tools/restore-tool:229
+#: tools/restore-tool:230
 #, perl-brace-format
 msgid "Module {mod} should be installed"
 msgstr "El módulo {mod} debe ser instalado"
 
-#: tools/restore-tool:235
+#: tools/restore-tool:236
 #, perl-brace-format
 msgid "Module {mod} should be configured"
 msgstr "El módulo {mod} debe ser configurado"
 
-#: tools/restore-tool:247
+#: tools/restore-tool:248
 msgid ""
 "Could not automatically update system hour. Some restoration operations "
 "could fail if the date is not correct"
 msgstr ""
 
-#: tools/restore-tool:257
+#: tools/restore-tool:258
 msgid "Choose the server to restore"
 msgstr "Elije el servidor a restaurar"
 
-#: tools/restore-tool:258
+#: tools/restore-tool:259
 msgid "Server"
 msgstr "Servidor"
 
-#: tools/restore-tool:262
+#: tools/restore-tool:263
 msgid "Server to restore: "
 msgstr "Servidor a restaurar: "
 
-#: tools/restore-tool:277
+#: tools/restore-tool:278
 #, perl-brace-format
 msgid "Enter symmetric password used to back up {ser}: "
 msgstr ""
 "Introduce la clave simétrica usada para hacer la copia de seguridad {ser}: "
 
-#: tools/restore-tool:279
+#: tools/restore-tool:280
 #, perl-brace-format
 msgid "Enter ID of encryption key used to back up {ser}"
 msgstr ""
 "Introduce el ID de la clave de cifrado usada para hacer la copia de "
 "seguridad {ser}: "
 
-#: tools/restore-tool:280
+#: tools/restore-tool:281
 #, perl-brace-format
 msgid "Enter passphrase for GPG key {id}"
 msgstr "Introduce la palabra de paso para la clave GPG {id}"
 
-#: tools/restore-tool:290
+#: tools/restore-tool:291
 #, perl-brace-format
 msgid "What encryption mode was used for the backups of {cn}?"
 msgstr "¿Que tipo de cifrado se usó para los backups de {cn}?"
 
-#: tools/restore-tool:294
+#: tools/restore-tool:295
 msgid "No encryption"
 msgstr "Sin cifrado"
 
-#: tools/restore-tool:295
+#: tools/restore-tool:296
 msgid "Symmetric password"
 msgstr "Clave simétrica"
 
-#: tools/restore-tool:307
+#: tools/restore-tool:308
 msgid "Mode"
 msgstr "Modo"
 
-#: tools/restore-tool:313
+#: tools/restore-tool:314
 #, perl-brace-format
 msgid "Available options: {ops}"
 msgstr "Opciones disponibles: {ops}"
 
-#: tools/restore-tool:317
+#: tools/restore-tool:318
 msgid "Enter selected option: "
 msgstr "Introduce la opción seleccionada: "
 
-#: tools/restore-tool:339
+#: tools/restore-tool:340
 msgid "Select backup domains to restore"
 msgstr "Selecciona los dominios de backup a restaurar"
 
-#: tools/restore-tool:348
+#: tools/restore-tool:349
 #, perl-brace-format
 msgid "Backup domains available in this server: {l}"
 msgstr "Dominios de backup disponibles en este servidor: {l}"
 
-#: tools/restore-tool:365
+#: tools/restore-tool:366
 msgid "No backup domain selected to restore. Doing nothing"
 msgstr "No se han seleccionado dominios de backup a restaurar. No hacemos nada"
 
-#: tools/restore-tool:377
+#: tools/restore-tool:378
 msgid "Retrieving registered servers list"
 msgstr "Obteniendo la lista de servidores registrados"
 
-#: tools/restore-tool:417
+#: tools/restore-tool:418
 msgid "No key passphrase"
 msgstr "No hay contraseña para la clave"
 
-#: tools/restore-tool:424
+#: tools/restore-tool:425
 msgid "No password in retrieved credentials"
 msgstr "No hay contraseña en los credenciales obtenidos"
 
-#: tools/restore-tool:436
+#: tools/restore-tool:437
 msgid "Retrieving account information"
 msgstr "Obteniendo la información de la cuenta"
 
-#: tools/restore-tool:503
+#: tools/restore-tool:504
 msgid "No registered Zentyal Servers"
 msgstr "No hay servidores Zentyal registrados"
 
-#: tools/restore-tool:509
+#: tools/restore-tool:510
 msgid "Registered Zentyal Servers"
 msgstr "Servidores Zentyal registrados"
 
-#: tools/restore-tool:562
+#: tools/restore-tool:563
 msgid "Restoring files"
 msgstr "Restaurando ficheros"
 
-#: tools/restore-tool:588
+#: tools/restore-tool:589
 #, perl-brace-format
 msgid ""
 "Cannot restore file {file} requested by backup domains. Reason: {reason}"
@@ -746,23 +746,19 @@ msgstr ""
 "No se puede restaurar el fichero solicitado {file} para los dominios de "
 "backup. Razón: {reason}"
 
-#: tools/restore-tool:607
+#: tools/restore-tool:608
 msgid "Backup log data not found, log database will not be restored"
 msgstr ""
 "Los datos de registro de backup no se encuentran, la base de datos de "
 "registros no será restaurada"
 
-#: tools/restore-tool:611
+#: tools/restore-tool:612
 msgid "Restoring log database"
 msgstr "Restaurando la base de datos de logs"
 
-#: tools/restore-tool:629
+#: tools/restore-tool:630
 msgid "Restoring configuration backup"
 msgstr "Restaurando la copia de seguridad de la configuración Zentyal"
-
-#: tools/restore-tool:633 tools/restore-tool:1852
-msgid "Unknown error"
-msgstr "Error desconocido"
 
 #: tools/restore-tool:635
 msgid ""
@@ -982,7 +978,7 @@ msgstr "Proceso de restauración abortado por petición del usuario"
 msgid "Saving configuration changes"
 msgstr "Guardando los cambios en la configuración"
 
-#: tools/restore-tool:1854
+#: tools/restore-tool:1853
 msgid ""
 "Error saving configuration changes; some Zentyal modules would remain in a "
 "unknown state"
@@ -990,20 +986,20 @@ msgstr ""
 "Error guardando los cambios de configuración; algunos módulos de Zentyal "
 "permanecerán en un estado desconocido"
 
-#: tools/restore-tool:1917
+#: tools/restore-tool:1918
 msgid "Zentyal Cloud User"
 msgstr "Usuario de Zentyal Cloud"
 
-#: tools/restore-tool:1920
+#: tools/restore-tool:1921
 msgid "Zentyal Cloud Password"
 msgstr "Contraseña en Zentyal Cloud"
 
-#: tools/restore-tool:1933
+#: tools/restore-tool:1934
 #, perl-brace-format
 msgid "The account {user} do not have any registered Zentyal servers"
 msgstr "La cuenta {user} no tiene suscrito ningún servidor Zentyal"
 
-#: tools/restore-tool:2008
+#: tools/restore-tool:2009
 #, perl-brace-format
 msgid ""
 "The following backup domains could not be restored from a basic "
@@ -1012,11 +1008,11 @@ msgstr ""
 "Los siguientes dominios de backup no podrían ser restaurados desde una "
 "suscripción básica: {domains}"
 
-#: tools/restore-tool:2030
+#: tools/restore-tool:2031
 msgid "Your full backup is now successfully restored!"
 msgstr "¡Tu backup completo se ha restaurado con éxito!"
 
-#: tools/restore-tool:2032
+#: tools/restore-tool:2033
 msgid ""
 "You can go now to the Zentyal administration interface to manage your "
 "recovered host."
@@ -1024,12 +1020,12 @@ msgstr ""
 "Puedes ir ahora a la interfaz de administracion de Zentyal para gestionar la "
 "máquina recuperada."
 
-#: tools/restore-tool:2071
+#: tools/restore-tool:2072
 #, perl-brace-format
 msgid "Warning: {msg}"
 msgstr "Advertencia: {msg}"
 
-#: tools/restore-tool:2126
+#: tools/restore-tool:2127
 msgid "Restore process aborted"
 msgstr "Proceso de restauración abortado"
 
@@ -1090,6 +1086,9 @@ msgstr ""
 #: tools/ebox-remote-ebackup:260
 msgid "The backup module is busy, retry later"
 msgstr "El módulo de backup está ocupado, inténtalo de nuevo más tarde"
+
+#~ msgid "Unknown error"
+#~ msgstr "Error desconocido"
 
 #~ msgid "Zentyal Cloud User:"
 #~ msgstr "Usuario de Zentyal Cloud:"
