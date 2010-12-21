@@ -42,6 +42,7 @@ mkdir -p $DESKTOP
 mv /var/tmp/ebox/lxde-zentyal/Desktop/zentyal.desktop /usr/share/applications/
 mv /var/tmp/ebox/lxde-zentyal/zentyal-logout.desktop /usr/share/applications/
 mv /var/tmp/ebox/lxde-zentyal/zentyal-logout /usr/bin/
+ln -sf /usr/bin/zentyal-logout /usr/local/bin/lxde-logout
 ln -sf /usr/share/applications/zentyal.desktop $DESKTOP/zentyal.desktop
 mv /var/tmp/ebox/lxde-zentyal/Desktop/* $DESKTOP/
 PANELS_DIR=$DIR/.config/lxpanel/LXDE/panels
