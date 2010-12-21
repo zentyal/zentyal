@@ -1026,8 +1026,8 @@ sub _configureModules
                 _zenityProgressFail($!, $?);
         } elsif (not $usesX) {
             print "\r";
-            my $msg =  __x('Configuring modules {p}% done. Current module {mod}',
-                           p => $percent, mod => $name);
+            my $msg =  __x('Configuring modules {p} done. Current module {mod}',
+                           p => "$percent%", mod => $name);
             print $msg;
             print "\n";
         }

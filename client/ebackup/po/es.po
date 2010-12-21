@@ -568,7 +568,6 @@ msgid "Configuration and Status"
 msgstr "Configuración y Estado"
 
 #: tools/restore-tool:98
-#, fuzzy
 msgid ""
 "No backups found in this server with this encryption mode. Do you want to "
 "retry with a different server or encryption mode?"
@@ -831,7 +830,6 @@ msgstr ""
 "paquetes exclusivos de Zentyal Cloud no se instalarán."
 
 #: tools/restore-tool:953
-#, fuzzy
 msgid ""
 "Cannot retrieve bundle because either installed ebox-remoteservices is "
 "outdated or only outdated bundle is available in the cloud. Zentyal Cloud  "
@@ -839,7 +837,7 @@ msgid ""
 msgstr ""
 "No se puede obtener el bundle porque o bien ebox-remoteservices está "
 "desactualizado o sólo un bundle desactualizado está disponible en la nubeLos "
-"paquetes exclusivos de Zentyal Cloud no se instalarán.. "
+"paquetes exclusivos de Zentyal Cloud no se instalarán. "
 
 #: tools/restore-tool:958
 msgid ""
@@ -854,9 +852,8 @@ msgid "Configuring modules"
 msgstr "Configurando modulos"
 
 #: tools/restore-tool:1029
-#, fuzzy, perl-format, perl-brace-format
-msgid "Configuring modules {p}% done. Current module {mod}"
-msgstr "Configurando módulos {p}%% hecho. Módulo actual {mod}"
+msgid "Configuring modules {p} done. Current module {mod}"
+msgstr "Configurando módulos {p} hecho. Módulo actual {mod}"
 
 #: tools/restore-tool:1048
 #, perl-brace-format
