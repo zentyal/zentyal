@@ -7,7 +7,7 @@ SELECTED_ARCH=$1
 
 for ARCH in $ARCHS
 do
-    if [ "$ARCH" != "$SELECTED_ARCH" ]
+    if [ -n "$SELECTED_ARCH" ] && [ "$ARCH" != "$SELECTED_ARCH" ]
     then
         continue
     fi
