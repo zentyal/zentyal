@@ -1,4 +1,4 @@
-HEAD
+2.0.12
 	+ Include status of packages in the downloadable bug report
 	+ Bugfix: Avoid possible problems deleting redis.first file if not exist
 2.0.11
