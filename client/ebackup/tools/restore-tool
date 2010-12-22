@@ -58,7 +58,9 @@ parseArgs();
 $xauthCookie = _xauthCookie();
 
 EBox::init();
-settextdomain('ebox-ebackup');
+
+# FIXME: Commented until problems with zenity and special chars are fixed
+#settextdomain('ebox-ebackup');
 
 if ($usesX) {
     zenityPrecondition();
