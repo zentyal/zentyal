@@ -1,3 +1,6 @@
+HEAD
+	+ Bugfix: VPN widgets don't break dashboard if they cannot find the IP of
+	  the used interface
 2.0.5
 	+ Avoid useless log messages on VPN log files recreation
 	+ Bugfix: VPN client connections and disconnections are logged again

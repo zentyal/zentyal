@@ -35,6 +35,7 @@ use EBox::Validate
 use List::Util qw(first);
 use Params::Validate qw(validate_pos validate SCALAR ARRAYREF);
 use Perl6::Junction qw(any);
+use Error qw(:try);
 
 sub new
 {
@@ -445,12 +446,12 @@ sub localAddress
         my $ifaceAddresses_r = $network->ifaceAddresses($localIface);
         my @addresses = @{$ifaceAddresses_r};
         if (@addresses == 0) {
-            throw EBox::Exceptions::External(
-                                __x(
-                                    'No IP address found for interface {iface}',
-                                    iface => $localIface
-                                )
-            );
+            throw EBox::Exceptions::External(__x(
+                "VPN server {name} couldn't be configured, " .
+                'no IP address found for interface {iface}',
+                name => $self->name,
+                iface => $localIface
+            ));
         }
 
         my $selectedAddress =  shift @addresses
@@ -776,35 +777,37 @@ sub summary
     my ($self) = @_;
 
     my @summary;
-    push @summary, __x('Server {name}', name => $self->name);
+    push (@summary, __x('Server {name}', name => $self->name));
 
     my $service = $self->isEnabled() ? __('Enabled') : __('Disabled');
-    push @summary, (__('Service'), $service);
+    push (@summary, (__('Service'), $service));
 
     my $running = $self->isRunning ? __('Running') : __('Stopped');
-    push @summary,(__('Daemon status'), $running);
+    push (@summary,(__('Daemon status'), $running));
 
-    my $localAddress = $self->localAddress();
-    defined $localAddress or $localAddress = __('All external interfaces');
-    push @summary, (__('Local address'), $localAddress);
+    my $localAddress;
+    try {
+        $localAddress = $self->localAddress();
+        defined $localAddress or $localAddress = __('All external interfaces');
+    } catch EBox::Exceptions::External with {
+        $localAddress = __('Not found');
+    };
+    push (@summary, (__('Local address'), $localAddress));
 
     my $proto   = $self->proto();
     my $port    = $self->port();
     my $portAndProtocol = "$port/\U$proto";
-    push @summary,(__('Port'), $portAndProtocol);
+    push (@summary,(__('Port'), $portAndProtocol));
 
     my $subnet  = $self->subnet . '/' . $self->subnetNetmask;
-    push @summary,(__('VPN subnet'), $subnet);
+    push (@summary,(__('VPN subnet'), $subnet));
 
     my $iface = $self->iface();
-    push @summary, (__('VPN network interface'), $iface );
+    push (@summary, (__('VPN network interface'), $iface ));
 
     my $addr = $self->ifaceAddress();
-    if ($addr) {
-        push @summary, (__('VPN interface address'), $addr);
-    }else {
-        push @summary, (__('VPN interface address'), __('No active'));
-    }
+    unless ($addr) { $addr = __('No active') };
+    push (@summary, (__('VPN interface address'), $addr));
 
     return @summary;
 }
