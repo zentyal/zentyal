@@ -1170,7 +1170,7 @@ sub setIfaceDHCP # (interface, external, force)
             oldMethod => $oldm,
             newMethod => 'dhcp',
             action => 'prechange',
-	    force  => $force,
+            force  => $force,
         );
     } else {
         my $oldm = $self->ifaceIsExternal($name);
@@ -1281,7 +1281,7 @@ sub setIfaceStatic # (interface, address, netmask, external, force)
             oldMethod => $oldm,
             newMethod => 'static',
             action => 'prechange',
-	    force => $force
+            force => $force
         );
     } else {
         foreach my $obs (@observers) {
@@ -1408,7 +1408,7 @@ sub setIfacePPP # (interface, ppp_user, ppp_pass, external, force)
                 oldMethod => $oldm,
                 newMethod => 'ppp',
                 action => 'prechange',
-		force => $force,
+                force => $force,
             );
     }
 
@@ -1475,7 +1475,7 @@ sub setIfaceTrunk # (iface, force)
             oldMethod => $oldm,
             newMethod => 'notset',
             action => 'prechange',
-	    force => $force,
+            force => $force,
         );
     }
 
@@ -1580,7 +1580,7 @@ sub setIfaceBridged
             oldMethod => $oldm,
             newMethod => 'bridged',
             action => 'prechange',
-	        force  => $force,
+            force  => $force,
         );
     } else {
         my $oldm = $self->ifaceIsExternal($name);
@@ -1893,7 +1893,7 @@ sub unsetIface # (interface, force)
             oldMethod => $oldm,
             newMethod => 'notset',
             action => 'prechange',
-	    force  => $force,
+        force  => $force,
         );
     }
 
@@ -1908,7 +1908,7 @@ sub unsetIface # (interface, force)
             oldMethod => $oldm,
             newMethod => 'notset',
             action => 'postchange',
-	    force  => $force,
+            force  => $force,
         );
     }
 
