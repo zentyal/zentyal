@@ -2841,6 +2841,8 @@ sub _multigwRoutes
         }
     }
 
+    push(@cmds, @{$self->_pppoeRules()});
+
     for my $rule (@{$self->model('MultiGwRulesDataTable')->iptablesRules()}) {
         push(@cmds, "/sbin/iptables $rule");
     }
@@ -3801,16 +3803,9 @@ sub regenGateways
         push (@commands, $cmd);
     }
 
-    # Special rule for PPPoE interfaces to avoid problems with large packets
-    foreach my $if (@{$self->pppIfaces()}) {
-        $if = $self->realIface($if);
-        my $cmd = '/sbin/iptables -t mangle';
-        my $params = "POSTROUTING -o $if -p tcp " .
-            "-m tcp --tcp-flags SYN,RST SYN -j TCPMSS --clamp-mss-to-pmtu";
-
-        EBox::Sudo::silentRoot("$cmd -D $params");
-        push(@commands, "$cmd -A $params");
-    }
+    # Silently delete duplicated MTU rules for PPPoE interfaces and
+    # add them to the commands array
+    push(@commands, @{$self->_pppoeRules(1)});
 
     try {
         EBox::Sudo::root(@commands);
@@ -3824,6 +3819,39 @@ sub regenGateways
     $global->modRestarted('network');
 
     EBox::Util::Lock::unlock('network');
+}
+
+sub _pppoeRules
+{
+    my ($self, $flush) = @_;
+
+    my @add;
+
+    # Warning (if flush=1):
+    #   Delete rules are immediately executed, add rules are returned
+    #   this is for performance reasons, to allow to integrate them in other
+    #   arrays, but the delete ones need to be executed with silentRoot,
+    #   so they are executed separately.
+    my @delete;
+
+    # Special rule for PPPoE interfaces to avoid problems with large packets
+    foreach my $if (@{$self->pppIfaces()}) {
+        $if = $self->realIface($if);
+        my $cmd = '/sbin/iptables -t mangle';
+        my $params = "POSTROUTING -o $if -p tcp " .
+            "-m tcp --tcp-flags SYN,RST SYN -j TCPMSS --clamp-mss-to-pmtu";
+
+        if ($flush) {
+            push (@delete, "$cmd -D $params");
+        }
+        push (@add, "$cmd -A $params");
+    }
+
+    if ($flush) {
+        EBox::Sudo::silentRoot(@delete);
+    }
+
+    return \@add;
 }
 
 sub _multipathCommand

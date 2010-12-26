@@ -1,3 +1,5 @@
+2.0.8
+	+ PPPoE MTU rule is no longer flushed on module restart
 2.0.7
 	+ Show DHCP as default option in wizards if there is only one interface
 	+ Avoid problems when removing interfaces (vlan, briges)
