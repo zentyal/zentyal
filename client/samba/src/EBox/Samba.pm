@@ -1586,16 +1586,15 @@ sub _facilitiesForDiskUsage
 {
     my ($self) = @_;
 
-    my $usersPrintableName  = __(q{User's files});
+    my $usersPrintableName  = __(q{Users files});
     my $usersPath           = EBox::SambaLdapUser::usersPath();
-    my $groupsPrintableName = __(q{Group's files});
+    my $groupsPrintableName = __(q{Groups files});
     my $groupsPath          = EBox::SambaLdapUser::groupsPath();
 
     return {
         $usersPrintableName   => [ $usersPath ],
         $groupsPrintableName  => [ $groupsPath ],
     };
-
 }
 
 # Implement LogHelper interface
