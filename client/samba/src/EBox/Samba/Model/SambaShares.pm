@@ -183,7 +183,9 @@ sub validateTypedRow
             for my $filterPath (FILTER_PATH) {
                 if ($normalized =~ /^$filterPath/) {
                     throw EBox::Exceptions::External(
-                            __('Path not allowed'));
+                            __('Path not allowed') .
+                            ' (' . join (', ', FILTER_PATH) . ')'
+                    );
                 }
             }
         } else {

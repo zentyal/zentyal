@@ -1,3 +1,5 @@
+HEAD
+	+ Show forbidden paths in the "Path not allowed" exception text
 2.0.7
 	+ Removed printers are ignored during backup restore
 	+ Added backup domain
