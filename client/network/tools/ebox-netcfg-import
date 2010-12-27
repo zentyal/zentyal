@@ -6,7 +6,9 @@ use strict;
 
 use EBox;
 use EBox::Global;
+use EBox::Config;
 use EBox::Sudo qw(:all);
+use Perl6::Junction qw(any);
 
 use constant INTERFACES => '/etc/network/interfaces';
 use constant RESOLV     => '/etc/resolv.conf';
@@ -52,11 +54,13 @@ sub get_interfaces
     my $iface;
     my @fields = qw /address netmask gateway vlan-raw-device/;
 
+    my @ifacesToIgnore = split (',', EBox::Config::configkey('ifaces_to_ignore'));
+
     for my $line (<FD>) {
         $line =~ s/^\s+//g;
         my @toks = split (/\s+/, $line);
         if ($toks[0] eq 'iface' and $toks[2] eq 'inet')	{
-            next if ($toks[1] eq 'lo');
+            next if ($toks[1] eq any(@ifacesToIgnore));
             push (@interfaces, $iface) if ($iface);
             $iface = { name   => $toks[1],
                 method => $toks[3]
