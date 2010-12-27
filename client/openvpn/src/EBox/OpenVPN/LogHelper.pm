@@ -213,14 +213,9 @@ my %callbackByRe = (
        }x =>\&_peerServerConnectionEvent,
 
     qr{
-        ^(.*?)/(.*?):\d+\s #[client cn]/[ip]:[port]
-        Connection\sreset,\srestarting.*$
-      }x =>\&_connectionResetEvent,
-
-    qr{
         ^(.*?)/(.*?):\d+\s  #[client cn]/[ip]:[port]
-        .+[.+]\sreceived,\s # Reason for connection reset
-        client-instance\srestarting.*$
+        .+\[.+\]\sreceived,\s # Reason for connection reset
+        client-instance\s.+$
       }x =>\&_connectionResetEvent,
 
     qr{

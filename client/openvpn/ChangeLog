@@ -1,4 +1,5 @@
 HEAD
+	+ VPN clients are now forced to explicitly notify disconnections
 	+ Bugfix: VPN widgets don't break dashboard if they cannot find the IP of
 	  the used interface
 2.0.5

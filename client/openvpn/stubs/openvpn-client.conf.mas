@@ -135,6 +135,9 @@ status <% $statusLogFile %>
 # Set log file verbosity.
 verb 3
 
+# Explicitly notify disconnections
+explicit-exit-notify 3
+
 # Silence repeating messages
 ;mute 20
 
