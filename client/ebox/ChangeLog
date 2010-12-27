@@ -1,3 +1,5 @@
+HEAD
+	+ Fix typo in sudoers creation to make remote support work again
 2.0.12
 	+ Include status of packages in the downloadable bug report
 	+ Bugfix: Avoid possible problems deleting redis.first file if not exist
