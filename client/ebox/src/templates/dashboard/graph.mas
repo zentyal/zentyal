@@ -5,7 +5,6 @@
     $parent
 </%args>
 % my $elem = ($namespace . '_' . $i);
-% $elem =~ s/[\/\.\?\'\&\+\:\-@\s]/_/g;
 % if ($parent eq 'section') {
 <tr>
 <td colspan='2' align='right'>
