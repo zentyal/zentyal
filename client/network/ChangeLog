@@ -1,4 +1,5 @@
 HEAD
+	+ Installation does not fail if the restart of EventDaemon fails
 	+ Now the ifaces_to_ignore variable is considered in ebox-netcfg-import
 2.0.8
 	+ PPPoE MTU rule is no longer flushed on module restart
