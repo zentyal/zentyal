@@ -1,3 +1,5 @@
+HEAD
+	+ Trigger apache restart after package remove
 2.0.5
 	+ Removed duplicated entry in usedFiles
 	+ Removed creation of empty /etc/cron.hourly/freshclam script

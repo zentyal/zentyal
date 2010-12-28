@@ -10,3 +10,11 @@ if [ "$1" = "purge" ]; then
 fi
 
 #DEBHELPER#
+
+case "$1" in
+        remove)
+            dpkg-trigger --no-await ebox
+        ;;
+esac
+
+exit 0
