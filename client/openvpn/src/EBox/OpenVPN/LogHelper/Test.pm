@@ -60,19 +60,6 @@ sub fakeConfig : Test(setup)
   EBox::Module::Service::TestStub::setConfig(@config);
 }
 
-# XXX this  must be deleted if #848 is fixed
-sub fakePopulateConfFiles : Test(startup)
-{
-  Test::MockObject->fake_module('EBox::OpenVPN::LogHelper',
-				_populateLogFiles => sub {
-				  my ($self) = @_;
-				   $self->{logFiles} = $self->_logFilesFromDaemons;
-				},
-			       );
-
-}
-
-
 sub tearDownConfig: Test(teardown)
 {
   EBox::Module::Service::TestStub::setConfig();

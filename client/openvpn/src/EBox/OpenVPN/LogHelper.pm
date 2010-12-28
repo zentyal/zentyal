@@ -24,8 +24,6 @@ use EBox;
 use EBox::Config;
 use EBox::Gettext;
 
-use Data::Dumper; # XXX remove if #848 is solved
-
 use constant TABLE_NAME => 'openvpn';
 
 sub new
@@ -37,11 +35,7 @@ sub new
 
     bless($self, $class);
 
-    # XXX when #848 is solved remove the conditional; and always call
-    # _populateLogFiles
-    unless ($params{noPopulate}) {
-        $self->_populateLogFiles;
-    }
+    $self->_populateLogFiles();
 
     return $self;
 }
@@ -63,26 +57,16 @@ sub domain
 sub logFiles
 {
     my ($self) = @_;
-    my @logFiles =  keys %{ $self->{logFiles}  };
-    return   \@logFiles;
+
+    my @logFiles =  keys %{ $self->{logFiles} };
+    return  \@logFiles;
 }
 
 sub _populateLogFiles
 {
     my ($self) = @_;
 
-    # XXX  comment out if #848 is solved
-    #   $self->{logFiles} = $self->_logFilesFromDaemons;
-
-    # XXX this  must be deleted if #848 is fixed
-    my $script = $self->_populateScript;
-    my $output = EBox::Sudo::root($script);
-
-    my $VAR1;
-    eval $output->[0];
-
-    $self->{logFiles} = $VAR1;
-
+    $self->{logFiles} = $self->_logFilesFromDaemons();
 }
 
 sub _logFilesFromDaemons
@@ -101,45 +85,10 @@ sub _logFilesFromDaemons
         $logFiles{$file} = {
                             name => $name,
                             type => $type,
-        };
-
+                           };
     }
 
     return \%logFiles;
-
-}
-
-# XXX this  must be deleted if #848 is fixed
-sub _populateScript
-{
-    my $script =<<'END';
-    use strict;
-    use warnings;
-    use EBox;
-    use EBox::Global;
-
-     EBox::init();
-    my $openvpn = EBox::Global->modInstance("openvpn");
-    my $logHelper = $openvpn->logHelper(noPopulate => 1);
-    $logHelper->_dumpLogFiles();
-     1;
-END
-
-    my $cmd = qq{perl -e '$script'};
-    return $cmd;
-}
-
-# XXX this  must be deleted if #848 is fixed
-sub _dumpLogFiles
-{
-    my ($self) = @_;
-
-    my $logFiles = $self->_logFilesFromDaemons();
-
-    my $dumper = new Data::Dumper( [$logFiles] );
-    $dumper->Indent(0);
-
-    print $dumper->Dump;
 }
 
 # Method: processLine
@@ -284,7 +233,6 @@ sub _verifyEvent
         fromIp => $ip,
 
     };
-
 }
 
 sub _peerConnectionEvent
@@ -321,7 +269,6 @@ sub _connectionResetEvent
             fromCert => $cn,
             fromIp   => $ip,
            };
-
 }
 
 sub _connectionResetByServerEvent
