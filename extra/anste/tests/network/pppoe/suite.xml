@@ -6,6 +6,16 @@
     </desc>
 
     <scenario>network/pppoe.xml</scenario>
+    
+    <test type="selenium">
+        <name>RemoveDefaultGW</name>
+        <desc>
+        Remove th default gateway 10.6.7.1
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>remove-default-gw</dir>
+    </test>
 
     <test type="selenium">
         <name>ConfigPPPoE</name>
@@ -78,6 +88,16 @@
 
         <host>test-client</host>
         <dir>test-resolve</dir>
+    </test>
+
+    <test type="selenium">
+        <name>FirewallRemoveInternal</name>
+        <desc>
+        Remove rules for internal traffic to internet.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>fw-remove-internal</dir>
     </test>
 
     <test>
