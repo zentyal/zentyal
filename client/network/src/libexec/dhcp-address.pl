@@ -29,12 +29,21 @@ my $network = $global->modInstance("network");
 
 my ($iface, $address, $mask) = @ARGV;
 
+EBox::debug('Called dhcp-address.pl with the following values:');
+
 $iface or exit;
+EBox::debug("iface: $iface");
+
 $address or exit;
+EBox::debug("address: $address");
+
 $mask or exit;
+EBox::debug("mask: $mask");
 
 try {
     $network->setDHCPAddress($iface, $address, $mask);
+} otherwise {
+    EBox::error("Call to setDHCPAddress for $iface failed");
 } finally {
     exit;
 };

@@ -28,9 +28,16 @@ my $network = EBox::Global->modInstance('network');
 
 my ($iface, $ppp_iface, $ppp_addr) = @ARGV;
 
+EBox::debug('Called ppp-set-iface.pl with the following values:');
+EBox::debug("iface: $iface") if $iface;
+EBox::debug("ppp_iface: $ppp_iface") if $ppp_iface;
+EBox::debug("ppp_addr: $ppp_addr") if $ppp_addr;
+
 try {
     $network->setRealPPPIface($iface, $ppp_iface, $ppp_addr);
     $network->regenGateways();
+} otherwise {
+    EBox::error("Call to setRealPPPIface for $iface failed");
 } finally {
     exit;
 };
