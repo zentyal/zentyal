@@ -3,7 +3,7 @@
 perldir = @PERLPATH@/EBox/CGI/Software
 
 nobase_perl_DATA = Updates.pm EBox.pm InstallPkgs.pm Config.pm Enable.pm \
-		   CurrentPackage.pm AutomaticOptions.pm
+		   CurrentPackage.pm AutomaticOptions.pm Log.pm
 
 MAINTAINERCLEANFILES = Makefile.in
 

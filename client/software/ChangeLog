@@ -1,5 +1,6 @@
 HEAD
 	+ New APT log at /var/log/ebox/software.log to diagnose problems
+	+ CGI to download software.log from the error page
 	+ Handle SIGPIPE in ebox-apt-remove
 	+ Delete /var/lib/ebox/dpkg_running inupdate and remove scripts
 	+ Handle possible errors opening write fifo
