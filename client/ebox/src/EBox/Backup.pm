@@ -1113,6 +1113,12 @@ sub restoreBackup # (file, %options)
 
         my @modules  = @{ $self->_modInstancesForRestore($file, %options) };
         my @restored = ();
+
+        # run pre-checks
+        foreach my $mod (@modules) {
+            $self->_restoreModulePreCheck($mod, $tempdir, \%options);
+        }
+
         try {
             foreach my $mod (@modules) {
                 my $restoreOk = $self->_restoreModule($mod, $tempdir, \%options);
@@ -1244,6 +1250,13 @@ sub _backupName
     }
 
     return $backupPath;
+}
+
+sub _restoreModulePreCheck
+{
+    my ($self, $mod, $tempdir, $options_r) = @_;
+
+    $mod->callRestoreBackupPreCheck("$tempdir/eboxbackup", $options_r);
 }
 
 sub _restoreModule

@@ -327,6 +327,23 @@ sub restoreBackup # (dir, %options)
     }
 }
 
+sub callRestoreBackupPreCheck
+{
+    my ($self, $dir, $options_r) = @_;
+    my $backupDir = $self->backupDir($dir);
+    (-d $backupDir) or
+        throw EBox::Exceptions::Internal("$backupDir must be a directory");
+
+    $self->restoreBackupPreCheck($backupDir, %{ $options_r });
+}
+
+sub restoreBackupPreCheck
+{
+    my ($self, $dir, %options) = @_;
+
+    # default: no check
+}
+
 # default implementation: do nothing
 sub extendedRestore
 {
