@@ -946,6 +946,46 @@ sub restoreLdapFrontend
     $self->_loadLdapData($dir, 'frontend');
 }
 
+sub usersInBackup
+{
+    my ($self, $dir, $mode) = @_;
+
+    if ($mode eq 'slave') {
+        EBox::error('Not implemented: slave mode precheck for LDAP backup');
+        return [];
+    }
+
+    my @users;
+
+    my $ldifFile = $self->ldifFile($dir, 'master', 'data');
+
+    my $ldif = Net::LDAP::LDIF->new($ldifFile, 'r', onerror => 'undef');
+    my $usersDn;
+
+    while (not $ldif->eof()) {
+        my $entry = $ldif->read_entry ( );
+        if ($ldif->error()) {
+           EBox::error("Error reading LDIOF file $ldifFile: " . $ldif->error() .
+                       '. Error lines: ' .  $ldif->error_lines());
+        } else {
+            my $dn = $entry->dn();
+            if (not defined $usersDn) {
+                # first entry, use it to fetch the DN
+                $usersDn = 'ou=Users,' . $dn;
+                next;
+            }
+
+            # in zentyal users are identified by DN, not by objectclass
+            if ($dn =~ /$usersDn$/) {
+                push @users, $entry->get_value('uid');
+            }
+        }
+    }
+    $ldif->done();
+
+    return \@users;
+}
+
 sub _chownConfDir
 {
     my ($self, $slapd) = @_;

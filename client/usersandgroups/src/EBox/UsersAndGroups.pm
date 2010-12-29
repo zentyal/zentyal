@@ -730,18 +730,20 @@ sub initUser
     my ($self, $user, $password) = @_;
 
     my $home = $self->userInfo($user)->{'homeDirectory'};
-    my $dir_umask = oct(EBox::Config::configkey('dir_umask'));
-    my $perms = sprintf("%#o", 00777 &~ $dir_umask);
-
-    unless (-e $home) {
+    if ($home and ($home ne '/dev/null') and (not -e $home)) {
         my @cmds;
+
         my $quser = shell_quote($user);
         my $qhome = shell_quote($home);
         my $group = DEFAULTGROUP;
         push(@cmds, "mkdir -p `dirname $qhome`");
         push(@cmds, "cp -dR --preserve=mode /etc/skel $qhome");
         push(@cmds, "chown -R $quser:$group $qhome");
+
+        my $dir_umask = oct(EBox::Config::configkey('dir_umask'));
+        my $perms = sprintf("%#o", 00777 &~ $dir_umask);
         push(@cmds, "chmod $perms $qhome");
+
         EBox::Sudo::root(@cmds);
     }
 
@@ -2468,6 +2470,59 @@ sub dumpConfig
     } else {
         throw EBox::Exceptions::Internal(
             "Trying to dump configuration of unknown LDAP mode: $mode");
+    }
+}
+
+sub _modeToBeRestored
+{
+    my ($self, $dir) = @_;
+
+    my $masterFile = $self->ldap()->ldifFile($dir, 'master', 'data');
+    if (-r $masterFile ) {
+        # master or ad-slave is the same
+        return 'master';
+    } else {
+        return 'slave';
+    }
+}
+
+sub _usersInEtcPasswd
+{
+    my ($self) = @_;
+    my @users;
+
+    my @lines = File::Slurp::read_file('/etc/passwd');
+    foreach my $line (@lines) {
+        my ($user) = split ':', $line, 2;
+        push @users, $user;
+    }
+
+    return \@users;
+}
+
+sub restoreBackupPreCheck
+{
+    my ($self, $dir) = @_;
+
+    # get what will be the mode to be restored
+    my $mode = $self->_modeToBeRestored($dir);
+    if ($mode eq 'slave') {
+        # TODO: implement check for slave setups
+        return;
+    }
+
+    my %etcPasswdUsers = map { $_ => 1 } @{ $self->_usersInEtcPasswd() };
+
+    my @usersToRestore = @{ $self->ldap->usersInBackup($dir, $mode) };
+    foreach my $user (@usersToRestore) {
+        if (exists $etcPasswdUsers{$user}) {
+            throw EBox::Exceptions::External(
+                                             __x(
+'Cannot restore because user {user} already exists as system user. Delete or rename this user and try again',
+                                                 user => $user
+                                                )
+                                            );
+        }
     }
 }
 

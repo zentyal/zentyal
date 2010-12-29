@@ -1,3 +1,6 @@
+HEAD
+	+ Added restore backup precheck to assure there are not conflicts between
+	  system users and Zentyal LDAP users (currently only works for masters)
 2.0.9
 	+ Make sure to create the base directory for user homes before create them
 	+ Reconnect to LDAP on backup restore
