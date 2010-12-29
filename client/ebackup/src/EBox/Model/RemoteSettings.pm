@@ -446,7 +446,7 @@ sub _crontabStringIncr
     my $month = '*';
 
     if ($fullFreq eq 'weekly') {
-        $weekDay = _crontabWeekDayAndUser($fullFreq, 0);
+        $weekDay = _crontabWeekDayAndUser($fullStartsOn, 0);
         return ["$minute $hour $monthDay $month $weekDay"];
     } elsif ($fullFreq eq 'monthly') {
         if ($freq eq 'weekly') {

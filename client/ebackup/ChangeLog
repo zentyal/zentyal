@@ -1,3 +1,5 @@
+HEAD
+	+ Fixed wrong crontab string for weekly full backup
 2.0.7
 	+ Set label of restore file button to "Restore" instead of "Change"
 	+ Set the volume size to 25 as default for remote system
