@@ -68,7 +68,7 @@ sub _print
     print "\n\n";
 
     print "/var/log/ebox/software.log\n";
-    print "----------------------\n\n";
+    print "--------------------------\n\n";
 
     if (scalar (@log) <= 5000) {
         print @log;
