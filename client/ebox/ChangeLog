@@ -1,5 +1,6 @@
 HEAD
 	+ Fixed dashboard graphs refresh
+	+ Fixed module existence check when dpkg is running
 	+ Fix typo in sudoers creation to make remote support work again
 2.0.12
 	+ Include status of packages in the downloadable bug report

@@ -50,6 +50,7 @@ use constant {
     PRESAVE_SUBDIR  => EBox::Config::etc() . 'pre-save',
     POSTSAVE_SUBDIR => EBox::Config::etc() . 'post-save',
     TIMESTAMP_KEY   => 'saved_timestamp',
+    DPKG_RUNNING_FILE => '/var/lib/ebox/dpkg_running'
 };
 
 my @CORE_MODULES = qw(sysinfo apache events global logs);
@@ -147,22 +148,31 @@ sub modExists # (module)
 {
     my ($self, $name) = @_;
 
+    # is dpkg command running?
+    my $DPKG_RUNNING = 0;
+    if (-f DPKG_RUNNING_FILE) {
+        $DPKG_RUNNING = 1 ;
+    }
+
+    unless ($DPKG_RUNNING) {
+        if ($ENV{DPKG_RUNNING_VERSION}) {
+            EBox::Sudo::command('touch ' . DPKG_RUNNING_FILE);
+            $DPKG_RUNNING = 1;
+        }
+    }
+
     # Check if module package is properly installed
     #
     # No need to check core modules because if
     # ebox package is not properly installed nothing
     # of this is going to work at all.
     #
-    if ($name eq any(@CORE_MODULES)) {
+    if ($name eq any(@CORE_MODULES) or $DPKG_RUNNING) {
         return defined($self->_className($name));
     } else {
-        # Fall back to the classical implementation
-        # if we are in middle of a package installation
-        if ($ENV{DPKG_RUNNING_VERSION}) {
-            return defined($self->_className($name));
-        }
-
+        # Full package check
         my $package = "ebox-$name";
+
         # Special case for the usersandgroups modules that
         # are the exception for the above naming rule
         if ($name =~ /^user/) {

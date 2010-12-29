@@ -120,6 +120,9 @@ case "$1" in
 
         #restart ebox
         invoke-rc.d ebox apache restart || true
+
+        #remove dpkg running flag
+        rm -f /var/lib/ebox/dpkg_running
         ;;
 esac
 
