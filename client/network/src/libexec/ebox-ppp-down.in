@@ -16,7 +16,6 @@ echo "eth_iface: $eth_iface" >> $LOG
 echo "local_address: $local_address" >> $LOG
 echo "remote_address: $remote_address" >> $LOG
 echo "full_args: $@" >> $LOG
-echo >> $LOG
 
 $libexec/dhcp-clear.pl $eth_iface
 
