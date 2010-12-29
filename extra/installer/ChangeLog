@@ -1,8 +1,9 @@
-HEAD
+2.0-3
     + Disaster recovery support
     + Replace slim with lxdm
     + Fixed .config dir permissions
     + Install apcid by default
+    + Added partman-lvm/vgdelete_confirm to auto preseed
 2.0-2
     + Add PPA in the first stage to install latest versions
     + Import PPA key to avoid warning executing apt-get update
