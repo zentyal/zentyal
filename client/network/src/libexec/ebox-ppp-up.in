@@ -12,9 +12,9 @@ LOG=/var/log/ebox/pppoe.log
 TIMESTAMP=$(date +"%Y-%m-%d %T")
 echo "$TIMESTAMP> ppp-up script called with the following values:" >> $LOG
 echo "ppp_iface: $ppp_iface" >> $LOG
+echo "eth_iface: $eth_iface" >> $LOG
 echo "local_address: $local_address" >> $LOG
 echo "remote_address: $remote_address" >> $LOG
-echo "eth_iface: $eth_iface" >> $LOG
 echo "full_args: $@" >> $LOG
 echo "dns: $USEPEERDNS $DNS1 $DNS2" >> $LOG
 
@@ -32,4 +32,4 @@ firewall_script=$libexec/dhcp-firewall.pl
 [ -x $firewall_script ] && $firewall_script
 
 TIMESTAMP=$(date +"%Y-%m-%d %T")
-echo "$TIMESTAMP> ppp-up script ended" >> $LOG
+echo "$TIMESTAMP> ppp-up script for $eth_iface ended" >> $LOG

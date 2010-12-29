@@ -12,13 +12,13 @@ LOG=/var/log/ebox/pppoe.log
 TIMESTAMP=$(date +"%Y-%m-%d %T")
 echo "$TIMESTAMP> ppp-down script called with the following values:" >> $LOG
 echo "ppp_iface: $ppp_iface" >> $LOG
+echo "eth_iface: $eth_iface" >> $LOG
 echo "local_address: $local_address" >> $LOG
 echo "remote_address: $remote_address" >> $LOG
-echo "eth_iface: $eth_iface" >> $LOG
 echo "full_args: $@" >> $LOG
 echo >> $LOG
 
 $libexec/dhcp-clear.pl $eth_iface
 
 TIMESTAMP=$(date +"%Y-%m-%d %T")
-echo "$TIMESTAMP> ppp-down script ended" >> $LOG
+echo "$TIMESTAMP> ppp-down script for $eth_iface ended" >> $LOG
