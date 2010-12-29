@@ -1,3 +1,6 @@
+HEAD
+	+ VPN clients are now forced to explicitly notify disconnections only if
+	  UDP is the used protocol.
 2.0.6
 	+ Removed deprecated code that caused a warning in postinst logs restart
 	+ VPN clients are now forced to explicitly notify disconnections
