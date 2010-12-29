@@ -17,7 +17,12 @@
 use warnings;
 use strict;
 
+use EBox::Global;
+use Date::Format;
 use Error qw(:try);
+
+use constant LOG_FILE => '/var/log/ebox/software.log';
+my $DPKG_RUNNING_FILE = EBox::Global::DPKG_RUNNING_FILE;
 
 my @packages = @ARGV;
 
@@ -29,19 +34,27 @@ my $fifo = '/var/lib/ebox/ebox-apt-update.pipe';
 my $cmd ="/usr/bin/apt-get install --yes --force-yes --no-install-recommends $dpkgOpts";
 my $fullCmd = "LANG=C DEBIAN_FRONTEND=noninteractive $cmd @packages 2>&1";
 
-my ($pid, $read, $text, $write);
+my ($pid, $read, $text, $write, $log);
+
+open ($log, '>>', LOG_FILE);
+printLog('ebox-apt-update started');
 
 local $SIG{PIPE} = sub {
     open ($write, '>', $fifo);
     print $write 'end';
     close($write);
+    printLog('ebox-apt-update received SIGPIPE and finished');
+    close ($log);
     exit 0;
 };
 
-open($read, '-|', $fullCmd);
+open ($read, '-|', $fullCmd);
 try {
     my $out = '';
+
     while ($text = <$read>) {
+        printLog($text);
+
         if ($text =~ /^E:\s/) {
             $out = $text;
         }
@@ -65,17 +78,34 @@ try {
         }
 
         if ($out) {
-            open ($write, '>', $fifo);
+            open ($write, '>', $fifo) or die "Can't open $fifo";
             print $write $out;
-            close $write;
+            close ($write);
         }
     }
+} otherwise {
+    printLog("ERROR: $@ $!");
 } finally {
     open ($write, '>', $fifo);
     print $write 'end';
-    close($write);
-
-    close($read);
+    close ($write);
+    close ($read);
+    if (-f $DPKG_RUNNING_FILE) {
+        printLog("Deleting $DPKG_RUNNING_FILE");
+        unlink ($DPKG_RUNNING_FILE);
+    }
+    printLog('ebox-apt-update finished');
+    close ($log);
 };
+
+# TODO: Move this to a common logger module
+sub printLog
+{
+    my ($msg) = @_;
+
+    my $timestamp = time2str('%Y-%m-%d %T', time());
+    chomp ($msg);
+    print $log "$timestamp> $msg\n";
+}
 
 1;

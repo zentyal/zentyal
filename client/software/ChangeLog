@@ -1,3 +1,8 @@
+HEAD
+	+ New APT log at /var/log/ebox/software.log to diagnose problems
+	+ Handle SIGPIPE in ebox-apt-remove
+	+ Delete /var/lib/ebox/dpkg_running inupdate and remove scripts
+	+ Handle possible errors opening write fifo
 2.0.6
 	+ Always regenerate APT cache for installing or upgrading
 	+ Do not download all the packages, just download needed ones

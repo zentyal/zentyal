@@ -17,49 +17,85 @@
 use warnings;
 use strict;
 
-my $auto                    = pop @ARGV;
-my @packages            = @ARGV;
+use EBox::Global;
+use Date::Format;
+use Error qw(:try);
+
+use constant LOG_FILE => '/var/log/ebox/software.log';
+my $DPKG_RUNNING_FILE = EBox::Global::DPKG_RUNNING_FILE;
+
+my $auto = pop @ARGV;
+my @packages = @ARGV;
 
 my $dpkgOpts = '-o DPkg::Options::="--force-confold"';
 my ($retValue, $errorMsg) = (0, '');
-my $insPkgs = "";	
 
 my $fifo = '/var/lib/ebox/ebox-apt-remove.pipe';
- 
-foreach my $pkg (@packages) {
-	$insPkgs .= " $pkg";
-}
+
 my $cmd ="/usr/bin/apt-get $auto --purge -q --yes";
-my $param = "LANG=C DEBIAN_FRONTEND=noninteractive $cmd $insPkgs";
+my $fullCmd = "LANG=C DEBIAN_FRONTEND=noninteractive $cmd @packages 2>&1";
 
-my ($pid, $read, $text, $write);
+my ($pid, $read, $text, $write, $log);
 
-open $read, '-|', $param;
+open ($log, '>>', LOG_FILE);
+printLog('ebox-apt-remove started');
 
-my $out = '';
-while ($text = <$read>){
-	
-	if ($text =~ /([0-9]+) upgraded.* ([0-9]+) .* ([0-9]+) .* ([0-9]+) .*/) {
-		$out = 'ins' . ($1+$2) . "\nrem$3\n";
-	}
-	if ($text =~ /(Removing\s.*)/) {
-		$out = " $1\n";
-	}
-	if ($text =~ /([0-9]+%).*/) {
-		$out = "$1\n";
-	}
-	if ($text =~ /(Setting up\s.*)/) {
-		$out = " $1\n";
-	}
-	if ($out) {		
-		open ($write, '>', $fifo);
-		print $write $out;
-		close $write;
-	}		
+local $SIG{PIPE} = sub {
+    open ($write, '>', $fifo);
+    print $write 'end';
+    close($write);
+    printLog('ebox-apt-remove received SIGPIPE and finished');
+    close ($log);
+    exit 0;
+};
+
+open ($read, '-|', $fullCmd);
+try {
+    my $out = '';
+    while ($text = <$read>) {
+        printLog($text);
+
+        if ($text =~ /([0-9]+) upgraded.* ([0-9]+) .* ([0-9]+) .* ([0-9]+) .*/) {
+            $out = 'ins' . ($1+$2) . "\nrem$3\n";
+        }
+        if ($text =~ /(Removing\s.*)/) {
+            $out = " $1\n";
+        }
+        if ($text =~ /([0-9]+%).*/) {
+            $out = "$1\n";
+        }
+        if ($text =~ /(Setting up\s.*)/) {
+            $out = " $1\n";
+        }
+        if ($out) {
+            open ($write, '>', $fifo) or die "Can't open $fifo";
+            print $write $out;
+            close ($write);
+        }
+    }
+} otherwise {
+    printLog("ERROR: $@ $!");
+} finally {
+    open ($write, '>', $fifo);
+    print $write 'end';
+    close ($write);
+    close ($read);
+    if (-f $DPKG_RUNNING_FILE) {
+        printLog("Deleting $DPKG_RUNNING_FILE");
+        unlink ($DPKG_RUNNING_FILE);
+    }
+    printLog('ebox-apt-remove finished');
+    close ($log);
+};
+
+# TODO: Move this to a common logger module
+sub printLog
+{
+    my ($msg) = @_;
+
+    my $timestamp = time2str('%Y-%m-%d %T', time());
+    chomp ($msg);
+    print $log "$timestamp> $msg\n";
 }
-open ($write, '>', $fifo);
-print $write 'end';
-close $write;
 
-close $read;
 1;
