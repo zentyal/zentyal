@@ -3,9 +3,9 @@
 libexec=@DATADIR@/ebox
 
 ppp_iface=$1
+eth_iface=$2
 local_address=$4
 remote_address=$5
-eth_iface=$6
 
 LOG=/var/log/ebox/pppoe.log
 
