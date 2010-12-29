@@ -48,7 +48,7 @@ try {
         $backup->makeBugReport();
     };
 
-    my $backupReport = $@;
+    my $backupReportError = $@;
     print header;
     print start_html(-title => 'Zentyal',
        -script => [
@@ -88,12 +88,16 @@ try {
         print "$line<br/>";
     }
     print '</div><br/></div><div id="report"><div><b>' . __('How to report this problem') . '</b></div><br><div><ol>';
-    if ($backupReport) {
+    if ($backupReportError) {
         print '<li>' . __('Download the log file with additional information by clicking') . ' <a class="nvac" href="/Log" id="log">' . __('here') . '</a>.</li>';
         print '<script>document.getElementById(\'log\').href="https://"+document.domain+"/ebox/EBox/Log"; </script>';
     } else {
         print '<li>' . __('Download a configuration report by clicking') . ' <a href="#" class="nvac" onclick=\'document.forms[0].action="https://"+document.domain+"/ebox/EBox/Backup"; document.forms[0].submit();\'>' . __('here') . '</a>.</li>';
     }
+
+    print '<li>' . __('If the problem has ocurred right after installing or upgrading Zentyal, please') . ' <a class="nvac" href="/Software/Log" id="software_log">' . __('download this file') . '</a>.</li>';
+    print '<script>document.getElementById(\'software_log\').href="https://"+document.domain+"/ebox/Software/Log"; </script>';
+
     print '<li>' . __('Create a new ticket in the Zentyal trac by clicking ') . '<a class="nvac" href="#" onclick="window.open(\'http://trac.zentyal.org/newticket\')">' . __('here') . "</a>.</li>";
     print '<li>' . __('Write a short description of the problem in the summary field') . '.</li>';
     print '<li>' . __('Write a detailed report of what you were doing before this problem ocurred in the description field') . '.</li>';
