@@ -14,7 +14,7 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 package EBox::ProgressIndicator;
-#
+
 use strict;
 use warnings;
 
@@ -28,152 +28,146 @@ use EBox::Apache;
 use POSIX ":sys_wait_h";
 use Error qw(:try);
 
-
 use constant HOST_MODULE => 'apache';
 
 sub create
 {
-  my ($class, %params) = @_;
-  # check parameter correctness..
-  exists $params{totalTicks} or
-    throw EBox::Exceptions::MissingArgument('totalTicks named parameter not found');
-  ($params{totalTicks} > 0) or
-    throw EBox::Exceptions::InvalidData(
-				    data  => __('Total ticks'),
-				    value => $params{totalTicks},
-				    advice => __('It must be a non-zero positive number'),
-				   );
-  exists $params{executable} or
-    throw EBox::Exceptions::MissingArgument('executable named parameter not found');
+    my ($class, %params) = @_;
 
-  my $message = __('To solve it you can try to execute the following commands:');
-  $message .= ' sudo apt-get update &&' .
-              ' sudo dpkg --configure -a &&' .
-              ' sudo apt-get install -f';
-  my ($executableWoArguments) = split '\s', $params{executable};
-  (-x $executableWoArguments) or
-    throw EBox::Exceptions::External(
-				     __x("Cannot execute {exe}",
-                         exe => "$params{executable}\n$message"
-                        )
-				    );
+    # check parameter correctness..
+    exists $params{totalTicks} or
+        throw EBox::Exceptions::MissingArgument('totalTicks named parameter not found');
+    ($params{totalTicks} > 0) or
+        throw EBox::Exceptions::InvalidData(
+                data  => __('Total ticks'),
+                value => $params{totalTicks},
+                advice => __('It must be a non-zero positive number'),
+                );
+    exists $params{executable} or
+        throw EBox::Exceptions::MissingArgument('executable named parameter not found');
 
-  # get unique id
-  my $hostMod = EBox::Global->modInstance(HOST_MODULE);
-  my $id     = $hostMod->st_get_unique_id('', $class->_baseDir);
+    my $message = __('To solve it you can try to execute the following commands:');
+    $message .= ' sudo apt-get update &&' .
+        ' sudo dpkg --configure -a &&' .
+        ' sudo apt-get install -f';
+    my ($executableWoArguments) = split '\s', $params{executable};
+    (-x $executableWoArguments) or
+        throw EBox::Exceptions::External(
+                __x("Cannot execute {exe}",
+                    exe => "$params{executable}\n$message"
+                   )
+                );
 
-  # create instance
-  my $idKey = $class->_baseDir($id) . '/id';
-  $hostMod->st_set_string($idKey, $id);
+    # get unique id
+    my $hostMod = EBox::Global->modInstance(HOST_MODULE);
+    my $id = $hostMod->st_get_unique_id('', $class->_baseDir);
 
-  # Remove those instances which have finished
-  $class->_cleanupFinished();
+    # create instance
+    my $idKey = $class->_baseDir($id) . '/id';
+    $hostMod->st_set_string($idKey, $id);
 
-  my $self = $class->retrieve($id);
+    # Remove those instances which have finished
+    $class->_cleanupFinished();
 
-  # store data
-  $self->setConfString('executable', $params{executable});
-  $self->setConfInt('totalTicks',    $params{totalTicks});
+    my $self = $class->retrieve($id);
 
-  $self->setConfInt('ticks', 0);
-  $self->setConfString('message', '');
-  $self->setConfBool('started', 0);
-  $self->setConfBool('finished', 0);
-  # retValue==-1, not finished
-  $self->setConfInt('retValue', -1);
+    # store data
+    $self->setConfString('executable', $params{executable});
+    $self->setConfInt('totalTicks', $params{totalTicks});
 
-  return $self;
+    $self->setConfInt('ticks', 0);
+    $self->setConfString('message', '');
+    $self->setConfBool('started', 0);
+    $self->setConfBool('finished', 0);
+    # retValue==-1, not finished
+    $self->setConfInt('retValue', -1);
+
+    return $self;
 }
-
 
 sub retrieve
 {
-  my ($class, $id) = @_;
-  defined $id or
-    throw EBox::Exceptions::MissingArgument('id');
+    my ($class, $id) = @_;
+    defined $id or
+        throw EBox::Exceptions::MissingArgument('id');
 
-#  EBox::debug("retieving progress indicator wit hid $id");
+    #  EBox::debug("retieving progress indicator wit hid $id");
 
-  my $baseDir  =  $class->_baseDir($id);
-  my $hostMod = EBox::Global->modInstance(HOST_MODULE);
-  defined $hostMod or
-    throw EBox::Exceptions::Internal(HOST_MODULE
-                                     . ' module cannot be instantiated');
+    my $baseDir  =  $class->_baseDir($id);
+    my $hostMod = EBox::Global->modInstance(HOST_MODULE);
+    defined $hostMod or
+        throw EBox::Exceptions::Internal(HOST_MODULE
+                . ' module cannot be instantiated');
 
+    unless ( $hostMod->st_dir_exists($baseDir) ) {
+        throw EBox::Exceptions::External(
+                __x('Progress indicator with id {id} not found', id => $id,)
+                );
+    }
 
-  unless ( $hostMod->st_dir_exists($baseDir) ) {
-      throw EBox::Exceptions::External(
-        __x('Progress indicator with id {id} not found', id => $id,  )
-                                      );
-  }
+    my $self   = $class->SUPER::new($baseDir, $hostMod);
+    bless $self, $class;
 
-  my $self   = $class->SUPER::new($baseDir, $hostMod);
-  bless $self, $class;
-
-
-  return $self;
+    return $self;
 }
-
 
 sub new
 {
-  throw EBox::Exceptions::Internal('Incorrect method: use create or retrieve');
+    throw EBox::Exceptions::Internal('Incorrect method: use create or retrieve');
 }
-
 
 sub _baseDir
 {
-  my ($class, $id) = @_;
-  my $dir =  "progress_indicator";
-  if ($id) {
-    $dir .= "/$id";
-  }
-  return $dir;
+    my ($class, $id) = @_;
+
+    my $dir =  "progress_indicator";
+    if ($id) {
+        $dir .= "/$id";
+    }
+    return $dir;
 }
-
-
 
 sub notifyTick
 {
-  my ($self, $nTicks) = @_;
-  defined $nTicks or
-    $nTicks = 1;
+    my ($self, $nTicks) = @_;
 
-  if ($nTicks <= 0) {
-    throw EBox::Exceptions::InvalidData(
-				    data => __('Number of ticks to notify'),
-				    value => $nTicks,
-				    advice => __('must be greater than zero'),
-				   );
-  }
+    defined $nTicks or
+        $nTicks = 1;
 
- if (not $self->started) {
-    throw EBox::Exceptions::External(
-				     __('Executable has not been run')
-				    );
-  }
+    if ($nTicks <= 0) {
+        throw EBox::Exceptions::InvalidData(
+                data => __('Number of ticks to notify'),
+                value => $nTicks,
+                advice => __('must be greater than zero'),
+                );
+    }
 
-  my $newValue = $self->ticks() + $nTicks;
-  $self->setConfInt('ticks', $newValue);
+    if (not $self->started) {
+        throw EBox::Exceptions::External(
+                __('Executable has not been run')
+                );
+    }
+
+    my $newValue = $self->ticks() + $nTicks;
+    $self->setConfInt('ticks', $newValue);
 }
-
 
 sub ticks
 {
-  my ($self) = @_;
-  return $self->getConfInt('ticks');
+    my ($self) = @_;
+    return $self->getConfInt('ticks');
 }
 
 sub setTotalTicks
 {
-  my ($self, $nTTicks) = @_;
-  $self->setConfInt('totalTicks', $nTTicks);
+    my ($self, $nTTicks) = @_;
+    $self->setConfInt('totalTicks', $nTTicks);
 }
 
 sub totalTicks
 {
-  my ($self) = @_;
-  return $self->getConfInt('totalTicks');
+    my ($self) = @_;
+    return $self->getConfInt('totalTicks');
 }
 
 # Method: percentage
@@ -187,48 +181,46 @@ sub totalTicks
 #
 sub percentage
 {
-  my ($self) = @_;
+    my ($self) = @_;
 
-  if ($self->finished()) {
-      return 100;
-  }
+    if ($self->finished()) {
+        return 100;
+    }
 
-  my $totalTicks = $self->totalTicks();
-  # Workaround to avoid illegal division by zero
-  if ($totalTicks  == 0 ) {
-      return 100;
-  }
+    my $totalTicks = $self->totalTicks();
+    # Workaround to avoid illegal division by zero
+    if ($totalTicks  == 0 ) {
+        return 100;
+    }
 
+    my $per = $self->ticks / $totalTicks;
+    $per = sprintf("%.2f", $per); # round to two decimals
+        $per *= 100;
 
-  my $per = $self->ticks / $totalTicks;
-  $per = sprintf("%.2f", $per); # round to two decimals
-  $per *=100;
+    if ($per > 100) {
+        # to guard for cases that more noitifyTicks than needed had been received
+        return 100;
+    }
 
-  if ($per > 100) {
-      # to guard for cases that more noitifyTicks than needed had been received
-      return 100;
-  }
-
-  return $per;
+    return $per;
 }
 
 sub setMessage
 {
-  my ($self, $message) = @_;
-  $self->setConfString('message', $message);
+    my ($self, $message) = @_;
+    $self->setConfString('message', $message);
 }
 
 sub message
 {
-  my ($self) = @_;
-  return $self->getConfString('message');
+    my ($self) = @_;
+    return $self->getConfString('message');
 }
-
 
 sub id
 {
-  my ($self) = @_;
-  return $self->getConfString('id');
+    my ($self) = @_;
+    return $self->getConfString('id');
 }
 
 # Method: started
@@ -242,14 +234,14 @@ sub id
 #
 sub started
 {
-  my ($self) = @_;
-  return $self->getConfBool('started');
+    my ($self) = @_;
+    return $self->getConfBool('started');
 }
 
 sub _setAsStarted
 {
-  my ($self) = @_;
-  return $self->setConfBool('started', 1);
+    my ($self) = @_;
+    return $self->setConfBool('started', 1);
 }
 
 # Method: finished
@@ -263,8 +255,8 @@ sub _setAsStarted
 #
 sub finished
 {
-  my ($self) = @_;
-  return $self->getConfBool('finished');
+    my ($self) = @_;
+    return $self->getConfBool('finished');
 }
 
 # Method: setAsFinished
@@ -285,21 +277,22 @@ sub finished
 #
 sub setAsFinished
 {
-  my ($self, $retValue, $errorMsg) = @_;
-  defined $retValue or $retValue = 0;
+    my ($self, $retValue, $errorMsg) = @_;
 
-  if (not $self->started()) {
-    throw EBox::Exceptions::External(
-	__('The executable has not run')
-				    );
-  }
+    defined $retValue or $retValue = 0;
 
-  $self->setConfBool('finished', 1);
+    if (not $self->started()) {
+        throw EBox::Exceptions::External(
+                __('The executable has not run')
+                );
+    }
 
-  $self->setRetValue($retValue);
-  if ( $retValue > 0 and defined($errorMsg)) {
-    $self->setConfString('errorMsg', $errorMsg);
-  }
+    $self->setConfBool('finished', 1);
+
+    $self->setRetValue($retValue);
+    if ( $retValue > 0 and defined($errorMsg)) {
+        $self->setConfString('errorMsg', $errorMsg);
+    }
 }
 
 # Method: retValue
@@ -338,7 +331,7 @@ sub setRetValue
 
     unless ( $self->finished() ) {
         throw EBox::Exceptions::Internal('Cannot set a return value to '
-                                         . 'a not finished task');
+                . 'a not finished task');
     }
     return $self->setConfInt('retValue', $retValue);
 
@@ -363,110 +356,106 @@ sub errorMsg
 
 sub stateAsHash
 {
-  my ($self) = @_;
+    my ($self) = @_;
 
-  my $status;
-  my $statevars  = {};
+    my $status;
+    my $statevars  = {};
 
-  if (not $self->started()) {
-    $status = 'not running';
-  }
-  elsif ($self->finished()) {
-    my $retValue = $self->retValue();
-    if ($retValue == 0) {
-      $status = 'done';
+    if (not $self->started()) {
+        $status = 'not running';
     }
-    elsif ($retValue != 0 ) {
-      $status = 'error';
-      $statevars->{retValue} = $retValue;
-      my $errorMsg = $self->errorMsg();
-      if ($errorMsg) {
-        $statevars->{errorMsg} = $errorMsg;
-      }
+    elsif ($self->finished()) {
+        my $retValue = $self->retValue();
+        if ($retValue == 0) {
+            $status = 'done';
+        }
+        elsif ($retValue != 0 ) {
+            $status = 'error';
+            $statevars->{retValue} = $retValue;
+            my $errorMsg = $self->errorMsg();
+            if ($errorMsg) {
+                $statevars->{errorMsg} = $errorMsg;
+            }
+        }
     }
-  }
-  else {
-    $status = 'running';
-  }
+    else {
+        $status = 'running';
+    }
 
-  my $state = {
-    state => $status,
-    statevars => $statevars,
-    message => $self->message(),
-    ticks => $self->ticks(),
-    totalTicks => $self->totalTicks(),
-  };
+    my $state = {
+        state => $status,
+        statevars => $statevars,
+        message => $self->message(),
+        ticks => $self->ticks(),
+        totalTicks => $self->totalTicks(),
+    };
 
-  return $state;
+    return $state;
 }
 
 sub destroy
 {
-  my ($self) = @_;
+    my ($self) = @_;
 
-  if (exists $self->{childPid}) {
-      for (0 .. 10) {
-          my $kid = waitpid($self->{childPid}, WNOHANG);
-          if ($kid != 0) {
-              last;
-          }
-          sleep 1;
-      }
+    if (exists $self->{childPid}) {
+        for (0 .. 10) {
+            my $kid = waitpid($self->{childPid}, WNOHANG);
+            if ($kid != 0) {
+                last;
+            }
+            sleep 1;
+        }
 
-  }
+    }
 
-  my $piDir = $self->confKeysBase();
+    my $piDir = $self->confKeysBase();
 
-  $self->fullModule->st_delete_dir($piDir);
-  $_[0] = undef; # to cancel the self value
+    $self->fullModule->st_delete_dir($piDir);
+    $_[0] = undef; # to cancel the self value
 }
-
 
 sub _executable
 {
-  my ($self) = @_;
-  return $self->getConfString('executable');
+    my ($self) = @_;
+    return $self->getConfString('executable');
 }
-
 
 sub runExecutable
 {
-  my ($self) = @_;
-  if ($self->started) {
-    throw EBox::Exceptions::External(
-	__('The executable has already been started')
-				    );
-  }
-  elsif ($self->finished) {
-    __('The executable has already finished');
-  }
+    my ($self) = @_;
+    if ($self->started) {
+        throw EBox::Exceptions::External(
+                __('The executable has already been started')
+                );
+    }
+    elsif ($self->finished) {
+        __('The executable has already finished');
+    }
 
-  $self->_setAsStarted;
+    $self->_setAsStarted;
 
-  $self->_fork();
+    $self->_fork();
 }
-
 
 sub _fork
 {
-  my ($self) = @_;
+    my ($self) = @_;
 
-  my $pid = fork();
+    my $pid = fork();
 
-  unless (defined $pid) {
-    throw EBox::Exceptions::Internal("Cannot fork().");
-  }
+    unless (defined $pid) {
+        throw EBox::Exceptions::Internal("Cannot fork().");
+    }
 
-  if ($pid) {
-    $self->{childPid} = $pid;
-    return; # parent returns immediately
-  }
-  else {
+    if ($pid) {
+        $self->{childPid} = $pid;
+        return; # parent returns immediately
+    }
+    else {
 
-    $self->_childExec();
-  }
+        $self->_childExec();
+    }
 }
-
 
 sub _childExec
 {
@@ -482,11 +471,11 @@ sub _childExec
     exec($cmd);
 }
 
-
 sub execProgressIdParamName
 {
-  my ($self) = @_;
-  return '--progress-id';
+    my ($self) = @_;
+
+    return '--progress-id';
 }
 
 # Method to clean up the rubbish regarding to the progress indicator
