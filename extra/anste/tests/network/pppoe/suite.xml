@@ -89,7 +89,7 @@
         <host>test-client</host>
         <dir>test-resolve</dir>
     </test>
-<!--
+
     <test type="selenium">
         <name>FirewallRemoveInternal</name>
         <desc>
@@ -119,7 +119,7 @@
         <host>ebox-server</host>
         <dir>fw-allow-internal</dir>
     </test>
--->
+
     <test>
         <name>ClientTestWWWAllowed</name>
         <desc>Test if we can get a webpage from the client</desc>
