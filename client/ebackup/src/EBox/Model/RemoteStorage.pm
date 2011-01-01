@@ -13,7 +13,6 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-
 package EBox::EBackup::Model::RemoteStorage;
 
 # Class: EBox::EBackup::Model::RemoteStorage
@@ -30,6 +29,8 @@ use EBox::Global;
 use EBox::Gettext;
 use EBox::Types::Select;
 use EBox::Types::Text;
+use EBox::Exceptions::Command;
+use Error qw(:try);
 
 # Group: Public methods
 
@@ -60,16 +61,22 @@ sub new
 sub _content
 {
     my ($self) = @_;
-    if (not defined $self->{storage}) {
-        my $ebackup = $self->{gconfmodule};
-        $self->{storage} = $ebackup->storageUsage();
-        if (not defined $self->{storage}) {
-            return {
-                    used => __('Unknown'),
-                    available => __('Unknown'),
-                    total     => __('Unknown'),
-                   };
-        }
+
+    unless (defined $self->{storage}) {
+        $self->{storage} = $self->_getStorageUsage();
+    }
+
+    if ($self->{badConnection}) {
+        $self->setMessage($self->_badConnectionMsg() );
+    }
+
+    unless (defined $self->{storage}) {
+        # unable to retrieve storage for whatever reason..
+        return {
+                used => __('Unknown'),
+                available => __('Unknown'),
+                total     => __('Unknown'),
+               };
     }
 
     return {
@@ -81,6 +88,39 @@ sub _content
 
 
 
+sub _getStorageUsage
+{
+    my ($self) = @_;
+    my $ebackup = $self->{gconfmodule};
+    delete $self->{storage};
+    my $badConnection;
+
+    try {
+        $self->{storage} = $ebackup->storageUsage();
+    } catch EBox::Exceptions::Command with {
+        my $ex = shift @_;
+        my $error = $ex->error();
+        foreach my $line (@{ $error }) {
+            if ($line =~ m/Connection timed out/ or
+                ($line =~  m/Connection closed by remote host/ )) {
+                $badConnection = 1;
+                last;
+            }
+        }
+
+        if (not $badConnection) {
+            $ex->throw();
+        }
+
+    };
+
+
+    $self->{badConnection} = $badConnection;
+
+
+    return $self->{storage};
+}
+
 
 # Method: precondition
 #
@@ -91,8 +131,8 @@ sub _content
 sub precondition
 {
     my ($self) = @_;
-    my $ebackup = $self->{gconfmodule};
-    $self->{storage} = $ebackup->storageUsage();
+
+    $self->{storage} = $self->_getStorageUsage();
     return defined $self->{storage}
 }
 
@@ -105,12 +145,19 @@ sub precondition
 sub preconditionFailMsg
 {
     my ($self) = @_;
+    if ($self->{badConnection}) {
+        return _badConnectionMsg();
+    }
+
     # nothing to show if not precondition..
     return '';
 }
 
+sub _badConnectionMsg
+{
+    return __('Error connecting to backup server. Storage status unknown');
+}
 
-#
 # Group: Protected methods
 
 # Method: _table
@@ -121,7 +168,6 @@ sub preconditionFailMsg
 #
 sub _table
 {
-
     my @tableHeader = (
         new EBox::Types::Text(
             fieldName     => 'used',
@@ -148,8 +194,6 @@ sub _table
     };
 
     return $dataTable;
-
 }
-
 
 1;

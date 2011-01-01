@@ -97,4 +97,29 @@ sub quota
     return wantarray ? ($used, $quota) : $quota;
 }
 
+sub deleteAll
+{
+    my $credentials = credentials();
+    if (not defined $credentials) {
+        return undef;
+    }
+
+    my $server = $credentials->{server};
+    my $username = $credentials->{username};
+    my $password = $credentials->{password};
+    EBox::EBackup::Password::setPasswdFile($password);
+
+    my $remoteServices = EBox::Global->modInstance('remoteservices');
+    my $commonName = $remoteServices->eBoxCommonName();
+
+    my $rmCommand = "rm -rf $commonName/*";
+
+    my $passwdFile = EBox::EBackup::Password::PASSWD_FILE;
+    my $cmd =  qq{ sshpass -f $passwdFile ssh  } .
+               q{-o GlobalKnownHostsFile=} . FINGERPRINT_FILE . ' ' .
+               $username . '@' .  $server .
+               ' ' . $rmCommand;
+    EBox::Sudo::root($cmd);
+}
+
 1;

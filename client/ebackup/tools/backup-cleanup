@@ -1,0 +1,108 @@
+#!/usr/bin/perl
+# Copyright (C) 2010 EBox Technologies S.L.
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License, version 2, as
+# published by the Free Software Foundation.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+
+use strict;
+use warnings;
+
+use EBox;
+use EBox::Sudo;
+use EBox::Global;
+use EBox::Gettext;
+use EBox::EBackup;
+use EBox::EBackup::Password;
+use EBox::EBackup::Subscribed;
+
+my %subByMode;
+
+sub usage
+{
+    print __('Usage:'), "\n";
+    my $options = join ' | ', keys %subByMode;
+    print "$0 $options", "\n";
+}
+
+sub info
+{
+    my ($ebackup) = @_;
+    _duplicityCommand($ebackup, 'cleanup');
+}
+
+sub clean
+{
+    my ($ebackup) = @_;
+    _duplicityCommand($ebackup, 'cleanup --force');
+}
+
+sub deleteAll
+{
+    my ($ebackup) = @_;
+    my $settingsModel = $ebackup->model('RemoteSettings');
+    my $method = $settingsModel->row()->valueByName('method');
+    if ($method ne 'cloud') {
+        die __('This option is only available when cloud method is enabled');
+    }
+
+    EBox::EBackup::Subscribed::deleteAll();
+}
+
+sub _duplicityCommand
+{
+    my ($ebackup, @commandArgs) = @_;
+    my $duplicityWrapper = EBox::EBackup::DUPLICITY_WRAPPER();
+    my $remoteUrl = $ebackup->_remoteUrl();
+    my $cmd = "$duplicityWrapper @commandArgs $remoteUrl";
+    my $output = EBox::Sudo::root($cmd);
+    foreach my $line (@{ $output }) {
+        print $line;
+    }
+    print "\n";
+}
+
+%subByMode = (
+              '--help' => \&usage,
+              '--usage' => \&usage,
+              '--info'   => \&info,
+              '--clean' => \&clean,
+              '--delete-all' => \&deleteAll
+             );
+
+my $mode = shift @ARGV;
+$mode or
+    $mode ='--info';
+
+if ((@ARGV)) {
+    print __x('Unexpected arguments: {arg}',
+               arg => "@ARGV");
+    usage();
+    exit 0;
+} elsif (not exists $subByMode{$mode}) {
+    print __x('Unknown mode {mode}',
+              mode => $mode);
+    usage();
+    exit 0;
+}
+
+EBox::init();
+
+my $ebackup = EBox::Global->modInstance('ebackup');
+if (not defined $ebackup) {
+    die __('Backup module not installed or not fully installed');
+}
+
+my $modeSub = $subByMode{$mode};
+$modeSub->($ebackup);
+
+1;

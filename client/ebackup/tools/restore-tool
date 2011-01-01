@@ -59,8 +59,7 @@ $xauthCookie = _xauthCookie();
 
 EBox::init();
 
-# FIXME: Commented until problems with zenity and special chars are fixed
-#settextdomain('ebox-ebackup');
+settextdomain('ebox-ebackup');
 
 if ($usesX) {
     zenityPrecondition();
@@ -763,9 +762,7 @@ sub _installDebPackages
 
     my @packages;
     foreach my $mod (@modules) {
-        # WWW in case a debian package provides more than one Zentyal module this
-        # could fail, currently is not a issue bz the unique case is the
-        # ebox/events/logs modules which are installed as prerequisite
+        next if EBox::Global->modExists($mod);
 
         # usercorner requires user module and comes in the same ubuntu package
         # so we can skip it
@@ -790,92 +787,29 @@ sub _installDebPackages
     # TODO: assure that modules are loaded and retrievable by EBox::Global->modInstance
 }
 
-
 sub _aptInstall
 {
     my ($packages_r, $msg) = @_;
 
     my @packages = @{ $packages_r };
 
-    my $pulsatePid = _showUnanticipatedProgress($msg);
-
-    my $errorMsg;
-    my $installOk = 0;
-    try {
-        my $dpkgOpts = '-o Dpkg::Options::="--force-confold"';
-        my $cmd = "apt-get install -y --force-yes --no-install-recommends $dpkgOpts @packages";
-        my $errorFile = '/tmp/restore-tool-stderr';
-
-        $ENV{LANG} = 'C';
-        $ENV{DEBIAN_FRONTEND} = 'noninteractive';
-        my $fullCmd = "sudo -E  $cmd > /dev/null 2> $errorFile";
-        system $fullCmd;
-        if ($? != 0) {
-            my $childError = $!;
-            if ($childError == -1) {
-                throw EBox::Exceptions::Internal("Failed to execute child process $cmd");
-            } elsif ($childError & 127) {
-                my $signal = ($childError & 127);
-                my $coredump = ($childError & 128) ? 'with coredump' : 'without coredump';
-                throw EBox::Exceptions::Internal("$cmd died with signal $signal $coredump");
-            }
-
-            my $exitValue =  $childError >>  8;
-            my @error = File::Slurp::read_file($errorFile);
-            throw EBox::Exceptions::Command(cmd => $cmd,
-                                            output => [],
-                                            error => \@error,
-                                            exitValue => $exitValue);
-        }
-
-        $installOk = 1;
-    } catch EBox::Exceptions::Command with {
-        my $ex = shift;
-        $installOk = 0;
-        $errorMsg = join '', @{ $ex->error() };
-    } otherwise {
-        my $ex = shift;
-        $installOk = 0;
-        $errorMsg = "$ex";
-    } finally {
-        _finishUnanticipatedProgress($pulsatePid);
-    };
-
-    if (not $installOk) {
+    my $software = EBox::Global->modInstance('software');
+    my $progressIndicator = $software->installPkgs(@packages);
+    my $retValue = progress($progressIndicator,
+                         __('Installing missing modules...'));
+    if ($retValue != 0) {
+        my $errorMsg = $progressIndicator->errorMsg();
         my $msg;
+
         if ($errorMsg) {
-            $msg = __x('Error installing packages: {err}. You can continue but you would not restore any data for the missing packages',
-                       err => $errorMsg);
+            my $msg = __x('Error installing packages: {err}. You can continue but you would not restore any data for the missing packages',
+                          err => "\n$errorMsg\n");
+            error($msg);
+            return;
         } else {
-            $msg =__('Error installing packages. You can continue but you would not restore any data for the missing packages');
+            EBox::warn("Progress indicator for _aptInstall does not specify any error but has returned the following value: $retValue.");
         }
-
-        warning($msg);
     }
-
-#    XXX uncomment when ebox-software does not fail outside apache
-#     my $software = EBox::Global->modInstance('software');
-#     my $progressIndicator = $software->installPkgs(@packages);
-#     my $error =  progress($progressIndicator,
-#                           __('Installing missing modules'));
-#     if ($error) {
-#         my $errorMsg = $progressIndicator->errorMsg();
-#         my $msg;
-#
-#         if ($errorMsg) {
-#             $msg = __x(
-#          'Error installing packages: {err}. You can continue but you would not restore any data for the missing packages',
-#                       err => $errorMsg
-#                      );
-#         } else {
-#             $msg =__(
-#          'Error installing packages. You can continue but you would not restore any data for the missing packages',
-#                     );
-#         }
-
-#         warning($msg);
-#     }
-
 }
 
 sub _installCloudPackages
@@ -1004,12 +938,18 @@ sub _configureModules
 
     my $PROGRESS_BAR;
     $usesX and
-        local $SIG{PIPE} = 'IGNORE';
+      local $SIG{PIPE} = 'IGNORE';
 
+    my $pid;
     if ($usesX) {
-        my $cmd = _zenityProgress(__('Configuring modules'));
-        open $PROGRESS_BAR, "|$cmd" or
-            fatal("Cannot start process $cmd: $!");
+        my $msg = __('Configuring modules');
+        my $cmd = _zenityProgress($msg);
+        $pid = open($PROGRESS_BAR, "|-");
+        if ( $pid == 0 ) {
+            # Child code
+            exec { $cmd->[0] } @{$cmd};
+            exit(2);
+        }
     } else {
         print "\n";
     }
@@ -1021,11 +961,13 @@ sub _configureModules
         next unless (exists $toConfigure{$name});
 
         my $percent = ($i/(scalar @orderedMods)) * 100;
-        $percent = sprintf("%.2f", $percent);
+        $percent = sprintf("%i", $percent);
 
         if ($PROGRESS_BAR) {
-            print  $PROGRESS_BAR $percent . "\n" or
+            print $PROGRESS_BAR $percent . "\n" or
                 _zenityProgressFail($!, $?);
+            print $PROGRESS_BAR '#' . __x('Configuring modules: Current module {mod}', mod => $name) . "\n"
+              or _zenityProgressFail($!, $?);
         } elsif (not $usesX) {
             print "\r";
             my $msg =  __x('Configuring modules {p} done. Current module {mod}',
@@ -1061,6 +1003,10 @@ sub _configureModules
             _zenityProgressFail($!, $?);
         close $PROGRESS_BAR or
             _zenityProgressFail($!, $?);
+
+        if ($pid) {
+            waitpid($pid, 0);
+        }
     }
 
     my $saveChangesMsg = __('Finishing new modules configuration');
@@ -1512,21 +1458,33 @@ sub _zenityQuote
 
 sub _zenityCommonArgs
 {
-    my $args = '--width=300 --title ' . _zenityTitle() . ' ';
-    $args .= _zenityIcon();
-    return $args;
+    if ( wantarray ) {
+        my @args = qw(--width=300);
+        push(@args, '--title=' . _zenityTitle(1));
+        push(@args, _zenityIcon());
+        return @args;
+    } else {
+        my $args = '--width=300 --title ' . _zenityTitle() . ' ';
+        $args .= _zenityIcon() . ' ';
+        return $args;
+    }
 }
 
 sub _zenityTitle
 {
-    return _zenityQuote('Zentyal Disaster Recovery');
+    my ($notQuote) = @_;
+    if ( $notQuote ) {
+        return 'Zentyal Disaster Recovery';
+    } else {
+        return _zenityQuote('Zentyal Disaster Recovery');
+    }
 }
 
 sub _zenityIcon
 {
     my $path = '/usr/share/ebox/www/favicon.ico';
     if (-r $path) {
-        return "--window-icon=$path ";
+        return "--window-icon=$path";
     }
 
     return '';
@@ -1694,18 +1652,20 @@ sub _zenityProgress
 {
     my ($text, $pulsate) = @_;
 
-    $text = _zenityQuote($text);
-    my $commonArgs = _zenityCommonArgs();
+    my @commonArgs = _zenityCommonArgs();
 
-    my $args = '--auto-close ';
+    my @args = ('--auto-close');
     if ($pulsate) {
-        $args .= '--pulsate';
+        push(@args, '--pulsate');
     } else {
-        $args .= '--auto-kill';
+        push(@args, '--auto-kill');
     }
 
-    my $cmd = qq{zenity --progress $commonArgs --text=$text $args};
-    return $cmd;
+    my @cmd = ('zenity', '--progress');
+    push(@cmd, @commonArgs);
+    push(@cmd, @args);
+    push(@cmd, "--text=$text");
+    return \@cmd;
 }
 
 sub _zenityProgressIndicator
@@ -1715,20 +1675,36 @@ sub _zenityProgressIndicator
 
     local $SIG{PIPE} = 'IGNORE';
     my $PR;
-    open $PR, "|$cmd" or
-        fatal("Cannot start process $cmd: $!");
+    my $pid = open ($PR, '|-');
+    select ((select ($PR), $|=1)[0]); #autoflush
+    if ( $pid == 0 ) {
+        # Child code
+        exec { $cmd->[0] } @{$cmd};
+        exit(2);
+    }
     my $percent = 0;
     while ($percent < 100) {
-        print  $PR $percent . "\n" or
-            _zenityProgressFail($!, $?);
         $percent = $progressIndicator->percentage();
+        if ($percent) {
+            print $PR "$percent\n" or
+                _zenityProgressFail($!, $?);
+        }
+        my $message = $progressIndicator->message();
+        # FIXME: $message is too long, we need to short it
+        if ($message) {
+            print $PR "#$text" . '\n' . "$message\n" or
+                _zenityProgressFail($!, $?);
+        }
+        sleep 1;
     }
-
-    print $PR $percent or
-        _zenityProgressFail($!, $?);
 
     close $PR or
         _zenityProgressFail($!, $?);
+
+    if ($pid) {
+        waitpid($pid, 0);
+    }
+
     return $progressIndicator->retValue();
 }
 
@@ -1791,12 +1767,22 @@ sub _zenityPulsate
     open STDERR, '>&STDOUT' or die "Can't dup stdout: $!";
 
     my $zenityCmd = _zenityProgress($text, 1);
-    open my $PROC, "|$zenityCmd";
+    $pid = open my $PROC, "|-";
+    if ( $pid == 0 ) {
+        # Child code
+        exec { $zenityCmd->[0] } @{$zenityCmd};
+        exit(2);
+    }
+
     while (1) {
         print $PROC 1;
     }
-
     close $PROC;
+
+    if ($pid) {
+        waitpid($pid, 0);
+    }
+
     exit(0);
 }
 
@@ -1810,7 +1796,9 @@ sub _zenityPulsateClose
     # XXX use kill -9 if it does not close
 
     # To avoid zombie processes, this is a blocking operation
-    waitpid($pulsatePid, 0);
+    if ($pulsatePid) {
+        waitpid($pulsatePid, 0);
+    }
 }
 
 sub _zenityUserAbort
@@ -1933,8 +1921,11 @@ sub getUserAndPasswordAndServers
     }
 
     unless (defined $servers and @{$servers}) {
-        fatal(__x("The account {user} do not have any registered Zentyal servers",
-                  user => $user));
+        $servers = serverList($remoteServices, $user, $password);
+        unless ( defined $servers and @{$servers} ) {
+            fatal(__x("The account {user} do not have any registered Zentyal servers",
+                      user => $user));
+        }
     }
 
     return {

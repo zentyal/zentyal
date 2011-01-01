@@ -205,6 +205,17 @@ sub _removeExpiredBackups
     EBox::Sudo::root($removeArguments);
 }
 
+sub _cleanup
+{
+    my ($ebackup) = @_;
+
+    my $duplicityWrapper = $ebackup->DUPLICITY_WRAPPER();
+    my $remoteUrl = $ebackup->_remoteUrl();
+    my $cmd = "$duplicityWrapper cleanup --force $remoteUrl";
+    EBox::debug('Trying to clean up incomplete backups');
+    EBox::Sudo::root($cmd);
+}
+
 my $type = 'full';
 if ($ARGV[0]) {
     if ($ARGV[0] eq '--incremental') {
@@ -313,6 +324,7 @@ try {
         my $msg = "Backup failed: $errorMsg";
         print "$msg\n";
         EBox::error($msg);
+        _cleanup($ebackup);
     }
 
     _sendSuccessEvent($success, $type, $errorMsg);

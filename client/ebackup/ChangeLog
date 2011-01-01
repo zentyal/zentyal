@@ -1,5 +1,12 @@
 HEAD
 	+ Fixed wrong crontab string for weekly full backup
+	+ Use software module and ProgressIndicator to install packages
+	+ Fixed problems with pulsating progress bar in restore-tool
+	+ Use fork + exec to launch zenity, fixes argument parsing problems
+	+ Making environment local for installing modules in restore-tool
+	+ Added cleanup operation on failure
+	+ Added backup-cleanup script for manual cleanups
+	+ Properly handle connection errors in RemoteStorage
 2.0.7
 	+ Set label of restore file button to "Restore" instead of "Change"
 	+ Set the volume size to 25 as default for remote system
