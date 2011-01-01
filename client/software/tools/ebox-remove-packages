@@ -32,95 +32,91 @@ EBox::init();
 my $progressId          = pop @ARGV;
 my $progressIdParamName = pop @ARGV; # unused
 my @packages            = @ARGV;
-my $delPkgs = "";	
 
 my $progress = EBox::ProgressIndicator->retrieve($progressId);
-$progress->started() or die('progress executable not run');
+$progress->started() or die ('progress executable not run');
 
-my $pkg;
-foreach $pkg (@packages) {
-    $delPkgs .= " $pkg";
-}
-
-  my $auto = (EBox::Config::configkey('software-autoremove') eq 'yes')  ?  'autoremove' : 'remove';
+my $auto = (EBox::Config::configkey('software-autoremove') eq 'yes')  ?  'autoremove' : 'remove';
 
 my ($retValue, $errorMsg) = (0, '');
 
-
 try {
-	my $fifo = '/var/lib/ebox/ebox-apt-remove.pipe';
-	
-	#Clean fifo
-	EBox::Sudo::silentRoot ("rm $fifo");
-	EBox::Sudo::silentRoot ("mkfifo $fifo");
+    my $fifo = '/var/lib/ebox/ebox-apt-remove.pipe';
 
-	EBox::info("Begin packages remove");	
-	
-	my $pid = fork();
-	if ($pid == 0) {
-		EBox::Sudo::root("/usr/share/ebox-software/ebox-apt-remove $delPkgs $auto");
-		exit 0;
-	}
+    #Clean fifo
+    EBox::Sudo::silentRoot ("rm $fifo");
+    EBox::Sudo::silentRoot ("mkfifo $fifo");
 
-	my $break = 0;
-	my ($read, $text, $oldText);
-	do {
-		unless (open ($read, '<',  $fifo)){
-			EBox::error("Error opening fifo <$fifo> - $!");
-			throw IOException("Error opening fifo <$fifo> - $!");
-		}
-		my $firstLine = '';
-		while ($text = <$read>) {
-			if ($text eq $oldText) {
-				last;
-			}
-			unless ($firstLine) {
-				$firstLine = $text;
-			}
-			
-			if ($text eq "end") {
-				$break = 1;
-			}
-			unless ($text eq $oldText) {
-				EBox::info("Read: $text");			
-				if ($text =~ /rem([0-9]*)/) {
-					$progress->setTotalTicks($1);
-				}
-				if ($text =~ /(Removing\s.*)/){
-					$progress->notifyTick();						
-					$progress->setMessage($text);
-				}
-				if ($text =~ /(Setting up\s.*)/){				
-					$progress->setMessage($text);
-				}
-			}
-			$oldText = $firstLine;	
-		}	
-		close $read;
-	} until($break);
-	
-} catch Error with {   
+    EBox::info('Begin packages remove');
+
+    my $pid = fork();
+    if ($pid == 0) {
+        EBox::Sudo::root("/usr/share/ebox-software/ebox-apt-remove @packages $auto");
+        exit 0;
+    }
+
+    my $break = 0;
+    my ($read, $text, $oldText);
+    do {
+        unless (open ($read, '<',  $fifo)){
+            EBox::error("Error opening fifo <$fifo> - $!");
+            throw IOException("Error opening fifo <$fifo> - $!");
+        }
+        my $firstLine = '';
+        while ($text = <$read>) {
+            if ($text eq $oldText) {
+                last;
+            }
+            unless ($firstLine) {
+                $firstLine = $text;
+            }
+
+            if ($text eq 'end') {
+                $break = 1;
+            }
+
+            # TODO: Now ebox-apt-remove does not send duplicated lines
+            # anymore, maybe this check can be safely removed
+            unless ($text eq $oldText) {
+                EBox::info("Read: $text");
+                if ($text =~ /rem([0-9]*)/) {
+                    $progress->setTotalTicks($1);
+                }
+                if ($text =~ /(Removing\s.*)/) {
+                    $progress->notifyTick();
+                    $progress->setMessage($text);
+                }
+                if ($text =~ /(Setting up\s.*)/) {
+                    $progress->setMessage($text);
+                }
+            }
+            $oldText = $firstLine;
+        }
+        close $read;
+    } until($break);
+
+} catch Error with {
    my ($exc) = @_;
     $retValue = $exc->exitValue();
     $errorMsg = $exc->stringify();
     EBox::error($errorMsg);
 } finally {
-	try {
-		EBox::info("End packages remove");
-		my $global = EBox::Global->getInstance(1);
-		my $software = $global->modInstance('software');		
-		#causes the cache to be generated
-		$software->listUpgradablePkgs(1);
-		my $apache = EBox::Global->modInstance('apache');
-		$apache->_daemon('restart');
-		$progress->setAsFinished($retValue, $errorMsg);
-	} catch EBox::Exceptions::External with {
-	       # Ignore if it cannot put as finished since it's possible it
-	       # is already destroyed. Why?
-	       EBox::warn("$progressId does not exist");
-	};
+    try {
+        EBox::info("End packages remove");
+        my $global = EBox::Global->getInstance(1);
+        my $software = $global->modInstance('software');
+        #causes the cache to be generated
+        $software->listUpgradablePkgs(1);
+        my $apache = EBox::Global->modInstance('apache');
+        $apache->_daemon('restart');
+        $progress->setAsFinished($retValue, $errorMsg);
+    } catch EBox::Exceptions::External with {
+        # Ignore if it cannot put as finished since it's possible it
+        # is already destroyed. Why?
+        EBox::warn("$progressId does not exist");
+    };
 
-	exit $retValue;
+    exit $retValue;
 };
 
 1;

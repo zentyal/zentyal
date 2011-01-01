@@ -58,8 +58,7 @@ try {
     $pid = fork();
     if ($pid == 0) {
         # Child code
-        my $insPkgs = "@packages";
-        EBox::Sudo::root ("/usr/share/ebox-software/ebox-apt-update $insPkgs ");
+        EBox::Sudo::root ("/usr/share/ebox-software/ebox-apt-update @packages");
         exit(0);
     }
 
@@ -82,6 +81,8 @@ try {
             if ($text eq 'end') {
                 $break = 1;
             }
+            # TODO: Now ebox-apt-update does not send duplicated lines
+            # anymore, maybe this check can be safely removed
             unless (($text eq $oldText) or ($text eq $lastLine)) {
                 if ($text =~ /^E:\s*(.*)$/) {
                     $errorMsg = $1;

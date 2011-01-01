@@ -38,10 +38,10 @@ my $fullCmd = "LANG=C DEBIAN_FRONTEND=noninteractive $cmd @packages 2>&1";
 my ($pid, $read, $text, $write, $log);
 
 open ($log, '>>', LOG_FILE);
+select ((select ($log), $|=1)[0]); #autoflush
 printLog('ebox-apt-remove started');
 
 local $SIG{PIPE} = sub {
-    open ($write, '>', $fifo);
     print $write 'end';
     close($write);
     printLog('ebox-apt-remove received SIGPIPE and finished');
@@ -51,10 +51,12 @@ local $SIG{PIPE} = sub {
 
 open ($read, '-|', $fullCmd);
 try {
-    my $out = '';
+    open ($write, '>', $fifo) or die "Can't open $fifo";
+    select ((select ($write), $|=1)[0]); #autoflush
     while ($text = <$read>) {
         printLog($text);
 
+        my $out = '';
         if ($text =~ /([0-9]+) upgraded.* ([0-9]+) .* ([0-9]+) .* ([0-9]+) .*/) {
             $out = 'ins' . ($1+$2) . "\nrem$3\n";
         }
@@ -67,16 +69,14 @@ try {
         if ($text =~ /(Setting up\s.*)/) {
             $out = " $1\n";
         }
+
         if ($out) {
-            open ($write, '>', $fifo) or die "Can't open $fifo";
             print $write $out;
-            close ($write);
         }
     }
 } otherwise {
     printLog("ERROR: $@ $!");
 } finally {
-    open ($write, '>', $fifo);
     print $write 'end';
     close ($write);
     close ($read);
