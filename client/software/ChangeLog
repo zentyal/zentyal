@@ -1,3 +1,5 @@
+HEAD
+	+ Safer regexes in ebox-update-packages and ebox-remove-packages
 2.0.8
 	+ Open and close write fifos only one time and autoflush them
 	+ Avoid sending duplicated lines to the fifos

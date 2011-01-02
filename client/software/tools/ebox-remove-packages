@@ -79,14 +79,11 @@ try {
             # anymore, maybe this check can be safely removed
             unless ($text eq $oldText) {
                 EBox::info("Read: $text");
-                if ($text =~ /rem([0-9]*)/) {
+                if ($text =~ /^rem([0-9]*)/) {
                     $progress->setTotalTicks($1);
                 }
-                if ($text =~ /(Removing\s.*)/) {
+                elsif ($text =~ /^\s*(Removing\s.*)/) {
                     $progress->notifyTick();
-                    $progress->setMessage($text);
-                }
-                if ($text =~ /(Setting up\s.*)/) {
                     $progress->setMessage($text);
                 }
             }

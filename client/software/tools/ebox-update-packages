@@ -90,17 +90,17 @@ try {
                     $retValue = 1;
                     $break = 1;
                 }
-                elsif ($text =~ /ins([0-9]*)/) {
+                elsif ($text =~ /^ins([0-9]*)/) {
                     $progress->setTotalTicks($1*2);
                 }
-                elsif ($text =~ /Get:[0-9]*\s(.*)/){
+                elsif ($text =~ /^Get:[0-9]*\s(.*)/){
                     $progress->setMessage("Downloading $1");
                 }
-                elsif ($text =~ /(Unpacking\s.*)/){
+                elsif ($text =~ /^\s*(Unpacking\s.*)/){
                     $progress->notifyTick();
                     $progress->setMessage($text);
                 }
-                elsif ($text =~ /(Setting up\s.*)/){
+                elsif ($text =~ /^\s*(Setting up\s.*)/){
                     $progress->notifyTick();
                     $progress->setMessage($text);
                 }
