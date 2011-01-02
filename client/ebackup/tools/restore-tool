@@ -1693,17 +1693,16 @@ sub _zenityProgressIndicator
                 _zenityProgressFail($!, $?);
         }
         my $message = $progressIndicator->message();
-
-        # Avoid long lines that make the dialog ugly
-        if ($message =~ /Downloading /) {
-            my @tokens = split (' ', $message);
-            $message = "$tokens[0] $tokens[3] ($tokens[4])\n";
-        } elsif ($message =~ /Unpacking /) {
-            $message =~ s/\(from .*\)\s//;
-        }
-        $message =~ s/^\s//;
-
         if ($message) {
+            # Avoid long lines that make the dialog ugly
+            if ($message =~ /Downloading /) {
+                my @tokens = split (' ', $message);
+                $message = "$tokens[0] $tokens[3] ($tokens[4])\n";
+            } elsif ($message =~ /Unpacking /) {
+                $message =~ s/\(from .*\)\s//;
+            }
+            $message =~ s/^\s//;
+
             print $PR "#$text" . '\n' . "$message\n" or
                 _zenityProgressFail($!, $?);
         }

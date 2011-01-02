@@ -1,3 +1,5 @@
+HEAD
+	+ Avoid some warnings in restore-tool when executed in a shell
 2.0.8
 	+ Added missing crontab string for monthly full backup
 	+ Fixed wrong crontab string for weekly full backup
