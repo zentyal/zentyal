@@ -725,30 +725,27 @@ sub _getUpgradablePkgs
     my $cache = $self->_cache(1);
     my @list;
     for my $pack (keys %$cache) {
-        # FIXME: Has this any sense now we have dropped our custom kernel?
-        unless ($pack =~ /.*kernel-image.*|.*linux-image.*/) {
-            my $pkgCache = $cache->packages()->lookup($pack) or next;
-            my %data;
+        my $pkgCache = $cache->packages()->lookup($pack) or next;
+        my %data;
 
-            my $currentVerObj = $cache->{$pack}{CurrentVer};
+        my $currentVerObj = $cache->{$pack}{CurrentVer};
 
-            if ($currentVerObj) {
-                if ($currentVerObj->{VerStr} eq $pkgCache->{VerStr}) {
-                    next;
-                }
-            } else {
+        if ($currentVerObj) {
+            if ($currentVerObj->{VerStr} eq $pkgCache->{VerStr}) {
                 next;
             }
-
-            $data{'name'} = $pkgCache->{Name};
-            $data{'description'} = $pkgCache->{ShortDesc};
-            my $candidateVerInfo = $self->_candidateVersion($cache->{$pack});
-            $data{'security'}    = $candidateVerInfo->{security};
-            $data{'ebox-qa'}     = $candidateVerInfo->{qa};
-            $data{'version'}     = $candidateVerInfo->{version};
-
-            push(@list, \%data);
+        } else {
+            next;
         }
+
+        $data{'name'} = $pkgCache->{Name};
+        $data{'description'} = $pkgCache->{ShortDesc};
+        my $candidateVerInfo = $self->_candidateVersion($cache->{$pack});
+        $data{'security'}    = $candidateVerInfo->{security};
+        $data{'ebox-qa'}     = $candidateVerInfo->{qa};
+        $data{'version'}     = $candidateVerInfo->{version};
+
+        push(@list, \%data);
     }
 
     return \@list;
