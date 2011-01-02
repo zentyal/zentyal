@@ -1458,13 +1458,16 @@ sub _zenityQuote
 
 sub _zenityCommonArgs
 {
+    my ($width) = @_;
+    defined ($width) or $width = 300;
+
     if ( wantarray ) {
-        my @args = qw(--width=300);
+        my @args = "--width=$width";
         push(@args, '--title=' . _zenityTitle(1));
         push(@args, _zenityIcon());
         return @args;
     } else {
-        my $args = '--width=300 --title ' . _zenityTitle() . ' ';
+        my $args = "--width=$width --title " . _zenityTitle() . ' ';
         $args .= _zenityIcon() . ' ';
         return $args;
     }
@@ -1652,7 +1655,7 @@ sub _zenityProgress
 {
     my ($text, $pulsate) = @_;
 
-    my @commonArgs = _zenityCommonArgs();
+    my @commonArgs = _zenityCommonArgs($pulsate ? 300 : 400);
 
     my @args = ('--auto-close');
     if ($pulsate) {
@@ -1690,7 +1693,16 @@ sub _zenityProgressIndicator
                 _zenityProgressFail($!, $?);
         }
         my $message = $progressIndicator->message();
-        # FIXME: $message is too long, we need to short it
+
+        # Avoid long lines that make the dialog ugly
+        if ($message =~ /Downloading /) {
+            my @tokens = split (' ', $message);
+            $message = "$tokens[0] $tokens[3] ($tokens[4])\n";
+        } elsif ($message =~ /Unpacking /) {
+            $message =~ s/\(from .*\)\s//;
+        }
+        $message =~ s/^\s//;
+
         if ($message) {
             print $PR "#$text" . '\n' . "$message\n" or
                 _zenityProgressFail($!, $?);
