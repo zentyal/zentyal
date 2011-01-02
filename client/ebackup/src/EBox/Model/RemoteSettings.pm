@@ -427,9 +427,15 @@ sub _crontabStringFull
     my $month = '*';
     if ( $freq eq 'weekly' ) {
         $weekDay = _crontabWeekDayAndUser($startsOn, 1);
-    } elsif ($freq eq 'bimonthly') {
+    } elsif ( $freq eq 'bimonthly' ) {
         $weekDay = _crontabWeekDayAndUser($startsOn, 1);
         $monthDay ='1-7,15-21';
+    } elsif ( $freq eq 'monthly' ) {
+        if ( $startsOn <= 28 ) {
+            $monthDay = $startsOn;
+        } else {
+            return _crontabStringLastDayMonth($hour);
+        }
     } # Do nothing if freq is daily
 
     return ["$minute $hour $monthDay $month $weekDay"];

@@ -1,4 +1,5 @@
 HEAD
+	+ Added missing crontab string for monthly full backup
 	+ Fixed wrong crontab string for weekly full backup
 	+ Use software module and ProgressIndicator to install packages
 	+ Fixed problems with pulsating progress bar in restore-tool
