@@ -1,5 +1,9 @@
 HEAD
-	+ With basic subscription you could overwrite the remote backup
+	+ Remote backup is now overwritten with Basic Subscription
+	+ Using a new key from bundle or dnsServer as fallback to set the
+	  set of addresses to access from Zentyal Cloud
+	+ Added check to not use any address when connected to Zentyal
+	  Cloud to do remote support
 2.0.7
 	+ Added backup/restore of subscription credentials
 	+ Added API to get the list of registered Zentyal servers

@@ -958,6 +958,31 @@ sub queryInternalNS
     }
 }
 
+# Method: confKey
+#
+#     Return a configuration key from the subscription bundle if available
+#
+# Parameters:
+#
+#     key - String the configuration key
+#
+# Returns:
+#
+#     String - the configuration key value if any
+#
+#     undef - if there is not bundle or there is not such key
+#
+sub confKey
+{
+    my ($self, $key) = @_;
+
+    my $keys = $self->_confKeys();
+    if ( defined($keys) ) {
+        return $keys->{$key};
+    }
+    return undef;
+}
+
 # Group: Public methods related to reporting
 
 # Method: logReportInfo

@@ -100,7 +100,19 @@ __('By default, the access is only granted to hosts inside the Zentyal Cloud pri
 
   }
 
-
+# Method: validateTypedRow
+#
+#      Check the following:
+#
+#        - The remote access from any address is not only enabled when
+#          the remote access is also enabled
+#
+#        - To enable simple remote support, you must be subscribed to
+#          Zentyal Cloud
+#
+#        - To enable from any address remote support, the connection
+#          with Zentyal Cloud must not exist
+#
 sub validateTypedRow
 {
     my ($self, $actions, $params_r, $actual_r) = @_;
@@ -116,15 +128,22 @@ sub validateTypedRow
     my $fromAny = exists $params_r->{fromAnyAddress} ?
                         $params_r->{fromAnyAddress}->value() :
                         $actual_r->{fromAnyAddress}->value();
+
+    my $rs = EBox::Global->modInstance('remoteservices');
     if ($fromAny) {
         if (not $access) {
             throw EBox::Exceptions::External(
 __('Remote access from any address requires that remote access support is enabled')
                                             );
         }
+        if ( $rs->isConnected() ) {
+            throw EBox::Exceptions::External(
+                __x('To allow any address remote support, you must not be connected '
+                   . 'to {cloud}', cloud => 'Zentyal Cloud')
+               );
+        }
     } else {
         if ($access) {
-            my $rs = EBox::Global->modInstance('remoteservices');
             if (not $rs->eBoxSubscribed()) {
             throw EBox::Exceptions::External(
 __('To restrict addresses you need that your Zentyal Server is subscribed to Zentyal Cloud. Either subscribe it or allow access from any address')

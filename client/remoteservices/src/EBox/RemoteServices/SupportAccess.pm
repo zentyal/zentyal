@@ -65,7 +65,8 @@ sub setEnabled
             $restrictedAddress = $self->remoteAccessUserAddress();
             if (not defined $restrictedAddress) {
                 throw EBox::Exceptions::External(
-__('Cannot get the restricted addresses for remote support')
+__('Cannot get the restricted addresses for remote support. '
+   . 'Check VPN logs for details')
                                                 );
             }
         }
@@ -84,21 +85,32 @@ sub remoteAccessUser
     return USER_NAME;
 }
 
-
+# Returns the restricted network to access from
 sub remoteAccessUserAddress
 {
-    my $vpnInterface = EBox::Global->modInstance('remoteservices')->ifaceVPN();
-    defined $vpnInterface or
-        return undef;
-    EBox::NetWrappers::iface_exists($vpnInterface) or
-          return undef;
-    EBox::NetWrappers::iface_is_up($vpnInterface) or
-          return undef;
-    my $netmaskByAddr = EBox::NetWrappers::iface_addresses_with_netmask($vpnInterface);
+    my $rs = EBox::Global->modInstance('remoteservices');
+
+    my $network;
+
     # we assume that is only one address/netmask
-    my ($address, $netmask) = each %{ $netmaskByAddr };
-    my $network = EBox::NetWrappers::ip_network($address, $netmask);
-    $network =~ s/(\.0)+$/.*/;
+    my $vpnSI = $rs->confKey('vpnSIAddress');
+    if ( defined($vpnSI) ) {
+        my @routes = EBox::NetWrappers::list_routes();
+        my $is_up  = grep { $vpnSI eq $_->{network} } @routes;
+        if ( $is_up ) {
+            ($network) = split(/\//, $vpnSI);
+            $network =~ s/(\.0)+$/.*/;
+        } else {
+            return undef;
+        }
+    } else {
+        # Backwards compatible. Get the data from dnsServer key
+        my $dnsServer = $rs->confKey('dnsServer');
+        defined($dnsServer) or return undef;
+
+        $network = $dnsServer;
+        $network =~ s:\.([0-9])+?$:.*:;
+    }
 
     return $network;
 }
