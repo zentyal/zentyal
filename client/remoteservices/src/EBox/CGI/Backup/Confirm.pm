@@ -83,7 +83,7 @@ sub actuate
 sub restoreText
 {
     my ($self) = @_;
-    return __('Please confirm that you want to restore the configuraction using the following remote backup:')
+    return __('Please confirm that you want to restore the configuration using the following remote backup:')
 }
 
 sub restoreOkText
