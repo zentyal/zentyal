@@ -58,6 +58,37 @@
         <var name="ADVERTISED_NETWORK" value="192.168.2.0"/>
     </test>
 
+    <test type="selenium">
+	<name>ConfigVpnsToTest</name>
+        <desc>
+        Config thre new vpn to test correctly vpn start and remove a vpn to test deletion.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>config-vpn-to-test</dir>
+    </test>
+
+    <test>
+        <name>TestVPNDeletion</name>
+        <desc>Test the correct vpn deletion</desc>
+
+        <host>ebox-server</host>
+        <dir>test-vpn-deletion</dir>
+        <var name="vpn1" value="testSubject1"/>
+        <var name="vpn2" value="testSubject2"/>
+        <var name="vpn3" value="testSubject3"/>
+    </test>
+
+    <test type="selenium">
+        <name>RemoveTestedVpns</name>
+        <desc>
+        Removes the vpns tested previouly.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>remove-tested-vpn</dir>
+    </test>
+
     <test>
         <name>SetupRouter</name>
         <desc>

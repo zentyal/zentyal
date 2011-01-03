@@ -1,0 +1,16 @@
+#!/bin/bash
+
+/sbin/status ebox.openvpn.server.$vpn1
+first=$?
+/sbin/status ebox.openvpn.server.$vpn2
+second=$?
+/sbin/status ebox.openvpn.server.$vpn3
+third=$?
+
+if [ $first = 0 ] && [ $second = 1 ] && [ $third = 0 ]
+  then
+    echo "Ok"
+    exit 0
+  else
+    exit 1
+fi
