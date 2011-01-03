@@ -2532,6 +2532,8 @@ sub restoreConfig
     my $mode = mode();
 
     if ($mode eq 'master' or $mode eq 'ad-slave') {
+        EBox::UsersAndGroups::Setup::createDefaultGroupIfNeeded();
+
         EBox::Sudo::root('/etc/init.d/slapd stop');
         $self->ldap->restoreLdapMaster($dir);
         EBox::Sudo::root('/etc/init.d/slapd start');

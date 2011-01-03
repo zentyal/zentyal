@@ -1,4 +1,5 @@
 HEAD
+	+ Creates the default group if not exists during restore
 	+ Added restore backup precheck to assure there are not conflicts between
 	  system users and Zentyal LDAP users (currently only works for masters)
 2.0.9

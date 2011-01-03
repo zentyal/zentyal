@@ -139,15 +139,20 @@ sub master
         my $exception = shift;
         EBox::warn('Trying to setup master ldap failed, exit value: ' .
             $exception->exitValue());
-    }
+    };
 
+    createDefaultGroupIfNeeded();
+
+    createJournalsDirs();
+}
+
+sub createDefaultGroupIfNeeded
+{
     my $users = EBox::Global->modInstance('users');
     my $defaultGroup = $users->defaultGroup();
     unless ($users->groupExists($defaultGroup)) {
         $users->addGroup($defaultGroup, 'All users', 1);
     }
-
-    createJournalsDirs();
 }
 
 # create parent dirs for slave's journals
