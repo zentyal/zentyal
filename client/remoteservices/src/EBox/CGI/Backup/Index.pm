@@ -43,77 +43,79 @@ sub new # (error=?, msg=?, cgi=?)
     return $self;
 }
 
-
-
 sub optionalParameters
 {
-  my ($self) = @_;
+    my ($self) = @_;
 
-  return ['selected'];
+    return ['selected'];
 }
-
-
 
 sub actuate
 {
-  my ($self) = @_;
+    my ($self) = @_;
 
-  if (not $self->_subscribed()) {
-    return;
-  }
+    my $subscriptionLevel = $self->_subscriptionLevel();
+    if ($subscriptionLevel <  0) {
+        EBox::debug("SL $subscriptionLevel . return ");
+        return;
+    }
 
-  try {
-    my $backup = $self->_backupService();
-    $self->{backups} =  $backup->listRemoteBackups();
-  } otherwise {
-    my $ex = shift;
-    $self->setErrorFromException($ex);
-    $self->setChain('RemoteServices/NoConnection');
-  };
-
+    try {
+        my $backup = $self->_backupService();
+        $self->{backups} =  $backup->listRemoteBackups();
+    } otherwise {
+        my $ex = shift;
+        $self->setErrorFromException($ex);
+        $self->setChain('RemoteServices/NoConnection');
+    };
 }
-
 
 sub masonParameters
 {
-  my ($self) = @_;
-  my @params = ();
+    my ($self) = @_;
+    my @params = ();
 
-  my $backups = {};
-  if (defined($self->{backups})) {
-    $backups = $self->{backups};
-  }
+    my $backups = {};
+    if (defined($self->{backups})) {
+        $backups = $self->{backups};
+    }
 
-  push @params, (backups => $backups);
+    push @params, (backups => $backups);
 
-  my $global = EBox::Global->getInstance();
-  my $modulesChanged = grep { $global->modIsChanged($_) } @{ $global->modNames() };
-  push @params, (modulesChanged => $modulesChanged);
-  push @params, (selected => 'remote');
-  push @params, (subscribed => $self->_subscribed());
+    my $global = EBox::Global->getInstance();
+    my $modulesChanged = grep { $global->modIsChanged($_) } @{ $global->modNames() };
+    push @params, (modulesChanged => $modulesChanged);
+    push @params, (selected => 'remote');
 
-  return \@params;
+    my $subscriptionLevel = $self->_subscriptionLevel();
+    my $subscribed =  ($subscriptionLevel >= 0);
+    my $basic      =  ($subscriptionLevel == 0);
+
+    push @params, (subscribed => $subscribed);
+    push @params, (basic => $basic);
+
+    return \@params;
 }
 
 # Group: Private methods
 
 sub _backupService
 {
-  my ($self) = @_;
-  if (not exists $self->{backupService}) {
-    $self->{backupService} =  new EBox::RemoteServices::Backup();
-  }
+    my ($self) = @_;
+    if (not exists $self->{backupService}) {
+        $self->{backupService} =  new EBox::RemoteServices::Backup();
+    }
 
-  return $self->{backupService}
+    return $self->{backupService}
 }
 
 # Check if this Zentyal is subscribed
-sub _subscribed
+sub _subscriptionLevel
 {
     my ($self) = @_;
 
     my $rsMod = EBox::Global->modInstance('remoteservices');
-    return ($rsMod->eBoxSubscribed());
+    return $rsMod->subscriptionLevel();
 }
 
 1;

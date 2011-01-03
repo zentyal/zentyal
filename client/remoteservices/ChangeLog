@@ -1,3 +1,5 @@
+HEAD
+	+ With basic subscription you could overwrite the remote backup
 2.0.7
 	+ Added backup/restore of subscription credentials
 	+ Added API to get the list of registered Zentyal servers

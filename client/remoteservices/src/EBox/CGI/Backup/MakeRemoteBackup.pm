@@ -66,14 +66,14 @@ sub showBackupProgress
   my ($self, $progressIndicator) = @_;
 
   $self->showProgress(
-		      progressIndicator => $progressIndicator,
-		      title    => __('Making remote backup'),
-		      text               =>  __('Backing up modules '),
-		      currentItemCaption =>  __('Operation') ,
-		      itemsLeftMessage   =>  __('operations left to finish backup'),
-		      endNote            =>  __('Backup successful'),
-		      reloadInterval     =>  2,
-		     );
+                      progressIndicator => $progressIndicator,
+                      title    => __('Making remote backup'),
+                      text               =>  __('Backing up modules '),
+                      currentItemCaption =>  __('Operation') ,
+                      itemsLeftMessage   =>  __('operations left to finish backup'),
+                      endNote            =>  __('Backup successful'),
+                      reloadInterval     =>  2,
+                     );
 }
 
 1;

@@ -1,5 +1,6 @@
 <%args>
   $subscribed
+  $basic
   %backups
   $modulesChanged
 </%args>
@@ -10,18 +11,40 @@ use EBox::Gettext;
 <& /RemoteServices/NoActive.mas &>
 % return;
 % }
-<& .backupSection, modulesChanged => $modulesChanged &>
+<& .backupSection, modulesChanged => $modulesChanged,
+                   basic => $basic,
+                   backups => \%backups
+&>
 <& .listSection, backups => \%backups &>
+
 <%def .backupSection>
 <%args>
 $modulesChanged
+$basic
+%backups
 </%args>
 <%init>
-my @formElements = (
-		 [
-		  name => 'name',
-		  printableName => __('Name'),
-		 ],
+my $restricted = $basic and (keys %backups);
+my $formAction = $restricted ? 'Confirm' : 'MakeRemoteBackup';
+
+my @formElements;
+
+if ($restricted) {
+    push @formElements, [
+                         name => 'newName',
+                         printableName => __('Name'),
+                        ];
+
+} else {
+    push @formElements, [
+                         name => 'name',
+                         printableName => __('Name'),
+                        ];
+}
+
+
+push @formElements, (
+
 		 [
 		  name => 'description',
 		  printableName => __('Description'),
@@ -34,20 +57,48 @@ my @formElements = (
 		 ]
 
 );
+
+if ($restricted) {
+    my ($lastBackup) = (values %backups);
+    my $lastBackupName = $lastBackup->{Filename};
+    push @formElements, (
+                         # name of the already-done backup
+                         [
+                          input => 'hidden',
+                          name => 'name',
+                          value => $lastBackupName,
+                         ],
+                         # action to confirm
+                         [
+                          input => 'hidden',
+                          name => 'action',
+                          value => 'overwrite',
+                         ],
+                        );
+}
+
+
 </%init>
 <h3><% __('Back up the current configuration state') %></h3>
 <div class='help'>
 
-</div>	
+</div>
 % if ($modulesChanged) {
   <div class='warning'>
 	<% __(q{Backup is disabled because there are unsaved configuration changes. Please, save or discard them to be able to backup the configuration}) %>
-  </div>   
+  </div>
 % }
+
+% if ($restricted) {
+  <div class='warning'>
+	<% __(q{Please note that the Basic Subscription allows you to store only one remote configuration backup. If you make a new configuration backup, the previous backup will be overwritten.}) %>
+  </div>
+% }
+
 <p>
 <table class='formTable'>
     <tbody>
-       <form action='MakeRemoteBackup' method='POST'>
+       <form action='<% $formAction %>' method='POST'>
              <& /formTable.mas, rows => \@formElements &>
 	</form>
     </tbody>
@@ -78,7 +129,7 @@ my $deleteImg = "/data/images/delete.gif";
 my @rows = map {
              my @row;
 	     my $name =  $_->{Filename};
-	     push @row, ( $name, $_->{Date}, $_->{Comment}, $_->{printableSize});      
+	     push @row, ( $name, $_->{Date}, $_->{Comment}, $_->{printableSize});
 	     # action element
 	     push @row, [
 			 {
@@ -97,25 +148,25 @@ my @rows = map {
 			  icon => $deleteImg,
 			  url  => "Confirm?action=delete&name=$name",
 			 },
-			 
+
 			];
 
 	     [@row]
-			
-          } sort { $b->{sortableDate} <=> $a->{sortableDate} } values %backups; 
+
+          } sort { $b->{sortableDate} <=> $a->{sortableDate} } values %backups;
 
 my @legendElements = (
-		      { 
+		      {
 		       imgFile => $applyImg,
 		       imgName => __('restore') ,
 		      },
-		      { 
+		      {
 		       imgFile => $downloadImg,
 		       imgName => __('download'),
 		      },
-		      { 
+		      {
 		       imgFile => $deleteImg,
-		       imgName => __('delete') 
+		       imgName => __('delete')
 		      },
 		     );
 </%init>

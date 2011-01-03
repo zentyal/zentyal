@@ -23,6 +23,7 @@ use warnings;
 use EBox::Backup;
 use EBox::Config;
 use EBox::Exceptions::DataNotFound;
+use EBox::Gettext;
 
 use File::Glob ':globally';
 use File::Slurp;

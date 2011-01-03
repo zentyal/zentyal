@@ -25,190 +25,183 @@ use EBox::Gettext;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::External;
 
-my @extraParameters = qw(cn user password);
+my @extraParameters = qw(cn user password description newName);
 
-sub new # (error=?, msg=?, cgi=?)
+sub new
 {
-	my $class = shift;
-	my $self = $class->SUPER::new( @_,
-				       template => 'RemoteServices/Backup/confirm.mas',
-				       title => __('Configuration backup'),
-				     );
+    my $class = shift;
+    my $self = $class->SUPER::new( @_,
+                                   template => 'RemoteServices/Backup/confirm.mas',
+                                   title => __('Configuration backup'),
+                                 );
 
-	bless($self, $class);
-
-	$self->_setErrorChain();
-
-	return $self;
+    bless($self, $class);
+    $self->_setErrorChain();
+    return $self;
 }
-
-
 
 sub _setErrorChain
 {
-  my ($self) = @_;
+    my ($self) = @_;
 
-  my $errorchain;
-  if ($self->param('action') eq 'restoreProxy') {
-    $errorchain = "RemoteServices/Backup/Proxy";
-  }
-  else {
-    $errorchain = "RemoteServices/Backup/Index";
-  }
+    my $errorchain;
+    if ($self->param('action') eq 'restoreProxy') {
+        $errorchain = "RemoteServices/Backup/Proxy";
+    }
+    else {
+        $errorchain = "RemoteServices/Backup/Index";
+    }
 
-  $self->{errorchain} = $errorchain;
+    $self->{errorchain} = $errorchain;
 }
 
 sub requiredParameters
 {
-  return [qw(action name)];
+    return [qw(action name)];
 }
-
 
 sub optionalParameters
 {
-  return \@extraParameters;
+    my @optional = @extraParameters;
+    push @optional, 'backup';  # needed for backup overwritten confirmation
+        return \@optional;
 }
 
 my %cgiByAction = (
-		   delete  => 'DeleteRemoteBackup',
-		   restore => 'RestoreRemoteBackup',
-		   restoreProxy =>  'RestoreProxyRemoteBackup',
-		  );
-
-
+           delete  => 'DeleteRemoteBackup',
+           restore => 'RestoreRemoteBackup',
+           restoreProxy =>  'RestoreProxyRemoteBackup',
+           overwrite   => 'OverwriteRemoteBackup',
+);
 
 sub actuate
 {
-  my ($self) = @_;
-
-
+    my ($self) = @_;
 
 }
 
 sub restoreText
 {
-  my ($self) = @_;
-  return __('Please confirm that you want to restore the configuraction using the following remote backup:')
+    my ($self) = @_;
+    return __('Please confirm that you want to restore the configuraction using the following remote backup:')
 }
 
 sub restoreOkText
 {
-  my ($self) = @_;
-  return __('Restore');
+    my ($self) = @_;
+    return __('Restore');
 }
 
 
 sub restoreProxyText
 {
-  my ($self) = @_;
-  return __('Please confirm that you want to restore the configuraction using the following remote backup:')
+    my ($self) = @_;
+    return __('Please confirm that you want to restore the configuraction using the following remote backup:')
 }
 
 sub restoreProxyOkText
 {
-  my ($self) = @_;
-  return __('Restore');
+    my ($self) = @_;
+    return __('Restore');
 }
-
-
 
 sub deleteText
 {
-  my ($self) = @_;
-  return __('Please confirm that you want to delete the following remote backup:')
+    my ($self) = @_;
+    return __('Please confirm that you want to delete the following remote backup:')
 }
 
 sub deleteOkText
 {
-  my ($self) = @_;
-  return __('Delete');
+    my ($self) = @_;
+    return __('Delete');
 }
 
+sub overwriteText
+{
+    my ($self) = @_;
+    return __('Please confirm that you want to overwrite the following remote backup with a new one')
+}
+
+sub overwriteOkText
+{
+    my ($self) = @_;
+    return __('Overwrite');
+}
 
 sub _backup
 {
-  my ($self, $action) = @_;
+    my ($self, $action) = @_;
 
-  if ($action eq 'restoreProxy') {
-    return $self->_remoteProxyBackup();
-  }
+    if ($action eq 'restoreProxy') {
+        return $self->_remoteProxyBackup();
+    }
 
-  return $self->_remoteBackup();
+    return $self->_remoteBackup();
 }
-
 
 sub _remoteBackup
 {
-  my ($self) = @_;
-  my $name   = $self->param('name');
+    my ($self) = @_;
+    my $name   = $self->param('name');
 
-  my $backupService =  new EBox::RemoteServices::Backup;
-  return $backupService->remoteBackupInfo($name);
+    my $backupService =  new EBox::RemoteServices::Backup;
+    return $backupService->remoteBackupInfo($name);
 }
 
 sub _remoteProxyBackup
 {
-  my ($self) = @_;
+    my ($self) = @_;
 
+    my $backupService =  $self->backupService();
 
+    my $cn   = $self->param('cn');
+    my $name = $self->param('name');
 
-  my $backupService =  $self->backupService();
-
-  my $cn   = $self->param('cn');
-  my $name = $self->param('name');
-
-  return $backupService->remoteBackupInfo($cn, $name);
+    return $backupService->remoteBackupInfo($cn, $name);
 }
-
 
 sub masonParameters
 {
-  my ($self) = @_;
+    my ($self) = @_;
 
+    my $action = $self->param('action');
+    exists $cgiByAction{$action} or
+        throw EBox::Exceptions::External(
+                __x('Inexistent action: {a}', a => $action)
+                );
 
-  my $action = $self->param('action');
-  exists $cgiByAction{$action} or
-    throw EBox::Exceptions::External(
-		      __x('Inexistent action: {a}', a => $action)
-				      );
+    my $actionCGI = $cgiByAction{$action};
 
-  my $actionCGI = $cgiByAction{$action};
+    my $backup = $self->_backup($action);
 
+    my @parameters =(
+            backup => $backup,
+            actionCGI => $actionCGI,
+            );
 
-  my $backup = $self->_backup($action);
-
-  my @parameters =(
-		   backup => $backup,
-		   actionCGI => $actionCGI,
-		  );
-
-  my $textMethod = $action . 'Text';
-  if ($self->can($textMethod)) {
-    push @parameters, (text => $self->$textMethod());
-  }
-
-  my $okTextMethod = $action . 'OkText';
-  if ($self->can($okTextMethod)) {
-    push @parameters, (okText => $self->$okTextMethod());
-  }
-
-  my @extraActionParams;
-  foreach my $p (@extraParameters) {
-    # need to use unsafeParam bz password parameter
-    my $value = $self->unsafeParam($p);
-    if ($value) {
-      push @extraActionParams, ($p => $value);
+    my $textMethod = $action . 'Text';
+    if ($self->can($textMethod)) {
+        push @parameters, (text => $self->$textMethod());
     }
-  }
 
-  push @parameters, (extraActionParams => \@extraActionParams);
+    my $okTextMethod = $action . 'OkText';
+    if ($self->can($okTextMethod)) {
+        push @parameters, (okText => $self->$okTextMethod());
+    }
 
-  return \@parameters;
+    my @extraActionParams;
+    foreach my $p (@extraParameters) {
+# need to use unsafeParam bz password parameter
+        my $value = $self->unsafeParam($p);
+        if ($value) {
+            push @extraActionParams, ($p => $value);
+        }
+    }
+
+    push @parameters, (extraActionParams => \@extraActionParams);
+
+    return \@parameters;
 }
-
-
-
-
 
 1;
