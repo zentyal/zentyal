@@ -59,13 +59,47 @@
     </test>
 
     <test type="selenium">
-	<name>ConfigVpnsToTest</name>
+	<name>AddVPN1</name>
         <desc>
-        Config thre new vpn to test correctly vpn start and remove a vpn to test deletion.
+        Config new vpn to test correctly vpn start.
         </desc>
 
         <host>ebox-server</host>
-        <dir>config-vpn-to-test</dir>
+        <dir>add-vpn</dir>
+        <var name="VPNNAME" value="testSubject1"/>
+    </test>
+
+    <test type="selenium">
+        <name>AddVPN2</name>
+        <desc>
+        Config new vpn to test correctly vpn start.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>add-vpn</dir>
+        <var name="VPNNAME" value="testSubject2"/>
+    </test>
+
+    <test type="selenium">
+        <name>RemoveVPN2</name>
+        <desc>
+        Remove vpn to test correctly vpn deletion.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>remove-vpn</dir>
+        <var name="VPNNAME" value="testSubject2"/>
+    </test>
+
+    <test type="selenium">
+        <name>AddVPN3</name>
+        <desc>
+        Config new vpn to test correctly vpn start.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>add-vpn</dir>
+        <var name="VPNNAME" value="testSubject3"/>
     </test>
 
     <test>
@@ -80,13 +114,25 @@
     </test>
 
     <test type="selenium">
-        <name>RemoveTestedVpns</name>
+        <name>RemoveVPN1</name>
         <desc>
-        Removes the vpns tested previouly.
+        Remove vpn to test correctly vpn deletion.
         </desc>
-
+        
         <host>ebox-server</host>
-        <dir>remove-tested-vpn</dir>
+        <dir>remove-vpn</dir>
+        <var name="VPNNAME" value="testSubject1"/>
+    </test>
+
+    <test type="selenium">
+        <name>RemoveVPN3</name>
+        <desc>
+        Remove vpn to test correctly vpn deletion.
+        </desc>
+        
+        <host>ebox-server</host>
+        <dir>remove-vpn</dir>
+        <var name="VPNNAME" value="testSubject3"/>
     </test>
 
     <test>
