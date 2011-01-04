@@ -1,4 +1,5 @@
 HEAD
+	+ Obsolete migration cleaned
 	+ Trigger apache restart after package remove
 2.0.5
 	+ Removed duplicated entry in usedFiles

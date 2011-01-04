@@ -16,6 +16,7 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 #  Migration between  data version 1 and 2
+#  TODO: To be completely removed during 2.1 migrations refactorization
 #
 #  Changes: in case that the mailfitler module is enabled the antivirus module
 #  msut be automatically enabled
@@ -30,63 +31,6 @@ use warnings;
 
 use EBox;
 use EBox::Global;
-# use EBox::Config;
-# use EBox::Sudo;
-
-
-
-sub runGConf
-{
-  my ($self) = @_;
-
-  my $mailfilter = $self->_moduleService('mailfilter');
-  my $squid = $self->_moduleService('squid');
-
-  if (not ($mailfilter or $squid)) {
-      # no needed antivirus activation
-      return;
-  }
-
-  my $antivirus = $self->{gconfmodule};
-  unless ( $antivirus->configured() ) {
-      $antivirus->setConfigured(1);
-      $antivirus->enableActions();
-      $antivirus->save();
-  }
-  unless ( $antivirus->isEnabled() ) {
-      $antivirus->enableService(1);
-      $antivirus->save();
-  }
-
-
-  foreach my $mod ($mailfilter, $squid) {
-      $mod or
-          next;
-
-      $mod->setAsChanged();
-      $mod->save();
-  }
-
-}
-
-
-
-sub _moduleService
-{
-    my ($self, $modName) = @_;
-    my $mod = EBox::Global->modInstance($modName);
-    if (not $mod) {
-        return 0;
-    }
-
-    if (not $mod->isEnabled()) {
-        return 0;
-    }
-
-    return $mod;
-}
-
-
 
 EBox::init();
 my $antivirus = EBox::Global->modInstance('antivirus');
