@@ -28,8 +28,10 @@ use EBox::Model::DataTable;
 <%args>
 $model
 $actions
-$firstRow
-$lastRow
+
+$idx
+@ids
+
 $row
 $changeView
 $page
