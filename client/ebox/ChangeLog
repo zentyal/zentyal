@@ -1,4 +1,5 @@
 HEAD
+	+ After restore, set all the restored modules as changed
 	+ Added module pre-checks for configuration backup
 2.0.13
 	+ Fixed dashboard graphs refresh

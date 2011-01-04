@@ -1142,6 +1142,13 @@ sub restoreBackup # (file, %options)
             throw $ex;
         };
 
+        # We need to set them as changed to be sure that they are restarted
+        # in the save all after restoring, if they have run any migration
+        # during restore they have been set as restarted.
+        foreach my $mod (@modules) {
+            $mod->setAsChanged();
+        }
+
         EBox::info('Restore successful');
         $progress->setAsFinished();
     }
