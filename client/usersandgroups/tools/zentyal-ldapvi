@@ -1,0 +1,68 @@
+#!/usr/bin/perl
+
+# Copyright (C) 2010 eBox Technologies S.L.
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License, version 2, as
+# published by the Free Software Foundation.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+
+use strict;
+use warnings;
+
+use EBox;
+use EBox::Global;
+
+unless (-x '/usr/bin/ldapvi') {
+    print("zentyal-ldapvi: ERROR, install ldapvi package.\n");
+    exit(1);
+}
+
+EBox::init();
+
+my $ARGV;
+
+my $usersMod = EBox::Global->modInstance("users");
+my $ldap = $usersMod->ldap();
+my $ldapconf = $ldap->ldapConf();
+
+my $dn = $ldapconf->{'dn'};
+my $bind = $ldapconf->{'rootdn'};
+my $port = $ldapconf->{'port'};
+my $translucentport = $ldapconf->{'translucentport'};
+my $passwd = $ldap->getPassword();
+
+unless ($usersMod->mode() eq 'slave') {
+    print("zentyal-ldapvi: detected standalone or master mode...\n");
+    sleep(1);
+    system("ldapvi -D $bind --bind simple -w $passwd -b $dn");
+} else {
+    print("zentyal-ldapvi: detected slave mode, ");
+    if (@ARGV != 1) {
+        print("\nusage: $0 translucent|frontend\n");
+        exit(2);
+    } elsif ($ARGV[0] eq 'translucent') {
+        print("editing translucent mode (on port $translucentport)...\n");
+        sleep(1);
+        system("ldapvi -h ldap://127.0.0.1:$translucentport/ -D $bind --bind simple -w $passwd -b $dn");
+        exit(0);
+    } elsif ($ARGV[0] eq 'frontend') {
+        print("editing frontend mode (on port $port)...\n");
+        sleep(1);
+        system("ldapvi -h ldap://127.0.0.1:$port/ -D $bind --bind simple -w $passwd -b $dn");
+        exit(0);
+    } else {
+        print("\nusage: $0 translucent|frontend\n");
+        exit(2);
+    }
+}
+
+1;

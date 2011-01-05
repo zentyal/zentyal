@@ -31,13 +31,13 @@ use base 'EBox::Model::DataForm';
 
 sub new
 {
-        my $class = shift;
-        my %parms = @_;
+    my $class = shift;
+    my %parms = @_;
 
-        my $self = $class->SUPER::new(@_);
-        bless($self, $class);
+    my $self = $class->SUPER::new(@_);
+    bless($self, $class);
 
-        return $self;
+    return $self;
 }
 
 sub pageTitle
@@ -47,7 +47,6 @@ sub pageTitle
 
 sub _table
 {
-
     my @tableHead =
     (
         new EBox::Types::Port(
@@ -125,7 +124,7 @@ sub precondition
 {
     my $users = EBox::Global->modInstance('users');
 
-    return ($users->mode() eq 'master');
+    return $users->editableMode();
 }
 
 # Method: preconditionFailMsg

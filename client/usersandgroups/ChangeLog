@@ -1,4 +1,9 @@
 HEAD
+	+ Now the AD synchronization can be disabled at any moment and a
+	  server with AD-slave mode can be master for other Zentyal slaves
+	+ New /etc/ebox/ad-sync_ignore.users and ad-sync_ignore.groups files
+	  to ignore users and groups in the AD synchronization process
+	+ Improved zentyal-ldapvi script that works on slave servers
 	+ Creates the default group if not exists during restore
 	+ Added restore backup precheck to assure there are not conflicts between
 	  system users and Zentyal LDAP users (currently only works for masters)

@@ -25,51 +25,54 @@ use EBox::UsersAndGroups;
 use EBox::Gettext;
 
 
-sub new {
-	my $class = shift;
-	my $self = $class->SUPER::new('template' => '/usersandgroups/user.mas',
-				      @_);
-	$self->{domain} = 'ebox-usersandgroups';
-	bless($self, $class);
-	return $self;
+sub new
+{
+    my $class = shift;
+    my $self = $class->SUPER::new('template' => '/usersandgroups/user.mas',
+                      @_);
+    $self->{domain} = 'ebox-usersandgroups';
+    bless($self, $class);
+    return $self;
 }
 
 
-sub _process($) {
-	my $self = shift;
-	my $usersandgroups = EBox::Global->modInstance('users');
+sub _process
+{
+    my ($self) = @_;
+    my $usersandgroups = EBox::Global->modInstance('users');
 
-	$self->{'title'} = __('Users');
+    $self->{'title'} = __('Users');
 
-	my @args = ();
+    my @args = ();
 
-	$self->_requireParam("username", __('username'));
+    $self->_requireParam("username", __('username'));
 
-	my $user = $self->param('username');
-	my $userinfo = $usersandgroups->userInfo($user);
-	my $components = $usersandgroups->allUserAddOns($user);
-	my $usergroups = $usersandgroups->groupsOfUser($user);
-	my $remaingroups = $usersandgroups->groupsNotOfUser($user);
+    my $user = $self->param('username');
+    my $userinfo = $usersandgroups->userInfo($user);
+    my $components = $usersandgroups->allUserAddOns($user);
+    my $usergroups = $usersandgroups->groupsOfUser($user);
+    my $remaingroups = $usersandgroups->groupsNotOfUser($user);
 
-	push(@args, 'user' => $userinfo);
-	push(@args, 'usergroups' => $usergroups);
-	push(@args, 'remaingroups' => $remaingroups);
-	push(@args, 'components' => $components);
-	push(@args, 'slave' => $usersandgroups->mode() ne 'master');
+    my $editable = $usersandgroups->editableMode();
 
-	if ($usersandgroups->mode() eq 'master') {
-        	$self->{crumbs} = [
-			{title => __('Users'),
-		         link => '/ebox/UsersAndGroups/Users'
-		        },
-        		{title => $user,
-			link => undef,
-        		},
-	    	];
-	}
+    push(@args, 'user' => $userinfo);
+    push(@args, 'usergroups' => $usergroups);
+    push(@args, 'remaingroups' => $remaingroups);
+    push(@args, 'components' => $components);
+    push(@args, 'slave' => not $editable);
 
-	$self->{params} = \@args;
+    if ($editable) {
+        $self->{crumbs} = [
+            {title => __('Users'),
+                link => '/ebox/UsersAndGroups/Users'
+            },
+            {title => $user,
+                link => undef,
+            },
+        ];
+    }
+
+    $self->{params} = \@args;
 }
-
 
 1;

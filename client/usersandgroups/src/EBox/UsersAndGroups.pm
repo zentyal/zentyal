@@ -274,8 +274,11 @@ sub _setConf
     }
 
     if ( $mode eq 'ad-slave' ) {
-        my $cronFile = EBox::Config::share() . '/ebox-usersandgroups/ebox-ad-sync.cron';
-        EBox::Sudo::root("install -m 0644 -o root -g root $cronFile /etc/cron.d/ebox-ad-sync");
+        EBox::Sudo::root("rm -f /etc/cron.d/ebox-ad-sync");
+        if ($self->adsyncEnabled()) {
+            my $cronFile = EBox::Config::share() . '/ebox-usersandgroups/ebox-ad-sync.cron';
+            EBox::Sudo::root("install -m 0644 -o root -g root $cronFile /etc/cron.d/ebox-ad-sync");
+        }
     }
 
     my @array = ();
@@ -308,12 +311,49 @@ sub _setConf
     $self->_setupNSSPAM();
 }
 
+# Method: adsyncEnabled
+#
+#       Returns true if ad-sync is enabled in ad-slave mode.
+#
+sub adsyncEnabled
+{
+    my ($self) = @_;
+
+    my $model = $self->model('ADSyncSettings');
+    return $model->enableADsyncValue();
+}
+
+
+# Method: editableMode
+#
+#       Check if users and groups can be edited.
+#
+#       Returns true if mode is master or disabled ad-sync
+#       Returns false if slave or enabled ad-sync
+#
+sub editableMode
+{
+    my ($self) = @_;
+
+    my $mode = $self->mode();
+
+    if ($mode eq 'master') {
+        return 1;
+    } elsif ($mode eq 'slave') {
+        return 0;
+    } elsif ($mode eq 'ad-slave') {
+        return not $self->adsyncEnabled();
+    }
+}
+
 # Method: _daemons
 #
 #       Override EBox::Module::Service::_daemons
 #
 sub _daemons
 {
+    my ($self) = @_;
+
     my $mode = mode();
 
     if ($mode eq 'master') {
@@ -326,7 +366,10 @@ sub _daemons
         ];
     } elsif ($mode eq 'ad-slave') {
         return [
-            { 'name' => 'ebox.ad-pwdsync' },
+                {
+                  'name' => 'ebox.ad-pwdsync',
+                  'precondition' => \&adsyncEnabled
+                }
         ];
     }
 }
@@ -341,15 +384,21 @@ sub _enforceServiceState
 
     my $mode = mode();
 
-    if ($mode eq 'master') {
-        $self->_loadCertificates();
-    } else {
-        $self->SUPER::_enforceServiceState();
+    # FIXME: This method should not be overrided
+    # the good way to do this would be to have
+    # _preService and _postService methods in
+    # EBox::Module::Service like the _preSetConf
+    # and _postSetConf in EBox::Module::Base
 
-        if ($mode eq 'slave') {
-            my ($ldap, $dn) = $self->_connRemoteLDAP();
-            $self->_getCertificates($ldap, $dn);
-        }
+    if ($mode ne 'slave') {
+        $self->_loadCertificates();
+    }
+
+    $self->SUPER::_enforceServiceState();
+
+    if ($mode eq 'slave') {
+        my ($ldap, $dn) = $self->_connRemoteLDAP();
+        $self->_getCertificates($ldap, $dn);
     }
 }
 
@@ -2393,7 +2442,7 @@ sub menu
         my $model = EBox::Model::ModelManager->instance()->model('Mode');
         my $mode = $model->modeValue();
 
-        if ($mode eq 'master') {
+        if ($self->editableMode()) {
             $folder->add(new EBox::Menu::Item('url' => 'UsersAndGroups/Users',
                                               'text' => __('Users')));
             $folder->add(new EBox::Menu::Item('url' => 'UsersAndGroups/Groups',
@@ -2415,11 +2464,12 @@ sub menu
                     'url' => 'Users/Composite/Settings',
                     'text' => __('LDAP Settings')));
 
-        if ($mode eq 'master') {
+        if ($mode eq 'master' or $mode eq 'ad-slave') {
             $folder->add(new EBox::Menu::Item(
                         'url' => 'Users/Composite/SlaveInfo',
                         'text' => __('Slave Status')));
-        } elsif ($mode eq 'ad-slave') {
+        }
+        if ($mode eq 'ad-slave') {
             $folder->add(new EBox::Menu::Item(
                         'url' => 'Users/View/ADSyncSettings',
                         'text' => __('AD Sync Settings')));

@@ -26,6 +26,7 @@ use EBox::Gettext;
 use EBox::Types::Text;
 use EBox::Types::Port;
 use EBox::Types::Password;
+use EBox::Types::Boolean;
 
 use strict;
 use warnings;
@@ -60,6 +61,13 @@ sub _table
     my ($self) = @_;
 
     my @tableDesc = (
+        new EBox::Types::Boolean (
+            fieldName => 'enableADsync',
+            printableName => __('Enable AD sync'),
+            defaultValue => 1,
+            editable => 1,
+            help => __('Enable AD syncronization.')
+        ),
         new EBox::Types::Text (
             fieldName => 'username',
             printableName => __('AD user'),
@@ -84,8 +92,9 @@ sub _table
             fieldName => 'secret',
             printableName => __('AD Secret Key'),
             editable => 1,
+            size => 16,
             help => __('Secret key to be shared between Windows and Zentyal (16 chars)')
-        )
+        ),
     );
 
     my $dataForm = {
@@ -109,9 +118,11 @@ sub validateTypedRow
 {
     my ($self, $action, $changedFields, $allFields) = @_;
 
-    my $secret = $changedFields->{secret};
-    if (length($secret) < 16) {
-        throw EBox::Exceptions::External(__('The secret key needs to have 16 characters.'));
+    if (exists $changedFields->{secret}) {
+        my $secret = $changedFields->{secret};
+        if (length($secret) < 16) {
+            throw EBox::Exceptions::External(__('The secret key needs to have 16 characters.'));
+        }
     }
 }
 
