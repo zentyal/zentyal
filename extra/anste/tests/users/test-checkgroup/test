@@ -1,7 +1,7 @@
 #!/bin/sh
 
 echo "Checking if group added..."
-ldapsearch -D 'cn=ebox,dc=ebox-test,dc=localdomain' -w $PASSWORD -b "cn=$GROUP,ou=Groups,dc=ebox-test,dc=localdomain" | grep "^cn: $GROUP" || exit 1
+ldapsearch -D "cn=ebox,dc=$DC,dc=localdomain" -w $PASSWORD -b "cn=$GROUP,ou=Groups,dc=$DC,dc=localdomain" | grep "^cn: $GROUP" || exit 1
 
 echo "Checking if user belongs to group..."
-ldapsearch -D 'cn=ebox,dc=ebox-test,dc=localdomain' -w $PASSWORD -b "cn=$GROUP,ou=Groups,dc=ebox-test,dc=localdomain" | grep "^memberUid: $USERNAME"
+ldapsearch -D "cn=ebox,dc=$DC,dc=localdomain" -w $PASSWORD -b "cn=$GROUP,ou=Groups,dc=$DC,dc=localdomain" | grep "^memberUid: $USERNAME"
