@@ -20,6 +20,18 @@ use Log::Log4perl;
 use EBox::Gettext;
 use EBox;
 
+# Constructor: new
+#
+#      Create a new exception base class
+#
+# Parameters:
+#
+#      text - String the exception text (Positional)
+#
+#      Named parameters:
+#
+#         silent - Boolean indicating not logging when it sets to true
+#
 sub new # (text)
 {
 	my $class = shift;

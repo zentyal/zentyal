@@ -49,7 +49,14 @@ use Perl6::Junction qw(any);
 #      message - String a i18ned message which will be dispatched
 #
 #      source - String the event watcher/subwatcher name to categorise
-#      afterwards the event depending on the source.
+#               afterwards the event depending on the source.
+#
+#      compMessage - String this field is indicated to distinguish
+#                    among events from the same source but the message
+#                    is different. We could think of it as a message
+#                    which is not i18ned.
+#
+#                    *(Optional)* Default value: undef
 #
 #      level - Enumerate the level of the event *(Optional)*
 #              Possible values: 'info', 'warn', 'error' or 'fatal'.
@@ -94,6 +101,7 @@ sub new
       }
       $self->{message} = delete ( $args{message} );
       $self->{source} = delete ( $args{source} );
+      $self->{compMessage} = delete ( $args{compMessage} );
       $self->{level} = delete ( $args{level} );
       $self->{level} = 'info' unless defined ( $self->{level} );
       $self->{dispatchers} = delete ( $args{dispatchTo} );
@@ -137,6 +145,24 @@ sub source
     my ( $self ) = @_;
 
     return $self->{source};
+
+}
+
+# Method: compMessage
+#
+#     Accessor to the compMessage of the event, that is, the category of
+#     a source from an event. The non-i18ned counterpart of message.
+#
+# Returns:
+#
+#     String - the compMessage field, it could be undef
+#
+sub compMessage
+{
+
+    my ( $self ) = @_;
+
+    return $self->{compMessage};
 
 }
 

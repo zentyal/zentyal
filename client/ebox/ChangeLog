@@ -1,4 +1,6 @@
 HEAD
+	+ Added compMessage in some events to distinguish among events if
+	  required
 	+ Make source in events non i18n
 	+ After restore, set all the restored modules as changed
 	+ Added module pre-checks for configuration backup

@@ -90,7 +90,7 @@ sub ConfigurationMethod
 #        running and a fatal event if eBox is down
 #
 sub run
-  {
+{
 
       my ($self) = @_;
 
@@ -105,18 +105,6 @@ sub run
       if ($sock) {
         close($sock);
         $up = 1;
-      }
-
-
-      if ( $gl->modExists('soap') ){
-          unless (defined $self->{'soap'}) {
-              $self->{'soap'} = $gl->modInstance('soap');
-          }
-
-          my $soap = $self->{'soap'};
-          if ( $soap->enabled() ) {
-              $up = $up and $soap->running();
-          }
       }
 
       my $event;
@@ -136,7 +124,7 @@ sub run
 
       return [ $event ];
 
-  }
+}
 
 # Group: Protected methods
 

@@ -113,9 +113,10 @@ sub run
                      modules => join(', ', @modules) );
 
           return [ new EBox::Event(
-                  message => $msg,
-                  level   => 'error',
-                  source  => 'service',
+                  message     => $msg,
+                  level       => 'error',
+                  source      => 'service',
+                  compMessage => join('_', @modules),
                   )];
       }
 
