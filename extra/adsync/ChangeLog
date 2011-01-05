@@ -1,4 +1,5 @@
 HEAD
+	+ Includes support for 64bit editions of Windows Server
 	+ Merge multibyte strings changes in passwdhk.dll from passwdhk trunk
 	+ Use passwdhk key in registry instead of ebox-adsync to be compatible
 	  with unmodified versions of passwdhk.dll

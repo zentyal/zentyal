@@ -22,13 +22,14 @@ copy LICENSE.txt %INSTALLER_TEMP%
 copy ebox-adsync.nsi %INSTALLER_TEMP%
 copy passwdHk.reg %INSTALLER_TEMP%
 copy Release\passwdhk.dll %INSTALLER_TEMP%
+copy passwdhk64.dll %INSTALLER_TEMP%
 copy ebox_adsync_config\Release\ebox_adsync_config.exe %INSTALLER_TEMP%
 copy setup-service.bat %INSTALLER_TEMP%
 copy ebox-service-launcher.exe %INSTALLER_TEMP%
 copy vcredist_x86.exe %INSTALLER_TEMP%
 
 :: Generate .exe from python
-if exist %PYTHON_EXE% goto path 
+if exist %PYTHON_EXE% goto path
 python setup.py py2exe
 copy dist\*.* %INSTALLER_TEMP%
 goto end

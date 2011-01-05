@@ -7,7 +7,7 @@
 ; Modified by eBox Technologies S.L. (2009-2010)
 
 !define PRODUCT_NAME "Zentyal AD Password Sync"
-!define PRODUCT_VERSION "2.0"
+!define PRODUCT_VERSION "2.0.1"
 !define PRODUCT_PUBLISHER "eBox Technologies S.L."
 !define PRODUCT_DIR_REGKEY "Software\Microsoft\Windows\CurrentVersion\App Paths\ebox_adsync_config.exe"
 !define PRODUCT_UNINST_KEY "Software\Microsoft\Windows\CurrentVersion\Uninstall\${PRODUCT_NAME}"
@@ -17,6 +17,8 @@ SetCompressor bzip2
 
 ; MUI 1.67 compatible ------
 !include "MUI.nsh"
+
+!include "x64.nsh"
 
 ; MUI Settings
 !define MUI_ABORTWARNING
@@ -80,8 +82,15 @@ Section "" ; (default section)
   File zentyal-enable-hook.exe
   File library.zip
   File python26.dll
-  SetOutPath $SYSDIR
-  File passwdHk.dll
+  ${If} ${RunningX64}
+    ${DisableX64FSRedirection}
+    SetOutPath $SYSDIR
+    File /oname=passwdHk.dll passwdhk64.dll
+    ${EnableX64FSRedirection}
+  ${Else}
+    SetOutPath $SYSDIR
+    File passwdHk.dll
+  ${EndIf}
   SetOutPath $INSTDIR
 
   ; Make Shortcuts
@@ -147,7 +156,13 @@ Section Uninstall
   Delete "$INSTDIR\zentyal-enable-hook.exe"
   Delete "$INSTDIR\library.zip"
   Delete "$INSTDIR\python26.dll"
-  Delete /REBOOTOK "$SYSDIR\passwdHk.dll"
+  ${If} ${RunningX64}
+    ${DisableX64FSRedirection}
+    Delete /REBOOTOK "$SYSDIR\passwdHk.dll"
+    ${EnableX64FSRedirection}
+  ${Else}
+    Delete /REBOOTOK "$SYSDIR\passwdHk.dll"
+  ${EndIf}
   Delete "$INSTDIR\uninst.exe"
   DeleteRegKey HKEY_LOCAL_MACHINE "SOFTWARE\Account Synchronization Project\ebox-adsync"
   DeleteRegKey HKEY_LOCAL_MACHINE "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\ebox-adsync"
