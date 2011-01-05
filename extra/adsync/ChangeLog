@@ -1,3 +1,7 @@
+HEAD
+	+ Merge multibyte strings changes in passwdhk.dll from passwdhk trunk
+	+ Use passwdhk key in registry instead of ebox-adsync to be compatible
+	  with unmodified versions of passwdhk.dll
 2.0
 	+ Zentyal rebrand
 	+ Fixed problems with special characters in passwords

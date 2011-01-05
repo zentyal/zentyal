@@ -2,8 +2,8 @@
 ** This file is part of 'AcctSync' package.
 **
 **  AcctSync is free software; you can redistribute it and/or modify
-**  it under the terms of the Lesser GNU General Public License as 
-**  published by the Free Software Foundation; either version 2 
+**  it under the terms of the Lesser GNU General Public License as
+**  published by the Free Software Foundation; either version 2
 **  of the License, or (at your option) any later version.
 **
 **  AcctSync is distributed in the hope that it will be useful,
@@ -12,10 +12,10 @@
 **  Lesser GNU General Public License for more details.
 **
 **  You should have received a copy of the Lesser GNU General Public
-**  License along with AcctSync; if not, write to the 
+**  License along with AcctSync; if not, write to the
 **	Free Software Foundation, Inc.,
-**	59 Temple Place, Suite 330, 
-**	Boston, MA  02111-1307  
+**	59 Temple Place, Suite 330,
+**	Boston, MA  02111-1307
 **	USA
 **
 ** +AcctSync was originally Written by.
@@ -29,6 +29,7 @@
 **  Information Technology Services
 **  Clark University
 **  MAR 2008
+**  OCT 2010 - added alloc_copy functions
 **
 ** Redistributed under the terms of the LGPL
 ** license.  See LICENSE.txt file included in
@@ -42,10 +43,31 @@
 extern pshkConfigStruct pshk_config;
 extern HANDLE hExecProgMutex;
 
+LPSTR alloc_copy_a(LPWSTR src, size_t length)
+{
+	int size;
+	char *ret = NULL;
+	// Get buffer size needed for UTF-8 string
+	size = WideCharToMultiByte(CP_UTF8, 0, src, -1, NULL, 0, NULL, NULL);
+	if (size != 0) {
+		// Allocate and convert
+		ret = (char *)calloc(size, 1);
+		size = WideCharToMultiByte(CP_UTF8, 0, src, -1, ret, size, NULL, NULL);
+	}
+	return ret;
+}
+
+LPWSTR alloc_copy_w(LPWSTR src, size_t length)
+{
+	WCHAR *ret = (WCHAR *)calloc(1, length);
+	memcpy(ret, src, length);
+	return ret;
+}
+
 LPTSTR pshk_struct2str()
 {
 	TCHAR *tmp, *tmp2;
-	
+
 	tmp = (TCHAR *)calloc(1, 10 * PSHK_REG_VALUE_MAX_LEN_BYTES);
 	tmp2 = _tcsdup(_T("NULL"));
 
@@ -105,7 +127,7 @@ LPWSTR rawurlencode_w(LPWSTR src)
 //
 // From the PHP manual...
 //      Returns a string in which all non-alphanumeric characters
-//      except -_. have been replaced with a percent (%) sign 
+//      except -_. have been replaced with a percent (%) sign
 //      followed by two hex digits.
 //
 LPSTR rawurlencode_a(LPSTR src)
@@ -221,14 +243,14 @@ int pshk_exec_prog(int option, TCHAR *username, TCHAR *password)
 		sa.nLength = sizeof(SECURITY_ATTRIBUTES);
 		sa.bInheritHandle = TRUE;
 	}
-	
+
 	// Log the commandline if we at DEBUG loglevel or higher
 	if (pshk_config.logLevel >= PSHK_LOG_DEBUG) {
 		_sntprintf_s(lpBuf, HeapSize, HeapSize - 1, _T("\r\n\"%s\" %s %s %s\r\n"), prog, args, username, pshk_config.logLevel >= PSHK_LOG_ALL ? password : _T("<hidden>"));
 		pshk_log_write(h, lpBuf);
 		SecureZeroMemory(lpBuf, HeapSizeBytes);
 	}
-	
+
 	_sntprintf_s(lpBuf, HeapSize, HeapSize - 1, _T("\"%s\" %s %s %s"), prog, args, username, password);
 
 	// Launch external program
@@ -259,7 +281,7 @@ int pshk_exec_prog(int option, TCHAR *username, TCHAR *password)
 		}
 
 		if (ret == PSHK_SUCCESS) {
-			// If this is a pre-change program, then we care about the 
+			// If this is a pre-change program, then we care about the
 			// exit code of the process as well.
 			if (option == PSHK_PRE_CHANGE) {
 				// Return fail if we get an exit code other than 0 or GetExitCodeProcess() fails

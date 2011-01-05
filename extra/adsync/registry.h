@@ -39,7 +39,7 @@
 #ifndef PKSH_REGISTRY_H
 #define PKSH_REGISTRY_H
 
-#define PSHK_REG_KEY _T("SYSTEM\\CurrentControlSet\\Control\\Lsa\\ebox-adsync")
+#define PSHK_REG_KEY _T("SYSTEM\\CurrentControlSet\\Control\\Lsa\\passwdhk")
 #define PSHK_REG_VALUE_MAX_LEN	256
 #define PSHK_REG_VALUE_MAX_LEN_BYTES PSHK_REG_VALUE_MAX_LEN * sizeof(TCHAR)
 

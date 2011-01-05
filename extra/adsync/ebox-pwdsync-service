@@ -28,7 +28,7 @@ from time import sleep
 from glob import glob
 from ebox_pwdsync_common import get_queue_path
 
-REG_KEY = 'SYSTEM\\CurrentControlSet\\Control\\Lsa\\ebox-adsync'
+REG_KEY = 'SYSTEM\\CurrentControlSet\\Control\\Lsa\\passwdhk'
 BLOCK_SIZE = 16
 
 QUEUE_PATH = get_queue_path()

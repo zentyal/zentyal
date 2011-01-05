@@ -2,8 +2,8 @@
 ** This file is part of 'AcctSync' package.
 **
 **  AcctSync is free software; you can redistribute it and/or modify
-**  it under the terms of the Lesser GNU General Public License as 
-**  published by the Free Software Foundation; either version 2 
+**  it under the terms of the Lesser GNU General Public License as
+**  published by the Free Software Foundation; either version 2
 **  of the License, or (at your option) any later version.
 **
 **  AcctSync is distributed in the hope that it will be useful,
@@ -12,10 +12,10 @@
 **  Lesser GNU General Public License for more details.
 **
 **  You should have received a copy of the Lesser GNU General Public
-**  License along with AcctSync; if not, write to the 
+**  License along with AcctSync; if not, write to the
 **	Free Software Foundation, Inc.,
-**	59 Temple Place, Suite 330, 
-**	Boston, MA  02111-1307  
+**	59 Temple Place, Suite 330,
+**	Boston, MA  02111-1307
 **	USA
 **
 ** +AcctSync was originally Written by.
@@ -29,6 +29,7 @@
 **  Information Technology Services
 **  Clark University
 **  MAR, 2008
+**  OCT, 2010 - added alloc_copy functions
 **
 ** Redistributed under the terms of the LGPL
 ** license.  See LICENSE.txt file included in
@@ -43,31 +44,22 @@
 #define STATUS_SUCCESS  ((NTSTATUS)0x00000000L)
 #endif
 
-// Holds all the persistant context information 
+// Holds all the persistant context information
 // Due to the nature of the LSA, this is basically
 // a read only structure
 pshkConfigStruct pshk_config;
 // Mutex for pshk_exec_prog function
 HANDLE hExecProgMutex;
 
-// This is the post-password change function 
+// This is the post-password change function
 // The password change has been done
 NTSTATUS NTAPI PasswordChangeNotify(PUNICODE_STRING username, ULONG relativeid, PUNICODE_STRING password)
 {
 	TCHAR *usernameStr, *passwordStr;
-#if UNICODE
-	usernameStr	= (TCHAR *)calloc(1, username->Length + sizeof(TCHAR));
-	passwordStr	= (TCHAR *)calloc(1, password->Length + sizeof(TCHAR));
 
-	memcpy(usernameStr, username->Buffer, username->Length);
-	memcpy(passwordStr, password->Buffer, password->Length);
-#else
-	usernameStr	= calloc(1, username->Length/2 + sizeof(TCHAR));
-	passwordStr	= calloc(1, password->Length/2 + sizeof(TCHAR));
+	usernameStr = alloc_copy(username->Buffer, username->Length + sizeof(TCHAR));
+	passwordStr = alloc_copy(password->Buffer, password->Length + sizeof(TCHAR));
 
-	wcstombs(usernameStr, username->Buffer, (username->Length/2));
-	wcstombs(passwordStr, password->Buffer, (password->Length/2));
-#endif
 	pshk_exec_prog(PSHK_POST_CHANGE, usernameStr, passwordStr);
 
 	SecureZeroMemory(usernameStr, _tcslen(usernameStr));
@@ -80,25 +72,16 @@ NTSTATUS NTAPI PasswordChangeNotify(PUNICODE_STRING username, ULONG relativeid, 
 }
 
 
-// This is the pre-password change function 
+// This is the pre-password change function
 // A password change has been requested
 BOOL NTAPI PasswordFilter(PUNICODE_STRING username, PUNICODE_STRING FullName, PUNICODE_STRING password, BOOL SetOperation)
 {
 	int retVal;
 	TCHAR *usernameStr, *passwordStr;
-#if UNICODE
-	usernameStr	= (TCHAR *)calloc(1, username->Length + sizeof(TCHAR));
-	passwordStr	= (TCHAR *)calloc(1, password->Length + sizeof(TCHAR));
 
-	memcpy(usernameStr, username->Buffer, username->Length);
-	memcpy(passwordStr, password->Buffer, password->Length);
-#else
-	usernameStr	= calloc(1, username->Length/2 + sizeof(TCHAR));
-	passwordStr	= calloc(1, password->Length/2 + sizeof(TCHAR));
+	usernameStr = alloc_copy(username->Buffer, username->Length + sizeof(TCHAR));
+	passwordStr = alloc_copy(password->Buffer, password->Length + sizeof(TCHAR));
 
-	wcstombs(usernameStr, username->Buffer, (username->Length/2));
-	wcstombs(passwordStr, password->Buffer, (password->Length/2));
-#endif
 	retVal = pshk_exec_prog(PSHK_PRE_CHANGE, usernameStr, passwordStr);
 
 	SecureZeroMemory(usernameStr, _tcslen(usernameStr));
@@ -120,7 +103,7 @@ BOOL NTAPI InitializeChangeNotify(void)
 
 	if (!pshk_config.valid)
 		return FALSE;
-	
+
 	// Create pshk_exec_prog mutex
 	hExecProgMutex = CreateMutex(NULL, FALSE, NULL);
 

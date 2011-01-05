@@ -55,7 +55,7 @@ Section "" ; (default section)
   SetOutPath "$INSTDIR"
   SetOverwrite ifnewer
   ; add files / whatever that need to be installed here.
-  WriteRegStr HKEY_LOCAL_MACHINE "SYSTEM\CurrentControlSet\Control\Lsa\ebox-adsync" "workingdir" "$INSTDIR"
+  WriteRegStr HKEY_LOCAL_MACHINE "SYSTEM\CurrentControlSet\Control\Lsa\passwdhk" "workingdir" "$INSTDIR"
   WriteRegStr HKEY_LOCAL_MACHINE "Software\Microsoft\Windows\CurrentVersion\Uninstall\ebox-adsync" "DisplayName" "$(^Name) (remove only)"
   WriteRegStr HKEY_LOCAL_MACHINE "Software\Microsoft\Windows\CurrentVersion\Uninstall\ebox-adsync" "UninstallString" '"$INSTDIR\uninst.exe"'
 
@@ -151,7 +151,7 @@ Section Uninstall
   Delete "$INSTDIR\uninst.exe"
   DeleteRegKey HKEY_LOCAL_MACHINE "SOFTWARE\Account Synchronization Project\ebox-adsync"
   DeleteRegKey HKEY_LOCAL_MACHINE "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\ebox-adsync"
-  DeleteRegKey HKEY_LOCAL_MACHINE "SYSTEM\CurrentControlSet\Control\Lsa\ebox-adsync"
+  DeleteRegKey HKEY_LOCAL_MACHINE "SYSTEM\CurrentControlSet\Control\Lsa\passwdhk"
   ReadRegStr $OUTDIR HKLM "SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders" "Common Administrative Tools"
   Delete "$OUTDIR\Zentyal AD Password Sync Configuration.lnk"
   RMDir "$INSTDIR"

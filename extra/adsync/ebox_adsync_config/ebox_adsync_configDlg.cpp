@@ -43,7 +43,7 @@
 #include "ebox_adsync_config.h"
 #include "ebox_adsync_configDlg.h"
 
-#define PSHK_REG_KEY _T("SYSTEM\\CurrentControlSet\\Control\\Lsa\\ebox-adsync")
+#define PSHK_REG_KEY _T("SYSTEM\\CurrentControlSet\\Control\\Lsa\\passwdhk")
 #define PSHK_REG_VALUE_MAX_LEN	256
 #define PSHK_REG_VALUE_MAX_LEN_BYTES PSHK_REG_VALUE_MAX_LEN * sizeof(TCHAR)
 
