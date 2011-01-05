@@ -34,7 +34,7 @@ BLOCK_SIZE = 16
 QUEUE_PATH = get_queue_path()
 
 hKey = OpenKey(HKEY_LOCAL_MACHINE, REG_KEY, 0, KEY_READ)
-eboxAddress = QueryValueEx(hKey, 'host')[0]
+zentyalAddress = QueryValueEx(hKey, 'host')[0]
 port = int(QueryValueEx(hKey, 'port')[0])
 secretKey = QueryValueEx(hKey, 'secret')[0]
 
@@ -50,12 +50,19 @@ def notify_password(username, password):
 
     sock = socket(AF_INET, SOCK_STREAM)
     try:
-        sock.connect((eboxAddress, port))
+        print "DEBUG: establishing connection with " + zentyalAddress
+        sock.connect((zentyalAddress, port))
+        print "DEBUG: connection established"
 
+        print "DEBUG: sending password notification for user = " + username
         sock.send(pack("!LLL", len(username), len(password), len(encoded)))
+        print "DEBUG: header sent"
+
         print "DEBUG: encoded content = " + encoded
         sock.send(encoded)
+        print "DEBUG: encoded content sent"
         response = sock.recv(1)
+        print "DEBUG: response received = " + response
 
         return response == '0'
     except:
