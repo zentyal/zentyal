@@ -124,13 +124,13 @@ sub run
           $event = new EBox::Event(
                                    message => __('Zentyal is up and running'),
                                    level   => 'info',
-                                   source  => $self->name(),
+                                   source  => 'state',
                                   );
       } else {
           $event = new EBox::Event(
                                    message => __('Zentyal is critically down'),
                                    level   => 'fatal',
-                                   source  => $self->name(),
+                                   source  => 'state',
                                   );
       }
 

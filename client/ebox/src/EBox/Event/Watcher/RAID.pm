@@ -178,7 +178,7 @@ sub Able
 sub _name
   {
 
-      return __('RAID');
+      return 'RAID';
 
   }
 

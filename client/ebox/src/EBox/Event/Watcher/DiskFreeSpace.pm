@@ -136,7 +136,7 @@ sub run
 				       mp => $properties->{mountPoint},
 				      ),
 			level   => 'error',
-                        source  => $self->name(),
+                        source  => 'Free storage space',
 		       );
     }
     elsif ($eventHappened) {

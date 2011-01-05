@@ -162,7 +162,7 @@ sub run
             if ($enable) {
                 my $event = new EBox::Event(message => __x("Gateway {gw} connected", gw => $gwName),
                                     level   => 'info',
-                                    source  => $self->name());
+                                    source  => 'WAN Failover');
                 push (@{$self->{eventList}}, $event);
             }
         }
@@ -306,7 +306,7 @@ sub _testRule # (row)
                                              host => $host,
                                              maxFailRatio => $maxFailRatio*100),
                                     level   => 'error',
-                                    source  => $self->name());
+                                    source  => 'WAN Failover');
         push (@{$self->{eventList}}, $event);
     }
 }

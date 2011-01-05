@@ -115,7 +115,7 @@ sub run
           return [ new EBox::Event(
                   message => $msg,
                   level   => 'error',
-                  source  => $self->name(),
+                  source  => 'service',
                   )];
       }
 

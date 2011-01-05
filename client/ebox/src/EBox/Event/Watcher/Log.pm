@@ -256,7 +256,7 @@ sub _createEvents
         push(@retEvents, new EBox::Event(
                                          message => $helperMod->humanEventMessage($row),
                                          level   => 'info',
-                                         source  => $self->name() . '-' . $loggerName,
+                                         source  => "Log observer-$loggerName",
                                         )
             );
     }
