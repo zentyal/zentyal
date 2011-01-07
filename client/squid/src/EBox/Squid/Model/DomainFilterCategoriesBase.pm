@@ -20,18 +20,16 @@ use strict;
 use warnings;
 
 use EBox;
-
+use EBox::Global;
 use EBox::Exceptions::Internal;
 use EBox::Gettext;
 use EBox::Types::Text;
 use EBox::Types::Boolean;
 use EBox::Validate;
-
 use EBox::Sudo;
 
 use Error qw(:try);
 use File::Basename;
-
 
 
 # Group: Public methods
@@ -61,56 +59,52 @@ sub new
 
 
 
-# Method: _table
+# Method: _tableHeader
 #
-
 sub _tableHeader
-  {
+{
+    my @tableHeader = (
+            new EBox::Types::Text(
+                fieldName => 'category',
+                printableName => ('Category'),
+                unique   => 1,
+                editable => 0,
+            ),
+            new EBox::Types::Select(
+                fieldName     => 'policy',
+                printableName => __('Policy'),
+                populate   => \&_populate,
+                defaultValue => 'ignore',
+                editable => 1,
+            ),
+            new EBox::Types::Text(
+                fieldName => 'dir',
+                printableName => 'categoryDir',
+                hidden => 1,
+                unique => 1,
+            )
+    );
 
-      my @tableHeader =
-        (
-         new EBox::Types::Text(
-                               fieldName => 'category',
-                               printableName => ('Category'),
-                               unique   => 1,
-                               editable => 0,
-                              ),
-         new EBox::Types::Select(
-                               fieldName     => 'policy',
-                               printableName => __('Policy'),
-                               populate   => \&_populate,
-                               defaultValue => 'ignore',
-                               editable => 1,
-                              ),
-         new EBox::Types::Text(
-                               fieldName => 'dir',
-                               printableName => 'categoryDir',
-                               hidden => 1,
-                               unique => 1,
-                              )
-
-
-        );
-
-      return \@tableHeader;
-  }
+    return \@tableHeader;
+}
 
 
 sub _populate
 {
-  my @elements = (
-                  { value => 'allow',  printableValue => __('Always allow') },
-                  { value => 'filter', printableValue => __('Filter') },
-                  { value => 'deny',   printableValue => __('Always deny') },
-                  { value => 'ignore',   printableValue => __('Ignore') },
-                 );
+    my @elements = (
+                    { value => 'allow',  printableValue => __('Always allow') },
+                    { value => 'filter', printableValue => __('Filter') },
+                    { value => 'deny',   printableValue => __('Always deny') },
+                    { value => 'ignore', printableValue => __('Ignore') },
+                   );
 
-  return \@elements;
+    return \@elements;
 }
 
 sub precondition
 {
     my ($self) = @_;
+
     $self->size() > 0;
 }
 
@@ -126,7 +120,6 @@ sub filesPerPolicy
 
     my @files = ();
 
-
     foreach my $id ( @{ $self->ids() } ) {
         my $row = $self->row($id);
         my $catPolicy = $row->valueByName('policy');
@@ -134,7 +127,6 @@ sub filesPerPolicy
         if ($catPolicy ne $policy) {
             next;
         }
-
 
         my $dir = $row->valueByName('dir');
         my @dirFiles =  @{ EBox::Sudo::root("find $dir") };
@@ -148,7 +140,6 @@ sub filesPerPolicy
 
             push @files, $file;
         }
-
     }
 
     return \@files;
@@ -180,25 +171,20 @@ sub deleteCategory
     $self->removeRow($id);
 }
 
-# # XXX ad-hack reimplementation until the bug in coposite's parent would be
-# # solved
-# use EBox::Global;
+# FIXME: reimplementation until the bug in composite's parent is solved
 sub parent
 {
     my ($self) = @_;
 
-    my $squid     = EBox::Global->modInstance('squid');
+    my $squid = EBox::Global->modInstance('squid');
 
     if ($self->isa('EBox::Squid::Model::DomainFilterCategories')) {
         my $defaultFilterGroup = $squid->composite('FilterSettings');
 
         my $defaultParent =  $defaultFilterGroup->componentByName('DomainFilterFiles', 1);
 
-
-
         return $defaultParent;
-   }
-
+    }
 
     my $filterProfiles = $squid->model('FilterGroup');
     my $dir = $self->directory();
@@ -206,33 +192,22 @@ sub parent
     my $rowId = $parts[-6]; # 8
 
     my $granparentRow = $filterProfiles->row($rowId);
-    my $filterPolicy  = $granparentRow->elementByName('filterPolicy')->foreignModelInstance();
-
+    my $filterPolicy = $granparentRow->elementByName('filterPolicy')->foreignModelInstance();
 
     my $parent =  $filterPolicy->componentByName('FilterGroupDomainFilterFiles', 1);
-
 
     return $parent;
 }
 
-
 # sub parentRow
 # {
 #     my ($self) = @_;
-
 #     my $parent = $self->parent();
-
 #     my $dir = $self->directory();
 #     my @parts = split '/', $dir;
-
 #     my $rowId = $parts[-2];
-
-
 #     EBox::debug("Categoreis ID $rowId\n\n");
-
 #     return $parent->row($rowId);
 # }
 
-
 1;
-
