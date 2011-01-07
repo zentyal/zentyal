@@ -14,8 +14,8 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 package EBox::Squid::Model::DomainFilterFilesBase;
+
 use base 'EBox::Model::DataTable';
-#
 
 use strict;
 use warnings;
@@ -32,11 +32,9 @@ use Error qw(:try);
 use Perl6::Junction qw(any);
 use File::Basename;
 
-
 use constant LIST_FILE_DIR => '/etc/dansguardian/extralists';
 
 my $anyArchiveFilesScopes = any(qw(domains urls));
-
 
 sub new
 {
@@ -45,42 +43,40 @@ sub new
 }
 
 sub _tableHeader
-  {
-      my ($class) = @_;
+{
+    my ($class) = @_;
 
-      my @tableHeader =
+    my @tableHeader =
         (
          new EBox::Types::Text::WriteOnce(
-                               fieldName => 'description',
-                               printableName => ('Description'),
-                               unique   => 1,
-                               editable => 1,
-                              ),
+             fieldName => 'description',
+             printableName => ('Description'),
+             unique   => 1,
+             editable => 1,
+             ),
          new EBox::Types::HasMany(
-                                  'fieldName' => 'categories',
-                                  'printableName' => __('Categories'),
-                                  'foreignModel' => $class->categoryForeignModel(),
-                                  'view' => $class->categoryForeignModelView(),
-                                  'backView' => $class->categoryBackView(),
-                                  'size' => '1',
-     ),
+             'fieldName' => 'categories',
+             'printableName' => __('Categories'),
+             'foreignModel' => $class->categoryForeignModel(),
+             'view' => $class->categoryForeignModelView(),
+             'backView' => $class->categoryBackView(),
+             'size' => '1',
+             ),
          new EBox::Types::File(
-                               fieldName     => 'fileList',
-                               printableName => __('File'),
-                               unique        => 1,
-                               editable      => 1,
-                               optional      => 1,
-                               allowDownload => 1,
-                               dynamicPath   => \&_listFilePath,
+             fieldName     => 'fileList',
+             printableName => __('File'),
+             unique        => 1,
+             editable      => 1,
+             optional      => 1,
+             allowDownload => 1,
+             dynamicPath   => \&_listFilePath,
 
-                               user   => 'root',
-                               group  => 'root',
-                              ),
-
-
+             user   => 'root',
+             group  => 'root',
+             ),
         );
 
-      return \@tableHeader;
+    return \@tableHeader;
 }
 
 
@@ -91,10 +87,7 @@ sub _listFilePath
     defined $row or
         return undef;
 
-
     my $model = $file->model();
-
-
 
     my $id = $model->_fileId($row);
 
@@ -138,27 +131,26 @@ sub archiveContentsDir
     return $dir;
 }
 
-
 sub addedRowNotify
 {
-  my ($self, $row) = @_;
+    my ($self, $row) = @_;
 
-  $self->_checkRow($row);
+    $self->_checkRow($row);
 }
-
 
 sub udpatedRowNotify
 {
-  my ($self, $row) = @_;
+    my ($self, $row) = @_;
 
-  $self->_checkRow($row);
+    $self->_checkRow($row);
 }
 
 
 sub deletedRowNotify
 {
     my ($self, $row) = @_;
-    # we remove the files here, if the delete is disacarded we will regenerate
+
+    # we remove the files here, if the delete is discarded we will regenerate
     # the archive. Otherwise we have the bug that the files are only deleted the
     # second time
     my $id =  $self->_fileId($row);
@@ -166,40 +158,30 @@ sub deletedRowNotify
     EBox::Sudo::root("rm -rf $archiveContentsDir");
 }
 
-
-
 sub _checkRow
 {
     my ($self, $row) = @_;
 
-  try {
-      my $fileList =  $row->elementByName('fileList');
-    if (not $fileList->exist()) {
-        throw EBox::Exceptions::External(
-       __('You must supply a domains list')
-                                        )
-    }
+    try {
+        my $fileList = $row->elementByName('fileList');
+        if (not $fileList->exist()) {
+            throw EBox::Exceptions::External(
+                    __('You must supply a domains list'));
+        }
 
-      my $path = $fileList->path();
-      if ($self->_fileIsArchive($path)) {
-          $self->_setUpArchive($row);
-      }
-      else {
-          $self->_checkFileList($path);
-      }
-
-
-  }
-  otherwise {
-      my $ex = shift;
-      my $id = $row->id();
-      $self->removeRow($id);
-      $ex->throw();
-  };
-
+        my $path = $fileList->path();
+        if ($self->_fileIsArchive($path)) {
+            $self->_setUpArchive($row);
+        } else {
+            $self->_checkFileList($path);
+        }
+    } otherwise {
+        my $ex = shift;
+        my $id = $row->id();
+        $self->removeRow($id);
+        $ex->throw();
+    };
 }
-
-
 
 sub _archiveIsSettedUp
 {
@@ -217,9 +199,7 @@ sub _setUpArchive
     my $fileList =  $row->elementByName('fileList');
 
     if (not $fileList->exist()) {
-        throw EBox::Exceptions::External(
-       __('Inexistent archive file')
-                                      );
+        throw EBox::Exceptions::External(__('Inexistent archive file'));
     }
 
     my $path = $fileList->path();
@@ -231,40 +211,33 @@ sub _setUpArchive
         $self->_populateCategories($row);
         $self->_setArchiveLastSetUpTimestamp($fileId);
     }
-
 }
-
-
 
 sub _archiveChanged
 {
     my ($self , $path, $fileId) = @_;
+
     my $timestampFile = $self->_archiveLastSetupTimestampFile($fileId);
-    if (not -f $timestampFile) {
+    unless (-f $timestampFile) {
         return 1;
     }
 
-
-    my $lastSetupStat = EBox::Sudo::stat($timestampFile);    
-    my $lastSetupTs =  ($lastSetupStat->mtime > $lastSetupStat->ctime) ? 
+    my $lastSetupStat = EBox::Sudo::stat($timestampFile);
+    my $lastSetupTs =  ($lastSetupStat->mtime > $lastSetupStat->ctime) ?
          $lastSetupStat->mtime : $lastSetupStat->ctime;
 
-    my $archiveStat   = EBox::Sudo::stat($path);    
-    my $archiveTs = ($archiveStat->mtime > $archiveStat->ctime)  ? 
+    my $archiveStat   = EBox::Sudo::stat($path);
+    my $archiveTs = ($archiveStat->mtime > $archiveStat->ctime)  ?
         $archiveStat->mtime : $archiveStat->ctime;
-
-
 
     return $archiveTs > $lastSetupTs;
 }
-
 
 sub _setArchiveLastSetUpTimestamp
 {
     my ($self, $fileId) = @_;
     my $timestampFile = $self->_archiveLastSetupTimestampFile($fileId);
     EBox::Sudo::root("touch $timestampFile");
-
 }
 
 sub _archiveLastSetupTimestampFile
@@ -283,7 +256,7 @@ sub _checkFileList
     # version we will acommodate them to gui (maybe given it a bogus 'all'
     # cathegory or whatever'
     throw EBox::Exceptions::External(
- __('Plain lists not allowed: is only allowed compressed archives of classified black lists')
+         __('Plain lists not allowed: is only allowed compressed archives of classified black lists')
        );
 
     # XXX commented out bz there a lot of 'domains' list that are in
@@ -340,8 +313,8 @@ sub _checkFileList
 #       Array ref - containing the files
 sub banned
 {
-  my ($self) = @_;
-  return $self->_filesByPolicy('deny', 'domains');
+    my ($self) = @_;
+    return $self->_filesByPolicy('deny', 'domains');
 }
 
 
@@ -354,8 +327,8 @@ sub banned
 #       Array ref - containing the files
 sub allowed
 {
-  my ($self) = @_;
-  return $self->_filesByPolicy('allow', 'domains');
+    my ($self) = @_;
+    return $self->_filesByPolicy('allow', 'domains');
 }
 
 
@@ -368,8 +341,8 @@ sub allowed
 #       Array ref - containing the files
 sub filtered
 {
-  my ($self) = @_;
-  return $self->_filesByPolicy('filter', 'domains');
+    my ($self) = @_;
+    return $self->_filesByPolicy('filter', 'domains');
 }
 
 
@@ -382,8 +355,8 @@ sub filtered
 #       Array ref - containing the files
 sub bannedUrls
 {
-  my ($self) = @_;
-  return $self->_filesByPolicy('deny', 'urls');
+    my ($self) = @_;
+    return $self->_filesByPolicy('deny', 'urls');
 }
 
 
@@ -396,8 +369,8 @@ sub bannedUrls
 #       Array ref - containing the files
 sub allowedUrls
 {
-  my ($self) = @_;
-  return $self->_filesByPolicy('allow', 'urls');
+    my ($self) = @_;
+    return $self->_filesByPolicy('allow', 'urls');
 }
 
 
@@ -410,92 +383,82 @@ sub allowedUrls
 #       Array ref - containing the files
 sub filteredUrls
 {
-  my ($self) = @_;
-  return $self->_filesByPolicy('filter', 'urls');
+    my ($self) = @_;
+    return $self->_filesByPolicy('filter', 'urls');
 }
-
-
 
 sub _filesByPolicy
 {
-  my ($self, $policy, $scope) = @_;
-  ($scope eq $anyArchiveFilesScopes) or
-      throw EBox::Exceptions::Internal("Bad scope $scope");
+    my ($self, $policy, $scope) = @_;
 
-  my @files = ();
-  foreach my $id (@{$self->ids()}) {
-      my $row = $self->row($id);
-      my $file = $row->elementByName('fileList');
-      $file->exist() or
-          next;
+    ($scope eq $anyArchiveFilesScopes) or
+        throw EBox::Exceptions::Internal("Bad scope $scope");
 
-      my $path = $file->path();
-      if ($self->_fileIsArchive($path)) {
-          push @files,  @{ $self->_archiveFiles($row, $policy, $scope)  };
+    my @files = ();
+    foreach my $id (@{$self->ids()}) {
+        my $row = $self->row($id);
+        my $file = $row->elementByName('fileList');
+        $file->exist() or
+            next;
+
+        my $path = $file->path();
+        if ($self->_fileIsArchive($path)) {
+            push @files,  @{ $self->_archiveFiles($row, $policy, $scope)  };
+        }
+        else {
+            if ($scope eq 'urls') {
+                #for now individual files are *always* domains lists
+                next;
             }
-      else {
-          if ($scope eq 'urls') {
-              #for now individual files are *always* domains lists
-              next;
-          }
 
-          if ($row->valueByName('policy') eq $policy) {
-              push @files, $path;
-          }
+            if ($row->valueByName('policy') eq $policy) {
+                push @files, $path;
+            }
+        }
+    }
 
-      }
-
-  }
-
-  return \@files;
+    return \@files;
 }
-
-
 
 sub _fileIsArchive
 {
     my ($self, $path) = @_;
+
     my $output = EBox::Sudo::root("/usr/bin/file -b $path");
     if ($output->[0] =~ m/^gzip compressed/) {
         return 1;
-    }
-    else {
+    } else {
         return 0;
     }
-
 }
 
 
 sub _cleanArchive
 {
     my ($self, $id) = @_;
+
     my $dir = $self->archiveContentsDir($id);
     EBox::Sudo::root("rm -rf $dir");
-
 }
 
 sub _extractArchive
 {
     my ($self, $path, $id) = @_;
+
     my $dir = $self->archiveContentsDir($id);
     EBox::Sudo::root("mkdir -p $dir");
 
-    my $cmd = "tar  xzf $path -C $dir  ";
+    my $cmd = "tar xzf $path -C $dir";
     EBox::Sudo::root($cmd);
     my $owner = $self->_archiveFilesOwner();
 
     EBox::Sudo::root("chown -R $owner $dir");
 }
 
-
 sub _archiveFilesOwner
 {
-    return 'root.root';
+    return 'root:root';
 }
-
-
-
-
 
 sub _archiveFiles
 {
@@ -509,8 +472,6 @@ sub _archiveFiles
      my $domainFilterCategories = $row->subModel('categories');
      return $domainFilterCategories->filesPerPolicy($policy, $scope);
 }
-
-
 
 sub _populateCategories
 {
@@ -530,16 +491,14 @@ sub _populateCategories
 
         if ($basename eq $anyArchiveFilesScopes) {
             $categories{$category} = $dirname;
-         }
-
+        }
     }
-
 
     my $domainFilterCategories = $row->subModel('categories');
 
     my %categoriesInModel = map {
                                      ($_ => 1)
-                              } @{ $domainFilterCategories->categories() };
+                                } @{ $domainFilterCategories->categories() };
 
     # add new categories
     while (my ($category, $dir) = each %categories ) {
@@ -555,17 +514,15 @@ sub _populateCategories
                                        );
     }
 
-    # remov categories not longer existent
+    # remove no longer existent categories
     foreach my $category (keys %categoriesInModel) {
         $domainFilterCategories->deleteCategory($category);
     }
 }
 
-
 sub setupArchives
 {
     my ($self) = @_;
-
 
     foreach my $id (@{ $self->ids() }) {
         my $row = $self->row($id);
@@ -573,19 +530,17 @@ sub setupArchives
         my $path = $fileList->path();
 
         if (not $fileList->exist()) {
-         EBox::error(
-"File $path refered as dansguardian domains list does not exists. Skipping"
-                   );
+            EBox::error(
+                    "File $path refered as dansguardian domains list does not exists. Skipping"
+                    );
             next;
         }
 
-      if ($self->_fileIsArchive($path)) {
-          $self->_setUpArchive($row);
-      }
+        if ($self->_fileIsArchive($path)) {
+            $self->_setUpArchive($row);
+        }
     }
 }
-
-
 
 sub _expectedArchiveFiles
 {
@@ -634,7 +589,6 @@ sub cleanOrphanedFiles
         }
     }
 
-
     (-d $archivesDirBase) or
         return;
 
@@ -654,68 +608,44 @@ sub cleanOrphanedFiles
 
         EBox::debug("Orphaned content dir $archDir. (Looked for file $archiveFile. Will be removed");
         EBox::Sudo::root("rm -rf $archDir");
-
     }
 }
-
-
-
-# sub _rmDirIfEmpty
-# {
-#     my ($package, $dir) = @_;
-
-#     EBox::Sudo::root("rmdir --ignore-fail-on-non-empty $dir");
-# }
-
-
 
 # sub parentRow
 # {
 #     my ($self, @p) = @_;
-
 #     use Devel::StackTrace;
-
-#   my $trace = Devel::StackTrace->new;
+#     my $trace = Devel::StackTrace->new;
 #     EBox::debug($trace->as_string);
-
-
 #     $self->SUPER::parentRow(@p);
 # }
 
 
 # sub setParentComposite
-#     {
+# {
 #     my ($self, @p) = @_;
-
 #     use Devel::StackTrace;
-
-#   my $trace = Devel::StackTrace->new;
+#     my $trace = Devel::StackTrace->new;
 #     EBox::debug($trace->as_string);
-
-
 #     $self->SUPER::setParentComposite(@p);
 # }
 
 
-# XXX ad-hack reimplementation until the bug in coposite's parent would be
-# solved
+# FIXME: reimplementation until the bug in composite's parent is solved
 use EBox::Global;
 sub parent
 {
     my ($self) = @_;
 
-    my $squid     = EBox::Global->modInstance('squid');
+    my $squid = EBox::Global->modInstance('squid');
     my $filterProfiles = $squid->model('FilterGroup');
     return $filterProfiles;
 }
-
 
 sub _backupFilterFilesArchive
 {
     my ($self, $dir) = @_;
     return "$dir/filterFiles.tar.gz";
 }
-
-
 
 1;
