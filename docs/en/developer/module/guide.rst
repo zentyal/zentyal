@@ -1,8 +1,8 @@
-.. _module-developer-guide:
+.. _developer-guide:
 
-======================
-Module developer guide
-======================
+=======================
+Zentyal developer guide
+=======================
 
 .. toctree::
    :maxdepth: 2

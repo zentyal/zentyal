@@ -2,6 +2,20 @@
 Creating our first module
 =========================
 
+Installing the necessary stuff
+==============================
+
+We will be using zmoddev, a collection of convenience scripts that will help
+us create the structure and basic files for a Zentyal module.
+
+You will need to add the following repository to your APT sources::
+
+    deb http://ppa.launchpad.net/zentyal/2.0-extras/ubuntu lucid main
+
+And then install this package by running the following command::
+
+    sudo apt-get install zmoddev
+
 Selecting a service
 ===================
 
