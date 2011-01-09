@@ -38,6 +38,7 @@ use EBox::SquidFirewall;
 use EBox::Squid::LogHelper;
 use EBox::SquidOnlyFirewall;
 use EBox::Squid::LdapUserImplementation;
+use EBox::Squid::Model::DomainFilterFiles;
 
 use EBox::DBEngineFactory;
 use EBox::Dashboard::Value;
@@ -49,6 +50,7 @@ use EBox::Gettext;
 use EBox;
 use Error qw(:try);
 use HTML::Mason;
+use File::Basename;
 
 use EBox::NetWrappers qw(to_network_with_mask);
 
@@ -895,35 +897,52 @@ sub _cleanDomainFilterFiles
     # do this but we don't have options bz deletedRowNotify is called before
     # deleting the file so the directory is not empty
 
+    # FIXME: This is a workaround, as there are bugs with parentComposite
+    # should be implemented better someday
+    # This avoids the bug of deleting list files in the second restart
+    my $dir = $self->isReadOnly() ? 'ebox-ro' : 'ebox';
+    my @keys = $self->{redis}->_redis_call('keys',
+        "/$dir/modules/squid/*/FilterGroupDomainFilterFiles/*/fileList_path");
+
     my %fgDirs;
-    foreach my $domainFilterFiles ( @{ $self->_domainFilterFilesComponents() } ) {
-        $fgDirs{$domainFilterFiles->listFileDir} = 1;
-
-        $domainFilterFiles->setupArchives();
-        $domainFilterFiles->cleanOrphanedFiles();
+    foreach my $key (@keys) {
+        my $path = $self->get_string($key);
+        my $basename = basename($path);
+        $fgDirs{$path} = 1;
+        $fgDirs{"$path/archives"} = 1;
+        $fgDirs{"$path/archives/$basename"} = 1;
+        my $profileDir = dirname($path);
+        $fgDirs{$profileDir} = 1;
     }
 
-    # remove directories no related with a filter groups
+    #foreach my $domainFilterFiles ( @{ $self->_domainFilterFilesComponents() } ) {
+        # FIXME: _domainFilterFilesComponents returns a wrong list
+        # that's why this is workarounded with _redis_call
+        # $fgDirs{$domainFilterFiles->listFileDir} = 1;
+
+        #$domainFilterFiles->setupArchives();
+
+        # No need to clean files separately, we will clean
+        # the whole non-referenced dirs in the next loop
+        #$domainFilterFiles->cleanOrphanedFiles();
+    #}
+
     my $defaultListFileDir = EBox::Squid::Model::DomainFilterFiles->listFileDir();
-    my $defaultArchivesDir = $defaultListFileDir . '/archives';
 
-    my $findCmd = 'find ' .  $defaultListFileDir  . ' -maxdepth 1 -type d';
+    # As now the directories for each profile are not deleted separately with
+    # cleanOrphanedFiles, we change the depth of the find to remove them here
+    # my $findCmd = 'find ' .  $defaultListFileDir  . ' -maxdepth 1 -type d';
+    my $findCmd = 'find ' .  $defaultListFileDir  . ' -mindepth 1 -maxdepth 3';
     my @dirs = `$findCmd`;
+    chomp @dirs;
+
+    my @deleteCmds;
     foreach my $dir (@dirs) {
-        chomp $dir;
+        next if exists $fgDirs{$dir};
 
-        if ($dir eq $defaultListFileDir) {
-            next;
-        }
-        elsif ($dir eq $defaultArchivesDir) {
-            next;
-        }
-        elsif (exists $fgDirs{$dir}) {
-            next;
-        }
-
-        EBox::Sudo::root("rm -r $dir");
+        push (@deleteCmds, "rm -rf $dir");
     }
+    EBox::Sudo::root(@deleteCmds);
 }
 
 sub _domainFilterFilesComponents

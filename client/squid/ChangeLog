@@ -1,3 +1,6 @@
+HEAD
+	+ Bugfix: when having different filter profiles with domain lists,
+	  the lists files are no longer deleted on the second restart
 2.0.2
 	+ Filter profiles names with spaces are forbidden to avoid errors
 	+ Avoid problems with some languages on disk usage graph
