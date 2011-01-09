@@ -1,4 +1,4 @@
-HEAD
+2.0.10
 	+ Now the AD synchronization can be disabled at any moment and a
 	  server with AD-slave mode can be master for other Zentyal slaves
 	+ New /etc/ebox/ad-sync_ignore.users and ad-sync_ignore.groups files

@@ -7,7 +7,7 @@ Standards-Version: 3.8.2
 
 Package: ebox-usersandgroups
 Architecture: all
-Depends: ebox (>= 2.0), ebox (<< 2.0.100), slapd (>= 2.4.15), ldap-utils (>= 2.4.15), ldap-auth-config, ebox-firewall, libnet-ldap-perl, libcrypt-rijndael-perl, libcrypt-smbhash-perl, adduser, ${misc:Depends}
+Depends: ebox (>= 2.0), ebox (<< 2.0.100), libebox (>= 2.0.7), slapd (>= 2.4.15), ldap-utils (>= 2.4.15), ldap-auth-config, ebox-firewall, libnet-ldap-perl, libcrypt-rijndael-perl, libcrypt-smbhash-perl, adduser, ${misc:Depends}
 Description: Zentyal - Users and Groups
  Zentyal is a Linux small business server that can act as
  a Gateway, Unified Threat Manager, Office Server, Infrastructure
