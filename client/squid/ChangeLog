@@ -1,4 +1,4 @@
-HEAD
+2.0.3
 	+ Bugfix: when having different filter profiles with domain lists,
 	  the lists files are no longer deleted on the second restart
 2.0.2
