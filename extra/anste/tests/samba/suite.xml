@@ -108,6 +108,8 @@
     </test>
 
     <test>
+        <precondition var="master-slave" eq="1"/>
+
         <name>CheckPDCAttrsBeforeRestart</name>
         <desc>
         Check PDC password attributes in LDAP.
@@ -120,6 +122,25 @@
         <var name="MIN_PWD_LEN" value="4"/>
         <var name="MAX_PWD_AGE" value="864000"/>
         <var name="PWD_HIST_LEN" value="666"/>
+        <var name="DC" value="ebox-master"/>
+    </test>
+
+    <test>
+        <precondition var="master-slave" eq="0"/>
+
+        <name>CheckPDCAttrsBeforeRestart</name>
+        <desc>
+        Check PDC password attributes in LDAP.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>check-pdc-attrs</dir>
+        <var name="DOMAIN" value="ZENTYAL-DOMAIN"/>
+        <var name="PASSWORD" value="ebox-foobar"/>
+        <var name="MIN_PWD_LEN" value="4"/>
+        <var name="MAX_PWD_AGE" value="864000"/>
+        <var name="PWD_HIST_LEN" value="666"/>
+        <var name="DC" value="ebox-server"/>
     </test>
 
     <test>
@@ -131,6 +152,8 @@
     </test>
 
     <test>
+        <precondition var="master-slave" eq="1"/>
+
         <name>CheckPDCAttrsAfterRestart</name>
         <desc>
         Check PDC password attributes in LDAP.
@@ -143,6 +166,25 @@
         <var name="MIN_PWD_LEN" value="4"/>
         <var name="MAX_PWD_AGE" value="864000"/>
         <var name="PWD_HIST_LEN" value="666"/>
+        <var name="DC" value="ebox-master"/>
+    </test>
+
+    <test>
+        <precondition var="master-slave" eq="0"/>
+
+        <name>CheckPDCAttrsAfterRestart</name>
+        <desc>
+        Check PDC password attributes in LDAP.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>check-pdc-attrs</dir>
+        <var name="DOMAIN" value="ZENTYAL-DOMAIN"/>
+        <var name="PASSWORD" value="ebox-foobar"/>
+        <var name="MIN_PWD_LEN" value="4"/>
+        <var name="MAX_PWD_AGE" value="864000"/>
+        <var name="PWD_HIST_LEN" value="666"/>
+        <var name="DC" value="ebox-server"/>
     </test>
 
 <!-- End of PDC change attributes test -->

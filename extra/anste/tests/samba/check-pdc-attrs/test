@@ -3,7 +3,7 @@
 OUTPUT=/tmp/ldap-foo-$$
 
 echo "Showing LDAP info for domain $DOMAIN..."
-ldapsearch -D 'cn=ebox,dc=ebox-server,dc=localdomain' -w $PASSWORD -b "sambaDomainName=$DOMAIN,dc=ebox-server,dc=localdomain" > $OUTPUT
+ldapsearch -D "cn=ebox,dc=$DC,dc=localdomain" -w $PASSWORD -b "sambaDomainName=$DOMAIN,dc=$DC,dc=localdomain" > $OUTPUT
 cat $OUTPUT
 
 ERRORS=0
