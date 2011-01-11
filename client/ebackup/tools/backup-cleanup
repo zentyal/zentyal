@@ -24,6 +24,7 @@ use EBox::Gettext;
 use EBox::EBackup;
 use EBox::EBackup::Password;
 use EBox::EBackup::Subscribed;
+use Error qw(:try);
 
 my %subByMode;
 
@@ -37,13 +38,23 @@ sub usage
 sub info
 {
     my ($ebackup) = @_;
-    _duplicityCommand($ebackup, 'cleanup');
+    $ebackup->lock() ;
+    try {
+        _duplicityCommand($ebackup, 'cleanup');
+    } finally {
+        $ebackup->unlock();
+    };
 }
 
 sub clean
 {
     my ($ebackup) = @_;
-    _duplicityCommand($ebackup, 'cleanup --force');
+    $ebackup->lock() ;
+    try {
+        _duplicityCommand($ebackup, 'cleanup --force');
+    } finally {
+        $ebackup->unlock();
+    };
 }
 
 sub deleteAll
@@ -55,7 +66,16 @@ sub deleteAll
         die __('This option is only available when cloud method is enabled');
     }
 
-    EBox::EBackup::Subscribed::deleteAll();
+    $ebackup->lock() ;
+    try {
+        EBox::EBackup::Subscribed::deleteAll();
+        # regenerate collection status so we don't get false information in the
+        # UI
+        $ebackup->remoteGenerateStatusCache();
+        $ebackup->remoteGenerateListFile();
+    } finally {
+        $ebackup->unlock();
+    };
 }
 
 sub _duplicityCommand

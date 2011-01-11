@@ -22,6 +22,7 @@ use EBox::Backup;
 use EBox::Config;
 use EBox::EBackup::DBRestore;
 use EBox::EBackup::Password;
+use EBox::EBackup::Subscribed;
 use EBox::Gettext;
 use EBox::Global;
 use EBox::NetWrappers;
@@ -67,6 +68,7 @@ if ($usesX) {
 
 _xauthEBox($xauthCookie);
 
+my $metadata;
 try {
     clearTmpDir();
     createTmpDir();
@@ -82,13 +84,7 @@ try {
                                       $basicInfo->{password},
                                       $basicInfo->{servers},
                                       $serverCN,
-                                      symmetricPassword => $symmetricPassword,
-                                      encryptionKey     => $encryptKey,
-                                      keyPassphrase     => $keyPassphrase,
-                                      noEncryption      => $noEncryption,
                                      );
-
-        _setupPasswords($credentials);
 
         # Restore last backup for basic users always
         $restoreLast = ($restoreLast or ($credentials->{type} eq 'basic'));
@@ -96,13 +92,43 @@ try {
         $date = askBackupDate($credentials, $restoreLast);
 
         if (not $date) {
-            my $msg = __('No backups found in this server with this encryption mode. Do you want to retry with a different server or encryption mode?');
+            my $msg = __('No backups found in this server. Do you want to retry with a different one?');
             my $retry = $usesX ? _zenityQuestion($msg) : terminalQuestion($msg);
             if (not $retry) {
                 exit 0;
             }
+            next; # start again, retry
+        }
+
+        unless ( $credentials->{type} eq 'basic' ) {
+            _downloadBackupMetadata($credentials, $date);
+            $metadata = metadata($date);
+
+            unless ( $metadata->{hasConfiguration} ) {
+                my $msg = __('There is not configuration backup from this date. '
+                             . 'Do you want to retry with another date?');
+                my $retry = $usesX ? _zenityQuestion($msg) : terminalQuestion($msg);
+                if (not $retry) {
+                    exit(0);
+                }
+                undef($date);
+                next; # Start all over again, retry
+            }
+
+            getEncryption(
+                $credentials,
+                $metadata,
+                symmetricPassword => $symmetricPassword,
+                encryptionKey     => $encryptKey,
+                keyPassphrase     => $keyPassphrase,
+                noEncryption      => $noEncryption,
+               );
         }
     }
+
+    my $toRestore = getBackupDomainsToRestore($credentials,
+                                              $metadata,
+                                              \@toRestoreCli);
 
     # Stop any interrupting process
     _stopInterruptingProcesses();
@@ -113,10 +139,7 @@ try {
     # install missing modules to get a correct list of availabe domains to restore
     _installMissingModules($configBackup);
 
-    my $toRestore = getBackupDomainsToRestore($credentials,
-                                              $configBackup,
-                                              $date,
-                                              \@toRestoreCli);
+
 
     doRestore(credentials => $credentials,
               toRestore   => $toRestore,
@@ -162,9 +185,8 @@ sub parseArgs
 
     my $cryptOptions = grep { $_ } ($encryptKey, $symmetricPassword, $noEncryption);
     if ($cryptOptions > 1) {
-        die __x('You can only specify one of the encryption options: {sy}, {asy} y {no}',
+        die __x('You can only specify one of the encryption options: {sy}, {no}',
                 sy  => '--symmetric-password',
-                asy => '--encription-key',
                 no  => '--no-encryption');
     }
 
@@ -188,7 +210,7 @@ sub usage
 {
     print "restore-tool  [--user=username] [--password=password] [--server=serverCommonName] [--last-date]\n";
     print "              [--backup-domain=domain1] [--backup-domain=domain2]  ... \n";
-    print "              [--no-encryption|--symmetric-password=PASSWORD\n";
+    print "              [--no-encryption|--symmetric-password=PASSWORD]\n";
     print "              [--no-x]\n";
     print "\n";
     print "\t --user=USERNAME        \t ";
@@ -203,15 +225,13 @@ sub usage
     print __("Use the last backup done for the restore")  . "\n";
     print "\t --backup-domain=DOMAIN \t ";
     print __("Backup domain to restore. It could be repeated several times") . "\n";
-    print "\t--no-encryption|--symmetric-password=PASSWORD|--encryption-key=KEY\n";
-    print __('Check if we use the no encryption, a symmetric scheme with password or '
-             . 'asymmetric scheme with a private key') . "\n";
+    print "\t--no-encryption|--symmetric-password=PASSWORD\n";
+    print __('Check if we use the no encryption or a symmetric encryption with password '), "\n";
     print "\t --no-x                 \t ";
     print __("Do not use graphical interface") . "\n";
 
     exit 0;
 }
-
 
 sub tmpDir
 {
@@ -221,6 +241,11 @@ sub tmpDir
 sub filesTmpDir
 {
     return tmpDir() . '/files';
+}
+
+sub metaTmpDir
+{
+    return tmpDir() . '/meta';
 }
 
 sub modPreConditions
@@ -269,70 +294,11 @@ sub askServerCN
     return $serverCN;
 }
 
-sub askEncryption
-{
-    my ($serverCN) = @_;
-    my ($symmetricPassword, $encryptionKey, $keyPassphrase);
-
-    my $encMode = _askEncryptionMode($serverCN);
-    if ($encMode eq 'symmetric') {
-        $symmetricPassword = password(__x('Enter symmetric password used to back up {ser}: ', ser => $serverCN));
-    } elsif ($encMode eq 'key') {
-        $encryptionKey = input(__x('Enter ID of encryption key used to back up {ser}', ser => $serverCN));
-        $keyPassphrase = password(__x('Enter passphrase for GPG key {id}', id => $encryptionKey));
-    }
-
-    return [ $symmetricPassword, $encryptionKey, $keyPassphrase ];
-}
-
-sub _askEncryptionMode
-{
-    my ($serverCN) = @_;
-
-    my $msg = __x('What encryption mode was used for the backups of {cn}?',
-                  cn => $serverCN);
-
-    my %printableByOption = (
-                             none => __('No encryption'),
-                             symmetric => __('Symmetric password'),
-                             # Uncomment to enable GPG decryption mode
-                             # key => __('GPG Key'),
-                            );
-
-    my @printableOptions = map {
-        $printableByOption{$_}
-    } qw(none symmetric );
-#   } qw(none symmetric key); # uncomment to add key option
-
-    my $chosen;
-    if ($usesX) {
-        $chosen = _zenityList($msg, __('Mode'),  0,
-                              \@printableOptions,
-                              firstEnabled => 1);
-    } else {
-        print $msg;
-        print "\n";
-        my $inputMsg = __x('Available options: {ops}',
-                            ops => join ',', @printableOptions
-                          );
-        print $inputMsg, "\n";
-        $chosen = terminalPrompt(__('Enter selected option: '));
-    }
-
-    while (my ($option, $printable) = each%printableByOption) {
-        if ($printable eq $chosen) {
-            return $option;
-        }
-    }
-
-    fatal('Cannot determine encryption method');
-}
-
 sub askDomainsToRestore
 {
-    my ($configBackup, $credentials, $date) = @_;
+    my ($credentials, $metadata) = @_;
 
-    my %availableDomains = %{ _backupDomainsAvailableByPrintableName($configBackup, $credentials, $date) };
+    my %availableDomains = %{ _backupDomainsAvailableByPrintableName($metadata) };
 
     my @availablePrintableNames = keys %availableDomains;
 
@@ -347,7 +313,8 @@ sub askDomainsToRestore
         @domains = @{ $answer };
     } else {
         my $printableList = join ', ', @availablePrintableNames;
-        print __x('Backup domains available in this server: {l}',
+        print __x('Backup domains available in the server {cn}: {l}',
+                  cn => $credentials->{commonName},
                   l => $printableList);
         print "\n";
         my $unparsed = terminalPrompt("Backup domains to restore (comma separated): ");
@@ -517,7 +484,6 @@ sub showServerList
     print "\n";
 }
 
-
 sub doRestore
 {
     my %params = @_;
@@ -546,7 +512,7 @@ sub doRestore
 
     my $ebackup = EBox::Global->modInstance('ebackup');
 
-    my $urlParams   = _remoteUrlParamsFromCredentials($credentials);
+    my $urlParams   = _remoteUrlParamsFromCredentials($credentials, 'data');
     _restoreBackupDomainsFiles($ebackup, $date, \%toRestore);
 
     if ($toRestore{logs}) {
@@ -768,8 +734,8 @@ sub _installDebPackages
         # so we can skip it
         next if ($mod eq 'usercorner');
 
-        # cloudprof is a special case
-        next if ($mod eq 'cloudprof');
+        # cloud-prof is a special case
+        next if ($mod eq 'cloud-prof');
 
         if ($mod eq 'users') {
             push @packages, 'ebox-usersandgroups';
@@ -1033,6 +999,29 @@ sub _stopInterruptingProcesses
     } otherwise { };
 }
 
+sub _downloadBackupMetadata
+{
+    my ($credentials, $date) = @_;
+    my $basic = $credentials->{type} eq 'basic';
+    if ($basic) {
+        return;
+    }
+
+    my $dstDir = metaTmpDir() ;
+    if (not -d $dstDir) {
+        mkdir $dstDir;
+    }
+
+    my $msg = __('Downloading backup metadata...');
+
+    my $pulsatePid = _showUnanticipatedProgress($msg);
+    try {
+        EBox::EBackup::Subscribed::downloadDRMetadata($credentials, $date, $dstDir);
+    } finally {
+        _finishUnanticipatedProgress($pulsatePid);
+    };
+}
+
 sub _downloadBackupData
 {
     my ($credentials, $date) = @_;
@@ -1043,12 +1032,19 @@ sub _downloadBackupData
 
     my $dstDir = filesTmpDir();
     my $msg = __('Downloading the backup data and configuration');
+    my $urlParams = _remoteUrlParamsFromCredentials($credentials, 'data');
+
+    _downloadDuplicityFiles($urlParams, $date, $dstDir, $msg);
+}
+
+sub _downloadDuplicityFiles
+{
+    my ($urlParams, $date, $dstDir, $msg) = @_;
 
     my $pulsatePid = _showUnanticipatedProgress($msg);
     try {
         my $ebackup = EBox::Global->modInstance('ebackup');
 
-        my $urlParams = _remoteUrlParamsFromCredentials($credentials);
         # restore all files, this is done to sepepd-up the process
         $ebackup->restoreFile('/', $date, $dstDir, $urlParams);
     } finally {
@@ -1061,7 +1057,6 @@ sub _fileFromBackup
     my ($file) = @_;
     return filesTmpDir() . '/' . $file;
 }
-
 
 sub _getConfigBackup
 {
@@ -1107,7 +1102,7 @@ sub askBackupDate
     my $lastDate;
     my $fail = 0;
     try {
-        my $urlParams = _remoteUrlParamsFromCredentials($credentials);
+        my $urlParams = _remoteUrlParamsFromCredentials($credentials, 'data');
         if ($restoreLast) {
             $lastDate= $ebackup->lastBackupDate($urlParams);
         } else {
@@ -1297,28 +1292,22 @@ sub _getDomainsInBackup
 
 sub _backupDomainsAvailableByPrintableName
 {
-    my ($configBackup, $credentials, $date) = @_;
-
-    my $modulesInBackup =  EBox::Backup->_modulesInBackup($configBackup);
+    my ($metadata) = @_;
 
     my $ebackup = EBox::Global->modInstance('ebackup');
+    my $modulesList = $metadata->{eboxModules};
+    my $backupDomains_r = $ebackup->availableBackupDomains($modulesList);
 
-    my $backupDomains_r = $ebackup->availableBackupDomains($modulesInBackup);
-
-    my $actuallyBackuped = _getDomainsInBackup($ebackup, $credentials, $date);
+    my %domainAvailable = map { $_ => 1 } @{ $metadata->{backupDomains} };
 
     my %domains;
     while (my ($name, $attrs) = each %{ $backupDomains_r } ) {
-        if (defined $actuallyBackuped ) {
-            if (not $actuallyBackuped->{$name}) {
-                # domain was not backed up, skipping
-                next;
-            }
-        }
+        # skiping if domain was not backed up
+        next unless $domainAvailable{$name};
 
         my $printable = exists $attrs->{printableName} ?
                                $attrs->{printableName} :
-                                $name;
+                               $name;
 
         $domains{$printable} = $name;
     }
@@ -1331,7 +1320,7 @@ sub _backupDomainsAvailableByPrintableName
 sub _checkToRestore
 {
     my ($configBackup, $credentials, $date, $toRestore) = @_;
-    my %byPrintableName = %{ _backupDomainsAvailableByPrintableName ($configBackup, $credentials, $date) };
+    my %byPrintableName = %{ _backupDomainsAvailableByPrintableName ($credentials) };
     my %available =  reverse %byPrintableName;
 
     foreach my $domain (keys %{ $toRestore }) {
@@ -1686,9 +1675,12 @@ sub _zenityProgressIndicator
         exit(2);
     }
     my $percent = 0;
-    while ($percent < 100) {
+    while (not $progressIndicator->finished()) {
         $percent = $progressIndicator->percentage();
         if ($percent) {
+            # Avoid progress bar premature finish:
+            $percent = 99 if ($percent >= 100);
+
             print $PR "$percent\n" or
                 _zenityProgressFail($!, $?);
         }
@@ -1821,9 +1813,10 @@ sub _zenityUserAbort
 
 sub _remoteUrlParamsFromCredentials
 {
-    my ($credentials) = @_;
+    my ($credentials, $targetType) = @_;
 
-    my $target = $credentials->{server} . '/' . $credentials->{commonName};
+    my $target = $credentials->{server} . '/' . $credentials->{commonName} ;
+    $target .= "/$targetType";
     my %params = (
         method => $credentials->{method},
         user   => $credentials->{username},
@@ -1832,16 +1825,16 @@ sub _remoteUrlParamsFromCredentials
         encValue => $credentials->{encValue},
         encSelected => $credentials->{encSelected},
         alternativePassword => 1,
-       );
+    );
 
     return \%params;
 }
 
 sub saveChanges
 {
-    my ($msg) = @_;
-    $msg or
-        $msg =  __('Saving configuration changes');
+    my ($msg, $retry) = @_;
+    defined($msg) or $msg =  __('Saving configuration changes');
+    defined($retry) or $retry = 1;
 
     my $global = EBox::Global->getInstance();
     my $progressIndicator = $global->prepareSaveAllModules();
@@ -1849,13 +1842,19 @@ sub saveChanges
     my $retValue = progress($progressIndicator, $msg);
     if ($retValue != 0) {
         my $errorMsg = $progressIndicator->errorMsg();
-        if ($errorMsg) {
-            my $msg = $errorMsg . "\n";
-            $msg .= __('Error saving configuration changes; some Zentyal modules would remain in a unknown state');
-            error($msg);
-            return;
+        if ($retry) {
+            # first try, save changes failed, do a retry
+            EBox::warn("Error saving changes (will retry): $errorMsg");
+            saveChanges($msg, 0);
         } else {
-            EBox::warn("Progress indicator for saveChanges does not specify any error but has returned the following value: $retValue.");
+            if ($errorMsg) {
+                my $msg = $errorMsg . "\n";
+                $msg .= __('Error saving configuration changes; some Zentyal modules would remain in a unknown state');
+                error($msg);
+                return;
+            } else {
+                EBox::warn("Progress indicator for saveChanges does not specify any error but has returned the following value: $retValue.");
+            }
         }
     }
 }
@@ -1951,11 +1950,6 @@ sub getCredentials
 {
     my ($user, $password, $servers, $serverCN, %params) = @_;
 
-    my $noEncryption      = $params{noEncryption};
-    my $symmetricPassword = $params{symmetricPassword};
-    my $encryptionKey     = $params{encryptionKey};
-    my $keyPassphrase     = $params{keyPassphrase};
-
     if ($serverCN) {
         _checkServerCN($serverCN, $servers);
     } else {
@@ -1971,42 +1965,89 @@ sub getCredentials
                                        );
 
     if ($credentials->{type} eq 'basic') {
-        info(__s('If you had Zentyal Disaster Recovery, ' .
+        my $infoMsg = __s('If you had Zentyal Disaster Recovery, ' .
                  'you would have been able to restore module data as well as ' .
-                 'the configuration you are about to recover'));
-    } else {
-        if ((not $noEncryption) and
-            (not defined $symmetricPassword) and
-            (not defined $encryptionKey) )  {
-            ($symmetricPassword, $encryptionKey, $keyPassphrase) = @{ askEncryption($serverCN) };
-        }
+                 'the configuration you are about to recover');
+        info($infoMsg);
+    }
 
-        $credentials = addEncryptionToCredentials($credentials,
+    _setupPasswords($credentials);
+    return $credentials;
+}
+
+sub getEncryption
+{
+    my ($credentials, $metadata, %params) = @_;
+
+    if ($credentials->{type} eq 'basic') {
+        return;
+    }
+
+    my $noEncryption      = $params{noEncryption};
+    my $symmetricPassword = $params{symmetricPasasword};
+    my $encryptionKey     = $params{encryptionKey};
+    my $keyPassphrase     = $params{keyPassphrase};
+
+    if ((not $noEncryption) and
+        (not defined $symmetricPassword) and
+        (not defined $encryptionKey) )  {
+
+        if (_backupUsesEncryption($metadata)) {
+            my $dialogMsg =  __x(
+                  'Enter password used to encrypt back up {ser}',
+                   ser => $credentials->{commonName});
+            $symmetricPassword = password($dialogMsg);
+        }
+    }
+
+    $credentials = addEncryptionToCredentials($credentials,
                 symmetricPassword => $symmetricPassword,
                 encryptionKey     => $encryptionKey,
                 keyPassphrase     => $keyPassphrase,
                 );
-    }
 
-    return $credentials;
+    if ($symmetricPassword) {
+        # udpate passwords with symmetric password
+        _setupPasswords($credentials);
+    }
+}
+
+sub _backupUsesEncryption
+{
+    my ($metadata) = @_;
+    my $encType = $metadata->{encryptionType};
+
+    return ($encType eq 'symmetric');
+}
+
+sub metadata
+{
+    my ($date) = @_;
+
+    my $dir = metaTmpDir();
+    my $file = EBox::EBackup::Subscribed::metaFilenameFromDate($date);
+    my $path = $dir . '/' . $file;
+    my $yaml = YAML::Tiny->read($path);
+
+    return $yaml->[0]->{backup};
 }
 
 sub getBackupDomainsToRestore
 {
-    my ($credentials, $configBackup, $date, $domainsCli) = @_;
+    my ($credentials, $metadata, $domainsCli) = @_;
 
     my @domainsCli = @{ $domainsCli };
     my $domains;
 
     if ($credentials->{type} eq 'subscribed') {
         if (not @domainsCli) {
-            # ask to the user9
-            $domains = askDomainsToRestore($configBackup, $credentials, $date);
+            # ask to the user
+            $domains = askDomainsToRestore($credentials, $metadata);
         } else {
             $domains = { map { $_ => 1 } @domainsCli };
         }
 
-        _checkToRestore($configBackup, $credentials, $date, $domains);
+        _checkToRestore($metadata, $domains);
     } else {
         @domainsCli = grep { $_ ne 'configuration' } @domainsCli;
         if (@domainsCli) {
@@ -2047,8 +2088,7 @@ sub info
     if ($usesX) {
         _zenityMessage('info', $msg);
     } else {
-        print $msg;
-        print "\n";
+        print "$msg\n";
     }
 }
 
@@ -2060,8 +2100,7 @@ sub error
     if ($usesX) {
         _zenityMessage('error', $msg);
     } else {
-        print STDERR $msg;
-        print "\n";
+        print STDERR "$msg\n";
     }
 }
 
@@ -2073,8 +2112,7 @@ sub warning
     if ($usesX) {
         _zenityMessage('warning', $msg);
     } else {
-        print __x('Warning: {msg}', msg => $msg);
-        print "\n";
+        print __x('Warning: {msg}', msg => "$msg\n");
     }
 }
 

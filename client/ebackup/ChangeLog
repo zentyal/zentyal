@@ -1,4 +1,8 @@
 HEAD
+	+ Using the new module name for cloud-prof package
+	+ Store metadata in Disaster Recovery backups
+	+ Autodetect encryption type instead of asking
+	+ Ask for domains to restore right after choosing the date
 	+ Avoid some warnings in restore-tool when executed in a shell
 2.0.8
 	+ Added missing crontab string for monthly full backup

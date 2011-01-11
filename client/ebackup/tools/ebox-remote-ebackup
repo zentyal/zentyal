@@ -34,6 +34,7 @@ use EBox::Global;
 use EBox::Gettext;
 use EBox::Sudo;
 use EBox::Event;
+use EBox::EBackup::Subscribed;
 
 use Error qw(:try);
 
@@ -176,7 +177,7 @@ sub _adjustType
     return $type;
 }
 
-
+# Return whether there are unsaved changes or not
 sub _unsavedChangesWarning
 {
     my ($self) = @_;
@@ -195,7 +196,10 @@ sub _unsavedChangesWarning
                       mods => $mods);
         _sendSuccessEvent(0,  $msg);
         print "$msg\n";
+        return 1;
     }
+
+    return 0;
 }
 
 sub _removeExpiredBackups
@@ -246,7 +250,7 @@ unless ($ebackup->configurationIsComplete()) {
 
 }
 
-_unsavedChangesWarning();
+my $unsavedChanges = _unsavedChangesWarning();
 
 my $mustExit = 0;
 
@@ -284,6 +288,8 @@ if ($mustExit) {
 
 my $errorMsg;
 my $success = 1;
+my $configurationDumped = 0;
+my $usingCloud = $ebackup->model('RemoteSettings')->row()->valueByName('method') eq 'cloud';
 try {
     $type = _adjustType($ebackup, $type);
 
@@ -293,9 +299,10 @@ try {
 
     try {
         $ebackup->dumpExtraData($globalRO);
+        $configurationDumped = (not $unsavedChanges);
     } otherwise {
         my $ex = @_;
-        EBox::error("Error dumping server metadata: $ex. Backup process continue but you wont be able to restore the server configuration with this backup");
+        EBox::error("Error dumping server metadata: $ex. Backup process continues but you won't be able to restore the server configuration with this backup");
     };
 
 
@@ -305,6 +312,18 @@ try {
     try {
         EBox::info('Backing up files to destination');
         EBox::Sudo::root($backupCmd);
+        if ($usingCloud) {
+            $ebackup->remoteGenerateStatusCache();
+            my @backupDomains = keys %{ $ebackup->_enabledBackupDomains()  };
+            EBox::info('Writting disaster recovery metadata');
+            EBox::EBackup::Subscribed::writeDRMetadata(
+                configurationDumped => $configurationDumped,
+                date                => $ebackup->lastBackupDate(),
+                backupType          => $type,
+                backupDomains       => \@backupDomains,
+               );
+        }
+
     } catch EBox::Exceptions::Sudo::Command with {
         my $ex = shift @_;
         $success = 0;
@@ -330,8 +349,9 @@ try {
     _sendSuccessEvent($success, $type, $errorMsg);
 
 } finally {
-    # Create status
-    $ebackup->remoteGenerateStatusCache();
+    if (not $usingCloud) {
+        $ebackup->remoteGenerateStatusCache();
+    }
 
     # Create file list
     $ebackup->remoteGenerateListFile();
@@ -340,11 +360,10 @@ try {
     $ebackup->unlock();
 };
 
-
 # update logs, we do this even with a failed backup bz it oculd change disk
 # usage, with leftover files..
 $ebackup->gatherReportInfo();
-my $cloudProf = EBox::Global->modInstance('cloudprof');
+my $cloudProf = EBox::Global->modInstance('cloud-prof');
 if ($cloudProf) {
     $cloudProf->ebackupAlerts();
 }

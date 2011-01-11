@@ -730,7 +730,7 @@ sub tmpCurrentStatus
 # Method: remoteGenerateStatusCache
 #
 #   Generate a current status cache. This is to be called
-#   from a crontab script
+#   from a crontab script or restarting the module
 #
 sub remoteGenerateStatusCache
 {
@@ -918,6 +918,10 @@ sub _setConf
         $self->removeRemoteBackupCron();
     }
 
+    if ( $model->row()->valueByName('method') eq 'cloud' ) {
+        EBox::EBackup::Subscribed::createStructure();
+    }
+
     $self->_syncRemoteCaches();
 }
 
@@ -1029,10 +1033,13 @@ sub _remoteUrl
     my $sshKnownHosts = 0;
 
     if (%forceParams) {
-        foreach my $param (qw(method user target password encValue encSelected)) {
+        foreach my $param (qw(method user target password)) {
             $forceParams{$param} or
                 throw EBox::Exceptions::MissingArgument($param);
         }
+
+        $forceParams{encValue} or
+            $forceParams{encValue} = 'disabled';
 
         $method= $forceParams{method};
         $user = $forceParams{user};

@@ -951,6 +951,25 @@ sub setCloudMethod
     $row->store();
 }
 
+sub usedEncryptionMode
+{
+    my ($self) = @_;
+    my $encryption = $self->row()->elementByName('encryption');
+    my $encValue = $encryption->value();
+
+    if ($encValue eq 'disabled') {
+        return 'disabled';
+    } else {
+        my $encSelected = $encryption->selectedType();
+        if ($encSelected eq 'symmetric') {
+            return 'symmetric';
+        }
+
+        EBox::error('Unknown encryption type selected');
+        return 'unknown';
+    }
+}
+
 # return hash for reporting
 sub report
 {
