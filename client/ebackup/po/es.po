@@ -9,16 +9,15 @@ msgstr ""
 "Project-Id-Version: ebox-ebackup 1.3.3\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2011-01-11 12:26+0100\n"
-"PO-Revision-Date: 2010-12-18 17:56+0100\n"
-"Last-Translator: Enrique José Hernández Blasco <quique@ebox-technologies."
-"com>\n"
+"PO-Revision-Date: 2011-01-11 13:47+0200\n"
+"Last-Translator: Enrique J. <ejhernandez@zentyal.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
-"Language: \n"
+"Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Pootle 1.1.0\n"
+"X-Generator: Pootle 2.1.4\n"
 
 #: src/EBox/Event/Watcher/EBackup.pm:123 src/EBox/EBackup.pm:71
 #: src/EBox/Composite/Remote.pm:66
@@ -490,6 +489,8 @@ msgstr "Desconocido"
 #: src/EBox/Model/RemoteStorage.pm:158
 msgid "Error connecting to backup server. Storage status unknown"
 msgstr ""
+"Error conectando al servidor de respaldo. Estado del almacenamiento "
+"desconocido"
 
 #: src/EBox/Model/RemoteStorage.pm:174
 msgid "Used storage"
@@ -572,28 +573,26 @@ msgid "Configuration and Status"
 msgstr "Configuración y Estado"
 
 #: tools/restore-tool:95
-#, fuzzy
 msgid ""
 "No backups found in this server. Do you want to retry with a different one?"
 msgstr ""
-"No se han encontrado copias de seguridad con este modo de cifrado. ¿Quieres "
-"intentarlo con otro servidor o modo de cifrado?"
+"No se han encontrado copias de seguridad en este servidor. ¿Quieres "
+"intentarlo con otro servidor?"
 
 #: tools/restore-tool:108
-#, fuzzy
 msgid ""
 "There is not configuration backup from this date. Do you want to retry with "
 "another date?"
 msgstr ""
-"La copia de seguridad de la configuración no se ha encontrado en la copia de "
-"seguridad del {d}. Podrías probar con otra fecha?"
+"No hay copia de seguridad de la configuración desde esta fecha. ¿Podrías "
+"probar con otra fecha?"
 
 #: tools/restore-tool:188
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "You can only specify one of the encryption options: {sy}, {no}"
 msgstr ""
-"Sólo puedes especificar una de las siguientes opciones de cifrado: {sy}, "
-"{asy} and {no}"
+"Sólo puedes especificar una de las siguientes opciones de cifrado: {sy} and "
+"{no}"
 
 #: tools/restore-tool:204
 msgid "Zenity package not found. Falling back to terminal mode"
@@ -626,12 +625,9 @@ msgid "Backup domain to restore. It could be repeated several times"
 msgstr "Dominio de backup a restaurar. Se puede repetir varias veces"
 
 #: tools/restore-tool:229
-#, fuzzy
 msgid ""
 "Check if we use the no encryption or a symmetric encryption with password "
-msgstr ""
-"Comprueba si usamos no cifrado, un esquema simétrico con contraseña o un "
-"esquema asimétrico con una clave privada"
+msgstr "Comprueba si no usamos cifrado o un esquema simétrico con contraseña .."
 
 #: tools/restore-tool:231
 msgid "Do not use graphical interface"
@@ -652,6 +648,8 @@ msgid ""
 "Could not automatically update system hour. Some restoration operations "
 "could fail if the date is not correct"
 msgstr ""
+"No se pudo actualizar automáticamente la hora del sistema. Algunas "
+"operaciones de restauración podrían fallar si la fecha no es correcta"
 
 #: tools/restore-tool:284
 msgid "Choose the server to restore"
@@ -670,9 +668,9 @@ msgid "Select backup domains to restore"
 msgstr "Selecciona los dominios de backup a restaurar"
 
 #: tools/restore-tool:316
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Backup domains available in the server {cn}: {l}"
-msgstr "Dominios de backup disponibles en este servidor: {l}"
+msgstr "Dominios de backup disponibles en el servidor {cn}: {l}"
 
 #: tools/restore-tool:334
 msgid "No backup domain selected to restore. Doing nothing"
@@ -760,7 +758,7 @@ msgstr "Instalando los componentes Zentyal y sus dependencias"
 
 #: tools/restore-tool:765
 msgid "Installing missing modules..."
-msgstr ""
+msgstr "Instalando los módulos nuevos..."
 
 #: tools/restore-tool:771
 #, perl-brace-format
@@ -817,9 +815,9 @@ msgid "Configuring modules"
 msgstr "Configurando modulos"
 
 #: tools/restore-tool:935
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Configuring modules: Current module {mod}"
-msgstr "Configurando módulos {p} hecho. Módulo actual {mod}"
+msgstr "Configurando módulos. Módulo actual {mod}"
 
 #: tools/restore-tool:939
 #, perl-brace-format
@@ -840,9 +838,8 @@ msgid "Finishing new modules configuration"
 msgstr "Finalizando la configuración de nuevos módulos"
 
 #: tools/restore-tool:1015
-#, fuzzy
 msgid "Downloading backup metadata..."
-msgstr "Descargando los datos de la suscripción"
+msgstr "Descargando los metadatos de la copia de seguridad..."
 
 #: tools/restore-tool:1034
 msgid "Downloading the backup data and configuration"
@@ -973,10 +970,9 @@ msgid "The account {user} do not have any registered Zentyal servers"
 msgstr "La cuenta {user} no tiene suscrito ningún servidor Zentyal"
 
 #: tools/restore-tool:1997
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Enter password used to encrypt back up {ser}"
-msgstr ""
-"Introduce la clave simétrica usada para hacer la copia de seguridad {ser}: "
+msgstr "Introduce la contraseña usada para cifrar la copia de seguridad {ser}"
 
 #: tools/restore-tool:2054
 #, perl-brace-format

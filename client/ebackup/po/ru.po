@@ -8,35 +8,35 @@ msgstr ""
 "Project-Id-Version: ebox-ebackup 1.3.3\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2011-01-11 12:26+0100\n"
-"PO-Revision-Date: 2010-12-17 00:23+0100\n"
-"Last-Translator: Val Budkin <valentin@ktc-ua.com>\n"
+"PO-Revision-Date: 2010-12-30 07:11+0200\n"
+"Last-Translator: andreyjktl <andreyjktl@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
-"Language: \n"
+"Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Pootle 1.1.0\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
+"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Generator: Pootle 2.1.4\n"
 
 #: src/EBox/Event/Watcher/EBackup.pm:123 src/EBox/EBackup.pm:71
 #: src/EBox/Composite/Remote.pm:66
 msgid "Backup"
-msgstr "Резервное Копирование"
+msgstr "Резервное копирование"
 
 #: src/EBox/Event/Watcher/EBackup.pm:141
 msgid "Check if Zentyal backup was not successful."
-msgstr "Проверить, удалось ли Zentyal выполнить бэкап."
+msgstr "Проверить успешность выполнения резервного копирования Zentyal."
 
 #: src/EBox/Model/RemoteRestoreLogs.pm:88 src/EBox/Model/RemoteFileList.pm:143
 #: src/EBox/Model/RemoteStatus.pm:121 src/EBox/Model/RemoteRestoreConf.pm:74
 msgid "There are not backed up files yet"
-msgstr "Пока-что отсутствуют файлы бэкапа"
+msgstr "Пока нет файлов резервного копирования"
 
 #: src/EBox/Model/RemoteRestoreLogs.pm:107
 #: src/EBox/Model/RemoteFileList.pm:166 src/EBox/Model/RemoteRestoreConf.pm:93
 msgid "Backup Date"
-msgstr "Дата бэкапа"
+msgstr "Дата резервного копирования"
 
 #: src/EBox/Model/RemoteRestoreLogs.pm:118
 msgid "Restore logs database"
@@ -44,7 +44,7 @@ msgstr "Восстановить базу данных журналов"
 
 #: src/EBox/Model/RemoteRestoreLogs.pm:125
 msgid "Restores the Zentyal logs found in the selected backup"
-msgstr "Восстанавливает журналы Zentyal найденые в выбраном бэкапе"
+msgstr "Восстанавливает журналы Zentyal найденые в выбраной резервной копии"
 
 #: src/EBox/Model/RemoteFileList.pm:162
 msgid "File"
@@ -68,7 +68,7 @@ msgstr "Файл уже существует, если вы продолжите
 
 #: src/EBox/Model/RemoteFileList.pm:221
 msgid "File restored successfully"
-msgstr "Файлы успешно восстановлены"
+msgstr "Файл успешно восстановлен"
 
 #: src/EBox/Model/RemoteFileList.pm:270
 #, perl-brace-format
@@ -77,7 +77,7 @@ msgstr "Удаленный URL используемый для ручного в
 
 #: src/EBox/Model/RemoteStatus.pm:121 src/EBox/Model/RemoteStatus.pm:151
 msgid "Remote Backup Status"
-msgstr "Состояние удаленного бэкапа"
+msgstr "Состояние удаленного резервного копирования"
 
 #: src/EBox/Model/RemoteStatus.pm:139 src/EBox/Model/RemoteExcludes.pm:76
 msgid "Type"
@@ -89,7 +89,7 @@ msgstr "Дата"
 
 #: src/EBox/Model/RemoteStatus.pm:152 src/EBox/Model/RemoteStorage.pm:190
 msgid "backup"
-msgstr "бэкап"
+msgstr "резервное копирование"
 
 #: src/EBox/Model/BackupDomains.pm:156
 msgid "Name"
@@ -598,7 +598,7 @@ msgstr ""
 
 #: tools/restore-tool:225
 msgid "Use the last backup done for the restore"
-msgstr ""
+msgstr "Используйте последнюю резервную копию для восстановления"
 
 #: tools/restore-tool:227
 msgid "Backup domain to restore. It could be repeated several times"
@@ -668,15 +668,15 @@ msgstr ""
 
 #: tools/restore-tool:405
 msgid "Retrieving account information"
-msgstr ""
+msgstr "Получение информации об аккаунте"
 
 #: tools/restore-tool:472
 msgid "No registered Zentyal Servers"
-msgstr ""
+msgstr "Нет зарегистрированных серверов Zentyal"
 
 #: tools/restore-tool:478
 msgid "Registered Zentyal Servers"
-msgstr ""
+msgstr "Зарегистрированные сервера Zentyal"
 
 #: tools/restore-tool:530
 #, fuzzy
@@ -699,9 +699,8 @@ msgid "Restoring log database"
 msgstr "Восстановить базу данных журналов"
 
 #: tools/restore-tool:597
-#, fuzzy
 msgid "Restoring configuration backup"
-msgstr "Восстановить настройки Zentyal из резервной копии"
+msgstr "Восстановить резервную копию настроек"
 
 #: tools/restore-tool:602
 msgid ""
@@ -726,7 +725,7 @@ msgstr ""
 
 #: tools/restore-tool:749
 msgid "Installing Zentyal components and their dependencies"
-msgstr ""
+msgstr "Установка компонентов Zentyal и их зависимостей"
 
 #: tools/restore-tool:765
 msgid "Installing missing modules..."
@@ -750,7 +749,7 @@ msgstr ""
 
 #: tools/restore-tool:834
 msgid "Downloading subscription data"
-msgstr ""
+msgstr "Загрузка данных подписки"
 
 #: tools/restore-tool:852
 msgid ""
@@ -772,9 +771,8 @@ msgid ""
 msgstr ""
 
 #: tools/restore-tool:911
-#, fuzzy
 msgid "Configuring modules"
-msgstr "Конфигурация и состояние"
+msgstr "Настройка модулей"
 
 #: tools/restore-tool:935
 #, fuzzy, perl-brace-format
@@ -784,7 +782,7 @@ msgstr "Конфигурация и состояние"
 #: tools/restore-tool:939
 #, perl-brace-format
 msgid "Configuring modules {p} done. Current module {mod}"
-msgstr ""
+msgstr "Настройка модулей {p} закончена. Текущий модуль {mod}"
 
 #: tools/restore-tool:958
 #, perl-brace-format
@@ -806,9 +804,8 @@ msgid "Downloading the backup data and configuration"
 msgstr ""
 
 #: tools/restore-tool:1074
-#, fuzzy
 msgid "Downloading configuration"
-msgstr "Общие настройки"
+msgstr "Загружаются настройки"
 
 #: tools/restore-tool:1098
 msgid "Retrieving backup collection status ..."
@@ -817,7 +814,7 @@ msgstr ""
 #: tools/restore-tool:1127 tools/restore-tool:1188
 #, perl-brace-format
 msgid "Last backup date was: {date}"
-msgstr ""
+msgstr "Дата последнего резервного копирования: {date}"
 
 #: tools/restore-tool:1153
 #, perl-brace-format
@@ -827,7 +824,7 @@ msgstr ""
 #: tools/restore-tool:1197
 #, perl-brace-format
 msgid "Choose date to restore the backup from server {cn}"
-msgstr ""
+msgstr "Выберите дату для восстановления резервной копии с сервера {cn}"
 
 #: tools/restore-tool:1221
 #, perl-brace-format
@@ -842,7 +839,7 @@ msgstr ""
 #: tools/restore-tool:1270
 #, perl-brace-format
 msgid "The server {server} is not registered in Zentyal Cloud"
-msgstr ""
+msgstr "Сервер {server} не зарегистрирован в облаке Zentyal"
 
 #: tools/restore-tool:1315
 #, fuzzy
@@ -856,16 +853,16 @@ msgstr ""
 
 #: tools/restore-tool:1357
 msgid "Please, enter a value"
-msgstr ""
+msgstr "Введите значение"
 
 #: tools/restore-tool:1382
 msgid "Please answer yes or no"
-msgstr ""
+msgstr "Ответьте да или нет"
 
 #: tools/restore-tool:1408
 #, perl-brace-format
 msgid "Backup dates for server {cn}"
-msgstr ""
+msgstr "Даты резервных копий для сервера {cn}"
 
 #: tools/restore-tool:1419
 msgid "Enter backup date to restore:"
@@ -874,16 +871,15 @@ msgstr ""
 #: tools/restore-tool:1422
 #, perl-brace-format
 msgid "Invalid date: {d}. Try again"
-msgstr ""
+msgstr "Не правильная дата: {d}. Повторите попытку"
 
 #: tools/restore-tool:1528
 msgid "This entry is mandatory to continue the restoring process. Retry"
 msgstr ""
 
 #: tools/restore-tool:1578
-#, fuzzy
 msgid "Selection"
-msgstr "Шифрование"
+msgstr "Выбор"
 
 #: tools/restore-tool:1616
 msgid ""
@@ -892,22 +888,20 @@ msgid ""
 msgstr ""
 
 #: tools/restore-tool:1735
-#, fuzzy
 msgid "Please wait"
-msgstr "Подождите..."
+msgstr "Подождите"
 
 #: tools/restore-tool:1749
 msgid "Finished"
-msgstr ""
+msgstr "Завершено"
 
 #: tools/restore-tool:1809
 msgid "Restoring process aborted upon user request"
-msgstr ""
+msgstr "Процесс восстановления отменен пользователем"
 
 #: tools/restore-tool:1836
-#, fuzzy
 msgid "Saving configuration changes"
-msgstr "Конфигурация и состояние"
+msgstr "Сохранение изменений настроек"
 
 #: tools/restore-tool:1852
 msgid ""
@@ -926,7 +920,7 @@ msgstr "Пароль Zentyal Cloud"
 #: tools/restore-tool:1936
 #, perl-brace-format
 msgid "The account {user} do not have any registered Zentyal servers"
-msgstr ""
+msgstr "Аккаунт {user} не имеет зарегистрированных серверов Zentyal"
 
 #: tools/restore-tool:1997
 #, fuzzy, perl-brace-format
