@@ -56,7 +56,7 @@ sub validateTypedRow
 {
     my ($self, $action, $params_r) = @_;
 
-    if (exists $params_r->{extension} ) {
+    if (exists $params_r->{extension}) {
         my $extension = $params_r->{extension}->value();
         if ($extension =~ m{\.}) {
             throw EBox::Exceptions::InvalidData(

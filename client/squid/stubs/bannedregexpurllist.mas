@@ -22,7 +22,7 @@
 
 #HardCore phrases
 #(adultsight|adultsite|adultsonly|adultweb|blowjob|bondage|centerfold|cumshot|cyberlust|cybercore|hardcore|masturbat)
-(bangbros|pussylip|playmate|pornstar|sexdream|showgirl|softcore|striptease)
+#bangbros|pussylip|playmate|pornstar|sexdream|showgirl|softcore|striptease)
 
 #SoftCore phrases - more likely to overblock - possibly on news sites
 #(incest|obscene|pedophil|pedofil)
@@ -65,10 +65,10 @@
 ######################################################
 
 #Block Cgiproxy, Poxy, PHProxy and other Web-based proxies
-(cecid.php|nph-webpr|nph-pro|/dmirror|cgiproxy|phpwebproxy|__proxy_url|proxy.php)
+#cecid.php|nph-webpr|nph-pro|/dmirror|cgiproxy|phpwebproxy|__proxy_url|proxy.php)
 
 #Block websites containing proxy lists
-(anonymizer|proxify|megaproxy)
+#anonymizer|proxify|megaproxy)
 
 #AGRESSIVE blocking of all URLs containing proxy - WARNING - this WILL overblock!!
 #(proxy)
@@ -120,6 +120,6 @@
 
 # WARNING: This is part of the URL for the dansguardian.org sample virus archive.
 # You probably don't want to go there unintentionally.
-(Variants/AVTest)
+#Variants/AVTest)
 
 
