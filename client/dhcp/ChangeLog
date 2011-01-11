@@ -1,3 +1,5 @@
+HEAD
+	+ Bugfix: MAC addresses are now parsed correctly in LogHelper
 2.0.2
 	+ DHCP init.d script is disabled when enabling the module
 	+ Set default order for dashboard widgets

@@ -72,12 +72,12 @@ sub processLine # (file, line, logger)
 
     my $date = $1;
     my ($ip, $mac, $iface, $event);
-    if ($line =~ /^.*DHCPACK on ([\d.]+) to ([\d:a-f]+).*?via (\w+)/) {
+    if ($line =~ /^.*DHCPACK on ([\d.]+) to ([\d:a-f]{17}).*?via (\w+)/) {
         $ip = $1;
         $mac = $2;
         $iface =$3;
         $event = 'leased';
-    } elsif ($line =~ /^.*DHCPRELEASE of ([\d.]+) from ([\d:a-f]+).*?via (\w+)/) {
+    } elsif ($line =~ /^.*DHCPRELEASE of ([\d.]+) from ([\d:a-f]{17}).*?via (\w+)/) {
         $ip = $1;
         $mac = $2;
         $iface =$3;
@@ -94,7 +94,6 @@ sub processLine # (file, line, logger)
         'event' => $event
        };
     $dbengine->insert('leases', $data);
-
 }
 
 1;
