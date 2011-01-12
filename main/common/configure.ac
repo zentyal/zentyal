@@ -115,9 +115,6 @@ src/EBox/interactiveTests/Makefile
 src/EBox/Exceptions/Makefile
 src/EBox/Exceptions/Sudo/Makefile
 src/EBox/Exceptions/Sudo/t/Makefile
-src/EBox/CGI/Makefile
-src/EBox/CGI/t/Makefile
-src/EBox/CGI/EBox/Makefile
 src/EBox/Menu/Makefile
 src/EBox/Test/Makefile
 src/EBox/Test/t/Makefile
