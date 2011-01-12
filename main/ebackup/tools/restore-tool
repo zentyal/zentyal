@@ -1294,25 +1294,10 @@ sub _backupDomainsAvailableByPrintableName
 {
     my ($metadata) = @_;
 
-    my $ebackup = EBox::Global->modInstance('ebackup');
-    my $modulesList = $metadata->{eboxModules};
-    my $backupDomains_r = $ebackup->availableBackupDomains($modulesList);
-
-    my %domainAvailable = map { $_ => 1 } @{ $metadata->{backupDomains} };
-
     my %domains;
-    while (my ($name, $attrs) = each %{ $backupDomains_r } ) {
-        # skiping if domain was not backed up
-        next unless $domainAvailable{$name};
-
-        my $printable = exists $attrs->{printableName} ?
-                               $attrs->{printableName} :
-                               $name;
-
-        $domains{$printable} = $name;
+    while( my ($key, $data) = each %{$metadata->{backupDomains}}) {
+        $domains{$data->{printableName}} = $key;
     }
-
-    $domains{__('Configuration')} = 'configuration';
 
     return \%domains;
 }

@@ -351,10 +351,12 @@ sub includedConfigBackupPath
 # Method: availableBackupDomains
 #
 # Parameters: modNames - names of modules to look for backup domains (Default:
-# all instaled modules)
+# all installed modules)
 #
 # Returns:
-#  hash reference wich backup domain name as key and backup domain attributes as values
+#
+#    hash reference whose backup domain name as key and backup
+#      domain attributes as values
 sub availableBackupDomains
 {
     my ($self, $modNames) = @_;
@@ -396,7 +398,7 @@ sub _enabledBackupDomains
 {
     my ($self) = @_;
     if ($self->_fullMachineBackup()) {
-        # we add logss, otherwise it would be required to stop the postgre
+        # we add logs, otherwise it would be required to stop the postgre
         # database to have a correct backup
         return { full => 1, logs => 1};
     }
