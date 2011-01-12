@@ -131,7 +131,6 @@ src/EBox/NetWrappers/Makefile
 src/EBox/NetWrappers/t/Makefile
 conf/Makefile
 conf/eboxlog.conf
-www/Makefile
 Makefile
 ])
 
