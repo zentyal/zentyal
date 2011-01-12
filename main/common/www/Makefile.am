@@ -28,12 +28,6 @@ images = images/delete.gif images/show.gif \
   images/bg.gif images/asc.gif images/desc.gif \
   images/exclamation.png images/encrypted.png
 
-js = js/base64.js js/csshover.htc js/common.js \
-  js/help.js js/table-helper.js  \
-  js/fileUpload.js js/image-helper.js js/tabMenu.js \
-  js/format.js js/modalbox.js js/flotr.js js/excanvas.js \
-  js/table_orderer.js
-
 css = css/modalbox.css
 
 nobase_www_DATA =  $(images) $(js) $(css) favicon.ico
