@@ -13,9 +13,9 @@ case "$1" in
         /usr/share/ebox/ebox-migrate /usr/share/ebox-ids/migration
 
         # restart logs
-        invoke-rc.d ebox logs restart || true
+        invoke-rc.d zentyal logs restart || true
 
-        invoke-rc.d ebox ids restart
+        invoke-rc.d zentyal ids restart
 
         dpkg-trigger --no-await zentyal-core
 esac

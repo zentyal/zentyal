@@ -17,10 +17,10 @@ case "$1" in
         /usr/share/ebox/ebox-migrate /usr/share/ebox-asterisk/migration/
 
         # restart logs
-        invoke-rc.d ebox logs restart || true
+        invoke-rc.d zentyal logs restart || true
 
         # restart module
-        invoke-rc.d ebox asterisk restart
+        invoke-rc.d zentyal asterisk restart
 
         dpkg-trigger --no-await zentyal-core
     ;;

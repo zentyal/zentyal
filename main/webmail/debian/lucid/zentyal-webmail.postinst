@@ -10,7 +10,7 @@ case "$1" in
 #       /usr/share/ebox/ebox-migrate /usr/share/ebox-webmail/migration
 
         # restart module
-        invoke-rc.d ebox webmail restart
+        invoke-rc.d zentyal webmail restart
 
         dpkg-trigger --no-await zentyal-core
 esac

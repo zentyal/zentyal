@@ -11,7 +11,7 @@ case "$1" in
         /usr/share/ebox/ebox-migrate /usr/share/ebox-monitor/migration/
 
         # Restart the module itself
-        invoke-rc.d ebox monitor restart || true
+        invoke-rc.d zentyal monitor restart || true
 
         dpkg-trigger --no-await zentyal-core
     ;;

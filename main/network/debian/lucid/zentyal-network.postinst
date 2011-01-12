@@ -31,11 +31,11 @@ case "$1" in
         # Migrate data if needed
         /usr/share/ebox/ebox-migrate /usr/share/ebox-network/migration/
 
-        invoke-rc.d ebox network restart
+        invoke-rc.d zentyal network restart
 
         # Apply failover code changes only when upgrading
         if [ -n "$2" ] ; then
-            invoke-rc.d ebox events restart || true
+            invoke-rc.d zentyal events restart || true
         fi
 
         dpkg-trigger --no-await zentyal-core

@@ -12,7 +12,7 @@ case "$1" in
         /usr/share/ebox/ebox-sql-table add ebackup_storage_usage_report /usr/share/ebox/sqllog/ebackup_storage_usage_report.sql
 
         # restart module
-        invoke-rc.d ebox ebackup restart
+        invoke-rc.d zentyal ebackup restart
 
         dpkg-trigger --no-await zentyal-core
     ;;

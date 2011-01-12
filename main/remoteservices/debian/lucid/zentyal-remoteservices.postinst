@@ -23,7 +23,7 @@ case "$1" in
         fi
 
         if [ ! -e /var/lib/ebox/tmp/upgrade-from-CC ]; then
-            invoke-rc.d ebox remoteservices restart
+            invoke-rc.d zentyal remoteservices restart
         fi
 
         dpkg-trigger --no-await zentyal-core

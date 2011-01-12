@@ -65,4 +65,4 @@ newaliases
 chsh -s /bin/sh fetchmail
 
 # restart mail to generate configuration files
-invoke-rc.d ebox mail restart
+invoke-rc.d zentyal mail restart

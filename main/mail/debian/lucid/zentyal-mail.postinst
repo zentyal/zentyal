@@ -27,10 +27,10 @@ case "$1" in
         /usr/share/ebox/ebox-migrate /usr/share/ebox-mail/migration
 
         # restart logs
-        invoke-rc.d ebox logs restart || true
+        invoke-rc.d zentyal logs restart || true
 
         # restart module
-        invoke-rc.d ebox mail restart
+        invoke-rc.d zentyal mail restart
 
         dpkg-trigger --no-await zentyal-core
 

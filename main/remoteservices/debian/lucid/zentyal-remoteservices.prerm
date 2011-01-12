@@ -3,6 +3,6 @@
 #DEBHELPER#
 
 if [ "$1" = remove ] || [ "$1" = purge ]; then
-    invoke-rc.d ebox remoteservices stop
+    invoke-rc.d zentyal remoteservices stop
     /usr/share/ebox/ebox-unsubscribe
 fi

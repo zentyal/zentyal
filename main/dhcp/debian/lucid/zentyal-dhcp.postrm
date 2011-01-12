@@ -16,7 +16,7 @@ fi
 
 case "$1" in
     remove)
-        invoke-rc.d ebox logs restart || true
+        invoke-rc.d zentyal logs restart || true
 
         dpkg-trigger --no-await zentyal-core
         ;;

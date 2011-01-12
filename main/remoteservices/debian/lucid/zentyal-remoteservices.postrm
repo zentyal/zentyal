@@ -14,7 +14,7 @@ fi
 case "$1" in
     remove)
         # Restart event daemon
-        invoke-rc.d ebox events restart || true
+        invoke-rc.d zentyal events restart || true
 
         dpkg-trigger --no-await zentyal-core
     ;;

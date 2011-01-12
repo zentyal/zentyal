@@ -22,10 +22,10 @@ case "$1" in
        chown clamav.clamav $FRESHCLAM_DIR
 
        # restart logs
-       invoke-rc.d ebox logs restart || true
+       invoke-rc.d zentyal logs restart || true
 
        # restart module
-       invoke-rc.d ebox antivirus restart
+       invoke-rc.d zentyal antivirus restart
 
        dpkg-trigger --no-await zentyal-core
 esac

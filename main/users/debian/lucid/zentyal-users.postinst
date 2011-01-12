@@ -51,7 +51,7 @@ case "$1" in
 
         # regenrate slap configuration and restart
         #  this is needed bz it may be changes in slapd configuration
-        invoke-rc.d ebox users  restart || true
+        invoke-rc.d zentyal users  restart || true
         invoke-rc.d slapd restart || true
 
         dpkg-trigger --no-await zentyal-core
@@ -61,7 +61,7 @@ case "$1" in
         rm -f /var/lib/ebox-usercorner/menucache || true
 
         #restart the usercorner apache
-        invoke-rc.d ebox usercorner restart || true
+        invoke-rc.d zentyal usercorner restart || true
     ;;
 esac
 

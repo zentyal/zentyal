@@ -8,7 +8,7 @@ case "$1" in
 		# Migrate data if needed
 		/usr/share/ebox/ebox-migrate /usr/share/ebox-webserver/migration/
 
-		invoke-rc.d ebox webserver restart || true
+		invoke-rc.d zentyal webserver restart || true
 
         dpkg-trigger --no-await zentyal-core
 esac

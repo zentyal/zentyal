@@ -19,10 +19,10 @@ case "$1" in
          /usr/share/ebox-mailfilter/ebox-mailfilter-populate-filefilter update
 
         # restart logs
-        invoke-rc.d ebox logs restart || true
+        invoke-rc.d zentyal logs restart || true
 
         # restart module
-        invoke-rc.d ebox mailfilter restart
+        invoke-rc.d zentyal mailfilter restart
 
         dpkg-trigger --no-await zentyal-core
 esac

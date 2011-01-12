@@ -4,7 +4,7 @@ set -e
 
 case "$1" in
 	remove)
-        invoke-rc.d ebox firewall stop || true
+        invoke-rc.d zentyal firewall stop || true
 		;;
 esac 
 

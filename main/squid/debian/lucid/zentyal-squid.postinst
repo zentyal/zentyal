@@ -21,11 +21,11 @@ case "$1" in
         test -d $DG_EXTRALISTS || mkdir -p -m 0755 $DG_EXTRALISTS
 
         # restart logs
-        invoke-rc.d ebox logs restart || true
+        invoke-rc.d zentyal logs restart || true
         # restart squid module
-        invoke-rc.d ebox squid restart || true
+        invoke-rc.d zentyal squid restart || true
         # restart firewall module
-        invoke-rc.d ebox firewall restart || true
+        invoke-rc.d zentyal firewall restart || true
 
         dpkg-trigger --no-await zentyal-core
     ;;

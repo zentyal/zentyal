@@ -1,11 +1,11 @@
 #!/usr/bin/perl
 ### BEGIN INIT INFO
-# Provides:          ebox
+# Provides:          zentyal
 # Required-Start:    $network
 # Required-Stop:     $network
 # Default-Start:     2 3 4 5
 # Default-Stop:      0 1 6
-# Short-Description: eBox platform (network services framework)
+# Short-Description: Zentyal (Small Business Server)
 ### END INIT INFO
 
 use strict;
