@@ -18,7 +18,7 @@ msgstr ""
 
 #. Type: password
 #. Description
-#: ../ebox.templates:1001
+#: ../zentyal-core.templates:1001
 msgid "eBox administrator password:"
 msgstr ""
 
@@ -26,7 +26,7 @@ msgstr ""
 #. Description
 #. Type: password
 #. Description
-#: ../ebox.templates:1001 ../ebox.templates:2001
+#: ../zentyal-core.templates:1001 ../zentyal-core.templates:2001
 msgid ""
 "Please enter the password which will be used to log into the eBox web "
 "interface."
@@ -34,31 +34,31 @@ msgstr ""
 
 #. Type: password
 #. Description
-#: ../ebox.templates:2001
+#: ../zentyal-core.templates:2001
 msgid "Confirm password:"
 msgstr ""
 
 #. Type: note
 #. Description
-#: ../ebox.templates:3001
+#: ../zentyal-core.templates:3001
 msgid "Passowrd mismatch"
 msgstr ""
 
 #. Type: note
 #. Description
-#: ../ebox.templates:3001
+#: ../zentyal-core.templates:3001
 msgid "The two passwords you entered were not the same. Please try again"
 msgstr ""
 
 #. Type: string
 #. Description
-#: ../ebox.templates:4001
+#: ../zentyal-core.templates:4001
 msgid "eBox HTTPS port:"
 msgstr ""
 
 #. Type: string
 #. Description
-#: ../ebox.templates:4001
+#: ../zentyal-core.templates:4001
 msgid ""
 "Please enter the port which will be used by the eBox HTTPS server. Use an "
 "available port that is not being used by another service."
@@ -66,13 +66,13 @@ msgstr ""
 
 #. Type: boolean
 #. Description
-#: ../ebox.templates:5001
+#: ../zentyal-core.templates:5001
 msgid "Do you want to continue?"
 msgstr ""
 
 #. Type: boolean
 #. Description
-#: ../ebox.templates:5001
+#: ../zentyal-core.templates:5001
 msgid ""
 "It seems that the port you have selected is already being used. You can "
 "continue anyway or enter a new port."

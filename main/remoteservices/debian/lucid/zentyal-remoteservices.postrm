@@ -6,7 +6,7 @@
 # and after gconf debhelper is run
 if [ "$1" = "purge" ]; then
         # Purge configuration
-        /usr/share/ebox/ebox-clean-gconf remoteservices || true
+        /usr/share/zentyal-core/zentyal-clean-conf remoteservices || true
 fi
 
 #DEBHELPER#

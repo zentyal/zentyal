@@ -6,7 +6,6 @@ install_ebox() {
 	sudo make install || exit
 	sudo mkdir /var/lib/ebox/tmp
 	sudo mkdir /var/lib/ebox/log
-	sudo cp conf/.gconf.path /var/lib/ebox
 	sudo cp tools/ebox /etc/init.d
 	make maintainer-clean
 	rmdir config

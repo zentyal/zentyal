@@ -65,8 +65,7 @@ check_port_available()
 # Usage: set_ebox_port new_port
 set_ebox_port()
 {
-
-    db_get ebox/port
+    db_get zentyal-core/port
     new_port=$RET
 
     fetch_ebox_port;

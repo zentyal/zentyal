@@ -9,7 +9,7 @@ DEB_CONFIGURE_SCRIPT_ENV += IMAGESPATH="/usr/share/ebox/www/images"
 DEB_CONFIGURE_SCRIPT_ENV += VARPATH="/var"
 DEB_CONFIGURE_SCRIPT_ENV += ETCPATH="/etc/ebox"
 DEB_CONFIGURE_SCRIPT_ENV += DYNAMICWWWPATH="/var/lib/ebox/dynamicwww"
-DEB_CONFIGURE_EXTRA_FLAGS := --disable-runtime-tests 
+DEB_CONFIGURE_EXTRA_FLAGS := --disable-runtime-tests
 DEB_MAKE_INVOKE = $(MAKE) $(DEB_MAKE_FLAGS) -C $(DEB_BUILDDIR)
 
 $(patsubst %,binary-install/%,ebox) :: binary-install/%:
@@ -21,5 +21,5 @@ $(patsubst %,binary-install/%,ebox) :: binary-install/%:
 	done; \
     chmod ugo+x debian/$(cdbs_curpkg)/etc/ebox/hooks/*
 
-binary-predeb/ebox::
-	perl -w debian/dh_installscripts-common -p ebox
+binary-predeb/zentyal-core::
+	perl -w debian/dh_installscripts-common -p zentyal-core

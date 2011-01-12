@@ -6,7 +6,7 @@
 # and after gconf debhelper is run.
 if [ "$1" = "purge" ]; then
         # Purge configuration
-        /usr/share/ebox/ebox-clean-gconf jabber || true
+        /usr/share/zentyal-core/zentyal-clean-conf jabber || true
 fi
 
 #DEBHELPER#

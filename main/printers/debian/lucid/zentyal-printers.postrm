@@ -7,7 +7,7 @@ set -e
 # and after gconf debhelper is run
 if [ "$1" = "purge" ]; then
         # Purge configuration
-        /usr/share/ebox/ebox-clean-gconf printers || true
+        /usr/share/zentyal-core/zentyal-clean-conf printers || true
 fi
 
 #DEBHELPER#

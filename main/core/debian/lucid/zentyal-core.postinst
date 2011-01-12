@@ -4,7 +4,7 @@ set -e
 
 . /usr/share/debconf/confmodule
 
-# This will be replaced with debian/ebox.scripts-commmon which includes
+# This will be replaced with debian/zentyal-core.scripts-commmon which includes
 # helper functions to set the password
 #SCRIPTSCOMMON#
 
@@ -18,8 +18,8 @@ case "$1" in
         test -d /var/log/ebox || mkdir /var/log/ebox
         chmod 750 /var/log/ebox
 
-        # create ebox's' apache certificates
-        /usr/share/ebox/ebox-create-certificate /var/lib/ebox/conf/ssl > /dev/null 2>&1
+        # create Zentyal apache certificates
+        /usr/share/zentyal-core/ebox-create-certificate /var/lib/ebox/conf/ssl > /dev/null 2>&1
 
         #add the ebox group and user
         if ! getent group ebox > /dev/null 2>&1
@@ -81,8 +81,8 @@ case "$1" in
             /usr/bin/sudo -u ebox /usr/bin/redis-server /var/lib/ebox/conf/redis.first
         fi
 
-        #sudo configuration
-        /usr/share/ebox/ebox-sudoers-friendly
+        # sudo configuration
+        /usr/share/zentyal-core/ebox-sudoers-friendly
 
         # Import old gconf backup from preinst
         if [ -f /var/lib/ebox/gconf.backup ]; then
@@ -102,10 +102,10 @@ case "$1" in
         fi
 
         # migrate log data
-        /usr/share/ebox/ebox-migrate /usr/share/ebox-logs/migration
+        /usr/share/zentyal-core/ebox-migrate /usr/share/ebox-logs/migration
 
         # migrate events module
-        /usr/share/ebox/ebox-migrate /usr/share/ebox-events/migration
+        /usr/share/zentyal-core/ebox-migrate /usr/share/ebox-events/migration
 
         # remove initial redis config and stop server
         if [ -f /var/lib/ebox/.first -a -z "$2" ]; then
