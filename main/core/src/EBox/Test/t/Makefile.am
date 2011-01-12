@@ -1,4 +1,4 @@
-test_scripts = Class.t
+test_scripts = Class.t CGI.t
 
 EXTRA_DIST = $(test_scripts)
 

@@ -8,7 +8,7 @@ mods = AbstractDaemon.pm Validate.pm Gettext.pm Sudo.pm NetWrappers.pm\
 
 nobase_perl_DATA = $(mods) Config.pm
 
-SUBDIRS = Exceptions Menu Test t Sudo Config NetWrappers interactiveTests
+SUBDIRS = Exceptions Menu t Sudo Config NetWrappers interactiveTests
 
 SOURCES = $(nobase_perl_DATA)
 
