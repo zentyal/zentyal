@@ -2,13 +2,14 @@
 
 perldir = @PERLPATH@/EBox
 
-mods = AbstractDaemon.pm Validate.pm Gettext.pm Sudo.pm NetWrappers.pm\
+mods = Validate.pm Gettext.pm Sudo.pm NetWrappers.pm\
 	TestStub.pm FileSystem.pm Event.pm Exceptions.pm \
-        ColourRange.pm SOAPClient.pm Sysfs.pm
+        ColourRange.pm Sysfs.pm \
+	TestStubs.pm HtmlBlocks.pm
 
 nobase_perl_DATA = $(mods) Config.pm
 
-SUBDIRS = Exceptions Menu t Sudo Config NetWrappers interactiveTests
+SUBDIRS = Exceptions t Sudo Config NetWrappers interactiveTests
 
 SOURCES = $(nobase_perl_DATA)
 

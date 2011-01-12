@@ -123,6 +123,7 @@ src/EBox/Backup/Makefile
 src/EBox/Backup/testdata/Makefile
 src/EBox/Common/Makefile
 src/EBox/Common/Model/Makefile
+src/EBox/Menu/Makefile
 src/EBox/Config/Makefile
 src/EBox/Dashboard/Makefile
 src/EBox/Event/Makefile

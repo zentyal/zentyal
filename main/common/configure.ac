@@ -107,7 +107,6 @@ src/EBox/interactiveTests/Makefile
 src/EBox/Exceptions/Makefile
 src/EBox/Exceptions/Sudo/Makefile
 src/EBox/Exceptions/Sudo/t/Makefile
-src/EBox/Menu/Makefile
 src/EBox/Config.pm
 src/EBox/Config/Makefile
 src/EBox/Config/t/Makefile

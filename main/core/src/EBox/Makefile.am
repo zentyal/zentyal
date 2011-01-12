@@ -8,7 +8,7 @@ mods = AbstractDBEngine.pm Apache.pm Auth.pm Backup.pm DBEngineFactory.pm \
 	Logs.pm  LogAdmin.pm LogHelper.pm LogObserver.pm Loggerd.pm \
 	Menu.pm Order.pm ProgressIndicator.pm ServiceManager.pm \
 	PgDBEngine.pm Service.pm SysInfo.pm Test.pm \
-	TestStubs.pm HtmlBlocks.pm
+	TestStubs.pm HtmlBlocks.pm AbstractDaemon.pm SOAPClient.pm
 
 
 nobase_perl_DATA = $(mods)
@@ -20,7 +20,7 @@ authutildir =  @PERLPATH@/EBox
 nobase_authutil_DATA = ThirdParty/Apache2/AuthCookie/Util.pm
 
 SUBDIRS = Backup CGI Common Config Dashboard GConfModule interactiveTest Event Events Global\
- Logs Migration Model ProgressIndicator Report t Test Types Module Util View
+ Logs Menu Migration Model ProgressIndicator Report t Test Types Module Util View
 
 SOURCES = $(nobase_perl_DATA)
 
