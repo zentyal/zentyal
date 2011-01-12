@@ -314,13 +314,18 @@ try {
         EBox::Sudo::root($backupCmd);
         if ($usingCloud) {
             $ebackup->remoteGenerateStatusCache();
-            my @backupDomains = keys %{ $ebackup->_enabledBackupDomains()  };
-            EBox::info('Writting disaster recovery metadata');
+            my $availableDomains = $ebackup->availableBackupDomains();
+            my @enabledDomains = grep { $availableDomains->{$_}->{enabled} } keys %{$availableDomains};
+            my %backupDomains = map
+              { $_ => { description   => $availableDomains->{$_}->{description},
+                        printableName => $availableDomains->{$_}->{printableName} } }
+                @enabledDomains;
+            EBox::info('Writing Disaster Recovery metadata');
             EBox::EBackup::Subscribed::writeDRMetadata(
                 configurationDumped => $configurationDumped,
                 date                => $ebackup->lastBackupDate(),
                 backupType          => $type,
-                backupDomains       => \@backupDomains,
+                backupDomains       => \%backupDomains,
                );
         }
 

@@ -21,9 +21,12 @@ package EBox::EBackup::Subscribed;
 use EBox::Global;
 use EBox::Backup;
 use EBox::Config;
+use EBox::EBackup::Password;
+use EBox::Gettext;
 use EBox::Sudo;
 use Error qw(:try);
 use File::Slurp;
+use Perl6::Junction qw(none);
 use YAML::Tiny;
 
 use constant FINGERPRINT_FILE => EBox::Config::share() . 'ebox-ebackup/server-fingerprints';
@@ -179,7 +182,9 @@ sub _sshpassCommandAsString
 #    configurationDumped - whether the backup contains the configuration or not
 #    date - date of the backup. Must be in the same format used by duplicity
 #    backupType - backup type (full, incremental)
-#    backupDomains - backup domains stored
+#    backupDomains - hash ref backup domains stored indexed by backup
+#    domain name containing the following keys: description and printableName
+#
 sub writeDRMetadata
 {
     my %options =  @_;
@@ -189,7 +194,8 @@ sub writeDRMetadata
     my $backupType = $options{backupType};
     my $backupDomains = $options{backupDomains};
     if ($hasConfiguration) {
-        push @{ $backupDomains }, 'configuration';
+        $backupDomains->{'configuration'} = { description   => __('Configuration'),
+                                              printableName => __('Configuration') };
     }
 
     my $ebackup =  EBox::Global->modInstance('ebackup');
@@ -317,6 +323,43 @@ sub deleteAll
                $username . '@' .  $server .
                ' ' . $rmCommand;
     EBox::Sudo::root($cmd);
+}
+
+# Method: deleteOrphanMetadata
+#
+#   Delete the orphaned metadata files from the cloud. These files are
+#   the ones which are left when the backup (data) is removed
+#
+# Parameters:
+#
+#   collectionStatus - Hash ref the collection status for this server
+#                      as it is returned by <EBox::EBackup::remoteStatus>
+#
+sub deleteOrphanMetadata
+{
+    my ($collectionStatus) = @_;
+
+    return unless (scalar(@{$collectionStatus}) > 0);
+
+    my $credentials = credentials();
+
+    if (not defined $credentials) {
+        return undef;
+    }
+
+    my $ret = _sshCommand($credentials, 'ls ' . _metadataDir($credentials));
+    foreach my $line (@{$ret}) {
+        chomp($line);
+    }
+
+    my @collectionMD = map { metaFilenameFromDate($_->{date}) } @{$collectionStatus};
+
+    my @filesToDelete = grep { $_ ne none(@collectionMD) } @{$ret};
+
+    if ( @filesToDelete ) {
+        @filesToDelete = map { _metadataDir($credentials) . $_ } @filesToDelete;
+        _sshCommand($credentials, 'rm -f ' . join(' ', @filesToDelete));
+    }
 }
 
 1;
