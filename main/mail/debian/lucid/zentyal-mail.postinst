@@ -1,0 +1,39 @@
+#!/bin/bash
+
+#DEBHELPER#
+
+VMAIL_DIR=/var/vmail
+SIEVE_SCRIPTS_DIR=/var/sieve-scripts
+
+case "$1" in
+	configure)
+	    # create directory for vmail
+	    mkdir -p $VMAIL_DIR
+	    /bin/chmod 0755 $VMAIL_DIR
+	    chown ebox:ebox $VMAIL_DIR
+        # create directory for sieve filters
+        mkdir -p $SIEVE_SCRIPTS_DIR
+        /bin/chmod 2775 $SIEVE_SCRIPTS_DIR
+        chown ebox:ebox $SIEVE_SCRIPTS_DIR
+
+
+        # create log table
+        /usr/share/ebox/ebox-sql-table add mail_message /usr/share/ebox/sqllog/mail_message.sql
+        /usr/share/ebox/ebox-sql-table add mail_message_report /usr/share/ebox/sqllog/mail_message_report.sql
+        /usr/share/ebox/ebox-sql-table-with-time-period add mail_traffic /usr/share/ebox/sqllog/mail_traffic.sql
+
+
+        # migrate data
+        /usr/share/ebox/ebox-migrate /usr/share/ebox-mail/migration
+
+        # restart logs
+        invoke-rc.d ebox logs restart || true
+
+        # restart module
+        invoke-rc.d ebox mail restart
+
+        dpkg-trigger --no-await zentyal-core
+
+esac
+
+exit 0

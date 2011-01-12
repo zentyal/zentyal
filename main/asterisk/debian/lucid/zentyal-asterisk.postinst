@@ -1,0 +1,29 @@
+#!/bin/bash
+
+#DEBHELPER#
+
+case "$1" in
+    configure)
+        # change owner
+        if [ -f /var/log/asterisk/cdr-csv/Master.csv ] ; then
+            chown asterisk:asterisk /var/log/asterisk/cdr-csv/Master.csv
+        fi
+        if [ -d /var/spool/asterisk/ ] ; then
+            chown asterisk:asterisk /var/spool/asterisk/
+        fi
+        # create log table
+        /usr/share/ebox/ebox-sql-table add asterisk_cdr /usr/share/ebox/sqllog/asterisk_cdr.sql
+        # migrate data if needed
+        /usr/share/ebox/ebox-migrate /usr/share/ebox-asterisk/migration/
+
+        # restart logs
+        invoke-rc.d ebox logs restart || true
+
+        # restart module
+        invoke-rc.d ebox asterisk restart
+
+        dpkg-trigger --no-await zentyal-core
+    ;;
+esac
+
+exit 0
