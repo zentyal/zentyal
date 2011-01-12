@@ -15,7 +15,7 @@ my @options = (
 	       'help'       => \&usage,
 	       'verbose'   => \$verbose,
 	       'comp-root=s' => \@comp_root,
-	       'params=s'     => \$mason_cli_params,	       
+	       'params=s'     => \$mason_cli_params,
 	      );
 
 GetOptions(@options);
@@ -31,27 +31,23 @@ my $output_r = EBox::Test::Mason::executeTemplate(
 	       template     => $template,
                templateParams => $mason_params,
 	       compRoot    => \@comp_root,
-	      );  
+	      );
 
 
 print "\nComponent output:\n\n" if $verbose;
-print $$output_r;  
+print $$output_r;
 print "\n";
-
-
-
 
 sub _eval_params
 {
   my ($mason_cli_params) = @_;
-  
+
   if (! $mason_cli_params) {
     return [];
   }
 
   my @params;
   eval "\@params = ( $mason_cli_params ) ";
-
 
   if ($@) {
     die "Wrong template params. $@";
@@ -64,14 +60,12 @@ sub _print_comp_root
 {
   my ($template, $root_paths_r) = @_;
   my @root_paths = @{ $root_paths_r };
-  
+
   my $main_root = abs_path ($template);
   $main_root = dirname $main_root;
- 
- 
+
   print "Component root: $main_root @root_paths\n" if $verbose
 }
-
 
 sub usage
 {
@@ -84,6 +78,5 @@ sub usage
   print "\n";
   exit 0;
 }
-
 
 1;
