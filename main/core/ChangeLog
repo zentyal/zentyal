@@ -1,3 +1,6 @@
+HEAD
+	+ Use new zentyal-* package names
+	+ Don't check .yaml existence for core modules
 2.0.14
 	+ Added compMessage in some events to distinguish among events if
 	  required

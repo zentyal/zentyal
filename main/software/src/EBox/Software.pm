@@ -698,12 +698,12 @@ sub _getInfoEBoxPkgs
     my $cache = $self->_cache(1);
     my @list;
     for my $pack (keys %$cache) {
-        if ($pack =~ /^libebox$|^ebox$|^ebox-.*|^zentyal-.*/) {
+        if ($pack =~ /^zentyal-.*/) {
             my $pkgCache = $cache->packages()->lookup($pack) or next;
             my %data;
             $data{'name'} = $pkgCache->{Name};
             $data{'description'} = $pkgCache->{ShortDesc};
-            if ($pkgCache->{Name} =~ /^libebox$|^ebox$/) {
+            if ($pkgCache->{Name} =~ /^zentyal-common$|^zentyal-core|^zentyal-software$/) {
                 $data{'removable'} = 0;
             } else {
                 $data{'removable'} = 1;

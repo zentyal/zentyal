@@ -65,11 +65,11 @@ sub _process
     push(@array, 'eboxpkgs'     => $software->listEBoxPkgs());
     push(@array, 'updateStatus' => $software->updateStatus(1));
     push(@array, 'QAUpdates'    => $software->QAUpdates());
-    push(@array, 'isOffice'     => $software->isInstalled('ebox-office'));
-    push(@array, 'isUtm'        => $software->isInstalled('ebox-security'));
-    push(@array, 'isInfrastructure'    => $software->isInstalled('ebox-infrastructure'));
-    push(@array, 'isGateway'    => $software->isInstalled('ebox-gateway'));
-    push(@array, 'isCommunication'    => $software->isInstalled('ebox-communication'));
+    push(@array, 'isOffice'     => $software->isInstalled('zentyal-office'));
+    push(@array, 'isUtm'        => $software->isInstalled('zentyal-security'));
+    push(@array, 'isInfrastructure'    => $software->isInstalled('zentyal-infrastructure'));
+    push(@array, 'isGateway'    => $software->isInstalled('zentyal-gateway'));
+    push(@array, 'isCommunication'    => $software->isInstalled('zentyal-communication'));
     push(@array, 'updateList'    => $updateList);
     push(@array, 'brokenPackages'     => $software->listBrokenPkgs());
 

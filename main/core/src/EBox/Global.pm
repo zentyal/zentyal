@@ -164,21 +164,15 @@ sub modExists # (module)
     # Check if module package is properly installed
     #
     # No need to check core modules because if
-    # ebox package is not properly installed nothing
-    # of this is going to work at all.
+    # zentyal-core package is not properly installed
+    # nothing of this is going to work at all.
     #
-    if ($name eq any(@CORE_MODULES) or $DPKG_RUNNING) {
+    if ($name eq any(@CORE_MODULES)) {
+        return 1;
+    } elsif ($DPKG_RUNNING) {
         return defined($self->_className($name));
     } else {
-        # Full package check
-        my $package = "ebox-$name";
-
-        # Special case for the usersandgroups modules that
-        # are the exception for the above naming rule
-        if ($name =~ /^user/) {
-            $package = 'ebox-usersandgroups';
-        }
-        return _packageInstalled($package);
+        return _packageInstalled("zentyal-$name");
     }
 }
 

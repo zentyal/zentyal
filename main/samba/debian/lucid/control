@@ -1,13 +1,14 @@
-Source: ebox-samba
+Source: zentyal-samba
 Section: web
 Priority: optional
 Maintainer: José Antonio Calvo <jacalvo@zentyal.org>
 Build-Depends: debhelper (>= 5.0.0), cdbs
 Standards-Version: 3.8.2
 
-Package: ebox-samba
+Package: zentyal-samba
 Architecture: all
-Depends: ebox (>= 2.0.3), ebox (<< 2.0.100), ebox-network, ebox-firewall, ebox-usersandgroups, samba, samba-common-bin, quota, libquota-perl, smbldap-tools, bzip2, acl, ${misc:Depends}
+Replaces: ebox-samba (<< 2.0.100)
+Depends: zentyal-core (>= 2.1), zentyal-core (<< 2.1.100), zentyal-network, zentyal-firewall, zentyal-users, samba, samba-common-bin, quota, libquota-perl, smbldap-tools, bzip2, acl, ${misc:Depends}
 Description: Zentyal - File Sharing
  Zentyal is a Linux small business server that can act as
  a Gateway, Unified Threat Manager, Office Server, Infrastructure

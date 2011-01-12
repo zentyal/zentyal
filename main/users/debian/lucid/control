@@ -1,13 +1,14 @@
-Source: ebox-usersandgroups
+Source: zentyal-users
 Section: web
 Priority: optional
 Maintainer: José Antonio Calvo <jacalvo@zentyal.org>
 Build-Depends: debhelper (>= 5.0.0), cdbs
 Standards-Version: 3.8.2
 
-Package: ebox-usersandgroups
+Package: zentyal-users
 Architecture: all
-Depends: ebox (>= 2.0), ebox (<< 2.0.100), libebox (>= 2.0.7), slapd (>= 2.4.15), ldap-utils (>= 2.4.15), ldap-auth-config, ebox-firewall, libnet-ldap-perl, libcrypt-rijndael-perl, libcrypt-smbhash-perl, adduser, ${misc:Depends}
+Replaces: ebox-usersandgroups (<< 2.0.100)
+Depends: zentyal-core (>= 2.1), ebox (<< 2.1.100), slapd (>= 2.4.15), ldap-utils (>= 2.4.15), ldap-auth-config, zentyal-firewall, libnet-ldap-perl, libcrypt-rijndael-perl, libcrypt-smbhash-perl, adduser, ${misc:Depends}
 Description: Zentyal - Users and Groups
  Zentyal is a Linux small business server that can act as
  a Gateway, Unified Threat Manager, Office Server, Infrastructure

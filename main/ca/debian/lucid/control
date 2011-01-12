@@ -1,13 +1,14 @@
-Source: ebox-ca
+Source: zentyal-ca
 Section: web
 Priority: optional
 Maintainer: José Antonio Calvo <jacalvo@zentyal.org>
 Build-Depends: debhelper (>= 5.0.0), cdbs
 Standards-Version: 3.8.2
 
-Package: ebox-ca
+Package: zentyal-ca
 Architecture: all
-Depends: ebox (>= 2.0), ebox (<< 2.0.100), libdate-calc-perl, libfile-copy-recursive-perl, ${misc:Depends}
+Replaces: ebox-ca (<< 2.0.100)
+Depends: zentyal-core (>= 2.1), zentyal-core (<< 2.1.100), libdate-calc-perl, libfile-copy-recursive-perl, ${misc:Depends}
 Description: Zentyal - Certification Authority
  Zentyal is a Linux small business server that can act as
  a Gateway, Unified Threat Manager, Office Server, Infrastructure
