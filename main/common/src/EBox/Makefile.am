@@ -4,8 +4,7 @@ perldir = @PERLPATH@/EBox
 
 mods = Validate.pm Gettext.pm Sudo.pm NetWrappers.pm\
 	TestStub.pm FileSystem.pm Event.pm Exceptions.pm \
-        ColourRange.pm Sysfs.pm \
-	TestStubs.pm HtmlBlocks.pm
+        ColourRange.pm Sysfs.pm
 
 nobase_perl_DATA = $(mods) Config.pm
 

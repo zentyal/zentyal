@@ -3,7 +3,7 @@
 set -e
 
 if [ "$1" = remove ] || [ "$1" = purge ]; then
-    invoke-rc.d ebox stop || true
+    invoke-rc.d zentyal stop || true
 fi
 
 #DEBHELPER#

@@ -115,6 +115,7 @@ src/templates/js/Makefile
 src/templates/report/Makefile
 src/templates/t/Makefile
 src/templates/Makefile
+src/cgi/Makefile
 src/EBox/SysInfo.pm
 src/EBox/Makefile
 src/EBox/t/Makefile
@@ -182,6 +183,7 @@ src/EBox/CGI/Login/Makefile
 src/EBox/CGI/Logout/Makefile
 src/EBox/CGI/Logs/Makefile
 src/EBox/CGI/Report/Makefile
+src/EBox/CGI/t/Makefile
 src/EBox/Util/Makefile
 src/EBox/View/Makefile
 schemas/Makefile

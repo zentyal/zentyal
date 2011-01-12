@@ -36,7 +36,7 @@ images = images/delete.gif images/show.gif \
 
 css = css/modalbox.css
 
-nobase_www_DATA = $(images) $(js) $(css) $(js) default.theme favicon.ico
+nobase_www_DATA = $(images) $(css) $(js) default.theme favicon.ico
 
 EXTRA_DIST = $(nobase_www_DATA)
 

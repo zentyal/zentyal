@@ -92,13 +92,13 @@ case "$1" in
         if [ -z "$2" ]; then
             # Set eBox port only if it's the first time we install
             set_ebox_port
-            invoke-rc.d ebox apache start || true
+            invoke-rc.d zentyal apache start || true
         else
-            invoke-rc.d ebox apache stop || true
+            invoke-rc.d zentyal apache stop || true
             # Give apache some time to stop completely
             # Otherwise it will fail to start as the port is being used
             sleep 5
-            invoke-rc.d ebox apache start || true
+            invoke-rc.d zentyal apache start || true
         fi
 
         # migrate log data
@@ -119,7 +119,7 @@ case "$1" in
         rm -f /var/lib/ebox/tmp/menucache
 
         #restart ebox
-        invoke-rc.d ebox apache restart || true
+        invoke-rc.d zentyal apache restart || true
 
         #remove dpkg running flag
         rm -f /var/lib/ebox/dpkg_running

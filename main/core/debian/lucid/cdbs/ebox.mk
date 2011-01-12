@@ -12,7 +12,7 @@ DEB_CONFIGURE_SCRIPT_ENV += DYNAMICWWWPATH="/var/lib/ebox/dynamicwww"
 DEB_CONFIGURE_EXTRA_FLAGS := --disable-runtime-tests
 DEB_MAKE_INVOKE = $(MAKE) $(DEB_MAKE_FLAGS) -C $(DEB_BUILDDIR)
 
-$(patsubst %,binary-install/%,ebox) :: binary-install/%:
+$(patsubst %,binary-install/%,zentyal-core) :: binary-install/%:
 	for event in debian/*.upstart ; do \
 		[ -f $$event ] || continue; \
 		install -d -m 755 debian/$(cdbs_curpkg)/etc/init; \

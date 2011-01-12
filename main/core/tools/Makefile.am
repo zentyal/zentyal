@@ -2,7 +2,7 @@
 SUBDIRS = sqllog cron
 
 pkgdata_SCRIPTS = ebox-apache2ctl ebox-apache-restart ebox-migrate \
- ebox-sudoers-friendly ebox zentyal-clean-conf \
+ ebox-sudoers-friendly zentyal-clean-conf \
  ebox-create-certificate ebox-make-backup ebox-restore-backup \
  ebox-unblock-exec ebox-passwd ebox-sql-table ebox-sql-table-with-time-period \
  ebox-set-locale ebox-global-action ebox-unconfigure-module \

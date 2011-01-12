@@ -4,15 +4,15 @@ include /usr/share/cdbs/1/rules/debhelper.mk
 include /usr/share/cdbs/1/class/autotools.mk
 include debian/cdbs/ebox.mk
 
-DEB_DH_INSTALLINIT_ARGS = --no-start
+DEB_DH_INSTALLINIT_ARGS = -pzentyal --no-start --name zentyal
 
-install/ebox::
-	test -e debian/ebox.init || ln -s ../tools/ebox debian/ebox.init
+install/zentyal-core::
+	test -e debian/zentyal.init || ln -s ../tools/zentyal.init.d debian/zentyal.init
 	rm -f $(CURDIR)/debian/ebox/var/lib/ebox/conf/ebox.passwd
-	install -m 644 $(CURDIR)/debian/ebox.cron.hourly $(CURDIR)/debian/ebox/etc/cron.hourly/ebox
+	install -m 644 $(CURDIR)/debian/ebox.cron.hourly $(CURDIR)/debian/zentyal-core/etc/cron.hourly/ebox
 
-cleanbuilddir/ebox::
-	rm -f debian/ebox.init
+cleanbuilddir/zentyal-core::
+	rm -f debian/zentyal.init
 
 clean::
 	debconf-updatepo
