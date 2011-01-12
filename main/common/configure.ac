@@ -101,14 +101,6 @@ AM_PO_SUBDIRS
 AC_CONFIG_FILES([
 src/cgi/Makefile
 src/Makefile
-src/templates/Makefile
-src/templates/t/Makefile
-src/templates/input/Makefile
-src/templates/input/t/Makefile
-src/templates/ebox/Makefile
-src/templates/ajax/Makefile
-src/templates/ajax/viewer/Makefile
-src/templates/ajax/setter/Makefile
 src/EBox/Makefile
 src/EBox/t/Makefile
 src/EBox/interactiveTests/Makefile
