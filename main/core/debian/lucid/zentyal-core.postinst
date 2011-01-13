@@ -84,11 +84,6 @@ case "$1" in
         # sudo configuration
         /usr/share/zentyal-core/ebox-sudoers-friendly
 
-        # Import old gconf backup from preinst
-        if [ -f /var/lib/ebox/gconf.backup ]; then
-            /usr/share/zentyal-core/ebox-import-gconf
-        fi
-
         if [ -z "$2" ]; then
             # Set eBox port only if it's the first time we install
             set_ebox_port

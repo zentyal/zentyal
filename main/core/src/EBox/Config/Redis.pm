@@ -24,7 +24,6 @@ use EBox::Config;
 use EBox::Service;
 use POSIX ':signal_h';
 use YAML::Tiny;
-use XML::Simple;
 use File::Slurp;
 use Error qw/:try/;
 
@@ -349,79 +348,11 @@ sub import_dir_from_yaml
     }
 }
 
-
-
-# Method: import_dir_from_gconf
-#
-#   Given a Gconf Dump XMP file, restore all its keys/values under destination folder
-#
-# Parameters:
-#
-#   filename - XML filename
-#   dest - destination folder key
-#
-sub import_dir_from_gconf
-{
-    my ($self, $filename, $dest) = @_;
-
-    my $data;
-    try {
-        my $xml = new XML::Simple(ForceArray => ['entry', 'list/value']);
-        $data = $xml->XMLin($filename);
-    } otherwise {
-        throw EBox::Exceptions::External("Error parsing XML:$filename");
-    };
-
-    # parse array converted from gconf format XML file
-    my $entrylist = $data->{entrylist};
-    my $base = $entrylist->{base};
-
-    for my $key ( keys %{$entrylist->{entry}} ) {
-        my $entry = $entrylist->{entry}->{$key};
-
-        my $type = (keys %{$entry->{value}})[0];
-        my $value = $entry->{value}->{$type};
-
-        $key = $base . '/' . $key;
-        if ($dest) {
-            $key = $dest . $key;
-        }
-
-        if ($type eq 'list') {
-            # list value, get elements
-
-            $value = $value->{value};
-            my @list = ();
-            if ( ref $value eq 'HASH' ) {
-                my $type = (keys %{$value})[0];
-                my $value = $value->{$type};
-                push (@list, $value);
-            } else {
-                for my $item (@{$value}) {
-                    my $key = (keys %{$item})[0];
-                    my $value = $item->{$key};
-                    push (@list, $value);
-                }
-            }
-            $self->set_list($key, \@list);
-        } else {
-            # Convert boolean values
-            if ($type eq 'bool') {
-                $value = $value eq 'true' ? 1 : 0;
-            }
-            # scalar value, save as string
-            $self->set_string($key, $value);
-        }
-    }
-}
-
-
 sub _import_list
 {
     my ($self) = @_;
 
 }
-
 
 sub _backup_dir
 {
