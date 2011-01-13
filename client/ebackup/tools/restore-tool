@@ -136,7 +136,7 @@ try {
     _downloadBackupData($credentials, $date);
 
     my $configBackup = _getConfigBackup($credentials, $date);
-    # install missing modules to get a correct list of availabe domains to restore
+
     _installMissingModules($configBackup);
 
 
@@ -746,9 +746,10 @@ sub _installDebPackages
         }
     }
 
-    my $msg = __('Installing Zentyal components and their dependencies');
-
-    _aptInstall(\@packages, $msg);
+    if (@packages) {
+        my $msg = __('Installing Zentyal components and their dependencies');
+        _aptInstall(\@packages, $msg);
+    }
 
     # TODO: assure that modules are loaded and retrievable by EBox::Global->modInstance
 }
