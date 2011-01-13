@@ -1337,6 +1337,9 @@ sub _preRestoreActions
 
     my @missing;
     foreach my $modName (@inBackup) {
+        # Skip cloud-prof to check in restore since it is possible not
+        # to be installed until the first restore process is done (DR)
+        next if ($modName eq 'cloud-prof');
         unless ($global->modExists($modName)) {
             push (@missing, $modName);
         }

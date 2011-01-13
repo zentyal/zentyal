@@ -1,3 +1,7 @@
+HEAD
+	+ Do not check the existence of cloud-prof package during the
+	  restore since it is possible not to be installed while disaster
+	  recovery process is done
 2.0.14
 	+ Added compMessage in some events to distinguish among events if
 	  required
