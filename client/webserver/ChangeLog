@@ -1,3 +1,5 @@
+HEAD
+	+ Include Virtual host files in the backup domain
 2.0.2
 	+ Bugfix: webserver ssl certificate is reissued instead of renewed if
 	  the file is not found
