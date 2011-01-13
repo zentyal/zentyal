@@ -1,13 +1,13 @@
 #!/bin/bash
 
-libexec=@DATADIR@/ebox
+libexec=@DATADIR@/zentyal-core
 
 ppp_iface=$1
 eth_iface=$2
 local_address=$4
 remote_address=$5
 
-LOG=/var/log/ebox/pppoe.log
+LOG=/var/log/zentyal/pppoe.log
 
 TIMESTAMP=$(date +"%Y-%m-%d %T")
 echo "$TIMESTAMP> ppp-up script called with the following values:" >> $LOG

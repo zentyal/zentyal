@@ -1,6 +1,6 @@
 ## Process this file with automake to produce Makefile.in
 
-Hookdir = $(sysconfdir)/ebox/hooks
+Hookdir = $(sysconfdir)/zentyal/hooks
 Hook_DATA = template.presetconf template.postsetconf template.preservice template.postservice
 
 EXTRA_DIST = $(Hook_DATA)

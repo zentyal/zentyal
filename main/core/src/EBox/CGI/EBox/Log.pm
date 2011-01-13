@@ -19,6 +19,7 @@ use strict;
 use warnings;
 
 use EBox;
+use EBox::Config;
 use EBox::Gettext;
 use File::Slurp;
 
@@ -37,8 +38,8 @@ sub actuate
 {
     my ($self) = @_;
 
-    $self->{downfile} = '/var/log/ebox/ebox.log';
-    $self->{downfilename} = 'ebox.log';
+    $self->{downfile} = EBox::Config::logfile();
+    $self->{downfilename} = 'zentyal.log';
 }
 
 sub _print
@@ -51,19 +52,19 @@ sub _print
     }
 
     my @log = read_file($self->{downfile}) or
-        throw EBox::Exceptions::Internal("Error opening ebox.log: $!");
+        throw EBox::Exceptions::Internal("Error opening zentyal.log: $!");
 
     print ($self->cgi()->header(-type=>'application/octet-stream',
                                 -attachment=>$self->{downfilename}));
 
     print "Installed packages\n";
     print "------------------\n\n";
-    my $output = EBox::Sudo::root("dpkg -l | grep ebox | awk '{ print " . '$1 " " $2 ": " $3 ' . "}'");
+    my $output = EBox::Sudo::root("dpkg -l | grep zentyal | awk '{ print " . '$1 " " $2 ": " $3 ' . "}'");
     print @ { $output };
     print "\n\n";
 
-    print "/var/log/ebox/ebox.log\n";
-    print "----------------------\n\n";
+    print "/var/log/zentyal/zentyal.log\n";
+    print "----------------------------\n\n";
 
     if (scalar (@log) <= 1000) {
         print @log;

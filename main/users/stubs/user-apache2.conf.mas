@@ -65,7 +65,7 @@ Group ebox-usercorner
 ServerAdmin webmaster@localhost
 ServerName localhost
 
-DocumentRoot /usr/share/ebox/www/
+DocumentRoot /usr/share/zentyal-core/www/
 
 <Directory />
     Options SymLinksIfOwnerMatch
@@ -73,7 +73,7 @@ DocumentRoot /usr/share/ebox/www/
 </Directory>
 
 
-<Directory /usr/share/ebox/www/>
+<Directory /usr/share/zentyal-core/www/>
     Options Indexes MultiViews FollowSymLinks
     AllowOverride None
     Order allow,deny
@@ -99,12 +99,12 @@ DefaultType text/plain
 
 HostnameLookups Off
 
-ErrorLog /var/log/ebox-usercorner/error.log
+ErrorLog /var/log/zentyal-usercorner/error.log
 LogLevel warn
 
 LogFormat "%h %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-Agent}i\" \"%{forensic-id}n\"" combined
 
-CustomLog /var/log/ebox-usercorner/access.log combined
+CustomLog /var/log/zentyal-usercorner/access.log combined
 
 <IfModule mod_backtrace.c>
  EnableExceptionHook On
@@ -151,7 +151,7 @@ PerlSetVar AuthCookieDebug 0
 	PerlHandler EBox::UserCorner::Auth->login
 </Files>
 
-<Directory /usr/share/ebox/cgi/>
+<Directory /usr/share/zentyal-core/cgi/>
     <IfModule mod_ssl.c>
        SSLOptions +StdEnvVars
     </IfModule>
@@ -182,5 +182,5 @@ RewriteRule ^/ebox/ebox.cgi$ /ebox/
 RewriteRule ^/data(.*) $1 [L]
 # From /dynamic-data/ to the right directory in FS and finish
 RewriteRule ^/dynamic-data(.*) /var/lib/ebox/dynamicwww$1 [L]
-RewriteRule ^/ebox/(.*) /usr/share/ebox/cgi/user-ebox.cgi [E=script:$1,L]
+RewriteRule ^/ebox/(.*) /usr/share/zentyal-core/cgi/user-ebox.cgi [E=script:$1,L]
 

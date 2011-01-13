@@ -2,7 +2,7 @@
 
 SUBDIRS = logs events
 
-Migrationsdir = @DATADIR@/ebox/migration
+Migrationsdir = @DATADIR@/zentyal-core/migration
 
 MAINTAINERCLEANFILES = Makefile.in
 

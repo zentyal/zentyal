@@ -1,7 +1,7 @@
 #!/bin/sh
 
-# This is the firewall postservice script and it's run after eBox has finished
-# setting up the firewall.
+# This is the firewall postservice script and it's run after Zentyal
+# has finished setting up the firewall.
 
 # You can add here custom rules that you might need for your firewall
 

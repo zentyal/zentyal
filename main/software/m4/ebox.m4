@@ -41,13 +41,13 @@ AC_DEFUN([AC_CONF_EBOX],
 	AC_MSG_CHECKING(images path)
 	IMAGESPATH=`perl -MEBox::Config -e 'print EBox::Config->images'`
   else
-    STUBSPATH=$DATADIR/ebox/stubs
-    CGIPATH=$DATADIR/ebox/cgi
-    TEMPLATESPATH=$DATADIR/ebox/templates
-    SCHEMASPATH=$DATADIR/ebox/schemas
-    WWWPATH=$DATADIR/ebox/www
-    CSSPATH=$DATADIR/ebox/www/css
-    IMAGESPATH=$DATADIR/ebox/www/images
+    STUBSPATH=$DATADIR/zentyal-core/stubs
+    CGIPATH=$DATADIR/zentyal-core/cgi
+    TEMPLATESPATH=$DATADIR/zentyal-core/templates
+    SCHEMASPATH=$DATADIR/zentyal-core/schemas
+    WWWPATH=$DATADIR/zentyal-core/www
+    CSSPATH=$DATADIR/zentyal-core/www/css
+    IMAGESPATH=$DATADIR/zentyal-core/www/images
   fi
 
   if test -z "$STUBSPATH"; then

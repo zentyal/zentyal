@@ -25,23 +25,12 @@ if test "x$enable_runtime_tests" = "xyes" ; then
                 AC_MSG_ERROR(perl not found)
         fi
 
-	AC_CHECK_PROG(GCONFTOOL, gconftool-2, gconftool-2, none)
-	if test x"$GCONFTOOL" = "xnone" ; then
-		AC_MSG_ERROR(gconftool-2 not found)
-	fi
-
         perlpath=`$PERL -e 'foreach (@INC) { print "$_\n";}' | grep "^$DATADIR" | head -1`
         if test -z "$perlpath" ; then
         perlpath=`$PERL -e 'foreach (@INC) { print "$_\n";}' | grep "^$prefix" | head -1`
         fi
 
-
-	AM_GCONF_SOURCE_2
-
         AC_CONF_EBOX
-
-	AC_PROG_PERL_MODULES(Gnome2::GConf, ,
-	  AC_MSG_ERROR(Missing Gnome2::GConf))
 
 	AC_PROG_PERL_MODULES(Sys::Hostname, ,
 	  AC_MSG_ERROR(Missing Sys::Hostname))
@@ -73,9 +62,6 @@ if test "x$enable_runtime_tests" = "xyes" ; then
 	AC_PROG_PERL_MODULES(Test::MockTime, ,
 	  AC_MSG_WARN(Missing test dependency Test::MockTime))
 
-else
-	GCONF_SCHEMAS_INSTALL_FALSE=
-	GCONF_SCHEMAS_INSTALL_TRUE='#'
 fi
 
 if test -z "$perlpath" ; then

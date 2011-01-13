@@ -5,15 +5,15 @@
 case "$1" in
 	configure)
         # create log table
-        /usr/share/ebox/ebox-sql-table add mailfilter_pop /usr/share/ebox/sqllog/mailfilter_pop.sql
-        /usr/share/ebox/ebox-sql-table add mailfilter_pop_report /usr/share/ebox/sqllog/mailfilter_pop_report.sql
-        /usr/share/ebox/ebox-sql-table-with-time-period add mailfilter_pop_traffic /usr/share/ebox/sqllog/mailfilter_pop_traffic.sql
-        /usr/share/ebox/ebox-sql-table add mailfilter_smtp /usr/share/ebox/sqllog/mailfilter_smtp.sql
-        /usr/share/ebox/ebox-sql-table add mailfilter_smtp_report /usr/share/ebox/sqllog/mailfilter_smtp_report.sql
-        /usr/share/ebox/ebox-sql-table-with-time-period add mailfilter_smtp_traffic /usr/share/ebox/sqllog/mailfilter_smtp_traffic.sql
+        /usr/share/zentyal-core/ebox-sql-table add mailfilter_pop /usr/share/zentyal-core/sqllog/mailfilter_pop.sql
+        /usr/share/zentyal-core/ebox-sql-table add mailfilter_pop_report /usr/share/zentyal-core/sqllog/mailfilter_pop_report.sql
+        /usr/share/zentyal-core/ebox-sql-table-with-time-period add mailfilter_pop_traffic /usr/share/zentyal-core/sqllog/mailfilter_pop_traffic.sql
+        /usr/share/zentyal-core/ebox-sql-table add mailfilter_smtp /usr/share/zentyal-core/sqllog/mailfilter_smtp.sql
+        /usr/share/zentyal-core/ebox-sql-table add mailfilter_smtp_report /usr/share/zentyal-core/sqllog/mailfilter_smtp_report.sql
+        /usr/share/zentyal-core/ebox-sql-table-with-time-period add mailfilter_smtp_traffic /usr/share/zentyal-core/sqllog/mailfilter_smtp_traffic.sql
 
         # migrate data if needed
-        /usr/share/ebox/ebox-migrate /usr/share/ebox-mailfilter/migration/
+        /usr/share/zentyal-core/ebox-migrate /usr/share/ebox-mailfilter/migration/
 
         # populate file types if needed
          /usr/share/ebox-mailfilter/ebox-mailfilter-populate-filefilter update

@@ -1,6 +1,6 @@
 ## Process this file with automake to produce Makefile.in
 
-css_Stubdir = @DATADIR@/ebox/stubs/css
+css_Stubdir = @DATADIR@/zentyal-core/stubs/css
 
 css_Stub_DATA = public.css.mas login.css.mas tableorderer.css.mas
 

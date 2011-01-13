@@ -19,6 +19,7 @@ use strict;
 use warnings;
 
 use EBox;
+use EBox::Config;
 use EBox::Gettext;
 use File::Slurp;
 
@@ -36,7 +37,7 @@ sub actuate
 {
     my ($self) = @_;
 
-    $self->{downfile} = '/var/log/ebox/software.log';
+    $self->{downfile} = EBox::Config::log() . 'software.log';
     $self->{downfilename} = 'software.log';
 }
 
@@ -67,8 +68,8 @@ sub _print
     print @{ $output };
     print "\n\n";
 
-    print "/var/log/ebox/software.log\n";
-    print "--------------------------\n\n";
+    print "/var/log/zentyal/software.log\n";
+    print "-----------------------------\n\n";
 
     if (scalar (@log) <= 5000) {
         print @log;

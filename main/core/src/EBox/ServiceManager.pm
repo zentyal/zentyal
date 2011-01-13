@@ -437,8 +437,8 @@ sub enableAllModules
 # Method: checkUserModifications
 #
 #     Indicate if eBox must check user modifications from
-#     configuration files or not. It is defined in main eBox
-#     configuration file at "/etc/ebox" by
+#     configuration files or not. It is defined in main Zentyal
+#     configuration file at "/etc/zentyal" by
 #     "override_user_modification" value
 #
 # Returns:

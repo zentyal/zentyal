@@ -2,7 +2,7 @@
 # Makefile configuration - processed by automake.
 #
 
-templatedir = $(datadir)/ebox/templates/ajax/setter
+templatedir = $(datadir)/zentyal-core/templates/ajax/setter
 template_DATA = booleanSetter.mas textSetter.mas \
 		ipaddrSetter.mas ipnetworkSetter.mas \
 		hasManySetter.mas portRangeSetter.mas unionSetter.mas \

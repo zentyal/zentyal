@@ -17,12 +17,13 @@
 use EBox;
 use EBox::Global;
 use EBox::Ldap;
+use EBox::Config;
 use Error qw(:try);
 use Perl6::Junction qw(any);
 use File::Slurp;
 
-use constant IGNORED_USERS => '/etc/ebox/ad-sync_ignore.users';
-use constant IGNORED_GROUPS => '/etc/ebox/ad-sync_ignore.groups';
+use constant IGNORED_USERS => EBox::Config::etc() . 'ad-sync_ignore.users';
+use constant IGNORED_GROUPS => EBox::Config::etc() . 'ad-sync_ignore.groups';
 
 EBox::init();
 

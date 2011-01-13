@@ -18,6 +18,6 @@ GRANT ALL ON zarafa.* TO 'zarafa'@'localhost' IDENTIFIED BY \"$PASSWD\";
 FLUSH PRIVILEGES;" | mysql --defaults-file=/etc/mysql/debian.cnf
 
 mkdir -p /etc/zarafa/ssl
-/usr/share/ebox/ebox-create-certificate /etc/zarafa/ssl
+/usr/share/zentyal-core/ebox-create-certificate /etc/zarafa/ssl
 
 exit 0

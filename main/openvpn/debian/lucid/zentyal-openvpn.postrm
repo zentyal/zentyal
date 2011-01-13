@@ -22,8 +22,8 @@ case "$1" in
         dpkg-trigger --no-await zentyal-core
         ;;
     purge)
-        /usr/share/ebox/ebox-sql-table drop openvpn || true
-        /usr/share/ebox/ebox-sql-table drop openvpn_report || true
+        /usr/share/zentyal-core/ebox-sql-table drop openvpn || true
+        /usr/share/zentyal-core/ebox-sql-table drop openvpn_report || true
 esac
 
 

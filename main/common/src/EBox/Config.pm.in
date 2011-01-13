@@ -37,7 +37,7 @@ $ref->{perlpath} = "@PERLPATH@";
 
 sub etc
 {
-    return $ref->{sysconfdir} . "ebox/";
+    return $ref->{sysconfdir} . "zentyal/";
 }
 
 sub var
@@ -222,12 +222,12 @@ sub lib
 
 sub libexec
 {
-    return $ref->{libdir} . "ebox/";
+    return $ref->{libdir} . "zentyal-core/";
 }
 
 sub pkgdata
 {
-    return $ref->{datadir} . "ebox/";
+    return $ref->{datadir} . "zentyal-core/";
 }
 
 sub locale
@@ -292,47 +292,47 @@ sub scriptSession
 
 sub log
 {
-    return $ref->{localstatedir} . "log/ebox/";
+    return $ref->{localstatedir} . "log/zentyal/";
 }
 
 sub logfile
 {
-    return $ref->{localstatedir} . "log/ebox/ebox.log";
+    return $ref->{localstatedir} . "log/zentyal/zentyal.log";
 }
 
 sub stubs
 {
-    return $ref->{datadir} . "ebox/stubs/";
+    return $ref->{datadir} . "zentyal-core/stubs/";
 }
 
 sub cgi
 {
-    return $ref->{datadir} . "ebox/cgi/";
+    return $ref->{datadir} . "zentyal-core/cgi/";
 }
 
 sub templates
 {
-    return $ref->{datadir} . "ebox/templates/";
+    return $ref->{datadir} . "zentyal-core/templates/";
 }
 
 sub schemas
 {
-    return $ref->{datadir} . "ebox/schemas/";
+    return $ref->{datadir} . "zentyal-core/schemas/";
 }
 
 sub www
 {
-    return $ref->{datadir} . "ebox/www/";
+    return $ref->{datadir} . "zentyal-core/www/";
 }
 
 sub css
 {
-    return $ref->{datadir} . "ebox/www/css/";
+    return $ref->{datadir} . "zentyal-core/www/css/";
 }
 
 sub images
 {
-    return $ref->{datadir} . "ebox/www/images/";
+    return $ref->{datadir} . "zentyal-core/www/images/";
 }
 
 

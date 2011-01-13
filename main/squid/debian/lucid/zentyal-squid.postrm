@@ -12,9 +12,9 @@ case "$1" in
         dpkg-trigger --no-await zentyal-core
         ;;
 	purge)
-        /usr/share/ebox/ebox-sql-table drop squid_access || true
-        /usr/share/ebox/ebox-sql-table drop squid_access_report || true
-        /usr/share/ebox/ebox-sql-table-with-time-period drop squid_traffic || true
+        /usr/share/zentyal-core/ebox-sql-table drop squid_access || true
+        /usr/share/zentyal-core/ebox-sql-table drop squid_access_report || true
+        /usr/share/zentyal-core/ebox-sql-table-with-time-period drop squid_traffic || true
         ;;
 esac
 

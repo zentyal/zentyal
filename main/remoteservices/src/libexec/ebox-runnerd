@@ -200,7 +200,7 @@ sub _notify
     my ($jobDir) = @_;
 
     try {
-        EBox::Sudo::command("/usr/share/ebox/ebox-notify-job $jobDir");
+        EBox::Sudo::command("/usr/share/zentyal-core/ebox-notify-job $jobDir");
     } catch EBox::Exceptions::Command with {
         my ($exc) = @_;
         EBox::error($exc);

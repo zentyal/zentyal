@@ -8,7 +8,7 @@ case "$1" in
         chown -R ebox.ebox /var/run/ebox
 
         # Migrate data if needed
-        /usr/share/ebox/ebox-migrate /usr/share/ebox-monitor/migration/
+        /usr/share/zentyal-core/ebox-migrate /usr/share/ebox-monitor/migration/
 
         # Restart the module itself
         invoke-rc.d zentyal monitor restart || true

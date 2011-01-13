@@ -2,7 +2,7 @@
 
 SUBDIRS = input ebox ajax common dashboard login logout logs report js t
 
-templatedir = $(datadir)/ebox/templates
+templatedir = $(datadir)/zentyal-core/templates
 template_DATA = backup.mas bug.mas confirm-backup.mas backupTabs.mas \
  finish.mas general.mas hostname.mas graph.mas menu.mas \
  halt.mas password.mas port.mas progress.mas \

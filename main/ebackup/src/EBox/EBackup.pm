@@ -214,7 +214,7 @@ sub restoreFile
         } elsif ($error =~ m/No backup chains found/) {
             throw EBox::Exceptions::External(
                 __(q{No backup archives found. Maybe they were deleted?.} .
-                     q{ Run '/etc/init.d/ebox ebackup restart' to refresh backup's information.}
+                     q{ Run '/etc/init.d/zentyal ebackup restart' to refresh backup's information.}
                     )
                );
         } else {

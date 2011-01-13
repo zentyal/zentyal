@@ -10,7 +10,7 @@ set -e
 case "$1" in
     configure)
         # Create slapd certificate
-        /usr/share/ebox/ebox-create-certificate /etc/ldap/ssl > /dev/null 2>&1
+        /usr/share/zentyal-core/ebox-create-certificate /etc/ldap/ssl > /dev/null 2>&1
         chown -R openldap:openldap /etc/ldap/ssl
 
         #add the ebox group and user
@@ -24,7 +24,7 @@ case "$1" in
                 --disabled-password --ingroup ebox-usercorner ebox-usercorner
         fi
 
-        CORNER_LOG="/var/log/ebox-usercorner/"
+        CORNER_LOG="/var/log/zentyal-usercorner/"
         test -d $CORNER_LOG || mkdir $CORNER_LOG
         chown -R ebox-usercorner:ebox-usercorner $CORNER_LOG
 
@@ -44,10 +44,10 @@ case "$1" in
 
 
         # create ebox user corner apache certificates
-        /usr/share/ebox/ebox-create-certificate /var/lib/ebox-usercorner/ssl > /dev/null 2>&1 || true
+        /usr/share/zentyal-core/ebox-create-certificate /var/lib/ebox-usercorner/ssl > /dev/null 2>&1 || true
 
         # Migrate data if needed
-        /usr/share/ebox/ebox-migrate /usr/share/ebox-usersandgroups/migration/ || true
+        /usr/share/zentyal-core/ebox-migrate /usr/share/ebox-usersandgroups/migration/ || true
 
         # regenrate slap configuration and restart
         #  this is needed bz it may be changes in slapd configuration

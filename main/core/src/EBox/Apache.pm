@@ -66,7 +66,7 @@ sub serverroot
 
 sub initd
 {
-    return '/usr/share/ebox/ebox-apache2ctl';
+    return '/usr/share/zentyal-core/ebox-apache2ctl';
 }
 
 # Method: cleanupForExec
@@ -112,9 +112,9 @@ sub _daemon # (action)
     }
 
     if ($action eq 'stop') {
-        EBox::Sudo::root('/usr/share/ebox/ebox-apache2ctl stop');
+        EBox::Sudo::root('/usr/share/zentyal-core/ebox-apache2ctl stop');
     } elsif ($action eq 'start') {
-        EBox::Sudo::root('/usr/share/ebox/ebox-apache2ctl start');
+        EBox::Sudo::root('/usr/share/zentyal-core/ebox-apache2ctl start');
     } elsif ($action eq 'restart') {
         my $restartCmd = EBox::Config::pkgdata . 'ebox-apache-restart';
         if ($fork) {

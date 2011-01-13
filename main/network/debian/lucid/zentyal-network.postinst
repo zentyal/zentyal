@@ -12,7 +12,7 @@ manage_overwrite() {
 
     if [ "$permission" = "true" ]; then
         /usr/share/ebox-network/ebox-updatedigests
-        /etc/init.d/ebox network stop || true
+        invoke-rc.d zentyal network stop || true
     fi
 }
 
@@ -29,7 +29,7 @@ case "$1" in
         fi
 
         # Migrate data if needed
-        /usr/share/ebox/ebox-migrate /usr/share/ebox-network/migration/
+        /usr/share/zentyal-core/ebox-migrate /usr/share/ebox-network/migration/
 
         invoke-rc.d zentyal network restart
 

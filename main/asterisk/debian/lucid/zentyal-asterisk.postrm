@@ -19,7 +19,7 @@ case "$1" in
         dpkg-trigger --no-await zentyal-core
     ;;
     purge)
-        /usr/share/ebox/ebox-sql-table drop asterisk_cdr || true
+        /usr/share/zentyal-core/ebox-sql-table drop asterisk_cdr || true
     ;;
 esac
 

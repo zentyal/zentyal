@@ -6,14 +6,12 @@
 # TODO: Do the script idempotent
 #       User Perl
 
-
-
 # stop samba
 stop smbd
 stop nmbd
 
 # restart users
-/etc/init.d/ebox users restart
+invoke-rc.d zentyal users restart
 
 # create home directories
 test -d /home/samba || mkdir /home/samba
@@ -82,7 +80,6 @@ close(FD);
 system("/bin/mount -o remount $mount");
 exit 0;
 ';
-
 
 /usr/share/ebox-samba/ebox-samba-ldap fix-sids
 

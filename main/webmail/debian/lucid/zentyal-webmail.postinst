@@ -7,7 +7,7 @@ case "$1" in
 
         # migrate data
 #       uncoment next line when is needed to migrate data
-#       /usr/share/ebox/ebox-migrate /usr/share/ebox-webmail/migration
+#       /usr/share/zentyal-core/ebox-migrate /usr/share/ebox-webmail/migration
 
         # restart module
         invoke-rc.d zentyal webmail restart

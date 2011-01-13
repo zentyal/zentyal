@@ -4,7 +4,7 @@
 
 # postservice scripts are run after the services associated to a given service
 # module are run. The module will check if an executable file called
-# <module>.postservice exists in /etc/ebox/hooks and will try to run it.
+# <module>.postservice exists in /etc/zentyal/hooks and will try to run it.
 
 # The script will receive a command line argument indicating whether the
 # module is enabled (1) or not (0).

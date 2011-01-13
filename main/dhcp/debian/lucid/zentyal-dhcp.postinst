@@ -7,13 +7,13 @@ set -e
 case "$1" in
     configure)
         # create log table
-        /usr/share/ebox/ebox-sql-table add leases /usr/share/ebox/sqllog/dhcp.sql || true
+        /usr/share/zentyal-core/ebox-sql-table add leases /usr/share/zentyal-core/sqllog/dhcp.sql || true
 
         # restart logs
         invoke-rc.d zentyal logs restart || true
 
         # Migrate data if needed
-        /usr/share/ebox/ebox-migrate /usr/share/ebox-dhcp/migration/ || true
+        /usr/share/zentyal-core/ebox-migrate /usr/share/ebox-dhcp/migration/ || true
 
         # Restart dhcp module
         invoke-rc.d zentyal dhcp restart || true

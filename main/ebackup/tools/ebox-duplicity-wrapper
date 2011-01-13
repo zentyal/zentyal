@@ -28,7 +28,7 @@ use EBox::Sudo;
 
 my %originalArgv = map { $_ => 1 } @ARGV;
 
-my $debug = (EBox::Config::configkeyFromFile('debug', '/etc/ebox/99ebox.conf') eq 'yes');
+my $debug = (EBox::Config::configkey('debug') eq 'yes');
 
 # set environment variables for passwords
 my $alternativePasswordArg = '--alternative-password';

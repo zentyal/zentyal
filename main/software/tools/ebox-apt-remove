@@ -21,7 +21,7 @@ use EBox::Global;
 use Date::Format;
 use Error qw(:try);
 
-use constant LOG_FILE => '/var/log/ebox/software.log';
+use constant LOG_FILE => EBox::Config::log() . 'software.log';
 my $DPKG_RUNNING_FILE = EBox::Global::DPKG_RUNNING_FILE;
 
 my $auto = pop @ARGV;

@@ -21,6 +21,7 @@ use warnings;
 use base 'EBox::CGI::ClientBase';
 
 use EBox::Global;
+use EBox::Config;
 use EBox::Gettext;
 use EBox::Exceptions::Internal;
 use Error qw(:try);
@@ -55,7 +56,7 @@ sub _process
     } catch EBox::Exceptions::Internal with {
         my ($ex) = @_;
         EBox::error("Restart of $mod from dashboard failed: " . $ex->text);
-        $self->{msg} = __x('Error restarting service. See {logs} for more information.', logs => '/var/log/ebox/ebox.log');
+        $self->{msg} = __x('Error restarting service. See {logs} for more information.', logs => EBox::Config::logfile());
     };
     $self->cgi()->delete_all();
 }

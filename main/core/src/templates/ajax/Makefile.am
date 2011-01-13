@@ -3,7 +3,7 @@
 
 SUBDIRS = setter viewer
 
-templatedir = $(datadir)/ebox/templates/ajax
+templatedir = $(datadir)/zentyal-core/templates/ajax
 template_DATA = composite.mas form.mas modelViewer.mas selector.mas \
 	        tableHeader.mas tableBody.mas tableSelector.mas \
 	        tableBodyWithoutActions.mas \

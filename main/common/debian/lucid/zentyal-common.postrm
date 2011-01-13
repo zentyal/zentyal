@@ -6,9 +6,9 @@ case "$1" in
 	purge)
 		#delete logs and temporary files when purging
 		rm -rf /var/lib/ebox/
-		# delete ebox sysconfig
-		rm -rf /etc/ebox
-		;;	
+		# delete Zentyal sysconfig
+		rm -rf /etc/zentyal
+		;;
 esac
 
 #DEBHELPER#

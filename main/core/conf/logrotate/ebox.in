@@ -1,4 +1,4 @@
-@LOCALSTATEDIR@/log/ebox/error.log @LOCALSTATEDIR@/log/ebox/access.log {
+@LOCALSTATEDIR@/log/zentyal/error.log @LOCALSTATEDIR@/log/zentyal/access.log {
         rotate 7
         size 10M
         compress
@@ -8,14 +8,14 @@
         notifempty
         postrotate
                 if [ -x /usr/sbin/invoke-rc.d ]; then \
-                        invoke-rc.d ebox apache restart > /dev/null; \
+                        invoke-rc.d zentyal apache restart > /dev/null; \
                 else \
-                        /etc/init.d/ebox apache restart > /dev/null; \
+                        /etc/init.d/zentyal apache restart > /dev/null; \
                 fi; \
         endscript
 }
 
-@LOCALSTATEDIR@/log/ebox/ebox.log {
+@LOCALSTATEDIR@/log/zentyal/zentyal.log {
         rotate 7
         size 10M
         compress

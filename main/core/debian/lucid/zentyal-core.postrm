@@ -14,8 +14,8 @@ case "$1" in
         rm -f /var/lib/ebox/conf/ssl.crt/ebox.cert  /var/lib/ebox/conf/ssl.key/ebox.key \
             /var/lib/ebox/conf/ssl.pem/ebox.pem || true
 
-        # delete eBox logs
-        rm -rf /var/log/ebox || true
+        # delete Zentyal logs
+        rm -rf /var/log/zentyal || true
         ;;
 esac
 

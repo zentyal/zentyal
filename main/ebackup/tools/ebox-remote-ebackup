@@ -113,7 +113,7 @@ sub _mangleDuplicityErrorMsg
                    dir   => $tmpDir,
                    avail => $avail,
                    need  => $need,
-                   conf  => '/etc/ebox/82ebackup.conf',
+                   conf  => '/etc/zentyal/82ebackup.conf',
                   );
 
     }

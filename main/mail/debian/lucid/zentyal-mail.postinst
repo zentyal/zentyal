@@ -18,13 +18,13 @@ case "$1" in
 
 
         # create log table
-        /usr/share/ebox/ebox-sql-table add mail_message /usr/share/ebox/sqllog/mail_message.sql
-        /usr/share/ebox/ebox-sql-table add mail_message_report /usr/share/ebox/sqllog/mail_message_report.sql
-        /usr/share/ebox/ebox-sql-table-with-time-period add mail_traffic /usr/share/ebox/sqllog/mail_traffic.sql
+        /usr/share/zentyal-core/ebox-sql-table add mail_message /usr/share/zentyal-core/sqllog/mail_message.sql
+        /usr/share/zentyal-core/ebox-sql-table add mail_message_report /usr/share/zentyal-core/sqllog/mail_message_report.sql
+        /usr/share/zentyal-core/ebox-sql-table-with-time-period add mail_traffic /usr/share/zentyal-core/sqllog/mail_traffic.sql
 
 
         # migrate data
-        /usr/share/ebox/ebox-migrate /usr/share/ebox-mail/migration
+        /usr/share/zentyal-core/ebox-migrate /usr/share/ebox-mail/migration
 
         # restart logs
         invoke-rc.d zentyal logs restart || true

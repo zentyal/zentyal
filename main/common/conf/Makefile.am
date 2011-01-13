@@ -3,7 +3,7 @@
 Confdir = $(localstatedir)/lib/ebox/conf
 Conf_DATA = eboxlog.conf
 
-Etcdir = $(sysconfdir)/ebox
+Etcdir = $(sysconfdir)/zentyal
 Etc_DATA = 99ebox.conf
 
 EXTRA_DIST = $(Etc_DATA)

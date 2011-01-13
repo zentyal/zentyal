@@ -1,6 +1,6 @@
 ## Process this file with automake to produce Makefile.in
 
-templatedir = $(datadir)/ebox/templates/common
+templatedir = $(datadir)/zentyal-core/templates/common
 template_DATA = enable.mas
 
 EXTRA_DIST = $(template_DATA)

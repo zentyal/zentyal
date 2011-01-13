@@ -1,6 +1,6 @@
 ## Process this file with automake to produce Makefile.in
 
-templatedir = $(datadir)/ebox/templates/logout
+templatedir = $(datadir)/zentyal-core/templates/logout
 template_DATA = index.mas
 
 EXTRA_DIST = $(template_DATA)

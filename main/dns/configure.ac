@@ -17,7 +17,6 @@ AC_ARG_ENABLE([runtime-tests],
 
 if test "x$enable_runtime_tests" = "xyes" ; then
 	AC_CHECK_PROG(PERL, perl, perl, none)
-	AC_CHECK_PROG(GCONFTOOL, gconftool-2, gconftool-2, none)
 
 	perlpath=`$PERL -e 'foreach (@INC) { print "$_\n";}' | grep "^$DATADIR" | head -1`
 	if test -z "$perlpath" ; then
@@ -27,17 +26,8 @@ if test "x$enable_runtime_tests" = "xyes" ; then
 	if test "$PERL" = "none" ; then
 		AC_MSG_ERROR(perl not found)
 	fi
-	if test "$GCONFTOOL" = "none" ; then
-		AC_MSG_ERROR(gconftool not found)
-	fi
 
-
-	AM_GCONF_SOURCE_2
 	AC_PROG_BIND9
-
-else
-	GCONF_SCHEMAS_INSTALL_FALSE=
-	GCONF_SCHEMAS_INSTALL_TRUE='#'
 fi
 
 AC_CONF_EBOX($enable_runtime_tests)

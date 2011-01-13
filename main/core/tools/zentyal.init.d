@@ -53,7 +53,7 @@ sub checkModule {
 
 sub checkDatabase() {
     unless (-e '/var/lib/ebox/.db-created')  {
-        system('sudo /usr/share/ebox/ebox-create-db eboxlogs');
+        system('sudo /usr/share/zentyal-core/ebox-create-db eboxlogs');
     }
 }
 

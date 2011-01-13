@@ -6,7 +6,7 @@ case "$1" in
 	configure)
 
        # migrate data if needed
-       /usr/share/ebox/ebox-migrate /usr/share/ebox-antivirus/migration/
+       /usr/share/zentyal-core/ebox-migrate /usr/share/ebox-antivirus/migration/
 
        # Disable clamd apparmor as it needs some tweaking to make it work with
        # our configuration
