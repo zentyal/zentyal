@@ -148,6 +148,8 @@ try {
 
     saveChanges();
 
+    regenerateCaches();
+
     finishedMessage($credentials);
     clearTmpDir(); # Comment this for debug purposes
 } otherwise {
@@ -823,8 +825,12 @@ sub _installCloudPackages
     _aptInstall(\@toInstall, $msg);
 
     # No configure modules stage required because:
-    # ebox-cloud-prof no needs configuration
+    # ebox-cloud-prof no needs configuration but only restoring
     # zentyal-security-updates is not a zentyal module
+    if ( 'cloud-prof' eq any(@toInstall) ) {
+        EBox::Backup->restoreBackup($confBackup, revokeAllOnModuleFail => 0,
+                                    modsToRestore => [ 'cloud-prof' ]);
+    }
 }
 
 
@@ -1801,6 +1807,7 @@ sub _remoteUrlParamsFromCredentials
     return \%params;
 }
 
+# Perform saving changes
 sub saveChanges
 {
     my ($msg, $retry) = @_;
@@ -1828,6 +1835,21 @@ sub saveChanges
             }
         }
     }
+}
+
+# Regenerate the ebackup cache for file list that it is not done
+# already for restarting the module so we have to do it by hand
+sub regenerateCaches
+{
+    my $msg = __('Regenerating file list cache');
+    my $pulsatePid = _showUnanticipatedProgress($msg);
+
+    try {
+        my $ebackup = EBox::Global->modInstance('ebackup');
+        $ebackup->remoteGenerateListFile();
+    } finally {
+        _finishUnanticipatedProgress($pulsatePid);
+    };
 }
 
 sub _xauthCookie
