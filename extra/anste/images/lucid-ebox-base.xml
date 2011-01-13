@@ -5,7 +5,7 @@
 
     <memory>2000</memory>
 
-    <size>1500</size>
+    <size>2000</size>
 
     <install method="debootstrap">
         <dist>lucid</dist>
