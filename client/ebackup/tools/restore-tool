@@ -1303,23 +1303,6 @@ sub _backupDomainsAvailableByPrintableName
     return \%domains;
 }
 
-sub _checkToRestore
-{
-    my ($configBackup, $credentials, $date, $toRestore) = @_;
-    my %byPrintableName = %{ _backupDomainsAvailableByPrintableName ($credentials) };
-    my %available =  reverse %byPrintableName;
-
-    foreach my $domain (keys %{ $toRestore }) {
-        # special 'configuration' domain is always available
-        next if ($domain eq 'configuration');
-
-        unless ($available{$domain}) {
-            fatal(__x('{domain} is not available to restore in the backup',
-                     domain => $domain));
-        }
-    }
-}
-
 sub terminalPrompt
 {
     my ($msg, $hide) = @_;
@@ -1623,6 +1606,8 @@ sub _zenityAnswerFromOutput
 
     $answer =~ s/^\s*//;
     $answer =~ s/\s*$//;
+    # Decoding UTF8 strings if any...
+    utf8::decode($answer);
     return $answer;
 }
 
@@ -2033,7 +2018,6 @@ sub getBackupDomainsToRestore
             $domains = { map { $_ => 1 } @domainsCli };
         }
 
-        _checkToRestore($metadata, $domains);
     } else {
         @domainsCli = grep { $_ ne 'configuration' } @domainsCli;
         if (@domainsCli) {
