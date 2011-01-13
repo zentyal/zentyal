@@ -737,13 +737,7 @@ sub _installDebPackages
         # cloud-prof is a special case
         next if ($mod eq 'cloud-prof');
 
-        if ($mod eq 'users') {
-            push @packages, 'ebox-usersandgroups';
-        } else {
-            # If the debian package does not conform to the ebox-{modulename} stand
-            # this will fail
-            push @packages, 'ebox-' . $mod;
-        }
+        push (@packages, "zentyal-$mod");
     }
 
     my $msg = __('Installing Zentyal components and their dependencies');
@@ -853,7 +847,7 @@ sub _loadSubscriptionBundle
 
     } elsif ($res == 2) {
         warning(__('Cannot retrieve bundle because either installed ' .
-                   'ebox-remoteservices is outdated or only outdated ' .
+                   'zentyal-remoteservices is outdated or only outdated ' .
                    'bundle is available in the cloud. Zentyal Cloud  ' .
                    'exclusive packages will not be installed'));
     } else {
