@@ -1,4 +1,4 @@
-AC_INIT([EBox-ebackup], [2.0.8])
+AC_INIT([EBox-ebackup], [2.0.9])
 
 AC_CONFIG_AUX_DIR([config])
 AC_CONFIG_SRCDIR([src/EBox/EBackup.pm])
