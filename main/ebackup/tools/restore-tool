@@ -740,9 +740,10 @@ sub _installDebPackages
         push (@packages, "zentyal-$mod");
     }
 
-    my $msg = __('Installing Zentyal components and their dependencies');
-
-    _aptInstall(\@packages, $msg);
+    if (@packages) {
+        my $msg = __('Installing Zentyal components and their dependencies');
+        _aptInstall(\@packages, $msg);
+    }
 
     # TODO: assure that modules are loaded and retrievable by EBox::Global->modInstance
 }
