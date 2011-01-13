@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-ebackup 1.3.3\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2011-01-13 17:39+0100\n"
-"PO-Revision-Date: 2010-12-22 20:33+0200\n"
+"PO-Revision-Date: 2011-01-12 16:00+0200\n"
 "Last-Translator: Jorge <jorge@netsol.com.br>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "MIME-Version: 1.0\n"
@@ -498,7 +498,7 @@ msgid ""
 "A file or directory is included or excluded according the first match. A "
 "directory match is applied to all it contents. Files not explicitly excluded "
 "or included are included"
-msgstr ""
+msgstr "Erro conectando ao servidor backup. Status do storage desconhecido"
 "Um arquivo ou diretório será incluído ou excluído de acordo com o primeira "
 "escolha. Uma escolha de diretório é aplicada a todo o conteúdo dele. Os "
 "arquivos não explicitamente excluídos ou incluídos estão incluídos"
@@ -573,20 +573,19 @@ msgstr "Configurações e Status"
 msgid ""
 "No backups found in this server. Do you want to retry with a different one?"
 msgstr ""
+"Backups não foram encontrados neste servidor. Deseja tentar com um "
+"diferente?"
 
 #: tools/restore-tool:108
-#, fuzzy
 msgid ""
 "There is not configuration backup from this date. Do you want to retry with "
 "another date?"
-msgstr ""
-"Backup de configuração não encontrado em backup para {d}. Talvez você possa "
-"tentar outra data?"
+msgstr "Não há backup de configuração desta data. Deseja tentar outra data?"
 
 #: tools/restore-tool:190
 #, perl-brace-format
 msgid "You can only specify one of the encryption options: {sy}, {no}"
-msgstr ""
+msgstr "Você pode especificar somente uma das opções de encriptação: {sy}, {no}"
 
 #: tools/restore-tool:206
 msgid "Zenity package not found. Falling back to terminal mode"
@@ -622,6 +621,8 @@ msgstr "Domínio do backup a restaurar. Isto pode ser repetido várias vezes"
 msgid ""
 "Check if we use the no encryption or a symmetric encryption with password "
 msgstr ""
+"Verifique se nós usamos sem encriptação ou uma encriptação simétrica com "
+"senha "
 
 #: tools/restore-tool:233
 msgid "Do not use graphical interface"
@@ -664,7 +665,7 @@ msgstr "Selecione domínios de backup para restaurar"
 #: tools/restore-tool:318
 #, perl-brace-format
 msgid "Backup domains available in the server {cn}: {l}"
-msgstr ""
+msgstr "Backup de domínios disponível neste servidor {cn}: {l}"
 
 #: tools/restore-tool:336
 msgid "No backup domain selected to restore. Doing nothing"
@@ -752,7 +753,7 @@ msgstr "Instalando componentes Zentyal e suas dependências"
 
 #: tools/restore-tool:768
 msgid "Installing missing modules..."
-msgstr ""
+msgstr "Instalando módulos que faltavam..."
 
 #: tools/restore-tool:774
 #, perl-brace-format
@@ -809,9 +810,9 @@ msgid "Configuring modules"
 msgstr "Configurando módulos"
 
 #: tools/restore-tool:942
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Configuring modules: Current module {mod}"
-msgstr "Configurações e Status"
+msgstr "Configurando módulos: Módulo atual {mod}"
 
 #: tools/restore-tool:946
 #, perl-brace-format
@@ -833,7 +834,7 @@ msgstr "Finalizando a configuração de novos módulos"
 
 #: tools/restore-tool:1022
 msgid "Downloading backup metadata..."
-msgstr ""
+msgstr "Baixando backup de meta dados..."
 
 #: tools/restore-tool:1041
 msgid "Downloading the backup data and configuration"
@@ -962,7 +963,7 @@ msgstr "A conta {user} não tem nenhum servidor Zentyal registrado"
 #: tools/restore-tool:1990
 #, perl-brace-format
 msgid "Enter password used to encrypt back up {ser}"
-msgstr ""
+msgstr "Digite a senha usada para encriptar o backup {ser}"
 
 #: tools/restore-tool:2046
 #, perl-brace-format
