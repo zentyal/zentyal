@@ -1,0 +1,268 @@
+# Greek translations for ebox-dns package.
+# Copyright (C) 2011 eBox Technologies S.L.
+# This file is distributed under the same license as the ebox-dns package.
+# Automatically generated, 2011.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: ebox-dns 2.0.1"
+"Report-Msgid-Bugs-To: developers@zentyal.org\n"
+"POT-Creation-Date: 2010-08-26 00:53+0200\n"
+"PO-Revision-Date: 2010-08-26 00:53+0200\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: none\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: src/EBox/Model/DomainTable.pm:178
+msgid "Domain"
+msgstr ""
+
+#: src/EBox/Model/DomainTable.pm:186 src/EBox/Model/HostnameTable.pm:223
+msgid "Hostnames"
+msgstr ""
+
+#: src/EBox/Model/DomainTable.pm:195
+msgid "Mail Exchangers"
+msgstr ""
+
+#: src/EBox/Model/DomainTable.pm:203
+msgid "Name Servers"
+msgstr ""
+
+#: src/EBox/Model/DomainTable.pm:211 src/EBox/Model/HostnameTable.pm:196
+msgid "IP Address"
+msgstr ""
+
+#: src/EBox/Model/DomainTable.pm:219
+msgid "Dynamic"
+msgstr ""
+
+#: src/EBox/Model/DomainTable.pm:223
+msgid "A domain is dynamic when the DHCP server updates the domain"
+msgstr ""
+
+#: src/EBox/Model/DomainTable.pm:241
+msgid "List of Domains"
+msgstr ""
+
+#: src/EBox/Model/DomainTable.pm:242 src/EBox/Model/DNSComposite.pm:75
+#: src/EBox/Model/DNSComposite.pm:76
+msgid "DNS"
+msgstr ""
+
+#: src/EBox/Model/DomainTable.pm:249 src/EBox/DNS.pm.in:265
+msgid "domain"
+msgstr ""
+
+#: src/EBox/Model/MailExchanger.pm:86
+#, perl-brace-format
+msgid "Invalid preference number. Allowed range: ({min}, {max})"
+msgstr ""
+
+#: src/EBox/Model/MailExchanger.pm:96
+#, perl-brace-format
+msgid ""
+"The given host name is not a fully qualified domain name (FQDN). Do you mean "
+"mx.{name}?"
+msgstr ""
+
+#: src/EBox/Model/MailExchanger.pm:132
+msgid "The domain is set as read only. You cannot add mail exchangers"
+msgstr ""
+
+#: src/EBox/Model/MailExchanger.pm:151 src/EBox/Model/NameServer.pm:130
+#: src/EBox/Model/HostnameTable.pm:188 src/templates/edit.mas:20
+msgid "Host name"
+msgstr ""
+
+#: src/EBox/Model/MailExchanger.pm:154 src/EBox/Model/NameServer.pm:133
+msgid "If you choose \"Custom\", it should be a Fully Qualified Domain Name"
+msgstr ""
+
+#: src/EBox/Model/MailExchanger.pm:160 src/EBox/Model/NameServer.pm:139
+msgid "This domain"
+msgstr ""
+
+#: src/EBox/Model/MailExchanger.pm:168 src/EBox/Model/NameServer.pm:147
+msgid "Custom"
+msgstr ""
+
+#: src/EBox/Model/MailExchanger.pm:176
+msgid "Preference"
+msgstr ""
+
+#: src/EBox/Model/MailExchanger.pm:185
+msgid "Mail exchangers"
+msgstr ""
+
+#: src/EBox/Model/MailExchanger.pm:191
+#, perl-brace-format
+msgid ""
+"The smallest preference number has the highest priority  and is the first "
+"server to be tried when a remote client (typically another mail server) does "
+"an MX lookup for the domain name. Allowed preference number interval = "
+"({min}, {max})"
+msgstr ""
+
+#: src/EBox/Model/MailExchanger.pm:197
+msgid "Mail exchanger record"
+msgstr ""
+
+#: src/EBox/Model/AliasTable.pm:81
+#, perl-brace-format
+msgid ""
+"An alias cannot be the nameserver host name \"{ns}\". Use a hostname instead"
+msgstr ""
+
+#: src/EBox/Model/AliasTable.pm:94
+#, perl-brace-format
+msgid "There is a hostname with the same name \"{name}\" in the same domain"
+msgstr ""
+
+#: src/EBox/Model/AliasTable.pm:103
+#, perl-brace-format
+msgid ""
+"There is an alias for {hostname} hostname with the same name \"{name}\" in "
+"the same domain"
+msgstr ""
+
+#: src/EBox/Model/AliasTable.pm:131 src/EBox/Model/AliasTable.pm:141
+#: src/EBox/Model/AliasTable.pm:147 src/EBox/Model/HostnameTable.pm:204
+#: src/templates/edit.mas:64 src/templates/edit.mas:85
+msgid "Alias"
+msgstr ""
+
+#: src/EBox/Model/AliasTable.pm:148
+msgid "alias"
+msgstr ""
+
+#: src/EBox/Model/NameServer.pm:76
+#, perl-brace-format
+msgid ""
+"The given host name is not a fully qualified domain name (FQDN). Do you mean "
+"ns.{name}?"
+msgstr ""
+
+#: src/EBox/Model/NameServer.pm:111
+msgid "The domain is set as read only. You cannot add name servers"
+msgstr ""
+
+#: src/EBox/Model/NameServer.pm:158
+msgid "Name servers"
+msgstr ""
+
+#: src/EBox/Model/NameServer.pm:164
+msgid "It manages the name server (NS) records for this domain"
+msgstr ""
+
+#: src/EBox/Model/NameServer.pm:165
+msgid "name server record"
+msgstr ""
+
+#: src/EBox/Model/HostnameTable.pm:136
+#, perl-brace-format
+msgid ""
+"There is an alias with the same name \"{name}\" for \"{hostname}\" in the "
+"same domain"
+msgstr ""
+
+#: src/EBox/Model/HostnameTable.pm:170
+msgid "The domain is set as read only. You cannot add host names"
+msgstr ""
+
+#: src/EBox/Model/HostnameTable.pm:216
+msgid "Host names"
+msgstr ""
+
+#: src/EBox/Model/HostnameTable.pm:224
+msgid "host name"
+msgstr ""
+
+#: src/EBox/Model/DNSComposite.pm:78
+msgid "The DNS server allows you to resolve names for your own domains."
+msgstr ""
+
+#: src/EBox/DNS.pm.in:518
+msgid "main bind9 configuration file"
+msgstr ""
+
+#: src/EBox/DNS.pm.in:523
+msgid "bind9 options configuration file"
+msgstr ""
+
+#: src/EBox/DNS.pm.in:528
+msgid "local bind9 configuration file"
+msgstr ""
+
+#: src/EBox/DNS.pm.in:533
+msgid "Keys configuration file"
+msgstr ""
+
+#: src/EBox/DNS.pm.in:550
+#, perl-brace-format
+msgid "configuration file for zone {zone}"
+msgstr ""
+
+#: src/EBox/DNS.pm.in:566
+#, perl-brace-format
+msgid "configuration file for reverse resolution zone {zone}"
+msgstr ""
+
+#: src/EBox/DNS.pm.in:584
+#, perl-brace-format
+msgid "Change the permissions for {dir} to allow writing to bind group"
+msgstr ""
+
+#: src/EBox/DNS.pm.in:586
+msgid "Let the bind daemon to be dynamically updated"
+msgstr ""
+
+#: src/templates/edit.mas:12
+#, perl-brace-format
+msgid "Host list for domain {domain}"
+msgstr ""
+
+#: src/templates/edit.mas:17
+msgid "IP"
+msgstr ""
+
+#: src/templates/edit.mas:23 src/templates/index.mas:24
+msgid "Action"
+msgstr ""
+
+#: src/templates/edit.mas:40 src/templates/edit.mas:41
+#: src/templates/edit.mas:42 src/templates/edit.mas:74
+#: src/templates/edit.mas:75 src/templates/edit.mas:76
+#: src/templates/index.mas:37 src/templates/index.mas:38
+#: src/templates/index.mas:39
+msgid "Add"
+msgstr ""
+
+#: src/templates/edit.mas:54 src/templates/edit.mas:55
+#: src/templates/edit.mas:93 src/templates/edit.mas:94
+#: src/templates/index.mas:53 src/templates/index.mas:54
+msgid "Delete"
+msgstr ""
+
+#: src/templates/edit.mas:110 src/templates/index.mas:70
+msgid "delete"
+msgstr ""
+
+#: src/templates/index.mas:16
+msgid "Domain list"
+msgstr ""
+
+#: src/templates/index.mas:21
+msgid "Name"
+msgstr ""
+
+#: src/templates/index.mas:49
+msgid "Edit"
+msgstr ""
+
+#: src/templates/index.mas:65
+msgid "edit"
+msgstr ""

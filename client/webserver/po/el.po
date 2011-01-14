@@ -1,0 +1,230 @@
+# Greek translations for ebox-webserver package.
+# Copyright (C) 2011 eBox Technologies S.L.
+# This file is distributed under the same license as the ebox-webserver package.
+# Automatically generated, 2011.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: ebox-webserver 2.0.3"
+"Report-Msgid-Bugs-To: developers@zentyal.org\n"
+"POT-Creation-Date: 2010-08-25 17:50+0200\n"
+"PO-Revision-Date: 2010-08-25 17:50+0200\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: none\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: migration/0001_add_service_and_port.pl:147
+msgid "HyperText Transport Protocol"
+msgstr ""
+
+#: src/EBox/WebServer.pm:80 src/EBox/WebServer.pm:618
+#: src/EBox/WebServer/Composite/General.pm:78
+msgid "Web Server"
+msgstr ""
+
+#: src/EBox/WebServer.pm:100
+msgid "To set webserver listening port."
+msgstr ""
+
+#: src/EBox/WebServer.pm:105
+msgid "To configure default virtual host."
+msgstr ""
+
+#: src/EBox/WebServer.pm:110
+msgid "To configure default SSL virtual host."
+msgstr ""
+
+#: src/EBox/WebServer.pm:115
+msgid "To configure the per-user public_html directory."
+msgstr ""
+
+#: src/EBox/WebServer.pm:140
+msgid "Enable Apache LDAP user module"
+msgstr ""
+
+#: src/EBox/WebServer.pm:142
+msgid "To fetch home directories from LDAP."
+msgstr ""
+
+#: src/EBox/WebServer.pm:145
+msgid "Enable Apache SSL module"
+msgstr ""
+
+#: src/EBox/WebServer.pm:147
+msgid "To serve pages over HTTPS."
+msgstr ""
+
+#: src/EBox/WebServer.pm:185
+msgid "Web service status"
+msgstr ""
+
+#: src/EBox/WebServer.pm:441
+#, perl-brace-format
+msgid "The {userDirConfFile} is missing! Please recover it."
+msgstr ""
+
+#: src/EBox/WebServer/Model/GeneralSettings.pm:97
+#: src/EBox/WebServer/Model/GeneralSettings.pm:109
+#: src/EBox/WebServer/Model/GeneralSettings.pm:120
+#: src/EBox/WebServer/Model/GeneralSettings.pm:230
+msgid "Listening port"
+msgstr ""
+
+#: src/EBox/WebServer/Model/GeneralSettings.pm:115
+#, perl-brace-format
+msgid ""
+"Zentyal Administration is running on this port, change it on {ohref}System -"
+"> General{chref}."
+msgstr ""
+
+#: src/EBox/WebServer/Model/GeneralSettings.pm:128
+#, perl-brace-format
+msgid ""
+"You need a Service Certificate for the Web Server module, enable it on "
+"{ohref}Certification Authority -> Service Certificates{chref}."
+msgstr ""
+
+#: src/EBox/WebServer/Model/GeneralSettings.pm:140
+msgid ""
+"Having installed and configured the Users and Groups module is required to "
+"allow HTML directories for users."
+msgstr ""
+
+#: src/EBox/WebServer/Model/GeneralSettings.pm:146
+msgid ""
+"A properly configured Users and Groups module is required to allow HTML "
+"directories for users. To configure it, please enable it at least one time."
+msgstr ""
+
+#: src/EBox/WebServer/Model/GeneralSettings.pm:236
+msgid "Listening SSL port"
+msgstr ""
+
+#: src/EBox/WebServer/Model/GeneralSettings.pm:240
+#: src/EBox/WebServer/Model/VHostTable.pm:253
+msgid "Disabled"
+msgstr ""
+
+#: src/EBox/WebServer/Model/GeneralSettings.pm:245
+msgid "Enabled"
+msgstr ""
+
+#: src/EBox/WebServer/Model/GeneralSettings.pm:253
+#, perl-brace-format
+msgid "Enable per user {dirName}"
+msgstr ""
+
+#: src/EBox/WebServer/Model/GeneralSettings.pm:257
+msgid ""
+"Allow users to publish web documents using the public_html directory on "
+"their home."
+msgstr ""
+
+#: src/EBox/WebServer/Model/GeneralSettings.pm:265
+msgid "General configuration settings"
+msgstr ""
+
+#: src/EBox/WebServer/Model/GeneralSettings.pm:269
+#, perl-brace-format
+msgid ""
+"General Web server configuration. The listening port must not be used by "
+"another service. If you enable user to publish their own html pages, those "
+"should be loaded from {dirName} directory from their home directories."
+msgstr ""
+
+#: src/EBox/WebServer/Model/GeneralSettings.pm:275
+msgid "General Web server configuration settings updated."
+msgstr ""
+
+#: src/EBox/WebServer/Model/VHostTable.pm:94
+msgid "Virtual host name"
+msgstr ""
+
+#: src/EBox/WebServer/Model/VHostTable.pm:98
+#: src/EBox/WebServer/Model/VHostTable.pm:311
+msgid "Virtual host"
+msgstr ""
+
+#: src/EBox/WebServer/Model/VHostTable.pm:105
+msgid "SSL support is disabled. Enable it before adding a SSL virtual host."
+msgstr ""
+
+#: src/EBox/WebServer/Model/VHostTable.pm:170
+#, perl-brace-format
+msgid ""
+"Virtual host {vhost} added. A domain {domain} has been created with the "
+"mapping name {name} - IP address {ip}. {noDnsWarning} "
+msgstr ""
+
+#: src/EBox/WebServer/Model/VHostTable.pm:189
+#, perl-brace-format
+msgid ""
+"Virtual host {vhost} added. A mapping name {name} - IP address {ip} has been "
+"added to {domain} domain."
+msgstr ""
+
+#: src/EBox/WebServer/Model/VHostTable.pm:203
+#, perl-brace-format
+msgid "Virtual host {vhost} added as an alias {alias} to hostname {hostname}."
+msgstr ""
+
+#: src/EBox/WebServer/Model/VHostTable.pm:209
+#: src/EBox/WebServer/Model/VHostTable.pm:214
+#, perl-brace-format
+msgid "Virtual host {vhost} added."
+msgstr ""
+
+#: src/EBox/WebServer/Model/VHostTable.pm:219
+msgid "There is no static internal interface to set the Web server IP address."
+msgstr ""
+
+#: src/EBox/WebServer/Model/VHostTable.pm:254
+msgid "Allow SSL"
+msgstr ""
+
+#: src/EBox/WebServer/Model/VHostTable.pm:255
+msgid "Force SSL"
+msgstr ""
+
+#: src/EBox/WebServer/Model/VHostTable.pm:280
+msgid "SSL support"
+msgstr ""
+
+#: src/EBox/WebServer/Model/VHostTable.pm:287
+msgid "Name"
+msgstr ""
+
+#: src/EBox/WebServer/Model/VHostTable.pm:297
+msgid "Virtual hosts"
+msgstr ""
+
+#: src/EBox/WebServer/Model/VHostTable.pm:301
+#, perl-brace-format
+msgid ""
+"Virtual hosts are a form of web hosting service where many instances of the "
+"same web server are hosted on a single physical server. Different host names "
+"point to the same web server. If feasible, the DNS entry is automatically "
+"created. The content must be placed under the {docRoot} directory. Any "
+"particular configuration you want to add must be placed in the {userConf} "
+"directory."
+msgstr ""
+
+#: src/EBox/WebServer/Model/VHostTable.pm:332
+#, perl-brace-format
+msgid ""
+"{open}The DNS module is disabled. The added mapping or domains will not have "
+"any effect until you enable it"
+msgstr ""
+
+#: src/EBox/WebServer/Composite/General.pm:77
+msgid "Configuration"
+msgstr ""
+
+#: src/EBox/WebServer/Composite/General.pm:80
+msgid ""
+"The Zentyal web service allows you to host Web pages in plain HTML within "
+"different virtual hosts."
+msgstr ""

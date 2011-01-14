@@ -1,0 +1,689 @@
+# Greek translations for ebox-samba package.
+# Copyright (C) 2011 eBox Technologies S.L.
+# This file is distributed under the same license as the ebox-samba package.
+# Automatically generated, 2011.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: ebox-samba 2.0.7"
+"Report-Msgid-Bugs-To: developers@zentyal.org\n"
+"POT-Creation-Date: 2010-08-25 17:48+0200\n"
+"PO-Revision-Date: 2010-08-25 17:48+0200\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: none\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: migration/0001_add_samba_service.pl:113
+msgid "File sharing (Samba) protocol"
+msgstr ""
+
+#: src/EBox/SambaLdapUser.pm:287
+msgid "This user has a sharing directory associated which contains data."
+msgstr ""
+
+#: src/EBox/SambaLdapUser.pm:346 src/EBox/SambaLdapUser.pm:364
+#, perl-brace-format
+msgid "Incorrect SID: {s}"
+msgstr ""
+
+#: src/EBox/SambaLdapUser.pm:350
+#, perl-brace-format
+msgid "User {u} does not exists"
+msgstr ""
+
+#: src/EBox/SambaLdapUser.pm:354
+#, perl-brace-format
+msgid "User {u} is not a samba user"
+msgstr ""
+
+#: src/EBox/SambaLdapUser.pm:368
+#, perl-brace-format
+msgid "Group {g} does not exists"
+msgstr ""
+
+#: src/EBox/SambaLdapUser.pm:372
+#, perl-brace-format
+msgid "Group {g} is not a samba group"
+msgstr ""
+
+#: src/EBox/SambaLdapUser.pm:414
+msgid "This group has a sharing directory associated that contains data."
+msgstr ""
+
+#: src/EBox/SambaLdapUser.pm:612
+#, perl-brace-format
+msgid "{g} group does not exist"
+msgstr ""
+
+#: src/EBox/SambaLdapUser.pm:726 src/EBox/SambaLdapUser.pm:754
+#: src/EBox/SambaLdapUser.pm:803 src/EBox/CGI/ActivePrinting.pm:50
+#: src/EBox/CGI/ActiveSharing.pm:46
+msgid "group name"
+msgstr ""
+
+#: src/EBox/SambaLdapUser.pm:759
+msgid "A name should be provided for the share."
+msgstr ""
+
+#: src/EBox/SambaLdapUser.pm:767
+msgid "sharing resource"
+msgstr ""
+
+#: src/EBox/SambaLdapUser.pm:866 src/EBox/Samba.pm:1218 src/EBox/Samba.pm:1250
+msgid "group"
+msgstr ""
+
+#: src/EBox/CGI/ActivePrinting.pm:46 src/EBox/CGI/ActiveSharing.pm:69
+msgid "user name"
+msgstr ""
+
+#: src/EBox/CGI/ActiveSharing.pm:49
+msgid "sharing name"
+msgstr ""
+
+#: src/EBox/CGI/ActiveSharing.pm:72
+msgid "active"
+msgstr ""
+
+#: src/EBox/CGI/ActiveSharing.pm:73
+msgid "Disk quota limit"
+msgstr ""
+
+#: src/EBox/Samba/Model/SambaUser.pm:50
+msgid "File Sharing Account"
+msgstr ""
+
+#: src/EBox/Samba/Model/SambaUser.pm:58 src/EBox/Samba/Composite/General.pm:67
+#: src/EBox/Samba.pm:76
+msgid "File Sharing"
+msgstr ""
+
+#: src/EBox/Samba/Model/DeletedSambaShares.pm:113
+msgid "path"
+msgstr ""
+
+#: src/EBox/Samba/Model/DeletedSambaShares.pm:129
+#: src/EBox/Samba/Model/SambaShares.pm:156
+msgid "share"
+msgstr ""
+
+#: src/EBox/Samba/Model/GeneralSettings.pm:73
+msgid "Netbios and workgroup must have different names"
+msgstr ""
+
+#: src/EBox/Samba/Model/GeneralSettings.pm:78
+msgid "Netbios name cannot be longer than 15 characters"
+msgstr ""
+
+#: src/EBox/Samba/Model/GeneralSettings.pm:88
+msgid "Enable PDC"
+msgstr ""
+
+#: src/EBox/Samba/Model/GeneralSettings.pm:94
+msgid "Domain name"
+msgstr ""
+
+#: src/EBox/Samba/Model/GeneralSettings.pm:100
+msgid "Netbios name"
+msgstr ""
+
+#: src/EBox/Samba/Model/GeneralSettings.pm:106
+msgid "Description"
+msgstr ""
+
+#: src/EBox/Samba/Model/GeneralSettings.pm:112
+msgid "Quota limit"
+msgstr ""
+
+#: src/EBox/Samba/Model/GeneralSettings.pm:116 src/EBox/Samba/Model/PDC.pm:95
+#: src/EBox/Samba/Model/PDC.pm:113
+msgid "Limited to"
+msgstr ""
+
+#: src/EBox/Samba/Model/GeneralSettings.pm:118
+msgid "Mb"
+msgstr ""
+
+#: src/EBox/Samba/Model/GeneralSettings.pm:124 src/EBox/Samba/Model/PDC.pm:91
+#: src/EBox/Samba/Model/PDC.pm:109 src/EBox/Samba/Model/PDC.pm:127
+#: src/templates/samba.mas:21 src/templates/samba.mas:24
+msgid "Disabled"
+msgstr ""
+
+#: src/EBox/Samba/Model/GeneralSettings.pm:130
+msgid "Enable roaming profiles"
+msgstr ""
+
+#: src/EBox/Samba/Model/GeneralSettings.pm:136
+msgid "Drive letter"
+msgstr ""
+
+#: src/EBox/Samba/Model/GeneralSettings.pm:142
+msgid "Samba group"
+msgstr ""
+
+#: src/EBox/Samba/Model/GeneralSettings.pm:146
+msgid ""
+"Only users belonging to this group will have a samba account. Sync happens "
+"every hour"
+msgstr ""
+
+#: src/EBox/Samba/Model/GeneralSettings.pm:152
+msgid "General settings"
+msgstr ""
+
+#: src/EBox/Samba/Model/GeneralSettings.pm:156
+msgid "On this page you can set different general settings for Samba"
+msgstr ""
+
+#: src/EBox/Samba/Model/GeneralSettings.pm:209
+msgid "All users"
+msgstr ""
+
+#: src/EBox/Samba/Model/SambaShares.pm:100
+msgid "Share name"
+msgstr ""
+
+#: src/EBox/Samba/Model/SambaShares.pm:106
+msgid "Share path"
+msgstr ""
+
+#: src/EBox/Samba/Model/SambaShares.pm:112
+msgid "Directory under Zentyal"
+msgstr ""
+
+#: src/EBox/Samba/Model/SambaShares.pm:118
+msgid "File system path"
+msgstr ""
+
+#: src/EBox/Samba/Model/SambaShares.pm:126
+msgid "Comment"
+msgstr ""
+
+#: src/EBox/Samba/Model/SambaShares.pm:131
+msgid "Guest access"
+msgstr ""
+
+#: src/EBox/Samba/Model/SambaShares.pm:134
+msgid "This share will not require authentication."
+msgstr ""
+
+#: src/EBox/Samba/Model/SambaShares.pm:138
+msgid "Access control"
+msgstr ""
+
+#: src/EBox/Samba/Model/SambaShares.pm:148
+#: src/EBox/Samba/Model/SambaSharePermissions.pm:165
+msgid "Shares"
+msgstr ""
+
+#: src/EBox/Samba/Model/SambaShares.pm:186
+msgid "Path not allowed"
+msgstr ""
+
+#: src/EBox/Samba/Model/SambaShares.pm:194
+msgid "Only alphanumeric characters plus _ are valid for a path"
+msgstr ""
+
+#: src/EBox/Samba/Model/SambaShares.pm:228
+msgid "The directory is not empty. Are you sure you want to remove it?"
+msgstr ""
+
+#: src/EBox/Samba/Model/SambaShares.pm:318
+#, perl-brace-format
+msgid ""
+"{openit}Directory under Zentyal{closeit} will automatically create the share."
+"directory in /home/samba/shares {br}{openit}File system path{closeit} will "
+"allow you to share an existing directory within your file system"
+msgstr ""
+
+#: src/EBox/Samba/Model/SambaShares.pm:331
+msgid ""
+"Here you can create shares with more fine-grained permission control. You "
+"can use an existing directory or pick a name and let Zentyal create it for "
+"you."
+msgstr ""
+
+#: src/EBox/Samba/Model/SambaSharePermissions.pm:93
+msgid "Read only"
+msgstr ""
+
+#: src/EBox/Samba/Model/SambaSharePermissions.pm:97
+msgid "Read and write"
+msgstr ""
+
+#: src/EBox/Samba/Model/SambaSharePermissions.pm:101
+msgid "Administrator"
+msgstr ""
+
+#: src/EBox/Samba/Model/SambaSharePermissions.pm:125
+#: src/EBox/Samba/Model/SambaSharePermissions.pm:201
+msgid "User/Group"
+msgstr ""
+
+#: src/EBox/Samba/Model/SambaSharePermissions.pm:175
+msgid "Any access control is disabled if the guest access is allowed."
+msgstr ""
+
+#: src/EBox/Samba/Model/SambaSharePermissions.pm:206 src/EBox/Samba.pm:649
+#: src/EBox/Samba.pm:1664 src/templates/ajax/viewer/shareViewer.mas:8
+msgid "User"
+msgstr ""
+
+#: src/EBox/Samba/Model/SambaSharePermissions.pm:211
+#: src/EBox/Samba/Model/AntivirusExceptions.pm:102
+#: src/EBox/Samba/Model/RecycleExceptions.pm:102
+#: src/templates/ajax/viewer/shareViewer.mas:10
+msgid "Group"
+msgstr ""
+
+#: src/EBox/Samba/Model/SambaSharePermissions.pm:220
+msgid "Permissions"
+msgstr ""
+
+#: src/EBox/Samba/Model/SambaSharePermissions.pm:229
+msgid "Access Control"
+msgstr ""
+
+#: src/EBox/Samba/Model/SambaSharePermissions.pm:236
+msgid "ACL"
+msgstr ""
+
+#: src/EBox/Samba/Model/SambaSharePermissions.pm:249
+msgid ""
+"Be careful if you grant <i>administrator</i> privileges.User will be able to "
+"read and write any file in the share."
+msgstr ""
+
+#: src/EBox/Samba/Model/SambaSharePermissions.pm:259
+msgid " (user))"
+msgstr ""
+
+#: src/EBox/Samba/Model/SambaSharePermissions.pm:261
+msgid " (group))"
+msgstr ""
+
+#: src/EBox/Samba/Model/PDC.pm:77
+msgid "File sharing module is not enabled."
+msgstr ""
+
+#: src/EBox/Samba/Model/PDC.pm:78
+msgid "PDC is not enabled."
+msgstr ""
+
+#: src/EBox/Samba/Model/PDC.pm:87
+msgid "Minimum password length"
+msgstr ""
+
+#: src/EBox/Samba/Model/PDC.pm:96
+msgid "characters"
+msgstr ""
+
+#: src/EBox/Samba/Model/PDC.pm:105
+msgid "Maximum password age"
+msgstr ""
+
+#: src/EBox/Samba/Model/PDC.pm:114
+msgid "days"
+msgstr ""
+
+#: src/EBox/Samba/Model/PDC.pm:123
+msgid "Enforce password history"
+msgstr ""
+
+#: src/EBox/Samba/Model/PDC.pm:131
+msgid "Keep history for"
+msgstr ""
+
+#: src/EBox/Samba/Model/PDC.pm:132
+msgid "passwords remebered"
+msgstr ""
+
+#: src/EBox/Samba/Model/PDC.pm:143
+msgid "PDC"
+msgstr ""
+
+#: src/EBox/Samba/Model/PDC.pm:147
+msgid "On this page you can set different PDC related settings"
+msgstr ""
+
+#: src/EBox/Samba/Model/AntivirusExceptions.pm:92
+#: src/EBox/Samba/Model/RecycleExceptions.pm:92
+msgid "User/Group/Share"
+msgstr ""
+
+#: src/EBox/Samba/Model/AntivirusExceptions.pm:98
+#: src/EBox/Samba/Model/RecycleExceptions.pm:98
+msgid "User homes"
+msgstr ""
+
+#: src/EBox/Samba/Model/AntivirusExceptions.pm:109
+#: src/EBox/Samba/Model/RecycleExceptions.pm:109 src/EBox/Samba.pm:628
+#: src/templates/ajax/viewer/shareViewer.mas:12
+msgid "Share"
+msgstr ""
+
+#: src/EBox/Samba/Model/AntivirusExceptions.pm:120
+msgid "Samba shares antivirus exceptions"
+msgstr ""
+
+#: src/EBox/Samba/Model/AntivirusExceptions.pm:125
+msgid "Add exceptions to the default antivirus settings"
+msgstr ""
+
+#: src/EBox/Samba/Model/AntivirusExceptions.pm:126
+#: src/EBox/Samba/Model/RecycleExceptions.pm:126
+msgid "exception"
+msgstr ""
+
+#: src/EBox/Samba/Model/RecycleExceptions.pm:120
+msgid "Samba shares Recycle Bin exceptions"
+msgstr ""
+
+#: src/EBox/Samba/Model/RecycleExceptions.pm:125
+msgid "Add exceptions to the default Recycle Bin settings"
+msgstr ""
+
+#: src/EBox/Samba/Model/AntivirusDefault.pm:50
+msgid "Scan"
+msgstr ""
+
+#: src/EBox/Samba/Model/AntivirusDefault.pm:58
+msgid "Antivirus default settings"
+msgstr ""
+
+#: src/EBox/Samba/Model/RecycleDefault.pm:45
+msgid "Recycle default settings"
+msgstr ""
+
+#: src/EBox/Samba/Model/RecycleDefault.pm:55
+msgid "Enable Recycle Bin"
+msgstr ""
+
+#: src/EBox/Samba/Model/RecycleDefault.pm:63
+msgid "Recycle Bin default settings"
+msgstr ""
+
+#: src/EBox/Samba/Composite/RecycleBin.pm:64
+msgid "Recycle Bin"
+msgstr ""
+
+#: src/EBox/Samba/Composite/General.pm:68
+msgid "File sharing options"
+msgstr ""
+
+#: src/EBox/Samba/Composite/Antivirus.pm:64
+msgid "Antivirus"
+msgstr ""
+
+#: src/EBox/Samba.pm:91
+msgid "Create Samba home directory for shares and groups"
+msgstr ""
+
+#: src/EBox/Samba.pm:92
+msgid ""
+"Zentyal will create the directories for Samba shares and groups under /home/"
+"samba."
+msgstr ""
+
+#: src/EBox/Samba.pm:97
+msgid "Add LDAP schemas"
+msgstr ""
+
+#: src/EBox/Samba.pm:98
+msgid ""
+"Zentyal will add two LDAP schemas to the LDAP directory: samba and ebox."
+msgstr ""
+
+#: src/EBox/Samba.pm:103
+msgid "Set Samba LDAP admin dn password"
+msgstr ""
+
+#: src/EBox/Samba.pm:104
+msgid "Zentyal will configure Samba to use the LDAP admin dn password."
+msgstr ""
+
+#: src/EBox/Samba.pm:120
+msgid "To set up Samba according to your configuration."
+msgstr ""
+
+#: src/EBox/Samba.pm:125
+msgid "To set up smbldap-tools according to your configuration."
+msgstr ""
+
+#: src/EBox/Samba.pm:131
+msgid "To set up smbldap-tools according to your LDAP configuration."
+msgstr ""
+
+#: src/EBox/Samba.pm:137
+msgid "To add quota support to /home partition."
+msgstr ""
+
+#: src/EBox/Samba.pm:142
+msgid "To set the antivirus settings for Samba."
+msgstr ""
+
+#: src/EBox/Samba.pm:628 src/EBox/Samba.pm:649
+msgid "Source machine"
+msgstr ""
+
+#: src/EBox/Samba.pm:628 src/EBox/Samba.pm:649
+msgid "Connected since"
+msgstr ""
+
+#: src/EBox/Samba.pm:669
+msgid "Shares by user"
+msgstr ""
+
+#: src/EBox/Samba.pm:674
+msgid "Users by share"
+msgstr ""
+
+#: src/EBox/Samba.pm:1214 src/EBox/Samba.pm:1236
+msgid "user"
+msgstr ""
+
+#: src/EBox/Samba.pm:1223
+msgid "printer"
+msgstr ""
+
+#: src/EBox/Samba.pm:1331
+msgid "quota"
+msgstr ""
+
+#: src/EBox/Samba.pm:1644
+msgid "User's files"
+msgstr ""
+
+#: src/EBox/Samba.pm:1646
+msgid "Group's files"
+msgstr ""
+
+#: src/EBox/Samba.pm:1662 src/EBox/Samba.pm:1682 src/EBox/Samba.pm:1692
+msgid "Date"
+msgstr ""
+
+#: src/EBox/Samba.pm:1663 src/EBox/Samba.pm:1683
+msgid "Client address"
+msgstr ""
+
+#: src/EBox/Samba.pm:1665
+msgid "Action"
+msgstr ""
+
+#: src/EBox/Samba.pm:1666
+msgid "Resource"
+msgstr ""
+
+#: src/EBox/Samba.pm:1670
+msgid "Connect"
+msgstr ""
+
+#: src/EBox/Samba.pm:1671
+msgid "Access to directory"
+msgstr ""
+
+#: src/EBox/Samba.pm:1672
+msgid "Read file"
+msgstr ""
+
+#: src/EBox/Samba.pm:1673
+msgid "Write file"
+msgstr ""
+
+#: src/EBox/Samba.pm:1674
+msgid "Disconnect"
+msgstr ""
+
+#: src/EBox/Samba.pm:1675
+msgid "Remove"
+msgstr ""
+
+#: src/EBox/Samba.pm:1676
+msgid "Create directory"
+msgstr ""
+
+#: src/EBox/Samba.pm:1677
+msgid "Remove directory"
+msgstr ""
+
+#: src/EBox/Samba.pm:1678
+msgid "Rename"
+msgstr ""
+
+#: src/EBox/Samba.pm:1684 src/EBox/Samba.pm:1693
+msgid "File name"
+msgstr ""
+
+#: src/EBox/Samba.pm:1685 src/EBox/Samba.pm:1689
+msgid "Virus"
+msgstr ""
+
+#: src/EBox/Samba.pm:1686
+msgid "Type"
+msgstr ""
+
+#: src/EBox/Samba.pm:1694
+msgid "Quarantined file name"
+msgstr ""
+
+#: src/EBox/Samba.pm:1695 src/EBox/Samba.pm:1698
+msgid "Quarantine"
+msgstr ""
+
+#: src/EBox/Samba.pm:1701
+msgid "Samba access"
+msgstr ""
+
+#: src/EBox/Samba.pm:1712
+msgid "Samba virus"
+msgstr ""
+
+#: src/EBox/Samba.pm:1723
+msgid "Samba quarantine"
+msgstr ""
+
+#: src/templates/delete.mas:11
+msgid ""
+"The group you tried to delete has a directory which contains data, if you "
+"remove it all its data will be removed. Please confirm that you want to "
+"delete it."
+msgstr ""
+
+#: src/templates/delete.mas:18 src/templates/samba.mas:89
+#: src/templates/samba.mas:90
+msgid "Delete"
+msgstr ""
+
+#: src/templates/delete.mas:21
+msgid "Cancel"
+msgstr ""
+
+#: src/templates/samba.mas:9
+msgid "PDC/File sharing account"
+msgstr ""
+
+#: src/templates/samba.mas:16
+msgid "User account"
+msgstr ""
+
+#: src/templates/samba.mas:22 src/templates/samba.mas:25
+msgid "Enabled"
+msgstr ""
+
+#: src/templates/samba.mas:32
+msgid "Administration rights"
+msgstr ""
+
+#: src/templates/samba.mas:44
+msgid "Disk quota limit (MB)"
+msgstr ""
+
+#: src/templates/samba.mas:56 src/templates/samba.mas:57
+#: src/templates/samba.mas:86 src/templates/samba.mas:87
+#: src/templates/samba.mas:157 src/templates/samba.mas:158
+msgid "Change"
+msgstr ""
+
+#: src/templates/samba.mas:65
+msgid "Sharing directory for this group"
+msgstr ""
+
+#: src/templates/samba.mas:68
+msgid ""
+"You can set a share directory for this group, but you should keep in mind "
+"that Microsoft Windows 98 and Millenium will not be able to see names longer "
+"than 12 characters"
+msgstr ""
+
+#: src/templates/samba.mas:76
+msgid "This resource name is longer than 12 characters."
+msgstr ""
+
+#: src/templates/samba.mas:79
+msgid "Directory name"
+msgstr ""
+
+#: src/templates/samba.mas:93 src/templates/samba.mas:94
+msgid "Add"
+msgstr ""
+
+#: src/templates/samba.mas:101
+msgid "Printers"
+msgstr ""
+
+#: src/templates/samba.mas:105
+msgid "Select the printers this user will have access to."
+msgstr ""
+
+#: src/templates/samba.mas:115
+msgid "Printer"
+msgstr ""
+
+#: src/templates/samba.mas:116
+msgid "Allow"
+msgstr ""
+
+#: src/templates/samba.mas:138
+msgid "Allow all printers"
+msgstr ""
+
+#: src/templates/samba.mas:169
+msgid "printers module"
+msgstr ""
+
+#: src/templates/samba.mas:180
+msgid "file sharing module"
+msgstr ""
+
+#: stubs/smb.conf.mas:104
+msgid "Home Directories"
+msgstr ""
+
+#: stubs/smb.conf.mas:130
+#, perl-brace-format
+msgid "{group} share directory"
+msgstr ""

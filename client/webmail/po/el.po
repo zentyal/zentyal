@@ -1,0 +1,202 @@
+# Greek translations for ebox-webmail package.
+# Copyright (C) 2011 eBox Technologies S.L.
+# This file is distributed under the same license as the ebox-webmail package.
+# Automatically generated, 2011.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: ebox-webmail 2.0"
+"Report-Msgid-Bugs-To: developers@zentyal.org\n"
+"POT-Creation-Date: 2010-12-18 01:45+0100\n"
+"PO-Revision-Date: 2010-12-18 01:45+0100\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: none\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: src/EBox/WebMail/Model/OperationMode.pm:46
+msgid "Mode"
+msgstr ""
+
+#: src/EBox/WebMail/Model/OperationMode.pm:55
+msgid "Operation mode"
+msgstr ""
+
+#: src/EBox/WebMail/Model/OperationMode.pm:83
+msgid "Zentyal mail service"
+msgstr ""
+
+#: src/EBox/WebMail/Model/OperationMode.pm:94
+msgid "Remote server"
+msgstr ""
+
+#: src/EBox/WebMail/Model/Options.pm:45
+msgid "Name"
+msgstr ""
+
+#: src/EBox/WebMail/Model/Options.pm:47
+msgid "Zentyal webmail"
+msgstr ""
+
+#: src/EBox/WebMail/Model/Options.pm:49
+msgid ""
+"The name of the webmail will be used in the login screen and page titles."
+msgstr ""
+
+#: src/EBox/WebMail/Model/Options.pm:53
+msgid "Virtual host"
+msgstr ""
+
+#: src/EBox/WebMail/Model/Options.pm:59
+msgid ""
+"Virtual host where the webmail will be installed. This will disable the "
+"default /webmail url."
+msgstr ""
+
+#: src/EBox/WebMail/Model/Options.pm:65
+msgid "General configuration"
+msgstr ""
+
+#: src/EBox/WebMail/Model/Options.pm:66 src/EBox/WebMail.pm:69
+msgid "Webmail"
+msgstr ""
+
+#: src/EBox/WebMail/Model/Options.pm:81
+msgid "Disabled"
+msgstr ""
+
+#: src/EBox/WebMail/Model/Options.pm:112
+msgid ""
+"The deleted virtual host was selected for Webmail. Maybe you want to select "
+"another one now."
+msgstr ""
+
+#: src/EBox/WebMail/Model/RemoteServerConfiguration.pm:54
+msgid "IMAP Server"
+msgstr ""
+
+#: src/EBox/WebMail/Model/RemoteServerConfiguration.pm:60
+msgid "IMAP connection type"
+msgstr ""
+
+#: src/EBox/WebMail/Model/RemoteServerConfiguration.pm:67
+msgid "IMAP server port"
+msgstr ""
+
+#: src/EBox/WebMail/Model/RemoteServerConfiguration.pm:73
+msgid "SMTP Server"
+msgstr ""
+
+#: src/EBox/WebMail/Model/RemoteServerConfiguration.pm:79
+msgid "SMTP connection type"
+msgstr ""
+
+#: src/EBox/WebMail/Model/RemoteServerConfiguration.pm:86
+msgid "SMTP server port"
+msgstr ""
+
+#: src/EBox/WebMail/Model/RemoteServerConfiguration.pm:93
+msgid "SMTP authentication"
+msgstr ""
+
+#: src/EBox/WebMail/Model/RemoteServerConfiguration.pm:101
+msgid "None"
+msgstr ""
+
+#: src/EBox/WebMail/Model/RemoteServerConfiguration.pm:105
+msgid "Same user and password than IMAP"
+msgstr ""
+
+#: src/EBox/WebMail/Model/RemoteServerConfiguration.pm:109
+msgid "User and password"
+msgstr ""
+
+#: src/EBox/WebMail/Model/RemoteServerConfiguration.pm:115
+msgid "User"
+msgstr ""
+
+#: src/EBox/WebMail/Model/RemoteServerConfiguration.pm:121
+msgid "Password"
+msgstr ""
+
+#: src/EBox/WebMail/Model/RemoteServerConfiguration.pm:134
+msgid "Manage sieve enabled in IMAP server"
+msgstr ""
+
+#: src/EBox/WebMail/Model/RemoteServerConfiguration.pm:139
+msgid "Manage sieve port"
+msgstr ""
+
+#: src/EBox/WebMail/Model/RemoteServerConfiguration.pm:146
+msgid "Manage sieve connection uses TLS"
+msgstr ""
+
+#: src/EBox/WebMail/Model/RemoteServerConfiguration.pm:153
+msgid "External server connection"
+msgstr ""
+
+#: src/EBox/WebMail/Model/RemoteServerConfiguration.pm:171
+msgid "unencrypted"
+msgstr ""
+
+#: src/EBox/WebMail/Model/RemoteServerConfiguration.pm:175
+msgid "SSL"
+msgstr ""
+
+#: src/EBox/WebMail/Model/RemoteServerConfiguration.pm:179
+msgid "TLS"
+msgstr ""
+
+#: src/EBox/WebMail/Model/RemoteServerConfiguration.pm:285
+msgid ""
+"No need to configure the connection to a remote server because WebMail is "
+"configured to use Zentyal mail service'"
+msgstr ""
+
+#: src/EBox/WebMail/Composite/Backend.pm:63
+msgid "WebMail backend"
+msgstr ""
+
+#: src/EBox/WebMail.pm:176
+msgid "Neither IMAP nor IMAPS service enabled."
+msgstr ""
+
+#: src/EBox/WebMail.pm:289
+msgid "To configure Roundcube webmail."
+msgstr ""
+
+#: src/EBox/WebMail.pm:294
+msgid "To configure managesieve Roundcube webmail plugin."
+msgstr ""
+
+#: src/EBox/WebMail.pm:320
+msgid "Create PostgreSQL Roundcube webmail database."
+msgstr ""
+
+#: src/EBox/WebMail.pm:321
+msgid "This database will store the data needed by Roundcube."
+msgstr ""
+
+#: src/EBox/WebMail.pm:325
+msgid "Add webmail link to www data directory."
+msgstr ""
+
+#: src/EBox/WebMail.pm:326
+msgid "Webmail will be accesible at http://ip/webmail/."
+msgstr ""
+
+#: src/EBox/WebMail.pm:348
+#, perl-brace-format
+msgid ""
+"Webmail module needs IMAP or IMAPS service enabled if using Zentyal mail "
+"service. You can enable it at {openurl}Mail -> General{closeurl}."
+msgstr ""
+
+#: src/EBox/WebMail.pm:405
+msgid ""
+"You cannot disable both IMAP and IMAPS service because they are used by "
+"Webmail module."
+msgstr ""
