@@ -75,9 +75,10 @@ sub handle
     my $buf = <$sock>;
     if (defined $buf) {
         chomp $buf;
-        my ($pid, $cmd) = $buf =~ /^(\d+):(.*)/;
-        #DEBUG: print "$0 ($$): ($pid) requested to execute: $cmd\n";
-        my $exitValue = execute($pid, $cmd);
+        my ($pid, $cmd, $rest) = $buf =~ /^(\d+):([^:]+):(.*)/;
+        my @args = split (/:/, $rest);
+        #DEBUG: print "$0 ($$): ($pid) requested to execute: $cmd @args\n";
+        my $exitValue = execute($pid, $cmd, @args);
         #DEBUG: print "$0 ($$): sending result: $exitValue\n";
         print $sock "$exitValue\n";
         endredirect($pid);
@@ -86,7 +87,7 @@ sub handle
 
 sub execute
 {
-    my ($pid, $file) = @_;
+    my ($pid, $file, @args) = @_;
 
     use File::Slurp;
 
@@ -100,7 +101,11 @@ sub execute
         };
 
         redirect($pid);
+
+        my ($oldProg, $oldArgs = ($0, @ARGV);
+        ($0, @ARGV) = ($file, @args);
         eval 'BEGIN { *CORE::GLOBAL::exit = sub { die "ret=@_"; } };' . $code;
+        ($0, @ARGV) = ($oldProg, $oldArgs);
 
         my $exitValue;
         if ($@) {

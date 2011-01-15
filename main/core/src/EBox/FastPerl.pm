@@ -41,6 +41,8 @@ sub init
     # FIXME: Replace all /tmp paths with EBox::Config::tmp()
     my $SOCKET_FILE = '/tmp/singleperl.sock';
     my $filename = "$Bin/$Script";
+    my @quotedArgs = map { "\"$_\"" } @ARGV;
+    my $args = join (':', @quotedArgs);
 
     STDOUT->autoflush(1);
     STDERR->autoflush(1);
@@ -56,7 +58,7 @@ sub init
                                     Timeout => 0, # FIXME: change this?
                                     Type => SOCK_STREAM) or return 0;
     try {
-        print $sock "$$:$filename\n";
+        print $sock "$$:$filename:$args\n";
         #DEBUG: print "$0 ($$): sent: $$:$filename\n";
     } otherwise {
         # TODO: log this
