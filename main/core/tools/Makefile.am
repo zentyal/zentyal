@@ -8,7 +8,7 @@ pkgdata_SCRIPTS = ebox-apache2ctl ebox-apache-restart ebox-migrate \
  ebox-set-locale ebox-global-action ebox-unconfigure-module \
  ebox-update-file-digest ebox-change-hostname zentyal-redisvi \
  ebox-consolidate-reportinfo ebox-gather-reportinfo \
- ebox-purge-logs ebox-configuration-report ebox-create-db
+ ebox-purge-logs ebox-configuration-report ebox-create-db fastperl-server
 
 MAINTAINERCLEANFILES = Makefile.in
 

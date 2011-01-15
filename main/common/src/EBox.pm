@@ -121,6 +121,16 @@ sub locale
 
 sub init
 {
+    unless (exists $ENV{MOD_PERL}) {
+        # This will be uncommented once everything is fully tested
+        # Now FastPerl belongs to zentyal-core, we'll see if we
+        # can move the init stuff to core without breaking anything,
+        # otherwise the FastPerl code will be moved to zentyal-common
+        # although the fastperl-server daemon will remain in core
+        #use EBox::FastPerl;
+        #EBox::FastPerl::init();
+    }
+
     POSIX::setlocale(LC_ALL, EBox::locale());
     POSIX::setlocale(LC_NUMERIC, 'C');
 

@@ -1,0 +1,166 @@
+#!/usr/bin/perl
+# Copyright (C) 2011 eBox Technologies S.L.
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License, version 2, as
+# published by the Free Software Foundation.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+
+use warnings;
+use strict;
+
+use IO::Socket::UNIX;
+
+use POSIX qw(:sys_wait_h);
+
+my $SOCKET_FILE = '/tmp/singleperl.sock';
+
+#TODO: my $FORK_MODE = ! -f EBox::Global->DPKG_RUNNING_FILE; ?
+my $FORK_MODE = 1;
+
+$ENV{SINGLE_INTERP} = 1;
+
+if ($FORK_MODE) {
+# TODO: preload stuff
+}
+
+if ($FORK_MODE) {
+    $SIG{CHLD} = \&REAPER;
+}
+
+unlink ($SOCKET_FILE);
+
+# TODO: Handle SIGPIPE?
+
+my $umask = umask(077);
+my $sock = new IO::Socket::UNIX(Local => $SOCKET_FILE,
+                                Type => SOCK_STREAM,
+                                Listen => SOMAXCONN,
+                                Reuse => 1) or die "Cannot create socket: $!";
+umask($umask);
+
+while (1) {
+    while (my $new_sock = $sock->accept()) {
+        if ($FORK_MODE) {
+            my $child;
+            if ($child = fork()) {
+                close $new_sock;
+            } elsif (defined $child) {
+                close $sock;
+                handle($new_sock);
+                exit;
+            } else {
+                # TODO: log this
+                die "$0 ($$): fork: $!";
+            }
+        } else {
+            handle($new_sock);
+            close $new_sock;
+        }
+    }
+}
+
+sub handle
+{
+    my ($sock) = @_;
+
+    my $buf = <$sock>;
+    if (defined $buf) {
+        chomp $buf;
+        my ($pid, $cmd) = $buf =~ /^(\d+):(.*)/;
+        #DEBUG: print "$0 ($$): ($pid) requested to execute: $cmd\n";
+        my $exitValue = execute($pid, $cmd);
+        #DEBUG: print "$0 ($$): sending result: $exitValue\n";
+        print $sock "$exitValue\n";
+        endredirect($pid);
+    }
+}
+
+sub execute
+{
+    my ($pid, $file) = @_;
+
+    use File::Slurp;
+
+    my $code = read_file($file);
+    {
+        local $SIG{PIPE} = sub {
+            #DEBUG: print STDERR "SIGPIPE received\n";
+        };
+        local $SIG{__WARN__} = sub {
+            #DEBUG: print STDERR "WARNING: @_\n";
+        };
+
+        redirect($pid);
+        eval 'BEGIN { *CORE::GLOBAL::exit = sub { die "ret=@_"; } };' . $code;
+
+        my $exitValue;
+        if ($@) {
+            #DEBUG: print STDERR "ERROR: $@\n";
+            ($exitValue) = $@ =~ /^ret=(\d+)/;
+            unless (defined $exitValue) {
+                $exitValue = 1;
+            }
+        } else {
+            $exitValue = 0;
+        }
+        #DEBUG: print "RETURN VALUE: $exitValue\n";
+
+        return $exitValue;
+    };
+}
+
+our ($oldout, $olderr, $outfd, $errfd);
+
+sub redirect
+{
+    my ($pid) = @_;
+
+    my $outfile = "/tmp/fastperl-$pid.out";
+    my $errfile = "/tmp/fastperl-$pid.err";
+
+    open ($oldout, '>&STDOUT');
+    open ($olderr, '>&STDERR');
+
+    close (STDOUT);
+    open ($outfd, '>', $outfile);
+    STDOUT->fdopen($outfd, 'w');
+    STDOUT->autoflush(1);
+
+    close (STDERR);
+    open ($errfd, '>', $errfile);
+    STDERR->fdopen($errfd, 'w');
+    STDERR->autoflush(1);
+}
+
+sub endredirect
+{
+    my ($pid) = @_;
+
+    my $outfile = "/tmp/fastperl-$pid.out";
+    my $errfile = "/tmp/fastperl-$pid.err";
+
+    close ($outfd);
+    close (STDOUT);
+    open (STDOUT, '>&', $oldout);
+    unlink ($outfile);
+
+    close ($errfd);
+    close (STDERR);
+    open (STDERR, '>&', $olderr);
+    unlink ($errfile);
+}
+
+sub REAPER
+{
+    1 until (waitpid (-1, WNOHANG));
+    $SIG{CHLD} = \&REAPER;
+}
