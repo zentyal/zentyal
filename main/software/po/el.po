@@ -1,0 +1,296 @@
+# Greek translations for ebox-software package.
+# Copyright (C) 2011 eBox Technologies S.L.
+# This file is distributed under the same license as the ebox-software package.
+# Automatically generated, 2011.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: ebox-software 2.0.9"
+"Report-Msgid-Bugs-To: developers@zentyal.org\n"
+"POT-Creation-Date: 2010-08-13 13:42+0200\n"
+"PO-Revision-Date: 2010-08-13 13:42+0200\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: none\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: migration/0001_add_http_software_rule.pl:24
+msgid "HTTP software"
+msgstr ""
+
+#: migration/0001_add_http_software_rule.pl:26
+msgid "software service to update packages via apt"
+msgstr ""
+
+#: migration/0001_add_http_software_rule.pl:45
+msgid "rule to allow apt updates"
+msgstr ""
+
+#: src/EBox/Software.pm:57
+msgid "Software Management"
+msgstr ""
+
+#: src/EBox/Software.pm:472
+#, perl-brace-format
+msgid ""
+"You cannot modify the automatic update using QA updates from Web UI. To "
+"disable automatic updates, edit {conf} and disable {key} key."
+msgstr ""
+
+#: src/EBox/Software.pm:537
+msgid "eBox Components"
+msgstr ""
+
+#: src/EBox/Software.pm:539
+msgid "System Updates"
+msgstr ""
+
+#: src/EBox/Software.pm:541 src/templates/config.mas:19
+msgid "Settings"
+msgstr ""
+
+#: src/EBox/Software.pm:680
+#, perl-brace-format
+msgid ""
+"Software management is currently  locked by {locker}. Please, try again later"
+msgstr ""
+
+#: src/EBox/Software.pm:843
+msgid "Welcome"
+msgstr ""
+
+#: src/EBox/Software.pm:845
+msgid "Package Selection"
+msgstr ""
+
+#: src/EBox/Software.pm:846
+msgid "Confirmation"
+msgstr ""
+
+#: src/EBox/Software.pm:847
+msgid "Installation"
+msgstr ""
+
+#: src/EBox/Software.pm:848
+msgid "Initial Configuration"
+msgstr ""
+
+#: src/EBox/Software.pm:849
+msgid "Save Changes"
+msgstr ""
+
+#: src/EBox/CGI/Config.pm:33
+msgid "Software management settings"
+msgstr ""
+
+#: src/EBox/CGI/Config.pm:43
+msgid "Automatic software updates"
+msgstr ""
+
+#: src/EBox/CGI/Enable.pm:43
+msgid "automatic updates configuration"
+msgstr ""
+
+#: src/EBox/CGI/EBox.pm:36
+msgid "Choose eBox packages to install"
+msgstr ""
+
+#: src/EBox/CGI/EBox.pm:40
+msgid "eBox components"
+msgstr ""
+
+#: src/EBox/CGI/Updates.pm:32 src/EBox/CGI/Updates.pm:50
+msgid "System updates"
+msgstr ""
+
+#: src/EBox/CGI/Updates.pm:59
+msgid "The system components are up to date."
+msgstr ""
+
+#: src/EBox/CGI/CurrentPackage.pm:32
+msgid "Upgrading"
+msgstr ""
+
+#: src/EBox/CGI/InstallPkgs.pm:102
+msgid "There were no packages to update"
+msgstr ""
+
+#: src/EBox/CGI/InstallPkgs.pm:165
+msgid "Installing"
+msgstr ""
+
+#: src/EBox/CGI/InstallPkgs.pm:166
+msgid "Installing packages"
+msgstr ""
+
+#: src/EBox/CGI/InstallPkgs.pm:167 src/EBox/CGI/InstallPkgs.pm:191
+msgid "Current operation"
+msgstr ""
+
+#: src/EBox/CGI/InstallPkgs.pm:168
+msgid "actions done"
+msgstr ""
+
+#: src/EBox/CGI/InstallPkgs.pm:169
+msgid ""
+"The packages installation has finished successfully. The administration "
+"interface may become unresponsive for a few seconds. Please wait patiently "
+"until the system has been fully configured. You will be automatically "
+"redirected to the next step"
+msgstr ""
+
+#: src/EBox/CGI/InstallPkgs.pm:174
+msgid ""
+"The packages installation has not finished correctly . More information on "
+"the logs"
+msgstr ""
+
+#: src/EBox/CGI/InstallPkgs.pm:189
+msgid "Removing package"
+msgstr ""
+
+#: src/EBox/CGI/InstallPkgs.pm:190
+msgid "Removing the selected package and its dependent packages"
+msgstr ""
+
+#: src/EBox/CGI/InstallPkgs.pm:192
+msgid "packages left to remove"
+msgstr ""
+
+#: src/EBox/CGI/InstallPkgs.pm:193
+msgid ""
+"The packages removal has finished successfully. The administration interface "
+"may become unresponsive for a few seconds. Please wait patiently until the "
+"system has been fully restarted"
+msgstr ""
+
+#: src/EBox/CGI/InstallPkgs.pm:197
+msgid ""
+"The packages removal has not finished correctly . More information on the "
+"logs"
+msgstr ""
+
+#: src/templates/ebox.mas:140 src/templates/updates.mas:35
+msgid "Update"
+msgstr ""
+
+#: src/templates/ebox.mas:146
+msgid "Install"
+msgstr ""
+
+#: src/templates/ebox.mas:168
+msgid "View advanced mode"
+msgstr ""
+
+#: src/templates/ebox.mas:482
+msgid "View basic mode"
+msgstr ""
+
+#: src/templates/del.mas:96
+msgid "The following packages will be installed"
+msgstr ""
+
+#: src/templates/del.mas:98
+msgid "The following packages will be removed"
+msgstr ""
+
+#: src/templates/del.mas:141
+msgid "Ok"
+msgstr ""
+
+#: src/templates/del.mas:142
+msgid "Cancel"
+msgstr ""
+
+#: src/templates/del.mas:149
+msgid "You may want to install also the following recommended packages:"
+msgstr ""
+
+#: src/templates/del.mas:152
+msgid "Layer 7 filtering for Traffic Shaping (ebox-l7-protocols)"
+msgstr ""
+
+#: src/templates/del.mas:155
+msgid "Virus scanning for File Sharing (ebox-antivirus and samba-vscan)"
+msgstr ""
+
+#: src/templates/del.mas:158
+msgid "VoIP meetings support (dahdi and linux-headers)"
+msgstr ""
+
+#: src/templates/config.mas:8
+msgid "Perform automatic security updates"
+msgstr ""
+
+#: src/templates/config.mas:14
+msgid "This eBox is configured to use automatic QA updates"
+msgstr ""
+
+#: src/templates/config.mas:26
+msgid "Automatic operations start time"
+msgstr ""
+
+#: src/templates/updates.mas:24
+msgid "Updates are available for the following system components"
+msgstr ""
+
+#: src/templates/updates.mas:26
+msgid "Community updates are available for the following system components"
+msgstr ""
+
+#: src/templates/updates.mas:32
+msgid "Component"
+msgstr ""
+
+#: src/templates/updates.mas:33
+msgid "Description"
+msgstr ""
+
+#: src/templates/updates.mas:34
+msgid "Version"
+msgstr ""
+
+#: src/templates/updates.mas:52
+msgid "Security update"
+msgstr ""
+
+#: src/templates/updates.mas:55
+msgid "eBox QA update"
+msgstr ""
+
+#: src/templates/updates.mas:77
+msgid "Update all packages"
+msgstr ""
+
+#: src/templates/updates.mas:88
+msgid ""
+"This operation can take some time, don't worry if eBox looks unresponsive "
+"after pressing the Upgrade button."
+msgstr ""
+
+#: src/templates/updates.mas:95
+msgid "Upgrade"
+msgstr ""
+
+#: src/templates/updates.mas:96
+msgid "Update list"
+msgstr ""
+
+#: src/templates/updateNote.mas:10
+msgid ""
+"As you are enjoying a Commercial Server Subscription the updates are Quality "
+"Assured by the eBox Development Team."
+msgstr ""
+
+#: src/templates/updateNote.mas:13
+#, perl-brace-format
+msgid ""
+"Warning: The updates are community based. You can now gain access to the "
+"Quality Assured Updates by purchasing the <a href='{proUrl}'>Professional</"
+"a>  or <a href='{entUrl}'>Enterprise</a> Server Subscription. QA Updates "
+"guarantee that all the upgrades, bugfixes and security updates are "
+"extensively tested by the eBox Development Team and you won't be introducing "
+"any regressions on your already working system."
+msgstr ""

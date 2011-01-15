@@ -1,0 +1,100 @@
+# Greek translations for ebox-radius package.
+# Copyright (C) 2011 eBox Technologies S.L.
+# This file is distributed under the same license as the ebox-radius package.
+# Automatically generated, 2011.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: ebox-radius 2.0"
+"Report-Msgid-Bugs-To: developers@zentyal.org\n"
+"POT-Creation-Date: 2010-08-25 17:45+0200\n"
+"PO-Revision-Date: 2010-08-25 17:45+0200\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: none\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: migration/0001_add_firewall_services.pl:30
+msgid "Zentyal RADIUS system"
+msgstr ""
+
+#: src/EBox/Model/Auth.pm:103
+msgid "All users"
+msgstr ""
+
+#: src/EBox/Model/Auth.pm:128
+msgid "Group allowed to authenticate"
+msgstr ""
+
+#: src/EBox/Model/Auth.pm:138
+msgid "General configuration"
+msgstr ""
+
+#: src/EBox/Model/Auth.pm:142
+msgid "RADIUS server configuration"
+msgstr ""
+
+#: src/EBox/Model/Auth.pm:144
+msgid "RADIUS server configuration updated"
+msgstr ""
+
+#: src/EBox/Model/Clients.pm:105
+msgid "Client"
+msgstr ""
+
+#: src/EBox/Model/Clients.pm:112
+msgid "IP Address"
+msgstr ""
+
+#: src/EBox/Model/Clients.pm:118
+msgid "Shared Secret"
+msgstr ""
+
+#: src/EBox/Model/Clients.pm:126
+msgid "RADIUS Clients"
+msgstr ""
+
+#: src/EBox/Model/Clients.pm:127
+msgid "client"
+msgstr ""
+
+#: src/EBox/Radius.pm:100
+msgid "Create RADIUS certificates for TTLS"
+msgstr ""
+
+#: src/EBox/Radius.pm:101
+msgid ""
+"Zentyal will create the needed certificates for TTLS in /etc/freeradius/"
+"certs/."
+msgstr ""
+
+#: src/EBox/Radius.pm:121
+msgid "To configure allowed LDAP group."
+msgstr ""
+
+#: src/EBox/Radius.pm:125
+msgid "To configure RADIUS LDAP module."
+msgstr ""
+
+#: src/EBox/Radius.pm:129
+msgid "To configure RADIUS clients."
+msgstr ""
+
+#: src/EBox/Radius.pm:133
+msgid "To configure RADIUS EAP."
+msgstr ""
+
+#: src/EBox/Radius.pm:137
+msgid "To configure default RADIUS vhost."
+msgstr ""
+
+#: src/EBox/Radius.pm:141
+msgid "To configure RADIUS inner-tunnel vhost."
+msgstr ""
+
+#: src/EBox/Radius.pm:304 src/EBox/Radius.pm:328
+#: src/EBox/Composite/General.pm:64
+msgid "RADIUS"
+msgstr ""

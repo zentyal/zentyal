@@ -1,0 +1,794 @@
+# Greek translations for ebox-usersandgroups package.
+# Copyright (C) 2011 eBox Technologies S.L.
+# This file is distributed under the same license as the ebox-usersandgroups package.
+# Automatically generated, 2011.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: ebox-usersandgroups 2.0.10"
+"Report-Msgid-Bugs-To: developers@zentyal.org\n"
+"POT-Creation-Date: 2010-08-25 17:50+0200\n"
+"PO-Revision-Date: 2010-08-25 17:50+0200\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: none\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: migration/0001_usercorner_add_webserver_service.pl:54
+msgid "User Corner Web Server"
+msgstr ""
+
+#: src/EBox/LdapUserImplementation.pm:44
+msgid "This group contains users"
+msgstr ""
+
+#: src/EBox/CGI/User.pm:44 src/EBox/CGI/User.pm:64 src/EBox/CGI/Groups.pm:54
+#: src/EBox/CGI/Users.pm:33 src/EBox/CGI/Users.pm:58
+#: src/EBox/UsersAndGroups/Model/Users.pm:78 src/EBox/UsersAndGroups.pm:2364
+#: src/EBox/UsersAndGroups.pm:2372
+msgid "Users"
+msgstr ""
+
+#: src/EBox/CGI/User.pm:48
+msgid "username"
+msgstr ""
+
+#: src/EBox/CGI/AddGroupToUser.pm:45 src/EBox/CGI/AddUserToGroup.pm:51
+#: src/EBox/CGI/DelUserFromGroup.pm:52 src/EBox/CGI/DelGroupFromUser.pm:45
+#: src/EBox/UsersAndGroups/Model/Users.pm:85
+msgid "user"
+msgstr ""
+
+#: src/EBox/CGI/AddGroupToUser.pm:50 src/EBox/CGI/Group.pm:47
+#: src/EBox/CGI/AddUserToGroup.pm:46 src/EBox/CGI/DelUserFromGroup.pm:47
+#: src/EBox/CGI/DelGroupFromUser.pm:50
+#: src/EBox/UsersAndGroups/Model/Groups.pm:85
+msgid "group"
+msgstr ""
+
+#: src/EBox/CGI/Group.pm:32
+msgid "Edit group"
+msgstr ""
+
+#: src/EBox/CGI/Group.pm:63 src/EBox/CGI/Groups.pm:45
+#: src/EBox/UsersAndGroups/Model/Groups.pm:77 src/EBox/UsersAndGroups.pm:2366
+#: src/EBox/UsersAndGroups.pm:2375
+msgid "Groups"
+msgstr ""
+
+#: src/EBox/CGI/ModifyGroup.pm:42 src/EBox/CGI/AddGroup.pm:47
+#: src/EBox/UsersAndGroups.pm:1468 src/EBox/UsersAndGroups.pm:1473
+#: src/EBox/UsersAndGroups.pm:1666 src/EBox/UsersAndGroups.pm:1816
+#: src/EBox/UsersAndGroups.pm:1850 src/EBox/UsersAndGroups.pm:1967
+#: src/EBox/UsersAndGroups.pm:2070
+msgid "group name"
+msgstr ""
+
+#: src/EBox/CGI/ModifyGroup.pm:49 src/EBox/CGI/ModifyUser.pm:50
+#: src/EBox/CGI/AddUser.pm:49
+msgid "comment"
+msgstr ""
+
+#: src/EBox/CGI/ModifyUser.pm:44 src/EBox/CGI/AddUser.pm:47
+#: src/EBox/UsersAndGroups.pm:821 src/EBox/UsersAndGroups.pm:827
+#: src/EBox/UsersAndGroups.pm:1069 src/EBox/UsersAndGroups.pm:1119
+#: src/EBox/UsersAndGroups.pm:1171 src/EBox/UsersAndGroups.pm:1632
+#: src/EBox/UsersAndGroups.pm:1710 src/EBox/UsersAndGroups.pm:1811
+#: src/EBox/UsersAndGroups.pm:1845 src/EBox/UsersAndGroups.pm:1916
+msgid "user name"
+msgstr ""
+
+#: src/EBox/CGI/ModifyUser.pm:49 src/EBox/CGI/AddUser.pm:48
+msgid "last name"
+msgstr ""
+
+#: src/EBox/CGI/ModifyUser.pm:51
+msgid "password"
+msgstr ""
+
+#: src/EBox/CGI/ModifyUser.pm:52
+msgid "confirm password"
+msgstr ""
+
+#: src/EBox/CGI/ModifyUser.pm:78 src/EBox/CGI/AddUser.pm:75
+#: src/EBox/UsersAndGroups/Model/Password.pm:98
+msgid "Passwords do not match."
+msgstr ""
+
+#: src/EBox/CGI/Del.pm:67
+msgid "object name"
+msgstr ""
+
+#: src/EBox/CGI/Del.pm:72
+msgid "object type"
+msgstr ""
+
+#: src/EBox/CGI/Del.pm:92
+msgid "User removed successfully"
+msgstr ""
+
+#: src/EBox/CGI/Del.pm:96
+msgid "Group removed successfully"
+msgstr ""
+
+#: src/EBox/UserCornerWebServer.pm:39
+#: src/EBox/UserCornerWebServer/Model/Settings.pm:45
+msgid "User Corner"
+msgstr ""
+
+#: src/EBox/UserCornerWebServer.pm:65
+msgid "Migrate configured modules"
+msgstr ""
+
+#: src/EBox/UserCornerWebServer.pm:66
+msgid "Required for usercorner access to configured modules"
+msgstr ""
+
+#: src/EBox/UserCornerWebServer.pm:179
+msgid "User Corner web server"
+msgstr ""
+
+#: src/EBox/UsersAndGroups/Model/PendingSync.pm:59
+#: src/EBox/UsersAndGroups/Model/Mode.pm:70
+#: src/EBox/UsersAndGroups/Model/Slaves.pm:55
+msgid "Slave"
+msgstr ""
+
+#: src/EBox/UsersAndGroups/Model/PendingSync.pm:64
+msgid "Operation"
+msgstr ""
+
+#: src/EBox/UsersAndGroups/Model/PendingSync.pm:69
+msgid "Parameter"
+msgstr ""
+
+#: src/EBox/UsersAndGroups/Model/PendingSync.pm:78
+msgid "List of pending operations on slaves"
+msgstr ""
+
+#: src/EBox/UsersAndGroups/Model/PendingSync.pm:85
+msgid ""
+"This is a list those operations that need to be run by the slaves because "
+"the master failed to contact them."
+msgstr ""
+
+#: src/EBox/UsersAndGroups/Model/PendingSync.pm:87
+msgid "operation"
+msgstr ""
+
+#: src/EBox/UsersAndGroups/Model/PendingSync.pm:129
+#: src/EBox/UsersAndGroups/Model/Slaves.pm:118
+msgid "You must enable the module Users in master mode."
+msgstr ""
+
+#: src/EBox/UsersAndGroups/Model/PendingSync.pm:131
+msgid "There are no pending operations at the moment."
+msgstr ""
+
+#: src/EBox/UsersAndGroups/Model/ADSyncSettings.pm:65
+msgid "AD user"
+msgstr ""
+
+#: src/EBox/UsersAndGroups/Model/ADSyncSettings.pm:68
+msgid "Username for binding to Windows AD (it has to be created in the AD)"
+msgstr ""
+
+#: src/EBox/UsersAndGroups/Model/ADSyncSettings.pm:72
+msgid "AD password"
+msgstr ""
+
+#: src/EBox/UsersAndGroups/Model/ADSyncSettings.pm:74
+msgid "Password for the above user"
+msgstr ""
+
+#: src/EBox/UsersAndGroups/Model/ADSyncSettings.pm:78
+msgid "Listen port"
+msgstr ""
+
+#: src/EBox/UsersAndGroups/Model/ADSyncSettings.pm:81
+msgid "Port for listening password sync notifications from Windows"
+msgstr ""
+
+#: src/EBox/UsersAndGroups/Model/ADSyncSettings.pm:85
+msgid "AD Secret Key"
+msgstr ""
+
+#: src/EBox/UsersAndGroups/Model/ADSyncSettings.pm:87
+msgid "Secret key to be shared between Windows and Zentyal (16 chars)"
+msgstr ""
+
+#: src/EBox/UsersAndGroups/Model/ADSyncSettings.pm:93
+msgid "Windows AD Sync Settings"
+msgstr ""
+
+#: src/EBox/UsersAndGroups/Model/ADSyncSettings.pm:114
+msgid "The secret key needs to have 16 characters."
+msgstr ""
+
+#: src/EBox/UsersAndGroups/Model/Mode.pm:67 src/EBox/UsersAndGroups.pm:2397
+msgid "Mode"
+msgstr ""
+
+#: src/EBox/UsersAndGroups/Model/Mode.pm:69
+msgid "Master"
+msgstr ""
+
+#: src/EBox/UsersAndGroups/Model/Mode.pm:71
+msgid "Windows AD Slave"
+msgstr ""
+
+#: src/EBox/UsersAndGroups/Model/Mode.pm:78
+msgid "LDAP DN"
+msgstr ""
+
+#: src/EBox/UsersAndGroups/Model/Mode.pm:83
+msgid "Only for master and AD slave configuration"
+msgstr ""
+
+#: src/EBox/UsersAndGroups/Model/Mode.pm:87
+msgid "Master host"
+msgstr ""
+
+#: src/EBox/UsersAndGroups/Model/Mode.pm:89
+msgid "Only for slave configuration: IP of the master Zentyal or Windows AD"
+msgstr ""
+
+#: src/EBox/UsersAndGroups/Model/Mode.pm:93
+msgid "LDAP password"
+msgstr ""
+
+#: src/EBox/UsersAndGroups/Model/Mode.pm:95
+msgid "Master Zentyal LDAP password"
+msgstr ""
+
+#: src/EBox/UsersAndGroups/Model/Mode.pm:101
+msgid "Configuration"
+msgstr ""
+
+#: src/EBox/UsersAndGroups/Model/Mode.pm:102
+msgid "Zentyal Users Mode"
+msgstr ""
+
+#: src/EBox/UsersAndGroups/Model/Groups.pm:59
+#: src/EBox/UsersAndGroups/Model/Users.pm:60
+msgid "Name"
+msgstr ""
+
+#: src/EBox/UsersAndGroups/Model/Groups.pm:64
+msgid "Description"
+msgstr ""
+
+#: src/EBox/UsersAndGroups/Model/Groups.pm:69
+#: src/EBox/UsersAndGroups/Model/Users.pm:70
+msgid "Edit"
+msgstr ""
+
+#: src/EBox/UsersAndGroups/Model/Groups.pm:130
+#: src/EBox/UsersAndGroups/Model/Users.pm:128
+msgid ""
+"You must enable the module Users in the module status section in order to "
+"use it."
+msgstr ""
+
+#: src/EBox/UsersAndGroups/Model/Groups.pm:136
+msgid "There are no groups at the moment"
+msgstr ""
+
+#: src/EBox/UsersAndGroups/Model/Groups.pm:139
+#, perl-brace-format
+msgid ""
+"Zentyal is configured as slave and there are no groups at the moment. You "
+"may want to add some in the {openhref}master{closehref}."
+msgstr ""
+
+#: src/EBox/UsersAndGroups/Model/Groups.pm:143
+msgid ""
+"Zentyal is configured as Windows AD slave and there are no groups at the "
+"moment. If there are groups in your Domain Controller, maybe the "
+"synchronization process has failed or has not finished yet."
+msgstr ""
+
+#: src/EBox/UsersAndGroups/Model/PAM.pm:61
+msgid "Enable PAM"
+msgstr ""
+
+#: src/EBox/UsersAndGroups/Model/PAM.pm:64
+msgid "Make LDAP users have system account."
+msgstr ""
+
+#: src/EBox/UsersAndGroups/Model/PAM.pm:70
+msgid "PAM settings"
+msgstr ""
+
+#: src/EBox/UsersAndGroups/Model/Password.pm:49
+msgid "Password management"
+msgstr ""
+
+#: src/EBox/UsersAndGroups/Model/Password.pm:59
+msgid "New password"
+msgstr ""
+
+#: src/EBox/UsersAndGroups/Model/Password.pm:66
+msgid "Re-type new password"
+msgstr ""
+
+#: src/EBox/UsersAndGroups/Model/Password.pm:75
+#: src/EBox/UsersAndGroups/Model/LdapInfo.pm:78 src/EBox/UsersAndGroups.pm:840
+#: src/EBox/UsersAndGroups.pm:2411 src/templates/users.mas:49
+#: src/templates/user.mas:52 src/templates/usercorner/login/index.mas:34
+msgid "Password"
+msgstr ""
+
+#: src/EBox/UsersAndGroups/Model/Password.pm:117
+msgid "Password successfully updated"
+msgstr ""
+
+#: src/EBox/UsersAndGroups/Model/ForceSync.pm:90
+msgid "Force sync"
+msgstr ""
+
+#: src/EBox/UsersAndGroups/Model/ForceSync.pm:92
+msgid "on slaves"
+msgstr ""
+
+#: src/EBox/UsersAndGroups/Model/ForceSync.pm:98
+msgid "Force sync of pending operations"
+msgstr ""
+
+#: src/EBox/UsersAndGroups/Model/ForceSync.pm:101
+msgid "Sync now"
+msgstr ""
+
+#: src/EBox/UsersAndGroups/Model/LdapInfo.pm:66
+msgid "Base DN"
+msgstr ""
+
+#: src/EBox/UsersAndGroups/Model/LdapInfo.pm:72
+msgid "Root DN"
+msgstr ""
+
+#: src/EBox/UsersAndGroups/Model/LdapInfo.pm:84
+msgid "Users DN"
+msgstr ""
+
+#: src/EBox/UsersAndGroups/Model/LdapInfo.pm:90
+msgid "Groups DN"
+msgstr ""
+
+#: src/EBox/UsersAndGroups/Model/LdapInfo.pm:98
+msgid "LDAP information"
+msgstr ""
+
+#: src/EBox/UsersAndGroups/Model/LdapInfo.pm:155
+msgid ""
+"You must enable the Users and Groups module to access the LDAP information."
+msgstr ""
+
+#: src/EBox/UsersAndGroups/Model/Users.pm:65
+msgid "Full name"
+msgstr ""
+
+#: src/EBox/UsersAndGroups/Model/Users.pm:134
+msgid "There are no users at the moment"
+msgstr ""
+
+#: src/EBox/UsersAndGroups/Model/Users.pm:137
+#, perl-brace-format
+msgid ""
+"Zentyal is configured as slave and there are no users at the moment. You may "
+"want to add some in the {openhref}master{closehref}."
+msgstr ""
+
+#: src/EBox/UsersAndGroups/Model/Users.pm:141
+msgid ""
+"Zentyal is configured as Windows AD slave and there are no users at the "
+"moment. If there are users in your Domain Controller, maybe the "
+"synchronization process has failed or has not finished yet."
+msgstr ""
+
+#: src/EBox/UsersAndGroups/Model/Slaves.pm:60
+#: src/EBox/UserCornerWebServer/Model/Settings.pm:55
+msgid "Port"
+msgstr ""
+
+#: src/EBox/UsersAndGroups/Model/Slaves.pm:67
+msgid "List of slaves"
+msgstr ""
+
+#: src/EBox/UsersAndGroups/Model/Slaves.pm:74
+msgid ""
+"This is a list of those Zentyal slaves which are subscribed to this Zentyal."
+msgstr ""
+
+#: src/EBox/UsersAndGroups/Model/Slaves.pm:75
+msgid "slave"
+msgstr ""
+
+#: src/EBox/UsersAndGroups/Model/Slaves.pm:120
+msgid "There are no slaves at the moment."
+msgstr ""
+
+#: src/EBox/UsersAndGroups/Composite/SlaveInfo.pm:73
+#: src/EBox/UsersAndGroups.pm:2387
+msgid "Slave Status"
+msgstr ""
+
+#: src/EBox/UsersAndGroups/Composite/UserTemplate.pm:62
+msgid ""
+"These configuration options are used when a new user account is created."
+msgstr ""
+
+#: src/EBox/UsersAndGroups/Composite/UserTemplate.pm:75
+msgid "There isn't any configurable option."
+msgstr ""
+
+#: src/EBox/UsersAndGroups/Composite/UserTemplate.pm:86
+#: src/EBox/UsersAndGroups.pm:2368 src/EBox/UsersAndGroups.pm:2377
+msgid "User Template"
+msgstr ""
+
+#: src/EBox/UsersAndGroups/Composite/Settings.pm:70
+#: src/EBox/UsersAndGroups.pm:2382
+msgid "LDAP Settings"
+msgstr ""
+
+#: src/EBox/UsersAndGroups.pm:83 src/templates/Wizard/users.mas:4
+msgid "Users and Groups"
+msgstr ""
+
+#: src/EBox/UsersAndGroups.pm:105
+msgid ""
+"Your LDAP database will be populated with some basic organizational units"
+msgstr ""
+
+#: src/EBox/UsersAndGroups.pm:106
+msgid ""
+"Zentyal needs this organizational units to add users and groups into them."
+msgstr ""
+
+#: src/EBox/UsersAndGroups.pm:110
+msgid "Create directories for slave journals"
+msgstr ""
+
+#: src/EBox/UsersAndGroups.pm:111
+msgid "Zentyal needs the directories to record pending slave actions."
+msgstr ""
+
+#: src/EBox/UsersAndGroups.pm:118
+msgid ""
+"Your Zentyal will be registered as a slave in the Zentyal master specified"
+msgstr ""
+
+#: src/EBox/UsersAndGroups.pm:119
+msgid ""
+"This Zentyal needs to have remote access to the users in the Zentyal master."
+msgstr ""
+
+#: src/EBox/UsersAndGroups.pm:126
+msgid "Apparmor profile will be disabled"
+msgstr ""
+
+#: src/EBox/UsersAndGroups.pm:127
+msgid "It is not ready to work with more than one slapd."
+msgstr ""
+
+#: src/EBox/UsersAndGroups.pm:135
+msgid "Install /etc/cron.d/ebox-ad-sync."
+msgstr ""
+
+#: src/EBox/UsersAndGroups.pm:136
+msgid "Zentyal will run a script every 5 minutes to sync with Windows AD."
+msgstr ""
+
+#: src/EBox/UsersAndGroups.pm:145
+msgid "Configure PAM."
+msgstr ""
+
+#: src/EBox/UsersAndGroups.pm:146
+msgid "Zentyal will give LDAP users system account."
+msgstr ""
+
+#: src/EBox/UsersAndGroups.pm:166
+msgid ""
+"To make NSS use LDAP resolution for user and group accounts. Needed for "
+"Samba PDC configuration."
+msgstr ""
+
+#: src/EBox/UsersAndGroups.pm:172
+msgid "To let NSS know how to access LDAP accounts."
+msgstr ""
+
+#: src/EBox/UsersAndGroups.pm:181
+msgid "To make LDAP listen on TCP and Unix sockets."
+msgstr ""
+
+#: src/EBox/UsersAndGroups.pm:186
+msgid ""
+"To copy LDAP admin password generated by Zentyal and allow other modules to "
+"access LDAP."
+msgstr ""
+
+#: src/EBox/UsersAndGroups.pm:811
+#, perl-brace-format
+msgid "Username must not be longer than {maxuserlength} characters"
+msgstr ""
+
+#: src/EBox/UsersAndGroups.pm:816
+msgid "Username already exists on the system"
+msgstr ""
+
+#: src/EBox/UsersAndGroups.pm:916 src/EBox/UsersAndGroups.pm:1532
+msgid "Maximum number of system users reached"
+msgstr ""
+
+#: src/EBox/UsersAndGroups.pm:933
+#, perl-brace-format
+msgid ""
+"Incorrect UID {uid} for a user . UID must be equal or greater than {min}"
+msgstr ""
+
+#: src/EBox/UsersAndGroups.pm:944
+#, perl-brace-format
+msgid "Incorrect UID {uid} for a system user . UID must be lesser than {max}"
+msgstr ""
+
+#: src/EBox/UsersAndGroups.pm:1456
+#, perl-brace-format
+msgid "Groupname must not be longer than {maxGroupLength} characters"
+msgstr ""
+
+#: src/EBox/UsersAndGroups.pm:1462
+msgid "The group name is not valid because it is used internally"
+msgstr ""
+
+#: src/EBox/UsersAndGroups.pm:1549
+#, perl-brace-format
+msgid ""
+"Incorrect GID {gid} for a group . GID must be equal or greater than {min}"
+msgstr ""
+
+#: src/EBox/UsersAndGroups.pm:1559
+#, perl-brace-format
+msgid "Incorrect GID {gid} for a system group . GID must be lesser than {max}"
+msgstr ""
+
+#: src/EBox/UsersAndGroups.pm:2146
+#, perl-brace-format
+msgid "Password must not be longer than {maxPwdLength} characters"
+msgstr ""
+
+#: src/EBox/UsersAndGroups.pm:2391
+msgid "AD Sync Settings"
+msgstr ""
+
+#: src/EBox/UsersAndGroups.pm:2626
+#, perl-brace-format
+msgid "Can't connect to master Zentyal at {remote}"
+msgstr ""
+
+#: src/EBox/UsersAndGroups.pm:2633
+#, perl-brace-format
+msgid ""
+"Can't connect to master Zentyal at {remote} with the provided LDAP password"
+msgstr ""
+
+#: src/EBox/UsersAndGroups.pm:2652
+#, perl-brace-format
+msgid "A host with the name {host} is already registered in this Zentyal"
+msgstr ""
+
+#: src/EBox/UsersAndGroups.pm:2774
+msgid "Replication failed"
+msgstr ""
+
+#: src/EBox/UserCorner/CGI/Dashboard/Index.pm:30
+msgid "User"
+msgstr ""
+
+#: src/EBox/UserCorner/CGI/Login/Index.pm:62
+msgid ""
+"There is a script which has asked to run in Zentyal exclusively. Please, "
+"wait patiently until it is done"
+msgstr ""
+
+#: src/EBox/UserCorner/CGI/Login/Index.pm:66
+msgid "Incorrect password"
+msgstr ""
+
+#: src/EBox/UserCorner/CGI/Login/Index.pm:69
+msgid "For security reasons your session has expired due to inactivity"
+msgstr ""
+
+#: src/EBox/UserCorner/CGI/Login/Index.pm:72
+msgid "You have been logged out because a new session has been opened"
+msgstr ""
+
+#: src/EBox/UserCorner/CGI/Login/Index.pm:75
+msgid "You are not logged in"
+msgstr ""
+
+#: src/EBox/UserCornerWebServer/Model/Settings.pm:63
+msgid "General configuration"
+msgstr ""
+
+#: src/EBox/UserCornerWebServer/Model/Settings.pm:97
+msgid "listening port"
+msgstr ""
+
+#: src/templates/ajax/tableUser.mas:88
+msgid "Add new"
+msgstr ""
+
+#: src/templates/del.mas:15
+msgid ""
+"The user you tried to delete contains data in the following modules. Please "
+"confirm you want to remove it and all its related data"
+msgstr ""
+
+#: src/templates/del.mas:20
+msgid ""
+"The group you tried to delete contains data in the following modules. Please "
+"confirm you want to remove it and all its related data"
+msgstr ""
+
+#: src/templates/del.mas:43
+msgid "Delete"
+msgstr ""
+
+#: src/templates/del.mas:46
+msgid "Cancel"
+msgstr ""
+
+#: src/templates/Wizard/users.mas:7
+msgid "Select the type of the server"
+msgstr ""
+
+#: src/templates/Wizard/users.mas:8
+msgid ""
+"Choose standalone unless you want LDAP replication or synchronization with "
+"Active Directory."
+msgstr ""
+
+#: src/templates/Wizard/users.mas:10
+msgid "Standalone server"
+msgstr ""
+
+#: src/templates/Wizard/users.mas:11
+msgid "Advanced configuration (Master/Slave/AD Sync)"
+msgstr ""
+
+#: src/templates/groups.mas:10
+msgid "Add Group"
+msgstr ""
+
+#: src/templates/groups.mas:16
+msgid "Group name"
+msgstr ""
+
+#: src/templates/groups.mas:26 src/templates/users.mas:41
+#: src/templates/group.mas:20 src/templates/user.mas:41
+msgid "Comment"
+msgstr ""
+
+#: src/templates/groups.mas:31
+msgid "Optional value"
+msgstr ""
+
+#: src/templates/groups.mas:38 src/templates/groups.mas:39
+#: src/templates/users.mas:73 src/templates/users.mas:74
+msgid "Add and Edit"
+msgstr ""
+
+#: src/templates/groups.mas:41 src/templates/groups.mas:42
+#: src/templates/users.mas:69 src/templates/users.mas:70
+msgid "Add"
+msgstr ""
+
+#: src/templates/users.mas:12
+msgid "Add User"
+msgstr ""
+
+#: src/templates/users.mas:17 src/templates/usercorner/login/index.mas:29
+msgid "User name"
+msgstr ""
+
+#: src/templates/users.mas:25 src/templates/user.mas:21
+msgid "First name"
+msgstr ""
+
+#: src/templates/users.mas:33 src/templates/user.mas:31
+msgid "Last name"
+msgstr ""
+
+#: src/templates/users.mas:56 src/templates/user.mas:62
+msgid "Retype password"
+msgstr ""
+
+#: src/templates/users.mas:88
+msgid "Group"
+msgstr ""
+
+#: src/templates/group.mas:14
+msgid ""
+"There are no users at the moment. You need at least one to manage this group "
+"properly."
+msgstr ""
+
+#: src/templates/group.mas:25 src/templates/group.mas:26
+#: src/templates/user.mas:74 src/templates/user.mas:75
+msgid "Change"
+msgstr ""
+
+#: src/templates/group.mas:33
+msgid "Users in group"
+msgstr ""
+
+#: src/templates/group.mas:35
+msgid "Users not in group"
+msgstr ""
+
+#: src/templates/group.mas:51 src/templates/group.mas:92
+#: src/templates/user.mas:106 src/templates/user.mas:141
+msgid "Empty list"
+msgstr ""
+
+#: src/templates/group.mas:61 src/templates/user.mas:114
+msgid "Remove"
+msgstr ""
+
+#: src/templates/group.mas:64
+msgid "Remove users from group"
+msgstr ""
+
+#: src/templates/group.mas:75 src/templates/group.mas:78
+#: src/templates/user.mas:125 src/templates/user.mas:128
+msgid "Add users to group"
+msgstr ""
+
+#: src/templates/group.mas:108 src/templates/group.mas:117
+#: src/templates/group.mas:118
+msgid "Delete group"
+msgstr ""
+
+#: src/templates/group.mas:110
+msgid ""
+"This operation will cause the removal of the group and all dependent data "
+"such as shared directory, etc."
+msgstr ""
+
+#: src/templates/user.mas:88
+msgid "User groups"
+msgstr ""
+
+#: src/templates/user.mas:90
+msgid "Other groups"
+msgstr ""
+
+#: src/templates/user.mas:117
+msgid "Remove groups from user"
+msgstr ""
+
+#: src/templates/user.mas:159 src/templates/user.mas:167
+#: src/templates/user.mas:168
+msgid "Delete user"
+msgstr ""
+
+#: src/templates/user.mas:161
+msgid ""
+"This operation will cause the removal of the user and all dependent data "
+"such as mail accounts, user files, etc."
+msgstr ""
+
+#: src/templates/usercorner/headTitle.mas:11
+msgid "Logout"
+msgstr ""
+
+#: src/templates/usercorner/login/index.mas:26
+msgid "Warning: Caps Lock is enabled"
+msgstr ""
+
+#: src/templates/usercorner/login/index.mas:41
+msgid "Enter"
+msgstr ""

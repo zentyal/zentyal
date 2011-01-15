@@ -1,0 +1,65 @@
+# Greek translations for ebox-antivirus package.
+# Copyright (C) 2011 eBox Technologies S.L.
+# This file is distributed under the same license as the ebox-antivirus package.
+# Automatically generated, 2011.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: ebox-antivirus 2.0.5"
+"Report-Msgid-Bugs-To: developers@zentyal.org\n"
+"POT-Creation-Date: 2010-08-26 00:52+0200\n"
+"PO-Revision-Date: 2010-08-26 00:52+0200\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: none\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:57
+msgid "Status"
+msgstr ""
+
+#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:61
+msgid "Date"
+msgstr ""
+
+#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:69
+msgid "Database Update Status"
+msgstr ""
+
+#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:70 src/EBox/AntiVirus.pm:69
+#: src/EBox/AntiVirus.pm:385 src/EBox/AntiVirus.pm:390
+msgid "Antivirus"
+msgstr ""
+
+#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:125
+msgid ""
+"The antivirus database has not been updated since the module was enabled."
+msgstr ""
+
+#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:128
+msgid "The last update failed."
+msgstr ""
+
+#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:131
+#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:134
+msgid "Last update successful."
+msgstr ""
+
+#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:137
+#, perl-brace-format
+msgid "Unknown event {event}."
+msgstr ""
+
+#: src/EBox/AntiVirus.pm:212
+msgid " To configure clamd daemon"
+msgstr ""
+
+#: src/EBox/AntiVirus.pm:217
+msgid "To configure freshclam updater"
+msgstr ""
+
+#: src/EBox/AntiVirus.pm:222
+msgid "To schedule the launch of the updater"
+msgstr ""

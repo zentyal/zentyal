@@ -174,6 +174,7 @@ $langs->{'ca_ES.UTF-8'} = 'Català';
 $langs->{'cs_CZ.UTF-8'} = 'Czech';
 $langs->{'da_DK.UTF-8'} = 'Dansk';
 $langs->{'de_DE.UTF-8'} = 'Deutsch';
+$langs->{'el_GR.UTF-8'} = 'ελληνικά';
 $langs->{'C'} = 'English';
 $langs->{'eu_ES.UTF-8'} = 'Euskara';
 $langs->{'fa_IR.UTF-8'} = 'فارسی';
