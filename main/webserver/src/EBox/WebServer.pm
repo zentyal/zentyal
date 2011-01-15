@@ -751,6 +751,7 @@ sub backupDomainsFileSelection
         my $selection = {
                           includes => [
                     EBox::WebServer::PlatformPath::DocumentRoot(),
+                    EBox::WebServer::PlatformPath::VDocumentRoot(),
                                       ],
                          };
         return $selection;
