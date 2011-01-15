@@ -2,7 +2,7 @@
 
 SUBDIRS = login
 
-templatedir = $(datadir)/ebox/templates/usersandgroups/usercorner
+templatedir = $(datadir)/zentyal-core/templates/users/usercorner
 template_DATA = headTitle.mas
 
 EXTRA_DIST = $(template_DATA)

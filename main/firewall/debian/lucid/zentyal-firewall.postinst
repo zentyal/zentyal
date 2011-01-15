@@ -8,7 +8,7 @@ set -e
 case "$1" in
 	configure)
         # Migrate data if needed
-        /usr/share/zentyal-core/ebox-migrate /usr/share/ebox-firewall/migration/ || true
+        /usr/share/zentyal-core/ebox-migrate /usr/share/zentyal-firewall/migration/ || true
 
         # create log table
         /usr/share/zentyal-core/ebox-sql-table add firewall /usr/share/zentyal-core/sqllog/firewall.sql || true

@@ -7,11 +7,11 @@ set -e
 manage_overwrite() {
     local permission
 
-    db_get ebox-network/overwrite_ifaces || true
+    db_get zentyal-network/overwrite_ifaces || true
     permission="$RET"
 
     if [ "$permission" = "true" ]; then
-        /usr/share/ebox-network/ebox-updatedigests
+        /usr/share/zentyal-network/ebox-updatedigests
         invoke-rc.d zentyal network stop || true
     fi
 }
@@ -25,11 +25,11 @@ case "$1" in
         # import network configuration from system
         # if installing the first time
         if [ -z "$2" ] ; then
-            /usr/share/ebox-network/ebox-netcfg-import || true
+            /usr/share/zentyal-network/ebox-netcfg-import || true
         fi
 
         # Migrate data if needed
-        /usr/share/zentyal-core/ebox-migrate /usr/share/ebox-network/migration/
+        /usr/share/zentyal-core/ebox-migrate /usr/share/zentyal-network/migration/
 
         invoke-rc.d zentyal network restart
 

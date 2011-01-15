@@ -3,7 +3,7 @@
 Confdir = $(localstatedir)/lib/ebox/conf
 Conf_DATA = user-eboxlog.conf
 
-Etcdir = $(sysconfdir)/ebox
+Etcdir = $(sysconfdir)/zentyal
 Etc_DATA = 80users.conf ad-sync_ignore.users ad-sync_ignore.groups
 
 EXTRA_DIST = $(Conf_DATA) $(Etc_DATA)

@@ -6,7 +6,7 @@
 # Makefile configuration - processed by automake.
 #
 
-templatedir = $(datadir)/ebox/templates/ajax
+templatedir = $(datadir)/zentyal-core/templates/ajax
 template_DATA = tableUser.mas
 
 EXTRA_DIST = $(template_DATA)

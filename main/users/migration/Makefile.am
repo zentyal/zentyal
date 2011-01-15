@@ -1,6 +1,6 @@
 ## Process this file with automake to produce Makefile.in
 
-Migrationsdir = @DATADIR@/ebox-usersandgroups/migration
+Migrationsdir = @DATADIR@/zentyal-users/migration
 
 nobase_Migrations_SCRIPTS = 0001_add_ldap_service.pl \
     0003_convert_passwords_to_sha.pl \

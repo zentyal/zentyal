@@ -2759,7 +2759,7 @@ sub _multigwRoutes
     my $routers = $self->gatewaysWithMac();
     my @cmds; # commands to run
 
-    push(@cmds, EBox::Config::share() . "ebox-network/ebox-flush-fwmarks");
+    push(@cmds, EBox::Config::share() . 'zentyal-network/ebox-flush-fwmarks');
     my %interfaces;
 
     for my $router ( reverse @{$routers} ) {
