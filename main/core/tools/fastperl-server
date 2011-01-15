@@ -102,10 +102,10 @@ sub execute
 
         redirect($pid);
 
-        my ($oldProg, $oldArgs = ($0, @ARGV);
+        my ($oldProg, @oldArgs) = ($0, @ARGV);
         ($0, @ARGV) = ($file, @args);
         eval 'BEGIN { *CORE::GLOBAL::exit = sub { die "ret=@_"; } };' . $code;
-        ($0, @ARGV) = ($oldProg, $oldArgs);
+        ($0, @ARGV) = ($oldProg, @oldArgs);
 
         my $exitValue;
         if ($@) {

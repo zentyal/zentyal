@@ -42,6 +42,7 @@ sub init
     my $SOCKET_FILE = '/tmp/singleperl.sock';
     my $filename = "$Bin/$Script";
     my @quotedArgs = map { "\"$_\"" } @ARGV;
+    # FIXME: This could be problematic if args contain ':'
     my $args = join (':', @quotedArgs);
 
     STDOUT->autoflush(1);
