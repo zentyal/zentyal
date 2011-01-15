@@ -136,7 +136,7 @@ try {
     _downloadBackupData($credentials, $date);
 
     my $configBackup = _getConfigBackup($credentials, $date);
-    # install missing modules to get a correct list of availabe domains to restore
+
     _installMissingModules($configBackup);
 
 

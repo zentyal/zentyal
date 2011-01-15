@@ -1,5 +1,6 @@
-HEAD
+2.0.9
 	+ Use new zentyal package names in restore-tool
+	+ Change one of our backup servers fingerprint
 	+ Using the new module name for cloud-prof package
 	+ Store metadata in Disaster Recovery backups
 	+ Autodetect encryption type instead of asking
