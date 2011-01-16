@@ -13,7 +13,6 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-
 package EBox::AntiVirus;
 
 use strict;
@@ -112,35 +111,7 @@ sub menu
 #
 sub modelClasses
 {
-    return [
-            'EBox::AntiVirus::Model::FreshclamStatus',
-           ];
-}
-
-# Method: compositeClasses
-#
-#       Return the composite classes used by the module
-#
-# Overrides:
-#
-#       <EBox::Model::CompositeProvider::compositeClasses>
-#
-sub compositeClasses
-{
-    return [];
-}
-
-# Method: actions
-#
-#        Explain the actions the module must make to configure the
-#        system. Check overriden method for details
-#
-# Overrides:
-#
-#        <EBox::Module::Service::actions>
-sub actions
-{
-    return [];
+    return [ 'EBox::AntiVirus::Model::FreshclamStatus' ];
 }
 
 # Method: enableService
@@ -173,49 +144,20 @@ sub enableService
     }
 }
 
-# Method: enableActions
-#
-#        Run those actions explain by <actions> to enable the module
-#
-# Overrides:
-#
-#        <EBox::Module::Service::enableActions>
-#
-sub enableActions
-{
-    my ($self) = @_;
-#     EBox::Sudo::root(EBox::Config::share() .
-#                      '/ebox-antivirus/ebox-antivirus-enable');
-}
-
-# Method: disableActions
-#
-#        Rollback those actions performed by <enableActions> to
-#        disable the module
-#
-# Overrides:
-#
-#        <EBox::Module::Service::disableActions>
-#
-sub disableActions
-{
-
-}
-
 sub usedFiles
 {
-  return [
+    return [
         {
-         file => CLAMD_CONF_FILE,
-         reason => __(' To configure clamd daemon'),
-         module => 'antivirus',
+            file => CLAMD_CONF_FILE,
+            reason => __(' To configure clamd daemon'),
+            module => 'antivirus',
         },
         {
-           file => FRESHCLAM_CONF_FILE,
-           reason => __('To schedule the launch of the updater'),
-           module => 'antivirus',
-       },
-       ];
+            file => FRESHCLAM_CONF_FILE,
+            reason => __('To schedule the launch of the updater'),
+            module => 'antivirus',
+        },
+    ];
 }
 
 sub _daemons
@@ -226,7 +168,7 @@ sub _daemons
             type => 'init.d',
             pidfiles => [CLAMAVPIDFILE],
         },
-       ];
+    ];
 }
 
 sub localSocket
@@ -254,7 +196,7 @@ sub _setConf
 
     $self->disableApparmorProfile('usr.sbin.clamd');
 
-    my $observerScript = EBox::Config::share() . '/ebox-antivirus/' . FRESHCLAM_OBSERVER_SCRIPT;
+    my $observerScript = EBox::Config::share() . '/zentyal-antivirus/' . FRESHCLAM_OBSERVER_SCRIPT;
 
     my $network = EBox::Global->modInstance('network');
     my $proxy = $network->model('Proxy');
@@ -364,7 +306,6 @@ sub notifyFreshclamEvent
     write_file($stateFile, $statePairs);
 }
 
-
 sub firewallHelper
 {
     my ($self) = @_;
@@ -375,7 +316,6 @@ sub firewallHelper
 
     return undef;
 }
-
 
 sub summary
 {
@@ -392,7 +332,6 @@ sub summary
         nobutton      => 0);
     $section->add($antivirus);
 }
-
 
 # Method: report
 #
@@ -435,4 +374,3 @@ sub report
 }
 
 1;
-
