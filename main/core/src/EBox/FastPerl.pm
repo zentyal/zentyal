@@ -42,9 +42,9 @@ sub init
     # FIXME: Replace all /tmp paths with EBox::Config::tmp()
     my $SOCKET_FILE = '/tmp/singleperl.sock';
 
+    my $env = encode_json(\%ENV);
     my $filename = "$Bin/$Script";
-    # FIXME: This could be problematic if args contain ':'
-    my $args = join (':', @ARGV);
+    my $args = encode_json(\@ARGV);
 
     STDOUT->autoflush(1);
     STDERR->autoflush(1);
@@ -69,9 +69,8 @@ sub init
     try {
         print $sock "$filename:$args\n";
         #DEBUG: print "$0 ($$): sent: $filename:$args\n";
-        my $env = encode_json(\%ENV);
         print $sock "$env\n";
-        print "$0 ($$): sent: $env\n";
+        #DEBUG: print "$0 ($$): sent: $env\n";
     } otherwise {
         # TODO: log this
         #DEBUG: print "$0 ($$): write to socket failed\n";
