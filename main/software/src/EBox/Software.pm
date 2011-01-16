@@ -68,13 +68,13 @@ sub _create
 #
 # Returns:
 #
-#	array ref of hashes holding the following keys:
+#   array ref of hashes holding the following keys:
 #
-#	name - name of the package
-#	description - short description of the package
-#	version - version installed (if any)
-#	avail - latest version available
-#	removable - true if the package can be removed
+#   name - name of the package
+#   description - short description of the package
+#   version - version installed (if any)
+#   avail - latest version available
+#   removable - true if the package can be removed
 #       depends - array ref containing the names of the package
 #                 dependencies to install this package
 #
@@ -89,7 +89,7 @@ sub listEBoxPkgs
 
     my $eboxlist = [];
 
-    $eboxlist =  $self->_getInfoEBoxPkgs();
+    $eboxlist = $self->_getInfoEBoxPkgs();
 
     return $eboxlist;
 }
@@ -101,11 +101,11 @@ sub listEBoxPkgs
 #
 # Returns:
 #
-#	array ref of hashes holding the following keys:
+#   array ref of hashes holding the following keys:
 #
-#	name - name of the package
-#	description - short description of the package
-#	version - version installed
+#   name - name of the package
+#   description - short description of the package
+#   version - version installed
 #
 sub listBrokenPkgs
 {
@@ -130,11 +130,11 @@ sub listBrokenPkgs
 
 # Method: installPkgs
 #
-#	Installs a list of packages via apt
+#   Installs a list of packages via apt
 #
 # Parameters:
 #
-#	array -  holding the package names
+#   array -  holding the package names
 #
 # Returns:
 #
@@ -157,7 +157,7 @@ sub installPkgs # (@pkgs)
         return;
     }
 
-    my $executable = EBox::Config::share() . "/ebox-software/ebox-update-packages @pkgs";
+    my $executable = EBox::Config::share() . "/zentyal-software/ebox-update-packages @pkgs";
     my $progress = EBox::ProgressIndicator->create(
         totalTicks => scalar @pkgs,
         executable => $executable,
@@ -168,11 +168,11 @@ sub installPkgs # (@pkgs)
 
 # Method: removePkgs
 #
-#	Removes a list of packages via apt
+#   Removes a list of packages via apt
 #
 # Parameters:
 #
-#	array -  holding the package names
+#   array -  holding the package names
 #
 # Returns:
 #
@@ -186,29 +186,29 @@ sub installPkgs # (@pkgs)
 
 sub removePkgs # (@pkgs)
 {
-	my ($self, @pkgs) = @_;
+    my ($self, @pkgs) = @_;
 
-	$self->_isModLocked();
+    $self->_isModLocked();
 
     if (not @pkgs) {
         EBox::info("No packages to remove");
         return;
     }
 
-	my $executable = EBox::Config::share() .
-	  "/ebox-software/ebox-remove-packages @pkgs";
+    my $executable = EBox::Config::share() .
+      "/zentyal-software/ebox-remove-packages @pkgs";
     my $progress = EBox::ProgressIndicator->create(
             totalTicks => scalar @pkgs,
             executable => $executable,
             );
-	$progress->runExecutable();
-	return $progress;
+    $progress->runExecutable();
+    return $progress;
 
 }
 
 # Method: updatePkgList
 #
-#	Update the package list
+#   Update the package list
 #
 # Exceptions:
 #
@@ -245,18 +245,18 @@ sub _packageListFile
 
 # Method: listUpgradablePkgs
 #
-#	Returns a list of those packages which are ready to be upgraded
+#   Returns a list of those packages which are ready to be upgraded
 #
 # Parameters:
 #
-#	clear - Boolean if set to 1, forces the cache to be cleared
+#   clear - Boolean if set to 1, forces the cache to be cleared
 #
 #       excludeEBoxPackages - Boolean not return zentyal packages (but
 #                             they are saved in the cache anyway)
 #
 # Returns:
 #
-#	array ref - holding hashes ref containing keys:
+#   array ref - holding hashes ref containing keys:
 #                   'name' - package's name
 #                   'description' package's short description
 #                   'version' - package's latest version
@@ -327,8 +327,8 @@ sub _onlyQA
 
 # Method: listPackageInstallDepends
 #
-#	Returns a list of those ebox packages which will be installed when
-#	trying to install a given set of packages
+#   Returns a list of those ebox packages which will be installed when
+#   trying to install a given set of packages
 #
 # Parameters:
 #
@@ -336,8 +336,8 @@ sub _onlyQA
 #
 # Returns:
 #
-#	array ref - holding the names of the ebox packages which will be
-#	            installed
+#   array ref - holding the names of the ebox packages which will be
+#               installed
 # Exceptions:
 #
 #       <EBox::Exceptions::External> - thrown if the module is locked
@@ -355,7 +355,7 @@ sub listPackageInstallDepends
 
 # Method: listPackageDescription
 #
-#	Returns a list of short descriptions of each package in the list.
+#   Returns a list of short descriptions of each package in the list.
 #
 # Parameters:
 #
@@ -363,7 +363,7 @@ sub listPackageInstallDepends
 #
 # Returns:
 #
-#	array ref - holding the short descriptions of the packages
+#   array ref - holding the short descriptions of the packages
 #
 # Exceptions:
 #
@@ -372,30 +372,30 @@ sub listPackageInstallDepends
 #
 sub listPackageDescription
 {
-	my ($self, $packages) = @_;
+    my ($self, $packages) = @_;
 
-	my $cache = $self->_cache();
+    my $cache = $self->_cache();
 
-	my @list;
-	for my $pack ( @$packages) {
-		my $pkgCache = $cache->packages()->lookup($pack) or next;
-		push(@list, $pkgCache->{ShortDesc});
-	}
-	return \@list;
+    my @list;
+    for my $pack (@$packages) {
+        my $pkgCache = $cache->packages()->lookup($pack) or next;
+        push(@list, $pkgCache->{ShortDesc});
+    }
+    return \@list;
 }
 
 # Method: listPackageRemoveDepends
 #
-#	Returns a list of those ebox packages which will be removed when
-#	trying to remove a given set of packages
+#   Returns a list of those ebox packages which will be removed when
+#   trying to remove a given set of packages
 #
 # Parameters:
 #
-#	packages - an array with the names of the packages being removed
+#   packages - an array with the names of the packages being removed
 #
 # Returns:
 #
-#	array ref - holding the names of the ebox packages which will be removed
+#   array ref - holding the names of the ebox packages which will be removed
 #
 # Exceptions:
 #
@@ -416,54 +416,50 @@ sub _packageDepends
 {
     my ($self, $action, $packages) = @_;
     if (($action ne 'install') and ($action ne 'remove')) {
-	    throw EBox::Exceptions::Internal("Bad action: $action");
+        throw EBox::Exceptions::Internal("Bad action: $action");
     }
 
     my $aptCmd = "apt-get -qq --no-install-recommends --simulate $action " .
 
-	join ' ',  @{ $packages };
+    join ' ',  @{ $packages };
 
     my $header;
     if ($action eq 'install') {
-	    $header = 'Inst';
+        $header = 'Inst';
     }
     elsif ($action eq 'remove') {
-	    $header = 'Remv'
+        $header = 'Remv'
     }
-
 
     my $output = EBox::Sudo::root($aptCmd);
 
-
     my @packages = grep {
-	$_ =~ m/
-              ^$header\s      # requested operation
-             (?:lib)?ebox     # is a ebox package
+    $_ =~ m/
+              ^$header\s  # requested operation
+              zentyal-    # is a Zentyal package
              /x
     } @{ $output };
 
-
     @packages = map {
-	    chomp $_;
-	    my ($h, $p) = split '\s', $_;
-	    $p;
+        chomp $_;
+        my ($h, $p) = split '\s', $_;
+        $p;
     } @packages;
-
 
    return \@packages;
 }
 
 # Method: isInstalled
 #
-#	Checks if the package is installed
+#   Checks if the package is installed
 #
 # Parameters:
 #
-#	name - name of the package
+#   name - name of the package
 #
 # Returns:
 #
-#	1 is package is intalled otherwise returns 0
+#   1 is package is intalled otherwise returns 0
 #
 # Exceptions:
 #
@@ -487,14 +483,14 @@ sub isInstalled
 
 # Method: getAutomaticUpdates
 #
-#	Returns if the automatic update mode is enabled
+#   Returns if the automatic update mode is enabled
 #
 #       Check if there are automatic updates from QA, if so, then
 #       return always true.
 #
 # Returns:
 #
-#	boolean - true if it's enabled, otherwise false
+#   boolean - true if it's enabled, otherwise false
 sub getAutomaticUpdates
 {
     my ($self) = @_;
@@ -506,7 +502,6 @@ sub getAutomaticUpdates
         if (lc($alwaysAutomatic) eq 'true') {
             return 1;
         }
-
     }
 
     my $auto = $self->get_bool('automatic');
@@ -515,14 +510,14 @@ sub getAutomaticUpdates
 
 # Method: setAutomaticUpdates
 #
-#	Set the automatic update mode. If it's enabled the system will
-#	fetch all the updates silently and automatically.
+#   Set the automatic update mode. If it's enabled the system will
+#   fetch all the updates silently and automatically.
 #
 #       If the software is QA updated, then you cannot change this parameter.
 #
 # Parameters:
 #
-#	auto  - true to enable it, false to disable it
+#   auto  - true to enable it, false to disable it
 sub setAutomaticUpdates # (auto)
 {
     my ($self, $auto) = @_;
@@ -566,7 +561,6 @@ sub setAutomaticUpdatesTime
                                             value => $time
                                            );
     }
-
 
     my ($hour, $minute) = split ':', $time, 2;
     if (($hour < 0) or ($hour > 23)) {

@@ -1,6 +1,6 @@
 ## Process this file with automake to produce Makefile.in
 
-Sqllogdir = @DATADIR@/ebox/sqllog/
+Sqllogdir = @DATADIR@/zentyal/sqllog/
 
 nobase_Sqllog_DATA = samba_access.sql samba_virus.sql samba_quarantine.sql samba_access_report.sql samba_virus_report.sql samba_disk_usage.sql samba_disk_usage_report.sql samba_virus_share_report.sql
 

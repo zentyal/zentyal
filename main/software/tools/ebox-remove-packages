@@ -51,7 +51,7 @@ try {
 
     my $pid = fork();
     if ($pid == 0) {
-        EBox::Sudo::root("/usr/share/ebox-software/ebox-apt-remove @packages $auto");
+        EBox::Sudo::root("/usr/share/zentyal-software/ebox-apt-remove @packages $auto");
         exit 0;
     }
 

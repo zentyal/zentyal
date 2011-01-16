@@ -1,6 +1,6 @@
 ## Process this file with automake to produce Makefile.in
 
-Migrationsdir = @DATADIR@/ebox-dns/migration
+Migrationsdir = @DATADIR@/zentyal-dns/migration
 
 nobase_Migrations_SCRIPTS = 0001_add_dns_service.pl 0002_add_bind_group_etc.pl \
                             0003_fix_dns_service.pl

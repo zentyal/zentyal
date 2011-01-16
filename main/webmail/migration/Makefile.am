@@ -1,6 +1,6 @@
 ## Process this file with automake to produce Makefile.in
 
-Migrationsdir = @DATADIR@/ebox-webmail/migration
+Migrationsdir = @DATADIR@/zentyal-webmail/migration
 
 nobase_Migrations_SCRIPTS =
 

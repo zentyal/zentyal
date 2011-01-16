@@ -653,7 +653,7 @@ var pkgTable = new Array(
             obj['Component'] = pkgTable[i]['Component'];
             obj['Latest Version'] = pkgTable[i]['Latest Version'];
 %   if (-f $file) {
-            if (pkgTable[i]['Name'] == 'ebox-remoteservices')
+            if (pkgTable[i]['Name'] == 'zentyal-remoteservices')
                 obj['Select'] = "<center><input type='checkbox' checked id='"+'ins_'+pkgTable[i]['Name']+"' onclick='changeCheck(\"insTableOrderer\", \""+'ins_'+pkgTable[i]['Name']+"\")'></center>";
             else
                 obj['Select'] = "<center><input type='checkbox' id='"+'ins_'+pkgTable[i]['Name']+"' onclick='changeCheck(\"insTableOrderer\", \""+'ins_'+pkgTable[i]['Name']+"\")'></center>";
@@ -664,7 +664,7 @@ var pkgTable = new Array(
             insTable[insTable.length] = obj;
         }else{
             if(pkgTable[i]['Removable'] == "1"){
-                if (pkgTable[i]['Name'] != 'ebox-software'){
+                if (pkgTable[i]['Name'] != 'zentyal-software'){
                     obj = new Object();
                     obj['Component'] = pkgTable[i]['Component'];
                     obj['Installed Version'] = pkgTable[i]['Latest Version'];
@@ -747,7 +747,7 @@ var pkgTable = new Array(
         if (send) {
             var inputAct = document.createElement('input');
             inputAct.setAttribute('type', 'text');
-            inputAct.setAttribute('name', 'ebox-'+action);
+            inputAct.setAttribute('name', 'zentyal-'+action);
             inputAct.setAttribute('value', action);
             document.formPkg.appendChild(inputAct);
             document.formPkg.submit();
@@ -759,7 +759,7 @@ var pkgTable = new Array(
         if (document.getElementById('Gateway_check').checked) {
             var inputPkg = document.createElement('input');
             inputPkg.setAttribute('type', 'text');
-            inputPkg.setAttribute('name', 'pkg-ebox-gateway');
+            inputPkg.setAttribute('name', 'pkg-zentyal-gateway');
             inputPkg.setAttribute('value', 'yes');
             document.formPkg.appendChild(inputPkg);
             send = true;
@@ -767,7 +767,7 @@ var pkgTable = new Array(
         if (document.getElementById('UTM_check').checked) {
             var inputPkg = document.createElement('input');
             inputPkg.setAttribute('type', 'text');
-            inputPkg.setAttribute('name', 'pkg-ebox-security');
+            inputPkg.setAttribute('name', 'pkg-zentyal-security');
             inputPkg.setAttribute('value', 'yes');
             document.formPkg.appendChild(inputPkg);
             send = true;
@@ -775,7 +775,7 @@ var pkgTable = new Array(
         if (document.getElementById('Office_check').checked) {
             var inputPkg = document.createElement('input');
             inputPkg.setAttribute('type', 'text');
-            inputPkg.setAttribute('name', 'pkg-ebox-office');
+            inputPkg.setAttribute('name', 'pkg-zentyal-office');
             inputPkg.setAttribute('value', 'yes');
             document.formPkg.appendChild(inputPkg);
             send = true;
@@ -783,7 +783,7 @@ var pkgTable = new Array(
         if (document.getElementById('Communications_check').checked) {
             var inputPkg = document.createElement('input');
             inputPkg.setAttribute('type', 'text');
-            inputPkg.setAttribute('name', 'pkg-ebox-communication');
+            inputPkg.setAttribute('name', 'pkg-zentyal-communication');
             inputPkg.setAttribute('value', 'yes');
             document.formPkg.appendChild(inputPkg);
             send = true;
@@ -791,7 +791,7 @@ var pkgTable = new Array(
         if (document.getElementById('Infrastructure_check').checked) {
             var inputPkg = document.createElement('input');
             inputPkg.setAttribute('type', 'text');
-            inputPkg.setAttribute('name', 'pkg-ebox-infrastructure');
+            inputPkg.setAttribute('name', 'pkg-zentyal-infrastructure');
             inputPkg.setAttribute('value', 'yes');
             document.formPkg.appendChild(inputPkg);
             send = true;

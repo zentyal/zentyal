@@ -1,6 +1,6 @@
 ## Process this file with automake to produce Makefile.in
 
-Migrationsdir = @DATADIR@/ebox-webserver/migration
+Migrationsdir = @DATADIR@/zentyal-webserver/migration
 
 nobase_Migrations_SCRIPTS = 0001_add_service_and_port.pl
 

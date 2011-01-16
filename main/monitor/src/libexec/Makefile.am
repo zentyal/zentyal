@@ -1,6 +1,6 @@
 ## Process this file with automake to produce Makefile.in
 
-scriptsdir = @DATADIR@/ebox-monitor
+scriptsdir = @DATADIR@/zentyal-monitor
 
 scripts_SCRIPTS = ebox-monitor-enable
 

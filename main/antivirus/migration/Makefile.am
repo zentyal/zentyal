@@ -1,6 +1,6 @@
 ## Process this file with automake to produce Makefile.in
 
-Migrationsdir = @DATADIR@/ebox-antivirus/migration
+Migrationsdir = @DATADIR@/zentyal-antivirus/migration
 
 nobase_Migrations_SCRIPTS =  0001_preserve_service_status.pl 0002_remove_cron_script.pl
 

@@ -1,6 +1,6 @@
 ## Process this file with automake to produce Makefile.in
 
-Sqllogdir = @DATADIR@/ebox/sqllog/
+Sqllogdir = @DATADIR@/zentyal/sqllog/
 
 nobase_Sqllog_DATA = mail_message.sql mail_traffic.sql mail_message_report.sql
 

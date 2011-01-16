@@ -1,6 +1,6 @@
 ## Process this file with automake to produce Makefile.in
 
-Migrationsdir = @DATADIR@/ebox-samba/migration
+Migrationsdir = @DATADIR@/zentyal-samba/migration
 
 nobase_Migrations_SCRIPTS = 0001_add_samba_service.pl 0002_delete_home_drives.pl
 

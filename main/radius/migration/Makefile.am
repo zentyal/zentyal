@@ -1,6 +1,6 @@
 ## Process this file with automake to produce Makefile.in
 
-Migrationsdir = @DATADIR@/ebox-radius/migration
+Migrationsdir = @DATADIR@/zentyal-radius/migration
 
 nobase_Migrations_SCRIPTS = 0001_add_firewall_services.pl
 

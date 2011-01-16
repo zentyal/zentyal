@@ -1,6 +1,6 @@
 ## Process this file with automake to produce Makefile.in
 
-wwwdir = $(datadir)/ebox/www/software/
+wwwdir = $(datadir)/zentyal/www/software/
 
 images = images/01_icon_welcome.png images/02_icon_basic_subscription.png images/02_icon_professional_subscription.png \
 images/03_icon_enterprise_subscription.png images/04_icon_technical_support.png images/05_icon_disaster_recovery.png \

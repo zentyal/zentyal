@@ -2,7 +2,7 @@
 
 
 
-Etcdir = $(sysconfdir)/ebox
+Etcdir = $(sysconfdir)/zentyal
 Etc_DATA = 95eboxmail.conf
 
 EXTRA_DIST = $(Etc_DATA)

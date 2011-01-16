@@ -1,6 +1,6 @@
 ## Process this file with automake to produce Makefile.in
 
-scriptsdir = @DATADIR@/ebox-mailfilter
+scriptsdir = @DATADIR@/zentyal-mailfilter
 
 scripts_SCRIPTS = learnspamd
 

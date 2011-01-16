@@ -1,6 +1,6 @@
 ## Process this file with automake to produce Makefile.in
 
-Migrationsdir = @DATADIR@/ebox-logs/migration
+Migrationsdir = @DATADIR@/zentyal-logs/migration
 
 
 nobase_Migrations_SCRIPTS = 0001_update_configurelogtable.pl 0002_remove_old_cron.pl 0003_add_plpgsql.pl

@@ -1,6 +1,6 @@
 ## Process this file with automake to produce Makefile.in
 
-Migrationsdir = @DATADIR@/ebox-printers/migration
+Migrationsdir = @DATADIR@/zentyal-printers/migration
 
 nobase_Migrations_SCRIPTS = 0001_add_ipp_service.pl 0003_migrate_logs_db.pl
 

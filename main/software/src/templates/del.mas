@@ -23,14 +23,14 @@ var check = new Array();
 % }
 % if ($action eq 'install') {
 %   foreach my $pkg (@actpackages) {
-%       if ( $pkg eq 'ebox-samba' ) {
+%       if ( $pkg eq 'zentyal-samba' ) {
             check[<% $i %>] = 'chksamba';
 %           $i++;
             var Achksamba = new Array();
             Achksamba[0] = 'samba-vscan';
-            Achksamba[1] = 'ebox-antivirus';
+            Achksamba[1] = 'zentyal-antivirus';
 %       }
-%       if ( $pkg eq 'ebox-asterisk' ) {
+%       if ( $pkg eq 'zentyal-asterisk' ) {
             check[<% $i %>] = 'chkdadhi';
 %           $i++;
             var Achkdadhi = new Array();
@@ -44,10 +44,10 @@ var check = new Array();
 %           }
 
 %       }
-%       if ( $pkg eq 'ebox-trafficshaping' ) {
+%       if ( $pkg eq 'zentyal-trafficshaping' ) {
             check[<% $i %>] = 'chkl7protocols';
             var Achkl7protocols = new Array();
-            Achkl7protocols[0] =  'ebox-l7-protocols';
+            Achkl7protocols[0] =  'zentyal-l7-protocols';
 %           $i++;
 %       }
 %   }
@@ -151,13 +151,13 @@ var check = new Array();
 %   if ($i) {
 <h3><% __('You may want to install also the following recommended packages:') %></h3>
 %       foreach my $pkg (@actpackages) {
-%           if ( $pkg eq 'ebox-trafficshaping' ) {
-    <input type='checkbox' id='chkl7protocols' name='pkg_ebox-l7-protocols'><% __('Layer 7 filtering for Traffic Shaping (ebox-l7-protocols)') %><br/>
+%           if ( $pkg eq 'zentyal-trafficshaping' ) {
+    <input type='checkbox' id='chkl7protocols' name='pkg_zentyal-l7-protocols'><% __('Layer 7 filtering for Traffic Shaping (zentyal-l7-protocols)') %><br/>
 %           }
-%           if ( $pkg eq 'ebox-samba' ) {
-    <input type='checkbox' id='chksamba' name='pkg_samba-vscan'><% __('Virus scanning for File Sharing (ebox-antivirus and samba-vscan)') %><br/>
+%           if ( $pkg eq 'zentyal-samba' ) {
+    <input type='checkbox' id='chksamba' name='pkg_samba-vscan'><% __('Virus scanning for File Sharing (zentyal-antivirus and samba-vscan)') %><br/>
 %           }
-%           if ( $pkg eq 'ebox-asterisk' ) {
+%           if ( $pkg eq 'zentyal-asterisk' ) {
     <input type='checkbox' id='chkdadhi' name='pkg_dadhi'><% __('VoIP meetings support (dahdi and linux-headers)') %><br/>
 %           }
 %       }

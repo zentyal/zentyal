@@ -1,6 +1,6 @@
 ## Process this file with automake to produce Makefile.in
 
-Sqllogdir = @DATADIR@/ebox/sqllog/
+Sqllogdir = @DATADIR@/zentyal/sqllog/
 
 nobase_Sqllog_DATA = squid_access.sql squid_traffic.sql squid_access_report.sql
 

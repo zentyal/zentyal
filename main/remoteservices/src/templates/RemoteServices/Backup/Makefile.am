@@ -1,6 +1,6 @@
 ## Process this file with automake to produce Makefile.in
 
-templatedir = $(datadir)/ebox/templates/RemoteServices/Backup
+templatedir = $(datadir)/zentyal/templates/RemoteServices/Backup
 template_DATA = index.mas confirm.mas \
 	        proxy.mas
 

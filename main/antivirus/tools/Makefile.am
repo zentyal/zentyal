@@ -1,6 +1,6 @@
 ## Process this file with automake to produce Makefile.in
 
-scriptsdir = @DATADIR@/ebox-antivirus
+scriptsdir = @DATADIR@/zentyal-antivirus
 
 scripts_SCRIPTS =
 

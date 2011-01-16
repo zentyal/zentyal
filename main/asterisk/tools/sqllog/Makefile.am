@@ -1,6 +1,6 @@
 ## Process this file with automake to produce Makefile.in
 
-sqllogdir = @DATADIR@/ebox/sqllog/
+sqllogdir = @DATADIR@/zentyal/sqllog/
 
 nobase_sqllog_DATA = asterisk_cdr.sql
 

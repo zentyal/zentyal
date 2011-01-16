@@ -1,6 +1,6 @@
 ## Process this file with automake to produce Makefile.in
 
-scriptsdir = @DATADIR@/ebox
+scriptsdir = @DATADIR@/zentyal
 
 scripts_SCRIPTS = dhcp-nameservers.pl dhcp-address.pl \
 	dhcp-clear.pl dhcp-gateway.pl ppp-set-iface.pl \

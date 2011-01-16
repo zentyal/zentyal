@@ -1,6 +1,6 @@
 ## Process this file with automake to produce Makefile.in
 
-Migrationsdir = @DATADIR@/ebox-monitor/migration
+Migrationsdir = @DATADIR@/zentyal-monitor/migration
 
 nobase_Migrations_SCRIPTS =
 

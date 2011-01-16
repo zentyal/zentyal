@@ -1,6 +1,6 @@
 ## Process this file with automake to produce Makefile.in
 
-Migrationsdir = @DATADIR@/ebox-jabber/migration
+Migrationsdir = @DATADIR@/zentyal-jabber/migration
 
 nobase_Migrations_SCRIPTS = 0001_add_firewall_services.pl
 

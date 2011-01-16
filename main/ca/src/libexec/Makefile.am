@@ -1,5 +1,5 @@
 ## Process this file with automake to produce Makefile.in
-scriptsdir = @DATADIR@/ebox-ca
+scriptsdir = @DATADIR@/zentyal-ca
 
 scripts_SCRIPTS = updateDB.pl
 

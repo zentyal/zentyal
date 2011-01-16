@@ -1,6 +1,6 @@
 ## Process this file with automake to produce Makefile.in
 
-Migrationsdir = @DATADIR@/ebox-ftp/migration
+Migrationsdir = @DATADIR@/zentyal-ftp/migration
 
 nobase_Migrations_SCRIPTS = 0001_add_firewall_services.pl
 

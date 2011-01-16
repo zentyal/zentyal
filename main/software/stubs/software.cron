@@ -3,4 +3,4 @@ $hour
 $minute
 </%args>
 
-<% $minute %> <% $hour %> * * * root /usr/share/ebox-software/ebox-software
+<% $minute %> <% $hour %> * * * root /usr/share/zentyal-software/ebox-software

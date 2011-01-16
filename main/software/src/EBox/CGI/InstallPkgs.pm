@@ -151,7 +151,7 @@ sub showConfirmationPage
 
     $self->{'template'} = 'software/del.mas',
 
-        my @array;
+    my @array;
     push(@array, 'action' => $action);
     push(@array, 'packages' => $packages_r);
     push(@array, 'actpackages' => $actpackages);

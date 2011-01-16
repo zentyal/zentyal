@@ -1,6 +1,6 @@
 ## Process this file with automake to produce Makefile.in
 
-Migrationsdir = @DATADIR@/ebox-events/migration
+Migrationsdir = @DATADIR@/zentyal-events/migration
 
 
 nobase_Migrations_SCRIPTS = 0001_migrate_logs_db_fields.pl

@@ -2,7 +2,7 @@
 
 SUBDIRS = hooks
 
-Etcdir = $(sysconfdir)/ebox
+Etcdir = $(sysconfdir)/zentyal
 Etc_DATA = 80firewall.conf
 
 EXTRA_DIST = $(Etc_DATA)

@@ -1,6 +1,6 @@
 ## Process this file with automake to produce Makefile.in
 
-Etcdir = $(sysconfdir)/ebox
+Etcdir = $(sysconfdir)/zentyal
 Etc_DATA = 82ebackup.conf
 
 EXTRA_DIST = $(Etc_DATA)

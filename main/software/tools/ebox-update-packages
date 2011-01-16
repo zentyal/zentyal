@@ -58,7 +58,7 @@ try {
     $pid = fork();
     if ($pid == 0) {
         # Child code
-        EBox::Sudo::root ("/usr/share/ebox-software/ebox-apt-update @packages");
+        EBox::Sudo::root ("/usr/share/zentyal-software/ebox-apt-update @packages");
         exit(0);
     }
 

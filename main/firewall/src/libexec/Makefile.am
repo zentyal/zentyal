@@ -1,5 +1,5 @@
 ## Process this file with automake to produce Makefile.in
-scriptsdir = @DATADIR@/ebox
+scriptsdir = @DATADIR@/zentyal
 
 scripts_SCRIPTS = dhcp-firewall.pl
 
