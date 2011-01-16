@@ -64,8 +64,8 @@ use constant MAXDESCRIPTIONLENGTH => 255;
 use constant SMBPORTS => qw(137 138 139 445);
 
 
-use constant FIX_SID_PROGRAM => '/usr/share/ebox-samba/ebox-fix-sid';
-use constant QUOTA_PROGRAM => '/usr/share/ebox-samba/ebox-samba-quota';
+use constant FIX_SID_PROGRAM => '/usr/share/zentyal-samba/ebox-fix-sid';
+use constant QUOTA_PROGRAM => '/usr/share/zentyal-samba/ebox-samba-quota';
 
 sub _create
 {
@@ -180,7 +180,7 @@ sub enableActions
 
     my $users = EBox::Global->modInstance('users');
 
-    root(EBox::Config::share() . '/ebox-samba/ebox-samba-enable');
+    root(EBox::Config::share() . '/zentyal-samba/ebox-samba-enable');
 }
 
 # Method: modelClasses
@@ -532,7 +532,7 @@ sub _setConf
 
     $self->writeConfFile(CLAMAVSMBCONFFILE, "samba/vscan-clamav.conf.mas", \@array);
 
-    root(EBox::Config::share() . '/ebox-samba/ebox-setadmin-pass');
+    root(EBox::Config::share() . '/zentyal-samba/ebox-setadmin-pass');
 
     my $users = EBox::Global->modInstance('users');
 

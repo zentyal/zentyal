@@ -214,7 +214,7 @@ sub enableActions
         $self->disableApparmorProfile('usr.sbin.slapd');
 
         EBox::Sudo::root("invoke-rc.d slapd stop");
-        EBox::Sudo::root("cp $share/ebox-usersandgroups/slapd.default.no " .
+        EBox::Sudo::root("cp $share/zentyal-users/slapd.default.no " .
             '/etc/default/slapd');
 
         $self->_setupSlaveLDAP();
@@ -228,7 +228,7 @@ sub enableActions
         throw EBox::Exceptions::Internal(
             "Trying to enable users with unknown LDAP mode: $mode");
     }
-    EBox::Sudo::root("$share/ebox-usersandgroups/ebox-usersandgroups-enable");
+    EBox::Sudo::root("$share/zentyal-users/enable-module");
 
     # Release lock
     flock($lock, LOCK_UN);
@@ -276,7 +276,7 @@ sub _setConf
     if ( $mode eq 'ad-slave' ) {
         EBox::Sudo::root("rm -f /etc/cron.d/ebox-ad-sync");
         if ($self->adsyncEnabled()) {
-            my $cronFile = EBox::Config::share() . '/ebox-usersandgroups/ebox-ad-sync.cron';
+            my $cronFile = EBox::Config::share() . '/zentyal-users/ebox-ad-sync.cron';
             EBox::Sudo::root("install -m 0644 -o root -g root $cronFile /etc/cron.d/ebox-ad-sync");
         }
     }
@@ -2882,7 +2882,7 @@ sub _setupReplication
         'remote' => $remote,
         'remotedn' => $remotedn,
         'password' => $password,
-        'schemadir' => EBox::Config::share() . '/ebox-usersandgroups/'
+        'schemadir' => EBox::Config::share() . '/zentyal-users/'
     ];
 
     my $ldappass = EBox::Config::conf() . 'ebox-ldap.passwd';

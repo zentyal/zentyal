@@ -135,7 +135,7 @@ sub runGConf
         $row->setReadOnly(1);
         $row->store();
     }
-    EBox::Sudo::root("cp " . EBox::Config::share() . "/ebox-usersandgroups/slapd.default /etc/default/slapd");
+    EBox::Sudo::root("cp " . EBox::Config::share() . "/zentyal-users/slapd.default /etc/default/slapd");
     EBox::UsersAndGroups::Setup::createJournalsDirs();
     $mod->restartService();
 }

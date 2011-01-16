@@ -20,16 +20,16 @@ test -d /home/samba/profiles || mkdir /home/samba/profiles
 test -d /home/samba/netlogon || mkdir /home/samba/netlogon
 
 # add mandatory items to domain database
-/usr/share/ebox-samba/ebox-samba-ldap populate-ldap
+/usr/share/zentyal-samba/ebox-samba-ldap populate-ldap
 
 # update current users in ldap database
-/usr/share/ebox-samba/ebox-samba-ldap update-users
+/usr/share/zentyal-samba/ebox-samba-ldap update-users
 
 # generate smb.conf and ldap.conf
-/usr/share/ebox-samba/ebox-samba-ldap genconfig
+/usr/share/zentyal-samba/ebox-samba-ldap genconfig
 
 # update current ldap database
-/usr/share/ebox-samba/ebox-samba-ldap update-pdc
+/usr/share/zentyal-samba/ebox-samba-ldap update-pdc
 
 # Add quota support to fstab. It's set up for "/home" if exists,
 # otherwise we fall back to "/". Remount partition and
@@ -81,7 +81,7 @@ system("/bin/mount -o remount $mount");
 exit 0;
 ';
 
-/usr/share/ebox-samba/ebox-samba-ldap fix-sids
+/usr/share/zentyal-samba/ebox-samba-ldap fix-sids
 
 # This might fail if the fs does not support quotas
 invoke-rc.d quota restart

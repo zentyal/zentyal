@@ -104,7 +104,7 @@ sub master
 
     my @commands;
     push (@commands, 'cp ' . EBox::Config::share() .
-        '/ebox-usersandgroups/slapd.default /etc/default/slapd');
+        '/zentyal-users/slapd.default /etc/default/slapd');
     push (@commands, 'invoke-rc.d slapd restart');
     EBox::Sudo::root(@commands);
 

@@ -15,7 +15,7 @@ case "$1" in
         chmod 730 $QUARANTINE_DIR
 
         # migrate data if needed
-        /usr/share/zentyal/ebox-migrate /usr/share/ebox-samba/migration/
+        /usr/share/zentyal/ebox-migrate /usr/share/zentyal-samba/migration/
 
         #create log tables
         /usr/share/zentyal/ebox-sql-table add samba_access /usr/share/zentyal/sqllog/samba_access.sql

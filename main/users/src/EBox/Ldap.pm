@@ -1056,7 +1056,7 @@ sub _backupSystemDirectory
 {
     my ($self) = @_;
 
-    return EBox::Config::share() . '/ebox-usersandgroups/slapd.backup';
+    return EBox::Config::share() . '/zentyal-users/slapd.backup';
 }
 
 sub _execute

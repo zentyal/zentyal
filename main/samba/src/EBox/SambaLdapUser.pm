@@ -1252,8 +1252,8 @@ sub groupsPath
 
 sub schemas
 {
-    return [ EBox::Config::share() . "ebox-samba/samba.ldif",
-             EBox::Config::share() . "ebox-samba/ebox.ldif" ];
+    return [ EBox::Config::share() . 'zentyal-samba/samba.ldif',
+             EBox::Config::share() . 'zentyal-samba/ebox.ldif' ];
 }
 
 sub indexes

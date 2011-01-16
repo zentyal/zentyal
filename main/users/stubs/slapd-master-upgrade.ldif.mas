@@ -14,8 +14,8 @@ changetype: modify
 add: olcModuleLoad
 olcModuleLoad: syncprov
 
-include: file:///usr/share/ebox-usersandgroups/master.ldif
-include: file:///usr/share/ebox-usersandgroups/slaves.ldif
+include: file:///usr/share/zentyal-users/master.ldif
+include: file:///usr/share/zentyal-users/slaves.ldif
 
 dn: olcOverlay=syncprov,olcDatabase={1}hdb,cn=config
 objectClass: olcOverlayConfig

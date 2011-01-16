@@ -48,9 +48,9 @@ sub _delGroupWarning($$) {
 sub schemas
 {
     return [
-        EBox::Config::share() . '/ebox-usersandgroups/passwords.ldif',
-        EBox::Config::share() . '/ebox-usersandgroups/master.ldif',
-        EBox::Config::share() . '/ebox-usersandgroups/slaves.ldif'
+        EBox::Config::share() . '/zentyal-users/passwords.ldif',
+        EBox::Config::share() . '/zentyal-users/master.ldif',
+        EBox::Config::share() . '/zentyal-users/slaves.ldif'
     ];
 }
 

@@ -47,7 +47,7 @@ case "$1" in
         /usr/share/zentyal/ebox-create-certificate /var/lib/ebox-usercorner/ssl > /dev/null 2>&1 || true
 
         # Migrate data if needed
-        /usr/share/zentyal/ebox-migrate /usr/share/ebox-usersandgroups/migration/ || true
+        /usr/share/zentyal/ebox-migrate /usr/share/zentyal-users/migration/ || true
 
         # regenrate slap configuration and restart
         #  this is needed bz it may be changes in slapd configuration
