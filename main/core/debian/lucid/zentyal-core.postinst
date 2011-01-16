@@ -97,10 +97,10 @@ case "$1" in
         fi
 
         # migrate log data
-        /usr/share/zentyal/ebox-migrate /usr/share/ebox-logs/migration
+        /usr/share/zentyal/ebox-migrate /usr/share/zentyal-logs/migration
 
         # migrate events module
-        /usr/share/zentyal/ebox-migrate /usr/share/ebox-events/migration
+        /usr/share/zentyal/ebox-migrate /usr/share/zentyal-events/migration
 
         # remove initial redis config and stop server
         if [ -f /var/lib/ebox/.first -a -z "$2" ]; then
