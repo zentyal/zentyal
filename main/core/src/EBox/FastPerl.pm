@@ -21,6 +21,7 @@ use strict;
 use IO::Socket::UNIX;
 use Socket::PassAccessRights;
 use File::Basename;
+use JSON::XS;
 use Perl6::Junction qw(any);
 use FindBin qw($Bin $Script);
 use Error qw(:try);
@@ -42,9 +43,8 @@ sub init
     my $SOCKET_FILE = '/tmp/singleperl.sock';
 
     my $filename = "$Bin/$Script";
-    my @quotedArgs = map { "\"$_\"" } @ARGV;
     # FIXME: This could be problematic if args contain ':'
-    my $args = join (':', @quotedArgs);
+    my $args = join (':', @ARGV);
 
     STDOUT->autoflush(1);
     STDERR->autoflush(1);
@@ -69,6 +69,9 @@ sub init
     try {
         print $sock "$filename:$args\n";
         #DEBUG: print "$0 ($$): sent: $filename:$args\n";
+        my $env = encode_json(\%ENV);
+        print $sock "$env\n";
+        print "$0 ($$): sent: $env\n";
     } otherwise {
         # TODO: log this
         #DEBUG: print "$0 ($$): write to socket failed\n";

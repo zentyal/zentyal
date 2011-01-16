@@ -21,6 +21,7 @@ use IO::Socket::UNIX;
 use POSIX qw(:sys_wait_h);
 use Socket::PassAccessRights;
 use File::Slurp;
+use JSON::XS;
 
 my $SOCKET_FILE = '/tmp/singleperl.sock';
 
@@ -34,7 +35,7 @@ if ($FORK_MODE) {
 }
 
 if ($FORK_MODE) {
-    $SIG{CHLD} = \&REAPER;
+    $SIG{CHLD} = 'IGNORE';
 }
 
 unlink ($SOCKET_FILE);
@@ -55,6 +56,7 @@ while (1) {
             if ($child = fork()) {
                 close $new_sock;
             } elsif (defined $child) {
+                $SIG{CHLD} = 'DEFAULT';
                 close $sock;
                 handle($new_sock);
                 exit;
@@ -86,9 +88,13 @@ sub handle
         my @args = split (/:/, $rest);
         #DEBUG: print "$0 ($$): request to execute: $cmd @args\n";
 
+        # TODO: handle this better
+        $buf = <$sock>;
+        my $env = decode_json($buf);
+
         redirect($outfd, $errfd);
 
-        my $exitValue = execute($pid, $cmd, @args);
+        my $exitValue = execute($env, $cmd, @args);
         #DEBUG: print "$0 ($$): sending result: $exitValue\n";
         print $sock "$exitValue\n";
 
@@ -98,7 +104,7 @@ sub handle
 
 sub execute
 {
-    my ($file, @args) = @_;
+    my ($env, $file, @args) = @_;
 
     my $code = read_file($file);
     {
@@ -109,12 +115,16 @@ sub execute
             #DEBUG: print STDERR "WARNING: @_\n";
         };
 
+        # Save current environment and commandline
+        my %oldEnv = %ENV;
         my ($oldProg, @oldArgs) = ($0, @ARGV);
+
+        # Set environment and commandline for the hosted script
+        %ENV = %{$env}; $ENV{SINGLE_INTERP} = 1;
         ($0, @ARGV) = ($file, @args);
-        eval 'BEGIN { *CORE::GLOBAL::exit = sub { die "ret=@_"; } };' . $code;
-        ($0, @ARGV) = ($oldProg, @oldArgs);
 
         my $exitValue;
+        eval 'BEGIN { *CORE::GLOBAL::exit = sub { die "ret=@_"; } };' . $code;
         if ($@) {
             ($exitValue) = $@ =~ /^ret=(\d+)/;
             unless (defined $exitValue) {
@@ -124,8 +134,12 @@ sub execute
         } else {
             $exitValue = 0;
         }
-        #DEBUG: print "RETURN VALUE: $exitValue\n";
 
+        # Restore saved values
+        %ENV = %oldEnv;
+        ($0, @ARGV) = ($oldProg, @oldArgs);
+
+        #DEBUG: print "RETURN VALUE: $exitValue\n";
         return $exitValue;
     };
 }
@@ -160,8 +174,3 @@ sub endredirect
     open (STDERR, '>&', $olderr);
 }
 
-sub REAPER
-{
-    1 until (waitpid (-1, WNOHANG));
-    $SIG{CHLD} = \&REAPER;
-}
