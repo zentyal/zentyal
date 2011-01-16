@@ -20,9 +20,7 @@ use warnings;
 
 use base qw(EBox::Module::Service
             EBox::Model::ModelProvider
-            EBox::Model::CompositeProvider
-            EBox::FirewallObserver
-           );
+            EBox::FirewallObserver);
 
 use EBox::Gettext;
 use EBox::Service;
