@@ -6,7 +6,7 @@
 # and after gconf debhelper is run.
 if [ "$1" = "purge" ]; then
         # Purge configuration
-        /usr/share/zentyal-core/zentyal-clean-conf zarafa || true
+        /usr/share/zentyal/zentyal-clean-conf zarafa || true
 fi
 
 #DEBHELPER#

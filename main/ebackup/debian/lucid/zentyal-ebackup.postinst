@@ -5,11 +5,11 @@
 case "$1" in
     configure)
         # Migrate data if needed
-        /usr/share/zentyal-core/ebox-migrate /usr/share/ebox-ebackup/migration/
+        /usr/share/zentyal/ebox-migrate /usr/share/ebox-ebackup/migration/
 
         #create log tables
-        /usr/share/zentyal-core/ebox-sql-table add ebackup_storage_usage /usr/share/zentyal-core/sqllog/ebackup_storage_usage.sql
-        /usr/share/zentyal-core/ebox-sql-table add ebackup_storage_usage_report /usr/share/zentyal-core/sqllog/ebackup_storage_usage_report.sql
+        /usr/share/zentyal/ebox-sql-table add ebackup_storage_usage /usr/share/zentyal/sqllog/ebackup_storage_usage.sql
+        /usr/share/zentyal/ebox-sql-table add ebackup_storage_usage_report /usr/share/zentyal/sqllog/ebackup_storage_usage_report.sql
 
         # restart module
         invoke-rc.d zentyal ebackup restart

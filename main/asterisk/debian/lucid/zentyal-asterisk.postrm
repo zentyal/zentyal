@@ -6,7 +6,7 @@
 # and after gconf debhelper is run.
 if [ "$1" = "purge" ]; then
         # Purge configuration
-        /usr/share/zentyal-core/zentyal-clean-conf asterisk || true
+        /usr/share/zentyal/zentyal-clean-conf asterisk || true
 fi
 
 #DEBHELPER#
@@ -19,7 +19,7 @@ case "$1" in
         dpkg-trigger --no-await zentyal-core
     ;;
     purge)
-        /usr/share/zentyal-core/ebox-sql-table drop asterisk_cdr || true
+        /usr/share/zentyal/ebox-sql-table drop asterisk_cdr || true
     ;;
 esac
 

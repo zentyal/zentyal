@@ -7,6 +7,6 @@ DEST="/var/lib/ebox/latestversion"
 wget --timeout $TIMEOUT $URL -O $DEST >/dev/null 2>&1
 
 # Gather reporting info
-/usr/share/zentyal-core/ebox-gather-reportinfo
+/usr/share/zentyal/ebox-gather-reportinfo
 # Consolidate this reporting info
-/usr/share/zentyal-core/ebox-consolidate-reportinfo
+/usr/share/zentyal/ebox-consolidate-reportinfo

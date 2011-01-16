@@ -8,7 +8,7 @@ set -e
 # and after gconf debhelper is run
 if [ "$1" = "purge" ]; then
         # Purge configuration
-        /usr/share/zentyal-core/zentyal-clean-conf dhcp || true
+        /usr/share/zentyal/zentyal-clean-conf dhcp || true
 fi
 
 
@@ -23,7 +23,7 @@ case "$1" in
 
     purge)
         # drop log table
-        /usr/share/zentyal-core/ebox-sql-table drop leases || true
+        /usr/share/zentyal/ebox-sql-table drop leases || true
         ;;
 
 esac

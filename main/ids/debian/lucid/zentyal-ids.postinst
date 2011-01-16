@@ -5,12 +5,12 @@
 case "$1" in
 	configure)
         # create log table
-        /usr/share/zentyal-core/ebox-sql-table add ids_event /usr/share/zentyal-core/sqllog/ids_event.sql
-        /usr/share/zentyal-core/ebox-sql-table add ids_report /usr/share/zentyal-core/sqllog/ids_report.sql
-        /usr/share/zentyal-core/ebox-sql-table-with-time-period add ids_alert /usr/share/zentyal-core/sqllog/ids_alert.sql
+        /usr/share/zentyal/ebox-sql-table add ids_event /usr/share/zentyal/sqllog/ids_event.sql
+        /usr/share/zentyal/ebox-sql-table add ids_report /usr/share/zentyal/sqllog/ids_report.sql
+        /usr/share/zentyal/ebox-sql-table-with-time-period add ids_alert /usr/share/zentyal/sqllog/ids_alert.sql
 
         # migration
-        /usr/share/zentyal-core/ebox-migrate /usr/share/ebox-ids/migration
+        /usr/share/zentyal/ebox-migrate /usr/share/ebox-ids/migration
 
         # restart logs
         invoke-rc.d zentyal logs restart || true

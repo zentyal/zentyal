@@ -2,7 +2,7 @@
 
 SUBDIRS = logs events
 
-Migrationsdir = @DATADIR@/zentyal-core/migration
+Migrationsdir = @DATADIR@/zentyal/migration
 
 MAINTAINERCLEANFILES = Makefile.in
 

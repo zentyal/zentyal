@@ -15,17 +15,17 @@ case "$1" in
         chmod 730 $QUARANTINE_DIR
 
         # migrate data if needed
-        /usr/share/zentyal-core/ebox-migrate /usr/share/ebox-samba/migration/
+        /usr/share/zentyal/ebox-migrate /usr/share/ebox-samba/migration/
 
         #create log tables
-        /usr/share/zentyal-core/ebox-sql-table add samba_access /usr/share/zentyal-core/sqllog/samba_access.sql
-        /usr/share/zentyal-core/ebox-sql-table add samba_access_report /usr/share/zentyal-core/sqllog/samba_access_report.sql
-        /usr/share/zentyal-core/ebox-sql-table add samba_virus /usr/share/zentyal-core/sqllog/samba_virus.sql
-        /usr/share/zentyal-core/ebox-sql-table add samba_virus_report /usr/share/zentyal-core/sqllog/samba_virus_report.sql
-        /usr/share/zentyal-core/ebox-sql-table add samba_quarantine /usr/share/zentyal-core/sqllog/samba_quarantine.sql
-        /usr/share/zentyal-core/ebox-sql-table add samba_disk_usage /usr/share/zentyal-core/sqllog/samba_disk_usage.sql
-        /usr/share/zentyal-core/ebox-sql-table add samba_disk_usage_report /usr/share/zentyal-core/sqllog/samba_disk_usage_report.sql
-        /usr/share/zentyal-core/ebox-sql-table add samba_virus_share_report /usr/share/zentyal-core/sqllog/samba_virus_share_report.sql
+        /usr/share/zentyal/ebox-sql-table add samba_access /usr/share/zentyal/sqllog/samba_access.sql
+        /usr/share/zentyal/ebox-sql-table add samba_access_report /usr/share/zentyal/sqllog/samba_access_report.sql
+        /usr/share/zentyal/ebox-sql-table add samba_virus /usr/share/zentyal/sqllog/samba_virus.sql
+        /usr/share/zentyal/ebox-sql-table add samba_virus_report /usr/share/zentyal/sqllog/samba_virus_report.sql
+        /usr/share/zentyal/ebox-sql-table add samba_quarantine /usr/share/zentyal/sqllog/samba_quarantine.sql
+        /usr/share/zentyal/ebox-sql-table add samba_disk_usage /usr/share/zentyal/sqllog/samba_disk_usage.sql
+        /usr/share/zentyal/ebox-sql-table add samba_disk_usage_report /usr/share/zentyal/sqllog/samba_disk_usage_report.sql
+        /usr/share/zentyal/ebox-sql-table add samba_virus_share_report /usr/share/zentyal/sqllog/samba_virus_share_report.sql
 
         dpkg-trigger --no-await zentyal-core
     ;;

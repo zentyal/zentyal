@@ -6,7 +6,7 @@ case "$1" in
 	configure)
 
 		# Migrate data if needed
-		/usr/share/zentyal-core/ebox-migrate /usr/share/ebox-webserver/migration/
+		/usr/share/zentyal/ebox-migrate /usr/share/ebox-webserver/migration/
 
 		invoke-rc.d zentyal webserver restart || true
 

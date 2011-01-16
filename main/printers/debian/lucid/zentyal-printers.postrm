@@ -7,7 +7,7 @@ set -e
 # and after gconf debhelper is run
 if [ "$1" = "purge" ]; then
         # Purge configuration
-        /usr/share/zentyal-core/zentyal-clean-conf printers || true
+        /usr/share/zentyal/zentyal-clean-conf printers || true
 fi
 
 #DEBHELPER#
@@ -20,7 +20,7 @@ case "$1" in
         dpkg-trigger --no-await zentyal-core
        ;;
 	purge)
-        # /usr/share/zentyal-core/ebox-sql-table drop jobs || true
+        # /usr/share/zentyal/ebox-sql-table drop jobs || true
 
         ;;
 esac

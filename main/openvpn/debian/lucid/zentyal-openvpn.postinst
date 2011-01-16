@@ -25,8 +25,8 @@ case "$1" in
 
 
         # create log table
-        /usr/share/zentyal-core/ebox-sql-table add openvpn  /usr/share/zentyal-core/sqllog/openvpn.sql || true
-        /usr/share/zentyal-core/ebox-sql-table add openvpn_report /usr/share/zentyal-core/sqllog/openvpn_report.sql
+        /usr/share/zentyal/ebox-sql-table add openvpn  /usr/share/zentyal/sqllog/openvpn.sql || true
+        /usr/share/zentyal/ebox-sql-table add openvpn_report /usr/share/zentyal/sqllog/openvpn_report.sql
 
         # restart logs
         invoke-rc.d zentyal logs restart || true

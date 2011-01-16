@@ -12,9 +12,9 @@ case "$1" in
             chown asterisk:asterisk /var/spool/asterisk/
         fi
         # create log table
-        /usr/share/zentyal-core/ebox-sql-table add asterisk_cdr /usr/share/zentyal-core/sqllog/asterisk_cdr.sql
+        /usr/share/zentyal/ebox-sql-table add asterisk_cdr /usr/share/zentyal/sqllog/asterisk_cdr.sql
         # migrate data if needed
-        /usr/share/zentyal-core/ebox-migrate /usr/share/ebox-asterisk/migration/
+        /usr/share/zentyal/ebox-migrate /usr/share/ebox-asterisk/migration/
 
         # restart logs
         invoke-rc.d zentyal logs restart || true

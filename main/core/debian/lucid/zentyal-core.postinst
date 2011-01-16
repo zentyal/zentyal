@@ -19,7 +19,7 @@ case "$1" in
         chmod 750 /var/log/zentyal
 
         # create Zentyal apache certificates
-        /usr/share/zentyal-core/ebox-create-certificate /var/lib/ebox/conf/ssl > /dev/null 2>&1
+        /usr/share/zentyal/ebox-create-certificate /var/lib/ebox/conf/ssl > /dev/null 2>&1
 
         #add the ebox group and user
         if ! getent group ebox > /dev/null 2>&1
@@ -82,7 +82,7 @@ case "$1" in
         fi
 
         # sudo configuration
-        /usr/share/zentyal-core/ebox-sudoers-friendly
+        /usr/share/zentyal/ebox-sudoers-friendly
 
         if [ -z "$2" ]; then
             # Set eBox port only if it's the first time we install
@@ -97,10 +97,10 @@ case "$1" in
         fi
 
         # migrate log data
-        /usr/share/zentyal-core/ebox-migrate /usr/share/ebox-logs/migration
+        /usr/share/zentyal/ebox-migrate /usr/share/ebox-logs/migration
 
         # migrate events module
-        /usr/share/zentyal-core/ebox-migrate /usr/share/ebox-events/migration
+        /usr/share/zentyal/ebox-migrate /usr/share/ebox-events/migration
 
         # remove initial redis config and stop server
         if [ -f /var/lib/ebox/.first -a -z "$2" ]; then

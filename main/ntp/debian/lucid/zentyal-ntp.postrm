@@ -8,7 +8,7 @@ set -e
 # and after gconf debhelper is run
 if [ "$1" = "purge" ]; then
         # Purge configuration
-        /usr/share/zentyal-core/zentyal-clean-conf ntp || true
+        /usr/share/zentyal/zentyal-clean-conf ntp || true
 fi
 
 #DEBHELPER#

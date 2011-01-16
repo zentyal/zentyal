@@ -6,7 +6,7 @@
 # and after gconf debhelper is run
 if [ "$1" = "purge" ]; then
         # Purge configuration
-        /usr/share/zentyal-core/zentyal-clean-conf ids || true
+        /usr/share/zentyal/zentyal-clean-conf ids || true
 fi
 
 
@@ -18,8 +18,8 @@ case "$1" in
         ;;
 
     purge)
-        /usr/share/zentyal-core/ebox-sql-table drop ids || true
-		/usr/share/zentyal-core/ebox-sql-table-with-time-period drop ids_alert || true
+        /usr/share/zentyal/ebox-sql-table drop ids || true
+		/usr/share/zentyal/ebox-sql-table-with-time-period drop ids_alert || true
         ;;
 esac
 

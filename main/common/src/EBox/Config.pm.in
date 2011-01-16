@@ -222,12 +222,12 @@ sub lib
 
 sub libexec
 {
-    return $ref->{libdir} . "zentyal-core/";
+    return $ref->{libdir} . "zentyal/";
 }
 
 sub pkgdata
 {
-    return $ref->{datadir} . "zentyal-core/";
+    return $ref->{datadir} . "zentyal/";
 }
 
 sub locale
@@ -302,37 +302,37 @@ sub logfile
 
 sub stubs
 {
-    return $ref->{datadir} . "zentyal-core/stubs/";
+    return $ref->{datadir} . "zentyal/stubs/";
 }
 
 sub cgi
 {
-    return $ref->{datadir} . "zentyal-core/cgi/";
+    return $ref->{datadir} . "zentyal/cgi/";
 }
 
 sub templates
 {
-    return $ref->{datadir} . "zentyal-core/templates/";
+    return $ref->{datadir} . "zentyal/templates/";
 }
 
 sub schemas
 {
-    return $ref->{datadir} . "zentyal-core/schemas/";
+    return $ref->{datadir} . "zentyal/schemas/";
 }
 
 sub www
 {
-    return $ref->{datadir} . "zentyal-core/www/";
+    return $ref->{datadir} . "zentyal/www/";
 }
 
 sub css
 {
-    return $ref->{datadir} . "zentyal-core/www/css/";
+    return $ref->{datadir} . "zentyal/www/css/";
 }
 
 sub images
 {
-    return $ref->{datadir} . "zentyal-core/www/images/";
+    return $ref->{datadir} . "zentyal/www/images/";
 }
 
 

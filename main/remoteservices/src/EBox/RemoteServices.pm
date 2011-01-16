@@ -170,7 +170,7 @@ sub _setRemoteSupportAccessConf
 
 
     EBox::RemoteServices::SupportAccess->setEnabled($supportAccess, $fromAnyAddress);
-    EBox::Sudo::root('/usr/share/zentyal-core/ebox-sudoers-friendly');
+    EBox::Sudo::root('/usr/share/zentyal/ebox-sudoers-friendly');
 }
 
 # Method: _daemons

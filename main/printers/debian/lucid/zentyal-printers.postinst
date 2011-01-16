@@ -12,14 +12,14 @@ case "$1" in
         adduser --quiet ebox lp || true
 
         # Create log tables
-        /usr/share/zentyal-core/ebox-sql-table add printers_jobs /usr/share/zentyal-core/sqllog/printers_jobs.sql || true
-        /usr/share/zentyal-core/ebox-sql-table add printers_jobs_report /usr/share/zentyal-core/sqllog/printers_jobs_report.sql || true
-        /usr/share/zentyal-core/ebox-sql-table add printers_jobs_by_user_report /usr/share/zentyal-core/sqllog/printers_jobs_by_user_report.sql || true
-        /usr/share/zentyal-core/ebox-sql-table add printers_pages /usr/share/zentyal-core/sqllog/printers_pages.sql || true
-        /usr/share/zentyal-core/ebox-sql-table add printers_usage_report /usr/share/zentyal-core/sqllog/printers_usage_report.sql || true
+        /usr/share/zentyal/ebox-sql-table add printers_jobs /usr/share/zentyal/sqllog/printers_jobs.sql || true
+        /usr/share/zentyal/ebox-sql-table add printers_jobs_report /usr/share/zentyal/sqllog/printers_jobs_report.sql || true
+        /usr/share/zentyal/ebox-sql-table add printers_jobs_by_user_report /usr/share/zentyal/sqllog/printers_jobs_by_user_report.sql || true
+        /usr/share/zentyal/ebox-sql-table add printers_pages /usr/share/zentyal/sqllog/printers_pages.sql || true
+        /usr/share/zentyal/ebox-sql-table add printers_usage_report /usr/share/zentyal/sqllog/printers_usage_report.sql || true
 
         # Do migration scripts
-        /usr/share/zentyal-core/ebox-migrate /usr/share/ebox-printers/migration/ || true
+        /usr/share/zentyal/ebox-migrate /usr/share/ebox-printers/migration/ || true
 
         dpkg-trigger --no-await zentyal-core
      ;;

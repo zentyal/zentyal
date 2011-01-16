@@ -8,7 +8,7 @@ case "$1" in
 	configure)
 
         # Migrate data if needed
-        /usr/share/zentyal-core/ebox-migrate /usr/share/zentyal-services/migration/ || true
+        /usr/share/zentyal/ebox-migrate /usr/share/zentyal-services/migration/ || true
 
         dpkg-trigger --no-await zentyal-core
      ;;

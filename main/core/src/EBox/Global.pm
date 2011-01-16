@@ -85,7 +85,7 @@ sub isReadOnly
 sub readModInfo # (module)
 {
     my ($name) = @_;
-    my $yaml = YAML::Tiny->read(EBox::Config::share() . "zentyal-core/modules/$name.yaml");
+    my $yaml = YAML::Tiny->read(EBox::Config::share() . "zentyal/modules/$name.yaml");
     return $yaml->[0];
 }
 
@@ -107,7 +107,7 @@ sub theme
 
 sub _readTheme
 {
-    my $path = EBox::Config::share() . 'zentyal-core/www';
+    my $path = EBox::Config::share() . 'zentyal/www';
     my $theme = "$path/custom.theme";
     unless (-f $theme) {
         $theme = "$path/default.theme";
@@ -129,7 +129,7 @@ sub _writeModInfo
     my ($self, $name, $info) = @_;
     my $yaml = YAML::Tiny->new;
     $yaml->[0] = $info;
-    $yaml->write(EBox::Config::share() . "/zentyal-core/modules/$name.yaml");
+    $yaml->write(EBox::Config::share() . "/zentyal/modules/$name.yaml");
 }
 
 # Method: modExists
@@ -291,7 +291,7 @@ sub modNames
             push(@allmods, $_);
         }
     }
-    my @files = glob(EBox::Config::share() . '/zentyal-core/modules/*.yaml');
+    my @files = glob(EBox::Config::share() . '/zentyal/modules/*.yaml');
     my @mods = map { basename($_) =~ m/(.*)\.yaml/ ; $1 } @files;
     foreach my $mod (@mods) {
         next unless ($self->modExists($mod));

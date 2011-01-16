@@ -4,22 +4,22 @@
 
 create_tables()
 {
-    /usr/share/zentyal-core/ebox-sql-table add remoteservices_passwd_report /usr/share/zentyal-core/sqllog/remoteservices_passwd_report.sql
-    /usr/share/zentyal-core/ebox-sql-table add remoteservices_passwd_users /usr/share/zentyal-core/sqllog/remoteservices_passwd_users.sql
-    /usr/share/zentyal-core/ebox-sql-table add remoteservices_passwd_users_report /usr/share/zentyal-core/sqllog/remoteservices_passwd_users_report.sql
+    /usr/share/zentyal/ebox-sql-table add remoteservices_passwd_report /usr/share/zentyal/sqllog/remoteservices_passwd_report.sql
+    /usr/share/zentyal/ebox-sql-table add remoteservices_passwd_users /usr/share/zentyal/sqllog/remoteservices_passwd_users.sql
+    /usr/share/zentyal/ebox-sql-table add remoteservices_passwd_users_report /usr/share/zentyal/sqllog/remoteservices_passwd_users_report.sql
 
 }
 
 case "$1" in
     configure)
         # Migrate data if needed
-        /usr/share/zentyal-core/ebox-migrate /usr/share/ebox-remoteservices/migration/
+        /usr/share/zentyal/ebox-migrate /usr/share/ebox-remoteservices/migration/
 
         # Create DB tables if required
         create_tables
 
         if [ -n "$2" ]; then
-            /usr/share/zentyal-core/ebox-reload-bundle
+            /usr/share/zentyal/ebox-reload-bundle
         fi
 
         if [ ! -e /var/lib/ebox/tmp/upgrade-from-CC ]; then

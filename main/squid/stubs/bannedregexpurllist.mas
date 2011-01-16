@@ -1,6 +1,6 @@
 # The regexp are disabled by Zentyal due to the great number of false positives
 # If you want to enable them uncomment the appropiates lines in
-# /usr/share/zentyal-core/stubs/squid/bannedregexpurllist.mas and restart the proxy
+# /usr/share/zentyal/stubs/squid/bannedregexpurllist.mas and restart the proxy
 # module with the command '/etc/init.d/ebox/squid restart'
 #
 #Banned URLs based on Regular Expressions

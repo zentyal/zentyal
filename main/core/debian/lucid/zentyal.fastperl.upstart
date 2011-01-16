@@ -1,2 +1,2 @@
-exec /usr/share/zentyal-core/fastperl-server
+exec /usr/share/zentyal/fastperl-server
 respawn

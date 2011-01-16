@@ -1,6 +1,6 @@
 ## Process this file with automake to produce Makefile.in
 
-moduledir   = @DATADIR@/zentyal-core/modules
+moduledir   = @DATADIR@/zentyal/modules
 module_DATA = usercorner.yaml users.yaml
 
 pkgdata_DATA = passwords.ldif master.ldif slaves.ldif

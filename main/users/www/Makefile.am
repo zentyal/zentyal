@@ -1,6 +1,6 @@
 ## Process this file with automake to produce Makefile.in
 
-wwwdir = $(datadir)/zentyal-core/www
+wwwdir = $(datadir)/zentyal/www
 
 nobase_www_DATA = images/users.png
 

@@ -6,7 +6,7 @@
 # and after gconf debhelper is run
 if [ "$1" = "purge" ]; then
         # Purge configuration
-        /usr/share/zentyal-core/zentyal-clean-conf mail || true
+        /usr/share/zentyal/zentyal-clean-conf mail || true
 fi
 
 
@@ -18,8 +18,8 @@ case "$1" in
         ;;
 
     purge)
-        /usr/share/zentyal-core/ebox-sql-table drop mail_message || true
-        /usr/share/zentyal-core/ebox-sql-table drop mail_message_report || true
+        /usr/share/zentyal/ebox-sql-table drop mail_message || true
+        /usr/share/zentyal/ebox-sql-table drop mail_message_report || true
         ;;
 esac
 

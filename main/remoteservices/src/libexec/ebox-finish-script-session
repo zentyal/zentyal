@@ -4,4 +4,4 @@ if [ -n "$1" ]; then
     exit 0
 fi
 
-exec /usr/share/zentyal-core/ebox-start-script-session 0
+exec /usr/share/zentyal/ebox-start-script-session 0

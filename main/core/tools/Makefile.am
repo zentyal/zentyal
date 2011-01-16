@@ -1,6 +1,8 @@
 ## Process this file with automake to produce Makefile.in
 SUBDIRS = sqllog cron
 
+pkgdatadir = $(datadir)/zentyal
+
 pkgdata_SCRIPTS = ebox-apache2ctl ebox-apache-restart ebox-migrate \
  ebox-sudoers-friendly zentyal-clean-conf zentyal.init.d \
  ebox-create-certificate ebox-make-backup ebox-restore-backup \

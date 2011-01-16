@@ -1,6 +1,6 @@
 #!/bin/bash
 
-libexec=@DATADIR@/zentyal-core
+libexec=@DATADIR@/zentyal
 
 ppp_iface=$1
 eth_iface=$2

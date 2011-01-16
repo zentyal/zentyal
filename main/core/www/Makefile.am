@@ -1,6 +1,6 @@
 ## Process this file with automake to produce Makefile.in
 
-wwwdir = $(datadir)/zentyal-core/www
+wwwdir = $(datadir)/zentyal/www
 
 js = js/base64.js js/csshover.htc js/common.js \
   js/help.js js/table-helper.js  \
