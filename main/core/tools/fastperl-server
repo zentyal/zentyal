@@ -18,8 +18,9 @@ use warnings;
 use strict;
 
 use IO::Socket::UNIX;
-
 use POSIX qw(:sys_wait_h);
+use Socket::PassAccessRights;
+use File::Slurp;
 
 my $SOCKET_FILE = '/tmp/singleperl.sock';
 
@@ -72,24 +73,32 @@ sub handle
 {
     my ($sock) = @_;
 
+    # TODO: Handle this better
+    my $outfd = Socket::PassAccessRights::recvfd(fileno($sock)) or
+        die "recvfd STDOUT failed";
+    my $errfd = Socket::PassAccessRights::recvfd(fileno($sock)) or
+        die "recvfd STDERR failed";
+
     my $buf = <$sock>;
     if (defined $buf) {
         chomp $buf;
-        my ($pid, $cmd, $rest) = $buf =~ /^(\d+):([^:]+):(.*)/;
+        my ($cmd, $rest) = $buf =~ /^([^:]+):(.*)/;
         my @args = split (/:/, $rest);
-        #DEBUG: print "$0 ($$): ($pid) requested to execute: $cmd @args\n";
+        #DEBUG: print "$0 ($$): request to execute: $cmd @args\n";
+
+        redirect($outfd, $errfd);
+
         my $exitValue = execute($pid, $cmd, @args);
         #DEBUG: print "$0 ($$): sending result: $exitValue\n";
         print $sock "$exitValue\n";
-        endredirect($pid);
+
+        endredirect();
     }
 }
 
 sub execute
 {
-    my ($pid, $file, @args) = @_;
-
-    use File::Slurp;
+    my ($file, @args) = @_;
 
     my $code = read_file($file);
     {
@@ -100,8 +109,6 @@ sub execute
             #DEBUG: print STDERR "WARNING: @_\n";
         };
 
-        redirect($pid);
-
         my ($oldProg, @oldArgs) = ($0, @ARGV);
         ($0, @ARGV) = ($file, @args);
         eval 'BEGIN { *CORE::GLOBAL::exit = sub { die "ret=@_"; } };' . $code;
@@ -109,9 +116,9 @@ sub execute
 
         my $exitValue;
         if ($@) {
-            #DEBUG: print STDERR "ERROR: $@\n";
             ($exitValue) = $@ =~ /^ret=(\d+)/;
             unless (defined $exitValue) {
+                #DEBUG: print STDERR "ERROR: $@\n";
                 $exitValue = 1;
             }
         } else {
@@ -123,45 +130,34 @@ sub execute
     };
 }
 
-our ($oldout, $olderr, $outfd, $errfd);
+my ($oldout, $olderr, $out, $err);
 
 sub redirect
 {
-    my ($pid) = @_;
-
-    my $outfile = "/tmp/fastperl-$pid.out";
-    my $errfile = "/tmp/fastperl-$pid.err";
+    my ($outfd, $errfd) = @_;
 
     open ($oldout, '>&STDOUT');
-    open ($olderr, '>&STDERR');
-
     close (STDOUT);
-    open ($outfd, '>', $outfile);
-    STDOUT->fdopen($outfd, 'w');
+    open ($out, ">&=$outfd");
+    STDOUT->fdopen($out, 'w');
     STDOUT->autoflush(1);
 
+    open ($olderr, '>&STDERR');
     close (STDERR);
-    open ($errfd, '>', $errfile);
-    STDERR->fdopen($errfd, 'w');
+    open ($err, ">&=$errfd");
+    STDERR->fdopen($err, 'w');
     STDERR->autoflush(1);
 }
 
 sub endredirect
 {
-    my ($pid) = @_;
-
-    my $outfile = "/tmp/fastperl-$pid.out";
-    my $errfile = "/tmp/fastperl-$pid.err";
-
-    close ($outfd);
+    close ($out);
     close (STDOUT);
     open (STDOUT, '>&', $oldout);
-    unlink ($outfile);
 
-    close ($errfd);
+    close ($err);
     close (STDERR);
     open (STDERR, '>&', $olderr);
-    unlink ($errfile);
 }
 
 sub REAPER

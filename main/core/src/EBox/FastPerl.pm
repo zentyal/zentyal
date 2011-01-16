@@ -19,7 +19,7 @@ use warnings;
 use strict;
 
 use IO::Socket::UNIX;
-use Linux::Inotify2;
+use Socket::PassAccessRights;
 use File::Basename;
 use Perl6::Junction qw(any);
 use FindBin qw($Bin $Script);
@@ -40,6 +40,7 @@ sub init
 
     # FIXME: Replace all /tmp paths with EBox::Config::tmp()
     my $SOCKET_FILE = '/tmp/singleperl.sock';
+
     my $filename = "$Bin/$Script";
     my @quotedArgs = map { "\"$_\"" } @ARGV;
     # FIXME: This could be problematic if args contain ':'
@@ -58,9 +59,16 @@ sub init
     my $sock = new IO::Socket::UNIX(Peer => $SOCKET_FILE,
                                     Timeout => 0, # FIXME: change this?
                                     Type => SOCK_STREAM) or return 0;
+
+    # TODO: Handle this better
+    Socket::PassAccessRights::sendfd(fileno($sock), fileno(STDOUT))
+        or die "sendfd(STDOUT) failed: $!";
+    Socket::PassAccessRights::sendfd(fileno($sock), fileno(STDERR))
+        or die "sendfd(STDERR) failed: $!";
+
     try {
-        print $sock "$$:$filename:$args\n";
-        #DEBUG: print "$0 ($$): sent: $$:$filename\n";
+        print $sock "$filename:$args\n";
+        #DEBUG: print "$0 ($$): sent: $filename:$args\n";
     } otherwise {
         # TODO: log this
         #DEBUG: print "$0 ($$): write to socket failed\n";
@@ -71,61 +79,6 @@ sub init
         close $sock;
         # Run it in the classical way
         return 0;
-    }
-
-    my $outfile = "/tmp/fastperl-$$.out";
-    my $errfile = "/tmp/fastperl-$$.err";
-    my ($out, $err);
-
-    # FIXME: Replace all calls to die with EBox::error() and return 0
-    my $inotify = new Linux::Inotify2() or
-        die "Cannot create inotify object: $!";
-
-    my $dir = dirname($outfile);
-    $inotify->watch($dir, IN_CREATE) or
-        die "$dir watch creation failed";
-
-    my $readout = 1;
-    my $readerr = 1;
-    while ($readout and $readerr) {
-        my @events = $inotify->read();
-        foreach my $e (@events) {
-            my $file = $e->fullname();
-            if ($e->IN_CREATE) {
-                if ($file eq any($outfile, $errfile)) {
-                    #DEBUG: print "WATCHING $file\n";
-                    $inotify->watch($file, IN_MODIFY | IN_CLOSE) or
-                        die "$file watch creation failed";
-
-                    if ($file eq $outfile) {
-                        open ($out, '<', $outfile) or
-                            die "open $outfile failed";
-                    } else {
-                        open ($err, '<', $errfile) or
-                            die "open $errfile failed";
-                    }
-                }
-            } elsif ($e->IN_MODIFY) {
-                if ($file eq $outfile) {
-                    my @lines = <$out>;
-                    print @lines;
-                } elsif ($file eq $errfile) {
-                    my @lines = <$err>;
-                    print STDERR @lines;
-                }
-            } else {
-                #DEBUG: print "$file CLOSED\n";
-                if ($file eq $outfile) {
-                    close ($out);
-                    unlink ($outfile);
-                    $readout = 0;
-                } elsif ($file eq $errfile) {
-                    close ($err);
-                    unlink ($errfile);
-                    $readerr = 0;
-                }
-            }
-        }
     }
 
     my $buf = scalar <$sock>;
