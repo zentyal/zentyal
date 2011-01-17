@@ -922,6 +922,7 @@ sub _setAptPreferences
     my $preferences =  '/etc/apt/preferences';
     my $preferencesBak  = $preferences . '.ebox.bak';
     my $preferencesFromCCBak = $preferences . '.ebox.fromcc';
+    my $preferencesDirFile = '/etc/apt/preferences.d/01ebox';
 
     if ($enabled ) {
         my $existsCC = EBox::Sudo::fileTest('-e', $preferencesFromCCBak);
@@ -934,7 +935,6 @@ sub _setAptPreferences
         # EBox::Sudo::root("cp '$preferencesFromCCBak' '$preferences'");
 
         # Lucid version
-        my $preferencesDirFile = '/etc/apt/preferences.d/01ebox';
         EBox::Sudo::root("cp '$preferencesFromCCBak' '$preferencesDirFile'");
     } else {
         my $existsOld = EBox::Sudo::fileTest('-e', $preferencesBak);
@@ -942,6 +942,9 @@ sub _setAptPreferences
             EBox::Sudo::root("cp '$preferencesBak' '$preferences'");
             # remove old backup to avoid to overwrite user's modifications
             EBox::Sudo::root("rm -f '$preferencesBak' ");
+        } else {
+            # Remove preferences if no preferences was there before
+            EBox::Sudo::root("rm -f '$preferencesDirFile'");
         }
     }
 }
