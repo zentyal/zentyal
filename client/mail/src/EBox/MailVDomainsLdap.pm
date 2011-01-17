@@ -38,7 +38,7 @@ sub new
 {
     my $class = shift;
     my $self  = {};
-    $self->{ldap} =  EBox::Global->modInstance('users')->ldap(); 
+    $self->{ldap} = EBox::Global->modInstance('users')->ldap();
     bless($self, $class);
     return $self;
 }
@@ -156,6 +156,9 @@ sub _cleanVDomain
 sub vdomains
 {
     my ($self) = @_;
+
+    my $global = EBox::Global->instance();
+    return [] unless $global->modEnabled('mail');
 
     my %args = (
                 base => $self->vdomainDn,
