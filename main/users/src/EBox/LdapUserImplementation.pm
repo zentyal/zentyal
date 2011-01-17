@@ -63,4 +63,9 @@ sub acls
             "by * none" ];
 }
 
+sub indexes
+{
+    return [ 'uid', 'uidNumber', 'memberUid', 'cn', 'gidNumber', 'uniqueMember' ];
+}
+
 1;
