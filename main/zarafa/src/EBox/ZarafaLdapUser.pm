@@ -68,7 +68,7 @@ sub _userAddOns
 
 sub schemas
 {
-    return [ EBox::Config::share() . 'ebox-zarafa/zarafa.ldif' ]
+    return [ EBox::Config::share() . 'zentyal-zarafa/zarafa.ldif' ]
 }
 
 sub localAttributes

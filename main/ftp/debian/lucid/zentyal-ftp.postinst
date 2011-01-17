@@ -7,7 +7,7 @@ case "$1" in
         kill `pidof gconfd-2` >/dev/null 2>&1 || true
 
         # Migrate data if needed
-        /usr/share/zentyal/ebox-migrate /usr/share/ebox-ftp/migration/
+        /usr/share/zentyal/ebox-migrate /usr/share/zentyal-ftp/migration/
 
         dpkg-trigger --no-await zentyal-core
     ;;

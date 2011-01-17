@@ -71,7 +71,7 @@ update_pghba()
 {
 
 if ! grep -q $db_user $PG_HBA_FILE; then
-    echo "# Added by ebox-webmail" >> $PG_HBA_FILE
+    echo "# Added by zentyal-webmail" >> $PG_HBA_FILE
     echo "host $db_name $db_user  127.0.0.1/32 password" >> $PG_HBA_FILE
 fi
 

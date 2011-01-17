@@ -1,9 +1,9 @@
-# eBox runner daemon
+# Zentyal runner daemon
 #
 #
 
-description     "eBox runner daemon"
-author          "Enrique J. Hernández <quique@warp.es>"
+description     "Zentyal runner daemon"
+author          "eBox Technologies S.L."
 
 respawn
-exec  /usr/share/ebox/ebox-runnerd -f
+exec  /usr/share/zentyal/ebox-runnerd -f

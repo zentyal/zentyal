@@ -1,2 +1,2 @@
-exec /usr/share/ebox-mailfilter/learnspamd
+exec /usr/share/zentyal-mailfilter/learnspamd
 respawn

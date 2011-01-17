@@ -64,7 +64,7 @@ sub _userAddOns
 
 sub schemas
 {
-	return [ EBox::Config::share() . 'ebox-jabber/jabber.ldif' ]
+	return [ EBox::Config::share() . 'zentyal-jabber/jabber.ldif' ]
 }
 
 sub localAttributes

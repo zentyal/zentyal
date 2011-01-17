@@ -14,7 +14,7 @@ case "$1" in
         # create log table
         /usr/share/zentyal/ebox-sql-table add asterisk_cdr /usr/share/zentyal/sqllog/asterisk_cdr.sql
         # migrate data if needed
-        /usr/share/zentyal/ebox-migrate /usr/share/ebox-asterisk/migration/
+        /usr/share/zentyal/ebox-migrate /usr/share/zentyal-asterisk/migration/
 
         # restart logs
         invoke-rc.d zentyal logs restart || true

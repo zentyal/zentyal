@@ -47,7 +47,7 @@ use EBox::MailFilter::SpamAssassin;
 use EBox::MailFilter::POPProxy;
 
 
-use constant SA_LEARN_SCRIPT => '/usr/share/ebox-mailfilter/saLearn.pl';
+use constant SA_LEARN_SCRIPT => '/usr/share/zentyal-mailfilter/saLearn.pl';
 
 #
 # Method: _create
@@ -127,7 +127,7 @@ sub enableActions
 
     $self->performLDAPActions();
 
-    root(EBox::Config::share() . '/ebox-mailfilter/ebox-mailfilter-enable');
+    root(EBox::Config::share() . '/zentyal-mailfilter/ebox-mailfilter-enable');
 }
 
 #  Method: enableModDepends

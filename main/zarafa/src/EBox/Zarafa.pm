@@ -140,7 +140,7 @@ sub usedFiles
     ];
     my $vhost = $self->model('GeneralSettings')->vHostValue();
     my $destFile = EBox::WebServer::SITES_AVAILABLE_DIR . 'user-' .
-                   EBox::WebServer::VHOST_PREFIX. $vhost .'/ebox-zarafa';
+                   EBox::WebServer::VHOST_PREFIX. $vhost .'/zentyal-zarafa';
     if ($vhost ne 'disabled') {
         push(@{$files}, { 'file' => $destFile, 'module' => 'zarafa',
                           'reason' => "To configure Zarafa on $vhost virtual host."});
@@ -158,7 +158,7 @@ sub enableActions
 
     $self->performLDAPActions();
 
-    EBox::Sudo::root(EBox::Config::share() . '/ebox-zarafa/ebox-zarafa-enable');
+    EBox::Sudo::root(EBox::Config::share() . '/zentyal-zarafa/ebox-zarafa-enable');
 }
 
 # Method: modelClasses
@@ -347,7 +347,7 @@ sub _setWebServerConf
 {
     my ($self) = @_;
 
-    # Delete all possible ebox-zarafa configuration
+    # Delete all possible zentyal-zarafa configuration
     my $vHostPattern = EBox::WebServer::SITES_AVAILABLE_DIR . 'user-' .
                        EBox::WebServer::VHOST_PREFIX. '*/ebox-zarafa';
     EBox::Sudo::root('rm -f ' . "$vHostPattern");
@@ -386,9 +386,9 @@ sub _setSpellChecking
     my $spell = $self->model('GeneralSettings')->spellCheckingValue();
 
     if ($spell) {
-        EBox::Sudo::root(EBox::Config::share() . '/ebox-zarafa/ebox-zarafa-spell enable');
+        EBox::Sudo::root(EBox::Config::share() . '/zentyal-zarafa/ebox-zarafa-spell enable');
     } else {
-        EBox::Sudo::root(EBox::Config::share() . '/ebox-zarafa/ebox-zarafa-spell disable');
+        EBox::Sudo::root(EBox::Config::share() . '/zentyal-zarafa/ebox-zarafa-spell disable');
     }
 }
 

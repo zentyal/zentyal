@@ -13,7 +13,7 @@ case "$1" in
         invoke-rc.d zentyal logs restart || true
 
         # Migrate data if needed
-        /usr/share/zentyal/ebox-migrate /usr/share/ebox-dhcp/migration/ || true
+        /usr/share/zentyal/ebox-migrate /usr/share/zentyal-dhcp/migration/ || true
 
         # Restart dhcp module
         invoke-rc.d zentyal dhcp restart || true

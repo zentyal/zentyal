@@ -73,7 +73,7 @@ sub _dovecotMigration
     # we donot use the old ones  from courier bz
     #   courier used two distinct certificates for pops and imaps
 
-    EBox::Sudo::root(EBox::Config::share() . '/ebox-mail/ebox-mail-enable gen-dovecot-cert');
+    EBox::Sudo::root(EBox::Config::share() . '/zentyal-mail/ebox-mail-enable gen-dovecot-cert');
 }
 
 

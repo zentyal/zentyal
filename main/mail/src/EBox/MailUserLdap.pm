@@ -991,9 +991,9 @@ sub localAttributes
 sub schemas
 {
     return [
-             EBox::Config::share() . '/ebox-mail/authldap.ldif',
-             EBox::Config::share() . '/ebox-mail/eboxmail.ldif',
-             EBox::Config::share() . '/ebox-mail/eboxfetchmail.ldif',
+             EBox::Config::share() . '/zentyal-mail/authldap.ldif',
+             EBox::Config::share() . '/zentyal-mail/eboxmail.ldif',
+             EBox::Config::share() . '/zentyal-mail/eboxfetchmail.ldif',
 
            ];
 }

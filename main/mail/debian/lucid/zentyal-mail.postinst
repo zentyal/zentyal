@@ -24,7 +24,7 @@ case "$1" in
 
 
         # migrate data
-        /usr/share/zentyal/ebox-migrate /usr/share/ebox-mail/migration
+        /usr/share/zentyal/ebox-migrate /usr/share/zentyal-mail/migration
 
         # restart logs
         invoke-rc.d zentyal logs restart || true

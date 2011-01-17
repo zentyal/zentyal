@@ -10,7 +10,7 @@ case "$1" in
         /usr/share/zentyal/ebox-sql-table-with-time-period add ids_alert /usr/share/zentyal/sqllog/ids_alert.sql
 
         # migration
-        /usr/share/zentyal/ebox-migrate /usr/share/ebox-ids/migration
+        /usr/share/zentyal/ebox-migrate /usr/share/zentyal-ids/migration
 
         # restart logs
         invoke-rc.d zentyal logs restart || true

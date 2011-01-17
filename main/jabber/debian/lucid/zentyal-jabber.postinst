@@ -5,7 +5,7 @@
 case "$1" in
 	configure)
             # migrate data if needed
-            /usr/share/zentyal/ebox-migrate /usr/share/ebox-jabber/migration/
+            /usr/share/zentyal/ebox-migrate /usr/share/zentyal-jabber/migration/
 
 	    dpkg-trigger --no-await zentyal-core
         ;;

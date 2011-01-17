@@ -297,7 +297,7 @@ sub usedFiles
     ];
     my $vhost = $self->model('Options')->vHostValue();
     my $destFile = EBox::WebServer::SITES_AVAILABLE_DIR . 'user-' .
-                   EBox::WebServer::VHOST_PREFIX. $vhost .'/ebox-webmail';
+                   EBox::WebServer::VHOST_PREFIX. $vhost .'/zentyal-webmail';
     if ($vhost ne 'disabled') {
         push(@{$files}, { 'file' => $destFile, 'module' => 'webmail',
                           'reason' => "To configure the webmail on $vhost virtual host."});
@@ -353,7 +353,7 @@ sub enableActions
         }
     }
 
-    EBox::Sudo::root(EBox::Config::share() . '/ebox-webmail/ebox-webmail-enable');
+    EBox::Sudo::root(EBox::Config::share() . '/zentyal-webmail/ebox-webmail-enable');
     $self->_generateDesKeyFile();
 }
 

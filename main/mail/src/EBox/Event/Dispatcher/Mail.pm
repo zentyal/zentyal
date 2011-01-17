@@ -234,12 +234,12 @@ sub _sendMail
     }
 
     # Construct the message
-    $mailer->mail('ebox-noreply@' . $mailname);
+    $mailer->mail('zentyal-noreply@' . $mailname);
     $mailer->to($self->{to});
 
     $mailer->data();
     $mailer->datasend('Subject: ' . $self->{subject} . "\n");
-    $mailer->datasend('From: ebox-noreply@' . $mailname . "\n");
+    $mailer->datasend('From: zentyal-noreply@' . $mailname . "\n");
     $mailer->datasend('To: ' . $self->{to} . "\n");
     $mailer->datasend("\n");
     $mailer->datasend($event->level() . ' : '

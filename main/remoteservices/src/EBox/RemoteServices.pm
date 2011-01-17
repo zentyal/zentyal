@@ -641,14 +641,13 @@ sub bundleVersion
 sub version
 {
     my $remoteServicesVersion = 0;
-    my @output = `dpkg-query -W ebox-remoteservices`;
+    my @output = `dpkg-query -W zentyal-remoteservices`;
     foreach my $line (@output) {
-        if ($line =~ m/^ebox-remoteservices\s+([\d.]+)/) {
+        if ($line =~ m/^zentyal-remoteservices\s+([\d.]+)/) {
             $remoteServicesVersion = $1;
             last;
         }
     }
-
 
     return $remoteServicesVersion;
 }
@@ -1243,7 +1242,7 @@ sub _startupTasks
         # Get the cron jobs after subscribing on the background
         system(EBox::Config::pkgdata() . 'ebox-get-cronjobs &');
         # Set the subscription level
-        system(EBox::Config::pkgdata() . '../ebox-remoteservices/subs-level &');
+        system(EBox::Config::pkgdata() . '../zentyal-remoteservices/subs-level &');
         $self->st_set_bool('just_subscribed', 0);
     }
 }

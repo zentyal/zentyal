@@ -43,7 +43,7 @@ sub runGConf
 
   # run ebox-mailfilter-ldap to add the user accounts and the mail accounts to
   # the vdomains
-  EBox::Sudo::root('/usr/share/ebox-mailfilter/ebox-mailfilter-ldap update');
+  EBox::Sudo::root('/usr/share/zentyal-mailfilter/ebox-mailfilter-ldap update');
 }
 
 EBox::init();

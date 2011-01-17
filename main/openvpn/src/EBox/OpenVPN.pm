@@ -189,7 +189,7 @@ sub usedFiles
 sub enableActions
 {
     EBox::Sudo::root(
-                     EBox::Config::share() . '/ebox-openvpn/ebox-openvpn-enable'
+                     EBox::Config::share() . '/zentyal-openvpn/ebox-openvpn-enable'
                     );
 }
 

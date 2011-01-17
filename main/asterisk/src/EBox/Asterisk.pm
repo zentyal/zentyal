@@ -189,7 +189,7 @@ sub enableActions
     $self->performLDAPActions();
 
     EBox::Sudo::root(EBox::Config::share() .
-                     '/ebox-asterisk/ebox-asterisk-enable');
+                     '/zentyal-asterisk/ebox-asterisk-enable');
 }
 
 

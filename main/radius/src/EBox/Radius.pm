@@ -157,7 +157,7 @@ sub enableActions
     my ($self) = @_;
 
     EBox::Sudo::root(EBox::Config::share() .
-                     '/ebox-radius/ebox-radius-enable');
+                     '/zentyal-radius/ebox-radius-enable');
 }
 
 

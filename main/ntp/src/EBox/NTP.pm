@@ -94,7 +94,7 @@ sub usedFiles
 #
 sub enableActions
 {
-    EBox::Sudo::root(EBox::Config::share() . '/ebox-ntp/ebox-ntp-enable');
+    EBox::Sudo::root(EBox::Config::share() . '/zentyal-ntp/ebox-ntp-enable');
 }
 
 sub _enforceServiceState

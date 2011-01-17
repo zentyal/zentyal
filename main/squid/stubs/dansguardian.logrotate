@@ -3,9 +3,9 @@
 	daily
 	create 644 dansguardian dansguardian
 	prerotate
-		/usr/share/ebox-squid/manage-services stop > /dev/null 2>&1 || true
+		/usr/share/zentyal-squid/manage-services stop > /dev/null 2>&1 || true
 	endscript
 	postrotate
-		/usr/share/ebox-squid/manage-services start > /dev/null 2>&1 || true
+		/usr/share/zentyal-squid/manage-services start > /dev/null 2>&1 || true
 	endscript
 }

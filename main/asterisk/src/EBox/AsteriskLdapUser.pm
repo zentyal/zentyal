@@ -453,7 +453,7 @@ sub asteriskUsersInQueue
 
 sub schemas
 {
-    return [ EBox::Config::share() . '/ebox-asterisk/asterisk.ldif' ];
+    return [ EBox::Config::share() . '/zentyal-asterisk/asterisk.ldif' ];
 }
 
 

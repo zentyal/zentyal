@@ -8,7 +8,7 @@ case "$1" in
         chown -R ebox.ebox /var/run/ebox
 
         # Migrate data if needed
-        /usr/share/zentyal/ebox-migrate /usr/share/ebox-monitor/migration/
+        /usr/share/zentyal/ebox-migrate /usr/share/zentyal-monitor/migration/
 
         # Restart the module itself
         invoke-rc.d zentyal monitor restart || true
@@ -16,7 +16,5 @@ case "$1" in
         dpkg-trigger --no-await zentyal-core
     ;;
 esac
-
-
 
 exit 0

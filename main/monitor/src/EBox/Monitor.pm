@@ -132,7 +132,7 @@ sub actions
 #
 sub enableActions
 {
-    EBox::Sudo::root(EBox::Config::share() . '/ebox-monitor/ebox-monitor-enable');
+    EBox::Sudo::root(EBox::Config::share() . '/zentyal-monitor/ebox-monitor-enable');
 }
 
 

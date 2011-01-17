@@ -38,7 +38,7 @@ sub setEnabled
 
     my $user = remoteAccessUser();
     my $keysFile = EBox::Config::share() .
-                   'ebox-remoteservices/' .
+                   'zentyal-remoteservices/' .
                        'remote-support.keys';
 
 

@@ -235,7 +235,7 @@ sub enableActions
 
     $self->performLDAPActions();
 
-    root(EBox::Config::share() . '/ebox-mail/ebox-mail-enable');
+    root(EBox::Config::share() . '/zentyal-mail/ebox-mail-enable');
 }
 
 #  Method: enableModDepends
@@ -1755,9 +1755,7 @@ sub consolidate
 
            };
 
-
     return {  $table => $spec };
-
 }
 
 
@@ -1859,8 +1857,6 @@ sub _facilitiesForDiskUsage
 
     return {$printableName => [ $self->_storageMailDirs() ],};
 }
-
-
 
 # Method: certificates
 #
@@ -1988,8 +1984,6 @@ sub report
     return $report;
 }
 
-
-
 sub fetchmailRegenTs
 {
     my ($self) = @_;
@@ -2005,7 +1999,6 @@ sub setFetchmailRegenTs
     $self->st_set_int('fetchmailRegenTs', $ts);
 }
 
-
 sub postmasterAddress
 {
     my ($self, $alwaysFqdn, $notUnaliasLocal) = @_;
@@ -2016,7 +2009,6 @@ sub postmasterAddress
         $address = 'postmaster';
     }
 
-
     if (not $alwaysFqdn) {
         return $address;
     }
@@ -2025,15 +2017,9 @@ sub postmasterAddress
         return $address;
     }
 
-
     my $mailname = $self->mailname();
 
-
-
     return $address . '@' .  $mailname;
-
 }
-
-
 
 1;

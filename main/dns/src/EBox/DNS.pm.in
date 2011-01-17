@@ -277,9 +277,9 @@ sub getHostnames
 #
 # Returns:
 #  array ref with this structure data:
-#  
+#
 #  'name': alias name
-#  
+#
 sub aliases
 {
     my ($self, $model) = @_;
@@ -428,7 +428,7 @@ sub updateReversedData
 
             if($jpos < 0)
             {
-                push(@{$reversedData->[$i]->{'domain'}}, 
+                push(@{$reversedData->[$i]->{'domain'}},
                         $groupIPData->{'domain'});
             }
             $pos = $i;
@@ -490,7 +490,7 @@ sub switchToReverseInfoData
 
             my $newDomainData;
             $newDomainData->{'name'} = $domain;
-            $newDomainData->{'hosts'} = 
+            $newDomainData->{'hosts'} =
                 $self->createHostDataArray($hostip, $hostData);
 
             my $groupIPData;
@@ -561,7 +561,7 @@ sub usedFiles
                 {
                 'file' => $file,
                 'module' => 'dns',
-                'reason' => 
+                'reason' =>
                     __x('configuration file for reverse resolution zone {zone}'
                         , zone => $file )
                 });
@@ -588,13 +588,13 @@ sub actions
 
 }
 
-# Method: enableActions 
+# Method: enableActions
 #
 #  Override EBox::Module::Service::enableActions
 #
 sub enableActions
 {
-    root(EBox::Config::share() . '/ebox-dns/ebox-dns-enable');
+    root(EBox::Config::share() . '/zentyal-dns/ebox-dns-enable');
 }
 
 # Method: _daemons
@@ -639,7 +639,7 @@ sub _setConf
             "dns/named.conf.mas",
             \@array);
 
-    $self->writeConfFile(BIND9CONFOPTIONSFILE, 
+    $self->writeConfFile(BIND9CONFOPTIONSFILE,
             "dns/named.conf.options.mas",
             \@array);
 
@@ -820,11 +820,11 @@ sub keysFile
 #
 # Returns:
 #  array ref with this structure data:
-#  
+#
 #  'name': hostname
 #  'ip': ip address of hostname
 #  'aliases': an array ref returned by <EBox::DNS::aliases> method.
-#  
+#
 sub _hostnames
 {
     my ($self, $model) = @_;
@@ -837,7 +837,7 @@ sub _hostnames
 
         $hostdata->{'name'} = $hostname->valueByName('hostname');
         $hostdata->{'ip'} = $hostname->valueByName('ipaddr');
-        $hostdata->{'aliases'} = 
+        $hostdata->{'aliases'} =
             $self->aliases($hostname->subModel('alias'));
 
         push(@array, $hostdata);
@@ -854,7 +854,7 @@ sub _hostnames
 #
 # Parameters:
 #
-#       mailExchangers - model to iterate over 
+#       mailExchangers - model to iterate over
 #
 #            hostName - String the host's name
 #            id - String the row identifier
@@ -886,8 +886,8 @@ sub _formatMailExchangers
                ->row($hostName)
                ->valueByName('hostname');
         }
-        push (@mailExchangers, { 
-                hostName => $hostName, 
+        push (@mailExchangers, {
+                hostName => $hostName,
                 preference => $mx->valueByName('preference')
                 });
     }

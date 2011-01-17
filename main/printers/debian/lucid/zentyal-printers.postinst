@@ -19,7 +19,7 @@ case "$1" in
         /usr/share/zentyal/ebox-sql-table add printers_usage_report /usr/share/zentyal/sqllog/printers_usage_report.sql || true
 
         # Do migration scripts
-        /usr/share/zentyal/ebox-migrate /usr/share/ebox-printers/migration/ || true
+        /usr/share/zentyal/ebox-migrate /usr/share/zentyal-printers/migration/ || true
 
         dpkg-trigger --no-await zentyal-core
      ;;

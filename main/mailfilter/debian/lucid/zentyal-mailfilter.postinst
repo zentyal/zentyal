@@ -13,10 +13,10 @@ case "$1" in
         /usr/share/zentyal/ebox-sql-table-with-time-period add mailfilter_smtp_traffic /usr/share/zentyal/sqllog/mailfilter_smtp_traffic.sql
 
         # migrate data if needed
-        /usr/share/zentyal/ebox-migrate /usr/share/ebox-mailfilter/migration/
+        /usr/share/zentyal/ebox-migrate /usr/share/zentyal-mailfilter/migration/
 
         # populate file types if needed
-         /usr/share/ebox-mailfilter/ebox-mailfilter-populate-filefilter update
+         /usr/share/zentyal-mailfilter/ebox-mailfilter-populate-filefilter update
 
         # restart logs
         invoke-rc.d zentyal logs restart || true

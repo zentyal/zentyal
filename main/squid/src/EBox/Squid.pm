@@ -308,7 +308,7 @@ sub actions
 #
 sub enableActions
 {
-    root(EBox::Config::share() . '/ebox-squid/ebox-squid-enable');
+    root(EBox::Config::share() . '/zentyal-squid/ebox-squid-enable');
 }
 
 

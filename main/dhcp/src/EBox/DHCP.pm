@@ -83,7 +83,7 @@ use constant TFTPD_CONF_DIR => '/var/lib/tftpboot/';
 
 # Constructor: _create
 #
-#    Create the ebox-dhcp module
+#    Create the zentyal-dhcp module
 #
 # Overrides:
 #
@@ -143,7 +143,7 @@ sub actions
 #
 sub enableActions
 {
-    EBox::Sudo::root(EBox::Config::share() . '/ebox-dhcp/ebox-dhcp-enable');
+    EBox::Sudo::root(EBox::Config::share() . '/zentyal-dhcp/ebox-dhcp-enable');
 }
 
 # Method: _daemons

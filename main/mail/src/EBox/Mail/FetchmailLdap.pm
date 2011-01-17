@@ -92,7 +92,7 @@ sub _externalAccountHash
 sub addExternalAccount
  {
      my ($self, %params) = @_;
-     my @mandatoryParams = qw(user localAccount password 
+     my @mandatoryParams = qw(user localAccount password
                               mailServer  mailProtocol port);
      foreach my $checkedParam (@mandatoryParams) {
          exists $params{$checkedParam} or
@@ -105,9 +105,9 @@ sub addExternalAccount
      my $fetchmailString = $self->_externalAccountString(%params);
 
      my %modifyParams = (
-          add=> [ fetchmailAccount => $fetchmailString ]          
+          add=> [ fetchmailAccount => $fetchmailString ]
          );
- 
+
      my $res = $self->{'ldap'}->modify($userDn, \%modifyParams);
 }
 
@@ -183,7 +183,7 @@ sub externalAccountsForUser
 
     if (not $entry) {
         return [];
-    } 
+    }
 
     return $self->_externalAccountsForLdapEntry($entry);
 }
@@ -198,7 +198,7 @@ sub _externalAccountsForLdapEntry
     foreach my $fetchmailStr ($entry->get_value('fetchmailAccount')) {
         push @externalAccounts, $self->_externalAccountHash($fetchmailStr);
     }
-    
+
     return \@externalAccounts;
 }
 
@@ -259,12 +259,11 @@ sub writeConf
 
     my $usersAccounts = [ values %{ $self->allExternalAccountsByLocalAccount }];
     my @params = (
-        postmaster    => $postmasterAddress,        
+        postmaster    => $postmasterAddress,
         usersAccounts => $usersAccounts,
        );
 
-    
-    EBox::Module::Base::writeConfFileNoCheck(FETCHMAIL_CONF_FILE, 
+    EBox::Module::Base::writeConfFileNoCheck(FETCHMAIL_CONF_FILE,
                          "mail/fetchmail.rc.mas",
                          \@params,
                          {
@@ -274,12 +273,11 @@ sub writeConf
                          }
                         );
 
-
     EBox::Module::Base::writeConfFileNoCheck(FETCHMAIL_CRON_FILE,
                          'mail/fetchmail-update.cron.mas',
                          [
-                          binPath => EBox::Config::share() . 'ebox-mail/fetchmail-update',
-                         ],                    
+                          binPath => EBox::Config::share() . 'zentyal-mail/fetchmail-update',
+                         ],
                          {
                              uid  => 'root',
                              gid  => 'root',
@@ -287,10 +285,6 @@ sub writeConf
                          }
                         );
 }
-
-
-
-
 
 sub daemonMustRun
 {
@@ -365,7 +359,7 @@ sub modifyTimestamp
     );
 
     my $result = $self->{'ldap'}->search(\%params);
-    
+
     my $timeStamp = 0;
     foreach my $entry ($result->entries()) {
         my $entryTimeStamp = $entry->get_value('modifyTimestamp');
@@ -375,11 +369,8 @@ sub modifyTimestamp
         }
     }
 
-
     return $timeStamp;
-
 }
-
 
 sub _fetchmailRegenTsFile
 {

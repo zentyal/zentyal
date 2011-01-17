@@ -96,7 +96,7 @@ sub usedFiles
 sub enableActions
 {
     EBox::Sudo::root(EBox::Config::share() .
-                     '/ebox-printers/ebox-printers-enable');
+                     '/zentyal-printers/ebox-printers-enable');
 }
 
 # Method: enableService
