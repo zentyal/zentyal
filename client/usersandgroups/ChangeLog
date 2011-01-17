@@ -1,3 +1,5 @@
+HEAD
+	+ Added indexes for common LDAP attributes
 2.0.10
 	+ Now the AD synchronization can be disabled at any moment and a
 	  server with AD-slave mode can be master for other Zentyal slaves
