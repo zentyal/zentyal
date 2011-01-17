@@ -5,7 +5,7 @@
 ServerName <% $hostname %>
 <VirtualHost *:<% $portNumber %>>
 	ServerAdmin webmaster@<% $hostname %>
-	
+
 	DocumentRoot /var/www/
 	<Directory />
 		Options FollowSymLinks
@@ -13,9 +13,9 @@ ServerName <% $hostname %>
 	</Directory>
 	<Directory /var/www/>
 		Options Indexes FollowSymLinks MultiViews
-		AllowOverride None
+		AllowOverride All
 		Order allow,deny
-		allow from all
+		Allow from all
 	</Directory>
 
 	ScriptAlias /cgi-bin/ /usr/lib/cgi-bin/
