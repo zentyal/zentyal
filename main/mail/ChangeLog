@@ -1,3 +1,5 @@
+HEAD
+	+ Bugfix: don't query vdomains to LDAP if module is not enabled
 2.0.3
 	+ Added backup domain
 	+ Increased size of event field in mail_message_report table
