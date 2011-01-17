@@ -1,4 +1,5 @@
 HEAD
+	+ Fix bug when removing QA updates in preferences file
 	+ Use new zentyal-* package names
 2.0.9
 	+ Safer regexes in ebox-update-packages and ebox-remove-packages

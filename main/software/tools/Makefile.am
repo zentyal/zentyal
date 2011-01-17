@@ -2,7 +2,7 @@
 
 pkgdata_SCRIPTS =  ebox-update-packages ebox-remove-packages \
                    ebox-software ebox-apt-update ebox-apt-remove \
-                   unlock-software
+                   rewrite-conf unlock-software
 
 MAINTAINERCLEANFILES=Makefile.in
 
