@@ -569,10 +569,13 @@ sub writeConfigFile
     my $confFile = $home . REDIS_CONF;
     my $pass = $self->_passwd($home);
     my $uid = getpwnam($user);
+    my $dir = $user;
+    $dir =~ s/ebox/zentyal/;
     my $port = $self->_port($user);
 
     my @params = ();
     push (@params, user => $user);
+    push (@params, dir => $dir);
     push (@params, port => $port);
     push (@params, passwd => $pass);
     EBox::Module::Base::writeConfFileNoCheck($confFile,
