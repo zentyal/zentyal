@@ -78,8 +78,6 @@ fi
 }
 
 
-ln -s $ROUNDCUBE_DIR $HTTPD_WEBMAIL_DIR
-
 create_db
 update_pghba
 /etc/init.d/postgresql-8.4 reload

@@ -54,6 +54,7 @@ use constant USERDIR_CONF_FILES     => ('userdir.conf', 'userdir.load');
 use constant LDAP_USERDIR_CONF_FILE => 'ldap_userdir.conf';
 use constant SITES_AVAILABLE_DIR => CONF_DIR . '/sites-available/';
 use constant SITES_ENABLED_DIR   => CONF_DIR . '/sites-enabled/';
+use constant GLOBAL_CONF_DIR   => CONF_DIR . '/conf.d/';
 
 use constant VHOST_DFLT_FILE    => SITES_AVAILABLE_DIR . 'default';
 use constant VHOST_DFLTSSL_FILE => SITES_AVAILABLE_DIR . 'default-ssl';
