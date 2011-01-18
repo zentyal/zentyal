@@ -1,7 +1,0 @@
-#!/bin/sh
-
-echo "Executing command 'host $IP $IP' ..."
-host $IP $IP
-
-echo "Checking inverse resolution of $NAME ..."
-host $IP $IP | grep $NAME

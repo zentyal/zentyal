@@ -1,7 +1,0 @@
-#!/bin/sh
-
-echo "Displaying date..."
-date
-
-echo "Looking for $TIMEZONE timezone..."
-date | egrep $TIMEZONE

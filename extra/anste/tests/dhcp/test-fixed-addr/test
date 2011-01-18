@@ -1,7 +1,0 @@
-#!/bin/sh
-
-echo "Getting IP address"
-dhclient eth1
-
-echo "Checking if address assigned is 192.168.2.31"
-ifconfig eth1 | grep '192.168.2.31'

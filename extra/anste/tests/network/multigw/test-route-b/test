@@ -1,6 +1,0 @@
-#!/bin/bash
-
-traceroute -n www.google.com -m 6
-traceroute -n www.google.com -m 6 | grep '192.168.3.3'
-
-exit $?

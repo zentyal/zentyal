@@ -1,3 +1,0 @@
-#!/bin/sh
-
-ldapsearch -x -h 192.168.2.1 -s base "(objectclass=*)" namingContexts -LLL oa -l 5

@@ -1,5 +1,0 @@
-#!/bin/bash
-
-LOG=/var/log/squid/access.log
-
-grep $HOST $LOG && grep $HOST $LOG | grep -v HIT

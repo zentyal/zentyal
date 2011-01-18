@@ -1,6 +1,0 @@
-#!/bin/bash
-
-traceroute -n 155.210.33.4 -m 6
-traceroute -n 155.210.33.4 -m 6 | grep '192.168.3.2'
-
-exit $?

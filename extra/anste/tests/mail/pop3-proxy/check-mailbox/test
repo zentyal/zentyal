@@ -1,6 +1,0 @@
-#!/bin/bash
-
-cat /var/vmail/$VDOMAIN/$USER/new/*
-
-grep "$PATTERN" /var/vmail/$VDOMAIN/$USER/new/*
-

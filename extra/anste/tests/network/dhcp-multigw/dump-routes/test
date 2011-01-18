@@ -1,5 +1,0 @@
-#!/bin/sh
-
-ip route ls table default
-
-iptables -t mangle -L -n -v

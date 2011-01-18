@@ -1,8 +1,0 @@
-#!/bin/bash
-
-# Start servers based on netcat on ports 788 and 8500-8510 which won't die
-# and will always answer with "foo"
-
-for port in 7888 $(seq 8500 8510); do
-    sh -c "while true; do echo 'foo' | nc.traditional -q 1 -l -p $port; done"&
-done;

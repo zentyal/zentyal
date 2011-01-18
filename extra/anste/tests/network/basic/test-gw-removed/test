@@ -1,5 +1,0 @@
-#!/bin/sh
-
-test $(ip route ls table default | wc -l) = "0"
-
-exit $?

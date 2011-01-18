@@ -1,7 +1,0 @@
-#!/bin/sh
-
-echo "Executing command 'host $NAME $IP' ..."
-host $NAME $IP
-
-echo "Checking if has address $IP ..."
-host $NAME $IP | grep "has address $IP"

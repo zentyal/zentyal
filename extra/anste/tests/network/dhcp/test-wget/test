@@ -1,3 +1,0 @@
-#!/bin/sh
-
-wget --timeout=2 --tries=1 http://www.google.com

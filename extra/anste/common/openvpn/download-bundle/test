@@ -1,9 +1,0 @@
-#!/bin/sh
-
-FILE=foobar-server-$CLIENT.tar.gz
-
-wget -r -t 3 http://$HOST/$FILE -O $FILE
-
-mkdir $CLIENT
-cd $CLIENT
-tar xvvzf ../$FILE
