@@ -66,4 +66,4 @@ if [ "x$ULIMIT_MAX_FILES" != "x" ] ; then
 fi
 
 # LC_NUMERIC=C workaround to avoid issues with perl bug in debian #477134
-LC_NUMERIC="C" exec $HTTPD -f /var/lib/ebox/conf/user-apache2.conf -DNO_DETACH
+LC_NUMERIC="C" exec $HTTPD -f /var/lib/zentyal/conf/user-apache2.conf -DNO_DETACH

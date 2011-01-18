@@ -29,7 +29,7 @@ package EBox::EventDaemon;
 #
 # You may send events (Dumped <EBox::Event> object) to dispatch through a
 # named pipe which is pointed by the file name
-# "/var/lib/ebox/tmp/events-fifo'.
+# "/var/lib/zentyal/tmp/events-fifo'.
 
 
 use strict;

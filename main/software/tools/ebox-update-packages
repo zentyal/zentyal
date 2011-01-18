@@ -47,7 +47,7 @@ $progress->started() or die('progress executable is not running');
 my ($retValue, $errorMsg, $pid) = (0, '', 0);
 
 try {
-    my $fifo = '/var/lib/ebox/ebox-apt-update.pipe';
+    my $fifo = '/var/lib/zentyal/ebox-apt-update.pipe';
 
     #Clean fifo
     EBox::Sudo::silentRoot("rm $fifo");

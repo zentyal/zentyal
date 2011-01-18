@@ -5,7 +5,7 @@ use warnings;
 # Performance improvement:
 # Do not load anything if there are no
 # pending operations in userjournal directories
-unless (grep { -d $_ } </var/lib/ebox*/conf/userjournal/*>) {
+unless (grep { -d $_ } </var/lib/zentyal*/conf/userjournal/*>) {
     exit 0;
 }
 

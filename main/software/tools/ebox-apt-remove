@@ -30,7 +30,7 @@ my @packages = @ARGV;
 my $dpkgOpts = '-o DPkg::Options::="--force-confold"';
 my ($retValue, $errorMsg) = (0, '');
 
-my $fifo = '/var/lib/ebox/ebox-apt-remove.pipe';
+my $fifo = '/var/lib/zentyal/ebox-apt-remove.pipe';
 
 my $cmd ="/usr/bin/apt-get $auto --purge -q --yes";
 my $fullCmd = "LANG=C DEBIAN_FRONTEND=noninteractive $cmd @packages 2>&1";

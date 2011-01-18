@@ -536,7 +536,7 @@ sub _initRedis
 {
     my ($self) = @_;
 
-    my $firstInst = ( -f '/var/lib/ebox/redis.first' );
+    my $firstInst = ( -f '/var/lib/zentyal/redis.first' );
     return if ($firstInst); # server considered running on first install
 
     # User corner redis server is managed by service

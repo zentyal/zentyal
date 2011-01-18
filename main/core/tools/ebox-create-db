@@ -34,4 +34,4 @@ if [ $db_exists -eq 0 ]; then
     create_db
 fi
 
-touch /var/lib/ebox/.db-created
+touch /var/lib/zentyal/.db-created

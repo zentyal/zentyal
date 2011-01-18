@@ -50,7 +50,7 @@ use constant {
     PRESAVE_SUBDIR  => EBox::Config::etc() . 'pre-save',
     POSTSAVE_SUBDIR => EBox::Config::etc() . 'post-save',
     TIMESTAMP_KEY   => 'saved_timestamp',
-    DPKG_RUNNING_FILE => '/var/lib/ebox/dpkg_running'
+    DPKG_RUNNING_FILE => '/var/lib/zentyal/dpkg_running'
 };
 
 my @CORE_MODULES = qw(sysinfo apache events global logs);
@@ -445,7 +445,7 @@ sub prepareSaveAllModules
     my ($self) = @_;
 
     my $totalTicks;
-    my $file = '/var/lib/ebox/.first';
+    my $file = '/var/lib/zentyal/.first';
     if ( -f $file ) {
         # enable + save modules
         $totalTicks = scalar @{$self->modNames} * 2;
@@ -530,7 +530,7 @@ sub saveAllModules
 
 
         # First instalation modules enable
-        my $file = '/var/lib/ebox/.first';
+        my $file = '/var/lib/zentyal/.first';
         if ( -f $file ) {
             my $mgr = EBox::ServiceManager->new();
             @mods = @{$mgr->_dependencyTree()};

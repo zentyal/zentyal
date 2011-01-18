@@ -5,7 +5,7 @@ set -e
 
 case "$1" in
 	configure)
-            STDERR_FILE=/var/lib/ebox/tmp/stderr
+            STDERR_FILE=/var/lib/zentyal/tmp/stderr
             touch $STDERR_FILE && chmod 0666 $STDERR_FILE
         ;;
 esac

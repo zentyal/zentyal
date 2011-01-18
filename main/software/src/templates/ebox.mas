@@ -171,7 +171,7 @@ var pkgTable = new Array(
     );
 </script>
 
-% my $file = '/var/lib/ebox/.first';
+% my $file = '/var/lib/zentyal/.first';
 % unless ((-f $file) or @brokenPackages) {
 <& /software/updateNote.mas, status => $updateStatus, qa => $QAUpdates &>
 % }

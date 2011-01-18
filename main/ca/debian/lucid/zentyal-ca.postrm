@@ -19,7 +19,7 @@ case "$1" in
         ;;
     purge)
         # Delete the issued certificates
-        rm -rf /var/lib/ebox/CA
+        rm -rf /var/lib/zentyal/CA
         ;;
 esac
 

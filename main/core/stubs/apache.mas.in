@@ -181,7 +181,7 @@ SSLEngine on
 SSLProtocol all
 SSLCipherSuite HIGH:MEDIUM
 
-SSLCertificateFile /var/lib/ebox/conf/ssl/ssl.pem
+SSLCertificateFile /var/lib/zentyal/conf/ssl/ssl.pem
 </IfModule>
 
 <IfModule mod_setenvif.c>
@@ -198,7 +198,7 @@ SSLCertificateFile /var/lib/ebox/conf/ssl/ssl.pem
 % }
 PerlWarn On
 
-# PerlRequire "/var/lib/ebox/conf/startup.pl"
+# PerlRequire "/var/lib/zentyal/conf/startup.pl"
 
 PerlModule EBox::Auth
 PerlSetVar EBoxPath /

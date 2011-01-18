@@ -8,7 +8,7 @@ MaxKeepAliveRequests 100
 KeepAliveTimeout 15
 AddDefaultCharset utf-8
 
-PidFile /var/lib/ebox-usercorner/user-apache.pid
+PidFile /var/lib/zentyal-usercorner/user-apache.pid
 
 <IfModule mpm_prefork_module>
     StartServers          1
@@ -80,7 +80,7 @@ DocumentRoot /usr/share/zentyal/www/
     Allow from all
 </Directory>
 
-<Directory /var/lib/ebox/dynamicwww>
+<Directory /var/lib/zentyal/dynamicwww>
     Options Indexes MultiViews
     AllowOverride None
     Order allow,deny
@@ -123,7 +123,7 @@ SSLEngine on
 SSLProtocol all
 SSLCipherSuite HIGH:MEDIUM
 
-SSLCertificateFile /var/lib/ebox-usercorner/ssl/ssl.pem
+SSLCertificateFile /var/lib/zentyal-usercorner/ssl/ssl.pem
 </IfModule>
 
 <IfModule mod_setenvif.c>
@@ -136,7 +136,7 @@ SSLCertificateFile /var/lib/ebox-usercorner/ssl/ssl.pem
 
 PerlWarn On
 
-# PerlRequire "/var/lib/ebox/conf/startup.pl"
+# PerlRequire "/var/lib/zentyal/conf/startup.pl"
 
 PerlModule EBox::UserCorner::Auth
 PerlSetVar EBoxPath /
@@ -181,6 +181,6 @@ RewriteRule ^/ebox/ebox.cgi$ /ebox/
 # From /data/ to / and finish
 RewriteRule ^/data(.*) $1 [L]
 # From /dynamic-data/ to the right directory in FS and finish
-RewriteRule ^/dynamic-data(.*) /var/lib/ebox/dynamicwww$1 [L]
+RewriteRule ^/dynamic-data(.*) /var/lib/zentyal/dynamicwww$1 [L]
 RewriteRule ^/ebox/(.*) /usr/share/zentyal/cgi/user-ebox.cgi [E=script:$1,L]
 

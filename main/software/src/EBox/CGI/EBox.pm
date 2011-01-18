@@ -23,7 +23,7 @@ use base 'EBox::CGI::ClientBase';
 use EBox::Global;
 use EBox::Gettext;
 
-use constant FIRST_RUN_FILE => '/var/lib/ebox/.first';
+use constant FIRST_RUN_FILE => '/var/lib/zentyal/.first';
 
 ## arguments:
 ##  title [required]

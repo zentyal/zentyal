@@ -9,7 +9,7 @@
 # and after gconf debhelper is run
 if [ "$1" = "purge" ]; then
         # Purge configuration
-        /usr/share/ebox/ebox-clean-gconf <% $module %> || true
+        /usr/share/zentyal/zentyal-clean-conf <% $module %> || true
 fi
 
 
@@ -18,8 +18,8 @@ fi
 case "$1" in
     remove)
         kill `pidof gconfd-2` >/dev/null 2>&1 || true
-        # Restart eBox apache
-        invoke-rc.d ebox apache restart || true
+        # Restart Zentyal apache
+        invoke-rc.d zentyal apache restart || true
 
     ;;
 esac

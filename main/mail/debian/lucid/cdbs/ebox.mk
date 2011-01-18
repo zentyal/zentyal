@@ -1,6 +1,6 @@
 
 DEB_CONFIGURE_SCRIPT_ENV += LOGPATH="/var/log/zentyal"
-DEB_CONFIGURE_SCRIPT_ENV += CONFPATH="/var/lib/ebox/conf"
+DEB_CONFIGURE_SCRIPT_ENV += CONFPATH="/var/lib/zentyal/conf"
 DEB_CONFIGURE_SCRIPT_ENV += STUBSPATH="/usr/share/zentyal/stubs"
 DEB_CONFIGURE_SCRIPT_ENV += CGIPATH="/usr/share/zentyal/cgi/"
 DEB_CONFIGURE_SCRIPT_ENV += TEMPLATESPATH="/usr/share/zentyal/templates"

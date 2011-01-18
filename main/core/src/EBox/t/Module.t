@@ -22,12 +22,12 @@ sub backupDirTest
 
   my @cases = (
                ['/' => '/testMod.bak'],
-               ['/var/lib/ebox/backups' => '/var/lib/ebox/backups/testMod.bak'],
-               ['/var/lib/ebox/backups/' => '/var/lib/ebox/backups/testMod.bak'],
+               ['/var/lib/zentyal/backups' => '/var/lib/zentyal/backups/testMod.bak'],
+               ['/var/lib/zentyal/backups/' => '/var/lib/zentyal/backups/testMod.bak'],
                # with repetition:
-               ['/var/lib/ebox/backups/testMod.bak' => '/var/lib/ebox/backups/testMod.bak'],
-               ['/var/lib/ebox/backups/testMod.bak/' => '/var/lib/ebox/backups/testMod.bak'],
-               ['/var/lib/ebox/backups/testMod.bak/testMod.bak' => '/var/lib/ebox/backups/testMod.bak'],
+               ['/var/lib/zentyal/backups/testMod.bak' => '/var/lib/zentyal/backups/testMod.bak'],
+               ['/var/lib/zentyal/backups/testMod.bak/' => '/var/lib/zentyal/backups/testMod.bak'],
+               ['/var/lib/zentyal/backups/testMod.bak/testMod.bak' => '/var/lib/zentyal/backups/testMod.bak'],
               );
 
   foreach my $case_r (@cases) {

@@ -19,7 +19,7 @@ fi
 cp $DATA_DIR/ubuntu-ebox.seed $CD_BUILD_DIR/preseed/ubuntu-server-auto.seed
 cat $DATA_DIR/ubuntu-ebox-auto.seed >> $CD_BUILD_DIR/preseed/ubuntu-server-auto.seed
 
-DISASTER_PACKAGES="ebox-ebackup ebox-remoteservices zenity"
+DISASTER_PACKAGES="zentyal-ebackup zentyal-remoteservices zenity"
 cp $CD_BUILD_DIR/preseed/ubuntu-server.seed $CD_BUILD_DIR/preseed/disaster-recovery.seed
 sed -i 's/INSTALL_MODE/RECOVER_MODE/' $CD_BUILD_DIR/preseed/disaster-recovery.seed
 sed -i "s/include string/include string $DISASTER_PACKAGES/" $CD_BUILD_DIR/preseed/disaster-recovery.seed

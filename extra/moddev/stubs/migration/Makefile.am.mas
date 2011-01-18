@@ -4,7 +4,7 @@
 </%args>
 ## Process this file with automake to produce Makefile.in
 
-Migrationsdir = @DATADIR@/ebox-<% $module %>/migration
+Migrationsdir = @DATADIR@/zentyal-<% $module %>/migration
 
 nobase_Migrations_SCRIPTS = <% join(" ", @migrationScripts) %>
 

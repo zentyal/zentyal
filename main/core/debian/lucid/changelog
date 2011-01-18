@@ -291,7 +291,7 @@ ebox (0.11.99-0ubuntu10) hardy; urgency=low
 
 ebox (0.11.99-0ubuntu9) hardy; urgency=low
 
-  * Fix permissions on /var/lib/ebox/conf/ebox.sid. To prevent cookies from
+  * Fix permissions on /var/lib/zentyal/conf/ebox.sid. To prevent cookies from
     being read. 
 
  -- Chuck Short <zulcss@ubuntu.com>  Wed, 09 Apr 2008 10:51:36 -0400

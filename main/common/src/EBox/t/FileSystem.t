@@ -98,7 +98,7 @@ sub isSubdirTest
 		   [qw(/usr/var /)],
 		   [qw(/home/macaco/ /home)],
 		   [qw(/home/macaco/users/private/dir/ /home/macaco) ],
-		   [qw(/var/lib/ebox/ /var/lib/)],
+		   [qw(/var/lib/zentyal/ /var/lib/)],
 		   # a dir is a subdir of itself:
 		   [qw(/home/macaco /home/macaco)],
 		  );

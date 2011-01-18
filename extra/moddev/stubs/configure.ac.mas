@@ -4,7 +4,7 @@
     $modNameSpace
     $version
 </%args>
-AC_INIT([EBox-<% $module %>], [<% $version %>])
+AC_INIT([zentyal-<% $module %>], [<% $version %>])
 
 AC_CONFIG_AUX_DIR([config])
 AC_CONFIG_SRCDIR([src/EBox/<% $mainClass %>.pm])
@@ -38,12 +38,7 @@ if test "x$enable_runtime_tests" = "xyes" ; then
 	perlpath=`$PERL -e 'foreach (@INC) { print "$_\n";}' | grep "^$prefix" | head -1`
 	fi
 
-	AM_GCONF_SOURCE_2
-
 	AC_CONF_EBOX
-else
-	GCONF_SCHEMAS_INSTALL_FALSE=
-	GCONF_SCHEMAS_INSTALL_TRUE='#'
 fi
 AM_PO_SUBDIRS
 

@@ -17,7 +17,7 @@ var check = new Array();
 
 % my $i = 0;
 % my $packages_auto = '';
-% my $file = '/var/lib/ebox/.first';
+% my $file = '/var/lib/zentyal/.first';
 % if (-f $file) {
 %   $packages_auto = EBox::Config::configkey('auto_select_packages');
 % }

@@ -264,7 +264,7 @@ sub _debian
     copy ( STUBS_PATH . '/debian/compat',
            "$dir/compat");
     copy ( STUBS_PATH . '/debian/prerm',
-           "$dir/ebox-$module.prerm");
+           "$dir/zentyal-$module.prerm");
     copy ( STUBS_PATH . '/debian/rules',
            "$dir/rules");
     chmod(0755, "$dir/rules" );
@@ -290,14 +290,14 @@ sub _debian
             );
     ${$output} = '';
     $interp->exec($comp, ( module => $module));
-    write_file($dir . "/ebox-$module.postinst", ${$output});
+    write_file($dir . "/zentyal-$module.postinst", ${$output});
 
     $comp = $interp->make_component(
             comp_file => STUBS_PATH .  '/debian/postrm.mas',
             );
     ${$output} = '';
     $interp->exec($comp, ( module => $module));
-    write_file($dir . "/ebox-$module.postrm", ${$output});
+    write_file($dir . "/zentyal-$module.postrm", ${$output});
 }
 
 sub _migration

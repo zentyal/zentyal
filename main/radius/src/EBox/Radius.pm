@@ -228,7 +228,7 @@ sub _setEAP
         my $ca = EBox::Global->modInstance('ca');
         my $model = $ca->model('Certificates');
         if ($model->isEnabledService('RADIUS')) {
-            push (@params, capath => '/var/lib/ebox/CA/cacert.pem');
+            push (@params, capath => '/var/lib/zentyal/CA/cacert.pem');
         } else {
             push (@params, capath => '${cadir}/ca.pem');
         }

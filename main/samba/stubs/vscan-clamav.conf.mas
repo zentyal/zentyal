@@ -38,7 +38,7 @@ send warning message = yes
 infected file action = quarantine
 
 ; where to put infected files - you really want to change this!
-quarantine directory  = /var/lib/ebox/quarantine/
+quarantine directory  = /var/lib/zentyal/quarantine/
 ; prefix for files in quarantine
 quarantine prefix = vir-
 

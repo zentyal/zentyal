@@ -74,7 +74,7 @@ sub _process($) {
 
 sub _menu {
     my ($self) = @_;
-    my $file = '/var/lib/ebox/.first';
+    my $file = '/var/lib/zentyal/.first';
     if (-f  $file) {
         my $software = EBox::Global->modInstance('software');
         $software->firstTimeMenu(1);

@@ -73,7 +73,7 @@ sub _process
     push @params, ($name => $value);
   }
 
-  my $file = '/var/lib/ebox/.first';
+  my $file = '/var/lib/zentyal/.first';
   if (-f  $file) {
     my $software = EBox::Global->modInstance('software');
      # FIXME: workaround to show ads only during installation
@@ -99,7 +99,7 @@ sub _progressId
 sub _menu
 {
     my ($self) = @_;
-    my $file = '/var/lib/ebox/.first';
+    my $file = '/var/lib/zentyal/.first';
     if (-f  $file) {
         my $software = EBox::Global->modInstance('software');
         # FIXME: workaround to show distinct menu for saving changes and installation proccess

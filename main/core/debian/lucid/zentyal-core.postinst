@@ -19,7 +19,7 @@ case "$1" in
         chmod 750 /var/log/zentyal
 
         # create Zentyal apache certificates
-        /usr/share/zentyal/ebox-create-certificate /var/lib/ebox/conf/ssl > /dev/null 2>&1
+        /usr/share/zentyal/ebox-create-certificate /var/lib/zentyal/conf/ssl > /dev/null 2>&1
 
         #add the ebox group and user
         if ! getent group ebox > /dev/null 2>&1
@@ -27,11 +27,11 @@ case "$1" in
             addgroup --system ebox
 
             # Create the .first file only if we are on the first install
-            touch /var/lib/ebox/.first
+            touch /var/lib/zentyal/.first
         fi
         if ! getent passwd ebox > /dev/null 2>&1
         then
-            adduser --system --home /var/lib/ebox/ \
+            adduser --system --home /var/lib/zentyal/ \
                 --disabled-password --ingroup ebox ebox
             adduser ebox adm
         fi
@@ -39,12 +39,12 @@ case "$1" in
         adduser ebox shadow > /dev/null 2>&1
 
         chown ebox:adm /var/log/zentyal
-        chown -R ebox:adm /var/lib/ebox/tmp
-        chown -R ebox:adm /var/lib/ebox/conf
-        chown -R ebox:adm /var/lib/ebox/log
+        chown -R ebox:adm /var/lib/zentyal/tmp
+        chown -R ebox:adm /var/lib/zentyal/conf
+        chown -R ebox:adm /var/lib/zentyal/log
 
         # Create and set permissions for ebox.sid
-        EBOX_SID="/var/lib/ebox/conf/ebox.sid"
+        EBOX_SID="/var/lib/zentyal/conf/ebox.sid"
         if [ ! -e $EBOX_SID ]; then
             touch $EBOX_SID
         fi
@@ -64,11 +64,11 @@ case "$1" in
             chown -R ebox:ebox $DIR
         done
 
-        #change the /var/lib/ebox/ user
-        chown  ebox:ebox /var/lib/ebox
+        #change the /var/lib/zentyal/ user
+        chown  ebox:ebox /var/lib/zentyal
 
         # Setup random redis password
-        REDIS_PASS="/var/lib/ebox/conf/redis.passwd"
+        REDIS_PASS="/var/lib/zentyal/conf/redis.passwd"
         if [ ! -f $REDIS_PASS ]; then
             touch $REDIS_PASS
             chmod 0600 $REDIS_PASS
@@ -77,8 +77,8 @@ case "$1" in
         fi
 
         # Launch redis-server on first install (needed by EBox::init)
-        if [ -f /var/lib/ebox/.first -a -z "$2" ]; then
-            /usr/bin/sudo -u ebox /usr/bin/redis-server /var/lib/ebox/conf/redis.first
+        if [ -f /var/lib/zentyal/.first -a -z "$2" ]; then
+            /usr/bin/sudo -u ebox /usr/bin/redis-server /var/lib/zentyal/conf/redis.first
         fi
 
         # sudo configuration
@@ -103,21 +103,21 @@ case "$1" in
         /usr/share/zentyal/ebox-migrate /usr/share/zentyal-events/migration
 
         # remove initial redis config and stop server
-        if [ -f /var/lib/ebox/.first -a -z "$2" ]; then
-            kill -9 `cat /var/lib/ebox/redis.ebox.pid`
+        if [ -f /var/lib/zentyal/.first -a -z "$2" ]; then
+            kill -9 `cat /var/lib/zentyal/redis.ebox.pid`
         fi
-        rm -f /var/lib/ebox/conf/redis.first
+        rm -f /var/lib/zentyal/conf/redis.first
 
         ;;
 	triggered)
         #remove the menu cache
-        rm -f /var/lib/ebox/tmp/menucache
+        rm -f /var/lib/zentyal/tmp/menucache
 
         #restart ebox
         invoke-rc.d zentyal apache restart || true
 
         #remove dpkg running flag
-        rm -f /var/lib/ebox/dpkg_running
+        rm -f /var/lib/zentyal/dpkg_running
         ;;
 esac
 

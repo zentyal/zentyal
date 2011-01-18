@@ -40,7 +40,7 @@ use Data::Dumper;
 # Set it fixed not to include Zentyal packages
 use constant EVENTS_INCOMING_DIR       => '/var/run/ebox/events/incoming/';
 use constant EVENTS_INCOMING_READY_DIR => EVENTS_INCOMING_DIR . 'ready/';
-use constant EVENTS_FIFO               => '/var/lib/ebox/tmp/events-fifo';
+use constant EVENTS_FIFO               => '/var/lib/zentyal/tmp/events-fifo';
 use constant EBOX_USER                 => 'ebox';
 
 plugin_register(TYPE_NOTIF, 'notificate', 'ebox_notify');

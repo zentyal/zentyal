@@ -73,7 +73,7 @@ fi
 case $ARGV in
 start|stop|restart|graceful|graceful-stop)
     # LC_NUMERIC=C workaround to avoid issues with perl bug in debian #477134
-    LC_NUMERIC="C" $HTTPD -k $ARGV -f /var/lib/ebox/conf/apache2.conf
+    LC_NUMERIC="C" $HTTPD -k $ARGV -f /var/lib/zentyal/conf/apache2.conf
     ERROR=$?
     ;;
 startssl|sslstart|start-SSL)
@@ -83,7 +83,7 @@ startssl|sslstart|start-SSL)
     ERROR=2
     ;;
 configtest)
-    $HTTPD -t -f /var/lib/ebox/conf/apache2.conf
+    $HTTPD -t -f /var/lib/zentyal/conf/apache2.conf
     ERROR=$?
     ;;
 status)

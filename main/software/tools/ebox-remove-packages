@@ -41,7 +41,7 @@ my $auto = (EBox::Config::configkey('software-autoremove') eq 'yes')  ?  'autore
 my ($retValue, $errorMsg) = (0, '');
 
 try {
-    my $fifo = '/var/lib/ebox/ebox-apt-remove.pipe';
+    my $fifo = '/var/lib/zentyal/ebox-apt-remove.pipe';
 
     #Clean fifo
     EBox::Sudo::silentRoot ("rm $fifo");

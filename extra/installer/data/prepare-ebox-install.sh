@@ -50,7 +50,7 @@ gen_locales() {
     # Regenerate locales to update the new messages from Zentyal
     /usr/sbin/locale-gen
 
-    /usr/share/ebox/ebox-set-locale $LANG > /dev/null 2>&1
+    /usr/share/zentyal/ebox-set-locale $LANG > /dev/null 2>&1
 }
 
 

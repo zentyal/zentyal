@@ -1,20 +1,20 @@
 <%args>
     $module
 </%args>
-Source: ebox-<% $module %>
+Source: zentyal-<% $module %>
 Section: web
 Priority: optional
 Maintainer: Nobody  <foo@bar.com>
 Build-Depends: debhelper (>= 4.0.0), cdbs
 Standards-Version: 3.7.3
 
-Package: ebox-<% $module %>
+Package: zentyal-<% $module %>
 Architecture: all
-Depends: ebox (>= 1.2), ${misc:Depends}
+Depends: zentyal-core (>= 2.1), ${misc:Depends}
 Description: Zentyal - <% $module %> module
  Zentyal is a Linux small business server that can act as
  a Gateway, Unified Threat Manager, Office Server, Infrastructure
  Manager, Unified Communications Server or a combination of them. One
  single, easy-to-use platform to manage all your network services.
  .
- This module has been automatically created by ebox-moddev
+ This module has been automatically created by zmoddev

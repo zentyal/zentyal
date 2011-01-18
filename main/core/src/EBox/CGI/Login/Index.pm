@@ -101,7 +101,7 @@ sub _requestDestination
   my ($destination) = ($request =~ m/$method\s*(.*?)\s*$protocol/  );
 
   # redirect to config page on first install
-  my $file = '/var/lib/ebox/.first';
+  my $file = '/var/lib/zentyal/.first';
   if ( -f $file ) {
      return $FIRSTTIME_DESTINATION;
   }

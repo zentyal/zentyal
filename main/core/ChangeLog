@@ -302,7 +302,7 @@ HEAD
 	  by dependencies
 1.3.7
 	+ Bug fix: generate public.css and login.css in dynamic-www directory
-	  which is /var/lib/ebox/dynamicwww/css/ and not in /usr/share/ebox/www/css
+	  which is /var/lib/zentyal/dynamicwww/css/ and not in /usr/share/ebox/www/css
 	  as these files are generate every time eBox's apache is
 	  restarted
 	+ Bug fix: modules are restored now in the correct dependency
@@ -555,7 +555,7 @@ status that returns [OK] instead of "running".
 	+ Add disk usage information
 	+ Show progress in backup process
 	+ Add option to purge logs
-	+ Create a link from /var/lib/ebox/log to /var/log/ebox
+	+ Create a link from /var/lib/zentyal/log to /var/log/ebox
 	+ Fix bug with backup descriptions containing spaces
 	+ Add removeAll method on data models
 	+ Add HostIP, DomainName and Port types

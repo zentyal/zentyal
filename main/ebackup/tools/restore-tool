@@ -38,7 +38,7 @@ use DateTime;
 use String::ShellQuote;
 use YAML::Tiny;
 
-use constant FIRST_RUN_FILE => '/var/lib/ebox/.first';
+use constant FIRST_RUN_FILE => '/var/lib/zentyal/.first';
 use constant NTP_SERVER     => 'pool.ntp.org';
 
 my $usesX = 1; # flag to signal whether graphical environment is available
@@ -237,7 +237,7 @@ sub usage
 
 sub tmpDir
 {
-    return '/var/lib/ebox/tmp/zentyal-restore';
+    return '/var/lib/zentyal/tmp/zentyal-restore';
 }
 
 sub filesTmpDir
@@ -1868,7 +1868,7 @@ sub _xauthEBox
         return;
     }
 
-    my $xauthFile = '/var/lib/ebox/.Xauthority';
+    my $xauthFile = '/var/lib/zentyal/.Xauthority';
     EBox::Sudo::root("rm -f $xauthFile");
     EBox::Sudo::root("touch $xauthFile");
     EBox::Sudo::root("chown ebox.ebox $xauthFile");

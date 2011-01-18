@@ -228,7 +228,7 @@ sub enableActions
     my ($self) = @_;
 
     # Workaround to call syncRows and enable the log
-    # dispatcher under /var/lib/ebox/conf/events
+    # dispatcher under /var/lib/zentyal/conf/events
     $self->configureDispatcherModel()->ids();
 }
 

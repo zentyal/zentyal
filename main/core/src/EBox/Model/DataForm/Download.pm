@@ -73,7 +73,7 @@ sub new
 # Parameters:
 #
 #   file - file name. This file must live under EBox::Config::tmp() .
-#   '/downloads', typically /var/lib/ebox/tmp/downloads/
+#   '/downloads', typically /var/lib/zentyal/tmp/downloads/
 #
 #   You do not have to use the whole path, only the file name
 sub pushFileToDownload

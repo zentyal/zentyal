@@ -159,7 +159,7 @@ HEAD
 	+ Use separator ':' in exposed method using '/' for addresses
 O.11.100
 	+ Disable network traffic monitor due to a bug in perl and RRDs module
-	+ Use /etc/network/interfaces and not /var/lib/ebox/tmp/interfaces
+	+ Use /etc/network/interfaces and not /var/lib/zentyal/tmp/interfaces
 	+ Run saveConfig() after importing network configuration and not save()
 	  which forced a restart of the interfaces stored 
 	  in /etc/network/interfaces at package installation time

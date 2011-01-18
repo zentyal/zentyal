@@ -34,7 +34,7 @@ try {
     # Do not call regenGateways if we are restarting changes, they
     # are already going to be regenerated and also this way we
     # avoid nested lock problems
-    unless (-f '/var/lib/ebox/tmp/ifup.lock') {
+    unless (-f '/var/lib/zentyal/tmp/ifup.lock') {
         $network->regenGateways();
     }
 } finally {

@@ -30,7 +30,7 @@ BEGIN {
 }
 
 # Destroy anything related to this stuff
-system("rm -r /var/lib/ebox/CA");
+system("rm -r /var/lib/zentyal/CA");
 
 my $ca = EBox::CA->_create();
 

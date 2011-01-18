@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # If Zentyal is already installed...
-if ! [ -f '/var/lib/ebox/.first' ]
+if ! [ -f '/var/lib/zentyal/.first' ]
 then
     # Disable auto login once installation is done
     sed -i "s/.*autologin=.*/# autologin=nobody/" /etc/lxdm/default.conf

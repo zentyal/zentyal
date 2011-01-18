@@ -6,7 +6,7 @@ daemonize yes
 
 # When run as a daemon, Redis write a pid file in /var/run/redis.pid by default.
 # You can specify a custom pid file location here.
-pidfile /var/lib/ebox/redis.ebox.pid
+pidfile /var/lib/zentyal/redis.ebox.pid
 
 # Accept connections on the specified port, default is 6379
 port 6380
@@ -64,7 +64,7 @@ dbfilename dump.rdb
 
 # For default save/load DB in/from the working directory
 # Note that you must specify a directory not a file name.
-dir /var/lib/ebox/
+dir /var/lib/zentyal/
 
 ################################# REPLICATION #################################
 

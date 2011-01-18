@@ -899,10 +899,10 @@ sub restoreLdapMaster
         my @parts = split(/,/, $dn);
         my $dc = (split(/=/, $parts[0]))[1];
 
-        EBox::Sudo::root("cp $dir/ldap.ldif /var/lib/ebox/tmp/ldap.ldif");
-        EBox::Sudo::root("sed -i -e 's/dc=ebox/$dn/' /var/lib/ebox/tmp/ldap.ldif");
-        EBox::Sudo::root("sed -i -e 's/dc: ebox/dc: $dc/' /var/lib/ebox/tmp/ldap.ldif");
-        EBox::Sudo::rootWithoutException("/usr/sbin/slapadd -c -F /etc/ldap/slapd.d < /var/lib/ebox/tmp/ldap.ldif");
+        EBox::Sudo::root("cp $dir/ldap.ldif /var/lib/zentyal/tmp/ldap.ldif");
+        EBox::Sudo::root("sed -i -e 's/dc=ebox/$dn/' /var/lib/zentyal/tmp/ldap.ldif");
+        EBox::Sudo::root("sed -i -e 's/dc: ebox/dc: $dc/' /var/lib/zentyal/tmp/ldap.ldif");
+        EBox::Sudo::rootWithoutException("/usr/sbin/slapadd -c -F /etc/ldap/slapd.d < /var/lib/zentyal/tmp/ldap.ldif");
         EBox::Module::Base::writeConfFileNoCheck(EBox::Config::tmp() .
             'slapd-master-upgrade-ebox.ldif',
             'usersandgroups/slapd-master-upgrade-ebox.ldif.mas',

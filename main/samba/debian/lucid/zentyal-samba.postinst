@@ -8,7 +8,7 @@ set -e
 case "$1" in
 	configure)
 
-        QUARANTINE_DIR=/var/lib/ebox/quarantine/
+        QUARANTINE_DIR=/var/lib/zentyal/quarantine/
         if [ ! -d $QUARANTINE_DIR ]; then
             mkdir -p $QUARANTINE_DIR
         fi

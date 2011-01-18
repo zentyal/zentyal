@@ -123,7 +123,7 @@ sub runGConf
     } else {
         # remove the database so enabling it doesn't fail?
     }
-    EBox::Sudo::root('chmod 700 /var/lib/ebox/conf/ssl');
+    EBox::Sudo::root('chmod 700 /var/lib/zentyal/conf/ssl');
 
     my $modelManager = EBox::Model::ModelManager->instance();
     my $serviceModel = $modelManager->model('ServiceTable');

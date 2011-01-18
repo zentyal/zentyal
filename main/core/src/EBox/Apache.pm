@@ -61,7 +61,7 @@ sub _create
 
 sub serverroot
 {
-    return '/var/lib/ebox';
+    return '/var/lib/zentyal';
 }
 
 sub initd
@@ -243,14 +243,14 @@ sub _writeCSSFiles
 
 sub _httpdConfFile
 {
-    return '/var/lib/ebox/conf/apache2.conf';
+    return '/var/lib/zentyal/conf/apache2.conf';
 }
 
 
 sub _startupFile
 {
 
-    return '/var/lib/ebox/conf/startup.pl';
+    return '/var/lib/zentyal/conf/startup.pl';
 }
 
 sub port
@@ -624,7 +624,7 @@ sub certificates
     return [
             {
              service =>  __('Zentyal Administration Web Server'),
-             path    =>  '/var/lib/ebox/conf/ssl/ssl.pem',
+             path    =>  '/var/lib/zentyal/conf/ssl/ssl.pem',
              user => 'ebox',
              group => 'ebox',
              mode => '0600',

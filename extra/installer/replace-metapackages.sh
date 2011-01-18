@@ -28,7 +28,7 @@ do
     cd $EXTRAS_DIR
     for i in all gateway infrastructure security office communication
     do
-        rm ebox-${i}_*.deb zentyal-${i}_*.deb
+        rm zentyal-${i}_*.deb
     done
     cp $EXPORT_DIR/*.deb $EXTRAS_DIR/
     cd -

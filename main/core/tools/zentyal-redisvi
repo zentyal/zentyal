@@ -40,7 +40,7 @@ EBox::init();
 
 my $redis = new EBox::Config::Redis();
 
-my $dumpfile = "/var/lib/ebox/conf/redisvi-dump-$$";
+my $dumpfile = "/var/lib/zentyal/conf/redisvi-dump-$$";
 
 $redis->export_dir_to_yaml($dir, $dumpfile);
 system("cp $dumpfile $dumpfile.orig");

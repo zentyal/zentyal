@@ -28,8 +28,8 @@ use base qw(EBox::Module::Service
             );
 
 use constant USERCORNER_APACHE => EBox::Config->conf() . '/user-apache2.conf';
-use constant USERCORNER_REDIS => '/var/lib/ebox-usercorner/conf/redis.conf';
-use constant USERCORNER_REDIS_PASS => '/var/lib/ebox-usercorner/conf/redis.passwd';
+use constant USERCORNER_REDIS => '/var/lib/zentyal-usercorner/conf/redis.conf';
+use constant USERCORNER_REDIS_PASS => '/var/lib/zentyal-usercorner/conf/redis.passwd';
 
 sub _create
 {
@@ -177,7 +177,7 @@ sub certificates
     return [
             {
              service =>  __(q{User Corner web server}),
-             path    =>  '/var/lib/ebox-usercorner/ssl/ssl.pem',
+             path    =>  '/var/lib/zentyal-usercorner/ssl/ssl.pem',
              user => 'ebox-usercorner',
              group => 'ebox-usercorner',
              mode => '0400',

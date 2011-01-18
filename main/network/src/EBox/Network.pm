@@ -36,7 +36,7 @@ use constant DHCLIENTCONF_FILE => '/etc/dhcp3/dhclient.conf';
 use constant PPP_PROVIDER_FILE => '/etc/ppp/peers/ebox-ppp-';
 use constant CHAP_SECRETS_FILE => '/etc/ppp/chap-secrets';
 use constant PAP_SECRETS_FILE => '/etc/ppp/pap-secrets';
-use constant IFUP_LOCK_FILE => '/var/lib/ebox/tmp/ifup.lock';
+use constant IFUP_LOCK_FILE => '/var/lib/zentyal/tmp/ifup.lock';
 use constant APT_PROXY_FILE => '/etc/apt/apt.conf.d/99proxy.conf';
 use constant ENV_PROXY_FILE => '/etc/profile.d/zentyal-proxy.sh';
 

@@ -2,7 +2,7 @@
 
 adduser --system --no-create-home vmail
 
-PASSWD_FILE='/var/lib/ebox/conf/ebox-zarafa.passwd'
+PASSWD_FILE='/var/lib/zentyal/conf/ebox-zarafa.passwd'
 
 if [ -s $PASSWD_FILE ]
 then
