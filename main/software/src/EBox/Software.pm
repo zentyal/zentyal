@@ -865,7 +865,7 @@ sub updateStatus
 #     Set the software management system to be updated using QA
 #     updates.
 #
-#     This method must be called from ebox-remoteservices when a
+#     This method must be called from zentyal-remoteservices when a
 #     subscription is done or released.
 #
 # Parameters:

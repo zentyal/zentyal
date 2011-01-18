@@ -634,7 +634,7 @@ sub bundleVersion
 #
 # Returns:
 #
-#      String - the ebox-remoteservices package version according to dpkg-query
+#      String - the zentyal-remoteservices package version according to dpkg-query
 #
 #      0 - otherwise
 #

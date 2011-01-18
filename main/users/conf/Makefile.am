@@ -1,6 +1,6 @@
 ## Process this file with automake to produce Makefile.in
 
-Confdir = $(localstatedir)/lib/ebox/conf
+Confdir = $(localstatedir)/lib/zentyal/conf
 Conf_DATA = user-eboxlog.conf
 
 Etcdir = $(sysconfdir)/zentyal

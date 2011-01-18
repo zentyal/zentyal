@@ -10,7 +10,7 @@ AC_DEFUN([AC_CONF_EBOX],
 	  AC_MSG_CHECKING(conf path)
 	  CONFPATH=`perl -MEBox::Config -e 'print EBox::Config->conf'`
   else
-          CONFPATH=$LOCALSTATEDIR/lib/ebox/conf
+          CONFPATH=$LOCALSTATEDIR/lib/zentyal/conf
   fi
   AC_SUBST(CONFPATH)
   AC_MSG_RESULT($CONFPATH)
@@ -40,7 +40,7 @@ AC_DEFUN([AC_CONF_EBOX],
 	AC_MSG_CHECKING(www path)
 	WWWPATH=`perl -MEBox::Config -e 'print EBox::Config->www'`
 	if test -z "$CGIPATH"; then
-	AC_MSG_ERROR("ebox www path  not found")
+	AC_MSG_ERROR("zentyal www path not found")
 	fi
 	AC_SUBST(WWWPATH)
 	AC_MSG_RESULT($WWWPATH)
@@ -61,37 +61,37 @@ AC_DEFUN([AC_CONF_EBOX],
   fi
 
   if test -z "$STUBSPATH"; then
-	AC_MSG_ERROR("stubs  path  not found")
+	AC_MSG_ERROR("stubs path not found")
   fi
   AC_SUBST(STUBSPATH)
   AC_MSG_RESULT($STUBSPATH)
 
   if test -z "$CGIPATH"; then
-    AC_MSG_ERROR("ebox cgi path not found")
+    AC_MSG_ERROR("zentyal cgi path not found")
   fi
   AC_SUBST(CGIPATH)
   AC_MSG_RESULT($CGIPATH)
 
   if test -z "$CGIPATH"; then
-    AC_MSG_ERROR("ebox template path  not found")
+    AC_MSG_ERROR("zentyal template path not found")
   fi
   AC_SUBST(TEMPLATESPATH)
   AC_MSG_RESULT($TEMPLATESPATH)
 
   if test -z "$CGIPATH"; then
-    AC_MSG_ERROR("ebox schemas path  not found")
+    AC_MSG_ERROR("zentyal schemas path not found")
   fi
   AC_SUBST(SCHEMASPATH)
   AC_MSG_RESULT($SCHEMASPATH)
 
   if test -z "$CGIPATH"; then
-    AC_MSG_ERROR("ebox css path  not found")
+    AC_MSG_ERROR("zentyal css path not found")
   fi
   AC_SUBST(CSSPATH)
   AC_MSG_RESULT($CSSPATH)
 
   if test -z "$CGIPATH"; then
-    AC_MSG_ERROR("ebox images path  not found")
+    AC_MSG_ERROR("zentyal images path not found")
   fi
   AC_SUBST(IMAGESPATH)
   AC_MSG_RESULT($IMAGESPATH)

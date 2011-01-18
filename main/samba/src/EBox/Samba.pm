@@ -511,7 +511,7 @@ sub _setConf
     push(@array, 'pdc' => $self->pdc());
     push(@array, 'roaming' => $self->roamingProfiles());
     push(@array, 'backup_path' => EBox::Config::conf() . '/backups');
-    push(@array, 'quarantine_path' => EBox::Config::var() . '/lib/ebox/quarantine');
+    push(@array, 'quarantine_path' => EBox::Config::var() . '/lib/zentyal/quarantine');
     my $shares = $self->shares();
     push(@array, 'shares' => $shares);
     my $guestShares = 0;
@@ -550,7 +550,7 @@ sub _setConf
     $self->model('SambaShares')->createDirs();
 
     # Change group ownership of quarantine_dir to __USERS__
-    my $quarantine_dir = EBox::Config::var() . '/lib/ebox/quarantine';
+    my $quarantine_dir = EBox::Config::var() . '/lib/zentyal/quarantine';
     EBox::Sudo::silentRoot("chown root:__USERS__ $quarantine_dir");
 }
 

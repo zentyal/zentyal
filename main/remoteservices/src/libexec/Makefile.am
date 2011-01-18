@@ -4,7 +4,7 @@ scriptsdir = @DATADIR@/zentyal
 
 scripts_SCRIPTS = ebox-automatic-conf-backup ebox-cronjob-runner ebox-get-cronjobs \
 		  ebox-finish-script-session ebox-notify-job ebox-reload-bundle \
-		  ebox-runnerd ebox-start-script-session ebox-unsubscribe 
+		  ebox-runnerd ebox-start-script-session ebox-unsubscribe
 
 helperscriptsdir = @DATADIR@/zentyal-remoteservices
 

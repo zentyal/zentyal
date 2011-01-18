@@ -29,7 +29,7 @@ use warnings;
 #      String - the path to that directory
 sub usercornerdir
 {
-    return EBox::Config->var() . 'lib/ebox-usercorner/';
+    return EBox::Config->var() . 'lib/zentyal-usercorner/';
 }
 
 # Method: usersessiondir

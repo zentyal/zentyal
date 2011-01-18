@@ -1,5 +1,5 @@
 #!/bin/bash
-MODULES="asterisk ebox ebackup remoteservices software"
+MODULES="asterisk core ebackup remoteservices software"
 findArgMas=
 for mod in $MODULES
 do

@@ -269,7 +269,7 @@ sub _changeHostname
 
     if ($hostname) {
         EBox::Sudo::root(EBox::Config::share() .
-                         "ebox/ebox-change-hostname $hostname");
+                         "zentyal/ebox-change-hostname $hostname");
         $self->set_string('hostname', '');
     }
 }

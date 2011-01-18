@@ -11,7 +11,7 @@ Presave_DATA =
 Postsavedir = $(Etcdir)/post-save
 Postsave_DATA =
 
-Confdir = $(localstatedir)/lib/ebox/conf
+Confdir = $(localstatedir)/lib/zentyal/conf
 Conf_DATA = ebox.passwd redis.first
 
 EXTRA_DIST = $(Conf_DATA) $(Etc_DATA)

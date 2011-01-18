@@ -14,7 +14,7 @@ AC_DEFUN([AC_CONF_EBOX],
   AC_MSG_CHECKING(log path)
   LOGPATH=`perl -MEBox::Config -e 'print EBox::Config->log'`
   if test -z "$LOGPATH"; then
-  	AC_MSG_ERROR("log  path not found")
+  	AC_MSG_ERROR("log path not found")
   fi
   AC_SUBST(LOGPATH)
   AC_MSG_RESULT($LOGPATH)
@@ -22,7 +22,7 @@ AC_DEFUN([AC_CONF_EBOX],
   AC_MSG_CHECKING(conf path)
   CONFPATH=`perl -MEBox::Config -e 'print EBox::Config->conf'`
   if test -z "$CONFPATH"; then
-  	AC_MSG_ERROR("conf  path not found")
+  	AC_MSG_ERROR("conf path not found")
   fi
   AC_SUBST(CONFPATH)
   AC_MSG_RESULT($CONFPATH)
@@ -38,7 +38,7 @@ AC_DEFUN([AC_CONF_EBOX],
   AC_MSG_CHECKING(stubs path)
   STUBSPATH=`perl -MEBox::Config -e 'print EBox::Config->stubs'`
   if test -z "$STUBSPATH"; then
-  	AC_MSG_ERROR("stubs  path not found")
+  	AC_MSG_ERROR("stubs path not found")
   fi
   AC_SUBST(STUBSPATH)
   AC_MSG_RESULT($STUBSPATH)

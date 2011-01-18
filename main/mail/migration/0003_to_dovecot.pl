@@ -144,7 +144,7 @@ sub _mailboxesMigration
 {
     my ($self) = @_;
     my $mail = $self->{gconfmodule};
-    my $script  = EBox::Config::share() . '/ebox-mail/courier-dovecot-migrate.pl';
+    my $script  = EBox::Config::share() . '/zentyal-mail/courier-dovecot-migrate.pl';
     my $dir = DIR_VMAIL;;
 
     my $cmd = "$script --convert --to-dovecot --recursive $dir";

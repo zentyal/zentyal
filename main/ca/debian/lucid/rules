@@ -4,5 +4,5 @@ include /usr/share/cdbs/1/rules/debhelper.mk
 include /usr/share/cdbs/1/class/autotools.mk
 include debian/cdbs/ebox.mk
 
-install/ebox-ca::
-	test -e debian/ebox-ca.cron.daily || ln -s ../src/libexec/updateDB.pl debian/ebox-ca.cron.daily
+install/zentyal-ca::
+	test -e debian/zentyal-ca.cron.daily || ln -s ../src/libexec/updateDB.pl debian/zentyal-ca.cron.daily

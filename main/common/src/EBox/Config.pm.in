@@ -237,12 +237,12 @@ sub locale
 
 sub conf
 {
-    return $ref->{localstatedir} . "lib/ebox/conf/";
+    return $ref->{localstatedir} . "lib/zentyal/conf/";
 }
 
 sub tmp
 {
-    return $ref->{localstatedir} . "lib/ebox/tmp/";
+    return $ref->{localstatedir} . "lib/zentyal/tmp/";
 }
 
 # Method: downloads
@@ -260,7 +260,7 @@ sub downloads
 
 sub passwd
 {
-    return $ref->{localstatedir} . "lib/ebox/conf/ebox.passwd";
+    return $ref->{localstatedir} . "lib/zentyal/conf/ebox.passwd";
 }
 
 
@@ -274,7 +274,7 @@ sub passwd
 
 sub sessionid
 {
-    return $ref->{localstatedir} . 'lib/ebox/conf/ebox.sid';
+    return $ref->{localstatedir} . 'lib/zentyal/conf/ebox.sid';
 }
 
 # Method: scriptSession
@@ -287,7 +287,7 @@ sub sessionid
 #
 sub scriptSession
 {
-    return $ref->{localstatedir} . 'lib/ebox/conf/ebox.script-sid';
+    return $ref->{localstatedir} . 'lib/zentyal/conf/ebox.script-sid';
 }
 
 sub log
@@ -335,10 +335,9 @@ sub images
     return $ref->{datadir} . "zentyal/www/images/";
 }
 
-
 sub dynamicwww
 {
-    return $ref->{localstatedir} . 'lib/ebox/dynamicwww/';
+    return $ref->{localstatedir} . 'lib/zentyal/dynamicwww/';
 }
 
 sub dynamicwwwSubdirs

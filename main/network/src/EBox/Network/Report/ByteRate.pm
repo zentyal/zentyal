@@ -51,7 +51,7 @@ use constant SRC_AND_SERVICE_COLOUR => '0000FF';
 
 
 
-use constant MONITOR_DAEMON => '/usr/lib/ebox/ebox-traffic-monitor';
+use constant MONITOR_DAEMON => '/usr/lib/zentyal/ebox-traffic-monitor';
 use constant MONITOR_DAEMON_NAME => 'ebox-traffic-monitor';
 use constant MONITOR_PERIOD => 5;
 

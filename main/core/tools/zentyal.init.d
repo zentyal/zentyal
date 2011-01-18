@@ -87,7 +87,7 @@ sub moduleAction
     my ($modname, $action, $actionName) = @_;
     my $mod = checkModule($modname); #exits if module is not manageable
 
-    # Do not restart apache if we are run under ebox-software
+    # Do not restart apache if we are run under zentyal-software
     if ($actionName eq 'restart' and $modname eq 'apache' ) {
         return if (exists $ENV{'EBOX_SOFTWARE'} and
                    $ENV{'EBOX_SOFTWARE'} == 1 );

@@ -4,8 +4,8 @@
 
 case "$1" in
     configure)
-        # Set proper permissions for /var/run/ebox directory
-        chown -R ebox.ebox /var/run/ebox
+        # Set proper permissions for /var/run/zentyal directory
+        chown -R ebox.ebox /var/run/zentyal
 
         # Migrate data if needed
         /usr/share/zentyal/ebox-migrate /usr/share/zentyal-monitor/migration/

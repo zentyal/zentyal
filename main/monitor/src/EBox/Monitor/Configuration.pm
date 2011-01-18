@@ -31,7 +31,7 @@ use EBox::Gettext;
 use Sys::Hostname;
 
 # Constants
-use constant MAIN_VAR_RUN     => EBox::Config::var() . 'run/ebox/';
+use constant MAIN_VAR_RUN     => EBox::Config::var() . 'run/zentyal/';
 use constant EVENTS_DIR       => MAIN_VAR_RUN . '/events/incoming/';
 use constant EVENTS_READY_DIR => EVENTS_DIR . 'ready/';
 use constant QUERY_INTERVAL   => 10;

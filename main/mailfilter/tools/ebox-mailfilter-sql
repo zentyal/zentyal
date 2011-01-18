@@ -8,10 +8,9 @@ sub update
     my $createCmd=q{su postgres -c'psql -c"create database spamassassin"  > /dev/null 2>&1'};
     system $createCmd;
 
-    my $cmd =q{su postgres -c'psql spamassassin < /usr/share/ebox-mailfilter/sql/spamassassin.sql  > /dev/null 2>&1'};
+    my $cmd =q{su postgres -c'psql spamassassin < /usr/share/zentyal-mailfilter/sql/spamassassin.sql  > /dev/null 2>&1'};
     system $cmd;
 }
-
 
 sub clean
 {
@@ -21,16 +20,13 @@ sub clean
                      # the postgre sql user 'ebox' is used in morem odules
                      q{su postgres -c 'psql -c"drop user ebox"},
                      # caution, next line could broke something in the future
-                     q{su postgres -c 'psql -c"drop language plpgsql"}, 
-
+                     q{su postgres -c 'psql -c"drop language plpgsql"},
                     );
 
     foreach my $cmd (@cleanCmds) {
         system $cmd;
     }
-
 }
-
 
 sub usage
 {
@@ -49,6 +45,5 @@ if ($ARGV[0] eq 'update') {
 } else {
     usage();
 }
-
 
 1;

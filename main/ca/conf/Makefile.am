@@ -1,6 +1,6 @@
 ## Process this file with automake to produce Makefile.in
 
-Etcdir = $(localstatedir)/lib/ebox/conf
+Etcdir = $(localstatedir)/lib/zentyal/conf
 Etc_DATA = openssl.cnf
 
 EXTRA_DIST = $(Etc_DATA)

@@ -19,7 +19,7 @@
 #
 # If there is already a bundle downloaded changed its version number this is
 # needed because remote service version check is added and otherwise ti could be
-# skipped 
+# skipped
 #
 
 package EBox::Migration;
@@ -54,7 +54,7 @@ sub runGConf
     my $sedCmd = "sed -i -e'$replaceCmd' $confFiles";
     system $sedCmd;
     if ($? != 0) {
-        EBox::error("Error running $sedCmd in ebox-remoteservices migration. Set manually bundle version to $adjustedBundleVersion");
+        EBox::error("Error running $sedCmd in zentyal-remoteservices migration. Set manually bundle version to $adjustedBundleVersion");
     }
 }
 

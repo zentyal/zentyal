@@ -42,7 +42,7 @@ sub menu
 
 sub cacheFile
 {
-    return EBox::Config::var . 'lib/ebox-usercorner/menucache';
+    return EBox::Config::var . 'lib/zentyal-usercorner/menucache';
 }
 
 sub regenCache
