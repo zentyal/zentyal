@@ -787,7 +787,7 @@ sub setSharingName
         my $uid = getpwnam(EBox::Config::user);
         my $gid = $users->groupGid($group);
         $self->_createDir(BASEPATH . "/groups/$group",
-                          $uid, $gid, "+t,g+w");
+                          $uid, $gid, "g+w");
     }
 }
 

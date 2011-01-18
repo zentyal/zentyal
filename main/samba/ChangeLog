@@ -1,4 +1,6 @@
 HEAD
+	+ The files in a group share can be modified by all the members in the
+	  group
 	+ Show forbidden paths in the "Path not allowed" exception text
 2.0.7
 	+ Removed printers are ignored during backup restore
