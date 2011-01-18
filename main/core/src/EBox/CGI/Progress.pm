@@ -33,57 +33,57 @@ use Encode;
 use File::Slurp;
 
 ## arguments:
-##	title [required]
+##  title [required]
 sub new
 {
-  my $class = shift;
-  my $self = $class->SUPER::new( 'template' => '/progress.mas',
-				 @_);
+    my $class = shift;
+    my $self = $class->SUPER::new('template' => '/progress.mas',
+                                  @_);
 
-  bless($self, $class);
-  return $self;
+    bless($self, $class);
+    return $self;
 }
 
 
 sub _process
 {
-  my ($self) = @_;
+    my ($self) = @_;
 
-  my @params = ();
-  push @params, (progressId     => $self->_progressId);
+    my @params = ();
+    push @params, (progressId => $self->_progressId);
 
-  my $title = ($self->param('title'));
-  if ($title) {
-    $self->{title} = encode (utf8 => $title);
-  }
+    my $title = ($self->param('title'));
+    if ($title) {
+        $self->{title} = encode (utf8 => $title);
+    }
 
-  my @paramsNames = qw( text currentItemCaption itemsLeftMessage
-                        endNote errorNote reloadInterval currentItemUrl
-                        nextStepUrl nextStepText nextStepTimeout );
-  foreach my $name (@paramsNames) {
-    # We use unsafeParam because these paramaters can be i18'ed.
-    # Also, these parameters are only used to generate html, no command
-    # or so is run.
-    use Encode;
-    my $value = encode (utf8 => $self->unsafeParam($name));
+    my @paramsNames = qw( text currentItemCaption itemsLeftMessage
+            endNote errorNote reloadInterval currentItemUrl
+            nextStepUrl nextStepText nextStepTimeout );
+    foreach my $name (@paramsNames) {
+        # We use unsafeParam because these paramaters can be i18'ed.
+        # Also, these parameters are only used to generate html, no command
+        # or so is run.
+        use Encode;
+        my $value = encode (utf8 => $self->unsafeParam($name));
 
-    $value or
-      next;
+        $value or
+            next;
 
-    push @params, ($name => $value);
-  }
+        push @params, ($name => $value);
+    }
 
-  my $file = '/var/lib/zentyal/.first';
-  if (-f  $file) {
-    my $software = EBox::Global->modInstance('software');
-     # FIXME: workaround to show ads only during installation
-     unless ( $self->{title} and
-              encode(utf8 => __('Saving changes')) eq $self->{title} ) {
-        push @params, ( adsJson => loadAds() );
-     }
-  }
+    my $file = '/var/lib/zentyal/.first';
+    if (-f $file) {
+        my $software = EBox::Global->modInstance('software');
+        # FIXME: workaround to show ads only during installation
+        unless ( $self->{title} and
+                encode(utf8 => __('Saving changes')) eq $self->{title} ) {
+            push @params, ( adsJson => loadAds() );
+        }
+    }
 
-  $self->{params} = \@params;
+    $self->{params} = \@params;
 }
 
 
@@ -118,27 +118,27 @@ sub _top
 {
     my $global = EBox::Global->getInstance();
     my $img = $global->theme()->{'image_title'};
-	print "<div id='top'></div><div id='header'><img src='$img'/></div>";
-	return;
+    print "<div id='top'></div><div id='header'><img src='$img'/></div>";
+    return;
 }
 
 sub loadAds
 {
-	my $file = '/usr/share/ebox-software/ads/ads_' + EBox::locale();
-	EBox::info("Try load ads from: $file");
-	unless (-f $file) {
-		$file =  '/usr/share/ebox-software/ads/ads_' . substr (EBox::locale(),0,2) ;
-		EBox::info("Don't exist file $file, load deafult ads");
-		unless(-f $file) {
-			$file = '/usr/share/ebox-software/ads/ads_EN_en';
-		}
-	}
-	my @ads = read_file($file) or throw EBox::Exceptions::Internal("Error opening ads: $!");
-	my $text = "";
-	foreach my $line (@ads) {
-		$text .= $line . "\n";
-	}
-	return $text;
+    my $file = '/usr/share/ebox-software/ads/ads_' + EBox::locale();
+    EBox::info("Try load ads from: $file");
+    unless (-f $file) {
+        $file =  '/usr/share/ebox-software/ads/ads_' . substr (EBox::locale(),0,2) ;
+        EBox::info("Don't exist file $file, load deafult ads");
+        unless(-f $file) {
+            $file = '/usr/share/ebox-software/ads/ads_EN_en';
+        }
+    }
+    my @ads = read_file($file) or throw EBox::Exceptions::Internal("Error opening ads: $!");
+    my $text = "";
+    foreach my $line (@ads) {
+        $text .= $line . "\n";
+    }
+    return $text;
 }
 
 1;
