@@ -28,6 +28,7 @@ use warnings;
 use base 'EBox::CGI::ClientBase';
 
 use EBox::Global;
+use EBox::Config;
 use EBox::Gettext;
 use Encode;
 use File::Slurp;
@@ -124,13 +125,14 @@ sub _top
 
 sub loadAds
 {
-    my $file = '/usr/share/ebox-software/ads/ads_' + EBox::locale();
+    my $path = EBox::Config::share() . 'zentyal-software/ads';
+    my $file = "$path/ads_" + EBox::locale();
     EBox::info("Try load ads from: $file");
     unless (-f $file) {
-        $file =  '/usr/share/ebox-software/ads/ads_' . substr (EBox::locale(),0,2) ;
-        EBox::info("Don't exist file $file, load deafult ads");
+        $file =  "$path/ads_" . substr (EBox::locale(),0,2) ;
+        EBox::info("File $file doesn't exists, loading default ads");
         unless(-f $file) {
-            $file = '/usr/share/ebox-software/ads/ads_EN_en';
+            $file = "$path/ads_EN_en";
         }
     }
     my @ads = read_file($file) or throw EBox::Exceptions::Internal("Error opening ads: $!");
