@@ -1,4 +1,5 @@
 HEAD
+	+ Added GLOBAL_CONF_DIR constant for apache conf.d dir
 	+ Change configuration override policy to allow all for /var/www
 2.0.3
 	+ Include Virtual host files in the backup domain

@@ -295,13 +295,10 @@ sub usedFiles
             'module' => 'webmail'
         },
     ];
-    my $vhost = $self->model('Options')->vHostValue();
-    my $destFile = EBox::WebServer::SITES_AVAILABLE_DIR . 'user-' .
-                   EBox::WebServer::VHOST_PREFIX. $vhost .'/ebox-webmail';
-    if ($vhost ne 'disabled') {
-        push(@{$files}, { 'file' => $destFile, 'module' => 'webmail',
-                          'reason' => "To configure the webmail on $vhost virtual host."});
-    }
+
+    my $destFile = EBox::WebServer::GLOBAL_CONF_DIR . 'ebox-webmail';
+    push(@{$files}, { 'file' => $destFile, 'module' => 'webmail',
+                      'reason' => __('To configure the webmail on the webserver.') });
     return $files;
 }
 
@@ -440,16 +437,20 @@ sub _setWebServerConf
     my ($self) = @_;
 
     # Delete all possible ebox-webmail configuration
+    my @cmd = ();
+    push(@cmd, 'rm -f ' . HTTPD_WEBMAIL_DIR);
     my $vHostPattern = EBox::WebServer::SITES_AVAILABLE_DIR . 'user-' .
                        EBox::WebServer::VHOST_PREFIX. '*/ebox-webmail';
-    EBox::Sudo::root('rm -f ' . "$vHostPattern");
+    push(@cmd, 'rm -f ' . "$vHostPattern");
+    my $globalPattern = EBox::WebServer::GLOBAL_CONF_DIR . 'ebox-webmail';
+    push(@cmd, 'rm -f ' . "$globalPattern");
+    EBox::Sudo::root(@cmd);
 
     my $vhost = $self->model('Options')->vHostValue();
 
     if ($vhost eq 'disabled') {
-        unless (-l HTTPD_WEBMAIL_DIR ) {
-            EBox::Sudo::root('ln -s ' . ROUNDCUBE_DIR .' '. HTTPD_WEBMAIL_DIR);
-        }
+        my $destFile = EBox::WebServer::GLOBAL_CONF_DIR . 'ebox-webmail';
+        $self->writeConfFile($destFile, 'webmail/apache.mas', []);
     } else {
         my $destFile = EBox::WebServer::SITES_AVAILABLE_DIR . 'user-' .
                        EBox::WebServer::VHOST_PREFIX. $vhost .'/ebox-webmail';

@@ -1,39 +1,4 @@
 <%args>
 </%args>
-### Zentyal webmail configuration ###
-
-<Directory "/usr/share/tinymce/www/">
-        Options Indexes MultiViews FollowSymLinks
-        AllowOverride None
-        Order allow,deny
-        Allow from all
-</Directory>
-
-<Directory /var/lib/roundcube/>
-        Options +FollowSymLinks
-        AllowOverride All
-        Order allow,deny
-        Allow from all
-</Directory>
-
-<Directory /var/lib/roundcube/config>
-        Options -FollowSymLinks
-        AllowOverride None
-</Directory>
-
-<Directory /var/lib/roundcube/temp>
-        Options -FollowSymLinks
-        AllowOverride None
-        Order allow,deny
-        Deny from all
-</Directory>
-
-<Directory /var/lib/roundcube/logs>
-        Options -FollowSymLinks
-        AllowOverride None
-        Order allow,deny
-        Deny from all
-</Directory>
-
 Alias /program/js/tiny_mce/ /usr/share/tinymce/www/
-Alias / /var/lib/roundcube/
+Alias /webmail /var/lib/roundcube
