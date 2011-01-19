@@ -2499,27 +2499,24 @@ sub isDDNSEnabled
 # Generate the '/etc/ddclient.conf' configuration file for DynDNS
 sub _generateDDClient
 {
-  my ($self) = @_;
+    my ($self) = @_;
 
-  if ($self->isDDNSEnabled())
-  {
-      my $ddnsModel = $self->model('DynDNS');
-      my $row = $ddnsModel->row();
-      $self->writeConfFile(
-                              DEFAULT_DDCLIENT_FILE,
-                              'network/ddclient.mas',
-                              [],
-                             );
-      $self->writeConfFile(
-                              DDCLIENT_FILE,
-                              'network/ddclient.conf.mas',
-                              [ service  => $row->valueByName('service'),
-                                login => $row->valueByName('username'),
-                                password => $row->valueByName('password'),
-                                hostname => $row->valueByName('hostname'),
-                              ],
-                             );
-  }
+    my $enabled = $self->isDDNSEnabled();
+
+    $self->writeConfFile(DEFAULT_DDCLIENT_FILE,
+                         'network/ddclient.mas',
+                         [ enabled => $enabled ]);
+
+    if ($enabled) {
+        my $ddnsModel = $self->model('DynDNS');
+        my $row = $ddnsModel->row();
+        $self->writeConfFile(DDCLIENT_FILE,
+                             'network/ddclient.conf.mas',
+                             [ service  => $row->valueByName('service'),
+                               login => $row->valueByName('username'),
+                               password => $row->valueByName('password'),
+                               hostname => $row->valueByName('hostname') ]);
+    }
 }
 
 sub _generatePPPConfig

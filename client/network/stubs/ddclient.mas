@@ -1,3 +1,6 @@
+<%args>
+$enabled
+</%args>
 # /etc/default/ddclient
 
 # Set to "true" if ddclient should be run every time a new ppp connection is
@@ -5,7 +8,7 @@
 run_ipup="false"
 
 # Set to "true" if ddclient should run in daemon mode.
-run_daemon="true"
+run_daemon="<% $enabled ? 'true' : 'false' %>"
 
 # Set the time interval between the updates of the dynamic DNS name in seconds.
 # This option only takes effect if the ddclient runs in daemon mode.

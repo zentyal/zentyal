@@ -1,4 +1,5 @@
 HEAD
+	+ Do not try to start ddclient daemon if disabled
 	+ Make source event not i18n
 	+ Safer way to get the PPPoE 'tty' ethernet interface
 	+ Added PPPoE logging in /var/log/ebox/pppoe.log and ebox.log
