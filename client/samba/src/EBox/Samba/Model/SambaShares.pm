@@ -294,6 +294,7 @@ sub createDirs
            push(@cmds, 'chmod ' . DEFAULT_MASK . " $path");
            push(@cmds, 'chown ' . DEFAULT_USER . ':' . DEFAULT_GROUP . " $path");
         }
+        push(@cmds, "setfacl -b $path");
         EBox::Sudo::root(@cmds);
         # ACLs
         my @perms;
