@@ -89,8 +89,10 @@ use EBox::Gettext;
 [profiles]
  path = /home/samba/profiles
  read only = no
- create mask = 0600
- directory mask = 0700
+ map hidden = yes
+ map system = yes
+ create mask = 0611
+ directory mask = 0711
  browseable = No
  guest ok = Yes
  profile acls = yes
