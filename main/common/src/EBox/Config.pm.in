@@ -27,7 +27,7 @@ $ref->{libdir} = "@LIBDIR@";
 
 for my $key (keys(%{$ref})) {
     if (substr($ref->{$key},-1) ne '/') {
-        $ref->{$key} = ($ref->{$key} . "/");
+        $ref->{$key} = ($ref->{$key} . '/');
     }
 }
 
@@ -37,7 +37,7 @@ $ref->{perlpath} = "@PERLPATH@";
 
 sub etc
 {
-    return $ref->{sysconfdir} . "zentyal/";
+    return $ref->{sysconfdir} . 'zentyal/';
 }
 
 sub var
@@ -89,7 +89,7 @@ sub configkeyFromFile # (key, file)
 
 sub configkey # (key)
 {
-    my $key = shift;
+    my ($key) = @_;
     my $value = undef;
 
     my @conffiles = glob(EBox::Config::etc() . "[0-9][0-9]*.conf");
@@ -107,7 +107,7 @@ sub configkey # (key)
 
 sub configkeys # (key)
 {
-    my $key = shift;
+    my ($key) = @_;
 
     my @conffiles = glob(EBox::Config::etc() . "[0-9][0-9]*.conf");
 
@@ -193,8 +193,8 @@ sub groups
 sub group
 {
     my $value = configkey('egroup');
-    $value or throw EBox::Exceptions::External("The ebox group has not ".
-            "been set in the config file.");
+    $value or throw EBox::Exceptions::External('The ebox group has not '.
+            'been set in the config file.');
     return $value;
 }
 
@@ -222,27 +222,27 @@ sub lib
 
 sub libexec
 {
-    return $ref->{libdir} . "zentyal/";
+    return $ref->{libdir} . 'zentyal/';
 }
 
 sub pkgdata
 {
-    return $ref->{datadir} . "zentyal/";
+    return $ref->{datadir} . 'zentyal/';
 }
 
 sub locale
 {
-    return $ref->{datadir} . "locale/";
+    return $ref->{datadir} . 'locale/';
 }
 
 sub conf
 {
-    return $ref->{localstatedir} . "lib/zentyal/conf/";
+    return $ref->{localstatedir} . 'lib/zentyal/conf/';
 }
 
 sub tmp
 {
-    return $ref->{localstatedir} . "lib/zentyal/tmp/";
+    return $ref->{localstatedir} . 'lib/zentyal/tmp/';
 }
 
 # Method: downloads
@@ -260,7 +260,7 @@ sub downloads
 
 sub passwd
 {
-    return $ref->{localstatedir} . "lib/zentyal/conf/ebox.passwd";
+    return $ref->{localstatedir} . 'lib/zentyal/conf/ebox.passwd';
 }
 
 
@@ -292,47 +292,47 @@ sub scriptSession
 
 sub log
 {
-    return $ref->{localstatedir} . "log/zentyal/";
+    return $ref->{localstatedir} . 'log/zentyal/';
 }
 
 sub logfile
 {
-    return $ref->{localstatedir} . "log/zentyal/zentyal.log";
+    return $ref->{localstatedir} . 'log/zentyal/zentyal.log';
 }
 
 sub stubs
 {
-    return $ref->{datadir} . "zentyal/stubs/";
+    return $ref->{datadir} . 'zentyal/stubs/';
 }
 
 sub cgi
 {
-    return $ref->{datadir} . "zentyal/cgi/";
+    return $ref->{datadir} . 'zentyal/cgi/';
 }
 
 sub templates
 {
-    return $ref->{datadir} . "zentyal/templates/";
+    return $ref->{datadir} . 'zentyal/templates/';
 }
 
 sub schemas
 {
-    return $ref->{datadir} . "zentyal/schemas/";
+    return $ref->{datadir} . 'zentyal/schemas/';
 }
 
 sub www
 {
-    return $ref->{datadir} . "zentyal/www/";
+    return $ref->{datadir} . 'zentyal/www/';
 }
 
 sub css
 {
-    return $ref->{datadir} . "zentyal/www/css/";
+    return $ref->{datadir} . 'zentyal/www/css/';
 }
 
 sub images
 {
-    return $ref->{datadir} . "zentyal/www/images/";
+    return $ref->{datadir} . 'zentyal/www/images/';
 }
 
 sub dynamicwww
