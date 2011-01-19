@@ -1,4 +1,5 @@
 HEAD
+	+ Bug fix: Share size is estimated although some files cannot be read
 	+ Bug fix: Removed permissions are actually removed
 	+ The files in a group share can be modified by all the members in the
 	  group

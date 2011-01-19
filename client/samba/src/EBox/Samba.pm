@@ -2021,7 +2021,7 @@ sub _sharesAndSizes
     foreach my $share (@shares) {
         my $path = $share->{path};
         if (EBox::Sudo::fileTest('-d', $path)) {
-            my $output = EBox::Sudo::root("du -ms '$path'");
+            my $output = EBox::Sudo::rootWithoutException("du -ms '$path'");
 
             my ($size) =  $output->[0] =~ m{^(\d+)};
             if (not defined $size) {
