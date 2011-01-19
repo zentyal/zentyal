@@ -1,7 +1,7 @@
 ## Process this file with automake to produce Makefile.in
 
 Etcdir = $(sysconfdir)/zentyal
-Etc_DATA = 80network.conf
+Etc_DATA = network.conf
 
 EXTRA_DIST = $(Etc_DATA)
 

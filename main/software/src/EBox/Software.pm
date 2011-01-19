@@ -531,7 +531,7 @@ sub setAutomaticUpdates # (auto)
             throw EBox::Exceptions::External(
                 __x('You cannot modify the automatic update using QA updates from Web UI. '
                       . 'To disable automatic updates, edit {conf} and disable {key} key.',
-                    conf => EBox::Config::etc() . '78remoteservices.conf',
+                    conf => EBox::Config::etc() . 'remoteservices.conf',
                     key  => $key));
         }
     }

@@ -27,7 +27,7 @@ use EBox::Exceptions::InvalidData;
 use File::Basename;
 use Error qw(:try);
 
-use constant CONF_FILE => EBox::Config::etc() . '90eboxpglogger.conf';
+use constant CONF_FILE => EBox::Config::etc() . 'logs.conf';
 use constant SLICES_TABLE =>  'backup_slices';
 use constant MIN_SLICE_INTERVAL => 86400; # 1 day (in seconds)
 

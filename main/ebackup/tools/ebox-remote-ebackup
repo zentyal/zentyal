@@ -64,7 +64,7 @@ sub _sendSuccessEvent
     my ($success, $type, $msgError) = @_;
     my $msg;
     my $level;
-    
+
     my $printableMode;
     if ($type eq 'full') {
         $printableMode = __('full');
@@ -113,7 +113,7 @@ sub _mangleDuplicityErrorMsg
                    dir   => $tmpDir,
                    avail => $avail,
                    need  => $need,
-                   conf  => '/etc/zentyal/82ebackup.conf',
+                   conf  => EBox::Config::etc() . 'ebackup.conf',
                   );
 
     }

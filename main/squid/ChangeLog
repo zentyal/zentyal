@@ -1,4 +1,5 @@
 HEAD
+	+ Replace /etc/ebox/80squid.conf with /etc/zentyal/squid.conf
 	+ Disable default arbitrary regexes in bannedregexpurllist.mas
 2.0.3
 	+ Bugfix: when having different filter profiles with domain lists,

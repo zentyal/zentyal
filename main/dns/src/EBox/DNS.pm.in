@@ -46,7 +46,7 @@ use constant PIDFILE       => "/var/run/bind/run/named.pid";
 use constant NAMESERVER_HOST => 'ns';
 use constant KEYSFILE => BIND9CONFDIR . '/keys';
 
-use constant DNS_CONF_FILE => EBox::Config::etc() . '80dns.conf';
+use constant DNS_CONF_FILE => EBox::Config::etc() . 'dns.conf';
 use constant DNS_INTNETS => 'intnets';
 
 sub _create

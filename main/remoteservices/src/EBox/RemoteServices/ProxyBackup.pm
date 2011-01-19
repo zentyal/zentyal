@@ -35,7 +35,7 @@ use File::Slurp;
 use Error qw(:try);
 
 use constant {
-    SERV_CONF_FILE => '78remoteservices.conf'
+    SERV_CONF_FILE => 'remoteservices.conf'
 };
 
 # Group: Public methods

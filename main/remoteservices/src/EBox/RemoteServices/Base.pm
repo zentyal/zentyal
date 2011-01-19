@@ -34,7 +34,7 @@ use Error qw(:try);
 use Net::DNS;
 
 # Constants
-use constant SRV_CONF_FILE => '78remoteservices.conf';
+use constant SRV_CONF_FILE => 'remoteservices.conf';
 
 # Group: Public methods
 

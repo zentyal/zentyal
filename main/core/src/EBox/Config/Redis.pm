@@ -32,7 +32,7 @@ my $redis = undef;
 # Constants
 use constant REDIS_CONF => 'conf/redis.conf';
 use constant REDIS_PASS => 'conf/redis.passwd';
-use constant CLIENT_CONF => EBox::Config::etc() . '80eboxclient.conf';
+use constant CLIENT_CONF => EBox::Config::etc() . 'core.conf';
 
 # Constructor: new
 #

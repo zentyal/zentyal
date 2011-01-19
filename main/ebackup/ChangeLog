@@ -1,3 +1,5 @@
+HEAD
+	+ Replace /etc/ebox/82ebackup.conf with /etc/zentyal/ebackup.conf
 2.0.9
 	+ Use new zentyal package names in restore-tool
 	+ Change one of our backup servers fingerprint

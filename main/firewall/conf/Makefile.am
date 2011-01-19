@@ -3,7 +3,7 @@
 SUBDIRS = hooks
 
 Etcdir = $(sysconfdir)/zentyal
-Etc_DATA = 80firewall.conf
+Etc_DATA = firewall.conf
 
 EXTRA_DIST = $(Etc_DATA)
 

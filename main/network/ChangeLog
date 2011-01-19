@@ -1,4 +1,5 @@
 HEAD
+	+ Replace /etc/ebox/80network.conf with /etc/zentyal/network.conf
 	+ Do not try to start ddclient daemon if disabled
 	+ Make source event not i18n
 	+ Safer way to get the PPPoE 'tty' ethernet interface

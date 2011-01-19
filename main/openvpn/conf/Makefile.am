@@ -1,7 +1,7 @@
 ## Process this file with automake to produce Makefile.in
 
 Etcdir = $(sysconfdir)/zentyal
-Etc_DATA = 80openvpn.conf
+Etc_DATA = openvpn.conf
 
 
 EXTRA_DIST = $(Etc_DATA)

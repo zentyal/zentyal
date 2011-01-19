@@ -1,7 +1,7 @@
 ## Process this file with automake to produce Makefile.in
 
 Etcdir = $(sysconfdir)/zentyal
-Etc_DATA = 78remoteservices.conf
+Etc_DATA = remoteservices.conf
 
 EXTRA_DIST = $(Etc_DATA)
 

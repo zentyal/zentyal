@@ -47,8 +47,7 @@ use Fcntl qw(:flock);
 
 use EBox::Exceptions::MissingArgument;
 
-use constant EBACKUP_CONF_FILE => EBox::Config::etc() . '82ebackup.conf';
-use constant EBACKUP_MENU_ENTRY => 'ebackup_menu_enabled';
+use constant EBACKUP_CONF_FILE => EBox::Config::etc() . 'ebackup.conf';
 use constant DUPLICITY_WRAPPER => EBox::Config::share() . '/zentyal-ebackup/ebox-duplicity-wrapper';
 use constant LOCK_FILE     => EBox::Config::tmp() . 'ebox-ebackup-lock';
 
@@ -984,15 +983,11 @@ sub menu
 {
     my ($self, $root) = @_;
 
-    my $enabledMenu = EBox::Config::configkeyFromFile(EBACKUP_MENU_ENTRY,
-                                                      EBACKUP_CONF_FILE);
-    if (defined($enabledMenu) and ($enabledMenu eq 'yes' )) {
-        $root->add(new EBox::Menu::Item(
+    $root->add(new EBox::Menu::Item(
             'url' => 'EBackup/Composite/Remote',
             'separator' => 'Core',
             'order' => 95,
             'text' => $self->printableName()));
-    }
 }
 
 # Method: lock

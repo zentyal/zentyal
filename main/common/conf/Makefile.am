@@ -4,7 +4,7 @@ Confdir = $(localstatedir)/lib/zentyal/conf
 Conf_DATA = eboxlog.conf
 
 Etcdir = $(sysconfdir)/zentyal
-Etc_DATA = 99ebox.conf
+Etc_DATA = zentyal.conf
 
 EXTRA_DIST = $(Etc_DATA)
 

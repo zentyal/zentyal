@@ -1,4 +1,5 @@
 HEAD
+	+ Replace /etc/ebox/80samba.conf with /etc/zentyal/samba.conf
 	+ Bug fix: Share size is estimated although some files cannot be read
 	+ Bug fix: Removed permissions are actually removed
 	+ Roaming profiles with correct file attribs

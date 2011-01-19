@@ -3,7 +3,7 @@
 SUBDIRS = logrotate hooks
 
 Etcdir = $(sysconfdir)/zentyal
-Etc_DATA = 70runitfinisher.conf 90eboxpglogger.conf 80eboxclient.conf
+Etc_DATA = events.conf logs.conf core.conf
 
 Presavedir = $(Etcdir)/pre-save
 Presave_DATA =

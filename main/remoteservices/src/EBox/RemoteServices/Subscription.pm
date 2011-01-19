@@ -47,7 +47,7 @@ use HTML::Mason;
 use constant {
     SERV_CONF_DIR => 'remoteservices',
     SERV_SUBDIR => 'remoteservices/subscription',
-    SERV_CONF_FILE => '78remoteservices.conf',
+    SERV_CONF_FILE => 'remoteservices.conf',
     PROF_PKG       => 'ebox-cloud-prof',
 };
 

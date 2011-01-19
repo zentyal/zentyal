@@ -1,4 +1,5 @@
 HEAD
+	+ Replace /etc/ebox/99ebox.conf with /etc/zentyal/zentyal.conf
 	+ Do not read configuration files everytime, config keys are
 	  now cached with their values
 	+ New /var/log/zentyal replaces /var/log/ebox

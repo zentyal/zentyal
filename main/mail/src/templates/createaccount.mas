@@ -36,10 +36,6 @@ settextdomain('ebox-mail');
 		</td>
 	</tr>
 
-%  if ($params->{mdQuotaAvailable} ) {
-        <& .maildirSize, params => $params &>
-%  }
-
 	<tr>
 		<td></td>
 		<td>
@@ -81,7 +77,7 @@ $params
 			value='0' onclick="updateMDSize()"
 %				if($params->{'mdsize'} eq 0) {
 			checked
-%				} 
+%				}
 	></td>
 	</tr>
 </%def>
