@@ -18,6 +18,8 @@ package EBox::Config;
 use EBox::Exceptions::External;
 use EBox::Gettext;
 
+use Config::Tiny;
+
 my $ref = {};
 $ref->{prefix} = "@prefix@";
 $ref->{datadir} = "@DATADIR@";
@@ -34,6 +36,9 @@ for my $key (keys(%{$ref})) {
 $ref->{package} = "@PACKAGE@";
 $ref->{version} = "@VERSION@";
 $ref->{perlpath} = "@PERLPATH@";
+
+my @confFiles = glob (EBox::Config::etc() . '*.conf');
+my %cachedFiles;
 
 sub etc
 {
@@ -68,37 +73,22 @@ sub var
 sub configkeyFromFile # (key, file)
 {
     my ($key, $file) = @_;
-    my $value = undef;
-    open(my $CONF, $file) or
-        throw EBox::Exceptions::External(
-                __x('Could not open the config file {file}.', file => $file));
-    my @lines = <$CONF>;
-    for my $line (@lines) {
-        $line =~ s/\s//g;
-        $line =~ s/#.*//g;
-        ($line eq '') and next;
-        my ($nkey, $nvalue) = $line =~ /(.*?)=(.*)/;
-        if ($nkey eq $key) {
-            $value = $nvalue;
-            last;
-        }
-    }
-    close($CONF);
-    return $value;
+
+    my $configKeys = configKeysFromFile($file);
+
+    return $configKeys->{$key};
 }
 
 sub configkey # (key)
 {
     my ($key) = @_;
+
     my $value = undef;
-
-    my @conffiles = glob(EBox::Config::etc() . "[0-9][0-9]*.conf");
-
-    foreach my $file (@conffiles) {
+    foreach my $file (@confFiles) {
         $value = configkeyFromFile($key, $file);
-        defined($value) and last;
+        last if defined ($value);
     }
-    if (defined($value)) {
+    if (defined ($value)) {
         return $value;
     } else {
         return '';
@@ -109,12 +99,10 @@ sub configkeys # (key)
 {
     my ($key) = @_;
 
-    my @conffiles = glob(EBox::Config::etc() . "[0-9][0-9]*.conf");
-
     my @values;
-    foreach my $file (@conffiles){
+    foreach my $file (@confFiles) {
         my $value = configkeyFromFile($key, $file);
-        push (@values, $value) if defined($value);
+        push (@values, $value) if defined ($value);
     }
     return \@values;
 }
@@ -143,26 +131,13 @@ sub configKeysFromFile # (file)
 {
     my ($file) = @_;
 
-    my $value = undef;
-    open(my $CONF, $file) or
-        throw EBox::Exceptions::DataNotFound(data => 'config file',
-                value => $file);
-    my %configKeys = ();
-    while (<$CONF>) {
-        $_ =~ s/\s//g;
-        $_ =~ s/#.*//g;
-        ($_ eq '') and next;
-        my ($nkey, $nvalue) = $_ =~ /(.*)=(.*)/;
-# Support for several values for a single key if comma is set
-        if ( $nvalue =~ m/,/g ) {
-            my @values = split( ',', $nvalue);
-            $configKeys{$nkey} = \@values;
-        } else {
-            $configKeys{$nkey} = $nvalue;
-        }
+    unless (exists $cachedFiles{$file}) {
+        $cachedFiles{$file} = Config::Tiny->read($file) or
+            throw EBox::Exceptions::External(
+                    __x('Could not open the config file {file}.', file => $file));
     }
-    close($CONF);
-    return \%configKeys;
+
+    return $cachedFiles{$file}->{_};
 }
 
 sub user
@@ -176,8 +151,8 @@ sub user
 sub groups
 {
     my @values = @{configkeys('group')};
-    @values or throw EBox::Exceptions::External("The ebox group has not ".
-            "been set in the config file.");
+    @values or throw EBox::Exceptions::External('The ebox group has not ' .
+            'been set in the config file.');
     my @groups;
     for my $group (@values) {
         if ($group =~ m/:/) {

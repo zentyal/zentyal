@@ -1,4 +1,6 @@
 HEAD
+	+ Do not read configuration files everytime, config keys are
+	  now cached with their values
 	+ New /var/log/zentyal replaces /var/log/ebox
 	+ Added Greek language
 2.0.7
