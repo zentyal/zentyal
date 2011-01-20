@@ -39,6 +39,7 @@ case "$1" in
             adduser ebox adm
         else
             # Override old Zentyal <= 2.0 home if the user ebox already exists
+            chown ebox:ebox $ZENTYAL_HOME
             usermod --home $ZENTYAL_HOME ebox > /dev/null 2>&1
         fi
         # To allow PAM authentication
@@ -119,8 +120,9 @@ case "$1" in
         #remove the menu cache
         rm -f $ZENTYAL_HOME/tmp/menucache
 
-        #restart ebox
         invoke-rc.d zentyal apache restart || true
+        invoke-rc.d zentyal logs restart || true
+        invoke-rc.d zentyal events restart || true
 
         #remove dpkg running flag
         rm -f $ZENTYAL_HOME/dpkg_running

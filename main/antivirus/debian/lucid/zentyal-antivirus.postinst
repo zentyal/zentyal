@@ -21,9 +21,6 @@ case "$1" in
        mkdir -p $FRESHCLAM_DIR
        chown clamav.clamav $FRESHCLAM_DIR
 
-       # restart logs
-       invoke-rc.d zentyal logs restart || true
-
        # restart module
        invoke-rc.d zentyal antivirus restart
 

@@ -33,11 +33,6 @@ case "$1" in
 
         invoke-rc.d zentyal network restart
 
-        # Apply failover code changes only when upgrading
-        if [ -n "$2" ] ; then
-            invoke-rc.d zentyal events restart || true
-        fi
-
         dpkg-trigger --no-await zentyal-core
     ;;
 esac

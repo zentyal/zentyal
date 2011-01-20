@@ -2,13 +2,15 @@
 
 set -e
 
+if [ "$1" = "purge" ]; then
+        # Purge configuration
+        /usr/share/zentyal/zentyal-clean-conf squid || true
+fi
+
 #DEBHELPER#
 
 case "$1" in
 	remove)
-        # restart logs
-        invoke-rc.d zentyal logs restart || true
-
         dpkg-trigger --no-await zentyal-core
         ;;
 	purge)

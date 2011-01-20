@@ -13,9 +13,6 @@ fi
 
 case "$1" in
     remove)
-        # restart logs
-        invoke-rc.d zentyal logs restart || true
-
         dpkg-trigger --no-await zentyal-core
     ;;
     purge)

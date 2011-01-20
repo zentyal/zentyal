@@ -12,9 +12,6 @@ case "$1" in
         # migration
         /usr/share/zentyal/ebox-migrate /usr/share/zentyal-ids/migration
 
-        # restart logs
-        invoke-rc.d zentyal logs restart || true
-
         invoke-rc.d zentyal ids restart
 
         dpkg-trigger --no-await zentyal-core

@@ -16,9 +16,6 @@ case "$1" in
         # migrate data if needed
         /usr/share/zentyal/ebox-migrate /usr/share/zentyal-asterisk/migration/
 
-        # restart logs
-        invoke-rc.d zentyal logs restart || true
-
         # restart module
         invoke-rc.d zentyal asterisk restart
 

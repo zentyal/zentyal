@@ -9,9 +9,6 @@ case "$1" in
         # create log table
         /usr/share/zentyal/ebox-sql-table add leases /usr/share/zentyal/sqllog/dhcp.sql || true
 
-        # restart logs
-        invoke-rc.d zentyal logs restart || true
-
         # Migrate data if needed
         /usr/share/zentyal/ebox-migrate /usr/share/zentyal-dhcp/migration/ || true
 
@@ -20,7 +17,5 @@ case "$1" in
 
         dpkg-trigger --no-await zentyal-core
     esac
-
-
 
 exit 0

@@ -16,9 +16,7 @@ case "$1" in
         /usr/share/zentyal/ebox-sql-table-with-time-period add firewall_packet_traffic \
             /usr/share/zentyal/sqllog/firewall_packet_traffic.sql || true
 
-        # restart logs
-        invoke-rc.d zentyal logs restart || true
-
+        # restart module
         invoke-rc.d zentyal firewall restart
 
         dpkg-trigger --no-await zentyal-core

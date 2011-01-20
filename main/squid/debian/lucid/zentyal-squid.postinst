@@ -20,18 +20,15 @@ case "$1" in
         DG_EXTRALISTS=/etc/dansguardian/extralists
         test -d $DG_EXTRALISTS || mkdir -p -m 0755 $DG_EXTRALISTS
 
-        # restart logs
-        invoke-rc.d zentyal logs restart || true
         # restart squid module
         invoke-rc.d zentyal squid restart || true
-        # restart firewall module
-        invoke-rc.d zentyal firewall restart || true
+
+        # TODO: This seems to be unnecessary, uncomment if not
+        #invoke-rc.d zentyal firewall restart || true
 
         dpkg-trigger --no-await zentyal-core
     ;;
 
 esac
-
-
 
 exit 0

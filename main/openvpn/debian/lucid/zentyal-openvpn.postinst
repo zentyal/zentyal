@@ -28,12 +28,11 @@ case "$1" in
         /usr/share/zentyal/ebox-sql-table add openvpn  /usr/share/zentyal/sqllog/openvpn.sql || true
         /usr/share/zentyal/ebox-sql-table add openvpn_report /usr/share/zentyal/sqllog/openvpn_report.sql
 
-        # restart logs
-        invoke-rc.d zentyal logs restart || true
         # restart module
         invoke-rc.d zentyal openvpn restart || true
-        # restart module
-        invoke-rc.d zentyal firewall restart || true
+
+        # TODO: This seems to be unnecessary, uncomment if not
+        #invoke-rc.d zentyal firewall restart || true
 
         dpkg-trigger --no-await zentyal-core
     esac

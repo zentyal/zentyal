@@ -16,18 +16,13 @@ case "$1" in
         /bin/chmod 2775 $SIEVE_SCRIPTS_DIR
         chown ebox:ebox $SIEVE_SCRIPTS_DIR
 
-
         # create log table
         /usr/share/zentyal/ebox-sql-table add mail_message /usr/share/zentyal/sqllog/mail_message.sql
         /usr/share/zentyal/ebox-sql-table add mail_message_report /usr/share/zentyal/sqllog/mail_message_report.sql
         /usr/share/zentyal/ebox-sql-table-with-time-period add mail_traffic /usr/share/zentyal/sqllog/mail_traffic.sql
 
-
         # migrate data
         /usr/share/zentyal/ebox-migrate /usr/share/zentyal-mail/migration
-
-        # restart logs
-        invoke-rc.d zentyal logs restart || true
 
         # restart module
         invoke-rc.d zentyal mail restart

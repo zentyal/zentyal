@@ -6,6 +6,6 @@ case "$1" in
 	remove)
         invoke-rc.d zentyal firewall stop || true
 		;;
-esac 
+esac
 
 #DEBHELPER#

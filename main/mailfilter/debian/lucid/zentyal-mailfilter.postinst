@@ -18,17 +18,10 @@ case "$1" in
         # populate file types if needed
          /usr/share/zentyal-mailfilter/ebox-mailfilter-populate-filefilter update
 
-        # restart logs
-        invoke-rc.d zentyal logs restart || true
-
         # restart module
         invoke-rc.d zentyal mailfilter restart
 
         dpkg-trigger --no-await zentyal-core
 esac
 
-
-
 exit 0
-
-

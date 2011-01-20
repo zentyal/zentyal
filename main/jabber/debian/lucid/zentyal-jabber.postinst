@@ -4,8 +4,11 @@
 
 case "$1" in
 	configure)
-            # migrate data if needed
-            /usr/share/zentyal/ebox-migrate /usr/share/zentyal-jabber/migration/
+        # migrate data if needed
+        /usr/share/zentyal/ebox-migrate /usr/share/zentyal-jabber/migration/
+
+        # restart module
+        invoke-rc.d zentyal jabber restart
 
 	    dpkg-trigger --no-await zentyal-core
         ;;
