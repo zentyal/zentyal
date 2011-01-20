@@ -136,8 +136,6 @@ SSLCertificateFile /var/lib/zentyal-usercorner/ssl/ssl.pem
 
 PerlWarn On
 
-# PerlRequire "/var/lib/zentyal/conf/startup.pl"
-
 PerlModule EBox::UserCorner::Auth
 PerlSetVar EBoxPath /
 PerlSetVar EBoxLoginScript /ebox/Login/Index
