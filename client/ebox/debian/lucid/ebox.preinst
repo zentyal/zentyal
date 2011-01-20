@@ -42,7 +42,7 @@ INCLUDE="
 # sudoers.d included by Zentyal Server, read /etc/sudoers.d/README
 #
 #includedir /etc/sudoers.d"
-if ! grep -qE "^#includedir\s+/etc/sudoers.d" "$SUDOERS"; then
+if ! grep -q "^#includedir /etc/sudoers.d" "$SUDOERS"; then
     echo "$INCLUDE" >> "$SUDOERS"
 fi
 
