@@ -1,4 +1,6 @@
 HEAD
+	+ Do not show system updates in Zentyal UI when there are not
+	  available because of our QA updates
 	+ Fix bug when removing QA updates in preferences file
 2.0.9
 	+ Safer regexes in ebox-update-packages and ebox-remove-packages
