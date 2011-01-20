@@ -101,7 +101,7 @@ dir /var/lib/zentyal/
 # Once the limit is reached Redis will close all the new connections sending
 # an error 'max number of clients reached'.
 #
-maxclients 10
+#maxclients 10
 
 # Don't use more memory than the specified amount of bytes.
 # When the memory limit is reached Redis will try to remove keys with an
@@ -171,19 +171,32 @@ appendfsync always
 # in terms of number of queries per second. Use 'yes' if unsure.
 glueoutputbuf yes
 
-# Use object sharing. Can save a lot of memory if you have many common
-# string in your dataset, but performs lookups against the shared objects
-# pool so it uses more CPU and can be a bit slower. Usually it's a good
-# idea.
+# TODO: Uncomment the three following keys when switching to Redis 2.0
+
+# Hashes are encoded in a special way (much more memory efficient) when they
+# have at max a given numer of elements, and the biggest element does not
+# exceed a given threshold. You can configure this limits with the following
+# configuration directives.
+#hash-max-zipmap-entries 64
+#hash-max-zipmap-value 512
+
+# Active rehashing uses 1 millisecond every 100 milliseconds of CPU time in
+# order to help rehashing the main Redis hash table (the one mapping top-level
+# keys to values). The hash table implementation redis uses (see dict.c)
+# performs a lazy rehashing: the more operation you run into an hash table
+# that is rhashing, the more rehashing "steps" are performed, so if the
+# server is idle the rehashing is never complete and some more memory is used
+# by the hash table.
 #
-# When object sharing is enabled (shareobjects yes) you can use
-# shareobjectspoolsize to control the size of the pool used in order to try
-# object sharing. A bigger pool size will lead to better sharing capabilities.
-# In general you want this value to be at least the double of the number of
-# very common strings you have in your dataset.
+# The default is to use this millisecond 10 times every second in order to
+# active rehashing the main dictionaries, freeing memory when possible.
 #
-# WARNING: object sharing is experimental, don't enable this feature
-# in production before of Redis 1.0-stable. Still please try this feature in
-# your development environment so that we can test it better.
-shareobjects no
-shareobjectspoolsize 1024
+# If unsure:
+# use "activerehashing no" if you have hard latency requirements and it is
+# not a good thing in your environment that Redis can reply form time to time
+# to queries with 2 milliseconds delay.
+#
+# use "activerehashing yes" if you don't have such hard requirements but
+# want to free memory asap when possible.
+#activerehashing yes
+

@@ -177,12 +177,14 @@ appendfsync always
 # in terms of number of queries per second. Use 'yes' if unsure.
 glueoutputbuf yes
 
+# TODO: Uncomment the three following keys when switching to Redis 2.0
+
 # Hashes are encoded in a special way (much more memory efficient) when they
 # have at max a given numer of elements, and the biggest element does not
 # exceed a given threshold. You can configure this limits with the following
 # configuration directives.
-hash-max-zipmap-entries 64
-hash-max-zipmap-value 512
+#hash-max-zipmap-entries 64
+#hash-max-zipmap-value 512
 
 # Active rehashing uses 1 millisecond every 100 milliseconds of CPU time in
 # order to help rehashing the main Redis hash table (the one mapping top-level
@@ -202,5 +204,5 @@ hash-max-zipmap-value 512
 #
 # use "activerehashing yes" if you don't have such hard requirements but
 # want to free memory asap when possible.
-activerehashing yes
+#activerehashing yes
 
