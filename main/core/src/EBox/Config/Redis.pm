@@ -579,7 +579,7 @@ sub writeConfigFile
     push (@params, port => $port);
     push (@params, passwd => $pass);
     EBox::Module::Base::writeConfFileNoCheck($confFile,
-            '/redis.conf.mas',
+            'core/redis.conf.mas',
             \@params, {mode => '0600', uid => $uid});
 }
 

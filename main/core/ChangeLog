@@ -1,5 +1,6 @@
 HEAD
 	+ Support for redis-server 2.0 configuration
+	+ Move core templates to /usr/share/zentyal/stubs/core
 	+ Added fastperl-server to execute Zentyal scripts much faster
 	+ Old /etc/ebox directory replaced with the new /etc/zentyal with
 	  renamed core.conf, logs.conf and events.conf files

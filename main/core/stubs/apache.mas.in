@@ -6,7 +6,7 @@ Parameters:
 
    port - Int the listening port
    group - String the group that must live apache-perl process
-   user  - String the user that the apache-perl process must be 
+   user  - String the user that the apache-perl process must be
    serverroot - String the path to the Apache server root
    tmpdir - String the path to the Apache temporary directory
    debug - String to enable Apache::Reload or not *(Optional)*
@@ -36,13 +36,13 @@ Timeout 300
 KeepAlive Off
 MaxKeepAliveRequests 100
 KeepAliveTimeout 15
-AddDefaultCharset utf-8	
+AddDefaultCharset utf-8
 
 PidFile <% $tmpdir %>/apache.pid
 
 <IfModule mpm_prefork_module>
-    StartServers          1 
-    MinSpareServers       1 
+    StartServers          1
+    MinSpareServers       1
     MaxSpareServers       1
     MaxClients            1
     MaxRequestsPerChild   200
@@ -56,10 +56,10 @@ PidFile <% $tmpdir %>/apache.pid
 # ThreadsPerChild: constant number of worker threads in each server process
 # MaxRequestsPerChild: maximum number of requests a server process serves
 <IfModule mpm_worker_module>
-    StartServers         1 
-    MaxClients         	 1 
-    MinSpareThreads      1 
-    MaxSpareThreads      1 
+    StartServers         1
+    MaxClients           1
+    MinSpareThreads      1
+    MaxSpareThreads      1
     ThreadsPerChild      1
     MaxRequestsPerChild   200
 </IfModule>
@@ -131,7 +131,7 @@ if ( @restrictedResources > 0 ) {
            $type = 'Directory';
         } elsif ( $type eq 'location' ) {
            $type = 'Location';
-        }      
+        }
 </%perl>
 <<% $type %> <% $restrictedResourceName %>>
     Order Allow,Deny
@@ -197,8 +197,6 @@ SSLCertificateFile /var/lib/zentyal/conf/ssl/ssl.pem
 #PerlInitHandler	Apache2::Reload
 % }
 PerlWarn On
-
-# PerlRequire "/var/lib/zentyal/conf/startup.pl"
 
 PerlModule EBox::Auth
 PerlSetVar EBoxPath /

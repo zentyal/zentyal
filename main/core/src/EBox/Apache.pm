@@ -148,7 +148,6 @@ sub _setConf
 
     $self->_changeHostname();
     $self->_writeHttpdConfFile();
-    $self->_writeStartupFile();
     $self->_writeCSSFiles();
 }
 
@@ -176,7 +175,7 @@ sub _writeHttpdConfFile
     my $output;
     my $interp = HTML::Mason::Interp->new(out_method => \$output);
     my $comp = $interp->make_component(
-            comp_file => (EBox::Config::stubs . '/apache.mas'));
+            comp_file => (EBox::Config::stubs . 'core/apache.mas'));
 
     my @confFileParams = ();
     push @confFileParams, ( port => $self->port());
@@ -202,16 +201,6 @@ sub _writeHttpdConfFile
     close(HTTPD);
 
     root("/bin/mv $confile $httpdconf");
-
-}
-
-sub _writeStartupFile
-{
-    my ($self) = @_;
-
-    my $startupFile = _startupFile();
-    my ($primaryGid) = split / /, $GID, 2;
-    EBox::Module::Base::writeConfFileNoCheck($startupFile, '/startup.pl.mas' , [], {mode => '0600', uid => $UID, gid => $primaryGid});
 
 }
 
@@ -246,12 +235,6 @@ sub _httpdConfFile
     return '/var/lib/zentyal/conf/apache2.conf';
 }
 
-
-sub _startupFile
-{
-
-    return '/var/lib/zentyal/conf/startup.pl';
-}
 
 sub port
 {

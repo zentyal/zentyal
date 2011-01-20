@@ -44,7 +44,7 @@ if (defined $remoteServices) {
 }
 
 EBox::Module::Base::writeConfFileNoCheck(SUDOERS_FILE . '.tmp',
-             'sudo.mas',
+             'core/sudo.mas',
              [ user => $user, extraUsers => \@extraUsers ],
              { mode => '0440', uid => 0, gid => 0 });
 
@@ -58,7 +58,7 @@ sub write_sudoers
     my $output;
     my $interp = HTML::Mason::Interp->new(out_method => \$output);
     my $comp = $interp->make_component(comp_file =>
-				(EBox::Config::stubs . '/sudo.mas'));
+				(EBox::Config::stubs . 'core/sudo.mas'));
     $interp->exec($comp, @params);
 
     my $tmpFile = SUDOERS_FILE . '.tmp';
