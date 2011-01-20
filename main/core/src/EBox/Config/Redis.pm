@@ -566,7 +566,7 @@ sub writeConfigFile
 
     my $home = $self->_home($user);
 
-    my $confFile = $home . REDIS_CONF;
+    my $confFile = "$home/" . REDIS_CONF;
     my $pass = $self->_passwd($home);
     my $uid = getpwnam($user);
     my $dir = $user;
@@ -602,7 +602,7 @@ sub _passwd
     my ($self, $home) = @_;
     defined($home) or $home = $self->_home();
 
-    return read_file($home . REDIS_PASS) or
+    return read_file("$home/" . REDIS_PASS) or
         throw EBox::Exceptions::External('Could not open passwd file');
 }
 
@@ -629,7 +629,7 @@ sub _home
     my ($self, $user) = @_;
     defined($user) or $user = $self->_user();
 
-    my ($name,$passwd,$uid,$gid, $quota,$comment,$gcos,$dir,$shell,$expire) = getpwnam($user);
+    my ($name,$passwd,$uid,$gid,$quota,$comment,$gcos,$dir,$shell,$expire) = getpwnam($user);
     return $dir;
 }
 
