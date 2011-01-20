@@ -720,24 +720,26 @@ sub _getUpgradablePkgs
     my @list;
     for my $pack (keys %$cache) {
         my $pkgCache = $cache->packages()->lookup($pack) or next;
-        my %data;
 
         my $currentVerObj = $cache->{$pack}{CurrentVer};
 
         if ($currentVerObj) {
             if ($currentVerObj->{VerStr} eq $pkgCache->{VerStr}) {
+                # Nothing new available
                 next;
             }
         } else {
             next;
         }
 
+        my %data;
         $data{'name'} = $pkgCache->{Name};
         $data{'description'} = $pkgCache->{ShortDesc};
         my $candidateVerInfo = $self->_candidateVersion($cache->{$pack});
         $data{'security'}    = $candidateVerInfo->{security};
         $data{'ebox-qa'}     = $candidateVerInfo->{qa};
         $data{'version'}     = $candidateVerInfo->{version};
+        next if ($data{'version'} eq $currentVerObj->{VerStr});
 
         push(@list, \%data);
     }
