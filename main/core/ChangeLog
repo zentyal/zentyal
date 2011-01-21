@@ -1,4 +1,6 @@
 HEAD
+	+ New /usr/share/zentyal/initial-setup script for modules postinst
+	+ Replace old ebox-migrate script with EBox::Module::Base::migrate
 	+ Do not add redundant includedir lines to /etc/sudoers
 	+ Fixed encoding for strings read from redis server
 	+ Support for redis-server 2.0 configuration

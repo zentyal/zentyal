@@ -103,11 +103,11 @@ case "$1" in
             invoke-rc.d zentyal apache start || true
         fi
 
-        # migrate log data
-        /usr/share/zentyal/ebox-migrate /usr/share/zentyal-logs/migration
-
-        # migrate events module
-        /usr/share/zentyal/ebox-migrate /usr/share/zentyal-events/migration
+        # Setup logs and events modules
+        # TODO: Check if they are restarted twice with the trigger
+        # and add a --no-restart option to initial-setup if needed
+        /usr/share/zentyal/initial-setup logs $2
+        /usr/share/zentyal/initial-setup events $2
 
         # remove initial redis config and stop server
         if [ -f $ZENTYAL_HOME/.first -a -z "$2" ]; then

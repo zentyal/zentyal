@@ -36,6 +36,7 @@ use File::Temp qw(tempfile);
 use Fcntl qw(:flock);
 use Error qw(:try);
 use Time::Local;
+use File::Slurp;
 
 # Method: _create
 #
@@ -109,6 +110,80 @@ sub depends
     }
 }
 
+# Method: initialSetup
+#
+#   This method is run to carry out the actions that are needed
+#   when the module is installed or upgraded.
+#
+#   The run of this method must be always idemptotent. So
+#   the actions will need to check if they are necessary or
+#   not to avoid problems when executed on upgrades.
+#
+#   The default implementation is to call the following
+#   script if exists and has execution rights:
+#      /usr/share/zentyal-$module/enable-module
+#
+#   But this method can be overriden by any module.
+#
+#   When upgrading, the version of the previously installed
+#   package is passed as argument.
+#
+# Parameters:
+#
+#     version - version of the previous package or undef
+#               if this is the first install
+#
+sub initialSetup
+{
+    my ($self, $version) = @_;
+
+    my $path = EBox::Config::share();
+    my $modname = $self->{'name'};
+
+    my $command = "$path/zentyal-$modname/initial-setup";
+    if (-x $command) {
+        if (defined $version) {
+            $command .= " $version";
+        }
+        EBox::Sudo::root($command);
+    }
+}
+
+# Method: migrate
+#
+#   This method runs all the needed migrations on a
+#   module upgrade.
+#
+#   The migration scripts need to be located at:
+#      /usr/share/zentyal-$module/migration/[00-99]*.pl
+#
+# Parameters:
+#
+#     version - version of the previously installed package
+#
+sub migrate
+{
+    my ($self, $version) = @_;
+
+    my $path = EBox::Config::share();
+    my $modname = $self->{'name'};
+
+    my $dir = "$path/zentyal-$modname/migration";
+    my @scripts = glob ("$dir/[00-99]*.pl");
+
+    foreach my $script (@scripts) {
+        my $file = read_file($script);
+        {
+            #silent warnings (redefined subs)
+            local $SIG{__WARN__} = sub
+            {
+                # TODO: remove this after debugging period
+                EBox::debug(@_);
+            };
+            eval $file;
+        };
+    }
+}
 
 # Method: revokeConfig
 #

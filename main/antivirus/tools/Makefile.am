@@ -1,8 +1,6 @@
 ## Process this file with automake to produce Makefile.in
 
-scriptsdir = @DATADIR@/zentyal-antivirus
-
-scripts_SCRIPTS =
+pkgdata_SCRIPTS = initial-setup
 
 MAINTAINERCLEANFILES = Makefile.in
 

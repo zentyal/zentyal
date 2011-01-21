@@ -5,24 +5,7 @@
 case "$1" in
 	configure)
 
-       # migrate data if needed
-       /usr/share/zentyal/ebox-migrate /usr/share/zentyal-antivirus/migration/
-
-       # Disable clamd apparmor as it needs some tweaking to make it work with
-       # our configuration
-       APP_PROFILE="/etc/apparmor.d/usr.sbin.clamd"
-       if [ -f $APP_PROFILE ]; then
-           sed -i 's:^/usr/sbin/clamd:/usr/sbin/clamd.off:' $APP_PROFILE || true
-           /etc/init.d/apparmor restart || true
-       fi
-
-       # create directory for freshclam data
-       FRESHCLAM_DIR=$(perl -MEBox::AntiVirus -e'print EBox::AntiVirus::freshclamEBoxDir(); 1;');
-       mkdir -p $FRESHCLAM_DIR
-       chown clamav.clamav $FRESHCLAM_DIR
-
-       # restart module
-       invoke-rc.d zentyal antivirus restart
+       /usr/share/zentyal/initial-setup antivirus $2
 
        dpkg-trigger --no-await zentyal-core
 esac
