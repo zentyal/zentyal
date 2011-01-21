@@ -2,7 +2,7 @@
 
 Migrationsdir = @DATADIR@/zentyal-network/migration
 
-nobase_Migrations_SCRIPTS = 0005_import_multigw_to_new_model.pl
+nobase_Migrations_SCRIPTS =
 
 EXTRA_DIST = $(nobase_Migrations_SCRIPTS)
 

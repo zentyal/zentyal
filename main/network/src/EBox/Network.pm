@@ -176,8 +176,21 @@ sub usedFiles
     return \@files;
 }
 
+# Method: initialSetup
+#
+# Overrides:
+#   EBox::Module::Base::initialSetup
+#
+sub initialSetup
+{
+    my ($self, $version) = @_;
 
-
+    # Import network configuration from system
+    # only if installing the first time
+    unless ($version) {
+        $self->importInterfacesFile();
+    }
+}
 
 sub modelClasses
 {
@@ -470,9 +483,10 @@ sub ifaceOnConfig # (interface)
     return defined($self->get_string("interfaces/$name/method"));
 }
 
-sub _ignoreIface($$)
+sub _ignoreIface
 {
     my ($self, $name) = @_;
+
     my $ignore_ifaces = EBox::Config::configkey('ifaces_to_ignore');
     my @ifaces_to_ignore;
     if (defined($ignore_ifaces)) {
@@ -3943,6 +3957,115 @@ sub _notifyChangedIface
                 $objs->ifaceMethodChangeDone($name);
             }
     }
+}
+
+# Method: importInterfacesFile
+#
+#   Parses /etc/network/interfaces and imports values
+#   to the Zentyal network module configuration
+#
+sub importInterfacesFile
+{
+    my ($self) = @_;
+
+    my $DEFAULT_IFACE = 'eth0';
+    my $DEFAULT_GW_NAME = 'default';
+    my $DEFAULT_WEIGHT = 1;
+
+    my @interfaces = @{$self->_readInterfaces()};
+    foreach my $iface (@interfaces) {
+        if ($iface->{name} =~ /^vlan/) {
+            ($iface->{'vlan-raw-device'}) or
+                die "vlan interface '$iface->{name}' needs a ".
+                "raw-device declaration";
+            $self->setIfaceTrunk($iface->{'vlan-raw-device'}, 1);
+            my $vlan = $iface->{name};
+            $vlan =~ s/^vlan//;
+            $self->createVlan($vlan, undef, $iface->{'vlan-raw-device'});
+        }
+        if ($iface->{'method'} eq 'static') {
+            $self->setIfaceStatic($iface->{'name'}, $iface->{'address'},
+                    $iface->{'netmask'}, undef, 1);
+            if ($iface->{'gateway'}){
+                my $gwModel = $self->model('GatewayTable');
+                $gwModel->add(name      => $DEFAULT_GW_NAME,
+                              ip        => $iface->{'gateway'},
+                              interface => $iface->{'name'},
+                              weight    => $DEFAULT_WEIGHT,
+                              default   => 1);
+            }
+        } elsif ($iface->{'method'} eq 'dhcp') {
+            $self->setIfaceDHCP($iface->{'name'}, 0, 1);
+        }
+    }
+
+    my ($searchdomain, @dns) = @{$self->_readResolv()};
+    $self->setNameservers(@dns);
+    if ($searchdomain) {
+        $self->setSearchDomain($searchdomain);
+    }
+
+    $self->saveConfig();
+}
+
+sub _readInterfaces
+{
+    my ($self) = @_;
+
+    my $ifacesFH;
+    unless (open($ifacesFH, INTERFACES_FILE)) {
+        warn  "couldn't open " . INTERFACES_FILE;
+        return [];
+    }
+
+    my @interfaces;
+    my $iface;
+    my @fields = qw/address netmask gateway vlan-raw-device/;
+
+    for my $line (<$ifacesFH>) {
+        $line =~ s/^\s+//g;
+        my @toks = split (/\s+/, $line);
+        next unless @toks;
+        if ($toks[0] eq 'iface' and $toks[2] eq 'inet')	{
+            next if ($self->_ignoreIface($toks[1]));
+            push (@interfaces, $iface) if ($iface);
+            $iface = { name   => $toks[1],
+                       method => $toks[3]
+            };
+        }
+
+        if (grep((/^$toks[0]$/), @fields)) {
+            $iface->{$toks[0]} = $toks[1];
+        }
+    }
+    close ($ifacesFH);
+    push (@interfaces, $iface) if ($iface);
+
+    return \@interfaces;
+}
+
+sub _readResolv
+{
+    my $resolvFH;
+	unless (open($resolvFH, RESOLV_FILE)) {
+		EBox::warn("Couldn't open " . RESOLV_FILE);
+		return [];
+	}
+
+    my $searchdomain = undef;
+	my @dns;
+	for my $line (<$resolvFH>) {
+		$line =~ s/^\s+//g;
+		my @toks = split (/\s+/, $line);
+		if ($toks[0] eq 'nameserver') {
+			push (@dns, $toks[1]);
+		} elsif ($toks[0] eq 'search') {
+            $searchdomain = $toks[1];
+        }
+	}
+    close ($resolvFH);
+
+	return [$searchdomain, @dns];
 }
 
 1;

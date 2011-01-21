@@ -2,41 +2,15 @@
 
 set -e
 
-. /usr/share/debconf/confmodule
-
-manage_overwrite() {
-    local permission
-
-    db_get zentyal-network/overwrite_ifaces || true
-    permission="$RET"
-
-    if [ "$permission" = "true" ]; then
-        /usr/share/zentyal-network/ebox-updatedigests
-        invoke-rc.d zentyal network stop || true
-    fi
-}
-
-
 #DEBHELPER#
 
 case "$1" in
     configure)
 
-        # import network configuration from system
-        # if installing the first time
-        if [ -z "$2" ] ; then
-            /usr/share/zentyal-network/ebox-netcfg-import || true
-        fi
-
-        # Migrate data if needed
-        /usr/share/zentyal/ebox-migrate /usr/share/zentyal-network/migration/
-
-        invoke-rc.d zentyal network restart
+        /usr/share/zentyal/initial-setup network $2
 
         dpkg-trigger --no-await zentyal-core
     ;;
 esac
-
-db_stop
 
 exit 0
