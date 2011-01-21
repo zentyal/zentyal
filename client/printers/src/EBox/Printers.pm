@@ -209,14 +209,18 @@ sub dumpConfig
 {
     my ($self, $dir, %options) = @_;
 
-    my $files = '/etc/cups/printers.conf /etc/cups/ppd';
-    try {
-        $self->_stopService();
-        EBox::Sudo::root("tar cf $dir/etc_cups.tar $files");
-        $self->_startService();
-    } otherwise {
-        EBox::error("Error dumping cups config to backup");
-    };
+    $self->_stopService();
+
+    my @files = ('/etc/cups/printers.conf', '/etc/cups/ppd');
+    my $backupFiles = '';
+    foreach my $file (@files) {
+        if (EBox::Sudo::fileTest('-e', $file)) {
+            $backupFiles .= " $file";
+        }
+    }
+    EBox::Sudo::root("tar cf $dir/etc_cups.tar $backupFiles");
+
+    $self->_startService();
 }
 
 # Method: restoreConfig
