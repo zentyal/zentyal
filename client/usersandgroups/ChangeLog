@@ -1,4 +1,5 @@
 HEAD
+	+ Fix slave failed operation string on slave hostname
 	+ Added indexes for common LDAP attributes
 2.0.10
 	+ Now the AD synchronization can be disabled at any moment and a
