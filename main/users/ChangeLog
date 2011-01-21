@@ -1,4 +1,5 @@
 HEAD
+	+ Fix slave failed operation string on slave hostname
 	+ Replace /etc/ebox/80users.conf with /etc/zentyal/users.conf
 	+ Added indexes for common LDAP attributes
 	+ Replace /var/log/ebox-usercorner with /var/log/zentyal-usercorner

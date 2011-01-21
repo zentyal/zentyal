@@ -837,7 +837,7 @@ sub soapRun
     try {
         $client->$method($param, @params);
     } otherwise {
-        EBox::debug("Unable to perform operation $method with parameter $param on slave $slave");
+        EBox::debug("Unable to perform operation $method with parameter $param on slave $slave->{'hostname'}");
         my ($fh, $filename) = tempfile("$method-XXXX", DIR => $journaldir);
         print $fh "$method\n";
         print $fh "$param\n";
