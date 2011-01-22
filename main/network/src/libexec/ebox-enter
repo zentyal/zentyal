@@ -5,7 +5,7 @@ set_router() {
 
 
 # Do nothing if network module is disbled
-if  /etc/init.d/ebox network status; then
+if  /etc/init.d/zentyal network status; then
     case $reason in
         BOUND)
             set_router
@@ -17,5 +17,4 @@ if  /etc/init.d/ebox network status; then
             ;;
     esac
 fi
-
 
