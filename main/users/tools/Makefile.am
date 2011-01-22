@@ -1,7 +1,7 @@
 ## Process this file with automake to produce Makefile.in
 SUBDIRS=t
 
-pkgdata_SCRIPTS = check-ldap-password slapd.backup list-slaves delete-slave slave-sync ebox-ad-sync ebox-pwdsync-server ebox-usersandgroups-reinstall zentyal-ldapvi resync-replica enable-module zentyal-rejoin-slave initial-setup
+pkgdata_SCRIPTS = check-ldap-password slapd.backup list-slaves delete-slave slave-sync ebox-ad-sync ebox-pwdsync-server reinstall zentyal-ldapvi resync-replica enable-module zentyal-rejoin-slave initial-setup
 pkgdata_DATA =  slapd.default slapd.default.no ebox-ad-sync.cron
 
 MAINTAINERCLEANFILES = Makefile.in
