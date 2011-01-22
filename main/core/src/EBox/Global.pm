@@ -341,39 +341,39 @@ sub prepareRevokeAllModules
 #
 sub revokeAllModules
 {
-        my ($self, %options) = @_;
+    my ($self, %options) = @_;
 
-        my $progress = $options{progress};
-        if (not $progress) {
-            $progress = EBox::ProgressIndicator::Dummy->create();
-        }
+    my $progress = $options{progress};
+    if (not $progress) {
+        $progress = EBox::ProgressIndicator::Dummy->create();
+    }
 
-        my @names = @{$self->modNames};
-        my $failed = "";
+    my @names = @{$self->modNames};
+    my $failed = "";
 
-        foreach my $name (@names) {
-                $self->modIsChanged($name) or next;
+    foreach my $name (@names) {
+        $self->modIsChanged($name) or next;
 
-                $progress->setMessage($name);
-                $progress->notifyTick();
+        $progress->setMessage($name);
+        $progress->notifyTick();
 
-                my $mod = $self->modInstance($name);
-                try {
-                        $mod->revokeConfig;
-                } catch EBox::Exceptions::Internal with {
-                        $failed .= "$name ";
-                };
-        }
+        my $mod = $self->modInstance($name);
+        try {
+            $mod->revokeConfig;
+        } catch EBox::Exceptions::Internal with {
+            $failed .= "$name ";
+        };
+    }
 
-        if ($failed eq "") {
-            $progress->setAsFinished();
-            return;
-        }
+    if ($failed eq "") {
+        $progress->setAsFinished();
+        return;
+    }
 
-        my $errorText = "The following modules failed while ".
-                "revoking their changes, their state is unknown: $failed";
-        $progress->setAsFinished(1, $errorText);
-        throw EBox::Exceptions::Internal($errorText);
+    my $errorText = "The following modules failed while ".
+        "revoking their changes, their state is unknown: $failed";
+    $progress->setAsFinished(1, $errorText);
+    throw EBox::Exceptions::Internal($errorText);
 }
 
 # Method: modifiedModules
@@ -487,19 +487,17 @@ sub _prepareActionScript
 {
     my ($self, $action, $totalTicks) = @_;
 
-     my $script =   EBox::Config::pkgdata() . 'ebox-global-action';
+    my $script =   EBox::Config::pkgdata() . 'ebox-global-action';
     $script .= " --action $action";
 
-
     my $progressIndicator =  EBox::ProgressIndicator->create(
-                             executable => $script,
-                             totalTicks => $totalTicks,
-                                                    );
+            executable => $script,
+            totalTicks => $totalTicks,
+            );
 
     $progressIndicator->runExecutable();
 
     return $progressIndicator;
-
 }
 
 # Method: saveAllModules
@@ -508,122 +506,121 @@ sub _prepareActionScript
 #
 sub saveAllModules
 {
-        my ($self, %options) = @_;
+    my ($self, %options) = @_;
 
-        my $log = EBox::logger();
+    my $log = EBox::logger();
 
-        my $failed = "";
+    my $failed = "";
 
-        my $progress = $options{progress};
-        if (not $progress) {
-            $progress = EBox::ProgressIndicator::Dummy->create();
-       }
+    my $progress = $options{progress};
+    if (not $progress) {
+        $progress = EBox::ProgressIndicator::Dummy->create();
+    }
 
-        my @mods = @{$self->modifiedModules('save')};
-        my $modNames = join (' ', @mods);
+    my @mods = @{$self->modifiedModules('save')};
+    my $modNames = join (' ', @mods);
 
-        $self->_runExecFromDir(PRESAVE_SUBDIR, $progress, $modNames);
+    $self->_runExecFromDir(PRESAVE_SUBDIR, $progress, $modNames);
 
-        my $msg = "Saving config and restarting services: @mods";
+    my $msg = "Saving config and restarting services: @mods";
 
-        $log->info($msg);
+    $log->info($msg);
 
+    # First instalation modules enable
+    my $file = '/var/lib/zentyal/.first';
+    if (-f $file) {
+        my $mgr = EBox::ServiceManager->new();
+        @mods = @{$mgr->_dependencyTree()};
+        $modNames = join(' ', @mods);
 
-        # First instalation modules enable
-        my $file = '/var/lib/zentyal/.first';
-        if ( -f $file ) {
-            my $mgr = EBox::ServiceManager->new();
-            @mods = @{$mgr->_dependencyTree()};
-            $modNames = join(' ', @mods);
+        foreach my $name (@mods) {
+            $progress->setMessage(__x("Enabling {modName} module",
+                        modName => $name));
+            $progress->notifyTick();
 
-            foreach my $name (@mods) {
-                $progress->setMessage(__x("Enabling {modName} module",
-                                          modName => $name));
-                $progress->notifyTick();
-
-                next if ($name eq 'dhcp'); # Skip dhcp module
+            next if ($name eq 'dhcp'); # Skip dhcp module
                 next if ($name eq 'users'); # Skip usersandgroups
 
                 my $module = $self->modInstance($name);
-                $module->setInstalled();
-                $module->setConfigured(1);
-                $module->enableService(1);
-                try {
-                    $module->enableActions();
-                } otherwise {
-                    my ($ex) = @_;
-                    my $err = $ex->text();
-                    $module->setConfigured(0);
-                    $module->enableService(0);
-                    EBox::debug("Failed to enable module $name: $err");
-                };
+            $module->setInstalled();
+            $module->setConfigured(1);
+            $module->enableService(1);
+            try {
+                $module->enableActions();
+            } otherwise {
+                my ($ex) = @_;
+                my $err = $ex->text();
+                $module->setConfigured(0);
+                $module->enableService(0);
+                EBox::debug("Failed to enable module $name: $err");
+            };
+        }
+    }
+
+    my $apache = 0;
+    foreach my $name (@mods) {
+        if ($name eq 'apache') {
+            $apache = 1;
+            next;
+        }
+
+        $progress->setMessage(__x("Saving {modName} module",
+                    modName => $name));
+        $progress->notifyTick();
+
+        my $mod = $self->modInstance($name);
+        my $class = 'EBox::Module::Service';
+
+        if ($mod->isa($class)) {
+            $mod->setInstalled();
+
+            if (not $mod->configured()) {
+                $mod->_saveConfig();
+                $self->modRestarted($name);
+                next;
             }
         }
 
-        my $apache = 0;
-        foreach my $name (@mods) {
-                if ($name eq 'apache') {
-                        $apache = 1;
-                        next;
-                }
+        try {
+            $mod->save();
+        } catch EBox::Exceptions::Internal with {
+            $failed .= "$name ";
+        };
+    }
 
-                $progress->setMessage(__x("Saving {modName} module",
-                                          modName => $name));
-                $progress->notifyTick();
+    # Delete first time installation file (wizard)
+    if ( -f $file ) {
+        unlink $file;
+    }
 
-                my $mod = $self->modInstance($name);
-                my $class = 'EBox::Module::Service';
+    # FIXME - tell the CGI to inform the user that apache is restarting
+    if ($apache) {
+        $progress->setMessage(__x("Saving {modName} module",
+                    modName => 'apache'));
+        $progress->notifyTick();
 
-                if ($mod->isa($class)) {
-                    $mod->setInstalled();
+        my $mod = $self->modInstance('apache');
+        try {
+            $mod->save();
+        } catch EBox::Exceptions::Internal with {
+            $failed .= "apache";
+        };
 
-                    if (not $mod->configured()) {
-                        $mod->_saveConfig();
-                        $self->modRestarted($name);
-                        next;
-                    }
-                }
+    }
+    if ($failed eq "") {
+        $self->_runExecFromDir(POSTSAVE_SUBDIR, $progress, $modNames);
+        # Store a timestamp with the time of the ending
+        $self->st_set_int(TIMESTAMP_KEY, time());
+        $progress->setAsFinished();
 
-                try {
-                        $mod->save();
-                } catch EBox::Exceptions::Internal with {
-                        $failed .= "$name ";
-                };
-        }
+        return;
+    }
 
-        # Delete first time installation file (wizard)
-        if ( -f $file ) {
-            unlink $file;
-        }
+    my $errorText = "The following modules failed while ".
+        "saving their changes, their state is unknown: $failed";
 
-        # FIXME - tell the CGI to inform the user that apache is restarting
-        if ($apache) {
-                $progress->setMessage(__x("Saving {modName} module",
-                                          modName => 'apache'));
-                $progress->notifyTick();
-
-                my $mod = $self->modInstance('apache');
-                try {
-                        $mod->save();
-                } catch EBox::Exceptions::Internal with {
-                        $failed .= "apache";
-                };
-
-        }
-        if ($failed eq "") {
-            $self->_runExecFromDir(POSTSAVE_SUBDIR, $progress, $modNames);
-            # Store a timestamp with the time of the ending
-            $self->st_set_int(TIMESTAMP_KEY, time());
-            $progress->setAsFinished();
-
-            return;
-        }
-
-        my $errorText = "The following modules failed while ".
-                "saving their changes, their state is unknown: $failed";
-
-        $progress->setAsFinished(1, $errorText);
-        throw EBox::Exceptions::Internal($errorText);
+    $progress->setAsFinished(1, $errorText);
+    throw EBox::Exceptions::Internal($errorText);
 }
 
 # Method: restartAllModules
@@ -632,31 +629,31 @@ sub saveAllModules
 #
 sub restartAllModules
 {
-        my $self = shift;
-        my @names = @{$self->modNames};
-        my $log = EBox::logger();
-        my $failed = "";
-        $log->info("Restarting all modules");
+    my $self = shift;
+    my @names = @{$self->modNames};
+    my $log = EBox::logger();
+    my $failed = "";
+    $log->info("Restarting all modules");
 
-        unless ($self->isReadOnly) {
-                $self->{ro} = 1;
-                $self->{'mod_instances'} = {};
-        }
+    unless ($self->isReadOnly) {
+        $self->{ro} = 1;
+        $self->{'mod_instances'} = {};
+    }
 
-        foreach my $name (@names) {
-                my $mod = $self->modInstance($name);
-                try {
-                        $mod->restartService();
-                } catch EBox::Exceptions::Internal with {
-                        $failed .= "$name ";
-                };
+    foreach my $name (@names) {
+        my $mod = $self->modInstance($name);
+        try {
+            $mod->restartService();
+        } catch EBox::Exceptions::Internal with {
+            $failed .= "$name ";
+        };
 
-        }
-        if ($failed eq "") {
-                return;
-        }
-        throw EBox::Exceptions::Internal("The following modules failed while ".
-                "being restarted, their state is unknown: $failed");
+    }
+    if ($failed eq "") {
+        return;
+    }
+    throw EBox::Exceptions::Internal("The following modules failed while ".
+            "being restarted, their state is unknown: $failed");
 }
 
 # Method: stopAllModules
@@ -665,32 +662,32 @@ sub restartAllModules
 #
 sub stopAllModules
 {
-        my $self = shift;
-        my @names = @{$self->modNames};
-        my $log = EBox::logger();
-        my $failed = "";
-        $log->info("Stopping all modules");
+    my $self = shift;
+    my @names = @{$self->modNames};
+    my $log = EBox::logger();
+    my $failed = "";
+    $log->info("Stopping all modules");
 
-        unless ($self->isReadOnly) {
-                $self->{ro} = 1;
-                $self->{'mod_instances'} = {};
-        }
+    unless ($self->isReadOnly) {
+        $self->{ro} = 1;
+        $self->{'mod_instances'} = {};
+    }
 
-        foreach my $name (@names) {
-                my $mod = $self->modInstance($name);
-                try {
-                        $mod->stopService();
-                } catch EBox::Exceptions::Internal with {
-                        $failed .= "$name ";
-                };
+    foreach my $name (@names) {
+        my $mod = $self->modInstance($name);
+        try {
+            $mod->stopService();
+        } catch EBox::Exceptions::Internal with {
+            $failed .= "$name ";
+        };
 
-        }
+    }
 
-        if ($failed eq "") {
-                return;
-        }
-        throw EBox::Exceptions::Internal("The following modules failed while ".
-                "stopping, their state is unknown: $failed");
+    if ($failed eq "") {
+        return;
+    }
+    throw EBox::Exceptions::Internal("The following modules failed while ".
+            "stopping, their state is unknown: $failed");
 }
 
 # Method: getInstance
@@ -725,7 +722,6 @@ sub getInstance # (read_only?)
     return $global;
 }
 
-#
 # Method: modInstances
 #
 #       Return an array ref with an instance of every module
@@ -763,9 +759,9 @@ sub modInstances
 #
 sub modInstancesOfType # (classname)
 {
-    shift;
-    my $classname = shift;
-    my $self = EBox::Global->instance();
+    my ($self, $classname) = @_;
+
+    $self = EBox::Global->instance();
     my @names = @{$self->modNames};
     my @array = ();
 
@@ -920,6 +916,7 @@ sub modDepends # (module)
 sub modRevDepends # (module)
 {
     my ($self, $name) = @_;
+
     $self->modExists($name) or return undef;
     my @revdeps = ();
     my @mods = @{$self->modNames};
@@ -1034,39 +1031,8 @@ sub lastModificationTime
             }
         }
     }
+
     return $lastStamp;
-
-}
-
-# Method: setLocale
-#
-#       *deprecated*
-#
-sub setLocale # (locale)
-{
-    shift;
-    EBox::deprecated();
-    EBox::setLocale(shift);
-}
-
-# Method: locale
-#
-#       *deprecated*
-#
-sub locale
-{
-    EBox::deprecated();
-    return EBox::locale();
-}
-
-# Method: init
-#
-#       *deprecated*
-#
-sub init
-{
-    EBox::deprecated();
-    EBox::init();
 }
 
 # Method: _runExecFromDir
