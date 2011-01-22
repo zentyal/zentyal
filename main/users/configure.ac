@@ -54,6 +54,7 @@ src/EBox/UsersAndGroups/Makefile
 src/EBox/UsersAndGroups/Model/Makefile
 src/EBox/UsersAndGroups/Composite/Makefile
 src/EBox/UsersAndGroups/Types/Makefile
+src/EBox/UserCorner/Makefile
 src/EBox/rootTests/Makefile
 src/EBox/CGI/Makefile
 src/EBox/CGI/Wizard/Makefile

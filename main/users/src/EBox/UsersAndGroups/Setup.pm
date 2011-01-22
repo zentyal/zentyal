@@ -29,7 +29,6 @@ use EBox::Module::Base;
 use EBox::Sudo qw(:all);
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::Sudo::Command;
-use EBox::UserCorner;
 use EBox::Model::ModelManager;
 
 use constant LDAPCONFDIR    => '/etc/ldap/';
@@ -160,19 +159,9 @@ sub createJournalsDirs
 {
     my $users = EBox::Global->modInstance('users');
     my $journalDirs = $users->_journalsDir();
-    my @commands;
 
     unless (-d $journalDirs) {
-        push (@commands, "mkdir -p $journalDirs");
-    }
-
-    my $usercornerDir = EBox::UserCorner::usercornerdir() . "userjournal";
-    unless (-d $usercornerDir) {
-        push (@commands, "mkdir -p $usercornerDir");
-        push (@commands, "chown ebox:ebox $usercornerDir");
-    }
-    if (@commands) {
-        EBox::Sudo::root(@commands);
+        EBox::Sudo::root("mkdir -p $journalDirs");
     }
 }
 

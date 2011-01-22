@@ -19,6 +19,7 @@ use EBox::Config;
 use EBox::Gettext;
 use EBox::Global;
 use EBox::Menu::Root;
+use EBox::UserCorner::Config;
 
 use strict;
 use warnings;
@@ -101,10 +102,25 @@ sub enableActions
         my $mod = EBox::Global->modInstance($name);
         my $class = 'EBox::Module::Service';
         if ($mod->isa($class) and $mod->configured()) {
-            EBox::Sudo::command('touch ' . EBox::Config::conf() . "configured.tmp/" . $mod->name());
+            EBox::Sudo::command('touch ' . EBox::Config::conf() . 'configured.tmp/' . $mod->name());
         }
     }
-    rename(EBox::Config::conf() . "configured.tmp", EBox::Config::conf() . "configured");
+    rename(EBox::Config::conf() . 'configured.tmp', EBox::Config::conf() . 'configured');
+
+    # Create userjournal dir only in master setup
+    my $users = EBox::Global->modInstance('users');
+    if ($users->mode() ne 'slave') {
+        my @commands;
+
+        my $usercornerDir = EBox::UserCorner::usercornerdir() . 'userjournal';
+        unless (-d $usercornerDir) {
+            push (@commands, "mkdir -p $usercornerDir");
+            push (@commands, "chown ebox:ebox $usercornerDir");
+        }
+        if (@commands) {
+            EBox::Sudo::root(@commands);
+        }
+    }
 }
 
 # Method: modelClasses
