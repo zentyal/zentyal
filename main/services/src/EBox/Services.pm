@@ -18,7 +18,6 @@
 #       This class is used to abstract services composed of
 #       protocols and ports.
 #
-#
 
 package EBox::Services;
 
@@ -26,7 +25,6 @@ use strict;
 use warnings;
 
 use base qw(EBox::GConfModule EBox::Model::ModelProvider);
-
 
 use EBox::Validate qw( :all );
 use EBox::Global;
@@ -39,6 +37,8 @@ use EBox::Exceptions::MissingArgument;
 use EBox::Exceptions::DataExists;
 use EBox::Exceptions::DataMissing;
 use EBox::Exceptions::DataNotFound;
+
+use Error qw(:try);
 
 sub _create
 {
@@ -65,10 +65,87 @@ sub _create
 #
 #      Overrides <EBox::ModelImplementator::models>
 #
-sub models {
+sub models
+{
     my ($self) = @_;
 
-    return [$self->{'serviceConfigurationModel'}, $self->{'serviceModel'}];
+    # FIXME: Replace this with modelClasses
+    return [ $self->{'serviceConfigurationModel'}, $self->{'serviceModel'} ];
+}
+
+# Method: initialSetup
+#
+# Overrides:
+#   EBox::Module::Base::initialSetup
+#
+sub initialSetup
+{
+    my ($self, $version) = @_;
+
+    foreach my $service (@{$self->_defaultServices()}) {
+        $service->{'sourcePort'} = 'any';
+        $service->{'readOnly'} = 1;
+        if ($self->serviceExists('name' => $service->{'name'})) {
+            $self->setService(%{$service});
+        } else {
+            $self->addService(%{$service});
+        }
+    }
+}
+
+sub _defaultServices
+{
+    my ($self) = @_;
+
+    my $apachePort;
+    try {
+        $apachePort = EBox::Global->modInstance('apache')->port();
+    } otherwise {
+        $apachePort = 443;
+    };
+
+    return [
+        {
+         'name' => 'any',
+         'description' => __d('any protocol and port'),
+         'domain' => __d('ebox-services'),
+         'protocol' => 'any',
+         'destinationPort' => 'any',
+         'internal' => 0,
+        },
+        {
+         'name' => 'any UDP',
+         'description' => __d('any UDP port'),
+         'domain' => __d('ebox-services'),
+         'protocol' => 'udp',
+         'destinationPort' => 'any',
+         'internal' => 0,
+        },
+        {
+         'name' => 'any TCP',
+         'description' => __d('any TCP port'),
+         'domain' => __d('ebox-services'),
+         'protocol' => 'tcp',
+         'destinationPort' => 'any',
+         'internal' => 0,
+        },
+        {
+         'name' => 'eBox administration',
+         'description' => __d('Zentyal Administration Web Server'),
+         'domain' => __d('ebox-services'),
+         'protocol' => 'tcp',
+         'destinationPort' => $apachePort,
+         'internal' => 1,
+        },
+        {
+         'name' => 'ssh',
+         'description' => 'SSH',
+         'domain' => __d('ebox-services'),
+         'protocol' => 'tcp',
+         'destinationPort' => '22',
+         'internal' => 0,
+        },
+    ];
 }
 
 # Method: exposedMethods
