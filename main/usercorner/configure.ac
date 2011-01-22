@@ -1,7 +1,7 @@
 AC_INIT([zentyal-usercorner], [2.1])
 
 AC_CONFIG_AUX_DIR([config])
-AC_CONFIG_SRCDIR([src/EBox/UserCornerWebServer.pm])
+AC_CONFIG_SRCDIR([src/EBox/UserCorner.pm])
 
 AM_INIT_AUTOMAKE([foreign])
 
@@ -51,8 +51,7 @@ src/EBox/UserCorner/CGI/Makefile
 src/EBox/UserCorner/CGI/Dashboard/Makefile
 src/EBox/UserCorner/CGI/Login/Makefile
 src/EBox/UserCorner/CGI/Logout/Makefile
-src/EBox/UserCornerWebServer/Makefile
-src/EBox/UserCornerWebServer/Model/Makefile
+src/EBox/UserCorner/Model/Makefile
 src/templates/Makefile
 src/templates/login/Makefile
 schemas/Makefile

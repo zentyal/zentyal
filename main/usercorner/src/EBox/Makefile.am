@@ -1,9 +1,9 @@
 ## Process this file with automake to produce Makefile.in
-SUBDIRS = UserCorner UserCornerWebServer
+SUBDIRS = UserCorner
 
 perldir = @PERLPATH@/EBox
 
-nobase_perl_DATA = UserCornerWebServer.pm
+nobase_perl_DATA = UserCorner.pm
 
 MAINTAINERCLEANFILES = Makefile.in
 

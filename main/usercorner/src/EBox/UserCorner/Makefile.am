@@ -2,9 +2,9 @@
 
 perldir = @PERLPATH@/EBox/UserCorner
 
-SUBDIRS = CGI
+SUBDIRS = CGI Model
 
-nobase_perl_DATA = Auth.pm HtmlBlocks.pm Menu.pm Config.pm
+nobase_perl_DATA = Auth.pm HtmlBlocks.pm Menu.pm
 
 SOURCES = $(nobase_perl_DATA)
 

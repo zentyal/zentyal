@@ -1,5 +1,5 @@
 ## Process this file with automake to produce Makefile.in
-perldir = @PERLPATH@/EBox/UserCornerWebServer/Model
+perldir = @PERLPATH@/EBox/UserCorner/Model
 
 nobase_perl_DATA = Settings.pm
 

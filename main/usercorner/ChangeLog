@@ -1,2 +1,4 @@
 HEAD
+	+ Rename UserCornerWebServer to UserCorner and merge usersessiondir
+	  and usercornerdir methods in the new unique class
 	+ Initial release

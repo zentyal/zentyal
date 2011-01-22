@@ -16,7 +16,7 @@ try {
     $sigset->fillset();
     sigprocmask(SIG_UNBLOCK, $sigset);
 
-    EBox::CGI::Run->run($ENV{'script'}, 'EBox::UserCorner::Config');
+    EBox::CGI::Run->run($ENV{'script'}, 'EBox::UserCorner');
 } otherwise  {
     my $ex = shift;
     use Devel::StackTrace;

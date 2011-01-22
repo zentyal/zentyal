@@ -98,20 +98,7 @@ sub actions
     my $mode = mode();
     my @actions;
 
-    if ($mode eq 'master') {
-        push(@actions,
-                {
-                 'action' => __('Your LDAP database will be populated with some basic organizational units'),
-                 'reason' => __('Zentyal needs this organizational units to add users and groups into them.'),
-                 'module' => 'users'
-                },
-                {
-                 'action' => __('Create directories for slave journals'),
-                 'reason' => __('Zentyal needs the directories to record pending slave actions.'),
-                 'module' => 'users'
-                }
-        );
-    } elsif ($mode eq 'slave') {
+    if ($mode eq 'slave') {
         push(@actions,
                 {
                  'action' => __('Your Zentyal will be registered as a slave in the Zentyal master specified'),
@@ -128,16 +115,31 @@ sub actions
                     }
             );
         }
-    } elsif ($mode eq 'ad-slave') {
+    } else {
         push(@actions,
                 {
-                 'action' => __('Install /etc/cron.d/ebox-ad-sync.'),
-                 'reason' => __('Zentyal will run a script every 5 minutes to sync with Windows AD.'),
+                 'action' => __('Your LDAP database will be populated with some basic organizational units'),
+                 'reason' => __('Zentyal needs this organizational units to add users and groups into them.'),
+                 'module' => 'users'
+                },
+                {
+                 'action' => __('Create directories for slave journals'),
+                 'reason' => __('Zentyal needs the directories to record pending slave actions.'),
                  'module' => 'users'
                 }
         );
+        if ($mode eq 'ad-slave') {
+            push(@actions,
+                    {
+                     'action' => __('Install /etc/cron.d/ebox-ad-sync.'),
+                     'reason' => __('Zentyal will run a script every 5 minutes to sync with Windows AD.'),
+                     'module' => 'users'
+                    }
+            );
 
+        }
     }
+    # FIXME: This probably won't work if PAM is enabled after enabling the module
     if ($self->model('PAM')->enable_pamValue()) {
         push(@actions,
                 {

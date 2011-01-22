@@ -1,2 +1,2 @@
-exec /usr/share/zentyal-users/ebox-usercorner-apache2-start
+exec /usr/share/zentyal-usercorner/ebox-usercorner-apache2-start
 respawn

@@ -13,13 +13,13 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::UserCornerWebServer;
+package EBox::UserCorner;
 
 use EBox::Config;
 use EBox::Gettext;
 use EBox::Global;
 use EBox::Menu::Root;
-use EBox::UserCorner::Config;
+use EBox::UserCorner;
 
 use strict;
 use warnings;
@@ -43,19 +43,58 @@ sub _create
     return $self;
 }
 
+# Method: usercornerdir
+#
+#      Get the path to the usercorner directory
+#
+# Returns:
+#
+#      String - the path to that directory
+sub usercornerdir
+{
+    return EBox::Config->var() . 'lib/zentyal-usercorner/';
+}
+
+# Method: usersessiondir
+#
+#      Get the path where user Web session identifiers are stored
+#
+# Returns:
+#
+#      String - the path to that directory
+sub usersessiondir
+{
+    return usercornerdir() . 'sids/';
+}
+
 # Method: actions
 #
 #       Override EBox::Module::Service::actions
 #
 sub actions
 {
-    return [
+    my ($self) = @_;
+
+    my $mode = EBox::Global->modInstance('users')->mode();
+
+    my @actions;
+    push (@actions,
             {
              'action' => __('Migrate configured modules'),
              'reason' => __('Required for usercorner access to configured modules'),
              'module' => 'usercorner'
-        }
-    ];
+            });
+
+    if ($mode ne 'slave') {
+        push (@actions,
+                {
+                 'action' => __('Create directories for slave journals'),
+                 'reason' => __('Zentyal needs the directories to record pending slave actions.'),
+                 'module' => 'usercorner'
+                });
+    }
+
+    return \@actions;
 }
 
 # Method: initialSetup
@@ -131,7 +170,7 @@ sub enableActions
 #
 sub modelClasses
 {
-    return [ 'EBox::UserCornerWebServer::Model::Settings' ];
+    return [ 'EBox::UserCorner::Model::Settings' ];
 }
 
 # Method: _daemons

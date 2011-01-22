@@ -13,12 +13,12 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
-# Class: EBox::UserCornerWebServer::Model::settings;
+# Class: EBox::UserCorner::Model::settings;
 #
 #   TODO: Document class
 #
 
-package EBox::UserCornerWebServer::Model::Settings;
+package EBox::UserCorner::Model::Settings;
 
 use EBox::Gettext;
 use EBox::Validate qw(:all);

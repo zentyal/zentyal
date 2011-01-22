@@ -118,7 +118,7 @@ sub _updatesession
     my ($user) = @_;
 
     my $sidFile;
-    my $sess_file  = EBox::UserCorner::usersessiondir() . $user;
+    my $sess_file = EBox::UserCorner::usersessiondir() . $user;
     unless (open ($sidFile, '+<', $sess_file)) {
         throw EBox::Exceptions::Internal("Could not open $sess_file");
     }

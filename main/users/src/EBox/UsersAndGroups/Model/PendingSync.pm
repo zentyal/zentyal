@@ -233,10 +233,10 @@ sub _processDir
 
 sub _pendingOps
 {
-    my @ops = @{_processDir(EBox::Config::conf() . "userjournal/")};
+    my @ops = @{_processDir(EBox::Config::conf() . 'userjournal/')};
     if (EBox::Global->modExists('usercorner')) {
-        eval 'use EBox::UserCorner::Config';
-        push (@ops, @{_processDir(EBox::UserCorner::Config::usercornerdir() . "userjournal/")});
+        eval 'use EBox::UserCorner';
+        push (@ops, @{_processDir(EBox::UserCorner::usercornerdir() . 'userjournal/')});
     }
     return \@ops;
 }
