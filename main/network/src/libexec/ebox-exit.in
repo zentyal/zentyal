@@ -1,4 +1,4 @@
-libexec=@DATADIR@/ebox
+libexec=@DATADIR@/zentyal
 
 firewall_script=$libexec/dhcp-firewall.pl
 
