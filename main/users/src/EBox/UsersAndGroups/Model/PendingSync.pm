@@ -30,7 +30,6 @@ use EBox::Validate qw(:all);
 use EBox::Model::Row;
 use EBox::Exceptions::External;
 use EBox::Exceptions::Internal;
-use EBox::UserCorner;
 use EBox::Types::Text;
 
 use strict;
@@ -234,9 +233,12 @@ sub _processDir
 
 sub _pendingOps
 {
-    my $ops = _processDir(EBox::Config::conf() . "userjournal/");
-    my $userops = _processDir(EBox::UserCorner::usercornerdir() . "userjournal/");
-    return [(@{$ops}, @{$userops})];
+    my @ops = @{_processDir(EBox::Config::conf() . "userjournal/")};
+    if (EBox::Global->modExists('usercorner') {
+        eval 'use EBox::UserCorner';
+        push (@ops, @{_processDir(EBox::UserCorner::usercornerdir() . "userjournal/")});
+    }
+    return \@ops;
 }
 
 1;

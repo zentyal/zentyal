@@ -30,7 +30,7 @@ sub new # (error=?, msg=?, cgi=?)
 {
 	my $class = shift;
 	my $self = $class->SUPER::new('title' => '',
-				      'template' => '/usersandgroups/usercorner/login/index.mas',
+				      'template' => '/usercorner/login/index.mas',
 				      @_);
 	bless($self, $class);
 	return $self;

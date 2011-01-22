@@ -905,7 +905,7 @@ sub restoreLdapMaster
         EBox::Sudo::rootWithoutException("/usr/sbin/slapadd -c -F /etc/ldap/slapd.d < /var/lib/zentyal/tmp/ldap.ldif");
         EBox::Module::Base::writeConfFileNoCheck(EBox::Config::tmp() .
             'slapd-master-upgrade-ebox.ldif',
-            'usersandgroups/slapd-master-upgrade-ebox.ldif.mas',
+            'users/slapd-master-upgrade-ebox.ldif.mas',
             [
                 'dn' => $dn,
                 'password' => $self->getPassword()

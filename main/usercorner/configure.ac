@@ -1,7 +1,7 @@
-AC_INIT([zentyal-users], [2.1])
+AC_INIT([zentyal-usercorner], [2.1])
 
 AC_CONFIG_AUX_DIR([config])
-AC_CONFIG_SRCDIR([src/EBox/UsersAndGroups.pm])
+AC_CONFIG_SRCDIR([src/EBox/UserCornerWebServer.pm])
 
 AM_INIT_AUTOMAKE([foreign])
 
@@ -42,34 +42,24 @@ fi
 
 AC_DEFINE_DIR(PERLPATH, perlpath)
 
-AM_PO_SUBDIRS
-
 AC_CONFIG_FILES([
-conf/Makefile
-conf/user-eboxlog.conf
 src/Makefile
+src/cgi/Makefile
 src/EBox/Makefile
-src/EBox/Migration/Makefile
-src/EBox/UsersAndGroups/Makefile
-src/EBox/UsersAndGroups/Model/Makefile
-src/EBox/UsersAndGroups/Composite/Makefile
-src/EBox/UsersAndGroups/Types/Makefile
-src/EBox/rootTests/Makefile
-src/EBox/CGI/Makefile
-src/EBox/CGI/Wizard/Makefile
+src/EBox/UserCorner/Makefile
+src/EBox/UserCorner/CGI/Makefile
+src/EBox/UserCorner/CGI/Dashboard/Makefile
+src/EBox/UserCorner/CGI/Login/Makefile
+src/EBox/UserCorner/CGI/Logout/Makefile
+src/EBox/UserCornerWebServer/Makefile
+src/EBox/UserCornerWebServer/Model/Makefile
 src/templates/Makefile
-src/templates/ajax/Makefile
-src/templates/Wizard/Makefile
+src/templates/login/Makefile
 schemas/Makefile
 stubs/Makefile
-stubs/slapd.conf.mas
 tools/Makefile
-tools/t/Makefile
-tools/t/testdata/Makefile
 migration/Makefile
-www/Makefile
 Makefile
 ])
 
-AC_CONFIG_FILES([po/Makefile], [AM_POSTPROCESS_PO_MAKEFILE])
 AC_OUTPUT

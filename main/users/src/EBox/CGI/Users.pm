@@ -29,7 +29,7 @@ use EBox::Gettext;
 sub new {
     my $class = shift;
     my $self = $class->SUPER::new('title' => __('Users'),
-            'template' => '/usersandgroups/users.mas',
+            'template' => '/users/users.mas',
             @_);
     $self->{domain} = 'ebox-usersandgroups';
     bless($self, $class);

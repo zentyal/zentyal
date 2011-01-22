@@ -29,7 +29,7 @@ use Error qw(:try);
 sub new # (cgi=?)
 {
     my $class = shift;
-    my $self = $class->SUPER::new('template' => 'usersandgroups/wizard/users.mas',
+    my $self = $class->SUPER::new('template' => 'users/wizard/users.mas',
                                   @_);
     $self->{domain} = 'ebox-usersandgroups';
     bless($self, $class);

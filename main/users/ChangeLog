@@ -1,4 +1,5 @@
 HEAD
+	+ Separate usercorner module to the new zentyal-usercorner package
 	+ Deleted obsolete migrations and use new initialSetup method
 	+ Fix slave failed operation string on slave hostname
 	+ Replace /etc/ebox/80users.conf with /etc/zentyal/users.conf

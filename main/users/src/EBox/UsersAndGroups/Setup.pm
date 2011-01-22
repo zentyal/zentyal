@@ -113,7 +113,7 @@ sub master
 
     EBox::Module::Base::writeConfFileNoCheck(
         "$tmp/slapd-master.ldif",
-        'usersandgroups/slapd-master.ldif.mas',
+        'users/slapd-master.ldif.mas',
         [
           'dn' => $dn,
           'password' => $pass
@@ -121,7 +121,7 @@ sub master
 
     EBox::Module::Base::writeConfFileNoCheck(
         "$tmp/slapd-master-db.ldif",
-        'usersandgroups/slapd-master-db.ldif.mas',
+        'users/slapd-master-db.ldif.mas',
         [
           'dn' => $dn,
           'password' => $pass

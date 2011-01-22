@@ -2,7 +2,7 @@
 
 SUBDIRS = login
 
-templatedir = $(datadir)/zentyal/templates/users/usercorner
+templatedir = $(datadir)/zentyal/templates/usercorner
 template_DATA = headTitle.mas
 
 EXTRA_DIST = $(template_DATA)

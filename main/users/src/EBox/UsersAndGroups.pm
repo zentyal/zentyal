@@ -295,7 +295,7 @@ sub _setConf
         $self->disableApparmorProfile('usr.sbin.slapd');
         my $apache = EBox::Global->modInstance('apache');
         EBox::Module::Base::writeConfFileNoCheck($soapfile,
-            'usersandgroups/soap-slave.mas',
+            'users/soap-slave.mas',
             [ 'cert' => CERT ]
         );
         $apache->addInclude($soapfile);
@@ -334,7 +334,7 @@ sub _setConf
     push(@array, 'groupsdn'  => GROUPSDN . ',' . $dn);
     push(@array, 'computersdn' => 'ou=Computers,' . $dn);
 
-    $self->writeConfFile(LIBNSSLDAPFILE, "usersandgroups/ldap.conf.mas",
+    $self->writeConfFile(LIBNSSLDAPFILE, "users/ldap.conf.mas",
             \@array);
 
     $self->_setupNSSPAM();
@@ -2894,7 +2894,7 @@ sub _getCertificates
     write_file(CA_DIR . 'masterldapca.pem', $ldapcacert);
     EBox::Sudo::root('ln -sf ' . CA_DIR . 'masterldapca.pem /etc/ldap/ssl/masterldapca.pem');
     EBox::Module::Base::writeConfFileNoCheck('/etc/ldap/ldap.conf',
-            'usersandgroups/ldap-slave.conf.mas',
+            'users/ldap-slave.conf.mas',
     );
 
 }
@@ -2925,7 +2925,7 @@ sub _setupReplication
 
         EBox::Module::Base::writeConfFileNoCheck(
                 EBox::Config::tmp() . "slapd-frontend-referrals.ldif",
-                "usersandgroups/slapd-frontend-referrals.ldif.mas",
+                "users/slapd-frontend-referrals.ldif.mas",
                 $opts
                 );
         EBox::Sudo::root('slapadd -F ' . LDAPCONFDIR .
@@ -2980,7 +2980,7 @@ sub _writeLdapConf
 
     EBox::Module::Base::writeConfFileNoCheck(
         EBox::Config::tmp() . "slapd-$name.ldif",
-        "usersandgroups/slapd-$name.ldif.mas",
+        "users/slapd-$name.ldif.mas",
         $opts
     );
 
@@ -3266,7 +3266,7 @@ sub _setupNSSPAM
     my $umask = EBox::Config::configkey('dir_umask');
     push (@array, 'umask' => $umask);
 
-    $self->writeConfFile(AUTHCONFIGTMPL, 'usersandgroups/acc-ebox.mas',
+    $self->writeConfFile(AUTHCONFIGTMPL, 'users/acc-ebox.mas',
                \@array);
 
     my $enablePam = $self->model('PAM')->enable_pamValue();

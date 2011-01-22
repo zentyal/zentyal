@@ -42,11 +42,11 @@ sub new
 #
 # Returns:
 #
-#      	string - containg the html code for the title
+#	string - containg the html code for the title
 #
 sub title
 {
-    return EBox::Html::makeHtml('usersandgroups/usercorner/headTitle.mas');
+    return EBox::Html::makeHtml('usercorner/headTitle.mas');
 }
 
 # Method: menu

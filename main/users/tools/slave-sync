@@ -12,7 +12,6 @@ unless (grep { -d $_ } </var/lib/zentyal*/conf/userjournal/*>) {
 use EBox;
 use EBox::Config;
 use EBox::Global;
-use EBox::UserCorner;
 
 use Error qw(:try);
 
@@ -32,8 +31,13 @@ try {
 };
 
 processDir(EBox::Config::conf() . "userjournal/");
-processDir(EBox::UserCorner::usercornerdir() . "userjournal/");
 
+if (EBox::Global->modExists('usercorner') {
+    eval 'use EBox::UserCorner';
+    processDir(EBox::UserCorner::usercornerdir() . "userjournal/");
+}
+
+exit 0;
 
 sub processSlaveDir
 {

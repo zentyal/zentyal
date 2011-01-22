@@ -1,5 +1,5 @@
 ## Process this file with automake to produce Makefile.in
-templatedir = @TEMPLATESPATH@/usersandgroups/wizard
+templatedir = @TEMPLATESPATH@/users/wizard
 
 template_DATA = users.mas
 

@@ -44,7 +44,7 @@ sub _warnUser($$) {
 	my $warns = $usersandgroups->allWarnings($object, $name);
 
 	if (@{$warns}) { # If any module wants to warn user
-		 $self->{template} = 'usersandgroups/del.mas';
+		 $self->{template} = 'users/del.mas';
 		 $self->{redirect} = undef;
 		 my @array = ();
 		 push(@array, 'object' => $object);

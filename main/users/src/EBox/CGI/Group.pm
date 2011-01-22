@@ -29,7 +29,7 @@ sub new
 {
     my $class = shift;
     my $self = $class->SUPER::new('title' => __('Edit group'),
-                      'template' => '/usersandgroups/group.mas',
+                      'template' => '/users/group.mas',
                       @_);
     $self->{domain} = 'ebox-usersandgroups';
     bless($self, $class);

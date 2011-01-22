@@ -24,8 +24,7 @@ use strict;
 use warnings;
 
 use base qw(EBox::Module::Service
-            EBox::Model::ModelProvider
-            );
+            EBox::Model::ModelProvider);
 
 use constant USERCORNER_APACHE => EBox::Config->conf() . '/user-apache2.conf';
 use constant USERCORNER_REDIS => '/var/lib/zentyal-usercorner/conf/redis.conf';
@@ -42,17 +41,6 @@ sub _create
     bless($self, $class);
     return $self;
 }
-
-
-# Method: enableModDepends
-#
-#   Override EBox::Module::Service::enableModDepends
-#
-sub enableModDepends
-{
-    return [ 'users' ];
-}
-
 
 # Method: actions
 #
@@ -159,7 +147,7 @@ sub _setConf
 
     # Overwrite the listening port conf file
     EBox::Module::Base::writeConfFileNoCheck(USERCORNER_APACHE,
-        "usersandgroups/user-apache2.conf.mas",
+        "usercorner/user-apache2.conf.mas",
         [ port => $settings->portValue() ],
     );
 
@@ -222,7 +210,6 @@ sub certificates
              group => 'ebox-usercorner',
              mode => '0400',
             },
-
            ];
 }
 
