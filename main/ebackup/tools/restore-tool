@@ -732,10 +732,6 @@ sub _installDebPackages
     foreach my $mod (@modules) {
         next if EBox::Global->modExists($mod);
 
-        # usercorner requires user module and comes in the same ubuntu package
-        # so we can skip it
-        next if ($mod eq 'usercorner');
-
         # cloud-prof is a special case
         next if ($mod eq 'cloud-prof');
 
