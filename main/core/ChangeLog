@@ -1,4 +1,5 @@
 HEAD
+	+ Move /usr/share/ebox/zentyal-redisvi to /usr/share/zentyal/redisvi
 	+ New /usr/share/zentyal/initial-setup script for modules postinst
 	+ Replace old ebox-migrate script with EBox::Module::Base::migrate
 	+ Do not add redundant includedir lines to /etc/sudoers
