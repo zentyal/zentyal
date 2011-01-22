@@ -1047,7 +1047,6 @@ sub consolidateReportInfoQueries
             query        => {
                 select => 'nusers',
                 from   => 'remoteservices_passwd_users',
-                key    => 'nusers',
                }
            }
        ];
