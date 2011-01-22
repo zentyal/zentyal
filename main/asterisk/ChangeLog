@@ -1,3 +1,5 @@
+HEAD
+	+ Delete obsolete migrations and use new initialSetup method
 2.0.1
 	+ Set default order for dashboard widgets
 	+ Corrected headers package names in meetings precondition message

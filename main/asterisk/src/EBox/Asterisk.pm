@@ -114,7 +114,6 @@ sub compositeClasses
     ];
 }
 
-
 # Method: usedFiles
 #
 # Overrides:
@@ -175,6 +174,66 @@ sub usedFiles
     return \@usedFiles;
 }
 
+# Method: initialSetup
+#
+# Overrides:
+#   EBox::Module::Base::initialSetup
+#
+sub initialSetup
+{
+    my ($self, $version) = @_;
+
+    # Create default rules and services
+    # only if installing the first time
+    unless ($version) {
+        my $services = EBox::Global->modInstance('services');
+
+        my $serviceName = 'VoIP';
+        unless($services->serviceExists(name => $serviceName)) {
+            $services->addMultipleService(
+                'name' => $serviceName,
+                'description' => __d('Zentyal VoIP system'),
+                'translationDomain' => 'ebox-asterisk',
+                'internal' => 1,
+                'readOnly' => 1,
+                'services' => $self->_services(),
+            );
+        }
+
+        my $firewall = EBox::Global->modInstance('firewall');
+        $firewall->setExternalService($serviceName, 'deny');
+        $firewall->setInternalService($serviceName, 'accept');
+    }
+
+    # Execute initial-setup script
+    $self->SUPER::initialSetup($version);
+}
+
+sub _services
+{
+    return [
+             { # sip
+                 'protocol' => 'udp',
+                 'sourcePort' => 'any',
+                 'destinationPort' => '5060',
+             },
+             { # iax1
+                 'protocol' => 'udp',
+                 'sourcePort' => 'any',
+                 'destinationPort' => '4569',
+             },
+             { # iax2
+                 'protocol' => 'udp',
+                 'sourcePort' => 'any',
+                 'destinationPort' => '5036',
+             },
+             { # rtp
+                 'protocol' => 'udp',
+                 'sourcePort' => 'any',
+                 'destinationPort' => '10000:20000',
+             },
+    ];
+}
 
 # Method: enableActions
 #

@@ -2,7 +2,7 @@
 
 Migrationsdir = @DATADIR@/zentyal-asterisk/migration
 
-nobase_Migrations_SCRIPTS = 0001_add_firewall_services.pl 0002_migrate_ldap_schema.pl
+nobase_Migrations_SCRIPTS =
 
 EXTRA_DIST = $(nobase_Migrations_SCRIPTS)
 

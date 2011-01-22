@@ -4,20 +4,8 @@
 
 case "$1" in
     configure)
-        # change owner
-        if [ -f /var/log/asterisk/cdr-csv/Master.csv ] ; then
-            chown asterisk:asterisk /var/log/asterisk/cdr-csv/Master.csv
-        fi
-        if [ -d /var/spool/asterisk/ ] ; then
-            chown asterisk:asterisk /var/spool/asterisk/
-        fi
-        # create log table
-        /usr/share/zentyal/ebox-sql-table add asterisk_cdr /usr/share/zentyal/sqllog/asterisk_cdr.sql
         # migrate data if needed
-        /usr/share/zentyal/ebox-migrate /usr/share/zentyal-asterisk/migration/
-
-        # restart module
-        invoke-rc.d zentyal asterisk restart
+        /usr/share/zentyal/initial-setup asterisk $2
 
         dpkg-trigger --no-await zentyal-core
     ;;
