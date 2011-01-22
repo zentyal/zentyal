@@ -1,4 +1,8 @@
 HEAD
+	+ Added addToInternetService to exposed methods
+	+ Added new addInternalService and requestAvailablePort methods
+	+ Use new initialSetup method to add default rules
+	+ Remove obsolete migrations
 	+ Replace /etc/ebox/80firewall.conf with /etc/zentyal/firewall.conf
 2.0.1
 	+ PPPOE MTU is now changed in network module when reconfiguring gateways

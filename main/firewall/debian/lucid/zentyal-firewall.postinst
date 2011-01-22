@@ -3,26 +3,13 @@
 set -e
 #DEBHELPER#
 
-
-
 case "$1" in
 	configure)
-        # Migrate data if needed
-        /usr/share/zentyal/ebox-migrate /usr/share/zentyal-firewall/migration/ || true
 
-        # create log table
-        /usr/share/zentyal/ebox-sql-table add firewall /usr/share/zentyal/sqllog/firewall.sql || true
-        /usr/share/zentyal/ebox-sql-table add firewall_report /usr/share/zentyal/sqllog/firewall_report.sql || true
-        /usr/share/zentyal/ebox-sql-table-with-time-period add firewall_packet_traffic \
-            /usr/share/zentyal/sqllog/firewall_packet_traffic.sql || true
-
-        # restart module
-        invoke-rc.d zentyal firewall restart
+        /usr/share/zentyal/initial-setup firewall $2
 
         dpkg-trigger --no-await zentyal-core
     ;;
 esac
-
-
 
 exit 0

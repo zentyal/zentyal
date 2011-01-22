@@ -192,6 +192,35 @@ sub usedFiles
     return \@files;
 }
 
+# Method: initialSetup
+#
+# Overrides:
+#   EBox::Module::Base::initialSetup
+#
+sub initialSetup
+{
+    my ($self, $version) = @_;
+
+    # Create default rules and services
+    # only if installing the first time
+    unless ($version) {
+        my $fw = EBox::Global->modInstance('firewall');
+
+        $fw->addInternalService(
+                'name' => 'ldap',
+                'description' => 'LDAP',
+                'protocol' => 'tcp',
+                'sourcePort' => 'any',
+                'destinationPort' => 389,
+                'target'  => 'deny',
+                );
+        $fw->saveConfigRecursive();
+    }
+
+    # Execute initial-setup script
+    $self->SUPER::initialSetup($version);
+}
+
 # Method: enableActions
 #
 #       Override EBox::Module::Service::enableActions

@@ -121,12 +121,51 @@ sub modelClasses
            ];
 }
 
-
 sub compositeClasses
 {
-    return [
-            'EBox::Firewall::Composite::Report::PacketTrafficReport',
-           ]
+    return [ 'EBox::Firewall::Composite::Report::PacketTrafficReport' ]
+}
+
+# Method: initialSetup
+#
+# Overrides:
+#   EBox::Module::Base::initialSetup
+#
+sub initialSetup
+{
+    my ($self, $version) = @_;
+
+    # Execute initial-setup script
+    $self->SUPER::initialSetup($version);
+
+    # Create default rules only if installing the first time
+    unless ($version) {
+        $self->setInternalService('eBox administration', 'accept');
+        $self->setInternalService('ssh', 'accept');
+
+        my $services = EBox::Global->modInstance('services');
+        my $any = $services->serviceId('any');
+
+        unless (defined $any) {
+            EBox::error('Cannot add default rules: Service "any" not found.');
+            return;
+        }
+
+        # Allow any Zentyal output by default
+        $self->addOutputService(
+            decision => 'accept',
+            destination =>  { destination_any => undef },
+            service => $any,
+        );
+
+        # Allow any Internet access from internal networks
+        $self->addToInternetService(
+            decision => 'accept',
+            source => { source_any => undef },
+            destination =>  { destination_any => undef },
+            service => $any,
+        );
+    }
 }
 
 # Method: _exposedMethods
@@ -152,10 +191,13 @@ sub _exposedMethods
                             path    => [ 'EBoxOutputRuleTable' ],
                             indexes => [ 'position' ],
                         },
+                addToInternetService => {
+                            action => 'add',
+                            path   => [ 'ToInternetRuleTable' ]
+                        },
             );
 
     return \%exposedMethods;
-
 }
 
 
@@ -355,7 +397,36 @@ sub availablePort # (proto, port, interface)
     return 1;
 }
 
+# Method: requestAvailablePort
 #
+#       Returns the same requested port if available or the next
+#       available one if not.
+#
+# Parameters:
+#
+#       port      - requested port number
+#       protocol  - *optional* requested port protocol
+#                   (default: tcp)
+#
+sub requestAvailablePort
+{
+    my ($self, $port, $protocol) = @_;
+
+    defined ($protocol) or
+        $protocol = 'tcp';
+
+    # Check port availability
+    my $available = 0;
+    do {
+        $available = $self->availablePort($protocol, $port);
+        unless ($available) {
+            $port++;
+        }
+    } until ($available);
+
+    return $port;
+}
+
 # Method: localRedirects
 #
 #       Returns a list of local redirections
@@ -717,6 +788,7 @@ sub _setService
 
     return 1;
 }
+
 # Method: enableLog
 #
 #   Override <EBox::LogObserver>
@@ -785,6 +857,88 @@ sub menu
                                       'text' => __('Port Forwarding')));
 
     $root->add($folder);
+}
+
+# Method: addInternalService
+#
+#  Helper method to add new internal services to the service module and related
+#  firewall rules
+#
+#
+#  Named Parameters:
+#    name - name of the service
+#    protocol - protocol used by the service
+#    sourcePort - source port used by the service (default : any)
+#    destinationPort - destination port used by the service (default : any)
+#    target - target for the firewall rule (default: allow)
+#
+sub addInternalService
+{
+    my ($self, %params) = @_;
+    exists $params{name} or
+        throw EBox::Exceptions::MissingArgument('name');
+
+    $self->_addService(%params);
+
+    my @fwRuleParams = ($params{name});
+    push @fwRuleParams, $params{target} if exists $params{target};
+    $self->_fwRuleForInternalService(@fwRuleParams);
+
+    $self->saveConfigRecursive();
+}
+
+sub _fwRuleForInternalService
+{
+    my ($self, $service, $target) = @_;
+
+    $service or
+        throw EBox::Exceptions::MissingArgument('service');
+    $target or
+        $target = 'accept';
+
+    $self->setInternalService($service, $target);
+}
+
+sub _addService
+{
+    my ($self, %params) = @_;
+
+    exists $params{name} or
+        throw EBox::Exceptions::MissingArgument('name');
+    exists $params{protocol} or
+        throw EBox::Exceptions::MissingArgument('protocol');
+    exists $params{protocol} or
+        throw EBox::Exceptions::MissingArgument('translationDomain');
+    exists $params{sourcePort} or
+        $params{sourcePort} = 'any';
+    exists $params{destinationPort} or
+        $params{destinationPort} = 'any';
+
+    my $serviceMod = EBox::Global->modInstance('services');
+
+    if (not $serviceMod->serviceExists('name' => $params{name})) {
+        $serviceMod->addService('name' => $params{name},
+                'protocol' => $params{protocol},
+                'sourcePort' => $params{sourcePort},
+                'destinationPort' => $params{destinationPort},
+                'translationDomain' => $params{translationDomain},
+                'internal' => 1,
+                'readOnly' => 1
+                );
+    } else {
+        $serviceMod->setService('name' => $params{name},
+                'protocol' => $params{protocol},
+                'sourcePort' => $params{sourcePort},
+                'destinationPort' => $params{destinationPort},
+                'translationDomain' => $params{translationDomain},
+                'internal' => 1,
+                'readOnly' => 1);
+
+        EBox::info(
+            "Not adding $params{name} service as it already exists instead");
+    }
+
+    $serviceMod->saveConfig();
 }
 
 # Impelment LogHelper interface

@@ -50,7 +50,7 @@ sub _create
 #
 sub enableModDepends
 {
-    return ['users'];
+    return [ 'users' ];
 }
 
 
@@ -67,6 +67,34 @@ sub actions
              'module' => 'usercorner'
         }
     ];
+}
+
+# Method: initialSetup
+#
+# Overrides:
+#   EBox::Module::Base::initialSetup
+#
+sub initialSetup
+{
+    my ($self, $version) = @_;
+
+    # Create default rules and services
+    # only if installing the first time
+    unless ($version) {
+        my $fw = EBox::Global->modInstance('firewall');
+
+        my $port = $fw->requestAvailablePort(8888);
+        $fw->addInternalService(
+                'name'            => 'usercorner',
+                'description'     => __('User Corner Web Server'),
+                'protocol'        => 'tcp',
+                'sourcePort'      => 'any',
+                'destinationPort' => $port,
+                );
+        $fw->saveConfigRecursive();
+
+        $self->setPort($port);
+    }
 }
 
 # Method: enableActions
@@ -168,6 +196,18 @@ sub port
     my ($self) = @_;
     my $settings = $self->model('Settings');
     return $settings->portValue();
+}
+
+# Method: setPort
+#
+#       Sets the port the usercorner webserver is on
+#
+sub setPort
+{
+    my ($self, $port) = @_;
+
+    my $settingsModel = $self->model('Settings');
+    $settingsModel->set(port => $port);
 }
 
 sub certificates

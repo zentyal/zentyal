@@ -1,0 +1,7 @@
+#!/bin/bash
+
+/usr/share/zentyal/ebox-sql-table add firewall /usr/share/zentyal/sqllog/firewall.sql
+/usr/share/zentyal/ebox-sql-table add firewall_report /usr/share/zentyal/sqllog/firewall_report.sql
+/usr/share/zentyal/ebox-sql-table-with-time-period add firewall_packet_traffic /usr/share/zentyal/sqllog/firewall_packet_traffic.sql
+
+exit 0
