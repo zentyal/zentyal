@@ -1363,8 +1363,8 @@ sub _consolidateReportFromDB
                         }
 
                         # try to detect another required 'from' this will
-                        # fail if column name does nto specify table if
-                        # there is one of more dot in the nmae it will fail too
+                        # fail if column name doesn't specify table if
+                        # there is one of more dot in the name it will fail too
                         my (@portions) = split '\.', $f;
                         if (@portions == 2) {
                             push @from, $portions[0];
@@ -1511,20 +1511,20 @@ sub _lastConsolidationValuesForMonth
 #
 #
 # 'target_table' defines the table where the consolidated data will be stored.
-# The data will considerate using the provided query. The format of the query i
-# the same of EBox::PgDBEngine::query_hash. But with the following caveats:
+# The data will considerate using the provided query. The format of the query is
+# the same of <EBox::PgDBEngine::query_hash>. But with the following caveats:
 #
 #
 #
 #  - key : this signals a single field as part of the key fields of a row. The
-#  other keyfields are the ones from a possible group caluse. The query needs
-#  either a # group clause or a key option to be able to consolidate correctly.
+#  other keyfields are the ones from a possible group clause. The query needs
+#  either a group clause or a key option or it will consolidate one value per month
 #
 #  - updateMode : this signals what to do when you need to update a row. A row
-#  wil be updated instead of inserted when its date and key fields (group + key)
-#  are idnetical. Available update modes:
+#  will be updated instead of inserted when its date and key fields (group + key)
+#  are identical. Available update modes:
 #
-#  - sum: the non-key field are added tohether (default)
+#  - sum: the non-key field are added together (default)
 #  - overwrite: the non-key fields are overwritten with the last value
 #
 #  This data will be used to call consolidateReportFromLogs

@@ -1,4 +1,7 @@
 HEAD
+	+ Bugfix: Remove key field in consolidation which is useless in
+	  this context and it leads to errors everyday of the month except
+	  the first one
 	+ Indicate script to run when changing configuration file
 2.0.8
 	+ Remote backup is now overwritten with Basic Subscription
