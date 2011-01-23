@@ -55,7 +55,7 @@ use constant STORE_URL => 'http://store.zentyal.com/';
 use constant UTM       => '?utm_source=ebox&utm_medium=events&utm_campaign=alerts';
 use constant PROF_URL  => STORE_URL . 'serversubscriptions/subscription-professional.html' . UTM;
 use constant ENTER_URL => STORE_URL . 'serversubscriptions/subscription-enterprise.html' . UTM;
-use constant VIRTUAL_CIO_URL => 'http://www.zentyal.com/virtual_CIO_EN.pdf' . UTM;
+use constant ALERTS_URL => 'http://www.zentyal.com/products/cloud/alerts-reports/' . UTM;
 
 # Group: Public methods
 
@@ -557,7 +557,7 @@ sub _commercialMsg
                 . '{openhrefr}here{closehref}.',
                 openhrefp => '<a href="' . PROF_URL . '" target="_blank">',
                 openhrefe => '<a href="' . ENTER_URL . '" target="_blank">',
-                openhrefr => '<a href="' . VIRTUAL_CIO_URL . '" target="_blank">',
+                openhrefr => '<a href="' . ALERTS_URL . '" target="_blank">',
                 closehref => '</a>');
 }
 

@@ -1,6 +1,7 @@
 HEAD
 	+ Do not add redundant includedir lines to /etc/sudoers
 	+ Fixed encoding for strings read from redis server
+	+ Fixed broken link to alerts list
 2.0.15
 	+ Do not check the existence of cloud-prof package during the
 	  restore since it is possible not to be installed while disaster
