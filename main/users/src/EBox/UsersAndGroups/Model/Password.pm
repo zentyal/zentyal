@@ -23,7 +23,6 @@ package EBox::UsersAndGroups::Model::Password;
 use EBox::Gettext;
 use EBox::Validate qw(:all);
 use EBox::UsersAndGroups::Types::Password;
-use EBox::UserCorner::Auth;
 
 use Apache2::RequestUtil;
 use File::Temp qw/tempfile/;
@@ -99,6 +98,7 @@ sub _addTypedRow
     }
     my $userinfo = { 'username' => $user, 'password' => $pass1->value() };
     $users->modifyUserLocal($userinfo);
+    eval 'use EBox::UserCorner::Auth';
     EBox::UserCorner::Auth->updatePassword($user,$pass1->value());
 
     my $slaves = $users->listSlaves();
