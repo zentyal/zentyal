@@ -568,7 +568,7 @@ sub writeConfigFile
 
     my $home = $self->_home($user);
 
-    my $confFile = "$home/" . REDIS_CONF;
+    my $confFile = $home . REDIS_CONF;
     my $pass = $self->_passwd($home);
     my $uid = getpwnam($user);
     my $dir = $user;

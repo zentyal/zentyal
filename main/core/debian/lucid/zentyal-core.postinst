@@ -14,7 +14,7 @@ set -e
 case "$1" in
 	configure)
 
-        ZENTYAL_HOME=/var/lib/zentyal
+        ZENTYAL_HOME=/var/lib/zentyal/
         ZENTYAL_LOGS_DIR=/var/log/zentyal
 
         # Create log directory
