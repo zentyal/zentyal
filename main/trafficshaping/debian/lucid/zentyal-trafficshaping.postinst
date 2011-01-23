@@ -3,8 +3,8 @@
 #DEBHELPER#
 case "$1" in
 	configure)
-		# Migrate data if needed
-		#/usr/share/zentyal/ebox-migrate /usr/share/zentyal-trafficshaping/migration/
+
+		/usr/share/zentyal/initial-setup trafficshaping $2
 
         dpkg-trigger --no-await zentyal-core
 		;;

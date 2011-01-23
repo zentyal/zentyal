@@ -1,3 +1,5 @@
+HEAD
+	+ Added call to initial-setup in postinst
 2.0.3
 	+ Fixed L7 shaping when watching more than one interface
 	+ Some performance improvements

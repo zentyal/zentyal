@@ -1,5 +1,10 @@
 #!/bin/bash
 
+if [ "$1" = "purge" ]; then
+        # Purge configuration
+        /usr/share/zentyal/zentyal-clean-conf l7-protocols || true
+fi
+
 #DEBHELPER#
 
 case "$1" in

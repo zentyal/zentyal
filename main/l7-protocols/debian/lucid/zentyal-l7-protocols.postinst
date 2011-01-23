@@ -1,17 +1,12 @@
 #!/bin/bash
 
-if [ "$1" = "purge" ]; then
-        # Purge configuration
-        /usr/share/zentyal/zentyal-clean-conf l7-protocols || true
-fi
-
 #DEBHELPER#
 
 case "$1" in
     configure)
 
     # Migrate data if needed
-    /usr/share/zentyal/ebox-migrate /usr/share/zentyal-l7-protocols/migration/
+    /usr/share/zentyal/initial-setup l7-protocols $2
 
     dpkg-trigger --no-await zentyal-core
     ;;

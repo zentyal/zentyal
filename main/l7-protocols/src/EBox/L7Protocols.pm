@@ -96,6 +96,22 @@ sub menu
     $root->add($folder);
 }
 
+# Method: initialSetup
+#
+# Overrides:
+#   EBox::Module::Base::initialSetup
+#
+sub initialSetup
+{
+    my ($self, $version) = @_;
+
+    # Populate protocols from /etc/l7filter in
+    # the first installation
+    unless ($version) {
+        $self->populateProtocols();
+    }
+}
+
 # Method: populateProtocols
 #
 #   This method is meant to be used by the migration script to
