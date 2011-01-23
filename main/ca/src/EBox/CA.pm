@@ -394,6 +394,32 @@ sub destroyCA
     return 1;
 }
 
+# Method: initialSetup
+#
+# Overrides:
+#   EBox::Module::Base::initialSetup
+#
+sub initialSetup
+{
+    my @cmds;
+    my @dirs = (CATOPDIR, CERTSDIR, CRLDIR, NEWCERTSDIR, KEYSDIR, REQDIR);
+
+    foreach my $dir (@dirs) {
+        if (-d $dir) {
+            push (@cmds, 'chmod ' . DIRMODE . " $dir ");
+        }
+    }
+
+    if (-d PRIVDIR) {
+        push (@cmds, 'chmod ' . PRIVATEDIRMODE . ' ' . PRIVDIR);
+    }
+    EBox::Sudo::root(@cmds);
+
+    unless (-d P12DIR) {
+        mkdir (P12DIR, PRIVATEDIRMODE)
+    }
+}
+
 # Method: passwordRequired
 #
 #       Check if the password is required to sign the certificates
