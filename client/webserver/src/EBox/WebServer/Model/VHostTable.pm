@@ -86,7 +86,7 @@ sub validateTypedRow
 {
     my ($self, $action, $changedFields) = @_;
 
-    if ( exists $changedFields->{name} ) {
+    if (exists $changedFields->{name}) {
         my $vhost =  $changedFields->{name}->value();
         EBox::Validate::checkDomainName(
                                        $vhost,
@@ -96,6 +96,9 @@ sub validateTypedRow
             throw EBox::Exceptions::InvalidData
                 ('data' => __('Virtual host'), 'value' => $vhost);
         }
+    }
+
+    if (exists $changedFields->{ssl}) {
         # SSL checking
         my $settings = $self->parentModule()->model('GeneralSettings');
         if (($changedFields->{ssl}->value() ne 'disabled') and
