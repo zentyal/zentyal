@@ -9,6 +9,7 @@ HEAD
 	+ Added fastperl-server to execute Zentyal scripts much faster
 	+ Old /etc/ebox directory replaced with the new /etc/zentyal with
 	  renamed core.conf, logs.conf and events.conf files
+	+ Fixed broken link to alerts list
 2.0.15
 	+ Do not check the existence of cloud-prof package during the
 	  restore since it is possible not to be installed while disaster
