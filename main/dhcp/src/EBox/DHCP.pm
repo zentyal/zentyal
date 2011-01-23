@@ -19,10 +19,10 @@ use strict;
 use warnings;
 
 use base qw(EBox::Module::Service
-		    EBox::NetworkObserver
-		    EBox::LogObserver
-		    EBox::Model::ModelProvider
-		    EBox::Model::CompositeProvider);
+            EBox::NetworkObserver
+            EBox::LogObserver
+            EBox::Model::ModelProvider
+            EBox::Model::CompositeProvider);
 
 use EBox::Config;
 use EBox::Exceptions::InvalidData;
@@ -90,34 +90,34 @@ use constant TFTPD_CONF_DIR => '/var/lib/tftpboot/';
 #
 sub _create
 {
-	my $class = shift;
-	my $self  = $class->SUPER::_create(name => 'dhcp',
+    my $class = shift;
+    my $self  = $class->SUPER::_create(name => 'dhcp',
                                            printableName => 'DHCP',
                                            domain => 'ebox-dhcp',
                                            @_);
-	bless ($self, $class);
+    bless ($self, $class);
 
-	return $self;
+    return $self;
 }
 
 sub domain
 {
-	return 'ebox-dhcp';
+    return 'ebox-dhcp';
 }
 
 # Method: usedFiles
 #
-#	Override EBox::Module::Service::usedFiles
+#   Override EBox::Module::Service::usedFiles
 #
 sub usedFiles
 {
-	return [
-		{
-		 'file' => DHCPCONFFILE,
-		 'module' => 'dhcp',
-                 'reason' => __x('{server} configuration file', server => 'dhcpd'),
-		}
-	       ];
+    return [
+            {
+             'file' => DHCPCONFFILE,
+             'module' => 'dhcp',
+             'reason' => __x('{server} configuration file', server => 'dhcpd'),
+            }
+           ];
 }
 
 # Method: initialSetup
@@ -163,7 +163,7 @@ sub initialSetup
 
 # Method: actions
 #
-#	Override EBox::Module::Service::actions
+#   Override EBox::Module::Service::actions
 #
 sub actions
 {
@@ -194,9 +194,7 @@ sub enableActions
 #
 sub _daemons
 {
-    return [
-        { 'name' => DHCP_SERVICE },
-       ];
+    return [ { 'name' => DHCP_SERVICE } ];
 }
 
 # Method: _setConf
@@ -264,7 +262,7 @@ sub models
     my ($self) = @_;
 
     my @models;
-   my $net = EBox::Global->modInstance('network');
+    my $net = EBox::Global->modInstance('network');
     foreach my $iface (@{$net->allIfaces()}) {
         if ( $net->ifaceMethod($iface) eq 'static' ) {
             # Create models
@@ -315,7 +313,6 @@ sub models
     }
 
     return \@models;
-
 }
 
 # Method: _exposedMethods
@@ -377,7 +374,6 @@ sub _exposedMethods
 #
 sub composites
 {
-
     my ($self) = @_;
 
     my @composites;
@@ -399,73 +395,72 @@ sub composites
            new EBox::DHCP::Composite::General());
 
     return \@composites;
-
 }
 
 # Method: initRange
 #
-#	Return the initial host address range for a given interface
+#   Return the initial host address range for a given interface
 #
 # Parameters:
 #
-#	iface - String interface name
+#   iface - String interface name
 #
 # Returns:
 #
-#	String - containing the initial range
+#   String - containing the initial range
 #
 sub initRange # (interface)
 {
-	my ($self, $iface) = @_;
+    my ($self, $iface) = @_;
 
-	my $net = EBox::Global->modInstance('network');
-	my $address = $net->ifaceAddress($iface);
-	my $netmask = $net->ifaceNetmask($iface);
+    my $net = EBox::Global->modInstance('network');
+    my $address = $net->ifaceAddress($iface);
+    my $netmask = $net->ifaceNetmask($iface);
 
-	my $network = ip_network($address, $netmask);
-	my ($first, $last) = $network =~ /(.*)\.(\d+)$/;
-	my $init_range = $first . "." . ($last+1);
-	return $init_range;
+    my $network = ip_network($address, $netmask);
+    my ($first, $last) = $network =~ /(.*)\.(\d+)$/;
+    my $init_range = $first . "." . ($last+1);
+    return $init_range;
 }
 
 # Method: endRange
 #
-#	Return the final host address range for a given interface
+#   Return the final host address range for a given interface
 #
 # Parameters:
 #
-#	iface - String interface name
+#   iface - String interface name
 #
 # Returns:
 #
-#	string - containing the final range
+#   string - containing the final range
 #
 sub endRange # (interface)
 {
-	my ($self, $iface) = @_;
+    my ($self, $iface) = @_;
 
-	my $net = EBox::Global->modInstance('network');
-	my $address = $net->ifaceAddress($iface);
-	my $netmask = $net->ifaceNetmask($iface);
+    my $net = EBox::Global->modInstance('network');
+    my $address = $net->ifaceAddress($iface);
+    my $netmask = $net->ifaceNetmask($iface);
 
-	my $broadcast = ip_broadcast($address, $netmask);
-	my ($first, $last) = $broadcast =~ /(.*)\.(\d+)$/;
-	my $end_range = $first . "." . ($last-1);
-	return $end_range;
+    my $broadcast = ip_broadcast($address, $netmask);
+    my ($first, $last) = $broadcast =~ /(.*)\.(\d+)$/;
+    my $end_range = $first . "." . ($last-1);
+    return $end_range;
 }
 
 # Method: defaultGateway
 #
-#	Get the default gateway that will be sent to DHCP clients for a
-#	given interface
+#   Get the default gateway that will be sent to DHCP clients for a
+#   given interface
 #
 # Parameters:
 #
-#   	iface - interface name
+#       iface - interface name
 #
 # Returns:
 #
-#   	string - the default gateway in a IP address form
+#       string - the default gateway in a IP address form
 #
 # Exceptions:
 #
@@ -477,75 +472,75 @@ sub endRange # (interface)
 #
 sub defaultGateway # (iface)
 {
-	my ($self, $iface) = @_;
+    my ($self, $iface) = @_;
 
-	my $network = EBox::Global->modInstance('network');
+    my $network = EBox::Global->modInstance('network');
 
-	#if iface doesn't exists throw exception
-	if (not $iface or not $network->ifaceExists($iface)) {
-		throw EBox::Exceptions::DataNotFound(data => __('Interface'),
-				value => $iface);
-	}
+    #if iface doesn't exists throw exception
+    if (not $iface or not $network->ifaceExists($iface)) {
+        throw EBox::Exceptions::DataNotFound(data => __('Interface'),
+                value => $iface);
+    }
 
-	#if iface is not static, throw exception
-	if($network->ifaceMethod($iface) ne 'static') {
-		throw EBox::Exceptions::External(__x("{iface} is not static",
-			iface => $iface));
-	}
+    #if iface is not static, throw exception
+    if($network->ifaceMethod($iface) ne 'static') {
+        throw EBox::Exceptions::External(__x("{iface} is not static",
+            iface => $iface));
+    }
 
-        return $self->_getModel('optionsModel', $iface)->defaultGateway();
+    return $self->_getModel('optionsModel', $iface)->defaultGateway();
 }
 
 # Method: searchDomain
 #
-#	Get the search domain that will be sent to DHCP clients for a
-#	given interface
+#   Get the search domain that will be sent to DHCP clients for a
+#   given interface
 #
 # Parameters:
 #
-#   	iface - String interface name
+#       iface - String interface name
 #
 # Returns:
 #
-# 	String - the search domain
+#   String - the search domain
 #
 #       undef  - if the none search domain has been set
 #
 sub searchDomain # (iface)
 {
-	my ($self, $iface) = @_;
+    my ($self, $iface) = @_;
 
-	my $network = EBox::Global->modInstance('network');
+    my $network = EBox::Global->modInstance('network');
 
-	#if iface doesn't exists throw exception
-	if (not $iface or not $network->ifaceExists($iface)) {
-		throw EBox::Exceptions::DataNotFound(data => __('Interface'),
-				value => $iface);
-	}
+    #if iface doesn't exists throw exception
+    if (not $iface or not $network->ifaceExists($iface)) {
+        throw EBox::Exceptions::DataNotFound(data => __('Interface'),
+                value => $iface);
+    }
 
-	#if iface is not static, throw exception
-	if($network->ifaceMethod($iface) ne 'static') {
-		throw EBox::Exceptions::External(__x("{iface} is not static",
-			iface => $iface));
-	}
+    #if iface is not static, throw exception
+    if($network->ifaceMethod($iface) ne 'static') {
+        throw EBox::Exceptions::External(__x("{iface} is not static",
+            iface => $iface));
+    }
 
-#	$self->get_string("$iface/search");
-        return $self->_getModel('optionsModel', $iface)->searchDomain();
+#   $self->get_string("$iface/search");
+    return $self->_getModel('optionsModel', $iface)->searchDomain();
 }
 
 # Method: nameserver
 #
-#	Get the nameserver that will be sent to DHCP clients for a
-#	given interface
+#   Get the nameserver that will be sent to DHCP clients for a
+#   given interface
 #
 # Parameters:
 #
-#   	iface - String interface name
-#   	number - Int nameserver number (1 or 2)
+#       iface - String interface name
+#       number - Int nameserver number (1 or 2)
 #
 #   Returns:
 #
-#   	string - the nameserver or undef if there is no
+#       string - the nameserver or undef if there is no
 #
 # Exceptions:
 #
@@ -560,27 +555,27 @@ sub searchDomain # (iface)
 #
 sub nameserver # (iface,number)
 {
-	my ($self, $iface, $number) = @_;
+    my ($self, $iface, $number) = @_;
 
-        if ( not defined ( $number )) {
-            throw EBox::Exceptions::MissingArgument('number');
-        }
-	my $network = EBox::Global->modInstance('network');
+    if ( not defined ( $number )) {
+        throw EBox::Exceptions::MissingArgument('number');
+    }
+    my $network = EBox::Global->modInstance('network');
 
-	#if iface doesn't exists throw exception
-	if (not $iface or not $network->ifaceExists($iface)) {
-		throw EBox::Exceptions::DataNotFound(data => __('Interface'),
-				value => $iface);
-	}
+    #if iface doesn't exists throw exception
+    if (not $iface or not $network->ifaceExists($iface)) {
+        throw EBox::Exceptions::DataNotFound(data => __('Interface'),
+                value => $iface);
+    }
 
-	#if iface is not static, throw exception
-	if($network->ifaceMethod($iface) ne 'static') {
-		throw EBox::Exceptions::External(__x("{iface} is not static",
-			iface => $iface));
-	}
+    #if iface is not static, throw exception
+    if($network->ifaceMethod($iface) ne 'static') {
+        throw EBox::Exceptions::External(__x("{iface} is not static",
+            iface => $iface));
+    }
 
-#	$self->get_string("$iface/nameserver$number");
-        return $self->_getModel('optionsModel', $iface)->nameserver($number);
+#   $self->get_string("$iface/nameserver$number");
+    return $self->_getModel('optionsModel', $iface)->nameserver($number);
 }
 
 # Method: ntpServer
@@ -626,7 +621,6 @@ sub ntpServer # (iface)
     }
 
     return $self->_getModel('optionsModel', $iface)->ntpServer();
-
 }
 
 # Method: winsServer
@@ -672,58 +666,57 @@ sub winsServer # (iface)
     }
 
     return $self->_getModel('optionsModel', $iface)->winsServer();
-
 }
 
 # Method: staticRoutes
 #
-#	Get the static routes. It polls the Zentyal modules which
-#	implements <EBox::DHCP::StaticRouteProvider>
+#   Get the static routes. It polls the Zentyal modules which
+#   implements <EBox::DHCP::StaticRouteProvider>
 #
 # Returns:
 #
-#	hash ref - contating the static toutes in hash references. The
-#	key is the subnet in CIDR notation that denotes where is
-#	appliable the new route.  The values are hash reference with
-#	the keys 'destination', 'netmask' and 'gw'
+#   hash ref - contating the static toutes in hash references. The
+#   key is the subnet in CIDR notation that denotes where is
+#   appliable the new route.  The values are hash reference with
+#   the keys 'destination', 'netmask' and 'gw'
 #
 sub staticRoutes
 {
-  my ($self) = @_;
-  my %staticRoutes = ();
+    my ($self) = @_;
+    my %staticRoutes = ();
 
-  my @modules = @{ EBox::Global->modInstancesOfType('EBox::DHCP::StaticRouteProvider') };
-  foreach  my $mod (@modules) {
-    my @modStaticRoutes = @{ $mod->staticRoutes() };
-    while (@modStaticRoutes) {
-      my $net   = shift @modStaticRoutes;
-      my $route = shift @modStaticRoutes;
-      if (exists $staticRoutes{$net}) {
-	push  @{$staticRoutes{$net}}, $route;
-      }
-      else {
-	$staticRoutes{$net} = [$route];
-      }
+    my @modules = @{ EBox::Global->modInstancesOfType('EBox::DHCP::StaticRouteProvider') };
+    foreach  my $mod (@modules) {
+        my @modStaticRoutes = @{ $mod->staticRoutes() };
+        while (@modStaticRoutes) {
+            my $net   = shift @modStaticRoutes;
+            my $route = shift @modStaticRoutes;
+            if (exists $staticRoutes{$net}) {
+                push  @{$staticRoutes{$net}}, $route;
+            }
+            else {
+                $staticRoutes{$net} = [$route];
+            }
+        }
     }
-  }
 
-  return \%staticRoutes;
+    return \%staticRoutes;
 }
 
 sub notifyStaticRoutesChange
 {
-  my ($self) = @_;
-  $self->setAsChanged();
+    my ($self) = @_;
+    $self->setAsChanged();
 }
 
 
 # Method: rangeAction
 #
-#	Set/add a range for a given interface
+#   Set/add a range for a given interface
 #
 # Parameters:
 #
-#	iface - String Interface name
+#   iface - String Interface name
 #       action - String to perform (add/set/del)
 #
 #       indexValue - String index to use to set a new value, it can be a
@@ -731,9 +724,9 @@ sub notifyStaticRoutesChange
 #
 #       indexField - String the field name to use as index
 #
-#	name - String the range name
-#	from - String start of range, an ip address
-#	to - String end of range, an ip address
+#   name - String the range name
+#   from - String start of range, an ip address
+#   to - String end of range, an ip address
 #
 #       - Named parameters
 #
@@ -746,60 +739,60 @@ sub notifyStaticRoutesChange
 #
 sub rangeAction # (iface, name, from, to)
 {
-	my ($self, %args) = @_;
+    my ($self, %args) = @_;
 
-        my $iface = delete ($args{iface});
-        my $action = delete ($args{action});
-        unless ( $action eq any(qw(add set del))) {
-            throw EBox::Exceptions::External(__('Not a valid action: add, set and del '
-                                                . 'are available'));
-        }
+    my $iface = delete ($args{iface});
+    my $action = delete ($args{action});
+    unless ( $action eq any(qw(add set del))) {
+        throw EBox::Exceptions::External(__('Not a valid action: add, set and del '
+                    . 'are available'));
+    }
 
-	my $network = EBox::Global->modInstance('network');
+    my $network = EBox::Global->modInstance('network');
 
-	#if iface doesn't exists throw exception
-	if (not $iface or not $network->ifaceExists($iface)) {
-		throw EBox::Exceptions::DataNotFound(data => __('Interface'),
-				value => $iface);
-	}
+    #if iface doesn't exists throw exception
+    if (not $iface or not $network->ifaceExists($iface)) {
+        throw EBox::Exceptions::DataNotFound(data => __('Interface'),
+                value => $iface);
+    }
 
-	#if iface is not static, throw exception
-	if($network->ifaceMethod($iface) ne 'static') {
-		throw EBox::Exceptions::External(__x("{iface} is not static",
-			iface => $iface));
-	}
+    #if iface is not static, throw exception
+    if($network->ifaceMethod($iface) ne 'static') {
+        throw EBox::Exceptions::External(__x("{iface} is not static",
+                    iface => $iface));
+    }
 
-        my $rangeModel = $self->_getModel('rangeModel', $iface);
-        if ( $action eq 'add' ) {
-            $rangeModel->add( name => $args{name},
-                                                         from => $args{from},
-                                                         to   => $args{to});
-        } elsif ( $action eq 'set' ) {
-            my $index = delete ( $args{indexValue} );
-            my $indexField = delete ( $args{indexField} );
-            my @args = map { $_ => $args{$_} } keys (%args);
-            $rangeModel->setIndexField($indexField);
-            $rangeModel->set( $index, @args );
-        } elsif ( $action eq 'del' ) {
-            my $index = delete ( $args{indexValue} );
-            my $indexField = delete ( $args{indexField} );
-            $rangeModel->setIndexField($indexField);
-            $rangeModel->del( $index );
-        }
+    my $rangeModel = $self->_getModel('rangeModel', $iface);
+    if ( $action eq 'add' ) {
+        $rangeModel->add( name => $args{name},
+                from => $args{from},
+                to   => $args{to});
+    } elsif ( $action eq 'set' ) {
+        my $index = delete ( $args{indexValue} );
+        my $indexField = delete ( $args{indexField} );
+        my @args = map { $_ => $args{$_} } keys (%args);
+        $rangeModel->setIndexField($indexField);
+        $rangeModel->set( $index, @args );
+    } elsif ( $action eq 'del' ) {
+        my $index = delete ( $args{indexValue} );
+        my $indexField = delete ( $args{indexField} );
+        $rangeModel->setIndexField($indexField);
+        $rangeModel->del( $index );
+    }
 }
 
 # Method: ranges
 #
-#	Return all the set ranges for a given interface
+#   Return all the set ranges for a given interface
 #
 # Parameters:
 #
-#	iface - String interface name
+#   iface - String interface name
 #
 # Returns:
 #
-#	array ref - contating the ranges in hash references. Each hash holds
-#	the keys 'name', 'from' and 'to'
+#   array ref - contating the ranges in hash references. Each hash holds
+#   the keys 'name', 'from' and 'to'
 #
 # Exceptions:
 #
@@ -807,15 +800,15 @@ sub rangeAction # (iface, name, from, to)
 #
 sub ranges # (iface)
 {
-	my ($self, $iface) = @_;
+    my ($self, $iface) = @_;
 
-	my $global = EBox::Global->getInstance();
-	my $network = EBox::Global->modInstance('network');
+    my $global = EBox::Global->getInstance();
+    my $network = EBox::Global->modInstance('network');
 
-	if (not $iface or not $network->ifaceExists($iface)) {
-		throw EBox::Exceptions::DataNotFound('data' => __('Interface'),
-						'value' => $iface);
-	}
+    if (not $iface or not $network->ifaceExists($iface)) {
+        throw EBox::Exceptions::DataNotFound('data' => __('Interface'),
+                        'value' => $iface);
+    }
 
     my $model = $self->_getModel('rangeModel', $iface);
     my @ranges;
@@ -833,11 +826,11 @@ sub ranges # (iface)
 
 # Method: fixedAddressAction
 #
-#	Add/set/del a ip/mac pair as fixed address in a given interface.
+#   Add/set/del a ip/mac pair as fixed address in a given interface.
 #
 # Parameters:
 #
-#	iface - String interface name
+#   iface - String interface name
 #       action - String the action to be performed (add/set/del)
 #
 #       indexValue - String the index element value, it may be the
@@ -847,111 +840,109 @@ sub ranges # (iface)
 #       indexField - String the field name to use as index (Only
 #       required for set/del actions)
 #
-#	mac - String mac address
-#	ip - String IPv4 address
-#	name - String the mapping name
+#   mac - String mac address
+#   ip - String IPv4 address
+#   name - String the mapping name
 #
 #   Exceptions:
 #
-#	DataNotFound - Interface does not exist
-#	External - Interface is not configured as static
-#	External - ip is not in the network for the given interface
-#	External - ip overlap
-#	External - ip already configured as fixed
+#   DataNotFound - Interface does not exist
+#   External - Interface is not configured as static
+#   External - ip is not in the network for the given interface
+#   External - ip overlap
+#   External - ip already configured as fixed
 #
 sub fixedAddressAction
 {
-	my ($self, %args) = @_;
+    my ($self, %args) = @_;
 
-        my $iface = delete ( $args{iface} );
-        my $action = delete ( $args{action} );
-        unless ( any(qw(add set del)) eq $action ) {
-            throw EBox::Exceptions::External(__('No valid action. Available '
-                                                . 'ones are: add, set and del'));
-        }
+    my $iface = delete ( $args{iface} );
+    my $action = delete ( $args{action} );
+    unless ( any(qw(add set del)) eq $action ) {
+        throw EBox::Exceptions::External(__('No valid action. Available '
+                    . 'ones are: add, set and del'));
+    }
 
-	my $network = EBox::Global->modInstance('network');
+    my $network = EBox::Global->modInstance('network');
 
-	#if iface doesn't exists throw exception
-	if (not $iface or not $network->ifaceExists($iface)) {
-		throw EBox::Exceptions::DataNotFound(data => __('Interface'),
-				value => $iface);
-	}
+    #if iface doesn't exists throw exception
+    if (not $iface or not $network->ifaceExists($iface)) {
+        throw EBox::Exceptions::DataNotFound(data => __('Interface'),
+                value => $iface);
+    }
 
-	#if iface is not static, throw exception
-	if ($network->ifaceMethod($iface) ne 'static') {
-		throw EBox::Exceptions::External(__x("{iface} is not static",
-			iface => $iface));
-	}
+    #if iface is not static, throw exception
+    if ($network->ifaceMethod($iface) ne 'static') {
+        throw EBox::Exceptions::External(__x("{iface} is not static",
+                    iface => $iface));
+    }
 
-        my $model = $self->_getModel('fixedAddrModel', $iface);
-        if ( $action eq 'add' ) {
-            $model->add( name => $args{name},
-                         mac  => $args{mac},
-                         ip   => $args{ip});
-        } elsif ( $action eq 'set' ) {
-            my $index = delete ( $args{indexValue} );
-            my $indexField = delete ( $args{indexField} );
-            my @args = map { $_ => $args{$_} } keys (%args);
-            $model->setIndexField($indexField);
-            $model->set( $index, @args );
-        } elsif ( $action eq 'del' ) {
-            my $index = delete ( $args{indexValue} );
-            my $indexField = delete ( $args{indexField} );
-            $model->setIndexField($indexField);
-            $model->del( $index );
-        }
-
-
+    my $model = $self->_getModel('fixedAddrModel', $iface);
+    if ( $action eq 'add' ) {
+        $model->add( name => $args{name},
+                mac  => $args{mac},
+                ip   => $args{ip});
+    } elsif ( $action eq 'set' ) {
+        my $index = delete ( $args{indexValue} );
+        my $indexField = delete ( $args{indexField} );
+        my @args = map { $_ => $args{$_} } keys (%args);
+        $model->setIndexField($indexField);
+        $model->set( $index, @args );
+    } elsif ( $action eq 'del' ) {
+        my $index = delete ( $args{indexValue} );
+        my $indexField = delete ( $args{indexField} );
+        $model->setIndexField($indexField);
+        $model->del( $index );
+    }
 }
 
 # Method: fixedAddresses
 #
-#	Return the list of fixed addreses
+#   Return the list of fixed addreses
 #
 # Parameters:
 #
-#	iface - String interface name
+#   iface - String interface name
 #
 # Returns:
 #
-#	array ref - contating the fixed addresses in hash refereces.
-#	Each hash holds the keys 'mac', 'ip' and 'name'
+#   array ref - contating the fixed addresses in hash refereces.
+#   Each hash holds the keys 'mac', 'ip' and 'name'
 #
 # Exceptions:
 #
-#	<EBox::Exceptions::DataNotFound> - Interface does not exist
+#   <EBox::Exceptions::DataNotFound> - Interface does not exist
 #
 sub fixedAddresses # (interface)
 {
-	my ($self,$iface) = @_;
+    my ($self,$iface) = @_;
 
-	my $network = EBox::Global->modInstance('network');
+    my $network = EBox::Global->modInstance('network');
 
-	#if iface doesn't exists throw exception
-	if (not $iface or not $network->ifaceExists($iface)) {
-		throw EBox::Exceptions::DataNotFound(data => __('Interface'),
-				value => $iface);
-	}
+    #if iface doesn't exists throw exception
+    if (not $iface or not $network->ifaceExists($iface)) {
+        throw EBox::Exceptions::DataNotFound(data => __('Interface'),
+                value => $iface);
+    }
 
-	#if iface is not static, throw exception
-	if ($network->ifaceMethod($iface) ne 'static') {
-		throw EBox::Exceptions::External(__x("{iface} is not static",
-			iface => $iface));
-	}
+    #if iface is not static, throw exception
+    if ($network->ifaceMethod($iface) ne 'static') {
+        throw EBox::Exceptions::External(__x("{iface} is not static",
+            iface => $iface));
+    }
 
-	my $model = $self->_getModel('fixedAddrModel', $iface);
-	my @addrs;
-	for my $id (@{$model->ids()}) {
-		my $row = $model->row($id);
-		push (@addrs, {
-				name => $row->valueByName('name'),
-				ip => $row->valueByName('ip'),
-				mac => $row->valueByName('mac')
-				});
-	}
+    my $model = $self->_getModel('fixedAddrModel', $iface);
+    my @addrs;
+    for my $id (@{$model->ids()}) {
+        my $row = $model->row($id);
+        push (@addrs, {
+                name => $row->valueByName('name'),
+                ip => $row->valueByName('ip'),
+                mac => $row->valueByName('mac')
+                });
+    }
 
-	return \@addrs;
+    return \@addrs;
 }
 
 # Group: Static or class methods
@@ -1088,59 +1079,57 @@ sub ifaceMethodChanged # (iface, old_method, new_method)
 #
 sub vifaceAdded # (iface, viface, address, netmask)
 {
-	my ( $self, $iface, $viface, $address, $netmask) = @_;
+    my ( $self, $iface, $viface, $address, $netmask) = @_;
 
-	my $net = EBox::Global->modInstance('network');
-	my $ip = new Net::IP($address);
+    my $net = EBox::Global->modInstance('network');
+    my $ip = new Net::IP($address);
 
-        my $manager = EBox::Model::ModelManager->instance();
+    my $manager = EBox::Model::ModelManager->instance();
 
-        my @rangeModels = @{$manager->model('/dhcp/RangeTable/*')};
-        # Check that the new IP for the virtual interface isn't in any range
-        foreach my $rangeModel (@rangeModels) {
-            foreach my $id (@{$rangeModel->ids()}) {
-                my $rangeRow = $rangeModel->row($id);
-                my $from = $rangeRow->valueByName('from');
-                my $to   = $rangeRow->valueByName('to');
-                my $range = new Net::IP($from . ' - ' . $to);
-                unless ( $ip->overlaps($range) == $IP_NO_OVERLAP ) {
-                    throw EBox::Exceptions::External(
-                    __x('The IP address of the virtual interface '
-                            . 'you are trying to add is already used by the '
-                            . "DHCP range '{range}' in the interface "
-                            . "'{iface}'. Please, remove it before trying "
-                            . 'to add a virtual interface using it.',
-                            range => $rangeRow->valueByName('name'),
-                            iface => $rangeModel->index()));
-                }
+    my @rangeModels = @{$manager->model('/dhcp/RangeTable/*')};
+    # Check that the new IP for the virtual interface isn't in any range
+    foreach my $rangeModel (@rangeModels) {
+        foreach my $id (@{$rangeModel->ids()}) {
+            my $rangeRow = $rangeModel->row($id);
+            my $from = $rangeRow->valueByName('from');
+            my $to   = $rangeRow->valueByName('to');
+            my $range = new Net::IP($from . ' - ' . $to);
+            unless ( $ip->overlaps($range) == $IP_NO_OVERLAP ) {
+                throw EBox::Exceptions::External(
+                __x('The IP address of the virtual interface '
+                        . 'you are trying to add is already used by the '
+                        . "DHCP range '{range}' in the interface "
+                        . "'{iface}'. Please, remove it before trying "
+                        . 'to add a virtual interface using it.',
+                        range => $rangeRow->valueByName('name'),
+                        iface => $rangeModel->index()));
             }
         }
+    }
 
-        my @fixedAddrModels = @{$manager->model('/dhcp/FixedAddressTable/*')};
-        # Check the new IP for the virtual interface is not a fixed address
-        foreach my $fixedAddrModel (@fixedAddrModels) {
-            foreach my $id (@{$fixedAddrModel->ids()}) {
-                my $mappingRow = $fixedAddrModel->row($id);
-                my $fixedIP = new Net::IP($mappingRow->valueByName('ip'));
-                unless ( $ip->overlaps($fixedIP) == $IP_NO_OVERLAP ) {
-                    throw EBox::Exceptions::External(
-                           __x('The IP address of the virtual interface '
-                               . 'you are trying to add is already used by the '
-                               . "DHCP fixed address '{fixed}' in the "
-                               . "interface '{iface}'. Please, remove it "
-                               . 'before trying to add a virtual interface '
-                               . 'using it.',
-                               fixed => $mappingRow->valueByName('name'),
-                               iface => $fixedAddrModel->index()));
-
-                }
+    my @fixedAddrModels = @{$manager->model('/dhcp/FixedAddressTable/*')};
+    # Check the new IP for the virtual interface is not a fixed address
+    foreach my $fixedAddrModel (@fixedAddrModels) {
+        foreach my $id (@{$fixedAddrModel->ids()}) {
+            my $mappingRow = $fixedAddrModel->row($id);
+            my $fixedIP = new Net::IP($mappingRow->valueByName('ip'));
+            unless ( $ip->overlaps($fixedIP) == $IP_NO_OVERLAP ) {
+                throw EBox::Exceptions::External(
+                       __x('The IP address of the virtual interface '
+                           . 'you are trying to add is already used by the '
+                           . "DHCP fixed address '{fixed}' in the "
+                           . "interface '{iface}'. Please, remove it "
+                           . 'before trying to add a virtual interface '
+                           . 'using it.',
+                           fixed => $mappingRow->valueByName('name'),
+                           iface => $fixedAddrModel->index()));
             }
         }
-        # Mark managers as changed
-        $manager->markAsChanged();
-        my $compManager = EBox::Model::CompositeManager->Instance();
-        $compManager->markAsChanged();
-
+    }
+    # Mark managers as changed
+    $manager->markAsChanged();
+    my $compManager = EBox::Model::CompositeManager->Instance();
+    $compManager->markAsChanged();
 }
 
 # Method:  vifaceDelete
@@ -1157,18 +1146,19 @@ sub vifaceAdded # (iface, viface, address, netmask)
 #
 sub vifaceDelete # (iface, viface)
 {
-	my ( $self, $iface, $viface) = @_;
-        my $manager = EBox::Model::ModelManager->instance();
+    my ($self, $iface, $viface) = @_;
 
-        foreach my $modelName (qw(RangeTable FixedAddressTable Options)) {
-            my $model = $manager->model("/dhcp/$modelName/$iface:$viface");
-            my $nr = $model->size();
-            if ( $nr > 0 ) {
-                return 1;
-            }
+    my $manager = EBox::Model::ModelManager->instance();
+
+    foreach my $modelName (qw(RangeTable FixedAddressTable Options)) {
+        my $model = $manager->model("/dhcp/$modelName/$iface:$viface");
+        my $nr = $model->size();
+        if ( $nr > 0 ) {
+            return 1;
         }
+    }
 
-        return 0;
+    return 0;
 }
 
 # Method: staticIfaceAddressChanged
@@ -1186,18 +1176,18 @@ sub vifaceDelete # (iface, viface)
 #
 sub staticIfaceAddressChanged # (iface, old_addr, old_mask, new_addr, new_mask)
 {
-	my ( $self, $iface, $old_addr, $old_mask, $new_addr, $new_mask) = @_;
-#	my $nr = @{$self->ranges($iface)};
-#	my $nf = @{$self->fixedAddresses($iface)};
-#	if(($nr == 0) and ($nf == 0)){
-#		return 0;
-#	}
+    my ( $self, $iface, $old_addr, $old_mask, $new_addr, $new_mask) = @_;
+#   my $nr = @{$self->ranges($iface)};
+#   my $nf = @{$self->fixedAddresses($iface)};
+#   if(($nr == 0) and ($nf == 0)){
+#       return 0;
+#   }
 
-	my $ip = new Net::IP($new_addr);
+    my $ip = new Net::IP($new_addr);
 
-	my $network = ip_network($new_addr, $new_mask);
-	my $bits = bits_from_mask($new_mask);
-	my $netIP = new Net::IP("$network/$bits");
+    my $network = ip_network($new_addr, $new_mask);
+    my $bits = bits_from_mask($new_mask);
+    my $netIP = new Net::IP("$network/$bits");
 
         # Check ranges
         my $manager = EBox::Model::ModelManager->instance();
@@ -1230,32 +1220,32 @@ sub staticIfaceAddressChanged # (iface, old_addr, old_mask, new_addr, new_mask)
             }
         }
 
-#	my $ranges = $self->ranges($iface);
-#	foreach my $r (@{$ranges}){
-#		my $r_ip = new Net::IP($r->{'from'} . " - " . $r->{'to'});
-#		#check that the range is still in the network
-#		unless($r_ip->overlaps($net_ip)==$IP_A_IN_B_OVERLAP){
-#			return 1;
-#		}
-#		#check that the new IP isn't in any range
-#		unless($ip->overlaps($r_ip)==$IP_NO_OVERLAP){
-#			return 1;
-#		}
-#	}
-#	my $fixedAddresses = $self->fixedAddresses($iface);
-#	foreach my $f (@{$fixedAddresses}){
-#		my $f_ip = new Net::IP($f->{'ip'});
-#		#check that the fixed address is still in the network
-#		unless($f_ip->overlaps($net_ip)==$IP_A_IN_B_OVERLAP){
-#			return 1;
-#		}
-#		#check that the new IP isn't in any fixed address
-#		unless($ip->overlaps($f_ip)==$IP_NO_OVERLAP){
-#			return 1;
-#		}
-#	}
+#   my $ranges = $self->ranges($iface);
+#   foreach my $r (@{$ranges}){
+#       my $r_ip = new Net::IP($r->{'from'} . " - " . $r->{'to'});
+#       #check that the range is still in the network
+#       unless($r_ip->overlaps($net_ip)==$IP_A_IN_B_OVERLAP){
+#           return 1;
+#       }
+#       #check that the new IP isn't in any range
+#       unless($ip->overlaps($r_ip)==$IP_NO_OVERLAP){
+#           return 1;
+#       }
+#   }
+#   my $fixedAddresses = $self->fixedAddresses($iface);
+#   foreach my $f (@{$fixedAddresses}){
+#       my $f_ip = new Net::IP($f->{'ip'});
+#       #check that the fixed address is still in the network
+#       unless($f_ip->overlaps($net_ip)==$IP_A_IN_B_OVERLAP){
+#           return 1;
+#       }
+#       #check that the new IP isn't in any fixed address
+#       unless($ip->overlaps($f_ip)==$IP_NO_OVERLAP){
+#           return 1;
+#       }
+#   }
 
-	return 0;
+    return 0;
 }
 
 # Function: freeIface
@@ -1270,8 +1260,8 @@ sub staticIfaceAddressChanged # (iface, old_addr, old_mask, new_addr, new_mask)
 #
 sub freeIface #( self, iface )
 {
-	my ( $self, $iface ) = @_;
-#	$self->delete_dir("$iface");
+    my ( $self, $iface ) = @_;
+#   $self->delete_dir("$iface");
         $self->_removeDataModelsAttached($iface);
 
         my $manager = EBox::Model::ModelManager->instance();
@@ -1279,10 +1269,10 @@ sub freeIface #( self, iface )
         $manager = EBox::Model::CompositeManager->Instance();
         $manager->markAsChanged();
 
-	my $net = EBox::Global->modInstance('network');
-	if ($net->ifaceMethod($iface) eq 'static') {
-	  $self->_checkStaticIfaces(-1);
-	}
+    my $net = EBox::Global->modInstance('network');
+    if ($net->ifaceMethod($iface) eq 'static') {
+      $self->_checkStaticIfaces(-1);
+    }
 }
 
 # Method: freeViface
@@ -1297,8 +1287,8 @@ sub freeIface #( self, iface )
 #
 sub freeViface #( self, iface, viface )
 {
-	my ( $self, $iface, $viface ) = @_;
-#	$self->delete_dir("$iface:$viface");
+    my ( $self, $iface, $viface ) = @_;
+#   $self->delete_dir("$iface:$viface");
         $self->_removeDataModelsAttached("$iface:$viface");
 
         my $manager = EBox::Model::ModelManager->instance();
@@ -1306,47 +1296,47 @@ sub freeViface #( self, iface, viface )
         $manager = EBox::Model::CompositeManager->Instance();
         $manager->markAsChanged();
 
-#	my $net = EBox::Global->modInstance('network');
-#	if ($net->ifaceMethod($viface) eq 'static') {
-	  $self->_checkStaticIfaces(-1);
-#	}
-
+#   my $net = EBox::Global->modInstance('network');
+#   if ($net->ifaceMethod($viface) eq 'static') {
+      $self->_checkStaticIfaces(-1);
+#   }
 }
 
 # Group: Private methods
 
 
 # Impelment LogHelper interface
-sub tableInfo {
-	my $self = shift;
+sub tableInfo
+{
+    my ($self) = @_;
 
-	my $titles = { 'timestamp' => __('Date'),
-		'interface' => __('Interface'),
-		'mac' => __('MAC address'),
-		'ip' => __('IP'),
-		'event' => __('Event')
-	};
-	my @order = ('timestamp', 'ip', 'mac', 'interface', 'event');
-	my $events = {'leased' => __('Leased'), 'released' => __('Released') };
+    my $titles = { 'timestamp' => __('Date'),
+        'interface' => __('Interface'),
+        'mac' => __('MAC address'),
+        'ip' => __('IP'),
+        'event' => __('Event')
+    };
+    my @order = ('timestamp', 'ip', 'mac', 'interface', 'event');
+    my $events = {'leased' => __('Leased'), 'released' => __('Released') };
 
-	return [{
-		'name' => __('DHCP'),
-		'index' => 'dhcp',
-		'titles' => $titles,
-		'order' => \@order,
-		'tablename' => 'leases',
-		'timecol' => 'timestamp',
-		'filter' => ['interface', 'mac', 'ip'],
-		'events' => $events,
-		'eventcol' => 'event'
-	}];
+    return [{
+        'name' => __('DHCP'),
+        'index' => 'dhcp',
+        'titles' => $titles,
+        'order' => \@order,
+        'tablename' => 'leases',
+        'timecol' => 'timestamp',
+        'filter' => ['interface', 'mac', 'ip'],
+        'events' => $events,
+        'eventcol' => 'event'
+    }];
 }
 
 sub logHelper
 {
-	my $self = shift;
+    my $self = shift;
 
-	return (new EBox::DHCPLogHelper);
+    return (new EBox::DHCPLogHelper);
 }
 
 sub _leaseIDFromIP
@@ -1433,7 +1423,7 @@ sub widgets
 #
 sub _setDHCPConf
 {
-    my $self = shift;
+    my ($self) = @_;
 
     # Write general configuration
     my $net = EBox::Global->modInstance('network');
@@ -1490,81 +1480,81 @@ sub _setTFTPDConf
 #
 sub _ifacesInfo
 {
-  my ($self, $staticRoutes_r) = @_;
+    my ($self, $staticRoutes_r) = @_;
 
-  my $net = EBox::Global->modInstance('network');
-  my $ifaces = $net->allIfaces();
+    my $net = EBox::Global->modInstance('network');
+    my $ifaces = $net->allIfaces();
 
-  my %iflist;
-  foreach my $iface (@{$ifaces}) {
-    if ($net->ifaceMethod($iface) eq 'static') {
-      my $address = $net->ifaceAddress($iface);
-      my $netmask = $net->ifaceNetmask($iface);
-      my $network = ip_network($address, $netmask);
+    my %iflist;
+    foreach my $iface (@{$ifaces}) {
+        if ($net->ifaceMethod($iface) eq 'static') {
+            my $address = $net->ifaceAddress($iface);
+            my $netmask = $net->ifaceNetmask($iface);
+            my $network = ip_network($address, $netmask);
 
-      $iflist{$iface}->{'net'} = $network;
-      $iflist{$iface}->{'address'} = $address;
-      $iflist{$iface}->{'netmask'} = $netmask;
-      $iflist{$iface}->{'ranges'} = $self->ranges($iface);
-      $iflist{$iface}->{'fixed'} = $self->fixedAddresses($iface);
+            $iflist{$iface}->{'net'} = $network;
+            $iflist{$iface}->{'address'} = $address;
+            $iflist{$iface}->{'netmask'} = $netmask;
+            $iflist{$iface}->{'ranges'} = $self->ranges($iface);
+            $iflist{$iface}->{'fixed'} = $self->fixedAddresses($iface);
 
-      # look if we have static routes for this network
-      my $netWithMask = EBox::NetWrappers::to_network_with_mask($network, $netmask);
-       $iflist{$iface}->{'staticRoutes'} =  $staticRoutes_r->{$netWithMask} if exists $staticRoutes_r->{$netWithMask};
+            # look if we have static routes for this network
+            my $netWithMask = EBox::NetWrappers::to_network_with_mask($network, $netmask);
+            $iflist{$iface}->{'staticRoutes'} =  $staticRoutes_r->{$netWithMask} if exists $staticRoutes_r->{$netWithMask};
 
-      my $gateway = $self->defaultGateway($iface);
-      if (defined($gateway) and $gateway ne "") {
-	$iflist{$iface}->{'gateway'} = $gateway;
-      } else {
-	$iflist{$iface}->{'gateway'} = $address;
-      }
-      my $search = $self->searchDomain($iface);
-      $iflist{$iface}->{'search'} = $search;
-      my $nameserver1 = $self->nameserver($iface,1);
-      if (defined($nameserver1) and $nameserver1 ne "") {
-	$iflist{$iface}->{'nameserver1'} = $nameserver1;
-      }
-      my $nameserver2 = $self->nameserver($iface,2);
-      if (defined($nameserver2) and $nameserver2 ne "") {
-	$iflist{$iface}->{'nameserver2'} = $nameserver2;
-      }
-      # NTP option
-      my $ntpServer = $self->ntpServer($iface);
-      if ( defined($ntpServer) and $ntpServer ne "") {
-          $iflist{$iface}->{'ntpServer'} = $ntpServer;
-      }
-      # WINS/Netbios server option
-      my $winsServer = $self->winsServer($iface);
-      if ( defined($winsServer) and $winsServer ne "") {
-          $iflist{$iface}->{'winsServer'} = $winsServer;
-      }
-      # Leased times
-      my $defaultLeasedTime = $self->_leasedTime('default', $iface);
-      if (defined($defaultLeasedTime)) {
-        $iflist{$iface}->{'defaultLeasedTime'} = $defaultLeasedTime;
-      }
-      my $maxLeasedTime = $self->_leasedTime('max', $iface);
-      if (defined($maxLeasedTime)) {
-        $iflist{$iface}->{'maxLeasedTime'} = $maxLeasedTime;
-      }
-      # Thin client options
-      my $nextServer = $self->_thinClientOption('nextServer', $iface);
-      if ($nextServer) {
-        $iflist{$iface}->{'nextServer'} = $nextServer;
-      }
-      my $filename = $self->_thinClientOption('filename', $iface);
-      if (defined($filename)) {
-        $iflist{$iface}->{'filename'} = $filename;
-      }
-      my $dynamicDomain = $self->_dynamicDNS('dynamic', $iface);
-      if (defined($dynamicDomain)) {
-          $iflist{$iface}->{'dynamicDomain'} = $dynamicDomain;
-          $iflist{$iface}->{'staticDomain'}  = $self->_dynamicDNS('static', $iface);
-      }
+            my $gateway = $self->defaultGateway($iface);
+            if (defined($gateway) and $gateway ne "") {
+                $iflist{$iface}->{'gateway'} = $gateway;
+            } else {
+                $iflist{$iface}->{'gateway'} = $address;
+            }
+            my $search = $self->searchDomain($iface);
+            $iflist{$iface}->{'search'} = $search;
+            my $nameserver1 = $self->nameserver($iface,1);
+            if (defined($nameserver1) and $nameserver1 ne "") {
+                $iflist{$iface}->{'nameserver1'} = $nameserver1;
+            }
+            my $nameserver2 = $self->nameserver($iface,2);
+            if (defined($nameserver2) and $nameserver2 ne "") {
+                $iflist{$iface}->{'nameserver2'} = $nameserver2;
+            }
+            # NTP option
+            my $ntpServer = $self->ntpServer($iface);
+            if ( defined($ntpServer) and $ntpServer ne "") {
+                $iflist{$iface}->{'ntpServer'} = $ntpServer;
+            }
+            # WINS/Netbios server option
+            my $winsServer = $self->winsServer($iface);
+            if ( defined($winsServer) and $winsServer ne "") {
+                $iflist{$iface}->{'winsServer'} = $winsServer;
+            }
+            # Leased times
+            my $defaultLeasedTime = $self->_leasedTime('default', $iface);
+            if (defined($defaultLeasedTime)) {
+                $iflist{$iface}->{'defaultLeasedTime'} = $defaultLeasedTime;
+            }
+            my $maxLeasedTime = $self->_leasedTime('max', $iface);
+            if (defined($maxLeasedTime)) {
+                $iflist{$iface}->{'maxLeasedTime'} = $maxLeasedTime;
+            }
+            # Thin client options
+            my $nextServer = $self->_thinClientOption('nextServer', $iface);
+            if ($nextServer) {
+                $iflist{$iface}->{'nextServer'} = $nextServer;
+            }
+            my $filename = $self->_thinClientOption('filename', $iface);
+            if (defined($filename)) {
+                $iflist{$iface}->{'filename'} = $filename;
+            }
+            my $dynamicDomain = $self->_dynamicDNS('dynamic', $iface);
+            if (defined($dynamicDomain)) {
+                $iflist{$iface}->{'dynamicDomain'} = $dynamicDomain;
+                $iflist{$iface}->{'staticDomain'}  = $self->_dynamicDNS('static', $iface);
+            }
+        }
     }
-  }
 
-  return \%iflist;
+    return \%iflist;
 }
 
 # Method: _realIfaces
@@ -1579,19 +1569,19 @@ sub _ifacesInfo
 #
 sub _realIfaces
 {
-  my ($self) = @_;
-  my $net = EBox::Global->modInstance('network');
+    my ($self) = @_;
+    my $net = EBox::Global->modInstance('network');
 
-  my $real_ifaces = $net->ifaces();
-  my %realifs;
-  foreach my $iface (@{$real_ifaces}) {
-    if ($net->ifaceMethod($iface) eq 'static') {
-      $realifs{$iface} = $net->vifaceNames($iface);
+    my $real_ifaces = $net->ifaces();
+    my %realifs;
+    foreach my $iface (@{$real_ifaces}) {
+        if ($net->ifaceMethod($iface) eq 'static') {
+            $realifs{$iface} = $net->vifaceNames($iface);
+        }
+
     }
 
-  }
-
-  return \%realifs;
+    return \%realifs;
 }
 
 # Method: _areThereThinClientOptions
@@ -1645,7 +1635,6 @@ sub _leasedTime # (which, iface)
 #
 sub _thinClientOption # (option, iface)
 {
-
     my ($self, $option, $iface) = @_;
 
     my $thinClientModel = $self->_getModel('thinClientModel', $iface);
@@ -1666,7 +1655,6 @@ sub _thinClientOption # (option, iface)
     } else {
         return $thinClientModel->nextServer();
     }
-
 }
 
 # Method: _dynamicDNS
@@ -1697,7 +1685,6 @@ sub _dynamicDNS # (which, iface)
         }
     }
     return undef;
-
 }
 
 # Return the key file to update DNS
@@ -1713,7 +1700,6 @@ sub _keysFile
         }
     }
     return '';
-
 }
 
 # Return if the dynamic DNS feature is enabled for this DHCP server or
@@ -1742,22 +1728,24 @@ sub _dynamicDNSEnabled # (ifacesInfo)
 
 # Configure the firewall rules to add
 # XXX maybe this is dead code?
-sub _configureFirewall {
-	my $self = shift;
-	my $fw = EBox::Global->modInstance('firewall');
-	try {
-		$fw->removeOutputRule('udp', 67);
-		$fw->removeOutputRule('udp', 68);
-		$fw->removeOutputRule('tcp', 67);
-		$fw->removeOutputRule('tcp', 68);
-	} catch EBox::Exceptions::Internal with { };
+sub _configureFirewall
+{
+    my ($self) = @_;
 
-	if ($self->isEnabled()) {
-		$fw->addOutputRule('tcp', 67);
-		$fw->addOutputRule('tcp', 68);
-		$fw->addOutputRule('udp', 67);
-		$fw->addOutputRule('udp', 68);
-	}
+    my $fw = EBox::Global->modInstance('firewall');
+    try {
+        $fw->removeOutputRule('udp', 67);
+        $fw->removeOutputRule('udp', 68);
+        $fw->removeOutputRule('tcp', 67);
+        $fw->removeOutputRule('tcp', 68);
+    } catch EBox::Exceptions::Internal with { };
+
+    if ($self->isEnabled()) {
+        $fw->addOutputRule('tcp', 67);
+        $fw->addOutputRule('tcp', 68);
+        $fw->addOutputRule('udp', 67);
+        $fw->addOutputRule('udp', 68);
+    }
 }
 
 # Returns those model instances attached to the given interface
@@ -1793,28 +1781,28 @@ sub _getModel
 # Check there are enough static interfaces to have DHCP service enabled
 sub _checkStaticIfaces
 {
-  my ($self, $adjustNumber) = @_;
-  defined $adjustNumber or $adjustNumber = 0;
+    my ($self, $adjustNumber) = @_;
+    defined $adjustNumber or $adjustNumber = 0;
 
-  my $nStaticIfaces = $self->_nStaticIfaces() + $adjustNumber;
-  if ($nStaticIfaces == 0) {
-    if ($self->isEnabled()) {
-      $self->enableService(0);
-      EBox::info('DHCP service was deactivated because there was not any static interface left');
+    my $nStaticIfaces = $self->_nStaticIfaces() + $adjustNumber;
+    if ($nStaticIfaces == 0) {
+        if ($self->isEnabled()) {
+            $self->enableService(0);
+            EBox::info('DHCP service was deactivated because there was not any static interface left');
+        }
     }
-  }
 }
 
 # Return the current number of static interfaces
 sub _nStaticIfaces
 {
-  my ($self) = @_;
+    my ($self) = @_;
 
-  my $net = EBox::Global->modInstance('network');
-  my $ifaces = $net->allIfaces();
-  my $staticIfaces = grep  { $net->ifaceMethod($_) eq 'static' } @{$ifaces};
+    my $net = EBox::Global->modInstance('network');
+    my $ifaces = $net->allIfaces();
+    my $staticIfaces = grep  { $net->ifaceMethod($_) eq 'static' } @{$ifaces};
 
-  return $staticIfaces;
+    return $staticIfaces;
 }
 
 1;
