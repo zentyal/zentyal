@@ -19,7 +19,6 @@ use base 'EBox::Model::Component';
 use strict;
 use warnings;
 
-
 use EBox;
 use EBox::Global;
 use EBox::Model::CompositeManager;
@@ -53,13 +52,12 @@ use base 'EBox::Model::Component';
 #
 #    Factor findValue, find, findAll and findAllValue
 #
-#     Use EBox::Model::Row all over the place
+#    Use EBox::Model::Row all over the place
 #
 #    Fix issue with values and printableValues fetched
 #    from foreign tables
 
 
-#
 # Caching:
 #
 #     To speed up the process of returning rows, the access to the
@@ -72,34 +70,34 @@ use base 'EBox::Model::Component';
 #     Note that this caching process is very basic. Next step could be
 #     caching at row level, and keeping coherence at that level, modifying
 #     just the affected rows in the memory stored structure.
-#
 
 sub new
 {
-        my $class = shift;
-        my %opts = @_;
-        my $gconfmodule = delete $opts{'gconfmodule'};
-        $gconfmodule or
-            throw EBox::Exceptions::MissingArgument('gconfmodule');
-        my $directory   = delete $opts{'directory'};
-        $directory or
-            throw EBox::Exceptions::MissingArgument('directory');
-        my $domain      = delete $opts{'domain'};
+    my $class = shift;
 
-        my $self =
-        {
-            'gconfmodule' => $gconfmodule,
-            'gconfdir' => $directory,
-            'directory' => "$directory/keys",
-            'order' => "$directory/order",
-            'table' => undef,
-            'cachedVersion' => 0,
-            'domain' => $domain,
-        };
+    my %opts = @_;
+    my $gconfmodule = delete $opts{'gconfmodule'};
+    $gconfmodule or
+        throw EBox::Exceptions::MissingArgument('gconfmodule');
+    my $directory   = delete $opts{'directory'};
+    $directory or
+        throw EBox::Exceptions::MissingArgument('directory');
+    my $domain      = delete $opts{'domain'};
 
-        bless($self, $class);
+    my $self =
+    {
+        'gconfmodule' => $gconfmodule,
+        'gconfdir' => $directory,
+        'directory' => "$directory/keys",
+        'order' => "$directory/order",
+        'table' => undef,
+        'cachedVersion' => 0,
+        'domain' => $domain,
+    };
 
-        return $self;
+    bless($self, $class);
+
+    return $self;
 }
 
 # Method: table
@@ -151,15 +149,15 @@ sub _setupTable
 
         if (exists $self->{'table'}->{'tableDescriptionByName'}->{$name} ) {
             throw EBox::Exceptions::Internal(
-                  "Repeated field  name in tableDescription: $name"
-                                            );
+                    "Repeated field  name in tableDescription: $name"
+                    );
         }
 
         $self->{'table'}->{'tableDescriptionByName'}->{$name} = $field;
         # Set the model here to allow types have the model from the
         # addition as well
         $field->setModel($self);
-      }
+    }
 
     # If all fields are volatile, then the model is volatile
     $self->_setIfVolatile();
@@ -183,16 +181,14 @@ sub checkTable
         throw EBox::Exceptions::Internal('Missing tableDescription in table definition');
     }
     elsif (@{ $table->{tableDescription} } == 0) {
-        throw EBox::Exceptions::Internal(
-                                         'tableDescription has not any field'
-                                        );
+        throw EBox::Exceptions::Internal('tableDescription has not any field');
     }
 
     if (not $table->{tableName}) {
         throw EBox::Exceptions::Internal(
-            'table description has not tableName field or has a empty one'
-                                        );
-      }
+                'table description has not tableName field or has a empty one'
+                );
+    }
 
     if ((exists $table->{sortedBy}) and (exists $table->{order})) {
         if ($table->{sortedBy}and $table->{order}) {
@@ -236,9 +232,7 @@ sub checkTable
 #
 sub _table
 {
-
     throw EBox::Exceptions::NotImplemented('_table');
-
 }
 
 # Method: modelName
@@ -267,27 +261,23 @@ sub name
 }
 
 
-
 # XXX transitional method, this will be the future name() method
 sub nameFromClass
 {
-  my ($self) = @_;
-  my $class;
-  if (ref $self) {
-    $class = ref $self;
-  }
-  else {
-    $class = $self;
-  }
+    my ($self) = @_;
+    my $class;
+    if (ref $self) {
+        $class = ref $self;
+    }
+    else {
+        $class = $self;
+    }
 
+    my @parts = split '::', $class;
+    my $name = pop @parts;
 
-  my @parts = split '::', $class;
-  my $name = pop @parts;
-
-  return $name;
+    return $name;
 }
-
-
 
 # Method: contextName
 #
@@ -355,9 +345,7 @@ sub printableContextName
 #
 sub index
 {
-
     return '';
-
 }
 
 # Method: printableIndex
@@ -371,9 +359,7 @@ sub index
 #
 sub printableIndex
 {
-
     return '';
-
 }
 
 # Method: precondition
@@ -489,7 +475,6 @@ sub defaultEnabledValue
         $self->{'table'}->{'defaultEnabledValue'} = 0;
     }
     return $self->{'table'}->{'defaultEnabledValue'};
-
 }
 
 # Method: sortedBy
@@ -534,8 +519,7 @@ sub fieldHeader
     my ($self, $name) = @_;
 
     unless (defined($name)) {
-        throw EBox::Exceptions::MissingArgument(
-                "field's name")
+        throw EBox::Exceptions::MissingArgument('field name')
     }
 
     unless (exists ($self->table()->{'tableDescriptionByName'}->{$name})) {
@@ -619,11 +603,10 @@ sub optionsFromForeignModel
 #      { value => '1', printableValue => '1'},
 #         { value => '2', printableValue => '2'}
 #    ]
+#
 sub selectOptions
 {
-
     throw EBox::Exceptions::DeprecatedMethod();
-
 }
 
 # Method: validateRow
@@ -816,9 +799,11 @@ sub notifyForeignModelAction
 # Returns:
 #
 #   just added row's id
+#
 sub addRow
 {
-    my $self = shift;
+    my ($self) = @_;
+
     my %params = @_;
 
     $self->validateRow('add', @_);
@@ -831,9 +816,8 @@ sub addRow
     }
 
     return $self->addTypedRow($userData,
-            readOnly => $params{'readOnly'},
-            id => $params{'id'});
-
+                              readOnly => $params{'readOnly'},
+                              id => $params{'id'});
 }
 
 # Method: addTypedRow
@@ -856,93 +840,90 @@ sub addRow
 #     String - the identifier for the given row
 #
 sub addTypedRow
-  {
+{
+    my ($self, $paramsRef, %optParams) = @_;
 
-      my ($self, $paramsRef, %optParams) = @_;
+    my $tableName = $self->tableName();
+    my $dir = $self->{'directory'};
+    my $gconfmod = $self->{'gconfmodule'};
+    my $readOnly = delete $optParams{'readOnly'};
+    my $id = delete $optParams{'id'};
 
-      my $tableName = $self->tableName();
-      my $dir = $self->{'directory'};
-      my $gconfmod = $self->{'gconfmodule'};
-      my $readOnly = delete $optParams{'readOnly'};
-      my $id = delete $optParams{'id'};
+    my $leadingText = substr( $tableName, 0, 4);
+    # Changing text to be lowercase
+    $leadingText = "\L$leadingText";
 
-      my $leadingText = substr( $tableName, 0, 4);
-      # Changing text to be lowercase
-      $leadingText = "\L$leadingText";
+    unless (defined ($id) and length ($id) > 0) {
+        $id = $gconfmod->get_unique_id($leadingText, $dir);
+    }
 
-      unless (defined ($id) and length ($id) > 0) {
-          $id = $gconfmod->get_unique_id( $leadingText, $dir);
-      }
+    my $row = EBox::Model::Row->new(dir => $dir, gconfmodule => $gconfmod);
+    $row->setReadOnly($readOnly);
+    $row->setModel($self);
+    $row->setId($id);
 
-      my $row = EBox::Model::Row->new(dir => $dir, gconfmodule => $gconfmod);
-      $row->setReadOnly($readOnly);
-      $row->setModel($self);
-      $row->setId($id);
+    # Check compulsory fields
+    $self->_checkCompulsoryFields($paramsRef);
 
-      # Check compulsory fields
-      $self->_checkCompulsoryFields($paramsRef);
+    # Check field uniqueness if any
+    my @userData = ();
+    my $userData = {};
+    while ( my ($paramName, $param) = each (%{$paramsRef})) {
+        # Check uniqueness
+        if ( $param->unique() ) {
+            $self->_checkFieldIsUnique($param);
+        }
+        push(@userData, $param);
+        $row->addElement($param);
+    }
 
-      # Check field uniqueness if any
-      my @userData = ();
-      my $userData = {};
-      while ( my ($paramName, $param) = each (%{$paramsRef})) {
-          # Check uniqueness
-          if ( $param->unique() ) {
-              $self->_checkFieldIsUnique($param);
-          }
-          push(@userData, $param);
-          $row->addElement($param);
-      }
+    $self->validateTypedRow('add', $paramsRef, $paramsRef);
 
-      $self->validateTypedRow('add', $paramsRef, $paramsRef);
+    # Check if the new row is unique
+    if ($self->rowUnique()) {
+        $self->_checkRowIsUnique(undef, $paramsRef);
+    }
 
-      # Check if the new row is unique
-      if ( $self->rowUnique() ) {
-          $self->_checkRowIsUnique(undef, $paramsRef);
-      }
+    foreach my $data (@userData) {
+        $data->storeInGConf($gconfmod, "$dir/$id");
+        $data = undef;
+    }
 
-      foreach my $data (@userData) {
-          $data->storeInGConf($gconfmod, "$dir/$id");
-          $data = undef;
-      }
+    # Insert the element in order
+    if ($self->table()->{'order'}) {
+        my $pos = 0;
+        my $insertPos = $self->insertPosition();
+        if (defined($insertPos)) {
+            if ( $insertPos eq 'front' ) {
+                $pos = 0;
+            } elsif ( $insertPos eq 'back' ) {
+                $pos = $#{$self->order()} + 1;
+            }
+        }
+        $self->_insertPos($id, $pos);
+    } else {
+        $gconfmod->set_list($self->{'order'}, 'string', []);
+    }
 
-      # Insert the element in order
-      if ($self->table()->{'order'}) {
-          my $pos = 0;
-          my $insertPos = $self->insertPosition();
-          if (defined($insertPos)) {
-              if ( $insertPos eq 'front' ) {
-                  $pos = 0;
-              } elsif ( $insertPos eq 'back' ) {
-                  $pos = $#{$self->order()} + 1;
-              }
-          }
-          $self->_insertPos($id, $pos);
-      } else {
-          $gconfmod->set_list($self->{'order'}, 'string', []);
-      }
+    $gconfmod->set_bool("$dir/$id/readOnly", $readOnly);
 
-      $gconfmod->set_bool("$dir/$id/readOnly", $readOnly);
+    my $newRow = $self->row($id);
 
-      my $newRow = $self->row($id);
+    $self->setMessage($self->message('add'));
+    $self->addedRowNotify($newRow);
+    $self->_notifyModelManager('add', $newRow);
+    $self->_notifyCompositeManager('add', $newRow);
 
-      $self->setMessage($self->message('add'));
-      $self->addedRowNotify($newRow);
-      $self->_notifyModelManager('add', $newRow);
-      $self->_notifyCompositeManager('add', $newRow);
+    # check if there are files to delete if revoked
+    my $filesToRemove =   $self->filesPathsForRow($newRow);
+    foreach my $file (@{  $filesToRemove }) {
+        $self->{gconfmodule}->addFileToRemoveIfRevoked($file);
+    }
 
-      # check if there are files to delete if revoked
-      my $filesToRemove =   $self->filesPathsForRow($newRow);
-      foreach my $file (@{  $filesToRemove }) {
-          $self->{gconfmodule}->addFileToRemoveIfRevoked($file);
-      }
+    $self->_setCacheDirty();
 
-
-      $self->_setCacheDirty();
-
-      return $id;
-
-  }
+    return $id;
+}
 
 # Method: row
 #
@@ -1023,7 +1004,6 @@ sub _selectOptions
 
     $self->{'cacheOptions'}->{$field} = $self->selectOptions($field);
     return $self->{'cacheOptions'}->{$field};
-
 }
 
 sub moveUp
@@ -1043,7 +1023,6 @@ sub moveUp
     $self->movedUpRowNotify($self->row($id));
     $self->_notifyModelManager('moveUp', $self->row($id));
     $self->_notifyCompositeManager('moveUp', $self->row($id));
-
 }
 
 sub moveDown
@@ -1064,13 +1043,11 @@ sub moveDown
     $self->movedDownRowNotify($self->row($id));
     $self->_notifyModelManager('moveDown', $self->row($id));
     $self->_notifyCompositeManager('moveDown', $self->row($id));
-
 }
 
 sub _reorderCachedRows
 {
     my ($self, $posa, $posb) = @_;
-
 
     unless ($self->{'cachedRows'})  {
         return;
@@ -1135,9 +1112,6 @@ sub removeRow
     $self->_checkRowExist($id, '');
     my $row = $self->row($id);
 
-
-
-
     # Workaround: It seems that deleting a dir in gconf doesn't work
     # ok sometimes and it keeps available after deleting it for a while.
     # To workaround this issue we mark the row with "removed"
@@ -1145,8 +1119,6 @@ sub removeRow
 
     $self->{'gconfmodule'}->delete_dir("$self->{'directory'}/$id");
     $self->_setCacheDirty();
-
-
 
     if ($self->table()->{'order'}) {
         $self->_removeOrderId($id);
@@ -1184,7 +1156,6 @@ sub removeRow
     $self->deletedRowNotify($row, $force);
 
     $self->_setCacheDirty();
-
 }
 
 # Method: removeAll
@@ -1205,7 +1176,6 @@ sub removeAll
     foreach my $id (@ids) {
         $self->removeRow($id, $force);
     }
-
 }
 
 # Method: warnIfIdUsed
@@ -1306,7 +1276,6 @@ sub setRow
     $self->setTypedRow( $id, $changedData,
                         force => $force,
                         readOnly => $params{'readOnly'});
-
 }
 
 # Method: setTypedRow
@@ -1333,93 +1302,91 @@ sub setRow
 #      <EBox::Exceptions::Base> - thrown if the update cannot be done
 #
 sub setTypedRow
-  {
+{
+    my ($self, $id, $paramsRef, %optParams) = @_;
 
-      my ($self, $id, $paramsRef, %optParams) = @_;
+    my $force = delete $optParams{'force'};
+    my $readOnly = delete $optParams{'readOnly'};
 
-      my $force = delete $optParams{'force'};
-      my $readOnly = delete $optParams{'readOnly'};
+    $self->_checkRowExist($id, '');
 
-      $self->_checkRowExist($id, '');
+    my $dir = $self->{'directory'};
+    my $gconfmod = $self->{'gconfmodule'};
 
-      my $dir = $self->{'directory'};
-      my $gconfmod = $self->{'gconfmodule'};
+    my $oldRow = $self->row($id);
 
-      my $oldRow = $self->row($id);
+    my @setterTypes = @{$self->setterTypes()};
 
-      my @setterTypes = @{$self->setterTypes()};
+    my $changedElements = { };
+    my @changedElements = ();
+    my $allHashElements = $oldRow->hashElements();
+    foreach my $paramName (keys %{$paramsRef}) {
+        unless ( $paramName ne any(@setterTypes) ) {
+            throw EBox::Exceptions::Internal('Trying to update a non setter type');
+        }
 
-      my $changedElements = { };
-      my @changedElements = ();
-      my $allHashElements = $oldRow->hashElements();
-      foreach my $paramName (keys %{$paramsRef}) {
-          unless ( $paramName ne any(@setterTypes) ) {
-              throw EBox::Exceptions::Internal('Trying to update a non setter type');
-          }
+        my $paramData = $paramsRef->{$paramName};
+        if ( $oldRow->elementByName($paramName)->isEqualTo($paramsRef->{$paramName})) {
+            next;
+        }
 
-          my $paramData = $paramsRef->{$paramName};
-          if ( $oldRow->elementByName($paramName)->isEqualTo($paramsRef->{$paramName})) {
-              next;
-          }
+        if ( $paramData->unique() ) {
+            $self->_checkFieldIsUnique($paramData);
+        }
 
-          if ( $paramData->unique() ) {
-              $self->_checkFieldIsUnique($paramData);
-          }
+        $paramData->setRow($oldRow);
+        $changedElements->{$paramName} = $paramData;
+        push ( @changedElements, $paramData);
+        $allHashElements->{$paramName} = $paramData;
+    }
 
-          $paramData->setRow($oldRow);
-          $changedElements->{$paramName} = $paramData;
-          push ( @changedElements, $paramData);
-          $allHashElements->{$paramName} = $paramData;
-      }
+    # Check if the new row is unique
+    if ( $self->rowUnique() and (keys %{$paramsRef} > 0) ) {
+        $self->_checkRowIsUnique($id, $allHashElements);
+    }
 
-      # Check if the new row is unique
-      if ( $self->rowUnique() and (keys %{$paramsRef} > 0) ) {
-          $self->_checkRowIsUnique($id, $allHashElements);
-      }
+    $changedElements->{id} = $id;
+    $allHashElements->{id} = $id;
+    $self->validateTypedRow('update', $changedElements, $allHashElements);
 
-      $changedElements->{id} = $id;
-      $allHashElements->{id} = $id;
-      $self->validateTypedRow('update', $changedElements, $allHashElements);
+    # If force != true automaticRemove is enabled it means
+    # the model has to automatically check if the row which is
+    # about to be changed is referenced elsewhere and this change
+    # produces an inconsistent state
+    if ((not $force) and $self->table()->{'automaticRemove'}) {
+        my $manager = EBox::Model::ModelManager->instance();
+        $manager->warnOnChangeOnId($self->contextName(), $id, $changedElements, $oldRow);
+    }
 
-      # If force != true automaticRemove is enabled it means
-      # the model has to automatically check if the row which is
-      # about to be changed is referenced elsewhere and this change
-      # produces an inconsistent state
-      if ((not $force) and $self->table()->{'automaticRemove'}) {
-          my $manager = EBox::Model::ModelManager->instance();
-          $manager->warnOnChangeOnId($self->contextName(), $id, $changedElements, $oldRow);
-      }
+    my $modified = undef;
+    for my $data (@changedElements) {
+        $data->storeInGConf($gconfmod, "$dir/$id");
+        $modified = 1;
+    }
 
-      my $modified = undef;
-      for my $data (@changedElements) {
-          $data->storeInGConf($gconfmod, "$dir/$id");
-          $modified = 1;
-      }
+    # update readonly if change
+    my $rdOnlyKey = "$dir/$id/readOnly";
+    if (defined ( $readOnly )
+            and ($readOnly xor $gconfmod->get_bool("$rdOnlyKey"))) {
 
-      # update readonly if change
-      my $rdOnlyKey = "$dir/$id/readOnly";
-      if (defined ( $readOnly )
-          and ($readOnly xor $gconfmod->get_bool("$rdOnlyKey"))) {
+        $gconfmod->set_bool("$rdOnlyKey", $readOnly);
 
-          $gconfmod->set_bool("$rdOnlyKey", $readOnly);
+    }
 
-      }
-
-      if ($modified) {
-          $self->_setCacheDirty();
-          $self->{'dataCache'} = undef;
-          $self->setMessage($self->message('update'));
-          # Dependant models may return some message to inform the user
-          my $depModelMsg = $self->_notifyModelManager('update', $self->row($id));
-          if ( defined ($depModelMsg)
-               and ( $depModelMsg ne '' and $depModelMsg ne '<br><br>' )) {
-              $self->setMessage($self->message('update') . '<br><br>' . $depModelMsg);
-          }
-          $self->_notifyCompositeManager('update', $self->row($id));
-          $self->updatedRowNotify($self->row($id), $oldRow, $force);
-      }
-
-  }
+    if ($modified) {
+        $self->_setCacheDirty();
+        $self->{'dataCache'} = undef;
+        $self->setMessage($self->message('update'));
+        # Dependant models may return some message to inform the user
+        my $depModelMsg = $self->_notifyModelManager('update', $self->row($id));
+        if ( defined ($depModelMsg)
+                and ( $depModelMsg ne '' and $depModelMsg ne '<br><br>' )) {
+            $self->setMessage($self->message('update') . '<br><br>' . $depModelMsg);
+        }
+        $self->_notifyCompositeManager('update', $self->row($id));
+        $self->updatedRowNotify($self->row($id), $oldRow, $force);
+    }
+}
 
 sub _storedVersion
 {
@@ -1434,7 +1401,6 @@ sub _storedVersion
     } else {
         return 0;
     }
-
 }
 
 sub _cachedVersion
@@ -1528,8 +1494,8 @@ sub enabledRows
     unless ( grep { $_ eq 'enabled' } @{$fields}) {
         return $self->ids();
     }
-    return $self->_find('enabled' => 1, 1, 'row');
 
+    return $self->_find('enabled' => 1, 1, 'row');
 }
 
 # Method: size
@@ -1541,32 +1507,30 @@ sub enabledRows
 #      Int - the number of rows which the model contains
 #
 sub size
-  {
+{
+    my ($self) = @_;
 
-      my ($self) = @_;
-
-      return scalar( @{ $self->{'gconfmodule'}->all_dirs_base($self->{'directory'})});
-
-  }
+    return scalar( @{ $self->{'gconfmodule'}->all_dirs_base($self->{'directory'})});
+}
 
 # Method: syncRows
 #
-# 	This method might be useful to add or remove rows before they
-# 	are presented. In that case you must override this method.
+#   This method might be useful to add or remove rows before they
+#   are presented. In that case you must override this method.
 #
-# 	Warning: You should never call <EBox::Model::DataTable::ids>
-# 	within this function or you will enter into a deep recursion
+#   Warning: You should never call <EBox::Model::DataTable::ids>
+#   within this function or you will enter into a deep recursion
 #
 # Parameters:
 #
-#	(POSITIONAL)
+#   (POSITIONAL)
 #
-# 	currentIds - array ref containing the current row indentifiers
+#   currentIds - array ref containing the current row indentifiers
 #
 # Returns:
 #
-# 	boolean - true if the current rows have been modified, i.e: there's
-# 	been a row addition or row removal
+#   boolean - true if the current rows have been modified, i.e: there's
+#   been a row addition or row removal
 #
 sub syncRows
 {
@@ -1675,10 +1639,9 @@ sub _ids
     return $ids;
 }
 
-
 sub _rows
 {
-    my $self = shift;
+    my ($self) = @_;
     my $gconfmod = $self->{'gconfmodule'};
 
     my  %order;
@@ -1694,11 +1657,12 @@ sub _rows
     my @rows;
     for my $id (@{$gconfmod->all_dirs_base($self->{'directory'})}) {
         my $hash = $gconfmod->hash_from_dir("$self->{'directory'}/$id");
-    # Workaround: It seems that deleting a dir in gconf
-    # doesn't work  ok sometimes and it keeps available after
-    # deleting it for a while.
-    # To workaround this issue we skip those rows marked with
-    # "removed" key
+        # TODO: Check how this behavior has changed with redis
+        # Workaround: It seems that deleting a dir in gconf
+        # doesn't work  ok sometimes and it keeps available after
+        # deleting it for a while.
+        # To workaround this issue we skip those rows marked with
+        # "removed" key
         next if (exists $hash->{'removed'});
 
         my $row = $self->row($id);
@@ -1709,7 +1673,6 @@ sub _rows
             push(@rows, $row);
         }
     }
-
 
     return \@rows;
 }
@@ -1769,7 +1732,6 @@ sub _tailoredOrder # (rows)
         }
     }
     return $_[1];
-
 }
 
 
@@ -1791,8 +1753,6 @@ sub setTableName
     }
 
     $self->{'tablename'} = $name;
-
-
 }
 
 # Method: setDirectory
@@ -1815,8 +1775,8 @@ sub setDirectory
     my $olddir = $self->{'gconfdir'};
     return if ($dir eq $olddir);
 
-# If there's a directory change we try to keep cached the last
-# directory as it is likely we are asked again for it
+    # If there's a directory change we try to keep cached the last
+    # directory as it is likely we are asked again for it
     my $cachePerDir = $self->{'cachePerDirectory'};
     $cachePerDir->{$olddir}->{'cachedRows'} = $self->{'cachedRows'};
     $cachePerDir->{$olddir}->{'cachedVersion'} = $self->{'cachedVersion'};
@@ -1834,7 +1794,6 @@ sub setDirectory
     $self->{'directory'} = "$dir/keys";
     $self->{'order'} = "$dir/order";
     $self->{'table'}->{'gconfdir'} = $dir;
-
 }
 
 # Method: parentModule
@@ -1850,7 +1809,6 @@ sub parentModule
     my ($self) = @_;
 
     return $self->{'gconfmodule'};
-
 }
 
 # Method: tableName
@@ -1862,12 +1820,11 @@ sub parentModule
 #        String - containing the table name
 #
 sub tableName
-  {
-
+{
     my ($self) = @_;
 
     return $self->table()->{'tableName'};
-  }
+}
 
 # Method: printableModelName
 #
@@ -1878,13 +1835,11 @@ sub tableName
 #       String - the localisated model name
 #
 sub printableModelName
-  {
+{
+    my ($self) = @_;
 
-      my ($self) = @_;
-
-      return $self->table()->{'printableTableName'};
-
-  }
+    return $self->table()->{'printableTableName'};
+}
 
 # Method: printableName
 #
@@ -1910,13 +1865,11 @@ sub printableName
 #   string
 #
 sub pageTitle
-  {
+{
+    my ($self) = @_;
 
-      my ($self) = @_;
-
-      return $self->table()->{'pageTitle'};
-
-  }
+    return $self->table()->{'pageTitle'};
+}
 
 # Method: headTitle
 #
@@ -1927,15 +1880,11 @@ sub pageTitle
 #   string
 #
 sub headTitle
-  {
+{
+    my ($self) = @_;
 
-      my ($self) = @_;
-
-      return $self->printableModelName();
-
-  }
-
-
+    return $self->printableModelName();
+}
 
 # Method: directory
 #
@@ -1947,13 +1896,11 @@ sub headTitle
 #        String - Containing the directory
 #
 sub directory
-  {
-
+{
     my ($self) = @_;
 
     return $self->{'gconfdir'};
-
-  }
+}
 
 
 # Method: menuNamespace
@@ -1995,11 +1942,9 @@ sub menuNamespace
 #
 sub order
 {
-
     my ($self) = @_;
 
     return $self->{'gconfmodule'}->get_list( $self->{'order'} );
-
 }
 
 # Method: insertPosition
@@ -2020,7 +1965,6 @@ sub insertPosition
     my ($self) = @_;
 
     return $self->table()->{'insertPosition'};
-
 }
 
 # Method: rowUnique
@@ -2033,13 +1977,11 @@ sub insertPosition
 #     false - otherwise
 #
 sub rowUnique
-  {
-
+{
     my ($self) = @_;
 
     return $self->table()->{'rowUnique'};
-
-  }
+}
 
 # Method: indexField
 #
@@ -2052,7 +1994,6 @@ sub rowUnique
 #
 sub indexField
 {
-
     my ($self) = @_;
 
     my $indexField = $self->table()->{'index'};
@@ -2068,6 +2009,7 @@ sub indexField
                     'description');
         }
     }
+
     return $indexField;
 
 }
@@ -2090,12 +2032,10 @@ sub indexField
 #
 sub setIndexField
 {
-
     my ($self, $indexField) = @_;
 
     $self->table()->{'index'} = $indexField;
     $self->indexField();
-
 }
 
 # Method: action
@@ -2118,7 +2058,6 @@ sub setIndexField
 #
 sub action
 {
-
     my ($self, $actionName) = @_;
 
     my $actionsRef = $self->table()->{actions};
@@ -2129,7 +2068,6 @@ sub action
         throw EBox::Exceptions::DataNotFound( data => __('Action'),
                 value => $actionName);
     }
-
 }
 
 # Method: printableRowName
@@ -2142,11 +2080,9 @@ sub action
 #
 sub printableRowName
 {
-
     my ($self) = @_;
 
     return $self->table()->{'printableRowName'};
-
 }
 
 # Method: help
@@ -2159,11 +2095,9 @@ sub printableRowName
 #
 sub help
 {
-
     my ($self) = @_;
 
     return $self->table()->{'help'};
-
 }
 
 # Method: message
@@ -2198,7 +2132,6 @@ sub message
     } else {
         return $self->table()->{'message'};
     }
-
 }
 
 # Method: popMessage
@@ -2217,7 +2150,6 @@ sub popMessage
     $self->setMessage('');
 
     return $msg;
-
 }
 
 
@@ -2231,11 +2163,9 @@ sub popMessage
 #
 sub setMessage
 {
-
     my ($self, $newMessage) = @_;
 
     $self->table()->{'message'} = $newMessage;
-
 }
 
 # Method: modelDomain
@@ -2249,7 +2179,6 @@ sub setMessage
 #
 sub modelDomain
 {
-
     my ($self) = @_;
 
     return $self->{'table'}->{'modelDomain'};
@@ -2264,7 +2193,7 @@ sub modelDomain
 #    Array ref containing the fields
 sub fields
 {
-    my $self = shift;
+    my ($self) = @_;
 
     if ($self->{'fields'}) {
         return $self->{'fields'};
@@ -2284,7 +2213,7 @@ sub fields
 
 # Method: fieldsWithUndefSetter
 #
-#     Return a hash containing the fields which compose each row
+#    Return a hash containing the fields which compose each row
 #    and dont have a defined Setter
 #
 # Returns:
@@ -2293,7 +2222,7 @@ sub fields
 #
 sub fieldsWithUndefSetter
 {
-    my $self = shift;
+    my ($self) = @_;
 
     unless (defined($self->table()->{'tableDescription'})) {
         throw Excepetions::Internal('table description not defined');
@@ -2370,7 +2299,10 @@ sub filter
 sub pages
 {
     my ($self, $filter) = @_;
+
+    # FIXME: is this method no longer needed?
     return 1;
+
     my $pageSize = $self->pageSize();
     unless (defined($pageSize) and ($pageSize =~ /^\d+/) and ($pageSize > 0)) {
         return 1;
@@ -2385,7 +2317,6 @@ sub pages
     } else {
         return  ceil($nrows / $pageSize) - 1;
     }
-
 }
 
 # Method: find
@@ -2413,6 +2344,7 @@ sub pages
 # Exceptions:
 #
 #   <EBox::Exceptions::MissingArgument>
+#
 sub find
 {
     my ($self, $fieldName, $value) = @_;
@@ -2465,7 +2397,6 @@ sub findAll
     my @matched = @{$self->_find($fieldName, $value, 1, 'printableValue')};
 
     return \@matched;
-
 }
 
 # Method: findValue
@@ -2492,6 +2423,7 @@ sub findAll
 # Exceptions:
 #
 #   <EBox::Exceptions::MissingArgument>
+#
 sub findValue
 {
     my ($self, $fieldName, $value) = @_;
@@ -2547,7 +2479,6 @@ sub findAllValue
     my @matched = @{$self->_find($fieldName, $value, 1, 'value')};
 
     return \@matched;
-
 }
 
 # Method: findId
@@ -2558,15 +2489,15 @@ sub findAllValue
 #
 # Parameters:
 #
-#     fieldName => value
+#    fieldName => value
 #
-#     Example:
+#    Example:
 #
-#     findId('default' => 1);
+#    findId('default' => 1);
 #
 # Returns:
 #
-#       String - the row identifier from the first matched rule
+#    String - the row identifier from the first matched rule
 #
 #    undef - if there was not any match
 #
@@ -2576,7 +2507,6 @@ sub findAllValue
 #
 sub findId
 {
-
     my ($self, $fieldName, $value) = @_;
 
     unless (defined ($fieldName)) {
@@ -2596,7 +2526,6 @@ sub findId
     }
 
     return undef;
-
 }
 
 # Method: findRow
@@ -2638,7 +2567,6 @@ sub findRow
     } else {
         return undef;
     }
-
 }
 
 # Method: _HTTPUrlView
@@ -2759,7 +2687,6 @@ sub DESTROY { ; }
 #
 sub AUTOLOAD
 {
-
     my ($self, @params) = @_;
 
     my $methodName = our $AUTOLOAD;
@@ -2795,7 +2722,6 @@ sub AUTOLOAD
         throw EBox::Exceptions::Internal("Not valid autoload method $methodName for " .
                 ref($self) . ' class');
     }
-
 }
 
 # Method: Viewer
@@ -2810,9 +2736,7 @@ sub AUTOLOAD
 #
 sub Viewer
 {
-
     return '/ajax/tableBody.mas';
-
 }
 
 # Method: automaticRemoveMsg
@@ -2833,7 +2757,6 @@ sub automaticRemoveMsg
             rowName => $self->printableRowName(),
             model   => $self->printableContextName(),
             br      => '<br>');
-
 }
 
 # Method: pageSize
@@ -2907,7 +2830,6 @@ sub setPageSize
     }
 
     $self->{'pageSize'} = $rows;
-
 }
 
 # Method: changeViewJS
@@ -3071,18 +2993,18 @@ sub actionClickedJS
 #   needed
 sub backupFiles
 {
-  my ($self) = @_;
-  # XXX Disable backupFiles as this is messing with the directories
-  # and making eBox fail
-  return;
+    my ($self) = @_;
 
-  $self->_hasFileFields() or
-      return;
+    # XXX Disable backupFiles as this is messing with the directories
+    # and making eBox fail
+    return;
 
-  foreach my $id (@{ $self->ids() } ) {
-      $self->row($id)->backupFiles();
-  }
+    $self->_hasFileFields() or
+        return;
 
+    foreach my $id (@{ $self->ids() }) {
+        $self->row($id)->backupFiles();
+    }
 }
 
 
@@ -3092,19 +3014,20 @@ sub backupFiles
 #  changes in files
 sub restoreFiles
 {
-  my ($self) = @_;
-  # XXX Disable restoreFiles as this is messing with the directories
-  # and making eBox fail
-  return;
+    my ($self) = @_;
+
+    # FIXME: Is this no longer needed?
+    # XXX Disable restoreFiles as this is messing with the directories
+    # and making eBox fail
+    return;
 
 
-  $self->_hasFileFields() or
-      return;
+    $self->_hasFileFields() or
+        return;
 
-  foreach my $row (@{ $self->ids() } ) {
-      $self->row($row)->restoreFiles();
-  }
-
+    foreach my $row (@{ $self->ids() } ) {
+        $self->row($row)->restoreFiles();
+    }
 }
 
 #  Method: _hasFileFields
@@ -3125,9 +3048,6 @@ sub _hasFileFields
     return 0;
 }
 
-
-
-
 # Method: reloadTable
 #
 #     This method is intended to reload the information from the table
@@ -3145,7 +3065,6 @@ sub reloadTable
 
     undef $self->{'table'};
     return $self->table();
-
 }
 
 # Group: Protected methods
@@ -3157,8 +3076,8 @@ sub reloadTable
 #
 sub _prepareRow
 {
-
     my ($self) = @_;
+
     my $row = EBox::Model::Row->new(dir => $self->directory(),
             gconfmodule => $self->{gconfmodule});
     $row->setModel($self);
@@ -3198,7 +3117,6 @@ sub _setValueRow
 #
 sub _setDefaultMessages
 {
-
     my ($self) = @_;
 
     # Table is already defined
@@ -3221,7 +3139,6 @@ sub _setDefaultMessages
             $table->{'messages'}->{$action} = $defaultMessages{$action};
         }
     }
-
 }
 
 # Method: _volatile
@@ -3240,7 +3157,6 @@ sub _volatile
     my ($self) = @_;
 
     return $self->{'volatile'};
-
 }
 
 # Group: Private helper functions
@@ -3283,7 +3199,6 @@ sub _find
 
     $kind = 'value' unless defined ( $kind );
 
-
     my @matched;
     foreach my $id (@{$self->ids()}) {
         my $row = $self->row($id);
@@ -3325,7 +3240,7 @@ sub _checkFieldIsUnique
                 'value' => $newData->printableValue(),
                );
         }
-#	$row->DESTROY();
+#   $row->DESTROY();
     }
     return 0;
 }
@@ -3372,11 +3287,9 @@ sub _checkRowIsUnique # (rowId, row_ref)
                                            'value' => ''
                                            );
     }
-
 }
 
-
-# Deprecated?
+# FIXME: Deprecated?
 sub _checkAllFieldsExist
 {
     my ($self, $params) = @_;
@@ -3410,13 +3323,11 @@ sub _checkCompulsoryFields
             throw EBox::Exceptions::DataMissing(data => $missingField->printableName());
         }
     }
-
 }
 
 # Gives back the compulsory field names
 sub _compulsoryFields
 {
-
     my ($self) = @_;
 
     my @compulsory = ();
@@ -3428,7 +3339,6 @@ sub _compulsoryFields
     }
 
     return \@compulsory;
-
 }
 
 sub _checkRowExist
@@ -3464,7 +3374,6 @@ sub _insertPos #(id, position)
     } else {
         splice (@order, $pos, 1, ($id, $order[$pos]));
     }
-
 
     $gconfmod->set_list($self->{'order'}, 'string', \@order);
 }
@@ -3513,7 +3422,6 @@ sub _orderHash
     }
 
     return %order;
-
 }
 
 sub _rowOrder
@@ -3556,7 +3464,6 @@ sub _removeHasManyTables
         next unless ($self->{'gconfmodule'}->dir_exists($dir));
         $self->{'gconfmodule'}->delete_dir("$id/$dir");
     }
-
 }
 
 # FIXME This method must be in ModelManager
@@ -3612,9 +3519,9 @@ sub setDomain
 
     my $domain = $self->{'domain'};
     unless ($domain) {
-	if (exists $self->{gconfmodule}->{domain})  {
-		$domain = $self->{gconfmodule}->{domain};
-	}
+    if (exists $self->{gconfmodule}->{domain})  {
+        $domain = $self->{gconfmodule}->{domain};
+    }
     }
     if ($domain) {
         $self->{'oldDomain'} = settextdomain($domain);
@@ -3705,7 +3612,6 @@ sub _filterRows
         return \@newRows;
     }
 
-
     my $pageSize = $self->pageSize();
     my $tpages;
     if (@newRows == 0) {
@@ -3716,7 +3622,6 @@ sub _filterRows
 
     if ($page < 0) { $page = 0; }
     if ($page > $tpages) { $page = $tpages; }
-
 
     my $index;
     if ($tpages > 0 and defined($pageSize) and $pageSize > 0) {
@@ -3741,7 +3646,6 @@ sub _filterRows
 # custom controller
 sub _setControllers
 {
-
     my ($self) = @_;
 
     # Table is already defined
@@ -3765,7 +3669,6 @@ sub _setControllers
             }
         }
     }
-
 }
 
 # Method:
@@ -3781,7 +3684,6 @@ sub _setControllers
 #
 sub _paramsWithSetterJS
 {
-
     my ($self) = @_;
 
     my $table = $self->table();
@@ -3800,7 +3702,6 @@ sub _paramsWithSetterJS
     $paramsArray .= ']';
 
     return $paramsArray;
-
 }
 
 # Method: _isOptionsCacheDirty
@@ -3844,7 +3745,6 @@ sub _isOptionsCacheDirty
 #
 sub _autoloadAdd
 {
-
     my ($self, $methodName, $paramsRef) = @_;
 
     # It will possibly launch an internal exception
@@ -3869,7 +3769,6 @@ sub _autoloadAdd
         # An addition to one of the submodels
         return $self->_autoloadActionSubModel('add', $methodName, $paramsRef);
     }
-
 }
 
 # Method: _autoloadDel
@@ -3892,7 +3791,6 @@ sub _autoloadAdd
 #
 sub _autoloadDel
 {
-
     my ($self, $methodName, $paramsRef) = @_;
 
     # It will possibly launch an internal exception
@@ -3908,7 +3806,6 @@ sub _autoloadDel
         # A removal to one of the submodels
         return $self->_autoloadActionSubModel('del', $methodName, $paramsRef);
     }
-
 }
 
 # Method: _autoloadGet
@@ -3933,7 +3830,6 @@ sub _autoloadDel
 #
 sub _autoloadGet
 {
-
     my ($self, $methodName, $paramsRef) = @_;
 
     # It will possibly launch an internal exception
@@ -3952,7 +3848,6 @@ sub _autoloadGet
         # A removal to one of the submodels
         return $self->_autoloadActionSubModel('get', $methodName, $paramsRef);
     }
-
 }
 
 # Method: _autoloadSet
@@ -3970,13 +3865,12 @@ sub _autoloadGet
 #
 sub _autoloadSet
 {
-
     my ($self, $methodName, $paramsRef) = @_;
 
-# It will possibly launch an internal exception
-    $self->_checkMethodSignature( 'set', $methodName, $paramsRef);
+    # It will possibly launch an internal exception
+    $self->_checkMethodSignature('set', $methodName, $paramsRef);
 
-    if ( $self->_actionAppliedToModel( 'set', $methodName) ) {
+    if ( $self->_actionAppliedToModel('set', $methodName) ) {
         my $updateId = $self->_autoloadGetId($self, $paramsRef);
         # Remove the id from the params
         shift ( @{$paramsRef} );
@@ -3999,10 +3893,9 @@ sub _autoloadSet
             }
         }
     } else {
-# An update to one of the submodels
+        # An update to one of the submodels
         $self->_autoloadActionSubModel('set', $methodName, $paramsRef);
     }
-
 }
 
 
@@ -4025,7 +3918,6 @@ sub _autoloadSet
 #
 sub _checkMethodSignature # (action, methodName, paramsRef)
 {
-
     my ($self, $action, $methodName, $oldParamsRef) = @_;
 
     my $paramsRef = Clone::clone($oldParamsRef);
@@ -4097,7 +3989,6 @@ sub _checkMethodSignature # (action, methodName, paramsRef)
             }
         }
     }
-
 }
 
 # Function: _actionAppliedToModel
@@ -4118,7 +4009,6 @@ sub _checkMethodSignature # (action, methodName, paramsRef)
 #
 sub _actionAppliedToModel
 {
-
     my ($self, $action, $methodName) = @_;
 
     $methodName =~ s/^$action//;
@@ -4129,13 +4019,11 @@ sub _actionAppliedToModel
     } else {
         return 1;
     }
-
 }
 
 # Get the fields which contains a HasMany type
 sub _subModelFields
 {
-
     my ($self) = @_;
 
     my @subModelFields = ();
@@ -4146,7 +4034,6 @@ sub _subModelFields
         }
     }
     return \@subModelFields;
-
 }
 
 # Method: _fillTypes
@@ -4175,12 +4062,11 @@ sub _subModelFields
 #
 sub _fillTypes
 {
-
     my ($self, $params, $fillDefault) = @_;
 
     $fillDefault = '' unless defined($fillDefault);
 
-# Check all given fields to fill are in the table description
+    # Check all given fields to fill are in the table description
     foreach my $paramName (keys %{$params}) {
         unless ( $paramName eq any(@{$self->fields()}) ) {
             throw EBox::Exceptions::Internal("$paramName does not exist in the " .
@@ -4205,7 +4091,6 @@ sub _fillTypes
     }
 
     return $filledTypes;
-
 }
 
 # Method: _autoloadAddSubModel
@@ -4224,7 +4109,6 @@ sub _fillTypes
 #
 sub _autoloadAddSubModel # (subModelFieldName, rows, id)
 {
-
     my ($self, $subModelFieldName, $subModelRows, $id) = @_;
 
     my $hasManyField = $self->fieldHeader($subModelFieldName);
@@ -4251,8 +4135,6 @@ sub _autoloadAddSubModel # (subModelFieldName, rows, id)
         }
 
     }
-
-
 }
 
 # Method: _autoloadSetSubModel
@@ -4271,7 +4153,6 @@ sub _autoloadAddSubModel # (subModelFieldName, rows, id)
 #
 sub _autoloadSetSubModel # (subModelFieldName, rows, id)
 {
-
     my ($self, $subModelFieldName, $subModelRows, $id) = @_;
 
     my $hasManyField = $self->fieldHeader($subModelFieldName);
@@ -4292,8 +4173,6 @@ sub _autoloadSetSubModel # (subModelFieldName, rows, id)
         my $instancedTypes = $submodel->_fillTypes($subModelRows->{$subModelRowKey});
         $submodel->setTypedRow($updateId, $instancedTypes, force => 1);
     }
-
-
 }
 
 # Method: _autoloadActionSubModel
@@ -4311,7 +4190,6 @@ sub _autoloadSetSubModel # (subModelFieldName, rows, id)
 #
 sub _autoloadActionSubModel # (action, methodName, paramsRef)
 {
-
     my ($self, $action, $methodName, $origParamsRef) = @_;
 
     my $paramsRef = Clone::clone($origParamsRef);
@@ -4321,17 +4199,17 @@ sub _autoloadActionSubModel # (action, methodName, paramsRef)
     my @modelNames = split ( 'To', $methodName);
     @modelNames = reverse ( @modelNames );
 
-# Let's go along the method name delTableToTableToTable
+    # Let's go along the method name delTableToTableToTable
     my $model = $self;
     foreach my $subModelField (@modelNames[1 .. @modelNames - 1]) {
-# Turn to lower case the first letter
+        # Turn to lower case the first letter
         $subModelField = lcfirst($subModelField);
-# Get the has many field
+        # Get the has many field
         my $hasManyField = $model->fieldHeader($subModelField);
         my $userField = $hasManyField->clone();
-# Get the identifier to set the directory
+        # Get the identifier to set the directory
         my $id = $self->_autoloadGetId($model, $paramsRef);
-# Remove an index to get the model
+        # Remove an index to get the model
         shift ( @{$paramsRef} );
         my $directory = $model->directory() . "/keys/$id/$subModelField";
         my $foreignModelName = $userField->foreignModel();
@@ -4341,16 +4219,14 @@ sub _autoloadActionSubModel # (action, methodName, paramsRef)
         $model->setDirectory($directory);
     }
 
-
-# Change from lower case to upper case the first letter
+    # Change from lower case to upper case the first letter
     my $UCAction = ucfirst ( $action );
     my $methodAutoload = "_autoload$UCAction";
-# Action performed in a row in a submodel
+    # Action performed in a row in a submodel
     $model->$methodAutoload(
             $action . $model->tableName(),
             $paramsRef,
             );
-
 }
 
 # Method: pushRedirection
@@ -4480,7 +4356,6 @@ sub _autoloadGetId
     }
 
     return $id;
-
 }
 
 # Method: _filterFields
@@ -4537,7 +4412,6 @@ sub _filterFields
     }
 
     return $newRow;
-
 }
 
 # Method: _setEnabledAsFieldInTable
@@ -4561,11 +4435,7 @@ sub _setEnabledAsFieldInTable
             editable      => 1,
             defaultValue  => $self->defaultEnabledValue());
     unshift (@{$tableDesc}, $enabledType);
-
 }
-
-
-
 
 # Set the table as volatile if all its fields are so
 sub _setIfVolatile
@@ -4620,13 +4490,6 @@ sub keywords
     return \@words;
 }
 
-
-
-
-
-
-
-
 # Method: filesPaths
 #
 #   Returns:
@@ -4642,10 +4505,8 @@ sub filesPaths
         @{ $self->row($_)->filesPaths()  }
     } @{ $self->ids() };
 
-
     return \@files;
 }
-
 
 #  Method: filesPathsForRow
 #
@@ -4658,9 +4519,6 @@ sub filesPathsForRow
     my ($self, $row) = @_;
     return $row->filesPaths();
 }
-
-
-
 
 # Method: parentRow
 #
@@ -4694,7 +4552,6 @@ sub parentRow
     else {
         $dirsToRowId = 2;
     }
-
 
     my $dir = $self->directory();
     my @parts = split '/', $dir;
