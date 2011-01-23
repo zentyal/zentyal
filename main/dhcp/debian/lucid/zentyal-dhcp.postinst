@@ -6,14 +6,8 @@ set -e
 
 case "$1" in
     configure)
-        # create log table
-        /usr/share/zentyal/ebox-sql-table add leases /usr/share/zentyal/sqllog/dhcp.sql || true
 
-        # Migrate data if needed
-        /usr/share/zentyal/ebox-migrate /usr/share/zentyal-dhcp/migration/ || true
-
-        # Restart dhcp module
-        invoke-rc.d zentyal dhcp restart || true
+        /usr/share/zentyal/initial-setup dhcp $2
 
         dpkg-trigger --no-await zentyal-core
     esac

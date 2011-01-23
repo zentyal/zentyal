@@ -19,10 +19,10 @@ use strict;
 use warnings;
 
 use base qw(EBox::Module::Service
-		EBox::NetworkObserver
-		EBox::LogObserver
-		EBox::Model::ModelProvider
-		EBox::Model::CompositeProvider);
+		    EBox::NetworkObserver
+		    EBox::LogObserver
+		    EBox::Model::ModelProvider
+		    EBox::Model::CompositeProvider);
 
 use EBox::Config;
 use EBox::Exceptions::InvalidData;
@@ -45,7 +45,6 @@ use EBox::DHCPLogHelper;
 
 use EBox::Dashboard::Section;
 use EBox::Dashboard::List;
-
 
 # Models & Composites
 use EBox::Common::Model::EnableForm;
@@ -119,6 +118,47 @@ sub usedFiles
                  'reason' => __x('{server} configuration file', server => 'dhcpd'),
 		}
 	       ];
+}
+
+# Method: initialSetup
+#
+# Overrides:
+#   EBox::Module::Base::initialSetup
+#
+sub initialSetup
+{
+    my ($self, $version) = @_;
+
+    my $share = EBox::Config::share();
+    EBox::Sudo::silentRoot("$share/zentyal/ebox-sql-table add leases $share/zentyal/sqllog/dhcp.sql");
+
+    # Create default services, rules and conf dir
+    # only if installing the first time
+    unless ($version) {
+        my $firewall = EBox::Global->modInstance('firewall');
+
+        $firewall->addInternalService(
+                'name' => 'tftp',
+                'description' => __d('Trivial File Transfer Protocol'),
+                'translationDomain' => 'ebox-dhcp',
+                'protocol' => 'udp',
+                'sourcePort' => 'any',
+                'destinationPort' => 69,
+                );
+
+        $firewall->addInternalService(
+                'name' => 'dhcp',
+                'description' => __d('Dynamic Host Configuration Protocol'),
+                'translationDomain' => 'ebox-dhcp',
+                'protocol' => 'udp',
+                'sourcePort' => 'any',
+                'destinationPort' => 67,
+                );
+
+        # FIXME: save fw changes?
+
+        mkdir ($dir, CONF_DIR);
+    }
 }
 
 # Method: actions
@@ -1775,15 +1815,6 @@ sub _nStaticIfaces
   my $staticIfaces = grep  { $net->ifaceMethod($_) eq 'static' } @{$ifaces};
 
   return $staticIfaces;
-}
-
-# Method:  userConfDir
-#
-#  Returns:
-#  path to the user configuration dir
-sub userConfDir
-{
-  return CONF_DIR;
 }
 
 1;
