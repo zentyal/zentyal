@@ -145,6 +145,50 @@ sub usedFiles
     return \@usedFiles;
 }
 
+# Method: initialSetup
+#
+# Overrides:
+#   EBox::Module::Base::initialSetup
+#
+sub initialSetup
+{
+    my ($self, $version) = @_;
+
+    # Create default rules and services
+    # only if installing the first time
+    unless ($version) {
+        my $services = EBox::Global->modInstance('services');
+
+        my $serviceName = 'RADIUS';
+        unless($services->serviceExists(name => $serviceName)) {
+            $services->addMultipleService(
+                'name' => $serviceName,
+                'description' => __d('Zentyal RADIUS system'),
+                'translationDomain' => 'ebox-radius',
+                'internal' => 1,
+                'readOnly' => 1,
+                'services' => $self->_services(),
+            );
+        }
+
+        my $firewall = EBox::Global->modInstance('firewall');
+        $firewall->setExternalService($serviceName, 'deny');
+        $firewall->setInternalService($serviceName, 'accept');
+
+        $firewall->saveConfigRecursive();
+    }
+}
+
+sub _services
+{
+    return [
+             { # radius
+                 'protocol' => 'udp',
+                 'sourcePort' => 'any',
+                 'destinationPort' => '1812',
+             },
+    ];
+}
 
 # Method: enableActions
 #

@@ -2,7 +2,7 @@
 
 Migrationsdir = @DATADIR@/zentyal-ntp/migration
 
-nobase_Migrations_SCRIPTS = 0001_add_ntp_service.pl
+nobase_Migrations_SCRIPTS =
 
 EXTRA_DIST = $(nobase_Migrations_SCRIPTS)
 

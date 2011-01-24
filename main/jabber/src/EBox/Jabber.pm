@@ -75,6 +75,56 @@ sub usedFiles
     ];
 }
 
+# Method: initialSetup
+#
+# Overrides:
+#   EBox::Module::Base::initialSetup
+#
+sub initialSetup
+{
+    my ($self, $version) = @_;
+
+    # Create default rules and services
+    # only if installing the first time
+    unless ($version) {
+        my $services = EBox::Global->modInstance('services');
+
+        my $serviceName = 'jabber';
+        unless($services->serviceExists(name => $serviceName)) {
+            $services->addMultipleService(
+                'name' => $serviceName,
+                'description' => __d('Jabber Server'),
+                'translationDomain' => 'ebox-jabber',
+                'internal' => 1,
+                'readOnly' => 1,
+                'services' => $self->_services(),
+            );
+        }
+
+        my $firewall = EBox::Global->modInstance('firewall');
+        $firewall->setExternalService($serviceName, 'deny');
+        $firewall->setInternalService($serviceName, 'accept');
+
+        $firewall->saveConfigRecursive();
+    }
+}
+
+sub _services
+{
+    return [
+             { # jabber c2s
+                 'protocol' => 'tcp',
+                 'sourcePort' => 'any',
+                 'destinationPort' => '5222',
+             },
+             { # jabber c2s
+                 'protocol' => 'tcp',
+                 'sourcePort' => 'any',
+                 'destinationPort' => '5223',
+             },
+    ];
+}
+
 # Method: enableActions
 #
 #   Override EBox::Module::Service::enableActions

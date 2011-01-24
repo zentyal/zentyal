@@ -4,8 +4,8 @@
 
 case "$1" in
     configure)
-        # Migrate data if needed
-        /usr/share/zentyal/ebox-migrate /usr/share/zentyal-radius/migration/
+
+        /usr/share/zentyal/initial-setup radius $2
 
         dpkg-trigger --no-await zentyal-core
     ;;

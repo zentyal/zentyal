@@ -7,17 +7,9 @@ set -e
 case "$1" in
 	configure)
 
-        # import timezone from system if installing for the first time
-        if [ -z "$2" ] ; then
-        /usr/share/zentyal-ntp/ebox-timezone-import || true
-        fi
-
-        # Migrate data if needed
-        /usr/share/zentyal/ebox-migrate /usr/share/zentyal-ntp/migration/
+        /usr/share/zentyal/initial-setup ntp $2
 
         dpkg-trigger --no-await zentyal-core
 esac
-
-
 
 exit 0

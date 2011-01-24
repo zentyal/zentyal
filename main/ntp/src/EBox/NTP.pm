@@ -88,6 +88,33 @@ sub usedFiles
            ];
 }
 
+# Method: initialSetup
+#
+# Overrides:
+#   EBox::Module::Base::initialSetup
+#
+sub initialSetup
+{
+    my ($self, $version) = @_;
+
+    # Create default rules and services and import timezone
+    # only if installing the first time
+    unless ($version) {
+        $self->importTimezone();
+
+        my $firewall = EBox::Global->modInstance('firewall');
+        $firewall->addInternalService(
+                    'name' => 'ntp',
+                    'description' => 'NTP',
+                    'protocol' => 'udp',
+                    'sourcePort' => 'any',
+                    'destinationPort' => 123,
+                );
+
+        $firewall->saveConfigRecursive();
+    }
+}
+
 # Method: enableActions
 #
 #   Override EBox::Module::Service::enableActions
@@ -95,6 +122,23 @@ sub usedFiles
 sub enableActions
 {
     EBox::Sudo::root(EBox::Config::share() . '/zentyal-ntp/ebox-ntp-enable');
+}
+
+# Method: importTimezone
+#
+#   Reads timezone from /etc/timezone and saves it into the module config
+#
+sub importTimezone
+{
+    my ($self) = @_;
+
+    my $timezone = `cat /etc/timezone`;
+    chomp($timezone);
+
+    my ($continent, $country) = split ('/', $timezone);
+
+    $self->set_string('continent', $continent);
+    $self->set_string('country', $country);
 }
 
 sub _enforceServiceState

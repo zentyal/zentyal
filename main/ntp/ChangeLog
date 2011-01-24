@@ -1,3 +1,6 @@
+HEAD
+	+ Remove migration and use initialSetup
+	+ Replace ebox-timezone-import with importTimezone method
 2.0.1
 	+ Bug fix: _restartAllServices method now works properly
 1.5.2

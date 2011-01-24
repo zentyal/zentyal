@@ -5,7 +5,7 @@
 case "$1" in
 	configure)
         # migrate data if needed
-        #/usr/share/zentyal/ebox-migrate /usr/share/zentyal-zarafa/migration/
+        /usr/share/zentyal/initial-setup zarafa $2
 
 	    dpkg-trigger --no-await zentyal-core
         ;;
