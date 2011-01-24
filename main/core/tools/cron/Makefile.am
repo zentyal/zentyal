@@ -2,10 +2,9 @@
 
 crondir = @SYSCONFDIR@/cron.hourly
 
-nobase_cron_SCRIPTS =  90manageEBoxLogs
+nobase_cron_SCRIPTS = 90zentyal-manage-logs
 
 crondaily =
-
 
 #SOURCES = $(nobase_cron_SCRIPTS)
 

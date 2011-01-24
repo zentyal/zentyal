@@ -1,4 +1,6 @@
 HEAD
+	+ Renamed /etc/cron.hourly/90manageEBoxLogs to 90zentyal-manage-logs
+	  and moved the actual code to /usr/share/zentyal/manage-logs
 	+ Move /usr/share/ebox/zentyal-redisvi to /usr/share/zentyal/redisvi
 	+ New /usr/share/zentyal/initial-setup script for modules postinst
 	+ Replace old ebox-migrate script with EBox::Module::Base::migrate
