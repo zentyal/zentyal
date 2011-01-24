@@ -1,4 +1,5 @@
 HEAD
+	+ Remove redis configuration keys incompatible with redis 2.0 (natty)
 	+ Services event is triggered only after five failed checkings
 	+ Do not add redundant includedir lines to /etc/sudoers
 	+ Fixed encoding for strings read from redis server
