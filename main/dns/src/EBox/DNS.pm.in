@@ -588,6 +588,44 @@ sub actions
 
 }
 
+# Method: initialSetup
+#
+# Overrides:
+#   EBox::Module::Base::initialSetup
+#
+sub initialSetup
+{
+    my ($self, $version) = @_;
+
+    # Create default rules and services
+    # only if installing the first time
+    unless ($version) {
+        my $services = EBox::Global->modInstance('services');
+
+        my $serviceName = 'dns';
+        if ($services->serviceExists(name => $serviceName)) {
+            # TODO: remove this? If only added during first install...
+            EBox::info('Not adding DNS service as it already exists');
+        } else {
+            $services->addMultipleService(
+                'name' => $serviceName,
+                'description' => 'Domain Name Service',
+                'readOnly' => 1,
+                'services' => $self->_services(),
+            );
+        }
+        # FIXME: need $services->saveConfig() ?
+
+        my $firewall = EBox::Global->modInstance('firewall');
+        $firewall->setInternalService($serviceName, 'accept');
+
+        # FIXME: need to save firewall changes?
+    }
+
+    # Execute initial-setup script to create SQL tables
+    $self->SUPER::initialSetup($version);
+}
+
 # Method: enableActions
 #
 #  Override EBox::Module::Service::enableActions
@@ -595,6 +633,22 @@ sub actions
 sub enableActions
 {
     root(EBox::Config::share() . '/zentyal-dns/ebox-dns-enable');
+}
+
+sub _services
+{
+    return [
+             {
+              'protocol' => 'udp',
+              'sourcePort' => 'any',
+              'destinationPort' => 53,
+             },
+             {
+              'protocol' => 'tcp',
+              'sourcePort' => 'any',
+              'destinationPort' => 53,
+             },
+    ];
 }
 
 # Method: _daemons

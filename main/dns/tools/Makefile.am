@@ -2,7 +2,7 @@
 
 SUBDIRS = sqllog
 
-pkgdata_SCRIPTS =  ebox-dns-enable
+pkgdata_SCRIPTS = initial-setup ebox-dns-enable
 
 MAINTAINERCLEANFILES = Makefile.in
 

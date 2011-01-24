@@ -1,4 +1,5 @@
 HEAD
+	+ Replace migrations with initialSetup
 	+ Replace /etc/ebox/80dns.conf with /etc/zentyal/dns.conf
 2.0.1
 	+ Bugfix: Comply apparmor profile by setting the updated dynamic

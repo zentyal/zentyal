@@ -1,0 +1,8 @@
+#!/bin/bash
+
+/usr/share/zentyal/ebox-sql-table add dns_domains /usr/share/zentyal/sqllog/dns_domains.sql
+/usr/share/zentyal/ebox-sql-table add dns_domains_report /usr/share/zentyal/sqllog/dns_domains_report.sql
+
+chmod g+w /etc/bind
+
+exit 0

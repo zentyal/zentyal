@@ -6,13 +6,8 @@ set -e
 
 case "$1" in
     configure)
-    # Migrate data if needed
-    /usr/share/zentyal/ebox-migrate /usr/share/zentyal-dns/migration/
 
-    /usr/share/zentyal/ebox-sql-table add dns_domains /usr/share/zentyal/sqllog/dns_domains.sql
-    /usr/share/zentyal/ebox-sql-table add dns_domains_report /usr/share/zentyal/sqllog/dns_domains_report.sql
-
-    invoke-rc.d zentyal dns restart
+    /usr/share/zentyal/initial-setup dns $2
 
     dpkg-trigger --no-await zentyal-core
 esac
