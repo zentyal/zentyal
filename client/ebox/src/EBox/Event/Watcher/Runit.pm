@@ -28,6 +28,9 @@ package EBox::Event::Watcher::Runit;
 use base 'EBox::Event::Watcher::Base';
 
 use constant WILD_SERVICES => EBox::Config::log() . 'runit/wild-services.log';
+use constant PERIOD => 60;
+use constant MAX_DOWN_PERIODS => 5;
+use constant DOMAIN => 'ebox';
 
 use EBox::Event;
 use EBox::Event::Watcher::Base;
@@ -64,10 +67,12 @@ sub new
       my ($class) = @_;
 
       my $self = $class->SUPER::new(
-                                    period      => 60,
-                                    domain      => 'ebox',
+                                    period      => PERIOD,
+                                    domain      => DOMAIN,
                                    );
       bless( $self, $class);
+
+      $self->{downPeriods} = {};
 
       return $self;
 
@@ -175,9 +180,22 @@ sub _runningAlertServices
         next unless ($mod->can('isRunning'));
         my $enabled = $mod->isEnabled();
         my $running = $mod->isRunning();
+        my $name = $mod->name();
+
         if (not $running and $enabled) {
-            my $name = $mod->printableName();
-            push (@mods, $name);
+            unless (exists $self->{downPeriods}->{$name}) {
+                $self->{downPeriods}->{$name} = 0;
+            }
+
+            if ($self->{downPeriods}->{$name}++ >= MAX_DOWN_PERIODS) {
+                push (@mods, $mod->printableName());
+            }
+
+            EBox::debug("Module $name is not running (" .
+                $self->{downPeriods}->{$name} . ')');
+        } elsif (exists $self->{downPeriods}->{$name}) {
+            EBox::debug("Module $name is running again");
+            delete $self->{downPeriods}->{$name};
         }
     }
 

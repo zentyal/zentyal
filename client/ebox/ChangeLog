@@ -1,4 +1,5 @@
 HEAD
+	+ Services event is triggered only after five failed checkings
 	+ Do not add redundant includedir lines to /etc/sudoers
 	+ Fixed encoding for strings read from redis server
 	+ Fixed broken link to alerts list
