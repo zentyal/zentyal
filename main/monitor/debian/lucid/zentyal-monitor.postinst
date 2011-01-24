@@ -4,14 +4,8 @@
 
 case "$1" in
     configure)
-        # Set proper permissions for /var/run/zentyal directory
-        chown -R ebox.ebox /var/run/zentyal
 
-        # Migrate data if needed
-        /usr/share/zentyal/ebox-migrate /usr/share/zentyal-monitor/migration/
-
-        # Restart the module itself
-        invoke-rc.d zentyal monitor restart || true
+        /usr/share/zentyal/initial-setup monitor $2
 
         dpkg-trigger --no-await zentyal-core
     ;;

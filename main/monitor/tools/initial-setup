@@ -1,0 +1,4 @@
+#!/bin/bash
+
+# Set proper permissions for /var/run/zentyal directory
+chown -R ebox.ebox /var/run/zentyal
