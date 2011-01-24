@@ -28,8 +28,11 @@
 use strict;
 use warnings;
 
+use feature "switch";
+
 use EBox;
 use EBox::Config;
+use EBox::Exceptions::External;
 use EBox::Global;
 use EBox::Gettext;
 use EBox::Sudo;
@@ -38,6 +41,7 @@ use EBox::EBackup::Subscribed;
 
 use Error qw(:try);
 
+use constant EBACKUP_CONF => EBox::Config::etc() . '82ebackup.conf';
 
 sub _sendEvent
 {
@@ -64,7 +68,7 @@ sub _sendSuccessEvent
     my ($success, $type, $msgError) = @_;
     my $msg;
     my $level;
-    
+
     my $printableMode;
     if ($type eq 'full') {
         $printableMode = __('full');
@@ -100,24 +104,32 @@ sub _mangleDuplicityErrorMsg
 {
     my ($msg) = @_;
 
-    my $spaceLeftRe =  qr/^Temp space has (\d+) available, backup needs approx (\d+)/;
+    my $spaceLeftRe = qr/^Temp space has (\d+) available, backup needs approx (\d+)/;
+    my $backendException = qr/^BackendException:/;
 
-    if ($msg =~ m/$spaceLeftRe/) {
-        my ($avail, $need) = ($1, $2);
-        $avail = _bytesToMB($avail);
-        $need = _bytesToMB($need);
-        my $tmpDir = EBox::EBackup::tempdir();
+    given ( $msg ) {
+        when (m/$spaceLeftRe/) {
+            my ($avail, $need) = ($1, $2);
+            $avail = _bytesToMB($avail);
+            $need = _bytesToMB($need);
+            my $tmpDir = EBox::EBackup::tempdir();
 
-        return __x(
-                   q/Temp directory '{dir}' has {avail} MB available, backup needs approx {need} MB. Either free some space or change temporal directory and volume size settings in {conf}./,
-                   dir   => $tmpDir,
-                   avail => $avail,
-                   need  => $need,
-                   conf  => '/etc/ebox/82ebackup.conf',
-                  );
+            return __x(
+                q/Temp directory '{dir}' has {avail} MB available, backup needs approx {need} MB. Either free some space or change temporal directory and volume size settings in {conf}./,
+                dir   => $tmpDir,
+                avail => $avail,
+                need  => $need,
+                conf  => EBACKUP_CONF,
+               );
+        }
 
+        when ( m/$backendException/ ) {
+            return 'BackendException';
+        }
+
+        default { return $msg; }
     }
-    return $msg;
+
 }
 
 sub _bytesToMB
@@ -156,7 +168,7 @@ sub _adjustType
 # files have been re/moved
 #
 # We can disable this feature to speed up process when there is not full backup,
-# incremetal is specified and status cache is not properly updated it will give a
+# incremental is specified and status cache is not properly updated it will give a
 # "old sigantures not found" error
     $ebackup->remoteGenerateStatusCache();
 
@@ -180,7 +192,7 @@ sub _adjustType
 # Return whether there are unsaved changes or not
 sub _unsavedChangesWarning
 {
-    my ($self) = @_;
+    my ($type) = @_;
 
     my @changed;
     my $global = EBox::Global->getInstance(); # rw instance to get change status
@@ -194,7 +206,7 @@ sub _unsavedChangesWarning
         my $mods = join ',', @changed;
         my $msg = __x('Configuration backup skipped because the following modules have unsaved changes: {mods}. The rest of the backup will not be affected',
                       mods => $mods);
-        _sendSuccessEvent(0,  $msg);
+        _sendSuccessEvent(0, $type, $msg);
         print "$msg\n";
         return 1;
     }
@@ -205,8 +217,28 @@ sub _unsavedChangesWarning
 sub _removeExpiredBackups
 {
     my ($ebackup) = @_;
-    my $removeArguments = $ebackup->remoteDelOldArguments();
-    EBox::Sudo::root($removeArguments);
+
+    try {
+        my $removeArguments = $ebackup->remoteDelOldArguments();
+        EBox::Sudo::root($removeArguments);
+        # Delete orphaned metadata
+        my $settingsModel = $ebackup->model('RemoteSettings');
+        my $method = $settingsModel->row()->valueByName('method');
+        if ($method eq 'cloud') {
+            EBox::EBackup::Subscribed::deleteOrphanMetadata($ebackup->remoteStatus());
+        }
+    } catch EBox::Exceptions::Sudo::Command with {
+        my $ex = shift @_;
+        my $errorMsg = $ex->error()->[-1];
+        chomp($errorMsg);
+        $errorMsg = _mangleDuplicityErrorMsg($errorMsg);
+        if ( $errorMsg eq 'BackendException' ) {
+            $errorMsg = __('Cannot contact to the backup server. Check your '
+                           . 'Internet connection prior to perform the backup');
+        }
+        throw EBox::Exceptions::External($errorMsg);
+    };
+
 }
 
 sub _cleanup
@@ -218,6 +250,58 @@ sub _cleanup
     my $cmd = "$duplicityWrapper cleanup --force $remoteUrl";
     EBox::debug('Trying to clean up incomplete backups');
     EBox::Sudo::root($cmd);
+}
+
+# Try to back up with n_tries using a geometric progression
+# Returns two values in an array:
+#      success  - Boolean indicating if it was a success
+#      errorMsg - String if there wasn't success, the error message
+#
+sub _performBackup
+{
+    my ($backupCmd) = @_;
+
+    my $ebackupConfKeys = EBox::Config::configKeysFromFile(EBACKUP_CONF);
+    my $nTries   = $ebackupConfKeys->{n_tries};
+    my $initial  = $ebackupConfKeys->{initial_value};
+    my $factor   = $ebackupConfKeys->{scale_factor};
+
+    my $success  = 1;
+    my $errorMsg = "";
+
+    foreach my $try ( 1 .. $nTries ) {
+        try {
+            EBox::info("Backing up files to destination: try $try");
+            EBox::Sudo::root($backupCmd);
+        } catch  EBox::Exceptions::Sudo::Command with {
+            my $ex = shift @_;
+            $success = 0;
+            my @error = @{  $ex->error() };
+            chomp $error[-1];
+            $errorMsg = "@error";
+            $errorMsg = _mangleDuplicityErrorMsg($errorMsg);
+        } otherwise {
+            my ($ex) = @_;
+            $success = 0;
+            $errorMsg = "$ex";
+        };
+        last if ($success);
+        # Error comes from a timeout? We can only assure the exception
+        # comes from the backend
+        last unless ( $errorMsg eq 'BackendException' );
+        if ( $try < $nTries ) {
+            my $timeout = int($initial * $factor**($try - 1));
+            EBox::warn("Cannot contact the server: sleeping for $timeout seconds");
+            sleep($timeout);
+        } else {
+            # Set a beautiful message to send to the user
+            $errorMsg = __('Cannot contact to the backup server. Check your '
+                           . 'Internet connection prior to perform the backup');
+        }
+    }
+
+    return ($success, $errorMsg);
+
 }
 
 my $type = 'full';
@@ -250,7 +334,7 @@ unless ($ebackup->configurationIsComplete()) {
 
 }
 
-my $unsavedChanges = _unsavedChangesWarning();
+my $unsavedChanges = _unsavedChangesWarning($type);
 
 my $mustExit = 0;
 
@@ -260,7 +344,7 @@ try {
     my $alreadyMsg = __('Another backup process is running, wait until it finishes and try again');
     print $alreadyMsg;
     print "\n";
-    _sendSuccessEvent(0,  $alreadyMsg);
+    _sendSuccessEvent(0, $type, $alreadyMsg);
     $mustExit= 1;
 };
 if ($mustExit) {
@@ -275,7 +359,7 @@ try {
     my $busyMsg = __('The backup module is busy, retry later');
     print $busyMsg;
     print "\n";
-    _sendSuccessEvent(0,  $busyMsg);
+    _sendSuccessEvent(0, $type, $busyMsg);
     $mustExit =  1;
 };
 
@@ -307,42 +391,26 @@ try {
 
 
     my $backupCmd = $ebackup->remoteArguments($type);
-    my $errorMsg;
-    my $success = 1;
-    try {
-        EBox::info('Backing up files to destination');
-        EBox::Sudo::root($backupCmd);
-        if ($usingCloud) {
-            $ebackup->remoteGenerateStatusCache();
-            my $availableDomains = $ebackup->availableBackupDomains();
-            my @enabledDomains = grep { $availableDomains->{$_}->{enabled} } keys %{$availableDomains};
-            my %backupDomains = map
-              { $_ => { description   => $availableDomains->{$_}->{description},
-                        printableName => $availableDomains->{$_}->{printableName} } }
-                @enabledDomains;
-            EBox::info('Writing Disaster Recovery metadata');
-            EBox::EBackup::Subscribed::writeDRMetadata(
-                configurationDumped => $configurationDumped,
-                date                => $ebackup->lastBackupDate(),
-                backupType          => $type,
-                backupDomains       => \%backupDomains,
-               );
-        }
+    my ($success, $errorMsg) = _performBackup($backupCmd);
 
-    } catch EBox::Exceptions::Sudo::Command with {
-        my $ex = shift @_;
-        $success = 0;
-        my @error = @{  $ex->error() };
-        chomp $error[-1];
-        $errorMsg = "@error";
-        $errorMsg = _mangleDuplicityErrorMsg($errorMsg);
-    } otherwise {
-        my ($ex) = @_;
-        $success = 0;
-        $errorMsg = "$ex";
-    };
+    if ( $success and $usingCloud) {
+        $ebackup->remoteGenerateStatusCache();
+        my $availableDomains = $ebackup->availableBackupDomains();
+        my @enabledDomains = grep { $availableDomains->{$_}->{enabled} } keys %{$availableDomains};
+        my %backupDomains = map
+          { $_ => { description   => $availableDomains->{$_}->{description},
+                    printableName => $availableDomains->{$_}->{printableName} } }
+            @enabledDomains;
+        EBox::info('Writing Disaster Recovery metadata');
+        EBox::EBackup::Subscribed::writeDRMetadata(
+            configurationDumped => $configurationDumped,
+            date                => $ebackup->lastBackupDate(),
+            backupType          => $type,
+            backupDomains       => \%backupDomains,
+           );
+    }
 
-    if ($success) {
+    if ( $success ) {
         EBox::info('Backup process finished successfuly');
     } else {
         my $msg = "Backup failed: $errorMsg";
@@ -354,18 +422,23 @@ try {
     _sendSuccessEvent($success, $type, $errorMsg);
 
 } finally {
-    if (not $usingCloud) {
-        $ebackup->remoteGenerateStatusCache();
+    try {
+        if ( $success ) {
+            if (not $usingCloud) {
+                $ebackup->remoteGenerateStatusCache();
+            }
+
+            # Create file list
+            $ebackup->remoteGenerateListFile();
+        }
+    } finally {
+        # This code must be run always
+        $ebackup->backupProcessUnlock();
+        $ebackup->unlock();
     }
-
-    # Create file list
-    $ebackup->remoteGenerateListFile();
-
-    $ebackup->backupProcessUnlock();
-    $ebackup->unlock();
 };
 
-# update logs, we do this even with a failed backup bz it oculd change disk
+# update logs, we do this even with a failed backup bz it could change disk
 # usage, with leftover files..
 $ebackup->gatherReportInfo();
 my $cloudProf = EBox::Global->modInstance('cloud-prof');
