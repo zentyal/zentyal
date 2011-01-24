@@ -203,6 +203,8 @@ sub initialSetup
         my $firewall = EBox::Global->modInstance('firewall');
         $firewall->setExternalService($serviceName, 'deny');
         $firewall->setInternalService($serviceName, 'accept');
+
+        $firewall->saveConfigRecursive();
     }
 
     # Execute initial-setup script

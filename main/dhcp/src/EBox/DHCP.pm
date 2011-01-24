@@ -155,7 +155,7 @@ sub initialSetup
                 'destinationPort' => 67,
                 );
 
-        # FIXME: save fw changes?
+        $firewall->saveConfigRecursive();
 
         mkdir ($dir, CONF_DIR);
     }
