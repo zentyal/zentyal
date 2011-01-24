@@ -28,44 +28,17 @@ EBox::init();
 
 my $module = EBox::Global->modInstance($modname);
 
-try {
-    $module->initialSetup($version);
-} otherwise {
-    failed("Initial setup for $modname failed");
-};
+$module->initialSetup($version);
 
 # Run migrations only if upgrading
 if ($version) {
     $module->migrate($version);
 }
 
-# We are finished for non-service modules
-exit 0 unless $module->isa('EBox::Module::Service');
-
-# Restart service always except during the first install
-unless (-f EBox::Config::home() . '.first') {
-    try {
-        $module->restartService();
-    } otherwise {
-        warning("Restart for $modname failed");
-    };
-}
+try {
+    $module->save();
+} otherwise {
+    EBox::warn("Restart for $modname failed");
+};
 
 exit 0;
-
-sub failed
-{
-    my ($msg) = @_;
-
-    EBox::error($msg);
-    print STDERR "$msg\n";
-    exit 1;
-}
-
-sub warning
-{
-    my ($msg) = @_;
-
-    EBox::warn($msg);
-    print STDERR "Warning: $msg\n";
-}
