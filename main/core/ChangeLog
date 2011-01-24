@@ -2,6 +2,7 @@ HEAD
 	+ Move /usr/share/ebox/zentyal-redisvi to /usr/share/zentyal/redisvi
 	+ New /usr/share/zentyal/initial-setup script for modules postinst
 	+ Replace old ebox-migrate script with EBox::Module::Base::migrate
+	+ Services event is triggered only after five failed checkings
 	+ Do not add redundant includedir lines to /etc/sudoers
 	+ Fixed encoding for strings read from redis server
 	+ Support for redis-server 2.0 configuration
