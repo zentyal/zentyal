@@ -8,7 +8,7 @@ pkgdata_SCRIPTS = ebox-apache2ctl ebox-apache-restart \
  ebox-create-certificate ebox-make-backup ebox-restore-backup \
  ebox-unblock-exec ebox-passwd ebox-sql-table ebox-sql-table-with-time-period \
  ebox-set-locale ebox-global-action ebox-unconfigure-module \
- ebox-update-file-digest ebox-change-hostname zentyal-redisvi \
+ ebox-update-file-digest ebox-change-hostname redisvi \
  ebox-consolidate-reportinfo ebox-gather-reportinfo initial-setup \
  ebox-purge-logs ebox-configuration-report ebox-create-db fastperl-server
 
