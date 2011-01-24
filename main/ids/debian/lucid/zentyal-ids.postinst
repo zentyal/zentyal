@@ -4,15 +4,8 @@
 
 case "$1" in
 	configure)
-        # create log table
-        /usr/share/zentyal/ebox-sql-table add ids_event /usr/share/zentyal/sqllog/ids_event.sql
-        /usr/share/zentyal/ebox-sql-table add ids_report /usr/share/zentyal/sqllog/ids_report.sql
-        /usr/share/zentyal/ebox-sql-table-with-time-period add ids_alert /usr/share/zentyal/sqllog/ids_alert.sql
 
-        # migration
-        /usr/share/zentyal/ebox-migrate /usr/share/zentyal-ids/migration
-
-        invoke-rc.d zentyal ids restart
+        /usr/share/zentyal/initial-setup ids $2
 
         dpkg-trigger --no-await zentyal-core
 esac

@@ -1,3 +1,5 @@
+HEAD
+	+ Delete obsolete migration and use initial-setup to add SQL tables
 2.0.1
 	+ Fixed help message for rules model
 	+ Added commercial message
