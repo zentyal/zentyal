@@ -52,6 +52,12 @@ sub clean
     $ebackup->lock() ;
     try {
         _duplicityCommand($ebackup, 'cleanup --force');
+        # Delete orphaned metadata
+        my $settingsModel = $ebackup->model('RemoteSettings');
+        my $method = $settingsModel->row()->valueByName('method');
+        if ($method eq 'cloud') {
+            EBox::EBackup::Subscribed::deleteOrphanMetadata($ebackup->remoteStatus());
+        }
     } finally {
         $ebackup->unlock();
     };

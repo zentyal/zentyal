@@ -659,14 +659,14 @@ sub validateTypedRow
 {
     my ($self, $action, $paramsRef, $allFieldsRef) = @_;
 
-    if (exists $paramsRef->{encryption} ) {
-        $self->_checkEncryptionChangeIsAllowed();
-    }
-
     if (exists $paramsRef->{target} or
         exists $paramsRef->{method}) {
 
         $self->{targetChanged} = 1;
+    }
+
+    if (exists $paramsRef->{encryption} and (not $self->{targetChanged}) ) {
+        $self->_checkEncryptionChangeIsAllowed();
     }
 
     my $actualValues = $self->_actualValues($paramsRef, $allFieldsRef);

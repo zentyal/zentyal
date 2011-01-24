@@ -1,6 +1,11 @@
 HEAD
 	+ Remove skip of usercorner in restore-tool, now it is a package
 	+ Replace /etc/ebox/82ebackup.conf with /etc/zentyal/ebackup.conf
+	+ Use a geometric progression for timeout values for retrying
+	  connecting to backup servers when there are connectivity problems
+	+ Fixed event message when something goes wrong at first stages
+	+ Fixed bug in checking right method changing
+	+ Added a way to delete orphan metadata files
 2.0.9
 	+ Use new zentyal package names in restore-tool
 	+ Change one of our backup servers fingerprint
