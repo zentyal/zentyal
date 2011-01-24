@@ -2,7 +2,7 @@
 
 Migrationsdir = @DATADIR@/zentyal-ftp/migration
 
-nobase_Migrations_SCRIPTS = 0001_add_firewall_services.pl
+nobase_Migrations_SCRIPTS =
 
 EXTRA_DIST = $(nobase_Migrations_SCRIPTS)
 

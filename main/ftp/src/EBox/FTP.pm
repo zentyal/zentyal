@@ -71,6 +71,55 @@ sub modelClasses
     return [ 'EBox::FTP::Model::Options' ];
 }
 
+# Method: initialSetup
+#
+# Overrides:
+#   EBox::Module::Base::initialSetup
+#
+sub initialSetup
+{
+    my ($self, $version) = @_;
+
+    # Create default rules and services
+    # only if installing the first time
+    unless ($version) {
+        my $services = EBox::Global->modInstance('services');
+
+        my $serviceName = 'FTP';
+        unless($services->serviceExists(name => $serviceName)) {
+            $services->addMultipleService(
+                'name' => $serviceName,
+                'description' => __d('Zentyal FTP Server'),
+                'translationDomain' => 'ebox-ftp',
+                'internal' => 1,
+                'readOnly' => 1,
+                'services' => $self->_services(),
+            );
+        }
+
+        my $firewall = EBox::Global->modInstance('firewall');
+        $firewall->setInternalService($serviceName, 'accept');
+
+        $firewall->saveConfigRecursive();
+    }
+}
+
+sub _services
+{
+    return [
+             {
+                 'protocol' => 'tcp',
+                 'sourcePort' => 'any',
+                 'destinationPort' => 20,
+             },
+             {
+                 'protocol' => 'tcp',
+                 'sourcePort' => 'any',
+                 'destinationPort' => 21,
+             },
+    ];
+}
+
 # Method: usedFiles
 #
 #   Override EBox::ServiceModule::ServiceInterface::usedFiles

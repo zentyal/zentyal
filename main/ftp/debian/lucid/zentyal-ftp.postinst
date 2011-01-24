@@ -4,15 +4,11 @@
 
 case "$1" in
     configure)
-        kill `pidof gconfd-2` >/dev/null 2>&1 || true
 
-        # Migrate data if needed
-        /usr/share/zentyal/ebox-migrate /usr/share/zentyal-ftp/migration/
+        /usr/share/zentyal/initial-setup ftp $2
 
         dpkg-trigger --no-await zentyal-core
     ;;
 esac
-
-
 
 exit 0
