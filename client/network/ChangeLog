@@ -1,4 +1,6 @@
 HEAD
+	+ Zoneedit service url changed
+	+ Basic support for other methods to retrieve IP
 	+ Do not try to start ddclient daemon if disabled
 	+ Make source event not i18n
 	+ Safer way to get the PPPoE 'tty' ethernet interface
