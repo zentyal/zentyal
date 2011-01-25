@@ -802,9 +802,7 @@ sub notifyForeignModelAction
 #
 sub addRow
 {
-    my ($self) = @_;
-
-    my %params = @_;
+    my ($self, %params) = @_;
 
     $self->validateRow('add', @_);
 
