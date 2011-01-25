@@ -4,6 +4,15 @@ $login
 $password
 $hostname
 </%args>
+<%init>
+use EBox::Network::Model::DynDNS;
+my %services = %{EBox::Network::Model::DynDNS::SERVICES};
+my $serviceData = $services{$service};
+
+my $protocol = $serviceData->{protocol};
+my $server = $serviceData->{server};
+my $use = $serviceData->{use};
+</%init>
 # /etc/ddclient.conf
 
 pid=/var/run/ddclient.pid
@@ -12,25 +21,19 @@ ssl=yes
 login=<% $login %>
 password='<% $password %>'
 
-% if ($service eq 'dyndns') {
-protocol=dyndns2
-server=members.dyndns.org
-use=web, web=checkip.dyndns.com, web-skip='Current IP Address:'
-% } elsif ($service eq 'zoneedit') {
-protocol=zoneedit1
-server=dynamic.zoneedit.com
-use=web, web=www.zoneedit.com/checkip.html, web-skip='Current IP Address:'
-% } elsif ($service eq 'easydns') {
-protocol=easydns
-server=members.easydns.com
-use=web, web=checkip.dyndns.com, web-skip='Current IP Address:'
-% } elsif ($service eq 'dnspark') {
-protocol=dnspark
-server=www.dnspark.com
-use=web, web=ipdetect.dnspark.com, web-skip='Current Address:'
-% } elsif ($service eq 'joker') {
-protocol=dyndns2
-server=svc.joker.com
-use=web, web=svc.joker.com/nic/checkip, web-skip='Current IP Address:'
+protocol=<% $protocol %>
+server=<% $server %>
+% if ($use eq 'web') {
+use=web, web=<% $serviceData->{web} %>, web-skip='<% $serviceData->{web_skip} %>'
+
+% } elsif ($use eq 'if') {
+use=if, if=<% $serviceData->{iface} %>
+
+% } elsif ($use eq 'linksys') {
+use=linksys, fw=<% $serviceData->{fw} %>, fw-login=<% $serviceData->{fw_login} %>, fw-password=<% $serviceData->fw_password %>
+
+% } elsif ($use eq 'fw') {
+use=linksys, fw=<% $serviceData->{fw} %>, fw-skip=<% $serviceData->{fw_skip} %>
+
 % }
 <% $hostname %>

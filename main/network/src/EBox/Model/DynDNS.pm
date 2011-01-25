@@ -26,6 +26,49 @@ use EBox::Types::DomainName;
 use EBox::Types::Password;
 use EBox::Types::Text;
 
+our %SERVICES = (
+    dyndns => {
+        printableValue => 'DynDNS',
+        protocol => 'dyndns2',
+        server => 'members.dyndns.org',
+        use => 'web',
+        web => 'checkip.dyndns.com',
+        web_skip => 'Current IP Address:',
+    },
+    zoneedit => {
+        printableValue => 'ZoneEdit',
+        protocol => 'zoneedit1',
+        server => 'dynamic.zoneedit.com',
+        use => 'web',
+        web => 'dynamic.zoneedit.com/checkip.html',
+        web_skip => 'Current IP Address:',
+    },
+    easydns => {
+        printableValue => 'EasyDNS',
+        protocol => 'easydns',
+        server => 'members.easydns.com',
+        use => 'web',
+        web => 'checkip.dyndns.com',
+        web_skip => 'Current IP Address:',
+    },
+    dnspark => {
+        printableValue => 'dnspark.com',
+        protocol => 'dnspark',
+        server => 'www.dnspark.com',
+        use => 'web',
+        web => 'ipdetect.dnspark.com',
+        web_skip => 'Current Address:',
+    },
+    joker => {
+        printableValue => 'Joker.com',
+        protocol => 'dyndns2',
+        server => 'svc.joker.com',
+        use => 'web',
+        web => 'svc.joker.com/nic/checkip',
+        web_skip => 'Current IP Address:',
+    },
+);
+
 # Dependencies
 
 # Group: Public methods
@@ -58,13 +101,14 @@ sub new
 
 sub services
 {
-      my @providers;
-      push @providers, { 'value' => 'dyndns', printableValue => 'DynDNS' };
-      push @providers, { 'value' => 'zoneedit', printableValue => 'ZoneEdit' };
-      push @providers, { 'value' => 'easydns', printableValue => 'EasyDNS' };
-      push @providers, { 'value' => 'dnspark', printableValue => 'dnspark.com' };
-      push @providers, { 'value' => 'joker', printableValue => 'Joker.com' };
-      return \@providers;
+    my @providers;
+    foreach my $serviceKey (keys %SERVICES) {
+        push @providers, {
+            value => $serviceKey,
+            printableValue => $SERVICES{$serviceKey}->{printableValue}
+        };
+    }
+    return \@providers;
 }
 
 # Group: Protected methods
