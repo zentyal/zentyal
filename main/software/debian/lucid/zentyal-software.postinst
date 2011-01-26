@@ -3,14 +3,12 @@
 #DEBHELPER#
 case "$1" in
     configure)
-        # migrate data if needed
-        /usr/share/zentyal/ebox-migrate /usr/share/zentyal-software/migration/
+
+        /usr/share/zentyal/initial-setup software $2
 
         dpkg-trigger --no-await zentyal-core
     ;;
 
 esac
-
-
 
 exit 0

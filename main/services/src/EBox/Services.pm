@@ -145,6 +145,14 @@ sub _defaultServices
          'destinationPort' => '22',
          'internal' => 0,
         },
+        {
+         'name' => 'HTTP',
+         'description' => 'HTTP',
+         'domain' => __d('ebox-services'),
+         'protocol' => 'tcp',
+         'destinationPort' => '80',
+         'internal' => 0,
+        },
     ];
 }
 

@@ -1,4 +1,5 @@
 HEAD
+	+ Remove obsolete migrations
 	+ Do not show system updates in Zentyal UI when there are not
 	  available because of our QA updates
 	+ Fix bug when removing QA updates in preferences file

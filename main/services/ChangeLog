@@ -1,4 +1,5 @@
 HEAD
+	+ Added HTTP to default services
 	+ Added serviceId to exposedMethods
 	+ New _defaultServices method called on initialSetup
 	+ Removed obsolete migration
