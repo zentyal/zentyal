@@ -3,6 +3,8 @@ HEAD
 	  and moved the actual code to /usr/share/zentyal/manage-logs
 	+ Move /usr/share/ebox/zentyal-redisvi to /usr/share/zentyal/redisvi
 	+ New /usr/share/zentyal/initial-setup script for modules postinst
+	+ Removed obsolete logs and events migrations
+	+ Create plpgsql is now done on EBox::Logs::initialSetup
 	+ Replace old ebox-migrate script with EBox::Module::Base::migrate
 	+ Services event is triggered only after five failed checkings
 	+ Do not add redundant includedir lines to /etc/sudoers

@@ -3,7 +3,7 @@
 Migrationsdir = @DATADIR@/zentyal-logs/migration
 
 
-nobase_Migrations_SCRIPTS = 0001_update_configurelogtable.pl 0002_remove_old_cron.pl 0003_add_plpgsql.pl
+nobase_Migrations_SCRIPTS =
 
 
 EXTRA_DIST = $(nobase_Migrations_SCRIPTS)

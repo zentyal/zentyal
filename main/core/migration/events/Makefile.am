@@ -3,7 +3,7 @@
 Migrationsdir = @DATADIR@/zentyal-events/migration
 
 
-nobase_Migrations_SCRIPTS = 0001_migrate_logs_db_fields.pl
+nobase_Migrations_SCRIPTS =
 
 
 EXTRA_DIST = $(nobase_Migrations_SCRIPTS)

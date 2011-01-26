@@ -95,7 +95,21 @@ sub _loggerdPrecondition
     return @{ $enabled } > 0;
 }
 
+# Method: initialSetup
+#
+# Overrides:
+#   EBox::Module::Base::initialSetup
+#
+sub initialSetup
+{
+    my ($self, $version) = @_;
 
+    # Run only the first time
+    unless ($version) {
+        my $cmd = qq{echo "CREATE LANGUAGE plpgsql" | sudo su postgres -c 'psql eboxlogs' > /dev/null 2>&1};
+        system ($cmd);
+    }
+}
 
 # Method: enableService
 #
@@ -119,8 +133,6 @@ sub enableService
     $self->SUPER::enableService($status);
     $self->_notifyLogEnable();
 }
-
-
 
 sub _notifyLogEnable
 {
