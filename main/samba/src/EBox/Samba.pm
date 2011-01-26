@@ -168,6 +168,68 @@ sub usedFiles
     ];
 }
 
+# Method: initialSetup
+#
+# Overrides:
+#   EBox::Module::Base::initialSetup
+#
+sub initialSetup
+{
+    my ($self, $version) = @_;
+
+    # Execute initial-setup script
+    $self->SUPER::initialSetup($version);
+
+    # Create default rules and services
+    # only if installing the first time
+    unless ($version) {
+        my $services = EBox::Global->modInstance('services');
+
+        my $serviceName = 'samba';
+        unless($services->serviceExists(name => $serviceName)) {
+            $services->addMultipleService(
+                'name' => $serviceName,
+				'description' =>  __d('File sharing (Samba) protocol'),
+				'translationDomain' => 'ebox-samba',
+                'internal' => 1,
+                'readOnly' => 1,
+                'services' => $self->_services(),
+            );
+        }
+
+        my $firewall = EBox::Global->modInstance('firewall');
+        $firewall->setInternalService($serviceName, 'accept');
+
+        $firewall->saveConfigRecursive();
+    }
+}
+
+sub _services
+{
+    return [
+             { # netbios-ns
+                 'protocol' => 'tcp/udp',
+                 'sourcePort' => 'any',
+                 'destinationPort' => '137',
+             },
+             { # netbios-dgm
+                 'protocol' => 'tcp/udp',
+                 'sourcePort' => 'any',
+                 'destinationPort' => '138',
+             },
+             { # netbios-ssn
+                 'protocol' => 'tcp/udp',
+                 'sourcePort' => 'any',
+                 'destinationPort' => '139',
+             },
+             { # microsoft-ds
+                 'protocol' => 'tcp/udp',
+                 'sourcePort' => 'any',
+                 'destinationPort' => '445',
+             },
+    ];
+}
+
 # Method: enableActions
 #
 #   Override EBox::Module::Service::enableActions
