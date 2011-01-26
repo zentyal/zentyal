@@ -2,7 +2,7 @@
 
 SUBDIRS = sqllog
 
-pkgdata_SCRIPTS =  ebox-printers-enable
+pkgdata_SCRIPTS = initial-setup ebox-printers-enable
 
 MAINTAINERCLEANFILES = Makefile.in
 

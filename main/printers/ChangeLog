@@ -1,4 +1,5 @@
 HEAD
+	+ Use new initial-setup and delete migrations
 	+ Fixed config backup when some etc files doesn't exist
 2.0.2
 	+ CUPS configuration is saved when backing up

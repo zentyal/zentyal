@@ -89,6 +89,33 @@ sub usedFiles
     ];
 }
 
+# Method: initialSetup
+#
+# Overrides:
+#   EBox::Module::Base::initialSetup
+#
+sub initialSetup
+{
+    my ($self, $version) = @_;
+
+    # Execute initial-setup script
+    $self->SUPER::initialSetup($version);
+
+    # Add IPP service only if installing the first time
+    unless ($version) {
+        my $firewall = EBox::Global->modInstance('firewall');
+        $self->addInternalService(
+		        'name' => 'ipp',
+			    'description' => __d('Cups printer server port'),
+			    'translationDomain' => 'ebox-printers',
+			    'protocol' => 'tcp',
+			    'sourcePort' => 'any',
+			    'destinationPort' => 631,
+			   );
+        $firewall->saveConfigRecursive();
+    }
+}
+
 # Method: enableActions
 #
 #   Override EBox::Module::Service::enableActions

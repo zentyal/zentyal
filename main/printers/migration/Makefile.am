@@ -2,7 +2,7 @@
 
 Migrationsdir = @DATADIR@/zentyal-printers/migration
 
-nobase_Migrations_SCRIPTS = 0001_add_ipp_service.pl 0003_migrate_logs_db.pl
+nobase_Migrations_SCRIPTS =
 
 EXTRA_DIST = $(nobase_Migrations_SCRIPTS)
 
