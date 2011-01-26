@@ -35,14 +35,14 @@
 			  ]},
 % }
   {5222, ejabberd_c2s, [
+% if ($ssl eq 'allowssl') {
+			starttls, {certfile, "/etc/ejabberd/ejabberd.pem"},
+% } elsif ($ssl eq 'forcessl') {
+			starttls_required, {certfile, "/etc/ejabberd/ejabberd.pem"},
+% }
 			{access, c2s},
 			{shaper, c2s_shaper},
-			{max_stanza_size, 65536},
-% if ($ssl eq 'allowssl') {
-			starttls, {certfile, "/etc/ejabberd/ejabberd.pem"}
-% } elsif ($ssl eq 'forcessl') {
-			starttls_required, {certfile, "/etc/ejabberd/ejabberd.pem"}
-% }
+			{max_stanza_size, 65536}
 		       ]}
  ]}.
 

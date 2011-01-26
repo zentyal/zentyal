@@ -1,5 +1,6 @@
 HEAD
 	+ Move services migration to initialSetup
+	+ Bugfix: fixes template syntax when SSL is disabled.
 1.5.4
 	+ Zentyal rebrand
 1.5.3
