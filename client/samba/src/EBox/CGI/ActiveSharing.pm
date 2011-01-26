@@ -71,13 +71,12 @@ sub _user {
 	$self->_requireParam('quota', __('Disk quota limit'));
 	my $user = $self->param('user');
 	my $active = $self->param('active');
-	my $uid = $users->userInfo($user)->{'uid'};
 
 	$self->{redirect} = "UsersAndGroups/User?username=$user";
 
 	$smbldap->setUserSharing($user, $active);
+	$smbldap->setUserQuota($user, $self->param('quota'));
 	$smb->setAdminUser($user, $self->param('is_admin'));
-	$smb->setUserQuota($uid, $self->param('quota'));
 }
 
 sub _process($) {
