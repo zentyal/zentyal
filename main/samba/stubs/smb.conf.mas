@@ -19,6 +19,7 @@
     %recycle_exceptions
     $recycle_config
     $drive
+    $logon_script => 'zentyal-logon.bat'
 </%args>
 <%init>
 use EBox::Gettext;
@@ -61,7 +62,7 @@ use EBox::Gettext;
  obey pam restrictions = No
  ldap passwd sync = Yes
  mangling method = hash2
- logon script = logon.bat
+ logon script = <% $logon_script %>
  logon drive = <% $drive %>
  logon home =
 % if ($roaming) {
