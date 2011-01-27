@@ -62,6 +62,9 @@ use constant MAXNETBIOSLENGTH     => 15;
 use constant MAXWORKGROUPLENGTH   => 32;
 use constant MAXDESCRIPTIONLENGTH => 255;
 use constant SMBPORTS => qw(137 138 139 445);
+use constant NETLOGONDIR          => '/home/samba/netlogon';
+use constant NETLOGONSCRIPT       => 'logon.bat';
+use constant NETLOGONDEFAULTSCRIPT=> 'zentyal-logon.bat';
 
 
 use constant FIX_SID_PROGRAM => '/usr/share/ebox-samba/ebox-fix-sid';
@@ -527,9 +530,19 @@ sub _setConf
     push(@array, 'recycle_exceptions' => $self->recycleExceptions());
     push(@array, 'recycle_config' => $self->recycleConfig());
 
-    $self->writeConfFile(SMBCONFFILE, "samba/smb.conf.mas", \@array);
+    if ($self->pdc()) {
+        my $logonScript = join('/', NETLOGONDIR, NETLOGONSCRIPT);
+        if (EBox::Sudo::fileTest('-f', $logonScript)) {
+            push(@array, 'logon_script', NETLOGONSCRIPT);
+        }
+        $self->writeConfFile(join('/', NETLOGONDIR, NETLOGONDEFAULTSCRIPT),
+            'samba/logon.bat.mas', \@array);
+    }
 
-    $self->writeConfFile(CLAMAVSMBCONFFILE, "samba/vscan-clamav.conf.mas", \@array);
+    $self->writeConfFile(SMBCONFFILE, 'samba/smb.conf.mas', \@array);
+
+    $self->writeConfFile(CLAMAVSMBCONFFILE, 'samba/vscan-clamav.conf.mas',
+        \@array);
 
     EBox::Sudo::root(EBox::Config::share() . '/ebox-samba/ebox-setadmin-pass');
 
