@@ -60,44 +60,37 @@ sub new
 #
 sub _table
 {
-  my @tableHeader =
-    (
-     new EBox::MailFilter::Types::FileExtension(
-                             fieldName     => 'extension',
-                             printableName => __('File extension'),
-                             unique        => 1,
-                             editable      => 1,
-                            ),
-     new EBox::Types::Boolean(
-                                    fieldName     => 'allow',
-                                    printableName => __('Allow'),
-                                    editable      => 1,
-                                   ),
-    );
+    my @tableHeader =
+        (
+         new EBox::MailFilter::Types::FileExtension(
+             fieldName     => 'extension',
+             printableName => __('File extension'),
+             unique        => 1,
+             editable      => 1,
+             ),
+         new EBox::Types::Boolean(
+             fieldName     => 'allow',
+             printableName => __('Allow'),
+             editable      => 1,
+             ),
+        );
 
-  my $dataTable =
+    my $dataTable =
     {
-     tableName          => __PACKAGE__->nameFromClass,
-     printableTableName => __(q{File extensions}),
-     modelDomain        => 'mail',
-     'defaultController' => '/ebox/MailFilter/Controller/FileExtensionACL',
-     'defaultActions' => [
-                          'add', 'del',
-                          'editField',
-                          'changeView'
-                         ],
-     tableDescription   => \@tableHeader,
-     class              => 'dataTable',
-     order              => 0,
-     rowUnique          => 1,
-     printableRowName   => __("file extension"),
-     help               => __("Extensions which are not listed below are allowed"),
-     pageSize           => 5,
+        tableName          => __PACKAGE__->nameFromClass,
+        printableTableName => __(q{File extensions}),
+        modelDomain        => 'mail',
+        'defaultController' => '/ebox/MailFilter/Controller/FileExtensionACL',
+        'defaultActions' => [ 'add', 'del', 'editField', 'changeView' ],
+        tableDescription   => \@tableHeader,
+        class              => 'dataTable',
+        order              => 0,
+        rowUnique          => 1,
+        printableRowName   => __("file extension"),
+        help               => __("Extensions which are not listed below are allowed"),
+        pageSize           => 5,
     };
-
 }
-
-
 
 # Method: banned
 #
@@ -117,20 +110,13 @@ sub banned
     return \@banned;
 }
 
-
 sub bannedRegexes
 {
-  my ($self) = @_;
+    my ($self) = @_;
 
-  my @banned = map {
-      '\.' . $_ .'$'
+    my @banned = map { '\.' . $_ .'$' } @{ $self->banned() };
 
-  } @{  $self->banned() };
-
-  return \@banned;
+    return \@banned;
 }
 
-
-
 1;
-

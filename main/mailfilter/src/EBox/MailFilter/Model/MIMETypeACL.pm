@@ -60,44 +60,37 @@ sub new
 #
 sub _table
 {
-  my @tableHeader =
-    (
-     new EBox::MailFilter::Types::MIMEType(
-                             fieldName     => 'MIMEType',
-                             printableName => __('MIME Type'),
-                             unique        => 1,
-                             editable      => 1,
-                            ),
-     new EBox::Types::Boolean(
-                                    fieldName     => 'allow',
-                                    printableName => __('Allow'),
-                                    editable      => 1,
-                                   ),
-    );
+    my @tableHeader =
+        (
+         new EBox::MailFilter::Types::MIMEType(
+             fieldName     => 'MIMEType',
+             printableName => __('MIME Type'),
+             unique        => 1,
+             editable      => 1,
+             ),
+         new EBox::Types::Boolean(
+             fieldName     => 'allow',
+             printableName => __('Allow'),
+             editable      => 1,
+             ),
+        );
 
-  my $dataTable =
+    my $dataTable =
     {
-     tableName          => __PACKAGE__->nameFromClass,
-     printableTableName => __(q{MIME types}),
-     modelDomain        => 'mail',
-     'defaultController' => '/ebox/MailFilter/Controller/MIMETypeACL',
-     'defaultActions' => [
-                          'add', 'del',
-                          'editField',
-                          'changeView'
-                         ],
-     tableDescription   => \@tableHeader,
-     class              => 'dataTable',
-     order              => 0,
-     rowUnique          => 1,
-     printableRowName   => __("MIME type"),
-     help               => __("MIME types which are not listed below are allowed. MIME types aren't used by POP transparent proxy"),
-     pageSize          => 5,
+        tableName          => __PACKAGE__->nameFromClass,
+        printableTableName => __(q{MIME types}),
+        modelDomain        => 'mail',
+        'defaultController' => '/ebox/MailFilter/Controller/MIMETypeACL',
+        'defaultActions' => [ 'add', 'del', 'editField', 'changeView' ],
+        tableDescription   => \@tableHeader,
+        class              => 'dataTable',
+        order              => 0,
+        rowUnique          => 1,
+        printableRowName   => __("MIME type"),
+        help               => __("MIME types which are not listed below are allowed. MIME types aren't used by POP transparent proxy"),
+        pageSize          => 5,
     };
-
 }
-
-
 
 # Method: banned
 #
@@ -117,23 +110,17 @@ sub banned
     return \@banned;
 }
 
-
 sub bannedRegexes
 {
-  my ($self) = @_;
+    my ($self) = @_;
 
-  my @bannedMimeTypes = @{  $self->banned() };
-  @bannedMimeTypes = map {
-    $_ =~ s{/}{\/};
-    '^' . $_ . '$'
+    my @bannedMimeTypes = @{  $self->banned() };
+    @bannedMimeTypes = map {
+                             $_ =~ s{/}{\/};
+                             '^' . $_ . '$'
+                           } @bannedMimeTypes;
 
-  } @bannedMimeTypes;
-
-
-  return \@bannedMimeTypes;
+    return \@bannedMimeTypes;
 }
 
-
-
 1;
-
