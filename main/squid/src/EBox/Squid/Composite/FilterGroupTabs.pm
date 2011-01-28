@@ -31,7 +31,6 @@ use warnings;
 
 use EBox::Gettext;
 
-
 # Group: Public methods
 
 # Constructor: new
@@ -44,15 +43,13 @@ use EBox::Gettext;
 #       general events composite
 #
 sub new
-  {
+{
+    my ($class, @params) = @_;
 
-      my ($class, @params) = @_;
+    my $self = $class->SUPER::new(@params);
 
-      my $self = $class->SUPER::new(@params);
-
-      return $self;
-
-  }
+    return $self;
+}
 
 # Group: Protected methods
 
@@ -63,23 +60,20 @@ sub new
 #     <EBox::Model::Composite::_description>
 #
 sub _description
-  {
+{
+    my $description =
+    {
+        components      => [
+                            'FilterGroupDomains',
+                            'FilterGroupMIME',
+                            'FilterGroupExtensions',
+                           ],
+        layout          => 'tabbed',
+        name            => 'FilterGroupTabs',
+        compositeDomain => 'Squid',
+    };
 
-      my $description =
-        {
-         components      => [
-                             'FilterGroupExtensions',
-                             'FilterGroupMIME',
-                             'FilterGroupDomains',
-                            ],
-         layout          => 'tabbed',
-         name            => 'FilterGroupTabs',
-         compositeDomain => 'Squid',
-        };
-
-      return $description;
-
-  }
-
+    return $description;
+}
 
 1;

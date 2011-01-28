@@ -68,9 +68,9 @@ sub _description
       my $description =
         {
          components      => [
-                             'Extensions',
+			                 'Domains',
                              'MIME',
-			     'Domains',
+                             'Extensions',
                             ],
          layout          => 'tabbed',
          name            => 'FilterTabs',
