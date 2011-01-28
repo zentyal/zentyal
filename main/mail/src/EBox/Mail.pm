@@ -268,7 +268,7 @@ sub _serviceRules
              },
              {
               'name' => 'ManageSieve',
-              'description' => __d('Protocol for editing SIEVE filters'),
+              'description' => 'Sieve',
               'translationDomain' => 'ebox-mail',
               'internal' => 1,
               'protocol'   => 'tcp',
