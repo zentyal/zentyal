@@ -1,5 +1,8 @@
 HEAD
 	+ Improved order of tabs in filter profiles
+	+ Custom filter profiles are also populated with default extensions
+	  and MIME types
+	+ Delete all migrations and use initial-setup
 	+ Replace /etc/ebox/80squid.conf with /etc/zentyal/squid.conf
 	+ Disable default arbitrary regexes in bannedregexpurllist.mas
 2.0.3

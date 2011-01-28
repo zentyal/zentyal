@@ -26,10 +26,17 @@ use EBox::Gettext;
 use EBox::Types::Boolean;
 use EBox::Types::Text;
 
-
 use Perl6::Junction qw(all);
 
-# XXX extract MIME type form this class
+use constant DEFAULT_MIME_TYPES => qw(
+        audio/mpeg audio/x-mpeg audio/x-pn-realaudio audio/x-wav
+        video/mpeg video/x-mpeg2 video/acorn-replay video/quicktime
+        video/x-msvideo video/msvideo application/gzip
+        application/x-gzip application/zip application/compress
+        application/x-compress application/java-vm
+        application/x-shockwave-flash application/x-shockwave-flash2-preview
+        application/futuresplash image/vnd.rn-realflash
+);
 
 sub new
 {
@@ -63,6 +70,25 @@ sub _tableHeader
         );
 
     return \@tableHeader;
+}
+
+# Method: syncRows
+#
+#   Overrides <EBox::Model::DataTable::syncRows>
+#
+sub syncRows
+{
+    my ($self, $currentRows)  = @_;
+
+    unless (@{$currentRows}) {
+        # if there are no rows, we have to add them
+        foreach my $type (DEFAULT_MIME_TYPES) {
+            $self->add(MIMEType => $type);
+        }
+        return 1;
+    } else {
+        return 0;
+    }
 }
 
 sub validateTypedRow

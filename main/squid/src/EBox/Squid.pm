@@ -301,7 +301,6 @@ sub actions
            ];
 }
 
-
 # Method: enableActions
 #
 #       Override EBox::Module::Service::enableActions
