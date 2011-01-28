@@ -935,6 +935,19 @@ sub addServiceRules
                 $self->setInternalService($name, $decision);
             } elsif ($table eq 'external') {
                 $self->setExternalService($name, $decision);
+            } elsif ($table eq 'output') {
+                $self->addOutputService(
+                        decision => $decision,
+                        destination => { destination_any => undef },
+                        service => $servicesMod->serviceId($name),
+                );
+            } elsif ($table eq 'internet') {
+                $self->addToInternetService(
+                        decision => $decision,
+                        source => { source_any => undef },
+                        destination =>  { destination_any => undef },
+                        service => $servicesMod->serviceId($name),
+                );
             }
         }
     }

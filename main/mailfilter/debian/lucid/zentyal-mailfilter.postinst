@@ -4,22 +4,8 @@
 
 case "$1" in
 	configure)
-        # create log table
-        /usr/share/zentyal/ebox-sql-table add mailfilter_pop /usr/share/zentyal/sqllog/mailfilter_pop.sql
-        /usr/share/zentyal/ebox-sql-table add mailfilter_pop_report /usr/share/zentyal/sqllog/mailfilter_pop_report.sql
-        /usr/share/zentyal/ebox-sql-table-with-time-period add mailfilter_pop_traffic /usr/share/zentyal/sqllog/mailfilter_pop_traffic.sql
-        /usr/share/zentyal/ebox-sql-table add mailfilter_smtp /usr/share/zentyal/sqllog/mailfilter_smtp.sql
-        /usr/share/zentyal/ebox-sql-table add mailfilter_smtp_report /usr/share/zentyal/sqllog/mailfilter_smtp_report.sql
-        /usr/share/zentyal/ebox-sql-table-with-time-period add mailfilter_smtp_traffic /usr/share/zentyal/sqllog/mailfilter_smtp_traffic.sql
 
-        # migrate data if needed
-        /usr/share/zentyal/ebox-migrate /usr/share/zentyal-mailfilter/migration/
-
-        # populate file types if needed
-         /usr/share/zentyal-mailfilter/ebox-mailfilter-populate-filefilter update
-
-        # restart module
-        invoke-rc.d zentyal mailfilter restart
+        /usr/share/zentyal/initial-setup mailfilter $2
 
         dpkg-trigger --no-await zentyal-core
 esac

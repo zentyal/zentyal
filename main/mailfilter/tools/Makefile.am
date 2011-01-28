@@ -3,7 +3,7 @@ SUBDIRS= sqllog
 
 Sqlsetupdir = @DATADIR@/zentyal-mailfilter/sql
 
-pkgdata_SCRIPTS = ebox-mailfilter-ldap ebox-mailfilter-populate-filefilter \
+pkgdata_SCRIPTS = initial-setup ebox-mailfilter-ldap \
 		 ebox-mailfilter-enable ebox-mailfilter-sql \
 		 saLearn.pl
 

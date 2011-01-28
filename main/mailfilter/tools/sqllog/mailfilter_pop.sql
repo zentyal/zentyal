@@ -6,9 +6,9 @@ CREATE TABLE mailfilter_pop (
 
         event VARCHAR(255) NOT NULL,
 
-        mails       BIGINT DEFAULT 0,
-        clean        BIGINT DEFAULT 0,               
-        spam         BIGINT DEFAULT 0,
+        mails     BIGINT DEFAULT 0,
+        clean     BIGINT DEFAULT 0,               
+        spam      BIGINT DEFAULT 0,
         virus     BIGINT DEFAULT 0
 );
 

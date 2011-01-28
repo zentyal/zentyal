@@ -32,6 +32,14 @@ use EBox::Gettext;
 use EBox::Types::Boolean;
 use EBox::MailFilter::Types::MIMEType;
 
+use constant DEFAULT_MIME_TYPES => qw(
+        audio/mpeg audio/x-mpeg audio/x-pn-realaudio audio/x-wav
+        video/mpeg video/x-mpeg2 video/acorn-replay video/quicktime
+        video/x-msvideo video/msvideo application/gzip
+        application/x-gzip application/zip application/compress
+        application/x-compress application/java-vm
+);
+
 # Group: Public methods
 
 # Constructor: new
@@ -72,6 +80,7 @@ sub _table
              fieldName     => 'allow',
              printableName => __('Allow'),
              editable      => 1,
+             defaultValue  => 1,
              ),
         );
 
@@ -92,6 +101,25 @@ sub _table
     };
 }
 
+# Method: syncRows
+#
+#   Overrides <EBox::Model::DataTable::syncRows>
+#
+sub syncRows
+{
+    my ($self, $currentRows)  = @_;
+
+    unless (@{$currentRows}) {
+        # if there are no rows, we have to add them
+        foreach my $type (DEFAULT_MIME_TYPES) {
+            $self->add(MIMEType => $type);
+        }
+        return 1;
+    } else {
+        return 0;
+    }
+}
+
 # Method: banned
 #
 # Returns:
@@ -100,13 +128,10 @@ sub _table
 sub banned
 {
     my ($self) = @_;
-    my @banned;
-    for my $id (@{$self->ids()}) {
-        my $row = $self->row($id);
-        unless ($row->valueByName('allow')) {
-            push (@banned, $row->valueByName('MIMEType'));
-        }
-    }
+
+    my @banned = @{$self->findAllValue(allow => 0)};
+    @banned = map { $self->row($_)->valueByName('MIMEType') } @banned;
+
     return \@banned;
 }
 

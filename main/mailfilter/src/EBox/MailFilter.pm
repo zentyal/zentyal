@@ -117,6 +117,57 @@ sub usedFiles
     return \@usedFiles;
 }
 
+# Method: initialSetup
+#
+# Overrides:
+#   EBox::Module::Base::initialSetup
+#
+sub initialSetup
+{
+    my ($self, $version) = @_;
+
+    # Execute initial-setup script
+    $self->SUPER::initialSetup($version);
+
+    # Create default rules and services
+    # only if installing the first time
+    unless ($version) {
+        my $firewall = EBox::Global->modInstance('firewall');
+        $firewall->addServiceRules($self->_serviceRules());
+        $firewall->saveConfigRecursive();
+    }
+}
+
+sub _serviceRules
+{
+    my ($self) = @_;
+
+    my $popProxyPort = $self->popProxy()->port();
+
+    return [
+             {
+              'name' => 'POP Transparent proxy',
+              'description' => __d('POP transparent proxy'),
+              'translationDomain' => 'ebox-mailfilter',
+              'internal' => 1,
+              'protocol' => 'tcp',
+              'sourcePort' => 'any',
+              'destinationPorts' => [ $popProxyPort ],
+              'rules' => { 'external' => 'deny', 'internal' => 'accept' },
+             },
+             {
+              'name' => 'POP3',
+              'description' => __d('POP3 protocol'),
+              'translationDomain' => 'ebox-mailfilter',
+              'internal' => 1,
+              'protocol'   => 'tcp',
+              'sourcePort' => 'any',
+              'destinationPorts' => [ 110 ],
+              'rules' => { 'internet' => 'accept', 'output' => 'accept' },
+             },
+    ];
+}
+
 # Method: enableActions
 #
 #       Override EBox::Module::Service::enableActions

@@ -32,6 +32,18 @@ use EBox::Gettext;
 use EBox::Types::Boolean;
 use EBox::MailFilter::Types::FileExtension;
 
+# FIXME: This takes about 40 seconds to populate and show
+# the first time. Try to see if it can be improved.
+use constant DEFAULT_EXTENSIONS => qw(
+        ade adp asx bas bat cab chm cmd com cpl crt dll exe hlp
+        ini hta inf ins isp lnk mda mdb mde mdt mdw mdz msc msi
+        msp mst pcd pif prf reg scf scr sct sh shs shb sys url vb
+        be vbs vxd wsc wsf wsh otf ops doc xls gz tar zip tgz bz2
+        cdr dmg smi sit sea bin hqx rar mp3 mpeg mpg avi asf iso
+        ogg wmf cue sxw stw stc sxi sti sxd sxg odt ott ods
+        ots odp otp odg otg odm odf odc odb odi pdf
+);
+
 # Group: Public methods
 
 # Constructor: new
@@ -72,6 +84,7 @@ sub _table
              fieldName     => 'allow',
              printableName => __('Allow'),
              editable      => 1,
+             defaultValue  => 1,
              ),
         );
 
@@ -92,6 +105,25 @@ sub _table
     };
 }
 
+# Method: syncRows
+#
+#   Overrides <EBox::Model::DataTable::syncRows>
+#
+sub syncRows
+{
+    my ($self, $currentRows)  = @_;
+
+    unless (@{$currentRows}) {
+        # if there are no rows, we have to add them
+        foreach my $extension (DEFAULT_EXTENSIONS) {
+            $self->add(extension => $extension);
+        }
+        return 1;
+    } else {
+        return 0;
+    }
+}
+
 # Method: banned
 #
 # Returns:
@@ -100,13 +132,10 @@ sub _table
 sub banned
 {
     my ($self) = @_;
-    my @banned;
-    for my $id (@{$self->ids()}) {
-        my $row = $self->row($id);
-        unless ($row->valueByName('allow')) {
-            push (@banned, $row->valueByName('extension'));
-        }
-    }
+
+    my @banned = @{$self->findAllValue(allow => 0)};
+    @banned = map { $self->row($_)->valueByName('extension') } @banned;
+
     return \@banned;
 }
 
