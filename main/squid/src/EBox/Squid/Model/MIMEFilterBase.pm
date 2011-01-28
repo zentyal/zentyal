@@ -32,16 +32,14 @@ use Perl6::Junction qw(all);
 # XXX extract MIME type form this class
 
 sub new
-  {
+{
+    my $class = shift;
 
-      my $class = shift;
+    my $self = $class->SUPER::new(@_);
 
-      my $self = $class->SUPER::new(@_);
-
-      bless  $self, $class;
-      return $self;
-
-  }
+    bless  $self, $class;
+    return $self;
+}
 
 sub _tableHeader
 {
@@ -69,13 +67,12 @@ sub _tableHeader
 
 sub validateTypedRow
 {
-  my ($self, $action, $params_r) = @_;
+    my ($self, $action, $params_r) = @_;
 
-  if (exists $params_r->{MIMEType} ) {
-    my $type = $params_r->{MIMEType}->value();
-    $self->checkMimeType($type);
-  }
-
+    if (exists $params_r->{MIMEType} ) {
+        my $type = $params_r->{MIMEType}->value();
+        $self->checkMimeType($type);
+    }
 }
 
 # Function: bannedMimeTypes
@@ -87,17 +84,17 @@ sub validateTypedRow
 #       Array ref - containing the MIME types
 sub banned
 {
-  my ($self) = @_;
+    my ($self) = @_;
 
-  my @banned;
-  for my $id (@{$self->ids()}) {
-    my $row = $self->row($id);
-    if (not $row->valueByName('allowed')) {
-        push (@banned, $row->valueByName('MIMEType'));
+    my @banned;
+    for my $id (@{$self->ids()}) {
+        my $row = $self->row($id);
+        if (not $row->valueByName('allowed')) {
+            push (@banned, $row->valueByName('MIMEType'));
+        }
     }
-  }
 
-  return \@banned;
+    return \@banned;
 }
 
 #       A MIME type follows this syntax: type/subtype
@@ -118,48 +115,41 @@ my $allIanaMimeType = all @ianaMimeTypes;
 
 sub checkMimeType
 {
-  my ($self, $type) = @_;
+    my ($self, $type) = @_;
 
-  my ($mainType, $subType) = split '/', $type, 2;
+    my ($mainType, $subType) = split '/', $type, 2;
 
-  if (not defined $subType) {
-      throw EBox::Exceptions::InvalidData(
-              data  => __('MIME Type'),
-              value => $type,
-              advice => __('A MIME Type must follow this syntax: type/subtype'),
-              )
-  }
+    if (not defined $subType) {
+        throw EBox::Exceptions::InvalidData(
+                data  => __('MIME Type'),
+                value => $type,
+                advice => __('A MIME Type must follow this syntax: type/subtype'),
+        );
+    }
 
+    if ($mainType ne $allIanaMimeType) {
+        throw EBox::Exceptions::InvalidData(
+                data  => __('MIME Type'),
+                value => $type,
+                advice => __x(
+                    '{type} is not a valid IANA type',
+                    type => $mainType,
+                    )
+        );
+    }
 
-  if ($mainType ne $allIanaMimeType) {
-      throw EBox::Exceptions::InvalidData(
-              data  => __('MIME Type'),
-              value => $type,
-              advice => __x(
-                  '{type} is not a valid IANA type',
-                  type => $mainType,
-                  )
-              )
-  }
+    if (not $subType =~ m{^[\w\-\d\.+]+$} ) {
+        throw EBox::Exceptions::InvalidData(
+                data   => __('MIME Type'),
+                value  => $type,
+                advice => __x(
+                    '{t} subtype has a wrong syntax',
+                    t => $subType,
+                    )
+        );
+    }
 
-  if (not $subType =~ m{^[\w\-\d\.+]+$} ) {
-      throw EBox::Exceptions::InvalidData(
-              data   => __('MIME Type'),
-              value  => $type,
-              advice => __x(
-                  '{t} subtype has a wrong syntax',
-                  t => $subType,
-                  )
-              )
-  }
-
-
-  return 1;
+    return 1;
 }
 
-
-
-
-
 1;
-

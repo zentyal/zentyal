@@ -26,9 +26,6 @@ use EBox::Gettext;
 use EBox::Types::Boolean;
 use EBox::Types::Text;
 
-
-
-
 sub new
 {
     my $class = shift;
@@ -41,21 +38,19 @@ sub new
 
 sub validateTypedRow
 {
-  my ($self, $action, $params_r) = @_;
+    my ($self, $action, $params_r) = @_;
 
-  if (exists $params_r->{extension} ) {
-    my $extension = $params_r->{extension}->value();
-    if ($extension =~ m{\.}) {
-        throw EBox::Exceptions::InvalidData(
-                data  => __('File extension'),
-                value => $extension,
-                advice => ('Dots (".") are not allowed in file extensions')
-                )
+    if (exists $params_r->{extension} ) {
+        my $extension = $params_r->{extension}->value();
+        if ($extension =~ m{\.}) {
+            throw EBox::Exceptions::InvalidData(
+                    data  => __('File extension'),
+                    value => $extension,
+                    advice => ('Dots (".") are not allowed in file extensions')
+            );
+        }
     }
-  }
-
 }
-
 
 # Function: bannedExtensions
 #
@@ -66,46 +61,42 @@ sub validateTypedRow
 #       Array ref - containing the extensions
 sub banned
 {
-  my ($self) = @_;
+    my ($self) = @_;
 
-  my @bannedExtensions;
+    my @bannedExtensions;
 
-  for my $id (@{$self->ids()}) {
-    my $row = $self->row($id);
-    if (not $row->valueByName('allowed')) {
-        push (@bannedExtensions, $row->valueByName('extension'));
+    for my $id (@{$self->ids()}) {
+        my $row = $self->row($id);
+        if (not $row->valueByName('allowed')) {
+            push (@bannedExtensions, $row->valueByName('extension'));
+        }
     }
-  }
-  return \@bannedExtensions;
+    return \@bannedExtensions;
 }
 
 # Group: Protected methods
 
-
 sub _tableHeader
 {
-
-  my @tableHeader =
-    (
-     new EBox::Types::Text(
-                           fieldName     => 'extension',
-                           printableName => __('Extension'),
-                           unique        => 1,
-                           editable      => 1,
-                           optional      => 0,
-                          ),
-     new EBox::Types::Boolean(
-                              fieldName     => 'allowed',
-                              printableName => __('Allow'),
-
-                              optional      => 0,
+    my @tableHeader = (
+        new EBox::Types::Text(
+                              fieldName     => 'extension',
+                              printableName => __('Extension'),
+                              unique        => 1,
                               editable      => 1,
-                              defaultValue  => 1,
+                              optional      => 0,
                              ),
+         new EBox::Types::Boolean(
+                                  fieldName     => 'allowed',
+                                  printableName => __('Allow'),
+
+                                  optional      => 0,
+                                  editable      => 1,
+                                  defaultValue  => 1,
+                                 ),
     );
 
-   return \@tableHeader;
+    return \@tableHeader;
 }
 
 1;
-
