@@ -26,13 +26,15 @@ use EBox::Gettext;
 use EBox::Types::Boolean;
 use EBox::Types::Text;
 
+# FIXME: This takes about 40 seconds to populate and show
+# the first time. Try to see if it can be improved.
 use constant DEFAULT_EXTENSIONS => qw(
         ade adp asx bas bat cab chm cmd com cpl crt dll exe hlp
         ini hta inf ins isp lnk mda mdb mde mdt mdw mdz msc msi
         msp mst pcd pif prf reg scf scr sct sh shs shb sys url vb
         be vbs vxd wsc wsf wsh otf ops doc xls gz tar zip tgz bz2
         cdr dmg smi sit sea bin hqx rar mp3 mpeg mpg avi asf iso
-        ogg wmf  cue sxw stw stc sxi sti sxd sxg odt ott ods
+        ogg wmf cue sxw stw stc sxi sti sxd sxg odt ott ods
         ots odp otp odg otg odm odf odc odb odi pdf
 );
 
@@ -73,15 +75,10 @@ sub banned
 {
     my ($self) = @_;
 
-    my @bannedExtensions;
+    my @banned = @{$self->findAllValue(allowed => 0)};
+    @banned = map { $self->row($_)->valueByName('extension') } @banned;
 
-    for my $id (@{$self->ids()}) {
-        my $row = $self->row($id);
-        if (not $row->valueByName('allowed')) {
-            push (@bannedExtensions, $row->valueByName('extension'));
-        }
-    }
-    return \@bannedExtensions;
+    return \@banned;
 }
 
 # Method: syncRows

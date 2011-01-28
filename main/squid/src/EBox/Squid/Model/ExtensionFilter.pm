@@ -52,46 +52,7 @@ sub new
     return $self;
 }
 
-sub validateTypedRow
-{
-    my ($self, $action, $params_r) = @_;
-
-    if (exists $params_r->{extension}) {
-        my $extension = $params_r->{extension}->value();
-        if ($extension =~ m{\.}) {
-            throw EBox::Exceptions::InvalidData(
-                    data  => __('File extension'),
-                    value => $extension,
-                    advice => ('Dots (".") are not allowed in file extensions')
-                    )
-        }
-    }
-}
-
-# Function: bannedExtensions
-#
-#	Fetch the banned extensions
-#
-# Returns:
-#
-#	Array ref - containing the extensions
-sub banned
-{
-    my ($self) = @_;
-
-    my @bannedExtensions;
-
-    for my $id (@{$self->ids()}) {
-        my $row = $self->row($id);
-        if (not $row->valueByName('allowed')) {
-            push (@bannedExtensions, $row->valueByName('extension'));
-        }
-    }
-    return \@bannedExtensions;
-}
-
 # Group: Protected methods
-
 
 sub _table
 {

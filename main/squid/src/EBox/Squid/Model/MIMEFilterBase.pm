@@ -112,13 +112,8 @@ sub banned
 {
     my ($self) = @_;
 
-    my @banned;
-    for my $id (@{$self->ids()}) {
-        my $row = $self->row($id);
-        if (not $row->valueByName('allowed')) {
-            push (@banned, $row->valueByName('MIMEType'));
-        }
-    }
+    my @banned = @{$self->findAllValue(allowed => 0)};
+    @banned = map { $self->row($_)->valueByName('MIMEType') } @banned;
 
     return \@banned;
 }
