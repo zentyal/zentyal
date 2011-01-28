@@ -8,11 +8,6 @@ use EBox::MailVDomainsLdap;
 use EBox::MailFilter::VDomainsLdap;
 use EBox::Sudo qw(root);
 
-
-
-
-
-
 sub update
 {
     my $users =  EBox::Global->modInstance('users');
@@ -80,8 +75,6 @@ sub usage
     exit 1;
 }
 
-
-
 EBox::init();
 
 unless ($#ARGV == 0) {
@@ -96,10 +89,4 @@ if ($ARGV[0] eq 'update') {
     usage();
 }
 
-
-
 1;
-
-
-
-
