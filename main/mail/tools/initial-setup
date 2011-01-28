@@ -1,0 +1,20 @@
+#!/bin/bash
+
+VMAIL_DIR=/var/vmail
+SIEVE_SCRIPTS_DIR=/var/vmail/sieve
+
+# create directory for vmail
+mkdir -p $VMAIL_DIR
+/bin/chmod 0755 $VMAIL_DIR
+chown ebox:ebox $VMAIL_DIR
+# create directory for sieve filters
+mkdir -p $SIEVE_SCRIPTS_DIR
+/bin/chmod 2775 $SIEVE_SCRIPTS_DIR
+chown ebox:ebox $SIEVE_SCRIPTS_DIR
+
+# create log tables
+/usr/share/zentyal/ebox-sql-table add mail_message /usr/share/zentyal/sqllog/mail_message.sql
+/usr/share/zentyal/ebox-sql-table add mail_message_report /usr/share/zentyal/sqllog/mail_message_report.sql
+/usr/share/zentyal/ebox-sql-table-with-time-period add mail_message_traffic /usr/share/zentyal/sqllog/mail_message_traffic.sql
+
+exit 0

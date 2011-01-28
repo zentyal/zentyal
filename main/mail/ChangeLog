@@ -1,4 +1,5 @@
 HEAD
+	+ Removed obsolete migrations and use new initial-setup
 	+ Bugfix: don't query vdomains to LDAP if module is not enabled
 2.0.3
 	+ Added backup domain

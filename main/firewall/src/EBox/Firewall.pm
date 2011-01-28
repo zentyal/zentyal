@@ -651,7 +651,7 @@ sub removeOutputRule # (protocol, port)
 
 # Method: addOutputRule
 #
-#       Removes an output rule
+#       Adds an output rule
 #
 # Parameters:
 #
@@ -885,6 +885,59 @@ sub addInternalService
     $self->_fwRuleForInternalService(@fwRuleParams);
 
     $self->saveConfigRecursive();
+}
+
+# Method: addServiceRules
+#
+#  Helper method to add a set of new internal services and
+#  the firewall rules associated to them
+#
+#  Takes as argument an array ref of hashes with the following keys:
+#    name             - name of the service
+#    protocol         - protocol used by the service
+#    sourcePort       - source port used by the service (default : any)
+#    destinationPorts - array ref of destination port numbers
+#    services         - array ref of hashes with protocol, sourcePort
+#                       and destinationPort
+#    rules - array ref of tables and decision
+#              example: [ 'internal' => 'accept', 'external' => 'deny' ]
+#
+#  Important: destinationPorts and services are mutually exclusive
+#
+sub addServiceRules
+{
+    my ($self, $services) = @_;
+
+    my $servicesMod = EBox::Global->modInstance('services');
+
+    foreach my $service (@{$services}) {
+        my $name = $service->{'name'};
+        unless ($servicesMod->serviceExists(name => $name)) {
+            unless (defined ($service->{'readOnly'})) {
+                $service->{'readOnly'} = 1;
+            }
+            if (exists $service->{'destinationPorts'}) {
+                my $protocol = $service->{'protocol'};
+                my $sourcePort = $service->{'sourcePort'};
+                my @ports;
+                foreach my $port (@{$service->{'destinationPorts'}}) {
+                    push (@ports, { 'protocol' => $protocol,
+                                    'sourcePort' => $sourcePort,
+                                    'destinationPort' => $port });
+                }
+                $service->{'services'} = \@ports;
+            }
+            $servicesMod->addMultipleService(%{$service});
+        }
+        my %rules = %{$service->{'rules'}};
+        while (my ($table, $decision) = each (%rules)) {
+            if ($table eq 'internal') {
+                $self->setInternalService($name, $decision);
+            } elsif ($table eq 'external') {
+                $self->setExternalService($name, $decision);
+            }
+        }
+    }
 }
 
 sub _fwRuleForInternalService

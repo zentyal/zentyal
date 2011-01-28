@@ -1,4 +1,4 @@
-CREATE TABLE mail_traffic (
+CREATE TABLE mail_message_traffic (
        date TIMESTAMP NOT NULL,
 
        vdomain VARCHAR(300),

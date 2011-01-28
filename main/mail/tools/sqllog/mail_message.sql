@@ -9,7 +9,7 @@ CREATE TABLE mail_message (
         message_size BIGINT,
         relay VARCHAR(320),
         message_type VARCHAR(10) NOT NULL,
-        status VARCHAR(25) NOT NULL,
+        status VARCHAR(25),
         message TEXT,
         event VARCHAR(255) NOT NULL
 );

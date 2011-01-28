@@ -52,35 +52,38 @@ use Perl6::Junction qw(all);
 use File::Slurp;
 
 use constant {
- MAILMAINCONFFILE                   => '/etc/postfix/main.cf',
- MAILMASTERCONFFILE                 => '/etc/postfix/master.cf',
- MASTER_PID_FILE                    => '/var/spool/postfix/pid/master.pid',
- MAIL_ALIAS_FILE                    => '/etc/aliases',
+ MAILMAINCONFFILE         => '/etc/postfix/main.cf',
+ MAILMASTERCONFFILE       => '/etc/postfix/master.cf',
+ MASTER_PID_FILE          => '/var/spool/postfix/pid/master.pid',
+ MAIL_ALIAS_FILE          => '/etc/aliases',
 
- DOVECOT_CONFFILE                   => '/etc/dovecot/dovecot.conf',
- DOVECOT_LDAP_CONFFILE              =>  '/etc/dovecot/dovecot-ldap.conf',
+ DOVECOT_CONFFILE         => '/etc/dovecot/dovecot.conf',
+ DOVECOT_LDAP_CONFFILE    =>  '/etc/dovecot/dovecot-ldap.conf',
 
- MAILINIT                           => 'postfix',
+ MAILINIT                 => 'postfix',
 
- BYTES                              => '1048576',
+ BYTES                    => '1048576',
 
- DOVECOT_SERVICE                    => 'ebox.dovecot',
+ DOVECOT_SERVICE          => 'ebox.dovecot',
 
- TRANSPORT_FILE                     => '/etc/postfix/transport',
+ TRANSPORT_FILE           => '/etc/postfix/transport',
 
- SASL_PASSWD_FILE                   => '/etc/postfix/sasl_passwd',
+ SASL_PASSWD_FILE         => '/etc/postfix/sasl_passwd',
 
- MAILNAME_FILE                      => '/etc/mailname',
+ MAILNAME_FILE            => '/etc/mailname',
 
- VDOMAINS_MAILBOXES_DIR             => '/var/vmail',
+ VDOMAINS_MAILBOXES_DIR   => '/var/vmail',
 
- ARCHIVEMAIL_CRON_FILE              => '/etc/cron.daily/archivemail',
+ ARCHIVEMAIL_CRON_FILE    => '/etc/cron.daily/archivemail',
 
- FETCHMAIL_SERVICE                   => 'ebox.fetchmail',
+ FETCHMAIL_SERVICE        => 'ebox.fetchmail',
 
- ALWAYS_BCC_TABLE_FILE              => '/etc/postfix/alwaysbcc',
+ ALWAYS_BCC_TABLE_FILE    => '/etc/postfix/alwaysbcc',
 
- SIEVE_SCRIPTS_DIR                          => '/var/vmail/sieve',
+ SIEVE_SCRIPTS_DIR        => '/var/vmail/sieve',
+
+ BOUNCE_ADDRESS_KEY       => 'SMTPOptions/bounceReturnAddress',
+ BOUNCE_ADDRESS_DEFAULT   => 'noreply@example.com',
 };
 
 use constant SERVICES => ('active', 'filter', 'pop', 'imap', 'sasl');
@@ -222,6 +225,57 @@ sub usedFiles
             },
 
             @greylistFiles
+    ];
+}
+
+# Method: initialSetup
+#
+# Overrides:
+#   EBox::Module::Base::initialSetup
+#
+sub initialSetup
+{
+    my ($self, $version) = @_;
+
+    # Execute initial-setup script
+    $self->SUPER::initialSetup($version);
+
+    # Create default rules and services
+    # only if installing the first time
+    unless ($version) {
+        my $firewall = EBox::Global->modInstance('firewall');
+        $firewall->addServiceRules($self->_serviceRules());
+        $firewall->saveConfigRecursive();
+
+        # TODO: We need a mechanism to notify modules when the hostname
+        # changes, so this default could be set to the hostname
+        $self->set_string(BOUNCE_ADDRESS_KEY, BOUNCE_ADDRESS_DEFAULT);
+    }
+}
+
+sub _serviceRules
+{
+    return [
+             {
+              'name' => 'Mail system',
+              'description' => __d('Zentyal Mail System'),
+              'translationDomain' => 'ebox-mail',
+              'internal' => 1,
+              'protocol' => 'tcp',
+              'sourcePort' => 'any',
+              'destinationPorts' => [ 25, 110, 143, 995, 993, 465 ],
+              'rules' => { 'external' => 'accept', 'internal' => 'accept' },
+             },
+             {
+              'name' => 'ManageSieve',
+              'description' => __d('Protocol for editing SIEVE filters'),
+              'translationDomain' => 'ebox-mail',
+              'internal' => 1,
+              'protocol'   => 'tcp',
+              'sourcePort' => 'any',
+              'destinationPorts' => [ 4190 ],
+              'rules' => { 'external' => 'deny', 'internal' => 'accept' },
+             },
     ];
 }
 
