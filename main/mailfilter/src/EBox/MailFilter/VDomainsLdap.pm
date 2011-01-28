@@ -19,8 +19,6 @@ use base qw(EBox::LdapUserBase EBox::LdapVDomainBase);
 use strict;
 use warnings;
 
-
-
 use EBox::Sudo qw( :all );
 use EBox::Global;
 use EBox::Ldap;
@@ -30,10 +28,8 @@ use EBox::MailAliasLdap;
 use EBox::MailFilter::Types::AntispamThreshold;
 
 # LDAP schema
-use constant SCHEMAS            => ('/etc/ldap/schema/amavis.schema', '/etc/ldap/schema/eboxfilter.schema');
-
-
-
+use constant SCHEMAS => ('/etc/ldap/schema/amavis.schema',
+                         '/etc/ldap/schema/eboxfilter.schema');
 
 sub new
 {
@@ -77,7 +73,6 @@ sub _vdomainAttr
     }
 }
 
-
 sub _vdomainBoolAttr
 {
     my $value = _vdomainAttr(@_);
@@ -85,22 +80,18 @@ sub _vdomainBoolAttr
     if (defined $value) {
         if ($value eq 'TRUE') {
             return 1;
-    }
+        }
         elsif ($value eq 'FALSE') {
             return 0;
         }
         else {
             throw EBox::Exceptions::Internal ("A bool attr must return either FALSE or TRUE (waas $value)");
         }
-
-
     }
     else {
         return undef;
     }
-
 }
-
 
 sub _setVDomainAttr
 {
@@ -111,14 +102,13 @@ sub _setVDomainAttr
     my $ldap = $self->{'ldap'};
     if (defined $value) {
         $ldap->modifyAttribute($dn, $attr => $value);
-     }
+    }
     else {
         $self->_deleteVDomainAttr($vdomain, $attr);
     }
 
     $self->_updateVDomain($vdomain);
 }
-
 
 sub _setVDomainBoolAttr
 {
@@ -131,14 +121,12 @@ sub _setVDomainBoolAttr
     $self->_setVDomainAttr($vdomain, $attr, $value);
 }
 
-
 sub _addVDomainAttr
 {
     my ($self, $vdomain, $attr, @values) = @_;
 
     my $dn =  $self->vdomainDn($vdomain);
     my $ldap = $self->{'ldap'};
-
 
     my @addList;
     if (@values == 1) {
@@ -148,18 +136,10 @@ sub _addVDomainAttr
         @addList = ($attr => \@values)
     }
 
-    $ldap->modify(
-                  $dn,
-                  {
-                   add => [
-                           @addList
-                          ],
-                  }
-                 );
+    $ldap->modify($dn, { add => [ @addList ] });
 
     $self->_updateVDomain($vdomain);
 }
-
 
 sub _deleteVDomainAttr
 {
@@ -179,18 +159,10 @@ sub _deleteVDomainAttr
         @deleteParams = ($attr => \@values);
     }
 
-    $ldap->modify(
-                  $dn,
-                  {
-                   delete => [
-                              @deleteParams
-                             ],
-                  }
-                 );
+    $ldap->modify($dn, { delete => [ @deleteParams ] });
 
     $self->_updateVDomain($vdomain);
 }
-
 
 sub whitelist
 {
@@ -198,7 +170,6 @@ sub whitelist
     my @wl = $self->_vdomainAttr($vdomain, 'amavisWhitelistSender');
     return @wl;
 }
-
 
 sub setWhitelist
 {
@@ -213,13 +184,11 @@ sub blacklist
     return @wl;
 }
 
-
 sub setBlacklist
 {
     my ($self, $vdomain, $senderList_r) = @_;
     $self->_setSenderList($vdomain, 'amavisBlacklistSender', $senderList_r);
 }
-
 
 sub _setSenderList
 {
@@ -242,7 +211,6 @@ sub _setSenderList
     }
 }
 
-
 # Method: spamThreshold
 #
 #  get the spam threshold for the vdomain. Please note than in the actual
@@ -254,7 +222,6 @@ sub spamThreshold
     my $threshold = $self->_vdomainAttr($vdomain, 'amavisSpamTag2Level');
     return $threshold;
 }
-
 
 # Method: setSpamThreshold
 #
@@ -287,17 +254,9 @@ sub setSpamThreshold
         @toDelete or
             return;
 
-
-        $ldap->modify(
-                      $dn,
-                      {
-                       delete =>  \@toDelete
-                      }
-                     );
+        $ldap->modify( $dn, { delete =>  \@toDelete });
     }
-
 }
-
 
 sub antispam
 {
@@ -306,7 +265,6 @@ sub antispam
     $value = $value ? 0 : 1;  # the ldap attribute has reverse logic..
     return $value;
 }
-
 
 sub setAntispam
 {
@@ -317,8 +275,6 @@ sub setAntispam
     $self->_setVDomainBoolAttr($vdomain, 'amavisBypassSpamChecks', $value);
 }
 
-
-
 sub antivirus
 {
     my ($self, $vdomain) = @_;
@@ -326,7 +282,6 @@ sub antivirus
     $value = $value ? 0 : 1;  # the ldap attribute has reverse logic..
     return $value;
 }
-
 
 sub setAntivirus
 {
@@ -336,7 +291,6 @@ sub setAntivirus
 
     $self->_setVDomainBoolAttr($vdomain, 'amavisBypassVirusChecks', $value);
 }
-
 
 sub _addVDomain
 {
@@ -363,15 +317,11 @@ sub _addVDomain
     $self->_vdomainsListChanged();
 }
 
-
-
-
 sub spamAccount
 {
     my ($self, $vdomain) = @_;
     return $self->_hasAccount($vdomain, 'spam');
 }
-
 
 sub hamAccount
 {
@@ -393,7 +343,6 @@ sub learnAccountsExists
     return 0;
 }
 
-
 sub _hasAccount
 {
     my ($self, $vdomain, $user) = @_;
@@ -401,7 +350,6 @@ sub _hasAccount
     my $mail         = EBox::Global->modInstance('mail');
     my $mailUserLdap = $mail->_ldapModImplementation();
     my $mailAliasLdap = new EBox::MailAliasLdap;
-
 
     my $account = $mailUserLdap->userAccount($user);
     if (not defined $account) {
@@ -425,21 +373,17 @@ sub _hasAccount
     return 0;
 }
 
-
 sub setSpamAccount
 {
     my ($self, $vdomain, $active) = @_;
     $self->_setAccount($vdomain, 'spam', $active);
 }
 
-
 sub setHamAccount
 {
     my ($self, $vdomain, $active) = @_;
     $self->_setAccount($vdomain, 'ham', $active);
 }
-
-
 
 sub _setAccount
 {
@@ -456,9 +400,7 @@ sub _setAccount
     else {
         $self->_removeAccount($vdomain, $user);
     }
-
 }
-
 
 sub _addAccount
 {
@@ -471,7 +413,7 @@ sub _addAccount
     my $account = $mailUserLdap->userAccount($user);
 
     if (defined $account) {
-        my ($lh, $accountVdomain) = split '@', $account;
+        my ($lh, $accountVdomain) = split ('@', $account);
 
         if ($vdomain eq $accountVdomain) {
             # this domain has the account so we haven't nothing to do
@@ -481,13 +423,12 @@ sub _addAccount
         my $alias = $user . '@' . $vdomain;
         if (not $mailAliasLdap->aliasExists($alias)) {
             $mailAliasLdap->addAlias($alias, $account, $user);
-            }
+        }
     }
     else {
         $mailUserLdap->setUserAccount($user, $user, $vdomain);
     }
 }
-
 
 sub _removeAccount
 {
@@ -504,14 +445,12 @@ sub _removeAccount
         ($_ ne $vdomain) and $self->_hasAccount($_, $user)
     } $self->vdomains();
 
-
     # remove account and all its addresses
     $mailUserLdap->delUserAccount($user, $account);
     # add account for domains which need it
     foreach my $vd (@vdomains) {
         $self->_addAccount($vd, $user);
     }
-
 }
 
 sub _delVDomain
@@ -520,11 +459,9 @@ sub _delVDomain
 
     return unless ($self->_moduleConfigured());
 
-
     # remove ham and spam accounts
     $self->setSpamAccount($vdomain, 0);
     $self->setHamAccount($vdomain, 0);
-
 
     # remove from ldap if neccesary
     my $ldap = $self->{ldap};
@@ -557,7 +494,6 @@ sub _vdomainsListChanged
     }
 }
 
-
 sub _includeLDAPSchemas
 {
     my ($self) = @_;
@@ -567,7 +503,6 @@ sub _includeLDAPSchemas
     my @schemas = SCHEMAS;
     return \@schemas;
 }
-
 
 sub vdomains
 {
@@ -582,13 +517,11 @@ sub vdomainDn
     return "domainComponent=$vdomain," . $self->vdomainTreeDn() ;
 }
 
-
 sub vdomainTreeDn
 {
     my $mailvdomain = new  EBox::MailVDomainsLdap();
     return $mailvdomain->vdomainDn();
 }
-
 
 sub _updateVDomain
 {
@@ -606,7 +539,6 @@ sub checkVDomainExists
     }
 }
 
-
 # Method: resetVDomain
 #
 #  restore default antispam configuration for the give domain
@@ -621,7 +553,6 @@ sub resetVDomain
         $self->_addVDomain($vdomain);
     }
 
-
     # reset booleans to false
     my @boolMethods = qw(setAntivirus setAntispam);
     foreach my $method (@boolMethods) {
@@ -630,19 +561,18 @@ sub resetVDomain
 
     # clear non-boolean atributtes
     my @delAttrs = (
-                    'amavisVirusLover', 'amavisBannedFilesLover', 'amavisSpamLover',
-                    'amavisSpamTagLevel', 'amavisSpamTag2Level',
-                  'amavisSpamKillLevel', 'amavisSpamModifiesSubj',
-                    'amavisSpamQuarantineTo',
-                 );
+            'amavisVirusLover', 'amavisBannedFilesLover', 'amavisSpamLover',
+            'amavisSpamTagLevel', 'amavisSpamTag2Level',
+            'amavisSpamKillLevel', 'amavisSpamModifiesSubj',
+            'amavisSpamQuarantineTo',
+    );
     # use only setted attributes
-  @delAttrs = grep {
-      my $value = $self->_vdomainAttr($vdomain, $_) ;
-      defined $value;
-  } @delAttrs;
-  my %delAttrs = (
-                  delete => \@delAttrs,
-                 );
+    @delAttrs = grep {
+                       my $value = $self->_vdomainAttr($vdomain, $_);
+                       defined $value;
+                     } @delAttrs;
+
+    my %delAttrs = ( delete => \@delAttrs );
 
     $ldap->modify($dn, \%delAttrs );
 
@@ -650,7 +580,6 @@ sub resetVDomain
     $self->setSpamAccount($vdomain, 0);
     $self->setHamAccount($vdomain, 0);
 }
-
 
 sub regenConfig
 {
@@ -674,10 +603,8 @@ sub regenConfig
         $self->setAntispam($vdomain, $antispam);
         $self->setSpamThreshold($vdomain, $threshold);
 
-
         $self->setHamAccount($vdomain, $hamAccount);
         $self->setSpamAccount($vdomain, $spamAccount);
-
 
         my @whitelist;
         my @blacklist;
@@ -708,14 +635,11 @@ sub regenConfig
     }
 }
 
-
 sub schemas
 {
-    return [ 
-        EBox::Config::share() . 'ebox-mailfilter/amavis.ldif',
-        EBox::Config::share() . 'ebox-mailfilter/eboxfilter.ldif' ];
+    return [
+        EBox::Config::share() . 'zentyal-mailfilter/amavis.ldif',
+        EBox::Config::share() . 'zentyal-mailfilter/eboxfilter.ldif' ];
 }
-
-
 
 1;
