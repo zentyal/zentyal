@@ -91,6 +91,10 @@ case "$1" in
         # sudo configuration
         /usr/share/zentyal/ebox-sudoers-friendly
 
+        # FIXME: apache is already restarted in the trigger
+        # change this to set_ebox_port only?
+        # The redis configuration is written here,
+        # but we can move it to initRedis...
         if [ -z "$2" ]; then
             # Set eBox port only if it's the first time we install
             set_ebox_port
@@ -104,10 +108,8 @@ case "$1" in
         fi
 
         # Setup logs and events modules
-        # TODO: Check if they are restarted twice with the trigger
-        # and add a --no-restart option to initial-setup if needed
-        /usr/share/zentyal/initial-setup logs $2
-        /usr/share/zentyal/initial-setup events $2
+        /usr/share/zentyal/initial-setup --no-restart logs $2
+        /usr/share/zentyal/initial-setup --no-restart events $2
 
         # remove initial redis config and stop server
         if [ -f $ZENTYAL_HOME/.first -a -z "$2" ]; then

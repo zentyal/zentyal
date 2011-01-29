@@ -22,6 +22,12 @@ use EBox::Config;
 use EBox::Global;
 use Error qw(:try);
 
+my $restart = 1;
+if ($ARGV[0] eq '--no-restart') {
+    $restart = 0;
+    shift (@ARGV);
+}
+
 my ($modname, $version) = @ARGV;
 
 EBox::init();
@@ -36,7 +42,11 @@ if ($version) {
 }
 
 try {
-    $module->save();
+    if ($restart) {
+        $module->save();
+    } else {
+        $module->saveConfig();
+    }
 } otherwise {
     EBox::warn("Restart for $modname failed");
 };
