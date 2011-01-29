@@ -2,7 +2,7 @@
 
 SUBDIRS = sqllog installer
 
-pkgdata_SCRIPTS =  ebox-openvpn-enable
+pkgdata_SCRIPTS = initial-setup ebox-openvpn-enable
 
 MAINTAINERCLEANFILES = Makefile.in
 
