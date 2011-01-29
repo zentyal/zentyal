@@ -2,7 +2,7 @@
 
 Migrationsdir = @DATADIR@/zentyal-remoteservices/migration
 
-nobase_Migrations_SCRIPTS = 0001_passwordless.pl 0002_bundle_version.pl
+nobase_Migrations_SCRIPTS =
 
 EXTRA_DIST = $(nobase_Migrations_SCRIPTS)
 

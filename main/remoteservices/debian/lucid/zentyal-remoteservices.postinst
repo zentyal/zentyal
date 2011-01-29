@@ -2,35 +2,13 @@
 
 #DEBHELPER#
 
-create_tables()
-{
-    /usr/share/zentyal/ebox-sql-table add remoteservices_passwd_report /usr/share/zentyal/sqllog/remoteservices_passwd_report.sql
-    /usr/share/zentyal/ebox-sql-table add remoteservices_passwd_users /usr/share/zentyal/sqllog/remoteservices_passwd_users.sql
-    /usr/share/zentyal/ebox-sql-table add remoteservices_passwd_users_report /usr/share/zentyal/sqllog/remoteservices_passwd_users_report.sql
-
-}
-
 case "$1" in
     configure)
-        # Migrate data if needed
-        /usr/share/zentyal/ebox-migrate /usr/share/zentyal-remoteservices/migration/
 
-        # Create DB tables if required
-        create_tables
-
-        if [ -n "$2" ]; then
-            /usr/share/zentyal/ebox-reload-bundle
-        fi
-
-        if [ ! -e /var/lib/zentyal/tmp/upgrade-from-CC ]; then
-            invoke-rc.d zentyal remoteservices restart
-        fi
+        /usr/share/zentyal/initial-setup --no-restart remoteservices $2
 
         dpkg-trigger --no-await zentyal-core
-
     ;;
 esac
-
-
 
 exit 0

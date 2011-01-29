@@ -1,4 +1,5 @@
 HEAD
+	+ Remove migrations and use new initial-setup
 	+ Replace /etc/ebox/78remoteservices.conf with
 	  /etc/zentyal/remoteservices.conf
 	+ Bugfix: Remove key field in consolidation which is useless in
