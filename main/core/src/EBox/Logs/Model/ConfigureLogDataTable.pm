@@ -163,7 +163,6 @@ sub syncRows
     }
 
     return $changed;
-
 }
 
 # Method: validateTypedRow

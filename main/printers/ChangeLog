@@ -1,4 +1,5 @@
 HEAD
+	+ Removed unnecesary call to isReadOnly in syncRows
 	+ Use new initial-setup and delete migrations
 	+ Fixed config backup when some etc files doesn't exist
 2.0.2

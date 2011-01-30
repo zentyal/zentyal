@@ -1,4 +1,5 @@
 HEAD
+	+ Removed unnecesary call to isReadOnly in syncRows
 	+ New addServiceRules helper method for initial setup of modules
 	+ Added addToInternetService to exposed methods
 	+ Added new addInternalService and requestAvailablePort methods

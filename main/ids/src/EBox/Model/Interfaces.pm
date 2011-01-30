@@ -63,11 +63,6 @@ sub syncRows
 {
     my ($self, $currentRows) = @_;
 
-    # If the GConf module is readonly, return current rows
-    if ( $self->{'gconfmodule'}->isReadOnly() ) {
-        return undef;
-    }
-
     my $modIsChanged = EBox::Global->getInstance()->modIsChanged('ids');
 
     my $net = EBox::Global->modInstance('network');
@@ -147,7 +142,7 @@ sub _table
         modelDomain        => 'IDS',
         sortedBy           =>    'iface',
         printableRowName   => __('interface'),
-        help               => 
+        help               =>
      __('Select in which interfaces IDS system will be enabled'),
     };
     return $dataTable;

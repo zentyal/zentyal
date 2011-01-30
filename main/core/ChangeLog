@@ -1,4 +1,5 @@
 HEAD
+	+ Never call syncRows on read-only instances
 	+ Big performance improvements using hashes and sets in redis
 	  database to avoid calls to the keys command
 	+ Delete useless calls to exists in EBox::Config::Redis

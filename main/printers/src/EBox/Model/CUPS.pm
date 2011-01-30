@@ -79,11 +79,6 @@ sub syncRows
 {
     my ($self, $currentRows) = @_;
 
-    # If the GConf module is readonly, return current rows
-    if ( $self->{'gconfmodule'}->isReadOnly() ) {
-        return undef;
-    }
-
     my $modIsChanged = EBox::Global->getInstance()->modIsChanged('printers');
 
     my $net = EBox::Global->modInstance('network');

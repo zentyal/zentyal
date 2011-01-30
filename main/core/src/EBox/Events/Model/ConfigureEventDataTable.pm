@@ -110,10 +110,6 @@ sub syncRows
 {
     my ($self, $currentIds) = @_;
 
-    # If the GConf module is readonly, return current rows
-    if ( $self->{'gconfmodule'}->isReadOnly() ) {
-        return undef;
-    }
     my $modIsChanged = EBox::Global->getInstance()->modIsChanged('events');
 
     my %storedEventWatchers;

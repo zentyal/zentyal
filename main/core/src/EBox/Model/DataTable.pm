@@ -1554,7 +1554,12 @@ sub ids
     my ($self) = @_;
 
     my $currentIds = $self->_ids();
-    my $changed = $self->syncRows($currentIds);
+    my $changed = 0;
+
+    unless ($self->{'gconfmodule'}->isReadOnly()) {
+        $changed = $self->syncRows($currentIds);
+    }
+
     if ($changed) {
         return $self->_ids();
     } else {
