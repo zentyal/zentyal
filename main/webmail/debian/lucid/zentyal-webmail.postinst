@@ -5,12 +5,7 @@
 case "$1" in
 	configure)
 
-        # migrate data
-#       uncoment next line when is needed to migrate data
-#       /usr/share/zentyal/ebox-migrate /usr/share/zentyal-webmail/migration
-
-        # restart module
-        invoke-rc.d zentyal webmail restart
+        /usr/share/zentyal/initial-setup webmail $2
 
         dpkg-trigger --no-await zentyal-core
 esac
