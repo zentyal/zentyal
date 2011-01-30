@@ -26,9 +26,11 @@ use EBox::Exceptions::Internal;
 use EBox::Gettext;
 use EBox::GConfState;
 use EBox::GConfConfig;
-use File::Basename;
 use EBox::Types::File;
 use EBox::Config::Redis;
+
+use File::Basename;
+use JSON::XS;
 
 sub _create # (name)
 {
@@ -129,6 +131,7 @@ sub _load_from_file # (dir?, key?)
 
     return unless (defined($line));
 
+    # FIXME: Remove this, migration from 1.4 no longer supported
     if ( $line =~ /^</ ) {
         # Import from GConf
         EBox::debug("Old gconf format detected");
@@ -140,8 +143,6 @@ sub _load_from_file # (dir?, key?)
         $self->{redis}->backup_dir('/temp/ebox/modules/' . $self->name, $key);
         $self->{redis}->delete_dir('/temp');
     }
-
-
 }
 
 
@@ -185,7 +186,6 @@ sub isReadOnly
     return $self->{ro};
 }
 
-#
 # Method: revokeConfig
 #
 #       Dismisses all changes done since the first write or delete operation.
@@ -267,6 +267,13 @@ sub _key # (key)
     my ($self, $key) = @_;
     return $self->_helper->key($key);
 }
+
+sub _index # (key)
+{
+    my ($self, $key) = @_;
+    return $self->_helper->index($key);
+}
+
 #############
 
 sub _entry_exists # (key)
@@ -377,7 +384,6 @@ sub _all_entries_base # (key)
     return \@names;
 }
 
-#
 # Method: all_entries_base
 #
 #       Given a key it returns all directories within, removing
@@ -406,10 +412,14 @@ sub st_all_entries_base # (key)
 }
 
 #############
-sub redis {
+
+sub redis
+{
 	my ($self) = @_;
+
 	return $self->{redis};
 }
+
 sub _all_dirs # (key)
 {
     my ($self, $key) = @_;
@@ -421,7 +431,6 @@ sub _all_dirs # (key)
     return @ret;
 }
 
-#
 # Method: all_dirs
 #
 #       Given a key it returns all directories within.
@@ -501,7 +510,6 @@ sub _get_bool # (key)
     }
 }
 
-#
 # Method: get_bool
 #
 #       Returns the value of a boolean key.
@@ -521,8 +529,6 @@ sub get_bool # (key)
     return $self->_get_bool($key);
 }
 
-
-
 sub st_get_bool # (key)
 {
     my ($self, $key) = @_;
@@ -540,7 +546,6 @@ sub _set_bool # (key, value)
     $self->redis->set_bool($key, $val);
 }
 
-#
 # Method: set_bool
 #
 #       Sets a boolean key
@@ -574,7 +579,6 @@ sub _get_int # (key)
     return $value;
 }
 
-#
 # Method: get_int
 #
 #       Returns the value of an integer key.
@@ -681,10 +685,9 @@ sub _set_string # (key, value)
     $self->redis->set_string($key, $val);
 }
 
-#
 # Method: set_string
 #
-#       Sets a string  key
+#       Sets a string key
 #
 # Parameters:
 #
@@ -719,7 +722,6 @@ sub _get_list # (key)
     }
 }
 
-#
 # Method: get_list
 #
 #       Returns the value of an string key.
@@ -747,6 +749,112 @@ sub st_get_list # (key)
     $self->_state;
     return $self->_get_list($key);
 }
+
+#############
+
+sub _hash_field_exists
+{
+    my ($self, $key, $field) = @_;
+
+    $key = $self->_key($key);
+    $self->_backup;
+    return $self->redis->hash_field_exists($key, $field);
+}
+
+sub hash_field_exists
+{
+    my ($self, $key, $field) = @_;
+
+    $self->_config;
+    return $self->_hash_field_exists($key, $field);
+}
+
+#############
+
+sub index_exists
+{
+    my ($self, $index) = @_;
+
+    $self->_config();
+    $index = $self->_index($index);
+    return $self->{redis}->exists($index);
+}
+
+sub create_index
+{
+    my ($self, $index) = @_;
+
+    $self->_config();
+    $index = $self->_index($index);
+    # Raw redis call to set, without updating directory
+    # structure, for performance reasons
+    return $self->{redis}->_redis_call('set', $index, 1);
+}
+
+#############
+
+sub _set_hash_value
+{
+    my ($self, $key, $field, $value) = @_;
+
+    $key = $self->_key($key);
+    $self->_backup;
+    if (defined ($value)) {
+        $self->redis->set_hash_value($key, $field => encode_json($value));
+    }
+}
+
+sub set_hash_value
+{
+    my ($self, $key, $field, $value) = @_;
+
+    $self->_config;
+    $self->_set_hash_value($key, $field => $value);
+}
+
+#############
+
+sub _hash_value
+{
+    my ($self, $key, $field) = @_;
+
+    $key = $self->_key($key);
+    $self->_backup;
+    my $value = $self->redis->hash_value($key, $field);
+    if (defined ($value)) {
+        $value = decode_json($value);
+    }
+    return $value;
+}
+
+sub hash_value
+{
+    my ($self, $key, $field) = @_;
+
+    $self->_config;
+    return $self->_hash_value($key, $field);
+}
+
+#############
+
+sub _hash_delete
+{
+    my ($self, $key, $field) = @_;
+
+    $key = $self->_key($key);
+    $self->_backup;
+    $self->redis->hash_delete($key, $field);
+}
+
+sub hash_delete
+{
+    my ($self, $key, $field) = @_;
+
+    $self->_config;
+    $self->_hash_delete($key, $field);
+}
+
+#############
 
 # Method: get
 #
@@ -915,7 +1023,6 @@ sub _hash_from_dir # (key)
     return $hash;
 }
 
-#
 # Method: hash_from_dir
 #
 #       It returns a hash containing all the entries in the directory
@@ -1199,10 +1306,6 @@ sub _clearFilesToRemoveLists
 
 }
 
-
-
-
-
 sub _revokeConfigFiles
 {
     my ($self) = @_;
@@ -1210,7 +1313,6 @@ sub _revokeConfigFiles
     my $dir = $self->_filesToRemoveIfRevokedDir();
     $self->_removeFilesFromList($dir);
 }
-
 
 sub _removeFilesFromList
 {
@@ -1225,8 +1327,6 @@ sub _removeFilesFromList
     }
 
     $self->_clearFilesToRemoveLists();
-
 }
-
 
 1;

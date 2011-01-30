@@ -147,7 +147,7 @@ sub _setupTable
         my $name = $field->fieldName();
         $name or throw EBox::Exceptions::Internal('empty field name in type object in tableDescription');
 
-        if (exists $self->{'table'}->{'tableDescriptionByName'}->{$name} ) {
+        if (exists $self->{'table'}->{'tableDescriptionByName'}->{$name}) {
             throw EBox::Exceptions::Internal(
                     "Repeated field  name in tableDescription: $name"
                     );
@@ -2511,19 +2511,8 @@ sub findId
         throw EBox::Exceptions::MissingArgument("Missing field name");
     }
 
-    foreach my $id (@{$self->ids()}) {
-        my $row = $self->row($id);
-        my $element = $row->elementByName($fieldName);
-        my $plainValue = $element->value();
-        my $printableValue = $element->printableValue();
-        if ((defined($plainValue) and $plainValue eq $value)
-            or (defined($printableValue) and $printableValue eq $value)) {
-
-            return $id;
-        }
-    }
-
-    return undef;
+    my @matched = @{$self->_find($fieldName, $value, undef, 'value')};
+    return @matched ? $matched[0] : undef;
 }
 
 # Method: findRow
@@ -3178,6 +3167,8 @@ sub _volatile
 #    printableValue, if 'value' against value, 'row' match against
 #    value returning the row *(Optional)* Default value: 'value'
 #
+#    nosync - *(Optional)* don't call to syncRows to avoid recursion
+#
 # Example:
 #
 #     _find('default',  1, undef, 'printableValue');
@@ -3189,34 +3180,99 @@ sub _volatile
 #
 sub _find
 {
-    my ($self, $fieldName, $value, $allMatches, $kind) = @_;
+    my ($self, $fieldName, $value, $allMatches, $kind, $nosync) = @_;
 
     unless (defined ($fieldName)) {
         throw EBox::Exceptions::MissingArgument("Missing field name");
     }
+    my $conf = $self->{gconfmodule};
 
-    $kind = 'value' unless defined ( $kind );
+    $kind = 'value' unless defined ($kind);
 
-    my @matched;
-    foreach my $id (@{$self->ids()}) {
-        my $row = $self->row($id);
-        my $element = $row->elementByName($fieldName);
-        next unless (defined($element));
-
-        my $eValue;
-        if ($kind eq 'printableValue') {
-            $eValue = $element->printableValue();
-        } else {
-            $eValue = $element->value();
-        }
-        next unless ($eValue eq $value);
-        my $match;
-
-        push (@matched, $id);
-        return (\@matched) unless ($allMatches);
+    my $index = $self->{directory} . "/$fieldName";
+    if ($kind eq 'printableValue') {
+        $index .= '.pdx';
+    } else {
+        $index .= '.idx';
     }
 
-    return \@matched;
+    my @rows;
+    my $indexRows;
+    my $firstIndexation = 0;
+    if ($conf->index_exists($index)) {
+        $indexRows = $conf->hash_value($index, $value);
+        if (defined ($indexRows)) {
+            @rows = keys (%{$indexRows});
+        }
+        return [] unless @rows;
+    } else {
+        # No index found, we search on the entire table
+        @rows = @{$nosync ? $self->_ids(1) : $self->ids()};
+        # From now on, the index will be updated when storing values
+        $conf->create_index($index);
+        unless (@rows) {
+            return [];
+        }
+        $firstIndexation = 1;
+    }
+
+    my $updateIndex = 0;
+    my %valueIndexes;
+    foreach my $id (@rows) {
+        my $row = $self->row($id);
+        my $element = $row->elementByName($fieldName);
+        if (defined ($element)) {
+            my $eValue;
+            if ($kind eq 'printableValue') {
+                $eValue = $element->printableValue();
+            } else {
+                $eValue = $element->value();
+            }
+            if ($firstIndexation) {
+                # Set indexes for all the values the first time
+                unless (exists $valueIndexes{$eValue}) {
+                    $valueIndexes{$eValue} = {};
+                }
+                $valueIndexes{$eValue}->{$id} = 1;
+            } else {
+                if ($eValue ne $value) {
+                    # Discard invalid rows when using a index
+                    delete $indexRows->{$id};
+                    $updateIndex = 1;
+                }
+            }
+        }
+    }
+
+    my @matched;
+    if ($firstIndexation) {
+        # Set indexes for all the values the first time
+        foreach my $oValue (keys %valueIndexes) {
+            $conf->set_hash_value($index, $oValue => $valueIndexes{$oValue});
+        }
+        @matched = keys (%{$valueIndexes{$value}});
+    } else {
+        # Update existing index if needed
+        if ($updateIndex) {
+            if (keys %{$indexRows}) {
+                $conf->set_hash_value($index, $value => $indexRows);
+            } else {
+                $conf->hash_delete($index, $value);
+            }
+        }
+        @matched = keys (%{$indexRows});
+    }
+    return [] unless (@matched);
+
+    if ($allMatches) {
+        return \@matched;
+    } else {
+        # Return only the first match
+        # FIXME: this is not really the first, it is a random one
+        # if we want the real first we should get all rows
+        # and check which is the first one in the 'order' list
+        return [ $matched[0] ];
+    }
 }
 
 sub _checkFieldIsUnique
@@ -3226,19 +3282,15 @@ sub _checkFieldIsUnique
     if ($newData->optional() and not defined($newData->value())) {
         return 0;
     }
+    my $value = $newData->printableValue();
+    my @matched =
+        @{$self->_find($newData->fieldName(), $value, undef, 'value', 1)};
 
-    # Call _rows instead of rows because of deep recursion
-    foreach my $id (@{$self->_ids(1)}) {
-        my $row = $self->row($id);
-        next unless defined($row);
-        my $rowField = $row->elementByName($newData->fieldName());
-        if ( $newData->isEqualTo($rowField) ) {
-            throw EBox::Exceptions::DataExists(
-                'data'  => $newData->printableName(),
-                'value' => $newData->printableValue(),
-               );
-        }
-#   $row->DESTROY();
+    if (@matched) {
+        throw EBox::Exceptions::DataExists(
+            'data'  => $newData->printableName(),
+            'value' => $newData->printableValue(),
+        );
     }
     return 0;
 }

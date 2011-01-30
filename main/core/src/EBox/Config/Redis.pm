@@ -23,8 +23,10 @@ use Redis;
 use EBox::Config;
 use EBox::Service;
 use POSIX ':signal_h';
-use YAML::Tiny;
+use YAML::Syck;
 use File::Slurp;
+use File::Basename;
+use Perl6::Junction qw(any);
 use Error qw/:try/;
 
 my $redis = undef;
@@ -33,6 +35,8 @@ my $redis = undef;
 use constant REDIS_CONF => 'conf/redis.conf';
 use constant REDIS_PASS => 'conf/redis.passwd';
 use constant CLIENT_CONF => EBox::Config::etc() . 'core.conf';
+
+use constant REDIS_TYPES => qw(string set list hash);
 
 # Constructor: new
 #
@@ -62,7 +66,11 @@ sub set_string
 {
     my ($self, $key, $value) = @_;
 
+    # Sets the new key
     $self->_redis_call('set', $key =>  $value);
+
+    # Update parent dir info with the new key
+    $self->_parent_add($key);
 }
 
 # Method: get_string
@@ -73,7 +81,6 @@ sub get_string
 {
     my ($self, $key) = @_;
 
-    return undef unless ($self->exists($key));
     return $self->_redis_call('get', $key);
 }
 
@@ -132,6 +139,9 @@ sub set_list
     for my $value (@{$list}) {
         $self->_redis_call('rpush', $key, $value);
     }
+
+    # Update parent dir info with the new key
+    $self->_parent_add($key);
 }
 
 # Method: get_list
@@ -142,10 +152,92 @@ sub get_list
 {
     my ($self, $key) = @_;
 
-    unless ($self->exists($key)) {
+    my @list = $self->_redis_call('lrange', $key, 0, -1);
+    if (@list) {
+        return \@list;
+    } else {
         return [];
     }
-    return [$self->_redis_call('lrange', $key, 0, -1)];
+}
+
+# Method: set_hash
+#
+#   Set $key to $hash. Where $hash is an array ref.
+#
+sub set_hash
+{
+    my ($self, $key, $hash) = @_;
+
+    $self->_redis_call('del', $key);
+    $self->_redis_call('hmset', $key, %{$hash});
+
+    # Update parent dir info with the new key
+    $self->_parent_add($key);
+}
+
+# Method: get_hash
+#
+#   Fetch the hash ref stored in $key
+#
+sub get_hash
+{
+    my ($self, $key) = @_;
+
+    unless ($self->exists($key)) {
+        return {};
+    }
+    return {$self->_redis_call('hgetall', $key)};
+}
+
+# Method: set_set
+#
+#   Set $key to $set. Where $set is an array ref.
+#
+sub set_set
+{
+    my ($self, $key, $set) = @_;
+    $self->_redis_call('del', $key);
+    for my $value (@{$set}) {
+        $self->_redis_call('sadd', $key, $value);
+    }
+}
+
+# Method: get_set
+#
+#   Fetch the array ref stored in $key
+#
+sub get_set
+{
+    my ($self, $key) = @_;
+
+    my @set = $self->_redis_call('smembers', $key);
+    if (@set) {
+        return \@set;
+    } else {
+        return [];
+    }
+}
+
+# Method: get_set_size
+#
+#   Fetch the size of the set stored in $key
+#
+sub get_set_size
+{
+    my ($self, $key) = @_;
+
+    return $self->_redis_call('scard', $key);
+}
+
+# Method: is_member
+#
+#   Check if $value is member of the $key set
+#
+sub is_member
+{
+    my ($self, $key, $value) = @_;
+
+    return $self->_redis_call('sismember', $key, $value);
 }
 
 # Method: all_dirs
@@ -156,16 +248,12 @@ sub all_dirs
 {
     my ($self, $key) = @_;
 
-    my $length = length $key;
-    my %dir;
-    for my $path ($self->_redis_call('keys', "$key/*")) {
-        my $index = index($path, '/', $length + 1);
-        if ($index > 0) {
-            my $directory = substr($path, 0, $index);
-            $dir{$directory} = undef;
-        }
-    }
-    return [keys %dir];
+    my @dirs = @{$self->get_set(_dir($key))};
+    @dirs = map { "$key/$_" } @dirs;
+    @dirs = grep { $self->get_set_size(_dir($_)) > 0 } @dirs;
+    @dirs = sort @dirs;
+
+    return \@dirs;
 }
 
 # Method: all_entries
@@ -174,14 +262,17 @@ sub all_dirs
 #
 sub all_entries
 {
-    my ($self, $key) = @_;
+    my ($self, $key, $includeDir) = @_;
 
-    my $length = length $key;
-    my @dirs;
-    for my $path ($self->_redis_call('keys', "$key/*")) {
-        push (@dirs, $path) if (index($path, '/', $length + 1) == -1);
+    my @keys = @{$self->get_set(_dir($key))};
+    @keys = map { "$key/$_" } @keys;
+
+    if ($includeDir) {
+        push (@keys, _dir($key));
     }
-    return \@dirs;
+    @keys = sort @keys;
+
+    return \@keys;
 }
 
 # Method: dir_exists
@@ -192,8 +283,7 @@ sub dir_exists
 {
     my ($self, $dir) = @_;
 
-    my @keys = $self->_redis_call('keys', "${dir}/*");
-    return (@keys > 0);
+    return $self->exists(_dir($dir));
 }
 
 # Method: delete_dir
@@ -204,13 +294,12 @@ sub delete_dir
 {
     my ($self, $dir) = @_;
 
-    return unless ($self->dir_exists($dir));
-    for my $entry (@{$self->all_entries($dir)}) {
-        $self->unset($entry);
-    }
-    for my $subdir (@{$self->all_dirs($dir)}) {
-        $self->delete_dir($subdir);
-    }
+    return unless $self->dir_exists($dir);
+
+    my @keys = $self->_redis_call('keys', "$dir/*");
+    $self->_redis_call('del', @keys);
+
+    $self->_parent_del($dir);
 }
 
 # Method: unset
@@ -222,6 +311,9 @@ sub unset
     my ($self, $key) = @_;
 
     $self->_redis_call('del', $key);
+
+    # Delete reference to the key in parent
+    $self->_parent_del($key);
 }
 
 # Method: exists
@@ -238,21 +330,49 @@ sub exists
 # Method: get
 #
 # Generic get to retrieve keys. It will
-# automatically check if it's a scalar
-# or list value.
+# automatically check if it's a scalar,
+# list, set or hash value.
 #
 sub get
 {
     my ($self, $key) = @_;
 
     my $type = $self->_redis_call('type', $key);
-    if ($type eq 'string') {
-        return $self->get_string($key);
-    } elsif ($type eq 'list') {
-         return $self->get_list($key);
-    }
 
-    return undef;
+    if ($type eq any(REDIS_TYPES)) {
+        my $getter = "get_$type";
+
+        return $self->$getter($key);
+    } else {
+        return undef;
+    }
+}
+
+# Method: set
+#
+# Generic method to key values. It will
+# automatically check if it's a scalar,
+# list or hash value.
+#
+sub set
+{
+    my ($self, $key, $value) = @_;
+
+    my $type = ref ($value);
+    if ($type eq 'ARRAY') {
+        if ($key eq _dir($key)) {
+            $type = 'set';
+        } else {
+            $type = 'list';
+        }
+    } elsif ($type eq 'HASH') {
+        $type = 'hash';
+    } else {
+        $type = 'string';
+    }
+    my $setter = "set_$type";
+
+    return $self->$setter($key, $value);
 }
 
 # Method: backup_dir
@@ -290,26 +410,87 @@ sub restore_dir
 #
 # Parameters:
 #
-#   key - key for the directory
-#   file - yaml file to write
+#   key         - key for the directory
+#   file        - yaml file to write
+#   includeDirs - *optional* include directory sets in the dump (default: no)
 #
 sub export_dir_to_yaml
 {
-    my ($self, $key, $file) = @_;
+    my ($self, $key, $file, $includeDirs) = @_;
 
     my @keys;
     $self->_backup_dir(
         key => $key,
         destination_type => 'yaml',
-        destination => \@keys
+        destination => \@keys,
+        include_dirs => $includeDirs
     );
     try {
-        YAML::Tiny::DumpFile($file, @keys);
+        YAML::Syck::DumpFile($file, @keys);
     } otherwise {
         throw EBox::Exceptions::External("Error dumping $key to YAML:$file");
     };
 }
 
+sub set_hash_value
+{
+    my ($self, $key, $field, $value) = @_;
+
+    $self->_redis_call('hset', $key, $field => $value);
+
+    # Update parent dir info with the new key
+    $self->_parent_add($key);
+}
+
+sub hash_field_exists
+{
+    my ($self, $key, $field) = @_;
+
+    return $self->_redis_call('hexists', $key, $field);
+}
+
+sub hash_value
+{
+    my ($self, $key, $field) = @_;
+
+    return $self->_redis_call('hget', $key, $field);
+}
+
+sub hash_delete
+{
+    my ($self, $key, $field) = @_;
+
+    $self->_redis_call('hdel', $key, $field);
+
+    # Delete reference to the key in parent
+    $self->_parent_del($key);
+}
+
+# Method: regen_all_dirs
+#
+#   Delete and re-add all the keys in the database, ignoring the existing
+#   directories, in order to regenerate all the sets of the directory structure
+#
+sub regen_all_dirs
+{
+    my ($self) = @_;
+
+    my @all = $self->_redis_call('keys', '*');
+
+    # Filter directories (remove keys ended with /.)
+    my @keys = grep (!/\/\.$/, @all);
+
+    # Save all values before delete
+    my %values = map { $_ => $self->get($_) } @keys;
+
+    # Delete the entire database
+    $self->_redis_call('flushdb');
+
+    # Re-add stored keys and values
+    while (my ($key, $value) = each (%values)) {
+        $self->set($key, $value);
+    }
+}
 
 # Method: import_dir_from_yaml
 #
@@ -327,7 +508,7 @@ sub import_dir_from_yaml
     my @keys;
 
     try {
-        @keys = YAML::Tiny::LoadFile($filename);
+        @keys = YAML::Syck::LoadFile($filename);
     } otherwise {
         throw EBox::Exceptions::External("Error parsing YAML:$filename");
     };
@@ -340,18 +521,60 @@ sub import_dir_from_yaml
         } else {
             $key = $entry->{key};
         }
-        if ($entry->{type} eq 'string') {
-            $self->set_string($key, $value);
-        } else {
-            $self->set_list($key, $value);
-        }
+        my $type = $entry->{type};
+        my $setter = "set_$type";
+        $self->$setter($key, $value);
     }
 }
 
-sub _import_list
+# Get the set associated to a directory key
+sub _dir
 {
-    my ($self) = @_;
+    my ($key) = @_;
 
+    # Return the same if already a dir
+    if (substr ($key, -2, 2) eq '/.') {
+        return $key;
+    }
+
+    # Do not add redundant slashes
+    if (substr ($key, -1, 1) eq '/') {
+        return $key . '.';
+    } else {
+        return "$key/.";
+    }
+}
+
+# Update directory tree with a new entry
+sub _parent_add
+{
+    my ($self, $key) = @_;
+
+    my $parentkey = dirname($key);
+    my $subkey = basename($key);
+    my $parentdir = _dir($parentkey);
+
+    # Stop recursion if already member
+    if ($self->is_member($parentdir, $subkey)) {
+        return;
+    }
+
+    $self->_redis_call('sadd', $parentdir => $subkey);
+
+    # Recursive propagation until the root
+    unless ($parentkey eq '/') {
+        $self->_parent_add($parentkey);
+    }
+}
+
+# Delete entry reference in parent directory
+sub _parent_del
+{
+    my ($self, $key) = @_;
+
+    my $parent = dirname($key);
+    my $subkey = basename($key);
+    $self->_redis_call('srem', _dir($parent) => $subkey);
 }
 
 sub _backup_dir
@@ -361,44 +584,29 @@ sub _backup_dir
     my $key = $args{key};
     my $destinationType = $args{destination_type};
     my $dest = $args{destination};
+    my $includeDirs = $args{include_dirs};
 
-    for my $entry (@{$self->all_entries($key)}) {
+    for my $entry (@{$self->all_entries($key, $includeDirs)}) {
         my $type = $self->_redis_call('type', $entry);
-        my $destKey = $entry;
-        if ($destinationType eq 'redis') {
-            $destKey = $dest . substr($destKey, length($key));
-        }
-        if ($type eq 'string') {
-            my $value = $self->get_string($entry);
+        if ($type eq any(REDIS_TYPES)) {
+            my $setter = "set_$type";
+            my $getter = "get_$type";
+            my $destKey = $entry;
             if ($destinationType eq 'redis') {
-                $self->set_string(
-                    $destKey,
-                    $value,
-                 );
-            } else {
-                push (@{$args{destination}},
-                        {
-                            type => 'string',
-                            key => $destKey,
-                            value => $value
-                        }
-                );
+                $destKey = $dest . substr($destKey, length($key));
             }
-        } elsif ($type eq 'list') {
-            my $list = $self->get_list($entry);
+
+            my $value = $self->$getter($entry);
             if ($destinationType eq 'redis') {
-                $self->set_list(
-                    $destKey,
-                    $list
-                );
+                $self->$setter($destKey, $value);
             } else {
                 push (@{$args{destination}},
                         {
-                            type => 'list',
-                            key => $destKey,
-                            value => $list
+                        type => $type,
+                        key => $destKey,
+                        value => $value
                         }
-                );
+                     );
             }
         }
     }
@@ -411,7 +619,8 @@ sub _backup_dir
         $self->_backup_dir(
             key => $subdir,
             destination => $destKey,
-            destination_type => $destinationType
+            destination_type => $destinationType,
+            include_dirs => $includeDirs
         );
     }
 }
@@ -422,18 +631,11 @@ sub _restore_dir
 
     for my $entry (@{$self->all_entries($orig . $key)}) {
         my $type = $self->_redis_call('type', $entry);
-        my $destKey = $dest . substr($entry, length($orig));
-        if ($type eq 'string') {
-            $self->set_string(
-                $destKey,
-                $self->get_string($entry)
-            );
-        } elsif ($type eq 'list') {
-            my $list = $self->get_list($entry);
-            $self->set_list(
-                $destKey,
-                $list
-            );
+        if ($type eq any(REDIS_TYPES)) {
+            my $destKey = $dest . substr($entry, length($orig));
+            my $setter = "set_$type";
+            my $getter = "get_$type";
+            $self->$setter($destKey, $self->$getter($entry));
         }
     }
     for my $subdir (@{$self->all_dirs($orig. $key)}) {
@@ -467,10 +669,10 @@ sub _redis_call
             eval {
                 if ($wantarray) {
                     @response = $self->{redis}->$command(@args);
-                    map { utf8::encode($_) } @response;
+                    map { utf8::encode($_) if defined ($_) } @response;
                 } else {
                     $response = $self->{redis}->$command(@args);
-                    utf8::encode($response);
+                    utf8::encode($response) if defined ($response);
                 }
                 $failure = 0;
             };
@@ -604,7 +806,7 @@ sub _passwd
     my ($self, $home) = @_;
     defined($home) or $home = $self->_home();
 
-    return read_file("$home/" . REDIS_PASS) or
+    return read_file($home . REDIS_PASS) or
         throw EBox::Exceptions::External('Could not open passwd file');
 }
 

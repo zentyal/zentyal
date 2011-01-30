@@ -25,75 +25,89 @@ use EBox::Exceptions::Internal;
 
 sub new
 {
-	my $class = shift;
-	my %opts = @_;
-	my $self = $class->SUPER::new(@_);
-	bless($self, $class);
-	return $self;
+    my $class = shift;
+    my %opts = @_;
+    my $self = $class->SUPER::new(@_);
+    bless($self, $class);
+    return $self;
 }
 
 sub isReadOnly
 {
-	my $self = shift;
-	return $self->{ro};
+    my ($self) = @_;
+
+    return $self->{ro};
+}
+
+sub index # (key)
+{
+    my ($self, $key) = @_;
+
+    return $self->_key('index', $key);
 }
 
 sub key # (key)
 {
-	my ($self, $key) = @_;
-	my $ebox = "ebox";
-	if ($self->isReadOnly) {
-		$ebox = "ebox-ro";
-	}
+    my ($self, $key) = @_;
 
-	if ($key =~ /^\//) {
-		$key =~ s/\/+$//;
-		unless ($key =~ /^\/$ebox/) {
-			throw EBox::Exceptions::Internal("Trying to use a ".
-				"gconf key that belongs to a different ".
-				"application $key");
-		}
-		my $name = $self->{mod}->name;
-		unless ($key =~ /^\/$ebox\/modules\/$name/) {
-			throw EBox::Exceptions::Internal("Trying to use a ".
-				"gconf key that belongs to a different ".
-				"module: $key");
-		}
-		return $key;
-	}
+    my $dir = 'ebox';
+    if ($self->isReadOnly) {
+        $dir = 'ebox-ro';
+    }
 
-	my $ret = "/$ebox/modules/" . $self->{mod}->name;
-	if (defined($key) && $key ne '') {
-		$ret .= "/$key";
-	}
-	return $ret;
+    return $self->_key($dir, $key);
 }
 
+sub _key
+{
+    my ($self, $dir, $key) = @_;
+
+    if ($key =~ /^\//) {
+        $key =~ s/\/+$//;
+        unless ($key =~ /^\/$dir/) {
+            throw EBox::Exceptions::Internal("Trying to use a ".
+                "gconf key that belongs to a different ".
+                "application $key");
+        }
+        my $name = $self->{mod}->name;
+        unless ($key =~ /^\/$dir\/modules\/$name/) {
+            throw EBox::Exceptions::Internal("Trying to use a ".
+                "gconf key that belongs to a different ".
+                "module: $key");
+        }
+        return $key;
+    }
+
+    my $ret = "/$dir/modules/" . $self->{mod}->name;
+    if (defined($key) && $key ne '') {
+        $ret .= "/$key";
+    }
+    return $ret;
+}
 
 # ! this also marks the module as changed
 sub backup
 {
-	my $self = shift;
-	if ($self->isReadOnly) {
-		throw EBox::Exceptions::Internal("Cannot change a read only ".
-						 "module instance");
-	}
-	my $global = EBox::Global->getInstance();
-	$global->modIsChanged($self->{mod}->name) and return;
+    my ($self) = @_;
 
-	$self->{mod}->_dump_to_file;
+    if ($self->isReadOnly) {
+        throw EBox::Exceptions::Internal("Cannot change a read only ".
+                         "module instance");
+    }
+    my $global = EBox::Global->getInstance();
+    $global->modIsChanged($self->{mod}->name) and return;
 
-	$global->modChange($self->{mod}->name);
+    $self->{mod}->_dump_to_file;
 
-        # XXX I had placed this after the modChange mark bz otherway i get a
-        # infintie loop. It would be better untangle the problem and had it
-        # before the changed mark
-        if ($self->{mod}->isa('EBox::Model::ModelProvider')) {
-            $self->{mod}->modelsBackupFiles();
-        }
+    $global->modChange($self->{mod}->name);
 
-
-
+    # FIXME: check possible consequences of this
+    # XXX I had placed this after the modChange mark bz otherway i get a
+    # infintie loop. It would be better untangle the problem and had it
+    # before the changed mark
+    if ($self->{mod}->isa('EBox::Model::ModelProvider')) {
+        $self->{mod}->modelsBackupFiles();
+    }
 }
 
 1;

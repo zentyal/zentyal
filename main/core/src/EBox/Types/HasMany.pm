@@ -41,7 +41,6 @@ use base 'EBox::Types::Abstract';
 use EBox::Model::ModelManager;
 use EBox::Model::CompositeManager;
 
-# Core modules
 use Error qw(:try);
 
 # Group: Public methods

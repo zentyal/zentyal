@@ -1,4 +1,8 @@
 HEAD
+	+ Big performance improvements using hashes and sets in redis
+	  database to avoid calls to the keys command
+	+ Delete useless calls to exists in EBox::Config::Redis
+	+ New regen-redis-db tool to recreate the directory structure
 	+ Renamed /etc/cron.hourly/90manageEBoxLogs to 90zentyal-manage-logs
 	  and moved the actual code to /usr/share/zentyal/manage-logs
 	+ Move /usr/share/ebox/zentyal-redisvi to /usr/share/zentyal/redisvi

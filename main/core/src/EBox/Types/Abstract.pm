@@ -30,10 +30,10 @@ use strict;
 use warnings;
 
 use EBox;
-use Perl6::Junction qw(none);
+
 use Clone;
 use Scalar::Util 'weaken';
-
+use File::Basename;
 
 # Group: Public methods
 
@@ -205,9 +205,7 @@ sub filter
     } else {
         return $self->{'value'};
     }
-
 }
-
 
 sub value
 {
@@ -249,7 +247,6 @@ sub help
     } else {
         return '';
     }
-
 }
 
 
@@ -324,7 +321,6 @@ sub paramExist
 
 }
 
-
 # Method: storeInGConf
 #
 #      Store the given type in a GConf directory from a
@@ -332,28 +328,53 @@ sub paramExist
 #
 # Parameters:
 #
-#      gconfmodule - <EBox::GConfModule> the module which is in charge
+#      module - <EBox::GConfModule> the module which is in charge
 #      to store the type in GConf
 #
-#      directory - String the directory where the type will be stored
-#      from
+#      key - String of the key where the type will be stored
 #
 sub storeInGConf
 {
-    my ($self, @params) = @_;
+    my ($self, $module, $key) = @_;
 
-    if ( $self->volatile() ) {
-        if ( $self->storer() ) {
-              my $storerProc = $self->storer();
-              &$storerProc($self, @params);
-          }
+    if ($self->volatile()) {
+        if ($self->storer()) {
+            my $storerProc = $self->storer();
+            &$storerProc($self, $module, $key);
+        }
     } else {
-        $self->_storeInGConf(@params);
+        $self->_storeInGConf($module, $key);
+
+        # Update index only if they already exists
+        # They are created on-the-fly in DataTable::_find
+
+        my $value = $self->value();
+        return unless defined ($value);
+
+        my $field = dirname($key) . '/' . $self->fieldName();
+        my $row = basename($key);
+
+        my $valIndex = "$field.idx";
+        if ($module->index_exists($valIndex)) {
+            # Add this row to the new value index
+            my $indexRows = $module->hash_value($valIndex, $value);
+            $indexRows->{$row} = 1;
+            $module->set_hash_value($valIndex, $value => $indexRows);
+        }
+
+        my $printableValue = $self->printableValue();
+        return unless defined ($printableValue);
+
+        # Same for the printableValue index
+
+        my $pvalIndex = "$field.pdx";
+        if ($module->index_exists($pvalIndex)) {
+            my $indexRows = $module->hash_value($pvalIndex, $printableValue);
+            $indexRows->{$row} = 1;
+            $module->set_hash_value($pvalIndex, $printableValue => $indexRows);
+        }
     }
-
 }
-
-
 
 # Method: setValue
 #
@@ -393,7 +414,6 @@ sub setValue
 #
 sub setMemValue
 {
-
     my ($self, $params) = @_;
 
     # Set the memory value only if persistent kind of type
@@ -416,7 +436,6 @@ sub setMemValue
             }
         }
     }
-
 }
 
 sub memValue

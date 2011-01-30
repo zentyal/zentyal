@@ -51,6 +51,7 @@ sub new
                    'value, choose EBox::Types::Union::Text');
     }
     $self->{'optional'} = 0;
+
     # Union type must contain more than one subtype
     unless (@{$self->{'subtypes'}} > 1) {
         throw EBox::Exceptions::Internal("Union type: $self->{'fieldName'}"
