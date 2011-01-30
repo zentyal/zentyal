@@ -37,11 +37,6 @@ sub syncRows
     my ($self, $currentRows) = @_;
 
     my $ebackup  = $self->{'gconfmodule'};
-    # If the GConf module is readonly, return current rows
-    if ( $ebackup->isReadOnly() ) {
-        return undef;
-    }
-
 
     my %domains = %{ $ebackup->availableBackupDomains() };
     my $modified;

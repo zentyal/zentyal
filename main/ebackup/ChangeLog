@@ -1,4 +1,6 @@
 HEAD
+	+ Removed migrations and use new initial-setup
+	+ Added /var/tmp to default exclude paths
 	+ Remove skip of usercorner in restore-tool, now it is a package
 	+ Replace /etc/ebox/82ebackup.conf with /etc/zentyal/ebackup.conf
 	+ Use a geometric progression for timeout values for retrying

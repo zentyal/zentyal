@@ -4,15 +4,8 @@
 
 case "$1" in
     configure)
-        # Migrate data if needed
-        /usr/share/zentyal/ebox-migrate /usr/share/zentyal-ebackup/migration/
 
-        #create log tables
-        /usr/share/zentyal/ebox-sql-table add ebackup_storage_usage /usr/share/zentyal/sqllog/ebackup_storage_usage.sql
-        /usr/share/zentyal/ebox-sql-table add ebackup_storage_usage_report /usr/share/zentyal/sqllog/ebackup_storage_usage_report.sql
-
-        # restart module
-        invoke-rc.d zentyal ebackup restart
+        /usr/share/zentyal/initial-setup ebackup $2
 
         dpkg-trigger --no-await zentyal-core
     ;;

@@ -33,6 +33,9 @@ use EBox::Types::Text;
 use EBox::Validate;
 use EBox::EBackup::Subscribed;
 
+use constant DEFAULT_EXCLUDES => ('/dev', '/proc', '/sys', '/mnt', '/media', '/tmp',
+                                  '/var/spool', '/var/cache', '/var/tmp');
+
 # Group: Public methods
 
 # Constructor: new
@@ -215,12 +218,17 @@ sub syncRows
     my ($self, $currentIds) = @_;
 
     my $ebackup  = $self->{'gconfmodule'};
-    # If the GConf module is readonly, return current rows
-    if ( $ebackup->isReadOnly() ) {
-        return undef;
+    my $changed = 0;
+
+    unless (@{$currentIds}) {
+        # if there are no rows, we have to add them
+        foreach my $exclude (DEFAULT_EXCLUDES) {
+            $self->add(type => 'exclude_path', target => $exclude);
+        }
+        $changed = 1;
     }
 
-    my $prefix =  $ebackup->backupDomainsFileSelectionsRowPrefix(). '_';
+    my $prefix = $ebackup->backupDomainsFileSelectionsRowPrefix(). '_';
 
     my @currentDsIds;
     foreach my $row (@{ $currentIds }) {
@@ -234,7 +242,6 @@ sub syncRows
     if (not EBox::EBackup::Subscribed::isSubscribed()) {
         # no disaster recovery add-on, so we not add nothing and remove old added rows
         # if neccessary
-        my $changed = undef;
         foreach my $id (@currentDsIds) {
             $self->removeRow($id);
             $changed = 1;
@@ -283,7 +290,7 @@ sub syncRows
                      );
     }
 
-    my $modIsChanged =  EBox::Global->getInstance()->modIsChanged($ebackup->name());
+    my $modIsChanged = EBox::Global->getInstance()->modIsChanged($ebackup->name());
     if (not $modIsChanged) {
         $ebackup->_saveConfig();
         EBox::Global->getInstance()->modRestarted($ebackup->name());
