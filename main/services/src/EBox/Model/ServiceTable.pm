@@ -104,6 +104,15 @@ sub _table
             'optional' => 1,
             'hidden' => 1,
         ),
+        new EBox::Types::Boolean(
+            'fieldName' => 'internal',
+            'printableName' => __('Internal'),
+            'editable' => 1,
+            'hidden' => 1,
+            'help'  => __('Tick this field if there is actually a service ' .
+                'on the machine using the ports configured for this service. ' .
+                'This helps Zentyal to know what ports are already busy')
+        ),
         new EBox::Types::Text(
             'fieldName' => 'name',
             'printableName' => __('Service name'),
@@ -118,15 +127,6 @@ sub _table
             'size' => '30',
             'editable' => 1,
             'optional' => 1,
-        ),
-        new EBox::Types::Boolean(
-            'fieldName' => 'internal',
-            'printableName' => __('Internal'),
-            'editable' => 1,
-            'help'  => __('Tick this field if there is actually a service ' .
-                'on the machine using the ports configured for this service. ' .
-                'This helps Zentyal to know what ports are already busy')
-#            'hidden' => 1,
         ),
         new EBox::Types::HasMany (
             'fieldName' => 'configuration',

@@ -1,4 +1,5 @@
 HEAD
+	+ Set internal attribute as hidden to make it simpler and avoid confusion
 	+ Added HTTP to default services
 	+ Added serviceId to exposedMethods
 	+ New _defaultServices method called on initialSetup
