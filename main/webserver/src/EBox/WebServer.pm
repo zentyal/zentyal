@@ -149,6 +149,38 @@ sub actions
     ];
 }
 
+# Method: initialSetup
+#
+# Overrides:
+#   EBox::Module::Base::initialSetup
+#
+sub initialSetup
+{
+    my ($self, $version) = @_;
+
+    # Create default rules and services
+    # only if installing the first time
+    unless ($version) {
+        my $firewall = EBox::Global->modInstance('firewall');
+
+        my $port = $firewall->requestAvailablePort('tcp', 80, 8080);
+        $firewall->addInternalService(
+                'name'            => 'http',
+                'description'     => __('HyperText Transport Protocol'),
+                'protocol'        => 'tcp',
+                'sourcePort'      => 'any',
+                'destinationPort' => $port,
+                );
+
+        $firewall->saveConfigRecursive();
+
+        # Set port in the model
+        my $settings = $self->model('GeneralSettings');
+        $settings->set(port      => $port,
+                       enableDir => EBox::WebServer::Model::GeneralSettings::DefaultEnableDir());
+    }
+}
+
 # Method: menu
 #
 #        Show the Web Server menu entry.

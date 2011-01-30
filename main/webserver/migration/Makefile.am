@@ -2,7 +2,7 @@
 
 Migrationsdir = @DATADIR@/zentyal-webserver/migration
 
-nobase_Migrations_SCRIPTS = 0001_add_service_and_port.pl
+nobase_Migrations_SCRIPTS =
 
 EXTRA_DIST = $(nobase_Migrations_SCRIPTS)
 

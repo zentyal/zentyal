@@ -3,16 +3,11 @@
 #DEBHELPER#
 
 case "$1" in
-	configure)
+    configure)
 
-		# Migrate data if needed
-		/usr/share/zentyal/ebox-migrate /usr/share/zentyal-webserver/migration/
-
-		invoke-rc.d zentyal webserver restart || true
+        /usr/share/zentyal/initial-setup webserver $2
 
         dpkg-trigger --no-await zentyal-core
 esac
-
-
 
 exit 0

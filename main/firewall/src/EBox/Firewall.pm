@@ -404,23 +404,25 @@ sub availablePort # (proto, port, interface)
 #
 # Parameters:
 #
-#       port      - requested port number
-#       protocol  - *optional* requested port protocol
-#                   (default: tcp)
+#       protocol     - requested port protocol
+#       port         - requested port number
+#       alternative  - *optional* alternative port if preferred is not available
 #
 sub requestAvailablePort
 {
-    my ($self, $port, $protocol) = @_;
-
-    defined ($protocol) or
-        $protocol = 'tcp';
+    my ($self, $protocol, $port, $alternative) = @_;
 
     # Check port availability
     my $available = 0;
     do {
         $available = $self->availablePort($protocol, $port);
         unless ($available) {
-            $port++;
+            if (defined ($alternative)) {
+                $port = $alternative;
+                $alternative = undef;
+            } else {
+                $port++;
+            }
         }
     } until ($available);
 

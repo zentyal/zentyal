@@ -111,7 +111,7 @@ sub initialSetup
     unless ($version) {
         my $fw = EBox::Global->modInstance('firewall');
 
-        my $port = $fw->requestAvailablePort(8888);
+        my $port = $fw->requestAvailablePort('tcp', 8888);
         $fw->addInternalService(
                 'name'            => 'usercorner',
                 'description'     => __('User Corner Web Server'),
