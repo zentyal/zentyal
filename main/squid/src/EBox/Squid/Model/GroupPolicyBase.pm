@@ -56,67 +56,56 @@ sub new
 
     bless $self, $class;
     return $self;
-
 }
-
-
-
 
 sub tableHeader
 {
     my ($self) = @_;
-    
 
+    my @tableHeader = (
+        new EBox::Types::Select(
+            fieldName     => 'group',
+            printableName => __('Group'),
 
- my @tableHeader =
-    (
-     new EBox::Types::Select(
-         fieldName     => 'group',
-         printableName => __('Group'),
+            populate      => \&populateGroups,
+            unique        => 1,
+            editable      => 1,
+            optional      => 0,
+            disableCache  => 1,
 
-         populate      => \&populateGroups,
-         unique        => 1,
-         editable      => 1,
-         optional      => 0,
-         disableCache  => 1,
-
-         ),
-
-     new EBox::Types::Select(
-         fieldName     => 'policy',
-         printableName => __('Policy'),
-         populate => sub {
-                         return [
-                                 {
-                                  value => 'allow',
-                                  printableValue => __('Allow')
-                                 },
-                                 {
-                                  value => 'deny',
-                                  printableValue => __('Deny')
-
-                                 },
-                                ]
-                       },
-        defaultValue => 'allow',
-        editable => 1,
-         ),
-     new EBox::Squid::Types::TimePeriod(
-                           fieldName => 'timePeriod',
-                           printableName => __('Time period'),
-                           help => $self->_timePeriodHelp(),
-                           editable => 1,
-                          ),
+        ),
+        new EBox::Types::Select(
+            fieldName     => 'policy',
+            printableName => __('Policy'),
+            populate => sub {
+               return [
+                        {
+                          value => 'allow',
+                          printableValue => __('Allow')
+                        },
+                        {
+                          value => 'deny',
+                          printableValue => __('Deny')
+                        },
+                      ]
+            },
+            defaultValue => 'allow',
+            editable => 1,
+        ),
+        new EBox::Squid::Types::TimePeriod(
+                fieldName => 'timePeriod',
+                printableName => __('Time period'),
+                help => $self->_timePeriodHelp(),
+                editable => 1,
+        ),
     );
 
- return \@tableHeader;
+    return \@tableHeader;
 }
-
 
 sub _timePeriodHelp
 {
-    return 
-  __('Time period when the access is allowed. It is ignored with a deny policy');
+    return __('Time period when the access is allowed. It is ignored with a deny policy');
 }
 
 sub populateGroups
@@ -137,7 +126,7 @@ sub syncRows
 
     my $userMod = EBox::Global->modInstance('users');
 
-  my $anyChange = undef;
+    my $anyChange = undef;
     for my $id (@{$currentIds}) {
         my $userGroup = $self->row($id)->valueByName('group');
         unless(defined($userGroup) and length ($userGroup) > 0) {
@@ -146,13 +135,7 @@ sub syncRows
         }
     }
     return $anyChange;
-
 }
-
-
-
-
-
 
 sub existsGroupPolicy
 {
@@ -164,41 +147,40 @@ sub existsGroupPolicy
 
 sub groupsPolicies
 {
-  my ($self) = @_;
+    my ($self) = @_;
 
-  my $userMod = EBox::Global->modInstance('users');
+    my $userMod = EBox::Global->modInstance('users');
 
-  my @groupsPol = map {
-    my $row = $self->row($_);
-    my $group =  $row->valueByName('group');
-    my $allow = $row->valueByName('policy') eq 'allow';
-    my $time = $row->elementByName('timePeriod');
-    my $users =  $userMod->usersInGroup($group);
+    my @groupsPol = map {
+        my $row = $self->row($_);
+        my $group =  $row->valueByName('group');
+        my $allow = $row->valueByName('policy') eq 'allow';
+        my $time = $row->elementByName('timePeriod');
+        my $users =  $userMod->usersInGroup($group);
 
-    if (@{ $users }) {
-      my $grPol = { group => $group, users => $users, allow => $allow };
-      if (not $time->isAllTime) {
-          if (not $time->isAllWeek()) {
-              $grPol->{timeDays} = $time->weekDays();
-          }
+        if (@{ $users }) {
+            my $grPol = { group => $group, users => $users, allow => $allow };
+            if (not $time->isAllTime) {
+                if (not $time->isAllWeek()) {
+                    $grPol->{timeDays} = $time->weekDays();
+                }
 
-          my $hours = $time->hourlyPeriod();
-          if ($hours) {
-              $grPol->{timeHours} = $hours;
-          }
-      }
+                my $hours = $time->hourlyPeriod();
+                if ($hours) {
+                    $grPol->{timeHours} = $hours;
+                }
+            }
 
-      $grPol;
-    }
-    else {
-      ()
-    }
+            $grPol;
+        }
+        else {
+            ()
+        }
 
-  } @{ $self->ids()  };
+    } @{ $self->ids() };
 
-  return \@groupsPol;
+    return \@groupsPol;
 }
-
 
 sub existsPoliciesForGroup
 {
@@ -224,9 +206,8 @@ sub delPoliciesForGroup
         if ($group eq $userGroup) {
             $self->removeRow($id);
         }
-    }    
+    }
 }
-
 
 sub precondition
 {
@@ -235,7 +216,7 @@ sub precondition
     $users->isEnabled() or
         return 0;
 
-    return $users->groups() > 0; 
+    return $users->groups() > 0;
 }
 
 sub preconditionFailMsg
@@ -244,19 +225,18 @@ sub preconditionFailMsg
     my $mode = $users->mode();
     if ($mode eq 'master') {
         return __x(
-'There are no user groups in the system. {open}Create{close} at least one group  if you want to set a group policy',
-open => q{<a href='/ebox/UsersAndGroups/Groups'>},
-close => q{</a>}
+                'There are no user groups in the system. {open}Create{close} at least one group  if you want to set a group policy',
+                open => q{<a href='/ebox/UsersAndGroups/Groups'>},
+                close => q{</a>}
         );
     } elsif ($mode eq 'slave') {
         my $master = $users->model('Mode')->remoteValue();
         return __x(
-'There are no user groups in the system. {open}Create{close} at least one group  if you want to set a group policy',
-open => "<a href='https://$master/ebox/UsersAndGroups/Groups'>",
-close => "</a>"
+                'There are no user groups in the system. {open}Create{close} at least one group  if you want to set a group policy',
+                open => "<a href='https://$master/ebox/UsersAndGroups/Groups'>",
+                close => "</a>"
         );
     }
 }
 
 1;
-
