@@ -3249,16 +3249,22 @@ sub _find
         }
     }
 
+    my $readOnly = $conf->isReadOnly();
     my @matched;
     if ($firstIndexation) {
         # Set indexes for all the values the first time
-        foreach my $oValue (keys %valueIndexes) {
-            $conf->set_hash_value($index, $oValue => $valueIndexes{$oValue});
+        unless ($readOnly) {
+            foreach my $otherValue (keys %valueIndexes) {
+                $conf->set_hash_value(
+                    $index,
+                    $otherValue => $valueIndexes{$otherValue}
+                );
+            }
         }
         @matched = keys (%{$valueIndexes{$value}});
     } else {
         # Update existing index if needed
-        if ($updateIndex) {
+        if ($updateIndex and not $readOnly) {
             if (keys %{$indexRows}) {
                 $conf->set_hash_value($index, $value => $indexRows);
             } else {

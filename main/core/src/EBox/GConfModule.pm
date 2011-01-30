@@ -109,7 +109,7 @@ sub aroundRestoreConfig
   $self->restoreConfig($dir);
 }
 
-# load GConf entries from a file
+# load config entries from a file
 sub _load_from_file # (dir?, key?)
 {
     my ($self, $dir, $key) = @_;
@@ -125,24 +125,15 @@ sub _load_from_file # (dir?, key?)
 
     ($key) or $key = $self->_key("");
 
-    open(FILE, "< $file") or EBox::error("Can't open backup file $file: $!");
-    my $line = <FILE>;
-    close(FILE);
-
-    return unless (defined($line));
-
-    # FIXME: Remove this, migration from 1.4 no longer supported
-    if ( $line =~ /^</ ) {
-        # Import from GConf
-        EBox::debug("Old gconf format detected");
-        $self->{redis}->import_dir_from_gconf($file);
-    } else {
-        # YAML file
-        # Import to /temp dir and convert paths to $key dest
-        $self->{redis}->import_dir_from_yaml($file, '/temp');
-        $self->{redis}->backup_dir('/temp/ebox/modules/' . $self->name, $key);
-        $self->{redis}->delete_dir('/temp');
+    unless (-s $file) {
+        EBox::error("Can't parse backup file $file");
+        return;
     }
+
+    # Import to /temp dir and convert paths to $key dest
+    $self->{redis}->import_dir_from_yaml($file, '/temp');
+    $self->{redis}->backup_dir('/temp/ebox/modules/' . $self->name, $key);
+    $self->{redis}->delete_dir('/temp');
 }
 
 
@@ -757,7 +748,6 @@ sub _hash_field_exists
     my ($self, $key, $field) = @_;
 
     $key = $self->_key($key);
-    $self->_backup;
     return $self->redis->hash_field_exists($key, $field);
 }
 
@@ -819,7 +809,6 @@ sub _hash_value
     my ($self, $key, $field) = @_;
 
     $key = $self->_key($key);
-    $self->_backup;
     my $value = $self->redis->hash_value($key, $field);
     if (defined ($value)) {
         $value = decode_json($value);
