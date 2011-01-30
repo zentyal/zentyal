@@ -104,7 +104,7 @@ sub initialSetup
     # Add IPP service only if installing the first time
     unless ($version) {
         my $firewall = EBox::Global->modInstance('firewall');
-        $self->addInternalService(
+        $firewall->addInternalService(
 		        'name' => 'ipp',
 			    'description' => __d('Cups printer server port'),
 			    'translationDomain' => 'ebox-printers',

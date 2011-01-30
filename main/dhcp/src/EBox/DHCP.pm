@@ -157,7 +157,7 @@ sub initialSetup
 
         $firewall->saveConfigRecursive();
 
-        mkdir ($dir, CONF_DIR);
+        mkdir (CONF_DIR, 0755);
     }
 }
 
