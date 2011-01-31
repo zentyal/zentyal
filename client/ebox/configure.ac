@@ -185,8 +185,9 @@ conf/logrotate/Makefile
 conf/hooks/Makefile
 conf/.gconf.path
 migration/Makefile
-migration/logs/Makefile
 migration/events/Makefile
+migration/logs/Makefile
+migration/sysinfo/Makefile
 www/Makefile
 Makefile
 ])

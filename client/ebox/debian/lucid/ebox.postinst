@@ -107,6 +107,9 @@ case "$1" in
         # migrate events module
         /usr/share/ebox/ebox-migrate /usr/share/ebox-events/migration
 
+        # migrate sysinfo module
+        /usr/share/ebox/ebox-migrate /usr/share/ebox-sysinfo/migration
+
         # remove initial redis config and stop server
         if [ -f /var/lib/ebox/.first -a -z "$2" ]; then
             kill -9 `cat /var/lib/ebox/redis.ebox.pid`

@@ -1,6 +1,6 @@
 ## Process this file with automake to produce Makefile.in
 
-SUBDIRS = logs events
+SUBDIRS = logs events sysinfo
 
 Migrationsdir = @DATADIR@/ebox/migration
 

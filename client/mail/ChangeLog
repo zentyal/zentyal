@@ -1,4 +1,14 @@
 HEAD
+	+ Bugfix: Fixed some problems with size parsing in logs
+	+ Bugfix: Remove a warning in consolidation of mail messages
+	+ Improvements in reports
+	  - Return data for end report period to show traffic per day
+	  - Added top user sender/receiver per domain
+	  - A single mail_message report is sent consisted of
+	    sent, received and rejected mail messages
+	  - Workarounded problems with unavailable domain in report table
+	  - Bugfix: event in report table has the same definition that has
+	    in log table
 	+ Bugfix: don't query vdomains to LDAP if module is not enabled
 2.0.3
 	+ Added backup domain

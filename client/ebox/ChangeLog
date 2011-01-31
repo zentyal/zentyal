@@ -1,4 +1,7 @@
 HEAD
+	+ Add total in disk_usage report
+	+ Bugfix: Events report by source now works again
+	+ Do not include info messages in the events report
 	+ Remove redis configuration keys incompatible with redis 2.0 (natty)
 	+ Services event is triggered only after five failed checkings
 	+ Do not add redundant includedir lines to /etc/sudoers
