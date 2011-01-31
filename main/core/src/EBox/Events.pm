@@ -902,6 +902,11 @@ sub consolidateReportQueries
 #
 # Overrides:
 #   <EBox::Module::Base::report>
+#
+# Returns:
+#
+#   hash ref - the events report
+#
 sub report
 {
     my ($self, $beg, $end, $options) = @_;
@@ -923,6 +928,7 @@ sub report
     $report->{'all_alerts'} = {};
 
     foreach my $key (%{ $allAlertsRaw }) {
+        next if ( ($key eq 'debug') or ($key eq 'info'));
         my $sum = $allAlertsRaw->{$key}->{sum};
         defined $sum or
             next;
@@ -931,7 +937,7 @@ sub report
 
 
     my $alertsBySource = {};
-    foreach my $level (qw(info warn error fatal)) {
+    foreach my $level (qw(warn error fatal)) {
         my $result =  $self->runMonthlyQuery($beg, $end, {
                 'select' => 'source, sum(nEvents)',
                 'from' => 'events_report',
@@ -944,53 +950,15 @@ sub report
             if (not exists $alertsBySource->{$source}) {
                 $alertsBySource->{$source} = {};
             }
-            $alertsBySource->{$source}->{$level} = $result->{$source}->{sum};
+            my $sum = $result->{$source}->{sum};
+            defined($sum) or next;
+            $alertsBySource->{$source}->{$level} = $sum;
         }
     }
 
     $report->{alerts_by_source} = $alertsBySource;
 
     return $report;
-}
-
-
-# Method: report
-#
-#  Returns:
-#    hash ref with a key for each source of event, the values will be
-#     a harsh ref with this fields:
-#
-#         info - number of informative events from the source
-#         warn - number of warning events from the source
-#         error - number of error events from the source
-#         fatal - number of fatal events from the source
-#
-#
-# Overrides:
-#   <EBox::Module::Base::report>
-sub reportDeprecated
-{
-    my ($self) = @_;
-
-    my %report;
-
-    my $logs = EBox::Global->modInstance('logs');
-    my $yesterday = $logs->yesterdayDate();
-
-    my @sourcesLogs = @{ $logs->consolidatedLogForDay(
-                                               'events_accummulated',
-                                                $yesterday
-                                                     )
-                     };
-
-    foreach my $sourceLog (@sourcesLogs) {
-        delete $sourceLog->{date};
-        my $source = delete $sourceLog->{source};
-
-        $report{$source} = $sourceLog;
-    }
-
-    return \%report;
 }
 
 1;

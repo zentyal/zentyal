@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2010 eBox Technologies S.L.
+# Copyright (C) 2008-2011 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 #
@@ -37,7 +37,7 @@ use constant TABLENAME => "mail_message";
 #        status VARCHAR(25) NOT NULL,
 #        message TEXT NOT NULL
 #);
- 
+
 my %temp;
 
 sub new
@@ -49,12 +49,12 @@ sub new
 }
 
 # Method: domain
-#       
+#
 #       Must return the text domain which the package belongs to
 #
-sub domain 
+sub domain
 {
-    return 'ebox-mail'; 
+    return 'ebox-mail';
 }
 
 sub logFiles {
@@ -73,10 +73,10 @@ sub _getDate
     my ($self, $line) = @_;
 
     my @date = localtime(time);
-    
+
     my $year = $date[5] + 1900;
     my ($month, $day, $hour, $min, $sec) = $line =~ m/^(...) +(\d+) (..):(..):(..).*$/;
-    
+
     return "$year-$month-$day $hour:$min:$sec";
 }
 
@@ -94,7 +94,7 @@ sub processLine
         # no admited to the queue, inserte error event
         my ($who, $hostname, $clientip, $msg, $line2) = $line =~ m/.*NOQUEUE: reject: (.*) from (.*)\[(.*)\]: (.*); (.*)$/;
         my ($from, $to) = $line2 =~ m/.*from=<(.*)> to=<(.*)> .*/;
-        
+
         my $event = 'other';
         if ($msg =~ m/.*550.*$/) {
             $event = 'noaccount';
@@ -107,7 +107,7 @@ sub processLine
         } elsif ($msg =~ m/Greylisted/) {
             $event = 'greylist';
         }
- 
+
         my $values = {
                       timestamp => $self->_getDate($line),
                       client_host_ip => $clientip,
@@ -121,11 +121,11 @@ sub processLine
 
         $self->_insert($dbengine, $values);
 
-                
+
     } elsif ($line =~ m/SASL PLAIN authentication failed/) {
         # auth failed, not admited at queue. Insert noauth event
         my ($hostname, $clientip) = $line =~ m/.*postfix\/.*: warning: (.*)\[(.*)\]: .*$/;
-                        
+
         my $values = {
                       timestamp => $self->_getDate($line),
                       client_host_ip => $clientip,
@@ -136,8 +136,8 @@ sub processLine
         $self->_insert($dbengine, $values);
 
     } elsif ($line =~ m/cleanup.*message-id=/) {
-        # cleanup: removed for the quue and mail gets a messge id
-        my ($qid, $msg_id) = $line =~ m/.*: (.*): message\-id=<(.*)>.*$/;
+        # cleanup: removed for the queue and mail gets a message id
+        my ($qid, $msg_id) = $line =~ m/.*: ([0-9A-F]+): message\-id=<(.*)>.*$/;
         exists $temp{$qid} or
             return;
 
@@ -162,7 +162,7 @@ sub processLine
 
         $self->_insertEvent($qid, $dbengine);
     } elsif ($line =~ m/warning: (.*?): queue file size limit exceeded/) {
-        # mesage max sieze exceeded, insert maxmsgsize event
+        # message max size exceeded, insert maxmsgsize event
         my $qid = $1;
 
         $temp{$qid}{'event'} = 'maxmsgsize';
@@ -172,10 +172,10 @@ sub processLine
         $self->_insertEvent($qid, $dbengine);
 
     } elsif ($line =~ m/client=/) {
-        # this is the ponit of entry for messages, we could only get a new qid
-        # here 
+        # this is the point of entry for messages, we could only get a new qid
+        # here
 
-        my ($qid, $hostname, $clientip) = ($line =~ m/.*postfix\/.*: (.*): client=(.*)\[(.*)\]/);
+        my ($qid, $hostname, $clientip) = ($line =~ m/.*postfix\/.*: ([0-9A-F]+): client=(.*)\[(.*)\]/);
 
         $temp{$qid}{'qid'}      = $qid;
         $temp{$qid}{'hostname'} = $hostname;
@@ -184,15 +184,15 @@ sub processLine
 
     } elsif ($line =~ m/qmgr.*from=</) {
         # get size
-        my ($qid, $from, $size) = $line =~ m/.*: (.*): from=<(.*)>, size=(.*),.*$/;
+        my ($qid, $from, $size) = $line =~ m/.*: ([0-9A-F]+): from=<(.*)>, size=([0-9]+),.*$/;
         exists $temp{$qid} or
             return;
 
         $temp{$qid}{'from'} = $from;
         $temp{$qid}{'size'} = $size;
-    } elsif ($line =~ m/.*: (.*): to=<(.*?)>(, orig_to=<.*?>)?, relay=(.*?), .*, status=(.*?) \((.*)\)$/) {
+    } elsif ($line =~ m/.*: ([0-9A-F]+): to=<(.*?)>(, orig_to=<.*?>)?, relay=(.*?), .*, status=(.*?) \((.*)\)$/) {
         # to, relay, date, msg and status
-        my ($qid, $to, $origTo, $relay, $status, $msg) = 
+        my ($qid, $to, $origTo, $relay, $status, $msg) =
                                      ($1, $2, $3, $4, $5, $6);
         exists $temp{$qid} or
             return;
@@ -215,13 +215,13 @@ sub processLine
                 $temp{$qid}{'event'} = 'nohost';
             }
             elsif ($msg =~ /host.*said.*Relay access denied/) {
-                $temp{$qid}{'event'} = 'nosmarthostrelay';        
+                $temp{$qid}{'event'} = 'nosmarthostrelay';
             }
             elsif ($msg =~ /server.*said.*authentication failure/) {
-                $temp{$qid}{'event'} = 'nosmarthostrelay';        
+                $temp{$qid}{'event'} = 'nosmarthostrelay';
             }
             elsif ($msg =~ /Greylisted/) {
-                $temp{$qid}{'event'} = 'greylist';        
+                $temp{$qid}{'event'} = 'greylist';
             }
             else {
                 $temp{$qid}{'event'} = 'other';
@@ -249,7 +249,7 @@ sub _qidFromMessageId
 {
     my ($msgId) = @_;
     foreach my $mail (values %temp) {
-        exists $mail->{'msgid'} or 
+        exists $mail->{'msgid'} or
             next;
         if ($mail->{'msgid'} eq $msgId) {
             return $mail->{'qid'};

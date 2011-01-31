@@ -11,6 +11,9 @@ HEAD
 	+ Removed obsolete logs and events migrations
 	+ Create plpgsql is now done on EBox::Logs::initialSetup
 	+ Replace old ebox-migrate script with EBox::Module::Base::migrate
+	+ Add total in disk_usage report
+	+ Bugfix: Events report by source now works again
+	+ Do not include info messages in the events report
 	+ Services event is triggered only after five failed checkings
 	+ Do not add redundant includedir lines to /etc/sudoers
 	+ Fixed encoding for strings read from redis server

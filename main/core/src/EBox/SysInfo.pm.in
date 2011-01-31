@@ -25,6 +25,7 @@ use Sys::Hostname;
 use Sys::CpuLoad;
 use File::Slurp qw(read_file);
 use Filesys::Df;
+use List::Util qw(sum);
 
 use EBox::Config;
 use EBox::Gettext;
@@ -307,6 +308,16 @@ sub logReportInfo
         $entry->{'values'}->{'free'} = $info->{'bavail'};
         push(@data, $entry)
     }
+
+    # Add the total disk usage column
+    my $totalEntry = {};
+    $totalEntry->{'table'} = 'sysinfo_disk_usage';
+    $totalEntry->{'values'} = {};
+    $totalEntry->{'values'}->{'mountpoint'} = 'total';
+    $totalEntry->{'values'}->{'used'} = sum(map { $_->{'values'}->{'used'} } @data);
+    $totalEntry->{'values'}->{'free'} = sum(map { $_->{'values'}->{'free'} } @data);
+    unshift(@data, $totalEntry);
+
     return \@data;
 }
 
@@ -338,6 +349,11 @@ sub report
         'select' => 'mountpoint, used, free',
         'from' => 'sysinfo_disk_usage_report',
     }, { 'key' => 'mountpoint' });
+
+    if ( keys %{$report->{'disk_usage'}} == 2 ) {
+        # Only total + /, so we return only total
+        delete($report->{'disk_usage'}->{'/'});
+    }
 
     return $report;
 }

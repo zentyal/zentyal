@@ -395,7 +395,7 @@ sub query_hash_to_sql
 #
 #
 # Parameters:
-#   $sql: A string that contains the SQL stament.
+#   $sql: A string that contains the SQL statement.
 #   $attr:
 #   @bind_values
 #

@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2010 eBox Technologies S.L.
+# Copyright (C) 2008-2011 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -217,7 +217,7 @@ my @cases = (
 
              },
              {
-              # XXX no longer valid bz change to lda tasnport
+              # XXX no longer valid bz change to ldap transport
               name => 'Message sent to vdomain account without TSL or SASL',
                  lines => [
 'Oct  1 06:41:17 u86 postfix/smtpd[13237]: connect from unknown[192.168.9.1]',
@@ -750,13 +750,8 @@ __END__
 
 
 
-                 
 
-
-
-
-
-tratando enviar con auth cuando no esre querida:
+tratando enviar con auth cuando no es requerida:
 
 Aug 25 09:21:34 intrepid postfix/smtpd[4270]: connect from unknown[192.168.45.159]
 Aug 25 09:21:34 intrepid postfix/smtpd[4270]: setting up TLS connection from unknown[192.168.45.159]
@@ -765,7 +760,7 @@ Aug 25 09:21:34 intrepid postfix/smtpd[4270]: lost connection after AUTH from un
 Aug 25 09:21:34 intrepid postfix/smtpd[4270]: disconnect from unknown[192.168.45.159]
 
 
-tratando usar TSL cuando n oesta activo
+tratando usar TSL cuando no está activo
 
 Aug 25 09:35:53 intrepid postfix/smtpd[4161]: connect from unknown[192.168.45.159]
 Aug 25 09:35:53 intrepid postfix/smtpd[4161]: lost connection after STARTTLS from unknown[192.168.45.159]
