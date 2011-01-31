@@ -68,25 +68,23 @@ use constant ENABLED_DISPATCHER_DIR => CONF_DIR . 'DispatcherEnabled/';
 #       created model
 #
 sub new
-  {
+{
+    my $class = shift;
 
-      my $class = shift;
+    my $self = $class->SUPER::new(@_);
 
-      my $self = $class->SUPER::new(@_);
+    bless ( $self, $class );
 
-      bless ( $self, $class );
+    # Create the Events configuration directory
+    unless ( -d ( CONF_DIR )) {
+        mkdir ( CONF_DIR, 0700 );
+    }
+    unless ( -d ENABLED_DISPATCHER_DIR ) {
+        mkdir ( ENABLED_DISPATCHER_DIR, 0700 );
+    }
 
-      # Create the Events configuration directory
-      unless ( -d ( CONF_DIR )) {
-          mkdir ( CONF_DIR, 0700 );
-      }
-      unless ( -d ENABLED_DISPATCHER_DIR ) {
-          mkdir ( ENABLED_DISPATCHER_DIR, 0700 );
-      }
-
-      return $self;
-
-  }
+    return $self;
+}
 
 # Method: headTitle
 #
@@ -98,7 +96,6 @@ sub new
 #
 sub headTitle
 {
-
     my ($self) = @_;
 
     return undef;
@@ -122,82 +119,81 @@ sub headTitle
 #        <EBox::Model::DataTable::syncRows>
 #
 sub syncRows
-  {
+{
+    my ($self, $currentIds) = @_;
 
-      my ($self, $currentIds) = @_;
+    my $modIsChanged = EBox::Global->getInstance()->modIsChanged('events');
 
-      my $modIsChanged = EBox::Global->getInstance()->modIsChanged('events');
+    my %storedEventDispatchers;
+    my %currentEventDispatchers;
+    my $dispatchersRef = $self->_fetchDispatchers();
+    foreach my $dispatcherFetched (@{$dispatchersRef}) {
+        $currentEventDispatchers{$dispatcherFetched} = 'true';
+    }
 
-      my %storedEventDispatchers;
-      my %currentEventDispatchers;
-      my $dispatchersRef = $self->_fetchDispatchers();
-      foreach my $dispatcherFetched (@{$dispatchersRef}) {
-          $currentEventDispatchers{$dispatcherFetched} = 'true';
-      }
+    my $modified = undef;
 
-      my $modified = undef;
+    # Removing old ones
+    foreach my $id (@{$currentIds}) {
+        my $row;
+        my $removed = 0;
+        try {
+            $row = $self->row($id);
+        } catch EBox::Exceptions::Base with {
+            $self->removeRow($id);
+            $modified = 1;
+            $removed = 1;
+        };
+        unless (defined($row)) {
+            $modified = 1;
+            $removed  = 1;
+        }
+        next if ($removed);
+        my $stored = $row->valueByName('eventDispatcher');
+        $storedEventDispatchers{$stored} = 'true';
+        next if ( exists ( $currentEventDispatchers{$stored} ));
+        $self->removeRow( $id );
+        $modified = 1;
+    }
 
-      # Removing old ones
-      foreach my $id (@{$currentIds}) {
-          my $row;
-          my $removed = 0;
-          try {
-              $row = $self->row($id);
-          } catch EBox::Exceptions::Base with {
-              $self->removeRow( $id );
-              $modified = 1;
-              $removed = 1;
-          };
-          unless ( defined($row) ) {
-              $modified = 1;
-              $removed  = 1;
-          }
-          next if ($removed);
-          my $stored = $row->valueByName('eventDispatcher');
-          $storedEventDispatchers{$stored} = 'true';
-          next if ( exists ( $currentEventDispatchers{$stored} ));
-          $self->removeRow( $id );
-          $modified = 1;
-      }
+    # Adding new ones
+    foreach my $dispatcher (keys (%currentEventDispatchers)) {
+        next if (exists ($storedEventDispatchers{$dispatcher} ));
+        # Create a new instance from this dispatcher
+        eval "use $dispatcher";
+        my $enabled = ! $dispatcher->DisabledByDefault();
+        # XXX Enable Log dispatcher by default and not allow user
+        # to disable it
+        if ($enabled) {
+            $self->parentModule()->enableEventElement('dispatcher',
+                    $dispatcher, 1);
+        }
+        my %params = (
+                'eventDispatcher'        => $dispatcher,
+                # The value is obtained dynamically
+                'receiver'               => '',
+                # The dispatchers are disabled by default
+                'enabled'                => $enabled,
+                'configuration_selected' => 'configuration_' .
+                $dispatcher->ConfigurationMethod(),
+                'readOnly'               => not $dispatcher->EditableByUser(),
+                );
 
-      # Adding new ones
-      foreach my $dispatcher (keys ( %currentEventDispatchers )) {
-          next if ( exists ( $storedEventDispatchers{$dispatcher} ));
-          # Create a new instance from this dispatcher
-          eval "use $dispatcher";
-          my $enabled = ! $dispatcher->DisabledByDefault();
-          # XXX Enable Log dispatcher by default and not allow user
-          # to disable it
-          if ( $enabled ) {
-              $self->parentModule()->enableEventElement('dispatcher',
-                $dispatcher, 1);
-          }
-          my %params = (
-                        'eventDispatcher'        => $dispatcher,
-                        # The value is obtained dynamically
-                        'receiver'               => '',
-                        # The dispatchers are disabled by default
-                        'enabled'                => $enabled,
-                        'configuration_selected' => 'configuration_' .
-                                                    $dispatcher->ConfigurationMethod(),
-                        'readOnly'               => not $dispatcher->EditableByUser(),
-                       );
+        if ($dispatcher->ConfigurationMethod() eq 'none') {
+            $params{configuration_none} = '';
+        }
 
-          if ( $dispatcher->ConfigurationMethod() eq 'none') {
-              $params{configuration_none} = '';
-          }
+        $self->addRow(%params);
+        $modified = 1;
+    }
 
-          $self->addRow(%params);
-          $modified = 1;
-      }
+    if ($modified and not $modIsChanged) {
+        $self->{'gconfmodule'}->_saveConfig();
+        EBox::Global->getInstance()->modRestarted('events');
+    }
 
-      if ($modified and not $modIsChanged) {
-          $self->{'gconfmodule'}->_saveConfig();
-          EBox::Global->getInstance()->modRestarted('events');
-      }
-
-      return $modified;
-  }
+    return $modified;
+}
 
 # Method: updatedRowNotify
 #
@@ -215,21 +211,19 @@ sub syncRows
 #
 #
 sub updatedRowNotify
-  {
+{
+    my ($self, $rowRef) = @_;
 
-      my ($self, $rowRef) = @_;
+    # Get whether the event watcher is enabled or not
+    my $newRow = $self->row($rowRef->id());
+    my $enabled = $rowRef->valueByName('enabled');
+    my $className = $newRow->valueByName('eventDispatcher');
 
-      # Get whether the event watcher is enabled or not
-      my $newRow = $self->row($rowRef->id());
-      my $enabled = $rowRef->valueByName('enabled');
-      my $className = $newRow->valueByName('eventDispatcher');
-
-      # Set to move
-      use Data::Dumper;
-      EBox::debug("$className to $enabled");
-      $self->{gconfmodule}->enableEventElement('dispatcher', $className, $enabled);
-
-  }
+    # Set to move
+    use Data::Dumper;
+    EBox::debug("$className to $enabled");
+    $self->{gconfmodule}->enableEventElement('dispatcher', $className, $enabled);
+}
 
 # Method: validateTypedRow
 #
@@ -245,18 +239,16 @@ sub updatedRowNotify
 #      to be enabled when it is not configurated
 #
 sub validateTypedRow
-  {
+{
+    my ($self, $action, $newFields, $allFields) = @_;
 
-      my ( $self, $action, $newFields, $allFields ) = @_;
-
-      if ( $action eq 'update' ) {
-          if ( exists $newFields->{enabled} ) {
-              $self->_checkIfConfigured($allFields);
-              $self->_checkEnabled($allFields);
-          }
-      }
-
-  }
+    if ($action eq 'update') {
+        if (exists $newFields->{enabled}) {
+            $self->_checkIfConfigured($allFields);
+            $self->_checkEnabled($allFields);
+        }
+    }
+}
 
 # Group: Protected methods
 
@@ -276,91 +268,87 @@ sub validateTypedRow
 #       name and description are read-only fields.
 #
 sub _table
-  {
+{
+    my @tableHeader = (
+        new EBox::Types::Boolean(
+            fieldName     => 'enabled',
+            printableName => __('Enabled'),
+            class         => 'tcenter',
+            type          => 'boolean',
+            size          => 1,
+            unique        => 0,
+            trailingText  => '',
+            editable      => 1,
+            # Set in order to store the type
+            # metadata since sometimes the field
+            # is editable and some not
+            storeMetadata => 1,
+        ),
+        new EBox::Types::Text(
+            fieldName     => 'eventDispatcher',
+            printableName => __('Name'),
+            class         => 'tleft',
+            size          => 12,
+            unique        => 1,
+            editable      => 0,
+            optional      => 0,
+            filter        => \&filterName,
+        ),
+        new EBox::Types::Text(
+            fieldName     => 'receiver',
+            printableName => __('Receiver'),
+            class         => 'tcenter',
+            size          => 30,
+            unique        => 0,
+            optional      => 1,
+            editable      => 0,
+            # The value is obtained dynamically
+            volatile      => 1,
+            filter        => \&filterReceiver,
+        ),
+        new EBox::Types::Union(
+            fieldName     => 'configuration',
+            printableName => __('Configuration'),
+            class         => 'tcenter',
+            editable      => 0,
+            subtypes      => [
+               new EBox::Types::Link(
+                   fieldName => 'configuration_link',
+                   editable  => 0,
+                   volatile  => 1,
+                   acquirer  => \&acquireURL,
+               ),
+               new EBox::Types::HasMany(
+                   fieldName            => 'configuration_model',
+                   backView             => '/ebox/Events/Composite/GeneralComposite',
+                   size                 => 1,
+                   trailingText         => '',
+                   foreignModelAcquirer => \&acquireConfModel,
+               ),
+               new EBox::Types::Union::Text(
+                   fieldName     => 'configuration_none',
+                   printableName => __('None'),
+               ),
+            ]
+        ),
+    );
 
-      my @tableHeader =
-        (
-         new EBox::Types::Boolean(
-                                  fieldName     => 'enabled',
-                                  printableName => __('Enabled'),
-                                  class         => 'tcenter',
-                                  type          => 'boolean',
-                                  size          => 1,
-                                  unique        => 0,
-                                  trailingText  => '',
-                                  editable      => 1,
-                                  # Set in order to store the type
-                                  # metadata since sometimes the field
-                                  # is editable and some not
-                                  storeMetadata => 1,
-                                  ),
-         new EBox::Types::Text(
-                               fieldName     => 'eventDispatcher',
-                               printableName => __('Name'),
-                               class         => 'tleft',
-                               size          => 12,
-                               unique        => 1,
-                               editable      => 0,
-                               optional      => 0,
-                               filter        => \&filterName,
-                              ),
-         new EBox::Types::Text(
-                               fieldName     => 'receiver',
-                               printableName => __('Receiver'),
-                               class         => 'tcenter',
-                               size          => 30,
-                               unique        => 0,
-                               optional      => 1,
-                               editable      => 0,
-                               # The value is obtained dynamically
-                               volatile      => 1,
-                               filter        => \&filterReceiver,
-                              ),
-         new EBox::Types::Union(
-                                fieldName     => 'configuration',
-                                printableName => __('Configuration'),
-                                class         => 'tcenter',
-                                editable      => 0,
-                                subtypes      =>
-                                [
-                                 new EBox::Types::Link(
-                                                       fieldName => 'configuration_link',
-                                                       editable  => 0,
-                                                       volatile  => 1,
-                                                       acquirer  => \&acquireURL,
-                                                      ),
-                                 new EBox::Types::HasMany(
-                                                          fieldName            => 'configuration_model',
-                                                          backView             => '/ebox/Events/Composite/GeneralComposite',
-                                                          size                 => 1,
-                                                          trailingText         => '',
-                                                          foreignModelAcquirer => \&acquireConfModel,
-                                                         ),
-                                 new EBox::Types::Union::Text(
-                                                              fieldName     => 'configuration_none',
-                                                              printableName => __('None'),
-                                                             ),
-                                ]
-                               ),
-        );
-
-      my $dataTable =
-        {
-         tableName          => 'ConfigureDispatcherDataTable',
-         printableTableName => __('Configure Dispatchers'),
-         actions => {
-                     editField  => '/ebox/Events/Controller/ConfigureDispatcherDataTable',
-                     changeView => '/ebox/Events/Controller/ConfigureDispatcherDataTable',
-                    },
-         tableDescription   => \@tableHeader,
-         class              => 'dataTable',
-         order              => 0,
-         rowUnique          => 1,
-         printableRowName   => __('dispatcher'),
-         help               => __('Enable/Disable each event dispatcher'),
-        };
-
-  }
+    my $dataTable =
+    {
+        tableName          => 'ConfigureDispatcherDataTable',
+        printableTableName => __('Configure Dispatchers'),
+        actions => {
+            editField  => '/ebox/Events/Controller/ConfigureDispatcherDataTable',
+            changeView => '/ebox/Events/Controller/ConfigureDispatcherDataTable',
+        },
+        tableDescription   => \@tableHeader,
+        class              => 'dataTable',
+        order              => 0,
+        rowUnique          => 1,
+        printableRowName   => __('dispatcher'),
+        help               => __('Enable/Disable each event dispatcher'),
+    };
+}
 
 # Group: Callback functions
 
@@ -379,22 +367,20 @@ sub _table
 #     String - localised the dispatcher name
 #
 sub filterName
-  {
+{
+    my ($instancedType) = @_;
 
-      my ($instancedType) = @_;
+    my $className = $instancedType->value();
 
-      my $className = $instancedType->value();
+    eval "use $className";
+    if ($@) {
+        # Error loading class -> dispatcher to remove
+        return;
+    }
+    my $dispatcher = $className->new();
 
-      eval "use $className";
-      if ( $@ ) {
-          # Error loading class -> dispatcher to remove
-          return;
-      }
-      my $dispatcher = $className->new();
-
-      return $dispatcher->name();
-
-  }
+    return $dispatcher->name();
+}
 
 # Function: filterReceiver
 #
@@ -411,22 +397,20 @@ sub filterName
 #     String - localised the event receiver name
 #
 sub filterReceiver
-  {
+{
+    my ($instancedType) = @_;
 
-      my ($instancedType) = @_;
+    my $className = $instancedType->row()->valueByName('eventDispatcher');
 
-      my $className = $instancedType->row()->valueByName('eventDispatcher');
+    eval "use $className";
+    if ($@) {
+        # Error loading class -> dispatcher to remove
+        return;
+    }
+    my $dispatcher = $className->new();
 
-      eval "use $className";
-      if ( $@ ) {
-          # Error loading class -> dispatcher to remove
-          return;
-      }
-      my $dispatcher = $className->new();
-
-      return $dispatcher->receiver();
-
-  }
+    return $dispatcher->receiver();
+}
 
 # Function: acquireURL
 #
@@ -443,21 +427,19 @@ sub filterReceiver
 #      String - the URL
 #
 sub acquireURL
-  {
+{
+    my ($instancedType) = @_;
 
-      my ($instancedType) = @_;
+    my $className = $instancedType->row()->valueByName('eventDispatcher');
 
-      my $className = $instancedType->row()->valueByName('eventDispatcher');
+    eval "use $className";
+    if ($@) {
+        # Error loading class -> dispatcher to remove
+        return;
+    }
 
-      eval "use $className";
-      if ( $@ ) {
-          # Error loading class -> dispatcher to remove
-          return;
-      }
-
-      return $className->ConfigureURL();
-
-  }
+    return $className->ConfigureURL();
+}
 
 # Function: acquireConfModel
 #
@@ -474,109 +456,100 @@ sub acquireURL
 #      String - the foreign model to configurate the dispatcher
 #
 sub acquireConfModel
-  {
+{
+    my ($row) = @_;
 
-      my ($row) = @_;
+    my $className = $row->valueByName('eventDispatcher');
 
-      my $className = $row->valueByName('eventDispatcher');
+    eval "use $className";
+    if ($@) {
+        # Error loading class -> dispatcher to remove
+        # Setting the fallback model
+        return 'Fallback';
+    }
 
-      eval "use $className";
-      if ( $@ ) {
-          # Error loading class -> dispatcher to remove
-          # Setting the fallback model
-          return 'Fallback';
-      }
-
-      return $className->ConfigureModel();
-
-  }
+    return $className->ConfigureModel();
+}
 
 # Group: Private methods
 
 # Fetch the current dispatchers on the system
 # Return an array ref with all the class names
 sub _fetchDispatchers
-  {
-      my ($self) = @_;
+{
+    my ($self) = @_;
 
-      my @dispatchers = ();
+    my @dispatchers = ();
 
-      # Fetch the current available event dispatchers
-      my $dirPath = DISPATCHER_DIR;
-      opendir ( my $dir, $dirPath );
+    # Fetch the current available event dispatchers
+    my $dirPath = DISPATCHER_DIR;
+    opendir ( my $dir, $dirPath );
 
-      while ( defined ( my $file = readdir ( $dir ))) {
-          next unless (-f "$dirPath/$file");
-          next unless ( $file =~ m/.*\.pm/);
-          my ($className) = ($file =~ m/(.*)\.pm/);
-          $className = 'EBox::Event::Dispatcher::' . $className;
-          # Test the class
-          eval "use $className";
-          if ( $@ ) {
-              EBox::warn("Error loading class: $className");
-              next;
-          }
-          # It should be an event dispatcher
-          next unless ( $className->isa('EBox::Event::Dispatcher::Abstract'));
-          # It shouldn't be the abstract event dispatcher
-          next if ( $className eq 'EBox::Event::Dispatcher::Abstract' );
+    while ( defined ( my $file = readdir ( $dir ))) {
+        next unless (-f "$dirPath/$file");
+        next unless ( $file =~ m/.*\.pm/);
+        my ($className) = ($file =~ m/(.*)\.pm/);
+        $className = 'EBox::Event::Dispatcher::' . $className;
+        # Test the class
+        eval "use $className";
+        if ( $@ ) {
+            EBox::warn("Error loading class: $className");
+            next;
+        }
+        # It should be an event dispatcher
+        next unless ( $className->isa('EBox::Event::Dispatcher::Abstract'));
+        # It shouldn't be the abstract event dispatcher
+        next if ( $className eq 'EBox::Event::Dispatcher::Abstract' );
 
-          push ( @dispatchers, $className );
-      }
-      closedir ( $dir );
+        push ( @dispatchers, $className );
+    }
+    closedir ( $dir );
 
-      return \@dispatchers;
-
-  }
+    return \@dispatchers;
+}
 
 # Check if the event dispatcher is already configurated or not
 sub _checkIfConfigured # (allFields)
-  {
+{
+    my ($self, $allFields) = @_;
 
-      my ($self, $allFields) = @_;
+    my $className = $allFields->{eventDispatcher}->value();
 
-      my $className = $allFields->{eventDispatcher}->value();
+    eval "use $className";
+    if ($@) {
+        # Error loading class -> dispatcher to remove
+        return;
+    }
 
-      eval "use $className";
-      if ( $@ ) {
-          # Error loading class -> dispatcher to remove
-          return;
-      }
-
-      my $dispatcher = $className->new();
-      if ( (not $dispatcher->configured()) and
-           $allFields->{enabled}->value() ) {
-          throw EBox::Exceptions::External(__('In order to enable a configurable event ' .
-                                              'dispatcher, you need to configure it first'));
-      }
-
-  }
+    my $dispatcher = $className->new();
+    if ((not $dispatcher->configured()) and
+            $allFields->{enabled}->value() ) {
+        throw EBox::Exceptions::External(__('In order to enable a configurable event ' .
+                    'dispatcher, you need to configure it first'));
+    }
+}
 
 # Check if the event dispatcher is enabled to send messages
 sub _checkEnabled # (allFields)
-  {
+{
+    my ($self, $allFields) = @_;
 
-      my ($self, $allFields) = @_;
+    # Check if it is capable only if it is enabled to send events
+    if ( $allFields->{enabled}->value() ) {
+        my $className = $allFields->{eventDispatcher}->value();
 
-      # Check if it is capable only if it is enabled to send events
-      if ( $allFields->{enabled}->value() ) {
-          my $className = $allFields->{eventDispatcher}->value();
+        eval "use $className";
+        if ($@) {
+            # Error loading class -> dispatcher to remove
+            return;
+        }
 
-          eval "use $className";
-          if ( $@ ) {
-              # Error loading class -> dispatcher to remove
-              return;
-          }
+        my $dispatcher = $className->new();
 
-          my $dispatcher = $className->new();
-
-          return $dispatcher->enable();
-      } else {
-          return 1;
-      }
-
-  }
-
-
+        return $dispatcher->enable();
+    } else {
+        return 1;
+    }
+}
 
 1;
