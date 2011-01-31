@@ -1,9 +1,9 @@
 #!/bin/bash
 
-if [ -f /var/tmp/ebox/.disaster-recovery ]
+if [ -f /var/tmp/zentyal/.disaster-recovery ]
 then
-    sudo /usr/share/ebox-ebackup/restore-tool
-    rm /var/tmp/ebox/.disaster-recovery
+    sudo /usr/share/zentyal-ebackup/restore-tool
+    rm /var/tmp/zentyal/.disaster-recovery
 fi
 
 firefox https://localhost &

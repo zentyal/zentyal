@@ -15,7 +15,6 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-
 use strict;
 use warnings;
 
@@ -30,8 +29,6 @@ my @baseDirs = @ARGV;
                 /home/javier/src/branches/ubuntu-0.11.99/client
                 /home/javier/src/branches/ubuntu-0.11.99/common
                  );
-
-
 
 my %packages = (
 		ssh => 1,  # always add ssh package
@@ -74,50 +71,43 @@ print "Package dependencies will be extracted from the following control files @
 
 foreach my $control (@controlFiles) {
 
+    my @lines = read_file($control);
+    foreach my $line (@lines) {
+        chomp $line;
+        my ($header, $contents) = split ':', $line;
+        $header or next;
+        $contents or next;
 
-  my @lines = read_file($control);
-  foreach my $line (@lines) {
-    chomp $line;
-    my ($header, $contents) = split ':', $line;
-    $header or next;
-    $contents or next;
+        if ($header eq 'Depends') {
+            my @p = split ',', $contents;
+            foreach  my $package (@p) {
+                $package or next;
 
-    if ($header eq 'Depends') {
-      my @p = split ',', $contents;
-      foreach  my $package (@p) {
-	$package or next;
-	# skip if is a ebox package 
-	# XXX this may exclude any unrelated ebox
-	#      package with the string ebox in its name
-	next if $package =~ m/ebox/;
-	next if $package =~ m/esofttool/;
+                # skip zentyal packages
+                next if $package =~ m/^zentyal/;
 
-	# remove version dependency
-	$package =~ s/\(.*$//;
-	# remove shell constructs
-	$package =~ s/\$.*$//;
-	# remove blanks
-	$package =~ s/\s//g;
+                # remove version dependency
+                $package =~ s/\(.*$//;
+                # remove shell constructs
+                $package =~ s/\$.*$//;
+                # remove blanks
+                $package =~ s/\s//g;
 
-	if (exists $packageRules{$package}) {
-	  my $rule = $packageRules{$package};
-	  if (not $rule) {
-	    print "Package $package ignored by rule\n" if $debug;
-	    next;
-	  }
-	  else {
-	    print "Package $package repalced by $rule \n" if $debug;
-	    $package = $rule;
-	  }
-	}
-
-	$packages{$package} = 1;
-      }
-
-
+                if (exists $packageRules{$package}) {
+                    my $rule = $packageRules{$package};
+                    if (not $rule) {
+                        print "Package $package ignored by rule\n" if $debug;
+                        next;
+                    }
+                    else {
+                        print "Package $package repalced by $rule \n" if $debug;
+                        $package = $rule;
+                    }
+                }
+                $packages{$package} = 1;
+            }
+        }
     }
-
-  }
 }
 
 
@@ -125,9 +115,6 @@ my @packages = sort keys %packages;
 my $diCommand =  "d-i pkgsel/include string @packages";
 $diCommand =~ s{\s\s}{ }g;
 
-
 print "$diCommand\n";
-
-
 
 1;

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-export LOG=/tmp/ebox-installer.log
+export LOG=/tmp/zentyal-installer.log
 SOURCES_LIST=/etc/apt/sources.list
 PPA_URL="http://ppa.launchpad.net/zentyal/2.0/ubuntu"
 EBOX_SOURCES="deb $PPA_URL lucid main"
@@ -14,11 +14,11 @@ create_repository() {
     cd - > /dev/null
     # Update the package database with only the local repository
     # just in case we are installing without internet connection
-    mv ${SOURCES_LIST} /tmp/ebox
+    mv ${SOURCES_LIST} /tmp/zentyal
     echo ${LOCAL_SOURCES} > ${SOURCES_LIST}
     apt-get update >> $LOG 2>&1
     # Restore the original sources.list
-    mv /tmp/ebox/sources.list ${SOURCES_LIST}
+    mv /tmp/zentyal/sources.list ${SOURCES_LIST}
     # Move packages to the cache
     mv $PKG_DIR/*.deb /var/cache/apt/archives/
 }
@@ -43,7 +43,7 @@ gen_locales() {
     # locales
     LOCALES_FILE=/var/lib/locales/supported.d/local
     TMP=/tmp/local.tmp
-    cat /tmp/ebox/locale.gen $LOCALES_FILE > $TMP
+    cat /tmp/zentyal/locale.gen $LOCALES_FILE > $TMP
     sort $TMP | uniq > $LOCALES_FILE
     rm -f $TMP
 
@@ -55,7 +55,7 @@ gen_locales() {
 
 
 # replace motd
-cp /tmp/ebox/motd /etc/motd.tail
+cp /tmp/zentyal/motd /etc/motd.tail
 
 # copy *.deb files from CD to hard disk
 PKG_DIR=/var/tmp/ebox-packages
@@ -88,14 +88,14 @@ update_if_network # apt-get update if we are connected to the internet
 
 gen_locales
 
-mv /tmp/ebox /var/tmp
-mv /var/tmp/ebox/ebox-x11-setup /etc/rc.local
-mv /var/tmp/ebox/plymouth-zentyal /lib/plymouth/themes/zentyal
+mv /tmp/zentyal /var/tmp
+mv /var/tmp/zentyal/ebox-x11-setup /etc/rc.local
+mv /var/tmp/zentyal/plymouth-zentyal /lib/plymouth/themes/zentyal
 ln -sf /lib/plymouth/themes/zentyal/zentyal.plymouth /etc/alternatives/default.plymouth
 
 if [ -f /tmp/RECOVER_MODE ]
 then
-    DISASTER_FILE=/var/tmp/ebox/.disaster-recovery
+    DISASTER_FILE=/var/tmp/zentyal/.disaster-recovery
     touch $DISASTER_FILE
     chown :admin $DISASTER_FILE
     chown g+w $DISASTER_FILE

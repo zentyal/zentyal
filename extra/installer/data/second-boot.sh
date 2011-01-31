@@ -10,8 +10,8 @@ then
     sed -i "/deb file.*ebox-packages/d" /etc/apt/sources.list
 
     # Restore original rc.local and clean stuff
-    mv /var/tmp/ebox/rc.local /etc/rc.local
-    rm -rf /var/tmp/ebox
+    mv /var/tmp/zentyal/rc.local /etc/rc.local
+    rm -rf /var/tmp/zentyal
 fi
 
 initctl emit zentyal-lxdm

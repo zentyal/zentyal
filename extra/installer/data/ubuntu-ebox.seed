@@ -15,8 +15,8 @@ d-i base-installer/kernel/override-image string linux-generic-pae
 d-i pkgsel/language-pack-patterns string
 # no language support packages
 d-i pkgsel/install-language-support boolean false
-# install ssh, bc, ebox and X environment
-d-i pkgsel/include string ssh bc zentyal xorg firefox lxdm lxde xdg-user-dirs gksu libnss3-tools nano xscreensaver evince policykit-1 plymouth-theme-ubuntu-logo acpid
+# install ssh, bc, zentyal and X environment
+d-i pkgsel/include string ssh bc zentyal-core zentyal-software xorg firefox lxdm lxde xdg-user-dirs gksu libnss3-tools nano xscreensaver evince policykit-1 plymouth-theme-ubuntu-logo acpid
 
 # disable automatic updates, eBox will take care of that
 d-i pkgsel/update-policy select none
@@ -78,7 +78,7 @@ ddclient    ddclient/service    select  www.dyndns.com
 snort    snort/interface   string  
 
 # eBox answers
-ebox ebox/port string 443
+zentyal-core zentyal-core/port string 443
 
 # No boot splash screen.
 #d-i debian-installer/splash boolean false
@@ -87,8 +87,8 @@ d-i pkgsel/language-packs string
 
 # late command (we prepare here the ebox custom installer)
 d-i preseed/late_command string \
-    cp -r /cdrom/ebox /target/tmp/ || \
-    cp -r /target/cdrom/ebox /target/tmp/ && \
+    cp -r /cdrom/zentyal /target/tmp/ || \
+    cp -r /target/cdrom/zentyal /target/tmp/ && \
     touch /target/tmp/INSTALL_MODE && \
-    chroot /target sh /tmp/ebox/prepare-ebox-install.sh
+    chroot /target sh /tmp/zentyal/prepare-ebox-install.sh
 

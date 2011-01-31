@@ -5,7 +5,7 @@
 ARCH=$1
 
 CD_BUILD_DIR="$CD_BUILD_DIR_BASE-$ARCH"
-CD_EBOX_DIR=$CD_BUILD_DIR/ebox
+CD_EBOX_DIR=$CD_BUILD_DIR/zentyal
 
 test -d $CD_BUILD_DIR || (echo "cd build directory not found."; false) || exit 1
 test -d $DATA_DIR  || (echo "data directory not found."; false) || exit 1
