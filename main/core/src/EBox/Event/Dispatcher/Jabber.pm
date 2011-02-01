@@ -52,31 +52,18 @@ use Net::Jabber::Message;
 #        <EBox::Event::Dispatcher::Jabber> - the newly created object
 #
 sub new
-  {
+{
+    my ($class) = @_;
 
-      my ($class) = @_;
+    my $self = $class->SUPER::new('ebox');
+    bless( $self, $class );
 
-      my $self = $class->SUPER::new('ebox');
-      bless( $self, $class );
+    # The required parameters
+    $self->{resource} = 'Home';
+    $self->{ready}  = 0;
 
-      # The required parameters
-      $self->{resource} = 'Home';
-      $self->{ready}  = 0;
-
-      # Get parameters from the model
-      $self->_jabberDispatcherParams();
-#      $self->{server}       = 'jabber.escomposlinux.org';
-#      $self->{port}         = 5222;
-#      $self->{user}         = 'ebox-logger';
-#      $self->{password}     = 'logger';
-#      $self->{adminJID}     = 'quique_h@jabber.org';
-#      $self->{subscribe}    = 1;
-
-#      $self->_confClient();
-
-      return $self;
-
-  }
+    return $self;
+}
 
 # Method: configured
 #
@@ -85,16 +72,19 @@ sub new
 #        <EBox::Event::Dispatcher::Abstract::configured>
 #
 sub configured
-  {
+{
+    my ($self) = @_;
 
-      my ($self) = @_;
+    # Get parameters from the model
+    $self->_jabberDispatcherParams();
 
-      # Jabber dispatcher is configured only if the values from the
-      # configuration model are set
-      return ($self->{server} and $self->{port} and
-        $self->{user} and $self->{password} and $self->{adminJID});
 
-  }
+    # Jabber dispatcher is configured only if the values from the
+    # configuration model are set
+    return ($self->{server} and $self->{port} and
+            $self->{user} and $self->{password} and $self->{adminJID});
+
+}
 
 
 # Method: ConfigurationMethod
@@ -104,11 +94,9 @@ sub configured
 #       <EBox::Event::Component::ConfigurationMethod>
 #
 sub ConfigurationMethod
-  {
-
-      return 'model';
-
-  }
+{
+    return 'model';
+}
 
 # Method: ConfigureModel
 #
@@ -117,11 +105,9 @@ sub ConfigurationMethod
 #        <EBox::Event::Component::ConfigureModel>
 #
 sub ConfigureModel
-  {
-
-      return 'JabberDispatcherForm';
-
-  }
+{
+    return 'JabberDispatcherForm';
+}
 
 # Method: send
 #
@@ -132,24 +118,22 @@ sub ConfigureModel
 #        <EBox::Event::Dispatcher::Abstract::send>
 #
 sub send
-  {
+{
+    my ($self, $event) = @_;
 
-      my ($self, $event) = @_;
-
-      defined ( $event ) or
+    defined ( $event ) or
         throw EBox::Exceptions::MissingArgument('event');
 
-      unless ( $self->{ready} ) {
-          $self->enable();
-      }
+    unless ( $self->{ready} ) {
+        $self->enable();
+    }
 
-      # Send to the jabber
-      my $msg = $self->_createEventMessage($event);
-      $self->{connection}->Send($msg);
+    # Send to the jabber
+    my $msg = $self->_createEventMessage($event);
+    $self->{connection}->Send($msg);
 
-      return 1;
-
-  }
+    return 1;
+}
 
 # Group: Protected methods
 
@@ -160,11 +144,9 @@ sub send
 #       <EBox::Event::Dispatcher::Abstract::_receiver>
 #
 sub _receiver
-  {
-
-      return __('Admin Jabber account');
-
-  }
+{
+    return __('Admin Jabber account');
+}
 
 # Method: _name
 #
@@ -173,11 +155,9 @@ sub _receiver
 #       <EBox::Event::Dispatcher::Abstract::_name>
 #
 sub _name
-  {
-
-      return __('Jabber');
-
-  }
+{
+    return __('Jabber');
+}
 
 # Method: _enable
 #
@@ -186,185 +166,174 @@ sub _name
 #        <EBox::Event::Dispatcher::Abstract::_enable>
 #
 sub _enable
-  {
+{
+    my ($self) = @_;
 
-      my ($self) = @_;
+    $self->_jabberDispatcherParams();
 
-      # Don't reenable a connection when it's already connected
-      if ( defined ( $self->{connection} )) {
-          if ( $self->{connection}->Connected() ) {
-              # Just send a presence send and return
-              $self->{connection}->PresenceSend();
-          } else {
-              # Destroy previous connection and reconnect
-              $self->{connection}->Disconnect();
-              $self->_confClient();
-          }
-      } else {
-          $self->_confClient();
-      }
-
-  }
+    # Don't reenable a connection when it's already connected
+    if ( defined ( $self->{connection} )) {
+        if ( $self->{connection}->Connected() ) {
+            # Just send a presence send and return
+            $self->{connection}->PresenceSend();
+        } else {
+            # Destroy previous connection and reconnect
+            $self->{connection}->Disconnect();
+            $self->_confClient();
+        }
+    } else {
+        $self->_confClient();
+    }
+}
 
 # Group: Private methods
 
 # Configurate the jabber connection
 sub _confClient
-  {
+{
+    my ($self) = @_;
 
-      my ($self) = @_;
+    $self->{connection} = new Net::Jabber::Client();
 
-      $self->{connection} = new Net::Jabber::Client();
+    # Empty callbacks at this time
 
-      # Empty callbacks at this time
+    # Server connection
+    my $status = $self->{connection}->Connect(
+            hostname => $self->{server},
+            port     => $self->{port},
+            );
 
-      # Server connection
-      my $status = $self->{connection}->Connect(
-                                                hostname => $self->{server},
-                                                port     => $self->{port},
-                                               );
+    unless (defined ($status)) {
+        throw EBox::Exceptions::External(__x('Jabber server {serverName}' .
+                    ' is down or connection is not allowed',
+                    serverName => $self->{server})
+                );
+    }
 
-      unless ( defined ( $status )) {
-          throw EBox::Exceptions::External(__x('Jabber server {serverName}' .
-                                              ' is down or connection is not allowed',
-                                               serverName => $self->{server})
-                                          );
-      }
+    # Server authentication
+    my @authResult = $self->{connection}->AuthSend(
+            username => $self->{user},
+            password => $self->{password},
+            resource => $self->{resource},
+            );
 
-      # Server authentication
-      my @authResult = $self->{connection}->AuthSend(
-                                                     username => $self->{user},
-                                                     password => $self->{password},
-                                                     resource => $self->{resource},
-                                                    );
+    unless ( defined ( $authResult[0] )) {
+        $self->_problems('AuthSend');
+    }
 
-      unless ( defined ( $authResult[0] )) {
-          $self->_problems('AuthSend');
-      }
+    unless ( $authResult[0] eq 'ok' ) {
+        if ( $self->{subscribe} ) {
+            # Try to register the user
+            my @registerResult = @{$self->_register()};
 
-      unless ( $authResult[0] eq 'ok' ) {
-          if ( $self->{subscribe} ) {
-              # Try to register the user
-              my @registerResult = @{$self->_register()};
+            if ($registerResult[0] eq 'ok') {
+                # Registration was ok
+                $self->{subscribe} = 0;
+                $self->{connection}->Disconnect();
+                # Reconnect to authenticate
+                $self->_confClient();
+                return;
+            } else {
+                throw EBox::Exceptions::External(__x('Subscription failed: {message}',
+                            message => $registerResult[1]
+                            )
+                        );
+            }
 
-              if ( $registerResult[0] eq 'ok' ) {
-                  # Registration was ok
-                  $self->{subscribe} = 0;
-                  $self->{connection}->Disconnect();
-                  # Reconnect to authenticate
-                  $self->_confClient();
-                  return;
-              } else {
-                  throw EBox::Exceptions::External(__x('Subscription failed: {message}',
-                                                       message => $registerResult[1]
-                                                       )
-                                                  );
-              }
+        } else {
+            throw EBox::Exceptions::External(__x('Authorization failed: {result} - {message}',
+                        result  => $authResult[0],
+                        message => $authResult[1],
+                        )
+                    );
+        }
+    }
 
-          } else {
-              throw EBox::Exceptions::External(__x('Authorization failed: {result} - {message}',
-                                                   result  => $authResult[0],
-                                                   message => $authResult[1],
-                                                  )
-                                              );
-          }
-      }
+    # Sending presence to the ebox admin
+    $self->{connection}->PresenceSend();
 
-      # Sending presence to the ebox admin
-      $self->{connection}->PresenceSend();
-
-      # Flag to indicate the Jabber dispatcher is ready to send messages
-      $self->{ready} = 1;
-
-  }
+    # Flag to indicate the Jabber dispatcher is ready to send messages
+    $self->{ready} = 1;
+}
 
 # Populate the message with the event
 sub _createEventMessage # (event)
-  {
+{
+    my ($self, $event) = @_;
 
-      my ($self, $event) = @_;
+    my $msg = new Net::Jabber::Message();
 
-      my $msg = new Net::Jabber::Message();
+    $msg->SetMessage(
+            to      => $self->{adminJID},
+            type    => 'normal',
+            subject => 'Zentyal event',
+            body    => $event->level() . ' : ' . $event->message(),
+            );
 
-      $msg->SetMessage(
-                       to      => $self->{adminJID},
-                       type    => 'normal',
-                       subject => 'Zentyal event',
-                       body    => $event->level() . ' : ' . $event->message(),
-                      );
-
-      return $msg;
-
-  }
+    return $msg;
+}
 
 sub _emptyCallback
-  {
-
-      return;
-
-  }
+{
+    return;
+}
 
 # Obtain the jabber event dispatcher from the configuration model. In
 # order to get the data, we need to check the model manager to do so
 # It will set the parameters in the instance to communicate with the
 # jabber server to send messages to the admin
 sub _jabberDispatcherParams
-  {
+{
+    my ($self) = @_;
 
-      my ($self) = @_;
+    my $model = $self->configurationSubModel(__PACKAGE__);
 
-      my $model = $self->configurationSubModel(__PACKAGE__);
+    my $row = $model->row();
 
-      my $row = $model->row();
+    return unless defined ( $row );
 
-      return unless defined ( $row );
-
-      $self->{server}    = $row->valueByName('server');
-      $self->{port}      = $row->valueByName('port');
-      $self->{user}      = $row->valueByName('user');
-      $self->{password}  = $row->valueByName('password');
-      $self->{adminJID}  = $row->valueByName('adminJID');
-      $self->{subscribe} = $row->valueByName('subscribe');
-
-  }
+    $self->{server}    = $row->valueByName('server');
+    $self->{port}      = $row->valueByName('port');
+    $self->{user}      = $row->valueByName('user');
+    $self->{password}  = $row->valueByName('password');
+    $self->{adminJID}  = $row->valueByName('adminJID');
+    $self->{subscribe} = $row->valueByName('subscribe');
+}
 
 # Method to try to register at the Jabber server
 sub _register
-  {
+{
+    my ($self) = @_;
 
-      my ($self) = @_;
+    my %requestResult = $self->{connection}->RegisterRequest();
 
-      my %requestResult = $self->{connection}->RegisterRequest();
+    unless (scalar ( keys ( %requestResult )) >= 0) {
+        $self->_problems('RegisterRequest');
+    }
 
-      unless (scalar ( keys ( %requestResult )) >= 0) {
-          $self->_problems('RegisterRequest');
-      }
+    my @registerResult = $self->{connection}->RegisterSend(
+            username => $self->{user},
+            password => $self->{password},
+            name     => 'Zentyal',
+            email => 'zentyal@zentyal.org',
+            );
 
-      my @registerResult = $self->{connection}->RegisterSend(
-                                     username => $self->{user},
-                                     password => $self->{password},
-                                     name     => 'Zentyal',
-                                     email => 'zentyal@zentyal.org',
-                                                            );
+    unless (defined ($registerResult[0])) {
+        $self->_problems('AuthSend');
+    }
 
-      unless ( defined ( $registerResult[0] )) {
-          $self->_problems('AuthSend');
-      }
-
-      return \@registerResult;
-
-  }
+    return \@registerResult;
+}
 
 # Method to get the error code
 sub _problems
-  {
+{
+    my ($self, $methodName) = @_;
 
-      my ($self, $methodName) = @_;
+    EBox::error("Error processing $methodName " .
+            $self->{connection}->GetErrorCode());
 
-      EBox::error("Error processing $methodName " .
-                  $self->{connection}->GetErrorCode());
-
-      throw EBox::Exceptions::Internal('Error when communicating to the Jabber server');
-  }
+    throw EBox::Exceptions::Internal('Error when communicating to the Jabber server');
+}
 
 1;
