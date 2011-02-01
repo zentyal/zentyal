@@ -67,7 +67,7 @@ Description: Zentyal - Network Infrastructure Suite
 Package: zentyal-office
 Architecture: all
 Replaces: ebox-office
-Depends: zentyal-samba, zentyal-printers, zentyal-zarafa, zentyal-antivirus, zentyal-ebackup, zentyal-software, zentyal-monitor, zentyal-remoteservices
+Depends: zentyal-samba, zentyal-printers, zentyal-zarafa, zentyal-antivirus, zentyal-ebackup, zentyal-usercorner, zentyal-software, zentyal-monitor, zentyal-remoteservices
 Description: Zentyal - Office Suite
  Zentyal is an open source small business server that can act as
  a Gateway, Unified Threat Manager, Office Server, Infrastructure
@@ -79,7 +79,7 @@ Description: Zentyal - Office Suite
 Package: zentyal-communication
 Architecture: all
 Replaces: ebox-communication
-Depends: zentyal-mail, zentyal-jabber, zentyal-asterisk, zentyal-mailfilter, zentyal-antivirus, zentyal-ebackup, zentyal-software, zentyal-monitor, zentyal-webmail, zentyal-remoteservices
+Depends: zentyal-mail, zentyal-jabber, zentyal-asterisk, zentyal-mailfilter, zentyal-antivirus, zentyal-ebackup, zentyal-usercorner, zentyal-software, zentyal-monitor, zentyal-webmail, zentyal-remoteservices
 Description: Zentyal - Communications Suite
  Zentyal is an open source small business server that can act as
  a Gateway, Unified Threat Manager, Office Server, Infrastructure
