@@ -1,4 +1,5 @@
 HEAD
+	+ Optimization: Do not check if a row is unique if any field is unique
 	+ Never call syncRows on read-only instances
 	+ Big performance improvements using hashes and sets in redis
 	  database to avoid calls to the keys command

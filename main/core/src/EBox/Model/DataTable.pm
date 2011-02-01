@@ -863,12 +863,18 @@ sub addTypedRow
     # Check compulsory fields
     $self->_checkCompulsoryFields($paramsRef);
 
+    my $checkRowUnique = $self->rowUnique();
+
     # Check field uniqueness if any
     my @userData = ();
     my $userData = {};
     while ( my ($paramName, $param) = each (%{$paramsRef})) {
         # Check uniqueness
-        if ( $param->unique() ) {
+        if ($param->unique()) {
+            # No need to check if the entire row is unique if
+            # any of the fields are already checked
+            $checkRowUnique = 0;
+
             $self->_checkFieldIsUnique($param);
         }
         push(@userData, $param);
@@ -877,8 +883,8 @@ sub addTypedRow
 
     $self->validateTypedRow('add', $paramsRef, $paramsRef);
 
-    # Check if the new row is unique
-    if ($self->rowUnique()) {
+    # Check if the new row is unique, only if needed
+    if ($checkRowUnique) {
         $self->_checkRowIsUnique(undef, $paramsRef);
     }
 
@@ -1315,20 +1321,26 @@ sub setTypedRow
 
     my @setterTypes = @{$self->setterTypes()};
 
-    my $changedElements = { };
+    my $checkRowUnique = $self->rowUnique();
+
+    my $changedElements = {};
     my @changedElements = ();
     my $allHashElements = $oldRow->hashElements();
     foreach my $paramName (keys %{$paramsRef}) {
-        unless ( $paramName ne any(@setterTypes) ) {
+        unless ($paramName ne any(@setterTypes)) {
             throw EBox::Exceptions::Internal('Trying to update a non setter type');
         }
 
         my $paramData = $paramsRef->{$paramName};
-        if ( $oldRow->elementByName($paramName)->isEqualTo($paramsRef->{$paramName})) {
+        if ($oldRow->elementByName($paramName)->isEqualTo($paramsRef->{$paramName})) {
             next;
         }
 
-        if ( $paramData->unique() ) {
+        if ($paramData->unique()) {
+            # No need to check if the entire row is unique if
+            # any of the fields are already checked
+            $checkRowUnique = 0;
+
             $self->_checkFieldIsUnique($paramData);
         }
 
@@ -1338,8 +1350,8 @@ sub setTypedRow
         $allHashElements->{$paramName} = $paramData;
     }
 
-    # Check if the new row is unique
-    if ( $self->rowUnique() and (keys %{$paramsRef} > 0) ) {
+    # Check if the new row is unique if needed
+    if ($checkRowUnique and (keys %{$paramsRef} > 0)) {
         $self->_checkRowIsUnique($id, $allHashElements);
     }
 
