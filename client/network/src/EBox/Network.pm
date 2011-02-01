@@ -3569,22 +3569,27 @@ sub interfacesWidget
 
         my $cmd;
 
-        $cmd = "ifconfig $iface | grep 'RX bytes' | " .
-            "awk '{ print \$6 }' | cut -d: -f 2";
+        my $statistics = "/sys/class/net/$iface/statistics";
+        my $statsFile;
 
+        open ($statsFile, "$statistics/tx_bytes");
+        my $tx_bytes = <$statsFile>;
+        close ($statsFile);
+        chomp ($tx_bytes);
         $graphs->add(new EBox::Dashboard::CounterGraph
             (__("Tx bytes"),
             $iface . "_txbytes",
-            `$cmd`,
+            $tx_bytes,
             'small'));
 
-        $cmd = "ifconfig $iface | grep 'RX bytes' | " .
-            "awk '{ print \$2 }' | cut -d: -f 2";
-
+        open ($statsFile, "$statistics/rx_bytes");
+        my $rx_bytes = <$statsFile>;
+        close ($statsFile);
+        chomp ($rx_bytes);
         $graphs->add(new EBox::Dashboard::CounterGraph
             (__("Rx bytes"),
             $iface . "_rxbytes",
-            `$cmd`,
+            $rx_bytes,
             'small'));
     }
 

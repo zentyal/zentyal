@@ -1,4 +1,5 @@
 HEAD
+	+ Bug fix: Traffic monitor didn't work in non-English installations
 	+ Zoneedit service url changed
 	+ Basic support for other methods to retrieve IP
 	+ Do not try to start ddclient daemon if disabled
