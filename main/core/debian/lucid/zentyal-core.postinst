@@ -8,9 +8,6 @@ set -e
 # helper functions to set the password
 #SCRIPTSCOMMON#
 
-
-#DEBHELPER#
-
 case "$1" in
 	configure)
 

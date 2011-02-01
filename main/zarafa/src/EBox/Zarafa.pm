@@ -158,7 +158,8 @@ sub enableActions
 
     $self->performLDAPActions();
 
-    EBox::Sudo::root(EBox::Config::share() . '/zentyal-zarafa/ebox-zarafa-enable');
+    # Execute enable-module script
+    $self->SUPER::enableActions();
 }
 
 # Method: modelClasses

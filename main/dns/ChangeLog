@@ -1,4 +1,5 @@
 HEAD
+	+ Use new standard enable-module script
 	+ Replace migrations with initialSetup
 	+ Replace /etc/ebox/80dns.conf with /etc/zentyal/dns.conf
 2.0.1

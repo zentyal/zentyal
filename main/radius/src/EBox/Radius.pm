@@ -190,21 +190,6 @@ sub _services
     ];
 }
 
-# Method: enableActions
-#
-# Overrides:
-#
-#      <EBox::ServiceModule::ServiceInterface::enableActions>
-#
-sub enableActions
-{
-    my ($self) = @_;
-
-    EBox::Sudo::root(EBox::Config::share() .
-                     '/zentyal-radius/ebox-radius-enable');
-}
-
-
 # Method: _daemons
 #
 # Overrides:

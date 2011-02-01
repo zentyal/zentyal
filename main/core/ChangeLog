@@ -1,4 +1,8 @@
 HEAD
+	+ Old ebox-clean-gconf renamed to /usr/share/zentyal/clean-conf and
+	  ebox-unconfigure-module is now /usr/share/zentyal/unconfigure-module
+	+ Added default implementation for enableActions, executing
+	  /usr/share/zentyal-$modulename/enable-module if exists
 	+ Optimization: Do not check if a row is unique if any field is unique
 	+ Never call syncRows on read-only instances
 	+ Big performance improvements using hashes and sets in redis

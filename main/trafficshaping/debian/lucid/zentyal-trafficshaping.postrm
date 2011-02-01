@@ -2,14 +2,11 @@
 
 if [ "$1" = "purge" ]; then
         # Purge configuration
-        /usr/share/zentyal/zentyal-clean-conf trafficshaping  || true
+        /usr/share/zentyal/clean-conf trafficshaping  || true
 fi
-
-#DEBHELPER#
 
 case "$1" in
 	remove)
         dpkg-trigger --no-await zentyal-core
         ;;
 esac
-

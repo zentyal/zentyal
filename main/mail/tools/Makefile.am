@@ -2,7 +2,7 @@
 
 SUBDIRS = sqllog
 
-pkgdata_SCRIPTS = initial-setup ebox-mail-ldap ebox-mail-enable fetchmail-update
+pkgdata_SCRIPTS = initial-setup enable-module ebox-mail-ldap fetchmail-update
 
 MAINTAINERCLEANFILES = Makefile.in
 

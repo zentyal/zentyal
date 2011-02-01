@@ -1,4 +1,5 @@
 HEAD
+	+ Use new standard enable-module script
 	+ Remove migration and use initialSetup
 	+ Replace ebox-timezone-import with importTimezone method
 2.0.1

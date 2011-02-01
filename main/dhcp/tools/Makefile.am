@@ -2,7 +2,7 @@
 
 SUBDIRS = sqllog
 
-pkgdata_SCRIPTS =  ebox-dhcp-enable
+pkgdata_SCRIPTS = enable-module
 
 MAINTAINERCLEANFILES = Makefile.in
 

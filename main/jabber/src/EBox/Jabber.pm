@@ -135,7 +135,8 @@ sub enableActions
 
     $self->performLDAPActions();
 
-    EBox::Sudo::root(EBox::Config::share() . '/zentyal-jabber/ebox-jabber-enable');
+    # Execute enable-module script
+    $self->SUPER::enableActions();
 }
 
 # Method: modelClasses

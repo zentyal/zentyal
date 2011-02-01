@@ -1,7 +1,6 @@
 #!/bin/bash
 
 set -e
-#DEBHELPER#
 
 case "$1" in
 	configure)
@@ -9,7 +8,5 @@ case "$1" in
         dpkg-trigger --no-await zentyal-core
     ;;
 esac
-
-
 
 exit 0

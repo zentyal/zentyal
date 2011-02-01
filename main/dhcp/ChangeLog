@@ -1,4 +1,5 @@
 HEAD
+	+ Use new standard enable-module script
 	+ Replace services migration with initialSetup and delete
 	  the obsolete one
 	+ Bugfix: MAC addresses are now parsed correctly in LogHelper

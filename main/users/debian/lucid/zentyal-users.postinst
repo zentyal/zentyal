@@ -1,7 +1,6 @@
 #!/bin/bash
 
 set -e
-#DEBHELPER#
 
 case "$1" in
     configure)

@@ -177,15 +177,6 @@ sub actions
     ];
 }
 
-# Method: enableActions
-#
-#   Override EBox::Module::Service::enableActions
-#
-sub enableActions
-{
-    EBox::Sudo::root(EBox::Config::share() . '/zentyal-dhcp/ebox-dhcp-enable');
-}
-
 # Method: _daemons
 #
 # Overrides:

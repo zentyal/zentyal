@@ -124,18 +124,6 @@ sub actions
     return [];
 }
 
-# Method: enableActions
-#
-# Overrides:
-#
-#       <EBox::Module::Service::enableActions>
-#
-sub enableActions
-{
-    EBox::Sudo::root(EBox::Config::share() . '/zentyal-monitor/ebox-monitor-enable');
-}
-
-
 # Method: usedFiles
 #
 # Overrides:

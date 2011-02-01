@@ -182,17 +182,6 @@ sub usedFiles
     ];
 }
 
-# Method: enableActions
-#
-#       Override EBox::Module::Service::enableActions
-#
-sub enableActions
-{
-    EBox::Sudo::root(
-                     EBox::Config::share() . '/zentyal-openvpn/ebox-openvpn-enable'
-                    );
-}
-
 #  Method: enableModDepends
 #
 #   Override EBox::Module::Service::enableModDepends

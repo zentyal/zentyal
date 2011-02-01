@@ -116,16 +116,6 @@ sub initialSetup
     }
 }
 
-# Method: enableActions
-#
-#   Override EBox::Module::Service::enableActions
-#
-sub enableActions
-{
-    EBox::Sudo::root(EBox::Config::share() .
-                     '/zentyal-printers/ebox-printers-enable');
-}
-
 # Method: enableService
 #
 # Overrides:

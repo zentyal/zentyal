@@ -1,17 +1,12 @@
 #!/bin/bash
 
-#DEBHELPER#
-
 case "$1" in
     configure)
 
-    # Migrate data if needed
     /usr/share/zentyal/initial-setup l7-protocols $2
 
     dpkg-trigger --no-await zentyal-core
     ;;
 esac
-
-
 
 exit 0

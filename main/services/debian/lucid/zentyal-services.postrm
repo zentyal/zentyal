@@ -4,15 +4,12 @@ set -e
 
 if [ "$1" = "purge" ]; then
         # Purge configuration
-        /usr/share/zentyal/zentyal-clean-conf services || true
+        /usr/share/zentyal/clean-conf services || true
 fi
-
-#DEBHELPER#
 
 case "$1" in
 	remove)
         dpkg-trigger --no-await zentyal-core
         ;;
 esac
-
 

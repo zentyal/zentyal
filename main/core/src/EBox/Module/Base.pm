@@ -115,13 +115,13 @@ sub depends
 #   This method is run to carry out the actions that are needed
 #   when the module is installed or upgraded.
 #
-#   The run of this method must be always idemptotent. So
+#   The run of this method must be always idempotent. So
 #   the actions will need to check if they are necessary or
 #   not to avoid problems when executed on upgrades.
 #
 #   The default implementation is to call the following
 #   script if exists and has execution rights:
-#      /usr/share/zentyal-$module/enable-module
+#      /usr/share/zentyal-$module/initial-setup
 #
 #   But this method can be overriden by any module.
 #

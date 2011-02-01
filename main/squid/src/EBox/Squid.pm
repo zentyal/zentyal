@@ -301,16 +301,6 @@ sub actions
            ];
 }
 
-# Method: enableActions
-#
-#       Override EBox::Module::Service::enableActions
-#
-sub enableActions
-{
-    root(EBox::Config::share() . '/zentyal-squid/ebox-squid-enable');
-}
-
-
 #  Method: enableModDepends
 #
 #   Override EBox::ServiceModule::ServiceInterface::enableModDepends

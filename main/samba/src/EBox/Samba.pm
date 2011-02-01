@@ -243,9 +243,8 @@ sub enableActions
 
     $self->performLDAPActions();
 
-    my $users = EBox::Global->modInstance('users');
-
-    EBox::Sudo::root(EBox::Config::share() . '/zentyal-samba/ebox-samba-enable');
+    # Execute enable-module script
+    $self->SUPER::enableActions();
 }
 
 # Method: modelClasses

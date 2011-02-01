@@ -289,7 +289,8 @@ sub enableActions
 
     $self->performLDAPActions();
 
-    root(EBox::Config::share() . '/zentyal-mail/ebox-mail-enable');
+    # Execute enable-module script
+    $self->SUPER::enableActions();
 }
 
 #  Method: enableModDepends

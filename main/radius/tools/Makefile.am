@@ -1,6 +1,6 @@
 ## Process this file with automake to produce Makefile.in
 
-pkgdata_SCRIPTS = ebox-radius-enable
+pkgdata_SCRIPTS = enable-monitor
 
 MAINTAINERCLEANFILES = Makefile.in
 

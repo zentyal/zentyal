@@ -11,6 +11,4 @@ if ! grep -q "^#includedir /etc/sudoers.d" "$SUDOERS"; then
     echo "$INCLUDE" >> "$SUDOERS"
 fi
 
-#DEBHELPER#
-
 exit 0

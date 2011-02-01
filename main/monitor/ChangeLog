@@ -1,4 +1,5 @@
 HEAD
+	+ Use new standard enable-module script
 	+ Removed unnecesary call to isReadOnly in syncRows
 	+ Use new initial-setup script in postinst
 1.5.6

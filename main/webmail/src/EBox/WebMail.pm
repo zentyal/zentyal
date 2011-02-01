@@ -350,7 +350,9 @@ sub enableActions
         }
     }
 
-    EBox::Sudo::root(EBox::Config::share() . '/zentyal-webmail/ebox-webmail-enable');
+    # Execute enable-module script
+    $self->SUPER::enableActions();
+
     $self->_generateDesKeyFile();
 }
 

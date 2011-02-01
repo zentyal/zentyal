@@ -45,7 +45,6 @@ AC_DEFINE_DIR(PERLPATH, perlpath)
 AC_CONFIG_FILES([
 migration/Makefile
 src/Makefile
-src/libexec/Makefile
 src/templates/Makefile
 src/EBox/Makefile
 src/EBox/CGI/Makefile

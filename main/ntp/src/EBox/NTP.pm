@@ -115,15 +115,6 @@ sub initialSetup
     }
 }
 
-# Method: enableActions
-#
-#   Override EBox::Module::Service::enableActions
-#
-sub enableActions
-{
-    EBox::Sudo::root(EBox::Config::share() . '/zentyal-ntp/ebox-ntp-enable');
-}
-
 # Method: importTimezone
 #
 #   Reads timezone from /etc/timezone and saves it into the module config

@@ -2,21 +2,16 @@
 
 set -e
 
-if [ "$1" = "purge" ]; then
-        # Purge configuration
-        /usr/share/zentyal/zentyal-clean-conf squid || true
-fi
-
-#DEBHELPER#
-
 case "$1" in
 	remove)
         dpkg-trigger --no-await zentyal-core
         ;;
 	purge)
+        # Purge configuration
+        /usr/share/zentyal/clean-conf squid || true
+
         /usr/share/zentyal/ebox-sql-table drop squid_access || true
         /usr/share/zentyal/ebox-sql-table drop squid_access_report || true
         /usr/share/zentyal/ebox-sql-table-with-time-period drop squid_traffic || true
         ;;
 esac
-

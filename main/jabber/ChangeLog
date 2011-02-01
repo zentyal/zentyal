@@ -1,4 +1,5 @@
 HEAD
+	+ Use new standard enable-module script
 	+ Move services migration to initialSetup
 	+ Bugfix: fixes template syntax when SSL is disabled.
 1.5.4

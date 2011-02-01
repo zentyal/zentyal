@@ -103,10 +103,23 @@ sub actions
 #
 #   For example: it could remove the samba init script
 #
+#   The default implementation is to call the following
+#   script if exists and has execution rights:
+#      /usr/share/zentyal-$module/enable-module
+#
+#   But this method can be overriden by any module.
 #
 sub enableActions
 {
+    my ($self) = @_;
 
+    my $path = EBox::Config::share();
+    my $modname = $self->{'name'};
+
+    my $command = "$path/zentyal-$modname/enable-module";
+    if (-x $command) {
+        EBox::Sudo::root($command);
+    }
 }
 
 # Method: disableActions

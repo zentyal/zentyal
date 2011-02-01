@@ -178,7 +178,8 @@ sub enableActions
 
     $self->performLDAPActions();
 
-    root(EBox::Config::share() . '/zentyal-mailfilter/ebox-mailfilter-enable');
+    # Execute enable-module script
+    $self->SUPER::enableActions();
 }
 
 #  Method: enableModDepends
