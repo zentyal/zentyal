@@ -28,13 +28,13 @@ use warnings;
 use EBox;
 use EBox::Global;
 use EBox::Sudo;
+use Error qw(:try);
 
 sub runGConf
 {
     my ($self) = @_;
 
-    EBox::Sudo::command('crontab -r');
-
+    try { EBox::Sudo::command('crontab -r'); } otherwise {};
 }
 
 EBox::init();
