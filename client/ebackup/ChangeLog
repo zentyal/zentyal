@@ -1,4 +1,6 @@
 2.0.10
+	+ Add migration script to delete old backup configuration from
+  	  ebox crontab
 	+ Use a geometric progression for timeout values for retrying
 	  connecting to backup servers when there are connectivity problems
 	+ Fixed event message when something goes wrong at first stages
