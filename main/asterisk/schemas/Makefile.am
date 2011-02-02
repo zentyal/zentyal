@@ -1,5 +1,7 @@
 ## Process this file with automake to produce Makefile.in
 
+SUBDIRS = sql
+
 moduledir   = @DATADIR@/zentyal/modules
 module_DATA = asterisk.yaml
 pkgdata_DATA = asterisk.ldif

@@ -34,6 +34,8 @@ EBox::init();
 
 my $module = EBox::Global->modInstance($modname);
 
+$module->createTables();
+
 $module->initialSetup($version);
 
 # Run migrations only if upgrading

@@ -1,18 +1,17 @@
 #!/usr/bin/perl
+
 use strict;
 use warnings;
-
 
 use EBox::Config;
 use EBox::Logs::Consolidate;
 use File::Slurp;
 
 my ($action, $tableName, @otherParams) = @ARGV;
-$tableName or 
+$tableName or
     die 'tableName argument is empty';
 
-my @timePeriods = @{ EBox::Logs::Consolidate->timePeriods()  };
-
+my @timePeriods = @{ EBox::Logs::Consolidate->timePeriods() };
 
 if ($action eq 'add') {
     my ($sqlFile) = @otherParams;
@@ -20,15 +19,11 @@ if ($action eq 'add') {
         die 'sqlFile argument is empty';
 
     _addTable($tableName, $sqlFile, @timePeriods);
-}
-elsif ($action eq 'drop') {
+} elsif ($action eq 'drop') {
     _dropTable($tableName, @timePeriods);
-}
-else {
+} else {
     die "Usage: $0 [add table file | drop table]"
 }
-
-
 
 sub _addTable
 {
@@ -38,18 +33,17 @@ sub _addTable
         die "$sqlFile either does not exist or is unreadeable";
     }
 
-    my $dbName = EBox::Config::configkey("eboxlogs_dbname");
-    my $dbUser = EBox::Config::configkey("eboxlogs_dbuser");
+    my $dbName = EBox::Config::configkey('eboxlogs_dbname');
+    my $dbUser = EBox::Config::configkey('eboxlogs_dbuser');
 
     my $fileCmds = File::Slurp::read_file($sqlFile);
 
     foreach my $timePeriod (@timePeriods) {
         my $fullName = $tableName . '_' . $timePeriod;
-        
+
         my $sqlCmds = $fileCmds;
-        
+
         $sqlCmds =~ s/$tableName/$fullName/g;
-        
 
         my $tmpFile = EBox::Config::tmp() . "$fullName.sql";
         File::Slurp::write_file($tmpFile, $sqlCmds);
@@ -60,29 +54,20 @@ sub _addTable
         my $grantCmd = qq{su postgres -c "psql -c 'GRANT SELECT, INSERT, UPDATE, DELETE ON $fullName TO $dbUser' $dbName" > /dev/null 2>&1};
         system $grantCmd;
     }
-
 }
-
-
-
-       
-        
 
 sub _dropTable
 {
     my ($tableName, @timePeriods) = @_;
 
-    my $dbName = EBox::Config::configkey("eboxlogs_dbname");
-    
+    my $dbName = EBox::Config::configkey('eboxlogs_dbname');
+
     foreach my $timePeriod (@timePeriods) {
         my $fullName = $tableName . '_' . $timePeriod;
 
         my $dropCmd = qq{su postgres -c "psql -c 'DROP TABLE $fullName' $dbName" > /dev/null 2>&1};
         system $dropCmd;
     }
-
- 
 }
-
 
 1;

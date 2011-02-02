@@ -81,7 +81,8 @@ stubs/apache.mas
 stubs/Makefile
 stubs/css/Makefile
 tools/Makefile
-tools/sqllog/Makefile
+schemas/sql/Makefile
+schemas/sql/period/Makefile
 tools/cron/Makefile
 doc/Makefile
 src/Makefile

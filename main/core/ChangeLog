@@ -1,4 +1,8 @@
 HEAD
+	+ New createTables method in EBox::Module::Base called from
+	  initial-setup to create SQL tables for each module
+	+ Moved all SQL schemas from tools/sqllogs to schemas/sql
+	+ SQL time-period tables are now located under schemas/sql/period
 	+ Old ebox-clean-gconf renamed to /usr/share/zentyal/clean-conf and
 	  ebox-unconfigure-module is now /usr/share/zentyal/unconfigure-module
 	+ Added default implementation for enableActions, executing

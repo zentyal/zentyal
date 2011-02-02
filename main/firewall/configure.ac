@@ -62,7 +62,8 @@ src/templates/ajax/viewer/Makefile
 src/libexec/Makefile
 schemas/Makefile
 tools/Makefile
-tools/sqllog/Makefile
+schemas/sql/Makefile
+schemas/sql/period/Makefile
 Makefile
 ])
 

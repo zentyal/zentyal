@@ -58,7 +58,7 @@ src/templates/ajax/Makefile
 src/templates/ajax/viewer/Makefile
 schemas/Makefile
 tools/Makefile
-tools/sqllog/Makefile
+schemas/sql/Makefile
 stubs/Makefile
 migration/Makefile
 Makefile

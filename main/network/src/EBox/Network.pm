@@ -2894,9 +2894,8 @@ sub _supportActions
 #
 sub _preSetConf
 {
-    my ($self) = @_;
+    my ($self, %opts) = @_;
 
-    my %opts = @_;
     my $file = INTERFACES_FILE;
     my $restart = delete $opts{restart};
 

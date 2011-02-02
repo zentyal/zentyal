@@ -1,7 +1,0 @@
-#!/bin/bash
-
-#create log tables
-/usr/share/zentyal/sql-table add ebackup_storage_usage /usr/share/zentyal/sqllog/ebackup_storage_usage.sql
-/usr/share/zentyal/sql-table add ebackup_storage_usage_report /usr/share/zentyal/sqllog/ebackup_storage_usage_report.sql
-
-exit 0

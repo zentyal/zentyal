@@ -60,7 +60,7 @@ src/EBox/CGI/Makefile
 src/templates/Makefile
 stubs/Makefile
 tools/Makefile
-tools/sqllog/Makefile
+schemas/sql/Makefile
 www/Makefile
 Makefile
 ])

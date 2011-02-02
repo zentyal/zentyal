@@ -126,9 +126,6 @@ sub initialSetup
 {
     my ($self, $version) = @_;
 
-    # Execute initial-setup script
-    $self->SUPER::initialSetup($version);
-
     # Create default rules and services
     # only if installing the first time
     unless ($version) {

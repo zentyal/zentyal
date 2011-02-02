@@ -10,20 +10,17 @@ create_db()
     su postgres -c "createuser -R -S -D $db_user"
     su postgres -c "psql -d $db_name -c \"GRANT ALL ON DATABASE $db_name TO $db_user\""
 
-    /usr/share/zentyal/sql-table add admin /usr/share/zentyal/sqllog/admin.sql
-    /usr/share/zentyal/sql-table add consolidation /usr/share/zentyal/sqllog/consolidation.sql
+    for sqlfile in /usr/share/zentyal/sql/*.sql
+    do
+        table=`basename $sqlfile | cut -d. -f1`
+        /usr/share/zentyal/sql-table add $table $sqlfile
+    done
 
-    /usr/share/zentyal/sql-table add events /usr/share/zentyal/sqllog/events.sql
-
-    /usr/share/zentyal/sql-table-with-time-period add events_accummulated /usr/share/zentyal/sqllog/events_accummulated.sql
-    /usr/share/zentyal/sql-table add events_report /usr/share/zentyal/sqllog/events_report.sql
-
-    /usr/share/zentyal/sql-table add report_consolidation /usr/share/zentyal/sqllog/report_consolidation.sql
-
-    /usr/share/zentyal/sql-table add sysinfo_disk_usage /usr/share/zentyal/sqllog/sysinfo_disk_usage.sql
-    /usr/share/zentyal/sql-table add sysinfo_disk_usage_report /usr/share/zentyal/sqllog/sysinfo_disk_usage_report.sql
-    /usr/share/zentyal/sql-table add events /usr/share/zentyal/sqllog/events.sql
-    /usr/share/zentyal/sql-table add backup_slices /usr/share/zentyal/sqllog/backup_slices.sql
+    for sqlfile in /usr/share/zentyal/sql/period/*.sql
+    do
+        table=`basename $sqlfile | cut -d. -f1`
+        /usr/share/zentyal/sql-table-with-time-period add $table $sqlfile
+    done
 }
 
 # Check if we can connect to postgresql now

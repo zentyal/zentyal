@@ -37,6 +37,7 @@ use Fcntl qw(:flock);
 use Error qw(:try);
 use Time::Local;
 use File::Slurp;
+use File::Basename;
 
 # Method: _create
 #
@@ -146,6 +147,32 @@ sub initialSetup
             $command .= " $version";
         }
         EBox::Sudo::root($command);
+    }
+}
+
+# Method: createTables
+#
+#   This method creates the regular SQL log tables under
+#   /usr/share/zentyal/sql/*.sql and the time-period
+#   tables under /usr/share/zentyal/sql/period/*.sql
+#
+sub createTables
+{
+    my ($self) = @_;
+
+    my $modname = $self->{'name'};
+    my $path = EBox::Config::share() . "zentyal-$modname/sql";
+
+    foreach my $sqlfile (glob ("$path/*.sql")) {
+        my $table = basename($sqlfile);
+        $table =~ s/\.sql$//;
+        EBox::Sudo::root("/usr/share/zentyal/sql-table add $table $sqlfile");
+    }
+
+    foreach my $sqlfile (glob ("$path/period/*.sql")) {
+        my $table = basename($sqlfile);
+        $table =~ s/\.sql$//;
+        EBox::Sudo::root("/usr/share/zentyal/sql-table-with-time-period add $table $sqlfile");
     }
 }
 

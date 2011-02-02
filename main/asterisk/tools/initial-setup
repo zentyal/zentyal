@@ -7,6 +7,3 @@ fi
 if [ -d /var/spool/asterisk/ ] ; then
     chown asterisk:asterisk /var/spool/asterisk/
 fi
-
-# create log table
-/usr/share/zentyal/sql-table add asterisk_cdr /usr/share/zentyal/sqllog/asterisk_cdr.sql

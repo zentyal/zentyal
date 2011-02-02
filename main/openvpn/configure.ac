@@ -68,7 +68,7 @@ schemas/Makefile
 stubs/Makefile
 stubs/quagga/Makefile
 tools/installer/Makefile
-tools/sqllog/Makefile
+schemas/sql/Makefile
 tools/Makefile
 Makefile
 ])

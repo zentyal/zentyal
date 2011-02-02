@@ -1,7 +1,5 @@
 ## Process this file with automake to produce Makefile.in
 
-SUBDIRS = sqllog
-
 pkgdata_SCRIPTS = initial-setup enable-module
 
 MAINTAINERCLEANFILES = Makefile.in

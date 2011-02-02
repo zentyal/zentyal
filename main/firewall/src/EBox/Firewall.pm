@@ -135,9 +135,6 @@ sub initialSetup
 {
     my ($self, $version) = @_;
 
-    # Execute initial-setup script
-    $self->SUPER::initialSetup($version);
-
     # Create default rules only if installing the first time
     unless ($version) {
         $self->setInternalService('eBox administration', 'accept');

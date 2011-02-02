@@ -55,7 +55,7 @@ src/EBox/Model/Makefile
 src/EBox/Composite/Makefile
 schemas/Makefile
 tools/Makefile
-tools/sqllog/Makefile
+schemas/sql/Makefile
 migration/Makefile
 Makefile
 ])

@@ -61,7 +61,8 @@ schemas/Makefile
 stubs/Makefile
 stubs/t/Makefile
 tools/Makefile
-tools/sqllog/Makefile
+schemas/sql/Makefile
+schemas/sql/period/Makefile
 migration/Makefile
 Makefile
 ])

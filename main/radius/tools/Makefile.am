@@ -1,6 +1,6 @@
 ## Process this file with automake to produce Makefile.in
 
-pkgdata_SCRIPTS = enable-monitor
+pkgdata_SCRIPTS = enable-module
 
 MAINTAINERCLEANFILES = Makefile.in
 

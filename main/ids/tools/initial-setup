@@ -1,7 +1,0 @@
-#!/bin/bash
-
-/usr/share/zentyal/sql-table add ids_event /usr/share/zentyal/sqllog/ids_event.sql
-/usr/share/zentyal/sql-table add ids_report /usr/share/zentyal/sqllog/ids_report.sql
-/usr/share/zentyal/sql-table-with-time-period add ids_alert /usr/share/zentyal/sqllog/ids_alert.sql
-
-exit 0

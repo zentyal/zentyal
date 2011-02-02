@@ -15,8 +15,4 @@ STATUS_DIR=`perl -MEBox::OpenVPN -e 'print EBox::OpenVPN->logDir(); 1 '`
 test -d $STATUS_DIR || mkdir -p  $STATUS_DIR
 chown nobody:nogroup $STATUS_DIR
 
-# create log tables
-/usr/share/zentyal/sql-table add openvpn  /usr/share/zentyal/sqllog/openvpn.sql || true
-/usr/share/zentyal/sql-table add openvpn_report /usr/share/zentyal/sqllog/openvpn_report.sql
-
 exit 0

@@ -1,9 +1,0 @@
-## Process this file with automake to produce Makefile.in
-
-Sqllogdir = @DATADIR@/zentyal/sqllog/
-
-nobase_Sqllog_DATA = admin.sql consolidation.sql events.sql events_accummulated.sql events_report.sql report_consolidation.sql sysinfo_disk_usage.sql sysinfo_disk_usage_report.sql backup_slices.sql
-
-EXTRA_DIST = $(nobase_Sqllog_DATA)
-
-MAINTAINERCLEANFILES = Makefile.in

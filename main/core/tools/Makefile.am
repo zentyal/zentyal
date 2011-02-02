@@ -1,5 +1,5 @@
 ## Process this file with automake to produce Makefile.in
-SUBDIRS = sqllog cron
+SUBDIRS = cron
 
 pkgdatadir = $(datadir)/zentyal
 
