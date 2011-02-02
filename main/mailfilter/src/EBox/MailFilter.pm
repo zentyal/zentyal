@@ -32,7 +32,7 @@ use base (
 use Perl6::Junction qw(all any);
 
 use EBox::Gettext;
-use EBox::Sudo qw( :all );
+use EBox::Sudo;
 use EBox::Service;
 use EBox::Exceptions::InvalidData;
 use EBox::MailFilter::FirewallHelper;
@@ -355,7 +355,7 @@ sub _enforceServiceState
     $self->popProxy()->doDaemon($enabled);
 
     # Workaround postfix amavis issue.
-    root("/etc/init.d/postfix restart");
+    EBox::Sudo::root('/etc/init.d/postfix restart');
 }
 
 #

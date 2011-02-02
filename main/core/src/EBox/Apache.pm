@@ -20,7 +20,7 @@ use warnings;
 use base 'EBox::Module::Service';
 
 use EBox::Validate qw( :all );
-use EBox::Sudo qw( :all );
+use EBox::Sudo;
 use EBox::Global;
 use EBox::Service;
 use HTML::Mason::Interp;
@@ -200,7 +200,7 @@ sub _writeHttpdConfFile
     print HTTPD $output;
     close(HTTPD);
 
-    root("/bin/mv $confile $httpdconf");
+    EBox::Sudo::root("/bin/mv $confile $httpdconf");
 
 }
 

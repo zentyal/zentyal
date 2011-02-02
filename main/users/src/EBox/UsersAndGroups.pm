@@ -230,7 +230,6 @@ sub initialSetup
 sub enableActions
 {
     my ($self) = @_;
-    my $share = EBox::Config::share();
 
     # Lock to operate in exclusive mode
     open(my $lock, '>', LOCK_FILE);
@@ -244,9 +243,10 @@ sub enableActions
     if ($mode eq 'slave') {
         $self->disableApparmorProfile('usr.sbin.slapd');
 
-        EBox::Sudo::root("invoke-rc.d slapd stop");
-        EBox::Sudo::root("cp $share/zentyal-users/slapd.default.no " .
-            '/etc/default/slapd');
+        EBox::Sudo::root(
+            'invoke-rc.d slapd stop',
+            'cp /usr/share/zentyal-users/slapd.default.no /etc/default/slapd'
+        );
 
         $self->_setupSlaveLDAP();
     } elsif ($mode eq 'master' or $mode eq 'ad-slave') {
@@ -259,7 +259,9 @@ sub enableActions
         throw EBox::Exceptions::Internal(
             "Trying to enable users with unknown LDAP mode: $mode");
     }
-    EBox::Sudo::root("$share/zentyal-users/enable-module");
+
+    # Execute enable-module script
+    $self->SUPER::enableActions();
 
     # Release lock
     flock($lock, LOCK_UN);
@@ -305,11 +307,13 @@ sub _setConf
     }
 
     if ( $mode eq 'ad-slave' ) {
-        EBox::Sudo::root("rm -f /etc/cron.d/ebox-ad-sync");
+        my @cmds;
+        push (@cmds, 'rm -f /etc/cron.d/ebox-ad-sync');
         if ($self->adsyncEnabled()) {
             my $cronFile = EBox::Config::share() . '/zentyal-users/ebox-ad-sync.cron';
-            EBox::Sudo::root("install -m 0644 -o root -g root $cronFile /etc/cron.d/ebox-ad-sync");
+            push (@cmds, "install -m 0644 -o root -g root $cronFile /etc/cron.d/ebox-ad-sync");
         }
+        EBox::Sudo::root(@cmds);
     }
 
     my @array = ();
@@ -444,9 +448,10 @@ sub _loadCertificates
     $cert = read_file(SSL_DIR . "ssl.cert");
     $ca = $cert;
 
-    EBox::Sudo::root('chown -R ebox:ebox /etc/ldap/ssl');
     $ldapca = read_file("/etc/ldap/ssl/ssl.cert");
-    EBox::Sudo::root('chown -R openldap:openldap /etc/ldap/ssl');
+
+    EBox::Sudo::root('chown -R ebox:ebox /etc/ldap/ssl',
+                     'chown -R openldap:openldap /etc/ldap/ssl');
 
     my $dn = $self->masterDn();
 
@@ -1618,7 +1623,6 @@ sub addGroup # (group, comment, system)
             EBox::Sudo::root('/etc/init.d/nscd reload');
         } otherwise {};
     }
-
 }
 
 sub initGroup
@@ -2930,10 +2934,13 @@ sub _setupReplication
                 "users/slapd-frontend-referrals.ldif.mas",
                 $opts
                 );
-        EBox::Sudo::root('slapadd -F ' . LDAPCONFDIR .
-                "slapd-frontend.d" .  " -b '$remotedn' -l " .
-                EBox::Config::tmp() . "slapd-frontend-referrals.ldif");
-        EBox::Sudo::root("chown -R openldap.openldap /var/lib/ldap-frontend");
+
+        my @cmds;
+        push (@cmds, 'slapadd -F ' . LDAPCONFDIR .
+                     "slapd-frontend.d -b '$remotedn' -l " .
+                     EBox::Config::tmp() . 'slapd-frontend-referrals.ldif');
+        push (@cmds, 'chown -R openldap.openldap /var/lib/ldap-frontend');
+        EBox::Sudo::root(@cmds);
     }
 
     $self->_manageService('start');
@@ -2986,19 +2993,23 @@ sub _writeLdapConf
         $opts
     );
 
-    EBox::Sudo::root('rm -rf ' . LDAPCONFDIR . "slapd-$name.d");
-    EBox::Sudo::root('mkdir -p ' . LDAPCONFDIR . "slapd-$name.d");
-    EBox::Sudo::root('chmod 750 ' . LDAPCONFDIR . "slapd-$name.d");
+    my @cmds;
 
-    EBox::Sudo::root("rm -rf /var/lib/ldap-$name");
-    EBox::Sudo::root("mkdir -p /var/lib/ldap-$name");
-    EBox::Sudo::root("chmod 750 /var/lib/ldap-$name");
+    push (@cmds, 'rm -rf ' . LDAPCONFDIR . "slapd-$name.d");
+    push (@cmds, 'mkdir -p ' . LDAPCONFDIR . "slapd-$name.d");
+    push (@cmds, 'chmod 750 ' . LDAPCONFDIR . "slapd-$name.d");
 
-    EBox::Sudo::root('slapadd -F ' . LDAPCONFDIR . "slapd-$name.d" .
+    push (@cmds, "rm -rf /var/lib/ldap-$name");
+    push (@cmds, "mkdir -p /var/lib/ldap-$name");
+    push (@cmds, "chmod 750 /var/lib/ldap-$name");
+
+    push (@cmds, 'slapadd -F ' . LDAPCONFDIR . "slapd-$name.d" .
         ' -b "cn=config" -l ' . EBox::Config::tmp() . "slapd-$name.ldif");
 
-    EBox::Sudo::root('chown -R openldap.openldap ' . LDAPCONFDIR . "slapd-$name.d");
-    EBox::Sudo::root("chown -R openldap.openldap /var/lib/ldap-$name");
+    push (@cmds, 'chown -R openldap.openldap ' . LDAPCONFDIR . "slapd-$name.d");
+    push (@cmds, "chown -R openldap.openldap /var/lib/ldap-$name");
+
+    EBox::Sudo::root(@cmds);
 }
 
 sub listUsers

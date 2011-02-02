@@ -6,7 +6,7 @@ use EBox::Global;
 use EBox::MailVDomainsLdap;
 use EBox::MailAliasLdap;
 use EBox::MailUserLdap;
-use EBox::Sudo qw(:all);
+use EBox::Sudo;
 
 EBox::init();
 
@@ -16,7 +16,8 @@ my $vdomain = new EBox::MailVDomainsLdap;
 my $vusers = new EBox::MailUserLdap;
 my $alias = new EBox::MailAliasLdap;
 
-sub update {
+sub update
+{
 	$vdomain->{ldap}->ldapCon;
 	my $ldap = $vdomain->{ldap}->{ldap};
 	my $dn = "ou=postfix, " . $vdomain->{ldap}->dn;
@@ -48,11 +49,10 @@ sub update {
 	]);
 
 	($result->is_error) and warn "Cant initialize mail alias leaf.";
-
-        
 }
 
-sub clean {
+sub clean
+{
 	$vdomain->{ldap}->ldapCon;
 	my $ldap = $vdomain->{ldap}->{ldap};
 
@@ -67,7 +67,7 @@ sub clean {
 		$vusers->delAccountsFromVDomain($_);
 		$vdomain->delVDomain($_);
 	}
-	
+
 	my $result = $ldap->delete($adn);
         ($result->is_error) and warn "Can not remove postfix vdomains leaf ".$result->error;
 	$result = $ldap->delete($vdn);
@@ -75,11 +75,11 @@ sub clean {
 	$result = $ldap->delete($pdn);
 	($result->is_error) and warn "Can not remove postfix parent leaf ".$result->error;
 
-	
-	root("/bin/rm -rf /var/vmail/*");
+	EBox::Sudo::root('/bin/rm -rf /var/vmail/*');
 }
 
-sub usage {
+sub usage
+{
 	print "Usage: $0 update | clean\n";
 	exit 1;
 }

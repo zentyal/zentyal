@@ -37,13 +37,10 @@ use EBox::Types::IPAddr;
 use EBox::Types::InverseMatchUnion;
 use EBox::Sudo;
 
-
 use strict;
 use warnings;
 
-
 use base qw(EBox::Firewall::Model::BaseRuleTable) ;
-
 
 sub new
 {
@@ -55,7 +52,6 @@ sub new
 
     return $self;
 }
-
 
 sub _table
 {
@@ -70,7 +66,7 @@ sub _table
         'defaultController' =>
             '/ebox/Firewall/Controller/ExternalToInternalRuleTable',
         'defaultActions' =>
-            [	'add', 'del', 'move',  'editField', 'changeView' ],
+            [ 'add', 'del', 'move',  'editField', 'changeView' ],
         'tableDescription' => $self->_fieldDescription('source' => 1,
                                  'destination' => 1),
         'menuNamespace' => 'Firewall/View/ExternalToInternalRuleTable',

@@ -26,14 +26,15 @@ use EBox::Gettext;
 use EBox::Global;
 use EBox::Ldap;
 use EBox::Module::Base;
-use EBox::Sudo qw(:all);
+use EBox::Sudo;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::Sudo::Command;
 use EBox::Model::ModelManager;
 
 use constant LDAPCONFDIR    => '/etc/ldap/';
 
-sub new_pass {
+sub new_pass
+{
     # Create a new LDAP password for our eBox admin
     my $LDAP_PWD_FILE = EBox::Config::conf() . 'ebox-ldap.passwd';
 

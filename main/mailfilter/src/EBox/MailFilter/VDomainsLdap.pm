@@ -19,7 +19,7 @@ use base qw(EBox::LdapUserBase EBox::LdapVDomainBase);
 use strict;
 use warnings;
 
-use EBox::Sudo qw( :all );
+use EBox::Sudo;
 use EBox::Global;
 use EBox::Ldap;
 use EBox::Gettext;

@@ -34,7 +34,7 @@ use EBox::Exceptions::External;
 use EBox::Exceptions::Internal;
 use Error qw( :try );
 use Perl6::Junction qw( any );
-use EBox::Sudo qw( :all );
+use EBox::Sudo;
 
 my $statenew = " -m state --state NEW ";
 
@@ -414,11 +414,12 @@ sub _localRedirects
 #
 sub stop
 {
-    my $self = shift;
+    my ($self) = @_;
+
     my @commands;
     push(@commands, @{_stopIPForward()});
     push(@commands, @{$self->_clearTables("ACCEPT")});
-    root(@commands);
+    EBox::Sudo::root(@commands);
 }
 
 # Method: vifaceRealname
@@ -583,7 +584,7 @@ sub start
     push(@commands, map { my $r = $_->{'rule'};
                           pf($r) if $enabledRules{$r} } @sortedRules);
 
-    root(@commands);
+    EBox::Sudo::root(@commands);
 }
 
 # Method: moduleRules

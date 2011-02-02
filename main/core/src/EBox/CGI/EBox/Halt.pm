@@ -22,7 +22,7 @@ use base 'EBox::CGI::ClientBase';
 
 use EBox::Global;
 use EBox::Gettext;
-use EBox::Sudo qw( :all );
+use EBox::Sudo;
 
 sub new # (error=?, msg=?, cgi=?)
 {
@@ -39,10 +39,10 @@ sub _process
 	my $self = shift;
 
 	if (defined($self->param('halt'))) {
-		root("/sbin/halt");
+		EBox::Sudo::root('/sbin/halt');
 		$self->{'msg'} = __("Zentyal is going down for halt");
 	} elsif (defined($self->param('reboot'))) {
-		root("/sbin/reboot");
+		EBox::Sudo::root("/sbin/reboot");
 		$self->{'msg'} = __("Zentyal is going down for reboot");
 	}
 }

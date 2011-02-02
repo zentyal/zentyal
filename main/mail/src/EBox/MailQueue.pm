@@ -19,7 +19,7 @@ use strict;
 use warnings;
 
 use EBox::Config;
-use EBox::Sudo qw( :all );
+use EBox::Sudo;
 use EBox::Gettext;
 
 BEGIN {
@@ -41,7 +41,6 @@ BEGIN {
     $VERSION = EBox::Config::version;
 }
 
-#
 # Method: mailQueueList
 #
 #  Returns an array ref of hashes with the list mail queue. The hashes contains:
@@ -112,10 +111,11 @@ sub mailQueueList
 #  qid: queue id.
 #
 
-sub removeMail {
+sub removeMail
+{
     my ($qid) = @_;
 
-    root("/usr/sbin/postsuper -d $qid");
+    EBox::Sudo::root("/usr/sbin/postsuper -d $qid");
 }
 
 #
@@ -127,7 +127,7 @@ sub removeMail {
 sub removeAll
 {
 
-    root("/usr/sbin/postsuper -d ALL");
+    EBox::Sudo::root('/usr/sbin/postsuper -d ALL');
 }
 
 #
@@ -139,10 +139,9 @@ sub removeAll
 sub flushAll
 {
 
-    root("/usr/sbin/postqueue -f");
+    EBox::Sudo::root('/usr/sbin/postqueue -f');
 }
 
-#
 # Method: requeueMail
 #
 #  This method requeues a mail from queue.

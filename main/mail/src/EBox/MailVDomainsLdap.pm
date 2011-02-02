@@ -18,11 +18,10 @@ package EBox::MailVDomainsLdap;
 use strict;
 use warnings;
 
-use EBox::Sudo qw( :all );
+use EBox::Sudo;
 use EBox::Validate qw( :all );
 use EBox::Global;
 use EBox::Ldap;
-use EBox::Validate qw( :all );
 use EBox::Exceptions::InvalidData;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::DataExists;
@@ -31,8 +30,8 @@ use EBox::Gettext;
 use EBox::MailAliasLdap;
 
 use constant VDOMAINDN     => 'ou=vdomains, ou=postfix';
-use constant BYTES                              => '1048576';
-use constant MAXMGSIZE                          => '104857600';
+use constant BYTES         => '1048576';
+use constant MAXMGSIZE     => '104857600';
 
 sub new
 {
@@ -51,7 +50,8 @@ sub new
 #
 #     vdomain - The virtual domain name
 
-sub addVDomain {
+sub addVDomain
+{
     my ($self, $vdomain, $dftmdsize) = @_;
 
 

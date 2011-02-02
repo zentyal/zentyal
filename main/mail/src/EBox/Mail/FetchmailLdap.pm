@@ -18,7 +18,7 @@ package EBox::Mail::FetchmailLdap;
 use strict;
 use warnings;
 
-use EBox::Sudo qw( :all );
+use EBox::Sudo;
 use EBox::Global;
 use EBox::Ldap;
 use EBox::MailUserLdap;

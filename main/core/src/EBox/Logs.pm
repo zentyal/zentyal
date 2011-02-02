@@ -28,7 +28,7 @@ use EBox::Global;
 use EBox::Gettext;
 use EBox::Loggerd;
 use EBox::Config;
-use EBox::Sudo qw( :all );
+use EBox::Sudo;
 use EBox::Exceptions::InvalidData;
 use EBox::Exceptions::External;
 use EBox::Exceptions::Internal;
@@ -141,7 +141,6 @@ sub _notifyLogEnable
     foreach my $module (@{ $modules }) {
         $module->enableLog($status);
     }
-
 }
 
 # Method: isRunning

@@ -18,8 +18,8 @@ package EBox::TC;
 use strict;
 use warnings;
 
-use EBox::Sudo qw( :all );
-use Error qw( :try );
+use EBox::Sudo;
+use Error qw(:try);
 
 use EBox::Exceptions::DataNotFound;
 use EBox::Exceptions::Sudo::Command;
@@ -64,27 +64,25 @@ sub new
 #
 sub tc
 {
-	my ($self, $opts) = @_;
+    my ($self, $opts) = @_;
 
-	throw EBox::Exceptions::MissingArgument( __('options') )
-	  unless ($opts);
+    throw EBox::Exceptions::MissingArgument( __('options') )
+        unless ($opts);
 
-	try {
-	  root( TC_CMD . " $opts");
-	} catch EBox::Exceptions::Sudo::Command with {
-	  # Catching exception from tc command
-	  my $exception = shift;
-	  if ( $exception->exitValue() == 2 ) {
-	    # RTNETLINK answers: No such file or directory
-	    # Trying to delete qdisc where nothing it is in
-	    EBox::warn("No qdisc to remove");
-	  }
-	  else {
-	    $exception->throw();
-	  }
-	  ;
-	}
-
+    try {
+        EBox::Sudo::root(TC_CMD . " $opts");
+    } catch EBox::Exceptions::Sudo::Command with {
+        # Catching exception from tc command
+        my $exception = shift;
+        if ( $exception->exitValue() == 2 ) {
+            # RTNETLINK answers: No such file or directory
+            # Trying to delete qdisc where nothing it is in
+            EBox::warn("No qdisc to remove");
+        }
+        else {
+            $exception->throw();
+        }
+    };
 }
 
 # Method: reset
@@ -100,16 +98,14 @@ sub tc
 #       <EBox::Exceptions::MissingArgument> - if no interface is given
 #
 sub reset
-  {
-
+{
     my ($self, $interface) = @_;
 
     throw EBox::Exceptions::MissingArgument( __('Interface') )
-      unless ($interface);
+        unless ($interface);
 
     EBox::Sudo::silentRoot(TC_CMD . " qdisc del dev $interface root");
-
-  }
+}
 
 # Method: execute
 #
@@ -120,17 +116,14 @@ sub reset
 #        tcCommands_ref - an array reference to a serie of tc commands
 #        (each command have only the arguments)
 #
-
 sub execute # (tcCommands_ref)
-  {
-
+{
     my ($self, $tcCommands_ref) = @_;
 
     foreach my $tcCommand (@{$tcCommands_ref}) {
         # EBox::info("tc $tcCommand");
-        $self->tc( $tcCommand );
+        $self->tc($tcCommand);
     }
-
-  }
+}
 
 1;

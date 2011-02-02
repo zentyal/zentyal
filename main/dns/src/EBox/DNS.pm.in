@@ -28,7 +28,7 @@ use EBox::Gettext;
 use EBox::Config;
 use EBox::Service;
 use EBox::Menu::Item;
-use EBox::Sudo qw( :all );
+use EBox::Sudo;
 use EBox::Validate qw( :all );
 use EBox::DNS::Model::DomainTable;
 use EBox::DNS::Model::HostnameTable;

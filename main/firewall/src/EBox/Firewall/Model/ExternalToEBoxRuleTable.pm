@@ -37,13 +37,10 @@ use EBox::Types::IPAddr;
 use EBox::Types::InverseMatchUnion;
 use EBox::Sudo;
 
-
 use strict;
 use warnings;
 
-
 use base qw(EBox::Firewall::Model::BaseRuleTable) ;
-
 
 sub new
 {

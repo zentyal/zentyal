@@ -18,17 +18,16 @@ package EBox::Service;
 use strict;
 use warnings;
 
-use EBox::Sudo qw( :all );
+use EBox::Sudo;
 
-#
 #   Function: manage
 #
-#	Manage daemons
+#   Manage daemons
 #
 #   Parameters:
 #
-#   	daemon - name of the daemon
-#   	action - [start|stop|restart]
+#       daemon - name of the daemon
+#       action - [start|stop|restart]
 #
 #   Exceptions:
 #
@@ -36,33 +35,32 @@ use EBox::Sudo qw( :all );
 #
 sub manage # (daemon,action)
 {
-	my ($daemon, $action) = @_;
-	(-f "/etc/init/$daemon.conf") or
-		throw EBox::Exceptions::Internal("No such daemon: $daemon");
+    my ($daemon, $action) = @_;
+    (-f "/etc/init/$daemon.conf") or
+        throw EBox::Exceptions::Internal("No such daemon: $daemon");
 
-	if ( $action eq 'start' ) {
-		root("start '$daemon'");
-	}
-	elsif ( $action eq 'stop' ) {
-		root("stop '$daemon'") if (running($daemon));
-	}
-	elsif ( $action eq 'restart') {
-		root("stop '$daemon'") if (running($daemon));
-		root("start '$daemon'");
-	}
-	else {
-		throw EBox::Exceptions::Internal("Bad argument: $action");
-	}
+    if ( $action eq 'start' ) {
+        EBox::Sudo::root("start '$daemon'");
+    }
+    elsif ( $action eq 'stop' ) {
+        EBox::Sudo::root("stop '$daemon'") if (running($daemon));
+    }
+    elsif ( $action eq 'restart') {
+        EBox::Sudo::root("stop '$daemon'") if (running($daemon));
+        EBox::Sudo::root("start '$daemon'");
+    }
+    else {
+        throw EBox::Exceptions::Internal("Bad argument: $action");
+    }
 }
 
-#
 #   Function: running
 #
-#	Check if a daemon is running
+#   Check if a daemon is running
 #
 #   Parameters:
 #
-#   	daemon - name of the daemon
+#       daemon - name of the daemon
 #
 #   Exceptions:
 #
@@ -70,22 +68,22 @@ sub manage # (daemon,action)
 #
 sub running # (daemon)
 {
-	my ($daemon) = @_;
-	(-f "/etc/init/$daemon.conf") or
-		throw EBox::Exceptions::Internal("No such daemon: $daemon");
+    my ($daemon) = @_;
+    (-f "/etc/init/$daemon.conf") or
+        throw EBox::Exceptions::Internal("No such daemon: $daemon");
 
-	my $output = root("status '$daemon'");
-	my $status = @{$output}[0];
-	# TODO: Parse different exit status:
-	# 		Pre-start
-	# 		Post-start
-	# 		....
-	# 		Not it's running or stopped
-	if ($status =~ m{^$daemon start/running.*}) {
-		return 1;
-	} else {
-		return undef;
-	}
+    my $output = EBox::Sudo::root("status '$daemon'");
+    my $status = @{$output}[0];
+    # TODO: Parse different exit status:
+    #       Pre-start
+    #       Post-start
+    #       ....
+    #       Not it's running or stopped
+    if ($status =~ m{^$daemon start/running.*}) {
+        return 1;
+    } else {
+        return undef;
+    }
 }
 
 1;

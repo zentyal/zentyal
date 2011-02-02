@@ -32,13 +32,10 @@ use EBox::Types::Union;
 use EBox::Types::HostIP;
 use EBox::Sudo;
 
-
 use strict;
 use warnings;
 
-
 use base 'EBox::Model::DataTable';
-
 
 sub new
 {

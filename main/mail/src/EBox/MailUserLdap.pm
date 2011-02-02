@@ -18,7 +18,7 @@ package EBox::MailUserLdap;
 use strict;
 use warnings;
 
-use EBox::Sudo qw( :all );
+use EBox::Sudo;
 use EBox::Global;
 use EBox::Ldap;
 use EBox::Validate qw( :all );
@@ -185,13 +185,17 @@ sub delUserAccount   #username, mail
     my $dn = "uid=$username," .  $users->usersDn;
     $ldap->modify($dn, \%attrs );
 
+    my @cmds;
+
     # Here we remove mail directorie of user account.
-    root("/bin/rm -rf ".DIRVMAIL.$mailbox);
+    push (@cmds, '/bin/rm -rf ' . DIRVMAIL . $mailbox);
 
     # remove user's sieve scripts dir
     my ($lhs, $rhs) = split '@', $usermail;
     my $sieveDir   = $self->_sieveDir($usermail, $rhs);
-    root("/bin/rm -rf $sieveDir");
+    push (@cmds, "/bin/rm -rf $sieveDir");
+
+    EBox::Sudo::root(@cmds);
 }
 
 
@@ -678,14 +682,16 @@ sub _createMaildir
     my $vdomainDir = "/var/vmail/$vdomain";
     my $userDir   =  "$vdomainDir/$lhs/";
 
-    root("/bin/mkdir -p /var/vmail");
-    root("/bin/chmod 2775 /var/mail/");
-    root("/bin/chown ebox.ebox /var/vmail/");
+    my @cmds;
+    push (@cmds, '/bin/mkdir -p /var/vmail');
+    push (@cmds, '/bin/chmod 2775 /var/mail/');
+    push (@cmds, '/bin/chown ebox.ebox /var/vmail/');
 
-    root("/bin/mkdir -p $vdomainDir");
-    root("/bin/chown ebox.ebox $vdomainDir");
-    root("/usr/bin/maildirmake.dovecot $userDir ebox");
-    root("/bin/chown ebox.ebox -R $userDir");
+    push (@cmds, "/bin/mkdir -p $vdomainDir");
+    push (@cmds, "/bin/chown ebox.ebox $vdomainDir");
+    push (@cmds, "/usr/bin/maildirmake.dovecot $userDir ebox");
+    push (@cmds, "/bin/chown ebox.ebox -R $userDir");
+    EBox::Sudo::root(@cmds);
 }
 
 
@@ -707,9 +713,9 @@ sub _sieveDir
 #         full path of the maildir
 sub maildir
 {
-  my ($class, $lhs, $vdomain) = @_;
+    my ($class, $lhs, $vdomain) = @_;
 
-  return "/var/vmail/$vdomain/$lhs/";
+    return "/var/vmail/$vdomain/$lhs/";
 }
 
 #  Method: maildirQuota

@@ -18,7 +18,7 @@ package EBox::SambaLdapUser;
 use strict;
 use warnings;
 
-use EBox::Sudo qw( :all );
+use EBox::Sudo;
 use EBox::Global;
 use EBox::Model::ModelManager;
 use EBox::Network;
@@ -260,18 +260,20 @@ sub _modifyUser
     $entry->update($ldap->ldapCon);
 }
 
-sub _delUser($$)
+sub _delUser
 {
     my ($self, $user) = @_;
 
     return unless ($self->{samba}->configured());
 
-    if ( -d BASEPATH . "/profiles/$user") {
-        root ("rm -rf \'" .  BASEPATH . "/profiles/$user\'");
+    my @cmds;
+    if (-d BASEPATH . "/profiles/$user") {
+        push (@cmds, "rm -rf \'" .  BASEPATH . "/profiles/$user\'");
     }
-    if ( -d BASEPATH . "/profiles/$user.V2") {
-        root ("rm -rf \'" .  BASEPATH . "/profiles/$user.V2\'");
+    if (-d BASEPATH . "/profiles/$user.V2") {
+        push (@cmds, "rm -rf \'" .  BASEPATH . "/profiles/$user.V2\'");
     }
+    EBox::Sudo::root(@cmds) if (@cmds);
 
     # Remove user from printers
     my $samba = EBox::Global->modInstance('samba');
@@ -478,8 +480,8 @@ sub _delGroup
 
     return unless ($self->{samba}->configured());
 
-    if ( -d BASEPATH . "/groups/$group"){
-        root ("rm -rf \'" .  BASEPATH . "/groups/$group\'");
+    if (-d BASEPATH . "/groups/$group") {
+        EBox::Sudo::root("rm -rf \'" .  BASEPATH . "/groups/$group\'");
     }
 
     # Remove group from printers
@@ -564,12 +566,16 @@ sub _createDir
         return;
     }
 
-    root ("/bin/mkdir \'$path\'");
-    root ("/bin/chown $uid:$gid \'$path\'");
+    my @cmds;
+
+    push (@cmds, "/bin/mkdir \'$path\'");
+    push (@cmds, "/bin/chown $uid:$gid \'$path\'");
 
     if ($chmod) {
-        root ("/bin/chmod $chmod \'$path\'");
+        push (@cmds, "/bin/chmod $chmod \'$path\'");
     }
+
+    EBox::Sudo::root(@cmds);
 }
 
 sub _directoryEmpty

@@ -45,7 +45,7 @@ use EBox::Dashboard::Value;
 use EBox::Dashboard::Section;
 use EBox::Menu::Item;
 use EBox::Menu::Folder;
-use EBox::Sudo qw( :all );
+use EBox::Sudo;
 use EBox::Gettext;
 use EBox;
 use Error qw(:try);

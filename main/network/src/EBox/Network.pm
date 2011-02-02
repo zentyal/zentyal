@@ -63,7 +63,7 @@ use EBox::Dashboard::GraphRow;
 use EBox::Dashboard::Value;
 use EBox::Menu::Item;
 use EBox::Menu::Folder;
-use EBox::Sudo qw( :all );
+use EBox::Sudo;
 use EBox::Gettext;
 #use EBox::LogAdmin qw( :all );
 use File::Basename;
@@ -544,7 +544,7 @@ sub _cleanupVlanIfaces
         if ($iface =~ /^vlan/) {
             $iface =~ s/^vlan//;
             unless ($self->dir_exists("vlans/$iface")) {
-                root("/sbin/vconfig rem vlan$iface");
+                EBox::Sudo::root("/sbin/vconfig rem vlan$iface");
             }
         }
     }
@@ -2653,7 +2653,7 @@ sub generateInterfaces
     }
     close(IFACES);
 
-    root("cp $tmpfile $file");
+    EBox::Sudo::root("cp $tmpfile $file");
     $manager->updateFileDigest('network', $file);
 }
 
@@ -2669,17 +2669,18 @@ sub _generateRoutes
         my $net = $_->{network};
         my $router = $_->{gateway};
 #         if (route_is_up($net, $router)) {
-#             root("/sbin/ip route del $net via $router");
+#             EBox::Sudo::root("/sbin/ip route del $net via $router");
 #         }
-        root("/sbin/ip route add $net via $router table main || true");
+        EBox::Sudo::silentRoot("/sbin/ip route add $net via $router table main");
     }
-
 }
 
 # Remove those static routes which user has marked as deleted
 sub _removeRoutes
 {
     my ($self, $storedRoutes) = @_;
+
+    my @cmds;
 
     # Delete those routes which are not defined by Zentyal
     my @currentRoutes = list_routes('viaGateway');
@@ -2693,10 +2694,10 @@ sub _removeRoutes
             }
         }
         # If not found, delete it
-        unless ( $found ) {
-            if ( route_is_up($currentRoute->{network}, $currentRoute->{router}) ) {
-                root('/sbin/ip route del ' . $currentRoute->{network}
-                     . ' via ' . $currentRoute->{router});
+        unless ($found) {
+            if (route_is_up($currentRoute->{network}, $currentRoute->{router})) {
+                push (@cmds, '/sbin/ip route del ' . $currentRoute->{network}
+                             . ' via ' . $currentRoute->{router});
             }
         }
     }
@@ -2708,8 +2709,8 @@ sub _removeRoutes
         my $row = $deletedModel->row($id);
         my $network = $row->elementByName('network')->printableValue();
         my $gateway = $row->elementByName('gateway')->printableValue();
-        if ( route_is_up($network, $gateway)) {
-            root("/sbin/ip route del $network via $gateway");
+        if (route_is_up($network, $gateway)) {
+            push (@cmds, "/sbin/ip route del $network via $gateway");
         }
         # Perform deletion in two phases to let Zentyal perform sync correctly
         if ( $row->elementByName('deleted')->value() ) {
@@ -2720,6 +2721,7 @@ sub _removeRoutes
         }
     }
 
+    EBox::Sudo::root(@cmds);
 }
 
 # disable reverse path for gateway interfaces
@@ -2739,8 +2741,6 @@ sub _disableReversePath
 
     EBox::Sudo::root(@cmds);
 }
-
-
 
 sub _multigwRoutes
 {
@@ -2807,14 +2807,12 @@ sub _multigwRoutes
     push(@cmds,'/sbin/ip rule add table main');
 
     # Not in @cmds array because of possible CONNMARK exception
-    try {
-        my @fcmds;
-        push(@fcmds, '/sbin/iptables -t mangle -F');
-        push(@fcmds, '/sbin/iptables -t mangle -X');
-        push(@fcmds, '/sbin/iptables -t mangle -A PREROUTING -j CONNMARK --restore-mark');
-        push(@fcmds, '/sbin/iptables -t mangle -A OUTPUT -j CONNMARK --restore-mark');
-        EBox::Sudo::root(@fcmds);
-    } otherwise {};
+    my @fcmds;
+    push(@fcmds, '/sbin/iptables -t mangle -F');
+    push(@fcmds, '/sbin/iptables -t mangle -X');
+    push(@fcmds, '/sbin/iptables -t mangle -A PREROUTING -j CONNMARK --restore-mark');
+    push(@fcmds, '/sbin/iptables -t mangle -A OUTPUT -j CONNMARK --restore-mark');
+    EBox::Sudo::silentRoot(@fcmds);
 
     my $defaultRouterMark;
     foreach my $router (@{$routers}) {
@@ -2893,19 +2891,20 @@ sub _supportActions
 # Method: _preSetConf
 #
 #   Overrides <EBox::Module::Base::_preSetConf>
+#
 sub _preSetConf
 {
-    my $self = shift;
+    my ($self) = @_;
 
     my %opts = @_;
     my $file = INTERFACES_FILE;
     my $restart = delete $opts{restart};
 
     try {
-        root("/sbin/modprobe 8021q");
-    } catch EBox::Exceptions::Internal with {};
-    try {
-        root("/sbin/vconfig set_name_type VLAN_PLUS_VID_NO_PAD");
+        EBox::Sudo::root(
+            '/sbin/modprobe 8021q',
+            '/sbin/vconfig set_name_type VLAN_PLUS_VID_NO_PAD'
+        );
     } catch EBox::Exceptions::Internal with {};
 
     # Bring down changed interfaces
@@ -2913,16 +2912,18 @@ sub _preSetConf
     foreach my $if (@{$iflist}) {
         if ($self->_hasChanged($if)) {
             try {
+                my @cmds;
                 if ($self->ifaceExists($if)) {
                     my $ifname = $if;
                     if ($self->ifaceMethod($if) eq 'ppp') {
                         $ifname = "ebox-ppp-$if";
                     } else {
-                        root("/sbin/ip address flush label $if");
-                        root("/sbin/ip address flush label $if:*");
+                        push (@cmds, "/sbin/ip address flush label $if");
+                        push (@cmds, "/sbin/ip address flush label $if:*");
                     }
-                    root("/sbin/ifdown --force -i $file $ifname");
+                    push (@cmds, "/sbin/ifdown --force -i $file $ifname");
                 }
+                EBox::Sudo::root(@cmds);
             } catch EBox::Exceptions::Internal with {};
             #remove if empty
             if ($self->_isEmpty($if)) {
@@ -2989,20 +2990,21 @@ sub _enforceServiceState
 
     open(my $fd, '>', IFUP_LOCK_FILE); close($fd);
     foreach my $iface (@ifups) {
-        root(EBox::Config::pkgdata() . "ebox-unblock-exec /sbin/ifup --force -i $file $iface");
+        EBox::Sudo::root(EBox::Config::pkgdata() .
+                         "ebox-unblock-exec /sbin/ifup --force -i $file $iface");
         unless ($self->isReadOnly()) {
             $self->_unsetChanged($iface);
         }
     }
     unlink (IFUP_LOCK_FILE);
 
-    EBox::Sudo::silentRoot("/sbin/ip route del default table default");
-    EBox::Sudo::silentRoot("/sbin/ip route del default");
+    EBox::Sudo::silentRoot('/sbin/ip route del default table default',
+                           '/sbin/ip route del default');
 
     my $cmd = $self->_multipathCommand();
     if ($cmd) {
         try {
-            root($cmd);
+            EBox::Sudo::root($cmd);
         } catch EBox::Exceptions::Internal with {
             throw EBox::Exceptions::External("An error happened ".
                     "trying to set the default gateway. Make sure the ".
@@ -3047,13 +3049,14 @@ sub restoreConfig
 
 sub _stopService
 {
-    my $self = shift;
+    my ($self) = @_;
 
     # XXX uncomment when DynLoader bug with locales is fixed
     # EBox::Network::Report::ByteRate->stopService();
 
     return unless ($self->configured());
 
+    my @cmds;
     my $file = INTERFACES_FILE;
     my $iflist = $self->allIfaces();
     foreach my $if (@{$iflist}) {
@@ -3062,12 +3065,14 @@ sub _stopService
             if ($self->ifaceMethod($if) eq 'ppp') {
                 $ifname = "ebox-ppp-$if";
             } else {
-                root("/sbin/ip address flush label $if");
-                root("/sbin/ip address flush label $if:*");
+                push (@cmds, "/sbin/ip address flush label $if");
+                push (@cmds, "/sbin/ip address flush label $if:*");
             }
-            root("/sbin/ifdown --force -i $file $ifname");
+            push (@cmds, "/sbin/ifdown --force -i $file $ifname");
         } catch EBox::Exceptions::Internal with {};
     }
+
+    EBox::Sudo::root(@cmds);
 
 # XXX uncomment when DynLoader bug with locales is fixed
 #   EBox::Network::Report::ByteRate->stopService();
@@ -3519,8 +3524,8 @@ sub interfacesWidget
     my ($self, $widget) = @_;
     my $ifaces = $self->ifacesWithRemoved;
     my $linkstatus = {};
-    root("/sbin/mii-tool > " . EBox::Config::tmp . "linkstatus || true");
-    if (open(LINKF, EBox::Config::tmp . "linkstatus")) {
+    EBox::Sudo::silentRoot('/sbin/mii-tool > ' . EBox::Config::tmp . 'linkstatus');
+    if (open(LINKF, EBox::Config::tmp . 'linkstatus')) {
         while (<LINKF>) {
             if (/link ok/) {
                 my $i = (split(" ",$_))[0];

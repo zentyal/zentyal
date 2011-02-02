@@ -34,7 +34,7 @@ use File::Basename;
 
 use Error qw(:try);
 use Digest::MD5;
-use EBox::Sudo qw(:all);
+use EBox::Sudo;
 use POSIX qw(strftime);
 use DirHandle;
 use Perl6::Junction qw(any all);
@@ -371,13 +371,9 @@ sub _bug # (dir)
     system "cp /etc/resolv.conf  $dir/resolv.conf";
 
     try {
-        root("/sbin/iptables -nvL > $dir/iptables-filter");
+        EBox::Sudo::root("/sbin/iptables -nvL > $dir/iptables-filter",
+                         "/sbin/iptables -t nat -nvL > $dir/iptables-nat");
     } catch EBox::Exceptions::Base with {};
-
-    try {
-        root("/sbin/iptables -t nat -nvL > $dir/iptables-nat");
-    } catch EBox::Exceptions::Base with {};
-
 
     my $eboxLogDir = EBox::Config::log();
     # copy files from ebox logs directories...

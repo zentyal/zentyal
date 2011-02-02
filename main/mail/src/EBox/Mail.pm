@@ -26,7 +26,7 @@ use base qw(EBox::Module::Service EBox::LdapModule EBox::ObjectsObserver
             EBox::Report::DiskUsageProvider
            );
 
-use EBox::Sudo qw( :all );
+use EBox::Sudo;
 use EBox::Validate qw( :all );
 use EBox::Gettext;
 use EBox::Config;
@@ -1947,7 +1947,6 @@ sub certificates
              group => 'root',
              mode => '0400',
             },
-
            ];
 }
 

@@ -18,7 +18,7 @@ package EBox::MailAliasLdap;
 use strict;
 use warnings;
 
-use EBox::Sudo qw( :all );
+use EBox::Sudo;
 use EBox::Global;
 use EBox::Ldap;
 use EBox::MailUserLdap;
@@ -30,7 +30,7 @@ use EBox::Gettext;
 use EBox::Validate;
 use EBox::MailVDomainsLdap;
 
-use constant ALIASDN     => 'ou=mailalias,ou=postfix';
+use constant ALIASDN => 'ou=mailalias,ou=postfix';
 
 sub new
 {
