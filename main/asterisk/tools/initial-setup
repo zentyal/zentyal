@@ -9,4 +9,4 @@ if [ -d /var/spool/asterisk/ ] ; then
 fi
 
 # create log table
-/usr/share/zentyal/ebox-sql-table add asterisk_cdr /usr/share/zentyal/sqllog/asterisk_cdr.sql
+/usr/share/zentyal/sql-table add asterisk_cdr /usr/share/zentyal/sqllog/asterisk_cdr.sql

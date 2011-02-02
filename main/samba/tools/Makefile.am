@@ -2,8 +2,7 @@
 
 SUBDIRS = sqllog
 
-pkgdata_SCRIPTS = initial-setup enable-module ebox-samba-ldap ebox-fix-sid \
-					ebox-setadmin-pass ebox-samba-quota
+pkgdata_SCRIPTS = initial-setup enable-module samba-ldap fix-sid setadmin-pass samba-quota
 
 MAINTAINERCLEANFILES = Makefile.in
 

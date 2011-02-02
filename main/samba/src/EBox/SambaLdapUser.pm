@@ -49,7 +49,7 @@ use constant BASEPATH           => '/home/samba';
 use constant USERSPATH          => '/home';
 use constant GROUPSPATH         => BASEPATH . '/groups';
 use constant PROFILESPATH       => BASEPATH . '/profiles';
-use constant QUOTA_PROGRAM      => '/usr/share/zentyal-samba/ebox-samba-quota';
+use constant QUOTA_PROGRAM      => '/usr/share/zentyal-samba/samba-quota';
 
 BEGIN
 {

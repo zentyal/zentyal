@@ -16,7 +16,7 @@ test -d $STATUS_DIR || mkdir -p  $STATUS_DIR
 chown nobody:nogroup $STATUS_DIR
 
 # create log tables
-/usr/share/zentyal/ebox-sql-table add openvpn  /usr/share/zentyal/sqllog/openvpn.sql || true
-/usr/share/zentyal/ebox-sql-table add openvpn_report /usr/share/zentyal/sqllog/openvpn_report.sql
+/usr/share/zentyal/sql-table add openvpn  /usr/share/zentyal/sqllog/openvpn.sql || true
+/usr/share/zentyal/sql-table add openvpn_report /usr/share/zentyal/sqllog/openvpn_report.sql
 
 exit 0

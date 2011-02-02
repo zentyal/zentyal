@@ -9,7 +9,8 @@ EBox::init();
 
 my $extensions = new EBox::Asterisk::Extensions;
 
-sub update {
+sub update
+{
 	$extensions->{ldap}->ldapCon;
 	my $ldap = $extensions->{ldap}->{ldap};
 	my $edn = $extensions->extensionsDn;
@@ -30,7 +31,8 @@ sub update {
 	($result->is_error) and warn "Can't initialize Queues leaf ".$result->error;
 }
 
-sub clean {
+sub clean
+{
 	$extensions->{ldap}->ldapCon;
 	my $ldap = $extensions->{ldap}->{ldap};
 	my $edn = $extensions->extensionsDn;

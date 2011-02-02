@@ -67,8 +67,8 @@ use constant NETLOGONSCRIPT       => 'logon.bat';
 use constant NETLOGONDEFAULTSCRIPT=> 'zentyal-logon.bat';
 
 
-use constant FIX_SID_PROGRAM => '/usr/share/zentyal-samba/ebox-fix-sid';
-use constant QUOTA_PROGRAM => '/usr/share/zentyal-samba/ebox-samba-quota';
+use constant FIX_SID_PROGRAM => '/usr/share/zentyal-samba/fix-sid';
+use constant QUOTA_PROGRAM => '/usr/share/zentyal-samba/samba-quota';
 
 sub _create
 {
@@ -607,7 +607,7 @@ sub _setConf
     $self->writeConfFile(CLAMAVSMBCONFFILE,
                          'samba/vscan-clamav.conf.mas', \@array);
 
-    EBox::Sudo::root(EBox::Config::share() . '/zentyal-samba/ebox-setadmin-pass');
+    EBox::Sudo::root(EBox::Config::share() . '/zentyal-samba/setadmin-pass');
 
     my $users = EBox::Global->modInstance('users');
 

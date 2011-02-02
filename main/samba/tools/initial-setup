@@ -9,13 +9,13 @@ fi
 chmod 730 $QUARANTINE_DIR
 
 #create log tables
-/usr/share/zentyal/ebox-sql-table add samba_access /usr/share/zentyal/sqllog/samba_access.sql
-/usr/share/zentyal/ebox-sql-table add samba_access_report /usr/share/zentyal/sqllog/samba_access_report.sql
-/usr/share/zentyal/ebox-sql-table add samba_virus /usr/share/zentyal/sqllog/samba_virus.sql
-/usr/share/zentyal/ebox-sql-table add samba_virus_report /usr/share/zentyal/sqllog/samba_virus_report.sql
-/usr/share/zentyal/ebox-sql-table add samba_quarantine /usr/share/zentyal/sqllog/samba_quarantine.sql
-/usr/share/zentyal/ebox-sql-table add samba_disk_usage /usr/share/zentyal/sqllog/samba_disk_usage.sql
-/usr/share/zentyal/ebox-sql-table add samba_disk_usage_report /usr/share/zentyal/sqllog/samba_disk_usage_report.sql
-/usr/share/zentyal/ebox-sql-table add samba_virus_share_report /usr/share/zentyal/sqllog/samba_virus_share_report.sql
+/usr/share/zentyal/sql-table add samba_access /usr/share/zentyal/sqllog/samba_access.sql
+/usr/share/zentyal/sql-table add samba_access_report /usr/share/zentyal/sqllog/samba_access_report.sql
+/usr/share/zentyal/sql-table add samba_virus /usr/share/zentyal/sqllog/samba_virus.sql
+/usr/share/zentyal/sql-table add samba_virus_report /usr/share/zentyal/sqllog/samba_virus_report.sql
+/usr/share/zentyal/sql-table add samba_quarantine /usr/share/zentyal/sqllog/samba_quarantine.sql
+/usr/share/zentyal/sql-table add samba_disk_usage /usr/share/zentyal/sqllog/samba_disk_usage.sql
+/usr/share/zentyal/sql-table add samba_disk_usage_report /usr/share/zentyal/sqllog/samba_disk_usage_report.sql
+/usr/share/zentyal/sql-table add samba_virus_share_report /usr/share/zentyal/sqllog/samba_virus_share_report.sql
 
 exit 0

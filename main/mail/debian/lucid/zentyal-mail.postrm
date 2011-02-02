@@ -9,8 +9,8 @@ case "$1" in
         # Purge configuration
         /usr/share/zentyal/clean-conf mail || true
 
-        /usr/share/zentyal/ebox-sql-table drop mail_message || true
-        /usr/share/zentyal/ebox-sql-table drop mail_message_report || true
+        /usr/share/zentyal/sql-table drop mail_message || true
+        /usr/share/zentyal/sql-table drop mail_message_report || true
         ;;
 esac
 

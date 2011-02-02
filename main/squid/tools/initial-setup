@@ -6,9 +6,9 @@ set -e
 adduser --quiet ebox proxy || true
 
 # create log tables
-/usr/share/zentyal/ebox-sql-table add squid_access /usr/share/zentyal/sqllog/squid_access.sql
-/usr/share/zentyal/ebox-sql-table add squid_access_report /usr/share/zentyal/sqllog/squid_access_report.sql
-/usr/share/zentyal/ebox-sql-table-with-time-period add squid_traffic /usr/share/zentyal/sqllog/squid_traffic.sql
+/usr/share/zentyal/sql-table add squid_access /usr/share/zentyal/sqllog/squid_access.sql
+/usr/share/zentyal/sql-table add squid_access_report /usr/share/zentyal/sqllog/squid_access_report.sql
+/usr/share/zentyal/sql-table-with-time-period add squid_traffic /usr/share/zentyal/sqllog/squid_traffic.sql
 
 # directory for extra dg domain lists
 DG_EXTRALISTS=/etc/dansguardian/extralists

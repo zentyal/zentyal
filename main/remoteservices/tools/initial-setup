@@ -4,9 +4,9 @@ VERSION=$1
 
 create_tables()
 {
-    /usr/share/zentyal/ebox-sql-table add remoteservices_passwd_report /usr/share/zentyal/sqllog/remoteservices_passwd_report.sql
-    /usr/share/zentyal/ebox-sql-table add remoteservices_passwd_users /usr/share/zentyal/sqllog/remoteservices_passwd_users.sql
-    /usr/share/zentyal/ebox-sql-table add remoteservices_passwd_users_report /usr/share/zentyal/sqllog/remoteservices_passwd_users_report.sql
+    /usr/share/zentyal/sql-table add remoteservices_passwd_report /usr/share/zentyal/sqllog/remoteservices_passwd_report.sql
+    /usr/share/zentyal/sql-table add remoteservices_passwd_users /usr/share/zentyal/sqllog/remoteservices_passwd_users.sql
+    /usr/share/zentyal/sql-table add remoteservices_passwd_users_report /usr/share/zentyal/sqllog/remoteservices_passwd_users_report.sql
 }
 
 # Create DB tables if required

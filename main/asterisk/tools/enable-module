@@ -1,4 +1,4 @@
 #!/bin/bash -x
 
 # populate LDAP
-/usr/share/zentyal-asterisk/ebox-asterisk-ldap update
+/usr/share/zentyal-asterisk/asterisk-ldap update

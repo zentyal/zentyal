@@ -6,10 +6,10 @@ adduser --quiet ebox lpadmin
 adduser --quiet ebox lp
 
 # Create log tables
-/usr/share/zentyal/ebox-sql-table add printers_jobs /usr/share/zentyal/sqllog/printers_jobs.sql
-/usr/share/zentyal/ebox-sql-table add printers_jobs_report /usr/share/zentyal/sqllog/printers_jobs_report.sql
-/usr/share/zentyal/ebox-sql-table add printers_jobs_by_user_report /usr/share/zentyal/sqllog/printers_jobs_by_user_report.sql
-/usr/share/zentyal/ebox-sql-table add printers_pages /usr/share/zentyal/sqllog/printers_pages.sql
-/usr/share/zentyal/ebox-sql-table add printers_usage_report /usr/share/zentyal/sqllog/printers_usage_report.sql
+/usr/share/zentyal/sql-table add printers_jobs /usr/share/zentyal/sqllog/printers_jobs.sql
+/usr/share/zentyal/sql-table add printers_jobs_report /usr/share/zentyal/sqllog/printers_jobs_report.sql
+/usr/share/zentyal/sql-table add printers_jobs_by_user_report /usr/share/zentyal/sqllog/printers_jobs_by_user_report.sql
+/usr/share/zentyal/sql-table add printers_pages /usr/share/zentyal/sqllog/printers_pages.sql
+/usr/share/zentyal/sql-table add printers_usage_report /usr/share/zentyal/sqllog/printers_usage_report.sql
 
 exit 0

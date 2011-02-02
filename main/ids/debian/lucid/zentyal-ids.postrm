@@ -11,7 +11,7 @@ case "$1" in
         ;;
 
     purge)
-        /usr/share/zentyal/ebox-sql-table drop ids || true
-		/usr/share/zentyal/ebox-sql-table-with-time-period drop ids_alert || true
+        /usr/share/zentyal/sql-table drop ids || true
+		/usr/share/zentyal/sql-table-with-time-period drop ids_alert || true
         ;;
 esac

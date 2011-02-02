@@ -130,7 +130,7 @@ sub initialSetup
     my ($self, $version) = @_;
 
     my $share = EBox::Config::share();
-    EBox::Sudo::silentRoot("$share/zentyal/ebox-sql-table add leases $share/zentyal/sqllog/dhcp.sql");
+    EBox::Sudo::silentRoot("$share/zentyal/sql-table add leases $share/zentyal/sqllog/dhcp.sql");
 
     # Create default services, rules and conf dir
     # only if installing the first time

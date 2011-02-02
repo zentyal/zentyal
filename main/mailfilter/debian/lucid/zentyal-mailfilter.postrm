@@ -8,12 +8,12 @@ case "$1" in
 	purge)
 	    /usr/share/zentyal/clean-conf mailfilter || true
 
-		/usr/share/zentyal/ebox-sql-table drop mailfilter_pop || true
-		/usr/share/zentyal/ebox-sql-table drop mailfilter_smtp || true
-		/usr/share/zentyal/ebox-sql-table drop mailfilter_pop_report || true
-		/usr/share/zentyal/ebox-sql-table drop mailfilter_smtp_report || true
-		/usr/share/zentyal/ebox-sql-table-with-time-period drop mailfilter_pop_traffic  || true
-		/usr/share/zentyal/ebox-sql-table-with-time-period drop mailfilter_smtp_traffic  || true
+		/usr/share/zentyal/sql-table drop mailfilter_pop || true
+		/usr/share/zentyal/sql-table drop mailfilter_smtp || true
+		/usr/share/zentyal/sql-table drop mailfilter_pop_report || true
+		/usr/share/zentyal/sql-table drop mailfilter_smtp_report || true
+		/usr/share/zentyal/sql-table-with-time-period drop mailfilter_pop_traffic  || true
+		/usr/share/zentyal/sql-table-with-time-period drop mailfilter_smtp_traffic  || true
 	;;
 esac
 

@@ -2,7 +2,7 @@
 
 SUBDIRS = sqllog
 
-pkgdata_SCRIPTS = initial-setup enable-module ebox-asterisk-ldap detect-system-kernels.pl
+pkgdata_SCRIPTS = initial-setup enable-module asterisk-ldap detect-system-kernels.pl
 
 MAINTAINERCLEANFILES = Makefile.in
 
