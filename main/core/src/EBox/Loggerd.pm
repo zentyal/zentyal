@@ -130,35 +130,27 @@ sub _parseLog
 
     my $buffer;
     my $FH = $self->{filehandlers}->{$file};
-
     return unless defined ($FH);
 
     my $bytes = sysread($FH, $buffer, BUFFER_SIZE);
+    return unless ($bytes);
 
+    my $line;
     # Append the rest of the previous non-complete line
-    $buffer = $self->{buffers}->{$file} . $buffer;
-
-    if (defined ($buffer) and length ($buffer) > 0) {
+    my $rest = $self->{buffers}->{$file} . $buffer;
+    while (($line, $rest) = $rest =~ m/^([^\n]+\n)?(.+)?$/s) {
+        last unless ($line);
+        chomp ($line);
         for my $obj (@{$self->{'objects'}->{$file}}) {
-
-            my $endsInNewLine = substr ($buffer, -1, 1) eq '\n';
-
-            my @lines = split /\n/, $buffer;
-
-            # If the last line is not complete, save it for later
-            if (@lines > 1 and not $endsInNewLine) {
-                $self->{buffers}->{$file} = pop @lines;
-            }
-
-            foreach my $line (@lines) {
-                try {
-                    $obj->processLine($file, $line, $self->{'dbengine'});
-                } otherwise {
-                    EBox::warn("Error processing line $line of $file: $@");
-                };
-            }
+            try {
+                $obj->processLine($file, $line, $self->{'dbengine'});
+            } otherwise {
+                EBox::warn("Error processing line $line of $file: $@");
+            };
         }
+        last unless ($rest);
     }
+    $self->{buffers}->{$file} = ($rest or '');
 }
 
 sub _mainloop
