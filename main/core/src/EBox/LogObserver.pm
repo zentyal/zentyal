@@ -24,7 +24,9 @@ package EBox::LogObserver;
 use strict;
 use warnings;
 
+use EBox::Logs::Consolidate;
 use Perl6::Junction qw(any);
+use File::Basename;
 
 sub new
 {
@@ -57,6 +59,62 @@ sub logHelper
 sub enableLog
 {
 }
+
+# Method: createTables
+#
+#   This method creates the regular SQL log tables under
+#   /usr/share/zentyal/sql/*.sql and the time-period
+#   tables under /usr/share/zentyal/sql/period/*.sql
+#
+sub createTables
+{
+    my ($self) = @_;
+
+    my $modname = $self->{'name'};
+    my $path = EBox::Config::share() . "zentyal-$modname/sql";
+
+    foreach my $sqlfile (glob ("$path/*.sql")) {
+        $self->_addTable($sqlfile);
+    }
+
+    my @timePeriods = @{ EBox::Logs::Consolidate->timePeriods() };
+    foreach my $sqlfile (glob ("$path/period/*.sql")) {
+        $self->_addTable($sqlfile, @timePeriods);
+    }
+}
+
+sub _addTable
+{
+    my ($self, $file, @timePeriods) = @_;
+
+    my $dbName = EBox::Config::configkey('eboxlogs_dbname');
+    my $dbUser = EBox::Config::configkey('eboxlogs_dbuser');
+
+    my $table = basename($file);
+    $table =~ s/\.sql$//;
+
+    if (@timePeriods) {
+        foreach my $timePeriod (@timePeriods) {
+            my $fullName = $table . '_' . $timePeriod;
+
+            my $fileCmds = File::Slurp::read_file($file);
+            my $sqlCmds = $fileCmds;
+            $sqlCmds =~ s/$table/$fullName/g;
+
+            my $tmpFile = EBox::Config::tmp() . "$fullName.sql";
+            File::Slurp::write_file($tmpFile, $sqlCmds);
+
+            EBox::Sudo::sudo("psql -f $tmpFile $dbName", 'postgres');
+            EBox::Sudo::sudo("psql -c 'GRANT SELECT, INSERT, UPDATE, DELETE ON $fullName TO $dbUser' $dbName", 'postgres');
+        }
+    } else {
+        # FIXME: Use DBI?
+        EBox::Sudo::sudo("psql -f $file $dbName", 'postgres');
+        EBox::Sudo::sudo("psql -c \"GRANT SELECT, INSERT, UPDATE, DELETE ON $table TO $dbUser\" $dbName", 'postgres');
+    }
+}
+
+
 
 # Method: tableInfo
 #
@@ -107,7 +165,7 @@ sub enableLog
 #                 if it returns false the row would be excluded
 #
 #   Warning:
-#    -use lowercase in column names 
+#    -use lowercase in column names
 sub tableInfo
 {
     throw EBox::Exceptions::NotImplemented;

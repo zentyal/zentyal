@@ -34,7 +34,9 @@ EBox::init();
 
 my $module = EBox::Global->modInstance($modname);
 
-$module->createTables();
+if ($module->isa('EBox::LogObserver')) {
+    $module->createTables();
+}
 
 $module->initialSetup($version);
 

@@ -1,5 +1,5 @@
 HEAD
-	+ New createTables method in EBox::Module::Base called from
+	+ New createTables method in EBox::LogObserver called from
 	  initial-setup to create SQL tables for each module
 	+ Always drop tables when purging a package
 	+ Moved all SQL schemas from tools/sqllogs to schemas/sql
