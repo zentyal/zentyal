@@ -1,4 +1,5 @@
 HEAD
+	+ Bug fix: Logs don't include unrelated information now
 	+ Add total in disk_usage report
 	+ Bugfix: Events report by source now works again
 	+ Do not include info messages in the events report
