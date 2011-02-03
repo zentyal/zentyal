@@ -1,7 +1,5 @@
 #!/bin/bash
 
-set -e
-
 case "$1" in
 	remove)
         dpkg-trigger --no-await zentyal-core
@@ -9,10 +7,10 @@ case "$1" in
 
 	purge)
         # Purge configuration
-        /usr/share/zentyal/clean-conf firewall || true
+        /usr/share/zentyal/clean-conf firewall
 
-		/usr/share/zentyal/sql-table drop firewall || true
-		/usr/share/zentyal/sql-table-with-time-period drop firewall_packet_traffic || true
+		/usr/share/zentyal/drop-tables firewall
 		;;
 esac
 
+exit 0

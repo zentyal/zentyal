@@ -1,17 +1,15 @@
 #!/bin/bash
 
-set -e
-
 case "$1" in
 	remove)
         dpkg-trigger --no-await zentyal-core
         ;;
 	purge)
         # Purge configuration
-        /usr/share/zentyal/clean-conf squid || true
+        /usr/share/zentyal/clean-conf squid
 
-        /usr/share/zentyal/sql-table drop squid_access || true
-        /usr/share/zentyal/sql-table drop squid_access_report || true
-        /usr/share/zentyal/sql-table-with-time-period drop squid_traffic || true
+        /usr/share/zentyal/drop-tables squid
         ;;
 esac
+
+exit 0

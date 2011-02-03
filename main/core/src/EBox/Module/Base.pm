@@ -164,15 +164,42 @@ sub createTables
     my $path = EBox::Config::share() . "zentyal-$modname/sql";
 
     foreach my $sqlfile (glob ("$path/*.sql")) {
-        my $table = basename($sqlfile);
-        $table =~ s/\.sql$//;
-        EBox::Sudo::root("/usr/share/zentyal/sql-table add $table $sqlfile");
+        $self->_addTable($sqlfile);
     }
 
+    my @timePeriods = @{ EBox::Logs::Consolidate->timePeriods() };
     foreach my $sqlfile (glob ("$path/period/*.sql")) {
-        my $table = basename($sqlfile);
-        $table =~ s/\.sql$//;
-        EBox::Sudo::root("/usr/share/zentyal/sql-table-with-time-period add $table $sqlfile");
+        $self->_addTable($sqlfile, @timePeriods);
+    }
+}
+
+sub _addTable
+{
+    my ($self, $file, @timePeriods) = @_;
+
+    my $db_name = EBox::Config::configkey('eboxlogs_dbname');
+    my $db_user = EBox::Config::configkey('eboxlogs_dbuser');
+
+    my $table = basename($file);
+    $table =~ s/\.sql$//;
+
+    if (@timePeriods) {
+        foreach my $timePeriod (@timePeriods) {
+            my $fullName = $table . '_' . $timePeriod;
+
+            my $sqlCmds = $fileCmds;
+            $sqlCmds =~ s/$table/$fullName/g;
+
+            my $tmpFile = EBox::Config::tmp() . "$fullName.sql";
+            File::Slurp::write_file($tmpFile, $sqlCmds);
+
+            EBox::Sudo::sudo("psql -f $tmpFile $dbName", 'postgres');
+            EBox::Sudo::sudo("psql -c 'GRANT SELECT, INSERT, UPDATE, DELETE ON $fullName TO $dbUser' $dbName", 'postgres');
+        }
+    } else {
+        # FIXME: Use DBI?
+        EBox::Sudo::sudo("psql -f $file $dbName", 'postgres');
+        EBox::Sudo::sudo("psql -c \"GRANT SELECT, INSERT, UPDATE, DELETE ON $table TO $dbUser\" $dbName", 'postgres');
     }
 }
 

@@ -1,7 +1,5 @@
 #!/bin/bash
 
-set -e
-
 case "$1" in
     remove)
         dpkg-trigger --no-await zentyal-core
@@ -9,9 +7,11 @@ case "$1" in
 
     purge)
         # Purge configuration
-        /usr/share/zentyal/clean-conf dhcp || true
+        /usr/share/zentyal/clean-conf dhcp
 
-        # drop log table
-        /usr/share/zentyal/sql-table drop leases || true
+        # drop tables
+        /usr/share/zentyal/drop-tables dhcp
         ;;
 esac
+
+exit 0

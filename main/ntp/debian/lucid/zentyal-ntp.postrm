@@ -1,15 +1,13 @@
 #!/bin/bash
 
-set -e
-
-if [ "$1" = "purge" ]; then
-        # Purge configuration
-        /usr/share/zentyal/clean-conf ntp || true
-fi
-
 case "$1" in
 	remove)
         dpkg-trigger --no-await zentyal-core
         ;;
+	purge)
+        # Purge configuration
+        /usr/share/zentyal/clean-conf ntp
+        ;;
 esac
 
+exit 0

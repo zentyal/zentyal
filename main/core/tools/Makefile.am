@@ -10,7 +10,7 @@ pkgdata_SCRIPTS = ebox-apache2ctl ebox-apache-restart \
  ebox-set-locale ebox-global-action unconfigure-module \
  ebox-update-file-digest ebox-change-hostname redisvi regen-redis-db \
  ebox-consolidate-reportinfo ebox-gather-reportinfo initial-setup \
- ebox-purge-logs ebox-configuration-report ebox-create-db fastperl-server
+ ebox-purge-logs ebox-configuration-report create-db drop-tables fastperl-server
 
 MAINTAINERCLEANFILES = Makefile.in
 

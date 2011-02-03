@@ -1,13 +1,13 @@
 #!/bin/bash
 
-if [ "$1" = "purge" ]; then
-        # Purge configuration
-        /usr/share/zentyal/clean-conf monitor || true
-fi
-
 case "$1" in
     remove)
         dpkg-trigger --no-await zentyal-core
     ;;
+    purge)
+        # Purge configuration
+        /usr/share/zentyal/clean-conf monitor
+    ;;
 esac
 
+exit 0

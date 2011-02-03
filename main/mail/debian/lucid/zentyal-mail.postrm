@@ -7,10 +7,10 @@ case "$1" in
 
     purge)
         # Purge configuration
-        /usr/share/zentyal/clean-conf mail || true
+        /usr/share/zentyal/clean-conf mail
 
-        /usr/share/zentyal/sql-table drop mail_message || true
-        /usr/share/zentyal/sql-table drop mail_message_report || true
+        /usr/share/zentyal/drop-tables mail
         ;;
 esac
 
+exit 0

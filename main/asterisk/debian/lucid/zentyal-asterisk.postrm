@@ -6,9 +6,9 @@ case "$1" in
     ;;
     purge)
         # Purge configuration
-        /usr/share/zentyal/clean-conf asterisk || true
+        /usr/share/zentyal/clean-conf asterisk
 
-        /usr/share/zentyal/sql-table drop asterisk_cdr || true
+        /usr/share/zentyal/drop-tables asterisk
     ;;
 esac
 

@@ -1,14 +1,15 @@
 #!/bin/bash
 
-if [ "$1" = "purge" ]; then
-        # Purge configuration
-        /usr/share/zentyal/clean-conf remoteservices || true
-fi
-
 case "$1" in
     remove)
         dpkg-trigger --no-await zentyal-core
     ;;
+    purge)
+        # Purge configuration
+        /usr/share/zentyal/clean-conf remoteservices
+
+        /usr/share/zentyal/drop-tables remoteservices
+    ;;
 esac
 
-
+exit 0

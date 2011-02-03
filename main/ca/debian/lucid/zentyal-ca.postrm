@@ -1,16 +1,16 @@
 #!/bin/bash
 
-set -e
-
 case "$1" in
     remove)
         dpkg-trigger --no-await zentyal-core
         ;;
     purge)
         # Purge configuration
-        /usr/share/zentyal/clean-conf ca || true
+        /usr/share/zentyal/clean-conf ca
 
         # Delete the issued certificates
         rm -rf /var/lib/zentyal/CA
         ;;
 esac
+
+exit 0

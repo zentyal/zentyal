@@ -1,15 +1,15 @@
 #!/bin/bash
 
-set -e
-
-if [ "$1" = "purge" ]; then
-        # Purge configuration
-        /usr/share/zentyal/clean-conf samba || true
-fi
-
 case "$1" in
 	remove)
         dpkg-trigger --no-await zentyal-core
         ;;
+	purge)
+        # Purge configuration
+        /usr/share/zentyal/clean-conf samba
+
+        /usr/share/zentyal/drop-tables samba
+        ;;
 esac
 
+exit 0

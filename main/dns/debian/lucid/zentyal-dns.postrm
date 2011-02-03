@@ -1,15 +1,15 @@
 #!/bin/bash
 
-set -e
-
-if [ "$1" = "purge" ]; then
-        # Purge configuration
-        /usr/share/zentyal/clean-conf dns || true
-fi
-
 case "$1" in
 	remove)
         dpkg-trigger --no-await zentyal-core
         ;;
+	purge)
+        # Purge configuration
+        /usr/share/zentyal/clean-conf dns
+
+        /usr/share/zentyal/drop-tables dns
+        ;;
 esac
 
+exit 0

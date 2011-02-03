@@ -1,21 +1,19 @@
 #!/bin/bash
 
-set -e
-
 case "$1" in
 	purge)
         #postgresql and logs
         db_name="eboxlogs"
         db_user="ebox"
-        su postgres -c "dropdb $db_name" || true
-        su postgres -c "dropuser $db_user" || true
+        su postgres -c "dropdb $db_name"
+        su postgres -c "dropuser $db_user"
 
         # delete eBox's apache certificates
-        rm -f /var/lib/zentyal/conf/ssl.crt/ebox.cert  /var/lib/zentyal/conf/ssl.key/ebox.key \
-            /var/lib/zentyal/conf/ssl.pem/ebox.pem || true
+        rm -f /var/lib/zentyal/conf/ssl.crt/ebox.cert /var/lib/zentyal/conf/ssl.key/ebox.key \
+            /var/lib/zentyal/conf/ssl.pem/ebox.pem
 
         # delete Zentyal logs
-        rm -rf /var/log/zentyal || true
+        rm -rf /var/log/zentyal
         ;;
 esac
 

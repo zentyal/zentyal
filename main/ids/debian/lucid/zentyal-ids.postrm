@@ -1,17 +1,16 @@
 #!/bin/bash
 
-if [ "$1" = "purge" ]; then
-        # Purge configuration
-        /usr/share/zentyal/clean-conf ids || true
-fi
-
 case "$1" in
 	remove)
         dpkg-trigger --no-await zentyal-core
         ;;
 
     purge)
-        /usr/share/zentyal/sql-table drop ids || true
-		/usr/share/zentyal/sql-table-with-time-period drop ids_alert || true
+        # Purge configuration
+        /usr/share/zentyal/clean-conf ids
+
+        /usr/share/zentyal/drop-tables ids
         ;;
 esac
+
+exit 0
