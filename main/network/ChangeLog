@@ -4,6 +4,7 @@ HEAD
 	+ Remove obsolete migration
 	+ Added new initialSetup method for post-install
 	+ Replace /etc/ebox/80network.conf with /etc/zentyal/network.conf
+	+ Bug fix: Traffic monitor didn't work in non-English installations
 	+ Zoneedit service url changed
 	+ Basic support for other methods to retrieve IP
 	+ Do not try to start ddclient daemon if disabled
