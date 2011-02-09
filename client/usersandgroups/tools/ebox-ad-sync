@@ -20,9 +20,11 @@ use EBox::Ldap;
 use Error qw(:try);
 use Perl6::Junction qw(any);
 use File::Slurp;
+use EBox::Util::Lock;
 
 use constant IGNORED_USERS => '/etc/ebox/ad-sync_ignore.users';
 use constant IGNORED_GROUPS => '/etc/ebox/ad-sync_ignore.groups';
+use constant LOCK_NAME      => 'zentyal-adsync';
 
 EBox::init();
 
@@ -53,6 +55,8 @@ try {
     EBox::error("[ad-sync] Can't bind to $host as '$bindDn'.");
     exit 1;
 };
+
+EBox::Util::Lock::lock(LOCK_NAME);
 
 my %newUsers = usersAD();
 my %newGroups = groupsAD();
@@ -215,6 +219,8 @@ foreach my $groupname (@groupsToModify) {
     my $comment = $group->{comment};
     $usersMod->modifyGroup({ groupname => $groupname, comment => $comment});
 }
+
+EBox::Util::Lock::unlock(LOCK_NAME);
 
 # FIXME: This code is duplicated, write it in a single point
 sub randomPassword
