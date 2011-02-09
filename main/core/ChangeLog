@@ -21,6 +21,7 @@ HEAD
 	+ Removed obsolete logs and events migrations
 	+ Create plpgsql is now done on EBox::Logs::initialSetup
 	+ Replace old ebox-migrate script with EBox::Module::Base::migrate
+	+ Zentyal web UI is restarted if their dependencies are upgraded
 	+ Bug fix: Logs don't include unrelated information now
 	+ Add total in disk_usage report
 	+ Bugfix: Events report by source now works again
