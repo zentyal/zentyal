@@ -7,15 +7,15 @@ msgstr ""
 "Project-Id-Version: ebox-squid 0.12\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-12-18 01:45+0100\n"
-"PO-Revision-Date: 2010-08-30 17:09+0200\n"
-"Last-Translator: Jorge Eduardo Quintao <jorge@netsol.com.br>\n"
+"PO-Revision-Date: 2011-01-15 12:08+0200\n"
+"Last-Translator: Jorge <jorge@netsol.com.br>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
-"Language: \n"
+"Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Pootle 1.1.0\n"
+"X-Generator: Pootle 2.1.4\n"
 
 #: src/EBox/Squid.pm:70 src/EBox/Squid.pm:1109 src/EBox/Squid.pm:1186
 #: src/EBox/Squid/Composite/General.pm:75
@@ -72,7 +72,7 @@ msgstr "Lista de URLs banidas do filtro de conteúdo"
 
 #: src/EBox/Squid.pm:261
 msgid "Forbidden phrases list"
-msgstr "lista de frases proibidas"
+msgstr "Lista de frases proibidas"
 
 #: src/EBox/Squid.pm:266
 msgid "Exception phrases list"
@@ -169,7 +169,7 @@ msgstr "Política de objetos"
 
 #: src/EBox/Squid.pm:1138
 msgid "Groups' Policy"
-msgstr "Políticas de grupos"
+msgstr "Política de grupos"
 
 #: src/EBox/Squid.pm:1141
 #: src/EBox/Squid/Model/FilterGroupDomainFilterCategories.pm:96
@@ -639,7 +639,7 @@ msgid ""
 "If {first} is set unlimited, then {second} must be set to unlimited as well"
 msgstr ""
 "Se {first} está configurado como ilimitado, então {second} deve ser "
-"configurado ilimitado também "
+"configurado ilimitado também"
 
 #: src/EBox/Squid/Model/DelayPools2.pm:134
 #, perl-brace-format
@@ -713,7 +713,7 @@ msgid ""
 "Once the request exceeds the {max} then the HTTP Proxy will throttle the "
 "download bandwidth to the given {rate}. The client number is limited to 256."
 msgstr ""
-"Uma vez que o pedido for superior ao {max},  o HTTP proxy regulará a largura "
+"Uma vez que o pedido for superior ao {max}, o HTTP proxy regulará a largura "
 "de banda para download para uma dada {rate}. O número máximo de clientes "
 "está limitado a 256."
 
@@ -740,7 +740,7 @@ msgid ""
 "Once the request exceeds the {max} then the HTTP Proxy will throttle the "
 "download bandwidth to the given {rate}."
 msgstr ""
-"Uma vez que o pedido for superior ao {max},  o HTTP proxy regulará a largura "
+"Uma vez que o pedido for superior ao {max}, o HTTP proxy regulará a largura "
 "de banda para download para uma dada {rate}."
 
 #: src/EBox/Squid/Model/FilterGroupDomainFilterFiles.pm:77
@@ -794,7 +794,7 @@ msgstr "Número máximo de filtros de grupo atingido"
 
 #: src/EBox/Squid/Model/FilterGroup.pm:227
 msgid "No spaces are allowed in profile names"
-msgstr ""
+msgstr "Espaços não são permitidos em nomes de perfis."
 
 #: src/EBox/Squid/Model/UseDefaultDomainFilter.pm:67
 msgid "Use default profile for domain filtering"
@@ -817,7 +817,7 @@ msgid ""
 "group  if you want to set a group policy"
 msgstr ""
 "Não existem grupos de usuários no sistema. {open}Crie{close} pelo menos um "
-"grupo se você desejar configurar uma política de grupo"
+"grupo  se você desejar configurar uma política de grupo"
 
 #: src/EBox/Squid/Model/ObjectGroupPolicy.pm:75
 #: src/EBox/Squid/Model/GlobalGroupPolicy.pm:78
@@ -950,7 +950,7 @@ msgstr "Política padrão"
 
 #: src/EBox/Squid/Model/GeneralSettings.pm:85
 msgid "General Settings "
-msgstr "Configurações Gerais"
+msgstr "Configurações Gerais "
 
 #: src/EBox/Squid/Model/GeneralSettings.pm:90
 msgid "Settings changed"
@@ -1124,7 +1124,7 @@ msgstr "Endereço atualizado"
 
 #: src/EBox/Squid/Model/DomainFilterSettingsBase.pm:40
 msgid "Block not listed domains and URLs"
-msgstr "Bloquear domínios  e URL's não listados"
+msgstr "Bloquear domínios e URL's não listados"
 
 #: src/EBox/Squid/Model/DomainFilterSettingsBase.pm:43
 msgid ""

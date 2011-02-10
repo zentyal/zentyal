@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: ebox-remoteservices 1.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-12-18 01:45+0100\n"
-"PO-Revision-Date: 2010-08-30 15:19+0200\n"
-"Last-Translator: Nagy Ákos <nagy.akos@akos.ro>\n"
+"PO-Revision-Date: 2011-01-14 13:15+0200\n"
+"Last-Translator: akoscomp <reg@pecska.ro>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
-"Language: \n"
+"Language: hu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n !=1);\n"
-"X-Generator: Pootle 1.1.0\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Pootle 2.1.4\n"
 
 #: src/EBox/RemoteServices.pm:90
 msgid "Zentyal Cloud Client"
@@ -132,7 +132,6 @@ msgid "Allow access from any internet address"
 msgstr "Hozzáférés engedélyezése minden internetcímről"
 
 #: src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:85
-#, fuzzy
 msgid ""
 "By default, the access is only granted to hosts inside the Zentyal Cloud "
 "private network. If you enable this option, the access is granted from any "
@@ -144,9 +143,8 @@ msgstr ""
 "Zentyal Cloud szolgáltatásnak"
 
 #: src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:91
-#, fuzzy
 msgid "Enable Remote Support Access"
-msgstr "Távoli támogatás"
+msgstr "Távoli támogatás engedélyezése"
 
 #: src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:122
 msgid ""
@@ -189,6 +187,10 @@ msgid ""
 "start using the cloud based services you are entitled to with your "
 "subscription (remote backup, updates, alerts, etc.)"
 msgstr ""
+"A feliratkozás megtörtént. Mentse el a beállításokat, és várjon egy percet "
+"annak érdekében, hogy a rendszer mindent befejezzen a feliratkozási "
+"folyamatban. Később használhatja a felhő alapú szolgáltatásokat amelyeket a "
+"feliratkozással kapott (távoli mentés, frissítések, értesítések, stb.)"
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:138
 msgid "Subscription data retrieved correctly."
@@ -253,9 +255,8 @@ msgid "Zentyal subscription details"
 msgstr "Zentyal feliratkozás részletei"
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:370
-#, fuzzy
 msgid "Unsubscribe"
-msgstr "Feliratkozás"
+msgstr "Leiratkozás"
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:373
 msgid "Subscription to Zentyal Cloud"
@@ -303,6 +304,8 @@ msgid ""
 "It must be a valid subdomain name. It can only contain alphanumeric and - "
 "characters"
 msgstr ""
+"Érvényes altartománynév kell legyen. Csak alfanumerikus és - karaktert "
+"tartalmazhat"
 
 #: src/EBox/RemoteServices/Types/EBoxCommonName.pm:59
 #, perl-brace-format
@@ -337,9 +340,8 @@ msgid "No domain key found for this service"
 msgstr "Ennek a szolgáltatásnak a tartománykulcs nem elérhető"
 
 #: src/EBox/RemoteServices/DisasterRecoveryProxy.pm:118
-#, fuzzy
 msgid "Key for disaster recovery service not found"
-msgstr "A proxy mentési szolgáltatáshoz nem található kulcs"
+msgstr "A disaster recovery szolgáltatás kulcsai nem léteznek"
 
 #: src/EBox/RemoteServices/ProxyBackup.pm:203
 #, perl-brace-format
@@ -369,6 +371,8 @@ msgstr "A {host} nem elérhető. Ellenőrizze az internetkapcsolatát"
 #, perl-brace-format
 msgid "Cannot retrieve service URN; key \"{key}\" not found in {file}"
 msgstr ""
+"Nem érhető el a szolgáltatás URN; a(z) \"{key}\" kulcs nem található a(z) "
+"{file} fájlban"
 
 #: src/EBox/RemoteServices/Auth.pm:165
 #, perl-brace-format

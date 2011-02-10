@@ -7,15 +7,15 @@ msgstr ""
 "Project-Id-Version: ebox-ca 0.12\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-12-18 01:43+0100\n"
-"PO-Revision-Date: 2010-08-27 05:31+0200\n"
-"Last-Translator: Jorge Eduardo Quintao <jorge@netsol.com.br>\n"
+"PO-Revision-Date: 2011-01-15 11:58+0200\n"
+"Last-Translator: Jorge <jorge@netsol.com.br>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
-"Language: \n"
+"Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Pootle 1.1.0\n"
+"X-Generator: Pootle 2.1.4\n"
 
 #: src/EBox/CA/TestStub.pm:154 src/EBox/CA/TestStub.pm:254 src/EBox/CA.pm:259
 #: src/EBox/CA.pm:537 src/EBox/CGI/IssueCertificate.pm:102
@@ -29,7 +29,7 @@ msgid ""
 "The CA certificates should be revoked  or has expired before issuing a new "
 "certificate"
 msgstr ""
-"Os certificados CA devem ter sidos cancelados ou expiraram antes da emissão "
+"Os certificados CA devem ter sidos revogados  ou expiraram antes da emissão "
 "de um novo certificado"
 
 #: src/EBox/CA/TestStub.pm:438 src/EBox/CA/TestStub.pm:516
@@ -112,7 +112,7 @@ msgstr "Dias definidos para o máximo permitido {days}: Bug do ano 2038"
 
 #: src/EBox/CA.pm:396
 msgid "The remove operation cannot be finished. Reason: "
-msgstr "A operação de remoção não pode ser finalizada. Razão: _"
+msgstr "A operação de remoção não pode ser finalizada. Razão: "
 
 #: src/EBox/CA.pm:951 src/EBox/CA.pm:1297
 #, perl-brace-format
@@ -132,7 +132,7 @@ msgstr ""
 msgid ""
 "The Certification Authority Infrastructure is not available, create it first"
 msgstr ""
-"A infraestrutura da Autoridade Certificadora não está disponível. Crie uma "
+"A infraestrutura da Autoridade Certificadora não está disponível. Crie isto "
 "primeiro"
 
 #: src/EBox/CA.pm:1201
@@ -262,7 +262,7 @@ msgstr ""
 #, perl-brace-format
 msgid "Only {dns}, {ip} and {email} are valid subject alternative name types"
 msgstr ""
-"Apenas {dns}, {ip} e {email} são os tipos válidos de  nome alternativo de "
+"Apenas {dns}, {ip} e {email} são os tipos válidos de nome alternativo de "
 "assunto"
 
 #: src/EBox/CA.pm:2738
@@ -289,7 +289,7 @@ msgid ""
 "these non alphanumeric chars: .?&+:-@* and spaces are allowed."
 msgstr ""
 "Os dados fornecidos contém caracteres inválidos. Todos os caracteres "
-"alfanuméricos, mais estes caracteres não alfanuméricos: .?&+:\\@ e espaços "
+"alfanuméricos mais estes caracteres não alfanuméricos: .?&+:-@* e espaços "
 "são permitidos."
 
 #: src/EBox/CGI/RevokeCertificate.pm:139
@@ -322,7 +322,7 @@ msgid ""
 "plus these non alphanumeric chars: .?&+:-@* and spaces are allowed."
 msgstr ""
 "Os dados fornecidos contém caracteres inválidos. Todos os {ascii} caracteres "
-"alfanuméricos, mais estes caracteres não alfanuméricos: .?&+:\\@ e espaços "
+"alfanuméricos mais estes caracteres não alfanuméricos: .?&+:-@* e espaços "
 "são permitidos."
 
 #: src/EBox/CGI/IssueCertificate.pm:184
@@ -330,8 +330,8 @@ msgid ""
 "The Subject Alternative Name parameter must follow this pattern: type:value, "
 "type:value"
 msgstr ""
-"O parâmetro Nome do Assunto Alternativo deve seguir esse padrão: tipo: "
-"valor, tipo: valor"
+"O parâmetro Nome do Assunto Alternativo deve seguir esse padrão: tipo:valor, "
+"tipo:valor"
 
 #: src/EBox/CGI/IssueCertificate.pm:206
 msgid "The certificate has been issued."
@@ -346,9 +346,8 @@ msgid "Action"
 msgstr "Ação"
 
 #: src/EBox/CGI/ShowForm.pm:85
-#, fuzzy
 msgid "Only revoke, renew and reissue actions are performed"
-msgstr "Somente ações de revogação e renovação são efetuadas"
+msgstr "Somente ações de revogação, renovação e reemissão são efetuadas"
 
 #: src/EBox/CGI/ShowForm.pm:93 src/EBox/CGI/DownloadFiles.pm:79
 #, perl-brace-format
@@ -565,13 +564,12 @@ msgid "Download Key(s) and Certificate"
 msgstr "Download de Chave(s) e Certificado"
 
 #: src/templates/index.mas:199 src/templates/formReissue.mas:26
-#, fuzzy
 msgid "Reissue"
-msgstr "Questão"
+msgstr "Reemissão"
 
 #: src/templates/index.mas:216
 msgid "Renew or reissue"
-msgstr ""
+msgstr "Renovar ou reemitir"
 
 #: src/templates/formReissue.mas:20 src/templates/formRevoke.mas:75
 #: src/templates/formRenew.mas:17
@@ -579,9 +577,8 @@ msgid "CA Passphrase"
 msgstr "Senha da CA"
 
 #: src/templates/formReissue.mas:31
-#, fuzzy
 msgid "Reissue a certificate"
-msgstr "Renovar um certificado"
+msgstr "Reemitir um certificado"
 
 #: src/templates/formRevoke.mas:10
 msgid "Revoke a Certificate"

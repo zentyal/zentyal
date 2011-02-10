@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: ebox-mail 1.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-12-18 01:44+0100\n"
-"PO-Revision-Date: 2010-08-30 15:44+0200\n"
-"Last-Translator: Nagy Ákos <nagy.akos@akos.ro>\n"
+"PO-Revision-Date: 2011-01-14 12:57+0200\n"
+"Last-Translator: akoscomp <reg@pecska.ro>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
-"Language: \n"
+"Language: hu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n !=1);\n"
-"X-Generator: Pootle 1.1.0\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Pootle 2.1.4\n"
 
 #: migration/0001_add_firewall_services.pl:45
 msgid "Zentyal Mail System"
@@ -1047,7 +1047,7 @@ msgstr "Levelező postaládák"
 
 #: src/EBox/Mail.pm:1798
 msgid "Mail messages from users and group alias"
-msgstr ""
+msgstr "Levelek felhasználó és csoport álnevektől"
 
 #: src/EBox/Mail.pm:1886
 msgid "Mail SMTP server"
@@ -1183,7 +1183,6 @@ msgid "last"
 msgstr "utolsó"
 
 #: src/templates/qmanager.mas:146
-#, fuzzy
 msgid "There are no messages in queue or the service is stopped"
 msgstr "Nincsenek üzenetek a queue-ban, vagy a szolgáltatás nem működik"
 

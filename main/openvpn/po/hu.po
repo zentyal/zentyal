@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: ebox-openvpn 1.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-12-18 01:44+0100\n"
-"PO-Revision-Date: 2010-08-28 09:11+0200\n"
-"Last-Translator: Nagy Ákos <nagy.akos@akos.ro>\n"
+"PO-Revision-Date: 2011-01-14 13:00+0200\n"
+"Last-Translator: akoscomp <reg@pecska.ro>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
-"Language: \n"
+"Language: hu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n !=1);\n"
-"X-Generator: Pootle 1.1.0\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Pootle 2.1.4\n"
 
 #: src/EBox/OpenVPN/Client/ValidateCertificate.pm:46
 #, perl-brace-format
@@ -262,7 +262,7 @@ msgstr "Kliens kapcsolatcsomag letöltése"
 
 #: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:106
 msgid "Download"
-msgstr ""
+msgstr "Letöltés"
 
 #: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:148
 msgid "Zentyal to Zentyal tunnel"
@@ -373,15 +373,15 @@ msgid "VPN servers"
 msgstr "VPN kiszolgálók"
 
 #: src/EBox/OpenVPN/Model/Servers.pm:168
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "{openpar}You need a valid CA certificate to use this module. {closepar}"
 "{openpar}Please, go to the {openhref} certification authority module"
 "{closehref} and renew it.{closepar}"
 msgstr ""
 "{openpar}Létre kell hoznia egy CA tanúsítványt, a modul használatához. "
-"{closepar}{openpar}Kérem menjen a {openhref}tanúsító hatóság modulba"
-"{closehref} és hozza létre.{closepar}"
+"{closepar}{openpar}Kérem menjen a {openhref}tanúsító hatóság "
+"modulba{closehref} és újítsa meg.{closepar}"
 
 #: src/EBox/OpenVPN/Model/Servers.pm:175
 #, perl-brace-format
@@ -694,6 +694,7 @@ msgstr "Hogy beállítsa a ripd-t a kliens-kliens routeok optimalizálására"
 #: src/EBox/OpenVPN.pm:180
 msgid "To remove system-wide VPN servers autostart"
 msgstr ""
+"A rendszeroldali VPN szerverek automatikus indulásának törlése érdekében"
 
 #: src/EBox/OpenVPN.pm:676
 #, perl-brace-format

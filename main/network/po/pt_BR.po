@@ -7,15 +7,15 @@ msgstr ""
 "Project-Id-Version: ebox-network 0.12\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-12-18 01:44+0100\n"
-"PO-Revision-Date: 2010-08-27 04:40+0200\n"
-"Last-Translator: Jorge Eduardo Quintao <jorge@netsol.com.br>\n"
+"PO-Revision-Date: 2011-01-15 11:29+0200\n"
+"Last-Translator: Jorge <jorge@netsol.com.br>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
-"Language: \n"
+"Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Pootle 1.1.0\n"
+"X-Generator: Pootle 2.1.4\n"
 
 #: src/EBox/Event/Watcher/Gateways.pm:163
 #, perl-brace-format
@@ -34,7 +34,7 @@ msgstr ""
 #: src/EBox/Event/Watcher/Gateways.pm:383 src/EBox/Network.pm:3605
 #: src/EBox/Network/Composite/WANFailover.pm:61
 msgid "WAN Failover"
-msgstr "Falha na WAN "
+msgstr "Falha na WAN"
 
 #: src/EBox/Event/Watcher/Gateways.pm:399
 msgid "Check if gateways are connected or disconnected."
@@ -125,10 +125,10 @@ msgid ""
 "based on /etc/services, may be required by the graph type. The flow view "
 "will change accordingly"
 msgstr ""
-"Poderão ser mostradas várias vistas dependendo do parâmetro da seleção. "
-"Podem ser necessários um endereço IP e um serviço que correspondam à legenda "
-"dos gráficos baseados em /etc/services para o tipo do gráfico. A "
-"visualização do fluxo mudará de acordo"
+"Várias visões são mostradas dependendo do parâmetro selecionado. Podem ser "
+"necessários um endereço IP e um serviço que correspondam à legenda dos "
+"gráficos baseados em /etc/services, para o tipo do gráfico. A visualização "
+"do fluxo mudará de acordo"
 
 #: src/EBox/Model/ByteRateGraphControl.pm:78
 msgid "Graph type"
@@ -287,7 +287,7 @@ msgid ""
 "This field is only useful if you have more than one router and  the balance "
 "traffic feature is enabled."
 msgstr ""
-"Este campo só tem utilidade se você tiver mais de um router e o "
+"Este campo só tem utilidade se você tiver mais de um roteador e  o recurso "
 "balanceamento de tráfego estiver ativado."
 
 #: src/EBox/Model/GatewayTable.pm:222
@@ -333,8 +333,8 @@ msgid ""
 "Incoming interface to match packets. If you  want to match a whole subnet "
 "you can  select the interface of that subnet"
 msgstr ""
-"Interface de entrada para comparação de pacotes. Se quiser comparar uma sub-"
-"rede inteira selecione a interface dessa sub-rede "
+"Interface de entrada para comparação de pacotes. Se você  quiser comparar "
+"uma sub-rede inteira  selecione a interface desta sub-rede"
 
 #: src/EBox/Model/MultiGwRulesDataTable.pm:115
 #: src/EBox/Model/MultiGwRulesDataTable.pm:142
@@ -377,10 +377,10 @@ msgid ""
 "to bottom, you can reorder them once they are added. If you do not set a "
 "port or an IP address, then the rule will match all of them"
 msgstr ""
-"Você pode decidir que tipo de tráfico passa por cada gateway. Neste modo "
-"você pode forçar uma sub-rede, serviço, destino, etc a usar a rota que "
-"escolher. Tenha em mente que as regras serão aplicadas de cima para baixo, "
-"podendo ser reordenadas após serem adicionadas. Se não definir uma porta ou "
+"Você pode decidir qual tipo de tráfego passa por cada gateway. Deste modo "
+"você pode forçar uma sub-rede, serviço, destino, etc  a usar a rota que você "
+"escolher. Saiba que as regras serão aplicadas de cima para baixo, podendo "
+"ser reordenadas após serem adicionadas. Se você não definir uma porta ou "
 "endereço IP a regra se aplicará para todas"
 
 #: src/EBox/Model/StaticRoute.pm:147 src/EBox/Network.pm:81
@@ -394,7 +394,7 @@ msgstr "Endereço IP ou de rede"
 
 #: src/EBox/Model/StaticRoute.pm:156
 msgid "Gateway used to reach the above network  address"
-msgstr "Gateway usado para atingir o endereço de rede acima"
+msgstr "Gateway usado para atingir o endereço  de rede acima"
 
 #: src/EBox/Model/StaticRoute.pm:161 src/templates/ifaces.mas:230
 msgid "Description"
@@ -490,6 +490,7 @@ msgstr ""
 #: src/EBox/Model/Proxy.pm:129
 msgid "Proxy username and password will be visible by all system users."
 msgstr ""
+"Usuário do proxy e senha irão estar visíveis para todos usuários do sistema."
 
 #: src/EBox/Model/MultiGwRulesOptions.pm:43
 msgid "Enable"
@@ -526,7 +527,7 @@ msgid ""
 "the default routes you must execute: "
 msgstr ""
 "Isto é necessário para trabalhar com uma configuração multi-gateway. Veja a "
-"lista de rotas pré-definida que você tem que executar:"
+"lista de rotas pré-definida que você tem que executar: "
 
 #: src/EBox/Network.pm:106
 msgid "Enable Zentyal DHCP hook"
@@ -538,7 +539,7 @@ msgid ""
 "default route table. "
 msgstr ""
 "Isto vai tomar o cuidado de adicionar a rota padrão dada por um servidor "
-"DHCP para a tabela de rota padrão."
+"DHCP para a tabela de rota padrão. "
 
 #: src/EBox/Network.pm:125
 msgid "Zentyal will set your network configuration"
@@ -787,7 +788,7 @@ msgstr "Todos os serviços ativos"
 
 #: src/EBox/Network/Report/ByteRate.pm:994
 msgid "Traffic data for "
-msgstr "Dados de tráfego para"
+msgstr "Dados de tráfego para "
 
 #: src/EBox/Network/Report/ByteRate.pm:995
 msgid "all services"
@@ -990,9 +991,9 @@ msgid ""
 "Also, services meant for the LAN users will not be available on external "
 "interfaces."
 msgstr ""
-"O tráfego roteado através de interfaces marcadas como externas será roteado "
-"através de NAT. _ _Também, serviços disponíveis para os usuários da rede não "
-"estarão disponíveis nas interfaces externas."
+"O tráfego roteado através de interfaces marcadas como externas fará NAT.  "
+"Serviços disponíveis para os usuários da rede local também não estarão "
+"disponíveis nas interfaces externas."
 
 #: src/templates/ifaces.mas:51 src/templates/ifaces.mas:53
 msgid "Static"

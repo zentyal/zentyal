@@ -6,15 +6,15 @@ msgstr ""
 "Project-Id-Version: ebox-zarafa 0.12\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-12-18 01:46+0100\n"
-"PO-Revision-Date: 2010-08-30 17:06+0200\n"
-"Last-Translator: Jorge Eduardo Quintao <jorge@netsol.com.br>\n"
+"PO-Revision-Date: 2010-12-22 16:03+0200\n"
+"Last-Translator: Jorge <jorge@netsol.com.br>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
-"Language: \n"
+"Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Pootle 1.1.0\n"
+"X-Generator: Pootle 2.1.4\n"
 
 #: migration/0001_add_firewall_services.pl:30
 msgid "Zarafa Server"
@@ -55,7 +55,7 @@ msgstr "Este banco de dados irá armazenar os dados necessários pelo Zarafa."
 
 #: src/EBox/Zarafa.pm:79
 msgid "Create default SSL key/certificates."
-msgstr "Criar chave/certificados SSL padrões "
+msgstr "Criar chave/certificados SSL padrões."
 
 #: src/EBox/Zarafa.pm:80
 msgid ""
@@ -150,13 +150,13 @@ msgid "Groupware Account"
 msgstr "Conta do servidor de colaboração"
 
 #: src/EBox/Zarafa/Model/ZarafaUser.pm:55
-#, fuzzy
 msgid "Groupware Contact"
-msgstr "Conta do servidor de colaboração"
+msgstr "Contato do Groupware"
 
 #: src/EBox/Zarafa/Model/ZarafaUser.pm:56
 msgid "Enable contact in the addressbook even if account is disabled."
 msgstr ""
+"Habilitar contato no livro de endereços se a conta estiver desabilitada."
 
 #: src/EBox/Zarafa/Model/ZarafaUser.pm:64
 msgid "Zarafa"
@@ -336,13 +336,12 @@ msgstr "Direitos administrativos"
 #: src/templates/zarafa.mas:46
 msgid "Zarafa takes quota settings from mail account settings."
 msgstr ""
-"O Zarafa configurou suas definições de cota de acordo com as  cotas das "
+"O Zarafa configurou suas definições de cota de acordo com as cotas das "
 "contas de correio."
 
 #: src/templates/zarafa.mas:53
-#, fuzzy
 msgid "Groupware contact"
-msgstr "Conta do servidor de colaboração"
+msgstr "Contato do Groupware"
 
 #: src/templates/zarafa.mas:68 src/templates/zarafa.mas:69
 msgid "Change"

@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: ebox-squid 1.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-12-18 01:45+0100\n"
-"PO-Revision-Date: 2010-08-29 11:10+0200\n"
-"Last-Translator: Nagy Ákos <nagy.akos@akos.ro>\n"
+"PO-Revision-Date: 2011-01-14 13:04+0200\n"
+"Last-Translator: akoscomp <reg@pecska.ro>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
-"Language: \n"
+"Language: hu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n !=1);\n"
-"X-Generator: Pootle 1.1.0\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Pootle 2.1.4\n"
 
 #: src/EBox/Squid.pm:70 src/EBox/Squid.pm:1109 src/EBox/Squid.pm:1186
 #: src/EBox/Squid/Composite/General.pm:75
@@ -790,7 +790,7 @@ msgstr "A csoportszűrő hatókörének maximális értéke"
 
 #: src/EBox/Squid/Model/FilterGroup.pm:227
 msgid "No spaces are allowed in profile names"
-msgstr ""
+msgstr "A szünet nem megengedett a profilnevekben"
 
 #: src/EBox/Squid/Model/UseDefaultDomainFilter.pm:67
 msgid "Use default profile for domain filtering"

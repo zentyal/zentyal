@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: ebox-ca 0.12\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-12-18 01:43+0100\n"
-"PO-Revision-Date: 2010-10-10 19:02+0200\n"
-"Last-Translator: Vasco Castelo Branco <vcbranco@gmail.com>\n"
+"PO-Revision-Date: 2011-01-13 19:45+0200\n"
+"Last-Translator: vcbranco <vcbranco@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
-"Language: \n"
+"Language: pt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Pootle 1.1.0\n"
+"X-Generator: Pootle 2.1.4\n"
 
 #: src/EBox/CA/TestStub.pm:154 src/EBox/CA/TestStub.pm:254 src/EBox/CA.pm:259
 #: src/EBox/CA.pm:537 src/EBox/CGI/IssueCertificate.pm:102
@@ -339,7 +339,6 @@ msgid "Action"
 msgstr "Acção"
 
 #: src/EBox/CGI/ShowForm.pm:85
-#, fuzzy
 msgid "Only revoke, renew and reissue actions are performed"
 msgstr "Só são permitidas acções \"revogar\" e \"renovar\""
 
@@ -380,7 +379,7 @@ msgstr "Problema ao criar Certificado de Autoridade"
 
 #: src/templates/forceRevoke.mas:13
 msgid "Revoking CA certificate"
-msgstr "A revogar certificado CA "
+msgstr "A revogar certificado CA"
 
 #: src/templates/forceRevoke.mas:15
 msgid "Revoking certificate"
@@ -558,13 +557,12 @@ msgid "Download Key(s) and Certificate"
 msgstr "Descarregar Chave(s) e Certificado"
 
 #: src/templates/index.mas:199 src/templates/formReissue.mas:26
-#, fuzzy
 msgid "Reissue"
-msgstr "Emissão"
+msgstr "Reemitir"
 
 #: src/templates/index.mas:216
 msgid "Renew or reissue"
-msgstr ""
+msgstr "Renovar ou Reemitir"
 
 #: src/templates/formReissue.mas:20 src/templates/formRevoke.mas:75
 #: src/templates/formRenew.mas:17
@@ -572,9 +570,8 @@ msgid "CA Passphrase"
 msgstr "CA palavra-passe"
 
 #: src/templates/formReissue.mas:31
-#, fuzzy
 msgid "Reissue a certificate"
-msgstr "Renovar um certificado"
+msgstr "Reemitir um certificado"
 
 #: src/templates/formRevoke.mas:10
 msgid "Revoke a Certificate"

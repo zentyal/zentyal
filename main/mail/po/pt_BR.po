@@ -7,15 +7,15 @@ msgstr ""
 "Project-Id-Version: ebox-mail 0.12\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-12-18 01:44+0100\n"
-"PO-Revision-Date: 2010-08-30 17:14+0200\n"
-"Last-Translator: Jorge Eduardo Quintao <jorge@netsol.com.br>\n"
+"PO-Revision-Date: 2011-01-15 11:48+0200\n"
+"Last-Translator: Jorge <jorge@netsol.com.br>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
-"Language: \n"
+"Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Pootle 1.1.0\n"
+"X-Generator: Pootle 2.1.4\n"
 
 #: migration/0001_add_firewall_services.pl:45
 msgid "Zentyal Mail System"
@@ -313,9 +313,9 @@ msgid ""
 "gateway for Zarafa. You can do it at {ohref}Zarafa gateways configuration "
 "settings{chref}."
 msgstr ""
-"Para ativar o serviço  de recuperação de{service} e-mail você deve "
-"desabilitar o {service} de gateway  para Zarafa. Você pode fazê-lo em "
-"{ohref} Zarafa configurações gateways {chref}."
+"Para ativar o serviço de recuperação de correio {service} você deve "
+"desabilitar o {service} gateway para Zarafa. Você pode fazê-lo em {ohref} "
+"Zarafa configurações gateways {chref}."
 
 #: src/EBox/Mail/Model/ExternalAliases.pm:54
 msgid "Alias"
@@ -601,7 +601,7 @@ msgid ""
 "Cannot retrieve mail from external accounts because you do not have a email "
 "account in a local mail domain"
 msgstr ""
-"Não posso recuperar mensagem de contas externas porque você não  tem uma "
+"Não posso recuperar mensagem de contas externas porque você não tem uma "
 "conta de e-mail em um domínio local"
 
 #: src/EBox/Mail/Model/VDomainSettings.pm:56
@@ -669,7 +669,7 @@ msgstr "Detalhes de tráfego de correio"
 
 #: src/EBox/Mail/Model/Report/TrafficDetails.pm:99
 msgid "traffic"
-msgstr "Tráfego"
+msgstr "tráfego"
 
 #: src/EBox/Mail/Model/GreylistConfiguration.pm:75
 msgid "Enabled"
@@ -1052,7 +1052,7 @@ msgstr "Caixas de e-mail"
 
 #: src/EBox/Mail.pm:1798
 msgid "Mail messages from users and group alias"
-msgstr ""
+msgstr "Mensagens de apelidos de usuários e grupos"
 
 #: src/EBox/Mail.pm:1886
 msgid "Mail SMTP server"
@@ -1188,7 +1188,6 @@ msgid "last"
 msgstr "último"
 
 #: src/templates/qmanager.mas:146
-#, fuzzy
 msgid "There are no messages in queue or the service is stopped"
 msgstr "Não há mensagens na fila ou o serviço está parado"
 

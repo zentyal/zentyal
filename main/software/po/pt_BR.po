@@ -7,15 +7,15 @@ msgstr ""
 "Project-Id-Version: ebox-software 0.12.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-12-18 01:45+0100\n"
-"PO-Revision-Date: 2010-08-29 22:41+0200\n"
-"Last-Translator: Anderson Portinelli <portinelli@gmail.com>\n"
+"PO-Revision-Date: 2011-01-15 11:30+0200\n"
+"Last-Translator: Jorge <jorge@netsol.com.br>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
-"Language: \n"
+"Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Pootle 1.1.0\n"
+"X-Generator: Pootle 2.1.4\n"
 
 #: migration/0001_add_http_software_rule.pl:39
 msgid "HTTP software"
@@ -60,8 +60,8 @@ msgstr "Configurações"
 msgid ""
 "Software management is currently  locked by {locker}. Please, try again later"
 msgstr ""
-"O gerenciador do programa está atualmente bloqueado por {locker}. Favor "
-"tente novamente mais tarde"
+"O gerenciamento de software está atualmente  bloqueado por {locker}. Tente "
+"novamente mais tarde"
 
 #: src/EBox/Software.pm:993
 msgid "Welcome"
@@ -267,15 +267,15 @@ msgid ""
 "The following packages are not properly installed. You need to fix this "
 "before trying to use them or install new modules."
 msgstr ""
+"Os seguintes pacotes não foram corretamente instalados. Você deve corrigir "
+"isto antes de tentar usá-los ou então instalar novos módulos."
 
 #: src/templates/ebox.mas:216
-#, fuzzy
 msgid ""
 "To solve this situation, please try to execute the following command in the "
 "console:"
 msgstr ""
-"Erro na lista de pacotes de atualização. Por favor, tente executar o "
-"seguinte comando no console para ver o problema: sudo apt-get update"
+"Para resolver esta situação, tente executar o seguinte comando na console:"
 
 #: src/templates/ebox.mas:229
 msgid "View advanced mode"
@@ -335,7 +335,7 @@ msgstr ""
 
 #: src/templates/del.mas:161
 msgid "VoIP meetings support (dahdi and linux-headers)"
-msgstr "Suporte a salas VoIP (dahdi e linux-headers) "
+msgstr "Suporte a salas VoIP (dahdi e linux-headers)"
 
 #: src/templates/config.mas:8
 msgid "Perform automatic security updates"

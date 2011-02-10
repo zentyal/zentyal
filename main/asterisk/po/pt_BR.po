@@ -9,15 +9,15 @@ msgstr ""
 "Project-Id-Version: ebox-asterisk 1.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-12-18 01:20+0100\n"
-"PO-Revision-Date: 2010-08-25 22:06+0200\n"
-"Last-Translator: Jose Carlos N Medeiros <jose@psabs.com.br>\n"
+"PO-Revision-Date: 2011-01-15 11:57+0200\n"
+"Last-Translator: Jorge <jorge@netsol.com.br>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
-"Language: \n"
+"Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Pootle 1.1.0\n"
+"X-Generator: Pootle 2.1.4\n"
 
 #: migration/0001_add_firewall_services.pl:45
 msgid "Zentyal VoIP system"
@@ -94,7 +94,7 @@ msgstr "NAT"
 
 #: src/EBox/Asterisk.pm:516
 msgid "Status"
-msgstr "Status"
+msgstr "Estado"
 
 #: src/EBox/Asterisk.pm:530 src/EBox/Asterisk.pm:634
 msgid "No users connected."
@@ -175,8 +175,8 @@ msgid ""
 "Networks attached directly to internal interfaces, like {net}, are always "
 "considered local networks so it is not neccessary to add them."
 msgstr ""
-"Redes conectadadas diretamente às interfaces internas, como {net} são sempre "
-"consideradas redes locais, sendo desnecessário adicioná-las"
+"Redes conectadadas diretamente às interfaces internas, como {net}, são "
+"sempre consideradas redes locais, sendo desnecessário adicioná-las."
 
 #: src/EBox/Model/Localnets.pm:113
 msgid "Local network"
@@ -227,7 +227,7 @@ msgstr "Ramal de correio de voz"
 
 #: src/EBox/Model/Settings.pm:136
 msgid "VoIP domain"
-msgstr "domínio VoIP"
+msgstr "Domínio VoIP"
 
 #: src/EBox/Model/Settings.pm:145
 msgid "General configuration"
@@ -317,7 +317,7 @@ msgid ""
 msgstr ""
 "Você deve instalar os pacotes dahdi e linux-headers para usar o recurso "
 "Meetings. {br}Para isto execute o seguinte comando: sudo apt-get install "
-"{kernels} dahdi. "
+"{kernels} dahdi."
 
 #: src/EBox/Model/Meetings.pm:155
 #, perl-brace-format
@@ -379,11 +379,11 @@ msgstr "Fila das extensões"
 
 #: src/EBox/CGI/AsteriskGroupOptions.pm:42
 msgid "group"
-msgstr "Grupo"
+msgstr "grupo"
 
 #: src/EBox/CGI/AsteriskUserOptions.pm:43
 msgid "username"
-msgstr "Nome do usuário"
+msgstr "nome do usuário"
 
 #: src/templates/user.mas:8
 msgid "Asterisk account"
@@ -417,7 +417,7 @@ msgid ""
 "The following settings only will take effect when the Asterisk module is "
 "enabled."
 msgstr ""
-"As seguintes configurações só terão efeito quando o módulo Asterisk  for "
+"As seguintes configurações só terão efeito quando o módulo Asterisk for "
 "habilitado."
 
 #: src/templates/group.mas:8

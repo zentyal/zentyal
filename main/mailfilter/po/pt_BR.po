@@ -7,15 +7,15 @@ msgstr ""
 "Project-Id-Version: ebox-mailfilter 0.12\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-12-18 01:44+0100\n"
-"PO-Revision-Date: 2010-08-27 05:53+0200\n"
-"Last-Translator: Jorge Eduardo Quintao <jorge@netsol.com.br>\n"
+"PO-Revision-Date: 2011-01-15 11:55+0200\n"
+"Last-Translator: Jorge <jorge@netsol.com.br>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
-"Language: \n"
+"Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Pootle 1.1.0\n"
+"X-Generator: Pootle 2.1.4\n"
 
 #: migration/0004_add_firewall_services.pl:47
 msgid "POP transparent proxy"
@@ -40,7 +40,7 @@ msgstr ""
 
 #: src/EBox/MailFilter.pm:85
 msgid "Add clamav user to p3scan group"
-msgstr "Adiciona usuário clamav para o grupo do p3scan "
+msgstr "Adiciona usuário clamav para o grupo do p3scan"
 
 #: src/EBox/MailFilter.pm:86
 msgid "Clamav need access to p3scan group to properly scan in the POP Proxy"
@@ -187,7 +187,7 @@ msgstr "Arquivos ACL"
 
 #: src/EBox/MailFilter/POPProxy.pm:61
 msgid " To configure p3scan"
-msgstr "Configurar p3scan"
+msgstr " Configurar p3scan"
 
 #: src/EBox/MailFilter/POPProxy.pm:66
 msgid "To configure renattach"
@@ -349,7 +349,7 @@ msgid ""
 "incorrectly classified as spam may be forwarded to this addres to train the "
 "filter"
 msgstr ""
-"Um endereço (ham@domínio) será criado para este domínio. Mensagens desejadas "
+"Um endereço (ham@dominio) será criado para este domínio. Mensagens desejadas "
 "classificadas incorretamente como spam poderão ser encaminhadas para este "
 "endereço para treinar o filtro"
 
@@ -363,7 +363,7 @@ msgid ""
 "incorrectly classified as ham may be forwarded to this addres to train the "
 "filter"
 msgstr ""
-"Um endereço (spam@domínio) será criado para este domínio. Spam "
+"Um endereço (spam@dominio) será criado para este domínio. Spam "
 "incorretamente classificado como email desejado poderá ser encaminhado para "
 "este endereço para treinar o filtro"
 
@@ -591,7 +591,7 @@ msgstr "mensagens totais"
 #: src/EBox/MailFilter/Model/Report/POPProxyDetails.pm:52
 #: src/EBox/MailFilter/Model/Report/POPProxyGraph.pm:69
 msgid "infected messages "
-msgstr "mensagens infectadas"
+msgstr "mensagens infectadas "
 
 #: src/EBox/MailFilter/Model/Report/POPProxyDetails.pm:56
 #: src/EBox/MailFilter/Model/Report/POPProxyDetails.pm:90
@@ -674,7 +674,7 @@ msgid ""
 "added to the learning system "
 msgstr ""
 "Mensagens de spam com um escore igual ou maior do que este coeficiente serão "
-"adicionadas ao sistema de aprendizagem"
+"adicionadas ao sistema de aprendizagem "
 
 #: src/EBox/MailFilter/Model/AntispamConfiguration.pm:105
 msgid "Autolearn ham threshold"
@@ -711,7 +711,7 @@ msgid ""
 "treshold "
 msgstr ""
 "O coeficiente da auto-aprendizagem de spam não pode ser mais baixo que o "
-"coeficiente de spam padrão"
+"coeficiente de spam padrão "
 
 #: src/EBox/MailFilter/Model/AntispamConfiguration.pm:184
 msgid ""
@@ -789,7 +789,7 @@ msgstr "Escreva abaixo um número menor que {m}"
 #: src/EBox/MailFilter/Types/AntispamThreshold.pm:156
 #, perl-brace-format
 msgid "Write down a number greater  than {m}"
-msgstr "Escreva abaixo um número maior que {m}"
+msgstr "Escreva abaixo um número maior  que {m}"
 
 #: src/EBox/MailFilter/Amavis.pm:64
 msgid "To configure amavis"
@@ -805,7 +805,7 @@ msgstr "Proxy do filtro SMTP"
 
 #: src/EBox/MailFilter/SpamAssassin.pm:58
 msgid " To configure spamassassin daemon"
-msgstr "Configurar processo spamassassin"
+msgstr " Configurar daemon spamassassin"
 
 #: src/EBox/MailFilter/SpamAssassin.pm:336
 msgid "It must be a number(decimal point allowed)"

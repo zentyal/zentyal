@@ -6,15 +6,15 @@ msgstr ""
 "Project-Id-Version: ebox-dns 0.12\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-12-18 01:43+0100\n"
-"PO-Revision-Date: 2010-01-21 17:42+0100\n"
-"Last-Translator: Flávio Veras <flaviove@gmail.com>\n"
+"PO-Revision-Date: 2011-01-15 12:03+0200\n"
+"Last-Translator: Jorge <jorge@netsol.com.br>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
-"Language: \n"
+"Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Pootle 1.1.0\n"
+"X-Generator: Pootle 2.1.4\n"
 
 #: src/EBox/Model/DomainTable.pm:177
 msgid "Domain"
@@ -112,10 +112,10 @@ msgid ""
 "an MX lookup for the domain name. Allowed preference number interval = "
 "({min}, {max})"
 msgstr ""
-"O menor número de preferência tem maior prioridade _ _ e é o primeiro "
-"servidor a ser buscado quando um cliente remoto (tipicamente outro servidor "
-"de email) realiza uma busca pelos MX para o nome do domínio. Intervalo de "
-"número de preferência permitido = ({min}, {max})"
+"A preferência mais baixa tem maior prioridade  e é o primeiro servidor a ser "
+"buscado quando um cliente remoto (tipicamente outro servidor de email) "
+"realiza uma busca pelos MX de um domínio. Intervalo permitido = ({min}, "
+"{max})"
 
 #: src/EBox/Model/MailExchanger.pm:197
 msgid "Mail exchanger record"
@@ -126,8 +126,8 @@ msgstr "Registro do servidor de email"
 msgid ""
 "An alias cannot be the nameserver host name \"{ns}\". Use a hostname instead"
 msgstr ""
-"Um alias não pode ter o mesmo nome \"{ns}\" do servidor de nomes. Utilize um "
-"nome de estação no lugar"
+"Um alias não pode ter o mesmo nome \"{ns}\" do servidor de nomes. Use um "
+"hostname no lugar"
 
 #: src/EBox/Model/AliasTable.pm:93
 #, perl-brace-format
@@ -140,14 +140,14 @@ msgid ""
 "There is an alias for {hostname} hostname with the same name \"{name}\" in "
 "the same domain"
 msgstr ""
-"Existe um alias para a estação {hostname} com mesmo nome \"{name}\", no "
-"mesmo domínio"
+"Existe um alias para a estação {hostname} com mesmo nome \"{name}\" no mesmo "
+"domínio"
 
 #: src/EBox/Model/AliasTable.pm:130 src/EBox/Model/AliasTable.pm:140
 #: src/EBox/Model/AliasTable.pm:146 src/EBox/Model/HostnameTable.pm:203
 #: src/templates/edit.mas:64 src/templates/edit.mas:85
 msgid "Alias"
-msgstr "Alias"
+msgstr "Apelido"
 
 # alias
 #: src/EBox/Model/AliasTable.pm:147
@@ -161,7 +161,7 @@ msgid ""
 "ns.{name}?"
 msgstr ""
 "O nome do host fornecido não é um nome de domínio totalmente qualificado "
-"(FQDN). Você quer dizer ns. {name}?"
+"(FQDN). Você quer dizer ns.{name}?"
 
 #: src/EBox/Model/NameServer.pm:111
 msgid "The domain is set as read only. You cannot add name servers"

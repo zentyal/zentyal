@@ -7,15 +7,15 @@ msgstr ""
 "Project-Id-Version: ebox-openvpn 0.12\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-12-18 01:44+0100\n"
-"PO-Revision-Date: 2010-08-27 05:10+0200\n"
-"Last-Translator: Jorge Eduardo Quintao <jorge@netsol.com.br>\n"
+"PO-Revision-Date: 2011-01-15 11:48+0200\n"
+"Last-Translator: Jorge <jorge@netsol.com.br>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
-"Language: \n"
+"Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Pootle 1.1.0\n"
+"X-Generator: Pootle 2.1.4\n"
 
 #: src/EBox/OpenVPN/Client/ValidateCertificate.pm:46
 #, perl-brace-format
@@ -264,7 +264,7 @@ msgstr "Baixar o pacote do cliente"
 
 #: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:106
 msgid "Download"
-msgstr ""
+msgstr "Download"
 
 #: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:148
 msgid "Zentyal to Zentyal tunnel"
@@ -275,8 +275,8 @@ msgid ""
 "Cannot make a bundle because the server  is not fully configured; please "
 "edit the configuration and retry"
 msgstr ""
-"Impossível criar pacote porque o servidor não está totalmente configurado; "
-"por favor edite a configuração e tente denovo"
+"Impossível criar um pacote porque o servidor  não está totalmente "
+"configurado; por favor edite a configuração e tente novamente"
 
 #: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:197
 msgid "Cannot use for the bundle the server's certificate"
@@ -313,8 +313,8 @@ msgid ""
 "Cannot make a bundle because the server  is not fully configured; please "
 "complete the configuration and retry"
 msgstr ""
-"Impossível criar pacote porque o servidor não está totalmente configurado; "
-"por favor edite a configuração e tente de novo"
+"Impossível criar um pacote porque o servidor  não está totalmente "
+"configurado; por favor complete a configuração e tente novamente"
 
 #: src/EBox/OpenVPN/Model/Clients.pm:60 src/EBox/OpenVPN/Model/Servers.pm:76
 #: src/EBox/OpenVPN/Model/DeletedDaemons.pm:42
@@ -377,15 +377,15 @@ msgid "VPN servers"
 msgstr "Servidores VPN"
 
 #: src/EBox/OpenVPN/Model/Servers.pm:168
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "{openpar}You need a valid CA certificate to use this module. {closepar}"
 "{openpar}Please, go to the {openhref} certification authority module"
 "{closehref} and renew it.{closepar}"
 msgstr ""
-"{openpar}Você precisa criar um certificado CA para utilizar este módulo. "
+"{openpar}Você precisa criar um certificado CA para usar este módulo. "
 "{closepar}{openpar}Por favor, vá até {openhref}Módulo de Autoridade de "
-"Certificação{closehref} e crie-o.{closepar}"
+"Certificação{closehref} e renove-o.{closepar}"
 
 #: src/EBox/OpenVPN/Model/Servers.pm:175
 #, perl-brace-format
@@ -407,8 +407,8 @@ msgid ""
 "Cannot activate the server because  is not fully configured; please edit the "
 "configuration and retry"
 msgstr ""
-"Impossível ativar o servidor porque ele não está totalmente configurado; por "
-"favor edite a configuração e tente novamente"
+"Impossível ativar o servidor porque  ele não está totalmente configurado; "
+"por favor edite a configuração e tente novamente"
 
 #: src/EBox/OpenVPN/Model/Servers.pm:303
 msgid "Cannot create a server because there is not a CA certificate"
@@ -520,7 +520,7 @@ msgid ""
 "Cannot get key of server {name} because it does not have any certificate "
 "assigned"
 msgstr ""
-"Impossível adquirir senha do do servidor {name} porque ele não tem nenhum "
+"Impossível adquirir senha do servidor {name} porque ele não tem nenhum "
 "certificado atribuído"
 
 #: src/EBox/OpenVPN/Server.pm:450
@@ -597,7 +597,7 @@ msgid ""
 "VPN client should not be configured to connect to the address {addr} because "
 "is a address of the localhost itsef"
 msgstr ""
-"cliente VPN não deve ser configurado para se conectar ao endereço {addr} "
+"Cliente VPN não deve ser configurado para se conectar ao endereço {addr} "
 "porque é um endereço do localhost"
 
 #: src/EBox/OpenVPN/Client.pm:260
@@ -606,7 +606,7 @@ msgid ""
 "VPN client should not be configured to connect to the address {addr} because "
 "is a address of a local network interface"
 msgstr ""
-"cliente VPN não deve ser configurado para se conectar ao endereço {addr} "
+"Cliente VPN não deve ser configurado para se conectar ao endereço {addr} "
 "porque é um endereço de uma interface de rede local"
 
 #: src/EBox/OpenVPN/Client.pm:399
@@ -699,7 +699,7 @@ msgstr "Configurar ripd para rotas de troca com conexões cliente a cliente"
 
 #: src/EBox/OpenVPN.pm:180
 msgid "To remove system-wide VPN servers autostart"
-msgstr ""
+msgstr "Para remover o início automático de todos servidores VPN"
 
 #: src/EBox/OpenVPN.pm:676
 #, perl-brace-format
@@ -707,8 +707,8 @@ msgid ""
 "Invalid name {name}. Only alpahanumeric  and '-', '_', '.' characters are "
 "allowed"
 msgstr ""
-"Nome {name} inválido. Apenas caracteres alfanuméicos e '-', '_', '.' são "
-"permitidos "
+"Nome {name} inválido. Apenas caracteres alfanuméicos  e '-', '_', '.' são "
+"permitidos"
 
 #: src/EBox/OpenVPN.pm:689
 #, perl-brace-format

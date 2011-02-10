@@ -8,16 +8,15 @@ msgstr ""
 "Project-Id-Version: ebox-zarafa 0.12\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-12-18 01:46+0100\n"
-"PO-Revision-Date: 2010-12-13 09:46+0100\n"
-"Last-Translator: Enrique José Hernández Blasco <quique@ebox-technologies."
-"com>\n"
+"PO-Revision-Date: 2010-12-19 17:57+0200\n"
+"Last-Translator: Administrator <>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
-"Language: \n"
+"Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Pootle 1.1.0\n"
+"X-Generator: Pootle 2.0.5\n"
 
 #: migration/0001_add_firewall_services.pl:30
 msgid "Zarafa Server"
@@ -33,11 +32,11 @@ msgstr ""
 
 #: src/EBox/Zarafa.pm:64
 msgid "Add Zarafa LDAP schema"
-msgstr "Añadir schema LDAP de Zarafa"
+msgstr "Añadir esquema LDAP de Zarafa"
 
 #: src/EBox/Zarafa.pm:65
 msgid "Zentyal will need this schema to store Zarafa users."
-msgstr "Zentyal necesitará este schema para almacenar los usuarios de Zarafa"
+msgstr "Zentyal necesitará este esquema para almacenar los usuarios de Zarafa"
 
 #: src/EBox/Zarafa.pm:69
 msgid "Add vmail system user"
@@ -216,7 +215,7 @@ msgstr ""
 
 #: src/EBox/Zarafa/Model/VMailDomain.pm:50
 msgid "No domain selected"
-msgstr "Sin dominio"
+msgstr "Sin dominio seleccionado"
 
 #: src/EBox/Zarafa/Model/VMailDomain.pm:95
 #, perl-brace-format
@@ -266,7 +265,7 @@ msgstr ""
 
 #: src/EBox/Zarafa/Model/GeneralSettings.pm:89
 msgid "Virtual host"
-msgstr "Virtual host"
+msgstr "Host virtual"
 
 #: src/EBox/Zarafa/Model/GeneralSettings.pm:95
 msgid ""
@@ -341,7 +340,7 @@ msgstr ""
 
 #: src/templates/zarafa.mas:53
 msgid "Groupware contact"
-msgstr "Cuenta de Groupware"
+msgstr "Contacto de Groupware"
 
 #: src/templates/zarafa.mas:68 src/templates/zarafa.mas:69
 msgid "Change"

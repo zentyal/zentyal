@@ -8,16 +8,16 @@ msgstr ""
 "Project-Id-Version: ebox-mailfilter 0.12\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-12-18 01:44+0100\n"
-"PO-Revision-Date: 2010-02-03 21:07+0100\n"
-"Last-Translator: Alexander Kuzmenko <alex@engp.su>\n"
+"PO-Revision-Date: 2010-12-30 07:09+0200\n"
+"Last-Translator: andreyjktl <andreyjktl@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
-"Language: \n"
+"Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Pootle 1.1.0\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
+"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Generator: Pootle 2.1.4\n"
 
 #: migration/0004_add_firewall_services.pl:47
 msgid "POP transparent proxy"
@@ -108,9 +108,8 @@ msgid "Spam found"
 msgstr "Обнаружен спам"
 
 #: src/EBox/MailFilter.pm:549
-#, fuzzy
 msgid "Forbidden attached file found"
-msgstr "Обнаружен запрещенный прикрепленный файл  "
+msgstr "Обнаружен запрещенный прикрепленный файл"
 
 #: src/EBox/MailFilter.pm:550
 msgid "Address in blacklist found"
@@ -261,9 +260,9 @@ msgstr ""
 "фильтру"
 
 #: src/EBox/MailFilter/Model/ExternalDomain.pm:113
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "{d} is a internal Zentyal virtual main domain"
-msgstr "{d} внутренний виртуальный домен eBox"
+msgstr "{d} внутренний виртуальный домен Zentyal"
 
 #: src/EBox/MailFilter/Model/AntispamTraining.pm:58
 msgid "Mailbox"
@@ -788,9 +787,8 @@ msgid "To configure amavis"
 msgstr "Настроить amavis"
 
 #: src/EBox/MailFilter/Amavis.pm:425
-#, fuzzy
 msgid "Zentyal internal mail filter"
-msgstr "eBox внутрений почтовый фильтр"
+msgstr "Zentyal внутренний почтовый фильтр"
 
 #: src/EBox/MailFilter/Amavis.pm:439
 msgid "SMTP filter proxy"

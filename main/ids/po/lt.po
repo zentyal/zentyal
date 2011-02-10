@@ -5,109 +5,108 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-ids 2.0Report-Msgid-Bugs-To: developers@zentyal."
-"org\n"
+"Project-Id-Version: ebox-ids 2.0Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-12-18 01:44+0100\n"
-"PO-Revision-Date: 2010-12-06 17:50+0100\n"
-"Last-Translator: Vytautas <vytautas@lantraneta.lt>\n"
+"PO-Revision-Date: 2010-12-22 23:39+0200\n"
+"Last-Translator: Basas <vytautas@basas.lt>\n"
 "Language-Team: none\n"
-"Language: \n"
+"Language: lt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n"
-"%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Pootle 1.1.0\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n%"
+"100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Generator: Pootle 2.1.4\n"
 
 #: src/EBox/Model/Interfaces.pm:129
 msgid "Interface"
-msgstr ""
+msgstr "Sąsaja"
 
 #: src/EBox/Model/Interfaces.pm:134
 msgid "Enabled"
-msgstr ""
+msgstr "Įjungta"
 
 #: src/EBox/Model/Interfaces.pm:143
 msgid "Interfaces"
-msgstr ""
+msgstr "Sąsajos"
 
 #: src/EBox/Model/Interfaces.pm:149
 msgid "interface"
-msgstr ""
+msgstr "sąsaja"
 
 #: src/EBox/Model/Interfaces.pm:151
 msgid "Select in which interfaces IDS system will be enabled"
-msgstr ""
+msgstr "Pasirinkite sąsają kurioje IDS sistema bus įjungta"
 
 #: src/EBox/Model/Report/AlertGraph.pm:47
 #: src/EBox/Model/Report/AlertDetails.pm:41
 msgid "number of alerts"
-msgstr ""
+msgstr "Įspėjimų skaičius"
 
 #: src/EBox/Model/Report/AlertGraph.pm:52
 msgid "Alerts chart"
-msgstr ""
+msgstr "Įspėjimų diagrama"
 
 #: src/EBox/Model/Report/AlertGraph.pm:68
 msgid "Alert Graph"
-msgstr ""
+msgstr "Įspėjimų grafikas"
 
 #: src/EBox/Model/Report/AlertDetails.pm:52 src/EBox/IDS.pm:299
 msgid "Date"
-msgstr ""
+msgstr "Data"
 
 #: src/EBox/Model/Report/AlertDetails.pm:58
 msgid "Number of alerts"
-msgstr ""
+msgstr "Įspėjimų skaičius"
 
 #: src/EBox/Model/Report/AlertDetails.pm:66
 msgid "Alert details"
-msgstr ""
+msgstr "Įspėjimų detalės"
 
 #: src/EBox/Model/Report/AlertDetails.pm:73
 msgid "alerts"
-msgstr ""
+msgstr "įspėjimai"
 
 #: src/EBox/IDS.pm:62 src/EBox/IDS.pm:169 src/EBox/IDS.pm:311
 msgid "IDS"
-msgstr ""
+msgstr "IDS"
 
 #: src/EBox/IDS.pm:300
 msgid "Priority"
-msgstr ""
+msgstr "Prioritetas"
 
 #: src/EBox/IDS.pm:301
 msgid "Description"
-msgstr ""
+msgstr "Aprašymas"
 
 #: src/EBox/IDS.pm:302
 msgid "Source"
-msgstr ""
+msgstr "Šaltinis"
 
 #: src/EBox/IDS.pm:303
 msgid "Destination"
-msgstr ""
+msgstr "Paskirtis"
 
 #: src/EBox/IDS.pm:304
 msgid "Protocol"
-msgstr ""
+msgstr "Protokolas"
 
 #: src/EBox/IDS.pm:305
 msgid "Event"
-msgstr ""
+msgstr "Įvykis"
 
 #: src/EBox/IDS.pm:317
 msgid "Alert"
-msgstr ""
+msgstr "Įspėjimas"
 
 #: src/EBox/Composite/General.pm:101
 msgid "Intrusion Detection System"
-msgstr ""
+msgstr "Įsilaužimų Stebėjimo Sistema"
 
 #: src/EBox/Composite/Report/AlertReport.pm:66
 msgid "IDS Alerts report"
-msgstr ""
+msgstr "IDS įspėjimų ataskaita"
 
 #~ msgid "table title"
 #~ msgstr "lentelės pavadinimas"

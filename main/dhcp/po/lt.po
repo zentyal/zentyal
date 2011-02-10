@@ -5,20 +5,20 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-dhcp 2.0Report-Msgid-Bugs-To: developers@zentyal."
-"org\n"
+"Project-Id-Version: ebox-dhcp 2.0Report-Msgid-Bugs-To: "
+"developers@zentyal.org\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-12-18 01:43+0100\n"
-"PO-Revision-Date: 2010-12-05 23:52+0100\n"
-"Last-Translator: Vytautas <vytautas@lantraneta.lt>\n"
+"PO-Revision-Date: 2011-01-12 23:36+0200\n"
+"Last-Translator: Basas <vytautas@basas.lt>\n"
 "Language-Team: none\n"
-"Language: \n"
+"Language: lt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n"
-"%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Pootle 1.1.0\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n%"
+"100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Generator: Pootle 2.1.4\n"
 
 #: migration/0002_add_services.pl:132
 msgid "Trivial File Transfer Protocol"
@@ -42,51 +42,53 @@ msgstr "sąsaja {iface}"
 #: src/EBox/Model/DynamicDNS.pm:386
 #, perl-brace-format
 msgid "Domain {domain} has already been defined manually in DNS section"
-msgstr ""
+msgstr "Sritis {domain} jau turi pilna rankiniu būdu nustatytą DNS"
 
 #: src/EBox/Model/DynamicDNS.pm:240
 msgid "DNS module must be configured to work with this feature"
-msgstr ""
+msgstr "DNS modulis turi būti sukonfigūruotas dirbti su šia galimybe"
 
 #: src/EBox/Model/DynamicDNS.pm:243
 #, perl-brace-format
 msgid "{pkg} must be installed to use this feature"
-msgstr ""
+msgstr "{pkg} turi būti įdiegtas kad naudoti šią galimybę"
 
 #: src/EBox/Model/DynamicDNS.pm:265
 msgid ""
 "Domains will be added/set automatically in DNS section in read-only mode."
 msgstr ""
+"Vardų sritys bus įkeltos/nustatytos automatiškai DNS pasirinkime tik "
+"skaitymo būsenoje."
 
 #: src/EBox/Model/DynamicDNS.pm:267
 msgid "DNS module must be enabled to make this feature work. "
-msgstr ""
+msgstr "DNS modulis turi būti įjungtas kad ši galimybė veiktų."
 
 #: src/EBox/Model/DynamicDNS.pm:331
-#, fuzzy
 msgid "Dynamic domain"
-msgstr "Ieškoti vardų srities"
+msgstr "Dinaminė sritis"
 
 #: src/EBox/Model/DynamicDNS.pm:333
 msgid ""
 "Domain name appended to the hostname from those clients whose leased IP "
 "address comes from a range"
 msgstr ""
+"Srities vardas bus papildytas tiems vardams kurių atiduoti IP adresai  yra "
+"iš rėžio"
 
 #: src/EBox/Model/DynamicDNS.pm:338
-#, fuzzy
 msgid "Static domain"
-msgstr "Ieškoti vardų srities"
+msgstr "Statinė sritis"
 
 #: src/EBox/Model/DynamicDNS.pm:340
 msgid ""
 "Domain name appended to the hostname from those clients with a fixed address "
 "mapping"
-msgstr ""
+msgstr "Srities vardas bus papildytas vardams kurie yra iš fiksuotų adresų"
 
 #: src/EBox/Model/DynamicDNS.pm:345
 msgid "Same as Dynamic Domain"
-msgstr ""
+msgstr "Tas pats kas Dinaminė sritis"
 
 #: src/EBox/Model/DynamicDNS.pm:349 src/EBox/Model/Options.pm:375
 #: src/EBox/Model/Options.pm:398 src/EBox/Model/Options.pm:417
@@ -96,21 +98,21 @@ msgstr "Papildomas"
 
 #: src/EBox/Model/DynamicDNS.pm:357
 msgid "Dynamic DNS Options"
-msgstr ""
+msgstr "Dinaminio DNS nustatymai"
 
 #: src/EBox/Model/DynamicDNS.pm:362
 msgid "The domains will be added automatically to DNS module in read-only mode"
-msgstr ""
+msgstr "Sritys bus įkeltos automatiškai į DNS modulį tik skaitymo rėžime"
 
 #: src/EBox/Model/DynamicDNS.pm:394
 #, perl-brace-format
 msgid "Domain \"{domain}\" added to DNS section"
-msgstr ""
+msgstr "Sritis \"{domain}\" įkelta į DNS skiltį"
 
 #: src/EBox/Model/DynamicDNS.pm:405
 #, perl-brace-format
 msgid "Domain \"{domain}\" removed from DNS section"
-msgstr ""
+msgstr "Sritis \"{domain}\" ištrinta iš DNS skilties"
 
 #: src/EBox/Model/FixedAddressTable.pm:123
 #, perl-brace-format
@@ -167,7 +169,7 @@ msgstr "Jūs negalite naudotis IP adresu įtrauktu į sekančius diapazonus."
 
 #: src/EBox/Model/FixedAddressTable.pm:228
 msgid "Description"
-msgstr ""
+msgstr "Aprašymas"
 
 #: src/EBox/Model/FixedAddressTable.pm:236 src/templates/fixed.mas:5
 msgid "Fixed addresses"
@@ -180,22 +182,28 @@ msgstr "fiksuoti adresai"
 #: src/EBox/Model/ThinClientOptions.pm:138
 msgid "You need to upload a boot image to Zentyal if you set it as next server"
 msgstr ""
+"Turit įkelti paleidimo atvaizdą į Zentyal jei pasirinkote kaip sekantį "
+"serverį"
 
 #: src/EBox/Model/ThinClientOptions.pm:145
 msgid ""
 "In order to upload a boot image to Zentyal, you need to set Zentyal as next "
 "server"
 msgstr ""
+"Norėdami įkelti paleidimo atvaizdą į Zentyal, turite pirma nustatyti Zentyal "
+"kaip sekantį serverį"
 
 #: src/EBox/Model/ThinClientOptions.pm:152
 msgid "You need to specify a path to the boot image in the remote server"
-msgstr ""
+msgstr "Turite nurodyti kelią iki paleidimo atvaizdo nutolusiame serveryje"
 
 #: src/EBox/Model/ThinClientOptions.pm:157
 msgid ""
 "You can only specify a file name if you have a next server and it is not "
 "Zentyal"
 msgstr ""
+"Jūs galite nurodyti tik failo pavadinimą jei turite sekantį serverį ir jis "
+"ne Zentyal"
 
 #: src/EBox/Model/ThinClientOptions.pm:208
 #, perl-brace-format
@@ -203,6 +211,8 @@ msgid ""
 "Removing previously uploaded boot image since next server option has been "
 "changed from Zentyal to {option}"
 msgstr ""
+"Ištrinama prieš tai įkelti paleidimo atvaizdai nes sekantis servrio "
+"nustatymas buvo pakeistas iš Zentyal į {option}"
 
 #: src/EBox/Model/ThinClientOptions.pm:231
 msgid "Next server"
@@ -224,7 +234,7 @@ msgstr "Failo vardas"
 
 #: src/EBox/Model/ThinClientOptions.pm:260
 msgid "File path in next server"
-msgstr ""
+msgstr "Failo kelias kitame serveryje"
 
 #: src/EBox/Model/ThinClientOptions.pm:268
 msgid "Thin client"
@@ -308,33 +318,36 @@ msgstr "{gateway} nepriklauso dabartiniam tinklui"
 msgid ""
 "DNS module must be enabled to be able to select Zentyal as primary DNS server"
 msgstr ""
+"DNS modulis turi būti įjungtas kad galėtumėte Zentyal pasirinkti kaip "
+"pirminį DNS serverį"
 
 #: src/EBox/Model/Options.pm:178
 msgid "NTP module must be enabled to be able to select Zentyal as NTP server"
 msgstr ""
+"NTP modulis turi būti įjungtas norint pasirinkti Zentyal kaip NTP serverį"
 
 #: src/EBox/Model/Options.pm:189
 msgid ""
 "Samba module must be enabled to be able to select Zentyal as WINS server"
 msgstr ""
+"Samba modulis turi būti įjungtas kad galėtumėte Zentyal pasirinkti kaip WINS "
+"serverį"
 
 #: src/EBox/Model/Options.pm:383
-#, fuzzy
 msgid "Zentyal domain"
-msgstr "Ieškoti vardų srities"
+msgstr "Zentyal sritis"
 
 #: src/EBox/Model/Options.pm:391
-#, fuzzy
 msgid "local Zentyal DNS"
-msgstr "vidinis eBox DNS"
+msgstr "vidinis Zentyal DNS"
 
 #: src/EBox/Model/Options.pm:413
 msgid "local Zentyal NTP"
-msgstr ""
+msgstr "vidinis Zentyal NTP"
 
 #: src/EBox/Model/Options.pm:427
 msgid "local Zentyal"
-msgstr ""
+msgstr "vidinis Zentyal"
 
 #: src/EBox/Model/Options.pm:439 src/templates/options.mas:18
 msgid "Default gateway"
@@ -353,6 +366,8 @@ msgid ""
 "Setting \"Zentyal\" as default gateway will set the interface IP address as "
 "gateway"
 msgstr ""
+"Nustatant \"Zentyal\" kaip numatytuosius vartus nustatys sąsajos IP adresą "
+"kaip vartus"
 
 #: src/EBox/Model/Options.pm:471 src/templates/options.mas:29
 msgid "Search domain"
@@ -363,6 +378,8 @@ msgid ""
 "The selected domain will complete on your clients those DNS queries which "
 "are not fully qualified"
 msgstr ""
+"Pasirinkta sritis užbaigs jūsų klientus kurių DNS užklauso yra nepilnai "
+"kvalifikuotos"
 
 #: src/EBox/Model/Options.pm:479 src/templates/options.mas:41
 msgid "Primary nameserver"
@@ -373,32 +390,36 @@ msgid ""
 "If \"Zentyal DNS\" is present and selected, the Zentyal server will act as "
 "cache DNS server"
 msgstr ""
+"Jei \"Zentyal DNS\" egzistuoja ir pasirinkta, tai Zentyal serveris vieks kaip "
+"kešuojantis DNS serveris"
 
 #: src/EBox/Model/Options.pm:487 src/templates/options.mas:52
 msgid "Secondary nameserver"
 msgstr "Antrinis nameserver"
 
 #: src/EBox/Model/Options.pm:493
-#, fuzzy
 msgid "NTP server"
-msgstr "Kitas serveris"
+msgstr "NTP serveris"
 
 #: src/EBox/Model/Options.pm:496
 msgid ""
 "If \"Zentyal NTP\" is present and selected, Zentyal will be the NTP server "
 "for DHCP clients"
 msgstr ""
+"Jei \"Zentyal NTP\" egzistuoja ir pasirinktas, Zentyal bus NTP serveris DHCP "
+"klientams"
 
 #: src/EBox/Model/Options.pm:501
-#, fuzzy
 msgid "WINS server"
-msgstr "Kitas serveris"
+msgstr "WINS serveris"
 
 #: src/EBox/Model/Options.pm:504
 msgid ""
 "If \"Zentyal Samba\" is present and selected, Zentyal will be the WINS "
 "server for DHCP clients"
 msgstr ""
+"Jei \"Zentyal Samba\" egzistuoja ir pasirinktas, Zentyal bus WINS serveris "
+"DHCP klientams"
 
 #: src/EBox/Model/Options.pm:511
 msgid "Common options"
@@ -498,18 +519,18 @@ msgstr ""
 "servisus {openhref} ugnesienės mudulyje {closehref}"
 
 #: src/EBox/DHCP.pm:119
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "{server} configuration file"
-msgstr "Paslaugos konfigūracija"
+msgstr "{server} konfigūracinis failas"
 
 #: src/EBox/DHCP.pm:132
 #, perl-brace-format
 msgid "Disable {server} init script"
-msgstr ""
+msgstr "Išjungti {server} init scenarijus"
 
 #: src/EBox/DHCP.pm:133
 msgid "Zentyal will take care of start and stop the service"
-msgstr ""
+msgstr "Zentyal pasirūpins paleidimo ir stabdymo servisais"
 
 #: src/EBox/DHCP.pm:446 src/EBox/DHCP.pm:482 src/EBox/DHCP.pm:532
 #: src/EBox/DHCP.pm:578 src/EBox/DHCP.pm:624 src/EBox/DHCP.pm:722
@@ -579,14 +600,12 @@ msgid "DHCP"
 msgstr "DHCP"
 
 #: src/EBox/DHCP.pm:1353
-#, fuzzy
 msgid "Host name"
-msgstr "pavadinimas"
+msgstr "Pavadinimas"
 
 #: src/EBox/DHCP.pm:1380
-#, fuzzy
 msgid "DHCP leases"
-msgstr "DHCP diapazonai"
+msgstr "DHCP atidavimai"
 
 #: src/EBox/CGI/Enable.pm:39
 msgid "module status"

@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: ebox-antivirus 0.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-12-18 01:42+0100\n"
-"PO-Revision-Date: 2010-01-18 11:13+0100\n"
-"Last-Translator: Nicolas Liaudat <nliaudat@pompiers-chatel.ch>\n"
+"PO-Revision-Date: 2010-12-22 15:09+0200\n"
+"Last-Translator: Pfff <pfff@webynux.net>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
-"Language: \n"
+"Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Pootle 1.1.0\n"
+"X-Generator: Pootle 2.1.4\n"
 
 #: src/EBox/AntiVirus/Model/FreshclamStatus.pm:89
 msgid "Status"
@@ -27,9 +27,8 @@ msgid "Date"
 msgstr "Date"
 
 #: src/EBox/AntiVirus/Model/FreshclamStatus.pm:97
-#, fuzzy
 msgid "Signatures"
-msgstr "Etat"
+msgstr "Signatures"
 
 #: src/EBox/AntiVirus/Model/FreshclamStatus.pm:103
 msgid "Database Update Status"
@@ -61,6 +60,8 @@ msgid ""
 "The antivirus module is not configured. Enable it first in Module Status "
 "section."
 msgstr ""
+"Le module antivirus n'est pas configuré. Activer le dans la section statut "
+"des modules"
 
 #: src/EBox/AntiVirus/Model/FreshclamStatus.pm:171
 msgid ""

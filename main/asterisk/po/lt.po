@@ -9,16 +9,16 @@ msgstr ""
 "developers@zentyal.org\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-12-18 01:20+0100\n"
-"PO-Revision-Date: 2010-08-28 23:07+0200\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2011-01-06 21:25+0200\n"
+"Last-Translator: Basas <vytautas@basas.lt>\n"
 "Language-Team: none\n"
-"Language: \n"
+"Language: lt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n"
-"%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Pootle 1.1.0\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n%"
+"100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Generator: Pootle 2.1.4\n"
 
 #: migration/0001_add_firewall_services.pl:45
 msgid "Zentyal VoIP system"
@@ -197,7 +197,7 @@ msgstr "vidinis tinklas"
 
 #: src/EBox/Model/AsteriskUser.pm:50
 msgid "Asterisk Account"
-msgstr ""
+msgstr "Žvaigždutinė paskyra"
 
 #: src/EBox/Model/AsteriskUser.pm:58
 msgid "Asterisk"
@@ -236,11 +236,11 @@ msgstr "Pagrininė konfigūracija"
 
 #: src/EBox/Model/Settings.pm:149
 msgid "General Asterisk server configuration"
-msgstr ""
+msgstr "Pagrindiniai Asterisk serverio nustatymai"
 
 #: src/EBox/Model/Settings.pm:151
 msgid "General Asterisk server configuration updated."
-msgstr ""
+msgstr "Pagrindiniai Asterisk serverio nustatymai atnaujinti."
 
 #: src/EBox/Model/NAT.pm:96
 msgid "Zentyal is behind NAT"
@@ -256,11 +256,11 @@ msgstr "NAT konfigūravimas"
 
 #: src/EBox/Model/NAT.pm:124
 msgid "NAT Asterisk server configuration"
-msgstr ""
+msgstr "NAT Asterisk serverio konfigūracija"
 
 #: src/EBox/Model/NAT.pm:126
 msgid "NAT Asterisk server configuration updated."
-msgstr ""
+msgstr "NAT Asterisk serverio konfigūracija atnaujinta."
 
 #: src/EBox/Model/Provider.pm:68
 msgid "Custom"
@@ -276,7 +276,7 @@ msgstr "Vardas"
 
 #: src/EBox/Model/Provider.pm:100
 msgid "VoIP service provider name."
-msgstr ""
+msgstr "VoIP serviso tiekėjo pavadinimas"
 
 #: src/EBox/Model/Provider.pm:104
 msgid "Username"
@@ -292,11 +292,11 @@ msgstr "Serveris"
 
 #: src/EBox/Model/Provider.pm:126
 msgid "Recipient of incoming calls"
-msgstr ""
+msgstr "Įeinančių skambučių gavėjas"
 
 #: src/EBox/Model/Provider.pm:130
 msgid "Extension recipient of incoming calls through the provider."
-msgstr ""
+msgstr "Įeinančių skambučių per tiekėją gavėjo plėtinys."
 
 #: src/EBox/Model/Provider.pm:137
 msgid "SIP provider"
@@ -304,11 +304,11 @@ msgstr "SIP tiekėjas"
 
 #: src/EBox/Model/Provider.pm:141
 msgid "SIP provider for outgoing calls configuration."
-msgstr ""
+msgstr "SIP tiekėjas išeinančių skambučių konfigūracijai."
 
 #: src/EBox/Model/Provider.pm:143
 msgid "SIP provider configuration updated."
-msgstr ""
+msgstr "SIP tiekėjo konfigūracija atnaujinta."
 
 #: src/EBox/Model/Meetings.pm:95
 #, perl-brace-format
@@ -316,11 +316,13 @@ msgid ""
 "You must install dahdi and linux-headers packages to use Meetings.{br}Run "
 "the following command: sudo apt-get install {kernels} dahdi."
 msgstr ""
+"Turi įdiegti dahdi ir linux-headers paketus norėdami naudoti "
+"Susitikimus.{br} Paleiskite komandą : sudo apt-get install {kernels} dahdi."
 
 #: src/EBox/Model/Meetings.pm:155
 #, perl-brace-format
 msgid "A number between {min} and {max}."
-msgstr ""
+msgstr "Skaičius tarp {min} ir {max}"
 
 #: src/EBox/Model/Meetings.pm:190
 msgid "List of Meetings"
@@ -352,7 +354,7 @@ msgstr "Ištrinti išsiųstas žinutes"
 
 #: src/EBox/Model/Voicemail.pm:126
 msgid "Change your Voicemail settings"
-msgstr ""
+msgstr "Pakeisti Balso pašto nustatymus"
 
 #: src/EBox/Model/Voicemail.pm:204
 msgid "Settings successfully updated"
@@ -360,19 +362,19 @@ msgstr "Nustatymai atnaujinti"
 
 #: src/EBox/Model/Voicemail.pm:222
 msgid "You have not an VoIP account. Maybe VoIP is not enabled in this server"
-msgstr ""
+msgstr "Jūs neturite VoIP paskyros. Gal būt VoIP neįjungtas jūsų serveryje"
 
 #: src/EBox/Composite/General.pm:66
 msgid "Asterisk module"
-msgstr ""
+msgstr "Asterisk modulis"
 
 #: src/EBox/Asterisk/Extensions.pm:230
 msgid "User extension"
-msgstr ""
+msgstr "Vartotojo plėtinys"
 
 #: src/EBox/Asterisk/Extensions.pm:642
 msgid "Queue extension"
-msgstr ""
+msgstr "Eilės plėtinys"
 
 #: src/EBox/CGI/AsteriskGroupOptions.pm:42
 msgid "group"
@@ -384,11 +386,11 @@ msgstr "vartotojas"
 
 #: src/templates/user.mas:8
 msgid "Asterisk account"
-msgstr ""
+msgstr "Asterisk paskyra"
 
 #: src/templates/user.mas:10
 msgid "Password for Asterisk service is the user password"
-msgstr ""
+msgstr "Slaptažodis į Asterisk servisą yra vartotojo slaptažodis"
 
 #: src/templates/user.mas:21
 msgid "User account"
@@ -413,17 +415,19 @@ msgstr "Pakeisti"
 msgid ""
 "The following settings only will take effect when the Asterisk module is "
 "enabled."
-msgstr ""
+msgstr "Sekantys nustatymai bus įjungti tik įjungus Asterik modulį."
 
 #: src/templates/group.mas:8
 msgid "Asterisk group queue"
-msgstr ""
+msgstr "Asterisk grupės eilė"
 
 #: src/templates/group.mas:12
 msgid ""
 "There are no users in this group or the users do not have an Asterisk "
 "account, so a queue cannot be created."
 msgstr ""
+"Nėra vartotojų šioje grupėje arba vartotojai neturi Asterisk paskyros, todėl "
+"eilė negali būti sukurta."
 
 #: src/templates/group.mas:24
 msgid "Group queue"

@@ -7,15 +7,15 @@ msgstr ""
 "Project-Id-Version: ebox-mail 0.12\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-12-18 01:44+0100\n"
-"PO-Revision-Date: 2010-08-29 17:03+0200\n"
-"Last-Translator: josefa <jgonza24@xtec.cat>\n"
+"PO-Revision-Date: 2011-01-02 14:05+0200\n"
+"Last-Translator: Josefa <jgonza24@ieslaferreria.net>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
-"Language: \n"
+"Language: ca\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Pootle 1.1.0\n"
+"X-Generator: Pootle 2.1.4\n"
 
 #: migration/0001_add_firewall_services.pl:45
 msgid "Zentyal Mail System"
@@ -1048,7 +1048,7 @@ msgstr "Bústies"
 
 #: src/EBox/Mail.pm:1798
 msgid "Mail messages from users and group alias"
-msgstr ""
+msgstr "Missatges de correu dels usuaris i àlies de grups"
 
 #: src/EBox/Mail.pm:1886
 msgid "Mail SMTP server"
@@ -1184,7 +1184,6 @@ msgid "last"
 msgstr "últim"
 
 #: src/templates/qmanager.mas:146
-#, fuzzy
 msgid "There are no messages in queue or the service is stopped"
 msgstr "No hi ha missatges en cua o el servei està aturat"
 

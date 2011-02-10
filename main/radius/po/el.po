@@ -5,70 +5,76 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-radius 2.0"
-"Report-Msgid-Bugs-To: developers@zentyal.org\n"
+"Project-Id-Version: ebox-radius 2.0Report-Msgid-Bugs-To: "
+"developers@zentyal.org\n"
 "POT-Creation-Date: 2010-08-25 17:45+0200\n"
-"PO-Revision-Date: 2010-08-25 17:45+0200\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2011-01-16 20:54+0200\n"
+"Last-Translator: Nikos <nmar@town.gr>\n"
 "Language-Team: none\n"
+"Language: el\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Pootle 2.1.4\n"
 
 #: migration/0001_add_firewall_services.pl:30
 msgid "Zentyal RADIUS system"
-msgstr ""
+msgstr "Σύστημα Zentyal RADIUS"
 
 #: src/EBox/Model/Auth.pm:103
 msgid "All users"
-msgstr ""
+msgstr "Όλοι οι χρήστες"
 
 #: src/EBox/Model/Auth.pm:128
+#, fuzzy
 msgid "Group allowed to authenticate"
-msgstr ""
+msgstr "Ομάδα που επιτρέπεται να πιστοποιηήσει"
 
 #: src/EBox/Model/Auth.pm:138
 msgid "General configuration"
-msgstr ""
+msgstr "Γενικές ρυθμίσεις"
 
 #: src/EBox/Model/Auth.pm:142
 msgid "RADIUS server configuration"
-msgstr ""
+msgstr "Ρυθμίσεις εξυπηρετητή RADIUS"
 
 #: src/EBox/Model/Auth.pm:144
 msgid "RADIUS server configuration updated"
-msgstr ""
+msgstr "Ενημέρωση Ρυθμίσεων εξυπηρετητή RADIUS"
 
 #: src/EBox/Model/Clients.pm:105
 msgid "Client"
-msgstr ""
+msgstr "Πελάτης"
 
 #: src/EBox/Model/Clients.pm:112
 msgid "IP Address"
-msgstr ""
+msgstr "IP Διεύθυνση"
 
 #: src/EBox/Model/Clients.pm:118
+#, fuzzy
 msgid "Shared Secret"
-msgstr ""
+msgstr "Κοινό μυστικό"
 
 #: src/EBox/Model/Clients.pm:126
 msgid "RADIUS Clients"
-msgstr ""
+msgstr "Πελάτες RADIUS"
 
 #: src/EBox/Model/Clients.pm:127
 msgid "client"
-msgstr ""
+msgstr "πελάτης"
 
 #: src/EBox/Radius.pm:100
 msgid "Create RADIUS certificates for TTLS"
-msgstr ""
+msgstr "Δημιουργία πιστοποιητικών RADIOUS για TTLS"
 
 #: src/EBox/Radius.pm:101
 msgid ""
 "Zentyal will create the needed certificates for TTLS in /etc/freeradius/"
 "certs/."
 msgstr ""
+"Το Zentyal θα δημιουργήσει τα απαραίτητα πιστοποιητικά για TTLS στο "
+"/etc/freeradius/certs/."
 
 #: src/EBox/Radius.pm:121
 msgid "To configure allowed LDAP group."

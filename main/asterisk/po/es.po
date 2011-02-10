@@ -9,15 +9,15 @@ msgstr ""
 "Project-Id-Version: ebox-asterisk 1.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-12-18 01:20+0100\n"
-"PO-Revision-Date: 2010-08-25 20:47+0200\n"
-"Last-Translator: José Antonio Calvo <jacalvo@ebox-platform.com>\n"
+"PO-Revision-Date: 2011-01-14 01:39+0200\n"
+"Last-Translator: Enrique J. <ejhernandez@zentyal.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
-"Language: \n"
+"Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Pootle 1.1.0\n"
+"X-Generator: Pootle 2.1.4\n"
 
 #: migration/0001_add_firewall_services.pl:45
 msgid "Zentyal VoIP system"
@@ -370,7 +370,7 @@ msgstr ""
 
 #: src/EBox/Composite/General.pm:66
 msgid "Asterisk module"
-msgstr "Módulo Asterisk"
+msgstr "Módulo de Asterisk"
 
 #: src/EBox/Asterisk/Extensions.pm:230
 msgid "User extension"
@@ -390,7 +390,7 @@ msgstr "usuario"
 
 #: src/templates/user.mas:8
 msgid "Asterisk account"
-msgstr "Cuenta Asterisk"
+msgstr "Cuenta de Asterisk"
 
 #: src/templates/user.mas:10
 msgid "Password for Asterisk service is the user password"
@@ -425,7 +425,7 @@ msgstr ""
 
 #: src/templates/group.mas:8
 msgid "Asterisk group queue"
-msgstr "Cola de Asterisk del grupo"
+msgstr "Cola de grupo en Asterisk"
 
 #: src/templates/group.mas:12
 msgid ""

@@ -5,21 +5,22 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-ftp 2.0.1"
-"Report-Msgid-Bugs-To: \n"
+"Project-Id-Version: ebox-ftp 2.0.1Report-Msgid-Bugs-To:\n"
 "POT-Creation-Date: 2010-06-03 02:52+0200\n"
-"PO-Revision-Date: 2010-06-03 02:52+0200\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2011-01-16 20:37+0200\n"
+"Last-Translator: Nikos <nmar@town.gr>\n"
 "Language-Team: none\n"
+"Language: el\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Pootle 2.1.4\n"
 
 #: src/EBox/FTP.pm:54
 msgid "To configure vsftpd"
-msgstr ""
+msgstr "Παραμετροποίηση vsftpd"
 
 #: src/EBox/FTP.pm:58
 msgid "To configure vsftpd with LDAP authentication"
-msgstr ""
+msgstr "Παραμετροποίηση vsftpd για πιστοποίηση με LDAP"

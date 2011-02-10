@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: ebox-samba 1.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-12-18 01:45+0100\n"
-"PO-Revision-Date: 2010-08-28 09:19+0200\n"
-"Last-Translator: Nagy Ákos <nagy.akos@akos.ro>\n"
+"PO-Revision-Date: 2011-01-14 13:02+0200\n"
+"Last-Translator: akoscomp <reg@pecska.ro>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
-"Language: \n"
+"Language: hu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n !=1);\n"
-"X-Generator: Pootle 1.1.0\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Pootle 2.1.4\n"
 
 #: migration/0001_add_samba_service.pl:128
 msgid "File sharing (Samba) protocol"
@@ -123,7 +123,7 @@ msgstr "kvóta"
 
 #: src/EBox/Samba.pm:1419
 msgid "Shares, users and groups homes and profiles"
-msgstr ""
+msgstr "Megosztások, felhasználók és csoportok mappái és profiljai"
 
 #: src/EBox/Samba.pm:1589
 msgid "User's files"
@@ -357,18 +357,16 @@ msgstr ""
 "az útvonal megadásakor."
 
 #: src/EBox/Samba/Model/SambaShares.pm:205
-#, fuzzy
 msgid "Only ASCII characters are valid for a share name"
 msgstr ""
-"Csak az alfanumerikus karakterek, valamint az _ (aláhúzás) karakter érvényes "
-"az útvonal megadásakor."
+"Csak az alfanumerikus karakterek, valamint az _ érvényes a megosztások "
+"nevében"
 
 #: src/EBox/Samba/Model/SambaShares.pm:213
-#, fuzzy
 msgid "Only ASCII characters are valid for a share description"
 msgstr ""
-"Csak az alfanumerikus karakterek, valamint az _ (aláhúzás) karakter érvényes "
-"az útvonal megadásakor."
+"Csak az alfanumerikus karakterek, valamint az _ érvényes a megosztások "
+"leírásában"
 
 #: src/EBox/Samba/Model/SambaShares.pm:245
 msgid "The directory is not empty. Are you sure you want to remove it?"
@@ -442,6 +440,8 @@ msgid ""
 "A slave server can not act as PDC if PAM is enabled. You can do disable PAM "
 "at {ohref}LDAP Settings{chref}."
 msgstr ""
+"A slave szerver nem működhet PDC-két, ha a PAM aktív. A PAM-ot "
+"kikapcsolhatja az {ohref}LDAP Beállítások{chref}-nál."
 
 #: src/EBox/Samba/Model/GeneralSettings.pm:106
 msgid "Enable PDC"

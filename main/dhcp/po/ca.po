@@ -7,15 +7,15 @@ msgstr ""
 "Project-Id-Version: ebox-dhcp 0.12\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-12-18 01:43+0100\n"
-"PO-Revision-Date: 2010-08-29 21:09+0200\n"
-"Last-Translator: josefa <jgonza24@xtec.cat>\n"
+"PO-Revision-Date: 2011-01-01 11:51+0200\n"
+"Last-Translator: Josefa <jgonza24@ieslaferreria.net>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
-"Language: \n"
+"Language: ca\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Pootle 1.1.0\n"
+"X-Generator: Pootle 2.1.4\n"
 
 #: migration/0002_add_services.pl:132
 msgid "Trivial File Transfer Protocol"
@@ -531,11 +531,11 @@ msgstr "Arxiu de configuració {server} "
 #: src/EBox/DHCP.pm:132
 #, perl-brace-format
 msgid "Disable {server} init script"
-msgstr ""
+msgstr "Deshabilitar el script d'inici {server}"
 
 #: src/EBox/DHCP.pm:133
 msgid "Zentyal will take care of start and stop the service"
-msgstr ""
+msgstr "Zentyal s'encarregarà d'iniciar i aturar el servei"
 
 #: src/EBox/DHCP.pm:446 src/EBox/DHCP.pm:482 src/EBox/DHCP.pm:532
 #: src/EBox/DHCP.pm:578 src/EBox/DHCP.pm:624 src/EBox/DHCP.pm:722

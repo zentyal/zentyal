@@ -9,16 +9,16 @@ msgstr ""
 "developers@zentyal.org\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-12-18 01:45+0100\n"
-"PO-Revision-Date: 2010-12-06 21:25+0100\n"
-"Last-Translator: Vytautas <vytautas@lantraneta.lt>\n"
+"PO-Revision-Date: 2010-12-23 00:00+0200\n"
+"Last-Translator: Basas <vytautas@basas.lt>\n"
 "Language-Team: none\n"
-"Language: \n"
+"Language: lt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n"
-"%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Pootle 1.1.0\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n%"
+"100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Generator: Pootle 2.1.4\n"
 
 #: migration/0001_add_http_software_rule.pl:39
 msgid "HTTP software"
@@ -47,9 +47,8 @@ msgstr ""
 "klavišą."
 
 #: src/EBox/Software.pm:627
-#, fuzzy
 msgid "Zentyal Components"
-msgstr "eBox Komponanentai"
+msgstr "Zentyal Komponanentai"
 
 #: src/EBox/Software.pm:629
 msgid "System Updates"
@@ -95,14 +94,12 @@ msgid "automatic updates configuration"
 msgstr "automatinių atnaujinimų konfigūracija"
 
 #: src/EBox/CGI/EBox.pm:35
-#, fuzzy
 msgid "Choose Zentyal packages to install"
-msgstr "Pasirinkite eBox paketus instaliacijai"
+msgstr "Pasirinkite Zentyal paketus instaliacijai"
 
 #: src/EBox/CGI/EBox.pm:40
-#, fuzzy
 msgid "Zentyal components"
-msgstr "eBox komponentai"
+msgstr "Zentyal komponentai"
 
 #: src/EBox/CGI/Config.pm:31
 msgid "Software management settings"
@@ -192,13 +189,15 @@ msgstr "Atnaujina"
 
 #: src/templates/updates.mas:21 src/templates/ebox.mas:182
 msgid "Package list updated successfully"
-msgstr ""
+msgstr "Paketų sąrašas atnaujintas sėkmingai"
 
 #: src/templates/updates.mas:25 src/templates/ebox.mas:186
 msgid ""
 "Error updating package list. Please try to execute the following command in "
 "a console to see the problem: sudo apt-get update"
 msgstr ""
+"Klaida atnaujinant paketų sąrašą. Prašome paleisti komandą (sudo apt-get "
+"update) konsolėje kad pamatyti problemą "
 
 #: src/templates/updates.mas:35
 msgid "Updates are available for the following system components"
@@ -230,22 +229,20 @@ msgid "Security update"
 msgstr "Saugumo atnaujinimas"
 
 #: src/templates/updates.mas:59 src/templates/updates.mas:60
-#, fuzzy
 msgid "Zentyal QA update"
-msgstr "eBox QA atnaujinimas"
+msgstr "Zentyal QA atnaujinimas"
 
 #: src/templates/updates.mas:88
 msgid "Update all packages"
 msgstr "Atnaujinti visus paketus"
 
 #: src/templates/updates.mas:99
-#, fuzzy
 msgid ""
 "This operation can take some time, don't worry if Zentyal looks unresponsive "
 "after pressing the Upgrade button."
 msgstr ""
-"Ši operacija gali užtrukti tam tikrą laiką, nepergyvenkite jei eBox atrodo "
-"nepasiekiamas po Atnaujinti mygtuko paspaudimo."
+"Ši operacija gali užtrukti tam tikrą laiką, nepergyvenkite jei Zentyal "
+"atrodo nepasiekiamas po Atnaujinti mygtuko paspaudimo."
 
 #: src/templates/updates.mas:103
 msgid "Upgrade"
@@ -266,21 +263,22 @@ msgid ""
 "The following packages are not properly installed. You need to fix this "
 "before trying to use them or install new modules."
 msgstr ""
+"Sekantys paketai suinstaliuoti netvarkingai. Jūs turite sutvarkyti prieš "
+"bandydami juos ar instaliuojant naujus modulius."
 
 #: src/templates/ebox.mas:216
 msgid ""
 "To solve this situation, please try to execute the following command in the "
 "console:"
-msgstr ""
+msgstr "Išspręsti šią situaciją, prašome paleisti sekančią komandą konsolėje:"
 
 #: src/templates/ebox.mas:229
 msgid "View advanced mode"
 msgstr "Žiūrėti išplėstinį variantą"
 
 #: src/templates/ebox.mas:563
-#, fuzzy
 msgid "Skip install"
-msgstr "Įdiegti"
+msgstr "Praleisti įdiegimą"
 
 #: src/templates/ebox.mas:576
 msgid "View basic mode"
@@ -288,17 +286,17 @@ msgstr "Žiūrėti paprastąjį variantą"
 
 #: src/templates/ebox.mas:594 src/templates/ebox.mas:623
 msgid "Delete"
-msgstr ""
+msgstr "Ištrinti"
 
 #: src/templates/ebox.mas:604 src/templates/ebox.mas:613
 #: src/templates/ebox.mas:624
 msgid "Deselect All"
-msgstr ""
+msgstr "Panaikinti žymėjimą"
 
 #: src/templates/ebox.mas:605 src/templates/ebox.mas:614
 #: src/templates/ebox.mas:625
 msgid "Select All"
-msgstr ""
+msgstr "Žymėti viską"
 
 #: src/templates/del.mas:97
 msgid "The following packages will be installed"
@@ -337,9 +335,8 @@ msgid "Perform automatic security updates"
 msgstr "Atlikti automatinius saugumo atnaujinimus"
 
 #: src/templates/config.mas:14
-#, fuzzy
 msgid "Zentyal is configured to use automatic QA updates"
-msgstr "Šis eBox sukonfigūruotas naudoti automatinius QA atnaujinimus"
+msgstr "Šis Zentyal sukonfigūruotas naudoti automatinius QA atnaujinimus"
 
 #: src/templates/config.mas:26
 msgid "Automatic operations start time"

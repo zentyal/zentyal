@@ -8,13 +8,13 @@ msgstr ""
 "Project-Id-Version: ebox-ebackup 1.3.3\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2011-01-13 17:39+0100\n"
-"PO-Revision-Date: 2010-12-30 07:11+0200\n"
-"Last-Translator: andreyjktl <andreyjktl@gmail.com>\n"
+"PO-Revision-Date: 2011-01-17 17:11+0200\n"
+"Last-Translator: fbird <valeryskochilov@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
+"Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: ru\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
 "10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Pootle 2.1.4\n"
@@ -27,36 +27,38 @@ msgstr "Резервное копирование"
 #: src/EBox/EBackup.pm:209
 #, perl-brace-format
 msgid "File {f} not found in backup for {d}, try a later date"
-msgstr "Файл {f} не найден в бэкапе для {d}, попробуйте другую дату"
+msgstr ""
+"Файл {f} не найден в резервной копии от {d}, попробуйте более позднюю дату"
 
 #: src/EBox/EBackup.pm:216
 msgid ""
 "No backup archives found. Maybe they were deleted?. Run '/etc/init.d/ebox "
 "ebackup restart' to refresh backup's information."
 msgstr ""
-"Не найдены архивы с бэкапом. Возможно они были удалены?. Запустите '/etc/"
-"init.d/ebox ebackup restart' для обновления информации о бэкапах."
+"Не найдены архивы резервных копий. Возможно они были удалены?. Запустите "
+"'/etc/init.d/ebox ebackup restart' для обновления информации о резервных "
+"копиях."
 
 #: src/EBox/EBackup.pm:689
 msgid ""
 "Could not get backup collection status, check whether the parameters and "
 "passwords are correct"
 msgstr ""
-"Невозможно получить статус коллекции бэкапов, проверьте правильность паролей "
-"и параметров."
+"Невозможно получить статус коллекции резервных копий, проверьте правильность "
+"паролей и параметров"
 
 #: src/EBox/EBackup.pm:1060
 msgid "You need to have the disaster recovery add-on to use this backup method"
 msgstr ""
-"Для использования этого метода бэкапа, необходимо использовать дополнение "
-"восстановления после сбоев"
+"Вы должны установить расширение для аварийного восстановления, чтобы "
+"использовать этот метод резервного копирования"
 
 #: src/EBox/EBackup.pm:1067
 msgid ""
 "Could not retrieve backup credentials, check your conexion to Zentyal Cloud"
 msgstr ""
-"Не могу получить учётную запись для бэкапа, проверьте соединения с Zentyal "
-"Cloud"
+"Невозможно считать учетные данные для резервного копирования, проверьте "
+"подключение к Zentyal Cloud"
 
 #: src/EBox/EBackup.pm:1158
 #, perl-brace-format
@@ -65,9 +67,9 @@ msgid ""
 "Zentyal Cloud. If you want to unsubscribe, you must change this {ohref}"
 "setting{chref}."
 msgstr ""
-"Не могу отписаться потому что модуль бэкапа настроен для использования "
-"Zentyal Cloud. Если вы хотите отписаться, необходимо изменить эту {ohref}"
-"настройку{chref}."
+"Невозможно отписаться, потому что модуль резервного копирования настроен для "
+"использования Zentyal Cloud. Если Вы хотите отписаться, необходимо изменить "
+"эту {ohref}настройку{chref}."
 
 #: src/EBox/Event/Watcher/EBackup.pm:141
 msgid "Check if Zentyal backup was not successful."
@@ -84,8 +86,8 @@ msgid ""
 "Logs backup data not found in backup for {d}. Maybe you could try another "
 "date?"
 msgstr ""
-"Логи резервного копирования данных не найдены в архиве для {d}. Попробуйте "
-"выбрать другую дату."
+"Журналы резервного копирования данных не найдены в резервной копии от {d}. "
+"Попробуете выбрать другую дату?"
 
 #: src/EBox/Model/RemoteFileList.pm:143 src/EBox/Model/RemoteStatus.pm:121
 #: src/EBox/Model/RemoteRestoreConf.pm:74
@@ -116,7 +118,7 @@ msgstr "Восстановить"
 
 #: src/EBox/Model/RemoteFileList.pm:205
 msgid "File already exists if you continue the current will be deleted"
-msgstr "Файл уже существует, если вы продолжите, существующий будет удален"
+msgstr "Файл уже существует и будет удален при продолжении"
 
 #: src/EBox/Model/RemoteFileList.pm:221
 msgid "File restored successfully"
@@ -141,11 +143,11 @@ msgstr "Включено"
 
 #: src/EBox/Model/BackupDomains.pm:177
 msgid "Domains to back up"
-msgstr "Домены, которые необходимо зарезервировать"
+msgstr "Домены для резервного копирования"
 
 #: src/EBox/Model/BackupDomains.pm:182 src/scripts/restore-tool:310
 msgid "Backup domain"
-msgstr "Домен бэкапа"
+msgstr "Резервное копирование домена"
 
 #: src/EBox/Model/BackupDomains.pm:183
 msgid "Select the domains you want to back up."
@@ -159,6 +161,8 @@ msgstr "Неизвестно"
 #: src/EBox/Model/RemoteStorage.pm:158
 msgid "Error connecting to backup server. Storage status unknown"
 msgstr ""
+"Ошибка соединения с сервером резервного копирования. Состояние хранилища "
+"неизвестно"
 
 #: src/EBox/Model/RemoteStorage.pm:174
 msgid "Used storage"
@@ -203,7 +207,7 @@ msgstr "Хост или приемник"
 #: src/EBox/Model/RemoteSettings.pm:182
 msgid "If the selected method is file system, only set the target directory"
 msgstr ""
-"Если выбраный метод - файловая система, установливайте только целевой каталог"
+"Если выбраный метод - файловая система, задавайте только целевой каталог"
 
 #: src/EBox/Model/RemoteSettings.pm:186
 msgid "User"
@@ -220,7 +224,7 @@ msgstr "Шифрование"
 #: src/EBox/Model/RemoteSettings.pm:201 src/EBox/Model/RemoteSettings.pm:275
 #: src/EBox/Model/RemoteSettings.pm:554
 msgid "Disabled"
-msgstr "Отключенный"
+msgstr "Отключено"
 
 #: src/EBox/Model/RemoteSettings.pm:206
 msgid "Symmetric Key"
@@ -228,7 +232,7 @@ msgstr "Симметричный ключ"
 
 #: src/EBox/Model/RemoteSettings.pm:222
 msgid "Full Backup Frequency"
-msgstr "Переодичность полного бэкапа"
+msgstr "Периодичность полного резервного копирования"
 
 #: src/EBox/Model/RemoteSettings.pm:227
 msgid "Only the first time"
@@ -252,15 +256,15 @@ msgstr "Ежемесячно"
 
 #: src/EBox/Model/RemoteSettings.pm:259
 msgid "Incremental Backup Frequency"
-msgstr "Переодичность инкреметальных бэкапов"
+msgstr "Периодичность инкрементного резервного копирования"
 
 #: src/EBox/Model/RemoteSettings.pm:285
 msgid "Backup process starts at"
-msgstr "Процесс бэкапа начат в"
+msgstr "Процесс резервного копирования запущен в"
 
 #: src/EBox/Model/RemoteSettings.pm:291
 msgid "Keep previous full copies"
-msgstr "Сохранить предыдущие полные копии"
+msgstr "Хранить предыдущие полные копии"
 
 #: src/EBox/Model/RemoteSettings.pm:296
 msgid "maximum number"
@@ -276,7 +280,7 @@ msgstr "Общие настройки"
 
 #: src/EBox/Model/RemoteSettings.pm:322
 msgid "General backup server configuration updated"
-msgstr "Общие настройки сервера бэкапа обновлены"
+msgstr "Общие настройки сервера резервного копирования обновлены"
 
 #: src/EBox/Model/RemoteSettings.pm:335
 msgid "on Monday"
@@ -377,17 +381,19 @@ msgid ""
 "the original encryption options. You must remove previous backup to change "
 "the encryption options"
 msgstr ""
-"Нельзя переключить настройки шифрования, когда есть в наличии бэкапы с "
-"текущими настройками шифрования. Для смены настроек шифрования необходимо "
-"удалить предыдущие бэкапы."
+"Нельзя изменить настройки шифрования, пока существуют резервные копии с "
+"текущими настройками. Вы должны удалить созданные ранее резервные копии для "
+"смены настроек шифрования"
 
 #: src/EBox/Model/RemoteSettings.pm:727
 msgid "The target parameter that must be like 'other.host[:port]/some_dir"
-msgstr "Параметр должен быть в формате 'другой.хост[:порт]/каталог'"
+msgstr ""
+"Место назначения должно быть представлено в формате "
+"'другой.хост[:порт]/каталог"
 
 #: src/EBox/Model/RemoteSettings.pm:738 src/EBox/Model/RemoteSettings.pm:771
 msgid "target"
-msgstr "цель"
+msgstr "место назначения"
 
 #: src/EBox/Model/RemoteSettings.pm:740
 msgid "Must be a like 'other.host[:port]/some_dir'"
@@ -410,7 +416,8 @@ msgid ""
 "The RSYNC target parameter that must be like 'other.host[:port]/"
 "relative_path' or 'other.host[:port]/absolute_path'"
 msgstr ""
-"RSYNC цель должна быть в формате 'другой.хост[:порт]/относительный_путь' или "
+"Место назначения RSYNC должно быть в формате "
+"'другой.хост[:порт]/относительный_путь' или "
 "'другой.хост[:порт]/абсолютный_путь'"
 
 #: src/EBox/Model/RemoteSettings.pm:774
@@ -433,12 +440,11 @@ msgstr "относительный путь"
 msgid ""
 "File system method needs a target parameter that should be a directory path"
 msgstr ""
-"Для метода \"файловая система\" необходимо указать путь целевого каталога "
-"размещения"
+"Для метода \"файловая система\" место назначения должно быть путем к каталогу"
 
 #: src/EBox/Model/RemoteSettings.pm:803 src/EBox/Model/RemoteSettings.pm:807
 msgid "Directory for backup"
-msgstr "Каталог для бэкапа"
+msgstr "Каталог для резервного копирования"
 
 #: src/EBox/Model/RemoteSettings.pm:810
 msgid "File exists and it is not a directory"
@@ -449,23 +455,24 @@ msgid ""
 "You must enable incremental backups when you enable 'Only the first time' "
 "full backup frequency"
 msgstr ""
-"При включении \"Только один раз\" необходимо включить инкрементальные бэкапы"
+"При включении периодичности полного резервного копирования 'Только в первый "
+"раз' необходимо включить инкрементное резервное копирование"
 
 #: src/EBox/Model/RemoteSettings.pm:844
 msgid "Incremental backup must be more frequent than full backup"
-msgstr "Инкрементальный бэкап должен производится чаще, чем полный"
+msgstr "Инкрементное резервное копирование должно производится чаще, чем полное"
 
 #: src/EBox/Model/RemoteSettings.pm:857 src/EBox/Model/RemoteSettings.pm:866
 msgid "General backup configuration updated."
-msgstr "Общие настройки бэкапа обновлены."
+msgstr "Общие настройки резервного копирования обновлены."
 
 #: src/EBox/Model/RemoteSettings.pm:858
 msgid ""
 "Backup method or target changed; you must save changes to refresh the "
 "backups list"
 msgstr ""
-"Метод или цели бэкапа изменены; необходимо сохранить изменения для "
-"обновления списка бэкапов"
+"Метод резервного копирования или место назначения изменены; необходимо "
+"сохранить изменения для обновления списка резервных копий"
 
 # аффтар АХТУНГА жжот :)
 #: src/EBox/Model/RemoteSettings.pm:868
@@ -473,7 +480,7 @@ msgid ""
 "SCP method selected. Remember to add your target host to the list of known "
 "hosts by SSH"
 msgstr ""
-"Выбран метод SCP . Не забудьте добавить  целевой хост к списку известных SSH "
+"Выбран метод SCP . Не забудьте добавить целевой хост к списку известных SSH "
 "хостов"
 
 #: src/EBox/Model/RemoteSettings.pm:1003
@@ -487,7 +494,7 @@ msgstr "Исключить или включить"
 
 #: src/EBox/Model/RemoteExcludes.pm:98
 msgid "Includes and Excludes"
-msgstr "Влючённые и исключённые"
+msgstr "Включённые и исключённые"
 
 #: src/EBox/Model/RemoteExcludes.pm:99
 msgid "exclude or include"
@@ -499,9 +506,9 @@ msgid ""
 "directory match is applied to all it contents. Files not explicitly excluded "
 "or included are included"
 msgstr ""
-"Файл или каталог включен или исключен в соответствии первым совпадением. "
+"Файл или каталог включен или исключен в соответствии с первым совпадением. "
 "Совпадение каталога применено ко всему его содержимому. Файлы каталога, "
-"включение или исключение которых не задано явно, включены."
+"включение или исключение которых не задано явно, включены"
 
 #: src/EBox/Model/RemoteExcludes.pm:123
 msgid "Exclude path"
@@ -521,7 +528,7 @@ msgstr "Исключить путь"
 
 #: src/EBox/Model/RemoteExcludes.pm:166
 msgid "exclude path regular expression"
-msgstr "исключать путь регулярного выражения"
+msgstr "регулярное выражение для исключения пути"
 
 #: src/EBox/Model/RemoteExcludes.pm:168
 msgid "Incorrect regular expression"
@@ -965,7 +972,7 @@ msgstr "инкрементальный"
 #: src/scripts/backup-tool:79
 #, perl-brace-format
 msgid "Zentyal {mode} backup succeeded"
-msgstr "{mode} бэкап Zentyal успешно завершён"
+msgstr "успешно завершено {mode} резервное копирование Zentyal "
 
 #: src/scripts/backup-tool:84
 #, perl-brace-format

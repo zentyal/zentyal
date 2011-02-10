@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: ebox-network 0.12\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-12-18 01:44+0100\n"
-"PO-Revision-Date: 2010-08-31 17:15+0200\n"
-"Last-Translator: josefa <jgonza24@xtec.cat>\n"
+"PO-Revision-Date: 2011-01-02 14:10+0200\n"
+"Last-Translator: Josefa <jgonza24@ieslaferreria.net>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
-"Language: \n"
+"Language: ca\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Pootle 1.1.0\n"
+"X-Generator: Pootle 2.1.4\n"
 
 #: src/EBox/Event/Watcher/Gateways.pm:163
 #, perl-brace-format
@@ -496,6 +496,8 @@ msgstr ""
 #: src/EBox/Model/Proxy.pm:129
 msgid "Proxy username and password will be visible by all system users."
 msgstr ""
+"El nom d'usuari i contrasenya pel proxy seran visibles per tots els usuaris "
+"del sistema."
 
 #: src/EBox/Model/MultiGwRulesOptions.pm:43
 msgid "Enable"
@@ -868,16 +870,14 @@ msgid "Network Diagnostic Tools"
 msgstr "Eines de Diagnòstic de Xarxa"
 
 #: src/EBox/CGI/VIface.pm:44
-#, fuzzy
 msgid "virtual interface action"
-msgstr "acció d'interfície virtual"
+msgstr "acció de la interfície virtual"
 
 #: src/EBox/CGI/VIface.pm:64 src/EBox/CGI/VIface.pm:70
 msgid "virtual interface name"
 msgstr "nom de la interfície virtual"
 
 #: src/templates/Wizard/interfaces.mas:7 src/templates/Wizard/network.mas:23
-#, fuzzy
 msgid "Network interfaces"
 msgstr "Interfícies de xarxa"
 

@@ -9,19 +9,20 @@ msgstr ""
 "developers@zentyal.org\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-12-18 01:45+0100\n"
-"PO-Revision-Date: 2008-09-01 08:33+0200\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2010-12-28 23:41+0200\n"
+"Last-Translator: Basas <vytautas@basas.lt>\n"
 "Language-Team: none\n"
-"Language: \n"
+"Language: lt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n"
-"%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n%"
+"100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Generator: Pootle 2.1.4\n"
 
 #: migration/0001_add_ipp_service.pl:117
 msgid "Cups printer server port"
-msgstr ""
+msgstr "Cups spaudininimo serverio jungtis"
 
 #: src/EBox/Model/CUPS.pm:142
 #, perl-brace-format
@@ -29,22 +30,24 @@ msgid ""
 "Prior to configure printers you need to enable the module in the {openref}"
 "Module Status{closeref}  section and save changes after that."
 msgstr ""
+"Norint konfigūruoti spausdintuvus turite įjungti modulį {openref}Modulio "
+"Statusas{closeref} ir išsaugoti nustatymus."
 
 #: src/EBox/Model/CUPS.pm:156
 msgid "Interface"
-msgstr ""
+msgstr "Sąsaja"
 
 #: src/EBox/Model/CUPS.pm:161
 msgid "Listen"
-msgstr ""
+msgstr "Klausyti"
 
 #: src/EBox/Model/CUPS.pm:170
 msgid "Select CUPS Interfaces"
-msgstr ""
+msgstr "Pasirinkti CUPS sąsają"
 
 #: src/EBox/Model/CUPS.pm:175
 msgid "interface"
-msgstr ""
+msgstr "sąsaja"
 
 #: src/EBox/Model/CUPS.pm:176
 msgid ""
@@ -52,6 +55,8 @@ msgid ""
 "account that is not probably a good idea to listen on external interfaces. "
 "If none are selected, it will be listening only at localhost"
 msgstr ""
+"Pasirinkite sąsają kurioje CUPS webserveris klausys. Pasirinkti išorinę "
+"sąsają yra nesiųloma. Jei bus nepasirinkta bus klausoma tik vietiniam mazge"
 
 #: src/EBox/Model/CUPS.pm:187
 #, perl-brace-format
@@ -59,64 +64,68 @@ msgid ""
 "To add or manage printers you have to use the {open_href}CUPS Web Interface"
 "{close_href}"
 msgstr ""
+"Įkelti ar tvarkyti spausdintuvus turite naudoti {open_href}CUPS Web "
+"Sąsają{close_href}"
 
 #: src/EBox/Printers.pm:41 src/EBox/Composite/General.pm:60
 msgid "Printer Sharing"
-msgstr ""
+msgstr "Spausdinuvo dalinimas"
 
 #: src/EBox/Printers.pm:56
 msgid "Create spool directory for printers"
-msgstr ""
+msgstr "Sukurkite kaupiamąją direktoriją spausdintuvams"
 
 #: src/EBox/Printers.pm:57
 msgid "Zentyal will create a spool directory under /var/spool/samba"
-msgstr ""
+msgstr "Zentyal sukurs kaupiamąją direktoriją /var/spool/samba"
 
 #: src/EBox/Printers.pm:62
 msgid "Create log table"
-msgstr ""
+msgstr "Sukurti žurnalo lentelę"
 
 #: src/EBox/Printers.pm:63
 msgid ""
 "Zentyal will create a new table into its log database to store printers logs"
 msgstr ""
+"Zentyal sukurs naują lentelę į žurnalo duomenų bazę saugoti spausdintuvų "
+"žurnalus"
 
 #: src/EBox/Printers.pm:79
 msgid "To configure cupsd"
-msgstr ""
+msgstr "Konfigūruoti cupsd"
 
 #: src/EBox/Printers.pm:251
 msgid "Job ID"
-msgstr ""
+msgstr "Darbo ID"
 
 #: src/EBox/Printers.pm:252
 msgid "Printer"
-msgstr ""
+msgstr "Spausdintuvas"
 
 #: src/EBox/Printers.pm:253
 msgid "User"
-msgstr ""
+msgstr "Vartotojas"
 
 #: src/EBox/Printers.pm:254
 msgid "Date"
-msgstr ""
+msgstr "Data"
 
 #: src/EBox/Printers.pm:255
 msgid "Event"
-msgstr ""
+msgstr "Įvykis"
 
 #: src/EBox/Printers.pm:259
 msgid "Queued"
-msgstr ""
+msgstr "Eilė"
 
 #: src/EBox/Printers.pm:260
 msgid "Completed"
-msgstr ""
+msgstr "Įvykdytas"
 
 #: src/EBox/Printers.pm:261
 msgid "Canceled"
-msgstr ""
+msgstr "Atšauktas"
 
 #: src/EBox/Printers.pm:265
 msgid "Printers"
-msgstr ""
+msgstr "Spausdintuvai"

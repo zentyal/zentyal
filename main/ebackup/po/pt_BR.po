@@ -8,13 +8,13 @@ msgstr ""
 "Project-Id-Version: ebox-ebackup 1.3.3\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2011-01-13 17:39+0100\n"
-"PO-Revision-Date: 2011-01-12 16:00+0200\n"
+"PO-Revision-Date: 2011-01-15 12:10+0200\n"
 "Last-Translator: Jorge <jorge@netsol.com.br>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
+"Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: pt_BR\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Generator: Pootle 2.1.4\n"
 
@@ -159,7 +159,7 @@ msgstr "Desconhecido"
 
 #: src/EBox/Model/RemoteStorage.pm:158
 msgid "Error connecting to backup server. Storage status unknown"
-msgstr ""
+msgstr "Erro conectando ao servidor backup. Status do storage desconhecido"
 
 #: src/EBox/Model/RemoteStorage.pm:174
 msgid "Used storage"
@@ -179,7 +179,7 @@ msgstr "Storage Remoto Usado"
 
 #: src/EBox/Model/RemoteStorage.pm:190 src/EBox/Model/RemoteStatus.pm:152
 msgid "backup"
-msgstr "Backup"
+msgstr "backup"
 
 #: src/EBox/Model/RemoteStatus.pm:121 src/EBox/Model/RemoteStatus.pm:151
 msgid "Remote Backup Status"
@@ -424,11 +424,11 @@ msgstr ""
 
 #: src/EBox/Model/RemoteSettings.pm:785
 msgid "absolute directory"
-msgstr "Diretório absoluto"
+msgstr "diretório absoluto"
 
 #: src/EBox/Model/RemoteSettings.pm:787
 msgid "relative directory"
-msgstr "Diretório relativo"
+msgstr "diretório relativo"
 
 #: src/EBox/Model/RemoteSettings.pm:798
 msgid ""
@@ -450,8 +450,8 @@ msgid ""
 "You must enable incremental backups when you enable 'Only the first time' "
 "full backup frequency"
 msgstr ""
-"Você deve habilitar backups incrementais quando você habilitar \"Somente a "
-"primeira vez\" em frequência do backup completo"
+"Você deve habilitar backups incrementais quando você habilitar 'Somente a "
+"primeira vez' em frequência do backup completo"
 
 #: src/EBox/Model/RemoteSettings.pm:844
 msgid "Incremental backup must be more frequent than full backup"
@@ -517,11 +517,11 @@ msgstr "Incluir Caminho"
 
 #: src/EBox/Model/RemoteExcludes.pm:153
 msgid "exclude path"
-msgstr "Excluir caminho"
+msgstr "excluir caminho"
 
 #: src/EBox/Model/RemoteExcludes.pm:166
 msgid "exclude path regular expression"
-msgstr "Excluir expressão regular do caminho"
+msgstr "excluir expressão regular do caminho"
 
 #: src/EBox/Model/RemoteExcludes.pm:168
 msgid "Incorrect regular expression"
@@ -529,7 +529,7 @@ msgstr "Expressão regular incorreta"
 
 #: src/EBox/Model/RemoteExcludes.pm:189
 msgid "include path"
-msgstr "Incluir caminho"
+msgstr "incluir caminho"
 
 #: src/EBox/Model/RemoteRestoreConf.pm:104
 msgid "Restore Zentyal configuration from backup"
@@ -636,7 +636,7 @@ msgstr "Módulo {mod} deve ser instalado"
 #: src/scripts/restore-tool:264
 #, perl-brace-format
 msgid "Module {mod} should be configured"
-msgstr "Módulo {mod}  deve ser configurado"
+msgstr "Módulo {mod} deve ser configurado"
 
 #: src/scripts/restore-tool:276
 msgid ""
@@ -795,7 +795,7 @@ msgid ""
 msgstr ""
 "Não foi possível recuperar pacote porque o ebox-remoteservices está "
 "desatualizado ou porque somente pacotes desatualizados estão disponíveis na "
-"nuvem. Pacotes exclusivos Zentyal Cloud não serão instalados"
+"nuvem. Pacotes exclusivos Zentyal Cloud  não serão instalados"
 
 #: src/scripts/restore-tool:867
 msgid ""
@@ -846,7 +846,7 @@ msgstr "Recebendo configuração"
 
 #: src/scripts/restore-tool:1105
 msgid "Retrieving backup collection status ..."
-msgstr "Recuperando o status do do backup ..."
+msgstr "Recuperando o status do backup ..."
 
 #: src/scripts/restore-tool:1134 src/scripts/restore-tool:1195
 #, perl-brace-format
@@ -945,7 +945,7 @@ msgstr ""
 
 #: src/scripts/restore-tool:1844
 msgid "Regenerating file list cache"
-msgstr ""
+msgstr "Regerando a lista de arquivos do cache"
 
 #: src/scripts/restore-tool:1911
 msgid "Zentyal Cloud User"
