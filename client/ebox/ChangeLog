@@ -1,4 +1,5 @@
 HEAD
+	+ Bug fix: Port selected during installation is correctly saved
 	+ Zentyal web UI is restarted if their dependencies are upgraded
 	+ Bug fix: Logs don't include unrelated information now
 	+ Add total in disk_usage report
