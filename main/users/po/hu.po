@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: ebox-usersandgroups 1.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-12-18 01:45+0100\n"
-"PO-Revision-Date: 2010-08-29 11:09+0200\n"
-"Last-Translator: Nagy Ákos <nagy.akos@akos.ro>\n"
+"PO-Revision-Date: 2011-01-14 13:06+0200\n"
+"Last-Translator: akoscomp <reg@pecska.ro>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
-"Language: \n"
+"Language: hu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n !=1);\n"
-"X-Generator: Pootle 1.1.0\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Pootle 2.1.4\n"
 
 #: migration/0001_usercorner_add_webserver_service.pl:69
 msgid "User Corner Web Server"
@@ -67,6 +67,8 @@ msgid ""
 "PAM can not be enabled on slave servers while acting as PDC. You can disable "
 "the PDC functionality at {ohref}File sharing options{chref}."
 msgstr ""
+"A PAM nem aktiválható a slave szerveren amennyiben az PDCként üzemel. A PAM "
+"funkciót a {ohref}Fájlmegosztás beállításai{chref} oldalon kikapcsolhatja."
 
 #: src/EBox/UsersAndGroups/Model/PAM.pm:125
 msgid "Enable PAM"
@@ -627,7 +629,7 @@ msgstr "figyelő port"
 
 #: src/EBox/UserCornerWebServer/Model/Settings.pm:137
 msgid "User Corner is not supported on slave servers."
-msgstr ""
+msgstr "A Felhasználói Oldal nem támogatott slave szervereken."
 
 #: src/EBox/CGI/AddUser.pm:46 src/EBox/CGI/ModifyUser.pm:47
 msgid "last name"

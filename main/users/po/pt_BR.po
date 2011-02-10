@@ -7,15 +7,15 @@ msgstr ""
 "Project-Id-Version: ebox-usersandgroups 0.12\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-12-18 01:45+0100\n"
-"PO-Revision-Date: 2010-08-30 16:18+0200\n"
-"Last-Translator: Jorge Eduardo Quintao <jorge@netsol.com.br>\n"
+"PO-Revision-Date: 2011-01-15 10:33+0200\n"
+"Last-Translator: Jorge <jorge@netsol.com.br>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
-"Language: \n"
+"Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Pootle 1.1.0\n"
+"X-Generator: Pootle 2.1.4\n"
 
 #: migration/0001_usercorner_add_webserver_service.pl:69
 msgid "User Corner Web Server"
@@ -67,6 +67,9 @@ msgid ""
 "PAM can not be enabled on slave servers while acting as PDC. You can disable "
 "the PDC functionality at {ohref}File sharing options{chref}."
 msgstr ""
+"PAM não pode estar habilitado em servidores slave atuando como PDC. Você "
+"pode desabilitar a funcionalidade PDC em {ohref}Opções de compartilhamento "
+"de arquivos{chref}."
 
 #: src/EBox/UsersAndGroups/Model/PAM.pm:125
 msgid "Enable PAM"
@@ -630,7 +633,7 @@ msgstr "porta de escuta"
 
 #: src/EBox/UserCornerWebServer/Model/Settings.pm:137
 msgid "User Corner is not supported on slave servers."
-msgstr ""
+msgstr "Área do usuário não é suportada em servidores slave."
 
 #: src/EBox/CGI/AddUser.pm:46 src/EBox/CGI/ModifyUser.pm:47
 msgid "last name"
@@ -802,7 +805,7 @@ msgstr "Entrar"
 # reserved word - palavra reservada
 #: src/templates/usercorner/headTitle.mas:11
 msgid "Logout"
-msgstr "Logout"
+msgstr "Sair"
 
 #: src/templates/ajax/tableUser.mas:88
 msgid "Add new"
