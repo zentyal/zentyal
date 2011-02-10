@@ -50,6 +50,7 @@ src/EBox/NTP/Makefile
 src/EBox/t/Makefile
 src/EBox/CGI/Makefile
 src/templates/Makefile
+src/scripts/Makefile
 stubs/Makefile
 tools/Makefile
 schemas/Makefile

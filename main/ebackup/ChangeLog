@@ -1,4 +1,6 @@
 HEAD
+	+ Renamed /usr/share/ebox-ebackup/ebox-remote-ebackup to
+	  /usr/share/zentyal-ebackup/backup-tool
 	+ Removed migrations and use new initial-setup
 	+ Added /var/tmp to default exclude paths
 	+ Remove skip of usercorner in restore-tool, now it is a package

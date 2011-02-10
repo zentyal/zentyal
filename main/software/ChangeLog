@@ -1,4 +1,8 @@
 HEAD
+	+ Replaced ebox-apt-update and ebox-apt-remove with apt-wrapper
+	+ Cron script ebox-software renamed to auto-updater
+	+ ebox-update-packages and ebox-remove-packages renamed to
+	  install-packages and remove-oackages
 	+ Remove obsolete migrations
 	+ Reviewed installation slides text
 2.0.10

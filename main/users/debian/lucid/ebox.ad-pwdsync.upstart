@@ -1,2 +1,2 @@
-exec /usr/share/zentyal-users/ebox-pwdsync-server
+exec /usr/share/zentyal-users/pwdsync-server
 respawn

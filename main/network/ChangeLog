@@ -1,4 +1,5 @@
 HEAD
+	+ Removed ebox- prefix from src/scripts/*
 	+ Removed unnecesary call to isReadOnly in syncRows
 	+ Move ebox-netcfg-import to importInterfacesFile method
 	+ Remove obsolete migration

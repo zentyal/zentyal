@@ -51,6 +51,7 @@ src/EBox/WebServer/Makefile
 src/EBox/WebServer/PlatformPath.pm
 src/EBox/WebServer/Composite/Makefile
 src/EBox/WebServer/Model/Makefile
+src/scripts/Makefile
 schemas/Makefile
 stubs/Makefile
 tools/Makefile

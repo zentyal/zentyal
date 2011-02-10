@@ -33,7 +33,7 @@ use constant DDCLIENT_FILE => '/etc/ddclient.conf';
 use constant DEFAULT_DDCLIENT_FILE => '/etc/default/ddclient';
 use constant RESOLV_FILE => '/etc/resolv.conf';
 use constant DHCLIENTCONF_FILE => '/etc/dhcp3/dhclient.conf';
-use constant PPP_PROVIDER_FILE => '/etc/ppp/peers/ebox-ppp-';
+use constant PPP_PROVIDER_FILE => '/etc/ppp/peers/zentyal-ppp-';
 use constant CHAP_SECRETS_FILE => '/etc/ppp/chap-secrets';
 use constant PAP_SECRETS_FILE => '/etc/ppp/pap-secrets';
 use constant IFUP_LOCK_FILE => '/var/lib/zentyal/tmp/ifup.lock';
@@ -1274,7 +1274,7 @@ sub setIfaceStatic # (interface, address, netmask, external, force)
     my @observers = @{$global->modInstancesOfType('EBox::NetworkObserver')};
 
     if ( defined ( $ext ) ){
-      # External attribute is not set by ebox-netcfg-import script
+      # External attribute is not set by netcfg-import script
       if ($ext != $self->ifaceIsExternal($name) ) {
         # Tell observers the interface way has changed
         foreach my $obs (@observers) {
@@ -1401,7 +1401,7 @@ sub setIfacePPP # (interface, ppp_user, ppp_pass, external, force)
     my @observers = @{$global->modInstancesOfType('EBox::NetworkObserver')};
 
     if ( defined ( $ext ) ){
-      # External attribute is not set by ebox-netcfg-import script
+      # External attribute is not set by netcfg-import script
       if ($ext != $self->ifaceIsExternal($name) ) {
         # Tell observers the interface way has changed
         foreach my $obs (@observers) {
@@ -2605,7 +2605,7 @@ sub generateInterfaces
 
         my $name = $ifname;
         if ($method eq 'ppp') {
-            $name = "ebox-ppp-$ifname";
+            $name = "zentyal-ppp-$ifname";
             print IFACES "auto $name\n";
         }
 
@@ -2770,7 +2770,7 @@ sub _multigwRoutes
     my $routers = $self->gatewaysWithMac();
     my @cmds; # commands to run
 
-    push(@cmds, EBox::Config::share() . 'zentyal-network/ebox-flush-fwmarks');
+    push(@cmds, EBox::Config::share() . 'zentyal-network/flush-fwmarks');
     my %interfaces;
 
     for my $router ( reverse @{$routers} ) {
@@ -2915,7 +2915,7 @@ sub _preSetConf
                 if ($self->ifaceExists($if)) {
                     my $ifname = $if;
                     if ($self->ifaceMethod($if) eq 'ppp') {
-                        $ifname = "ebox-ppp-$if";
+                        $ifname = "zentyal-ppp-$if";
                     } else {
                         push (@cmds, "/sbin/ip address flush label $if");
                         push (@cmds, "/sbin/ip address flush label $if:*");
@@ -2981,7 +2981,7 @@ sub _enforceServiceState
     foreach my $iface (@{$iflist}) {
         if ($self->_hasChanged($iface) or $restart) {
             if ($self->ifaceMethod($iface) eq 'ppp') {
-                $iface = "ebox-ppp-$iface";
+                $iface = "zentyal-ppp-$iface";
             }
             push(@ifups, $iface);
         }
@@ -2990,7 +2990,7 @@ sub _enforceServiceState
     open(my $fd, '>', IFUP_LOCK_FILE); close($fd);
     foreach my $iface (@ifups) {
         EBox::Sudo::root(EBox::Config::pkgdata() .
-                         "ebox-unblock-exec /sbin/ifup --force -i $file $iface");
+                         "unblock-exec /sbin/ifup --force -i $file $iface");
         unless ($self->isReadOnly()) {
             $self->_unsetChanged($iface);
         }
@@ -3062,7 +3062,7 @@ sub _stopService
         try {
             my $ifname = $if;
             if ($self->ifaceMethod($if) eq 'ppp') {
-                $ifname = "ebox-ppp-$if";
+                $ifname = "zentyal-ppp-$if";
             } else {
                 push (@cmds, "/sbin/ip address flush label $if");
                 push (@cmds, "/sbin/ip address flush label $if:*");

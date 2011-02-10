@@ -206,7 +206,7 @@ sub _rootError
         if ($errorText =~ m/^sudo:/m) {
             throw EBox::Exceptions::Sudo::Wrapper("$sudocmd raised the following sudo error: $errorText");
         } elsif ($errorText =~ m/is not in the sudoers file/m) {
-            throw EBox::Exceptions::Sudo::Wrapper("$sudocmd failed because either the current user (EUID $>) is not in sudoers files or it has incorrects settings on it. Running ebox-sudoers-friendly maybe can fix this problem");
+            throw EBox::Exceptions::Sudo::Wrapper("$sudocmd failed because either the current user (EUID $>) is not in sudoers files or it has incorrects settings on it. Running /usr/share/zentyal/sudoers-friendly maybe can fix this problem");
         }
     }
     throw EBox::Exceptions::Sudo::Command(cmd => $cmd, output => $output, error => $error,  exitValue => $exitValue)

@@ -2,7 +2,7 @@
 
 SUBDIRS = installer
 
-pkgdata_SCRIPTS = initial-setup enable-module
+pkgdata_SCRIPTS =
 
 MAINTAINERCLEANFILES = Makefile.in
 

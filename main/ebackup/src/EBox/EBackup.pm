@@ -48,7 +48,7 @@ use Fcntl qw(:flock);
 use EBox::Exceptions::MissingArgument;
 
 use constant EBACKUP_CONF_FILE => EBox::Config::etc() . 'ebackup.conf';
-use constant DUPLICITY_WRAPPER => EBox::Config::share() . '/zentyal-ebackup/ebox-duplicity-wrapper';
+use constant DUPLICITY_WRAPPER => EBox::Config::share() . '/zentyal-ebackup/duplicity-wrapper';
 use constant LOCK_FILE     => EBox::Config::tmp() . 'ebox-ebackup-lock';
 
 
@@ -830,7 +830,7 @@ sub setRemoteBackupCron
     my @lines;
     my $strings = $self->model('RemoteSettings')->crontabStrings();
 
-    my $script = EBox::Config::share() . 'zentyal-ebackup/ebox-remote-ebackup';
+    my $script = EBox::Config::share() . 'zentyal-ebackup/backup-tool';
 
     my $fullList = $strings->{full};
     if ($fullList) {
@@ -1202,7 +1202,8 @@ sub backupProcessUnlock
 #
 # Warning:
 # the results cache will fail if more space is taken or free without using
-# ebox-remote-ebackup, this will be very possible with file storage
+# backup-tool, this will be very possible with file storage
+#
 sub storageUsage
 {
     my ($self) = @_;

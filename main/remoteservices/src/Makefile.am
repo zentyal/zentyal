@@ -1,5 +1,5 @@
 ## Process this file with automake to produce Makefile.in
 
-SUBDIRS =  EBox libexec templates
+SUBDIRS = EBox scripts templates
 
 MAINTAINERCLEANFILES = Makefile.in

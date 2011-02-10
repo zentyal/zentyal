@@ -7,7 +7,7 @@ include debian/cdbs/ebox.mk
 DEB_DH_INSTALLINIT_ARGS = -pzentyal --no-start --name zentyal
 
 install/zentyal-core::
-	test -e debian/zentyal.init || ln -s ../tools/zentyal.init.d debian/zentyal.init
+	test -e debian/zentyal.init || ln -s ../src/scripts/zentyal.init.d debian/zentyal.init
 	rm -f $(CURDIR)/debian/ebox/var/lib/zentyal/conf/ebox.passwd
 	install -m 644 $(CURDIR)/debian/ebox.cron.hourly $(CURDIR)/debian/zentyal-core/etc/cron.hourly/ebox
 

@@ -50,6 +50,7 @@ src/EBox/Printers/Makefile
 src/EBox/Printers/t/Makefile
 src/EBox/Model/Makefile
 src/EBox/Composite/Makefile
+src/scripts/Makefile
 stubs/Makefile
 schemas/Makefile
 tools/Makefile

@@ -1,9 +1,7 @@
 ## Process this file with automake to produce Makefile.in
 
-pkgdata_SCRIPTS = ebox-remote-ebackup ebox-duplicity-wrapper restore-logs restore-tool backup-cleanup
-
-pkgdata_DATA = server-fingerprints
+pkgdata_SCRIPTS =
 
 MAINTAINERCLEANFILES = Makefile.in
 
-EXTRA_DIST = $(pkgdata_SCRIPTS) $(pkgdata_DATA)
+EXTRA_DIST = $(pkgdata_SCRIPTS)

@@ -496,7 +496,7 @@ sub confDir
 #       interface      - interface under the rule is given
 #
 #       service - String the service identifier stored at
-#       ebox-services module containing the inet protocol and source
+#       zentyal-services module containing the inet protocol and source
 #       and destination port numbers *(Optional)*
 #
 #       source - the rule source. It could be an

@@ -43,7 +43,7 @@ use constant {
     LOCK_FILE      => EBox::Config::tmp() . 'ebox-software-lock',
     LOCKED_BY_KEY  => 'lockedBy',
     LOCKER_PID_KEY => 'lockerPid',
-    CRON_FILE      => '/etc/cron.d/ebox-software',
+    CRON_FILE      => '/etc/cron.d/zentyal-auto-updater',
 };
 
 # Group: Public methods
@@ -157,7 +157,7 @@ sub installPkgs # (@pkgs)
         return;
     }
 
-    my $executable = EBox::Config::share() . "/zentyal-software/ebox-update-packages @pkgs";
+    my $executable = EBox::Config::share() . "/zentyal-software/install-packages @pkgs";
     my $progress = EBox::ProgressIndicator->create(
         totalTicks => scalar @pkgs,
         executable => $executable,
@@ -196,7 +196,7 @@ sub removePkgs # (@pkgs)
     }
 
     my $executable = EBox::Config::share() .
-      "/zentyal-software/ebox-remove-packages @pkgs";
+      "/zentyal-software/remove-packages @pkgs";
     my $progress = EBox::ProgressIndicator->create(
             totalTicks => scalar @pkgs,
             executable => $executable,
@@ -306,13 +306,7 @@ sub listUpgradablePkgs
 sub _excludeEBoxPackages
 {
     my ($self, $list) = @_;
-    my @withoutEBox = grep {
-        my $name = $_->{'name'};
-        ($name ne 'libebox')
-        and ($name ne 'ebox')
-        and ($name !~ /^ebox-/)
-        and ($name !~ /^zentyal-/)
-      } @{ $list };
+    my @withoutEBox = grep { $_->{'name'} !~ /^zentyal.*/ } @{ $list };
     return \@withoutEBox;
 }
 
@@ -628,7 +622,7 @@ sub menu
 
 # Method: lock
 #
-#      Lock the ebox-software module to work
+#      Lock the zentyal-software module to work
 #
 # Parameters:
 #
@@ -658,7 +652,7 @@ sub lock
 
 # Method: unlock
 #
-#      Unlock the ebox-software module
+#      Unlock the zentyal-software module
 #
 # Exceptions:
 #

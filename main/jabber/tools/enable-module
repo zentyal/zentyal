@@ -1,6 +1,0 @@
-#!/bin/bash
-
-# update current ldap database
-/usr/share/zentyal-jabber/ebox-jabber-ldap update
-
-exit 0

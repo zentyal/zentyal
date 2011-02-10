@@ -64,10 +64,7 @@ src/templates/Makefile
 src/templates/Wizard/Makefile
 migration/Makefile
 schemas/Makefile
-src/libexec/Makefile
-src/libexec/ebox-exit
-src/libexec/ebox-ppp-up
-src/libexec/ebox-ppp-down
+src/scripts/Makefile
 conf/Makefile
 stubs/Makefile
 tools/Makefile

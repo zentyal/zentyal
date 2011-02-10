@@ -50,6 +50,7 @@ src/EBox/Asterisk/Makefile
 src/EBox/Model/Makefile
 src/EBox/Composite/Makefile
 src/EBox/CGI/Makefile
+src/scripts/Makefile
 schemas/Makefile
 stubs/Makefile
 tools/Makefile

@@ -47,6 +47,7 @@ src/Makefile
 src/EBox/Makefile
 src/EBox/Model/Makefile
 src/EBox/Composite/Makefile
+src/scripts/Makefile
 schemas/Makefile
 stubs/Makefile
 tools/Makefile

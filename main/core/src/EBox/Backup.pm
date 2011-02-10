@@ -676,7 +676,7 @@ sub prepareMakeBackup
         $scriptParams .= ' --bug-report';
     }
 
-    my $makeBackupScript = EBox::Config::pkgdata() . 'ebox-make-backup';
+    my $makeBackupScript = EBox::Config::pkgdata() . 'make-backup';
     $makeBackupScript    .=  $scriptParams;
 
     my $global     = EBox::Global->getInstance();
@@ -979,7 +979,7 @@ sub prepareRestoreBackup
 {
     my ($self, $file, %options) = @_;
 
-    my $restoreBackupScript = EBox::Config::pkgdata() . 'ebox-restore-backup';
+    my $restoreBackupScript = EBox::Config::pkgdata() . 'restore-backup';
 
     my $execOptions = '';
 
@@ -1315,7 +1315,7 @@ sub _migratePackage
     my $migrationdir = EBox::Config::share() . "/$package/migration";
 
     if (-d $migrationdir) {
-        my $migration = EBox::Config::pkgdata() . '/ebox-migrate';
+        my $migration = EBox::Config::pkgdata() . '/migrate';
         try {
             EBox::Sudo::command("$migration $migrationdir");
         } catch EBox::Exceptions::Internal with {

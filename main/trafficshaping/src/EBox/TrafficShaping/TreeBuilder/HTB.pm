@@ -177,7 +177,7 @@ sub buildRoot # (defaultClass, rate)
 #
 # Parameters:
 #
-#    service        - String the service identifier related to ebox-services module
+#    service        - String the service identifier related to zentyal-services module
 #                     *(Optional)*
 #    source         - <EBox::Types::IPAddr> or <EBox::Types::MACAddr> the source
 #                     *(Optional)*

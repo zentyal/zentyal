@@ -46,6 +46,7 @@ AC_CONFIG_FILES([
 migration/Makefile
 src/Makefile
 src/templates/Makefile
+src/scripts/Makefile
 src/EBox/Makefile
 src/EBox/CGI/Makefile
 src/EBox/Collectd/Makefile

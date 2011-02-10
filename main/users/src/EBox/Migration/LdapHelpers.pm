@@ -169,7 +169,7 @@ sub updateSchema
     push (@commands,
         "rm -f /etc/ldap/slapd.d/cn=config/cn=schema/cn=$schema.ldif");
     push (@commands,
-        "cp /usr/share/ebox-$module/$schemaname.ldif " .
+        "cp /usr/share/zentyal-$module/$schemaname.ldif " .
         "/etc/ldap/slapd.d/cn=config/cn=schema/cn=$schema.ldif");
     push (@commands,
         "sed -i -e 's/,cn=schema,cn=config//' " .

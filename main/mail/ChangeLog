@@ -1,4 +1,5 @@
 HEAD
+	+ Delete deprecated/unused _isCourierObject and _accountAddOn methods
 	+ Removed obsolete migrations and use new initial-setup
 	+ Bugfix: Fixed some problems with size parsing in logs
 	+ Bugfix: Remove a warning in consolidation of mail messages

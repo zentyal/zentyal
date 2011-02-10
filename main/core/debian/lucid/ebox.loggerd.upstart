@@ -1,2 +1,2 @@
-exec /usr/share/zentyal/ebox-loggerd
+exec /usr/share/zentyal/loggerd
 respawn

@@ -56,7 +56,7 @@ src/EBox/MailFilter/Model/Report/Makefile
 src/EBox/MailFilter/Composite/Makefile
 src/EBox/MailFilter/Composite/Report/Makefile
 src/EBox/MailFilter/LogHelper/Makefile
-src/libexec/Makefile
+src/scripts/Makefile
 schemas/Makefile
 stubs/Makefile
 stubs/t/Makefile

@@ -56,6 +56,7 @@ src/EBox/CGI/Makefile
 src/templates/Makefile
 src/templates/ajax/Makefile
 src/templates/ajax/viewer/Makefile
+src/scripts/Makefile
 schemas/Makefile
 tools/Makefile
 schemas/sql/Makefile

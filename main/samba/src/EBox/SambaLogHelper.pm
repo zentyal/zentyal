@@ -26,10 +26,10 @@ use constant SAMBA_LOGFILE => '/var/log/syslog';
 
 sub new
 {
-        my $class = shift;
-        my $self = {};
-        bless($self, $class);
-        return $self;
+    my $class = shift;
+    my $self = {};
+    bless($self, $class);
+    return $self;
 }
 
 sub domain {
@@ -39,29 +39,29 @@ sub domain {
 
 # Method: logFiles
 #
-#	This function must return the file or files to be read from.
+#   This function must return the file or files to be read from.
 #
 # Returns:
 #
-#	array ref - containing the whole paths
+#   array ref - containing the whole paths
 #
 sub logFiles
 {
-	return [SAMBA_LOGFILE];
+    return [SAMBA_LOGFILE];
 }
 
 # Method: processLine
 #
-#	This fucntion will be run every time a new line is recieved in
-#	the associated file. You must parse the line, and generate
-#	the messages which will be logged to ebox through an object
-#	implementing EBox::AbstractLogger interface.
+#   This fucntion will be run every time a new line is recieved in
+#   the associated file. You must parse the line, and generate
+#   the messages which will be logged to ebox through an object
+#   implementing EBox::AbstractLogger interface.
 #
 # Parameters:
 #
-#	file - file name
-#	line - string containing the log line
-#	dbengine- An instance of class implemeting AbstractDBEngineinterface
+#   file - file name
+#   line - string containing the log line
+#   dbengine- An instance of class implemeting AbstractDBEngineinterface
 #
 sub processLine # (file, line, logger)
 {

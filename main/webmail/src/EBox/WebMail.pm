@@ -438,7 +438,7 @@ sub _setWebServerConf
 {
     my ($self) = @_;
 
-    # Delete all possible ebox-webmail configuration
+    # Delete all possible zentyal-webmail configuration
     my @cmd = ();
     push(@cmd, 'rm -f ' . HTTPD_WEBMAIL_DIR);
     my $vHostPattern = EBox::WebServer::SITES_AVAILABLE_DIR . 'user-' .

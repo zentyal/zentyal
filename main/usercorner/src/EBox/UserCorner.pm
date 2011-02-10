@@ -123,6 +123,9 @@ sub initialSetup
 
         $self->setPort($port);
     }
+
+    # Execute initial-setup script
+    $self->SUPER::initialSetup($version);
 }
 
 # Method: enableActions
@@ -267,6 +270,5 @@ sub certificates
             },
            ];
 }
-
 
 1;

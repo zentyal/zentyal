@@ -66,7 +66,7 @@ sub serverroot
 
 sub initd
 {
-    return '/usr/share/zentyal/ebox-apache2ctl';
+    return '/usr/share/zentyal/apache2ctl';
 }
 
 # Method: cleanupForExec
@@ -112,11 +112,11 @@ sub _daemon # (action)
     }
 
     if ($action eq 'stop') {
-        EBox::Sudo::root('/usr/share/zentyal/ebox-apache2ctl stop');
+        EBox::Sudo::root('/usr/share/zentyal/apache2ctl stop');
     } elsif ($action eq 'start') {
-        EBox::Sudo::root('/usr/share/zentyal/ebox-apache2ctl start');
+        EBox::Sudo::root('/usr/share/zentyal/apache2ctl start');
     } elsif ($action eq 'restart') {
-        my $restartCmd = EBox::Config::pkgdata . 'ebox-apache-restart';
+        my $restartCmd = EBox::Config::pkgdata . 'apache-restart';
         if ($fork) {
             exec($restartCmd);
         }
@@ -252,7 +252,7 @@ sub _changeHostname
 
     if ($hostname) {
         EBox::Sudo::root(EBox::Config::share() .
-                         "zentyal/ebox-change-hostname $hostname");
+                         "zentyal/change-hostname $hostname");
         $self->set_string('hostname', '');
     }
 }

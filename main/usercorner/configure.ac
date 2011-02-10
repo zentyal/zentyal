@@ -54,6 +54,7 @@ src/EBox/UserCorner/CGI/Logout/Makefile
 src/EBox/UserCorner/Model/Makefile
 src/templates/Makefile
 src/templates/login/Makefile
+src/scripts/Makefile
 schemas/Makefile
 stubs/Makefile
 tools/Makefile

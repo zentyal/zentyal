@@ -1,6 +1,6 @@
 ## Process this file with automake to produce Makefile.in
 
-pkgdata_SCRIPTS = initial-setup enable-module manage-services
+pkgdata_SCRIPTS =
 
 MAINTAINERCLEANFILES = Makefile.in
 

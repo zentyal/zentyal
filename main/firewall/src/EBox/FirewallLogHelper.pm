@@ -60,7 +60,7 @@ sub logFiles
 # Parameters:
 #
 #	file - file name
-# 	line - string containing the log line
+#	line - string containing the log line
 #	dbengine- An instance of class implemeting AbstractDBEngineinterface
 #
 sub processLine # (file, line, logger)

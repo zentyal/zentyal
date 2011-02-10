@@ -1,5 +1,5 @@
 MAINTAINERCLEANFILES = Makefile.in
 
-pkgdata_SCRIPTS = initial-setup enable-module
+pkgdata_SCRIPTS =
 
 EXTRA_DIST = $(pkgdata_SCRIPTS)

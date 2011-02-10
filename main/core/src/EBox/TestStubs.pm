@@ -17,7 +17,7 @@ package EBox::TestStubs;
 use base 'Exporter';
 # package: EBox::TestStubs
 #
-#  this package is the global facade to all ebox-base test stubs
+#  this package is the global facade to all zentyal-base test stubs
 #
 # warning:
 # do NOT confuse with EBox::TestStub (this package is the teststub for the -package- EBox)

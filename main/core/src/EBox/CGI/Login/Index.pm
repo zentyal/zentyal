@@ -102,7 +102,7 @@ sub _requestDestination
 
   # redirect to config page on first install
   my $file = '/var/lib/zentyal/.first';
-  if ( -f $file ) {
+  if (-f $file and EBox::Global->modExists('software')) {
      return $FIRSTTIME_DESTINATION;
   }
 

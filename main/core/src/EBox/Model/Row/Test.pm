@@ -63,11 +63,11 @@ sub deviantElementsTest : Test(8)
     dies_ok {
         my $badElement = new Test::MockObject();
         $row->addElement($badElement);
-    } 'Expecting fail when trying to add a non ebox-type element';
+    } 'Expecting fail when trying to add a non zentyal-type element';
     dies_ok {
         my $badElement = new EBox::Types::Abstract();
         $row->addElement($badElement);
-    } 'Expecting fail when trying to add a ebox-type element without fieldName';
+    } 'Expecting fail when trying to add a zentyal-type element without fieldName';
 
     $self->_populateRow($row);
     dies_ok {

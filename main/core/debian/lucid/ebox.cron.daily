@@ -1,12 +1,12 @@
 #!/bin/sh
 
 # Check latest version
-URL="http://update.zentyal.org/last-2.0.txt"
+URL="http://update.zentyal.org/last-2.1.txt"
 TIMEOUT="300"
 DEST="/var/lib/zentyal/latestversion"
 wget --timeout $TIMEOUT $URL -O $DEST >/dev/null 2>&1
 
 # Gather reporting info
-/usr/share/zentyal/ebox-gather-reportinfo
+/usr/share/zentyal/gather-reportinfo
 # Consolidate this reporting info
-/usr/share/zentyal/ebox-consolidate-reportinfo
+/usr/share/zentyal/consolidate-reportinfo

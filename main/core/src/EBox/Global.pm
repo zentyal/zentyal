@@ -487,7 +487,7 @@ sub _prepareActionScript
 {
     my ($self, $action, $totalTicks) = @_;
 
-    my $script =   EBox::Config::pkgdata() . 'ebox-global-action';
+    my $script =   EBox::Config::pkgdata() . 'global-action';
     $script .= " --action $action";
 
     my $progressIndicator =  EBox::ProgressIndicator->create(

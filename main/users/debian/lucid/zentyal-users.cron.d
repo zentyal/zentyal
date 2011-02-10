@@ -1,4 +1,4 @@
-# /etc/cron.d/ebox-usersandgroups
+# /etc/cron.d/zentyal-users
 
 SHELL=/bin/sh
 PATH=/usr/bin:/bin

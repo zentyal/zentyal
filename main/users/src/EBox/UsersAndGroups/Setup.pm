@@ -31,7 +31,7 @@ use EBox::Exceptions::Internal;
 use EBox::Exceptions::Sudo::Command;
 use EBox::Model::ModelManager;
 
-use constant LDAPCONFDIR    => '/etc/ldap/';
+use constant LDAPCONFDIR => '/etc/ldap/';
 
 sub new_pass
 {

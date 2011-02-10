@@ -1,0 +1,21 @@
+#!/usr/bin/perl -w
+
+use strict;
+use warnings;
+
+use EBox;
+use EBox::Backup;
+
+EBox::init();
+
+my $dst = '/tmp/zentyal-configuration-report.tar';
+
+my $src = EBox::Backup->makeBugReport();
+system "mv -f $src $dst";
+if ($? != 0) {
+    die "$!";
+}
+
+print "Configuration report file generated: $dst\n";
+
+1;

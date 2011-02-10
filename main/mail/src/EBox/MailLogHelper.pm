@@ -57,7 +57,8 @@ sub domain
     return 'ebox-mail';
 }
 
-sub logFiles {
+sub logFiles
+{
     return [MAILOG];
 }
 

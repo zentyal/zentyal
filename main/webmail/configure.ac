@@ -49,6 +49,7 @@ src/EBox/Makefile
 src/EBox/WebMail/Makefile
 src/EBox/WebMail/Model/Makefile
 src/EBox/WebMail/Composite/Makefile
+src/scripts/Makefile
 schemas/Makefile
 stubs/Makefile
 tools/Makefile

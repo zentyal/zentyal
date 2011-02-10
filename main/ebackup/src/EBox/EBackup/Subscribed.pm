@@ -29,7 +29,7 @@ use File::Slurp;
 use Perl6::Junction qw(none);
 use YAML::Tiny;
 
-use constant FINGERPRINT_FILE => EBox::Config::share() . 'ebox-ebackup/server-fingerprints';
+use constant FINGERPRINT_FILE => EBox::Config::share() . 'zentyal-ebackup/server-fingerprints';
 
 # Method: isSubscribed
 #

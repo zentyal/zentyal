@@ -8,13 +8,13 @@ SHELL=/bin/sh
 PATH=/usr/bin:/bin
 
 # Run the cron jobs sent by Zentyal Cloud
-0-59/10 * * * * root /usr/share/zentyal/ebox-cronjob-runner >> /dev/null 2>&1
+0-59/10 * * * * root /usr/share/zentyal-remoteservices/cronjob-runner >> /dev/null 2>&1
 # Get the new cron jobs from Zentyal Clod
-<% $mins[0] %> <% $hours[0] %> * * * root /usr/share/zentyal/ebox-get-cronjobs >> /dev/null 2>&1
+<% $mins[0] %> <% $hours[0] %> * * * root /usr/share/zentyal-remoteservices/get-cronjobs >> /dev/null 2>&1
 # Run the automatic backup
-<% $mins[1] %> <% $hours[1] %> * * * root /usr/share/zentyal/ebox-automatic-conf-backup > /dev/null 2>&1
+<% $mins[1] %> <% $hours[1] %> * * * root /usr/share/zentyal-remoteservices/automatic-conf-backup > /dev/null 2>&1
 # Get a new bundle if available from Zentyal Cloud each week
-45 4 * * 7 root /usr/share/zentyal/ebox-reload-bundle > /dev/null 2>&1
+45 4 * * 7 root /usr/share/zentyal-remoteservices/reload-bundle > /dev/null 2>&1
 # Check subscription levels and add-ons once a week
 55 4 * * 7 root /usr/share/zentyal-remoteservices/subs-level > /dev/null 2>&1
 # Perform the security audit once a week

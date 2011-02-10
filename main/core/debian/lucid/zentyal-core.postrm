@@ -14,6 +14,9 @@ case "$1" in
 
         # delete Zentyal logs
         rm -rf /var/log/zentyal
+
+        # delete ebox user
+        deluser --remove-home ebox
         ;;
 esac
 

@@ -34,7 +34,7 @@ sub creationTest
 {
     my @validDomainNames = (
                             'monos.org',
-                            'hq.ebox-platform.com',
+                            'foo.zentyal.com',
                             '347.net',
                            );
 

@@ -80,13 +80,13 @@ AC_CONFIG_FILES([
 stubs/apache.mas
 stubs/Makefile
 stubs/css/Makefile
-tools/Makefile
 schemas/sql/Makefile
 schemas/sql/period/Makefile
-tools/cron/Makefile
 doc/Makefile
+tools/Makefile
 src/Makefile
-src/libexec/Makefile
+src/scripts/Makefile
+src/scripts/cron/Makefile
 src/templates/ajax/Makefile
 src/templates/ajax/setter/Makefile
 src/templates/ajax/viewer/Makefile

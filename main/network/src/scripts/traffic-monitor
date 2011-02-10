@@ -1,0 +1,185 @@
+#!/usr/bin/perl
+
+# Copyright (C) 2008-2010 eBox Technologies S.L.
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License, version 2, as
+# published by the Free Software Foundation.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+
+use strict;
+use warnings;
+
+use EBox::Config;
+use EBox::AbstractDaemon;
+use POSIX qw(setsid);
+use Proc::ProcessTable;
+
+use constant {
+  JNETTOP_PATH => '/usr/sbin/jnettop',
+  JNETTOP_FORMAT => q{\$proto\$,\$src\$,\$srcport\$,\$dst\$,\$dstport\$,\$totalbps\$},
+
+  LOGGER_PATH =>  EBox::Config::libexec() . 'traffic-monitor-logger',
+  DAEMON_NAME => 'traffic-monitor',
+};
+
+
+my $LOGGER;  # logger daemon process file handler
+
+
+
+sub _checkEnvironment
+{
+  if ( $> != 0) { # $> means EUID
+    die 'only superuser can use this script';
+  }
+  
+  if (not -x JNETTOP_PATH) {
+    die 'cannot found jnettop program at ' . JNETTOP_PATH;
+  }
+  
+  
+  if (not -x LOGGER_PATH) {
+    die 'cannot found logger program at ' . LOGGER_PATH;
+  }
+
+}
+
+sub _checkParams
+{
+  my (%params) = @_;
+  if (not exists $params{time}) {
+    die 'time parameter not found';
+  }
+  elsif ($params{time} <= 0) {
+    die 'time parameter must be greater than zero';
+  }
+
+
+  if (not exists $params{conffile}) {
+    die 'misssing conffile parameter';
+  }
+}
+
+sub _jnettopCmd
+{
+  my (%params) = @_;
+
+  my $iface = $params{iface};
+
+  my $jnettopCmd = JNETTOP_PATH . ' --display text -p';
+
+  $jnettopCmd .= ' --local-aggr port ' ;
+
+  if ($iface) {
+    
+    $jnettopCmd .= " -i $iface";
+  }
+
+  my $time = $params{time};
+
+  $jnettopCmd .= " -t $time";
+
+  my $cf = $params{conffile};
+  $jnettopCmd .= " -f $cf ";
+
+  
+  $jnettopCmd .= ' --format ' . JNETTOP_FORMAT;
+
+
+  return $jnettopCmd;
+}
+
+sub _daemonize
+{
+    my $daemon = EBox::AbstractDaemon->new(name => DAEMON_NAME);
+
+    if ($daemon->pid()) {
+        # Check if the process is really running
+        if ( _isRunning($daemon->pid()) ) {
+            die 'already running';
+        } else {
+            # remove pid file
+            my $pidFile = EBox::AbstractDaemon->pidFile(DAEMON_NAME);
+            system "rm -f $pidFile";
+        }
+    }
+
+    $daemon->init();
+
+    $SIG{TERM} = $SIG{HUP} = $SIG{INT} = \&terminate;
+}
+
+# Check if the traffic-monitor is already running
+sub _isRunning # (pid)
+{
+    my ($pid) = @_;
+
+    my $t = new Proc::ProcessTable();
+    foreach my $proc (@{$t->table()}) {
+        if ( $pid == $proc->pid() ) {
+            return 1;
+        }
+    }
+    return 0;
+
+}
+
+sub terminate
+{
+  # kill children
+  system 'pkill -f ' . LOGGER_PATH;
+  system 'pkill -f ' . JNETTOP_PATH;
+
+  # remove pid file
+  my $pidFile =  EBox::AbstractDaemon->pidFile(DAEMON_NAME);
+  system "rm -f $pidFile";
+
+  exit 0;
+}
+
+
+
+
+# entry point
+_checkEnvironment();
+
+my %params = @ARGV;
+_checkParams(%params);
+
+_daemonize();
+
+
+
+my $jnettopCmd = _jnettopCmd(%params);
+
+
+
+open $LOGGER,  '|' . LOGGER_PATH or
+  die "cannot fork logger child process";
+
+
+
+while (1) {
+ my @output =  `$jnettopCmd`;
+  if ($? != 0) {
+    die 'error executing jnettop';
+  }
+
+ print $LOGGER @output or die "child error $!";
+
+}
+
+
+
+
+
+1;

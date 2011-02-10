@@ -2,5 +2,5 @@
 
 if [ "$1" = remove ] || [ "$1" = purge ]; then
     invoke-rc.d zentyal remoteservices stop
-    /usr/share/zentyal/ebox-unsubscribe
+    /usr/share/zentyal-remoteservices/unsubscribe
 fi

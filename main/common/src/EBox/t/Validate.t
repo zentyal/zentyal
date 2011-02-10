@@ -8,7 +8,7 @@ use Fatal qw(mkdir);
 
 use lib '../..';
 
-BEGIN { use_ok('EBox::Validate') }; 
+BEGIN { use_ok('EBox::Validate') };
 
 checkFilePathTest();
 checkAbsoluteFilePathTest();
@@ -54,8 +54,6 @@ sub checkIsPrivateDir
   mkdir ($dir, 0700);
   ok EBox::Validate::isPrivateDir($dir), 'Testing isPrivateDir in a owned and private dir';
   lives_ok  { EBox::Validate::isPrivateDir($dir, 1) } 'The same  with exceptions';
-
-  
 }
 
 

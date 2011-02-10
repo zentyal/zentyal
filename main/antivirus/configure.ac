@@ -49,7 +49,7 @@ src/EBox/Makefile
 src/EBox/t/Makefile
 src/EBox/AntiVirus/Makefile
 src/EBox/AntiVirus/Model/Makefile
-src/libexec/Makefile
+src/scripts/Makefile
 schemas/Makefile
 stubs/Makefile
 tools/Makefile

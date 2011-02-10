@@ -34,7 +34,7 @@ use EBox::Config;
 
 # Dependencies
 use File::Slurp;
-use Fcntl ':mode'; 
+use Fcntl ':mode';
 use File::Path;
 use YAML::Tiny;
 
@@ -120,7 +120,7 @@ sub runInternalJob
 {
     my ($class, $jobId, $script, $arguments, $dataFile) = @_;
     my $retValue = _addJob($jobId, $script, $arguments, $dataFile, 1);
-    return $retValue    
+    return $retValue
 }
 
 
@@ -170,12 +170,12 @@ sub _addJob
 
     if ($internal) {
         # add the internal file to signal its status
-        File::Slurp::write_file( "$jobDirPath/internal", '');    
+        File::Slurp::write_file( "$jobDirPath/internal", '');
     }
 
 
     # Create the symlink to incoming directory to make it notify to
-    # the ebox-runnerd
+    # the runnerd
     symlink( $jobDirPath, INCOMING_DIR . $jobId);
 
 
@@ -195,7 +195,7 @@ sub _addJob
 #                                                        10 minutes)
 #                 script - String the script to be run in your favourite
 #                   script language (perl, awk, ruby, python, bash, tcl...)
-#                 arguments - String the arguments in a single string, 
+#                 arguments - String the arguments in a single string,
 #                             an empty string means no arguments
 #                 internal - wether a job is internal. A internal job does not
 #                             return results to the CC. Default: false
@@ -238,7 +238,7 @@ sub addCronJobs
 
         if (exists $cronJob->{internal} and $cronJob->{internal}) {
             # add internal file flag
-            File::Slurp::write_file( "$dirPath/internal", '');   
+            File::Slurp::write_file( "$dirPath/internal", '');
         }
 
 

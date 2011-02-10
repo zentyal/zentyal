@@ -51,6 +51,7 @@ src/EBox/Zarafa/Model/Makefile
 src/EBox/Zarafa/Composite/Makefile
 src/EBox/CGI/Makefile
 src/templates/Makefile
+src/scripts/Makefile
 stubs/Makefile
 schemas/Makefile
 tools/Makefile

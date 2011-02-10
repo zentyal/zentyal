@@ -61,12 +61,13 @@ src/EBox/CGI/Wizard/Makefile
 src/templates/Makefile
 src/templates/ajax/Makefile
 src/templates/Wizard/Makefile
+src/scripts/Makefile
 schemas/Makefile
 stubs/Makefile
 stubs/slapd.conf.mas
 tools/Makefile
-tools/t/Makefile
-tools/t/testdata/Makefile
+src/scripts/t/Makefile
+src/scripts/t/testdata/Makefile
 migration/Makefile
 www/Makefile
 Makefile

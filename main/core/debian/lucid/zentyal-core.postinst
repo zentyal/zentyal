@@ -19,7 +19,7 @@ case "$1" in
         chmod 750 $ZENTYAL_LOGS_DIR
 
         # create Zentyal apache certificates
-        /usr/share/zentyal/ebox-create-certificate $ZENTYAL_HOME/conf/ssl > /dev/null 2>&1
+        /usr/share/zentyal/create-certificate $ZENTYAL_HOME/conf/ssl > /dev/null 2>&1
 
         #add the ebox group and user
         if ! getent group ebox > /dev/null 2>&1
@@ -86,7 +86,7 @@ case "$1" in
         fi
 
         # sudo configuration
-        /usr/share/zentyal/ebox-sudoers-friendly
+        /usr/share/zentyal/sudoers-friendly
 
         # FIXME: apache is already restarted in the trigger
         # change this to set_ebox_port only?

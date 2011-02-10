@@ -445,13 +445,12 @@ sub _loadCertificates
 
     my $ldapca;
 
-    $cert = read_file(SSL_DIR . "ssl.cert");
+    $cert = read_file(SSL_DIR . 'ssl.cert');
     $ca = $cert;
 
-    $ldapca = read_file("/etc/ldap/ssl/ssl.cert");
-
-    EBox::Sudo::root('chown -R ebox:ebox /etc/ldap/ssl',
-                     'chown -R openldap:openldap /etc/ldap/ssl');
+    EBox::Sudo::root('chown -R ebox:ebox /etc/ldap/ssl');
+    $ldapca = read_file('/etc/ldap/ssl/ssl.cert');
+    EBox::Sudo::root('chown -R openldap:openldap /etc/ldap/ssl');
 
     my $dn = $self->masterDn();
 

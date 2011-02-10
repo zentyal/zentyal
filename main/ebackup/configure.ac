@@ -46,6 +46,7 @@ AC_CONFIG_FILES([
 conf/Makefile
 src/Makefile
 src/templates/Makefile
+src/scripts/Makefile
 src/EBox/Makefile
 src/EBox/EBackup/Makefile
 src/EBox/EBackup/Types/Makefile

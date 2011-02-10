@@ -15,7 +15,7 @@
 
 #
 # Wizard pages are used by modules to help user on initial configuration
-# If a module implements some wizard it will be shown by ebox-software to
+# If a module implements some wizard it will be shown by zentyal-software to
 # the user
 #
 # A wizard page CGI has 2 types of calls differentiated by HTTP request method:

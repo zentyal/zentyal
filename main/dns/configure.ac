@@ -53,6 +53,7 @@ src/EBox/Model/Makefile
 src/EBox/t/Makefile
 src/EBox/View/Makefile
 src/templates/Makefile
+src/scripts/Makefile
 schemas/Makefile
 stubs/Makefile
 tools/Makefile

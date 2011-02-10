@@ -464,7 +464,7 @@ sub _manageLogs
     }
 }
 
-# Manage ebox-squid, if installed, to be marked as changed
+# Manage zentyal-squid, if installed, to be marked as changed
 sub _manageSquid
 {
     my ($self, $subscribing) = @_;
@@ -477,7 +477,6 @@ sub _manageSquid
             $squidMod->setAsChanged();
         }
     }
-
 }
 
 

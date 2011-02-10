@@ -170,7 +170,7 @@ sub _setRemoteSupportAccessConf
 
 
     EBox::RemoteServices::SupportAccess->setEnabled($supportAccess, $fromAnyAddress);
-    EBox::Sudo::root('/usr/share/zentyal/ebox-sudoers-friendly');
+    EBox::Sudo::root('/usr/share/zentyal/sudoers-friendly');
 }
 
 # Method: _daemons
@@ -1239,9 +1239,9 @@ sub _startupTasks
 
     if ( $self->st_get_bool('just_subscribed') ) {
         # Get the cron jobs after subscribing on the background
-        system(EBox::Config::pkgdata() . 'ebox-get-cronjobs &');
+        system(EBox::Config::share() . 'zentyal-remoteservices/get-cronjobs &');
         # Set the subscription level
-        system(EBox::Config::pkgdata() . '../zentyal-remoteservices/subs-level &');
+        system(EBox::Config::share() . 'zentyal-remoteservices/subs-level &');
         $self->st_set_bool('just_subscribed', 0);
     }
 }

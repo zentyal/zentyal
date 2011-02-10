@@ -1,9 +1,11 @@
 HEAD
 	+ Separate usercorner module to the new zentyal-usercorner package
+	+ Remove zentyal- prefix from rejoin-slave and ldapvi scripts
 	+ Move /usr/share/ebox-usersandgroups/ebox-usersandgroups/reinstall
 	  to /usr/share/zentyal-users/reinstall
 	+ Show enableActions for master also in ad-slave mode
 	+ Deleted obsolete migrations and use new initialSetup method
+	+ Added locks to prevent overlapping in ad-sync script
 	+ Fix slave failed operation string on slave hostname
 	+ Replace /etc/ebox/80users.conf with /etc/zentyal/users.conf
 	+ Added indexes for common LDAP attributes

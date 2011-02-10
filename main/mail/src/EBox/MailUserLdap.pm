@@ -36,7 +36,6 @@ use Perl6::Junction qw(any);
 use constant DIRVMAIL   =>      '/var/vmail/';
 use constant SIEVE_SCRIPTS_DIR => '/var/vmail/sieve';
 
-
 use base qw(EBox::LdapUserBase);
 
 sub new
@@ -161,8 +160,6 @@ sub delUserAccount   #username, mail
                     $self->existsUserLdapValue($username, $_)
                 } qw(mail mailbox userMaildirSize quota mailHomeDirectory
                      fetchmailAccount);
-
-
 
     my @toDelete = map {
         my $attr = $_;
@@ -429,17 +426,16 @@ sub _delGroupWarning
 
     my $mail = EBox::Global->modInstance('mail');
 
-        settextdomain('ebox-mail');
+    settextdomain('ebox-mail');
     my $txt = __('This group has a mail alias');
     settextdomain('ebox-usersandgroups');
 
-        if ($mail->{malias}->groupHasAlias($group)) {
-            return ($txt);
-        }
+    if ($mail->{malias}->groupHasAlias($group)) {
+        return ($txt);
+    }
 
     return undef;
 }
-
 
 sub _delUser
 {
@@ -451,83 +447,82 @@ sub _delUser
 }
 
 sub _delUserWarning
- {
-     my ($self, $user) = @_;
+{
+    my ($self, $user) = @_;
 
-     return unless (EBox::Global->modInstance('mail')->configured());
+    return unless (EBox::Global->modInstance('mail')->configured());
 
-     settextdomain('ebox-mail');
-     my $txt = __('This user has a mail account');
-     settextdomain('ebox-usersandgroups');
+    settextdomain('ebox-mail');
+    my $txt = __('This user has a mail account');
+    settextdomain('ebox-usersandgroups');
 
-     if ($self->_accountExists($user)) {
-         return ($txt);
-     }
+    if ($self->_accountExists($user)) {
+        return ($txt);
+    }
 
-     return undef;
+    return undef;
 }
 
 sub _userAddOns
- {
-     my ($self, $username) = @_;
+{
+    my ($self, $username) = @_;
 
-     my $mail = EBox::Global->modInstance('mail');
+    my $mail = EBox::Global->modInstance('mail');
 
-     return undef unless ($mail->configured());
+    return undef unless ($mail->configured());
 
-     my $usermail = $self->userAccount($username);
-     my @aliases = $mail->{malias}->accountAlias($usermail);
-     my @vdomains =  $mail->{vdomains}->vdomains();
-     my $quotaType = $self->maildirQuotaType($username);
-     my $quota   = $self->maildirQuota($username);
+    my $usermail = $self->userAccount($username);
+    my @aliases = $mail->{malias}->accountAlias($usermail);
+    my @vdomains =  $mail->{vdomains}->vdomains();
+    my $quotaType = $self->maildirQuotaType($username);
+    my $quota   = $self->maildirQuota($username);
 
-     my @paramsList = (
-                       username    =>      $username,
-                       mail        =>      $usermail,
-                       aliases     => \@aliases,
-                       vdomains    => \@vdomains,
+    my @paramsList = (
+            username    =>      $username,
+            mail        =>      $usermail,
+            aliases     => \@aliases,
+            vdomains    => \@vdomains,
 
-                       maildirQuotaType => $quotaType,
-                       maildirQuota => $quota,
+            maildirQuotaType => $quotaType,
+            maildirQuota => $quota,
 
-                       service => $mail->service,
-                      );
+            service => $mail->service,
+    );
 
-
-
-     return { path => '/mail/account.mas', params => { @paramsList } };
- }
+    return { path => '/mail/account.mas', params => { @paramsList } };
+}
 
 sub _groupAddOns
- {
-     my ($self, $group) = @_;
+{
+    my ($self, $group) = @_;
 
-     return unless (EBox::Global->modInstance('mail')->configured());
+    return unless (EBox::Global->modInstance('mail')->configured());
 
-     my $mail = EBox::Global->modInstance('mail');
-     my $aliases = $mail->{malias}->groupAliases($group);
+    my $mail = EBox::Global->modInstance('mail');
+    my $aliases = $mail->{malias}->groupAliases($group);
 
-     my @vd =  $mail->{vdomains}->vdomains();
+    my @vd =  $mail->{vdomains}->vdomains();
 
-     my $args = {    'group' => $group,
-                     'vdomains'      =>      \@vd,
-                     'aliases'         => $aliases,
-                     'service'        => $mail->service(),
-                     'nacc' => scalar ($self->usersWithMailInGroup($group)),
-                };
+    my $args = {
+        'group'    => $group,
+        'vdomains' => \@vd,
+        'aliases'  => $aliases,
+        'service'  => $mail->service(),
+        'nacc'     => scalar ($self->usersWithMailInGroup($group)),
+    };
 
-     return { path => '/mail/groupalias.mas', params => $args };
+    return { path => '/mail/groupalias.mas', params => $args };
 }
 
 sub _modifyGroup
- {
-     my ($self, $group) = @_;
+{
+    my ($self, $group) = @_;
 
-     return unless (EBox::Global->modInstance('mail')->configured());
+    return unless (EBox::Global->modInstance('mail')->configured());
 
-     my $mail = EBox::Global->modInstance('mail');
-     $mail->{malias}->updateGroupAliases($group);
- }
+    my $mail = EBox::Global->modInstance('mail');
+    $mail->{malias}->updateGroupAliases($group);
+}
 
 # Method: _accountExists
 #
@@ -554,7 +549,6 @@ sub _accountExists
     my $result = $self->{'ldap'}->search(\%attrs);
 
     return ($result->count > 0);
-
 }
 
 
@@ -661,11 +655,8 @@ sub _checkMaildirNotExists
         $backupDir =~ s{/$}{};
         $backupDir .= '.bak';
         EBox::Sudo::root("mv $dir $backupDir");
-        EBox::warn(
-           "Mail directory $dir already existed, moving it to $backupDir"
-                     );
+        EBox::warn("Mail directory $dir already existed, moving it to $backupDir");
     }
-
 }
 
 # Method: _createMaildir
@@ -859,7 +850,7 @@ sub regenMaildirQuotas
 }
 
 
-# FIXME make a listener-observer for this new code and move it to ebox-zarafa
+# FIXME make a listener-observer for this new code and move it to zentyal-zarafa
 sub _userZarafaAccount
 {
     my ($self, $username) = @_;
@@ -924,9 +915,9 @@ sub setUserZarafaQuotaDefault
 #  This method returns the gid value of ebox user
 #
 sub gidvmail
- {
-     my ($self) = @_;
-     return scalar (getgrnam(EBox::Config::group));
+{
+    my ($self) = @_;
+    return scalar (getgrnam(EBox::Config::group));
 }
 
 # Method: uidvmail
@@ -940,59 +931,22 @@ sub uidvmail
     return scalar (getpwnam(EBox::Config::user));
 }
 
-# Method: _isCourierObject
-#
-#  This method returns if the leaf have a courierobject class
-#
-sub _isCourierObject
- {
-     my ($self, $object, $dn) = @_;
-
-     my $ldap = $self->{ldap};
-
-     my %attrs = (
-                  base   => $dn,
-                  filter => "(objectclass=$object)",
-                  attrs  => [ 'objectClass'],
-                  scope  => 'base'
-                 );
-
-     my $result = $ldap->search(\%attrs);
-
-     if ($result->count ==  1) {
-         return 1;
-     }
-
-     return undef;
-}
-
-
-sub _accountAddOn
-{
-    my ($self, $username) = @_;
-
-    my $mail = EBox::Global->modInstance('mail');
-
-}
-
-
 sub localAttributes
 {
     my @attrs = qw(
-          mailbox  quota  clearPassword
-          maildrop  mailsource  virtualdomain
-          virtualdomainuser  defaultdelivery
-          description
+            mailbox quota clearPassword
+            maildrop mailsource virtualdomain
+            virtualdomainuser defaultdelivery
+            description
 
-         mailHomeDirectory userMaildirSize
-         vddftMaildirSize
+            mailHomeDirectory userMaildirSize
+            vddftMaildirSize
 
-         fetchmailAccount
-                );
+            fetchmailAccount
+    );
 
-   return \@attrs;
+    return \@attrs;
 }
-
 
 sub schemas
 {
@@ -1000,7 +954,6 @@ sub schemas
              EBox::Config::share() . '/zentyal-mail/authldap.ldif',
              EBox::Config::share() . '/zentyal-mail/eboxmail.ldif',
              EBox::Config::share() . '/zentyal-mail/eboxfetchmail.ldif',
-
            ];
 }
 

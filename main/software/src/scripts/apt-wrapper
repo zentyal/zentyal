@@ -1,0 +1,112 @@
+#!/usr/bin/perl
+# Copyright (C) 2010 eBox Technologies S.L.
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License, version 2, as
+# published by the Free Software Foundation.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+
+use warnings;
+use strict;
+
+use EBox::Global;
+use EBox::Config;
+use Date::Format;
+use Error qw(:try);
+
+use constant LOG_FILE => EBox::Config::log() . 'software.log';
+my $DPKG_RUNNING_FILE = EBox::Global::DPKG_RUNNING_FILE;
+
+my ($command, @packages) = @ARGV;
+
+my $env = 'LANG=C DEBIAN_FRONTEND=noninteractive';
+my $dpkgOpts = '-o DPkg::Options::="--force-confold"';
+my ($retValue, $errorMsg) = (0, '');
+
+my $fifo = "/var/lib/zentyal/apt-$command.pipe";
+
+my $args = "$command $dpkgOpts --yes";
+if ($command eq 'install') {
+    $args .= ' --force-yes --no-install-recommends';
+} elsif ($command eq 'remove') {
+    $args .= ' --purge -q';
+}
+my $fullCmd = "$env apt-get $args @packages 2>&1";
+
+my ($pid, $read, $text, $write, $log);
+
+open ($log, '>>', LOG_FILE);
+select ((select ($log), $|=1)[0]); #autoflush
+printLog("Zentyal apt-wrapper $command started");
+
+local $SIG{PIPE} = sub {
+    print $write 'end';
+    close($write);
+    printLog("Zentyal apt-wrapper $command received SIGPIPE and finished");
+    close ($log);
+    exit 0;
+};
+
+open ($read, '-|', $fullCmd);
+try {
+    open ($write, '>', $fifo) or die "Can't open $fifo";
+    select ((select ($write), $|=1)[0]); #autoflush
+    while ($text = <$read>) {
+        printLog($text);
+
+        my $out = '';
+        if ($text =~ /^E:\s/) {
+            $out = $text;
+        } elsif ($text =~ /Need to get ([0-9]*).*([0-9]*)MB of archives/) {
+            $out = "down$1";
+        } elsif ($text =~ /Get:[0-9]*\s(.*)/){
+            $out = $text;
+        } elsif ($text =~ /([0-9]+) upgraded.* ([0-9]+) .* ([0-9]+) .* ([0-9]+) .*/) {
+            $out = 'ins' . ($1+$2) . "\nrem$3\n";
+        } elsif ($text =~ /(Unpacking\s.*)/) {
+            $out = " $1\n";
+        } elsif ($text =~ /([0-9]+%).*/) {
+            $out = "$1\n";
+        } elsif ($text =~ /(Setting up\s.*)/) {
+            $out = " $1\n";
+        } elsif ($text =~ /(Removing\s.*)/) {
+            $out = " $1\n";
+        }
+
+        if ($out) {
+            print $write $out;
+        }
+    }
+} otherwise {
+    printLog("ERROR: $@ $!");
+} finally {
+    print $write 'end';
+    close ($write);
+    close ($read);
+    if (-f $DPKG_RUNNING_FILE) {
+        printLog("Deleting $DPKG_RUNNING_FILE");
+        unlink ($DPKG_RUNNING_FILE);
+    }
+    printLog("Zentyal apt-wrapper $command finished");
+    close ($log);
+};
+
+# TODO: Move this to a common logger module
+sub printLog
+{
+    my ($msg) = @_;
+
+    my $timestamp = time2str('%Y-%m-%d %T', time());
+    chomp ($msg);
+    print $log "$timestamp> $msg\n";
+}
+
+1;

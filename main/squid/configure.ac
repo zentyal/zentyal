@@ -57,6 +57,7 @@ src/EBox/Squid/Types/t/Makefile
 src/templates/Makefile
 src/templates/ajax/Makefile
 src/templates/ajax/setter/Makefile
+src/scripts/Makefile
 schemas/Makefile
 stubs/Makefile
 tools/Makefile

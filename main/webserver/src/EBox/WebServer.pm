@@ -677,7 +677,7 @@ sub _getCertificateSAN
     return \@vhosts;
 }
 
-# Generate subjAltNames array for ebox-ca
+# Generate subjAltNames array for zentyal-ca
 sub _subjAltNames
 {
     my ($self) = @_;

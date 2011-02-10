@@ -143,7 +143,7 @@ msgstr "Включено"
 msgid "Domains to back up"
 msgstr "Домены, которые необходимо зарезервировать"
 
-#: src/EBox/Model/BackupDomains.pm:182 tools/restore-tool:310
+#: src/EBox/Model/BackupDomains.pm:182 src/scripts/restore-tool:310
 msgid "Backup domain"
 msgstr "Домен бэкапа"
 
@@ -188,7 +188,7 @@ msgstr "Состояние удаленного резервного копир�
 msgid "Type"
 msgstr "Тип"
 
-#: src/EBox/Model/RemoteStatus.pm:143 tools/restore-tool:1207
+#: src/EBox/Model/RemoteStatus.pm:143 src/scripts/restore-tool:1207
 msgid "Date"
 msgstr "Дата"
 
@@ -566,418 +566,418 @@ msgstr "Восстановление служб"
 msgid "Configuration and Status"
 msgstr "Конфигурация и статус"
 
-#: tools/restore-tool:95
+#: src/scripts/restore-tool:95
 msgid ""
 "No backups found in this server. Do you want to retry with a different one?"
 msgstr ""
 
-#: tools/restore-tool:108
+#: src/scripts/restore-tool:108
 #, fuzzy
 msgid ""
 "There is not configuration backup from this date. Do you want to retry with "
 "another date?"
 msgstr "Бэкап настроек не найден в бэкапе на {d}. Попробуете другую дату?"
 
-#: tools/restore-tool:190
+#: src/scripts/restore-tool:190
 #, perl-brace-format
 msgid "You can only specify one of the encryption options: {sy}, {no}"
 msgstr ""
 
-#: tools/restore-tool:206
+#: src/scripts/restore-tool:206
 msgid "Zenity package not found. Falling back to terminal mode"
 msgstr ""
 
-#: tools/restore-tool:219
+#: src/scripts/restore-tool:219
 msgid "User for the authentication"
 msgstr ""
 
-#: tools/restore-tool:221
+#: src/scripts/restore-tool:221
 msgid ""
 "Password for the authentication. This password will be shown both in the "
 "command line and in the process list so only use this option when security "
 "is not a concern"
 msgstr ""
 
-#: tools/restore-tool:225
+#: src/scripts/restore-tool:225
 msgid "Server from which its backup date the restore will be done"
 msgstr ""
 
-#: tools/restore-tool:227
+#: src/scripts/restore-tool:227
 msgid "Use the last backup done for the restore"
 msgstr "Используйте последнюю резервную копию для восстановления"
 
-#: tools/restore-tool:229
+#: src/scripts/restore-tool:229
 msgid "Backup domain to restore. It could be repeated several times"
 msgstr ""
 
-#: tools/restore-tool:231
+#: src/scripts/restore-tool:231
 msgid ""
 "Check if we use the no encryption or a symmetric encryption with password "
 msgstr ""
 
-#: tools/restore-tool:233
+#: src/scripts/restore-tool:233
 msgid "Do not use graphical interface"
 msgstr "Не используйте графический интерфейс"
 
-#: tools/restore-tool:258
+#: src/scripts/restore-tool:258
 #, perl-brace-format
 msgid "Module {mod} should be installed"
 msgstr "Необходимо установить модуль {mod}"
 
-#: tools/restore-tool:264
+#: src/scripts/restore-tool:264
 #, perl-brace-format
 msgid "Module {mod} should be configured"
 msgstr "Необходимо настроить модуль {mod}"
 
-#: tools/restore-tool:276
+#: src/scripts/restore-tool:276
 msgid ""
 "Could not automatically update system hour. Some restoration operations "
 "could fail if the date is not correct"
 msgstr ""
 
-#: tools/restore-tool:286
+#: src/scripts/restore-tool:286
 msgid "Choose the server to restore"
 msgstr "Выберите сервер для восстановления"
 
-#: tools/restore-tool:287
+#: src/scripts/restore-tool:287
 msgid "Server"
 msgstr "Сервер"
 
-#: tools/restore-tool:291
+#: src/scripts/restore-tool:291
 msgid "Server to restore: "
 msgstr "Сервер для восстановления: "
 
-#: tools/restore-tool:309
+#: src/scripts/restore-tool:309
 msgid "Select backup domains to restore"
 msgstr "Выберите бэкапы доменов для восстановления"
 
-#: tools/restore-tool:318
+#: src/scripts/restore-tool:318
 #, fuzzy, perl-brace-format
 msgid "Backup domains available in the server {cn}: {l}"
 msgstr "Бэкапы доменов доступные на сервере: {l}"
 
-#: tools/restore-tool:336
+#: src/scripts/restore-tool:336
 msgid "No backup domain selected to restore. Doing nothing"
 msgstr ""
 
-#: tools/restore-tool:348
+#: src/scripts/restore-tool:348
 msgid "Retrieving registered servers list"
 msgstr ""
 
-#: tools/restore-tool:388
+#: src/scripts/restore-tool:388
 msgid "No key passphrase"
 msgstr ""
 
-#: tools/restore-tool:395
+#: src/scripts/restore-tool:395
 msgid "No password in retrieved credentials"
 msgstr ""
 
-#: tools/restore-tool:407
+#: src/scripts/restore-tool:407
 msgid "Retrieving account information"
 msgstr "Получение информации об аккаунте"
 
-#: tools/restore-tool:474
+#: src/scripts/restore-tool:474
 msgid "No registered Zentyal Servers"
 msgstr "Нет зарегистрированных серверов Zentyal"
 
-#: tools/restore-tool:480
+#: src/scripts/restore-tool:480
 msgid "Registered Zentyal Servers"
 msgstr "Зарегистрированные сервера Zentyal"
 
-#: tools/restore-tool:532
+#: src/scripts/restore-tool:532
 #, fuzzy
 msgid "Restoring files"
 msgstr "Восстановление файлов"
 
-#: tools/restore-tool:558
+#: src/scripts/restore-tool:558
 #, perl-brace-format
 msgid ""
 "Cannot restore file {file} requested by backup domains. Reason: {reason}"
 msgstr ""
 
-#: tools/restore-tool:577
+#: src/scripts/restore-tool:577
 msgid "Backup log data not found, log database will not be restored"
 msgstr ""
 
-#: tools/restore-tool:581
+#: src/scripts/restore-tool:581
 #, fuzzy
 msgid "Restoring log database"
 msgstr "Восстановить базу данных журналов"
 
-#: tools/restore-tool:599
+#: src/scripts/restore-tool:599
 msgid "Restoring configuration backup"
 msgstr "Восстановить резервную копию настроек"
 
-#: tools/restore-tool:604
+#: src/scripts/restore-tool:604
 msgid ""
 "The configuration restore failed. We will continue the process to try to "
 "restore as much as possible but your system will need manual tweaking"
 msgstr ""
 
-#: tools/restore-tool:619
+#: src/scripts/restore-tool:619
 msgid "Checking configuration compability"
 msgstr ""
 
-#: tools/restore-tool:671
+#: src/scripts/restore-tool:671
 #, perl-brace-format
 msgid ""
 "Cannot restore backup because there are less interfaces than there are "
 "available. The missing interfaces are: {missing}"
 msgstr ""
 
-#: tools/restore-tool:715
+#: src/scripts/restore-tool:715
 msgid "Updating software package lists"
 msgstr ""
 
-#: tools/restore-tool:752
+#: src/scripts/restore-tool:752
 msgid "Installing Zentyal components and their dependencies"
 msgstr "Установка компонентов Zentyal и их зависимостей"
 
-#: tools/restore-tool:768
+#: src/scripts/restore-tool:768
 msgid "Installing missing modules..."
 msgstr ""
 
-#: tools/restore-tool:774
+#: src/scripts/restore-tool:774
 #, perl-brace-format
 msgid ""
 "Error installing packages: {err}. You can continue but you would not restore "
 "any data for the missing packages"
 msgstr ""
 
-#: tools/restore-tool:822
+#: src/scripts/restore-tool:822
 msgid ""
 "Updating package list to allow access to exclusive Zentyal Cloud packages"
 msgstr ""
 
-#: tools/restore-tool:824
+#: src/scripts/restore-tool:824
 msgid "Install cloud packages"
 msgstr ""
 
-#: tools/restore-tool:841
+#: src/scripts/restore-tool:841
 msgid "Downloading subscription data"
 msgstr "Загрузка данных подписки"
 
-#: tools/restore-tool:859
+#: src/scripts/restore-tool:859
 msgid ""
 "Connection error when retrieving subscription bundle. Zentyal Cloud "
 "exclusive packages will not be installed"
 msgstr ""
 
-#: tools/restore-tool:862
+#: src/scripts/restore-tool:862
 msgid ""
 "Cannot retrieve bundle because either installed ebox-remoteservices is "
 "outdated or only outdated bundle is available in the cloud. Zentyal Cloud  "
 "exclusive packages will not be installed"
 msgstr ""
 
-#: tools/restore-tool:867
+#: src/scripts/restore-tool:867
 msgid ""
 "Unknown error retrieving subscription bundle. Zentyal Cloud exclusive "
 "packages will not be installed"
 msgstr ""
 
-#: tools/restore-tool:918
+#: src/scripts/restore-tool:918
 msgid "Configuring modules"
 msgstr "Настройка модулей"
 
-#: tools/restore-tool:942
+#: src/scripts/restore-tool:942
 #, fuzzy, perl-brace-format
 msgid "Configuring modules: Current module {mod}"
 msgstr "Конфигурация и состояние"
 
-#: tools/restore-tool:946
+#: src/scripts/restore-tool:946
 #, perl-brace-format
 msgid "Configuring modules {p} done. Current module {mod}"
 msgstr "Настройка модулей {p} закончена. Текущий модуль {mod}"
 
-#: tools/restore-tool:965
+#: src/scripts/restore-tool:965
 #, perl-brace-format
 msgid ""
 "Failed to configure module {name}: {err}. This could affect to the restore "
 "from other modules"
 msgstr ""
 
-#: tools/restore-tool:985
+#: src/scripts/restore-tool:985
 msgid "Finishing new modules configuration"
 msgstr ""
 
-#: tools/restore-tool:1022
+#: src/scripts/restore-tool:1022
 msgid "Downloading backup metadata..."
 msgstr ""
 
-#: tools/restore-tool:1041
+#: src/scripts/restore-tool:1041
 msgid "Downloading the backup data and configuration"
 msgstr ""
 
-#: tools/restore-tool:1081
+#: src/scripts/restore-tool:1081
 msgid "Downloading configuration"
 msgstr "Загружаются настройки"
 
-#: tools/restore-tool:1105
+#: src/scripts/restore-tool:1105
 msgid "Retrieving backup collection status ..."
 msgstr ""
 
-#: tools/restore-tool:1134 tools/restore-tool:1195
+#: src/scripts/restore-tool:1134 src/scripts/restore-tool:1195
 #, perl-brace-format
 msgid "Last backup date was: {date}"
 msgstr "Дата последнего резервного копирования: {date}"
 
-#: tools/restore-tool:1160
+#: src/scripts/restore-tool:1160
 #, perl-brace-format
 msgid "No automatic configuration backups were made for the server {s}"
 msgstr ""
 
-#: tools/restore-tool:1204
+#: src/scripts/restore-tool:1204
 #, perl-brace-format
 msgid "Choose date to restore the backup from server {cn}"
 msgstr "Выберите дату для восстановления резервной копии с сервера {cn}"
 
-#: tools/restore-tool:1228
+#: src/scripts/restore-tool:1228
 #, perl-brace-format
 msgid "No automatic configuration backups were done for the server {s}"
 msgstr ""
 
-#: tools/restore-tool:1245
+#: src/scripts/restore-tool:1245
 #, perl-brace-format
 msgid "No configuration backups were made for the date {d} in {s} server"
 msgstr ""
 
-#: tools/restore-tool:1277
+#: src/scripts/restore-tool:1277
 #, perl-brace-format
 msgid "The server {server} is not registered in Zentyal Cloud"
 msgstr "Сервер {server} не зарегистрирован в облаке Zentyal"
 
-#: tools/restore-tool:1332
+#: src/scripts/restore-tool:1332
 msgid "Please, enter a value"
 msgstr "Введите значение"
 
-#: tools/restore-tool:1357
+#: src/scripts/restore-tool:1357
 msgid "Please answer yes or no"
 msgstr "Ответьте да или нет"
 
-#: tools/restore-tool:1383
+#: src/scripts/restore-tool:1383
 #, perl-brace-format
 msgid "Backup dates for server {cn}"
 msgstr "Даты резервных копий для сервера {cn}"
 
-#: tools/restore-tool:1394
+#: src/scripts/restore-tool:1394
 msgid "Enter backup date to restore:"
 msgstr ""
 
-#: tools/restore-tool:1397
+#: src/scripts/restore-tool:1397
 #, perl-brace-format
 msgid "Invalid date: {d}. Try again"
 msgstr "Не правильная дата: {d}. Повторите попытку"
 
-#: tools/restore-tool:1503
+#: src/scripts/restore-tool:1503
 msgid "This entry is mandatory to continue the restoring process. Retry"
 msgstr ""
 
-#: tools/restore-tool:1553
+#: src/scripts/restore-tool:1553
 msgid "Selection"
 msgstr "Выбор"
 
-#: tools/restore-tool:1591
+#: src/scripts/restore-tool:1591
 msgid ""
 "This entry is mandatory to carry on the restoring process. Choose from the "
 "list"
 msgstr ""
 
-#: tools/restore-tool:1712
+#: src/scripts/restore-tool:1712
 msgid "Please wait"
 msgstr "Подождите"
 
-#: tools/restore-tool:1726
+#: src/scripts/restore-tool:1726
 msgid "Finished"
 msgstr "Завершено"
 
-#: tools/restore-tool:1786
+#: src/scripts/restore-tool:1786
 msgid "Restoring process aborted upon user request"
 msgstr "Процесс восстановления отменен пользователем"
 
-#: tools/restore-tool:1814
+#: src/scripts/restore-tool:1814
 msgid "Saving configuration changes"
 msgstr "Сохранение изменений настроек"
 
-#: tools/restore-tool:1830
+#: src/scripts/restore-tool:1830
 msgid ""
 "Error saving configuration changes; some Zentyal modules would remain in a "
 "unknown state"
 msgstr ""
 
-#: tools/restore-tool:1844
+#: src/scripts/restore-tool:1844
 msgid "Regenerating file list cache"
 msgstr ""
 
-#: tools/restore-tool:1911
+#: src/scripts/restore-tool:1911
 msgid "Zentyal Cloud User"
 msgstr "Пользователь Zentyal Cloud"
 
-#: tools/restore-tool:1914
+#: src/scripts/restore-tool:1914
 msgid "Zentyal Cloud Password"
 msgstr "Пароль Zentyal Cloud"
 
-#: tools/restore-tool:1929
+#: src/scripts/restore-tool:1929
 #, perl-brace-format
 msgid "The account {user} do not have any registered Zentyal servers"
 msgstr "Аккаунт {user} не имеет зарегистрированных серверов Zentyal"
 
-#: tools/restore-tool:1990
+#: src/scripts/restore-tool:1990
 #, fuzzy, perl-brace-format
 msgid "Enter password used to encrypt back up {ser}"
 msgstr "Введите симметричный пароль используемый для бэкапа {ser}: "
 
-#: tools/restore-tool:2046
+#: src/scripts/restore-tool:2046
 #, perl-brace-format
 msgid ""
 "The following backup domains could not be restored from a basic "
 "subscription: {domains}"
 msgstr ""
 
-#: tools/restore-tool:2068
+#: src/scripts/restore-tool:2068
 msgid "Your full backup is now successfully restored!"
 msgstr "Ваш полный бэкап успешно восстановлен!"
 
-#: tools/restore-tool:2070
+#: src/scripts/restore-tool:2070
 msgid ""
 "You can go now to the Zentyal administration interface to manage your "
 "recovered host."
 msgstr ""
 
-#: tools/restore-tool:2107
+#: src/scripts/restore-tool:2107
 #, perl-brace-format
 msgid "Warning: {msg}"
 msgstr ""
 
-#: tools/restore-tool:2161
+#: src/scripts/restore-tool:2161
 #, fuzzy
 msgid "Restore process aborted"
 msgstr "Восстановить базу данных журналов"
 
-#: tools/ebox-remote-ebackup:70
+#: src/scripts/backup-tool:70
 msgid "full"
 msgstr "полный"
 
-#: tools/ebox-remote-ebackup:72
+#: src/scripts/backup-tool:72
 msgid "incremental"
 msgstr "инкрементальный"
 
-#: tools/ebox-remote-ebackup:79
+#: src/scripts/backup-tool:79
 #, perl-brace-format
 msgid "Zentyal {mode} backup succeeded"
 msgstr "{mode} бэкап Zentyal успешно завершён"
 
-#: tools/ebox-remote-ebackup:84
+#: src/scripts/backup-tool:84
 #, perl-brace-format
 msgid "Zentyal {mode} backup failed: {error}"
 msgstr ""
 
-#: tools/ebox-remote-ebackup:89
+#: src/scripts/backup-tool:89
 #, perl-brace-format
 msgid "Zentyal {mode} backup failed"
 msgstr ""
 
-#: tools/ebox-remote-ebackup:112
+#: src/scripts/backup-tool:112
 #, perl-brace-format
 msgid ""
 "Temp directory '{dir}' has {avail} MB available, backup needs approx {need} "
@@ -985,23 +985,23 @@ msgid ""
 "settings in {conf}."
 msgstr ""
 
-#: tools/ebox-remote-ebackup:145
+#: src/scripts/backup-tool:145
 #, fuzzy
 msgid "Usage:"
 msgstr "Пользователь"
 
-#: tools/ebox-remote-ebackup:195
+#: src/scripts/backup-tool:195
 #, perl-brace-format
 msgid ""
 "Configuration backup skipped because the following modules have unsaved "
 "changes: {mods}. The rest of the backup will not be affected"
 msgstr ""
 
-#: tools/ebox-remote-ebackup:260
+#: src/scripts/backup-tool:260
 msgid "Another backup process is running, wait until it finishes and try again"
 msgstr ""
 
-#: tools/ebox-remote-ebackup:275
+#: src/scripts/backup-tool:275
 msgid "The backup module is busy, retry later"
 msgstr ""
 

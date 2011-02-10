@@ -27,9 +27,6 @@ use constant SYS_LOG => '/var/log/syslog';
 use constant SMTP_FILTER_TABLE => 'mailfilter_smtp';
 use constant POP_PROXY_TABLE   => 'mailfilter_pop';
 
-
-
-
 sub new
 {
     my $class = shift;

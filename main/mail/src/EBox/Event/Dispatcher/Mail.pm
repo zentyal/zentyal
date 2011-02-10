@@ -54,18 +54,16 @@ use Error qw(:try);
 #        <EBox::Event::Dispatcher::Mail> - the newly created object
 #
 sub new
-  {
+{
+    my ($class) = @_;
 
-      my ($class) = @_;
+    my $self = $class->SUPER::new('ebox-mail');
+    bless( $self, $class );
 
-      my $self = $class->SUPER::new('ebox-mail');
-      bless( $self, $class );
+    $self->{ready}  = 0;
 
-      $self->{ready}  = 0;
-
-      return $self;
-
-  }
+    return $self;
+}
 
 # Method: configured
 #
@@ -75,7 +73,6 @@ sub new
 #
 sub configured
 {
-
     my ($self) = @_;
 
     # Mail dispatcher is configured only if the values from the
@@ -84,7 +81,6 @@ sub configured
     $self->_confParams();
 
     return ($self->{subject} and $self->{to} and $self->{smtp});
-
 }
 
 
@@ -95,11 +91,9 @@ sub configured
 #       <EBox::Event::Component::ConfigurationMethod>
 #
 sub ConfigurationMethod
-  {
-
-      return 'model';
-
-  }
+{
+    return 'model';
+}
 
 # Method: ConfigureModel
 #
@@ -108,11 +102,9 @@ sub ConfigurationMethod
 #        <EBox::Event::Component::ConfigureModel>
 #
 sub ConfigureModel
-  {
-
-      return 'MailDispatcherConfiguration';
-
-  }
+{
+    return 'MailDispatcherConfiguration';
+}
 
 # Method: send
 #
@@ -123,22 +115,20 @@ sub ConfigureModel
 #        <EBox::Event::Dispatcher::Abstract::send>
 #
 sub send
-  {
+{
+    my ($self, $event) = @_;
 
-      my ($self, $event) = @_;
-
-      defined ( $event ) or
+    defined ( $event ) or
         throw EBox::Exceptions::MissingArgument('event');
 
-      unless ( $self->{ready} ) {
-          $self->enable();
-      }
+    unless ( $self->{ready} ) {
+        $self->enable();
+    }
 
-      $self->_sendMail($event);
+    $self->_sendMail($event);
 
-      return 1;
-
-  }
+    return 1;
+}
 
 # Group: Protected methods
 
@@ -149,11 +139,9 @@ sub send
 #       <EBox::Event::Dispatcher::Abstract::_receiver>
 #
 sub _receiver
-  {
-
-      return __('Admin mail recipient');
-
-  }
+{
+    return __('Admin mail recipient');
+}
 
 # Method: _name
 #
@@ -162,11 +150,9 @@ sub _receiver
 #       <EBox::Event::Dispatcher::Abstract::_name>
 #
 sub _name
-  {
-
-      return __('Mail');
-
-  }
+{
+    return __('Mail');
+}
 
 # Method: _enable
 #
@@ -175,24 +161,22 @@ sub _name
 #        <EBox::Event::Dispatcher::Abstract::_enable>
 #
 sub _enable
-  {
+{
+    my ($self) = @_;
 
-      my ($self) = @_;
+    $self->_confParams();
 
-      $self->_confParams();
+    my $sender = new Net::SMTP($self->{smtp},
+            Timeout => 30);
 
-      my $sender = new Net::SMTP($self->{smtp},
-                                 Timeout => 30);
+    unless ( defined ($sender) ) {
+        throw EBox::Exceptions::External(__x('Cannot connect to {smtp} mail server',
+                    smtp => $self->{smtp}));
+    }
 
-      unless ( defined ($sender) ) {
-          throw EBox::Exceptions::External(__x('Cannot connect to {smtp} mail server',
-                                               smtp => $self->{smtp}));
-      }
-
-      $sender->quit();
-      $self->{ready} = 1;
-
-  }
+    $sender->quit();
+    $self->{ready} = 1;
+}
 
 # Group: Private methods
 
@@ -202,7 +186,6 @@ sub _enable
 # jabber server to send messages to the admin
 sub _confParams
 {
-
     my ($self) = @_;
 
     my $model = $self->configurationSubModel(__PACKAGE__);
@@ -214,7 +197,6 @@ sub _confParams
     $self->{subject}  = $row->valueByName('subject');
     $self->{to}       = $row->valueByName('to');
     $self->{smtp}     = 'localhost';
-
 }
 
 # Send the mail with the configuration parameters which are suppossed
@@ -249,13 +231,11 @@ sub _sendMail
     $mailer->quit();
 
     return 1;
-
 }
 
 # Method to get the mailer
 sub _getMailer
 {
-
     my ($self) = @_;
 
     my $mailer = new Net::SMTP(
