@@ -5,11 +5,11 @@ module=$1
 for sqlfile in /usr/share/zentyal-$module/sql/*.sql
 do
     table=`basename $sqlfile | cut -d. -f1`
-    /usr/share/zentyal-$module/sql-table drop $table
+    /usr/share/zentyal/sql-table drop $table
 done
 
 for sqlfile in /usr/share/zentyal/sql/period/*.sql
 do
     table=`basename $sqlfile | cut -d. -f1`
-    /usr/share/zentyal-$module/sql-table-with-time-period drop $table
+    /usr/share/zentyal/sql-table-with-time-period drop $table
 done
