@@ -1,0 +1,26 @@
+#!/bin/bash
+MODULES="asterisk core ebackup remoteservices software"
+findArgMas=
+for mod in $MODULES
+do
+    if [ -n "$findArgMas" ]; then
+        findArgMas="${findArgMas} -o"
+    fi
+    findArgMas="${findArgMas} -path ../$mod*mas"
+done
+
+sed -e 's/zentyal.pot//' tools/po-am.header
+echo -n "POTFILES_TMPL = "
+find .. \( $findArgMas \) -type f -exec echo -ne \\\\\\\n {}" " \;
+echo ""
+echo ""
+echo -n "POTFILES_PL = "
+find .. \( -path ./*/src/scripts -prune -o -path ./*/doc -prune -o -name "*.pm" -o -name "*.pm.in" -o -wholename "./migration/*.pl" \) -type f -exec echo -ne \\\\\\\n {}" " \;
+echo -n " ../main/ebackup/tools/restore-tool"
+echo ""
+echo ""
+echo -n "POTFILES = "
+find .. \( $findArgMas -o -name "*.pm" -o -name "*.pm.in" -o -wholename "./migration/*.pl" \) -type f -exec echo -ne \\\\\\\n {}" " \;
+echo ""
+echo ""
+cat tools/po-subs-am.footer
