@@ -3,4 +3,4 @@ pre-start script
 end script
 
 respawn
-exec /usr/sbin/ntpd -n -g
+exec /usr/sbin/ntpd -n -g -u `getent passwd ntp | cut -f 3,4 -d:`
