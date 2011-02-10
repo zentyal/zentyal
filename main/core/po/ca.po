@@ -9,24 +9,23 @@ msgstr ""
 "Project-Id-Version: ebox 0.12\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-12-18 01:43+0100\n"
-"PO-Revision-Date: 2010-08-29 23:26+0200\n"
-"Last-Translator: josefa <jgonza24@xtec.cat>\n"
+"PO-Revision-Date: 2011-01-12 23:13+0200\n"
+"Last-Translator: Josefa <jgonza24@ieslaferreria.net>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
-"Language: \n"
+"Language: ca\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Pootle 1.1.0\n"
+"X-Generator: Pootle 2.1.4\n"
 
 #: src/EBox/Apache.pm:289 src/EBox/Apache.pm:298
 msgid "port"
 msgstr "port"
 
 #: src/EBox/Apache.pm:626
-#, fuzzy
 msgid "Zentyal Administration Web Server"
-msgstr "servidor web de Zentyal"
+msgstr "Servidor Web d'Administració de Zentyal"
 
 #: src/EBox/Event/Dispatcher/Jabber.pm:165
 msgid "Admin Jabber account"
@@ -624,9 +623,8 @@ msgid "Disk Usage"
 msgstr "Ús de disc"
 
 #: src/EBox/SysInfo.pm.in:280 src/EBox/CGI/EBox/Backup.pm:34
-#, fuzzy
 msgid "Import/Export Configuration"
-msgstr "Configuració actual"
+msgstr "Importar/Exportar Configuració"
 
 #: src/EBox/SysInfo.pm.in:283
 msgid "Configuration Report"
@@ -1169,18 +1167,20 @@ msgstr "tots"
 msgid ""
 "There are {n} log slices not stored; wait or force its storage and retry"
 msgstr ""
+"Hi ha {n} parts del registre no emmagatzemades; esperi o forci el seu "
+"emmagatzemament i torni a intentar-ho"
 
 #: src/EBox/Logs/SlicedBackup.pm:133 src/EBox/Logs/SlicedBackup.pm:141
 msgid "Backup slice time interval"
-msgstr ""
+msgstr "Interval de temps per parts de la còpia de seguretat"
 
 #: src/EBox/Logs/SlicedBackup.pm:438
 msgid "Slices to be archived at once"
-msgstr ""
+msgstr "Parts per ser arxivades de cop"
 
 #: src/EBox/Logs/SlicedBackup.pm:445
 msgid "Slices timeline"
-msgstr ""
+msgstr "Línia de temps de les parts"
 
 #: src/EBox/Report/DiskUsage.pm:76
 #, perl-brace-format
@@ -1206,12 +1206,16 @@ msgstr "Heu d'establir la variable {variable} al fitxer de configuració d'ebox"
 msgid ""
 "You are using sliced backup mode and this backup was made in no-sliced mode"
 msgstr ""
+"Esteu utilitzant el mode de còpia de seguretat per parts i aquesta còpia de "
+"seguretat va ser feta sense el mode per parts"
 
 #: src/EBox/PgDBEngine.pm:479
 msgid ""
 "Database dump file not found. Maybe the backup you are trying to restore was "
 "made in sliced mode?"
 msgstr ""
+"No trobat el fitxer de bolcat de base de dades. Potser la còpia de seguretat "
+"que està intentant restaurar es va fer en el mode de parts?"
 
 #: src/EBox/Logs.pm:58 src/EBox/Logs.pm:383 src/EBox/CGI/Logs/Index.pm:35
 msgid "Logs"
@@ -1219,7 +1223,7 @@ msgstr "Registres"
 
 #: src/EBox/Logs.pm:384
 msgid "Zentyal Server logs database"
-msgstr ""
+msgstr "Base de dades dels registres del Servidor Zentyal"
 
 #: src/EBox/Logs.pm:470
 #, perl-brace-format
@@ -1473,7 +1477,7 @@ msgstr "El mòdul s'ha reiniciat correctament."
 #: src/EBox/CGI/EBox/RestartService.pm:58
 #, perl-brace-format
 msgid "Error restarting service. See {logs} for more information."
-msgstr ""
+msgstr "Error reiniciant el servei. Ver {logs} per més informació."
 
 #: src/EBox/CGI/EBox/Password.pm:43 src/templates/password.mas:11
 #: src/templates/login/index.mas:49
@@ -1667,9 +1671,10 @@ msgstr ""
 "provar."
 
 #: src/EBox/Backup.pm:1187
-#, fuzzy
 msgid "Could not unpack the etc files archive backup"
-msgstr "No s'ha pogut desempaquetar la còpia de seguretat"
+msgstr ""
+"No s'ha pogut desempaquetar els fitxers etc del fitxer de la còpia de "
+"seguretat"
 
 #: src/EBox/Backup.pm:1326
 #, perl-brace-format
@@ -1677,11 +1682,15 @@ msgid ""
 "The following modules present in the backup are not installed: {mods}. You "
 "need to install them before restoring."
 msgstr ""
+"Els següents mòduls presents  en la còpia de seguretat no estan instal·lats: "
+"{mods}. Necessiteu instal·lar-los abans de restaurar."
 
 #: src/EBox/Backup.pm:1354
 #, perl-brace-format
 msgid "Cannot restore backup, error enabling module {m}: {err}"
 msgstr ""
+"No es pot restaurar la còpia de seguretat, error restaurant el mòdul {m}: "
+"{err}"
 
 #: src/EBox/Backup.pm:1387
 #, perl-brace-format
@@ -1702,9 +1711,8 @@ msgstr ""
 "està instal.lat."
 
 #: src/EBox/Backup.pm:1503
-#, fuzzy
 msgid "Backup archives"
-msgstr "Còpia de seguretat dels Arxius"
+msgstr "Arxius de còpia de seguretat"
 
 #: src/templates/dataInUse.mas:41 src/templates/confirm-backup.mas:66
 msgid "Cancel"
@@ -2157,6 +2165,8 @@ msgid ""
 "Browse the available widgets in the left menu and drag&drop them to the "
 "dashboard."
 msgstr ""
+"Navegar pels widgets disponibles en el menú de l'esquerra i arrossegar i "
+"deixar-los en el tauler de control."
 
 #: src/templates/dashboard/list.mas:43
 msgid "No entries in this list"
@@ -2262,6 +2272,7 @@ msgstr ""
 #, perl-brace-format
 msgid "The hostname will be changed to {newHostname} after saving changes."
 msgstr ""
+"El nom de la màquina canviarà a {newHostname} després de desar els canvis."
 
 #: src/templates/confirm-backup.mas:102
 msgid "Full Restore"
@@ -2289,16 +2300,15 @@ msgstr "Surt"
 
 #: src/templates/backupTabs.mas:13
 msgid "Local"
-msgstr ""
+msgstr "Local"
 
 #: src/templates/backupTabs.mas:18
 msgid "Remote in Zentyal Cloud"
-msgstr ""
+msgstr "Remot en el núvol de Zentyal"
 
 #: src/templates/backupTabs.mas:23
-#, fuzzy
 msgid "Remote in Zentyal Cloud from other subscribed hosts"
-msgstr "Còpies de seguretat remotes d'altres hosts subscrits."
+msgstr "Remot d'altres màquines subscrites en el núvol de Zentyal"
 
 #: src/templates/login/index.mas:40
 msgid "Warning: Caps Lock is enabled"

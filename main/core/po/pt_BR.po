@@ -6,29 +6,28 @@ msgstr ""
 "Project-Id-Version: ebox 0.12\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-12-18 01:43+0100\n"
-"PO-Revision-Date: 2010-08-27 04:21+0200\n"
-"Last-Translator: Jorge Eduardo Quintao <jorge@netsol.com.br>\n"
+"PO-Revision-Date: 2011-01-15 11:53+0200\n"
+"Last-Translator: Jorge <jorge@netsol.com.br>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
-"Language: \n"
+"Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Pootle 1.1.0\n"
+"X-Generator: Pootle 2.1.4\n"
 
 #: src/EBox/Apache.pm:289 src/EBox/Apache.pm:298
 msgid "port"
 msgstr "porta"
 
 #: src/EBox/Apache.pm:626
-#, fuzzy
 msgid "Zentyal Administration Web Server"
-msgstr "Servidor de web do Zentyal"
+msgstr "Servidor Web de Administração do Zentyal"
 
 # Conta do administrador
 #: src/EBox/Event/Dispatcher/Jabber.pm:165
 msgid "Admin Jabber account"
-msgstr "Conta de Administração do Jabber"
+msgstr "Conta de Administrador do Jabber"
 
 #: src/EBox/Event/Dispatcher/Jabber.pm:178
 msgid "Jabber"
@@ -256,7 +255,7 @@ msgid ""
 "faulty"
 msgstr ""
 "O componente ativo {compName} do conjunto RAID {arrayName} foi marcado como "
-"como defeituoso."
+"defeituoso."
 
 #: src/EBox/Event/Watcher/RAID.pm:479
 #, perl-brace-format
@@ -286,7 +285,7 @@ msgid ""
 "with status {status}"
 msgstr ""
 "Um novo componente {compName} foi adicionado a controladora RAID {arrayName} "
-"com o estado {status} "
+"com o estado {status}"
 
 #: src/EBox/Event/Watcher/RAID.pm:515
 #, perl-brace-format
@@ -472,7 +471,7 @@ msgid ""
 "                    the following sections:"
 msgstr ""
 "Os dados que você está removendo está sendo usado por\n"
-" nas seguintes seções:"
+"                    nas seguintes seções:"
 
 #: src/EBox/Model/ModelManager.pm:515
 msgid ""
@@ -540,7 +539,7 @@ msgstr "qualquer"
 
 #: src/EBox/Types/PortRange.pm:293
 msgid "Single port"
-msgstr "Relatório único"
+msgstr "Porta única"
 
 #: src/EBox/Types/PortRange.pm:297
 msgid "Port range"
@@ -624,9 +623,8 @@ msgid "Disk Usage"
 msgstr "Uso de disco"
 
 #: src/EBox/SysInfo.pm.in:280 src/EBox/CGI/EBox/Backup.pm:34
-#, fuzzy
 msgid "Import/Export Configuration"
-msgstr "Configuração atual"
+msgstr "Importar/Exportar Configuração"
 
 #: src/EBox/SysInfo.pm.in:283
 msgid "Configuration Report"
@@ -725,9 +723,9 @@ msgid ""
 "Zentyal admin. Note that you need to register this  account manually in any "
 "jabber server"
 msgstr ""
-"Jabber ID de destino das mensagens geradas pelo Zentyal, ou seja: você, o "
-"admin Zentyal. Note que você precisa registrar essa conta manualmente em "
-"qualquer servidor jabber"
+"ID Jabber de destino das mensagens gerado pelo Zentyal,  exemplo: você, o "
+"administrador Zentyal. Note que você precisa registrar esta  conta "
+"manualmente em qualquer servidor jabber"
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:244
 msgid "Configure Jabber dispatcher"
@@ -739,7 +737,7 @@ msgstr "Esse expedidor enviará eventos para uma conta Jabber"
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:252
 msgid "Jabber dispatcher configuration updated"
-msgstr "Configuração do expedidor Jabber  atualizada"
+msgstr "Configuração do expedidor Jabber atualizada"
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:272
 #: src/EBox/Events/Model/Dispatcher/RSS.pm:324
@@ -758,7 +756,7 @@ msgstr "Expedidor Jabber"
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:301
 msgid "It should follow the pattern 'user@domain[/resource]'"
-msgstr "Deve seguir o padrão 'usuário@domínio[/resource]'"
+msgstr "Deve seguir o padrão 'usuario@dominio[/resource]'"
 
 #: src/EBox/Events/Model/Dispatcher/RSS.pm:149
 msgid "Nobody"
@@ -803,7 +801,7 @@ msgid ""
 "favourite RSS. "
 msgstr ""
 "O canal link é o link que é utilizado para distribuir o conteúdo para o seu "
-"RSS favorito."
+"RSS favorito. "
 
 #: src/EBox/Events/Model/Dispatcher/RSS.pm:209
 msgid "RSS dispatcher configuration updated"
@@ -848,7 +846,7 @@ msgid ""
 msgstr ""
 "Aviso! Não existe verificador de registos ativado. Vá em 'Configuração' para "
 "ativar pelo menos um para poder ser notificado quando houver um registro "
-"neste domínio."
+"neste domínio. "
 
 #: src/EBox/Events/Model/Watcher/LogFiltering.pm:108
 #, perl-brace-format
@@ -909,7 +907,7 @@ msgid ""
 "happen. "
 msgstr ""
 "Atenção! O verificador de registros não está ativado. Ative-o para ser "
-"notificado quando ocorrerem registros."
+"notificado quando ocorrerem registros. "
 
 #: src/EBox/Events/Model/Watcher/Log.pm:262
 #: src/EBox/Logs/Model/SelectLog.pm:149
@@ -1164,31 +1162,32 @@ msgstr "Opções de relatório"
 #: src/EBox/Logs/Model/Report/Details.pm:234
 #: src/EBox/Logs/Model/Report/Details.pm:269
 msgid "All"
-msgstr "Todos(as)"
+msgstr "Todos"
 
 #: src/EBox/Logs/SlicedBackup.pm:104
 #, perl-brace-format
 msgid ""
 "There are {n} log slices not stored; wait or force its storage and retry"
 msgstr ""
+"Existem {n} fatias de log não armazenadas; espere ou force isto no storage e "
+"tente novamente"
 
 #: src/EBox/Logs/SlicedBackup.pm:133 src/EBox/Logs/SlicedBackup.pm:141
 msgid "Backup slice time interval"
-msgstr ""
+msgstr "Intervalo de tempo da fatia do backup"
 
 #: src/EBox/Logs/SlicedBackup.pm:438
 msgid "Slices to be archived at once"
-msgstr ""
+msgstr "Fatias para ser arquivadas de uma vez"
 
 #: src/EBox/Logs/SlicedBackup.pm:445
 msgid "Slices timeline"
-msgstr ""
+msgstr "Linha do tempo das fatias"
 
 #: src/EBox/Report/DiskUsage.pm:76
 #, perl-brace-format
 msgid "No usage data for {d}. Are you sure is a valid disk?"
-msgstr ""
-"Não existem dados utilizáveis em {d}. Tem a certeza que é um disco válido?"
+msgstr "Não existem dados em {d}. Tem a certeza que é um disco válido?"
 
 #: src/EBox/Report/DiskUsage.pm:222
 #, perl-brace-format
@@ -1204,18 +1203,22 @@ msgstr ""
 msgid "You must set the {variable} variable in the ebox configuration file"
 msgstr ""
 "Você precisar definir a variável {variable} no arquivo de configuração do "
-"EBox"
+"ebox"
 
 #: src/EBox/PgDBEngine.pm:471
 msgid ""
 "You are using sliced backup mode and this backup was made in no-sliced mode"
 msgstr ""
+"Você está usando o modo fatiado do backup e este backup foi feito no modo "
+"não fatiado"
 
 #: src/EBox/PgDBEngine.pm:479
 msgid ""
 "Database dump file not found. Maybe the backup you are trying to restore was "
 "made in sliced mode?"
 msgstr ""
+"Dump do banco de dados não encontrado. Talvez o backup que você está "
+"tentando restaurar tenha sido feito no modo fatiado."
 
 #: src/EBox/Logs.pm:58 src/EBox/Logs.pm:383 src/EBox/CGI/Logs/Index.pm:35
 msgid "Logs"
@@ -1223,7 +1226,7 @@ msgstr "Logs"
 
 #: src/EBox/Logs.pm:384
 msgid "Zentyal Server logs database"
-msgstr ""
+msgstr "Banco de dados de logs do Servidor Zentyal"
 
 #: src/EBox/Logs.pm:470
 #, perl-brace-format
@@ -1384,7 +1387,7 @@ msgstr "Módulo atual"
 
 #: src/EBox/CGI/Finish.pm:104
 msgid "modules revoked"
-msgstr "Módulos revogados"
+msgstr "módulos revogados"
 
 #: src/EBox/CGI/Finish.pm:105
 msgid "Changes revoked"
@@ -1478,7 +1481,7 @@ msgstr "O módulo foi reiniciado corretamente."
 #: src/EBox/CGI/EBox/RestartService.pm:58
 #, perl-brace-format
 msgid "Error restarting service. See {logs} for more information."
-msgstr ""
+msgstr "Erro reiniciando serviço. Veja {logs} para mais informações."
 
 #: src/EBox/CGI/EBox/Password.pm:43 src/templates/password.mas:11
 #: src/templates/login/index.mas:49
@@ -1495,7 +1498,7 @@ msgstr "Senha incorreta."
 
 #: src/EBox/CGI/EBox/Password.pm:62
 msgid "New passwords do not match."
-msgstr "A nova senha não confere. "
+msgstr "A nova senha não confere."
 
 #: src/EBox/CGI/EBox/Password.pm:67
 msgid "The password must be at least 6 characters long"
@@ -1533,7 +1536,7 @@ msgstr "Operação"
 
 #: src/EBox/CGI/EBox/Backup.pm:242
 msgid "operations left to finish backup"
-msgstr "Tempo restante para finalizar o backup"
+msgstr "tempo restante para finalizar o backup"
 
 #: src/EBox/CGI/EBox/Backup.pm:243
 msgid "Backup successful"
@@ -1549,7 +1552,7 @@ msgstr "Restaurando módulos"
 
 #: src/EBox/CGI/EBox/Backup.pm:258
 msgid "modules restored"
-msgstr "Módulos restaurados"
+msgstr "módulos restaurados"
 
 #: src/EBox/CGI/EBox/Backup.pm:259
 msgid "Restore successful"
@@ -1648,16 +1651,15 @@ msgid ""
 "using a incompatible Zentyal version"
 msgstr ""
 "O arquivo de backup é de tipo inválido. Talvez o arquivo esteja corrompido "
-"ou você está utilizando uma versão de Zentyal incompatível "
+"ou você está utilizando uma versão de Zentyal incompatível"
 
 #: src/EBox/Backup.pm:925
 msgid ""
 "The archive does not contain a full backup, that made a full restore "
 "impossibe. A configuration recovery  may be possible"
 msgstr ""
-"O arquvo não contém um arquivo de backup completo, o que torna impossível "
-"uma restauração completa. Uma recuperação de configuração talvez seja "
-"possível."
+"O arquvo não contém um backup completo, o que torna impossível uma "
+"restauração completa. Uma recuperação da configuração  pode ser possível."
 
 #: src/EBox/Backup.pm:957
 #, perl-brace-format
@@ -1667,12 +1669,11 @@ msgid ""
 msgstr ""
 "Não existe espaço em disco disponível suficiente para completar o processo "
 "de restauração. {size} Kb necessários. Libere o espaço necessário e tente "
-"novamente "
+"novamente"
 
 #: src/EBox/Backup.pm:1187
-#, fuzzy
 msgid "Could not unpack the etc files archive backup"
-msgstr "Não foi possível descompactar o backup"
+msgstr "Não foi possível descompactar o backup dos arquivos do etc"
 
 #: src/EBox/Backup.pm:1326
 #, perl-brace-format
@@ -1680,11 +1681,13 @@ msgid ""
 "The following modules present in the backup are not installed: {mods}. You "
 "need to install them before restoring."
 msgstr ""
+"Os seguintes módulos presente no backup não estão instalados: {mods}. Você "
+"precisa instalar os mesmos antes de restaurar o backup."
 
 #: src/EBox/Backup.pm:1354
 #, perl-brace-format
 msgid "Cannot restore backup, error enabling module {m}: {err}"
-msgstr ""
+msgstr "Não foi possível restaurar o backup, erro habilitando módulo {m}: {err}"
 
 #: src/EBox/Backup.pm:1387
 #, perl-brace-format
@@ -1704,7 +1707,6 @@ msgstr ""
 "Dependência não resolvida do módulo {topModule}: {modName} não está instalado"
 
 #: src/EBox/Backup.pm:1503
-#, fuzzy
 msgid "Backup archives"
 msgstr "Arquivos de Backup"
 
@@ -1738,7 +1740,7 @@ msgstr "Depende"
 
 #: src/templates/moduleStatusTable.mas:60 src/templates/report/raid.mas:104
 msgid "Status"
-msgstr "Status"
+msgstr "Estado"
 
 #: src/templates/moduleStatusTable.mas:85
 #, perl-brace-format
@@ -1910,7 +1912,7 @@ msgstr "itens restantes"
 
 #: src/templates/progress.mas:27
 msgid "Some error has happened in Zentyal: "
-msgstr "Aconteceram alguns erros no Zentyal:"
+msgstr "Aconteceram alguns erros no Zentyal: "
 
 #: src/templates/progress.mas:152
 msgid "Starting..."
@@ -1959,7 +1961,7 @@ msgstr "Tamanho em blocos"
 
 #: src/templates/report/raid.mas:145
 msgid "Chunk size"
-msgstr "Tamanho do \"chunk\""
+msgstr "Tamanho chunk"
 
 #: src/templates/report/raid.mas:148
 msgid "Parity algorithm"
@@ -2159,6 +2161,8 @@ msgid ""
 "Browse the available widgets in the left menu and drag&drop them to the "
 "dashboard."
 msgstr ""
+"Navegue pelos widgets disponíveis no menu da esquerda e arraste-os para o "
+"dashboard."
 
 #: src/templates/dashboard/list.mas:43
 msgid "No entries in this list"
@@ -2264,6 +2268,8 @@ msgstr ""
 #, perl-brace-format
 msgid "The hostname will be changed to {newHostname} after saving changes."
 msgstr ""
+"O hostname irá ser alterado para {newHostname} depois de salvar as "
+"alterações."
 
 #: src/templates/confirm-backup.mas:102
 msgid "Full Restore"
@@ -2293,16 +2299,15 @@ msgstr "Sair"
 
 #: src/templates/backupTabs.mas:13
 msgid "Local"
-msgstr ""
+msgstr "Local"
 
 #: src/templates/backupTabs.mas:18
 msgid "Remote in Zentyal Cloud"
-msgstr ""
+msgstr "Remoto no Zentyal Cloud"
 
 #: src/templates/backupTabs.mas:23
-#, fuzzy
 msgid "Remote in Zentyal Cloud from other subscribed hosts"
-msgstr "Backup remoto a partir de outros hosts inscritos"
+msgstr "Remoto no Zentyal Cloud de outros hosts inscritos"
 
 #: src/templates/login/index.mas:40
 msgid "Warning: Caps Lock is enabled"
