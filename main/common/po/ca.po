@@ -7,15 +7,15 @@ msgstr ""
 "Project-Id-Version: libebox 0.12.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-12-18 01:20+0100\n"
-"PO-Revision-Date: 2010-08-29 23:51+0200\n"
-"Last-Translator: josefa <jgonza24@xtec.cat>\n"
+"PO-Revision-Date: 2011-01-02 14:03+0200\n"
+"Last-Translator: Josefa <jgonza24@ieslaferreria.net>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
-"Language: \n"
+"Language: ca\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Pootle 1.1.0\n"
+"X-Generator: Pootle 2.1.4\n"
 
 #: src/EBox/Config.pm.in:74
 #, perl-brace-format
@@ -319,22 +319,20 @@ msgid "Read-only row: delete disabled"
 msgstr "Fila de només lectura: esborrar desactivat"
 
 #: src/templates/ajax/tableBody.mas:557
-#, fuzzy
 msgid "Read-only row: move up disabled"
-msgstr "Fila de només lectura: edició desactivada"
+msgstr "Fila de només lectura: moviment cap a munt deshabilitat"
 
 #: src/templates/ajax/tableBody.mas:561
 msgid "Move up"
-msgstr ""
+msgstr "Pujar"
 
 #: src/templates/ajax/tableBody.mas:573
-#, fuzzy
 msgid "Read-only row: move down  disabled"
-msgstr "Fila de només lectura: edició desactivada"
+msgstr "Fila de només lectura: moviment cap a baix inhabilitat"
 
 #: src/templates/ajax/tableBody.mas:577
 msgid "Move down"
-msgstr ""
+msgstr "Baixar"
 
 #: src/templates/enable.mas:9
 msgid "Service configuration"

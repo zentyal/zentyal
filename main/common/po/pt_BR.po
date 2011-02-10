@@ -6,15 +6,15 @@ msgstr ""
 "Project-Id-Version: libebox 0.12.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-12-18 01:20+0100\n"
-"PO-Revision-Date: 2010-08-27 05:51+0200\n"
-"Last-Translator: Jorge Eduardo Quintao <jorge@netsol.com.br>\n"
+"PO-Revision-Date: 2011-01-15 11:53+0200\n"
+"Last-Translator: Jorge <jorge@netsol.com.br>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
-"Language: \n"
+"Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Pootle 1.1.0\n"
+"X-Generator: Pootle 2.1.4\n"
 
 #: src/EBox/Config.pm.in:74
 #, perl-brace-format
@@ -69,7 +69,7 @@ msgid ""
 "The file path supplied is not valid. (Currently not all of the valid file's  "
 "characters are supported) "
 msgstr ""
-"O caminho indicado não é válido. (Atualmente nem todos os caracteres dos "
+"O caminho fornecido não é válido. (Atualmente nem todos os caracteres  dos "
 "arquivos válidos são suportados) "
 
 #: src/EBox/Validate.pm:795
@@ -79,7 +79,7 @@ msgstr "O caminho do arquivo deve ser absoluto"
 #: src/EBox/Sudo.pm:265
 #, perl-brace-format
 msgid "Running command '{cmd}' as {user} failed"
-msgstr "A execução do comando '{cmd}' como usuário '{user}' falhou"
+msgstr "A execução do comando '{cmd}' como usuário {user} falhou"
 
 #: src/EBox/FileSystem.pm:190 src/EBox/FileSystem.pm:282
 #, perl-brace-format
@@ -101,7 +101,7 @@ msgid ""
 "these non alphanumeric chars: /.?&+:-@ and spaces are allowed."
 msgstr ""
 "A entrada contém caracteres inválidos. Todos caracteres alfanuméricos, mais "
-"estes não-alfanuméricos:  /.?&+:-@ e espaços são aceitos."
+"estes não-alfanuméricos: /.?&+:-@ e espaços são aceitos."
 
 #: src/EBox/CGI/Base.pm:347
 msgid ""
@@ -320,22 +320,20 @@ msgid "Read-only row: delete disabled"
 msgstr "Linha somente leitura: remoção desabilitada"
 
 #: src/templates/ajax/tableBody.mas:557
-#, fuzzy
 msgid "Read-only row: move up disabled"
-msgstr "Linha somente leitura: edição desabilitada"
+msgstr "Linha somente leitura: para cima desabilitado"
 
 #: src/templates/ajax/tableBody.mas:561
 msgid "Move up"
-msgstr ""
+msgstr "Para cima"
 
 #: src/templates/ajax/tableBody.mas:573
-#, fuzzy
 msgid "Read-only row: move down  disabled"
-msgstr "Linha somente leitura: edição desabilitada"
+msgstr "Linha somente de leitura: para baixo  desabilitado"
 
 #: src/templates/ajax/tableBody.mas:577
 msgid "Move down"
-msgstr ""
+msgstr "Para baixo"
 
 #: src/templates/enable.mas:9
 msgid "Service configuration"

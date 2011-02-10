@@ -8,47 +8,48 @@ msgstr ""
 "Project-Id-Version: libebox 1.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-12-18 01:20+0100\n"
-"PO-Revision-Date: 2009-01-21 10:19+0100\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2011-01-14 13:32+0200\n"
+"Last-Translator: akoscomp <reg@pecska.ro>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
-"Language: \n"
+"Language: hu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Pootle 2.1.4\n"
 
 #: src/EBox/Config.pm.in:74
 #, perl-brace-format
 msgid "Could not open the config file {file}."
-msgstr ""
+msgstr "A beállító fájlt nem lehet megnyitni: {file}"
 
 #: src/EBox/Config.pm.in:172
 msgid "The ebox user has not been set in the config file."
-msgstr ""
+msgstr "Az ebox felhasználó nincs beállítva a beállító fájlban."
 
 #: src/EBox/Exceptions/DataNotFound.pm:35
 #, perl-brace-format
 msgid "{data} {value} does not exist."
-msgstr ""
+msgstr "{data} {value} nem létezik."
 
 #: src/EBox/Exceptions/DataExists.pm:36
 #, perl-brace-format
 msgid "{data} {value} already exists."
-msgstr ""
+msgstr "{data} {value} már létezik."
 
 #: src/EBox/Exceptions/InvalidData.pm:37
 #, perl-brace-format
 msgid "Invalid value for {data}: {value}."
-msgstr ""
+msgstr "Érvénytelen érték: {data}: {value}."
 
 #: src/EBox/Exceptions/DataMissing.pm:36
 #, perl-brace-format
 msgid "{data} is empty."
-msgstr ""
+msgstr "Üres adat: {data}"
 
 #: src/EBox/Validate.pm:390 src/EBox/Validate.pm:404
 msgid "Must be a number between 1 and 4096"
-msgstr ""
+msgstr "A szám 1 és 4096 közötti kell legyen"
 
 #: src/EBox/Validate.pm:687
 #, perl-brace-format
@@ -56,21 +57,23 @@ msgid ""
 "Cannot stat dir: {dir}. This may mean that the directory does not exist or "
 "the permissions forbid access to it"
 msgstr ""
+"Nem található a(z) {dir} mappa. Ez azt jelenti, hogy a könyvtár nem létezik "
+"vagy nincs joga hozzáférni"
 
 #: src/EBox/Validate.pm:692
 #, perl-brace-format
 msgid "The directory {dir} is not private; because it is owned by another user"
-msgstr ""
+msgstr "A(z) mappa nem saját mivel más felhasználó a tulajdonosa"
 
 #: src/EBox/Validate.pm:767
 msgid ""
 "The file path supplied is not valid. (Currently not all of the valid file's  "
 "characters are supported) "
-msgstr ""
+msgstr "A fájlelérés nem érvényes. (Jelenleg nem támogatott minden karakter)"
 
 #: src/EBox/Validate.pm:795
 msgid "The file path must be absolute"
-msgstr ""
+msgstr "A fájlelérés abszolut útvonal kell legyen"
 
 #: src/EBox/Sudo.pm:265
 #, perl-brace-format
