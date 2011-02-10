@@ -48,7 +48,6 @@ sub new
         @_
        );
 
-    $self->{domain} = 'ebox-monitor';
     bless($self, $class);
 
     return $self;

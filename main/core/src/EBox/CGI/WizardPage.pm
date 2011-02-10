@@ -100,12 +100,10 @@ sub _masonParameters
 sub _print
 {
 	my ($self) = @_;
-	settextdomain($self->{'domain'});
 	$self->_header();
     if ( $self->{cgi}->request_method() eq 'GET' ) {
 	    $self->_body();
     }
-	settextdomain('ebox');
 }
 
 
@@ -143,9 +141,7 @@ sub run
     else {
         try {
             $self->_validateReferer();
-            settextdomain($self->domain());
             $self->_process();
-            settextdomain('ebox');
             $self->_print;
         } otherwise {
             my $ex = shift;

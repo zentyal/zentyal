@@ -38,9 +38,8 @@ sub _create
 {
     my $class = shift;
     my $self = $class->SUPER::_create(name => 'jabber',
-                      domain => 'ebox-jabber',
-                      printableName => 'Jabber',
-                      @_);
+                                      printableName => 'Jabber',
+                                      @_);
     bless($self, $class);
     return $self;
 }
@@ -93,8 +92,7 @@ sub initialSetup
         unless($services->serviceExists(name => $serviceName)) {
             $services->addMultipleService(
                 'name' => $serviceName,
-                'description' => __d('Jabber Server'),
-                'translationDomain' => 'ebox-jabber',
+                'description' => __('Jabber Server'),
                 'internal' => 1,
                 'readOnly' => 1,
                 'services' => $self->_services(),

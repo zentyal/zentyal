@@ -5,8 +5,6 @@
 use EBox::Gettext;
 </%init>
 
-% settextdomain('ebox-mail');
-
 <h3><% __('Mail account settings') %></h3>
 
 % if (not $params->{service} ) {
@@ -46,7 +44,7 @@ use EBox::Gettext;
 			<tr>
 				<td>
 					<input type='text' class='inputText' name='lhs'>
-					 @ 
+					 @
 					<select name="rhs" enabled>
 %					my @kvd = @{ $params->{'vdomains'} };
 %					foreach my $vd (@kvd) {
@@ -55,8 +53,8 @@ use EBox::Gettext;
 					</select>
 				</td>
 				<td class='tcenter'>
-					<input class='inputButton' 
-							type='image' 
+					<input class='inputButton'
+							type='image'
 							src='/data/images/add.gif'
 							name='change'
 							value="<% __('Create') %>"
@@ -71,7 +69,7 @@ use EBox::Gettext;
 					<td><% $alias %></td>
 					<td class='tcenter'>
 						<a href='../Mail/DelAlias?alias=<% $alias %>&username=<% $params->{'username'} %>'>
-						<img src='/data/images/delete.gif' 
+						<img src='/data/images/delete.gif'
 							title="<% __('Delete') %>"
 							alt="<% __('Delete') %>"/></a>
 					</td>
@@ -81,7 +79,6 @@ use EBox::Gettext;
 			</tbody>
 		</table>
 </form>
-% settextdomain('ebox-usersandgroups');
 
 <& .updateMaildirQuotaJs, params => $params &>
 

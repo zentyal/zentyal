@@ -348,16 +348,12 @@ sub _setUpCompositesFromProvider
     my ($self, $provider) = @_;
 
     foreach my $composite (@{$provider->composites()}) {
-        if ($provider->can('domain')) {
-            $composite->setInitialDomain($provider->domain());
-        }
         push ( @{$self->{composites}->{$provider->name()}->{$composite->name()}},
                $composite);
     }
     for my $model (@{$provider->reloadCompositesOnChange()}) {
         push ( @{$self->{'reloadActions'}->{$model}}, $provider->name());
     }
-
 }
 
 # Method: _inferModuleFromComposite

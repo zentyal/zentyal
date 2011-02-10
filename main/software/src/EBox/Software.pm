@@ -54,7 +54,6 @@ sub _create
     my $self = $class->SUPER::_create(
         name => 'software',
         printableName => __n('Software Management'),
-        domain => 'ebox-software',
         @_);
     bless($self, $class);
     return $self;
@@ -975,8 +974,6 @@ sub _installCronFile
 sub firstTimeMenu
 {
     my ($self, $current) = @_;
-
-    settextdomain('ebox-software');
 
     print "<div id='menu'><ul id='nav'>\n";
 

@@ -31,7 +31,6 @@ sub new
 	my $class = shift;
 	my $self = $class->SUPER::new('title' => 'Zarafa',
 				      @_);
-	$self->{domain} = 'ebox-zarafa';
 
 	bless($self, $class);
 	return $self;

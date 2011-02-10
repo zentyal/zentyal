@@ -34,23 +34,20 @@ use constant MIN_PASS_LENGTH => 5;
 # Returns:
 #
 #       CreateCA - The object recently created
-
+#
 sub new
-  {
-
+{
     my $class = shift;
 
     my $self = $class->SUPER::new('title' => __('Certification Authority'),
-				  @_);
+                                  @_);
 
-    $self->{domain} = 'ebox-ca';
     bless($self, $class);
 
-    $self->setChain( 'CA/Index' );
+    $self->setChain('CA/Index');
 
     return $self;
-
-  }
+}
 
 # Method: requiredParameters
 #
@@ -59,13 +56,11 @@ sub new
 #     <EBox::CGI::Base::requiredParameters>
 #
 sub requiredParameters
-  {
+{
+    my ($self) = @_;
 
-      my ($self) = @_;
-
-      return [qw(orgName expiryDays ca)]
-
-  }
+    return [qw(orgName expiryDays ca)]
+}
 
 # Method: optionalParameters
 #
@@ -74,14 +69,11 @@ sub requiredParameters
 #     <EBox::CGI::Base::optionalParameters>
 #
 sub optionalParameters
-  {
+{
+    my ($self) = @_;
 
-      my ($self) = @_;
-
-      return [qw(countryName stateName localityName caPassphrase reCAPassphrase)];
-
-  }
-
+    return [qw(countryName stateName localityName caPassphrase reCAPassphrase)];
+}
 
 # Method: actuate
 #
@@ -140,7 +132,6 @@ sub actuate
     }
 
     $self->cgi()->delete_all();
-
 }
 
 1;

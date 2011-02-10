@@ -111,7 +111,6 @@ sub _create
 {
 	my $class = shift;
 	my $self = $class->SUPER::_create(name => 'ca',
-					  domain => 'ebox-ca',
 					  printableName => __n('Certification Authority'),
 					  @_);
 
@@ -142,19 +141,6 @@ sub _create
 	$self->{maxDays} = $self->_maxDays();
 
 	return $self;
-}
-
-# Method: domain
-#
-#       Return the gettext domain
-#
-# Returns:
-#
-#       string - the gettext domain
-#
-sub domain
-{
-    return 'ebox-ca';
 }
 
 # Method: modelClasses

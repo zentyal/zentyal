@@ -30,21 +30,17 @@ use EBox::Global;
 # Returns:
 #
 #       Index - The object recently created
-
 sub new
-  {
-
+{
     my $class = shift;
 
     my $self = $class->SUPER::new('title'  => __('Certification Authority'),
-				  @_);
+                                  @_);
 
-    $self->{domain} = 'ebox-ca';
     bless($self, $class);
 
     return $self;
-
-  }
+}
 
 # Method: masonParameters
 #
@@ -53,9 +49,8 @@ sub new
 #     <EBox::CGI::Base::masonParameters>
 #
 sub masonParameters
-  {
-
-    my $self = shift;
+{
+    my ($self) = @_;
 
     my $ca = EBox::Global->modInstance('ca');
 
@@ -63,24 +58,23 @@ sub masonParameters
     my @array = ();
 
     if ( $ca->isCreated() ) {
-      $self->{'template'} = "ca/index.mas";
-      # Update CA DB prior to displaying certificates
-      $ca->updateDB();
-      push( @array, 'certs' => $ca->listCertificates() );
+        $self->{'template'} = "ca/index.mas";
+        # Update CA DB prior to displaying certificates
+        $ca->updateDB();
+        push( @array, 'certs' => $ca->listCertificates() );
 
-      # Check if a new CA certificate is needed (because of revokation from RevokeCertificate)
-      my $currentState = $ca->currentCACertificateState();
-      if ( $currentState =~ m/[RE]/) {
-	push( @array, 'caNeeded' => 1);
-      } else {
-        push( @array, 'passRequired' => $ca->passwordRequired() );
-      }
+        # Check if a new CA certificate is needed (because of revokation from RevokeCertificate)
+        my $currentState = $ca->currentCACertificateState();
+        if ( $currentState =~ m/[RE]/) {
+            push( @array, 'caNeeded' => 1);
+        } else {
+            push( @array, 'passRequired' => $ca->passwordRequired() );
+        }
     } else {
-      $self->{'template'} = "ca/createCA.mas";
+        $self->{'template'} = "ca/createCA.mas";
     }
 
     return \@array;
-  }
-
+}
 
 1;

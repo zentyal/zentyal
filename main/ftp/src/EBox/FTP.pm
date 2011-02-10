@@ -24,7 +24,6 @@ use base qw(EBox::Module::Service
             EBox::Model::ModelProvider
             EBox::FirewallObserver);
 
-
 use EBox::Global;
 use EBox::Gettext;
 use EBox::Sudo;
@@ -33,9 +32,8 @@ sub _create
 {
     my $class = shift;
     my $self = $class->SUPER::_create(name => 'ftp',
-            printableName => 'FTP',
-            domain => 'ebox-ftp',
-            @_);
+                                      printableName => 'FTP',
+                                      @_);
 
     bless ($self, $class);
     return $self;
@@ -90,7 +88,6 @@ sub initialSetup
             $services->addMultipleService(
                 'name' => $serviceName,
                 'description' => __d('Zentyal FTP Server'),
-                'translationDomain' => 'ebox-ftp',
                 'internal' => 1,
                 'readOnly' => 1,
                 'services' => $self->_services(),

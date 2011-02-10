@@ -64,8 +64,9 @@ my $_brokenPackages = {};
 sub _new_instance
 {
     my $class = shift;
-    my $self = $class->SUPER::_create(name => 'global', domain => 'ebox',
-                                      printableName => 'global', @_);
+    my $self = $class->SUPER::_create(name => 'global',
+                                      printableName => 'global',
+                                      @_);
     bless($self, $class);
     $self->{'mod_instances'} = {};
     $self->{'mod_instances_hidden'} = {};

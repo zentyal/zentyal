@@ -26,10 +26,10 @@ use EBox::UsersAndGroups;
 use EBox::Gettext;
 use EBox::Exceptions::External;
 
-sub new {
+sub new
+{
     my $class = shift;
     my $self = $class->SUPER::new( @_);
-    $self->{domain} = "ebox-samba";
 
     bless($self, $class);
     return $self;

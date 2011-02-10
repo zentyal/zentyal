@@ -426,9 +426,7 @@ sub _delGroupWarning
 
     my $mail = EBox::Global->modInstance('mail');
 
-    settextdomain('ebox-mail');
     my $txt = __('This group has a mail alias');
-    settextdomain('ebox-usersandgroups');
 
     if ($mail->{malias}->groupHasAlias($group)) {
         return ($txt);
@@ -452,9 +450,7 @@ sub _delUserWarning
 
     return unless (EBox::Global->modInstance('mail')->configured());
 
-    settextdomain('ebox-mail');
     my $txt = __('This user has a mail account');
-    settextdomain('ebox-usersandgroups');
 
     if ($self->_accountExists($user)) {
         return ($txt);

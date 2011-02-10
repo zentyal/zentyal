@@ -57,14 +57,12 @@ sub new # (title=?, error=?, msg=?, cgi=?, template=?)
 	unless (defined($self->{cgi})) {
 		$self->{cgi} = new CGI;
 	}
-	$self->{domain} = 'ebox';
 	$self->{paramsKept} = ();
 
-	# XXX workaround form utf8 hell
-	if (Encode::is_utf8($self->{title})) {
-	  Encode::_utf8_off($self->{title});
-	}
-
+    # XXX workaround for utf8 hell
+    if (Encode::is_utf8($self->{title})) {
+        Encode::_utf8_off($self->{title});
+    }
 
 	bless($self, $class);
 	return $self;
@@ -92,9 +90,7 @@ sub _title
 
 	my @params = (title => $title, crumbs => $crumbs);
 
-	settextdomain('ebox');
 	$interp->exec($comp, @params);
-	settextdomain($self->{domain});
 }
 
 sub _print_error # (text)
@@ -167,7 +163,6 @@ sub _footer
 sub _print
 {
 	my $self = shift;
-	settextdomain('ebox');
 	$self->_header;
 	$self->_top;
 	$self->_menu;
@@ -175,9 +170,7 @@ sub _print
 	$self->_title;
 	$self->_error;
 	$self->_msg;
-	settextdomain($self->{'domain'});
 	$self->_body;
-	settextdomain('ebox');
 	print "</div></div>";
 	$self->_footer;
 }
@@ -258,7 +251,6 @@ sub run
 	else {
 	  try {
 	    $self->_validateReferer();
-	    settextdomain($self->domain());
 	    $self->_process();
 	  }
 	  catch EBox::Exceptions::Internal with {
@@ -332,7 +324,6 @@ sub run
 
 
 	try  {
-	  settextdomain('ebox');
 	  $self->_print
 	} catch EBox::Exceptions::Internal with {
 	  my $ex = shift;
@@ -472,20 +463,6 @@ sub cgi
 {
 	my $self = shift;
 	return $self->{cgi};
-}
-
-# Method: domain
-#
-#    Get the gettext domain for this CGI
-#
-# Returns:
-#
-#    String - containing the gettext domain
-#
-sub domain
-{
-	my $self = shift;
-	return $self->{domain};
 }
 
 # Method: setTemplate

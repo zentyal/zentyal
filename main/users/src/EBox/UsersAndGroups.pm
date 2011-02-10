@@ -80,7 +80,6 @@ sub _create
     my $class = shift;
     my $self = $class->SUPER::_create(name => 'users',
                                       printableName => __n('Users and Groups'),
-                                      domain => 'ebox-usersandgroups',
                                       @_);
 
     bless($self, $class);

@@ -5,7 +5,6 @@
 </%args>
 <%init>
 use EBox::Gettext;
-my $domain = settextdomain('ebox');
 my $status_str;
 my $status_tip_str;
 my $status_class;
@@ -48,4 +47,3 @@ if ( $item->{statusStr} ) {
 % }
 </td>
 </tr>
-% settextdomain($domain);

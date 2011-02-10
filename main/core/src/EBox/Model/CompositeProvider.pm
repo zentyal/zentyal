@@ -40,8 +40,8 @@ use constant TYPE => 'composite';
 #   a instance of the composite requested
 sub composite
 {
-  my ($self, $name) = @_;
-  return  $self->providedInstance(TYPE, $name);
+    my ($self, $name) = @_;
+    return  $self->providedInstance(TYPE, $name);
 }
 
 
@@ -59,20 +59,11 @@ sub composite
 #
 sub composites
 {
-  my ($self, $name) = @_;
+    my ($self, $name) = @_;
 
-  # Try to automatically set the domain
-  my $domain;
-  if ($self->can('domain')) {
-      $domain = $self->domain();
-      settextdomain($self->domain());
-  }
-  my $instances =  $self->providedInstances(TYPE, $name);
-  for my $instance (@{$instances}) {
-      $instance->setInitialDomain($domain);
-  }
+    my $instances = $self->providedInstances(TYPE, $name);
 
-  return $instances;
+    return $instances;
 }
 
 # Method: reloadCompositesOnChange
@@ -88,18 +79,16 @@ sub composites
 #
 sub reloadCompositesOnChange
 {
-
     return [];
-
 }
 
 # internal utility function, invokes the composite constructor
 sub newCompositeInstance
 {
-  my ($self,  $class, @params) = @_;
-  my $instance = $class->new(@params);
+    my ($self,  $class, @params) = @_;
+    my $instance = $class->new(@params);
 
-  return $instance;
+    return $instance;
 }
 
 #  Method: addCompositeInstance
@@ -113,8 +102,8 @@ sub newCompositeInstance
 #   instance - composite instance to add
 sub addCompositeInstance
 {
-  my ($self, $path, $instance) = @_;
-  $self->addInstance(TYPE, $path, $instance);
+    my ($self, $path, $instance) = @_;
+    $self->addInstance(TYPE, $path, $instance);
 }
 
 #  Method: removeCompositeInstance
@@ -128,8 +117,8 @@ sub addCompositeInstance
 #
 sub removeCompositeInstance
 {
-  my ($self, $path, $instance) = @_;
-  $self->removeInstance(TYPE, $path, $instance);
+    my ($self, $path, $instance) = @_;
+    $self->removeInstance(TYPE, $path, $instance);
 }
 
 #  Method: removeAllCompositeInstances
@@ -138,10 +127,11 @@ sub removeCompositeInstance
 #
 #  Parameters:
 #     providedName - name of the composite provider class
+#
 sub removeAllCompositeInstances
 {
-  my ($self, $path) = @_;
-  $self->removeAllInstances(TYPE, $path);
+    my ($self, $path) = @_;
+    $self->removeAllInstances(TYPE, $path);
 }
 
 # Method: compositeClasses
@@ -157,7 +147,7 @@ sub removeAllCompositeInstances
 #                      pass to the composite's constructor
 sub compositeClasses
 {
-  throw EBox::Exceptions::NotImplemented('compositeClasses');
+    throw EBox::Exceptions::NotImplemented('compositeClasses');
 }
 
 1;

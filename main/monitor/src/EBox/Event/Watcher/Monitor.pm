@@ -62,10 +62,7 @@ sub new
 
     my ($class) = @_;
 
-    my $self = $class->SUPER::new(
-                                  period      => 10,
-                                  domain      => 'ebox-monitor',
-                                 );
+    my $self = $class->SUPER::new(period => 10);
     bless( $self, $class);
 
     return $self;

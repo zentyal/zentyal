@@ -101,7 +101,7 @@ sub _menu
 {
     my ($self) = @_;
     my $file = '/var/lib/zentyal/.first';
-    if (-f  $file) {
+    if (-f $file and EBox::Global->modExists('software')) {
         my $software = EBox::Global->modInstance('software');
         # FIXME: workaround to show distinct menu for saving changes and installation proccess
         if ( $self->{title} and

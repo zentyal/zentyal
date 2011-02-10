@@ -65,10 +65,8 @@ my $anyDaemonType = any @daemonTypes;
 sub _create
 {
     my $class = shift;
-    my $self =
-      $class->SUPER::_create(name => 'openvpn',
-        domain => 'ebox-openvpn',
-        printableName => __('VPN'));
+    my $self = $class->SUPER::_create(name => 'openvpn',
+                                      printableName => __('VPN'));
     bless($self, $class);
     return $self;
 }

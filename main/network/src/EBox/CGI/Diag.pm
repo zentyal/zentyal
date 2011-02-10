@@ -29,7 +29,6 @@ sub new # (error=?, msg=?, cgi=?)
 	my $self = $class->SUPER::new('title' => __('Network Diagnostic Tools'),
 				      'template' => '/network/diag.mas',
 				      @_);
-	$self->{domain} = 'ebox-network';
 
 	bless($self, $class);
 	return $self;

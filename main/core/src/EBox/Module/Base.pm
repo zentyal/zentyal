@@ -45,7 +45,6 @@ use File::Slurp;
 # Parameters:
 #
 #   name - String module's name
-#   domain - String locale domain
 #   printableName - String printable module's name
 #   title - String the module's title
 #
@@ -56,17 +55,14 @@ use File::Slurp;
 # Exceptions:
 #
 #   Internal - If no name is provided
-sub _create # (name, domain?)
+sub _create # (name)
 {
     my $class = shift;
     my %opts = @_;
     my $self = {};
     $self->{name} = delete $opts{name};
-    $self->{domain} = delete $opts{domain};
     $self->{title} = delete $opts{title};
-    my $domain = settextdomain($self->{domain});
     $self->{printableName} = __(delete $opts{printableName});
-    settextdomain($domain);
     unless (defined($self->{name})) {
         use Devel::StackTrace;
         my $trace = Devel::StackTrace->new;
@@ -726,25 +722,6 @@ sub statusSummary
     return undef;
 }
 
-# Method: domain
-#
-#   Returns the locale domain for the current module instance
-#
-# Returns:
-#
-#   strings - locale domain
-#
-sub domain
-{
-    my $self = shift;
-
-    if (defined $self->{domain}) {
-        return $self->{domain};
-    } else {
-        return 'ebox';
-    }
-}
-
 # Method: package
 #
 #   Returns the package name
@@ -753,13 +730,11 @@ sub domain
 #
 #   strings - package name
 #
-# TODO Change domain  for package which
-# is more general. But we must ensure no module uses it directly
 sub package
 {
-    my $self = shift;
+    my ($self) = @_;
 
-    return $self->domain();
+    return 'zentyal-' . $self->{name};
 }
 
 # Method: wizardPages

@@ -31,7 +31,6 @@ sub new {
             __('Software management settings'),
             'template' => 'software/config.mas',
             @_);
-    $self->{domain} = 'ebox-software';
     bless($self, $class);
     return $self;
 }

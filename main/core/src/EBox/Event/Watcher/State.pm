@@ -49,19 +49,14 @@ use EBox::Gettext;
 #        <EBox::Event::Watcher::State> - the newly created object
 #
 sub new
-  {
+{
+    my ($class) = @_;
 
-      my ($class) = @_;
+    my $self = $class->SUPER::new(period => 10 * 60);
+    bless( $self, $class);
 
-      my $self = $class->SUPER::new(
-                                    period      => 10 * 60,
-                                    domain      => 'ebox',
-                                   );
-      bless( $self, $class);
-
-      return $self;
-
-  }
+    return $self;
+}
 
 # Method: ConfigurationMethod
 #
@@ -91,39 +86,37 @@ sub ConfigurationMethod
 #
 sub run
 {
+    my ($self) = @_;
 
-      my ($self) = @_;
-
-      # Check if apache is up and running
-      my $up = undef;
-      my $gl = EBox::Global->getInstance(1);
-      my $sock =    IO::Socket::INET->new(
-                        PeerAddr => "127.0.0.1",
-                        PeerPort => $gl->modInstance('apache')->port(),
-                        Proto	 => "tcp",
-                        Timeout	 => 5);
-      if ($sock) {
+    # Check if apache is up and running
+    my $up = undef;
+    my $gl = EBox::Global->getInstance(1);
+    my $sock = IO::Socket::INET->new(
+            PeerAddr => "127.0.0.1",
+            PeerPort => $gl->modInstance('apache')->port(),
+            Proto	 => "tcp",
+            Timeout	 => 5);
+    if ($sock) {
         close($sock);
         $up = 1;
-      }
+    }
 
-      my $event;
-      if ( $up ) {
-          $event = new EBox::Event(
-                                   message => __('Zentyal is up and running'),
-                                   level   => 'info',
-                                   source  => 'state',
-                                  );
-      } else {
-          $event = new EBox::Event(
-                                   message => __('Zentyal is critically down'),
-                                   level   => 'fatal',
-                                   source  => 'state',
-                                  );
-      }
+    my $event;
+    if ( $up ) {
+        $event = new EBox::Event(
+                message => __('Zentyal is up and running'),
+                level   => 'info',
+                source  => 'state',
+                );
+    } else {
+        $event = new EBox::Event(
+                message => __('Zentyal is critically down'),
+                level   => 'fatal',
+                source  => 'state',
+                );
+    }
 
-      return [ $event ];
-
+    return [ $event ];
 }
 
 # Group: Protected methods
@@ -139,11 +132,9 @@ sub run
 #        String - the event watcher name
 #
 sub _name
-  {
-
-      return __('State');
-
-  }
+{
+    return __('State');
+}
 
 # Method: _description
 #
@@ -156,10 +147,8 @@ sub _name
 #        String - the event watcher detailed description
 #
 sub _description
-  {
-
-      return __('Check if Zentyal is currently up or down');
-
-  }
+{
+    return __('Check if Zentyal is currently up or down');
+}
 
 1;

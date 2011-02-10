@@ -105,13 +105,10 @@ sub menu
 	my $global = EBox::Global->getInstance();
 
 	my $root = new EBox::Menu::Root('current' => $current);
-	my $domain = gettextdomain();
 	foreach (@{$global->modNames}) {
 		my $mod = $global->modInstance($_);
-		settextdomain($mod->domain);
 		$mod->menu($root);
 	}
-	settextdomain($domain);
 
 	return $root->html;
 }

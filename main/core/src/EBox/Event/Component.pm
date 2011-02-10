@@ -31,42 +31,14 @@ use EBox::Exceptions::MissingArgument;
 #
 #     Create a <EBox::Event::Component> object instance
 #
-# Parameters:
-#
-#     domain - String the Gettext domain for this event watcher
-#
-#     - Named parameters
-#
 sub new
 {
-
     my ($class, %args) = @_;
 
-    defined ( $args{domain} ) or
-      throw EBox::Exceptions::MissingArgument('domain');
-
-    my $self = { domain => $args{domain} };
+    my $self = {};
     bless($self, $class);
 
     return $self;
-
-}
-
-# Method: domain
-#
-#       Accessor to the Gettext domain
-#
-# Returns:
-#
-#       String - the Gettext domain
-#
-sub domain
-{
-
-      my ($self) = @_;
-
-      return $self->{domain};
-
 }
 
 # Method: name
@@ -81,15 +53,11 @@ sub domain
 #
 sub name
 {
+    my ($self) = @_;
 
-    my ( $self ) = @_;
-
-    my $oldDomain = EBox::Gettext::settextdomain($self->domain());
     my $componentEventName = $self->_name();
-    EBox::Gettext::settextdomain($oldDomain);
 
     return $componentEventName;
-
 }
 
 # Method: ConfigurationMethod
@@ -107,9 +75,7 @@ sub name
 #
 sub ConfigurationMethod
 {
-
-      throw EBox::Exceptions::NotImplemented();
-
+    throw EBox::Exceptions::NotImplemented();
 }
 
 # Method: ConfigureURL
@@ -123,9 +89,7 @@ sub ConfigurationMethod
 #
 sub ConfigureURL
 {
-
-      throw EBox::Exceptions::NotImplemented();
-
+    throw EBox::Exceptions::NotImplemented();
 }
 
 # Method: ConfigureModel
@@ -139,9 +103,7 @@ sub ConfigureURL
 #
 sub ConfigureModel
 {
-
-      throw EBox::Exceptions::NotImplemented();
-
+    throw EBox::Exceptions::NotImplemented();
 }
 
 # Method: DisabledByDefault
@@ -155,7 +117,7 @@ sub ConfigureModel
 #
 #       Boolean - indicating if it's disabled by default or not
 #
-sub DisabledByDefault 
+sub DisabledByDefault
 {
     return 1;
 }
@@ -188,12 +150,10 @@ sub EditableByUser
 #
 sub _name
 {
-
     my ($self) = @_;
 
     # Default, return the class name
     return ref ( $self );
-
 }
 
 1;

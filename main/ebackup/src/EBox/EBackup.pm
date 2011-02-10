@@ -68,7 +68,6 @@ sub _create
 
     my $self = $class->SUPER::_create(name => 'ebackup',
             printableName => __n('Backup'),
-            domain => 'ebox-ebackup',
             @_);
 
     bless($self, $class);

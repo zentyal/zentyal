@@ -24,18 +24,19 @@ use EBox::Global;
 use EBox::Gettext;
 
 ## arguments:
-## 	title [required]
-sub new {
+##	title [required]
+sub new
+{
 	my $class = shift;
 	my $self = $class->SUPER::new('title' => __('Date and Time Configuration'),
 				      'template' => 'ntp/datetime.mas',
 				      @_);
-	$self->{domain} = "ebox-ntp";
 	bless($self, $class);
 	return $self;
 }
 
-sub _process($) {
+sub _process
+{
 	my $self = shift;
 	my $ntp = EBox::Global->modInstance('ntp');
 

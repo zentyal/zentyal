@@ -3,7 +3,6 @@
 </%args>
 <%init>
     use EBox::Gettext;
-    settextdomain('ebox-zarafa');
 </%init>
     <h3><% __('Zarafa account') %></h3>
 

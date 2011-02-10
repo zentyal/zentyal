@@ -52,7 +52,6 @@ sub settextdomain # (domain)
     return $old_domain;
 }
 
-#
 # Method: gettextdomain
 #
 #   Gathers  the curent message domain
@@ -68,9 +67,7 @@ sub gettextdomain
 
 sub __ # (text)
 {
-    _set_packagedomain();
     my $string = gettext(shift);
-    _unset_packagedomain();
     $string =~ s/\'/\&#39\;/g;
     $string =~ s/\"/\&#34\;/g;
     return $string;
@@ -86,9 +83,7 @@ sub __n # (text)
 sub __x # (text, %variables)
 {
     my ($msgid, %vars) = @_;
-    _set_packagedomain();
     my $string = gettext($msgid);
-    _unset_packagedomain();
     return __expand($string, %vars);
 }
 
@@ -133,35 +128,6 @@ sub __expand # (translation, %arguments)
     my $re = join '|', map { quotemeta $_ } keys %args;
     $translation =~ s/\{($re)\}/defined $args{$1} ? $args{$1} : "{$1}"/ge;
     return $translation;
-}
-
-# Method: _set_packagedomain
-#
-#   Fetch and set the module's domain.
-#   Tries to call $PACKAGE::domain function
-#   to fetch the domain
-#
-sub _set_packagedomain
-{
-    my ($package, $filename, $line) = caller 1;
-    my $domain = undef;
-    eval {$domain = $package->domain()};
-    if ($domain) {
-        $old_domain = settextdomain($domain);
-    } else {
-        $old_domain = undef;
-    }
-}
-
-# Method: _unset_packagedomain
-#
-#   Restore de previous domain
-#
-sub _unset_packagedomain
-{
-    if ($old_domain) {
-        settextdomain($old_domain);
-    }
 }
 
 my $langs;

@@ -28,7 +28,6 @@ sub new # (cgi=?)
 {
     my $class = shift;
     my $self = $class->SUPER::new(@_);
-    $self->{domain} = 'ebox-network';
     bless($self, $class);
     return $self;
 }

@@ -56,13 +56,12 @@ use constant SNORT_DEBIAN_CONF_FILE => "/etc/snort/snort.debian.conf";
 #
 sub _create
 {
-        my $class = shift;
-        my $self = $class->SUPER::_create(name => 'ids',
-            domain => 'ebox-ids',
-            printableName => __n('IDS'),
-            @_);
-        bless($self, $class);
-        return $self;
+    my $class = shift;
+    my $self = $class->SUPER::_create(name => 'ids',
+                                      printableName => 'IDS',
+                                      @_);
+    bless($self, $class);
+    return $self;
 }
 
 # Method: _daemons
@@ -361,7 +360,7 @@ sub report
                     'SUM(priority2) AS priority2, ' .
                     'SUM(priority3) AS priority3, ' .
                     'SUM(priority4) AS priority4, ' .
-                    'SUM(priority5) AS priority5', 
+                    'SUM(priority5) AS priority5',
         'from' => 'ids_report',
         'group' => 'source',
         'limit' => $options->{'max_top_alert_sources'},
@@ -376,7 +375,7 @@ sub consolidateReportQueries
         {
             'target_table' => 'ids_report',
             'query' => {
-                'select' => "split_part(source, ':', 1) AS source," . 
+                'select' => "split_part(source, ':', 1) AS source," .
      ' COUNT(CASE WHEN priority=1 THEN 1 ELSE NULL END  ) AS priority1, ' .
      ' COUNT(CASE WHEN priority=2 THEN 1 ELSE NULL END  ) AS priority2, ' .
      ' COUNT(CASE WHEN priority=3 THEN 1 ELSE NULL END  ) AS priority3, ' .

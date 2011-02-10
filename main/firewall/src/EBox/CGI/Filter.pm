@@ -25,10 +25,9 @@ use EBox::Gettext;
 sub new # (error=?, msg=?, cgi=?)
 {
 	my $class = shift;
-	my $self = $class->SUPER::new('title' => __d('Packet Filter', 'ebox-firewall'),
+	my $self = $class->SUPER::new('title' => ('Packet Filter'),
 				      'template' => '/firewall/filter.mas',
 				      @_);
-	$self->{domain} = 'ebox-firewall';
 	bless($self, $class);
 	return $self;
 }

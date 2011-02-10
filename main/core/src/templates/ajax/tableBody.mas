@@ -132,7 +132,7 @@ use POSIX;
                       editId => "undefined",
                       page => $page,
                       isFilter => 0)
-                %>;return false'><% __d('Add new', 'libebox') %></a>
+                %>;return false'><% __('Add new') %></a>
    <br/>
    <br/>
 %    }
@@ -143,14 +143,14 @@ use POSIX;
 %  {
 %   if ( $action eq 'changeAdd' )
 %    {
-%     my $addingStr = __dx('Adding a new {row}', 'libebox', row => $printableRowName);
+%     my $addingStr = __x('Adding a new {row}', row => $printableRowName);
 <& PARENT:title, title => $addingStr &>
 %    }
 %   elsif ( $action eq 'changeEdit' )
 %    {
 <h3>
 
-%     my $editingStr = __dx('Editing {row}', 'libebox', row => $printableRowName);
+%     my $editingStr = __x('Editing {row}', row => $printableRowName);
 <& PARENT:title, title => $editingStr &>
 %   }
 
@@ -206,7 +206,7 @@ use POSIX;
   />
   <input type='submit'
       name='filter'
-      value="<% __d('Search', 'libebox') %>"
+      value="<% __('Search') %>"
       title="Apply"
       onClick='setLoading("<%
                              $filterId
@@ -354,7 +354,7 @@ use POSIX;
     <input class='inputButton'
            type='submit'
            name='add'
-           value='<% __d('Add', 'libebox') %>'
+           value='<% __('Add') %>'
            title="Add"
            onClick='<%
                       $model->addNewRowJS($page)
@@ -378,7 +378,7 @@ use POSIX;
     <input class='inputButton'
            type='submit'
            name='cancel'
-           value="<% __d('Cancel', 'libebox') %>"
+           value="<% __('Cancel') %>"
            title="Cancel"
            onClick='<%
                       $model->changeViewJS( changeType => "changeList",
@@ -424,7 +424,7 @@ Parameteres:
 
       <th class='thOptions'>
         <%
-          __d('Action', 'libebox')
+          __('Action')
         %>
       </th>
     </thead>
@@ -462,15 +462,15 @@ $page
 %
 %      my $disabled = '';
 %      my $edit = 'edit';
-%      my $edit_msg = __d('Edit', 'libebox');
+%      my $edit_msg = __('Edit');
 %      my $delete = 'delete';
-%      my $delete_msg = __d('Delete', 'libebox');
+%      my $delete_msg = __('Delete');
 %      if ($rowReadOnly) {
 %          $disabled = 'disabled';
 %          $edit = 'edit-inactive';
 %          $delete = 'delete-inactive';
-%          $edit_msg = __d('Read-only row: edit disabled', 'libebox');
-%          $delete_msg = __d('Read-only row: delete disabled', 'libebox');
+%          $edit_msg = __('Read-only row: edit disabled');
+%          $delete_msg = __('Read-only row: delete disabled');
 %      }
 
 %      if ($actions->{'del'})
@@ -554,11 +554,11 @@ $page
            if ($rowReadOnly or $prevRowRO) {
                $up_disabled = 'disabled';
                $up_icon = 'up-inactive.gif';
-               $up_msg = __d('Read-only row: move up disabled', 'libebox');
+               $up_msg = __('Read-only row: move up disabled');
            } else {
                $up_disabled = '';
                $up_icon = 'up.gif';
-               $up_msg = __d('Move up', 'libebox');
+               $up_msg = __('Move up');
            }
        }
 
@@ -570,11 +570,11 @@ $page
            if ($rowReadOnly or $nextRowRO) {
                $down_disabled = 'disabled';
                $down_icon = 'down-inactive.gif';
-               $down_msg = __d('Read-only row: move down  disabled', 'libebox');
+               $down_msg = __('Read-only row: move down  disabled');
            } else {
                $down_disabled = '';
                $down_icon = 'down.gif';
-               $down_msg = __d('Move down', 'libebox');
+               $down_msg = __('Move down');
            }
      }
 

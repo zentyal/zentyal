@@ -25,17 +25,18 @@ use EBox::Gettext;
 use EBox::Validate qw( :all );
 
 ## arguments:
-## 	title [required]
-sub new {
+##	title [required]
+sub new
+{
 	my $class = shift;
 	my $self = $class->SUPER::new('title' => 'NTP', @_);
 	$self->{redirect} = "NTP/Datetime";
-	$self->{domain} = "ebox-ntp";
 	bless($self, $class);
 	return $self;
 }
 
-sub _process($) {
+sub _process
+{
 	my $self = shift;
 	my $ntp= EBox::Global->modInstance('ntp');
 

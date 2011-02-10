@@ -92,12 +92,9 @@ use constant SERVICES => ('active', 'filter', 'pop', 'imap', 'sasl');
 sub _create
 {
     my $class = shift;
-    my $self = $class->SUPER::_create(
-                                      name => 'mail',
+    my $self = $class->SUPER::_create(name => 'mail',
                                       printableName => __n('Mail'),
-                                      domain => 'ebox-mail',
-                                      @_
-    );
+                                      @_);
 
     $self->{vdomains} = new EBox::MailVDomainsLdap;
     $self->{musers} = new EBox::MailUserLdap;
@@ -108,12 +105,6 @@ sub _create
     bless($self, $class);
     return $self;
 }
-
-sub domain
-{
-    return 'ebox-mail';
-}
-
 
 # Method: greylist
 #
@@ -258,8 +249,7 @@ sub _serviceRules
     return [
              {
               'name' => 'Mail system',
-              'description' => __d('Zentyal Mail System'),
-              'translationDomain' => 'ebox-mail',
+              'description' => __('Zentyal Mail System'),
               'internal' => 1,
               'protocol' => 'tcp',
               'sourcePort' => 'any',
@@ -269,7 +259,6 @@ sub _serviceRules
              {
               'name' => 'ManageSieve',
               'description' => 'Sieve',
-              'translationDomain' => 'ebox-mail',
               'internal' => 1,
               'protocol'   => 'tcp',
               'sourcePort' => 'any',

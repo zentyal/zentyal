@@ -31,7 +31,6 @@ sub new # (cgi=?)
     my $class = shift;
     my $self = $class->SUPER::new('template' => 'mail/wizard/virtualdomain.mas',
                                   @_);
-    $self->{domain} = 'ebox-mail';
     bless($self, $class);
     return $self;
 }

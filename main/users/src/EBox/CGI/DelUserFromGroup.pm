@@ -25,18 +25,18 @@ use EBox::UsersAndGroups;
 use EBox::Gettext;
 
 
-sub new {
+sub new
+{
 	my $class = shift;
-	my $self = $class->SUPER::new('title' => 'Users and Groups',
-				      @_);
-#        $self->{redirect} = "UsersAndGroups/Group";
-	$self->{domain} = 'ebox-usersandgroups';
+	my $self = $class->SUPER::new('title' => 'Users and Groups', @_);
+#   $self->{redirect} = "UsersAndGroups/Group";
 	bless($self, $class);
 	return $self;
 }
 
 
-sub _process($) {
+sub _process
+{
 	my $self = shift;
 	my $usersandgroups = EBox::Global->modInstance('users');
 

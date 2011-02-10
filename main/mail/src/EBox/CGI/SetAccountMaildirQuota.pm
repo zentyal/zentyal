@@ -26,16 +26,16 @@ use EBox::Exceptions::MissingArgument;
 
 ## arguments:
 ##      title [required]
-sub new {
+sub new
+{
     my $class = shift;
     my $self = $class->SUPER::new('title' => 'Mail', @_);
-    $self->{domain} = "ebox-mail";  
     bless($self, $class);
     return $self;
 }
 
 
-sub _process 
+sub _process
 {
     my ($self) = @_;
     $self->_requireParam('username', __('username'));

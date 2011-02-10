@@ -30,7 +30,6 @@ sub new {
 	my $self = $class->SUPER::new(
 				     'template' => '/users/groups.mas',
 				      @_);
-	$self->{domain} = 'ebox-usersandgroups';
 	bless($self, $class);
 	return $self;
 }

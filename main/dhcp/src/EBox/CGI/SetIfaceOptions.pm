@@ -26,7 +26,6 @@ use EBox::Gettext;
 sub new {
 	my $class = shift;
 	my $self = $class->SUPER::new(@_);
-	$self->{domain} = 'ebox-dhcp';
 	$self->{redirect} = "DHCP/Index";
 	bless($self, $class);
 	return $self;

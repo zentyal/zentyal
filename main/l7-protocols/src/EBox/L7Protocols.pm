@@ -49,7 +49,6 @@ sub _create
     my $class = shift;
     my $self = $class->SUPER::_create(name => 'l7-protocols',
             printableName => __n('Application Protocols'),
-            domain => 'ebox-l7-protocols',
             @_);
     bless($self, $class);
     return $self;

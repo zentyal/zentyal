@@ -75,12 +75,9 @@ use constant SSL_DIR => CONF_DIR . '/ssl/';
 sub _create
 {
     my $class = shift;
-    my $self = $class->SUPER::_create(
-                                          name => 'webserver',
-                                          printableName => __n('Web Server'),
-                                          domain => 'ebox-webserver',
-                                          @_,
-                                         );
+    my $self = $class->SUPER::_create(name => 'webserver',
+                                      printableName => __n('Web Server'),
+                                      @_);
     bless($self, $class);
     return $self;
 }
@@ -215,7 +212,6 @@ sub modelClasses
              class => 'EBox::Common::Model::EnableForm',
              parameters => [
                             enableTitle => __('Web service status'),
-                            domain => 'ebox-webserver',
                             modelDomain => 'WebServer',
                            ],
             },

@@ -30,7 +30,6 @@ sub new
     my $class = shift;
     my $self = $class->SUPER::new('title' => 'Users and Groups',
                       @_);
-    $self->{domain} = 'ebox-usersandgroups';
     bless($self, $class);
     return $self;
 }
@@ -58,6 +57,5 @@ sub _process
     # cgi's
     $self->{redirect} = "UsersAndGroups/User?username=$user";
 }
-
 
 1;

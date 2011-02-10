@@ -20,5 +20,5 @@ my $langs = langs();
 %	}
 		</select>
 		<input class='inputButton' type='submit' name='setlang'
-			   value="<% __d('Change','libebox') %>">
+			   value="<% __('Change') %>">
 	</form>

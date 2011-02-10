@@ -54,8 +54,6 @@ use Error qw(:try);
 #       directory - String the subdirectory within the environment
 #       where the data will be stored
 #
-#       domain    - String the Gettext domain
-#
 sub new
   {
 
@@ -625,10 +623,6 @@ sub AUTOLOAD
       my $methodName = our $AUTOLOAD;
 
       $methodName =~ s/.*:://;
-
-      if ( $methodName eq 'domain' ) {
-          return $self->{gconfmodule}->domain();
-      }
 
       # Ignore DESTROY callings (the Perl destructor)
       if ( $methodName eq 'DESTROY' ) {

@@ -46,17 +46,12 @@ use EBox::Gettext;
 #
 sub new
 {
-
     my ($class) = @_;
 
-    my $self = $class->SUPER::new(
-                                    period => 0,
-                                    domain => 'ebox-ebackup',
-                                 );
+    my $self = $class->SUPER::new(period => 0);
     bless( $self, $class);
 
     return $self;
-
 }
 
 # Method: ConfigurationMethod
@@ -67,9 +62,7 @@ sub new
 #
 sub ConfigurationMethod
 {
-
     return 'none';
-
 }
 
 # Method: DisabledByDefault
@@ -82,9 +75,7 @@ sub ConfigurationMethod
 #
 sub DisabledByDefault
 {
-
     return 0;
-
 }
 
 # Method: run
@@ -119,9 +110,7 @@ sub run
 #
 sub _name
 {
-
     return __('Backup');
-
 }
 
 
@@ -137,9 +126,7 @@ sub _name
 #
 sub _description
 {
-
     return __('Check if Zentyal backup was not successful.');
-
 }
 
 1;

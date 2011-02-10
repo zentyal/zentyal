@@ -92,17 +92,11 @@ sub _create
 {
     my $class = shift;
     my $self  = $class->SUPER::_create(name => 'dhcp',
-                                           printableName => 'DHCP',
-                                           domain => 'ebox-dhcp',
-                                           @_);
+                                       printableName => 'DHCP',
+                                       @_);
     bless ($self, $class);
 
     return $self;
-}
-
-sub domain
-{
-    return 'ebox-dhcp';
 }
 
 # Method: usedFiles
@@ -137,7 +131,6 @@ sub initialSetup
         $firewall->addInternalService(
                 'name' => 'tftp',
                 'description' => __d('Trivial File Transfer Protocol'),
-                'translationDomain' => 'ebox-dhcp',
                 'protocol' => 'udp',
                 'sourcePort' => 'any',
                 'destinationPort' => 69,
@@ -146,7 +139,6 @@ sub initialSetup
         $firewall->addInternalService(
                 'name' => 'dhcp',
                 'description' => __d('Dynamic Host Configuration Protocol'),
-                'translationDomain' => 'ebox-dhcp',
                 'protocol' => 'udp',
                 'sourcePort' => 'any',
                 'destinationPort' => 67,

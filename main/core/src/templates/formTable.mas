@@ -63,7 +63,7 @@ else {
      </td>
 
   </tr>
-% } 
+% }
 % else {
   <& $inputComponent, %ARGS &>
 % }
@@ -82,17 +82,13 @@ if ($printableName ne '') {
      <td class='tright' >
          <% "$printableName" %>
 % if ( $optional ) {
-%    my $optionalText = __d('Optional', 'libebox');
+%    my $optionalText = __('Optional');
      <div class="optional_field"><% $optionalText %></div>
 % }
      </td>
 </%def>
 
-
-
-
-
-<%def .div> 
+<%def .div>
 <%args>
 $content
 $type

@@ -97,13 +97,6 @@ sub _table
 {
     my @tableHead =
     (
-        new EBox::Types::Text(
-            'fieldName' => 'translationDomain',
-            'printableName' => __('Domain'),
-            'size' => '10',
-            'optional' => 1,
-            'hidden' => 1,
-        ),
         new EBox::Types::Boolean(
             'fieldName' => 'internal',
             'printableName' => __('Internal'),
@@ -271,7 +264,6 @@ sub serviceFromPort
 #   destinationPort - same as source
 #   internal - booelan, to indicate if the service is internal or not
 #   readOnly - the service can't be deleted or modified
-#   translationDomain - Zentyal module domain for i18
 #
 #   Example:
 #
@@ -583,14 +575,9 @@ sub _serviceParams
     my $description = delete $params{'description'};
     my $internal = $params{'internal'};
     my $readonly = $params{'readOnly'};
-    my $translationDomain;
-    if (exists $params{'translationDomain'}) {
-        $translationDomain = $params{'translationDomain'};
-    }
 
     return ('name' => $name, 'description' => $description,
-           'internal' => $internal, 'readOnly' => $readonly,
-           'translationDomain' => $translationDomain);
+            'internal' => $internal, 'readOnly' => $readonly);
 }
 
 sub _serviceConfParams

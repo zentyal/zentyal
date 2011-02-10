@@ -257,9 +257,7 @@ sub _delUserWarning
     $self->hasAccount($user) or
         return;
 
-    settextdomain('ebox-jabber');
     my $txt = __('This user has a jabber account. If the user currently connected it will continue connected until jabber authorization is again required.');
-    settextdomain('ebox-usersandgroups');
 
     return $txt;
 }

@@ -24,17 +24,18 @@ use EBox::Global;
 use EBox::Gettext;
 
 ## arguments:
-## 	title [required]
-sub new {
+##	title [required]
+sub new
+{
 	my $class = shift;
 	my $self = $class->SUPER::new('title' => 'NTP', @_);
-	$self->{domain} = "ebox-ntp";
 	$self->{redirect} = "NTP/Timezone";
 	bless($self, $class);
 	return $self;
 }
 
-sub _process($) {
+sub _process
+{
 	my $self = shift;
 	my $ntp = EBox::Global->modInstance('ntp');
 

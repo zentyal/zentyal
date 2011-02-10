@@ -35,9 +35,9 @@ use constant NTPCONFFILE => "/etc/ntp.conf";
 sub _create
 {
     my $class = shift;
-    my $self = $class->SUPER::_create(name => 'ntp', printableName => 'NTP',
-                        domain => 'ebox-ntp',
-                        @_);
+    my $self = $class->SUPER::_create(name => 'ntp',
+                                      printableName => 'NTP',
+                                      @_);
     bless($self, $class);
     return $self;
 }
@@ -49,11 +49,6 @@ sub isRunning
     # otherwise it might be misleading if time synchronization is set
     ($self->isEnabled()) or return undef;
     return EBox::Service::running('ebox.ntpd');
-}
-
-sub domain
-{
-    return 'ebox-ntp';
 }
 
 # Method: actions

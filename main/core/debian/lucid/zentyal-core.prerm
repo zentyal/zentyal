@@ -5,5 +5,4 @@ set -e
 # FIXME: Check if this works properly
 if [ "$1" = remove ] || [ "$1" = purge ]; then
     invoke-rc.d zentyal stop || true
-    invoke-rc.d zentyal apache stop || true
 fi

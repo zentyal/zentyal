@@ -30,7 +30,6 @@ sub new {
     my $self = $class->SUPER::new('title' => '',
         'template' => 'software/del.mas',
         @_);
-    $self->{domain} = 'ebox-software';
     bless($self, $class);
     return $self;
 }

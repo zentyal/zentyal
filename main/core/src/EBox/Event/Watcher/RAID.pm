@@ -73,21 +73,16 @@ use constant RAID_ARRAY_KEY => 'raid/arrays';
 #        <EBox::Event::Watcher::RAID> - the newly created object
 #
 sub new
-  {
+{
+    my ($class) = @_;
 
-      my ($class) = @_;
+    my $self = $class->SUPER::new(period => 50);
+    bless( $self, $class);
 
-      my $self = $class->SUPER::new(
-                                    period      => 50,
-                                    domain      => 'ebox',
-                                   );
-      bless( $self, $class);
+    $self->{events} = EBox::Global->modInstance('events');
 
-      $self->{events} = EBox::Global->modInstance('events');
-
-      return $self;
-
-  }
+    return $self;
+}
 
 # Method: run
 #
@@ -106,38 +101,36 @@ sub new
 #        is out of control
 #
 sub run
-  {
+{
+    my ($self) = @_;
 
-      my ($self) = @_;
+    my @events;
+    my $raidInfo = EBox::Report::RAID->info();
+    foreach my $raidArray (keys %{$raidInfo}) {
+        # Skip unused devices
+        next if ( $raidArray eq 'unusedDevices' );
+        my $eventsRaidArray = $self->_checkRaidArray($raidArray, $raidInfo->{$raidArray});
+        if ( defined ($eventsRaidArray) ) {
+            push (@events, @{$eventsRaidArray} );
+        }
+    }
+    # Check removed ones
+    my $removedArrayEvents = $self->_checkRemoveArray($raidInfo);
+    if ( @{$removedArrayEvents} > 0 ) {
+        push (@events, @{$removedArrayEvents});
+    }
 
-      my @events;
-      my $raidInfo = EBox::Report::RAID->info();
-      foreach my $raidArray (keys %{$raidInfo}) {
-          # Skip unused devices
-          next if ( $raidArray eq 'unusedDevices' );
-          my $eventsRaidArray = $self->_checkRaidArray($raidArray, $raidInfo->{$raidArray});
-          if ( defined ($eventsRaidArray) ) {
-              push (@events, @{$eventsRaidArray} );
-          }
-      }
-      # Check removed ones
-      my $removedArrayEvents = $self->_checkRemoveArray($raidInfo);
-      if ( @{$removedArrayEvents} > 0 ) {
-          push (@events, @{$removedArrayEvents});
-      }
+    # Store last info in GConf state if changed
+    if ( @events > 0 ) {
+        $self->_storeNewRAIDState($raidInfo);
+    }
 
-      # Store last info in GConf state if changed
-      if ( @events > 0 ) {
-          $self->_storeNewRAIDState($raidInfo);
-      }
-
-      if ( @events > 0 ) {
-          return \@events;
-      } else {
-          return undef;
-      }
-
-  }
+    if ( @events > 0 ) {
+        return \@events;
+    } else {
+        return undef;
+    }
+}
 
 # Group: Class static methods
 
@@ -176,11 +169,9 @@ sub Able
 #        String - the event watcher name
 #
 sub _name
-  {
-
-      return 'RAID';
-
-  }
+{
+    return 'RAID';
+}
 
 # Method: _description
 #
@@ -193,11 +184,9 @@ sub _name
 #        String - the event watcher detailed description
 #
 sub _description
-  {
-
-      return __('Check if any event has happened in RAID subsystem');
-
-  }
+{
+    return __('Check if any event has happened in RAID subsystem');
+}
 
 # Group: Private methods
 
@@ -367,7 +356,6 @@ sub _checkArrayStatus # (arrayName, arrayInfo, storedInfo)
 # Check the array component number in the RAID array device
 sub _checkArrayCompNum # (arrayName, arrayInfo, storedInfo)
 {
-
     my ($self, $arrayName, $arrayInfo, $storedInfo) = @_;
 
     if ( $storedInfo->{deviceNumber} != $arrayInfo->{activeDevices} ) {
@@ -383,13 +371,11 @@ sub _checkArrayCompNum # (arrayName, arrayInfo, storedInfo)
     }
 
     return undef;
-
 }
 
 # Check the current operation in the RAID array device
 sub _checkArrayOp # (arrayName, arrayInfo, storedInfo)
 {
-
     my ($self, $arrayName, $arrayInfo, $storedInfo) = @_;
 
     my ($evtMsg, $showPer) = ('', 0);
@@ -445,13 +431,11 @@ sub _checkArrayOp # (arrayName, arrayInfo, storedInfo)
     } else {
         return undef;
     }
-
 }
 
 # Check each array component in the RAID array device
 sub _checkComponents # (arrayName, arrayInfo, storedInfo)
 {
-
     my ($self, $arrayName, $arrayInfo, $storedInfo) = @_;
 
     my %currentComps = map { $_->{device} => $_->{state} } values %{$arrayInfo->{raidDevices}};
@@ -523,7 +507,6 @@ sub _checkComponents # (arrayName, arrayInfo, storedInfo)
     }
 
     return \@compEvents;
-
 }
 
 
@@ -554,7 +537,6 @@ sub _i18nState
         }
     }
     return join( ', ', @i18nedStates);
-
 }
 
 sub _i18nOp
@@ -588,7 +570,6 @@ sub _i18nCompStatus
     } elsif ( $status eq 'spare' ) {
         return __('spare');
     }
-
 }
 
 1;

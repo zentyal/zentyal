@@ -42,7 +42,6 @@ sub new
     my $self = $class->SUPER::new('title' => __('Certification Authority'),
 				  @_);
 
-    $self->{domain} = "ebox-ca";
     $self->{chain} = "CA/Index";
     bless($self, $class);
 

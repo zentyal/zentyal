@@ -31,7 +31,6 @@ sub new # (cgi=?)
     my $class = shift;
     my $self = $class->SUPER::new('template' => 'network/wizard/interfaces.mas',
                                   @_);
-    $self->{domain} = 'ebox-network';
     bless($self, $class);
     return $self;
 }

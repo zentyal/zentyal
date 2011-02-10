@@ -25,17 +25,19 @@ use EBox::Gettext;
 use EBox::AsteriskLdapUser;
 use EBox::Asterisk::Extensions;
 
-sub new {
+sub new
+{
     my $class = shift;
     my $self = $class->SUPER::new('title' => 'Asterisk', @_);
-    $self->{domain} = "ebox-asterisk";
     bless($self, $class);
     return $self;
 }
 
 
-sub _process($) {
-    my $self = shift;
+sub _process
+{
+    my ($self) = @_;
+
     my $astldap = new EBox::AsteriskLdapUser;
     my $extensions = new EBox::Asterisk::Extensions;
 

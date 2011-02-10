@@ -58,7 +58,6 @@ sub masonParameters
 
     foreach my $name (@modNames) {
         my $mod = $global->modInstance($name);
-        settextdomain($mod->domain);
         my $widgets = $mod->widgets();
         if (%{$widgets}) {
             my $modtitle = $mod->{'printableName'};

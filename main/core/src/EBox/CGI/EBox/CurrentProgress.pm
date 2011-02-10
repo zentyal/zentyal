@@ -36,7 +36,6 @@ sub new {
 	my $self = $class->SUPER::new('title'    => __('Upgrading'),
 				      'template' => 'none',
 				      @_);
-	$self->{domain} = 'ebox';
 	bless($self, $class);
 	return $self;
 }

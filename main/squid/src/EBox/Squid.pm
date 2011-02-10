@@ -68,17 +68,11 @@ sub _create
 {
     my $class = shift;
     my $self  = $class->SUPER::_create(name => 'squid',
-                                       domain => 'ebox-squid',
                                        printableName => __n('HTTP Proxy'),
                                        @_);
     $self->{logger} = EBox::logger();
     bless ($self, $class);
     return $self;
-}
-
-sub domain
-{
-    return 'ebox-squid';
 }
 
 # Method: modelClasses

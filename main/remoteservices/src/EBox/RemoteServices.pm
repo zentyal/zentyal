@@ -82,30 +82,15 @@ use constant CRON_FILE           => '/etc/cron.d/ebox-remoteservices';
 #
 sub _create
 {
-
     my $class = shift;
 
-    my $self = $class->SUPER::_create( name => 'remoteservices',
-                                       domain => 'ebox-remoteservices',
-                                       printableName => __n('Zentyal Cloud Client'),
-                                       @_
-                                      );
+    my $self = $class->SUPER::_create(name => 'remoteservices',
+                                      printableName => __n('Zentyal Cloud Client'),
+                                      @_);
 
     bless ($self, $class);
 
     return $self;
-
-}
-
-# Method: domain
-#
-# Overrides:
-#
-#        <EBox::Module::domain>
-#
-sub domain
-{
-    return 'ebox-remoteservices';
 }
 
 sub restartService

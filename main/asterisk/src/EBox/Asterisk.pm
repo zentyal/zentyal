@@ -72,7 +72,6 @@ sub _create
 
     my $self = $class->SUPER::_create(name => 'asterisk',
             printableName => __n('VoIP'),
-            domain => 'ebox-asterisk',
             @_);
 
     bless($self, $class);
@@ -193,7 +192,6 @@ sub initialSetup
             $services->addMultipleService(
                 'name' => $serviceName,
                 'description' => __d('Zentyal VoIP system'),
-                'translationDomain' => 'ebox-asterisk',
                 'internal' => 1,
                 'readOnly' => 1,
                 'services' => $self->_services(),

@@ -52,7 +52,6 @@ sub _create
 
     my $self = $class->SUPER::_create(name => 'radius',
             printableName => 'RADIUS',
-            domain => 'ebox-radius',
             @_);
 
     bless($self, $class);
@@ -163,8 +162,7 @@ sub initialSetup
         unless($services->serviceExists(name => $serviceName)) {
             $services->addMultipleService(
                 'name' => $serviceName,
-                'description' => __d('Zentyal RADIUS system'),
-                'translationDomain' => 'ebox-radius',
+                'description' => __('Zentyal RADIUS system'),
                 'internal' => 1,
                 'readOnly' => 1,
                 'services' => $self->_services(),

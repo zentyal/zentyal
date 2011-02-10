@@ -80,12 +80,10 @@ sub regenCache
     my $keywords = {};
 
     my $root = new EBox::Menu::Root();
-    my $domain = gettextdomain();
 
     my $global = EBox::Global->getInstance();
     foreach (@{$global->modNames}) {
         my $mod = $global->modInstance($_);
-        settextdomain($mod->domain);
         $mod->menu($root);
     }
 

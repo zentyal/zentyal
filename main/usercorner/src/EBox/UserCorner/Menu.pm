@@ -29,13 +29,10 @@ sub menu
     my $global = EBox::Global->getInstance();
 
     my $root = new EBox::Menu::Root('current' => $current);
-    my $domain = gettextdomain();
     foreach my $mod
             (@{$global->modInstancesOfType('EBox::UserCorner::Provider')}) {
-        settextdomain($mod->domain);
         $mod->userMenu($root);
     }
-    settextdomain($domain);
 
     return $root;
 }

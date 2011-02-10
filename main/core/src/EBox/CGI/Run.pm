@@ -87,7 +87,6 @@ sub run # (url, namespace)
         my ($self, $url, $namespace) = @_;
 
         my $classname = classFromUrl($url, $namespace);
-        settextdomain('ebox');
 
         my $cgi;
         eval "use $classname";

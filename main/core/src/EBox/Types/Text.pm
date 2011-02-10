@@ -28,23 +28,22 @@ use EBox::Exceptions::InvalidData;
 
 sub new
 {
-        my $class = shift;
-        my %opts = @_;
+    my $class = shift;
+    my %opts = @_;
 
-        unless (exists $opts{'HTMLSetter'}) {
-            $opts{'HTMLSetter'} ='/ajax/setter/textSetter.mas';
-        }
-        unless (exists $opts{'HTMLViewer'}) {
-            $opts{'HTMLViewer'} ='/ajax/viewer/textViewer.mas';
-        }
+    unless (exists $opts{'HTMLSetter'}) {
+        $opts{'HTMLSetter'} ='/ajax/setter/textSetter.mas';
+    }
+    unless (exists $opts{'HTMLViewer'}) {
+        $opts{'HTMLViewer'} ='/ajax/viewer/textViewer.mas';
+    }
 
-        $opts{'type'} = 'text';
-        my $self = $class->SUPER::new(%opts);
+    $opts{'type'} = 'text';
+    my $self = $class->SUPER::new(%opts);
 
-        bless($self, $class);
-        return $self;
+    bless($self, $class);
+    return $self;
 }
-
 
 sub size
 {
@@ -63,7 +62,7 @@ sub printableValue
     my ($self) = @_;
 
     if ($self->{'localizable'}) {
-        return $self->_i18filter();
+        return __($self->{value});
     } else {
         return $self->SUPER::printableValue();
     }
@@ -84,7 +83,6 @@ sub cmp
     }
 
     return $self->value() cmp $compareType->value();
-
 }
 
 # Group: Protected methods
@@ -116,9 +114,7 @@ sub _storeInGConf
 #
 sub _paramIsValid
 {
-
     return 1;
-
 }
 
 # Method: _paramIsSet
@@ -128,44 +124,13 @@ sub _paramIsValid
 #       <EBox::Types::Abstract::_paramIsSet>
 #
 sub _paramIsSet
-  {
-
-      my ($self, $params) = @_;
-
-      # Check if the parameter exist
-      my $param =  $params->{$self->fieldName()};
-
-      return defined ( $param ) and ($param ne '');
-
-  }
-
-# Group: Private method
-
-# This functions is used to translate the value of a type. To set the domain
-# its row must have a text type called 'translationDomain' containing the
-# domain itself
-sub _i18filter
 {
-    my ($self) = @_;
+    my ($self, $params) = @_;
 
-    my $value = $self->{'value'};
-    return unless defined($value);
+    # Check if the parameter exist
+    my $param =  $params->{$self->fieldName()};
 
-    my $row = $self->row();
-    return $value unless ($row);
-
-    unless ($row->elementExists('translationDomain')) {
-        throw EBox::Exceptions::Internal(
-          'i18filter has been called and there is no translationDomain filter');
-    }
-
-    my $domain = $row->valueByName('translationDomain');
-
-    if (defined($domain)  and length($domain) > 0) {
-        return  __d($value, $domain);
-    } else {
-        return $value;
-    }
+    return defined ( $param ) and ($param ne '');
 }
 
 1;

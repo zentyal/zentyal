@@ -38,12 +38,6 @@ use EBox::Model::ModelManager;
 #
 #       The constructor for the <EBox::Event::Dispatcher::Abstract> object
 #
-# Parameters:
-#
-#       domain - String the Gettext domain for this event watcher
-#
-#       - Positional parameters
-#
 # Returns:
 #
 #       <EBox::Event::Watcher::Abstract> - the newly created object
@@ -55,17 +49,12 @@ use EBox::Model::ModelManager;
 #
 sub new
 {
+    my ($class) = @_;
 
-      my ($class, $domain) = @_;
+    my $self = $class->SUPER::new();
+    bless ( $self, $class);
 
-      defined ( $domain ) or
-        throw EBox::Exceptions::MissingArgument('domain');
-
-      my $self = $class->SUPER::new( domain => $domain );
-      bless ( $self, $class);
-
-      return $self;
-
+    return $self;
 }
 
 # Method: receiver
@@ -79,18 +68,13 @@ sub new
 #       String - the detailed description
 #
 sub receiver
-  {
+{
+    my ($self) = @_;
 
-      my ($self) = @_;
+    my $receiver = $self->_receiver();
 
-      # Get the event dispatcher Gettext domain
-      my $oldDomain   = EBox::Gettext::settextdomain($self->domain());
-      my $receiver = $self->_receiver();
-      EBox::Gettext::settextdomain($oldDomain);
-
-      return $receiver;
-
-  }
+    return $receiver;
+}
 
 # Method: configured
 #
@@ -103,11 +87,9 @@ sub receiver
 #       not
 #
 sub configured
-  {
-
-      throw EBox::Exceptions::NotImplemented();
-
-  }
+{
+    throw EBox::Exceptions::NotImplemented();
+}
 
 # Method: enable
 #
@@ -130,19 +112,17 @@ sub configured
 #       able to send events
 #
 sub enable
-  {
+{
+    my ($self) = @_;
 
-      my ($self) = @_;
-
-      if ( $self->configured() ) {
-          $self->_enable();
-      } else {
-          throw EBox::Exceptions::External(__x('Dispatcher {name} is not ' .
-                                               'configured to be enabled',
-                                              name => $self->name()));
-      }
-
-  }
+    if ($self->configured()) {
+        $self->_enable();
+    } else {
+        throw EBox::Exceptions::External(__x('Dispatcher {name} is not ' .
+                                             'configured to be enabled',
+                                             name => $self->name()));
+    }
+}
 
 # Method: send
 #
@@ -163,11 +143,9 @@ sub enable
 #       argument is missing
 #
 sub send
-  {
-
-      throw EBox::Exceptions::NotImplemented();
-
-  }
+{
+    throw EBox::Exceptions::NotImplemented();
+}
 
 # Method: configurationSubModel
 #
@@ -202,7 +180,8 @@ sub configurationSubModel
 	return $row->subModel('configuration_model');
     }
 }
-# Group: Protected method
+
+# Group: Protected methods
 
 # Method: _description
 #
@@ -215,13 +194,10 @@ sub configurationSubModel
 #      string.
 #
 sub _receiver
-  {
-
-      # Default empty implementation
-      return '';
-
-  }
-
+{
+    # Default empty implementation
+    return '';
+}
 
 # Method: _enable
 #
@@ -242,10 +218,8 @@ sub _receiver
 #       able to send events
 #
 sub _enable
-  {
-
-      return 1;
-
-  }
+{
+    return 1;
+}
 
 1;

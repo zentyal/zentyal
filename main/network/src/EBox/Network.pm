@@ -79,7 +79,6 @@ sub _create
     my $class = shift;
     my $self = $class->SUPER::_create(name => 'network',
                     printableName => __n('Network'),
-                    domain => 'ebox-network',
                     @_);
     $self->{'actions'} = {};
 
@@ -214,7 +213,6 @@ sub modelClasses
 #            class      => 'EBox::Network::Model::ByteRateEnableForm',
 #            parameters => [
 #                           enableTitle  => __('Activate traffic rate monitor'),
-#                           domain       => 'ebox-network',
 #                           modelDomain  => 'Network',
 #                          ],
 #           },
@@ -928,15 +926,12 @@ sub setViface # (real, virtual, address, netmask)
     my @mods = @{$global->modInstancesOfType('EBox::NetworkObserver')};
     foreach my $mod (@mods) {
         try {
-            settextdomain($mod->{domain});
             $mod->vifaceAdded($iface, $viface, $address, $netmask);
         } otherwise {
             my $ex = shift;
-            settextdomain('ebox');
             throw $ex;
         };
     }
-    settextdomain('ebox');
 
     $self->set_string("interfaces/$iface/virtual/$viface/address",$address);
     $self->set_string("interfaces/$iface/virtual/$viface/netmask",$netmask);

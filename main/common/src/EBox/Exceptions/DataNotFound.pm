@@ -31,10 +31,8 @@ sub new # (data=>string,  value=>string)
 
 	my $data = delete $opts{data};
 	my $value = delete $opts{value};
-	my $old_domain = settextdomain('libebox');
 	my $error = __x("{data} {value} does not exist.", data => $data,
 							 value => $value);
-	settextdomain($old_domain);
 
 	local $Error::Depth = $Error::Depth + 1;
 	local $Error::Debug = 1;

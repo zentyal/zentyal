@@ -75,7 +75,6 @@ sub _create
     my $class = shift;
     my $self = $class->SUPER::_create(name => 'samba',
             printableName => __n('File Sharing'),
-            domain => 'ebox-samba',
             @_);
     bless($self, $class);
     return $self;
@@ -193,7 +192,6 @@ sub initialSetup
             $services->addMultipleService(
                 'name' => $serviceName,
 				'description' =>  __d('File sharing (Samba) protocol'),
-				'translationDomain' => 'ebox-samba',
                 'internal' => 1,
                 'readOnly' => 1,
                 'services' => $self->_services(),

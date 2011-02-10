@@ -57,7 +57,6 @@ sub masonParameters
     my $widgets = {};
     foreach my $name (@modNames) {
         my $mod = $global->modInstance($name);
-        settextdomain($mod->domain);
         my $wnames = $mod->widgets();
         for my $wname (keys(%{$wnames})) {
             my $widget = $mod->widget($wname);

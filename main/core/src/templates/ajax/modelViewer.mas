@@ -88,7 +88,7 @@
      Include everything that a model view should have
 
   Parameters:
-  
+
      model - <EBox::Model::DataTable> the model to view
 </%doc>
 <%method header>
@@ -117,11 +117,11 @@
      Set the model viewer body. The message if any is also shown.
 
   Parameters:
-  
+
      model - <EBox::Model::DataTable> the model to view
      onlyBody - boolean indicating if just the body is updated
                 *(Optional)* Default value: false
-     
+
 </%doc>
 <%method body>
 <%args>
@@ -170,7 +170,7 @@
 </%args>
 <h3>
   <%
-    $title 
+    $title
   %>
 </h3>
 </%method>
@@ -200,7 +200,7 @@
          formData => \@formData
       &>
       <tr>
-        <td class="tright" 
+        <td class="tright"
             id="applyChanges">
         </td>
         <& SELF:buttons &>
@@ -233,7 +233,7 @@
   $modelName
   @formData
 </%args>
-% foreach my $type (grep { defined($_->HTMLSetter())} @formData) 
+% foreach my $type (grep { defined($_->HTMLSetter())} @formData)
 % {
 <%perl>
     my $viewCustomizer = $type->model()->viewCustomizer();
@@ -255,7 +255,7 @@
     <% $type->printableName() %>:
 % if ($type->optional()) {
     <div class='optional_field'>
-        <% __d('Optional', 'libebox') %>
+        <% __('Optional') %>
     </div>
 % }
   </td>
@@ -264,7 +264,7 @@
       $type->HTMLSetter(),
       'data' => $type,
       'tableName' => "$modelName",
-      'disabled' =>  $disableSetter 
+      'disabled' =>  $disableSetter
     &>
     <div class="field_help">
     <% $type->help() %>
@@ -317,7 +317,7 @@ $('changes_menu').className = '<% $className %>';
 
      Set the body for the viewer indeed. This method must be
      overridden by the subclasses in order to show the model content
-     in some way. 
+     in some way.
 
      The original parameters from the subclass template must appear as
      well with their own default values.
@@ -326,7 +326,7 @@ $('changes_menu').className = '<% $className %>';
   Parameters:
 
      model - <EBox::Model::DataTable> the model to view
- 
+
      - Additional parameters, see above.
 
 </%doc>

@@ -17,7 +17,7 @@
 
 # A module to test CA module
 
-use Test::More tests => 48;
+use Test::More tests => 47;
 use Test::Exception;
 use Date::Calc::Object qw (:all);
 use Data::Dumper;
@@ -35,8 +35,6 @@ system("rm -r /var/lib/zentyal/CA");
 my $ca = EBox::CA->_create();
 
 isa_ok ( $ca , "EBox::CA");
-
-is ( $ca->domain(), 'ebox-ca', 'is in gettext domain');
 
 ok ( ! $ca->isCreated(), 'not created' );
 

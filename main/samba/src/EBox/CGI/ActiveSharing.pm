@@ -26,67 +26,69 @@ use EBox::UsersAndGroups;
 use EBox::Gettext;
 use EBox::Exceptions::External;
 
-sub new {
-        my $class = shift;
-        my $self = $class->SUPER::new('title' => 'Users and Groups',
-                                      @_);
-	$self->{domain} = "ebox-samba";
-
-        bless($self, $class);
-        return $self;
+sub new
+{
+    my $class = shift;
+    my $self = $class->SUPER::new('title' => 'Users and Groups',
+                                  @_);
+    bless($self, $class);
+    return $self;
 }
 
-sub _group {
-	my $self = shift;
+sub _group
+{
+    my ($self) = @_;
 
-	my $samba = new EBox::SambaLdapUser;
+    my $samba = new EBox::SambaLdapUser;
 
-	$self->_requireParam('group', __('group name'));
-	$self->keepParam('group');
-	$self->{errorchain} =  "UsersAndGroups/Group";
-	$self->_requireParamAllowEmpty('sharename', __('sharing name'));
-	my $name =  $self->param('sharename');
-	my $group = $self->param('group');
-	if ($self->param('namechange') or $self->param('add')) {
-		$samba->setSharingName($group, $name);
-	} elsif ($self->param('remove')) {
-		$samba->removeSharingName($group);
-	}
+    $self->_requireParam('group', __('group name'));
+    $self->keepParam('group');
+    $self->{errorchain} =  "UsersAndGroups/Group";
+    $self->_requireParamAllowEmpty('sharename', __('sharing name'));
+    my $name =  $self->param('sharename');
+    my $group = $self->param('group');
+    if ($self->param('namechange') or $self->param('add')) {
+        $samba->setSharingName($group, $name);
+    } elsif ($self->param('remove')) {
+        $samba->removeSharingName($group);
+    }
 
-	$self->{redirect} = "UsersAndGroups/Group?group=$group";
+    $self->{redirect} = "UsersAndGroups/Group?group=$group";
 }
 
-sub _user {
-	my $self = shift;
+sub _user
+{
+    my ($self) = @_;
 
-	my $smbldap = new EBox::SambaLdapUser;
-	my $smb = EBox::Global->modInstance('samba');
-	my $users = EBox::Global->modInstance('users');
+    my $smbldap = new EBox::SambaLdapUser;
+    my $smb = EBox::Global->modInstance('samba');
+    my $users = EBox::Global->modInstance('users');
 
 
-	$self->_requireParam('user', __('user name'));
-	$self->keepParam('user');
-	$self->{errorchain} =  "UsersAndGroups/User";
-	$self->_requireParam('active', __('active'));
-	$self->_requireParam('quota', __('Disk quota limit'));
-	my $user = $self->param('user');
-	my $active = $self->param('active');
+    $self->_requireParam('user', __('user name'));
+    $self->keepParam('user');
+    $self->{errorchain} =  "UsersAndGroups/User";
+    $self->_requireParam('active', __('active'));
+    $self->_requireParam('quota', __('Disk quota limit'));
+    my $user = $self->param('user');
+    my $active = $self->param('active');
 
-	$self->{redirect} = "UsersAndGroups/User?username=$user";
+    $self->{redirect} = "UsersAndGroups/User?username=$user";
 
-	$smbldap->setUserSharing($user, $active);
-	$smbldap->setUserQuota($user, $self->param('quota'));
-	$smb->setAdminUser($user, $self->param('is_admin'));
+    $smbldap->setUserSharing($user, $active);
+    $smbldap->setUserQuota($user, $self->param('quota'));
+    $smb->setAdminUser($user, $self->param('is_admin'));
 }
 
-sub _process($) {
-        my $self = shift;
+sub _process
+{
+    my ($self) = @_;
 
-	if ($self->param('user')) {
-		$self->_user;
-	} else {
-		$self->_group;
-	}
+    if ($self->param('user')) {
+        $self->_user;
+    } else {
+        $self->_group;
+    }
 }
 
 1;

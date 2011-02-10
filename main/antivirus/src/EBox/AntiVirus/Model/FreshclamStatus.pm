@@ -100,7 +100,7 @@ sub _table
 
       my $dataForm = {
                       tableName          => __PACKAGE__->nameFromClass(),
-                      printableTableName => __d('Database Update Status', 'ebox-antivirus'),
+                      printableTableName => __('Database Update Status'),
                       pageTitle          => __('Antivirus'),
                       modelDomain        => 'AntiVirus',
                       tableDescription   => \@tableDesc,
@@ -152,8 +152,6 @@ sub _content
             $nSig  = $self->_nSig();
         }
     }
-
-    settextdomain('ebox-antivirus');
 
     # build appropiate msg
     my $msg;

@@ -64,13 +64,9 @@ use constant PAGESIZE => 100;
 #
 sub new
 {
-
     my ($class) = @_;
 
-    my $self = $class->SUPER::new(
-                                  period      => 10,
-                                  domain      => 'ebox-logs',
-                                 );
+    my $self = $class->SUPER::new(period => 10);
     bless( $self, $class);
 
     # Get the last interval queried from Events namespace
@@ -78,7 +74,6 @@ sub new
     $self->{logs} = EBox::Global->modInstance('logs');
 
     return $self;
-
 }
 
 # Method: run
@@ -98,7 +93,6 @@ sub new
 #
 sub run
 {
-
     my ($self) = @_;
 
     my $logs = $self->{logs};
@@ -121,9 +115,9 @@ sub run
             # issues with the garbage collector.
             my $filterCpy;
             if (%{$filter}) {
-            $filterCpy = $filter;
+                $filterCpy = $filter;
             } else {
-            $filterCpy = undef;
+                $filterCpy = undef;
             }
             my $finished = 0;
             my $page = 0;
@@ -145,7 +139,6 @@ sub run
     } else {
         return;
     }
-
 }
 
 # Group: Static class methods
@@ -197,11 +190,9 @@ sub Able
 #        String - the event watcher name
 #
 sub _name
-  {
-
-      return __('Log observer');
-
-  }
+{
+    return __('Log observer');
+}
 
 # Method: _description
 #

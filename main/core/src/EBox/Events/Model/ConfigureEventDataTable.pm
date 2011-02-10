@@ -450,7 +450,7 @@ sub _fetchWatchers
 {
     my ($self) = @_;
 
-    my @watchers = ();
+    my @watchers;
 
     # Fetch the current available event watchers
     my $dirPath = WATCHERS_DIR;
@@ -464,7 +464,7 @@ sub _fetchWatchers
         # Test the class
         eval "use $className";
         if ( $@ ) {
-            EBox::warn('Error loading class: $className');
+            EBox::warn("Error loading class: $className");
             next;
         }
         # It should be an event watcher

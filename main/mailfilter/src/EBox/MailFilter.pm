@@ -58,7 +58,6 @@ sub _create
 {
     my $class = shift;
     my $self = $class->SUPER::_create(name => 'mailfilter',
-                                      domain => 'ebox-mailfilter',
                                       printableName => __n('Mail Filter'));
     bless($self, $class);
 
@@ -145,7 +144,6 @@ sub _serviceRules
              {
               'name' => 'POP Transparent proxy',
               'description' => __d('POP transparent proxy'),
-              'translationDomain' => 'ebox-mailfilter',
               'internal' => 1,
               'protocol' => 'tcp',
               'sourcePort' => 'any',
@@ -155,7 +153,6 @@ sub _serviceRules
              {
               'name' => 'POP3',
               'description' => __d('POP3 protocol'),
-              'translationDomain' => 'ebox-mailfilter',
               'internal' => 1,
               'protocol'   => 'tcp',
               'sourcePort' => 'any',

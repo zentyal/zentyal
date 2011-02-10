@@ -129,8 +129,7 @@ sub pendingActions
 		my $modname = $action->{'module'};
 		if($global->modExists($modname)) {
 			my $mod = EBox::Global->modInstance($modname);
-			my $domain = settextdomain($mod->domain);
-			$action->{'modtitle'} = __d($mod->title(), $mod->domain());
+			$action->{'modtitle'} = __($mod->title());
 			#TODO: create a function out of these lines and put it
 			#somewhere where it can be used from here and as a
 			#filter for logviewer for the admin table
@@ -142,7 +141,6 @@ sub pendingActions
 				$field[0] => $field[1];
 			} @params;
 			$action->{'message'} = __x($mod->actionMessage($action),@params);
-			settextdomain($domain);
 		} else {
 			$action->{'modtitle'} = $modname;
 		}

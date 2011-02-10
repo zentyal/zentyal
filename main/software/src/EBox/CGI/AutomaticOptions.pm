@@ -25,12 +25,12 @@ use EBox::Gettext;
 
 ## arguments:
 ##  title [required]
-sub new {
+sub new
+{
     my $class = shift;
     my $self = $class->SUPER::new(@_);
-    $self->{chain} = "Software/Config";
-    $self->{errorchain} = "Software/Config";
-    $self->{domain} = 'ebox-software';
+    $self->{chain} = 'Software/Config';
+    $self->{errorchain} = 'Software/Config';
     bless($self, $class);
     return $self;
 }

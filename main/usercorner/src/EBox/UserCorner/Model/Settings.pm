@@ -104,7 +104,6 @@ sub validateTypedRow
                     'protocol' => 'tcp',
                     'sourcePort' => 'any',
                     'destinationPort' => $portNumber,
-                    'translationDomain' => 'ebox-usersandgroups',
                     'internal' => 1,
                     'readOnly' => 1
                     );

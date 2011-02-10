@@ -3,7 +3,6 @@
 </%args>
 <%init>
 use EBox::Gettext;
-settextdomain('ebox-samba');
 </%init>
 % if ($params->{'username'}) {
 	<h3><% __('PDC/File sharing account') %></h3>
@@ -44,7 +43,7 @@ settextdomain('ebox-samba');
 			<span class='ftitle'><% __('Disk quota limit (MB)') %>:</span>
 		</td>
 		<td>
-			<input type='text' name='quota'  
+			<input type='text' name='quota'
 				value='<% $params->{quota} %>' />
 		</td>
 	</tr>
@@ -59,7 +58,7 @@ settextdomain('ebox-samba');
 	</tr>
 	</form>
 	</table>
-	
+
 %  } else {
 
 	<h3> <% __('Sharing directory for this group') %> </h3>
@@ -77,8 +76,8 @@ settextdomain('ebox-samba');
                 </div>
 %           }
     <span class="ftitle"><% __('Directory name')%>:</span>
-    <input  type="text" 
-            name="sharename" 
+    <input  type="text"
+            name="sharename"
             class="inputText"
             value="<% $params->{'sharename'} %>">
 %       if (length($params->{'sharename'}) > 0)  {
@@ -106,9 +105,9 @@ settextdomain('ebox-samba');
 	<form id='printers' action='/ebox/Samba/ActivePrinting' method='POST'>
 % if ($params->{'username'}) {
     <input type="hidden" name="user" value="<% $params->{'username'} %>">
-% } else { 
-    <input type="hidden" name="group" value="<% $params->{'groupname'} %>">	
-% }		
+% } else {
+    <input type="hidden" name="group" value="<% $params->{'groupname'} %>">
+% }
 			<table class='dataTable' cellspacing='0'>
 			<thead>
 				<tr>
@@ -159,7 +158,6 @@ settextdomain('ebox-samba');
 		</p>
 	</form>
 % }
-% settextdomain('ebox-usersandgroups');
 
 <%def .printersDisabled>
 <%init>
@@ -194,4 +192,4 @@ $mod
     )
 %>
 </div>
-</%def> 
+</%def>

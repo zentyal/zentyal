@@ -21,8 +21,8 @@ use EBox::Gettext;
     <span class='title'><% $title %></span>
 % }
     <span id='helpbutton'>
-        <a id='showhelp' href="#" onclick="switchHelp(); return false; " title="<% __d('Display help notes', 'libebox') %>">(<% __d("show help", 'libebox')%>)</a>
-        <a style='display:none;' id='hidehelp' href="#" onclick="switchHelp(); return false; " title="<% __d('Hide help notes', 'libebox') %>">(<% __d("hide help", 'libebox')%>)</a>
+        <a id='showhelp' href="#" onclick="switchHelp(); return false; " title="<% __('Display help notes') %>">(<% __d('show help')%>)</a>
+        <a style='display:none;' id='hidehelp' href="#" onclick="switchHelp(); return false; " title="<% __('Hide help notes') %>">(<% __d('hide help')%>)</a>
     </span>
 % }
 </div>

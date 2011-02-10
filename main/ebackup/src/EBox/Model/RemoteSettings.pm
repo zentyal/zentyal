@@ -330,7 +330,6 @@ sub _table
 
 sub _weekDays
 {
-    settextdomain('ebox-ebackup');
     return [
              { printableValue => __('on Monday') ,value => 1},
              { printableValue => __('on Tuesday'), value => 2},
@@ -513,7 +512,6 @@ sub _crontabStringLastDayMonth
 
 sub _method
 {
-    settextdomain('ebox-ebackup');
     my @methods = (
             {
             value => 'file',

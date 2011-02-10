@@ -39,8 +39,7 @@ sub _create
 {
     my $class = shift;
     my $self = $class->SUPER::_create(name => 'printers',
-                                      printableName => __n('Printer Sharing'),
-                                      domain => 'ebox-printers' );
+                                      printableName => __n('Printer Sharing'));
     bless($self, $class);
     $self->{'cups'} = new Net::CUPS;
     return $self;
@@ -107,7 +106,6 @@ sub initialSetup
         $firewall->addInternalService(
 		        'name' => 'ipp',
 			    'description' => __d('Cups printer server port'),
-			    'translationDomain' => 'ebox-printers',
 			    'protocol' => 'tcp',
 			    'sourcePort' => 'any',
 			    'destinationPort' => 631,

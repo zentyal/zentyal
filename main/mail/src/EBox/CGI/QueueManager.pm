@@ -34,7 +34,6 @@ sub new
     my $self = $class->SUPER::new('title'    => __('Queue Management'),
                                   'template' => 'mail/qmanager.mas',
                                   @_);
-    $self->{domain} = 'ebox-mail';
     bless($self, $class);
     return $self;
 }

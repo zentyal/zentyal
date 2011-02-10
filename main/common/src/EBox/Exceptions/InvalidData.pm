@@ -32,15 +32,11 @@ sub new # (data=>string,  value=>string, advice => string)
 	my $value  = delete $opts{value};
 	my $advice = delete $opts{advice};
 
-	my $old_domain = settextdomain('libebox');
-
 	my $error = __x("Invalid value for {data}: {value}.", data => $data,
 							 value => $value);
 	if (defined $advice) {
 	    $error .= "\n$advice";
 	}
-
-	settextdomain($old_domain);
 
 	local $Error::Depth = $Error::Depth + 1;
 	local $Error::Debug = 1;

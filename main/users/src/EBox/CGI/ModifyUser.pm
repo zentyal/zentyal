@@ -31,7 +31,6 @@ sub new {
 				      @_);
 
 	$self->{errorchain} = "UsersAndGroups/Users";
-	$self->{domain} = 'ebox-usersandgroups';
 	bless($self, $class);
 	return $self;
 }

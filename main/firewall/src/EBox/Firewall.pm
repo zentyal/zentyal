@@ -52,9 +52,7 @@ use EBox::Gettext;
 sub _create
 {
     my $class = shift;
-    my $self =$class->SUPER::_create(
-                                     name => 'firewall',
-                                     domain => 'ebox-firewall',
+    my $self =$class->SUPER::_create(name => 'firewall',
                                      printableName => __n('Firewall'),
                                      @_);
 
@@ -972,8 +970,6 @@ sub _addService
         throw EBox::Exceptions::MissingArgument('name');
     exists $params{protocol} or
         throw EBox::Exceptions::MissingArgument('protocol');
-    exists $params{protocol} or
-        throw EBox::Exceptions::MissingArgument('translationDomain');
     exists $params{sourcePort} or
         $params{sourcePort} = 'any';
     exists $params{destinationPort} or
@@ -986,7 +982,6 @@ sub _addService
                 'protocol' => $params{protocol},
                 'sourcePort' => $params{sourcePort},
                 'destinationPort' => $params{destinationPort},
-                'translationDomain' => $params{translationDomain},
                 'internal' => 1,
                 'readOnly' => 1
                 );
@@ -995,7 +990,6 @@ sub _addService
                 'protocol' => $params{protocol},
                 'sourcePort' => $params{sourcePort},
                 'destinationPort' => $params{destinationPort},
-                'translationDomain' => $params{translationDomain},
                 'internal' => 1,
                 'readOnly' => 1);
 

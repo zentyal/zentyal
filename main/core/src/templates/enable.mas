@@ -7,7 +7,6 @@
 use EBox::Gettext;
 defined $title or
   $title = __("Service configuration");
-my $domain = settextdomain('libebox');
 
 if (($active ne 'yes') and ($active ne 'no')) {
   $active = $active ? 'yes' : 'no';
@@ -30,5 +29,3 @@ if (($active ne 'yes') and ($active ne 'no')) {
 			alt="<% __('Change') %>">
 	</div>
 	</form>
-
-% settextdomain($domain);

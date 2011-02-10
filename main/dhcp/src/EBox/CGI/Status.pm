@@ -29,7 +29,6 @@ sub new {
 	my $class = shift;
 	my $self = $class->SUPER::new('title' => 'DHCP',
 				      @_);
-	$self->{domain} = 'ebox-dhcp';
 	$self->{redirect} = "DHCP/Index";
 	bless($self, $class);
 	return $self;

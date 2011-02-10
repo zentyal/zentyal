@@ -60,8 +60,6 @@ use Perl6::Junction qw(any);
 # Constants
 use constant LAYOUTS => qw(top-bottom tabbed select);
 
-
-
 # Group: Public methods
 
 # Constructor: new
@@ -78,24 +76,22 @@ use constant LAYOUTS => qw(top-bottom tabbed select);
 #       not the correct type
 #
 sub new
-  {
+{
+    my ($class, @params) = @_;
 
-      my ($class, @params) = @_;
+    my $self = { @params };
+    bless ( $self, $class );
 
-      my $self = { @params };
-      bless ( $self, $class );
+    my $description = $self->_description();
+    $self->_setDescription($description);
 
-      my $description = $self->_description();
-      $self->_setDescription($description);
+    # gconfdirectory must not be null
+    if (not exists $self->{gconfdir}) {
+        $self->{gconfdir} = '';
+    }
 
-      # gconfdirectory mut not be null
-      if (not exists $self->{gconfdir}) {
-          $self->{gconfdir} = '';
-      }
-
-      return $self;
-
-  }
+    return $self;
+}
 
 # Method: components
 #
@@ -108,46 +104,42 @@ sub new
 #      <EBox::Model::Composite>.
 #
 sub components
-  {
-      my ($self) = @_;
+{
+    my ($self) = @_;
 
-      for (my $idx = 0; $idx < scalar (@{$self->{components}}); $idx++) {
-          my $component = $self->{components}->[$idx];
-          unless ( ref ( $component )) {
-              my $componentName = $component;
-              $component = $self->_lookupComponent($componentName);
-              unless ( defined ( $component )) {
-                  throw EBox::Exceptions::InvalidData(
-                                                       data => 'component',
-                                                       value => $componentName
-                                                      );
-              }
-              if ( ref ( $component ) eq 'ARRAY' ) {
+    for (my $idx = 0; $idx < scalar (@{$self->{components}}); $idx++) {
+        my $component = $self->{components}->[$idx];
+        unless (ref ($component)) {
+            my $componentName = $component;
+            $component = $self->_lookupComponent($componentName);
+            unless (defined ($component)) {
+                throw EBox::Exceptions::InvalidData(
+                        data => 'component',
+                        value => $componentName
+                        );
+            }
+            if (ref ($component) eq 'ARRAY') {
 
-                  # More than one component to store in
-                  my @remainder = ();
-                  if ( $idx + 1 <= $#{$self->{components}} ) {
-                     @remainder = $self->{components}->[$idx + 1 .. $#{$self->{components}}];
-                      # Remove remainder elements
-                      $self->{components}->[$idx .. $#{$self->{components}}] = ();
-                  } else {
-                      pop(@{$self->{components}});
-                  }
-                  push ( @{$self->{components}}, @{$component});
-                  push ( @{$self->{components}}, @remainder ) if ( @remainder > 0);
-                  $idx += scalar(@{$component}) - 1;
-              } else {
-                  $self->{components}->[$idx] = $component;
-              }
-          }
-      }
+                # More than one component to store in
+                my @remainder = ();
+                if ( $idx + 1 <= $#{$self->{components}} ) {
+                    @remainder = $self->{components}->[$idx + 1 .. $#{$self->{components}}];
+                    # Remove remainder elements
+                    $self->{components}->[$idx .. $#{$self->{components}}] = ();
+                } else {
+                    pop(@{$self->{components}});
+                }
+                push (@{$self->{components}}, @{$component});
+                push (@{$self->{components}}, @remainder ) if ( @remainder > 0);
+                $idx += scalar(@{$component}) - 1;
+            } else {
+                $self->{components}->[$idx] = $component;
+            }
+        }
+    }
 
-      return $self->{components};
-
-  }
-
-
-
+    return $self->{components};
+}
 
 # Method: addComponent
 #
@@ -176,7 +168,6 @@ sub components
 #
 sub addComponent
 {
-
     my ($self, $component) = @_;
 
     defined ( $component ) or
@@ -291,7 +282,6 @@ sub delComponent
     }
     throw EBox::Exceptions::DataNotFound( data  => 'searchComp',
                                           value => $searchComp);
-
 }
 
 
@@ -386,13 +376,11 @@ sub setLayout
 #      String - with the current used layout
 #
 sub layout
-  {
+{
+    my ($self) = @_;
 
-      my ($self) = @_;
-
-      return $self->{layout};
-
-  }
+    return $self->{layout};
+}
 
 # Method: name
 #
@@ -406,7 +394,6 @@ sub name
     my ($self) = @_;
 
     return $self->{name};
-
 }
 
 # Method: contextName
@@ -422,7 +409,6 @@ sub name
 #
 sub contextName
 {
-
     my ($self) = @_;
 
     if ( $self->index() ) {
@@ -430,26 +416,24 @@ sub contextName
     } else {
         return $self->{name};
     }
-
 }
 
 # XXX transitional method, this will be the future name() method
 sub nameFromClass
 {
-  my ($self) = @_;
-  my $class;
-  if (ref $self) {
-    $class = ref $self;
-  }
-  else {
-    $class = $self;
-  }
+    my ($self) = @_;
+    my $class;
+    if (ref $self) {
+        $class = ref $self;
+    }
+    else {
+        $class = $self;
+    }
 
+    my @parts = split '::', $class;
+    my $name = pop @parts;
 
-  my @parts = split '::', $class;
-  my $name = pop @parts;
-
-  return $name;
+    return $name;
 }
 
 # Method: printableName
@@ -461,13 +445,11 @@ sub nameFromClass
 #      String - the composite's printable name
 #
 sub printableName
-  {
+{
+    my ($self) = @_;
 
-      my ($self) = @_;
-
-      return $self->{printableName};
-
-  }
+    return $self->{printableName};
+}
 
 # Method: precondition
 #
@@ -550,11 +532,9 @@ sub printableIndex
 #
 sub help
 {
+    my ($self) = @_;
 
-      my ($self) = @_;
-
-      return $self->{help};
-
+    return $self->{help};
 }
 
 # Method: permanentMessage
@@ -571,9 +551,7 @@ sub permanentMessage
     my ($self) = @_;
 
     return $self->{permanentMessage};
-
 }
-
 
 # Method: selectMessage
 #
@@ -587,13 +565,11 @@ sub permanentMessage
 #     String - the i18ned string which contents the select message
 #
 sub selectMessage
-  {
+{
+    my ($self) = @_;
 
-      my ($self) = @_;
-
-      return $self->{selectMessage};
-
-  }
+    return $self->{selectMessage};
+}
 
 # Method: compositeDomain
 #
@@ -605,13 +581,11 @@ sub selectMessage
 #     String - the composite domain, the first letter is upper-case
 #
 sub compositeDomain
-  {
+{
+    my ($self) = @_;
 
-      my ($self) = @_;
-
-      return $self->{compositeDomain};
-
-  }
+    return $self->{compositeDomain};
+}
 
 # Method: menuNamespace
 #
@@ -622,21 +596,19 @@ sub compositeDomain
 #      String - the composite's menu namespace
 #
 sub menuNamespace
-  {
+{
+    my ($self) = @_;
 
-      my ($self) = @_;
-
-      if ( $self->{menuNamespace} ) {
-          return $self->{menuNamespace};
-      } elsif ( defined ( $self->compositeDomain() )) {
-          # This is autogenerated menuNamespace got from the composite
-          # domain and its name
-          return $self->compositeDomain() . '/Composite/' . $self->name();
-      } else {
-          return undef;
-      }
-
-  }
+    if ( $self->{menuNamespace} ) {
+        return $self->{menuNamespace};
+    } elsif ( defined ( $self->compositeDomain() )) {
+        # This is autogenerated menuNamespace got from the composite
+        # domain and its name
+        return $self->compositeDomain() . '/Composite/' . $self->name();
+    } else {
+        return undef;
+    }
+}
 
 # Method: action
 #
@@ -1124,7 +1096,6 @@ sub pageTitle
 {
 	my ($self) = @_;
 
-	$self->setDomain();
 	my $desc = $self->_description();
 	if (exists $desc->{pageTitle}) {
 		return $desc->{pageTitle};
@@ -1137,7 +1108,6 @@ sub headTitle
 {
 	my ($self) = @_;
 
-	$self->setDomain();
 	my $desc = $self->_description();
 	if (exists $desc->{headTitle}) {
 		return $desc->{headTitle};
@@ -1154,37 +1124,9 @@ sub HTMLTitle
 	return undef unless ($pageTitle);
 
 	return [
-            {title => $pageTitle, 
-             link  => undef 
+            {title => $pageTitle,
+             link  => undef
             }];
-
-}
-
-# Method: setInitialDomain
-#
-#   Set the initial domain. gettext is not actually
-#   called here. setDomain does call gettext
-#   using the domain provided by this method
-#
-# Parameters:
-#
-#   domain - string
-#
-sub setInitialDomain
-{
-    my ($self, $domain) = @_;
-    $self->{domain} = $domain;
-}
-
-# Method: setDomain
-#
-#   Call settextdomain with the $self->{domain}
-sub setDomain
-{
-    my ($self) = @_;
-    if ($self->{domain})  {
-        settextdomain($self->{domain});
-    }
 }
 
 1;

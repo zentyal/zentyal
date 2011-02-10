@@ -25,13 +25,12 @@ use EBox::UsersAndGroups;
 use EBox::Gettext;
 use EBox::Exceptions::External;
 
-sub new {
+sub new
+{
 	my $class = shift;
-	my $self = $class->SUPER::new('title' => 'Users and Groups',
-				      @_);
-        $self->{domain} = 'ebox-usersandgroups';
+	my $self = $class->SUPER::new('title' => 'Users and Groups', @_);
 	bless($self, $class);
-	$self->{errorchain} = "UsersAndGroups/Users";
+	$self->{errorchain} = 'UsersAndGroups/Users';
 	return $self;
 }
 
@@ -82,13 +81,12 @@ sub _process($) {
 	}
 
 	if ($self->param('addAndEdit')) {
-	        $self->{redirect} = 
+	        $self->{redirect} =
 			"UsersAndGroups/User?username=" . $user->{'user'};
 	} else {
 	        $self->{redirect} = "UsersAndGroups/Users";
 
 	}
 }
-
 
 1;

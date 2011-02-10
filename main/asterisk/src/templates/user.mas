@@ -3,7 +3,6 @@
 </%args>
 <%init>
     use EBox::Gettext;
-    settextdomain('ebox-asterisk');
 </%init>
     <h3><% __('Asterisk account') %></h3>
 

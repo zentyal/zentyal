@@ -59,10 +59,7 @@ sub new
     my $options = $network->model('WANFailoverOptions')->row();
     my $period = $options->valueByName('period');
 
-    my $self = $class->SUPER::new(
-                                    period => $period,
-                                    domain => 'ebox-network',
-                                 );
+    my $self = $class->SUPER::new(period => $period);
     $self->{counter} = 0;
 
     bless ($self, $class);

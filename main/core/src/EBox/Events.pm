@@ -89,11 +89,9 @@ sub _create
 {
     my $class = shift;
 
-    my $self = $class->SUPER::_create( name => 'events',
-            domain => 'ebox',
-            printableName => __n('Events'),
-            @_
-            );
+    my $self = $class->SUPER::_create(name => 'events',
+                                      printableName => __n('Events'),
+                                      @_);
 
     bless ($self, $class);
 
@@ -743,7 +741,6 @@ sub _enableForm
         $self->{enableForm} = new EBox::Common::Model::EnableForm(
                 gconfmodule => $self,
                 directory   => 'EnableForm',
-                domain      => 'ebox',
                 enableTitle => __('Event service status'),
                 modelDomain => 'Events',
                 );

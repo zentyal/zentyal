@@ -288,10 +288,8 @@ sub _delUserWarning
 
     my $path = BASEPATH . "/users/$user";
 
-    settextdomain('ebox-samba');
     my $txt = __('This user has a sharing directory associated ' .
                  'which contains data.');
-    settextdomain('ebox-usersandgroups');
     unless ($self->_directoryEmpty($path)) {
         return ($txt);
     }
@@ -496,10 +494,8 @@ sub _delGroupWarning
     return unless ($self->{samba}->configured());
 
     my $path = BASEPATH . "/groups/$group";
-    settextdomain('ebox-samba');
     my $txt = __('This group has a sharing directory associated ' .
                  'that contains data.');
-    settextdomain('ebox-usersandgroups');
 
     unless ($self->_directoryEmpty($path)) {
         return ($txt);

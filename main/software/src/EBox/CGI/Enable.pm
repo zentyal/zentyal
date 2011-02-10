@@ -25,16 +25,17 @@ use EBox::Gettext;
 
 ## arguments:
 ##  title [required]
-sub new {
+sub new
+{
     my $class = shift;
     my $self = $class->SUPER::new(@_);
-    $self->{redirect} = "Software/Config";
-    $self->{domain} = 'ebox-software';
+    $self->{redirect} = 'Software/Config';
     bless($self, $class);
     return $self;
 }
 
-sub _process($) {
+sub _process
+{
     my $self = shift;
     my $software= EBox::Global->modInstance('software');
 

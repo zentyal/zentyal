@@ -45,7 +45,6 @@ sub new
                                   'template' => 'monitor/index.mas',
 				  @_);
 
-    $self->{domain} = 'ebox-monitor';
     bless($self, $class);
 
     return $self;

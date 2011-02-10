@@ -25,39 +25,37 @@ use EBox::UsersAndGroups;
 use EBox::Gettext;
 
 
-sub new {
-	my $class = shift;
-	my $self = $class->SUPER::new('title' => 'Users and Groups',
-				      @_);
-        $self->{domain} = 'ebox-usersandgroups';
-	bless($self, $class);
-        $self->{errorchain} = "UsersAndGroups/Groups";
-	return $self;
+sub new
+{
+    my $class = shift;
+    my $self = $class->SUPER::new('title' => 'Users and Groups', @_);
+    bless($self, $class);
+    $self->{errorchain} = 'UsersAndGroups/Groups';
+    return $self;
 }
 
 
-sub _process($) {
-	my $self = shift;
-	my $usersandgroups = EBox::Global->modInstance('users');
+sub _process($)
+{
+    my $self = shift;
+    my $usersandgroups = EBox::Global->modInstance('users');
 
-	my @args = ();
+    my @args = ();
 
-	$self->_requireParam('groupname', __('group name'));
+    $self->_requireParam('groupname', __('group name'));
 
-	my $group = $self->param('groupname');
-	my $comment = $self->param('comment');
+    my $group = $self->param('groupname');
+    my $comment = $self->param('comment');
 
+    $usersandgroups->addGroup($group, $comment);
 
-	$usersandgroups->addGroup($group, $comment);
-
-	# FIXME Is there a better way to pass parameters to redirect/chain
-	# cgi's
-	if ($self->param('addAndEdit')) {
-        	$self->{redirect} = "UsersAndGroups/Group?group=$group";
-	} else {
-        	$self->{redirect} = "UsersAndGroups/Groups";
-	}
+    # FIXME Is there a better way to pass parameters to redirect/chain
+    # cgi's
+    if ($self->param('addAndEdit')) {
+        $self->{redirect} = "UsersAndGroups/Group?group=$group";
+    } else {
+        $self->{redirect} = "UsersAndGroups/Groups";
+    }
 }
-
 
 1;

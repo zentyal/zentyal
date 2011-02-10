@@ -82,7 +82,6 @@ sub new
     my $directory   = delete $opts{'directory'};
     $directory or
         throw EBox::Exceptions::MissingArgument('directory');
-    my $domain      = delete $opts{'domain'};
 
     my $self =
     {
@@ -92,7 +91,6 @@ sub new
         'order' => "$directory/order",
         'table' => undef,
         'cachedVersion' => 0,
-        'domain' => $domain,
     };
 
     bless($self, $class);
@@ -126,13 +124,9 @@ sub _setupTable
 {
     my ($self) = @_;
 
-    $self->setDomain();
-
     my $table = $self->_table();
     $self->checkTable($table);
     $self->{'table'} = $table;
-
-    $self->_restoreDomain();
 
     # Set the needed controller and undef setters
     $self->_setControllers();
@@ -2529,7 +2523,12 @@ sub findId
     }
 
     my @matched = @{$self->_find($fieldName, $value, undef, 'value')};
-    return @matched ? $matched[0] : undef;
+    if (@matched) {
+        return $matched[0];
+    } else {
+        @matched = @{$self->_find($fieldName, $value, undef, 'printableValue')};
+        return @matched ? $matched[0] : undef;
+    }
 }
 
 # Method: findRow
@@ -2703,10 +2702,6 @@ sub AUTOLOAD
         EBox::debug($trace->as_string());
         throw EBox::Exceptions::Internal("Not valid autoload method $methodName since "
                                          . "$self is not a EBox::Model::DataTable");
-    }
-
-    if ( $methodName eq 'domain' ) {
-        return $self->{gconfmodule}->domain();
     }
 
     # Depending on the method name beginning, the action to be
@@ -3583,37 +3578,6 @@ sub _removeHasManyTables
 #    }
 #}
 
-# Method: _setDomain
-#
-#     Set the translation domain to the one stored in the model, if any
-sub setDomain
-{
-    my ($self) = @_;
-
-    my $domain = $self->{'domain'};
-    unless ($domain) {
-    if (exists $self->{gconfmodule}->{domain})  {
-        $domain = $self->{gconfmodule}->{domain};
-    }
-    }
-    if ($domain) {
-        $self->{'oldDomain'} = settextdomain($domain);
-    }
-}
-
-# Method: _restoreDomain
-#
-#     Restore the translation domain privous to _setDomain
-sub _restoreDomain
-{
-    my ($self) = @_;
-
-    my $domain = $self->{'oldDomain'};
-    if ($domain) {
-        settextdomain($domain);
-    }
-}
-
 # Method: _notifyModelManager
 #
 #     Notify to the model manager that an action has been performed on
@@ -4348,7 +4312,7 @@ sub printableActionName
     my ($self) = @_;
 
     unless (defined ( $self->table()->{'printableActionName'})) {
-        $self->table()->{'printableActionName'} = __d('Change', 'libebox');
+        $self->table()->{'printableActionName'} = __('Change');
     }
 
     return $self->table()->{'printableActionName'};

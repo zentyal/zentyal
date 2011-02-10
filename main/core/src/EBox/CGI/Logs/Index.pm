@@ -35,7 +35,6 @@ sub new # (error=?, msg=?, cgi=?)
     my $self = $class->SUPER::new('title' => __('Logs'),
                                   'template' => '/logs/index.mas',
                                   @_);
-    $self->{domain} = 'ebox';
     bless($self, $class);
     return $self;
 }
@@ -342,7 +341,5 @@ sub _process
 
     $self->addToMasonParameters(@masonParameters);
 }
-
-
 
 1;

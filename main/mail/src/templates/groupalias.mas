@@ -4,7 +4,6 @@
 <%init>
 use EBox::Gettext;
 </%init>
-% settextdomain('ebox-mail');
 <h3><% __('Mail alias settings') %></h3>
 
 
@@ -28,12 +27,12 @@ use EBox::Gettext;
 			</tr>
 		</thead>
           	<tbody>
-       <& .addAlias, 
-           group => $params->{group}, 
+       <& .addAlias,
+           group => $params->{group},
            vdomains => $params->{vdomains},
        &>
        <& .aliasList,
-             group => $params->{group}, 
+             group => $params->{group},
              aliases => $params->{aliases},
         &>
 	    </tbody>
@@ -59,8 +58,8 @@ $group
 					</select>
 				</td>
 				<td class='tcenter'>
-					<input class='inputButton' 
-							type='image' 
+					<input class='inputButton'
+							type='image'
 							src='/data/images/add.gif'
 							name='change'
 							value="<% __('Create') %>"
@@ -83,7 +82,7 @@ $group
 				<td><% $alias %></td>
 				<td class='tcenter'>
 					<a href='../Mail/DelGroupAlias?alias=<% $alias %>&group=<% $group %>'>
-					<img src='/data/images/delete.gif' 
+					<img src='/data/images/delete.gif'
 						title="<% __('Delete') %>"
 						alt="<% __('Delete') %>"/></a>
 				</td>

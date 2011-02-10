@@ -23,17 +23,18 @@ use base 'EBox::CGI::ClientBase';
 use EBox::Global;
 use EBox::Gettext;
 
-sub new {
+sub new
+{
 	my $class = shift;
 	my $self = $class->SUPER::new(@_);
-	$self->{domain} = 'ebox-dhcp';
 	$self->{redirect} = "DHCP/Index";
 	bless($self, $class);
 	return $self;
 }
 
-sub _process($){
-	my $self = shift;
+sub _process
+{
+	my ($self) = @_;
 	my $dhcp = EBox::Global->modInstance('dhcp');
 
 	$self->_requireParam("iface", __("Interface"));

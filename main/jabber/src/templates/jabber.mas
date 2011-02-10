@@ -3,7 +3,6 @@
 </%args>
 <%init>
     use EBox::Gettext;
-    settextdomain('ebox-jabber');
 </%init>
     <h3><% __('Jabber account') %></h3>
 
@@ -64,4 +63,4 @@ return if $params->{service};
      )
 %>
 </div>
-</%def> 
+</%def>

@@ -45,7 +45,6 @@ sub _create
     my $class = shift;
     my $self = $class->SUPER::_create(name => 'services',
             printableName => __n('Services'),
-            domain => 'ebox-services',
             @_);
     $self->{'serviceModel'} =
         new EBox::Services::Model::ServiceTable(
@@ -108,7 +107,6 @@ sub _defaultServices
         {
          'name' => 'any',
          'description' => __d('any protocol and port'),
-         'domain' => __d('ebox-services'),
          'protocol' => 'any',
          'destinationPort' => 'any',
          'internal' => 0,
@@ -116,7 +114,6 @@ sub _defaultServices
         {
          'name' => 'any UDP',
          'description' => __d('any UDP port'),
-         'domain' => __d('ebox-services'),
          'protocol' => 'udp',
          'destinationPort' => 'any',
          'internal' => 0,
@@ -124,7 +121,6 @@ sub _defaultServices
         {
          'name' => 'any TCP',
          'description' => __d('any TCP port'),
-         'domain' => __d('ebox-services'),
          'protocol' => 'tcp',
          'destinationPort' => 'any',
          'internal' => 0,
@@ -132,7 +128,6 @@ sub _defaultServices
         {
          'name' => 'eBox administration',
          'description' => __d('Zentyal Administration Web Server'),
-         'domain' => __d('ebox-services'),
          'protocol' => 'tcp',
          'destinationPort' => $apachePort,
          'internal' => 1,
@@ -140,7 +135,6 @@ sub _defaultServices
         {
          'name' => 'ssh',
          'description' => 'SSH',
-         'domain' => __d('ebox-services'),
          'protocol' => 'tcp',
          'destinationPort' => '22',
          'internal' => 0,
@@ -148,7 +142,6 @@ sub _defaultServices
         {
          'name' => 'HTTP',
          'description' => 'HTTP',
-         'domain' => __d('ebox-services'),
          'protocol' => 'tcp',
          'destinationPort' => '80',
          'internal' => 0,
@@ -318,7 +311,6 @@ sub serviceConfiguration
 #   destinationPort - same as source
 #   internal - boolean, internal services can't be modified from the UI
 #   readOnly - boolean, set the row unremovable from the UI
-#   translationDomain - Zentyal module domain for i18n
 #
 #       Example:
 #
@@ -486,15 +478,13 @@ sub setAdministrationPort
 
     checkPort($port, __("port"));
 
-        $self->setService('name' => __d('eBox administration'),
-                'description' => __d('Zentyal Administration port'),
-                'domain' => __d('ebox-services'),
-                'protocol' => 'tcp',
-                'sourcePort' => 'any',
-                'destinationPort' => $port,
-                'internal' => 1,
-                'readOnly' => 1);
-
+    $self->setService('name' => __d('eBox administration'),
+            'description' => __d('Zentyal Administration Web Server'),
+            'protocol' => 'tcp',
+            'sourcePort' => 'any',
+            'destinationPort' => $port,
+            'internal' => 1,
+            'readOnly' => 1);
 }
 
 # Method: availablePort

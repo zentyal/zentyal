@@ -76,7 +76,6 @@ sub _create
     my $class = shift;
     my $self = $class->SUPER::_create(name => 'monitor',
                                       printableName => __n('Monitor'),
-                                      domain => 'ebox-monitor',
                                       @_);
     bless($self, $class);
 
@@ -86,17 +85,6 @@ sub _create
 }
 
 # Group: Public methods
-
-# Method: domain
-#
-# Overrides:
-#
-#       <EBox::Module::domain>
-#
-sub domain
-{
-    return 'ebox-monitor';
-}
 
 # Method: modelClasses
 #

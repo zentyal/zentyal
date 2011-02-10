@@ -67,7 +67,6 @@ sub _create
     my $self = $class->SUPER::_create(
             name => 'webmail',
             printableName => __n('Webmail'),
-            domain => 'ebox-webmail',
             );
     bless($self, $class);
     return $self;

@@ -6,7 +6,6 @@
 </%args>
 <%init>
 use EBox::Gettext;
-settextdomain('ebox-mail');
 </%init>
 
 <form name='createaccount' action='/ebox/Mail/CreateAccount' method='POST'>
@@ -47,9 +46,6 @@ settextdomain('ebox-mail');
 	</table>
 </form>
 
-
-
-% settextdomain('ebox-usersandgroups');
 
 <%def .maildirSize>
 <%args>

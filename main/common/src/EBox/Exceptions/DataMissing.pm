@@ -32,9 +32,7 @@ sub new # (data=>string)
 
 	my $data = delete $opts{data};
 
-	my $old_domain = settextdomain('libebox');
 	my $error = __x("{data} is empty.", data => $data);
-	settextdomain($old_domain);
 
 	local $Error::Depth = $Error::Depth + 1;
 	local $Error::Debug = 1;

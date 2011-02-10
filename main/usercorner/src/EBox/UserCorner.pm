@@ -35,7 +35,6 @@ sub _create
 {
     my $class = shift;
     my $self = $class->SUPER::_create(name => 'usercorner',
-            domain => 'ebox-usersandgroups',
             printableName => __n('User Corner'),
             @_);
 

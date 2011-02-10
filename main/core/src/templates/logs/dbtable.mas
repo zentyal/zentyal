@@ -12,7 +12,6 @@
 </%args>
 <%init>
 use EBox::Gettext;
-my $domain = settextdomain('libebox');
 </%init>
 <br />
 <table class='dataTable' cellspacing='0'>
@@ -96,7 +95,7 @@ the table definition
 
 	<td style="width:90%; text-align: center;">
 %	if ($tpages <= 0) {
-		<% __('Page') %> <% $page+1 %> 
+		<% __('Page') %> <% $page+1 %>
 %	} else {
 		<% __('Page') %> <% $page+1 %> <% __('of') %> <%$tpages+1%>
 %	}
@@ -120,5 +119,3 @@ the table definition
 	</tr>
 </table>
 </form>
-
-% settextdomain($domain);

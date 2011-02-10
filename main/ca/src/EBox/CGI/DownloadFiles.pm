@@ -33,30 +33,25 @@ use EBox::Global;
 # Returns:
 #
 #       DownloadFiles - The object recently created
-
 sub new
-  {
-
+{
     my $class = shift;
 
-    my $self = $class->SUPER::new('title'    => __('Certification Authority'),
-				  @_);
+    my $self = $class->SUPER::new('title' => __('Certification Authority'),
+                                  @_);
 
-    $self->{domain} = "ebox-ca";
     # To download something, we need errorchain
-    $self->{errorchain} = "CA/Index";
+    $self->{errorchain} = 'CA/Index';
     bless($self, $class);
 
     return $self;
-
-  }
+}
 
 # Process the HTTP query
 
 sub _process
-  {
-
-    my $self = shift;
+{
+    my ($self) = @_;
 
     $self->{ca} = EBox::Global->modInstance('ca');
 
@@ -66,7 +61,7 @@ sub _process
     $self->{cn} = $self->unsafeParam('cn');
     # We have to check it manually if it exists
     if ( not defined($self->{cn}) or ($self->{cn} eq "") ) {
-      throw EBox::Exceptions::DataMissing(data => __('Common Name'));
+        throw EBox::Exceptions::DataMissing(data => __('Common Name'));
     }
 
     # Transform %40 in @
@@ -76,47 +71,47 @@ sub _process
 
     my $metaDataCert = $self->{ca}->getCertificateMetadata( cn => $self->{cn});
     if (not defined($metaDataCert) ) {
-      throw EBox::Exceptions::External(__x("Common name: {cn} does NOT exist in database"
-					   , cn => $self->{cn}));
+        throw EBox::Exceptions::External(__x("Common name: {cn} does NOT exist in database"
+                    , cn => $self->{cn}));
     }
 
     my $files = {};
     # If it is the CA certificate, only possibility to download Public Key and certificate
     if ($metaDataCert->{"isCACert"}) {
-      $files->{publicKey}   = $self->{ca}->CAPublicKey();
-      $files->{certificate} = $self->{ca}->getCACertificateMetadata()->{path};
+        $files->{publicKey}   = $self->{ca}->CAPublicKey();
+        $files->{certificate} = $self->{ca}->getCACertificateMetadata()->{path};
     } else {
-      $files = $self->{ca}->getKeys($self->{cn});
-      $files->{certificate} = $self->{ca}->getCertificateMetadata(cn => $self->{cn})->{path};
-      $files->{p12}         = $self->{ca}->getP12KeyStore($self->{cn});
+        $files = $self->{ca}->getKeys($self->{cn});
+        $files->{certificate} = $self->{ca}->getCertificateMetadata(cn => $self->{cn})->{path};
+        $files->{p12}         = $self->{ca}->getP12KeyStore($self->{cn});
     }
 
     my $zipfile;
     if ( $metaDataCert->{"isCACert"} ) {
-      $zipfile = EBox::Config->tmp() . "CA-key-and-cert.tar.gz";
+        $zipfile = EBox::Config->tmp() . "CA-key-and-cert.tar.gz";
     } else {
-      $zipfile = EBox::Config->tmp() . "keys-and-cert-" . $self->{cn} . ".tar.gz";
+        $zipfile = EBox::Config->tmp() . "keys-and-cert-" . $self->{cn} . ".tar.gz";
     }
 
     unlink($zipfile);
     # We make symbolic links in order to make dir-plained tar file
     my ($linkPrivate, $linkPublic, $linkCert, $linkP12);
     if ( $metaDataCert->{"isCACert"} ) {
-      $linkPublic = "ca-public-key.pem";
-      $linkCert = "ca-cert.pem";
+        $linkPublic = "ca-public-key.pem";
+        $linkCert = "ca-cert.pem";
     } else {
-      $linkPrivate = $self->{cn} . "-private-key.pem";
-      $linkPublic  = $self->{cn} . "-public-key.pem";
-      $linkCert    = $self->{cn} . "-cert.pem";
-      $linkP12     = $self->{cn} . ".p12";
+        $linkPrivate = $self->{cn} . "-private-key.pem";
+        $linkPublic  = $self->{cn} . "-public-key.pem";
+        $linkCert    = $self->{cn} . "-cert.pem";
+        $linkP12     = $self->{cn} . ".p12";
     }
 
     link($files->{privateKey}, EBox::Config->tmp() . $linkPrivate)
-      if ($linkPrivate);
+        if ($linkPrivate);
     link($files->{publicKey}, EBox::Config->tmp() . $linkPublic);
     link($files->{certificate}, EBox::Config->tmp() . $linkCert);
     link($files->{p12}, EBox::Config->tmp() . $linkP12)
-      if ($linkP12);
+        if ($linkP12);
 
     my $tarArgs = qq{'$zipfile' };
     $tarArgs .= qq{'$linkPrivate' } if ( $linkPrivate );
@@ -130,7 +125,7 @@ sub _process
     unlink(EBox::Config->tmp() . $linkCert);
     unlink(EBox::Config->tmp() . $linkP12) if ($linkP12);
     if ($ret != 0) {
-      throw EBox::Exceptions::External(__("Error creating file") . ": $!");
+        throw EBox::Exceptions::External(__("Error creating file") . ": $!");
     }
 
     # Setting the file
@@ -138,32 +133,29 @@ sub _process
     # Remove trailing slashes, only name
     $zipfile =~ s/^.+\///;
     $self->{downfilename} = $zipfile;
-
-  }
+}
 
 # Overwrite the _print method to send the file
 sub _print
-  {
-    my $self = shift;
+{
+    my ($self) = @_;
 
     if ($self->{error} or not defined($self->{downfile})) {
-      $self->SUPER::_print;
-      return;
+        $self->SUPER::_print;
+        return;
     }
 
     open( my $keyFile, $self->{downfile} )
-      or throw EBox::Exceptions::Internal("Could NOT open key file.");
+        or throw EBox::Exceptions::Internal("Could NOT open key file.");
 
     print($self->cgi()->header(-type => 'application/octet-stream',
-			       -attachment => $self->{downfilename}));
+                -attachment => $self->{downfilename}));
 
     while(<$keyFile>) {
-      print $_;
+        print $_;
     }
 
     close($keyFile);
-
-
-  }
+}
 
 1;

@@ -41,7 +41,6 @@ use EBox::Gettext;
 #
 #       period - Integer the period in number of calls between
 #       <watchEvent> calls
-#       domain - String the Gettext domain for this event watcher
 #
 #       - Named parameters
 #
@@ -55,19 +54,19 @@ use EBox::Gettext;
 #       is missing
 #
 sub new
-  {
-      my ($class, %args) = @_;
+{
+    my ($class, %args) = @_;
 
-      defined ( $args{period} ) or
+    defined ( $args{period} ) or
         throw EBox::Exceptions::MissingArgument('period');
 
-      my $self = $class->SUPER::new(%args);
-      bless ($self, $class);
+    my $self = $class->SUPER::new(%args);
+    bless ($self, $class);
 
-      $self->{period} = $args{period};
+    $self->{period} = $args{period};
 
-      return $self;
-  }
+    return $self;
+}
 
 # Method: period
 #
@@ -78,14 +77,11 @@ sub new
 #       Integer - the number of minutes between <watchEvent> calls
 #
 sub period
-  {
+{
+    my ($self) = @_;
 
-      my ($self) = @_;
-
-      return $self->{period};
-
-  }
-
+    return $self->{period};
+}
 
 # Method: description
 #
@@ -99,18 +95,12 @@ sub period
 #
 sub description
 {
-
     my ($self) = @_;
 
-    # Get the event watcher Gettext domain
-    my $oldDomain   = EBox::Gettext::settextdomain($self->domain());
     my $description = $self->_description();
-    EBox::Gettext::settextdomain($oldDomain);
 
     return $description;
-
 }
-
 
 # Method: run
 #
@@ -126,11 +116,9 @@ sub description
 #       happened event has happened
 #
 sub run
-  {
-
-      throw EBox::Exceptions::NotImplemented();
-
-  }
+{
+    throw EBox::Exceptions::NotImplemented();
+}
 
 # Group: Class static methods
 
@@ -201,13 +189,9 @@ sub configurationSubModel
 #      String - the description. Default value: an empty string.
 #
 sub _description
-  {
-
-      # Default empty implementation
-      return '';
-
-  }
-
-
+{
+    # Default empty implementation
+    return '';
+}
 
 1;

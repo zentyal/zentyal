@@ -1,4 +1,5 @@
 HEAD
+	+ Delete no longer used domain and translationDomain methods/attributes
 	+ Unified src/libexec and tools in the new src/scripts directory
 	+ Remove the ebox- prefix on all the names of the /usr/share scripts
 	+ New createTables method in EBox::LogObserver called from

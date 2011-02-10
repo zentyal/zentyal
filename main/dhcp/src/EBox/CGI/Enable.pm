@@ -21,19 +21,21 @@ use EBox::Global;
 use EBox::Gettext;
 
 ## arguments:
-## 	title [required]
-sub new {
+##	title [required]
+sub new
+{
 	my $class = shift;
 	my $self = $class->SUPER::new('title' => 'DHCP',
 				      @_);
 	$self->{redirect} = 'DHCP/Index';
-	$self->{domain} = 'ebox-dhcp';
 	bless($self, $class);
 	return $self;
 }
 
-sub _process($) {
-	my $self = shift;
+sub _process
+{
+	my ($self) = @_;
+
 	my $dhcp= EBox::Global->modInstance('dhcp');
 
 	$self->_requireParam('active', __('module status'));
