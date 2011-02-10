@@ -63,7 +63,7 @@ msgstr ""
 #: src/EBox/Validate.pm:692
 #, perl-brace-format
 msgid "The directory {dir} is not private; because it is owned by another user"
-msgstr "A(z) mappa nem saját mivel más felhasználó a tulajdonosa"
+msgstr "A(z) mappa {dir} nem saját mivel más felhasználó a tulajdonosa"
 
 #: src/EBox/Validate.pm:767
 msgid ""
