@@ -1,8 +1,9 @@
 <%args>
 $name
 $dev
-$port  
+$port
 $proto
+
 $caCertificatePath
 $certificatePath
 $key
@@ -23,47 +24,58 @@ $ippFile
 
 @advertisedNets => ()
 </%args>
+<%init>
+my $multihome = 0;
+# multihomed UDP server ?
+if ($proto eq 'udp') {
+  if (not $local) {
+     $multihome = 1;
+  }
+}
+</%init>
+
 # EBox OpenVPN 2.0 config file for  server <% $name %>
 
 
 # Which local IP address should OpenVPN
 # listen on? (optional)
-<& valueEntry, entry => 'local', value => $local  &>
-
+<& valueEntry, entry => 'local', value => $local &>
+<& boolEntry, entry => 'multihome', value => $multihome &>
 
 # Which TCP/UDP port should OpenVPN listen on?
-<& valueEntry, entry => 'port', value => $port  &>
+<& valueEntry, entry => 'port', value => $port &>
 
 # TCP or UDP server?
-<& valueEntry, entry => 'proto', value => $proto  &>
+<& valueEntry, entry => 'proto', value => $proto &>
+
 
 # virtual device
-<& valueEntry, entry => 'dev', value => $dev  &>
+<& valueEntry, entry => 'dev', value => $dev &>
 
 # SSL/TLS root certificate (ca), certificate
 
-# (cert), and private key (key). 
-<& valueEntry, entry => 'ca', value => "'$caCertificatePath'"  &>
-<& valueEntry, entry => 'cert', value => "'$certificatePath'"  &>
+# (cert), and private key (key).
+<& valueEntry, entry => 'ca', value => "'$caCertificatePath'" &>
+<& valueEntry, entry => 'cert', value => "'$certificatePath'" &>
 <& valueEntry, entry => 'key', value => "'$key'"  &> # This file should be kept secret
 
 # check peer certificate against certificate revokation list
-<& valueEntry, entry => 'crl-verify', value => $crlVerify  &> 
+<& valueEntry, entry => 'crl-verify', value => $crlVerify &>
 
 # Diffie hellman parameters.
 # Generate your own with:
 #   openssl dhparam -out dh1024.pem 1024
 # Substitute 2048 for 1024 if you are using
-# 2048 bit keys. 
+# 2048 bit keys.
 #dh /etc/openvpn/dh1024.pem
-<& valueEntry, entry => 'dh', value => $dh  &>
+<& valueEntry, entry => 'dh', value => $dh &>
 
 # Configure server mode and supply a VPN subnet
 # for OpenVPN to draw client addresses from.
 server <% $subnet %> <% $subnetNetmask %>
 
 # Maintain a record of client <-> virtual IP address
-# associations in this file.  
+# associations in this file.
 ifconfig-pool-persist <% "'$ippFile'" %>
 
 
@@ -108,9 +120,8 @@ comp-lzo
 
 # group and user for the OpenVPN
 # daemon's privileges after initialization.
-<& valueEntry, entry => 'user', value => $user  &>
-<& valueEntry, entry => 'group', value => $group  &>
-
+<& valueEntry, entry => 'user', value => $user &>
+<& valueEntry, entry => 'group', value => $group &>
 
 # The persist options will try to avoid
 # accessing certain resources on restart
@@ -149,8 +160,6 @@ verb 3
 <& advertisedNets, nets => \@advertisedNets &>
 
 
-
-
 <%def valueEntry>
 <%args>
 $entry
@@ -176,7 +185,7 @@ $value
 @nets
 </%args>
 % foreach my $net (@nets) {
-%   my ($net, $netmask) = @{ $net  };
+%   my ($net, $netmask) = @{ $net };
    push "route <% $net %> <% $netmask %>"
 %}
 </%def>
