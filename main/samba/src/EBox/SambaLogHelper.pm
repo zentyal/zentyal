@@ -23,6 +23,9 @@ use EBox::Config;
 use EBox::Gettext;
 
 use constant SAMBA_LOGFILE => '/var/log/syslog';
+use constant RESOURCE_FIELD_MAX_LENGTH => 240; # this must be the same length of
+                                               # the db samba_Access.resource
+                                               # field
 
 sub new
 {
@@ -106,7 +109,6 @@ sub processLine # (file, line, logger)
             ($type eq 'rmdir')
         ) {
             $dataToInsert{resource} = $fields[4];
-            $dataToInsert{resource} =~ s/\s+$//;
         } elsif ($type eq 'open') {
             if ($fields[4] eq 'r') {
                 $dataToInsert{event} = 'readfile';
@@ -114,7 +116,6 @@ sub processLine # (file, line, logger)
                 $dataToInsert{event} = 'writefile';
             }
             $dataToInsert{resource} = $fields[5];
-            $dataToInsert{resource} =~ s/\s+$//;
         } elsif ($type eq 'rename') {
             my $orig = $fields[4];
             my $dest = $fields[5];
@@ -123,8 +124,19 @@ sub processLine # (file, line, logger)
             $dataToInsert{resource} = $orig . " -> " . $dest;
         }
     }
-    if (defined($dataToInsert{resource}) and ($dataToInsert{resource} eq 'IPC$')) {
-        return;
+
+    if (exists $dataToInsert{resource} and defined $dataToInsert{resource}) {
+        $dataToInsert{resource} =~ s/\s+$//;
+
+        if ($dataToInsert{resource} eq 'IPC$') {
+            return;
+        }
+
+        if (length ($dataToInsert{resource}) > RESOURCE_FIELD_MAX_LENGTH) {
+            my $abbreviateRes =  '(..) ';
+            $abbreviateRes .= substr ($dataToInsert{resource}, - (RESOURCE_FIELD_MAX_LENGTH - 5));
+            $dataToInsert{resource} = $abbreviateRes;
+        }
     }
 
     if ($dataToInsert{event} eq 'virus') {
