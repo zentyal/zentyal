@@ -315,7 +315,7 @@ sub dumpExtraData
 
     my %enabled;
     if ($self->_fullMachineBackup()) {
-        %enabled = (  full => 1);
+        %enabled = (full => 1);
     } else {
         %enabled  = %{ $self->_enabledBackupDomains() };
     }
@@ -391,12 +391,33 @@ sub availableBackupDomains
         }
     }
 
+    # special filesIncludes ebackup domain
+    $backupDomains{filesIncludes} = {
+        enabled => 1,
+        printableName => __('Other files'),
+        description   => __(q{Extra data manually included in the backup}),
+    };
+
     return \%backupDomains;
+}
+
+sub selectableBackupDomains
+{
+    my ($self, $modNames) = @_;
+    my $backupDomains = $self->availableBackupDomains($modNames);
+
+    # remove non-selectable domains
+    delete $backupDomains->{filesIncludes};
+
+    return $backupDomains;
 }
 
 sub _enabledBackupDomains
 {
-    my ($self) = @_;
+    my ($self, $filesIncludesDomain) = @_;
+    defined $filesIncludesDomain or
+        $filesIncludesDomain = 1;
+
     if ($self->_fullMachineBackup()) {
         # we add logs, otherwise it would be required to stop the postgre
         # database to have a correct backup
@@ -404,7 +425,14 @@ sub _enabledBackupDomains
     }
 
     my $domainsModel = $self->model('BackupDomains');
-    return $domainsModel->enabled();
+    my $enabled =  $domainsModel->enabled();
+
+    if ($filesIncludesDomain) {
+        my $excludesModel =$self->model('RemoteExcludes');
+        $enabled->{filesIncludes} = $excludesModel->hasIncludes();
+    }
+
+    return $enabled;
 }
 
 
@@ -428,7 +456,7 @@ sub modulesBackupDomainsFileSelections
 {
     my ($self) = @_;
 
-    my %enabled = %{ $self->_enabledBackupDomains() };
+    my %enabled = %{ $self->_enabledBackupDomains(0) };
     if (not keys %enabled) {
         return [];
     }

@@ -388,4 +388,36 @@ sub ids
     return \@noDupIds;
 }
 
+# Check wether some file will be included in the backup or not
+sub hasIncludes
+{
+    my ($self) = @_;
+
+    my $ebackup  = $self->{'gconfmodule'};
+    my $prefix =  $ebackup->backupDomainsFileSelectionsRowPrefix(). '_';
+    my $prefixRe = qr/^$prefix/;
+
+    foreach my $id (@{$self->ids()}) {
+        if ($id =~ m/$prefixRe/) {
+            # is a system row, skip
+            next;
+        }
+
+        my $row = $self->row($id);
+        my $type = $row->valueByName('type');
+        if ($type eq 'include_path') {
+            return 1;
+        }
+
+        my $target = $row->valueByName('target');
+        if ($target eq '/') {
+            # target could be a equivalent regex when the type is exclude_regex
+            # but we will not manage this
+            return 0;
+        }
+    }
+
+    return 1; # by default '/' is included
+}
+
 1;

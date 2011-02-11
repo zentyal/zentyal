@@ -302,18 +302,29 @@ sub askDomainsToRestore
 
     my %availableDomains = %{ _backupDomainsAvailableByPrintableName($metadata) };
 
-    my @availablePrintableNames = keys %availableDomains;
-
     my @domains;
     if ($usesX) {
+        my @elements;
+        while (my ($printableName, $name)) {
+            if ($name eq 'filesIncludes') {
+                push @elements, {
+                                 item => $printableName,
+                                 enabled => 0,
+                                }
+            } else {
+                push @elements, $printableName;
+            }
+        }
+
         my $answer = _zenityList(__('Select backup domains to restore'),
                                  __('Backup domain'),
                                  1,
-                                 \@availablePrintableNames,
-                                 allEnabled => 1,
+                                 \@elements,
+                                 enabledByDefault => 1,
                                 );
         @domains = @{ $answer };
     } else {
+        my @availablePrintableNames = keys %availableDomains;
         my $printableList = join ', ', @availablePrintableNames;
         print __x('Backup domains available in the server {cn}: {l}',
                   cn => $credentials->{commonName},
@@ -515,7 +526,12 @@ sub doRestore
     my $ebackup = EBox::Global->modInstance('ebackup');
 
     my $urlParams   = _remoteUrlParamsFromCredentials($credentials, 'data');
-    _restoreBackupDomainsFiles($ebackup, $date, \%toRestore);
+    if ($toRestore{filesIncludes}) {
+        _restoreAllFiles($ebackup, $date);
+    } else {
+        _restoreBackupDomainsFiles($ebackup, $date, \%toRestore);
+    }
+
 
     if ($toRestore{logs}) {
         _restoreLogs($date);
@@ -528,7 +544,6 @@ sub _restoreBackupDomainsFiles
 {
     my ($ebackup, $date, $toRestore) = @_;
 
-    my $tmpDir = filesTmpDir();
     my $msg = __('Restoring files');
     my $pulsatePid = _showUnanticipatedProgress($msg);
 
@@ -563,6 +578,55 @@ sub _restoreBackupDomainsFiles
                 };
             }
         }
+    } finally {
+        _finishUnanticipatedProgress($pulsatePid);
+    };
+}
+
+sub _restoreAllFiles
+{
+    my ($ebackup, $date) = @_;
+    my $srcDir = filesTmpDir();
+
+    my $msg = __('Restoring all backed-up files');
+    my $pulsatePid = _showUnanticipatedProgress($msg);
+
+    # regular files in / are not restored anyway they should be links to
+    # /boot that should not be touched
+    try {
+        my %leftAloneDirs = (
+                             '/boot' => 1,
+                             '/proc' => 1,
+                             '/dev' => 1,
+                             '/sys' => 1,
+                            );
+
+        my @dirsInBackup = @{ EBox::Sudo::root("find $srcDir -type d -maxdepth 1") };
+        foreach my $dir (@dirsInBackup) {
+            chomp $dir;
+            my $toRestore = $dir;
+            if ($toRestore eq $srcDir) {
+                next;
+            }
+
+            $toRestore =~ s{^/*$srcDir}{};
+
+            if (exists $leftAloneDirs{$toRestore} and $leftAloneDirs{$toRestore}) {
+                next;
+            }
+
+            if (not EBox::Sudo::fileTest('-e', $toRestore)) {
+                EBox::Sudo::root("mkdir -p $dir");
+            }
+
+            my $restoreCmd = "cp -rpf $dir/* $toRestore/";
+            print "\n$restoreCmd\n";
+            EBox::Sudo::root($restoreCmd);
+        }
+
+        # remove extra data directory
+        my $extraDataDir = $ebackup->extraDataDir();
+        EBox::Sudo::root("rm -rf $extraDataDir");
     } finally {
         _finishUnanticipatedProgress($pulsatePid);
     };
@@ -742,8 +806,8 @@ sub _installDebPackages
         if ($mod eq 'users') {
             push @packages, 'ebox-usersandgroups';
         } else {
-            # If the debian package does not conform to the ebox-{modulename} stand
-            # this will fail
+            # If the debian package does not conform to the ebox-{modulename}
+            # standard this will fail
             push @packages, 'ebox-' . $mod;
         }
     }
@@ -1537,9 +1601,7 @@ sub _zenityList
 {
     my ($text, $column, $multiple, $list, %params) = @_;
     $text = _zenityQuote($text);
-    my $allEnabled = $params{allEnabled};
-    my $firstEnabled = exists $params{firstEnabled} ?
-                              $params{firstEnabled} : undef;
+    my $enabledByDefault = $params{enabledByDefault};
 
     my $commonArgs = _zenityCommonArgs();
 
@@ -1550,19 +1612,20 @@ sub _zenityList
         $cmd .= " --radiolist";
     }
 
-    $cmd .=  q{ --column } . __('Selection') . qq{  --column "$column"};
+    $cmd .=  q{ --column } . __('Selection') . qq{ --column "$column" };
 
-    if (defined $firstEnabled) {
-        my $firstItem = shift @{ $list };
-        if ($firstEnabled) {
-            $cmd .= qq{ TRUE "$firstItem"};
+    foreach my $element (@{ $list}) {
+        my $enabled = $enabledByDefault;
+
+        my $item;
+        if (ref $element eq 'HASH') {
+            $item = $element->{item};
+            $enabled = $element->{enabled};
         } else {
-            $cmd .= qq{ FALSE "$firstItem"};
+            $item = $element;
         }
-    }
 
-    foreach my $item (@{ $list}) {
-        if ($allEnabled) {
+        if ($enabled) {
             $cmd .= qq{ TRUE "$item"};
         } else {
             $cmd .= qq{ FALSE "$item"};
@@ -1822,6 +1885,7 @@ sub saveChanges
         my $errorMsg = $progressIndicator->errorMsg();
         if ($retry) {
             # first try, save changes failed, do a retry
+            $errorMsg or $errorMsg = 'Unknown';
             EBox::warn("Error saving changes (will retry): $errorMsg");
             saveChanges($msg, 0);
         } else {
@@ -2086,9 +2150,13 @@ sub info
 
 sub error
 {
-    my ($msg) = @_;
+    my ($msg, $exception) = @_;
 
-    EBox::error($msg);
+    if (defined $exception) {
+        EBox::error("Unexpected error: $exception");
+    } else {
+        EBox::error($msg);
+    }
     if ($usesX) {
         _zenityMessage('error', $msg);
     } else {
@@ -2128,21 +2196,11 @@ sub password
 
 sub showException
 {
-    my ($input) = @_;
+    my ($exception) = @_;
 
-    my $msg;
-    if (ref $input) {
-        if ($input->can('stringify')) {
-            $msg = $input->stringify();
-        } elsif ($input->can('text')){
-            $msg = $input->text();
-        }
-    }
-    unless ($msg) {
-        $msg = $input;
-    }
+    my $msg = __('Sorry, an unexpected error has occurred. Please contact support and check the /var/log/ebox/ebox.log file for further details.');
 
-    error($msg);
+    error($msg, $exception);
 
     return $msg;
 }
@@ -2151,6 +2209,8 @@ my $_fatalShow = 0;
 sub fatal
 {
     my ($input) = @_;
+
+    EBox::error("Restore fatal error: $input");
 
     if (not $_fatalShow) {
         my $msg = showException($input);

@@ -43,7 +43,7 @@ sub syncRows
     }
 
 
-    my %domains = %{ $ebackup->availableBackupDomains() };
+    my %domains = %{ $ebackup->selectableBackupDomains() };
     my $modified;
     # Remove old no-existent rows
     foreach my $id (@{$currentRows}) {
