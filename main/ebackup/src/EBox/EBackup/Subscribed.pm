@@ -256,8 +256,8 @@ sub downloadDRMetadata
     my $fromPath = _metadataDir($credentials) . '/' . $filename;
     my $toPath = "$dir/$filename";
 
-    my $tailCmd = qq{tail -n100 $fromPath};
-    my $cmd = _sshpassCommandAsString($credentials, $tailCmd);
+    my $catCmd = qq{cat $fromPath};
+    my $cmd = _sshpassCommandAsString($credentials, $catCmd);
 
     my $output = EBox::Sudo::command($cmd);
     File::Slurp::write_file($toPath, $output);
