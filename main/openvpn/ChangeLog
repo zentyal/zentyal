@@ -2,6 +2,7 @@ HEAD
 	+ Use new standard enable-module script
 	+ Use new initial-setup in postinst
 	+ Replace /etc/ebox/80openvpn.conf with /etc/zentyal/openvpn.conf
+	+ Added server option for multihomed UDP server
 2.0.7
 	+ VPN clients are now forced to explicitly notify disconnections only if
 	  UDP is the used protocol.
