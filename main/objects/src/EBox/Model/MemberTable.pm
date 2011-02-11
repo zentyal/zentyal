@@ -68,7 +68,6 @@ sub _table
                             (
                                 'fieldName' => 'ipaddr',
                                 'printableName' => __('IP address'),
-                                'unique' => 1,
                                 'editable' => 1,
                             ),
             new EBox::Types::MACAddr
