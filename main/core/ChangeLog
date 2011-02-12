@@ -1,4 +1,6 @@
 HEAD
+	+ Migrations are now always located under /usr/share/$package/migration
+	  this change only affects to the events and logs migrations
 	+ Delete no longer used domain and translationDomain methods/attributes
 	+ Unified src/libexec and tools in the new src/scripts directory
 	+ Remove the ebox- prefix on all the names of the /usr/share scripts

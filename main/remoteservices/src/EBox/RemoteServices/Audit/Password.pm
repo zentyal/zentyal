@@ -35,7 +35,7 @@ use constant {
     LDAP_SINGLE_USERS_PASS_LIST => EBox::Config::tmp() . 'lsupl.jtrf',
     SYSTEM_SINGLE_USERS_PASS_LIST => EBox::Config::tmp() . 'ssupl.jtrf',
     DOING_CRACKING_FILE    => EBox::Config::tmp() . 'jtr.lock',
-    JOHN_WRAPPER         => EBox::Config::share() . 'zentyal-remoteservices/john-wrapper',
+    JOHN_WRAPPER         => EBox::Config::scripts('remoteservices') . 'john-wrapper',
     HOME_DIR             => EBox::RemoteServices::Configuration::JohnHomeDirPath(),
 };
 
@@ -138,7 +138,7 @@ sub nUsers
 {
 
     # System users
-    my @users = @{EBox::Sudo::root(EBox::Config::share() . 'zentyal-remoteservices/valid-users.pl')};
+    my @users = @{EBox::Sudo::root(EBox::Config::scripts('remoteservices') . 'valid-users.pl')};
 
     # LDAP users
     my $gl = EBox::Global->getInstance(1);

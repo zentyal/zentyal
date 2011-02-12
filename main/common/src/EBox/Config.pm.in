@@ -195,14 +195,15 @@ sub lib
     return $ref->{libdir};
 }
 
-sub libexec
+sub scripts
 {
-    return $ref->{libdir} . 'zentyal/';
-}
+    my ($module) = @_;
 
-sub pkgdata
-{
-    return $ref->{datadir} . 'zentyal/';
+    if (defined $module) {
+        return $ref->{datadir} . "zentyal-$module/";
+    } else {
+        return $ref->{datadir} . 'zentyal/';
+    }
 }
 
 sub locale

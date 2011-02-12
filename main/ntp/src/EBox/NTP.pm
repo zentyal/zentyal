@@ -26,11 +26,11 @@ use EBox::Service;
 use EBox::Menu::Item;
 use EBox::Menu::Folder;
 use Error qw(:try);
-use EBox::Validate qw( :all );
+use EBox::Validate qw(:all);
 use EBox::Sudo;
 use EBox;
 
-use constant NTPCONFFILE => "/etc/ntp.conf";
+use constant NTPCONFFILE => '/etc/ntp.conf';
 
 sub _create
 {

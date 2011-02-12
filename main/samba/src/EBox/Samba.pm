@@ -67,8 +67,8 @@ use constant NETLOGONSCRIPT       => 'logon.bat';
 use constant NETLOGONDEFAULTSCRIPT=> 'zentyal-logon.bat';
 
 
-use constant FIX_SID_PROGRAM => '/usr/share/zentyal-samba/fix-sid';
-use constant QUOTA_PROGRAM => '/usr/share/zentyal-samba/samba-quota';
+use constant FIX_SID_PROGRAM => EBox::Config::scripts('samba') . 'fix-sid';
+use constant QUOTA_PROGRAM => EBox::Config::scripts('samba') . 'samba-quota';
 
 sub _create
 {
@@ -605,7 +605,7 @@ sub _setConf
     $self->writeConfFile(CLAMAVSMBCONFFILE,
                          'samba/vscan-clamav.conf.mas', \@array);
 
-    EBox::Sudo::root(EBox::Config::share() . '/zentyal-samba/setadmin-pass');
+    EBox::Sudo::root(EBox::Config::scripts('samba') . 'setadmin-pass');
 
     my $users = EBox::Global->modInstance('users');
 
@@ -665,7 +665,8 @@ sub setSambaLdapToolsConf
             gid => SMBLDAPTOOLBINDFILE_GID });
 }
 
-sub _shareUsers {
+sub _shareUsers
+{
     my $state = 0;
 
     my $pids = {};
@@ -1434,7 +1435,7 @@ sub backupDomainsFileSelection
     my ($self, %enabled) = @_;
     if ($enabled{shares}) {
         my $sambaLdapUser = new EBox::SambaLdapUser();
-        my @dirs =  @{ $sambaLdapUser->sharedDirectories() };
+        my @dirs = @{ $sambaLdapUser->sharedDirectories() };
         push @dirs, map {
             $_->{path}
         } @{ $self->shares(1) };
@@ -1709,9 +1710,9 @@ sub report
 {
     my ($self, $beg, $end, $options) = @_;
     my $maxTopActivityUsers = $options->{'max_top_activity_users'};
-    my $maxTopActivityGroups =  $options->{'max_top_activity_groups'};
-    my $maxTopSizeShares =  $options->{'max_top_size_shares'};
-    my $maxTopVirusShares =  $options->{'max_top_virus_shares'};
+    my $maxTopActivityGroups = $options->{'max_top_activity_groups'};
+    my $maxTopSizeShares = $options->{'max_top_size_shares'};
+    my $maxTopVirusShares = $options->{'max_top_virus_shares'};
 
     my $report = {};
 
@@ -1994,7 +1995,7 @@ sub _sharesAndSizes
     my $ldapInfo = EBox::SambaLdapUser->new();
     my @shares;
 
-    foreach my $sh_r ( @{  $ldapInfo->userShareDirectories }) {
+    foreach my $sh_r ( @{ $ldapInfo->userShareDirectories }) {
         my $share = {
                      share => $sh_r->{sharename},
                      path  => $sh_r->{path},
@@ -2003,7 +2004,7 @@ sub _sharesAndSizes
         push @shares, $share;
     }
 
-    foreach my $sh_r ( @{  $ldapInfo->groupShareDirectories }) {
+    foreach my $sh_r ( @{ $ldapInfo->groupShareDirectories }) {
         my $share = {
                      share => $sh_r->{sharename},
                      path  => $sh_r->{path},
@@ -2011,8 +2012,6 @@ sub _sharesAndSizes
                     };
         push @shares, $share;
     }
-
-
 
     # add no-account shares to share list
     foreach my $sh_r (@{ $self->shares(1)  }) {
@@ -2039,7 +2038,6 @@ sub _sharesAndSizes
             $share->{size} = $size;
         }
     }
-
 
     return \@shares;
 }

@@ -385,11 +385,8 @@ sub _setSpellChecking
 
     my $spell = $self->model('GeneralSettings')->spellCheckingValue();
 
-    if ($spell) {
-        EBox::Sudo::root(EBox::Config::share() . '/zentyal-zarafa/zarafa-spell enable');
-    } else {
-        EBox::Sudo::root(EBox::Config::share() . '/zentyal-zarafa/zarafa-spell disable');
-    }
+    EBox::Sudo::root(EBox::Config::scripts('zarafa') .
+                     'zarafa-spell ' . ($spell ? 'enable' : 'disable'));
 }
 
 # Method: addModuleStatus

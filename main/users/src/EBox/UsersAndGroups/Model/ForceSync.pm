@@ -65,7 +65,7 @@ sub formSubmitted
     my ($self, $row, $force) = @_;
 
     try {
-        EBox::Sudo::root('/usr/share/zentyal-users/slave-sync');
+        EBox::Sudo::root(EBox::Config::scripts('users') . 'slave-sync');
     } otherwise {
     };
     $self->pushRedirection('/ebox/Users/Composite/SlaveInfo');

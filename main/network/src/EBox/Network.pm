@@ -2984,7 +2984,7 @@ sub _enforceServiceState
 
     open(my $fd, '>', IFUP_LOCK_FILE); close($fd);
     foreach my $iface (@ifups) {
-        EBox::Sudo::root(EBox::Config::pkgdata() .
+        EBox::Sudo::root(EBox::Config::scripts() .
                          "unblock-exec /sbin/ifup --force -i $file $iface");
         unless ($self->isReadOnly()) {
             $self->_unsetChanged($iface);

@@ -676,7 +676,7 @@ sub prepareMakeBackup
         $scriptParams .= ' --bug-report';
     }
 
-    my $makeBackupScript = EBox::Config::pkgdata() . 'make-backup';
+    my $makeBackupScript = EBox::Config::scripts() . 'make-backup';
     $makeBackupScript    .=  $scriptParams;
 
     my $global     = EBox::Global->getInstance();
@@ -979,7 +979,7 @@ sub prepareRestoreBackup
 {
     my ($self, $file, %options) = @_;
 
-    my $restoreBackupScript = EBox::Config::pkgdata() . 'restore-backup';
+    my $restoreBackupScript = EBox::Config::scripts() . 'restore-backup';
 
     my $execOptions = '';
 
@@ -1286,7 +1286,7 @@ sub _restoreModule
                 dataRestore => $options_r->{dataRestore},
                 );
 
-    $self->_migratePackage($mod->package());
+    $mod->migrate();
 
     return 1;
 }
@@ -1305,21 +1305,6 @@ sub _revokeRestore
         }
         otherwise {
             EBox::debug("$restname has not changes to be revoked" );
-        };
-    }
-}
-
-sub _migratePackage
-{
-    my ($self, $package) = @_;
-    my $migrationdir = EBox::Config::share() . "/$package/migration";
-
-    if (-d $migrationdir) {
-        my $migration = EBox::Config::pkgdata() . '/migrate';
-        try {
-            EBox::Sudo::command("$migration $migrationdir");
-        } catch EBox::Exceptions::Internal with {
-            EBox::debug("Failed to migrate $package");
         };
     }
 }

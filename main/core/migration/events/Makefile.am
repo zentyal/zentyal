@@ -1,6 +1,6 @@
 ## Process this file with automake to produce Makefile.in
 
-Migrationsdir = @DATADIR@/zentyal-events/migration
+Migrationsdir = @DATADIR@/zentyal/migration
 
 
 nobase_Migrations_SCRIPTS =

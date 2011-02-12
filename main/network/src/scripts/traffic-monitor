@@ -27,7 +27,7 @@ use constant {
   JNETTOP_PATH => '/usr/sbin/jnettop',
   JNETTOP_FORMAT => q{\$proto\$,\$src\$,\$srcport\$,\$dst\$,\$dstport\$,\$totalbps\$},
 
-  LOGGER_PATH =>  EBox::Config::libexec() . 'traffic-monitor-logger',
+  LOGGER_PATH =>  EBox::Config::scripts('network') . 'traffic-monitor-logger',
   DAEMON_NAME => 'traffic-monitor',
 };
 

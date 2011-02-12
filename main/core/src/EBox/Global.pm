@@ -50,10 +50,10 @@ use constant {
     PRESAVE_SUBDIR  => EBox::Config::etc() . 'pre-save',
     POSTSAVE_SUBDIR => EBox::Config::etc() . 'post-save',
     TIMESTAMP_KEY   => 'saved_timestamp',
-    DPKG_RUNNING_FILE => '/var/lib/zentyal/dpkg_running'
+    DPKG_RUNNING_FILE => '/var/lib/zentyal/dpkg_running',
 };
 
-my @CORE_MODULES = qw(sysinfo apache events global logs);
+use constant CORE_MODULES => qw(sysinfo apache events global logs);
 
 my $lastDpkgStatusMtime = undef;
 my $_cache = undef;
@@ -168,7 +168,7 @@ sub modExists # (module)
     # zentyal-core package is not properly installed
     # nothing of this is going to work at all.
     #
-    if ($name eq any(@CORE_MODULES)) {
+    if ($name eq any((CORE_MODULES))) {
         return 1;
     } elsif ($DPKG_RUNNING) {
         return defined($self->_className($name));
@@ -488,7 +488,7 @@ sub _prepareActionScript
 {
     my ($self, $action, $totalTicks) = @_;
 
-    my $script =   EBox::Config::pkgdata() . 'global-action';
+    my $script = EBox::Config::scripts() . 'global-action';
     $script .= " --action $action";
 
     my $progressIndicator =  EBox::ProgressIndicator->create(

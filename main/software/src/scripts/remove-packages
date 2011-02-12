@@ -51,7 +51,7 @@ try {
 
     my $pid = fork();
     if ($pid == 0) {
-        EBox::Sudo::root("/usr/share/zentyal-software/apt-wrapper $command @packages");
+        EBox::Sudo::root(EBox::Config::scripts('software') . "apt-wrapper $command @packages");
         exit 0;
     }
 

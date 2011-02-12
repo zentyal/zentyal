@@ -37,6 +37,7 @@ use Fcntl qw(:flock);
 use Error qw(:try);
 use Time::Local;
 use File::Slurp;
+use Perl6::Junction qw(any);
 
 # Method: _create
 #
@@ -163,8 +164,8 @@ sub migrate
 
     my $path = EBox::Config::share();
     my $modname = $self->{'name'};
-
-    my $dir = "$path/zentyal-$modname/migration";
+    my $package = $self->package();
+    my $dir = "$path/$package/migration";
     my @scripts = glob ("$dir/[00-99]*.pl");
 
     foreach my $script (@scripts) {
@@ -734,7 +735,12 @@ sub package
 {
     my ($self) = @_;
 
-    return 'zentyal-' . $self->{name};
+    my $name = $self->{name};
+    if ($name eq any((EBox::Global::CORE_MODULES()))) {
+        return 'zentyal';
+    } else {
+        return "zentyal-$name";
+    }
 }
 
 # Method: wizardPages

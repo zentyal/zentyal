@@ -124,6 +124,9 @@ case "$1" in
         invoke-rc.d zentyal logs restart || true
         invoke-rc.d zentyal events restart || true
 
+        # FIXME: This is not deleted after installation finishes
+        # Probably there is another process that creates it again
+        # having the DPKG_RUNNING env variable set to 1 ?
         #remove dpkg running flag
         rm -f $ZENTYAL_HOME/dpkg_running
         ;;

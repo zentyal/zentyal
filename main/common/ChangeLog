@@ -1,4 +1,6 @@
 HEAD
+	+ New EBox::Config::scripts() to replace EBox::Config::libexec
+	  and EBox::Config::pkgdata, accepting module name as argument
 	+ Replace /etc/ebox/99ebox.conf with /etc/zentyal/zentyal.conf
 	+ Do not read configuration files everytime, config keys are
 	  now cached with their values
