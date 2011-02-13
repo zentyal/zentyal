@@ -96,8 +96,6 @@ AC_SUBST(perlpath)
 
 AC_DEFINE_DIR(PERLPATH, perlpath)
 
-AM_PO_SUBDIRS
-
 AC_CONFIG_FILES([
 src/Makefile
 src/EBox/Makefile
@@ -118,5 +116,4 @@ conf/eboxlog.conf
 Makefile
 ])
 
-AC_CONFIG_FILES([po/Makefile], [AM_POSTPROCESS_PO_MAKEFILE])
 AC_OUTPUT

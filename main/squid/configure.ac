@@ -41,8 +41,6 @@ fi
 
 AC_DEFINE_DIR(PERLPATH, perlpath)
 
-AM_PO_SUBDIRS
-
 AC_CONFIG_FILES([
 conf/Makefile
 src/Makefile
@@ -60,12 +58,10 @@ src/templates/ajax/setter/Makefile
 src/scripts/Makefile
 schemas/Makefile
 stubs/Makefile
-tools/Makefile
 schemas/sql/Makefile
 schemas/sql/period/Makefile
 migration/Makefile
 Makefile
 ])
 
-AC_CONFIG_FILES([po/Makefile], [AM_POSTPROCESS_PO_MAKEFILE])
 AC_OUTPUT

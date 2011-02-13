@@ -7,7 +7,6 @@ AM_INIT_AUTOMAKE([foreign])
 
 AM_MAINTAINER_MODE
 
-
 AC_DEFINE_DIR(DATADIR, datadir)
 AC_DEFINE_DIR(LIBDIR, libdir)
 
@@ -41,8 +40,6 @@ fi
 
 AC_DEFINE_DIR(PERLPATH, perlpath)
 
-AM_PO_SUBDIRS
-
 AC_CONFIG_FILES([
 conf/Makefile
 src/Makefile
@@ -58,12 +55,10 @@ src/templates/ajax/Makefile
 src/templates/ajax/viewer/Makefile
 src/scripts/Makefile
 schemas/Makefile
-tools/Makefile
 schemas/sql/Makefile
 stubs/Makefile
 migration/Makefile
 Makefile
 ])
 
-AC_CONFIG_FILES([po/Makefile], [AM_POSTPROCESS_PO_MAKEFILE])
 AC_OUTPUT

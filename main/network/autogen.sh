@@ -4,8 +4,6 @@ if [ -f Makefile ] ; then
 	make maintainer-clean
 fi
 
-mkdir -p po
-./tools/po-am.generator > po/Makefile.am || exit 1
 mkdir -p config
 aclocal -I m4 || exit 1
 autoconf || exit 1

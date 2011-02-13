@@ -42,8 +42,6 @@ fi
 
 AC_DEFINE_DIR(PERLPATH, perlpath)
 
-AM_PO_SUBDIRS
-
 AC_CONFIG_FILES([
 conf/Makefile
 conf/user-eboxlog.conf
@@ -65,7 +63,6 @@ src/scripts/Makefile
 schemas/Makefile
 stubs/Makefile
 stubs/slapd.conf.mas
-tools/Makefile
 src/scripts/t/Makefile
 src/scripts/t/testdata/Makefile
 migration/Makefile
@@ -73,5 +70,4 @@ www/Makefile
 Makefile
 ])
 
-AC_CONFIG_FILES([po/Makefile], [AM_POSTPROCESS_PO_MAKEFILE])
 AC_OUTPUT

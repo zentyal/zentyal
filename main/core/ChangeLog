@@ -1,4 +1,5 @@
 HEAD
+	+ PO files are now included in the language-pack-zentyal-* packages
 	+ Migrations are now always located under /usr/share/$package/migration
 	  this change only affects to the events and logs migrations
 	+ Delete no longer used domain and translationDomain methods/attributes
@@ -38,7 +39,6 @@ HEAD
 	+ Fixed encoding for strings read from redis server
 	+ Support for redis-server 2.0 configuration
 	+ Move core templates to /usr/share/zentyal/stubs/core
-	+ Added fastperl-server to execute Zentyal scripts much faster
 	+ Old /etc/ebox directory replaced with the new /etc/zentyal with
 	  renamed core.conf, logs.conf and events.conf files
 	+ Fixed broken link to alerts list

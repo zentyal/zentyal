@@ -13,7 +13,6 @@ AC_DEFINE_DIR(LOCALSTATEDIR, localstatedir)
 AC_DEFINE_DIR(LIBDIR, libdir)
 
 
-
 AC_ARG_ENABLE([runtime-tests],
 	[ --disable-runtime-tests	Do not try to test runtime dependencies],
 	,
@@ -74,8 +73,6 @@ fi
 
 AC_DEFINE_DIR(PERLPATH, perlpath)
 
-AM_PO_SUBDIRS
-
 AC_CONFIG_FILES([
 stubs/apache.mas
 stubs/Makefile
@@ -83,7 +80,6 @@ stubs/css/Makefile
 schemas/sql/Makefile
 schemas/sql/period/Makefile
 doc/Makefile
-tools/Makefile
 src/Makefile
 src/scripts/Makefile
 src/scripts/cron/Makefile
@@ -185,6 +181,4 @@ www/Makefile
 Makefile
 ])
 
-AC_CONFIG_FILES([po/Makefile], [AM_POSTPROCESS_PO_MAKEFILE])
-AC_CONFIG_FILES([po/ebox-subscription/Makefile], [AM_POSTPROCESS_PO_MAKEFILE])
 AC_OUTPUT

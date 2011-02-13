@@ -29,10 +29,10 @@ BEGIN {
     $VERSION = EBox::Config::version;
 }
 
-my $cur_domain = 'ebox';
+my $cur_domain = 'zentyal';
 my $old_domain;
 
-use constant SUBS_DOMAIN => 'ebox-subscription';
+use constant SUBS_DOMAIN => 'zentyal-subscription';
 
 # Method: settextdomain
 #

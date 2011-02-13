@@ -1,5 +1,0 @@
-MAINTAINERCLEANFILES = Makefile.in
-
-pkgdata_SCRIPTS =
-
-EXTRA_DIST = $(pkgdata_SCRIPTS)

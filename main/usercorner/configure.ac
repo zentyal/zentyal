@@ -7,7 +7,6 @@ AM_INIT_AUTOMAKE([foreign])
 
 AM_MAINTAINER_MODE
 
-
 AC_DEFINE_DIR(DATADIR, datadir)
 AC_DEFINE_DIR(LIBDIR, libdir)
 AC_DEFINE_DIR(LOCALSTATEDIR, localstatedir)
@@ -57,7 +56,6 @@ src/templates/login/Makefile
 src/scripts/Makefile
 schemas/Makefile
 stubs/Makefile
-tools/Makefile
 migration/Makefile
 Makefile
 ])

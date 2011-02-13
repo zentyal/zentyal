@@ -41,8 +41,6 @@ AC_DEFINE_DIR(PERLPATH, perlpath)
 
 AC_CONF_EBOX($enable_runtime_tests)
 
-AM_PO_SUBDIRS
-
 AC_CONFIG_FILES([
 src/EBox/Network/Makefile
 src/EBox/Network/Composite/Makefile
@@ -67,10 +65,8 @@ schemas/Makefile
 src/scripts/Makefile
 conf/Makefile
 stubs/Makefile
-tools/Makefile
 www/Makefile
 Makefile
 ])
 
-AC_CONFIG_FILES([po/Makefile], [AM_POSTPROCESS_PO_MAKEFILE])
 AC_OUTPUT

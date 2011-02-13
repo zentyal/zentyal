@@ -30,7 +30,6 @@ if test "x$enable_runtime_tests" = "xyes" ; then
 
 	AC_CONF_EBOX
 fi
-AM_PO_SUBDIRS
 
 if test -z "$perlpath" ; then
 	perlpath="$DATADIR/perl5/"
@@ -45,7 +44,6 @@ AC_DEFINE_DIR(PERLPATH, perlpath)
 AC_CONFIG_FILES([
 migration/Makefile
 src/Makefile
-tools/Makefile
 src/EBox/Makefile
 src/EBox/Model/Makefile
 schemas/Makefile
@@ -53,5 +51,4 @@ stubs/Makefile
 Makefile
 ])
 
-AC_CONFIG_FILES([po/Makefile], [AM_POSTPROCESS_PO_MAKEFILE])
 AC_OUTPUT

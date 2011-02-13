@@ -7,7 +7,6 @@ AM_INIT_AUTOMAKE([foreign])
 
 AM_MAINTAINER_MODE
 
-
 AC_DEFINE_DIR(DATADIR, datadir)
 AC_DEFINE_DIR(LIBDIR, libdir)
 
@@ -30,7 +29,6 @@ if test "x$enable_runtime_tests" = "xyes" ; then
 
 	AC_CONF_EBOX
 fi
-AM_PO_SUBDIRS
 
 if test -z "$perlpath" ; then
 	perlpath="$DATADIR/perl5/"
@@ -55,11 +53,9 @@ src/EBox/Event/Watcher/Makefile
 src/EBox/Model/Makefile
 src/EBox/Composite/Makefile
 schemas/Makefile
-tools/Makefile
 schemas/sql/Makefile
 migration/Makefile
 Makefile
 ])
 
-AC_CONFIG_FILES([po/Makefile], [AM_POSTPROCESS_PO_MAKEFILE])
 AC_OUTPUT

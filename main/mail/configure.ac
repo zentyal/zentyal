@@ -53,8 +53,6 @@ fi
 AC_SUBST(POSTFIX_DEPS, ["$postfix_deps"])
 AC_SUBST(MD_QUOTA, ["$md_quota"])
 
-AM_PO_SUBDIRS
-
 AC_CONFIG_FILES([
 migration/Makefile
 src/Makefile
@@ -77,12 +75,10 @@ src/templates/Wizard/Makefile
 src/scripts/Makefile
 schemas/Makefile
 stubs/Makefile
-tools/Makefile
 schemas/sql/Makefile
 schemas/sql/period/Makefile
 www/Makefile
 Makefile
 ])
 
-AC_CONFIG_FILES([po/Makefile], [AM_POSTPROCESS_PO_MAKEFILE])
 AC_OUTPUT

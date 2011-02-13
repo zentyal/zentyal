@@ -7,7 +7,7 @@ mods = AbstractDBEngine.pm Apache.pm Auth.pm Backup.pm DBEngineFactory.pm \
 	GConfModule.pm GConfState.pm Global.pm Html.pm \
 	Logs.pm  LogAdmin.pm LogHelper.pm LogObserver.pm Loggerd.pm \
 	Menu.pm Order.pm ProgressIndicator.pm ServiceManager.pm \
-	PgDBEngine.pm Service.pm SysInfo.pm Test.pm FastPerl.pm \
+	PgDBEngine.pm Service.pm SysInfo.pm Test.pm \
 	TestStubs.pm HtmlBlocks.pm AbstractDaemon.pm SOAPClient.pm
 
 
