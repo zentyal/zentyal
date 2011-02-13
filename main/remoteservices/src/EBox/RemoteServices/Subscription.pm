@@ -354,7 +354,8 @@ sub executeBundle
 
     $self->_setUpAuditEnvironment();
     $self->_setQAUpdates($params, $confKeys);
-    $self->_installCloudProf($params, $confKeys);
+    # FIXME: temporarily disabled until compatible with Zentyal 2.1
+    #$self->_installCloudProf($params, $confKeys);
     $self->_executeBundleScripts($params, $confKeys);
 }
 
