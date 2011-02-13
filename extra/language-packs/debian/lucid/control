@@ -5,6 +5,105 @@ Maintainer: José Antonio Calvo <jacalvo@zentyal.org>
 Build-Depends: debhelper (>= 5.0.0), cdbs, po-debconf
 Standards-Version: 3.8.2
 
+Package: language-pack-zentyal-an
+Architecture: all
+Depends: zentyal-common (>= 2.1), ${misc:Depends}
+Description: Zentyal translations for language Aragonese
+ Zentyal is a Linux small business server that can act as
+ a Gateway, Unified Threat Manager, Office Server, Infrastructure
+ Manager, Unified Communications Server or a combination of them. One
+ single, easy-to-use platform to manage all your network services.
+ .
+ This package contains translations for the Aragonese language.
+
+Package: language-pack-zentyal-ar
+Architecture: all
+Depends: zentyal-common (>= 2.1), ${misc:Depends}
+Description: Zentyal translations for language Arabic
+ Zentyal is a Linux small business server that can act as
+ a Gateway, Unified Threat Manager, Office Server, Infrastructure
+ Manager, Unified Communications Server or a combination of them. One
+ single, easy-to-use platform to manage all your network services.
+ .
+ This package contains translations for the Arabic language.
+
+Package: language-pack-zentyal-bg
+Architecture: all
+Depends: zentyal-common (>= 2.1), ${misc:Depends}
+Description: Zentyal translations for language Bengali
+ Zentyal is a Linux small business server that can act as
+ a Gateway, Unified Threat Manager, Office Server, Infrastructure
+ Manager, Unified Communications Server or a combination of them. One
+ single, easy-to-use platform to manage all your network services.
+ .
+ This package contains translations for the Bengali language.
+
+Package: language-pack-zentyal-bn
+Architecture: all
+Depends: zentyal-common (>= 2.1), ${misc:Depends}
+Description: Zentyal translations for language Bulgarian
+ Zentyal is a Linux small business server that can act as
+ a Gateway, Unified Threat Manager, Office Server, Infrastructure
+ Manager, Unified Communications Server or a combination of them. One
+ single, easy-to-use platform to manage all your network services.
+ .
+ This package contains translations for the Bulgarian language.
+
+Package: language-pack-zentyal-ca
+Architecture: all
+Depends: zentyal-common (>= 2.1), ${misc:Depends}
+Description: Zentyal translations for language Catalan
+ Zentyal is a Linux small business server that can act as
+ a Gateway, Unified Threat Manager, Office Server, Infrastructure
+ Manager, Unified Communications Server or a combination of them. One
+ single, easy-to-use platform to manage all your network services.
+ .
+ This package contains translations for the Catalan language.
+
+Package: language-pack-zentyal-cs
+Architecture: all
+Depends: zentyal-common (>= 2.1), ${misc:Depends}
+Description: Zentyal translations for language Czech
+ Zentyal is a Linux small business server that can act as
+ a Gateway, Unified Threat Manager, Office Server, Infrastructure
+ Manager, Unified Communications Server or a combination of them. One
+ single, easy-to-use platform to manage all your network services.
+ .
+ This package contains translations for the Czech language.
+
+Package: language-pack-zentyal-da
+Architecture: all
+Depends: zentyal-common (>= 2.1), ${misc:Depends}
+Description: Zentyal translations for language Danish
+ Zentyal is a Linux small business server that can act as
+ a Gateway, Unified Threat Manager, Office Server, Infrastructure
+ Manager, Unified Communications Server or a combination of them. One
+ single, easy-to-use platform to manage all your network services.
+ .
+ This package contains translations for the Danish language.
+
+Package: language-pack-zentyal-de
+Architecture: all
+Depends: zentyal-common (>= 2.1), ${misc:Depends}
+Description: Zentyal translations for language German
+ Zentyal is a Linux small business server that can act as
+ a Gateway, Unified Threat Manager, Office Server, Infrastructure
+ Manager, Unified Communications Server or a combination of them. One
+ single, easy-to-use platform to manage all your network services.
+ .
+ This package contains translations for the German language.
+
+Package: language-pack-zentyal-el
+Architecture: all
+Depends: zentyal-common (>= 2.1), ${misc:Depends}
+Description: Zentyal translations for language Greek
+ Zentyal is a Linux small business server that can act as
+ a Gateway, Unified Threat Manager, Office Server, Infrastructure
+ Manager, Unified Communications Server or a combination of them. One
+ single, easy-to-use platform to manage all your network services.
+ .
+ This package contains translations for the Greek language.
+
 Package: language-pack-zentyal-es
 Architecture: all
 Depends: zentyal-common (>= 2.1), ${misc:Depends}
@@ -15,3 +114,278 @@ Description: Zentyal translations for language Spanish
  single, easy-to-use platform to manage all your network services.
  .
  This package contains translations for the Spanish language.
+
+Package: language-pack-zentyal-et
+Architecture: all
+Depends: zentyal-common (>= 2.1), ${misc:Depends}
+Description: Zentyal translations for language Estonian
+ Zentyal is a Linux small business server that can act as
+ a Gateway, Unified Threat Manager, Office Server, Infrastructure
+ Manager, Unified Communications Server or a combination of them. One
+ single, easy-to-use platform to manage all your network services.
+ .
+ This package contains translations for the Estonian language.
+
+Package: language-pack-zentyal-eu
+Architecture: all
+Depends: zentyal-common (>= 2.1), ${misc:Depends}
+Description: Zentyal translations for language Basque
+ Zentyal is a Linux small business server that can act as
+ a Gateway, Unified Threat Manager, Office Server, Infrastructure
+ Manager, Unified Communications Server or a combination of them. One
+ single, easy-to-use platform to manage all your network services.
+ .
+ This package contains translations for the Basque language.
+
+Package: language-pack-zentyal-fa
+Architecture: all
+Depends: zentyal-common (>= 2.1), ${misc:Depends}
+Description: Zentyal translations for language Persian
+ Zentyal is a Linux small business server that can act as
+ a Gateway, Unified Threat Manager, Office Server, Infrastructure
+ Manager, Unified Communications Server or a combination of them. One
+ single, easy-to-use platform to manage all your network services.
+ .
+ This package contains translations for the Persian language.
+
+Package: language-pack-zentyal-fi
+Architecture: all
+Depends: zentyal-common (>= 2.1), ${misc:Depends}
+Description: Zentyal translations for language Finnish
+ Zentyal is a Linux small business server that can act as
+ a Gateway, Unified Threat Manager, Office Server, Infrastructure
+ Manager, Unified Communications Server or a combination of them. One
+ single, easy-to-use platform to manage all your network services.
+ .
+ This package contains translations for the Finnish language.
+
+Package: language-pack-zentyal-fr
+Architecture: all
+Depends: zentyal-common (>= 2.1), ${misc:Depends}
+Description: Zentyal translations for language French
+ Zentyal is a Linux small business server that can act as
+ a Gateway, Unified Threat Manager, Office Server, Infrastructure
+ Manager, Unified Communications Server or a combination of them. One
+ single, easy-to-use platform to manage all your network services.
+ .
+ This package contains translations for the French language.
+
+Package: language-pack-zentyal-gl
+Architecture: all
+Depends: zentyal-common (>= 2.1), ${misc:Depends}
+Description: Zentyal translations for language Galician
+ Zentyal is a Linux small business server that can act as
+ a Gateway, Unified Threat Manager, Office Server, Infrastructure
+ Manager, Unified Communications Server or a combination of them. One
+ single, easy-to-use platform to manage all your network services.
+ .
+ This package contains translations for the Galician language.
+
+Package: language-pack-zentyal-hu
+Architecture: all
+Depends: zentyal-common (>= 2.1), ${misc:Depends}
+Description: Zentyal translations for language Hungarian
+ Zentyal is a Linux small business server that can act as
+ a Gateway, Unified Threat Manager, Office Server, Infrastructure
+ Manager, Unified Communications Server or a combination of them. One
+ single, easy-to-use platform to manage all your network services.
+ .
+ This package contains translations for the Hungarian language.
+
+Package: language-pack-zentyal-id
+Architecture: all
+Depends: zentyal-common (>= 2.1), ${misc:Depends}
+Description: Zentyal translations for language Indonesian
+ Zentyal is a Linux small business server that can act as
+ a Gateway, Unified Threat Manager, Office Server, Infrastructure
+ Manager, Unified Communications Server or a combination of them. One
+ single, easy-to-use platform to manage all your network services.
+ .
+ This package contains translations for the Indonesian language.
+
+Package: language-pack-zentyal-it
+Architecture: all
+Depends: zentyal-common (>= 2.1), ${misc:Depends}
+Description: Zentyal translations for language Italian
+ Zentyal is a Linux small business server that can act as
+ a Gateway, Unified Threat Manager, Office Server, Infrastructure
+ Manager, Unified Communications Server or a combination of them. One
+ single, easy-to-use platform to manage all your network services.
+ .
+ This package contains translations for the Italian language.
+
+Package: language-pack-zentyal-ja
+Architecture: all
+Depends: zentyal-common (>= 2.1), ${misc:Depends}
+Description: Zentyal translations for language Japanese
+ Zentyal is a Linux small business server that can act as
+ a Gateway, Unified Threat Manager, Office Server, Infrastructure
+ Manager, Unified Communications Server or a combination of them. One
+ single, easy-to-use platform to manage all your network services.
+ .
+ This package contains translations for the Japanese language.
+
+Package: language-pack-zentyal-lt
+Architecture: all
+Depends: zentyal-common (>= 2.1), ${misc:Depends}
+Description: Zentyal translations for language Lithuanian
+ Zentyal is a Linux small business server that can act as
+ a Gateway, Unified Threat Manager, Office Server, Infrastructure
+ Manager, Unified Communications Server or a combination of them. One
+ single, easy-to-use platform to manage all your network services.
+ .
+ This package contains translations for the Lithuanian language.
+
+Package: language-pack-zentyal-nb
+Architecture: all
+Depends: zentyal-common (>= 2.1), ${misc:Depends}
+Description: Zentyal translations for language Norwegian Bokmål
+ Zentyal is a Linux small business server that can act as
+ a Gateway, Unified Threat Manager, Office Server, Infrastructure
+ Manager, Unified Communications Server or a combination of them. One
+ single, easy-to-use platform to manage all your network services.
+ .
+ This package contains translations for the Norwegian Bokmål language.
+
+Package: language-pack-zentyal-nl
+Architecture: all
+Depends: zentyal-common (>= 2.1), ${misc:Depends}
+Description: Zentyal translations for language Dutch
+ Zentyal is a Linux small business server that can act as
+ a Gateway, Unified Threat Manager, Office Server, Infrastructure
+ Manager, Unified Communications Server or a combination of them. One
+ single, easy-to-use platform to manage all your network services.
+ .
+ This package contains translations for the Dutch language.
+
+Package: language-pack-zentyal-pl
+Architecture: all
+Depends: zentyal-common (>= 2.1), ${misc:Depends}
+Description: Zentyal translations for language Polish
+ Zentyal is a Linux small business server that can act as
+ a Gateway, Unified Threat Manager, Office Server, Infrastructure
+ Manager, Unified Communications Server or a combination of them. One
+ single, easy-to-use platform to manage all your network services.
+ .
+ This package contains translations for the Polish language.
+
+Package: language-pack-zentyal-pt
+Architecture: all
+Depends: zentyal-common (>= 2.1), ${misc:Depends}
+Description: Zentyal translations for language Portuguese
+ Zentyal is a Linux small business server that can act as
+ a Gateway, Unified Threat Manager, Office Server, Infrastructure
+ Manager, Unified Communications Server or a combination of them. One
+ single, easy-to-use platform to manage all your network services.
+ .
+ This package contains translations for the Portuguese language.
+
+Package: language-pack-zentyal-pt-br
+Architecture: all
+Depends: zentyal-common (>= 2.1), ${misc:Depends}
+Description: Zentyal translations for language Portuguese (Brazil)
+ Zentyal is a Linux small business server that can act as
+ a Gateway, Unified Threat Manager, Office Server, Infrastructure
+ Manager, Unified Communications Server or a combination of them. One
+ single, easy-to-use platform to manage all your network services.
+ .
+ This package contains translations for the Portuguese (Brazil) language.
+
+Package: language-pack-zentyal-ro
+Architecture: all
+Depends: zentyal-common (>= 2.1), ${misc:Depends}
+Description: Zentyal translations for language Romanian
+ Zentyal is a Linux small business server that can act as
+ a Gateway, Unified Threat Manager, Office Server, Infrastructure
+ Manager, Unified Communications Server or a combination of them. One
+ single, easy-to-use platform to manage all your network services.
+ .
+ This package contains translations for the Romanian language.
+
+Package: language-pack-zentyal-ru
+Architecture: all
+Depends: zentyal-common (>= 2.1), ${misc:Depends}
+Description: Zentyal translations for language Russian
+ Zentyal is a Linux small business server that can act as
+ a Gateway, Unified Threat Manager, Office Server, Infrastructure
+ Manager, Unified Communications Server or a combination of them. One
+ single, easy-to-use platform to manage all your network services.
+ .
+ This package contains translations for the Russian language.
+
+Package: language-pack-zentyal-sk
+Architecture: all
+Depends: zentyal-common (>= 2.1), ${misc:Depends}
+Description: Zentyal translations for language Slovak
+ Zentyal is a Linux small business server that can act as
+ a Gateway, Unified Threat Manager, Office Server, Infrastructure
+ Manager, Unified Communications Server or a combination of them. One
+ single, easy-to-use platform to manage all your network services.
+ .
+ This package contains translations for the Slovak language.
+
+Package: language-pack-zentyal-sr
+Architecture: all
+Depends: zentyal-common (>= 2.1), ${misc:Depends}
+Description: Zentyal translations for language Serbian
+ Zentyal is a Linux small business server that can act as
+ a Gateway, Unified Threat Manager, Office Server, Infrastructure
+ Manager, Unified Communications Server or a combination of them. One
+ single, easy-to-use platform to manage all your network services.
+ .
+ This package contains translations for the Serbian language.
+
+Package: language-pack-zentyal-sv
+Architecture: all
+Depends: zentyal-common (>= 2.1), ${misc:Depends}
+Description: Zentyal translations for language Swedish
+ Zentyal is a Linux small business server that can act as
+ a Gateway, Unified Threat Manager, Office Server, Infrastructure
+ Manager, Unified Communications Server or a combination of them. One
+ single, easy-to-use platform to manage all your network services.
+ .
+ This package contains translations for the Swedish language.
+
+Package: language-pack-zentyal-tr
+Architecture: all
+Depends: zentyal-common (>= 2.1), ${misc:Depends}
+Description: Zentyal translations for language Turkish
+ Zentyal is a Linux small business server that can act as
+ a Gateway, Unified Threat Manager, Office Server, Infrastructure
+ Manager, Unified Communications Server or a combination of them. One
+ single, easy-to-use platform to manage all your network services.
+ .
+ This package contains translations for the Turkish language.
+
+Package: language-pack-zentyal-uk
+Architecture: all
+Depends: zentyal-common (>= 2.1), ${misc:Depends}
+Description: Zentyal translations for language Ukrainian
+ Zentyal is a Linux small business server that can act as
+ a Gateway, Unified Threat Manager, Office Server, Infrastructure
+ Manager, Unified Communications Server or a combination of them. One
+ single, easy-to-use platform to manage all your network services.
+ .
+ This package contains translations for the Ukrainian language.
+
+Package: language-pack-zentyal-zh-cn
+Architecture: all
+Depends: zentyal-common (>= 2.1), ${misc:Depends}
+Description: Zentyal translations for language Chinese (China)
+ Zentyal is a Linux small business server that can act as
+ a Gateway, Unified Threat Manager, Office Server, Infrastructure
+ Manager, Unified Communications Server or a combination of them. One
+ single, easy-to-use platform to manage all your network services.
+ .
+ This package contains translations for the Chinese (China) language.
+
+Package: language-pack-zentyal-zh-tw
+Architecture: all
+Depends: zentyal-common (>= 2.1), ${misc:Depends}
+Description: Zentyal translations for language Chinese (Taiwan)
+ Zentyal is a Linux small business server that can act as
+ a Gateway, Unified Threat Manager, Office Server, Infrastructure
+ Manager, Unified Communications Server or a combination of them. One
+ single, easy-to-use platform to manage all your network services.
+ .
+ This package contains translations for the Chinese (Taiwan) language.
