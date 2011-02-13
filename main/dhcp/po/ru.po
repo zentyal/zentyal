@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: ebox-dhcp 0.12\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2010-12-18 01:43+0100\n"
-"PO-Revision-Date: 2010-12-30 06:58+0200\n"
-"Last-Translator: andreyjktl <andreyjktl@gmail.com>\n"
+"PO-Revision-Date: 2011-01-28 12:24+0200\n"
+"Last-Translator: compland <andrei@compland.ee>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
@@ -526,7 +526,7 @@ msgstr "{server} конфигурационный файл"
 #: src/EBox/DHCP.pm:132
 #, perl-brace-format
 msgid "Disable {server} init script"
-msgstr ""
+msgstr "Отключить {server} скрипт инициализации"
 
 #: src/EBox/DHCP.pm:133
 msgid "Zentyal will take care of start and stop the service"

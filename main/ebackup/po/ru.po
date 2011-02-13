@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: ebox-ebackup 1.3.3\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2011-01-13 17:39+0100\n"
-"PO-Revision-Date: 2011-01-17 17:11+0200\n"
-"Last-Translator: fbird <valeryskochilov@gmail.com>\n"
+"PO-Revision-Date: 2011-02-05 11:42+0200\n"
+"Last-Translator: compland <andrei@compland.ee>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
@@ -268,7 +268,7 @@ msgstr "Хранить предыдущие полные копии"
 
 #: src/EBox/Model/RemoteSettings.pm:296
 msgid "maximum number"
-msgstr "Максимальное количество"
+msgstr "максимальное количество"
 
 #: src/EBox/Model/RemoteSettings.pm:304
 msgid "no older than"
@@ -365,7 +365,7 @@ msgstr "1 год"
 
 #: src/EBox/Model/RemoteSettings.pm:628
 msgid "1 year and half"
-msgstr "Полтора года"
+msgstr "полтора года"
 
 #: src/EBox/Model/RemoteSettings.pm:632
 msgid "2 years"
@@ -498,7 +498,7 @@ msgstr "Включённые и исключённые"
 
 #: src/EBox/Model/RemoteExcludes.pm:99
 msgid "exclude or include"
-msgstr "Исключить или включить"
+msgstr "исключить или включить"
 
 #: src/EBox/Model/RemoteExcludes.pm:108
 msgid ""
@@ -516,7 +516,7 @@ msgstr "Исключить путь"
 
 #: src/EBox/Model/RemoteExcludes.pm:127
 msgid "Exclude by regular expression"
-msgstr "исключить путь с помощью регулярного выражения"
+msgstr "Исключить с помощью регулярного выражения"
 
 #: src/EBox/Model/RemoteExcludes.pm:131
 msgid "Include Path"
@@ -524,7 +524,7 @@ msgstr "Включить путь"
 
 #: src/EBox/Model/RemoteExcludes.pm:153
 msgid "exclude path"
-msgstr "Исключить путь"
+msgstr "исключить путь"
 
 #: src/EBox/Model/RemoteExcludes.pm:166
 msgid "exclude path regular expression"
@@ -930,9 +930,9 @@ msgid "The account {user} do not have any registered Zentyal servers"
 msgstr "Аккаунт {user} не имеет зарегистрированных серверов Zentyal"
 
 #: src/scripts/restore-tool:1990
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Enter password used to encrypt back up {ser}"
-msgstr "Введите симметричный пароль используемый для бэкапа {ser}: "
+msgstr "Введите пароль используемый для шифрования резервной копии {ser}"
 
 #: src/scripts/restore-tool:2046
 #, perl-brace-format
@@ -972,7 +972,7 @@ msgstr "инкрементальный"
 #: src/scripts/backup-tool:79
 #, perl-brace-format
 msgid "Zentyal {mode} backup succeeded"
-msgstr "успешно завершено {mode} резервное копирование Zentyal "
+msgstr "Успешно завершено {mode} резервное копирование Zentyal"
 
 #: src/scripts/backup-tool:84
 #, perl-brace-format
