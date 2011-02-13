@@ -47,6 +47,16 @@ gen_locales() {
     sort $TMP | uniq > $LOCALES_FILE
     rm -f $TMP
 
+    # Install language-pack-$LANG if exists
+    suffix=`echo $LANG | cut -d\. -f1 | tr '_' '-' | tr '[A-Z]' '[a-z]'`
+    apt-get install -y --force-yes language-pack-zentyal-$suffix
+    if [ $? -ne 0 ]
+    then
+        # Try with xx if xx-yy not exists
+        suffix=`echo $suffix | cut -d- -f1`
+        apt-get install -y --force-yes language-pack-zentyal-$suffix
+    fi
+
     # Regenerate locales to update the new messages from Zentyal
     /usr/sbin/locale-gen
 
