@@ -5,10 +5,10 @@ Maintainer: José Antonio Calvo <jacalvo@zentyal.org>
 Build-Depends: debhelper (>= 5.0.0), cdbs, po-debconf
 Standards-Version: 3.8.2
 
-Package: zentyal-language-pack-es
+Package: language-pack-zentyal-es
 Architecture: all
 Depends: zentyal-common (>= 2.1), ${misc:Depends}
-Description: Zentyal - Spanish Language Pack
+Description: Zentyal translations for language Spanish
  Zentyal is a Linux small business server that can act as
  a Gateway, Unified Threat Manager, Office Server, Infrastructure
  Manager, Unified Communications Server or a combination of them. One

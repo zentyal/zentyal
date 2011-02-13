@@ -1,4 +1,4 @@
-AC_INIT([zentyal-language-packs], [2.1])
+AC_INIT([language-packs-zentyal], [2.1])
 
 AC_CONFIG_AUX_DIR([config])
 #FIXME: AC_CONFIG_SRCDIR([src/EBox/SysInfo.pm.in])
