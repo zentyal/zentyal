@@ -74,8 +74,7 @@ sub _process
         push @params, ($name => $value);
     }
 
-    my $file = '/var/lib/zentyal/.first';
-    if (-f $file) {
+    if (EBox::Global->first()) {
         my $software = EBox::Global->modInstance('software');
         # FIXME: workaround to show ads only during installation
         unless ( $self->{title} and
@@ -100,8 +99,7 @@ sub _progressId
 sub _menu
 {
     my ($self) = @_;
-    my $file = '/var/lib/zentyal/.first';
-    if (-f $file and EBox::Global->modExists('software')) {
+    if (EBox::Global->first() and EBox::Global->modExists('software')) {
         my $software = EBox::Global->modInstance('software');
         # FIXME: workaround to show distinct menu for saving changes and installation proccess
         if ( $self->{title} and

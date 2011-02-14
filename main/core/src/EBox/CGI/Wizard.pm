@@ -64,10 +64,11 @@ sub _modulesWizardPages
     return \@pages;
 }
 
-sub _menu {
+sub _menu
+{
     my ($self) = @_;
-    my $file = '/var/lib/zentyal/.first';
-    if (-f $file and EBox::Global->modExists('software')) {
+
+    if (EBox::Global->first() and EBox::Global->modExists('software')) {
         my $software = EBox::Global->modInstance('software');
         $software->firstTimeMenu(3);
     } else {

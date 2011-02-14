@@ -17,8 +17,7 @@ var check = new Array();
 
 % my $i = 0;
 % my $packages_auto = '';
-% my $file = '/var/lib/zentyal/.first';
-% if (-f $file) {
+% if (EBox::Global->first()) {
 %   $packages_auto = EBox::Config::configkey('auto_select_packages');
 % }
 % if ($action eq 'install') {

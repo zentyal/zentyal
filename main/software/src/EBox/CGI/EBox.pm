@@ -23,14 +23,12 @@ use base 'EBox::CGI::ClientBase';
 use EBox::Global;
 use EBox::Gettext;
 
-use constant FIRST_RUN_FILE => '/var/lib/zentyal/.first';
-
 ## arguments:
 ##  title [required]
 sub new {
     my $class = shift;
     my $self;
-    if (-f FIRST_RUN_FILE) {
+    if (EBox::Global->first()) {
         $self = $class->SUPER::new('title' => __('Choose Zentyal packages to install'),
                 'template' => 'software/ebox.mas',
                 @_);
@@ -76,7 +74,8 @@ sub _process
 sub _menu
 {
     my ($self) = @_;
-    if (-f FIRST_RUN_FILE) {
+
+    if (EBox::Global->first()) {
         my $software = EBox::Global->modInstance('software');
         $software->firstTimeMenu(0);
     } else {
@@ -87,7 +86,8 @@ sub _menu
 sub _top
 {
     my ($self) = @_;
-    if (-f FIRST_RUN_FILE) {
+
+    if (EBox::Global->first()) {
         $self->_topNoAction();
     } else {
         $self->SUPER::_top(@_);

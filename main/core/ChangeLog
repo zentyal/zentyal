@@ -1,4 +1,6 @@
 HEAD
+	+ New first() and deleteFirst() methods in EBox::Global to check
+	  existence and delete the /var/lib/zentyal/.first file
 	+ PO files are now included in the language-pack-zentyal-* packages
 	+ Migrations are now always located under /usr/share/$package/migration
 	  this change only affects to the events and logs migrations

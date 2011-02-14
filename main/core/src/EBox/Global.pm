@@ -50,6 +50,7 @@ use constant {
     PRESAVE_SUBDIR  => EBox::Config::etc() . 'pre-save',
     POSTSAVE_SUBDIR => EBox::Config::etc() . 'post-save',
     TIMESTAMP_KEY   => 'saved_timestamp',
+    FIRST_FILE => '/var/lib/zentyal/.first',
     DPKG_RUNNING_FILE => '/var/lib/zentyal/dpkg_running',
 };
 
@@ -446,8 +447,7 @@ sub prepareSaveAllModules
     my ($self) = @_;
 
     my $totalTicks;
-    my $file = '/var/lib/zentyal/.first';
-    if ( -f $file ) {
+    if ($self->first()) {
         # enable + save modules
         $totalTicks = scalar @{$self->modNames} * 2;
     } else {
@@ -527,9 +527,8 @@ sub saveAllModules
 
     $log->info($msg);
 
-    # First instalation modules enable
-    my $file = '/var/lib/zentyal/.first';
-    if (-f $file) {
+    # First installation modules enable
+    if ($self->first()) {
         my $mgr = EBox::ServiceManager->new();
         @mods = @{$mgr->_dependencyTree()};
         $modNames = join(' ', @mods);
@@ -590,9 +589,7 @@ sub saveAllModules
     }
 
     # Delete first time installation file (wizard)
-    if ( -f $file ) {
-        unlink $file;
-    }
+    $self->deleteFirst();
 
     # FIXME - tell the CGI to inform the user that apache is restarting
     if ($apache) {
@@ -1034,6 +1031,30 @@ sub lastModificationTime
     }
 
     return $lastStamp;
+}
+
+# Method: first
+#
+#      Check if the file created on the first installation exists
+#
+# Returns:
+#
+#       boolean - True if the file exists, false if not
+#
+sub first
+{
+    return (-f FIRST_FILE);
+}
+
+# Method: deleteFirst
+#
+#      Delete the file created on first installation, if exists
+#
+sub deleteFirst
+{
+    if (-f FIRST_FILE) {
+        unlink (FIRST_FILE);
+    }
 }
 
 # Method: _runExecFromDir

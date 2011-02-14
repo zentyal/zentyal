@@ -46,10 +46,7 @@ sub masonParameters
     my ($self) = @_;
 
     # Delete first install file if it exists
-    my $file = '/var/lib/zentyal/.first';
-    if ( -f $file ) {
-        unlink $file;
-    }
+    EBox::Global->deleteFirst();
 
     my $global = EBox::Global->getInstance(1);
     my $sysinfo = $global->modInstance('sysinfo');

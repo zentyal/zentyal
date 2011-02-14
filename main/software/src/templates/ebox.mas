@@ -14,6 +14,7 @@
 use EBox::Gettext;
 my $eboxupgbutton = 'no';
 my $upgpkgs = 0;
+my $first = EBox::Global->first();
 </%init>
 
 <script type="text/javascript">
@@ -171,8 +172,7 @@ var pkgTable = new Array(
     );
 </script>
 
-% my $file = '/var/lib/zentyal/.first';
-% unless ((-f $file) or @brokenPackages) {
+% unless ($first or @brokenPackages) {
 <& /software/updateNote.mas, status => $updateStatus, qa => $QAUpdates &>
 % }
 
@@ -559,7 +559,7 @@ var pkgTable = new Array(
     </div>
     <div id="Install_head">
         <button onclick="sendFormBasic()"><img src="/data/images/install.gif"> <% __('Install') %></button>
-% if (-f $file) {
+% if ($first) {
         <button onclick="document.location.href='/ebox/Dashboard/Index'"><img src="/data/images/right.gif"> <% __('Skip install') %> </button>
 % }
     </div>
@@ -579,14 +579,14 @@ var pkgTable = new Array(
             <li>
                 <a id="installTab" href="#" class="current" onclick="tab1()"> Install </a>
             </li>
-% if (-f $file) {
+% if ($first) {
             <li style="display:none">
 % } else {
             <li>
 % }
                <a id="updateTab" href="#" onclick="tab2()"> <% __('Update') %><span id="updNumber">(0)</span>  </a>
             </li>
-% if (-f $file) {
+% if ($first) {
             <li style="display:none">
 % } else {
             <li>
@@ -652,7 +652,7 @@ var pkgTable = new Array(
             obj = new Object();
             obj['Component'] = pkgTable[i]['Component'];
             obj['Latest Version'] = pkgTable[i]['Latest Version'];
-%   if (-f $file) {
+%   if ($first) {
             if (pkgTable[i]['Name'] == 'zentyal-remoteservices')
                 obj['Select'] = "<center><input type='checkbox' checked id='"+'ins_'+pkgTable[i]['Name']+"' onclick='changeCheck(\"insTableOrderer\", \""+'ins_'+pkgTable[i]['Name']+"\")'></center>";
             else
@@ -692,7 +692,7 @@ var pkgTable = new Array(
     var delTableOrderer = new TableOrderer('deleteTable',{data: delTable, search:'top', unsortedColumn : ['Select']});
 
     document.getElementById('updNumber').innerHTML = '(' +updTable.length +')';
-% if (-f $file) {
+% if ($first) {
     document.getElementById('advanced').hide();
 % } else {
     document.getElementById('basic').hide();

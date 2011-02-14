@@ -38,7 +38,6 @@ use DateTime;
 use String::ShellQuote;
 use YAML::Tiny;
 
-use constant FIRST_RUN_FILE => '/var/lib/zentyal/.first';
 use constant NTP_SERVER     => 'pool.ntp.org';
 
 my $usesX = 1; # flag to signal whether graphical environment is available
@@ -155,9 +154,7 @@ try {
     fatal($ex);
     $error = 1;
 } finally {
-    if (-f FIRST_RUN_FILE ) {
-        unlink FIRST_RUN_FILE;
-    }
+    EBox::Global->deleteFirst();
 };
 
 exit $error;

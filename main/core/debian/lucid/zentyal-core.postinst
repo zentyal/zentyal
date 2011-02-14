@@ -13,6 +13,7 @@ case "$1" in
 
         ZENTYAL_HOME=/var/lib/zentyal/
         ZENTYAL_LOGS_DIR=/var/log/zentyal
+        FIRST_FILE=$ZENTYAL_HOME/.first
 
         # Create log directory
         test -d $ZENTYAL_LOGS_DIR || mkdir $ZENTYAL_LOGS_DIR
@@ -27,7 +28,7 @@ case "$1" in
             addgroup --system ebox
 
             # Create the .first file only if we are on the first install
-            touch $ZENTYAL_HOME/.first
+            touch $FIRST_FILE
         fi
         if ! getent passwd ebox > /dev/null 2>&1
         then
@@ -81,7 +82,7 @@ case "$1" in
         fi
 
         # Launch redis-server on first install (needed by EBox::init)
-        if [ -f $ZENTYAL_HOME/.first -a -z "$2" ]; then
+        if [ -f $FIRST_FILE -a -z "$2" ]; then
             /usr/bin/sudo -u ebox /usr/bin/redis-server $ZENTYAL_HOME/conf/redis.first
         fi
 
@@ -109,7 +110,7 @@ case "$1" in
         /usr/share/zentyal/initial-setup --no-restart events $2
 
         # remove initial redis config and stop server
-        if [ -f $ZENTYAL_HOME/.first -a -z "$2" ]; then
+        if [ -f $FIRST_FILE -a -z "$2" ]; then
             redis-cli -p 6380 save > /dev/null 2>&1
             kill -9 `cat $ZENTYAL_HOME/redis.ebox.pid`
         fi

@@ -71,10 +71,11 @@ sub _process($) {
     }
 }
 
-sub _menu {
+sub _menu
+{
     my ($self) = @_;
-    my $file = '/var/lib/zentyal/.first';
-    if (-f  $file) {
+
+    if (EBox::Global->first() and EBox::Global->modExists('software')) {
         my $software = EBox::Global->modInstance('software');
         $software->firstTimeMenu(1);
     } else {
@@ -161,11 +162,12 @@ sub showConfirmationPage
 sub showInstallProgress
 {
     my ($self, $progressIndicator) = @_;
+
     $self->showProgress(
         progressIndicator => $progressIndicator,
         title    => __('Installing'),
         text     => __('Installing packages'),
-        currentItemCaption  =>  __("Current operation"),
+        currentItemCaption =>  __('Current operation'),
         itemsLeftMessage  => __('actions done'),
         endNote  =>  __('The packages installation has finished successfully. '
             . 'The administration interface may become unresponsive '
@@ -184,12 +186,13 @@ sub showInstallProgress
 sub showRemoveProgress
 {
     my ($self, $progressIndicator) = @_;
-$self->showProgress(
+
+    $self->showProgress(
         progressIndicator => $progressIndicator,
 
         title    => __('Removing package'),
         text     => __('Removing the selected package and its dependent packages'),
-        currentItemCaption  =>  __("Current operation"),
+        currentItemCaption =>  __('Current operation'),
         itemsLeftMessage  => __('packages left to remove'),
         endNote  =>  __('The packages removal has finished successfully. '
             . 'The administration interface may become unresponsive '
@@ -201,7 +204,7 @@ $self->showProgress(
         nextStepUrl => '/ebox/Finish',
         nextStepText => 'Go to initial configuration wizard',
         nextStepTimeout => 1
-        );
+    );
 }
 
 1;
