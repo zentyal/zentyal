@@ -43,7 +43,6 @@ AC_CONF_EBOX($enable_runtime_tests)
 AC_CONFIG_FILES([
 conf/Makefile
 conf/hooks/Makefile
-migration/Makefile
 src/Makefile
 src/EBox/Makefile
 src/EBox/CGI/Makefile

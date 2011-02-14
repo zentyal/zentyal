@@ -65,7 +65,6 @@ stubs/Makefile
 stubs/slapd.conf.mas
 src/scripts/t/Makefile
 src/scripts/t/testdata/Makefile
-migration/Makefile
 www/Makefile
 Makefile
 ])

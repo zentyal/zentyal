@@ -42,7 +42,6 @@ AC_DEFINE_DIR(PERLPATH, perlpath)
 
 AC_CONFIG_FILES([
 conf/Makefile
-migration/Makefile
 stubs/Makefile
 ads/Makefile
 www/Makefile

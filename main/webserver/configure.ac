@@ -52,7 +52,6 @@ src/EBox/WebServer/Model/Makefile
 src/scripts/Makefile
 schemas/Makefile
 stubs/Makefile
-migration/Makefile
 Makefile
 ])
 

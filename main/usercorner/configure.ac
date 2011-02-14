@@ -56,7 +56,6 @@ src/templates/login/Makefile
 src/scripts/Makefile
 schemas/Makefile
 stubs/Makefile
-migration/Makefile
 Makefile
 ])
 

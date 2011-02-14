@@ -60,7 +60,6 @@ schemas/Makefile
 stubs/Makefile
 schemas/sql/Makefile
 schemas/sql/period/Makefile
-migration/Makefile
 Makefile
 ])
 

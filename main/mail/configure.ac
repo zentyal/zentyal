@@ -54,7 +54,6 @@ AC_SUBST(POSTFIX_DEPS, ["$postfix_deps"])
 AC_SUBST(MD_QUOTA, ["$md_quota"])
 
 AC_CONFIG_FILES([
-migration/Makefile
 src/Makefile
 src/EBox/Makefile
 src/EBox/Event/Makefile

@@ -54,7 +54,6 @@ src/EBox/Model/Makefile
 src/EBox/Composite/Makefile
 schemas/Makefile
 schemas/sql/Makefile
-migration/Makefile
 Makefile
 ])
 

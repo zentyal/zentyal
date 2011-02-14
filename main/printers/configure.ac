@@ -51,7 +51,6 @@ src/scripts/Makefile
 stubs/Makefile
 schemas/Makefile
 schemas/sql/Makefile
-migration/Makefile
 Makefile
 ])
 

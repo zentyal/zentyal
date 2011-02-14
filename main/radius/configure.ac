@@ -49,7 +49,6 @@ src/EBox/Composite/Makefile
 src/scripts/Makefile
 schemas/Makefile
 stubs/Makefile
-migration/Makefile
 Makefile
 ])
 

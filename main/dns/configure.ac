@@ -43,7 +43,6 @@ fi
 AC_DEFINE_DIR(PERLPATH, perlpath)
 
 AC_CONFIG_FILES([
-migration/Makefile
 src/Makefile
 src/EBox/Makefile
 src/EBox/DNS.pm
