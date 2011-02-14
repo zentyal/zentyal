@@ -1,6 +1,7 @@
 HEAD
 	+ Use new standard enable-module script
 	+ Remove old migrations and use new initial-setup
+	+ Add depend on dovecot-antispam previously on zentyal-mail.
 2.0.2
 	+ Manage exception when ebox.amavisd-new is missing. It never
 	  should be missing unless unfinished or wrong installation.
