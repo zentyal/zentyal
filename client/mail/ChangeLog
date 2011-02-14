@@ -1,4 +1,5 @@
 HEAD
+	+ Remove dependency on dovecot-antispam moved to ebox-mailfilter
 	+ Bugfix: Fixed some problems with size parsing in logs
 	+ Bugfix: Remove a warning in consolidation of mail messages
 	+ Improvements in reports
