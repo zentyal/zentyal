@@ -4,19 +4,21 @@
 # This file is distributed under the same license as the zentyal packages.
 # Automatically generated, 2011.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: zentyal 2.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2011-02-13 13:25+0100\n"
-"PO-Revision-Date: 2010-08-31 01:49+0200\n"
-"Last-Translator: Val Budkin <valentin@ktc-ua.com>\n"
+"PO-Revision-Date: 2011-02-14 14:07+0200\n"
+"Last-Translator: vabue <val.budkin@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
-"Language: \n"
+"Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
+"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Generator: Pootle 2.1.4\n"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:61
 msgid "Mail Filter"
@@ -260,21 +262,8 @@ msgstr "Прозрачный POP прокси"
 #: ../../main/mail/src/templates/qmanager.mas:22
 #: ../../main/core/src/templates/moduleStatusTable.mas:60
 #: ../../main/core/src/templates/report/raid.mas:104
-#, fuzzy
 msgid "Status"
-msgstr ""
-"#-#-#-#-#  ru.po (ebox-mailfilter 0.12)  #-#-#-#-#\n"
-"Состояние\n"
-"#-#-#-#-#  ru.po (ebox-network 0.12)  #-#-#-#-#\n"
-"Статус\n"
-"#-#-#-#-#  ru.po (ebox-asterisk 1.1)  #-#-#-#-#\n"
-"Статус\n"
-"#-#-#-#-#  ru.po (ebox-mail 0.12)  #-#-#-#-#\n"
-"Состояние\n"
-"#-#-#-#-#  ru.po (ebox 0.12)  #-#-#-#-#\n"
-"Состояние\n"
-"#-#-#-#-#  ru.po (ebox-antivirus 0.1)  #-#-#-#-#\n"
-"Статус"
+msgstr "Статус"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/VDomainsLdap.pm:537
 #, perl-brace-format
@@ -540,39 +529,8 @@ msgstr "процесс"
 #: ../../main/core/src/templates/enable.mas:24
 #: ../../main/jabber/src/templates/jabber.mas:22
 #: ../../main/jabber/src/templates/jabber.mas:25
-#, fuzzy
 msgid "Enabled"
-msgstr ""
-"#-#-#-#-#  ru.po (ebox-mailfilter 0.12)  #-#-#-#-#\n"
-"Включено\n"
-"#-#-#-#-#  ru.po (ebox-openvpn 0.12)  #-#-#-#-#\n"
-"Включено\n"
-"#-#-#-#-#  ru.po (ebox-zarafa 0.12)  #-#-#-#-#\n"
-"Включено\n"
-"#-#-#-#-#  ru.po (libebox 0.12.1)  #-#-#-#-#\n"
-"Включено\n"
-"#-#-#-#-#  ru.po (ebox-squid 0.12)  #-#-#-#-#\n"
-"Включено\n"
-"#-#-#-#-#  ru.po (ebox-ids 1.1)  #-#-#-#-#\n"
-"Включён\n"
-"#-#-#-#-#  ru.po (ebox-ntp 0.12)  #-#-#-#-#\n"
-"Включено\n"
-"#-#-#-#-#  ru.po (ebox-firewall 0.12)  #-#-#-#-#\n"
-"Включено\n"
-"#-#-#-#-#  ru.po (ebox-samba 0.12)  #-#-#-#-#\n"
-"Включено\n"
-"#-#-#-#-#  ru.po (ebox-asterisk 1.1)  #-#-#-#-#\n"
-"Включить\n"
-"#-#-#-#-#  ru.po (ebox-mail 0.12)  #-#-#-#-#\n"
-"Включено\n"
-"#-#-#-#-#  ru.po (ebox-webserver 0.12)  #-#-#-#-#\n"
-"Включено\n"
-"#-#-#-#-#  ru.po (ebox 0.12)  #-#-#-#-#\n"
-"Включено\n"
-"#-#-#-#-#  ru.po (ebox-ebackup 1.3.3)  #-#-#-#-#\n"
-"Включено\n"
-"#-#-#-#-#  ru.po (ebox-jabber 0.12)  #-#-#-#-#\n"
-"Включено"
+msgstr "Включено"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisConfiguration.pm:69
 msgid "Antivirus enabled"
@@ -625,39 +583,8 @@ msgstr "Уведомление проблемное сообщение не сп
 #: ../../main/core/src/templates/enable.mas:23
 #: ../../main/jabber/src/templates/jabber.mas:21
 #: ../../main/jabber/src/templates/jabber.mas:24
-#, fuzzy
 msgid "Disabled"
-msgstr ""
-"#-#-#-#-#  ru.po (ebox-mailfilter 0.12)  #-#-#-#-#\n"
-"Отключено\n"
-"#-#-#-#-#  ru.po (ebox-openvpn 0.12)  #-#-#-#-#\n"
-"Отключено\n"
-"#-#-#-#-#  ru.po (ebox-. 1.5)  #-#-#-#-#\n"
-"Отключен\n"
-"#-#-#-#-#  ru.po (ebox-zarafa 0.12)  #-#-#-#-#\n"
-"Отключено\n"
-"#-#-#-#-#  ru.po (libebox 0.12.1)  #-#-#-#-#\n"
-"Отключено\n"
-"#-#-#-#-#  ru.po (ebox-squid 0.12)  #-#-#-#-#\n"
-"Отключено\n"
-"#-#-#-#-#  ru.po (ebox-ntp 0.12)  #-#-#-#-#\n"
-"Отключено\n"
-"#-#-#-#-#  ru.po (ebox-samba 0.12)  #-#-#-#-#\n"
-"Отключено\n"
-"#-#-#-#-#  ru.po (ebox-asterisk 1.1)  #-#-#-#-#\n"
-"Отключить\n"
-"#-#-#-#-#  ru.po (ebox-mail 0.12)  #-#-#-#-#\n"
-"Отключено\n"
-"#-#-#-#-#  ru.po (ebox-webmail 1.3)  #-#-#-#-#\n"
-"Отключено\n"
-"#-#-#-#-#  ru.po (ebox-webserver 0.12)  #-#-#-#-#\n"
-"Отключено\n"
-"#-#-#-#-#  ru.po (ebox 0.12)  #-#-#-#-#\n"
-"Отключено\n"
-"#-#-#-#-#  ru.po (ebox-ebackup 1.3.3)  #-#-#-#-#\n"
-"Отключено\n"
-"#-#-#-#-#  ru.po (ebox-jabber 0.12)  #-#-#-#-#\n"
-"Отключено"
+msgstr "отключено"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisConfiguration.pm:98
 msgid "mail address"
@@ -668,21 +595,8 @@ msgstr "почтовый адрес"
 #: ../../main/asterisk/src/EBox/Asterisk.pm:544
 #: ../../main/mail/src/EBox/Mail.pm:1619 ../../main/ca/src/EBox/CA.pm:1754
 #: ../../main/core/src/EBox/SysInfo.pm.in:268
-#, fuzzy
 msgid "General"
-msgstr ""
-"#-#-#-#-#  ru.po (ebox-mailfilter 0.12)  #-#-#-#-#\n"
-"Общие\n"
-"#-#-#-#-#  ru.po (ebox-squid 0.12)  #-#-#-#-#\n"
-"Общие\n"
-"#-#-#-#-#  ru.po (ebox-asterisk 1.1)  #-#-#-#-#\n"
-"Общие\n"
-"#-#-#-#-#  ru.po (ebox-mail 0.12)  #-#-#-#-#\n"
-"Общие\n"
-"#-#-#-#-#  ru.po (ebox-ca 0.12)  #-#-#-#-#\n"
-"Общие\n"
-"#-#-#-#-#  ru.po (ebox 0.12)  #-#-#-#-#\n"
-"Общее"
+msgstr "Основные"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisConfiguration.pm:139
 #, perl-brace-format
@@ -746,29 +660,8 @@ msgstr ""
 #: ../../main/ebackup/src/EBox/EBackup/Subscribed.pm:197
 #: ../../main/ebackup/src/EBox/EBackup/Subscribed.pm:198
 #: ../../main/jabber/src/EBox/Jabber/Composite/General.pm:66
-#, fuzzy
 msgid "Configuration"
-msgstr ""
-"#-#-#-#-#  ru.po (ebox-mailfilter 0.12)  #-#-#-#-#\n"
-"Конфигурация\n"
-"#-#-#-#-#  ru.po (ebox-network 0.12)  #-#-#-#-#\n"
-"Конфигурация\n"
-"#-#-#-#-#  ru.po (ebox-openvpn 0.12)  #-#-#-#-#\n"
-"Конфигурация\n"
-"#-#-#-#-#  ru.po (ebox-zarafa 0.12)  #-#-#-#-#\n"
-"Конфигурация\n"
-"#-#-#-#-#  ru.po (ebox-usersandgroups 0.12)  #-#-#-#-#\n"
-"Конфигурация\n"
-"#-#-#-#-#  ru.po (ebox-squid 0.12)  #-#-#-#-#\n"
-"Конфигурация\n"
-"#-#-#-#-#  ru.po (ebox-services 0.12)  #-#-#-#-#\n"
-"Настройка\n"
-"#-#-#-#-#  ru.po (ebox-webserver 0.12)  #-#-#-#-#\n"
-"Настройка\n"
-"#-#-#-#-#  ru.po (ebox 0.12)  #-#-#-#-#\n"
-"Конфигурация\n"
-"#-#-#-#-#  ru.po (ebox-jabber 0.12)  #-#-#-#-#\n"
-"Конфигурация"
+msgstr "Конфигурация"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/POPProxyConfiguration.pm:113
 msgid ""
@@ -997,13 +890,8 @@ msgstr "Порог ham авто-обучения не должен быть ни
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/FileExtensionACL.pm:79
 #: ../../main/squid/src/EBox/Squid/Model/ExtensionFilterBase.pm:59
-#, fuzzy
 msgid "File extension"
-msgstr ""
-"#-#-#-#-#  ru.po (ebox-mailfilter 0.12)  #-#-#-#-#\n"
-"Файловое расширение\n"
-"#-#-#-#-#  ru.po (ebox-squid 0.12)  #-#-#-#-#\n"
-"Файловые расширения"
+msgstr "Расширение файла"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/FileExtensionACL.pm:94
 msgid "File extensions"
@@ -1021,13 +909,8 @@ msgstr "Расширение не перечисленные ниже разре
 #: ../../main/mailfilter/src/EBox/MailFilter/Types/AmavisSender.pm:78
 #: ../../main/mail/src/EBox/CGI/CreateAlias.pm:48
 #: ../../main/mail/src/EBox/CGI/CreateGroupAlias.pm:48
-#, fuzzy
 msgid "domain name"
-msgstr ""
-"#-#-#-#-#  ru.po (ebox-mailfilter 0.12)  #-#-#-#-#\n"
-"имя домена\n"
-"#-#-#-#-#  ru.po (ebox-mail 0.12)  #-#-#-#-#\n"
-"доменное имя"
+msgstr "имя домена"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Types/AmavisSender.pm:82
 msgid "email address"
@@ -1161,15 +1044,8 @@ msgstr "Клиент"
 #: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:261
 #: ../../main/dns/src/EBox/Model/DomainTable.pm:210
 #: ../../main/dns/src/EBox/Model/HostnameTable.pm:195
-#, fuzzy
 msgid "IP Address"
-msgstr ""
-"#-#-#-#-#  ru.po (ebox-radius 1.3.10)  #-#-#-#-#\n"
-"IP адрес\n"
-"#-#-#-#-#  ru.po (ebox-firewall 0.12)  #-#-#-#-#\n"
-"IP-адрес\n"
-"#-#-#-#-#  ru.po (ebox-dns 0.12)  #-#-#-#-#\n"
-"IP-адрес"
+msgstr "IP-адрес"
 
 #: ../../main/radius/src/EBox/Model/Clients.pm:118
 msgid "Shared Secret"
@@ -1198,17 +1074,8 @@ msgstr "Разрешенные для аутентификации группы"
 #: ../../main/asterisk/src/EBox/Model/Settings.pm:145
 #: ../../main/usercorner/src/EBox/UserCorner/Model/Settings.pm:62
 #: ../../main/webmail/src/EBox/WebMail/Model/Options.pm:65
-#, fuzzy
 msgid "General configuration"
-msgstr ""
-"#-#-#-#-#  ru.po (ebox-radius 1.3.10)  #-#-#-#-#\n"
-"Общая конфигурация\n"
-"#-#-#-#-#  ru.po (ebox-usersandgroups 0.12)  #-#-#-#-#\n"
-"Конфигурация\n"
-"#-#-#-#-#  ru.po (ebox-asterisk 1.1)  #-#-#-#-#\n"
-"Общие настройки\n"
-"#-#-#-#-#  ru.po (ebox-webmail 1.3)  #-#-#-#-#\n"
-"Общие настройки"
+msgstr "Общие настройки"
 
 #: ../../main/radius/src/EBox/Model/Auth.pm:142
 msgid "RADIUS server configuration"
@@ -1325,13 +1192,8 @@ msgstr "Тип теста"
 #: ../../main/squid/src/EBox/Squid.pm:1126
 #: ../../main/network/src/templates/diag.mas:14
 #: ../../main/network/src/templates/diag.mas:23
-#, fuzzy
 msgid "Host"
-msgstr ""
-"#-#-#-#-#  ru.po (ebox-network 0.12)  #-#-#-#-#\n"
-"Узел\n"
-"#-#-#-#-#  ru.po (ebox-squid 0.12)  #-#-#-#-#\n"
-"Хост"
+msgstr "Хост"
 
 #: ../../main/network/src/EBox/Model/WANFailoverRules.pm:103
 msgid "Number of probes"
@@ -1517,13 +1379,8 @@ msgstr "Изменения будут немедленно применены к
 
 #: ../../main/network/src/EBox/Model/ByteRateSettings.pm:95
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:90
-#, fuzzy
 msgid "Settings changed"
-msgstr ""
-"#-#-#-#-#  ru.po (ebox-network 0.12)  #-#-#-#-#\n"
-"Настройки изменены\n"
-"#-#-#-#-#  ru.po (ebox-squid 0.12)  #-#-#-#-#\n"
-"Настроки изменены"
+msgstr "Настройки изменены"
 
 #: ../../main/network/src/EBox/Model/ByteRateSettings.pm:114
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:181
@@ -1533,13 +1390,9 @@ msgstr "{iface} (внутренний интерфейс)"
 
 #: ../../main/network/src/EBox/Model/ByteRateSettings.pm:121
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:184
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "{iface} (external interface)"
-msgstr ""
-"#-#-#-#-#  ru.po (ebox-network 0.12)  #-#-#-#-#\n"
-"{iface} (внешний интерфейс)\n"
-"#-#-#-#-#  ru.po (ebox-trafficshaping 0.12.2)  #-#-#-#-#\n"
-"{iface} (внешний интерфрейс)"
+msgstr "{iface} (внешний интерфрейс)"
 
 #: ../../main/network/src/EBox/Model/ByteRateSettings.pm:128
 msgid "all"
@@ -12408,11 +12261,11 @@ msgstr ""
 
 #: ../../main/core/src/EBox/CGI/Finish.pm:101
 msgid "Revoking changes"
-msgstr "Отмена изменений"
+msgstr "Отменяются изменения"
 
 #: ../../main/core/src/EBox/CGI/Finish.pm:102
 msgid "Revoking changes in modules"
-msgstr "Отмена изменений в модулях"
+msgstr "Отменяются изменения в модулях"
 
 #: ../../main/core/src/EBox/CGI/Finish.pm:103
 msgid "Current module"
@@ -12471,13 +12324,8 @@ msgstr "Имя компьютера"
 
 #: ../../main/core/src/EBox/CGI/EBox/General.pm:32
 #: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:317
-#, fuzzy
 msgid "General Configuration"
-msgstr ""
-"#-#-#-#-#  ru.po (ebox 0.12)  #-#-#-#-#\n"
-"Общая конфигурация\n"
-"#-#-#-#-#  ru.po (ebox-ebackup 1.3.3)  #-#-#-#-#\n"
-"Общие настройки"
+msgstr "Основные настройки"
 
 #: ../../main/core/src/EBox/CGI/EBox/Halt.pm:30
 msgid "Halt or Reboot"
@@ -12540,7 +12388,7 @@ msgstr "Неизвестный режим восстановления: {mode}"
 
 #: ../../main/core/src/EBox/CGI/EBox/Backup.pm:239
 msgid "Backing up"
-msgstr "Резервное копирование"
+msgstr "Происходит резервное копирование"
 
 #: ../../main/core/src/EBox/CGI/EBox/Backup.pm:240
 msgid "Backing up modules"
@@ -12640,13 +12488,8 @@ msgstr "Невозможно добавить данные к резервном
 #: ../../main/ebackup/src/EBox/Model/RemoteStorage.pm:76
 #: ../../main/ebackup/src/EBox/Model/RemoteStorage.pm:77
 #: ../../main/ebackup/src/EBox/Model/RemoteStorage.pm:78
-#, fuzzy
 msgid "Unknown"
-msgstr ""
-"#-#-#-#-#  ru.po (ebox 0.12)  #-#-#-#-#\n"
-"Неизвестный\n"
-"#-#-#-#-#  ru.po (ebox-ebackup 1.3.3)  #-#-#-#-#\n"
-"Неизвестно"
+msgstr "Неизвестноый"
 
 #: ../../main/core/src/EBox/Backup.pm:516
 #, perl-brace-format
@@ -12663,13 +12506,8 @@ msgstr "Не могу распаковать резервную копию"
 #: ../../main/ebackup/src/EBox/EBackup.pm:70
 #: ../../main/ebackup/src/EBox/Composite/Remote.pm:66
 #: ../../main/core/src/templates/backup.mas:67
-#, fuzzy
 msgid "Backup"
-msgstr ""
-"#-#-#-#-#  ru.po (ebox 0.12)  #-#-#-#-#\n"
-"Резервная копия\n"
-"#-#-#-#-#  ru.po (ebox-ebackup 1.3.3)  #-#-#-#-#\n"
-"Резервное копирование"
+msgstr "Бэкап"
 
 #: ../../main/core/src/EBox/Backup.pm:767
 msgid "Writing backup file to hard disk"
@@ -12826,7 +12664,7 @@ msgstr ""
 
 #: ../../main/printers/src/EBox/Model/CUPS.pm:156
 msgid "Listen"
-msgstr "Ждать сигнала"
+msgstr "Слушать"
 
 #: ../../main/printers/src/EBox/Model/CUPS.pm:165
 msgid "Select CUPS Interfaces"
@@ -12970,7 +12808,7 @@ msgstr ""
 #: ../../main/objects/src/EBox/Objects.pm:43
 #, perl-brace-format
 msgid "Added object {object}"
-msgstr "Добавленный объект {object}"
+msgstr "Добавлен объект {object}"
 
 #: ../../main/objects/src/EBox/Objects.pm:45
 #, perl-brace-format
@@ -13483,7 +13321,7 @@ msgid ""
 "Zentyal Cloud. If you want to unsubscribe, you must change this {ohref}"
 "setting{chref}."
 msgstr ""
-"Невозможно отписаться, потому что модуль резервного копирования настроен для "
+"Невозможно отписаться, так как модуль резервного копирования настроен для "
 "использования Zentyal Cloud. Если Вы хотите отписаться, необходимо изменить "
 "эту {ohref}настройку{chref}."
 
@@ -13689,7 +13527,7 @@ msgstr "Разрешение доменных имен"
 
 #: ../../main/network/src/templates/diag.mas:36
 msgid "Lookup"
-msgstr "Поиск"
+msgstr "Найти"
 
 #: ../../main/network/src/templates/ifaces.mas:13
 msgid ""
@@ -13783,21 +13621,8 @@ msgstr "Список VLAN"
 #: ../../main/dns/src/templates/index.mas:38
 #: ../../main/dns/src/templates/index.mas:39
 #: ../../main/core/src/templates/ajax/tableBody.mas:357
-#, fuzzy
 msgid "Add"
-msgstr ""
-"#-#-#-#-#  ru.po (ebox-network 0.12)  #-#-#-#-#\n"
-"Добавить\n"
-"#-#-#-#-#  ru.po (ebox-usersandgroups 0.12)  #-#-#-#-#\n"
-"Добавить\n"
-"#-#-#-#-#  ru.po (libebox 0.12.1)  #-#-#-#-#\n"
-"Добавить \n"
-"#-#-#-#-#  ru.po (ebox-dhcp 0.12)  #-#-#-#-#\n"
-"Добавить\n"
-"#-#-#-#-#  ru.po (ebox-samba 0.12)  #-#-#-#-#\n"
-"Добавить\n"
-"#-#-#-#-#  ru.po (ebox-dns 0.12)  #-#-#-#-#\n"
-"Добавить"
+msgstr "Добавить"
 
 #: ../../main/network/src/templates/ifaces.mas:281
 msgid "Virtual Interfaces"
@@ -13811,39 +13636,22 @@ msgstr "Аккаунт Zarafa"
 #: ../../main/samba/src/templates/samba.mas:15
 #: ../../main/asterisk/src/templates/user.mas:20
 #: ../../main/jabber/src/templates/jabber.mas:16
-#, fuzzy
 msgid "User account"
-msgstr ""
-"#-#-#-#-#  ru.po (ebox-zarafa 0.12)  #-#-#-#-#\n"
-"Аккаунт пользователя\n"
-"#-#-#-#-#  ru.po (ebox-samba 0.12)  #-#-#-#-#\n"
-"Пользовательский аккаунт\n"
-"#-#-#-#-#  ru.po (ebox-asterisk 1.1)  #-#-#-#-#\n"
-"Учетная запись пользователя\n"
-"#-#-#-#-#  ru.po (ebox-jabber 0.12)  #-#-#-#-#\n"
-"Аккаунт пользователя"
+msgstr "Учётная запись пользователя"
 
 #: ../../main/zarafa/src/templates/zarafa.mas:33
 #: ../../main/samba/src/templates/samba.mas:31
 #: ../../main/jabber/src/templates/jabber.mas:33
-#, fuzzy
 msgid "Administration rights"
-msgstr ""
-"#-#-#-#-#  ru.po (ebox-zarafa 0.12)  #-#-#-#-#\n"
-"Административные права\n"
-"#-#-#-#-#  ru.po (ebox-samba 0.12)  #-#-#-#-#\n"
-"Администраторские права\n"
-"#-#-#-#-#  ru.po (ebox-jabber 0.12)  #-#-#-#-#\n"
-"Административные права"
+msgstr "Права администратора"
 
 #: ../../main/zarafa/src/templates/zarafa.mas:45
 msgid "Zarafa takes quota settings from mail account settings."
 msgstr "Zarafa берет настройки квот из настроек учетной записи почты."
 
 #: ../../main/zarafa/src/templates/zarafa.mas:52
-#, fuzzy
 msgid "Groupware contact"
-msgstr "Аккаунт Jabber"
+msgstr "Контакт Groupware"
 
 #: ../../main/users/src/templates/Wizard/users.mas:7
 msgid "Select the type of the server"
@@ -13949,11 +13757,7 @@ msgstr ""
 #: ../../main/core/src/templates/ajax/tableBody.mas:135
 #, fuzzy
 msgid "Add new"
-msgstr ""
-"#-#-#-#-#  ru.po (ebox-usersandgroups 0.12)  #-#-#-#-#\n"
-"Добавить нового\n"
-"#-#-#-#-#  ru.po (libebox 0.12.1)  #-#-#-#-#\n"
-"Добавить новое"
+msgstr "Добавить"
 
 #: ../../main/users/src/templates/users.mas:12
 msgid "Add User"
@@ -14418,7 +14222,7 @@ msgstr ""
 
 #: ../../main/samba/stubs/smb.conf.mas:108
 msgid "Home Directories"
-msgstr "Домашний каталог"
+msgstr "Домашние каталоги"
 
 #: ../../main/samba/stubs/smb.conf.mas:134
 #, perl-brace-format
@@ -14541,11 +14345,7 @@ msgstr "Предупреждение: включен Caps Lock"
 #: ../../main/core/src/templates/login/index.mas:63
 #, fuzzy
 msgid "Enter"
-msgstr ""
-"#-#-#-#-#  ru.po (ebox-usersandgroups 0.12)  #-#-#-#-#\n"
-"Вход\n"
-"#-#-#-#-#  ru.po (ebox 0.12)  #-#-#-#-#\n"
-"Ввести"
+msgstr "Войти"
 
 #: ../../main/remoteservices/src/templates/RemoteServices/NoConnection.mas:5
 msgid ""
@@ -14648,16 +14448,11 @@ msgstr "скачать"
 #: ../../main/remoteservices/src/templates/RemoteServices/Backup/index.mas:174
 #, fuzzy
 msgid "Configuration backups' list"
-msgstr ""
-"#-#-#-#-#  ru.po (ebox-remoteservices 1.1)  #-#-#-#-#\n"
-"Настройки резервного копирования\n"
-"#-#-#-#-#  ru.po (ebox 0.12)  #-#-#-#-#\n"
-"Бэкап настроек"
+msgstr "Список резервных копий настроек"
 
 #: ../../main/remoteservices/src/templates/RemoteServices/Backup/proxy.mas:37
-#, fuzzy
 msgid "Zentyal host"
-msgstr "Zentyal Cloud"
+msgstr "Хост Zentyal"
 
 #: ../../main/remoteservices/src/templates/RemoteServices/Backup/proxy.mas:101
 #: ../../main/core/src/templates/backup.mas:125
@@ -14665,18 +14460,17 @@ msgid "Backups' list"
 msgstr "Список резервных копий"
 
 #: ../../main/remoteservices/src/templates/RemoteServices/Backup/proxy.mas:124
-#, fuzzy
 msgid "User or Email Address"
 msgstr "Имя пользователя или адрес электронной почты"
 
 #: ../../main/remoteservices/src/templates/RemoteServices/Backup/proxy.mas:135
+#, fuzzy
 msgid "Submit"
-msgstr ""
+msgstr "Отправить"
 
 #: ../../main/remoteservices/src/templates/RemoteServices/Backup/proxy.mas:139
-#, fuzzy
 msgid "Enter user and password"
-msgstr "Пользователь и пароль"
+msgstr "Введите имя пользователя и пароль"
 
 #: ../../main/mail/src/templates/Wizard/virtualdomain.mas:7
 msgid "Set up the default virtual mail domain"
@@ -14723,15 +14517,8 @@ msgstr "Удалить все сообщения"
 #: ../../main/core/src/templates/logs/dbtable.mas:87
 #: ../../main/core/src/templates/ajax/tablePager.mas:60
 #: ../../main/core/src/templates/ajax/tablePager.mas:66
-#, fuzzy
 msgid "first"
-msgstr ""
-"#-#-#-#-#  ru.po (libebox 0.12.1)  #-#-#-#-#\n"
-"первый\n"
-"#-#-#-#-#  ru.po (ebox-mail 0.12)  #-#-#-#-#\n"
-"первый\n"
-"#-#-#-#-#  ru.po (ebox 0.12)  #-#-#-#-#\n"
-"в начало"
+msgstr "в начало"
 
 #: ../../main/mail/src/templates/qmanager.mas:111
 #: ../../main/mail/src/templates/qmanager.mas:112
@@ -14739,15 +14526,8 @@ msgstr ""
 #: ../../main/core/src/templates/logs/dbtable.mas:91
 #: ../../main/core/src/templates/ajax/tablePager.mas:62
 #: ../../main/core/src/templates/ajax/tablePager.mas:67
-#, fuzzy
 msgid "prev"
-msgstr ""
-"#-#-#-#-#  ru.po (libebox 0.12.1)  #-#-#-#-#\n"
-"пред.\n"
-"#-#-#-#-#  ru.po (ebox-mail 0.12)  #-#-#-#-#\n"
-"пред\n"
-"#-#-#-#-#  ru.po (ebox 0.12)  #-#-#-#-#\n"
-"назад"
+msgstr "назад"
 
 #: ../../main/mail/src/templates/qmanager.mas:131
 #: ../../main/mail/src/templates/qmanager.mas:132
@@ -14757,15 +14537,8 @@ msgstr ""
 #: ../../main/core/src/templates/ajax/tablePager.mas:74
 #: ../../main/core/src/templates/ajax/tablePager.mas:85
 #: ../../main/core/src/templates/ajax/tablePager.mas:86
-#, fuzzy
 msgid "next"
-msgstr ""
-"#-#-#-#-#  ru.po (libebox 0.12.1)  #-#-#-#-#\n"
-"след.\n"
-"#-#-#-#-#  ru.po (ebox-mail 0.12)  #-#-#-#-#\n"
-"след\n"
-"#-#-#-#-#  ru.po (ebox 0.12)  #-#-#-#-#\n"
-"вперёд"
+msgstr "вперёд"
 
 #: ../../main/mail/src/templates/qmanager.mas:135
 #: ../../main/mail/src/templates/qmanager.mas:136
@@ -14775,20 +14548,12 @@ msgstr ""
 #: ../../main/core/src/templates/ajax/tablePager.mas:80
 #: ../../main/core/src/templates/ajax/tablePager.mas:89
 #: ../../main/core/src/templates/ajax/tablePager.mas:90
-#, fuzzy
 msgid "last"
-msgstr ""
-"#-#-#-#-#  ru.po (libebox 0.12.1)  #-#-#-#-#\n"
-"последний\n"
-"#-#-#-#-#  ru.po (ebox-mail 0.12)  #-#-#-#-#\n"
-"последний\n"
-"#-#-#-#-#  ru.po (ebox 0.12)  #-#-#-#-#\n"
-"в конец"
+msgstr "в конец"
 
 #: ../../main/mail/src/templates/qmanager.mas:146
-#, fuzzy
 msgid "There are no messages in queue or the service is stopped"
-msgstr "Нет ни одного сообщения в очереди или служба остановлена"
+msgstr "Отсутствуют сообщения в очереди или служба остановлена"
 
 #: ../../main/mail/src/templates/alias.mas:8
 msgid "Mail account settings"
@@ -14838,13 +14603,8 @@ msgstr "Максимальный размер почтового аккаунт�
 #: ../../main/mail/src/templates/alias.mas:159
 #: ../../main/mail/src/templates/alias.mas:160
 #: ../../main/core/src/templates/configurationFiles.mas:23
-#, fuzzy
 msgid "Modify"
-msgstr ""
-"#-#-#-#-#  ru.po (ebox-mail 0.12)  #-#-#-#-#\n"
-"Изменить\n"
-"#-#-#-#-#  ru.po (ebox 0.12)  #-#-#-#-#\n"
-"Изменение"
+msgstr "Изменить"
 
 #: ../../main/mail/src/templates/createaccount.mas:14
 msgid "Create mail account"
@@ -14861,8 +14621,7 @@ msgstr "Размер почтового каталога"
 #: ../../main/mail/src/templates/moduleDisabled.mas:5
 msgid ""
 "The following settings only will take effect when the mail module is enabled"
-msgstr ""
-"Настройки вступят в действие только когда почтовый модуль будет включен."
+msgstr "Настройки вступят в действие только когда почтовый модуль будет включен"
 
 #: ../../main/mail/src/templates/groupalias.mas:7
 msgid "Mail alias settings"
@@ -15060,7 +14819,7 @@ msgstr "Загрузить Ключ(и) и Сертификат"
 #: ../../main/ca/src/templates/index.mas:199
 #: ../../main/ca/src/templates/formReissue.mas:26
 msgid "Reissue"
-msgstr "Переиздание"
+msgstr "Переиздать"
 
 #: ../../main/ca/src/templates/index.mas:216
 msgid "Renew or reissue"
@@ -15111,7 +14870,7 @@ msgstr "Сообщить об ошибке"
 
 #: ../../main/core/src/templates/links-widget.mas:16
 msgid "How to Contribute"
-msgstr "Как помочь"
+msgstr "Чем помочь"
 
 #: ../../main/core/src/templates/moduleStatusTable.mas:59
 msgid "Depends"
@@ -15161,7 +14920,7 @@ msgstr "Пропустить"
 #: ../../main/core/src/templates/wizard.mas:145
 #: ../../main/core/src/templates/wizard.mas:155
 msgid "Next"
-msgstr "дальше"
+msgstr "Далее"
 
 #: ../../main/core/src/templates/logs/index.mas:20
 msgid "Log Domain"
@@ -15200,13 +14959,8 @@ msgstr "До даты:"
 #: ../../main/core/src/templates/logs/index.mas:203
 #: ../../main/core/src/templates/logs/index.mas:204
 #: ../../main/core/src/templates/ajax/tableBody.mas:209
-#, fuzzy
 msgid "Search"
-msgstr ""
-"#-#-#-#-#  ru.po (libebox 0.12.1)  #-#-#-#-#\n"
-"Найти\n"
-"#-#-#-#-#  ru.po (ebox 0.12)  #-#-#-#-#\n"
-"Поиск"
+msgstr "Найти"
 
 #: ../../main/core/src/templates/logs/index.mas:208
 #: ../../main/core/src/templates/logs/index.mas:209
@@ -15215,11 +14969,11 @@ msgstr "Записать, как событие"
 
 #: ../../main/core/src/templates/logs/index.mas:235
 msgid "No logs matching current criterion"
-msgstr "Нет журналов удовлетворяющих данный критерий"
+msgstr "Отсутствуют журналы удовлетворяющие данным критериям"
 
 #: ../../main/core/src/templates/logs/index.mas:239
 msgid "There are no logs for this domain"
-msgstr "Нет журналов для этого домена"
+msgstr "Отсутствуют журналы для этого домена"
 
 #: ../../main/core/src/templates/password.mas:4
 msgid "Change Password"
@@ -15344,7 +15098,7 @@ msgstr "сбой"
 
 #: ../../main/core/src/templates/report/raid.mas:261
 msgid "No unused RAID devices"
-msgstr "Нет не использующихся RAID устройств"
+msgstr "Отсутствуют неиспользуемые RAID устройства"
 
 #: ../../main/core/src/templates/report/raid.mas:264
 msgid "Unused RAID arrays"
@@ -15666,7 +15420,7 @@ msgstr "Выход"
 
 #: ../../main/core/src/templates/backupTabs.mas:13
 msgid "Local"
-msgstr ""
+msgstr "Локальный"
 
 #: ../../main/core/src/templates/backupTabs.mas:18
 msgid "Remote in Zentyal Cloud"
