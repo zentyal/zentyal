@@ -234,7 +234,7 @@ sub loginCC
                 my $sessionKey = $self->authen_cred($req, '', '',1);
                 $self->send_cookie($req, $sessionKey);
                 $self->handle_cache($req);
-                $req->headers_out()->set('Location' => '/ebox/');
+                $req->headers_out()->set('Location' => '/zentyal/');
                 return HTTP_MOVED_TEMPORARILY;
             }
         }

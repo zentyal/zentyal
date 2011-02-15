@@ -246,7 +246,7 @@ sub run
 	my $self = shift;
 
 	if (not $self->_loggedIn) {
-		$self->{redirect} = "/ebox/Login/Index";
+		$self->{redirect} = "/zentyal/Login/Index";
 	}
 	else {
 	  try {
@@ -317,7 +317,7 @@ sub run
 		} else {
 			$protocol = 'http';
 		}
-		my $url = "$protocol://${host}/ebox/" . $self->{redirect};
+		my $url = "$protocol://${host}/zentyal/" . $self->{redirect};
 		print($self->cgi()->redirect($url));
 		return;
 	}

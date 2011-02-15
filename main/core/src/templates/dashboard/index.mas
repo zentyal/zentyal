@@ -77,7 +77,7 @@ function toggleClose()
 
 function configureWidgets()
 {
-	Modalbox.show('/ebox/Dashboard/ConfigureWidgets', {
+	Modalbox.show('/zentyal/Dashboard/ConfigureWidgets', {
         title: '<% __("Configure Widgets") %>',
         width: 980,
         height: 100,
@@ -121,7 +121,7 @@ function updateGraph(element,value) {
            packages => join (' ', @brokenPackages)) %>
 % if ($softwareInstalled) {
     <% __x('Go to {ohref}Software Management{chref} for more information.',
-           ohref => '<a href="/ebox/Software/EBox/">', chref => '</a>') %>
+           ohref => '<a href="/zentyal/Software/EBox/">', chref => '</a>') %>
 % } else {
     <% __x('To solve this situation, please try to execute the following command in the console: {cmd}',
            cmd => '<b>sudo dpkg --configure -a</b>') %>
@@ -157,7 +157,7 @@ function closeWidget(wid)
             if($(placeholder)) {
                 showModuleWidgets(parts[0],cur_wid_start);
             }
-            new Ajax.Request("/ebox/Dashboard/Update", {
+            new Ajax.Request("/zentyal/Dashboard/Update", {
                 method: "post",
                 parameters: { dashboard: parent, widgets: Sortable.sequence(parent).join(',') }
             });
@@ -178,7 +178,7 @@ function toggleClicked(element) {
         toggler.removeClassName('maxBox');
         toggler.addClassName('minBox');
     }
-    new Ajax.Request("/ebox/Dashboard/Toggle", {
+    new Ajax.Request("/zentyal/Dashboard/Toggle", {
         method: "post",
         parameters: { element: element }
     });
@@ -193,7 +193,7 @@ Sortable.create("dashboard<% $i %>", {
     scroll: window,
     containment: ["dashboard1","dashboard2"],
     onUpdate: function() {
-        new Ajax.Request("/ebox/Dashboard/Update", {
+        new Ajax.Request("/zentyal/Dashboard/Update", {
             method: "post",
             parameters: { dashboard: "dashboard<% $i %>", widgets: Sortable.sequence("dashboard<% $i %>").join(',') }
         });
@@ -274,7 +274,7 @@ function updateWidget(widget) {
                 var next = prevsect.next('div');
                 widgetcontents.insertBefore(newsection, next);
             }
-            var req = new Ajax.Updater(sectname, '/ebox/Dashboard/Section', {
+            var req = new Ajax.Updater(sectname, '/zentyal/Dashboard/Section', {
                 parameters: {
                     module: widget.module,
                     widget: widget.name,
@@ -334,7 +334,7 @@ function updateWidget(widget) {
                             + '</span>';
                         if (item.enabled && !item.nobutton) {
                             var restart_form = "\
-    <form action='/ebox/EBox/RestartService'>\
+    <form action='/zentyal/EBox/RestartService'>\
         <input type='hidden' name='module' value='" + item.module + "'/>\
         <span class='sright'>\
             <input class='inputButtonRestart' type='submit' name='restart' value='"
@@ -402,7 +402,7 @@ function updateWidgets() {
     var widgets = Sortable.sequence("dashboard1").concat(Sortable.sequence("dashboard2"));
     widgets.each(function(w) {
         var parts = w.split(':');
-        var url = '/ebox/Dashboard/WidgetJSON?module=' + parts[0] + '&widget=' + parts[1];
+        var url = '/zentyal/Dashboard/WidgetJSON?module=' + parts[0] + '&widget=' + parts[1];
         new Ajax.Request(url, {
             method: "get",
             asynchronous: true,

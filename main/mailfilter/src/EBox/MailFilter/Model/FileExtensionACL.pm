@@ -93,7 +93,7 @@ sub _table
         tableName          => __PACKAGE__->nameFromClass,
         printableTableName => __(q{File extensions}),
         modelDomain        => 'mail',
-        'defaultController' => '/ebox/MailFilter/Controller/FileExtensionACL',
+        'defaultController' => '/zentyal/MailFilter/Controller/FileExtensionACL',
         'defaultActions' => [ 'add', 'del', 'editField', 'changeView' ],
         tableDescription   => \@tableHeader,
         class              => 'dataTable',

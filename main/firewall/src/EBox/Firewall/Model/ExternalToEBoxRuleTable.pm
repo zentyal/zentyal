@@ -65,7 +65,7 @@ sub _table
           __('External networks to Zentyal'),
         'automaticRemove' => 1,
         'defaultController' =>
-            '/ebox/Firewall/Controller/ExternalToEBoxRuleTable',
+            '/zentyal/Firewall/Controller/ExternalToEBoxRuleTable',
         'defaultActions' =>
             [	'add', 'del', 'move',  'editField', 'changeView' ],
         'tableDescription' => $self->_fieldDescription('source' => 1),

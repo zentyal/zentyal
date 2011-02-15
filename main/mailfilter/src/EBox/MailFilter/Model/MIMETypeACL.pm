@@ -89,7 +89,7 @@ sub _table
         tableName          => __PACKAGE__->nameFromClass,
         printableTableName => __(q{MIME types}),
         modelDomain        => 'mail',
-        'defaultController' => '/ebox/MailFilter/Controller/MIMETypeACL',
+        'defaultController' => '/zentyal/MailFilter/Controller/MIMETypeACL',
         'defaultActions' => [ 'add', 'del', 'editField', 'changeView' ],
         tableDescription   => \@tableHeader,
         class              => 'dataTable',

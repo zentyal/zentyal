@@ -109,7 +109,7 @@ sub ConfigurationMethod
 #
 sub ConfigureURL
 {
-    return '/ebox/Monitor/View/MeasureWatchers';
+    return '/zentyal/Monitor/View/MeasureWatchers';
 }
 
 # Method: Able

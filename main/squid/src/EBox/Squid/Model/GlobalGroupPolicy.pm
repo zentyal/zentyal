@@ -77,7 +77,7 @@ sub _table
       pageTitle          => __('Group policies'),
       printableTableName => __('List of groups'),
       modelDomain        => 'Squid',
-      'defaultController' => '/ebox/Squid/Controller/GlobalGroupPolicy',
+      'defaultController' => '/zentyal/Squid/Controller/GlobalGroupPolicy',
       'defaultActions' => [
           'add', 'del',
       'editField',

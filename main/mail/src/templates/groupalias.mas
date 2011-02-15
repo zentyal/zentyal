@@ -46,7 +46,7 @@ use EBox::Gettext;
 $group
 @vdomains
 </%args>
-<form action='/ebox/Mail/CreateGroupAlias' method='POST'>
+<form action='/zentyal/Mail/CreateGroupAlias' method='POST'>
     <input type="hidden" name="group" value="<% $group %>">
 			<tr>
 				<td>

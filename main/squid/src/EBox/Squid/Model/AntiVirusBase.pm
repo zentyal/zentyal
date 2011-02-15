@@ -89,13 +89,13 @@ sub  preconditionFailMsg
     if ($antivirus) {
         $msg = __x(
 'You cannot activate antivirus filter because the antivirus module is disabled. If you want to filter virus, first {openhref}activate the module{closehref} and come back here',
-openhref => qq{<a href='/ebox/ServiceModule/StatusView'>},
+openhref => qq{<a href='/zentyal/ServiceModule/StatusView'>},
 closehref => qq{</a>},
 );
     } else {
         $msg = __x(
 'You cannot activate antivirus filter because the antivirus module is not installed. If you want to filter virus, first install it and then {openhref}activate the module{closehref} and come back here',
-openhref => qq{<a href='/ebox/ServiceModule/StatusView'>},
+openhref => qq{<a href='/zentyal/ServiceModule/StatusView'>},
 closehref => qq{</a>},
 );
     }

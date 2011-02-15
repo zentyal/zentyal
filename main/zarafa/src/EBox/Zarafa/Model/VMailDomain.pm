@@ -93,7 +93,7 @@ sub preconditionFailMsg
     unless ($numDomains > 0) {
         return __x(
 'To configure Zarafa you must have at least one virtual mail domain. You can define one at {ohref}Virtual Domains{chref}.',
-ohref => q{<a href='/ebox/Mail/View/VDomains/'>},
+ohref => q{<a href='/zentyal/Mail/View/VDomains/'>},
 chref => q{</a>},
         );
     }

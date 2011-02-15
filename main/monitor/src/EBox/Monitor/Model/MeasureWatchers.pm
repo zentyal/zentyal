@@ -75,7 +75,7 @@ sub viewCustomizer
     $custom->setHTMLTitle( [
         {
          title => __('Events'),
-         link  => '/ebox/Events/Composite/GeneralComposite',
+         link  => '/zentyal/Events/Composite/GeneralComposite',
         },
         {
          title => __('Monitor Watcher'),
@@ -152,8 +152,8 @@ sub _table
               fieldName     => 'thresholds',
               printableName => __('Thresholds'),
               foreignModel  => 'ThresholdConfiguration',
-              view          => '/ebox/Monitor/View/ThresholdConfiguration',
-              backView      => '/ebox/Monitor/View/MeasureWatchers',
+              view          => '/zentyal/Monitor/View/ThresholdConfiguration',
+              backView      => '/zentyal/Monitor/View/MeasureWatchers',
              ),
        );
 

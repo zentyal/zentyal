@@ -322,7 +322,7 @@ sub viewCustomizer
         $custom->setHTMLTitle([
                 {
                 title => __('Events'),
-                link  => '/ebox/Events/Composite/GeneralComposite#ConfigureDispatcherDataTable',
+                link  => '/zentyal/Events/Composite/GeneralComposite#ConfigureDispatcherDataTable',
                 },
                 {
                 title => __('RSS Dispatcher'),

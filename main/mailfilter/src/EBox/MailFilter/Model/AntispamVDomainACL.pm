@@ -75,7 +75,7 @@ sub _table
      tableName          => __PACKAGE__->nameFromClass,
      printableTableName => __(q{Sender policy for virtual domain}),
      modelDomain        => 'MailFilter',
-     'defaultController' => '/ebox/MailFilter/Controller/AntispamVDomainACL',
+     'defaultController' => '/zentyal/MailFilter/Controller/AntispamVDomainACL',
      'defaultActions' => [
                           'add', 'del',
                           'editField',

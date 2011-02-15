@@ -136,7 +136,7 @@ sub run
     my $self = shift;
 
     if (not $self->_loggedIn) {
-        $self->{redirect} = "/ebox/Login/Index";
+        $self->{redirect} = "/zentyal/Login/Index";
     }
     else {
         try {

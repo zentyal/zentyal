@@ -76,7 +76,7 @@ sub _table
         'tableName' => 'Users',
         'printableTableName' => __('Users'),
         'defaultController' =>
-            '/ebox/Users/Controller/Users',
+            '/zentyal/Users/Controller/Users',
         'defaultActions' =>
             ['changeView'],
         'tableDescription' => \@tableHead,
@@ -134,7 +134,7 @@ sub preconditionFailMsg
         } elsif ($mode eq 'slave') {
             my $master = $users->model('Mode')->remoteValue();
             return __x('Zentyal is configured as slave and there are no users at the moment. You may want to add some in the {openhref}master{closehref}.',
-                       openhref => "<a href='https://$master/ebox/UsersAndGroups/Users'>",
+                       openhref => "<a href='https://$master/zentyal/UsersAndGroups/Users'>",
                        closehref => '</a>');
         } elsif ($mode eq 'ad-slave') {
             return __('Zentyal is configured as Windows AD slave and there are no users at the moment. If there are users in your Domain Controller, maybe the synchronization process has failed or has not finished yet.');
@@ -173,7 +173,7 @@ sub row
         my $userInfo  = $users->userInfo($id);
         my $userName = $userInfo->{'username'};
         my $full = $userInfo->{'fullname'};
-        my $link = "/ebox/UsersAndGroups/User?username=$userName";
+        my $link = "/zentyal/UsersAndGroups/User?username=$userName";
         my $row = $self->_setValueRow(name => $userName,
                 fullname => $full,
                 'edit' => $link);

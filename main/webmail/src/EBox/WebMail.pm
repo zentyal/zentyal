@@ -344,7 +344,7 @@ sub enableActions
             throw EBox::Exceptions::External(__x('Webmail module needs IMAP or IMAPS service enabled if ' .
                                                  'using Zentyal mail service. You can enable it at ' .
                                                  '{openurl}Mail -> General{closeurl}.',
-                                                 openurl => q{<a href='/ebox/Mail/Composite/General'>},
+                                                 openurl => q{<a href='/zentyal/Mail/Composite/General'>},
                                                  closeurl => q{</a>}));
         }
     }

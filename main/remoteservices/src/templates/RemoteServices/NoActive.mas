@@ -10,7 +10,7 @@ my $text = __x('This feature is only available if you get a Zentyal '
                        . EBox::Config::configkey('ebox_services_www')
                        . '">' . EBox::Config::configkey('ebox_services_www')
                        . '</a>',
-               url2 => '<a href="/ebox/RemoteServices/View/Subscription">'
+               url2 => '<a href="/zentyal/RemoteServices/View/Subscription">'
                        . __('subscription page') . '</a>',
               );
 

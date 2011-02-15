@@ -68,7 +68,7 @@ sub _table
             'tableName'              => __PACKAGE__->name(),
             'printableTableName' => __('List of Advertised Networks'),
             'automaticRemove' => 1,
-            'defaultController' => '/ebox/OpenVPN/Controller/ExposedNetworks',
+            'defaultController' => '/zentyal/OpenVPN/Controller/ExposedNetworks',
             'defaultActions' => ['add', 'del', 'editField',  'changeView' ],
             'tableDescription' => \@tableHead,
             'class' => 'dataTable',

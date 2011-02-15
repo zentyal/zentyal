@@ -71,7 +71,7 @@ sub html
 
 	$html .= "<li id='" . $self->{id} . "' $style $class>\n";
 
-	$html .= qq{<a title="$text" href="/ebox/$url" class="navc" }
+	$html .= qq{<a title="$text" href="/zentyal/$url" class="navc" }
 		 . qq{ target="_parent">$text</a>\n};
 
 	$html .= "</li>\n";

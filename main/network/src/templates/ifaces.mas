@@ -20,7 +20,7 @@ use EBox::NetWrappers qw(:all);
 % if ($externalWarning) {
 <div class='warning'>
  <% __x('You are connecting to Zentyal through this interface. If you set it as external the firewall will lock you out unless you add firewall rules to {openhref}Filtering rules from external networks to Zentyal{closehref} to allow access to the Zentyal administration port, SSH, ...',
-  openhref  => '<a href="/ebox/Firewall/View/ExternalToEBoxRuleTable">',
+  openhref  => '<a href="/zentyal/Firewall/View/ExternalToEBoxRuleTable">',
   closehref => '</a>') %>
 </div>
 % }

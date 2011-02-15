@@ -64,7 +64,7 @@ sub _table
           tableName          => 'DomainFilter',
           printableTableName => __('Domains and URL rules'),
           modelDomain        => 'Squid',
-          'defaultController' => '/ebox/Squid/Controller/DomainFilter',
+          'defaultController' => '/zentyal/Squid/Controller/DomainFilter',
           'defaultActions' =>
               [
               'add', 'del',

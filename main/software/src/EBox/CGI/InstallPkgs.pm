@@ -177,7 +177,7 @@ sub showInstallProgress
         errorNote => __('The packages installation has not finished correctly '
             . '. More information on the logs'),
         reloadInterval  => 2,
-        nextStepUrl => '/ebox/Wizard',
+        nextStepUrl => '/zentyal/Wizard',
         nextStepText => 'Go to save changes',
         nextStepTimeout => 1
     );
@@ -201,7 +201,7 @@ sub showRemoveProgress
         errorNote => __('The packages removal has not finished correctly '
             . '. More information on the logs'),
         reloadInterval  => 2,
-        nextStepUrl => '/ebox/Finish',
+        nextStepUrl => '/zentyal/Finish',
         nextStepText => 'Go to initial configuration wizard',
         nextStepTimeout => 1
     );

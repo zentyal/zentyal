@@ -145,7 +145,7 @@ sub _table
         'tableName'               => __PACKAGE__->nameFromClass(),
         'printableTableName' => __('Server configuration'),
         'automaticRemove' => 1,
-        'defaultController' => '/ebox/OpenVPN/Controller/ServerConfiguration',
+        'defaultController' => '/zentyal/OpenVPN/Controller/ServerConfiguration',
         'defaultActions' => ['add', 'del', 'editField',  'changeView' ],
         'tableDescription' => \@tableHead,
         'class' => 'dataTable',

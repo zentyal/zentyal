@@ -38,7 +38,7 @@ if ( $item->{statusStr} ) {
 <td id='<% $namespace . '_' . $i %>' class='summaryValue'>
 <span title='<% $status_tip_str %>' class='sleft'><% $status_str %></span>
 % if ($item->{enabled} and not $item->{nobutton}) {
-<form action='/ebox/EBox/RestartService'>
+<form action='/zentyal/EBox/RestartService'>
     <input type='hidden' name='module' value='<% $item->{module} %>'/>
     <span class='sright'>
         <input class='inputButtonRestart' type='submit' name='restart' value='<% $restart %>'/>

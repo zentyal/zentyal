@@ -178,7 +178,7 @@ sub _table
     {
         'tableName' => 'MultiGwRulesDataTable',
         'printableTableName' => __('Multigateway rules'),
-        'defaultController' => '/ebox/Network/Controller/MultiGwRulesDataTable',
+        'defaultController' => '/zentyal/Network/Controller/MultiGwRulesDataTable',
         'defaultActions' =>
             [
                 'add', 'del',

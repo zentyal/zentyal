@@ -138,7 +138,7 @@ PerlWarn On
 
 PerlModule EBox::UserCorner::Auth
 PerlSetVar EBoxPath /
-PerlSetVar EBoxLoginScript /ebox/Login/Index
+PerlSetVar EBoxLoginScript /zentyal/Login/Index
 PerlSetVar EBoxSatisfy Any
 PerlSetVar AuthCookieDebug 0
 
@@ -170,15 +170,18 @@ PerlSetVar AuthCookieDebug 0
 
 RewriteEngine On
 
-# From /ebox to /ebox/ and redirect
-RewriteRule ^/ebox$ /ebox/
-# From / to /ebox and redirect
-RewriteRule ^/$ /ebox/
-# Map /ebox/ebox.cgi to the right Perl CGI and redirect
-RewriteRule ^/ebox/ebox.cgi$ /ebox/
+# Compatibility with old URLs
+RewriteRule ^/ebox(.*) /zentyal$1
+
+# From /zentyal to /zentyal/ and redirect
+RewriteRule ^/zentyal$ /zentyal/
+# From / to /zentyal and redirect
+RewriteRule ^/$ /zentyal/
+# Map /zentyal/ebox.cgi to the right Perl CGI and redirect
+RewriteRule ^/zentyal/ebox.cgi$ /zentyal/
 # From /data/ to / and finish
 RewriteRule ^/data(.*) $1 [L]
 # From /dynamic-data/ to the right directory in FS and finish
 RewriteRule ^/dynamic-data(.*) /var/lib/zentyal/dynamicwww$1 [L]
-RewriteRule ^/ebox/(.*) /usr/share/zentyal/cgi/user-ebox.cgi [E=script:$1,L]
+RewriteRule ^/zentyal/(.*) /usr/share/zentyal/cgi/user-ebox.cgi [E=script:$1,L]
 

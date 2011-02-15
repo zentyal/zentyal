@@ -93,7 +93,6 @@ src/templates/input/Makefile
 src/templates/input/t/Makefile
 src/templates/logout/Makefile
 src/templates/logs/Makefile
-src/templates/ebox/Makefile
 src/templates/js/Makefile
 src/templates/report/Makefile
 src/templates/t/Makefile

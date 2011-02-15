@@ -105,7 +105,7 @@ sub _table
         'printableTableName' => __('Download Client Bundle'),
         'printableActionName' => __('Download'),
         'automaticRemove' => 1,
-        'defaultController' => '/ebox/OpenVPN/Controller/DownloadClientBundle',
+        'defaultController' => '/zentyal/OpenVPN/Controller/DownloadClientBundle',
         'defaultActions' => ['add', 'del', 'editField',  'changeView' ],
         'tableDescription' => \@tableHead,
         'class' => 'dataTable',

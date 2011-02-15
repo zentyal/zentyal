@@ -76,7 +76,7 @@ sub _table
         'tableName' => 'PendingSync',
         'printableTableName' => __('List of pending operations on slaves'),
         'defaultController' =>
-            '/ebox/Users/Controller/PendingSync',
+            '/zentyal/Users/Controller/PendingSync',
         'defaultActions' =>
             ['changeView'],
         'tableDescription' => \@tableHead,

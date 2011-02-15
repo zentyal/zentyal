@@ -24,7 +24,7 @@ use EBox::Gettext;
 use Apache2::RequestUtil;
 
 use Readonly;
-Readonly::Scalar my $DEFAULT_DESTINATION => '/ebox/Dashboard/Index';
+Readonly::Scalar my $DEFAULT_DESTINATION => '/zentyal/Dashboard/Index';
 
 sub new # (error=?, msg=?, cgi=?)
 {

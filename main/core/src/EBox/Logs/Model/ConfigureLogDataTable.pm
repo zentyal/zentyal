@@ -297,10 +297,10 @@ sub acquireEventConfURL
     };
 
     if ( $logFilteringWatcher ) {
-        return '/ebox/' . $logFilteringWatcher->menuNamespace()
+        return '/zentyal/' . $logFilteringWatcher->menuNamespace()
           . "?directory=$filterDirectory";
     } else {
-        return '/ebox/';
+        return '/zentyal/';
     }
 
 }
@@ -362,7 +362,7 @@ sub _table
             'tableName' => 'ConfigureLogTable',
             'printableTableName' => __('Current configuration'),
             'pageTitle' => __('Logs configuration'),
-            'defaultController' => '/ebox/Logs/Controller/ConfigureLogTable',
+            'defaultController' => '/zentyal/Logs/Controller/ConfigureLogTable',
             'defaultActions' => [ 'editField', 'changeView' ],
             'tableDescription' => \@tableHead,
             'class' => 'dataTable',

@@ -17,7 +17,7 @@ use EBox::Gettext;
 
 <%def .noVdomains>
 <%init>
-my $vdomainUrl = '/ebox/Mail/View/VDomains';
+my $vdomainUrl = '/zentyal/Mail/View/VDomains';
 </%init>
 <h3><% __('Mail account') %></h3>
 <div class='warning'>

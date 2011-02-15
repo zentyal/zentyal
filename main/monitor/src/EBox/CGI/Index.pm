@@ -68,7 +68,7 @@ sub masonParameters
         $self->setTemplate('/msg.mas');
         return [ msg => __x('You must enable monitor module to see monitor graphs '
                             . 'in {openhref}Module Status{closehref} section.',
-                            openhref  => qq{<a href="/ebox/ServiceModule/StatusView">},
+                            openhref  => qq{<a href="/zentyal/ServiceModule/StatusView">},
                             closehref => qq{</a>}),
                  class => 'note' ];
     }
@@ -96,14 +96,14 @@ sub masonParameters
             return [
                     msg => __x('You must save the changes in module status to see monitor graphs '
  . 'in the {openhref}Save changes{closehref} section. In case it is already enabled you must wait for a few seconds to collect the first monitor data',
-                            openhref  => qq{<a href="/ebox/Finish"><em>},
+                            openhref  => qq{<a href="/zentyal/Finish"><em>},
                             closehref => qq{</em></a>}),
                     class => 'note' ];
         }
 
 
     return [
-        URL           => '/ebox/Monitor/DisplayGraphs',
+        URL           => '/zentyal/Monitor/DisplayGraphs',
         periods       => EBox::Monitor::Configuration::TimePeriods(),
         initialGraphs => $measuredData,
         tabName       => 'timePeriods',

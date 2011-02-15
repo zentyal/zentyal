@@ -85,7 +85,7 @@ sub preconditionFailMsg
                    . 'and an external interface. Check your interface '
                    . 'configuration to match, at '
                    . '{openhref}Network->Interfaces{closehref}',
-                   openhref  => '<a href="/ebox/Network/Ifaces">',
+                   openhref  => '<a href="/zentyal/Network/Ifaces">',
                    closehref => '</a>');
     } else {
         # The cause are the configured gateways
@@ -95,7 +95,7 @@ sub preconditionFailMsg
                    . 'so, create a gateway at '
                    . '{openhref}Network->Gateways{closehref} '
                    . 'setting as interface an external one.',
-                   openhref => '<a href="/ebox/Network/View/GatewayTable">',
+                   openhref => '<a href="/zentyal/Network/View/GatewayTable">',
                    closehref => '</a>')
     }
 

@@ -65,7 +65,7 @@ sub _table
         'tableName' =>__PACKAGE__->tableName(),
         'printableTableName' => __('Alert details'),
         'defaultActions' => [ 'changeView', 'editField' ],
-        'defaultController' => '/ebox/IDS/Controller/AlertReport',
+        'defaultController' => '/zentyal/IDS/Controller/AlertReport',
         'tableDescription' => $tableHead,
         'class' => 'dataTable',
         'order' => 0,

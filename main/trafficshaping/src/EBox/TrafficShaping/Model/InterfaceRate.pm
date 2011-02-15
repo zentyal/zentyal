@@ -122,7 +122,7 @@ sub _table
             printableTableName => __('External Interface Rates'),
             pageTitle => __('External Interface Rates'),
             defaultController =>
-                '/ebox/TrafficShaping/Controller/InterfaceRate',
+                '/zentyal/TrafficShaping/Controller/InterfaceRate',
             defaultActions => [ 'editField', 'changeView' ],
             tableDescription => \@tableHead,
             menuNamespace => 'TrafficShaping/View/InterfaceRate',

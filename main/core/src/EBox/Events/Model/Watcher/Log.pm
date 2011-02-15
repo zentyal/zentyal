@@ -266,7 +266,7 @@ sub _table
                                   fieldName     => 'filters',
                                   printableName => __('Filtering'),
                                   foreignModelAcquirer => \&acquireFilteringModel,
-                                  backview      => '/ebox/Events/View/LogWatcherConfiguration?directory=Log',
+                                  backview      => '/zentyal/Events/View/LogWatcherConfiguration?directory=Log',
                                  ),
        );
 
@@ -383,7 +383,7 @@ sub viewCustomizer
         $custom->setHTMLTitle([
                 {
                 title => __('Events'),
-                link  => '/ebox/Events/Composite/GeneralComposite',
+                link  => '/zentyal/Events/Composite/GeneralComposite',
                 },
                 {
                 title => __('Log Observer Watcher'),

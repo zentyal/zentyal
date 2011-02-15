@@ -120,7 +120,7 @@ sub _table
         printableTableName => __('External mail accounts'),
         printableRowName    => __('external mail account'),
 #                         'defaultController' =>
-#             '/ebox/Mail/Controller/ExternalAccounts',
+#             '/zentyal/Mail/Controller/ExternalAccounts',
         defaultActions     => ['add', 'editField', 'del', 'changeView' ],
         tableDescription   => \@tableHeader,
         class              => 'dataTable',

@@ -160,7 +160,7 @@ sub _table
                 'tableName' => 'ServiceConfigurationTable',
                 'printableTableName' => __('Service configuration'),
                 'defaultController' =>
-                        '/ebox/Services/Controller/ServiceConfigurationTable',
+                        '/zentyal/Services/Controller/ServiceConfigurationTable',
                 'defaultActions' =>
                         [	'add', 'del', 'move',  'editField', 'changeView' ],
                 'tableDescription' => \@tableHead,

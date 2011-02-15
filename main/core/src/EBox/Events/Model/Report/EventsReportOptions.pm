@@ -48,7 +48,7 @@ sub modelDomain
 
 sub reportUrl
 {
-    return '/ebox/Events/Composite/EventsReport';
+    return '/zentyal/Events/Composite/EventsReport';
 }
 
 

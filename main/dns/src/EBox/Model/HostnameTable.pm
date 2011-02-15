@@ -202,9 +202,9 @@ sub _table
                                 'fieldName' => 'alias',
                                 'printableName' => __('Alias'),
                                 'foreignModel' => 'AliasTable',
-                                'view' => '/ebox/DNS/View/AliasTable',
+                                'view' => '/zentyal/DNS/View/AliasTable',
 
-                                'backView' => '/ebox/DNS/View/AliasTable',
+                                'backView' => '/zentyal/DNS/View/AliasTable',
                                 'size' => '1',
                              )
           );
@@ -214,7 +214,7 @@ sub _table
             'tableName' => 'HostnameTable',
             'printableTableName' => __('Host names'),
             'automaticRemove' => 1,
-            'defaultController' => '/ebox/Dns/Controller/HostnameTable',
+            'defaultController' => '/zentyal/Dns/Controller/HostnameTable',
             'HTTPUrlView'       => 'DNS/View/HostnameTable',
             'defaultActions' => ['add', 'del', 'editField',  'changeView' ],
             'tableDescription' => \@tableHead,

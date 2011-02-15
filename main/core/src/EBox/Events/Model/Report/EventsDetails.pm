@@ -101,7 +101,7 @@ sub _table
             'printableTableName' => __('Events details'),
             'defaultActions' => [ 'changeView', 'editField' ],
         'defaultController' =>
-         '/ebox/Events/Controller/EventsReport',
+         '/zentyal/Events/Controller/EventsReport',
             'tableDescription' => $tableHead,
             'class' => 'dataTable',
             'order' => 0,

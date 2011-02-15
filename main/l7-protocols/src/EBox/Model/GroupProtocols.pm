@@ -75,7 +75,7 @@ sub _table
         'automaticRemove' => 1,
         'printableTableName' => __('Layer 7 grouped protocols'),
         'defaultController' =>
-            '/ebox/L7-Protocols/Controller/GroupProtocols',
+            '/zentyal/L7-Protocols/Controller/GroupProtocols',
         'defaultActions' =>
             ['add', 'del', 'editField', 'changeView' ],
         'tableDescription' => \@tableHead,

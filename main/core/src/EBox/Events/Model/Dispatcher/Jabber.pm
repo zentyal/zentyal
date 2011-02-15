@@ -140,7 +140,7 @@ sub formSubmitted
 #                            description     => __x('To be updated at {href}' .
 #                                                   'Jabber dispatcher configuration' .
 #                                                   '{endHref}',
-#                                                  href => '<a href="/ebox/' . $self->menuNamespace()
+#                                                  href => '<a href="/zentyal/' . $self->menuNamespace()
 #                                                   . '?directory=' . $self->directory() . '">',
 #                                                  endHref => '</a>'),
 #                           );
@@ -270,7 +270,7 @@ sub viewCustomizer
         $custom->setHTMLTitle([
                 {
                 title => __('Events'),
-                link  => '/ebox/Events/Composite/GeneralComposite#ConfigureDispatcherDataTable',
+                link  => '/zentyal/Events/Composite/GeneralComposite#ConfigureDispatcherDataTable',
                 },
                 {
                 title => __('Jabber Dispatcher'),

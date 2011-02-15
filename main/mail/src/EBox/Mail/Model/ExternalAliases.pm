@@ -74,7 +74,7 @@ sub _table
                         'tableName' => 'ExternalAliases',
                         'printableTableName' => __('External Aliases'),
                         'defaultController' =>
-            '/ebox/Mail/Controller/ExternalAliases',
+            '/zentyal/Mail/Controller/ExternalAliases',
                         'defaultActions' =>
                                 ['add', 'del', 'changeView'],
                         'tableDescription' => \@tableHead,

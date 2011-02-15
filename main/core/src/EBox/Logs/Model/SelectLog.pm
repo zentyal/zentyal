@@ -172,7 +172,7 @@ sub _table
             'tableName' => 'SelectLog',
 #            'printableTableName' => undef,
             'pageTitle' => __('Select report'),
-            'defaultController' => '/ebox/Logs/Controller/SelectLog',
+            'defaultController' => '/zentyal/Logs/Controller/SelectLog',
             'defaultActions' => [ 'editField', 'changeView' ],
             'tableDescription' => \@tableHead,
             'class' => 'dataTable',

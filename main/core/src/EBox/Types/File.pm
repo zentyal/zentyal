@@ -327,7 +327,7 @@ sub linkToDownload
     }
 
 
-    my $link = '/ebox/Controller/Downloader/FromModel?';
+    my $link = '/zentyal/Controller/Downloader/FromModel?';
     $link .= 'model=';
     $link .= "/$modelDomain" if ($modelDomain);
     $link .= "/$modelName" if ($modelName);

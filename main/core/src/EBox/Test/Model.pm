@@ -182,7 +182,7 @@ sub _table
                                'size' => '1',
                                'optional' => 1,
                                'volatile' => 1,
-                               'acquirer' => sub { return '/ebox/Summary/Index' },
+                               'acquirer' => sub { return '/zentyal/Summary/Index' },
                               ),
          new EBox::Types::Password(
                                    'fieldName' => 'compulsory_password',
@@ -283,8 +283,8 @@ sub _table
                                   'fieldName'     => 'member',
                                   'printableName' => 'Members',
                                   'foreignModel'  => 'MemberTable',
-                                  'view'          => '/ebox/Objects/View/MemberTable',
-                                  'backView'      => '/ebox/Test/View/TestTable',
+                                  'view'          => '/zentyal/Objects/View/MemberTable',
+                                  'backView'      => '/zentyal/Test/View/TestTable',
                                   'size'          => 1,
                                  ),
          new EBox::Types::Service(
@@ -299,7 +299,7 @@ sub _table
         {
             'tableName' => 'TestTable',
             'printableTableName' => 'Test model',
-	    'defaultController' => '/ebox/Test/Controller/TestTable',
+	    'defaultController' => '/zentyal/Test/Controller/TestTable',
             'defaultActions' => [ 'add', 'del', 'editField', 'changeView' ],
             'tableDescription' => \@tableHead,
             'modelDomain' => 'Logs',

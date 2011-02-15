@@ -16,7 +16,7 @@
 %       }
 
     <table class='formTable'>
-    <form action='/ebox/Asterisk/AsteriskGroupOptions' method='POST'>
+    <form action='/zentyal/Asterisk/AsteriskGroupOptions' method='POST'>
         <input type="hidden" name="group" value="<% $params->{group} %>">
         <tr>
         <td class="tright">

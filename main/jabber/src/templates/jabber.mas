@@ -9,7 +9,7 @@
     <& .jabberDisabledWarning, $params &>
 
     <table class="formTable">
-    <form action="/ebox/Jabber/JabberUserOptions" method="post">
+    <form action="/zentyal/Jabber/JabberUserOptions" method="post">
         <input type="hidden" name="username" value="<% $params->{'username'} %>">
     <tr>
     <td class="tright">

@@ -93,7 +93,7 @@ showModuleWidgets = function(module,start) {
                         if(e.clientY > 100) {
                             if(!this.loaded) {
                                 new Ajax.Updater(d.element.id,
-                                        '/ebox/Dashboard/Widget?module=' +
+                                        '/zentyal/Dashboard/Widget?module=' +
                                         d.module + '&widget=' + d.widget, {
                                     method: 'get',
                                     onComplete: function() {
@@ -138,7 +138,7 @@ showModuleWidgets = function(module,start) {
                     containment: widget_name_list,
                     onUpdate: function(dashboard) {
                         var id = dashboard.id;
-                        new Ajax.Request("/ebox/Dashboard/Update", {
+                        new Ajax.Request("/zentyal/Dashboard/Update", {
                             method: "post",
                             parameters: { dashboard: id, widgets: Sortable.sequence(id).join(',') }
                         });

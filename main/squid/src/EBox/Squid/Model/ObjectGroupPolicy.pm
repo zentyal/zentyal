@@ -74,7 +74,7 @@ sub _table
 #      pageTitle          => __(q{Configure object's user groups policies}),
       printableTableName => __('List of groups'),
       modelDomain        => 'Squid',
-      'defaultController' => '/ebox/Squid/Controller/ObjectGroupPolicy',
+      'defaultController' => '/zentyal/Squid/Controller/ObjectGroupPolicy',
       'defaultActions' => [
           'add', 'del',
       'editField',

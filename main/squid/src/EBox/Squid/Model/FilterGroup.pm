@@ -96,7 +96,7 @@ sub _table
         pageTitle         => __('Filter profiles'),
         printableTableName => __('List of profiles'),
         modelDomain        => 'Squid',
-        'defaultController' => '/ebox/Squid/Controller/FilterGroup',
+        'defaultController' => '/zentyal/Squid/Controller/FilterGroup',
         'defaultActions' => [ 'add', 'del', 'editField', 'changeView' ],
         tableDescription   => $self->tableHeader(),
         class              => 'dataTable',
@@ -129,8 +129,8 @@ sub tableHeader
                 foreignModel => 'squid/FilterGroupSettings',
                 foreignModelIsComposite => 1,
 
-                'view' => '/ebox/Squid/Composite/FilterGroupSettings',
-                'backView' => '/ebox/Squid/View/FilterGroup',
+                'view' => '/zentyal/Squid/Composite/FilterGroupSettings',
+                'backView' => '/zentyal/Squid/View/FilterGroup',
                 ),
             );
 
@@ -171,8 +171,8 @@ sub _initDefaultRow
                                  foreignModel => 'squid/FilterSettings',
                                  foreignModelIsComposite => 1,
 
-                                 'view' => '/ebox/Squid/Composite/FilterSettings',
-                                 'backView' => '/ebox/squid/View/FilterGroup',
+                                 'view' => '/zentyal/Squid/Composite/FilterSettings',
+                                 'backView' => '/zentyal/squid/View/FilterGroup',
                                 );
 
     $defaultRow->addElement($nameElement);

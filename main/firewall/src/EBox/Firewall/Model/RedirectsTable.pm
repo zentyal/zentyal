@@ -359,7 +359,7 @@ sub _table
         'pageTitle' => __('Port Forwarding'),
         'automaticRemove' => 1,
         'defaultController' =>
-            '/ebox/Firewall/Controller/RedirectsTable',
+            '/zentyal/Firewall/Controller/RedirectsTable',
         'defaultActions' =>
             [ 'add', 'del', 'editField', 'changeView' ],
         'tableDescription' => $self->_fieldDescription('source' => 1),

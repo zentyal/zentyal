@@ -75,7 +75,7 @@ sub _table
         'tableName' => 'Groups',
         'printableTableName' => __('Groups'),
         'defaultController' =>
-            '/ebox/Users/Controller/Groups',
+            '/zentyal/Users/Controller/Groups',
         'defaultActions' =>
             ['changeView'],
         'tableDescription' => \@tableHead,
@@ -136,7 +136,7 @@ sub preconditionFailMsg
         } elsif ($mode eq 'slave') {
             my $master = $users->model('Mode')->remoteValue();
             return __x('Zentyal is configured as slave and there are no groups at the moment. You may want to add some in the {openhref}master{closehref}.',
-                       openhref => "<a href='https://$master/ebox/UsersAndGroups/Groups'>",
+                       openhref => "<a href='https://$master/zentyal/UsersAndGroups/Groups'>",
                        closehref => '</a>');
         } elsif ($mode eq 'ad-slave') {
             return __('Zentyal is configured as Windows AD slave and there are no groups at the moment. If there are groups in your Domain Controller, maybe the synchronization process has failed or has not finished yet.');
@@ -174,7 +174,7 @@ sub row
     my $gidName = $users->gidGroup($id);
     my $groupInfo  = $users->groupInfo($gidName);
     my $desc = $groupInfo->{comment};
-    my $link = "/ebox/UsersAndGroups/Group?group=$gidName";
+    my $link = "/zentyal/UsersAndGroups/Group?group=$gidName";
     my $row = $self->_setValueRow(name => $gidName,
             description => defined($desc) ? $desc : '-',
             edit => $link);

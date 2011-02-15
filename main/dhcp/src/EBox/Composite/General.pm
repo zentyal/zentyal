@@ -79,7 +79,7 @@ sub preconditionFailMsg
                . 'to configure the DHCP service on it. To '
                . 'do so, change {openhref}interfaces '
                . 'configuration{closehref} in network module',
-              openhref  => '<a href="/ebox/Network/Ifaces">',
+              openhref  => '<a href="/zentyal/Network/Ifaces">',
               closehref => '</a>');
 }
 

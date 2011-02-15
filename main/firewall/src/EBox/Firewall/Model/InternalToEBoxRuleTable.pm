@@ -63,7 +63,7 @@ sub _table
           __('Internal networks to Zentyal'),
         'automaticRemove' => 1,
         'defaultController' =>
-            '/ebox/Firewall/Controller/InternalToEBoxRuleTable',
+            '/zentyal/Firewall/Controller/InternalToEBoxRuleTable',
         'defaultActions' =>
             [ 'add', 'del', 'move',  'editField', 'changeView' ],
         'tableDescription' => $self->_fieldDescription('source' => 1),

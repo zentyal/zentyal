@@ -106,7 +106,7 @@ sub _table
      tableName          => __PACKAGE__->nameFromClass,
      printableTableName => __(q{Relay policy for network objects}),
      modelDomain        => 'Mail',
-     'defaultController' => '/ebox/Mail/Controller/ObjectPolicy',
+     'defaultController' => '/zentyal/Mail/Controller/ObjectPolicy',
      'defaultActions' => [
                           'add', 'del',
                           'editField',
@@ -219,7 +219,7 @@ sub preconditionFailMsg
 {
     return __x(
 'There are not network objects in the system. You can create them in the {openurl}Object\'s page{closeurl}',
-openurl => q{<a href='/ebox/Objects/View/ObjectTable'>},
+openurl => q{<a href='/zentyal/Objects/View/ObjectTable'>},
 closeurl => q{</a>},
 
        )

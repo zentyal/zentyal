@@ -82,7 +82,7 @@ sub _table
           tableName          => 'DomainFilterFiles',
           printableTableName => __('Domains lists files'),
           modelDomain        => 'Squid',
-          'defaultController' => '/ebox/Squid/Controller/DomainFilterFiles',
+          'defaultController' => '/zentyal/Squid/Controller/DomainFilterFiles',
           'defaultActions' =>
               [
               'add', 'del',
@@ -123,13 +123,13 @@ sub categoryForeignModel
 
 sub categoryForeignModelView
 {
-    return '/ebox/Squid/View/DomainFilterCategories';
+    return '/zentyal/Squid/View/DomainFilterCategories';
 }
 
 
 sub categoryBackView
 {
-    return '/ebox/Squid/Composite/FilterSettings';
+    return '/zentyal/Squid/Composite/FilterSettings';
 }
 
 

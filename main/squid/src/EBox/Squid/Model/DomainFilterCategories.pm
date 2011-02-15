@@ -61,7 +61,7 @@ sub _table
           tableName          => 'DomainFilterCategories',
           printableTableName => __('Domains list categories'),
           modelDomain        => 'Squid',
-          'defaultController' => '/ebox/Squid/Controller/DomainFilterCategories',
+          'defaultController' => '/zentyal/Squid/Controller/DomainFilterCategories',
           'defaultActions' =>
               [
               'editField',
@@ -109,11 +109,11 @@ sub viewCustomizer
         $custom->setHTMLTitle([
                 {
                 title => __('Filter Profiles'),
-                link  => '/ebox/Squid/View/FilterGroup',
+                link  => '/zentyal/Squid/View/FilterGroup',
                 },
                 {
                 title => 'default',
-                link => '/ebox/Squid/Composite/FilterSettings?directory=FilterGroup/defaultFilterGroup/filterPolicy#Domains'
+                link => '/zentyal/Squid/Composite/FilterSettings?directory=FilterGroup/defaultFilterGroup/filterPolicy#Domains'
                 },
                 {
                 title => $self->parentRow()->valueByName('description'),

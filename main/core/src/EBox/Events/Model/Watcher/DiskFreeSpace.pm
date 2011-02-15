@@ -134,7 +134,7 @@ sub viewCustomizer
         $custom->setHTMLTitle([
                 {
                 title => __('Events'),
-                link  => '/ebox/Events/Composite/GeneralComposite',
+                link  => '/zentyal/Events/Composite/GeneralComposite',
                 },
                 {
                 title => __('Free Disk Space Watcher'),

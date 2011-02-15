@@ -48,7 +48,7 @@ sub modelDomain
 
 sub reportUrl
 {
-    return '/ebox/Mail/Composite/TrafficReport';
+    return '/zentyal/Mail/Composite/TrafficReport';
 }
 
 

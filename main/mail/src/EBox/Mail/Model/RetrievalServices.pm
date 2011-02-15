@@ -174,7 +174,7 @@ sub validateTypedRow
         if (defined $serviceConflict) {
             throw EBox::Exceptions::External(__x('To enable {service} mail retrieval service you must disable {service} gateway for Zarafa. You can do it at {ohref}Zarafa gateways configuration settings{chref}.',
             service => $serviceConflict,
-            ohref => q{<a href='/ebox/Zarafa/Composite/General/'>},
+            ohref => q{<a href='/zentyal/Zarafa/Composite/General/'>},
             chref => q{</a>}));
         }
     }

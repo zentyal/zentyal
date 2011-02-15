@@ -48,7 +48,7 @@ sub modelDomain
 
 sub reportUrl
 {
-    return '/ebox/Firewall/Composite/PacketTrafficReport';
+    return '/zentyal/Firewall/Composite/PacketTrafficReport';
 }
 
 

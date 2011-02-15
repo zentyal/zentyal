@@ -94,7 +94,7 @@ sub validateTypedRow
     if (defined $serviceConflict) {
         throw EBox::Exceptions::External(__x('To enable Zarafa {service} gateway you must disable {service} mail retrieval service. You can do it at {ohref}Mail General Configuration{chref}.',
 service => $serviceConflict,
-ohref => q{<a href='/ebox/Mail/Composite/General/'>},
+ohref => q{<a href='/zentyal/Mail/Composite/General/'>},
 chref => q{</a>}));
     }
 }
@@ -127,7 +127,7 @@ sub preconditionFailMsg
 
     return __x(
 'To enable Zarafa POP3 and IMAP gateways you need at least one virtual domain. You can do it at {ohref}Virtual Mail Domains{chref}.',
-ohref => q{<a href='/ebox/Mail/View/VDomains/'>},
+ohref => q{<a href='/zentyal/Mail/View/VDomains/'>},
 chref => q{</a>},
         );
 }

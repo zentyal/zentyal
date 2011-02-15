@@ -145,8 +145,8 @@ __( 'Every time that a email moved into or out of the IMAP spam folder ' .
                                       'fieldName' => 'acl',
                                       'printableName' => __('Antispam sender policy'),
                                       'foreignModel' => 'AntispamVDomainACL',
-                                      'view' => '/ebox/MailFilter/View/AntispamVDomainACL',
-                                      'backView' => '/ebox/MailFilter/View/VDomain',
+                                      'view' => '/zentyal/MailFilter/View/AntispamVDomainACL',
+                                      'backView' => '/zentyal/MailFilter/View/VDomain',
                                       'editable'  => 1,
                             ),
     );
@@ -156,7 +156,7 @@ __( 'Every time that a email moved into or out of the IMAP spam folder ' .
      tableName          => __PACKAGE__->nameFromClass,
      printableTableName => __(q{Virtual Domains}),
      modelDomain        => 'mail',
-     'defaultController' => '/ebox/MailFilter/Controller/VDomains',
+     'defaultController' => '/zentyal/MailFilter/Controller/VDomains',
      'defaultActions' => [
                           'add', 'del',
                           'editField',
@@ -184,7 +184,7 @@ sub preconditionFailMsg
 {
     return __x(
 'There are no virtual mail domains managed by this server. You can create some in the {openA}virtual domains mail page{closeA}.',
-               openA  => q{<a href='/ebox/Mail/View/VDomains'>},
+               openA  => q{<a href='/zentyal/Mail/View/VDomains'>},
                closeA => q{</a>},
 
    );

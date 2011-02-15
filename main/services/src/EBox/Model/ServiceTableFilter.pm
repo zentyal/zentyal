@@ -111,7 +111,7 @@ sub _table
     $table->{'tableDescription'} = \@header;
 
     $table->{'defaultController'} =
-        '/ebox/Services/Controller/ServiceTableFilter';
+        '/zentyal/Services/Controller/ServiceTableFilter';
     return $table;
 }
 

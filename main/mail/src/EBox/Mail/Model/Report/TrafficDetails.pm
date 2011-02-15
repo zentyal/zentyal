@@ -91,7 +91,7 @@ sub _table
             'printableTableName' => __('Mail traffic details'),
             'defaultActions' => [ 'changeView', 'editField' ],
         'defaultController' =>
-         '/ebox/Mail/Controller/MailReport',
+         '/zentyal/Mail/Controller/MailReport',
             'tableDescription' => $tableHead,
             'class' => 'dataTable',
             'order' => 0,

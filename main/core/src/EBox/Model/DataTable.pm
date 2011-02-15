@@ -2592,7 +2592,7 @@ sub HTTPLink
 {
     my ($self) = @_;
 
-    my $link = '/ebox/' . $self->_HTTPUrlView();
+    my $link = '/zentyal/' . $self->_HTTPUrlView();
     my $parentRow = $self->parentRow();
     if ($parentRow) {
         $link .= '?directory=' . $self->directory();
@@ -3692,7 +3692,7 @@ sub _setControllers
     if ( (not defined ( $defAction )) and defined ( $self->modelDomain() )) {
         # If it is not a defaultController, we try to guess it from
         # the model domain and its name
-        $defAction = '/ebox/' . $self->modelDomain() . '/Controller/' .
+        $defAction = '/zentyal/' . $self->modelDomain() . '/Controller/' .
             $self->{'table'}->{'tableName'};
         if ( $self->index() ne '' ) {
             $defAction .= '/' . $self->index();
@@ -4273,7 +4273,7 @@ sub _autoloadActionSubModel # (action, methodName, paramsRef)
 # Parameters:
 #
 #   redirect - URL containing the redirect, should be something like:
-#              /ebox/Controller/Foo
+#              /zentyal/Controller/Foo
 sub pushRedirection
 {
     my ($self, $redirect) = @_;
@@ -4288,7 +4288,7 @@ sub pushRedirection
 # Returns:
 #
 #   redirect - URL containing the redirect, should be something like:
-#              /ebox/Controller/Foo
+#              /zentyal/Controller/Foo
 sub popRedirection
 {
     my ($self) = @_;

@@ -261,7 +261,7 @@ sub _header
     }
 
 
-    my $destination = "/ebox/Logs/Index?";
+    my $destination = "/zentyal/Logs/Index?";
 
     my %params = %{ $self->paramsAsHash() };
     $params{refresh} = 1; # to assure the refresh parameter is active
@@ -323,10 +323,10 @@ sub _process
 
     $self->{crumbs} = [
         {title => __('Query Logs'),
-            link => '/ebox/Logs/View/SelectLog'
+            link => '/zentyal/Logs/View/SelectLog'
         },
         {title => __('Full Reports'),
-            link => "/ebox/Logs/Index?selected=$selected&refresh=1"
+            link => "/zentyal/Logs/Index?selected=$selected&refresh=1"
         },
     ];
 

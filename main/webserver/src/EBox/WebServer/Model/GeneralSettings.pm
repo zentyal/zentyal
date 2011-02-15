@@ -111,7 +111,7 @@ sub validateTypedRow
         }
         if ($apache->port() eq $portNumberSSL) {
             throw EBox::Exceptions::External(
-                    __x('Zentyal Administration is running on this port, change it on {ohref}System -> General{chref}.', ohref => '<a href="/ebox/EBox/General">', chref => '</a>')
+                    __x('Zentyal Administration is running on this port, change it on {ohref}System -> General{chref}.', ohref => '<a href="/zentyal/EBox/General">', chref => '</a>')
                     );
         }
         unless ($firewall->availablePort('tcp', $portNumberSSL)) {
@@ -124,7 +124,7 @@ sub validateTypedRow
         my $certificates = $ca->model('Certificates');
         unless ($certificates->isEnabledService('Web Server')) {
             throw EBox::Exceptions::External(
-                    __x('You need a Service Certificate for the Web Server module, enable it on {ohref}Certification Authority -> Service Certificates{chref}.', ohref => '<a href="/ebox/CA/View/Certificates">', chref => '</a>')
+                    __x('You need a Service Certificate for the Web Server module, enable it on {ohref}Certification Authority -> Service Certificates{chref}.', ohref => '<a href="/zentyal/CA/View/Certificates">', chref => '</a>')
                     );
         }
         $certificates->updateCN('Web Server', $self->parentModule()->_fqdn());

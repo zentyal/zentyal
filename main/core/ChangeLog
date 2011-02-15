@@ -1,4 +1,5 @@
 HEAD
+	+ All CGI urls renamed from /ebox to /zentyal
 	+ New first() and deleteFirst() methods in EBox::Global to check
 	  existence and delete the /var/lib/zentyal/.first file
 	+ PO files are now included in the language-pack-zentyal-* packages

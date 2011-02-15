@@ -73,7 +73,7 @@ function filterMenu(event) {
             var text = element.value;
             text = text.toLowerCase();
             if(text.length >= 3) {
-                var url = '/ebox/Menu?search=' + text;
+                var url = '/zentyal/Menu?search=' + text;
                 new Ajax.Request(url, {
                       method: 'get',
                         onSuccess: function(transport) {

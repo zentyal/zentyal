@@ -51,7 +51,7 @@ sub _table
     {
         'tableName' => 'MultiGwRulesOptions',
         'printableTableName' => __('Traffic balancing'),
-        'defaultController' => '/ebox/Network/Controller/MultiGwRulesOptions',
+        'defaultController' => '/zentyal/Network/Controller/MultiGwRulesOptions',
         'defaultActions' =>
             [
                 'editField', 'changeView'
@@ -62,7 +62,7 @@ sub _table
         'enableProperty' => 0,
         'defaultEnabledValue' => 1,
         help => __x('By enabling this feature, your traffic will be balanced amongst your gateways. That is, every new connection will be sent by a different gateway. You can choose which proportion of traffic goes through each gateway using the weight parameter of the gateway. You can change that value {openref}here{closeref}.{br}If you want to explicitily route traffic by a certain gateway, use the multigateway rules below',
-                                openref => '<a href="/ebox/Network/View/GatewayTable">',
+                                openref => '<a href="/zentyal/Network/View/GatewayTable">',
                                 closeref => '</a>', br => '<br>'),
         'rowUnique' => 0,
         'printableRowName' => __('rule'),

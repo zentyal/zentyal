@@ -78,7 +78,7 @@ sub _table
             'printableTableName' => __('Packet traffic details'),
             'defaultActions' => [ 'changeView', 'editField' ],
         'defaultController' =>
-         '/ebox/Firewall/Controller/PacketTrafficReport',
+         '/zentyal/Firewall/Controller/PacketTrafficReport',
             'tableDescription' => $tableHead,
             'class' => 'dataTable',
             'order' => 0,

@@ -211,7 +211,7 @@ sub viewCustomizer
         $custom->setHTMLTitle([
                 {
                 title => __d('Packet Filter', 'ebox-firewall'),
-                link  => '/ebox/Firewall/Filter',
+                link  => '/zentyal/Firewall/Filter',
                 },
                 {
                 title => $self->printableName(),

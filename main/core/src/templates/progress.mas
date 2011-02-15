@@ -10,10 +10,10 @@ $currentItemCaption => undef
 $itemsLeftMessage   => undef
 $endNote            => undef
 $errorNote          => undef
-$currentItemUrl => '/ebox/EBox/CurrentProgress'
+$currentItemUrl => '/zentyal/EBox/CurrentProgress'
 $reloadInterval  => 2
 $adsJson => '""'
-$nextStepUrl => '/ebox/Dashboard/Index'
+$nextStepUrl => '/zentyal/Dashboard/Index'
 $nextStepText => 'Click here to return to the Dashboard'
 $nextStepTimeout => 0
 </%args>

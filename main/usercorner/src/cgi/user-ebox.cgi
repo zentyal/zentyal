@@ -49,7 +49,7 @@ try {
             }),
        -onload => 'document.getElementById("details").hide();document.getElementById("report").hide()'
     );
-    print '<div id="top"></div><div id="header"><a href="/ebox"><img src="/data/images/title.png" alt="title"/></a></div>';
+    print '<div id="top"></div><div id="header"><a href="/zentyal"><img src="/data/images/title.png" alt="title"/></a></div>';
     print '<div id="menu"><ul id="nav"><li id=""><div class="separator">' . __('Actions').'</div></li>';
     print '<li id="menu_0"><a href="#" class="nvac" onclick="document.getElementById(\'details\').show()">' . __('Show technical details').'</a></li>';
     print '<li id="menu_1"><a href="#" class="nvac" onclick="document.getElementById(\'report\').show(); document.getElementById(\'details\').hide()">' . __('Report this problem') . '</a></li>';
@@ -70,9 +70,9 @@ try {
     print '</div><br/></div><div id="report"><div><b>' . __('How to report this problem') . '</b></div><br><div><ol>';
     if ($backupReport) {
         print '<li>' . __('Download the log file with additional information by clicking') . ' <a class="nvac" href="/Log" id="log">' . __('here') . '</a>.</li>';
-        print '<script>document.getElementById(\'log\').href="https://"+document.domain+"/ebox/EBox/Log"; </script>';
+        print '<script>document.getElementById(\'log\').href="https://"+document.domain+"/zentyal/EBox/Log"; </script>';
     } else {
-        print '<li>' . __('Download a configuration report by clicking') . ' <a href="#" class="nvac" onclick=\'document.forms[0].action="https://"+document.domain+"/ebox/EBox/Backup"; document.forms[0].submit();\'>' . __('here') . '</a>.</li>';
+        print '<li>' . __('Download a configuration report by clicking') . ' <a href="#" class="nvac" onclick=\'document.forms[0].action="https://"+document.domain+"/zentyal/EBox/Backup"; document.forms[0].submit();\'>' . __('here') . '</a>.</li>';
     }
     print '<li>' . __('Create a new ticket in the Zentyal trac by clicking ') . '<a class="nvac" href="#" onclick="window.open(\'http://trac.zentyal.org/newticket\')">' . __('here') . "</a>.</li>";
     print '<li>' . __('Write a short description of the problem in the summary field') . '.</li>';

@@ -81,7 +81,7 @@ sub _table
      tableName          => __PACKAGE__->nameFromClass,
      printableTableName => __(q{External mail domains}),
      modelDomain        => 'Mail',
-     'defaultController' => '/ebox/MailFilter/Controller/ExternalDomain',
+     'defaultController' => '/zentyal/MailFilter/Controller/ExternalDomain',
      'defaultActions' => [
                           'add', 'del',
                           'editField',

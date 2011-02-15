@@ -125,7 +125,7 @@ sub _table
             'fieldName' => 'configuration',
             'printableName' => __('Configuration'),
             'foreignModel' => 'ServiceConfigurationTable',
-            'view' => '/ebox/Services/View/ServiceConfigurationTable',
+            'view' => '/zentyal/Services/View/ServiceConfigurationTable',
         )
     );
 
@@ -136,7 +136,7 @@ sub _table
         'printableTableName' => __('List of services'),
         'pageTitle' => __('Services'),
         'defaultController' =>
-            '/ebox/Services/Controller/ServiceTable',
+            '/zentyal/Services/Controller/ServiceTable',
         'defaultActions' =>
             [	'add', 'del', 'editField', 'changeView' ],
         'tableDescription' => \@tableHead,

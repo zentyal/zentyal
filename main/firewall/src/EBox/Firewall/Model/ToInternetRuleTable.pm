@@ -62,7 +62,7 @@ sub _table
         'printableTableName' => __('Internal networks'),
         'automaticRemove' => 1,
         'defaultController' =>
-            '/ebox/Firewall/Controller/ToInternetRuleTable',
+            '/zentyal/Firewall/Controller/ToInternetRuleTable',
         'defaultActions' =>
             [ 'add', 'del', 'move',  'editField', 'changeView' ],
         'tableDescription' => $self->_fieldDescription('source' => 1,

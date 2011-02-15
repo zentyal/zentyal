@@ -33,7 +33,7 @@
 
    RewriteCond %{HTTP:Via}   dynamic
    RewriteCond %{HTTP_COOKIE} !Auth_EBox
-   RewriteRule ^/ebox           /LOGIN_CC [L]
+   RewriteRule ^/zentyal           /LOGIN_CC [L]
 </IfModule>
 <Files LOGIN_CC>
    <IfModule mod_ssl.c>

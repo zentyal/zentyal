@@ -291,7 +291,7 @@ sub _table
              new EBox::Types::HasMany(
                  fieldName            => 'configuration_model',
                  foreignModelAcquirer => \&acquireConfModel,
-                 backView             => '/ebox/Events/Composite/GeneralComposite',
+                 backView             => '/zentyal/Events/Composite/GeneralComposite',
                  ),
              new EBox::Types::Union::Text(
                  fieldName        => 'configuration_none',
@@ -306,8 +306,8 @@ sub _table
         tableName           => 'ConfigureEventDataTable',
         printableTableName  => __('Configure Events'),
         actions => {
-            editField  => '/ebox/Events/Controller/ConfigureEventDataTable',
-            changeView => '/ebox/Events/Controller/ConfigureEventDataTable',
+            editField  => '/zentyal/Events/Controller/ConfigureEventDataTable',
+            changeView => '/zentyal/Events/Controller/ConfigureEventDataTable',
         },
         tableDescription    => \@tableHeader,
         class               => 'dataTable',

@@ -8,7 +8,7 @@ use EBox::Gettext;
 	<h3><% __('PDC/File sharing account') %></h3>
 	<& .sambaDisabled, $params &>
 	<table class="formTable">
-	<form action='/ebox/Samba/ActiveSharing' method='post'>
+	<form action='/zentyal/Samba/ActiveSharing' method='post'>
 	    <input type="hidden" name="user" value="<% $params->{'username'} %>">
 	<tr>
 	<td class="tright" width="170px">
@@ -62,7 +62,7 @@ use EBox::Gettext;
 %  } else {
 
 	<h3> <% __('Sharing directory for this group') %> </h3>
-	<form action='/ebox/Samba/ActiveSharing' method='post'>
+	<form action='/zentyal/Samba/ActiveSharing' method='post'>
     <div class='help'>
         <%   __("You can set a share directory for this group, but you should keep in mind that Microsoft Windows 98 and Millenium will not be able to see names longer than 12 characters") %>
     </div>
@@ -102,7 +102,7 @@ use EBox::Gettext;
 	    <& .printersDisabled, $params &>
 
 	<p><% __('Select the printers this user will have access to.') %></p>
-	<form id='printers' action='/ebox/Samba/ActivePrinting' method='POST'>
+	<form id='printers' action='/zentyal/Samba/ActivePrinting' method='POST'>
 % if ($params->{'username'}) {
     <input type="hidden" name="user" value="<% $params->{'username'} %>">
 % } else {

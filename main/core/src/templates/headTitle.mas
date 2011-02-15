@@ -10,7 +10,7 @@ use EBox::Gettext;
 </%init>
 <div id="top"></div>
 	<div id="header">
-          <a href="/ebox">
+          <a href="/zentyal">
             <img src="<% $image_title %>" alt="title"/>
           </a>
         </div>
@@ -21,9 +21,9 @@ use EBox::Gettext;
           </a>
 % }
 % if ( $logout ne '' ) {
-	  <a id="m" href="/ebox/Logout/Index"><% $logout %></a>
+	  <a id="m" href="/zentyal/Logout/Index"><% $logout %></a>
 % }
 % if ( $save ne '' ) {
-	  <a class="<% $finishClass %>" id="changes_menu" href="/ebox/Finish"><% $save %></a>
+	  <a class="<% $finishClass %>" id="changes_menu" href="/zentyal/Finish"><% $save %></a>
 % }
 	</div>

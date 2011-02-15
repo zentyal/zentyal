@@ -9,7 +9,7 @@
     <& .zarafaDisabledWarning, $params &>
 
     <table class="formTable">
-    <form action="/ebox/Zarafa/ZarafaUserOptions" method="post">
+    <form action="/zentyal/Zarafa/ZarafaUserOptions" method="post">
         <input type="hidden" name="username" value="<% $params->{'username'} %>">
     <tr>
     <td class="tright">

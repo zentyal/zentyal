@@ -48,7 +48,7 @@ sub modelDomain
 
 sub reportUrl
 {
-    return '/ebox/Squid/Composite/TrafficReport';
+    return '/zentyal/Squid/Composite/TrafficReport';
 }
 
 

@@ -40,7 +40,7 @@ function updateGraphs() {
    var period = $('timePeriod').getAttribute('value');
    var graphs = $$('div.graph');
    graphs.each(function(graph) {
-       var url = '/ebox/Monitor/UpdateGraph';
+       var url = '/zentyal/Monitor/UpdateGraph';
        var parts = graph.id.split('.');
        new Ajax.Request(url,
                         { method: 'get',

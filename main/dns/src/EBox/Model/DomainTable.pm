@@ -184,8 +184,8 @@ sub _table
                                 'fieldName' => 'hostnames',
                                 'printableName' => __('Hostnames'),
                                 'foreignModel' => 'HostnameTable',
-                                'view' => '/ebox/DNS/View/HostnameTable',
-                                'backView' => '/ebox/DNS/View/DomainTable',
+                                'view' => '/zentyal/DNS/View/HostnameTable',
+                                'backView' => '/zentyal/DNS/View/DomainTable',
                                 'size' => '1',
                              ),
             new EBox::Types::HasMany
@@ -193,16 +193,16 @@ sub _table
                                 'fieldName' => 'mailExchangers',
                                 'printableName' => __('Mail Exchangers'),
                                 'foreignModel' => 'MailExchanger',
-                                'view' => '/ebox/DNS/View/MailExchanger',
-                                'backView' => '/ebox/DNS/View/DomainTable',
+                                'view' => '/zentyal/DNS/View/MailExchanger',
+                                'backView' => '/zentyal/DNS/View/DomainTable',
                              ),
             new EBox::Types::HasMany
                             (
                                 'fieldName' => 'nameServers',
                                 'printableName' => __('Name Servers'),
                                 'foreignModel' => 'NameServer',
-                                'view' => '/ebox/DNS/View/NameServer',
-                                'backView' => '/ebox/DNS/View/DomainTable',
+                                'view' => '/zentyal/DNS/View/NameServer',
+                                'backView' => '/zentyal/DNS/View/DomainTable',
                              ),
             new EBox::Types::HostIP
                             (
@@ -240,7 +240,7 @@ sub _table
             'printableTableName' => __('List of Domains'),
 	    'pageTitle' => __('DNS'),
             'automaticRemove' => 1,
-            'defaultController' => '/ebox/Dns/Controller/DomainTable',
+            'defaultController' => '/zentyal/Dns/Controller/DomainTable',
             'HTTPUrlView'=> 'DNS/View/DomainTable',
             'defaultActions' => ['add', 'del', 'editField',  'changeView' ],
             'tableDescription' => \@tableHead,

@@ -92,7 +92,7 @@ sub validateTypedRow
 
     if ($pam and $pdc) {
         throw EBox::Exceptions::External(__x('A slave server can not act as PDC if PAM is enabled. You can do disable PAM at {ohref}LDAP Settings{chref}.',
-            ohref => q{<a href='/ebox/Users/Composite/Settings/'>},
+            ohref => q{<a href='/zentyal/Users/Composite/Settings/'>},
             chref => q{</a>}));
     }
 }

@@ -25,7 +25,7 @@ sub new
 {
     my $class = shift;
     my $title = __("Page not found");
-    my $template = '/ebox/pageNotFound.mas';
+    my $template = 'pageNotFound.mas';
     my $self = $class->SUPER::new(title => $title, template => $template, @_);
     bless($self, $class);
      return $self;

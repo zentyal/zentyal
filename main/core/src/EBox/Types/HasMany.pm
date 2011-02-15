@@ -336,10 +336,10 @@ sub _restoreFromHash
               }
 
 
-              $self->{'view'} = '/ebox/' . $model->menuNamespace();
+              $self->{'view'} = '/zentyal/' . $model->menuNamespace();
               $self->setDirectory($model->directory());
           } catch EBox::Exceptions::DataNotFound with {
-              $self->{'view'} = '/ebox/';
+              $self->{'view'} = '/zentyal/';
           };
       }
 

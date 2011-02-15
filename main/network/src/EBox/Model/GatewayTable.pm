@@ -229,7 +229,7 @@ sub _table
             'enableProperty' => 1,
             'defaultEnabledValue' => 1,
             'defaultController' =>
-                '/ebox/Network/Controller/GatewayTable',
+                '/zentyal/Network/Controller/GatewayTable',
             'defaultActions' =>
                 [
                 'add', 'del',

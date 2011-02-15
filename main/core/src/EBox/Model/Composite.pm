@@ -892,7 +892,7 @@ sub _setDefaultActions
       $actionsRef = {} unless defined ($actionsRef);
       if ( defined ( $self->compositeDomain() )) {
           unless ( exists $actionsRef->{view} ) {
-              $actionsRef->{view} = '/ebox/' . $self->compositeDomain() .
+              $actionsRef->{view} = '/zentyal/' . $self->compositeDomain() .
                 '/Composite/' . $self->name();
               if ( $self->index() ) {
                   # Append the index
@@ -900,7 +900,7 @@ sub _setDefaultActions
               }
           }
           unless ( exists $actionsRef->{changeView} ) {
-              $actionsRef->{changeView} = '/ebox/' . $self->compositeDomain() .
+              $actionsRef->{changeView} = '/zentyal/' . $self->compositeDomain() .
                 '/Composite/' . $self->name();
               if ( $self->index() ) {
                   $actionsRef->{changeView} .= '/' . $self->index();

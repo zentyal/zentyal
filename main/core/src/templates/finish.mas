@@ -68,7 +68,7 @@ function rejectConfFile(id, totalFiles)
 function sendAcceptedFiles()
 {
  var MyAjax = new Ajax.Request(
-                "/ebox/ServiceModule/Controller",
+                "/zentyal/ServiceModule/Controller",
                 {
                         method: 'get',
                         parameters: {'acceptedFiles':acceptedFiles, 'rejectedFiles':rejectedFiles},
@@ -81,7 +81,7 @@ function sendAcceptedFiles()
 }
 
 % my $title = __('Warning');
-        Modalbox.show('/ebox/ServiceModule/View', 
+        Modalbox.show('/zentyal/ServiceModule/View', 
                       { title: '<% $title %>', 
                        loadingString: 'Loding.. Please wait',
                        inactiveFade: false, 
@@ -96,7 +96,7 @@ function sendAcceptedFiles()
 
 <div class='warning'>
 %   if (@disabledModules) {
-        <% __x('The following modules have unsaved changes but are <b>disabled</b>. If you need to enable them go to {openref}Module Status{closeref}.', openref => '<a href="/ebox/ServiceModule/StatusView">', closeref => '</a>') %>
+        <% __x('The following modules have unsaved changes but are <b>disabled</b>. If you need to enable them go to {openref}Module Status{closeref}.', openref => '<a href="/zentyal/ServiceModule/StatusView">', closeref => '</a>') %>
         <ul>
 %      for my $module (@disabledModules) {
          <li><% $module %></li>

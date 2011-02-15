@@ -62,7 +62,7 @@ sub _process
     if ($editable) {
         $self->{crumbs} = [
             {title => __('Groups'),
-                link => '/ebox/UsersAndGroups/Groups'
+                link => '/zentyal/UsersAndGroups/Groups'
             },
             {title => $group,
                 link => undef,

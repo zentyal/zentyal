@@ -8,7 +8,7 @@
 use EBox::Gettext;
 </%init>
 
-<form name='createaccount' action='/ebox/Mail/CreateAccount' method='POST'>
+<form name='createaccount' action='/zentyal/Mail/CreateAccount' method='POST'>
 
     <input type="hidden" name="username" value="<% $params->{'username'} %>">
 	<h3><% __('Create mail account') %></h3>

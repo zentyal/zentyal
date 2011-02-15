@@ -94,8 +94,8 @@ sub _table
       'fieldName' => 'groupPolicy',
       'printableName' => __('Group policy'),
       'foreignModel' => 'ObjectGroupPolicy',
-      'view' => '/ebox/Squid/View/ObjectGroupPolicy',
-      'backView' => '/ebox/Squid/View/ObjectGroupPolicy',
+      'view' => '/zentyal/Squid/View/ObjectGroupPolicy',
+      'backView' => '/zentyal/Squid/View/ObjectGroupPolicy',
       'size' => '1',
      ),
      new EBox::Types::Select(
@@ -117,7 +117,7 @@ sub _table
       printableTableName => __('List of objects'),
       HTTPUrlView        => 'Squid/View/ObjectPolicy',
       modelDomain        => 'Squid',
-      'defaultController' => '/ebox/Squid/Controller/ObjectPolicy',
+      'defaultController' => '/zentyal/Squid/Controller/ObjectPolicy',
       'defaultActions' => [
           'add', 'del',
       'editField',
@@ -525,7 +525,7 @@ sub preconditionFailMsg
 {
     return __x(
 'There are no network objects in the system. {open}Create{close} at least one object if you want to set a object policy',
-open => q{<a href='/ebox/Objects/View/ObjectTable'>},
+open => q{<a href='/zentyal/Objects/View/ObjectTable'>},
 close => q{</a>},
 );
 }

@@ -9,7 +9,7 @@ $cssClass => ''
 % if ( $data->editable() ) {
 <div id="<% $id %>" class="<% $cssClass %>">
 </form>
- <form action="/ebox/Controller/Uploader"
+ <form action="/zentyal/Controller/Uploader"
         method="POST"
         enctype="multipart/form-data"
         id="<% $id . '_form' %>">

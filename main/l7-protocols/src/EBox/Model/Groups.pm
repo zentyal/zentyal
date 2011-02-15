@@ -57,7 +57,7 @@ sub _table
             'fieldName' => 'protocols',
             'printableName' => __('protocols'),
             'foreignModel' => 'GroupProtocols',
-            'view' => '/ebox/L7-Protocols/View/GroupProtocols',
+            'view' => '/zentyal/L7-Protocols/View/GroupProtocols',
         )
 
     );
@@ -69,7 +69,7 @@ sub _table
         'pageTitle' => __('Application content based grouped protocols'),
         'printableTableName' => __('List of groups'),
         'defaultController' =>
-            '/ebox/L7-Protocols/Controller/Groups',
+            '/zentyal/L7-Protocols/Controller/Groups',
         'defaultActions' =>
             ['add', 'del', 'editField', 'changeView' ],
         'tableDescription' => \@tableHead,

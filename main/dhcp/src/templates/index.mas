@@ -23,7 +23,7 @@ end => $iface{end}, ranges => \@ranges &>
 % } else{
 <div class='note'>
 <% __x('DHCP server requires a static interface, {openhref}configure one{closehref} first',
-      openhref  => '<a href="/ebox/Network/Ifaces">',
+      openhref  => '<a href="/zentyal/Network/Ifaces">',
       closehref => '</a>') %>
 </div>
 % }

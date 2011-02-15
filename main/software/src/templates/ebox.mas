@@ -560,7 +560,7 @@ var pkgTable = new Array(
     <div id="Install_head">
         <button onclick="sendFormBasic()"><img src="/data/images/install.gif"> <% __('Install') %></button>
 % if ($first) {
-        <button onclick="document.location.href='/ebox/Dashboard/Index'"><img src="/data/images/right.gif"> <% __('Skip install') %> </button>
+        <button onclick="document.location.href='/zentyal/Dashboard/Index'"><img src="/data/images/right.gif"> <% __('Skip install') %> </button>
 % }
     </div>
     <div style="display: none">
