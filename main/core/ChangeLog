@@ -1,4 +1,7 @@
 HEAD
+	+ Minor bugfix: filter invalid '_' param added by Webkit-based browser
+	  on EBox::CGI::Base::params() instead of _validateParams(), avoids
+	  warning in zentyal.log when enabling modules
 	+ All CGI urls renamed from /ebox to /zentyal
 	+ New first() and deleteFirst() methods in EBox::Global to check
 	  existence and delete the /var/lib/zentyal/.first file

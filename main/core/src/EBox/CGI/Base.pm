@@ -38,34 +38,34 @@ use Apache2::Connection;
 use Apache2::RequestUtil;
 
 ## arguments
-##		title [optional]
-##		error [optional]
-##		msg [optional]
-##		cgi   [optional]
-##		template [optional]
+##      title [optional]
+##      error [optional]
+##      msg [optional]
+##      cgi   [optional]
+##      template [optional]
 sub new # (title=?, error=?, msg=?, cgi=?, template=?)
 {
-	my $class = shift;
-	my %opts = @_;
-	my $self = {};
-	$self->{title} = delete $opts{title};
-	$self->{crumbs} = delete $opts{crumbs};
-	$self->{olderror} = delete $opts{error};
-	$self->{msg} = delete $opts{msg};
-	$self->{cgi} = delete $opts{cgi};
-	$self->{template} = delete $opts{template};
-	unless (defined($self->{cgi})) {
-		$self->{cgi} = new CGI;
-	}
-	$self->{paramsKept} = ();
+    my $class = shift;
+    my %opts = @_;
+    my $self = {};
+    $self->{title} = delete $opts{title};
+    $self->{crumbs} = delete $opts{crumbs};
+    $self->{olderror} = delete $opts{error};
+    $self->{msg} = delete $opts{msg};
+    $self->{cgi} = delete $opts{cgi};
+    $self->{template} = delete $opts{template};
+    unless (defined($self->{cgi})) {
+        $self->{cgi} = new CGI;
+    }
+    $self->{paramsKept} = ();
 
     # XXX workaround for utf8 hell
     if (Encode::is_utf8($self->{title})) {
         Encode::_utf8_off($self->{title});
     }
 
-	bless($self, $class);
-	return $self;
+    bless($self, $class);
+    return $self;
 }
 
 sub _header
@@ -79,61 +79,61 @@ sub _menu
 
 sub _title
 {
-	my $self = shift;
+    my $self = shift;
 
-	my $title = $self->{title};
-	my $crumbs = $self->{crumbs};
+    my $title = $self->{title};
+    my $crumbs = $self->{crumbs};
 
-	my $filename = EBox::Config::templates . '/title.mas';
-	my $interp = $self->_masonInterp();
-	my $comp = $interp->make_component(comp_file => $filename);
+    my $filename = EBox::Config::templates . '/title.mas';
+    my $interp = $self->_masonInterp();
+    my $comp = $interp->make_component(comp_file => $filename);
 
-	my @params = (title => $title, crumbs => $crumbs);
+    my @params = (title => $title, crumbs => $crumbs);
 
-	$interp->exec($comp, @params);
+    $interp->exec($comp, @params);
 }
 
 sub _print_error # (text)
 {
-	my ($self, $text) = @_;
-	$text or return;
-	($text ne "") or return;
-	my $filename = EBox::Config::templates . '/error.mas';
-	my $interp = $self->_masonInterp();
-	my $comp = $interp->make_component(comp_file => $filename);
-	my @params = ();
-	push(@params, 'error' => $text);
-	$interp->exec($comp, @params);
+    my ($self, $text) = @_;
+    $text or return;
+    ($text ne "") or return;
+    my $filename = EBox::Config::templates . '/error.mas';
+    my $interp = $self->_masonInterp();
+    my $comp = $interp->make_component(comp_file => $filename);
+    my @params = ();
+    push(@params, 'error' => $text);
+    $interp->exec($comp, @params);
 }
 
 sub _error #
 {
-	my $self = shift;
-	defined($self->{olderror}) and $self->_print_error($self->{olderror});
-	defined($self->{error}) and $self->_print_error($self->{error});
+    my $self = shift;
+    defined($self->{olderror}) and $self->_print_error($self->{olderror});
+    defined($self->{error}) and $self->_print_error($self->{error});
 }
 
 sub _msg
 {
-	my $self = shift;
-	defined($self->{msg}) or return;
-	my $filename = EBox::Config::templates . '/msg.mas';
-	my $interp = $self->_masonInterp();
-	my $comp = $interp->make_component(comp_file => $filename);
-	my @params = ();
-	push(@params, 'msg' => $self->{msg});
-	$interp->exec($comp, @params);
+    my $self = shift;
+    defined($self->{msg}) or return;
+    my $filename = EBox::Config::templates . '/msg.mas';
+    my $interp = $self->_masonInterp();
+    my $comp = $interp->make_component(comp_file => $filename);
+    my @params = ();
+    push(@params, 'msg' => $self->{msg});
+    $interp->exec($comp, @params);
 }
 
 sub _body
 {
-	my $self = shift;
-	defined($self->{template}) or return;
+    my $self = shift;
+    defined($self->{template}) or return;
 
-	my $filename = EBox::Config::templates . $self->{template};
-	my $interp = $self->_masonInterp();
-	my $comp = $interp->make_component(comp_file => $filename);
-	$interp->exec($comp, @{$self->{params}});
+    my $filename = EBox::Config::templates . $self->{template};
+    my $interp = $self->_masonInterp();
+    my $comp = $interp->make_component(comp_file => $filename);
+    $interp->exec($comp, @{$self->{params}});
 }
 
 
@@ -162,76 +162,76 @@ sub _footer
 
 sub _print
 {
-	my $self = shift;
-	$self->_header;
-	$self->_top;
-	$self->_menu;
-	print '<div id="limewrap"><div id="content">';
-	$self->_title;
-	$self->_error;
-	$self->_msg;
-	$self->_body;
-	print "</div></div>";
-	$self->_footer;
+    my $self = shift;
+    $self->_header;
+    $self->_top;
+    $self->_menu;
+    print '<div id="limewrap"><div id="content">';
+    $self->_title;
+    $self->_error;
+    $self->_msg;
+    $self->_body;
+    print "</div></div>";
+    $self->_footer;
 }
 
 
 sub _checkForbiddenChars
 {
-	my ($self, $value) = @_;
-	POSIX::setlocale(LC_ALL, EBox::locale());
+    my ($self, $value) = @_;
+    POSIX::setlocale(LC_ALL, EBox::locale());
 
-	_utf8_on($value);
-	unless ( $value =~ m{^[\w /.?&+:\-\@]*$} ) {
-		my $logger = EBox::logger;
-		$logger->info("Invalid characters in param value $value.");
-		$self->{error} ='The input contains invalid characters';
-		throw EBox::Exceptions::External(__d("The input contains invalid " .
-			"characters. All alphanumeric characters, plus these non " .
-			"alphanumeric chars: /.?&+:-\@ and spaces are allowed.",'libebox'));
-		if (defined($self->{redirect})) {
-			$self->{chain} = $self->{redirect};
-		}
-		return undef;
-	}
-	no locale;
+    _utf8_on($value);
+    unless ( $value =~ m{^[\w /.?&+:\-\@]*$} ) {
+        my $logger = EBox::logger;
+        $logger->info("Invalid characters in param value $value.");
+        $self->{error} ='The input contains invalid characters';
+        throw EBox::Exceptions::External(__d("The input contains invalid " .
+            "characters. All alphanumeric characters, plus these non " .
+            "alphanumeric chars: /.?&+:-\@ and spaces are allowed.",'libebox'));
+        if (defined($self->{redirect})) {
+            $self->{chain} = $self->{redirect};
+        }
+        return undef;
+    }
+    no locale;
 }
 
 sub _loggedIn
 {
-	my $self = shift;
-	# TODO
-	return 1;
+    my $self = shift;
+    # TODO
+    return 1;
 }
 
 sub _urlToChain # (url)
 {
-	my $str = shift;
-	$str =~ s/\?.*//g;
-	$str =~ s/\//::/g;
-	$str =~ s/::$//g;
-	$str =~ s/^:://g;
-	return "EBox::CGI::" . $str;
+    my $str = shift;
+    $str =~ s/\?.*//g;
+    $str =~ s/\//::/g;
+    $str =~ s/::$//g;
+    $str =~ s/^:://g;
+    return "EBox::CGI::" . $str;
 }
 
 # arguments
-# 	- name of the required parameter
-# 	- display name for the parameter (as seen by the user)
+#   - name of the required parameter
+#   - display name for the parameter (as seen by the user)
 sub _requireParam # (param, display)
 {
-	my ($self, $param, $display) = @_;
+    my ($self, $param, $display) = @_;
 
-	unless (defined($self->param($param)) && $self->param($param) ne "") {
-		throw EBox::Exceptions::DataMissing(data => $display);
-	}
+    unless (defined($self->param($param)) && $self->param($param) ne "") {
+        throw EBox::Exceptions::DataMissing(data => $display);
+    }
 }
 
 # arguments
-# 	- name of the required parameter
-# 	- display name for the parameter (as seen by the user)
+#   - name of the required parameter
+#   - display name for the parameter (as seen by the user)
 sub _requireParamAllowEmpty # (param, display)
 {
-	my ($self, $param, $display) = @_;
+    my ($self, $param, $display) = @_;
 
         foreach my $cgiparam (@{$self->params}){
                 return if ($cgiparam =~ /^$param$/);
@@ -243,113 +243,113 @@ sub _requireParamAllowEmpty # (param, display)
 
 sub run
 {
-	my $self = shift;
+    my $self = shift;
 
-	if (not $self->_loggedIn) {
-		$self->{redirect} = "/zentyal/Login/Index";
-	}
-	else {
-	  try {
-	    $self->_validateReferer();
-	    $self->_process();
-	  }
-	  catch EBox::Exceptions::Internal with {
-	    my $e = shift;
-	    throw $e;
-	  }
-	  catch EBox::Exceptions::Base with {
-	    my $e = shift;
-	    $self->setErrorFromException($e);
-	    if (defined($self->{redirect})) {
-	      $self->{chain} = $self->{redirect};
-	    }
-	  }
-	  otherwise {
-	    my $e = shift;
+    if (not $self->_loggedIn) {
+        $self->{redirect} = "/zentyal/Login/Index";
+    }
+    else {
+      try {
+        $self->_validateReferer();
+        $self->_process();
+      }
+      catch EBox::Exceptions::Internal with {
+        my $e = shift;
         throw $e;
-	  };
-	}
+      }
+      catch EBox::Exceptions::Base with {
+        my $e = shift;
+        $self->setErrorFromException($e);
+        if (defined($self->{redirect})) {
+          $self->{chain} = $self->{redirect};
+        }
+      }
+      otherwise {
+        my $e = shift;
+        throw $e;
+      };
+    }
 
-	if (defined($self->{error})) {
-		#only keep the parameters in paramsKept
-		my $params = $self->params;
-		foreach my $param (@{$params}) {
-			unless (grep /^$param$/, @{$self->{paramsKept}}) {
-				$self->{cgi}->delete($param);
-			}
-		}
-		if (defined($self->{errorchain})) {
-			if ($self->{errorchain} ne "") {
-				$self->{chain} = $self->{errorchain};
-			}
-		}
-	}
+    if (defined($self->{error})) {
+        #only keep the parameters in paramsKept
+        my $params = $self->params;
+        foreach my $param (@{$params}) {
+            unless (grep /^$param$/, @{$self->{paramsKept}}) {
+                $self->{cgi}->delete($param);
+            }
+        }
+        if (defined($self->{errorchain})) {
+            if ($self->{errorchain} ne "") {
+                $self->{chain} = $self->{errorchain};
+            }
+        }
+    }
 
-	if (defined($self->{chain})) {
-		my $classname = _urlToChain($self->{chain});
-		if (not $self->isa($classname)) {
-		  eval "use $classname";
-		  if ($@) {
-		    throw EBox::Exceptions::Internal("Cannot load $classname. Error: $@");
-		  }
-		  my $chain = $classname->new('error' => $self->{error},
-					      'msg' => $self->{msg},
-					      'cgi'   => $self->{cgi});
-		  $chain->run;
-		  return;
-		}
-	}
+    if (defined($self->{chain})) {
+        my $classname = _urlToChain($self->{chain});
+        if (not $self->isa($classname)) {
+          eval "use $classname";
+          if ($@) {
+            throw EBox::Exceptions::Internal("Cannot load $classname. Error: $@");
+          }
+          my $chain = $classname->new('error' => $self->{error},
+                          'msg' => $self->{msg},
+                          'cgi'   => $self->{cgi});
+          $chain->run;
+          return;
+        }
+    }
 
-	if ((defined($self->{redirect})) && (!defined($self->{error}))) {
-		my $request = Apache2::RequestUtil->request();
-		my $headers = $request->headers_in();
-		my $via = $headers->{'Via'};
-		my $host= $headers->{'Host'};
-		my $fwhost = $headers->{'X-Forwarded-Host'};
-		# If the connection comes from a Proxy,
-		# redirects with the Proxy IP address
-		if (defined($via) and defined($fwhost)) {
-			$host = $fwhost;
-		}
-		my $protocol;
-		if ($request->subprocess_env('https')) {
-			$protocol = 'https';
-		} else {
-			$protocol = 'http';
-		}
-		my $url = "$protocol://${host}/zentyal/" . $self->{redirect};
-		print($self->cgi()->redirect($url));
-		return;
-	}
+    if ((defined($self->{redirect})) && (!defined($self->{error}))) {
+        my $request = Apache2::RequestUtil->request();
+        my $headers = $request->headers_in();
+        my $via = $headers->{'Via'};
+        my $host= $headers->{'Host'};
+        my $fwhost = $headers->{'X-Forwarded-Host'};
+        # If the connection comes from a Proxy,
+        # redirects with the Proxy IP address
+        if (defined($via) and defined($fwhost)) {
+            $host = $fwhost;
+        }
+        my $protocol;
+        if ($request->subprocess_env('https')) {
+            $protocol = 'https';
+        } else {
+            $protocol = 'http';
+        }
+        my $url = "$protocol://${host}/zentyal/" . $self->{redirect};
+        print($self->cgi()->redirect($url));
+        return;
+    }
 
 
-	try  {
-	  $self->_print
-	} catch EBox::Exceptions::Internal with {
-	  my $ex = shift;
-	  $self->setErrorFromException($ex);
-	  $self->_print_error($self->{error});
-	}
-	otherwise {
-	    my $ex = shift;
-	    my $logger = EBox::logger;
-	    if (isa_mason_exception($ex)) {
-	      $logger->error($ex->as_text);
-	      my $error = __("An internal error related to ".
-			     "a template has occurred. This is ".
-			     "a bug, relevant information can ".
-			     "be found in the logs.");
-	      $self->_print_error($error);
-	    } else {
-	      if ($ex->can('text')) {
-		$logger->error('Exception: ' . $ex->text());
-	      } else {
-		$logger->error("Unknown exception");
-	      }
+    try  {
+      $self->_print
+    } catch EBox::Exceptions::Internal with {
+      my $ex = shift;
+      $self->setErrorFromException($ex);
+      $self->_print_error($self->{error});
+    }
+    otherwise {
+        my $ex = shift;
+        my $logger = EBox::logger;
+        if (isa_mason_exception($ex)) {
+          $logger->error($ex->as_text);
+          my $error = __("An internal error related to ".
+                 "a template has occurred. This is ".
+                 "a bug, relevant information can ".
+                 "be found in the logs.");
+          $self->_print_error($error);
+        } else {
+          if ($ex->can('text')) {
+        $logger->error('Exception: ' . $ex->text());
+          } else {
+        $logger->error("Unknown exception");
+          }
 
-	      throw $ex;
-	    }
-	  };
+          throw $ex;
+        }
+      };
 
 }
 
@@ -374,64 +374,64 @@ sub run
 #
 sub unsafeParam # (param)
 {
-	my ($self, $param) = @_;
-	my $cgi = $self->cgi;
-	my @array;
-	my $scalar;
-	if (wantarray) {
-		@array = $cgi->param($param);
-		(@array) or return undef;
-		my @ret = ();
-		foreach my $v (@array) {
-			_utf8_on($v);
-			push(@ret, $v);
-		}
-		return @ret;
-	} else {
-		$scalar = $cgi->param($param);
-		#check if $param.x exists for input type=image
-		unless (defined($scalar)) {
-			$scalar = $cgi->param($param . ".x");
-		}
-		defined($scalar) or return undef;
-		_utf8_on($scalar);
-		return $scalar;
-	}
+    my ($self, $param) = @_;
+    my $cgi = $self->cgi;
+    my @array;
+    my $scalar;
+    if (wantarray) {
+        @array = $cgi->param($param);
+        (@array) or return undef;
+        my @ret = ();
+        foreach my $v (@array) {
+            _utf8_on($v);
+            push(@ret, $v);
+        }
+        return @ret;
+    } else {
+        $scalar = $cgi->param($param);
+        #check if $param.x exists for input type=image
+        unless (defined($scalar)) {
+            $scalar = $cgi->param($param . ".x");
+        }
+        defined($scalar) or return undef;
+        _utf8_on($scalar);
+        return $scalar;
+    }
 }
 
 sub param # (param)
 {
-	my ($self, $param) = @_;
-	my $cgi = $self->cgi;
-	my @array;
-	my $scalar;
-	if (wantarray) {
-		@array = $cgi->param($param);
-		(@array) or return undef;
-		my @ret = ();
-		foreach my $v (@array) {
-			$v =~ s/\t/ /g;
-			$v =~ s/^ +//;
-			$v =~ s/ +$//;
-			$self->_checkForbiddenChars($v);
-			_utf8_on($v);
-			push(@ret, $v);
-		}
-		return @ret;
-	} else {
-		$scalar = $cgi->param($param);
-		#check if $param.x exists for input type=image
-		unless (defined($scalar)) {
-			$scalar = $cgi->param($param . ".x");
-		}
-		defined($scalar) or return undef;
-		$scalar =~ s/\t/ /g;
-		$scalar =~ s/^ +//;
-		$scalar =~ s/ +$//;
-		$self->_checkForbiddenChars($scalar);
-		_utf8_on($scalar);
-		return $scalar;
-	}
+    my ($self, $param) = @_;
+    my $cgi = $self->cgi;
+    my @array;
+    my $scalar;
+    if (wantarray) {
+        @array = $cgi->param($param);
+        (@array) or return undef;
+        my @ret = ();
+        foreach my $v (@array) {
+            $v =~ s/\t/ /g;
+            $v =~ s/^ +//;
+            $v =~ s/ +$//;
+            $self->_checkForbiddenChars($v);
+            _utf8_on($v);
+            push(@ret, $v);
+        }
+        return @ret;
+    } else {
+        $scalar = $cgi->param($param);
+        #check if $param.x exists for input type=image
+        unless (defined($scalar)) {
+            $scalar = $cgi->param($param . ".x");
+        }
+        defined($scalar) or return undef;
+        $scalar =~ s/\t/ /g;
+        $scalar =~ s/^ +//;
+        $scalar =~ s/ +$//;
+        $self->_checkForbiddenChars($scalar);
+        _utf8_on($scalar);
+        return $scalar;
+    }
 }
 
 # Method: params
@@ -444,25 +444,32 @@ sub param # (param)
 #
 sub params
 {
-	my $self = shift;
-	my $cgi = $self->cgi;
-	my @names = $cgi->param;
-	foreach (@names) {
-		$self->_checkForbiddenChars($_);
-	}
-	return \@names;
+    my ($self) = @_;
+
+    my $cgi = $self->cgi;
+    my @names = $cgi->param;
+
+    # Prototype adds a '_' empty param to Ajax POST requests when the agent is
+    # webkit based
+    my @names = grep { !/^_$/ } @names;
+
+    foreach (@names) {
+        $self->_checkForbiddenChars($_);
+    }
+
+    return \@names;
 }
 
 sub keepParam # (param)
 {
-	my ($self, $param) = @_;
-	push(@{$self->{paramsKept}}, $param);
+    my ($self, $param) = @_;
+    push(@{$self->{paramsKept}}, $param);
 }
 
 sub cgi
 {
-	my $self = shift;
-	return $self->{cgi};
+    my $self = shift;
+    return $self->{cgi};
 }
 
 # Method: setTemplate
@@ -489,9 +496,9 @@ sub _process
 {
     my ($self) = @_;
 
-	$self->_validateParams();
-	$self->actuate();
-	$self->{params} = $self->masonParameters();
+    $self->_validateParams();
+    $self->actuate();
+    $self->{params} = $self->masonParameters();
 }
 
 # Method: setMsg
@@ -539,20 +546,20 @@ sub setErrorFromException
     }
     elsif ($ex->isa('EBox::Exceptions::Internal')) {
       $self->{error} = __("An internal error has ".
-			  "occurred. This is most probably a ".
-			  "bug, relevant information can be ".
-			  "found in the logs.");
+              "occurred. This is most probably a ".
+              "bug, relevant information can be ".
+              "found in the logs.");
     }
     elsif ($ex->isa('EBox::Exceptions::Base')) {
       $self->{error} = __("An unexpected internal ".
-			  "error has occurred. This is a bug, ".
-			  "relevant information can be found ".
-			  "in the logs.");
+              "error has occurred. This is a bug, ".
+              "relevant information can be found ".
+              "in the logs.");
     }
     else {
-	$self->{error} = __("You have just hit a bug ".
-			    "in Zentyal. Please seek technical ".
-			    "support.");
+    $self->{error} = __("You have just hit a bug ".
+                "in Zentyal. Please seek technical ".
+                "support.");
     }
 }
 # Method: setRedirect
@@ -632,7 +639,6 @@ sub _validateParams
     my $params_r    = $self->params();
     $params_r       = $self->_validateRequiredParams($params_r);
     $params_r       = $self->_validateOptionalParams($params_r);
-    $params_r       = $self->_webkitParamsWorkaround($params_r);
 
     my @paramsLeft = @{ $params_r };
     if (@paramsLeft) {
@@ -686,9 +692,9 @@ sub _validateRequiredParams
     }
     else {
 
-	my $allMatches = all  @{ $matchResult_r->{matches} };
-	my @newParams = grep { $_ ne $allMatches } @{ $params_r} ;
-	return \@newParams;
+    my $allMatches = all  @{ $matchResult_r->{matches} };
+    my @newParams = grep { $_ ne $allMatches } @{ $params_r} ;
+    return \@newParams;
     }
 }
 
@@ -704,21 +710,6 @@ sub _validateOptionalParams
     return \@newParams;
 }
 
-
-sub _webkitParamsWorkaround
-{
-    my ($self, $params_r) = @_;
-
-    # Prototype adds a '_' empty param to Ajax POST requests when the agent is
-    # webkit based
-    my @paramsToDiscard = ['_'];
-    my $matchResult_r = _matchParams(@paramsToDiscard, $params_r);
-
-    my $allMatches = all  @{ $matchResult_r->{matches} };
-    my @newParams = grep { $_ ne $allMatches } @{ $params_r} ;
-    return \@newParams;
-}
-
 sub _matchParams
 {
     my ($targetParams_r, $actualParams_r) = @_;
@@ -728,14 +719,14 @@ sub _matchParams
     my @targetsWithoutMatch;
     my @matchedParams;
     foreach my $targetParam ( @targets ) {
-	my $targetRe = qr/^$targetParam$/;
-	my @matched = grep { $_ =~ $targetRe } @actualParams;
-	if (@matched) {
-	    push @matchedParams, @matched;
-	}
-	else {
-	    push @targetsWithoutMatch, $targetParam;
-	}
+    my $targetRe = qr/^$targetParam$/;
+    my @matched = grep { $_ =~ $targetRe } @actualParams;
+    if (@matched) {
+        push @matchedParams, @matched;
+    }
+    else {
+        push @targetsWithoutMatch, $targetParam;
+    }
     }
 
     return { matches => \@matchedParams, targetsWithoutMatch => \@targetsWithoutMatch };
@@ -744,8 +735,8 @@ sub _matchParams
 # Method: optionalParameters
 #
 #       Get the optional CGI parameter list. Any
-#  	parameter that match with this list may be present or absent
-#  	in the CGI parameters.
+#   parameter that match with this list may be present or absent
+#   in the CGI parameters.
 #
 # Returns:
 #
@@ -761,14 +752,14 @@ sub optionalParameters
 # Method: requiredParameters
 #
 #       Get the required CGI parameter list. Any
-#  	parameter that match with this list must be present in the CGI
-#  	parameters.
+#   parameter that match with this list must be present in the CGI
+#   parameters.
 #
 # Returns:
 #
-#	array ref - the list of matching parameters, it may be a names
-#	or a regular expression, in the last case it can not contain
-#	the metacharacters ^ and $
+#   array ref - the list of matching parameters, it may be a names
+#   or a regular expression, in the last case it can not contain
+#   the metacharacters ^ and $
 #
 sub requiredParameters
 {
@@ -887,50 +878,50 @@ sub upload
 
 # Method: setMenuNamespace
 #
-# 	Set the menu namespace to help the menu code to find out
-# 	within which namespace this cgi is running.
+#   Set the menu namespace to help the menu code to find out
+#   within which namespace this cgi is running.
 #
-# 	Note that, this is useful only if you are using base CGIs
-# 	in modules different to ebox base. If you do not use this,
-# 	the namespace used will be the one the base cgi belongs to.
+#   Note that, this is useful only if you are using base CGIs
+#   in modules different to ebox base. If you do not use this,
+#   the namespace used will be the one the base cgi belongs to.
 #
 # Parameters:
 #
-# 	(POSITIONAL)
-# 	namespace - string represeting the namespace in URL format. Example:
-# 			"EBox/Network"
+#   (POSITIONAL)
+#   namespace - string represeting the namespace in URL format. Example:
+#           "EBox/Network"
 #
 sub setMenuNamespace
 {
-	my ($self, $namespace) = @_;
+    my ($self, $namespace) = @_;
 
-	$self->{'menuNamespace'} = $namespace;
+    $self->{'menuNamespace'} = $namespace;
 
 }
 
 # Method: menuNamespace
 #
-# 	Return menu namespace to help the menu code to find out
-# 	within which namespace this cgi is running.
+#   Return menu namespace to help the menu code to find out
+#   within which namespace this cgi is running.
 #
-# 	Note that, this is useful only if you are using base CGIs
-# 	in modules different to ebox base. If you do not use this,
-# 	the namespace used will be the one the base cgi belongs to.
+#   Note that, this is useful only if you are using base CGIs
+#   in modules different to ebox base. If you do not use this,
+#   the namespace used will be the one the base cgi belongs to.
 #
 # Returns:
 #
-# 	namespace - string represeting the namespace in URL format. Example:
-# 			"EBox/Network"
+#   namespace - string represeting the namespace in URL format. Example:
+#           "EBox/Network"
 #
 sub menuNamespace
 {
-	my ($self) = @_;
+    my ($self) = @_;
 
-	if (exists $self->{'menuNamespace'}) {
-		return $self->{'menuNamespace'};
-	} else {
-		return $self->{'url'};
-	}
+    if (exists $self->{'menuNamespace'}) {
+        return $self->{'menuNamespace'};
+    } else {
+        return $self->{'url'};
+    }
 
 }
 
