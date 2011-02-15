@@ -3232,6 +3232,13 @@ sub _find
     my %valueIndexes;
     foreach my $id (@rows) {
         my $row = $self->row($id);
+        # Remove deleted rows from index
+        unless (defined $row) {
+            if (delete $indexRows->{$id}) {
+                $updateIndex = 1;
+            }
+            next;
+        }
         my $element = $row->elementByName($fieldName);
         if (defined ($element)) {
             my $eValue;
