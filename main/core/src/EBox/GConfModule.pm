@@ -125,8 +125,8 @@ sub _load_from_file # (dir?, key?)
 
     ($key) or $key = $self->_key("");
 
-    unless (-s $file) {
-        EBox::error("Can't parse backup file $file");
+    unless (-r $file) {
+        EBox::error("Can't read backup file $file");
         return;
     }
 
