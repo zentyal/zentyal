@@ -305,7 +305,7 @@ sub askDomainsToRestore
     my @domains;
     if ($usesX) {
         my @elements;
-        while (my ($printableName, $name)) {
+        while (my ($printableName, $name) = each %availableDomains) {
             if ($name eq 'filesIncludes') {
                 push @elements, {
                                  item => $printableName,
