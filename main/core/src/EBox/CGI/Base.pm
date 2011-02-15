@@ -451,7 +451,7 @@ sub params
 
     # Prototype adds a '_' empty param to Ajax POST requests when the agent is
     # webkit based
-    my @names = grep { !/^_$/ } @names;
+    @names = grep { !/^_$/ } @names;
 
     foreach (@names) {
         $self->_checkForbiddenChars($_);
