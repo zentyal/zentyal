@@ -36,7 +36,7 @@ use EBox::Sudo;
 use EBox::Validate qw( :all );
 use File::Basename;
 use File::Glob;
-use YAML::Tiny;
+use YAML::XS;
 use Log::Log4perl;
 use POSIX qw(setuid setgid setlocale LC_ALL);
 use Perl6::Junction qw(any all);
@@ -87,8 +87,14 @@ sub isReadOnly
 sub readModInfo # (module)
 {
     my ($name) = @_;
-    my $yaml = YAML::Tiny->read(EBox::Config::share() . "zentyal/modules/$name.yaml");
-    return $yaml->[0];
+
+    my $yaml;
+    try {
+        ($yaml) = YAML::XS::LoadFile(EBox::Config::modules() . "$name.yaml");
+    } otherwise {
+        $yaml = undef;
+    };
+    return $yaml;
 }
 
 #Method: theme
@@ -114,8 +120,8 @@ sub _readTheme
     unless (-f $theme) {
         $theme = "$path/default.theme";
     }
-    my $yaml = YAML::Tiny->read($theme);
-    return $yaml->[0];
+    my ($yaml) = YAML::XS::LoadFile($theme);
+    return $yaml;
 }
 
 sub _className
@@ -124,14 +130,6 @@ sub _className
     my $info = readModInfo($name);
     defined($info) or return undef;
     return $info->{'class'};
-}
-
-sub _writeModInfo
-{
-    my ($self, $name, $info) = @_;
-    my $yaml = YAML::Tiny->new;
-    $yaml->[0] = $info;
-    $yaml->write(EBox::Config::share() . "/zentyal/modules/$name.yaml");
 }
 
 # Method: modExists
@@ -293,7 +291,7 @@ sub modNames
             push(@allmods, $_);
         }
     }
-    my @files = glob(EBox::Config::share() . '/zentyal/modules/*.yaml');
+    my @files = glob(EBox::Config::modules() . '*.yaml');
     my @mods = map { basename($_) =~ m/(.*)\.yaml/ ; $1 } @files;
     foreach my $mod (@mods) {
         next unless ($self->modExists($mod));

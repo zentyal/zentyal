@@ -32,7 +32,7 @@ use base 'EBox::RemoteServices::Server::Base';
 use EBox::Exceptions::MissingArgument;
 use EBox::Config;
 use EBox::Global;
-use YAML::Tiny;
+use YAML::XS;
 
 # Group: Public class methods
 
@@ -64,8 +64,7 @@ sub generateReport
     unless (defined($optionstring)) {
         throw EBox::Exceptions::MissingArgument('options');
     }
-    my $yaml = YAML::Tiny->read_string($optionstring);
-    my $options = $yaml->[0];
+    my ($options) = YAML::XS::Load($optionstring);
     my $full_report = {};
 
     $full_report->{'range'} = $options->{'range'};
@@ -93,11 +92,7 @@ sub generateReport
         return $class->_soapResult('');
     }
 
-
-    $yaml = YAML::Tiny->new();
-    $yaml->[0] = $full_report;
-
-    my $retValue = $yaml->write_string();
+    my $retValue = YAML::XS::Dump($full_report);
     return $class->_soapResult($retValue);
 }
 

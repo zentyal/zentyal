@@ -36,7 +36,7 @@ use EBox::Config;
 use File::Slurp;
 use Fcntl ':mode';
 use File::Path;
-use YAML::Tiny;
+use YAML::XS;
 
 use constant JOBS_DIR     => EBox::Config::conf() . 'remoteservices/jobs/';
 use constant INCOMING_DIR => JOBS_DIR . 'incoming/';
@@ -218,29 +218,27 @@ sub addCronJobs
         # Write down the YAML cron job metadata file
         my $yaml;
         if ( -d $dirPath and -f "$dirPath/conf.yaml") {
-            $yaml = YAML::Tiny->read("$dirPath/conf.yaml");
+            ($yaml) = YAML::XS::LoadFile("$dirPath/conf.yaml");
         } else {
             unless ( -d $dirPath ) {
                 File::Path::mkpath($dirPath);
             }
-            $yaml = new YAML::Tiny();
-            $yaml->[0]->{lastTimestamp} = 0;
+            $yaml = {};
+            $yaml->{lastTimestamp} = 0;
         }
 
-        $yaml->[0]->{period} = $cronJob->{period};
+        $yaml->{period} = $cronJob->{period};
 
-
-
-        $yaml->[0]->{fromControlCenter} = exists $cronJob->{fromControlCenter} ?
+        $yaml->{fromControlCenter} = exists $cronJob->{fromControlCenter} ?
                                                  $cronJob->{fromControlCenter} :
                                                  1  ;
-        $yaml->write("$dirPath/conf.yaml");
+
+        YAML::XS::DumpFile("$dirPath/conf.yaml", $yaml);
 
         if (exists $cronJob->{internal} and $cronJob->{internal}) {
             # add internal file flag
             File::Slurp::write_file( "$dirPath/internal", '');
         }
-
 
         # Write down the script
         File::Slurp::write_file( "$dirPath/script", $cronJob->{script});
@@ -250,7 +248,6 @@ sub addCronJobs
         # No arguments yet
         File::Slurp::write_file( "$dirPath/args",  '');
     }
-
 }
 
 # Method: removeJob

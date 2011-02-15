@@ -27,7 +27,7 @@ use EBox::Sudo;
 use Error qw(:try);
 use File::Slurp;
 use Perl6::Junction qw(none);
-use YAML::Tiny;
+use YAML::XS;
 
 use constant FINGERPRINT_FILE => EBox::Config::share() . 'zentyal-ebackup/server-fingerprints';
 
@@ -217,12 +217,11 @@ sub writeDRMetadata
         eboxModules      => \@modsInBackup,
     };
 
-    my $yaml = YAML::Tiny->new;
-    $yaml->[0]->{'backup'} = $metadata;
+    my $yaml = {};
+    $yaml->{'backup'} = $metadata;
 
     my $tmpFile = EBox::Config::tmp() . $filename;
-    $yaml->write($tmpFile);
-    my $yamlData = $yaml->write_string();
+    YAML::XS::DumpFile($tmpFile, $yaml);
 
     my $credentials = credentials();
 

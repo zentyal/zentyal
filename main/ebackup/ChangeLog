@@ -1,4 +1,5 @@
 HEAD
+	+ Replace YAML::Tiny with libyaml written in C through YAML::XS wrapper
 	+ Renamed /usr/share/ebox-ebackup/ebox-remote-ebackup to
 	  /usr/share/zentyal-ebackup/backup-tool
 	+ Removed migrations and use new initial-setup

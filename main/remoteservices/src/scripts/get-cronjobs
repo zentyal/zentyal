@@ -29,7 +29,7 @@ use File::Basename;
 use File::Slurp;
 use Getopt::Long;
 use Pod::Usage;
-use YAML::Tiny;
+use YAML::XS;
 use EBox::RemoteServices::Server::JobReceiver;
 
 
@@ -51,7 +51,7 @@ sub _getCronJobs
 
 
     my @allJobIds     = <$baseDir$cronPrefix*>;
-    @allJobIds = map { 
+    @allJobIds = map {
                          my ($basename) = fileparse($_);
                          $basename =~ m{^$cronPrefix(.*)$};
                          $1
@@ -63,10 +63,10 @@ sub _getCronJobs
             my $dirPath = "$baseDir/${cronPrefix}$id";
 
             # check that is a no-cc job, if it is not leave it alone
-            if (  -f "$dirPath/conf.yaml") {
-                $yaml = YAML::Tiny->read("$dirPath/conf.yaml");
-                if (exists $yaml->[0]->{fromControlCenter}) {
-                    $yaml->[0]->{fromControlCenter} or
+            if (-f "$dirPath/conf.yaml") {
+                ($yaml) = YAML::XS::LoadFile("$dirPath/conf.yaml");
+                if (exists $yaml->{fromControlCenter}) {
+                    $yaml->{fromControlCenter} or
                         next;
                 }
             }

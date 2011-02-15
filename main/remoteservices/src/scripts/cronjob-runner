@@ -25,7 +25,7 @@ use EBox::Exceptions::Internal;
 use EBox::RemoteServices::Configuration;
 use Getopt::Long;
 use Pod::Usage;
-use YAML::Tiny;
+use YAML::XS;
 
 use constant JOBS_DIR      => EBox::RemoteServices::Configuration::JobsDir();
 use constant INCOMING_DIR  => EBox::RemoteServices::Configuration::IncomingJobDir();
@@ -44,7 +44,7 @@ sub _runCronJobs
         next unless (-x $cronJobPath);
         my $metadataFilePath = $cronJobDirPath . '/conf.yaml';
         next unless (-r $metadataFilePath);
-        my $yaml = YAML::Tiny->read($metadataFilePath);
+        my ($yaml) = YAML::XS::LoadFile($metadataFilePath);
         unless ( defined($yaml) ) {
             throw EBox::Exceptions::Internal("Not a proper YAML file $metadataFilePath: " . $yaml->errstr());
         }

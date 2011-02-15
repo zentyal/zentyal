@@ -92,7 +92,6 @@ sub fake
                                          # state of modules
     Test::MockObject->fake_module('EBox::Global',
                                   readModInfo => \&_fakedReadModInfo,
-                                  writeModInfo => \&_fakedWriteModInfo,
                                   modNames     => \&_fakedModNames,
                               );
 

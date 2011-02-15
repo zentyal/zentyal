@@ -276,6 +276,11 @@ sub logfile
     return $ref->{localstatedir} . 'log/zentyal/zentyal.log';
 }
 
+sub modules
+{
+    return $ref->{datadir} . 'zentyal/modules/';
+}
+
 sub stubs
 {
     return $ref->{datadir} . 'zentyal/stubs/';

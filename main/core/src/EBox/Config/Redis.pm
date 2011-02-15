@@ -23,7 +23,7 @@ use Redis;
 use EBox::Config;
 use EBox::Service;
 use POSIX ':signal_h';
-use YAML::Syck;
+use YAML::XS;
 use File::Slurp;
 use File::Basename;
 use Perl6::Junction qw(any);
@@ -426,7 +426,7 @@ sub export_dir_to_yaml
         include_dirs => $includeDirs
     );
     try {
-        YAML::Syck::DumpFile($file, @keys);
+        YAML::XS::DumpFile($file, @keys);
     } otherwise {
         throw EBox::Exceptions::External("Error dumping $key to YAML:$file");
     };
@@ -508,7 +508,7 @@ sub import_dir_from_yaml
     my @keys;
 
     try {
-        @keys = YAML::Syck::LoadFile($filename);
+        @keys = YAML::XS::LoadFile($filename);
     } otherwise {
         throw EBox::Exceptions::External("Error parsing YAML:$filename");
     };

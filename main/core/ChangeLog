@@ -1,4 +1,5 @@
 HEAD
+	+ Replace YAML::Tiny with libyaml written in C through YAML::XS wrapper
 	+ Minor bugfix: filter invalid '_' param added by Webkit-based browser
 	  on EBox::CGI::Base::params() instead of _validateParams(), avoids
 	  warning in zentyal.log when enabling modules

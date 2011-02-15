@@ -36,7 +36,7 @@ use Term::ReadKey;
 use Date::Parse;
 use DateTime;
 use String::ShellQuote;
-use YAML::Tiny;
+use YAML::XS;
 
 use constant NTP_SERVER     => 'pool.ntp.org';
 
@@ -706,7 +706,7 @@ sub _preRestoreNetworkCheck
     my @enabledIfaces;
 
     # Open the config
-    my $yaml = YAML::Tiny->read( $confBakFile );
+    my ($yaml) = YAML::XS::LoadFile($confBakFile);
     foreach my $spec (@{ $yaml }) {
         my $iface;
         if ($spec->{key} =~ m{^/ebox/modules/network/interfaces/(.*?)/method$}) {
@@ -2069,9 +2069,9 @@ sub metadata
     my $dir = metaTmpDir();
     my $file = EBox::EBackup::Subscribed::metaFilenameFromDate($date);
     my $path = $dir . '/' . $file;
-    my $yaml = YAML::Tiny->read($path);
+    my ($yaml) = YAML::XS::LoadFile($path);
 
-    return $yaml->[0]->{backup};
+    return $yaml->{backup};
 }
 
 sub getBackupDomainsToRestore

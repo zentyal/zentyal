@@ -1,4 +1,5 @@
 HEAD
+	+ Replace YAML::Tiny with libyaml written in C through YAML::XS wrapper
 	+ Remove migrations and use new initial-setup
 	+ Replace /etc/ebox/78remoteservices.conf with
 	  /etc/zentyal/remoteservices.conf
