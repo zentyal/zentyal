@@ -4,72 +4,82 @@
 # This file is distributed under the same license as the zentyal packages.
 # Automatically generated, 2011.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: zentyal 2.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2011-02-13 13:25+0100\n"
-"PO-Revision-Date: 2010-08-25 17:41+0200\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2011-02-15 17:43+0200\n"
+"Last-Translator: Nikos <nmar@town.gr>\n"
 "Language-Team: none\n"
 "Language: el\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Pootle 2.1.4\n"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:61
 msgid "Mail Filter"
-msgstr ""
+msgstr "Φίλτρο Αλληλογραφίας"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:79
+#, fuzzy
 msgid "Add clamav user to amavis group"
-msgstr ""
+msgstr "Προσθήκη του χρήστη clamav στην ομάδα amavis"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:80
 msgid "Clamav need access to amavis fields to properly scan mail"
 msgstr ""
+"Το Clamav χρειάζεται πρόσβαση στους φακέλους του amavis για να σαρώσει την "
+"αλληλογραφία σωστά"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:84
 msgid "Add clamav user to p3scan group"
-msgstr ""
+msgstr "Προσθήκη του χρήστη clamav στην ομάδα p3scan"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:85
+#, fuzzy
 msgid "Clamav need access to p3scan group to properly scan in the POP Proxy"
 msgstr ""
+"Το Clamav χρειάζεται πρόσβαση στην ομάδα p3scan για να σαρώσει στο POP Proxy"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:89
 msgid "Add spam and ham system users"
-msgstr ""
+msgstr "Προσθήκη χρηστών συστήματος spam και ham"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:91
 msgid ""
 "This users are for the email accounts used for training the bayesian filter"
 msgstr ""
+"Αυτοί οι χρήστες είναι για τους λογαριασμούς αλληλογραφίας που "
+"χρησιμοποιήθηκαν για να εκπαιδεύσουν το φίλτρο bayesian"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:96
 msgid "Update LDAP"
-msgstr ""
+msgstr "Ενημέρωση LDAP"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:97
+#, fuzzy
 msgid "Add amavis specific classes and fields"
-msgstr ""
+msgstr "Προσθήκη συγκεκριμένων κλάσεων και πεδίων του amavis"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:146
 msgid "POP transparent proxy"
-msgstr ""
+msgstr "Διαφανής POP Proxy"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:155
 msgid "POP3 protocol"
-msgstr ""
+msgstr "POP3 πρωτόκολλο"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:403
+#, fuzzy
 msgid "Cannot proceed because the filter is in use"
-msgstr ""
+msgstr "Δεν μπορεί να συνεχιστεί, το φίλτρο είναι σε χρήση"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:558
 msgid "Mail filter"
-msgstr ""
+msgstr "Φίλτρο Αλληλογραφίας"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:580
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:625
@@ -124,7 +134,7 @@ msgstr "Ημερομηνία"
 #: ../../main/mail/src/templates/alias.mas:39
 #: ../../main/mail/src/templates/groupalias.mas:25
 msgid "Action"
-msgstr ""
+msgstr "Ενέργεια"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:583
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:629
@@ -137,93 +147,98 @@ msgstr ""
 #: ../../main/printers/src/EBox/Printers.pm:297
 #: ../../main/core/src/templates/logs/index.mas:183
 msgid "Event"
-msgstr ""
+msgstr "Γεγονός"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:585
 msgid "Sender address"
-msgstr ""
+msgstr "Διεύθυνση αποστολέα"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:586
 msgid "Recipient address"
-msgstr ""
+msgstr "Διεύθυνση παραλήπτη "
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:588
+#, fuzzy
 msgid "Spam hits"
-msgstr ""
+msgstr "Επιτυχίες spam"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:593
+#, fuzzy
 msgid "Bad header found"
-msgstr ""
+msgstr "Βρέθηκε κακή κεφαλίδα"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:594
 msgid "Spam found"
-msgstr ""
+msgstr "Βρέθηκε Spam"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:595
 msgid "Forbidden attached file found"
-msgstr ""
+msgstr "Βρέθηκε απαγορευμένο συνημμένο αρχείο"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:596
+#, fuzzy
 msgid "Address in blacklist found"
-msgstr ""
+msgstr "Βρέθηκε διεύθυνση από τη μαύρη λίστα"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:597
 msgid "Virus found"
-msgstr ""
+msgstr "Βρέθηκε Ιός"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:598
 msgid "Clean message"
-msgstr ""
+msgstr "Καθαρισμός μηνύματος"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:607
 msgid "SMTP filter"
-msgstr ""
+msgstr "Φίλτρο SMTP"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:627
 msgid "Account"
-msgstr ""
+msgstr "Λογαριασμός"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:628
 msgid "Client's address"
-msgstr ""
+msgstr "Διεύθυνση πελάτη"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:631
 msgid "Total messages"
-msgstr ""
+msgstr "Σύνολο μηνυμάτων"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:632
 msgid "Clean messages"
-msgstr ""
+msgstr "Καθαρισμός μηνυμάτων"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:633
 msgid "Virus messages"
-msgstr ""
+msgstr "Μηνύματα με Ιο"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:634
+#, fuzzy
 msgid "Spam messages"
-msgstr ""
+msgstr "Ανεπιθύμητη αλληλογραφία"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:641
 msgid "POP3 transmission complete"
-msgstr ""
+msgstr "Ολοκληρώθηκε η POP3 αποστολή"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:643
 msgid "POP3 transmission aborted"
-msgstr ""
+msgstr "Ματαίωση αποστολής POP3"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:647
+#, fuzzy
 msgid "POP3 proxy"
-msgstr ""
+msgstr "POP3 proxy"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:746
 #: ../../main/mailfilter/src/EBox/MailFilter/Composite/Amavis.pm:60
 msgid "SMTP Mail Filter"
-msgstr ""
+msgstr "SMTP φίλτρο αλληλογραφίας"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:753
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/POPProxyConfiguration.pm:92
 msgid "POP Transparent Proxy"
-msgstr ""
+msgstr "Διαφανής POP3 Proxy"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:761
 #: ../../main/mailfilter/src/EBox/MailFilter/POPProxy.pm:348
@@ -231,23 +246,23 @@ msgstr ""
 #: ../../main/mailfilter/src/EBox/MailFilter/Composite/Antispam.pm:96
 #: ../../main/mailfilter/src/EBox/MailFilter/Composite/Antispam.pm:97
 msgid "Antispam"
-msgstr ""
+msgstr "Αντι-Spam"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:768
 msgid "Files ACL"
-msgstr ""
+msgstr "Αρχεία ACL"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/POPProxy.pm:61
 msgid " To configure p3scan"
-msgstr ""
+msgstr "Για να ρυθμίσετε το p3scan"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/POPProxy.pm:66
 msgid "To configure renattach"
-msgstr ""
+msgstr "Για να ρυθμίσετε το renattach"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/POPProxy.pm:322
 msgid "Transparent POP Proxy"
-msgstr ""
+msgstr "Διαφανής POP Proxy"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/POPProxy.pm:328
 #: ../../main/mailfilter/src/EBox/MailFilter/Amavis.pm:445
@@ -265,98 +280,105 @@ msgstr "Κατάσταση"
 #: ../../main/mailfilter/src/EBox/MailFilter/VDomainsLdap.pm:537
 #, perl-brace-format
 msgid "Virtual mail domain {vd} does not exist"
-msgstr ""
+msgstr "Εικονικός τομέας αλληλογραφίας {vd} δεν υπάρχει"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/ExternalMTA.pm:67
 msgid "External mail server"
-msgstr ""
+msgstr "Εξωτερικός διακομιστής αλληλογραφίας"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/ExternalMTA.pm:70
 msgid "IP address of the server"
-msgstr ""
+msgstr "IP διεύθυνση του διακομιστή"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/ExternalMTA.pm:74
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/ExternalDomain.pm:74
 msgid "Allow connection"
-msgstr ""
+msgstr "Αποδοχή σύνδεσης"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/ExternalMTA.pm:82
 msgid "External mail servers"
-msgstr ""
+msgstr "Εξωτερικοί διακομιστές αλληλογραφίας"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/ExternalMTA.pm:94
 msgid "external mail server"
-msgstr ""
+msgstr "Εξωτερικός διακομιστής αλληλογραφίας"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/ExternalMTA.pm:95
 msgid ""
 "Here you can specify which external mail servers can connect to the mail "
 "filter"
 msgstr ""
+"Εδώ μπορείτε να καθορίσετε ποιοι εξωτερικοί διακομιστές αλληλογραφίας "
+"μπορούν να συνδεθούν με το φίλτρο αλληλογραφίας"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/ExternalMTA.pm:142
-#, perl-brace-format
+#, perl-brace-format, fuzzy
 msgid "Invalid external MTA {mta}. Local network addresses are not allowed"
 msgstr ""
+"Άκυρο εξωτερικό MTA {mta}. Τοπικές διευθύνσεις του δικτύου δεν επιτρέπονται"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/ExternalDomain.pm:68
 msgid "External mail domain"
-msgstr ""
+msgstr "Εξωτερικός τομέας αλληλογραφίας"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/ExternalDomain.pm:82
 msgid "External mail domains"
-msgstr ""
+msgstr "Εξωτερικοί τομείς αλληλογραφίας"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/ExternalDomain.pm:94
 msgid "external mail domain"
-msgstr ""
+msgstr "Εξωτερικός τομέας αλληλογραφίας"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/ExternalDomain.pm:95
 msgid ""
 "Here you can specify which external mail domains can connect to the mail "
 "filter"
 msgstr ""
+"Εδώ μπορείτε να καθορίσετε ποιοι εξωτερικοί τομείς αλληλογραφίας μπορούν να "
+"συνδεθούν με το φίλτρο αλληλογραφίας"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/ExternalDomain.pm:113
-#, perl-brace-format
+#, perl-brace-format, fuzzy
 msgid "{d} is a internal Zentyal virtual main domain"
-msgstr ""
+msgstr "{d} είναι ένας κεντρικός εσωτερικός Zentyal εικονικός τομέας"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamTraining.pm:58
 msgid "Mailbox"
-msgstr ""
+msgstr "Γραμματοκιβώτιο"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamTraining.pm:64
 msgid "Mailbox contains"
-msgstr ""
+msgstr "Το γραμματοκιβώτιο περιέχει"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamTraining.pm:74
 msgid "Train bayesian spam filter"
-msgstr ""
+msgstr "Εκπαίδεσυη του spam φίλτρου bayesian"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamTraining.pm:79
 msgid "Learned from messages"
-msgstr ""
+msgstr "Έμαθε από τα μηνύματα"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamTraining.pm:81
 msgid "Train"
-msgstr ""
+msgstr "Εκπαίδευση"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamTraining.pm:96
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/Report/FilterGraph.pm:64
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/Report/FilterDetails.pm:49
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/Report/FilterDetails.pm:90
+#, fuzzy
 msgid "spam"
-msgstr ""
+msgstr "spam"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamTraining.pm:97
+#, fuzzy
 msgid "ham"
-msgstr ""
+msgstr "ham"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamTraining.pm:129
 #, perl-brace-format
 msgid "Invalid mailbox type: {type}"
-msgstr ""
+msgstr "Άκυρος τύπος γραμματοκιβωτίου : {type}"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomains.pm:68
 #: ../../main/network/src/EBox/Model/SearchDomain.pm:71
@@ -366,43 +388,47 @@ msgstr ""
 #: ../../main/core/src/EBox/Logs/Model/SelectLog.pm:149
 #: ../../main/core/src/EBox/Logs/Model/ConfigureLogDataTable.pm:331
 msgid "Domain"
-msgstr ""
+msgstr "Τομέας"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomains.pm:78
 msgid "Use virus filtering"
-msgstr ""
+msgstr "Χρησιμοποιήστε φίλτρο για Ιους"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomains.pm:84
 msgid "Use spam filtering"
-msgstr ""
+msgstr "Χρησιμοποιήστε φίλτρο για spam"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomains.pm:90
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamConfiguration.pm:61
 #: ../../main/mailfilter/src/EBox/MailFilter/SpamAssassin.pm:336
+#, fuzzy
 msgid "Spam threshold"
-msgstr ""
+msgstr "Spam όριο"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomains.pm:97
 msgid "default"
-msgstr ""
+msgstr "προεπιλογή"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomains.pm:101
 msgid "custom threshold"
-msgstr ""
+msgstr "προσαρμοσμένο όριο"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomains.pm:113
+#, fuzzy
 msgid "Learn from accounts' Spam IMAP folders"
-msgstr ""
+msgstr "Εκπαίδευση από τον λογαριασμό Ανεπιθύμητα σε φακέλους IMAP "
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomains.pm:115
 msgid ""
 "Every time that a email moved into or out of the IMAP spam folder the filter "
 "will be trained with it"
 msgstr ""
+"Κάθε φορά που ένα μήνυμα ηλεκτρονικού ταχυδρομείου μετακινείται προς ή από "
+"το φάκελο ανεπιθύμητη αλληλογραφία IMAP το φίλτρο θα εκπαιδεύεται με αυτό"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomains.pm:122
 msgid "Learning ham account"
-msgstr ""
+msgstr "Εκμάθηση λογαριασμού ham"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomains.pm:123
 msgid ""
@@ -410,10 +436,13 @@ msgid ""
 "incorrectly classified as spam may be forwarded to this addres to train the "
 "filter"
 msgstr ""
+"Μια διεύθυνση (ham@τομέας) θα δημιουργηθεί για αυτόν τον τομέα, τα ham "
+"μηνύματα που κακώς χαρακτηρίζονται ως spam, μπορούν να διαβιβάζονται σε αυτή "
+"τη διεύθυνση για την εκμάθηση των φίλτρων"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomains.pm:134
 msgid "Learning spam account"
-msgstr ""
+msgstr "Εκμάθηση λογαριασμού spam"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomains.pm:135
 msgid ""
@@ -421,16 +450,19 @@ msgid ""
 "incorrectly classified as ham may be forwarded to this addres to train the "
 "filter"
 msgstr ""
+"Μια διεύθυνση spam@τομέας) θα δημιουργηθεί για αυτόν τον τομέα, τα spam "
+"μηνύματα που κακώς χαρακτηρίζονται ως ham, μπορούν να διαβιβάζονται σε αυτή "
+"τη διεύθυνση για την εκμάθηση των φίλτρων"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomains.pm:146
 msgid "Antispam sender policy"
-msgstr ""
+msgstr "Πολιτική καταπολέμησης της ανεπιθύμητης αλληλογραφίας"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomains.pm:157
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamACL.pm:164
 #: ../../main/mail/src/EBox/Mail/Model/VDomains.pm:91
 msgid "Virtual Domains"
-msgstr ""
+msgstr "Εικονικοί Τομείς"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomains.pm:168
 #: ../../main/mail/src/EBox/MailVDomainsLdap.pm:64
@@ -438,7 +470,7 @@ msgstr ""
 #: ../../main/mail/src/EBox/Mail/Model/VDomains.pm:101
 #: ../../main/mail/src/EBox/CGI/CreateAccount.pm:46
 msgid "virtual domain"
-msgstr ""
+msgstr "Εικονικός Τομέας"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomains.pm:186
 #, perl-brace-format
@@ -446,11 +478,14 @@ msgid ""
 "There are no virtual mail domains managed by this server. You can create "
 "some in the {openA}virtual domains mail page{closeA}."
 msgstr ""
+"Δεν υπάρχουν εικονικοί τομείς αλληλογραφίας που διαχειρίζονται από αυτό το "
+"διακομιστή. Μπορείτε να δημιουργήσετε κάποιους στην {openA} σελίδα τομέων "
+"εικονικής αλληλογραφίας {closeA}."
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamVDomainACL.pm:61
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamACL.pm:61
 msgid "Mail sender"
-msgstr ""
+msgstr "Αποστολέας Αλληλογραφίας"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamVDomainACL.pm:67
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamACL.pm:67
@@ -459,31 +494,31 @@ msgstr ""
 #: ../../main/squid/src/EBox/Squid/Model/GroupPolicyBase.pm:79
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterBase.pm:42
 msgid "Policy"
-msgstr ""
+msgstr "Πολιτική"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamVDomainACL.pm:76
 msgid "Sender policy for virtual domain"
-msgstr ""
+msgstr "Πολιτική αποστολέα για εικονικούς τομείς"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamVDomainACL.pm:88
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamACL.pm:88
 msgid "sender policy"
-msgstr ""
+msgstr "πολιτική αποστολέα"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamVDomainACL.pm:97
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamACL.pm:97
 msgid "whitelist"
-msgstr ""
+msgstr "λευκή λίστα"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamVDomainACL.pm:98
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamACL.pm:98
 msgid "blacklist"
-msgstr ""
+msgstr "μαύρη λίστα"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamVDomainACL.pm:99
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamACL.pm:99
 msgid "process"
-msgstr ""
+msgstr "διαδικασία "
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisConfiguration.pm:63
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/POPProxyConfiguration.pm:57
@@ -514,15 +549,15 @@ msgstr ""
 #: ../../main/jabber/src/templates/jabber.mas:22
 #: ../../main/jabber/src/templates/jabber.mas:25
 msgid "Enabled"
-msgstr ""
+msgstr "ενεργοποιημένη"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisConfiguration.pm:69
 msgid "Antivirus enabled"
-msgstr ""
+msgstr "Ενεργοποιημένη η αντιμετώπιση ιών "
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisConfiguration.pm:75
 msgid "Antispam enabled"
-msgstr ""
+msgstr "Ενεργοποιημένη η αντιμετώπιση ανεπιθύμητης αλληλογραφίας"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisConfiguration.pm:82
 msgid "Service's port"
@@ -568,11 +603,11 @@ msgstr ""
 #: ../../main/jabber/src/templates/jabber.mas:21
 #: ../../main/jabber/src/templates/jabber.mas:24
 msgid "Disabled"
-msgstr ""
+msgstr "Απενεργοποιημένο"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisConfiguration.pm:98
 msgid "mail address"
-msgstr ""
+msgstr "διεύθυνση αλληλογραφίας"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisConfiguration.pm:108
 #: ../../main/squid/src/EBox/Squid.pm:1085
@@ -580,7 +615,7 @@ msgstr ""
 #: ../../main/mail/src/EBox/Mail.pm:1619 ../../main/ca/src/EBox/CA.pm:1754
 #: ../../main/core/src/EBox/SysInfo.pm.in:268
 msgid "General"
-msgstr ""
+msgstr "Γενικά"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisConfiguration.pm:139
 #, perl-brace-format
@@ -589,11 +624,11 @@ msgstr ""
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisPolicy.pm:61
 msgid "Virus policy"
-msgstr ""
+msgstr "Πολιτική Ιών"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisPolicy.pm:67
 msgid "Spam policy"
-msgstr ""
+msgstr "Πολιτική Ανεπιθήμητης αλληλογραφίας"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisPolicy.pm:73
 msgid "Banned files policy"
@@ -611,11 +646,11 @@ msgstr ""
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupAntiVirus.pm:59
 #: ../../main/squid/src/EBox/Squid/Model/DefaultAntiVirus.pm:49
 msgid "Filter virus"
-msgstr ""
+msgstr "Φίλτρο Ιών"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/POPProxyConfiguration.pm:75
 msgid "Filter spam"
-msgstr ""
+msgstr "Φίλτρο ανεπιθύμητης αλληλογραφίας"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/POPProxyConfiguration.pm:81
 msgid "ISP spam subject"
@@ -643,7 +678,7 @@ msgstr ""
 #: ../../main/ebackup/src/EBox/EBackup/Subscribed.pm:198
 #: ../../main/jabber/src/EBox/Jabber/Composite/General.pm:66
 msgid "Configuration"
-msgstr ""
+msgstr "Ρύθμιση"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/POPProxyConfiguration.pm:113
 msgid ""
@@ -653,7 +688,7 @@ msgstr ""
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamACL.pm:76
 msgid "Sender policy"
-msgstr ""
+msgstr "πολιτική αποστολέα"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/MIMETypeACL.pm:75
 #: ../../main/squid/src/EBox/Squid/Model/MIMEFilterBase.pm:57
@@ -671,13 +706,13 @@ msgstr ""
 #: ../../main/squid/src/EBox/Squid/Model/ExtensionFilterBase.pm:117
 #: ../../main/samba/src/templates/samba.mas:115
 msgid "Allow"
-msgstr ""
+msgstr "Επέτρεψε"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/MIMETypeACL.pm:90
 #: ../../main/squid/src/EBox/Squid/Model/ApplyAllowToAllMIME.pm:41
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupApplyAllowToAllMIME.pm:41
 msgid "MIME types"
-msgstr ""
+msgstr "τύποι ΜΙΜΕ"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/MIMETypeACL.pm:98
 #: ../../main/mailfilter/src/EBox/MailFilter/Types/MIMEType.pm:60
@@ -715,17 +750,17 @@ msgstr ""
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/Report/FilterDetails.pm:55
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/Report/FilterDetails.pm:85
 msgid "infected"
-msgstr ""
+msgstr "μολυσμένο"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/Report/FilterGraph.pm:76
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/Report/FilterDetails.pm:58
 msgid "bad header"
-msgstr ""
+msgstr "κακή κεφαλίδα"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/Report/FilterGraph.pm:80
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/Report/FilterDetails.pm:61
 msgid "blacklisted"
-msgstr ""
+msgstr "σε μαύρη λίστα"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/Report/FilterGraph.pm:103
 msgid "Filter traffic"
@@ -735,26 +770,26 @@ msgstr ""
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/Report/POPProxyDetails.pm:75
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/Report/POPProxyGraph.pm:63
 msgid "total messages"
-msgstr ""
+msgstr "σύνολο μυνημάτων"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/Report/POPProxyDetails.pm:52
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/Report/POPProxyGraph.pm:69
 msgid "infected messages "
-msgstr ""
+msgstr "μολυσμένα μυνήματα"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/Report/POPProxyDetails.pm:56
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/Report/POPProxyDetails.pm:90
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/Report/POPProxyGraph.pm:73
 msgid "spam messages"
-msgstr ""
+msgstr "μυνήματα ανεπιθύμητης αλληλογραφίας"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/Report/POPProxyDetails.pm:85
 msgid "infected messages"
-msgstr ""
+msgstr "μολυσμένα μυνήματα"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/Report/POPProxyDetails.pm:102
 msgid "Transparent POP proxy traffic details"
-msgstr ""
+msgstr "λεπτομέρειες κίνησης Διαφανούς POP Proxy"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/Report/POPProxyDetails.pm:110
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/Report/FilterDetails.pm:125
@@ -762,27 +797,27 @@ msgstr ""
 #: ../../main/firewall/src/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:86
 #: ../../main/mail/src/EBox/Mail/Model/Report/TrafficDetails.pm:99
 msgid "traffic"
-msgstr ""
+msgstr "κίνηση"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/Report/POPProxyGraph.pm:51
 msgid "POP proxy graph"
-msgstr ""
+msgstr "γράφημα POP Proxy"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/Report/POPProxyGraph.pm:95
 msgid "Transparent POP proxy traffic"
-msgstr ""
+msgstr "κίνηση Διαφανούς POP Proxy"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/Report/FilterDetails.pm:101
 msgid "blacklisted senders"
-msgstr ""
+msgstr "αποστολείς σε μαύρη λίστα"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/Report/FilterDetails.pm:106
 msgid "bad message header"
-msgstr ""
+msgstr "κακή κεφαλίδα μυνήματος"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/Report/FilterDetails.pm:117
 msgid "Filter traffic details"
-msgstr ""
+msgstr "λεπτομέρειες κίνησης φίλτρου"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamConfiguration.pm:65
 msgid "The score threshold to mark a message as spam"
@@ -838,7 +873,7 @@ msgstr ""
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamConfiguration.pm:114
 msgid "Antispam configuration"
-msgstr ""
+msgstr "Ρυθμίσεις ανεπιθύμητης αλληλογραφίας"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamConfiguration.pm:166
 msgid ""
@@ -864,16 +899,16 @@ msgstr ""
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/FileExtensionACL.pm:79
 #: ../../main/squid/src/EBox/Squid/Model/ExtensionFilterBase.pm:59
 msgid "File extension"
-msgstr ""
+msgstr "Επέκταση αρχείου"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/FileExtensionACL.pm:94
 msgid "File extensions"
-msgstr ""
+msgstr "Επεκτάσεις αρχείων"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/FileExtensionACL.pm:102
 #: ../../main/mailfilter/src/EBox/MailFilter/Types/FileExtension.pm:58
 msgid "file extension"
-msgstr ""
+msgstr "επέκταση αρχείου"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/FileExtensionACL.pm:103
 msgid "Extensions which are not listed below are allowed"
@@ -883,11 +918,11 @@ msgstr ""
 #: ../../main/mail/src/EBox/CGI/CreateAlias.pm:48
 #: ../../main/mail/src/EBox/CGI/CreateGroupAlias.pm:48
 msgid "domain name"
-msgstr ""
+msgstr "όνομα τομέα"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Types/AmavisSender.pm:82
 msgid "email address"
-msgstr ""
+msgstr "διεύθυνση αλληλογραφίας"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Types/AmavisSender.pm:86
 msgid ""
@@ -901,7 +936,7 @@ msgstr ""
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Types/Policy.pm:46
 msgid "Reject"
-msgstr ""
+msgstr "Απόριψη"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Types/Policy.pm:47
 msgid "Bounce"
@@ -939,7 +974,7 @@ msgstr ""
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Amavis.pm:425
 msgid "Zentyal internal mail filter"
-msgstr ""
+msgstr "Εσωτερικό φίλτρο αλληλογραφίας του Zentyal"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Amavis.pm:439
 msgid "SMTP filter proxy"
@@ -947,7 +982,7 @@ msgstr ""
 
 #: ../../main/mailfilter/src/EBox/MailFilter/SpamAssassin.pm:58
 msgid " To configure spamassassin daemon"
-msgstr ""
+msgstr "Ρύθμιση του spamassasin δαίμονα"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/SpamAssassin.pm:336
 msgid "It must be a number(decimal point allowed)"
@@ -978,29 +1013,31 @@ msgstr ""
 #: ../../main/mailfilter/src/EBox/MailFilter/Composite/Report/POPProxyReport.pm:69
 #: ../../main/mailfilter/src/EBox/MailFilter/Composite/Report/FilterReport.pm:69
 msgid "Mail filter report"
-msgstr ""
+msgstr "Αναφορά φίλτρου αλληλογραφίας"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Composite/Report/POPProxyReport.pm:70
 msgid "Transparent POP proxy report"
-msgstr ""
+msgstr "Αναφορά Διαφανούς POP Proxy"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Composite/Report/FilterReport.pm:70
 msgid "Mail Filter report"
-msgstr ""
+msgstr "Αναφορά φίλτρου αλληλογραφίας"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Composite/FileFilter.pm:58
 msgid "Attached Files Filter"
-msgstr ""
+msgstr "Φίλτρο συνημμένων"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Composite/FileFilter.pm:60
 msgid ""
 "Filter mail messages according attached files. The transparent POP proxy "
 "only filters by extension"
 msgstr ""
+"Φιλτράρισμα μηνυμάτων σύμφωνα με τα συνημμένα αρχεία. Ο διαφανής proxy POP "
+"φιλτράρει μόνο με τις επεκτάσεις αρχείων"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Composite/ExternalConnections.pm:59
 msgid "External connections"
-msgstr ""
+msgstr "Εξωτερικές συνδέσεις"
 
 #: ../../main/radius/src/EBox/Model/Clients.pm:105
 msgid "Client"
@@ -1067,27 +1104,27 @@ msgstr ""
 
 #: ../../main/radius/src/EBox/Radius.pm:120
 msgid "To configure allowed LDAP group."
-msgstr ""
+msgstr "Ρύθμιση επιτρεπόμενων ομάδων LDAP"
 
 #: ../../main/radius/src/EBox/Radius.pm:124
 msgid "To configure RADIUS LDAP module."
-msgstr ""
+msgstr "Ρύθμιση ενότητας RADIUS LDAP"
 
 #: ../../main/radius/src/EBox/Radius.pm:128
 msgid "To configure RADIUS clients."
-msgstr ""
+msgstr "Ρύθμιση χρηστών RADIUS"
 
 #: ../../main/radius/src/EBox/Radius.pm:132
 msgid "To configure RADIUS EAP."
-msgstr ""
+msgstr "Ρύθμιση RADIUS EAP."
 
 #: ../../main/radius/src/EBox/Radius.pm:136
 msgid "To configure default RADIUS vhost."
-msgstr ""
+msgstr "Ρύθμιση προεπιλεγμένου RADIUS vhost."
 
 #: ../../main/radius/src/EBox/Radius.pm:140
 msgid "To configure RADIUS inner-tunnel vhost."
-msgstr ""
+msgstr "Ρύθμιση RADIUS inner-tunnel vhost."
 
 #: ../../main/radius/src/EBox/Radius.pm:165
 msgid "Zentyal RADIUS system"
@@ -1097,7 +1134,7 @@ msgstr "Σύστημα Zentyal RADIUS"
 #: ../../main/radius/src/EBox/Radius.pm:355
 #: ../../main/radius/src/EBox/Composite/General.pm:64
 msgid "RADIUS"
-msgstr ""
+msgstr "RADIUS"
 
 #: ../../main/network/src/EBox/Event/Watcher/Gateways.pm:160
 #, perl-brace-format
@@ -1123,7 +1160,7 @@ msgstr ""
 
 #: ../../main/network/src/EBox/Model/SearchDomain.pm:79
 msgid "Search Domain"
-msgstr ""
+msgstr "Αναζήτηση Τομέα"
 
 #: ../../main/network/src/EBox/Model/SearchDomain.pm:83
 msgid ""
@@ -1133,23 +1170,23 @@ msgstr ""
 
 #: ../../main/network/src/EBox/Model/WANFailoverRules.pm:55
 msgid "Ping to gateway"
-msgstr ""
+msgstr "Ping στην Πύλη"
 
 #: ../../main/network/src/EBox/Model/WANFailoverRules.pm:59
 msgid "Ping to host"
-msgstr ""
+msgstr "Ping στον διακομιστή"
 
 #: ../../main/network/src/EBox/Model/WANFailoverRules.pm:63
 msgid "DNS resolve"
-msgstr ""
+msgstr "Επίλυση DNS"
 
 #: ../../main/network/src/EBox/Model/WANFailoverRules.pm:67
 msgid "HTTP Request"
-msgstr ""
+msgstr "Αίτημα HTTP"
 
 #: ../../main/network/src/EBox/Model/WANFailoverRules.pm:91
 msgid "Test type"
-msgstr ""
+msgstr "Τύπος δοκιμής"
 
 #: ../../main/network/src/EBox/Model/WANFailoverRules.pm:97
 #: ../../main/network/src/EBox/CGI/Diag.pm:50
@@ -1158,7 +1195,7 @@ msgstr ""
 #: ../../main/network/src/templates/diag.mas:14
 #: ../../main/network/src/templates/diag.mas:23
 msgid "Host"
-msgstr ""
+msgstr "Διακομιστής"
 
 #: ../../main/network/src/EBox/Model/WANFailoverRules.pm:103
 msgid "Number of probes"
@@ -1170,7 +1207,7 @@ msgstr ""
 
 #: ../../main/network/src/EBox/Model/WANFailoverRules.pm:125
 msgid "Test rules"
-msgstr ""
+msgstr "Κανόνες δοκιμών"
 
 #: ../../main/network/src/EBox/Model/WANFailoverRules.pm:132
 msgid ""
@@ -1190,7 +1227,7 @@ msgstr ""
 #: ../../main/firewall/src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:157
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:507
 msgid "rule"
-msgstr ""
+msgstr "κανόνας"
 
 #: ../../main/network/src/EBox/Model/WANFailoverRules.pm:182
 msgid "Invalid value for Host"
@@ -1210,7 +1247,7 @@ msgstr ""
 
 #: ../../main/network/src/EBox/Model/ByteRateGraphControl.pm:78
 msgid "Graph type"
-msgstr ""
+msgstr "Τύπος γραφήματος"
 
 #: ../../main/network/src/EBox/Model/ByteRateGraphControl.pm:85
 msgid "All active traffic by source"
@@ -1243,7 +1280,7 @@ msgstr ""
 #: ../../main/core/src/EBox/Events/Model/Report/EventsDetails.pm:74
 #: ../../main/core/src/EBox/Events.pm:820
 msgid "Source"
-msgstr ""
+msgstr "Πηγή"
 
 #: ../../main/network/src/EBox/Model/ByteRateGraphControl.pm:117
 #: ../../main/network/src/EBox/Model/DynDNS.pm:135
@@ -1255,11 +1292,11 @@ msgstr ""
 #: ../../main/ca/src/EBox/Model/Certificates.pm:258
 #: ../../main/core/src/EBox/Event/Watcher/Runit.pm:147
 msgid "Service"
-msgstr ""
+msgstr "Υπηρεσία"
 
 #: ../../main/network/src/EBox/Model/DynDNS.pm:130
 msgid "Enable Dynamic DNS"
-msgstr ""
+msgstr "Ενεργοπίηση δυναμικού DNS"
 
 #: ../../main/network/src/EBox/Model/DynDNS.pm:141
 #: ../../main/network/src/EBox/Model/Proxy.pm:75
@@ -1268,7 +1305,7 @@ msgstr ""
 #: ../../main/core/src/templates/password.mas:11
 #: ../../main/core/src/templates/login/index.mas:49
 msgid "Username"
-msgstr ""
+msgstr "Όνομα Χρήστη"
 
 #: ../../main/network/src/EBox/Model/DynDNS.pm:146
 #: ../../main/network/src/EBox/Model/Proxy.pm:82
@@ -1291,12 +1328,12 @@ msgstr ""
 #: ../../main/remoteservices/src/templates/RemoteServices/Backup/proxy.mas:130
 #: ../../main/core/src/templates/login/index.mas:54
 msgid "Password"
-msgstr ""
+msgstr "Κωδικός"
 
 #: ../../main/network/src/EBox/Model/DynDNS.pm:151
 #: ../../main/core/src/EBox/SysInfo.pm.in:104
 msgid "Hostname"
-msgstr ""
+msgstr "όνομα κεντρικού υπολογιστή"
 
 #: ../../main/network/src/EBox/Model/DynDNS.pm:163
 msgid ""
@@ -1334,7 +1371,7 @@ msgstr ""
 #: ../../main/network/src/EBox/Model/ByteRateSettings.pm:95
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:90
 msgid "Settings changed"
-msgstr ""
+msgstr "Αλλαγή ρυθμίσεων"
 
 #: ../../main/network/src/EBox/Model/ByteRateSettings.pm:114
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:181
@@ -1350,11 +1387,11 @@ msgstr ""
 
 #: ../../main/network/src/EBox/Model/ByteRateSettings.pm:128
 msgid "all"
-msgstr ""
+msgstr "όλα"
 
 #: ../../main/network/src/EBox/Model/GatewayTable.pm:179
 msgid "Auto"
-msgstr ""
+msgstr "Αυτόματο"
 
 #: ../../main/network/src/EBox/Model/GatewayTable.pm:185
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Clients.pm:60
@@ -1387,7 +1424,7 @@ msgstr ""
 #: ../../main/remoteservices/src/templates/RemoteServices/Backup/confirm.mas:24
 #: ../../main/ca/src/templates/index.mas:98
 msgid "Name"
-msgstr ""
+msgstr "Όνομα"
 
 #: ../../main/network/src/EBox/Model/GatewayTable.pm:192
 #: ../../main/network/src/EBox/Model/GatewayTable.pm:267
@@ -1412,7 +1449,7 @@ msgstr ""
 #: ../../main/network/src/templates/ifaces.mas:287
 #: ../../main/dhcp/src/templates/fixed.mas:10
 msgid "IP address"
-msgstr ""
+msgstr "Διεύθυνση IP"
 
 #: ../../main/network/src/EBox/Model/GatewayTable.pm:199
 #: ../../main/network/src/EBox/Model/MultiGwRulesDataTable.pm:101
@@ -1466,7 +1503,7 @@ msgstr ""
 #: ../../main/trafficshaping/src/EBox/TC.pm:104
 #: ../../main/printers/src/EBox/Model/CUPS.pm:151
 msgid "Interface"
-msgstr ""
+msgstr "Διασύνδεση"
 
 #: ../../main/network/src/EBox/Model/GatewayTable.pm:202
 msgid "Interface connected to this gateway"
@@ -1474,7 +1511,7 @@ msgstr ""
 
 #: ../../main/network/src/EBox/Model/GatewayTable.pm:206
 msgid "Weight"
-msgstr ""
+msgstr "Βάρος"
 
 #: ../../main/network/src/EBox/Model/GatewayTable.pm:211
 msgid ""
@@ -1484,11 +1521,11 @@ msgstr ""
 
 #: ../../main/network/src/EBox/Model/GatewayTable.pm:217
 msgid "Default"
-msgstr ""
+msgstr "Προεπιλογή"
 
 #: ../../main/network/src/EBox/Model/GatewayTable.pm:227
 msgid "Gateways List"
-msgstr ""
+msgstr "Λίστα πυλών"
 
 #: ../../main/network/src/EBox/Model/GatewayTable.pm:243
 msgid ""
@@ -1500,7 +1537,7 @@ msgstr ""
 
 #: ../../main/network/src/EBox/Model/GatewayTable.pm:245
 msgid "gateway"
-msgstr ""
+msgstr "πύλη"
 
 #: ../../main/network/src/EBox/Model/GatewayTable.pm:278
 msgid "You can not manually add a gateway for DHCP or PPPoE interfaces"
@@ -1542,14 +1579,14 @@ msgstr ""
 #: ../../main/firewall/src/EBox/Firewall/Model/BaseRuleTable.pm:129
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:414
 msgid "Source IP"
-msgstr ""
+msgstr "IP πηγής"
 
 #: ../../main/network/src/EBox/Model/MultiGwRulesDataTable.pm:123
 #: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:301
 #: ../../main/firewall/src/EBox/Firewall/Model/BaseRuleTable.pm:133
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:426
 msgid "Source object"
-msgstr ""
+msgstr "Αντικείμενο πηγής"
 
 #: ../../main/network/src/EBox/Model/MultiGwRulesDataTable.pm:137
 #: ../../main/ids/src/EBox/IDS.pm:302
@@ -1557,20 +1594,20 @@ msgstr ""
 #: ../../main/firewall/src/EBox/Firewall.pm:1013
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:436
 msgid "Destination"
-msgstr ""
+msgstr "Προορισμός"
 
 #: ../../main/network/src/EBox/Model/MultiGwRulesDataTable.pm:145
 #: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:312
 #: ../../main/firewall/src/EBox/Firewall/Model/BaseRuleTable.pm:155
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:444
 msgid "Destination IP"
-msgstr ""
+msgstr "IP Προορισμού"
 
 #: ../../main/network/src/EBox/Model/MultiGwRulesDataTable.pm:150
 #: ../../main/firewall/src/EBox/Firewall/Model/BaseRuleTable.pm:160
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:449
 msgid "Destination object"
-msgstr ""
+msgstr "Αντικείμενο προορισμού"
 
 #: ../../main/network/src/EBox/Model/MultiGwRulesDataTable.pm:172
 msgid "Gateway to route packets matching this rule"
@@ -1593,11 +1630,11 @@ msgstr ""
 #: ../../main/network/src/EBox/Network.pm:81
 #: ../../main/network/src/EBox/Network.pm:3637
 msgid "Network"
-msgstr ""
+msgstr "Δίκτυο"
 
 #: ../../main/network/src/EBox/Model/StaticRoute.pm:150
 msgid "IP or network address"
-msgstr ""
+msgstr "Διεύθυνση IP ή δικτύου"
 
 #: ../../main/network/src/EBox/Model/StaticRoute.pm:156
 msgid "Gateway used to reach the above network  address"
@@ -1626,7 +1663,7 @@ msgstr ""
 #: ../../main/core/src/templates/backup.mas:129
 #: ../../main/core/src/templates/confirm-backup.mas:36
 msgid "Description"
-msgstr ""
+msgstr "Περιγραφή"
 
 #: ../../main/network/src/EBox/Model/StaticRoute.pm:164
 msgid "Optional description for this route"
@@ -1659,7 +1696,7 @@ msgstr ""
 #: ../../main/network/src/templates/Wizard/network.mas:94
 #: ../../main/network/src/templates/Wizard/network.mas:98
 msgid "Domain Name Server"
-msgstr ""
+msgstr "Όνομα Τομέα Διακομιστή"
 
 #: ../../main/network/src/EBox/Model/DNSResolver.pm:92
 msgid "Domain Name Server Resolver List"
@@ -1667,7 +1704,7 @@ msgstr ""
 
 #: ../../main/network/src/EBox/Model/DNSResolver.pm:98
 msgid "name server"
-msgstr ""
+msgstr "όνομα διακομιστή"
 
 #: ../../main/network/src/EBox/Model/DNSResolver.pm:110
 msgid ""
@@ -1684,7 +1721,7 @@ msgstr ""
 #: ../../main/dhcp/src/EBox/Model/LeaseTimes.pm:202
 #: ../../main/dhcp/src/EBox/Model/LeaseTimes.pm:209
 msgid "seconds"
-msgstr ""
+msgstr "δευτερόλεπτα"
 
 #: ../../main/network/src/EBox/Model/WANFailoverOptions.pm:82
 msgid "Global options"
@@ -1696,15 +1733,15 @@ msgstr ""
 
 #: ../../main/network/src/EBox/Model/Proxy.pm:89
 msgid "Proxy server"
-msgstr ""
+msgstr "Διακομιστής Proxy"
 
 #: ../../main/network/src/EBox/Model/Proxy.pm:95
 msgid "Proxy port"
-msgstr ""
+msgstr "πόρτα Proxy"
 
 #: ../../main/network/src/EBox/Model/Proxy.pm:103
 msgid "Proxy"
-msgstr ""
+msgstr "Proxy"
 
 #: ../../main/network/src/EBox/Model/Proxy.pm:107
 msgid ""
@@ -1720,7 +1757,7 @@ msgstr ""
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Clients.pm:67
 #: ../../main/ca/src/EBox/Model/Certificates.pm:270
 msgid "Enable"
-msgstr ""
+msgstr "Ενεργοποίηση"
 
 #: ../../main/network/src/EBox/Model/MultiGwRulesOptions.pm:53
 msgid "Traffic balancing"
@@ -1804,7 +1841,7 @@ msgstr ""
 #: ../../main/network/src/templates/ifaces.mas:132
 #: ../../main/network/src/templates/ifaces.mas:288
 msgid "Netmask"
-msgstr ""
+msgstr "Μάσκα δικτύου"
 
 #: ../../main/network/src/EBox/Network.pm:1463
 msgid "This interface cannot be put in trunk mode, it is an vlan interface."
@@ -1821,7 +1858,7 @@ msgstr ""
 #: ../../main/network/src/EBox/CGI/Vlan.pm:42
 #: ../../main/network/src/templates/ifaces.mas:229
 msgid "VLAN Id"
-msgstr ""
+msgstr "VLAN Id"
 
 #: ../../main/network/src/EBox/Network.pm:1655
 msgid ""
@@ -1855,38 +1892,38 @@ msgstr ""
 #: ../../main/dns/src/EBox/Model/HostnameTable.pm:187
 #: ../../main/dns/src/templates/edit.mas:20
 msgid "Host name"
-msgstr ""
+msgstr "Όνομα διακομιστή"
 
 #: ../../main/network/src/EBox/Network.pm:3507
 #: ../../main/network/src/EBox/CGI/Diag.pm:64
 #: ../../main/dns/src/EBox/Model/HostnameTable.pm:223
 msgid "host name"
-msgstr ""
+msgstr "όνομα διακομιστή"
 
 #: ../../main/network/src/EBox/Network.pm:3537
 msgid "down"
-msgstr ""
+msgstr "κάτω"
 
 #: ../../main/network/src/EBox/Network.pm:3543
 #: ../../main/core/src/templates/report/raid.mas:231
 msgid "up"
-msgstr ""
+msgstr "πάνω"
 
 #: ../../main/network/src/EBox/Network.pm:3548
 msgid "external"
-msgstr ""
+msgstr "εξωτερικό"
 
 #: ../../main/network/src/EBox/Network.pm:3550
 msgid "internal"
-msgstr ""
+msgstr "εσωτερικό"
 
 #: ../../main/network/src/EBox/Network.pm:3556
 msgid "link ok"
-msgstr ""
+msgstr "σύνδεση οκ"
 
 #: ../../main/network/src/EBox/Network.pm:3558
 msgid "no link"
-msgstr ""
+msgstr "καμμία σύνδεση"
 
 #: ../../main/network/src/EBox/Network.pm:3572
 #: ../../main/dhcp/src/EBox/Model/FixedAddressTable.pm:214
@@ -1895,29 +1932,29 @@ msgstr ""
 #: ../../main/objects/src/EBox/Model/MemberTable.pm:76
 #: ../../main/dhcp/src/templates/fixed.mas:9
 msgid "MAC address"
-msgstr ""
+msgstr "Διεύθυνση MAC"
 
 #: ../../main/network/src/EBox/Network.pm:3593
 msgid "Tx bytes"
-msgstr ""
+msgstr "Tx bytes"
 
 #: ../../main/network/src/EBox/Network.pm:3603
 msgid "Rx bytes"
-msgstr ""
+msgstr "Rx bytes"
 
 #: ../../main/network/src/EBox/Network.pm:3620
 #: ../../main/network/src/EBox/CGI/Ifaces.pm:29
 msgid "Network Interfaces"
-msgstr ""
+msgstr "Διασυνδέσεις Δικτύου"
 
 #: ../../main/network/src/EBox/Network.pm:3642
 #: ../../main/ids/src/EBox/Model/Interfaces.pm:138
 msgid "Interfaces"
-msgstr ""
+msgstr "Διασυνδέσεις"
 
 #: ../../main/network/src/EBox/Network.pm:3648
 msgid "Gateways"
-msgstr ""
+msgstr "Πύλες"
 
 #: ../../main/network/src/EBox/Network.pm:3652
 #: ../../main/network/src/EBox/Network/Composite/MultiGw.pm:62
@@ -1926,7 +1963,7 @@ msgstr ""
 
 #: ../../main/network/src/EBox/Network.pm:3656
 msgid "Diagnostic Tools"
-msgstr ""
+msgstr "Διαγνωστικά Εργαλεία"
 
 #: ../../main/network/src/EBox/Network/Composite/ByteRate.pm:73
 #: ../../main/network/src/EBox/Network/Report/ByteRate.pm:134
@@ -1935,7 +1972,7 @@ msgstr ""
 
 #: ../../main/network/src/EBox/Network/Composite/Gateway.pm:56
 msgid "Gateways and Proxy"
-msgstr ""
+msgstr "Πύλες και Proxy"
 
 #: ../../main/network/src/EBox/Network/Composite/WANFailover.pm:77
 msgid ""
@@ -1965,11 +2002,11 @@ msgstr ""
 #: ../../main/core/src/templates/dashboard/index.mas:23
 #: ../../main/core/src/templates/dashboard/status.mas:17
 msgid "Running"
-msgstr ""
+msgstr "Εκτελείτε"
 
 #: ../../main/network/src/EBox/Network/Report/ByteRate.pm:756
 msgid "bytes/second"
-msgstr ""
+msgstr "bytes/δευτερόλεπτο"
 
 #: ../../main/network/src/EBox/Network/Report/ByteRate.pm:823
 #: ../../main/network/src/EBox/Network/Report/ByteRate.pm:929
@@ -2010,7 +2047,7 @@ msgstr ""
 
 #: ../../main/network/src/EBox/Network/Report/ByteRate.pm:989
 msgid "All active services"
-msgstr ""
+msgstr "Όλες οι ενεργές υπηρεσίες"
 
 #: ../../main/network/src/EBox/Network/Report/ByteRate.pm:994
 msgid "Traffic data for "
@@ -2018,11 +2055,11 @@ msgstr ""
 
 #: ../../main/network/src/EBox/Network/Report/ByteRate.pm:995
 msgid "all services"
-msgstr ""
+msgstr "Όλες οι υπηρεσίες"
 
 #: ../../main/network/src/EBox/Network/Report/ByteRate.pm:1040
 msgid "All active sources"
-msgstr ""
+msgstr "Όλες οι ενεργές πηγές"
 
 #: ../../main/network/src/EBox/Network/Report/ByteRate.pm:1045
 msgid "Traffic data for"
@@ -2030,7 +2067,7 @@ msgstr ""
 
 #: ../../main/network/src/EBox/Network/Report/ByteRate.pm:1046
 msgid "all sources"
-msgstr ""
+msgstr "Όλες οι πηγές"
 
 #: ../../main/network/src/EBox/Network/Report/ByteRate.pm:1084
 #, perl-brace-format
@@ -2052,20 +2089,20 @@ msgstr ""
 #: ../../main/network/src/EBox/CGI/Vlan.pm:40
 #: ../../main/network/src/EBox/CGI/VIface.pm:42
 msgid "network interface"
-msgstr ""
+msgstr "διασύνδεση δικτύου"
 
 #: ../../main/network/src/EBox/CGI/Iface.pm:57
 msgid "method"
-msgstr ""
+msgstr "μέθοδος"
 
 #: ../../main/network/src/EBox/CGI/Iface.pm:87
 msgid "ip address"
-msgstr ""
+msgstr "διεύθυνση ip"
 
 #: ../../main/network/src/EBox/CGI/Iface.pm:88
 #: ../../main/network/src/EBox/CGI/VIface.pm:62
 msgid "netmask"
-msgstr ""
+msgstr "μάσκα δικτύου"
 
 #: ../../main/network/src/EBox/CGI/Iface.pm:94
 #: ../../main/users/src/EBox/UsersAndGroups.pm:938
@@ -2083,16 +2120,16 @@ msgstr ""
 #: ../../main/samba/src/EBox/CGI/ActivePrinting.pm:44
 #: ../../main/samba/src/EBox/CGI/ActiveSharing.pm:68
 msgid "user name"
-msgstr ""
+msgstr "όνομα χρήστη"
 
 #: ../../main/network/src/EBox/CGI/Iface.pm:95
 #: ../../main/users/src/EBox/CGI/ModifyUser.pm:48
 msgid "password"
-msgstr ""
+msgstr "κωδικός"
 
 #: ../../main/network/src/EBox/CGI/Iface.pm:105
 msgid "bridge"
-msgstr ""
+msgstr "γέφυρα"
 
 #: ../../main/network/src/EBox/CGI/EnableBalanceTraffic.pm:41
 msgid "traffic balance"
@@ -2101,16 +2138,16 @@ msgstr ""
 #: ../../main/network/src/EBox/CGI/Diag.pm:29
 #: ../../main/network/src/EBox/CGI/Diag.pm:40
 msgid "Network Diagnostic Tools"
-msgstr ""
+msgstr "Διαγνωστικά Εργαλεία Δικτύου"
 
 #: ../../main/network/src/EBox/CGI/VIface.pm:43
 msgid "virtual interface action"
-msgstr ""
+msgstr "ενέργεια εικονικής διαδύνδεσης"
 
 #: ../../main/network/src/EBox/CGI/VIface.pm:63
 #: ../../main/network/src/EBox/CGI/VIface.pm:69
 msgid "virtual interface name"
-msgstr ""
+msgstr "όνομα εικονικής διασύνδεσης"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client/ValidateCertificate.pm:46
 #, perl-brace-format
@@ -2154,19 +2191,21 @@ msgstr ""
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:73
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:93
 msgid "Server port"
-msgstr ""
+msgstr "πόρτα διακομιστή"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:79
 msgid "VPN address"
-msgstr ""
+msgstr "διεύθυνση VPN"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:81
 msgid "Use a network address which is not used by this machine"
 msgstr ""
+"Χρησιμοποιήστε μιά διεύθυνση δικτύου που δεν χρησιμοποιείται από αυτό το "
+"μηχάνημα"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:87
 msgid "Server certificate"
-msgstr ""
+msgstr "Πιστοποιητικό διακομιστή"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:94
 msgid "Client authorization by common name"
@@ -2181,7 +2220,7 @@ msgstr ""
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:105
 msgid "Network Address Translation"
-msgstr ""
+msgstr "Μεταγλώττιση Διεύθυνσης Δικτύου"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:108
 msgid "Enable it if you only have one network interface"
@@ -2213,16 +2252,16 @@ msgstr ""
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:146
 msgid "Server configuration"
-msgstr ""
+msgstr "Ρύθμιση διακομιστή"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:152
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:122
 msgid "server"
-msgstr ""
+msgstr "διακομιστής"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:206
 msgid "All network interfaces"
-msgstr ""
+msgstr "Όλες οι διασυνδέσεις δικτύου"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:259
 msgid "Zentyal to Zentyal tunnel option requires a RIP password"
@@ -2240,35 +2279,41 @@ msgstr ""
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:355
 #, perl-brace-format
 msgid "Port {p} is not available"
-msgstr ""
+msgstr "Η πόρτα {p} δεν είναι διαθέσιμη"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:414
 #, perl-brace-format
 msgid "The interface {iface} does not exist"
-msgstr ""
+msgstr "Η διασύνδεση {iface} δεν υπάρχει"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:419
 #, perl-brace-format
 msgid "The interface {iface} is not configured"
-msgstr ""
+msgstr "Η διασύνδεση {iface} δεν έχει ρυθμιστεί"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:440
 msgid ""
 "Cannot use Network Address translation because it requires the firewall "
 "module. The module is neither installed or activated"
 msgstr ""
+"Δεν είναι δυνατή η χρήση της μεταγλώττισης διευθύνσεων Δικτύου γιατί "
+"απαιτείται η ενότητα Τείχος Προστασίας. Αυτή η ενότητα ή δεν έχει "
+"εγκατασταθεί ή δεν έχει ενεργοποιηθεί"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:447
 msgid ""
 "Cannot use Network Address translation because it requires the firewall "
 "module enabled. Please activate it and try again"
 msgstr ""
+"Δεν είναι δυνατή η χρήση της μεταγλώττισης διευθύνσεων Δικτύου γιατί "
+"απαιτείται η ενεργοποίηση της ενότητας Τείχος Προστασίας. Παρακαλώ "
+"ενεργοποιήστε και προσπαθήστε ξανά"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:479
 msgid ""
 "At least one external interface is needed to connect to the server unless "
 "network address translation option is enabled"
-msgstr ""
+msgstr "Τουλάχιστον μια εξωτερική διασύνδεση χρειάζεται για σύνδεση"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:488
 msgid ""
@@ -2387,11 +2432,11 @@ msgstr ""
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Clients.pm:94
 msgid "List of Clients"
-msgstr ""
+msgstr "Λίστα πελατών"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Clients.pm:95
 msgid "VPN Clients"
-msgstr ""
+msgstr "Πελάτες VPN "
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Clients.pm:145
 msgid ""
@@ -2413,11 +2458,11 @@ msgstr ""
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:114
 msgid "List of servers"
-msgstr ""
+msgstr "Λίστα διακομιστών"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:115
 msgid "VPN servers"
-msgstr ""
+msgstr "Διακομιστές VPN"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:168
 #, perl-brace-format
@@ -2437,7 +2482,7 @@ msgstr ""
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:190
 msgid "Server creation"
-msgstr ""
+msgstr "Δημιουργία διακομιστή"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:295
 msgid ""
@@ -2482,7 +2527,7 @@ msgstr ""
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:87
 #: ../../main/asterisk/src/EBox/Model/Provider.pm:118
 msgid "Server"
-msgstr ""
+msgstr "Διακομιστής"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:100
 msgid "CA's certificate"
@@ -2511,12 +2556,12 @@ msgstr ""
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DeletedDaemons.pm:63
 msgid "daemon"
-msgstr ""
+msgstr "δαίμονας"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Types/TlsRemote.pm:52
 #: ../../main/mail/src/EBox/Mail.pm:1569
 msgid "disabled"
-msgstr ""
+msgstr "απενεργοποιημένο"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:130
 #, perl-brace-format
@@ -2576,24 +2621,24 @@ msgstr ""
 #: ../../main/core/src/templates/dashboard/index.mas:28
 #: ../../main/core/src/templates/dashboard/status.mas:21
 msgid "Stopped"
-msgstr ""
+msgstr "Σταματημένο"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:786
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:405
 msgid "Daemon status"
-msgstr ""
+msgstr "Κατάσταση δαίμονα"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:791
 msgid "All external interfaces"
-msgstr ""
+msgstr "Όλες οι διασυνδέσεις δικτύου"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:793
 msgid "Not found"
-msgstr ""
+msgstr "Δεν βρέθηκε"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:795
 msgid "Local address"
-msgstr ""
+msgstr "Τοπική διεύθυνση"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:800
 #: ../../main/users/src/EBox/UsersAndGroups/Model/Slaves.pm:60
@@ -2603,26 +2648,26 @@ msgstr ""
 #: ../../main/usercorner/src/EBox/UserCorner/Model/Settings.pm:54
 #: ../../main/core/src/EBox/Events/Model/Dispatcher/Jabber.pm:199
 msgid "Port"
-msgstr ""
+msgstr "Πόρτα"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:803
 msgid "VPN subnet"
-msgstr ""
+msgstr "Υποδίκτυο VPN"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:806
 msgid "VPN network interface"
-msgstr ""
+msgstr "Διασύνδεση δικτύου VPN"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:809
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:419
 msgid "No active"
-msgstr ""
+msgstr "Μή ενεργό"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:810
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:417
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:419
 msgid "VPN interface address"
-msgstr ""
+msgstr "Διασύνδεση δικτύου VPN"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:242
 #, perl-brace-format
@@ -2641,15 +2686,15 @@ msgstr ""
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:399
 #, perl-brace-format
 msgid "Client {name}"
-msgstr ""
+msgstr "Πελάτης {name}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:413
 msgid "Connection target"
-msgstr ""
+msgstr "Στόχος σύνδεσης"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server/ClientBundleGenerator.pm:48
 msgid "Server's address"
-msgstr ""
+msgstr "Διευθύνσεις Διακομιστών"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server/ClientBundleGenerator.pm:56
 #, perl-brace-format
@@ -2696,7 +2741,7 @@ msgstr ""
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:69
 msgid "VPN"
-msgstr ""
+msgstr "VPN"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:154
 msgid "To configure Quagga to run ripd and zebra"
@@ -2756,36 +2801,36 @@ msgstr ""
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1472
 msgid "Servers"
-msgstr ""
+msgstr "Διακομιστές"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1478
 msgid "Clients"
-msgstr ""
+msgstr "Πελάτες"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1491
 msgid "Common name"
-msgstr ""
+msgstr "Κοινό όνομα"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1491
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/TreeBuilder/HTB.pm:624
 #: ../../main/asterisk/src/EBox/Asterisk.pm:575
 #: ../../main/mail/src/EBox/Mail.pm:1586
 msgid "Address"
-msgstr ""
+msgstr "Διεύθυνση"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1491
 #: ../../main/samba/src/EBox/Samba.pm:734
 #: ../../main/samba/src/EBox/Samba.pm:755
 msgid "Connected since"
-msgstr ""
+msgstr "Συνδεδεμένο από"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1518
 msgid "No users connected to the VPN"
-msgstr ""
+msgstr "Κανένας χρήστης συνδεδεμένος στο VPN"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1559
 msgid "OpenVPN daemons"
-msgstr ""
+msgstr "Δαίμονες OpenVPN"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1625
 #: ../../main/firewall/src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:125
@@ -2796,15 +2841,15 @@ msgstr ""
 #: ../../main/core/src/templates/report/raid.mas:131
 #: ../../main/core/src/templates/report/diskUsage.mas:30
 msgid "Type"
-msgstr ""
+msgstr "Τύπος"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1626
 msgid "Remote IP"
-msgstr ""
+msgstr "Απομακρυσμένη IP"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1627
 msgid "Remote Certificate"
-msgstr ""
+msgstr "Απομακρυσμένο πιστοποιητικό"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1632
 msgid "Initialization sequence completed"
@@ -2844,7 +2889,7 @@ msgstr ""
 
 #: ../../main/ftp/src/EBox/FTP.pm:90
 msgid "Zentyal FTP Server"
-msgstr ""
+msgstr "Διακομιστής FTP του Zentyal"
 
 #: ../../main/ftp/src/EBox/FTP.pm:130
 msgid "To configure vsftpd"
@@ -2865,15 +2910,15 @@ msgstr ""
 #: ../../main/ftp/src/EBox/Model/Options.pm:49
 #: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:93
 msgid "Read only"
-msgstr ""
+msgstr "Μόνο ανάγνωση"
 
 #: ../../main/ftp/src/EBox/Model/Options.pm:53
 msgid "Read/Write"
-msgstr ""
+msgstr "Ανάγνωση/Εγγραφή"
 
 #: ../../main/ftp/src/EBox/Model/Options.pm:66
 msgid "Anonymous access"
-msgstr ""
+msgstr "Πρόσβαση από Anonymous"
 
 #: ../../main/ftp/src/EBox/Model/Options.pm:70
 msgid "Sets the permissions for the /srv/ftp directory"
@@ -2881,7 +2926,7 @@ msgstr ""
 
 #: ../../main/ftp/src/EBox/Model/Options.pm:74
 msgid "Personal directories"
-msgstr ""
+msgstr "Προσωπικοί κατάλογοι"
 
 #: ../../main/ftp/src/EBox/Model/Options.pm:77
 msgid "Enable FTP access for each user to its /home directory"
@@ -2892,11 +2937,11 @@ msgstr ""
 #: ../../main/webserver/src/EBox/WebServer/Model/GeneralSettings.pm:264
 #: ../../main/jabber/src/EBox/Jabber/Model/GeneralSettings.pm:141
 msgid "General configuration settings"
-msgstr ""
+msgstr "Γενικές ρυθμίσεις διαμόρφωσης"
 
 #: ../../main/ftp/src/EBox/Model/Options.pm:84
 msgid "FTP Server"
-msgstr ""
+msgstr "Διακομιστής FTP"
 
 #: ../../main/ftp/src/EBox/Model/Options.pm:88
 msgid ""
@@ -2915,11 +2960,13 @@ msgstr ""
 
 #: ../../main/zarafa/src/EBox/Zarafa.pm:63
 msgid "Add Zarafa LDAP schema"
-msgstr ""
+msgstr "Προσθήκη σχήματος Zarafa LDAP"
 
 #: ../../main/zarafa/src/EBox/Zarafa.pm:64
 msgid "Zentyal will need this schema to store Zarafa users."
 msgstr ""
+"Το Zentyal χρειάζεται αυτό το σχήμα για να αποθηκεύει τους χρήστες του "
+"Zarafa"
 
 #: ../../main/zarafa/src/EBox/Zarafa.pm:68
 msgid "Add vmail system user"
@@ -3110,12 +3157,12 @@ msgstr ""
 #: ../../main/mail/src/EBox/Mail/Model/Report/TrafficDetails.pm:48
 #: ../../main/mail/src/EBox/Mail/Model/Report/TrafficDetails.pm:68
 msgid "Virtual domain"
-msgstr ""
+msgstr "Εικονικός τομέας"
 
 #: ../../main/zarafa/src/EBox/Zarafa/Model/VMailDomain.pm:158
 #: ../../main/mail/src/templates/Wizard/virtualdomain.mas:4
 msgid "Virtual mail domain"
-msgstr ""
+msgstr "Εικονικός τομέας αλληλογραφίας"
 
 #: ../../main/zarafa/src/EBox/Zarafa/Model/VMailDomain.pm:163
 msgid "Select the virtual mail domain to be used for Zarafa."
@@ -3123,15 +3170,15 @@ msgstr ""
 
 #: ../../main/zarafa/src/EBox/Zarafa/Model/GeneralSettings.pm:74
 msgid "Enable Spell Checking"
-msgstr ""
+msgstr "Ενεργοποίηση Ορθογραφικού ελέγχου"
 
 #: ../../main/zarafa/src/EBox/Zarafa/Model/GeneralSettings.pm:77
 msgid "Enable spell checking on Zarafa Webaccess."
-msgstr ""
+msgstr "Ενεργοποίηση Ορθογραφικού ελέγχου στο Zarafa Webaccess"
 
 #: ../../main/zarafa/src/EBox/Zarafa/Model/GeneralSettings.pm:81
 msgid "Enable Active Sync"
-msgstr ""
+msgstr "Ενεργοπίηση Active Sync"
 
 #: ../../main/zarafa/src/EBox/Zarafa/Model/GeneralSettings.pm:85
 msgid "Enable Active Sync (Microsoft Exchange syncronization protocol)."
@@ -3142,7 +3189,7 @@ msgstr ""
 #: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:97
 #: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:313
 msgid "Virtual host"
-msgstr ""
+msgstr "Εικονικός διακομιστής"
 
 #: ../../main/zarafa/src/EBox/Zarafa/Model/GeneralSettings.pm:95
 msgid ""
@@ -3180,7 +3227,7 @@ msgstr ""
 #: ../../main/mail/src/EBox/CGI/DelAccount.pm:40
 #: ../../main/jabber/src/EBox/CGI/JabberUserOptions.pm:42
 msgid "username"
-msgstr ""
+msgstr "όνομα χρήστη"
 
 #: ../../main/users/src/EBox/UsersAndGroups/Model/PendingSync.pm:58
 #: ../../main/users/src/EBox/UsersAndGroups/Model/Mode.pm:70
@@ -3192,11 +3239,11 @@ msgstr ""
 #: ../../main/remoteservices/src/EBox/CGI/Backup/MakeRemoteBackup.pm:72
 #: ../../main/core/src/EBox/CGI/EBox/Backup.pm:241
 msgid "Operation"
-msgstr ""
+msgstr "Λειτουργία"
 
 #: ../../main/users/src/EBox/UsersAndGroups/Model/PendingSync.pm:68
 msgid "Parameter"
-msgstr ""
+msgstr "Παράμετρος"
 
 #: ../../main/users/src/EBox/UsersAndGroups/Model/PendingSync.pm:77
 msgid "List of pending operations on slaves"
@@ -3210,7 +3257,7 @@ msgstr ""
 
 #: ../../main/users/src/EBox/UsersAndGroups/Model/PendingSync.pm:86
 msgid "operation"
-msgstr ""
+msgstr "λειτουργία"
 
 #: ../../main/users/src/EBox/UsersAndGroups/Model/PendingSync.pm:128
 #: ../../main/users/src/EBox/UsersAndGroups/Model/Slaves.pm:118
@@ -3230,7 +3277,7 @@ msgstr ""
 
 #: ../../main/users/src/EBox/UsersAndGroups/Model/PAM.pm:125
 msgid "Enable PAM"
-msgstr ""
+msgstr "Ενεργοπίηση PAM"
 
 #: ../../main/users/src/EBox/UsersAndGroups/Model/PAM.pm:128
 msgid "Make LDAP users have system account."
@@ -3246,19 +3293,19 @@ msgstr ""
 
 #: ../../main/users/src/EBox/UsersAndGroups/Model/PAM.pm:147
 msgid "PAM settings"
-msgstr ""
+msgstr "Ρυθμίσεις PAM"
 
 #: ../../main/users/src/EBox/UsersAndGroups/Model/ADSyncSettings.pm:66
 msgid "Enable AD sync"
-msgstr ""
+msgstr "Ενεργοπίηση AD Sync"
 
 #: ../../main/users/src/EBox/UsersAndGroups/Model/ADSyncSettings.pm:69
 msgid "Enable AD syncronization."
-msgstr ""
+msgstr "Ενεργοπίηση συγχρονισμού AD"
 
 #: ../../main/users/src/EBox/UsersAndGroups/Model/ADSyncSettings.pm:73
 msgid "AD user"
-msgstr ""
+msgstr "Χρήστης AD"
 
 #: ../../main/users/src/EBox/UsersAndGroups/Model/ADSyncSettings.pm:76
 msgid "Username for binding to Windows AD (it has to be created in the AD)"
@@ -3266,15 +3313,15 @@ msgstr ""
 
 #: ../../main/users/src/EBox/UsersAndGroups/Model/ADSyncSettings.pm:80
 msgid "AD password"
-msgstr ""
+msgstr "κωδικός AD"
 
 #: ../../main/users/src/EBox/UsersAndGroups/Model/ADSyncSettings.pm:82
 msgid "Password for the above user"
-msgstr ""
+msgstr "κωδικός για τον παραπάνω χρήστη"
 
 #: ../../main/users/src/EBox/UsersAndGroups/Model/ADSyncSettings.pm:86
 msgid "Listen port"
-msgstr ""
+msgstr "πόρτα ακρόασης"
 
 #: ../../main/users/src/EBox/UsersAndGroups/Model/ADSyncSettings.pm:89
 msgid "Port for listening password sync notifications from Windows"
@@ -3282,7 +3329,7 @@ msgstr ""
 
 #: ../../main/users/src/EBox/UsersAndGroups/Model/ADSyncSettings.pm:93
 msgid "AD Secret Key"
-msgstr ""
+msgstr "Μυστικό κλειδί AD"
 
 #: ../../main/users/src/EBox/UsersAndGroups/Model/ADSyncSettings.pm:96
 msgid "Secret key to be shared between Windows and Zentyal (16 chars)"
@@ -3301,7 +3348,7 @@ msgstr ""
 #: ../../main/dns/src/templates/index.mas:49
 #: ../../main/core/src/templates/ajax/tableBody.mas:465
 msgid "Edit"
-msgstr ""
+msgstr "Διόρθωση"
 
 #: ../../main/users/src/EBox/UsersAndGroups/Model/Groups.pm:76
 #: ../../main/users/src/EBox/UsersAndGroups.pm:2482
@@ -3309,7 +3356,7 @@ msgstr ""
 #: ../../main/users/src/EBox/CGI/Groups.pm:42
 #: ../../main/users/src/EBox/CGI/Group.pm:64
 msgid "Groups"
-msgstr ""
+msgstr "Ομάδες"
 
 #: ../../main/users/src/EBox/UsersAndGroups/Model/Groups.pm:84
 #: ../../main/users/src/EBox/CGI/AddUserToGroup.pm:43
@@ -3325,7 +3372,7 @@ msgstr ""
 #: ../../main/mail/src/EBox/CGI/DelGroupAlias.pm:40
 #: ../../main/l7-protocols/src/EBox/Model/Groups.pm:77
 msgid "group"
-msgstr ""
+msgstr "ομάδες"
 
 #: ../../main/users/src/EBox/UsersAndGroups/Model/Groups.pm:129
 #: ../../main/users/src/EBox/UsersAndGroups/Model/Users.pm:127
@@ -3354,7 +3401,7 @@ msgstr ""
 
 #: ../../main/users/src/EBox/UsersAndGroups/Model/ForceSync.pm:90
 msgid "Force sync"
-msgstr ""
+msgstr "Εξαναγκασμός συγχρονισμού"
 
 #: ../../main/users/src/EBox/UsersAndGroups/Model/ForceSync.pm:92
 msgid "on slaves"
@@ -3366,11 +3413,11 @@ msgstr ""
 
 #: ../../main/users/src/EBox/UsersAndGroups/Model/ForceSync.pm:101
 msgid "Sync now"
-msgstr ""
+msgstr "Συνγχρονισμός τώρα"
 
 #: ../../main/users/src/EBox/UsersAndGroups/Model/Users.pm:64
 msgid "Full name"
-msgstr ""
+msgstr "Πλήρες όνομα"
 
 #: ../../main/users/src/EBox/UsersAndGroups/Model/Users.pm:77
 #: ../../main/users/src/EBox/UsersAndGroups.pm:2480
@@ -3382,7 +3429,7 @@ msgstr ""
 #: ../../main/users/src/EBox/CGI/Users.pm:55
 #: ../../main/core/src/EBox/SysInfo.pm.in:109
 msgid "Users"
-msgstr ""
+msgstr "Χρήστες"
 
 #: ../../main/users/src/EBox/UsersAndGroups/Model/Users.pm:84
 #: ../../main/users/src/EBox/CGI/AddUserToGroup.pm:48
@@ -3394,11 +3441,11 @@ msgstr ""
 #: ../../main/monitor/src/EBox/Monitor/Measure/CPU.pm:74
 #: ../../main/monitor/src/EBox/Monitor/Measure/CPU.pm:82
 msgid "user"
-msgstr ""
+msgstr "χρήστης"
 
 #: ../../main/users/src/EBox/UsersAndGroups/Model/Users.pm:133
 msgid "There are no users at the moment"
-msgstr ""
+msgstr "Δεν υπάχουν χρήστες αυτή τη στιγμή"
 
 #: ../../main/users/src/EBox/UsersAndGroups/Model/Users.pm:136
 #, perl-brace-format
@@ -3416,37 +3463,37 @@ msgstr ""
 
 #: ../../main/users/src/EBox/UsersAndGroups/Model/Password.pm:48
 msgid "Password management"
-msgstr ""
+msgstr "Διαχείριση κωδικών"
 
 #: ../../main/users/src/EBox/UsersAndGroups/Model/Password.pm:58
 #: ../../main/asterisk/src/EBox/Model/Voicemail.pm:94
 #: ../../main/core/src/templates/password.mas:39
 msgid "New password"
-msgstr ""
+msgstr "Νέος κωδικός"
 
 #: ../../main/users/src/EBox/UsersAndGroups/Model/Password.pm:65
 msgid "Re-type new password"
-msgstr ""
+msgstr "Ξανά-πληκτρολογήστε τον νέο κωδικό"
 
 #: ../../main/users/src/EBox/UsersAndGroups/Model/Password.pm:97
 #: ../../main/users/src/EBox/CGI/AddUser.pm:72
 #: ../../main/users/src/EBox/CGI/ModifyUser.pm:75
 msgid "Passwords do not match."
-msgstr ""
+msgstr "Οι κωδικοί δεν ταιριάζουν"
 
 #: ../../main/users/src/EBox/UsersAndGroups/Model/Password.pm:118
 msgid "Password successfully updated"
-msgstr ""
+msgstr "Η ανανέωση του κωδικού έγινε με επιτυχία"
 
 #: ../../main/users/src/EBox/UsersAndGroups/Model/Mode.pm:67
 #: ../../main/users/src/EBox/UsersAndGroups.pm:2514
 #: ../../main/webmail/src/EBox/WebMail/Model/OperationMode.pm:46
 msgid "Mode"
-msgstr ""
+msgstr "Κατάσταση"
 
 #: ../../main/users/src/EBox/UsersAndGroups/Model/Mode.pm:69
 msgid "Master"
-msgstr ""
+msgstr "Κύριος"
 
 #: ../../main/users/src/EBox/UsersAndGroups/Model/Mode.pm:71
 msgid "Windows AD Slave"
@@ -3604,7 +3651,7 @@ msgstr ""
 
 #: ../../main/users/src/EBox/UsersAndGroups.pm:145
 msgid "Configure PAM."
-msgstr ""
+msgstr "Ρύθμιση PAM"
 
 #: ../../main/users/src/EBox/UsersAndGroups.pm:146
 msgid "Zentyal will give LDAP users system account."
@@ -3679,7 +3726,7 @@ msgstr ""
 #: ../../main/samba/src/EBox/SambaLdapUser.pm:839
 #: ../../main/samba/src/EBox/SambaLdapUser.pm:888
 msgid "group name"
-msgstr ""
+msgstr "όνομα ομάδας"
 
 #: ../../main/users/src/EBox/UsersAndGroups.pm:1665
 #, perl-brace-format
@@ -3699,7 +3746,7 @@ msgstr ""
 
 #: ../../main/users/src/EBox/UsersAndGroups.pm:2508
 msgid "AD Sync Settings"
-msgstr ""
+msgstr "Ρύθμιση Active Sync"
 
 #: ../../main/users/src/EBox/UsersAndGroups.pm:2604
 #, perl-brace-format
@@ -3720,66 +3767,66 @@ msgstr ""
 #: ../../main/users/src/EBox/CGI/AddUser.pm:45
 #: ../../main/users/src/EBox/CGI/ModifyUser.pm:46
 msgid "last name"
-msgstr ""
+msgstr "επώνυμο"
 
 #: ../../main/users/src/EBox/CGI/AddUser.pm:46
 #: ../../main/users/src/EBox/CGI/ModifyGroup.pm:46
 #: ../../main/users/src/EBox/CGI/ModifyUser.pm:47
 msgid "comment"
-msgstr ""
+msgstr "σχόλιο"
 
 #: ../../main/users/src/EBox/CGI/ModifyUser.pm:49
 msgid "confirm password"
-msgstr ""
+msgstr "επιβεβαίωση κωδικού"
 
 #: ../../main/users/src/EBox/CGI/Group.pm:31
 msgid "Edit group"
-msgstr ""
+msgstr "Διόρθωση ομάδας"
 
 #: ../../main/users/src/EBox/CGI/Del.pm:64
 msgid "object name"
-msgstr ""
+msgstr "όνομα αντικειμένου"
 
 #: ../../main/users/src/EBox/CGI/Del.pm:69
 msgid "object type"
-msgstr ""
+msgstr "τύπος αντικειμένου"
 
 #: ../../main/users/src/EBox/CGI/Del.pm:89
 msgid "User removed successfully"
-msgstr ""
+msgstr "Η αφαίρεση του χρήστη έγινε με επιτυχία"
 
 #: ../../main/users/src/EBox/CGI/Del.pm:93
 msgid "Group removed successfully"
-msgstr ""
+msgstr "Η αφαίρεση της ομάδας έγινε με επιτυχία"
 
 #: ../../main/common/src/EBox/Config.pm.in:137
 #, perl-brace-format
 msgid "Could not open the config file {file}."
-msgstr ""
+msgstr "Δεν ήταν δυνατό να ανοίξει το αρχείο ρυθμίσεων {file}."
 
 #: ../../main/common/src/EBox/Config.pm.in:147
 msgid "The ebox user has not been set in the config file."
-msgstr ""
+msgstr "Ο χρήστης ebox δεν έχει οριστεί στο αρχείο ρυθμίσεων."
 
 #: ../../main/common/src/EBox/Exceptions/DataNotFound.pm:34
 #, perl-brace-format
 msgid "{data} {value} does not exist."
-msgstr ""
+msgstr "{data} {value} δεν υπάρχει."
 
 #: ../../main/common/src/EBox/Exceptions/DataExists.pm:35
 #, perl-brace-format
 msgid "{data} {value} already exists."
-msgstr ""
+msgstr "{data} {value} υπάρχει ήδη."
 
 #: ../../main/common/src/EBox/Exceptions/InvalidData.pm:35
 #, perl-brace-format
 msgid "Invalid value for {data}: {value}."
-msgstr ""
+msgstr "Λάθος τιμή για {data}: {value}."
 
 #: ../../main/common/src/EBox/Exceptions/DataMissing.pm:35
 #, perl-brace-format
 msgid "{data} is empty."
-msgstr ""
+msgstr "{data} είναι άδειο."
 
 #: ../../main/common/src/EBox/Validate.pm:390
 #: ../../main/common/src/EBox/Validate.pm:404
@@ -3931,11 +3978,11 @@ msgstr ""
 #: ../../main/squid/src/EBox/Squid/Types/Policy.pm:80
 #: ../../main/squid/src/EBox/Squid/Types/DomainPolicy.pm:50
 msgid "Filter"
-msgstr ""
+msgstr "Φίλτρο"
 
 #: ../../main/squid/src/EBox/Squid.pm:1051
 msgid "Global policy"
-msgstr ""
+msgstr "Γενική Πολιτική"
 
 #: ../../main/squid/src/EBox/Squid.pm:1053
 #: ../../main/webserver/src/EBox/WebServer/Model/GeneralSettings.pm:96
@@ -3943,7 +3990,7 @@ msgstr ""
 #: ../../main/webserver/src/EBox/WebServer/Model/GeneralSettings.pm:119
 #: ../../main/webserver/src/EBox/WebServer/Model/GeneralSettings.pm:229
 msgid "Listening port"
-msgstr ""
+msgstr "Πόρτα ακρόασης"
 
 #: ../../main/squid/src/EBox/Squid.pm:1088
 #: ../../main/squid/src/EBox/Squid/Composite/DelayPools.pm:69
@@ -3952,11 +3999,11 @@ msgstr ""
 
 #: ../../main/squid/src/EBox/Squid.pm:1091
 msgid "Objects' Policy"
-msgstr ""
+msgstr "Πολιτική Αντικειμένων"
 
 #: ../../main/squid/src/EBox/Squid.pm:1094
 msgid "Groups' Policy"
-msgstr ""
+msgstr "Πολιτική Ομάδων"
 
 #: ../../main/squid/src/EBox/Squid.pm:1097
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupDomainFilterCategories.pm:96
@@ -3964,7 +4011,7 @@ msgstr ""
 #: ../../main/squid/src/EBox/Squid/Composite/FilterSettings.pm:93
 #: ../../main/squid/src/EBox/Squid/Composite/FilterGroupSettings.pm:95
 msgid "Filter Profiles"
-msgstr ""
+msgstr "Προφίλ Φίλτρων"
 
 #: ../../main/squid/src/EBox/Squid.pm:1127
 #: ../../main/squid/src/EBox/Squid/Model/Report/TrafficDetails.pm:51
@@ -3981,18 +4028,18 @@ msgstr ""
 #: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:186
 #: ../../main/samba/src/templates/ajax/viewer/shareViewer.mas:8
 msgid "User"
-msgstr ""
+msgstr "Χρήστης"
 
 #: ../../main/squid/src/EBox/Squid.pm:1128
 msgid "URL"
-msgstr ""
+msgstr "URL"
 
 #: ../../main/squid/src/EBox/Squid.pm:1129
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:180
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:200
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools1.pm:164
 msgid "Bytes"
-msgstr ""
+msgstr "Bytes"
 
 #: ../../main/squid/src/EBox/Squid.pm:1130
 msgid "Mime/type"
@@ -4000,20 +4047,20 @@ msgstr ""
 
 #: ../../main/squid/src/EBox/Squid.pm:1136
 msgid "Accepted"
-msgstr ""
+msgstr "Έγινε αποδεκτό"
 
 #: ../../main/squid/src/EBox/Squid.pm:1137
 msgid "Denied"
-msgstr ""
+msgstr "Απορίφθηκε"
 
 #: ../../main/squid/src/EBox/Squid.pm:1138
 msgid "Filtered"
-msgstr ""
+msgstr "Φιλτραρίστηκε"
 
 #: ../../main/squid/src/EBox/Squid/Model/ApplyAllowToAllMIME.pm:48
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupApplyAllowToAllMIME.pm:48
 msgid "Set policy for all MIME types"
-msgstr ""
+msgstr "Ορισμός πολιτικής για όλους τους τύπους MIME"
 
 #: ../../main/squid/src/EBox/Squid/Model/ObjectPolicy.pm:77
 #: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:265
@@ -4021,7 +4068,7 @@ msgstr ""
 #: ../../main/core/src/EBox/Events/Model/Dispatcher/RSS.pm:160
 #: ../../main/objects/src/EBox/Objects.pm:269
 msgid "Object"
-msgstr ""
+msgstr "Αντικείμενο"
 
 #: ../../main/squid/src/EBox/Squid/Model/ObjectPolicy.pm:88
 msgid "Allowed time period"
@@ -4035,44 +4082,48 @@ msgstr ""
 
 #: ../../main/squid/src/EBox/Squid/Model/ObjectPolicy.pm:95
 msgid "Group policy"
-msgstr ""
+msgstr "Πολιτική Ομάδων"
 
 #: ../../main/squid/src/EBox/Squid/Model/ObjectPolicy.pm:103
 #: ../../main/squid/src/EBox/Squid/Model/GlobalGroupPolicy.pm:113
 msgid "Filter profile"
-msgstr ""
+msgstr "Προφίλ Φίλτρων"
 
 #: ../../main/squid/src/EBox/Squid/Model/ObjectPolicy.pm:116
 msgid "Object Policies"
-msgstr ""
+msgstr "Πολιτικές Αντικειμένων"
 
 #: ../../main/squid/src/EBox/Squid/Model/ObjectPolicy.pm:117
 msgid "List of objects"
-msgstr ""
+msgstr "Λίστα αντικειμένων"
 
 #: ../../main/squid/src/EBox/Squid/Model/ObjectPolicy.pm:132
 msgid "object's policy"
-msgstr ""
+msgstr "πολιτική αντικειμένων"
 
 #: ../../main/squid/src/EBox/Squid/Model/ObjectPolicy.pm:133
 msgid "Here you can establish a custom policy per network object"
 msgstr ""
+"Εδώ μπορείτε να δημιουργήσετε μια προσαρμοσμένη πολιτική ανά αντικείμενο "
+"δικτύου"
 
 #: ../../main/squid/src/EBox/Squid/Model/ObjectPolicy.pm:135
 msgid "Added object's policy"
-msgstr ""
+msgstr "Προστέθηκε πολιτική αντικειμένου"
 
 #: ../../main/squid/src/EBox/Squid/Model/ObjectPolicy.pm:136
 msgid "Removed object's policy"
-msgstr ""
+msgstr "Αφαιρέθηκε πολιτική αντικειμένου"
 
 #: ../../main/squid/src/EBox/Squid/Model/ObjectPolicy.pm:137
 msgid "Updated object's policy"
-msgstr ""
+msgstr "Ενημερώθηκε πολιτική αντικειμένου"
 
 #: ../../main/squid/src/EBox/Squid/Model/ObjectPolicy.pm:188
 msgid "Authorization policy is not compatible with transparent proxy mode"
 msgstr ""
+"Η πολιτική εξουσιοδότησης δεν είναι συμβατή με την κατάσταση του διαφανούς "
+"proxy"
 
 #: ../../main/squid/src/EBox/Squid/Model/ObjectPolicy.pm:211
 msgid "Filter policies are incompatible with restricted time periods"
@@ -4102,7 +4153,7 @@ msgstr ""
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupDomainFilterCategories.pm:72
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterCategories.pm:74
 msgid "category"
-msgstr ""
+msgstr "κατηγορία"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupDomainFilter.pm:50
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilter.pm:65
@@ -4137,35 +4188,36 @@ msgstr ""
 
 #: ../../main/squid/src/EBox/Squid/Model/ApplyAllowToAllBase.pm:71
 msgid "elements"
-msgstr ""
+msgstr "στοιχεία"
 
 #: ../../main/squid/src/EBox/Squid/Model/ApplyAllowToAllBase.pm:79
 #, perl-brace-format
 msgid "Allow all {elements}"
-msgstr ""
+msgstr "Να επιτρέπονται όλα τα {elements}"
 
 #: ../../main/squid/src/EBox/Squid/Model/ApplyAllowToAllBase.pm:89
 msgid "Use this field to change the value of all the above rows at once"
 msgstr ""
+"Χρησιμοποιήστε αυτό τοπεδίο για να αλλάξετε όλες τις παραπάνω γραμμές μαζικά"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterFilesBase.pm:59
 #: ../../main/squid/stubs/template.html.mas:39
 msgid "Categories"
-msgstr ""
+msgstr "Κατηγορίες"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterFilesBase.pm:67
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:576
 #: ../../main/ebackup/src/EBox/Model/RemoteFileList.pm:162
 msgid "File"
-msgstr ""
+msgstr "Αρχείο"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterFilesBase.pm:169
 msgid "You must supply a domains list"
-msgstr ""
+msgstr "Πρέπει να προμηθεύσετε μια λίστα τομέων"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterFilesBase.pm:202
 msgid "Inexistent archive file"
-msgstr ""
+msgstr "Ανύπαρκτο αρχείο"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterFilesBase.pm:259
 msgid ""
@@ -4191,7 +4243,7 @@ msgstr ""
 #: ../../main/squid/src/EBox/Squid/Model/ContentFilterThreshold.pm:67
 #: ../../main/monitor/src/EBox/Monitor/Model/ThresholdConfiguration.pm:320
 msgid "Threshold"
-msgstr ""
+msgstr "Όριο"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupContentFilterThreshold.pm:79
 #: ../../main/squid/src/EBox/Squid/Model/ContentFilterThreshold.pm:76
@@ -4221,21 +4273,21 @@ msgstr ""
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterCategoriesBase.pm:98
 msgid "Ignore"
-msgstr ""
+msgstr "Αγνόησε"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterCategoriesBase.pm:113
 msgid "This list has not categories"
-msgstr ""
+msgstr "Η λίστα δεν έχει κατηγορίες"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupDomainFilterSettings.pm:53
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterSettings.pm:70
 msgid "Domain filter settings"
-msgstr ""
+msgstr "Ρυθμίσεις φίλτρου τομέα"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupDomainFilterSettings.pm:60
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterSettings.pm:77
 msgid "Filtering settings changed"
-msgstr ""
+msgstr "Οι ρυθμίσεις φιλτραρίσματος άλλαξαν"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupDomainFilterSettings.pm:82
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupExtensionFilter.pm:86
@@ -4268,7 +4320,7 @@ msgstr ""
 #: ../../main/asterisk/src/EBox/Model/Meetings.pm:120
 #: ../../main/asterisk/src/EBox/Model/Meetings.pm:128
 msgid "extension"
-msgstr ""
+msgstr "επέκταση"
 
 #: ../../main/squid/src/EBox/Squid/Model/ExtensionFilter.pm:74
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupExtensionFilter.pm:63
@@ -4281,22 +4333,22 @@ msgstr ""
 #: ../../main/squid/src/EBox/Squid/Model/ExtensionFilter.pm:76
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupExtensionFilter.pm:66
 msgid "Extension added"
-msgstr ""
+msgstr "προστέθηκε επέκταση"
 
 #: ../../main/squid/src/EBox/Squid/Model/ExtensionFilter.pm:77
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupExtensionFilter.pm:67
 msgid "Extension removed"
-msgstr ""
+msgstr "αφαιρέθηκε επέκταση"
 
 #: ../../main/squid/src/EBox/Squid/Model/ExtensionFilter.pm:78
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupExtensionFilter.pm:68
 msgid "Extension updated"
-msgstr ""
+msgstr "ενημέρωση επέκτασης"
 
 #: ../../main/squid/src/EBox/Squid/Model/MIMEFilter.pm:51
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupMIMEFilter.pm:47
 msgid "Configure allowed MIME types"
-msgstr ""
+msgstr "Ρύθμιση επιτρεπόμενων τύπων MIME"
 
 #: ../../main/squid/src/EBox/Squid/Model/MIMEFilter.pm:64
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupMIMEFilter.pm:60
@@ -4309,31 +4361,31 @@ msgstr ""
 #: ../../main/squid/src/EBox/Squid/Model/MIMEFilter.pm:67
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupMIMEFilter.pm:63
 msgid "MIME type added"
-msgstr ""
+msgstr "Προστέθηκε τύπος MIME"
 
 #: ../../main/squid/src/EBox/Squid/Model/MIMEFilter.pm:68
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupMIMEFilter.pm:64
 msgid "MIME type removed"
-msgstr ""
+msgstr "Αφαιρέθηκε τύπος MIME"
 
 #: ../../main/squid/src/EBox/Squid/Model/MIMEFilter.pm:69
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupMIMEFilter.pm:65
 msgid "MIME type updated"
-msgstr ""
+msgstr "Ενημερώθηκε τύπος MIME"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupApplyAllowToAllExtensions.pm:42
 #: ../../main/squid/src/EBox/Squid/Model/ApplyAllowToAllExtensions.pm:41
 msgid "extensions"
-msgstr ""
+msgstr "επεκτάσεις"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupApplyAllowToAllExtensions.pm:49
 #: ../../main/squid/src/EBox/Squid/Model/ApplyAllowToAllExtensions.pm:48
 msgid "Set policy for all extensions"
-msgstr ""
+msgstr "Ορισμός πολιτικής για όλες τις επεκτάσεις"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterFiles.pm:83
 msgid "Domains lists files"
-msgstr ""
+msgstr "Αρχεία λιστών τομέων"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterFiles.pm:96
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupDomainFilterFiles.pm:90
@@ -4342,22 +4394,22 @@ msgstr ""
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterFiles.pm:97
 msgid "You can upload files with lists of domains"
-msgstr ""
+msgstr "Μπορείτε να φορτώσετε αρχεία με λίστες τομέων"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterFiles.pm:99
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupDomainFilterFiles.pm:93
 msgid "Domain list added"
-msgstr ""
+msgstr "Προστέθηκε λίστα Τομέων"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterFiles.pm:100
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupDomainFilterFiles.pm:94
 msgid "Domain list removed"
-msgstr ""
+msgstr "Αφαιρέθηκε λίστα Τομέων"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterFiles.pm:101
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupDomainFilterFiles.pm:95
 msgid "Domain list updated"
-msgstr ""
+msgstr "Ενημερώθηκε η λίστα Τομέων"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:87
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools1.pm:85
@@ -4390,17 +4442,18 @@ msgstr ""
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:159
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools1.pm:143
 msgid "Network object"
-msgstr ""
+msgstr "Αντικείμενο δικτύου"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:167
+#, fuzzy
 msgid "Rate"
-msgstr ""
+msgstr "αναλογία"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:170
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:190
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools1.pm:154
 msgid "Bytes/s"
-msgstr ""
+msgstr "Bytes/s"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:173
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools1.pm:157
@@ -4411,7 +4464,7 @@ msgstr ""
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:177
 msgid "Maximum Size"
-msgstr ""
+msgstr "Μέγιστο μέγεθος"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:183
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools1.pm:167
@@ -4422,7 +4475,7 @@ msgstr ""
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:187
 msgid "Client Rate"
-msgstr ""
+msgstr "Ποσοστό πελάτη"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:193
 msgid ""
@@ -4431,7 +4484,7 @@ msgstr ""
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:197
 msgid "Client Maximum Size"
-msgstr ""
+msgstr "Μέγιστο μέγεθος πελάτη"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:203
 msgid ""
@@ -4452,7 +4505,7 @@ msgstr ""
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:222
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools1.pm:186
 msgid "pool"
-msgstr ""
+msgstr "δεξαμενή"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools1.pm:151
 msgid "Network Rate"
@@ -4460,7 +4513,7 @@ msgstr ""
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools1.pm:161
 msgid "Network Maximum Size"
-msgstr ""
+msgstr "Μέγιστο μέγεθος δικτύου"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools1.pm:173
 msgid "Delay Pools Class 1"
@@ -4534,11 +4587,11 @@ msgstr ""
 #: ../../main/users/src/templates/users.mas:88
 #: ../../main/samba/src/templates/ajax/viewer/shareViewer.mas:10
 msgid "Group"
-msgstr ""
+msgstr "Ομάδα"
 
 #: ../../main/squid/src/EBox/Squid/Model/GroupPolicyBase.pm:97
 msgid "Time period"
-msgstr ""
+msgstr "Περίοδος Χρόνου"
 
 #: ../../main/squid/src/EBox/Squid/Model/GroupPolicyBase.pm:228
 #: ../../main/squid/src/EBox/Squid/Model/GroupPolicyBase.pm:235
@@ -4552,12 +4605,12 @@ msgstr ""
 #: ../../main/squid/src/EBox/Squid/Model/GlobalGroupPolicy.pm:78
 #: ../../main/l7-protocols/src/EBox/Model/Groups.pm:70
 msgid "List of groups"
-msgstr ""
+msgstr "Λίστα ομάδων"
 
 #: ../../main/squid/src/EBox/Squid/Model/ObjectGroupPolicy.pm:89
 #: ../../main/squid/src/EBox/Squid/Model/GlobalGroupPolicy.pm:92
 msgid "group's policy"
-msgstr ""
+msgstr "πολιτική ομάδων"
 
 #: ../../main/squid/src/EBox/Squid/Model/ObjectGroupPolicy.pm:90
 msgid ""
@@ -4568,17 +4621,17 @@ msgstr ""
 #: ../../main/squid/src/EBox/Squid/Model/ObjectGroupPolicy.pm:92
 #: ../../main/squid/src/EBox/Squid/Model/GlobalGroupPolicy.pm:95
 msgid "Added group's policy"
-msgstr ""
+msgstr "Προστέθηκε πολιτική ομάδων"
 
 #: ../../main/squid/src/EBox/Squid/Model/ObjectGroupPolicy.pm:93
 #: ../../main/squid/src/EBox/Squid/Model/GlobalGroupPolicy.pm:96
 msgid "Removed group's policy"
-msgstr ""
+msgstr "Αφαιρέθηκε πολιτική ομάδων"
 
 #: ../../main/squid/src/EBox/Squid/Model/ObjectGroupPolicy.pm:94
 #: ../../main/squid/src/EBox/Squid/Model/GlobalGroupPolicy.pm:97
 msgid "Updated group's policy"
-msgstr ""
+msgstr "Ενημερώθηκε πολιτική ομάδων"
 
 #: ../../main/squid/src/EBox/Squid/Model/ObjectGroupPolicy.pm:129
 #: ../../main/squid/src/EBox/Squid/Model/GlobalGroupPolicy.pm:161
@@ -4604,7 +4657,7 @@ msgstr ""
 
 #: ../../main/squid/src/EBox/Squid/Model/GlobalGroupPolicy.pm:77
 msgid "Group policies"
-msgstr ""
+msgstr "Πολιτικές Ομάδων"
 
 #: ../../main/squid/src/EBox/Squid/Model/GlobalGroupPolicy.pm:93
 msgid ""
@@ -4640,7 +4693,7 @@ msgstr ""
 #: ../../main/asterisk/src/templates/user.mas:37
 #: ../../main/asterisk/src/templates/group.mas:40
 msgid "Extension"
-msgstr ""
+msgstr "αφαιρέθηκε επέκταση"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:56
 msgid "Transparent Proxy"
@@ -6495,56 +6548,56 @@ msgstr ""
 
 #: ../../main/samba/src/EBox/Samba.pm:775
 msgid "Shares by user"
-msgstr ""
+msgstr "Κοινή χρήση ανα χρήστη"
 
 #: ../../main/samba/src/EBox/Samba.pm:781
 msgid "Users by share"
-msgstr ""
+msgstr "Χρήστες ανα Κοινή χρήση"
 
 #: ../../main/samba/src/EBox/Samba.pm:1324
 msgid "printer"
-msgstr ""
+msgstr "εκτυπωτής"
 
 #: ../../main/samba/src/EBox/Samba.pm:1427
 msgid "Shares, users and groups homes and profiles"
-msgstr ""
+msgstr "Κοινή χρήση, προφίλ και αρχικοί φάκελοι χρηστών και ομάδων"
 
 #: ../../main/samba/src/EBox/Samba.pm:1597
 msgid "Users files"
-msgstr ""
+msgstr "Αρχεία χρηστών"
 
 #: ../../main/samba/src/EBox/Samba.pm:1599
 msgid "Groups files"
-msgstr ""
+msgstr "Αρχεία ομάδων"
 
 #: ../../main/samba/src/EBox/Samba.pm:1615
 #: ../../main/samba/src/EBox/Samba.pm:1635
 msgid "Client address"
-msgstr ""
+msgstr "Διεύθυνση πελάτη"
 
 #: ../../main/samba/src/EBox/Samba.pm:1618
 msgid "Resource"
-msgstr ""
+msgstr "Πηγή"
 
 #: ../../main/samba/src/EBox/Samba.pm:1622
 msgid "Connect"
-msgstr ""
+msgstr "Σύνδεση"
 
 #: ../../main/samba/src/EBox/Samba.pm:1623
 msgid "Access to directory"
-msgstr ""
+msgstr "Πρόσβαση στον κατάλογο"
 
 #: ../../main/samba/src/EBox/Samba.pm:1624
 msgid "Read file"
-msgstr ""
+msgstr "Ανάγνωση αρχείου"
 
 #: ../../main/samba/src/EBox/Samba.pm:1625
 msgid "Write file"
-msgstr ""
+msgstr "Εγγραφή αρχείου"
 
 #: ../../main/samba/src/EBox/Samba.pm:1626
 msgid "Disconnect"
-msgstr ""
+msgstr "Αποσύνδεση"
 
 #: ../../main/samba/src/EBox/Samba.pm:1627
 #: ../../main/users/src/templates/user.mas:114
@@ -6556,130 +6609,132 @@ msgstr ""
 #: ../../main/mail/src/templates/qmanager.mas:55
 #: ../../main/core/src/templates/ajax/viewer/file.mas:26
 msgid "Remove"
-msgstr ""
+msgstr "Αφαίρεση"
 
 #: ../../main/samba/src/EBox/Samba.pm:1628
 msgid "Create directory"
-msgstr ""
+msgstr "Δημιουργία καταλόγου"
 
 #: ../../main/samba/src/EBox/Samba.pm:1629
 msgid "Remove directory"
-msgstr ""
+msgstr "Αφαίρεση καταλόγου"
 
 #: ../../main/samba/src/EBox/Samba.pm:1630
 msgid "Rename"
-msgstr ""
+msgstr "Μετονομασία"
 
 #: ../../main/samba/src/EBox/Samba.pm:1637
 #: ../../main/samba/src/EBox/Samba.pm:1641
 msgid "Virus"
-msgstr ""
+msgstr "Ιός"
 
 #: ../../main/samba/src/EBox/Samba.pm:1646
 msgid "Quarantined file name"
-msgstr ""
+msgstr "Όνομα αρχείου καραντίνας"
 
 #: ../../main/samba/src/EBox/Samba.pm:1647
 #: ../../main/samba/src/EBox/Samba.pm:1650
 msgid "Quarantine"
-msgstr ""
+msgstr "Καραντίνα"
 
 #: ../../main/samba/src/EBox/Samba.pm:1653
 msgid "Samba access"
-msgstr ""
+msgstr "Πρόσβαση SAMBA"
 
 #: ../../main/samba/src/EBox/Samba.pm:1664
+#, fuzzy
 msgid "Samba virus"
-msgstr ""
+msgstr "Ιός SAMBA"
 
 #: ../../main/samba/src/EBox/Samba.pm:1675
 msgid "Samba quarantine"
-msgstr ""
+msgstr "Καραντίνα SAMBA"
 
 #: ../../main/samba/src/EBox/Samba/Model/PDC.pm:77
 msgid "File sharing module is not enabled."
-msgstr ""
+msgstr "Η ενότητα κοινής χρήσης δεν είναι ενεργοποιημένη"
 
 #: ../../main/samba/src/EBox/Samba/Model/PDC.pm:78
 msgid "PDC is not enabled."
-msgstr ""
+msgstr "Το PDC δεν είναι ενεργοποιημένο"
 
 #: ../../main/samba/src/EBox/Samba/Model/PDC.pm:87
 msgid "Minimum password length"
-msgstr ""
+msgstr "Ελάχιστο μέγεθος κωδικού"
 
 #: ../../main/samba/src/EBox/Samba/Model/PDC.pm:96
 msgid "characters"
-msgstr ""
+msgstr "χαρακτήρες"
 
 #: ../../main/samba/src/EBox/Samba/Model/PDC.pm:105
 msgid "Maximum password age"
-msgstr ""
+msgstr "Μέγιστη διάρκεια ζωής κωδικού"
 
 #: ../../main/samba/src/EBox/Samba/Model/PDC.pm:114
 #: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:202
 #: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:221
 msgid "days"
-msgstr ""
+msgstr "ημέρες"
 
 #: ../../main/samba/src/EBox/Samba/Model/PDC.pm:123
 msgid "Enforce password history"
-msgstr ""
+msgstr "Επιβολή ιστορικού κωδικών"
 
 #: ../../main/samba/src/EBox/Samba/Model/PDC.pm:131
 msgid "Keep history for"
-msgstr ""
+msgstr "Κράτα ιστορικό για"
 
 #: ../../main/samba/src/EBox/Samba/Model/PDC.pm:132
+#, fuzzy
 msgid "passwords remebered"
-msgstr ""
+msgstr "κωδικοί απο ιστορικό"
 
 #: ../../main/samba/src/EBox/Samba/Model/PDC.pm:143
 msgid "PDC"
-msgstr ""
+msgstr "PDC"
 
 #: ../../main/samba/src/EBox/Samba/Model/PDC.pm:147
 msgid "On this page you can set different PDC related settings"
-msgstr ""
+msgstr "Σε αυτή τη σελίδα μπορείτε να κάνετε διάφορες ρυθμίσεις για το PDC"
 
 #: ../../main/samba/src/EBox/Samba/Model/AntivirusExceptions.pm:92
 #: ../../main/samba/src/EBox/Samba/Model/RecycleExceptions.pm:92
 msgid "User/Group/Share"
-msgstr ""
+msgstr "Χρήστης/Ομάδα/Κοινή χρήση"
 
 #: ../../main/samba/src/EBox/Samba/Model/AntivirusExceptions.pm:98
 #: ../../main/samba/src/EBox/Samba/Model/RecycleExceptions.pm:98
 msgid "User homes"
-msgstr ""
+msgstr "Αρχικοί φάκελοι χρηστών"
 
 #: ../../main/samba/src/EBox/Samba/Model/AntivirusExceptions.pm:120
 msgid "Samba shares antivirus exceptions"
-msgstr ""
+msgstr "Εξαιρέσεις αντιμετώπισης ιών σε κοινούς χώρους SAMBA"
 
 #: ../../main/samba/src/EBox/Samba/Model/AntivirusExceptions.pm:125
 msgid "Add exceptions to the default antivirus settings"
-msgstr ""
+msgstr "Προσθήκη εξαιρέσεων στις προεπιλεγμένες ρυθμίσεις της αντιμετώπισης ιών"
 
 #: ../../main/samba/src/EBox/Samba/Model/AntivirusExceptions.pm:126
 #: ../../main/samba/src/EBox/Samba/Model/RecycleExceptions.pm:126
 msgid "exception"
-msgstr ""
+msgstr "εξαίρεση"
 
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:101
 msgid "Share name"
-msgstr ""
+msgstr "Όνομα κοινού χώρου"
 
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:107
 msgid "Share path"
-msgstr ""
+msgstr "Διαδρομή κοινού χώρου"
 
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:113
 msgid "Directory under Zentyal"
-msgstr ""
+msgstr "Κατάλογος υπό το Zentyal"
 
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:119
 msgid "File system path"
-msgstr ""
+msgstr "Διαδρομή συστήματος αρχείων"
 
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:127
 #: ../../main/users/src/templates/user.mas:41
@@ -6687,49 +6742,51 @@ msgstr ""
 #: ../../main/users/src/templates/group.mas:20
 #: ../../main/users/src/templates/groups.mas:26
 msgid "Comment"
-msgstr ""
+msgstr "Σχόλιο"
 
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:132
 msgid "Guest access"
-msgstr ""
+msgstr "Πρόσβαση Guest"
 
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:135
 msgid "This share will not require authentication."
-msgstr ""
+msgstr "Αυτός ο κοινός χώρος δεν θα απαιτεί πιστοποίηση"
 
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:139
 msgid "Access control"
-msgstr ""
+msgstr "Έλεγχος Πρόσβασης"
 
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:149
 #: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:165
 msgid "Shares"
-msgstr ""
+msgstr "Κοινοί Χώροι"
 
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:157
 #: ../../main/samba/src/EBox/Samba/Model/DeletedSambaShares.pm:129
 msgid "share"
-msgstr ""
+msgstr "κοινός χώρος"
 
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:186
 msgid "Path not allowed"
-msgstr ""
+msgstr "Μη επιτρεπτή διαδρομή"
 
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:196
 msgid "Only alphanumeric characters plus _ are valid for a path"
-msgstr ""
+msgstr "Μόνο αλφαριθμητικοί χαρακτήρες σύν το _ είναι έγκυροι για μια διαδρομή"
 
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:207
 msgid "Only ASCII characters are valid for a share name"
-msgstr ""
+msgstr "Μόνο χαρακτήρες του κώδικα ASCII είναι έγκυροι για όνομα κοινού χώρου"
 
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:215
 msgid "Only ASCII characters are valid for a share description"
 msgstr ""
+"Μόνο χαρακτήρες του κώδικα ASCII είναι έγκυροι για περιγραφή κοινού χώρου"
 
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:247
 msgid "The directory is not empty. Are you sure you want to remove it?"
 msgstr ""
+"Ο κατάλογος δεν είναι άδειος. Είστε σίγουροι ότι θέλετε να τον αφαιρέσετε;"
 
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:339
 #, perl-brace-format
@@ -6738,6 +6795,10 @@ msgid ""
 "directory in /home/samba/shares {br}{openit}File system path{closeit} will "
 "allow you to share an existing directory within your file system"
 msgstr ""
+"{openit}Directory under Zentyal{closeit} θα δημιουργήσει αυτόματα τον "
+"κοινόχρηστο κατάλογο στο  /home/samba/shares {br}{openit}File system "
+"path{closeit} θα σας επιτρέπει να μοιραστείτε ένα υπάρχον κατάλογο μέσα στο "
+"σύστημα αρχείων"
 
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:352
 msgid ""
@@ -6748,43 +6809,43 @@ msgstr ""
 
 #: ../../main/samba/src/EBox/Samba/Model/AntivirusDefault.pm:50
 msgid "Scan"
-msgstr ""
+msgstr "Σάρωση"
 
 #: ../../main/samba/src/EBox/Samba/Model/AntivirusDefault.pm:58
 msgid "Antivirus default settings"
-msgstr ""
+msgstr "Προεπιλεγμένες ρυθμίσεις αντιμετώπισης ιών"
 
 #: ../../main/samba/src/EBox/Samba/Model/RecycleDefault.pm:45
 msgid "Recycle default settings"
-msgstr ""
+msgstr "Προεπιλεγμένες ρυθμίσεις ανακύκλωσης"
 
 #: ../../main/samba/src/EBox/Samba/Model/RecycleDefault.pm:55
 msgid "Enable Recycle Bin"
-msgstr ""
+msgstr "Ενεργοποίηση κάδου ανακύκλωσης"
 
 #: ../../main/samba/src/EBox/Samba/Model/RecycleDefault.pm:63
 msgid "Recycle Bin default settings"
-msgstr ""
+msgstr "Προεπιλεγμένες ρυθμίσεις κάδου ανακύκλωσης"
 
 #: ../../main/samba/src/EBox/Samba/Model/RecycleExceptions.pm:120
 msgid "Samba shares Recycle Bin exceptions"
-msgstr ""
+msgstr "Εξαιρέσεις κάδου ανακύκλωσης για κοινούς χώρους Samba"
 
 #: ../../main/samba/src/EBox/Samba/Model/RecycleExceptions.pm:125
 msgid "Add exceptions to the default Recycle Bin settings"
-msgstr ""
+msgstr "Προσθήκη εξαιρέσεων στις προεπιλεγμένες ρυθμίσεις του κάδου ανακύκλωσης"
 
 #: ../../main/samba/src/EBox/Samba/Model/SambaUser.pm:50
 msgid "File Sharing Account"
-msgstr ""
+msgstr "Λογαριασμός Κοινής Χρήσης Αρχείων"
 
 #: ../../main/samba/src/EBox/Samba/Model/GeneralSettings.pm:73
 msgid "Netbios and workgroup must have different names"
-msgstr ""
+msgstr "Το Netbios και το workgroup πρέπει να έχουν διαφορετικά ονόματα"
 
 #: ../../main/samba/src/EBox/Samba/Model/GeneralSettings.pm:78
 msgid "Netbios name cannot be longer than 15 characters"
-msgstr ""
+msgstr "Το όνομα του Netbios δεν μπορεί να είναι πάνω από 15 χαρακτήρες"
 
 #: ../../main/samba/src/EBox/Samba/Model/GeneralSettings.pm:94
 #, perl-brace-format
@@ -6795,86 +6856,91 @@ msgstr ""
 
 #: ../../main/samba/src/EBox/Samba/Model/GeneralSettings.pm:106
 msgid "Enable PDC"
-msgstr ""
+msgstr "Ενεργοποίηση PDC"
 
 #: ../../main/samba/src/EBox/Samba/Model/GeneralSettings.pm:112
 #: ../../main/network/src/templates/diag.mas:32
 #: ../../main/mail/src/templates/createaccount.mas:26
 msgid "Domain name"
-msgstr ""
+msgstr "Όνομα τομέα"
 
 #: ../../main/samba/src/EBox/Samba/Model/GeneralSettings.pm:118
 msgid "Netbios name"
-msgstr ""
+msgstr "Όνομα Netbios"
 
 #: ../../main/samba/src/EBox/Samba/Model/GeneralSettings.pm:130
 msgid "Quota limit"
-msgstr ""
+msgstr "Όριο ποσόστωσης"
 
 #: ../../main/samba/src/EBox/Samba/Model/GeneralSettings.pm:136
 msgid "Mb"
-msgstr ""
+msgstr "Mb"
 
 #: ../../main/samba/src/EBox/Samba/Model/GeneralSettings.pm:148
 msgid "Enable roaming profiles"
-msgstr ""
+msgstr "Ενεργοποίηση προφίλ περιαγωγής"
 
 #: ../../main/samba/src/EBox/Samba/Model/GeneralSettings.pm:154
 msgid "Drive letter"
-msgstr ""
+msgstr "Γράμμα οδηγού"
 
 #: ../../main/samba/src/EBox/Samba/Model/GeneralSettings.pm:160
 msgid "Samba group"
-msgstr ""
+msgstr "Όμάδα samba"
 
 #: ../../main/samba/src/EBox/Samba/Model/GeneralSettings.pm:164
 msgid ""
 "Only users belonging to this group will have a samba account. Sync happens "
 "every hour"
 msgstr ""
+"Μόνο χρήστες που ανήκουν σε αυτή την ομάδα θα έχουν λογαριασμό samba. Ο "
+"συγχρονισμός γίνεται κάθε μία ώρα"
 
 #: ../../main/samba/src/EBox/Samba/Model/GeneralSettings.pm:170
 msgid "General settings"
-msgstr ""
+msgstr "Γενικές ρυθμίσεις"
 
 #: ../../main/samba/src/EBox/Samba/Model/GeneralSettings.pm:174
 msgid "On this page you can set different general settings for Samba"
-msgstr ""
+msgstr "Σε αυτή τη σελίδα μπορείτε να ορίσετε γενικές ρυθμίσεις για την Samba"
 
 #: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:97
 msgid "Read and write"
-msgstr ""
+msgstr "Ανάγνωση και εγγραφή"
 
 #: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:101
 msgid "Administrator"
-msgstr ""
+msgstr "Διαχειριστής"
 
 #: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:125
 #: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:201
 msgid "User/Group"
-msgstr ""
+msgstr "Χρήστης/Ομάδα"
 
 #: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:175
 msgid "Any access control is disabled if the guest access is allowed."
 msgstr ""
+"Κάθε έλεγχος πρόσβασης απενεργοποιείται αν επιτρέπεται η πρόσβαση στον guest"
 
 #: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:220
 msgid "Permissions"
-msgstr ""
+msgstr "Δικαιώματα"
 
 #: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:229
 msgid "Access Control"
-msgstr ""
+msgstr "Έλεγχος Πρόσβασης"
 
 #: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:236
 msgid "ACL"
-msgstr ""
+msgstr "ACL"
 
 #: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:249
 msgid ""
 "Be careful if you grant <i>administrator</i> privileges.User will be able to "
 "read and write any file in the share."
 msgstr ""
+"Προσοχή όταν δίνετε δικαιώματα <i>διαχειριστή</i> . Ο χρήστης θα μπορεί να "
+"διαβάσει και να γράψει οποιοδήποτε αρχείο στον κοινό χώρο."
 
 #: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:259
 msgid " (user))"
@@ -6886,15 +6952,15 @@ msgstr ""
 
 #: ../../main/samba/src/EBox/Samba/Model/DeletedSambaShares.pm:113
 msgid "path"
-msgstr ""
+msgstr "διαδρομή"
 
 #: ../../main/samba/src/EBox/Samba/Composite/RecycleBin.pm:64
 msgid "Recycle Bin"
-msgstr ""
+msgstr "Κάδος ανακύκλωσης"
 
 #: ../../main/samba/src/EBox/Samba/Composite/General.pm:68
 msgid "File sharing options"
-msgstr ""
+msgstr "Επιλογές κοινής χρήσης αρχείων"
 
 #: ../../main/samba/src/EBox/Samba/Composite/Antivirus.pm:64
 #: ../../main/antivirus/src/EBox/AntiVirus/Model/FreshclamStatus.pm:104
@@ -6912,18 +6978,18 @@ msgstr ""
 
 #: ../../main/samba/src/EBox/CGI/ActiveSharing.pm:47
 msgid "sharing name"
-msgstr ""
+msgstr "όνομα κοινού χώρου"
 
 #: ../../main/samba/src/EBox/CGI/ActiveSharing.pm:71
 #: ../../main/core/src/EBox/Event/Watcher/RAID.pm:524
 #: ../../main/core/src/EBox/Event/Watcher/RAID.pm:567
 #: ../../main/core/src/templates/report/raid.mas:111
 msgid "active"
-msgstr ""
+msgstr "ενεργό"
 
 #: ../../main/samba/src/EBox/CGI/ActiveSharing.pm:72
 msgid "Disk quota limit"
-msgstr ""
+msgstr "Όριο ποσόστωσης δίσκου"
 
 #: ../../main/samba/src/EBox/SambaLdapUser.pm:291
 msgid "This user has a sharing directory associated which contains data."
@@ -6933,31 +6999,31 @@ msgstr ""
 #: ../../main/samba/src/EBox/SambaLdapUser.pm:367
 #, perl-brace-format
 msgid "Incorrect SID: {s}"
-msgstr ""
+msgstr "Λάθος SID: {s}"
 
 #: ../../main/samba/src/EBox/SambaLdapUser.pm:353
 #, perl-brace-format
 msgid "User {u} does not exists"
-msgstr ""
+msgstr "Ο χρήστης {u} δεν υπάρχει"
 
 #: ../../main/samba/src/EBox/SambaLdapUser.pm:357
 #, perl-brace-format
 msgid "User {u} is not a samba user"
-msgstr ""
+msgstr "Ο χρήστης {u} δεν είναι samba χρήστης"
 
 #: ../../main/samba/src/EBox/SambaLdapUser.pm:371
 #, perl-brace-format
 msgid "Group {g} does not exists"
-msgstr ""
+msgstr "Η ομάδα {g} δεν υπάρχει"
 
 #: ../../main/samba/src/EBox/SambaLdapUser.pm:375
 #, perl-brace-format
 msgid "Group {g} is not a samba group"
-msgstr ""
+msgstr "Η ομάδα {g} δεν είναι ομάδα samba"
 
 #: ../../main/samba/src/EBox/SambaLdapUser.pm:422
 msgid "quota"
-msgstr ""
+msgstr "ποσόστωση"
 
 #: ../../main/samba/src/EBox/SambaLdapUser.pm:497
 msgid "This group has a sharing directory associated that contains data."
@@ -6966,19 +7032,19 @@ msgstr ""
 #: ../../main/samba/src/EBox/SambaLdapUser.pm:697
 #, perl-brace-format
 msgid "{g} group does not exist"
-msgstr ""
+msgstr "{g} ομάδα δεν υπάρχει"
 
 #: ../../main/samba/src/EBox/SambaLdapUser.pm:844
 msgid "A name should be provided for the share."
-msgstr ""
+msgstr "Ένα όνομα πρέπει να δοθεί για τον κοινό χώρο"
 
 #: ../../main/samba/src/EBox/SambaLdapUser.pm:852
 msgid "sharing resource"
-msgstr ""
+msgstr "πόροι κοινής χρήσης"
 
 #: ../../main/services/src/EBox/Model/ServiceTable.pm:102
 msgid "Internal"
-msgstr ""
+msgstr "Εσωτερικό"
 
 #: ../../main/services/src/EBox/Model/ServiceTable.pm:105
 msgid ""
@@ -6986,24 +7052,27 @@ msgid ""
 "ports configured for this service. This helps Zentyal to know what ports are "
 "already busy"
 msgstr ""
+"Επέλεξε αυτό το πεδίο αν υπάρχει μια υπηρεσία σε αυτό το μηχάνημα που "
+"χρησιμοποιεί τις πόρτες που ρυθμίστηκαν για αυτή την υπηρεσία. Αυτό βοηθάει "
+"το Zentyal να ξέρει ποιές πόρτες είναι κατειλημμένες"
 
 #: ../../main/services/src/EBox/Model/ServiceTable.pm:111
 msgid "Service name"
-msgstr ""
+msgstr "Όνομα υπηρεσίας"
 
 #: ../../main/services/src/EBox/Model/ServiceTable.pm:136
 msgid "List of services"
-msgstr ""
+msgstr "Λίστα υπηρεσιών"
 
 #: ../../main/services/src/EBox/Model/ServiceTable.pm:137
 #: ../../main/services/src/EBox/Services.pm:47
 msgid "Services"
-msgstr ""
+msgstr "Υπηρεσίες"
 
 #: ../../main/services/src/EBox/Model/ServiceTable.pm:147
 #: ../../main/services/src/EBox/Model/ServiceConfigurationTable.pm:172
 msgid "service"
-msgstr ""
+msgstr "υπηρεσία"
 
 #: ../../main/services/src/EBox/Model/ServiceTable.pm:639
 msgid ""
@@ -7039,24 +7108,24 @@ msgstr ""
 
 #: ../../main/services/src/EBox/Services.pm:481
 msgid "eBox administration"
-msgstr ""
+msgstr "Διαχείριση eBox"
 
 #: ../../main/dns/src/EBox/Model/DomainTable.pm:185
 #: ../../main/dns/src/EBox/Model/HostnameTable.pm:222
 msgid "Hostnames"
-msgstr ""
+msgstr "Ονόματα διακομιστών"
 
 #: ../../main/dns/src/EBox/Model/DomainTable.pm:194
 msgid "Mail Exchangers"
-msgstr ""
+msgstr "Εναλλάκτες Αλληλογραφίας"
 
 #: ../../main/dns/src/EBox/Model/DomainTable.pm:202
 msgid "Name Servers"
-msgstr ""
+msgstr "Διακομιστές ονομάτων"
 
 #: ../../main/dns/src/EBox/Model/DomainTable.pm:218
 msgid "Dynamic"
-msgstr ""
+msgstr "Δυναμικό"
 
 #: ../../main/dns/src/EBox/Model/DomainTable.pm:222
 msgid "A domain is dynamic when the DHCP server updates the domain"
@@ -7065,18 +7134,18 @@ msgstr ""
 #: ../../main/dns/src/EBox/Model/DomainTable.pm:240
 #: ../../main/mail/src/EBox/Mail/Model/VDomains.pm:90
 msgid "List of Domains"
-msgstr ""
+msgstr "Λίστα τομέων"
 
 #: ../../main/dns/src/EBox/Model/DomainTable.pm:241
 #: ../../main/dns/src/EBox/Model/DNSComposite.pm:74
 #: ../../main/dns/src/EBox/Model/DNSComposite.pm:75
 msgid "DNS"
-msgstr ""
+msgstr "DNS"
 
 #: ../../main/dns/src/EBox/Model/DomainTable.pm:248
 #: ../../main/dns/src/EBox/DNS.pm.in:263
 msgid "domain"
-msgstr ""
+msgstr "τομέας"
 
 #: ../../main/dns/src/EBox/Model/MailExchanger.pm:86
 #, perl-brace-format
@@ -7102,7 +7171,7 @@ msgstr ""
 #: ../../main/dns/src/EBox/Model/MailExchanger.pm:160
 #: ../../main/dns/src/EBox/Model/NameServer.pm:139
 msgid "This domain"
-msgstr ""
+msgstr "Αυτός ο τομέας"
 
 #: ../../main/dns/src/EBox/Model/MailExchanger.pm:176
 msgid "Preference"
@@ -7110,7 +7179,7 @@ msgstr ""
 
 #: ../../main/dns/src/EBox/Model/MailExchanger.pm:185
 msgid "Mail exchangers"
-msgstr ""
+msgstr "Εναλλάκτες Αλληλογραφίας"
 
 #: ../../main/dns/src/EBox/Model/MailExchanger.pm:191
 #, perl-brace-format
@@ -7151,12 +7220,12 @@ msgstr ""
 #: ../../main/dns/src/templates/edit.mas:64
 #: ../../main/dns/src/templates/edit.mas:85
 msgid "Alias"
-msgstr ""
+msgstr "Ψευδώνυμο"
 
 #: ../../main/dns/src/EBox/Model/AliasTable.pm:147
 #: ../../main/mail/src/EBox/CGI/DelGroupAlias.pm:43
 msgid "alias"
-msgstr ""
+msgstr "ψευδώνυμο"
 
 #: ../../main/dns/src/EBox/Model/NameServer.pm:76
 #, perl-brace-format
@@ -7322,39 +7391,39 @@ msgstr ""
 
 #: ../../main/asterisk/src/EBox/Asterisk.pm:758
 msgid "Duration"
-msgstr ""
+msgstr "Διάρκεια"
 
 #: ../../main/asterisk/src/EBox/Asterisk.pm:759
 msgid "Channel"
-msgstr ""
+msgstr "Κανάλι"
 
 #: ../../main/asterisk/src/EBox/Asterisk.pm:760
 msgid "Destination Channel"
-msgstr ""
+msgstr "Κανάλι προορισμού"
 
 #: ../../main/asterisk/src/EBox/Asterisk.pm:761
 msgid "Application"
-msgstr ""
+msgstr "Εφαρμογή"
 
 #: ../../main/asterisk/src/EBox/Asterisk.pm:762
 msgid "Application Data"
-msgstr ""
+msgstr "Εφαρμογή δεδομένων"
 
 #: ../../main/asterisk/src/EBox/Asterisk.pm:771
 msgid "Answered"
-msgstr ""
+msgstr "Απαντήθηκε"
 
 #: ../../main/asterisk/src/EBox/Asterisk.pm:772
 msgid "No Answer"
-msgstr ""
+msgstr "Δεν απαντήθηκε"
 
 #: ../../main/asterisk/src/EBox/Asterisk.pm:773
 msgid "Busy"
-msgstr ""
+msgstr "Απασχολημένο"
 
 #: ../../main/asterisk/src/EBox/Asterisk.pm:774
 msgid "Failed"
-msgstr ""
+msgstr "Απέτυχε"
 
 #: ../../main/asterisk/src/EBox/Model/Localnets.pm:88
 #, perl-brace-format
@@ -7365,23 +7434,23 @@ msgstr ""
 
 #: ../../main/asterisk/src/EBox/Model/Localnets.pm:113
 msgid "Local network"
-msgstr ""
+msgstr "Τοπικό δίκτυο"
 
 #: ../../main/asterisk/src/EBox/Model/Localnets.pm:130
 msgid "Local networks"
-msgstr ""
+msgstr "Τοπικά δίκτυα"
 
 #: ../../main/asterisk/src/EBox/Model/Localnets.pm:131
 msgid "local network"
-msgstr ""
+msgstr "τοπικό δίκτυο"
 
 #: ../../main/asterisk/src/EBox/Model/AsteriskUser.pm:50
 msgid "Asterisk Account"
-msgstr ""
+msgstr "Λογαριασμός Asterisk"
 
 #: ../../main/asterisk/src/EBox/Model/AsteriskUser.pm:58
 msgid "Asterisk"
-msgstr ""
+msgstr "Asterisk"
 
 #: ../../main/asterisk/src/EBox/Model/Settings.pm:117
 msgid "Enable demo extensions"
@@ -7429,7 +7498,7 @@ msgstr ""
 
 #: ../../main/asterisk/src/EBox/Model/Provider.pm:89
 msgid "Provider"
-msgstr ""
+msgstr "Πάροχος"
 
 #: ../../main/asterisk/src/EBox/Model/Provider.pm:100
 msgid "VoIP service provider name."
@@ -7445,7 +7514,7 @@ msgstr ""
 
 #: ../../main/asterisk/src/EBox/Model/Provider.pm:137
 msgid "SIP provider"
-msgstr ""
+msgstr "Πάροχος SIP"
 
 #: ../../main/asterisk/src/EBox/Model/Provider.pm:141
 msgid "SIP provider for outgoing calls configuration."
@@ -7469,11 +7538,11 @@ msgstr ""
 
 #: ../../main/asterisk/src/EBox/Model/Meetings.pm:190
 msgid "List of Meetings"
-msgstr ""
+msgstr "Λίστα συνεδριάσεων"
 
 #: ../../main/asterisk/src/EBox/Model/Meetings.pm:192
 msgid "meeting"
-msgstr ""
+msgstr "συνεδρίαση"
 
 #: ../../main/asterisk/src/EBox/Model/Voicemail.pm:75
 #: ../../main/asterisk/src/EBox/Model/Voicemail.pm:122
@@ -7591,11 +7660,11 @@ msgstr ""
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:246
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:92
 msgid "Remote Support Access"
-msgstr ""
+msgstr "Πρόσβαση απομακρυσμένης υποστήριξης"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:299
 msgid "Zentyal Cloud Connection"
-msgstr ""
+msgstr "Σύνδεση με το Zentyal σύννεφο"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:413
 msgid ""
@@ -7630,21 +7699,21 @@ msgstr ""
 
 #: ../../main/remoteservices/src/EBox/Event/Dispatcher/ControlCenter.pm:147
 msgid "Control panel"
-msgstr ""
+msgstr "πίνακας ελέγχου"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Audit/Password.pm:225
 #: ../../main/monitor/src/EBox/Monitor/Measure/CPU.pm:79
 #: ../../main/monitor/src/EBox/Monitor/Measure/CPU.pm:84
 msgid "system"
-msgstr ""
+msgstr "συτημα"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Audit/Password.pm:291
 msgid "average"
-msgstr ""
+msgstr "μέσο"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Audit/Password.pm:295
 msgid "weak"
-msgstr ""
+msgstr "αδύναμο"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Audit/Password.pm:398
 #, perl-brace-format
@@ -7738,7 +7807,7 @@ msgstr ""
 #: ../../main/core/src/EBox/Model/DataForm.pm:682
 #: ../../main/core/src/templates/progress.mas:26
 msgid "Done"
-msgstr ""
+msgstr "Έτοιμο"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:268
 #, perl-brace-format
@@ -7768,7 +7837,7 @@ msgstr ""
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:348
 msgid "Server Name"
-msgstr ""
+msgstr "Όνομα διακομιστή"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:353
 msgid "Choose a name for your server which is a valid subdomain name"
@@ -7793,15 +7862,15 @@ msgstr ""
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:532
 msgid " module"
-msgstr ""
+msgstr "ενότητα"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:538
 msgid " and "
-msgstr ""
+msgstr "και"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:538
 msgid " modules"
-msgstr ""
+msgstr "ενότητες"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:556
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:577
@@ -7816,7 +7885,7 @@ msgstr ""
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AccessSettings.pm:87
 msgid "Access settings"
-msgstr ""
+msgstr "Ρυμθίσεις πρόσβασης"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Types/EBoxCommonName.pm:56
 msgid ""
@@ -7896,25 +7965,25 @@ msgstr ""
 
 #: ../../main/remoteservices/src/EBox/CGI/NoConnection.pm:31
 msgid "Connection error"
-msgstr ""
+msgstr "Λάθος σύνδεσης"
 
 #: ../../main/remoteservices/src/EBox/CGI/Backup/MakeRemoteBackup.pm:70
 msgid "Making remote backup"
-msgstr ""
+msgstr "Γίνεται απομακρυσμένο αντίγραφο ασφαλείας"
 
 #: ../../main/remoteservices/src/EBox/CGI/Backup/MakeRemoteBackup.pm:71
 msgid "Backing up modules "
-msgstr ""
+msgstr "Αντίγραφο ασφαλείας ενοτήτων"
 
 #: ../../main/remoteservices/src/EBox/CGI/Backup/MakeRemoteBackup.pm:73
 #: ../../main/core/src/EBox/CGI/EBox/Backup.pm:242
 msgid "operations left to finish backup"
-msgstr ""
+msgstr "εργασίας που απέμειναν για να τελείωσει το αντίγραφο ασφαλείας"
 
 #: ../../main/remoteservices/src/EBox/CGI/Backup/MakeRemoteBackup.pm:74
 #: ../../main/core/src/EBox/CGI/EBox/Backup.pm:243
 msgid "Backup successful"
-msgstr ""
+msgstr "Επιτυχημένο αντίγραφο ασφαλείας"
 
 #: ../../main/remoteservices/src/EBox/CGI/Backup/Index.pm:36
 msgid "Remote system backups"
@@ -7940,7 +8009,7 @@ msgstr ""
 #: ../../main/remoteservices/src/templates/RemoteServices/Backup/proxy.mas:70
 #: ../../main/core/src/templates/backup.mas:98
 msgid "Restore"
-msgstr ""
+msgstr "Ανάκτηση"
 
 #: ../../main/remoteservices/src/EBox/CGI/Backup/Confirm.pm:99
 msgid ""
@@ -7988,7 +8057,7 @@ msgstr ""
 #: ../../main/core/src/templates/backup.mas:169
 #: ../../main/core/src/templates/ajax/tableBody.mas:467
 msgid "Delete"
-msgstr ""
+msgstr "Διαγραφή"
 
 #: ../../main/remoteservices/src/EBox/CGI/Backup/Confirm.pm:123
 msgid ""
@@ -7998,7 +8067,7 @@ msgstr ""
 
 #: ../../main/remoteservices/src/EBox/CGI/Backup/Confirm.pm:129
 msgid "Overwrite"
-msgstr ""
+msgstr "Αντικατάσταση"
 
 #: ../../main/remoteservices/src/EBox/CGI/Backup/Confirm.pm:171
 #, perl-brace-format
@@ -8008,37 +8077,37 @@ msgstr ""
 #: ../../main/remoteservices/src/EBox/CGI/Backup/RestoreRemoteBackup.pm:72
 #: ../../main/remoteservices/src/EBox/CGI/Backup/RestoreProxyRemoteBackup.pm:81
 msgid "Restoring remote backup"
-msgstr ""
+msgstr "Ανάκτηση απομακρυσμένου αντιγράφου ασφαλείας"
 
 #: ../../main/remoteservices/src/EBox/CGI/Backup/RestoreRemoteBackup.pm:73
 #: ../../main/remoteservices/src/EBox/CGI/Backup/RestoreProxyRemoteBackup.pm:82
 msgid "Restoring modules from remote backup"
-msgstr ""
+msgstr "Ανάκτηση ενοτήτων απο απομακρυσμένο αντίγραφο αφαλείας"
 
 #: ../../main/remoteservices/src/EBox/CGI/Backup/RestoreRemoteBackup.pm:75
 #: ../../main/remoteservices/src/EBox/CGI/Backup/RestoreProxyRemoteBackup.pm:84
 msgid "modules left to restore"
-msgstr ""
+msgstr "εναπομείναντες ενότητες για ανάκτηση"
 
 #: ../../main/remoteservices/src/EBox/CGI/Backup/RestoreRemoteBackup.pm:76
 #: ../../main/remoteservices/src/EBox/CGI/Backup/RestoreProxyRemoteBackup.pm:85
 #: ../../main/core/src/EBox/CGI/EBox/Backup.pm:259
 msgid "Restore successful"
-msgstr ""
+msgstr "Επιτυχημένη ανάκτηση"
 
 #: ../../main/remoteservices/src/EBox/CGI/Backup/DeleteRemoteBackup.pm:65
 msgid "Backup deleted"
-msgstr ""
+msgstr "Διαγραφή αντιγράφου ασφαλείας"
 
 #: ../../main/remoteservices/src/EBox/CGI/Backup/Proxy.pm:35
 msgid "Remote system backups proxy"
-msgstr ""
+msgstr "Δημιουργία αντιγράφου ασφαλείας proxy από απομακρυσμένο σύστημα"
 
 #: ../../main/monitor/src/EBox/Event/Watcher/Monitor.pm:141
 #: ../../main/monitor/src/EBox/Monitor.pm:78
 #: ../../main/monitor/src/EBox/Monitor.pm:153
 msgid "Monitor"
-msgstr ""
+msgstr "Οθόνη"
 
 #: ../../main/monitor/src/EBox/Event/Watcher/Monitor.pm:158
 msgid "Notify when a certain value has reached a certain threshold"
@@ -8090,7 +8159,7 @@ msgstr ""
 
 #: ../../main/monitor/src/EBox/Monitor/Measure/CPU.pm:65
 msgid "CPU usage"
-msgstr ""
+msgstr "Χρήση επεξεργαστή"
 
 #: ../../main/monitor/src/EBox/Monitor/Measure/CPU.pm:66
 msgid ""
@@ -8102,12 +8171,12 @@ msgstr ""
 #: ../../main/monitor/src/EBox/Monitor/Measure/CPU.pm:73
 #: ../../main/monitor/src/EBox/Monitor/Measure/CPU.pm:82
 msgid "idle"
-msgstr ""
+msgstr "αδράνεια"
 
 #: ../../main/monitor/src/EBox/Monitor/Measure/CPU.pm:75
 #: ../../main/monitor/src/EBox/Monitor/Measure/CPU.pm:82
 msgid "interrupt"
-msgstr ""
+msgstr "διακοπή"
 
 #: ../../main/monitor/src/EBox/Monitor/Measure/CPU.pm:76
 #: ../../main/monitor/src/EBox/Monitor/Measure/CPU.pm:83
@@ -8127,7 +8196,7 @@ msgstr ""
 #: ../../main/monitor/src/EBox/Monitor/Measure/CPU.pm:80
 #: ../../main/monitor/src/EBox/Monitor/Measure/CPU.pm:84
 msgid "wait"
-msgstr ""
+msgstr "αναμονή"
 
 #: ../../main/monitor/src/EBox/Monitor/Measure/Df.pm:76
 #, perl-brace-format
@@ -8158,7 +8227,7 @@ msgstr ""
 
 #: ../../main/monitor/src/EBox/Monitor/Measure/Memory.pm:57
 msgid "free"
-msgstr ""
+msgstr "ελεύθερα"
 
 #: ../../main/monitor/src/EBox/Monitor/Measure/Memory.pm:57
 msgid "page cache"
@@ -8170,12 +8239,12 @@ msgstr ""
 
 #: ../../main/monitor/src/EBox/Monitor/Measure/Memory.pm:57
 msgid "used"
-msgstr ""
+msgstr "σε χρήση"
 
 #: ../../main/monitor/src/EBox/Monitor/Measure/Load.pm:55
 #: ../../main/core/src/EBox/SysInfo.pm.in:107
 msgid "System load"
-msgstr ""
+msgstr "Φόρτος Συστήματος"
 
 #: ../../main/monitor/src/EBox/Monitor/Measure/Load.pm:56
 msgid "Collect the system load that gives a rough overview of the system usage"
@@ -8196,15 +8265,15 @@ msgstr ""
 #: ../../main/monitor/src/EBox/Monitor/Measure/Thermal.pm:111
 #: ../../main/monitor/src/EBox/Monitor/Measure/Thermal.pm:117
 msgid "temperature"
-msgstr ""
+msgstr "θερμοκρασία"
 
 #: ../../main/monitor/src/EBox/Monitor/Measure/Thermal.pm:129
 msgid "cooling device"
-msgstr ""
+msgstr "συσκεύη ψύξης"
 
 #: ../../main/monitor/src/EBox/Monitor/Measure/Thermal.pm:131
 msgid "sensor"
-msgstr ""
+msgstr "αισθητήρας"
 
 #: ../../main/monitor/src/EBox/Monitor/Measure/Thermal.pm:133
 #, perl-brace-format
@@ -8223,7 +8292,7 @@ msgstr ""
 
 #: ../../main/monitor/src/EBox/Monitor/Measure/Base.pm:684
 msgid "value"
-msgstr ""
+msgstr "αξία"
 
 #: ../../main/monitor/src/EBox/Monitor/Model/ThresholdConfiguration.pm:102
 #: ../../main/monitor/src/EBox/Monitor/Model/MeasureWatchers.pm:77
@@ -8237,7 +8306,7 @@ msgstr ""
 #: ../../main/core/src/EBox/Events.pm:93
 #: ../../main/core/src/EBox/Events.pm:835
 msgid "Events"
-msgstr ""
+msgstr "Γεγονότα"
 
 #: ../../main/monitor/src/EBox/Monitor/Model/ThresholdConfiguration.pm:106
 #: ../../main/monitor/src/EBox/Monitor/Model/MeasureWatchers.pm:81
@@ -8574,7 +8643,7 @@ msgstr ""
 #: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:197
 #: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:216
 msgid "Never"
-msgstr ""
+msgstr "Ποτέ"
 
 #: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:201
 #: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:220
@@ -8589,7 +8658,7 @@ msgstr ""
 #: ../../main/dhcp/src/templates/options.mas:8
 #: ../../main/core/src/templates/report/diskUsage.mas:31
 msgid "Options"
-msgstr ""
+msgstr "Επιλογές"
 
 #: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:340
 #: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:344
@@ -10563,59 +10632,60 @@ msgstr ""
 #: ../../main/core/src/EBox/SysInfo.pm.in:103
 #: ../../main/ntp/src/templates/date.mas:55
 msgid "Time"
-msgstr ""
+msgstr "Ώρα"
 
 #: ../../main/core/src/EBox/SysInfo.pm.in:105
 msgid "Core version"
-msgstr ""
+msgstr "Έκδοση Πυρήνα"
 
 #: ../../main/core/src/EBox/SysInfo.pm.in:108
 msgid "Uptime"
-msgstr ""
+msgstr "Χρόνος λειτουργίας"
 
 #: ../../main/core/src/EBox/SysInfo.pm.in:168
 msgid "General Information"
-msgstr ""
+msgstr "Γενικές Πληροφορίες"
 
 #: ../../main/core/src/EBox/SysInfo.pm.in:174
 msgid "Process List"
-msgstr ""
+msgstr "Λίστα διεργασιών"
 
 #: ../../main/core/src/EBox/SysInfo.pm.in:181
 msgid "Resources & Services"
-msgstr ""
+msgstr "Πόροι και Υπηρεσίες"
 
 #: ../../main/core/src/EBox/SysInfo.pm.in:253
 #: ../../main/core/src/EBox/CGI/Dashboard/Index.pm:32
 msgid "Dashboard"
-msgstr ""
+msgstr "Πίνακας"
 
 #: ../../main/core/src/EBox/SysInfo.pm.in:271
 #: ../../main/core/src/EBox/CGI/Report/DiskUsage.pm:31
 msgid "Disk Usage"
-msgstr ""
+msgstr "Χρήση του δίσκου"
 
 #: ../../main/core/src/EBox/SysInfo.pm.in:275
 #: ../../main/core/src/EBox/CGI/Report/RAID.pm:30
 msgid "RAID"
-msgstr ""
+msgstr "RAID"
 
 #: ../../main/core/src/EBox/SysInfo.pm.in:280
 #: ../../main/core/src/EBox/CGI/EBox/Backup.pm:34
 msgid "Import/Export Configuration"
-msgstr ""
+msgstr "Εισαγωγή/Εξαγωγή Ρυθμίσεων"
 
 #: ../../main/core/src/EBox/SysInfo.pm.in:283
 msgid "Configuration Report"
-msgstr ""
+msgstr "Αναφορά Ρυθμίσεων"
 
 #: ../../main/core/src/EBox/SysInfo.pm.in:286
+#, fuzzy
 msgid "Halt/Reboot"
-msgstr ""
+msgstr "Πάγωμα/Επανεκκίνηση"
 
 #: ../../main/core/src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:299
 msgid "Receiver"
-msgstr ""
+msgstr "Δέκτης"
 
 #: ../../main/core/src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:339
 msgid "Configure Dispatchers"
@@ -11309,7 +11379,7 @@ msgstr ""
 
 #: ../../main/core/src/EBox/CGI/EBox/Hostname.pm:48
 msgid "hostname"
-msgstr ""
+msgstr "Όνομα διακομιστή"
 
 #: ../../main/core/src/EBox/CGI/EBox/General.pm:32
 #: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:317
@@ -12746,7 +12816,7 @@ msgstr ""
 #: ../../main/software/src/templates/updates.mas:45
 #: ../../main/software/src/templates/ebox.mas:202
 msgid "Version"
-msgstr ""
+msgstr "Έκδοση"
 
 #: ../../main/software/src/templates/updates.mas:46
 #: ../../main/software/src/templates/ebox.mas:152
@@ -12810,7 +12880,7 @@ msgstr ""
 
 #: ../../main/software/src/templates/ebox.mas:563
 msgid "Skip install"
-msgstr ""
+msgstr "Παράλειψη εγκατάστασης"
 
 #: ../../main/software/src/templates/ebox.mas:576
 msgid "View basic mode"
@@ -12820,13 +12890,13 @@ msgstr ""
 #: ../../main/software/src/templates/ebox.mas:613
 #: ../../main/software/src/templates/ebox.mas:624
 msgid "Deselect All"
-msgstr ""
+msgstr "Αποεπιλογή όλων"
 
 #: ../../main/software/src/templates/ebox.mas:605
 #: ../../main/software/src/templates/ebox.mas:614
 #: ../../main/software/src/templates/ebox.mas:625
 msgid "Select All"
-msgstr ""
+msgstr "Επιλογή όλων"
 
 #: ../../main/software/src/templates/del.mas:97
 msgid "The following packages will be installed"
@@ -12854,7 +12924,7 @@ msgstr ""
 
 #: ../../main/software/src/templates/config.mas:8
 msgid "Perform automatic security updates"
-msgstr ""
+msgstr "Εκτέλεση αυτόματων ενημερώσεων ασφαλείας"
 
 #: ../../main/software/src/templates/config.mas:14
 msgid "Zentyal is configured to use automatic QA updates"
@@ -12862,29 +12932,31 @@ msgstr ""
 
 #: ../../main/software/src/templates/config.mas:26
 msgid "Automatic operations start time"
-msgstr ""
+msgstr "Αυτόματη έναρξη εργασιών κατά την εκκίνηση"
 
 #: ../../main/ntp/src/templates/servers.mas:7
 msgid "NTP servers"
-msgstr ""
+msgstr "NTP διακομιστές"
 
 #: ../../main/ntp/src/templates/servers.mas:10
 msgid ""
 "You should remember to set up your timezone to have synchronization behaving "
 "correctly."
 msgstr ""
+"Θα πρέπει να θυμηθείτε να ρυθμίσετε την ζώνη ώρας σας για να έχετε σωστή "
+"συμπεριφορά στο συγχρονισμό."
 
 #: ../../main/ntp/src/templates/datetime.mas:8
 msgid "Time Synchronization with NTP Servers"
-msgstr ""
+msgstr "Συγχρονισμός ώρας με NTP διακομιστές"
 
 #: ../../main/ntp/src/templates/datetime.mas:9
 msgid "External NTP Servers"
-msgstr ""
+msgstr "Εξωτερικοί NTP διακομιστές"
 
 #: ../../main/ntp/src/templates/datetime.mas:10
 msgid "Change Date and Time"
-msgstr ""
+msgstr "Αλλαγή Ημερομηνίας και Ώρας"
 
 #: ../../main/ntp/src/templates/date.mas:10
 msgid ""
@@ -12895,73 +12967,73 @@ msgstr ""
 #: ../../main/core/src/templates/logs/index.mas:62
 #: ../../main/core/src/templates/logs/index.mas:128
 msgid "January"
-msgstr ""
+msgstr "Ιανουάριος"
 
 #: ../../main/ntp/src/templates/date.mas:30
 #: ../../main/core/src/templates/logs/index.mas:62
 #: ../../main/core/src/templates/logs/index.mas:128
 msgid "February"
-msgstr ""
+msgstr "Φεβρουάριος"
 
 #: ../../main/ntp/src/templates/date.mas:30
 #: ../../main/core/src/templates/logs/index.mas:62
 #: ../../main/core/src/templates/logs/index.mas:128
 msgid "March"
-msgstr ""
+msgstr "Μάρτιος"
 
 #: ../../main/ntp/src/templates/date.mas:30
 #: ../../main/core/src/templates/logs/index.mas:62
 #: ../../main/core/src/templates/logs/index.mas:128
 msgid "April"
-msgstr ""
+msgstr "Απρίλιος"
 
 #: ../../main/ntp/src/templates/date.mas:30
 #: ../../main/core/src/templates/logs/index.mas:62
 #: ../../main/core/src/templates/logs/index.mas:128
 msgid "May"
-msgstr ""
+msgstr "Μάϊος"
 
 #: ../../main/ntp/src/templates/date.mas:30
 #: ../../main/core/src/templates/logs/index.mas:62
 #: ../../main/core/src/templates/logs/index.mas:128
 msgid "June"
-msgstr ""
+msgstr "Ιούνιος"
 
 #: ../../main/ntp/src/templates/date.mas:30
 #: ../../main/core/src/templates/logs/index.mas:62
 #: ../../main/core/src/templates/logs/index.mas:128
 msgid "July"
-msgstr ""
+msgstr "Ιούλιος"
 
 #: ../../main/ntp/src/templates/date.mas:30
 #: ../../main/core/src/templates/logs/index.mas:62
 #: ../../main/core/src/templates/logs/index.mas:128
 msgid "August"
-msgstr ""
+msgstr "Αύγουστος"
 
 #: ../../main/ntp/src/templates/date.mas:30
 #: ../../main/core/src/templates/logs/index.mas:62
 #: ../../main/core/src/templates/logs/index.mas:128
 msgid "September"
-msgstr ""
+msgstr "Σεπτέμβριος"
 
 #: ../../main/ntp/src/templates/date.mas:30
 #: ../../main/core/src/templates/logs/index.mas:62
 #: ../../main/core/src/templates/logs/index.mas:128
 msgid "October"
-msgstr ""
+msgstr "Οκτώβριος"
 
 #: ../../main/ntp/src/templates/date.mas:30
 #: ../../main/core/src/templates/logs/index.mas:62
 #: ../../main/core/src/templates/logs/index.mas:128
 msgid "November"
-msgstr ""
+msgstr "Νοέμβριος"
 
 #: ../../main/ntp/src/templates/date.mas:30
 #: ../../main/core/src/templates/logs/index.mas:62
 #: ../../main/core/src/templates/logs/index.mas:128
 msgid "December"
-msgstr ""
+msgstr "Δεκέμβριος"
 
 #: ../../main/firewall/src/templates/filter.mas:6
 msgid "Filtering rules from internal networks to Zentyal"
@@ -13043,7 +13115,7 @@ msgstr ""
 
 #: ../../main/samba/stubs/smb.conf.mas:108
 msgid "Home Directories"
-msgstr ""
+msgstr "Αρχικοί Κατάλογοι"
 
 #: ../../main/samba/stubs/smb.conf.mas:134
 #, perl-brace-format
@@ -13067,7 +13139,7 @@ msgstr ""
 
 #: ../../main/samba/src/templates/samba.mas:64
 msgid "Sharing directory for this group"
-msgstr ""
+msgstr "Κοινή χρήση καταλόγου για αυτή την ομάδα"
 
 #: ../../main/samba/src/templates/samba.mas:67
 msgid ""
@@ -13082,7 +13154,7 @@ msgstr ""
 
 #: ../../main/samba/src/templates/samba.mas:78
 msgid "Directory name"
-msgstr ""
+msgstr "Όνομα καταλόγου"
 
 #: ../../main/samba/src/templates/samba.mas:104
 msgid "Select the printers this user will have access to."
@@ -13090,11 +13162,11 @@ msgstr ""
 
 #: ../../main/samba/src/templates/samba.mas:137
 msgid "Allow all printers"
-msgstr ""
+msgstr "Να επιτρέπονται όλοι οι εκτυπωτές"
 
 #: ../../main/samba/src/templates/samba.mas:167
 msgid "printers module"
-msgstr ""
+msgstr "ενότητα εκτυπωτών"
 
 #: ../../main/samba/src/templates/samba.mas:178
 msgid "file sharing module"
@@ -13110,15 +13182,16 @@ msgstr ""
 #: ../../main/remoteservices/src/templates/RemoteServices/Backup/index.mas:169
 #: ../../main/core/src/templates/backup.mas:186
 msgid "delete"
-msgstr ""
+msgstr "διαγραφή"
 
 #: ../../main/dns/src/templates/index.mas:16
+#, fuzzy
 msgid "Domain list"
-msgstr ""
+msgstr "λίστα Τομέα"
 
 #: ../../main/dns/src/templates/index.mas:65
 msgid "edit"
-msgstr ""
+msgstr "διόρθωση"
 
 #: ../../main/asterisk/src/templates/user.mas:7
 msgid "Asterisk account"
@@ -13156,7 +13229,7 @@ msgstr ""
 #: ../../main/usercorner/src/templates/login/index.mas:41
 #: ../../main/core/src/templates/login/index.mas:63
 msgid "Enter"
-msgstr ""
+msgstr "Εισαγωγή"
 
 #: ../../main/remoteservices/src/templates/RemoteServices/NoConnection.mas:5
 msgid ""
@@ -13166,19 +13239,21 @@ msgstr ""
 
 #: ../../main/remoteservices/src/templates/RemoteServices/NoConnection.mas:9
 msgid "Your computer has not internet connection"
-msgstr ""
+msgstr "Ο υπολογιστής σας δεν έχει σύνδεση στο internet"
 
 #: ../../main/remoteservices/src/templates/RemoteServices/NoConnection.mas:10
 msgid "Firewall is blocking the connection. Try to restart firewall module"
 msgstr ""
+"Το Τείχος προστασίας εμποδίζει τη σύνδεση. Προσπαθήστε να κάνετε "
+"επανεκκίνηση ενότητα Τείχος προστασίας"
 
 #: ../../main/remoteservices/src/templates/RemoteServices/NoConnection.mas:11
 msgid "Your computer has not a correct system date"
-msgstr ""
+msgstr "Ο υπολογιστής σας δεν έχει σωστή ημερομηνία συστήματος"
 
 #: ../../main/remoteservices/src/templates/RemoteServices/NoConnection.mas:12
 msgid "You are using the wrong certificates"
-msgstr ""
+msgstr "Χρησιμοποιείτε λάθος πιστοποιητικά"
 
 #: ../../main/remoteservices/src/templates/RemoteServices/NoConnection.mas:13
 msgid "This server has been removed from your registered ones"
@@ -13198,7 +13273,7 @@ msgstr ""
 
 #: ../../main/remoteservices/src/templates/RemoteServices/Backup/index.mas:55
 msgid "Back up"
-msgstr ""
+msgstr "Δημιουργία αντιγράφων ασφαλείας"
 
 #: ../../main/remoteservices/src/templates/RemoteServices/Backup/index.mas:82
 msgid "Back up the current configuration state"
@@ -13223,27 +13298,28 @@ msgstr ""
 #: ../../main/remoteservices/src/templates/RemoteServices/Backup/confirm.mas:48
 #: ../../main/core/src/templates/backup.mas:131
 #: ../../main/core/src/templates/confirm-backup.mas:45
+#, fuzzy
 msgid "Archive size"
-msgstr ""
+msgstr "Μέγεθος αρχείου"
 
 #: ../../main/remoteservices/src/templates/RemoteServices/Backup/index.mas:122
 #: ../../main/remoteservices/src/templates/RemoteServices/Backup/proxy.mas:42
 #: ../../main/ca/src/templates/index.mas:101
 #: ../../main/core/src/templates/backup.mas:132
 msgid "Actions"
-msgstr ""
+msgstr "Ενέργειες"
 
 #: ../../main/remoteservices/src/templates/RemoteServices/Backup/index.mas:161
 #: ../../main/remoteservices/src/templates/RemoteServices/Backup/proxy.mas:91
 #: ../../main/core/src/templates/backup.mas:184
 msgid "restore"
-msgstr ""
+msgstr "επαναφορά"
 
 #: ../../main/remoteservices/src/templates/RemoteServices/Backup/index.mas:165
 #: ../../main/remoteservices/src/templates/RemoteServices/Backup/proxy.mas:95
 #: ../../main/core/src/templates/backup.mas:182
 msgid "download"
-msgstr ""
+msgstr "λήψη"
 
 #: ../../main/remoteservices/src/templates/RemoteServices/Backup/index.mas:174
 msgid "Configuration backups' list"
@@ -13261,15 +13337,15 @@ msgstr ""
 
 #: ../../main/remoteservices/src/templates/RemoteServices/Backup/proxy.mas:124
 msgid "User or Email Address"
-msgstr ""
+msgstr "Χρήστης ή Διεύθυνση Αλληλογραφίας"
 
 #: ../../main/remoteservices/src/templates/RemoteServices/Backup/proxy.mas:135
 msgid "Submit"
-msgstr ""
+msgstr "Υποβολή"
 
 #: ../../main/remoteservices/src/templates/RemoteServices/Backup/proxy.mas:139
 msgid "Enter user and password"
-msgstr ""
+msgstr "Εισάγετε χρήστη και κωδικό"
 
 #: ../../main/mail/src/templates/Wizard/virtualdomain.mas:7
 msgid "Set up the default virtual mail domain"
@@ -13277,15 +13353,15 @@ msgstr ""
 
 #: ../../main/mail/src/templates/Wizard/virtualdomain.mas:8
 msgid "This will be the domain for your mail accounts"
-msgstr ""
+msgstr "Αυτός θα είναι ο τομέας για τους λογαριασμούς αλληλογραφίας"
 
 #: ../../main/mail/src/templates/qmanager.mas:20
 msgid "Sender"
-msgstr ""
+msgstr "Αποστολέας"
 
 #: ../../main/mail/src/templates/qmanager.mas:21
 msgid "Recipients"
-msgstr ""
+msgstr "Παραλήπτες"
 
 #: ../../main/mail/src/templates/qmanager.mas:44
 #: ../../main/mail/src/templates/qmanager.mas:45
@@ -13295,20 +13371,20 @@ msgstr ""
 #: ../../main/mail/src/templates/qmanager.mas:49
 #: ../../main/mail/src/templates/qmanager.mas:50
 msgid "Show Info"
-msgstr ""
+msgstr "Εμφάνιση πληροφορίας"
 
 #: ../../main/mail/src/templates/qmanager.mas:67
 #: ../../main/mail/src/templates/qmanager.mas:68
 msgid "Hide Info"
-msgstr ""
+msgstr "Απόκρυψη πληροφορίας"
 
 #: ../../main/mail/src/templates/qmanager.mas:82
 msgid "Attempt to deliver all queued mail"
-msgstr ""
+msgstr "Προσπάθεια αποστολής όλων των μηνυμάτων σε αναμονή"
 
 #: ../../main/mail/src/templates/qmanager.mas:89
 msgid "Remove all messages"
-msgstr ""
+msgstr "Κατάργηση όλων των μηνυμάτων"
 
 #: ../../main/mail/src/templates/qmanager.mas:107
 #: ../../main/mail/src/templates/qmanager.mas:108
@@ -13317,7 +13393,7 @@ msgstr ""
 #: ../../main/core/src/templates/ajax/tablePager.mas:60
 #: ../../main/core/src/templates/ajax/tablePager.mas:66
 msgid "first"
-msgstr ""
+msgstr "αρχικό"
 
 #: ../../main/mail/src/templates/qmanager.mas:111
 #: ../../main/mail/src/templates/qmanager.mas:112
@@ -13326,7 +13402,7 @@ msgstr ""
 #: ../../main/core/src/templates/ajax/tablePager.mas:62
 #: ../../main/core/src/templates/ajax/tablePager.mas:67
 msgid "prev"
-msgstr ""
+msgstr "προηγούμενο"
 
 #: ../../main/mail/src/templates/qmanager.mas:131
 #: ../../main/mail/src/templates/qmanager.mas:132
@@ -13337,7 +13413,7 @@ msgstr ""
 #: ../../main/core/src/templates/ajax/tablePager.mas:85
 #: ../../main/core/src/templates/ajax/tablePager.mas:86
 msgid "next"
-msgstr ""
+msgstr "επόμενο"
 
 #: ../../main/mail/src/templates/qmanager.mas:135
 #: ../../main/mail/src/templates/qmanager.mas:136
@@ -13348,7 +13424,7 @@ msgstr ""
 #: ../../main/core/src/templates/ajax/tablePager.mas:89
 #: ../../main/core/src/templates/ajax/tablePager.mas:90
 msgid "last"
-msgstr ""
+msgstr "τελευταίο"
 
 #: ../../main/mail/src/templates/qmanager.mas:146
 msgid "There are no messages in queue or the service is stopped"
@@ -13365,7 +13441,7 @@ msgstr ""
 #: ../../main/mail/src/templates/alias.mas:36
 #: ../../main/mail/src/templates/groupalias.mas:22
 msgid "Mail alias"
-msgstr ""
+msgstr "Ψευδώνυμο αλληλογραφίας"
 
 #: ../../main/mail/src/templates/alias.mas:60
 #: ../../main/mail/src/templates/alias.mas:61
@@ -13377,7 +13453,7 @@ msgstr ""
 #: ../../main/mail/src/templates/groupalias.mas:67
 #: ../../main/ca/src/templates/createCA.mas:26
 msgid "Create"
-msgstr ""
+msgstr "Δημιουργία"
 
 #: ../../main/mail/src/templates/alias.mas:121
 msgid "No quota"
@@ -13403,15 +13479,15 @@ msgstr ""
 #: ../../main/mail/src/templates/alias.mas:160
 #: ../../main/core/src/templates/configurationFiles.mas:23
 msgid "Modify"
-msgstr ""
+msgstr "Αλλαγή"
 
 #: ../../main/mail/src/templates/createaccount.mas:14
 msgid "Create mail account"
-msgstr ""
+msgstr "Δημιουργία λογαριασμού αλληλογραφίας"
 
 #: ../../main/mail/src/templates/createaccount.mas:22
 msgid "Account name"
-msgstr ""
+msgstr "Όνομα λογαριασμού"
 
 #: ../../main/mail/src/templates/createaccount.mas:55
 msgid "Maildir size"
@@ -13434,7 +13510,7 @@ msgstr ""
 
 #: ../../main/mail/src/templates/account.mas:22
 msgid "Mail account"
-msgstr ""
+msgstr "Λογαριασμός αλληλογραφίας"
 
 #: ../../main/mail/src/templates/account.mas:26
 msgid "Click here to create a new mail virtual domain"
@@ -13452,7 +13528,7 @@ msgstr ""
 
 #: ../../main/ca/src/templates/forceRevoke.mas:15
 msgid "Revoking certificate"
-msgstr ""
+msgstr "Ανάκληση πιστοποιητικού"
 
 #: ../../main/ca/src/templates/forceRevoke.mas:21
 #, perl-brace-format
@@ -13475,17 +13551,17 @@ msgstr ""
 #: ../../main/ca/src/templates/index.mas:212
 #: ../../main/ca/src/templates/formRevoke.mas:81
 msgid "Revoke"
-msgstr ""
+msgstr "Ανάκληση"
 
 #: ../../main/ca/src/templates/createCA.mas:9
 #: ../../main/ca/src/templates/index.mas:41
 msgid "Country code"
-msgstr ""
+msgstr "Κωδικός Χώρας"
 
 #: ../../main/ca/src/templates/createCA.mas:13
 #: ../../main/ca/src/templates/index.mas:44
 msgid "City"
-msgstr ""
+msgstr "Πόλη"
 
 #: ../../main/ca/src/templates/createCA.mas:34
 msgid "Create Certification Authority Certificate"
@@ -13538,7 +13614,7 @@ msgstr ""
 
 #: ../../main/ca/src/templates/index.mas:72
 msgid "Issue"
-msgstr ""
+msgstr "θέμα"
 
 #: ../../main/ca/src/templates/index.mas:77
 msgid "Certificate changes will take effect immediately."
@@ -13568,7 +13644,7 @@ msgstr ""
 
 #: ../../main/ca/src/templates/index.mas:120
 msgid "from"
-msgstr ""
+msgstr "από"
 
 #: ../../main/ca/src/templates/index.mas:131
 msgid "Valid"
@@ -13576,7 +13652,7 @@ msgstr ""
 
 #: ../../main/ca/src/templates/index.mas:133
 msgid "Expired"
-msgstr ""
+msgstr "Ληγμένο"
 
 #: ../../main/ca/src/templates/index.mas:135
 msgid "Revoked"
@@ -13595,11 +13671,11 @@ msgstr ""
 #: ../../main/ca/src/templates/index.mas:199
 #: ../../main/ca/src/templates/formReissue.mas:26
 msgid "Reissue"
-msgstr ""
+msgstr "Επανέκδοση"
 
 #: ../../main/ca/src/templates/index.mas:216
 msgid "Renew or reissue"
-msgstr ""
+msgstr "Ανανέωση ή Επανέκδοση"
 
 #: ../../main/ca/src/templates/formReissue.mas:20
 #: ../../main/ca/src/templates/formRevoke.mas:75
@@ -13609,24 +13685,24 @@ msgstr ""
 
 #: ../../main/ca/src/templates/formReissue.mas:31
 msgid "Reissue a certificate"
-msgstr ""
+msgstr "Επανέκδοση πιστοποιητικού"
 
 #: ../../main/ca/src/templates/formRevoke.mas:10
 msgid "Revoke a Certificate"
-msgstr ""
+msgstr "Ακύρωση πιστοποιητικού"
 
 #: ../../main/ca/src/templates/formRevoke.mas:18
 msgid "Revoke the selected certificate"
-msgstr ""
+msgstr "Ακύρωση επιλεγμένου πισοτποιητικού"
 
 #: ../../main/ca/src/templates/formRevoke.mas:33
 #: ../../main/ca/src/templates/formRenew.mas:48
 msgid "Expiration Date"
-msgstr ""
+msgstr "Ημερομηία λήξης"
 
 #: ../../main/ca/src/templates/formRenew.mas:28
 msgid "Renew a certificate"
-msgstr ""
+msgstr "Ανανέωση πιστοποιητικού"
 
 #: ../../main/core/src/templates/links-widget.mas:5
 msgid "Community Resources"
@@ -13642,15 +13718,15 @@ msgstr ""
 
 #: ../../main/core/src/templates/links-widget.mas:14
 msgid "Report a bug"
-msgstr ""
+msgstr "Αναφορά σφάλματος"
 
 #: ../../main/core/src/templates/links-widget.mas:16
 msgid "How to Contribute"
-msgstr ""
+msgstr "Πώς να συνεισφέρετε"
 
 #: ../../main/core/src/templates/moduleStatusTable.mas:59
 msgid "Depends"
-msgstr ""
+msgstr "Εξαρτάται"
 
 #: ../../main/core/src/templates/moduleStatusTable.mas:85
 #, perl-brace-format
@@ -13659,7 +13735,7 @@ msgstr ""
 
 #: ../../main/core/src/templates/language.mas:10
 msgid "Language Selection"
-msgstr ""
+msgstr "Επιλογή γλώσσας"
 
 #: ../../main/core/src/templates/language.mas:11
 msgid ""
@@ -13669,20 +13745,20 @@ msgstr ""
 
 #: ../../main/core/src/templates/title.mas:24
 msgid "show help"
-msgstr ""
+msgstr "εμφάνιση βοήθειας"
 
 #: ../../main/core/src/templates/title.mas:25
 msgid "hide help"
-msgstr ""
+msgstr "απόκρυψη βοήθειας"
 
 #: ../../main/core/src/templates/wizard.mas:68
 #: ../../main/core/src/templates/wizard.mas:69
 msgid "Finish"
-msgstr ""
+msgstr "Τέλος"
 
 #: ../../main/core/src/templates/wizard.mas:121
 msgid "Congratulations!"
-msgstr ""
+msgstr "Συγχαρητήρια"
 
 #: ../../main/core/src/templates/wizard.mas:122
 msgid "Now you are ready to save changes and start using your Zentyal server"
@@ -13696,7 +13772,7 @@ msgstr ""
 #: ../../main/core/src/templates/wizard.mas:145
 #: ../../main/core/src/templates/wizard.mas:155
 msgid "Next"
-msgstr ""
+msgstr "Επόμενο"
 
 #: ../../main/core/src/templates/logs/index.mas:20
 msgid "Log Domain"
@@ -13714,7 +13790,7 @@ msgstr ""
 #: ../../main/core/src/templates/logs/index.mas:36
 #: ../../main/core/src/templates/logs/index.mas:37
 msgid "View"
-msgstr ""
+msgstr "Προβολή"
 
 #: ../../main/core/src/templates/logs/index.mas:44
 msgid "Custom query"
@@ -13722,21 +13798,21 @@ msgstr ""
 
 #: ../../main/core/src/templates/logs/index.mas:50
 msgid "From date:"
-msgstr ""
+msgstr "Από ημερομηνία"
 
 #: ../../main/core/src/templates/logs/index.mas:108
 msgid "Refresh logs"
-msgstr ""
+msgstr "Ανανέωση αρχείων καταγραφής"
 
 #: ../../main/core/src/templates/logs/index.mas:116
 msgid "To date:"
-msgstr ""
+msgstr "Σε ημερομηνία:"
 
 #: ../../main/core/src/templates/logs/index.mas:203
 #: ../../main/core/src/templates/logs/index.mas:204
 #: ../../main/core/src/templates/ajax/tableBody.mas:209
 msgid "Search"
-msgstr ""
+msgstr "Αναζήτηση"
 
 #: ../../main/core/src/templates/logs/index.mas:208
 #: ../../main/core/src/templates/logs/index.mas:209
@@ -13753,7 +13829,7 @@ msgstr ""
 
 #: ../../main/core/src/templates/password.mas:4
 msgid "Change Password"
-msgstr ""
+msgstr "Αλλαγή κωδικού"
 
 #: ../../main/core/src/templates/password.mas:5
 msgid "Your password must be at least 6 characters long."
@@ -13761,11 +13837,11 @@ msgstr ""
 
 #: ../../main/core/src/templates/password.mas:25
 msgid "Current password"
-msgstr ""
+msgstr "Υπάρχον κωδικός"
 
 #: ../../main/core/src/templates/password.mas:53
 msgid "Confirm password"
-msgstr ""
+msgstr "Επιβεβαίωση κωδικού"
 
 #: ../../main/core/src/templates/progress.mas:24
 msgid "Item"
@@ -13822,7 +13898,7 @@ msgstr ""
 
 #: ../../main/core/src/templates/report/raid.mas:145
 msgid "Chunk size"
-msgstr ""
+msgstr "μέγεθος αλυσίδας"
 
 #: ../../main/core/src/templates/report/raid.mas:148
 msgid "Parity algorithm"
@@ -13846,7 +13922,7 @@ msgstr ""
 
 #: ../../main/core/src/templates/report/raid.mas:205
 msgid "Operation type"
-msgstr ""
+msgstr "Τύπος λειτουργίας"
 
 #: ../../main/core/src/templates/report/raid.mas:207
 msgid "Percentage completed"
@@ -13858,19 +13934,19 @@ msgstr ""
 
 #: ../../main/core/src/templates/report/raid.mas:211
 msgid "Operation speed"
-msgstr ""
+msgstr "ταχύτητα λειτουργίας"
 
 #: ../../main/core/src/templates/report/raid.mas:224
 msgid "RAID device number"
-msgstr ""
+msgstr "αριθμός συσκευής Raid"
 
 #: ../../main/core/src/templates/report/raid.mas:225
 msgid "Device"
-msgstr ""
+msgstr "Συσκευή"
 
 #: ../../main/core/src/templates/report/raid.mas:232
 msgid "failure"
-msgstr ""
+msgstr "αποτυχία"
 
 #: ../../main/core/src/templates/report/raid.mas:261
 msgid "No unused RAID devices"
@@ -13882,7 +13958,7 @@ msgstr ""
 
 #: ../../main/core/src/templates/report/diskUsage.mas:29
 msgid "Mounted on"
-msgstr ""
+msgstr "Προσαρτημένο σε"
 
 #: ../../main/core/src/templates/report/diskUsage.mas:34
 msgid "Partition Properties"
@@ -13890,7 +13966,7 @@ msgstr ""
 
 #: ../../main/core/src/templates/backup.mas:29
 msgid "Full Backup"
-msgstr ""
+msgstr "Πλήρες αντίγραφο ασφαλείας"
 
 #: ../../main/core/src/templates/backup.mas:36
 #, perl-brace-format
@@ -13919,7 +13995,7 @@ msgstr ""
 
 #: ../../main/core/src/templates/backup.mas:77
 msgid "Restore Backup from File"
-msgstr ""
+msgstr "Επαναφορά Αντιγράφων Ασφαλείας από αρχείο"
 
 #: ../../main/core/src/templates/backup.mas:79
 msgid ""
@@ -13929,11 +14005,11 @@ msgstr ""
 
 #: ../../main/core/src/templates/backup.mas:87
 msgid "Backup file"
-msgstr ""
+msgstr "Αρχείο Αντιγράφων Ασφαλείας"
 
 #: ../../main/core/src/templates/backup.mas:117
 msgid "Full"
-msgstr ""
+msgstr "Πλήρες"
 
 #: ../../main/core/src/templates/backup.mas:118
 msgid "Configuration only"
@@ -13941,7 +14017,7 @@ msgstr ""
 
 #: ../../main/core/src/templates/backup.mas:119
 msgid "Unknown type"
-msgstr ""
+msgstr "Άγνωστος τύπος"
 
 #: ../../main/core/src/templates/backup.mas:156
 msgid "Restore configuration using this file"
@@ -13961,7 +14037,7 @@ msgstr ""
 
 #: ../../main/core/src/templates/ebox/pageNotFound.mas:3
 msgid "Zentyal homepage"
-msgstr ""
+msgstr "Αρχική σελίδα Zentyal"
 
 #: ../../main/core/src/templates/ebox/pageNotFound.mas:7
 msgid "If you typed the URL manually, please check it"
@@ -13993,6 +14069,8 @@ msgid ""
 "Browse the available widgets in the left menu and drag&drop them to the "
 "dashboard."
 msgstr ""
+"Περιηγηθήτε στα διαθέσιμα widgets στα αριστερά και σύρετε και αποθέστε τα "
+"στον πίνακα"
 
 #: ../../main/core/src/templates/dashboard/list.mas:43
 msgid "No entries in this list"
@@ -14026,16 +14104,16 @@ msgstr ""
 #: ../../main/core/src/templates/dashboard/index.mas:44
 #: ../../main/core/src/templates/dashboard/status.mas:24
 msgid "Start"
-msgstr ""
+msgstr "Εκκίνηση"
 
 #: ../../main/core/src/templates/dashboard/index.mas:45
 #: ../../main/core/src/templates/dashboard/status.mas:11
 msgid "Restart"
-msgstr ""
+msgstr "Επανεκκίνηση"
 
 #: ../../main/core/src/templates/dashboard/index.mas:117
 msgid "Configure widgets"
-msgstr ""
+msgstr "Ρυθμίσεις widgets"
 
 #: ../../main/core/src/templates/ajax/setter/inverseMatchUnionSetter.mas:9
 #: ../../main/core/src/templates/ajax/setter/inverseMatchSelectSetter.mas:13
@@ -14049,7 +14127,7 @@ msgstr ""
 
 #: ../../main/core/src/templates/ajax/tablePager.mas:46
 msgid "Page"
-msgstr ""
+msgstr "Σελίδα"
 
 #: ../../main/core/src/templates/ajax/tablePager.mas:47
 msgid "of"
@@ -14119,7 +14197,7 @@ msgstr ""
 
 #: ../../main/core/src/templates/finish.mas:134
 msgid "Save"
-msgstr ""
+msgstr "Αποθήκευση"
 
 #: ../../main/core/src/templates/finish.mas:136
 msgid "Discard changes"
@@ -14131,7 +14209,7 @@ msgstr ""
 
 #: ../../main/core/src/templates/hostname.mas:10
 msgid "Change Hostname"
-msgstr ""
+msgstr "Αλλαγή ονόματος διακομιστή"
 
 #: ../../main/core/src/templates/hostname.mas:11
 msgid ""
@@ -14146,39 +14224,40 @@ msgstr ""
 
 #: ../../main/core/src/templates/confirm-backup.mas:102
 msgid "Full Restore"
-msgstr ""
+msgstr "Πλήρης επαναφορά"
 
 #: ../../main/core/src/templates/confirm-backup.mas:103
 msgid "Configuration Restore"
-msgstr ""
+msgstr "Ρύθμιση επαναφοράς"
 
 #: ../../main/core/src/templates/confirm-backup.mas:108
 msgid "Restore mode"
-msgstr ""
+msgstr "Κατάσταση επαναφοράς"
 
 #: ../../main/core/src/templates/logout/index.mas:11
 msgid "There are unsaved changes, if you log out now they will be lost."
-msgstr ""
+msgstr "Υπάρχουν μη αποθηκευμένες αλλαγές, αν αποσυνδεθείτε τώρα θα χαθούν."
 
 #: ../../main/core/src/templates/logout/index.mas:15
 msgid "There are no unsaved changes in this session."
-msgstr ""
+msgstr "Δεν υπάρχουν μη αποθηκευμένες αλλαγές σε αυτή τη συνεδρία."
 
 #: ../../main/core/src/templates/logout/index.mas:19
 msgid "Exit"
-msgstr ""
+msgstr "Έξοδος"
 
 #: ../../main/core/src/templates/backupTabs.mas:13
 msgid "Local"
-msgstr ""
+msgstr "Τοπικό"
 
 #: ../../main/core/src/templates/backupTabs.mas:18
 msgid "Remote in Zentyal Cloud"
-msgstr ""
+msgstr "Απομακρυσμένα στο σύννεφο της Zentyal"
 
 #: ../../main/core/src/templates/backupTabs.mas:23
 msgid "Remote in Zentyal Cloud from other subscribed hosts"
 msgstr ""
+"Απομακρυσμένα στο σύννεφο της Zentyal από άλλους εγγεγραμμένους διακομιστές "
 
 #: ../../main/core/src/templates/login/index.mas:43
 #, perl-brace-format
@@ -14186,6 +14265,8 @@ msgid ""
 "Warning: Unfortunately Internet Explorer is not yet supported on Zentyal. "
 "Please use {url} instead."
 msgstr ""
+"Προσοχή: Δυστυχώς ο Internet Explorer δεν υποστηρίζεται ακόμα στο Zentyal. "
+"Παρακαλώ χρησιμοποιήστε {url}"
 
 #: ../../main/core/src/templates/login/index.mas:46
 #, perl-brace-format
@@ -14194,6 +14275,9 @@ msgid ""
 "supported. Please, take into consideration that you might face some issues "
 "while navigating on Zentyal UI."
 msgstr ""
+"Προσοχή: Χρησιμοποιείτε έναν φυλομετρητή που δεν είναι {url}, ο μόνος που "
+"υποστηρίζεται επίσημα. Παρακαλώ λάβετ υπόψιν ότι μπορεί να αντιμετωπίσετε "
+"κάποια θέματα ενώ πλοηγήστε στο περιβάλλον του Zentyal."
 
 #: ../../main/core/src/templates/headTitle.mas:20
 msgid "Remote services control panel"
@@ -14216,7 +14300,7 @@ msgstr ""
 
 #: ../../main/core/src/templates/configureView.mas:51
 msgid "Accept"
-msgstr ""
+msgstr "Αποδοχή"
 
 #: ../../main/core/src/templates/port.mas:9
 msgid "Administration Interface TCP Port"
@@ -14232,7 +14316,7 @@ msgstr ""
 
 #: ../../main/core/src/templates/halt.mas:16
 msgid "Reboot"
-msgstr ""
+msgstr "Επανεκκίνηση"
 
 #: ../../main/core/src/templates/bug.mas:9
 msgid ""
@@ -14247,11 +14331,11 @@ msgstr ""
 
 #: ../../main/core/src/templates/bug.mas:19
 msgid "Download configuration report file"
-msgstr ""
+msgstr "Λήψη αρχείου αναφοράς ρυθμίσεων"
 
 #: ../../main/jabber/src/templates/jabber.mas:7
 msgid "Jabber account"
-msgstr ""
+msgstr "Λογαριασμός Jabber"
 
 #~ msgid "table title"
 #~ msgstr "τίτλος πίνακα"
