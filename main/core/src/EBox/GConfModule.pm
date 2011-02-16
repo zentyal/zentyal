@@ -125,10 +125,11 @@ sub _load_from_file # (dir?, key?)
 
     ($key) or $key = $self->_key("");
 
-    unless (-r $file) {
-        EBox::error("Can't read backup file $file");
-        return;
-    }
+    open(my $fh, "<$file") or EBox::error("Can't open backup file $file: $!");
+    my $line = <$fh>;
+    close($fh);
+
+    return unless (defined ($line));
 
     # Import to /temp dir and convert paths to $key dest
     $self->{redis}->import_dir_from_yaml($file, '/temp');
