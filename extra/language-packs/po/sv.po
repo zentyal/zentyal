@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: zentyal 2.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2011-02-13 13:25+0100\n"
+"POT-Creation-Date: 2011-02-16 11:33+0100\n"
 "PO-Revision-Date: 2010-07-21 07:54+0200\n"
 "Last-Translator: Daniel Hedblom <daniel.hedblom@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
@@ -513,7 +513,7 @@ msgstr "process"
 #: ../../main/firewall/src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:119
 #: ../../main/mail/src/EBox/Mail/Model/GreylistConfiguration.pm:75
 #: ../../main/webserver/src/EBox/WebServer/Model/GeneralSettings.pm:244
-#: ../../main/core/src/EBox/Model/DataTable.pm:4471
+#: ../../main/core/src/EBox/Model/DataTable.pm:4478
 #: ../../main/core/src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:275
 #: ../../main/core/src/EBox/Logs/Model/ConfigureLogDataTable.pm:339
 #: ../../main/ebackup/src/EBox/Model/BackupDomains.pm:163
@@ -2273,9 +2273,10 @@ msgstr ""
 "använda denna funktion"
 
 #: ../../main/network/src/EBox/Network/Composite/MultiGw.pm:82
+#, fuzzy
 msgid ""
 "To be able to use this feature you need at least two enabled gateways. You "
-"can add them <a href=\"/ebox/Network/View/GatewayTable\">here</a> first."
+"can add them <a href=\"/zentyal/Network/View/GatewayTable\">here</a> first."
 msgstr ""
 "För att kunna använda denna funktion behöver du minst två aktiva gateways. "
 "Du kan addera dem <a href=\"/ebox/Network/View/GatewayTable\">här</a> först."
@@ -6411,12 +6412,12 @@ msgstr "Spara ändringar"
 msgid "automatic updates configuration"
 msgstr "konfiguration av automatiska uppdateringar"
 
-#: ../../main/software/src/EBox/CGI/EBox.pm:34
+#: ../../main/software/src/EBox/CGI/EBox.pm:32
 #, fuzzy
 msgid "Choose Zentyal packages to install"
 msgstr "Välj eBox-paket att installera"
 
-#: ../../main/software/src/EBox/CGI/EBox.pm:38
+#: ../../main/software/src/EBox/CGI/EBox.pm:36
 #, fuzzy
 msgid "Zentyal components"
 msgstr "Komponenter i eBox"
@@ -6437,20 +6438,20 @@ msgstr "Systemuppdateringar"
 msgid "The system components are up to date."
 msgstr "Systemet är uppdaterat"
 
-#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:99
+#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:100
 msgid "There were no packages to update"
 msgstr "Det fanns inga paket att uppdatera"
 
-#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:166
+#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:168
 msgid "Installing"
 msgstr "Installerar"
 
-#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:167
+#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:169
 msgid "Installing packages"
 msgstr "Installerar paket"
 
-#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:168
-#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:192
+#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:170
+#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:195
 #: ../../main/core/src/EBox/CGI/Finish.pm:79
 #: ../../main/core/src/templates/report/raid.mas:213
 #, fuzzy
@@ -6461,12 +6462,12 @@ msgstr ""
 "#-#-#-#-#  sv.po (ebox 0.12)  #-#-#-#-#\n"
 "Aktuellt åtgärd"
 
-#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:169
+#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:171
 #, fuzzy
 msgid "actions done"
 msgstr "Åtgärder"
 
-#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:170
+#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:172
 msgid ""
 "The packages installation has finished successfully. The administration "
 "interface may become unresponsive for a few seconds. Please wait patiently "
@@ -6478,25 +6479,25 @@ msgstr ""
 "färdigkonfigurerats. Du kommer automatiskt bli vidarebefordrad till nästa "
 "steg."
 
-#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:175
+#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:177
 msgid ""
 "The packages installation has not finished correctly . More information on "
 "the logs"
 msgstr "Paketen installerades inte korrekt. Mer information i loggarna"
 
-#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:190
+#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:193
 msgid "Removing package"
 msgstr "Avinstallerar paket"
 
-#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:191
+#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:194
 msgid "Removing the selected package and its dependent packages"
 msgstr "Avinstallerar paket och de paket det är beroende av"
 
-#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:193
+#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:196
 msgid "packages left to remove"
 msgstr "paket kvar att avinstallera"
 
-#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:194
+#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:197
 msgid ""
 "The packages removal has finished successfully. The administration interface "
 "may become unresponsive for a few seconds. Please wait patiently until the "
@@ -6506,7 +6507,7 @@ msgstr ""
 "kan bli svårt att nå några sekunder. Vänligen vänta tills systemet har "
 "startats om."
 
-#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:198
+#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:201
 msgid ""
 "The packages removal has not finished correctly . More information on the "
 "logs"
@@ -8776,7 +8777,7 @@ msgstr "Proxynyckel för säkerhetskopietjänst ej hittad"
 msgid "Key for web subscription service not found"
 msgstr "Nyckel för webprenumerations service ej funnen"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Subscription.pm:456
+#: ../../main/remoteservices/src/EBox/RemoteServices/Subscription.pm:457
 #, perl-brace-format
 msgid "Cannot contact to {host}. Check your connection to the Internet"
 msgstr "Kan inte ansluta till {host}. Kontrollera din anslutning till internet"
@@ -11523,7 +11524,7 @@ msgstr "{row} uppflyttad"
 msgid "{row} moved down"
 msgstr "{row} nedflyttad"
 
-#: ../../main/core/src/EBox/Model/DataTable.pm:4315
+#: ../../main/core/src/EBox/Model/DataTable.pm:4322
 #: ../../main/network/src/templates/ifaces.mas:216
 #: ../../main/zarafa/src/templates/zarafa.mas:67
 #: ../../main/zarafa/src/templates/zarafa.mas:68
@@ -12084,18 +12085,18 @@ msgstr "Den körbara filen har redan kört klart"
 msgid "Password changed"
 msgstr "Lösenordet ändrat"
 
-#: ../../main/core/src/EBox/Global.pm:538
+#: ../../main/core/src/EBox/Global.pm:535
 #, perl-brace-format
 msgid "Enabling {modName} module"
 msgstr "Aktiverar {modName} modul"
 
-#: ../../main/core/src/EBox/Global.pm:568
-#: ../../main/core/src/EBox/Global.pm:599
+#: ../../main/core/src/EBox/Global.pm:565
+#: ../../main/core/src/EBox/Global.pm:594
 #, perl-brace-format
 msgid "Saving {modName} module"
 msgstr "Sparar {modName} modul"
 
-#: ../../main/core/src/EBox/Global.pm:1085
+#: ../../main/core/src/EBox/Global.pm:1104
 #, perl-brace-format
 msgid "running {scriptName} script"
 msgstr "kör {scriptName} skript"
@@ -12392,8 +12393,8 @@ msgid "Save configuration"
 msgstr "Spara konfiguration"
 
 #: ../../main/core/src/EBox/CGI/Finish.pm:77
-#: ../../main/core/src/EBox/CGI/Progress.pm:82
-#: ../../main/core/src/EBox/CGI/Progress.pm:108
+#: ../../main/core/src/EBox/CGI/Progress.pm:81
+#: ../../main/core/src/EBox/CGI/Progress.pm:106
 msgid "Saving changes"
 msgstr "Sparar ändringar"
 
@@ -12581,7 +12582,7 @@ msgstr ""
 "Inmatningen innehåller ogiltiga tecken. Alla alfanumeriska tecken plus dessa "
 "icke-alfabetiska tecknen: /.?&+:-@ och blanksteg tillåts."
 
-#: ../../main/core/src/EBox/CGI/Base.pm:541
+#: ../../main/core/src/EBox/CGI/Base.pm:548
 msgid ""
 "An internal error has occurred. This is most probably a bug, relevant "
 "information can be found in the logs."
@@ -12589,7 +12590,7 @@ msgstr ""
 "Ett internt fel har inträffat. Det här är antagligen ett programfel. "
 "Relevant information kan hittas i loggarna."
 
-#: ../../main/core/src/EBox/CGI/Base.pm:547
+#: ../../main/core/src/EBox/CGI/Base.pm:554
 msgid ""
 "An unexpected internal error has occurred. This is a bug, relevant "
 "information can be found in the logs."
@@ -12597,34 +12598,34 @@ msgstr ""
 "Ett oväntat internt fel har inträffat. Det här är ett programfel. Relevant "
 "information kan hittas i loggarna."
 
-#: ../../main/core/src/EBox/CGI/Base.pm:553
+#: ../../main/core/src/EBox/CGI/Base.pm:560
 #, fuzzy
 msgid "You have just hit a bug in Zentyal. Please seek technical support."
 msgstr ""
 "Du har precis påträffat ett programfel i eBox. Kontakta teknisk support."
 
-#: ../../main/core/src/EBox/CGI/Base.pm:640
+#: ../../main/core/src/EBox/CGI/Base.pm:646
 msgid ""
 "Your request could not be processed because it had some incorrect parameters"
 msgstr ""
 "Din begäran kunde inte behandlas eftersom den innehöll felaktiga parametrar"
 
-#: ../../main/core/src/EBox/CGI/Base.pm:673
+#: ../../main/core/src/EBox/CGI/Base.pm:679
 msgid "Wrong HTTP referer detected, operation cancelled for security reasons"
 msgstr "Felaktig HTTP referer detekterad, åtgärd avbruten av säkerhhetsskäl"
 
-#: ../../main/core/src/EBox/CGI/Base.pm:685
+#: ../../main/core/src/EBox/CGI/Base.pm:691
 msgid ""
 "Your request could not be processed because it lacked some required "
 "parameters"
 msgstr ""
 "Din begäran kunde inte behandlas eftersom den saknade nödvändiga parametrar"
 
-#: ../../main/core/src/EBox/CGI/Base.pm:850
+#: ../../main/core/src/EBox/CGI/Base.pm:841
 msgid "Invalid uploaded file."
 msgstr "Ogiltig uppskickad fil."
 
-#: ../../main/core/src/EBox/CGI/Base.pm:856
+#: ../../main/core/src/EBox/CGI/Base.pm:847
 msgid "Cannot create a temporally file for the upload"
 msgstr "Kan inte skapa en temporärfil för sändningen"
 
@@ -13600,7 +13601,7 @@ msgstr ""
 #: ../../main/network/src/templates/confirmVlanDel.mas:22
 #: ../../main/network/src/templates/confirmremove.mas:24
 #: ../../main/network/src/templates/confirm.mas:37
-#: ../../main/software/src/templates/del.mas:144
+#: ../../main/software/src/templates/del.mas:143
 msgid "Ok"
 msgstr "Ok"
 
@@ -13608,7 +13609,7 @@ msgstr "Ok"
 #: ../../main/network/src/templates/confirmremove.mas:26
 #: ../../main/network/src/templates/confirm.mas:39
 #: ../../main/users/src/templates/del.mas:46
-#: ../../main/software/src/templates/del.mas:145
+#: ../../main/software/src/templates/del.mas:144
 #: ../../main/samba/src/templates/delete.mas:21
 #: ../../main/remoteservices/src/templates/RemoteServices/Backup/confirm.mas:73
 #: ../../main/mail/src/templates/warnusermdsize.mas:26
@@ -14042,7 +14043,7 @@ msgid "Version"
 msgstr "Version"
 
 #: ../../main/software/src/templates/updates.mas:46
-#: ../../main/software/src/templates/ebox.mas:152
+#: ../../main/software/src/templates/ebox.mas:153
 #: ../../main/software/src/templates/ebox.mas:587
 #: ../../main/software/src/templates/ebox.mas:611
 msgid "Update"
@@ -14083,7 +14084,7 @@ msgstr "Uppgradera"
 msgid "Update list"
 msgstr "Uppdatera"
 
-#: ../../main/software/src/templates/ebox.mas:158
+#: ../../main/software/src/templates/ebox.mas:159
 #: ../../main/software/src/templates/ebox.mas:561
 #: ../../main/software/src/templates/ebox.mas:602
 msgid "Install"
@@ -14126,29 +14127,29 @@ msgstr ""
 msgid "Select All"
 msgstr ""
 
-#: ../../main/software/src/templates/del.mas:97
+#: ../../main/software/src/templates/del.mas:96
 msgid "The following packages will be installed"
 msgstr "Följande paket kommer att installeras"
 
-#: ../../main/software/src/templates/del.mas:99
+#: ../../main/software/src/templates/del.mas:98
 msgid "The following packages will be removed"
 msgstr "Följande paket kommer att tas bort"
 
-#: ../../main/software/src/templates/del.mas:152
+#: ../../main/software/src/templates/del.mas:151
 msgid "You may want to install also the following recommended packages:"
 msgstr "Du kanske också vill installera dessa rekommenderade paket:"
 
-#: ../../main/software/src/templates/del.mas:155
+#: ../../main/software/src/templates/del.mas:154
 #, fuzzy
 msgid "Layer 7 filtering for Traffic Shaping (zentyal-l7-protocols)"
 msgstr "Lager 7 filtrering för trafikprioritering (ebox-l7-protocols)"
 
-#: ../../main/software/src/templates/del.mas:158
+#: ../../main/software/src/templates/del.mas:157
 #, fuzzy
 msgid "Virus scanning for File Sharing (zentyal-antivirus and samba-vscan)"
 msgstr "Virus skanning för fildelning (ebox-antivirus and samba-vscan)"
 
-#: ../../main/software/src/templates/del.mas:161
+#: ../../main/software/src/templates/del.mas:160
 msgid "VoIP meetings support (dahdi and linux-headers)"
 msgstr "VoIP support för möten (dahdi and linux-headers)"
 
@@ -15177,6 +15178,10 @@ msgstr "Ett fel har hänt i eBox:"
 msgid "Starting..."
 msgstr "Startar..."
 
+#: ../../main/core/src/templates/progress.mas:161
+msgid " of "
+msgstr ""
+
 #: ../../main/core/src/templates/report/raid.mas:20
 #, perl-brace-format
 msgid "Inexistent RAID array {a}"
@@ -15357,24 +15362,16 @@ msgstr "Återskapa konfiguration med den här filen"
 msgid "Restore from backup"
 msgstr "Återskapa från säkerhetskopia"
 
-#: ../../main/core/src/templates/configurationFiles.mas:12
-msgid "Do you wish to overwrite these files?"
-msgstr "Vill du skriva över dessa filer?"
-
-#: ../../main/core/src/templates/configurationFiles.mas:19
-msgid "Keep current file"
-msgstr "Behåll aktuell fil"
-
-#: ../../main/core/src/templates/ebox/pageNotFound.mas:3
+#: ../../main/core/src/templates/pageNotFound.mas:3
 #, fuzzy
 msgid "Zentyal homepage"
 msgstr "eBox webbsida"
 
-#: ../../main/core/src/templates/ebox/pageNotFound.mas:7
+#: ../../main/core/src/templates/pageNotFound.mas:7
 msgid "If you typed the URL manually, please check it"
 msgstr "Kontrollera url:en om du angav den manuellt"
 
-#: ../../main/core/src/templates/ebox/pageNotFound.mas:8
+#: ../../main/core/src/templates/pageNotFound.mas:8
 #, fuzzy
 msgid ""
 "Maybe a change in the Zentyal configuration or software made no longer "
@@ -15383,7 +15380,7 @@ msgstr ""
 "Kanske en ändring i eBox konfiguration eller programvaran gjort att den "
 "begärda sidan inte är tillgänglig längre"
 
-#: ../../main/core/src/templates/ebox/pageNotFound.mas:9
+#: ../../main/core/src/templates/pageNotFound.mas:9
 #, perl-brace-format
 msgid ""
 "If you need more help, you may want visit {homepage} for documentation and "
@@ -15392,13 +15389,21 @@ msgstr ""
 "Om du behöver mer hjälp kan du besöka {homepage} för dokumentation och "
 "sändlistor"
 
-#: ../../main/core/src/templates/ebox/pageNotFound.mas:12
+#: ../../main/core/src/templates/pageNotFound.mas:12
 msgid "we're sorry"
 msgstr "vi ber om ursäkt"
 
-#: ../../main/core/src/templates/ebox/pageNotFound.mas:13
+#: ../../main/core/src/templates/pageNotFound.mas:13
 msgid "The page cannot be found"
 msgstr "Sidan kunde inte hittas"
+
+#: ../../main/core/src/templates/configurationFiles.mas:12
+msgid "Do you wish to overwrite these files?"
+msgstr "Vill du skriva över dessa filer?"
+
+#: ../../main/core/src/templates/configurationFiles.mas:19
+msgid "Keep current file"
+msgstr "Behåll aktuell fil"
 
 #: ../../main/core/src/templates/dashboard/configurewidgets.mas:164
 msgid ""

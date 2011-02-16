@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: zentyal 2.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2011-02-13 13:25+0100\n"
+"POT-Creation-Date: 2011-02-16 11:33+0100\n"
 "PO-Revision-Date: 2010-12-05 23:35+0100\n"
 "Last-Translator: Vytautas <vytautas@lantraneta.lt>\n"
 "Language-Team: none\n"
@@ -521,7 +521,7 @@ msgstr ""
 #: ../../main/firewall/src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:119
 #: ../../main/mail/src/EBox/Mail/Model/GreylistConfiguration.pm:75
 #: ../../main/webserver/src/EBox/WebServer/Model/GeneralSettings.pm:244
-#: ../../main/core/src/EBox/Model/DataTable.pm:4471
+#: ../../main/core/src/EBox/Model/DataTable.pm:4478
 #: ../../main/core/src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:275
 #: ../../main/core/src/EBox/Logs/Model/ConfigureLogDataTable.pm:339
 #: ../../main/ebackup/src/EBox/Model/BackupDomains.pm:163
@@ -2159,7 +2159,7 @@ msgstr ""
 #: ../../main/network/src/EBox/Network/Composite/MultiGw.pm:82
 msgid ""
 "To be able to use this feature you need at least two enabled gateways. You "
-"can add them <a href=\"/ebox/Network/View/GatewayTable\">here</a> first."
+"can add them <a href=\"/zentyal/Network/View/GatewayTable\">here</a> first."
 msgstr ""
 
 #: ../../main/network/src/EBox/Network/Composite/DNS.pm:60
@@ -6024,11 +6024,11 @@ msgstr "Išsaugoti pakeitimus"
 msgid "automatic updates configuration"
 msgstr "automatinių atnaujinimų konfigūracija"
 
-#: ../../main/software/src/EBox/CGI/EBox.pm:34
+#: ../../main/software/src/EBox/CGI/EBox.pm:32
 msgid "Choose Zentyal packages to install"
 msgstr "Pasirinkite Zentyal paketus instaliacijai"
 
-#: ../../main/software/src/EBox/CGI/EBox.pm:38
+#: ../../main/software/src/EBox/CGI/EBox.pm:36
 msgid "Zentyal components"
 msgstr "Zentyal komponentai"
 
@@ -6048,30 +6048,30 @@ msgstr "Sistemos atnaujinimai"
 msgid "The system components are up to date."
 msgstr "Sistemos komponentai yra naujausios versijos"
 
-#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:99
+#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:100
 msgid "There were no packages to update"
 msgstr "Nėra paketų atnaujinti"
 
-#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:166
+#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:168
 msgid "Installing"
 msgstr "Diegiama"
 
-#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:167
+#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:169
 msgid "Installing packages"
 msgstr "Diegiami paketai"
 
-#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:168
-#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:192
+#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:170
+#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:195
 #: ../../main/core/src/EBox/CGI/Finish.pm:79
 #: ../../main/core/src/templates/report/raid.mas:213
 msgid "Current operation"
 msgstr "Dabartinė operacija"
 
-#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:169
+#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:171
 msgid "actions done"
 msgstr "įvykdyti veiksmai"
 
-#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:170
+#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:172
 msgid ""
 "The packages installation has finished successfully. The administration "
 "interface may become unresponsive for a few seconds. Please wait patiently "
@@ -6082,26 +6082,26 @@ msgstr ""
 "neaktyvus keletui sekundžių. Prašome kantriai palaukti kol sistema pilnai "
 "susikonfigūruos. Jūs būsite automatiškai nukreipti į sekantį žingsnį"
 
-#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:175
+#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:177
 msgid ""
 "The packages installation has not finished correctly . More information on "
 "the logs"
 msgstr ""
 "Paketų instaliacija nepavyko. Daugiau informacijos rasite istorijos įrašuose."
 
-#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:190
+#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:193
 msgid "Removing package"
 msgstr "Šalinamas paketas"
 
-#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:191
+#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:194
 msgid "Removing the selected package and its dependent packages"
 msgstr "Šalinimas pasirinktas paketas ir jam priklausantys paketai"
 
-#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:193
+#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:196
 msgid "packages left to remove"
 msgstr "likę paketai šalinimui"
 
-#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:194
+#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:197
 msgid ""
 "The packages removal has finished successfully. The administration interface "
 "may become unresponsive for a few seconds. Please wait patiently until the "
@@ -6110,7 +6110,7 @@ msgstr ""
 "Paketų šalinimas pavyko sėkmingai. Administravimo sąsaja gali tapti neaktyvi "
 "keletai akimirkų. Prašome kantriai palaukti kol sistema pilnai persikraus"
 
-#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:198
+#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:201
 msgid ""
 "The packages removal has not finished correctly . More information on the "
 "logs"
@@ -8271,7 +8271,7 @@ msgstr ""
 msgid "Key for web subscription service not found"
 msgstr ""
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Subscription.pm:456
+#: ../../main/remoteservices/src/EBox/RemoteServices/Subscription.pm:457
 #, perl-brace-format
 msgid "Cannot contact to {host}. Check your connection to the Internet"
 msgstr ""
@@ -10901,7 +10901,7 @@ msgstr "{row} pakelta aukštyn"
 msgid "{row} moved down"
 msgstr "{row} nuleista žemyn"
 
-#: ../../main/core/src/EBox/Model/DataTable.pm:4315
+#: ../../main/core/src/EBox/Model/DataTable.pm:4322
 #: ../../main/network/src/templates/ifaces.mas:216
 #: ../../main/zarafa/src/templates/zarafa.mas:67
 #: ../../main/zarafa/src/templates/zarafa.mas:68
@@ -11449,18 +11449,18 @@ msgstr "Vykdymas jau užbaigtas"
 msgid "Password changed"
 msgstr "Slaptažodis pakeistas"
 
-#: ../../main/core/src/EBox/Global.pm:538
+#: ../../main/core/src/EBox/Global.pm:535
 #, perl-brace-format
 msgid "Enabling {modName} module"
 msgstr "Įjungiamas {modName} modulis"
 
-#: ../../main/core/src/EBox/Global.pm:568
-#: ../../main/core/src/EBox/Global.pm:599
+#: ../../main/core/src/EBox/Global.pm:565
+#: ../../main/core/src/EBox/Global.pm:594
 #, perl-brace-format
 msgid "Saving {modName} module"
 msgstr "Saugomas {modName} modulis"
 
-#: ../../main/core/src/EBox/Global.pm:1085
+#: ../../main/core/src/EBox/Global.pm:1104
 #, perl-brace-format
 msgid "running {scriptName} script"
 msgstr "vykdomas {scriptName} screnarijus"
@@ -11762,8 +11762,8 @@ msgid "Save configuration"
 msgstr "Išsaugoti nustatymus"
 
 #: ../../main/core/src/EBox/CGI/Finish.pm:77
-#: ../../main/core/src/EBox/CGI/Progress.pm:82
-#: ../../main/core/src/EBox/CGI/Progress.pm:108
+#: ../../main/core/src/EBox/CGI/Progress.pm:81
+#: ../../main/core/src/EBox/CGI/Progress.pm:106
 msgid "Saving changes"
 msgstr "Saugomi pakeitimai"
 
@@ -11943,42 +11943,42 @@ msgid ""
 "these non alphanumeric chars: /.?&+:-@ and spaces are allowed."
 msgstr ""
 
-#: ../../main/core/src/EBox/CGI/Base.pm:541
+#: ../../main/core/src/EBox/CGI/Base.pm:548
 msgid ""
 "An internal error has occurred. This is most probably a bug, relevant "
 "information can be found in the logs."
 msgstr ""
 
-#: ../../main/core/src/EBox/CGI/Base.pm:547
+#: ../../main/core/src/EBox/CGI/Base.pm:554
 msgid ""
 "An unexpected internal error has occurred. This is a bug, relevant "
 "information can be found in the logs."
 msgstr ""
 
-#: ../../main/core/src/EBox/CGI/Base.pm:553
+#: ../../main/core/src/EBox/CGI/Base.pm:560
 msgid "You have just hit a bug in Zentyal. Please seek technical support."
 msgstr ""
 
-#: ../../main/core/src/EBox/CGI/Base.pm:640
+#: ../../main/core/src/EBox/CGI/Base.pm:646
 msgid ""
 "Your request could not be processed because it had some incorrect parameters"
 msgstr ""
 
-#: ../../main/core/src/EBox/CGI/Base.pm:673
+#: ../../main/core/src/EBox/CGI/Base.pm:679
 msgid "Wrong HTTP referer detected, operation cancelled for security reasons"
 msgstr ""
 
-#: ../../main/core/src/EBox/CGI/Base.pm:685
+#: ../../main/core/src/EBox/CGI/Base.pm:691
 msgid ""
 "Your request could not be processed because it lacked some required "
 "parameters"
 msgstr ""
 
-#: ../../main/core/src/EBox/CGI/Base.pm:850
+#: ../../main/core/src/EBox/CGI/Base.pm:841
 msgid "Invalid uploaded file."
 msgstr ""
 
-#: ../../main/core/src/EBox/CGI/Base.pm:856
+#: ../../main/core/src/EBox/CGI/Base.pm:847
 msgid "Cannot create a temporally file for the upload"
 msgstr ""
 
@@ -12915,7 +12915,7 @@ msgstr ""
 #: ../../main/network/src/templates/confirmVlanDel.mas:22
 #: ../../main/network/src/templates/confirmremove.mas:24
 #: ../../main/network/src/templates/confirm.mas:37
-#: ../../main/software/src/templates/del.mas:144
+#: ../../main/software/src/templates/del.mas:143
 msgid "Ok"
 msgstr "Gerai"
 
@@ -12923,7 +12923,7 @@ msgstr "Gerai"
 #: ../../main/network/src/templates/confirmremove.mas:26
 #: ../../main/network/src/templates/confirm.mas:39
 #: ../../main/users/src/templates/del.mas:46
-#: ../../main/software/src/templates/del.mas:145
+#: ../../main/software/src/templates/del.mas:144
 #: ../../main/samba/src/templates/delete.mas:21
 #: ../../main/remoteservices/src/templates/RemoteServices/Backup/confirm.mas:73
 #: ../../main/mail/src/templates/warnusermdsize.mas:26
@@ -13316,7 +13316,7 @@ msgid "Version"
 msgstr "Versija"
 
 #: ../../main/software/src/templates/updates.mas:46
-#: ../../main/software/src/templates/ebox.mas:152
+#: ../../main/software/src/templates/ebox.mas:153
 #: ../../main/software/src/templates/ebox.mas:587
 #: ../../main/software/src/templates/ebox.mas:611
 msgid "Update"
@@ -13354,7 +13354,7 @@ msgstr "Patobulinti"
 msgid "Update list"
 msgstr "Atnaujinimo sąrašas"
 
-#: ../../main/software/src/templates/ebox.mas:158
+#: ../../main/software/src/templates/ebox.mas:159
 #: ../../main/software/src/templates/ebox.mas:561
 #: ../../main/software/src/templates/ebox.mas:602
 msgid "Install"
@@ -13398,29 +13398,29 @@ msgstr "Panaikinti žymėjimą"
 msgid "Select All"
 msgstr "Žymėti viską"
 
-#: ../../main/software/src/templates/del.mas:97
+#: ../../main/software/src/templates/del.mas:96
 msgid "The following packages will be installed"
 msgstr "Sekantys paketai bus įdiegti"
 
-#: ../../main/software/src/templates/del.mas:99
+#: ../../main/software/src/templates/del.mas:98
 msgid "The following packages will be removed"
 msgstr "Sekantys paketai bus pašalinti"
 
-#: ../../main/software/src/templates/del.mas:152
+#: ../../main/software/src/templates/del.mas:151
 msgid "You may want to install also the following recommended packages:"
 msgstr "Jūs taip pat galite norėti įdiegti papildomus rekomenduojamus paketus:"
 
-#: ../../main/software/src/templates/del.mas:155
+#: ../../main/software/src/templates/del.mas:154
 #, fuzzy
 msgid "Layer 7 filtering for Traffic Shaping (zentyal-l7-protocols)"
 msgstr "Layer 7 filtravimas srauto ribojimui (ebox-l7-protocols)"
 
-#: ../../main/software/src/templates/del.mas:158
+#: ../../main/software/src/templates/del.mas:157
 #, fuzzy
 msgid "Virus scanning for File Sharing (zentyal-antivirus and samba-vscan)"
 msgstr "Virusų skenavimas bylų serveryje (ebox-antivirus ir samba-vscan)"
 
-#: ../../main/software/src/templates/del.mas:161
+#: ../../main/software/src/templates/del.mas:160
 msgid "VoIP meetings support (dahdi and linux-headers)"
 msgstr "VoIP susitikimų palaikymas (dahdi ir linux-headers)"
 
@@ -14384,6 +14384,10 @@ msgstr "Įvyko klaida Zentyal: "
 msgid "Starting..."
 msgstr "Paleidžiama..."
 
+#: ../../main/core/src/templates/progress.mas:161
+msgid " of "
+msgstr ""
+
 #: ../../main/core/src/templates/report/raid.mas:20
 #, perl-brace-format
 msgid "Inexistent RAID array {a}"
@@ -14552,6 +14556,35 @@ msgstr ""
 msgid "Restore from backup"
 msgstr ""
 
+#: ../../main/core/src/templates/pageNotFound.mas:3
+msgid "Zentyal homepage"
+msgstr ""
+
+#: ../../main/core/src/templates/pageNotFound.mas:7
+msgid "If you typed the URL manually, please check it"
+msgstr ""
+
+#: ../../main/core/src/templates/pageNotFound.mas:8
+msgid ""
+"Maybe a change in the Zentyal configuration or software made no longer "
+"available the requested page"
+msgstr ""
+
+#: ../../main/core/src/templates/pageNotFound.mas:9
+#, perl-brace-format
+msgid ""
+"If you need more help, you may want visit {homepage} for documentation and "
+"mailing lists"
+msgstr ""
+
+#: ../../main/core/src/templates/pageNotFound.mas:12
+msgid "we're sorry"
+msgstr ""
+
+#: ../../main/core/src/templates/pageNotFound.mas:13
+msgid "The page cannot be found"
+msgstr ""
+
 #: ../../main/core/src/templates/configurationFiles.mas:12
 msgid "Do you wish to overwrite these files?"
 msgstr "Ar pageidaujate perrašyti šiuos failus?"
@@ -14559,35 +14592,6 @@ msgstr "Ar pageidaujate perrašyti šiuos failus?"
 #: ../../main/core/src/templates/configurationFiles.mas:19
 msgid "Keep current file"
 msgstr "Išsaugoti esamą failą"
-
-#: ../../main/core/src/templates/ebox/pageNotFound.mas:3
-msgid "Zentyal homepage"
-msgstr ""
-
-#: ../../main/core/src/templates/ebox/pageNotFound.mas:7
-msgid "If you typed the URL manually, please check it"
-msgstr ""
-
-#: ../../main/core/src/templates/ebox/pageNotFound.mas:8
-msgid ""
-"Maybe a change in the Zentyal configuration or software made no longer "
-"available the requested page"
-msgstr ""
-
-#: ../../main/core/src/templates/ebox/pageNotFound.mas:9
-#, perl-brace-format
-msgid ""
-"If you need more help, you may want visit {homepage} for documentation and "
-"mailing lists"
-msgstr ""
-
-#: ../../main/core/src/templates/ebox/pageNotFound.mas:12
-msgid "we're sorry"
-msgstr ""
-
-#: ../../main/core/src/templates/ebox/pageNotFound.mas:13
-msgid "The page cannot be found"
-msgstr ""
 
 #: ../../main/core/src/templates/dashboard/configurewidgets.mas:164
 msgid ""

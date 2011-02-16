@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: zentyal 2.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2011-02-13 13:25+0100\n"
+"POT-Creation-Date: 2011-02-16 11:33+0100\n"
 "PO-Revision-Date: 2010-08-29 16:32+0200\n"
 "Last-Translator: Cyril MARTY <cyril_marty@yahoo.fr>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
@@ -551,7 +551,7 @@ msgstr "processus"
 #: ../../main/firewall/src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:119
 #: ../../main/mail/src/EBox/Mail/Model/GreylistConfiguration.pm:75
 #: ../../main/webserver/src/EBox/WebServer/Model/GeneralSettings.pm:244
-#: ../../main/core/src/EBox/Model/DataTable.pm:4471
+#: ../../main/core/src/EBox/Model/DataTable.pm:4478
 #: ../../main/core/src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:275
 #: ../../main/core/src/EBox/Logs/Model/ConfigureLogDataTable.pm:339
 #: ../../main/ebackup/src/EBox/Model/BackupDomains.pm:163
@@ -2242,9 +2242,10 @@ msgstr ""
 "l'activer afin d'utiliser cette fonction"
 
 #: ../../main/network/src/EBox/Network/Composite/MultiGw.pm:82
+#, fuzzy
 msgid ""
 "To be able to use this feature you need at least two enabled gateways. You "
-"can add them <a href=\"/ebox/Network/View/GatewayTable\">here</a> first."
+"can add them <a href=\"/zentyal/Network/View/GatewayTable\">here</a> first."
 msgstr ""
 "Pour pouvoir utiliser cette fonctionnalité, vous devez avoir au moins deux "
 "passerelles activées. Vous pouvez les ajouter <a href=\"/ebox/Network/View/"
@@ -6440,11 +6441,11 @@ msgstr "Sauvegarder les changements"
 msgid "automatic updates configuration"
 msgstr "configuration des mises-à-jour automatiques"
 
-#: ../../main/software/src/EBox/CGI/EBox.pm:34
+#: ../../main/software/src/EBox/CGI/EBox.pm:32
 msgid "Choose Zentyal packages to install"
 msgstr "Choisissez les paquets Zentyal à installer"
 
-#: ../../main/software/src/EBox/CGI/EBox.pm:38
+#: ../../main/software/src/EBox/CGI/EBox.pm:36
 msgid "Zentyal components"
 msgstr "composants de Zentyal"
 
@@ -6464,20 +6465,20 @@ msgstr "Mise-à-jour du système"
 msgid "The system components are up to date."
 msgstr "Les composants système sont à jour."
 
-#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:99
+#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:100
 msgid "There were no packages to update"
 msgstr "Il n'y avait aucun paquet à mettre à jour"
 
-#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:166
+#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:168
 msgid "Installing"
 msgstr "Installation en cours"
 
-#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:167
+#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:169
 msgid "Installing packages"
 msgstr "Installation des paquets en cours"
 
-#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:168
-#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:192
+#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:170
+#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:195
 #: ../../main/core/src/EBox/CGI/Finish.pm:79
 #: ../../main/core/src/templates/report/raid.mas:213
 #, fuzzy
@@ -6488,11 +6489,11 @@ msgstr ""
 "#-#-#-#-#  fr.po (ebox 0.12)  #-#-#-#-#\n"
 "Opération en cours"
 
-#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:169
+#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:171
 msgid "actions done"
 msgstr "actions effectuées"
 
-#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:170
+#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:172
 msgid ""
 "The packages installation has finished successfully. The administration "
 "interface may become unresponsive for a few seconds. Please wait patiently "
@@ -6504,7 +6505,7 @@ msgstr ""
 "jusqu'à ce que le système soit entièrement configuré. Vous serez dirigé "
 "automatiquement vers l'étape suivante"
 
-#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:175
+#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:177
 msgid ""
 "The packages installation has not finished correctly . More information on "
 "the logs"
@@ -6512,19 +6513,19 @@ msgstr ""
 "L'installation des paquets ne s'est pas terminée correctement. Plus "
 "d'informations dans les journaux"
 
-#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:190
+#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:193
 msgid "Removing package"
 msgstr "Suppression du paquet"
 
-#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:191
+#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:194
 msgid "Removing the selected package and its dependent packages"
 msgstr "Suppression du paquet sélectionné et de ces dépendances"
 
-#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:193
+#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:196
 msgid "packages left to remove"
 msgstr "Paquets restant à supprimer"
 
-#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:194
+#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:197
 msgid ""
 "The packages removal has finished successfully. The administration interface "
 "may become unresponsive for a few seconds. Please wait patiently until the "
@@ -6534,7 +6535,7 @@ msgstr ""
 "d'administration ne devrait plus répondre pendant quelques secondes. Merci "
 "de patienter pendant que le système redémarre complètement."
 
-#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:198
+#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:201
 msgid ""
 "The packages removal has not finished correctly . More information on the "
 "logs"
@@ -8867,7 +8868,7 @@ msgstr "La clé pour le proxy du service de sauvegarde n'a pas été trouvée"
 msgid "Key for web subscription service not found"
 msgstr "La clé pour l'inscription web au service n'a pas été trouvée"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Subscription.pm:456
+#: ../../main/remoteservices/src/EBox/RemoteServices/Subscription.pm:457
 #, perl-brace-format
 msgid "Cannot contact to {host}. Check your connection to the Internet"
 msgstr "Contact à {host} impossible. Vérifiez votre connexion à internet"
@@ -11725,7 +11726,7 @@ msgstr "{row} montée(s)"
 msgid "{row} moved down"
 msgstr "{row} descendue(s)"
 
-#: ../../main/core/src/EBox/Model/DataTable.pm:4315
+#: ../../main/core/src/EBox/Model/DataTable.pm:4322
 #: ../../main/network/src/templates/ifaces.mas:216
 #: ../../main/zarafa/src/templates/zarafa.mas:67
 #: ../../main/zarafa/src/templates/zarafa.mas:68
@@ -12285,18 +12286,18 @@ msgstr "L'exécutable s'est déjà terminé"
 msgid "Password changed"
 msgstr "Mot de passe modifié"
 
-#: ../../main/core/src/EBox/Global.pm:538
+#: ../../main/core/src/EBox/Global.pm:535
 #, perl-brace-format
 msgid "Enabling {modName} module"
 msgstr "Activation du module {modName}"
 
-#: ../../main/core/src/EBox/Global.pm:568
-#: ../../main/core/src/EBox/Global.pm:599
+#: ../../main/core/src/EBox/Global.pm:565
+#: ../../main/core/src/EBox/Global.pm:594
 #, perl-brace-format
 msgid "Saving {modName} module"
 msgstr "Sauvegarde en cours du module {modName}"
 
-#: ../../main/core/src/EBox/Global.pm:1085
+#: ../../main/core/src/EBox/Global.pm:1104
 #, perl-brace-format
 msgid "running {scriptName} script"
 msgstr "Script {scriptName} en cours d'exécution"
@@ -12599,8 +12600,8 @@ msgid "Save configuration"
 msgstr "Sauver la configuration"
 
 #: ../../main/core/src/EBox/CGI/Finish.pm:77
-#: ../../main/core/src/EBox/CGI/Progress.pm:82
-#: ../../main/core/src/EBox/CGI/Progress.pm:108
+#: ../../main/core/src/EBox/CGI/Progress.pm:81
+#: ../../main/core/src/EBox/CGI/Progress.pm:106
 msgid "Saving changes"
 msgstr "Sauvegarde des modifications"
 
@@ -12791,7 +12792,7 @@ msgstr ""
 "alphanumériques, plus ceux ci non alphanumériques sont permis: /.?&+:-@ et "
 "espaces."
 
-#: ../../main/core/src/EBox/CGI/Base.pm:541
+#: ../../main/core/src/EBox/CGI/Base.pm:548
 msgid ""
 "An internal error has occurred. This is most probably a bug, relevant "
 "information can be found in the logs."
@@ -12799,7 +12800,7 @@ msgstr ""
 "Une erreur interne s'est produite. C'est probablement un bogue, "
 "l'information pertinente peut être trouvé dans les logs."
 
-#: ../../main/core/src/EBox/CGI/Base.pm:547
+#: ../../main/core/src/EBox/CGI/Base.pm:554
 msgid ""
 "An unexpected internal error has occurred. This is a bug, relevant "
 "information can be found in the logs."
@@ -12807,36 +12808,36 @@ msgstr ""
 "Une erreur interne inattendue s'est produite. C'est un bogue, l'information "
 "pertinente peut être trouvé dans les logs."
 
-#: ../../main/core/src/EBox/CGI/Base.pm:553
+#: ../../main/core/src/EBox/CGI/Base.pm:560
 msgid "You have just hit a bug in Zentyal. Please seek technical support."
 msgstr ""
 "Vous avez trouvé un bogue dans Zentyal. Veuillez contacter le support "
 "technique"
 
-#: ../../main/core/src/EBox/CGI/Base.pm:640
+#: ../../main/core/src/EBox/CGI/Base.pm:646
 msgid ""
 "Your request could not be processed because it had some incorrect parameters"
 msgstr ""
 "Votre requête ne peut être effectuée à cause d'un de ses paramètres incorrect"
 
-#: ../../main/core/src/EBox/CGI/Base.pm:673
+#: ../../main/core/src/EBox/CGI/Base.pm:679
 msgid "Wrong HTTP referer detected, operation cancelled for security reasons"
 msgstr ""
 "Mauvaise référence HTTP détectée, l'opération a été annulée pour des raisons "
 "de sécurité"
 
-#: ../../main/core/src/EBox/CGI/Base.pm:685
+#: ../../main/core/src/EBox/CGI/Base.pm:691
 msgid ""
 "Your request could not be processed because it lacked some required "
 "parameters"
 msgstr ""
 "Votre requête ne peut être effectuée à cause d'un de ses paramètres manquant"
 
-#: ../../main/core/src/EBox/CGI/Base.pm:850
+#: ../../main/core/src/EBox/CGI/Base.pm:841
 msgid "Invalid uploaded file."
 msgstr "Fichier envoyé invalide"
 
-#: ../../main/core/src/EBox/CGI/Base.pm:856
+#: ../../main/core/src/EBox/CGI/Base.pm:847
 msgid "Cannot create a temporally file for the upload"
 msgstr "Impossible de créer un fichier temporaire pour l'envoi de données"
 
@@ -13828,7 +13829,7 @@ msgstr ""
 #: ../../main/network/src/templates/confirmVlanDel.mas:22
 #: ../../main/network/src/templates/confirmremove.mas:24
 #: ../../main/network/src/templates/confirm.mas:37
-#: ../../main/software/src/templates/del.mas:144
+#: ../../main/software/src/templates/del.mas:143
 msgid "Ok"
 msgstr "Ok"
 
@@ -13836,7 +13837,7 @@ msgstr "Ok"
 #: ../../main/network/src/templates/confirmremove.mas:26
 #: ../../main/network/src/templates/confirm.mas:39
 #: ../../main/users/src/templates/del.mas:46
-#: ../../main/software/src/templates/del.mas:145
+#: ../../main/software/src/templates/del.mas:144
 #: ../../main/samba/src/templates/delete.mas:21
 #: ../../main/remoteservices/src/templates/RemoteServices/Backup/confirm.mas:73
 #: ../../main/mail/src/templates/warnusermdsize.mas:26
@@ -14287,7 +14288,7 @@ msgid "Version"
 msgstr "Version"
 
 #: ../../main/software/src/templates/updates.mas:46
-#: ../../main/software/src/templates/ebox.mas:152
+#: ../../main/software/src/templates/ebox.mas:153
 #: ../../main/software/src/templates/ebox.mas:587
 #: ../../main/software/src/templates/ebox.mas:611
 msgid "Update"
@@ -14326,7 +14327,7 @@ msgstr "Mise à niveau"
 msgid "Update list"
 msgstr "Mise à jour de la liste"
 
-#: ../../main/software/src/templates/ebox.mas:158
+#: ../../main/software/src/templates/ebox.mas:159
 #: ../../main/software/src/templates/ebox.mas:561
 #: ../../main/software/src/templates/ebox.mas:602
 msgid "Install"
@@ -14371,33 +14372,33 @@ msgstr "Désélectionner tout"
 msgid "Select All"
 msgstr "Sélectionner tout"
 
-#: ../../main/software/src/templates/del.mas:97
+#: ../../main/software/src/templates/del.mas:96
 msgid "The following packages will be installed"
 msgstr "Les paquets suivants seront installés"
 
-#: ../../main/software/src/templates/del.mas:99
+#: ../../main/software/src/templates/del.mas:98
 msgid "The following packages will be removed"
 msgstr "Les paquets suivants seront enlevés"
 
-#: ../../main/software/src/templates/del.mas:152
+#: ../../main/software/src/templates/del.mas:151
 msgid "You may want to install also the following recommended packages:"
 msgstr "Vous pourriez aussi vouloir installer les paquet recommandés suivants:"
 
-#: ../../main/software/src/templates/del.mas:155
+#: ../../main/software/src/templates/del.mas:154
 #, fuzzy
 msgid "Layer 7 filtering for Traffic Shaping (zentyal-l7-protocols)"
 msgstr ""
 "Filtrage de niveau 7 pour le module \"Filtrage du Traffic\" (ebox-l7-"
 "protocols)"
 
-#: ../../main/software/src/templates/del.mas:158
+#: ../../main/software/src/templates/del.mas:157
 #, fuzzy
 msgid "Virus scanning for File Sharing (zentyal-antivirus and samba-vscan)"
 msgstr ""
 "Scan des virus pour le module \"Partage de Fichiers\" (ebox-antivirus et "
 "samba-vscan)"
 
-#: ../../main/software/src/templates/del.mas:161
+#: ../../main/software/src/templates/del.mas:160
 msgid "VoIP meetings support (dahdi and linux-headers)"
 msgstr "Supporte les réunions par VoIP (dahdi et linux-headers)"
 
@@ -15459,6 +15460,10 @@ msgstr "Une erreur est apparue dans Zentyal : "
 msgid "Starting..."
 msgstr "Démarrage ..."
 
+#: ../../main/core/src/templates/progress.mas:161
+msgid " of "
+msgstr ""
+
 #: ../../main/core/src/templates/report/raid.mas:20
 #, perl-brace-format
 msgid "Inexistent RAID array {a}"
@@ -15637,23 +15642,15 @@ msgstr "Restaurer la configuration à partir de ce fichier"
 msgid "Restore from backup"
 msgstr "Restaurer à partir de la sauvegarde"
 
-#: ../../main/core/src/templates/configurationFiles.mas:12
-msgid "Do you wish to overwrite these files?"
-msgstr "Voulez-vous écraser ces fichiers ?"
-
-#: ../../main/core/src/templates/configurationFiles.mas:19
-msgid "Keep current file"
-msgstr "Conserver le fichier courant"
-
-#: ../../main/core/src/templates/ebox/pageNotFound.mas:3
+#: ../../main/core/src/templates/pageNotFound.mas:3
 msgid "Zentyal homepage"
 msgstr "Page d'accueil de Zentyal"
 
-#: ../../main/core/src/templates/ebox/pageNotFound.mas:7
+#: ../../main/core/src/templates/pageNotFound.mas:7
 msgid "If you typed the URL manually, please check it"
 msgstr "Si vous taper l'URL manuellement, veuillez la vérifier"
 
-#: ../../main/core/src/templates/ebox/pageNotFound.mas:8
+#: ../../main/core/src/templates/pageNotFound.mas:8
 msgid ""
 "Maybe a change in the Zentyal configuration or software made no longer "
 "available the requested page"
@@ -15661,7 +15658,7 @@ msgstr ""
 "La page requise a probablement disparue suite à la modification de la "
 "configuration de Zentyal ou d'un logiciel"
 
-#: ../../main/core/src/templates/ebox/pageNotFound.mas:9
+#: ../../main/core/src/templates/pageNotFound.mas:9
 #, perl-brace-format
 msgid ""
 "If you need more help, you may want visit {homepage} for documentation and "
@@ -15670,13 +15667,21 @@ msgstr ""
 "Si vous avez besoin de plus d'aide, vous pouvez vous rendre sur {homepage} "
 "pour la documentation et les listes de discussions"
 
-#: ../../main/core/src/templates/ebox/pageNotFound.mas:12
+#: ../../main/core/src/templates/pageNotFound.mas:12
 msgid "we're sorry"
 msgstr "nous sommes désolés"
 
-#: ../../main/core/src/templates/ebox/pageNotFound.mas:13
+#: ../../main/core/src/templates/pageNotFound.mas:13
 msgid "The page cannot be found"
 msgstr "La page n'a pas pu être trouvée"
+
+#: ../../main/core/src/templates/configurationFiles.mas:12
+msgid "Do you wish to overwrite these files?"
+msgstr "Voulez-vous écraser ces fichiers ?"
+
+#: ../../main/core/src/templates/configurationFiles.mas:19
+msgid "Keep current file"
+msgstr "Conserver le fichier courant"
 
 #: ../../main/core/src/templates/dashboard/configurewidgets.mas:164
 msgid ""

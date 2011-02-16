@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: zentyal 2.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2011-02-13 13:25+0100\n"
+"POT-Creation-Date: 2011-02-16 11:33+0100\n"
 "PO-Revision-Date: 2006-10-23 18:23+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
@@ -513,7 +513,7 @@ msgstr ""
 #: ../../main/firewall/src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:119
 #: ../../main/mail/src/EBox/Mail/Model/GreylistConfiguration.pm:75
 #: ../../main/webserver/src/EBox/WebServer/Model/GeneralSettings.pm:244
-#: ../../main/core/src/EBox/Model/DataTable.pm:4471
+#: ../../main/core/src/EBox/Model/DataTable.pm:4478
 #: ../../main/core/src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:275
 #: ../../main/core/src/EBox/Logs/Model/ConfigureLogDataTable.pm:339
 #: ../../main/ebackup/src/EBox/Model/BackupDomains.pm:163
@@ -2080,9 +2080,10 @@ msgid ""
 msgstr "WAN故障转移事件没有启用。该项功能需启用后才能使用。"
 
 #: ../../main/network/src/EBox/Network/Composite/MultiGw.pm:82
+#, fuzzy
 msgid ""
 "To be able to use this feature you need at least two enabled gateways. You "
-"can add them <a href=\"/ebox/Network/View/GatewayTable\">here</a> first."
+"can add them <a href=\"/zentyal/Network/View/GatewayTable\">here</a> first."
 msgstr ""
 "要启用该项功能，至少需要两个网关，点击<a href=\"/ebox/Network/View/"
 "GatewayTable\">此处</a>添加网关。"
@@ -5837,11 +5838,11 @@ msgstr "保存变更"
 msgid "automatic updates configuration"
 msgstr "自动更新配置"
 
-#: ../../main/software/src/EBox/CGI/EBox.pm:34
+#: ../../main/software/src/EBox/CGI/EBox.pm:32
 msgid "Choose Zentyal packages to install"
 msgstr "选择要安装的Zentyal软件包"
 
-#: ../../main/software/src/EBox/CGI/EBox.pm:38
+#: ../../main/software/src/EBox/CGI/EBox.pm:36
 msgid "Zentyal components"
 msgstr "Zentyal组件"
 
@@ -5861,30 +5862,30 @@ msgstr "系统升级"
 msgid "The system components are up to date."
 msgstr "系统组件是最新版本."
 
-#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:99
+#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:100
 msgid "There were no packages to update"
 msgstr "没有需要升级的软件包"
 
-#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:166
+#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:168
 msgid "Installing"
 msgstr "安装"
 
-#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:167
+#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:169
 msgid "Installing packages"
 msgstr "安装软件包"
 
-#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:168
-#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:192
+#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:170
+#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:195
 #: ../../main/core/src/EBox/CGI/Finish.pm:79
 #: ../../main/core/src/templates/report/raid.mas:213
 msgid "Current operation"
 msgstr "当前操作"
 
-#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:169
+#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:171
 msgid "actions done"
 msgstr "操作完成"
 
-#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:170
+#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:172
 msgid ""
 "The packages installation has finished successfully. The administration "
 "interface may become unresponsive for a few seconds. Please wait patiently "
@@ -5894,25 +5895,25 @@ msgstr ""
 "软件包安装成功。管理界面将有几秒钟无法响应。请耐心等待，直到系统完成配置。然"
 "后将自动跳转到下一步"
 
-#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:175
+#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:177
 msgid ""
 "The packages installation has not finished correctly . More information on "
 "the logs"
 msgstr "软件包没有完成安装。更多信息在日志中"
 
-#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:190
+#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:193
 msgid "Removing package"
 msgstr "删除软件包"
 
-#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:191
+#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:194
 msgid "Removing the selected package and its dependent packages"
 msgstr "删除所选的软件包，以及相关的软件包"
 
-#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:193
+#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:196
 msgid "packages left to remove"
 msgstr "软件包留待删除"
 
-#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:194
+#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:197
 msgid ""
 "The packages removal has finished successfully. The administration interface "
 "may become unresponsive for a few seconds. Please wait patiently until the "
@@ -5920,7 +5921,7 @@ msgid ""
 msgstr ""
 "软件包删除成功。管理界面可能会有几秒钟没有响应。请耐心等待，知道系统重启完成"
 
-#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:198
+#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:201
 msgid ""
 "The packages removal has not finished correctly . More information on the "
 "logs"
@@ -8037,7 +8038,7 @@ msgstr ""
 msgid "Key for web subscription service not found"
 msgstr ""
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Subscription.pm:456
+#: ../../main/remoteservices/src/EBox/RemoteServices/Subscription.pm:457
 #, perl-brace-format
 msgid "Cannot contact to {host}. Check your connection to the Internet"
 msgstr ""
@@ -10592,7 +10593,7 @@ msgstr "{row}已上移"
 msgid "{row} moved down"
 msgstr "{row}已下移"
 
-#: ../../main/core/src/EBox/Model/DataTable.pm:4315
+#: ../../main/core/src/EBox/Model/DataTable.pm:4322
 #: ../../main/network/src/templates/ifaces.mas:216
 #: ../../main/zarafa/src/templates/zarafa.mas:67
 #: ../../main/zarafa/src/templates/zarafa.mas:68
@@ -11115,18 +11116,18 @@ msgstr "该可执行文件已经完成"
 msgid "Password changed"
 msgstr "密码已更新"
 
-#: ../../main/core/src/EBox/Global.pm:538
+#: ../../main/core/src/EBox/Global.pm:535
 #, perl-brace-format
 msgid "Enabling {modName} module"
 msgstr "正在启用{modName}模块"
 
-#: ../../main/core/src/EBox/Global.pm:568
-#: ../../main/core/src/EBox/Global.pm:599
+#: ../../main/core/src/EBox/Global.pm:565
+#: ../../main/core/src/EBox/Global.pm:594
 #, perl-brace-format
 msgid "Saving {modName} module"
 msgstr "正在保存{modName}模块"
 
-#: ../../main/core/src/EBox/Global.pm:1085
+#: ../../main/core/src/EBox/Global.pm:1104
 #, perl-brace-format
 msgid "running {scriptName} script"
 msgstr "正在运行{scriptName}脚本"
@@ -11423,8 +11424,8 @@ msgid "Save configuration"
 msgstr "保存配置"
 
 #: ../../main/core/src/EBox/CGI/Finish.pm:77
-#: ../../main/core/src/EBox/CGI/Progress.pm:82
-#: ../../main/core/src/EBox/CGI/Progress.pm:108
+#: ../../main/core/src/EBox/CGI/Progress.pm:81
+#: ../../main/core/src/EBox/CGI/Progress.pm:106
 msgid "Saving changes"
 msgstr "保存变更"
 
@@ -11598,42 +11599,42 @@ msgid ""
 "these non alphanumeric chars: /.?&+:-@ and spaces are allowed."
 msgstr "输入中包含无效字符。只允许所有字母和数字，以及/.?&+:-@和空格。"
 
-#: ../../main/core/src/EBox/CGI/Base.pm:541
+#: ../../main/core/src/EBox/CGI/Base.pm:548
 msgid ""
 "An internal error has occurred. This is most probably a bug, relevant "
 "information can be found in the logs."
 msgstr "发生内部错误。这是一个bug，相关信息可以在日志中找到。"
 
-#: ../../main/core/src/EBox/CGI/Base.pm:547
+#: ../../main/core/src/EBox/CGI/Base.pm:554
 msgid ""
 "An unexpected internal error has occurred. This is a bug, relevant "
 "information can be found in the logs."
 msgstr "发生不可预知内部错误。这是一个bug，相关信息可以在日志中找到。"
 
-#: ../../main/core/src/EBox/CGI/Base.pm:553
+#: ../../main/core/src/EBox/CGI/Base.pm:560
 msgid "You have just hit a bug in Zentyal. Please seek technical support."
 msgstr "您刚刚遇到Zentyal的一个bug，请联系技术支持。"
 
-#: ../../main/core/src/EBox/CGI/Base.pm:640
+#: ../../main/core/src/EBox/CGI/Base.pm:646
 msgid ""
 "Your request could not be processed because it had some incorrect parameters"
 msgstr "因为存在无效参数，你的请求将不予处理。"
 
-#: ../../main/core/src/EBox/CGI/Base.pm:673
+#: ../../main/core/src/EBox/CGI/Base.pm:679
 msgid "Wrong HTTP referer detected, operation cancelled for security reasons"
 msgstr "检测到错误的HTTP referer，由于安全原因取消操作。"
 
-#: ../../main/core/src/EBox/CGI/Base.pm:685
+#: ../../main/core/src/EBox/CGI/Base.pm:691
 msgid ""
 "Your request could not be processed because it lacked some required "
 "parameters"
 msgstr "由于缺少某些必需的参数，您的请求不会被处理。"
 
-#: ../../main/core/src/EBox/CGI/Base.pm:850
+#: ../../main/core/src/EBox/CGI/Base.pm:841
 msgid "Invalid uploaded file."
 msgstr "无效的上传文件。"
 
-#: ../../main/core/src/EBox/CGI/Base.pm:856
+#: ../../main/core/src/EBox/CGI/Base.pm:847
 msgid "Cannot create a temporally file for the upload"
 msgstr "无法创建用于上传的临时文件"
 
@@ -12548,7 +12549,7 @@ msgstr ""
 #: ../../main/network/src/templates/confirmVlanDel.mas:22
 #: ../../main/network/src/templates/confirmremove.mas:24
 #: ../../main/network/src/templates/confirm.mas:37
-#: ../../main/software/src/templates/del.mas:144
+#: ../../main/software/src/templates/del.mas:143
 msgid "Ok"
 msgstr "确定"
 
@@ -12556,7 +12557,7 @@ msgstr "确定"
 #: ../../main/network/src/templates/confirmremove.mas:26
 #: ../../main/network/src/templates/confirm.mas:39
 #: ../../main/users/src/templates/del.mas:46
-#: ../../main/software/src/templates/del.mas:145
+#: ../../main/software/src/templates/del.mas:144
 #: ../../main/samba/src/templates/delete.mas:21
 #: ../../main/remoteservices/src/templates/RemoteServices/Backup/confirm.mas:73
 #: ../../main/mail/src/templates/warnusermdsize.mas:26
@@ -12955,7 +12956,7 @@ msgid "Version"
 msgstr "版本"
 
 #: ../../main/software/src/templates/updates.mas:46
-#: ../../main/software/src/templates/ebox.mas:152
+#: ../../main/software/src/templates/ebox.mas:153
 #: ../../main/software/src/templates/ebox.mas:587
 #: ../../main/software/src/templates/ebox.mas:611
 msgid "Update"
@@ -12993,7 +12994,7 @@ msgstr "升级"
 msgid "Update list"
 msgstr "更新列表"
 
-#: ../../main/software/src/templates/ebox.mas:158
+#: ../../main/software/src/templates/ebox.mas:159
 #: ../../main/software/src/templates/ebox.mas:561
 #: ../../main/software/src/templates/ebox.mas:602
 msgid "Install"
@@ -13038,29 +13039,29 @@ msgstr "取消所有选择"
 msgid "Select All"
 msgstr "选择全部"
 
-#: ../../main/software/src/templates/del.mas:97
+#: ../../main/software/src/templates/del.mas:96
 msgid "The following packages will be installed"
 msgstr "以下软件包将被安装"
 
-#: ../../main/software/src/templates/del.mas:99
+#: ../../main/software/src/templates/del.mas:98
 msgid "The following packages will be removed"
 msgstr "以下软件包将被删除"
 
-#: ../../main/software/src/templates/del.mas:152
+#: ../../main/software/src/templates/del.mas:151
 msgid "You may want to install also the following recommended packages:"
 msgstr "推荐您安装以下软件包:"
 
-#: ../../main/software/src/templates/del.mas:155
+#: ../../main/software/src/templates/del.mas:154
 #, fuzzy
 msgid "Layer 7 filtering for Traffic Shaping (zentyal-l7-protocols)"
 msgstr "七层流量整形(ebox-l7-protocols)过滤"
 
-#: ../../main/software/src/templates/del.mas:158
+#: ../../main/software/src/templates/del.mas:157
 #, fuzzy
 msgid "Virus scanning for File Sharing (zentyal-antivirus and samba-vscan)"
 msgstr "针对文件共享的病毒扫描(ebox-antivirus和samba-vscan)"
 
-#: ../../main/software/src/templates/del.mas:161
+#: ../../main/software/src/templates/del.mas:160
 msgid "VoIP meetings support (dahdi and linux-headers)"
 msgstr "VoIP会议支持(dahdi和linux-headers)"
 
@@ -14042,6 +14043,10 @@ msgstr "Zentyal发生错误:"
 msgid "Starting..."
 msgstr "开始..."
 
+#: ../../main/core/src/templates/progress.mas:161
+msgid " of "
+msgstr ""
+
 #: ../../main/core/src/templates/report/raid.mas:20
 #, perl-brace-format
 msgid "Inexistent RAID array {a}"
@@ -14216,6 +14221,35 @@ msgstr "使用此文件恢复配置"
 msgid "Restore from backup"
 msgstr "从备份恢复"
 
+#: ../../main/core/src/templates/pageNotFound.mas:3
+msgid "Zentyal homepage"
+msgstr "Zentyal主页"
+
+#: ../../main/core/src/templates/pageNotFound.mas:7
+msgid "If you typed the URL manually, please check it"
+msgstr "如果您是手工输入的URL，请仔细检查一下"
+
+#: ../../main/core/src/templates/pageNotFound.mas:8
+msgid ""
+"Maybe a change in the Zentyal configuration or software made no longer "
+"available the requested page"
+msgstr "可能Zentyal的配置发生了变化，或者软件不再生成请求的页面"
+
+#: ../../main/core/src/templates/pageNotFound.mas:9
+#, perl-brace-format
+msgid ""
+"If you need more help, you may want visit {homepage} for documentation and "
+"mailing lists"
+msgstr "如果您需要更多帮助，请访问文档{homepage}和邮件列表"
+
+#: ../../main/core/src/templates/pageNotFound.mas:12
+msgid "we're sorry"
+msgstr "我们很抱歉"
+
+#: ../../main/core/src/templates/pageNotFound.mas:13
+msgid "The page cannot be found"
+msgstr "无法找到页面"
+
 #: ../../main/core/src/templates/configurationFiles.mas:12
 msgid "Do you wish to overwrite these files?"
 msgstr "确认要覆盖这些文件？"
@@ -14223,35 +14257,6 @@ msgstr "确认要覆盖这些文件？"
 #: ../../main/core/src/templates/configurationFiles.mas:19
 msgid "Keep current file"
 msgstr "保留当前文件"
-
-#: ../../main/core/src/templates/ebox/pageNotFound.mas:3
-msgid "Zentyal homepage"
-msgstr "Zentyal主页"
-
-#: ../../main/core/src/templates/ebox/pageNotFound.mas:7
-msgid "If you typed the URL manually, please check it"
-msgstr "如果您是手工输入的URL，请仔细检查一下"
-
-#: ../../main/core/src/templates/ebox/pageNotFound.mas:8
-msgid ""
-"Maybe a change in the Zentyal configuration or software made no longer "
-"available the requested page"
-msgstr "可能Zentyal的配置发生了变化，或者软件不再生成请求的页面"
-
-#: ../../main/core/src/templates/ebox/pageNotFound.mas:9
-#, perl-brace-format
-msgid ""
-"If you need more help, you may want visit {homepage} for documentation and "
-"mailing lists"
-msgstr "如果您需要更多帮助，请访问文档{homepage}和邮件列表"
-
-#: ../../main/core/src/templates/ebox/pageNotFound.mas:12
-msgid "we're sorry"
-msgstr "我们很抱歉"
-
-#: ../../main/core/src/templates/ebox/pageNotFound.mas:13
-msgid "The page cannot be found"
-msgstr "无法找到页面"
 
 #: ../../main/core/src/templates/dashboard/configurewidgets.mas:164
 msgid ""

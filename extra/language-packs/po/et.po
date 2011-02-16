@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: zentyal 2.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2011-02-13 13:25+0100\n"
+"POT-Creation-Date: 2011-02-16 11:33+0100\n"
 "PO-Revision-Date: 2010-05-06 16:48+0200\n"
 "Last-Translator: Priit-A. Heinsalu <priit.heinsalu@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
@@ -542,7 +542,7 @@ msgstr "läbib filtri"
 #: ../../main/firewall/src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:119
 #: ../../main/mail/src/EBox/Mail/Model/GreylistConfiguration.pm:75
 #: ../../main/webserver/src/EBox/WebServer/Model/GeneralSettings.pm:244
-#: ../../main/core/src/EBox/Model/DataTable.pm:4471
+#: ../../main/core/src/EBox/Model/DataTable.pm:4478
 #: ../../main/core/src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:275
 #: ../../main/core/src/EBox/Logs/Model/ConfigureLogDataTable.pm:339
 #: ../../main/ebackup/src/EBox/Model/BackupDomains.pm:163
@@ -2182,9 +2182,10 @@ msgstr ""
 "olema eelnevalt lubatud sündmuste moodulis."
 
 #: ../../main/network/src/EBox/Network/Composite/MultiGw.pm:82
+#, fuzzy
 msgid ""
 "To be able to use this feature you need at least two enabled gateways. You "
-"can add them <a href=\"/ebox/Network/View/GatewayTable\">here</a> first."
+"can add them <a href=\"/zentyal/Network/View/GatewayTable\">here</a> first."
 msgstr ""
 "Liikluse tasakaalustamise kasutamiseks läheb sul vaja vähemalt kahte lubatud "
 "lüüsi. Sa saad neid lisada <a href=\"/ebox/Network/View/GatewayTable\">siin</"
@@ -6369,12 +6370,12 @@ msgstr ""
 msgid "automatic updates configuration"
 msgstr "Automaatse uuendamise seadistamine"
 
-#: ../../main/software/src/EBox/CGI/EBox.pm:34
+#: ../../main/software/src/EBox/CGI/EBox.pm:32
 #, fuzzy
 msgid "Choose Zentyal packages to install"
 msgstr "paigaldada jäänud pakette"
 
-#: ../../main/software/src/EBox/CGI/EBox.pm:38
+#: ../../main/software/src/EBox/CGI/EBox.pm:36
 #, fuzzy
 msgid "Zentyal components"
 msgstr "eBoxi komponendid"
@@ -6397,35 +6398,35 @@ msgstr "Süsteemiuuendused"
 msgid "The system components are up to date."
 msgstr "Süsteemi komponendid ei vaja uuendamist."
 
-#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:99
+#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:100
 msgid "There were no packages to update"
 msgstr "Uuendamiseks pakette ei leitud"
 
-#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:166
+#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:168
 #, fuzzy
 msgid "Installing"
 msgstr "Paigalda"
 
 #  
-#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:167
+#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:169
 #, fuzzy
 msgid "Installing packages"
 msgstr "Pakettide uuendamine"
 
-#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:168
-#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:192
+#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:170
+#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:195
 #: ../../main/core/src/EBox/CGI/Finish.pm:79
 #: ../../main/core/src/templates/report/raid.mas:213
 msgid "Current operation"
 msgstr "Toimuv operatsioon"
 
-#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:169
+#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:171
 #, fuzzy
 msgid "actions done"
 msgstr "Toimingud"
 
 # kui keegi leiab"unresponsive" parema vaste, võib täiendada
-#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:170
+#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:172
 #, fuzzy
 msgid ""
 "The packages installation has finished successfully. The administration "
@@ -6437,7 +6438,7 @@ msgstr ""
 "mõned sekundid mitteaktiivne. Palun oota kuni süsteem on täielikult "
 "taaskäivitunud."
 
-#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:175
+#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:177
 msgid ""
 "The packages installation has not finished correctly . More information on "
 "the logs"
@@ -6445,20 +6446,20 @@ msgstr ""
 "Pakettide paigaldamine ei ole edukalt lõpetatud. Rohkem informatsiooni leiad "
 "logidest"
 
-#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:190
+#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:193
 msgid "Removing package"
 msgstr "Paketi eemaldamine"
 
-#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:191
+#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:194
 msgid "Removing the selected package and its dependent packages"
 msgstr "Valitud ning sellest sõltuvate pakettide eemaldamine"
 
-#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:193
+#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:196
 msgid "packages left to remove"
 msgstr "eemaldada jäänud pakette"
 
 # " unresponsive " vastet
-#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:194
+#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:197
 msgid ""
 "The packages removal has finished successfully. The administration interface "
 "may become unresponsive for a few seconds. Please wait patiently until the "
@@ -6467,7 +6468,7 @@ msgstr ""
 "Pakettide eemaldamine on edukalt lõpetatud. Haldamise liides võib olla mõned "
 "sekundid mitteaktiivne. Palun oota kuni süsteem on täielikult taaskäivitunud."
 
-#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:198
+#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:201
 msgid ""
 "The packages removal has not finished correctly . More information on the "
 "logs"
@@ -8811,7 +8812,7 @@ msgstr "Puhverserveri varundusteenuse võtit ei leitud"
 msgid "Key for web subscription service not found"
 msgstr "Veebitellimuse teenuse võtit ei leitud"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Subscription.pm:456
+#: ../../main/remoteservices/src/EBox/RemoteServices/Subscription.pm:457
 #, perl-brace-format
 msgid "Cannot contact to {host}. Check your connection to the Internet"
 msgstr "Masinaga {host} ei saa ühendust. Kontrolli oma internetiühendust"
@@ -11654,7 +11655,7 @@ msgstr "{row} ülespoole paigutatud"
 msgid "{row} moved down"
 msgstr "{row} allapoole paigutatud"
 
-#: ../../main/core/src/EBox/Model/DataTable.pm:4315
+#: ../../main/core/src/EBox/Model/DataTable.pm:4322
 #: ../../main/network/src/templates/ifaces.mas:216
 #: ../../main/zarafa/src/templates/zarafa.mas:67
 #: ../../main/zarafa/src/templates/zarafa.mas:68
@@ -12222,18 +12223,18 @@ msgstr "Käivitatav on juba lõpetanud"
 msgid "Password changed"
 msgstr "Parool muudetud"
 
-#: ../../main/core/src/EBox/Global.pm:538
+#: ../../main/core/src/EBox/Global.pm:535
 #, fuzzy, perl-brace-format
 msgid "Enabling {modName} module"
 msgstr "Mooduli {modName} salvestamine"
 
-#: ../../main/core/src/EBox/Global.pm:568
-#: ../../main/core/src/EBox/Global.pm:599
+#: ../../main/core/src/EBox/Global.pm:565
+#: ../../main/core/src/EBox/Global.pm:594
 #, perl-brace-format
 msgid "Saving {modName} module"
 msgstr "Mooduli {modName} salvestamine"
 
-#: ../../main/core/src/EBox/Global.pm:1085
+#: ../../main/core/src/EBox/Global.pm:1104
 #, perl-brace-format
 msgid "running {scriptName} script"
 msgstr "Skripti {scriptName} käivitamine"
@@ -12542,8 +12543,8 @@ msgid "Save configuration"
 msgstr "Seadistuste salvestamine"
 
 #: ../../main/core/src/EBox/CGI/Finish.pm:77
-#: ../../main/core/src/EBox/CGI/Progress.pm:82
-#: ../../main/core/src/EBox/CGI/Progress.pm:108
+#: ../../main/core/src/EBox/CGI/Progress.pm:81
+#: ../../main/core/src/EBox/CGI/Progress.pm:106
 msgid "Saving changes"
 msgstr "Muudatuste salvestamine"
 
@@ -12731,13 +12732,13 @@ msgstr ""
 "Sisendis on sobimatud märgid. Lubatud on kõik tähe- ja numbrimärgid, tühikud "
 "ja märgid: /.?&+:-@"
 
-#: ../../main/core/src/EBox/CGI/Base.pm:541
+#: ../../main/core/src/EBox/CGI/Base.pm:548
 msgid ""
 "An internal error has occurred. This is most probably a bug, relevant "
 "information can be found in the logs."
 msgstr "Tekkis sisemine viga. Täpsemat teavet vea kohta leiad logidest."
 
-#: ../../main/core/src/EBox/CGI/Base.pm:547
+#: ../../main/core/src/EBox/CGI/Base.pm:554
 msgid ""
 "An unexpected internal error has occurred. This is a bug, relevant "
 "information can be found in the logs."
@@ -12745,32 +12746,32 @@ msgstr ""
 "Tekkis ootamatu sisemine viga. Täpsemat teavet vea kohta leiad logidest."
 
 # hehe...said putukale pihta :)
-#: ../../main/core/src/EBox/CGI/Base.pm:553
+#: ../../main/core/src/EBox/CGI/Base.pm:560
 #, fuzzy
 msgid "You have just hit a bug in Zentyal. Please seek technical support."
 msgstr "eBoxis tekkis viga. Palun pöördu tehnilise toe poole."
 
-#: ../../main/core/src/EBox/CGI/Base.pm:640
+#: ../../main/core/src/EBox/CGI/Base.pm:646
 msgid ""
 "Your request could not be processed because it had some incorrect parameters"
 msgstr "Sinu päringut ei töödeldud, kuna see sisaldas vigaseid parameetreid"
 
-#: ../../main/core/src/EBox/CGI/Base.pm:673
+#: ../../main/core/src/EBox/CGI/Base.pm:679
 msgid "Wrong HTTP referer detected, operation cancelled for security reasons"
 msgstr ""
 
-#: ../../main/core/src/EBox/CGI/Base.pm:685
+#: ../../main/core/src/EBox/CGI/Base.pm:691
 msgid ""
 "Your request could not be processed because it lacked some required "
 "parameters"
 msgstr ""
 "Sinu päringut ei töödeldud, kuna seal puudusid mõned nõutud parameetrid"
 
-#: ../../main/core/src/EBox/CGI/Base.pm:850
+#: ../../main/core/src/EBox/CGI/Base.pm:841
 msgid "Invalid uploaded file."
 msgstr "Vigane üleslaaditud fail."
 
-#: ../../main/core/src/EBox/CGI/Base.pm:856
+#: ../../main/core/src/EBox/CGI/Base.pm:847
 msgid "Cannot create a temporally file for the upload"
 msgstr "Ajutise faili loomine üleslaadimiseks nurjus"
 
@@ -13772,7 +13773,7 @@ msgstr ""
 #: ../../main/network/src/templates/confirmVlanDel.mas:22
 #: ../../main/network/src/templates/confirmremove.mas:24
 #: ../../main/network/src/templates/confirm.mas:37
-#: ../../main/software/src/templates/del.mas:144
+#: ../../main/software/src/templates/del.mas:143
 msgid "Ok"
 msgstr "Ok"
 
@@ -13780,7 +13781,7 @@ msgstr "Ok"
 #: ../../main/network/src/templates/confirmremove.mas:26
 #: ../../main/network/src/templates/confirm.mas:39
 #: ../../main/users/src/templates/del.mas:46
-#: ../../main/software/src/templates/del.mas:145
+#: ../../main/software/src/templates/del.mas:144
 #: ../../main/samba/src/templates/delete.mas:21
 #: ../../main/remoteservices/src/templates/RemoteServices/Backup/confirm.mas:73
 #: ../../main/mail/src/templates/warnusermdsize.mas:26
@@ -14214,7 +14215,7 @@ msgid "Version"
 msgstr "Versioon"
 
 #: ../../main/software/src/templates/updates.mas:46
-#: ../../main/software/src/templates/ebox.mas:152
+#: ../../main/software/src/templates/ebox.mas:153
 #: ../../main/software/src/templates/ebox.mas:587
 #: ../../main/software/src/templates/ebox.mas:611
 msgid "Update"
@@ -14256,7 +14257,7 @@ msgstr "Uuenda"
 msgid "Update list"
 msgstr "Uuenda"
 
-#: ../../main/software/src/templates/ebox.mas:158
+#: ../../main/software/src/templates/ebox.mas:159
 #: ../../main/software/src/templates/ebox.mas:561
 #: ../../main/software/src/templates/ebox.mas:602
 msgid "Install"
@@ -14299,27 +14300,27 @@ msgstr ""
 msgid "Select All"
 msgstr ""
 
-#: ../../main/software/src/templates/del.mas:97
+#: ../../main/software/src/templates/del.mas:96
 msgid "The following packages will be installed"
 msgstr "Järgmiste pakettide paigaldamine"
 
-#: ../../main/software/src/templates/del.mas:99
+#: ../../main/software/src/templates/del.mas:98
 msgid "The following packages will be removed"
 msgstr "Järgmiste pakettide eemaldamine"
 
-#: ../../main/software/src/templates/del.mas:152
+#: ../../main/software/src/templates/del.mas:151
 msgid "You may want to install also the following recommended packages:"
 msgstr ""
 
-#: ../../main/software/src/templates/del.mas:155
+#: ../../main/software/src/templates/del.mas:154
 msgid "Layer 7 filtering for Traffic Shaping (zentyal-l7-protocols)"
 msgstr ""
 
-#: ../../main/software/src/templates/del.mas:158
+#: ../../main/software/src/templates/del.mas:157
 msgid "Virus scanning for File Sharing (zentyal-antivirus and samba-vscan)"
 msgstr ""
 
-#: ../../main/software/src/templates/del.mas:161
+#: ../../main/software/src/templates/del.mas:160
 msgid "VoIP meetings support (dahdi and linux-headers)"
 msgstr ""
 
@@ -15371,6 +15372,10 @@ msgstr "eBoxis tekkis mingi viga: "
 msgid "Starting..."
 msgstr "Tegevuste alustamine..."
 
+#: ../../main/core/src/templates/progress.mas:161
+msgid " of "
+msgstr ""
+
 #: ../../main/core/src/templates/report/raid.mas:20
 #, perl-brace-format
 msgid "Inexistent RAID array {a}"
@@ -15562,26 +15567,18 @@ msgstr "Seadistuste taastamine kasutades seda faili"
 msgid "Restore from backup"
 msgstr "Taastamine varundusest"
 
-#: ../../main/core/src/templates/configurationFiles.mas:12
-msgid "Do you wish to overwrite these files?"
-msgstr "Kas sa soovid need failid üle kirjutada?"
-
-#: ../../main/core/src/templates/configurationFiles.mas:19
-msgid "Keep current file"
-msgstr "Hoia olemasolev fail alles"
-
-#: ../../main/core/src/templates/ebox/pageNotFound.mas:3
+#: ../../main/core/src/templates/pageNotFound.mas:3
 #, fuzzy
 msgid "Zentyal homepage"
 msgstr "eBoxi kodulehekülg"
 
 # Kontrolli palun URLi, kui see on käsitsi sisestatud
-#: ../../main/core/src/templates/ebox/pageNotFound.mas:7
+#: ../../main/core/src/templates/pageNotFound.mas:7
 msgid "If you typed the URL manually, please check it"
 msgstr "Kui kirjutasid URLi käsitsi, palun kontrolli seda"
 
 # kuvatakse kui 'page not found'
-#: ../../main/core/src/templates/ebox/pageNotFound.mas:8
+#: ../../main/core/src/templates/pageNotFound.mas:8
 #, fuzzy
 msgid ""
 "Maybe a change in the Zentyal configuration or software made no longer "
@@ -15591,7 +15588,7 @@ msgstr ""
 "lehekülg enam saadaval"
 
 #  
-#: ../../main/core/src/templates/ebox/pageNotFound.mas:9
+#: ../../main/core/src/templates/pageNotFound.mas:9
 #, perl-brace-format
 msgid ""
 "If you need more help, you may want visit {homepage} for documentation and "
@@ -15600,13 +15597,21 @@ msgstr ""
 "Kui vajad rohkem abi võid tutvuda dokumentatsiooniga kodulehel {homepage} "
 "või külastada e-posti listi."
 
-#: ../../main/core/src/templates/ebox/pageNotFound.mas:12
+#: ../../main/core/src/templates/pageNotFound.mas:12
 msgid "we're sorry"
 msgstr "meil on kahju"
 
-#: ../../main/core/src/templates/ebox/pageNotFound.mas:13
+#: ../../main/core/src/templates/pageNotFound.mas:13
 msgid "The page cannot be found"
 msgstr "Lehekülge ei leitud"
+
+#: ../../main/core/src/templates/configurationFiles.mas:12
+msgid "Do you wish to overwrite these files?"
+msgstr "Kas sa soovid need failid üle kirjutada?"
+
+#: ../../main/core/src/templates/configurationFiles.mas:19
+msgid "Keep current file"
+msgstr "Hoia olemasolev fail alles"
 
 #: ../../main/core/src/templates/dashboard/configurewidgets.mas:164
 msgid ""

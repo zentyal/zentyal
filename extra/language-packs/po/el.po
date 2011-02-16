@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: zentyal 2.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2011-02-13 13:25+0100\n"
+"POT-Creation-Date: 2011-02-16 11:33+0100\n"
 "PO-Revision-Date: 2011-02-15 17:43+0200\n"
 "Last-Translator: Nikos <nmar@town.gr>\n"
 "Language-Team: none\n"
@@ -312,7 +312,7 @@ msgstr ""
 "μπορούν να συνδεθούν με το φίλτρο αλληλογραφίας"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/ExternalMTA.pm:142
-#, perl-brace-format, fuzzy
+#, fuzzy, perl-brace-format
 msgid "Invalid external MTA {mta}. Local network addresses are not allowed"
 msgstr ""
 "Άκυρο εξωτερικό MTA {mta}. Τοπικές διευθύνσεις του δικτύου δεν επιτρέπονται"
@@ -338,7 +338,7 @@ msgstr ""
 "συνδεθούν με το φίλτρο αλληλογραφίας"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/ExternalDomain.pm:113
-#, perl-brace-format, fuzzy
+#, fuzzy, perl-brace-format
 msgid "{d} is a internal Zentyal virtual main domain"
 msgstr "{d} είναι ένας κεντρικός εσωτερικός Zentyal εικονικός τομέας"
 
@@ -530,7 +530,7 @@ msgstr "διαδικασία "
 #: ../../main/firewall/src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:119
 #: ../../main/mail/src/EBox/Mail/Model/GreylistConfiguration.pm:75
 #: ../../main/webserver/src/EBox/WebServer/Model/GeneralSettings.pm:244
-#: ../../main/core/src/EBox/Model/DataTable.pm:4471
+#: ../../main/core/src/EBox/Model/DataTable.pm:4478
 #: ../../main/core/src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:275
 #: ../../main/core/src/EBox/Logs/Model/ConfigureLogDataTable.pm:339
 #: ../../main/ebackup/src/EBox/Model/BackupDomains.pm:163
@@ -1989,7 +1989,7 @@ msgstr ""
 #: ../../main/network/src/EBox/Network/Composite/MultiGw.pm:82
 msgid ""
 "To be able to use this feature you need at least two enabled gateways. You "
-"can add them <a href=\"/ebox/Network/View/GatewayTable\">here</a> first."
+"can add them <a href=\"/zentyal/Network/View/GatewayTable\">here</a> first."
 msgstr ""
 
 #: ../../main/network/src/EBox/Network/Composite/DNS.pm:60
@@ -2965,8 +2965,7 @@ msgstr "Προσθήκη σχήματος Zarafa LDAP"
 #: ../../main/zarafa/src/EBox/Zarafa.pm:64
 msgid "Zentyal will need this schema to store Zarafa users."
 msgstr ""
-"Το Zentyal χρειάζεται αυτό το σχήμα για να αποθηκεύει τους χρήστες του "
-"Zarafa"
+"Το Zentyal χρειάζεται αυτό το σχήμα για να αποθηκεύει τους χρήστες του Zarafa"
 
 #: ../../main/zarafa/src/EBox/Zarafa.pm:68
 msgid "Add vmail system user"
@@ -5740,11 +5739,11 @@ msgstr ""
 msgid "automatic updates configuration"
 msgstr ""
 
-#: ../../main/software/src/EBox/CGI/EBox.pm:34
+#: ../../main/software/src/EBox/CGI/EBox.pm:32
 msgid "Choose Zentyal packages to install"
 msgstr ""
 
-#: ../../main/software/src/EBox/CGI/EBox.pm:38
+#: ../../main/software/src/EBox/CGI/EBox.pm:36
 msgid "Zentyal components"
 msgstr ""
 
@@ -5764,30 +5763,30 @@ msgstr ""
 msgid "The system components are up to date."
 msgstr ""
 
-#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:99
+#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:100
 msgid "There were no packages to update"
 msgstr ""
 
-#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:166
+#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:168
 msgid "Installing"
 msgstr ""
 
-#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:167
+#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:169
 msgid "Installing packages"
 msgstr ""
 
-#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:168
-#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:192
+#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:170
+#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:195
 #: ../../main/core/src/EBox/CGI/Finish.pm:79
 #: ../../main/core/src/templates/report/raid.mas:213
 msgid "Current operation"
 msgstr ""
 
-#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:169
+#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:171
 msgid "actions done"
 msgstr ""
 
-#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:170
+#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:172
 msgid ""
 "The packages installation has finished successfully. The administration "
 "interface may become unresponsive for a few seconds. Please wait patiently "
@@ -5795,32 +5794,32 @@ msgid ""
 "redirected to the next step"
 msgstr ""
 
-#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:175
+#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:177
 msgid ""
 "The packages installation has not finished correctly . More information on "
 "the logs"
 msgstr ""
 
-#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:190
+#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:193
 msgid "Removing package"
 msgstr ""
 
-#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:191
+#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:194
 msgid "Removing the selected package and its dependent packages"
 msgstr ""
 
-#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:193
+#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:196
 msgid "packages left to remove"
 msgstr ""
 
-#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:194
+#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:197
 msgid ""
 "The packages removal has finished successfully. The administration interface "
 "may become unresponsive for a few seconds. Please wait patiently until the "
 "system has been fully restarted"
 msgstr ""
 
-#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:198
+#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:201
 msgid ""
 "The packages removal has not finished correctly . More information on the "
 "logs"
@@ -6713,7 +6712,8 @@ msgstr "Εξαιρέσεις αντιμετώπισης ιών σε κοινού
 
 #: ../../main/samba/src/EBox/Samba/Model/AntivirusExceptions.pm:125
 msgid "Add exceptions to the default antivirus settings"
-msgstr "Προσθήκη εξαιρέσεων στις προεπιλεγμένες ρυθμίσεις της αντιμετώπισης ιών"
+msgstr ""
+"Προσθήκη εξαιρέσεων στις προεπιλεγμένες ρυθμίσεις της αντιμετώπισης ιών"
 
 #: ../../main/samba/src/EBox/Samba/Model/AntivirusExceptions.pm:126
 #: ../../main/samba/src/EBox/Samba/Model/RecycleExceptions.pm:126
@@ -6796,8 +6796,8 @@ msgid ""
 "allow you to share an existing directory within your file system"
 msgstr ""
 "{openit}Directory under Zentyal{closeit} θα δημιουργήσει αυτόματα τον "
-"κοινόχρηστο κατάλογο στο  /home/samba/shares {br}{openit}File system "
-"path{closeit} θα σας επιτρέπει να μοιραστείτε ένα υπάρχον κατάλογο μέσα στο "
+"κοινόχρηστο κατάλογο στο  /home/samba/shares {br}{openit}File system path"
+"{closeit} θα σας επιτρέπει να μοιραστείτε ένα υπάρχον κατάλογο μέσα στο "
 "σύστημα αρχείων"
 
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:352
@@ -6833,7 +6833,8 @@ msgstr "Εξαιρέσεις κάδου ανακύκλωσης για κοινο
 
 #: ../../main/samba/src/EBox/Samba/Model/RecycleExceptions.pm:125
 msgid "Add exceptions to the default Recycle Bin settings"
-msgstr "Προσθήκη εξαιρέσεων στις προεπιλεγμένες ρυθμίσεις του κάδου ανακύκλωσης"
+msgstr ""
+"Προσθήκη εξαιρέσεων στις προεπιλεγμένες ρυθμίσεις του κάδου ανακύκλωσης"
 
 #: ../../main/samba/src/EBox/Samba/Model/SambaUser.pm:50
 msgid "File Sharing Account"
@@ -7948,7 +7949,7 @@ msgstr ""
 msgid "Key for web subscription service not found"
 msgstr ""
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Subscription.pm:456
+#: ../../main/remoteservices/src/EBox/RemoteServices/Subscription.pm:457
 #, perl-brace-format
 msgid "Cannot contact to {host}. Check your connection to the Internet"
 msgstr ""
@@ -10482,7 +10483,7 @@ msgstr ""
 msgid "{row} moved down"
 msgstr ""
 
-#: ../../main/core/src/EBox/Model/DataTable.pm:4315
+#: ../../main/core/src/EBox/Model/DataTable.pm:4322
 #: ../../main/network/src/templates/ifaces.mas:216
 #: ../../main/zarafa/src/templates/zarafa.mas:67
 #: ../../main/zarafa/src/templates/zarafa.mas:68
@@ -10993,18 +10994,18 @@ msgstr ""
 msgid "Password changed"
 msgstr ""
 
-#: ../../main/core/src/EBox/Global.pm:538
+#: ../../main/core/src/EBox/Global.pm:535
 #, perl-brace-format
 msgid "Enabling {modName} module"
 msgstr ""
 
-#: ../../main/core/src/EBox/Global.pm:568
-#: ../../main/core/src/EBox/Global.pm:599
+#: ../../main/core/src/EBox/Global.pm:565
+#: ../../main/core/src/EBox/Global.pm:594
 #, perl-brace-format
 msgid "Saving {modName} module"
 msgstr ""
 
-#: ../../main/core/src/EBox/Global.pm:1085
+#: ../../main/core/src/EBox/Global.pm:1104
 #, perl-brace-format
 msgid "running {scriptName} script"
 msgstr ""
@@ -11296,8 +11297,8 @@ msgid "Save configuration"
 msgstr ""
 
 #: ../../main/core/src/EBox/CGI/Finish.pm:77
-#: ../../main/core/src/EBox/CGI/Progress.pm:82
-#: ../../main/core/src/EBox/CGI/Progress.pm:108
+#: ../../main/core/src/EBox/CGI/Progress.pm:81
+#: ../../main/core/src/EBox/CGI/Progress.pm:106
 msgid "Saving changes"
 msgstr ""
 
@@ -11471,42 +11472,42 @@ msgid ""
 "these non alphanumeric chars: /.?&+:-@ and spaces are allowed."
 msgstr ""
 
-#: ../../main/core/src/EBox/CGI/Base.pm:541
+#: ../../main/core/src/EBox/CGI/Base.pm:548
 msgid ""
 "An internal error has occurred. This is most probably a bug, relevant "
 "information can be found in the logs."
 msgstr ""
 
-#: ../../main/core/src/EBox/CGI/Base.pm:547
+#: ../../main/core/src/EBox/CGI/Base.pm:554
 msgid ""
 "An unexpected internal error has occurred. This is a bug, relevant "
 "information can be found in the logs."
 msgstr ""
 
-#: ../../main/core/src/EBox/CGI/Base.pm:553
+#: ../../main/core/src/EBox/CGI/Base.pm:560
 msgid "You have just hit a bug in Zentyal. Please seek technical support."
 msgstr ""
 
-#: ../../main/core/src/EBox/CGI/Base.pm:640
+#: ../../main/core/src/EBox/CGI/Base.pm:646
 msgid ""
 "Your request could not be processed because it had some incorrect parameters"
 msgstr ""
 
-#: ../../main/core/src/EBox/CGI/Base.pm:673
+#: ../../main/core/src/EBox/CGI/Base.pm:679
 msgid "Wrong HTTP referer detected, operation cancelled for security reasons"
 msgstr ""
 
-#: ../../main/core/src/EBox/CGI/Base.pm:685
+#: ../../main/core/src/EBox/CGI/Base.pm:691
 msgid ""
 "Your request could not be processed because it lacked some required "
 "parameters"
 msgstr ""
 
-#: ../../main/core/src/EBox/CGI/Base.pm:850
+#: ../../main/core/src/EBox/CGI/Base.pm:841
 msgid "Invalid uploaded file."
 msgstr ""
 
-#: ../../main/core/src/EBox/CGI/Base.pm:856
+#: ../../main/core/src/EBox/CGI/Base.pm:847
 msgid "Cannot create a temporally file for the upload"
 msgstr ""
 
@@ -12419,7 +12420,7 @@ msgstr ""
 #: ../../main/network/src/templates/confirmVlanDel.mas:22
 #: ../../main/network/src/templates/confirmremove.mas:24
 #: ../../main/network/src/templates/confirm.mas:37
-#: ../../main/software/src/templates/del.mas:144
+#: ../../main/software/src/templates/del.mas:143
 msgid "Ok"
 msgstr ""
 
@@ -12427,7 +12428,7 @@ msgstr ""
 #: ../../main/network/src/templates/confirmremove.mas:26
 #: ../../main/network/src/templates/confirm.mas:39
 #: ../../main/users/src/templates/del.mas:46
-#: ../../main/software/src/templates/del.mas:145
+#: ../../main/software/src/templates/del.mas:144
 #: ../../main/samba/src/templates/delete.mas:21
 #: ../../main/remoteservices/src/templates/RemoteServices/Backup/confirm.mas:73
 #: ../../main/mail/src/templates/warnusermdsize.mas:26
@@ -12819,7 +12820,7 @@ msgid "Version"
 msgstr "Έκδοση"
 
 #: ../../main/software/src/templates/updates.mas:46
-#: ../../main/software/src/templates/ebox.mas:152
+#: ../../main/software/src/templates/ebox.mas:153
 #: ../../main/software/src/templates/ebox.mas:587
 #: ../../main/software/src/templates/ebox.mas:611
 msgid "Update"
@@ -12856,7 +12857,7 @@ msgstr ""
 msgid "Update list"
 msgstr ""
 
-#: ../../main/software/src/templates/ebox.mas:158
+#: ../../main/software/src/templates/ebox.mas:159
 #: ../../main/software/src/templates/ebox.mas:561
 #: ../../main/software/src/templates/ebox.mas:602
 msgid "Install"
@@ -12898,27 +12899,27 @@ msgstr "Αποεπιλογή όλων"
 msgid "Select All"
 msgstr "Επιλογή όλων"
 
-#: ../../main/software/src/templates/del.mas:97
+#: ../../main/software/src/templates/del.mas:96
 msgid "The following packages will be installed"
 msgstr ""
 
-#: ../../main/software/src/templates/del.mas:99
+#: ../../main/software/src/templates/del.mas:98
 msgid "The following packages will be removed"
 msgstr ""
 
-#: ../../main/software/src/templates/del.mas:152
+#: ../../main/software/src/templates/del.mas:151
 msgid "You may want to install also the following recommended packages:"
 msgstr ""
 
-#: ../../main/software/src/templates/del.mas:155
+#: ../../main/software/src/templates/del.mas:154
 msgid "Layer 7 filtering for Traffic Shaping (zentyal-l7-protocols)"
 msgstr ""
 
-#: ../../main/software/src/templates/del.mas:158
+#: ../../main/software/src/templates/del.mas:157
 msgid "Virus scanning for File Sharing (zentyal-antivirus and samba-vscan)"
 msgstr ""
 
-#: ../../main/software/src/templates/del.mas:161
+#: ../../main/software/src/templates/del.mas:160
 msgid "VoIP meetings support (dahdi and linux-headers)"
 msgstr ""
 
@@ -13859,6 +13860,10 @@ msgstr ""
 msgid "Starting..."
 msgstr ""
 
+#: ../../main/core/src/templates/progress.mas:161
+msgid " of "
+msgstr ""
+
 #: ../../main/core/src/templates/report/raid.mas:20
 #, perl-brace-format
 msgid "Inexistent RAID array {a}"
@@ -14027,41 +14032,41 @@ msgstr ""
 msgid "Restore from backup"
 msgstr ""
 
-#: ../../main/core/src/templates/configurationFiles.mas:12
-msgid "Do you wish to overwrite these files?"
-msgstr ""
-
-#: ../../main/core/src/templates/configurationFiles.mas:19
-msgid "Keep current file"
-msgstr ""
-
-#: ../../main/core/src/templates/ebox/pageNotFound.mas:3
+#: ../../main/core/src/templates/pageNotFound.mas:3
 msgid "Zentyal homepage"
 msgstr "Αρχική σελίδα Zentyal"
 
-#: ../../main/core/src/templates/ebox/pageNotFound.mas:7
+#: ../../main/core/src/templates/pageNotFound.mas:7
 msgid "If you typed the URL manually, please check it"
 msgstr ""
 
-#: ../../main/core/src/templates/ebox/pageNotFound.mas:8
+#: ../../main/core/src/templates/pageNotFound.mas:8
 msgid ""
 "Maybe a change in the Zentyal configuration or software made no longer "
 "available the requested page"
 msgstr ""
 
-#: ../../main/core/src/templates/ebox/pageNotFound.mas:9
+#: ../../main/core/src/templates/pageNotFound.mas:9
 #, perl-brace-format
 msgid ""
 "If you need more help, you may want visit {homepage} for documentation and "
 "mailing lists"
 msgstr ""
 
-#: ../../main/core/src/templates/ebox/pageNotFound.mas:12
+#: ../../main/core/src/templates/pageNotFound.mas:12
 msgid "we're sorry"
 msgstr ""
 
-#: ../../main/core/src/templates/ebox/pageNotFound.mas:13
+#: ../../main/core/src/templates/pageNotFound.mas:13
 msgid "The page cannot be found"
+msgstr ""
+
+#: ../../main/core/src/templates/configurationFiles.mas:12
+msgid "Do you wish to overwrite these files?"
+msgstr ""
+
+#: ../../main/core/src/templates/configurationFiles.mas:19
+msgid "Keep current file"
 msgstr ""
 
 #: ../../main/core/src/templates/dashboard/configurewidgets.mas:164
