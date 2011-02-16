@@ -331,17 +331,19 @@ sub exists
 #
 # Generic get to retrieve keys. It will
 # automatically check if it's a scalar,
-# list, set or hash value.
+# list, set or hash value unless optional
+# type argument is specified.
 #
 sub get
 {
-    my ($self, $key) = @_;
+    my ($self, $key, $type) = @_;
 
-    my $type = $self->_redis_call('type', $key);
+    unless (defined ($type)) {
+        $type = $self->_redis_call('type', $key);
+    }
 
     if ($type eq any((REDIS_TYPES))) {
         my $getter = "get_$type";
-
         return $self->$getter($key);
     } else {
         return undef;
@@ -352,27 +354,34 @@ sub get
 #
 # Generic method to key values. It will
 # automatically check if it's a scalar,
-# list or hash value.
+# list or hash value unless the optional
+# type argument is specified.
 #
 sub set
 {
-    my ($self, $key, $value) = @_;
+    my ($self, $key, $value, $type) = @_;
 
-    my $type = ref ($value);
-    if ($type eq 'ARRAY') {
-        if ($key eq _dir($key)) {
-            $type = 'set';
+    unless (defined ($type)) {
+        $type = ref ($value);
+        if ($type eq 'ARRAY') {
+            if ($key eq _dir($key)) {
+                $type = 'set';
+            } else {
+                $type = 'list';
+            }
+        } elsif ($type eq 'HASH') {
+            $type = 'hash';
         } else {
-            $type = 'list';
+            $type = 'string';
         }
-    } elsif ($type eq 'HASH') {
-        $type = 'hash';
-    } else {
-        $type = 'string';
     }
-    my $setter = "set_$type";
 
-    return $self->$setter($key, $value);
+    if ($type eq any((REDIS_TYPES))) {
+        my $setter = "set_$type";
+        return $self->$setter($key, $value);
+    } else {
+        return undef;
+    }
 }
 
 # Method: backup_dir
@@ -522,8 +531,7 @@ sub import_dir_from_yaml
             $key = $entry->{key};
         }
         my $type = $entry->{type};
-        my $setter = "set_$type";
-        $self->$setter($key, $value);
+        $self->set($key, $value, $type);
     }
 }
 
@@ -588,26 +596,22 @@ sub _backup_dir
 
     for my $entry (@{$self->all_entries($key, $includeDirs)}) {
         my $type = $self->_redis_call('type', $entry);
-        if ($type eq any((REDIS_TYPES))) {
-            my $setter = "set_$type";
-            my $getter = "get_$type";
-            my $destKey = $entry;
-            if ($destinationType eq 'redis') {
-                $destKey = $dest . substr($destKey, length($key));
-            }
+        my $destKey = $entry;
+        if ($destinationType eq 'redis') {
+            $destKey = $dest . substr($destKey, length($key));
+        }
 
-            my $value = $self->$getter($entry);
-            if ($destinationType eq 'redis') {
-                $self->$setter($destKey, $value);
-            } else {
-                push (@{$args{destination}},
-                        {
-                        type => $type,
-                        key => $destKey,
-                        value => $value
-                        }
-                     );
-            }
+        my $value = $self->get($entry, $type);
+        if ($destinationType eq 'redis') {
+            $self->set($destKey, $value, $type);
+        } else {
+            push (@{$args{destination}},
+                    {
+                     type => $type,
+                     key => $destKey,
+                     value => $value
+                    }
+                 );
         }
     }
 
@@ -631,12 +635,9 @@ sub _restore_dir
 
     for my $entry (@{$self->all_entries($orig . $key)}) {
         my $type = $self->_redis_call('type', $entry);
-        if ($type eq any((REDIS_TYPES))) {
-            my $destKey = $dest . substr($entry, length($orig));
-            my $setter = "set_$type";
-            my $getter = "get_$type";
-            $self->$setter($destKey, $self->$getter($entry));
-        }
+        my $destKey = $dest . substr($entry, length($orig));
+        my $value = $self->get($entry, $type);
+        $self->set($destKey, $value, $type);
     }
     for my $subdir (@{$self->all_dirs($orig. $key)}) {
         $self->_restore_dir(substr($subdir, length($orig)), $orig, $dest);
