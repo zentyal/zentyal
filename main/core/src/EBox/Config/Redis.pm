@@ -339,7 +339,7 @@ sub get
 
     my $type = $self->_redis_call('type', $key);
 
-    if ($type eq any(REDIS_TYPES)) {
+    if ($type eq any((REDIS_TYPES))) {
         my $getter = "get_$type";
 
         return $self->$getter($key);
@@ -588,7 +588,7 @@ sub _backup_dir
 
     for my $entry (@{$self->all_entries($key, $includeDirs)}) {
         my $type = $self->_redis_call('type', $entry);
-        if ($type eq any(REDIS_TYPES)) {
+        if ($type eq any((REDIS_TYPES))) {
             my $setter = "set_$type";
             my $getter = "get_$type";
             my $destKey = $entry;
@@ -631,7 +631,7 @@ sub _restore_dir
 
     for my $entry (@{$self->all_entries($orig . $key)}) {
         my $type = $self->_redis_call('type', $entry);
-        if ($type eq any(REDIS_TYPES)) {
+        if ($type eq any((REDIS_TYPES))) {
             my $destKey = $dest . substr($entry, length($orig));
             my $setter = "set_$type";
             my $getter = "get_$type";
