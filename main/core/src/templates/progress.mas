@@ -158,7 +158,8 @@ my $progressIn = EBox::ProgressIndicator->retrieve($progressId);
     </div>
 </div>
 <br/>
-<span id='ticks'>-</span><% __(' of ') %><span id='totalTicks'>-</span><% ' ' . $itemsLeftMessage %>
+<span id='ticks'>-</span><% __(" of ") %>
+<span id='totalTicks'>-</span><% ' ' . $itemsLeftMessage %>
 <br/>
 </div>
 
