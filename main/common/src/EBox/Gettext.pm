@@ -67,7 +67,12 @@ sub gettextdomain
 
 sub __ # (text)
 {
-    my $string = gettext(shift);
+    my ($msgid) = @_;
+
+    # FIXME: Probably there is a better way to do this
+    # and avoid setting the domain every time, so this is a
+    # temporary solution
+    my $string = __d($msgid, 'zentyal');
     $string =~ s/\'/\&#39\;/g;
     $string =~ s/\"/\&#34\;/g;
     return $string;
@@ -83,7 +88,8 @@ sub __n # (text)
 sub __x # (text, %variables)
 {
     my ($msgid, %vars) = @_;
-    my $string = gettext($msgid);
+    #FIXME: my $string = gettext($msgid);
+    my $string = __d($msgid, 'zentyal');
     return __expand($string, %vars);
 }
 
