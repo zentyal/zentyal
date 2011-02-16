@@ -19,12 +19,11 @@ use strict;
 use warnings;
 
 use base qw(EBox::Module::Service
-                EBox::ObjectsObserver
-                EBox::NetworkObserver
-                EBox::LogObserver
-                EBox::Model::ModelProvider
-                EBox::Model::CompositeProvider
-                );
+            EBox::ObjectsObserver
+            EBox::NetworkObserver
+            EBox::LogObserver
+            EBox::Model::ModelProvider
+            EBox::Model::CompositeProvider);
 
 use EBox::Objects;
 use EBox::Global;

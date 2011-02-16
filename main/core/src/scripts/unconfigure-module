@@ -8,7 +8,7 @@ EBox::init();
 my $module = $ARGV[0];
 
 unless (defined($module)) {
-	print "Usage: $0 module\n";	
+	print "Usage: $0 module\n";
 	exit 1;
 }
 
