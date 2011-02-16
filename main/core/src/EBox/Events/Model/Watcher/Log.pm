@@ -60,18 +60,17 @@ use constant FILTERING_MODEL_NAME => 'LogWatcherFiltering';
 #     <EBox::Events::Model::Watcher::Log>
 #
 sub new
-  {
-      my $class = shift;
+{
+    my $class = shift;
 
-      my $self = $class->SUPER::new(@_);
-      bless ( $self, $class);
+    my $self = $class->SUPER::new(@_);
+    bless ( $self, $class);
 
-      $self->{logs} = EBox::Global->modInstance('logs');
-      $self->{models} = [];
+    $self->{logs} = EBox::Global->modInstance('logs');
+    $self->{models} = [];
 
-      return $self;
-
-  }
+    return $self;
+}
 
 # Method: subModels
 #
@@ -84,12 +83,10 @@ sub new
 #
 sub subModels
 {
-
     my ($self) = @_;
 
     $self->_setUpModels();
     return $self->{models};
-
 }
 
 # Method: _ids
@@ -216,7 +213,6 @@ sub updatedRowNotify
                                  . $self->message()));
         }
     }
-
 }
 
 # Method: addedRowNotify
@@ -240,7 +236,6 @@ sub addedRowNotify
                                  . $self->message()));
         }
     }
-
 }
 
 
@@ -253,39 +248,37 @@ sub addedRowNotify
 #     <EBox::Model::DataTable::_table>
 #
 sub _table
-  {
-
-      my @tableDesc =
+{
+    my @tableDesc =
         (
          new EBox::Types::Text(
-                               fieldName     => 'domain',
-                               printableName => __('Domain'),
-                               editable      => 0,
-                              ),
+             fieldName     => 'domain',
+             printableName => __('Domain'),
+             editable      => 0,
+             ),
          new EBox::Types::HasMany(
-                                  fieldName     => 'filters',
-                                  printableName => __('Filtering'),
-                                  foreignModelAcquirer => \&acquireFilteringModel,
-                                  backview      => '/zentyal/Events/View/LogWatcherConfiguration?directory=Log',
-                                 ),
-       );
+             fieldName     => 'filters',
+             printableName => __('Filtering'),
+             foreignModelAcquirer => \&acquireFilteringModel,
+             backView      => '/zentyal/Events/View/LogWatcherConfiguration?directory=Log',
+             ),
+        );
 
-      my $dataForm = {
-                      tableName           => 'LogWatcherConfiguration',
-                      printableTableName  => __('Configure log watchers'),
-                      modelDomain         => 'Events',
-                      printableRowName    => __('Log watcher'),
-                      defaultActions      => [ 'editField', 'changeView' ],
-                      tableDescription    => \@tableDesc,
-                      class               => 'dataTable',
-                      help                => '',
-                      enableProperty      => 1,
-                      defaultEnabledValue => 0,
-                     };
+    my $dataForm = {
+        tableName           => 'LogWatcherConfiguration',
+        printableTableName  => __('Configure log watchers'),
+        modelDomain         => 'Events',
+        printableRowName    => __('Log watcher'),
+        defaultActions      => [ 'editField', 'changeView' ],
+        tableDescription    => \@tableDesc,
+        class               => 'dataTable',
+        help                => '',
+        enableProperty      => 1,
+        defaultEnabledValue => 0,
+    };
 
-      return $dataForm;
-
-  }
+    return $dataForm;
+}
 
 # Group: Callback functions
 
@@ -306,13 +299,11 @@ sub _table
 #
 sub acquireFilteringModel
 {
-
     my ($row) = @_;
 
     my $logDomain = $row->valueByName('domain');
 
     return '/events/' . FILTERING_MODEL_NAME . "/$logDomain";
-
 }
 
 # Group: Private methods
@@ -320,7 +311,6 @@ sub acquireFilteringModel
 # Set up the already created models
 sub _setUpModels
 {
-
     my ($self) = @_;
 
     my $logDomainTables = $self->{logs}->getAllTables();
@@ -335,7 +325,6 @@ sub _setUpModels
 
         }
     }
-
 }
 
 # Create a new filtering model given a
@@ -355,7 +344,6 @@ sub _createFilteringModel # (domain)
                                                                     );
 
     return $filteringModel;
-
 }
 
 # Remove an existing filtering model given a
@@ -367,7 +355,6 @@ sub _removeFilteringModel # (domain)
     my $modelManager = EBox::Model::ModelManager->instance();
 
     $modelManager->removeModel('/events/' . FILTERING_MODEL_NAME . "/$domain");
-
 }
 
 # Method: viewCustomizer
@@ -377,21 +364,21 @@ sub _removeFilteringModel # (domain)
 #
 sub viewCustomizer
 {
-        my ($self) = @_;
+    my ($self) = @_;
 
-        my $custom =  $self->SUPER::viewCustomizer();
-        $custom->setHTMLTitle([
+    my $custom =  $self->SUPER::viewCustomizer();
+    $custom->setHTMLTitle([
                 {
-                title => __('Events'),
-                link  => '/zentyal/Events/Composite/GeneralComposite',
+                    title => __('Events'),
+                    link  => '/zentyal/Events/Composite/GeneralComposite',
                 },
                 {
-                title => __('Log Observer Watcher'),
-                link  => ''
+                    title => __('Log Observer Watcher'),
+                    link  => ''
                 }
-        ]);
+            ]);
 
-        return $custom;
+    return $custom;
 }
 
 1;
