@@ -35,6 +35,7 @@ HEAD
 	+ Removed obsolete logs and events migrations
 	+ Create plpgsql is now done on EBox::Logs::initialSetup
 	+ Replace old ebox-migrate script with EBox::Module::Base::migrate
+	+ Rotate duplicity-debug.log log if exists
 	+ Bug fix: Port selected during installation is correctly saved
 	+ Zentyal web UI is restarted if their dependencies are upgraded
 	+ Bug fix: Logs don't include unrelated information now
