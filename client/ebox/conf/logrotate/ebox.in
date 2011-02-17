@@ -23,3 +23,12 @@
         missingok
         notifempty
 }
+
+@LOCALSTATEDIR@/log/ebox/duplicity-debug.log {
+        rotate 7
+        size 10M
+        compress
+        nocreate
+        missingok
+        notifempty
+}
