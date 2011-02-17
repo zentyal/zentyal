@@ -32,7 +32,7 @@ try {
 
 processDir(EBox::Config::conf() . 'userjournal/');
 
-if (EBox::Global->modExists('usercorner') {
+if (EBox::Global->modExists('usercorner')) {
     eval 'use EBox::UserCorner';
     processDir(EBox::UserCorner::usercornerdir() . 'userjournal/');
 }
