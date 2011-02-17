@@ -49,8 +49,8 @@ sub _runCronJobs
             throw EBox::Exceptions::Internal("Not a proper YAML file $metadataFilePath: " . $yaml->errstr());
         }
         # The period is in minutes
-        my $period        = $yaml->[0]->{period};
-        my $lastTimestamp = $yaml->[0]->{lastTimestamp};
+        my $period        = $yaml->{period};
+        my $lastTimestamp = $yaml->{lastTimestamp};
         if ( $lastTimestamp + ($period * 60) < time() ) {
             foreach my $fileName (qw(exitValue stderr stdout)) {
                 unlink("$cronJobDirPath/$fileName") if -e "$cronJobDirPath/$fileName";
@@ -58,8 +58,8 @@ sub _runCronJobs
             # Create the link run the job in runnerd
             symlink( $cronJobDirPath, INCOMING_DIR . $basename);
             # Updates the timestamp
-            $yaml->[0]->{lastTimestamp} = time();
-            $yaml->write($metadataFilePath);
+            $yaml->{lastTimestamp} = time();
+            YAML::XS::DumpFile($metadataFilePath, $yaml);
         }
     }
     closedir($dirh);
