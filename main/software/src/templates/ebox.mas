@@ -264,7 +264,7 @@ var pkgTable = new Array(
             <div class='feature'>
                 <img src='/data/software/images/qos.png' alt='Traffic control' />
                 <h4><% __s('Traffic control') %></h4>
-                <p><strong><% __s('Business class for data.</strong><br>') %> />
+                <p><strong><% __s('Business class for data.') %></strong><br />
                 <% __s('An overloaded Internet connection is a thing of the past. Make sure your most critical traffic is served properly, regardless of network load.') %></p>
             </div>
             <div class='feature'>
@@ -339,7 +339,7 @@ var pkgTable = new Array(
             <div class='feature'>
                 <img src='/data/software/images/firewall.png' alt='Firewall' />
                 <h4><% __s('Firewall') %></h4>
-                <p><strong><% __s('Security starts at the front desk.</strong>') %><br />
+                <p><strong><% __s('Security starts at the front desk.') %></strong><br />
                 <% __s('There are different layers of security, but all starts with a good firewall. Allowing only the traffic you need makes a great first sieve against unwanted attackers.') %></p>
             </div>
             <div class='feature'>
@@ -538,7 +538,7 @@ var pkgTable = new Array(
             <div class='feature'>
                 <img src='/data/software/images/im.png' alt='Instant messaging' />
                 <h4><% __s('Instant messaging') %></h4>
-                <p><strong><% __s('When email is not enough.</strong>') %><br />
+                <p><strong><% __s('When email is not enough.') %></strong><br />
                 <% __s('Sometimes you just need more fluid conversations. Zentyal provides instant messaging based on the Jabber/XMPP protocol, so you can use any of the existing clients on any platform, even on cell phones.') %></p>
             </div>
             <div class='feature'>
