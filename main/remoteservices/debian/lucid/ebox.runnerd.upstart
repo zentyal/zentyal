@@ -6,4 +6,4 @@ description     "Zentyal runner daemon"
 author          "eBox Technologies S.L."
 
 respawn
-exec  /usr/share/zentyal/runnerd -f
+exec  /usr/share/zentyal-remoteservices/runnerd -f
