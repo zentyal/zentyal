@@ -139,7 +139,7 @@ var check = new Array();
 %       }
 %   }
     <input type='hidden' name='go' value='yes'/>
-    <input type='hidden' name='ebox-<% $action %>' value="1" />
+    <input type='hidden' name='<% $action %>' value="1" />
     <input class='inputButton' onclick='sendForm()' type='button' value="<% __('Ok') %>" />
     <input class='inputButton' type='submit' name='cancel' value="<% __('Cancel') %>" />
 </form>

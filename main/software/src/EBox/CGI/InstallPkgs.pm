@@ -52,9 +52,9 @@ sub _process($) {
     if (defined($self->param('upgrade'))) {
         $action = 'install';
         $doit = 'yes';
-    } elsif (defined($self->param('ebox-install'))) {
+    } elsif (defined($self->param('install'))) {
         $action = 'install';
-    } elsif (defined($self->param('ebox-remove'))) {
+    } elsif (defined($self->param('remove'))) {
         $action = 'remove';
     } else {
         throw EBox::Exceptions::Internal("Missing action parameter");

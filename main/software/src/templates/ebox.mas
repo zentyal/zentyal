@@ -747,7 +747,7 @@ var pkgTable = new Array(
         if (send) {
             var inputAct = document.createElement('input');
             inputAct.setAttribute('type', 'text');
-            inputAct.setAttribute('name', 'zentyal-'+action);
+            inputAct.setAttribute('name', action);
             inputAct.setAttribute('value', action);
             document.formPkg.appendChild(inputAct);
             document.formPkg.submit();
@@ -799,7 +799,7 @@ var pkgTable = new Array(
         if (send) {
             var inputAct = document.createElement('input');
             inputAct.setAttribute('type', 'text');
-            inputAct.setAttribute('name', 'ebox-install');
+            inputAct.setAttribute('name', 'install');
             inputAct.setAttribute('value', 'install');
             document.formPkg.appendChild(inputAct);
             document.formPkg.submit();
