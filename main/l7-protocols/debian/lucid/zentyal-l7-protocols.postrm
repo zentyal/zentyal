@@ -5,8 +5,7 @@ case "$1" in
         dpkg-trigger --no-await zentyal-core
 		;;
 	purge)
-        # Purge configuration
-        /usr/share/zentyal/clean-conf l7-protocols
+        /usr/share/zentyal/purge-module l7-protocols
 		;;
 esac
 

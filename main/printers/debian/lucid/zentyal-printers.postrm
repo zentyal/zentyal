@@ -5,9 +5,7 @@ case "$1" in
         dpkg-trigger --no-await zentyal-core
        ;;
 	purge)
-        /usr/share/zentyal/clean-conf printers
-
-        /usr/share/zentyal/drop-tables printers
+        /usr/share/zentyal/purge-module printers
         ;;
 esac
 

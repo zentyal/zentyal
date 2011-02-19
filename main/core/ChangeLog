@@ -14,6 +14,8 @@ HEAD
 	+ Remove the ebox- prefix on all the names of the /usr/share scripts
 	+ New createTables method in EBox::LogObserver called from
 	  initial-setup to create SQL tables for each module
+	+ New dropTables method in EBox::LogObserver to be called from
+	  purge-module to drop SQL tables for each module
 	+ Always drop tables when purging a package
 	+ Delete 'ebox' user when purging zentyal-core
 	+ Moved all SQL schemas from tools/sqllogs to schemas/sql
@@ -32,6 +34,7 @@ HEAD
 	  and moved the actual code to /usr/share/zentyal/manage-logs
 	+ Move /usr/share/ebox/zentyal-redisvi to /usr/share/zentyal/redisvi
 	+ New /usr/share/zentyal/initial-setup script for modules postinst
+	+ New /usr/share/zentyal/purge-module script for modules postrm
 	+ Removed obsolete logs and events migrations
 	+ Create plpgsql is now done on EBox::Logs::initialSetup
 	+ Replace old ebox-migrate script with EBox::Module::Base::migrate

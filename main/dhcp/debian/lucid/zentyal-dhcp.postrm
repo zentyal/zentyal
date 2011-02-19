@@ -4,13 +4,8 @@ case "$1" in
     remove)
         dpkg-trigger --no-await zentyal-core
         ;;
-
     purge)
-        # Purge configuration
-        /usr/share/zentyal/clean-conf dhcp
-
-        # drop tables
-        /usr/share/zentyal/drop-tables dhcp
+        /usr/share/zentyal/purge-module dhcp
         ;;
 esac
 

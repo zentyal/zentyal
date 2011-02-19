@@ -1,14 +1,11 @@
 #!/bin/bash
 
 case "$1" in
-	remove)
+    remove)
         dpkg-trigger --no-await zentyal-core
         ;;
-	purge)
-        # Purge configuration
-        /usr/share/zentyal/clean-conf dns
-
-        /usr/share/zentyal/drop-tables dns
+    purge)
+        /usr/share/zentyal/purge-module dns
         ;;
 esac
 

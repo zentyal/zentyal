@@ -6,10 +6,7 @@ case "$1" in
         ;;
 
     purge)
-        # Purge configuration
-        /usr/share/zentyal/clean-conf mail
-
-        /usr/share/zentyal/drop-tables mail
+        /usr/share/zentyal/purge-module mail
         ;;
 esac
 

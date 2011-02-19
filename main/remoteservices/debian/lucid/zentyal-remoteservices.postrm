@@ -5,10 +5,7 @@ case "$1" in
         dpkg-trigger --no-await zentyal-core
     ;;
     purge)
-        # Purge configuration
-        /usr/share/zentyal/clean-conf remoteservices
-
-        /usr/share/zentyal/drop-tables remoteservices
+        /usr/share/zentyal/purge-module remoteservices
     ;;
 esac
 

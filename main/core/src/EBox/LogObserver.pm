@@ -27,6 +27,9 @@ use warnings;
 use EBox::Logs::Consolidate;
 use Perl6::Junction qw(any);
 use File::Basename;
+use File::Slurp;
+
+use constant SQL_TABLES_DIR => '/var/lib/zentyal/sql-tables/';
 
 sub new
 {
@@ -70,22 +73,61 @@ sub createTables
 {
     my ($self) = @_;
 
-    my $modname = $self->{'name'};
-    my $path = EBox::Config::share() . "zentyal-$modname/sql";
+    my $path = EBox::Config::share();
+    my $modname;
+    if (defined ($self)) {
+        $modname = $self->{'name'};
+        $path .= "zentyal-$modname/sql";
+    } else {
+        $path .= 'zentyal/sql';
+    }
+
+    my @names;
 
     foreach my $sqlfile (glob ("$path/*.sql")) {
-        $self->_addTable($sqlfile);
+        push (@names, _addTable($sqlfile));
     }
 
     my @timePeriods = @{ EBox::Logs::Consolidate->timePeriods() };
     foreach my $sqlfile (glob ("$path/period/*.sql")) {
-        $self->_addTable($sqlfile, @timePeriods);
+        push (@names, _addTable($sqlfile, @timePeriods));
     }
+
+    # Write table names file to drop them in purge-module
+    if (defined $modname) {
+        my $filename = SQL_TABLES_DIR . $modname;
+        write_file($filename, join ("\n", @names));
+    }
+}
+
+# Method: dropTables
+#
+#   This method drops the SQL table names stored at
+#   /var/lib/zentyal/sql-tables/$module
+#
+sub dropTables
+{
+    my ($module) = @_;
+
+    my $dbName = EBox::Config::configkey('eboxlogs_dbname');
+
+    my $tablesFile = SQL_TABLES_DIR . $module;
+
+    my @tables = read_file($tablesFile);
+    return unless @tables;
+    chomp (@tables);
+
+    foreach my $table (@tables) {
+        # FIXME: Use DBI?
+        EBox::Sudo::sudo("psql -c \"DROP TABLE $table\" $dbName", 'postgres');
+    }
+
+    unlink ($tablesFile);
 }
 
 sub _addTable
 {
-    my ($self, $file, @timePeriods) = @_;
+    my ($file, @timePeriods) = @_;
 
     my $dbName = EBox::Config::configkey('eboxlogs_dbname');
     my $dbUser = EBox::Config::configkey('eboxlogs_dbuser');
@@ -94,27 +136,29 @@ sub _addTable
     $table =~ s/\.sql$//;
 
     if (@timePeriods) {
+        my @names;
         foreach my $timePeriod (@timePeriods) {
             my $fullName = $table . '_' . $timePeriod;
 
-            my $fileCmds = File::Slurp::read_file($file);
+            my $fileCmds = read_file($file);
             my $sqlCmds = $fileCmds;
             $sqlCmds =~ s/$table/$fullName/g;
 
             my $tmpFile = EBox::Config::tmp() . "$fullName.sql";
-            File::Slurp::write_file($tmpFile, $sqlCmds);
+            write_file($tmpFile, $sqlCmds);
 
             EBox::Sudo::sudo("psql -f $tmpFile $dbName", 'postgres');
             EBox::Sudo::sudo("psql -c 'GRANT SELECT, INSERT, UPDATE, DELETE ON $fullName TO $dbUser' $dbName", 'postgres');
+            push (@names, $fullName);
         }
+        return @names;
     } else {
         # FIXME: Use DBI?
         EBox::Sudo::sudo("psql -f $file $dbName", 'postgres');
         EBox::Sudo::sudo("psql -c \"GRANT SELECT, INSERT, UPDATE, DELETE ON $table TO $dbUser\" $dbName", 'postgres');
+        return $table;
     }
 }
-
-
 
 # Method: tableInfo
 #

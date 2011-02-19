@@ -1,10 +1,9 @@
 #!/bin/bash
 
-set -e
-
 case "$1" in
 	remove)
-        invoke-rc.d zentyal firewall stop || true
+        invoke-rc.d zentyal firewall stop
 		;;
 esac
 
+exit 0

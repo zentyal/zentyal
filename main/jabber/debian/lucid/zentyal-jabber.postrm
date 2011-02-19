@@ -2,11 +2,10 @@
 
 case "$1" in
 	remove)
-            dpkg-trigger --no-await zentyal-core
+        dpkg-trigger --no-await zentyal-core
         ;;
 	purge)
-        # Purge configuration
-        /usr/share/zentyal/clean-conf jabber
+        /usr/share/zentyal/purge-module jabber
         ;;
 esac
 

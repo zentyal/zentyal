@@ -5,9 +5,7 @@ case "$1" in
         dpkg-trigger --no-await zentyal-core
 	;;
 	purge)
-	    /usr/share/zentyal/clean-conf mailfilter
-
-		/usr/share/zentyal/drop-tables mailfilter
+	    /usr/share/zentyal/purge-module mailfilter
 	;;
 esac
 

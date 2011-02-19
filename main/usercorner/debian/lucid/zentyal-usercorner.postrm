@@ -4,9 +4,8 @@ case "$1" in
     remove)
         dpkg-trigger --no-await zentyal-core
     ;;
-    remove)
-        # Purge configuration
-        /usr/share/zentyal/clean-conf usercorner
+    purge)
+        /usr/share/zentyal/purge-module usercorner
     ;;
 esac
 

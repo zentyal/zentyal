@@ -8,9 +8,8 @@ case "$1" in
         dpkg-trigger --no-await zentyal-core
         ;;
     purge)
-        /usr/share/zentyal/clean-conf openvpn
-
-        /usr/share/zentyal/drop-tables openvpn
+        /usr/share/zentyal/purge-module openvpn
+        ;;
 esac
 
 exit 0

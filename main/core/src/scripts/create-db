@@ -3,6 +3,8 @@
 db_name=$1
 db_user="ebox"
 
+sql_tables_dir=/var/lib/zentyal/sql-tables
+
 create_db()
 {
     echo "Creating the $db_name database"
@@ -10,17 +12,7 @@ create_db()
     su postgres -c "createuser -R -S -D $db_user"
     su postgres -c "psql -d $db_name -c \"GRANT ALL ON DATABASE $db_name TO $db_user\""
 
-    for sqlfile in /usr/share/zentyal/sql/*.sql
-    do
-        table=`basename $sqlfile | cut -d. -f1`
-        /usr/share/zentyal/sql-table add $table $sqlfile
-    done
-
-    for sqlfile in /usr/share/zentyal/sql/period/*.sql
-    do
-        table=`basename $sqlfile | cut -d. -f1`
-        /usr/share/zentyal/sql-table-with-time-period add $table $sqlfile
-    done
+    perl -MEBox -MEBox::LogObserver -e'EBox::init(); EBox::LogObserver::createTables(); 1';
 }
 
 # Check if we can connect to postgresql now
@@ -29,6 +21,9 @@ su postgres -c 'psql -Alt' >& /dev/null || exit 1
 su postgres -c 'psql -Alt' | grep -q "^$db_name|" && db_exists=1 || db_exists=0 || true
 if [ $db_exists -eq 0 ]; then
     create_db
+    # Create directory to keep track of created tables for each module
+    [ -d $sql_tables_dir ] || mkdir $sql_tables_dir
+    chown ebox:ebox $sql_tables_dir
 fi
 
 touch /var/lib/zentyal/.db-created

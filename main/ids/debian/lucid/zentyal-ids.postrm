@@ -4,12 +4,8 @@ case "$1" in
 	remove)
         dpkg-trigger --no-await zentyal-core
         ;;
-
     purge)
-        # Purge configuration
-        /usr/share/zentyal/clean-conf ids
-
-        /usr/share/zentyal/drop-tables ids
+        /usr/share/zentyal/purge-module ids
         ;;
 esac
 
