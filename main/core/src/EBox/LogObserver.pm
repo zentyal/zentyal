@@ -113,6 +113,10 @@ sub dropTables
 
     my $tablesFile = SQL_TABLES_DIR . $module;
 
+    unless (-f $tablesFile) {
+        return;
+    }
+
     my @tables = read_file($tablesFile);
     return unless @tables;
     chomp (@tables);
