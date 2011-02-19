@@ -20,6 +20,7 @@ use warnings;
 use EBox;
 use EBox::Config;
 use EBox::Global;
+use EBox::Util::SQL;
 use Error qw(:try);
 
 my $restart = 1;
@@ -32,11 +33,9 @@ my ($modname, $version) = @ARGV;
 
 EBox::init();
 
-my $module = EBox::Global->modInstance($modname);
+EBox::Util::SQL::createModuleTables($modname);
 
-if ($module->isa('EBox::LogObserver')) {
-    $module->createTables();
-}
+my $module = EBox::Global->modInstance($modname);
 
 $module->initialSetup($version);
 

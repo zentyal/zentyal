@@ -17,19 +17,19 @@
 use EBox;
 use EBox::Config;
 use EBox::Global;
-use EBox::LogObserver;
+use EBox::Util::SQL;
 use Error qw(:try);
 
 my ($modname) = @ARGV;
 
 EBox::init();
 
-cleanConf($modname);
-EBox::LogObserver::dropTables($modname);
+cleanModuleConf($modname);
+EBox::Util::SQL::dropModuleTables($modname);
 
 exit 0;
 
-sub cleanConf
+sub cleanModuleConf
 {
     my ($module) = @_;
 

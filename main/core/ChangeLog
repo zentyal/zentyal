@@ -12,10 +12,8 @@ HEAD
 	+ Delete no longer used domain and translationDomain methods/attributes
 	+ Unified src/libexec and tools in the new src/scripts directory
 	+ Remove the ebox- prefix on all the names of the /usr/share scripts
-	+ New createTables method in EBox::LogObserver called from
-	  initial-setup to create SQL tables for each module
-	+ New dropTables method in EBox::LogObserver to be called from
-	  purge-module to drop SQL tables for each module
+	+ New EBox::Util::SQL package with helpers to create and drop tables
+	  from initial-setup and purge-module for each module
 	+ Always drop tables when purging a package
 	+ Delete 'ebox' user when purging zentyal-core
 	+ Moved all SQL schemas from tools/sqllogs to schemas/sql
