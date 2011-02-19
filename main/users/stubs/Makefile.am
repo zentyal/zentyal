@@ -2,7 +2,7 @@
 
 Stubdir = @STUBSPATH@/users
 
-nobase_Stub_DATA = slapd.conf.mas soap-slave.mas \
+nobase_Stub_DATA = soap-slave.mas \
     slapd-replica.ldif.mas ldap-slave.conf.mas \
 	slapd-translucent.ldif.mas slapd-frontend.ldif.mas \
     slapd-master.ldif.mas slapd-master-db.ldif.mas \
@@ -11,4 +11,4 @@ nobase_Stub_DATA = slapd.conf.mas soap-slave.mas \
 
 EXTRA_DIST = $(nobase_Stub_DATA)
 
-MAINTAINERCLEANFILES = Makefile.in slapd.conf.mas
+MAINTAINERCLEANFILES = Makefile.in

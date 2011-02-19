@@ -62,7 +62,6 @@ src/templates/Wizard/Makefile
 src/scripts/Makefile
 schemas/Makefile
 stubs/Makefile
-stubs/slapd.conf.mas
 src/scripts/t/Makefile
 src/scripts/t/testdata/Makefile
 www/Makefile
