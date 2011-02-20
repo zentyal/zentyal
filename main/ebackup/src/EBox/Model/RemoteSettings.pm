@@ -294,10 +294,10 @@ sub _table
                 new EBox::Types::Int(
                     'fieldName' => 'full_copies_to_keep_number',
                     'printableName' => __('maximum number'),
-                    'editable'=> 1,
-                    'default' => 1,
-                    'min'     => 1,
-                    'max'     => 1000,
+                    'editable' => 1,
+                    'defaultValue' => 1,
+                    'min' => 1,
+                    'max' => 1000,
                 ),
                 new EBox::Types::Select(
                     fieldName     => 'full_copies_to_keep_deadline',
