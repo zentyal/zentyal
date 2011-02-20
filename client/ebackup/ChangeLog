@@ -1,4 +1,5 @@
 HEAD
+	+ Set default value for the keep previous full copies setting
 	+ Added 'files included' domain and restore all fiels options to
 	  restore-tool
 	+ Using 'cat' command instead of 'tail' to retrieve backup metadata
