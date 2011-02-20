@@ -67,6 +67,9 @@ sub _createTables
 
     # Write table names file to drop them in purge-module
     if (defined $modname) {
+        unless (-d SQL_TABLES_DIR) {
+            mkdir (SQL_TABLES_DIR);
+        }
         my $filename = SQL_TABLES_DIR . $modname;
         write_file($filename, join ("\n", @names));
     }

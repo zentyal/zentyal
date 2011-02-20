@@ -3,8 +3,6 @@
 db_name=$1
 db_user="ebox"
 
-sql_tables_dir=/var/lib/zentyal/sql-tables
-
 create_db()
 {
     echo "Creating the $db_name database"
@@ -21,9 +19,6 @@ su postgres -c 'psql -Alt' >& /dev/null || exit 1
 su postgres -c 'psql -Alt' | grep -q "^$db_name|" && db_exists=1 || db_exists=0 || true
 if [ $db_exists -eq 0 ]; then
     create_db
-    # Create directory to keep track of created tables for each module
-    [ -d $sql_tables_dir ] || mkdir $sql_tables_dir
-    chown ebox:ebox $sql_tables_dir
 fi
 
 touch /var/lib/zentyal/.db-created
