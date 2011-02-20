@@ -246,8 +246,8 @@ var pkgTable = new Array(
                 <h3><% __s('Gateway - Your access to Internet') %></h3>
                 <p><% __s('Zentyal Gateway can make your network more reliable, optimize your bandwidth and help you to control what is coming in to your network. Waste no more time on inefficient networks.')%></p>
                 <div>
-                    <a id="Gateway_down" href="#" onclick="showInfo('Gateway')">More info <img src="/data/images/down.gif"> </a>
-                    <a id="Gateway_up" href="#" onclick="hideInfo('Gateway');" style="display:none">Back <img src="/data/images/up.gif"> </a>
+                    <a id="Gateway_down" href="#" onclick="showInfo('Gateway')"><% __s('More info') %><img src="/data/images/down.gif"> </a>
+                    <a id="Gateway_up" href="#" onclick="hideInfo('Gateway');" style="display:none"><% __s('Back') %><img src="/data/images/up.gif"> </a>
                 </div>
             </div>
             <br><br>
@@ -447,8 +447,8 @@ var pkgTable = new Array(
                 <h3><% __s('Office - Share your office resources') %></h3>
                 <p><% __s('Zentyal Office allows office resources to be managed and shared, including user profiles and group accounts, files, printers, calendars, contacts and tasks, and backup of data.') %></p>
                 <div>
-                    <a id="Office_down" href="#" onclick="showInfo('Office')">More info <img src="/data/images/down.gif"></a>
-                    <a id="Office_up" href="#" onclick="hideInfo('Office')" style="display:none">Back <img src="/data/images/up.gif"></a>
+                    <a id="Office_down" href="#" onclick="showInfo('Office')"><% __s('More info') %><img src="/data/images/down.gif"></a>
+                    <a id="Office_up" href="#" onclick="hideInfo('Office')" style="display:none"><% __s('Back') %><img src="/data/images/up.gif"></a>
                 </div>
             </div>
             <br><br>
@@ -514,8 +514,8 @@ var pkgTable = new Array(
                 <h3><% __s('Unified Communications - Centralize all your communications') %></h3>
                 <p><% __s('Zentyal Unified Communications Server manages all your communications, including email, instant messaging and VoIP switchboard.') %></p>
                 <div>
-                    <a id="Communications_down" href="#" onclick="showInfo('Communications')">More info <img src="/data/images/down.gif"></a>
-                    <a id="Communications_up" href="#" onclick="hideInfo('Communications')" style="display:none">Back <img src="/data/images/up.gif"></a>
+                    <a id="Communications_down" href="#" onclick="showInfo('Communications')"><% __s('More info') %><img src="/data/images/down.gif"></a>
+                    <a id="Communications_up" href="#" onclick="hideInfo('Communications')" style="display:none"><% __s('Back') %><img src="/data/images/up.gif"></a>
                 </div>
             </div>
             <br><br>
