@@ -3279,11 +3279,7 @@ sub _find
     } else {
         # Update existing index if needed
         if ($updateIndex and not $readOnly) {
-            if (keys %{$indexRows}) {
-                $conf->set_hash_value($index, $value => $indexRows);
-            } else {
-                $conf->hash_delete($index, $value);
-            }
+            $conf->set_hash_value($index, $value => $indexRows);
         }
         @matched = keys (%{$indexRows});
     }

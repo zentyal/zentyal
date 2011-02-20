@@ -791,7 +791,11 @@ sub _set_hash_value
     $key = $self->_key($key);
     $self->_backup;
     if (defined ($value)) {
-        $self->redis->set_hash_value($key, $field => encode_json($value));
+        if (keys %{$value}) {
+            $self->redis->set_hash_value($key, $field => encode_json($value));
+        } else {
+            $self->redis->hash_delete($key, $field);
+        }
     }
 }
 
@@ -927,7 +931,7 @@ sub _set #
 {
     my ($self, $key, $value) = @_;
     $key = $self->_key($key);
-    $self->redis->set_string($key, $value);
+    $self->redis->set($key, $value);
 }
 
 #############
