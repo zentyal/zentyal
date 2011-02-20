@@ -1499,7 +1499,7 @@ sub enabledRows
         return $self->ids();
     }
 
-    return $self->_find('enabled' => 1, 1, 'row');
+    return $self->_find('enabled' => 1, 1);
 }
 
 # Method: size
@@ -3170,16 +3170,16 @@ sub _volatile
 #
 #    (POSITIONAL)
 #
-#    fieldName - the name of the field to match
-#    value - value we want to match
-#    allMatches -   1 or undef to tell the method to return just the
-#        first match or all of them
+#    fieldName  - the name of the field to match
+#    value      - value we want to match
+#    allMatches - 1 or undef to tell the method to return just the
+#                 first match or all of them
 #
-#    kind - String if 'printableValue' match against
-#    printableValue, if 'value' against value, 'row' match against
-#    value returning the row *(Optional)* Default value: 'value'
+#    kind       - *(Optional)* String if 'printableValue' match against
+#                 printableValue, if 'value' against value
+#                 Default value: 'value'
 #
-#    nosync - *(Optional)* don't call to syncRows to avoid recursion
+#    nosync     - *(Optional)* don't call to syncRows to avoid recursion
 #
 # Example:
 #
