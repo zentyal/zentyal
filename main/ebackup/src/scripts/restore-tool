@@ -706,8 +706,8 @@ sub _preRestoreNetworkCheck
     my @enabledIfaces;
 
     # Open the config
-    my ($yaml) = YAML::XS::LoadFile($confBakFile);
-    foreach my $spec (@{ $yaml }) {
+    my @yaml = YAML::XS::LoadFile($confBakFile);
+    foreach my $spec (@yaml) {
         my $iface;
         if ($spec->{key} =~ m{^/ebox/modules/network/interfaces/(.*?)/method$}) {
             $iface = $1;
