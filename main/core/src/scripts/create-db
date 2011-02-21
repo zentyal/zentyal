@@ -13,7 +13,8 @@ create_db()
     perl -MEBox -MEBox::Util::SQL -e'EBox::init(); EBox::Util::SQL::createCoreTables(); 1';
 }
 
-# Check if we can connect to postgresql now
+# Check if we can connect to postgresql (with one retry after restart)
+su postgres -c 'psql -Alt' >& /dev/null || /etc/init.d/postgresql-8.4 restart
 su postgres -c 'psql -Alt' >& /dev/null || exit 1
 
 su postgres -c 'psql -Alt' | grep -q "^$db_name|" && db_exists=1 || db_exists=0 || true
