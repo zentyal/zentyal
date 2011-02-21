@@ -187,7 +187,11 @@ sub initialSetup
     # Import network configuration from system
     # only if installing the first time
     unless ($version) {
-        $self->importInterfacesFile();
+        try {
+            $self->importInterfacesFile();
+        } otherwise {
+            EBox::warn('Network configuration import failed');
+        };
     }
 }
 
