@@ -5,8 +5,8 @@
 ##
 
 # add zentyal repository
-d-i apt-setup/local0/repository string http://ppa.launchpad.net/zentyal/2.0/ubuntu lucid main
-d-i apt-setup/local0/key string http://keys.zentyal.org/zentyal-2.0-ppa.asc
+d-i apt-setup/local0/repository string http://ppa.launchpad.net/zentyal/2.1/ubuntu lucid main
+d-i apt-setup/local0/key string http://keys.zentyal.org/zentyal-2.1-ppa.asc
 
 # linux-generic-pae will be removed when generating the 64bit installer
 d-i base-installer/kernel/override-image string linux-generic-pae
