@@ -4,43 +4,46 @@
 # This file is distributed under the same license as the zentyal packages.
 # Automatically generated, 2011.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: zentyal 2.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2011-02-16 11:33+0100\n"
-"PO-Revision-Date: 2010-09-06 14:57+0200\n"
-"Last-Translator: Bokor Pavol <bokor@4enzo.net>\n"
+"PO-Revision-Date: 2011-02-18 13:11+0200\n"
+"Last-Translator: Pavol <bokor@4enzo.net>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
-"Language: \n"
+"Language: sk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+"X-Generator: Pootle 2.1.4\n"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:61
 msgid "Mail Filter"
-msgstr ""
+msgstr "Filter Pošty"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:79
 msgid "Add clamav user to amavis group"
-msgstr ""
+msgstr "Pridať užívateľa clamav do skupiny amavis"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:80
 msgid "Clamav need access to amavis fields to properly scan mail"
 msgstr ""
+"Clamav potrebuje prístu do položiek amavis-u, aby správne skenoval poštu"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:84
 msgid "Add clamav user to p3scan group"
-msgstr ""
+msgstr "Pridať užívateľa clamav do skupiny p3scan"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:85
 msgid "Clamav need access to p3scan group to properly scan in the POP Proxy"
 msgstr ""
+"Clamav potrebuje prístup do skupiny p3scan, aby správne skenoval v POP Proxy"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:89
 msgid "Add spam and ham system users"
-msgstr ""
+msgstr "Pridať systémových užívateľov spam a ham"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:91
 msgid ""
@@ -14614,11 +14617,11 @@ msgstr ""
 
 #: ../../main/core/src/templates/configureView.mas:51
 msgid "Accept"
-msgstr ""
+msgstr "Prijať"
 
 #: ../../main/core/src/templates/port.mas:9
 msgid "Administration Interface TCP Port"
-msgstr "Číslo TCP portu pre administračné rozhranie"
+msgstr "Číslo TCP portu administračného rozhrania"
 
 #: ../../main/core/src/templates/halt.mas:10
 msgid "You might lose your Internet connection if this machine is halted."
@@ -14633,18 +14636,18 @@ msgid "Reboot"
 msgstr "Reštartovať"
 
 #: ../../main/core/src/templates/bug.mas:9
-#, fuzzy
 msgid ""
 "This page lets you generate a file with information about the state of your "
 "system. The file will be useful if you want to report a problem or seek "
 "support."
 msgstr ""
 "Táto stránka umožňuje vygenerovať súbor s informáciami o stave systému. "
-"Súbor je potrebný, ak chete odoslať správu o chybe v systéme eBox."
+"Súbor je potrebný, ak chete odoslať správu o chybe v systéme zentyal."
 
 #: ../../main/core/src/templates/bug.mas:13
 msgid "It may take several minutes to generate the report. Please be patient."
 msgstr ""
+"Bude to trvať niekoľko minút kým sa vygeneruje report. Strpenie, prosím."
 
 #: ../../main/core/src/templates/bug.mas:19
 #, fuzzy

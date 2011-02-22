@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: zentyal 2.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2011-02-16 11:33+0100\n"
-"PO-Revision-Date: 2011-02-15 20:50+0200\n"
+"PO-Revision-Date: 2011-02-16 13:04+0200\n"
 "Last-Translator: jacalvo <jacalvo@zentyal.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: es\n"
@@ -2075,14 +2075,13 @@ msgstr ""
 "característica."
 
 #: ../../main/network/src/EBox/Network/Composite/MultiGw.pm:82
-#, fuzzy
 msgid ""
 "To be able to use this feature you need at least two enabled gateways. You "
 "can add them <a href=\"/zentyal/Network/View/GatewayTable\">here</a> first."
 msgstr ""
 "Para poder usar esta funcionalidad, necesitarás al menos dos puertas de "
-"enlace habilitadas. Puedes añadirlas <a href=\"/ebox/Network/View/"
-"GatewayDataTable\">aquí</a>."
+"enlace habilitadas. Puedes añadirlas <a "
+"href=\"/zentyal/Network/View/GatewayDataTable\">aquí</a>."
 
 # Traductor de DNS?
 #: ../../main/network/src/EBox/Network/Composite/DNS.pm:60

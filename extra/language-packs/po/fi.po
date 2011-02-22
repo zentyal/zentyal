@@ -4,72 +4,79 @@
 # This file is distributed under the same license as the zentyal packages.
 # Automatically generated, 2011.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: zentyal 2.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2011-02-16 11:33+0100\n"
-"PO-Revision-Date: 2007-04-11 16:23+0200\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2011-02-18 23:03+0200\n"
+"Last-Translator: hvilppola <hvilppola@zentyal.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
-"Language: \n"
+"Language: fi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Pootle 2.1.4\n"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:61
 msgid "Mail Filter"
-msgstr ""
+msgstr "Sähköpostin suodatus"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:79
 msgid "Add clamav user to amavis group"
-msgstr ""
+msgstr "Lisää käyttäjä clamav amavis ryhmään"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:80
 msgid "Clamav need access to amavis fields to properly scan mail"
 msgstr ""
+"Clamavin täytyy voida käyttää amavis kenttiä, jotta se voi skannata "
+"asianmukaisesti sähköpostin"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:84
 msgid "Add clamav user to p3scan group"
-msgstr ""
+msgstr "Lisää clamav käyttäjä p3scan ryhmään"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:85
 msgid "Clamav need access to p3scan group to properly scan in the POP Proxy"
 msgstr ""
+"Clamavin täytyy voida käyttää p3scan ryhmää, jotta se voi skannata "
+"asianmukaisesti POP Proxyn"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:89
 msgid "Add spam and ham system users"
-msgstr ""
+msgstr "Lisää käyttäjiä spam ja ham järjestelmään"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:91
 msgid ""
 "This users are for the email accounts used for training the bayesian filter"
 msgstr ""
+"Näiden käyttäjien sähköpostitilejä käytetään bayesilaisen "
+"roskapostisuodatuksen koulutukseen"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:96
 msgid "Update LDAP"
-msgstr ""
+msgstr "Päivitä LDAP"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:97
 msgid "Add amavis specific classes and fields"
-msgstr ""
+msgstr "Lisää amaviksen ominaisluokat ja -kentät"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:146
 msgid "POP transparent proxy"
-msgstr ""
+msgstr "Läpinäkyvä POP proxy"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:155
 msgid "POP3 protocol"
-msgstr ""
+msgstr "POP3 protokolla"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:403
 msgid "Cannot proceed because the filter is in use"
-msgstr ""
+msgstr "Ei ole mahdollista jatkaa koska suodatin on käytössä"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:558
 msgid "Mail filter"
-msgstr ""
+msgstr "Sähköposti suodatin"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:580
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:625
@@ -124,7 +131,7 @@ msgstr "Päivämäärä"
 #: ../../main/mail/src/templates/alias.mas:39
 #: ../../main/mail/src/templates/groupalias.mas:25
 msgid "Action"
-msgstr ""
+msgstr "Tehtävä"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:583
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:629
@@ -137,15 +144,15 @@ msgstr ""
 #: ../../main/printers/src/EBox/Printers.pm:297
 #: ../../main/core/src/templates/logs/index.mas:183
 msgid "Event"
-msgstr ""
+msgstr "Tapahtuma"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:585
 msgid "Sender address"
-msgstr ""
+msgstr "Lähettäjän osoite"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:586
 msgid "Recipient address"
-msgstr ""
+msgstr "Vastaanottajan osoite"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:588
 msgid "Spam hits"
@@ -153,77 +160,77 @@ msgstr ""
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:593
 msgid "Bad header found"
-msgstr ""
+msgstr "Virheellinen ylätunniste löydetty"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:594
 msgid "Spam found"
-msgstr ""
+msgstr "Spam löydetty"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:595
 msgid "Forbidden attached file found"
-msgstr ""
+msgstr "Kielletty liitetiedosto löydetty"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:596
 msgid "Address in blacklist found"
-msgstr ""
+msgstr "Mustalla listalla oleva osoite löydetty"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:597
 msgid "Virus found"
-msgstr ""
+msgstr "Viirus löydetty"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:598
 msgid "Clean message"
-msgstr ""
+msgstr "Puhdas viesti"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:607
 msgid "SMTP filter"
-msgstr ""
+msgstr "SMTP suodatin"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:627
 msgid "Account"
-msgstr ""
+msgstr "Tili"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:628
 msgid "Client's address"
-msgstr ""
+msgstr "Käyttäjän osoite"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:631
 msgid "Total messages"
-msgstr ""
+msgstr "Viestejä kaikkiaan"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:632
 msgid "Clean messages"
-msgstr ""
+msgstr "Puhtaita viestejä"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:633
 msgid "Virus messages"
-msgstr ""
+msgstr "Viirus viestejä"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:634
 msgid "Spam messages"
-msgstr ""
+msgstr "Spam viestejä"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:641
 msgid "POP3 transmission complete"
-msgstr ""
+msgstr "POP3 siirto on valmis"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:643
 msgid "POP3 transmission aborted"
-msgstr ""
+msgstr "POP3 siirto on keskeytetty"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:647
 msgid "POP3 proxy"
-msgstr ""
+msgstr "POP3 proxy"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:746
 #: ../../main/mailfilter/src/EBox/MailFilter/Composite/Amavis.pm:60
 msgid "SMTP Mail Filter"
-msgstr ""
+msgstr "SMTP Sähköposti Suodatin"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:753
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/POPProxyConfiguration.pm:92
 msgid "POP Transparent Proxy"
-msgstr ""
+msgstr "POP Läpinäkyvä Proxy"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:761
 #: ../../main/mailfilter/src/EBox/MailFilter/POPProxy.pm:348
@@ -231,23 +238,23 @@ msgstr ""
 #: ../../main/mailfilter/src/EBox/MailFilter/Composite/Antispam.pm:96
 #: ../../main/mailfilter/src/EBox/MailFilter/Composite/Antispam.pm:97
 msgid "Antispam"
-msgstr ""
+msgstr "Antispam"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:768
 msgid "Files ACL"
-msgstr ""
+msgstr "ACL per tiedosto"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/POPProxy.pm:61
 msgid " To configure p3scan"
-msgstr ""
+msgstr "Konfiguroi p3scan"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/POPProxy.pm:66
 msgid "To configure renattach"
-msgstr ""
+msgstr "Konfiguroi renattach"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/POPProxy.pm:322
 msgid "Transparent POP Proxy"
-msgstr ""
+msgstr "Läpinäkyvä POP Proxy"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/POPProxy.pm:328
 #: ../../main/mailfilter/src/EBox/MailFilter/Amavis.pm:445
@@ -260,7 +267,7 @@ msgstr ""
 #: ../../main/core/src/templates/moduleStatusTable.mas:60
 #: ../../main/core/src/templates/report/raid.mas:104
 msgid "Status"
-msgstr "Tila"
+msgstr "Status"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/VDomainsLdap.pm:537
 #, perl-brace-format
@@ -269,94 +276,98 @@ msgstr ""
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/ExternalMTA.pm:67
 msgid "External mail server"
-msgstr ""
+msgstr "Ulkoinen sähköpostipalvelin"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/ExternalMTA.pm:70
 msgid "IP address of the server"
-msgstr ""
+msgstr "Palvelimen IP osoite"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/ExternalMTA.pm:74
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/ExternalDomain.pm:74
 msgid "Allow connection"
-msgstr ""
+msgstr "Hyväksy yhteys"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/ExternalMTA.pm:82
 msgid "External mail servers"
-msgstr ""
+msgstr "Ulkoiset sähköpostipalvelimet"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/ExternalMTA.pm:94
 msgid "external mail server"
-msgstr ""
+msgstr "ulkoinen sähköpostipalvelin"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/ExternalMTA.pm:95
 msgid ""
 "Here you can specify which external mail servers can connect to the mail "
 "filter"
 msgstr ""
+"Voit määritellä täällä mitkä ulkoiset sähköpostipalvelimet voivat yhdistää "
+"sähköposti suodattimeen"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/ExternalMTA.pm:142
 #, perl-brace-format
 msgid "Invalid external MTA {mta}. Local network addresses are not allowed"
-msgstr ""
+msgstr "Pätemätön ulkoinen MTA {mta}. Paikallisia verkko-osoitteita ei sallita "
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/ExternalDomain.pm:68
 msgid "External mail domain"
-msgstr ""
+msgstr "Sähköpostin verkko-osoite"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/ExternalDomain.pm:82
 msgid "External mail domains"
-msgstr ""
+msgstr "Sähköpostin verkko-osoitteet"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/ExternalDomain.pm:94
 msgid "external mail domain"
-msgstr ""
+msgstr "sähköpostin verkko-osoite"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/ExternalDomain.pm:95
 msgid ""
 "Here you can specify which external mail domains can connect to the mail "
 "filter"
 msgstr ""
+"Voit määritellä täällä minkä ulkoisen sähköpostin verkko-osoitteen voit "
+"yhdistää sähköpostin suodattimeen"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/ExternalDomain.pm:113
 #, perl-brace-format
 msgid "{d} is a internal Zentyal virtual main domain"
-msgstr ""
+msgstr "{d} on Zentyalin sisäinen virtuaalinen pääverkko-osoite"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamTraining.pm:58
 msgid "Mailbox"
-msgstr ""
+msgstr "Postilaatikko"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamTraining.pm:64
 msgid "Mailbox contains"
-msgstr ""
+msgstr "Postilaatikossa on"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamTraining.pm:74
 msgid "Train bayesian spam filter"
-msgstr ""
+msgstr "Kouluta bayesilainen roskapostisuodatus"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamTraining.pm:79
 msgid "Learned from messages"
-msgstr ""
+msgstr "Opittu viesteistä"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamTraining.pm:81
 msgid "Train"
-msgstr ""
+msgstr "Kouluttaa"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamTraining.pm:96
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/Report/FilterGraph.pm:64
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/Report/FilterDetails.pm:49
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/Report/FilterDetails.pm:90
 msgid "spam"
-msgstr ""
+msgstr "spam"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamTraining.pm:97
 msgid "ham"
-msgstr ""
+msgstr "ham"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamTraining.pm:129
 #, perl-brace-format
 msgid "Invalid mailbox type: {type}"
-msgstr ""
+msgstr "Pätemätön sähköposti tyyppi: {type}"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomains.pm:68
 #: ../../main/network/src/EBox/Model/SearchDomain.pm:71
@@ -366,15 +377,15 @@ msgstr ""
 #: ../../main/core/src/EBox/Logs/Model/SelectLog.pm:149
 #: ../../main/core/src/EBox/Logs/Model/ConfigureLogDataTable.pm:331
 msgid "Domain"
-msgstr ""
+msgstr "Verkko-osoite"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomains.pm:78
 msgid "Use virus filtering"
-msgstr ""
+msgstr "Käytä virus-suodatinta"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomains.pm:84
 msgid "Use spam filtering"
-msgstr ""
+msgstr "Käytä spam suodatinta"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomains.pm:90
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamConfiguration.pm:61
