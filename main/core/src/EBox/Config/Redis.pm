@@ -606,13 +606,15 @@ sub _backup_dir
         if ($destinationType eq 'redis') {
             $self->set($destKey, $value, $type);
         } else {
-            push (@{$args{destination}},
-                    {
-                     type => $type,
-                     key => $destKey,
-                     value => $value
-                    }
-                 );
+            if ($type eq any((REDIS_TYPES))) {
+                push (@{$args{destination}},
+                        {
+                            type => $type,
+                            key => $destKey,
+                            value => $value
+                        }
+                     );
+            }
         }
     }
 
