@@ -22,6 +22,7 @@ use warnings;
 use Redis;
 use EBox::Config;
 use EBox::Service;
+use EBox::Module::Base;
 use POSIX ':signal_h';
 use YAML::XS;
 use File::Slurp;
