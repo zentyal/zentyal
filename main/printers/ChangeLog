@@ -1,4 +1,4 @@
-HEAD
+2.1
 	+ Use new standard enable-module script
 	+ Removed unnecesary call to isReadOnly in syncRows
 	+ Use new initial-setup and delete migrations

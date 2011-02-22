@@ -1,4 +1,4 @@
-HEAD
+2.1
 	+ Renamed ebox-zarafa-spell to zarafa-spell
 	+ Use new standard enable-module script
 	+ Remove unused migration and call to initial-setup in postinst

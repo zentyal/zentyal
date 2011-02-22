@@ -1,4 +1,4 @@
-HEAD
+2.1
 	+ Remove migration and use new initialSetup
 	+ Bugfix: validations of virtual host values are correct now
 	+ Added GLOBAL_CONF_DIR constant for apache conf.d dir

@@ -1,4 +1,4 @@
-HEAD
+2.1
 	+ Remove ebox- prefix from helper scripts names
 	+ Use new standard enable-module script
 	+ Replace /etc/ebox/80samba.conf with /etc/zentyal/samba.conf

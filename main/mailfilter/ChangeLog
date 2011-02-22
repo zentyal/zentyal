@@ -1,4 +1,4 @@
-HEAD
+2.1
 	+ Use new standard enable-module script
 	+ Remove old migrations and use new initial-setup
 	+ Add depend on dovecot-antispam previously on zentyal-mail.

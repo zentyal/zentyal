@@ -1,4 +1,4 @@
-HEAD
+2.1
 	+ Remove unnecesary isReadOnly call in syncRows
 	+ Delete obsolete migration and use initial-setup to add SQL tables
 2.0.1

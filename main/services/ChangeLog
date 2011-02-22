@@ -1,4 +1,4 @@
-HEAD
+2.1
 	+ Set internal attribute as hidden to make it simpler and avoid confusion
 	+ Added HTTP to default services
 	+ Added serviceId to exposedMethods

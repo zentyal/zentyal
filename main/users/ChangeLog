@@ -1,4 +1,4 @@
-HEAD
+2.1
 	+ Separate usercorner module to the new zentyal-usercorner package
 	+ Remove zentyal- prefix from rejoin-slave and ldapvi scripts
 	+ Move /usr/share/ebox-usersandgroups/ebox-usersandgroups/reinstall

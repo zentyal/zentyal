@@ -1,4 +1,4 @@
-HEAD
+2.1
 	+ Set default value for the keep previous full copies setting
 	+ Replace YAML::Tiny with libyaml written in C through YAML::XS wrapper
 	+ Renamed /usr/share/ebox-ebackup/ebox-remote-ebackup to

@@ -1,4 +1,4 @@
-HEAD
+2.1
 	+ Renamed ebox-asterisk-ldap to asterisk-ldap
 	+ Use new standard enable-module script
 	+ Delete obsolete migrations and use new initialSetup method

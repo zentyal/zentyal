@@ -1,4 +1,4 @@
-HEAD
+2.1
 	+ Bugfix: package removal does not crash if can't unsubscribe
 	+ Replace YAML::Tiny with libyaml written in C through YAML::XS wrapper
 	+ Remove migrations and use new initial-setup

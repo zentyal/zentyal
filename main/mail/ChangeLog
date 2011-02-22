@@ -1,4 +1,4 @@
-HEAD
+2.1
 	+ Delete deprecated/unused _isCourierObject and _accountAddOn methods
 	+ Removed obsolete migrations and use new initial-setup
 	+ Remove dependency on dovecot-antispam moved to ebox-mailfilter
