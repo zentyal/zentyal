@@ -1,4 +1,4 @@
-HEAD
+2.0.11
 	+ Added locks to prevent overlapping in ebox-ad-sync script
 	+ Fix slave failed operation string on slave hostname
 	+ Added indexes for common LDAP attributes

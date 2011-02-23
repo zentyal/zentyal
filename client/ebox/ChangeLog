@@ -1,4 +1,4 @@
-HEAD
+2.0.16
 	+ Rotate duplicity-debug.log log if exists
 	+ Bug fix: Port selected during installation is correctly saved
 	+ Zentyal web UI is restarted if their dependencies are upgraded
