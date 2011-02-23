@@ -1,0 +1,71 @@
+# squid - SQUID HTTP proxy-cache
+#
+
+description	"HTTP proxy-cache"
+author		"Chuck Short <zulcss@ubuntu.com>"
+
+respawn
+
+pre-start script
+    # Stop default squid daemon
+    stop squid || true
+    if [ -f /var/run/squid.pid ]; then
+        kill `cat /var/run/squid.pid` || true
+        rm -f /var/run/squid.pid
+    fi
+
+	if [ -f /etc/default/squid ]; then
+		. /etc/default/squid
+	fi
+
+
+	grepconf () {
+        	w="     " # space tab
+        	sq=/etc/squid/squid.conf
+        	# sed is cool.
+        	res=`sed -ne '
+                	s/^'$1'['"$w"']\+\([^'"$w"']\+\).*$/\1/p;
+                	t end;
+                	d;
+                :end q' < $sq`
+        	[ -n "$res" ] || res=$2
+		echo "$res"
+	}
+
+	grepconf2 () {
+        	w="     " # space tab
+        	sq=/etc/squid/squid.conf
+        	# sed is cool.
+        	res=`sed -ne '
+                	s/^'$1'['"$w"']\+[^'"$w"']\+['"$w"']\+\([^'"$w"']\+\).*$/\1/p;
+                	t end;
+                	d;
+                :end q' < $sq`
+        	[ -n "$res" ] || res=$2
+        	echo "$res"
+	}
+
+	cdr=`grepconf2 cache_dir /var/spool/squid`
+	ctp=`grepconf cache_dir ufs`
+
+	case "$cdr" in
+		[0-9]*)
+			echo "squid: squid.conf contains 2.2.5 syntax - not starting"
+			exit 1 ; stop
+		;;
+	esac
+
+	if [ -d "$cdr" -a ! -d "$cdr/00" ] || [ "$ctp" = "coss" -a ! -w "$cdr" ]
+	then
+		/usr/sbin/squid $SQUID_ARGS -z -N
+	fi
+end script
+
+script
+	if [ -f /etc/default/squid ]; then
+		. /etc/default/squid
+	fi
+
+	exec /usr/sbin/squid -N $SQUID_ARGS
+end script
+

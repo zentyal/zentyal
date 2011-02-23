@@ -1,0 +1,21 @@
+Source: ebox-ntp
+Section: web
+Priority: optional
+Maintainer: Zentyal Packaging Maintainers <pkg-team@zentyal.com>
+Build-Depends: debhelper (>= 8.0.0), cdbs
+Standards-Version: 3.9.1
+Homepage: http://www.zentyal.org/
+Vcs-Browser: http://trac.zentyal.org/browser/branches/2.0
+Vcs-Svn: http://svn.zentyal.org/zentyal/branches/2.0
+
+Package: ebox-ntp
+Architecture: all
+Depends: ebox (>= 2.0), ebox (<< 2.0.100), ebox-firewall, ntp, ntpdate, ${misc:Depends}
+Description: Zentyal - NTP Service
+ Zentyal is a Linux small business server that can act as
+ a Gateway, Unified Threat Manager, Office Server, Infrastructure
+ Manager, Unified Communications Server or a combination of them. One
+ single, easy-to-use platform to manage all your network services.
+ .
+ This module adds a NTP server to Zentyal, allowing time synchronization from
+ external servers and to internal clients.

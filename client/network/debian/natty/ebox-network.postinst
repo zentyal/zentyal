@@ -1,0 +1,45 @@
+#!/bin/bash
+
+set -e
+
+. /usr/share/debconf/confmodule
+
+manage_overwrite() {
+    local permission
+
+    db_get ebox-network/overwrite_ifaces || true
+    permission="$RET"
+
+    if [ "$permission" = "true" ]; then
+        /usr/share/ebox-network/ebox-updatedigests
+        /etc/init.d/ebox network stop || true
+    fi
+}
+
+#DEBHELPER#
+
+case "$1" in
+    configure)
+        # import network configuration from system
+        # if installing the first time
+        if [ -z "$2" ] ; then
+            /usr/share/ebox-network/ebox-netcfg-import || true
+        fi
+
+        # migrate data if needed
+        /usr/share/ebox/ebox-migrate /usr/share/ebox-network/migration/ || true
+
+        invoke-rc.d ebox network restart || true
+
+        # apply failover code changes only when upgrading
+        if [ -n "$2" ] ; then
+            invoke-rc.d ebox events restart || true
+        fi
+
+        dpkg-trigger --no-await ebox
+    ;;
+esac
+
+db_stop
+
+exit 0

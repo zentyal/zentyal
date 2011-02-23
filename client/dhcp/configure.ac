@@ -1,7 +1,7 @@
 AC_INIT([EBox-DHCP], [2.0.2])
 
 AC_CONFIG_AUX_DIR([config])
-AC_CONFIG_SRCDIR([src/EBox/DHCP.pm])
+AC_CONFIG_SRCDIR([src/EBox/DHCP.pm.in]) 
 
 AM_INIT_AUTOMAKE([foreign 1.8])
 
@@ -33,8 +33,8 @@ if test "x$enable_runtime_tests" = "xyes" ; then
 		AC_MSG_ERROR(gconftool not found)
 	fi
 
-
 	AM_GCONF_SOURCE_2
+	AC_PROG_DHCP
 
 else
 	GCONF_SCHEMAS_INSTALL_FALSE=
@@ -60,6 +60,7 @@ migration/Makefile
 schemas/Makefile
 src/Makefile
 src/EBox/Makefile
+src/EBox/DHCP.pm
 src/EBox/t/Makefile
 src/EBox/rootTests/Makefile
 src/EBox/rootTests/lib/Makefile
@@ -71,6 +72,7 @@ src/EBox/CGI/Makefile
 src/templates/Makefile
 stubs/Makefile
 tools/Makefile
+tools/ebox-dhcp-enable
 tools/sqllog/Makefile
 www/Makefile
 Makefile

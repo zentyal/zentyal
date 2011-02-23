@@ -1,0 +1,35 @@
+#!/bin/bash
+
+set -e
+
+#DEBHELPER#
+
+case "$1" in
+    configure)
+        # add ebox to proxy to read squid logs
+        adduser --quiet ebox proxy || true
+
+        # migrate data if needed
+        /usr/share/ebox/ebox-migrate /usr/share/ebox-squid/migration/ || true
+
+        # create logs and reports tables
+        /usr/share/ebox/ebox-sql-table add squid_access /usr/share/ebox/sqllog/squid_access.sql || true
+        /usr/share/ebox/ebox-sql-table add squid_access_report /usr/share/ebox/sqllog/squid_access_report.sql || true
+        /usr/share/ebox/ebox-sql-table-with-time-period add squid_traffic /usr/share/ebox/sqllog/squid_traffic.sql || true
+
+        # restart logs
+        invoke-rc.d ebox logs restart || true
+
+        # directory for extra dg domain lists
+        DG_EXTRALISTS=/etc/dansguardian/extralists
+        test -d $DG_EXTRALISTS || mkdir -p -m 0755 $DG_EXTRALISTS
+
+        invoke-rc.d ebox squid restart || true
+
+        invoke-rc.d ebox firewall restart || true
+
+        dpkg-trigger --no-await ebox
+    ;;
+esac
+
+exit 0

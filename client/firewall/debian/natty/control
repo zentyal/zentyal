@@ -1,0 +1,20 @@
+Source: ebox-firewall
+Section: web
+Priority: optional
+Maintainer: Zentyal Packaging Maintainers <pkg-team@zentyal.com>
+Build-Depends: debhelper (>= 8.0.0), cdbs
+Standards-Version: 3.9.1
+Homepage: http://www.zentyal.org/
+Vcs-Browser: http://trac.zentyal.org/browser/branches/2.0
+Vcs-Svn: http://svn.zentyal.org/zentyal/branches/2.0
+
+Package: ebox-firewall
+Architecture: all
+Depends: ebox (>= 2.0), ebox (<< 2.0.100), ebox-network (>= 2.0.7), ebox-objects, ebox-services, iptables, ${misc:Depends}
+Description: Zentyal - Firewall
+ Zentyal is a Linux small business server that can act as
+ a Gateway, Unified Threat Manager, Office Server, Infrastructure
+ Manager, Unified Communications Server or a combination of them. One
+ single, easy-to-use platform to manage all your network services.
+ .
+ This module adds firewalling capabilities.

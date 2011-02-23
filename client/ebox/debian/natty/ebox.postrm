@@ -1,0 +1,27 @@
+#!/bin/bash
+
+set -e
+
+#DEBHELPER#
+
+case "$1" in
+    purge)
+        # postgresql and logs
+        db_name="eboxlogs"
+        db_user="ebox"
+        su postgres -c "dropdb $db_name" || true
+        su postgres -c "dropuser $db_user" || true
+
+        # delete apache certificates
+        rm -f /var/lib/ebox/conf/ssl.crt/ebox.cert /var/lib/ebox/conf/ssl.key/ebox.key \
+              /var/lib/ebox/conf/ssl.pem/ebox.pem
+
+        # delete logs
+        rm -rf /var/log/ebox
+
+        # delete sudo conf
+        #rm -f /etc/sudoers.d/ebox
+    ;;
+esac
+
+exit 0

@@ -1,0 +1,25 @@
+#!/bin/bash
+
+set -e
+
+#DEBHELPER#
+
+case "$1" in
+    configure)
+        # migrate data if needed
+        /usr/share/ebox/ebox-migrate /usr/share/ebox-dns/migration/ || true
+
+        # create reports tables
+        /usr/share/ebox/ebox-sql-table add dns_domains /usr/share/ebox/sqllog/dns_domains.sql
+        /usr/share/ebox/ebox-sql-table add dns_domains_report /usr/share/ebox/sqllog/dns_domains_report.sql
+
+        # restart logs
+        invoke-rc.d ebox logs restart || true
+
+        invoke-rc.d ebox dns restart || true
+
+        dpkg-trigger --no-await ebox
+    ;;
+esac
+
+exit 0

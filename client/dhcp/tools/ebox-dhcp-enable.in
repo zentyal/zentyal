@@ -1,0 +1,4 @@
+#!/bin/sh
+
+# disable @DHCPD_INIT_SERVICE@
+update-rc.d @DHCPD_INIT_SERVICE@ disable

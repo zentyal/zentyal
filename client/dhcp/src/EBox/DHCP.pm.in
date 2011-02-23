@@ -67,11 +67,11 @@ use Perl6::Junction qw(any);
 use Text::DHCPLeases;
 
 # Module local conf stuff
-use constant DHCPCONFFILE => "/etc/dhcp3/dhcpd.conf";
-use constant LEASEFILE => "/var/lib/dhcp3/dhcpd.leases";
-use constant PIDFILE => '/var/run/dhcp3-server/dhcpd.pid';
+use constant DHCPCONFFILE => "@DHCPDCONF@"; 
+use constant LEASEFILE => "@DHCPDLEASES@"; 
+use constant PIDFILE => "@DHCPDPID@"; 
 use constant APPARMOR_PROFILE => '/etc/apparmor.d/usr.sbin.dhcpd3.zentyal';
-use constant DHCP_SERVICE => "ebox.dhcpd3";
+use constant DHCP_SERVICE => "@DHCPD_SERVICE@";
 use constant TFTP_SERVICE => "tftpd-hpa";
 use constant APPARMOR_SERVICE => '/etc/init.d/apparmor';
 

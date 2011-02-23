@@ -1,0 +1,131 @@
+#!/bin/bash
+
+set -e
+
+. /usr/share/debconf/confmodule
+
+# this will be replaced with debian/ebox.scripts-commmon which includes
+# helper functions to set the password
+#SCRIPTSCOMMON#
+
+#DEBHELPER#
+
+case "$1" in
+    configure)
+        # create log directory
+        test -d /var/log/ebox || mkdir /var/log/ebox
+        chmod 750 /var/log/ebox
+
+        # create ebox apache certificates
+        /usr/share/ebox/ebox-create-certificate /var/lib/ebox/conf/ssl > /dev/null 2>&1
+
+        # add the ebox group and user
+        if ! getent group ebox > /dev/null 2>&1
+        then
+            addgroup --system ebox
+
+            # create the .first file only if we are on the first install
+            touch /var/lib/ebox/.first
+        fi
+        if ! getent passwd ebox > /dev/null 2>&1
+        then
+            adduser --system --home /var/lib/ebox/ \
+                --disabled-password --ingroup ebox ebox
+            adduser ebox adm
+        fi
+        # to allow PAM authentication
+        adduser ebox shadow > /dev/null 2>&1
+
+        chown ebox:adm /var/log/ebox
+        chown -R ebox:adm /var/lib/ebox/tmp
+        chown -R ebox:adm /var/lib/ebox/conf
+        chown -R ebox:adm /var/lib/ebox/log
+
+        # create and set permissions for ebox.sid
+        EBOX_SID="/var/lib/ebox/conf/ebox.sid"
+        if [ ! -e $EBOX_SID ]; then
+            touch $EBOX_SID
+        fi
+        chown ebox:ebox $EBOX_SID
+        chmod 0600 $EBOX_SID
+
+        # add the stderr file needed by sudo
+        STDERR_FILE=`perl -MEBox::Config -e'print EBox::Config::tmp() . 'stderr'; 1'`;
+        touch ${STDERR_FILE}
+        chmod 0600 ${STDERR_FILE}
+        chown ebox:ebox ${STDERR_FILE}
+
+        # add the dynamic-www- and downloads directories
+        DYNAMIC_WWW_DIRS=$(perl -MEBox::Config -e'print EBox::Config::dynamicwww() ; print " " ; print join(" ", @{EBox::Config::dynamicwwwSubdirs()}); print " "; print EBox::Config::downloads;  1;');
+        for DIR in $DYNAMIC_WWW_DIRS; do
+            mkdir -p $DIR
+            chown -R ebox:ebox $DIR
+        done
+
+        # change the /var/lib/ebox/ user
+        chown ebox:ebox /var/lib/ebox
+
+        # setup random redis password
+        REDIS_PASS="/var/lib/ebox/conf/redis.passwd"
+        if [ ! -f $REDIS_PASS ]; then
+            touch $REDIS_PASS
+            chmod 0600 $REDIS_PASS
+            chown ebox:ebox $REDIS_PASS
+            tr -dc A-Za-z0-9 < /dev/urandom | head -c8 > $REDIS_PASS
+        fi
+
+        # launch redis-server on first install (needed by EBox::init)
+        if [ -f /var/lib/ebox/.first -a -z "$2" ]; then
+            /usr/bin/sudo -u ebox /usr/bin/redis-server /var/lib/ebox/conf/redis.first
+        fi
+
+        # sudo configuration
+        /usr/share/ebox/ebox-sudoers-friendly
+
+        # import old gconf backup from preinst
+        if [ -f /var/lib/ebox/gconf.backup ]; then
+            /usr/share/ebox/ebox-import-gconf
+        fi
+
+        if [ -z "$2" ]; then
+            # set ebox port only if it's the first time we install
+            set_ebox_port
+            invoke-rc.d ebox apache start || true
+        else
+            invoke-rc.d ebox apache stop || true
+            # give apache some time to stop completely
+            # otherwise it will fail to start as the port is being used
+            sleep 5
+            invoke-rc.d ebox apache start || true
+        fi
+
+        # migrate log data
+        /usr/share/ebox/ebox-migrate /usr/share/ebox-logs/migration/ || true
+
+        # migrate events module
+        /usr/share/ebox/ebox-migrate /usr/share/ebox-events/migration/ || true
+
+        # remove initial redis config and stop server
+        if [ -f /var/lib/ebox/.first -a -z "$2" ]; then
+            kill -9 `cat /var/lib/ebox/redis.ebox.pid`
+        fi
+        rm -f /var/lib/ebox/conf/redis.first
+    ;;
+    triggered)
+        # remove the menu cache
+        rm -f /var/lib/ebox/tmp/menucache
+
+        # restart ebox
+        invoke-rc.d ebox apache restart || true
+
+        # remove dpkg running flag
+        rm -f /var/lib/ebox/dpkg_running
+
+        # avoid launching wizards
+        rm -f /var/lib/ebox/.first
+    ;;
+esac
+
+db_stop
+
+exit 0

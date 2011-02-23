@@ -1,0 +1,6 @@
+pre-start script
+    invoke-rc.d cups stop || true
+end script
+
+exec /usr/sbin/cupsd -f
+respawn

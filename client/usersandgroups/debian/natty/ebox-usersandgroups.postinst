@@ -1,0 +1,64 @@
+#!/bin/bash
+
+set -e
+
+#DEBHELPER#
+
+. /usr/share/debconf/confmodule
+
+case "$1" in
+    configure)
+        # create slapd certificate
+        /usr/share/ebox/ebox-create-certificate /etc/ldap/ssl > /dev/null 2>&1
+        chown -R openldap:openldap /etc/ldap/ssl
+
+        # add the ebox group and user
+        if ! getent group ebox-usercorner > /dev/null 2>&1
+        then
+            addgroup --system ebox-usercorner
+        fi
+        if ! getent passwd ebox-usercorner > /dev/null 2>&1
+        then
+            adduser --system --home /var/lib/ebox-usercorner/ \
+                --disabled-password --ingroup ebox-usercorner ebox-usercorner
+        fi
+
+        CORNER_LOG="/var/log/ebox-usercorner/"
+        test -d $CORNER_LOG || mkdir $CORNER_LOG
+        chown -R ebox-usercorner:ebox-usercorner $CORNER_LOG
+
+        # create user session ids and conf directories
+        test -d  /var/lib/ebox-usercorner/conf/ || mkdir -p /var/lib/ebox-usercorner/conf/
+        test -d  /var/lib/ebox-usercorner/sids/ || mkdir -p /var/lib/ebox-usercorner/sids/
+        chown -R ebox-usercorner:ebox-usercorner /var/lib/ebox-usercorner
+
+        # setup random redis password
+        REDIS_PASS="/var/lib/ebox-usercorner/conf/redis.passwd"
+        if [ ! -f $REDIS_PASS ]; then
+            touch $REDIS_PASS
+            chmod 0660 $REDIS_PASS
+            tr -dc A-Za-z0-9 < /dev/urandom | head -c10 > $REDIS_PASS
+        fi
+        chown ebox-usercorner:ebox $REDIS_PASS
+
+        # create ebox user corner apache certificates
+        /usr/share/ebox/ebox-create-certificate /var/lib/ebox-usercorner/ssl > /dev/null 2>&1 || true
+
+        # migrate data if needed
+        /usr/share/ebox/ebox-migrate /usr/share/ebox-usersandgroups/migration/ || true
+
+        # restart users and groups
+        invoke-rc.d ebox users restart || true
+
+        dpkg-trigger --no-await ebox
+    ;;
+    triggered)
+        # remove the usercorner menu cache
+        rm -f /var/lib/ebox-usercorner/menucache || true
+
+        # restart the usercorner apache
+        invoke-rc.d ebox usercorner restart || true
+    ;;
+esac
+
+exit 0

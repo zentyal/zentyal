@@ -1,0 +1,6 @@
+pre-start script
+    invoke-rc.d slapd stop || true
+end script
+
+exec /usr/sbin/slapd -d 0 -h ldap://127.0.0.1:1390/ -u openldap -g openldap -F /etc/ldap/slapd-translucent.d
+respawn

@@ -1,0 +1,23 @@
+#!/bin/bash
+
+set -e
+
+#DEBHELPER#
+
+case "$1" in
+    configure)
+        # import timezone from system if installing for the first time
+        if [ -z "$2" ] ; then
+        /usr/share/ebox-ntp/ebox-timezone-import || true
+        fi
+
+        # migrate data if needed
+        /usr/share/ebox/ebox-migrate /usr/share/ebox-ntp/migration/ || true
+
+        invoke-rc.d ebox ntp restart || true
+
+        dpkg-trigger --no-await ebox
+    ;;
+esac
+
+exit 0

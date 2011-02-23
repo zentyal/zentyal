@@ -1,0 +1,527 @@
+ebox (2.0.15-0ubuntu1) natty; urgency=low
+
+  * Updates packaging for Natty:
+    - debian/copyright: maintainer and copyright updated.
+    - debian/dirs: removed not needed directories.
+    - debian/compat: updated to 8.
+    - debian/control: updated mantainer, build-depends, standards-version to
+                      3.9.1 (no changes needed). Added Homepage, Vcs-Browser
+                      and Vcs-Svn fields. ebox-software removed from Depends.
+
+ -- Jorge Salamero Sanz <bencer@debian.org>  Tue, 25 Jan 2011 00:15:58 +0100
+
+ebox (2.0.15) lucid; urgency=low
+
+  * New upstream release
+
+ -- José A. Calvo <jacalvo@zentyal.com>  Thu, 13 Jan 2011 18:24:44 +0100
+
+ebox (2.0.14) lucid; urgency=low
+
+  * New upstream release
+
+ -- José A. Calvo <jacalvo@zentyal.com>  Sun, 09 Jan 2011 19:26:42 +0100
+
+ebox (2.0.13) lucid; urgency=low
+
+  * New upstream release
+
+ -- José A. Calvo <jacalvo@zentyal.com>  Wed, 29 Dec 2010 03:01:16 +0100
+
+ebox (2.0.12) lucid; urgency=low
+
+  * New upstream release
+
+ -- José A. Calvo <jacalvo@zentyal.com>  Tue, 21 Dec 2010 22:25:17 +0100
+
+ebox (2.0.11) lucid; urgency=low
+
+  * New upstream release
+
+ -- José A. Calvo <jacalvo@zentyal.com>  Tue, 21 Dec 2010 00:43:24 +0100
+
+ebox (2.0.10) lucid; urgency=low
+
+  * New upstream release
+
+ -- José A. Calvo <jacalvo@zentyal.com>  Sun, 19 Dec 2010 16:03:26 +0100
+
+ebox (2.0.9) lucid; urgency=low
+
+  * New upstream release
+
+ -- José A. Calvo <jacalvo@zentyal.com>  Tue, 07 Dec 2010 15:11:19 +0100
+
+ebox (2.0.8) lucid; urgency=low
+
+  * New upstream release
+
+ -- José A. Calvo <jacalvo@zentyal.com>  Sun, 05 Dec 2010 13:30:35 +0100
+
+ebox (2.0.7) lucid; urgency=low
+
+  * New upstream release
+
+ -- José A. Calvo <jacalvo@zentyal.com>  Wed, 10 Nov 2010 11:19:06 +0100
+
+ebox (2.0.6) lucid; urgency=low
+
+  * New upstream release
+
+ -- José A. Calvo <jacalvo@zentyal.com>  Sun, 24 Oct 2010 22:14:00 +0200
+
+ebox (2.0.5) lucid; urgency=low
+
+  * New upstream release
+
+ -- José A. Calvo <jacalvo@zentyal.com>  Mon, 18 Oct 2010 17:41:43 +0200
+
+ebox (2.0.4) lucid; urgency=low
+
+  * New upstream release
+
+ -- José A. Calvo <jacalvo@zentyal.com>  Tue, 12 Oct 2010 18:52:31 +0200
+
+ebox (2.0.3) lucid; urgency=low
+
+  * New upstream release
+
+ -- José A. Calvo <jacalvo@zentyal.com>  Wed, 06 Oct 2010 15:24:49 +0200
+
+ebox (2.0.2) lucid; urgency=low
+
+  * New upstream release
+
+ -- José A. Calvo <jacalvo@zentyal.com>  Sat, 18 Sep 2010 15:18:38 +0200
+
+ebox (2.0.1) lucid; urgency=low
+
+  * New upstream release
+
+ -- José A. Calvo <jacalvo@zentyal.com>  Sun, 05 Sep 2010 13:28:45 +0200
+
+ebox (2.0) lucid; urgency=low
+
+  * New upstream release
+
+ -- José A. Calvo <jacalvo@zentyal.com>  Mon, 30 Aug 2010 21:51:57 +0200
+
+ebox (1.5.14-0ubuntu1~ppa1~lucid1) lucid; urgency=low
+
+  * New upstream release
+
+ -- José A. Calvo <jacalvo@ebox-platform.com>  Thu, 26 Aug 2010 16:02:15 +0200
+
+ebox (1.5.13-0ubuntu1~ppa1~lucid1) lucid; urgency=low
+
+  * New upstream release
+
+ -- José A. Calvo <jacalvo@ebox-platform.com>  Mon, 23 Aug 2010 12:15:35 +0200
+
+ebox (1.5.12-0ubuntu1~ppa1~lucid1) lucid; urgency=low
+
+  * New upstream release
+
+ -- José A. Calvo <jacalvo@ebox-platform.com>  Wed, 18 Aug 2010 17:24:56 +0200
+
+ebox (1.5.11-0ubuntu1~ppa1~lucid1) lucid; urgency=low
+
+  * New upstream release
+
+ -- José A. Calvo <jacalvo@ebox-platform.com>  Fri, 13 Aug 2010 11:37:14 +0200
+
+ebox (1.5.10-0ubuntu1~ppa1~lucid1) lucid; urgency=low
+
+  * New upstream release
+
+ -- José A. Calvo <jacalvo@ebox-platform.com>  Thu, 05 Aug 2010 12:16:01 +0200
+
+ebox (1.5.9-0ubuntu1~ppa1~lucid1) lucid; urgency=low
+
+  * New upstream release
+
+ -- José A. Calvo <jacalvo@ebox-platform.com>  Wed, 04 Aug 2010 15:48:15 +0200
+
+ebox (1.5.8-0ubuntu1~ppa1~lucid1) lucid; urgency=low
+
+  * New upstream release
+
+ -- José A. Calvo <jacalvo@ebox-platform.com>  Sun, 25 Jul 2010 20:37:21 +0200
+
+ebox (1.5.7-0ubuntu1~ppa1~lucid1) lucid; urgency=low
+
+  * New upstream release
+
+ -- José A. Calvo <jacalvo@ebox-platform.com>  Mon, 19 Jul 2010 12:13:05 +0200
+
+ebox (1.5.6-0ubuntu1~ppa1~lucid1) lucid; urgency=low
+
+  * New upstream release
+
+ -- José A. Calvo <jacalvo@ebox-platform.com>  Mon, 05 Jul 2010 16:42:59 +0200
+
+ebox (1.5.5-0ubuntu1~ppa1~lucid1) lucid; urgency=low
+
+  * New upstream release
+
+ -- José A. Calvo <jacalvo@ebox-platform.com>  Sat, 26 Jun 2010 21:46:46 +0200
+
+ebox (1.5.4-0ubuntu1~ppa1~lucid1) lucid; urgency=low
+
+  * New upstream release
+
+ -- José A. Calvo <jacalvo@ebox-platform.com>  Sun, 20 Jun 2010 20:37:30 +0200
+
+ebox (1.5.3-0ubuntu1~ppa1~lucid1) lucid; urgency=low
+
+  * New upstream release
+
+ -- José A. Calvo <jacalvo@ebox-platform.com>  Thu, 17 Jun 2010 00:54:15 +0200
+
+ebox (1.5.2-0ubuntu1~ppa1~lucid1) lucid; urgency=low
+
+  * New upstream release
+
+ -- José A. Calvo <jacalvo@ebox-platform.com>  Thu, 10 Jun 2010 16:31:34 +0200
+
+ebox (1.5.1-0ubuntu1~ppa1~lucid1) lucid; urgency=low
+
+  * New upstream release
+
+ -- José A. Calvo <jacalvo@ebox-platform.com>  Thu, 13 May 2010 01:34:16 +0200
+
+ebox (1.5-0ubuntu1) lucid; urgency=low
+
+  [Javier Uruen Val]
+  * New usptream release (LP: #521799)
+  * Drop debian/patches as upstream already ships them
+  * Drop simple-patchsys
+  * debian/control
+    - Update description
+  * Add debian/ebox.cron.daily
+
+ -- Javier Uruen Val <juruen@ebox-platform.com>  Sun, 07 Feb 2010 18:07:46 +0100
+
+ebox (1.3.5-0ubuntu2) karmic; urgency=low
+
+  [Javier Uruen Val]
+  * debian/patches (LP: #451495)
+    - Add 05_fix_lsb_default_values.patch
+    - Add 06_fix_public_css_and_login_css_generation.patch
+
+ -- Javier Uruen Val <javi@warp.es>  Tue, 13 Oct 2009 20:45:46 +0200
+
+ebox (1.3.5-0ubuntu1) karmic; urgency=low
+
+  [Javier Uruen Val]
+  * New upstream release [LP: #411466]
+  * cdbs/ebox.mk
+    - GConf schemas are not used anymore
+    - Remove SCHEMASPATH variable
+    - Remove schemadir variable
+    - Set execution permissions for /etc/ebox/hooks/*
+    - Use new upstart directory and file naming convention
+  * debian/control
+    - Bump standards version
+    - Bump libebox depenency
+    - Add dependency on libtime-piece-perl, libjson-perl, libyaml-tiny-perl
+  * debian/dirs
+    - Fix var/log/ebox
+    - Add var/lib/ebox/conf/ssl-ca
+  * debian/ebox.cron.hourly
+    - Send stderr and stdout to /dev/null
+  * debian/ebox.postinst
+    - Add set -e
+    - Fix indentation
+    - Do not pkill gconfd as it's not necessary anymore
+    - Run ebox trigger
+    - Create log consolidation tables
+    - Migrate logs
+    - Add missing db_stop
+  * debian/ebox.prerm
+    - Add set -e
+  * debian/ebox.postrm
+    - Add set -e
+  * debian/patches
+    - Drop dpatch
+        + Drop 01_add_apache_authcookie (shipped by upstream)
+        + Drop 02_dbus_gconf (shipped by upstream)
+        + Drop 03_js_libraries (shipped by upstream)
+    - Use simple-patchsys
+        + Add 01_use_shipped_authcookie.patch
+        + Add 02_upstart_fixes.patch
+        + Add 03_json_api.patch
+        + Add 04_remove_network_workaround.patch
+  * debian/rules
+    - Do not include debian/cdbs/gnome.mk
+  * debian/watch
+    - Change URL
+
+ -- Javier Uruen Val <javi@warp.es>  Wed, 05 Aug 2009 12:29:43 +0200
+
+ebox (0.12.4-0ubuntu1) jaunty; urgency=low
+
+  * New upstream release. (LP: #318710, LP: #310045).
+  * debian/control:
+    - Bump standard version.
+    - Depend on an apache2-mpm- rather then apache2 (LP: #225793).
+    - Build depend on debconf-updatepo.
+  * debian/rules:
+    - Call debconf-updatepo from clean target.
+  * debian/copyright:
+    - Include section about apache-authcookie code.
+  * debian/ebox.postrm:
+    - Remove ebox log files (LP: #129738).
+  * debian/ebox.prerm:
+    - Stop ebox when the package is removed. (LP: #234912)
+  * debian/watch:
+    - add watch file.
+  * debian/patches/01_add_apache_authcookie.dpatch
+    - Patch to backport AuthCookie authentication for jaunty (LP: #255368).
+  * debian/patches/02_dbus_gconf.dpatch
+    - Patch to make gconf classes work with new gconf using dbus
+      (LP: #314606).
+  * debian/patches/03_js_libraries.dpatch
+    - Patch to use javascript libraries that are already package for
+      Jaunty
+
+ -- Mathias Gug <mathiaz@ubuntu.com>  Mon, 26 Jan 2009 18:21:18 -0500
+
+ebox (0.11.99-0ubuntu11) hardy; urgency=low
+
+  * debian/patches/15_disable_bug_report.dpatch
+    - Dont disclose bug information in bug reports. It might contain
+      sensitive information. (LP: #219343)
+
+ -- Chuck Short <zulcss@ubuntu.com>  Mon, 21 Apr 2008 08:17:21 -0400
+
+ebox (0.11.99-0ubuntu10) hardy; urgency=low
+
+  * debian/patches/14_fix_backup_creation_mask.dpatch
+
+ -- Chuck Short <zulcss@ubuntu.com>  Thu, 10 Apr 2008 11:29:02 -0400
+
+ebox (0.11.99-0ubuntu9) hardy; urgency=low
+
+  * Fix permissions on /var/lib/ebox/conf/ebox.sid. To prevent cookies from
+    being read.
+
+ -- Chuck Short <zulcss@ubuntu.com>  Wed, 09 Apr 2008 10:51:36 -0400
+
+ebox (0.11.99-0ubuntu8) hardy; urgency=low
+
+  * debian/patches/11_progress_indicator_cleanup.dpatch
+    - Clean up file descriptiors before running exec in progress indicator.
+  * debian/patches/12_ebox_init.dpatch
+    - use /lib/lsb/init-functions to log start/stop fucntions.
+  * debian/patches/13_backup_configured_modules.dpatch
+    - Backup only configured modules.
+  * Add preinst script to fetch from eBox's apache port and set it in debconf.
+
+ -- Chuck Short <zulcss@ubuntu.com>  Mon, 07 Apr 2008 10:13:48 -0400
+
+ebox (0.11.99-0ubuntu7) hardy; urgency=low
+
+  * debian/patches/10_service_watcher.dpatch
+    - Check to see if a service is up when it shouldn't be.
+  * debian/ebox.postinst
+    - Cosmetic changes to ebox.postinst
+    - Wait for apache to stop completely.
+
+ -- Chuck Short <zulcss@ubuntu.com>  Mon, 31 Mar 2008 08:39:04 -0400
+
+ebox (0.11.99-0ubuntu6) hardy; urgency=low
+
+  * Add default value to ebox/port_used template.
+  * Run db_input "|| true" to avoid issues with questions without default
+    and noninteractive install.
+
+ -- Chuck Short <zulcss@ubuntu.com>  Thu, 27 Mar 2008 10:04:23 -0400
+
+ebox (0.11.99-0ubuntu5) hardy; urgency=low
+
+  * debian/patches/08_fix_apache_pid_file.dpatch
+    - Store apache's pid file under eBox directory to not interfere with
+      the main apache instance.
+  * debian/patches/09_fix_apache_watcher.dpatch
+    - Fix the state watcher by checking if apache port is accesible.
+  * Ask user which port eBox apache must use in config using debconf.
+
+ -- Chuck Short <zulcss@ubuntu.com>  Wed, 26 Mar 2008 09:13:44 -0400
+
+ebox (0.11.99-0ubuntu4) hardy; urgency=low
+
+  * debian/patches/04_fix_disable_log_daemon.dpatch
+    - Disable log daemon if requested by user
+  * debian/patches/05_fix_event_link.dpatch
+    - Fix symlink creation.
+  * debian/patches/06_reduce_rss_items.dpatch
+    - Reduce the number of RSS entries to 500.
+  * debian/patches/07_intialise_log_statement.dpatch
+    - Fix log queries.
+  * debian/ebox.cron.hourly
+    - Install in the right place.
+
+ -- Chuck Short <zulcss@ubuntu.com>  Mon, 24 Mar 2008 09:45:27 -0400
+
+ebox (0.11.99-0ubuntu2) hardy; urgency=low
+
+  * debian/control
+    - Added dpatch.
+  * debian/patches/01_fix_memory_leak_events.dpatch,
+    debian/patches/02_fix_backup_parameter.dpatch,
+    debian/patches/03_fix_apache_restart.dpatch:
+    - Added patch from upstream to fix various issues.
+
+ -- Chuck Short <zulcss@ubuntu.com>  Tue, 11 Mar 2008 08:42:21 -0400
+
+ebox (0.11.99-0ubuntu1) hardy; urgency=low
+
+  * Added libfile-copy-recursive-perl to depends.
+
+ -- Chuck Short <zulcss@ubuntu.com>  Fri, 29 Feb 2008 09:40:52 -0500
+
+ebox (0.11.99-0ubuntu1~ppa1) hardy; urgency=low
+
+  * New upstream version.
+
+ -- Chuck Short <zulcss@ubuntu.com>  Wed, 27 Feb 2008 11:24:27 -0500
+
+ebox (0.11.99-0ubuntu1~ppa2) hardy; urgency=low
+
+  * Move progress.js from libebox to ebox
+
+ -- Javier Uruen Val <javi@warp.es>  Tue, 26 Feb 2008 11:58:13 +0100
+
+ebox (0.11.99-0ubuntu1~ppa1) hardy; urgency=low
+
+  * New upstream release
+
+ -- Javier Uruen Val <javi@warp.es>  Mon, 25 Feb 2008 12:47:13 +0100
+
+ebox (0.11.99) unstable; urgency=low
+
+  * New upstream release
+
+ -- Enrique José Hernández Blasco <quique@warp.es>  Tue,  8 Jan 2008 16:14:38 +0100
+
+ebox (0.11-0ubuntu1~ppa2) hardy; urgency=low
+
+  * Use debconf to set admin password
+
+ -- Javier Uruen Val <javi@warp.es>  Wed, 20 Feb 2008 18:57:29 +0100
+
+ebox (0.11-0ubuntu1~ppa1) hardy; urgency=low
+
+  * New upstream release
+
+ -- Javier Uruen Val <javi@warp.es>  Wed, 28 Nov 2007 15:23:32 +0100
+
+ebox (0.10.99) unstable; urgency=low
+
+  * New upstream release
+
+ -- Javier Uruen Val <javi@warp.es>  Thu, 01 Nov 2007 21:38:13 +0100
+
+ebox (0.10) unstable; urgency=low
+
+  * New upstream release
+
+ -- Javier Uruen Val <javi@warp.es>  Wed, 10 Oct 2007 21:53:48 +0200
+
+ebox (0.9.100) unstable; urgency=low
+
+  * New upstream release
+
+ -- Javier Uruen Val <javi@warp.es>  Mon, 03 Sep 2007 13:19:25 +0200
+
+ebox (0.9.99) unstable; urgency=low
+
+  * New upstream release
+
+ -- Javier Amor Garcia <javier.amor.garcia@warp.es>  Tue, 24 Jul 2007 12:26:07 +0200
+
+ebox (0.9.3) unstable; urgency=low
+
+  * New upstream release
+
+ -- Javier Uruen Val <javi@warp.es>  Sun, 24 Jun 2007 16:38:47 +0200
+
+ebox (0.9.2) unstable; urgency=low
+
+  * New upstream release
+
+ -- Javier Uruen Val <javi@warp.es>  Tue, 12 Jun 2007 18:59:26 +0200
+
+ebox (0.9.1) unstable; urgency=low
+
+  * New upstream release
+
+ -- Enrique José Hernández Blasco <quique@warp.es>  Tue, 26 Jun 2007 17:22:39 +0200
+
+ebox (0.9) unstable; urgency=low
+
+  * New upstream release
+
+ -- Javier Amor Garcia <javier.amor.garcia@warp.es>  Wed, 21 Mar 2007 09:21:13 +0100
+
+ebox (0.8.99) unstable; urgency=low
+
+  * New upstream release
+
+ -- Enrique Jos� Hern�ndez Blasco <quique@warp.es>  Fri, 16 Feb 2007 11:42:55 +0100
+
+ebox (0.7.99) unstable; urgency=low
+
+  * New upstream release
+
+ -- Javier Amor Garcia <javier.amor.garcia@warp.es>  Thu,  9 Nov 2006 10:56:04 +0100
+
+ebox (0.7.1) unstable; urgency=low
+
+  * New upstream release
+
+ -- Daniel Baeyens Sicilia <dani@warp.es>  Wed, 22 Mar 2006 16:04:22 +0100
+
+ebox (0.7.0.99-rc1+0.7.1-rc1) unstable; urgency=low
+
+  * New upstream release
+
+ -- Javier Uruen Val <javi@warp.es>  Tue, 17 Jan 2006 11:45:27 +0100
+
+ebox (0.6-1) unstable; urgency=low
+
+  * New upstream release
+
+ -- Isaac Clerencia <isaac@debian.org>  Thu, 27 Oct 2005 19:08:04 +0200
+
+ebox (0.5.1) unstable; urgency=low
+
+  * New upstream release
+
+ -- Guillermo Ontañón <gontanon@warp.es>  Mon, 14 Mar 2005 14:32:15 +0100
+
+ebox (0.5) unstable; urgency=low
+
+  * New upstream release
+
+ -- Isaac Clerencia <isaac@debian.org>  Thu,  3 Mar 2005 19:55:13 +0100
+
+ebox (0.4-3) unstable; urgency=low
+
+  * SSL certs are now copied by Makefile
+  * Added network detection capabilities
+
+ -- Isaac Clerencia <isaac@debian.org>  Mon, 17 Jan 2005 16:41:33 +0100
+
+ebox (0.4-2) unstable; urgency=low
+
+  * Added libapache-mod-ssl in Depends:
+
+ -- Isaac Clerencia <isaac@sindominio.net>  Sat,  4 Dec 2004 16:33:09 +0100
+
+ebox (0.4-1) unstable; urgency=low
+
+  * New upstream release
+
+ -- Isaac Clerencia <isaac@warp.es>  Fri,  3 Dec 2004 05:58:03 +0100

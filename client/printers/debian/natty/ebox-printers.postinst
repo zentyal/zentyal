@@ -1,0 +1,33 @@
+#!/bin/bash
+
+set -e
+
+#DEBHELPER#
+
+case "$1" in
+    configure)
+        # add ebox to lpadmin to manage printers and queues
+        adduser --quiet ebox lpadmin || true
+        # add ebox to lp to read cups logs
+        adduser --quiet ebox lp || true
+
+        # migrate data if needed
+        /usr/share/ebox/ebox-migrate /usr/share/ebox-printers/migration/ || true
+
+        # create logs and reports tables
+        /usr/share/ebox/ebox-sql-table add printers_jobs /usr/share/ebox/sqllog/printers_jobs.sql || true
+        /usr/share/ebox/ebox-sql-table add printers_jobs_report /usr/share/ebox/sqllog/printers_jobs_report.sql || true
+        /usr/share/ebox/ebox-sql-table add printers_jobs_by_user_report /usr/share/ebox/sqllog/printers_jobs_by_user_report.sql || true
+        /usr/share/ebox/ebox-sql-table add printers_pages /usr/share/ebox/sqllog/printers_pages.sql || true
+        /usr/share/ebox/ebox-sql-table add printers_usage_report /usr/share/ebox/sqllog/printers_usage_report.sql || true
+
+        # restart logs
+        invoke-rc.d ebox logs restart || true
+
+        invoke-rc.d ebox printers restart || true
+
+        dpkg-trigger --no-await ebox
+     ;;
+esac
+
+exit 0

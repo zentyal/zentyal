@@ -1,0 +1,2 @@
+exec /usr/bin/perl /usr/share/perl5/EBox/EventDaemon.pm
+respawn

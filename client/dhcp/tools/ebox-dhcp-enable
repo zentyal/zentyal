@@ -1,4 +1,0 @@
-#!/bin/bash
-
-# disable dhcp3-server
-update-rc.d dhcp3-server disable

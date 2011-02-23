@@ -1,0 +1,7 @@
+Template: ebox-network/overwrite_ifaces
+Type: boolean
+Default: false
+_Description: allow Zentyal to overwrite /etc/network/interfaces?
+ Zentyal writes the network configuration on this file, if you don't
+ allow it, you will have to enable the network module on the web
+ interface.

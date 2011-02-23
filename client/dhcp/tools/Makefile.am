@@ -4,6 +4,8 @@ SUBDIRS = sqllog
 
 pkgdata_SCRIPTS =  ebox-dhcp-enable
 
+DISTCLEANFILES = ebox-dhcp-enable
+
 MAINTAINERCLEANFILES = Makefile.in
 
 EXTRA_DIST = $(pkgdata_SCRIPTS)

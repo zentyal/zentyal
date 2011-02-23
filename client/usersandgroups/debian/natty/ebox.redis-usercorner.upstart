@@ -1,0 +1,2 @@
+exec sudo -u ebox-usercorner /usr/bin/redis-server /var/lib/ebox-usercorner/conf/redis.conf
+respawn

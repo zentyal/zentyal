@@ -1,0 +1,6 @@
+pre-start script
+    invoke-rc.d slapd stop || true
+end script
+
+exec /usr/sbin/slapd -d 0 -h ldap://0.0.0.0:1389/ -u openldap -g openldap -F /etc/ldap/slapd-replica.d
+respawn

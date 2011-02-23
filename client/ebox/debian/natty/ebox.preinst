@@ -1,0 +1,51 @@
+#!/bin/bash
+
+set -e
+
+function gconf_backup {
+    echo "Saving gconf files backup..."
+    gconfb=/var/lib/ebox/gconf.backup
+    touch $gconfb
+    chown ebox.ebox $gconfb
+    chmod 0600 $gconfb
+    sudo -u ebox /usr/bin/gconftool-2 --dump /ebox > $gconfb
+}
+
+#DEBHELPER#
+
+case "$1" in
+    upgrade)
+        # check version
+        if [[ "$2" =~ ([0-9])\.([0-9])\.([0-9]).* ]]; then
+            v1=${BASH_REMATCH[1]}
+            v2=${BASH_REMATCH[2]}
+            v3=${BASH_REMATCH[3]}
+
+            # Zentyal 2.0 uses redis
+            if [[ "$v1" -ge 2 ]]; then
+                exit 0
+            fi
+
+            if [[ "$v2" -le 4 ]]; then
+                # eBox 1.4 or less
+                gconf_backup
+            else
+                if [[ "$v3" -le 8 ]]; then
+                    # eBox 1.5.8 is the latest gconfdependent version
+                    gconf_backup
+                fi
+            fi
+        fi
+    ;;
+esac
+
+SUDOERS=/etc/sudoers
+INCLUDE="
+# sudoers.d included by Zentyal Server, read /etc/sudoers.d/README
+#
+#includedir /etc/sudoers.d"
+if ! grep -q "^#includedir /etc/sudoers.d" "$SUDOERS"; then
+    echo "$INCLUDE" >> "$SUDOERS"
+fi
+
+exit 0

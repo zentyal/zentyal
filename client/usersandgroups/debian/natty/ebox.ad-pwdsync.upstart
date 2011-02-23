@@ -1,0 +1,2 @@
+exec /usr/share/ebox-usersandgroups/ebox-pwdsync-server
+respawn

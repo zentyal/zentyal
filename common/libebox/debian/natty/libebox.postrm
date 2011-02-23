@@ -1,0 +1,16 @@
+#!/bin/bash
+
+set -e
+
+#DEBHELPER#
+
+case "$1" in
+    purge)
+        # delete logs and temporal files
+        rm -rf /var/lib/ebox/
+        # delete configuration files
+        rm -rf /etc/ebox
+    ;;
+esac
+
+exit 0

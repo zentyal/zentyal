@@ -1,0 +1,19 @@
+Template: ebox/port
+Type: string
+Default: 443
+_Description: Zentyal HTTPS port:
+ Please enter the port which will be used by the Zentyal HTTPS server. Use an
+ available port that is not being used by another service.
+
+Template: ebox/port_used
+Type: boolean
+Default: true
+_Description: Do you want to continue?
+ It seems that the port you have selected is already being used. You can
+ continue anyway or enter a new port.
+
+Template: ebox/user_exists
+Type: note
+_Description: Installation failed
+ There is already a user called 'ebox' in your machine. Please, remove it or
+ choose a different name and try again.

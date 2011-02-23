@@ -1,0 +1,31 @@
+#!/bin/bash
+set -e
+
+# We need to unconfigure and purge module's configuration
+# before the gconf schemas have been removed (i.e before gconf
+# debhelper has been run). That's why we do things before
+# and after gconf debhelper is run.
+if [ "$1" = "purge" ]; then
+        # Purge configuration
+        /usr/share/ebox/ebox-clean-gconf printers || true
+fi
+
+#DEBHELPER#
+
+case "$1" in
+    remove)
+        invoke-rc.d ebox logs restart || true
+
+        dpkg-trigger --no-await ebox
+    ;;
+    purge)
+        # drop tables
+        /usr/share/ebox/ebox-sql-table drop printers_jobs || true
+        /usr/share/ebox/ebox-sql-table drop printers_jobs_report || true
+        /usr/share/ebox/ebox-sql-table drop printers_jobs_by_user_report || true
+        /usr/share/ebox/ebox-sql-table drop printers_pages || true
+        /usr/share/ebox/ebox-sql-table drop printers_usage_report || true
+    ;;
+esac
+
+exit 0

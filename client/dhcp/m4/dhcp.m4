@@ -30,5 +30,19 @@ AC_DEFUN([AC_PROG_DHCP],
   if test -z "$DHCP_INIT" ; then
   	AC_MSG_ERROR("dhcp3 init script not found")
   fi	
+
+  DHCPDCONF="/etc/dhcp3/dhcpd.conf" 
+  DHCPDLEASES="/var/lib/dhcp3/dhcpd.leases" 
+  DHCPDPID="/var/run/dhcp3-server/dhcpd.pid" 
+  DHCPD_SERVICE="ebox.dhcpd3" 
+  DHCPD_INIT="/etc/init.d/dhcp3-server" 
+  DHCPD_INIT_SERVICE="dhcp3-server" 
+
   AC_SUBST(DHCP_INIT)
+  AC_SUBST(DHCPDCONF)
+  AC_SUBST(DHCPDLEASES)
+  AC_SUBST(DHCPDPID)
+  AC_SUBST(DHCPD_SERVICE)
+  AC_SUBST(DHCPD_INIT)
+  AC_SUBST(DHCPD_INIT_SERVICE)
 ])

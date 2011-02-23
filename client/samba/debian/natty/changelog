@@ -1,0 +1,302 @@
+ebox-samba (2.0.7-0ubuntu1) natty; urgency=low
+
+  * Updates packaging for Natty:
+    - debian/copyright: maintainer and copyright updated.
+    - debian/compat: updated to 8.
+    - debian/control: updated mantainer, build-depends, standards-version to
+                      3.9.1 (no changes needed). Added Homepage, Vcs-Browser
+                      and Vcs-Svn fields.
+
+ -- Jorge Salamero Sanz <bencer@debian.org>  Thu, 27 Jan 2011 13:59:17 +0100
+
+ebox-samba (2.0.7) lucid; urgency=low
+
+  * New upstream release
+
+ -- José A. Calvo <jacalvo@zentyal.com>  Sat, 18 Dec 2010 02:09:23 +0100
+
+ebox-samba (2.0.6) lucid; urgency=low
+
+  * New upstream release
+
+ -- José A. Calvo <jacalvo@zentyal.com>  Sat, 11 Dec 2010 15:27:40 +0100
+
+ebox-samba (2.0.5) lucid; urgency=low
+
+  * New upstream release
+
+ -- José A. Calvo <jacalvo@zentyal.com>  Mon, 08 Nov 2010 19:21:14 +0100
+
+ebox-samba (2.0.4) lucid; urgency=low
+
+  * New upstream release
+
+ -- José A. Calvo <jacalvo@zentyal.com>  Fri, 29 Oct 2010 03:01:14 +0200
+
+ebox-samba (2.0.3) lucid; urgency=low
+
+  * New upstream release
+
+ -- José A. Calvo <jacalvo@zentyal.com>  Wed, 27 Oct 2010 13:27:51 +0200
+
+ebox-samba (2.0.2) lucid; urgency=low
+
+  * New upstream release
+
+ -- José A. Calvo <jacalvo@zentyal.com>  Sun, 24 Oct 2010 19:44:22 +0200
+
+ebox-samba (2.0.1) lucid; urgency=low
+
+  * New upstream release
+
+ -- José A. Calvo <jacalvo@zentyal.com>  Wed, 06 Oct 2010 15:26:39 +0200
+
+ebox-samba (2.0) lucid; urgency=low
+
+  * New upstream release
+
+ -- José A. Calvo <jacalvo@zentyal.com>  Mon, 30 Aug 2010 22:06:29 +0200
+
+ebox-samba (1.5.9-0ubuntu1~ppa1~lucid1) lucid; urgency=low
+
+  * New upstream release
+
+ -- José A. Calvo <jacalvo@ebox-platform.com>  Thu, 26 Aug 2010 16:04:26 +0200
+
+ebox-samba (1.5.8-0ubuntu1~ppa1~lucid1) lucid; urgency=low
+
+  * New upstream release
+
+ -- José A. Calvo <jacalvo@ebox-platform.com>  Mon, 23 Aug 2010 02:19:02 +0200
+
+ebox-samba (1.5.7-0ubuntu1~ppa1~lucid1) lucid; urgency=low
+
+  * New upstream release
+
+ -- José A. Calvo <jacalvo@ebox-platform.com>  Wed, 18 Aug 2010 17:23:51 +0200
+
+ebox-samba (1.5.6-0ubuntu1~ppa1~lucid1) lucid; urgency=low
+
+  * New upstream release
+
+ -- José A. Calvo <jacalvo@ebox-platform.com>  Mon, 19 Jul 2010 12:07:33 +0200
+
+ebox-samba (1.5.5-0ubuntu1~ppa1~lucid1) lucid; urgency=low
+
+  * New upstream release
+
+ -- José A. Calvo <jacalvo@ebox-platform.com>  Sun, 27 Jun 2010 00:51:26 +0200
+
+ebox-samba (1.5.4-0ubuntu1~ppa1~lucid1) lucid; urgency=low
+
+  * New upstream release
+
+ -- José A. Calvo <jacalvo@ebox-platform.com>  Sun, 20 Jun 2010 20:39:51 +0200
+
+ebox-samba (1.5.3-0ubuntu1~ppa1~lucid1) lucid; urgency=low
+
+  * New upstream release
+
+ -- José A. Calvo <jacalvo@ebox-platform.com>  Thu, 10 Jun 2010 16:34:20 +0200
+
+ebox-samba (1.5.2-0ubuntu1~ppa1~lucid1) lucid; urgency=low
+
+  * New upstream release
+
+ -- José A. Calvo <jacalvo@ebox-platform.com>  Thu, 13 May 2010 01:33:08 +0200
+
+ebox-samba (1.5.1-0ubuntu) lucid; urgency=low
+
+  * debian/control: add dependency on acl
+
+ -- Javier Uruen Val <juruen@ebox-technologies.com>  Mon, 22 Feb 2010 22:11:53 +0100
+
+ebox-samba (1.5-0ubuntu1) lucid; urgency=low
+
+   [Javier Uruen Val]
+   * New upstream release (LP: #521812)
+   * debian/control
+     - Bump eBox dependency
+     - Update description
+
+ -- Javier Uruen Val <juruen@ebox-platform.com>  Sun, 07 Feb 2010 18:51:11 +0100
+
+ebox-samba (1.3.5-0ubuntu1) karmic; urgency=low
+
+  [Javier Uruen Val]
+  * New upstream release [LP: 411554]
+  * cdbs/ebox.mk
+    - GConf schemas are not used anymore
+    - Remove SCHEMASPATH variable
+    - Remove schemadir variable
+    - Fix the script that copy upstart scripts
+    - Use new upstart directory and file naming convention
+  * debian/control
+    - Bump standards version
+    - Bump eBox depenency
+    - Remove dependency on dpatch
+  * debian/ebox.nmbd.upstart removed (upstream uses init.d)
+  * debian/ebox.smbd.upstart removed (upstream uses init.d)
+  * debian/ebox-samba.postinst
+    - Fix indentation
+    - Do not pkill gconfd as it's not necessary anymore
+    - Run ebox trigger
+    - Create quarantine directory for anti-virus
+    - Create log tables for anti-virus
+    - Add set -e
+  * removed unused debian/ebox-samba.prerm
+  * debian/ebox-samba.postrm
+    - Run ebox trigger
+    - Add set -e
+  * debian/patches
+    - Drop dpatch system
+        + Drop 01_disable_tls_unix_socket.dpatch (Already shipped by upstream)
+  * debian/rules
+    - Do not include debian/cdbs/gnome.mk
+  * debian/watch
+    - Change URL
+
+ -- Javier Uruen Val <javi@warp.es>  Wed, 05 Aug 2009 12:29:43 +0200
+
+ebox-samba (0.12.6.101-0ubuntu2) jaunty; urgency=low
+
+  * debian/patches/01_disable_tls_unix_socket. Closes (LP: #354150)
+      - Disable TLS on unix socket connecting to openLDAP
+  * Enable dpatch system
+
+ -- Javier Uruen Val <javi@warp.es>  Thu, 02 Apr 2009 23:51:56 +0200
+
+ebox-samba (0.12.6.101-0ubuntu1) jaunty; urgency=low
+
+  [ Javier Uruen Val ]
+  * New upstream release. Closes (LP: #318829)
+  * debian/watch:
+    - add watch file.
+
+ -- Mathias Gug <mathiaz@ubuntu.com>  Mon, 26 Jan 2009 22:07:17 -0500
+
+ebox-samba (0.11.99-0ubuntu3) hardy; urgency=low
+
+  * debian/patches/02_configure_roaming_profiles.dpatch
+    - Enable/disable roaming profiles.
+  * debian/patches/03_output_firewall_rules.dpatch
+    - Fix to add output firewall rules.
+
+ -- Chuck Short <zulcss@ubuntu.com>  Mon, 07 Apr 2008 10:22:10 -0400
+
+ebox-samba (0.11.99-0ubuntu2) hardy; urgency=low
+
+  * debian/patches/01_adjust_group_share
+    - Do not use sticky bit.
+    - Remove leading underscore.
+    - Add comment to share.
+
+ -- Chuck Short <zulcss@ubuntu.com>  Mon, 24 Mar 2008 09:16:29 -0400
+
+ebox-samba (0.11.99-0ubuntu1) hardy; urgency=low
+
+  * New upstream release.
+
+ -- Chuck Short <zulcss@ubuntu.com>  Wed, 27 Feb 2008 13:39:41 -0500
+
+ebox-samba (0.11.99-0ubuntu1~ppa1) hardy; urgency=low
+
+  * New upstream release
+
+ -- Javier Uruen Val <javi@warp.es>  Mon, 25 Feb 2008 15:11:58 +0100
+
+ebox-samba (0.11.99) unstable; urgency=low
+
+  * New upstream release
+
+ -- Enrique José Hernández Blasco <quique@warp.es>  Tue,  8 Jan 2008 16:14:40 +0100
+
+ebox-samba (0.11-0ubuntu1~ppa1) hardy; urgency=low
+
+  * New upstream release
+
+ -- Javier Uruen Val <javi@warp.es>  Wed, 28 Nov 2007 15:23:34 +0100
+
+ebox-samba (0.10.99) unstable; urgency=low
+
+  * New upstream release
+
+ -- Javier Uruen Val <javi@warp.es>  Thu, 01 Nov 2007 21:38:15 +0100
+
+ebox-samba (0.10) unstable; urgency=low
+
+  * New upstream release
+
+ -- Javier Uruen Val <javi@warp.es>  Wed, 10 Oct 2007 21:53:51 +0200
+
+ebox-samba (0.9.100) unstable; urgency=low
+
+  * New upstream release
+
+ -- Javier Uruen Val <javi@warp.es>  Tue, 04 Sep 2007 14:20:48 +0200
+
+ebox-samba (0.9.99) unstable; urgency=low
+
+  * New upstream release
+
+ -- Javier Amor Garcia <javier.amor.garcia@warp.es>  Tue, 24 Jul 2007 12:57:38 +0200
+
+ebox-samba (0.9.3) unstable; urgency=low
+
+  * New upstream release
+
+ -- Javier Uruen Val <javi@warp.es>  Sun, 24 Jun 2007 16:38:49 +0200
+
+ebox-samba (0.9.2) unstable; urgency=low
+
+  * New upstream release
+
+ -- Javier Uruen Val <javi@warp.es>  Tue, 12 Jun 2007 18:59:28 +0200
+
+ebox-samba (0.9.1) unstable; urgency=low
+
+  * New upstream release
+
+ -- Javier Uruen Val <javi@warp.es>  Tue, 15 May 2007 13:02:27 +0200
+
+ebox-samba (0.9) unstable; urgency=low
+
+  * New upstream release
+
+ -- Javier Amor Garcia <javier.amor.garcia@warp.es>  Tue, 27 Mar 2007 12:07:55 +0200
+
+ebox-samba (0.7.99) unstable; urgency=low
+
+  * New upstream release
+
+ -- Javier Amor Garcia <javier.amor.garcia@warp.es>  Mon, 20 Nov 2006 11:03:07 +0100
+
+ebox-samba (0.7.1) unstable; urgency=low
+
+  * New upstream release
+
+ -- Daniel Baeyens Sicilia <dani@warp.es>  Wed, 22 Mar 2006 16:07:14 +0100
+
+ebox-samba (0.7.0.99-rc1+0.7.1-rc1) unstable; urgency=low
+
+  * New upstream release
+
+ -- Javier Uruen Val <javi@warp.es>  Tue, 17 Jan 2006 11:45:28 +0100
+
+ebox-samba (0.5.1) unstable; urgency=low
+
+  * New upstream release
+
+ -- Guillermo Ontañón <gontanon@warp.es>  Mon, 14 Mar 2005 14:33:06 +0100
+
+ebox-samba (0.5) unstable; urgency=low
+
+  * New upstream release
+
+ -- Isaac Clerencia <isaac@debian.org>  Thu,  3 Mar 2005 19:55:47 +0100
+
+ebox-samba (0.4-2) unstable; urgency=low
+
+  * New upstream release
+
+ -- Isaac Clerencia <isaac@sindominio.net>  Sat,  4 Dec 2004 16:36:45 +0100

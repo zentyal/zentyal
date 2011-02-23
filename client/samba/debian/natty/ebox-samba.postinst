@@ -1,0 +1,37 @@
+#!/bin/bash
+
+set -e
+
+#DEBHELPER#
+
+case "$1" in
+    configure)
+        QUARANTINE_DIR=/var/lib/ebox/quarantine/
+        if [ ! -d $QUARANTINE_DIR ]; then
+            mkdir -p $QUARANTINE_DIR
+        fi
+        chmod 730 $QUARANTINE_DIR
+
+        # migrate data if needed
+        /usr/share/ebox/ebox-migrate /usr/share/ebox-samba/migration/ || true
+
+        # create logs and reports tables
+        /usr/share/ebox/ebox-sql-table add samba_access /usr/share/ebox/sqllog/samba_access.sql || true
+        /usr/share/ebox/ebox-sql-table add samba_access_report /usr/share/ebox/sqllog/samba_access_report.sql || true
+        /usr/share/ebox/ebox-sql-table add samba_virus /usr/share/ebox/sqllog/samba_virus.sql || true
+        /usr/share/ebox/ebox-sql-table add samba_virus_report /usr/share/ebox/sqllog/samba_virus_report.sql || true
+        /usr/share/ebox/ebox-sql-table add samba_quarantine /usr/share/ebox/sqllog/samba_quarantine.sql || true
+        /usr/share/ebox/ebox-sql-table add samba_disk_usage /usr/share/ebox/sqllog/samba_disk_usage.sql || true
+        /usr/share/ebox/ebox-sql-table add samba_disk_usage_report /usr/share/ebox/sqllog/samba_disk_usage_report.sql || true
+        /usr/share/ebox/ebox-sql-table add samba_virus_share_report /usr/share/ebox/sqllog/samba_virus_share_report.sql || true
+
+        # restart logs
+        invoke-rc.d ebox logs restart || true
+
+        invoke-rc.d ebox samba restart || true
+
+        dpkg-trigger --no-await ebox
+    ;;
+esac
+
+exit 0

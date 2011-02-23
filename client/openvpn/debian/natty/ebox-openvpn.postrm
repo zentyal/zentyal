@@ -1,0 +1,33 @@
+#!/bin/bash
+
+set -e
+
+# We need to unconfigure and purge module's configuration
+# before the gconf schemas have been removed (i.e before gconf
+# debhelper has been run). That's why we do things before
+# and after gconf debhelper is run.
+if [ "$1" = "purge" ]; then
+        # Purge configuration
+        /usr/share/ebox/ebox-clean-gconf openvpn || true
+fi
+
+#DEBHELPER#
+
+case "$1" in
+    remove)
+        # openvpn changes network interfaces so we must restart network module
+        # to propagate the changes
+        invoke-rc.d ebox network restart || true
+
+        invoke-rc.d ebox logs restart || true
+
+        dpkg-trigger --no-await ebox
+    ;;
+    purge)
+        # drop tables
+        /usr/share/ebox/ebox-sql-table drop openvpn || true
+        /usr/share/ebox/ebox-sql-table drop openvpn_report || true
+    ;;
+esac
+
+exit 0

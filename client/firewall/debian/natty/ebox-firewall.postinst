@@ -1,0 +1,29 @@
+#!/bin/bash
+
+set -e
+
+#DEBHELPER#
+
+case "$1" in
+    configure)
+        # migrate data if needed
+        /usr/share/ebox/ebox-migrate /usr/share/ebox-firewall/migration/ || true
+
+        # create logs table
+        /usr/share/ebox/ebox-sql-table add firewall /usr/share/ebox/sqllog/firewall.sql || true
+
+        # create reports tables
+        /usr/share/ebox/ebox-sql-table add firewall_report /usr/share/ebox/sqllog/firewall_report.sql || true
+        /usr/share/ebox/ebox-sql-table-with-time-period add firewall_packet_traffic \
+            /usr/share/ebox/sqllog/firewall_packet_traffic.sql || true
+
+        # restart logs
+        invoke-rc.d ebox logs restart || true
+
+        invoke-rc.d ebox firewall restart || true
+
+        dpkg-trigger --no-await ebox
+    ;;
+esac
+
+exit 0
