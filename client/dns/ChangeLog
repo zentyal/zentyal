@@ -1,3 +1,5 @@
+2.0.2
+	+ Packaging fixes and natty support
 2.0.1
 	+ Bugfix: Comply apparmor profile by setting the updated dynamic
 	  zones under /var/lib/bind
