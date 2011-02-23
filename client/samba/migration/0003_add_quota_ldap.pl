@@ -15,8 +15,6 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-# This is a migration script to add the LDAP data for eboxmailrelated feature
-
 package EBox::Migration;
 use base 'EBox::Migration::Base';
 
@@ -71,7 +69,9 @@ sub _updateData
     foreach my $user ($users->users()) {
         my $username = $user->{username};
         my $quota = $smbldap->currentUserQuota($username);
-        $smbldap->setUserQuota($username, $quota);
+        if ($quota >= 0) {
+            $smbldap->setUserQuota($username, $quota);
+        }
     }
 }
 
