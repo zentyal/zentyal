@@ -798,7 +798,7 @@ sub addRow
 {
     my ($self, %params) = @_;
 
-    $self->validateRow('add', @_);
+    $self->validateRow('add', %params);
 
     my $userData = {};
     foreach my $type (@{$self->table()->{'tableDescription'}}) {

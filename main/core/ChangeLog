@@ -1,3 +1,5 @@
+HEAD
+	+ Fixed params validation issues in addRow
 2.1
 	+ Replace YAML::Tiny with libyaml written in C through YAML::XS wrapper
 	+ Minor bugfix: filter invalid '_' param added by Webkit-based browser
