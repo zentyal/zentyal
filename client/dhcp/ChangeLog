@@ -1,4 +1,4 @@
-HEAD
+2.0.3
 	+ Define dhcpd paths using autotools for flexible use with
 	  isc-dhcp-server (>4).
 	+ Bugfix: MAC addresses are now parsed correctly in LogHelper
