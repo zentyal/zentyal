@@ -39,7 +39,7 @@ sub currentQuota
     if (@quotaValues) {
         return ($quotaValues[1] / 1024);
     } else {
-        return 0;
+        return -1;
     }
 }
 
@@ -47,8 +47,8 @@ sub setCurrentQuota
 {
     my ($uid, $quota) = @_;
 
-    Quota::setqlim( Quota::getqcarg('/home'), 
-            $uid, $quota, $quota, 0, 0);
+    Quota::setqlim(Quota::getqcarg('/home'),
+                   $uid, $quota, $quota, 0, 0);
 }
 
 if ($ARGV[0] eq '-s') {
