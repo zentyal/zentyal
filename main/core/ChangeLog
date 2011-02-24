@@ -1,4 +1,7 @@
 HEAD
+	+ Trigger restart of logs and events when upgrading zentyal-core
+	  without any other modules
+	+ Don't restart apache twice when upgrading together with more modules
 	+ Fixed params validation issues in addRow
 2.1
 	+ Replace YAML::Tiny with libyaml written in C through YAML::XS wrapper
