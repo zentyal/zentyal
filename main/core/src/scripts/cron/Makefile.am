@@ -2,13 +2,13 @@
 
 crondir = @SYSCONFDIR@/cron.hourly
 
-nobase_cron_SCRIPTS = 90zentyal-manage-logs
+nobase_cron_SCRIPTS = 90zentyal-manage-logs zentyal.hourly
 
-crondaily =
+crondailydir = @SYSCONFDIR@/cron.daily
 
-#SOURCES = $(nobase_cron_SCRIPTS)
+nobase_crondaily_SCRIPTS = zentyal.daily
 
-EXTRA_DIST = $(nobase_cron_SCRIPTS)
+EXTRA_DIST = $(nobase_cron_SCRIPTS) $(nobase_crondaily_SCRIPTS)
 
 MAINTAINERCLEANFILES = Makefile.in
 
