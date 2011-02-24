@@ -1,0 +1,18 @@
+#!/bin/bash
+
+set -e
+
+#DEBHELPER#
+
+case "$1" in
+    configure)
+        # migrate data if needed
+        /usr/share/ebox/ebox-migrate /usr/share/ebox-radius/migration/
+
+        invoke-rc.d ebox radius restart || true
+
+        dpkg-trigger --no-await ebox
+    ;;
+esac
+
+exit 0
