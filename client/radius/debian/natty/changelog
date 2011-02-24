@@ -1,6 +1,11 @@
 ebox-radius (2.0-0ubuntu1) natty; urgency=low
 
-  * New upstream release
+  * Updates packaging for Natty:
+    - debian/copyright: maintainer and copyright updated.
+    - debian/compat: updated to 8.
+    - debian/control: updated mantainer, build-depends, standards-version to
+                      3.9.1 (no changes needed). Added Homepage, Vcs-Browser
+                      and Vcs-Svn fields.
 
  -- Jorge Salamero Sanz <bencer@debian.org>  Wed, 24 Feb 2011 10:04:10 +0100
 
