@@ -1,0 +1,70 @@
+ebox-l7-protocols (2.0-0ubuntu1) natty; urgency=low
+
+  * Updates packaging for Natty:
+    - debian/copyright: maintainer and copyright updated.
+    - debian/compat: updated to 8.
+    - debian/control: updated mantainer, build-depends, standards-version to
+                      3.9.1 (no changes needed). Added Homepage, Vcs-Browser
+                      and Vcs-Svn fields.
+
+ -- Jorge Salamero Sanz <bencer@debian.org>  Wed, 24 Feb 2011 10:19:19 +0100
+
+ebox-l7-protocols (2.0) lucid; urgency=low
+
+  * New upstream release
+
+ -- José A. Calvo <jacalvo@zentyal.com>  Mon, 30 Aug 2010 21:56:34 +0200
+
+ebox-l7-protocols (1.5.1-0ubuntu1~ppa1~lucid1) lucid; urgency=low
+
+  * New upstream release
+
+ -- José A. Calvo <jacalvo@ebox-platform.com>  Sun, 25 Jul 2010 20:38:54 +0200
+
+ebox-l7-protocols (1.5-0ubuntu1~ppa1~lucid1) lucid; urgency=low
+
+  * New upstream release
+
+ -- José A. Calvo <jacalvo@ebox-platform.com>  Sun, 06 Jun 2010 17:01:31 +0200
+
+ebox-l7-protocols (1.3.2-1) jaunty; urgency=low
+
+  * New upstream release
+
+ -- Isaac Clerencia <isaac@ebox-technologies.com>  Sun, 19 Jul 2009 16:40:35 +0200
+
+ebox-l7-protocols (1.3.1-1) jaunty; urgency=low
+
+  * New upstream release
+
+ -- Isaac Clerencia <isaac@ebox-technologies.com>  Wed, 15 Jul 2009 12:02:50 +0100
+
+ebox-l7-protocols (1.3.0-1) jaunty; urgency=low
+
+  * New upstream release
+
+ -- Isaac Clerencia <isaac@debian.org>  Thu, 02 Jul 2009 15:27:11 +0100
+
+ebox-l7-protocols (1.1.30) hardy; urgency=low
+
+  * New upstream release
+
+ -- José Antonio Calvo <jacalvo@ebox-platform.com>  Mon, 15 Jun 2009 16:15:47 +0200
+
+ebox-l7-protocols (1.1.20) hardy; urgency=low
+
+  * New upstream release
+
+ -- Javier Amor Garcia <javier.amor.garcia@ebox-platform.com>  Fri, 05 Jun 2009 14:14:36 +0200
+
+ebox-l7-protocols (0.12.100) hardy; urgency=low
+
+  * New upstream release
+
+ -- Javier Uruen Val <javi@warp.es>  Tue, 13 Jan 2009 12:06:07 +0100
+
+ebox-l7-protocols (0.11.101) hardy; urgency=low
+
+  * First upstream release
+
+ -- Javier Uruen Val <javi@warp.es>  Sun, 01 Jun 2008 17:25:07 +0200
