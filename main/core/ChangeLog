@@ -1,4 +1,5 @@
-HEAD
+2.1.1
+	+ Fixed incoherency problems with 'on' and '1' in boolean indexes
 	+ Move cron scripts from debian packaging to src/scripts/cron
 	+ Trigger restart of logs and events when upgrading zentyal-core
 	  without any other modules

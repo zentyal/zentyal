@@ -97,9 +97,7 @@ sub _setMemValue
 {
     my ($self, $params) = @_;
 
-    $self->{'value'} = $params->{$self->fieldName()};
-    $self->{'value'} = 0 unless ( defined ($self->{'value'}) );
-
+    $self->{'value'} = $params->{$self->fieldName()} ? 1 : 0;
 }
 
 # Method: _storeInGConf
