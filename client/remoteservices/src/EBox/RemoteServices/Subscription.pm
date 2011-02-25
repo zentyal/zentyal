@@ -34,6 +34,7 @@ use EBox::Gettext;
 use EBox::Global;
 use EBox::RemoteServices::Configuration;
 use EBox::Sudo;
+use EBox::RemoteServices::Nmap;
 
 use AptPkg::Cache;
 use Archive::Tar;
@@ -42,6 +43,7 @@ use Error qw(:try);
 use File::Slurp;
 use File::Temp;
 use HTML::Mason;
+use Net::Ping;
 
 # Constants
 use constant {
@@ -126,10 +128,10 @@ sub soapCall
   my $conn = $self->connection();
 
   return $conn->$method(
-			user      => $self->{user},
-			password  => $self->{password},
-			@params
-		       );
+                        user      => $self->{user},
+                        password  => $self->{password},
+                        @params
+                       );
 }
 
 # Method: subscribeEBox
@@ -173,6 +175,32 @@ sub subscribeEBox
     # Ensure firewall rules are opened
     $self->_openHTTPSConnection();
 
+    # Check the WS is reachable
+    $self->_checkWSConnectivity();
+
+    my $vpnSettings;
+    try {
+        $vpnSettings = $self->soapCall('vpnSettings');
+    } catch EBox::Exceptions::Base with { };
+    unless ( defined($vpnSettings) ) {
+        throw EBox::Exceptions::External(
+            __x(
+                'Cannot retrieve VPN settings needed for subscription. Check your {openurl}{brand} profile{closeurl} to check your VPN server settings.',
+                brand    => 'Zentyal Cloud',
+                openurl  => q{<a href='https://cloud.zentyal.com/services/profile/'>},
+                closeurl => q{</a>}
+               )
+           );
+    }
+
+    # Check the selected VPN server is reachable
+    $self->_checkVPNConnectivity(
+                                 $vpnSettings->{ipAddr},
+                                 $vpnSettings->{protocol},
+                                 $vpnSettings->{port},
+                                );
+
+
     my $bundleRawData;
     my $new = 0;
     try {
@@ -197,7 +225,6 @@ sub subscribeEBox
 
     $params->{new} = $new;
     return $params;
-
 }
 
 # Method: serversList
@@ -739,6 +766,108 @@ sub _cloudProfInstalled
                        and $pkg->{CurrentState} == AptPkg::State::Installed );
     }
     return $installed;
+}
+
+# Check the Web Services connectivity
+sub _checkWSConnectivity
+{
+
+    my $host = EBox::RemoteServices::Configuration::PublicWebServer();
+    $host or throw EBox::Exceptions::External('WS key not found');
+
+    my $counter = EBox::RemoteServices::Configuration::eBoxServicesMirrorCount();
+    $counter or throw EBox::Exceptions::Internal('Mirror count not found');
+
+    my $proto = 'tcp';
+    my $port = 443;
+
+    my $ok;
+    foreach my $no ( 1 .. $counter ) {
+        my $site = $host;
+        $site =~ s:\.:$no.:;
+        try {
+            $ok = _checkHostPort($host, $proto, $port);
+        } catch EBox::Exceptions::External with {
+            $ok = 0;
+        };
+        last if ($ok);
+    }
+
+    if (not $ok) {
+        throw EBox::Exceptions::External(
+            __x(
+                'Could not connect to WS server "{addr}:{port}/{proto}". '
+                . 'Check your name resolution and firewall in your network',
+                addr => $host,
+                port => $port,
+                proto => $proto,
+               )
+           );
+    }
+}
+
+# Check the VPN server is reachable
+sub _checkVPNConnectivity
+{
+    my ($self, $host, $proto, $port) = @_;
+
+    my $ok = 0;
+    if ( $proto eq 'tcp' ) {
+        $ok = _checkHostPort($host, $proto, $port);
+    } else {
+        # UDP nmap is not working with routing in default table
+        # instead of main table so we use Net::Ping
+        $ok = $self->_checkUDPService($host, $proto, $port);
+    }
+    if (not $ok) {
+        throw EBox::Exceptions::External(
+            __x(
+                'Could not connect to VPN server "{addr}:{port}/{proto}". '
+                . 'Check your network firewall',
+                addr => $host,
+                port => $port,
+                proto => $proto,
+               )
+           );
+    }
+}
+
+# Check given host and port is reachable using nmap tool
+sub _checkHostPort
+{
+    my ($host, $proto, $port) = @_;
+    my $res = EBox::RemoteServices::Nmap::singlePortScan(
+                                                         host => $host,
+                                                         protocol => $proto,
+                                                         port => $port,
+                                                        );
+    if ($res eq 'open') {
+        return 1;
+    }
+
+    if ($res eq 'open/filtered') {
+        # in UDP packets this could be open or not. We treat this as open to
+        # avoid false negatives (but we will have false positives)
+        return 1;
+    }
+    return 0;
+}
+
+# Check UDP service using Net::Ping
+sub _checkUDPService
+{
+    my ($self, $host, $proto, $port) = @_;
+
+    my $p = new Net::Ping($proto, 5);
+    $p->port_number($port);
+    $p->service_check(1);
+    my @result = $p->ping($host);
+
+    # Timeout reaches, if the service was down, then the
+    # timeout is zero. If the host is available and this check
+    # is done befor this one
+    return ( $result[1] == 5 );
+
 }
 
 1;

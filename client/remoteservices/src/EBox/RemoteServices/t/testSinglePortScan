@@ -1,0 +1,25 @@
+#!/usr/bin/perl
+
+
+use strict;
+use warnings;
+
+use lib '../../..';
+
+use EBox;
+use EBox::RemoteServices::Nmap;
+use Data::Dumper;
+
+my ($host, $proto, $port) = @ARGV;
+
+EBox::init();
+my $res = EBox::RemoteServices::Nmap::singlePortScan(
+        host => $host,
+        protocol => $proto,
+        port  => $port
+        );
+
+print Dumper($res);
+
+1;
+
