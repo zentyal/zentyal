@@ -858,15 +858,15 @@ sub _checkUDPService
 {
     my ($self, $host, $proto, $port) = @_;
 
-    my $p = new Net::Ping($proto, 5);
+    my $p = new Net::Ping($proto, 3);
     $p->port_number($port);
     $p->service_check(1);
     my @result = $p->ping($host);
 
     # Timeout reaches, if the service was down, then the
     # timeout is zero. If the host is available and this check
-    # is done befor this one
-    return ( $result[1] == 5 );
+    # is done before this one
+    return ( $result[1] == 3 );
 
 }
 
