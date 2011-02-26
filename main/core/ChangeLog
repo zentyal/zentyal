@@ -1,4 +1,5 @@
 HEAD
+	+ Bugfix: cron scripts are renamed and no longer ignored by run-parts
 	+ Added new EBox::Util::Nmap class implementing a nmap wrapper
 2.1.1
 	+ Fixed incoherency problems with 'on' and '1' in boolean indexes
