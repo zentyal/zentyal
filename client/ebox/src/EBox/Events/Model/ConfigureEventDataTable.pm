@@ -52,7 +52,7 @@ use constant CONF_DIR => EBox::Config::conf() . 'events/';
 use constant ENABLED_WATCHERS_DIR => CONF_DIR . 'WatcherEnabled/';
 
 use constant STORE_URL => 'http://store.zentyal.com/';
-use constant UTM       => '?utm_source=ebox&utm_medium=events&utm_campaign=alerts';
+use constant UTM       => '?utm_source=zentyal&utm_medium=events&utm_campaign=alerts';
 use constant PROF_URL  => STORE_URL . 'serversubscriptions/subscription-professional.html' . UTM;
 use constant ENTER_URL => STORE_URL . 'serversubscriptions/subscription-enterprise.html' . UTM;
 use constant ALERTS_URL => 'http://www.zentyal.com/products/cloud/alerts-reports/' . UTM;

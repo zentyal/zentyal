@@ -199,7 +199,7 @@ sub _message
         ', you can purchase the VoIP credit you need. All these services ' .
         'available for purchasing at the {ohref}Zentyal on-line store{chref}! ',
          brand => 'Zentyal VoIP Credit',
-         ohref => '<a href="http://store.zentyal.com/?utm_source=ebox&utm_medium=ebox&utm_campaign=asterisk">',
+         ohref => '<a href="http://store.zentyal.com/?utm_source=zentyal&utm_medium=ebox&utm_campaign=asterisk">',
          chref => '</a>'
     );
     return $voipmsg;

@@ -4,15 +4,15 @@
 <div class="linksBlock">
     <div class="linksTitle"><% __('Community Resources') %></div>
     <ul>
-        <li><a target="_blank" href="http://store.zentyal.com/serversubscriptions/subscription-basic.html?utm_source=ebox&utm_medium=dashboard&utm_campaign=basic.subscription"
+        <li><a target="_blank" href="http://store.zentyal.com/serversubscriptions/subscription-basic.html?utm_source=zentyal&utm_medium=dashboard&utm_campaign=basic.subscription"
                title="<% __s('Free community subscription, gives you access to configuration backup.') %>"><% __s('FREE Basic Subscription') %></a></li>
-        <li><a target="_blank" href="http://doc.zentyal.org/?utm_source=ebox&utm_medium=dashboard&utm_campaign=documentation"
+        <li><a target="_blank" href="http://doc.zentyal.org/?utm_source=zentyal&utm_medium=dashboard&utm_campaign=documentation"
                title="<% __('Official documentation in English and Spanish.') %>"><% __('Documentation') %></a></li>
-        <li><a target="_blank" href="http://forum.zentyal.org/?utm_source=ebox&utm_medium=dashboard&utm_campaign=forum"
+        <li><a target="_blank" href="http://forum.zentyal.org/?utm_source=zentyal&utm_medium=dashboard&utm_campaign=forum"
                title="<% __('Community Support Forum to give and get help.') %>"><% __('Forum') %></a></li>
-        <li><a target="_blank" href="http://trac.zentyal.org/newticket/?utm_source=ebox&utm_medium=dashboard&utm_campaign=newticket"
+        <li><a target="_blank" href="http://trac.zentyal.org/newticket/?utm_source=zentyal&utm_medium=dashboard&utm_campaign=newticket"
                title="<% __('Help us to improve by reporting any bug you find!') %>"><% __('Report a bug') %></a></li>
-        <li><a target="_blank" href="http://trac.zentyal.org/wiki/Contribute/?utm_source=ebox&utm_medium=dashboard&utm_campaign=contribute"
+        <li><a target="_blank" href="http://trac.zentyal.org/wiki/Contribute/?utm_source=zentyal&utm_medium=dashboard&utm_campaign=contribute"
                title="<% __('Check out how you can contribute to the project!') %>"><% __('How to Contribute') %></a></li>
     </ul>
 </div>
@@ -21,15 +21,15 @@
     <div>
         <div class="linksTitle"><% __s('Subscriptions & Services') %></div>
         <ul>
-            <li><a target="_blank" href="http://www.zentyal.com/services/subscriptions/?utm_source=ebox&utm_medium=dashboard&utm_campaign=commercial.subscriptions"
+            <li><a target="_blank" href="http://www.zentyal.com/services/subscriptions/?utm_source=zentyal&utm_medium=dashboard&utm_campaign=commercial.subscriptions"
                    title="<% __s('Guarantee that Zentyal servers in production use are always up to date and secured.') %>"><% __s('Commercial Subscriptions') %></a></li>
-            <li><a target="_blank" href="http://www.zentyal.com/services/support/?utm_source=ebox&utm_medium=dashboard&utm_campaign=support"
+            <li><a target="_blank" href="http://www.zentyal.com/services/support/?utm_source=zentyal&utm_medium=dashboard&utm_campaign=support"
                    title="<% __s('Get your commercial support directly from the Zentyal developers.') %>"><% __s('Commercial Support') %></a></li>
-            <li><a target="_blank" href="http://www.zentyal.com/products/controlcenter/?utm_source=ebox&utm_medium=dashboard&utm_campaign=control.center"
+            <li><a target="_blank" href="http://www.zentyal.com/products/cloud/?utm_source=zentyal&utm_medium=dashboard&utm_campaign=control.center"
                    title="<% __s('Administer and monitor multiple Zentyal servers from a central point.') %>">Zentyal Cloud</a></li>
-            <li><a target="_blank" href="http://www.zentyal.com/training/?utm_source=ebox&utm_medium=dashboard&utm_campaign=training"
+            <li><a target="_blank" href="http://www.zentyal.com/training/?utm_source=zentyal&utm_medium=dashboard&utm_campaign=training"
                    title="<% __s('Learn to use all Zentyal based network services in production environments.') %>"><% __s('Certified Training') %></a></li>
-            <li><a target="_blank" href="http://store.zentyal.com/?utm_source=ebox&utm_medium=dashboard&utm_campaign=store"
+            <li><a target="_blank" href="http://store.zentyal.com/?utm_source=zentyal&utm_medium=dashboard&utm_campaign=store"
                    title="<% __s('Purchase any services via our Online Store') %>"><% __s('Online Store') %></a></li>
         </ul>
     </div>

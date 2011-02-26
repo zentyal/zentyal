@@ -9,7 +9,7 @@ use EBox::Gettext;
         <div style="margin: 20px auto; width: 40%; text-align: left">
             <div><input type="radio" name="standalone" id="standalone" value="1" checked="true" /><label for="standalone"><% __('Standalone server') %></label></div>
             <div><input type="radio" name="standalone" id="advanced" value="0" onclick="$('message').appear()" /><label for="advanced"><% __('Advanced configuration (Master/Slave/AD Sync)') %></label></div>
-            <div id="message" style="display: none; margin: 20px; text-align: center"><% __x('If you need the advanced features you have to configure them manually. You can find {open}all the information in our wiki{close}', open => '<a href="http://trac.zentyal.org/wiki/Document/AdvancedSetup?utm_source=ebox&utm_medium=installer&utm_campaign=advanced.setup.documentation" target="_blank">', close=> '</a>') %></div>
+            <div id="message" style="display: none; margin: 20px; text-align: center"><% __x('If you need the advanced features you have to configure them manually. You can find {open}all the information in our wiki{close}', open => '<a href="http://trac.zentyal.org/wiki/Document/AdvancedSetup?utm_source=zentyal&utm_medium=installer&utm_campaign=advanced.setup.documentation" target="_blank">', close=> '</a>') %></div>
         </div>
 </form>
 

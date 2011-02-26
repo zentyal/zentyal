@@ -54,7 +54,7 @@ use Error qw(:try);
 use Sys::Hostname;
 
 use constant STORE_URL => 'http://store.zentyal.com/';
-use constant UTM       => '?utm_source=ebox&utm_medium=ebox&utm_content=remoteservices'
+use constant UTM       => '?utm_source=zentyal&utm_medium=ebox&utm_content=remoteservices'
                           . '&utm_campaign=register';
 use constant BASIC_URL => STORE_URL . 'serversubscriptions/subscription-basic.html' . UTM;
 use constant PROF_URL  => STORE_URL . 'serversubscriptions/subscription-professional.html' . UTM;

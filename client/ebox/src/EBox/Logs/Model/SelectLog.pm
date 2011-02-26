@@ -26,7 +26,7 @@ use EBox::Gettext;
 use EBox::Logs::Consolidate;
 
 use constant STORE_URL => 'http://store.zentyal.com/';
-use constant UTM       => '?utm_source=ebox&utm_medium=query.logs&utm_campaign=reports';
+use constant UTM       => '?utm_source=zentyal&utm_medium=query.logs&utm_campaign=reports';
 use constant PROF_URL  => STORE_URL . 'serversubscriptions/subscription-professional.html' . UTM;
 use constant ENTER_URL => STORE_URL . 'serversubscriptions/subscription-enterprise.html' . UTM;
 use constant REPORT_URL => 'http://www.zentyal.com/sample-report-pdf' . UTM;
