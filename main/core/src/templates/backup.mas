@@ -14,7 +14,7 @@ use EBox::Gettext;
   </div>
 % } else {
   <div class='warning'>
-	<% __sx('Get a FREE {ohref}Basic Server Subscription{chref} that allows you to have a look to the commercial services and to store your configuration backup remotely, receive alerts regarding the connectivity of your Zentyal server, available updates or failed automatic backup.', ohref => '<a href="http://store.zentyal.com/serversubscriptions/subscription-basic.html?utm_source=ebox&utm_medium=conf.backup&utm_campaign=basic.subscription" target="_blank">', chref => '</a>') %>
+	<% __sx('Get a FREE {ohref}Basic Server Subscription{chref} that allows you to have a look to the commercial services and to store your configuration backup remotely, receive alerts regarding the connectivity of your Zentyal server, available updates or failed automatic backup.', ohref => '<a href="http://store.zentyal.com/serversubscriptions/subscription-basic.html?utm_source=zentyal&utm_medium=conf.backup&utm_campaign=basic.subscription" target="_blank">', chref => '</a>') %>
   </div>
 % }
 <& .backupSection, modulesChanged => $modulesChanged &>
