@@ -1,4 +1,4 @@
-HEAD
+2.0.9
 	+ Added WS and VPN server connectivity check upon subscription
 	+ Bugfix: package removal does not crash if can't unsubscribe
 	+ Bugfix: Remove key field in consolidation which is useless in
