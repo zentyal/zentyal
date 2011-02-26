@@ -24,83 +24,85 @@ use EBox::Gettext;
 
 sub new
 {
-	my $class = shift;
-	my %opts = @_;
-	my $name = delete $opts{name};
-	my $url = delete $opts{url};
-	unless (defined($name) and ($name ne '')) {
-		throw EBox::Exceptions::MissingArgument('name');
-	}
-	my $self = $class->SUPER::new(@_);
-	bless($self, $class);
-	$self->{name} = $name;
-	$self->{url} = $url;
-	return $self;
+    my $class = shift;
+    my %opts = @_;
+    my $name = delete $opts{name};
+    my $url = delete $opts{url};
+    unless (defined($name) and ($name ne '')) {
+        throw EBox::Exceptions::MissingArgument('name');
+    }
+    my $self = $class->SUPER::new(@_);
+    bless($self, $class);
+    $self->{name} = $name;
+    $self->{url} = $url;
+    return $self;
 }
 
 sub html
 {
-	my ($self, $current) = @_;
-	my $text = $self->{text};
-	my $url = $self->{url};
-	my $html = '';
-	my $show = 0;
+    my ($self, $current) = @_;
+    my $text = $self->{text};
+    my $url = $self->{url};
+    my $html = '';
+    my $show = 0;
 
-	(scalar(@{$self->items()}) == 0) and return;
+    (scalar(@{$self->items()}) == 0) and return;
 
-	if (defined($self->{style})) {
-		$html .= "<li id='" . $self->{id} . "' class='$self->{style}'>\n";
-	} else {
-		$html .= "<li id='" . $self->{id} . "'>\n";
-	}
+    if (defined($self->{style})) {
+        $html .= "<li id='" . $self->{id} . "' class='$self->{style}'>\n";
+    } else {
+        $html .= "<li id='" . $self->{id} . "'>\n";
+    }
 
-	if (defined($url)) {
-		if ($url eq $current) {
-			$show = 1;
-		}
-		$html .= "<a title='$text' href='/zentyal/$url' class='navarrow' ";
-	} else {
-		$html .= "<a title='$text' href='' class='navarrow' ";
-		$html .= "onclick=\"showMenu('menu$self->{name}');return false;\"";
-	}
+    my $name = $self->{name};
 
-	$html .= " target='_parent'>$text</a>\n";
+    if (defined($url)) {
+        if ($url eq $current) {
+            $show = 1;
+        }
+        $html .= "<a title='$text' href='/zentyal/$url' class='navarrow' ";
+    } else {
+        $html .= "<a title='$text' href='#' class='navarrow' ";
+        $html .= "onclick=\"\$('submenu$name').toggle();return false;\"";
+    }
 
-	$html .= "<ul class='submenu'>\n";
+    $html .= " target='_parent'>$text</a>\n";
+
+    $html .= "<ul id='submenu$name' class='submenu' style='display:none'>\n";
 
 
-	foreach my $item (@{$self->items}) {
-		$item->{style} = "menu$self->{name}";
-		my $display = ($self->{name} eq  $current);
-		$html .= $item->html($display);
-	}
+    foreach my $item (@{$self->items}) {
+        $item->{style} = "menu$self->{name}";
+        my $display = ($self->{name} eq  $current);
+        $html .= $item->html($display);
+    }
 
-	$html .= "</ul>\n";
-	$html .= "</li>\n";
+    $html .= "</ul>\n";
+    $html .= "</li>\n";
 
-	return $html;
+    return $html;
 }
 
 sub _compare # (node)
 {
-	my ($self, $node) = @_;
-	defined($node) or return undef;
-	$node->isa('EBox::Menu::Folder') or return undef;
-	if ($node->{name} eq $self->{name}) {
-		return 1;
-	}
-	return undef;
+    my ($self, $node) = @_;
+    defined($node) or return undef;
+    $node->isa('EBox::Menu::Folder') or return undef;
+    if ($node->{name} eq $self->{name}) {
+        return 1;
+    }
+    return undef;
 }
 
 sub _merge # (node)
 {
-	my ($self, $node) = @_;
-	if (defined($self->{url}) and (length($self->{url}) != 0)) {
-		$node->{url} = $self->{url};
-	}
-	if (defined($self->{text}) and (length($self->{text}) != 0)) {
-		$node->{text} = $self->{text};
-	}
+    my ($self, $node) = @_;
+    if (defined($self->{url}) and (length($self->{url}) != 0)) {
+        $node->{url} = $self->{url};
+    }
+    if (defined($self->{text}) and (length($self->{text}) != 0)) {
+        $node->{text} = $self->{text};
+    }
     foreach my $item (@{$node->{items}}) {
         $self->add($item);
     }

@@ -1,4 +1,5 @@
 HEAD
+	+ Now a menu folder can be closed clicking on it while is open
 	+ Bugfix: cron scripts are renamed and no longer ignored by run-parts
 	+ Added new EBox::Util::Nmap class implementing a nmap wrapper
 2.1.1

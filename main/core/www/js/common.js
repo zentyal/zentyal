@@ -35,28 +35,6 @@ function hide(id){
 	setDefault();
 }
 
-var shownMenu = "";
-
-function showMenu(name){
-	var inc;
-	if(shownMenu.length != 0) {
-		elements=getElementByClass(shownMenu);
-		inc=0;
-		while (elements[inc]){
-			elements[inc].style.display="none";
-			inc++;
-		}
-	}
-
-	elements=getElementByClass(name);
-	inc=0;
-	while (elements[inc]){
-		elements[inc].style.display="inline";
-		inc++;
-	}
-	shownMenu = name;
-}
-
 /*
 Function: checkAll
 
