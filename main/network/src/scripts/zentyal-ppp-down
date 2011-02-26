@@ -1,7 +1,5 @@
 #!/bin/bash
 
-libexec=@DATADIR@/zentyal
-
 ppp_iface=$1
 eth_iface=$2
 local_address=$4
@@ -17,7 +15,7 @@ echo "local_address: $local_address" >> $LOG
 echo "remote_address: $remote_address" >> $LOG
 echo "full_args: $@" >> $LOG
 
-$libexec/dhcp-clear.pl $eth_iface
+/usr/share/zentyal-network/dhcp-clear.pl $eth_iface
 
 TIMESTAMP=$(date +"%Y-%m-%d %T")
 echo "$TIMESTAMP> ppp-down script for $eth_iface ended" >> $LOG

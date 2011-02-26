@@ -1,3 +1,5 @@
+HEAD
+	+ Bugfix: PPPoE gateway is now properly set
 2.1
 	+ Removed ebox- prefix from src/scripts/*
 	+ Removed unnecesary call to isReadOnly in syncRows
