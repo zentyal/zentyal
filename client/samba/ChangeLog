@@ -1,4 +1,4 @@
-HEAD
+2.0.9
 	+ Fix regression that caused incompatibility between samba and mail modules
 2.0.8
 	+ Bug fix: Home directory is mapped when accessing from a Windows 7 client
