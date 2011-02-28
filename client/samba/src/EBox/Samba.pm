@@ -68,6 +68,7 @@ use constant NETLOGONDEFAULTSCRIPT=> 'zentyal-logon.bat';
 
 
 use constant FIX_SID_PROGRAM => '/usr/share/ebox-samba/ebox-fix-sid';
+use constant QUOTA_PROGRAM => '/usr/share/ebox-samba/ebox-samba-quota';
 
 sub _create
 {
@@ -1000,6 +1001,14 @@ sub _checkDescriptionName # (name)
     return 1;
 }
 
+sub _checkQuota # (quota)
+{
+    my ($quota) = @_;
+
+    ($quota =~ /\D/) and return undef;
+    return 1;
+}
+
 sub _addPrinter
 {
     my ($self, $name) = @_;
@@ -1315,6 +1324,64 @@ sub _sambaPrinterConf
 sub enableQuota
 {
     return (EBox::Config::configkey('enable_quota') eq 'yes');
+}
+
+# Method: currentUserQuota
+#
+#	Fetch the current set quota for a given user
+#
+# Parameters:
+#
+#	user - string
+#
+# Returns:
+#
+#	Integer - quota in MB. 0 means no quota
+#
+sub currentUserQuota
+{
+    my ($self, $user) = @_;
+
+    my $usermod = EBox::Global->modInstance('users');
+    unless (defined($user) and $usermod->uidExists($user)) {
+        throw EBox::Exceptions::External("user is not valid");
+    }
+    my @quotaValues = @{EBox::Sudo::root(QUOTA_PROGRAM . " -q $user ")};
+
+    return $quotaValues[0];
+}
+
+# Method: setUserQuota
+#
+#	Set user quota
+#
+# Parameters:
+#
+#	Quota - Integer. Quota in MB. 0 no quota.
+#
+# Returns:
+#
+#	Integer - quota in MB. 0 means no quota
+#
+sub setUserQuota
+{
+    my ($self, $user, $userQuota) = @_;
+
+    return unless ($self->enableQuota());
+
+    my $usermod = EBox::Global->modInstance('users');
+    unless (defined($user) and $usermod->uidExists($user)) {
+        throw EBox::Exceptions::External("user is not valid");
+    }
+
+    unless (_checkQuota($userQuota)) {
+        throw EBox::Exceptions::InvalidData
+            ('data' => __('quota'), 'value' => $userQuota);
+    }
+
+    my $quota = $userQuota * 1024;
+
+    EBox::Sudo::root(QUOTA_PROGRAM . " -s $user $quota");
 }
 
 sub dumpConfig

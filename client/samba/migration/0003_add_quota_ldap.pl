@@ -26,53 +26,11 @@ use EBox::Global;
 use EBox::Gettext;
 use EBox::Config;
 use EBox::Sudo;
-use EBox::SambaLdapUser;
 
 sub runGConf
 {
-    my ($self) = @_;
-
-    my $samba = $self->{gconfmodule};
-    if (not $samba->configured()) {
-        return;
-    }
-
-    $self->_updateSchemas();
-    $self->_updateData();
-}
-
-sub _updateSchemas
-{
-    my ($self) = @_;
-
-    # FIXME It only supports standalone LDAP
-    my $ldapCat = q{slapcat -bcn=config };
-    my @output = EBox::Sudo::root($ldapCat);
-    foreach my $line (@output) {
-        if ($line =~ m{cn=\{\d+\}quota,cn=schema,cn=config}) {
-            # quota schema is present, nothing to do
-            return;
-        }
-    }
-
-    my $samba = $self->{gconfmodule};
-    # is assumed that performLDAP actions is idempotent!
-    $samba->performLDAPActions();
-}
-
-sub _updateData
-{
-    my ($self) = @_;
-    my $users = EBox::Global->modInstance('users');
-    my $smbldap = new EBox::SambaLdapUser;
-
-    foreach my $user ($users->users()) {
-        my $username = $user->{username};
-        my $quota = $smbldap->currentUserQuota($username);
-        if ($quota >= 0) {
-            $smbldap->setUserQuota($username, $quota);
-        }
-    }
+    # Migration removed because it caused incompatibility between mail and
+    # samba modules
 }
 
 EBox::init();

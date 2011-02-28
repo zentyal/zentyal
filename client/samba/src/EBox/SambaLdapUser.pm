@@ -49,7 +49,6 @@ use constant BASEPATH           => '/home/samba';
 use constant USERSPATH          => '/home';
 use constant GROUPSPATH         => BASEPATH . '/groups';
 use constant PROFILESPATH       => BASEPATH . '/profiles';
-use constant QUOTA_PROGRAM => '/usr/share/ebox-samba/ebox-samba-quota';
 
 BEGIN
 {
@@ -207,31 +206,25 @@ sub _addUserLdapAttrs
 # Implements LdapUserBase interface
 sub _addUser
 {
-    my ($self, $userName, $password, $quota) = @_;
+    my ($self, $user, $password) = @_;
 
     return unless ($self->{samba}->configured());
 
     my $users = EBox::Global->modInstance('users');
-    my $userInfo = $users->userInfo($userName);
+    my $userInfo = $users->userInfo($user);
     my $unixuid = $userInfo->{uid};
 
-    $self->_addUserLdapAttrs($userName, $unixuid, $password);
+    $self->_addUserLdapAttrs($user, $unixuid, $password);
 
     # Add user to Domain Users group
-    unless ($self->_domainUser($userName)) {
-        $users->addUserToGroup($userName, 'Domain Users');
+    unless ($self->_domainUser($user)) {
+        $users->addUserToGroup($user, 'Domain Users');
     }
 
-    $self->_createDir(PROFILESPATH . "/$userName",
-        $unixuid, USERGROUP, '0700');
-    $self->_createDir(PROFILESPATH . "/$userName.V2",
-        $unixuid, USERGROUP, '0700');
-
-    unless (defined $quota and $quota >= 0) {
-        my $samba = EBox::Global->modInstance('samba');
-        $quota = $samba->defaultUserQuota();
-    }
-    $self->setUserQuota($userName, $quota);
+    my  $samba = EBox::Global->modInstance('samba');
+    $self->_createDir(PROFILESPATH . "/$user", $unixuid, USERGROUP, '0700');
+    $self->_createDir(PROFILESPATH . "/$user.V2", $unixuid, USERGROUP, '0700');
+    $self->{samba}->setUserQuota($unixuid, $samba->defaultUserQuota());
 }
 
 sub _modifyUser
@@ -393,147 +386,6 @@ sub _setSID
     $self->{ldap}->modify($dn, \%attrs);
 }
 
-sub _checkQuota # (quota)
-{
-    my ($quota) = @_;
-
-    ($quota =~ /\D/) and return undef;
-    return 1;
-}
-
-sub _setLdapQuota
-{
-    my ($self, $user, $quota) = @_;
-
-    my $userName = $user->{username};
-    my $usermod = EBox::Global->modInstance('users');
-    my $dn = "uid=$userName," . $usermod->usersDn();
-
-    if ($self->_isSambaObject('systemQuotas', $dn)) {
-        $self->{'ldap'}->modifyAttribute($dn, 'quota', $quota);
-    } else {
-        my %attrs = (
-            changes => [
-                add => [
-                    objectClass => 'systemQuotas',
-                    quota => $quota,
-                ],
-            ],
-        );
-        $self->{'ldap'}->modify($dn, \%attrs);
-    }
-
-}
-
-sub _setFilesystemQuota
-{
-    my ($self, $user, $userQuota) = @_;
-
-    my $quota = $userQuota * 1024;
-    my $uid = $user->{uid};
-    EBox::Sudo::root(QUOTA_PROGRAM . " -s $uid $quota");
-}
-
-# Method: setUserQuota
-#
-#	Set user quota
-#
-# Parameters:
-#
-#	Quota - Integer. Quota in MB. 0 no quota.
-#
-# Returns:
-#
-#	Integer - quota in MB. 0 means no quota
-#
-# TODO: Move everything about users quotas to users module
-sub setUserQuota
-{
-    my ($self, $userName, $userQuota) = @_;
-    return unless ($self->{samba}->enableQuota());
-
-    unless (_checkQuota($userQuota)) {
-        throw EBox::Exceptions::InvalidData
-            ('data' => __('quota'), 'value' => $userQuota);
-    }
-
-    my $usermod = EBox::Global->modInstance('users');
-    my $user = $usermod->userInfo($userName);
-
-    $self->_setLdapQuota($user, $userQuota);
-    $self->_setFilesystemQuota($user, $userQuota);
-}
-
-sub _currentLdapQuota
-{
-    my ($self, $user) = @_;
-
-    my $userName = $user->{username};
-    my $usermod = EBox::Global->modInstance('users');
-    my $dn = "uid=$userName," . $usermod->usersDn();
-
-    if ($self->_isSambaObject('systemQuotas', $dn)) {
-        # TODO when moving quotas to users and groups module, quota information
-        # will be in userInfo($user)
-        my %attrs = (
-            base => $usermod->usersDn(),
-            filter => "(uid=$userName)",
-            scope => 'one',
-            attrs => ['quota'],
-        );
-        my $result = $self->{'ldap'}->search(\%attrs);
-        my $entry = $result->entry(0);
-        my $quota = $entry->get_value('quota');
-        if ($quota) {
-            return $quota;
-        }
-    }
-    throw EBox::Exceptions::Internal("Quota not found in LDAP for $userName");
-}
-
-sub _currentFilesystemQuota
-{
-    my ($self, $user) = @_;
-
-    my $uid = $user->{uid};
-    my @quotaValues = @{EBox::Sudo::root(QUOTA_PROGRAM . " -q $uid ")};
-    return $quotaValues[0];
-}
-
-# Method: currentUserQuota
-#
-#	Fetch the current set quota for a given user
-#
-# Parameters:
-#
-#	user - string
-#
-# Returns:
-#
-#	Integer - quota in MB. 0 means no quota
-#
-# TODO: Move everything about users quotas to users module
-sub currentUserQuota
-{
-    my ($self, $userName) = @_;
-
-    my $usermod = EBox::Global->modInstance('users');
-    my $user = $usermod->userInfo($userName);
-
-    my $filesystemQuota = $self->_currentFilesystemQuota($user);
-
-    try {
-        my $ldapQuota = $self->_currentLdapQuota($user);
-
-        if ($filesystemQuota != $ldapQuota) {
-            $self->_setFilesystemQuota($user, $ldapQuota);
-        }
-        return $ldapQuota;
-    } catch EBox::Exceptions::Internal with {
-        return $filesystemQuota;
-    }
-}
-
 sub _delGroup
 {
     my ($self, $group) = @_;
@@ -577,13 +429,10 @@ sub _userAddOns
     my $users = EBox::Global->modInstance('users');
     my $samba = EBox::Global->modInstance('samba');
 
+    my $uid = $users->userInfo($username)->{'uid'};
     my @args;
     my $share = $self->_userSharing($username) ? "yes" : "no";
     my $printers = $samba->_printersForUser($username);
-    my $quota = $self->currentUserQuota($username);
-    if ($quota < 0) {
-        $quota = 0;
-    }
     my $args =  {
         'username' => $username,
         'share'    => $share,
@@ -592,7 +441,7 @@ sub _userAddOns
 
         'printers' => $printers,
         'printerService' => $samba->printerService,
-        'quota' => $quota,
+        'quota' => $samba->currentUserQuota($uid)
     };
 
     return { path => '/samba/samba.mas', params => $args };
@@ -658,8 +507,7 @@ sub migrateUsers
     # update users
     foreach my $user ($users->users) {
         my $username = $user->{'username'};
-        my $quota = $self->currentUserQuota($username);
-        $self->_addUser($username, undef, $quota);
+        $self->_addUser($username);
 
         # check if we have old administrator rights
         try {
@@ -1344,8 +1192,6 @@ sub updateSIDEntries
     }
 }
 
-# TODO: It may be useful in other ldap modules, move to users package, quota
-# code depends on it and it also has to be moved
 sub _isSambaObject
 {
     my ($self, $object, $dn) = @_;
@@ -1406,11 +1252,8 @@ sub groupsPath
 
 sub schemas
 {
-    return [
-        EBox::Config::share() . "ebox-samba/samba.ldif",
-        EBox::Config::share() . "ebox-samba/ebox.ldif",
-        EBox::Config::share() . "ebox-samba/quota.ldif",
-    ];
+    return [ EBox::Config::share() . "ebox-samba/samba.ldif",
+             EBox::Config::share() . "ebox-samba/ebox.ldif" ];
 }
 
 sub indexes

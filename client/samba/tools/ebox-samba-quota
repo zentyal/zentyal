@@ -39,7 +39,7 @@ sub currentQuota
     if (@quotaValues) {
         return ($quotaValues[1] / 1024);
     } else {
-        return -1;
+        return 0;
     }
 }
 
