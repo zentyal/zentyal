@@ -103,7 +103,7 @@ sub _table
 #
 #      Override <EBox::Model::DataTable::validateRow> method
 #
-sub validateRow()
+sub validateRow
 {
     my ($self, $action, %params) = @_;
 
@@ -139,20 +139,20 @@ sub validateRow()
 #
 #           (POSITIONAL)
 #
-#        memberId - memberId
+#       memberId - memberId
 #       ip - IPv4 address
 #       mask - network masl
 #
 # Returns:
 #
-#       booelan - true if it overlaps, otherwise false
+#       boolean - true if it overlaps, otherwise false
 sub _alreadyInSameObject
 {
     my ($self, $memberId, $iparg, $maskarg) = @_;
 
 
     foreach my $id (@{$self->ids()}) {
-        next if ($id eq $memberId);
+        next if ((defined $memberId) and ($id eq $memberId));
 
         my $row  = $self->row($id);
         my $memaddr = new Net::IP($row->printableValueByName('ipaddr'));
