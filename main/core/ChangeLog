@@ -1,3 +1,5 @@
+HEAD
+	+ Purge conf now purges the state keys as well
 2.1.2
 	+ Now a menu folder can be closed clicking on it while is open
 	+ Bugfix: cron scripts are renamed and no longer ignored by run-parts

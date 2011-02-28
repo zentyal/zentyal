@@ -14,6 +14,9 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
+# This script removes the module configuration stored in our backend
+# (normal and state) and purge SQL log tables if exists
+
 use EBox;
 use EBox::Config;
 use EBox::Global;
@@ -34,9 +37,11 @@ sub cleanModuleConf
     my ($module) = @_;
 
     my $globalConf = "/ebox/modules/global/modules/$module";
-    my $moduleConf = "/ebox/modules/$module";
+    my @moduleConfs = ("/ebox/modules/$module", "/ebox/state/$module");
 
     my $global = EBox::Global->instance();
     $global->delete_dir($globalConf);
-    $global->{redis}->delete_dir($moduleConf);
+    foreach my $moduleConf (@moduleConfs) {
+        $global->{redis}->delete_dir($moduleConf);
+    }
 }
