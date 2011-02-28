@@ -181,7 +181,7 @@ sub subscribeEBox
     my $vpnSettings;
     try {
         $vpnSettings = $self->soapCall('vpnSettings');
-    } catch EBox::Exceptions::Base with { };
+    } catch EBox::Exceptions::DataNotFound with { };
     unless ( defined($vpnSettings) ) {
         throw EBox::Exceptions::External(
             __x(
