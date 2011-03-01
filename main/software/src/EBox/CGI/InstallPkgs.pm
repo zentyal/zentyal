@@ -25,17 +25,19 @@ use EBox::Gettext;
 
 ## arguments:
 ##  title [required]
-sub new {
+sub new
+{
     my $class = shift;
     my $self = $class->SUPER::new('title' => '',
-        'template' => 'software/del.mas',
-        @_);
+                                  'template' => 'software/del.mas',
+                                  @_);
     bless($self, $class);
     return $self;
 }
 
-sub _process($) {
-    my $self = shift;
+sub _process
+{
+    my ($self) = @_;
 
     my $action;
     my $doit = 'no';
@@ -128,7 +130,6 @@ sub _goAhead
         throw EBox::Exceptions::Internal("Bad action: $action");
     }
 }
-
 
 sub showConfirmationPage
 {
