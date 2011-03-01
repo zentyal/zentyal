@@ -28,6 +28,14 @@ my $network = EBox::Global->modInstance('network');
 
 my ($iface, $router) = @ARGV;
 
+EBox::debug('Called dhcp-gateway.pl with the following values:');
+
+$iface or exit;
+EBox::debug("iface: $iface");
+
+$router or exit;
+EBox::debug("router: $router");
+
 try {
     $network->setDHCPGateway($iface, $router);
 
