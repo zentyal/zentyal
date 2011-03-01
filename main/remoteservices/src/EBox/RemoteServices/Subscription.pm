@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2010 eBox Technologies S.L.
+# Copyright (C) 2008-2011 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -50,7 +50,7 @@ use constant {
     SERV_CONF_DIR => 'remoteservices',
     SERV_SUBDIR => 'remoteservices/subscription',
     SERV_CONF_FILE => 'remoteservices.conf',
-    PROF_PKG       => 'ebox-cloud-prof',
+    PROF_PKG       => 'zentyal-cloud-prof',
 };
 
 # Group: Public methods
@@ -203,11 +203,16 @@ sub subscribeEBox
 
     my $bundleRawData;
     my $new = 0;
+    my $rs = EBox::Global->modInstance('remoteservices');
     try {
-        $bundleRawData = $self->soapCall('subscribeEBox', canonicalName => $cn);
+        $bundleRawData = $self->soapCall('subscribeEBox',
+                                         canonicalName => $cn,
+                                         rsVersion     => $rs->version());
         $new = 1;
     } catch EBox::Exceptions::DataExists with {
-        $bundleRawData = $self->soapCall('eBoxBundle', canonicalName => $cn);
+        $bundleRawData = $self->soapCall('eBoxBundle',
+                                         canonicalName => $cn,
+                                         rsVersion     => $rs->version());
         $new = 0;
     };
 
@@ -314,7 +319,7 @@ sub extractBundle
             $qaSources = $filePath;
         } elsif ($filePath =~ /ebox-qa\.pub$/) {
             $qaGpg = $filePath;
-        } elsif ($filePath =~ /ebox-qa\.preferences$/) {
+        } elsif ($filePath =~ /ebox-qa\.preferences/) {
             $qaPreferences = $filePath;
         } elsif ($filePath =~ m{exec\-\d+\-}) {
             push(@scripts, $filePath);
@@ -614,7 +619,7 @@ sub _setQASources
     my ($self, $qaFile, $confKeys) = @_;
 
     my $ubuntuVersion = _ubuntuVersion();
-    my $archive = 'ebox-qa-' . $ubuntuVersion;
+    my $archive = $self->_archive($ubuntuVersion);
     my $repositoryAddr = $self->_repositoryAddr($confKeys);
 
     # Perform the mason template manually since it is not stored in stubs directory
@@ -628,8 +633,7 @@ sub _setQASources
     my $tmpFile = $fh->filename();
     File::Slurp::write_file($tmpFile, $output);
     my $destination = EBox::RemoteServices::Configuration::aptQASourcePath();
-    EBox::Sudo::root("cp '$tmpFile' '$destination'");
-    EBox::Sudo::root("chmod 0644 '$destination'");
+    EBox::Sudo::root("install -m 0644 '$tmpFile' '$destination'");
 
 }
 
@@ -643,6 +647,15 @@ sub _ubuntuVersion
         my ($key, $version) = split '=', $line;
         return $version;
     }
+
+}
+
+# Get the QA archive to look
+sub _archive
+{
+    my ($self, $ubuntuVersion) = @_;
+
+    return "zentyal-qa-$ubuntuVersion";
 
 }
 
@@ -660,37 +673,31 @@ sub _setQAAptPubKey
 
 sub _setQAAptPreferences
 {
-    my ($self, $preferencesFile) = @_;
+    my ($self, $preferencesTmpl) = @_;
 
     my $preferences = '/etc/apt/preferences';
-    my $fromCCPreferences = $preferences . '.ebox.fromcc'; # file to store CC preferences
-    EBox::Sudo::root("cp '$preferencesFile' '$fromCCPreferences'");
+    my $fromCCPreferences = $preferences . '.zentyal.fromzc'; # file to store CC preferences
+
+    # Perform the mason template manually since it is not stored in stubs directory
+    my $output;
+    my $interp = new HTML::Mason::Interp(out_method => \$output);
+    my $comp   = $interp->make_component(comp_file  => $preferencesTmpl);
+    $interp->exec($comp, ( (archive => $self->_archive(_ubuntuVersion())) ));
+
+    my $fh = new File::Temp(DIR => EBox::Config::tmp());
+    my $tmpFile = $fh->filename();
+    File::Slurp::write_file($tmpFile, $output);
+
+    EBox::Sudo::root("cp '$tmpFile' '$fromCCPreferences'");
 
     my $exclusiveSource = EBox::Config::configkey('qa_updates_exclusive_source');
     if (lc($exclusiveSource) ne 'true') {
         return;
     }
 
-    # LUCID version
-    my $preferencesDirFile = '/etc/apt/preferences.d/01ebox';
-    EBox::Sudo::root("cp '$fromCCPreferences' '$preferencesDirFile'");
+    my $preferencesDirFile = '/etc/apt/preferences.d/01zentyal';
+    EBox::Sudo::root("install -m 0644 '$fromCCPreferences' '$preferencesDirFile'");
 
-
-
-# HARDY version
-#     my $bakFile = $preferences . '.ebox.bak';  # file to store 'old' prefrences
-#     if (not -e $bakFile) {
-#         if (-e $preferences) {
-#             EBox::Sudo::root("mv '$preferences' '$bakFile'");
-#         } else {
-#             EBox::Sudo::root("touch '$bakFile'"); # create a empty preferences
-#                                                   # file to make ebox-software
-#                                                   # easier to revert configuration
-#         }
-#     }
-
-
-#     EBox::Sudo::root("cp '$preferencesFile' '$preferences'");
 }
 
 # Get the repository IP address
@@ -865,6 +872,7 @@ sub _checkUDPService
     # timeout is zero. If the host is available and this check
     # is done before this one
     return ( $result[1] == 3 );
+
 }
 
 1;
