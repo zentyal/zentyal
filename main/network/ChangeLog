@@ -1,4 +1,5 @@
 HEAD
+	+ Avoid warning in GatewayTable::syncRows when gateway is undef
 	+ Added debug to dhcp-gateway.pl script
 2.1.1
 	+ Bugfix: PPPoE gateway is now properly set

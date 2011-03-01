@@ -142,7 +142,8 @@ sub syncRows
         my $ip = $row->elementByName('ip');
         my $newIP = $dynamicGws{$iface};
 
-        unless ($ip->value() eq $newIP) {
+        my $oldIP = $ip->value();
+        unless (defined ($oldIP) and ($newIP eq $oldIP)) {
             $ip->setValue($newIP);
             $row->storeElementByName('ip');
 
