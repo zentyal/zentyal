@@ -888,9 +888,10 @@ sub revokeConfig
     return $res;
 }
 
+
 sub _cleanDomainFilterFiles
 {
-    my ($self, %params) = @_;
+    my ($self) = @_;
 
     # purge empty file list directories and orphaned files/directories
     # XXX is not the ideal place to
@@ -903,6 +904,9 @@ sub _cleanDomainFilterFiles
     my $dir = $self->isReadOnly() ? 'ebox-ro' : 'ebox';
     my @keys = $self->{redis}->_redis_call('keys',
         "/$dir/modules/squid/*/FilterGroupDomainFilterFiles/*/fileList_path");
+    # default profile
+    push @keys, $self->{redis}->_redis_call('keys',
+        "/$dir/modules/squid/*/DomainFilterFiles/*/fileList_path");
 
     my %fgDirs;
     foreach my $key (@keys) {

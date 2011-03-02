@@ -1,3 +1,5 @@
+HEAD
+	+ Fixed bug that could delete the default profile file list
 2.0.4
 	+ Disable default arbitrary regexes in bannedregexpurllist.mas
 2.0.3
