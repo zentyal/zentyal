@@ -353,9 +353,11 @@ sub _addDestinationToRule
     my ($self, $rule, $row) = @_;
 
     my $dstAddr = $row->elementByName('destination')->value();
-    my $dstPort = $row->elementByName('destination_port')->value();
-    if ($dstPort eq 'destination_port_same') {
-        $dstPort = undef;
+
+    my $dstPort = undef;
+    my $dstPortElement = $row->elementByName('destination_port');
+    if ($dstPortElement->selectedType() eq 'destination_port_other') {
+        $dstPort = $dstPortElement->value();
     }
     $rule->setDestination($dstAddr, $dstPort);
 }

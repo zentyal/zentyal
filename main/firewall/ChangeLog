@@ -1,3 +1,5 @@
+HEAD
+	+ Fixed bug when getting the value of destination port in redirect table
 2.1
 	+ Removed unnecesary call to isReadOnly in syncRows
 	+ New addServiceRules helper method for initial setup of modules
