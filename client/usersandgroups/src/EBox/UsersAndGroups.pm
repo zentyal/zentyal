@@ -919,27 +919,28 @@ sub addUser # (user, system)
     my $gid = $self->groupGid(DEFAULTGROUP);
 
     my $passwd = $user->{'password'};
-    if (not $passwd) {
+    if (not $passwd and not $system) {
+        # system user could not have passwords
         throw EBox::Exceptions::MissingArgument(__('Password'));
-    }
-    if (not isHashed($passwd)) {
-        $passwd =  defaultPasswordHash($passwd);
     }
 
     my @additionalPasswords = ();
-    if (exists $params{additionalPasswords}) {
-        @additionalPasswords = @{ $params{additionalPasswords} }
-    } else {
-        # build addtional passworfs using not-hashed pasword
-        isHashed($user->{password}) and
-            throw EBox::Exceptions::Internal(
-'The supplied user password is already hashed, you must supply an additional password list'
-)          ;
+    if ($passwd) {
+        $self->_checkPwdLength($user->{'password'});
 
-        @additionalPasswords = @{EBox::UsersAndGroups::Passwords::additionalPasswords(
-            $user->{'user'},
-            $user->{'password'}
-           );
+        if (not isHashed($passwd)) {
+            $passwd =  defaultPasswordHash($passwd);
+        }
+
+        if (exists $params{additionalPasswords}) {
+            @additionalPasswords = @{ $params{additionalPasswords} }
+        } else {
+            # build addtional passwords using not-hashed pasword
+            if (isHashed($user->{password})) {
+                throw EBox::Exceptions::Internal('The supplied user password is already hashed, you must supply an additional password list');
+            }
+
+            @additionalPasswords = @{ EBox::UsersAndGroups::Passwords::additionalPasswords($user->{'user'}, $user->{'password'}) };
         }
     }
 
@@ -953,7 +954,6 @@ sub addUser # (user, system)
         $user->{'fullname'} .= $user->{'surname'};
     }
 
-    $self->_checkPwdLength($user->{'password'});
     my @attr =  (
         'cn'            => $user->{'fullname'},
         'uid'           => $user->{'user'},
