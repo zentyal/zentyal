@@ -263,16 +263,26 @@ sub _performBackup
 
     my $ebackupConfKeys = EBox::Config::configKeysFromFile(EBACKUP_CONF);
     my $nTries   = $ebackupConfKeys->{n_tries};
+    if ((not defined $nTries) or $nTries < 1) {
+        $nTries = 1;
+    }
     my $initial  = $ebackupConfKeys->{initial_value};
+    if ((not defined $initial) or $initial < 1) {
+        $initial = 1;
+    }
     my $factor   = $ebackupConfKeys->{scale_factor};
+    if ((not defined $factor) or $factor < 1) {
+        $factor = 1;
+    }
 
-    my $success  = 1;
+    my $success  = 0;
     my $errorMsg = "";
 
     foreach my $try ( 1 .. $nTries ) {
         try {
             EBox::info("Backing up files to destination: try $try");
             EBox::Sudo::root($backupCmd);
+            $success = 1;
         } catch  EBox::Exceptions::Sudo::Command with {
             my $ex = shift @_;
             $success = 0;

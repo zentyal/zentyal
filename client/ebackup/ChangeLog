@@ -3,6 +3,8 @@ HEAD
 	+ Added 'files included' domain and restore all fiels options to
 	  restore-tool
 	+ Using 'cat' command instead of 'tail' to retrieve backup metadata
+	+ Bugfix: values from configuration file are checked to assure
+	that at least making backup is tried once
 2.0.10
 	+ Add migration script to delete old backup configuration from
 	  ebox crontab
