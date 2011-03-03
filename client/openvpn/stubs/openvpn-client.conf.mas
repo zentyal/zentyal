@@ -7,6 +7,9 @@ $caCertificate
 $certificate
 $certificateKey
 
+$localAddr => undef
+$lport => undef
+
 $user
 $group
 $dh
@@ -51,10 +54,17 @@ client
 # to the internet such as laptops.
 resolv-retry infinite
 
+% if ($localAddr) {
+local <% $localAddr %>
+% }
+
+% if  ($lport) {
+lport <% $lport %>
+% } else {
 # Most clients don't need to bind to
 # a specific local port number.
 nobind
-
+% }
 
 # Try to preserve some state across restarts.
 persist-key
@@ -117,7 +127,7 @@ comp-lzo
 # Generate your own with:
 #   openssl dhparam -out dh1024.pem 1024
 # Substitute 2048 for 1024 if you are using
-# 2048 bit keys. 
+# 2048 bit keys.
 #dh /etc/openvpn/dh1024.pem
 <& valueEntry, entry => 'dh', value => $dh  &>
 

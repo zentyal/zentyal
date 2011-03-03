@@ -1318,6 +1318,9 @@ sub _anyDaemonReturnsTrue
 #
 #    ripPasswd     - String the RIP password to exchange routes with
 #
+#    local         - local interface/address to bind to (optional)
+#    lport         - local port to bind to (optional)
+#
 # Returns:
 #
 #    <EBox::OpenVPN::Client> - the newly created VPN client daemon
@@ -1426,6 +1429,13 @@ sub _setClientConf
                        ripPasswd             => $params{ripPasswd},
                        %{$certPaths},
                       );
+
+    my @optionalParameters = qw(lport localAddr);
+    foreach my $optional (@optionalParameters) {
+        if (exists $params{$optional}) {
+            $configToSet{$optional} = $params{$optional};
+        }
+    }
 
     while (my ($attr, $value) = each %configToSet) {
         $configRow->elementByName($attr)->setValue($value);

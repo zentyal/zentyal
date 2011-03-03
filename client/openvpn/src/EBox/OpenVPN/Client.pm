@@ -63,6 +63,18 @@ sub proto
     return $portAndProtocol->protocol();
 }
 
+sub localAddr
+{
+    my ($self) = @_;
+    return $self->_configAttr('localAddr');
+}
+
+sub lport
+{
+    my ($self) = @_;
+    return $self->_configAttr('lport');
+}
+
 sub _filePath
 {
     my ($self, $name) = @_;
@@ -200,8 +212,8 @@ sub confFileParams
 
     push @templateParams, (dev => $self->iface);
 
-    my @paramsNeeded =
-      qw(name caCertificate certificate certificateKey  proto user group  dh);
+    my @paramsNeeded = qw(name caCertificate certificate certificateKey
+                          proto user group dh localAddr lport);
     foreach my $param (@paramsNeeded) {
         my $accessor_r = $self->can($param);
         defined $accessor_r or die "Cannot found accessor for param $param";
@@ -245,7 +257,6 @@ sub checkServer
                    );
 
     }
-
 
     my $net = EBox::Global->modInstance('network');
 
