@@ -215,7 +215,7 @@ use EBox::Gettext;
 % }
 
 
-[ebox-internal-backups]
+[zentyal-internal-backups]
  path = <% $backup_path %>
  read only = No
  valid users = @"Domain Admins"
@@ -224,7 +224,7 @@ use EBox::Gettext;
  force user = ebox
  browseable = Yes
 
-[ebox-quarantine]
+[zentyal-quarantine]
  path = <% $quarantine_path %>
  read only = No
  valid users = @"Domain Admins"
