@@ -300,19 +300,12 @@ sub precondition
         my $changed = $global->modIsChanged('openvpn');
         if ($changed) {
             return 0;
+        } else {
+            return 1;
         }
     } else {
         return 0;
     }
-
-    my $network = $global->modInstance('network');
-    my $externalIfaces = $network->ExternalIfaces();
-    if (not @{ $externalIfaces }) {
-        $self->{noExternalIfaces} = 1;
-        return 0;
-    }
-
-    return 1;
 }
 
 # Method: preconditionFailMsg
@@ -326,10 +319,6 @@ sub precondition
 sub preconditionFailMsg
 {
     my ($self) = @_;
-    if ($self->{noExternalIfaces}) {
-        return __('You need at least a external network interface to subscribe');
-    }
-
     return __('Prior to make a subscription on remote services, '
               . 'save or discard changes in the OpenVPN module');
 }

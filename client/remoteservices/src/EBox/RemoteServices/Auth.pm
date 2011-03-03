@@ -239,7 +239,9 @@ sub _vpnClientLocalAddress
     my @addresses;
 
     my ($ifaceGw , $gw) = $network->_defaultGwAndIface();
-    foreach my $iface ( @{ $network->ExternalIfaces() } ) {
+    # check first external ifaces..
+    my @ifaces = ( @{ $network->ExternalIfaces() }, @{ $network->InternalIfaces()}  );
+    foreach my $iface ( @ifaces ) {
         my @ifAddrs = EBox::NetWrappers::iface_addresses($iface);
         if (defined $ifaceGw and ($iface eq $ifaceGw)) {
             # first addresses to look up
