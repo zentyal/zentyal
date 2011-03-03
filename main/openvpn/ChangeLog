@@ -1,3 +1,5 @@
+HEAD
+	+ Added localAddr and lport properties for internal VPN clients
 2.1
 	+ Upgrade version of the OpenVPN for Windows installer to 2.1.4
 	+ Use new standard enable-module script

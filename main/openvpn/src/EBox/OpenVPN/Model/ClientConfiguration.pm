@@ -13,11 +13,9 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-# Class:
-#
+# Class: EBox::OpenVPN::Model::ClientConfiguration
 #
 
-#
 package EBox::OpenVPN::Model::ClientConfiguration;
 use base 'EBox::Model::DataForm';
 
@@ -32,14 +30,14 @@ use EBox::Validate qw(:all);
 use EBox::Exceptions::External;
 use EBox::Exceptions::DataExists;
 
-
 use EBox::Types::Select;
 use EBox::Types::Host;
 use EBox::Types::Password;
 use EBox::Types::File;
+use EBox::Types::Port;
+use EBox::Types::HostIP;
 
 use EBox::OpenVPN::Types::PortAndProtocol;
-
 use EBox::OpenVPN::Client::ValidateCertificate;
 
 sub new
@@ -52,8 +50,6 @@ sub new
 
     return $self;
 }
-
-
 
 sub _table
 {
@@ -93,8 +89,7 @@ sub _table
                                                     printableName => __('Server port'),
                                                     editable => 1,
                                                     optional => 1,
-
-                                                   ),
+                                                  ),
          new EBox::Types::File(
                                fieldName => 'caCertificate',
                                printableName => __("CA's certificate"),
@@ -135,7 +130,21 @@ sub _table
                                   editable => 1,
                                   optional => 1,
                                  ),
-
+          new EBox::Types::Port(
+                                  fieldName => 'lport',
+                                  printableName => __('Bind port for client'),
+                                  minLength => 6,
+                                  editable => 1,
+                                  optional => 1,
+                                  hidden => 1,
+                                 ),
+         new EBox::Types::HostIP(
+                 fieldName  => 'localAddr',
+                 printableName => __('Bind address for client'),
+                 optional => 1,
+                 editable => 1,
+                 hidden => 1,
+                 ),
         );
 
     my $dataTable =
@@ -180,8 +189,6 @@ sub viewCustomizer
             });
     return $customizer;
 }
-
-
 
 sub name
 {
@@ -319,7 +326,6 @@ sub _privateFilePath
 }
 
 
-
 sub _bundlePath
 {
     my ($file) = @_;
@@ -365,8 +371,6 @@ sub updatedRowNotify
     };
 
 }
-
-
 
 # Method: pageTitle
 #
