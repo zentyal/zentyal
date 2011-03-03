@@ -559,8 +559,34 @@ sub usesPort
 {
     my ($self, $proto, $port, $iface) = @_;
 
-    # openvpn client doesn't listen in any port
-    return 0;
+    my $ownProto = $self->proto;
+    defined $ownProto
+      or return undef; # uninitialized server
+    if ($proto ne $ownProto) {
+        return undef;
+    }
+
+    my $ownPort = $self->lport;
+    defined $ownPort
+      or return undef; #uninitialized server
+    if ($port ne $ownPort) {
+        return undef;
+    }
+
+    my $localAddr = $self->localAddr();
+    if (defined $iface and $localAddr) {
+        my @ifaceAddresses = EBox::NetWrappers::iface_addresses($iface);
+        foreach my $ifAddr (@ifaceAddresses) {
+            if ($ifAddr eq $localAddr) {
+                # client listening in the given iface
+                return 1;
+            }
+        }
+
+        return 0; # not listening in the given iface
+    } else {
+        return 1;
+    }
 }
 
 1;
