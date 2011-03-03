@@ -1,3 +1,7 @@
+HEAD
+	+ Bugfix: external accounts wiht passwords containing ':' don't
+	  cause probems anymore; however single quota is forbidden in
+	  external accounts passwords
 2.1
 	+ Delete deprecated/unused _isCourierObject and _accountAddOn methods
 	+ Removed obsolete migrations and use new initial-setup

@@ -58,27 +58,37 @@ sub _externalAccountString
 
     my @values  = map {
         $params{$_}
-    } qw(externalAccount password mailProtocol mailServer port ssl);
+    } qw(externalAccount mailProtocol mailServer port);
+    push @values, $self->_optionsStr(%params);
+    push @values, $params{password};
     my $str = join ':', @values;
     return $str;
+}
+
+sub _optionsStr
+{
+    my ($self, %params) = @_;
+    my @optionParts;
+    if ($params{ssl}) {
+        push @optionParts, 'ssl';
+    }
+
+    my $optionsStr = "@optionParts";
+    return $optionsStr;
 }
 
 sub _externalAccountHash
 {
     my ($self, $string) = @_;
-    my @parts = split ':', $string;
+    my @parts = split ':', $string, 6;
 
     my %externalAccount;
     $externalAccount{user}         = $parts[0];
-    $externalAccount{password}     = $parts[1];
-    $externalAccount{mailProtocol} = $parts[2];
-    $externalAccount{server}       = $parts[3];
-    $externalAccount{port}         = $parts[4];
-    if ($parts[5]) {
-        # ssl option
-        $externalAccount{options}        =  'ssl';
-    }
-
+    $externalAccount{mailProtocol} = $parts[1];
+    $externalAccount{server}       = $parts[2];
+    $externalAccount{port}         = $parts[3];
+    $externalAccount{options}      = $parts[4];
+    $externalAccount{password}     = $parts[5];
 
     return \%externalAccount;
 }

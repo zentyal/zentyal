@@ -22,7 +22,7 @@ $localAccount
 </%args>
 % foreach my $account (@externalAccounts) {
 poll <% $account->{server} %> proto <% $account->{mailProtocol} %> port <% $account->{port} %>:
-   user <% $account->{user} %>, with password <% $account->{password} %>, is <% $localAccount %> here <% exists $account->{options} ? $account->{options} : '' %>;
+   user <% $account->{user} %>, with password '<% $account->{password} %>', is <% $localAccount %> here <% exists $account->{options} ? $account->{options} : '' %>;
 % }
 
 </%def>

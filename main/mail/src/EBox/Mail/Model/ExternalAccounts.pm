@@ -269,24 +269,31 @@ sub validateTypedRow
                 $externalAccount,
                 __('External account')
                );
-        } else {            
+        } else {
             # no info found on valid usernames for fetchmail..
             if ($externalAccount =~ m/\s/) {
                 throw EBox::Exceptions::InvalidData (
-                    'data' => __('External account username'), 
+                    'data' => __('External account username'),
                     'value' => $externalAccount,
                     'advice' => __('No spaces allowed')
                    );
             }
             unless ($externalAccount =~ m/^[\w.\-_]+$/) {
                 throw EBox::Exceptions::InvalidData (
-                    'data' => __('External account username'), 
+                    'data' => __('External account username'),
                     'value' => $externalAccount);
             }
         }
     }
 
-
+    if (exists $params_r->{password}) {
+        my $password = $params_r->{password}->value();
+        if ($password =~ m/'/) {
+            throw EBox::Exceptions::External(
+  __(q{Character "'" is forbidden for external})
+                                            );
+        }
+    }
 }
 
 # Method: _addTypedRow
