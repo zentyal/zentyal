@@ -29,6 +29,7 @@ use base 'EBox::RemoteServices::Base';
 use EBox::Config;
 use EBox::Gettext;
 use EBox::Global;
+use EBox::NetWrappers;
 
 use Digest::MD5;
 use IO::Socket::INET;
@@ -205,23 +206,62 @@ sub vpnClientForServices
             }
         }
 
+        my $localAddr = $self->_vpnClientLocalAddress($vpnServerName);
+        my $localPort = EBox::NetWrappers::getFreePort($protocol, $localAddr);
+
         $client = $openvpn->newClient(
             $clientName,
             internal       => 1,
             service        => 1,
-            proto          => $protocol,,
+            proto          => $protocol,
             servers        => [
                 [$vpnServerName => $port],
                ],
             caCertificate  => $self->{caCertificate},
             certificate    => $self->{certificate},
             certificateKey => $self->{certificateKey},
-            ripPasswd      => '123456' # Not used
+            ripPasswd      => '123456', # Not used
+
+            localAddr  => $localAddr,
+            lport  => $localPort,
            );
         $openvpn->save();
     }
 
     return $client;
+}
+
+sub _vpnClientLocalAddress
+{
+    my ($self, $serverAddr) = @_;
+    my $network = EBox::Global->modInstance('network');
+
+    my @addresses;
+
+    my ($ifaceGw , $gw) = $network->_defaultGwAndIface();
+    foreach my $iface ( @{ $network->ExternalIfaces() } ) {
+        my @ifAddrs = EBox::NetWrappers::iface_addresses($iface);
+        if (defined $ifaceGw and ($iface eq $ifaceGw)) {
+            # first addresses to look up
+            unshift @addresses, @ifAddrs;
+        } else {
+            push @addresses, @ifAddrs;
+        }
+    }
+
+    # look whether address can coneect to the VPN server
+    foreach my $addr (@addresses) {
+        my $pingCmd = "ping -I $addr -c 1 $serverAddr";
+        system $pingCmd;
+        if ($? == 0) {
+            return $addr;
+        }
+    }
+
+    # no address found
+    throw EBox::Exceptions::External(
+        __('Cannot found a external address for the CC connection. Check your external connections')
+    );
 }
 
 # Method: vpnLocation

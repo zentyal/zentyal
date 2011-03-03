@@ -1,3 +1,5 @@
+HEAD
+	+ Remote services VPN client now uses local port and address options
 2.0.9
 	+ Added WS and VPN server connectivity check upon subscription
 	+ Bugfix: package removal does not crash if can't unsubscribe
