@@ -1868,7 +1868,7 @@ sub consolidateReportQueries
         {
             'target_table' => 'samba_virus_share_report',
             'query' => {
-                'select' => 'filename, count(*) as virus',
+                'select' => 'share, count(*) as virus',
                 'from' => 'samba_quarantine',
                 'where' => q{event='quarantine'},
                 'group' => 'filename'
