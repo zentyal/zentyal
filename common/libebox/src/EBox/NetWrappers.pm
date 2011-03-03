@@ -21,9 +21,11 @@ use warnings;
 use EBox::Config;
 use EBox::Gettext;
 use EBox::Exceptions::DataNotFound;
+use EBox::Exceptions::MissingArgument;
 use Perl6::Junction qw(any);
 use EBox::Validate;
 use EBox::Sysfs;
+use IO::Socket::INET;
 
 BEGIN {
 	use Exporter ();
@@ -566,6 +568,40 @@ sub network_is_private_class
   }
 
   return 0;
+}
+
+# Method: getFreePort
+#
+#  Looks for a unused port
+#
+#  Parameters:
+#    proto - protocol ('tcp' or 'udp')
+#    localAddess - local address on which look for a free port
+#
+#   Returns:
+#     port number or undef if it could not find a free port
+sub getFreePort
+{
+    my ($proto, $localAddr) = @_;
+    $proto or
+        throw EBox::Exceptions::MissingArgument('proto');
+    $localAddr or
+        throw EBox::Exceptions::MissingArgument('localAddr');
+
+    my @socketParams = (
+                        Proto => $proto,
+                        LocalAddr => $localAddr,
+                        LocalPort => 0, # to select a unused port
+                       );
+
+    my $sock = IO::Socket::INET->new(@socketParams );
+    defined $sock
+        or return undef;
+
+    my $port = $sock->sockport();
+    $sock->close();
+
+    return $port;
 }
 
 1;
