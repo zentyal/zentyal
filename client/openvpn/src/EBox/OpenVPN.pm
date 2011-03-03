@@ -814,9 +814,9 @@ sub usesPort
 {
     my ($self, $proto, $port, $iface) = @_;
 
-    my @servers = $self->servers();
-    foreach my $server (@servers) {
-        if ($server->usesPort($proto, $port, $iface)) {
+    my @daemons = $self->daemons();
+    foreach my $daemon (@daemons) {
+        if ($daemon->usesPort($proto, $port, $iface)) {
             return 1;
         }
     }
