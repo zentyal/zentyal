@@ -1,5 +1,7 @@
 HEAD
 	+ Added localAddr and lport properties for internal VPN clients
+	+ Bugfix: now you can edit no-certificate VPN client parameters without
+	  resubmitting certificates
 2.0.8
 	+ Added server option for multihomed UDP server
 2.0.7
