@@ -74,8 +74,6 @@ sub _table
                                   __(q{Upload configuration's bundle}),
                                editable => 1,
                                dynamicPath => \&_bundlePath,
-#                               showFileWhenEditing => 1,
-#                               allowDownload => 1,
                                optional => 1,
                               ),
          new EBox::Types::Host(
@@ -312,7 +310,7 @@ sub _privateFilePath
     return unless (defined($file));
     return unless (defined($file->model()));
 
-    my $row     = $file->row();
+    my $row     = $file->model()->row();
     return unless defined $row;
 
     my $clientName = __PACKAGE__->_clientName($row);
