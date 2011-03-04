@@ -1,5 +1,7 @@
 HEAD
 	+ Remote services VPN client now uses local port and address options
+	+ Bugfix: fixed error in remote backup template when a basic
+	  subscription already has a backup in the cloud
 2.0.9
 	+ Added WS and VPN server connectivity check upon subscription
 	+ Bugfix: package removal does not crash if can't unsubscribe

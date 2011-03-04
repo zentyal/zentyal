@@ -24,7 +24,8 @@ $basic
 %backups
 </%args>
 <%init>
-my $restricted = $basic and (keys %backups);
+my ($lastBackup) = (values %backups);
+my $restricted = ($basic and $lastBackup);
 my $formAction = $restricted ? 'Confirm' : 'MakeRemoteBackup';
 
 my @formElements;
@@ -59,7 +60,6 @@ push @formElements, (
 );
 
 if ($restricted) {
-    my ($lastBackup) = (values %backups);
     my $lastBackupName = $lastBackup->{Filename};
     push @formElements, (
                          # name of the already-done backup
