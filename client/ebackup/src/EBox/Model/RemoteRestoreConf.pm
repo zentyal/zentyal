@@ -74,8 +74,6 @@ sub preconditionFailMsg
     return __('There are not backed up files yet');
 }
 
-
-
 # Group: Protected methods
 
 # Method: _table

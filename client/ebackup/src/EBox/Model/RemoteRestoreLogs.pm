@@ -63,6 +63,9 @@ sub new
 
 # Method: precondition
 #
+#      The preconditionFailMsg method is only implemented
+#      in RemoteRestoreConf to avoid showing it twice
+#
 # Overrides:
 #
 #      <EBox::Model::DataTable::precondition>
@@ -74,21 +77,6 @@ sub precondition
     my @status = @{$self->{gconfmodule}->remoteStatus()};
     return (scalar(@status));
 }
-
-# Method: preconditionFailMsg
-#
-# Overrides:
-#
-#      <EBox::Model::DataTable::preconditionFailMsg>
-#
-sub preconditionFailMsg
-{
-    my ($self) = @_;
-
-    return __('There are not backed up files yet');
-}
-
-
 
 # Group: Protected methods
 
