@@ -23,6 +23,7 @@ use EBox::EBackup;
 use EBox::Global;
 use EBox::Config;
 use EBox::Gettext;
+use EBox::Sudo;
 use Error qw(:try);
 use Date::Parse;
 
@@ -35,6 +36,9 @@ sub restoreEBoxLogs
     my $ebackup = EBox::Global->modInstance('ebackup');
     my $dumpDir = backupDir();
     my $dumpDirTmp = EBox::Config::tmp() . 'eboxlogs.restore';
+    EBox::Sudo::root("rm -rf $dumpDirTmp");
+    mkdir ($dumpDirTmp) or
+        throw EBox::Exceptions::Internal("Cannot create dir $dumpDirTmp");
 
     try {
         $ebackup->restoreFile($dumpDir, $date, $dumpDirTmp, $urlParams);
@@ -52,6 +56,7 @@ sub restoreEBoxLogs
     };
 
     restoreEBoxLogsFromDir($dumpDirTmp, $date);
+    EBox::Sudo::root("rm -rf $dumpDirTmp");
 }
 
 

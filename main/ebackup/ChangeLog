@@ -2,6 +2,7 @@ HEAD
 	+ First date is selected by default on restore-tool
 	+ Bugfix: values from configuration file are checked to assure
 	  that at least making backup is tried once
+	+ Clean temporal directory before doing logs restore
 2.1
 	+ Set default value for the keep previous full copies setting
 	+ Replace YAML::Tiny with libyaml written in C through YAML::XS wrapper

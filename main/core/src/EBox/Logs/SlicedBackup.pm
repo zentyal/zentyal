@@ -85,6 +85,9 @@ sub slicedRestore
     my ($dbengine, $dir, %params) = @_;
 
     my $toDate = $params{toDate};
+    my $forceNoSchema = EBox::Config::configkeyFromFile(
+                            'eboxlogs_force_not_schema_sliced_restore',
+                            CONF_FILE) eq 'yes';
 
     my $timeline = _activeTimeline($dbengine);
 
@@ -109,7 +112,19 @@ sub slicedRestore
     }
 
     my $schemaDumpFile = _schemaFile($dir);
-    $dbengine->restoreDBDump($schemaDumpFile, 1);
+    if ($schemaDumpFile and (-e $schemaDumpFile)) {
+        $dbengine->restoreDBDump($schemaDumpFile, 1);
+    } else {
+        if ($forceNoSchema) {
+            EBox::error('No schema file found in this backup. Forcing restore without schema restore');
+        } else {
+            throw EBox::Exceptions::External(
+  __x('No schema file found in this backup. Try another date or force restore without schema changing the relevant key in {cf}. Schemas change unfrequently so it oculd be safe to use a older one',
+       cf => CONF_FILE)
+                                            );
+        }
+    }
+
     _restoreTables($dbengine, $dir, %params);
 }
 
