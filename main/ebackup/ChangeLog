@@ -1,4 +1,5 @@
 HEAD
+	+ First date is selected by default on restore-tool
 	+ Bugfix: values from configuration file are checked to assure
 	  that at least making backup is tried once
 2.1
