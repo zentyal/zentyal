@@ -33,25 +33,22 @@
 <%init>
 use EBox::Gettext;
 
-my $smtpRecipientRestrictions ;
-$smtpRecipientRestrictions .= 'reject_non_fqdn_sender, ';
-$smtpRecipientRestrictions .= 'reject_unknown_sender_domain, ';
-$smtpRecipientRestrictions .= 'reject_non_fqdn_recipient, ';
-$smtpRecipientRestrictions .=  'reject_unknown_recipient_domain, ';
-
+my $smtpRecipientRestrictions;
 if ($sasl) {
-    $smtpRecipientRestrictions = 'permit_sasl_authenticated, ';
+    $smtpRecipientRestrictions .= 'permit_sasl_authenticated, ';
 }
-$smtpRecipientRestrictions .=  'permit_mynetworks, ';
 
-$smtpRecipientRestrictions .= 'reject_unauth_destination';
+$smtpRecipientRestrictions .=  'permit_mynetworks, ';
 # at his point all mail for whom the server isn't the final point or the
 # forwarder has been rejected so the next restrictions only applies in this two cases
+$smtpRecipientRestrictions .= 'reject_unauth_destination, ';
 
+$smtpRecipientRestrictions .= 'reject_non_fqdn_sender, ';
+$smtpRecipientRestrictions .= 'reject_unknown_sender_domain, ';
 
-$smtpRecipientRestrictions .= ', reject_invalid_helo_hostname';
-$smtpRecipientRestrictions .= ', reject_non_fqdn_helo_hostname';
-$smtpRecipientRestrictions .= ', check_helo_access pcre:/etc/postfix/helo_checks.pcre';
+$smtpRecipientRestrictions .= 'reject_invalid_helo_hostname, ';
+$smtpRecipientRestrictions .= 'reject_non_fqdn_helo_hostname, ';
+$smtpRecipientRestrictions .= 'check_helo_access pcre:/etc/postfix/helo_checks.pcre';
 
 if ($greylist) {
     my $greylistRecipientRestriction = "check_policy_service inet:" .
