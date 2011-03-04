@@ -164,6 +164,7 @@ $langs->{'pt_PT.UTF-8'} = 'Português';
 $langs->{'ro_RO.UTF-8'} = 'Română';
 $langs->{'ru_RU.UTF-8'} = 'Русский';
 $langs->{'sv_SE.UTF-8'} = 'Svenska';
+$langs->{'th_TH.UTF-8'} = 'ภาษาไทย';
 $langs->{'tr_TR.UTF-8'} = 'Türkçe';
 $langs->{'uk_UA.UTF-8'} = 'украї́нська';
 $langs->{'zh_CN.UTF-8'} = '汉字';

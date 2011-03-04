@@ -1,4 +1,5 @@
 HEAD
+	+ Added Thai language
 	+ Added getFreePort method to EBox::NetWrappers
 2.1
 	+ New EBox::Config::modules() for /usr/share/zentyal/modules
