@@ -1,3 +1,6 @@
+HEAD
+	+ Sliced restore mode fails correctly when schema file is missing,
+	  added option to force restore without schema file
 2.0.16
 	+ Rotate duplicity-debug.log log if exists
 	+ Bug fix: Port selected during installation is correctly saved

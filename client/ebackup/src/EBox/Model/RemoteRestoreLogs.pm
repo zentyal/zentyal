@@ -32,7 +32,6 @@ use EBox::Types::Select;
 use EBox::Exceptions::DataInUse;
 use EBox::EBackup::DBRestore;
 
-
 use Error qw(:try);
 
 # Group: Public methods
