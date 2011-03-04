@@ -1,4 +1,5 @@
 HEAD
+	+ First date is selected by default on restore-tool
 	+ Set default value for the keep previous full copies setting
 	+ Added 'files included' domain and restore all fiels options to
 	  restore-tool

@@ -1265,6 +1265,13 @@ sub _backupDateInput
     my ($commonName, $dates) = @_;
     my $chosen;
     if ($usesX) {
+        # first date in the list enabled
+        my $firstDate = $dates->[0];
+        $dates->[0] = {
+            item => $firstDate,
+            enabled => 1,
+        };
+
         $chosen = _zenityList(__x('Choose date to restore the backup from server {cn}',
                                   cn => $commonName
                                  ),
