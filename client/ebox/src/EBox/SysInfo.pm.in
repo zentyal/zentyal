@@ -40,6 +40,7 @@ use EBox::Menu::Folder;
 use EBox::Report::DiskUsage;
 use EBox::Report::RAID;
 use EBox::Util::Version;
+use EBox::FileSystem;
 
 use constant LATEST_VERSION => '/var/lib/ebox/latestversion';
 
@@ -296,7 +297,7 @@ sub logReportInfo
 
     my @data;
 
-    my $fileSysS = EBox::Report::DiskUsage::partitionsFileSystems();
+    my $fileSysS = EBox::FileSystem::partitionsFileSystems();
     foreach my $fileSys (keys %{$fileSysS}) {
         my $entry = {};
         $entry->{'table'} = 'sysinfo_disk_usage';

@@ -81,11 +81,11 @@ sub masonParameters
 
     try {
         $measuredData = $mon->allMeasuredData();
-    } catch EBox::Exceptions::Command with {
+    } catch EBox::Exceptions::Internal with {
         my $ex = shift;
-        my $error = join ' ', @{ $ex->error() };
+        my $error = $ex->text();
 
-        if ($error =~ m/No such file or directory/) {
+        if ($error =~ m/Need to save changes/) {
             $needSaveChanges = 1;
         } else {
             $ex->throw();

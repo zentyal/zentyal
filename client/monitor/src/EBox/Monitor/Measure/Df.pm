@@ -28,7 +28,7 @@ use warnings;
 
 use base qw(EBox::Monitor::Measure::Base);
 
-use EBox::Report::DiskUsage;
+use EBox::FileSystem;
 use EBox::Gettext;
 
 # Constructor: new
@@ -57,17 +57,30 @@ sub _description
 {
     my ($self) = @_;
 
-    # TODO: Move this method to EBox::FileSystem
-    my $fileSysS = EBox::Report::DiskUsage::partitionsFileSystems();
+    # this doesn't return fs mounted under /media
+    my $fileSysS = EBox::FileSystem::partitionsFileSystems(1);
 
     my (@typeInstances, %printableTypeInstances) = ((),());
     my @printableLabels = ();
     foreach my $fileSys (keys %{$fileSysS}) {
-        if ( $fileSysS->{$fileSys}->{mountPoint} eq '/' ) {
+        my $mountPoint = $fileSysS->{$fileSys}->{mountPoint};
+
+        if ($mountPoint eq '/') {
             push(@typeInstances, 'root');
             $printableTypeInstances{'root'} = '/';
         } else {
-            my $mountPoint = $fileSysS->{$fileSys}->{mountPoint};
+            my @options = split ',', $fileSysS->{$fileSys}->{options};
+            my $roFs = 0;
+            foreach my $opt (@options) {
+                if ($opt eq 'ro') {
+                    $roFs = 1;
+                    last;
+                }
+            }
+
+            # no monitorize if read-only
+            next if ($roFs);
+
             $mountPoint =~ s:/:-:g;
             $mountPoint = substr($mountPoint, 1);
             push(@typeInstances, $mountPoint);

@@ -1,3 +1,7 @@
+HEAD
+	+ Df measure now monitorizes file systems in /media and never
+	  monitorizes read-only filesystems (except root)
+	+ Monitor tolerates missing rrds
 1.5.6
 	+ Bugfix: Several thresholds for the same measure now works
 	+ Bugfix: Removing a maximum/minimum when updating a threshold

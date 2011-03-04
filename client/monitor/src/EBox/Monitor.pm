@@ -290,19 +290,37 @@ sub allMeasuredData
     }
 
     my @measuredData;
+    my $atLeastOneReady;
     foreach my $measure (@{$self->{measureManager}->measures()}) {
-        if(@{$measure->instances()} > 0) {
-            foreach my $instance (@{$measure->instances()}) {
-                push(@measuredData,
-                     $measure->fetchData(instance   => $instance,
+        try  {
+            if(@{$measure->instances()} > 0) {
+                foreach my $instance (@{$measure->instances()}) {
+                    push(@measuredData,
+                         $measure->fetchData(instance   => $instance,
                                          resolution => $periodData->{resolution},
                                          start      => 'end-' . $periodData->{timeValue}));
-            }
-        } else {
-            push(@measuredData,
+                }
+            } else {
+                push(@measuredData,
                  $measure->fetchData(resolution => $periodData->{resolution},
                                      start      => 'end-' . $periodData->{timeValue}));
-        }
+            }
+            $atLeastOneReady = 1;
+        } otherwise {
+            my $ex = shift;
+            my $error = join ' ', @{ $ex->error() };
+            if ($error =~ m/No such file or directory/) {
+                # need to save changes, ignoring..
+            } else {
+                # rethrow exception
+                $ex->throw();
+            }
+        };
+    }
+
+    if (not $atLeastOneReady) {
+        # none measure is ready, need to save changes
+        throw EBox::Exceptions::Internal('Need to save changes to see measures');
     }
 
     return \@measuredData;

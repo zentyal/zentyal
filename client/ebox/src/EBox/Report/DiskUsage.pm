@@ -213,7 +213,7 @@ sub usage
   my $blockSize = 1048576; # 1 Mb block size
   my $fileSystemToScan = $params{fileSystem};
 
-  my $fileSystems = partitionsFileSystems();
+  my $fileSystems = EBox::FileSystem::partitionsFileSystems();
 
   # check fileSystem argument if present
   if (defined $fileSystemToScan ) {
@@ -299,25 +299,26 @@ sub usage
 #
 sub partitionsFileSystems
 {
-  my %fileSys = %{  EBox::FileSystem::fileSystems() };
+    my %partitionsDevices;
+    my %fileSys = %{  EBox::FileSystem::fileSystems() };
 
-  foreach my $fs (keys %fileSys) {
-    # remove not-device filesystems
-    if (not $fs =~ m{^/dev/}) {
-      delete $fileSys{$fs};
-      next;
+    foreach my $fs (keys %fileSys) {
+        # remove not-device filesystems
+        if (not $fs =~ m{^/dev/}) {
+            delete $fileSys{$fs};
+            next;
+        }
+        
+        # remove removable media files
+        my $mpoint = $fileSys{$fs}->{mountPoint};
+        if ($mpoint =~ m{^/media/}) {
+            delete $fileSys{$fs};
+            next;
+        }
+        
     }
-
-  # remove removable media files
-    my $mpoint = $fileSys{$fs}->{mountPoint};
-    if ($mpoint =~ m{^/media/}) {
-      delete $fileSys{$fs};
-      next;
-    }
-
-  }
-
-  return \%fileSys;
+    
+    return \%fileSys;
 }
 
 

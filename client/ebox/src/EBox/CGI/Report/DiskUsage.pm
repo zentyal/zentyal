@@ -39,7 +39,7 @@ sub _process
 {
 	my $self = shift;
 
-	my $fileSystems  = EBox::Report::DiskUsage::partitionsFileSystems();
+	my $fileSystems  = EBox::FileSystem::partitionsFileSystems();
 
 	my $partition = $self->param('partition');
 	my @partitions =   sort keys %{ $fileSystems };

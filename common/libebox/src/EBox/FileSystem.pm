@@ -23,6 +23,7 @@ our @EXPORT_OK = qw(makePrivateDir cleanDir isSubdir dirDiskUsage dirFileSystem)
 use Params::Validate;
 use EBox::Validate;
 use EBox::Gettext;
+use File::Slurp;
 
 use constant FSTAB_PATH => '/etc/fstab';
 use constant MTAB_PATH => '/etc/mtab';
@@ -230,6 +231,45 @@ sub staticFileSystems
 sub fileSystems
 {
   return _fileSystems(MTAB_PATH);
+}
+
+#  Function: partitionsFileSystems
+#
+#   return the file system data for mounted disk partitions
+#
+# Parameters:
+#  includeRemovables - include removable FS (now detected as FS under /media)
+#
+# Returns:
+#      a hash reference with the file system as key and a hash with his
+#      properties as value.
+#      The properties are: mountPoint, type, options, dump and pass
+#      The properties have the same format that the fields in the fstab file
+#
+sub partitionsFileSystems
+{
+    my ($includeRemovable) = @_;
+
+    my %fileSys = %{ fileSystems() };
+
+    foreach my $fs (keys %fileSys) {
+        # remove not-device filesystems
+        if (not $fs =~ m{^/dev/}) {
+            delete $fileSys{$fs};
+            next;
+        }
+
+        if (not $includeRemovable) {
+            # remove removable media files
+            my $mpoint = $fileSys{$fs}->{mountPoint};
+            if ($mpoint =~ m{^/media/}) {
+                delete $fileSys{$fs};
+                next;
+            }
+        }
+    }
+
+    return \%fileSys;
 }
 
 # Group: Private procedures
