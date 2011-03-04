@@ -4,19 +4,20 @@
 # This file is distributed under the same license as the zentyal packages.
 # Automatically generated, 2011.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: zentyal 2.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2011-02-16 11:33+0100\n"
-"PO-Revision-Date: 2010-08-29 16:32+0200\n"
-"Last-Translator: Cyril MARTY <cyril_marty@yahoo.fr>\n"
+"PO-Revision-Date: 2011-02-24 17:37+0200\n"
+"Last-Translator: qmic <gilles.qmic@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
-"Language: \n"
+"Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Pootle 2.1.4\n"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:61
 msgid "Mail Filter"
@@ -3254,7 +3255,7 @@ msgstr "Pour configurer vsftpd avec l'authentification LDAP"
 
 #: ../../main/ftp/src/EBox/FTP.pm:192
 msgid "FTP server hosted files"
-msgstr ""
+msgstr "Fichiers hébergés par le serveur FTP"
 
 #: ../../main/ftp/src/EBox/FTP.pm:193
 msgid "User homes and anonymous directory"
@@ -3514,7 +3515,8 @@ msgstr "paramètres de configuration des passerelles Zarafa"
 
 #: ../../main/zarafa/src/EBox/Zarafa/Model/Gateways.pm:185
 msgid "Zarafa gateways configuration settings updated."
-msgstr "Paramètres de configuration des passerelles Zarafa mis à jour."
+msgstr ""
+"Les paramètres de configuration des passerelles Zarafa ont été mis à jour."
 
 #: ../../main/zarafa/src/EBox/Zarafa/Model/Gateways.pm:188
 msgid ""

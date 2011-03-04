@@ -4,19 +4,20 @@
 # This file is distributed under the same license as the zentyal packages.
 # Automatically generated, 2011.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: zentyal 2.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2011-02-16 11:33+0100\n"
-"PO-Revision-Date: 2010-11-05 21:25+0100\n"
-"Last-Translator: Michal Formánek <formi@seznam.cz>\n"
+"PO-Revision-Date: 2011-03-02 20:07+0200\n"
+"Last-Translator: Michal <formanek.michal@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
-"Language: \n"
+"Language: cs\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+"X-Generator: Pootle 2.1.4\n"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:61
 msgid "Mail Filter"
@@ -72,7 +73,7 @@ msgstr "Nemůžu pokračovat, protože filtr je v provozu"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:558
 msgid "Mail filter"
-msgstr "Mail filtr"
+msgstr "Mail filter"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:580
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:625
@@ -307,21 +308,23 @@ msgstr "Neplatné externí MTA {mta}. Lokální síťové adresy nejsou povoleny
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/ExternalDomain.pm:68
 msgid "External mail domain"
-msgstr ""
+msgstr "Externí mailová doména"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/ExternalDomain.pm:82
 msgid "External mail domains"
-msgstr ""
+msgstr "Externí mailové domény"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/ExternalDomain.pm:94
 msgid "external mail domain"
-msgstr ""
+msgstr "externí mailové domény"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/ExternalDomain.pm:95
 msgid ""
 "Here you can specify which external mail domains can connect to the mail "
 "filter"
 msgstr ""
+"Zde můžete určit, které externí mailové domény se můžou připojit k mailovému "
+"filtru"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/ExternalDomain.pm:113
 #, perl-brace-format

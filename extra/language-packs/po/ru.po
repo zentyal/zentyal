@@ -9,15 +9,15 @@ msgstr ""
 "Project-Id-Version: zentyal 2.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2011-02-16 11:33+0100\n"
-"PO-Revision-Date: 2011-02-15 15:45+0200\n"
+"PO-Revision-Date: 2011-02-28 18:17+0200\n"
 "Last-Translator: vabue <val.budkin@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
+"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Pootle 2.1.4\n"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:61
@@ -2041,13 +2041,13 @@ msgstr ""
 "использовать это."
 
 #: ../../main/network/src/EBox/Network/Composite/MultiGw.pm:82
-#, fuzzy
 msgid ""
 "To be able to use this feature you need at least two enabled gateways. You "
 "can add them <a href=\"/zentyal/Network/View/GatewayTable\">here</a> first."
 msgstr ""
-"Для включения этой функции Вам необходимо, как минимум, два шлюза. Вы должны "
-"добавить их сначала <a href=\"/ebox/Network/View/GatewayTable\">здесь</a> "
+"Для включения этой функции Вам необходимо, как минимум, два включеных шлюза. "
+"Необходимо сначала  добавить их <a "
+"href=\"/zentyal/Network/View/GatewayTable\">здесь</a>."
 
 #: ../../main/network/src/EBox/Network/Composite/DNS.pm:60
 msgid "Domain Name Server Resolver"
@@ -8123,15 +8123,15 @@ msgid ""
 msgstr ""
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/SupportAccess.pm:140
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "There exists already a user {u} and it does not seem created by Zentyal. "
 "Until this user is renamed or removed it would be impossible to set up "
 "remote support access"
 msgstr ""
-"Такой пользователь {u} уже существует и он создан не eBox. До тех пор пока "
-"он не будет переименован или удален установить доступ для удаленного "
-"сопровождения будет невозможно"
+"Такой пользователь {u} уже существует и он создан не Zentyal. Пока он не "
+"будет переименован или удален, будет невозможно установить доступ для "
+"удаленного сопровождения "
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:75
 msgid "Allow remote access to Zentyal staff"
@@ -9111,15 +9111,8 @@ msgstr "Срок жизни для почтового спама"
 #: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:233
 #: ../../main/dhcp/src/templates/options.mas:8
 #: ../../main/core/src/templates/report/diskUsage.mas:31
-#, fuzzy
 msgid "Options"
-msgstr ""
-"#-#-#-#-#  ru.po (ebox-dhcp 0.12)  #-#-#-#-#\n"
-"Опции\n"
-"#-#-#-#-#  ru.po (ebox-mail 0.12)  #-#-#-#-#\n"
-"Параметры\n"
-"#-#-#-#-#  ru.po (ebox 0.12)  #-#-#-#-#\n"
-"Опции"
+msgstr "Параметры"
 
 #: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:340
 #: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:344
@@ -12077,11 +12070,11 @@ msgstr "Неизвестный режим восстановления: {mode}"
 
 #: ../../main/core/src/EBox/CGI/EBox/Backup.pm:239
 msgid "Backing up"
-msgstr "Происходит резервное копирование"
+msgstr "Резервирую"
 
 #: ../../main/core/src/EBox/CGI/EBox/Backup.pm:240
 msgid "Backing up modules"
-msgstr "Резервное копирование модулей"
+msgstr "Резервирую модули"
 
 #: ../../main/core/src/EBox/CGI/EBox/Backup.pm:255
 msgid "Restoring backup"

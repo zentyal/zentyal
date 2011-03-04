@@ -4,19 +4,20 @@
 # This file is distributed under the same license as the zentyal packages.
 # Automatically generated, 2011.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: zentyal 2.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2011-02-16 11:33+0100\n"
-"PO-Revision-Date: 2010-09-15 13:49+0200\n"
-"Last-Translator: Simone Bernini <lemorragia@libero.it>\n"
+"PO-Revision-Date: 2011-03-02 19:51+0200\n"
+"Last-Translator: lemorragia <lemorragia@yahoo.it>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
-"Language: \n"
+"Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Pootle 2.1.4\n"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:61
 msgid "Mail Filter"
@@ -485,7 +486,6 @@ msgstr ""
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamVDomainACL.pm:61
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamACL.pm:61
-#, fuzzy
 msgid "Mail sender"
 msgstr "Mittente mail"
 
@@ -811,9 +811,8 @@ msgstr "Grafico del filtro di posta"
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/Report/POPProxyGraph.pm:66
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/Report/FilterDetails.pm:46
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/Report/FilterDetails.pm:80
-#, fuzzy
 msgid "clean messages"
-msgstr "messaggi regolari"
+msgstr "messaggi validi"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/Report/FilterGraph.pm:68
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/Report/FilterDetails.pm:52
@@ -834,7 +833,6 @@ msgstr "header invalido"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/Report/FilterGraph.pm:80
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/Report/FilterDetails.pm:61
-#, fuzzy
 msgid "blacklisted"
 msgstr "inserito nella blacklist"
 
@@ -1718,14 +1716,12 @@ msgid "any"
 msgstr "qualsiasi"
 
 #: ../../main/network/src/EBox/Model/MultiGwRulesDataTable.pm:104
-#, fuzzy
 msgid ""
 "Incoming interface to match packets. If you  want to match a whole subnet "
 "you can  select the interface of that subnet"
 msgstr ""
-"Interfaccia in ingresso con cui fare match dei pacchetti.Se vuoi fare "
-"matching con un intera sottorete puoi selezionare l'interfaccia di quella "
-"sottorete"
+"Interfaccia in ingresso con cui fare match dei pacchetti.Se vuoi fare match "
+"con un intera sottorete puoi selezionare l'interfaccia di quella sottorete"
 
 #: ../../main/network/src/EBox/Model/MultiGwRulesDataTable.pm:115
 #: ../../main/network/src/EBox/Model/MultiGwRulesDataTable.pm:142
@@ -1887,9 +1883,8 @@ msgid "Domain Name Server"
 msgstr "Domain Name server"
 
 #: ../../main/network/src/EBox/Model/DNSResolver.pm:92
-#, fuzzy
 msgid "Domain Name Server Resolver List"
-msgstr "Lista dei Domain Name Server Resolver"
+msgstr "Lista dei DNS"
 
 #: ../../main/network/src/EBox/Model/DNSResolver.pm:98
 msgid "name server"

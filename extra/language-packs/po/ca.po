@@ -4,19 +4,20 @@
 # This file is distributed under the same license as the zentyal packages.
 # Automatically generated, 2011.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: zentyal 2.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2011-02-16 11:33+0100\n"
-"PO-Revision-Date: 2010-08-29 23:44+0200\n"
-"Last-Translator: josefa <jgonza24@xtec.cat>\n"
+"PO-Revision-Date: 2011-02-28 23:20+0200\n"
+"Last-Translator: eaguade <enricaguade@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
-"Language: \n"
+"Language: ca\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Pootle 2.1.4\n"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:61
 msgid "Mail Filter"
@@ -28,8 +29,7 @@ msgstr "Afegir l'usuari clamav al grup amavis"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:80
 msgid "Clamav need access to amavis fields to properly scan mail"
-msgstr ""
-"Clamav necessita accedir a camps d'amavis per poder escanejar el correu"
+msgstr "Clamav necessita accedir a camps d'Amavis per poder escanejar el correu"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:84
 msgid "Add clamav user to p3scan group"
@@ -141,7 +141,6 @@ msgstr "Acció"
 #: ../../main/core/src/EBox/Events/Model/Watcher/LogFiltering.pm:168
 #: ../../main/printers/src/EBox/Printers.pm:297
 #: ../../main/core/src/templates/logs/index.mas:183
-#, fuzzy
 msgid "Event"
 msgstr ""
 "#-#-#-#-#  ca.po (ebox-mailfilter 0.12)  #-#-#-#-#\n"
@@ -151,17 +150,17 @@ msgstr ""
 "#-#-#-#-#  ca.po (ebox-squid 0.12)  #-#-#-#-#\n"
 "Esdeveniment\n"
 "#-#-#-#-#  ca.po (ebox-ids 1.1)  #-#-#-#-#\n"
-"Event\n"
+"Esdeveniment\n"
 "#-#-#-#-#  ca.po (ebox-dhcp 0.12)  #-#-#-#-#\n"
-"Event\n"
+"Esdeveniment\n"
 "#-#-#-#-#  ca.po (ebox-asterisk 1.1)  #-#-#-#-#\n"
-"Event\n"
+"Esdeveniment\n"
 "#-#-#-#-#  ca.po (ebox-mail 0.12)  #-#-#-#-#\n"
-"Event\n"
+"Esdeveniment\n"
 "#-#-#-#-#  ca.po (ebox 0.12)  #-#-#-#-#\n"
 "Esdeveniment\n"
 "#-#-#-#-#  ca.po (ebox-printers 0.12)  #-#-#-#-#\n"
-"Event"
+"Esdeveniment"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:585
 msgid "Sender address"
@@ -466,7 +465,6 @@ msgstr "Política antispam de l'emissor"
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomains.pm:157
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamACL.pm:164
 #: ../../main/mail/src/EBox/Mail/Model/VDomains.pm:91
-#, fuzzy
 msgid "Virtual Domains"
 msgstr ""
 "#-#-#-#-#  ca.po (ebox-mailfilter 0.12)  #-#-#-#-#\n"
@@ -502,13 +500,12 @@ msgstr "Emissor de correu"
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterCategoriesBase.pm:75
 #: ../../main/squid/src/EBox/Squid/Model/GroupPolicyBase.pm:79
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterBase.pm:42
-#, fuzzy
 msgid "Policy"
 msgstr ""
 "#-#-#-#-#  ca.po (ebox-mailfilter 0.12)  #-#-#-#-#\n"
 "Política\n"
 "#-#-#-#-#  ca.po (ebox-squid 0.12)  #-#-#-#-#\n"
-"Políitca"
+"Política"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamVDomainACL.pm:76
 msgid "Sender policy for virtual domain"
@@ -562,7 +559,6 @@ msgstr "procés"
 #: ../../main/core/src/templates/enable.mas:24
 #: ../../main/jabber/src/templates/jabber.mas:22
 #: ../../main/jabber/src/templates/jabber.mas:25
-#, fuzzy
 msgid "Enabled"
 msgstr ""
 "#-#-#-#-#  ca.po (ebox-mailfilter 0.12)  #-#-#-#-#\n"
