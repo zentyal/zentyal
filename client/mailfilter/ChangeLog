@@ -1,4 +1,6 @@
 HEAD
+	+ Removed 'learn from accounts spam folder' feature until serious
+	  bug in dovecot-antispam Ubuntu package is fixed
 	+ Add depend on dovecot-antispam previously on ebox-mail.
 2.0.2
 	+ Manage exception when ebox.amavisd-new is missing. It never

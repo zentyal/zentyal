@@ -109,13 +109,15 @@ sub _table
                                ),
      new EBox::Types::Boolean(
                               fieldName => 'learnFromFolder',
-                              printableName => 
+                              printableName =>
                                  __(q{Learn from accounts' Spam IMAP folders}),
-                              help => 
+                              help =>
 __( 'Every time that a email moved into or out of the IMAP spam folder ' .
     'the filter will be trained with it'),
                               defaultValue => 0,
                               editable => 1,
+                              # FIXME: remove when dovecot-antispam is fixed
+                              hidden => 1,
                              ),
      new EBox::Types::Boolean(
                               fieldName     => 'hamAccount',
@@ -323,7 +325,7 @@ sub vdomainAllowedToLearnFromIMAPFolder
 {
     my ($self, $vdomain) = @_;
     my $row =  $self->_findRowByVDomain($vdomain);
-    $row or 
+    $row or
         return undef;
 
     return $row->elementByName('learnFromFolder')->value();
@@ -374,7 +376,7 @@ sub addedRowNotify
 
     if ($row->valueByName('learnFromFolder')) {
         # if this is the first domain with learn form folder mail should be
-        # notified 
+        # notified
         my $vdomain = $row->valueByName('vdomain');
         if (not $self->_anotherAllowedToLearnFromIMAPFolder($vdomain)) {
             my $mail = EBox::Global->modInstance('mail');
@@ -389,12 +391,12 @@ sub addedRowNotify
 sub deletedRowNotify
 {
     my ($self, $row) = @_;
-    
+
     if ($row->valueByName('learnFromFolder')) {
         # if there are not learnFromFolder elemnts mail should be notified
         if (not $self->anyAllowedToLearnFromIMAPFolder()) {
             my $mail = EBox::Global->modInstance('mail');
-            defined $mail and 
+            defined $mail and
                 $mail->setAsChanged();
         }
     }

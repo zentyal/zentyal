@@ -613,6 +613,10 @@ sub _setDovecotConf
 sub _getDovecotAntispamPluginConf
 {
     my ($self) = @_;
+
+    # FIXME: disabled until dovecot-antispam ubuntu package is fixed
+    return { enabled => 0};
+
     my $global = EBox::Global->getInstance();
     my @mods = grep {
         $_->can('dovecotAntispamPluginConf')
