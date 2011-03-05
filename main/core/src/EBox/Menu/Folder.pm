@@ -68,12 +68,13 @@ sub html
 
     $html .= " target='_parent'>$text</a>\n";
 
-    $html .= "<ul id='submenu$name' class='submenu' style='display:none'>\n";
+    my $display = ($self->{name} eq $current);
+    my $style = $display ? 'block' : 'none';
 
+    $html .= "<ul id='submenu$name' class='submenu' style='display:$style'>\n";
 
     foreach my $item (@{$self->items}) {
-        $item->{style} = "menu$self->{name}";
-        my $display = ($self->{name} eq  $current);
+        $item->{style} = "menu$name";
         $html .= $item->html($display);
     }
 

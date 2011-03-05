@@ -1,4 +1,6 @@
 HEAD
+	+ Menus with subitems are now kept unfolded until a section on a
+	  different menu is accessed
 	+ Sliced restore mode fails correctly when schema file is missing,
 	  added option to force restore without schema file
 	+ Purge conf now purges the state keys as well

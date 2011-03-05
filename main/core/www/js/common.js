@@ -45,12 +45,12 @@ Function: checkAll
 Parameters:
 
         id - identifier where all checkboxs should be checked
-        allElementName - name for the all check box 
+        allElementName - name for the all check box
 
 */
 function checkAll(id, allElementName){
 
-        var form = document.getElementById(id);
+    var form = document.getElementById(id);
     var allbox = form.elements[allElementName];
     for (var i=0;i<form.elements.length;i++)
     {
@@ -149,4 +149,19 @@ function show(elementId)
 
   Element.removeClassName(elementId, 'hidden');
 
+}
+
+function showMenu(name)
+{
+    var id = 'submenu' + name;
+    var submenus = $$('.submenu');
+
+    for (var i = 0; i < submenus.length; i++) {
+        var submenu = submenu[i];
+        if (submenu.id == id) {
+            submenu.toggle();
+        } else {
+            submenu.hide();
+        }
+    }
 }
