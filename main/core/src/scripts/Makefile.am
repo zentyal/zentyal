@@ -4,7 +4,7 @@ SUBDIRS = cron
 pkgdatadir = @DATADIR@/zentyal
 
 pkgdata_SCRIPTS = loggerd kill-pid apache2ctl apache-restart \
- sudoers-friendly clean-conf zentyal.init.d \
+ sudoers-friendly clean-conf zentyal.init.d manage-logs \
  create-certificate make-backup restore-backup \
  unblock-exec set-locale global-action unconfigure-module \
  update-file-digest change-hostname redisvi regen-redis-db \

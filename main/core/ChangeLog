@@ -1,4 +1,5 @@
 HEAD
+	+ Added missing manage-logs script to the package
 	+ Fixed problems with show/hide help switch and dynamic content
 	+ Menus with subitems are now kept unfolded until a section on a
 	  different menu is accessed
