@@ -1,32 +1,37 @@
-function switchHelp(){
-	elements=getElementByClass("help");
-	var inc=0;
-	while (elements[inc]) {
-		if(elements[inc].style.display=="block") {
-			elements[inc].style.display="none";
-		} else {
-			elements[inc].style.display="block";
-		}
-		inc++;
-	}
+helpShown = false;
 
-        // Toggle link text
-        var show_link = document.getElementById('showhelp');
-        var hide_link = document.getElementById('hidehelp');
-        if (show_link.style.display != "none") {
-                show_link.style.display = "none";
-                hide_link.style.display = "inline";
-        } else {
-                hide_link.style.display = "none";
-                show_link.style.display = "inline";
-        }
+function showHelp() {
+    helpShown = true;
+    $("hidehelp").style.display = "inline";
+    $("showhelp").style.display = "none";
+    $$(".help").each(function(e) {
+        e.style.display = "block";
+    });
 }
 
-elements=getElementByClass("help");
+function hideHelp() {
+    helpShown = false;
+    $("hidehelp").style.display = "none";
+    $("showhelp").style.display = "inline";
+    $$(".help").each(function(e) {
+        e.style.display = "none";
+    });
+}
 
-if(elements.length == 0) {
-   var  helpbutton = document.getElementById("helpbutton");	
-   if (helpbutton) {
-	helpbutton.style.display="none";
+function initHelp() {
+    if($$(".help").length == 0) {
+        var helpbutton = $("helpbutton");
+        if (helpbutton) {
+            helpbutton.hide();
+        }
+    } else {
+        if (helpShown) {
+            showHelp();
+        } else {
+            hideHelp();
+        }
     }
 }
+
+initHelp()
+document.body.addEventListener("DOMNodeInserted", initHelp, false);

@@ -1,4 +1,5 @@
 HEAD
+	+ Fixed problems with show/hide help switch and dynamic content
 	+ Menus with subitems are now kept unfolded until a section on a
 	  different menu is accessed
 	+ Sliced restore mode fails correctly when schema file is missing,
