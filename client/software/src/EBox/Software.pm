@@ -688,6 +688,56 @@ sub unlock
     $self->st_unset(LOCKER_PID_KEY);
 }
 
+# Method: setAutoUpgradePkgNo
+#
+#     Set the number of packages that have been upgraded in last
+#     automatic upgrade
+#
+#     As a side effect, it stores the time when this method call is
+#     done
+#
+# Parameters:
+#
+#     packageNum - Int the number of packages automatically upgraded
+#                  using auto-updater script
+#
+sub setAutoUpgradePkgNo
+{
+    my ($self, $packageNum) = @_;
+
+    $self->st_set_int('auto_upgrade/timestamp', time());
+    $self->st_set_int('auto_upgrade/package_num', $packageNum);
+
+}
+
+# Method: autoUpgradeStats
+#
+#     Get the last automatic upgrade stats
+#
+# Returns:
+#
+#     Hash ref - containing the following key/value pairs:
+#
+#         timestamp - Int the timestamp of last auto upgrade
+#         packageNum - In the number of upgraded packages
+#
+#     undef - if this has never happened
+#
+sub autoUpgradeStats
+{
+    my ($self) = @_;
+
+    if ( $self->st_entry_exists('auto_upgrade/timestamp') ) {
+        my %stats = (
+            timestamp  => $self->st_get_int('auto_upgrade/timestamp'),
+            packageNum => $self->st_get_int('auto_upgrade/package_num'),
+           );
+        return \%stats;
+    } else {
+        return undef;
+    }
+
+}
 
 # Group: Private methods
 

@@ -1,0 +1,7 @@
+<%args>
+  $tableName => ''
+  $data
+  $cssClass => ''
+  $disabled => 0
+</%args>
+<% $data->printableValue() | n %>

@@ -1,0 +1,10 @@
+<%args>
+  @mins
+</%args>
+# /etc/cron.d/zentyal-network: crontab entries for the zentyal-network package
+
+SHELL=/bin/sh
+PATH=/usr/bin:/bin
+
+# Run bandwidth tests each 5h
+<% $mins[0] %> 0-23/5 * * * root /usr/share/ebox-network/bandwidth-test.pl >> /dev/null 2>&1

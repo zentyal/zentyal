@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2010 eBox Technologies S.L.
+# Copyright (C) 2008-2011 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -55,6 +55,7 @@ use EBox::Sudo;
 use Error qw(:try);
 use Net::DNS;
 use File::Slurp;
+use POSIX;
 
 # Constants
 use constant SERV_DIR            => EBox::Config::conf() . 'remoteservices/';
@@ -248,22 +249,28 @@ sub showModuleStatus
 sub menu
 {
     my ($self, $root) = @_;
-    $root->add(new EBox::Menu::Item('url'  => 'RemoteServices/Composite/General',
-                                    'name' => 'Subscription',
-                                    'text' => __('Subscription'),
-                                    'order' => 105,
-                                   )
-              );
 
-    my $remoteSupportItem = new EBox::Menu::Item(
-              'url'  => 'RemoteServices/View/RemoteSupportAccess',
-              'name' => 'RemoteSupportAccess',
-              'text' => __('Remote Support Access'),
-                                                );
-    my $folder = new EBox::Menu::Folder('name' => 'EBox',
-                                        'text' => __('System'));
+    my $folder = new EBox::Menu::Folder(name => 'Subscription_menu',
+                                        text => __('Subscription'),
+                                        separator => 'Core',
+                                        order => 105);
 
-    $folder->add($remoteSupportItem);
+    $folder->add(new EBox::Menu::Item('url'  => 'RemoteServices/Composite/General',
+                                      'text' => __('Server Subscription'),
+                                     ));
+
+    $folder->add(new EBox::Menu::Item(
+        'url'  => 'RemoteServices/Composite/Technical',
+        'text' => __('Technical Support'),
+       ));
+    $folder->add(new EBox::Menu::Item(
+        'url'  => 'RemoteServices/View/AdvancedSecurityUpdates',
+        'text' => __('Advanced Security Updates'),
+       ));
+    $folder->add(new EBox::Menu::Item(
+        'url'  => 'RemoteServices/View/DisasterRecovery',
+        'text' => __('Disaster Recovery'),
+       ));
     $root->add($folder);
 }
 
@@ -279,9 +286,16 @@ sub modelClasses
     my ($self) = @_;
 
     return [
-        'EBox::RemoteServices::Model::Subscription',
         'EBox::RemoteServices::Model::AccessSettings',
+        'EBox::RemoteServices::Model::AdvancedSecurityUpdates',
+        'EBox::RemoteServices::Model::AlertsInfo',
+        'EBox::RemoteServices::Model::DisasterRecovery',
+        'EBox::RemoteServices::Model::QAUpdatesInfo',
         'EBox::RemoteServices::Model::RemoteSupportAccess',
+        'EBox::RemoteServices::Model::ReportsInfo',
+        'EBox::RemoteServices::Model::Subscription',
+        'EBox::RemoteServices::Model::SubscriptionInfo',
+        'EBox::RemoteServices::Model::TechnicalInfo',
        ];
 
 }
@@ -296,7 +310,11 @@ sub compositeClasses
 {
     my ($self) = @_;
 
-    return [ 'EBox::RemoteServices::Composite::General' ];
+    return [
+        'EBox::RemoteServices::Composite::General',
+        'EBox::RemoteServices::Composite::SubscriptionInfos',
+        'EBox::RemoteServices::Composite::Technical',
+            ];
 }
 
 # Method: widgets
@@ -311,7 +329,7 @@ sub widgets
 
     return {
         'cc_connection' => {
-            'title'   => __('Zentyal Cloud Connection'),
+            'title'   => __('Zentyal Cloud'),
             'widget'  => \&_ccConnectionWidget,
             'order'  => 4,
             'default' => 1,
@@ -731,6 +749,84 @@ sub subscriptionCodename
 
 }
 
+# Method: technicalSupport
+#
+#      Get the level of technical support if any
+#
+# Parameters:
+#
+#      force - Boolean check against server
+#              *(Optional)* Default value: false
+#
+# Returns:
+#
+#      An integer with the following possible values:
+#
+#         -2 : Unknown
+#         -1 : no support
+#          0 : Essential Support
+#          1 : Standard Support
+#          2 : Premium Support
+#
+sub technicalSupport
+{
+    my ($self, $force) = @_;
+
+    $force = 0 unless defined($force);
+
+    if ( (not $force)
+         and ($self->st_entry_exists('subscription/technical_support')) ) {
+        return $self->st_get_int('subscription/technical_support');
+    } else {
+        # Ask to the cloud if connected
+        if ( $self->isConnected() ) {
+            my $cap = new EBox::RemoteServices::Capabilities();
+            my $techSupport = $cap->technicalSupport();
+            $self->st_set_int('subscription/technical_support', $techSupport);
+            return $techSupport;
+        }
+    }
+    return -2;
+}
+
+# Method: renovationDate
+#
+#      Get the date when the subscription must be renewed
+#
+# Parameters:
+#
+#      force - Boolean check against server
+#              *(Optional)* Default value: false
+#
+# Returns:
+#
+#      An integer with the following possible values:
+#
+#         -1 : Unknown
+#          0 : Unlimited
+#         >0 : Seconds since epoch when the subscription must be renewed
+#
+sub renovationDate
+{
+    my ($self, $force) = @_;
+
+    $force = 0 unless defined($force);
+
+    if ( (not $force)
+         and ($self->st_entry_exists('subscription/renovation_date')) ) {
+        return $self->st_get_int('subscription/renovation_date');
+    } else {
+        # Ask to the cloud if connected
+        if ( $self->isConnected() ) {
+            my $cap = new EBox::RemoteServices::Capabilities();
+            my $date = $cap->renovationDate();
+            $self->st_set_int('subscription/renovation_date', $date);
+            return $date;
+        }
+    }
+    return -1;
+}
+
 # Method: securityUpdatesAddOn
 #
 #      Get if server has security updates add-on
@@ -981,6 +1077,79 @@ sub confKey
         return $keys->{$key};
     }
     return undef;
+}
+
+# Method: lastGeneratedReport
+#
+#      Get the last generated report date if any
+#
+# Returns:
+#
+#      Int - seconds since epoch when last report was generated
+#
+#      undef - if there is no info about it
+#
+sub lastGeneratedReport
+{
+    my ($self) = @_;
+
+    if ( $self->st_entry_exists('subscription/report_generated_at') ) {
+        return $self->st_get_int('subscription/report_generated_at');
+    } else {
+        return undef;
+    }
+
+}
+
+# Method: latestSecurityUpdates
+#
+#      Get the last time when the security updates were applied
+#
+# Returns:
+#
+#      String - the date in RFC 2822 format
+#
+#      'unknown' - if the date is not available
+#
+sub latestSecurityUpdates
+{
+    my ($self) = @_;
+
+    if ( $self->st_entry_exists('subscription/securityUpdates_last_update') ) {
+        my $curr = $self->st_get_int('subscription/securityUpdates_last_update');
+        return POSIX::strftime("%c", localtime($curr));
+    } else {
+        return 'unknown';
+    }
+
+}
+
+# Method: latestSecurityUpdates
+#
+#      Get the last time when a configuration backup (manual or
+#      automatic) has been done
+#
+# Returns:
+#
+#      String - the date in RFC 2822 format
+#
+#      'unknown' - if the date is not available
+#
+sub latestRemoteConfBackup
+{
+    my ($self) = @_;
+
+    my $latest = 'unknown';
+    try {
+        my $bakService = new EBox::RemoteServices::Backup();
+        my $bakList    = $bakService->listRemoteBackups();
+        my @sortedBakList = sort { $b->{sortableDate} <=> $a->{sortableDate} } values %{$bakList};
+        if ( @sortedBakList > 0 ) {
+            $latest = $sortedBakList[0]->{Date};
+        }
+    } otherwise { };
+
+    return $latest;
 }
 
 # Group: Public methods related to reporting
@@ -1344,21 +1513,92 @@ sub _ccConnectionWidget
 {
     my ($self, $widget) = @_;
 
+    my $section = new EBox::Dashboard::Section('cloud_section');
+    $widget->add($section);
+
+    my ($serverName, $connValue, $connValueType, $subsLevelValue, $DRValue) =
+      ( __('None'), '', 'info', '', '');
+
+    my $ASUValue = __x('Disabled - {oh}Enable{ch}',
+                       oh => '<a href="/ebox/RemoteServices/View/AdvancedSecurityUpdates">',
+                       ch => '</a>');
+    my $supportValue = __x('Disabled - {oh}Enable{ch}',
+                           oh => '<a href="/ebox/RemoteServices/Composite/Technical">',
+                           ch => '</a>');
+
     if ( $self->eBoxSubscribed() ) {
-        my $section = new EBox::Dashboard::Section('connection_section');
-        $widget->add($section);
-        my $msg = __x('Not connected. Check VPN logs in {path}',
-                      path => EBox::Config::log() . 'openvpn/');
-        my $valueType = 'warning';
+        $connValue = __x('Not connected. Check VPN logs in {path}',
+                         path => EBox::Config::log() . 'openvpn/');
+        $connValueType = 'warning';
         if ( $self->isConnected() ) {
-            $msg = __('Connected');
-            $valueType = 'info';
+            $connValue     = __('Connected');
+            $connValueType = 'info';
         }
-        $section->add(new EBox::Dashboard::Value(__('Zentyal Cloud'), $msg, $valueType));
+
+        $serverName = $self->eBoxCommonName();
+
+        my %i18nLevels = ( '-1' => __('Unknown'),
+                           '0'  => __('Basic'),
+                           '1'  => __('Professional'),
+                           '2'  => __('Enterprise') );
+        $subsLevelValue = $i18nLevels{$self->subscriptionLevel()};
+
+        my %i18nSupport = ( '-2' => __('Unknown'),
+                            '-1' => $supportValue,
+                            '0'  => __('Essential'),
+                            '1'  => __('Standard'),
+                            '2'  => __('Premium'));
+        $supportValue = $i18nSupport{$self->technicalSupport()};
+
+        if ( $self->securityUpdatesAddOn() ) {
+            $ASUValue = __x('Running');
+            my $date = $self->latestSecurityUpdates();
+            if ( $date ne 'unknown' ) {
+                $ASUValue .= ' ' . __x('- Last update: {date}', date => $date);
+            }
+        }
+
+        if ( $self->disasterRecoveryAddOn() ) {
+            $DRValue = __x('Enabled');
+            my $date = $self->_latestBackup();
+            if ( $date ne 'unknown' ) {
+                $DRValue .= ' ' . __x('- Latest backup: {date}', date => $date);
+            }
+        } else {
+            $DRValue = __x('Configuration backup enabled');
+            my $date = $self->latestRemoteConfBackup();
+            if ( $date ne 'unknown' ) {
+                $DRValue .= ' ' . __x('- Latest conf backup: {date}', date => $date);
+            }
+        }
+
+    } else {
+        $connValue      = __sx('Not subscribed - {oh}Subscribe now!{ch}',
+                               oh => '<a href="/ebox/RemoteServices/Composite/General">',
+                               ch => '</a>');
+        $subsLevelValue = __sx('None - {oh}Get Free Basic Subscription!{ch}',
+                               oh => '<a href="/ebox/RemoteServices/Composite/General">',
+                               ch => '</a>');
+        $DRValue        = __sx('Disabled - {oh}Enable Configuration Backup{ch}',
+                               oh => '<a href="/ebox/RemoteServices/View/DisasterRecovery">',
+                               ch => '</a>');
     }
+
+    $section->add(new EBox::Dashboard::Value(__('Server name'), $serverName));
+    $section->add(new EBox::Dashboard::Value(__('Connection status'),
+                                             $connValue, $connValueType));
+    $section->add(new EBox::Dashboard::Value(__('Server subscription'),
+                                             $subsLevelValue));
+    $section->add(new EBox::Dashboard::Value(__('Technical support'),
+                                             $supportValue));
+    $section->add(new EBox::Dashboard::Value(__s('Advanced Security Updates'),
+                                             $ASUValue));
+    $section->add(new EBox::Dashboard::Value(__s('Disaster Recovery'),
+                                             $DRValue));
+
 }
 
-# set the subscription level
+# Set the subscription level
 sub _setSubscription
 {
     my ($self, $subsLevel) = @_;
@@ -1368,10 +1608,28 @@ sub _setSubscription
 
 }
 
-# Method: extaSudoerUser
+# Get the latest backup date
+sub _latestBackup
+{
+    my ($self) = @_;
+
+    my $latest = __('No backup done yet');
+    my $gl = EBox::Global->getInstance();
+    if ( $gl->modExists('ebackup') ) {
+        my $ebackup = EBox::Global->modInstance('ebackup');
+        $latest = $ebackup->lastBackupDate();
+    } else {
+        # Use the conf backup data
+        $latest = $self->latestRemoteConfBackup();
+    }
+
+    return $latest;
+}
+
+# Method: extraSudoerUsers
 #
 #  Returns:
-#    list with usernames to add to the system' sudoer users
+#    list with usernames to add to the system's sudoers users
 sub extraSudoerUsers
 {
     my ($self) = @_;
@@ -1399,6 +1657,8 @@ sub _backupSubscritionTar
     my ($self, $dir) = @_;
     return "$dir/subscription.tar.gz";
 }
+
+
 
 sub dumpConfig
 {

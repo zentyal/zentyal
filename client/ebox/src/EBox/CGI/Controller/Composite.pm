@@ -67,8 +67,6 @@ sub new
 
   }
 
-
-
 sub _process
 {
     my ($self) = @_;

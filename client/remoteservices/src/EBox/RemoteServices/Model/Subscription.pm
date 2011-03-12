@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2010 eBox Technologies S.L.
+# Copyright (C) 2008-2011 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -56,7 +56,6 @@ use Sys::Hostname;
 use constant STORE_URL => 'http://store.zentyal.com/';
 use constant UTM       => '?utm_source=zentyal&utm_medium=ebox&utm_content=remoteservices'
                           . '&utm_campaign=register';
-use constant BASIC_URL => STORE_URL . 'serversubscriptions/subscription-basic.html' . UTM;
 use constant PROF_URL  => STORE_URL . 'serversubscriptions/subscription-professional.html' . UTM;
 use constant ENTER_URL => STORE_URL . 'serversubscriptions/subscription-enterprise.html' . UTM;
 
@@ -244,7 +243,7 @@ sub viewCustomizer
 
     my $customizer = new EBox::View::Customizer();
     $customizer->setModel($self);
-    unless ( $self->eBoxSubscribed() ) {
+    if ( $self->{gconfmodule}->subscriptionLevel() < 1) {
         $customizer->setPermanentMessage($self->_commercialMsg());
     }
     return $customizer;
@@ -592,19 +591,14 @@ sub _filesStr
 # Return the commercial message
 sub _commercialMsg
 {
-    return __sx('Zentyal Cloud services integrate Quality Assured software '
-                . 'updates, alerts and centralized monitoring and administration '
-                . 'of your Zentyal servers. You gain full access to these services '
-                . 'by obtaining a {openhrefp}Professional{closehref} or '
-                . '{openhrefe}Enterprise Server Subscription{closehref}. '
-                . 'You can also have a look to these services by getting the '
-                . '{openhrefb}Basic Server Subscription{closehref}, '
-                . 'that also allows you to store your configuration backup remotely, receive alerts '
-                . 'regarding the connectivity of your Zentyal server, available updates or '
-                . 'failed automatic backup.',
+    return __sx('For full, enterprise-level services, obtain '
+                . '{openhrefp}Professional{closehref} or '
+                . '{openhrefe}Enterprise Server Subscription{closehref} - '
+                . 'These ones offer Quality Assured software updates, Alerts, '
+                . 'Reports and centralised monitoring and management of your '
+                . 'Zentyal servers!',
                 openhrefp  => '<a href="' . PROF_URL . '" target="_blank">',
                 openhrefe => '<a href="' . ENTER_URL . '" target="_blank">',
-                openhrefb => '<a href="' . BASIC_URL . '" target="_blank">',
                 closehref => '</a>');
 }
 

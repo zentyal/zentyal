@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2010 eBox Technologies S.L.
+# Copyright (C) 2008-2011 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -36,16 +36,16 @@ use HTML::Mason;
 #
 sub title
 {
-	my $save = __('Save changes');
-	my $logout = __('Logout');
+    my $save = __('Save changes');
+    my $logout = __('Logout');
 
-	my $global = EBox::Global->getInstance();
-	my $finishClass;
-	if ($global->unsaved()) {
-		$finishClass = "changed";
-	} else {
-		$finishClass = "notchanged";
-	}
+    my $global = EBox::Global->getInstance();
+    my $finishClass;
+    if ($global->unsaved()) {
+        $finishClass = "changed";
+    } else {
+        $finishClass = "notchanged";
+    }
 
     # Display control panel button only if the eBox is subscribed
     my $remoteServicesURL = '';
@@ -57,14 +57,14 @@ sub title
     }
     my $image_title = $global->theme()->{'image_title'};
 
-	my $html = makeHtml('headTitle.mas',
-                             save => $save,
-                             logout => $logout,
-                             finishClass => $finishClass,
-                             remoteServicesURL => $remoteServicesURL,
-                             image_title => $image_title,
-                            );
-	return $html;
+    my $html = makeHtml('headTitle.mas',
+                        save => $save,
+                        logout => $logout,
+                        finishClass => $finishClass,
+                        remoteServicesURL => $remoteServicesURL,
+                        image_title => $image_title,
+                       );
+    return $html;
 }
 
 #
@@ -78,13 +78,13 @@ sub title
 #
 sub titleNoAction
 {
-	my $global = EBox::Global->getInstance();
+    my $global = EBox::Global->getInstance();
     my $image_title = $global->theme()->{'image_title'};
 
-	my $html = makeHtml('headTitle.mas',
-                             image_title => $image_title,
-                            );
-	return $html;
+    my $html = makeHtml('headTitle.mas',
+                        image_title => $image_title,
+                       );
+    return $html;
 }
 
 
@@ -100,9 +100,9 @@ sub titleNoAction
 #
 sub menu
 {
-	my $current = shift;
+    my $current = shift;
 
-	my $global = EBox::Global->getInstance();
+    my $global = EBox::Global->getInstance();
 
 	my $root = new EBox::Menu::Root('current' => $current);
 	my $domain = gettextdomain();
@@ -113,7 +113,7 @@ sub menu
 	}
 	settextdomain($domain);
 
-	return $root->html;
+    return $root->html;
 }
 
 #
@@ -146,10 +146,21 @@ sub footer
 #
 sub header # (title)
 {
-	my ($title) = @_;
+    my ($title) = @_;
 
-	my $html = makeHtml('header.mas', title => $title );
-	return $html;
+    my $serverName = 'Zentyal';
+    my $global = EBox::Global->getInstance();
+    if ( $global->modExists('remoteservices') ) {
+        my $remoteServicesMod = $global->modInstance('remoteservices');
+        if ( $remoteServicesMod->eBoxSubscribed() ) {
+            $serverName = $remoteServicesMod->eBoxCommonName();
+        }
+    }
+
+    $title = "$serverName - $title";
+
+    my $html = makeHtml('header.mas', title => $title );
+    return $html;
 
 }
 

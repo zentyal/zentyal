@@ -104,6 +104,46 @@ sub disasterRecoveryAddOn
     return $result;
 }
 
+# Method: technicalSupport
+#
+#     Check the if the zentyal server has technical support
+#     for this company
+#
+sub technicalSupport
+{
+    my ($self) = @_;
+
+    my $result = -2;
+
+    try {
+        $result = $self->soapCall('technicalSupport');
+    } otherwise {
+        EBox::warn("SOAP call technicalSupport failed: $@");
+    };
+
+    return $result;
+}
+
+# Method: renovationDate
+#
+#     Check the if the zentyal server has technical support
+#     for this company
+#
+sub renovationDate
+{
+    my ($self) = @_;
+
+    my $result = -1;
+
+    try {
+        $result = $self->soapCall('renovationDate');
+    } otherwise {
+        EBox::warn("SOAP call renovationDate failed: $@");
+    };
+
+    return $result;
+}
+
 # Group: Protected methods
 
 # Method: _serviceUrnKey

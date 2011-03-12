@@ -3,7 +3,6 @@ SUBDIRS = Report Composite
 
 perldir = @PERLPATH@/EBox/Network
 
-
 nobase_perl_DATA =
 
 DISTCLEANFILES =

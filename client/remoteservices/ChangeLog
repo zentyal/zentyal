@@ -1,4 +1,10 @@
 HEAD
+	+ Added new models to show information about our several services:
+	  - Server subscriptions
+	  - Advanced Security Updates
+	  - Disaster Recovery
+	  - Technical Support
+	+ New Zentyal Cloud client widget with new services information
 	+ Remote services VPN client now uses local port and address options
 	+ Bugfix: fixed error in remote backup template when a basic
 	  subscription already has a backup in the cloud

@@ -31,6 +31,10 @@ case "$1" in
         # Migrate data if needed
         /usr/share/ebox/ebox-migrate /usr/share/ebox-network/migration/
 
+        #create log tables
+        /usr/share/ebox/ebox-sql-table add network_bw_test /usr/share/ebox/sqllog/network_bw_test.sql
+        /usr/share/ebox/ebox-sql-table add network_bw_test_report /usr/share/ebox/sqllog/network_bw_test_report.sql
+
         invoke-rc.d ebox network restart
 
         # Apply failover code changes only when upgrading

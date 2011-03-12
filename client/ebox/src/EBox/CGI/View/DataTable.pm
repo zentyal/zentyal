@@ -39,6 +39,23 @@ sub new # (cgi=?)
 
 # Group: Protected methods
 
+# Method: _header
+#
+#      Overrides to print the page title in the HTML title if defined
+#
+# Overrides:
+#
+#      <EBox::CGI::ClientBase::_header>
+#
+sub _header
+{
+    my ($self) = @_;
+
+    print $self->cgi()->header(-charset=>'utf-8');
+    print EBox::Html::header($self->{tableModel}->pageTitle());
+
+}
+
 sub _process
 {
 	my $self = shift;

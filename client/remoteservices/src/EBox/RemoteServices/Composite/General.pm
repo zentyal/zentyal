@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2010 eBox Technologies S.L.
+# Copyright (C) 2008-2011 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -27,6 +27,12 @@ use strict;
 use warnings;
 
 use EBox::Gettext;
+use EBox::Global;
+
+# Constants
+use constant STORE_URL => 'http://store.zentyal.com/';
+use constant UTM       => '?utm_source=zentyal&utm_medium=ebox&utm_content=remoteservices';
+use constant BASIC_URL => STORE_URL . 'serversubscriptions/subscription-basic.html' . UTM;
 
 # Group: Public methods
 
@@ -65,6 +71,7 @@ sub _description
       {
           components      => [
               'Subscription',
+              'SubscriptionInfos',
               # 'AccessSettings',
              ],
           layout          => 'top-bottom',
@@ -74,8 +81,27 @@ sub _description
           pageTitle       => $printableName,
         };
 
+    my $rs = EBox::Global->modInstance('remoteservices');
+    unless ( $rs->eBoxSubscribed() ) {
+        $description->{permanentMessage} = _commercialMsg();
+    }
+
     return $description;
 
+}
+
+# Group: Private methods
+
+sub _commercialMsg
+{
+    return __sx('Server subscriptions help to keep our Zentyal server secure '
+                . 'and up-to-date! Take a look and try out the free '
+                . '{ohb}Basic Server Subscription{ch} - It allows you '
+                . 'to store your configuration backup remotely and sends you '
+                . 'alerts regarding the connectivity of your Zentyal server, '
+                . 'available updates or failed automatic backup.',
+                ohb => '<a href="' . BASIC_URL . '" target="_blank">',
+                ch  => '</a>');
 }
 
 1;

@@ -913,9 +913,6 @@ sub report
 
     my $report = {};
 
-    my $db = EBox::DBEngineFactory::DBEngine();
-
-
     my $allAlertsRaw  =  $self->runMonthlyQuery($beg, $end, {
         'select' => 'level, SUM(nEvents)',
         'from' => 'events_report',
@@ -959,6 +956,48 @@ sub report
     $report->{alerts_by_source} = $alertsBySource;
 
     return $report;
+}
+
+# Method: lastEventsReport
+#
+#     Get the report of current month events report
+#
+# Returns:
+#
+#     Hash ref - containing the following keys
+#
+#         total - the sum of all alerts
+#         info  - the sum of info alerts
+#         warn  - the sum of warn alerts
+#         error  - the sum of error alerts
+#         fatal  - the sum of fatal alerts
+#
+sub lastEventsReport
+{
+    my ($self) = @_;
+
+    my @time = localtime();
+    my $beg  = sprintf("%d-%d", $time[5]+1900, $time[4]+1);
+
+    my $allAlerts = $self->runMonthlyQuery($beg, $beg, {
+        'select' => 'level, SUM(nEvents)',
+        'from'   => 'events_report',
+        'group'  => 'level',
+    }, { 'key' => 'level' });
+
+    my %result = (info => 0, warn => 0, error => 0, fatal => 0 );
+
+    my $total = 0;
+    foreach my $key (qw(info warn error fatal)) {
+        if (exists $allAlerts->{$key} ) {
+            $result{$key} = $allAlerts->{$key}->{sum}->[0];
+            $total += $result{$key};
+        }
+    }
+    $result{total} = $total;
+
+    return \%result;
+
 }
 
 1;

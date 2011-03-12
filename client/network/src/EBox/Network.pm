@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2010 eBox Technologies S.L.
+# Copyright (C) 2008-2011 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -39,6 +39,7 @@ use constant PAP_SECRETS_FILE => '/etc/ppp/pap-secrets';
 use constant IFUP_LOCK_FILE => '/var/lib/ebox/tmp/ifup.lock';
 use constant APT_PROXY_FILE => '/etc/apt/apt.conf.d/99proxy.conf';
 use constant ENV_PROXY_FILE => '/etc/profile.d/zentyal-proxy.sh';
+use constant CRON_FILE      => '/etc/cron.d/ebox-network';
 
 use Net::IP;
 use IO::Interface::Simple;
@@ -69,6 +70,7 @@ use EBox::Gettext;
 use File::Basename;
 use EBox::Common::Model::EnableForm;
 use EBox::Util::Lock;
+use EBox::DBEngineFactory;
 
 # XXX uncomment when DynLoader bug with locales is fixed
 # use EBox::Network::Report::ByteRate;
@@ -175,7 +177,6 @@ sub usedFiles
 
     return \@files;
 }
-
 
 
 
@@ -2662,6 +2663,28 @@ sub _generateRoutes
 
 }
 
+# Write cron file
+sub _writeCronFile
+{
+    my ($self) = @_;
+
+    unless ( $self->entry_exists('rand_mins') ) {
+        # Set the random times when scripts must be run
+        my @randMins = map { int(rand(60)) } 0 .. 10;
+        $self->set_list('rand_mins', 'int', \@randMins);
+    }
+
+    my $mins = $self->get_list('rand_mins');
+
+    my @tmplParams = ( (mins => $mins) );
+
+    EBox::Module::Base::writeConfFileNoCheck(
+        CRON_FILE,
+        'network/ebox-network.cron.mas',
+        \@tmplParams);
+
+}
+
 # Remove those static routes which user has marked as deleted
 sub _removeRoutes
 {
@@ -2949,6 +2972,7 @@ sub _setConf
     $self->_generateDDClient();
     $self->_generateDNSConfig();
     $self->_generateProxyConfig();
+    $self->_writeCronFile();
 }
 
 # Method: _enforceServiceState
@@ -3948,6 +3972,148 @@ sub _notifyChangedIface
                 $objs->ifaceMethodChangeDone($name);
             }
     }
+}
+
+# Group: report-related files
+
+# Method: gatherReportInfo
+#
+#     Gather the report information
+#
+# Parameters:
+#
+#     downloadRate - Int the download rate for a test in bits per second
+#
+sub gatherReportInfo
+{
+    my ($self, $downloadRate) = @_;
+
+    my $dbh = EBox::DBEngineFactory::DBEngine();
+
+    my @time = gmtime();
+    my ($year, $month, $day) = ($time[5] + 1900, $time[4] + 1, $time[3]);
+    my ($hour, $min, $sec) = ($time[2], $time[1], $time[0]);
+    my $timestamp = "$year-$month-$day $hour:$min:$sec";
+
+    $dbh->unbufferedInsert('network_bw_test',
+                           { timestamp => $timestamp,
+                             bps_down  => $downloadRate });
+
+}
+
+# Method: consolidateReportInfo
+#
+#    Overrides this to consolidate test done daily in a single value
+#
+# Overrides:
+#
+#    <EBox::Module::Base::consolidateReportInfo>
+#
+sub consolidateReportInfo
+{
+    my ($self) = @_;
+
+    # Firstly call the SUPER to follow standard framework
+    $self->SUPER::consolidateReportInfo();
+
+    my $dbh = EBox::DBEngineFactory::DBEngine();
+
+    my $date = $self->_consolidateReportStartDate($dbh,
+                                                  'network_bw_test_report',
+                                                  { 'from' => 'network_bw_test' });
+
+    return unless (defined($date));
+
+    my @time = localtime($date);
+    my ($year, $month, $day, $hour) =
+      ($time[5]+1900, $time[4]+1, $time[3], $time[2] . ':' . $time[1] . ':' . $time[0]);
+
+    my $beginTime  = "$year-$month-$day $hour";
+    my $beginMonth = "$year-$month-01 00:00:00";
+
+    my $query = qq{INSERT INTO network_bw_test_report
+                   SELECT DATE(timestamp) AS date,
+                          MAX(bps_down) AS maximum_down,
+                          MIN(bps_down) AS minimum_down,
+                          AVG(bps_down) AS mean_down
+                   FROM network_bw_test
+                   WHERE timestamp >= '$beginTime'
+                         AND timestamp < DATE '$beginMonth' + INTERVAL '1 MONTH'
+                   GROUP BY date};
+    $dbh->query($query);
+
+    # Store the consolidation time
+    my $gmConsolidationStartTime = gmtime(time());
+    $dbh->update('report_consolidation',
+                 { 'last_date' => "'$gmConsolidationStartTime'" },
+                 [ "report_table = 'network_bw_test_report'" ]);
+
+}
+
+# Method: report
+#
+# Overrides:
+#
+#    <EBox::Module::Base::report>
+#
+sub report
+{
+    my ($self, $beg, $end, $options) = @_;
+
+    my $report = {};
+
+    $report->{'bandwidth_speed'} = $self->runMonthlyQuery($beg, $end, {
+        'select' => 'MAX(maximum_down) AS maximum_down, '
+                    . 'MIN(minimum_down) AS minimum_down, '
+                    . 'CAST(AVG(mean_down) AS bigint) AS mean_down',
+        'from'   => 'network_bw_test_report',
+        'group'  => 'date',
+        });
+
+    return $report;
+
+}
+
+# Method: averageBWDay
+#
+#    Get the average download time for a day
+#
+# Parameters:
+#
+#    day - String the day in "year-month-day" format
+#
+# Returns:
+#
+#    Int - the average download bps for that day
+#
+#    undef - if there is no data
+#
+# Exceptions:
+#
+#    <EBox::Exceptions::Internal> - thrown if the day is not correctly
+#    formatted
+#
+sub averageBWDay
+{
+    my ($self, $day) = @_;
+
+    unless ( $day =~ m:[0-9]{4}-[0-9]{1,2}-[0-9]{1,2}:g ) {
+        throw EBox::Exceptions::Internal("$day must follow this format: yyyy-mm-dd");
+    }
+
+    my $dbh = EBox::DBEngineFactory::DBEngine();
+
+    my $res = $dbh->query_hash({
+        'select' => 'DISTINCT mean_down',
+        'from'   => 'network_bw_test_report',
+        'where'  => "date = '$day'"});
+
+    if ( @{$res} ) {
+        return $res->[0]->{'mean_down'};
+    } else {
+        return undef;
+    }
+
 }
 
 1;

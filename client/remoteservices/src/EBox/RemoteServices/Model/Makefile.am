@@ -2,7 +2,9 @@
 
 perldir = @PERLPATH@/EBox/RemoteServices/Model
 
-mods = AccessSettings.pm Subscription.pm RemoteSupportAccess.pm
+mods = AccessSettings.pm AdvancedSecurityUpdates.pm AlertsInfo.pm \
+       DisasterRecovery.pm QAUpdatesInfo.pm RemoteSupportAccess.pm \
+       ReportsInfo.pm Subscription.pm SubscriptionInfo.pm TechnicalInfo.pm
 
 nobase_perl_DATA = $(mods)
 

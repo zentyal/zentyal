@@ -1,4 +1,8 @@
 HEAD
+	+ Set title with server name if the server is subscribed
+	+ Fix title HTML tag in views for Models and Composites
+	+ Added lastEventsReport to be queried by remoteservices module
+	+ Added EBox::Types::HTML type
 	+ Sliced restore mode fails correctly when schema file is missing,
 	  added option to force restore without schema file
 	+ Adapted to new location of partitionsFileSystems in EBox::FileSystem

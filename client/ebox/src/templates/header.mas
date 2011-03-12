@@ -5,7 +5,7 @@ $title
 		      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<title>Zentyal - <% $title %></title>
+<title><% $title %></title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <link href="/dynamic-data/css/public.css" rel="stylesheet" type="text/css" />
 <link rel="shortcut icon" href="/favicon.ico" />

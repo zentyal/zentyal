@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 
-# Copyright (C) 2009-2010 eBox Technologies S.L.
+# Copyright (C) 2009-2011 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -93,11 +93,13 @@ sub generateReport
         return $class->_soapResult('');
     }
 
-
     $yaml = YAML::Tiny->new();
     $yaml->[0] = $full_report;
 
     my $retValue = $yaml->write_string();
+
+    $class->_setReportAsGenerated();
+
     return $class->_soapResult($retValue);
 }
 
@@ -112,5 +114,13 @@ sub URI {
 }
 
 # Group: Private class methods
+
+# Set the report data as generated to inform the user
+sub _setReportAsGenerated
+{
+    my $rs = EBox::Global->modInstance('remoteservices');
+    $rs->st_set_int('subscription/report_generated_at', time());
+
+}
 
 1;

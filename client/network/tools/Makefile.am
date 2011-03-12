@@ -1,9 +1,8 @@
 ## Process this file with automake to produce Makefile.in
-
 pkgdata_SCRIPTS = ebox-netcfg-import ebox-flush-fwmarks ebox-updatedigests \
-                  ebox-setup-wireless
+                  ebox-setup-wireless bandwidth-test.pl
 
-SUBDIRS =
+SUBDIRS = sqllog
 
 MAINTAINERCLEANFILES = Makefile.in
 

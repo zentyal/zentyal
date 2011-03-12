@@ -84,6 +84,7 @@ src/libexec/ebox-ppp-down
 conf/Makefile
 stubs/Makefile
 tools/Makefile
+tools/sqllog/Makefile
 www/Makefile
 Makefile
 ])

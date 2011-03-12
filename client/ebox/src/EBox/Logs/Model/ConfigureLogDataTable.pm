@@ -362,7 +362,6 @@ sub _table
         {
             'tableName' => 'ConfigureLogTable',
             'printableTableName' => __('Current configuration'),
-            'pageTitle' => __('Logs configuration'),
             'defaultController' => '/ebox/Logs/Controller/ConfigureLogTable',
             'defaultActions' => [ 'editField', 'changeView' ],
             'tableDescription' => \@tableHead,
