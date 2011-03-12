@@ -242,7 +242,7 @@ sub listRemoteBackups
             $self->_setMetainfoCache($metainfo);
         }
     } catch EBox::Exceptions::DataNotFound with {
-        # If all.info does not exist, fill fields artifially
+        # If all.info does not exist, fill fields artificially
         $self->_setMetainfoFootprint('');
         $self->_setMetainfoCache({});
     };

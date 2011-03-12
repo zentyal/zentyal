@@ -1433,7 +1433,7 @@ sub _consolidateReportFromDB
                             'where' => join(' AND ', @where)
                             });
                     if (@{$res}) {
-                        # record exists, we will udpate it
+                        # record exists, we will update it
                         my $row = shift(@{$res});
                         my $new_row = {};
                         for my $k (keys %$r) {
@@ -1463,7 +1463,7 @@ sub _consolidateReportFromDB
                 );
             }
 
-            # only the first loop could  have a hour/day diffetent than the 00:00:00/1
+            # only the first loop could  have a hour/day different than the 00:00:00/1
             $hour = '00:00:00';
             $day = 1;
             if($month == 12) {
@@ -1573,12 +1573,12 @@ sub _lastConsolidationValuesForMonth
 #
 #
 #  - key : this signals a single field as part of the key fields of a row. The
-#  other keyfields are the ones from a possible group caluse. The query needs
-#  either a # group clause or a key option to be able to consolidate correctly.
+#  other keyfields are the ones from a possible group clause. The query needs
+#  either a group clause or a key option to be able to consolidate correctly.
 #
 #  - updateMode : this signals what to do when you need to update a row. A row
-#  wil be updated instead of inserted when its date and key fields (group + key)
-#  are idnetical. Available update modes:
+#  will be updated instead of inserted when its date and key fields (group + key)
+#  are identical. Available update modes:
 #
 #  - sum: the non-key field are added tohether (default)
 #  - overwrite: the non-key fields are overwritten with the last value
@@ -1597,7 +1597,7 @@ sub logReportInfo
 # Method: consolidateReportInfoQueries
 #
 # This method is used to consolidate data from data tables which has been
-# populated by the logReportInfo method. It call consolidateReportInfoQueries fr
+# populated by the logReportInfo method. It call consolidateReportInfoQueries for
 # that.
 #
 # The difference between consolidateReportFromLogs and

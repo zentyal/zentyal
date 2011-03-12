@@ -1,3 +1,6 @@
+HEAD
+	+ Added stats for automatic upgrades. Currently, the timestamp and
+	  the number of automatic upgraded packages
 2.1
 	+ Replaced ebox-apt-update and ebox-apt-remove with apt-wrapper
 	+ Cron script ebox-software renamed to auto-updater

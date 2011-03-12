@@ -87,13 +87,13 @@ __('By default, the access is only granted to hosts inside the Zentyal Cloud pri
       );
 
     my $dataForm = {
-                    tableName          => 'RemoteSupportAccess',
+                    tableName          => __PACKAGE__->nameFromClass(),
                     printableTableName => __('Enable Remote Support Access'),
-                    pageTitle          => __('Remote Support Access'),
                     modelDomain        => 'RemoteServices',
                     defaultActions     => [ 'editField', 'changeView' ],
                     tableDescription   => \@tableDesc,
                     class              => 'dataForm',
+                    help               => _message(),
                 };
 
       return $dataForm;
@@ -164,15 +164,5 @@ sub _message
     );
     return $msg;
 }
-
-sub viewCustomizer
-{
-    my ($self) = @_;
-    my $customizer = new EBox::View::Customizer();
-    $customizer->setModel($self);
-    $customizer->setPermanentMessage(_message());
-    return $customizer;
-}
-
 
 1;

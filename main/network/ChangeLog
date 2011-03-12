@@ -1,4 +1,5 @@
 HEAD
+	+ Added report for bandwidth tests
 	+ Avoid warning in GatewayTable::syncRows when gateway is undef
 	+ Added debug to dhcp-gateway.pl script
 2.1.1

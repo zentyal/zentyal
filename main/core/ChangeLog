@@ -1,4 +1,8 @@
 HEAD
+	+ Set title with server name if the server is subscribed
+	+ Fix title HTML tag in views for Models and Composites
+	+ Added lastEventsReport to be queried by remoteservices module
+	+ Added EBox::Types::HTML type
 	+ Added missing manage-logs script to the package
 	+ Fixed problems with show/hide help switch and dynamic content
 	+ Menus with subitems are now kept unfolded until a section on a

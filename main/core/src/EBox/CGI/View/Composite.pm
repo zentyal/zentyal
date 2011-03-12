@@ -48,22 +48,35 @@ use EBox::Global;
 #       <EBox::CGI::View::Composite> - the recently created CGI
 #
 sub new
-  {
+{
+    my $class = shift;
+    my %params = @_;
 
-      my $class = shift;
-      my %params = @_;
+    my $composite = delete $params{composite};
+    my $self = $class->SUPER::new(template => $composite->Viewer(),
+            @_);
+    $self->{composite} = $composite;
 
-      my $composite = delete $params{composite};
-      my $self = $class->SUPER::new(template => $composite->Viewer(),
-                                    @_);
-      $self->{composite} = $composite;
+    bless ($self, $class);
 
-      bless ($self, $class);
+    return $self;
+}
 
-      return $self;
+# Method: _header
+#
+#      Overrides to print the page title in the HTML title if defined
+#
+# Overrides:
+#
+#      <EBox::CGI::ClientBase::_header>
+#
+sub _header
+{
+    my ($self) = @_;
 
-  }
-
+    print $self->cgi()->header(-charset=>'utf-8');
+    print EBox::Html::header($self->{composite}->pageTitle());
+}
 
 sub _process
 {
@@ -88,19 +101,15 @@ sub _process
 #      Overrides <EBox::CGI::ClientBase::masonParameters>
 #
 sub masonParameters
-  {
+{
+    my ($self) = @_;
 
-      my ($self) = @_;
+    my $global = EBox::Global->getInstance();
 
-      my $global = EBox::Global->getInstance();
-
-      return [
-              model      => $self->{composite},
-              hasChanged => $global->unsaved(),
-             ];
-
-  }
-
-
+    return [
+             model      => $self->{composite},
+             hasChanged => $global->unsaved(),
+    ];
+}
 
 1;

@@ -61,6 +61,7 @@ src/EBox/CGI/Wizard/Makefile
 src/templates/Makefile
 src/templates/Wizard/Makefile
 schemas/Makefile
+schemas/sql/Makefile
 src/scripts/Makefile
 conf/Makefile
 stubs/Makefile

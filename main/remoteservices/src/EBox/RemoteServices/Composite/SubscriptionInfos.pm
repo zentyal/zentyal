@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2010 eBox Technologies S.L.
+# Copyright (C) 2011 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -13,9 +13,12 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-# Class: EBox::Logs::Composite::ConfigureLog
+# Class: EBox::RemoteServices::Composite::Subscriptions
+#
+#    Display the form and information about subscriptions
+#
 
-package EBox::Logs::Composite::ConfigureLog;
+package EBox::RemoteServices::Composite::SubscriptionInfos;
 
 use base 'EBox::Model::Composite';
 
@@ -28,22 +31,22 @@ use EBox::Gettext;
 
 # Constructor: new
 #
-#         Constructor for the configure logs composite
+#       Constructor for the subscription composite
 #
 # Returns:
 #
-#       <EBox::Logs::Composite::ConfigureLog> - the configure logs composite
+#       <EBox::RemoteServices::Composite::Subscriptions> - the subscription composite
 #
 sub new
-  {
+{
 
-      my ($class) = @_;
+    my ($class) = @_;
 
-      my $self = $class->SUPER::new();
+    my $self = $class->SUPER::new();
 
-      return $self;
+    return $self;
 
-  }
+}
 
 # Group: Protected methods
 
@@ -54,22 +57,23 @@ sub new
 #     <EBox::Model::Composite::_description>
 #
 sub _description
-  {
+{
 
-      my $description =
-        {
-         components      => [
-			     'ConfigureLogTable',
-			     'ForcePurge',
-                            ],
-         layout          => 'top-bottom',
-         name            => 'ConfigureLog',
-         compositeDomain => 'Logs',
-         pageTitle       => __('Logs configuration'),
+    my $description =
+      {
+          components      => [
+              'SubscriptionInfo',
+              'QAUpdatesInfo',
+              'AlertsInfo',
+              'ReportsInfo',
+             ],
+          layout          => 'tabbed',
+          name            => 'SubscriptionInfos',
+          compositeDomain => 'RemoteServices',
         };
 
-      return $description;
+    return $description;
 
-  }
+}
 
 1;

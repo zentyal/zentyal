@@ -92,6 +92,8 @@ sub generateReport
         return $class->_soapResult('');
     }
 
+    $class->_setReportAsGenerated();
+
     my $retValue = YAML::XS::Dump($full_report);
     return $class->_soapResult($retValue);
 }
@@ -107,5 +109,13 @@ sub URI {
 }
 
 # Group: Private class methods
+
+# Set the report data as generated to inform the user
+sub _setReportAsGenerated
+{
+    my $rs = EBox::Global->modInstance('remoteservices');
+    $rs->st_set_int('subscription/report_generated_at', time());
+
+}
 
 1;

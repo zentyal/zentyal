@@ -2,7 +2,7 @@
 
 perldir = @PERLPATH@/EBox/RemoteServices/Composite
 
-mods = General.pm
+mods = General.pm SubscriptionInfos.pm Technical.pm
 
 nobase_perl_DATA = $(mods)
 
