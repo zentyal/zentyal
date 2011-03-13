@@ -157,7 +157,7 @@ __('To restrict addresses you need that your Zentyal Server is subscribed to Zen
 sub _message
 {
     my $msg =  __x(
- "Enabling remote support will allow staff from Zentyal to freely access your computer.\n" .
+ "Enabling remote support will allow Zentyal staff to freely access your computer.\n" .
  "You could use the 'screen' command to join their shell option. To allow that, the SUID bit of the 'screen' program is enabled. This change is undone when this option is disabled\n" .
  q[To join the remote session, login in the shell as a user belonging to the 'adm' group and use the command: '{cmd}'.],
    cmd => 'screen -x ebox-remote-support/'
