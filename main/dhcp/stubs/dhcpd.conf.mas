@@ -69,7 +69,7 @@ include "<% $keysFile %>";
            # Write configuration if there are any range or fixed addresses
            my @ifacesToCheck = @{$real_ifaces{$iface}};
            push(@ifacesToCheck, $iface);
-           my $nIfaceToWrite = grep { @{$ifaces{$_}->{ranges}} > 0 or @{$ifaces{$_}->{fixed}} > 0 } @ifacesToCheck;
+           my $nIfaceToWrite = grep { @{$ifaces{$_}->{ranges}} > 0 or values(%{$ifaces{$_}->{fixed}}) > 0 } @ifacesToCheck;
            if ( $nIfaceToWrite > 0) {
 </%perl>
 <& dhcp/shared-network.mas, iface => $iface, ifaces => \%ifaces, vifaces => $real_ifaces{$iface} &>

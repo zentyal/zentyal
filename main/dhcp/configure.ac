@@ -52,10 +52,9 @@ src/EBox/rootTests/Makefile
 src/EBox/rootTests/lib/Makefile
 src/EBox/Composite/Makefile
 src/EBox/DHCP/Makefile
+src/EBox/DHCP/Types/Makefile
 src/EBox/Model/Makefile
 src/EBox/Model/t/Makefile
-src/EBox/CGI/Makefile
-src/templates/Makefile
 src/scripts/Makefile
 stubs/Makefile
 schemas/sql/Makefile

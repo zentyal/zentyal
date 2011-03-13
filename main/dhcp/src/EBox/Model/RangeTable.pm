@@ -171,21 +171,19 @@ sub validateTypedRow
         }
 
         # Check fixed addresses
-        # FIXME: When #847 is done
-        #my $fixedAddressModel = $self->{gconfmodule}->model('FixedAddressTable');
-        my $fixedAddressModel = EBox::Model::ModelManager->instance()->model('/dhcp/FixedAddressTable/'
-                                                                             . $self->{interface});
-        foreach my $id ( @{$fixedAddressModel->ids()} ) {
-            my $map = $fixedAddressModel->row($id);
-            my $fixedIP = new Net::IP($map->valueByName('ip'));
+        my $fixedAddresses = $self->{gconfmodule}->fixedAddresses($self->index(), 0);
+        foreach my $fixedAddr (@{$fixedAddresses}) {
+            my $fixedIP = new Net::IP($fixedAddr->{ip});
             unless ( $fixedIP->overlaps($range) == $IP_NO_OVERLAP ) {
-                throw EBox::Exceptions::External(__x('Range {from}-{to} includes fixed '
-                                                     . "address '{name}': {fixedIP}",
+                throw EBox::Exceptions::External(__x('Range {from}-{to} includes '
+                                                     . 'fixed address from the '
+                                                     . 'object member "{name}": '
+                                                     . '{fixedIP}',
                                                      from => $from,
                                                      to   => $to,
-                                                     name => $map->valueByName('name'),
-                                                     fixedIP => $map->valueByName('ip'),
-                                                     ));
+                                                     name => $fixedAddr->{name},
+                                                     fixedIP => $fixedAddr->{ip}
+                                                    ));
             }
         }
     }

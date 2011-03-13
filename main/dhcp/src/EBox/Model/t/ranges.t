@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2010 eBox Technologies S.L.
+# Copyright (C) 2008-2011 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -20,7 +20,7 @@ use warnings;
 
 use lib '../../..';
 
-use Test::More tests => 26;
+use Test::More tests => 25;
 use Test::Exception;
 use Test::Deep;
 use Test::MockObject;
@@ -86,6 +86,8 @@ sub _ifaceMethod
 EBox::init();
 _fakeNetwork();
 my $manager = EBox::Model::ModelManager->instance();
+my $objMod  = EBox::Global->modInstance('objects');
+my $dhcpMod = EBox::Global->modInstance('dhcp');
 
 my $rangeModel = $manager->model('/dhcp/RangeTable/eth0');
 isa_ok($rangeModel, 'EBox::DHCP::Model::RangeTable' );
@@ -124,37 +126,42 @@ throws_ok {
                       to   => '10.0.0.60');
 } 'EBox::Exceptions::External', 'New range overlaps current ranges';
 
-throws_ok {
-    $fixedAddressModel->add( name => 'mansun',
-                             ip   => '10.0.0.1',
-                             mac  => '00:00:00:FA:BA:DA');
-} 'EBox::Exceptions::External', 'Fixed map not possible with the iface IP address';
+my $objId;
+lives_ok {
+    $objId = $objMod->addObject1(name => 'beady eye',
+                                 members => [
+                                     { 'name'    => 'mansun',
+                                       'ipaddr'  => '10.0.0.1/32',
+                                       'macaddr' => '00:00:00:FA:BA:DA' },
+                                     { 'name'    => 'band of horses',
+                                       'ipaddr'  => '10.1.0.1/32',
+                                       'macaddr' => '00:00:01:FA:BA:DA' },
+                                     { 'name'    => 'glasvegas',
+                                       'ipaddr'  => '10.0.0.20/32',
+                                       'macaddr' => '00:00:02:FA:BA:DA' },
+                                     { 'name'    => 'mona',
+                                       'ipaddr'  => '10.0.0.5/32',
+                                       'macaddr' => '00:00:03:FA:BA:DA' },
+                                     { 'name'    => 'elbow',
+                                       'ipaddr'  => '10.0.0.6/32',
+                                       'macaddr' => '00:00:00:FA:BA:DA' },
+                                     # FIXME: 2.1 two members with the same macaddr
+                                     # will not be possible
+                                     { 'name'    => 'nero',
+                                       'ipaddr'  => '10.0.0.7/32',
+                                       'macaddr' => '00:00:00:FA:BA:DA' },
+                                    ]);
+} 'Adding a new object';
 
-throws_ok {
-    $fixedAddressModel->add( name => 'mansun',
-                             ip   => '10.1.0.1',
-                             mac  => '00:00:00:FA:BA:DA');
-} 'EBox::Exceptions::External', 'Fixed map using an IP on not available range';
+my $addedMapId = $fixedAddressModel->add(object => $objId);
+ok( $addedMapId, 'Adding an object to be used as fixed address');
 
-throws_ok {
-    $fixedAddressModel->add( name => 'mansun',
-                             ip   => '10.0.0.20',
-                             mac  => '00:00:00:FA:BA:DA');
-} 'EBox::Exceptions::External', 'Fixed map on a defined range';
-
-my $addedMapId = $fixedAddressModel->add( name => 'mansun',
-                                          ip   => '10.0.0.5',
-                                          mac  => '00:00:00:FA:BA:DA');
-
-ok ( $addedMapId, 'Adding a valid mapping MAC/IP address');
-
-ok ( $fixedAddressModel->row($addedMapId), 'Valid mapping addition correct');
-
-throws_ok {
-    $fixedAddressModel->add( name => 'mansun _ cancer',
-                             ip   => '10.0.0.3',
-                             mac  => '00:00:00:FA:BA:DA');
-} 'EBox::Exceptions::DataExists', 'Duplicate MAC address';
+my $fixedAddr = $dhcpMod->fixedAddresses('eth0', 0);
+is_deeply($fixedAddr,
+          [ { 'name' => 'mona',
+              'ip'   => '10.0.0.5',
+              'mac'  => '00:00:03:FA:BA:DA' } ],
+          'Only a member is valid as fixed address');
 
 throws_ok {
     $rangeModel->add( name => 'foocast',
@@ -185,26 +192,36 @@ throws_ok {
                       from => '10.0.0.25');
 } 'EBox::Exceptions::External', 'Collision ranges 2';
 
-throws_ok {
-    $fixedAddressModel->set( $addedMapId,
-                             ip => '10.0.0.33');
-} 'EBox::Exceptions::External', 'Setting an ip within a range';
+lives_ok {
+    $objMod->setMemberIP( 'beady eye/mona',
+                          '10.0.0.33/32' );
+} 'Setting an ip within a range in an object member';
+
+my $fixed = $dhcpMod->fixedAddresses('eth0', 0);
+is_deeply($fixed, [], 'No fixed address available to be used as fixed addresses');
 
 # Test address coincedence in different models
 my $fixedAddressModel2 = $manager->model('/dhcp/FixedAddressTable/eth1');
 isa_ok($fixedAddressModel2, 'EBox::DHCP::Model::FixedAddressTable');
 
-throws_ok {
-    $fixedAddressModel2->add( name => 'mansun',
-                              ip   => '10.0.1.20',
-                              mac  => '00:AD:DA:AD:AD:AA',
-                            );
-} 'EBox::Exceptions::External', 'Setting a fixed address name which already exists in other model';
+my $objId2 = $objMod->addObject1( name => 'factory',
+                                  members => [ { 'name'    => 'mansun',
+                                                 'ipaddr'  => '10.0.1.20/32',
+                                                 'macaddr' => '00:AD:DA:AD:AD:AA' }]);
+
+my $addedMapId2 = $fixedAddressModel2->add( object => $objId2 );
+ok( $addedMapId2, 'Added another fixed address to the other interface');
+
+$fixed = $dhcpMod->fixedAddresses('eth1', 0);
+is_deeply($fixed, [], 'No fixed addresses since it already exists the same member name in other model');
 
 lives_ok {
     $rangeModel->removeRow( $addedRangeId );
     $rangeModel->removeRow( $addedRangeId2 );
     $fixedAddressModel->removeRow( $addedMapId );
+    $fixedAddressModel2->removeRow( $addedMapId2 );
+    $objMod->removeObject( $objId );
+    $objMod->removeObject( $objId2 );
 } 'Removing everything we made';
 
 1;

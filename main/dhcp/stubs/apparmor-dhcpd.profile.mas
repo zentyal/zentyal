@@ -1,5 +1,6 @@
 <%args>
   $keysFile
+  $confDir
 </%args>
 # This profile has been modified by Zentyal Server to provide Dynamic
 # DNS feature
@@ -53,4 +54,7 @@
 
   # For dynamic DNS (Zentyal)
   <% $keysFile %> r,
+  
+  # For allowing custom tweaking (Zentyal)
+  <% $confDir %>* r,
 }
