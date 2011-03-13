@@ -1,5 +1,7 @@
 HEAD
 	+ System users don't require password
+	+ Fixed bug that allowed to create LDAP users whith the same name
+	  than users with UID 0 (like root)
 2.1
 	+ Separate usercorner module to the new zentyal-usercorner package
 	+ Remove zentyal- prefix from rejoin-slave and ldapvi scripts
