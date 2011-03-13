@@ -1,5 +1,7 @@
 HEAD
 	+ System users don't require password
+	+ Fixed bug that allowed to create LDAP users whith the same name
+	  than users with UID 0 (like root)
 2.0.11
 	+ Added locks to prevent overlapping in ebox-ad-sync script
 	+ Fix slave failed operation string on slave hostname

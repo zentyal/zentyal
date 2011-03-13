@@ -880,7 +880,7 @@ sub _initGroupSlaves
 # Parameters:
 #
 #       user - hash ref containing: 'user'(user name), 'fullname', 'password',
-#       'givenname', 'surname' and comment
+#       'givenname', 'surname' and 'comment'
 #       system - boolean: if true it adds the user as system user, otherwise as
 #       normal user
 #       uidNumber - user UID numberer (optional and named)
@@ -894,7 +894,9 @@ sub addUser # (user, system)
                                          __x("Username must not be longer than {maxuserlength} characters",
                            maxuserlength => MAXUSERLENGTH));
     }
-    if (getpwnam($user->{'user'})) {
+
+    my @userPwAttrs = getpwnam($user->{'user'});
+    if (@userPwAttrs) {
         throw EBox::Exceptions::External(
             __("Username already exists on the system")
         );
@@ -2568,7 +2570,7 @@ sub restoreBackupPreCheck
         if (exists $etcPasswdUsers{$user}) {
             throw EBox::Exceptions::External(
                                              __x(
-'Cannot restore because user {user} already exists as system user. Delete or rename this user and try again',
+'Cannot restore because LDAP user {user} already exists as /etc/passwd user. Delete or rename this user and try again',
                                                  user => $user
                                                 )
                                             );
