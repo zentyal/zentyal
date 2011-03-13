@@ -28,7 +28,7 @@ use EBox::Gettext;
 use EBox::Validate qw(:all);
 use EBox::Exceptions::External;
 use EBox::Exceptions::DataExists;
-
+use EBox::Model::ModelManager;
 use EBox::Types::DomainName;
 use EBox::Types::HasMany;
 use EBox::Types::HostIP;
@@ -139,6 +139,71 @@ sub validateTypedRow
             }
         }
     }
+
+    if ( $action eq 'update' ) {
+        # Add toDelete the RRs for this hostname and its aliases
+        my $oldRow  = $self->row($changedFields->{id});
+        my $zoneRow = $oldRow->parentRow();
+        if ( $zoneRow->valueByName('dynamic') ) {
+            my @toDelete = ();
+            my $zone = $zoneRow->valueByName('domain');
+            # Delete all aliases
+            my $aliasModel = $oldRow->subModel('alias');
+            my $ids = $aliasModel->ids();
+            foreach my $id (@{$ids}) {
+                my $aliasRow = $aliasModel->row($id);
+                push(@toDelete, $aliasRow->valueByName('alias') . ".$zone");
+            }
+
+            my $fullHostname = $oldRow->valueByName('hostname') . ".$zone";
+            push(@toDelete, $fullHostname);
+            $self->{toDelete} = \@toDelete;
+        }
+    }
+
+}
+
+# Method: updatedRowNotify
+#
+#     Override to add to the list of removed of RRs
+#
+# Overrides:
+#
+#     <EBox::Exceptions::DataTable::updatedRowNotify>
+#
+sub updatedRowNotify
+{
+    my ($self, $newRow, $force) = @_;
+
+    # The field is added in validateTypedRow
+    if ( exists $self->{toDelete} ) {
+        foreach my $rr (@{$self->{toDelete}}) {
+            $self->_addToDelete($rr);
+        }
+        delete $self->{toDelete};
+    }
+}
+
+# Method: removeRow
+#
+#     Override not to allow to remove the last NS record if this row
+#     points to this record
+#
+# Overrides:
+#
+#     <EBox::Exceptions::DataTable::removeRow>
+#
+sub removeRow
+{
+    my ($self, $id, $force) = @_;
+
+    if ( $force and $self->table()->{automaticRemove} ) {
+        # Trying to remove the pointed elements first
+        my $manager = EBox::Model::ModelManager->instance();
+        $manager->removeRowsUsingId($self->contextName(), $id);
+    }
+    return $self->SUPER::removeRow($id, $force);
+
 }
 
 # Method: precondition
@@ -219,7 +284,10 @@ sub _table
             'defaultActions' => ['add', 'del', 'editField',  'changeView' ],
             'tableDescription' => \@tableHead,
             'class' => 'dataTable',
-            'help' => __('Hostnames'),
+            'help' => __('Automatic reverse resolution is done. If you '
+                         . 'repeat an IP address in another domain, only '
+                         . 'first match will be used by reverse resolution. '
+                         . 'Dynamic zones may erase your manual reverse resolution'),
             'printableRowName' => __('host name'),
             'sortedBy' => 'hostname',
         };
@@ -227,15 +295,21 @@ sub _table
     return $dataTable;
 }
 
+
 # Method: deletedRowNotify
 #
-# 	Overrides <EBox::Model::DataTable::deletedRowNotify> to remove
-# 	mail exchangers referencing the deleted host name.
+# 	Overrides to remove mail exchangers referencing the deleted
+# 	host name and add to the list of deleted RR in dynamic zones
+#
+# Overrides:
+#
+#      <EBox::Model::DataTable::deletedRowNotify>
 #
 sub deletedRowNotify
 {
     my ($self, $row) = @_;
 
+    # Delete the associated MX RR
     my $mailExModel = $row->parentRow()->subModel('mailExchangers');
     for my $id(@{$mailExModel->ids()}) {
         my $mailRow = $mailExModel->row($id);
@@ -245,6 +319,23 @@ sub deletedRowNotify
             $mailExModel->removeRow($mailRow->id());
         }
     }
+
+    # Deleted RRs to account
+    my $zoneRow = $row->parentRow();
+    if ( $zoneRow->valueByName('dynamic') ) {
+        my $zone = $zoneRow->valueByName('domain');
+        # Delete all aliases
+        my $aliasModel = $row->subModel('alias');
+        my $ids = $aliasModel->ids();
+        foreach my $id (@{$ids}) {
+            my $aliasRow = $aliasModel->row($id);
+            $self->_addToDelete( $aliasRow->valueByName('alias') . ".$zone");
+        }
+
+        my $fullHostname = $row->valueByName('hostname') . ".$zone";
+        $self->_addToDelete($fullHostname);
+    }
+
 }
 
 # Method: pageTitle
@@ -256,6 +347,25 @@ sub pageTitle
         my ($self) = @_;
 
         return $self->parentRow()->printableValueByName('domain');
+}
+
+# Group: Private methods
+
+# Add the RR to the deleted list
+sub _addToDelete
+{
+    my ($self, $domain) = @_;
+
+    my $mod = $self->{gconfmodule};
+    my $key = $mod->deletedRRsKey();
+    my @list = ();
+    if ( $mod->st_entry_exists($key) ) {
+        @list = @{$mod->st_get_list($key)};
+    }
+
+    push(@list, $domain);
+    $mod->st_set_list($key, 'string', \@list);
+
 }
 
 1;

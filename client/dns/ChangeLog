@@ -1,3 +1,19 @@
+HEAD
+	+ Set as hostmaster@domain the email address to report problems
+	  and responsible for that domain
+	+ Do not allow set custom NS or MX records to point CNAME records
+	  in the same domain
+	+ Do not allow to remove last NS record as it is mandatory
+	+ Add a default NS record and A record when creating a domain
+	+ Just one PTR record is written per IP address to avoid
+	  problems in reverse resolution
+	+ Remove no longer used zone files
+	+ Give support to mix static direct resolution with dynamic one
+	+ Give support to mix static reverse resolution with dynamic one
+	+ Start init script using -f flag to send the named log to
+	  daemon.log file
+	+ Give support for dynamic DNS reverse resolution under
+	  /var/lib/bind/ directory
 2.0.2
 	+ Packaging fixes and natty support
 2.0.1

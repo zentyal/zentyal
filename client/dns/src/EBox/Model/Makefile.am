@@ -2,7 +2,7 @@
 
 perldir = @PERLPATH@/EBox/DNS/Model
 
-nobase_perl_DATA = AliasTable.pm  DomainTable.pm \
+nobase_perl_DATA = AliasTable.pm DomainTable.pm \
 		   HostnameTable.pm DNSComposite.pm MailExchanger.pm \
 		   NameServer.pm
 

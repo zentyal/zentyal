@@ -1,6 +1,19 @@
 2.0.3
 	+ Define dhcpd paths using autotools for flexible use with
 	  isc-dhcp-server (>4).
+	+ Bugfix: dhcp module never fail to save changes when a change
+	  in network interface is done
+	+ Use a select to choose the dynamic domains instead of adding
+	  manually using a Text box
+	+ Added support to add DNS reverse resolution for DHCP clients
+	+ Added dynamicDNSDomains exposed method to be used by dns module
+	+ Now it is possible to tweak DHCP configuration for an specific
+	  host or range using /etc/ebox/dhcp/<hostname> or
+	  /etc/ebox/dhcp/<range_name> configuration file
+	+ Thin client options are now working for objects and ranges
+	+ Fixed addresses are now managed by network objects
+	+ Dynamic IP address leases now got the hostname from the DHCP
+	  client, if given
 	+ Bugfix: MAC addresses are now parsed correctly in LogHelper
 2.0.2
 	+ DHCP init.d script is disabled when enabling the module

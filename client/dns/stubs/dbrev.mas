@@ -4,9 +4,11 @@
 <%init>
 my @time = localtime();
 my $date = sprintf("%04d%02d%02d%02d",$time[5]+1900,$time[4]+1,$time[3],$time[2]);
+my $directDomain = $rdata{'domain'}->[0]->{'name'}; 
 </%init>
 $TTL 3D
-@	IN	SOA	ns.<% $rdata{'domain'}->[0]->{'name'} %>.	admin.example.com. (
+$ORIGIN <% $rdata{'groupip'} %>.in-addr.arpa.
+@	IN	SOA	ns.<% $directDomain %>.	hostmaster.<% $directDomain %>. (
 			<% $date %>	;serial number
 			8H		;refresh
 			2H		;retry

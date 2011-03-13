@@ -1,4 +1,6 @@
-# Copyright (C) 2008-2010 eBox Technologies S.L.
+#!/usr/bin/perl
+
+# Copyright (C) 2011 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -13,31 +15,36 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::CGI::DHCP::Enable;
 
-use base 'EBox::CGI::ClientBase';
+package EBox::Migration;
+use base 'EBox::Migration::Base';
 
+use strict;
+use warnings;
+
+use EBox;
 use EBox::Global;
 use EBox::Gettext;
+use Error qw(:try);
 
-## arguments:
-## 	title [required]
-sub new {
-	my $class = shift;
-	my $self = $class->SUPER::new('title' => 'DHCP',
-				      @_);
-	$self->{redirect} = 'DHCP/Index';
-	$self->{domain} = 'ebox-dhcp';
-	bless($self, $class);
-	return $self;
+sub runGConf
+{
+    my ($self) = @_;
+
+    my $domainModel = $self->{gconfmodule}->model('DomainTable');
+    foreach my $id (@{$domainModel->ids()}) {
+        my $row = $domainModel->row($id);
+        $row->setReadOnly(0);
+        $row->store();
+    }
+
 }
 
-sub _process($) {
-	my $self = shift;
-	my $dhcp= EBox::Global->modInstance('dhcp');
+EBox::init();
 
-	$self->_requireParam('active', __('module status'));
-	$dhcp->setService($self->param("active") eq "yes");
-}
-
-1;
+my $dnsMod = EBox::Global->modInstance('dns');
+my $migration =  __PACKAGE__->new(
+    'gconfmodule' => $dnsMod,
+    'version' => 4
+);
+$migration->execute();

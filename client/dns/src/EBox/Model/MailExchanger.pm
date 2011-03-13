@@ -98,6 +98,18 @@ sub validateTypedRow
                                                      . 'Do you mean mx.{name}?',
                                                      name => $val));
             }
+            # Check the given custom nameserver is a CNAME record from the
+            # same zone
+            my $zoneRow = $self->parentRow();
+            my $zone    = $zoneRow->valueByName('domain');
+            my $customZone = join('.', @parts[1 .. $#parts]);
+            if ( $zone eq $customZone ) {
+                # Use ownerDomain to set the mail exchanger
+                throw EBox::Exceptions::External(__('A custom host name cannot be '
+                                                    . 'set from the same domain. '
+                                                    . 'Use "This domain" option '
+                                                    . 'instead'));
+            }
         }
     }
 

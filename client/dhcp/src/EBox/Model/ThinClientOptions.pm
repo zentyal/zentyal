@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2010 eBox Technologies S.L.
+# Copyright (C) 2008-2011 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -27,13 +27,16 @@
 
 package EBox::DHCP::Model::ThinClientOptions;
 
-use base 'EBox::Model::DataForm';
+use base 'EBox::Model::DataTable';
 
 use strict;
 use warnings;
 
-use EBox::Config;
+use feature 'switch';
+
 use EBox::DHCP;
+use EBox::DHCP::Types::Group;
+use EBox::Exceptions::DataNotFound;
 use EBox::Exceptions::External;
 use EBox::Exceptions::InvalidData;
 use EBox::Exceptions::MissingArgument;
@@ -119,45 +122,42 @@ sub printableIndex
 
 }
 
-# Method: validateTypedRow
+# Method: notifyForeignModelAction
+#
+#     Remove rows when a range or fixed address is removed from the
+#     same interface and applies to this model and object.
+#
+#     Do this because of framework limitation.
 #
 # Overrides:
 #
-#      <EBox::Model::DataTable::validateTypedRow>
+#     <EBox::Model::DataTable::notifyForeignModelAction>
 #
-sub validateTypedRow
+sub notifyForeignModelAction
 {
-    my ($self, $action, $changedFields, $allFields) = @_;
+    my ($self, $model, $action, $row) = @_;
 
-    if ( $allFields->{nextServer}->selectedType() eq 'nextServerEBox' ) {
-        if ( not -f $allFields->{filename}->path()
-             and
-             not ($changedFields->{filename} and
-              -f $changedFields->{filename}->tmpPath() and
-              $changedFields->{filename}->userPath())) {
-            throw EBox::Exceptions::External(__('You need to upload a boot '
-                . 'image to Zentyal if you set it as next server'));
+    if ( $action eq 'del' ) {
+        my $idToRemove;
+        given ( $model ) {
+            when ( 'FixedAddressTable' ) {
+                $idToRemove = $row->valueByName('object');
+            }
+            when ( 'RangeTable' ) {
+                $idToRemove = $row->valueByName('name');
+            }
+            default { return ""; }
         }
-    } else {
-        if ( $changedFields->{filename} and
-             $changedFields->{filename}->userPath() and
-             -f $changedFields->{filename}->tmpPath()) {
-                throw EBox::Exceptions::External(__('In order to upload a boot '
-                    . 'image to Zentyal, you need to set Zentyal as next server'));
-        }
-    }
-    if ( $allFields->{nextServer}->selectedType() eq 'nextServerIP' or
-        ( $allFields->{nextServer}->selectedType() eq 'nextServerName' )) {
-        if ( $allFields->{remoteFilename}->value() eq '') {
-            throw EBox::Exceptions::External(__('You need to specify a path '
-            . 'to the boot image in the remote server'));
-        }
-    } else {
-        if ( $allFields->{remoteFilename}->value() ne '') {
-            throw EBox::Exceptions::External(__('You can only specify a file '
-             . 'name if you have a next server and it is not Zentyal'));
+        my $matchedRow = $self->findValue(hosts => $idToRemove);
+        if ( $matchedRow ) {
+            $self->removeRow($matchedRow->id(), 1);
+            return __x('Remove thin client options from {model}{br}',
+                       model => $self->printableContextName(),
+                       br    => '<br>');
         }
     }
+    return "";
+
 }
 
 # Method: nextServer
@@ -166,49 +166,41 @@ sub validateTypedRow
 #     tell the DHCP clients which is the next server to ask for
 #     terminal
 #
+# Parameters:
+#
+#     id - String the row identifier
+#
 # Returns:
 #
-#     String - a name, an IP address or empty string if none is
-#     defined
+#     String - a name or an IP address
+#
+# Exceptions:
+#
+#     <EBox::Exceptions::DataNotFound> - thrown if the given id is not
+#     from this model
 #
 sub nextServer
 {
-    my ($self) = @_;
+    my ($self, $id) = @_;
 
-    my $row = $self->row();
+    my $row = $self->row($id);
+
+    unless ( defined($row) ) {
+        throw EBox::Exceptions::DataNotFound(data => 'id', value => $id);
+    }
 
     my $nextServerType = $row->elementByName('nextServer');
     my $nextServerSelectedName = $nextServerType->selectedType();
-    if ( $nextServerSelectedName eq 'nextServerNone' ) {
-        return '';
-    } elsif ( $nextServerSelectedName eq 'nextServerEBox' ) {
-        my $netMod = EBox::Global->modInstance('network');
-        return $netMod->ifaceAddress($self->{interface});
-    } else {
-        return $nextServerType->printableValue();
+    given ( $nextServerSelectedName ) {
+        when ('nextServerEBox' ) {
+            my $netMod = EBox::Global->modInstance('network');
+            return $netMod->ifaceAddress($self->{interface});
+        }
+        default {
+            return $nextServerType->printableValue();
+        }
     }
 
-}
-
-# Method: formSubmitted
-#
-#      Delete firmware when nextServer option is changed from
-#      nextServerEBox
-#
-# Overrides:
-#
-#      <EBox::Model::DataForm::formSubmitted>
-#
-sub formSubmitted
-{
-    my ($self, $oldRow) = @_;
-
-    if ( $oldRow->elementByName('nextServer')->selectedType() eq 'nextServerEBox'
-         and $self->row()->elementByName('nextServer')->selectedType() ne 'nextServerEBox') {
-        $self->setMessage(__x('Removing previously uploaded boot image since next server option'
-                             . ' has been changed from Zentyal to {option}',
-                             option => $self->row()->elementByName('nextServer')->printableValue()));
-    }
 }
 
 # Group: Protected methods
@@ -231,10 +223,7 @@ sub _table
                               printableName => __('Next server'),
                               editable      => 1,
                               subtypes      =>
-                              [new EBox::Types::Union::Text(fieldName     => 'nextServerNone',
-                                                            printableName => __('None'),
-                                                           ),
-                               new EBox::Types::Union::Text(fieldName     => 'nextServerEBox',
+                              [new EBox::Types::Union::Text(fieldName     => 'nextServerEBox',
                                                             printableName => 'Zentyal',
                                                            ),
                                new EBox::Types::HostIP(fieldName     => 'nextServerIP',
@@ -246,37 +235,55 @@ sub _table
                                                            editable      => 1,
                                                           ),
                               ]),
-       new EBox::Types::File(
-                             fieldName     => 'filename',
-                             printableName => __('File name'),
-                             editable      => 1,
-                             optional      => 1,
-                             filePath      => EBox::DHCP->ConfDir($self->{interface}) . 'firmware',
-                             showFileWhenEditing => 1,
-                             allowDownload => 1,
-                            ),
        new EBox::Types::Text(
                              fieldName     => 'remoteFilename',
                              printableName => __('File path in next server'),
                              editable      => 1,
-                             optional      => 1,
                             ),
+       new EBox::Types::Union(
+                              fieldName      => 'hosts',
+                              printableName  => __('Clients'),
+                              editable       => 1,
+                              subtypes       => [
+                                  new EBox::DHCP::Types::Group(
+                                      fieldName        => 'object',
+                                      printableName    => __('Object'),
+                                      index            => $self->index(),
+                                      foreignModelName => 'FixedAddressTable',
+                                      foreignField     => 'object',
+                                      unique           => 1,
+                                      editable         => 1
+                                     ),
+                                  new EBox::DHCP::Types::Group(
+                                      fieldName        => 'range',
+                                      printableName    => __('Range'),
+                                      index            => $self->index(),
+                                      foreignModelName => 'RangeTable',
+                                      foreignField     => 'name',
+                                      unique           => 1,
+                                      editable         => 1)
+                                    ]),
       );
 
-    my $dataForm = {
+    my $dataTable = {
                     tableName          => 'ThinClientOptions',
                     printableTableName => __('Thin client'),
                     modelDomain        => 'DHCP',
-                    defaultActions     => [ 'editField', 'changeView' ],
+                    defaultActions     => [ 'add', 'del', 'editField', 'changeView' ],
                     tableDescription   => \@tableDesc,
-                    class              => 'dataForm',
+                    class              => 'dataTable',
                     help               => __x('You may want to customise your thin client options.'
                                              . 'To do so, you may include all the files you require '
                                              . 'under {path} directory',
                                              path => EBox::DHCP->PluginConfDir($self->{interface})),
+                    sortedBy           => 'hosts',
+                    printableRowName   => __('thin client option'),
+                    # Notify when there are changes in ranges and
+                    # fixed addresses from the same interface
+                    notifyActions      => [ 'FixedAddressTable', 'RangeTable' ],
                    };
 
-    return $dataForm;
+    return $dataTable;
 
 }
 

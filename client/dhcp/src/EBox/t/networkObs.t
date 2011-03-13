@@ -27,6 +27,7 @@ EBox::init();
 
 my $dhcp = EBox::Global->modInstance('dhcp');
 my $net  = EBox::Global->modInstance('network');
+my $obj  = EBox::Global->modInstance('objects');
 
 sub testCareVI
 {
@@ -70,17 +71,32 @@ testCareVI('eth1', 'adhesive', 0);
 
 # Setting something on the other thing
 lives_ok {
-    $dhcp->addFixedAddress('eth1:adhesive',
-                           name   => 'bush',
-                           mac    => '00:00:00:FA:BA:DA',
-                           ip     => '192.168.46.22');
+    $obj->addObject1(name => 'shed',
+                     members => [ {
+                         name    => 'bush',
+                         ipaddr  => '192.168.46.22/32',
+                         macaddr => '00:00:00:FA:BA:DA',
+                         } ]);
+} 'Adding a new object to be used as fixed address';
+
+
+lives_ok {
+    $dhcp->addFixedAddress('eth1:adhesive', object => 'shed');
 } 'Adding a fixed address';
+
+lives_ok {
+    $dhcp->setFixedAddress('eth1:adhesive', 'shed', description => 'a desc');
+} 'Setting the fixed address description';
 
 testCareVI('eth1', 'adhesive', 1);
 
 lives_ok {
     $dhcp->removeFixedAddress('eth1:adhesive', 'bush');
 } 'Deleting the fixed address';
+
+lives_ok {
+    $obj->removeObject('shed');
+} 'Deleting the object';
 
 testCareVI('eth1', 'adhesive', 0);
 

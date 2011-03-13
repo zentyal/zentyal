@@ -6,5 +6,5 @@ pre-start script
 	chown root:bind /var/run/bind/run >/dev/null 2>&1 || true
 end script
 
-exec /usr/sbin/named -u bind -g
+exec /usr/sbin/named -u bind -f
 respawn

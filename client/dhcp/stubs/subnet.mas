@@ -3,7 +3,7 @@
    including ranges and fixed IP adresses.
 </%doc>
 <%args>
-	%info
+  %info
 </%args>
 % if (exists $info{'staticRoutes'} ) {
         <& staticRoutes.mas, routes => $info{'staticRoutes'}, defaultGw	=>  $info{'gateway'}   &>
@@ -12,22 +12,29 @@
                 <& .options, info => \%info &>
 %	my $ranges = $info{'ranges'};
 %	foreach my $range (@{$ranges}) {
+            pool {
+                <& .include, name => $range->{'name'} &>
+                <& .thin_client_options, options => $range->{'options'} &>
                 range <% $range->{'from'} %> <% $range->{'to'} %>;
+            }
 %	}
         }
 
-%	my $fixedAddresses = $info{'fixed'};
-%	if(@{$fixedAddresses}){
-	group {
-                <& .options, info => \%info, fixed => 1 &>
-%       	foreach my $fixed (@{$fixedAddresses}) {
-		host <% $fixed->{'name'} %> {
-			hardware ethernet <% $fixed->{'mac'} %>;
-			fixed-address <% $fixed->{'ip'} %>;
-		}
-%	        }
-	}
-%	}
+        group {
+           <& .options, info => \%info, fixed => 1 &>
+%	foreach my $groupFixed (values %{$info{'fixed'}}) {
+  	   group {
+                   <& .thin_client_options, options => $groupFixed->{options} &>
+%          foreach my $fixed (@{$groupFixed->{members}}) {
+	  	   host <% $fixed->{'name'} %> {
+		  	  hardware ethernet <% $fixed->{'mac'} %>;
+			  fixed-address <% $fixed->{'ip'} %>;
+                          <& .include, name => $fixed->{'name'} &>
+                          }
+%	   }
+           }
+%       }
+        }
 
 <%doc>
   Print out the route options
@@ -64,12 +71,6 @@
                 max-lease-time <% $info{'maxLeasedTime'} %>;
 % }
 
-% if(defined($info{'nextServer'})) {
-                next-server <% $info{'nextServer'} %>;
-% }
-% if(defined($info{'filename'})) {
-                filename "<% $info{'filename'} %>";
-% }
 % if( defined($info{'dynamicDomain'}) ) {
                 option host-name = config-option server.ddns-hostname;
 %     if ( $fixed ) {
@@ -85,17 +86,64 @@
                     primary 127.0.0.1;
                     key <% $info{'staticDomain'} %>.;
                 }
+%         foreach my $revZone (@{$info{'reverseZones'}}) {
+                zone <% $revZone %>                       {
+                    primary 127.0.0.1;
+                    key <% $info{'dynamicDomain'} %>.;
+                }
+%         }
 %     } else {
 <%doc>
   This ignores the data sent by the DHCP client and always set
   dhcp-leased-IP.domain name
 </%doc>
-                ddns-hostname = concat("dhcp-", binary-to-ascii(10, 8, "-", leased-address));
+                ddns-hostname = pick-first-value( option fqdn.hostname,
+                                                  option host-name,
+                                                  concat("dhcp-", binary-to-ascii(10, 8, "-", leased-address)));
                 ddns-domainname      "<% $info{'dynamicDomain'} %>.";
                 zone <% $info{'dynamicDomain'} %>. {
                     primary 127.0.0.1;
                     key <% $info{'dynamicDomain'} %>.;
                 }               
+%         foreach my $revZone (@{$info{'reverseZones'}}) {
+                zone <% $revZone %> {
+                    primary 127.0.0.1;
+                    key <% $info{'dynamicDomain'} %>.;
+                }
+%         }
 %     }
+% }
+</%def>
+
+<%doc>
+  If there is any file with the given name, then include it in the
+  configuration
+
+  name - String to include
+</%doc>
+<%def .include>
+<%args>
+  $name
+</%args>
+<%init>
+  use EBox::DHCP;
+  my $dirName  = EBox::DHCP->IncludeDir();
+  my $fileName = $dirName . $name; 
+</%init>
+% if ( -r $fileName ) {
+                   include "<% $fileName %>";
+% }
+</%def>
+
+<%doc>
+  Print out the thin client options
+</%doc>
+<%def .thin_client_options>
+<%args>
+  %options
+</%args>
+% if (values(%options) > 0) {
+                   next-server <% $options{nextServer} %>;
+                   filename    "<% $options{filename} %>";
 % }
 </%def>

@@ -7,7 +7,7 @@ Standards-Version: 3.8.2
 
 Package: ebox-dns
 Architecture: all
-Depends: ebox (>= 2.0), ebox (<< 2.0.100), ebox-network, ebox-firewall, bind9, libcrypt-openssl-random-perl, ${misc:Depends}
+Depends: ebox (>= 2.0.11), ebox (<< 2.0.100), ebox-network, ebox-firewall, bind9, libcrypt-openssl-random-perl, ${misc:Depends}
 Description: Zentyal - DNS Service
  Zentyal is a Linux small business server that can act as
  a Gateway, Unified Threat Manager, Office Server, Infrastructure
