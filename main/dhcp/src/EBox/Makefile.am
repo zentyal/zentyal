@@ -3,8 +3,9 @@ SUBDIRS = CGI Composite DHCP Model t rootTests
 
 perldir = @PERLPATH@/EBox
 
-
 nobase_perl_DATA = DHCP.pm DHCPLogHelper.pm
+
+DISTCLEANFILES = DHCP.pm
 
 MAINTAINERCLEANFILES = Makefile.in
 

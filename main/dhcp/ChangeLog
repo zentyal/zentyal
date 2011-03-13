@@ -1,3 +1,6 @@
+HEAD
+	+ Define dhcpd paths using autotools for flexible use with
+	  isc-dhcp-server (>4).
 2.1
 	+ Use new standard enable-module script
 	+ Replace services migration with initialSetup and delete

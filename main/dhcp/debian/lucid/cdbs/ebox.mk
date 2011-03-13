@@ -8,11 +8,13 @@ DEB_CONFIGURE_SCRIPT_ENV += CSSPATH="/usr/share/zentyal/www/css"
 DEB_CONFIGURE_SCRIPT_ENV += IMAGESPATH="/usr/share/zentyal/www/images"
 DEB_CONFIGURE_SCRIPT_ENV += VARPATH="/var"
 DEB_CONFIGURE_SCRIPT_ENV += ETCPATH="/etc/zentyal"
-DEB_CONFIGURE_SCRIPT_ENV += BIND9CONFDIR="/etc/bind" 
-DEB_CONFIGURE_SCRIPT_ENV += BIND9CONF="/etc/bind/named.conf" 
-DEB_CONFIGURE_SCRIPT_ENV += BIND9CONFOPTIONS="/etc/bind/named.conf.options" 
-DEB_CONFIGURE_SCRIPT_ENV += BIND9CONFLOCAL="/etc/bind/named.conf.local" 
-DEB_CONFIGURE_SCRIPT_ENV += BIND9_INIT="/etc/init.d/bind9" 
+
+DEB_CONFIGURE_SCRIPT_ENV += DHCPDCONF="/etc/dhcp3/dhcpd.conf"
+DEB_CONFIGURE_SCRIPT_ENV += DHCPDLEASES="/var/lib/dhcp3/dhcpd.leases"
+DEB_CONFIGURE_SCRIPT_ENV += DHCPDPID="/var/run/dhcp3-server/dhcpd.pid"
+DEB_CONFIGURE_SCRIPT_ENV += DHCPD_SERVICE="ebox.dhcpd3"
+DEB_CONFIGURE_SCRIPT_ENV += DHCPD_INIT="/etc/init.d/dhcp3-server"
+DEB_CONFIGURE_SCRIPT_ENV += DHCPD_INIT_SERVICE="dhcp3-server"
 
 DEB_CONFIGURE_EXTRA_FLAGS := --disable-runtime-tests 
 DEB_MAKE_INVOKE = $(MAKE) $(DEB_MAKE_FLAGS) -C $(DEB_BUILDDIR)
