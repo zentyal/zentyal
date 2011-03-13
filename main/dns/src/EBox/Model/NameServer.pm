@@ -68,18 +68,110 @@ sub validateTypedRow
 {
     my ($self, $action, $changedFields, $allFields) = @_;
 
-    if ( exists $changedFields->{hostName} ) {
-        if ( $changedFields->{hostName}->selectedType() eq 'custom' ) {
-            my $val = $changedFields->{hostName}->value();
-            my @parts = split(/\./, $val);
-            unless ( @parts > 2 ) {
-                throw EBox::Exceptions::External(__x('The given host name '
-                                                     . 'is not a fully qualified domain name (FQDN). '
-                                                     . 'Do you mean ns.{name}?',
-                                                     name => $val));
-            }
+    return unless exists $changedFields->{hostName};
+
+    if ( $changedFields->{hostName}->selectedType() eq 'custom' ) {
+        my $val = $changedFields->{hostName}->value();
+        my @parts = split(/\./, $val);
+        unless ( @parts > 2 ) {
+            throw EBox::Exceptions::External(__x('The given host name '
+                                                 . 'is not a fully qualified domain name (FQDN). '
+                                                 . 'Do you mean ns.{name}?',
+                                                 name => $val));
+        }
+        # Check the given custom nameserver is a CNAME record from the
+        # same zone
+        my $zoneRow = $self->parentRow();
+        my $zone    = $zoneRow->valueByName('domain');
+        my $customZone = join('.', @parts[1 .. $#parts]);
+        if ( $zone eq $customZone ) {
+            # Use ownerDomain to set the nameserver
+            throw EBox::Exceptions::External(__('A custom host name cannot be set '
+                                                . 'from the same domain. Use '
+                                                . '"This domain" option instead'));
         }
     }
+
+    if ($action eq 'update') {
+        # Add toDelete the RRs for this nameserver
+        my $oldRow = $self->row($changedFields->{id});
+        my $zoneRow = $oldRow->parentRow();
+        if ( $zoneRow->valueByName('dynamic') ) {
+            my $zone = $zoneRow->valueByName('domain');
+            my $ns   = $oldRow->printableValueByName('hostName');
+            if ( $ns !~ m:\.:g ) {
+                $ns = "$ns.$zone";
+            }
+            $self->{toDelete} = "$zone NS $ns";
+        }
+    }
+
+}
+
+# Method: updatedRowNotify
+#
+#     Override to add to the list of removed of RRs
+#
+# Overrides:
+#
+#     <EBox::Exceptions::DataTable::updatedRowNotify>
+#
+sub updatedRowNotify
+{
+    my ($self, $newRow, $force) = @_;
+
+    # The field is added in validateTypedRow
+    if ( exists $self->{toDelete} ) {
+        $self->_addToDelete($self->{toDelete});
+        delete $self->{toDelete};
+    }
+}
+
+
+# Method: deletedRowNotify
+#
+# 	Overrides to add to the list of deleted RR in dynamic zones
+#
+# Overrides:
+#
+#      <EBox::Model::DataTable::deletedRowNotify>
+#
+sub deletedRowNotify
+{
+    my ($self, $row) = @_;
+
+    my $zoneRow = $row->parentRow();
+    if ( $zoneRow->valueByName('dynamic') ) {
+        my $zone = $zoneRow->valueByName('domain');
+        my $ns   = $row->printableValueByName('hostName');
+        if ( $ns !~ m:\.:g ) {
+            $ns = "$ns.$zone";
+        }
+        $self->_addToDelete("$zone NS $ns");
+    }
+
+}
+
+# Method: removeRow
+#
+# 	Overrides not to allow delete a row if only one element is left
+#
+# Overrides:
+#
+#      <EBox::Model::DataTable::removeRow>
+#
+sub removeRow
+{
+    my ($self, $id, $force) = @_;
+
+    # Check there is at least a row
+    my $ids = $self->ids();
+    if ( scalar(@{$ids}) == 1 ) {
+        # Last element to remove
+        throw EBox::Exceptions::External(__('Last name server cannot be removed'));
+    }
+
+    return $self->SUPER::removeRow($id, $force);
 
 }
 
@@ -109,6 +201,19 @@ sub precondition
 sub preconditionFailMsg
 {
     return __('The domain is set as read only. You cannot add name servers');
+}
+
+# Method: pageTitle
+#
+# Overrides:
+#
+#     <EBox::Model::Component::pageTitle>
+#
+sub pageTitle
+{
+    my ($self) = @_;
+
+    return $self->parentRow()->printableValueByName('domain');
 }
 
 # Group: Protected methods
@@ -186,13 +291,21 @@ sub _hostnameModel
     return $model;
 }
 
-
-sub pageTitle
+# Add the RR to the deleted list
+sub _addToDelete
 {
-        my ($self) = @_;
+    my ($self, $rr) = @_;
 
-        return $self->parentRow()->printableValueByName('domain');
+    my $mod = $self->{gconfmodule};
+    my $key = $mod->deletedRRsKey();
+    my @list = ();
+    if ( $mod->st_entry_exists($key) ) {
+        @list = @{$mod->st_get_list($key)};
+    }
+
+    push(@list, $rr);
+    $mod->st_set_list($key, 'string', \@list);
+
 }
-
 
 1;

@@ -33,7 +33,7 @@ unless ($firstNS =~ /\.$/ ) {
 }
 </%init>
 $TTL 3D
-@	IN	SOA	<% $firstNS %>	admin.example.com. (
+@	IN	SOA	<% $firstNS %>	hostmaster (
 			<% $date %>	;serial number
 			8H		;refresh
 			2H		;retry

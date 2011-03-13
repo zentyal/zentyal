@@ -109,6 +109,65 @@ sub validateTypedRow
     }
 
     $self->setDirectory($olddir);
+
+    if ( $action eq 'update' ) {
+        my $oldRow = $self->row($changedFields->{id});
+        my $zoneRow = $oldRow->parentRow()->parentRow();
+        if ( $zoneRow->valueByName('dynamic') ) {
+            my $zone = $zoneRow->valueByName('domain');
+            my $alias = $oldRow->valueByName('alias');
+            $self->{toDelete} = "$alias.$zone";
+        }
+    }
+
+}
+
+# Method: updatedRowNotify
+#
+#     Override to add to the list of removed of RRs
+#
+# Overrides:
+#
+#     <EBox::Exceptions::DataTable::updatedRowNotify>
+#
+sub updatedRowNotify
+{
+    my ($self, $newRow, $force) = @_;
+
+    # The field is added in validateTypedRow
+    if ( exists $self->{toDelete} ) {
+        $self->_addToDelete($self->{toDelete});
+        delete $self->{toDelete};
+    }
+}
+
+# Method: deletedRowNotify
+#
+# 	Overrides to add to the list of deleted RR in dynamic zones
+#
+# Overrides:
+#
+#      <EBox::Model::DataTable::deletedRowNotify>
+#
+sub deletedRowNotify
+{
+    my ($self, $row) = @_;
+
+    # Deleted RRs to account
+    my $zoneRow = $row->parentRow()->parentRow();
+    if ( $zoneRow->valueByName('dynamic') ) {
+        my $zone = $zoneRow->valueByName('domain');
+        # Delete all aliases
+        $self->_addToDelete( $row->valueByName('alias') . ".$zone");
+    }
+
+}
+
+sub pageTitle
+{
+        my ($self) = @_;
+
+        return $self->parentRow()->printableValueByName('hostname');
 }
 
 # Group: Protected methods
@@ -151,11 +210,23 @@ sub _table
     return $dataTable;
 }
 
-sub pageTitle
-{
-        my ($self) = @_;
+# Group: Private methods
 
-        return $self->parentRow()->printableValueByName('hostname');
+# Add to the list of deleted RRs
+sub _addToDelete
+{
+    my ($self, $domain) = @_;
+
+    my $mod = $self->{gconfmodule};
+    my $key = $mod->deletedRRsKey();
+    my @list = ();
+    if ( $mod->st_entry_exists($key) ) {
+        @list = @{$mod->st_get_list($key)};
+    }
+
+    push(@list, $domain);
+    $mod->st_set_list($key, 'string', \@list);
+
 }
 
 1;

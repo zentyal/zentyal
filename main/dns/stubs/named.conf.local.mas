@@ -36,6 +36,8 @@ zone "<% $dom->{'name'} %>" {
         update-policy {
           // The only allowed dynamic updates are A records
           grant <% $dom->{'name'} %>. subdomain <% $dom->{'name'} %>. A TXT;
+          // Grant from localhost
+          grant local-ddns zonesub any;
         };
 %                  }
 };
@@ -44,9 +46,21 @@ zone "<% $dom->{'name'} %>" {
 
 %	if(@inaddrs != 0) {
 %		foreach my $inaddr (@inaddrs) {
-zone "<% $inaddr %>.in-addr.arpa" {
+zone "<% $inaddr->{'ip'} %>.in-addr.arpa" {
 	type master;
-	file "/etc/bind/db.<% $inaddr %>";
+%                   if ( $inaddr->{'dynamic'} ) {
+	file "<% $dynamicConfDir %>/db.<% $inaddr->{'ip'} %>";
+        update-policy {
+          // The only allowed dynamic updates are PTR records
+%                       foreach my $keyName (@{$inaddr->{'keyNames'}}) {
+          grant <% $keyName %>. subdomain <% $inaddr->{'ip'} %>.in-addr.arpa. PTR TXT;
+%                       }
+          // Grant from localhost
+          grant local-ddns zonesub any;
+        };
+%                   } else {
+        file "<% $confDir %>/db.<% $inaddr->{'ip'} %>";            
+%                   }
 };
 %		}
 %	}

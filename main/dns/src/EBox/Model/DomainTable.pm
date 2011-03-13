@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2010 eBox Technologies S.L.
+# Copyright (C) 2008-2011 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -127,22 +127,31 @@ sub addDomain
 
 # Method: addedRowNotify
 #
-#     If the domain is dynamic, generate the TSIG key automatically
+#    Override to generate the shared key but it is only used by
+#    dynamic zones
 #
 # Overrides:
 #
-#     <EBox::Model::DataTable::addedRowNotify>
+#    <EBox::Model::DataTable::addedRowNotify>
 #
 sub addedRowNotify
 {
     my ($self, $newRow) = @_;
 
-    if ( $newRow->valueByName('dynamic') ) {
-        # Generate the TSIG key
-        my $secret = $self->_generateSecret();
-        $newRow->elementByName('tsigKey')->setValue($secret);
-        $newRow->store();
+    # Generate the TSIG key
+    my $secret = $self->_generateSecret();
+    $newRow->elementByName('tsigKey')->setValue($secret);
+    $newRow->store();
+
+    # Generate the NS record and its A record
+    my $hostModel = $newRow->subModel('hostnames');
+    my $nsIPAddr  = '127.0.0.1';
+    if (defined($newRow->valueByName('ipaddr'))) {
+        $nsIPAddr = $newRow->valueByName('ipaddr');
     }
+    my $hostNameId = $hostModel->add(hostname => 'ns', ipaddr => $nsIPAddr);
+    my $nsModel   = $newRow->subModel('nameServers');
+    $nsModel->add(hostName => { ownerDomain => 'ns' } );
 
 }
 
