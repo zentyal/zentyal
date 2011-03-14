@@ -1,4 +1,5 @@
 HEAD
+	+ Fixed error in pagination of traffic summarized report
 	+ Removed dovecot antispam plugin support until serious
 	  bug in the dovecot-antispam package from Ubuntu is fixed
 2.0.4

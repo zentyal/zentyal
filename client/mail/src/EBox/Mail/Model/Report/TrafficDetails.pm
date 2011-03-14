@@ -90,8 +90,7 @@ sub _table
             'tableName' =>__PACKAGE__->tableName(),
             'printableTableName' => __('Mail traffic details'),
             'defaultActions' => [ 'changeView', 'editField' ],
-        'defaultController' =>
-         '/ebox/Mail/Controller/MailReport',
+            'defaultController' => '/ebox/Mail/Controller/TrafficDetails',
             'tableDescription' => $tableHead,
             'class' => 'dataTable',
             'order' => 0,
