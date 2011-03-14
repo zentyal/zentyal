@@ -1,4 +1,4 @@
-HEAD
+2.0.4
 	+ Bugfix: dhcp module never fail to save changes when a change
 	  in network interface is done
 	+ Use a select to choose the dynamic domains instead of adding
