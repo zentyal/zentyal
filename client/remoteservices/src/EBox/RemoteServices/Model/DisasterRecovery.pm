@@ -254,6 +254,8 @@ sub _content
                                            time => $self->_format( ($downTime + $instTime)/3600, 2));
                                 $size = __x('{size} MB',
                                             size => $self->_format($size / (1 << 20)));
+                            } else {
+                                $size = __('No backup yet done');
                             }
                             last;
                         } else {
@@ -332,7 +334,7 @@ sub _estimatedBackupSize
 
     my $size = 0;
     my $status = $ebackupMod->remoteStatus();
-    if ( defined($status) ) {
+    if ( defined($status) and (scalar(@{$status}) > 0) ) {
         my $volSize = $self->_volSize();
         my $idx = scalar(@{$status});
         do {
