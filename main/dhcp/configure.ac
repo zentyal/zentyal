@@ -28,6 +28,8 @@ if test "x$enable_runtime_tests" = "xyes" ; then
 	if test "$PERL" = "none" ; then
 		AC_MSG_ERROR(perl not found)
 	fi
+
+	AC_PROG_DHCP
 fi
 
 AC_CONF_EBOX($enable_runtime_tests)

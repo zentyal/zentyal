@@ -1,5 +1,6 @@
 HEAD
 	+ Use EBox::Types::Host to simplify UI in Thin Clients
+	+ Fixed regression with new autotools paths
 2.1.1
 	+ Bugfix: dhcp module never fail to save changes when a change
 	  in network interface is done

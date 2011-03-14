@@ -77,6 +77,7 @@ use constant APPARMOR_SERVICE => '/etc/init.d/apparmor';
 use constant CONF_DIR => EBox::Config::conf() . 'dhcp/';
 use constant PLUGIN_CONF_SUBDIR => 'plugins/';
 use constant TFTPD_CONF_DIR => '/var/lib/tftpboot/';
+use constant INCLUDE_DIR => EBox::Config::etc() . 'dhcp/';
 
 # Group: Public and protected methods
 
@@ -1082,7 +1083,6 @@ sub vifaceAdded # (iface, viface, address, netmask)
                         iface => $rangeModel->index()));
             }
         }
-    }
 
         my @fixedAddrModels = @{$manager->model('/dhcp/FixedAddressTable/*')};
         my @ifaces = map { $_->index() } @fixedAddrModels;
@@ -1502,6 +1502,7 @@ sub _ifacesInfo
           $iflist{$iface}->{'reverseZones'}  = $self->_reverseZones($iface);
       }
     }
+  }
 
     return \%iflist;
 }
