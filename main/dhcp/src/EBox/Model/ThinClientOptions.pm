@@ -46,8 +46,7 @@ use EBox::NetWrappers;
 use EBox::Types::File;
 use EBox::Types::Union;
 use EBox::Types::Union::Text;
-use EBox::Types::HostIP;
-use EBox::Types::DomainName;
+use EBox::Types::Host;
 use EBox::Validate;
 
 # Group: Public methods
@@ -226,14 +225,10 @@ sub _table
                               [new EBox::Types::Union::Text(fieldName     => 'nextServerEBox',
                                                             printableName => 'Zentyal',
                                                            ),
-                               new EBox::Types::HostIP(fieldName     => 'nextServerIP',
-                                                       printableName => __('IP address'),
-                                                       editable      => 1,
-                                                      ),
-                               new EBox::Types::DomainName(fieldName     => 'nextServerName',
-                                                           printableName => __('name'),
-                                                           editable      => 1,
-                                                          ),
+                               new EBox::Types::Host(fieldName     => 'nextServerHost',
+                                                     printableName => __('Host'),
+                                                     editable      => 1,
+                                                    ),
                               ]),
        new EBox::Types::Text(
                              fieldName     => 'remoteFilename',
