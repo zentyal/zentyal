@@ -235,7 +235,7 @@ sub menu
 {
     my ($self, $root) = @_;
 
-    my $folder = new EBox::Menu::Folder(name => 'Subscription_menu',
+    my $folder = new EBox::Menu::Folder(name => 'RemoteServices',
                                         text => __('Subscription'),
                                         separator => 'Core',
                                         order => 105);
