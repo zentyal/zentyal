@@ -78,6 +78,7 @@ use constant APPARMOR_SERVICE => '/etc/init.d/apparmor';
 use constant CONF_DIR => EBox::Config::conf() . 'dhcp/';
 use constant PLUGIN_CONF_SUBDIR => 'plugins/';
 use constant TFTPD_CONF_DIR => '/var/lib/tftpboot/';
+use constant INCLUDE_DIR => EBox::Config::etc() . 'dhcp/';
 
 # Group: Public and protected methods
 
@@ -716,44 +717,44 @@ sub rangeAction # (iface, name, from, to)
 {
 	my ($self, %args) = @_;
 
-        my $iface = delete ($args{iface});
-        my $action = delete ($args{action});
-        unless ( $action eq any(qw(add set del))) {
-            throw EBox::Exceptions::External(__('Not a valid action: add, set and del '
-                                                . 'are available'));
-        }
+    my $iface = delete ($args{iface});
+    my $action = delete ($args{action});
+    unless ( $action eq any(qw(add set del))) {
+        throw EBox::Exceptions::External(__('Not a valid action: add, set and del '
+                    . 'are available'));
+    }
 
-	my $network = EBox::Global->modInstance('network');
+    my $network = EBox::Global->modInstance('network');
 
-	#if iface doesn't exists throw exception
-	if (not $iface or not $network->ifaceExists($iface)) {
-		throw EBox::Exceptions::DataNotFound(data => __('Interface'),
-				value => $iface);
-	}
+    #if iface doesn't exists throw exception
+    if (not $iface or not $network->ifaceExists($iface)) {
+        throw EBox::Exceptions::DataNotFound(data => __('Interface'),
+                value => $iface);
+    }
 
-	#if iface is not static, throw exception
-	if($network->ifaceMethod($iface) ne 'static') {
-		throw EBox::Exceptions::External(__x("{iface} is not static",
-			iface => $iface));
-	}
+    #if iface is not static, throw exception
+    if($network->ifaceMethod($iface) ne 'static') {
+        throw EBox::Exceptions::External(__x("{iface} is not static",
+                    iface => $iface));
+    }
 
-        my $rangeModel = $self->_getModel('rangeModel', $iface);
-        if ( $action eq 'add' ) {
-            $rangeModel->add( name => $args{name},
-                                                         from => $args{from},
-                                                         to   => $args{to});
-        } elsif ( $action eq 'set' ) {
-            my $index = delete ( $args{indexValue} );
-            my $indexField = delete ( $args{indexField} );
-            my @args = map { $_ => $args{$_} } keys (%args);
-            $rangeModel->setIndexField($indexField);
-            $rangeModel->set( $index, @args );
-        } elsif ( $action eq 'del' ) {
-            my $index = delete ( $args{indexValue} );
-            my $indexField = delete ( $args{indexField} );
-            $rangeModel->setIndexField($indexField);
-            $rangeModel->del( $index );
-        }
+    my $rangeModel = $self->_getModel('rangeModel', $iface);
+    if ( $action eq 'add' ) {
+        $rangeModel->add( name => $args{name},
+                from => $args{from},
+                to   => $args{to});
+    } elsif ( $action eq 'set' ) {
+        my $index = delete ( $args{indexValue} );
+        my $indexField = delete ( $args{indexField} );
+        my @args = map { $_ => $args{$_} } keys (%args);
+        $rangeModel->setIndexField($indexField);
+        $rangeModel->set( $index, @args );
+    } elsif ( $action eq 'del' ) {
+        my $index = delete ( $args{indexValue} );
+        my $indexField = delete ( $args{indexField} );
+        $rangeModel->setIndexField($indexField);
+        $rangeModel->del( $index );
+    }
 }
 
 # Method: ranges
