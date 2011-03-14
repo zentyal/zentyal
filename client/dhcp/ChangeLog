@@ -1,6 +1,4 @@
-2.0.3
-	+ Define dhcpd paths using autotools for flexible use with
-	  isc-dhcp-server (>4).
+HEAD
 	+ Bugfix: dhcp module never fail to save changes when a change
 	  in network interface is done
 	+ Use a select to choose the dynamic domains instead of adding
@@ -14,6 +12,9 @@
 	+ Fixed addresses are now managed by network objects
 	+ Dynamic IP address leases now got the hostname from the DHCP
 	  client, if given
+2.0.3
+	+ Define dhcpd paths using autotools for flexible use with
+	  isc-dhcp-server (>4).
 	+ Bugfix: MAC addresses are now parsed correctly in LogHelper
 2.0.2
 	+ DHCP init.d script is disabled when enabling the module
