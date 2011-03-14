@@ -186,11 +186,11 @@ sub _content
 sub _message
 {
     return __sx('Enterprise-level security for your network! The '
-                . '{oha}Advanced Security Updates{ch} guarantees the '
+                . '{oha}Advanced Security Updates{ch} guarantee that the '
                 . 'content filtering lists, IDS threat analysis ruleset, '
                 . 'Antivirus signatures and Antispam detection rules in your '
                 . 'Zentyal servers are verified daily by the most trusted IT '
-                . 'experts. To obtain the updates, your server must have '
+                . 'experts. To obtain these updates, your server must have '
                 . '{ohp}Professional{ch} or '
                 . '{ohe}Enterprise Server Subscription{ch}.',
                 ch => '</a>',

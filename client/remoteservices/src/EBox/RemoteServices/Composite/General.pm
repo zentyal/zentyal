@@ -94,7 +94,7 @@ sub _description
 
 sub _commercialMsg
 {
-    return __sx('Server subscriptions help to keep our Zentyal server secure '
+    return __sx('Server subscriptions help to keep your Zentyal server secure '
                 . 'and up-to-date! Take a look and try out the free '
                 . '{ohb}Basic Server Subscription{ch} - It allows you '
                 . 'to store your configuration backup remotely and sends you '

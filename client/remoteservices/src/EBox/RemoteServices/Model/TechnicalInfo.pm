@@ -132,7 +132,7 @@ sub _table
              ),
           new EBox::Types::Text(
               fieldName     => 'sla',
-              printableName => __('Max Service Level Agreement'),
+              printableName => __('Service Level Agreement'),
              ),
       );
 
@@ -224,7 +224,8 @@ sub _message
                 . '{ohs}Standard{ch} and {ohm}Premium{ch} - with unlimited '
                 . 'number of issues and service delivery times from 1 hour '
                 . 'up to next business day, grant you with vendor-level '
-                . 'support package, your server must have {ohp}Professional{ch} '
+                . 'support. To obtain a support package your server must '
+                . 'have {ohp}Professional{ch} '
                 . 'or {ohe}Enterprise Server Subscription{ch}.',
                 ch => '</a>',
                 ohl => '<a href="' . ESSE_URL . '" target="_blank">',

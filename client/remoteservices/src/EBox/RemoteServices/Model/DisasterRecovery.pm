@@ -169,12 +169,7 @@ sub _table
                     pageTitle          => __('Disaster Recovery'),
                     modelDomain        => 'RemoteServices',
                     tableDescription   => \@tableDesc,
-                    help               =>
-                      __('The estimated time to recover from a '
-                         . 'disaster estimates 45 minutes to install Zentyal '
-                         . 'server and it estimates as upper bound the backup '
-                         . 'size with the average download time obtained from '
-                         . 'last day statistics available in Network report'),
+                    help               => __s('As to the estimated time to recover from a disaster, estimation consists of 45 minutes to install Zentyal server, upper bound of the backup size and average download time obtained from the latest Network report statistics.'),
                 };
 
     return $dataForm;
@@ -320,7 +315,7 @@ sub _DRmessage
                 . 'guarantees that besides the system configuration, your most '
                 . 'critical data is backed up, secured, monitored and recovered '
                 . 'quickly, in trusted repositories and following strict processes. '
-                . 'To access to this service, your server must have '
+                . 'To obtain this service, your server must have '
                 . '{ohp}Professional{ch} or '
                 . '{ohe}Enterprise Server Subscription{ch}.',
                 ch => '</a>',

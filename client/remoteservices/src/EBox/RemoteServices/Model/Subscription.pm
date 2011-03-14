@@ -260,24 +260,25 @@ sub help
     my ($self) = @_;
 
     my $msg = '';
-    if ( not $self->eBoxSubscribed() ) {
-        my $modChanges = $self->_modulesToChange();
-        if (exists $modChanges->{configure}) {
-            $msg .= __x(
-                'Subscribing Zentyal will configure the {mods} and its dependencies ',
-                mods =>  $modChanges->{configure},
-               );
+    if (not $self->eBoxSubscribed()) {
+        $msg = __s('To subscribe your Zentyal Server to Zentyal Cloud, you need to get first one of the Server Subscriptions (Basic, Professional or Enterprise) from the Zentyal On-line Store. Once you have obtained one of these subscriptions, you will be sent a user name and password you can use below to subscribe your server to Zentyal Cloud.');
+        $msg .= '<br/><br/>';
 
-        }
+        #my $modChanges = $self->_modulesToChange();
+        #if (exists $modChanges->{configure}) {
+        #    $msg .= __x(
+        #        'Subscribing Zentyal will configure the {mods} and its dependencies ',
+        #        mods =>  $modChanges->{configure},
+        #       );
+        #}
 
-        if (exists $modChanges->{enable}) {
-            $msg .= __x('Subscribing Zentyal will enable the {mods} and its dependencies.<br/>',
-                        mods => $modChanges->{enable}
-                       );
-        }
+        #if (exists $modChanges->{enable}) {
+        #    $msg .= __x('Subscribing Zentyal will enable the {mods} and its dependencies.<br/>',
+        #                mods => $modChanges->{enable}
+        #              );
+        #}
 
-        $msg .= __('Take into account that subscribing Zentyal could take a '
-                     . 'minute. Do not touch anything until subscribing process is done.');
+        $msg .= __('Take into account that subscribing your Zentyal server to the Zentyal Cloud can take a while. Please do not touch anything until the subscription process is correctly finished.');
     }
 
     return $msg;
@@ -594,8 +595,8 @@ sub _commercialMsg
     return __sx('For full, enterprise-level services, obtain '
                 . '{openhrefp}Professional{closehref} or '
                 . '{openhrefe}Enterprise Server Subscription{closehref} - '
-                . 'These ones offer Quality Assured software updates, Alerts, '
-                . 'Reports and centralised monitoring and management of your '
+                . 'These offer Quality Assured software updates, Alerts, '
+                . 'Reports and Centralised monitoring and management of your '
                 . 'Zentyal servers!',
                 openhrefp  => '<a href="' . PROF_URL . '" target="_blank">',
                 openhrefe => '<a href="' . ENTER_URL . '" target="_blank">',
