@@ -1,4 +1,5 @@
 HEAD
+	+ Allow all kind of network addresses on exposed networks
 	+ Added localAddr and lport properties for internal VPN clients
 	+ Bugfix: now you can edit no-certificate VPN client parameters without
 	  resubmitting certificates
