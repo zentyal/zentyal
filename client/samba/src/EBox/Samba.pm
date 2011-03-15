@@ -259,7 +259,7 @@ sub shares
     my $shares = $self->model('SambaShares');
     my @shares;
 
-    for my $id (@{$shares->ids()}) {
+    for my $id (@{$shares->enabledRows()}) {
         my $row = $shares->row($id);
         my @readOnly;
         my @readWrite;

@@ -1,4 +1,5 @@
 HEAD
+	+ Bugfix: disabled shares are correctly ignored now
 	+ Bugfix: fixed bad column name in report consolidation
 2.0.9
 	+ Fix regression that caused incompatibility between samba and mail modules
