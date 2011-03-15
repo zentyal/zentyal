@@ -30,7 +30,7 @@ use EBox::Validate qw(:all);
 use EBox::Exceptions::External;
 use EBox::Exceptions::DataExists;
 
-use EBox::Types::IPNetwork;
+use EBox::Types::IPAddr;
 
 # Group: Public methods
 
@@ -55,7 +55,7 @@ sub _table
 {
     my @tableHead =
         (
-          new EBox::Types::IPNetwork(
+          new EBox::Types::IPAddr(
                                      fieldName => 'network',
                                      printableName => __('Advertised network'),
                                      unique => 1,
