@@ -5,7 +5,7 @@ SUBDIRS = sql
 moduledir   = @DATADIR@/zentyal/modules
 module_DATA = samba.yaml
 
-pkgdata_DATA = ebox.ldif samba.ldif quota.ldif
+pkgdata_DATA = ebox.ldif samba.ldif
 
 EXTRA_DIST = $(module_DATA) $(pkgdata_DATA)
 

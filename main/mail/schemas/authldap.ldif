@@ -4,7 +4,7 @@ cn: authldap
 olcAttributeTypes: ( 1.3.6.1.4.1.10018.1.1.1 NAME 'mailbox' DESC 'The absol
  ute path to the mailbox for a mail account in a non-default location' EQUALIT
  Y caseExactIA5Match SYNTAX 1.3.6.1.4.1.1466.115.121.1.26 SINGLE-VALUE )
-olcAttributeTypes: ( 1.3.6.1.4.1.10018.1.1.2 NAME 'quota' DESC 'A string th
+olcAttributeTypes: ( 1.3.6.1.4.1.10018.1.1.2 NAME 'mailquota' DESC 'A string th
  at represents the quota on a mailbox' EQUALITY caseExactIA5Match SYNTAX 1.3.6
  .1.4.1.1466.115.121.1.26 SINGLE-VALUE )
 olcAttributeTypes: ( 1.3.6.1.4.1.10018.1.1.3 NAME 'clearPassword' DESC 'A s
@@ -28,7 +28,7 @@ olcAttributeTypes: ( 1.3.6.1.4.1.10018.1.1.8 NAME 'defaultdelivery' DESC 'D
 olcObjectClasses: ( 1.3.6.1.4.1.10018.1.2.1 NAME 'CourierMailAccount' DESC 
  'Mail account object as used by the Courier mail server' SUP top AUXILIARY MU
  ST ( mail $ homeDirectory $ uidNumber $ gidNumber ) MAY ( mailbox $ uid $ cn 
- $ gecos $ description $ loginShell $ quota $ userPassword $ clearPassword $ d
+ $ gecos $ description $ loginShell $ mailquota $ userPassword $ clearPassword $ d
  efaultdelivery ) )
 olcObjectClasses: ( 1.3.6.1.4.1.10018.1.2.2 NAME 'CourierMailAlias' DESC 'M
  ail aliasing/forwarding entry' SUP top AUXILIARY MUST ( mail $ maildrop ) MAY

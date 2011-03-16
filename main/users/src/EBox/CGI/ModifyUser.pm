@@ -26,27 +26,27 @@ use EBox::Gettext;
 use EBox::Exceptions::External;
 
 sub new {
-	my $class = shift;
-	my $self = $class->SUPER::new('title' => 'Users and Groups',
-				      @_);
+    my $class = shift;
+    my $self = $class->SUPER::new('title' => 'Users and Groups', @_);
 
-	$self->{errorchain} = "UsersAndGroups/Users";
-	bless($self, $class);
-	return $self;
+    $self->{errorchain} = "UsersAndGroups/Users";
+    bless($self, $class);
+    return $self;
 }
 
 sub _process($) {
-	my $self = shift;
+    my $self = shift;
 
-	$self->_requireParam('username', __('user name'));
-	my $user = $self->param('username');
-	$self->{errorchain} = "UsersAndGroups/User";
-	$self->keepParam('username');
+    $self->_requireParam('username', __('user name'));
+    my $user = $self->param('username');
+    $self->{errorchain} = "UsersAndGroups/User";
+    $self->keepParam('username');
 
-	$self->_requireParam('surname', __('last name'));
-	$self->_requireParamAllowEmpty('comment', __('comment'));
-	$self->_requireParamAllowEmpty('password', __('password'));
-	$self->_requireParamAllowEmpty('repassword', __('confirm password'));
+    $self->_requireParam('surname', __('last name'));
+    $self->_requireParamAllowEmpty('comment', __('comment'));
+    $self->_requireParamAllowEmpty('password', __('password'));
+    $self->_requireParamAllowEmpty('repassword', __('confirm password'));
+    $self->_requireParamAllowEmpty('quota', __('quota'));
 
     my $givenName = $self->param('name');
     my $surname = $self->param('surname');
@@ -58,31 +58,30 @@ sub _process($) {
         $fullname = $surname;
     }
 
-	my $userdata   = {
-				'username' => $user,
-				'givenname' => $givenName,
-				'surname' => $surname,
-                'fullname' => $fullname,
-				'comment'  => $self->param('comment')
-			 };
+    my $userdata   = {
+        'username' => $user,
+        'givenname' => $givenName,
+        'surname' => $surname,
+        'fullname' => $fullname,
+        'comment' => $self->param('comment'),
+        'quota' => $self->param('quota'),
+    };
 
-	# Change password if not empty
-	my $password = $self->unsafeParam('password');
-	if ($password) {
-		my $repassword = $self->unsafeParam('repassword');
-		if ($password ne $repassword){
-			 throw EBox::Exceptions::External(
-					__('Passwords do not match.'));
-		}
-		$userdata->{'password'} = $password;
-	}
+    # Change password if not empty
+    my $password = $self->unsafeParam('password');
+    if ($password) {
+        my $repassword = $self->unsafeParam('repassword');
+        if ($password ne $repassword){
+            throw EBox::Exceptions::External(
+                    __('Passwords do not match.'));
+        }
+        $userdata->{'password'} = $password;
+    }
 
-	my $usersandgroups = EBox::Global->modInstance('users');
-	$usersandgroups->modifyUser($userdata);
+    my $usersandgroups = EBox::Global->modInstance('users');
+    $usersandgroups->modifyUser($userdata);
 
-	$self->{redirect} = "UsersAndGroups/User?username=$user";
-
-
+    $self->{redirect} = "UsersAndGroups/User?username=$user";
 }
 
 

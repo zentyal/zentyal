@@ -67,6 +67,16 @@ use EBox::Gettext;
                 </td>
             </tr>
             <tr>
+                <td class='tright'>
+                    <span class='ftitle'>
+                        <% __('User quota') %>:
+                    </span>
+                </td>
+                <td>
+                    <input type='text' class='inputText' name='quota' value="<% $user->{'quota'} %>">
+                </td>
+            </tr>
+            <tr>
                 <td>
                 </td>
                 <td>

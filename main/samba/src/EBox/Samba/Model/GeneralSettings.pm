@@ -125,24 +125,6 @@ sub _table
             'defaultValue' => 'Zentyal File Server',
             'editable' => 1,
         ),
-        new EBox::Types::Union(
-            'fieldName' => 'userquota',
-            'printableName' => __('Quota limit'),
-            'subtypes' => [
-                new EBox::Types::Int(
-                    'fieldName' => 'userquota_size',
-                    'printableName' => __('Limited to'),
-                    'defaultValue' => 100,
-                    'trailingText' => __('Mb'),
-                    'size' => 7,
-                    'editable' => 1,
-                ),
-                new EBox::Types::Union::Text(
-                    'fieldName' => 'userquota_disabled',
-                    'printableName' => __('Disabled'),
-                ),
-            ],
-        ),
         new EBox::Types::Boolean(
             'fieldName' => 'roaming',
             'printableName' => __('Enable roaming profiles'),

@@ -2,7 +2,8 @@
 perldir = @PERLPATH@/EBox/UsersAndGroups/Model
 
 nobase_perl_DATA = Mode.pm Password.pm Users.pm Groups.pm Slaves.pm \
-	PendingSync.pm ForceSync.pm ADSyncSettings.pm LdapInfo.pm PAM.pm
+	PendingSync.pm ForceSync.pm ADSyncSettings.pm LdapInfo.pm PAM.pm \
+    AccountSettings.pm
 
 DISTCLEANFILES =
 

@@ -66,9 +66,7 @@ use constant NETLOGONDIR          => '/home/samba/netlogon';
 use constant NETLOGONSCRIPT       => 'logon.bat';
 use constant NETLOGONDEFAULTSCRIPT=> 'zentyal-logon.bat';
 
-
 use constant FIX_SID_PROGRAM => EBox::Config::scripts('samba') . 'fix-sid';
-use constant QUOTA_PROGRAM => EBox::Config::scripts('samba') . 'samba-quota';
 
 sub _create
 {
@@ -155,11 +153,6 @@ sub usedFiles
         'file' => SMBLDAPTOOLBINDFILE,
         'reason' => __('To set up smbldap-tools according to your LDAP' .
             ' configuration.'),
-        'module' => 'samba'
-    },
-    {
-        'file' => '/etc/fstab',
-        'reason' => __('To add quota support to /home partition.'),
         'module' => 'samba'
     },
     {
@@ -1002,21 +995,6 @@ sub workgroup
     return $model->workgroupValue();
 }
 
-#returns userQuota name
-sub defaultUserQuota
-{
-    my ($self) = @_;
-
-    my $model = $self->model('GeneralSettings');
-
-    my $value = $model->userquotaValue();
-    if ($value eq 'userquota_disabled') {
-        $value = 0;
-    }
-
-    return $value;
-}
-
 #returns drive letter
 sub drive
 {
@@ -1372,11 +1350,6 @@ sub _sambaPrinterConf
     }
 
     return \@printers;
-}
-
-sub enableQuota
-{
-    return (EBox::Config::configkey('enable_quota') eq 'yes');
 }
 
 sub dumpConfig

@@ -9,3 +9,6 @@ chown -R openldap:openldap /etc/ldap/ssl
 chmod 700 /var/lib/zentyal/conf/ssl
 
 cp /usr/share/zentyal-users/slapd.default /etc/default/slapd
+
+# FIXME: Enable quotas where users module was already enabled
+# FIXME: Add systemQuotas class to existing users

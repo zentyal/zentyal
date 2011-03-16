@@ -3,3 +3,11 @@
 # copy ldap.secret
 cp /var/lib/zentyal/conf/ebox-ldap.passwd /etc/ldap.secret
 chmod 600 /etc/ldap.secret
+
+# enable quotas
+/usr/share/zentyal-users/enable-quotas
+
+# This might fail if the fs does not support quotas
+invoke-rc.d quota restart
+
+exit 0

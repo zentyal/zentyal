@@ -73,7 +73,7 @@ use constant SSL_DIR        => EBox::Config::conf() . 'ssl/';
 use constant CERT           => SSL_DIR . 'master.cert';
 use constant AUTHCONFIGTMPL => '/etc/auth-client-config/profile.d/acc-ebox';
 use constant LOCK_FILE      => EBox::Config::tmp() . 'ebox-users-lock';
-
+use constant QUOTA_PROGRAM  => EBox::Config::scripts('users') . 'user-quota';
 
 sub _create
 {
@@ -161,17 +161,22 @@ sub usedFiles
     my $mode = mode();
 
     push(@files,
-            {
-             'file' => '/etc/nsswitch.conf',
-             'reason' => __('To make NSS use LDAP resolution for user and group '.
-                 'accounts. Needed for Samba PDC configuration.'),
-             'module' => 'samba'
-            },
-            {
-             'file' => LIBNSSLDAPFILE,
-             'reason' => __('To let NSS know how to access LDAP accounts.'),
-             'module' => 'samba'
-            },
+        {
+            'file' => '/etc/nsswitch.conf',
+            'reason' => __('To make NSS use LDAP resolution for user and '.
+                'group accounts. Needed for Samba PDC configuration.'),
+            'module' => 'users'
+        },
+        {
+            'file' => LIBNSSLDAPFILE,
+            'reason' => __('To let NSS know how to access LDAP accounts.'),
+            'module' => 'users'
+        },
+        {
+            'file' => '/etc/fstab',
+            'reason' => __('To add quota support to /home partition.'),
+            'module' => 'users'
+        },
     );
 
     if ($mode ne 'slave') {
@@ -484,6 +489,7 @@ sub modelClasses
         'EBox::UsersAndGroups::Model::LdapInfo',
         'EBox::UsersAndGroups::Model::PAM',
         'EBox::UsersAndGroups::Model::ADSyncSettings',
+        'EBox::UsersAndGroups::Model::AccountSettings',
     ];
 }
 
@@ -812,7 +818,9 @@ sub initUser
 {
     my ($self, $user, $password) = @_;
 
-    my $home = $self->userInfo($user)->{'homeDirectory'};
+    my $userInfo = $self->userInfo($user);
+
+    my $home = $userInfo->{'homeDirectory'};
     if ($home and ($home ne '/dev/null') and (not -e $home)) {
         my @cmds;
 
@@ -828,6 +836,12 @@ sub initUser
         push(@cmds, "chmod $perms $qhome");
 
         EBox::Sudo::root(@cmds);
+    }
+
+    my $uid = $userInfo->{'uid'};
+    my $quota = $userInfo->{'quota'};
+    if (defined $quota) {
+        $self->_setFilesystemQuota($uid, $quota);
     }
 
     # Tell modules depending on users and groups
@@ -925,8 +939,8 @@ sub addUser # (user, system)
 
     if (length($user->{'user'}) > MAXUSERLENGTH) {
         throw EBox::Exceptions::External(
-                                         __x("Username must not be longer than {maxuserlength} characters",
-                           maxuserlength => MAXUSERLENGTH));
+            __x("Username must not be longer than {maxuserlength} characters",
+                maxuserlength => MAXUSERLENGTH));
     }
 
     my @userPwAttrs = getpwnam($user->{'user'});
@@ -936,8 +950,7 @@ sub addUser # (user, system)
         );
     }
     unless (_checkName($user->{'user'})) {
-        throw EBox::Exceptions::InvalidData(
-                                            'data' => __('user name'),
+        throw EBox::Exceptions::InvalidData('data' => __('user name'),
                                             'value' => $user->{'user'});
     }
 
@@ -999,7 +1012,13 @@ sub addUser # (user, system)
         'gidNumber'     => $gid,
         'homeDirectory' => _homeDirectory($user->{'user'}),
         'userPassword'  => $passwd,
-        'objectclass'   => ['inetOrgPerson', 'posixAccount', 'passwordHolder'],
+        'quota'         => $self->defaultQuota(),
+        'objectclass'   => [
+            'inetOrgPerson',
+            'posixAccount',
+            'passwordHolder',
+            'systemQuotas',
+        ],
         @additionalPasswords
     );
 
@@ -1115,6 +1134,34 @@ sub _modifyUserPwd
     $self->ldap->modify($dn, \%attrs);
 }
 
+sub _checkQuota
+{
+    my ($quota) = @_;
+
+    ($quota =~ /\D/) and return undef;
+    return 1;
+}
+
+sub _setFilesystemQuota
+{
+    my ($self, $uid, $userQuota) = @_;
+    my $quota = $userQuota * 1024;
+    EBox::Sudo::root(QUOTA_PROGRAM . " -s $uid $quota");
+}
+
+sub _modifyUserQuota
+{
+    my ($self, $user) = @_;
+
+    my $username = $user->{'username'};
+    my $dn = $self->userDn($username);
+    my $quota = $user->{'quota'};
+    my $userInfo = $self->userInfo($username);
+
+    $self->_changeAttribute($dn, 'quota', $quota);
+    $self->_setFilesystemQuota($userInfo->{'uid'}, $quota);
+}
+
 sub updateUser
 {
     my ($self, $user, $password) = @_;
@@ -1180,13 +1227,18 @@ sub modifyUserLocal # (\%user)
 {
     my ($self, $user) = @_;
 
-    my $uid = $user->{'username'};
-    my $dn = $self->userDn($uid);
+    my $username = $user->{'username'};
+    my $dn = $self->userDn($username);
 
     # Verify user exists
     unless ($self->userExists($user->{'username'})) {
         throw EBox::Exceptions::DataNotFound('data'  => __('user name'),
-                                             'value' => $uid);
+                                             'value' => $username);
+    }
+
+    unless (_checkQuota($user->{'quota'})) {
+        throw EBox::Exceptions::InvalidData('data' => __('user quota'),
+                                            'value' => $user->{'quota'});
     }
 
     foreach my $field (keys %{$user}) {
@@ -1199,12 +1251,13 @@ sub modifyUserLocal # (\%user)
             $self->_changeAttribute($dn, 'sn', $user->{'surname'});
         } elsif ($field eq 'fullname') {
             $self->_changeAttribute($dn, 'cn', $user->{'fullname'});
+        } elsif ($field eq 'quota') {
+            $self->_modifyUserQuota($user, $user->{'quota'});
         } elsif ($field eq 'password') {
-            my $pass = $user->{'password'};
-            $self->_modifyUserPwd($user->{'username'}, $pass);
+            $self->_modifyUserPwd($user->{'username'}, $user->{'password'});
         }
     }
-    $self->updateUser($uid, $user->{'password'});
+    $self->updateUser($username, $user->{'password'});
 }
 
 # Clean user stuff when deleting a user
@@ -1314,6 +1367,7 @@ sub userInfo # (user, entry)
                     homeDirectory => $entry->get_value('homeDirectory'),
                     uid => $entry->get_value('uidNumber'),
                     group => $entry->get_value('gidNumber'),
+                    quota => $entry->get_value('quota'),
                     extra_passwords => {}
                    };
 
@@ -2703,10 +2757,30 @@ sub minGid
     return MINGID;
 }
 
-
 sub defaultGroup
 {
     return DEFAULTGROUP;
+}
+
+sub defaultQuota
+{
+    my ($self) = @_;
+
+    my $model = $self->model('AccountSettings');
+
+    my $value = $model->defaultQuotaValue();
+    if ($value eq 'defaultQuota_disabled') {
+        # FIXME: probably we need to differenciate between unlimited (0) and
+        # unset
+        $value = 0;
+    }
+
+    return $value;
+}
+
+sub enableQuota
+{
+    return (EBox::Config::configkey('enable_quota') ne 'no');
 }
 
 # Method: authUser

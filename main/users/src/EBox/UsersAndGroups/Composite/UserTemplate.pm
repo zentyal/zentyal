@@ -29,15 +29,13 @@ use EBox::Global;
 
 # Constructor: new
 #
-#         Constructor for the default user template 
+#         Constructor for the default user template
 #
 sub new
 {
-      my ($class) = @_;
-
-      my $self = $class->SUPER::new();
-
-      return $self;
+    my ($class) = @_;
+    my $self = $class->SUPER::new();
+    return $self;
 }
 
 # Group: Protected methods
@@ -50,35 +48,25 @@ sub new
 #
 sub _description
 {
-      my $users = EBox::Global->modInstance('users');
+    my $users = EBox::Global->modInstance('users');
 
-      my $description =
-        {
-         components      => [ _userModels() ],
-         layout          => 'top-bottom',
-         name            => 'UserTemplate',
-         compositeDomain => 'Users',
-         help =>
-             __('These configuration options are used when a new user account is created.')
+    my $description = {
+        components      => [ _userModels() ],
+        layout          => 'top-bottom',
+        name            => 'UserTemplate',
+        compositeDomain => 'Users',
+        help => __('These configuration options are used when a new user ' .
+            'account is created.')
         };
 
-      return $description;
-}
-
-sub precondition
-{
-    return (scalar(_userModels()) > 0);
-}
-
-sub preconditionFailMsg
-{
-    return __("There isn't any configurable option.");
+    return $description;
 }
 
 sub _userModels
 {
-      my $users = EBox::Global->modInstance('users');
-      return @{$users->defaultUserModels()};
+    my $users = EBox::Global->modInstance('users');
+    my @models = ('AccountSettings', @{$users->defaultUserModels()});
+    return @models;
 }
 
 sub pageTitle

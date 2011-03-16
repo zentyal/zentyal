@@ -102,7 +102,7 @@ sub setUserAccount
                                      mail            => $email,
                                      mailbox => $rhs.'/'.$lhs.'/',
                                      userMaildirSize    => 0,
-                                     quota           => $quota,
+                                     mailquota => $quota,
                                      mailHomeDirectory => DIRVMAIL
                                     ]
                             ]
@@ -158,7 +158,7 @@ sub delUserAccount   #username, mail
     # Now we remove all mail atributes from user ldap leaf
     my @mailAttrs = grep {
                     $self->existsUserLdapValue($username, $_)
-                } qw(mail mailbox userMaildirSize quota mailHomeDirectory
+                } qw(mail mailbox userMaildirSize mailquota mailHomeDirectory
                      fetchmailAccount);
 
     my @toDelete = map {
@@ -715,7 +715,7 @@ sub maildir
 sub maildirQuota
 {
     my ($self, $user) = @_;
-    return $self->getUserLdapValue($user, 'quota');
+    return $self->getUserLdapValue($user, 'mailquota');
 }
 
 
@@ -770,7 +770,7 @@ sub setMaildirQuotaUsesDefault
         # sync quota with default
         my $mail = EBox::Global->modInstance('mail');
         my $defaultQuota = $mail->defaultMailboxQuota();
-        $self->setUserLdapValue($user, 'quota', $defaultQuota);
+        $self->setUserLdapValue($user, 'mailquota', $defaultQuota);
     }
     $self->setUserZarafaQuotaDefault($user, $isDefault);
 }
@@ -805,7 +805,7 @@ sub setMaildirQuota
            )
     }
 
-    $self->setUserLdapValue($user, 'quota', $quota);
+    $self->setUserLdapValue($user, 'mailquota', $quota);
     $self->setUserZarafaQuota($user, $quota);
 }
 
@@ -930,7 +930,7 @@ sub uidvmail
 sub localAttributes
 {
     my @attrs = qw(
-            mailbox quota clearPassword
+            mailbox mailquota clearPassword
             maildrop mailsource virtualdomain
             virtualdomainuser defaultdelivery
             description
