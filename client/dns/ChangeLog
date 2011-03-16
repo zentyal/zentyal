@@ -1,4 +1,4 @@
-HEAD
+2.0.4
 	+ Add migration script to generate a TSIG keys for all zones
 2.0.3
 	+ Set as hostmaster@domain the email address to report problems
