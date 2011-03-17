@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2010 eBox Technologies S.L.
+# Copyright (C) 2008-2011 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -556,21 +556,15 @@ sub optionsFromForeignModel
         throw EBox::Exceptions::MissingArgument("field's name")
     }
 
-    my $cache = $self->{'optionsCache'};
-    if ($self->_isOptionsCacheDirty($field)) {
-        my @options;
-        for my $id (@{$self->ids()}) {
-            my $row = $self->row($id);
-            push (@options, {
-                    'value' => $id,
-                    'printableValue' => $row->printableValueByName($field)
-                    });
-        }
-        $cache->{$field}->{'values'} = \@options;
-        $cache->{$field}->{'cachedVersion'} = $self->_storedVersion();
+    my @options;
+    for my $id (@{$self->ids()}) {
+        my $row = $self->row($id);
+        push (@options, {
+            'value'          => $id,
+            'printableValue' => $row->printableValueByName($field)
+           });
     }
-
-    return $cache->{$field}->{'values'};
+    return \@options;
 }
 
 
@@ -3742,26 +3736,6 @@ sub _paramsWithSetterJS
     $paramsArray .= ']';
 
     return $paramsArray;
-}
-
-# Method: _isOptionsCacheDirty
-#
-#    Check if the options cache is dirty. In case of being empty
-#    we return empty too
-#
-sub _isOptionsCacheDirty
-{
-    my ($self, $field) = @_;
-
-    unless (defined($field)) {
-        throw EBox::Exceptions::MissingArgument("field's name")
-    }
-
-    return 1 unless (exists $self->{'optionsCache'}->{$field});
-
-    my $cachedVersion =
-        $self->{'optionsCache'}->{$field}->{'cachedVersion'};
-    return ($cachedVersion ne $self->_storedVersion());
 }
 
 ######################################
