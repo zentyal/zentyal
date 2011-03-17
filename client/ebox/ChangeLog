@@ -1,4 +1,5 @@
 HEAD
+	+ Avoid warnings trying to encode undefined utf8 strings in Redis.pm
 	+ Set title with server name if the server is subscribed
 	+ Fix title HTML tag in views for Models and Composites
 	+ Added lastEventsReport to be queried by remoteservices module

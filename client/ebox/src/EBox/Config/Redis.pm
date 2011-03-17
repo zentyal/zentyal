@@ -536,10 +536,10 @@ sub _redis_call
             eval {
                 if ($wantarray) {
                     @response = $self->{redis}->$command(@args);
-                    map { utf8::encode($_) } @response;
+                    map { utf8::encode($_) if defined ($_) } @response;
                 } else {
                     $response = $self->{redis}->$command(@args);
-                    utf8::encode($response);
+                    utf8::encode($response) if defined ($response);
                 }
                 $failure = 0;
             };
