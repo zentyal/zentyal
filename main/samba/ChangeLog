@@ -1,4 +1,4 @@
-HEAD
+2.1.1
 	+ Quotas are now included in users module
 	+ Bugfix: disabled shares are correctly ignored now
 	+ Bugfix: fixed bad column name in report consolidation

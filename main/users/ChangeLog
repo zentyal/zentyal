@@ -1,4 +1,4 @@
-HEAD
+2.1.1
 	+ Quotas are now included in users module
 	+ System users don't require password
 	+ Fixed bug that allowed to create LDAP users whith the same name

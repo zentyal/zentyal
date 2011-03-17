@@ -1,4 +1,4 @@
-HEAD
+2.1.1
 	+ Quota attribute renamed in LDAP to allow to have a generic quota
 	  attribute in users
 	+ Fixed error in pagination of traffic summarized report
