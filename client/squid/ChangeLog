@@ -1,3 +1,5 @@
+HEAD
+	+ Zentyal squid daemon uses a different pidfile now
 2.0.5
 	+ Fixed bug that could delete the default profile file list
 2.0.4

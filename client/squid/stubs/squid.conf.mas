@@ -112,6 +112,7 @@ cache_effective_group proxy
 cache_mem <% $memory %> MB
 maximum_object_size <% $max_object_size %> MB
 access_log /var/log/squid/access.log squid
+pid_filename /var/run/squid-zentyal.pid
 
 cache_dir ufs /var/spool/squid <% $cacheDirSize %> 16 256
 
