@@ -1,7 +1,10 @@
 <%args>
+  $server_bind
   $hostname
   $mysql_user
   $mysql_password
+  $attachment_storage
+  $attachment_path
   $quota_warn
   $quota_soft
   $quota_hard
@@ -13,7 +16,7 @@
 # IP Address to bind to (0.0.0.0 for ANY)
 # Set to 127.0.0.1 if connections should only come from localhost
 # and through the webserver proxy
-server_bind		= 127.0.0.1
+server_bind		= <% $server_bind %>
 
 # Accept normal TCP connections (not recommended to disable)
 server_tcp_enabled	= yes
@@ -98,10 +101,10 @@ mysql_password		= <% $mysql_password %>
 mysql_database		= zarafa
 
 # Where to place attachments. Value can be 'database' or 'files'
-attachment_storage	= database
+attachment_storage	= <% $attachment_storage %>
 
 # When attachment_storage is 'files', use this path to store the files
-attachment_path		= /var/lib/zarafa
+attachment_path		= <% $attachment_path %>
 
 # Compression level for attachments when attachment_storage is 'files'.
 # Set compression level for attachments disabled=0, max=9

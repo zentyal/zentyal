@@ -1,3 +1,10 @@
+HEAD
+	+ Bugfix: create contact even if create account is disabled on User
+	  Template
+	+ Only show groups with mail alias on Zarafa GAL
+	+ Add support to manage ICAL server
+	+ Add configuration file 80zarafa.conf for advanced configuration
+	+ Deleted webserver from depends
 2.0.3
 	+ Add support to show disabled accounts as contacts
 	+ Add script to purge orphaned stores

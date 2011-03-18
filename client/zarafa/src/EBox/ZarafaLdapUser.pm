@@ -245,6 +245,9 @@ sub _addUser
    }
    my $model = EBox::Model::ModelManager::instance()->model('zarafa/ZarafaUser');
    $self->setHasAccount($user, $model->enabledValue());
+   # call setHasContact here again because setHasAccount is called only if we
+   # are going to create the account by default
+   $self->setHasContact($user, $model->contactValue());
 }
 
 sub hasContact #($username)

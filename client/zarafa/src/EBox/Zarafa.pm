@@ -24,6 +24,7 @@ use base qw(EBox::Module::Service EBox::Model::ModelProvider
 
 use EBox::Global;
 use EBox::Gettext;
+use EBox::Config;
 use EBox::ZarafaLdapUser;
 use EBox::Exceptions::DataExists;
 use EBox::WebServer;
@@ -138,12 +139,13 @@ sub usedFiles
             'reason' => __('To properly configure Zarafa indexing server.')
         },
     ];
+    # XXX This will never show at enable, remove it?
     my $vhost = $self->model('GeneralSettings')->vHostValue();
     my $destFile = EBox::WebServer::SITES_AVAILABLE_DIR . 'user-' .
                    EBox::WebServer::VHOST_PREFIX. $vhost .'/ebox-zarafa';
     if ($vhost ne 'disabled') {
         push(@{$files}, { 'file' => $destFile, 'module' => 'zarafa',
-                          'reason' => "To configure Zarafa on $vhost virtual host."});
+                          'reason' => "To configure Zarafa on $vhost virtual host." });
     }
     return $files;
 }
@@ -206,11 +208,6 @@ sub _daemons
             'pidfiles' => ['/var/run/zarafa-server.pid']
         },
         {
-            'name' => 'zarafa-gateway',
-            'type' => 'init.d',
-            'pidfiles' => ['/var/run/zarafa-gateway.pid']
-        },
-        {
             'name' => 'zarafa-monitor',
             'type' => 'init.d',
             'pidfiles' => ['/var/run/zarafa-monitor.pid']
@@ -221,21 +218,72 @@ sub _daemons
             'pidfiles' => ['/var/run/zarafa-spooler.pid']
         },
         {
-            'name' => 'zarafa-ical',
-            'type' => 'init.d',
-            'pidfiles' => ['/var/run/zarafa-ical.pid']
-        },
-        {
             'name' => 'zarafa-indexer',
             'type' => 'init.d',
-            'pidfiles' => ['/var/run/zarafa-indexer.pid']
+            'pidfiles' => ['/var/run/zarafa-indexer.pid'],
+            'precondition' => \&indexerEnabled
+        },
+        {
+            'name' => 'zarafa-gateway',
+            'type' => 'init.d',
+            'pidfiles' => ['/var/run/zarafa-gateway.pid'],
+            'precondition' => \&gatewayEnabled
+        },
+        {
+            'name' => 'zarafa-ical',
+            'type' => 'init.d',
+            'pidfiles' => ['/var/run/zarafa-ical.pid'],
+            'precondition' => \&icalEnabled
         },
     ];
 }
 
+# Method: gatewayEnabled
+#
+#       Returns true if any of the gateways are enabled
+#
+sub gatewayEnabled
+{
+    my ($self) = @_;
+
+    my $gatewaysMod = $self->model('Gateways');
+
+    return ($gatewaysMod->pop3Value() or
+            $gatewaysMod->pop3sValue() or
+            $gatewaysMod->imapValue() or
+            $gatewaysMod->imapsValue());
+}
+
+# Method: icalEnabled
+#
+#       Returns true if ical or icals are enabled
+#
+sub icalEnabled
+{
+    my ($self) = @_;
+
+    my $gatewaysMod = $self->model('Gateways');
+
+    return ($gatewaysMod->icalValue() or
+            $gatewaysMod->icalsValue());
+}
+
+# Method: indexerEnabled
+#
+#       Returns true if indexer is enabled
+#
+sub indexerEnabled
+{
+    my ($self) = @_;
+
+    my $zarafa_indexer = EBox::Config::configkey('zarafa_indexer');
+
+    return $zarafa_indexer;
+}
+
 # Method: _setConf
 #
-#       Overrides base method. It writes the jabber service configuration
+#       Overrides base method. It writes the Zarafa service configuration
 #
 sub _setConf
 {
@@ -259,13 +307,20 @@ sub _setConf
                  \@array, { 'uid' => '0', 'gid' => '0', mode => '644' });
 
     @array = ();
+    my $server_bind = EBox::Config::configkey('zarafa_server_bind');
+    my $attachment_storage = EBox::Config::configkey('zarafa_attachment_storage');
+    my $attachment_path = EBox::Config::configkey('zarafa_attachment_path');
+    my $zarafa_indexer = EBox::Config::configkey('zarafa_indexer');
+    push(@array, 'server_bind' => $server_bind);
     push(@array, 'hostname' => $self->_hostname());
     push(@array, 'mysql_user' => 'zarafa');
     push(@array, 'mysql_password' => $self->_getPassword());
+    push(@array, 'attachment_storage' => $attachment_storage);
+    push(@array, 'attachment_path' => $attachment_path);
     push(@array, 'quota_warn' => $self->model('Quota')->warnQuota());
     push(@array, 'quota_soft' => $self->model('Quota')->softQuota());
     push(@array, 'quota_hard' => $self->model('Quota')->hardQuota());
-    push(@array, 'indexer' => 'no');
+    push(@array, 'indexer' => $zarafa_indexer);
     $self->writeConfFile(ZARAFACONFFILE,
                  "zarafa/server.cfg.mas",
                  \@array, { 'uid' => '0', 'gid' => '0', mode => '644' });
@@ -285,11 +340,15 @@ sub _setConf
                  \@array, { 'uid' => '0', 'gid' => '0', mode => '644' });
 
     @array = ();
+    my $always_send_delegates = EBox::Config::configkey('zarafa_always_send_delegates');
+    push(@array, 'always_send_delegates' => $always_send_delegates);
     $self->writeConfFile(ZARAFASPOOLERCONFFILE,
                  "zarafa/spooler.cfg.mas",
                  \@array, { 'uid' => '0', 'gid' => '0', mode => '644' });
 
     @array = ();
+    push(@array, 'ical' => $self->model('Gateways')->icalValue() ? 'yes' : 'no');
+    push(@array, 'icals' => $self->model('Gateways')->icalValue() ? 'yes' : 'no');
     push(@array, 'timezone' => $self->_timezone());
     $self->writeConfFile(ZARAFAICALCONFFILE,
                  "zarafa/ical.cfg.mas",

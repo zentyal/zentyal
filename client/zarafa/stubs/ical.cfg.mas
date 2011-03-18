@@ -1,4 +1,6 @@
 <%args>
+    $ical
+    $icals
     $timezone
 </%args>
 ##############################################################
@@ -20,13 +22,13 @@ running_path = /
 server_bind = 0.0.0.0
 
 # wether normal connections can be made to the ical server
-ical_enable = no
+ical_enable = <% $ical %>
 
 # port which the ical server listens on for normal connections
 ical_port = 8080
 
 # wether ssl connections can be made to the ical server
-icals_enable = no
+icals_enable = <% $icals %>
 
 # port which the ical server listens on for ssl connections
 icals_port = 8443
@@ -56,10 +58,10 @@ log_timestamp = 1
 # ICAL SSL SETTINGS FOR INCOMING CONNECTIONS
 
 # File with RSA key for SSL
-ssl_private_key_file = /etc/zarafa/ical/privkey.pem
+ssl_private_key_file = /etc/zarafa/ssl/ssl.pem
 
 # File with certificate for SSL
-ssl_certificate_file = /etc/zarafa/ical/cert.pem
+ssl_certificate_file = /etc/zarafa/ssl/ssl.pem
 
 # Verify client certificate
 ssl_verify_client = no

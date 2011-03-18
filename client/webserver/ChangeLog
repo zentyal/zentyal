@@ -1,4 +1,6 @@
 HEAD
+	+ Restart webserver after all modules which have it as enabledepends
+	  in order to make effective their changes in web configuration
 	+ Bugfix: validations of virtual host values are correct now
 	+ Added GLOBAL_CONF_DIR constant for apache conf.d dir
 	+ Change configuration override policy to allow all for /var/www

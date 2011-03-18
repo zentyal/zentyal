@@ -1,4 +1,8 @@
 HEAD
+	+ Added zentyal-mail-addressbook that generates a listing of all
+	  mail users
+	+ Added support for eboxmailrelated attribute so groups have a mail
+	  attribute useful for other modules like Zarafa
 	+ Fixed error in pagination of traffic summarized report
 	+ Removed dovecot antispam plugin support until serious
 	  bug in the dovecot-antispam package from Ubuntu is fixed

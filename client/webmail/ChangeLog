@@ -1,4 +1,8 @@
 HEAD
+	+ Make mail and webserver enabledepends instead of depends
+	+ Bugfix: not fail when saving changes without IMAP or IMAPS but the
+	  module is disabled
+	+ Don't write web configuration files if the module is disabled
 	+ Changed to alias setup instead of symlink
 1.5.2
 	+ Zentyal rebrand

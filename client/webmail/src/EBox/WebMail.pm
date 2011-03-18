@@ -172,8 +172,8 @@ sub _confFromMail
                  imapServer => 'ssl://127.0.0.1',
                  imapPort => 993,
                 );
-    } else {
-        throw EBox::Exceptions::External(__('Neither IMAP nor IMAPS service enabled.'));
+    } elsif ($self->isEnabled) {
+            throw EBox::Exceptions::External(__('Neither IMAP nor IMAPS service enabled.'));
     }
 
     push @conf, (
@@ -445,6 +445,8 @@ sub _setWebServerConf
     my $globalPattern = EBox::WebServer::GLOBAL_CONF_DIR . 'ebox-webmail';
     push(@cmd, 'rm -f ' . "$globalPattern");
     EBox::Sudo::root(@cmd);
+
+    return unless $self->isEnabled();
 
     my $vhost = $self->model('Options')->vHostValue();
 

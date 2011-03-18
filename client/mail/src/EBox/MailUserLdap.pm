@@ -100,10 +100,10 @@ sub setUserAccount
                                      objectClass => 'couriermailaccount',
                                      objectClass => 'usereboxmail',
                                      objectClass => 'fetchmailUser',
-                                     mail            => $email,
-                                     mailbox => $rhs.'/'.$lhs.'/',
-                                     userMaildirSize    => 0,
-                                     quota           => $quota,
+                                     mail        => $email,
+                                     mailbox     => $rhs.'/'.$lhs.'/',
+                                     userMaildirSize => 0,
+                                     quota       => $quota,
                                      mailHomeDirectory => DIRVMAIL
                                     ]
                             ]
@@ -170,7 +170,7 @@ sub delUserAccount   #username, mail
     } @mailAttrs;
 
     push @toDelete, (
-                    objectClass     => 'couriermailaccount',
+                    objectClass => 'couriermailaccount',
                     objectClass => 'usereboxmail',
                     objectClass => 'fetchmailUser',
                     );
@@ -994,7 +994,7 @@ sub schemas
              EBox::Config::share() . '/ebox-mail/authldap.ldif',
              EBox::Config::share() . '/ebox-mail/eboxmail.ldif',
              EBox::Config::share() . '/ebox-mail/eboxfetchmail.ldif',
-
+             EBox::Config::share() . '/ebox-mail/eboxmailrelated.ldif',
            ];
 }
 

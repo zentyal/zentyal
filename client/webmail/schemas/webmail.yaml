@@ -1,4 +1,4 @@
 class: 'EBox::WebMail'
-depends:
-    - webserver
+enabledepends:
     - mail
+    - webserver
