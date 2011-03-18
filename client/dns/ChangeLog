@@ -1,4 +1,4 @@
-HEAD
+2.0.5
 	+ Use a special type for Hostname in NameServer and MailExchanger
 	  models to avoid problems with Select cache
 2.0.4
