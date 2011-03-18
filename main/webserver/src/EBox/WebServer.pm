@@ -39,6 +39,7 @@ use EBox::WebServer::Composite::General;
 use EBox::WebServer::Model::GeneralSettings;
 use EBox::WebServer::Model::VHostTable;
 use EBox::WebServer::PlatformPath;
+use Perl6::Junction qw(any);
 
 use Error qw(:try);
 
@@ -176,6 +177,33 @@ sub initialSetup
         $settings->set(port      => $port,
                        enableDir => EBox::WebServer::Model::GeneralSettings::DefaultEnableDir());
     }
+}
+
+# Method: depends
+#
+#     WebServer depends on modules that have webserver in enabledepends
+#
+# Overrides:
+#
+#     <EBox::Module::Base::depends>
+#
+sub depends
+{
+    my ($self) = @_;
+
+    my $dependsList = $self->SUPER::depends();
+
+    my $global = EBox::Global->getInstance(1);
+    foreach my $mod (@{ $global->modInstancesOfType('EBox::Module::Service') }) {
+        next if ($self eq $mod);
+        my $deps = $mod->enableModDepends();
+        next unless $deps;
+        if ($self->name() eq any(@$deps)) {
+            push(@{$dependsList}, $mod->name());
+        }
+    }
+
+    return $dependsList;
 }
 
 # Method: menu

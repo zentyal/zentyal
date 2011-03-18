@@ -50,7 +50,7 @@ sub _process($) {
 
         $self->keepParam('group');
 
-        $mail->{malias}->delAlias($alias);
+        $mail->{malias}->delGroupAlias($alias, $group);
 }
 
 1;

@@ -99,10 +99,10 @@ sub setUserAccount
                                      objectClass => 'couriermailaccount',
                                      objectClass => 'usereboxmail',
                                      objectClass => 'fetchmailUser',
-                                     mail            => $email,
-                                     mailbox => $rhs.'/'.$lhs.'/',
-                                     userMaildirSize    => 0,
-                                     mailquota => $quota,
+                                     mail        => $email,
+                                     mailbox     => $rhs.'/'.$lhs.'/',
+                                     userMaildirSize => 0,
+                                     mailquota       => $quota,
                                      mailHomeDirectory => DIRVMAIL
                                     ]
                             ]
@@ -167,7 +167,7 @@ sub delUserAccount   #username, mail
     } @mailAttrs;
 
     push @toDelete, (
-                    objectClass     => 'couriermailaccount',
+                    objectClass => 'couriermailaccount',
                     objectClass => 'usereboxmail',
                     objectClass => 'fetchmailUser',
                     );
@@ -950,6 +950,7 @@ sub schemas
              EBox::Config::share() . '/zentyal-mail/authldap.ldif',
              EBox::Config::share() . '/zentyal-mail/eboxmail.ldif',
              EBox::Config::share() . '/zentyal-mail/eboxfetchmail.ldif',
+             EBox::Config::share() . '/zentyal-mail/eboxmailrelated.ldif',
            ];
 }
 

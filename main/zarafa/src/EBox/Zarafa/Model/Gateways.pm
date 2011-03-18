@@ -170,7 +170,18 @@ sub _table
                                 editable      => 1,
                                 defaultValue  => 0,
                                ),
-       # FIXME add ical gateway too
+       new EBox::Types::Boolean(
+                                fieldName     => 'ical',
+                                printableName => __('Enable iCAL gateway'),
+                                editable      => 1,
+                                defaultValue  => 0,
+                               ),
+       new EBox::Types::Boolean(
+                                fieldName     => 'icals',
+                                printableName => __('Enable iCAL SSL gateway'),
+                                editable      => 1,
+                                defaultValue  => 0,
+                               ),
        # FIXME update firewall based on this
       );
 

@@ -1,4 +1,5 @@
 <%args>
+    $always_send_delegates
 </%args>
 ##############################################################
 # SPOOLER SETTINGS
@@ -74,7 +75,7 @@ fax_international = 00
 # Set this value to 'yes' to let the spooler always send emails with
 # delegates (other user than yourself in the From: header)
 # In installations before 6.20, this value was always 'yes'
-always_send_delegates = no
+always_send_delegates = <% $always_send_delegates %>
 
 # Set this value to 'no' if you do NOT want to allow redirected e-mails
 # being sent with their original 'FROM' header

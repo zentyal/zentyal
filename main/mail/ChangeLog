@@ -1,3 +1,8 @@
+HEAD
+	+ Added zentyal-mail-addressbook that generates a listing of all
+	  mail users
+	+ Added support for eboxmailrelated attribute so groups have a mail
+	  attribute useful for other modules like Zarafa
 2.1.1
 	+ Quota attribute renamed in LDAP to allow to have a generic quota
 	  attribute in users

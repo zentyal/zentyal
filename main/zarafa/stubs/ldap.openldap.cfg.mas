@@ -203,7 +203,7 @@ ldap_user_certificate_attribute = userCertificate
 #   (objectCategory=Group)
 # For LDAP with posix groups, use:
 #   no need to set the search filter
-ldap_group_search_filter = 
+ldap_group_search_filter = (objectclass=mailboxRelatedObject)
 
 # unique group id for find the group
 # Required
