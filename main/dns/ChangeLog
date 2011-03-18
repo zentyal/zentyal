@@ -1,3 +1,6 @@
+HEAD
+	+ Use public API to get the Hostname model in NameServer and
+	  MailExchanger models
 2.1.1
 	+ Set as hostmaster@domain the email address to report problems
 	  and responsible for that domain
