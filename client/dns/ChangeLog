@@ -1,3 +1,6 @@
+HEAD
+	+ Use a special type for Hostname in NameServer and MailExchanger
+	  models to avoid problems with Select cache
 2.0.4
 	+ Add migration script to generate a TSIG keys for all zones
 2.0.3

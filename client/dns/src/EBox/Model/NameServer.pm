@@ -1,4 +1,4 @@
-# Copyright (C) 2009-2010 eBox Technologies S.L.
+# Copyright (C) 2009-2011 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -28,11 +28,11 @@ use base 'EBox::Model::DataTable';
 use strict;
 use warnings;
 
+use EBox::DNS::Types::Hostname;
 use EBox::Global;
 use EBox::Gettext;
 
 use EBox::Types::DomainName;
-use EBox::Types::Select;
 use EBox::Types::Union;
 
 # Group: Public methods
@@ -239,10 +239,9 @@ sub _table
                                                      . 'it should be a Fully Qualified Domain Name'),
                                  subtypes      =>
                                  [
-                                  new EBox::Types::Select(
+                                  new EBox::DNS::Types::Hostname(
                                           fieldName     => 'ownerDomain',
                                           printableName => __('This domain'),
-                                          foreignModel  => \&_hostnameModel,
                                           foreignField  => 'hostname',
                                           editable      => 1,
                                           unique        => 1,
@@ -276,20 +275,6 @@ sub _table
 }
 
 # Group: Private methods
-
-# Get the hostname model from DNS module
-sub _hostnameModel
-{
-    my ($type) = @_;
-
-    # FIXME: Change the directory
-    my $model = EBox::Global->modInstance('dns')->model('HostnameTable');
-    my $dir = $type->model()->directory();
-    # Substitute mailExchangers name for hostnames to set the correct directory in hostname table
-    $dir =~ s:nameServers:hostnames:g;
-    $model->setDirectory($dir);
-    return $model;
-}
 
 # Add the RR to the deleted list
 sub _addToDelete

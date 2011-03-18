@@ -61,6 +61,7 @@ src/EBox/Makefile
 src/EBox/DNS.pm
 src/EBox/Model/Makefile
 src/EBox/t/Makefile
+src/EBox/Types/Makefile
 src/EBox/View/Makefile
 src/templates/Makefile
 schemas/Makefile

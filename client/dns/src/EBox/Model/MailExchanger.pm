@@ -35,9 +35,9 @@ use EBox::Validate qw(:all);
 use EBox::Exceptions::External;
 use EBox::Exceptions::DataExists;
 
+use EBox::DNS::Types::Hostname;
 use EBox::Types::DomainName;
 use EBox::Types::Int;
-use EBox::Types::Select;
 use EBox::Types::Union;
 
 use EBox::Model::ModelManager;
@@ -167,10 +167,9 @@ sub _table
                                                      . 'it should be a Fully Qualified Domain Name'),
                                  subtypes      =>
                                  [
-                                  new EBox::Types::Select(
+                                  new EBox::DNS::Types::Hostname(
                                           fieldName     => 'ownerDomain',
                                           printableName => __('This domain'),
-                                          foreignModel  => \&_hostnameModel,
                                           foreignField  => 'hostname',
                                           editable      => 1,
                                           unique        => 1,
@@ -223,24 +222,5 @@ sub pageTitle
 
         return $self->parentRow()->printableValueByName('domain');
 }
-
-# Group: Private methods
-
-# Get the hostname model from DNS module
-sub _hostnameModel
-{
-    my ($type) = @_;
-
-    # FIXME: Change the directory
-    my $model = EBox::Global->modInstance('dns')->model('HostnameTable');
-    my $dir = $type->model()->directory();
-    # Substitute mailExchangers name for hostnames to set the correct directory in hostname table
-    $dir =~ s:mailExchangers:hostnames:g;
-    $model->setDirectory($dir);
-    return $model;
-}
-
-
-
 
 1;
