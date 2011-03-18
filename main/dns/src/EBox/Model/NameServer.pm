@@ -1,4 +1,4 @@
-# Copyright (C) 2009-2010 eBox Technologies S.L.
+# Copyright (C) 2009-2011 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -282,13 +282,9 @@ sub _hostnameModel
 {
     my ($type) = @_;
 
-    # FIXME: Change the directory
-    my $model = EBox::Global->modInstance('dns')->model('HostnameTable');
-    my $dir = $type->model()->directory();
-    # Substitute mailExchangers name for hostnames to set the correct directory in hostname table
-    $dir =~ s:nameServers:hostnames:g;
-    $model->setDirectory($dir);
-    return $model;
+    my $parentRow = $type->model()->parentRow();
+    return $parentRow->subModel('hostnames');
+
 }
 
 # Add the RR to the deleted list

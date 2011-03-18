@@ -231,13 +231,9 @@ sub _hostnameModel
 {
     my ($type) = @_;
 
-    # FIXME: Change the directory
-    my $model = EBox::Global->modInstance('dns')->model('HostnameTable');
-    my $dir = $type->model()->directory();
-    # Substitute mailExchangers name for hostnames to set the correct directory in hostname table
-    $dir =~ s:mailExchangers:hostnames:g;
-    $model->setDirectory($dir);
-    return $model;
+    my $parentRow = $type->model()->parentRow();
+    return $parentRow->subModel('hostnames');
+
 }
 
 
