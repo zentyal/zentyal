@@ -1,4 +1,5 @@
 HEAD
+	+ Objects of select type are compared also by context
 	+ Remove cache from optionsFromForeignModel since it produces
 	  problems and it is useless
 	+ Set title with server name if the server is subscribed

@@ -87,7 +87,6 @@ sub new
     bless($self, $class);
 
     return $self;
-
 }
 
 # Method: priority
@@ -113,7 +112,6 @@ sub priority
     }
 
     return \@options;
-
 }
 
 # Method: notifyForeignModelAction
@@ -158,11 +156,9 @@ sub notifyForeignModelAction
 #
 sub index
 {
-
     my ($self) = @_;
 
     return $self->{interface};
-
 }
 
 # Method: printableIndex
@@ -173,7 +169,6 @@ sub index
 #
 sub printableIndex
 {
-
     my ($self) = @_;
 
     my $netMod = EBox::Global->modInstance('network');
@@ -184,7 +179,6 @@ sub printableIndex
         return __x('{iface} (external interface)',
                 iface => $netMod->etherIface($self->{interface}));
     }
-
 }
 
 
@@ -204,7 +198,7 @@ sub printableIndex
 #
 sub validateTypedRow
 {
-    my ($self, $action, $params) = @_;
+    my ($self, $action, $changedParams, $params) = @_;
 
     if ( defined ( $params->{guaranteed_rate} )) {
         $self->_checkRate( $params->{guaranteed_rate},
@@ -232,16 +226,6 @@ sub validateTypedRow
         }
     }
 
-    if ( $action eq 'update' ) {
-        # Fill those parameters which haven't been changed
-        my $oldRow = $self->row($params->{id});
-        foreach my $paramName (keys %{$oldRow->hashElements()}) {
-            unless ( defined ( $params->{$paramName})) {
-                $params->{$paramName} = $oldRow->elementByName($paramName);
-            }
-        }
-    }
-
     my $service = $params->{service}->subtype();
     if ($service->fieldName() eq 'port') {
         my $servMod = EBox::Global->modInstance('services');
@@ -256,6 +240,7 @@ sub validateTypedRow
 
         }
     }
+
     # Transform objects (Select type) to object identifier to satisfy
     # checkRule API
     my %targets;
@@ -395,6 +380,7 @@ sub _table
                     foreignModel    => \&_serviceModel,
                     foreignField    => 'name',
                     editable        => 1,
+                    cmpContext      => 'port',
                     ),
                 _l7Types(),
                ],
@@ -689,6 +675,7 @@ sub _l7Types
                     foreignModel    => \&_l7Protocol,
                     foreignField    => 'protocol',
                     editable        => 1,
+                    cmpContext      => 'protocol',
                     ),
                 new EBox::Types::Select(
                     fieldName       => 'service_l7Group',
@@ -697,6 +684,7 @@ sub _l7Types
                     foreignModel    => \&_l7Group,
                     foreignField    => 'group',
                     editable        => 1,
+                    cmpContext      => 'group',
                     ));
     } else {
         return (
@@ -706,6 +694,7 @@ sub _l7Types
                     options	    => [],
                     editable        => 1,
                     disabled	    => 1,
+                    cmpContext      => 'protocol',
                     ),
                 new EBox::Types::Select(
                     fieldName       => 'service_l7Group',
@@ -713,6 +702,7 @@ sub _l7Types
                     options	    => [],
                     editable        => 1,
                     disabled	    => 1,
+                    cmpContext      => 'group',
                     ));
     }
 }

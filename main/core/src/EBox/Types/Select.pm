@@ -47,6 +47,10 @@ sub new
     unless (exists $opts{'disableCache'}) {
         $opts{'disableCache'} = 0;
     }
+    unless (exists $opts{'compareContext'}) {
+        $opts{'compareContext'} = 'default';
+    }
+
     $opts{'type'} = 'select';
     my $self = $class->SUPER::new(%opts);
 
@@ -256,8 +260,16 @@ sub cmp
         return undef;
     }
 
-    return ($self->printableValue() cmp $other->printableValue());
+    my $cmpContext = 0;
+    if (defined $other->{cmpContext}) {
+        $cmpContext = $self->{cmpContext} cmp $other->{cmpContext};
+    }
 
+    if ($cmpContext == 0) {
+        return ($self->printableValue() cmp $other->printableValue());
+    } else {
+        return $cmpContext;
+    }
 }
 
 # Method: isValueSet
