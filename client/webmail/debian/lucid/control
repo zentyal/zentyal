@@ -7,7 +7,7 @@ Standards-Version: 3.8.2
 
 Package: ebox-webmail
 Architecture: all
-Depends: ebox (>= 2.0), ebox (<< 2.0.100), roundcube, roundcube-pgsql, ebox-usersandgroups, ebox-webserver, ebox-mail
+Depends: ebox (>= 2.0), ebox (<< 2.0.100), roundcube, roundcube-pgsql, ebox-usersandgroups, ebox-webserver (>= 2.0.4), ebox-mail (>= 2.0.5)
 Description: Zentyal - Web Mail Service
  Zentyal is a Linux small business server that can act as
  a Gateway, Unified Threat Manager, Office Server, Infrastructure

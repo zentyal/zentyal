@@ -1,4 +1,4 @@
-HEAD
+2.0.4
 	+ Restart webserver after all modules which have it as enabledepends
 	  in order to make effective their changes in web configuration
 	+ Bugfix: validations of virtual host values are correct now

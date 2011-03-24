@@ -1,4 +1,4 @@
-HEAD
+2.0.1
 	+ Make mail and webserver enabledepends instead of depends
 	+ Bugfix: not fail when saving changes without IMAP or IMAPS but the
 	  module is disabled
