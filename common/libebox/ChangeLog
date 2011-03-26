@@ -2,6 +2,7 @@ HEAD
 	+ Added getFreePort method to EBox::NetWrappers
 	+ Moved partitionsFileSystems method to EBox::FileSystem, added
 	  parameter to include file systems in /media
+	+ Remote device file systems appear now in partitionsFileSystems
 2.0.8
 	+ Added Greek language
 2.0.7

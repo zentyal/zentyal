@@ -23,7 +23,6 @@ our @EXPORT_OK = qw(makePrivateDir cleanDir isSubdir dirDiskUsage dirFileSystem)
 use Params::Validate;
 use EBox::Validate;
 use EBox::Gettext;
-use File::Slurp;
 
 use constant FSTAB_PATH => '/etc/fstab';
 use constant MTAB_PATH => '/etc/mtab';
@@ -253,10 +252,13 @@ sub partitionsFileSystems
     my %fileSys = %{ fileSystems() };
 
     foreach my $fs (keys %fileSys) {
-        # remove not-device filesystems
+        # remove non-device filesystems
         if (not $fs =~ m{^/dev/}) {
-            delete $fileSys{$fs};
-            next;
+            # exclude remote mount filesystems
+            unless ($fs =~ m{^.+:.+$}) {
+                delete $fileSys{$fs};
+                next;
+            }
         }
 
         if (not $includeRemovable) {
