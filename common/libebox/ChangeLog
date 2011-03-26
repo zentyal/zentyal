@@ -1,4 +1,4 @@
-HEAD
+2.0.9
 	+ Added getFreePort method to EBox::NetWrappers
 	+ Moved partitionsFileSystems method to EBox::FileSystem, added
 	  parameter to include file systems in /media
