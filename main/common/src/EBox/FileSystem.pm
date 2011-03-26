@@ -232,6 +232,49 @@ sub fileSystems
   return _fileSystems(MTAB_PATH);
 }
 
+#  Function: partitionsFileSystems
+#
+#   return the file system data for mounted disk partitions
+#
+# Parameters:
+#  includeRemovables - include removable FS (now detected as FS under /media)
+#
+# Returns:
+#      a hash reference with the file system as key and a hash with his
+#      properties as value.
+#      The properties are: mountPoint, type, options, dump and pass
+#      The properties have the same format that the fields in the fstab file
+#
+sub partitionsFileSystems
+{
+    my ($includeRemovable) = @_;
+
+    my %fileSys = %{  fileSystems() };
+
+    foreach my $fs (keys %fileSys) {
+        # remove non-device filesystems
+        if (not $fs =~ m{^/dev/}) {
+            # exclude remote mount filesystems
+            unless ($fs =~ m{^.+:.+$}) {
+                delete $fileSys{$fs};
+                next;
+            }
+        }
+
+        if (not $includeRemovable) {
+            # remove removable media files
+            my $mpoint = $fileSys{$fs}->{mountPoint};
+            if ($mpoint =~ m{^/media/}) {
+                delete $fileSys{$fs};
+                next;
+            }
+        }
+    }
+
+    return \%fileSys;
+}
+
+
 # Group: Private procedures
 
 sub _fileSystems

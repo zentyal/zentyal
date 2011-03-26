@@ -1,6 +1,9 @@
 HEAD
 	+ Added Thai language
 	+ Added getFreePort method to EBox::NetWrappers
+	+ Moved partitionsFileSystems method to EBox::FileSystem, added
+	  parameter to include file systems in /media
+	+ Remote device file systems appear now in partitionsFileSystems
 2.1
 	+ New EBox::Config::modules() for /usr/share/zentyal/modules
 	+ New EBox::Config::scripts() to replace EBox::Config::libexec
