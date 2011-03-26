@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: subscription 1.5\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2010-12-21 19:24+0100\n"
+"POT-Creation-Date: 2011-03-26 20:05+0100\n"
 "PO-Revision-Date: 2010-08-19 15:48+0200\n"
 "Last-Translator: Enrique J. Hernández <ejhernandez@ebox-platform.com>\n"
 "Language-Team: none\n"
@@ -113,27 +113,146 @@ msgstr ""
 "o Empresarial, puedes comprar el crédito VozIP que necesites. Todos estos "
 "servicios están disponibles en nuestra {ohref}tienda virtual{chref}!"
 
-#: ../remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:588
+#: ../remoteservices/src/EBox/RemoteServices.pm:1576
+#, perl-brace-format
+msgid "Not subscribed - {oh}Subscribe now!{ch}"
+msgstr "No suscrito - {oh}Suscríbase ahora!{ch}"
+
+#: ../remoteservices/src/EBox/RemoteServices.pm:1579
+#, perl-brace-format
+msgid "None - {oh}Get Free Basic Subscription!{ch}"
+msgstr "Ninguna - {oh}Obtén Suscripción Básica Gratis{ch}"
+
+#: ../remoteservices/src/EBox/RemoteServices.pm:1582
+#, perl-brace-format
+msgid "Disabled - {oh}Enable Configuration Backup{ch}"
+msgstr "Deshabilitado - {oh}Habilitar Backup de configuración{ch}"
+
+#: ../remoteservices/src/EBox/RemoteServices.pm:1594
+msgid "Advanced Security Updates"
+msgstr "Actualizaciones de Seguridad Avanzadas"
+
+#: ../remoteservices/src/EBox/RemoteServices.pm:1596
+msgid "Disaster Recovery"
+msgstr "Recuperación de Desastres"
+
+#: ../remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:183
+#, perl-brace-format
+msgid "{oh}On-line Support Platform{ch}"
+msgstr "{oh}Plataforma de Soporte On-line{ch}"
+
+#: ../remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:186
+#, perl-brace-format
+msgid "{os}{oh}On-line Support Platform{ch}, IRC, Phone upon request{cs}"
+msgstr ""
+"{os}{oh}Plataforma de Soporte On-line{ch}, IRC y Teléfono bajo petición{cs}"
+
+#: ../remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:192
+#, perl-brace-format
+msgid "{os}{oh}On-line Support Platform{ch}, IRC, Phone{cs}"
+msgstr "{os}{oh}Plataforma de Soporte On-line{ch}, IRC, Teléfono{cs}"
+
+#: ../remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:201
+msgid "Next Business Day"
+msgstr "Siguiente Día Laborable"
+
+#: ../remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:202
+msgid "4 hours"
+msgstr "4 horas"
+
+#: ../remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:203
+msgid "1 hour"
+msgstr "1 hora"
+
+#: ../remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:222
 #, perl-brace-format
 msgid ""
-"Zentyal Cloud services integrate Quality Assured software updates, alerts "
-"and centralized monitoring and administration of your Zentyal servers. You "
-"gain full access to these services by obtaining a {openhrefp}Professional"
-"{closehref} or {openhrefe}Enterprise Server Subscription{closehref}. You can "
-"also have a look to these services by getting the {openhrefb}Basic Server "
-"Subscription{closehref}, that also allows you to store your configuration "
-"backup remotely, receive alerts regarding the connectivity of your Zentyal "
-"server, available updates or failed automatic backup."
+"Get your support directly from the Zentyal Support Team! Three yearly "
+"support packages - {ohl}Essential{ch}, {ohs}Standard{ch} and {ohm}Premium"
+"{ch} - with unlimited number of issues and service delivery times from 1 "
+"hour up to next business day, grant you with vendor-level support. To obtain "
+"a support package your server must have {ohp}Professional{ch} or {ohe}"
+"Enterprise Server Subscription{ch}."
 msgstr ""
-"Los servicios de Zentyal Cloud integran actualizaciones de software con "
-"garantía de calidad, alertas, así como permiten la monitorización y "
-"actualización de sus servidores Zentyal. Puede obtener acceso completo a "
-"estos servicios adquiriendo una {openhrefp}Suscripción Profesional"
-"{closehref} o {openhrefe}Suscripción Empresarial{closehref}. Asimismo, puede "
-"ver estos servicios en funcionamiento obteniendo la {openhrefb}Suscripción "
-"Básica{closehref} que también permite almacenar su backup de configuración "
-"en remoto, recibir alertas sobre la conectividad de sus servidores Zentyal, "
-"actualizaciones disponibles o backup automático fallido. "
+
+#: ../remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:142
+#, perl-brace-format
+msgid "<span>None - {ohb}Get Free Basic Subscription{ch}</span>"
+msgstr "<span>Ninguna - {ohb}Obtén la suscripción Basic gratis{ch}</span>"
+
+#: ../remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:172
+msgid ""
+"As to the estimated time to recover from a disaster, estimation consists of "
+"45 minutes to install Zentyal server, upper bound of the backup size and "
+"average download time obtained from the latest Network report statistics."
+msgstr ""
+
+#: ../remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:304
+#, perl-brace-format
+msgid ""
+"The {ohd}Disaster Recovery{ch} service ensures the availability of your "
+"business critical data! Take a look and try out the free {ohb}Basic "
+"Subscription{ch} which allows you to store your configuration backup "
+"remotely."
+msgstr ""
+
+#: ../remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:316
+#, perl-brace-format
+msgid ""
+"The full, enterprise-level {ohd}Disaster Recovery{ch} service guarantees "
+"that besides the system configuration, your most critical data is backed up, "
+"secured, monitored and recovered quickly, in trusted repositories and "
+"following strict processes. To obtain this service, your server must have "
+"{ohp}Professional{ch} or {ohe}Enterprise Server Subscription{ch}."
+msgstr ""
+
+#: ../remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:264
+msgid ""
+"To subscribe your Zentyal Server to Zentyal Cloud, you need to get first one "
+"of the Server Subscriptions (Basic, Professional or Enterprise) from the "
+"Zentyal On-line Store. Once you have obtained one of these subscriptions, "
+"you will be sent a user name and password you can use below to subscribe "
+"your server to Zentyal Cloud."
+msgstr ""
+
+#: ../remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:595
+#, perl-brace-format
+msgid ""
+"For full, enterprise-level services, obtain {openhrefp}Professional"
+"{closehref} or {openhrefe}Enterprise Server Subscription{closehref} - These "
+"offer Quality Assured software updates, Alerts, Reports and Centralised "
+"monitoring and management of your Zentyal servers!"
+msgstr ""
+"Para servicios completos de nivel empresarial, obtén una suscripción "
+"{openhrefp}Profesional{closehref} o {openhrefe}Empresarial{closehref}. Estas "
+"ofrecen actualizaciones con Aseguramiento de la Calidad, Alertas, Informes y"
+"monitorización y gestión centralizada de tus servidores Zentyal"
+
+#: ../remoteservices/src/EBox/RemoteServices/Model/AdvancedSecurityUpdates.pm:188
+#, perl-brace-format
+msgid ""
+"Enterprise-level security for your network! The {oha}Advanced Security "
+"Updates{ch} guarantee that the content filtering lists, IDS threat analysis "
+"ruleset, Antivirus signatures and Antispam detection rules in your Zentyal "
+"servers are verified daily by the most trusted IT experts. To obtain these "
+"updates, your server must have {ohp}Professional{ch} or {ohe}Enterprise "
+"Server Subscription{ch}."
+msgstr ""
+
+#: ../remoteservices/src/EBox/RemoteServices/Composite/General.pm:97
+#, perl-brace-format
+msgid ""
+"Server subscriptions help to keep your Zentyal server secure and up-to-date! "
+"Take a look and try out the free {ohb}Basic Server Subscription{ch} - It "
+"allows you to store your configuration backup remotely and sends you alerts "
+"regarding the connectivity of your Zentyal server, available updates or "
+"failed automatic backup."
+msgstr ""
+"Suscribir tu servidor Zentyal te ayuda a mantenerlo seguro y actualizado! "
+"Prueba de forma gratuita la {ohb}Suscripción Básica del Servidor{ch} - Te "
+"Permite almacenar remotamente el backup de la configuración y envía alertas "
+"relativas a la conectividad de tu servidor Zentyal, actualizaciones disponibles "
+"o backups fallidos."
 
 #: ../antivirus/src/EBox/AntiVirus/Model/FreshclamStatus.pm:197
 #, perl-brace-format
@@ -153,7 +272,7 @@ msgstr ""
 "instalados en su servidor están actualizados a diario basados en los datos "
 "proporcionados por los expertos TIC de mayor confianza."
 
-#: ../ebackup/src/EBox/Model/RemoteSettings.pm:564
+#: ../ebackup/src/EBox/Model/RemoteSettings.pm:570
 #, perl-brace-format
 msgid ""
 "Choosing {brand} method you will use the {ohref}{service} service{chref}. "
@@ -163,29 +282,29 @@ msgid ""
 "or Enterprise Server Subscription."
 msgstr ""
 
-#: ../ebackup/tools/restore-tool:1970
+#: ../ebackup/tools/restore-tool:2032
 msgid ""
 "If you had Zentyal Disaster Recovery, you would have been able to restore "
 "module data as well as the configuration you are about to recover"
 msgstr ""
 "Si tuviese Zentyal Disaster Recovery, tendría la posibilidad de recuperar "
-"también los datos de los distintos módulos además de la configuración que "
-"se va a restaurar"
+"también los datos de los distintos módulos además de la configuración que se "
+"va a restaurar"
 
-#: ../ebackup/tools/restore-tool:2025
+#: ../ebackup/tools/restore-tool:2133
 msgid "Your configuration backup is now restored!"
 msgstr "¡Su backup de configuración ha sido restaurado!"
 
-#: ../ebackup/tools/restore-tool:2026
+#: ../ebackup/tools/restore-tool:2134
 msgid ""
 "Perhaps you were interested in the Zentyal Disaster Recovery service? It "
 "allows you to store critical data easily and safely in a remote location, as "
 "well as to restore this data and system configuration in case of a disaster."
 msgstr ""
-"¿Quizá está interesado en el servicio Zentyal Disaster Recovery? Este permite "
-"almacenar datos críticos de forma fácil y segura en servidores remotos, así "
-"como restaurar estos datos junto con la configuración del sistema en caso de "
-"que ocurra un desastre."
+"¿Quizá está interesado en el servicio Zentyal Disaster Recovery? Este "
+"permite almacenar datos críticos de forma fácil y segura en servidores "
+"remotos, así como restaurar estos datos junto con la configuración del "
+"sistema en caso de que ocurra un desastre."
 
 #: ../software/src/templates/ebox.mas:246
 msgid "Gateway - Your access to Internet"
@@ -866,3 +985,25 @@ msgstr ""
 "de configuración de forma remota, recibir alertas sobre la connectividad de "
 "tu servidor Zentyal, actualizaciones disponibles, o backups automáticos "
 "fallidos."
+
+#~ msgid ""
+#~ "Zentyal Cloud services integrate Quality Assured software updates, alerts "
+#~ "and centralized monitoring and administration of your Zentyal servers. "
+#~ "You gain full access to these services by obtaining a {openhrefp}"
+#~ "Professional{closehref} or {openhrefe}Enterprise Server Subscription"
+#~ "{closehref}. You can also have a look to these services by getting the "
+#~ "{openhrefb}Basic Server Subscription{closehref}, that also allows you to "
+#~ "store your configuration backup remotely, receive alerts regarding the "
+#~ "connectivity of your Zentyal server, available updates or failed "
+#~ "automatic backup."
+#~ msgstr ""
+#~ "Los servicios de Zentyal Cloud integran actualizaciones de software con "
+#~ "garantía de calidad, alertas, así como permiten la monitorización y "
+#~ "actualización de sus servidores Zentyal. Puede obtener acceso completo a "
+#~ "estos servicios adquiriendo una {openhrefp}Suscripción Profesional"
+#~ "{closehref} o {openhrefe}Suscripción Empresarial{closehref}. Asimismo, "
+#~ "puede ver estos servicios en funcionamiento obteniendo la {openhrefb}"
+#~ "Suscripción Básica{closehref} que también permite almacenar su backup de "
+#~ "configuración en remoto, recibir alertas sobre la conectividad de sus "
+#~ "servidores Zentyal, actualizaciones disponibles o backup automático "
+#~ "fallido. "
