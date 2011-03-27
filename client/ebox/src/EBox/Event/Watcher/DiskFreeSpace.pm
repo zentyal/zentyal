@@ -114,39 +114,63 @@ sub ConfigureModel
 #
 sub run
 {
-  my ($self) = @_;
+    my ($self) = @_;
 
-  my @events;
-  my $eventMod = EBox::Global->modInstance('events');
+    my @events;
+    my $eventMod = EBox::Global->modInstance('events');
 
-  my %fileSys = %{ $self->_filesysToMonitor() };
-  while (my ($fs, $properties) = each %fileSys) {
-    my $key      = _eventKey($fs);
-    my $eventHappened = $eventMod->st_get_bool($key);
+    my %fileSys = %{ $self->_filesysToMonitor() };
+    while (my ($fs, $properties) = each %fileSys) {
+        my $key      = _eventKey($fs);
+        my $eventHappened = $eventMod->st_get_bool($key);
 
-    my $df = df($properties->{mountPoint});
-    if ($self->_isFSFull($df) and not $eventHappened) {
-      $eventMod->st_set_bool($key, 1);
+        my $df = df($properties->{mountPoint});
+        if ($self->_isFSFull($df) and not $eventHappened) {
+            $eventMod->st_set_bool($key, 1);
 
-      push @events,
-	new EBox::Event(
-			message => __x('The file system {fs}, mounted on {mp},'.
-				       ' has no space left',
-				       fs => $fs,
-				       mp => $properties->{mountPoint},
-				      ),
-			level   => 'error',
-                        source  => 'Free storage space',
-		       );
+            my $msg = __x('The partition {mp} has low free space available.',
+                          mp => $properties->{mountPoint})
+                      . "\n\n"
+                      . __x('The file system {fs}, mounted on {mp},'
+                            . ' has {left} space left which is below '
+                            . 'than the configured threshold {thres}.' ,
+                            fs    => $fs,
+                            mp    => $properties->{mountPoint},
+                            left  => (100 - $df->{per}) . '%',
+                            thres => $self->_spaceThreshold() . '%',
+                           );
+
+            push(@events,
+                 new EBox::Event(
+                     message => $msg,
+                     level   => 'error',
+                     source  => 'Free storage space',
+                    ));
+        } elsif (not $self->_isFSFull($df) and $eventHappened) {
+            # disable key bz the problem has solved
+            $eventMod->st_set_bool($key, 0);
+
+            my $msg = __x('The partition {mp} does have enough space available.',
+                          mp => $properties->{mountPoint})
+                      . "\n\n"
+                      . __x('The file system {fs}, mounted on {mp}, has again '
+                            . 'enough space available {left} which is greater '
+                            . 'than the configured threshold {thres}.',
+                            fs    => $fs,
+                            mp    => $properties->{mountPoint},
+                            left  => (100 - $df->{per}) . '%',
+                            thres => $self->_spaceThreshold() . '%'
+                           );
+            push(@events,
+                 new EBox::Event(message => $msg,
+                                 level   => 'info',
+                                 source  => 'Free storage space',
+                                ));
+        }
     }
-    elsif ($eventHappened) {
-      # disable key bz the problem has solved
-      $eventMod->st_set_bool($key, 0);
-    }
-  }
 
-  return \@events if @events;
-  return undef;
+    return \@events if @events;
+    return undef;
 }
 
 # Group: Protected methods

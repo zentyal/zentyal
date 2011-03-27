@@ -525,6 +525,9 @@ sub sendEvent
         throw EBox::Exceptions::MissingArgument('source') if not defined($args{source});
     }
 
+    # Remove NULL characters
+    $event->{message} =~ tr/\0//d;
+
     my $dumper = new Data::Dumper([$event]);
     # Set no new lines to dump to communicate with FIFO, the end of
     # connection is done using newline character
@@ -533,7 +536,7 @@ sub sendEvent
     # Send the dumpered event through the FIFO
     open(my $fifo, '+<', EVENTS_FIFO)
       or throw EBox::Exceptions::Internal('Could not open ' . EVENTS_FIFO . " for reading: $!");
-    print $fifo $dumper->Dump() . "\n";
+    print $fifo $dumper->Dump() . "\0";
     close($fifo);
 
     return 1;

@@ -1,4 +1,7 @@
 HEAD
+	+ Improve message for "Free storage space" event and send an info
+	  message when a given partition is not full anymore
+	+ Event messages now can contain newline characters
 	+ Avoid warnings trying to encode undefined utf8 strings in Redis.pm
 	+ Set title with server name if the server is subscribed
 	+ Fix title HTML tag in views for Models and Composites

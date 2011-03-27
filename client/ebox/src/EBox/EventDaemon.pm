@@ -227,7 +227,11 @@ sub _mainDispatcherLoop
     while (1) {
         my @ready = $select->can_read(SCANNING_INTERVAL);
         foreach my $fh (@ready) {
-            my $data = readline($fh);
+            my $data;
+            {
+                local $/ = "\0";
+                $data = readline($fh);
+            }
             my $event;
             {
                 no strict 'vars'; $event = eval $data;
@@ -592,13 +596,14 @@ sub _addToDispatch
 {
     my ($self, $eventPipe, $event) = @_;
 
+    $Data::Dumper::Indent = 0; # turn off pretty print (\n)
     my $eventStr = Dumper($event);
 
     # Deleting the newline characters
-    $eventStr =~ s/\n//g;
+    # $eventStr =~ s/\n//g;
 
-    # Sending the dumpered event with a newline char
-    print $eventPipe ( $eventStr . $/ );
+    # Sending the dumpered event with a null char
+    print $eventPipe ( $eventStr . "\0" );
 }
 
 
