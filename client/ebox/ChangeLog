@@ -1,4 +1,4 @@
-HEAD
+2.0.17
 	+ Retry multiInsert line by line if there are encoding errors
 	+ Event messages are cleaned of null characters and truncated
 	  before inserting in the database when is necessary
