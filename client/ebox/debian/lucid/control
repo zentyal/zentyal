@@ -7,7 +7,7 @@ Standards-Version: 3.8.2
 
 Package: ebox
 Architecture: all
-Depends: libebox (>= 2.0.5), libebox (<= 2.0.100), ebox-software (>= 2.0.7), apache2-mpm-prefork | apache2-mpm-worker, openssl (>= 0.9.7e), libapache2-mod-perl2, libapache-singleton-perl, libsys-cpu-perl, libsys-cpuload-perl, libproc-process-perl, postgresql, libdbd-pg-perl, libclone-perl, libnet-jabber-perl, libfilesys-df-perl, libchart-perl, adduser, debconf, libfile-copy-recursive-perl, libfile-mmagic-perl, libxml-rss-perl, libtime-piece-perl, libjson-perl, libyaml-tiny-perl, cron, anacron, libstring-shellquote-perl, liblinux-inotify2-perl, libredis-perl, redis-server, libxml-simple-perl, libauthen-simple-pam-perl, libapt-pkg-perl, ${misc:Depends}
+Depends: libebox (>= 2.0.9), libebox (<= 2.0.100), ebox-software (>= 2.0.7), apache2-mpm-prefork | apache2-mpm-worker, openssl (>= 0.9.7e), libapache2-mod-perl2, libapache-singleton-perl, libsys-cpu-perl, libsys-cpuload-perl, libproc-process-perl, postgresql, libdbd-pg-perl, libclone-perl, libnet-jabber-perl, libfilesys-df-perl, libchart-perl, adduser, debconf, libfile-copy-recursive-perl, libfile-mmagic-perl, libxml-rss-perl, libtime-piece-perl, libjson-perl, libyaml-tiny-perl, cron, anacron, libstring-shellquote-perl, liblinux-inotify2-perl, libredis-perl, redis-server, libxml-simple-perl, libauthen-simple-pam-perl, libapt-pkg-perl, ${misc:Depends}
 Description: Zentyal - Core
  Zentyal is a Linux small business server that can act as
  a Gateway, Unified Threat Manager, Office Server, Infrastructure
