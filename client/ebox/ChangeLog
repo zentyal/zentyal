@@ -1,4 +1,5 @@
 HEAD
+	+ Retry multiInsert line by line if there are encoding errors
 	+ Event messages are cleaned of null characters and truncated
 	  before inserting in the database when is necessary
 	+ Improve message for "Free storage space" event and send an info
