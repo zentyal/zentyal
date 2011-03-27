@@ -234,7 +234,7 @@ sub multiInsert
         my @values = @{$self->{multiInsert}->{$table}};
         next unless (@values);
 
-        my @keys = keys %{$self->{multiInsert}->{$table}->[0]};
+        my @keys = keys %{$values[0]};
         my $sql = sprintf("INSERT INTO $table (%s) VALUES %s",
                           join (',', @keys),
                           join (',',
@@ -248,15 +248,36 @@ sub multiInsert
         }
         my $err = $self->{'sthinsert'}->execute(@flat);
         $self->{multiInsert}->{$table} = [];
+
         if (!$err) {
-            throw EBox::Exceptions::Internal("Error inserting data: $sql\n" .
-                                             $self->{dbh}->errstr .  " \n" .
-                                             "Values: " . Dumper(\@values) .
-                                             "\n");
+            my $errStr = $self->{dbh}->errstr;
+            if ($errStr =~ m/invalid byte sequence for encoding "UTF8"/) {
+                EBox::warn("Encoding error found: $errStr . We will try to add each line individually");
+                $self->_multiInsertBadEncoding($table, \@values);
+            } else {
+                throw EBox::Exceptions::Internal(
+                    "Error inserting data: $sql\n" .
+                    $errStr .  " \n" .
+                    "Values: " . Dumper(\@values) . "\n"
+                );
+            }
         }
     }
 }
 
+sub _multiInsertBadEncoding
+{
+    my ($self, $table, $values_r) = @_;
+
+    foreach my $valuesToInsert (@{ $values_r }) {
+        try {
+            $self->unbufferedInsert($table, $valuesToInsert );
+        } otherwise {
+            my $ex = shift;
+            EBox::error("Error in unbuffered insert from multiInsert with encoding problems: $ex")
+        };
+    }
+}
 
 # Method: update
 #
