@@ -68,6 +68,7 @@ use constant DISPATCHERS_DIR   => EBox::Config::conf() . 'events/DispatcherEnabl
 use constant EVENTS_FIFO       => EBox::Config::tmp() . 'events-fifo';
 use constant SCANNING_INTERVAL => 60;
 use constant EVENT_FOLDING_INTERVAL => 30 * 60; # half hour
+use constant MAX_MSG_LENGTH => 256;
 
 
 # Group: Public methods
@@ -232,6 +233,7 @@ sub _mainDispatcherLoop
                 local $/ = "\0";
                 $data = readline($fh);
             }
+
             my $event;
             {
                 no strict 'vars'; $event = eval $data;
@@ -546,17 +548,24 @@ sub _insertEventInLog
     my ($self, $event) = @_;
 
     # We don't use names on the date to avoid issues
-    # with DB insertions and localisation
+    # with DB insertions and localization
     my $timeStmp = strftime("%F %H:%M:%S %z",
                     localtime($event->timestamp()));
+
+    # truncate message if needed
+    my $message = $event->message();
+    if (length($message) > MAX_MSG_LENGTH) {
+        $message = substr ($message, 0, MAX_MSG_LENGTH);
+    }
+
     my $values = {
         timestamp => $timeStmp,
         lastTimestamp  => $timeStmp,
 
-        level     => $event->level(),
+        level    => $event->level(),
         source   => $event->source(),
-        message  => $event->message(),
-       };
+        message  => $message,
+    };
 
     $self->{dbengine}->unbufferedInsert(LOG_TABLE, $values);
 }
@@ -599,8 +608,8 @@ sub _addToDispatch
     $Data::Dumper::Indent = 0; # turn off pretty print (\n)
     my $eventStr = Dumper($event);
 
-    # Deleting the newline characters
-    # $eventStr =~ s/\n//g;
+    # Remove null characters
+    $eventStr =~ tr/\0//d;
 
     # Sending the dumpered event with a null char
     print $eventPipe ( $eventStr . "\0" );
