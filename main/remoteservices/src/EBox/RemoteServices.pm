@@ -1563,7 +1563,7 @@ sub _ccConnectionWidget
         $subsLevelValue = __sx('None - {oh}Get Free Basic Subscription!{ch}',
                                oh => '<a href="/zentyal/RemoteServices/Composite/General">',
                                ch => '</a>');
-        $DRValue        = __sx('Disabled - {oh}Enable Configuration Backup{ch}',
+        $DRValue        = __sx('Disabled - {oh}Enable{ch}',
                                oh => '<a href="/zentyal/RemoteServices/View/DisasterRecovery">',
                                ch => '</a>');
     }
