@@ -532,7 +532,7 @@ if ($success) {
 # update logs, we do this even with a failed backup bz it could change disk
 # usage, with leftover files..
 $ebackup->gatherReportInfo($type, $backupStats);
-my $roGlobal  = EBox::Global->getInstance('readonly');
+my $roGlobal  = EBox::Global->getInstance(1);
 my $cloudProf = $roGlobal->modInstance('cloud-prof');
 if ($cloudProf) {
     $cloudProf->ebackupAlerts();
