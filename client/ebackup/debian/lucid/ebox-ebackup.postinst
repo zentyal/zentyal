@@ -9,6 +9,7 @@ case "$1" in
 
         #create log tables
         /usr/share/ebox/ebox-sql-table add ebackup_storage_usage /usr/share/ebox/sqllog/ebackup_storage_usage.sql
+        /usr/share/ebox/ebox-sql-table add ebackup_stats /usr/share/ebox/sqllog/ebackup_stats.sql
         /usr/share/ebox/ebox-sql-table add ebackup_storage_usage_report /usr/share/ebox/sqllog/ebackup_storage_usage_report.sql
 
         # restart module

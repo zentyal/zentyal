@@ -1318,11 +1318,30 @@ sub _clearStorageUsageCache
 
 # Method: gatherReportInfo
 #
-#  This method shoudl be called after each backup to gather information for the
-#  report; for thism moduel this method is used instead of the usual reportInfo
+#  This method should be called after each backup to gather information for the
+#  report; for this module this method is used instead of the usual reportInfo
+#
+# Parameters:
+#
+#  type - String the data backup done
+#         Possible values: 'full' or 'incremental'
+#
+#  backupStats - Hash ref containing the stats from the backup if it
+#                was successful
+#
+#                time - Int the elapsed time
+#                nFiles - Int the number of files in the target to
+#                         back up
+#                nNew     - Int the number of new files
+#                nDeleted - Int the number of deleted files
+#                nChanged - Int the number of changed files
+#                size     - Int the size of the backup in bytes
+#                nErrors  - Int the number of errors in the backup
+#
 sub gatherReportInfo
 {
-    my ($self) = @_;
+    my ($self, $type, $backupStats) = @_;
+
     if (not $self->configurationIsComplete()) {
         return;
     }
@@ -1332,10 +1351,25 @@ sub gatherReportInfo
         return;
     }
 
-    my $values  = {
-                   used => $usage->{used},
-                   available => $usage->{available}
-                  };
+    my $values = {
+                  used => $usage->{used},
+                  available => $usage->{available}
+                 };
+
+    my $stats = {};
+
+    if (defined ($backupStats)) {
+        $stats = {
+            elapsed           => sprintf("%.0f", $backupStats->{time}),
+            files_num         => $backupStats->{nFiles},
+            new_files_num     => $backupStats->{nNew},
+            del_files_num     => $backupStats->{nDeleted},
+            changed_files_num => $backupStats->{nChanged},
+            size              => $backupStats->{size},
+            errors            => $backupStats->{nErrors},
+            type              => $type,
+        };
+    }
 
     my $db = EBox::DBEngineFactory::DBEngine();
     my @time = localtime(time);
@@ -1345,14 +1379,22 @@ sub gatherReportInfo
 
     my @reportInfo = (
                       {
-                       table => 'ebackup_storage_usage',
+                       table  => 'ebackup_storage_usage',
                        values => $values,
+                       insert => 1,
+                      },
+                      {
+                       table  => 'ebackup_stats',
+                       values => $stats,
+                       insert => defined($backupStats),
                       },
                      );
 
     for my $i (@reportInfo) {
         $i->{'values'}->{'timestamp'} = $date;
-        $db->insert($i->{'table'}, $i->{'values'});
+        if ( $i->{'insert'} ) {
+            $db->insert($i->{'table'}, $i->{'values'});
+        }
     }
 
     # Perform the buffered inserts done above

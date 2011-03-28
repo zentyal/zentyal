@@ -1,5 +1,5 @@
 #!/usr/bin/perl
-# Copyright (C) 2009-2010 eBox Technologies S.L.
+# Copyright (C) 2009-2011 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -130,6 +130,41 @@ sub _mangleDuplicityErrorMsg
         default { return $msg; }
     }
 
+}
+
+# Parse the output of duplicity statistics after performing a successful backup
+sub _parseSuccessMsg # (successMsg)
+{
+    my ($successMsg) = @_;
+
+    my %backupStats;
+    foreach my $line (@{$successMsg}) {
+        chomp($line);
+        given ($line) {
+            when (/^ElapsedTime/) {
+                ($backupStats{time}) = $line =~ m/ElapsedTime\s([0-9\.]+)\s/g;
+            }
+            when (/^SourceFiles/) {
+                ($backupStats{nFiles}) = $line =~ m/SourceFiles\s([0-9]+)/g;
+            }
+            when (/^NewFiles/) {
+                ($backupStats{nNew}) = $line =~ m/NewFiles\s([0-9]+)/g;
+            }
+            when (/^DeletedFiles/) {
+                ($backupStats{nDeleted}) = $line =~ m/DeletedFiles\s([0-9]+)/g;
+            }
+            when (/^ChangedFiles/) {
+                ($backupStats{nChanged}) = $line =~ m/ChangedFiles\s([0-9]+)/g;
+            }
+            when (/^TotalDestinationSizeChange/) {
+                ($backupStats{size}) = $line =~ m/TotalDestinationSizeChange\s([0-9]+)/g;
+            }
+            when (/^Errors/) {
+                ($backupStats{nErrors}) = $line =~ m/Errors\s([0-9]+)/g;
+            }
+        }
+    }
+    return \%backupStats;
 }
 
 sub _bytesToMB
@@ -299,13 +334,12 @@ sub _performBackup
         $factor = 1;
     }
 
-    my $success  = 0;
-    my $errorMsg = "";
+    my ($success, $errorMsg, $successMsg) = (0, "", "");
 
     foreach my $try ( 1 .. $nTries ) {
         try {
             EBox::info("Backing up files to destination: try $try");
-            EBox::Sudo::root($backupCmd);
+            $successMsg = EBox::Sudo::root($backupCmd);
             $success = 1;
         } catch  EBox::Exceptions::Sudo::Command with {
             my $ex = shift @_;
@@ -334,7 +368,7 @@ sub _performBackup
         }
     }
 
-    return ($success, $errorMsg);
+    return ($success, $successMsg, $errorMsg);
 
 }
 
@@ -417,8 +451,7 @@ if ($mustExit) {
 }
 
 
-my $errorMsg;
-my $success = 1;
+my ($success, $successMsg, $errorMsg) = (1, "", "");
 my $configurationDumped = 0;
 my $usingCloud = $ebackup->model('RemoteSettings')->row()->valueByName('method') eq 'cloud';
 try {
@@ -443,7 +476,7 @@ try {
 
 
     my $backupCmd = $ebackup->remoteArguments($type);
-    my ($success, $errorMsg) = _performBackup($backupCmd);
+    ($success, $successMsg, $errorMsg) = _performBackup($backupCmd);
 
     if ( $success and $usingCloud) {
         $ebackup->remoteGenerateStatusCache();
@@ -490,10 +523,17 @@ try {
     }
 };
 
+# Parse the successMsg
+my $backupStats = undef;
+if ($success) {
+    $backupStats = _parseSuccessMsg($successMsg);
+}
+
 # update logs, we do this even with a failed backup bz it could change disk
 # usage, with leftover files..
-$ebackup->gatherReportInfo();
-my $cloudProf = EBox::Global->modInstance('cloud-prof');
+$ebackup->gatherReportInfo($type, $backupStats);
+my $roGlobal  = EBox::Global->getInstance('readonly');
+my $cloudProf = $roGlobal->modInstance('cloud-prof');
 if ($cloudProf) {
     $cloudProf->ebackupAlerts();
 }
