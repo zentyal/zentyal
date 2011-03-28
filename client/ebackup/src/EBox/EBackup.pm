@@ -678,6 +678,8 @@ sub remoteGenerateListFile
         my $error = join "\n", @{ $ex->error() };
         if ($error =~ m/No signature chains found/) {
             $success = 0;
+        } else {
+            $ex->throw();
         }
     };
 

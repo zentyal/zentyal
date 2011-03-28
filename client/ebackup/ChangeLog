@@ -7,6 +7,7 @@ HEAD
 	+ Clean temporal directory before doing logs restore
 	+ Bugfix: values from configuration file are checked to assure
 	  that at least making backup is tried once
+	+ More control over uncommon errors
 2.0.10
 	+ Add migration script to delete old backup configuration from
 	  ebox crontab

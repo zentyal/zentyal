@@ -138,8 +138,7 @@ sub _name
 sub _description
 {
 
-    return __('Check if Zentyal backup was not successful.');
-
+    return __('Notify the result of scheduled backups.');
 }
 
 1;

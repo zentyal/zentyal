@@ -140,9 +140,19 @@ sub _bytesToMB
 
 sub _existsFullBackup
 {
-    my ($ebackup) = @_;
+    my ($ebackup, $type) = @_;
 
-    my $status = $ebackup->remoteStatus();
+    my $status;
+    try {
+        $status = $ebackup->remoteStatus();
+    } otherwise {
+        my ($ex) = @_;
+        my $errorMsg = _errorMessageFromDuplicityCmd($ex);
+
+        _sendSuccessEvent(0, $type, $errorMsg);
+        die $errorMsg;
+    };
+
     foreach my $st (@{ $status }) {
         if ($st->{type} eq 'Full') {
             return 1;
@@ -165,22 +175,30 @@ sub _adjustType
     my ($ebackup, $type) = @_;
 
 # We need an updated cache to avoid errors while checking the status if backup
-# files have been re/moved
+# files have been removed
 #
 # We can disable this feature to speed up process when there is not full backup,
 # incremental is specified and status cache is not properly updated it will give a
 # "old sigantures not found" error
-    $ebackup->remoteGenerateStatusCache();
+    try {
+        $ebackup->remoteGenerateStatusCache();
+    } otherwise {
+        my ($ex) = @_;
+        my $errorMsg = _errorMessageFromDuplicityCmd($ex);
+        _sendSuccessEvent(0, $type, $errorMsg);
+        die $errorMsg;
+    };
+
 
     if ($type eq 'full-only-once') {
-        if (_existsFullBackup($ebackup)) {
+        if (_existsFullBackup($ebackup, $type)) {
             $type = 'incremental';
         } else {
             EBox::info('No full backup detected in archive. We will make a full backup, following backups will be incremental');
             $type = 'full';
         }
     } elsif ($type eq 'incremental') {
-        if (not _existsFullBackup($ebackup)) {
+        if (not _existsFullBackup($ebackup, $type)) {
             EBox::warn('Incremental backup requested but there are not full backups. Switching to full backup mode');
             $type = 'full';
         }
@@ -249,7 +267,13 @@ sub _cleanup
     my $remoteUrl = $ebackup->_remoteUrl();
     my $cmd = "$duplicityWrapper cleanup --force $remoteUrl";
     EBox::debug('Trying to clean up incomplete backups');
-    EBox::Sudo::root($cmd);
+    try {
+        EBox::Sudo::root($cmd);
+    } otherwise {
+        my ($ex) = @_;
+        my $error = _errorMessageFromDuplicityCmd($ex);
+        EBox::error("When trying to clean up old backup sets: $error");
+    };
 }
 
 # Try to back up with n_tries using a geometric progression
@@ -312,6 +336,19 @@ sub _performBackup
 
     return ($success, $errorMsg);
 
+}
+
+sub _errorMessageFromDuplicityCmd
+{
+    my ($ex) = @_;
+    if ($ex->isa('EBox::Exceptions::Sudo::Command')) {
+        my @error = @{  $ex->error() };
+        chomp $error[-1];
+        my $errorMsg = "@error";
+        return _mangleDuplicityErrorMsg($errorMsg);
+    }  else {
+        return "$ex";
+    }
 }
 
 my $type = 'full';
@@ -388,7 +425,12 @@ try {
     $type = _adjustType($ebackup, $type);
 
     if ($type eq 'full') {
-        _removeExpiredBackups($ebackup);
+        try {
+            _removeExpiredBackups($ebackup);
+        } otherwise {
+            my ($ex) = @_;
+            EBox::error("Error trying to remove old backups: $ex");
+        };
     }
 
     try {
