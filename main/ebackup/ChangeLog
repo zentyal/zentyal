@@ -1,5 +1,6 @@
 HEAD
 	+ More control over uncommon errors
+	+ Parse and store backup statistics for further processing
 	+ First date is selected by default on restore-tool
 	+ Bugfix: values from configuration file are checked to assure
 	  that at least making backup is tried once
@@ -13,7 +14,7 @@ HEAD
 	+ Added /var/tmp to default exclude paths
 	+ Remove skip of usercorner in restore-tool, now it is a package
 	+ Replace /etc/ebox/82ebackup.conf with /etc/zentyal/ebackup.conf
-	+ Added 'files included' domain and restore all fiels options to
+	+ Added 'files included' domain and restore all fields options to
 	  restore-tool
 	+ Using 'cat' command instead of 'tail' to retrieve backup metadata
 	+ Use a geometric progression for timeout values for retrying
