@@ -80,4 +80,5 @@ if ($debug) {
 }
 
 $ENV{LANG} ='en_US.UTF-8';
-exec $duplicityCommand;
+exec $duplicityCommand or
+    exit 2;
