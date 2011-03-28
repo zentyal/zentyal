@@ -125,6 +125,7 @@ refresh_pattern http://.*\.windowsupdate\.microsoft\.com/ 0 80% 20160 reload-int
 refresh_pattern http://.*\.update\.microsoft\.com/ 0 80% 20160 reload-into-ims
 refresh_pattern http://download\.microsoft\.com/ 0 80% 20160 reload-into-ims
 refresh_pattern http://windowsupdate\.microsoft\.com/ 0 80% 20160 reload-into-ims
+refresh_pattern http://.*\.download\.windowsupdate\.com/ 0 80% 20160 reload-into-ims
 refresh_pattern http://office\.microsoft\.com/ 0 80% 20160 reload-into-ims
 refresh_pattern http://w?xpsp[0-9]\.microsoft\.com/ 0 80% 20160 reload-into-ims
 refresh_pattern http://w2ksp[0-9]\.microsoft\.com/ 0 80% 20160 reload-into-ims

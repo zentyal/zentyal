@@ -1,4 +1,5 @@
 HEAD
+	+ Added missing Microsoft updates server in squid.conf.mas
 	+ Zentyal squid daemon uses a different pidfile now
 2.0.5
 	+ Fixed bug that could delete the default profile file list
