@@ -6,7 +6,7 @@ HEAD
 	+ Using 'cat' command instead of 'tail' to retrieve backup metadata
 	+ Clean temporal directory before doing logs restore
 	+ Bugfix: values from configuration file are checked to assure
-	that at least making backup is tried once
+	  that at least making backup is tried once
 2.0.10
 	+ Add migration script to delete old backup configuration from
 	  ebox crontab
