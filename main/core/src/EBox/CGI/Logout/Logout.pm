@@ -36,14 +36,14 @@ sub new
 
 sub _process
 {
-	my $self = shift;
+	my ($self) = @_;
 
 	my $r = Apache2::RequestUtil->request;
 	my $auth_type = $r->auth_type;
 
 
-	$self->{redirect} = "/Login/Index";
-	$self->{errorchain} = "/Logout/Index";
+	$self->{redirect} = "Login/Index";
+	$self->{errorchain} = "Logout/Index";
 
 	my $global = EBox::Global->getInstance();
 	$global->revokeAllModules;
