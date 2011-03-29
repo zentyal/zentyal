@@ -1599,11 +1599,11 @@ sub _latestBackup
 
     my $latest = __('No data backup has been done yet');
     my $gl = EBox::Global->getInstance();
-    if ( $gl->modExists('ebackup') ) {
+    if ($gl->modExists('ebackup')) {
         my $ebackup = EBox::Global->modInstance('ebackup');
         my $latestDate = $ebackup->lastBackupDate();
-        if ( $lastestDate ) {
-            $latest = $lastestDate;
+        if ($latestDate) {
+            $latest = $latestDate;
         }
     } else {
         # Use the conf backup data
