@@ -48,6 +48,7 @@ src/EBox/Jabber/Model/Makefile
 src/EBox/Jabber/Composite/Makefile
 src/EBox/CGI/Makefile
 src/templates/Makefile
+src/scripts/Makefile
 stubs/Makefile
 schemas/Makefile
 Makefile

@@ -1,3 +1,5 @@
+HEAD
+	+ Fixed packaging of scripts directory
 2.1
 	+ Use new standard enable-module script
 	+ Move services migration to initialSetup
