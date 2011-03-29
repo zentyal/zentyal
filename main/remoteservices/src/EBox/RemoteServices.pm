@@ -1601,7 +1601,10 @@ sub _latestBackup
     my $gl = EBox::Global->getInstance();
     if ( $gl->modExists('ebackup') ) {
         my $ebackup = EBox::Global->modInstance('ebackup');
-        $latest = $ebackup->lastBackupDate();
+        my $latestDate = $ebackup->lastBackupDate();
+        if ( $lastestDate ) {
+            $latest = $lastestDate;
+        }
     } else {
         # Use the conf backup data
         $latest = $self->latestRemoteConfBackup();
