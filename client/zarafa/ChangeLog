@@ -1,3 +1,5 @@
+HEAD
+	+ Bugfix: indexer was always started ignoring value of zarafa_indexer
 2.0.4
 	+ Bugfix: create contact even if create account is disabled on User
 	  Template
