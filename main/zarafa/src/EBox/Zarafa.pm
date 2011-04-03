@@ -235,6 +235,12 @@ sub _daemons
             'pidfiles' => ['/var/run/zarafa-ical.pid'],
             'precondition' => \&icalEnabled
         },
+        {
+            'name' => 'zarafa-licensed',
+            'type' => 'init.d',
+            'pidfiles' => ['/var/run/zarafa-licensed.pid'],
+            'precondition' => \&licensedEnabled
+        },
     ];
 }
 
@@ -281,6 +287,20 @@ sub indexerEnabled
     return ($zarafa_indexer eq 'yes');
 }
 
+# Method: licensedEnabled
+#
+#       Returns true if licensed is enabled
+#
+sub licensedEnabled
+{
+    my ($self) = @_;
+
+    my $zarafa_licensed = EBox::Config::configkey('zarafa_licensed');
+
+    return ($zarafa_licensed eq 'yes');
+}
+
+# Method: _setConf
 # Method: _setConf
 #
 #       Overrides base method. It writes the Zarafa service configuration

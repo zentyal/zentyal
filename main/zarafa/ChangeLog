@@ -1,5 +1,6 @@
 HEAD
 	+ Bugfix: indexer was always started ignoring value of zarafa_indexer
+	+ Manage zarafa-licensed daemon if defined 80zarafa.conf
 	+ Bugfix: create contact even if create account is disabled on User
 	  Template
 	+ Only show groups with mail alias on Zarafa GAL
