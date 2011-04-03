@@ -278,7 +278,7 @@ sub indexerEnabled
 
     my $zarafa_indexer = EBox::Config::configkey('zarafa_indexer');
 
-    return $zarafa_indexer;
+    return ($zarafa_indexer eq 'yes');
 }
 
 # Method: _setConf
