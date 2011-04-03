@@ -1,5 +1,6 @@
 HEAD
 	+ Bugfix: indexer was always started ignoring value of zarafa_indexer
+	+ Manage zarafa-licensed daemon if defined 80zarafa.conf
 2.0.4
 	+ Bugfix: create contact even if create account is disabled on User
 	  Template
