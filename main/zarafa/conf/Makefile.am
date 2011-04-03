@@ -1,7 +1,7 @@
 ## Process this file with automake to produce Makefile.in
 
 Etcdir = $(sysconfdir)/ebox
-Etc_DATA = 80zarafa.conf
+Etc_DATA = zarafa.conf
 
 
 EXTRA_DIST = $(Etc_DATA)

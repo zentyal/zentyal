@@ -7,6 +7,7 @@ HEAD
 	+ Add support to manage ICAL server
 	+ Add configuration file 80zarafa.conf for advanced configuration
 	+ Deleted webserver from depends
+	+ Renamed 80zarafa.conf to zarafa.conf in /etc/zentyal
 2.1
 	+ Renamed ebox-zarafa-spell to zarafa-spell
 	+ Use new standard enable-module script
