@@ -157,6 +157,7 @@ my @raidProperties     = (
        }
 
      ],
+     ['bitmap', __('Bitmap;)],
 );
 
 

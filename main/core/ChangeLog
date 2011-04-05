@@ -1,4 +1,5 @@
 HEAD
+	+ Support for bitmap option in RAID report
 	+ Retry multiInsert line by line if there are encoding errors
 	+ Adapted to new location of partitionsFileSystems in EBox::FileSystem
 	+ Event messages are cleaned of null characters and truncated

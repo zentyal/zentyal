@@ -16,7 +16,7 @@
 use strict;
 use warnings;
 
-use Test::More tests => 14;
+use Test::More tests => 16;
 use Test::Exception;
 use Test::MockObject;
 use Test::Differences;
@@ -86,10 +86,6 @@ push @cases,  {
 	       mdstatFile => './testdata/raid1-mdstat.txt',
 
 	       expectedRaidInfo => {
-
-	       },
-
-	       expectedRaidInfo => {
 		 unusedDevices => [],
 
 		 '/dev/md0' => {
@@ -127,49 +123,163 @@ push @cases,  {
 	      }; # close push
 
 
+# RAID 1 with bitmap
+push @cases,  {
+               mdstatFile => './testdata/raid1-mdstat-w-bitmap.txt',
+
+               expectedRaidInfo => {
+                 '/dev/md1' => {
+                     active => 1,
+                     state  => 'active',
+                     type   => 'raid1',
+                     activeDevices       => 2,
+                     activeDevicesNeeded => 2,
+                     blocks              => 39060416,
+
+                     operation => 'none',
+
+                    raidDevices => {
+                        0 => {
+                               device => '/dev/sdb1',
+                               state => 'up',
+
+                             },
+                        1 => {
+                               device => '/dev/sda1',
+                               state  => 'up',
+                             },
+                        
+                    },
+                   'bitmap' => '0/187 pages [0KB], 512KB chunk'
+                     
+                  },
+
+
+
+                 '/dev/md4' => {
+                     active => 1,
+                     state  => 'active',
+                     type   => 'raid1',
+                     activeDevices       => 2,
+                     activeDevicesNeeded => 2,
+                     blocks              => 9968256,
+
+                     operation => 'none',
+
+                    raidDevices => {
+                        0 => {
+                               device => '/dev/sda4',
+                               state  => 'up',
+                             },
+                        1 => {
+                               device => '/dev/sdb4',
+                               state => 'up',
+
+                             },
+                        
+                                   },
+                     
+                  },
+                  
+                 '/dev/md3' => {
+                     active => 1,
+                     state  => 'active',
+                     type   => 'raid1',
+                     activeDevices       => 2,
+                     activeDevicesNeeded => 2,
+                     blocks              => 732419328,
+
+                     operation => 'none',
+
+                    raidDevices => {
+                        0 => {
+                               device => '/dev/sda3',
+                               state  => 'up',
+                             },
+                        1 => {
+                               device => '/dev/sdb3',
+                               state => 'up',
+
+                             },
+                        
+                                   },
+                     
+                  },
+
+                 '/dev/md2' => {
+                     active => 1,
+                     state  => 'active',
+                     type   => 'raid1',
+                     activeDevices       => 2,
+                     activeDevicesNeeded => 2,
+                     blocks              => 195310144,
+
+                     operation => 'none',
+
+                    raidDevices => {
+                        0 => {
+                               device => '/dev/sda2',
+                               state  => 'up',
+                             },
+                        1 => {
+                               device => '/dev/sdb2',
+                               state => 'up',
+
+                             },
+                        
+                                   },
+                     
+                  },
+
+
+
+              } # close expectedRaidInfo
+
+
+              }; # close push
 
 
 
 # # RAID 1 failure in one device, rebuilding
 push @cases,  {
-	       mdstatFile => './testdata/raid1-mdstat-failure-rebuild.txt',
-	       expectedRaidInfo => {
-		 unusedDevices => [],
+               mdstatFile => './testdata/raid1-mdstat-failure-rebuild.txt',
+               expectedRaidInfo => {
+                 unusedDevices => [],
 
-		 '/dev/md0' => {
-		     active => 1,
+                 '/dev/md0' => {
+                     active => 1,
                      state  => 'active, degraded, recovering',
-		     type   => 'raid1',
-		     activeDevices       => 1,
-		     activeDevicesNeeded => 2,
-		     blocks              => 8289472,
+                     type   => 'raid1',
+                     activeDevices       => 1,
+                     activeDevicesNeeded => 2,
+                     blocks              => 8289472,
 
-		     operation => 'recovery',
+                     operation => 'recovery',
 
-		     operationPercentage => '0.0',
-		     operationEstimatedTime => '1381.5min',
-		     operationSpeed         => '0K/sec',
+                     operationPercentage => '0.0',
+                     operationEstimatedTime => '1381.5min',
+                     operationSpeed         => '0K/sec',
 
-		    raidDevices => {
-			1 => {
-			       device => '/dev/sdb1',
-			       state  => 'up',
-			     },
-		        3 => {
-			       device => '/dev/sdc1',
-			       state => 'spare',
+                    raidDevices => {
+                        1 => {
+                               device => '/dev/sdb1',
+                               state  => 'up',
+                             },
+                        3 => {
+                               device => '/dev/sdc1',
+                               state => 'spare',
 
-			     },
-		       2 =>  {
-			       device => '/dev/sda2',
-			       state => 'failure',
-			     },
+                             },
+                       2 =>  {
+                               device => '/dev/sda2',
+                               state => 'failure',
+                             },
 
-			
-		    },
-		     
-		  },
-	       },
+                        
+                    },
+                     
+                  },
+               },
 
 
 };
@@ -177,40 +287,40 @@ push @cases,  {
 
 # # RAID 1 failure in one device, after rebuilding
 push @cases,  {
-	       mdstatFile => './testdata/raid1-mdstat-failure.txt',
-	       expectedRaidInfo => {
-		 unusedDevices => [],
+               mdstatFile => './testdata/raid1-mdstat-failure.txt',
+               expectedRaidInfo => {
+                 unusedDevices => [],
 
-		 '/dev/md0' => {
-		     active => 1,
+                 '/dev/md0' => {
+                     active => 1,
                      state  => 'active',
-		     type   => 'raid1',
-		     activeDevices       => 2,
-		     activeDevicesNeeded => 2,
-		     blocks              => 8289472,
+                     type   => 'raid1',
+                     activeDevices       => 2,
+                     activeDevicesNeeded => 2,
+                     blocks              => 8289472,
 
-		     operation => 'none',
+                     operation => 'none',
 
-		    raidDevices => {
-			0 => {
-			       device => '/dev/sda2',
-			       state  => 'up',
-			     },
-		        1 => {
-			       device => '/dev/sdc1',
-			       state => 'up',
+                    raidDevices => {
+                        0 => {
+                               device => '/dev/sda2',
+                               state  => 'up',
+                             },
+                        1 => {
+                               device => '/dev/sdc1',
+                               state => 'up',
 
-			     },
-		       2 =>  {
-			       device => '/dev/sdb1',
-			       state => 'failure',
-			     },
+                             },
+                       2 =>  {
+                               device => '/dev/sdb1',
+                               state => 'failure',
+                             },
 
-			
-		    },
-		     
-		  },
-	       },
+                        
+                    },
+                     
+                  },
+               },
 
 
 };

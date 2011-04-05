@@ -42,7 +42,7 @@ use constant PROC_MDSTAT => '/proc/mdstat';
 #
 sub enabled
 {
-  return (-r PROC_MDSTAT)
+    return (-r PROC_MDSTAT)
 }
 
 # Function: info
@@ -90,120 +90,118 @@ sub enabled
 #
 sub info
 {
-  my @mdstat = @{  _mdstatContents() };
-  (@mdstat and (scalar @mdstat > 2)) or
-    return undef;
+    my @mdstat = @{  _mdstatContents() };
+    (@mdstat and (scalar @mdstat > 2)) or
+        return undef;
 
-  my %info;
+    my %info;
 
-  push @mdstat, 'endoffile:dummy'; # this dummy section is to force to process
-                                   # the real last section
-  my $currentSection;
-  my @currentSectionData;
+    push @mdstat, 'endoffile:dummy'; # this dummy section is to force to process
+                                     # the real last section
+    my $currentSection;
+    my @currentSectionData;
 
-  foreach my $line (@mdstat) {
-    chomp $line;
-    $line =~ s/^\s*//;
-    $line =~ s/\s*$//;
-    next if $line =~ m/^\s*$/;
+    foreach my $line (@mdstat) {
+        chomp $line;
+        $line =~ s/^\s*//;
+        $line =~ s/\s*$//;
+        next if $line =~ m/^\s*$/;
 
 
-    my @parts =  split '\s*:\s*', $line, 2;
-    if (@parts == 2) { # begins a new section
-      my @sectionInfo = @{ _processSection($currentSection, \@currentSectionData)};
-      while (@sectionInfo) {
-	my ($key, $value) = splice @sectionInfo, 0, 2;
-	$info{$key} = $value;
-      }
+        my @parts =  split '\s*:\s*', $line, 2;
+        if (@parts == 2) { # begins a new section
+            my @sectionInfo = @{
+                _processSection($currentSection, \@currentSectionData)
+            };
+            while (@sectionInfo) {
+                my ($key, $value) = splice @sectionInfo, 0, 2;
+                $info{$key} = $value;
+            }
 
-      # reset section variables to new section values
-      my ($sectionHeader, $sectionData) = @parts;
-      $currentSection = $sectionHeader;
-      @currentSectionData = ($sectionData);
+            # reset section variables to new section values
+            my ($sectionHeader, $sectionData) = @parts;
+            $currentSection = $sectionHeader;
+            @currentSectionData = ($sectionData);
+        }
+        else {
+            push @currentSectionData, $line;
+        }
 
     }
-    else {
-      push @currentSectionData, $line;
+
+    foreach my $dev (keys %info) {
+        if (not $dev =~ m{^/dev/}) {
+            # not a device entry. Next
+            next;
+        }
+
+        _calculateDevicesStatus($info{$dev});
+        _setArrayStatus($info{$dev});
     }
 
-  }
-
-  foreach my $dev (keys %info) {
-    if (not $dev =~ m{^/dev/}) {
-      # not a device entry. Next
-      next;
-    }
-
-    _calculateDevicesStatus($info{$dev});
-    _setArrayStatus($info{$dev});
-
-  }
-
-  return \%info;
+    return \%info;
 }
 
 # Group: Private methods
 
 sub _mdstatContents
 {
-  enabled()
-    or return [];
+    enabled()
+        or return [];
 
-  my $contents_r = read_file(PROC_MDSTAT, array_ref => 1);
-  return $contents_r;
+    my $contents_r = read_file(PROC_MDSTAT, array_ref => 1);
+    return $contents_r;
 }
 
 # calculate devices status using other fields values
 sub _calculateDevicesStatus
 {
-  my ($info_r) = @_;
+    my ($info_r) = @_;
 
-  my @statusArray         =  exists $info_r->{statusArray} ?
-                                  @{ delete $info_r->{statusArray} } : () ;
-  my $activeDevicesNeeded = $info_r->{activeDevicesNeeded};
-  my $raidDevices         = $info_r->{raidDevices};
+    my @statusArray = exists $info_r->{statusArray} ?
+                                  @{ delete $info_r->{statusArray} } :
+                                  ();
+    my $activeDevicesNeeded = $info_r->{activeDevicesNeeded};
+    my $raidDevices         = $info_r->{raidDevices};
 
-  my @devNumbers = sort keys  %{ $raidDevices };
-  foreach my $number (@devNumbers) {
-    my $devAttrs = $raidDevices->{$number};
+    my @devNumbers = sort keys  %{ $raidDevices };
+    foreach my $number (@devNumbers) {
+        my $devAttrs = $raidDevices->{$number};
 
-    my $spare = 0;
-    my $up    = 0;
+        my $spare = 0;
+        my $up    = 0;
 
-    $devAttrs->{state} = '' unless (defined($devAttrs->{state}));
-    if ($devAttrs->{state} eq 'failure') {
-      next;
+        $devAttrs->{state} = '' unless (defined($devAttrs->{state}));
+        if ($devAttrs->{state} eq 'failure') {
+            next;
+        }
+        elsif (not defined $activeDevicesNeeded or (not @statusArray)) {
+            $devAttrs->{state} = 'up';  # XXX need more test..
+        }
+        elsif (($number >= $activeDevicesNeeded)  ) {
+            $devAttrs->{state} = 'spare';
+        }
+        else {
+            my $status =  $statusArray[$number];
+            defined $status or
+                EBox::warn("Undefined array status item for raid device $number");
+
+            if ($status eq 'U') {
+                $devAttrs->{state} = 'up';
+            }
+        }
     }
-    elsif (not defined $activeDevicesNeeded or (not @statusArray)) {
-      $devAttrs->{state} = 'up';  # XXX need more test..
-    }
-    elsif (($number >= $activeDevicesNeeded)  ) {
-	$devAttrs->{state} = 'spare';
-    }
-    else {
-      my $status =  $statusArray[$number];
-      defined $status or
-	EBox::warn("Undefined array status item for raid device $number");
 
-      if ($status eq 'U') {
-	$devAttrs->{state} = 'up';
-      }
-    }
-
-  }
-
-
-  # if we lack activeDevices and activeDevicesNeeded calcualte form the number
-  # of devices
-  if (not (exists $info_r->{activeDevicesNeeded}) ) {
+    # if we lack activeDevices and activeDevicesNeeded calcualte form the number
+    # of devices
+    if (not (exists $info_r->{activeDevicesNeeded}) ) {
         $info_r->{activeDevicesNeeded} =  @devNumbers;
-  }
-  if (not (exists $info_r->{activeDevices}) ) {
-    $info_r->{activeDevices} = grep {
-                    $raidDevices->{$_}->{state} eq 'up'
-		  } @devNumbers;
-  }
-
+    }
+    if (not (exists $info_r->{activeDevices}) ) {
+        $info_r->{activeDevices} = grep {
+            $raidDevices->{$_}->{state} eq 'up'
+        } @devNumbers;
+    }
 }
 
 # set the array state from the remainder elements
@@ -236,293 +234,262 @@ sub _setArrayStatus
     }
     $state =~ s/, $//g;
     $info_r->{state} = $state;
-
 }
 
-my %processBySection = (
-			'Personalities' => \&_processPersonalitiesSection,
-			'unused devices' => \&_processUnusedDevicesSection,
-		       );
+my %processBySection = ('Personalities'  => \&_processPersonalitiesSection,
+                        'unused devices' => \&_processUnusedDevicesSection,
+                        'bitmap'         => \&_processBitmapSection);
 
 sub _processSection
 {
-  my ($sectionName, $sectionLines_r) = @_;
+    my ($sectionName, $sectionLines_r) = @_;
 
-  defined $sectionName or
-    return [];
+    defined $sectionName or
+        return [];
 
-  my @sectionLines = @{ $sectionLines_r };
+    my @sectionLines = @{ $sectionLines_r };
 
-  my @sectionInfo; # contains the pairs of keys and values which will be
-                   # returned
+    my @sectionInfo; # contains the pairs of keys and values which will be
+    # returned
 
-  my $sectionSub;
-  $sectionSub = exists $processBySection{$sectionName}  ?
-                                          $processBySection{$sectionName}
-                                          : \&_processDeviceSection;
+    my $sectionSub;
+    $sectionSub = exists $processBySection{$sectionName}  ?
+                         $processBySection{$sectionName} :
+                         \&_processDeviceSection;
 
-
-
-  return $sectionSub->(@_);
-
+    return $sectionSub->(@_);
 }
 
 sub _processPersonalitiesSection
 {
-  my ($sectionName, $sectionLines_r) = @_;
-  # for now we ignore this section
-  return [];
+    my ($sectionName, $sectionLines_r) = @_;
+    # for now we ignore this section
+    return [];
 }
 
+sub _processBitmapSection
+{
+    my ($sectionName, $sectionLines_r) = @_;
+    my ($line) = @{ $sectionLines_r };
+    return [ bitmap => $line ];
+}
 
 sub _processUnusedDevicesSection
 {
-  my ($sectionName, $sectionLines_r) = @_;
+    my ($sectionName, $sectionLines_r) = @_;
 
-  my @sectionLines = @{ $sectionLines_r };
-  my $unusedDevicesLine = join ' ', @sectionLines;
+    my @sectionLines = @{ $sectionLines_r };
+    my $unusedDevicesLine = join ' ', @sectionLines;
 
-  my @unusedDevices = split '\s', $unusedDevicesLine;
-  if ($unusedDevices[0] eq '<none>') {
-    @unusedDevices = (); # none means none
-  }
+    my @unusedDevices = split '\s', $unusedDevicesLine;
+    if ($unusedDevices[0] eq '<none>') {
+        @unusedDevices = (); # none means none
+    }
 
-
-  return [
-	  unusedDevices => \@unusedDevices
-	 ];
-
+    return [ unusedDevices => \@unusedDevices ];
 }
-
-
 
 sub _processDeviceSection
 {
-  my ($device, $deviceLines_r) = @_;
-  $device = '/dev/' . $device;
+    my ($device, $deviceLines_r) = @_;
+    $device = '/dev/' . $device;
 
-  my @lines = @{ $deviceLines_r };
+    my @lines = @{ $deviceLines_r };
 
-  my %deviceInfo; # hash  with all the parsed information
+    my %deviceInfo; # hash  with all the parsed information
 
-  %deviceInfo = (
-		 %deviceInfo,
-		_processDeviceMainLine(shift @lines)
-	       );
+    %deviceInfo = (
+        %deviceInfo,
+        _processDeviceMainLine(shift @lines)
+    );
 
+    my $processDeviceArrayLineSub = __PACKAGE__->can('_processDeviceArrayLineOfType' . ucfirst $deviceInfo{type});
+    if ($processDeviceArrayLineSub) {
+        %deviceInfo = (
+            %deviceInfo,
+            $processDeviceArrayLineSub->(shift @lines),
+        );
+    }
+    else {
+        EBox::debug('no _processDeciveArrayLineOfType method for type ' . $deviceInfo{type});
+        shift @lines;
+    }
 
-  my $processDeviceArrayLineSub = __PACKAGE__->can('_processDeviceArrayLineOfType' . ucfirst $deviceInfo{type});
-  if ($processDeviceArrayLineSub) {
-  %deviceInfo = (
-		 %deviceInfo,
-		 $processDeviceArrayLineSub->(shift @lines),
-		);
-  }
-  else {
-    EBox::debug('no _processDeciveArrayLineOfType method for type ' . $deviceInfo{type});
-    shift @lines;
-  }
+    %deviceInfo = (
+        %deviceInfo,
+        _processDeviceOperationLine(shift @lines),
+    );
 
-  %deviceInfo = (
-		 %deviceInfo,
-		 _processDeviceOperationLine(shift @lines),
-		);
-
-
-
-
-  return [$device => \%deviceInfo];
+    return [$device => \%deviceInfo];
 }
-
-
-
 
 sub _processDeviceMainLine
 {
-  my ($line) = @_;
-  my %deviceInfo;
+    my ($line) = @_;
+    my %deviceInfo;
 
+    my ($activeTag, $raidType, @raidDevicesTags) = split '\s', $line;
 
-  my ($activeTag, $raidType, @raidDevicesTags) = split '\s', $line;
+    $deviceInfo{active}= ($activeTag eq 'active') ? 1 : 0;
+    $deviceInfo{type}= $raidType;
 
-  $deviceInfo{active}= ($activeTag eq 'active') ? 1 : 0;
-  $deviceInfo{type}= $raidType;
+    my $raidDevices = _processRaidDevicesTags(@raidDevicesTags);
+    $deviceInfo{raidDevices} = $raidDevices;
 
-  my $raidDevices = _processRaidDevicesTags(@raidDevicesTags);
-  $deviceInfo{raidDevices} = $raidDevices;
-
-  return %deviceInfo;
+    return %deviceInfo;
 }
 
 
 sub _processDeviceArrayLineOfTypeRaid0
 {
-  my ($line) = @_;
-  my %deviceInfo;
-  my $lineRe = qr{
-    ^(\d+)\sblocks\s+  # $1 blocks count
-    (.*?)\s+chunks     # $2 chunkSize
-  }x;
+    my ($line) = @_;
 
-  if ($line =~ m/$lineRe/) {
-    $deviceInfo{blocks}= $1;
-    $deviceInfo{chunkSize} = $2;
-  }
-  else {
-    EBox::debug("not match for RAID0 regex: $line");
-   }
+    my %deviceInfo;
+    my $lineRe = qr{
+        ^(\d+)\sblocks\s+  # $1 blocks count
+        (.*?)\s+chunks     # $2 chunkSize
+    }x;
 
-  return %deviceInfo;
+    if ($line =~ m/$lineRe/) {
+        $deviceInfo{blocks}= $1;
+        $deviceInfo{chunkSize} = $2;
+    }
+    else {
+        EBox::debug("not match for RAID0 regex: $line");
+    }
+
+    return %deviceInfo;
 }
 
 sub _processDeviceArrayLineOfTypeRaid1
 {
-  my ($line) = @_;
+    my ($line) = @_;
 
-  my %deviceInfo;
+    my %deviceInfo;
 
-  my $lineRe =  qr{
-    ^(\d+)\sblocks\s+  # $1 blocks size
-    \[(\d+)/(\d+)\]\s+ # $2, $3 the number of active devices needed
-                       # and the number of active devices
-    \[(.*?)\]          # $4 status array ej: [UU]
-  }x;
+    my $lineRe =  qr{
+            ^(\d+)\sblocks\s+  # $1 blocks size
+            \[(\d+)/(\d+)\]\s+ # $2, $3 the number of active devices needed
+                               # and the number of active devices
+            \[(.*?)\]          # $4 status array ej: [UU]
+    }x;
 
+    if ($line =~ m/$lineRe/) {
+        $deviceInfo{blocks}= $1;
+        $deviceInfo{activeDevicesNeeded}= $2;
+        $deviceInfo{activeDevices}=  $3;
+        $deviceInfo{statusArray}= [ split //, $4  ];
+    }
+    else {
+        EBox::debug("not match for RAID1 regex: $line");
+    }
 
-  if ($line =~ m/$lineRe/ ) {
-    $deviceInfo{blocks}= $1;
-    $deviceInfo{activeDevicesNeeded}= $2;
-    $deviceInfo{activeDevices}=  $3;
-    $deviceInfo{statusArray}= [ split //, $4  ];
-   }
-  else {
-    EBox::debug("not match for RAID1 regex: $line");
-   }
-
-  return %deviceInfo;
+    return %deviceInfo;
 }
-
 
 sub _processDeviceArrayLineOfTypeRaid5
 {
-  my ($line) = @_;
+    my ($line) = @_;
 
-  my %deviceInfo;
+    my %deviceInfo;
 
-  my $lineRe =  qr{
-    ^(\d+)\sblocks\s+  # $1 blocks size
-    level\s+\d+,\s+    # ignored level line
-    (.*?)\s+chunk,\s+  # $2 chunk size
-    algorithm\s+(.*?)\s # $3 algorithm
-    \[(\d+)/(\d+)\]\s+ # $4, $5 the number of active devices needed
-                       # and the number of active devices
-    \[(.*?)\]          # $6 status array ej: [UU]
-  }x;
+    my $lineRe =  qr{
+             ^(\d+)\sblocks\s+   # $1 blocks size
+             level\s+\d+,\s+     # ignored level line
+             (.*?)\s+chunk,\s+   # $2 chunk size
+             algorithm\s+(.*?)\s # $3 algorithm
+             \[(\d+)/(\d+)\]\s+  # $4, $5 the number of active devices needed
+                                 # and the number of active devices
+             \[(.*?)\]           # $6 status array ej: [UU]
+    }x;
 
+    if ($line =~ m/$lineRe/ ) {
+        $deviceInfo{blocks}= $1;
+        $deviceInfo{chunkSize} = $2;
+        $deviceInfo{algorithm} = $3;
+        $deviceInfo{activeDevicesNeeded}= $4;
+        $deviceInfo{activeDevices}=  $5;
+        $deviceInfo{statusArray}= [ split //, $6  ];
+    }
+    else {
+        EBox::debug("not match for RAID5 regex: $line");
+    }
 
-  if ($line =~ m/$lineRe/ ) {
-    $deviceInfo{blocks}= $1;
-    $deviceInfo{chunkSize} = $2;
-    $deviceInfo{algorithm} = $3;
-    $deviceInfo{activeDevicesNeeded}= $4;
-    $deviceInfo{activeDevices}=  $5;
-    $deviceInfo{statusArray}= [ split //, $6  ];
-   }
-  else {
-    EBox::debug("not match for RAID5 regex: $line");
-   }
-
-  return %deviceInfo;
+    return %deviceInfo;
 }
-
-
 
 sub _processDeviceOperationLine
 {
-  my ($line) = @_;
+    my ($line) = @_;
 
-  $line = '' unless (defined($line));
-  my %deviceInfo;
+    $line = '' unless (defined($line));
+    my %deviceInfo;
 
-  my $operationLineRe =  qr{
-         (\w+)\s*            # $1 operation name
-         =\s*(\d+\.?\d*)%\s+ # $2 percentaje complete. may use one or two digits
-         .*?                 # ignored blocks comleted field
-         finish=(.*?)\s+     # $3 estimated relative finish time
-         speed=(.*?)         # $4 operation speed
-        (\s|$)               # end of parsing
-  }x;
+    my $operationLineRe =  qr{
+             (\w+)\s*            # $1 operation name
+             =\s*(\d+\.?\d*)%\s+ # $2 percentaje complete. may use one or two digits
+             .*?                 # ignored blocks comleted field
+             finish=(.*?)\s+     # $3 estimated relative finish time
+             speed=(.*?)         # $4 operation speed
+            (\s|$)               # end of parsing
+    }x;
 
+    my $operation = 'none';
+    if ($line =~ m/$operationLineRe/) {
+        $operation  = $1;
+        $deviceInfo{'operationPercentage'}= $2;
+        $deviceInfo{'operationEstimatedTime'}= $3;
+        $deviceInfo{'operationSpeed'}= $4;
+    }
 
-  my $operation = 'none';
-  if ($line =~ m/$operationLineRe/) {
-    $operation  = $1;
-    $deviceInfo{'operationPercentage'}= $2;
-    $deviceInfo{'operationEstimatedTime'}= $3;
-    $deviceInfo{'operationSpeed'}= $4;
-  }
+    $deviceInfo{operation} = $operation;
 
-
-  $deviceInfo{operation} = $operation;
-
-  return %deviceInfo;
+    return %deviceInfo;
 }
-
 
 sub _processRaidDevicesTags
 {
-  my (@tags) = @_;
-  my %devices;
+    my (@tags) = @_;
+    my %devices;
 
+    my $devTagRe = qr{
+            ^(.*?)     # $1 device filename
+            \[(\d)\]   # $2 device RAID number
+    }x;
 
-  my $devTagRe = qr{
-       ^(.*?)     # $1 device filename
-       \[(\d)\]   # $2 device RAID number
-  }x;
+    foreach my $tag (@tags) {
+        my $raidDevice;
+        my $device;
+        my $failure = 0;
 
-  foreach my $tag (@tags) {
-    my $raidDevice;
-    my $device;
-    my $failure = 0;
+        if ($tag =~ m/$devTagRe/) {
+            $device = $1;
+            $raidDevice =$2;
 
-    if ($tag =~ m/$devTagRe/) {
-      $device = $1;
-      $raidDevice =$2;
+            if (not $device =~ m{/}) {
+                # if it is 'relative' device we may infer that it is in the /dev dir
+                $device = '/dev/' . $device;
+            }
+        }
+        else {
+            EBox::error("Cannot extract device from tag $tag. Skipping tag");
+            next;
+        }
 
-      if (not $device =~ m{/}) {
-          # if it is 'relative' device we may infer that it is in the /dev dir
-          $device = '/dev/' . $device;
-      }
+        if ($tag =~ m/\(F\)/) {
+            $failure = 1;
+        }
 
+        $devices{$raidDevice} = {
+            device  => $device,
+        };
+
+        if ($failure) {
+            $devices{$raidDevice}->{state} = 'failure';
+        }
     }
-    else {
-      EBox::error("Cannot extract device from tag $tag. Skipping tag");
-      next;
-    }
 
-
-    if ($tag =~ m/\(F\)/) {
-      $failure = 1;
-    }
-
-
-    $devices{$raidDevice} = {
-			     device  => $device,
-			    };
-
-    if ($failure) {
-        $devices{$raidDevice}->{state} = 'failure';
-     }
-
-  }
-
-  return (raidDevices => \%devices);
+    return (raidDevices => \%devices);
 }
-
-
-
-
-
-
 
 1;
