@@ -27,6 +27,7 @@ use EBox::Apache;
 
 use POSIX ":sys_wait_h";
 use Error qw(:try);
+use Encode;
 
 use constant HOST_MODULE => 'apache';
 
@@ -214,7 +215,8 @@ sub setMessage
 sub message
 {
     my ($self) = @_;
-    return $self->getConfString('message');
+    # We need to decode this if we encode redis responses
+    return decode('UTF-8', $self->getConfString('message'));
 }
 
 sub id
