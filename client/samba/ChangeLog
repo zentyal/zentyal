@@ -1,6 +1,7 @@
 HEAD
 	+ Bugfix: disabled shares are correctly ignored now
 	+ Bugfix: fixed bad column name in report consolidation
+	+ Domain names ending in ".local" are no longer allowed
 2.0.9
 	+ Fix regression that caused incompatibility between samba and mail modules
 2.0.8

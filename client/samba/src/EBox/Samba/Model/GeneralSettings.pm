@@ -73,6 +73,8 @@ sub validateTypedRow
                 __('Netbios and workgroup must have different names'));
     }
 
+    $self->_checkDomainName($workgroup);
+
     if (length($netbios) > 15) {
         throw EBox::Exceptions::External(
                 __('Netbios name cannot be longer than 15 characters'));
@@ -94,6 +96,17 @@ sub validateTypedRow
         throw EBox::Exceptions::External(__x('A slave server can not act as PDC if PAM is enabled. You can do disable PAM at {ohref}LDAP Settings{chref}.',
             ohref => q{<a href='/ebox/Users/Composite/Settings/'>},
             chref => q{</a>}));
+    }
+}
+
+sub _checkDomainName
+{
+    my ($self, $domain) = @_;
+
+    if ($domain =~ m/\.local$/) {
+        throw EBox::Exceptions::External(
+                __(q{Domain name cannot end in '.local'})
+        );
     }
 }
 
@@ -219,7 +232,7 @@ sub _drive_letters
 #
 sub headTitle
 {
-        return undef;
+    return undef;
 }
 
 sub _samba_group
