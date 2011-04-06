@@ -1,4 +1,4 @@
-HEAD
+2.0.10
 	+ Bugfix: disabled shares are correctly ignored now
 	+ Bugfix: fixed bad column name in report consolidation
 	+ Domain names ending in ".local" are no longer allowed
