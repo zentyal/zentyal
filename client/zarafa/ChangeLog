@@ -1,4 +1,4 @@
-HEAD
+2.0.5
 	+ Bugfix: indexer was always started ignoring value of zarafa_indexer
 	+ Manage zarafa-licensed daemon if defined 80zarafa.conf
 2.0.4
