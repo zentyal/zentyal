@@ -1,3 +1,5 @@
+HEAD
+	+ Domain names ending in ".local" are no longer allowed
 2.1.1
 	+ Quotas are now included in users module
 	+ Bugfix: disabled shares are correctly ignored now
