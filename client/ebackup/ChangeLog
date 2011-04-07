@@ -1,4 +1,6 @@
 2.0.11
+	+ Report methods in RemoteSettings and BackupDomains now return
+	  non-i18n'ed data
 	+ Parse and store backup statistics for further processing
 	+ First date is selected by default on restore-tool
 	+ Set default value for the keep previous full copies setting

@@ -116,7 +116,7 @@ sub report
     foreach my $id (@{ $self->ids() }) {
         my $row = $self->row($id);
         if ($row->valueByName('enabled')) {
-            push @enabled, $row->valueByName('description');
+            push @enabled, $row->valueByName('name');
         }
     }
 

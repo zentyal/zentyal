@@ -976,36 +976,38 @@ sub report
     my ($self) = @_;
     my $row = $self->row();
 
-    my @report =  ();
+    my @report = ();
 
     my @attrs = qw(method);
     if ($row->valueByName('method') ne 'cloud') {
         push @attrs, 'target';
     }
-    push @attrs, qw(encryption full incremental start);
+    push @attrs, qw(encryption full incremental);
 
     foreach my $attr (@attrs) {
         my $element =  $row->elementByName($attr);
-        my $printableName = $element->printableName();
-        my $printableValue;
+
+        my $value;
         if ($element->isa('EBox::Types::Union')) {
-            $printableValue = $element->subtype()->printableName();
+            $value = $element->selectedType();
         } else {
-            $printableValue =  $element->printableValue();
+            $value =  $element->value();
         }
 
-        my $row = {$printableName, $printableValue};
+        my $row = {$attr, $value};
         push @report, $row;
     }
 
+    my $start = $row->valueByName('start') . ':00';
+    push @report, {start => $start};
+
     my $fullCopies =  $row->elementByName('full_copies_to_keep');
     my $retentionPolicy =  {
-                   __('Retention policy type') =>
-                         ucfirst $fullCopies->subtype()->printableName()
-                  };
+                   'retention policy type' =>  $fullCopies->selectedType()
+    };
 
     my $retentionCopies = {
-                           $fullCopies->printableName() => ucfirst $fullCopies->printableValue()
+             'retention policy value' =>  $fullCopies->value()
     };
 
     push @report, $retentionPolicy, $retentionCopies;
