@@ -1,4 +1,6 @@
 HEAD
+	+ Report methods in RemoteSettings and BackupDomains now return
+	  non-i18n'ed data
 	+ More control over uncommon errors
 	+ Parse and store backup statistics for further processing
 	+ First date is selected by default on restore-tool
