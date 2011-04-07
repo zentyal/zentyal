@@ -100,7 +100,7 @@ sub generateReport
 
     $class->_setReportAsGenerated();
 
-    return $class->_soapResult($retValue);
+    return $class->_soapResult($retValue, 'string');
 }
 
 # Method: URI

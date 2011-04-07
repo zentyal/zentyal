@@ -2,6 +2,7 @@ HEAD
 	+ Bugfix: Migration for VPN clients to new local port and address
 	  options works
 	+ Bugfix: VPN local address tests are now quiet
+	+ Enforcing type in SOAP response is now allowed
 2.0.10
 	+ Added new models to show information about our several services:
 	  - Server subscriptions

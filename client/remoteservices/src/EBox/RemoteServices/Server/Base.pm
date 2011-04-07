@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2010 eBox Technologies S.L.
+# Copyright (C) 2008-2011 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -111,16 +111,24 @@ sub _cnFromRequest
 #
 # Parameters:
 #
-#    retData - the returned data
+#    retData - Scalar the returned data
+#
+#    type - String enforced the result in a type. The possible values
+#           are listed in <SOAP::Serializer> for AUTOTYPING
+#           *(Optional)* Default type: no enforcing type
 #
 sub _soapResult
 {
-    my ($class, $retData) = @_;
+    my ($class, $retData, $type) = @_;
 
     my $trace = new Devel::StackTrace();
     if ($trace->frame(2)->package() eq 'SOAP::Server' ) {
         $SOAP::Constants::NS_SL_PERLTYPE = $class->URI();
-        return SOAP::Data->name('return', $retData);
+        if ( $type ) {
+            return SOAP::Data->name('return', $retData)->type($type);
+        } else {
+            return SOAP::Data->name('return', $retData);
+        }
     } else {
         return $retData;
     }
