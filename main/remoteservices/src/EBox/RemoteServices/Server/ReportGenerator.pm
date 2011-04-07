@@ -95,7 +95,7 @@ sub generateReport
     $class->_setReportAsGenerated();
 
     my $retValue = YAML::XS::Dump($full_report);
-    return $class->_soapResult($retValue);
+    return $class->_soapResult($retValue, 'string');
 }
 
 # Method: URI
