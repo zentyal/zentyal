@@ -251,9 +251,9 @@ sub _vpnClientLocalAddress
         }
     }
 
-    # look whether address can coneect to the VPN server
+    # look whether address can connect to the VPN server
     foreach my $addr (@addresses) {
-        my $pingCmd = "ping -I $addr -c 1 $serverAddr";
+        my $pingCmd = "ping -I $addr -c 1 $serverAddr 2>&1 > /dev/null";
         system $pingCmd;
         if ($? == 0) {
             return $addr;
