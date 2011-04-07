@@ -43,6 +43,8 @@ use constant ZARAFAINDEXERCONFFILE => '/etc/zarafa/indexer.cfg';
 use constant ZARAFA_WEBACCESS_DIR => '/usr/share/zarafa-webaccess';
 use constant HTTPD_ZARAFA_WEBACCESS_DIR => '/var/www/webaccess';
 
+use constant ZARAFA_LICENSED_INIT => '/etc/init.d/zarafa-licensed';
+
 sub _create
 {
     my $class = shift;
@@ -201,7 +203,7 @@ sub compositeClasses
 #
 sub _daemons
 {
-    return [
+    my $daemons = [
         {
             'name' => 'zarafa-server',
             'type' => 'init.d',
@@ -235,13 +237,20 @@ sub _daemons
             'pidfiles' => ['/var/run/zarafa-ical.pid'],
             'precondition' => \&icalEnabled
         },
-        {
-            'name' => 'zarafa-licensed',
-            'type' => 'init.d',
-            'pidfiles' => ['/var/run/zarafa-licensed.pid'],
-            'precondition' => \&licensedEnabled
-        },
     ];
+
+    if (-x ZARAFA_LICENSED_INIT ) {
+        push (@{$daemons},
+            {
+                'name' => 'zarafa-licensed',
+                'type' => 'init.d',
+                'pidfiles' => ['/var/run/zarafa-licensed.pid'],
+                'precondition' => \&licensedEnabled
+            },
+        );
+    }
+
+    return $daemons;
 }
 
 # Method: gatewayEnabled
