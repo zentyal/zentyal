@@ -1,3 +1,7 @@
+HEAD
+	+ Bugfix: Migration for VPN clients to new local port and address
+	  options works
+	+ Bugfix: VPN local address tests are now quiet
 2.0.10
 	+ Added new models to show information about our several services:
 	  - Server subscriptions

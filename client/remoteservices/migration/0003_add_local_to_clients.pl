@@ -59,7 +59,7 @@ sub runGConf
 
         my $vpnServer = $settingsRow->valueByName('server');
         my $protocol  = $settingsRow->elementByName('serverPortAndProtocol')->protocol();
-        my $localAddr = EBox::RemoteServices::Auth->vpnClientLocalAddress($vpnServer);
+        my $localAddr = EBox::RemoteServices::Auth->_vpnClientLocalAddress($vpnServer);
         my $localPort = EBox::NetWrappers::getFreePort($protocol, $localAddr);
 
         # set values and store
