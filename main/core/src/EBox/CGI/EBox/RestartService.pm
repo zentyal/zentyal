@@ -54,7 +54,7 @@ sub _process
         $mod->restartService();
         $self->{msg} = __('The module was restarted correctly.');
     } catch EBox::Exceptions::Lock with {
-        EBox::error("Restart of $mod from dashboard failed beacuse it was locked");
+        EBox::error("Restart of $mod from dashboard failed because it was locked");
         $self->{msg} = __x('Service {mod} is locked by another process. Please wait its end and then try again.',
                            mod  => $mod->printableName(),
                           );

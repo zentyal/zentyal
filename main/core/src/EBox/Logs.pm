@@ -752,7 +752,7 @@ sub tableInfo
 #       (Private)
 #
 #       This function saves the enabled logs in a file.
-#       We have to do this beacuse the logger daemon will request this
+#       We have to do this because the logger daemon will request this
 #       configuration as root user.
 #
 #       Another approach could be creating a separated script to
@@ -787,7 +787,7 @@ sub _saveEnabledLogsModules
 #
 #       This function restores the enabled logs saved in a file by
 #       <EBox::Logs::_saveEnabledLogsModules>
-#       We have to do this beacuse the logger daemon will request this
+#       We have to do this because the logger daemon will request this
 #       configuration as root user.
 #
 #       Anotther approach could be creating a separated script to
