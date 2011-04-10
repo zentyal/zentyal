@@ -1,4 +1,6 @@
 HEAD
+	+ More informative error messages when trying to restart locked modules
+	  from the dashboard
 	+ Creation of plpgsql language moved from EBox::Logs::initialSetup
 	  to create-db script
 	+ Redis backend now throws different kind of exceptions

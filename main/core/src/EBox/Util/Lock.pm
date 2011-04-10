@@ -27,7 +27,7 @@ sub lock
     my ($modulename) = @_;
     my $file = EBox::Config::tmp . "/" . $modulename . ".lock";
     open(LOCKFILE, ">$file") or
-        throw EBox::Exceptions::Internal("Cannot open lockfile: $file");
+        throw EBox::Exceptions::Internal("Cannot open lockfile to lock: $file");
     flock(LOCKFILE, LOCK_EX | LOCK_NB) or
         throw EBox::Exceptions::Lock($modulename);
 }
@@ -37,7 +37,7 @@ sub unlock
     my ($modulename) = @_;
     my $file = EBox::Config::tmp . "/" . $modulename . ".lock";
     open(LOCKFILE, ">$file") or
-        throw EBox::Exceptions::Internal("Cannot open lockfile: $file");
+        throw EBox::Exceptions::Internal("Cannot open lockfile to unlock: $file");
     flock(LOCKFILE, LOCK_UN);
     close(LOCKFILE);
 }

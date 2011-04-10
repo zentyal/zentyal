@@ -53,10 +53,17 @@ sub _process
     try {
         $mod->restartService();
         $self->{msg} = __('The module was restarted correctly.');
+    } catch EBox::Exceptions::Lock with {
+        EBox::error("Restart of $mod from dashboard failed beacuse it was locked");
+        $self->{msg} = __x('Service {mod} is locked by another process. Please wait its end and then try again.',
+                           mod  => $mod->printableName(),
+                          );
     } catch EBox::Exceptions::Internal with {
         my ($ex) = @_;
         EBox::error("Restart of $mod from dashboard failed: " . $ex->text);
-        $self->{msg} = __x('Error restarting service. See {logs} for more information.', logs => EBox::Config::logfile());
+        $self->{msg} = __x('Error restarting service {mod}. See {logs} for more information.',
+                           mod  => $mod->printableName(),
+                           logs => EBox::Config::logfile());
     };
     $self->cgi()->delete_all();
 }
