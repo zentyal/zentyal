@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2010 eBox Technologies S.L.
+# Copyright (C) 2008-2011 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -15,40 +15,21 @@
 
 # Class: EBox::Events::Model::Dispatcher::Jabber
 #
-# This class is the model to configurate Jabber dispatcher. It
-# inherits from <EBox::Model::DataForm> since it is not a table but a
-# simple form with four fields:
 #
-#     - server
-#     - port
-#     - user
-#     - password
-#     - subscribe
-#     - adminJID
-#
-use strict;
-use warnings;
 
 package EBox::Events::Model::Dispatcher::Jabber;
 
 use base 'EBox::Model::DataForm';
 
-use EBox::Exceptions::InvalidData;
-use EBox::Gettext;
+use strict;
+use warnings;
+
 use EBox::Global;
-use EBox::Types::Boolean;
-use EBox::Types::Int;
-use EBox::Types::Password;
+use EBox::Gettext;
+use EBox::Types::Port;
 use EBox::Types::Text;
-use EBox::Validate;
-
-################
-# Dependencies
-################
-use Net::Jabber::JID;
-
-# Constants
-# use constant JABBER_DISPATCHER_SERVICE_NAME => 'Jabber dispatcher client';
+use EBox::Types::Host;
+use EBox::Types::Password;
 
 # Group: Public methods
 
@@ -65,116 +46,25 @@ use Net::Jabber::JID;
 #     <EBox::Event::Dispatcher::Model::Jabber>
 #
 sub new
-  {
-      my $class = shift;
+{
+    my $class = shift;
 
-      my $self = $class->SUPER::new(@_);
-      bless ( $self, $class);
+    my $self = $class->SUPER::new(@_);
+    bless ($self, $class);
 
-      return $self;
-
-  }
-
-# Method: validateTypedRow
-#
-#
-# Overrides:
-#
-#     <EBox::Model::DataTable::validateTypedRow>
-#
-sub validateTypedRow
-  {
-
-      my ($self, $action, $params) = @_;
-
-      if ( exists ( $params->{server} )) {
-          # We assume the Jabber domain should be a valid DNS domain
-          EBox::Validate::checkDomainName( $params->{server}->value(),
-                                           $params->{server}->printableName() );
-      }
-
-      if ( exists ( $params->{port} )) {
-          EBox::Validate::checkPort( $params->{port}->value(),
-                                     $params->{port}->printableName() );
-      }
-
-      # Check the JID
-      if ( exists ( $params->{adminJID} )) {
-          $self->_checkAdminJID( $params->{adminJID}->value() );
-      }
-
-  }
-
-# Method: formSubmitted
-#
-#       When the form is submitted, the model must set up the jabber
-#       dispatcher client service and sets the output rule in the
-#       firewall
-#
-# Overrides:
-#
-#      <EBox::Model::DataForm::formSubmitted>
-#
-sub formSubmitted
-  {
-
-      my ($self, $oldRow) = @_;
-
-      my $gl = EBox::Global->getInstance();
-
-#      if ( $gl->modExists('services')) {
-#          my $servMod = $gl->modInstance('services');
-#          my $method;
-#          if ( $servMod->serviceExists('name' => JABBER_DISPATCHER_SERVICE_NAME)) {
-#              $method = 'setService';
-#          } else {
-#              $method = 'addService';
-#          }
-#          $servMod->$method(name            => JABBER_DISPATCHER_SERVICE_NAME,
-#                            protocol        => 'tcp',
-#                            sourcePort      => 'any',
-#                            destinationPort =>  $jabberServPort,
-#                            internal        => 1,
-#                            readOnly        => 1,
-#                            # FIXME: Add backview parameter
-#                            description     => __x('To be updated at {href}' .
-#                                                   'Jabber dispatcher configuration' .
-#                                                   '{endHref}',
-#                                                  href => '<a href="/zentyal/' . $self->menuNamespace()
-#                                                   . '?directory=' . $self->directory() . '">',
-#                                                  endHref => '</a>'),
-#                           );
-          if ( $gl->modExists('firewall') ){
-              my $fwMod = $gl->modInstance('firewall');
-              my $jabberServPort = $self->portValue();
-              $fwMod->removeOutputRule( 'tcp', $oldRow->valueByName('port'));
-              $fwMod->addOutputRule( 'tcp', $jabberServPort);
-#              my ( $idx, $row ) = ( 0, undef);
-#              my $servId = $servMod->serviceId(JABBER_DISPATCHER_SERVICE_NAME);
-#              do {
-#                  $row = $fwMod->getOutputService( $idx );
-#                  $idx++;
-#                  if ( defined ( $row )) {
-#                      last if ( $row->{plainValueHash}->{service} eq $servId );
-#                  }
-#              } while ( defined ( $row ));
-#              if ( defined ( $row ) ) {
-#                  # The rule already exists
-#                  ;
-#              } else {
-#                  $fwMod->addOutputService( decision => 'accept',
-#                                            destination => { destination_any => 'any',
-#                                                             inverse => 0 },
-#                                            service     => $servId,
-#                                            description => 'Jabber dispatcher connection to a Jabber server');
-#              }
-#          }
-          }
-
-
-  }
+    return $self;
+}
 
 # Group: Protected methods
+
+sub _populateSSL
+{
+    my @opts = ();
+    push (@opts, { value => 'none', printableValue => __('None') });
+    push (@opts, { value => 'ssl', printableValue => __('SSL') });
+    push (@opts, { value => 'tls', printableValue => __('TLS') });
+    return \@opts;
+}
 
 # Method: _table
 #
@@ -183,79 +73,66 @@ sub formSubmitted
 #     <EBox::Model::DataForm::_table>
 #
 sub _table
-  {
-
-      my @tableDesc =
+{
+    my @tableDesc =
         (
-         new EBox::Types::Text(
-             fieldName     => 'server',
-             printableName => __('Jabber server name'),
-             size          => 12,
-             editable      => 1,
-             help          => __('Jabber server to send the messages')
-             ),
-         new EBox::Types::Int(
-             fieldName     => 'port',
-             printableName => __('Port'),
-             size          => 6,
-             editable      => 1,
-             defaultValue  => 5222,
-             ),
-         new EBox::Types::Text(
-             fieldName     => 'user',
-             printableName => __('Jabber user name'),
-             size          => 12,
-             editable      => 1,
-             help          => __('Jabber ID of the account ' .
-                 'that will send the messages. ' .
-                 'Hint: do not introduce @domain, only the user name')
-             ),
-         new EBox::Types::Password(
-             fieldName     => 'password',
-             printableName => __('User password'),
-             size          => 12,
-             editable      => 1,
-             minLength     => 4,
-             maxLength     => 25,
-             ),
-         new EBox::Types::Boolean(
-             fieldName      => 'subscribe',
-             printableName  => __('Subscribe'),
-             editable       => 1,
-             help           => __('Tick this option if ' .
-                 'you want Zentyal to create an account for ' .
-                 'the above user')
-             ),
-
-         new EBox::Types::Text(
-             fieldName     => 'adminJID',
-             printableName => __('Administrator Jabber Identifier'),
-             size          => 12,
-             editable      => 1,
-             help          => __('Destination Jabber ID of the messages ' .
-                'generated by Zentyal,  i.e: you, the Zentyal admin. Note ' .
-                'that you need to register this  account manually in ' .
-                'any jabber server')
-             ),
+        new EBox::Types::Host(
+            fieldName     => 'server',
+            printableName => __('Jabber Server'),
+            size          => 12,
+            editable      => 1,
+        ),
+        new EBox::Types::Port(
+            fieldName     => 'port',
+            printableName => __('Port'),
+            size          => 4,
+            editable      => 1,
+            defaultValue  => 5222,
+        ),
+        new EBox::Types::Select(
+            fieldName     => 'ssl',
+            printableName => __('SSL'),
+            editable      => 1,
+            populate      => \&_populateSSL,
+        ),
+        new EBox::Types::Text(
+            fieldName     => 'user',
+            printableName => __('Username'),
+            size          => 12,
+            editable      => 1,
+        ),
+        new EBox::Types::Password(
+            fieldName     => 'password',
+            printableName => __('Password'),
+            size          => 12,
+            editable      => 1,
+        ),
+        new EBox::Types::Text(
+            fieldName     => 'adminJID',
+            printableName => __('Administrator Account'),
+            size          => 18,
+            editable      => 1,
+            help          => __('Destination Jabber account to send the messages to.'),
+        ),
         );
 
-      my $dataForm = {
-                      tableName          => 'JabberDispatcherForm',
-                      printableTableName => __('Configure Jabber dispatcher'),
-                      modelDomain        => 'Events',
-                      defaultActions     => [ 'editField' ],
-                      tableDescription   => \@tableDesc,
-                      class              => 'dataForm',
-                      help               => __('This dispatcher will send ' .
-                                               'events to an Jabber account'),
-                      messages           => {
-                                             update => __('Jabber dispatcher configuration updated'),
-                                            },
-                     };
+    my $dataForm =
+        {
+            tableName          => 'JabberDispatcherForm',
+            printableTableName => __('Configure Jabber Dispatcher'),
+            modelDomain        => 'Events',
+            defaultActions     => [ 'editField' ],
+            tableDescription   => \@tableDesc,
+            class              => 'dataForm',
+            help               => __('This dispatcher will send ' .
+                                  'events to a Jabber account.'),
+            messages           => {
+                                update => __('Jabber dispatcher configuration updated.'),
+                                  },
+        };
 
-      return $dataForm;
-
-  }
+    return $dataForm;
+}
 
 # Method: viewCustomizer
 #
@@ -264,45 +141,21 @@ sub _table
 #
 sub viewCustomizer
 {
-        my ($self) = @_;
+    my ($self) = @_;
 
-        my $custom =  $self->SUPER::viewCustomizer();
-        $custom->setHTMLTitle([
-                {
-                title => __('Events'),
-                link  => '/zentyal/Events/Composite/GeneralComposite#ConfigureDispatcherDataTable',
-                },
-                {
-                title => __('Jabber Dispatcher'),
-                link  => ''
-                }
-        ]);
+    my $custom =  $self->SUPER::viewCustomizer();
+    $custom->setHTMLTitle([
+        {
+            title => __('Events'),
+            link  => '/zentyal/Events/Composite/GeneralComposite#ConfigureDispatcherDataTable',
+        },
+        {
+            title => __('Jabber Dispatcher'),
+            link  => ''
+        }
+    ]);
 
-        return $custom;
+    return $custom;
 }
-
-
-# Group: Private methods
-
-# Check the admin JID
-sub _checkAdminJID # (jid)
-  {
-
-      my ($self, $adminJID) = @_;
-
-      my $jid = new Net::Jabber::JID();
-      $jid->SetJID($adminJID);
-
-      # Both userID and server must not be empty
-      unless ( $jid->GetUserID() and $jid->GetServer() ) {
-          # Some changes was needed
-          throw EBox::Exceptions::InvalidData( data => __('Administrator Jabber Identifier'),
-                                               value => $adminJID,
-                                               advice => __('It should follow the pattern ' .
-                                                            q{'user@domain[/resource]'})
-                                             );
-      }
-
-  }
 
 1;

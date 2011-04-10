@@ -1,4 +1,5 @@
 HEAD
+	+ Update Jabber dispatcher to use Net::XMPP with some refactoring
 	+ Save changes messages are correctly shown with international charsets
 	+ Support for bitmap option in RAID report
 	+ Retry multiInsert line by line if there are encoding errors

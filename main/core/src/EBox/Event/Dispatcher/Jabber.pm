@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2010 eBox Technologies S.L.
+# Copyright (C) 2008-2011 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -13,39 +13,35 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::Event::Dispatcher::Jabber;
 
 # Class: EBox::Dispatcher::Jabber
 #
-# This class is a dispatcher which sends the event to an admin
+# This class is a dispatcher which sends events to a Jabber account
 #
 
 # TODO: Disconnect seamlessly from the Jabber server
 # TODO: Send presence from time to time
+
+package EBox::Event::Dispatcher::Jabber;
 
 use base 'EBox::Event::Dispatcher::Abstract';
 
 use strict;
 use warnings;
 
-use EBox::Exceptions::MissingArgument;
-use EBox::Exceptions::External;
 use EBox::Gettext;
 use EBox::Model::ModelManager;
+use EBox::Exceptions::MissingArgument;
+use EBox::Exceptions::External;
 
-################
-# Dependencies
-################
-use Data::Dumper;
-use Net::Jabber;
-use Net::Jabber::Message;
+use Net::XMPP;
+use Sys::Hostname;
 
 # Group: Public methods
 
 # Constructor: new
 #
 #        The constructor for <EBox::Event::Dispatcher::Jabber>
-#
 #
 # Returns:
 #
@@ -56,10 +52,9 @@ sub new
     my ($class) = @_;
 
     my $self = $class->SUPER::new('ebox');
-    bless( $self, $class );
+    bless ($self, $class);
 
-    # The required parameters
-    $self->{resource} = 'Home';
+    $self->{resource} = 'Zentyal';
     $self->{ready}  = 0;
 
     return $self;
@@ -75,17 +70,14 @@ sub configured
 {
     my ($self) = @_;
 
-    # Get parameters from the model
+    # get parameters from the model
     $self->_jabberDispatcherParams();
-
 
     # Jabber dispatcher is configured only if the values from the
     # configuration model are set
     return ($self->{server} and $self->{port} and
             $self->{user} and $self->{password} and $self->{adminJID});
-
 }
-
 
 # Method: ConfigurationMethod
 #
@@ -121,14 +113,14 @@ sub send
 {
     my ($self, $event) = @_;
 
-    defined ( $event ) or
+    defined ($event) or
         throw EBox::Exceptions::MissingArgument('event');
 
     unless ( $self->{ready} ) {
         $self->enable();
     }
 
-    # Send to the jabber
+    # send to the jabber
     my $msg = $self->_createEventMessage($event);
     $self->{connection}->Send($msg);
 
@@ -145,7 +137,7 @@ sub send
 #
 sub _receiver
 {
-    return __('Admin Jabber account');
+    return __('Jabber Account');
 }
 
 # Method: _name
@@ -171,13 +163,13 @@ sub _enable
 
     $self->_jabberDispatcherParams();
 
-    # Don't reenable a connection when it's already connected
-    if ( defined ( $self->{connection} )) {
+    # don't reenable a connection when it's already connected
+    if ( defined ($self->{connection}) ) {
         if ( $self->{connection}->Connected() ) {
-            # Just send a presence send and return
+            # just send a presence send and return
             $self->{connection}->PresenceSend();
         } else {
-            # Destroy previous connection and reconnect
+            # destroy previous connection and reconnect
             $self->{connection}->Disconnect();
             $self->_confClient();
         }
@@ -188,86 +180,77 @@ sub _enable
 
 # Group: Private methods
 
-# Configurate the jabber connection
+# configure the Jabber connection
 sub _confClient
 {
     my ($self) = @_;
 
-    $self->{connection} = new Net::Jabber::Client();
+    $self->{connection} = new Net::XMPP::Client();
 
-    # Empty callbacks at this time
+    # gtalk needs this to work
+    my $comp = undef;
+    if ($self->{server} eq 'talk.google.com') {
+        $comp = 'gmail.com';
+    }
 
-    # Server connection
     my $status = $self->{connection}->Connect(
             hostname => $self->{server},
             port     => $self->{port},
+            tls      => $self->{tls},
+            ssl      => $self->{ssl},
+            connectiontype => 'tcpip',
+            componentname => $comp,
             );
-
-    unless (defined ($status)) {
+    
+    unless ( defined ($status) ) {
         throw EBox::Exceptions::External(__x('Jabber server {serverName}' .
-                    ' is down or connection is not allowed',
-                    serverName => $self->{server})
-                );
+                  ' is down or connection is not allowed.',
+                  serverName => $self->{server})
+        );
     }
 
-    # Server authentication
+    if ($comp) {
+        my $sid = $self->{connection}->{SESSION}->{id};
+        $self->{connection}->{STREAM}->{SIDS}->{$sid}->{hostname} = $comp;
+    }
+
     my @authResult = $self->{connection}->AuthSend(
             username => $self->{user},
             password => $self->{password},
             resource => $self->{resource},
             );
 
-    unless ( defined ( $authResult[0] )) {
+    unless ( defined ($authResult[0]) ) {
         $self->_problems('AuthSend');
     }
 
     unless ( $authResult[0] eq 'ok' ) {
-        if ( $self->{subscribe} ) {
-            # Try to register the user
-            my @registerResult = @{$self->_register()};
-
-            if ($registerResult[0] eq 'ok') {
-                # Registration was ok
-                $self->{subscribe} = 0;
-                $self->{connection}->Disconnect();
-                # Reconnect to authenticate
-                $self->_confClient();
-                return;
-            } else {
-                throw EBox::Exceptions::External(__x('Subscription failed: {message}',
-                            message => $registerResult[1]
-                            )
-                        );
-            }
-
-        } else {
-            throw EBox::Exceptions::External(__x('Authorization failed: {result} - {message}',
-                        result  => $authResult[0],
-                        message => $authResult[1],
-                        )
-                    );
-        }
+        throw EBox::Exceptions::External(__x('Authorization failed: ' .
+                  '{result} - {message}',
+                  result  => $authResult[0],
+                  message => $authResult[1])
+        );
     }
 
-    # Sending presence to the ebox admin
     $self->{connection}->PresenceSend();
 
-    # Flag to indicate the Jabber dispatcher is ready to send messages
     $self->{ready} = 1;
 }
 
-# Populate the message with the event
+# populate the message with the event
 sub _createEventMessage # (event)
 {
     my ($self, $event) = @_;
 
-    my $msg = new Net::Jabber::Message();
+    my $msg = new Net::XMPP::Message();
+
+    my $hostname = Sys::Hostname::hostname();
 
     $msg->SetMessage(
             to      => $self->{adminJID},
-            type    => 'normal',
-            subject => 'Zentyal event',
-            body    => $event->level() . ' : ' . $event->message(),
+            type    => 'chat',
+            subject => 'Zentyal event' . $hostname,
+            body    => $hostname .' ['. $event->level() .']: '. $event->message(),
             );
 
     return $msg;
@@ -278,10 +261,7 @@ sub _emptyCallback
     return;
 }
 
-# Obtain the jabber event dispatcher from the configuration model. In
-# order to get the data, we need to check the model manager to do so
-# It will set the parameters in the instance to communicate with the
-# jabber server to send messages to the admin
+# get configuration
 sub _jabberDispatcherParams
 {
     my ($self) = @_;
@@ -297,43 +277,18 @@ sub _jabberDispatcherParams
     $self->{user}      = $row->valueByName('user');
     $self->{password}  = $row->valueByName('password');
     $self->{adminJID}  = $row->valueByName('adminJID');
-    $self->{subscribe} = $row->valueByName('subscribe');
+    $self->{ssl}       = $row->valueByName('ssl') eq 'ssl' ? 1 : 0;
+    $self->{tls}       = $row->valueByName('ssl') eq 'tls' ? 1 : 0;
 }
 
-# Method to try to register at the Jabber server
-sub _register
-{
-    my ($self) = @_;
-
-    my %requestResult = $self->{connection}->RegisterRequest();
-
-    unless (scalar ( keys ( %requestResult )) >= 0) {
-        $self->_problems('RegisterRequest');
-    }
-
-    my @registerResult = $self->{connection}->RegisterSend(
-            username => $self->{user},
-            password => $self->{password},
-            name     => 'Zentyal',
-            email => 'zentyal@zentyal.org',
-            );
-
-    unless (defined ($registerResult[0])) {
-        $self->_problems('AuthSend');
-    }
-
-    return \@registerResult;
-}
-
-# Method to get the error code
+# method to get the error code
 sub _problems
 {
     my ($self, $methodName) = @_;
 
-    EBox::error("Error processing $methodName " .
-            $self->{connection}->GetErrorCode());
+    EBox::error("Error processing $methodName." . $self->{connection}->GetErrorCode());
 
-    throw EBox::Exceptions::Internal('Error when communicating to the Jabber server');
+    throw EBox::Exceptions::External('Error when communicating to the Jabber server.');
 }
 
 1;
