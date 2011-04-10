@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2010 eBox Technologies S.L.
+# Copyright (C) 2008-2011 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -15,42 +15,28 @@
 
 # Class: EBox::Events::Model::Dispatcher::Mail
 #
-# This class is the model to configurate the Mail dispatcher. It
-# inherits from <EBox::Model::DataForm> since it is not a table but a
-# simple form with 2 fields:
 #
-#     - subject
-#     - to
-#
-# The mail is sent using Zentyal mail SMTP.
 
 package EBox::Mail::Model::Dispatcher::Mail;
 
 use base 'EBox::Model::DataForm';
 
-use EBox::Exceptions::InvalidData;
-use EBox::Gettext;
 use EBox::Global;
-use EBox::Types::Boolean;
+use EBox::Gettext;
 use EBox::Types::Int;
-use EBox::Types::Password;
 use EBox::Types::Text;
+use EBox::Types::Boolean;
+use EBox::Types::Password;
 use EBox::Validate;
+use EBox::Exceptions::InvalidData;
 
-################
-# Core modules
-################
 use Sys::Hostname;
-
-################
-# Dependencies
-################
 
 # Group: Public methods
 
 # Constructor: new
 #
-#     Create the configure jabber dispatcher form
+#     Create the configure mail dispatcher form
 #
 # Overrides:
 #
@@ -58,18 +44,17 @@ use Sys::Hostname;
 #
 # Returns:
 #
-#     <EBox::Event::Dispatcher::Model::Jabber>
+#     <EBox::Event::Dispatcher::Model::Mail>
 #
 sub new
-  {
-      my $class = shift;
+{
+    my $class = shift;
 
-      my $self = $class->SUPER::new(@_);
-      bless ( $self, $class);
+    my $self = $class->SUPER::new(@_);
+    bless ($self, $class);
 
-      return $self;
-
-  }
+    return $self;
+}
 
 # Method: validateTypedRow
 #
@@ -80,31 +65,12 @@ sub new
 #
 sub validateTypedRow
 {
+    my ($self, $action, $changedFields) = @_;
 
-      my ($self, $action, $changedFields) = @_;
-
-      if ( exists ( $changedFields->{to} )) {
-          EBox::Validate::checkEmailAddress( $changedFields->{to}->value(),
-                                             $changedFields->{to}->printableName() );
-      }
-
-}
-
-# Method: formSubmitted
-#
-#       When the form is submitted, the model must set up the mail
-#       dispatcher service and sets the output rule in the firewall
-#
-# Overrides:
-#
-#      <EBox::Model::DataForm::formSubmitted>
-#
-sub formSubmitted
-{
-
-    my ($self, $oldRow) = @_;
-
-
+    if ( exists ( $changedFields->{to} )) {
+        EBox::Validate::checkEmailAddress( $changedFields->{to}->value(),
+                                           $changedFields->{to}->printableName() );
+    }
 }
 
 # Group: Protected methods
@@ -116,43 +82,66 @@ sub formSubmitted
 #     <EBox::Model::DataForm::_table>
 #
 sub _table
-  {
-
-      my @tableDesc =
+{
+    my @tableDesc =
         (
          new EBox::Types::Text(
                                fieldName        => 'subject',
                                printableName    => __('Subject'),
                                editable         => 1,
-                               defaultValue     => __x('[Zentyal-event] An event has happened at {hostName}',
-                                                       hostName => hostname()),
-                               size             => 70,
+                               defaultValue     => __x('Zentyal event on {hostname}',
+                                                       hostname => hostname()),
+                               size             => 40,
                                allowUnsafeChars => 1,
                               ),
          new EBox::Types::Text(
                                fieldName     => 'to',
                                printableName => __('To'),
                                editable      => 1,
+                               size          => 18,
                               ),
         );
 
-      my $dataForm = {
+    my $dataForm = {
                       tableName          => 'MailDispatcherConfiguration',
-                      printableTableName => __('Configure mail dispatcher'),
+                      printableTableName => __('Configure Mail Dispatcher'),
                       modelDomain        => 'Mail',
                       defaultActions     => [ 'editField' ],
                       tableDescription   => \@tableDesc,
                       class              => 'dataForm',
-                      help               => __('In order to configure the Mail event dispatcher '
-                                               . 'is required to enable the mail service from Zentyal'),
+                      help               => __('This dispatcher will send events to a mail account. In order to use it' 
+                                               . 'you need to enable the mail service on Zentyal.'),
                       messages           => {
-                                             update => __('Mail dispatcher configuration updated'),
+                                             update => __('Mail dispatcher configuration updated.'),
                                             },
                      };
 
-      return $dataForm;
+    return $dataForm;
+}
 
-  }
+# Method: viewCustomizer
+#
+#   Overrides <EBox::Model::DataTable::viewCustomizer> to
+#   provide a custom HTML title with breadcrumbs
+#
+sub viewCustomizer
+{
+    my ($self) = @_;
+
+    my $custom =  $self->SUPER::viewCustomizer();
+    $custom->setHTMLTitle([
+        {
+            title => __('Events'),
+            link  => '/zentyal/Events/Composite/GeneralComposite#ConfigureDispatcherDataTable',
+        },
+        {
+            title => __('Mail Dispatcher'),
+            link  => ''
+        }
+    ]);
+
+    return $custom;
+}
 
 # Group: Private methods
 

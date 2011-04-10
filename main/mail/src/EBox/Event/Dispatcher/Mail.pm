@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2010 eBox Technologies S.L.
+# Copyright (C) 2008-2011 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -13,34 +13,28 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::Event::Dispatcher::Mail;
-
 # Class: EBox::Dispatcher::Mail
 #
-# This class is a dispatcher which sends the event to an mail admin
-# using SMTP protocol
+# This class is a dispatcher which sends the event to a mail account
+# using the local mail server.
 #
+
+package EBox::Event::Dispatcher::Mail;
 
 use base 'EBox::Event::Dispatcher::Abstract';
 
 use strict;
 use warnings;
 
-use EBox::Exceptions::MissingArgument;
-use EBox::Exceptions::External;
+use EBox::Global;
 use EBox::Gettext;
 use EBox::Model::ModelManager;
-use EBox::Global;
+use EBox::Exceptions::MissingArgument;
+use EBox::Exceptions::External;
 
-################
-# Dependencies
-################
-use Net::SMTP;
-
-####################
-# Core Dependencies
-####################
 use Error qw(:try);
+
+use Net::SMTP;
 
 # Group: Public methods
 
@@ -75,14 +69,10 @@ sub configured
 {
     my ($self) = @_;
 
-    # Mail dispatcher is configured only if the values from the
-    # configuration model are set
-
     $self->_confParams();
 
     return ($self->{subject} and $self->{to} and $self->{smtp});
 }
-
 
 # Method: ConfigurationMethod
 #
@@ -140,7 +130,7 @@ sub send
 #
 sub _receiver
 {
-    return __('Admin mail recipient');
+    return __('Mail Account');
 }
 
 # Method: _name
@@ -166,24 +156,16 @@ sub _enable
 
     $self->_confParams();
 
-    my $sender = new Net::SMTP($self->{smtp},
-            Timeout => 30);
-
-    unless ( defined ($sender) ) {
-        throw EBox::Exceptions::External(__x('Cannot connect to {smtp} mail server',
-                    smtp => $self->{smtp}));
-    }
+    my $sender = $self->_getMailer();
 
     $sender->quit();
+
     $self->{ready} = 1;
 }
 
 # Group: Private methods
 
-# Obtain the mail event dispatcher from the configuration model. In
-# order to get the data, we need to check the model manager to do so
-# It will set the parameters in the instance to communicate with the
-# jabber server to send messages to the admin
+# get configuration
 sub _confParams
 {
     my ($self) = @_;
@@ -197,31 +179,22 @@ sub _confParams
     $self->{subject}  = $row->valueByName('subject');
     $self->{to}       = $row->valueByName('to');
     $self->{smtp}     = 'localhost';
+    $self->{mailname} = EBox::Global->modInstance('mail')->mailname();
 }
 
-# Send the mail with the configuration parameters which are suppossed
-# to set correctly
+# send the event mail
 sub _sendMail
 {
     my ($self, $event) = @_;
 
     my $mailer = $self->_getMailer();
 
-    my $mailname = EBox::Global->modInstance('mail')->mailname();
-
-    if ( not defined ( $mailer )) {
-        throw EBox::Exceptions::External(__x('Cannot connect to the server {hostname} '
-                                             . 'to send the event through SMTP',
-                                             hostname => $self->{smtp}));
-    }
-
-    # Construct the message
-    $mailer->mail('zentyal-noreply@' . $mailname);
+    $mailer->mail('zentyal-noreply@' . $self->{mailname});
     $mailer->to($self->{to});
 
     $mailer->data();
     $mailer->datasend('Subject: ' . $self->{subject} . "\n");
-    $mailer->datasend('From: zentyal-noreply@' . $mailname . "\n");
+    $mailer->datasend('From: zentyal-noreply@' . $self->{mailname} . "\n");
     $mailer->datasend('To: ' . $self->{to} . "\n");
     $mailer->datasend("\n");
     $mailer->datasend($event->level() . ' : '
@@ -233,15 +206,21 @@ sub _sendMail
     return 1;
 }
 
-# Method to get the mailer
+# get the mailer
 sub _getMailer
 {
     my ($self) = @_;
 
     my $mailer = new Net::SMTP(
                                 $self->{smtp},
-                                Hello => 'ebox.org',
+                                Hello => $self->{mailname},
+                                Timeout => 30,
                                );
+
+    if ( not defined ( $mailer ) ) {
+        throw EBox::Exceptions::External(__x('Cannot connect to {smtp} mail server.',
+                                             smtp => $self->{smtp}));
+    }
 
     return $mailer;
 }
