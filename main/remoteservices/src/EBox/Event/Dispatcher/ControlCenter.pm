@@ -144,7 +144,7 @@ sub send
 sub _receiver
 {
 
-    return __('Control panel');
+    return __('Zentyal Cloud');
 
 }
 

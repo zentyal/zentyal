@@ -1,4 +1,5 @@
 HEAD
+	+ Rename dispatcher receiver to Zentyal Cloud
 	+ Bugfix: Migration for VPN clients to new local port and address
 	  options works
 	+ Bugfix: VPN local address tests are now quiet
