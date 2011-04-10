@@ -249,7 +249,7 @@ sub _createEventMessage # (event)
     $msg->SetMessage(
             to      => $self->{adminJID},
             type    => 'chat',
-            subject => 'Zentyal event' . $hostname,
+            subject => 'Zentyal event on' . $hostname,
             body    => $hostname .' ['. $event->level() .']: '. $event->message(),
             );
 
