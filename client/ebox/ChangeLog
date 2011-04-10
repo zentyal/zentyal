@@ -1,3 +1,5 @@
+HEAD
+	+ Create plpgsql language on database setup to avoid migration problems
 2.0.17
 	+ Retry multiInsert line by line if there are encoding errors
 	+ Event messages are cleaned of null characters and truncated
