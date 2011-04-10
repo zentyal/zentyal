@@ -1,4 +1,6 @@
 HEAD
+	+ Redis backend now throws different kind of exceptions
+	+ Avoid unnecesary warnings about PIDs
 	+ Update Jabber dispatcher to use Net::XMPP with some refactoring
 	+ Save changes messages are correctly shown with international charsets
 	+ Support for bitmap option in RAID report

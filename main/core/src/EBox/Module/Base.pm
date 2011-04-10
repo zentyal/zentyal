@@ -797,7 +797,7 @@ sub pidFileRunning
     my ($self, $file) = @_;
     my $pid;
     try {
-        my $output = EBox::Sudo::root("cat $file");
+        my $output = EBox::Sudo::silentRoot("cat $file");
         ($pid) = @{$output}[0] =~ m/(\d+)/;
     } otherwise {
         return undef;

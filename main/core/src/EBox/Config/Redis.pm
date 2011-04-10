@@ -665,6 +665,7 @@ sub _redis_call
     my $tries = 5;
     for my $i (1..$tries) {
         our $failure = 1;
+        our $ret;
         {
             local $SIG{PIPE};
             $SIG{PIPE} = sub {
@@ -680,7 +681,8 @@ sub _redis_call
                 }
                 $failure = 0;
             };
-            if ((my $ret = $@) or $failure) {
+            $ret = $@;
+            if ($ret or $failure) {
                 # EBox::warn("$$ - $ret");
                 sleep(1);
                 # Disconnected, try to reconnect
@@ -689,8 +691,8 @@ sub _redis_call
                     $self->_respawn();
                     $failure = 1;
                 };
-                if (my $ret2 = $@) {
-                    # EBox::warn("$$ -- $ret2");
+                if ($@) {
+                    # EBox::warn("$$ -- $@");
                     sleep(1);
                     $failure = 1;
                 }
@@ -703,7 +705,16 @@ sub _redis_call
             if ( $i < $tries) {
                 warn "Reconnecting to redis server ($i try)...";
             } else {
-                die 'Cannot connect to redis server';
+                my $conProblem = 1;
+                if ($ret) {
+                    $conProblem = $ret =~ m/closed connection/;
+                }
+
+                if ($conProblem) {
+                    throw EBox::Exceptions::Internal('Cannot connect to redis server');
+                } else {
+                    throw EBox::Exceptions::Internal($ret);
+                }
             }
         }
     }
