@@ -24,8 +24,6 @@ create_repository() {
 }
 
 update_if_network() {
-    # Import PPA key to avoid warning
-    apt-key add /var/tmp/ebox-ppa.asc >> $LOG 2>&1
     # Check if we can connect to the PPA url
     if $(wget -T 10 -t 1 $PPA_URL >> $LOG 2>&1); then
         echo "Updating package database from the network..." >> $LOG
@@ -94,6 +92,8 @@ then
     echo ${EBOX_SOURCES} >> ${SOURCES_LIST} # add ppa sources
 fi
 
+# Import PPA key to avoid warning
+apt-key add /var/tmp/ebox-ppa.asc >> $LOG 2>&1
 update_if_network # apt-get update if we are connected to the internet
 
 gen_locales
