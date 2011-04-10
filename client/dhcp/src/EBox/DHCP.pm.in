@@ -1424,9 +1424,9 @@ sub _ifacesInfo
 {
   my ($self, $staticRoutes_r) = @_;
 
-  my $roGlobal = EBox::Global->getInstance('readonly');
-  my $net = $roGlobal->modInstance('network');
-  my $ifaces = $net->allIfaces();
+    my $roGlobal = EBox::Global->getInstance('readonly');
+    my $net = $roGlobal->modInstance('network');
+    my $ifaces = $net->allIfaces();
 
   my %iflist;
   foreach my $iface (@{$ifaces}) {
@@ -1435,61 +1435,65 @@ sub _ifacesInfo
       my $netmask = $net->ifaceNetmask($iface);
       my $network = ip_network($address, $netmask);
 
-      $iflist{$iface}->{'net'} = $network;
-      $iflist{$iface}->{'address'} = $address;
-      $iflist{$iface}->{'netmask'} = $netmask;
-      $iflist{$iface}->{'ranges'} = $self->ranges($iface);
-      $iflist{$iface}->{'fixed'} = $self->fixedAddresses($iface, 'readonly');
+            $iflist{$iface}->{'net'} = $network;
+            $iflist{$iface}->{'address'} = $address;
+            $iflist{$iface}->{'netmask'} = $netmask;
+            $iflist{$iface}->{'ranges'} = $self->ranges($iface);
+            $iflist{$iface}->{'fixed'} = $self->fixedAddresses($iface, 'readonly');
+            # look if we have static routes for this network
+            my $netWithMask = EBox::NetWrappers::to_network_with_mask($network, $netmask);
+            if (exists $staticRoutes_r->{$netWithMask}) {
+                $iflist{$iface}->{'staticRoutes'} =
+                    $staticRoutes_r->{$netWithMask};
+            }
 
-      # look if we have static routes for this network
-      my $netWithMask = EBox::NetWrappers::to_network_with_mask($network, $netmask);
-       $iflist{$iface}->{'staticRoutes'} =  $staticRoutes_r->{$netWithMask} if exists $staticRoutes_r->{$netWithMask};
+            my $gateway = $self->defaultGateway($iface);
+            if (defined ($gateway)) {
+                if ($gateway) {
+                    $iflist{$iface}->{'gateway'} = $gateway;
+                }
+            } else {
+                $iflist{$iface}->{'gateway'} = $address;
+            }
+            my $search = $self->searchDomain($iface);
+            $iflist{$iface}->{'search'} = $search;
+            my $nameserver1 = $self->nameserver($iface,1);
+            if (defined($nameserver1) and $nameserver1 ne "") {
+                $iflist{$iface}->{'nameserver1'} = $nameserver1;
+            }
+            my $nameserver2 = $self->nameserver($iface,2);
+            if (defined($nameserver2) and $nameserver2 ne "") {
+                $iflist{$iface}->{'nameserver2'} = $nameserver2;
+            }
+            # NTP option
+            my $ntpServer = $self->ntpServer($iface);
+            if ( defined($ntpServer) and $ntpServer ne "") {
+                $iflist{$iface}->{'ntpServer'} = $ntpServer;
+            }
+            # WINS/Netbios server option
+            my $winsServer = $self->winsServer($iface);
+            if ( defined($winsServer) and $winsServer ne "") {
+                $iflist{$iface}->{'winsServer'} = $winsServer;
+            }
+            # Leased times
+            my $defaultLeasedTime = $self->_leasedTime('default', $iface);
+            if (defined($defaultLeasedTime)) {
+                $iflist{$iface}->{'defaultLeasedTime'} = $defaultLeasedTime;
+            }
+            my $maxLeasedTime = $self->_leasedTime('max', $iface);
+            if (defined($maxLeasedTime)) {
+                $iflist{$iface}->{'maxLeasedTime'} = $maxLeasedTime;
+            }
 
-      my $gateway = $self->defaultGateway($iface);
-      if (defined($gateway) and $gateway ne "") {
-	$iflist{$iface}->{'gateway'} = $gateway;
-      } else {
-	$iflist{$iface}->{'gateway'} = $address;
-      }
-      my $search = $self->searchDomain($iface);
-      $iflist{$iface}->{'search'} = $search;
-      my $nameserver1 = $self->nameserver($iface,1);
-      if (defined($nameserver1) and $nameserver1 ne "") {
-	$iflist{$iface}->{'nameserver1'} = $nameserver1;
-      }
-      my $nameserver2 = $self->nameserver($iface,2);
-      if (defined($nameserver2) and $nameserver2 ne "") {
-	$iflist{$iface}->{'nameserver2'} = $nameserver2;
-      }
-      # NTP option
-      my $ntpServer = $self->ntpServer($iface);
-      if ( defined($ntpServer) and $ntpServer ne "") {
-          $iflist{$iface}->{'ntpServer'} = $ntpServer;
-      }
-      # WINS/Netbios server option
-      my $winsServer = $self->winsServer($iface);
-      if ( defined($winsServer) and $winsServer ne "") {
-          $iflist{$iface}->{'winsServer'} = $winsServer;
-      }
-      # Leased times
-      my $defaultLeasedTime = $self->_leasedTime('default', $iface);
-      if (defined($defaultLeasedTime)) {
-        $iflist{$iface}->{'defaultLeasedTime'} = $defaultLeasedTime;
-      }
-      my $maxLeasedTime = $self->_leasedTime('max', $iface);
-      if (defined($maxLeasedTime)) {
-        $iflist{$iface}->{'maxLeasedTime'} = $maxLeasedTime;
-      }
-
-      # Dynamic DNS options
-      my $dynamicDomain = $self->_dynamicDNS('dynamic', $iface);
-      if (defined($dynamicDomain)) {
-          $iflist{$iface}->{'dynamicDomain'} = $dynamicDomain;
-          $iflist{$iface}->{'staticDomain'}  = $self->_dynamicDNS('static', $iface);
-          $iflist{$iface}->{'reverseZones'}  = $self->_reverseZones($iface);
-      }
+            # Dynamic DNS options
+            my $dynamicDomain = $self->_dynamicDNS('dynamic', $iface);
+            if (defined($dynamicDomain)) {
+                $iflist{$iface}->{'dynamicDomain'} = $dynamicDomain;
+                $iflist{$iface}->{'staticDomain'}  = $self->_dynamicDNS('static', $iface);
+                $iflist{$iface}->{'reverseZones'}  = $self->_reverseZones($iface);
+            }
+        }
     }
-  }
 
   return \%iflist;
 }

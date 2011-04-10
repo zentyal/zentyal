@@ -1,3 +1,5 @@
+HEAD
+	+ Fixed 'routers' option when gateway is set to 'none'
 2.0.4
 	+ Bugfix: dhcp module never fail to save changes when a change
 	  in network interface is done

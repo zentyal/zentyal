@@ -45,12 +45,14 @@
         $fixed => 0
 </%args>
 % # Common options for the shared network
-                option routers <% $info{'gateway'} %>;
+% if (exists $info{'gateway'}) {
+            option routers <% $info{'gateway'} %>;
+% }
 % if(defined($info{'search'})) {
-  	        option domain-name "<% $info{'search'} %>";
+	        option domain-name "<% $info{'search'} %>";
 % }
 % if(exists $info{'nameserver1'} and length($info{'nameserver1'}) > 0) {
-          	option domain-name-servers <% $info{'nameserver1'} %>\
+            option domain-name-servers <% $info{'nameserver1'} %>\
 %       if(exists $info{'nameserver2'} and  length($info{'nameserver2'}) > 0) {
 , <% $info{'nameserver2'} %>;
 %       }else{
@@ -104,7 +106,7 @@
                 zone <% $info{'dynamicDomain'} %>. {
                     primary 127.0.0.1;
                     key <% $info{'dynamicDomain'} %>.;
-                }               
+                }
 %         foreach my $revZone (@{$info{'reverseZones'}}) {
                 zone <% $revZone %> {
                     primary 127.0.0.1;
@@ -128,7 +130,7 @@
 <%init>
   use EBox::DHCP;
   my $dirName  = EBox::DHCP->IncludeDir();
-  my $fileName = $dirName . $name; 
+  my $fileName = $dirName . $name;
 </%init>
 % if ( -r $fileName ) {
                    include "<% $fileName %>";
