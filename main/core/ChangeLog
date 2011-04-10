@@ -1,4 +1,6 @@
 HEAD
+	+ Creation of plpgsql language moved from EBox::Logs::initialSetup
+	  to create-db script
 	+ Redis backend now throws different kind of exceptions
 	+ Avoid unnecesary warnings about PIDs
 	+ Update Jabber dispatcher to use Net::XMPP with some refactoring
