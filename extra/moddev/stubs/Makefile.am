@@ -19,15 +19,7 @@ stubsm4dir = $(datadir)/zmoddev/stubs/m4
 stubsm4_DATA = m4/definedir.m4  m4/ebox.m4  m4/gconf-2.m4
 	m4/nls.m4  m4/perlmodules.m4  m4/po.m4
 
-stubsmigrationdir = $(datadir)/zmoddev/stubs/migration
-
-stubsmigration_DATA = migration/Makefile.am.mas
-
 stubsschemasdir = $(datadir)/zmoddev/stubs/schemas
-
-stubsmigrationbasedir = $(datadir)/zmoddev/stubs/migration
-
-stubsmigrationbase_DATA = migration/migration.pl.mas
 
 stubsschemas_DATA = schemas/Makefile.am.mas  schemas/yaml.mas
 
@@ -63,9 +55,9 @@ stubsstubs_DATA = stubs/Makefile.am.mas stubs/service.conf.mas
 DISTCLEANFILES =
 
 EXTRA_DIST = $(stubs_DATA) $(stubsdebian_DATA) $(stubsm4_DATA) \
-	$(stubsmigration_DATA) $(stubsschemas_DATA) $(stubssrc_DATA) \
+	$(stubsschemas_DATA) $(stubssrc_DATA) \
 	$(stubsmodel_DATA) $(stubstools_DATA) $(stubsstubs_DATA) \
-	$(stubstypes_DATA) $(stubstype_DATA) $(stubsmigrationbase_DATA) \
+	$(stubstypes_DATA) $(stubstype_DATA) \
 	$(stubscomposite_DATA)
 
 
