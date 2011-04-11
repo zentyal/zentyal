@@ -13,7 +13,6 @@ stubsdebiancdbsdir = $(datadir)/zmoddev/stubs/debian/cdbs
 
 stubsdebiancdbs_DATA = debian/cdbs/ebox.mk
 
-
 stubsm4dir = $(datadir)/zmoddev/stubs/m4
 
 stubsm4_DATA = m4/definedir.m4  m4/ebox.m4  m4/gconf-2.m4
@@ -35,30 +34,20 @@ stubscompositedir = $(datadir)/zmoddev/stubs/src/Composite
 
 stubscomposite_DATA =  src/Composite/Composite.pm.mas
 
-
 stubstypedir = $(datadir)/zmoddev/stubs/src/Types
 
 stubstype_DATA = src/Types/Type.pm.mas
-
-
-
-stubstoolsdir = $(datadir)/zmoddev/stubs/tools
-
-stubstools_DATA = tools/extract-perl-from-mason tools/po-am.footer  \
-	tools/po-am.generator  tools/po-am.header
 
 stubsstubsdir = $(datadir)/zmoddev/stubs/stubs/
 
 stubsstubs_DATA = stubs/Makefile.am.mas stubs/service.conf.mas
 
-
 DISTCLEANFILES =
 
 EXTRA_DIST = $(stubs_DATA) $(stubsdebian_DATA) $(stubsm4_DATA) \
 	$(stubsschemas_DATA) $(stubssrc_DATA) \
-	$(stubsmodel_DATA) $(stubstools_DATA) $(stubsstubs_DATA) \
+	$(stubsmodel_DATA) $(stubsstubs_DATA) \
 	$(stubstypes_DATA) $(stubstype_DATA) \
 	$(stubscomposite_DATA)
-
 
 MAINTAINERCLEANFILES = Makefile.in

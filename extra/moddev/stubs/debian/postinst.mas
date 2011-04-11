@@ -3,23 +3,15 @@
 </%args>
 #!/bin/bash
 
+set -e
+
 #DEBHELPER#
 
 case "$1" in
     configure)
-        # Migrate data if needed
-        /usr/share/zentyal/ebox-migrate /usr/share/zentyal-<% $module %>/migration/
-
-        # restart module
         invoke-rc.d zentyal <% $module %> restart
 
-        # uncomment if the module needs to restart logs
-        # invoke-rc.d zentyal logs restart || true
-
         dpkg-trigger --no-await zentyal-core
-
-        # uncomment if the module provides usercorner pages
-        # dpkg-trigger --no-await zentyal-usercorner
     ;;
 esac
 
