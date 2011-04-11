@@ -407,7 +407,10 @@ sub _storeInGConf
 
     foreach my $field (@stringFields) {
         my $fieldKey = "$key/" . $name . '_' . $field;
-        $gconfmod->set_string($fieldKey, $self->$field());
+        my $stValue = $self->$field();
+        $stValue or
+            $stValue = '';
+        $gconfmod->set_string($fieldKey, $stValue);
     }
 
     foreach my $field (@boolFields) {

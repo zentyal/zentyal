@@ -1,3 +1,6 @@
+HEAD
+	+ Avoid call to set_string with undefined value
+	+ Added missing dependency on network module
 2.0.6
 	+ Added missing Microsoft updates server in squid.conf.mas
 	+ Zentyal squid daemon uses a different pidfile now
