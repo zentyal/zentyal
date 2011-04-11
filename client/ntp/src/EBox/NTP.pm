@@ -105,7 +105,7 @@ sub _enforceServiceState
         EBox::Service::manage('ebox.ntpd','stop');
         sleep 2;
         if ($self->synchronized) {
-            my $exserver = $self->get_string('server1');
+            my $exserver = $self->firstServer();
             try {
                 EBox::Sudo::root("/usr/sbin/ntpdate $exserver");
             } catch EBox::Exceptions::Internal with {
@@ -115,7 +115,7 @@ sub _enforceServiceState
         EBox::Service::manage('ebox.ntpd','start');
     } elsif ($self->isEnabled() or $self->synchronized) {
         if ($self->synchronized) {
-            my $exserver = $self->get_string('server1');
+            my $exserver = $self->firstServer();
             try {
                 EBox::Sudo::root("/usr/sbin/ntpdate $exserver");
             } catch EBox::Exceptions::Internal with {
@@ -270,7 +270,6 @@ sub _checkServer
     }
 }
 
-
 # Method: servers
 #
 #   Returns the list of external ntp servers
@@ -286,12 +285,22 @@ sub servers
             $self->get_string('server2'),
             $self->get_string('server3'));
     foreach my $server (0..2) {
-        unless(defined($servers[$server])) {
+        unless($servers[$server]) {
             $servers[$server] = "$server.pool.ntp.org";
         }
     }
-    @servers = grep { defined $_ and ($_ ne '')   } @servers;
+
     return @servers;
+}
+
+# Method: firstServer
+#
+#  Returns the first external NTP server
+sub firstServer
+{
+    my ($self) = @_;
+    my @servers = $self->servers();
+    return $servers[0];
 }
 
 # Method: _setConf
