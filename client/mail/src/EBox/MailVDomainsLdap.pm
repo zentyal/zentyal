@@ -158,7 +158,7 @@ sub vdomains
     my ($self) = @_;
 
     my $global = EBox::Global->instance();
-    return [] unless $global->modEnabled('mail');
+    return () unless $global->modEnabled('mail');
 
     my %args = (
                 base => $self->vdomainDn,
