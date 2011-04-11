@@ -77,7 +77,7 @@ sub enableActions
 {
     my ($self) = @_;
 
-    if ($self->_isSlave() or $self->adsyncEnabled()) {
+    if ($self->_isSlave()) {
         throw EBox::Exceptions::External(
             __('User corner is only available in master or standalone servers')
                                         );
@@ -101,7 +101,7 @@ sub _isSlave
 {
     my ($self) = @_;
     my $usersMod = EBox::Global->modInstance('users');
-    return $usersMod->mode() eq 'slave';
+    return ($usersMod->mode() eq 'slave') or ($usersMod->adsyncEnabled());
 }
 
 # Method: modelClasses
