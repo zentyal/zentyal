@@ -172,9 +172,9 @@ sub _daemons
 {
     my $daemons = [
 #        {
-#            'name' => 'zarafa-server',
+#            'name' => 'service',
 #            'type' => 'init.d',
-#            'pidfiles' => ['/var/run/zarafa-server.pid']
+#            'pidfiles' => ['/var/run/service.pid']
 #        },
     ];
 

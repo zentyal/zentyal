@@ -1,6 +1,7 @@
 ## Process this file with automake to produce Makefile.in
+
 bin_SCRIPTS = zentyal-moddev-create zentyal-moddev-model zentyal-moddev-type \
-	zentyal-moddev-migration zentyal-moddev-stub zentyal-moddev-composite
+	zentyal-moddev-stub zentyal-moddev-composite
 
 DISTCLEANFILES =
 

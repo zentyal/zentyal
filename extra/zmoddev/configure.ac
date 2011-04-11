@@ -17,7 +17,6 @@ src/zentyal-moddev-create
 src/zentyal-moddev-model
 src/zentyal-moddev-composite
 src/zentyal-moddev-type
-src/zentyal-moddev-migration
 src/zentyal-moddev-stub
 stubs/Makefile
 ])

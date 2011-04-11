@@ -5,20 +5,14 @@
 
 set -e
 
-# We need to unconfigure and purge module's configuration
-# before the gconf schemas have been removed (i.e before gconf
-# debhelper has been run). That's why we do things before
-# and after gconf debhelper is run.
-if [ "$1" = "purge" ]; then
-        # Purge configuration
-        /usr/share/zentyal/zentyal-clean-conf <% $module %> || true
-fi
-
 #DEBHELPER#
 
 case "$1" in
     remove)
         dpkg-trigger --no-await zentyal-core
+    ;;
+    purge)
+        /usr/share/zentyal/purge-module <% $module %>
     ;;
 esac
 

@@ -9,7 +9,7 @@ set -e
 
 case "$1" in
     configure)
-        invoke-rc.d zentyal <% $module %> restart
+         /usr/share/zentyal/initial-setup <% $module %> $2
 
         dpkg-trigger --no-await zentyal-core
     ;;

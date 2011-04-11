@@ -1,8 +1,22 @@
 #!/usr/bin/perl
 
+# Copyright (C) 2011 eBox Technologies S.L.
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License, version 2, as
+# published by the Free Software Foundation.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+
 use strict;
 use warnings;
-
 
 use Getopt::Long;
 use Cwd;
@@ -28,8 +42,8 @@ sub _printValidTypes
     }
     print STDERR "\n\tExample:\n";
     print STDERR "\t\t --field name:Text --field active:Boolean\n";
-
 }
+
 sub _printUsage
 {
     print STDERR "\nUsage: $0 --main-class class --name name --field field1:type1 [Options]\n\n";
@@ -92,6 +106,7 @@ sub _parseOptions
             'help'  => \$help,
             'info'  => \$info,
             );
+
     $options{parsedFields} = _parseFields($options{fields});
     if (not $optionsOk or $info or $help) {
         _printUsage();
@@ -105,14 +120,14 @@ sub _parseOptions
 
     if ($options{destdir}) {
         unless (-d $options{destdir}) {
-            die "$options{destidir} does not exist";
+            die "$options{destidir} does not exist!";
         }
     } else {
         $options{destdir} = getcwd;
     }
 
     unless ( -d $options{destdir} ) {
-        die "$options{destdir} does not exist!!";
+        die "$options{destdir} does not exist!";
     }
 
     return \%options;
@@ -121,14 +136,17 @@ sub _parseOptions
 sub _models
 {
     my ($dir) = @_;
+
     my @models ;
     opendir ( my $dirFH, $dir );
     while ( defined ( my $file = readdir ( $dirFH ))) {
           next unless ( $file =~ m/.*\.pm/ );
           push(@models, $file);
     }
+
     return \@models;
 }
+
 sub _makefile
 {
     my ($interp, $output, $options) = @_;
@@ -136,17 +154,14 @@ sub _makefile
     my $modNameSpace = $options->{modNameSpace};
     my $dir = $options->{destdir} . '/src/EBox/' . $modNameSpace . '/Model';
     my $perlDir = 'EBox/' . $modNameSpace . '/Model';
-    my $perlData =  _models($dir);
+    my $perlData = _models($dir);
 
     my $comp = $interp->make_component(
-            comp_file => STUBS_PATH .  '/src/Makefile.am.mas',
-            );
+            comp_file => STUBS_PATH .  '/src/Makefile.am.mas');
     ${$output} = '';
     $interp->exec($comp,
-                    ( perlDir => $perlDir,
-                      perlData => $perlData,
-                     ));
-
+            (perlDir => $perlDir,
+             perlData => $perlData));
     write_file($dir . '/Makefile.am', ${$output});
 }
 
@@ -167,19 +182,17 @@ sub _src_EBox_Module_Model
     my $template = '/src/Model/FormModel.pm.mas';
 
     my $comp = $interp->make_component(
-            comp_file => STUBS_PATH . $template,
-            );
+            comp_file => STUBS_PATH . $template);
     ${$output} = '';
     $interp->exec($comp,
-            ( packageName => $packageName,
-              modelName => $name,
-              printableTableName => $options->{name},
-              printableRowName => $options->{name},
-              rowName   => $name,
-              modelDomain => $options->{mainClass},
-              fields    => $options->{parsedFields},
-              modelType => $options->{model}
-              ));
+            (packageName => $packageName,
+             modelName => $name,
+             printableTableName => $options->{name},
+             printableRowName => $options->{name},
+             rowName   => $name,
+             modelDomain => $options->{mainClass},
+             fields    => $options->{parsedFields},
+             modelType => $options->{model}));
     write_file("$dir/$modelClassFile", ${$output});
 }
 
@@ -191,8 +204,7 @@ sub _addModelsToMainClass
     my $file = $options->{destdir} . "/src/EBox/$mainClass.pm";
     my $modNameSpace =  $options->{modNameSpace};
     my $dir = $options->{destdir} . '/src/EBox/' .
-                    $modNameSpace .
-                     '/Model';
+                    $modNameSpace . '/Model';
 
     my $code = "    return [\n";
     for my $model (@{_models($dir)}) {
@@ -230,13 +242,12 @@ sub _runAutogen
     if (-e 'autogen.sh') {
         system('./autogen.sh');
     } else {
-        print STDERR " You will have to manually run autogen.sh within your module directory";
+        print STDERR "You will have to manually run autogen.sh within your module directory.";
     }
 }
 
 sub _createModel
 {
-    # Main
     my $options = _parseOptions();
 
     my $dir = $options->{destdir};
@@ -245,10 +256,11 @@ sub _createModel
     my $interp = HTML::Mason::Interp->new(comp_root => STUBS_PATH,
             out_method => \$output);
 
-   _src_EBox_Module_Model($interp, \$output, $options);
-   _makefile($interp, \$output, $options);
-   _addModelsToMainClass($interp, \$output, $options);
-   _runAutogen();
+    _src_EBox_Module_Model($interp, \$output, $options);
+    _makefile($interp, \$output, $options);
+    _addModelsToMainClass($interp, \$output, $options);
+    _runAutogen();
 }
 
 _createModel();
+

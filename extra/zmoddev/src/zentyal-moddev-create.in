@@ -1,8 +1,22 @@
 #!/usr/bin/perl
 
+# Copyright (C) 2011 eBox Technologies S.L.
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License, version 2, as
+# published by the Free Software Foundation.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+
 use strict;
 use warnings;
-
 
 use Getopt::Long;
 use Cwd;
@@ -64,7 +78,7 @@ sub _parseOptions
 
     if ($options{destdir}) {
         unless (-d $options{destdir}) {
-            die "$options{destidir} does not exist";
+            die "$options{destidir} does not exist!";
         }
     } else {
         $options{destdir} = getcwd;
@@ -77,7 +91,7 @@ sub _parseOptions
     $options{destdir} .= '/' . $options{moduleName};
 
     if ( -d $options{destdir} ) {
-        die "$options{destdir} already exists!!";
+        die "$options{destdir} already exists!";
     }
 
     if (defined $options{mainClass}) {
@@ -94,7 +108,7 @@ sub _configure
     my ($interp, $output, $options) = @_;
 
     my $comp = $interp->make_component(
-            comp_file => STUBS_PATH .  '/configure.ac.mas');
+            comp_file => STUBS_PATH . '/configure.ac.mas');
     ${$output} = '';
     $interp->exec($comp,
             (mainClass => $options->{mainClass},
@@ -109,7 +123,7 @@ sub _makefile
     my ($interp, $output, $options) = @_;
 
     my $comp = $interp->make_component(
-            comp_file => STUBS_PATH .  '/Makefile.am.mas');
+            comp_file => STUBS_PATH . '/Makefile.am.mas');
     ${$output} = '';
     $interp->exec($comp);
     write_file($options->{destdir} . '/Makefile.am', ${$output});
@@ -120,10 +134,10 @@ sub _src
     my ($interp, $output, $options) = @_;
 
     my $dir = $options->{destdir} . '/src';
-    mkdir ($dir) or die "Can't create $dir";
+    mkdir ($dir) or die "Can't create $dir!";
 
     my $comp = $interp->make_component(
-            comp_file => STUBS_PATH .  '/src/Makefile.am.mas',
+            comp_file => STUBS_PATH . '/src/Makefile.am.mas',
             );
     ${$output} = '';
     $interp->exec($comp, (
@@ -138,10 +152,10 @@ sub _src_EBox
 
     my $dir = $options->{destdir} . '/src/EBox';
     my $mainClass = $options->{mainClass} . '.pm';
-    mkdir ($dir) or die "Can't create $dir";
+    mkdir ($dir) or die "Can't create $dir!";
 
     my $comp = $interp->make_component(
-            comp_file => STUBS_PATH .  '/src/Makefile.am.mas',
+            comp_file => STUBS_PATH . '/src/Makefile.am.mas',
             );
     ${$output} = '';
     $interp->exec($comp, (
@@ -152,7 +166,7 @@ sub _src_EBox
     write_file($dir . '/Makefile.am', ${$output});
 
     $comp = $interp->make_component(
-            comp_file => STUBS_PATH .  '/src/MainClass.pm.mas',
+            comp_file => STUBS_PATH . '/src/MainClass.pm.mas',
             );
     ${$output} = '';
     $interp->exec($comp,
@@ -174,7 +188,7 @@ sub _src_EBox_Module
 
     my $modNameSpace = $options->{modNameSpace};
     my $dir = $options->{destdir} . '/src/EBox/' . $modNameSpace;
-    mkdir ($dir) or die "Can't create $dir";
+    mkdir ($dir) or die "Can't create $dir!";
 
     my $comp;
     my @perlData;
@@ -185,7 +199,7 @@ sub _src_EBox_Module
        push @perlData, $file;
 
        $comp = $interp->make_component(
-            comp_file => STUBS_PATH .  '/src/FirewallHelper.pm.mas',
+            comp_file => STUBS_PATH . '/src/FirewallHelper.pm.mas',
             );
        ${$output} = '';
        $interp->exec($comp, (
@@ -196,7 +210,7 @@ sub _src_EBox_Module
     }
 
     $comp = $interp->make_component(
-            comp_file => STUBS_PATH .  '/src/Makefile.am.mas',
+            comp_file => STUBS_PATH . '/src/Makefile.am.mas',
             );
     ${$output} = '';
     $interp->exec($comp, (
@@ -207,7 +221,6 @@ sub _src_EBox_Module
 
     write_file($dir . "/Makefile.am", ${$output});
 }
-
 
 sub _src_EBox_Module_Model
 {
@@ -235,7 +248,6 @@ sub _src_EBox_Module_Composite
     system("zentyal-moddev-composite $params");
 }
 
-
 sub _src_EBox_Module_Types
 {
     my ($interp, $output, $options) = @_;
@@ -249,7 +261,6 @@ sub _src_EBox_Module_Types
     system("zentyal-moddev-type$params");
 }
 
-
 sub _debian
 {
     my ($interp, $output, $options) = @_;
@@ -257,21 +268,20 @@ sub _debian
     my $dir = $options->{destdir} . '/debian';
     my $module = $options->{moduleName};
 
-    mkdir ("$dir") or die "Can't create $dir";
-    mkdir ("$dir/cdbs") or die "Can't create $dir";
-    copy ( STUBS_PATH . '/debian/cdbs/ebox.mk',
+    mkdir ("$dir") or die "Can't create $dir!";
+    mkdir ("$dir/cdbs") or die "Can't create $dir!";
+    copy (STUBS_PATH . '/debian/cdbs/ebox.mk',
            "$dir/cdbs/ebox.mk");
-    copy ( STUBS_PATH . '/debian/compat',
+    copy (STUBS_PATH . '/debian/compat',
            "$dir/compat");
-    copy ( STUBS_PATH . '/debian/prerm',
+    copy (STUBS_PATH . '/debian/prerm',
            "$dir/zentyal-$module.prerm");
-    copy ( STUBS_PATH . '/debian/rules',
+    copy (STUBS_PATH . '/debian/rules',
            "$dir/rules");
     chmod(0755, "$dir/rules" );
 
-
     my $comp = $interp->make_component(
-            comp_file => STUBS_PATH .  '/debian/changelog.mas',
+            comp_file => STUBS_PATH . '/debian/changelog.mas',
             );
     ${$output} = '';
     $interp->exec($comp, ( module => $module,
@@ -279,42 +289,25 @@ sub _debian
     write_file($dir . '/changelog', ${$output});
 
     $comp = $interp->make_component(
-            comp_file => STUBS_PATH .  '/debian/control.mas',
+            comp_file => STUBS_PATH . '/debian/control.mas',
             );
     ${$output} = '';
     $interp->exec($comp, ( module => $module, ));
     write_file($dir . '/control', ${$output});
 
     $comp = $interp->make_component(
-            comp_file => STUBS_PATH .  '/debian/postinst.mas',
+            comp_file => STUBS_PATH . '/debian/postinst.mas',
             );
     ${$output} = '';
     $interp->exec($comp, ( module => $module));
     write_file($dir . "/zentyal-$module.postinst", ${$output});
 
     $comp = $interp->make_component(
-            comp_file => STUBS_PATH .  '/debian/postrm.mas',
+            comp_file => STUBS_PATH . '/debian/postrm.mas',
             );
     ${$output} = '';
     $interp->exec($comp, ( module => $module));
     write_file($dir . "/zentyal-$module.postrm", ${$output});
-}
-
-sub _migration
-{
-    my ($interp, $output, $options) = @_;
-
-    my $dir = $options->{destdir} . '/migration';
-    my $module = $options->{moduleName};
-
-    mkdir ("$dir") or die "Can't create $dir";
-
-    my $comp = $interp->make_component(
-            comp_file => STUBS_PATH .  '/migration/Makefile.am.mas',
-            );
-    ${$output} = '';
-    $interp->exec($comp, ( module => $module, migrationScripts => []));
-    write_file($dir . '/Makefile.am', ${$output});
 }
 
 sub _schemas
@@ -326,7 +319,7 @@ sub _schemas
     my $yaml = "$module.yaml";
     my $mainClass = 'EBox::' . $options->{mainClass};
 
-    mkdir ("$dir") or die "Can't create $dir";
+    mkdir ("$dir") or die "Can't create $dir!";
 
     my $comp = $interp->make_component(
             comp_file => STUBS_PATH .  '/schemas/Makefile.am.mas',
@@ -366,18 +359,6 @@ sub _m4
     `cp -a $m4src $m4dst`;
 }
 
-sub _tools
-{
-    my ($interp, $output, $options) = @_;
-
-    my $toolsSrc = STUBS_PATH . '/tools';
-    my $toolsDst = $options->{destdir} . '/tools';
-
-    `cp -a $toolsSrc $toolsDst`;
-    chmod(0755, "$toolsDst/po-am.generator");
-}
-
-
 sub _autogen
 {
     my ($interp, $output, $options) = @_;
@@ -386,7 +367,6 @@ sub _autogen
 
     copy (STUBS_PATH . '/autogen.sh', "$dir/autogen.sh");
     chmod(0755, "$dir/autogen.sh");
-
 }
 
 sub _runAutogen
@@ -405,34 +385,31 @@ sub _runAutogen
 
 sub _createModule
 {
-    # Main
     my $options = _parseOptions();
 
     my $dir = $options->{destdir};
 
-    mkdir $dir or die "Can't create dir $dir";
+    mkdir $dir or die "Can't create dir $dir!";
 
     my $output;
     my $interp = HTML::Mason::Interp->new(comp_root => STUBS_PATH,
             out_method => \$output);
 
-   _configure($interp, \$output, $options);
-   _makefile($interp, \$output, $options);
-   _src($interp, \$output, $options);
-   _src_EBox($interp, \$output, $options);
-   _src_EBox_Module($interp, \$output, $options);
-   _src_EBox_Module_Model($interp, \$output, $options);
-   _src_EBox_Module_Composite($interp, \$output, $options);
-   _src_EBox_Module_Types($interp, \$output, $options);
-   _debian($interp, \$output, $options);
-   _migration($interp, \$output, $options);
-   _schemas($interp, \$output, $options);
-   _m4($interp, \$output, $options);
-   _autogen($interp, \$output, $options);
-   _tools($interp, \$output, $options);
-   _stubs($interp, \$output, $options);
-   _runAutogen($options);
-
+    _configure($interp, \$output, $options);
+    _makefile($interp, \$output, $options);
+    _src($interp, \$output, $options);
+    _src_EBox($interp, \$output, $options);
+    _src_EBox_Module($interp, \$output, $options);
+    _src_EBox_Module_Model($interp, \$output, $options);
+#    _src_EBox_Module_Composite($interp, \$output, $options);
+#    _src_EBox_Module_Types($interp, \$output, $options);
+    _debian($interp, \$output, $options);
+    _schemas($interp, \$output, $options);
+    _m4($interp, \$output, $options);
+    _autogen($interp, \$output, $options);
+    _stubs($interp, \$output, $options);
+    _runAutogen($options);
 }
 
 _createModule();
+
