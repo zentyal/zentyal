@@ -1,9 +1,12 @@
 Source: zmoddev
 Section: utils
 Priority: optional
-Maintainer: José Antonio Calvo <jacalvo@zentyal.org>
-Build-Depends: cdbs, debhelper (>= 4.0.0)
-Standards-Version: 3.7.3
+Maintainer: Zentyal Packaging Maintainers <pkg-team@zentyal.com>
+Build-Depends: debhelper (>= 7.0.0), cdbs
+Standards-Version: 3.9.1
+Homepage: http://www.zentyal.org/
+Vcs-Browser: http://trac.zentyal.org/browser/branches/2.0/extra/zmoddev/
+Vcs-Svn: http://svn.zentyal.org/zentyal/branches/2.0/extra/zmoddev/
 
 Package: zmoddev
 Architecture: all

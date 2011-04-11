@@ -4,6 +4,7 @@
     @subDirs  => ()
 </%args>
 ## Process this file with automake to produce Makefile.in
+
 % if (@subDirs) {
 SUBDIRS = <% "@subDirs" %>
 % }

@@ -28,21 +28,20 @@
 
 package <% $class %>;
 
-use strict;
-use warnings;
-
 use base qw(EBox::Module::Service EBox::Model::ModelProvider
 % if ($firewallHelper) {
             EBox::FirewallObserver
 % }
             EBox::Model::CompositeProvider);
 
+use strict;
+use warnings;
 
-use EBox::Validate qw( :all );
 use EBox::Global;
 use EBox::Gettext;
 use EBox::Sudo;
 
+use EBox::Validate qw( :all );
 use EBox::Exceptions::InvalidData;
 use EBox::Exceptions::MissingArgument;
 use EBox::Exceptions::DataExists;
@@ -52,6 +51,7 @@ use EBox::Exceptions::DataNotFound;
 % if ($firewallHelper) {
 use <% $class %>::FirewallHelper;
 % }
+
 # Method: _create
 #
 # Overrides:
@@ -65,15 +65,16 @@ sub _create
             printableName => __('<% $printableName %>'),
             domain => '<% $domain %>',
             @_);
-    bless($self, $class);
+    bless ($self, $class);
     return $self;
 }
 
-## api functions
-
+# Method: modelClasses
+#
 # Overrides:
 #
 #       <EBox::Model::ModelProvider::modelClasses>
+#
 sub modelClasses
 {
     my ($self) = @_;
@@ -81,9 +82,12 @@ sub modelClasses
     return ['<% $class %>::Model::Settings'];
 }
 
+# Method: compositeClasses
+#
 # Overrides:
 #
 #       <EBox::Model::ModelProvider::compositeClasses>
+#
 sub compositeClasses
 {
     my ($self) = @_;
@@ -91,46 +95,62 @@ sub compositeClasses
     return [];
 }
 
-sub domain
-{
-    return '<% $domain %>';
-}
-
 # Method: actions
 #
-#   Override EBox::ServiceModule::ServiceInterface::actions
+# Overrides:
+#
+#       <EBox::ServiceModule::ServiceInterface::actions>
 #
 sub actions
 {
-    return [];
-}
-
-
-# Method: usedFiles
-#
-#   Override EBox::ServiceModule::ServiceInterface::usedFiles
-#
-sub usedFiles
-{
-    return [];
+    return [
+#        {
+#            'action' => __('Add <% $printableName %> LDAP schema'),
+#            'reason' => __('Zentyal will need this schema to store <% $printableName %> users.'),
+#            'module' => '<% $domain %>'
+#        },
+    ];
 }
 
 # Method: enableActions
 #
-#   Override EBox::ServiceModule::ServiceInterface::enableActions
+# Overrides:
+#
+#       <EBox::ServiceModule::ServiceInterface::enableActions>
 #
 sub enableActions
 {
+    # Execute enable-module script
+    $self->SUPER::enableActions();
+}
+
+# Method: usedFiles
+#
+# Overrides:
+#
+#       <EBox::ServiceModule::ServiceInterface::usedFiles>
+#
+sub usedFiles
+{
+    return [
+#        {
+#            'file' => CONFFILE,
+#            'module' => '<% $domain %>',
+#            'reason' => __('To properly configure <% $printableName %>.')
+#        },
+    ];
 }
 
 # Method: menu
 #
-#       Overrides EBox::Module method.
+# Overrides:
 #
+#       <EBox::Module::menu>
 #
 sub menu
 {
     my ($self, $root) = @_;
+
     my $item = new EBox::Menu::Item(
     'url' => '<% $modelDomain %>/View/Settings',
     'text' => __('<% $printableName %>'),
@@ -138,7 +158,42 @@ sub menu
       'separator' => '<% $menuSeparator %>',
 %   }
     'order' => 3);
+
     $root->add($item);
+}
+
+# Method: _daemons
+#
+# Overrides:
+#
+#       <EBox::Module::Service::_daemons>
+#
+sub _daemons
+{
+    my $daemons = [
+#        {
+#            'name' => 'zarafa-server',
+#            'type' => 'init.d',
+#            'pidfiles' => ['/var/run/zarafa-server.pid']
+#        },
+    ];
+
+    return $daemons;
+}
+
+# Method: _setConf
+#
+#       Overrides base method. It writes the Zarafa service configuration
+#
+sub _setConf
+{
+    my ($self) = @_;
+
+#    my @params = ();
+#
+#    $self->writeConfFile(CONFFILE,
+#                 "<% $domain %>/service.conf.mas",
+#                 \@params, { 'uid' => '0', 'gid' => '0', mode => '644' });
 }
 
 % if ($firewallHelper) {
@@ -151,37 +206,15 @@ sub menu
 # Returns:
 #
 #       An object implementing EBox::FirewallHelper
+#
 sub firewallHelper
 {
     my ($self) = @_;
+
     my $fw = new <% $class %>::FirewallHelper();
+
     return $fw;
 }
-
-# Method: usesPort
-#
-#       This method is used by the firewall to find out if a given port
-#       is available or not. So if your module implements the
-#       EBox::FirewallHelper to allow some ports for the service it manages,
-#       you must implement this method to inform about this when requested.
-#       This means you should check if the requested port is used by your
-#       service.
-#
-# Parameters:
-#
-#       protocol - protocol (tcp|udp)
-#       port - port number
-#       iface - interface
-#
-# Returns:
-#
-#       boolean - if the given port is used
-sub usesPort # (protocol, port, iface)
-{
-        return undef;
-}
-
 % }
-
 
 1;
