@@ -1,4 +1,6 @@
 HEAD
+	+ Bugfix: EBox::MailVDomainsLdap::vdomains returns a correct value
+	  when mail is disabled
 	+ Some refactoring on mail dispatcher
 	+ Added zentyal-mail-addressbook that generates a listing of all
 	  mail users
