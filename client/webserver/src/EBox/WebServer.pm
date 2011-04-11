@@ -177,6 +177,14 @@ sub depends
     return $dependsList;
 }
 
+# to avoid circular restore dependencies cause by depends override
+sub restoreDependencies
+{
+    my ($self) = @_;
+    my $dependsList = $self->SUPER::depends();
+    return $dependsList;
+}
+
 # Method: menu
 #
 #        Show the Web Server menu entry.

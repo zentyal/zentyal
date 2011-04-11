@@ -1,3 +1,5 @@
+HEAD
+	+ Implement restoreDependencies to avoid problems when restoring backup
 2.0.4
 	+ Restart webserver after all modules which have it as enabledepends
 	  in order to make effective their changes in web configuration
