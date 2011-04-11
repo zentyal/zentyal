@@ -27,6 +27,8 @@ use warnings;
 use base qw(EBox::Module::Service
             EBox::Model::ModelProvider);
 
+use constant USERCORNER_USER  => 'ebox-usercorner';
+use constant USERCORNER_GROUP => 'ebox-usercorner';
 use constant USERCORNER_APACHE => EBox::Config->conf() . '/user-apache2.conf';
 use constant USERCORNER_REDIS => '/var/lib/zentyal-usercorner/conf/redis.conf';
 use constant USERCORNER_REDIS_PASS => '/var/lib/zentyal-usercorner/conf/redis.passwd';
@@ -153,10 +155,12 @@ sub enableActions
     if ($users->mode() ne 'slave') {
         my @commands;
 
+        my $ucUser = USERCORNER_USER;
+        my $ucGroup = USERCORNER_GROUP;
         my $usercornerDir = EBox::UserCorner::usercornerdir() . 'userjournal';
         unless (-d $usercornerDir) {
             push (@commands, "mkdir -p $usercornerDir");
-            push (@commands, "chown ebox:ebox $usercornerDir");
+            push (@commands, "chown $ucUser:$ucGroup $usercornerDir");
         }
         if (@commands) {
             EBox::Sudo::root(@commands);
@@ -209,7 +213,7 @@ sub _setConf
     );
 
     # Write user corner redis file
-    $self->{redis}->writeConfigFile('ebox-usercorner');
+    $self->{redis}->writeConfigFile(USERCORNER_USER);
 }
 
 # Method: menu
@@ -263,8 +267,8 @@ sub certificates
             {
              service =>  __(q{User Corner web server}),
              path    =>  '/var/lib/zentyal-usercorner/ssl/ssl.pem',
-             user => 'ebox-usercorner',
-             group => 'ebox-usercorner',
+             user => USERCORNER_USER,
+             group => USERCORNER_GROUP,
              mode => '0400',
             },
            ];

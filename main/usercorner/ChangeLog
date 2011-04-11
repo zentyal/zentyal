@@ -1,3 +1,5 @@
+HEAD
+	+ Fixed bad ownership of user corner userjournal directory
 2.1
 	+ Rename UserCornerWebServer to UserCorner and merge usersessiondir
 	  and usercornerdir methods in the new unique class
