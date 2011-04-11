@@ -81,4 +81,20 @@ sub _table
     return $dataTable;
 }
 
+sub formSubmitted
+{
+    my ($self) = @_;
+    my $row = $self->row();
+
+    my $defaultQuota = $row->elementByName('defaultQuota');
+    if ($defaultQuota->selectedType() eq 'defaultQuota_size') {
+        my $value = $defaultQuota->value();
+        if ($value == 0) {
+            $self->setMessage(
+__('Setting default quota to zero is equivalent to disable it')
+               );
+        }
+    }
+}
+
 1;

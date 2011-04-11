@@ -839,10 +839,11 @@ sub initUser
     }
 
     my $uid = $userInfo->{'uid'};
+
     my $quota = $userInfo->{'quota'};
-    if (defined $quota) {
-        $self->_setFilesystemQuota($uid, $quota);
-    }
+    defined $quota or
+        $quota = 0;
+    $self->_setFilesystemQuota($uid, $quota);
 
     # Tell modules depending on users and groups
     # a new new user is created
@@ -1138,6 +1139,7 @@ sub _checkQuota
 {
     my ($quota) = @_;
 
+    ($quota =~ /^\s*$/) and return undef;
     ($quota =~ /\D/) and return undef;
     return 1;
 }
@@ -1236,9 +1238,14 @@ sub modifyUserLocal # (\%user)
                                              'value' => $username);
     }
 
-    unless (_checkQuota($user->{'quota'})) {
+    if (exists $user->{'quota'} and
+        (not _checkQuota($user->{'quota'}))) {
         throw EBox::Exceptions::InvalidData('data' => __('user quota'),
-                                            'value' => $user->{'quota'});
+                                            'value' => $user->{'quota'},
+                                            'advice' => __(
+'User quota must be an integer. To set an unlimited quota, enter zero.'
+                                                          ),
+                                           );
     }
 
     foreach my $field (keys %{$user}) {
@@ -1252,7 +1259,7 @@ sub modifyUserLocal # (\%user)
         } elsif ($field eq 'fullname') {
             $self->_changeAttribute($dn, 'cn', $user->{'fullname'});
         } elsif ($field eq 'quota') {
-            $self->_modifyUserQuota($user, $user->{'quota'});
+            $self->_modifyUserQuota($user);
         } elsif ($field eq 'password') {
             $self->_modifyUserPwd($user->{'username'}, $user->{'password'});
         }
@@ -2268,9 +2275,13 @@ sub _changeAttribute
 {
     my ($self, $dn, $attr, $value) = @_;
 
-    unless ($value and length($value) > 0){
-        $value = undef;
+    my $valueExists = undef;
+    if (defined $value) {
+        unless ($value =~ m/^\s*$/) {
+            $valueExists = 1;
+        }
     }
+
     my %args = (
             base => $dn,
             filter => 'objectclass=*',
@@ -2278,24 +2289,32 @@ sub _changeAttribute
             );
 
     my $result = $self->ldap->search(\%args);
-
     my $entry = $result->pop_entry();
     my $oldvalue = $entry->get_value($attr);
 
-    # There is no value
-    return if ( (not $value) and (not $oldvalue));
-
-    # There is no change
-    return if (($oldvalue and $value) and $oldvalue eq $value);
-
-    if (($oldvalue and $value) and $value ne $oldvalue) {
-        $entry->replace($attr => $value);
-    } elsif ((not $value) and $oldvalue) {
-        $entry->delete($attr);
-    } elsif (($value) and (not $oldvalue)) {
-        $entry->add($attr => $value);
+    if (defined $oldvalue) {
+        if ($valueExists) {
+            if ($value eq $oldvalue) {
+                # no changes, nothing to do
+                return;
+            } else {
+                # replace with new value
+                $entry->replace($attr => $value);
+            }
+        } else {
+            # delete attribute
+            $entry->delete($attr);
+        }
+    } else {
+        if ($valueExists) {
+            $entry->add($attr => $value);
+        } else {
+            # There is no value to add
+            return;
+        }
     }
 
+    # update changes
     $entry->update($self->ldap->ldapCon);
 }
 
