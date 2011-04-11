@@ -1,4 +1,4 @@
-HEAD
+2.0.6
 	+ Bugfix: EBox::MailVDomainsLdap::vdomains returns a correct value
 	  when mail is disabled
 2.0.5
