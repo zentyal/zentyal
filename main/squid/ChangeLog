@@ -2,6 +2,8 @@ HEAD
 	+ Added missing Microsoft updates server in squid.conf.mas
 	+ Zentyal squid daemon uses a different pidfile now
 	+ Fixed bug that could delete the default profile file list
+	+ Avoid call to set_string with undefined value
+	+ Added missing dependency on network module
 2.1
 	+ Use new standard enable-module script
 	+ Improved order of tabs in filter profiles
