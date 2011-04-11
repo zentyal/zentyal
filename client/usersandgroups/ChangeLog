@@ -1,4 +1,5 @@
 HEAD
+	+ User corner cannot longer be enabled in a slave server
 	+ Non-editable user fields in slaves no longer appear as editable inputs
 	+ System users don't require password
 	+ Fixed bug that allowed to create LDAP users whith the same name

@@ -77,6 +77,12 @@ sub enableActions
 {
     my ($self) = @_;
 
+    if ($self->_isSlave() or $self->adsyncEnabled()) {
+        throw EBox::Exceptions::External(
+            __('User corner is only available in master or standalone servers')
+                                        );
+    }
+
     (-d (EBox::Config::conf() . 'configured')) and return;
 
     my $names = EBox::Global->modNames();
@@ -89,6 +95,13 @@ sub enableActions
         }
     }
     rename(EBox::Config::conf() . "configured.tmp", EBox::Config::conf() . "configured");
+}
+
+sub _isSlave
+{
+    my ($self) = @_;
+    my $usersMod = EBox::Global->modInstance('users');
+    return $usersMod->mode() eq 'slave';
 }
 
 # Method: modelClasses
