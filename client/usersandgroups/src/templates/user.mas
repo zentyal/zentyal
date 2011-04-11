@@ -9,6 +9,7 @@
 </%args>
 <%init>
 use EBox::Gettext;
+my $readOnly = $slave ? "readonly='readonly'" : "";
 </%init>
 <h3><% __('Administration of user') %> <span class='stitle'><% $user->{'username'} %></span></h3>
         <form action='ModifyUser' method='POST'>
@@ -22,7 +23,11 @@ use EBox::Gettext;
                     </span>
                 </td>
                 <td>
-                    <input type='text' class='inputText' name='name' value="<% $user->{'givenname'} %>">
+                  <& masterSlaveUserAttr,
+                               name => 'name',
+                               value=> $user->{'givenname'},
+                               slave => $slave,
+                   &>
                 </td>
             </tr>
             <tr>
@@ -32,7 +37,11 @@ use EBox::Gettext;
                     </span>
                 </td>
                 <td>
-                    <input type='text' class='inputText' name='surname' value="<% $user->{'surname'} %>">
+                  <& masterSlaveUserAttr,
+                               name => 'surname',
+                               value=> $user->{'surname'},
+                               slave => $slave,
+                   &>
                 </td>
             </tr>
             <tr>
@@ -42,7 +51,11 @@ use EBox::Gettext;
                     </span>
                 </td>
                 <td>
-                    <input type='text' class='inputText' name='comment' value="<% $user->{'comment'} %>">
+                  <& masterSlaveUserAttr,
+                               name => 'comment',
+                               value=> $user->{'comment'},
+                               slave => $slave,
+                   &>
                 </td>
             </tr>
 %   unless ($slave) {
@@ -169,3 +182,16 @@ use EBox::Gettext;
 </p>
 </form>
 % }
+
+<%def masterSlaveUserAttr>
+<%args>
+$name
+$value
+$slave
+</%args>
+% if ($slave) {
+<% $value %>
+% } else {
+ <input type='text' class='inputText' name="<% $name %>" value="<% $value %>" />
+%}
+</%def>
