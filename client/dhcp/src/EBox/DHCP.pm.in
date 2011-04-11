@@ -1767,6 +1767,7 @@ sub _nStaticIfaces
 # Check if the given member is allowed to be a fixed address in the
 # given interface
 # It should match the following criteria:
+#  * The member name must be a valid hostname
 #  * Be a valid host IP address
 #  * Have a valid MAC address
 #  * The IP address must be in range available for the given interface
@@ -1779,7 +1780,11 @@ sub _allowedMemberInFixedAddress
 {
     my ($self, $iface, $member, $objId, $readOnly) = @_;
 
-    if ( $member->{mask} != 32 or (not defined($member->{macaddr})) ) {
+    unless (EBox::Validate::checkDomainName($member->{'name'})) {
+        return 0;
+    }
+
+    if ($member->{mask} != 32 or (not defined($member->{macaddr}))) {
         return 0;
     }
 
@@ -1791,7 +1796,7 @@ sub _allowedMemberInFixedAddress
                                . '-' . $self->endRange($iface));
 
     # Check if the IP address is within the network
-    unless ( $memberIP->overlaps($netIP) == $IP_A_IN_B_OVERLAP ) {
+    unless ($memberIP->overlaps($netIP) == $IP_A_IN_B_OVERLAP) {
         # The IP address from the member is not in the network
         EBox::debug('IP address ' . $memberIP->print() . ' is not in the '
                     . 'network ' . $netIP->print());
