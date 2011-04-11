@@ -1,8 +1,22 @@
 #!/usr/bin/perl
 
+# Copyright (C) 2011 eBox Technologies S.L.
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License, version 2, as
+# published by the Free Software Foundation.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+
 use strict;
 use warnings;
-
 
 use Getopt::Long;
 use Cwd;
@@ -49,6 +63,7 @@ sub _parseOptions
             'help'  => \$help,
             'info'  => \$info,
             );
+
     if (not $optionsOk or $info or $help) {
         _printUsage();
     }
@@ -59,14 +74,14 @@ sub _parseOptions
 
     if ($options{destdir}) {
         unless (-d $options{destdir}) {
-            die "$options{destidir} does not exist";
+            die "$options{destidir} does not exist!";
         }
     } else {
         $options{destdir} = getcwd;
     }
 
     unless ( -d $options{destdir} ) {
-        die "$options{destdir} does not exist!!";
+        die "$options{destdir} does not exist!";
     }
 
     return \%options;
@@ -75,12 +90,14 @@ sub _parseOptions
 sub _types
 {
     my ($dir) = @_;
+
     my @models ;
     opendir ( my $dirFH, $dir );
     while ( defined ( my $file = readdir ( $dirFH ))) {
           next unless ( $file =~ m/.*\.pm/ );
           push(@models, $file);
     }
+
     return \@models;
 }
 
@@ -96,16 +113,11 @@ sub _makefile
     my $perlData =  _types($dir);
 
    my $comp = $interp->make_component(
-            comp_file => STUBS_PATH .  '/src/Makefile.am.mas',
-            );
+            comp_file => STUBS_PATH . '/src/Makefile.am.mas');
     ${$output} = '';
     $interp->exec($comp,
-                  (
-                      perlDir => $perlDir,
-                      perlData => $perlData,
-                   )
-                 );
-
+            (perlDir => $perlDir,
+             perlData => $perlData));
     write_file($dir . '/Makefile.am', ${$output});
 }
 
@@ -120,19 +132,15 @@ sub _src_EBox_Module_Types
     my $template = '/src/Types/Type.pm.mas';
 
     my $comp = $interp->make_component(
-            comp_file => STUBS_PATH . $template,
-            );
+            comp_file => STUBS_PATH . $template);
     ${$output} = '';
     my $name = $options->{name};
     my $package = 'EBox::' . $modNameSpace.  '::Types::' . $name;
     $interp->exec($comp,
-            (
-                name => $name,
-                parent => $options->{parent},
-                package=> $package,
-              ));
+            (name => $name,
+             parent => $options->{parent},
+             package=> $package));
     write_file("$dir/$name.pm", ${$output});
-
 }
 
 sub _runAutogen
@@ -140,13 +148,12 @@ sub _runAutogen
     if (-e 'autogen.sh') {
         system('./autogen.sh');
     } else {
-        print STDERR " You will have to manually run autogen.sh within your module directory";
+        print STDERR "You will have to manually run autogen.sh within your module directory.";
     }
 }
 
 sub _createType
 {
-    # Main
     my $options = _parseOptions();
 
     my $dir = $options->{destdir};
@@ -158,8 +165,9 @@ sub _createType
     if ($options->{name}) {
         _src_EBox_Module_Types($interp, \$output, $options);
     }
-   _makefile($interp, \$output, $options);
-   _runAutogen();
+    _makefile($interp, \$output, $options);
+    _runAutogen();
 }
 
 _createType();
+

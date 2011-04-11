@@ -27,10 +27,17 @@
 #
 #   TODO: Document class
 #
-use strict;
-use warnings;
 
 package <% $packageName %>;
+
+% if ($modelType eq 'form') {
+use base 'EBox::Model::DataForm';
+% } else {
+use base 'EBox::Model::DataTable';
+% }
+
+use strict;
+use warnings;
 
 use EBox::Gettext;
 use EBox::Validate qw(:all);
@@ -42,12 +49,6 @@ use EBox::Validate qw(:all);
 %     next;
 %   $typesSeen{$type} = 1;
 use EBox::Types::<% $type %>;
-% }
-
-% if ($modelType eq 'form') {
-use base 'EBox::Model::DataForm';
-% } else {
-use base 'EBox::Model::DataTable';
 % }
 
 sub new
@@ -72,7 +73,6 @@ sub new
 #
 #   Array ref of hash refs containing:
 #
-#
 sub populate_<% $field->{name} %>
 {
     return [ { value => 'value1', printableValue => 'value2'}];
@@ -93,7 +93,7 @@ sub _table
 #            'size' => '8',
 #            'unique' => 1,
 #            'editable' => 1,
-#            'help' => __('This field is a example'),
+#            'help' => __('This field is an example.'),
 #        ),
 % for my $field (@fields) {
 
@@ -104,6 +104,7 @@ sub _table
             'populate' => \&populate_<% $field->{name} %>,
             'unique' => 1,
             'editable' => 1
+            'help' => '', # FIXME
         ),
 %   }   else {
         new EBox::Types::<% $field->{type} %>(
@@ -112,10 +113,12 @@ sub _table
             'size' => '8',
             'unique' => 1,
             'editable' => 1
+            'help' => '', # FIXME
         ),
 %   }
 % }
     );
+
     my $dataTable =
     {
         'tableName' => '<% $modelName %>',

@@ -20,6 +20,7 @@ $compositeDomain
 
 # Class: <% $package %>
 #
+#   TODO: Document composite
 #
 
 package <% $package %>;
@@ -60,11 +61,11 @@ sub _description
     {
         components      => [
             ],
-        layout          => 'top-bottom',
+        layout          => 'top-bottom', # or tabbed
         name            => '<% $name %>',
         printableName   => __('<% $name %>'),
         compositeDomain => '<% $compositeDomain %>',
-        #help           => __(''),
+        help            => __(''), # FIXME
     };
 
     return $description;

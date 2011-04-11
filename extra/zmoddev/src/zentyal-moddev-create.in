@@ -401,8 +401,8 @@ sub _createModule
     _src_EBox($interp, \$output, $options);
     _src_EBox_Module($interp, \$output, $options);
     _src_EBox_Module_Model($interp, \$output, $options);
-#    _src_EBox_Module_Composite($interp, \$output, $options);
-#    _src_EBox_Module_Types($interp, \$output, $options);
+    _src_EBox_Module_Composite($interp, \$output, $options);
+    _src_EBox_Module_Types($interp, \$output, $options);
     _debian($interp, \$output, $options);
     _schemas($interp, \$output, $options);
     _m4($interp, \$output, $options);

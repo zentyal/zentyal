@@ -28,14 +28,15 @@
 
 package <% $packageName %>;
 
-use EBox::Gettext;
-use EBox::Validate qw(:all);
-use EBox::Types::Text;
+use base 'EBox::Model::DataTable';
 
 use strict;
 use warnings;
 
-use base 'EBox::Model::DataTable';
+use EBox::Gettext;
+use EBox::Validate qw(:all);
+
+use EBox::Types::Text;
 
 sub new
 {
@@ -61,7 +62,7 @@ sub _table
 #            'size' => '8',
 #            'unique' => 1,
 #            'editable' => 1,
-#            'help' => __('This field is a example'),
+#            'help' => __('This field is a example.'),
 #        ),
 
     );
