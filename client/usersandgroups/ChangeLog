@@ -1,4 +1,4 @@
-HEAD
+2.0.12
 	+ User corner cannot longer be enabled in a slave server
 	+ Non-editable user fields in slaves no longer appear as editable inputs
 	+ System users don't require password
