@@ -254,6 +254,7 @@ sub isAvailable
 #      missing
 
 sub createCA {
+    $self->_checkCertificateFieldsCharacters(%args);
 
   my ($self, %args) = @_;
 
@@ -537,6 +538,7 @@ sub issueCACertificate
 
     throw EBox::Exceptions::DataMissing(data => __('Organization Name'))
       unless defined( $args{orgName} );
+    $self->_checkCertificateFieldsCharacters(%args);
 
     # Define the distinguished name -> default values in configuration file
     $args{commonName} = CA_CN_DEF unless ( $args{commonName} );
@@ -761,6 +763,7 @@ sub issueCertificate
   {
 
   my ($self, %args) = @_;
+    $self->_checkCertificateFieldsCharacters(%args);
 
   # Treat arguments
   throw EBox::Exceptions::DataMissing(data => __('Common Name'))
@@ -1971,6 +1974,50 @@ sub report
 
 
 # Group: Protected methods
+
+sub _checkCertificateFieldsCharacters
+{
+    my ($self, %args) = @_;
+    my @fieldsToCheck = qw(orgName commonName
+                    countryName stateName localityName
+                    organizationName organizationNameUnit);
+
+
+    foreach my $field (@fieldsToCheck) {
+        if (exists $args{$field}) {
+            $self->_checkValidCharacters($args{$field}, $field);
+        }
+    }
+
+    if (exists $args{subjAltNames} and (defined $args{subjAltNames})) {
+        foreach my $alt (@{ $args{subjAltNames} }) {
+            my $name = 'Subject alternative name of type ' . $alt->{type};
+            my $value = $alt->{value};
+            $self->_checkValidCharacters($value, $name);
+        }
+    }
+
+}
+
+# openssl does not support UTF-8 a
+my $validRe = qr/^[A-Za-z0-9 .?&+:\-\@\*]*$/;
+sub _checkValidCharacters
+{
+    my ($self, $string, $stringName) = @_;
+    $stringName or
+        $stringName = __('String');
+    if (not $string =~ $validRe) {
+        throw EBox::Exceptions::InvalidData(
+            data => $stringName,
+            value => $string,
+            advice => __('The field contains invalid ' .
+                         'characters. All ASCII alphanumeric characters, ' .
+                         'plus these non alphanumeric chars: .?&+:-@* ' .
+                        'and spaces are allowed.'
+                        )
+           );
+    }
+}
 
 # Method: _supportActions
 #

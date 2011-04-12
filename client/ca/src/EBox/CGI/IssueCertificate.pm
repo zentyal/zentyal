@@ -139,16 +139,6 @@ sub actuate
                                              days => $days));
     }
 
-    # XXX: We have set a workaround until UTF-8 are allowed in OpenSSL
-    # Only valid chars minus '/' plus '*' --> security risk
-    unless ( $name =~ m{^[A-Za-z0-9 .?&+:\-\@\*]*$} ) {
-      throw EBox::Exceptions::External(__x('The input contains invalid ' .
-					  'characters. All {ascii} alphanumeric characters, ' .
-					  'plus these non alphanumeric chars: .?&+:-@* ' .
-					  'and spaces are allowed.',
-                                          ascii => 'ASCII'));
-    }
-
     # Only validate the following format for subjectAltName
     # <type>:<value>,<type>:value
     # type = DNS, IP, email
@@ -161,23 +151,6 @@ sub actuate
         if ( @subjAltNames > 0) {
             foreach my $subAlt (@subjAltNames) {
                 my ($type, $value) = split(/:/, $subAlt);
-                if ( $type eq 'DNS' ) {
-                    EBox::Validate::checkDomainName($value, 'DNS value');
-                } elsif ( $type eq 'IP' ) {
-                    EBox::Validate::checkIP($value, 'IP value');
-                } elsif ( $type eq 'email' ) {
-                    # copy is an special value to get the email value from CN subject
-                    if ( $value ne 'copy' ) {
-                        EBox::Validate::checkEmailAddress($value, 'email value');
-                    }
-                } else {
-                    throw EBox::Exceptions::InvalidData(
-                        data   => 'type',
-                        value  => $type,
-                        advice => __x('Only {dns}, {ip} and {email} are valid subject alternative '
-                                      . 'name types', dns => 'DNS', ip => 'IP', email => 'email'),
-                        );
-                }
                 push(@subjAltNamesParam, { type => $type, value => $value });
             }
         } else {
@@ -189,15 +162,15 @@ sub actuate
     my $retValue;
     if ($issueCA) {
       $retValue = $ca->issueCACertificate( orgName       => $name,
-					   days          => $days,
+                                           days          => $days,
                                            countryName   => $countryName,
                                            localityName  => $localityName,
                                            stateName     => $stateName,
                                            caKeyPassword => $caPass,
-					   genPair       => 1);
+                                           genPair       => 1);
     } else {
       $retValue = $ca->issueCertificate( commonName    => $name,
-					 days          => $days,
+                                         days          => $days,
                                          caKeyPassword => $caPass,
                                          subjAltNames  => \@subjAltNamesParam,
                                        );
@@ -208,7 +181,6 @@ sub actuate
     $self->setMsg($msg);
     # Delete all CGI parameters for CA/Index
     $self->cgi()->delete_all();
-
-  }
+}
 
 1;
