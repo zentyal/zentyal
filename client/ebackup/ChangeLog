@@ -2,6 +2,8 @@
 	+ Duplicity archive dir can be set in configuration file
 	+ backup-tool always create meta and data directories when backing
 	  up to cloud
+	+ remoteUrlParams method does not require user or password parameter
+	  when the backup method is 'file'
 	+ Report methods in RemoteSettings and BackupDomains now return
 	  non-i18n'ed data
 	+ Parse and store backup statistics for further processing

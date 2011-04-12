@@ -1065,17 +1065,29 @@ sub _remoteUrl
     my $sshKnownHosts = 0;
 
     if (%forceParams) {
-        foreach my $param (qw(method user target password)) {
-            $forceParams{$param} or
-                throw EBox::Exceptions::MissingArgument($param);
-        }
+        $method= $forceParams{method};
+        $method or
+            throw EBox::Exceptions::MissingArgument('method');
+
+        $target = $forceParams{target};
+        $target or
+            throw EBox::Exceptions::MissingArgument('target');
 
         $forceParams{encValue} or
             $forceParams{encValue} = 'disabled';
 
-        $method= $forceParams{method};
+        my @noFileNeededParams = qw(user password);
+        foreach my $param (@noFileNeededParams) {
+            if (not $forceParams{$param}) {
+                if ($method eq 'file') {
+                    $forceParams{$param} = '';
+                } else {
+                    throw EBox::Exceptions::MissingArgument($param); 
+                }
+            }
+        }        
+
         $user = $forceParams{user};
-        $target = $forceParams{target};
         my $passwd = $forceParams{password};
         EBox::EBackup::Password::setPasswdFile($passwd, 1);
         $encSelected = $forceParams{encSelected};
@@ -1108,15 +1120,12 @@ __('You need to have the disaster recovery add-on to use this backup method')
         } else {
             # no cloud method!
             $target = $model->row()->valueByName('target');
-
-            if ($method ne 'file') {
-                $user = $model->row()->valueByName('user');
-            }
+            $user = $model->row()->valueByName('user');
         }
     }
 
     my $url = "$method://";
-    if ($user) {
+    if ($user and ($method ne 'file')) {
         $url .= "$user@";
     }
     $url .= $target if defined($target);
