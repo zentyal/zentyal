@@ -129,7 +129,6 @@ sub _mangleDuplicityErrorMsg
 
         default { return $msg; }
     }
-
 }
 
 # Parse the output of duplicity statistics after performing a successful backup
@@ -209,12 +208,12 @@ sub _adjustType
 {
     my ($ebackup, $type) = @_;
 
-# We need an updated cache to avoid errors while checking the status if backup
-# files have been removed
-#
-# We can disable this feature to speed up process when there is not full backup,
-# incremental is specified and status cache is not properly updated it will give a
-# "old signatures not found" error
+    # We need an updated cache to avoid errors while checking the status if backup
+    # files have been removed
+    #
+    # We can disable this feature to speed up process when there is not full backup,
+    # incremental is specified and status cache is not properly updated it will give a
+    # "old signatures not found" error
     try {
         $ebackup->remoteGenerateStatusCache();
     } otherwise {
@@ -384,7 +383,8 @@ sub _errorMessageFromDuplicityCmd
 
 sub _afterSuccessCloudActions
 {
-    my %params = @_;
+    my (%params) = @_;
+
     my $ebackup = $params{ebackup};
     my $type    = $params{type};
     my $configurationDumped = $params{configurationDumped};
@@ -392,11 +392,11 @@ sub _afterSuccessCloudActions
     $ebackup->remoteGenerateStatusCache();
     my $availableDomains = $ebackup->availableBackupDomains();
     my @enabledDomains = grep { $availableDomains->{$_}->{enabled} } keys %{$availableDomains};
-    my %backupDomains = map
-        {
-            $_ => { description   => $availableDomains->{$_}->{description},
-                    printableName => $availableDomains->{$_}->{printableName} } }
-            @enabledDomains;
+
+    my %backupDomains = map { $_ => { description   => $availableDomains->{$_}->{description},
+                                      printableName => $availableDomains->{$_}->{printableName} }
+                            } @enabledDomains;
+
     EBox::info('Writing Disaster Recovery metadata');
     EBox::EBackup::Subscribed::writeDRMetadata(
                                                configurationDumped => $configurationDumped,
@@ -404,9 +404,7 @@ sub _afterSuccessCloudActions
                                                backupType          => $type,
                                                backupDomains       => \%backupDomains,
                                               );
-
 }
-
 
 my $type = 'full';
 if ($ARGV[0]) {
@@ -435,7 +433,6 @@ unless ($ebackup->isEnabled() ) {
 unless ($ebackup->configurationIsComplete()) {
     print "Backup module configuration is not completed. Configure it and retry\n";
     exit 0;
-
 }
 
 my $unsavedChanges = _unsavedChangesWarning($type);
@@ -466,8 +463,6 @@ try {
     _sendSuccessEvent(0, $type, $busyMsg);
     $mustExit =  1;
 };
-
-
 
 if ($mustExit) {
     exit $mustExit;
@@ -505,13 +500,12 @@ try {
     ($success, $successMsg, $errorMsg) = _performBackup($backupCmd);
 
     if ( $success and $usingCloud) {
-        _afterSuccessCloudActions(ebackup => $ebackup, 
-                                 type => $type,
-                                 configurationDumped => $configurationDumped
-                                       );
+        _afterSuccessCloudActions(ebackup => $ebackup,
+                                  type => $type,
+                                  configurationDumped => $configurationDumped);
     }
 
-    if ( $success ) {
+    if ($success) {
         EBox::info('Backup process finished successfuly');
     } else {
         my $msg = "Backup failed: $errorMsg";
@@ -524,7 +518,7 @@ try {
 
 } finally {
     try {
-        if ( $success ) {
+        if ($success) {
             if (not $usingCloud) {
                 $ebackup->remoteGenerateStatusCache();
             }
