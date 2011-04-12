@@ -1,4 +1,4 @@
-HEAD
+2.0.5
 	+ Non-ASCII characters ban fully enforced, fixed problem in chmod
 	  mode when reinstalling package
 	+ Added more CN related option to services certificates
