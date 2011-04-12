@@ -1,4 +1,5 @@
 HEAD
+	+ Added service certificate CN options
 	+ Restart webserver after all modules which have it as enabledepends
 	  in order to make effective their changes in web configuration
 	+ Implement restoreDependencies to avoid problems when restoring backup
