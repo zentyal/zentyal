@@ -48,6 +48,10 @@ $ENV{RSYNC_PASSWORD} = $password;
 unless ($originalArgv{'--tempdir'}) {
     push @ARGV, '--tempdir' => EBox::EBackup::tempdir();
 }
+# archive directory
+unless ($originalArgv{'--archive-dir'}) {
+    push @ARGV, '--archive-dir' => EBox::EBackup::archivedir();
+}
 
 # gpg keys management
 if ($originalArgv{'--encrypt-key'}) {

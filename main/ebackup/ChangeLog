@@ -7,6 +7,7 @@ HEAD
 	+ Bugfix: values from configuration file are checked to assure
 	  that at least making backup is tried once
 	+ Clean temporal directory before doing logs restore
+	+ Duplicity archive dir can be set in configuration file
 2.1
 	+ Set default value for the keep previous full copies setting
 	+ Replace YAML::Tiny with libyaml written in C through YAML::XS wrapper

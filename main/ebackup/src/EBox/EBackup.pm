@@ -1171,6 +1171,20 @@ sub tempdir
     return '/tmp';
 }
 
+# Method: archivedir
+#
+#  Returns:
+#    temporal directory for duplicity (default: /tmp)
+sub archivedir
+{
+    my $archivedir = EBox::Config::configkeyFromFile('archive_dir',
+                                                  EBACKUP_CONF_FILE);
+    if ($archivedir) {
+        return $archivedir;
+    }
+
+    return EBox::Config::home() . '.cache/duplicity';
+}
 
 sub canUnsubscribeFromCloud
 {
