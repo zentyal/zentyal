@@ -755,7 +755,6 @@ sub _installMissingModules
         }
     }
 
-    # delete $modulesInBackup{privoxy};  # DDD
     my @missingModules = keys %modulesInBackup;
     if (@missingModules) {
         _updateDebPackagesList();
@@ -1025,8 +1024,11 @@ sub _configureModules
             my ($ex) = @_;
             my $err = $ex->text();
             $module->setConfigured(0);
-                $module->enableService(0);
-            my $msg = __x('Failed to configure module {name}: {err}. This could affect to the restore from other modules');
+            $module->enableService(0);
+            my $msg = __x('Failed to configure module {name}: {err}. This could affect to the restore from other modules',
+                          name => $module->name(),
+                          err  => $err,
+                         );
             warning($msg);
         };
 
