@@ -29,6 +29,7 @@ use EBox::NetWrappers;
 use EBox::RemoteServices::ProxyBackup;
 use EBox::ServiceManager;
 use EBox::Sudo;
+use EBox::Exceptions::Command;
 use Error qw(:try);
 use Getopt::Long;
 use POSIX 'setsid';
@@ -562,12 +563,9 @@ sub _restoreBackupDomainsFiles
                 $file =~ s{/+$}{};
                 my $srcFile = _fileFromBackup($file);
                 my $dstFile = $file;
-                if (EBox::Sudo::fileTest('-d', $dstFile)) {
-                    $srcFile .= '/*';
-                }
 
                 try {
-                    EBox::Sudo::root("cp -rpf $srcFile $file");
+                    _restoreFile($srcFile, $dstFile);
                 } otherwise {
                     my $ex = shift;
                     my $msg = __x('Cannot restore file {file} requested by backup domains. Reason: {reason}',
@@ -615,13 +613,7 @@ sub _restoreAllFiles
                 next;
             }
 
-            if (not EBox::Sudo::fileTest('-e', $toRestore)) {
-                EBox::Sudo::root("mkdir -p $dir");
-            }
-
-            my $restoreCmd = "cp -rpf $dir/* $toRestore/";
-            print "\n$restoreCmd\n";
-            EBox::Sudo::root($restoreCmd);
+            _restoreFile($dir, $toRestore);
         }
 
         # remove extra data directory
@@ -629,6 +621,46 @@ sub _restoreAllFiles
         EBox::Sudo::root("rm -rf $extraDataDir");
     } finally {
         _finishUnanticipatedProgress($pulsatePid);
+    };
+}
+
+sub _restoreFile
+{
+    my ($src, $dst) = @_;
+
+    # my $tmpDst;
+
+    my $srcArg = $src;
+    if (EBox::Sudo::fileTest('-e', $dst)) {
+        if (EBox::Sudo::fileTest('-d' , $dst)) {
+            if (not EBox::Sudo::fileTest('-d', $src)) {
+                error(__x('Could no restore {dst}, it already exists nad it is not a directory',
+                      dst => $dst));
+                next;
+            }
+
+            $srcArg = "$src/*";
+            my $srcEmpty;
+            try {
+                EBox::Sudo::root("ls $srcArg");
+            } otherwise {
+                $srcEmpty = 1;
+            };
+            if ($srcEmpty) {
+                # no files to copy to laready existent directory..
+                next;
+            }
+        }
+    }
+
+    my $restoreCmd = "cp -rpf $srcArg $dst";
+    try {
+        EBox::Sudo::root($restoreCmd);
+    } otherwise {
+        error(__x(
+            'Error restoring file or directory {dst}',
+            dst => $dst
+           ));
     };
 }
 
@@ -654,6 +686,7 @@ sub _restoreLogs
 sub restoreConfig
 {
     my ($configBackup) = @_;
+
     preRestoreConfigChecks($configBackup);
 
     my $progressIndicator =
