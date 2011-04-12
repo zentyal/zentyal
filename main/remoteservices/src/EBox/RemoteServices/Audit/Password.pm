@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2010 eBox Technologies S.L.
+# Copyright (C) 2008-2011 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -368,6 +368,8 @@ sub _reportResults
     my ($passFile) = @_;
 
     return [] unless (defined($passFile));
+
+    return [] unless (-r $passFile);
 
     $output = EBox::Sudo::command(JOHN . " --show $passFile");
     my @users = ();
