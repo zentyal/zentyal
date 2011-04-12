@@ -290,7 +290,6 @@ sub _removeExpiredBackups
         }
         throw EBox::Exceptions::External($errorMsg);
     };
-
 }
 
 sub _cleanup
@@ -383,6 +382,32 @@ sub _errorMessageFromDuplicityCmd
     }
 }
 
+sub _afterSuccessCloudActions
+{
+    my %params = @_;
+    my $ebackup = $params{ebackup};
+    my $type    = $params{type};
+    my $configurationDumped = $params{configurationDumped};
+
+    $ebackup->remoteGenerateStatusCache();
+    my $availableDomains = $ebackup->availableBackupDomains();
+    my @enabledDomains = grep { $availableDomains->{$_}->{enabled} } keys %{$availableDomains};
+    my %backupDomains = map
+        {
+            $_ => { description   => $availableDomains->{$_}->{description},
+                    printableName => $availableDomains->{$_}->{printableName} } }
+            @enabledDomains;
+    EBox::info('Writing Disaster Recovery metadata');
+    EBox::EBackup::Subscribed::writeDRMetadata(
+                                               configurationDumped => $configurationDumped,
+                                               date                => $ebackup->lastBackupDate(),
+                                               backupType          => $type,
+                                               backupDomains       => \%backupDomains,
+                                              );
+
+}
+
+
 my $type = 'full';
 if ($ARGV[0]) {
     if ($ARGV[0] eq '--incremental') {
@@ -451,6 +476,10 @@ if ($mustExit) {
 my ($success, $successMsg, $errorMsg) = (1, '', '');
 my $configurationDumped = 0;
 my $usingCloud = $ebackup->model('RemoteSettings')->row()->valueByName('method') eq 'cloud';
+if ($usingCloud) {
+    EBox::EBackup::Subscribed::createStructure();
+}
+
 try {
     $type = _adjustType($ebackup, $type);
 
@@ -476,20 +505,10 @@ try {
     ($success, $successMsg, $errorMsg) = _performBackup($backupCmd);
 
     if ( $success and $usingCloud) {
-        $ebackup->remoteGenerateStatusCache();
-        my $availableDomains = $ebackup->availableBackupDomains();
-        my @enabledDomains = grep { $availableDomains->{$_}->{enabled} } keys %{$availableDomains};
-        my %backupDomains = map
-          { $_ => { description   => $availableDomains->{$_}->{description},
-                    printableName => $availableDomains->{$_}->{printableName} } }
-            @enabledDomains;
-        EBox::info('Writing Disaster Recovery metadata');
-        EBox::EBackup::Subscribed::writeDRMetadata(
-            configurationDumped => $configurationDumped,
-            date                => $ebackup->lastBackupDate(),
-            backupType          => $type,
-            backupDomains       => \%backupDomains,
-           );
+        _afterSuccessCloudActions(ebackup => $ebackup, 
+                                 type => $type,
+                                 configurationDumped => $configurationDumped
+                                       );
     }
 
     if ( $success ) {
