@@ -254,12 +254,12 @@ sub isAvailable
 #      missing
 
 sub createCA {
-    $self->_checkCertificateFieldsCharacters(%args);
 
   my ($self, %args) = @_;
 
   throw EBox::Exceptions::DataMissing(data => __('Organization Name'))
     unless defined( $args{orgName} );
+  $self->_checkCertificateFieldsCharacters(%args);
 
   if ( ! -d CATOPDIR ) {
     # Create the directory hierchary
@@ -763,11 +763,11 @@ sub issueCertificate
   {
 
   my ($self, %args) = @_;
-    $self->_checkCertificateFieldsCharacters(%args);
 
   # Treat arguments
   throw EBox::Exceptions::DataMissing(data => __('Common Name'))
     unless defined( $args{commonName} );
+  $self->_checkCertificateFieldsCharacters(%args);
 
   EBox::warn("Two ways to declare expiration date through days and endDate. "
 	     . "Using endDate...")
