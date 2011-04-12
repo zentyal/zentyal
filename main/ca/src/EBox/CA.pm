@@ -74,6 +74,8 @@ use constant CAPUBKEY    => KEYSDIR . "capubkey.pem";
 # Others means openvpn user (nobody)
 use constant DIRMODE        => 00751;
 use constant PRIVATEDIRMODE => 00700;
+use constant CHMOD_DIRMODE        => '751';
+use constant CHMOD_PRIVATEDIRMODE => '700';
 
 # Use Certification Version 3
 use constant EXTENSIONS_V3 => "1";
@@ -231,6 +233,7 @@ sub createCA
 
     throw EBox::Exceptions::DataMissing(data => __('Organization Name'))
         unless defined($args{orgName});
+    $self->_checkCertificateFieldsCharacters(%args);
 
     if (! -d CATOPDIR) {
         # Create the directory hierchary
@@ -392,12 +395,12 @@ sub initialSetup
 
     foreach my $dir (@dirs) {
         if (-d $dir) {
-            push (@cmds, 'chmod ' . DIRMODE . " $dir ");
+            push (@cmds, 'chmod ' . CHMOD_DIRMODE . " $dir ");
         }
     }
 
     if (-d PRIVDIR) {
-        push (@cmds, 'chmod ' . PRIVATEDIRMODE . ' ' . PRIVDIR);
+        push (@cmds, 'chmod ' . CHMOD_PRIVATEDIRMODE . ' ' . PRIVDIR);
     }
     EBox::Sudo::root(@cmds);
 
@@ -523,6 +526,7 @@ sub issueCACertificate
 
     throw EBox::Exceptions::DataMissing(data => __('Organization Name'))
         unless defined( $args{orgName} );
+    $self->_checkCertificateFieldsCharacters(%args);
 
     # Define the distinguished name -> default values in configuration file
     $args{commonName} = CA_CN_DEF unless ( $args{commonName} );
@@ -742,6 +746,7 @@ sub issueCertificate
     # Treat arguments
     throw EBox::Exceptions::DataMissing(data => __('Common Name'))
         unless defined( $args{commonName} );
+    $self->_checkCertificateFieldsCharacters(%args);
 
     EBox::warn("Two ways to declare expiration date through days and endDate. "
             . "Using endDate...")
@@ -1923,6 +1928,50 @@ sub report
 
 
 # Group: Protected methods
+
+sub _checkCertificateFieldsCharacters
+{
+    my ($self, %args) = @_;
+    my @fieldsToCheck = qw(orgName commonName
+                    countryName stateName localityName
+                    organizationName organizationNameUnit);
+
+
+    foreach my $field (@fieldsToCheck) {
+        if (exists $args{$field}) {
+            $self->_checkValidCharacters($args{$field}, $field);
+        }
+    }
+
+    if (exists $args{subjAltNames} and (defined $args{subjAltNames})) {
+        foreach my $alt (@{ $args{subjAltNames} }) {
+            my $name = 'Subject alternative name of type ' . $alt->{type};
+            my $value = $alt->{value};
+            $self->_checkValidCharacters($value, $name);
+        }
+    }
+
+}
+
+# openssl does not support UTF-8 a
+my $validRe = qr/^[A-Za-z0-9 .?&+:\-\@\*]*$/;
+sub _checkValidCharacters
+{
+    my ($self, $string, $stringName) = @_;
+    $stringName or
+        $stringName = __('String');
+    if (not $string =~ $validRe) {
+        throw EBox::Exceptions::InvalidData(
+            data => $stringName,
+            value => $string,
+            advice => __('The field contains invalid ' .
+                         'characters. All ASCII alphanumeric characters, ' .
+                         'plus these non alphanumeric chars: .?&+:-@* ' .
+                        'and spaces are allowed.'
+                        )
+           );
+    }
+}
 
 # Method: _supportActions
 #
