@@ -115,7 +115,14 @@ sub syncRows
 
     my $modified = 0;
     for my $srv (@srvsToAdd) {
-        $self->add(module => $srv->{'module'}, service => $srv->{'service'}, cn => 'ebox', enable => 0);
+        my $cn = exists $srv->{'defaultCN'} ? $srv->{'defaultCN'} : 'Zentyal';
+        my $allowCustomCN = exists $srv->{allowCustomCN} ?
+                                       $srv->{allowCustomCN}  : 1;
+        $self->add(module => $srv->{'module'},
+                   service => $srv->{'service'},
+                   cn => $cn,
+                   allowCustomCN => $allowCustomCN,
+                   enable => 0);
         $modified = 1;
     }
 
@@ -272,6 +279,13 @@ sub _table
                                 help          => __('Generate the certificate using CA '
                                                     . 'with the common name set above'),
                                ),
+       new EBox::Types::Boolean(
+                                fieldName     => 'allowCustomCN',
+                                printableName => 'allowCustomCN',
+                                editable      => 0,
+                                hidden        => 1,
+                                defaultValue  => 1,
+                               ),
       );
 
     my $dataTable =
@@ -291,7 +305,19 @@ sub _table
     return $dataTable;
 }
 
-
+sub validateTypedRow
+{
+    my ($self, $action, $params_r, $actual_r) = @_;
+    if ($action eq 'update') {
+        if (exists $params_r->{cn}) {
+            if (not $actual_r->{allowCustomCN}->value()) {
+                throw EBox::Exceptions::External(
+                    __('This service does not allow to change the  certifcate  common name')
+                   );
+            }
+        }
+    }
+}
 
 sub updatedRowNotify
 {
