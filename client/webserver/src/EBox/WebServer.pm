@@ -656,6 +656,8 @@ sub certificates
              user => 'root',
              group => 'root',
              mode => '0400',
+             defaultCN => $self->_fqdn(),
+             allowCustomCN => 0,
             },
            ];
 }
