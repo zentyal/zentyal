@@ -82,7 +82,7 @@ sub processFile
             #remove with sudo because it can be a usercorner file
             EBox::Sudo::root("rm -f $file");
         } otherwise {
-            EBox::debug("Trying to run method $method with param $param on slave $slave failed");
+            EBox::debug("Trying to run method $method with param $param on slave $slave->{'hostname'} failed");
         };
     } elsif ($mode eq 'list') {
         print " * $method: $param\n";

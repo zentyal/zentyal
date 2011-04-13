@@ -1,3 +1,5 @@
+HEAD
+	+ Minor bugfix: Slave hostname is now properly shown in the logs
 2.0.12
 	+ User corner cannot longer be enabled in a slave server
 	+ Non-editable user fields in slaves no longer appear as editable inputs
