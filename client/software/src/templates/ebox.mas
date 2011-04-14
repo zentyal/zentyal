@@ -9,6 +9,8 @@
     $isInfrastructure
     $isCommunication
     $updateList
+    $updateListError => 0
+    $updateListErrorMsg => undef
 </%args>
 <%init>
 use EBox::Gettext;
@@ -177,13 +179,15 @@ var pkgTable = new Array(
 % }
 
 
-% if ($updateList == 1) {
+% if ($updateList  and (not $updateListError)) {
 <div class='note'>
 <% __('Package list updated successfully') %>
 </div>
-% } elsif ($updateList == 2) {
+% } elsif ($updateListError) {
+% $updateListErrorMsg or
+%   $updateListErrorMsg =  __('Error updating package list. Please try to execute the following command in a console to see the problem: sudo apt-get update');
 <div class='error'>
-<% __('Error updating package list. Please try to execute the following command in a console to see the problem: sudo apt-get update') %>
+<% $updateListErrorMsg  %>
 </div>
 % }
 

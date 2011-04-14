@@ -2,6 +2,8 @@ HEAD
 	+ Added stats for automatic upgrades. Currently, the timestamp and
 	  the number of automatic upgraded packages
 	+ Reviewed installation slides text
+	+ Check if apt-get is ready before running apt commands
+	+ EBox::CGI::Software::Log more resilent to errors
 2.0.10
 	+ Do not show system updates in Zentyal UI when there are not
 	  available because of our QA updates

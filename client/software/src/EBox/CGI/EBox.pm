@@ -22,6 +22,7 @@ use base 'EBox::CGI::ClientBase';
 
 use EBox::Global;
 use EBox::Gettext;
+use Error qw(:try);
 
 use constant FIRST_RUN_FILE => '/var/lib/ebox/.first';
 
@@ -53,12 +54,19 @@ sub _process
     my $software = EBox::Global->modInstance('software');
 
     my $updateList = 0;
+    my $updateListError = 0;
+    my $updateListErrorMsg = undef;
     if (defined($self->param('updatePkgs'))) {
-        if ($software->updatePkgList()) {
-            $updateList = 1;
-        } else {
-            $updateList = 2;
-        }
+        $updateList = 1;
+        try {
+            unless ($software->updatePkgList()) {
+                $updateListError = 1;
+            } 
+        } otherwise {
+            my ($ex) = @_;
+            $updateListError = 1;
+            $updateListErrorMsg = "$ex";
+        };
     }
 
     my @array = ();
@@ -71,6 +79,8 @@ sub _process
     push(@array, 'isGateway'    => $software->isInstalled('ebox-gateway'));
     push(@array, 'isCommunication'    => $software->isInstalled('ebox-communication'));
     push(@array, 'updateList'    => $updateList);
+    push(@array, 'updateListError'    => $updateListError);
+    push(@array, 'updateListErrorMsg'    => $updateListErrorMsg);
     push(@array, 'brokenPackages'     => $software->listBrokenPkgs());
 
     $self->{params} = \@array;

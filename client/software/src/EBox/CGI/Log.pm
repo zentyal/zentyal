@@ -21,6 +21,7 @@ use warnings;
 use EBox;
 use EBox::Gettext;
 use File::Slurp;
+use Error qw(:try);
 
 use base 'EBox::CGI::ClientBase';
 
@@ -49,9 +50,6 @@ sub _print
         return;
     }
 
-    my @log = read_file($self->{downfile}) or
-        throw EBox::Exceptions::Internal("Error opening software.log: $!");
-
     print ($self->cgi()->header(-type=>'application/octet-stream',
                                 -attachment=>$self->{downfilename}));
 
@@ -63,17 +61,35 @@ sub _print
 
     print "Broken packages (if any)\n";
     print "------------------------\n";
-    my $output = EBox::Sudo::root("dpkg -l | grep -v ^ii | awk '{ print " . '$1 " " $2 ": " $3 ' . "}'");
-    print @{ $output };
-    print "\n\n";
+    try {
+        my $output = EBox::Sudo::root("dpkg -l | grep -v ^ii | awk '{ print " . '$1 " " $2 ": " $3 ' . "}'");
+        print @{ $output };
+        print "\n\n";
+    } otherwise {
+        my $ex = shift @_;
+        print "Problem getting broken packages: $ex\n";
+    };
 
     print "/var/log/ebox/software.log\n";
     print "--------------------------\n\n";
+    my @log;
+    my $readLogError;
+    try {
+        @log = read_file($self->{downfile});
+    } otherwise {
+        my $ex = shift @_;
+        $readLogError = "$ex";
+    };
 
-    if (scalar (@log) <= 5000) {
-        print @log;
+    if (not $readLogError) {
+        if (scalar (@log) <= 5000) {
+            print @log;
+        } else {
+            print @log[-5000..-1];
+        }
     } else {
-        print @log[-5000..-1];
+        print "Error reading software log\n";
+        print "Details: $readLogError\n";
     }
 }
 

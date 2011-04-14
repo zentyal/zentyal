@@ -150,6 +150,7 @@ sub installPkgs # (@pkgs)
 {
     my ($self, @pkgs) = @_;
 
+    $self->_isAptReady();
     $self->_isModLocked();
 
     if (not @pkgs) {
@@ -183,12 +184,12 @@ sub installPkgs # (@pkgs)
 #
 #       <EBox::Exceptions::External> - thrown if the module is locked
 #       by other process
-
 sub removePkgs # (@pkgs)
 {
-	my ($self, @pkgs) = @_;
+    my ($self, @pkgs) = @_;
 
-	$self->_isModLocked();
+    $self->_isAptReady();
+    $self->_isModLocked();
 
     if (not @pkgs) {
         EBox::info("No packages to remove");
@@ -220,6 +221,7 @@ sub updatePkgList
     my ($self) = @_;
 
     $self->_isModLocked();
+    $self->_isAptReady();
 
     my $cmd ='/usr/bin/apt-get update -q';
     try {
@@ -346,9 +348,6 @@ sub _onlyQA
 sub listPackageInstallDepends
 {
     my ($self, $packages) = @_;
-
-    $self->_isModLocked();
-
     return $self->_packageDepends('install', $packages);
 }
 
@@ -405,9 +404,6 @@ sub listPackageDescription
 sub listPackageRemoveDepends
 {
     my ($self, $packages) = @_;
-
-    $self->_isModLocked();
-
     return $self->_packageDepends('remove', $packages);
 }
 
@@ -416,8 +412,11 @@ sub _packageDepends
 {
     my ($self, $action, $packages) = @_;
     if (($action ne 'install') and ($action ne 'remove')) {
-	    throw EBox::Exceptions::Internal("Bad action: $action");
+        throw EBox::Exceptions::Internal("Bad action: $action");
     }
+
+    $self->_isAptReady();
+    $self->_isModLocked();
 
     my $aptCmd = "apt-get -qq --no-install-recommends --simulate $action " .
 
@@ -451,6 +450,30 @@ sub _packageDepends
 
 
    return \@packages;
+}
+
+
+# check whether APT is ready, if not throws exception
+sub _isAptReady
+{
+    my $testCmd = 'LANG=C apt-get install --dry-run -qq -y --force-yes coreutils';
+    my $unreadyMsg;
+    try {
+        EBox::Sudo::root($testCmd);
+    } catch EBox::Exceptions::Command with {
+        my ($ex) = @_;
+        my $stderr = join '', @{ $ex->error() };
+        if ($stderr =~ m/Unable to lock the administration directory/) {
+            $unreadyMsg = __('Cannot use software package manager. Probably is currently being used by another process. You can either wait or kill the process.');
+        } else {
+            $unreadyMsg = __x('Cannot use software package manager. Error output: {err}',
+                              err => $stderr);
+        }
+    };
+
+    if ($unreadyMsg) {
+        throw EBox::Exceptions::External($unreadyMsg);
+    }
 }
 
 # Method: isInstalled
