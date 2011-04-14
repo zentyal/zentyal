@@ -314,7 +314,7 @@ sub _setConf
         my @cmds;
         push (@cmds, 'rm -f /etc/cron.d/ebox-ad-sync');
         if ($self->adsyncEnabled()) {
-            my $cronFile = EBox::Config::share() . '/zentyal-users/ebox-ad-sync.cron';
+            my $cronFile = EBox::Config::share() . '/zentyal-users/ad-sync.cron';
             push (@cmds, "install -m 0644 -o root -g root $cronFile /etc/cron.d/ebox-ad-sync");
         }
         EBox::Sudo::root(@cmds);

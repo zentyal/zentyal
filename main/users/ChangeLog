@@ -2,6 +2,7 @@ HEAD
 	+ Non-editable user fields in slaves no longer appear as editable inputs
 	+ Numeric 0 is accepted as value for LDAP users attributes
 	+ Minor fixes in default quota from user template
+	+ Fixed error when writing ad-sync cron file
 2.1.1
 	+ Quotas are now included in users module
 	+ System users don't require password
