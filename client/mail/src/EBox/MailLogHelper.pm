@@ -94,6 +94,8 @@ sub processLine
         # no admited to the queue, inserte error event
         my ($who, $hostname, $clientip, $msg, $line2) = $line =~ m/.*NOQUEUE: reject: (.*) from (.*)\[(.*)\]: (.*); (.*)$/;
         my ($from, $to) = $line2 =~ m/.*from=<(.*)> to=<(.*)> .*/;
+        $from or
+            $from = undef;
 
         my $event = 'other';
         if ($msg =~ m/.*550.*$/) {
@@ -114,7 +116,7 @@ sub processLine
                       client_host_name => $hostname,
                       from_address => $from,
                       to_address => $to,
-                      status => 'reject',
+                      status => 'rejected',
                       message => $msg,
                       event => $event,
                      };
@@ -137,7 +139,10 @@ sub processLine
 
     } elsif ($line =~ m/cleanup.*message-id=/) {
         # cleanup: removed for the queue and mail gets a message id
-        my ($qid, $msg_id) = $line =~ m/.*: ([0-9A-F]+): message\-id=<(.*)>.*$/;
+        # sometimes there is no <> arround message-id. maybe a postfix bug?
+        # example:
+        #Apr  4 06:34:26 kif postfix/cleanup[20543]: 3691F3D7C0: message-id=6c2f8b0c6950bfc961be936e5b33f1a2
+        my ($qid, $msg_id) = $line =~ m/.*: ([0-9A-F]+): message\-id=<?(\S*?)[,\s>]/;
         exists $temp{$qid} or
             return;
 
@@ -182,9 +187,12 @@ sub processLine
         $temp{$qid}{'clientip'} = $clientip;
         $temp{$qid}{'date'} = $self->_getDate($line);
 
-    } elsif ($line =~ m/qmgr.*from=</) {
+    } elsif ($line =~ m/qmgr.*from=<.*size=/) {
         # get size
         my ($qid, $from, $size) = $line =~ m/.*: ([0-9A-F]+): from=<(.*)>, size=([0-9]+),.*$/;
+        $from or
+            $from = undef;
+
         exists $temp{$qid} or
             return;
 
@@ -299,10 +307,12 @@ sub _insert
         my $to = $values->{'to_address'};
         my($from_user, $from_domain) = split('@', $from);
         my($to_user, $to_domain) = split('@', $to);
-        if(exists $vdomains{$from_domain} and
-                exists $vdomains{$to_domain}) {
+
+       if(((not defined $from_domain) or exists $vdomains{$from_domain})
+            and exists $vdomains{$to_domain}) {
+            # not from usually is some type of internal-generated mail
             $type = 'internal';
-        } elsif (exists $vdomains{$from_domain}) {
+        } elsif ((defined $from_domain) and exists $vdomains{$from_domain}) {
             $type = 'sent';
         } elsif (exists $vdomains{$to_domain}) {
             $type = 'received';

@@ -1,3 +1,5 @@
+HEAD
+	+ Improvements in log parsing
 2.0.6
 	+ Bugfix: EBox::MailVDomainsLdap::vdomains returns a correct value
 	  when mail is disabled
