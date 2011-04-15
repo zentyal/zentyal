@@ -22,17 +22,44 @@ use lib '../..';
 
 use EBox::MailLogHelper;
 
-use Test::More tests => 95;
+use Test::More qw(no_plan);
 use Test::MockObject;
 use Test::Exception;
 
 use EBox::TestStubs;
+use EBox::Validate;
 
 use Data::Dumper;
 
 my $dumpInsertedData = 0;
 
 use constant TABLENAME => "mail_message";
+my %validStatus = (
+                   sent => 1,
+                   rejected => 1,
+                   bounced => 1,
+                   deferred => 1,
+
+                  );
+my %validEvent = ( 'msgsent' => 1,
+                   'maxmsgsize' => 1,
+                   'maxusrsize' => 1,
+                   'norelay' => 1,
+                   'noaccount' => 1,
+                   'nohost' => 1,
+                   'noauth' => 1,
+                   'greylist' => 1,
+                   'nosmarthostrelay' => 1,
+                   'other' => 1,
+                  );
+
+my %validType = ( 'internal' => 1,
+                   'sent' => 1,
+                   'received' => 1,
+                   'relay' => 1,
+                   'unknown' => 1,
+                   'nohost' => 1,
+                  );
 
 
 {
@@ -71,6 +98,7 @@ sub newFakeDBEngine
 
     $dbengine->mock('insert' => sub {
                         my ($self, $table, $data) = @_;
+                        _validateInsertedData($table, $data);
                         $self->{insertedTable} = $table;
                         $self->{insertedData}  = $data;
                         $self->{nInserts} += 1;
@@ -80,6 +108,256 @@ sub newFakeDBEngine
 }
                     
 
+sub _validateInsertedData
+{
+    my ($table, $data) = @_;
+    if ($table ne TABLENAME) {
+        fail "Inserted in bad table $table";
+        return;
+    }
+
+    
+    my %actualColumns = %{ $data };
+    my @columns = qw(      from_address 
+                          to_address 
+                               message_id 
+                               message_size 
+                               status 
+                               timestamp 
+                               event 
+                               message 
+                               client_host_name 
+                               client_host_ip 
+                               relay
+                                message_type    
+                   ); 
+
+    my $failure = 0;
+    foreach my $column (@columns) {
+        my $checkSub = 'check_' . $column;
+        if (__PACKAGE__->can($checkSub)) {
+            __PACKAGE__->$checkSub($data->{$column}) or
+                $failure = 1;
+        }
+
+        delete $actualColumns{$column};
+    }
+
+    my @unknownColumns = keys %actualColumns;
+    if (@unknownColumns) {
+        fail "No expected columns present: @unknownColumns";
+        $failure = 1;
+    }
+
+
+    if ($failure) {
+        diag "Failure whe inserting the following columns:\n". Dumper($data);
+    }
+}
+
+
+
+sub check_from_address
+{
+    my ($package, $value) = @_;
+    return $package->_checkAddressColumn('check_from_address', $value);
+}
+
+
+sub check_to_address
+{
+    my ($package, $value) = @_;
+    return $package->_checkAddressColumn('check_to_address', $value);
+}
+
+
+sub _checkAddressColumn
+{
+    my ($package, $name, $value) = @_;
+    defined $value or
+        return 1;
+    if (not EBox::Validate::checkEmailAddress($value)) {
+        fail "Bad  $name email address: $value";
+        return 0;
+    }
+
+    return 1;
+}
+
+sub check_message_id
+{
+    my ($package, $value) = @_;
+    defined $value or
+        return 1;
+    
+    if ($value =~ m/[<>]/) {
+        fail "Bad charaters < or > in message_id value: $value";
+        return 0;
+    }
+
+    return 1;
+}
+
+sub check_message_size
+{
+    my ($package, $value) = @_;
+    defined $value or
+        return 1;
+    
+    if (not $value =~ m/^\d+$/) {
+        fail "Bad message_size value: $value (must be a int)";
+        return 0;
+    }
+
+    return 1;
+}
+
+
+sub check_status
+{
+    my ($package, $value) = @_;
+    defined $value or
+        return 1;
+    if (not $validStatus{$value}) {
+        fail "Bad status value: $value";
+        return 0;
+    }
+
+    return 1;
+}
+
+
+sub check_timestamp
+{
+    my ($package, $value) = @_;
+
+    if (not defined $value) {
+        fail 'timestamp must de defined';
+        return 0;
+    }
+
+    return 1;
+}
+
+
+sub check_event
+{
+    my ($package, $value) = @_;
+
+    if (not defined $value) {
+        fail 'event  must de defined';
+        return 0;
+    }
+
+
+#     defined $value or
+#         return 1;
+
+    if (not $validEvent{$value}) {
+        fail "Bad event value: $value";
+        return 0;
+    }
+
+    return 1;
+}
+
+sub check_message
+{
+    my ($package, $value) = @_;
+    defined $value or
+        return 1;
+    # messages could be almost any humane-redeable string so we not check
+    # anything there
+    return 1;
+}
+
+
+sub check_client_host_name
+{
+    my ($package, $value) = @_;
+
+    if (not defined $value) {
+        fail 'client_host_name must de defined';
+        return 0;
+    }
+
+    if (not EBox::Validate::checkDomainName($value)) {
+        fail "Bad client_host_name value: $value";
+        return 0;
+    }
+
+
+    return 1;
+}
+
+sub check_client_host_ip
+{
+    my ($package, $value) = @_;
+
+    if (not defined $value) {
+        fail 'client_host_ip must de defined';
+        return 0;
+    }
+
+    if (not EBox::Validate::checkIP($value)) {
+        fail "Bad client_host_ip value: $value";
+        return 0;
+    }
+
+
+    return 1;
+}
+
+
+sub check_relay
+{
+    my ($package, $value) = @_;
+    defined $value or
+        return 1;
+
+    # the realy values could be the hostame[ip]:port of the relay or the name of
+    # the service
+    if ($value =~ m/:/) {
+        my ($hostname, $ip, $port) = $value =~ m/^(.*?)\[(.*?)\]:(.*?)$/;
+        my $fail = 0;
+        if (not EBox::Validate::checkDomainName($hostname)) {
+            fail "Bad hostname in relay column: $value";
+            $fail = 1;
+        }
+
+        if (not EBox::Validate::checkIP($ip)) {
+            fail "Bad IP in relay column: $value";
+            $fail = 1;
+        }
+
+        if (not EBox::Validate::checkPort($port)) {
+            fail "Bad port in relay column: $value";
+            $fail = 1;
+        }
+        if ($fail) {
+            return 0;
+        }
+
+
+    } else {
+        # service name
+        if (not $value =~ m/^[a-zA-Z]+$/) {
+            fail "Bad service name for relay column: $value";
+            return 0;
+        }
+    }
+
+    return 1;
+}
+
+sub check_message_type
+{
+    my ($package, $value) = @_;
+    defined $value or
+        return 1;
+
+    return 1;
+}
 sub _currentYear
 {
     my ($sec,$min,$hour,$mday,$mon,$year) = localtime(time());
@@ -478,7 +756,7 @@ my @cases = (
                           ],
               expectedData =>  {
                                from_address => 'macaco@monos.org',
-                               status => 'reject',
+                               status => 'rejected',
                                timestamp => "$year-Sep-23 10:21:21",
                                event => 'norelay',
                                message => '554 5.7.1 <ckent@dplanet.com>: Relay access denied',
@@ -525,7 +803,7 @@ my @cases = (
                                client_host_ip => '192.168.9.1',
                                from_address => 'sender2@gmail.com',
                                to_address => 'macaco@monos.org',
-                               status => 'reject',
+                               status => 'rejected',
                                message =>'504 5.5.2 <huginn>: Helo command rejected: need fully-qualified hostname',
                                message_type => 'received',
                               },                 
@@ -719,6 +997,35 @@ my @cases = (
                               },
                 },
 
+
+             {
+                 name => 'bad itneger from kif',
+                 lines => [
+'Mar 16 09:20:53 kif postfix/smtpd[18488]: connect from 205.163.16.95.dynamic.jazztel.es[95.16.163.205]',
+'Mar 16 09:20:54 kif postfix/smtpd[18488]: setting up TLS connection from 205.163.16.95.dynamic.jazztel.es[95.16.163.205]',
+'Mar 16 09:20:54 kif postfix/smtpd[18488]: Anonymous TLS connection established from 205.163.16.95.dynamic.jazztel.es[95.16.163.205]: TLSv1 with cipher AES128-SHA (128/128 bits)',
+'Mar 16 09:20:54 kif postfix/smtpd[18488]: A99A53D8DA: client=205.163.16.95.dynamic.jazztel.es[95.16.163.205], sasl_method=PLAIN, sasl_username=baboon@zzz.com',
+'Mar 16 09:20:55 kif postfix/cleanup[18490]: A99A53D8DA: message-id=<0076AA44-3479-4CB7-AD5E-906EADB470FB@zzz.com>',
+'Mar 16 09:20:55 kif postfix/qmgr[4932]: A99A53D8DA: from=<baboon@zzz.com>, size=1931, nrcpt=1 (queue active)',
+'Mar 16 09:20:56 kif postfix/smtp[18491]: A99A53D8DA: to=<lazaro@yyy.es>, relay=inw.wanadoo.es[62.36.20.20]:25, delay=1.8, delays=1.3/0.04/0.19/0.24, dsn=2.0.0, status=sent (250 OK id=1PzmuY-0005SU-0W)',
+'Mar 16 09:20:56 kif postfix/qmgr[4932]: A99A53D8DA: removed',
+                    ],
+              expectedData =>  {
+                               from_address => 'baboon@zzz.com',
+                               message_id => '0076AA44-3479-4CB7-AD5E-906EADB470FB@zzz.com',
+                               message_size => 1931,
+                               status => 'sent',
+                               timestamp => "$year-Mar-16 09:20:56",
+                               event => 'msgsent',
+                               message => '250 OK id=1PzmuY-0005SU-0W',
+#                               message => 'delivered via dovecot service',
+                               to_address => 'lazaro@yyy.es',
+                               client_host_name => '205.163.16.95.dynamic.jazztel.es',
+                               relay => 'inw.wanadoo.es[62.36.20.20]:25',
+                               client_host_ip => '95.16.163.205',
+                               message_type => 'relay',
+                              },
+             },
             );
  
 
@@ -726,6 +1033,21 @@ my @cases = (
 
 my $logHelper = new EBox::MailLogHelper();
 
+my ($logFile) = @ARGV;
+if ($logFile) {
+    my $dbEngine = newFakeDBEngine();
+    open my $FH, '<', $logFile or
+        die "Cannot open file $logFile";
+    while (my $line = <$FH>) {
+        $logHelper->processLine('fakeFile', $line, $dbEngine); 
+    }
+    close $FH;
+
+    ok 1,  "File $logFile processed";
+    exit 0;
+}
+
+# normal operation, ru nthe cases
 foreach my $case (@cases) {
     diag $case->{name};
 
@@ -740,6 +1062,7 @@ foreach my $case (@cases) {
 
     checkInsert($dbEngine, $case->{expectedData});
 }
+
 
 
 

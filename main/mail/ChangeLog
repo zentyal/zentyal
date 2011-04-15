@@ -6,6 +6,7 @@ HEAD
 	  mail users
 	+ Added support for eboxmailrelated attribute so groups have a mail
 	  attribute useful for other modules like Zarafa
+	+ Improvements in log parsing
 2.1.1
 	+ Quota attribute renamed in LDAP to allow to have a generic quota
 	  attribute in users

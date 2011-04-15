@@ -1712,6 +1712,7 @@ sub tableInfo
                    'nohost' => __('Host unreachable'),
                    'noauth' => __('Authentication error'),
                    'greylist' => __('Greylisted'),
+                   'nosmarthostrelay' => __('Relay rejected by the smarthost'),
                    'other' => __('Other events'),
     };
 
