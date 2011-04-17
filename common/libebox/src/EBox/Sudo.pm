@@ -22,7 +22,6 @@ use EBox::Config;
 use EBox::Exceptions::Internal;
 use EBox::Gettext;
 use File::stat qw();
-use File::Slurp;
 use Error qw(:try);
 use Params::Validate;
 use Perl6::Junction;
@@ -162,9 +161,9 @@ sub _root
 
     # Create a tempfile to run commands afterwards
     my ($fhCmdFile, $cmdFile) = tempfile(DIR => EBox::Config::tmp(), SUFFIX => '.cmd');
-    write_file($fhCmdFile, $commands);
-    close($fhCmdFile);
-    chmod(0700, $cmdFile);
+    print $fhCmdFile $commands;
+    close ($fhCmdFile);
+    chmod (0700, $cmdFile);
 
     my $sudocmd = "$SUDO_PATH $cmdFile 2> $STDERR_FILE";
 

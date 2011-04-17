@@ -1,3 +1,5 @@
+HEAD
+	+ Properly encode sudo command list to avoid wide character errors
 2.0.9
 	+ Added getFreePort method to EBox::NetWrappers
 	+ Moved partitionsFileSystems method to EBox::FileSystem, added
