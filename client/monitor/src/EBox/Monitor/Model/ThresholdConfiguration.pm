@@ -133,7 +133,7 @@ sub validateTypedRow
                 last;
             }
         }
-        if ($allFields->{$th}->value()) {
+        if (exists $allFields->{$th} and $allFields->{$th}->value()) {
             $anyThresholdSet = 1;
             last;
         }

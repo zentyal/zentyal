@@ -1,3 +1,6 @@
+HEAD
+	+ Now adding thresholds is more resilent to lower number of
+	  passed parameters
 2.0.1
 	+ Df measure now monitorizes file systems in /media and never
 	  monitorizes read-only filesystems (except root)
