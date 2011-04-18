@@ -72,8 +72,8 @@ sub requiredParameters
     elsif ($self->param('restoreFromId')) {
         return [qw(restoreFromId id mode)];
     }
-    elsif ($self->param('download')) {
-        return [qw(download id download.x download.y)];
+    elsif ($self->param('download.x')) {
+        return [qw(id download.x download.y)];
     }
     elsif ($self->param('delete')) {
         return [qw(delete id)];
