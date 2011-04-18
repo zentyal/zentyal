@@ -655,6 +655,7 @@ pre {
     color: #EAEAEA;
     border: 1px solid #BABABA;
     padding: 10px;
+    overflow: auto;
 }
 
 .notchanged {

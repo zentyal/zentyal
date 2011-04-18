@@ -1,4 +1,6 @@
 HEAD
+	+ Fixed Firefox 4 issue when downloading backups
+	+ Show scroll when needed in stacktraces (error page)
 	+ More informative error messages when trying to restart locked modules
 	  from the dashboard
 	+ Creation of plpgsql language moved from EBox::Logs::initialSetup

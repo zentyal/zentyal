@@ -45,14 +45,14 @@ sub requiredParameters
 {
   my ($self) = @_;
 
-  if ($self->param('download')) {
-    return [qw(download id download.x download.y)];
+  if ($self->param('download.x')) {
+    return [qw(id download.x download.y)];
   }
-  elsif ($self->param('delete')) {
-    return [qw(delete id delete.x delete.y)];
+  elsif ($self->param('delete.x')) {
+    return [qw(id delete.x delete.y)];
   }
-  elsif ($self->param('restoreFromId')) {
-    return [qw(restoreFromId restoreFromId.x restoreFromId.y id)];
+  elsif ($self->param('restoreFromId.x')) {
+    return [qw(restoreFromId.x restoreFromId.y id)];
   }
   elsif ($self->param('restoreFromFile')) {
     return [qw(restoreFromFile backupfile)];
