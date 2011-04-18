@@ -968,6 +968,8 @@ sub  _checkSize
 #       deleteBackup      - deletes the backup after resroting it or if the process is aborted
 #       revokeAllOnModuleFail - whether to revoke all restored configuration
 #                              when a module restoration fails
+#       continueOnModuleFail - wether continue when a module fails to restore
+#                              (default: false)
 #  Returns:
 #    the progress indicator object which represents the progress of the restauration
 #
@@ -1015,6 +1017,14 @@ sub prepareRestoreBackup
         }
     }
 
+    if (exists $options{continueOnModuleFail}) {
+        if ($options{continueOnModuleFail}) {
+            $execOptions .= '--continue-on-module-fail ';
+        } else {
+            $execOptions .= '--no-continue-on-module-fail ';
+        }
+    }
+
     $restoreBackupScript    .= " $execOptions $file";
 
     my $totalTicks = scalar @{ $self->_modInstancesForRestore($file) };
@@ -1044,7 +1054,9 @@ sub prepareRestoreBackup
 #       forceDependencies - wether ignore dependency errors between modules
 #        deleteBackup      - deletes the backup after resroting it or if the process is aborted
 #       revokeAllOnModuleFail - whether to revoke all restored configuration
-#                              when a module restoration fails
+#                              when a module restoration fail
+#       continueOnModuleFail - wether continue when a module fails to restore
+#                              (default: false)
 #
 # Exceptions:
 #
@@ -1079,6 +1091,7 @@ sub restoreBackup # (file, %options)
                 forceDependencies => {default => 0 },
                 deleteBackup      => { default => 0},
                 revokeAllOnModuleFail =>  { default => 1},
+                continueOnModuleFail =>  { default => 0},
             }
     );
 
@@ -1117,7 +1130,21 @@ sub restoreBackup # (file, %options)
 
         try {
             foreach my $mod (@modules) {
-                my $restoreOk = $self->_restoreModule($mod, $tempdir, \%options);
+                my $restoreOk;
+                try {
+                    $restoreOk = $self->_restoreModule($mod, $tempdir, \%options);
+                } otherwise {
+                    my ($ex) = @_;
+
+                    if ($options{continueOnModuleFail}) {
+                        my $warn = 'Error when restoring ' . $mod->name() .
+                             ': ' . $ex->text() .
+                                 '. The restore process will continue anyway';
+                        EBox::error($warn);
+                    } else {
+                        $ex->throw();
+                    }
+                };
                 if ($restoreOk) {
                     push @restored, $mod->name();
                 }
@@ -1141,11 +1168,18 @@ sub restoreBackup # (file, %options)
         # We need to set them as changed to be sure that they are restarted
         # in the save all after restoring, if they have run any migration
         # during restore they have been set as restarted.
-        foreach my $mod (@modules) {
+        # We only do this with correctly restored modules
+        foreach my $modName (@restored) {
+            my $mod = EBox::Global->modInstance($modName);
             $mod->setAsChanged();
         }
 
-        EBox::info('Restore successful');
+        if (@restored == @modules) {
+            EBox::info('Restore successful');
+        } else {
+            EBox::info("Restore finished. Not all modules have been successfuly restored. Modules which were restored without errors: @restored");
+        }
+
         $progress->setAsFinished();
     }
     finally {
@@ -1451,7 +1485,7 @@ sub _checkModDeps
     }
 
     if ($level >= $RECURSIVE_DEPENDENCY_THRESHOLD) {
-        throw EBox::Exceptions::Internal('Recursive restore dependency found.');
+        throw EBox::Exceptions::Internal("Recursive restore dependency found in module $modName");
     }
 
     my $global = EBox::Global->getInstance();

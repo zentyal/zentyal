@@ -1,4 +1,5 @@
 HEAD
+	+ Added continueOnModuleFail mode to configuration restore
 	+ Fixed Firefox 4 issue when downloading backups
 	+ Show scroll when needed in stacktraces (error page)
 	+ More informative error messages when trying to restart locked modules
