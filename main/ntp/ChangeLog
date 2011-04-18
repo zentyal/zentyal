@@ -1,5 +1,6 @@
 HEAD
 	+ More robust default values for external servers
+	+ Removed obsolete gconf dependency
 2.1
 	+ Use new standard enable-module script
 	+ Remove migration and use initialSetup
