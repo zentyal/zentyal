@@ -2,6 +2,7 @@ HEAD
 	+ Create plpgsql language on database setup to avoid migration problems
 	+ Fixed Firefox 4 issue when downloading backups
 	+ Show scroll when needed in stacktraces (error page)
+	+ Added continueOnModuleFail mode to configuration restore
 2.0.17
 	+ Retry multiInsert line by line if there are encoding errors
 	+ Event messages are cleaned of null characters and truncated

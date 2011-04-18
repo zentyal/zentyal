@@ -37,6 +37,7 @@ my $deleteBackup = 0;
 
 my $forceDependencies = 0;
 my $revokeAllOnModuleFail = 1;
+my $continueOnModuleFail = 0;
 
 my $help = 0;;
 my $info = 0;
@@ -50,6 +51,7 @@ my $optionsOk = GetOptions(
                'force-dependencies' => \$forceDependencies,
                'delete-backup'      => \$deleteBackup,
                'revoke-all-on-module-fail!' => \$revokeAllOnModuleFail,
+               'continue-on-module-fail!' => \$continueOnModuleFail,
 
                'info'       => \$info,
                'help'       => \$help,
@@ -104,6 +106,7 @@ $restoreParams{dataRestore}       = $dataRestore;
 $restoreParams{forceDependencies} = $forceDependencies;
 $restoreParams{deleteBackup}      = $deleteBackup;
 $restoreParams{revokeAllOnModuleFail} = $revokeAllOnModuleFail;
+$restoreParams{continueOnModuleFail}  = $continueOnModuleFail;
 
 try {
   EBox::Backup->restoreBackup($file, %restoreParams);
