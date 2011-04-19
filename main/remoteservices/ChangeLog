@@ -1,6 +1,8 @@
 HEAD
 	+ Avoid log entry with unexistant file
 	+ Rename dispatcher receiver to Zentyal Cloud
+	+ Using unconfigured interfaces as last resort to connect to Cloud
+	+ Added exception for no connection to Cloud
 	+ Bugfix: Migration for VPN clients to new local port and address
 	  options works
 	+ Bugfix: VPN local address tests are now quiet

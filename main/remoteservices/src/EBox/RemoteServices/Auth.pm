@@ -236,11 +236,19 @@ sub _vpnClientLocalAddress
     my ($self, $serverAddr) = @_;
     my $network = EBox::Global->modInstance('network');
 
-    my @addresses;
-
+    # get interfaces to check and their order
     my ($ifaceGw , $gw) = $network->_defaultGwAndIface();
     # check first external ifaces..
     my @ifaces = ( @{ $network->ExternalIfaces() }, @{ $network->InternalIfaces()}  );
+    # add interfaces not managed by Zentyal
+    my %systemIfaces = map { $_ => 1 } EBox::NetWrappers::list_ifaces();
+    delete $systemIfaces{lo};
+    foreach my $iface (@ifaces) {
+        delete $systemIfaces{$iface};
+    }
+    push @ifaces, keys %systemIfaces;
+
+    my @addresses;
     foreach my $iface ( @ifaces ) {
         my @ifAddrs = EBox::NetWrappers::iface_addresses($iface);
         if (defined $ifaceGw and ($iface eq $ifaceGw)) {
@@ -262,7 +270,7 @@ sub _vpnClientLocalAddress
 
     # no address found
     throw EBox::Exceptions::External(
-        __('Cannot found a external address for the CC connection. Check your external connections')
+        __('Cannot found a valid address to connect with the Cloud. Please check your network configuration.')
     );
 }
 
