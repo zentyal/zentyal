@@ -1,4 +1,5 @@
 HEAD
+	+ Change Zarafa virtual transport to LMTP.
 	+ Bugfix: EBox::MailVDomainsLdap::vdomains returns a correct value
 	  when mail is disabled
 	+ Some refactoring on mail dispatcher

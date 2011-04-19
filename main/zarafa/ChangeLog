@@ -1,4 +1,5 @@
 HEAD
+	+ Bugfix: groups member where not properly populated.
 	+ Bugfix: indexer was always started ignoring value of zarafa_indexer
 	+ Manage zarafa-licensed daemon if defined 80zarafa.conf
 	+ Bugfix: create contact even if create account is disabled on User
