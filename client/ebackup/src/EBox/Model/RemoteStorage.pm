@@ -30,6 +30,7 @@ use EBox::Gettext;
 use EBox::Types::Select;
 use EBox::Types::Text;
 use EBox::Exceptions::Command;
+use EBox::Exceptions::RemoteServices::NotConnected;
 use Error qw(:try);
 
 # Group: Public methods
@@ -97,13 +98,15 @@ sub _getStorageUsage
 
     try {
         $self->{storage} = $ebackup->storageUsage();
+    } catch EBox::Exceptions::RemoteServices::NotConnected with {
+        $badConnection = 'cloud';
     } catch EBox::Exceptions::Command with {
         my $ex = shift @_;
         my $error = $ex->error();
         foreach my $line (@{ $error }) {
             if ($line =~ m/Connection timed out/ or
                 ($line =~  m/Connection closed by remote host/ )) {
-                $badConnection = 1;
+                $badConnection = 'backupServer';
                 last;
             }
         }
@@ -145,12 +148,21 @@ sub precondition
 sub preconditionFailMsg
 {
     my ($self) = @_;
+    
     if ($self->{badConnection}) {
+        if ($self->{badConnection} eq 'cloud') {
+            return _cloudBadConnectionMsg();
+        }
         return _badConnectionMsg();
     }
 
     # nothing to show if not precondition..
     return '';
+}
+
+sub _cloudBadConnectionMsg
+{
+    return __('Error connecting to Zentyal Cloud. Storage status unknown');
 }
 
 sub _badConnectionMsg

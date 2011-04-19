@@ -38,6 +38,8 @@ use EBox::Types::Password;
 use EBox::View::Customizer;
 use EBox::Validate;
 use EBox::EBackup::Subscribed;
+use EBox::Exceptions::RemoteServices::NotConnected;
+use Error qw(:try);
 
 # Constants
 use constant URL => 'https://store.zentyal.com/other/disaster-recovery.html';
@@ -150,9 +152,16 @@ sub viewCustomizer
                 }
             });
 
-    if ( not EBox::EBackup::Subscribed::isSubscribed() ) {
-        $customizer->setPermanentMessage(_message());
-    }
+    try {
+        my $disasterAddon = EBox::EBackup::Subscribed->isSubscribed();
+        if (not $disasterAddon ) {
+            $customizer->setPermanentMessage(_message());
+        }
+    } catch EBox::Exceptions::RemoteServices::NotConnected with {
+        my ($ex) = @_;
+        $customizer->setPermanentMessage("$ex");
+
+    };
 
     return $customizer;
 }
@@ -536,14 +545,14 @@ sub _method
     my $cloud = {
                  value => 'cloud',
                  printableValue => 'Zentyal Cloud',
-            };
+    };
 
-   if ( EBox::EBackup::Subscribed::isSubscribed() ) {
-       unshift @methods, $cloud;
-   } else {
-       $cloud->{disabled} = 1;
-       push @methods, $cloud;
-   }
+    if (EBox::EBackup::Subscribed->isSubscribed(ignoreConnectionError => 1)) {
+        unshift @methods, $cloud;
+    } else {
+        $cloud->{disabled} = 1;
+        push @methods, $cloud;
+    }
 
     return \@methods;
 }
@@ -934,8 +943,8 @@ sub setCloudMethod
 {
     my ($self, $firstTime) = @_;
 
-    if (not EBox::EBackup::Subscribed::isSubscribed()) {
-        EBox::warn("setCloudFirstTime called without disaster recovery subscription");
+    if (not EBox::EBackup::Subscribed->isSubscribed(ignoreConnectionError => 1)) {
+        EBox::warn("setCloudMethod called without disaster recovery subscription");
         return;
     }
 

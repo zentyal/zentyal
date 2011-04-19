@@ -24,6 +24,7 @@ use EBox::Config;
 use EBox::EBackup::Password;
 use EBox::Gettext;
 use EBox::Sudo;
+use EBox::Exceptions::RemoteServices::NotConnected;
 use Error qw(:try);
 use File::Slurp;
 use Perl6::Junction qw(none);
@@ -38,9 +39,22 @@ use constant FINGERPRINT_FILE => EBox::Config::share() . 'ebox-ebackup/server-fi
 #
 sub isSubscribed
 {
+    my ($self, %params) = @_;
+
     if (EBox::Global->modExists('remoteservices')) {
         my $remoteServices = EBox::Global->modInstance('remoteservices');
-        return $remoteServices->disasterRecoveryAddOn();
+        my $disasterAddOn = 0;
+        try {
+            $disasterAddOn = $remoteServices->disasterRecoveryAddOn();
+        } catch EBox::Exceptions::RemoteServices::NotConnected with {
+            my ($ex) = @_;
+            unless ($params{ignoreConnectionError}) {
+                $ex->throw();
+            }
+
+        };
+
+        return $disasterAddOn;
     } else {
         return 0;
     }
@@ -67,6 +81,11 @@ sub isSubscribed
 sub credentials
 {
     my ($self) = @_;
+
+    if (not isSubscribed()) {
+        EBox::error("Trying to get DR credentials in a server without DR addon");
+        return undef;
+    }
 
     my $remoteServices = EBox::Global->modInstance('remoteservices');
     my $credentials;

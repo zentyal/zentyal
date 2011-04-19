@@ -1,9 +1,8 @@
 ## Process this file with automake to produce Makefile.in
-SUBDIRS = CGI Event RemoteServices Exceptions
 
-perldir = @PERLPATH@/EBox
+perldir = @PERLPATH@/EBox/Exceptions/RemoteServices
 
-nobase_perl_DATA = RemoteServices.pm
+nobase_perl_DATA = NotConnected.pm
 
 DISTCLEANFILES =
 

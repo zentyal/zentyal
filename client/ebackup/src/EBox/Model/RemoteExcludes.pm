@@ -32,6 +32,9 @@ use EBox::Types::Select;
 use EBox::Types::Text;
 use EBox::Validate;
 use EBox::EBackup::Subscribed;
+use EBox::Exceptions::RemoteServices::NotConnected;
+
+use Error qw(:try);
 
 # Group: Public methods
 
@@ -231,7 +234,16 @@ sub syncRows
         }
     }
 
-    if (not EBox::EBackup::Subscribed::isSubscribed()) {
+    my $drAddon = 0;
+    try {
+        $drAddon = EBox::EBackup::Subscribed->isSubscribed();
+    } catch EBox::Exceptions::RemoteServices::NotConnected with {
+        # connection error so we don't know whether we are subscribed or not
+        # we will supposse that if we have ids with DS prefix we are subscribed
+        $drAddon = @currentDsIds > 0;
+    };
+
+    if (not $drAddon) {
         # no disaster recovery add-on, so we not add nothing and remove old added rows
         # if neccessary
         my $changed = undef;
@@ -327,14 +339,23 @@ sub _checkRowIsUnique
     }
 }
 
-
 # we override this bz if we have read-only rows we want not to have user rows
 # before them
-# XXX duplciate fantom rows error!
+# XXX duplicate phantom rows error!
 sub _insertPos
 {
     my ($self, $id, $pos) = @_;
-    if (not EBox::EBackup::Subscribed::isSubscribed()) {
+
+    my $drAddon = 0;
+    try {
+        $drAddon = EBox::EBackup::Subscribed->isSubscribed();
+    } catch EBox::Exceptions::RemoteServices::NotConnected with {
+        # connection error so we will play safe and assume we have it, this only
+        # will cost a bit more time for the insertion
+        $drAddon = 1;
+    };
+
+    if (not $drAddon) {
         # no disaster recovery add-on, so we havent nothing to change there
         return $self->SUPER::_insertPos($id, $pos);
     }

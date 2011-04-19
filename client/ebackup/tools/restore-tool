@@ -691,7 +691,9 @@ sub restoreConfig
 
     my $progressIndicator =
         EBox::Backup->prepareRestoreBackup($configBackup,
-                                           revokeAllOnModuleFail => 0);
+                                           revokeAllOnModuleFail => 0,
+                                           continueOnModuleFail  => 1
+                                          );
 
     my $retValue = progress($progressIndicator, __('Restoring configuration backup'));
     if ($retValue != 0) {
@@ -1953,6 +1955,10 @@ sub regenerateCaches
     try {
         my $ebackup = EBox::Global->modInstance('ebackup');
         $ebackup->remoteGenerateListFile();
+    }  catch EBox::Exceptions::RemoteServices::NotConnected with {
+        warning(
+                __('Cannot connect to the Cloud to regenerate backup list. Please try again later.')
+               );
     } finally {
         _finishUnanticipatedProgress($pulsatePid);
     };

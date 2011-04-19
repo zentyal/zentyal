@@ -125,7 +125,7 @@ sub report
 
 sub precondition
 {
-    return EBox::EBackup::Subscribed::isSubscribed();
+    return EBox::EBackup::Subscribed->isSubscribed(ignoreConnectionError => 1);
 }
 
 sub preconditionFailMsg

@@ -46,13 +46,12 @@ use Error qw(:try);
 use Fcntl qw(:flock);
 
 use EBox::Exceptions::MissingArgument;
+use EBox::Exceptions::RemoteServices::NotConnected;
 
 use constant EBACKUP_CONF_FILE => EBox::Config::etc() . '82ebackup.conf';
 use constant EBACKUP_MENU_ENTRY => 'ebackup_menu_enabled';
 use constant DUPLICITY_WRAPPER => EBox::Config::share() . '/ebox-ebackup/ebox-duplicity-wrapper';
 use constant LOCK_FILE     => EBox::Config::tmp() . 'ebox-ebackup-lock';
-
-
 
 
 # Constructor: _create
@@ -929,16 +928,34 @@ sub _setConf
 
     # Store password
     my $model = $self->model('RemoteSettings');
-    my $pass = '';
-    if (not $self->EBox::EBackup::Subscribed::isSubscribed()) {
+
+    my $usingCloud =  $model->row()->valueByName('method') eq 'cloud';
+    my $cloudCredentials;
+
+    if ($usingCloud) {
+        try {
+            $cloudCredentials = EBox::EBackup::Subscribed::credentials();
+            if ($cloudCredentials) {
+                EBox::EBackup::Subscribed::createStructure();
+            }
+        } catch EBox::Exceptions::RemoteServices::NotConnected with {
+            my ($ex) = @_;
+            EBox::error("Could not get Cloud backup credentials: $ex");
+        };
+    }
+
+    my $pass;
+    if (not $usingCloud) {
         $pass = $model->row()->valueByName('password');
         defined $pass or
             $pass = '';
+        EBox::EBackup::Password::setPasswdFile($pass);
+    } elsif ($cloudCredentials) {
+        $pass = $cloudCredentials->{password};
+        EBox::EBackup::Password::setPasswdFile($pass);
     } else {
-        my $credentials = EBox::EBackup::Subscribed::credentials();
-        $pass = $credentials->{password};
+        EBox::error('No new backup connection password found, using old one');
     }
-    EBox::EBackup::Password::setPasswdFile($pass);
 
     my $symPass = $model->row->valueByName('encryption');
     $self->$symPass = '' unless (defined($symPass));
@@ -950,11 +967,10 @@ sub _setConf
         $self->removeRemoteBackupCron();
     }
 
-    if ( $model->row()->valueByName('method') eq 'cloud' ) {
-        EBox::EBackup::Subscribed::createStructure();
+    if ((not $usingCloud) or $cloudCredentials) {
+        $self->_syncRemoteCaches();
     }
 
-    $self->_syncRemoteCaches();
 }
 
 
@@ -1061,7 +1077,6 @@ sub _remoteUrl
     my ($encSelected, $encValue);
     my $model = $self->model('RemoteSettings');
 
-    my $subscribed = EBox::EBackup::Subscribed::isSubscribed();
     my $sshKnownHosts = 0;
 
     if (%forceParams) {
@@ -1082,10 +1097,10 @@ sub _remoteUrl
                 if ($method eq 'file') {
                     $forceParams{$param} = '';
                 } else {
-                    throw EBox::Exceptions::MissingArgument($param); 
+                    throw EBox::Exceptions::MissingArgument($param);
                 }
             }
-        }        
+        }
 
         $user = $forceParams{user};
         my $passwd = $forceParams{password};
@@ -1097,7 +1112,9 @@ sub _remoteUrl
     }  else {
         $method = $model->row()->valueByName('method');
         if ($method eq 'cloud')  {
-            if (not $subscribed) {
+
+            my $drAddOn = EBox::EBackup::Subscribed->isSubscribed();
+            if (not $drAddOn) {
                 throw EBox::Exceptions::External(
 __('You need to have the disaster recovery add-on to use this backup method')
                                                 );
@@ -1220,7 +1237,7 @@ sub configurationIsComplete
 {
     my ($self) = @_;
 
-    if (EBox::EBackup::Subscribed::isSubscribed()) {
+    if (EBox::EBackup::Subscribed->isSubscribed(ignoreConnectionError => 1)) {
         return 1;
     }
 
@@ -1292,6 +1309,10 @@ sub storageUsage
     my $target = $model->row()->valueByName('target');
 
     if ($method eq 'cloud') {
+        if (not EBox::EBackup::Subscribed->isSubscribed()) {
+            return undef;
+        }
+
         my $quota;
         ($used, $quota) = EBox::EBackup::Subscribed::quota();
         $total = $quota;
