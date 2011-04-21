@@ -1,4 +1,4 @@
-HEAD
+2.0.12
 	+ Avoid log entry with unexistant file
 	+ Using unconfigured interfaces as last resort to connect to Cloud
 	+ Added exception for no connection to Cloud
