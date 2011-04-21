@@ -67,7 +67,7 @@ sub restoreEBoxLogsFromDir
     my $dateEpoch = str2time($date);
 
     my $dbengine = EBox::DBEngineFactory::DBEngine();
-    my $basename = 'eboxlogs';
+    my $basename = dumpBasename();
     $dbengine->restoreDB($dir, $basename, toDate => $dateEpoch);
 }
 
@@ -75,6 +75,11 @@ sub restoreEBoxLogsFromDir
 sub backupDir
 {
     return  EBox::EBackup::extraDataDir() .  "/logs";
+}
+
+sub dumpBasename
+{
+    return 'eboxlogs';
 }
 
 1;

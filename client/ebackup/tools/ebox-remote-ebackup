@@ -390,22 +390,27 @@ sub _afterSuccessCloudActions
     my %params = @_;
     my $ebackup = $params{ebackup};
     my $type    = $params{type};
-    my $configurationDumped = $params{configurationDumped};
+    my $extraDataDumped = $params{extraDataDumped};
 
     $ebackup->remoteGenerateStatusCache();
     my $availableDomains = $ebackup->availableBackupDomains();
     my @enabledDomains = grep { $availableDomains->{$_}->{enabled} } keys %{$availableDomains};
-    my %backupDomains = map
-        {
-            $_ => { description   => $availableDomains->{$_}->{description},
-                    printableName => $availableDomains->{$_}->{printableName} } }
-            @enabledDomains;
+    my %backupDomains = map {
+          $_ => {  %{ $availableDomains->{$_} }  }
+        }    @enabledDomains;
+
+    # remove unused keys
+    foreach my $attrs (values %backupDomains) {
+        delete $attrs->{enabled};
+    }
+
     EBox::info('Writing Disaster Recovery metadata');
     EBox::EBackup::Subscribed::writeDRMetadata(
-                                               configurationDumped => $configurationDumped,
                                                date                => $ebackup->lastBackupDate(),
                                                backupType          => $type,
                                                backupDomains       => \%backupDomains,
+                                               extraDataDumped       => $extraDataDumped,
+
                                               );
 
 }
@@ -436,7 +441,6 @@ unless ($ebackup->isEnabled() ) {
 unless ($ebackup->configurationIsComplete()) {
     print "Backup module configuration is not completed. Configure it and retry\n";
     exit 0;
-
 }
 
 my $unsavedChanges = _unsavedChangesWarning($type);
@@ -476,7 +480,7 @@ if ($mustExit) {
 
 
 my ($success, $successMsg, $errorMsg) = (1, "", "");
-my $configurationDumped = 0;
+my @extraDataDumped;
 my $usingCloud = $ebackup->model('RemoteSettings')->row()->valueByName('method') eq 'cloud';
 try {
     $type = _adjustType($ebackup, $type);
@@ -491,21 +495,19 @@ try {
     }
 
     try {
-        $ebackup->dumpExtraData($globalRO);
-        $configurationDumped = (not $unsavedChanges);
+        @extraDataDumped = @{ $ebackup->dumpExtraData($globalRO) };
     } otherwise {
         my $ex = @_;
-        EBox::error("Error dumping server metadata: $ex. Backup process continues but you won't be able to restore the server configuration with this backup");
+        EBox::error("Error dumping server metadata: $ex. Backup process continues but you could not be able to restore the server configuration or other extra data with this backup");
     };
-
 
     my $backupCmd = $ebackup->remoteArguments($type);
     ($success, $successMsg, $errorMsg) = _performBackup($backupCmd);
 
     if ( $success and $usingCloud) {
-        _afterSuccessCloudActions(ebackup => $ebackup, 
+        _afterSuccessCloudActions(ebackup => $ebackup,
                                  type => $type,
-                                 configurationDumped => $configurationDumped
+                                 extraDataDumped => \@extraDataDumped
                                        );
     }
 

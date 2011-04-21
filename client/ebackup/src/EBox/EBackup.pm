@@ -281,6 +281,8 @@ sub dumpExtraData
 {
     my ($self, $readOnlyGlobal) = @_;
 
+    my @domainsDumped;
+
     my $extraDataDir = $self->extraDataDir();
     system "rm -rf $extraDataDir";
     system "mkdir -p $extraDataDir";
@@ -306,7 +308,9 @@ sub dumpExtraData
         #     running ebox-make-backup.
         #     This is a temporary workaround
         $global->revokeAllModules();
-        system "mv $bakFile $extraDataDir";
+        EBox::Sudo::command("mv $bakFile $extraDataDir");
+
+        push @domainsDumped, 'configuration';
     } otherwise {
         my $ex = shift;
         EBox::error("Configuration backup failed: $ex. It will not be possible to restore the configuration from this backup, but the data will be backed up.");
@@ -322,11 +326,21 @@ sub dumpExtraData
     foreach my $mod (@{ $global->modInstances() }) {
         if ($mod->can('dumpExtraBackupData')) {
             my $dir = $extraDataDir . '/' . $mod->name();
-            mkdir $dir; # this directory could be empty if th next call doesnot
-                        # put any file on it
-            $mod->dumpExtraBackupData($dir, %enabled);
+            mkdir $dir; # this directory could be empty if the next call
+                        # doesn't write any file on it
+
+            try {
+                my $dumped = $mod->dumpExtraBackupData($dir, %enabled);
+                push @domainsDumped, @{ $dumped };
+            } otherwise {
+                EBox::error("Error dumping extra backup data for module " .
+                             $mod->name .
+                            '. The backup will continue but you could not be able to restore all parts of your system');
+            };
         }
     }
+
+    return \@domainsDumped;
 }
 
 sub enabledDomainsListPath
@@ -954,7 +968,7 @@ sub _setConf
         $pass = $cloudCredentials->{password};
         EBox::EBackup::Password::setPasswdFile($pass);
     } else {
-        EBox::error('No new backup connection password found, using old one');
+        EBox::error("No new backup connection password found, using old one");
     }
 
     my $symPass = $model->row->valueByName('encryption');

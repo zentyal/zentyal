@@ -198,23 +198,39 @@ sub _sshpassCommandAsString
 #   write to the remote server the backup metadata
 #
 #  Named parameters:
-#    configurationDumped - whether the backup contains the configuration or not
 #    date - date of the backup. Must be in the same format used by duplicity
 #    backupType - backup type (full, incremental)
 #    backupDomains - hash ref backup domains stored indexed by backup
-#    domain name containing the following keys: description and printableName
+#    domain name containing the following keys: 'description', 'printableName'
+#                                         and  optionally 'extraDataDump'
+#    extraDataDumped - list of domaisn which dumepd its extra data in the backup
 #
 sub writeDRMetadata
 {
     my %options =  @_;
 
-    my $hasConfiguration = $options{configurationDumped} ? 1 : 0;
+
     my $date = $options{date};
     my $backupType = $options{backupType};
     my $backupDomains = $options{backupDomains};
-    if ($hasConfiguration) {
-        $backupDomains->{'configuration'} = { description   => __('Configuration'),
-                                              printableName => __('Configuration') };
+    my %extraDataDumped = map { $_ => 1 } @{ $options{extraDataDumped} };
+
+    # for convenience and compability
+    my $hasConfiguration = $extraDataDumped{configuration} ? 1 : 0;
+    $backupDomains->{'configuration'} = { description   => __('Configuration'),
+                                          printableName => __('Configuration'),
+                                          extraDataDump => 1,
+                                         };
+
+    # remove domains which need extraData if it was not correctly dumped
+    my @domainNames = keys %{ $backupDomains };
+    foreach my $domain (@domainNames) {
+        if (exists $backupDomains->{$domain}->{extraDataDump} and
+                   $backupDomains->{$domain}->{extraDataDump} and
+                   (not $extraDataDumped{$domain})
+           ) {
+            $backupDomains->{$domain}->{failed} = 1;
+        }
     }
 
     my $ebackup =  EBox::Global->modInstance('ebackup');

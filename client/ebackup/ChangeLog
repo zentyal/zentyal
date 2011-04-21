@@ -1,4 +1,5 @@
 2.0.11
+	+ Better control of extra backup data failures
 	+ Better control of Cloud failed connections
 	+ Duplicity archive dir can be set in configuration file
 	+ backup-tool always create meta and data directories when backing

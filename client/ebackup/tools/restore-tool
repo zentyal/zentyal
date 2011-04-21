@@ -664,12 +664,15 @@ sub _restoreFile
     };
 }
 
+# sliced-mode is not supported
 sub _restoreLogs
 {
     my ($date) = @_;
 
     my $dir = _fileFromBackup( EBox::EBackup::DBRestore::backupDir());
-    if (not EBox::Sudo::fileTest('-d', $dir)) {
+    my $dumpFile =  $dir . '/' . EBox::EBackup::DBRestore::dumpBasename() . '.dump';
+
+    if (not  EBox::Sudo::fileTest('-r', $dumpFile) ) {
         warning(__('Backup log data not found, log database will not be restored'));
         return;
     }
@@ -925,7 +928,8 @@ sub _installCloudPackages
     # No configure modules stage required because:
     # ebox-cloud-prof no needs configuration but only restoring
     # zentyal-security-updates is not a zentyal module
-    if ( 'cloud-prof' eq any(@toInstall) ) {
+    my $cloudProfInstalled = grep { $_ eq 'cloud-prof'  } @toInstall;
+    if ( $cloudProfInstalled ) {
         EBox::Backup->restoreBackup($confBackup, revokeAllOnModuleFail => 0,
                                     modsToRestore => [ 'cloud-prof' ]);
     }
@@ -1411,6 +1415,10 @@ sub _backupDomainsAvailableByPrintableName
 
     my %domains;
     while( my ($key, $data) = each %{$metadata->{backupDomains}}) {
+        # ignore failed backups
+        if ($data->{failed}) {
+            next;
+        }
         $domains{$data->{printableName}} = $key;
     }
 
@@ -1957,7 +1965,7 @@ sub regenerateCaches
         $ebackup->remoteGenerateListFile();
     }  catch EBox::Exceptions::RemoteServices::NotConnected with {
         warning(
-                __('Cannot connect to the Cloud to regenerate backup list. Please try again later.')
+__('Cannot connect to the Cloud to regenerate backup list. Try later.')
                );
     } finally {
         _finishUnanticipatedProgress($pulsatePid);
