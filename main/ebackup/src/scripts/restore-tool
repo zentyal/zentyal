@@ -659,12 +659,15 @@ sub _restoreFile
     };
 }
 
+# sliced-mode is not supported
 sub _restoreLogs
 {
     my ($date) = @_;
 
     my $dir = _fileFromBackup( EBox::EBackup::DBRestore::backupDir());
-    if (not EBox::Sudo::fileTest('-d', $dir)) {
+    my $dumpFile =  $dir . '/' . EBox::EBackup::DBRestore::dumpBasename() . '.dump';
+
+    if (not  EBox::Sudo::fileTest('-r', $dumpFile) ) {
         warning(__('Backup log data not found, log database will not be restored'));
         return;
     }
@@ -910,7 +913,8 @@ sub _installCloudPackages
     # No configure modules stage required because:
     # ebox-cloud-prof no needs configuration but only restoring
     # zentyal-security-updates is not a zentyal module
-    if ( 'cloud-prof' eq any(@toInstall) ) {
+    my $cloudProfInstalled = grep { $_ eq 'cloud-prof'  } @toInstall;
+    if ($cloudProfInstalled) {
         EBox::Backup->restoreBackup($confBackup, revokeAllOnModuleFail => 0,
                                     modsToRestore => [ 'cloud-prof' ]);
     }
@@ -1395,7 +1399,11 @@ sub _backupDomainsAvailableByPrintableName
     my ($metadata) = @_;
 
     my %domains;
-    while( my ($key, $data) = each %{$metadata->{backupDomains}}) {
+    while(my ($key, $data) = each %{$metadata->{backupDomains}}) {
+        # ignore failed backups
+        if ($data->{failed}) {
+            next;
+        }
         $domains{$data->{printableName}} = $key;
     }
 
