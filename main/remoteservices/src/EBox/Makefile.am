@@ -1,5 +1,5 @@
 ## Process this file with automake to produce Makefile.in
-SUBDIRS = CGI Event RemoteServices Exceptions
+SUBDIRS = CGI Event RemoteServices
 
 perldir = @PERLPATH@/EBox
 

@@ -46,7 +46,7 @@ use Error qw(:try);
 use Fcntl qw(:flock);
 
 use EBox::Exceptions::MissingArgument;
-use EBox::Exceptions::RemoteServices::NotConnected;
+use EBox::Exceptions::NotConnected;
 
 use constant EBACKUP_CONF_FILE => EBox::Config::etc() . 'ebackup.conf';
 use constant DUPLICITY_WRAPPER => EBox::Config::share() . '/zentyal-ebackup/duplicity-wrapper';
@@ -950,7 +950,7 @@ sub _setConf
             if ($cloudCredentials) {
                 EBox::EBackup::Subscribed::createStructure();
             }
-        } catch EBox::Exceptions::RemoteServices::NotConnected with {
+        } catch EBox::Exceptions::NotConnected with {
             my ($ex) = @_;
             EBox::error("Could not get Cloud backup credentials: $ex");
         };

@@ -30,7 +30,7 @@ use EBox::Gettext;
 use EBox::Types::Select;
 use EBox::Types::Text;
 use EBox::Exceptions::Command;
-use EBox::Exceptions::RemoteServices::NotConnected;
+use EBox::Exceptions::NotConnected;
 use Error qw(:try);
 
 # Group: Public methods
@@ -98,7 +98,7 @@ sub _getStorageUsage
 
     try {
         $self->{storage} = $ebackup->storageUsage();
-    } catch EBox::Exceptions::RemoteServices::NotConnected with {
+    } catch EBox::Exceptions::NotConnected with {
         $badConnection = 'cloud';
     } catch EBox::Exceptions::Command with {
         my $ex = shift @_;
