@@ -1,4 +1,4 @@
-HEAD
+2.0.13
 	+ Moved EBox::Exceptions::RemoteServices::NotConnected to libebox
 	  to avoid errors when remoteservices is not installed
 2.0.12
