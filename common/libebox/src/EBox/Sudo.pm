@@ -26,6 +26,7 @@ use Error qw(:try);
 use Params::Validate;
 use Perl6::Junction;
 use File::Temp qw(tempfile);
+use File::Slurp;
 
 use EBox::Exceptions::Sudo::Command;
 use EBox::Exceptions::Sudo::Wrapper;

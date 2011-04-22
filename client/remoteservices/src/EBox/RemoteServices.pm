@@ -39,7 +39,7 @@ use EBox::DBEngineFactory;
 use EBox::Exceptions::External;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::MissingArgument;
-use EBox::Exceptions::RemoteServices::NotConnected;
+use EBox::Exceptions::NotConnected;
 use EBox::Gettext;
 use EBox::Global;
 use EBox::Service;
@@ -893,7 +893,7 @@ sub disasterRecoveryAddOn
             $self->st_set_bool('subscription/disasterRecovery', $disasterRec);
             return $disasterRec;
         } else {
-            throw EBox::Exceptions::RemoteServices::NotConnected();
+            throw EBox::Exceptions::NotConnected();
         }
     }
     return '';

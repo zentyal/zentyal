@@ -1,4 +1,5 @@
 HEAD
+	+ Added new NotConnected exception
 	+ Properly encode sudo command list to avoid wide character errors
 2.0.9
 	+ Added getFreePort method to EBox::NetWrappers

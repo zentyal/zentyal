@@ -1,3 +1,6 @@
+HEAD
+	+ Moved EBox::Exceptions::RemoteServices::NotConnected to libebox
+	  to avoid errors when remoteservices is not installed
 2.0.12
 	+ Avoid log entry with unexistant file
 	+ Using unconfigured interfaces as last resort to connect to Cloud

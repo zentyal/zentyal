@@ -6,7 +6,7 @@ perldir = @PERLPATH@/EBox/Exceptions
 nobase_perl_DATA = Base.pm InvalidData.pm DataExists.pm External.pm \
 	DataNotFound.pm DataMissing.pm Internal.pm Lock.pm NotImplemented.pm \
 	DataInUse.pm MissingArgument.pm DeprecatedMethod.pm Command.pm \
-	InvalidType.pm Protocol.pm
+	InvalidType.pm Protocol.pm NotConnected.pm
 
 MAINTAINERCLEANFILES = Makefile.in
 

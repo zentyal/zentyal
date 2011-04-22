@@ -24,7 +24,7 @@ use EBox::Config;
 use EBox::EBackup::Password;
 use EBox::Gettext;
 use EBox::Sudo;
-use EBox::Exceptions::RemoteServices::NotConnected;
+use EBox::Exceptions::NotConnected;
 use Error qw(:try);
 use File::Slurp;
 use Perl6::Junction qw(none);
@@ -46,7 +46,7 @@ sub isSubscribed
         my $disasterAddOn = 0;
         try {
             $disasterAddOn = $remoteServices->disasterRecoveryAddOn();
-        } catch EBox::Exceptions::RemoteServices::NotConnected with {
+        } catch EBox::Exceptions::NotConnected with {
             my ($ex) = @_;
             unless ($params{ignoreConnectionError}) {
                 $ex->throw();

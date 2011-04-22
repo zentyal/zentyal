@@ -38,7 +38,7 @@ use EBox::Types::Password;
 use EBox::View::Customizer;
 use EBox::Validate;
 use EBox::EBackup::Subscribed;
-use EBox::Exceptions::RemoteServices::NotConnected;
+use EBox::Exceptions::NotConnected;
 use Error qw(:try);
 
 # Constants
@@ -157,7 +157,7 @@ sub viewCustomizer
         if (not $disasterAddon ) {
             $customizer->setPermanentMessage(_message());
         }
-    } catch EBox::Exceptions::RemoteServices::NotConnected with {
+    } catch EBox::Exceptions::NotConnected with {
         my ($ex) = @_;
         $customizer->setPermanentMessage("$ex");
 

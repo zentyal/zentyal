@@ -68,8 +68,6 @@ src/EBox/RemoteServices/Model/Makefile
 src/EBox/RemoteServices/Server/Makefile
 src/EBox/RemoteServices/Server/t/Makefile
 src/EBox/RemoteServices/Types/Makefile
-src/EBox/Exceptions/Makefile
-src/EBox/Exceptions/RemoteServices/Makefile
 src/libexec/Makefile
 src/templates/Makefile
 src/templates/RemoteServices/Makefile

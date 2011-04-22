@@ -1963,7 +1963,7 @@ sub regenerateCaches
     try {
         my $ebackup = EBox::Global->modInstance('ebackup');
         $ebackup->remoteGenerateListFile();
-    }  catch EBox::Exceptions::RemoteServices::NotConnected with {
+    }  catch EBox::Exceptions::NotConnected with {
         warning(
 __('Cannot connect to the Cloud to regenerate backup list. Try later.')
                );

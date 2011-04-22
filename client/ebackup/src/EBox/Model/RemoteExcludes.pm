@@ -32,7 +32,7 @@ use EBox::Types::Select;
 use EBox::Types::Text;
 use EBox::Validate;
 use EBox::EBackup::Subscribed;
-use EBox::Exceptions::RemoteServices::NotConnected;
+use EBox::Exceptions::NotConnected;
 
 use Error qw(:try);
 
@@ -237,7 +237,7 @@ sub syncRows
     my $drAddon = 0;
     try {
         $drAddon = EBox::EBackup::Subscribed->isSubscribed();
-    } catch EBox::Exceptions::RemoteServices::NotConnected with {
+    } catch EBox::Exceptions::NotConnected with {
         # connection error so we don't know whether we are subscribed or not
         # we will supposse that if we have ids with DS prefix we are subscribed
         $drAddon = @currentDsIds > 0;
@@ -349,7 +349,7 @@ sub _insertPos
     my $drAddon = 0;
     try {
         $drAddon = EBox::EBackup::Subscribed->isSubscribed();
-    } catch EBox::Exceptions::RemoteServices::NotConnected with {
+    } catch EBox::Exceptions::NotConnected with {
         # connection error so we will play safe and assume we have it, this only
         # will cost a bit more time for the insertion
         $drAddon = 1;

@@ -1,3 +1,6 @@
+2.0.12
+	+ Bugfix: Use new EBox::Exceptions::NotConnected to avoid crash
+	  when remoteservices is not installed
 2.0.11
 	+ Better control of extra backup data failures
 	+ Better control of Cloud failed connections
