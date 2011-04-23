@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2010 eBox Technologies S.L.
+# Copyright (C) 2008-2011 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -44,32 +44,14 @@ sub _create
 {
     my $class = shift;
     my $self = $class->SUPER::_create(name => 'services',
-            printableName => __n('Services'),
-            @_);
-    $self->{'serviceModel'} =
-        new EBox::Services::Model::ServiceTable(
-                'gconfmodule' => $self,
-                'directory' => 'serviceTable');
-    $self->{'serviceConfigurationModel'} =
-        new EBox::Services::Model::ServiceConfigurationTable(
-                'gconfmodule' => $self,
-                'directory' => 'serviceConfigurationTable');
+                                      printableName => __('Services'),
+                                      @_);
     bless($self, $class);
+
+    $self->{'serviceModel'} = $self->model('ServiceTable');
+    $self->{'serviceConfigurationModel'} = $self->model('ServiceConfigurationTable');
+
     return $self;
-}
-
-## api functions
-
-# Method: models
-#
-#      Overrides <EBox::ModelImplementator::models>
-#
-sub models
-{
-    my ($self) = @_;
-
-    # FIXME: Replace this with modelClasses
-    return [ $self->{'serviceConfigurationModel'}, $self->{'serviceModel'} ];
 }
 
 # Method: initialSetup
@@ -149,8 +131,29 @@ sub _defaultServices
     ];
 }
 
-# Method: exposedMethods
+# Method: modelClasses
 #
+# Overrides:
+#
+#      <EBox::Model::ModelProvider::modelClasses>
+#
+sub modelClasses
+{
+    # TODO: Remove customized directory names and rename them
+    # in the migration script from Zentyal 2.0 to 2.2 ?
+    return [
+        {
+          class => 'EBox::Services::Model::ServiceTable',
+          parameters => [ directory => 'serviceTable' ],
+        },
+        {
+          class => 'EBox::Services::Model::ServiceConfigurationTable',
+          parameters => [ directory => 'serviceConfigurationTable' ],
+        },
+    ];
+}
+
+# Method: exposedMethods
 #
 # Overrides:
 #
@@ -617,12 +620,11 @@ sub serviceId
         throw EBox::Exceptions::MissingArgument('name');
     }
 
-    my $model =  $self->{'serviceModel'};
+    my $model = $self->{'serviceModel'};
     my $row = $model->findValue('name' => $name);
     if (not defined $row) {
         return undef;
     }
-
 
     return $row->id();
 }

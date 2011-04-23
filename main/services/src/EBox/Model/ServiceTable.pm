@@ -73,7 +73,6 @@ use EBox::Types::Text;
 use EBox::Types::Boolean;
 use EBox::Types::HasMany;
 use EBox::Sudo;
-use EBox::Model::ModelManager;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::MissingArgument;
 
@@ -281,9 +280,7 @@ sub addService
         throw EBox::Exceptions::Internal("Couldn't add name and description");
     }
 
-    my $serviceConf = EBox::Model::ModelManager
-                                       ->instance()
-                                       ->model('ServiceConfigurationTable');
+    my $serviceConf = $self->parentModule()->model('ServiceConfigurationTable');
     unless (defined($serviceConf)) {
         throw EBox::Exceptions::Internal(
                     "Couldn't get ServiceConfigurationTable");
@@ -340,9 +337,7 @@ sub setService
     my $id = $row->id();
     $self->setRow(1, _serviceParams(%params), 'id' => $id);
 
-    my $serviceConf = EBox::Model::ModelManager
-                                       ->instance()
-                                       ->model('ServiceConfigurationTable');
+    my $serviceConf = $self->parentModule()->model('ServiceConfigurationTable');
     unless (defined($serviceConf)) {
         throw EBox::Exceptions::Internal(
                     "Couldn't get ServiceConfigurationTable");
@@ -415,9 +410,7 @@ sub addMultipleService
         throw EBox::Exceptions::Internal("Couldn't add name and description");
     }
 
-    my $serviceConf = EBox::Model::ModelManager
-                                       ->instance()
-                                       ->model('ServiceConfigurationTable');
+    my $serviceConf = $self->parentModule()->model('ServiceConfigurationTable');
     unless (defined($serviceConf)) {
         throw EBox::Exceptions::Internal(
                     "Couldn't get ServiceConfigurationTable");
@@ -432,49 +425,6 @@ sub addMultipleService
     }
 
     return $id;
-
-#    my $name = $params{'name'};
-#    unless (defined($name)) {
-#        throw EBox::Exceptions::MissingArgument('name');
-#    }
-#
-#    my $row = $self->findValue('name' => $name);
-#    unless (defined($row)) {
-#       throw EBox::Exceptions::DataNotFound('data' => 'service',
-#                                            'value' => 'name');
-#    }
-#
-#    my $id = $row->{'id'};
-#    $self->setRow(1, _serviceParams(%params), 'id' => $id);
-#
-#    my $serviceConf = EBox::Model::ModelManager
-#                                       ->instance()
-#                                       ->model('ServiceConfigurationTable');
-#    unless (defined($serviceConf)) {
-#        throw EBox::Exceptions::Internal(
-#                    "Couldn't get ServiceConfigurationTable");
-#    }
-#
-#
-#    $serviceConf->setDirectory($self->{'directory'} . "/$id/configuration");
-#    my @rows = @{$serviceConf->rows()};
-#    unless (@rows > 0) {
-#	throw EBox::Exceptions::External(
-#			"This service has no protocols configured");
-#    }
-#
-#    my $idConf = $rows[0]->{'id'};
-#
-#    my $rowId = 1;
-#    for my $service (@{$params{'service'}}) {
-#        $service->{'internal'} = $params{'internal'};
-#        $service->{'readOnly'} = $params{'readOnly'};
-#        my %confParams = _serviceConfParams(%{$service});
-#        $confParams{'id'} = $idConf;
-#        $serviceConf->setRow($rowId, %confParams);
-#        $rowId++;
-#    }
-#
 }
 
 # Method: setMultipleService
@@ -539,9 +489,7 @@ sub setMultipleService
     my $id = $row->id();
     $self->setRow(1, _serviceParams(%params), 'id' => $id);
 
-    my $serviceConf = EBox::Model::ModelManager
-                                       ->instance()
-                                       ->model('ServiceConfigurationTable');
+    my $serviceConf = $self->parentModule()->model('ServiceConfigurationTable');
     unless (defined($serviceConf)) {
         throw EBox::Exceptions::Internal(
                     "Couldn't get ServiceConfigurationTable");
