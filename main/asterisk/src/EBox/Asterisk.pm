@@ -13,7 +13,6 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-
 package EBox::Asterisk;
 
 # Class: EBox::Asterisk
@@ -22,20 +21,20 @@ package EBox::Asterisk;
 
 use base qw(EBox::Module::Service EBox::Model::ModelProvider
             EBox::Model::CompositeProvider EBox::LdapModule
-            EBox::FirewallObserver EBox::LogObserver
-            EBox::UserCorner::Provider);
+            EBox::UserCorner::Provider EBox::LogObserver);
 
 use strict;
 use warnings;
 
-use EBox::Gettext;
+use EBox;
 use EBox::Global;
+use EBox::Gettext;
 use EBox::Config;
 use EBox::Ldap;
 use EBox::Dashboard::Widget;
 use EBox::Dashboard::List;
+
 use EBox::AsteriskLdapUser;
-use EBox::AsteriskFirewall;
 use EBox::AsteriskLogHelper;
 use EBox::Asterisk::Extensions;
 
@@ -45,13 +44,12 @@ use Error qw(:try);
 use constant MODULESCONFFILE      => '/etc/asterisk/modules.conf';
 use constant EXTCONFIGCONFFILE    => '/etc/asterisk/extconfig.conf';
 use constant RESLDAPCONFFILE      => '/etc/asterisk/res_ldap.conf';
-use constant USERSCONFFILE        => '/etc/asterisk/users.conf';
 use constant SIPCONFFILE          => '/etc/asterisk/sip.conf';
 use constant EXTNCONFFILE         => '/etc/asterisk/extensions.conf';
-use constant MEETMECONFFILE       => '/etc/asterisk/meetme.conf';
 use constant VOICEMAILCONFFILE    => '/etc/asterisk/voicemail.conf';
 use constant MOHCONFFILE          => '/etc/asterisk/musiconhold.conf';
 use constant FEATURESCONFFILE     => '/etc/asterisk/features.conf';
+use constant QUEUESCONFFILE       => '/etc/asterisk/queues.conf';
 
 use constant VOICEMAIL_DIR        => '/var/spool/asterisk/voicemail';
 
@@ -79,7 +77,6 @@ sub _create
     return $self;
 }
 
-
 # Method: modelClasses
 #
 # Overrides:
@@ -93,12 +90,12 @@ sub modelClasses
         'EBox::Asterisk::Model::Provider',
         'EBox::Asterisk::Model::NAT',
         'EBox::Asterisk::Model::Localnets',
+        'EBox::Asterisk::Model::Phones',
         'EBox::Asterisk::Model::Meetings',
         'EBox::Asterisk::Model::Voicemail',
         'EBox::Asterisk::Model::AsteriskUser',
     ];
 }
-
 
 # Method: compositeClasses
 #
@@ -138,11 +135,6 @@ sub usedFiles
                         'reason' => __('To configure the LDAP Realtime driver.')
                       });
 
-    push (@usedFiles, { 'file' => USERSCONFFILE,
-                        'module' => 'asterisk',
-                        'reason' => __('To configure the common SIP and IAX users.')
-                      });
-
     push (@usedFiles, { 'file' => SIPCONFFILE,
                         'module' => 'asterisk',
                         'reason' => __('To configure the SIP trunk for local users and external providers.')
@@ -158,10 +150,6 @@ sub usedFiles
                         'reason' => __('To configure the voicemail.')
                       });
 
-    push (@usedFiles, { 'file' => MEETMECONFFILE,
-                        'module' => 'asterisk',
-                        'reason' => __('To configure the conferences.')
-                      });
     push (@usedFiles, { 'file' => MOHCONFFILE,
                         'module' => 'asterisk',
                         'reason' => __('To configure the music on hold.')
@@ -169,6 +157,10 @@ sub usedFiles
     push (@usedFiles, { 'file' => FEATURESCONFFILE,
                         'module' => 'asterisk',
                         'reason' => __('To configure DTMF behaviour.')
+                      });
+    push (@usedFiles, { 'file' => QUEUESCONFFILE,
+                        'module' => 'asterisk',
+                        'reason' => __('To configure the queues.')
                       });
     return \@usedFiles;
 }
@@ -251,7 +243,6 @@ sub enableActions
     $self->SUPER::enableActions();
 }
 
-
 # Method: _daemons
 #
 # Overrides:
@@ -263,29 +254,9 @@ sub _daemons
     return [
         {
             'name' => 'asterisk',
-            'type' => 'init.d',
-            'pidfiles' => ['/var/run/asterisk/asterisk.pid']
         }
     ];
 }
-
-
-# Method: firewallHelper
-#
-# Overrides:
-#
-#      <EBox::FirewallObserver::firewallHelper>
-#
-sub firewallHelper
-{
-    my ($self, $status) = @_;
-
-    if ($self->isEnabled()) {
-        return new EBox::AsteriskFirewall();
-    }
-    return undef;
-}
-
 
 # Method: _setConf
 #
@@ -309,24 +280,18 @@ sub _setConf
 
     $self->writeConfFile(EXTCONFIGCONFFILE, "asterisk/extconfig.conf.mas",
         \@params, { 'uid' => $astuid, 'gid' => $astgid, mode => '640' });
-    $self->writeConfFile(USERSCONFFILE, "asterisk/users.conf.mas",
-                         [], { 'uid' => $astuid, 'gid' => $astgid, mode => '640' });
     $self->writeConfFile(MOHCONFFILE, "asterisk/musiconhold.conf.mas",
                          [], { 'uid' => $astuid, 'gid' => $astgid, mode => '640' });
     $self->writeConfFile(FEATURESCONFFILE, "asterisk/features.conf.mas",
-                         [], { 'uid' => $astuid, 'gid' => $astgid, mode => '640' });
-    $self->writeConfFile(VOICEMAILCONFFILE, "asterisk/voicemail.conf.mas",
                          [], { 'uid' => $astuid, 'gid' => $astgid, mode => '640' });
 
     $self->_setRealTime();
     $self->_setExtensions();
     $self->_setVoicemail();
     $self->_setSIP();
-    $self->_setMeetings();
+    $self->_setQueues();
 }
 
-
-# set up the RealTime configuration on res_ldap.conf
 sub _setRealTime
 {
     my ($self) = @_;
@@ -347,8 +312,6 @@ sub _setRealTime
                             { 'uid' => $astuid, 'gid' => $astgid, mode => '640' });
 }
 
-
-# set up the extensions configuration on extensions.conf
 sub _setExtensions
 {
     my ($self) = @_;
@@ -365,14 +328,21 @@ sub _setExtensions
 
     push (@params, name => $model->nameValue());
 
-    my $network = EBox::Global->modInstance('network');
-    my $ifaces = $network->InternalIfaces();
-    my @localaddrs = ();
-    for my $iface (@{$ifaces}) {
-        push(@localaddrs, $network->ifaceAddress($iface));
-    }
+    $model = $self->model('Meetings');
 
-    push (@params, localaddrs => \@localaddrs);
+    push (@params, meetings => $model->getMeetings());
+
+    push (@params, users => $self->_getUsers());
+
+    push (@params, queues => $self->_getQueues());
+
+    #my $network = EBox::Global->modInstance('network');
+    #my $ifaces = $network->InternalIfaces();
+    #my @localaddrs = ();
+    #for my $iface (@{$ifaces}) {
+    #    push(@localaddrs, $network->ifaceAddress($iface));
+    #}
+    #push (@params, localaddrs => \@localaddrs);
 
     my $astuid = (getpwnam('asterisk'))[2];
     my $astgid = (getpwnam('asterisk'))[3];
@@ -380,24 +350,72 @@ sub _setExtensions
                          { 'uid' => $astuid, 'gid' => $astgid, mode => '640' });
 }
 
+sub _getUsers
+{
+    my ($self) = @_;
 
-# set up the Voicemail configuration on LDAP
+    my @usersExtens = ();
+
+    my $users = EBox::Global->getInstance()->modInstance('users');
+    my @usersList = $users->users();
+
+    foreach my $user (@usersList) {
+        my $extensions = new EBox::Asterisk::Extensions;
+        my $extn = $extensions->getUserExtension($user->{'username'});
+        next unless $extn; # if user doesn't have an extension we are done
+        
+        my $userextn = {};
+        $userextn->{'username'} = $user->{'username'};
+        $userextn->{'extn'} = $extn;
+        $userextn->{'dopts'} = $extensions->DOPTS;
+        $userextn->{'vmopts'} = $extensions->VMOPTS;
+        $userextn->{'vmoptsf'} = $extensions->VMOPTSF;
+
+        push (@usersExtens, $userextn);
+    }
+
+    return \@usersExtens;
+}
+
+sub _getQueues
+{
+    my ($self) = @_;
+
+    my @queues = ();
+
+    my $users = EBox::Global->modInstance('users');
+
+    my $extensions = new EBox::Asterisk::Extensions;
+
+    foreach my $queue (@{$extensions->queues()}) {
+
+        my $queueInfo = {};
+        $queueInfo->{'name'} = $queue;
+        $queueInfo->{'extn'} = $extensions->getQueueExtension($queue);
+        $queueInfo->{'members'} = $users->usersInGroup($queue);
+
+        push (@queues, $queueInfo);
+    }
+
+    return \@queues;
+}
+
 sub _setVoicemail
 {
     my ($self) = @_;
 
-    my $model = $self->model('Settings');
-    my $vmextn = $model->voicemailExtnValue();
+    my @params = ();
 
-    my $extensions = new EBox::Asterisk::Extensions;
+    my $model = $self->model('Phones');
 
-    $extensions->cleanUpVoicemail();
+    push (@params, phones => $model->getPhones());
 
-    $extensions->addExtension($vmextn, 1, 'VoicemailMain', 'users');
+    my $astuid = (getpwnam('asterisk'))[2];
+    my $astgid = (getpwnam('asterisk'))[3];
+    $self->writeConfFile(VOICEMAILCONFFILE, "asterisk/voicemail.conf.mas", \@params,
+                         { 'uid' => $astuid, 'gid' => $astgid, mode => '640' });
 }
 
-
-# set up the sip.conf file
 sub _setSIP
 {
     my ($self) = @_;
@@ -439,19 +457,29 @@ sub _setSIP
 
     $model = $self->model('Provider');
 
-    if ($model->providerValue() eq 'custom') {
-        push (@params, name => $model->nameValue());
-    } else {
-        push (@params, name => EBOX_VOIP_SRVNAME);
-    }
+#    if ($model->providerValue() eq 'custom') {
+#        push (@params, name => $model->nameValue());
+#    } else {
+#        push (@params, name => EBOX_VOIP_SRVNAME);
+#    }
+    push (@params, name => $model->nameValue());
+#
     push (@params, username => $model->usernameValue());
     push (@params, password => $model->passwordValue());
-    if ($model->providerValue() eq 'custom') {
-        push (@params, server => $model->serverValue());
-    } else {
-        push (@params, server => EBOX_SIP_SERVER);
-    }
+#    if ($model->providerValue() eq 'custom') {
+#        push (@params, server => $model->serverValue());
+#    } else {
+#        push (@params, server => EBOX_SIP_SERVER);
+#    }
+    push (@params, server => $model->serverValue());
+#
     push (@params, incoming => $model->incomingValue());
+
+    my $additional_codecs = EBox::Config::configkey('asterisk_additional_codecs');
+    push (@params, additional_codecs => $additional_codecs);
+
+    $model = $self->model('Phones');
+    push (@params, phones => $model->getPhones());
 
     my $astuid = (getpwnam('asterisk'))[2];
     my $astgid = (getpwnam('asterisk'))[3];
@@ -459,54 +487,33 @@ sub _setSIP
                             { 'uid' => $astuid, 'gid' => $astgid, mode => '640' });
 }
 
-
-# set up the meetings on meetme.conf
-sub _setMeetings
+sub _setQueues
 {
     my ($self) = @_;
 
-    my $model = $self->model('Meetings');
+    my @params = ();
 
-    my $extns = new EBox::Asterisk::Extensions;
-
-    $extns->cleanUpMeetings();
-
-    my @meetings = ();
-    foreach my $meeting (@{$model->ids()}) {
-        my $row = $model->row($meeting);
-        my $exten = $row->valueByName('exten');
-        #my $alias = $row->valueByName('alias'); FIXME not implemented yet
-        my $pin = $row->valueByName('pin');
-        my $options = ",s";
-        my $data = $exten . $options;
-        push (@meetings, { exten => $exten,
-                           pin => $pin,
-                         });
-        #$extns->addExtension($alias, 1, 'GoTo', $exten); #FIXME when we delete these extensions? XXX
-        $extns->addExtension($exten, 1, 'MeetMe', $data);
-    }
-
-    my @params = ( meetings => \@meetings );
+    push (@params, queues => $self->_getQueues());
 
     my $astuid = (getpwnam('asterisk'))[2];
     my $astgid = (getpwnam('asterisk'))[3];
-    $self->writeConfFile(MEETMECONFFILE, "asterisk/meetme.conf.mas", \@params,
-                            { 'uid' => $astuid, 'gid' => $astgid, mode => '640' });
+    $self->writeConfFile(QUEUESCONFFILE, "asterisk/queues.conf.mas", \@params,
+                         { 'uid' => $astuid, 'gid' => $astgid, mode => '640' });
 }
 
-
 # Method: fqdn
-#FIXME doc
+#
+#      Returns the fully qualified domain name
+#
 sub fqdn
 {
     my $fqdn = `hostname --fqdn`;
     if ($? != 0) {
-        $fqdn = 'ebox.localdomain';
+        $fqdn = 'zentyal.localdomain';
     }
     chomp $fqdn;
     return $fqdn;
 }
-
 
 # Method: _ldapModImplementation
 #
@@ -522,7 +529,6 @@ sub _ldapModImplementation
 {
     return new EBox::AsteriskLdapUser();
 }
-
 
 # Method: menu
 #
@@ -544,12 +550,15 @@ sub menu
             'text' => __('General')));
 
     $folder->add(new EBox::Menu::Item(
+            'url' => 'Asterisk/View/Phones',
+            'text' => __('Phones')));
+
+    $folder->add(new EBox::Menu::Item(
             'url' => 'Asterisk/View/Meetings',
             'text' => __('Meetings')));
 
     $root->add($folder);
 }
-
 
 # Method: userMenu
 #
@@ -564,7 +573,6 @@ sub userMenu
     $root->add(new EBox::Menu::Item('url' => '/Asterisk/View/Voicemail',
                                     'text' => __('Voicemail')));
 }
-
 
 sub onlineUsersWidget
 {
@@ -588,7 +596,6 @@ sub onlineUsersWidget
     $section->add(new EBox::Dashboard::List(undef, $titles, $ids, $rows,
                   __('No users connected.')));
 }
-
 
 sub _sipShowPeers
 {
@@ -624,76 +631,73 @@ sub _sipShowPeers
     return $peers;
 }
 
+#sub _meetmeList
+#{
+#    my ($self) = @_;
+#
+#    return [] unless ($self->isEnabled());
+#
+#    my $rooms= [];
+#    my @output;
+#    my $error;
+#    try {
+#        @output= @{ EBox::Sudo::root("asterisk -rx 'meetme list'") };
+#    } otherwise {
+#        $error = 1;
+#    };
+#
+#    return [] if ($error);
+#
+#    for my $line (@output) {
+#        chomp($line);
+#        # 8989           0001           N/A        02:03:32  Static    No
+#        if ( $line =~ m/(\d+)\s+(\d+)\s+(\S+)\s+(\S+)\s+(\S+)\s+(\S+)/ ) {
+#            my ($extn, $time) = ($1, $4);
+#            my $room = {};
+#            $room->{'users'} = [];
+#            $room->{'name'} = $extn;
+#            $room->{'time'} = $time;
+#            my @output2 = @{ EBox::Sudo::root("asterisk -rx 'meetme list $extn'") };
+#            for my $line2 (@output2) {
+#                chomp($line2);
+#                # User #: 02         1003 <no name>            Channel: SIP/juruen-08293ff8     (unmonitored) 02:37:32
+#                if ( $line2 =~ m/.*Channel: (\S+)\s+(\S+)\s+(\S+)/ ) {
+#                    my ($username, $utime) = ($1, $3);
+#                    my $user = {};
+#                    $user->{'username'} = $username;
+#                    $user->{'utime'} = $utime;
+#                    push(@{$room->{'users'}}, $user);
+#                }
+#            }
+#            push(@{$rooms}, $room);
+#        }
+#    }
+#
+#    return $rooms;
+#}
 
-sub _meetmeList
-{
-    my ($self) = @_;
-
-    return [] unless ($self->isEnabled());
-
-    my $rooms= [];
-    my @output;
-    my $error;
-    try {
-        @output= @{ EBox::Sudo::root("asterisk -rx 'meetme list'") };
-    } otherwise {
-        $error = 1;
-    };
-
-    return [] if ($error);
-
-    for my $line (@output) {
-        chomp($line);
-        # 8989           0001           N/A        02:03:32  Static    No
-        if ( $line =~ m/(\d+)\s+(\d+)\s+(\S+)\s+(\S+)\s+(\S+)\s+(\S+)/ ) {
-            my ($extn, $time) = ($1, $4);
-            my $room = {};
-            $room->{'users'} = [];
-            $room->{'name'} = $extn;
-            $room->{'time'} = $time;
-            my @output2 = @{ EBox::Sudo::root("asterisk -rx 'meetme list $extn'") };
-            for my $line2 (@output2) {
-                chomp($line2);
-                # User #: 02         1003 <no name>            Channel: SIP/juruen-08293ff8     (unmonitored) 02:37:32
-                if ( $line2 =~ m/.*Channel: (\S+)\s+(\S+)\s+(\S+)/ ) {
-                    my ($username, $utime) = ($1, $3);
-                    my $user = {};
-                    $user->{'username'} = $username;
-                    $user->{'utime'} = $utime;
-                    push(@{$room->{'users'}}, $user);
-                }
-            }
-            push(@{$rooms}, $room);
-        }
-    }
-
-    return $rooms;
-}
-
-
-sub usersByMeetingsWidget
-{
-    my ($self, $widget) = @_;
-
-    my $usersByConference = $self->_meetmeList();
-
-    for my $room (@{$usersByConference}) {
-        my $title = __x("Room {name} active for {rtime}", name => $room->{'name'}, rtime => $room->{'time'});
-        my $section = new EBox::Dashboard::Section($room->{'name'}, $title);
-        $widget->add($section);
-        my $titles = [__('User'), __('Time Connected')];
-
-        my $rows = {};
-        foreach my $user (@{$room->{'users'}}) {
-            my $id = $user->{'username'};
-            $rows->{$id} = [$user->{'username'}, $user->{'utime'}];
-        }
-        my $ids = [sort keys %{$rows}];
-        $section->add(new EBox::Dashboard::List(undef, $titles, $ids, $rows,
-                  __('No users connected.')));
-    }
-}
-
+#sub usersByMeetingsWidget
+#{
+#    my ($self, $widget) = @_;
+#
+#    my $usersByConference = $self->_meetmeList();
+#
+#    for my $room (@{$usersByConference}) {
+#        my $title = __x("Room {name} active for {rtime}", name => $room->{'name'}, rtime => $room->{'time'});
+#        my $section = new EBox::Dashboard::Section($room->{'name'}, $title);
+#        $widget->add($section);
+#        my $titles = [__('User'), __('Time Connected')];
+#
+#        my $rows = {};
+#        foreach my $user (@{$room->{'users'}}) {
+#            my $id = $user->{'username'};
+#            $rows->{$id} = [$user->{'username'}, $user->{'utime'}];
+#        }
+#        my $ids = [sort keys %{$rows}];
+#        $section->add(new EBox::Dashboard::List(undef, $titles, $ids, $rows,
+#                  __('No users connected.')));
+#    }
+#}
 
 # Method: widgets
 #
@@ -716,17 +720,17 @@ sub widgets
             'order' => 11,
             'default' => 1
         },
-        'usersbyconference' => {
-            'title' => __('VoIP Users in Meetings'),
-            'widget' => \&usersByMeetingsWidget,
-            'order' => 12,
-            'default' => 1
-        }
+# XXX not working with ConfBridge yet
+#        'usersbyconference' => {
+#            'title' => __('VoIP Users in Meetings'),
+#            'widget' => \&usersByMeetingsWidget,
+#            'order' => 12,
+#            'default' => 1
+#        }
     };
 
     return $widgets;
 }
-
 
 # Method: logHelper
 #
@@ -740,7 +744,6 @@ sub logHelper
 
     return (new EBox::AsteriskLogHelper);
 }
-
 
 # Method: tableInfo
 #
@@ -787,7 +790,6 @@ sub tableInfo
     }];
 }
 
-
 sub _backupArchiveFile
 {
     my ($self, $dir) = @_;
@@ -796,29 +798,29 @@ sub _backupArchiveFile
 
 sub extendedBackup
 {
-  my ($self, %params) = @_;
-  my $dir = $params{dir};
-  my $archiveFile = $self->_backupArchiveFile($dir);
+    my ($self, %params) = @_;
+    my $dir = $params{dir};
+    my $archiveFile = $self->_backupArchiveFile($dir);
 
-  my @dirsToBackup = map { "'$_'"  } (
-          VOICEMAIL_DIR,
-         );
+    my @dirsToBackup = map { "'$_'"  } (
+                           VOICEMAIL_DIR,
+                       );
 
-  my $tarCmd= "/bin/tar -cf $archiveFile  --atime-preserve --absolute-names --preserve --same-owner @dirsToBackup";
-  EBox::Sudo::root($tarCmd)
+    my $tarCmd= "/bin/tar -cf $archiveFile  --atime-preserve --absolute-names --preserve --same-owner @dirsToBackup";
+    EBox::Sudo::root($tarCmd)
 }
 
 sub extendedRestore
 {
-  my ($self, %params) = @_;
-  my $dir = $params{dir};
-  my $archiveFile = $self->_backupArchiveFile($dir);
-  if (not -e $archiveFile) {
-      return;
-  }
+    my ($self, %params) = @_;
+    my $dir = $params{dir};
+    my $archiveFile = $self->_backupArchiveFile($dir);
+    if (not -e $archiveFile) {
+        return;
+    }
 
-  my $tarCmd = "/bin/tar -xf $archiveFile --atime-preserve --absolute-names --preserve --same-owner";
-  EBox::Sudo::root($tarCmd);
+    my $tarCmd = "/bin/tar -xf $archiveFile --atime-preserve --absolute-names --preserve --same-owner";
+    EBox::Sudo::root($tarCmd);
 }
 
 1;

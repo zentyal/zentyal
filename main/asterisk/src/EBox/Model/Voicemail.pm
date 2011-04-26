@@ -31,6 +31,7 @@ use EBox::Types::Password;
 use EBox::Types::MailAddress;
 use EBox::Types::Boolean;
 use Apache2::RequestUtil;
+
 use EBox::AsteriskLdapUser;
 
 # Group: Public methods
@@ -75,7 +76,6 @@ sub pageTitle
     return __('Voicemail settings');
 }
 
-
 # Group: Private methods
 
 # Method: _table
@@ -86,7 +86,6 @@ sub pageTitle
 #
 sub _table
 {
-
     my @tableHeader =
     (
         new EBox::Types::Password(
@@ -159,8 +158,9 @@ sub row
                                   attach => $attach eq 'yes',
                                   delete => $delete eq 'yes');
 
-    # Dummy id for dataform
+    # dummy id for dataform
     $row->setId('dummy');
+
     return $row;
 }
 
@@ -201,9 +201,8 @@ sub _addTypedRow
     $ldap->setAttribute($dn, 'AstVoicemailAttach', $attach);
     $ldap->setAttribute($dn, 'AstVoicemailDelete', $delete);
 
-    $self->setMessage(__('Settings successfully updated'));
+    $self->setMessage(__('Settings successfully updated.'));
 }
-
 
 sub precondition
 {
@@ -215,12 +214,9 @@ sub precondition
     return $userLdap->hasAccount($userName);
 }
 
-
 sub preconditionFailMsg
 {
-    return
-__('You have not an VoIP account. Maybe VoIP is not enabled in this server')
-        ;
+    return __('You have not an VoIP account. Maybe VoIP is not enabled in this server.');
 }
 
 1;

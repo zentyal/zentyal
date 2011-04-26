@@ -133,7 +133,11 @@ sub _addUser
 
     unless ($result->count > 0) {
         $ldap->modify($dn, \%attrs);
-        if ($extn > 0) { $extensions->addUserExtension($user, $extn); }
+        if ($extn > 0) {
+            $extensions->addUserExtension($user, $extn);
+            my $global = EBox::Global->getInstance(1);
+            $global->modChange('asterisk');
+        }
     }
 }
 
@@ -218,6 +222,9 @@ sub _delUser
     $ldap->delObjectclass($dn, 'AsteriskSIPUser');
     $ldap->delObjectclass($dn, 'AsteriskVoiceMail');
     $ldap->delObjectclass($dn, 'AsteriskQueueMember');
+
+    my $global = EBox::Global->getInstance(1);
+    $global->modChange('asterisk');
 }
 
 
@@ -250,6 +257,9 @@ sub _delGroup
     }
 
     $extensions->delQueue($group) if $self->hasQueue($group);
+
+    my $global = EBox::Global->getInstance(1);
+    $global->modChange('asterisk');
 }
 
 
@@ -299,6 +309,9 @@ sub _modifyGroup
     if ( $params{'op'} eq 'add' ) {
         $extensions->addQueueMember($params{'user'}, $group);
     }
+
+    my $global = EBox::Global->getInstance(1);
+    $global->modChange('asterisk');
 }
 
 
@@ -417,6 +430,9 @@ sub genQueue
     foreach my $user (@users) {
         $extensions->addQueueMember($user, $group);
     }
+
+    my $global = EBox::Global->getInstance(1);
+    $global->modChange('asterisk');
 }
 
 

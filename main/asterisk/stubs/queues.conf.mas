@@ -1,0 +1,28 @@
+<%args>
+    @queues
+</%args>
+;
+; Asterisk queues configuration file
+;
+
+[general]
+persistentmembers = yes
+autofill = yes
+monitor-type = MixMonitor
+
+% foreach my $queue (@queues) {
+[<% $queue->{'name'} %>]
+music=default
+strategy=ringall
+timeout=15
+retry=5
+wrapuptime=10
+announce = queue-<% $queue->{'name'} %>
+maxlen = 20
+announce-frequency = 60
+announce-holdtime = yes
+% foreach my $member (@{$queue->{'members'}}) {
+member => SIP/<% $member %>
+% }
+
+% }

@@ -2,7 +2,9 @@
     $demoextensions
     $outgoingcalls
     $name
-    @localaddrs
+    @meetings
+    @queues
+    @users
     $domain
 </%args>
 ;
@@ -12,74 +14,96 @@
 [general]
 static = yes
 writeprotect = yes
+priorityjumping=no
+autofallthrough=yes
+clearglobalvars=no
 
 [globals]
 CONSOLE = Console/dsp
 IAXINFO = guest
-FEATURES =
-DIALOPTIONS =
-RINGTIME = 20
-FOLLOWMEOPTIONS =
-PAGING_HEADER = Intercom
+DIAL_TOUT=20                                                             
+DIGIT_TOUT=3                                                             
+RESP_TOUT=10
 
 [common]
+exten => *1,1,Set(mailbox=${CALLERID(number)})                           
+exten => *1,n,VoicemailMain(${mailbox})                                  
+exten => *1,n,Hangup()
+
 % if ($demoextensions) {
-exten => 400,1,Answer
-exten => 400,2,MusicOnHold()
-exten => 500,1,Playback(demo-abouttotry)
-exten => 500,n,Dial(IAX2/guest@pbx.digium.com/s@default)
-exten => 500,n,Playback(demo-nogo)
-exten => 500,n,Goto(s,6)
-exten => 600,1,Playback(demo-echotest)
-exten => 600,n,Echo
-exten => 600,n,Playback(demo-echodone)
-exten => 600,n,Goto(s,6)
+exten => *4,1,Answer()                                                   
+exten => *4,n,MusicOnHold()                                              
+                                                                         
+exten => *6,1,Answer()                                                   
+exten => *6,n,Playback(welcome)                                          
+exten => *6,n,Playback(demo-echotest)                                    
+exten => *6,n,Echo()                                                     
+exten => *6,n,Playback(demo-echodone)                                    
+exten => *6,n,Playback(vm-goodbye)                                       
+exten => *6,n,Hangup()
 % }
+
 ; i - invalid call
 exten => i,1,Playback(invalid)
-exten => i,2,Hangup
+exten => i,2,Hangup()
 ; t - terminate call
-exten => t,1,Playback(vm/generic/goodbye)
-exten => t,2,Hangup
+exten => t,1,Playback(vm-goodbye)
+exten => t,2,Hangup()
+
+[meetings]
+% foreach my $mt (@meetings) {
+; <% $mt->{'desc'} %>
+exten => <% $mt->{'exten'} %>,1,Answer()
+% if ($mt->{'pin'}) {
+exten => <% $mt->{'exten'} %>,2,Authenticate(<% $mt->{'pin'} %>,a)
+exten => <% $mt->{'exten'} %>,3,Playback(thankyou)
+% }
+exten => <% $mt->{'exten'} %>,n,ConfBridge(<% $mt->{'options'} %>)
+exten => <% $mt->{'exten'} %>,n,Hangup()
+
+% }
+
+[queues]
+% foreach my $queue (@queues) {
+exten => <% $queue->{'extn'} %>,1,Answer()
+exten => <% $queue->{'extn'} %>,2,Ringing()
+exten => <% $queue->{'extn'} %>,3,Wait(2)
+exten => <% $queue->{'extn'} %>,4,Queue(<% $queue->{'name'} %>)
+exten => <% $queue->{'extn'} %>,5,Hangup()
+
+% }
+
+[sip]
+exten => _[4-7]XXX,1,Dial(SIP/${EXTEN},15,tTwWr)
+exten => _[4-7]XXX,2,Voicemail(${EXTEN},u)
+exten => _[4-7]XXX,3,Hangup()
+exten => _[4-7]XXX,102,Voicemail(${EXTEN},b)
+exten => _[4-7]XXX,103,Hangup()
+
+% foreach my $user (@users) {
+; <% $user->{'username'} %>
+exten => <% $user->{'username'} %>,1,Goto(<% $user->{'extn'} %>,1)
+exten => <% $user->{'extn'} %>,1,Dial(SIP/<% $user->{'username'} %>,<% $user->{'dopts'} %>)
+exten => <% $user->{'extn'} %>,2,Voicemail(<% $user->{'extn'} %>,<% $user->{'vmopts'} %>)
+exten => <% $user->{'extn'} %>,3,Hangup()
+exten => <% $user->{'extn'} %>,102,Voicemail(<% $user->{'extn'} %>,<% $user->{'vmoptsf'} %>)
+exten => <% $user->{'extn'} %>,103,Hangup()
+
+% }
 
 [default]
 include => common
-switch => Realtime
+include => meetings
+include => queues
+include => sip
+;switch => Realtime
 
 [users]
 include => parkedcalls
 exten => s,1,Set(CALLERID(number)=${CALLERID(number)}@<% $domain %>)
 % if ($outgoingcalls) {
-;include => dial-uri
-exten => _0.,1,Dial(SIP/${EXTEN:1}@<% $name %>)
-exten => _0.,2,Congestion()
-exten => _0.,102,Busy()
+exten => _00X.,1,Dial(SIP/${EXTEN}@<% $name %>)
+exten => _00X.,2,Congestion()
+exten => _00X.,102,Busy()
 % }
 include => default
-
-;[dial-uri]
-% my $i = 0;
-% foreach my $addr (@localaddrs) {
-% $i++;
-;exten => _.,1,Set(AsteriskIP<% $i %>=<% $addr %>)
-% }
-;exten => _.,n,Set(AsteriskDNS=<% $domain %>)
-
-;exten => _.,n,GotoIf($[${LEN(${SIPDOMAIN})} = 0]?local) ; if there is no domain in the URI, the call is considered local
-;exten => _.,n,GotoIf($[${SIPDOMAIN} = ${AsteriskDNS}]?local) ; the call is considered local (for our Intranet)
-;exten => _.,n,GotoIf($[${SIPDOMAIN} = ${AsteriskDNS}:5060]?local) ; the same with a port number appending
-% $i = 0;
-% foreach my $addr (@localaddrs) {
-% $i++;
-;exten => _.,n,GotoIf($[${SIPDOMAIN} = ${AsteriskIP<% $i %>}]?local) ; for phones appending the proxy IP adress
-;exten => _.,n,GotoIf($[${SIPDOMAIN} = ${AsteriskIP<% $i %>}:5060]?local) ; same with port number appending
-% }
-
-;exten => _.,n,Macro(uridial,${EXTEN}@${SIPDOMAIN})
-;exten => _.,n,HangUp()
-;exten => _.,n(local),Goto(default,${EXTEN},1)
-;exten => h,1,HangUp()
-
-;[macro-uridial]
-;exten => s,1,Dial(SIP/${ARG1},120)
-;exten => s,n,Congestion()

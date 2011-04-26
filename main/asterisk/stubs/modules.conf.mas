@@ -4,9 +4,6 @@
 [modules]
 autoload=yes
 
-;preload => res_odbc.so
-;preload => res_config_odbc.so
-
 noload => pbx_gtkconsole.so
 noload => pbx_kdeconsole.so
 
@@ -18,7 +15,6 @@ noload => chan_modem_i4l.so
 
 noload => chan_capi.so
 
-load => res_musiconhold.so
 noload => chan_alsa.so
 ;noload => chan_oss.so
 

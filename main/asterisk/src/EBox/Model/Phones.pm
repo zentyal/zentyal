@@ -1,4 +1,4 @@
-# Copyright (C) 2009-2010 eBox Technologies S.L.
+# Copyright (C) 2011 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -13,11 +13,11 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::Asterisk::Model::Meetings;
+package EBox::Asterisk::Model::Phones;
 
-# Class: EBox::Asterisk::Model::Meetings
+# Class: EBox::Asterisk::Model::Phones
 #
-#      Form to set the configuration settings for the meetings.
+#      Form to set the configuration settings for static phones.
 #
 
 use base 'EBox::Model::DataTable';
@@ -25,12 +25,12 @@ use base 'EBox::Model::DataTable';
 use strict;
 use warnings;
 
-use EBox::Gettext;
 use EBox::Global;
-use EBox::Config;
+use EBox::Gettext;
 use EBox::Types::Int;
 use EBox::Types::Text;
 use EBox::Types::Password;
+use EBox::Types::MailAddress;
 
 use EBox::Asterisk::Extensions;
 
@@ -38,7 +38,7 @@ use EBox::Asterisk::Extensions;
 
 # Constructor: new
 #
-#       Create the new Meetings model.
+#       Create the new Phones model.
 #
 # Overrides:
 #
@@ -46,7 +46,7 @@ use EBox::Asterisk::Extensions;
 #
 # Returns:
 #
-#       <EBox::Asterisk::Model::Meetings> - the recently created model.
+#       <EBox::Asterisk::Model::Phones> - the recently created model.
 #
 sub new
 {
@@ -59,62 +59,29 @@ sub new
     return $self;
 }
 
-# Method: validateTypedRow
-#
-#       Check the row to add or update if contains a valid extension.
-#
-# Overrides:
-#
-#       <EBox::Model::DataTable::validateTypedRow>
-#
-# Exceptions:
-#
-#       <EBox::Exceptions::InvalidData> - thrown if the extension is not valid.
-#
-sub validateTypedRow
-{
-    my ($self, $action, $changedFields) = @_;
-
-    if ( exists $changedFields->{exten} ) {
-        my $extensions = new EBox::Asterisk::Extensions;
-        $extensions->checkExtension(
-                                    $changedFields->{exten}->value(),
-                                    __(q{extension}),
-                                    EBox::Asterisk::Extensions->MEETINGMINEXTN,
-                                    EBox::Asterisk::Extensions->MEETINGMAXEXTN,
-                                   );
-
-        if ($extensions->extensionExists($changedFields->{exten}->value())) {
-            throw EBox::Exceptions::DataExists(
-                      'data'  => __('extension'),
-                      'value' => $changedFields->{exten}->value(),
-                  );
-        }
-    }
-}
-
-sub getMeetings
+sub getPhones
 {
     my ($self) = @_;
 
-    my @meetings = ();
+    my @phones = ();
 
     foreach my $id (@{$self->enabledRows()}) {
 
         my $row = $self->row($id);
 
-        my %meeting = ();
+        my %phone = ();
 
         my $exten = $row->valueByName('exten');
-        $meeting{'exten'} = $exten;
-        $meeting{'pin'} = $row->valueByName('pin');
-        $meeting{'desc'} = $row->valueByName('desc');
-        $meeting{'options'} = "$exten,M";
-        push (@meetings, \%meeting);
+        $phone{'exten'} = $exten;
+        $phone{'secret'} = $row->valueByName('secret');
+        $phone{'vmail'} = $row->valueByName('vmail');
+        $phone{'mail'} = $row->valueByName('mail');
+        $phone{'desc'} = $row->valueByName('desc');
+        push (@phones, \%phone);
 
     }
 
-    return \@meetings;
+    return \@phones;
 }
 
 # Group: Private methods
@@ -127,6 +94,7 @@ sub getMeetings
 #
 sub _table
 {
+
     my @tableHeader =
       (
        new EBox::Types::Int(
@@ -135,19 +103,39 @@ sub _table
                             size          => 4,
                             unique        => 1,
                             editable      => 1,
+                            optional      => 0,
                             help          => __x('A number between {min} and {max}.',
-                                                 min => EBox::Asterisk::Extensions->MEETINGMINEXTN,
-                                                 max => EBox::Asterisk::Extensions->MEETINGMAXEXTN
+                                                 min => EBox::Asterisk::Extensions->PHONEMINEXTN,
+                                                 max => EBox::Asterisk::Extensions->PHONEMAXEXTN
                                                 ),
                            ),
        new EBox::Types::Password(
-                                 fieldName     => 'pin',
+                                 fieldName     => 'secret',
                                  printableName => __('Password'),
-                                 size          => 8,
+                                 size          => 12,
                                  unique        => 0,
                                  editable      => 1,
-                                 optional      => 1,
+                                 optional      => 0,
+                                 minLength     => 6,
+                                 maxLength     => 12,
                                 ),
+       new EBox::Types::Int(
+                            fieldName     => 'vmail',
+                            printableName => __('Voicemail'),
+                            size          => 4,
+                            unique        => 0,
+                            editable      => 1,
+                            optional      => 0,
+                            help          => __('Voicemail extension to forward missed calls.'),
+                           ),
+       new EBox::Types::MailAddress(
+                             fieldName     => 'mail',
+                             printableName => __('Email notified'),
+                             size          => 32,
+                             unique        => 0,
+                             editable      => 1,
+                             optional      => 1,
+                            ),
        new EBox::Types::Text(
                              fieldName     => 'desc',
                              printableName => __('Description'),
@@ -160,14 +148,14 @@ sub _table
 
     my $dataTable =
     {
-        tableName          => 'Meetings',
-        printableTableName => __('List of Meetings'),
-        pageTitle          => __('Meetings'),
-        printableRowName   => __('meeting'),
+        tableName          => 'Phones',
+        printableTableName => __('List of Phones'),
+        pageTitle          => __('Phones'),
+        printableRowName   => __('phone'),
         defaultActions     => [ 'add', 'del', 'editField', 'changeView' ],
         tableDescription   => \@tableHeader,
         class              => 'dataTable',
-        help               => __("Meeting rooms available on the server."),
+        help               => __("VoIP phones connected to the server."),
         sortedBy           => 'exten',
         modelDomain        => 'Asterisk',
         enableProperty => 1,

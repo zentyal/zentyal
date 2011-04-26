@@ -20,14 +20,13 @@
 
 package EBox::Asterisk::Model::AsteriskUser;
 
-use EBox::Gettext;
-use EBox::Validate qw(:all);
-use EBox::Types::Port;
+use base 'EBox::Model::DataForm';
 
 use strict;
 use warnings;
 
-use base 'EBox::Model::DataForm';
+use EBox::Gettext;
+use EBox::Types::Boolean;
 
 sub new
 {
@@ -42,7 +41,6 @@ sub new
 
 sub _table
 {
-
     my @tableHead =
     (
         new EBox::Types::Boolean(

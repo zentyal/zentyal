@@ -10,6 +10,8 @@
     $password
     $server
     $incoming
+    $additional_codecs
+    @phones
 </%args>
 ;
 ; Asterisk SIP configuration file
@@ -62,4 +64,22 @@ trustrpid = yes
 sendrpid = yes
 canreinvite = no
 insecure = port,invite
+% }
+
+% foreach my $phone (@phones) {
+; <% $phone->{'desc'} %>
+[<% $phone->{'exten'} %>]
+username=<% $phone->{'exten'} %>
+type=friend
+secret=<% $phone->{'secret'} %>
+host=dynamic
+context=users
+disallow=all
+allow=<% $additional_codecs %>alaw,ulaw
+dtmfmode=auto
+progressinband=no
+mailbox=<% $phone->{'exten'} %>@default
+nat=yes
+qualify=yes
+
 % }

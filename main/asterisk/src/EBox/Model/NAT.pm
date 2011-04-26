@@ -13,7 +13,6 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-
 package EBox::Asterisk::Model::NAT;
 
 # Class: EBox::Asterisk::Model::NAT
@@ -58,7 +57,6 @@ sub new
     return $self;
 }
 
-
 # Method: getNATType
 #
 #  Returns:
@@ -77,7 +75,6 @@ sub getNATType
     return [$type, $value];
 }
 
-
 # Group: Private methods
 
 # Method: _table
@@ -88,7 +85,6 @@ sub getNATType
 #
 sub _table
 {
-
     my @tableHeader =
       (
        new EBox::Types::Union(
@@ -121,7 +117,7 @@ sub _table
         defaultActions     => [ 'editField', 'changeView' ],
         tableDescription   => \@tableHeader,
         class              => 'dataForm',
-        help               => __("NAT Asterisk server configuration"),
+        help               => __("NAT Asterisk server configuration."),
         messages           => {
                                   update => __('NAT Asterisk server configuration updated.')
                               },
@@ -129,7 +125,6 @@ sub _table
     };
 
     return $dataTable;
-
 }
 
 1;

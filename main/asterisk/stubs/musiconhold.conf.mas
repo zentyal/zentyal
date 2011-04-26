@@ -1,10 +1,13 @@
 ;
-;  musiconhold.conf
+; Asterisk Music On Hold configuration file
 ;
 
 [general]
 
 [default]
-mode=custom
-directory=/var/lib/asterisk/mohmp3/
-application=/usr/bin/mpg123 -q -r 8000 -f 8192 -b 2048 --mono -s
+mode=files
+directory=/var/lib/asterisk/moh/
+sort=random
+;mode=custom
+;directory=/var/lib/asterisk/mohmp3/
+;application=/usr/bin/mpg123 -q -r 8000 -f 8192 -b 2048 --mono -s

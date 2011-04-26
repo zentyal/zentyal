@@ -1,3 +1,30 @@
+HEAD
+	+ New Phones section to configure phone lines instead of users
+	  between 4000 and 7999
+	+ Switched to Upstart to manage Asterisk daemon
+	+ Updated templates to Asterisk 1.8
+	+ Default Music on Hold path changed to /var/lib/asterisk/moh/
+	+ Added a script to transcode MP3 for Music on Hold
+	+ Added a script to generate a global addressbook
+	+ Deleted not used kernels script
+	+ Deleted unused templates
+	+ Moved from MeetMe to ConfBridge (rooms widget disabled but deleted
+	  dependency on DAHDI)
+	+ Dialplan now includes conferences and external calls don't need a 0 prefix
+	+ Deleted useless FirewallHelper
+	+ Disabled Zentyal VoIP provider configuration
+	+ Added configuration file to set up third party codecs
+	+ Moved from MeetMe to ConfBridge:
+	    * Rooms widget disabled has not supported by ConfBridge
+	    * Deleted dependency on DAHDI
+	    * Deleted not used kernels script
+	+ Dialplan and Queues are not longer in Realtime but files
+	+ Dialplan changes:
+	    * Dialplan now includes conferences
+	    * External calls doesn't need a 0 prefix but the full number
+	    * Voicemail now is always on *1
+	    * Music On Hold is always on *4
+	    * Echo test is always on *6
 2.1
 	+ Renamed ebox-asterisk-ldap to asterisk-ldap
 	+ Use new standard enable-module script

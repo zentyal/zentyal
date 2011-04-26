@@ -13,7 +13,6 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-
 package EBox::Asterisk::Model::Settings;
 
 # Class: EBox::Asterisk::Model::Settings
@@ -26,13 +25,13 @@ use base 'EBox::Model::DataForm';
 use strict;
 use warnings;
 
-use EBox::Gettext;
 use EBox::Global;
-use EBox::Types::Int;
+use EBox::Gettext;
 use EBox::Types::Boolean;
 use EBox::Types::DomainName;
+
 use EBox::Asterisk;
-use EBox::Asterisk::Extensions;
+#use EBox::Asterisk::Extensions;
 
 # Group: Public methods
 
@@ -59,7 +58,6 @@ sub new
     return $self;
 }
 
-
 # Method: validateTypedRow
 #
 #      Check the row to add or update if contains a valid extension.
@@ -72,32 +70,31 @@ sub new
 #
 #      <EBox::Exceptions::InvalidData> - thrown if the extension is not valid.
 #
-sub validateTypedRow
-{
-    my ($self, $action, $changedFields) = @_;
-
-    if ( exists $changedFields->{voicemailExtn} ) {
-        if ( $changedFields->{voicemailExtn}->value() ne EBox::Asterisk::Extensions->VMDFTLEXTN ) {
-
-            EBox::Asterisk::Extensions->checkExtension(
-                                            $changedFields->{voicemailExtn}->value(),
-                                            __(q{extension}),
-                                            EBox::Asterisk::Extensions->MEETINGMINEXTN,
-                                            EBox::Asterisk::Extensions->MEETINGMAXEXTN
-                                        );
-
-            my $extensions = new EBox::Asterisk::Extensions;
-            if ($extensions->extensionExists($changedFields->{voicemailExtn}->value())) {
-                throw EBox::Exceptions::DataExists(
-                          'data'  => __('Extension'),
-                          'value' => $changedFields->{voicemailExtn}->value(),
-                      );
-            }
-
-        }
-    }
-}
-
+#sub validateTypedRow
+#{
+#    my ($self, $action, $changedFields) = @_;
+#
+#    if ( exists $changedFields->{voicemailExtn} ) {
+#        if ( $changedFields->{voicemailExtn}->value() ne EBox::Asterisk::Extensions->VMDFTLEXTN ) {
+#
+#            EBox::Asterisk::Extensions->checkExtension(
+#                                            $changedFields->{voicemailExtn}->value(),
+#                                            __(q{extension}),
+#                                            EBox::Asterisk::Extensions->MEETINGMINEXTN,
+#                                            EBox::Asterisk::Extensions->MEETINGMAXEXTN
+#                                        );
+#
+#            my $extensions = new EBox::Asterisk::Extensions;
+#            if ($extensions->extensionExists($changedFields->{voicemailExtn}->value())) {
+#                throw EBox::Exceptions::DataExists(
+#                          'data'  => __('Extension'),
+#                          'value' => $changedFields->{voicemailExtn}->value(),
+#                      );
+#            }
+#
+#        }
+#    }
+#}
 
 # Group: Private methods
 
@@ -124,13 +121,6 @@ sub _table
                                 editable      => 1,
                                 defaultValue  => 0,
                                ),
-       new EBox::Types::Int(
-                                fieldName     => 'voicemailExtn',
-                                printableName => __('Voicemail extension'),
-                                editable      => 1,
-                                size          => 4,
-                                defaultValue  => EBox::Asterisk::Extensions->VMDFTLEXTN,
-                               ),
        new EBox::Types::DomainName(
                                 fieldName     => 'domain',
                                 printableName => __('VoIP domain'),
@@ -146,7 +136,7 @@ sub _table
         defaultActions     => [ 'editField', 'changeView' ],
         tableDescription   => \@tableHeader,
         class              => 'dataForm',
-        help               => __('General Asterisk server configuration'),
+        help               => __('Demo extensions are *4 for Music on Hold and *6 for Echo test.'),
         messages           => {
                                   update => __('General Asterisk server configuration updated.')
                               },
@@ -154,7 +144,6 @@ sub _table
     };
 
     return $dataTable;
-
 }
 
 1;

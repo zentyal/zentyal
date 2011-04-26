@@ -1,5 +1,5 @@
 ;
-; features.conf
+; Asterisk calls features configuration file
 ;
 
 [general]
@@ -8,5 +8,7 @@ parkpos => 701-720
 context => parkedcalls       
 parkingtime => 300
 
-[applicationmap]
+[featuremap]
 automon =>*1,self,Macro,automon
+
+[applicationmap]

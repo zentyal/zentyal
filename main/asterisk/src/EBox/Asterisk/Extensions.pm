@@ -13,7 +13,6 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-
 # Class: EBox::Asterisk::Extensions
 #
 #
@@ -23,16 +22,18 @@ package EBox::Asterisk::Extensions;
 use strict;
 use warnings;
 
-use EBox::Gettext;
 use EBox::Global;
+use EBox::Gettext;
 use EBox::Ldap;
+
 use EBox::UsersAndGroups;
 use EBox::Asterisk;
 
-# FIXME this fixed range
 use constant MINEXTN             => 1000;
-use constant MAXEXTN             => 7999;
-use constant VMDFTLEXTN          => 8000;
+use constant MAXEXTN             => 3999;
+#use constant VMDFTLEXTN          => 8000;
+use constant PHONEMINEXTN        => 4000;
+use constant PHONEMAXEXTN        => 7999;
 use constant MEETINGMINEXTN      => 8001;
 use constant MEETINGMAXEXTN      => 8999;
 use constant QUEUEMINEXTN        => 9001;
@@ -40,6 +41,10 @@ use constant QUEUEMAXEXTN        => 9999;
 use constant EXTENSIONSDN        => 'ou=Extensions';
 use constant QUEUESDN            => 'ou=Queues';
 use constant VOICEMAILDIR        => '/var/spool/asterisk/voicemail/default/';
+
+use constant DOPTS               => '15,tTwWr'; #FIXME SECURITY RISK T here
+use constant VMOPTS              => 'u';
+use constant VMOPTSF             => 'b';
 
 # Constructor: new
 #
@@ -62,7 +67,6 @@ sub new
     return $self;
 }
 
-
 # Method: extensionsDn
 #
 #      Returns the dn where the extensions are stored in the LDAP directory
@@ -77,7 +81,6 @@ sub extensionsDn
     return EXTENSIONSDN . "," . $self->{ldap}->dn;
 }
 
-
 # Method: queuesDn
 #
 #      Returns the dn where the queues are stored in the LDAP directory
@@ -91,7 +94,6 @@ sub queuesDn
     my ($self) = @_;
     return QUEUESDN . "," . $self->{ldap}->dn;
 }
-
 
 # Method: extensions
 #
@@ -117,7 +119,6 @@ sub extensions
 
     return @extns;
 }
-
 
 # Method: firstFreeExtension
 #
@@ -185,7 +186,6 @@ sub firstFreeExtension
     return $candidate <= $last ? $candidate : 0;
 }
 
-
 # Method: extensionExists
 #
 #      Checks if a given extension exists
@@ -213,7 +213,6 @@ sub extensionExists
     return ($result->count > 0);
 }
 
-
 # Method: addUserExtension
 #
 # FIXME doc
@@ -235,13 +234,15 @@ sub addUserExtension
     if ($user ne $extn) {
         $self->addExtension($user, '1', 'Goto', "$extn,1");
     }
-    $self->addExtension($extn, '1', 'Dial', "SIP/$user,15,tTwWr"); #FIXME SECURITY RISK T here
-    $self->addExtension($extn, '2', 'Voicemail', "$extn,u");
+    my $args = "SIP/$user,".DOPTS;
+    $self->addExtension($extn, '1', 'Dial', $args);
+    $args = "$extn,".VMOPTS;
+    $self->addExtension($extn, '2', 'Voicemail', $args);
     $self->addExtension($extn, '3', 'HangUp', 0);
-    $self->addExtension($extn, '102', 'Voicemail', "$extn,b");
+    $args = "$extn,".VMOPTSF;
+    $self->addExtension($extn, '102', 'Voicemail', $args);
     $self->addExtension($extn, '103', 'HangUp', 0);
 }
-
 
 # Method: getUserExtension
 #
@@ -272,7 +273,6 @@ sub getUserExtension
     my $entry = $result->entry(0);
     return ($entry->get_value('AstAccountCallerID'));
 }
-
 
 # Method: delUserExtension
 #
@@ -311,7 +311,6 @@ sub delUserExtension
     }
 }
 
-
 # Method: modifyUserExtension
 #
 # FIXME doc
@@ -323,8 +322,6 @@ sub modifyUserExtension
         throw EBox::Exceptions::DataExists('data' => __('Extension'),
                                            'value' => $newextn);
     }
-
-
 
     my $oldextn = $self->getUserExtension($user);
 
@@ -354,7 +351,6 @@ sub modifyUserExtension
         $ldap->modify($dn, { replace => \%attrs });
     }
 }
-
 
 # Method: addExtension
 #
@@ -387,7 +383,6 @@ sub addExtension
     $self->{'ldap'}->add($dn, \%attrs);
 }
 
-
 # Method: delExtension
 #
 # FIXME doc
@@ -406,7 +401,6 @@ sub delExtension
     $ldap->delete($dn);
 }
 
-
 # Method: _moveVoicemail
 #
 # FIXME check if .txt files need to be updated
@@ -421,10 +415,11 @@ sub _moveVoicemail
     }
 }
 
-
 # Method: cleanUpMeetings
 #
 # FIXME doc
+# XXX this code is not used anymore and if not called from a migration to
+# clean up LDAP, should be removed.
 sub cleanUpMeetings
 {
     my ($self) = @_;
@@ -448,7 +443,6 @@ sub cleanUpMeetings
         }
     }
 }
-
 
 # Method: cleanUpVoicemail
 #
@@ -476,7 +470,6 @@ sub cleanUpVoicemail
         }
     }
 }
-
 
 # Method: checkExtension
 #
@@ -529,12 +522,10 @@ sub checkExtension
     }
 }
 
-
 sub maxUserExtension
 {
     return MAXEXTN;
 }
-
 
 sub addQueue
 {
@@ -562,7 +553,6 @@ sub addQueue
     $self->{'ldap'}->add($dn, \%attrs);
 }
 
-
 sub delQueue
 {
     my ($self, $group) = @_;
@@ -579,7 +569,6 @@ sub delQueue
 
     $ldap->delete($dn);
 }
-
 
 sub addQueueMember
 {
@@ -604,7 +593,6 @@ sub addQueueMember
     $self->{ldap}->modify($dn, \%attrs);
 }
 
-
 sub delQueueMember
 {
     my ($self, $user, $group) = @_;
@@ -628,7 +616,6 @@ sub delQueueMember
     $self->{ldap}->modify($dn, \%attrs);
 }
 
-
 sub addQueueExtension
 {
     my ($self, $group, $extn) = @_;
@@ -649,7 +636,6 @@ sub addQueueExtension
     #}
     $self->addExtension($extn, '1', 'Queue', "$group,tTwW");
 }
-
 
 sub getQueueExtension
 {
@@ -673,7 +659,6 @@ sub getQueueExtension
         return ($entry->get_value('AstExtension'));
     }
 }
-
 
 sub delQueueExtension
 {
@@ -709,7 +694,6 @@ sub delQueueExtension
     #}
 }
 
-
 sub modifyQueueExtension
 {
     my ($self, $group, $newextn) = @_;
@@ -725,6 +709,31 @@ sub modifyQueueExtension
         $self->delQueueExtension($group);
     }
     $self->addQueueExtension($group, $newextn);
+}
+
+# Method: queues
+#
+#      This method returns all defined queues
+#
+# Returns:
+#
+#      array - queues names
+#
+sub queues
+{
+    my ($self) = @_;
+
+    my %args = (
+                base => $self->queuesDn,
+                filter => 'objectclass=AsteriskQueue',
+                scope => 'sub',
+               );
+
+    my $result = $self->{ldap}->search(\%args);
+
+    my @extns = map { $_->get_value('AstQueueName') } $result->sorted('AstQueueName');
+
+    return \@extns;
 }
 
 1;

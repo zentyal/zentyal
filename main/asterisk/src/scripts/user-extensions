@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 
-# Copyright (C) 2008-2010 eBox Technologies S.L.
+# Copyright (C) 2011 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -17,30 +17,20 @@
 
 use strict;
 
-my @headers = ();
+use EBox::Global;
+use EBox::Asterisk::Extensions;
 
-if (`dpkg -l | grep linux-image-server`) {
-    push(@headers, 'linux-headers-server');
+EBox::init();
+
+my $extensions = new EBox::Asterisk::Extensions;
+
+my $users = EBox::Global->getInstance()->modInstance('users');
+
+my @usersList = $users->users();
+
+foreach my $user (@usersList) {
+    my $username = $user->{'username'};
+    my $fullname = $user->{'fullname'};
+    my $extension = $extensions->getUserExtension($username);
+    print "$fullname ($username)\t$extension\n";
 }
-
-if (`dpkg -l | grep linux-image-virtual`) {
-    push(@headers, 'linux-headers-virtual');
-}
-
-if (`dpkg -l | grep linux-image-ec2`) {
-    push(@headers, 'linux-headers-ec2');
-}
-
-if (`dpkg -l | grep linux-image-386`) {
-    push(@headers, 'linux-headers-386');
-}
-
-if (`dpkg -l | grep linux-image-generic`) {
-    push(@headers, 'linux-headers-generic');
-}
-
-if (`dpkg -l | grep linux-image-generic-pae`) {
-    push(@headers, 'linux-headers-generic-pae');
-}
-
-print "@headers\n";

@@ -3,7 +3,7 @@
 perldir = @PERLPATH@/EBox/Asterisk/Model
 
 nobase_perl_DATA = Settings.pm Provider.pm NAT.pm Localnets.pm Meetings.pm Voicemail.pm \
-	AsteriskUser.pm
+	AsteriskUser.pm Phones.pm
 
 DISTCLEANFILES =
 

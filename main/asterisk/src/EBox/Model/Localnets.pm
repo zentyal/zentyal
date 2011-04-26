@@ -58,7 +58,6 @@ sub new
     return $self;
 }
 
-
 # Method: validateTypedRow
 #
 #       Check the row to add or update if contains an existing network.
@@ -94,7 +93,6 @@ sub validateTypedRow
     }
 }
 
-
 # Group: Private methods
 
 # Method: _table
@@ -105,7 +103,6 @@ sub validateTypedRow
 #
 sub _table
 {
-
     my @tableHeader =
       (
        new EBox::Types::IPAddr(
@@ -132,11 +129,11 @@ sub _table
         defaultActions     => [ 'add', 'del', 'editField', 'changeView' ],
         tableDescription   => \@tableHeader,
         class              => 'dataTable',
+        help               => __("Other local networks reachable without NAT."),
         modelDomain        => 'Asterisk',
     };
 
     return $dataTable;
-
 }
 
 1;
