@@ -1,4 +1,4 @@
-HEAD
+2.1.1
 	+ New Phones section to configure phone lines instead of users
 	  between 4000 and 7999
 	+ Switched to Upstart to manage Asterisk daemon
