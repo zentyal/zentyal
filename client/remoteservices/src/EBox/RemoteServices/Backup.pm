@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2010 eBox Technologies S.L.
+# Copyright (C) 2008-2011 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -84,7 +84,6 @@ sub makeRemoteBackup
     defined $description or $description = '';
 
     my @backupOptions = (
-        fullBackup   => 0,
         description  => $description,
        );
 
