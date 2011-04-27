@@ -88,4 +88,13 @@ sub _table
     return $dataTable;
 }
 
+# FIXME: Workaround for the composite-children-of-submodel bug
+sub parentRow
+{
+    my ($self) = @_;
+
+    my $parent = $self->parent();
+    return $parent ? $parent->parentRow() : undef;
+}
+
 1;

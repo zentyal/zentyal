@@ -78,19 +78,6 @@ sub initialSetup
 {
     my ($self, $version) = @_;
 
-    # Create default rules only if installing the first time
-    unless ($version) {
-        # FIXME: RDP/VNC services?
-        my $firewall = EBox::Global->modInstance('firewall');
-        $firewall->addInternalService(
-                    'name' => 'virt',
-                    'description' => 'FIXME',
-                    'protocol' => 'udp',
-                    'sourcePort' => 'any',
-                    'destinationPort' => 12345,
-        );
-        $firewall->saveConfigRecursive();
-    }
 }
 
 sub modelClasses
@@ -119,7 +106,7 @@ sub menu
     $root->add(new EBox::Menu::Item('url' => 'Virt/View/VirtualMachines',
                                     'text' => $self->printableName(),
                                     'separator' => 'Infrastructure',
-                                    'order' => 415));
+                                    'order' => 445));
 }
 
 1;

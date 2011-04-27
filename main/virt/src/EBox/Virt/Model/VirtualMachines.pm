@@ -79,7 +79,7 @@ sub _table
        new EBox::Types::HasMany(
                                 fieldName     => 'settings',
                                 printableName => __('Settings'),
-                                foreignModel  => 'squid/FilterGroupSettings',
+                                foreignModel  => 'virt/VMSettings',
                                 foreignModelIsComposite => 1,
                                 view => '/zentyal/Virt/Composite/VMSettings',
                                 backView => '/zentyal/Virt/View/VirtualMachines',
@@ -101,7 +101,6 @@ sub _table
         defaultActions     => [ 'add', 'del', 'editField', 'changeView' ],
         tableDescription   => \@tableHeader,
         help               => __('List of configured Virtual Machines.'),
-        sortedBy           => 'exten',
         modelDomain        => 'Virt',
         enableProperty => 1,
         defaultEnabledValue => 1,
