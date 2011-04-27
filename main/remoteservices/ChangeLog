@@ -1,4 +1,5 @@
 HEAD
+	+ Remove unecessary parameter when making automatic backup
 	+ Avoid log entry with unexistant file
 	+ Rename dispatcher receiver to Zentyal Cloud
 	+ Using unconfigured interfaces as last resort to connect to Cloud
