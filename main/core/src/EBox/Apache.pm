@@ -148,6 +148,7 @@ sub _setConf
     $self->_changeHostname();
     $self->_writeHttpdConfFile();
     $self->_writeCSSFiles();
+    $self->_reportAdminPort();
 }
 
 sub _enforceServiceState
@@ -228,6 +229,17 @@ sub _writeCSSFiles
     }
 }
 
+# Report the new TCP admin port to Zentyal Cloud
+sub _reportAdminPort
+{
+    my ($self) = @_;
+
+    my $global = EBox::Global->getInstance(1);
+    if ($global->modExists('remoteservices')) {
+        my $rs = $global->modInstance('remoteservices');
+        $rs->reportAdminPort($self->port());
+    }
+}
 
 sub _httpdConfFile
 {
@@ -282,8 +294,9 @@ sub setPort # (port)
         }
     }
 
-    if (EBox::Global->instance()->modExists('services')) {
-        my $services = EBox::Global->modInstance('services');
+    my $global = EBox::Global->getInstance();
+    if ($global->modExists('services')) {
+        my $services = $global->modInstance('services');
         $services->setAdministrationPort($port);
     }
 
