@@ -4,7 +4,7 @@
 
 templatedir = $(datadir)/zentyal/templates/ajax/setter
 template_DATA = booleanSetter.mas textSetter.mas \
-		ipaddrSetter.mas ipnetworkSetter.mas \
+		ipaddrSetter.mas ipnetworkSetter.mas ipRangeSetter.mas\
 		hasManySetter.mas portRangeSetter.mas unionSetter.mas \
 		inverseMatchSelectSetter.mas selectSetter.mas \
 		inverseMatchUnionSetter.mas serviceSetter.mas \

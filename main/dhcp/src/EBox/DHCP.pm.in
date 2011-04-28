@@ -876,6 +876,11 @@ sub fixedAddresses # (interface, readOnly)
                            members => [] };
 
         foreach my $member (@{$mbs}) {
+            # use only IP address member type
+            if ($member->{type} ne 'ipaddr') {
+                next;
+            }
+
             # Filter out the ones which does not have a MAC address
             # and a mask of 32, it does not belong to the given
             # interface and member name is unique within the fixed

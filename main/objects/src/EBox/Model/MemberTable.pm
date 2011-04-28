@@ -28,8 +28,10 @@ use EBox::Gettext;
 use EBox::Validate qw(:all);
 use EBox::Sudo;
 use EBox::Types::Text;
+use EBox::Types::Union;
 use EBox::Types::MACAddr;
 use EBox::Types::IPAddr;
+use EBox::Types::IPRange;
 use EBox::Model::ModelManager;
 
 use EBox::Exceptions::External;
@@ -64,12 +66,22 @@ sub _table
                                 'unique' => 1,
                                 'editable' => 1
                              ),
-            new EBox::Types::IPAddr
-                            (
-                                'fieldName' => 'ipaddr',
-                                'printableName' => __('IP address'),
-                                'editable' => 1,
-                            ),
+            new EBox::Types::Union(
+                fieldName => 'address',
+                printableName => __('IP address'),
+                subtypes => [
+                    new EBox::Types::IPAddr (
+                        'fieldName' => 'ipaddr',
+                        'printableName' => 'CIDR',
+                        'editable' => 1,
+                       ),
+                    new EBox::Types::IPRange(
+                        'fieldName' => 'iprange',
+                        'printableName' => __('Range'),
+                        'editable' => 1,
+                       ),
+                    ],
+            ),
             new EBox::Types::MACAddr
                             (
                                 'fieldName' => 'macaddr',
@@ -91,7 +103,7 @@ sub _table
             'defaultActions' => ['add', 'del', 'editField', 'changeView' ],
             'tableDescription' => \@tableHead,
             'class' => 'dataTable',
-            'help' => __('Objects'),
+            'help' => __('For the IP addresses you can use CIDR notation (address/netmask) or specify the first and last addresses of a range that will also include all the IP addresses between them.'),
             'printableRowName' => __('member'),
             'sortedBy' => 'name',
         };
@@ -99,37 +111,48 @@ sub _table
     return $dataTable;
 }
 
-# Method: validateRow
-#
-#      Override <EBox::Model::DataTable::validateRow> method
-#
-sub validateRow
+sub validateTypedRow
 {
-    my ($self, $action, %params) = @_;
+    my ($self, $action, $params, $actual) = @_;
+    my $id = $params->{id}; # XXX not sure
+    my $address = exists $params->{address} ?
+                         $params->{address} : $actual->{address};
+    my $mac = exists $params->{macaddr} ?
+                         $params->{macaddr}->value() : $actual->{macaddr}->value();
+    my $addressType = $address->selectedType();
+    my $printableValue;
 
-    my $id = $params{'id'};
-    my $ip = $params{'ipaddr_ip'};
-    my $mask = $params{'ipaddr_mask'};
-    my $mac = $params{'macaddr'};
+    if ($addressType eq 'ipaddr') {
+        my $ipaddr = $address->subtype();
+        my $ip = $ipaddr->ip();
+        my $mask = $ipaddr->mask();
 
-    if (defined($mac) and $mask ne '32') {
-        throw EBox::Exceptions::External(
-            __("You can only use MAC addresses with hosts"));
+        if (defined($mac) and $mask ne '32') {
+            throw EBox::Exceptions::External(
+            __('You can only use MAC addresses with hosts'));
+        }
+
+        $printableValue = $ipaddr->printableValue();
+    } elsif ($addressType eq 'iprange') {
+        if (defined $mac) {
+            throw EBox::Exceptions::External(
+            __('You cannot use MAC addresses with IP ranges'));
+        }
+        my $range = $address->subtype();
+        $printableValue = $range->printableValue();
     }
 
-    checkIP($ip, __('network address'));
-    checkCIDR("$ip/$mask", __('network address'));
-
-
-    if ($self->_alreadyInSameObject($id, $ip, $mask)) {
-         throw EBox::Exceptions::External(
-          __x(
-              q{{ip} overlaps with the address or another object's member},
-              ip => "$ip/$mask"
-             )
-                                         );
+    if ($self->_alreadyInSameObject($id, $printableValue)) {
+        throw EBox::Exceptions::External(
+            __x(
+                    q{{ip} overlaps with the address or another object's member},
+                    ip => $printableValue
+                   )
+           );
     }
 }
+
+
 
 # Method: alreadyInSameObject
 #
@@ -141,32 +164,133 @@ sub validateRow
 #
 #       memberId - memberId
 #       ip - IPv4 address
-#       mask - network masl
+#       mask - network mask
 #
 # Returns:
 #
 #       boolean - true if it overlaps, otherwise false
 sub _alreadyInSameObject
 {
-    my ($self, $memberId, $iparg, $maskarg) = @_;
+    my ($self, $memberId, $printableValue) = @_;
 
+    my $new = new Net::IP($printableValue);
 
     foreach my $id (@{$self->ids()}) {
         next if ((defined $memberId) and ($id eq $memberId));
 
         my $row  = $self->row($id);
-        my $memaddr = new Net::IP($row->printableValueByName('ipaddr'));
-        my $new = new Net::IP("$iparg/$maskarg");
+        my $memaddr = new Net::IP($row->printableValueByName('address'));
+
         if ($memaddr->overlaps($new) != $IP_NO_OVERLAP){
             return 1;
         }
 
     }
 
-
-
     return undef;
 }
+
+# Method: members
+#
+#       Return the members
+#
+# Parameters:
+#
+#       (POSITIONAL)
+#
+#       id - object's id
+#
+# Returns:
+#
+#       array ref - each element contains a hash with the member keys 'name'
+#       (member's name), 'ipaddr' (ip's member), 'mask' (network mask's member),
+#       'macaddr', (mac address' member)
+#
+# Exceptions:
+#
+#       <EBox::Exceptions::MissingArgument>
+sub members
+{
+    my ($self) = @_;
+
+    my @members;
+    foreach my $id (@{$self->ids()}) {
+        my $memberRow = $self->row($id);
+        my $address = $memberRow->elementByName('address');
+        my $type =  $address->selectedType();
+
+        my %member = (
+            name => $memberRow->valueByName('name'),
+            type => $type,
+           );
+
+        if ($type eq 'ipaddr') {
+            my $ipaddr = $address->subtype();
+            $member{ipaddr} = $ipaddr->printableValue();
+            $member{ip}     = $ipaddr->ip();
+            $member{mask}   = $ipaddr->mask();
+            $member{macaddr} = $memberRow->valueByName('macaddr');
+        } elsif ($type eq 'iprange') {
+            my $range = $address->subtype();
+            $member{begin} = $range->begin();
+            $member{end} = $range->end();
+            # not sure if good idea to extract all ips now
+            $member{addresses} = $range->addresses(),
+            $member{mask} = 32,
+        }
+
+        push @members, \%member;
+    }
+
+    return \@members;
+}
+
+
+# addresses
+#
+#       Return the network addresses
+#
+# Parameters:
+#
+#       mask - return alse addresses' mask (named optional, default false)
+#
+# Returns:
+#
+#       array ref - containing an ip, empty array if
+#       there are no addresses in the table
+#       In case mask is wanted the elements of the array would be  [ip, mask]
+sub addresses
+{
+    my ($self, %params) = @_;
+    my $mask = $params{mask};
+    my $members = $self->members();
+
+    return [] unless defined ( $members );
+
+    my @ips = map {
+        my $type = $_->{type};
+        if ($type eq 'ipaddr') {
+            if ($mask) {
+                [$_->{'ipaddr'} =>  $_->{'mask'}]
+            } else {
+               $_->{'ipaddr'}
+           }
+        } elsif ($type eq 'iprange') {
+            if ($mask) {
+                map {
+                    [$_ => 32 ]
+               }@{ $_->{addresses} }
+            } else {
+                @{  $_->{addresses} }
+            }
+        } else {
+            ()
+        }
+    } @{ $members };
+
+    return \@ips;
+}
+
 
 # Method: pageTitle
 #
@@ -174,10 +298,9 @@ sub _alreadyInSameObject
 #   to show the name of the domain
 sub pageTitle
 {
-        my ($self) = @_;
+    my ($self) = @_;
 
-        return $self->parentRow()->printableValueByName('name');
+    return $self->parentRow()->printableValueByName('name');
 }
 
 1;
-

@@ -1,7 +1,7 @@
 HEAD
 	+ Fixed 'routers' option when gateway is set to 'none'
 	+ Object members without a valid hostname are no longer used as
-	  fixed addresses
+	  fixed addresses, IP ranges are also skipped
 2.1.2
 	+ Use EBox::Types::Host to simplify UI in Thin Clients
 	+ Fixed regression with new autotools paths

@@ -1,4 +1,6 @@
 HEAD
+	+ Added IP ranges as object members
+	+ objectAddresses method can now return masks if requested
 	+ Removed undefined variable warning
 2.1
 	+ MAC addresses are now unique in MemberTable

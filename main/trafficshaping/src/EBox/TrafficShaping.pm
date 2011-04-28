@@ -1445,7 +1445,6 @@ sub _buildANewRule # ($iface, $rule_ref, $test?)
         throw EBox::Exceptions::Internal('Tree builder which is not HTB ' .
                                          'which actually builds the rules');
     }
-
 }
 
 # Build a necessary classify rule to each member from an object into a
@@ -1459,8 +1458,7 @@ sub _buildANewRule # ($iface, $rule_ref, $test?)
 #  - where - the counterpart (<EBox::Types::IPAddr> or <EBox::Types::MACAddr>)
 #  - rulePriority - the rule priority
 sub _buildObjMembers
-  {
-
+{
     my ($self, %args ) = @_;
     my $treeBuilder = $args{treeBuilder};
     my $what = $args{what};
@@ -1474,56 +1472,56 @@ sub _buildObjMembers
       return;
     }
 
-    # Get the object's members
-    my $global = EBox::Global->getInstance();
+    # Get the object's addresses
     my $objs = $self->{'objects'};
 
-    my $membs_ref = $objs->objectMembers($objectName);
+    my $addreses_r = $objs->objectAddresses($objectName, mask => 1);
 
     # Set a different filter identifier for each object's member
     my $filterId = $ruleRelated;
-    foreach my $member_ref (@{$membs_ref}) {
-      my $ip = new EBox::Types::IPAddr(
-				       ip => $member_ref->{ip},
-				       mask => $member_ref->{mask},
-				       fieldName => 'ip'
-				      );
-      my $srcAddr;
-      my $dstAddr;
-      if ( $what eq 'source' ) {
-	$srcAddr = $ip;
-	$dstAddr = $where;
-      }
-      elsif ( $what eq 'destination') {
-	$srcAddr = $where;
-	$dstAddr = $ip;
-      }
-      $treeBuilder->addFilter(
-			      leafClassId => $ruleRelated,
-			      priority    => $rulePriority,
-			      srcAddr     => $srcAddr,
-			      dstAddr     => $dstAddr,
-			      service     => $serviceAssoc,
-			      id          => $filterId,
-			     );
-      $filterId++;
-      # If there's a MAC address and what != source not to add since
-      # it has no sense
-      # TODO: Objects can be only set with an IP.
-#      if ( $member_ref->{mac} and ( $what eq 'source' )) {
-#	my $mac = new EBox::Types::MACAddr(
-#					   value => $member_ref->{mac},
-#					  );
-#	$filterValue->{srcAddr} = $mac;
-#	$filterValue->{dstAddr} = $where;
-#	$treeBuilder->addFilter( leafClassId => $ruleRelated,
-#				 filterValue => $filterValue);
-#	$filterId++;
-#      }
-      # Just adding one could be a solution to have different filter identifiers
+    foreach my $addr_r (@{$addreses_r}) {
+        my ($memberIP, $memberMask) = @{ $addr_r };
+
+        my $ip = new EBox::Types::IPAddr(
+                                         ip => $memberIP,
+                                         mask => $memberMask,
+                                         fieldName => 'ip'
+                                        );
+        my $srcAddr;
+        my $dstAddr;
+        if ( $what eq 'source' ) {
+            $srcAddr = $ip;
+            $dstAddr = $where;
+        } elsif ( $what eq 'destination') {
+            $srcAddr = $where;
+            $dstAddr = $ip;
+        }
+        $treeBuilder->addFilter(
+                                leafClassId => $ruleRelated,
+                                priority    => $rulePriority,
+                                srcAddr     => $srcAddr,
+                                dstAddr     => $dstAddr,
+                                service     => $serviceAssoc,
+                                id          => $filterId,
+                               );
+        $filterId++;
+        # If there's a MAC address and what != source not to add since
+        # it has no sense
+        # TODO: Objects can be only set with an IP.
+        #      if ( $member_ref->{mac} and ( $what eq 'source' )) {
+        #       my $mac = new EBox::Types::MACAddr(
+        #                                          value => $member_ref->{mac},
+        #                                         );
+        #       $filterValue->{srcAddr} = $mac;
+        #       $filterValue->{dstAddr} = $where;
+        #       $treeBuilder->addFilter( leafClassId => $ruleRelated,
+        #                                filterValue => $filterValue);
+        #       $filterId++;
+        #      }
+        # Just adding one could be a solution to have different filter identifiers
     }
 
-  }
+}
 
 # Build a n x m rules among each member of the both object with each other
 # It receives four parameters:
@@ -1534,43 +1532,43 @@ sub _buildObjMembers
 #  - serviceAssoc - the service associated if any
 #  - rulePriority - the rule priority
 sub _buildObjToObj
-  {
-
+{
     my ($self, %args) = @_;
-
-    my $global = EBox::Global->getInstance();
     my $objs = $self->{'objects'};
 
-    my $srcMembs_ref = $objs->objectMembers($args{srcObject});
-    my $dstMembs_ref = $objs->objectMembers($args{dstObject});
+    my $srcAddrs_ref = $objs->objectAddresses($args{srcObject}, mask => 1);
+    my $dstAddrs_ref = $objs->objectAddresses($args{dstObject}, mask => 1);
 
     my $filterId = $args{ruleRelated};
 
-    foreach my $srcMember_ref (@{$srcMembs_ref}) {
-      my $srcAddr = new EBox::Types::IPAddr(
-					    ip   => $srcMember_ref->{ip},
-					    mask => $srcMember_ref->{mask},
+    foreach my $srcAddr_r (@{$srcAddrs_ref}) {
+        my ($srcIP, $srcMask) = @{$srcAddr_r};
+        my $srcAddr = new EBox::Types::IPAddr(
+                                            ip   => $srcIP,
+                                            mask => $srcMask,
                                             fieldName => 'srcAddr',
-					   );
-      foreach my $dstMember_ref (@{$dstMembs_ref}) {
-	my $dstAddr = new EBox::Types::IPAddr(
-					      ip   => $dstMember_ref->{ip},
-					      mask => $dstMember_ref->{mask},
-                                              fieldName => 'dstAddr',
-					     );
-	$args{treeBuilder}->addFilter(
-				      leafClassId => $args{ruleRelated},
-				      priority    => $args{rulePriority},
-				      srcAddr     => $srcAddr,
-				      dstAddr     => $dstAddr,
-				      service     => $args{serviceAssoc},
-				      id          => $filterId,
-				     );
-	$filterId++;
-      }
-    }
+                                             );
 
-  }
+        foreach my $dstAddr_r (@{$dstAddrs_ref}) {
+            my ($dstIP, $dstMask) = @{$dstAddr_r};
+            my $dstAddr = new EBox::Types::IPAddr(
+                                              ip   => $dstIP,
+                                              mask => $dstMask,
+                                              fieldName => 'dstAddr',
+                                             );
+            $args{treeBuilder}->addFilter(
+                                      leafClassId => $args{ruleRelated},
+                                      priority    => $args{rulePriority},
+                                      srcAddr     => $srcAddr,
+                                      dstAddr     => $dstAddr,
+                                      service     => $args{serviceAssoc},
+                                      id          => $filterId,
+                                         );
+            $filterId++;
+
+        }
+    }
+}
 
 
 # Update a rule from the builder taking arguments from GConf

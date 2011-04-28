@@ -172,7 +172,7 @@ sub objectIds # (object)
 #
 # Returns:
 #
-#       array ref - each element contains a hash with the member keys 'nname'
+#       array ref - each element contains a hash with the member keys 'name'
 #       (member's name), 'ipaddr' (ip's member), 'mask' (network mask's member),
 #       'macaddr', (mac address' member)
 #
@@ -190,53 +190,39 @@ sub objectMembers # (object)
     my $object = $self->{'objectModel'}->row($id);
     return undef unless defined($object);
 
-    my @members;
-    for my $id (@{$object->subModel('members')->ids()}) {
-	my $member = $object->subModel('members')->row($id);
-        my $ipaddr = $member->elementByName('ipaddr');
-        push (@members, {
-                            ipaddr => $ipaddr->printableValue(),
-                            ip => $ipaddr->ip(),
-                            mask => $ipaddr->mask(),
-                            macaddr => $member->valueByName('macaddr'),
-                            name => $member->valueByName('name')
-
-                        });
-    }
-
-    return \@members;
+    return $object->subModel('members')->members();
 }
 
 # getMembersToObjectTable($id)
 
 # objectAddresses
 #
-#       Return the network addresses of a member
+#       Return the network addresses of a object
 #
 # Parameters:
 #
 #       id - object's id
+#       mask - return alse addresses' mask (named optional, default false)
 #
 # Returns:
 #
-#       array ref - containing an ip for each element, empty array if
-#       there are no members in the object
+#       array ref - containing an ip, empty array if
+#       there are no addresses in the object
+#       In case mask is wanted the elements of the array would be  [ip, mask]
 #
-sub objectAddresses # (object)
+sub objectAddresses 
 {
-    my ($self, $id) = @_;
+    my ($self, $id, @params) = @_;
 
     unless (defined($id)) {
         throw EBox::Exceptions::MissingArgument("id");
     }
 
-    my $members = $self->objectMembers($id);
+    my $object = $self->{'objectModel'}->row($id);
+    return undef unless defined($object);
 
-    return [] unless defined ( $members );
+    return $object->subModel('members')->addresses(@params);
 
-    my @ips = map { $_->{'ipaddr'} } @{$members};
-
-    return \@ips;
 }
 
 # getMembersToObjectTable($id, [ 'ipaddr' ])

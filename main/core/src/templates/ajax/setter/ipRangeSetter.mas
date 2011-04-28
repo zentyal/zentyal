@@ -1,0 +1,24 @@
+<%args>
+$tableName
+$data
+$cssClass => ''
+$disabled => undef
+</%args>
+% my $id = $tableName . '_' . $data->fieldName();
+% if ( $data->editable() ) {
+<span id="<% $id %>" class="<% $cssClass %>">
+  <input type="text" class="inputText" value="<% $data->begin() %>"
+        size="16" id='<% $id . '_begin' %>' name='<% $id . '_begin' %>'
+    <% $disabled ? 'disabled' : '' %> />
+  <span>-</span>
+  <input type="text" class="inputText" value="<% $data->end() %>"
+        size="16" id='<% $id . '_end' %>' name='<% $id . '_end' %>'
+    <% $disabled ? 'disabled' : '' %> />
+</span>
+% }
+% else
+% {
+<& $data->HTMLViewer(),
+   data => $data &>
+% }
+

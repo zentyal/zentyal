@@ -1,5 +1,6 @@
 HEAD
 	+ Fields validation optimized
+	+ Compatible with Objects with IP ranges
 2.1
 	+ Added call to initial-setup in postinst
 2.0.3
