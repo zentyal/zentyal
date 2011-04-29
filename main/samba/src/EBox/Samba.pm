@@ -565,8 +565,8 @@ sub _setConf
     push(@array, 'active_printer' => $self->printerService());
     push(@array, 'pdc' => $self->pdc());
     push(@array, 'roaming' => $self->roamingProfiles());
-    push(@array, 'backup_path' => EBox::Config::conf() . '/backups');
-    push(@array, 'quarantine_path' => EBox::Config::var() . '/lib/zentyal/quarantine');
+    push(@array, 'backup_path' => EBox::Config::conf() . 'backups');
+    push(@array, 'quarantine_path' => EBox::Config::var() . 'lib/zentyal/quarantine');
     my $shares = $self->shares();
     push(@array, 'shares' => $shares);
     my $guestShares = 0;
