@@ -71,6 +71,21 @@ sub forward
     return [];
 }
 
+# Method: forwardNoSpoof
+#
+#   Rules returned by this method are added to the fnospoofmodules chain in
+#   the filter table. You can use them to add exceptions on the default
+#   source checking in the firewall. This is mainly used by IPsec special
+#   routing rules.
+#
+# Returns:
+#
+#   array ref - containing forward no spoof rules
+sub forwardNoSpoof
+{
+    return [];
+}
+
 # Method: input
 #
 #   Rules returned by this method are added to the INPUT chain for INTERNAL ifaces in
@@ -81,6 +96,21 @@ sub forward
 #
 #   array ref - containing input rules
 sub input
+{
+    return [];
+}
+
+# Method: inputNoSpoof
+#
+#   Rules returned by this method are added to the inospoofmodules chain in
+#   the filter table. You can use them to add exceptions on the default
+#   source checking in the firewall. This is mainly used by IPsec special
+#   routing rules.
+#
+# Returns:
+#
+#   array ref - containing input no spoof rules
+sub inputNoSpoof
 {
     return [];
 }

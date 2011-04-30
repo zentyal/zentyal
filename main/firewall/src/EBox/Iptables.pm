@@ -158,18 +158,24 @@ sub _setStructure
 
     # state rules
     push(@commands,
-            pf('-A OUTPUT -m state --state INVALID -j DROP'),
+            pf('-N odrop'),
+            pf('-A OUTPUT -m state --state INVALID -j odrop'),
             pf('-A OUTPUT -m state --state ESTABLISHED,RELATED -j ACCEPT'),
-            pf('-A INPUT -m state --state INVALID -j DROP'),
+            pf('-N idrop'),
+            pf('-A INPUT -m state --state INVALID -j idrop'),
             pf('-A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT'),
-            pf('-A FORWARD -m state --state INVALID -j DROP'),
+            pf('-N fdrop'),
+            pf('-A FORWARD -m state --state INVALID -j fdrop'),
+
             pf('-A FORWARD -m state --state ESTABLISHED,RELATED -j ACCEPT'),
 
             pf('-t nat -N premodules'),
 
             pf('-t nat -N postmodules'),
 
+            pf('-N fnospoofmodules'),
             pf('-N fnospoof'),
+            pf('-A fnospoof -j fnospoofmodules'),
             pf('-N fredirects'),
             pf('-N fmodules'),
             pf('-N ffwdrules'),
@@ -177,10 +183,11 @@ sub _setStructure
             pf('-N fdns'),
             pf('-N fobjects'),
             pf('-N fglobal'),
-            pf('-N fdrop'),
             pf('-N ftoexternalonly'),
 
+            pf('-N inospoofmodules'),
             pf('-N inospoof'),
+            pf('-A inospoof -j inospoofmodules'),
             pf('-N inointernal'),
             pf('-N iexternalmodules'),
             pf('-N iexternal'),
@@ -188,7 +195,6 @@ sub _setStructure
             pf('-N imodules'),
             pf('-N iintservs'),
             pf('-N iglobal'),
-            pf('-N idrop'),
 
             pf('-N drop'),
 
@@ -197,7 +203,6 @@ sub _setStructure
             pf('-N ointernal'),
             pf('-N omodules'),
             pf('-N oglobal'),
-            pf('-N odrop'),
 
             pf('-t nat -A PREROUTING -j premodules'),
 
@@ -611,6 +616,12 @@ sub moduleRules
             );
         push(@modRules,
                 @{$self->_doRuleset($mod, 'nat', 'postmodules', $helper->postrouting())}
+            );
+        push(@modRules,
+                @{$self->_doRuleset($mod, 'filter', 'fnospoofmodules', $helper->forwardNoSpoof())}
+            );
+        push(@modRules,
+                @{$self->_doRuleset($mod, 'filter', 'inospoofmodules', $helper->inputNoSpoof())}
             );
         push(@modRules,
                 @{$self->_doRuleset($mod, 'filter', 'fmodules', $helper->forward())}
