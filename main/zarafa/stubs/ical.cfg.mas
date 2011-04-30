@@ -34,6 +34,7 @@ icals_enable = <% $icals %>
 icals_port = 8443
 
 # default connection to the Zarafa server
+# Please refer to the administrator manual or manpage why HTTP is used rather than the UNIX socket.
 server_socket = http://localhost:236/zarafa
 
 # Process model, using pthreads (thread) or processes (fork)

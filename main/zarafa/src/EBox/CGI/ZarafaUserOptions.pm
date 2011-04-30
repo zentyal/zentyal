@@ -56,12 +56,12 @@ sub _process
             $zarafaldap->setIsAdmin($username, 0);
         }
     } else {
+        $zarafaldap->setHasAccount($username, 0);
         if (defined($self->param('contact'))) {
             $zarafaldap->setHasContact($username, 1);
         } else {
             $zarafaldap->setHasContact($username, 0);
         }
-        $zarafaldap->setHasAccount($username, 0);
     }
 }
 

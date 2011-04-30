@@ -39,6 +39,7 @@ use constant ZARAFAMONITORCONFFILE => '/etc/zarafa/monitor.cfg';
 use constant ZARAFASPOOLERCONFFILE => '/etc/zarafa/spooler.cfg';
 use constant ZARAFAICALCONFFILE => '/etc/zarafa/ical.cfg';
 use constant ZARAFAINDEXERCONFFILE => '/etc/zarafa/indexer.cfg';
+use constant ZARAFADAGENTCONFFILE => '/etc/zarafa/dagent.cfg';
 
 use constant ZARAFA_WEBACCESS_DIR => '/usr/share/zarafa-webaccess';
 use constant HTTPD_ZARAFA_WEBACCESS_DIR => '/var/www/webaccess';
@@ -73,17 +74,22 @@ sub actions
             'module' => 'zarafa'
         },
         {
-            'action' => __('Create MySQL Zarafa database.'),
+            'action' => __('Create MySQL Zarafa database'),
             'reason' => __('This database will store the data needed by Zarafa.'),
             'module' => 'zarafa'
         },
         {
-            'action' => __('Create default SSL key/certificates.'),
+            'action' => __('Create default SSL key/certificates'),
             'reason' => __('This self-signed default certificates will be used by Zarafa POP3/IMAP gateway.'),
             'module' => 'zarafa'
         },
         {
-            'action' => __('Add zarafa link to www data directory.'),
+            'action' => __('Enable Zarafa dagent daemon'),
+            'reason' => __('Enable dagent daemon on /etc/default/zarafa-dagent for LMTP delivery.'),
+            'module' => 'zarafa'
+        },
+        {
+            'action' => __('Add zarafa link to www data directory'),
             'reason' => __('Zarafa will be accesible at http://ip/webaccess/.'),
             'module' => 'zarafa'
         },
@@ -138,6 +144,11 @@ sub usedFiles
             'file' => ZARAFAINDEXERCONFFILE,
             'module' => 'zarafa',
             'reason' => __('To properly configure Zarafa indexing server.')
+        },
+        {
+            'file' => ZARAFADAGENTCONFFILE,
+            'module' => 'zarafa',
+            'reason' => __('To properly configure Zarafa dagent LMTP delivering server.')
         },
     ];
     # XXX This will never show at enable, remove it?
@@ -218,6 +229,11 @@ sub _daemons
             'name' => 'zarafa-spooler',
             'type' => 'init.d',
             'pidfiles' => ['/var/run/zarafa-spooler.pid']
+        },
+        {
+            'name' => 'zarafa-dagent',
+            'type' => 'init.d',
+            'pidfiles' => ['/var/run/zarafa-dagent.pid']
         },
         {
             'name' => 'zarafa-indexer',
@@ -377,7 +393,7 @@ sub _setConf
 
     @array = ();
     push(@array, 'ical' => $self->model('Gateways')->icalValue() ? 'yes' : 'no');
-    push(@array, 'icals' => $self->model('Gateways')->icalValue() ? 'yes' : 'no');
+    push(@array, 'icals' => $self->model('Gateways')->icalsValue() ? 'yes' : 'no');
     push(@array, 'timezone' => $self->_timezone());
     $self->writeConfFile(ZARAFAICALCONFFILE,
                  "zarafa/ical.cfg.mas",
@@ -386,6 +402,11 @@ sub _setConf
     @array = ();
     $self->writeConfFile(ZARAFAINDEXERCONFFILE,
                  "zarafa/indexer.cfg.mas",
+                 \@array, { 'uid' => '0', 'gid' => '0', mode => '644' });
+
+    @array = ();
+    $self->writeConfFile(ZARAFADAGENTCONFFILE,
+                 "zarafa/dagent.cfg.mas",
                  \@array, { 'uid' => '0', 'gid' => '0', mode => '644' });
 
     $self->_setSpellChecking();

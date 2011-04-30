@@ -33,6 +33,9 @@ server_pipe_name	= /var/run/zarafa
 # Name for identifying the server in a multi-server environment
 server_name = Zarafa
 
+# Override the hostname of this server, used by Kerberos SSO if enabled
+server_hostname =
+
 # Database engine (mysql)
 database_engine		= mysql
 
@@ -64,13 +67,17 @@ running_path = /
 # seconds, then the session is killed.
 session_timeout		= 300
 
-# Socket to connect to for license server
+# Socket to connect to license server
 license_socket		= /var/run/zarafa-licensed
+
+# Time (in seconds) to wait for a connection to the license server before 
+# terminating the request.
+license_timeout = 10
 
 ##############################################################
 # LOG SETTINGS
 
-# Logging method (syslog, file)
+# Logging method (syslog, file), syslog facility is 'mail'
 log_method		= file
 
 # Logfile (for log_method = file, '-' for stderr)
@@ -81,6 +88,24 @@ log_level		= 2
 
 # Log timestamp - prefix each log line with timestamp in 'file' logging mode
 log_timestamp		= 1
+
+##############################################################
+# AUDIT LOG SETTINGS
+
+# Audit logging is by default not enabled
+audit_log_enabled	= no
+
+# Audit logging method (syslog, file), syslog facility is 'authpriv'
+audit_log_method	= syslog
+
+# Audit logfile (for log_method = file, '-' for stderr)
+audit_log_file		= /var/log/zarafa/audit.log
+
+# Audit loglevel (0=no logging, 1=full logging)
+audit_log_level		= 1
+
+# Audit log timestamp - prefix each log line with timestamp in 'file' logging mode
+audit_log_timestamp	= 1
 
 ##############################################################
 # MYSQL SETTINGS (for database_engine = mysql)
@@ -174,8 +199,8 @@ sync_lifetime		= 365
 # Set to 'yes' if all changes (for synchronization) to messages should be logged to the database
 sync_log_all_changes = yes
 
-# Set to 'yes' if you have NTLM correctly configured for single sign-on
-enable_sso_ntlmauth = no
+# Set to 'yes' if you have Kerberos or NTLM correctly configured for single sign-on
+enable_sso = no
 
 # Set to 'yes' if you want to show the GAB to your users
 enable_gab = yes
@@ -352,6 +377,14 @@ index_services_enabled = <% $indexer %>
 # if the server is going to make use of the indexing service.
 index_services_path = file:///var/run/zarafa-indexer
 
+# Time (in seconds) to wait for a connection to the zarafa-indexer service
+# before terminating the indexed search request.
+index_services_search_timeout = 10
+
 # Allow enhanced ICS operations to speedup synchronization with cached profiles.
 # default: yes
 enable_enhanced_ics = yes
+
+# Synchronize GAB users on every open of the GAB (otherwise, only on 
+# zarafa-admin --sync)
+sync_gab_realtime = yes

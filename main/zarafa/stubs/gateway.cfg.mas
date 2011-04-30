@@ -9,7 +9,15 @@
 
 server_bind	=	0.0.0.0
 
+# Please refer to the administrator manual or manpage why HTTP is used rather than the UNIX socket.
 server_socket	=	http://localhost:236/zarafa
+
+# Set this value to a name to show in the logon greeting to clients.
+# Leave empty to use DNS to find this name.
+server_hostname = 
+
+# Whether to show the hostname in the logon greeting to clients.
+server_hostname_greeting = no
 
 # drop privileges and run the process as this user
 run_as_user = 

@@ -56,7 +56,7 @@ ldap_search_base = <% $ldapbase %>
 
 # attribute name which is/(should: was) used in ldap_user_search_filter
 ldap_object_type_attribute = objectClass
-ldap_user_type_attribute_value = posixAccount
+ldap_user_type_attribute_value = zarafa-user,zarafa-contact
 ldap_group_type_attribute_value = posixGroup
 ldap_contact_type_attribute_value = zarafa-contact
 ldap_company_type_attribute_value = organizationalUnit
@@ -84,7 +84,7 @@ ldap_dynamicgroup_type_attribute_value = zarafa-dynamicgroup
 #   (objectCategory=Person)
 # For LDAP with posix users:
 #   no need to use the search filter.
-ldap_user_search_filter = (|(objectclass=zarafa-contact)(zarafaAccount=1))
+ldap_user_search_filter = (|(&(objectClass=zarafa-user)(zarafaAccount=1))(objectClass=zarafa-contact))
 
 # unique user id for find the user
 # Required
@@ -92,6 +92,9 @@ ldap_user_search_filter = (|(objectclass=zarafa-contact)(zarafaAccount=1))
 #    objectGuid ** WARNING: This WAS: objectSid ** Updates *WILL* fail! **
 # For LDAP with posixAccount, use:
 #    uidNumber
+# Note: contacts also use this field for uniqueness. If you change this,
+# you might need to update the zarafa.schema file too, and change
+# the MUST uidNumber to whatever you set here.dnl
 ldap_user_unique_attribute = uidNumber
 
 # Type of unique user id
@@ -170,18 +173,18 @@ ldap_resource_capacity_attribute = zarafaResourceCapacity
 
 # Optional
 # The attribute which indicates which users are allowed
-# to send on bahalf of the selected user
-ldap_user_sendas_attribute = zarafaSendAsPrivilege
+# to send on behalf of the selected user
+ldap_sendas_attribute = zarafaSendAsPrivilege
 
 # Optional, default = text
 # Active directory: dn
 # LDAP: text
-ldap_user_sendas_attribute_type = text
+ldap_sendas_attribute_type = text
 
-# The attribute of the user which is listed in the
-# ldap_user_sendas_attribute
+# The attribute of the user and group which is listed in 
+# the ldap_sendas_attribute
 # Empty default, using ldap_user_unique_attribute
-ldap_user_sendas_relation_attribute = 
+ldap_sendas_relation_attribute = 
 
 # Optional, default = userCertificate
 # Active directory: userCertificate

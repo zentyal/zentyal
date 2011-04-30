@@ -1,5 +1,11 @@
 HEAD
-	+ Bugfix: groups member where not properly populated.
+	+ Update configuration stubs
+	+ Manage dagent daemon for LMTP delivery
+	+ Create shared folder on enable
+	+ Optimize LDAP user query
+	+ Bugfix: fix iCal SSL configuration
+	+ Bugfix: groups member where not properly populated
+	+ Renamed 80zarafa.conf to zarafa.conf in /etc/zentyal
 	+ Bugfix: indexer was always started ignoring value of zarafa_indexer
 	+ Manage zarafa-licensed daemon if defined 80zarafa.conf
 	+ Bugfix: create contact even if create account is disabled on User
@@ -8,7 +14,6 @@ HEAD
 	+ Add support to manage ICAL server
 	+ Add configuration file 80zarafa.conf for advanced configuration
 	+ Deleted webserver from depends
-	+ Renamed 80zarafa.conf to zarafa.conf in /etc/zentyal
 2.1
 	+ Renamed ebox-zarafa-spell to zarafa-spell
 	+ Use new standard enable-module script

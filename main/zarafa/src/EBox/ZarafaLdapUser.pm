@@ -188,10 +188,14 @@ sub setHasAccount #($username, [01]) 0=disable, 1=enable
     my $mesg = $ldap->search(\%args);
 
     if (!$mesg->count and ($option)) {
+
+        $self->setHasContact($username, 0);
+
         my %attrs = (
               changes => [
                        add => [
                            'objectClass' => 'zarafa-user',
+                           'objectClass' => 'zarafa-contact',
                            'zarafaAccount' => '1',
                            'zarafaAdmin' => '0',
                            'zarafaQuotaOverride' => '0',
@@ -205,15 +209,14 @@ sub setHasAccount #($username, [01]) 0=disable, 1=enable
         ($result->is_error) and
         throw EBox::Exceptions::Internal('Error updating user: $username\n\n');
 
-        $self->setHasContact($username, 0);
-
         $self->{zarafa}->_hook('setacc', $username);
 
     } elsif ($mesg->count and not ($option)) {
         my %attrs = (
               changes => [
                        delete => [
-                          'objectClass' => ['zarafa-user'],
+                              'objectClass' => ['zarafa-user'],
+                              'objectClass' => ['zarafa-contact'],
                               'zarafaAccount' => [],
                               'zarafaAdmin' => [],
                               'zarafaQuotaOverride' => [],
@@ -244,10 +247,9 @@ sub _addUser
        return;
    }
    my $model = EBox::Model::ModelManager::instance()->model('zarafa/ZarafaUser');
-   $self->setHasContact($user, $model->contactValue());
-   # setHasAccount needs to be called after setHasContact as zarafa-contact
-   # overrides zarafa-user objectClass
+
    $self->setHasAccount($user, $model->enabledValue());
+   $self->setHasContact($user, $model->contactValue());
 }
 
 sub hasContact #($username)
