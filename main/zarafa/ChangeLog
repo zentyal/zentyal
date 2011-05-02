@@ -1,4 +1,5 @@
 HEAD
+	+ Bugfix: set server.cfg to 640 perms
 	+ Update configuration stubs
 	+ Manage dagent daemon for LMTP delivery
 	+ Create shared folder on enable

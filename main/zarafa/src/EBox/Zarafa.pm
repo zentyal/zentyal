@@ -368,7 +368,7 @@ sub _setConf
     push(@array, 'indexer' => $zarafa_indexer);
     $self->writeConfFile(ZARAFACONFFILE,
                  "zarafa/server.cfg.mas",
-                 \@array, { 'uid' => '0', 'gid' => '0', mode => '644' });
+                 \@array, { 'uid' => '0', 'gid' => '0', mode => '640' });
 
     @array = ();
     push(@array, 'pop3' => $self->model('Gateways')->pop3Value() ? 'yes' : 'no');
