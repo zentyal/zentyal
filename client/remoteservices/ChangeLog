@@ -1,3 +1,5 @@
+HEAD
+	+ Catch all exceptions when the server is not connected to Cloud
 2.0.14
 	+ Remove unecessary parameter when making automatic backup
 2.0.13

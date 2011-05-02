@@ -40,11 +40,13 @@ use v5.10;
 use Date::Calc::Object;
 use EBox;
 use EBox::Config;
+use EBox::Exceptions::NotConnected;
 use EBox::Gettext;
 use EBox::Global;
 use EBox::RemoteServices::Types::EBoxCommonName;
 use EBox::Types::Text;
 use POSIX;
+use Error qw(:try);
 
 # Constants:
 
@@ -104,7 +106,11 @@ sub viewCustomizer
     unless ( $rs->eBoxSubscribed() ) {
         $msg = _CBmessage();
     }
-    unless ( $rs->disasterRecoveryAddOn() ) {
+    my $drOn = 0;
+    try {
+        $drOn = $rs->disasterRecoveryAddOn();
+    } catch EBox::Exceptions::NotConnected with { };
+    unless ( $drOn ) {
         $msg .= '<br/><br/>' if ($msg);
         $msg .= _DRmessage();
     }
@@ -207,7 +213,11 @@ sub _content
         # I guess 45min is enough to install Zentyal
         my $instTime = 45 * 60;
 
-        my $drEnabled = $rs->disasterRecoveryAddOn();
+        my $drEnabled = 0;
+        try {
+            $drEnabled = $rs->disasterRecoveryAddOn();
+        } catch EBox::Exceptions::NotConnected with { };
+
         if ( $drEnabled ) {
             $dr = __('Full Disaster Recovery enabled');
 

@@ -876,6 +876,11 @@ sub securityUpdatesAddOn
 #      Boolean - indicating whether the company has disaster recovery
 #      add-on or not
 #
+# Exceptions:
+#
+#      <EBox::Exceptions::NotConnected> - thrown if the server cannot
+#      connect to Zentyal Cloud to know the answer
+#
 sub disasterRecoveryAddOn
 {
     my ($self, $force) = @_;
@@ -1561,7 +1566,12 @@ sub _ccConnectionWidget
             }
         }
 
-        if ( $self->disasterRecoveryAddOn() ) {
+        my $drOn = 0;
+        try {
+            $drOn = $self->disasterRecoveryAddOn();
+        } catch EBox::Exceptions::NotConnected with { };
+
+        if ( $drOn ) {
             $DRValue = __x('Enabled');
             my $date = $self->_latestBackup();
             if ( $date ne 'unknown' ) {
