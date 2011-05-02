@@ -1,4 +1,6 @@
 HEAD
+	+ Report remoteservices, when required, a change in administration
+	  port
 	+ Create plpgsql language on database setup to avoid migration problems
 	+ Fixed Firefox 4 issue when downloading backups
 	+ Show scroll when needed in stacktraces (error page)
