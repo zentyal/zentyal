@@ -1,4 +1,5 @@
 HEAD
+	+ Added send report option when a error ocurrs
 	+ Report remoteservices, when required, a change in administration
 	  port
 	+ Added continueOnModuleFail mode to configuration restore

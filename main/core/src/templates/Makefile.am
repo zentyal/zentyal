@@ -11,7 +11,7 @@ template_DATA = backup.mas bug.mas confirm-backup.mas backupTabs.mas \
  moduleStatusTable.mas notConfigured.mas wizard.mas \
  links-widget.mas enable.mas error.mas language.mas msg.mas title.mas formTable.mas \
  legendTable.mas dataTable.mas presentationTable.mas  table.mas \
- link.mas componentCall.mas htmlAttributes.mas readOnlyForm.mas
+ link.mas componentCall.mas htmlAttributes.mas readOnlyForm.mas cgiError.html
 
 EXTRA_DIST = $(template_DATA)
 

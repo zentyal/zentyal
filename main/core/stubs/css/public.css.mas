@@ -728,6 +728,15 @@ a.changed:hover {
 .button {
     cursor: pointer;
 }
+.button_link {
+    text-decoration: none;
+    border: 1px solid <% $data_table_border_color %>;
+    padding: 5px 10px;
+    margin-right: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+}
 .insideTab {
     border: 1px solid #989898;
     border-top: none;
