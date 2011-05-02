@@ -2,7 +2,7 @@
 
 perldir = @PERLPATH@/EBox/RemoteServices
 
-mods = Alerts.pm Auth.pm Base.pm Backup.pm Bundle.pm Capabilities.pm \
+mods = AdminPort.pm Alerts.pm Auth.pm Base.pm Backup.pm Bundle.pm Capabilities.pm \
        Configuration.pm CSV.pm DisasterRecovery.pm DisasterRecoveryProxy.pm \
        Jobs.pm Nmap.pm ProxyBackup.pm SOAPClient.pm Subscription.pm \
        SupportAccess.pm WSDispatcher.pm

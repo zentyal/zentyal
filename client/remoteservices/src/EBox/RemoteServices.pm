@@ -44,6 +44,7 @@ use EBox::Gettext;
 use EBox::Global;
 use EBox::Service;
 use EBox::RemoteServices::Audit::Password;
+use EBox::RemoteServices::AdminPort;
 use EBox::RemoteServices::Backup;
 use EBox::RemoteServices::Bundle;
 use EBox::RemoteServices::Capabilities;
@@ -53,6 +54,7 @@ use EBox::RemoteServices::DisasterRecoveryProxy;
 use EBox::RemoteServices::Subscription;
 use EBox::RemoteServices::SupportAccess;
 use EBox::Sudo;
+use EBox::Validate;
 use Error qw(:try);
 use Net::DNS;
 use File::Slurp;
@@ -148,6 +150,7 @@ sub _setConf
         $self->_establishVPNConnection();
         $self->_writeCronFile();
         $self->_startupTasks();
+        $self->_reportAdminPort();
     }
 
     $self->_setRemoteSupportAccessConf();
@@ -1160,6 +1163,41 @@ sub latestRemoteConfBackup
     return $latest;
 }
 
+# Method: reportAdminPort
+#
+#     Report to Zentyal Cloud for a new TCP port for the Zentyal
+#     server admin interface.
+#
+#     It will do so only if the server is connected to Zentyal Cloud
+#
+# Parameters:
+#
+#     port - Int the new TCP port
+#
+# Exceptions:
+#
+#     <EBox::Exceptions::InvalidData> - if the given port is not a
+#     valid port
+#
+sub reportAdminPort
+{
+    my ($self, $port) = @_;
+
+    EBox::Validate::checkPort($port, "$port is not a valid port");
+
+    # Check for a change in admin port
+    if ( (not $self->st_entry_exists('admin_port'))
+         or ($self->st_get_int('admin_port') != $port) ) {
+
+        if ( $self->isConnected() ) {
+            my $adminPortRS = new EBox::RemoteServices::AdminPort();
+            $adminPortRS->setAdminPort($port);
+            $self->st_set_int('admin_port', $port);
+        }
+    }
+
+}
+
 # Group: Public methods related to reporting
 
 # Method: logReportInfo
@@ -1640,6 +1678,18 @@ sub _latestBackup
     }
 
     return $latest;
+}
+
+# Report the Zentyal server TCP admin port to Zentyal Cloud
+sub _reportAdminPort
+{
+    my ($self) = @_;
+
+    my $gl = EBox::Global->getInstance(1);
+    my $apache = $gl->modInstance('apache');
+
+    $self->reportAdminPort($apache->port());
+
 }
 
 # Method: extraSudoerUsers

@@ -1,4 +1,6 @@
 HEAD
+	+ Add reportAdminPort to let Zentyal Cloud know the TCP port where
+	  the server UI is listening to
 	+ Catch all exceptions when the server is not connected to Cloud
 2.0.14
 	+ Remove unecessary parameter when making automatic backup
