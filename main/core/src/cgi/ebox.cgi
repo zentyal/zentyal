@@ -62,7 +62,7 @@ try {
 
     # template params
     my $params = {};
-    $params->{title} = __('Sorry, an unexpected error has ocurred');
+    $params->{title} = __('Sorry, an unexpected error has occurred');
     $params->{show_details} = __('Show technical details');
     $params->{report} = __('Report the problem');
     $params->{cancel} = __('Cancel');
