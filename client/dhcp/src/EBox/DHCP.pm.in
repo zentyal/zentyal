@@ -1608,6 +1608,8 @@ sub _dynamicDNS # (which, iface)
 {
     my ($self, $which, $iface) = @_;
 
+    return undef unless (EBox::Global->modExists('dns'));
+
     my $dynamicDNSModel = $self->_getModel('dynamicDNSModel', $iface);
 
     my $dynamicOptionsRow = $dynamicDNSModel->row();
@@ -1668,6 +1670,8 @@ sub _keysFile
 sub _dynamicDNSEnabled # (ifacesInfo)
 {
     my ($self, $ifacesInfo) = @_;
+
+    return 0 unless ( EBox::Global->modExists('dns') );
 
     if ( defined($ifacesInfo) ) {
         my $nDynamicOptionsOn = grep { defined($ifacesInfo->{$_}->{'dynamicDomain'}) } keys %{$ifacesInfo};

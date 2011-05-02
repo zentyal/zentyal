@@ -1,4 +1,5 @@
 HEAD
+	+ Do not fail if the DNS module is not installed
 	+ Fixed 'routers' option when gateway is set to 'none'
 	+ Object members without a valid hostname are no longer used as
 	  fixed addresses
