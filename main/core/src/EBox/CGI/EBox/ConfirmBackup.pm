@@ -62,11 +62,17 @@ sub requiredParameters
 }
 
 
+sub optionalParameters
+{
+    return ['download', 'delete', 'restoreFromId'];
+}
+
+
 sub actuate
 {
   my ($self) = @_;
 
-  if (defined($self->param('download'))) {
+  if (defined($self->param('download.x'))) {
     $self->{chain} = 'EBox/Backup';
     return;
   }
