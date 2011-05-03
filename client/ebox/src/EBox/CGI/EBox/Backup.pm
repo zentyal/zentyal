@@ -94,7 +94,7 @@ sub optionalParameters
         return ['.*'];
     }
 
-    return ['selected'];
+    return ['selected', 'download'];
 }
 
 sub actuate
