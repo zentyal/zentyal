@@ -16,7 +16,7 @@ use EBox::Gettext;
 <center>
 	<div id='login'>
 	<div id='loginin'>
-	<img src="/data/images/title-login.png" alt="Zentyal Logo" id="logo"/>
+	<img src="/data/images/title-login.png" alt="Zentyal Logo" id="logo" style="padding-top: 20px"/>
 %		if(length($reason)){
 			<div id='reason'><% $reason %></div>
 %		}
@@ -25,6 +25,7 @@ use EBox::Gettext;
                 <div class="warning" id="capsWarning" style="display: none">
                   <% __('Warning: Caps Lock is enabled')%>
                 </div>
+                <center><h2 style="color: #333"><% __('User Corner') %></h2></center>
 		<dl>
 			<dt><% __('User name') %>:</dt>
 			<dd><input  class='inputTextLogin' type='text'
