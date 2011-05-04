@@ -173,29 +173,23 @@ sub run
             my $e = shift;
             $self->_print_warning($e->text());
             $finish = 1;
-        } catch EBox::Exceptions::Internal with {
-
-            my $e = shift;
-            throw $e;
         } catch EBox::Exceptions::DataInUse with {
             my $e = shift;
             $self->_print_warning($e->text());
             $finish = 1;
-        } catch EBox::Exceptions::Base with {
+        } otherwise {
             my $e = shift;
             $self->setErrorFromException($e);
             $self->_error();
             $finish = 1;
-        } otherwise {
-            my $e = shift;
-            throw $e;
         };
     }
+
 
     return if ($finish == 1);
 
     try  {
-        $self->_print
+        $self->_print;
     } catch EBox::Exceptions::Internal with {
         my $ex = shift;
         $self->_print_error($ex->stacktrace());

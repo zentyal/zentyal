@@ -1,4 +1,6 @@
 HEAD
+	+ Fixed unescaped characters when showing an exception
+	+ Fixed nested error page on AJAX requests
 	+ Added send report option when an error occurs
 	+ Report remoteservices, when required, a change in administration
 	  port

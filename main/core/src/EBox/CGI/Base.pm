@@ -535,11 +535,11 @@ sub setErrorFromException
 
     if ($debug eq 'yes') {
       $self->{error} = $ex->stringify() if $ex->can('stringify');
-      $self->{error} .= '<br/>\n';
-      $self->{error} .= '<pre>\n';
+      $self->{error} .= "<br/>\n";
+      $self->{error} .= "<pre>\n";
       $self->{error} .= Dumper($ex);
-      $self->{error} .= '</pre>\n';
-      $self->{error} .= '<br/>\n';
+      $self->{error} .= "</pre>\n";
+      $self->{error} .= "<br/>\n";
     }
     elsif ($ex->isa('EBox::Exceptions::External')) {
       $self->{error} = $ex->stringify();
