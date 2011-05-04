@@ -102,9 +102,12 @@ sub syncRows
     my ($self, $currentRows) = @_;
 
     # If the module is readonly, return current rows
-    if ( $self->{'gconfmodule'}->isReadOnly() ) {
+    if ($self->{'gconfmodule'}->isReadOnly()) {
         return undef;
     }
+
+    my $modIsChanged = EBox::Global->getInstance()->modIsChanged('monitor');
+
     # Fetch current measures stored in GConf
     my %storedMeasures =
       map { $self->row($_)->valueByName('measure') => 1 } @{$currentRows};
@@ -129,8 +132,12 @@ sub syncRows
         $modifiedModel = 1;
     }
 
-    return $modifiedModel;
+    if ($modifiedModel and (not $modIsChanged)) {
+        EBox::Global->modInstance('monitor')->_saveConfig();
+        EBox::Global->getInstance()->modRestarted('monitor');
+    }
 
+    return $modifiedModel;
 }
 
 # Group: Protected methods
