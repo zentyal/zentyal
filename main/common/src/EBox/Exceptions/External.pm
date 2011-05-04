@@ -27,10 +27,9 @@ use EBox::Gettext;
 #
 #      text - the localisated text to show to the user
 #
-sub new # (text)
+sub new
 {
     my $class = shift;
-    my ($error) = @_;
 
     local $Error::Depth = $Error::Depth + 1;
     local $Error::Debug = 1;
@@ -45,7 +44,7 @@ sub new # (text)
     return $self;
 }
 
-sub _logfunc # (logger, msg)
+sub _logfunc
 {
     my ($self, $logger, $msg) = @_;
     $logger->debug($msg);
