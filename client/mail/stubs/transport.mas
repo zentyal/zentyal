@@ -2,5 +2,5 @@
     $domain
 </%args>
 % if ($domain) {
-<% $domain %>	lmtp:127.0.0.1:2003
+<% $domain %>    zarafa:
 % }

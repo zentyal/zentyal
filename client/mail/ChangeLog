@@ -1,5 +1,4 @@
 HEAD
-	+ Change Zarafa virtual transport to LMTP.
 	+ Improvements in log parsing
 2.0.6
 	+ Bugfix: EBox::MailVDomainsLdap::vdomains returns a correct value
