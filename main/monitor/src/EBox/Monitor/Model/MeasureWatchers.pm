@@ -101,6 +101,8 @@ sub syncRows
 {
     my ($self, $currentRows) = @_;
 
+    my $modIsChanged =  EBox::Global->getInstance()->modIsChanged('monitor');
+
     # Fetch current measures stored in GConf
     my %storedMeasures =
       map { $self->row($_)->valueByName('measure') => 1 } @{$currentRows};
@@ -123,6 +125,11 @@ sub syncRows
         next if (exists($currentMeasures{$measure}));
         $self->removeRow($rowId);
         $modifiedModel = 1;
+    }
+
+    if ($modifiedModel and (not $modIsChanged)) {
+        EBox::Global->modInstance('monitor')->_saveConfig();
+        EBox::Global->getInstance()->modRestarted('monitor');
     }
 
     return $modifiedModel;

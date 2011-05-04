@@ -1,4 +1,6 @@
 HEAD
+	+ Fixed syncRows method from DomainsBackup to not mark the module
+	  as changed
 	+ Report methods in RemoteSettings and BackupDomains now return
 	  non-i18n'ed data
 	+ More control over uncommon errors

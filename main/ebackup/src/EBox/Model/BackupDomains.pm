@@ -16,9 +16,6 @@
 use strict;
 use warnings;
 
-
-#
-
 package EBox::EBackup::Model::BackupDomains;
 use base 'EBox::Model::DataTable';
 
@@ -37,6 +34,7 @@ sub syncRows
     my ($self, $currentRows) = @_;
 
     my $ebackup  = $self->{'gconfmodule'};
+    my $modIsChanged =  EBox::Global->getInstance()->modIsChanged($ebackup->name());
 
     my %domains = %{ $ebackup->selectableBackupDomains() };
     my $modified;
@@ -78,7 +76,6 @@ sub syncRows
         $modified = 1;
     }
 
-    my $modIsChanged =  EBox::Global->getInstance()->modIsChanged($ebackup->name());
     if ($modified and not $modIsChanged) {
         $ebackup->_saveConfig();
         EBox::Global->getInstance()->modRestarted($ebackup->name());
