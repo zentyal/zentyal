@@ -2,7 +2,7 @@
 installerdir = @DATADIR@/zentyal-openvpn
 
 
-installer_DATA = openvpn-2.1.4-install.exe
+installer_DATA = openvpn-2.2.0-install.exe
 
 EXTRA_DIST = $(installer_DATA)
 
