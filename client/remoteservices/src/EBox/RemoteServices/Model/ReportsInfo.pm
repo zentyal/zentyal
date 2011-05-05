@@ -140,7 +140,7 @@ sub _content
         if ( defined( $lastGen ) ) {
             $latest = POSIX::strftime("%c", localtime($lastGen));
             # Show the link message
-            my $domain   = $rs->confKey('domain');
+            my $domain   = $rs->confKey('realm');
             my $subsName = $rs->confKey('subscribedHostname');
             my $reportURL = "https://www.${domain}/services/report/latest/${subsName}/";
             $link = __x('{oh}Download{ch}',
