@@ -1212,6 +1212,7 @@ sub _unpackModulesRestoreData
 sub _restoreEBoxEtcFiles
 {
     my ($self, $tempdir) = @_;
+
     my $archive = "$tempdir/eboxbackup/etcFiles.tgz";
     if (not -f $archive) {
         EBox::warn("eBox's /etc files archive not found; not restoring them" );
@@ -1235,16 +1236,18 @@ sub _restoreEBoxEtcFiles
 
     # create backup for files/directories to be replaced
     my @filesToBackup = glob("$etc*.conf");
-    push @filesToBackup, (
+    my @dirsToBackup = (
             "${etc}hooks",
             "${etc}post-save",
             "${etc}pre-save",
-            );
+    );
 
-    foreach my $file (@filesToBackup) {
+    foreach my $file (@filesToBackup, @dirsToBackup) {
         my $backupFile = _backupName($file);
         try {
-            EBox::Sudo::root("mv --force '$file' '$backupFile'");
+            my $cmd =  "cp --force -r -p '$file' '$backupFile'";
+            EBox::Sudo::root($cmd);
+        } catch EBox::Exceptions::Sudo::Command with {
         } catch EBox::Exceptions::Sudo::Command with {
             # no backup is a non-fatal error
             EBox::error("Could not create backup of file $file as $backupFile: $!");
@@ -1255,14 +1258,23 @@ sub _restoreEBoxEtcFiles
     try {
         # It is mandatory to overwrite the changes
         # We must use install instead of mv -f
-        # Install cmds
-        my @cmds;
-        push(@cmds, "install -m 0644 -t $etc $tmpEtc/*.conf");
-        push(@cmds, "mv -f $tmpEtc/hooks $tmpEtc/post-save $tmpEtc/pre-save $etc");
-        EBox::Sudo::root(@cmds);
+
+        # put conf files in places
+        EBox::Sudo::root("install -m 0644 -t $etc $tmpEtc/*.conf");
+
+        # put conf dirs in place
+        foreach my $dir (@dirsToBackup) {
+            my $new = $tmpEtc . '/' . File::Basename::basename($dir);
+            if (EBox::Sudo::fileTest('-d', $new)) {
+                EBox::Sudo::root("rm -rf '$dir'");
+                EBox::Sudo::root("mv -f '$new' '$dir'")
+            }
+        }
     }  catch EBox::Exceptions::Sudo::Command with {
         # continue with the restore anyway
         EBox::error("Cannot restore $etc files: $!");
+    } finally {
+        EBox::Config::refreshConfFiles();
     };
 }
 

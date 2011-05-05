@@ -37,8 +37,14 @@ $ref->{package} = "@PACKAGE@";
 $ref->{version} = "@VERSION@";
 $ref->{perlpath} = "@PERLPATH@";
 
-my @confFiles = glob (EBox::Config::etc() . '*.conf');
+my @confFiles;
 my %cachedFiles;
+refreshConfFiles();
+
+sub refreshConfFiles
+{
+     @confFiles = glob (EBox::Config::etc() . '*.conf');
+}
 
 sub etc
 {

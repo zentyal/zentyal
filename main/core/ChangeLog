@@ -1,4 +1,5 @@
 HEAD
+	+ Restore configuration is safer when restoring /etc/zentyal files
 	+ Fixed bug in ConfigureLogDataTable::syncRows which incorrectly
 	  marked logs module as changed
 	+ Fixed unescaped characters when showing an exception
