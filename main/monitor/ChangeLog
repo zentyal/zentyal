@@ -1,4 +1,5 @@
 HEAD
+	+ Added missing dependency on rrdtool
 	+ Fixed _syncRows method from MeasureWatchers to not mark the module
 	  as changed
 	+ Now adding thresholds is more resilent to lower number of
