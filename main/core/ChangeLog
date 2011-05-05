@@ -1,4 +1,6 @@
 HEAD
+	+ Fixed bug in ConfigureLogDataTable::syncRows which incorrectly
+	  marked logs module as changed
 	+ Fixed unescaped characters when showing an exception
 	+ Fixed nested error page on AJAX requests
 	+ Added send report option when an error occurs
