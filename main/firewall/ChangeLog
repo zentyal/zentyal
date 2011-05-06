@@ -1,4 +1,5 @@
 HEAD
+	+ Remove unnecessary code from EBoxServicesRuleTable::syncRows
 	+ Add forwardNoSpoof and inputNoSpoof FirewallHelper methods to allow
 	  exceptions on default spoof checking in the firewall
 	+ Log INVALID packets as we do with DROPped ones

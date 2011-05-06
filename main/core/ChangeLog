@@ -1,7 +1,8 @@
 HEAD
+	+ Automatically save changes after syncRows is called and mark the module
+	  mark the module as unchanged unless it was previously changed
+	+ Removed unnecessary code from syncRows in logs and events
 	+ Restore configuration is safer when restoring /etc/zentyal files
-	+ Fixed bug in ConfigureLogDataTable::syncRows which incorrectly
-	  marked logs module as changed
 	+ Fixed unescaped characters when showing an exception
 	+ Fixed nested error page on AJAX requests
 	+ Added send report option when an error occurs

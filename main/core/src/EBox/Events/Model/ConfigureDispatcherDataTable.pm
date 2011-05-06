@@ -122,8 +122,6 @@ sub syncRows
 {
     my ($self, $currentIds) = @_;
 
-    my $modIsChanged = EBox::Global->getInstance()->modIsChanged('events');
-
     my %storedEventDispatchers;
     my %currentEventDispatchers;
     my $dispatchersRef = $self->_fetchDispatchers();
@@ -185,11 +183,6 @@ sub syncRows
 
         $self->addRow(%params);
         $modified = 1;
-    }
-
-    if ($modified and not $modIsChanged) {
-        $self->{'gconfmodule'}->_saveConfig();
-        EBox::Global->getInstance()->modRestarted('events');
     }
 
     return $modified;

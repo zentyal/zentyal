@@ -291,20 +291,40 @@ sub _lock
     EBox::Util::Lock::lock($self->name);
 }
 
-# Method: setAsChanged
+# Method: changed
 #
-#   Sets the module as changed
-#
-sub setAsChanged
+#  Returns whether the module has changes status or not
+sub changed
 {
     my ($self) = @_;
     my $name = $self->name;
+    my $global = EBox::Global->getInstance();
+    return $global->modIsChanged($name);
+}
 
+# Method: setAsChanged
+#
+#   Sets the module changed status
+#
+#   Parameters:
+#     newChangedStauts - optional, default to true (changed)
+#
+sub setAsChanged
+{
+    my ($self, $newChangedStatus) = @_;
+    defined $newChangedStatus or
+        $newChangedStatus = 1;
+    my $name = $self->name;
     my $global = EBox::Global->getInstance();
 
-    return if $global->modIsChanged($name);
-
-    $global->modChange($name);
+    my $changedStatus = $global->modIsChanged($name);
+    if ($newChangedStatus) {
+        return if $changedStatus;
+        $global->modChange($name);
+    } else {
+        return if not $changedStatus;
+        $global->modRestarted($name);
+    }
 }
 
 

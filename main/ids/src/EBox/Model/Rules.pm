@@ -77,8 +77,6 @@ sub syncRows
 {
     my ($self, $currentRows) = @_;
 
-    my $modIsChanged = EBox::Global->getInstance()->modIsChanged('ids');
-
     my @files = </etc/snort/rules/*.rules>;
 
     my @names;
@@ -111,11 +109,6 @@ sub syncRows
             $self->removeRow($id);
             $modified = 1;
         }
-    }
-
-    if ($modified and not $modIsChanged) {
-        $self->{'gconfmodule'}->_saveConfig();
-        EBox::Global->getInstance()->modRestarted('ids');
     }
 
     return $modified;

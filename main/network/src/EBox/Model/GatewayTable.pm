@@ -81,7 +81,6 @@ sub syncRows
     my ($self, $currentRows) = @_;
 
     my $gconf = $self->{'gconfmodule'};
-    my $modIsChanged = EBox::Global->getInstance()->modIsChanged('network');
     my $network = EBox::Global->modInstance('network');
 
     my %dynamicGws;
@@ -160,11 +159,6 @@ sub syncRows
         $self->removeRow($id, 1);
 
         $modified = 1;
-    }
-
-    if ($modified and not $modIsChanged) {
-        $gconf->_saveConfig();
-        EBox::Global->getInstance()->modRestarted('network');
     }
 
     return $modified;

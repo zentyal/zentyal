@@ -32,9 +32,7 @@ use  EBox::EBackup::Subscribed;
 sub syncRows
 {
     my ($self, $currentRows) = @_;
-
     my $ebackup  = $self->{'gconfmodule'};
-    my $modIsChanged =  EBox::Global->getInstance()->modIsChanged($ebackup->name());
 
     my %domains = %{ $ebackup->selectableBackupDomains() };
     my $modified;
@@ -76,14 +74,8 @@ sub syncRows
         $modified = 1;
     }
 
-    if ($modified and not $modIsChanged) {
-        $ebackup->_saveConfig();
-        EBox::Global->getInstance()->modRestarted($ebackup->name());
-    }
-
     return $modified;
 }
-
 
 sub enabled
 {

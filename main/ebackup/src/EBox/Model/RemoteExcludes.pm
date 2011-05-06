@@ -301,12 +301,6 @@ sub syncRows
                      );
     }
 
-    my $modIsChanged = EBox::Global->getInstance()->modIsChanged($ebackup->name());
-    if (not $modIsChanged) {
-        $ebackup->_saveConfig();
-        EBox::Global->getInstance()->modRestarted($ebackup->name());
-    }
-
     return 1;
 }
 

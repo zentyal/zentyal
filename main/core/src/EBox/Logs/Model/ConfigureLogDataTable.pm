@@ -108,10 +108,7 @@ sub syncRows
 {
     my ($self, $currentRows) = @_;
 
-    my $global = EBox::Global->getInstance();
-    my $alreadyChanged = $global->modIsChanged('logs');
     my $changed = undef;
-
     # Fetch the current log domains stored in gconf
     my %storedLogDomains;
     foreach my $id (@{$currentRows}) {
@@ -121,7 +118,7 @@ sub syncRows
 
     # Fetch the current available log domains
     my %currentLogDomains;
-    my $logs = $global->modInstance('logs');
+    my $logs = EBox::Global->modInstance('logs');
     foreach my $mod (@{ $logs->getLogsModules()}  ) {
       $currentLogDomains{$mod->name} = $mod;
     }
@@ -162,11 +159,6 @@ sub syncRows
         next if (exists $currentLogDomains{$domain});
         $self->removeRow($row->id());
         $changed = 1;
-    }
-
-    if ($changed and (not $alreadyChanged)) {
-        # remove the mark of module change
-        $global->modRestarted('logs');
     }
 
     return $changed;

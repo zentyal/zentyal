@@ -60,9 +60,6 @@ sub syncRows
 {
     my ($self, $currentRows) = @_;
 
-    my $gconf = $self->{'gconfmodule'};
-
-    my $modIsChanged = EBox::Global->getInstance()->modIsChanged('firewall');
     my $iptables = new EBox::Iptables();
 
     my %newRules = map { $_->{'rule'} => $_ } @{$iptables->moduleRules()};
@@ -94,11 +91,6 @@ sub syncRows
         my $row = $self->row($id);
         $self->removeRow($id, 1);
         $modified = 1;
-    }
-
-    if ($modified and not $modIsChanged) {
-        $gconf->_saveConfig();
-        EBox::Global->getInstance()->modRestarted('firewall');
     }
 
     return $modified;

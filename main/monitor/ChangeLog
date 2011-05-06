@@ -1,7 +1,6 @@
 HEAD
+	+ Removed unnecessary code from MeasureWatchers::syncRows
 	+ Added missing dependency on rrdtool
-	+ Fixed _syncRows method from MeasureWatchers to not mark the module
-	  as changed
 	+ Now adding thresholds is more resilent to lower number of
 	  passed parameters
 	+ Df measure now monitorizes file systems in /media and never

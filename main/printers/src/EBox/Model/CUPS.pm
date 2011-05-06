@@ -79,8 +79,6 @@ sub syncRows
 {
     my ($self, $currentRows) = @_;
 
-    my $modIsChanged = EBox::Global->getInstance()->modIsChanged('printers');
-
     my $net = EBox::Global->modInstance('network');
     my $ifaces = $net->ifaces();
     my %newIfaces =
@@ -103,11 +101,6 @@ sub syncRows
         next if exists $newIfaces{$ifaceName};
         $self->removeRow($id);
         $modified = 1;
-    }
-
-    if ($modified and not $modIsChanged) {
-        $self->{'gconfmodule'}->_saveConfig();
-        EBox::Global->getInstance()->modRestarted('printers');
     }
 
     return $modified;

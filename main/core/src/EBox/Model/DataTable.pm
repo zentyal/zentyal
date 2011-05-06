@@ -1557,7 +1557,13 @@ sub ids
     my $changed = 0;
 
     unless ($self->{'gconfmodule'}->isReadOnly()) {
+        my $modAlreadyChanged = $self->{'gconfmodule'}->changed();
         $changed = $self->syncRows($currentIds);
+        if ($changed and (not $modAlreadyChanged)) {
+            # save changes but don't mark it as changed
+            $self->{gconfmodule}->_saveConfig();
+            $self->{gconfmodule}->setAsChanged(0);
+        }
     }
 
     if ($changed) {
