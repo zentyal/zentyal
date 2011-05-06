@@ -1,4 +1,7 @@
 HEAD
+	+ Write standard dhcpd apparmor profile when setting the
+	  configuration and migration to remove old apparmor profile to
+	  prevent issues upgrading dhcp3-server package
 	+ Do not fail if the DNS module is not installed
 	+ Fixed 'routers' option when gateway is set to 'none'
 	+ Object members without a valid hostname are no longer used as

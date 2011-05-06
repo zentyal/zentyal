@@ -70,7 +70,7 @@ use Text::DHCPLeases;
 use constant DHCPCONFFILE => "@DHCPDCONF@";
 use constant LEASEFILE => "@DHCPDLEASES@";
 use constant PIDFILE => "@DHCPDPID@";
-use constant APPARMOR_PROFILE => '/etc/apparmor.d/usr.sbin.dhcpd3.zentyal';
+use constant APPARMOR_PROFILE => '/etc/apparmor.d/usr.sbin.dhcpd3';
 use constant DHCP_SERVICE => "@DHCPD_SERVICE@";
 use constant TFTP_SERVICE => "tftpd-hpa";
 use constant APPARMOR_SERVICE => '/etc/init.d/apparmor';
@@ -118,7 +118,13 @@ sub usedFiles
 		 'file' => DHCPCONFFILE,
 		 'module' => 'dhcp',
                  'reason' => __x('{server} configuration file', server => 'dhcpd'),
-		}
+		},
+		{
+		 'file' => APPARMOR_PROFILE,
+		 'module' => 'dhcp',
+                 'reason' => __x('{server} apparmor profile, if installed',
+                                 server => 'dhcpd'),
+		},
 	       ];
 }
 
@@ -140,7 +146,11 @@ sub actions
 
 # Method: enableActions
 #
-#   Override EBox::Module::Service::enableActions
+#   Override to disable dhcp3-server init.d script
+#
+# Overrides:
+#
+#   <EBox::Module::Service::enableActions>
 #
 sub enableActions
 {
@@ -1388,7 +1398,7 @@ sub _setDHCPConf
     $self->writeConfFile(DHCPCONFFILE, "dhcp/dhcpd.conf.mas", \@params);
 
     # Write apparmor profile if needed
-    if ( not -f APPARMOR_PROFILE ) {
+    if ( -x APPARMOR_SERVICE ) {
         $self->writeConfFile(APPARMOR_PROFILE, "dhcp/apparmor-dhcpd.profile.mas",
                              [ ( 'keysFile' => $self->_keysFile(),
                                  'confDir'  => $self->IncludeDir() ) ]);
