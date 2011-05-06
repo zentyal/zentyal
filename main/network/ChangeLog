@@ -1,4 +1,7 @@
 HEAD
+	+ Do not execute ifup on interfaces during the boot to avoid
+	  multiple instances of dhclient
+	+ Fixed problem with uniqueness check in GatewayTable
 	+ Added report for bandwidth tests
 	+ Avoid warning in GatewayTable::syncRows when gateway is undef
 	+ Added debug to dhcp-gateway.pl script

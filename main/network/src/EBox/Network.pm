@@ -3011,15 +3011,19 @@ sub _enforceServiceState
         }
     }
 
-    open(my $fd, '>', IFUP_LOCK_FILE); close($fd);
-    foreach my $iface (@ifups) {
-        EBox::Sudo::root(EBox::Config::scripts() .
-                         "unblock-exec /sbin/ifup --force -i $file $iface");
-        unless ($self->isReadOnly()) {
-            $self->_unsetChanged($iface);
+    # Only execute ifups if we are not running from init on boot
+    # The interfaces are already up thanks to the networking start
+    if (exists $ENV{'USER'}) {
+        open(my $fd, '>', IFUP_LOCK_FILE); close($fd);
+        foreach my $iface (@ifups) {
+            EBox::Sudo::root(EBox::Config::scripts() .
+                    "unblock-exec /sbin/ifup --force -i $file $iface");
+                unless ($self->isReadOnly()) {
+                    $self->_unsetChanged($iface);
+                }
         }
+        unlink (IFUP_LOCK_FILE);
     }
-    unlink (IFUP_LOCK_FILE);
 
     EBox::Sudo::silentRoot('/sbin/ip route del default table default',
                            '/sbin/ip route del default');

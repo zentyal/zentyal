@@ -192,7 +192,7 @@ sub _table
                     'fieldName' => 'ip',
                     'printableName' => __('IP address'),
                     'size' => '16',
-                    'unique' => 1,
+                    'unique' => 0, # Uniqueness is checked in validateRow
                     'editable' => 1
                       ),
         new EBox::Types::Select(
@@ -265,11 +265,18 @@ sub validateRow()
 
     # Do not check for valid IP in case of auto-added ifaces
     unless ($auto) {
-        my $printableName = __("IP address");
-        unless ($params{'ip'}) {
+        my $printableName = __('IP address');
+        my $ip = $params{'ip'};
+        unless ($ip) {
             throw EBox::Exceptions::MissingArgument($printableName);
         }
-        checkIP($params{'ip'}, $printableName);
+        checkIP($ip, $printableName);
+
+        # Check uniqueness
+        if ($self->find('ip' => $ip)) {
+            throw EBox::Exceptions::DataExists('data' => $printableName,
+                                               'value' => $ip);
+        }
     }
 
     # Only check if gateway is reachable on static interfaces
