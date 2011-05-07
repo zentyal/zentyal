@@ -1,4 +1,5 @@
 HEAD
+	+ Setting DHCP gateway does not longer require saving changes twice
 	+ Remove unnecessary code from GatewayTable::syncRows
 	+ Do not execute ifup on interfaces during the boot to avoid
 	  multiple instances of dhclient
