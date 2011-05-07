@@ -73,7 +73,7 @@ try {
     $params->{newticket_url} = 'http://trac.zentyal.org/newticket';
     $params->{report_error} = __("Couldn't send the report");
 
-    my $instructions = '<strong>' . __('To do it by hand follow this instructions') . '</strong>';
+    my $instructions = '<strong>' . __('To do it by hand follow these instructions:') . '</strong>';
     $instructions .= '<li>' . __('Create a new ticket in the Zentyal trac by clicking ') . '<a class="nvac" href="#" onclick="window.open(\'http://trac.zentyal.org/newticket\')">' . __('here') . "</a>.</li>";
     $instructions .= '<li>' . __('Write a short description of the problem in the summary field') . '.</li>';
     $instructions .= '<li>' . __('Write a detailed report of what you were doing before this problem ocurred in the description field') . '.</li>';
@@ -94,7 +94,6 @@ try {
         $params->{stacktrace} .= "<li>$line</li>\n";
     }
     $params->{stacktrace} .= '</ul>';
-
 
     # Fill HTML template values
     my $html = read_file(EBox::Config::templates . 'cgiError.html');
