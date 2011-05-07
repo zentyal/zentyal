@@ -32,6 +32,7 @@ use strict;
 use EBox::Global;
 use EBox::Model::ModelManager;
 use EBox::Exceptions::MissingArgument;
+use EBox::NetWrappers;
 
 use Perl6::Junction qw( any );
 
@@ -44,6 +45,7 @@ sub new
     my $self = $class->SUPER::new(@_);
     $self->{'log'} = 0;
     $self->{'log_level'} = 7;
+    $self->{'snat'} = 0;
     $self->{service} = [];
     bless($self, $class);
     return $self;
@@ -96,6 +98,22 @@ sub strings
                 my $filterRule = "-A fredirects $state $modulesConf " .
                     "-i $iface $src $filterSvc $dst -j ACCEPT";
 
+                push (@rules, $natRule);
+                push (@rules, $filterRule);
+
+                # Add SNAT rule if neccesary
+                if ($self->{'snat'}) {
+                    my $snatAddress = $self->snatAddress($netModule, $dst);
+                    if ($snatAddress) {
+                        my $snatRule = "-t nat -A POSTROUTING $modulesConf " .
+                                " $src $dst " .
+                                " -j SNAT --to-source $snatAddress";
+                        push (@rules, $snatRule);
+                    } else {
+                        EBox::warn("Unable to find a SNAT address for redirection to $toDst. No SNAT rule will be added for this redirection.");
+                    }
+                }
+
                 # Add log rule if it's activated
                 if ( $self->{'log'} ) {
                     my $logRule = "-A fredirects $state $modulesConf " .
@@ -105,16 +123,37 @@ sub strings
                         '--log-level ' . $self->{'log_level'} . ' ' .
                         '--log-prefix "ebox-firewall redirect "';
 
-                    push (@rules, $logRule);
+                    unshift (@rules, $logRule);
                 }
-
-                push (@rules, $natRule);
-                push (@rules, $filterRule);
             }
         }
     }
 
     return \@rules;
+}
+
+sub snatAddress
+{
+    my ($self, $netModule, $destination) = @_;
+
+    my @parts = split '\s+', $destination;
+    my $dstIP = $parts[-1];
+
+    my @internalIfaces = @{ $netModule->InternalIfaces() };
+    foreach my $iface (@internalIfaces) {
+        my @addresses = @{ $netModule->ifaceAddresses($iface) };
+        foreach my $address (@addresses) {
+            my $ip = $address->{address};
+            my $netmask = $address->{netmask};
+            my $localNetwork = EBox::NetWrappers::ip_network($ip, $netmask);
+            if (EBox::Validate::isIPInNetwork($localNetwork,
+                                              $netmask, $dstIP)) {
+                return $ip;
+            }
+        }
+    }
+
+    return undef;
 }
 
 # Method: setInterface
@@ -265,5 +304,10 @@ sub setLogLevel
     $self->{'log_level'} = $level;
 }
 
+sub setSNAT
+{
+    my ($self, $snat) = @_;
+    $self->{snat} = $snat;
+}
 
 1;

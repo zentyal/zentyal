@@ -31,7 +31,7 @@ use strict;
 use EBox::Model::ModelManager;
 use EBox::Firewall::IptablesRule;
 use EBox::Firewall::IptablesRedirectRule;
-
+use EBox::Types::IPAddr;
 use EBox::Exceptions::Internal;
 
 sub new
@@ -221,6 +221,7 @@ sub RedirectsRuleTable
         $self->_addCustomServiceToRule($rule, $row);
         $self->_addAddressToRule($rule, $row, 'source');
         $self->_addDestinationToRule($rule, $row);
+        $self->_addSNATToRule($rule, $row);
         $self->_addLoggingToRule($rule, $row);
         push (@rules, @{$rule->strings()});
     }
@@ -375,6 +376,14 @@ sub _addDecisionToRule
         $rule->setDecision('log');
     }
 
+}
+
+sub _addSNATToRule
+{
+    my ($self, $rule, $row) = @_;
+
+    my $snat = $row->valueByName('snat');
+    $rule->setSNAT($snat);
 }
 
 # Logging for redirect rules
