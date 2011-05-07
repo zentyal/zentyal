@@ -130,7 +130,7 @@ sub _ids
     return \@realIds;
 }
 
-# Method: syncrows
+# Method: syncRows
 #
 # Overrides:
 #
@@ -151,6 +151,7 @@ sub syncRows
 
     my $anyChange = undef;
     my $logs = $self->{logs};
+    my $modChanged = Box::Global->getInstance()->modIsChanged('events');
 
     # Set up every model
     $self->_setUpModels();
@@ -188,6 +189,12 @@ sub syncRows
         $self->removeRow($id);
         $self->_removeFilteringModel($domain);
         $anyChange = 1;
+    }
+
+
+    if ($anyChange and (not $modChanged)) {
+        $self->{gconfodule}->_saveConfig();
+        EBox::Global->getInstance()->modRestarted('logs');
     }
 
     return $anyChange;

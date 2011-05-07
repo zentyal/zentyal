@@ -218,6 +218,8 @@ sub syncRows
     my ($self, $currentIds) = @_;
 
     my $ebackup  = $self->{'gconfmodule'};
+    my $modIsChanged =  EBox::Global->getInstance()->modIsChanged($ebackup->name());
+    my $changed = undef;
     # If the GConf module is readonly, return current rows
     if ( $ebackup->isReadOnly() ) {
         return undef;
@@ -246,11 +248,15 @@ sub syncRows
     if (not $drAddon) {
         # no disaster recovery add-on, so we not add nothing and remove old added rows
         # if neccessary
-        my $changed = undef;
         foreach my $id (@currentDsIds) {
             $self->removeRow($id);
             $changed = 1;
         }
+        if ($changed and (not $modIsChanged)) {
+            $ebackup->_saveConfig();
+            EBox::Global->getInstance()->modRestarted($ebackup->name());
+        }
+
         return $changed;
     }
 
@@ -272,6 +278,7 @@ sub syncRows
 
     # changed, so to hedge to any order change we will remove all the old domain
     # backup related row and add new ones
+    $changed  = 1;
     foreach my $id (@currentDsIds) {
         $self->removeRow($id);
     }
@@ -295,8 +302,8 @@ sub syncRows
                      );
     }
 
-    my $modIsChanged =  EBox::Global->getInstance()->modIsChanged($ebackup->name());
-    if (not $modIsChanged) {
+    
+    if ($changed and (not $modIsChanged)) {
         $ebackup->_saveConfig();
         EBox::Global->getInstance()->modRestarted($ebackup->name());
     }
