@@ -1,3 +1,5 @@
+<script type="text/javascript" src="/data/js/table-helper.js"></script>
+
 <div id="top"></div>
 
 <div id="header">
@@ -34,6 +36,7 @@
         <div><b>Report</b></div>
         <script type="text/javascript">
             function submitForm() {
+                setLoading('submit_button');
                 $('report_form').request({
                     onComplete: function(transport){
                         if (transport.responseText == 'OK') {
@@ -55,10 +58,16 @@
             <p><textarea name="description" id="description" cols="68" rows="10" style="width: 100%"></textarea></p>
             <p>
                <input type="button" onclick="$('report').hide()" value="{{ cancel }}" />
-               <input type="submit" onclick="return submitForm();" value="{{ report }}" />
+               <span id="submit_button" id="submit_button">
+                  <input type="submit" onclick="return submitForm();" value="{{ report }}" />
+               </span>
             </p>
           </form>
         </div>
+      </div>
+
+      <div id="back">
+        <a href="#" onclick="history.go(-1); return false">{{ go_back }}</a>
       </div>
 
       <div id="report_error" style="display: none">
@@ -66,9 +75,6 @@
         <p>{{ report_instructions }}</p>
       </div>
 
-      <div id="back">
-        <a href="#" onclick="history.go(-1); return false">{{ go_back }}</a>
-      </div>
     </div>
   </div>
 </div>

@@ -72,7 +72,16 @@ try {
     $params->{description} = __('Describe in English what you where doing');
     $params->{newticket_url} = 'http://trac.zentyal.org/newticket';
     $params->{report_error} = __("Couldn't send the report");
-    $params->{report_instructions} = __('Please send it manually at Zentyal webpage');
+
+    my $instructions = '<strong>' . __('To do it by hand follow this instructions') . '</strong>';
+    $instructions .= '<li>' . __('Create a new ticket in the Zentyal trac by clicking ') . '<a class="nvac" href="#" onclick="window.open(\'http://trac.zentyal.org/newticket\')">' . __('here') . "</a>.</li>";
+    $instructions .= '<li>' . __('Write a short description of the problem in the summary field') . '.</li>';
+    $instructions .= '<li>' . __('Write a detailed report of what you were doing before this problem ocurred in the description field') . '.</li>';
+    $instructions .= '<li>' . __('Download the log file with additional information by clicking') . ' <a class="nvac" href="/zentyal/EBox/Log" id="log">' . __('here') . '</a>.</li>';
+    $instructions .= '<li>' . __('Attach the downloaded file in the ticket') . '.</li></ol>';
+    $instructions .= '<form action="Backup" method="POST" id="formreport"><input type="hidden" name="bugreport" value="a" /></form></div></div>';
+
+    $params->{report_instructions} = $instructions;
 
     if ( $ex->can('text') ) {
         $params->{error} = $ex->text();
