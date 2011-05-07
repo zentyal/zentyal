@@ -6,6 +6,7 @@
 	+ Fixed 'routers' option when gateway is set to 'none'
 	+ Object members without a valid hostname are no longer used as
 	  fixed addresses
+	+ Migrations do not crash if dns is not installed
 2.0.4
 	+ Bugfix: dhcp module never fail to save changes when a change
 	  in network interface is done

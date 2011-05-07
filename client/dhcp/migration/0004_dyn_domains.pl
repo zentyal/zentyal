@@ -24,6 +24,7 @@ use warnings;
 
 use EBox;
 use EBox::Global;
+use Error qw(:try);
 
 # Private methods
 
@@ -46,18 +47,19 @@ sub runGConf
 {
     my ($self) = @_;
 
-    my $dhcpMod = $self->{gconfmodule};
-    my $dnsMod  = EBox::Global->modInstance('dns');
-    my $domainModel = $dnsMod->model('DomainTable');
+    try {
+        my $dhcpMod = $self->{gconfmodule};
+        my $dnsMod  = EBox::Global->modInstance('dns');
+        my $domainModel = $dnsMod->model('DomainTable');
 
-    $dhcpMod->models();
-    foreach my $iface (keys %{$dhcpMod->{dynamicDNSModel}}) {
-        my $model = $dhcpMod->{dynamicDNSModel}->{$iface};
-        my $key = $model->{directory};
-        $self->_setDomainId($dhcpMod, $domainModel, "$key/dynamic_domain");
-        $self->_setDomainId($dhcpMod, $domainModel, "$key/custom");
-    }
-
+        $dhcpMod->models();
+        foreach my $iface (keys %{$dhcpMod->{dynamicDNSModel}}) {
+            my $model = $dhcpMod->{dynamicDNSModel}->{$iface};
+            my $key = $model->{directory};
+            $self->_setDomainId($dhcpMod, $domainModel, "$key/dynamic_domain");
+            $self->_setDomainId($dhcpMod, $domainModel, "$key/custom");
+        }
+    } otherwise {};
 }
 
 EBox::init();

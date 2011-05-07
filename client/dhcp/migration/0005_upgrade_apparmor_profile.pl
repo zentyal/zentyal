@@ -25,6 +25,7 @@ use warnings;
 use EBox;
 use EBox::Global;
 use EBox::Sudo;
+use Error qw(:try);
 
 use constant APPARMOR_PROFILE => '/etc/apparmor.d/usr.sbin.dhcpd3.zentyal';
 use constant APPARMOR_SERVICE => '/etc/init.d/apparmor';
@@ -35,13 +36,15 @@ sub runGConf
 
     my $dhcpMod = $self->{gconfmodule};
 
-    if ( $dhcpMod->isEnabled() ) {
-        $dhcpMod->writeConfFile(APPARMOR_PROFILE, 'dhcp/apparmor-dhcpd.profile.mas',
-                                [ ( 'keysFile' => $dhcpMod->_keysFile(),
-                                    'confDir'  => $dhcpMod->IncludeDir() ) ]);
-        EBox::Sudo::root(APPARMOR_SERVICE . ' restart');
-    }
+    try {
 
+        if ($dhcpMod->isEnabled()) {
+            $dhcpMod->writeConfFile(APPARMOR_PROFILE, 'dhcp/apparmor-dhcpd.profile.mas',
+                                    [ ( 'keysFile' => $dhcpMod->_keysFile(),
+                                        'confDir'  => $dhcpMod->IncludeDir() ) ]);
+            EBox::Sudo::root(APPARMOR_SERVICE . ' restart');
+        }
+    } otherwise {};
 }
 
 EBox::init();
