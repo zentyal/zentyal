@@ -7,7 +7,7 @@ Standards-Version: 3.8.2
 
 Package: ebox-monitor
 Architecture: all
-Depends: ebox (>= 2.0.17), ebox (<< 2.0.100), collectd, libsys-cpu-perl, ${misc:Depends}
+Depends: ebox (>= 2.0.17), ebox (<< 2.0.100), collectd, libsys-cpu-perl, rrdtool, ${misc:Depends}
 Description: Zentyal - Monitor
  Zentyal is a Linux small business server that can act as
  a Gateway, Unified Threat Manager, Office Server, Infrastructure
@@ -15,5 +15,5 @@ Description: Zentyal - Monitor
  single, easy-to-use platform to manage all your network services.
  .
  This module adds monitoring service to Zentyal using collectd to gather
- statistics about your Zentyal installation to show them in beautiful graphs 
+ statistics about your Zentyal installation to show them in beautiful graphs
  as well as notifying events when a certain threshold has been reached

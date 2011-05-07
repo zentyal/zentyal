@@ -3,6 +3,7 @@ HEAD
 	  as changed
 	+ Now adding thresholds is more resilent to lower number of
 	  passed parameters
+	+ Added missing dependency on rrdtool
 2.0.1
 	+ Df measure now monitorizes file systems in /media and never
 	  monitorizes read-only filesystems (except root)
