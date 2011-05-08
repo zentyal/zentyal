@@ -1,3 +1,5 @@
+2.0.19
+	+ Fixed bug in EBox::Events::Model::Watcher::Log::syncRows
 2.0.18
 	+ Fixed bug in ConfigureLogDataTable::syncRows which incorrectly
 	  marked logs module as changed

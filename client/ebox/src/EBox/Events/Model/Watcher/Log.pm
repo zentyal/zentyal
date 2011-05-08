@@ -151,7 +151,7 @@ sub syncRows
 
     my $anyChange = undef;
     my $logs = $self->{logs};
-    my $modChanged = Box::Global->getInstance()->modIsChanged('events');
+    my $modChanged = EBox::Global->getInstance()->modIsChanged('events');
 
     # Set up every model
     $self->_setUpModels();
@@ -190,7 +190,6 @@ sub syncRows
         $self->_removeFilteringModel($domain);
         $anyChange = 1;
     }
-
 
     if ($anyChange and (not $modChanged)) {
         $self->{gconfodule}->_saveConfig();
