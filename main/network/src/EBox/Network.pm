@@ -438,7 +438,12 @@ sub ifaceIsExternal # (interface)
         $iface = $aux[0];
     }
     if ($self->ifaceIsBridge($iface)) {
-        return 1; # bridges are always processed as external
+        # Bridges are external if any of their interfaces is external
+        my $ifaces = $self->bridgeIfaces($iface);
+        foreach my $bridged ( @{$ifaces} ) {
+            return 1 if ($self->ifaceIsExternal($bridged));
+        }
+        return 0;
     }
     return $self->get_bool("interfaces/$iface/external");
 }
