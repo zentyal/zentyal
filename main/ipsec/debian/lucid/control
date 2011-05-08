@@ -1,0 +1,17 @@
+Source: zentyal-ipsec
+Section: web
+Priority: optional
+Maintainer: José Antonio Calvo <jacalvo@zentyal.org>
+Build-Depends: debhelper (>= 5.0.0), autotools-dev, cdbs
+Standards-Version: 3.8.2
+
+Package: zentyal-ipsec
+Architecture: all
+Depends: zentyal-core (>= 2.1), zentyal-core (<< 2.1.100), openswan, zentyal-firewall, ${misc:Depends}
+Description: Zentyal - IPsec
+ Zentyal is a Linux small business server that can act as
+ a Gateway, Unified Threat Manager, Office Server, Infrastructure
+ Manager, Unified Communications Server or a combination of them. One
+ single, easy-to-use platform to manage all your network services.
+ .
+ This module adds a IPsec (OpenSwan) server to Zentyal.

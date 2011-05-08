@@ -1470,22 +1470,24 @@ sub menu
     my ($self, $root) = @_;
 
     my $folder = new EBox::Menu::Folder(
-                                        'name' => 'OpenVPN',
-                                        'text' => $self->printableName(),
+                                        'name' => 'VPN',
+                                        'text' => 'VPN',
                                         'separator' => 'UTM',
                                         'order' => 330
                                        );
 
     $folder->add(
                  new EBox::Menu::Item(
-                                      'url' => 'OpenVPN/View/Servers',
-                                      'text' => __('Servers')
+                                      'url' => 'VPN/Servers',
+                                      'text' => __('Servers'),
+                                      'order' => 10
                                      )
     );
     $folder->add(
                  new EBox::Menu::Item(
-                                      'url' => 'OpenVPN/View/Clients',
-                                      'text' => __('Clients')
+                                      'url' => 'VPN/Clients',
+                                      'text' => __('Clients'),
+                                      'order' => 20
                                      )
     );
 

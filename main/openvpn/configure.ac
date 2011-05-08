@@ -64,6 +64,7 @@ src/EBox/OpenVPN/LogHelper/Makefile
 src/EBox/OpenVPN/t/Makefile
 src/scripts/Makefile
 schemas/Makefile
+schemas/urls/Makefile
 stubs/Makefile
 stubs/quagga/Makefile
 schemas/sql/Makefile
