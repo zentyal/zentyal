@@ -18,8 +18,9 @@ use EBox::Gettext;
   </div>
 % }
 <& .backupSection, modulesChanged => $modulesChanged &>
-<& .restoreSection&>
+<& .restoreSection &>
 <& .listSection, backups => \@backups &>
+<& .reportSection &>
 <%def .backupSection>
 <%args>
 $modulesChanged
@@ -190,3 +191,14 @@ my %printableTypeById = (
 % }
 </%def>
 
+<%def .reportSection>
+<h3><% __('Configuration Report') %></h3>
+<div class='note'>
+	<% __('You can generate a file with information about the state of your system. This file can be useful if you want to report a problem or seek for support.')%>
+</div>
+
+<form action='Backup' method='POST'>
+		<input class='inputButton' type='submit' name='bugreport'
+			   value="<% __('Generate and Download report file') %>" />
+</form>
+</%def>

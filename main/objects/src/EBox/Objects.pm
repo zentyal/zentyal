@@ -390,12 +390,17 @@ sub addObject
 sub menu
 {
     my ($self, $root) = @_;
-    my $item = new EBox::Menu::Item(
-                                    'url' => 'Objects/View/ObjectTable',
+
+    my $folder = new EBox::Menu::Folder('name' => 'Network',
+                                        'text' => __('Network'),
+                                        'separator' => 'Core',
+                                        'order' => 40);
+
+    my $item = new EBox::Menu::Item('url' => 'Network/Objects',
                                     'text' => __($self->title),
-                                    'separator' => 'Core',
-                                    'order' => 50);
-    $root->add($item);
+                                    'order' => 40);
+    $folder->add($item);
+    $root->add($folder);
 }
 
 1;

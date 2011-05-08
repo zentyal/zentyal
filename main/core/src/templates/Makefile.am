@@ -3,7 +3,7 @@
 SUBDIRS = input ajax common dashboard login logout logs report js t
 
 templatedir = $(datadir)/zentyal/templates
-template_DATA = backup.mas bug.mas confirm-backup.mas backupTabs.mas \
+template_DATA = backup.mas confirm-backup.mas backupTabs.mas \
  finish.mas general.mas hostname.mas graph.mas menu.mas \
  halt.mas password.mas port.mas progress.mas pageNotFound.mas \
  header.mas headTitle.mas footer.mas headerWithRefresh.mas\

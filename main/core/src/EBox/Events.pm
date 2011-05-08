@@ -36,7 +36,6 @@ use warnings;
 use EBox::Common::Model::EnableForm;
 use EBox::Config;
 use EBox::Event;
-use EBox::Events::Model::ConfigurationComposite;
 use EBox::Events::Model::GeneralComposite;
 use EBox::Events::Model::ConfigureEventDataTable;
 use EBox::Events::Model::ConfigureDispatcherDataTable;
@@ -90,7 +89,7 @@ sub _create
     my $class = shift;
 
     my $self = $class->SUPER::_create(name => 'events',
-                                      printableName => __n('Events'),
+                                      printableName => __('Events'),
                                       @_);
 
     bless ($self, $class);
@@ -148,13 +147,20 @@ sub menu
 {
     my ($self, $root) = @_;
 
-    my $item = new EBox::Menu::Item(name  => 'Events',
-            text  => $self->printableName(),
-            url   => 'Events/Composite/GeneralComposite',
-            separator => 'Core',
-            order => 90);
+    my $folder = new EBox::Menu::Folder('name' => 'Maintenance',
+                                        'text' => __('Maintenance'),
+                                        'separator' => 'Core',
+                                        'order' => 70);
 
-    $root->add($item);
+    my $item = new EBox::Menu::Item(
+                    name => 'Events',
+                    text => $self->printableName(),
+                    url  => 'Maintenance/Events',
+                    order => 30,
+    );
+    $folder->add($item);
+
+    $root->add($folder);
 }
 
 # Method: models
@@ -279,7 +285,6 @@ sub composites
 
     return [
         $self->_eventsComposite(),
-        $self->_configurationComposite(),
         $self->_reportComposite(),
        ];
 }
@@ -764,19 +769,6 @@ sub _eventsComposite
     return $self->{eventsComposite};
 }
 
-# Instantiate the configure composite in order to manage ability of
-# event watchers and dispatchers
-sub _configurationComposite
-{
-    my ($self) = @_;
-
-    unless ( exists $self->{confComposite}) {
-        $self->{confComposite} = new EBox::Events::Model::ConfigurationComposite();
-    }
-
-    return $self->{confComposite};
-}
-
 sub _reportComposite
 {
     my ($self) = @_;
@@ -835,7 +827,7 @@ sub tableInfo
 
     return [
              {
-            'name' => __('Events'),
+            'name' => $self->printableName(),
             'index' => 'events',
             'titles' => $titles,
             'order' => \@order,

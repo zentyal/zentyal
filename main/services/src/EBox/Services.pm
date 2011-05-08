@@ -637,12 +637,18 @@ sub serviceId
 sub menu
 {
     my ($self, $root) = @_;
-    my $item = new EBox::Menu::Item(
-    'url' => 'Services/View/ServiceTable',
-    'text' => __($self->title),
-    'separator' => 'Core',
-    'order' => 60);
-    $root->add($item);
+
+    my $folder = new EBox::Menu::Folder('name' => 'Network',
+                                        'text' => __('Network'),
+                                        'separator' => 'Core',
+                                        'order' => 40);
+
+    my $item = new EBox::Menu::Item('url' => 'Network/Services',
+                                    'text' => __($self->title),
+                                    'order' => 50);
+
+    $folder->add($item);
+    $root->add($folder);
 }
 
 1;

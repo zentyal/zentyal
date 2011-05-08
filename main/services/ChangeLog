@@ -1,4 +1,5 @@
 HEAD
+	+ Services menu moved inside the Network menu
 	+ Implements modelClasses (allows to access models without ModelManager)
 	+ Delete unused ServiceTableFilter model
 2.1

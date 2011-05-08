@@ -2,7 +2,7 @@
 
 perldir = @PERLPATH@/EBox/Logs/Composite
 
-mods = ConfigureLog.pm
+mods = General.pm ConfigureLog.pm
 
 nobase_perl_DATA = $(mods)
 

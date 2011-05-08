@@ -77,8 +77,6 @@ AC_CONFIG_FILES([
 stubs/apache.mas
 stubs/Makefile
 stubs/css/Makefile
-schemas/sql/Makefile
-schemas/sql/period/Makefile
 doc/Makefile
 src/Makefile
 src/scripts/Makefile
@@ -169,6 +167,9 @@ src/EBox/CGI/t/Makefile
 src/EBox/Util/Makefile
 src/EBox/View/Makefile
 schemas/Makefile
+schemas/sql/Makefile
+schemas/sql/period/Makefile
+schemas/urls/Makefile
 conf/Makefile
 conf/logrotate/ebox
 conf/logrotate/Makefile

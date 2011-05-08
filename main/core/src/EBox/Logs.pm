@@ -53,7 +53,7 @@ sub _create
 {
     my $class = shift;
     my $self = $class->SUPER::_create(name => 'logs',
-                                      printableName => __n('Logs'));
+                                      printableName => __('Logs'));
 
     bless($self, $class);
     return $self;
@@ -181,6 +181,7 @@ sub modelClasses
 sub compositeClasses
 {
     return [
+            'EBox::Logs::Composite::General',
             'EBox::Logs::Composite::ConfigureLog',
            ];
 }
@@ -704,21 +705,17 @@ sub _sqlStmnt {
 sub menu
 {
     my ($self, $root) = @_;
-    my $folder = new EBox::Menu::Folder('name' => 'Logs',
-                                        'text' => $self->printableName(),
+
+    my $folder = new EBox::Menu::Folder('name' => 'Maintenance',
+                                        'text' => __('Maintenance'),
                                         'separator' => 'Core',
-                                        'order' => 80);
+                                        'order' => 70);
 
-    $folder->add(new EBox::Menu::Item('url' => 'Logs/View/SelectLog',
-                                      'text' => __('Query Logs')));
-
-    $folder->add(new EBox::Menu::Item('url' =>'Logs/Composite/ConfigureLog',
-                                      'text' => __('Configure Logs')));
-
-
+    $folder->add(new EBox::Menu::Item('url' => 'Maintenance/Logs',
+                                      'text' => $self->printableName(),
+                                      'order' => 20));
     $root->add($folder);
 }
-
 
 # Implement LogObserver interface
 

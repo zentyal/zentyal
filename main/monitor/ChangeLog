@@ -1,4 +1,5 @@
 HEAD
+	+ Monitor is now a submenu of the new Maintenance menu
 	+ Removed unnecessary code from MeasureWatchers::syncRows
 	+ Added missing dependency on rrdtool
 	+ Now adding thresholds is more resilent to lower number of

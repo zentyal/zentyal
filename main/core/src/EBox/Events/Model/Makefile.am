@@ -5,7 +5,7 @@ perldir = @PERLPATH@/EBox/Events/Model
 SUBDIRS = Dispatcher t Watcher Report
 
 mods = ConfigureEventDataTable.pm ConfigureDispatcherDataTable.pm \
-	ConfigurationComposite.pm GeneralComposite.pm Fallback.pm
+	GeneralComposite.pm Fallback.pm
 
 nobase_perl_DATA = $(mods)
 

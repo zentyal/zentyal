@@ -245,6 +245,7 @@ sub compositeClasses
         'EBox::Network::Composite::DNS',
         'EBox::Network::Composite::WANFailover',
         'EBox::Network::Composite::Gateway',
+        'EBox::Network::Composite::GatewaysGeneral',
 
 # XXX uncomment when DynLoader bug with locales is fixed
 #          'EBox::Network::Composite::ByteRate',
@@ -3666,34 +3667,40 @@ sub widgets
 sub menu
 {
     my ($self, $root) = @_;
+
     my $folder = new EBox::Menu::Folder('name' => 'Network',
                                         'text' => __('Network'),
                                         'separator' => 'Core',
                                         'order' => 40);
 
     $folder->add(new EBox::Menu::Item('url' => 'Network/Ifaces',
-                      'text' => __('Interfaces')));
+                                      'text' => __('Interfaces'),
+                                      'order' => 10));
+
+    $folder->add(new EBox::Menu::Item('url' => 'Network/Composite/GatewaysGeneral',
+                                      'text' => __('Gateways'),
+                                      'order' => 20));
+
     $folder->add(new EBox::Menu::Item('url' => 'Network/Composite/DNS',
-                      'text' => 'DNS'));
-    $folder->add(new EBox::Menu::Item('url' => 'Network/View/DynDNS',
-                      'text' => 'DynDNS'));
-    $folder->add(new EBox::Menu::Item('url' => 'Network/Composite/Gateway',
-                      'text' => __('Gateways')));
+                                      'text' => 'DNS',
+                                      'order' => 30));
+
     $folder->add(new EBox::Menu::Item('url' => 'Network/View/StaticRoute',
-                      'text' => __('Static Routes')));
-    $folder->add(new EBox::Menu::Item('url' => 'Network/Composite/MultiGw',
-                      'text' => __('Balance Traffic')));
-    $folder->add(new EBox::Menu::Item('url' => 'Network/Composite/WANFailover',
-                      'text' => __('WAN Failover')));
+                                      'text' => __('Static Routes'),
+                                      'order' => 60));
+
+    $folder->add(new EBox::Menu::Item('url' => 'Network/View/DynDNS',
+                                      'text' => 'DynDNS',
+                                      'order' => 70));
+
     $folder->add(new EBox::Menu::Item('url' => 'Network/Diag',
-                      'text' => __('Diagnostic Tools')));
+                                      'text' => __('Diagnostic Tools'),
+                                      'order' => 80));
 
 # XXX uncomment when DynLoader bug with locales is fixed
 #   $folder->add(new EBox::Menu::Item('url' =>
 #                       'Network/Composite/ByteRate',
 #                     'text' => __('Traffic rate monitor')));
-
-
 
     $root->add($folder);
 }

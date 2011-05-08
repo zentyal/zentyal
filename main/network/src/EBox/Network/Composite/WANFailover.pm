@@ -58,7 +58,8 @@ sub _description
                               'WANFailoverRules',
                            ],
         layout          => 'top-bottom',
-        pageTitle       => __('WAN Failover'),
+        printableName   => __('WAN Failover'),
+        headTitle       => undef,
         compositeDomain => 'Network',
         name            => 'WANFailover',
     };

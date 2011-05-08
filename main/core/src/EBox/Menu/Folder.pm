@@ -73,7 +73,9 @@ sub html
 
     $html .= "<ul id='submenu$name' class='submenu' style='display:$style'>\n";
 
-    foreach my $item (@{$self->items}) {
+    my @sorted = sort { $a->{order} <=> $b->{order} } @{$self->items()};
+
+    foreach my $item (@sorted) {
         $item->{style} = "menu$name";
         $html .= $item->html($display);
     }
@@ -98,10 +100,11 @@ sub _compare # (node)
 sub _merge # (node)
 {
     my ($self, $node) = @_;
-    if (defined($self->{url}) and (length($self->{url}) != 0)) {
+
+    if ($self->{url}) {
         $node->{url} = $self->{url};
     }
-    if (defined($self->{text}) and (length($self->{text}) != 0)) {
+    if ($self->{text}) {
         $node->{text} = $self->{text};
     }
     foreach my $item (@{$node->{items}}) {

@@ -1,4 +1,7 @@
 HEAD
+	+ Gateways, Balance Traffic and WAN Failover are now together
+	  as tabs of the Gateways submenu
+	+ Improved order of the submenus
 	+ Setting DHCP gateway does not longer require saving changes twice
 	+ Remove unnecessary code from GatewayTable::syncRows
 	+ Do not execute ifup on interfaces during the boot to avoid

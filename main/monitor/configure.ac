@@ -57,6 +57,7 @@ src/EBox/Monitor/Model/Makefile
 src/EBox/Monitor/Types/Makefile
 src/EBox/Monitor/Exceptions/Makefile
 schemas/Makefile
+schemas/urls/Makefile
 stubs/Makefile
 Makefile
 ])

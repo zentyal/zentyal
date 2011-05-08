@@ -1,6 +1,11 @@
 HEAD
+	+ Logs and Events are now submenus of the new Maintenance menu
+	+ Configuration Report option is now present on the Import/Export section
+	+ Added support for URL aliases via schemas/urls/*.urls files
+	+ Allow to sort submenu items via 'order' attribute
 	+ Automatically save changes after syncRows is called and mark the module
 	  mark the module as unchanged unless it was previously changed
+	+ Removed unnecessary ConfigureEvents composite
 	+ Removed unnecessary code from syncRows in logs and events
 	+ Restore configuration is safer when restoring /etc/zentyal files
 	+ Fixed unescaped characters when showing an exception

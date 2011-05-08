@@ -75,7 +75,7 @@ sub _create
 {
     my $class = shift;
     my $self = $class->SUPER::_create(name => 'monitor',
-                                      printableName => __n('Monitor'),
+                                      printableName => __n('Monitoring'),
                                       @_);
     bless($self, $class);
 
@@ -148,12 +148,18 @@ sub usedFiles
 sub menu
 {
     my ($self, $root) = @_;
-    my $item = new EBox::Menu::Item(
-         'url' => 'Monitor/Index',
-         'text' => __('Monitor'),
-         'separator' => 'Core',
-         'order' => 70);
-    $root->add($item);
+
+    my $folder = new EBox::Menu::Folder('name' => 'Maintenance',
+                                        'text' => __('Maintenance'),
+                                        'separator' => 'Core',
+                                        'order' => 70);
+
+    my $item = new EBox::Menu::Item('url' => 'Maintenance/Monitor',
+                                    'text' => $self->printableName(),
+                                    'order' => 10);
+    $folder->add($item);
+
+    $root->add($folder);
 }
 
 # Method: depends

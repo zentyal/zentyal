@@ -65,7 +65,7 @@ sub _description
          layout          => 'top-bottom',
          name            => 'ConfigureLog',
          compositeDomain => 'Logs',
-         pageTitle       => __('Logs configuration'),
+         printableName   => __('Configure Logs'),
         };
 
       return $description;

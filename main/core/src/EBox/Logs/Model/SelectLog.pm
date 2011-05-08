@@ -138,8 +138,6 @@ sub filterDomain
     }
 }
 
-
-
 sub _table
 {
     my @tableHead =
@@ -170,14 +168,13 @@ sub _table
     my $dataTable =
         {
             'tableName' => 'SelectLog',
-#            'printableTableName' => undef,
-            'pageTitle' => __('Select report'),
+            'printableTableName' => __('Query Logs'),
             'defaultController' => '/zentyal/Logs/Controller/SelectLog',
             'defaultActions' => [ 'editField', 'changeView' ],
             'tableDescription' => \@tableHead,
             'class' => 'dataTable',
             'order' => 0,
-             'rowUnique' => 0,
+            'rowUnique' => 0,
             'printableRowName' => __('logs'),
              'messages'         => {
                                     add => undef,
@@ -185,11 +182,6 @@ sub _table
         };
 
     return $dataTable;
-}
-
-sub Viewer
-{
-    return '/ajax/tableBodyWithoutActions.mas';
 }
 
 # Method: viewCustomizer

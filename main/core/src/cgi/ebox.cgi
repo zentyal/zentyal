@@ -23,7 +23,6 @@ use POSIX qw(:signal_h);
 
 try {
     use EBox::CGI::Run;
-    use EBox::CGI::EBox::ConfigurationReport;
     use EBox;
 
     # Workaround to clear Apache2's process mask

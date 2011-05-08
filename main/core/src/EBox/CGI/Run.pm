@@ -28,13 +28,21 @@ use EBox::CGI::Controller::DataTable;
 use EBox::CGI::View::DataTable;
 use EBox::CGI::View::Composite;
 use CGI;
+use File::Slurp;
 
 use Error qw(:try);
+
+use constant URL_ALIAS_FILTER => '/usr/share/zentyal/urls/*.urls';
+
+my %urlAlias;
 
 # Method: classFromUrl
 #
 #   Map from an URL to the name of the CGI class that needs to be run when
 #   the URL is accessed
+#
+#   It checks the *.urls files to check if the given URL is an alias
+#   in order to get the real URL of the CGI
 #
 # Parameters:
 #
@@ -51,6 +59,8 @@ sub classFromUrl
 
     defined($url) or exit;
 
+    $url = _urlAlias($url);
+
     $url =~ s/\?.*//g;
     $url =~ s/[\\"']//g;
     $url =~ s/\//::/g;
@@ -60,7 +70,6 @@ sub classFromUrl
 
     $classname =~ s/::::/::/g;
     $classname =~ s/::$//;
-
 
     if ($classname eq ("$namespace" . "::CGI")) {
         $classname .= '::Dashboard::Index';
@@ -84,42 +93,68 @@ sub classFromUrl
 #
 sub run # (url, namespace)
 {
-        my ($self, $url, $namespace) = @_;
+    my ($self, $url, $namespace) = @_;
 
-        my $classname = classFromUrl($url, $namespace);
+    my $classname = classFromUrl($url, $namespace);
 
-        my $cgi;
-        eval "use $classname";
-        if ($@) {
-                try {
-                  $cgi = _lookupViewController($classname, $namespace);
-                }
-                catch EBox::Exceptions::DataNotFound with {
-                  # path not valid
-                  $cgi = undef;
-                };
-
-                if (not $cgi) {
-                        my $log = EBox::logger;
-                        $log->error("Unable to import cgi: "
-                                . "$classname Eval error: $@");
-
-                        my $error_cgi = 'EBox::CGI::EBox::PageNotFound';
-                        eval "use $error_cgi";
-                        $cgi = new $error_cgi('namespace' => $namespace);
-                } else {
-                      #  EBox::debug("$classname mapped to "
-                      #  . " Controller/Viewer CGI");
-                }
+    my $cgi;
+    eval "use $classname";
+    if ($@) {
+        try {
+            $cgi = _lookupViewController($classname, $namespace);
         }
-        else {
-                $cgi = new $classname();
-        }
+        catch EBox::Exceptions::DataNotFound with {
+            # path not valid
+            $cgi = undef;
+        };
 
-        $cgi->run();
+        if (not $cgi) {
+            my $log = EBox::logger;
+            $log->error("Unable to import cgi: "
+                    . "$classname Eval error: $@");
+
+            my $error_cgi = 'EBox::CGI::EBox::PageNotFound';
+            eval "use $error_cgi";
+            $cgi = new $error_cgi('namespace' => $namespace);
+        } else {
+            #  EBox::debug("$classname mapped to "
+            #  . " Controller/Viewer CGI");
+        }
+    }
+    else {
+        $cgi = new $classname();
+    }
+
+    $cgi->run();
 }
 
 # Helper functions
+
+sub _urlAlias
+{
+    my ($url) = @_;
+
+    unless (keys %urlAlias) {
+        _readUrlAliases();
+    }
+
+    if (exists $urlAlias{$url}) {
+        return $urlAlias{$url};
+    } else {
+        return $url;
+    }
+}
+
+sub _readUrlAliases
+{
+    foreach my $file (glob (URL_ALIAS_FILTER)) {
+        my @lines = read_file($file);
+        foreach my $line (@lines) {
+            my ($alias, $url) = split (/\s/, $line);
+            $urlAlias{$alias} = $url;
+        }
+    }
+}
 
 sub _posAfterCGI
 {
@@ -161,7 +196,7 @@ sub lookupModel
             ($namespace eq 'Controller')) {
 
         if ( defined ( $namespaces[$pos+3] ) ) {
-# Set as model name, the context name
+            # Set as model name, the context name
             $modelName = '/' . lc ( $namespaces[$pos] ) . '/' . $modelName . '/' . $namespaces[$pos+3];
         } else {
             $modelName = '/' . lc ( $namespaces[$pos] ) . "/$modelName";
@@ -174,7 +209,7 @@ sub lookupModel
             }
         } catch EBox::Exceptions::DataNotFound with {
             $action = $namespaces[$pos+3];
-# Remove the previous thought index
+            # Remove the previous thought index
             $modelName =~ s:/.*?$::g;
             if (($modelName) ne '') {
                 $model = $manager->model($modelName);
@@ -185,8 +220,8 @@ sub lookupModel
     } elsif ( $namespace eq 'Composite' ) {
         my $compManager = EBox::Model::CompositeManager->Instance();
         if ( defined ( $namespaces[$pos+3] )) {
-# It may be the index or the action
-# Compose the composite context name
+            # It may be the index or the action
+            # Compose the composite context name
             my $contextName = '/' . lc ( $namespaces[$pos] ) . '/' . $modelName . '/' . $namespaces[$pos+3];
             try {
                 $model = $compManager->composite($contextName);
@@ -211,7 +246,6 @@ sub lookupModel
 sub _lookupViewController
 {
         my ($classname, $cginamespace) = @_;
-
 
         # URL to map:
         # url => 'EBox::CGI::<moduleName>::' menuNamespaceBranch

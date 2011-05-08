@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2010 eBox Technologies S.L.
+# Copyright (C) 2011 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -13,16 +13,14 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-# Class: EBox::Events::Model::EventsComposite
+# Class: EBox::Logs::Composite::General
 #
-#   This class is used to manage the events module within a single
-#   element whose components
-#   are: <EBox::Events::Model::ConfigurationComposite> and
-#   <EBox::Common::Model::EnableFrom> inside a top-bottom
-#   layout.
-#
+#   This class is used to manage the logs module within a single
+#   element whose components are:
+#   <EBox::Events::Model::ConfigurationComposite> and
+#   <EBox::Common::Model::EnableFrom> inside a tabbed layout.
 
-package EBox::Events::Model::GeneralComposite;
+package EBox::Logs::Composite::General;
 
 use base 'EBox::Model::Composite';
 
@@ -63,18 +61,15 @@ sub _description
 {
     my $description =
     {
-        components      => [
-                            'ConfigureEventDataTable',
-                            'ConfigureDispatcherDataTable',
-        ],
+        components      => [ 'SelectLog', 'ConfigureLog' ],
         layout          => 'tabbed',
-        name            => 'GeneralComposite',
-        printableName   => __('Events'),
-        pageTitle => __('Events'),
+        name            => 'General',
+        printableName   => __('Logs'),
+        pageTitle => __('Logs'),
         headTitle => undef,
-        compositeDomain => 'Events',
-        help            => __('Events module configures Zentyal to help ' .
-                              'informing you about events that happen'),
+        compositeDomain => 'Logs',
+        help            => __('Logs module allows you to register and query' .
+                              'information about the Zentyal services'),
     };
 
     return $description;
