@@ -334,7 +334,7 @@ sub _fieldDescription
             'printableName' => __('Replace source address'),
             'editable' => 1,
             'defaultValue' => 1,
-            'help' => __(q{Replaces the original source address of the connection with the Zentyal's own address. This could be neccesary when the destination has not a return route or has restrictive firewall rules})
+            'help' => __(q{Replaces the original source address of the connection with the Zentyal's own address. This could be neccesary when the destination does not have a return route or has restrictive firewall rules})
     );
     push (@tableHead, $snat);
 
