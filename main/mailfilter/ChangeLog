@@ -1,6 +1,7 @@
 HEAD
 	+ Removed 'learn from accounts spam folder' feature until serious
 	  bug in dovecot-antispam Ubuntu package is fixed
+	+ Fixed Makefile for SQL traffic for preriod tables
 2.1
 	+ Use new standard enable-module script
 	+ Remove old migrations and use new initial-setup

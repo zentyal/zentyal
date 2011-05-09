@@ -1,6 +1,6 @@
 ## Process this file with automake to produce Makefile.in
 
-Sqldir = @DATADIR@/zentyal-mailfilter/sql/
+Sqldir = @DATADIR@/zentyal-mailfilter/sql/period
 
 nobase_Sql_DATA = mailfilter_smtp_traffic.sql mailfilter_pop_traffic.sql
 
