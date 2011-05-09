@@ -550,6 +550,7 @@ sub _smtpFilterTableInfo
                   'BLACKLISTED' => __('Address in blacklist found'),
                   'INFECTED'    => __('Virus found'),
                   'CLEAN'       => __('Clean message'),
+                  'MTA-BLOCKED' => __('Unable to reinject in the mail server'),
     };
 
 
@@ -631,6 +632,13 @@ sub _filterTrafficConsolidationSpec
                                        infected => 0,
                                        bad_header => 0,
                                       },
+               filter => sub {
+                   my ($row) = @_;
+                   if ($row->{event} eq 'MTA-BLOCKED') {
+                       return 0;
+                   }
+                   return 1;
+                },
                 consolidateColumns => {
                                        event => {
                                                  conversor => sub { return 1  },
