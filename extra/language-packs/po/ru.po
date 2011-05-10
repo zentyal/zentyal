@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: zentyal 2.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2011-03-04 17:30+0100\n"
-"PO-Revision-Date: 2011-02-28 18:17+0200\n"
+"PO-Revision-Date: 2011-04-04 15:36+0200\n"
 "Last-Translator: vabue <val.budkin@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: ru\n"
@@ -670,7 +670,7 @@ msgid ""
 "not need either antivirus of spam scan we suggest you turn it off"
 msgstr ""
 "Прозрачный POP прокси должен сканировать, чтобы быть полезным. Если вам не "
-"нужно антивирусное и спам сканирование мы предлагаем отключить его."
+"нужно антивирусное и спам сканирование лучше его отключить"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamACL.pm:76
 msgid "Sender policy"
@@ -809,7 +809,7 @@ msgstr "Подробности фильтра трафика"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamConfiguration.pm:65
 msgid "The score threshold to mark a message as spam"
-msgstr "Порог балов, для пометки сообщения, как спам."
+msgstr "Порог для пометки сообщения как спам"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamConfiguration.pm:69
 msgid "Spam subject tag"
@@ -1099,27 +1099,27 @@ msgstr ""
 
 #: ../../main/radius/src/EBox/Radius.pm:120
 msgid "To configure allowed LDAP group."
-msgstr "Для настройки разрешенных групп LDAP"
+msgstr "Для настройки разрешенных групп LDAP."
 
 #: ../../main/radius/src/EBox/Radius.pm:124
 msgid "To configure RADIUS LDAP module."
-msgstr "Для настройки модуля RADIUS LDAP"
+msgstr "Для настройки модуля RADIUS LDAP."
 
 #: ../../main/radius/src/EBox/Radius.pm:128
 msgid "To configure RADIUS clients."
-msgstr "Для настройки клиентов RADIUS"
+msgstr "Для настройки клиентов RADIUS."
 
 #: ../../main/radius/src/EBox/Radius.pm:132
 msgid "To configure RADIUS EAP."
-msgstr "Для настройки RADIUS EAP"
+msgstr "Для настройки RADIUS EAP."
 
 #: ../../main/radius/src/EBox/Radius.pm:136
 msgid "To configure default RADIUS vhost."
-msgstr "Для настройки vhost RADIUS"
+msgstr "Для настройки vhost RADIUS."
 
 #: ../../main/radius/src/EBox/Radius.pm:140
 msgid "To configure RADIUS inner-tunnel vhost."
-msgstr "Для настройки внутреннего тунеля vhost RADIUS"
+msgstr "Для настройки внутреннего туннеля vhost RADIUS."
 
 #: ../../main/radius/src/EBox/Radius.pm:165
 msgid "Zentyal RADIUS system"
@@ -1153,7 +1153,7 @@ msgstr "Отказоустойчивая WAN"
 
 #: ../../main/network/src/EBox/Event/Watcher/Gateways.pm:396
 msgid "Check if gateways are connected or disconnected."
-msgstr "Отметьте, если шлюз подключен или отключен"
+msgstr "Отметьте, если шлюзы подключены или отключены."
 
 #: ../../main/network/src/EBox/Model/SearchDomain.pm:79
 msgid "Search Domain"
@@ -1248,7 +1248,7 @@ msgid ""
 msgstr ""
 "Несколько представлений показаны в зависимости от выбранного параметра. IP "
 "адрес узла и службы, которые соответствуют тексту легенды графика "
-"основанного на /etc/services. Представление будут соответственно изменены."
+"основанного на /etc/services. Представления будут соответственно изменены"
 
 #: ../../main/network/src/EBox/Model/ByteRateGraphControl.pm:78
 msgid "Graph type"
@@ -1346,7 +1346,7 @@ msgid ""
 "interfaces currently configured"
 msgstr ""
 "Все шлюзы введенные здесь должны быть доступны через один из настроенных "
-"сетевых интерфейсов."
+"сетевых интерфейсов"
 
 #: ../../main/network/src/EBox/Model/ByteRateEnableForm.pm:70
 msgid ""

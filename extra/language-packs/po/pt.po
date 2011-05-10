@@ -4,19 +4,20 @@
 # This file is distributed under the same license as the zentyal packages.
 # Automatically generated, 2011.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: zentyal 2.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2011-03-04 17:30+0100\n"
-"PO-Revision-Date: 2010-08-26 12:00+0200\n"
-"Last-Translator: Vasco Castelo Branco <vcbranco@gmail.com>\n"
+"PO-Revision-Date: 2011-03-31 20:15+0200\n"
+"Last-Translator: vcbranco <vcbranco@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
-"Language: \n"
+"Language: pt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Pootle 2.1.4\n"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:61
 msgid "Mail Filter"
@@ -619,7 +620,6 @@ msgstr "Notificar de mensagens problemáticas que não são spam"
 #: ../../main/core/src/templates/enable.mas:23
 #: ../../main/jabber/src/templates/jabber.mas:21
 #: ../../main/jabber/src/templates/jabber.mas:24
-#, fuzzy
 msgid "Disabled"
 msgstr ""
 "#-#-#-#-#  pt.po (ebox-mailfilter 0.12)  #-#-#-#-#\n"
@@ -684,7 +684,7 @@ msgstr "Politica de ficheiros banidos"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisPolicy.pm:79
 msgid "Bad header policy"
-msgstr "Politica de maus cabeçalhos"
+msgstr "Politica de cabeçalhos errados"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisPolicy.pm:89
 msgid "Filter Policies"
@@ -693,13 +693,12 @@ msgstr "Politicas de filtragem"
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/POPProxyConfiguration.pm:69
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupAntiVirus.pm:59
 #: ../../main/squid/src/EBox/Squid/Model/DefaultAntiVirus.pm:49
-#, fuzzy
 msgid "Filter virus"
 msgstr ""
 "#-#-#-#-#  pt.po (ebox-mailfilter 0.12)  #-#-#-#-#\n"
 "Filtro de vírus\n"
 "#-#-#-#-#  pt.po (ebox-squid 0.12)  #-#-#-#-#\n"
-"Filtragem de vírus"
+"Filtro de vírus"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/POPProxyConfiguration.pm:75
 msgid "Filter spam"
@@ -715,7 +714,7 @@ msgid ""
 "it processes your email for SPAM."
 msgstr ""
 "Esta opção permite-lhe definir a string que o seu ISP usa if\n"
-"  e processa o seu correio para o spam"
+"e processa o seu correio para o spam"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/POPProxyConfiguration.pm:93
 #: ../../main/network/src/EBox/Model/DynDNS.pm:159
@@ -753,13 +752,12 @@ msgstr "Politica de remetente"
 #: ../../main/squid/src/EBox/Squid/Model/MIMEFilterBase.pm:145
 #: ../../main/squid/src/EBox/Squid/Model/MIMEFilterBase.pm:153
 #: ../../main/squid/src/EBox/Squid/Model/MIMEFilterBase.pm:164
-#, fuzzy
 msgid "MIME Type"
 msgstr ""
 "#-#-#-#-#  pt.po (ebox-mailfilter 0.12)  #-#-#-#-#\n"
 "Tipo de MIME\n"
 "#-#-#-#-#  pt.po (ebox-squid 0.12)  #-#-#-#-#\n"
-"Tipo MIME"
+"Tipo de MIME"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/MIMETypeACL.pm:81
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/FileExtensionACL.pm:85
@@ -774,25 +772,23 @@ msgstr "Permitir"
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/MIMETypeACL.pm:90
 #: ../../main/squid/src/EBox/Squid/Model/ApplyAllowToAllMIME.pm:41
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupApplyAllowToAllMIME.pm:41
-#, fuzzy
 msgid "MIME types"
 msgstr ""
 "#-#-#-#-#  pt.po (ebox-mailfilter 0.12)  #-#-#-#-#\n"
 "Tipos de MIME\n"
 "#-#-#-#-#  pt.po (ebox-squid 0.12)  #-#-#-#-#\n"
-"Tipos MIME"
+"Tipos de MIME"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/MIMETypeACL.pm:98
 #: ../../main/mailfilter/src/EBox/MailFilter/Types/MIMEType.pm:60
 #: ../../main/squid/src/EBox/Squid/Model/MIMEFilter.pm:63
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupMIMEFilter.pm:59
-#, fuzzy
 msgid "MIME type"
 msgstr ""
 "#-#-#-#-#  pt.po (ebox-mailfilter 0.12)  #-#-#-#-#\n"
 "Tipo de MIME\n"
 "#-#-#-#-#  pt.po (ebox-squid 0.12)  #-#-#-#-#\n"
-"Tipo MIME"
+"Tipo de MIME"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/MIMETypeACL.pm:99
 msgid ""
@@ -871,7 +867,6 @@ msgstr "Detalhes de tráfego do proxy POP transparente "
 #: ../../main/squid/src/EBox/Squid/Model/Report/TrafficDetails.pm:151
 #: ../../main/firewall/src/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:86
 #: ../../main/mail/src/EBox/Mail/Model/Report/TrafficDetails.pm:99
-#, fuzzy
 msgid "traffic"
 msgstr ""
 "#-#-#-#-#  pt.po (ebox-mailfilter 0.12)  #-#-#-#-#\n"
@@ -1013,13 +1008,12 @@ msgstr "As extensões que não estão listadas abaixo são permitidas"
 #: ../../main/mailfilter/src/EBox/MailFilter/Types/AmavisSender.pm:78
 #: ../../main/mail/src/EBox/CGI/CreateAlias.pm:48
 #: ../../main/mail/src/EBox/CGI/CreateGroupAlias.pm:48
-#, fuzzy
 msgid "domain name"
 msgstr ""
 "#-#-#-#-#  pt.po (ebox-mailfilter 0.12)  #-#-#-#-#\n"
 "nome do domínio\n"
 "#-#-#-#-#  pt.po (ebox-mail 0.12)  #-#-#-#-#\n"
-"nome de domínio"
+"nome do domínio"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Types/AmavisSender.pm:82
 msgid "email address"
@@ -1186,7 +1180,6 @@ msgstr "Grupo a quem é permitida autenticação"
 #: ../../main/asterisk/src/EBox/Model/Settings.pm:145
 #: ../../main/usercorner/src/EBox/UserCorner/Model/Settings.pm:62
 #: ../../main/webmail/src/EBox/WebMail/Model/Options.pm:65
-#, fuzzy
 msgid "General configuration"
 msgstr ""
 "#-#-#-#-#  pt.po (ebox-radius 1.3.10)  #-#-#-#-#\n"
@@ -1194,7 +1187,7 @@ msgstr ""
 "#-#-#-#-#  pt.po (ebox-usersandgroups 0.12)  #-#-#-#-#\n"
 "Configuração geral\n"
 "#-#-#-#-#  pt.po (ebox-asterisk 1.1)  #-#-#-#-#\n"
-"Definições de configuração gerais\n"
+"Configuração geral\n"
 "#-#-#-#-#  pt.po (ebox-webmail 1.3)  #-#-#-#-#\n"
 "Configuração geral"
 
@@ -1404,15 +1397,14 @@ msgstr "Tráfego por fonte e serviço"
 #: ../../main/core/src/EBox/Events/Model/Report/EventsDetails.pm:50
 #: ../../main/core/src/EBox/Events/Model/Report/EventsDetails.pm:74
 #: ../../main/core/src/EBox/Events.pm:820
-#, fuzzy
 msgid "Source"
 msgstr ""
 "#-#-#-#-#  pt.po (ebox-network 0.12)  #-#-#-#-#\n"
-"Fonte\n"
+"Origem\n"
 "#-#-#-#-#  pt.po (ebox-ids 1.1)  #-#-#-#-#\n"
 "Origem\n"
 "#-#-#-#-#  pt.po (ebox-firewall 0.12)  #-#-#-#-#\n"
-"Fonte\n"
+"Origem\n"
 "#-#-#-#-#  pt.po (ebox-trafficshaping 0.12.2)  #-#-#-#-#\n"
 "Origem\n"
 "#-#-#-#-#  pt.po (ebox 0.12)  #-#-#-#-#\n"
@@ -1463,7 +1455,6 @@ msgstr "Utilizador"
 #: ../../main/usercorner/src/templates/login/index.mas:34
 #: ../../main/remoteservices/src/templates/RemoteServices/Backup/proxy.mas:130
 #: ../../main/core/src/templates/login/index.mas:54
-#, fuzzy
 msgid "Password"
 msgstr ""
 "#-#-#-#-#  pt.po (ebox-network 0.12)  #-#-#-#-#\n"
@@ -1747,29 +1738,27 @@ msgstr "Qualquer"
 #: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:297
 #: ../../main/firewall/src/EBox/Firewall/Model/BaseRuleTable.pm:129
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:414
-#, fuzzy
 msgid "Source IP"
 msgstr ""
 "#-#-#-#-#  pt.po (ebox-network 0.12)  #-#-#-#-#\n"
-"IP da fonte\n"
+"IP de origem\n"
 "#-#-#-#-#  pt.po (ebox-firewall 0.12)  #-#-#-#-#\n"
 "IP de origem\n"
 "#-#-#-#-#  pt.po (ebox-trafficshaping 0.12.2)  #-#-#-#-#\n"
-"Fonte IP"
+"IP de origem"
 
 #: ../../main/network/src/EBox/Model/MultiGwRulesDataTable.pm:123
 #: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:301
 #: ../../main/firewall/src/EBox/Firewall/Model/BaseRuleTable.pm:133
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:426
-#, fuzzy
 msgid "Source object"
 msgstr ""
 "#-#-#-#-#  pt.po (ebox-network 0.12)  #-#-#-#-#\n"
-"Objecto da fonte\n"
+"Origem do objecto\n"
 "#-#-#-#-#  pt.po (ebox-firewall 0.12)  #-#-#-#-#\n"
-"Objecto de origem\n"
+"Origem do objecto\n"
 "#-#-#-#-#  pt.po (ebox-trafficshaping 0.12.2)  #-#-#-#-#\n"
-"Fonte do objecto"
+"Origem do objecto"
 
 #: ../../main/network/src/EBox/Model/MultiGwRulesDataTable.pm:137
 #: ../../main/ids/src/EBox/IDS.pm:302
@@ -1950,17 +1939,18 @@ msgstr ""
 #: ../../main/network/src/EBox/Model/Proxy.pm:129
 msgid "Proxy username and password will be visible by all system users."
 msgstr ""
+"O utilizador e palavra-passe do Proxy será visível para todos os "
+"utilizadores"
 
 #: ../../main/network/src/EBox/Model/MultiGwRulesOptions.pm:43
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Clients.pm:67
 #: ../../main/ca/src/EBox/Model/Certificates.pm:270
-#, fuzzy
 msgid "Enable"
 msgstr ""
 "#-#-#-#-#  pt.po (ebox-network 0.12)  #-#-#-#-#\n"
-"Activo\n"
+"Activar\n"
 "#-#-#-#-#  pt.po (ebox-openvpn 0.12)  #-#-#-#-#\n"
-"Ligar\n"
+"Activar\n"
 "#-#-#-#-#  pt.po (ebox-ca 0.12)  #-#-#-#-#\n"
 "Activar"
 
@@ -2213,7 +2203,6 @@ msgstr ""
 "Falha de WAN não está activa. Deve activá-la para poder usar esta função"
 
 #: ../../main/network/src/EBox/Network/Composite/MultiGw.pm:82
-#, fuzzy
 msgid ""
 "To be able to use this feature you need at least two enabled gateways. You "
 "can add them <a href=\"/zentyal/Network/View/GatewayTable\">here</a> first."
@@ -2349,15 +2338,14 @@ msgstr "máscara de rede"
 #: ../../main/users/src/EBox/CGI/ModifyUser.pm:41
 #: ../../main/samba/src/EBox/CGI/ActivePrinting.pm:44
 #: ../../main/samba/src/EBox/CGI/ActiveSharing.pm:68
-#, fuzzy
 msgid "user name"
 msgstr ""
 "#-#-#-#-#  pt.po (ebox-network 0.12)  #-#-#-#-#\n"
 "utilizador\n"
 "#-#-#-#-#  pt.po (ebox-usersandgroups 0.12)  #-#-#-#-#\n"
-"Nome do utilizador\n"
+"utilizador\n"
 "#-#-#-#-#  pt.po (ebox-samba 0.12)  #-#-#-#-#\n"
-"nome do utilizador"
+"utilizador"
 
 #: ../../main/network/src/EBox/CGI/Iface.pm:95
 #: ../../main/users/src/EBox/CGI/ModifyUser.pm:48
@@ -2726,14 +2714,14 @@ msgid "VPN servers"
 msgstr "Servidores VPN"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:168
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "{openpar}You need a valid CA certificate to use this module. {closepar}"
 "{openpar}Please, go to the {openhref} certification authority module"
 "{closehref} and renew it.{closepar}"
 msgstr ""
-"{openpar}Necessita de criar um certificado CA para usar este módulo."
-"{closepar}{openpar}Vá para o {openhref}módulo módulo de autoridade de "
+"{openpar}Necessita de criar um certificado CA para usar este "
+"módulo.{closepar}{openpar}Vá para o {openhref}módulo de autoridade de "
 "certificação{closehref} e crie-o."
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:175
@@ -2820,12 +2808,11 @@ msgstr "Palavra-passe do túnel do servidor"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:133
 msgid "Bind port for client"
-msgstr ""
+msgstr "Porto do Bind para o cliente"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:141
-#, fuzzy
 msgid "Bind address for client"
-msgstr "Limpar endereços da cache"
+msgstr "Endereço do Bind para o cliente"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:151
 msgid "Client configuration"
@@ -2884,11 +2871,13 @@ msgstr ""
 "atribuído"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:450
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "VPN server {name} couldn't be configured, no IP address found for interface "
 "{iface}"
-msgstr "Não foi encontrado endereço IP para o interface {iface}"
+msgstr ""
+"O servido VPN {name} não pode ser configurado, não foi encontrado qualquer "
+"endereço IP para o interface {iface}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:556
 msgid "OpenVPN servers cannot be used for internal services"
@@ -2921,9 +2910,8 @@ msgid "All external interfaces"
 msgstr "Todos os interfaces externos"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:793
-#, fuzzy
 msgid "Not found"
-msgstr "Não foi encontrada a página"
+msgstr "Não foi encontrado"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:795
 msgid "Local address"
@@ -3067,7 +3055,7 @@ msgstr ""
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:178
 msgid "To remove system-wide VPN servers autostart"
-msgstr ""
+msgstr "Para remover o inicio automático dos servidores VPN"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:663
 #, perl-brace-format
@@ -3215,11 +3203,11 @@ msgstr "Para configurar vsftpd com autenticação LDAP"
 
 #: ../../main/ftp/src/EBox/FTP.pm:192
 msgid "FTP server hosted files"
-msgstr ""
+msgstr "Ficheiros armazenados no servidor FTP"
 
 #: ../../main/ftp/src/EBox/FTP.pm:193
 msgid "User homes and anonymous directory"
-msgstr ""
+msgstr "Raiz e directório anónimo do utilizador"
 
 #: ../../main/ftp/src/EBox/Model/Options.pm:49
 #: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:93
@@ -3250,7 +3238,6 @@ msgstr "Activar acesso FTP para cada utilizador ao seu directório /home"
 #: ../../main/zarafa/src/EBox/Zarafa/Model/GeneralSettings.pm:102
 #: ../../main/webserver/src/EBox/WebServer/Model/GeneralSettings.pm:264
 #: ../../main/jabber/src/EBox/Jabber/Model/GeneralSettings.pm:141
-#, fuzzy
 msgid "General configuration settings"
 msgstr ""
 "#-#-#-#-#  pt.po (ebox-. 1.5)  #-#-#-#-#\n"
@@ -3258,9 +3245,9 @@ msgstr ""
 "#-#-#-#-#  pt.po (ebox-zarafa 0.12)  #-#-#-#-#\n"
 "Definições de configuração geral\n"
 "#-#-#-#-#  pt.po (ebox-webserver 0.12)  #-#-#-#-#\n"
-"Definições das configurações gerais\n"
+"Definições de configurações geral\n"
 "#-#-#-#-#  pt.po (ebox-jabber 0.12)  #-#-#-#-#\n"
-"Definições da configuração geral"
+"Definições de configuração geral"
 
 #: ../../main/ftp/src/EBox/Model/Options.pm:84
 msgid "FTP Server"
@@ -3281,13 +3268,12 @@ msgstr ""
 "ftp/incoming"
 
 #: ../../main/zarafa/src/EBox/ZarafaLdapUser.pm:318
-#, fuzzy
 msgid ""
 "This user has a Zarafa account. If the user is currently connected it will "
 "continue connected until Zarafa authorization is again required."
 msgstr ""
-"Este utilizador tem uma conta Zarafa. O utilizador continuará ligado até ser "
-"novamente necessária uma autorização Zarafa"
+"Este utilizador tem uma conta Zarafa. Se o utilizador estiver actualmente "
+"ligado continuará ligado até ser novamente necessária uma autorização Zarafa"
 
 #: ../../main/zarafa/src/EBox/Zarafa.pm:63
 msgid "Add Zarafa LDAP schema"
@@ -3384,13 +3370,12 @@ msgstr ""
 #: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:158
 #: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:177
 #: ../../main/mail/src/templates/createaccount.mas:71
-#, fuzzy
 msgid "Unlimited size"
 msgstr ""
 "#-#-#-#-#  pt.po (ebox-zarafa 0.12)  #-#-#-#-#\n"
 "Tamanho ilimitado\n"
 "#-#-#-#-#  pt.po (ebox-mail 0.12)  #-#-#-#-#\n"
-"Tamanho Ilimitado"
+"Tamanho ilimitado"
 
 #: ../../main/zarafa/src/EBox/Zarafa/Model/Quota.pm:85
 #: ../../main/samba/src/EBox/Samba/Model/PDC.pm:95
@@ -3420,13 +3405,13 @@ msgid "Groupware Account"
 msgstr "Conta do sistema de Groupware"
 
 #: ../../main/zarafa/src/EBox/Zarafa/Model/ZarafaUser.pm:55
-#, fuzzy
 msgid "Groupware Contact"
-msgstr "Conta do sistema de Groupware"
+msgstr "Contacto do sistema de Groupware"
 
 #: ../../main/zarafa/src/EBox/Zarafa/Model/ZarafaUser.pm:56
 msgid "Enable contact in the addressbook even if account is disabled."
 msgstr ""
+"Active o contacto no livro de endereços mesmo que a conta esteja desactivada"
 
 #: ../../main/zarafa/src/EBox/Zarafa/Model/ZarafaUser.pm:64
 msgid "Zarafa"
@@ -3513,13 +3498,12 @@ msgstr "Domínio virtual"
 
 #: ../../main/zarafa/src/EBox/Zarafa/Model/VMailDomain.pm:158
 #: ../../main/mail/src/templates/Wizard/virtualdomain.mas:4
-#, fuzzy
 msgid "Virtual mail domain"
 msgstr ""
 "#-#-#-#-#  pt.po (ebox-zarafa 0.12)  #-#-#-#-#\n"
-"Domínio virtual de correio\n"
+"Domínio de correio virtual\n"
 "#-#-#-#-#  pt.po (ebox-mail 0.12)  #-#-#-#-#\n"
-"Domínios de correio virtuais"
+"Domínio de correio virtual"
 
 #: ../../main/zarafa/src/EBox/Zarafa/Model/VMailDomain.pm:163
 msgid "Select the virtual mail domain to be used for Zarafa."
@@ -3545,7 +3529,6 @@ msgstr "Activar Active Sync (Protocolo Microsoft Exchange syncronization)"
 #: ../../main/webmail/src/EBox/WebMail/Model/Options.pm:53
 #: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:97
 #: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:313
-#, fuzzy
 msgid "Virtual host"
 msgstr ""
 "#-#-#-#-#  pt.po (ebox-zarafa 0.12)  #-#-#-#-#\n"
@@ -3553,7 +3536,7 @@ msgstr ""
 "#-#-#-#-#  pt.po (ebox-webmail 1.3)  #-#-#-#-#\n"
 "Máquina virtual\n"
 "#-#-#-#-#  pt.po (ebox-webserver 0.12)  #-#-#-#-#\n"
-"Servidores virtuais"
+"Máquina virtual"
 
 #: ../../main/zarafa/src/EBox/Zarafa/Model/GeneralSettings.pm:95
 msgid ""
@@ -3597,7 +3580,6 @@ msgstr ""
 #: ../../main/mail/src/EBox/CGI/SetAccountMaildirQuota.pm:41
 #: ../../main/mail/src/EBox/CGI/DelAccount.pm:40
 #: ../../main/jabber/src/EBox/CGI/JabberUserOptions.pm:42
-#, fuzzy
 msgid "username"
 msgstr ""
 "#-#-#-#-#  pt.po (ebox-zarafa 0.12)  #-#-#-#-#\n"
@@ -3609,7 +3591,7 @@ msgstr ""
 "#-#-#-#-#  pt.po (ebox-mail 0.12)  #-#-#-#-#\n"
 "utilizador\n"
 "#-#-#-#-#  pt.po (ebox-jabber 0.12)  #-#-#-#-#\n"
-"nome do utilizador"
+"utilizador"
 
 #: ../../main/users/src/EBox/UsersAndGroups/Model/PendingSync.pm:58
 #: ../../main/users/src/EBox/UsersAndGroups/Model/Mode.pm:70
@@ -3658,6 +3640,9 @@ msgid ""
 "PAM can not be enabled on slave servers while acting as PDC. You can disable "
 "the PDC functionality at {ohref}File sharing options{chref}."
 msgstr ""
+"Pam não pode ser activado em servidores cliente quando está configurado como "
+"PDC. Pode desactivar a funcionalidade PDC em {ohref}Opções de partilha de "
+"ficheiros{chref}"
 
 #: ../../main/users/src/EBox/UsersAndGroups/Model/PAM.pm:125
 msgid "Enable PAM"
@@ -3680,13 +3665,12 @@ msgid "PAM settings"
 msgstr "Definições PAM"
 
 #: ../../main/users/src/EBox/UsersAndGroups/Model/ADSyncSettings.pm:66
-#, fuzzy
 msgid "Enable AD sync"
-msgstr "Activar Active Sync"
+msgstr "Activar AD Sync"
 
 #: ../../main/users/src/EBox/UsersAndGroups/Model/ADSyncSettings.pm:69
 msgid "Enable AD syncronization."
-msgstr ""
+msgstr "Activar sincronização AD"
 
 #: ../../main/users/src/EBox/UsersAndGroups/Model/ADSyncSettings.pm:73
 msgid "AD user"
@@ -3867,7 +3851,6 @@ msgstr "Gestão de palavras-passe"
 #: ../../main/users/src/EBox/UsersAndGroups/Model/Password.pm:58
 #: ../../main/asterisk/src/EBox/Model/Voicemail.pm:94
 #: ../../main/core/src/templates/password.mas:39
-#, fuzzy
 msgid "New password"
 msgstr ""
 "#-#-#-#-#  pt.po (ebox-usersandgroups 0.12)  #-#-#-#-#\n"
@@ -4151,7 +4134,6 @@ msgstr "O nome do grupo não é válido porque é usado internamente"
 #: ../../main/samba/src/EBox/SambaLdapUser.pm:878
 #: ../../main/samba/src/EBox/SambaLdapUser.pm:906
 #: ../../main/samba/src/EBox/SambaLdapUser.pm:955
-#, fuzzy
 msgid "group name"
 msgstr ""
 "#-#-#-#-#  pt.po (ebox-usersandgroups 0.12)  #-#-#-#-#\n"
@@ -4186,6 +4168,8 @@ msgid ""
 "Cannot restore because user {user} already exists as system user. Delete or "
 "rename this user and try again"
 msgstr ""
+"Não é possível restaurar porque o utilizador já existe utilizador do "
+"sistema. Apague ou renomeie o utilizador e tente de novo"
 
 #: ../../main/users/src/EBox/UsersAndGroups.pm:2851
 #, perl-brace-format
@@ -4690,11 +4674,10 @@ msgstr "Usar limite de perfil pré-definido"
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupContentFilterThreshold.pm:72
 #: ../../main/squid/src/EBox/Squid/Model/ContentFilterThreshold.pm:67
 #: ../../main/monitor/src/EBox/Monitor/Model/ThresholdConfiguration.pm:320
-#, fuzzy
 msgid "Threshold"
 msgstr ""
 "#-#-#-#-#  pt.po (ebox-squid 0.12)  #-#-#-#-#\n"
-"Entrada\n"
+"Limite\n"
 "#-#-#-#-#  pt.po (EBox-monitor 0.1)  #-#-#-#-#\n"
 "Limite"
 
@@ -5049,7 +5032,7 @@ msgstr "O número máximo de filtros de grupo foi atingido"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroup.pm:227
 msgid "No spaces are allowed in profile names"
-msgstr ""
+msgstr "Não são permitidos espaços nos nomes de perfil"
 
 #: ../../main/squid/src/EBox/Squid/Model/UseDefaultDomainFilter.pm:67
 msgid "Use default profile for domain filtering"
@@ -6113,7 +6096,6 @@ msgstr "De"
 #: ../../main/squid/src/templates/ajax/setter/timePeriod.mas:21
 #: ../../main/dhcp/src/templates/ranges.mas:55
 #: ../../main/core/src/templates/ajax/setter/portRangeSetter.mas:29
-#, fuzzy
 msgid "To"
 msgstr ""
 "#-#-#-#-#  pt.po (libebox 0.12.1)  #-#-#-#-#\n"
@@ -6121,7 +6103,7 @@ msgstr ""
 "#-#-#-#-#  pt.po (ebox-squid 0.12)  #-#-#-#-#\n"
 "Para\n"
 "#-#-#-#-#  pt.po (ebox-dhcp 0.12)  #-#-#-#-#\n"
-"Até\n"
+"Para\n"
 "#-#-#-#-#  pt.po (ebox-asterisk 1.1)  #-#-#-#-#\n"
 "Para\n"
 "#-#-#-#-#  pt.po (ebox-mail 0.12)  #-#-#-#-#\n"
@@ -6269,13 +6251,12 @@ msgstr "estado do módulo"
 #: ../../main/dhcp/src/EBox/CGI/Status.pm:41
 #: ../../main/core/src/EBox/SysInfo.pm.in:162
 #: ../../main/core/src/EBox/SysInfo.pm.in:258
-#, fuzzy
 msgid "Module Status"
 msgstr ""
 "#-#-#-#-#  pt.po (ebox-dhcp 0.12)  #-#-#-#-#\n"
 "Estado do módulo\n"
 "#-#-#-#-#  pt.po (ebox 0.12)  #-#-#-#-#\n"
-"Estado dos módulos"
+"Estado do módulo"
 
 #: ../../main/software/src/EBox/Software.pm:56
 msgid "Software Management"
@@ -6835,13 +6816,12 @@ msgstr "Interface de saída"
 #: ../../main/firewall/src/EBox/Firewall.pm:1014
 #: ../../main/services/debs-ppa/zentyal-services-2.1/src/EBox/Model/ServiceConfigurationTable.pm:145
 #: ../../main/services/src/EBox/Model/ServiceConfigurationTable.pm:145
-#, fuzzy
 msgid "Source port"
 msgstr ""
 "#-#-#-#-#  pt.po (ebox-firewall 0.12)  #-#-#-#-#\n"
 "Porto de origem\n"
 "#-#-#-#-#  pt.po (ebox-services 0.12)  #-#-#-#-#\n"
-"Porto fonte"
+"Porto de origem"
 
 #: ../../main/firewall/src/EBox/Firewall.pm:1015
 #: ../../main/services/debs-ppa/zentyal-services-2.1/src/EBox/Model/ServiceConfigurationTable.pm:151
@@ -7158,13 +7138,12 @@ msgstr ""
 "home/samba"
 
 #: ../../main/samba/src/EBox/Samba.pm:122 ../../main/mail/src/EBox/Mail.pm:142
-#, fuzzy
 msgid "Add LDAP schemas"
 msgstr ""
 "#-#-#-#-#  pt.po (ebox-samba 0.12)  #-#-#-#-#\n"
 "Adicionar esquema LDAP\n"
 "#-#-#-#-#  pt.po (ebox-mail 0.12)  #-#-#-#-#\n"
-"Adicionar esquemas LDAP"
+"Adicionar esquema LDAP"
 
 #: ../../main/samba/src/EBox/Samba.pm:123
 msgid ""
@@ -7230,17 +7209,15 @@ msgstr "impressora"
 
 #: ../../main/samba/src/EBox/Samba.pm:1427
 msgid "Shares, users and groups homes and profiles"
-msgstr ""
+msgstr "Raiz e perfis das partilhas, utilizadores e grupos"
 
 #: ../../main/samba/src/EBox/Samba.pm:1597
-#, fuzzy
 msgid "Users files"
-msgstr "Ficheiros de utilizador"
+msgstr "Ficheiros do utilizador"
 
 #: ../../main/samba/src/EBox/Samba.pm:1599
-#, fuzzy
 msgid "Groups files"
-msgstr "Ficheiros de grupo"
+msgstr "Ficheiros do grupo"
 
 #: ../../main/samba/src/EBox/Samba.pm:1615
 #: ../../main/samba/src/EBox/Samba.pm:1635
@@ -7446,14 +7423,12 @@ msgid "Only alphanumeric characters plus _ are valid for a path"
 msgstr "Só os caracteres alfanuméricos mais _ são válidos para o caminho"
 
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:207
-#, fuzzy
 msgid "Only ASCII characters are valid for a share name"
-msgstr "Só os caracteres alfanuméricos mais _ são válidos para o caminho"
+msgstr "Só os caracteres ASCII são válidos para o nome de partilha"
 
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:215
-#, fuzzy
 msgid "Only ASCII characters are valid for a share description"
-msgstr "Só os caracteres alfanuméricos mais _ são válidos para o caminho"
+msgstr "Só os caracteres ASCII são válidos para a descrição da partilha"
 
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:247
 msgid "The directory is not empty. Are you sure you want to remove it?"
@@ -7527,6 +7502,8 @@ msgid ""
 "A slave server can not act as PDC if PAM is enabled. You can do disable PAM "
 "at {ohref}LDAP Settings{chref}."
 msgstr ""
+"Um servidor cliente não pode funcionar como PDC se Pam estiver activo. Pode "
+"desactivar PAM em {ohref}Definições LDAP{chref}"
 
 #: ../../main/samba/src/EBox/Samba/Model/GeneralSettings.pm:106
 msgid "Enable PDC"
@@ -7535,7 +7512,6 @@ msgstr "Activar PDC"
 #: ../../main/samba/src/EBox/Samba/Model/GeneralSettings.pm:112
 #: ../../main/network/src/templates/diag.mas:32
 #: ../../main/mail/src/templates/createaccount.mas:26
-#, fuzzy
 msgid "Domain name"
 msgstr ""
 "#-#-#-#-#  pt.po (ebox-network 0.12)  #-#-#-#-#\n"
@@ -7543,7 +7519,7 @@ msgstr ""
 "#-#-#-#-#  pt.po (ebox-samba 0.12)  #-#-#-#-#\n"
 "Nome do domínio\n"
 "#-#-#-#-#  pt.po (ebox-mail 0.12)  #-#-#-#-#\n"
-"Nome do dominio"
+"Nome do domínio"
 
 #: ../../main/samba/src/EBox/Samba/Model/GeneralSettings.pm:118
 msgid "Netbios name"
@@ -8273,13 +8249,12 @@ msgstr "Definições do correio de voz"
 
 #: ../../main/asterisk/src/EBox/Model/Voicemail.pm:101
 #: ../../main/mail/src/EBox/CGI/CreateAccount.pm:48
-#, fuzzy
 msgid "Mail address"
 msgstr ""
 "#-#-#-#-#  pt.po (ebox-asterisk 1.1)  #-#-#-#-#\n"
 "Endereço de correio\n"
 "#-#-#-#-#  pt.po (ebox-mail 0.12)  #-#-#-#-#\n"
-"Endereço de correio electrónico"
+"Endereço de correio"
 
 #: ../../main/asterisk/src/EBox/Model/Voicemail.pm:108
 msgid "Attach messages"
@@ -8325,11 +8300,10 @@ msgstr "porto a ser escutado"
 
 #: ../../main/usercorner/src/EBox/UserCorner/Model/Settings.pm:135
 msgid "User Corner is not supported on slave servers."
-msgstr ""
+msgstr "O canto do utilizador não é suportado em servidores cliente"
 
 #: ../../main/usercorner/src/EBox/UserCorner/CGI/Login/Index.pm:62
 #: ../../main/core/src/EBox/CGI/Login/Index.pm:63
-#, fuzzy
 msgid ""
 "There is a script which has asked to run in Zentyal exclusively. Please, "
 "wait patiently until it is done"
@@ -8338,8 +8312,8 @@ msgstr ""
 "Existe um script que foi definido para correr em exclusivo na Zentyal. Por "
 "favor, espere que acabe\n"
 "#-#-#-#-#  pt.po (ebox 0.12)  #-#-#-#-#\n"
-"Este script está a correr na Zentyal em modo exclusivo. Espere até estar "
-"concluído"
+"Existe um script que foi definido para correr em exclusivo na Zentyal. Por "
+"favor, espere que acabe"
 
 #: ../../main/usercorner/src/EBox/UserCorner/CGI/Login/Index.pm:66
 #: ../../main/core/src/EBox/CGI/Login/Index.pm:67
@@ -8348,7 +8322,6 @@ msgstr "Palavra-passe incorrecta"
 
 #: ../../main/usercorner/src/EBox/UserCorner/CGI/Login/Index.pm:69
 #: ../../main/core/src/EBox/CGI/Login/Index.pm:70
-#, fuzzy
 msgid "For security reasons your session has expired due to inactivity"
 msgstr ""
 "#-#-#-#-#  pt.po (ebox-usersandgroups 0.12)  #-#-#-#-#\n"
@@ -8358,11 +8331,10 @@ msgstr ""
 
 #: ../../main/usercorner/src/EBox/UserCorner/CGI/Login/Index.pm:72
 #: ../../main/core/src/EBox/CGI/Login/Index.pm:73
-#, fuzzy
 msgid "You have been logged out because a new session has been opened"
 msgstr ""
 "#-#-#-#-#  pt.po (ebox-usersandgroups 0.12)  #-#-#-#-#\n"
-"Foi desligado porque foi aberta uma nova sessão\n"
+"Foi desligado porque foi iniciada uma nova sessão\n"
 "#-#-#-#-#  pt.po (ebox 0.12)  #-#-#-#-#\n"
 "Foi desligado porque foi iniciada uma nova sessão"
 

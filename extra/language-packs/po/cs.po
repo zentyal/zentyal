@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: zentyal 2.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2011-03-04 17:30+0100\n"
-"PO-Revision-Date: 2011-03-02 20:07+0200\n"
+"PO-Revision-Date: 2011-04-07 16:36+0200\n"
 "Last-Translator: Michal <formanek.michal@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: cs\n"
@@ -21,7 +21,7 @@ msgstr ""
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:61
 msgid "Mail Filter"
-msgstr "Mail Filter"
+msgstr "Filtr pošty"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:79
 msgid "Add clamav user to amavis group"
@@ -29,7 +29,7 @@ msgstr "Přidat ClamAV uživatele do skupiny amavis"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:80
 msgid "Clamav need access to amavis fields to properly scan mail"
-msgstr "ClamAV potřebuje mít přístup k amavis, aby mohl řádně scanovat emaily"
+msgstr "ClamAV potřebuje mít přístup k amavis, aby mohl správně skenovat emaily"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:84
 msgid "Add clamav user to p3scan group"
@@ -38,12 +38,12 @@ msgstr "Přidat ClamAV uživatele do skupiny p3scan"
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:85
 msgid "Clamav need access to p3scan group to properly scan in the POP Proxy"
 msgstr ""
-"ClamAV potřebuje mít přístup k p3scan skupině, aby mohl řádně skenovat v POP "
-"Proxy"
+"ClamAV potřebuje mít přístup k p3scan skupině, aby mohl správně skenovat v "
+"POP Proxy"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:89
 msgid "Add spam and ham system users"
-msgstr "Přidat spam a ham systémové uživatele"
+msgstr "Přidat systémové uživatele spam a ham "
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:91
 msgid ""
@@ -53,7 +53,7 @@ msgstr ""
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:96
 msgid "Update LDAP"
-msgstr "Update LDAP"
+msgstr "aktualizace LDAP"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:97
 msgid "Add amavis specific classes and fields"
@@ -73,7 +73,7 @@ msgstr "Nemůžu pokračovat, protože filtr je v provozu"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:558
 msgid "Mail filter"
-msgstr "Mail filter"
+msgstr "Poštovní filtr"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:580
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:625
@@ -223,7 +223,7 @@ msgstr "POP3 proxy"
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:746
 #: ../../main/mailfilter/src/EBox/MailFilter/Composite/Amavis.pm:60
 msgid "SMTP Mail Filter"
-msgstr "SMTP Mail Filter"
+msgstr "SMTP poštovní filtr"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:753
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/POPProxyConfiguration.pm:92
@@ -308,11 +308,11 @@ msgstr "Neplatné externí MTA {mta}. Lokální síťové adresy nejsou povoleny
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/ExternalDomain.pm:68
 msgid "External mail domain"
-msgstr "Externí mailová doména"
+msgstr "Externí poštovní doména"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/ExternalDomain.pm:82
 msgid "External mail domains"
-msgstr "Externí mailové domény"
+msgstr "Externí poštovní domény"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/ExternalDomain.pm:94
 msgid "external mail domain"
@@ -333,19 +333,19 @@ msgstr ""
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamTraining.pm:58
 msgid "Mailbox"
-msgstr ""
+msgstr "Mailbox"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamTraining.pm:64
 msgid "Mailbox contains"
-msgstr ""
+msgstr "Obsah poštovní schránky"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamTraining.pm:74
 msgid "Train bayesian spam filter"
-msgstr ""
+msgstr "Učit bayesovský antispamový filtr"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamTraining.pm:79
 msgid "Learned from messages"
-msgstr ""
+msgstr "Učil ze zpráv"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamTraining.pm:81
 msgid "Train"
@@ -356,16 +356,16 @@ msgstr ""
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/Report/FilterDetails.pm:49
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/Report/FilterDetails.pm:90
 msgid "spam"
-msgstr ""
+msgstr "spam"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamTraining.pm:97
 msgid "ham"
-msgstr ""
+msgstr "ham"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamTraining.pm:129
 #, perl-brace-format
 msgid "Invalid mailbox type: {type}"
-msgstr ""
+msgstr "Neplatný typ poštovní schránky: {type}"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomains.pm:68
 #: ../../main/network/src/EBox/Model/SearchDomain.pm:71
@@ -379,11 +379,11 @@ msgstr "Doména"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomains.pm:78
 msgid "Use virus filtering"
-msgstr ""
+msgstr "Použít filtrování virů"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomains.pm:84
 msgid "Use spam filtering"
-msgstr ""
+msgstr "Použít filtrování spamu"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomains.pm:90
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamConfiguration.pm:61
@@ -393,7 +393,7 @@ msgstr "Limit spamu"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomains.pm:97
 msgid "default"
-msgstr ""
+msgstr "výchozí"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomains.pm:101
 msgid "custom threshold"
@@ -408,10 +408,12 @@ msgid ""
 "Every time that a email moved into or out of the IMAP spam folder the filter "
 "will be trained with it"
 msgstr ""
+"Pokaždé, když se přesune email do nebo ze složky spam v IMAPu, bude se s "
+"tímto přesunem učit i antispamový filtr"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomains.pm:124
 msgid "Learning ham account"
-msgstr ""
+msgstr "Učící se ham účet"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomains.pm:125
 msgid ""
@@ -419,10 +421,12 @@ msgid ""
 "incorrectly classified as spam may be forwarded to this addres to train the "
 "filter"
 msgstr ""
+"Pro tuto doménu bude vytvořena adresa (ham@doména), kam mohou být předávány "
+"zprávy(ham) klasifikované jako spam, pro naučení filtru."
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomains.pm:136
 msgid "Learning spam account"
-msgstr ""
+msgstr "Učící se spam filtr"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomains.pm:137
 msgid ""
@@ -430,6 +434,8 @@ msgid ""
 "incorrectly classified as ham may be forwarded to this addres to train the "
 "filter"
 msgstr ""
+"Pro tuto doménu bude vytvořena adresa (spam@doména), kam mohou být předávány "
+"zprávy(spamy) klasifikované jako ham, pro naučení filtru."
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomains.pm:148
 msgid "Antispam sender policy"
@@ -467,12 +473,8 @@ msgstr "Mail odesílatel"
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterCategoriesBase.pm:75
 #: ../../main/squid/src/EBox/Squid/Model/GroupPolicyBase.pm:79
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterBase.pm:42
-#, fuzzy
 msgid "Policy"
-msgstr ""
-"#-#-#-#-#  cs.po (ebox-mailfilter 1.4.2)  #-#-#-#-#\n"
-"Zásady\n"
-"#-#-#-#-#  cs.po (ebox-squid 1.5)  #-#-#-#-#\n"
+msgstr "Zásady"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamVDomainACL.pm:76
 msgid "Sender policy for virtual domain"
@@ -528,25 +530,8 @@ msgstr "proces"
 #: ../../main/core/src/templates/enable.mas:24
 #: ../../main/jabber/src/templates/jabber.mas:22
 #: ../../main/jabber/src/templates/jabber.mas:25
-#, fuzzy
 msgid "Enabled"
-msgstr ""
-"#-#-#-#-#  cs.po (ebox-mailfilter 1.4.2)  #-#-#-#-#\n"
-"Povoleno\n"
-"#-#-#-#-#  cs.po (ebox-openvpn 1.5)  #-#-#-#-#\n"
-"Povoleno\n"
-"#-#-#-#-#  cs.po (libebox 1.5)  #-#-#-#-#\n"
-"Povolený\n"
-"#-#-#-#-#  cs.po (ebox-ids 1.4)  #-#-#-#-#\n"
-"Povolený\n"
-"#-#-#-#-#  cs.po (ebox-ntp 1.5)  #-#-#-#-#\n"
-"Povoleno\n"
-"#-#-#-#-#  cs.po (ebox-firewall 1.5)  #-#-#-#-#\n"
-"Povoleno\n"
-"#-#-#-#-#  cs.po (ebox-mail 1.4.2)  #-#-#-#-#\n"
-"Povoleno\n"
-"#-#-#-#-#  cs.po (ebox-ebox 1.5)  #-#-#-#-#\n"
-"Povoleno"
+msgstr "Povoleno"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisConfiguration.pm:69
 msgid "Antivirus enabled"
@@ -599,23 +584,8 @@ msgstr "Informujte ne spamové problematické zprávy"
 #: ../../main/core/src/templates/enable.mas:23
 #: ../../main/jabber/src/templates/jabber.mas:21
 #: ../../main/jabber/src/templates/jabber.mas:24
-#, fuzzy
 msgid "Disabled"
-msgstr ""
-"#-#-#-#-#  cs.po (ebox-mailfilter 1.4.2)  #-#-#-#-#\n"
-"Zakázaný\n"
-"#-#-#-#-#  cs.po (ebox-openvpn 1.5)  #-#-#-#-#\n"
-"Zakázáno\n"
-"#-#-#-#-#  cs.po (ebox-. 1.5)  #-#-#-#-#\n"
-"Zakázaný\n"
-"#-#-#-#-#  cs.po (libebox 1.5)  #-#-#-#-#\n"
-"Zakázaný\n"
-"#-#-#-#-#  cs.po (ebox-ntp 1.5)  #-#-#-#-#\n"
-"Zakázaný\n"
-"#-#-#-#-#  cs.po (ebox-mail 1.4.2)  #-#-#-#-#\n"
-"Zakázaný\n"
-"#-#-#-#-#  cs.po (ebox-webmail 1.4)  #-#-#-#-#\n"
-"Zakázaný"
+msgstr "Zakázaný"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisConfiguration.pm:98
 msgid "mail address"
@@ -627,7 +597,7 @@ msgstr "mailová adresa"
 #: ../../main/mail/src/EBox/Mail.pm:1623 ../../main/ca/src/EBox/CA.pm:1754
 #: ../../main/core/src/EBox/SysInfo.pm.in:268
 msgid "General"
-msgstr "Obecný"
+msgstr "Hlavní"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisConfiguration.pm:139
 #, perl-brace-format
@@ -690,13 +660,8 @@ msgstr ""
 #: ../../main/ebackup/src/EBox/EBackup/Subscribed.pm:197
 #: ../../main/ebackup/src/EBox/EBackup/Subscribed.pm:198
 #: ../../main/jabber/src/EBox/Jabber/Composite/General.pm:66
-#, fuzzy
 msgid "Configuration"
-msgstr ""
-"#-#-#-#-#  cs.po (ebox-services 1.5)  #-#-#-#-#\n"
-"Nastavení\n"
-"#-#-#-#-#  cs.po (ebox-ebox 1.5)  #-#-#-#-#\n"
-"Konfigurace"
+msgstr "Nastavení"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/POPProxyConfiguration.pm:113
 msgid ""
@@ -759,19 +724,19 @@ msgstr ""
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/Report/FilterDetails.pm:46
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/Report/FilterDetails.pm:80
 msgid "clean messages"
-msgstr ""
+msgstr "vyčistit zprávy"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/Report/FilterGraph.pm:68
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/Report/FilterDetails.pm:52
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/Report/FilterDetails.pm:95
 msgid "banned files"
-msgstr ""
+msgstr "zakázané soubory"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/Report/FilterGraph.pm:72
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/Report/FilterDetails.pm:55
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/Report/FilterDetails.pm:85
 msgid "infected"
-msgstr ""
+msgstr "nakažený"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/Report/FilterGraph.pm:76
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/Report/FilterDetails.pm:58
@@ -940,13 +905,8 @@ msgstr "Přípony, které nejsou uvedeny níže jsou povoleny"
 #: ../../main/mailfilter/src/EBox/MailFilter/Types/AmavisSender.pm:78
 #: ../../main/mail/src/EBox/CGI/CreateAlias.pm:48
 #: ../../main/mail/src/EBox/CGI/CreateGroupAlias.pm:48
-#, fuzzy
 msgid "domain name"
-msgstr ""
-"#-#-#-#-#  cs.po (ebox-mailfilter 1.4.2)  #-#-#-#-#\n"
-"doménové jméno\n"
-"#-#-#-#-#  cs.po (ebox-mail 1.4.2)  #-#-#-#-#\n"
-"jméno domény"
+msgstr "jméno domény"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Types/AmavisSender.pm:82
 msgid "email address"
@@ -999,28 +959,28 @@ msgstr "Zapište číslo větší než {m}"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Amavis.pm:64
 msgid "To configure amavis"
-msgstr ""
+msgstr "Nastavit amavis"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Amavis.pm:425
-#, fuzzy
 msgid "Zentyal internal mail filter"
-msgstr "externí mail server"
+msgstr "vnitřní mailový filtr Zentyal"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Amavis.pm:439
 msgid "SMTP filter proxy"
-msgstr ""
+msgstr "SMTP proxy filtr"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/SpamAssassin.pm:58
 msgid " To configure spamassassin daemon"
-msgstr ""
+msgstr "Nastavit spamassassin démona"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/SpamAssassin.pm:336
 msgid "It must be a number(decimal point allowed)"
-msgstr ""
+msgstr "Musí to být číslo (desetinné číslo povoleno)"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/SpamAssassin.pm:346
+#, fuzzy
 msgid "The spam's threshold cannot be higher than its autolearn threshold"
-msgstr ""
+msgstr "spam práh nemůže být vyšší než jeho Autolearn práh"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/SpamAssassin.pm:350
 msgid ""
@@ -1105,13 +1065,8 @@ msgstr "Skupina s povolenou autentizací"
 #: ../../main/asterisk/src/EBox/Model/Settings.pm:145
 #: ../../main/usercorner/src/EBox/UserCorner/Model/Settings.pm:62
 #: ../../main/webmail/src/EBox/WebMail/Model/Options.pm:65
-#, fuzzy
 msgid "General configuration"
-msgstr ""
-"#-#-#-#-#  cs.po (ebox-radius 1.4)  #-#-#-#-#\n"
-"Hlavní nastavení\n"
-"#-#-#-#-#  cs.po (ebox-webmail 1.4)  #-#-#-#-#\n"
-"Obecné nastavení"
+msgstr "Hlavní nastavení"
 
 #: ../../main/radius/src/EBox/Model/Auth.pm:142
 msgid "RADIUS server configuration"
@@ -1170,7 +1125,7 @@ msgstr "RADIUS"
 #: ../../main/network/src/EBox/Event/Watcher/Gateways.pm:160
 #, perl-brace-format
 msgid "Gateway {gw} connected"
-msgstr ""
+msgstr "Brána {gw} připojená"
 
 #: ../../main/network/src/EBox/Event/Watcher/Gateways.pm:299
 #, perl-brace-format
@@ -1178,20 +1133,22 @@ msgid ""
 "Gateway {gw} disconnected ({failRatio}% of '{type}' tests to host '{host}' "
 "failed, max={maxFailRatio}%)"
 msgstr ""
+"Brána {gw} odpojená ({failRatio}% od'{type}' tests to host '{host}' failed, "
+"max={maxFailRatio}%)"
 
 #: ../../main/network/src/EBox/Event/Watcher/Gateways.pm:380
 #: ../../main/network/src/EBox/Network.pm:3658
 #: ../../main/network/src/EBox/Network/Composite/WANFailover.pm:61
 msgid "WAN Failover"
-msgstr ""
+msgstr "Porucha WAN"
 
 #: ../../main/network/src/EBox/Event/Watcher/Gateways.pm:396
 msgid "Check if gateways are connected or disconnected."
-msgstr ""
+msgstr "Zkontrolovat zda je brána připojená nebo odpojená."
 
 #: ../../main/network/src/EBox/Model/SearchDomain.pm:79
 msgid "Search Domain"
-msgstr ""
+msgstr "Hledat Doménu"
 
 #: ../../main/network/src/EBox/Model/SearchDomain.pm:83
 msgid ""
@@ -1201,23 +1158,23 @@ msgstr ""
 
 #: ../../main/network/src/EBox/Model/WANFailoverRules.pm:55
 msgid "Ping to gateway"
-msgstr ""
+msgstr "Ping na bránu"
 
 #: ../../main/network/src/EBox/Model/WANFailoverRules.pm:59
 msgid "Ping to host"
-msgstr ""
+msgstr "Ping na host"
 
 #: ../../main/network/src/EBox/Model/WANFailoverRules.pm:63
 msgid "DNS resolve"
-msgstr ""
+msgstr "DNS resolve"
 
 #: ../../main/network/src/EBox/Model/WANFailoverRules.pm:67
 msgid "HTTP Request"
-msgstr ""
+msgstr "HTTP požadavek"
 
 #: ../../main/network/src/EBox/Model/WANFailoverRules.pm:91
 msgid "Test type"
-msgstr ""
+msgstr "Typ testu"
 
 #: ../../main/network/src/EBox/Model/WANFailoverRules.pm:97
 #: ../../main/network/src/EBox/CGI/Diag.pm:50
@@ -1226,7 +1183,7 @@ msgstr ""
 #: ../../main/network/src/templates/diag.mas:14
 #: ../../main/network/src/templates/diag.mas:23
 msgid "Host"
-msgstr ""
+msgstr "Host"
 
 #: ../../main/network/src/EBox/Model/WANFailoverRules.pm:103
 msgid "Number of probes"
@@ -1238,7 +1195,7 @@ msgstr ""
 
 #: ../../main/network/src/EBox/Model/WANFailoverRules.pm:125
 msgid "Test rules"
-msgstr ""
+msgstr "Pravidla testu"
 
 #: ../../main/network/src/EBox/Model/WANFailoverRules.pm:132
 msgid ""
@@ -1246,6 +1203,9 @@ msgid ""
 "one of the test fails the gateway will be disabled. It will be enabled again "
 "when all tests are passed."
 msgstr ""
+"Můžete definovat různá pravidla otestování, zda brána funguje správně. "
+"Jakmile jedna ze zkoušek selže, brána bude zakázána. Pokud znova projde "
+"všemi testy, bude povolena."
 
 #: ../../main/network/src/EBox/Model/WANFailoverRules.pm:133
 #: ../../main/network/src/EBox/Model/MultiGwRulesDataTable.pm:195
@@ -1262,7 +1222,7 @@ msgstr "pravidlo"
 
 #: ../../main/network/src/EBox/Model/WANFailoverRules.pm:182
 msgid "Invalid value for Host"
-msgstr ""
+msgstr "Neplatná hodnota pro Host"
 
 #: ../../main/network/src/EBox/Model/ByteRateGraphControl.pm:46
 msgid "Select traffic graphic"
@@ -1336,7 +1296,7 @@ msgstr ""
 #: ../../main/core/src/templates/password.mas:11
 #: ../../main/core/src/templates/login/index.mas:49
 msgid "Username"
-msgstr ""
+msgstr "Uživatelské jméno"
 
 #: ../../main/network/src/EBox/Model/DynDNS.pm:146
 #: ../../main/network/src/EBox/Model/Proxy.pm:82
@@ -1364,7 +1324,7 @@ msgstr "Heslo"
 #: ../../main/network/src/EBox/Model/DynDNS.pm:151
 #: ../../main/core/src/EBox/SysInfo.pm.in:104
 msgid "Hostname"
-msgstr ""
+msgstr "Název stanice (hostname)"
 
 #: ../../main/network/src/EBox/Model/DynDNS.pm:163
 msgid ""

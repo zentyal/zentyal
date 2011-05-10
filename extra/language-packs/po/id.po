@@ -4,19 +4,20 @@
 # This file is distributed under the same license as the zentyal packages.
 # Automatically generated, 2011.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: zentyal 2.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2011-03-04 17:30+0100\n"
-"PO-Revision-Date: 2010-01-09 16:09+0100\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2011-05-01 15:10+0200\n"
+"Last-Translator: raditlokez <radit.lokez@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
-"Language: \n"
+"Language: id\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Pootle 2.1.4\n"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:61
 msgid "Mail Filter"
@@ -24,7 +25,7 @@ msgstr ""
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:79
 msgid "Add clamav user to amavis group"
-msgstr ""
+msgstr "Tambah pengguna clamav untuk grup amavis"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:80
 msgid "Clamav need access to amavis fields to properly scan mail"
@@ -32,15 +33,16 @@ msgstr ""
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:84
 msgid "Add clamav user to p3scan group"
-msgstr ""
+msgstr "Tambahkan pengguna clamav untuk grup p3scan"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:85
 msgid "Clamav need access to p3scan group to properly scan in the POP Proxy"
 msgstr ""
+"Clamav membutuhkan akses grup p3scan untuk ketepatan scan dalam Proxy POP"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:89
 msgid "Add spam and ham system users"
-msgstr ""
+msgstr "Tambahkan sistem pengguna spam dan ham"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:91
 msgid ""
@@ -49,23 +51,23 @@ msgstr ""
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:96
 msgid "Update LDAP"
-msgstr ""
+msgstr "Update LDAP"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:97
 msgid "Add amavis specific classes and fields"
-msgstr ""
+msgstr "Tambah amavis class dan fields secara spesifik"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:146
 msgid "POP transparent proxy"
-msgstr ""
+msgstr "Proxy transparent POP"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:155
 msgid "POP3 protocol"
-msgstr ""
+msgstr "Protokol POP3"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:403
 msgid "Cannot proceed because the filter is in use"
-msgstr ""
+msgstr "Tidak dapat melanjutkan karena filter digunakan"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:558
 msgid "Mail filter"
@@ -141,11 +143,11 @@ msgstr "Event"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:585
 msgid "Sender address"
-msgstr ""
+msgstr "Alamat pengirim"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:586
 msgid "Recipient address"
-msgstr ""
+msgstr "Alamat penerima"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:588
 msgid "Spam hits"
@@ -153,77 +155,77 @@ msgstr ""
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:593
 msgid "Bad header found"
-msgstr ""
+msgstr "Bad header ditemukan"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:594
 msgid "Spam found"
-msgstr ""
+msgstr "Spam ditemukan"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:595
 msgid "Forbidden attached file found"
-msgstr ""
+msgstr "Lampiran file terlarang ditemukan"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:596
 msgid "Address in blacklist found"
-msgstr ""
+msgstr "Alamat dalam daftar hitam ditemukan"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:597
 msgid "Virus found"
-msgstr ""
+msgstr "Virus ditemukan"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:598
 msgid "Clean message"
-msgstr ""
+msgstr "Bersihkan pesan"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:607
 msgid "SMTP filter"
-msgstr ""
+msgstr "Filter SMTP"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:627
 msgid "Account"
-msgstr ""
+msgstr "Akun"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:628
 msgid "Client's address"
-msgstr ""
+msgstr "Alamat klien"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:631
 msgid "Total messages"
-msgstr ""
+msgstr "Total pesan"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:632
 msgid "Clean messages"
-msgstr ""
+msgstr "Bersihkan pesan"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:633
 msgid "Virus messages"
-msgstr ""
+msgstr "Pesan virus"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:634
 msgid "Spam messages"
-msgstr ""
+msgstr "Pesan spam"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:641
 msgid "POP3 transmission complete"
-msgstr ""
+msgstr "Transmisi POP3 selesai"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:643
 msgid "POP3 transmission aborted"
-msgstr ""
+msgstr "Transmisi POP3 dibatalkan"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:647
 msgid "POP3 proxy"
-msgstr ""
+msgstr "Proxy POP3"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:746
 #: ../../main/mailfilter/src/EBox/MailFilter/Composite/Amavis.pm:60
 msgid "SMTP Mail Filter"
-msgstr ""
+msgstr "Filter/penyaring mail SMTP"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:753
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/POPProxyConfiguration.pm:92
 msgid "POP Transparent Proxy"
-msgstr ""
+msgstr "Proxy transparent POP"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:761
 #: ../../main/mailfilter/src/EBox/MailFilter/POPProxy.pm:348
@@ -231,23 +233,23 @@ msgstr ""
 #: ../../main/mailfilter/src/EBox/MailFilter/Composite/Antispam.pm:96
 #: ../../main/mailfilter/src/EBox/MailFilter/Composite/Antispam.pm:97
 msgid "Antispam"
-msgstr ""
+msgstr "Antispam"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:768
 msgid "Files ACL"
-msgstr ""
+msgstr "File ACL"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/POPProxy.pm:61
 msgid " To configure p3scan"
-msgstr ""
+msgstr "Untuk mengkonfigurasi p3scan"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/POPProxy.pm:66
 msgid "To configure renattach"
-msgstr ""
+msgstr "Untuk mengkonfigurasi renattach"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/POPProxy.pm:322
 msgid "Transparent POP Proxy"
-msgstr ""
+msgstr "Proxy transparent POP"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/POPProxy.pm:328
 #: ../../main/mailfilter/src/EBox/MailFilter/Amavis.pm:445
@@ -265,70 +267,75 @@ msgstr "Status"
 #: ../../main/mailfilter/src/EBox/MailFilter/VDomainsLdap.pm:537
 #, perl-brace-format
 msgid "Virtual mail domain {vd} does not exist"
-msgstr ""
+msgstr "Mail domain virtual {vd} tidak ada"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/ExternalMTA.pm:67
 msgid "External mail server"
-msgstr ""
+msgstr "Mail server eksternal"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/ExternalMTA.pm:70
 msgid "IP address of the server"
-msgstr ""
+msgstr "Alamat IP server"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/ExternalMTA.pm:74
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/ExternalDomain.pm:74
 msgid "Allow connection"
-msgstr ""
+msgstr "Ijinkan koneksi"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/ExternalMTA.pm:82
 msgid "External mail servers"
-msgstr ""
+msgstr "Mail server eksternal"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/ExternalMTA.pm:94
 msgid "external mail server"
-msgstr ""
+msgstr "Mail server eksternal"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/ExternalMTA.pm:95
 msgid ""
 "Here you can specify which external mail servers can connect to the mail "
 "filter"
 msgstr ""
+"Di sini Anda bisa menentukan mail server eksternal agar dapat terhubung ke "
+"mail filter"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/ExternalMTA.pm:142
 #, perl-brace-format
 msgid "Invalid external MTA {mta}. Local network addresses are not allowed"
 msgstr ""
+"MTA {mta} eksternal tidak valid. Alamat jaringan lokal tidak diperbolehkan"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/ExternalDomain.pm:68
 msgid "External mail domain"
-msgstr ""
+msgstr "Mail domain eksternal"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/ExternalDomain.pm:82
 msgid "External mail domains"
-msgstr ""
+msgstr "Mail domain eksternal"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/ExternalDomain.pm:94
 msgid "external mail domain"
-msgstr ""
+msgstr "mail domain eksternal"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/ExternalDomain.pm:95
 msgid ""
 "Here you can specify which external mail domains can connect to the mail "
 "filter"
 msgstr ""
+"Di sini Anda dapat menentukan mail domain eksternal agar dapat terhubung ke "
+"mail filter"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/ExternalDomain.pm:113
 #, perl-brace-format
 msgid "{d} is a internal Zentyal virtual main domain"
-msgstr ""
+msgstr "{d} adalah internal virtual domain utama Zentyal"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamTraining.pm:58
 msgid "Mailbox"
-msgstr ""
+msgstr "Kotak pesan"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamTraining.pm:64
 msgid "Mailbox contains"
-msgstr ""
+msgstr "Kotak pesan berisi"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamTraining.pm:74
 msgid "Train bayesian spam filter"
@@ -347,16 +354,16 @@ msgstr ""
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/Report/FilterDetails.pm:49
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/Report/FilterDetails.pm:90
 msgid "spam"
-msgstr ""
+msgstr "Spam"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamTraining.pm:97
 msgid "ham"
-msgstr ""
+msgstr "ham"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamTraining.pm:129
 #, perl-brace-format
 msgid "Invalid mailbox type: {type}"
-msgstr ""
+msgstr "Tipe mailbox tidak valid: {type}"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomains.pm:68
 #: ../../main/network/src/EBox/Model/SearchDomain.pm:71
@@ -366,15 +373,15 @@ msgstr ""
 #: ../../main/core/src/EBox/Logs/Model/SelectLog.pm:149
 #: ../../main/core/src/EBox/Logs/Model/ConfigureLogDataTable.pm:331
 msgid "Domain"
-msgstr ""
+msgstr "Domain"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomains.pm:78
 msgid "Use virus filtering"
-msgstr ""
+msgstr "Gunakan pemfilter virus"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomains.pm:84
 msgid "Use spam filtering"
-msgstr ""
+msgstr "Gunakan pemfilter spam"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomains.pm:90
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamConfiguration.pm:61
@@ -384,7 +391,7 @@ msgstr ""
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomains.pm:97
 msgid "default"
-msgstr ""
+msgstr "Default"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomains.pm:101
 msgid "custom threshold"
@@ -402,7 +409,7 @@ msgstr ""
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomains.pm:124
 msgid "Learning ham account"
-msgstr ""
+msgstr "Pelajari akun ham"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomains.pm:125
 msgid ""
@@ -413,7 +420,7 @@ msgstr ""
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomains.pm:136
 msgid "Learning spam account"
-msgstr ""
+msgstr "Pelajari akun spam"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomains.pm:137
 msgid ""
@@ -424,13 +431,13 @@ msgstr ""
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomains.pm:148
 msgid "Antispam sender policy"
-msgstr ""
+msgstr "Kebijakan pengiriman antispam"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomains.pm:159
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamACL.pm:164
 #: ../../main/mail/src/EBox/Mail/Model/VDomains.pm:91
 msgid "Virtual Domains"
-msgstr ""
+msgstr "Domain Virtual"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomains.pm:170
 #: ../../main/mail/src/EBox/MailVDomainsLdap.pm:64
@@ -438,7 +445,7 @@ msgstr ""
 #: ../../main/mail/src/EBox/Mail/Model/VDomains.pm:101
 #: ../../main/mail/src/EBox/CGI/CreateAccount.pm:46
 msgid "virtual domain"
-msgstr ""
+msgstr "domain virtual"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomains.pm:188
 #, perl-brace-format
@@ -450,7 +457,7 @@ msgstr ""
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamVDomainACL.pm:61
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamACL.pm:61
 msgid "Mail sender"
-msgstr ""
+msgstr "Pengirim pesan"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamVDomainACL.pm:67
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamACL.pm:67
@@ -459,31 +466,31 @@ msgstr ""
 #: ../../main/squid/src/EBox/Squid/Model/GroupPolicyBase.pm:79
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterBase.pm:42
 msgid "Policy"
-msgstr ""
+msgstr "Kebijakan"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamVDomainACL.pm:76
 msgid "Sender policy for virtual domain"
-msgstr ""
+msgstr "Kebijakan pengiriman untuk virtual domain"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamVDomainACL.pm:88
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamACL.pm:88
 msgid "sender policy"
-msgstr ""
+msgstr "Kebijakan pengirim"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamVDomainACL.pm:97
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamACL.pm:97
 msgid "whitelist"
-msgstr ""
+msgstr "daftar putih"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamVDomainACL.pm:98
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamACL.pm:98
 msgid "blacklist"
-msgstr ""
+msgstr "daftar hitam"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamVDomainACL.pm:99
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamACL.pm:99
 msgid "process"
-msgstr ""
+msgstr "proses"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisConfiguration.pm:63
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/POPProxyConfiguration.pm:57
@@ -518,15 +525,15 @@ msgstr "Diaktifkan"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisConfiguration.pm:69
 msgid "Antivirus enabled"
-msgstr ""
+msgstr "Antivirus diaktifkan"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisConfiguration.pm:75
 msgid "Antispam enabled"
-msgstr ""
+msgstr "Antispam diaktifkan"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisConfiguration.pm:82
 msgid "Service's port"
-msgstr ""
+msgstr "Servis port"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisConfiguration.pm:89
 msgid "Notify of non-spam problematic messages"
@@ -577,7 +584,7 @@ msgstr ""
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisConfiguration.pm:98
 msgid "mail address"
-msgstr ""
+msgstr "alamat mail"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisConfiguration.pm:108
 #: ../../main/squid/src/EBox/Squid.pm:1089
@@ -590,27 +597,27 @@ msgstr "Umum"
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisConfiguration.pm:139
 #, perl-brace-format
 msgid "The port {port} is already used by module {mod}"
-msgstr ""
+msgstr "Port {port} sudah digunakan oleh modul {mod}"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisPolicy.pm:61
 msgid "Virus policy"
-msgstr ""
+msgstr "Kebijakan virus"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisPolicy.pm:67
 msgid "Spam policy"
-msgstr ""
+msgstr "Kebijakan spam"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisPolicy.pm:73
 msgid "Banned files policy"
-msgstr ""
+msgstr "Kebijakan banned file"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisPolicy.pm:79
 msgid "Bad header policy"
-msgstr ""
+msgstr "kebijakan bad header"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisPolicy.pm:89
 msgid "Filter Policies"
-msgstr ""
+msgstr "kebijakan penyaringan / Kebijakan filter"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/POPProxyConfiguration.pm:69
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupAntiVirus.pm:59
@@ -624,13 +631,15 @@ msgstr ""
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/POPProxyConfiguration.pm:81
 msgid "ISP spam subject"
-msgstr ""
+msgstr "Subyek spam ISP"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/POPProxyConfiguration.pm:85
 msgid ""
 "This option allows you to set the string your ISP uses if\n"
 "it processes your email for SPAM."
 msgstr ""
+"Pilihan ini memungkinkan Anda untuk mengatur string ISP Anda gunakan if\n"
+" ini akan memproses email Anda untuk SPAM"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/POPProxyConfiguration.pm:93
 #: ../../main/network/src/EBox/Model/DynDNS.pm:159
@@ -649,17 +658,19 @@ msgstr ""
 #: ../../main/ebackup/src/EBox/EBackup/Subscribed.pm:198
 #: ../../main/jabber/src/EBox/Jabber/Composite/General.pm:66
 msgid "Configuration"
-msgstr ""
+msgstr "Konfigurasi"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/POPProxyConfiguration.pm:113
 msgid ""
 "The POP transparent proxy must scan for something to be useful. If you do "
 "not need either antivirus of spam scan we suggest you turn it off"
 msgstr ""
+"POP proxy transparan harus mencari sesuatu yang berguna. JIka Anda tidak "
+"memerlukan antivirus dan spam scan kami sarankan untuk dinonaktifkan"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamACL.pm:76
 msgid "Sender policy"
-msgstr ""
+msgstr "Kebijakan pengirim"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/MIMETypeACL.pm:75
 #: ../../main/squid/src/EBox/Squid/Model/MIMEFilterBase.pm:57
@@ -667,7 +678,7 @@ msgstr ""
 #: ../../main/squid/src/EBox/Squid/Model/MIMEFilterBase.pm:153
 #: ../../main/squid/src/EBox/Squid/Model/MIMEFilterBase.pm:164
 msgid "MIME Type"
-msgstr ""
+msgstr "Tipe MIME"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/MIMETypeACL.pm:81
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/FileExtensionACL.pm:85
@@ -677,26 +688,28 @@ msgstr ""
 #: ../../main/squid/src/EBox/Squid/Model/ExtensionFilterBase.pm:117
 #: ../../main/samba/src/templates/samba.mas:115
 msgid "Allow"
-msgstr ""
+msgstr "Ijinkan"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/MIMETypeACL.pm:90
 #: ../../main/squid/src/EBox/Squid/Model/ApplyAllowToAllMIME.pm:41
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupApplyAllowToAllMIME.pm:41
 msgid "MIME types"
-msgstr ""
+msgstr "Tipe-tipe MIME"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/MIMETypeACL.pm:98
 #: ../../main/mailfilter/src/EBox/MailFilter/Types/MIMEType.pm:60
 #: ../../main/squid/src/EBox/Squid/Model/MIMEFilter.pm:63
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupMIMEFilter.pm:59
 msgid "MIME type"
-msgstr ""
+msgstr "Tipe MIME"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/MIMETypeACL.pm:99
 msgid ""
 "MIME types which are not listed below are allowed. MIME types aren't used by "
 "POP transparent proxy"
 msgstr ""
+"Jenis MIME yang tidak tercantum di bawah ini diperbolehkan. Tipe MIME yang "
+"tidak digunakan proxy transparan POP"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/Report/FilterGraph.pm:51
 msgid "Mail filter graph"
@@ -709,7 +722,7 @@ msgstr ""
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/Report/FilterDetails.pm:46
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/Report/FilterDetails.pm:80
 msgid "clean messages"
-msgstr ""
+msgstr "bersihkan pesan"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/Report/FilterGraph.pm:68
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/Report/FilterDetails.pm:52
@@ -721,17 +734,17 @@ msgstr ""
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/Report/FilterDetails.pm:55
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/Report/FilterDetails.pm:85
 msgid "infected"
-msgstr ""
+msgstr "Terinfeksi"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/Report/FilterGraph.pm:76
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/Report/FilterDetails.pm:58
 msgid "bad header"
-msgstr ""
+msgstr "bad header"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/Report/FilterGraph.pm:80
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/Report/FilterDetails.pm:61
 msgid "blacklisted"
-msgstr ""
+msgstr "daftar hitam"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/Report/FilterGraph.pm:103
 msgid "Filter traffic"
@@ -741,26 +754,26 @@ msgstr ""
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/Report/POPProxyDetails.pm:75
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/Report/POPProxyGraph.pm:63
 msgid "total messages"
-msgstr ""
+msgstr "total pesan"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/Report/POPProxyDetails.pm:52
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/Report/POPProxyGraph.pm:69
 msgid "infected messages "
-msgstr ""
+msgstr "pesan terinfeksi"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/Report/POPProxyDetails.pm:56
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/Report/POPProxyDetails.pm:90
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/Report/POPProxyGraph.pm:73
 msgid "spam messages"
-msgstr ""
+msgstr "pesan spam"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/Report/POPProxyDetails.pm:85
 msgid "infected messages"
-msgstr ""
+msgstr "pesan terinfeksi"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/Report/POPProxyDetails.pm:102
 msgid "Transparent POP proxy traffic details"
-msgstr ""
+msgstr "Rincian traffic proxy transparan POP"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/Report/POPProxyDetails.pm:110
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/Report/FilterDetails.pm:125
@@ -768,7 +781,7 @@ msgstr ""
 #: ../../main/firewall/src/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:86
 #: ../../main/mail/src/EBox/Mail/Model/Report/TrafficDetails.pm:99
 msgid "traffic"
-msgstr ""
+msgstr "traffic"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/Report/POPProxyGraph.pm:51
 msgid "POP proxy graph"
@@ -776,7 +789,7 @@ msgstr ""
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/Report/POPProxyGraph.pm:95
 msgid "Transparent POP proxy traffic"
-msgstr ""
+msgstr "Traffic proxy transparan POP"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/Report/FilterDetails.pm:101
 msgid "blacklisted senders"
@@ -784,11 +797,11 @@ msgstr ""
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/Report/FilterDetails.pm:106
 msgid "bad message header"
-msgstr ""
+msgstr "header pesan buruk"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/Report/FilterDetails.pm:117
 msgid "Filter traffic details"
-msgstr ""
+msgstr "Rincian traffic filter"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamConfiguration.pm:65
 msgid "The score threshold to mark a message as spam"
@@ -796,11 +809,11 @@ msgstr ""
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamConfiguration.pm:69
 msgid "Spam subject tag"
-msgstr ""
+msgstr "Spam subjek tag"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamConfiguration.pm:72
 msgid "Tag which will be added to the spam mail subject"
-msgstr ""
+msgstr "Tag yang akan ditambahkan ke subjek pesan spam"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamConfiguration.pm:76
 msgid "Use Bayesian classifier"
@@ -812,7 +825,7 @@ msgstr ""
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamConfiguration.pm:85
 msgid "Change the score of mail according to the sender history"
-msgstr ""
+msgstr "Ubah nilai pesan menurut waktu pengiriman"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamConfiguration.pm:89
 msgid "Auto-learn"
@@ -831,6 +844,8 @@ msgid ""
 "Spam messages with a score equal or greater than this threshold will be "
 "added to the learning system "
 msgstr ""
+"Pesan spam dengan nilai sama atau lebih besar dari batas ini akan "
+"ditambahkan ke sistem pembelajaran"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamConfiguration.pm:105
 msgid "Autolearn ham threshold"
@@ -841,10 +856,12 @@ msgid ""
 "Ham messages with a score below this threshold will be added to the learning "
 "system"
 msgstr ""
+"Pesan Ham dengan nilai di bawah ambang batas ini akan ditambahkan ke sistem "
+"pembelajaran"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamConfiguration.pm:114
 msgid "Antispam configuration"
-msgstr ""
+msgstr "Konfigurasi antispam"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamConfiguration.pm:166
 msgid ""
@@ -870,44 +887,44 @@ msgstr ""
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/FileExtensionACL.pm:79
 #: ../../main/squid/src/EBox/Squid/Model/ExtensionFilterBase.pm:59
 msgid "File extension"
-msgstr ""
+msgstr "Extensi File"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/FileExtensionACL.pm:94
 msgid "File extensions"
-msgstr ""
+msgstr "Extensi File"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/FileExtensionACL.pm:102
 #: ../../main/mailfilter/src/EBox/MailFilter/Types/FileExtension.pm:58
 msgid "file extension"
-msgstr ""
+msgstr "extensi file"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/FileExtensionACL.pm:103
 msgid "Extensions which are not listed below are allowed"
-msgstr ""
+msgstr "Ekstensi yang tidak tercantum di bawah ini diperbolehkan"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Types/AmavisSender.pm:78
 #: ../../main/mail/src/EBox/CGI/CreateAlias.pm:48
 #: ../../main/mail/src/EBox/CGI/CreateGroupAlias.pm:48
 msgid "domain name"
-msgstr ""
+msgstr "nama domain"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Types/AmavisSender.pm:82
 msgid "email address"
-msgstr ""
+msgstr "alamat email"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Types/AmavisSender.pm:86
 msgid ""
 "The sender ought be either an email address or a domain name prefixed with "
 "'@'"
-msgstr ""
+msgstr "Pengirim harus berupa alamat email atau nama domain diawali dengan '@'"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Types/Policy.pm:45
 msgid "Pass"
-msgstr ""
+msgstr "Melewati"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Types/Policy.pm:46
 msgid "Reject"
-msgstr ""
+msgstr "Menolak"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Types/Policy.pm:47
 msgid "Bounce"
@@ -915,33 +932,33 @@ msgstr ""
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Types/Policy.pm:48
 msgid "Discard"
-msgstr ""
+msgstr "Membuang"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Types/Policy.pm:68
 msgid "Mailfilter's policy"
-msgstr ""
+msgstr "Kebijakan Mailfilter"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Types/AntispamThreshold.pm:135
 msgid "Write down a decimal number"
-msgstr ""
+msgstr "Tuliskan angka desimal"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Types/AntispamThreshold.pm:140
 msgid "Only non-zero positive numbers are allowed"
-msgstr ""
+msgstr "Hanya angka positif selain nol yang diperbolehkan"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Types/AntispamThreshold.pm:149
 #, perl-brace-format
 msgid "Write down a number lesser than {m}"
-msgstr ""
+msgstr "Tuliskan nomor lebih rendah daripada {m}"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Types/AntispamThreshold.pm:156
 #, perl-brace-format
 msgid "Write down a number greater  than {m}"
-msgstr ""
+msgstr "Tuliskan jumlah yang lebih besar daripada {m}"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Amavis.pm:64
 msgid "To configure amavis"
-msgstr ""
+msgstr "Untuk mengkonfigurasi amavis"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Amavis.pm:425
 msgid "Zentyal internal mail filter"
@@ -953,11 +970,11 @@ msgstr ""
 
 #: ../../main/mailfilter/src/EBox/MailFilter/SpamAssassin.pm:58
 msgid " To configure spamassassin daemon"
-msgstr ""
+msgstr "Untuk mengkonfigurasi spamassasin daemon"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/SpamAssassin.pm:336
 msgid "It must be a number(decimal point allowed)"
-msgstr ""
+msgstr "Ini harus berupa angka (titik desimal diperbolehkan)"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/SpamAssassin.pm:346
 msgid "The spam's threshold cannot be higher than its autolearn threshold"
@@ -975,6 +992,9 @@ msgid ""
 "configuration. In order to be able to learn enable the bayesian filter and "
 "save changes"
 msgstr ""
+"Tidak dapat mempelajari karena filter bayesian dinonaktifkan dalam "
+"konfigurasi saat ini. Untuk dapat mempelajari aktifkan bayesian filter dan "
+"simpan perubahan"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/SpamAssassin.pm:404
 #, perl-brace-format
@@ -984,19 +1004,19 @@ msgstr ""
 #: ../../main/mailfilter/src/EBox/MailFilter/Composite/Report/POPProxyReport.pm:69
 #: ../../main/mailfilter/src/EBox/MailFilter/Composite/Report/FilterReport.pm:69
 msgid "Mail filter report"
-msgstr ""
+msgstr "Laporan mail filter"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Composite/Report/POPProxyReport.pm:70
 msgid "Transparent POP proxy report"
-msgstr ""
+msgstr "Laporan proxy transparan POP"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Composite/Report/FilterReport.pm:70
 msgid "Mail Filter report"
-msgstr ""
+msgstr "Laporan mail filter"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Composite/FileFilter.pm:58
 msgid "Attached Files Filter"
-msgstr ""
+msgstr "Lampirkan File Filter"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Composite/FileFilter.pm:60
 msgid ""
@@ -1006,18 +1026,18 @@ msgstr ""
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Composite/ExternalConnections.pm:59
 msgid "External connections"
-msgstr ""
+msgstr "Koneksi eksternal"
 
 #: ../../main/radius/src/EBox/Model/Clients.pm:105
 msgid "Client"
-msgstr ""
+msgstr "Klien"
 
 #: ../../main/radius/src/EBox/Model/Clients.pm:112
 #: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:261
 #: ../../main/dns/src/EBox/Model/DomainTable.pm:210
 #: ../../main/dns/src/EBox/Model/HostnameTable.pm:195
 msgid "IP Address"
-msgstr ""
+msgstr "Alamat IP"
 
 #: ../../main/radius/src/EBox/Model/Clients.pm:118
 msgid "Shared Secret"
@@ -1025,22 +1045,22 @@ msgstr ""
 
 #: ../../main/radius/src/EBox/Model/Clients.pm:126
 msgid "RADIUS Clients"
-msgstr ""
+msgstr "Klien RADIUS"
 
 #: ../../main/radius/src/EBox/Model/Clients.pm:127
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Clients.pm:102
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:157
 msgid "client"
-msgstr ""
+msgstr "klien"
 
 #: ../../main/radius/src/EBox/Model/Auth.pm:103
 #: ../../main/samba/src/EBox/Samba/Model/GeneralSettings.pm:227
 msgid "All users"
-msgstr ""
+msgstr "Semua pengguna"
 
 #: ../../main/radius/src/EBox/Model/Auth.pm:128
 msgid "Group allowed to authenticate"
-msgstr ""
+msgstr "Grup diperbolehkan untuk mengotentikasi"
 
 #: ../../main/radius/src/EBox/Model/Auth.pm:138
 #: ../../main/asterisk/src/EBox/Model/Settings.pm:145
@@ -1056,11 +1076,11 @@ msgstr ""
 
 #: ../../main/radius/src/EBox/Model/Auth.pm:142
 msgid "RADIUS server configuration"
-msgstr ""
+msgstr "Konfigurasi server RADIUS"
 
 #: ../../main/radius/src/EBox/Model/Auth.pm:144
 msgid "RADIUS server configuration updated"
-msgstr ""
+msgstr "Konfigurasi server RADIUS diperbarui"
 
 #: ../../main/radius/src/EBox/Radius.pm:99
 msgid "Create RADIUS certificates for TTLS"
@@ -1074,23 +1094,23 @@ msgstr ""
 
 #: ../../main/radius/src/EBox/Radius.pm:120
 msgid "To configure allowed LDAP group."
-msgstr ""
+msgstr "Untuk memperbolehkan konfigurasi grup LDAP"
 
 #: ../../main/radius/src/EBox/Radius.pm:124
 msgid "To configure RADIUS LDAP module."
-msgstr ""
+msgstr "Untuk mengkonfigurasi module LDAP RADIUS"
 
 #: ../../main/radius/src/EBox/Radius.pm:128
 msgid "To configure RADIUS clients."
-msgstr ""
+msgstr "Untuk mengkonfigurasi klien RADIUS"
 
 #: ../../main/radius/src/EBox/Radius.pm:132
 msgid "To configure RADIUS EAP."
-msgstr ""
+msgstr "Untuk mengkonfigurasi EAP RADIUS"
 
 #: ../../main/radius/src/EBox/Radius.pm:136
 msgid "To configure default RADIUS vhost."
-msgstr ""
+msgstr "Untuk mengkonfigurasi vhost default RADIUS"
 
 #: ../../main/radius/src/EBox/Radius.pm:140
 msgid "To configure RADIUS inner-tunnel vhost."
@@ -1098,13 +1118,13 @@ msgstr ""
 
 #: ../../main/radius/src/EBox/Radius.pm:165
 msgid "Zentyal RADIUS system"
-msgstr ""
+msgstr "System RADIUS Zentyal"
 
 #: ../../main/radius/src/EBox/Radius.pm:331
 #: ../../main/radius/src/EBox/Radius.pm:355
 #: ../../main/radius/src/EBox/Composite/General.pm:64
 msgid "RADIUS"
-msgstr ""
+msgstr "RADIUS"
 
 #: ../../main/network/src/EBox/Event/Watcher/Gateways.pm:160
 #, perl-brace-format
@@ -1122,15 +1142,15 @@ msgstr ""
 #: ../../main/network/src/EBox/Network.pm:3658
 #: ../../main/network/src/EBox/Network/Composite/WANFailover.pm:61
 msgid "WAN Failover"
-msgstr ""
+msgstr "WAN Failover"
 
 #: ../../main/network/src/EBox/Event/Watcher/Gateways.pm:396
 msgid "Check if gateways are connected or disconnected."
-msgstr ""
+msgstr "Periksa gateway apakah tersambung atau terputus."
 
 #: ../../main/network/src/EBox/Model/SearchDomain.pm:79
 msgid "Search Domain"
-msgstr ""
+msgstr "Cari Domain"
 
 #: ../../main/network/src/EBox/Model/SearchDomain.pm:83
 msgid ""
@@ -2225,7 +2245,7 @@ msgstr ""
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:146
 msgid "Server configuration"
-msgstr ""
+msgstr "Konfigurasi Server"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:152
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:122
@@ -2252,7 +2272,7 @@ msgstr ""
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:355
 #, perl-brace-format
 msgid "Port {p} is not available"
-msgstr ""
+msgstr "Port {p} tidak tersedia"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:414
 #, perl-brace-format
@@ -2506,19 +2526,19 @@ msgstr ""
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:126
 msgid "Server tunnel password"
-msgstr ""
+msgstr "Password server tunnel"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:133
 msgid "Bind port for client"
-msgstr ""
+msgstr "Port bind untuk klien"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:141
 msgid "Bind address for client"
-msgstr ""
+msgstr "Alamat bind untuk klien"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:151
 msgid "Client configuration"
-msgstr ""
+msgstr "Konfigurasi klien"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:285
 #, perl-brace-format
@@ -2541,22 +2561,22 @@ msgstr ""
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:130
 #, perl-brace-format
 msgid "The port {p}/{pro} is already in use"
-msgstr ""
+msgstr "Port {p}/{pro} telah digunakan"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:229
 #, perl-brace-format
 msgid "The certificate {cn} does not exist"
-msgstr ""
+msgstr "Sertifikat {cn} tidak ada"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:232
 #, perl-brace-format
 msgid "The certificate {cn} has expired"
-msgstr ""
+msgstr "Sertifikat {cn} sudah kadaluwarsa"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:235
 #, perl-brace-format
 msgid "The certificate {cn} has been revoked"
-msgstr ""
+msgstr "Sertifikat {cn} sudah dicabut"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:253
 #, perl-brace-format
@@ -2576,10 +2596,12 @@ msgid ""
 "VPN server {name} couldn't be configured, no IP address found for interface "
 "{iface}"
 msgstr ""
+"VPN server {name} tidak dapat dikonfigurasi, tidak ada IP yang ditemukan "
+"untuk interface {iface}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:556
 msgid "OpenVPN servers cannot be used for internal services"
-msgstr ""
+msgstr "Server open VPN tidak dapat digunakan untuk layanan internal"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:583
 #, perl-brace-format
@@ -2609,11 +2631,11 @@ msgstr ""
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:793
 msgid "Not found"
-msgstr ""
+msgstr "Tidak ditemukan"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:795
 msgid "Local address"
-msgstr ""
+msgstr "Alamat lokal"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:800
 #: ../../main/users/src/EBox/UsersAndGroups/Model/Slaves.pm:60
@@ -2623,7 +2645,7 @@ msgstr ""
 #: ../../main/usercorner/src/EBox/UserCorner/Model/Settings.pm:54
 #: ../../main/core/src/EBox/Events/Model/Dispatcher/Jabber.pm:199
 msgid "Port"
-msgstr ""
+msgstr "Port"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:803
 msgid "VPN subnet"
@@ -2636,7 +2658,7 @@ msgstr ""
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:809
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:430
 msgid "No active"
-msgstr ""
+msgstr "Tidak aktif"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:810
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:428
@@ -2657,6 +2679,8 @@ msgid ""
 "VPN client should not be configured to connect to the address {addr} because "
 "is a address of a local network interface"
 msgstr ""
+"VPN klien tidak harus dikonfigurasi untuk dapat terhubung ke alamat {alm} "
+"karena alamat tersebut merupakan alamat interface jaringan lokal"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:410
 #, perl-brace-format
@@ -2665,7 +2689,7 @@ msgstr ""
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:424
 msgid "Connection target"
-msgstr ""
+msgstr "Koneksi target"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server/ClientBundleGenerator.pm:48
 msgid "Server's address"
@@ -2674,7 +2698,7 @@ msgstr ""
 #: ../../main/openvpn/src/EBox/OpenVPN/Server/ClientBundleGenerator.pm:56
 #, perl-brace-format
 msgid "You must provide at least one address for the server {name}"
-msgstr ""
+msgstr "Anda harus menyediakan setidaknya satu alamat untuk server {name}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server/ClientBundleGenerator.pm:102
 msgid "Can't get address for this server: no external interfaces present"
@@ -2716,7 +2740,7 @@ msgstr ""
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:69
 msgid "VPN"
-msgstr ""
+msgstr "VPN"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:154
 msgid "To configure Quagga to run ripd and zebra"
@@ -2776,15 +2800,15 @@ msgstr ""
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1482
 msgid "Servers"
-msgstr ""
+msgstr "Server"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1488
 msgid "Clients"
-msgstr ""
+msgstr "Klien"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1501
 msgid "Common name"
-msgstr ""
+msgstr "Nama umum"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1501
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/TreeBuilder/HTB.pm:624
@@ -2797,11 +2821,11 @@ msgstr "Alamat"
 #: ../../main/samba/src/EBox/Samba.pm:734
 #: ../../main/samba/src/EBox/Samba.pm:755
 msgid "Connected since"
-msgstr ""
+msgstr "Terhubung sejak"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1528
 msgid "No users connected to the VPN"
-msgstr ""
+msgstr "Tidak ada pengguna yang terhubung ke VPN"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1569
 msgid "OpenVPN daemons"
@@ -2828,7 +2852,7 @@ msgstr ""
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1642
 msgid "Initialization sequence completed"
-msgstr ""
+msgstr "Inisialisasi urutan selesai"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1644
 msgid "Certificate issuer not authorized"
@@ -2840,7 +2864,7 @@ msgstr ""
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1646
 msgid "Certificate verification failed"
-msgstr ""
+msgstr "Verifikasi sertifikat gagal"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1648
 msgid "Client connection initiated"
@@ -2848,7 +2872,7 @@ msgstr ""
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1649
 msgid "Client connection terminated"
-msgstr ""
+msgstr "Koneksi klien dihentikan"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1651
 msgid "Connection to server initiated"
@@ -2856,7 +2880,7 @@ msgstr ""
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1652
 msgid "Server connection terminated"
-msgstr ""
+msgstr "Koneksi server dihentikan"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1681
 msgid "You must set insecure_rip_conf to yes or no"
@@ -2864,15 +2888,15 @@ msgstr ""
 
 #: ../../main/ftp/src/EBox/FTP.pm:90
 msgid "Zentyal FTP Server"
-msgstr ""
+msgstr "FTP Server Zentyal"
 
 #: ../../main/ftp/src/EBox/FTP.pm:130
 msgid "To configure vsftpd"
-msgstr ""
+msgstr "Untuk mengkonfigurasi vsftpd"
 
 #: ../../main/ftp/src/EBox/FTP.pm:134
 msgid "To configure vsftpd with LDAP authentication"
-msgstr ""
+msgstr "Untuk mengkonfigurasi vsftpd dengan otentikasi LDAP"
 
 #: ../../main/ftp/src/EBox/FTP.pm:192
 msgid "FTP server hosted files"
@@ -2897,26 +2921,26 @@ msgstr ""
 
 #: ../../main/ftp/src/EBox/Model/Options.pm:70
 msgid "Sets the permissions for the /srv/ftp directory"
-msgstr ""
+msgstr "Atur hak akses untuk direktori /srv/ftp"
 
 #: ../../main/ftp/src/EBox/Model/Options.pm:74
 msgid "Personal directories"
-msgstr ""
+msgstr "Direktori pribadi"
 
 #: ../../main/ftp/src/EBox/Model/Options.pm:77
 msgid "Enable FTP access for each user to its /home directory"
-msgstr ""
+msgstr "Mengaktifkan akses FTP untuk setiap pengguna ke direktori /home"
 
 #: ../../main/ftp/src/EBox/Model/Options.pm:83
 #: ../../main/zarafa/src/EBox/Zarafa/Model/GeneralSettings.pm:102
 #: ../../main/webserver/src/EBox/WebServer/Model/GeneralSettings.pm:264
 #: ../../main/jabber/src/EBox/Jabber/Model/GeneralSettings.pm:141
 msgid "General configuration settings"
-msgstr ""
+msgstr "Pengaturan konfigurasi umum"
 
 #: ../../main/ftp/src/EBox/Model/Options.pm:84
 msgid "FTP Server"
-msgstr ""
+msgstr "Server FTP"
 
 #: ../../main/ftp/src/EBox/Model/Options.pm:88
 msgid ""

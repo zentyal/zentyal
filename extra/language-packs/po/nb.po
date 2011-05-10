@@ -4,19 +4,20 @@
 # This file is distributed under the same license as the zentyal packages.
 # Automatically generated, 2011.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: zentyal 2.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2011-03-04 17:30+0100\n"
-"PO-Revision-Date: 2010-10-08 10:06+0200\n"
-"Last-Translator: Ronny Gonzales <ronny@kcl.no>\n"
+"PO-Revision-Date: 2011-04-06 14:31+0200\n"
+"Last-Translator: Cirion <gonzito@online.no>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
-"Language: \n"
+"Language: nb\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Pootle 2.1.4\n"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:61
 msgid "Mail Filter"
@@ -125,27 +126,8 @@ msgstr "Dato"
 #: ../../main/mail/src/templates/qmanager.mas:23
 #: ../../main/mail/src/templates/alias.mas:39
 #: ../../main/mail/src/templates/groupalias.mas:25
-#, fuzzy
 msgid "Action"
-msgstr ""
-"#-#-#-#-#  nb.po (ebox-mailfilter 0.12.99)  #-#-#-#-#\n"
-"Handling\n"
-"#-#-#-#-#  nb.po (ebox-network 0.12.99)  #-#-#-#-#\n"
-"Handling\n"
-"#-#-#-#-#  nb.po (ebox-dhcp 0.12.100)  #-#-#-#-#\n"
-"Handling\n"
-"#-#-#-#-#  nb.po (ebox-samba 0.12.99)  #-#-#-#-#\n"
-"Handling\n"
-"#-#-#-#-#  nb.po (ebox-dns 0.12.100)  #-#-#-#-#\n"
-"Handling\n"
-"#-#-#-#-#  nb.po (ebox-remoteservices 1.1)  #-#-#-#-#\n"
-"Handling\n"
-"#-#-#-#-#  nb.po (ebox-mail 0.12.99)  #-#-#-#-#\n"
-"Handling\n"
-"#-#-#-#-#  nb.po (ebox-ca 0.12.99)  #-#-#-#-#\n"
-"Handling\n"
-"#-#-#-#-#  nb.po (ebox-ebox 0.12.99)  #-#-#-#-#\n"
-"Oppgave"
+msgstr "Oppgave"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:583
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:629
@@ -157,27 +139,8 @@ msgstr ""
 #: ../../main/core/src/EBox/Events/Model/Watcher/LogFiltering.pm:168
 #: ../../main/printers/src/EBox/Printers.pm:297
 #: ../../main/core/src/templates/logs/index.mas:183
-#, fuzzy
 msgid "Event"
-msgstr ""
-"#-#-#-#-#  nb.po (ebox-mailfilter 0.12.99)  #-#-#-#-#\n"
-"Hendelse\n"
-"#-#-#-#-#  nb.po (ebox-openvpn 0.12.99)  #-#-#-#-#\n"
-"Hendelse\n"
-"#-#-#-#-#  nb.po (ebox-squid 0.12.99)  #-#-#-#-#\n"
-"Hendelse\n"
-"#-#-#-#-#  nb.po (ebox-ids 1.1)  #-#-#-#-#\n"
-"Hendelse\n"
-"#-#-#-#-#  nb.po (ebox-dhcp 0.12.100)  #-#-#-#-#\n"
-"Handling\n"
-"#-#-#-#-#  nb.po (ebox-asterisk 1.1)  #-#-#-#-#\n"
-"Hendelse\n"
-"#-#-#-#-#  nb.po (ebox-mail 0.12.99)  #-#-#-#-#\n"
-"Hendelse\n"
-"#-#-#-#-#  nb.po (ebox-ebox 0.12.99)  #-#-#-#-#\n"
-"Hendelse\n"
-"#-#-#-#-#  nb.po (ebox-printers 0.12.99)  #-#-#-#-#\n"
-"Hendelse"
+msgstr "Hendelse"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:585
 msgid "Sender address"

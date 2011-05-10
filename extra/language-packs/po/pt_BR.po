@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: zentyal 2.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2011-03-04 17:30+0100\n"
-"PO-Revision-Date: 2011-02-21 01:06+0200\n"
+"PO-Revision-Date: 2011-03-28 15:11+0200\n"
 "Last-Translator: Jorge <jorge@netsol.com.br>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: pt_BR\n"
@@ -2662,12 +2662,11 @@ msgstr "Senha do túnel do servidor"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:133
 msgid "Bind port for client"
-msgstr ""
+msgstr "Porta de ligação para cliente"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:141
-#, fuzzy
 msgid "Bind address for client"
-msgstr "Exclui domínio do caching"
+msgstr "Endereço de ligação para o cliente"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:151
 msgid "Client configuration"
@@ -8494,6 +8493,9 @@ msgid ""
 "Cannot retrieve VPN settings needed for subscription. Check your {openurl}"
 "{brand} profile{closeurl} to check your VPN server settings."
 msgstr ""
+"Não foi possível recuperar as configurações necessárias para a inscrição. "
+"Verifique seu {openurl}{brand} perfil{closeurl} para checar suas "
+"configurações de servidor VPN."
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Subscription.pm:488
 #, perl-brace-format
@@ -8507,6 +8509,8 @@ msgid ""
 "Could not connect to WS server \"{addr}:{port}/{proto}\". Check your name "
 "resolution and firewall in your network"
 msgstr ""
+"Impossível conectar ao servidor WS \"{addr}:{port}/{proto}\". Verifique a "
+"resolução de nomes e firewall em sua rede"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Subscription.pm:831
 #, perl-brace-format
@@ -8514,6 +8518,8 @@ msgid ""
 "Could not connect to VPN server \"{addr}:{port}/{proto}\". Check your "
 "network firewall"
 msgstr ""
+"Impossível conectar ao servidor VPN \"{addr}:{port}/{proto}\". Verifique o "
+"firewall da sua rede"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Auth.pm:126
 #, perl-brace-format
@@ -8532,6 +8538,8 @@ msgid ""
 "Cannot found a external address for the CC connection. Check your external "
 "connections"
 msgstr ""
+"Não foi encontrado um endereço externo para a conexão CC. Verifique suas "
+"conexões externas"
 
 #: ../../main/remoteservices/src/EBox/CGI/NoConnection.pm:31
 msgid "Connection error"
@@ -9610,7 +9618,7 @@ msgstr "Não é permitido espaços"
 
 #: ../../main/mail/src/EBox/Mail/Model/ExternalAccounts.pm:293
 msgid "Character \"'\" is forbidden for external"
-msgstr ""
+msgstr "Caractere \"'\" e proíbido para externa"
 
 #: ../../main/mail/src/EBox/Mail/Model/ExternalAccounts.pm:324
 msgid "External account added"
@@ -11399,11 +11407,12 @@ msgstr "\"De\" {from} deve ser superior a \"para\" {to}"
 
 #: ../../main/core/src/EBox/Util/Nmap.pm:63
 msgid "Only 'tcp' and 'udp' are supported"
-msgstr ""
+msgstr "Somente 'tcp' e 'udp' são suportadas"
 
 #: ../../main/core/src/EBox/Util/Nmap.pm:91
 msgid "No hosts scanned, maybe you cannot resolve DNS names?"
 msgstr ""
+"Nenhum host scaneado, talvez você não esteja conseguindo resolver nomes DNS?"
 
 #: ../../main/core/src/EBox/Html.pm:39
 #: ../../main/core/src/templates/wizard.mas:124
@@ -11959,6 +11968,9 @@ msgid ""
 "without schema changing the relevant key in {cf}. Schemas change "
 "unfrequently so it oculd be safe to use a older one"
 msgstr ""
+"Esquema não encontrado neste backup. Tente outra data ou force a restauração "
+"sem esquema alterando a chave em {cf}. Alterações de esquema não são "
+"frequentes e pode ser seguro usar um mais antigo."
 
 #: ../../main/core/src/EBox/Logs/SlicedBackup.pm:148
 #: ../../main/core/src/EBox/Logs/SlicedBackup.pm:156

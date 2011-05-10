@@ -4,52 +4,64 @@
 # This file is distributed under the same license as the zentyal packages.
 # Automatically generated, 2011.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: zentyal 2.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2011-03-04 17:30+0100\n"
-"PO-Revision-Date: 2008-07-04 08:17+0200\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2011-04-23 13:56+0200\n"
+"Last-Translator: eniac111 <eniac111@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
-"Language: \n"
+"Language: bg\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Pootle 2.1.4\n"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:61
 msgid "Mail Filter"
-msgstr ""
+msgstr "Мейл филтър"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:79
+#, fuzzy
 msgid "Add clamav user to amavis group"
-msgstr ""
+msgstr "Добави clamav потребител към група amavis"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:80
+#, fuzzy
 msgid "Clamav need access to amavis fields to properly scan mail"
 msgstr ""
+"Clamav се нуждае от достъп до полетата на amavis, за да сканира качествено "
+"пощата"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:84
+#, fuzzy
 msgid "Add clamav user to p3scan group"
-msgstr ""
+msgstr "Добавяне на потребител clamav към група p3scan"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:85
+#, fuzzy
 msgid "Clamav need access to p3scan group to properly scan in the POP Proxy"
 msgstr ""
+"Clamav се нуждае от достъп до група p3scan , за да сканира правилвно в POP "
+"Proxy"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:89
 msgid "Add spam and ham system users"
-msgstr ""
+msgstr "Добавяне на spam и ham системни потребители"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:91
 msgid ""
 "This users are for the email accounts used for training the bayesian filter"
 msgstr ""
+"Тези потребители са за сметките за ел. поща, използвани за трениране на "
+"филтърът bayesian"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:96
+#, fuzzy
 msgid "Update LDAP"
-msgstr ""
+msgstr "Подновяване на LDAP"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:97
 msgid "Add amavis specific classes and fields"

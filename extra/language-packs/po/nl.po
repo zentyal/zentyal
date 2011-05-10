@@ -4,19 +4,20 @@
 # This file is distributed under the same license as the zentyal packages.
 # Automatically generated, 2011.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: zentyal 2.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2011-03-04 17:30+0100\n"
-"PO-Revision-Date: 2010-08-20 03:07+0200\n"
-"Last-Translator: Indra Pharazijn <indra6oc@gmail.com>\n"
+"PO-Revision-Date: 2011-03-08 16:16+0200\n"
+"Last-Translator: robb <r_bosch@gmx.net>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
-"Language: \n"
+"Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Pootle 2.1.4\n"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:61
 #, fuzzy
@@ -62,7 +63,7 @@ msgstr ""
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:155
 msgid "POP3 protocol"
-msgstr ""
+msgstr "POP3 protocol"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:403
 msgid "Cannot proceed because the filter is in use"

@@ -4,19 +4,20 @@
 # This file is distributed under the same license as the zentyal packages.
 # Automatically generated, 2011.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: zentyal 2.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2011-03-04 17:30+0100\n"
-"PO-Revision-Date: 2010-07-21 07:54+0200\n"
-"Last-Translator: Daniel Hedblom <daniel.hedblom@gmail.com>\n"
+"PO-Revision-Date: 2011-04-14 05:12+0200\n"
+"Last-Translator: MarcusF <Contact@marcusfernstrom.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
-"Language: \n"
+"Language: sv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Pootle 2.1.4\n"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:61
 msgid "Mail Filter"
@@ -324,9 +325,9 @@ msgstr ""
 "postfiltret"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/ExternalDomain.pm:113
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "{d} is a internal Zentyal virtual main domain"
-msgstr "{d} är en intern eBox virtuell huvuddomän"
+msgstr "{d} är en intern Zentyal virtuell huvuddomän"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamTraining.pm:58
 msgid "Mailbox"
@@ -440,13 +441,8 @@ msgstr "Antiskräppost avsändarpolicy"
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomains.pm:159
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamACL.pm:164
 #: ../../main/mail/src/EBox/Mail/Model/VDomains.pm:91
-#, fuzzy
 msgid "Virtual Domains"
-msgstr ""
-"#-#-#-#-#  sv.po (ebox-mailfilter 0.12)  #-#-#-#-#\n"
-"virtuella domäner\n"
-"#-#-#-#-#  sv.po (ebox-mail 0.12)  #-#-#-#-#\n"
-"Virtuella domäner"
+msgstr "Virtuella domäner"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomains.pm:170
 #: ../../main/mail/src/EBox/MailVDomainsLdap.pm:64
@@ -531,35 +527,8 @@ msgstr "process"
 #: ../../main/core/src/templates/enable.mas:24
 #: ../../main/jabber/src/templates/jabber.mas:22
 #: ../../main/jabber/src/templates/jabber.mas:25
-#, fuzzy
 msgid "Enabled"
-msgstr ""
-"#-#-#-#-#  sv.po (ebox-mailfilter 0.12)  #-#-#-#-#\n"
-"Aktiverad\n"
-"#-#-#-#-#  sv.po (ebox-openvpn 0.12)  #-#-#-#-#\n"
-"Aktiv\n"
-"#-#-#-#-#  sv.po (ebox-zarafa 0.12)  #-#-#-#-#\n"
-"Aktiverad\n"
-"#-#-#-#-#  sv.po (libebox 0.12.1)  #-#-#-#-#\n"
-"Aktiverad\n"
-"#-#-#-#-#  sv.po (ebox-squid 0.12)  #-#-#-#-#\n"
-"Aktiverad\n"
-"#-#-#-#-#  sv.po (ebox-ids 1.1)  #-#-#-#-#\n"
-"Aktiverad\n"
-"#-#-#-#-#  sv.po (ebox-ntp 0.12)  #-#-#-#-#\n"
-"Aktiverad\n"
-"#-#-#-#-#  sv.po (ebox-firewall 0.12)  #-#-#-#-#\n"
-"Aktiverad\n"
-"#-#-#-#-#  sv.po (ebox-samba 0.12)  #-#-#-#-#\n"
-"Aktiverat\n"
-"#-#-#-#-#  sv.po (ebox-asterisk 1.1)  #-#-#-#-#\n"
-"Aktiverad\n"
-"#-#-#-#-#  sv.po (ebox-mail 0.12)  #-#-#-#-#\n"
-"Aktiverad\n"
-"#-#-#-#-#  sv.po (ebox 0.12)  #-#-#-#-#\n"
-"Aktiverad\n"
-"#-#-#-#-#  sv.po (ebox-jabber 0.12)  #-#-#-#-#\n"
-"Aktiverad"
+msgstr "Aktiverad"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisConfiguration.pm:69
 msgid "Antivirus enabled"
@@ -612,35 +581,8 @@ msgstr "Meddela om problematiska meddelande som inte är skräppost"
 #: ../../main/core/src/templates/enable.mas:23
 #: ../../main/jabber/src/templates/jabber.mas:21
 #: ../../main/jabber/src/templates/jabber.mas:24
-#, fuzzy
 msgid "Disabled"
-msgstr ""
-"#-#-#-#-#  sv.po (ebox-mailfilter 0.12)  #-#-#-#-#\n"
-"Inaktiverad\n"
-"#-#-#-#-#  sv.po (ebox-openvpn 0.12)  #-#-#-#-#\n"
-"Inaktiv\n"
-"#-#-#-#-#  sv.po (ebox-. 1.5)  #-#-#-#-#\n"
-"Inaktiverad\n"
-"#-#-#-#-#  sv.po (ebox-zarafa 0.12)  #-#-#-#-#\n"
-"Inaktiverad\n"
-"#-#-#-#-#  sv.po (libebox 0.12.1)  #-#-#-#-#\n"
-"Inaktiverad\n"
-"#-#-#-#-#  sv.po (ebox-squid 0.12)  #-#-#-#-#\n"
-"Inaktiverad\n"
-"#-#-#-#-#  sv.po (ebox-ntp 0.12)  #-#-#-#-#\n"
-"Inaktiverad\n"
-"#-#-#-#-#  sv.po (ebox-samba 0.12)  #-#-#-#-#\n"
-"Inaktiverat\n"
-"#-#-#-#-#  sv.po (ebox-asterisk 1.1)  #-#-#-#-#\n"
-"Inaktiverad\n"
-"#-#-#-#-#  sv.po (ebox-mail 0.12)  #-#-#-#-#\n"
-"Inaktiverad\n"
-"#-#-#-#-#  sv.po (ebox 0.12)  #-#-#-#-#\n"
-"Inaktiverad\n"
-"#-#-#-#-#  sv.po (ebox-ebackup 1.3.3)  #-#-#-#-#\n"
-"Inaktiverad\n"
-"#-#-#-#-#  sv.po (ebox-jabber 0.12)  #-#-#-#-#\n"
-"Inaktiverad"
+msgstr "Inaktiverad"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisConfiguration.pm:98
 msgid "mail address"
@@ -651,21 +593,8 @@ msgstr "e-post adress"
 #: ../../main/asterisk/src/EBox/Asterisk.pm:544
 #: ../../main/mail/src/EBox/Mail.pm:1623 ../../main/ca/src/EBox/CA.pm:1754
 #: ../../main/core/src/EBox/SysInfo.pm.in:268
-#, fuzzy
 msgid "General"
-msgstr ""
-"#-#-#-#-#  sv.po (ebox-mailfilter 0.12)  #-#-#-#-#\n"
-"Allmänt\n"
-"#-#-#-#-#  sv.po (ebox-squid 0.12)  #-#-#-#-#\n"
-"Generell\n"
-"#-#-#-#-#  sv.po (ebox-asterisk 1.1)  #-#-#-#-#\n"
-"Allmänt\n"
-"#-#-#-#-#  sv.po (ebox-mail 0.12)  #-#-#-#-#\n"
-"Allmän\n"
-"#-#-#-#-#  sv.po (ebox-ca 0.12)  #-#-#-#-#\n"
-"Allmän\n"
-"#-#-#-#-#  sv.po (ebox 0.12)  #-#-#-#-#\n"
-"Allmänt"
+msgstr "Allmänt"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisConfiguration.pm:139
 #, perl-brace-format
@@ -730,25 +659,8 @@ msgstr ""
 #: ../../main/ebackup/src/EBox/EBackup/Subscribed.pm:197
 #: ../../main/ebackup/src/EBox/EBackup/Subscribed.pm:198
 #: ../../main/jabber/src/EBox/Jabber/Composite/General.pm:66
-#, fuzzy
 msgid "Configuration"
-msgstr ""
-"#-#-#-#-#  sv.po (ebox-mailfilter 0.12)  #-#-#-#-#\n"
-"Konfiguration\n"
-"#-#-#-#-#  sv.po (ebox-network 0.12)  #-#-#-#-#\n"
-"Konfiguration\n"
-"#-#-#-#-#  sv.po (ebox-openvpn 0.12)  #-#-#-#-#\n"
-"Konfiguration\n"
-"#-#-#-#-#  sv.po (ebox-usersandgroups 0.12)  #-#-#-#-#\n"
-"Konfiguration\n"
-"#-#-#-#-#  sv.po (ebox-squid 0.12)  #-#-#-#-#\n"
-"Konfiguration\n"
-"#-#-#-#-#  sv.po (ebox-services 0.12)  #-#-#-#-#\n"
-"Konfiguration\n"
-"#-#-#-#-#  sv.po (ebox 0.12)  #-#-#-#-#\n"
-"Konfiguration\n"
-"#-#-#-#-#  sv.po (ebox-jabber 0.12)  #-#-#-#-#\n"
-"konfiguration"
+msgstr "Inställningar"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/POPProxyConfiguration.pm:113
 msgid ""
@@ -784,13 +696,8 @@ msgstr "Tillåt"
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/MIMETypeACL.pm:90
 #: ../../main/squid/src/EBox/Squid/Model/ApplyAllowToAllMIME.pm:41
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupApplyAllowToAllMIME.pm:41
-#, fuzzy
 msgid "MIME types"
-msgstr ""
-"#-#-#-#-#  sv.po (ebox-mailfilter 0.12)  #-#-#-#-#\n"
-"MIME-typer\n"
-"#-#-#-#-#  sv.po (ebox-squid 0.12)  #-#-#-#-#\n"
-"MIME typer"
+msgstr "MIME-typer"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/MIMETypeACL.pm:98
 #: ../../main/mailfilter/src/EBox/MailFilter/Types/MIMEType.pm:60
@@ -988,13 +895,8 @@ msgstr ""
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/FileExtensionACL.pm:79
 #: ../../main/squid/src/EBox/Squid/Model/ExtensionFilterBase.pm:59
-#, fuzzy
 msgid "File extension"
-msgstr ""
-"#-#-#-#-#  sv.po (ebox-mailfilter 0.12)  #-#-#-#-#\n"
-"filändelse\n"
-"#-#-#-#-#  sv.po (ebox-squid 0.12)  #-#-#-#-#\n"
-"Filändelse"
+msgstr "Filändelse"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/FileExtensionACL.pm:94
 msgid "File extensions"
@@ -1069,9 +971,8 @@ msgid "To configure amavis"
 msgstr "För att konfigurera amavis"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Amavis.pm:425
-#, fuzzy
 msgid "Zentyal internal mail filter"
-msgstr "eBox externt e-postfilter"
+msgstr "Zentyal internt e-postfilter"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Amavis.pm:439
 msgid "SMTP filter proxy"
@@ -1149,15 +1050,8 @@ msgstr "Klient"
 #: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:261
 #: ../../main/dns/src/EBox/Model/DomainTable.pm:210
 #: ../../main/dns/src/EBox/Model/HostnameTable.pm:195
-#, fuzzy
 msgid "IP Address"
-msgstr ""
-"#-#-#-#-#  sv.po (ebox-radius 1.3.10)  #-#-#-#-#\n"
-"IP adress\n"
-"#-#-#-#-#  sv.po (ebox-firewall 0.12)  #-#-#-#-#\n"
-"IP-adress\n"
-"#-#-#-#-#  sv.po (ebox-dns 0.12)  #-#-#-#-#\n"
-"IP-adress"
+msgstr "IP-adress"
 
 #: ../../main/radius/src/EBox/Model/Clients.pm:118
 msgid "Shared Secret"
@@ -1170,13 +1064,8 @@ msgstr "RADIUS klienter"
 #: ../../main/radius/src/EBox/Model/Clients.pm:127
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Clients.pm:102
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:157
-#, fuzzy
 msgid "client"
-msgstr ""
-"#-#-#-#-#  sv.po (ebox-radius 1.3.10)  #-#-#-#-#\n"
-"klient\n"
-"#-#-#-#-#  sv.po (ebox-openvpn 0.12)  #-#-#-#-#\n"
-"Klient"
+msgstr "klient"
 
 #: ../../main/radius/src/EBox/Model/Auth.pm:103
 #: ../../main/samba/src/EBox/Samba/Model/GeneralSettings.pm:227
@@ -1191,15 +1080,8 @@ msgstr "Grupp som tillåts autentisera"
 #: ../../main/asterisk/src/EBox/Model/Settings.pm:145
 #: ../../main/usercorner/src/EBox/UserCorner/Model/Settings.pm:62
 #: ../../main/webmail/src/EBox/WebMail/Model/Options.pm:65
-#, fuzzy
 msgid "General configuration"
-msgstr ""
-"#-#-#-#-#  sv.po (ebox-radius 1.3.10)  #-#-#-#-#\n"
-"Generell konfiguration\n"
-"#-#-#-#-#  sv.po (ebox-usersandgroups 0.12)  #-#-#-#-#\n"
-"Allmän konfiguration\n"
-"#-#-#-#-#  sv.po (ebox-asterisk 1.1)  #-#-#-#-#\n"
-"Allmänna inställningar"
+msgstr "Allmänna inställningar"
 
 #: ../../main/radius/src/EBox/Model/Auth.pm:142
 msgid "RADIUS server configuration"
@@ -1214,12 +1096,11 @@ msgid "Create RADIUS certificates for TTLS"
 msgstr "Skapa RADIUS certifikat för TTLS"
 
 #: ../../main/radius/src/EBox/Radius.pm:100
-#, fuzzy
 msgid ""
 "Zentyal will create the needed certificates for TTLS in /etc/freeradius/"
 "certs/."
 msgstr ""
-"eBox skapar de certifikat som behövs för TTLS i /etc/freeradius/certs/."
+"Zentyal skapar de certifikat som behövs för TTLS i /etc/freeradius/certs/."
 
 #: ../../main/radius/src/EBox/Radius.pm:120
 msgid "To configure allowed LDAP group."
@@ -1246,9 +1127,8 @@ msgid "To configure RADIUS inner-tunnel vhost."
 msgstr "För att konfigurera inner tunnel vhost."
 
 #: ../../main/radius/src/EBox/Radius.pm:165
-#, fuzzy
 msgid "Zentyal RADIUS system"
-msgstr "eBox radius system"
+msgstr "Zentyal RADIUS-system"
 
 #: ../../main/radius/src/EBox/Radius.pm:331
 #: ../../main/radius/src/EBox/Radius.pm:355
@@ -1421,21 +1301,8 @@ msgstr "Källa"
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:389
 #: ../../main/ca/src/EBox/Model/Certificates.pm:258
 #: ../../main/core/src/EBox/Event/Watcher/Runit.pm:147
-#, fuzzy
 msgid "Service"
-msgstr ""
-"#-#-#-#-#  sv.po (ebox-network 0.12)  #-#-#-#-#\n"
-"Tjänst\n"
-"#-#-#-#-#  sv.po (ebox-openvpn 0.12)  #-#-#-#-#\n"
-"Service\n"
-"#-#-#-#-#  sv.po (ebox-firewall 0.12)  #-#-#-#-#\n"
-"Tjänst\n"
-"#-#-#-#-#  sv.po (ebox-trafficshaping 0.12.2)  #-#-#-#-#\n"
-"Tjänst\n"
-"#-#-#-#-#  sv.po (ebox-ca 0.12)  #-#-#-#-#\n"
-"Tjänst\n"
-"#-#-#-#-#  sv.po (ebox 0.12)  #-#-#-#-#\n"
-"Tjänst"
+msgstr "Tjänst"
 
 #: ../../main/network/src/EBox/Model/DynDNS.pm:130
 msgid "Enable Dynamic DNS"
@@ -1517,13 +1384,8 @@ msgstr "Ändringar appliceras omgående i övervakaren för trafikflöde"
 
 #: ../../main/network/src/EBox/Model/ByteRateSettings.pm:95
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:90
-#, fuzzy
 msgid "Settings changed"
-msgstr ""
-"#-#-#-#-#  sv.po (ebox-network 0.12)  #-#-#-#-#\n"
-"Inställningar har ändrats\n"
-"#-#-#-#-#  sv.po (ebox-squid 0.12)  #-#-#-#-#\n"
-"Inställningar ändrade"
+msgstr "Inställningar ändrade"
 
 #: ../../main/network/src/EBox/Model/ByteRateSettings.pm:114
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:181
@@ -1600,17 +1462,8 @@ msgstr "Namn"
 #: ../../main/network/src/templates/ifaces.mas:119
 #: ../../main/network/src/templates/ifaces.mas:287
 #: ../../main/dhcp/src/templates/fixed.mas:10
-#, fuzzy
 msgid "IP address"
-msgstr ""
-"#-#-#-#-#  sv.po (ebox-network 0.12)  #-#-#-#-#\n"
-"IP-adress\n"
-"#-#-#-#-#  sv.po (ebox-dhcp 0.12)  #-#-#-#-#\n"
-"IP-adress\n"
-"#-#-#-#-#  sv.po (ebox 0.12)  #-#-#-#-#\n"
-"IP adress\n"
-"#-#-#-#-#  sv.po (ebox-objects 0.12)  #-#-#-#-#\n"
-"IP-adress"
+msgstr "IP-adress"
 
 #: ../../main/network/src/EBox/Model/GatewayTable.pm:198
 #: ../../main/network/src/EBox/Model/MultiGwRulesDataTable.pm:101
@@ -1663,19 +1516,8 @@ msgstr ""
 #: ../../main/trafficshaping/src/EBox/TrafficShaping.pm:1108
 #: ../../main/trafficshaping/src/EBox/TC.pm:104
 #: ../../main/printers/src/EBox/Model/CUPS.pm:151
-#, fuzzy
 msgid "Interface"
-msgstr ""
-"#-#-#-#-#  sv.po (ebox-network 0.12)  #-#-#-#-#\n"
-"Nätverksgränssnitt\n"
-"#-#-#-#-#  sv.po (libebox 0.12.1)  #-#-#-#-#\n"
-"Nätverksgränssnitt\n"
-"#-#-#-#-#  sv.po (ebox-ids 1.1)  #-#-#-#-#\n"
-"Gränssnitt\n"
-"#-#-#-#-#  sv.po (ebox-dhcp 0.12)  #-#-#-#-#\n"
-"Nätverksgränssnitt\n"
-"#-#-#-#-#  sv.po (ebox-firewall 0.12)  #-#-#-#-#\n"
-"Nätverksgränssnitt"
+msgstr "Nätverksgränssnitt"
 
 #: ../../main/network/src/EBox/Model/GatewayTable.pm:201
 msgid "Interface connected to this gateway"
@@ -1731,17 +1573,8 @@ msgstr "Automatiskt tillagda gateways kan inte raderas manuellt"
 #: ../../main/monitor/src/EBox/Monitor/Types/MeasureAttribute.pm:134
 #: ../../main/monitor/src/EBox/Monitor/Types/MeasureAttribute.pm:144
 #: ../../main/core/src/EBox/Types/PortRange.pm:138
-#, fuzzy
 msgid "any"
-msgstr ""
-"#-#-#-#-#  sv.po (ebox-network 0.12)  #-#-#-#-#\n"
-"alla\n"
-"#-#-#-#-#  sv.po (ebox-services 0.12)  #-#-#-#-#\n"
-"någon\n"
-"#-#-#-#-#  sv.po (EBox-monitor 0.1)  #-#-#-#-#\n"
-"alla\n"
-"#-#-#-#-#  sv.po (ebox 0.12)  #-#-#-#-#\n"
-"alla"
+msgstr "alla"
 
 #: ../../main/network/src/EBox/Model/MultiGwRulesDataTable.pm:104
 msgid ""
@@ -1762,87 +1595,43 @@ msgstr ""
 #: ../../main/core/src/EBox/Types/PortRange.pm:289
 #: ../../main/core/src/EBox/Events/Model/Watcher/LogFiltering.pm:149
 #: ../../main/core/src/templates/logs/index.mas:185
-#, fuzzy
 msgid "Any"
-msgstr ""
-"#-#-#-#-#  sv.po (ebox-network 0.12)  #-#-#-#-#\n"
-"Alla\n"
-"#-#-#-#-#  sv.po (ebox-firewall 0.12)  #-#-#-#-#\n"
-"Vilken somhelst\n"
-"#-#-#-#-#  sv.po (ebox 0.12)  #-#-#-#-#\n"
-"Alla"
+msgstr "Alla"
 
 #: ../../main/network/src/EBox/Model/MultiGwRulesDataTable.pm:118
 #: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:297
 #: ../../main/firewall/src/EBox/Firewall/Model/BaseRuleTable.pm:129
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:414
-#, fuzzy
 msgid "Source IP"
-msgstr ""
-"#-#-#-#-#  sv.po (ebox-network 0.12)  #-#-#-#-#\n"
-"Käll-IP\n"
-"#-#-#-#-#  sv.po (ebox-firewall 0.12)  #-#-#-#-#\n"
-"Käll IP\n"
-"#-#-#-#-#  sv.po (ebox-trafficshaping 0.12.2)  #-#-#-#-#\n"
-"Källans IP"
+msgstr "Käll IP"
 
 #: ../../main/network/src/EBox/Model/MultiGwRulesDataTable.pm:123
 #: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:301
 #: ../../main/firewall/src/EBox/Firewall/Model/BaseRuleTable.pm:133
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:426
-#, fuzzy
 msgid "Source object"
-msgstr ""
-"#-#-#-#-#  sv.po (ebox-network 0.12)  #-#-#-#-#\n"
-"Källobjekt\n"
-"#-#-#-#-#  sv.po (ebox-firewall 0.12)  #-#-#-#-#\n"
-"Käll objekt\n"
-"#-#-#-#-#  sv.po (ebox-trafficshaping 0.12.2)  #-#-#-#-#\n"
-"Källobjekt"
+msgstr "Källobjekt"
 
 #: ../../main/network/src/EBox/Model/MultiGwRulesDataTable.pm:137
 #: ../../main/ids/src/EBox/IDS.pm:302
 #: ../../main/firewall/src/EBox/Firewall/Model/BaseRuleTable.pm:147
 #: ../../main/firewall/src/EBox/Firewall.pm:1012
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:436
-#, fuzzy
 msgid "Destination"
-msgstr ""
-"#-#-#-#-#  sv.po (ebox-network 0.12)  #-#-#-#-#\n"
-"Mål\n"
-"#-#-#-#-#  sv.po (ebox-ids 1.1)  #-#-#-#-#\n"
-"Mål\n"
-"#-#-#-#-#  sv.po (ebox-firewall 0.12)  #-#-#-#-#\n"
-"Destination\n"
-"#-#-#-#-#  sv.po (ebox-trafficshaping 0.12.2)  #-#-#-#-#\n"
-"Mål"
+msgstr "Mål"
 
 #: ../../main/network/src/EBox/Model/MultiGwRulesDataTable.pm:145
 #: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:312
 #: ../../main/firewall/src/EBox/Firewall/Model/BaseRuleTable.pm:155
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:444
-#, fuzzy
 msgid "Destination IP"
-msgstr ""
-"#-#-#-#-#  sv.po (ebox-network 0.12)  #-#-#-#-#\n"
-"Mål-IP\n"
-"#-#-#-#-#  sv.po (ebox-firewall 0.12)  #-#-#-#-#\n"
-"Destination IP\n"
-"#-#-#-#-#  sv.po (ebox-trafficshaping 0.12.2)  #-#-#-#-#\n"
-"Målets IP"
+msgstr "Mål IP"
 
 #: ../../main/network/src/EBox/Model/MultiGwRulesDataTable.pm:150
 #: ../../main/firewall/src/EBox/Firewall/Model/BaseRuleTable.pm:160
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:449
-#, fuzzy
 msgid "Destination object"
-msgstr ""
-"#-#-#-#-#  sv.po (ebox-network 0.12)  #-#-#-#-#\n"
-"Målobjekt\n"
-"#-#-#-#-#  sv.po (ebox-firewall 0.12)  #-#-#-#-#\n"
-"Destinationsobjekt\n"
-"#-#-#-#-#  sv.po (ebox-trafficshaping 0.12.2)  #-#-#-#-#\n"
-"Målobjekt"
+msgstr "Målobjekt"
 
 #: ../../main/network/src/EBox/Model/MultiGwRulesDataTable.pm:172
 msgid "Gateway to route packets matching this rule"
@@ -1933,10 +1722,9 @@ msgid "static route"
 msgstr "Statisk rutt"
 
 #: ../../main/network/src/EBox/Model/DNSResolver.pm:77
-#, fuzzy
 msgid "IP address of the DNS server that Zentyal will use to resolve names."
 msgstr ""
-"IP-adress för DNS-servern som eBox kommer att använda för att slå upp "
+"IP-adress för DNS-servern som Zentyal kommer att använda för att slå upp "
 "värdnamn."
 
 #: ../../main/network/src/EBox/Model/DNSResolver.pm:83
@@ -1954,15 +1742,14 @@ msgid "name server"
 msgstr "namnserver"
 
 #: ../../main/network/src/EBox/Model/DNSResolver.pm:110
-#, fuzzy
 msgid ""
 "<p>Here you can add the name server resolvers that Zentyal will use.</"
 "p><p>Note that these settings may be overriden if you have any network "
 "interface configured via DHCP</p>"
 msgstr ""
-"<p>Här kan du lägga till de namnservers som eBox kommer att använda.</"
-"p><p>Kom ihåg att dessa inställningar kommer att åsidosättas om du har något "
-"nätverksgränssnitt konfigurerat via DHCP</p>"
+"<p>Här kan du lägga till de namnservrar som Zentyal kommer att "
+"använda.</p><p>Kom ihåg att dessa inställningar kommer att åsidosättas om du "
+"har något nätverksgränssnitt konfigurerat via DHCP</p>"
 
 #: ../../main/network/src/EBox/Model/WANFailoverOptions.pm:71
 msgid "Time between checks"
@@ -1983,27 +1770,30 @@ msgid "These options affect to all the tests."
 msgstr "Dessa val påverkar alla test"
 
 #: ../../main/network/src/EBox/Model/Proxy.pm:89
-#, fuzzy
 msgid "Proxy server"
-msgstr "namnserver"
+msgstr "Proxy-server"
 
 #: ../../main/network/src/EBox/Model/Proxy.pm:95
 msgid "Proxy port"
-msgstr ""
+msgstr "Proxy port"
 
 #: ../../main/network/src/EBox/Model/Proxy.pm:103
 msgid "Proxy"
-msgstr ""
+msgstr "Proxy"
 
 #: ../../main/network/src/EBox/Model/Proxy.pm:107
 msgid ""
 "This settings will be used to allow Zentyal to access the Internet if an "
 "HTTP proxy is needed."
 msgstr ""
+"Dessa inställningar används för att ge Zentyal tillgång till Internet om en "
+"HTTP-proxy ska användas."
 
 #: ../../main/network/src/EBox/Model/Proxy.pm:129
 msgid "Proxy username and password will be visible by all system users."
 msgstr ""
+"Proxy-användarnamnet och lösenordet kommet att vara synlig för alla "
+"systemanvändare."
 
 #: ../../main/network/src/EBox/Model/MultiGwRulesOptions.pm:43
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Clients.pm:67
@@ -2045,9 +1835,8 @@ msgstr ""
 "lista default route måste du köra:"
 
 #: ../../main/network/src/EBox/Network.pm:105
-#, fuzzy
 msgid "Enable Zentyal DHCP hook"
-msgstr "Aktivera eBox DHCP hake"
+msgstr "Aktivera Zentyal DHCP-koppling"
 
 #: ../../main/network/src/EBox/Network.pm:106
 msgid ""
@@ -2058,44 +1847,38 @@ msgstr ""
 "för rutter"
 
 #: ../../main/network/src/EBox/Network.pm:124
-#, fuzzy
 msgid "Zentyal will set your network configuration"
-msgstr "eBox kommer att aktivera din nätverkskonfiguration"
+msgstr "Zentyal kommer att ställa in din nätverkskonfiguration"
 
 #: ../../main/network/src/EBox/Network.pm:129
-#, fuzzy
 msgid "Zentyal will set your DNS configuration"
-msgstr "eBox kommer att aktivera din DNS-konfiguration"
+msgstr "Zentyal kommer att ställa in din DNS-konfiguration"
 
 #: ../../main/network/src/EBox/Network.pm:134
-#, fuzzy
 msgid "Zentyal will set your DHCP client configuration"
-msgstr "eBox kommer att aktivera din DHCP klient-konfiguration"
+msgstr "Zentyal kommer att ställa in din DHCP-klientkonfiguration"
 
 #: ../../main/network/src/EBox/Network.pm:139
 #: ../../main/network/src/EBox/Network.pm:144
-#, fuzzy
 msgid "Zentyal will set your ddclient configuration"
-msgstr "eBox kommer att aktivera din ddclient-konfiguration"
+msgstr "Zentyal kommer att ställa in din ddclient-konfiguration"
 
 #: ../../main/network/src/EBox/Network.pm:149
 #: ../../main/network/src/EBox/Network.pm:154
-#, fuzzy
 msgid "Zentyal will store your PPPoE passwords"
-msgstr "eBox kommer att spara dina PPPoE lösenord"
+msgstr "Zentyal kommer att spara dina PPPoE lösenord"
 
 #: ../../main/network/src/EBox/Network.pm:161
-#, fuzzy
 msgid "Zentyal will add a DSL provider configuration for PPPoE"
-msgstr "eBox kommer att lägga till en DSL konfiguration för PPPoE"
+msgstr "Zentyal kommer att lägga till en DSL-konfiguration för PPPoE"
 
 #: ../../main/network/src/EBox/Network.pm:168
 msgid "Zentyal will set HTTP proxy for all users"
-msgstr ""
+msgstr "Zentyal kommer att ställa in HTTP-proxy för alla användare"
 
 #: ../../main/network/src/EBox/Network.pm:171
 msgid "Zentyal will set HTTP proxy for APT"
-msgstr ""
+msgstr "Zentyal kommer att ställa HTTP-proxy för APT"
 
 #: ../../main/network/src/EBox/Network.pm:918
 #: ../../main/network/src/EBox/Network.pm:922
@@ -2184,13 +1967,8 @@ msgstr "nere"
 
 #: ../../main/network/src/EBox/Network.pm:3547
 #: ../../main/core/src/templates/report/raid.mas:231
-#, fuzzy
 msgid "up"
-msgstr ""
-"#-#-#-#-#  sv.po (ebox-network 0.12)  #-#-#-#-#\n"
-"uppe\n"
-"#-#-#-#-#  sv.po (ebox 0.12)  #-#-#-#-#\n"
-"upp"
+msgstr "upp"
 
 #: ../../main/network/src/EBox/Network.pm:3552
 msgid "external"
@@ -2254,9 +2032,8 @@ msgid "Traffic rate monitoring"
 msgstr "Trafikflödesövervakning"
 
 #: ../../main/network/src/EBox/Network/Composite/Gateway.pm:56
-#, fuzzy
 msgid "Gateways and Proxy"
-msgstr "Gateways"
+msgstr "Gateway och proxy"
 
 #: ../../main/network/src/EBox/Network/Composite/WANFailover.pm:77
 msgid ""
@@ -2275,13 +2052,13 @@ msgstr ""
 "använda denna funktion"
 
 #: ../../main/network/src/EBox/Network/Composite/MultiGw.pm:82
-#, fuzzy
 msgid ""
 "To be able to use this feature you need at least two enabled gateways. You "
 "can add them <a href=\"/zentyal/Network/View/GatewayTable\">here</a> first."
 msgstr ""
 "För att kunna använda denna funktion behöver du minst två aktiva gateways. "
-"Du kan addera dem <a href=\"/ebox/Network/View/GatewayTable\">här</a> först."
+"Du kan addera dem <a href=\"/zentyal/Network/View/GatewayTable\">här</a> "
+"först."
 
 #: ../../main/network/src/EBox/Network/Composite/DNS.pm:60
 msgid "Domain Name Server Resolver"
@@ -2410,25 +2187,13 @@ msgstr "nätmask"
 #: ../../main/users/src/EBox/CGI/ModifyUser.pm:41
 #: ../../main/samba/src/EBox/CGI/ActivePrinting.pm:44
 #: ../../main/samba/src/EBox/CGI/ActiveSharing.pm:68
-#, fuzzy
 msgid "user name"
-msgstr ""
-"#-#-#-#-#  sv.po (ebox-network 0.12)  #-#-#-#-#\n"
-"Användarnamn\n"
-"#-#-#-#-#  sv.po (ebox-usersandgroups 0.12)  #-#-#-#-#\n"
-"användarnamn\n"
-"#-#-#-#-#  sv.po (ebox-samba 0.12)  #-#-#-#-#\n"
-"användarnamn"
+msgstr "användarnamn"
 
 #: ../../main/network/src/EBox/CGI/Iface.pm:95
 #: ../../main/users/src/EBox/CGI/ModifyUser.pm:48
-#, fuzzy
 msgid "password"
-msgstr ""
-"#-#-#-#-#  sv.po (ebox-network 0.12)  #-#-#-#-#\n"
-"Lösenord\n"
-"#-#-#-#-#  sv.po (ebox-usersandgroups 0.12)  #-#-#-#-#\n"
-"lösenord"
+msgstr "lösenord"
 
 #: ../../main/network/src/EBox/CGI/Iface.pm:105
 msgid "bridge"
@@ -2517,15 +2282,14 @@ msgid "Client authorization by common name"
 msgstr "Klient autentisering baserat på \"common name\""
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:96
-#, fuzzy
 msgid ""
 "If disabled, any client with a certificate generated by Zentyal will be able "
 "to connect. If enabled, only certificates whose common name begins with the "
 "selected value will be able to connect."
 msgstr ""
 "Om detta är inaktiverat kan alla klienter med ett certifikat genererat av "
-"eBox ansluta. Om aktiverat kan bara certifikat vars \"common name\" börjar "
-"på detta värde ansluta."
+"Zentyal ansluta sig. Om aktiverat kan bara certifikat vars \"common name\" "
+"börjar på detta värde ansluta."
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:105
 msgid "Network Address Translation"
@@ -2545,19 +2309,17 @@ msgstr ""
 "Aktivera det för att tillåta klient maskiner från detta VPN att se varandra"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:120
-#, fuzzy
 msgid "Allow Zentyal-to-Zentyal tunnels"
-msgstr "Tillåt eBox till eBox tunnlar"
+msgstr "Tillåt Zentyal-till-Zentyal tunnlar"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:123
-#, fuzzy
 msgid "Enable it if this VPN is used to connect to another Zentyal"
-msgstr "Aktivera detta om denna VPN används för att ansluta till en annan eBox"
+msgstr ""
+"Aktivera detta om denna VPN används för att ansluta till en annan Zentyal"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:128
-#, fuzzy
 msgid "Zentyal-to-Zentyal tunnel password"
-msgstr "eBox till eBox tunnellösenord"
+msgstr "Zentyal-till-Zentyal tunnellösenord"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:136
 msgid "Interface to listen on"
@@ -2577,9 +2339,8 @@ msgid "All network interfaces"
 msgstr "Alla nätverksgränssnitt"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:259
-#, fuzzy
 msgid "Zentyal to Zentyal tunnel option requires a RIP password"
-msgstr "eBox till eBox tunnel valet kräver ett RIP lösenord"
+msgstr "Zentyal-till-Zentyal tunnel valet kräver ett RIP-lösenord"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:279
 msgid ""
@@ -2707,17 +2468,12 @@ msgstr "Ladda ner klientinställningar"
 #: ../../main/core/src/templates/backup.mas:163
 #: ../../main/core/src/templates/ajax/viewer/file.mas:22
 #: ../../main/core/src/templates/ajax/viewer/file.mas:33
-#, fuzzy
 msgid "Download"
-msgstr ""
-"#-#-#-#-#  sv.po (libebox 0.12.1)  #-#-#-#-#\n"
-"Ladda ned\n"
-"#-#-#-#-#  sv.po (ebox 0.12)  #-#-#-#-#\n"
-"Hämta ner"
+msgstr "Ladda ner"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:148
 msgid "Zentyal to Zentyal tunnel"
-msgstr ""
+msgstr "Zentyal-till-Zentyal tunnel"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:182
 msgid ""
@@ -2732,16 +2488,14 @@ msgid "Cannot use for the bundle the server's certificate"
 msgstr "Kan inte använda serverns certifikat för klientinställningarna"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:217
-#, fuzzy
 msgid ""
 "Invalid client type: the server does not allow Zentyal-to-Zentyal tunnels"
-msgstr "Felaktig klient-typ: servern tillåter inte eBox till eBox tunnlar"
+msgstr "Felaktig klient-typ: servern tillåter inte Zentyal-till-Zentyal tunnlar"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:226
-#, fuzzy
 msgid ""
 "Invalid client type: the server is intended for Zentyal-to-Zentyal tunnels"
-msgstr "Felaktig klient-typ: servern är avsedd för eBox till eBox tunnlar"
+msgstr "Felaktig klient-typ: servern är avsedd för Zentyal-till-Zentyal tunnlar"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:254
 msgid "Installer is only available for Windows clients"
@@ -2800,15 +2554,15 @@ msgid "VPN servers"
 msgstr "VPN servrar"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:168
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "{openpar}You need a valid CA certificate to use this module. {closepar}"
 "{openpar}Please, go to the {openhref} certification authority module"
 "{closehref} and renew it.{closepar}"
 msgstr ""
-"{openpar}Du kan inte skapa VPN servers eftersom det inte finns ett CA "
-"certifikat {closepar}{openpar}Vänligen gå till {openhref}Certifikathanteraren"
-"{closehref} och skapa ett{closepar}"
+"{openpar}Du behöver en giltig CA-certifikat för att använda denna modul. "
+"{closepar}{openpar}Vänligen gå till "
+"{openhref}Certifikathanteraren{closehref} och skapa ett{closepar}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:175
 #, perl-brace-format
@@ -2868,9 +2622,8 @@ msgid "Manual Configuration"
 msgstr "Manuell konfiguration"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:68
-#, fuzzy
 msgid "Zentyal bundle"
-msgstr "eBox klientinställningar"
+msgstr "Zentyal klientinställningar"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:74
 msgid "Upload configuration's bundle"
@@ -2959,11 +2712,13 @@ msgstr ""
 "certifikat tilldelat"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:450
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "VPN server {name} couldn't be configured, no IP address found for interface "
 "{iface}"
-msgstr "Ingen IP adress hittad för gränssnitt {iface}"
+msgstr ""
+"VPN-servern {name} kunde inte konfigureras, ingen IP-adress hittad för "
+"nätverksgränssnittet {iface}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:556
 msgid "OpenVPN servers cannot be used for internal services"
@@ -2996,9 +2751,8 @@ msgid "All external interfaces"
 msgstr "Alla externa gränssnitt"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:793
-#, fuzzy
 msgid "Not found"
-msgstr "Sidan kunde inte hittas"
+msgstr "Ej hittad"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:795
 msgid "Local address"
@@ -3091,49 +2845,44 @@ msgid "The client certificate can't be the same than the server's one"
 msgstr "Klientens certifikat kan inte vara samma som serverns."
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server/ClientBundleGenerator/EBoxToEBox.pm:132
-#, fuzzy
 msgid ""
 "This bundle is not a valid Zentyal-to-Zentyal configuration bundle. (Cannot "
 "unpack it)"
 msgstr ""
-"Klientinställningarna är inte giltiga för eBox till eBox. (Kan inte packa "
-"upp det)"
+"Paketet ej gilitigt för Zentyal till Zentyal installations paket. (Kan ej "
+"packa up)"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server/ClientBundleGenerator/EBoxToEBox.pm:168
-#, fuzzy
 msgid ""
 "This bundle is not a valid Zentyal-to-Zentyal configuration bundle. (Missing "
 "server configuration file)"
 msgstr ""
-"Klientinställningarna är inte giltiga för eBox till eBox. (Saknar "
-"konfigurationsfil för servern)"
+"Paketet ej gilitigt för Zentyal till Zentyal installations paket. "
+"(Konfigurations fil saknas)"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server/ClientBundleGenerator/EBoxToEBox.pm:175
-#, fuzzy
 msgid ""
 "This bundle is not a valid Zentyal-to-Zentyal configuration bundle. (Missing "
 "CA certificate file)"
 msgstr ""
-"Klientinställningarna är inte giltiga för eBox till eBox. (Saknar CA "
+"Paketet ej gilitigt för Zentyal till Zentyal installations paket. (Saknar CA "
 "certifikatfil)"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server/ClientBundleGenerator/EBoxToEBox.pm:182
-#, fuzzy
 msgid ""
 "This bundle is not a valid Zentyal-to-Zentyal configuration bundle. (Missing "
 "certificate file)"
 msgstr ""
-"Klientinställningarna är inte giltiga för eBox till eBox. (Saknar "
+"Paketet ej gilitigt för Zentyal till Zentyal installations paket. (Saknar "
 "certifikatfil)"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server/ClientBundleGenerator/EBoxToEBox.pm:189
-#, fuzzy
 msgid ""
 "This bundle is not a valid Zentyal-to-Zentyal configuration bundle. (Missing "
 "certificate private key file)"
 msgstr ""
-"Klientinställningarna är inte giltiga för eBox till eBox. (Saknar privat "
-"certifikatnyckel fil)"
+"Paketet ej gilitigt för Zentyal till Zentyal installations paket. (Saknar "
+"privat certifikations nyckel)"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:69
 msgid "VPN"
@@ -3159,7 +2908,7 @@ msgstr ""
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:178
 msgid "To remove system-wide VPN servers autostart"
-msgstr ""
+msgstr "Att ta bort VPN servers autostart för hela systemet"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:663
 #, perl-brace-format
@@ -3294,9 +3043,8 @@ msgid "You must set insecure_rip_conf to yes or no"
 msgstr "Du måste ställa in  insecure_rip_conf till yes eller no"
 
 #: ../../main/ftp/src/EBox/FTP.pm:90
-#, fuzzy
 msgid "Zentyal FTP Server"
-msgstr "eBox FTP server"
+msgstr "Zentyal FTP server"
 
 #: ../../main/ftp/src/EBox/FTP.pm:130
 msgid "To configure vsftpd"
@@ -3312,7 +3060,7 @@ msgstr ""
 
 #: ../../main/ftp/src/EBox/FTP.pm:193
 msgid "User homes and anonymous directory"
-msgstr ""
+msgstr "Användares Hem och Anonyma kataloger"
 
 #: ../../main/ftp/src/EBox/Model/Options.pm:49
 #: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:93
@@ -3380,14 +3128,12 @@ msgstr ""
 "fortsätta vara ansluten tills jabber autentisering behövs igen."
 
 #: ../../main/zarafa/src/EBox/Zarafa.pm:63
-#, fuzzy
 msgid "Add Zarafa LDAP schema"
-msgstr "Lägg till Jabber LDAP schema"
+msgstr "Lägg till Zarafa LDAP schema"
 
 #: ../../main/zarafa/src/EBox/Zarafa.pm:64
-#, fuzzy
 msgid "Zentyal will need this schema to store Zarafa users."
-msgstr "eBox behöver detta schema för att spara jabberanvändare"
+msgstr "Zentyal behöver detta schema för att spara Zarafa användare."
 
 #: ../../main/zarafa/src/EBox/Zarafa.pm:68
 msgid "Add vmail system user"
@@ -3395,19 +3141,19 @@ msgstr ""
 
 #: ../../main/zarafa/src/EBox/Zarafa.pm:69
 msgid "Zentyal will need this to deliver mail to Zarafa."
-msgstr ""
+msgstr "Zentyal behöver detta för att skicka mail till Zarafa."
 
 #: ../../main/zarafa/src/EBox/Zarafa.pm:73
 msgid "Create MySQL Zarafa database."
-msgstr ""
+msgstr "Skapa MySQL Zarafa databas."
 
 #: ../../main/zarafa/src/EBox/Zarafa.pm:74
 msgid "This database will store the data needed by Zarafa."
-msgstr ""
+msgstr "Denna databas kommer att innehålla data för Zarafa."
 
 #: ../../main/zarafa/src/EBox/Zarafa.pm:78
 msgid "Create default SSL key/certificates."
-msgstr ""
+msgstr "Skapa standard SSL nyckel/certifikat."
 
 #: ../../main/zarafa/src/EBox/Zarafa.pm:79
 msgid ""
