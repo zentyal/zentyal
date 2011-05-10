@@ -258,7 +258,6 @@ h3 {
 var pkgTable = new Array(
 %   foreach my $pkg (@eboxpkgs) {
 %       my $eboxupg = 'no';
-%       $pkg->{description} =~ s/^Zentyal - //;
         {"Component":"<%__($pkg->{description})%>",
 %       if ($pkg->{version}) {
 %           if ($pkg->{version} ne $pkg->{avail}) {

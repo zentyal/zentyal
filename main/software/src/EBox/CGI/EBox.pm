@@ -56,7 +56,7 @@ sub _process
         try {
             unless ($software->updatePkgList()) {
                 $updateListError = 1;
-            } 
+            }
         } otherwise {
             my ($ex) = @_;
             $updateListError = 1;
@@ -64,8 +64,12 @@ sub _process
         };
     }
 
+    my @pkgs = @{$software->listEBoxPkgs()};
+    @pkgs = map { $_->{description} =~ s/^Zentyal - //; $_ } @pkgs;
+    @pkgs = sort { $a->{description} cmp $b->{description} } @pkgs;
+
     my @array = ();
-    push(@array, 'eboxpkgs'     => $software->listEBoxPkgs());
+    push(@array, 'eboxpkgs'     => \@pkgs);
     push(@array, 'updateStatus' => $software->updateStatus(1));
     push(@array, 'QAUpdates'    => $software->QAUpdates());
     push(@array, 'isOffice'     => $software->isInstalled('zentyal-office'));
