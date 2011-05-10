@@ -128,8 +128,8 @@ sub _populateEnc
 {
     my @opts = ();
     push (@opts, { value => 'any', printableValue => __('Any') });
-    push (@opts, { value => 'aes256', printableValue => __('AES-256') });
-    push (@opts, { value => '3des', printableValue => __('3DES') });
+    push (@opts, { value => 'aes256', printableValue => 'AES-256' });
+    push (@opts, { value => '3des', printableValue => '3DES' });
     return \@opts;
 }
 
@@ -137,8 +137,8 @@ sub _populateAuth
 {
     my @opts = ();
     push (@opts, { value => 'any', printableValue => __('Any') });
-    push (@opts, { value => 'sha1', printableValue => __('SHA-1') });
-    push (@opts, { value => 'md5', printableValue => __('MD5') });
+    push (@opts, { value => 'sha1', printableValue => 'SHA-1' });
+    push (@opts, { value => 'md5', printableValue => 'MD5' });
     return \@opts;
 }
 
@@ -193,7 +193,6 @@ sub _table
                                    editable => 1,
                                    defaultValue => 1,
                                   ),
-          
         );
 
     my $dataTable =
