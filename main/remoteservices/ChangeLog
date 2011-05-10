@@ -1,4 +1,5 @@
 HEAD
+	+ Pass new fallbackToRO option when making a configuration backup
 	+ Added Cloud DNS connection check
 	+ Fix last report link in Subscription page
 	+ Catch all exceptions when the server is not connected to Cloud

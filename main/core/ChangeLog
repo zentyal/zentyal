@@ -1,4 +1,5 @@
 HEAD
+	+ Fall back to readonly data in config backup if there are unsaved changes
 	+ Allow to automatically send a report in the unexpected error page
 	+ Logs and Events are now submenus of the new Maintenance menu
 	+ Configuration Report option is now present on the Import/Export section

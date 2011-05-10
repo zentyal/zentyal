@@ -19,8 +19,8 @@ my $progressId = undef;
 
 my $remoteBackupName = undef;
 my $configBackup = 0;
-my $fullBackup   = 0;
 my $bugReport    = 0;
+my $fallbackToRO = 0;
 
 my $description = undef;
 my $destination = undef;
@@ -31,12 +31,12 @@ my $help = 0;;
 my $optionsOk = GetOptions(
                            'progress-id:i'   => \$progressId,
                            'config-backup'   => \$configBackup,
-                           'full-backup'     => \$fullBackup,
                            'bug-report|configuration-report'
                                         => \$bugReport,
                            'description=s'   => \$description,
                            'destination=s'   => \$destination,
                            'remote-backup=s' => \$remoteBackupName,
+                           'fallback-to-ro'  => \$fallbackToRO,
                            'help'            => \$help,
                           );
 
@@ -51,16 +51,11 @@ if ($help) {
   exit 0;
 }
 
-
-
-
 # see if we have incompatible operation modes
-my $incompatibleModes = grep { $_  }  ($configBackup, $fullBackup, $bugReport);
+my $incompatibleModes = grep { $_  }  ($configBackup,  $bugReport);
 if ($incompatibleModes > 1) {
-  die "You can only choose one backup mode from --config-backup,  --full-backup or --bug-report. (--config-restore is the default restore mode)";
+  die "You can only choose one backup mode from --config-backup,   or --bug-report. (--config-restore is the default restore mode)";
 }
-
-
 
 my %params;
 
@@ -87,8 +82,8 @@ if (defined $destination) {
     $params{destination} = $destination;
 }
 
-if ($fullBackup) {
-    $params{fullBackup} = 1;
+if ($fallbackToRO) {
+    $params{fallbackToRO} = 1;
 }
 
 try {
@@ -130,10 +125,10 @@ sub usage
 
   Options:
     --config-backup (default backup mode)
-    --full-backup
     --configuration-report --bug-report
 
     --description <description>
+    --fallback-to-ro
     --remote-backup <name>
     --progress-id (only needed for web framework)
 END
