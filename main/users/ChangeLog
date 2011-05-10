@@ -3,6 +3,7 @@ HEAD
 	+ Numeric 0 is accepted as value for LDAP users attributes
 	+ Minor fixes in default quota from user template
 	+ Fixed error when writing ad-sync cron file
+	+ Do not allow to create users if their home directory already exists
 2.1.1
 	+ Quotas are now included in users module
 	+ System users don't require password

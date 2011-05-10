@@ -961,6 +961,14 @@ sub addUser # (user, system)
                                            'value' => $user->{'user'});
     }
 
+    my $homedir = _homeDirectory($user->{'user'});
+    if (-e $homedir) {
+        throw EBox::Exceptions::External(
+            __x('Cannot create user because the home directory {dir} already exists. Please move or remove it before creating this user',
+                dir => $homedir)
+        );
+    }
+
     my $uid = exists $params{uidNumber} ?
         $params{uidNumber} :
             $self->_newUserUidNumber($system);
@@ -1011,7 +1019,7 @@ sub addUser # (user, system)
         'loginShell'    => $self->_loginShell(),
         'uidNumber'     => $uid,
         'gidNumber'     => $gid,
-        'homeDirectory' => _homeDirectory($user->{'user'}),
+        'homeDirectory' => $homedir,
         'userPassword'  => $passwd,
         'quota'         => $self->defaultQuota(),
         'objectclass'   => [
@@ -1279,6 +1287,12 @@ sub _cleanUser
     foreach my $mod (@mods) {
         $mod->_delUser($user);
     }
+
+    # remove home directory
+    my $userInfo = $self->userInfo($user);
+    my $home = $userInfo->{homeDirectory};
+    # TODO: We need to ask with a confirmation dialog before doing this!
+    #EBox::Sudo::root("rm -rf $home");
 }
 
 # Method: delUser
