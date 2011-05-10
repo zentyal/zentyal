@@ -1,3 +1,5 @@
+HEAD
+	+ Adapted dumpBackupExtraData to new expected return value
 2.0.19
 	+ Fixed bug in EBox::Events::Model::Watcher::Log::syncRows
 2.0.18

@@ -382,6 +382,7 @@ sub backupDomains
     my %attrs  = (
                   printableName => __('Logs'),
                   description   => __(q{Zentyal Server logs database}),
+                  extraDataDump => 1,
                  );
 
     return ($name, \%attrs);
@@ -392,12 +393,16 @@ sub dumpExtraBackupData
 {
     my ($self, $dir, %backupDomains) = @_;
 
+    my @domainsDumped;
     if ($backupDomains{logs} ) {
         my $dbengine = EBox::DBEngineFactory::DBEngine();
         my $dumpFileBasename = "eboxlogs";
 
         $dbengine->backupDB($dir, $dumpFileBasename);
+        push @domainsDumped, 'logs';
     }
+
+    return \@domainsDumped;
 }
 
 sub _checkValidDate # (date)
