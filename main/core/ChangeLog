@@ -11,6 +11,7 @@ HEAD
 	+ Fixed unescaped characters when showing an exception
 	+ Fixed nested error page on AJAX requests
 	+ Added send report option when an error occurs
+	+ Adapted dumpBackupExtraData to new expected return value
 	+ Report remoteservices, when required, a change in administration
 	  port
 	+ Added continueOnModuleFail mode to configuration restore
