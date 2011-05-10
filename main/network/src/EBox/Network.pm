@@ -1073,6 +1073,35 @@ sub vifaceNetmask # (interface)
 sub setIfaceAlias # (iface, alias)
 {
     my ($self, $iface, $alias) = @_;
+    if ($iface eq $alias) {
+        # alias == iface name, no problems
+        $self->set_string("interfaces/$iface/alias", $alias);
+        return;
+    }
+
+    # check that the alias is not repeated or is the same that any interface
+    # name
+    foreach my $if (@{ $self->allIfaces() }) {
+        if ($alias eq $if) {
+            throw EBox::Exceptions::External(
+                __x('There is already an interface called {al}',
+                    al => $alias)
+            );
+        }
+
+        if ($iface eq $if) {
+            next;
+        }
+
+        my $ifAlias = $self->ifaceAlias($if);
+        if ($ifAlias and ($ifAlias eq $alias)) {
+            throw EBox::Exceptions::External(
+                __x('There is already a interface with the alias {al}',
+                    al => $alias)
+            );
+        }
+    }
+
     $self->set_string("interfaces/$iface/alias", $alias);
 }
 
