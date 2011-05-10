@@ -35,11 +35,11 @@ sub _print
 {
     my ($self) = @_;
 
-    EBox::Util::BugReport::send($self->unsafeParam('email'),
-                                $self->unsafeParam('description'));
+    my $ticket = EBox::Util::BugReport::send($self->unsafeParam('email'),
+                                             $self->unsafeParam('description'));
 
     print($self->cgi()->header(-charset=>'utf-8'));
-    print 'OK';
+    print 'OK ' . $ticket;
 }
 
 sub requiredParameters

@@ -23,6 +23,7 @@ use MIME::Base64;
 use File::Slurp;
 
 use constant RPC_URL => 'http://trac.zentyal.org/jsonrpc';
+use constant MILESTONE => '2.2';
 
 #
 # Method: send
@@ -33,6 +34,9 @@ use constant RPC_URL => 'http://trac.zentyal.org/jsonrpc';
 # Params:
 #   - author_email - Reporter's email
 #   - description - Text describing what the user was doing
+#
+# Returns:
+#   Assigned ticket number on trac
 #
 # Throws EBox::Exceptions::Internal if something goes wrong
 #
@@ -50,6 +54,7 @@ sub send
             $description,                    # description
             {
                 reporter => $author_email,   # author
+                milestone => MILESTONE,      # milestone
             },
             'true',                          # notify
         ],
@@ -87,6 +92,8 @@ sub send
 
             EBox::info('Attached log to #' . $ticket);
         }
+
+        return $ticket;
     } else {
         throw EBox::Exceptions::Internal("Couldn't add the ticket, probably this is a connectivity issue");
     }

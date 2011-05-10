@@ -39,8 +39,10 @@
                 setLoading('submit_button');
                 $('report_form').request({
                     onComplete: function(transport){
-                        if (transport.responseText == 'OK') {
-                            $('report').replace('<div class="note">{{ report_sent }}</note>');
+                        if (transport.responseText.indexOf('OK') == 0) {
+                            var ticket = transport.responseText.substr(3);
+                            $('report').replace('<div class="note">{{ report_sent }} ' +
+                                                '<a href="http://trac.zentyal.org/ticket/' + ticket + '">#' + ticket + '</a></note>');
                         }
                         else {
                             $('report').hide();

@@ -71,6 +71,7 @@ try {
     $params->{description} = __('Describe in English what you where doing');
     $params->{newticket_url} = 'http://trac.zentyal.org/newticket';
     $params->{report_error} = __("Couldn't send the report");
+    $params->{report_sent} = __('The report has been successfully sent, you can track its status using the following ticket url:');
 
     my $instructions = '<strong>' . __('To do it by hand follow these instructions:') . '</strong>';
     $instructions .= '<li>' . __('Create a new ticket in the Zentyal trac by clicking ') . '<a class="nvac" href="#" onclick="window.open(\'http://trac.zentyal.org/newticket\')">' . __('here') . "</a>.</li>";
