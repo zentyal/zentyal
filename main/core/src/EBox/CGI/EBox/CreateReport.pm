@@ -35,8 +35,18 @@ sub _print
 {
     my ($self) = @_;
 
+    my $description = $self->unsafeParam('description');
+    $description .= "\n\n'''Error'''\n\n";
+    $description .= "{{{\n";
+    $description .= $self->unsafeParam('error');
+    $description .= "}}}";
+    $description .= "\n\n'''Trace'''\n\n";
+    $description .= "{{{\n";
+    $description .= $self->unsafeParam('stacktrace');
+    $description .= "}}}";
+
     my $ticket = EBox::Util::BugReport::send($self->unsafeParam('email'),
-                                             $self->unsafeParam('description'));
+                                             $description);
 
     print($self->cgi()->header(-charset=>'utf-8'));
     print 'OK ' . $ticket;
@@ -46,7 +56,7 @@ sub requiredParameters
 {
     my ($self) = @_;
 
-    return ['email', 'description'];
+    return ['email', 'description', 'error', 'stacktrace'];
 }
 
 1;

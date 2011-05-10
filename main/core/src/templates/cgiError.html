@@ -29,7 +29,7 @@
 
       <div id="details" style="display: none">
         <div><b>Trace</b></div>
-        <div>{{ stacktrace }}</div>
+        <div>{{ stacktrace_html }}</div>
       </div>
 
       <div id="report" style="display: none">
@@ -58,6 +58,8 @@
             <p>{{ email }}: <input type="text" name="email" id="email" /></p>
             <p>{{ description }}</p>
             <p><textarea name="description" id="description" cols="68" rows="10" style="width: 100%"></textarea></p>
+            <input type="hidden" name="error" id="error" value="{{ error }}" />
+            <input type="hidden" name="stacktrace" id="stacktrace" value="{{ stacktrace }}" />
             <p>
                <input type="button" onclick="$('report').hide()" value="{{ cancel }}" />
                <span id="submit_button" id="submit_button">

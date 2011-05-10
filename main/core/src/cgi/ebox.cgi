@@ -71,9 +71,9 @@ try {
     $params->{description} = __('Describe in English what you where doing');
     $params->{newticket_url} = 'http://trac.zentyal.org/newticket';
     $params->{report_error} = __("Couldn't send the report");
-    $params->{report_sent} = __('The report has been successfully sent, you can track its status using the following ticket url:');
+    $params->{report_sent} = __('The report has been successfully sent, you can keep track of it in the following ticket:');
 
-    my $instructions = '<strong>' . __('To do it by hand follow these instructions:') . '</strong>';
+    my $instructions = '<strong>' . __('To do a manual report, please follow these instructions:') . '</strong>';
     $instructions .= '<li>' . __('Create a new ticket in the Zentyal trac by clicking ') . '<a class="nvac" href="#" onclick="window.open(\'http://trac.zentyal.org/newticket\')">' . __('here') . "</a>.</li>";
     $instructions .= '<li>' . __('Write a short description of the problem in the summary field') . '.</li>';
     $instructions .= '<li>' . __('Write a detailed report of what you were doing before this problem ocurred in the description field') . '.</li>';
@@ -83,17 +83,23 @@ try {
 
     $params->{report_instructions} = $instructions;
 
+    my $error;
     if ( $ex->can('text') ) {
-        $params->{error} = $ex->text();
+        $error = $ex->text();
     } elsif ( $ex->can('as_text') ) {
-        $params->{error} = $ex->as_text();
+        $error = $ex->as_text();
     }
+    $error =~ s/"/'/g;
+    $params->{error} = $error;
 
-    $params->{stacktrace} = '<ul>';
-    for my $line (split(/\n/,$ex->stacktrace())) {
-        $params->{stacktrace} .= "<li>$line</li>\n";
+    my $stacktrace = $ex->stacktrace();
+    $params->{stacktrace_html} = '<ul>';
+    for my $line (split (/\n/, $stacktrace)) {
+        $params->{stacktrace_html} .= "<li>$line</li>\n";
     }
-    $params->{stacktrace} .= '</ul>';
+    $params->{stacktrace_html} .= '</ul>';
+    $stacktrace =~ s/"/'/g;
+    $params->{stacktrace} = $stacktrace;
 
     # Fill HTML template values
     my $html = read_file(EBox::Config::templates . 'cgiError.html');
