@@ -1,3 +1,5 @@
+HEAD
+	+ Added Cloud DNS connection check
 2.0.15
 	+ Fix last report link in Subscription page
 	+ Add reportAdminPort to let Zentyal Cloud know the TCP port where
