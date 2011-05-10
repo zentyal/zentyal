@@ -103,7 +103,6 @@ var check = new Array();
 %       my $row1 = '';
 %       foreach my $pkg (@descactpackages) {
 %           $pkg =~ s/^Zentyal - //;
-%           $pkg =~ s/^eBox - //; # FIXME: Remove this after 2.0
 %           if ($r) {
 %               $row0 .= "       <tr class='border'><td>$pkg</td></tr>\n";
 %               $r = 0;

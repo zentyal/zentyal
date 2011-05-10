@@ -259,7 +259,6 @@ var pkgTable = new Array(
 %   foreach my $pkg (@eboxpkgs) {
 %       my $eboxupg = 'no';
 %       $pkg->{description} =~ s/^Zentyal - //;
-%       $pkg->{description} =~ s/^eBox - //; # FIXME: Remove this after 2.0
         {"Component":"<%__($pkg->{description})%>",
 %       if ($pkg->{version}) {
 %           if ($pkg->{version} ne $pkg->{avail}) {
