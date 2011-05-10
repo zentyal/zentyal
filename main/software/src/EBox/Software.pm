@@ -767,7 +767,14 @@ sub _getInfoEBoxPkgs
             $data{'avail'} = $self->_candidateVersion($cache->{$pack})->{version};
             if ($cache->{$pack}{CurrentVer}) {
                 $data{'version'} = $cache->{$pack}{CurrentVer}{VerStr};
+
+                my @depends;
+                for my $dep (@{$cache->{$pack}{CurrentVer}{DependsList}}) {
+                    push (@depends, $dep->{TargetPkg}{Name});
+                }
+                $data{'depends'} = \@depends;
             }
+
             push(@list, \%data);
         }
     }

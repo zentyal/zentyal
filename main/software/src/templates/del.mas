@@ -151,13 +151,13 @@ var check = new Array();
 <h3><% __('You may want to install also the following recommended packages:') %></h3>
 %       foreach my $pkg (@actpackages) {
 %           if ( $pkg eq 'zentyal-trafficshaping' ) {
-    <input type='checkbox' id='chkl7protocols' name='pkg_zentyal-l7-protocols'><% __('Layer 7 filtering for Traffic Shaping (zentyal-l7-protocols)') %><br/>
+    <input type='checkbox' id='chkl7protocols' name='pkg_zentyal-l7-protocols'><label for="chkl7protocols"><% __('Layer 7 filtering for Traffic Shaping (zentyal-l7-protocols)') %></label><br/>
 %           }
 %           if ( $pkg eq 'zentyal-samba' ) {
-    <input type='checkbox' id='chksamba' name='pkg_samba-vscan'><% __('Virus scanning for File Sharing (zentyal-antivirus and samba-vscan)') %><br/>
+    <input type='checkbox' id='chksamba' name='pkg_samba-vscan'><label for="chksamba"><% __('Virus scanning for File Sharing (zentyal-antivirus and samba-vscan)') %></label><br/>
 %           }
 %           if ( $pkg eq 'zentyal-asterisk' ) {
-    <input type='checkbox' id='chkdadhi' name='pkg_dadhi'><% __('VoIP meetings support (dahdi and linux-headers)') %><br/>
+    <input type='checkbox' id='chkdadhi' name='pkg_dadhi'><label for="chkdadhi"><% __('VoIP meetings support (dahdi and linux-headers)') %></label><br/>
 %           }
 %       }
 %   }

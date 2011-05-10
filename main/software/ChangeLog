@@ -1,4 +1,5 @@
 HEAD
+	+ New package selection page with icons
 	+ Check if apt-get is ready before running apt commands
 	+ EBox::CGI::Software::Log more resilent to errors
 	+ Added stats for automatic upgrades. Currently, the timestamp and
