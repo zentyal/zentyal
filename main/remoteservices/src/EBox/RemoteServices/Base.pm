@@ -245,12 +245,29 @@ sub _queryServicesNameserver
     my ($self, $hostname, $nameservers) = @_;
 
     $nameservers = $self->_nameservers() unless (defined($nameservers));
+    # check that we have route to the nameservers
+    my $routeToNS = 0;
+    foreach my $ns (@{ $nameservers }) {
+        my $pingCmd = "ping  -c 2 $ns 2>&1 > /dev/null";
+        system $pingCmd;
+        if ($? == 0) {
+            $routeToNS = 1;
+            last;
+        }
+    }
+
+    unless ($routeToNS) {
+        throw EBox::Exceptions::External(
+            __x('Cannot connect to any of the Cloud nameservers: {ns}',
+                ns => join ', ', @{ $nameservers })
+        );
+    }
 
     my $resolver = Net::DNS::Resolver->new(
           nameservers => $nameservers,
           defnames    => 0, # no default domain
           udp_timeout => 15, # 15 s. prior to timeout
-         );
+    );
 
     my $response = $resolver->query($hostname);
     if (not defined $response) {
@@ -270,7 +287,6 @@ sub _queryServicesNameserver
     my $address = $addresses[$n];
 
     return $address;
-
 }
 
 # Method: _printableSize
