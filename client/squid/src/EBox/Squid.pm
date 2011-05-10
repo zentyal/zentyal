@@ -911,6 +911,7 @@ sub _cleanDomainFilterFiles
     my %fgDirs;
     foreach my $key (@keys) {
         my $path = $self->get_string($key);
+        next unless $path;
         my $basename = basename($path);
         $fgDirs{$path} = 1;
         $fgDirs{"$path/archives"} = 1;
