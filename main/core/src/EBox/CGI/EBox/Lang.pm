@@ -21,6 +21,7 @@ use warnings;
 use base 'EBox::CGI::Base';
 
 use EBox;
+use EBox::Global;
 use EBox::Menu;
 use EBox::Config;
 use EBox::Gettext;
@@ -29,22 +30,23 @@ use POSIX qw(setlocale LC_ALL);
 
 sub new # (cgi=?)
 {
-	my $class = shift;
-	my $self = $class->SUPER::new(@_);
-	bless($self, $class);
-	$self->{redirect} = "EBox/General";
-	return $self;
+    my $class = shift;
+    my $self = $class->SUPER::new(@_);
+    bless($self, $class);
+    $self->{redirect} = "EBox/General";
+    return $self;
 }
 
 sub _process
 {
-	my $self = shift;
+    my $self = shift;
 
-	if (defined($self->param('setlang'))) {
-		EBox::setLocale($self->param('lang'));
-		POSIX::setlocale(LC_ALL, EBox::locale());
+    if (defined($self->param('setlang'))) {
+        EBox::setLocale($self->param('lang'));
+        POSIX::setlocale(LC_ALL, EBox::locale());
         EBox::Menu::regenCache();
-	}
+        EBox::Global->getInstance()->modChange('apache');
+    }
 }
 
 1;

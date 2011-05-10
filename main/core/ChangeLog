@@ -2,6 +2,7 @@ HEAD
 	+ Allow to automatically send a report in the unexpected error page
 	+ Logs and Events are now submenus of the new Maintenance menu
 	+ Configuration Report option is now present on the Import/Export section
+	+ Require save changes operation after changing the language
 	+ Added support for URL aliases via schemas/urls/*.urls files
 	+ Allow to sort submenu items via 'order' attribute
 	+ Automatically save changes after syncRows is called and mark the module
