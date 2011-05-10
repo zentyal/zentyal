@@ -1,4 +1,4 @@
-HEAD
+2.0.6
 	+ Apparmor profile now works without DNS module installed
 2.0.5
 	+ Write standard dhcpd apparmor profile when setting the
