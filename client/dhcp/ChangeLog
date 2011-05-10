@@ -1,3 +1,5 @@
+HEAD
+	+ Apparmor profile now works without DNS module installed
 2.0.5
 	+ Write standard dhcpd apparmor profile when setting the
 	  configuration and migration to remove old apparmor profile to

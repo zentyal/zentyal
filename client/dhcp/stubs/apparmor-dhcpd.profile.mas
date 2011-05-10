@@ -52,8 +52,10 @@
   /var/run/eucalyptus/net/*.leases* lrw,
   /var/run/eucalyptus/net/*.trace lrw,
 
+% if ($keysFile) {
   # For dynamic DNS (Zentyal)
   <% $keysFile %> r,
+% }
   
   # For allowing custom tweaking (Zentyal)
   <% $confDir %>* r,
