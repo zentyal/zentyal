@@ -1,4 +1,4 @@
-AC_INIT([zentyal-objects], [2.1])
+AC_INIT([zentyal-objects], [2.1.1])
 
 AC_CONFIG_AUX_DIR([config])
 AC_CONFIG_SRCDIR([src/EBox/Objects.pm])

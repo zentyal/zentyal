@@ -1,4 +1,4 @@
-HEAD
+2.1.2
 	+ Non-editable user fields in slaves no longer appear as editable inputs
 	+ Numeric 0 is accepted as value for LDAP users attributes
 	+ Minor fixes in default quota from user template

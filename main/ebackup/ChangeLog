@@ -1,4 +1,4 @@
-HEAD
+2.1.1
 	+ Removed configuration backup warning as now it is always done
 	+ Removed unnecessary code from syncRows methods
 	+ Report methods in RemoteSettings and BackupDomains now return

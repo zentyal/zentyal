@@ -1,4 +1,4 @@
-HEAD
+2.1.3
 	+ Fall back to readonly data in config backup if there are unsaved changes
 	+ Allow to automatically send a report in the unexpected error page
 	+ Logs and Events are now submenus of the new Maintenance menu

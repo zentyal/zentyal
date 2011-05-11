@@ -1,4 +1,4 @@
-HEAD
+2.1.1
 	+ Manage MTA-BLOCKED event in the logs
 	+ Removed 'learn from accounts spam folder' feature until serious
 	  bug in dovecot-antispam Ubuntu package is fixed

@@ -1,4 +1,4 @@
-HEAD
+2.1.1
 	+ Monitor is now a submenu of the new Maintenance menu
 	+ Removed unnecessary code from MeasureWatchers::syncRows
 	+ Added missing dependency on rrdtool

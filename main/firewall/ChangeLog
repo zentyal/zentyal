@@ -1,4 +1,4 @@
-HEAD
+2.1.1
 	+ Added SNAT option in Port Forwarding rules
 	+ Remove unnecessary code from EBoxServicesRuleTable::syncRows
 	+ Add forwardNoSpoof and inputNoSpoof FirewallHelper methods to allow

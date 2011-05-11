@@ -1,4 +1,4 @@
-HEAD
+2.1.1
 	+ Objects menu moved inside the Network menu
 	+ Added IP ranges as object members
 	+ objectAddresses method can now return masks if requested

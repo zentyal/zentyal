@@ -1,4 +1,4 @@
-HEAD
+2.1.1
 	+ Deleted useless methods in NetWrappers
 	+ New EBox::Config::refreshConfFiles to avoid problem restoring backups
 	+ Added new NotConnected exception
