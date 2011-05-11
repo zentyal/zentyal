@@ -160,9 +160,9 @@ sub _table
                        defaultActions     => [ 'editField', 'changeView' ],
                        tableDescription   => \@tableHeader,
                        class              => 'dataForm',
-                       help               => __('All gateways you enter here must be reachable '
-                                               . 'through one of the network interfaces '
-                                               . 'currently configured'),
+                       help               => __('You should select your provider from the list '
+                                               . 'and enter your account data. '
+                                               . 'You also need to enable it in order to work.'),
                        modelDomain        => 'Network',
                      };
 
