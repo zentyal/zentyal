@@ -39,11 +39,11 @@ sub _print
     $description .= "\n\n'''Error'''\n\n";
     $description .= "{{{\n";
     $description .= $self->unsafeParam('error');
-    $description .= "}}}";
+    $description .= "\n}}}";
     $description .= "\n\n'''Trace'''\n\n";
     $description .= "{{{\n";
     $description .= $self->unsafeParam('stacktrace');
-    $description .= "}}}";
+    $description .= "\n}}}";
 
     my $ticket = EBox::Util::BugReport::send($self->unsafeParam('email'),
                                              $description);
