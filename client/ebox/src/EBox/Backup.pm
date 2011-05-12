@@ -39,7 +39,6 @@ use POSIX qw(strftime);
 use DirHandle;
 use Perl6::Junction qw(any all);
 
-use Params::Validate qw(validate_with validate_pos ARRAYREF);
 use Filesys::Df;
 
 use Readonly;
@@ -58,7 +57,7 @@ sub new
 
 # returns:
 #       string: path to the backup file.
-sub _makeBackup # (description, bug?)
+sub _makeBackup
 {
     my ($self, %options) = @_;
 
@@ -67,6 +66,7 @@ sub _makeBackup # (description, bug?)
 
     my $bug         = $options{bug};
     my $progress   = $options{progress};
+    my $changesSaved = $options{changesSaved};
 
     my $date = strftime("%F %T", localtime($time));
 
@@ -129,8 +129,9 @@ sub _dumpModulesBackupData
     my ($self, $auxDir, %options) = @_;
 
     my $progress   = $options{progress};
+    my $changesSaved = $options{changesSaved};
 
-    my @modules = @{ $self->_modInstancesForBackup() };
+    my @modules = @{ $self->_modInstancesForBackup($changesSaved) };
     foreach my $mod (@modules) {
         my $modName = $mod->name();
 
@@ -155,9 +156,10 @@ sub _dumpModulesBackupData
 
 sub _modInstancesForBackup
 {
-    my ($self) = @_;
+    my ($self, $changesSaved) = @_;
 
-    my @mods = @{ $self->_configuredModInstances };
+    my $readOnly = $changesSaved ? 0 : 1;
+    my @mods = @{ $self->_configuredModInstances($changesSaved) };
 
     return \@mods;
 }
@@ -165,9 +167,11 @@ sub _modInstancesForBackup
 
 sub _configuredModInstances
 {
-    my ($self) = @_;
+    my ($self, $readOnly) = @_;
+    defined $readOnly or
+        $readOnly = 0;
 
-    my $global = EBox::Global->getInstance();
+    my $global = EBox::Global->getInstance($readOnly);
 
     my @modules =  @{ $global->modInstances() };
 
@@ -355,7 +359,7 @@ sub _createEBoxEtcFilesArchive
     $self->_createFilesArchive($dir, $archive);
 }
 
-sub _bug # (dir)
+sub _bug
 {
     my ($self, $dir) = @_;
 
@@ -422,7 +426,11 @@ sub _bug # (dir)
 sub backupDetails # (id)
 {
     my ($self, $id) = @_;
-    validate_pos(@_, 1, ,1);
+    defined $id or
+        throw EBox::Exceptions::MissingArgument('id');
+    defined $self or
+        throw EBox::Exceptions::MissingArgument('self');
+
 
     $self->_checkId($id);
 
@@ -455,7 +463,10 @@ sub backupDetails # (id)
 sub backupDetailsFromArchive
 {
     my ($self, $archive) = @_;
-    validate_pos(@_, 1, 1);
+    defined $archive or
+        throw EBox::Exceptions::MissingArgument('archive');
+    defined $self or
+        throw EBox::Exceptions::MissingArgument('self');
 
     my $backupDetails = {};
 
@@ -548,10 +559,13 @@ sub _unpackArchive
 # Exceptions:
 #
 #       External -  If it can't be found or deleted.
-sub deleteBackup # (id)
+sub deleteBackup
 {
     my ($self, $id) = @_;
-    validate_pos(@_, 1, 1);
+    defined $id or
+        throw EBox::Exceptions::MissingArgument('id');
+    defined $self or
+        throw EBox::Exceptions::MissingArgument('self');
 
     $self->_checkId($id);
 
@@ -674,6 +688,10 @@ sub prepareMakeBackup
         $scriptParams .= q{'} . $options{description} . q{'};
     }
 
+    if (exists $options{fallbackToRO} and $options{fallbackToRO}) {
+        $scriptParams .= ' --fallback-to-ro';
+    }
+
     $scriptParams .= ' --config-backup';
 
     if ($options{bug}) {
@@ -683,7 +701,9 @@ sub prepareMakeBackup
     my $makeBackupScript = EBox::Config::pkgdata() . 'ebox-make-backup';
     $makeBackupScript    .=  $scriptParams;
 
+
     my $global     = EBox::Global->getInstance();
+    # XXX: this could be wrong, we only do backup of the configured modules
     my $totalTicks = scalar @{ $global->modNames() } + 2; # there are one task for
     # each module plus two
     # tasks for writing the
@@ -714,6 +734,8 @@ sub prepareMakeBackup
 #                   bug         - whether this backup is intended for a bug report
 #                                 (one consequence of this is that we must clear
 #                                  private data)
+#                   fallbackToRO - fallback to read-only configuration when
+#                                  they are not saved changes
 #
 #  Returns:
 #         - path to the new backup archive
@@ -722,28 +744,22 @@ sub prepareMakeBackup
 #
 #       Internal - If backup fails
 #       External - If modules have unsaved changes
-sub makeBackup # (options)
+sub makeBackup
 {
     my ($self, %options) = @_;
-    validate_with(
-            params => [%options],
-            spec   => {
-                progress     => {
-                    optional => 1,
-                    isa => 'EBox::ProgressIndicator'
-                },
-                description => { default =>  __('Backup') },
-                bug         => { default => 0},
-                destination => { optional => 1 },
-            });
-
+    exists $options{bug} or
+        $options{bug} = 0;
+    exists $options{fallbackToRO} or
+        $options{fallbackToRO} = 0;
+    $options{description} or
+        $options{description} = __('Backup');
     my $progress = $options{progress};
     if (not $progress) {
         $progress = EBox::ProgressIndicator::Dummy->create();
         $options{progress} = $progress;
     }
 
-    EBox::debug("make backup id: " . $progress->id());
+    EBox::info('Backing up configuration');
     $progress->started or
         throw EBox::Exceptions::Internal("ProgressIndicator's executable has not been run");
 
@@ -753,11 +769,12 @@ sub makeBackup # (options)
 
     my $filename;
     try {
-        $self->_modulesReady();
+        my $changesSaved = $self->_changesSaved($options{fallbackToRO});
 
         _ensureBackupdirExistence();
 
-        $filename = $self->_makeBackup(%options);
+        $filename = $self->_makeBackup(%options,
+                                       changesSaved => $changesSaved);
     }
     otherwise {
         my $ex = shift @_;
@@ -789,18 +806,32 @@ sub makeBackup # (options)
 }
 
 
-sub _modulesReady
+sub _changesSaved
 {
-    my ($self) = @_;
+    my ($self, $fallbackToRO) = @_;
 
+    my @changedMods;
     my $global = EBox::Global->getInstance();
     foreach my $modName (@{ $global->modNames() }) {
         if ($global->modIsChanged($modName)) {
-            throw EBox::Exceptions::External(
-                    __x('Module {mod} has not saved changes. Before doing the backup you must'
-                        . ' save or discard them', mod => $modName ) );
+            push @changedMods, $modName;
+
         }
     }
+
+    if (@changedMods) {
+        if ($fallbackToRO) {
+            EBox::warn("The following modules have unsaved changes: @changedMods. A backup of the last saved configuration will be made instead");
+            return 0;
+        } else {
+            throw EBox::Exceptions::External(
+                    __x('The following modules have unsaved changes: {mods}. Before doing the backup you must save or discard them',
+                        mods => join (', ', @changedMods))
+            );
+        }
+    }
+
+    return 1;
 }
 
 
@@ -837,7 +868,7 @@ sub makeBugReport
 #       string: backup file
 # returns:
 #       string: path to the temporary directory
-sub _unpackAndVerify # (file, fullRestore)
+sub _unpackAndVerify
 {
     my ($self, $archive, $fullRestore) = @_;
     ($archive) or throw EBox::Exceptions::External('No backup file provided.');
@@ -1066,38 +1097,13 @@ sub prepareRestoreBackup
 #
 #       External - If it can't unpack de backup
 #
-sub restoreBackup # (file, %options)
+sub restoreBackup
 {
     my ($self, $file, %options) = @_;
-    defined $file or throw EBox::Exceptions::MissingArgument('Backup file');
-
-    validate_with ( params => [%options],
-            spec => {
-                progress    => {
-                    optional => 1,
-                    isa => 'EBox::ProgressIndicator',
-                },
-                modsToRestore => {
-                    type => ARRAYREF,
-                    optional => 1,
-                },
-                fullRestore => { default => 0 },
-                dataRestore    => {
-                    default => 0 ,
-                    # incompatible with fullRestore ..
-                    callbacks => {
-                        incompatibleRestores =>
-                            sub {
-                                (not $_[0]) or (not $_[1]->{fullRestore})
-                            },
-                    },
-                },
-                forceDependencies => {default => 0 },
-                deleteBackup      => { default => 0},
-                revokeAllOnModuleFail =>  { default => 1},
-                continueOnModuleFail =>  { default => 0},
-            }
-    );
+    defined $file or
+        throw EBox::Exceptions::MissingArgument('Backup file');
+    exists $options{revokeAllOnModuleFail}
+        or $options{revokeAllOnModuleFail} = 1;
 
     my $progress = $options{progress};
     if (not $progress) {

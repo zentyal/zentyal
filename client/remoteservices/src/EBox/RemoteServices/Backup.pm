@@ -55,7 +55,6 @@ sub prepareMakeRemoteBackup
 
 
     my @backupOptions = (
-        fullBackup => 0,
         description => $description,
         remoteBackup => $name,
        );
@@ -85,6 +84,7 @@ sub makeRemoteBackup
 
     my @backupOptions = (
         description  => $description,
+        fallbackToRO => $automatic,
        );
 
     my $archive = EBox::Backup->makeBackup(@backupOptions);

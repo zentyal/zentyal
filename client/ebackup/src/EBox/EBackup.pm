@@ -303,6 +303,7 @@ sub dumpExtraData
         EBox::Backup->makeBackup(
                                  description => 'Configuration backup',
                                  destination => $filename,
+                                 fallbackToRO => 1,
                                 );
         # XXX Some modules such as events are marked as changed after
         #     running ebox-make-backup.
@@ -331,7 +332,9 @@ sub dumpExtraData
 
             try {
                 my $dumped = $mod->dumpExtraBackupData($dir, %enabled);
-                push @domainsDumped, @{ $dumped };
+                if ($dumped) {
+                    push @domainsDumped, @{ $dumped };
+                }
             } otherwise {
                 EBox::error("Error dumping extra backup data for module " .
                              $mod->name .
