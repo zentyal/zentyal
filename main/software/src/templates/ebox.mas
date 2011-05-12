@@ -144,7 +144,7 @@ my $first = EBox::Global->first();
 
 .head {
     width: 115px;
-    margin: 0 19px;
+    margin: 0 15px;
     display: inline-block;
     text-align: center;
 }
