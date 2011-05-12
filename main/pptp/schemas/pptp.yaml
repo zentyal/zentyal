@@ -1,0 +1,3 @@
+class: 'EBox::PPTP'
+enabledepends:
+    - network
