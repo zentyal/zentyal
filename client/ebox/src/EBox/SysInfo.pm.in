@@ -92,11 +92,18 @@ sub generalWidget
     read ($fh, $lastVersion, 16);
     chomp($lastVersion);
     close ($fh);
-    if (EBox::Util::Version::compare($lastVersion,$version) == 1) {
-        my $url = 'http://update.zentyal.org/updates';
-        my $available = __('available');
-        $version .=
-           " (<a target='_blank' href='$url'>$lastVersion $available</a>)";
+    if (EBox::Util::Version::compare($lastVersion, $version) == 1) {
+        my $qaUpdates = 0;
+        if (EBox::Global->modExists('remoteservices')) {
+            my $rs = EBox::Global->modInstance('remoteservices');
+            $qaUpdates = $rs->subscriptionLevel() > 0;
+        }
+        unless ($qaUpdates) {
+            my $url = 'http://update.zentyal.org/updates';
+            my $available = __('available');
+            $version .=
+                " (<a target='_blank' href='$url'>$lastVersion $available</a>)";
+        }
     }
 
     my $uptime_output=`uptime`;
