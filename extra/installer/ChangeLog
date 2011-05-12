@@ -1,4 +1,7 @@
-HEAD
+2.1-1
+    + Avoid create LVM question when disk is empty
+    + Autopartitioner no longer separates /home
+      to avoid fast filling of the root partition
     + Always import PPA key even if no Internet connection
 2.1
     + Install language-pack for the installation language

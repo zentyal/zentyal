@@ -64,3 +64,5 @@ do
 	rm ${dir}_WITHOUT_VERSIONS_$ARCH
 done
 rm DUPLICATED_PACKAGES_$ARCH
+
+echo "for i in \`cat FINAL_REMOVE_$ARCH\` ; do rm extras-$ARCH/\${i}_*.deb ; done"
