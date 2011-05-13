@@ -1,3 +1,5 @@
+HEAD
+	+ Bugfix: don't run archivemail if no .Trash or .Spam folders found
 2.1.2
 	+ Change Zarafa virtual transport to LMTP.
 	+ Bugfix: EBox::MailVDomainsLdap::vdomains returns a correct value
