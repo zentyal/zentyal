@@ -23,6 +23,9 @@ case "$1" in
         test -d $STATUS_DIR || mkdir -p  $STATUS_DIR
         chown nobody:nogroup $STATUS_DIR
 
+        # Workaround problem when automatically updating quagga
+        # TODO: Move to enable actions to support Ubuntu policies
+        echo "quagga quagga/really_stop boolean true" | debconf-set-selections
 
         # create log table
         /usr/share/ebox/ebox-sql-table add openvpn  /usr/share/ebox/sqllog/openvpn.sql || true

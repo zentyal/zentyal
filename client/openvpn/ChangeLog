@@ -1,3 +1,5 @@
+HEAD
+	+ Fixed problem with quagga automatic updates
 2.0.9
 	+ Allow all kind of network addresses on exposed networks
 	+ Added localAddr and lport properties for internal VPN clients
