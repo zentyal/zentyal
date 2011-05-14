@@ -62,8 +62,8 @@ sub new
 sub _populateDriveTypes
 {
     return [
-            { value => 'cd', printableValue => 'CD/DVD' },
             { value => 'hd', printableValue => __('Hard Disk') },
+            { value => 'cd', printableValue => 'CD/DVD' },
     ];
 }
 
@@ -87,6 +87,17 @@ sub _table
                              printableName => __('Path'),
                              editable      => 1,
                             ),
+       # TODO: This only makes sense for HDs, hide it with
+       # viewCustomizer if CD is selected
+       new EBox::Types::Int(
+                            fieldName     => 'size',
+                            printableName => __('Size'),
+                            editable      => 1,
+                            defaultValue  => 8000,
+                            min           => 32,
+                            max           => 100000, # TODO: Get free space or remove this limit?
+                            trailingText  => 'MB',
+                           ),
     );
 
     my $dataTable =
@@ -96,6 +107,7 @@ sub _table
         printableRowName   => __('drive'),
         defaultActions     => [ 'add', 'del', 'editField', 'changeView' ],
         tableDescription   => \@tableHeader,
+        order              => 1,
         enableProperty     => 1,
         class              => 'dataTable',
         help               => __('Here you can define the storage drives of the virtual machine'),

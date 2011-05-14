@@ -2,9 +2,9 @@
 
 SUBDIRS = Model Composite
 
-perldir = @PERLPATH@/EBox
+perldir = @PERLPATH@/EBox/Virt
 
-nobase_perl_DATA =
+nobase_perl_DATA = AbstractBackend.pm VBox.pm
 
 EXTRA_DIST = $(nobase_perl_DATA)
 

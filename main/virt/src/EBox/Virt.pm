@@ -28,6 +28,7 @@ use EBox::Menu::Item;
 use EBox::Menu::Folder;
 use Error qw(:try);
 use EBox::Sudo;
+use EBox::Virt::VBox;
 
 sub _create
 {
@@ -36,6 +37,9 @@ sub _create
                                       printableName => __('Virtual Machines'),
                                       @_);
     bless($self, $class);
+
+    $self->{backend} = new EBox::Virt::VBox();
+
     return $self;
 }
 
@@ -107,6 +111,30 @@ sub menu
                                     'text' => $self->printableName(),
                                     'separator' => 'Infrastructure',
                                     'order' => 445));
+}
+
+sub _setConf
+{
+    my ($self) = @_;
+
+    my $backend = $self->{backend};
+
+    # XXX WIP
+    my $vms = $self->model('VirtualMachines');
+    foreach my $vmId (@{$vms->ids()}) {
+        my $vm = $vms->row($vmId);
+        my $devices = $vm->subModel('DeviceSettings');
+        foreach my $deviceId (@{$devices->ids()}) {
+            my $device = $devices->row($deviceId);
+            my $file = $device->pathValue();
+            my $size = $device->sizeValue();
+            # TODO: Check enabled property
+            # TODO: Manage deleted disks...
+            # TODO: skip CDs
+            # TODO: Create only if not exists
+            $backend->createDisk(file => $file, size => $size);
+        }
+    }
 }
 
 1;

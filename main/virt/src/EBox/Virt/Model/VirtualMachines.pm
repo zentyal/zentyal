@@ -68,7 +68,6 @@ sub new
 sub _table
 {
     my @tableHeader = (
-       # FIXME: ActionButton Start/Stop
        new EBox::Types::Text(
                              fieldName     => 'name',
                              printableName => __('Name'),
@@ -76,6 +75,9 @@ sub _table
                              unique        => 1,
                              editable      => 1,
                             ),
+       # TODO: ActionButton Start/Stop
+       # TODO: ActionButton Pause/Resume
+       # TODO: ActionButton View Console
        new EBox::Types::HasMany(
                                 fieldName     => 'settings',
                                 printableName => __('Settings'),
@@ -102,7 +104,6 @@ sub _table
         tableDescription   => \@tableHeader,
         help               => __('List of configured Virtual Machines.'),
         modelDomain        => 'Virt',
-        enableProperty => 1,
         defaultEnabledValue => 1,
     };
 
