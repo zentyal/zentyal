@@ -30,6 +30,8 @@ use Error qw(:try);
 use EBox::Sudo;
 use EBox::Virt::VBox;
 
+use constant VNC_PORT => 5900;
+
 sub _create
 {
     my $class = shift;
@@ -119,20 +121,44 @@ sub _setConf
 
     my $backend = $self->{backend};
 
-    # XXX WIP
     my $vms = $self->model('VirtualMachines');
+    my $vncport = VNC_PORT;
     foreach my $vmId (@{$vms->ids()}) {
         my $vm = $vms->row($vmId);
-        my $devices = $vm->subModel('DeviceSettings');
+
+        my $name = $vm->valueByName('name');
+        # TODO: manage deleted machines
+        unless ($backend->vmExists($name)) {
+            # FIXME: Unhardcode ostype
+            $backend->createVM(name => $name, os => 'Ubuntu');
+            # FIXME: Get this from SystemSettings
+            $backend->setMemory($name, 768);
+            # FIXME: Get this from NetworkSettings
+            $backend->setIface(name => $name, iface => 1, type => 'nat');
+        }
+
+        # FIXME: This is a proof of concept, machines should be started
+        # when pressing the start button or automatically on boot
+        # if that option is set
+        unless ($backend->vmRunning($name)) {
+            # TODO: Store the associated VNC port somewhere
+            $backend->startVM(name => $name, port => $vncport++);
+        }
+
+        my $devices = $vm->subModel('settings');
         foreach my $deviceId (@{$devices->ids()}) {
             my $device = $devices->row($deviceId);
-            my $file = $device->pathValue();
-            my $size = $device->sizeValue();
+            my $file = $device->valueByName('path');
+            my $size = $device->valueByName('size');
             # TODO: Check enabled property
             # TODO: Manage deleted disks...
             # TODO: skip CDs
-            # TODO: Create only if not exists
-            $backend->createDisk(file => $file, size => $size);
+            unless (-f $file) {
+                $backend->createDisk(file => $file, size => $size);
+                # FIXME: unhardcode port and device
+                $backend->attachDevice(name => $name, port => 1, device => 1,
+                                       type => 'hdd', file => $file);
+            }
         }
     }
 }

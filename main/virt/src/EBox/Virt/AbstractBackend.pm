@@ -39,4 +39,193 @@ sub createDisk
     throw Ebox::Exceptions::NotImplemented();
 }
 
+# Method: resizeDisk
+#
+#   Resizes a VDI file.
+#
+# Parameters:
+#
+#   file    - filename of the disk image
+#   size    - size of the disk in megabytes
+#
+sub resizeDisk
+{
+    throw Ebox::Exceptions::NotImplemented();
+}
+
+# Method: vmExists
+#
+#   Checks if a VM with the given name already exists
+#
+# Parameters:
+#
+#   name    - virtual machine name
+#
+# Returns:
+#
+#   boolean - true if exists, false if not
+#
+sub vmExists
+{
+    throw Ebox::Exceptions::NotImplemented();
+}
+
+# Method: vmRunning
+#
+#   Checks if a VM with the given name is running
+#
+# Parameters:
+#
+#   name    - virtual machine name
+#
+# Returns:
+#
+#   boolean - true if running, false if not
+#
+sub vmRunning
+{
+    throw Ebox::Exceptions::NotImplemented();
+}
+
+# Method: createVM
+#
+#   Creates a new virtual machine
+#
+# Parameters:
+#
+#   name    - virtual machine name
+#   os      - operating system identifier
+#
+sub createVM
+{
+    throw Ebox::Exceptions::NotImplemented();
+}
+
+# Method: startVM
+#
+#   Starts a VM with a VNC server on the specified port.
+#
+# Parameters:
+#
+#   name    - virtual machine name
+#   port    - VNC port
+#
+sub startVM
+{
+    throw Ebox::Exceptions::NotImplemented();
+}
+
+# Method: shutdownVM
+#
+#   Shuts down a virtual machine.
+#
+# Parameters:
+#
+#   name    - virtual machine name
+#
+sub shutdownVM
+{
+    throw Ebox::Exceptions::NotImplemented();
+}
+
+# Method: pauseVM
+#
+#   Pauses a virtual machine.
+#
+# Parameters:
+#
+#   name    - virtual machine name
+#
+sub pauseVM
+{
+    throw Ebox::Exceptions::NotImplemented();
+}
+
+# Method: resumeVM
+#
+#   Shuts down a virtual machine.
+#
+# Parameters:
+#
+#   name    - virtual machine name
+#
+sub resumeVM
+{
+    throw Ebox::Exceptions::NotImplemented();
+}
+
+# Method: deleteVM
+#
+#   Deletes a virtual machine.
+#
+# Parameters:
+#
+#   name    - virtual machine name
+#
+sub deleteVM
+{
+    throw Ebox::Exceptions::NotImplemented();
+}
+
+# Method: setMemory
+#
+#   Set memory amount for the given VM.
+#
+# Parameters:
+#
+#   name    - virtual machine name
+#   size    - memory size (in megabytes)
+#
+sub setMemory
+{
+    throw Ebox::Exceptions::NotImplemented();
+}
+
+# Method: setOS
+#
+#   Set the OS type for the given VM.
+#
+# Parameters:
+#
+#   name    - virtual machine name
+#   os      - operating system identifier
+#
+sub setOS
+{
+    throw Ebox::Exceptions::NotImplemented();
+}
+
+# Method: setIface
+#
+#   Set a network interface for the given VM.
+#
+# Parameters:
+#
+#   name    - virtual machine name
+#   iface   - iface number
+#   type    - iface type (nat, bridged, internal)
+#   arg     - iface arg (bridged => devicename, internal => networkname)
+#
+sub setIface
+{
+    throw Ebox::Exceptions::NotImplemented();
+}
+
+# Method: attachDevice
+#
+#   Attach a device to a VM.
+#
+# Parameters:
+#
+#   name   - virtual machine name
+#   port   - port number
+#   device - device number
+#   type   - hdd | dvddrive | none
+#   file   - path of the ISO or VDI file
+#
+sub attachDevice
+{
+    throw Ebox::Exceptions::NotImplemented();
+}
+
 1;
