@@ -26,6 +26,7 @@ use strict;
 use warnings;
 
 use EBox::Gettext;
+use EBox::Types::Select;
 use EBox::Types::Int;
 
 # Group: Public methods
@@ -55,6 +56,29 @@ sub new
 
 # Group: Private methods
 
+sub _populateOSTypes
+{
+    # FIXME: This is VBox-specific, we need to implement it using
+    # the AbstractBackend
+    my $output = `vboxmanage list ostypes`;
+    my @lines = split ("\n", $output);
+
+    my @values;
+    for (my $i = 0; $i < @lines; $i++) {
+        my $line = $lines[$i];
+        my ($id) = $line =~ /^ID:\s+(.*)/;
+        if ($id) {
+            $line = $lines[++$i];
+            my ($desc) = $line =~ /^Description:\s+(.*)/;
+            if ($desc) {
+                push (@values, { value => $id, printableValue => $desc });
+                $i++; # Skip blank line
+            }
+        }
+    }
+    return \@values;
+}
+
 # Method: _table
 #
 # Overrides:
@@ -64,6 +88,12 @@ sub new
 sub _table
 {
     my @tableHeader = (
+       new EBox::Types::Select(
+                               fieldName     => 'os',
+                               printableName => __('Operating System'),
+                               populate      => \&_populateOSTypes,
+                               editable      => 1,
+                              ),
        new EBox::Types::Int(
                             fieldName     => 'memory',
                             printableName => __('Base Memory'),

@@ -348,7 +348,7 @@ sub _modifyVM
 #   name   - virtual machine name
 #   port   - port number
 #   device - device number
-#   type   - hdd | dvddrive | none
+#   type   - hd | cd | none
 #   file   - path of the ISO or VDI file
 #
 sub attachDevice
@@ -371,6 +371,12 @@ sub attachDevice
     my $device = $params{device};
     my $type = $params{type};
     my $file = $params{file};
+
+    if ($type eq 'hd') {
+        $type = 'hdd';
+    } elsif ($type eq 'cd') {
+        $type = 'dvddrive';
+    }
 
     system ("$VBOXCMD storageattach $name --storagectl $SATA_CTL --port $port --device $device --type $type --medium $file");
 }

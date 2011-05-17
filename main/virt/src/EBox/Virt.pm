@@ -127,15 +127,11 @@ sub _setConf
         my $vm = $vms->row($vmId);
 
         my $name = $vm->valueByName('name');
-        # TODO: manage deleted machines
-        unless ($backend->vmExists($name)) {
-            # FIXME: Unhardcode ostype
-            $backend->createVM(name => $name, os => 'Ubuntu');
-            # FIXME: Get this from SystemSettings
-            $backend->setMemory($name, 768);
-            # FIXME: Get this from NetworkSettings
-            $backend->setIface(name => $name, iface => 1, type => 'nat');
-        }
+        my $settings = $vm->subModel('settings');
+
+        $self->_createMachine($name, $settings);
+
+        $self->_setDevicesConf($name, $settings);
 
         # FIXME: This is a proof of concept, machines should be started
         # when pressing the start button or automatically on boot
@@ -144,23 +140,50 @@ sub _setConf
             # TODO: Store the associated VNC port somewhere
             $backend->startVM(name => $name, port => $vncport++);
         }
+    }
+}
 
-        my $settings = $vm->subModel('settings');
-        my $devices = $settings->componentByName('DeviceSettings');
-        foreach my $deviceId (@{$devices->ids()}) {
-            my $device = $devices->row($deviceId);
-            my $file = $device->valueByName('path');
-            my $size = $device->valueByName('size');
-            # TODO: Check enabled property
-            # TODO: Manage deleted disks...
-            # TODO: skip CDs
-            unless (-f $file) {
-                $backend->createDisk(file => $file, size => $size);
-                # FIXME: unhardcode port and device
-                $backend->attachDevice(name => $name, port => 1, device => 1,
-                                       type => 'hdd', file => $file);
-            }
+sub _createMachine
+{
+    my ($self, $name, $settings) = @_;
+
+    my $backend = $self->{backend};
+    my $system = $settings->componentByName('SystemSettings')->row();
+    my $memory = $system->valueByName('memory');
+    my $os = $system->valueByName('os');
+
+    # FIXME: Unhardcode ostype
+    unless ($backend->vmExists($name)) {
+        $backend->createVM(name => $name, os => $os);
+    }
+
+    $backend->setMemory($name, $memory);
+    # FIXME: Get this from NetworkSettings
+    $backend->setIface(name => $name, iface => 1, type => 'nat');
+}
+
+sub _setDevicesConf
+{
+    my ($self, $name, $settings) = @_;
+
+    my $backend = $self->{backend};
+    my $deviceNumber = 0;
+
+    # TODO: Manage deleted disks...
+    my $devices = $settings->componentByName('DeviceSettings');
+    foreach my $deviceId (@{$devices->enabledRows()}) {
+        my $device = $devices->row($deviceId);
+        my $file = $device->valueByName('path');
+        my $size = $device->valueByName('size');
+        my $type = $device->valueByName('type');
+
+        unless (-f $file) {
+            $backend->createDisk(file => $file, size => $size);
         }
+
+        $backend->attachDevice(name => $name, port => 0,
+                               device => $deviceNumber++,
+                               type => $type, file => $file);
     }
 }
 
