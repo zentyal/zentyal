@@ -22,6 +22,7 @@ use warnings;
 
 use EBox::Exceptions::MissingArgument;
 
+my $VBOXCMD = 'vboxmanage -nologo';
 my $SATA_CTL = 'satactl';
 
 # Class: EBox::Virt::VBox
@@ -58,7 +59,7 @@ sub createDisk
     my $file = $params{file};
     my $size = $params{size};
 
-    system ("vboxmanage createhd --filename $file --size $size");
+    system ("$VBOXCMD createhd --filename $file --size $size");
 }
 
 # Method: resizeDisk
@@ -82,7 +83,7 @@ sub resizeDisk
     my $file = $params{file};
     my $size = $params{size};
 
-    system ("vboxmanage modifyhd $file --resize $size");
+    system ("$VBOXCMD modifyhd $file --resize $size");
 }
 
 # Method: vmExists
@@ -127,7 +128,7 @@ sub _vmCheck
 {
     my ($self, $name, $list) = @_;
 
-    system ("vboxmanage list $list | grep -q '\"$name\"'");
+    system ("$VBOXCMD list $list | grep -q '\"$name\"'");
     return ($? == 0);
 }
 
@@ -153,10 +154,10 @@ sub createVM
     my $os = $params{os};
 
     # TODO: --settingsfile <path> ?
-    system ("vboxmanage createvm $name --delete --ostype $os --register");
+    system ("$VBOXCMD createvm --name $name --ostype $os --register");
 
     # Add SATA controller
-    system ("vboxmanage storagectl $name --name $SATA_CTL --add sata");
+    system ("$VBOXCMD storagectl $name --name $SATA_CTL --add sata");
 }
 
 # Method: startVM
@@ -180,7 +181,11 @@ sub startVM
     my $name = $params{name};
     my $port = $params{port};
 
-    system ("vboxheadless --vnc --vncport $port --startvm $name");
+    # FIXME: Do this properly
+    # Non-blocking execution of vboxheadless on a separate process
+    unless (fork()) {
+        system ("vboxheadless --vnc --vncport $port --startvm $name");
+    }
 }
 
 # Method: shutdownVM
@@ -232,7 +237,7 @@ sub _controlVM
 {
     my ($self, $name, $command) = @_;
 
-    system ("vboxmanage controlvm $name $command");
+    system ("$VBOXCMD controlvm $name $command");
 }
 
 # Method: deleteVM
@@ -247,7 +252,7 @@ sub deleteVM
 {
     my ($self, $name) = @_;
 
-    system ("vboxmanage unregistervm $name --delete");
+    system ("$VBOXCMD unregistervm $name --delete");
 }
 
 # Method: setMemory
@@ -322,7 +327,7 @@ sub setIface
     } elsif ($type eq 'internal') {
         $type = 'intnet';
     }
-    my $setting = "--$type" . $iface;
+    my $setting = $type . $iface;
 
     $self->_modifyVM($name, $setting, $arg);
 }
@@ -331,7 +336,7 @@ sub _modifyVM
 {
     my ($self, $name, $setting, $value) = @_;
 
-    system ("vboxmanage modifyvm $name --$setting $value");
+    system ("$VBOXCMD modifyvm $name --$setting $value");
 }
 
 # Method: attachDevice
@@ -367,7 +372,7 @@ sub attachDevice
     my $type = $params{type};
     my $file = $params{file};
 
-    system ("vboxmanage storageattach $name --storagectl $SATA_CTL --port $port --device $device --type $type --medium $file");
+    system ("$VBOXCMD storageattach $name --storagectl $SATA_CTL --port $port --device $device --type $type --medium $file");
 }
 
 1;

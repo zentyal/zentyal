@@ -145,7 +145,8 @@ sub _setConf
             $backend->startVM(name => $name, port => $vncport++);
         }
 
-        my $devices = $vm->subModel('settings');
+        my $settings = $vm->subModel('settings');
+        my $devices = $settings->componentByName('DeviceSettings');
         foreach my $deviceId (@{$devices->ids()}) {
             my $device = $devices->row($deviceId);
             my $file = $device->valueByName('path');
