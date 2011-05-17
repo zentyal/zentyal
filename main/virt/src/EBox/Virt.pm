@@ -122,7 +122,6 @@ sub _setConf
     my $backend = $self->{backend};
 
     my $vms = $self->model('VirtualMachines');
-    my $vncport = VNC_PORT;
     foreach my $vmId (@{$vms->ids()}) {
         my $vm = $vms->row($vmId);
 
@@ -132,13 +131,37 @@ sub _setConf
         $self->_createMachine($name, $settings);
 
         $self->_setDevicesConf($name, $settings);
+    }
+}
 
-        # FIXME: This is a proof of concept, machines should be started
-        # when pressing the start button or automatically on boot
-        # if that option is set
-        unless ($backend->vmRunning($name)) {
-            # TODO: Store the associated VNC port somewhere
-            $backend->startVM(name => $name, port => $vncport++);
+sub _enforceServiceState
+{
+    my ($self) = @_;
+
+    return unless $self->configured();
+
+    my $enabled = $self->isEnabled();
+
+    my $backend = $self->{backend};
+    my $vms = $self->model('VirtualMachines');
+    my $vncport = VNC_PORT;
+    foreach my $vmId (@{$vms->ids()}) {
+        my $vm = $vms->row($vmId);
+
+        my $autostart = $vm->valueByName('autostart');
+        next unless $autostart;
+
+        my $name = $vm->valueByName('name');
+
+        if ($enabled) {
+            unless ($backend->vmRunning($name)) {
+                # TODO: Store the associated VNC port somewhere
+                $backend->startVM(name => $name, port => $vncport++);
+            }
+        } else {
+            if ($backend->vmRunning($name)) {
+                $backend->shutdownVM($name);
+            }
         }
     }
 }
