@@ -22,7 +22,7 @@ $folder
 $days
 </%args>
 % if ($days) {
-find <% $mailDir%> -type d -name <% $folder %> |\
-    xargs -n 1 archivemail -d <% $days %> --delete --include-flagged
+find <% $mailDir%> -type d -name <% $folder %> | xargs -n 1 -r archivemail -d <% $days %> --delete --include-flagged
+
 % }
 </%def>
