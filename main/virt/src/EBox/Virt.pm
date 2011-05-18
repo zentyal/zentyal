@@ -129,7 +129,7 @@ sub _setConf
         my $settings = $vm->subModel('settings');
 
         $self->_createMachine($name, $settings);
-
+        $self->_setNetworkConf($name, $settings);
         $self->_setDevicesConf($name, $settings);
     }
 }
@@ -175,14 +175,37 @@ sub _createMachine
     my $memory = $system->valueByName('memory');
     my $os = $system->valueByName('os');
 
-    # FIXME: Unhardcode ostype
     unless ($backend->vmExists($name)) {
         $backend->createVM(name => $name, os => $os);
     }
 
     $backend->setMemory($name, $memory);
-    # FIXME: Get this from NetworkSettings
-    $backend->setIface(name => $name, iface => 1, type => 'nat');
+}
+
+sub _setNetworkConf
+{
+    my ($self, $name, $settings) = @_;
+
+    my $backend = $self->{backend};
+    my $ifaceNumber = 1;
+
+    my $ifaces = $settings->componentByName('NetworkSettings');
+    foreach my $ifaceId (@{$ifaces->ids()}) {
+        my $iface = $ifaces->row($ifaceId);
+
+        my $enabled = $iface->valueByName('enabled');
+        my $type = $iface->valueByName('type');
+        my $ifaceName = $iface->valueByName('iface');
+
+        unless ($enabled) {
+            $type = 'none';
+        }
+
+        $backend->setIface(name => $name,
+                           iface => $ifaceNumber++,
+                           type => $type,
+                           arg => $ifaceName);
+    }
 }
 
 sub _setDevicesConf

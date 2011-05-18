@@ -64,7 +64,18 @@ sub _populateIfaceTypes
     return [
             { value => 'nat', printableValue => 'NAT' },
             { value => 'bridged', printableValue => __('Bridged') },
+            { value => 'internal', printableValue => __('Internal Network') },
     ];
+}
+
+sub _populateIfaces
+{
+    my $network = EBox::Global->modInstance('network');
+
+    my @values =
+        map { { value => $_, printableValue => $_ } } @{$network->ifaces()};
+
+    return \@values;
 }
 
 # Method: _table
@@ -80,7 +91,14 @@ sub _table
                                fieldName     => 'type',
                                printableName => __('Type'),
                                populate      => \&_populateIfaceTypes,
-                               unique        => 0,
+                               editable      => 1,
+                              ),
+       # TODO: Implement viewCustomizer
+       # and add EBox::Types::Text for internal network name
+       new EBox::Types::Select(
+                               fieldName     => 'iface',
+                               printableName => __('Connected to'),
+                               populate      => \&_populateIfaces,
                                editable      => 1,
                               ),
     );

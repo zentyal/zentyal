@@ -319,6 +319,8 @@ sub setIface
         $arg = $params{arg};
     }
 
+    $self->_modifyVM($name, "nic$iface", $type);
+
     if ($type eq 'nat') {
         $type = 'natnet';
         $arg = 'default';
