@@ -1,4 +1,5 @@
 HEAD
+	+ Adapted logrotate configuration to new PID file
 	+ Added guard against empty fileList_path keys
 	+ Avoid call to set_string with undefined value
 	+ Added missing dependency on network module

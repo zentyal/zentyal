@@ -1,0 +1,20 @@
+#
+#       Logrotate fragment for squid. Adapted to Zentyal
+#
+/var/log/squid/*.log {
+        daily
+        compress
+        delaycompress
+        rotate 2
+        missingok
+        nocreate
+        sharedscripts
+        prerotate
+                test ! -x /usr/sbin/sarg-reports || /usr/sbin/sarg-reports
+        endscript
+        postrotate
+                test ! -e /var/run/squid-zentyal.pid || /usr/sbin/squid -k rotate
+        endscript
+}
+
+

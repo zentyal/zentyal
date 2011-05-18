@@ -62,6 +62,7 @@ use constant DGPORT => '3129';
 use constant DGDIR => '/etc/dansguardian';
 use constant DGLISTSDIR => DGDIR . '/lists';
 use constant DG_LOGROTATE_CONF => '/etc/logrotate.d/dansguardian';
+use constant SQUID_LOGROTATE_CONF => '/etc/logrotate.d/squid';
 use constant CLAMD_SCANNER_CONF_FILE => DGDIR . '/contentscanners/clamdscan.conf';
 
 sub _create
@@ -195,6 +196,11 @@ sub usedFiles
              'file' => '/etc/squid/squid.conf',
              'module' => 'squid',
              'reason' => __('HTTP Proxy configuration file')
+            },
+            {
+             'file' => SQUID_LOGROTATE_CONF,
+             'module' => 'squid',
+             'reason' => __(q{HTTP Proxy's log rotation configuration}),
             },
             {
              'file' => DGDIR . '/dansguardian.conf',
@@ -705,8 +711,17 @@ sub _writeSquidConf
     }
 
     $self->writeConfFile(SQUIDCONFFILE, "squid/squid.conf.mas", \@writeParam);
+    $self->_writeSquidLogrotate();
 }
 
+
+sub _writeSquidLogrotate
+{
+    my ($self) = @_;
+    $self->writeConfFile(SQUID_LOGROTATE_CONF,
+                        'squid/squid.logrotate',
+                        []);
+}
 
 sub _objectsDelayPools
 {
