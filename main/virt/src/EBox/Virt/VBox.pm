@@ -160,16 +160,20 @@ sub createVM
     system ("$VBOXCMD storagectl $name --name $SATA_CTL --add sata");
 }
 
-# Method: startVM
+# Method: startVMCommand
 #
-#   Starts a VM with a VNC server on the specified port.
+#   Command to start a VM with a VNC server on the specified port.
 #
 # Parameters:
 #
 #   name    - virtual machine name
 #   port    - VNC port
 #
-sub startVM
+# Returns:
+#
+#   string with the command
+#
+sub startVMCommand
 {
     my ($self, %params) = @_;
 
@@ -181,11 +185,7 @@ sub startVM
     my $name = $params{name};
     my $port = $params{port};
 
-    # FIXME: Do this properly
-    # Non-blocking execution of vboxheadless on a separate process
-    unless (fork()) {
-        system ("vboxheadless --vnc --vncport $port --startvm $name");
-    }
+    return ("vboxheadless --vnc --vncport $port --startvm $name");
 }
 
 # Method: shutdownVM
@@ -201,6 +201,25 @@ sub shutdownVM
     my ($self, $name) = @_;
 
     $self->_controlVM($name, 'poweroff');
+}
+
+# Method: shutdownVMCommand
+#
+#   Command to shut down a virtual machine.
+#
+# Parameters:
+#
+#   name    - virtual machine name
+#
+# Returns:
+#
+#   string with the command
+#
+sub shutdownVMCommand
+{
+    my ($self, $name) = @_;
+
+    return $self->_controlVMCommand($name, 'poweroff');
 }
 
 # Method: pauseVM
@@ -233,11 +252,18 @@ sub resumeVM
     $self->_controlVM($name, 'resume');
 }
 
+sub _controlVMCommand
+{
+    my ($self, $name, $command) = @_;
+
+    return ("$VBOXCMD controlvm $name $command");
+}
+
 sub _controlVM
 {
     my ($self, $name, $command) = @_;
 
-    system ("$VBOXCMD controlvm $name $command");
+    system ($self->_controlVMCommand($name, $command));
 }
 
 # Method: deleteVM

@@ -101,16 +101,33 @@ sub createVM
     throw Ebox::Exceptions::NotImplemented();
 }
 
-# Method: startVM
+# Method: startVMCommand
 #
-#   Starts a VM with a VNC server on the specified port.
+#   Command to start a VM with a VNC server on the specified port.
 #
 # Parameters:
 #
 #   name    - virtual machine name
 #   port    - VNC port
 #
-sub startVM
+# Returns:
+#
+#   string with the command
+#
+sub startVMCommand
+{
+    throw Ebox::Exceptions::NotImplemented();
+}
+
+# Method: shutdownVMCommand
+#
+#   Command to shut down a virtual machine.
+#
+# Parameters:
+#
+#   name    - virtual machine name
+#
+sub shutdownVMCommand
 {
     throw Ebox::Exceptions::NotImplemented();
 }

@@ -32,6 +32,11 @@ use EBox::Virt::VBox;
 
 use constant VNC_PORT => 5900;
 
+my $UPSTART_PATH= '/etc/init/';
+
+# TODO: move this to /etc/zentyal/virt.conf ?
+my $VIRT_USER = 'ebox';
+
 sub _create
 {
     my $class = shift;
@@ -121,49 +126,43 @@ sub _setConf
 
     my $backend = $self->{backend};
 
+    # Clean all upstart files, the current ones will be regenerated
+    EBox::Sudo::silentRoot("rm -rf $UPSTART_PATH/zentyal-virt.*.conf");
+
+    my $vncport = VNC_PORT;
     my $vms = $self->model('VirtualMachines');
     foreach my $vmId (@{$vms->ids()}) {
         my $vm = $vms->row($vmId);
 
         my $name = $vm->valueByName('name');
         my $settings = $vm->subModel('settings');
+        my $autostart = $vm->valueByName('autostart');
 
         $self->_createMachine($name, $settings);
         $self->_setNetworkConf($name, $settings);
         $self->_setDevicesConf($name, $settings);
+
+        if ($autostart) {
+            # TODO: Store the associated VNC port somewhere
+            $self->_writeUpstartConf($name, $vncport++);
+        }
     }
 }
 
-sub _enforceServiceState
+sub _daemons
 {
     my ($self) = @_;
 
-    return unless $self->configured();
+    my @daemons;
 
-    my $enabled = $self->isEnabled();
-
-    my $backend = $self->{backend};
     my $vms = $self->model('VirtualMachines');
-    my $vncport = VNC_PORT;
     foreach my $vmId (@{$vms->ids()}) {
         my $vm = $vms->row($vmId);
-
-        my $autostart = $vm->valueByName('autostart');
-        next unless $autostart;
-
         my $name = $vm->valueByName('name');
-
-        if ($enabled) {
-            unless ($backend->vmRunning($name)) {
-                # TODO: Store the associated VNC port somewhere
-                $backend->startVM(name => $name, port => $vncport++);
-            }
-        } else {
-            if ($backend->vmRunning($name)) {
-                $backend->shutdownVM($name);
-            }
-        }
+        push (@daemons, { name => "zentyal-virt.$name" });
     }
+
+    return \@daemons;
 }
 
 sub _createMachine
@@ -231,6 +230,23 @@ sub _setDevicesConf
                                device => $deviceNumber++,
                                type => $type, file => $file);
     }
+}
+
+sub _writeUpstartConf
+{
+    my ($self, $name, $vncport) = @_;
+
+    my $backend = $self->{backend};
+
+    my $start = $backend->startVMCommand(name => $name, port => $vncport);
+    my $stop = $backend->shutdownVMCommand($name);
+
+    EBox::Module::Base::writeConfFileNoCheck(
+            "$UPSTART_PATH/zentyal-virt.$name.conf",
+            '/virt/upstart.mas',
+            [ startCmd => $start, stopCmd => $stop, user => $VIRT_USER ],
+            { uid => 0, gid => 0, mode => '0644' }
+    );
 }
 
 1;

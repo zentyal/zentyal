@@ -1,0 +1,11 @@
+<%args>
+$startCmd
+$stopCmd
+$user
+</%args>
+
+pre-stop script
+    exec sudo -u <% $user %> -i <% $stopCmd %>
+end script
+
+exec sudo -u <% $user %> -i <% $startCmd %>

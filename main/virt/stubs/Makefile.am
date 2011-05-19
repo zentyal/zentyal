@@ -2,7 +2,7 @@
 
 Stubdir = @STUBSPATH@/virt
 
-nobase_Stub_DATA =
+nobase_Stub_DATA = upstart.mas
 
 EXTRA_DIST = $(nobase_Stub_DATA)
 
