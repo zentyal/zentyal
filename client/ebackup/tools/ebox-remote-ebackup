@@ -242,31 +242,6 @@ sub _adjustType
     return $type;
 }
 
-# Return whether there are unsaved changes or not
-sub _unsavedChangesWarning
-{
-    my ($type) = @_;
-
-    my @changed;
-    my $global = EBox::Global->getInstance(); # rw instance to get change status
-    foreach my $modName (@{ $global->modNames() }) {
-        if ($global->modIsChanged($modName)) {
-            push @changed, $modName;
-        }
-    }
-
-    if (@changed) {
-        my $mods = join ',', @changed;
-        my $msg = __x('Configuration backup skipped because the following modules have unsaved changes: {mods}. The rest of the backup will not be affected',
-                      mods => $mods);
-        _sendSuccessEvent(0, $type, $msg);
-        print "$msg\n";
-        return 1;
-    }
-
-    return 0;
-}
-
 sub _removeExpiredBackups
 {
     my ($ebackup) = @_;
@@ -442,8 +417,6 @@ unless ($ebackup->configurationIsComplete()) {
     print "Backup module configuration is not completed. Configure it and retry\n";
     exit 0;
 }
-
-my $unsavedChanges = _unsavedChangesWarning($type);
 
 my $mustExit = 0;
 
