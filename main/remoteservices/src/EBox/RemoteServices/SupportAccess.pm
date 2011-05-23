@@ -250,6 +250,27 @@ sub _setScreenSUID
     }
 }
 
+sub sshListening
+{
+    my ($self) = @_;
 
+    my @sshd;
+    my $netstatLines = EBox::Sudo::root('netstat -tlnp');
+    foreach my $line (@{ $netstatLines }) {
+        if ($line =~ m{\/sshd\s*$}) {
+            my @parts = split '\s+', $line;
+            if ($parts[0] eq 'tcp6') {
+                # no tcp6 support
+                next;
+            }
+
+            my $local = $parts[3];
+            my ($addr, $port) = split ':', $local;
+            push (@sshd, { address => $addr, port => $port });
+        }
+    }
+
+    return \@sshd;
+}
 
 1;

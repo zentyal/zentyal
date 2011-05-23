@@ -13,8 +13,6 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-
-
 package EBox::RemoteServices::Model::RemoteSupportAccess;
 
 use strict;
@@ -163,6 +161,45 @@ sub _message
    cmd => 'screen -x ebox-remote-support/'
     );
     return $msg;
+}
+
+sub viewCustomizer
+{
+    my ($self) = @_;
+
+    my $sshWarning = $self->_sshWarningMessage();
+    if ($sshWarning) {
+        my $customizer = new EBox::View::Customizer();
+        $customizer->setModel($self);
+        $customizer->setPermanentMessage($sshWarning);
+        return $customizer;
+    }
+
+    return $self->SUPER::viewCustomizer();
+}
+
+sub _sshWarningMessage
+{
+    my $msg;
+    my @ssh = @{ EBox::RemoteServices::SupportAccess->sshListening };
+
+    if (not @ssh) {
+        return __('No running ssh daemon instance found.  Support access need a running instance to allow remote connections.');
+    }
+
+    @ssh = grep { $_->{address} eq '0.0.0.0'; } @ssh;
+    if (not @ssh) {
+        return __('Not ssh daemon instance listening on all interfaces found. Support access need a ssh daemon whom listens on all interfaces.');
+    }
+
+    my @noStandardPorts = map { $_->{port} != 22 ? ($_->{port}) : () }  @ssh;
+    if (@noStandardPorts == @ssh) {
+        return __x('ssh daemon found listening on non-standard port(s): {p}. Make sure to notify support which port(s) are used by ssh daemon.',
+                   p => join (', ', @noStandardPorts)
+                  );
+    }
+
+    return undef;
 }
 
 1;
