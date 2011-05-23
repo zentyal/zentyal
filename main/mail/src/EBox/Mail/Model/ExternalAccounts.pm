@@ -112,7 +112,12 @@ sub _table
             printableName => ('Port'),
             editable => 1,
            ),
-
+        new EBox::Types::Boolean(
+            fieldName => 'keep',
+            printableName => (q{Don't delete retrieved mail from external server}),
+            defaultValue => 0,
+            editable => 1,
+           ),
     );
     my $dataTable =
     {
@@ -229,9 +234,16 @@ sub row
 
     my $mailProtocol = $account->{mailProtocol};
     my $ssl = 0;
+    my $keep = 0;
     if (exists $account->{options}) {
         if (ref $account->{options}) {
-            $ssl = grep { $_ eq 'ssl' } @{ $account->{options} };
+            foreach my $opt (@{ $account->{options} }) {
+                if ($opt eq 'ssl') {
+                    $ssl = 1;
+                } elsif ($opt eq 'keep') {
+                    $keep = 1;
+                }
+            }
         } else {
             $ssl = $account->{options} eq 'ssl';
         }
@@ -249,6 +261,7 @@ sub row
            );
     }
     $values{protocol} = $rowProtocol;
+    $values{keep}     = $keep;
 
     my $row = $self->_setValueRow(%values);
     $row->setId($id);
@@ -397,6 +410,7 @@ sub _elementsToParamsForFetchmailLdapCall
         password       => $params_r->{password}->value(),
         mailServer     => $params_r->{server}->value(),
         port           => $params_r->{port}->value(),
+        keep           => $params_r->{keep}->value(),
        );
 
 

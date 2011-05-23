@@ -72,6 +72,9 @@ sub _optionsStr
     if ($params{ssl}) {
         push @optionParts, 'ssl';
     }
+    if ($params{keep}) {
+        push @optionParts, 'keep';
+    }
 
     my $optionsStr = "@optionParts";
     return $optionsStr;
@@ -87,7 +90,10 @@ sub _externalAccountHash
     $externalAccount{mailProtocol} = $parts[1];
     $externalAccount{server}       = $parts[2];
     $externalAccount{port}         = $parts[3];
-    $externalAccount{options}      = $parts[4];
+    my $optionsStr                 = $parts[4];
+    my @options                    = split '\s+', $optionsStr;
+    $externalAccount{options}      = \@options;
+
     $externalAccount{password}     = $parts[5];
 
     return \%externalAccount;
@@ -262,13 +268,13 @@ sub writeConf
         return;
     }
 
-
-
     my $mail = EBox::Global->modInstance('mail');
     my $postmasterAddress =  $mail->postmasterAddress(1, 1);
+    my $pollTimeInSeconds =  $mail->fetchmailPollTime() * 60;
 
     my $usersAccounts = [ values %{ $self->allExternalAccountsByLocalAccount }];
     my @params = (
+        pollTime      => $pollTimeInSeconds,
         postmaster    => $postmasterAddress,
         usersAccounts => $usersAccounts,
        );

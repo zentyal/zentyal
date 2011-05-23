@@ -225,7 +225,16 @@ sub _table
                                       ),
                                   ],
              ),
-
+         new EBox::Types::Int(
+                              fieldName => 'fetchmailPollTime',
+                              printableName =>
+                              __('Period for polling external mail accounts'),
+                              'trailingText'  => __('minutes'),
+                              'editable'  => 1,
+                              'min'       => 1,
+                              'size'      => 5,
+                              'defaultValue' => 3,
+                             ),
         );
 
       my $dataForm = {

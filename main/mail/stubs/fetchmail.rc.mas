@@ -20,9 +20,11 @@ set postmaster <% $postmaster %>
 $localAccount
 @externalAccounts
 </%args>
-% foreach my $account (@externalAccounts) {
+% foreach my $account (@externalAccounts) { 
+% my $optionStr = exists $account->{options} ? 
+%                   join ' ', @{ $account->{options} } : '';
 poll <% $account->{server} %> proto <% $account->{mailProtocol} %> port <% $account->{port} %>:
-   user <% $account->{user} %>, with password '<% $account->{password} %>', is <% $localAccount %> here <% exists $account->{options} ? $account->{options} : '' %>;
+   user <% $account->{user} %>, with password '<% $account->{password} %>', is <% $localAccount %> here <% $optionStr %>;
 % }
 
 </%def>

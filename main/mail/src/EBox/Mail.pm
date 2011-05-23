@@ -2095,6 +2095,13 @@ sub report
     return $report;
 }
 
+sub fetchmailPollTime
+{
+    my ($self) = @_;
+    my $smtpOptions = $self->model('SMTPOptions');
+    return $smtpOptions->row()->valueByName('fetchmailPollTime');
+}
+
 sub fetchmailRegenTs
 {
     my ($self) = @_;
