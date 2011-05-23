@@ -714,20 +714,20 @@ __('You cannot switch encryption options when there are existent backups with th
 sub _validateTargetForFtp
 {
     my ($self, $target) = @_;
-    $self->_validateTargetForFtpAndScp($target);
+    $self->_validateTargetForFtpAndScp($target, 1);
 }
 
 
 sub _validateTargetForScp
 {
     my ($self, $target) = @_;
-    $self->_validateTargetForFtpAndScp($target);
+    $self->_validateTargetForFtpAndScp($target, 0);
 }
 
 
 sub _validateTargetForFtpAndScp
 {
-    my ($self, $target) = @_;
+    my ($self, $target, $rootAllowed) = @_;
 
     if (not $target) {
          throw EBox::Exceptions::MissingArgument(
@@ -755,6 +755,15 @@ sub _validateTargetForFtpAndScp
     if (defined $port) {
         EBox::Validate::checkPort($port, __('port'));
     }
+    
+    if (($dir eq '/') and not $rootAllowed) {
+        throw EBox::Exceptions::InvalidData(
+             data => __('target'),
+             value => $target,
+             advice => __(q{Root directory ('/') not allowed in target specification})
+                                           );
+    }
+
     EBox::Validate::checkFilePath($dir, __('directory'));
 }
 
