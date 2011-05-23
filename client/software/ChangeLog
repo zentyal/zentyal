@@ -1,4 +1,5 @@
 HEAD
+	+ Candidate versions are now picked using APT priority
 	+ Added stats for automatic upgrades. Currently, the timestamp and
 	  the number of automatic upgraded packages
 	+ Reviewed installation slides text

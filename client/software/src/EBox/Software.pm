@@ -38,12 +38,12 @@ use Storable qw(fd_retrieve store retrieve);
 use Fcntl qw(:flock);
 use AptPkg::Cache;
 
-# Constants
 use constant {
     LOCK_FILE      => EBox::Config::tmp() . 'ebox-software-lock',
     LOCKED_BY_KEY  => 'lockedBy',
     LOCKER_PID_KEY => 'lockerPid',
     CRON_FILE      => '/etc/cron.d/ebox-software',
+    QA_ARCHIVE     => 'ebox-qa',
 };
 
 # Group: Public methods
@@ -297,10 +297,6 @@ sub listUpgradablePkgs
         $upgrade = $self->_excludeEBoxPackages($upgrade);
     }
 
-    if ($self->QAUpdates() and $self->_QAExclusive()) {
-        $upgrade = $self->_onlyQA($upgrade);
-    }
-
     return $upgrade;
 }
 
@@ -318,14 +314,7 @@ sub _excludeEBoxPackages
     return \@withoutEBox;
 }
 
-sub _onlyQA
-{
-    my ($self, $list) = @_;
 
-    my @onlyQA = grep { $_->{'ebox-qa'} } @{$list};
-
-    return \@onlyQA;
-}
 
 # Method: listPackageInstallDepends
 #
@@ -833,63 +822,25 @@ sub _candidateVersion
 
     my $qa = 0;
     my $security = 0;
-    my $version  = '';
 
-    # We assume the VersionList returns the first element the
-    # latest package version but we have to take just the
-    # first available version from the current installed one
-    # since our QA repository may not have the latest
-    # available version
-    my $foundCurr = 0;
-    my $QAVerStr  = "";
-    my $currentVerObj = $pkgObj->{CurrentVer};
-    if ( $currentVerObj ) {
-        $version      = $currentVerObj->{VerStr};
-        foreach my $curVerFile (@{$currentVerObj->FileList()}) {
-            if ( $curVerFile->File()->{Archive} eq 'ebox-qa' ) {
-                $QAVerStr = $currentVerObj->{VerStr};
-                last;
-            }
+    my $policy = $self->_cache()->policy();
+    my $verObj = $policy->candidate($pkgObj);
+    foreach my $verFile (@{$verObj->FileList()}) {
+        my $file = $verFile->File();
+        # next if the archive is missing or installed using dpkg
+        next unless defined($file->{Archive});
+        if ($file->{Archive} =~ /security/) {
+            $security = 1;
         }
-    } else {
-        # There is no current installed package
-        $foundCurr = 1;
-    }
-    my $versionList = $pkgObj->{VersionList};
-    foreach my $verObj (reverse @{$versionList}) {
-        # Check repository info only from greater versions
-        if ( $foundCurr ) {
-            $qa = 0;
-            $security = 0;
-            foreach my $verFile (@{$verObj->FileList()}) {
-                # next if the archive is missing or installed using dpkg
-                next unless defined($verFile->File()->{Archive});
-                if ($verFile->File()->{Archive} =~ /security/) {
-                    $security = 1;
-                }
-                if ($verFile->File()->{Archive}  eq 'ebox-qa') {
-                    $qa = 1;
-                }
-                if ($security and $qa) {
-                    last;
-                }
-            }
-            if ( $qa ) {
-                $QAVerStr = $verObj->{VerStr};
-            }
-            $version = $verObj->{VerStr};
-        } else {
-            $foundCurr = $verObj->{VerStr} eq $currentVerObj->{VerStr};
+        if ($file->{Archive}  eq QA_ARCHIVE) {
+            $qa = 1;
+        }
+        if ($security and $qa) {
+            last;
         }
     }
 
-    # This prevents showing the wrong latest available version
-    # if we are using QA updates
-    if ( $QAVerStr and $self->_QAExclusive() ) {
-        $version = $QAVerStr;
-        $qa      = 1;
-    }
-
+    my $version  = $verObj->{VerStr};
     return { qa => $qa, security => $security, version => $version };
 }
 
