@@ -1,7 +1,6 @@
 AC_INIT([language-packs-zentyal], [2.1.1])
 
 AC_CONFIG_AUX_DIR([config])
-#FIXME: AC_CONFIG_SRCDIR([src/EBox/SysInfo.pm.in])
 
 AM_INIT_AUTOMAKE([foreign 1.8])
 
