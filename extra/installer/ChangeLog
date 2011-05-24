@@ -1,3 +1,5 @@
+HEAD
+    + Use zentyal as default certificate CN
 2.1-1
     + Avoid create LVM question when disk is empty
     + Autopartitioner no longer separates /home

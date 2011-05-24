@@ -26,7 +26,7 @@ chmod -R +w $DIR/.mozilla
 
 PROFILE=$DIR/.mozilla/firefox/ebox.default
 CERT=/var/lib/zentyal/conf/ssl/ssl.cert
-ID='eBox Server'
+ID='zentyal'
 certutil -d $PROFILE -A -n "$ID" -t ',,' -i $CERT
 /var/tmp/zentyal/ebox-cert-override > $PROFILE/cert_override.txt
 

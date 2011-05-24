@@ -6,7 +6,7 @@ use MIME::Base64;
 
 
 my $PROFILE = '.mozilla/firefox/ebox.default';
-my $ID = 'eBox Server';
+my $ID = 'zentyal';
 my $CERT = '/var/lib/zentyal/conf/ssl/ssl.cert';
 
 `openssl x509 -in $CERT -inform PEM -outform DER -out /tmp/ssl.der`;
