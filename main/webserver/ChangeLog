@@ -1,3 +1,5 @@
+HEAD
+	+ Removed warning when no sites configured
 2.1.1
 	+ Added service certificate CN options
 	+ Restart webserver after all modules which have it as enabledepends

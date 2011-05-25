@@ -637,12 +637,7 @@ sub _availableSites
 {
     my $vhostPrefixPath = SITES_AVAILABLE_DIR . VHOST_PREFIX;
     my $cmd = "ls $vhostPrefixPath*";
-    my @dirs;
-    try {
-      @dirs = @{EBox::Sudo::root($cmd)};
-    } catch EBox::Exceptions::Sudo::Command with {
-        # No sites
-    };
+    my @dirs = @{EBox::Sudo::silentRoot($cmd)};
     my %dirs = map  {chop($_); $_ => 1} @dirs;
     return \%dirs;
 }
