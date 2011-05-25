@@ -8,13 +8,14 @@ DEB_CONFIGURE_SCRIPT_ENV += CSSPATH="/usr/share/zentyal/www/css"
 DEB_CONFIGURE_SCRIPT_ENV += IMAGESPATH="/usr/share/zentyal/www/images"
 DEB_CONFIGURE_SCRIPT_ENV += VARPATH="/var"
 DEB_CONFIGURE_SCRIPT_ENV += ETCPATH="/etc/zentyal"
-DEB_CONFIGURE_EXTRA_FLAGS := --disable-runtime-tests 
+
+DEB_CONFIGURE_EXTRA_FLAGS := --disable-runtime-tests
 DEB_MAKE_INVOKE = $(MAKE) $(DEB_MAKE_FLAGS) -C $(DEB_BUILDDIR)
 
 $(patsubst %,binary-install/%,$(DEB_PACKAGES)) :: binary-install/%:
-	test -e debian/$(cdbs_curpkg).upstart && cat debian/$(cdbs_curpkg).upstart | while read serv; \
-	do  \
-		mkdir -p debian/$(cdbs_curpkg)/etc/init; \
-		cp "$$serv" debian/$(cdbs_curpkg)/etc/init; \
-	done || true
-
+	for event in debian/*.upstart ; do \
+		[ -f $$event ] || continue; \
+		install -d -m 755 debian/$(cdbs_curpkg)/etc/init; \
+		DESTFILE=$$(basename $$(echo $$event | sed 's/\.upstart/.conf/g')); \
+		install -m 644 "$$event" debian/$(cdbs_curpkg)/etc/init/$$DESTFILE; \
+	done;

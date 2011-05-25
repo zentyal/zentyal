@@ -2,8 +2,12 @@
 
 set -e
 
+#DEBHELPER#
+
 case "$1" in
-	configure)
+    configure)
+        # initial setup
+        /usr/share/zentyal/initial-setup objects $2
 
         dpkg-trigger --no-await zentyal-core
     ;;

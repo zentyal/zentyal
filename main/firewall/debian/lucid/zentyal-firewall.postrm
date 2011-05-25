@@ -1,12 +1,17 @@
 #!/bin/bash
 
+set -e
+
+#DEBHELPER#
+
 case "$1" in
-	remove)
-        dpkg-trigger --no-await zentyal-core
-        ;;
-	purge)
+    purge)
+        # purge configuration
         /usr/share/zentyal/purge-module firewall
-		;;
+    ;;
+    remove)
+        dpkg-trigger --no-await zentyal-core
+    ;;
 esac
 
 exit 0

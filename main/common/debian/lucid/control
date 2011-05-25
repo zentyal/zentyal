@@ -1,9 +1,12 @@
 Source: zentyal-common
 Section: web
 Priority: optional
-Maintainer: José Antonio Calvo <jacalvo@zentyal.org>
+Maintainer: Zentyal Packaging Maintainers <pkg-team@zentyal.com>
 Build-Depends: debhelper (>= 5.0.0), cdbs
 Standards-Version: 3.8.2
+Homepage: http://www.zentyal.org/
+Vcs-Browser: http://trac.zentyal.org/browser/trunk/
+Vcs-Svn: http://svn.zentyal.org/zentyal/trunk/
 
 Package: zentyal-common
 Architecture: all
@@ -14,5 +17,3 @@ Description: Zentyal - Common Library
  a Gateway, Unified Threat Manager, Office Server, Infrastructure
  Manager, a Unified Communications Server or a combination of them. One
  single, easy-to-use platform to manage all your network services.
- .
- http://www.zentyal.org

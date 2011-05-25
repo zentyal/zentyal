@@ -2,12 +2,16 @@
 
 set -e
 
+#DEBHELPER#
+
 case "$1" in
-	purge)
-		#delete logs and temporary files when purging
-		rm -rf /var/lib/zentyal/
-		# delete Zentyal sysconfig
-		rm -rf /etc/zentyal
-		;;
+    purge)
+        # delete logs and temporal files
+        rm -rf /var/lib/zentyal/
+
+        # delete configuration files
+        rm -rf /etc/zentyal
+    ;;
 esac
 
+exit 0

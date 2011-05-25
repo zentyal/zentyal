@@ -2,12 +2,18 @@
 
 set -e
 
+#DEBHELPER#
+
 case "$1" in
     configure)
+        # initial setup
+        /usr/share/zentyal/initial-setup dns $2
 
-    /usr/share/zentyal/initial-setup dns $2
+        # restart module
+        invoke-rc.d zentyal dns restart || true
 
-    dpkg-trigger --no-await zentyal-core
+        dpkg-trigger --no-await zentyal-core
+    ;;
 esac
 
 exit 0

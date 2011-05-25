@@ -1,9 +1,0 @@
-#!/bin/bash
-
-case "$1" in
-	remove)
-        invoke-rc.d zentyal firewall stop
-		;;
-esac
-
-exit 0

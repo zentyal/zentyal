@@ -3,13 +3,11 @@
         @extraUsers => ()
 </%args>
 
-# sudoers file for ebox
+# Zentyal sudo configuration
 
-
-# Allow httpd user to execute all commands
+# allow there users to run all commands without passwd
 <% $user %>  ALL = NOPASSWD:ALL
 % if (@extraUsers) {
-# extra users granted permission by eBox
 %   foreach my $extraUser (@extraUsers) {
 <% $extraUser %>  ALL = NOPASSWD:ALL
 %   }

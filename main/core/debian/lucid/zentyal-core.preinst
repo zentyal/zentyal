@@ -2,6 +2,8 @@
 
 set -e
 
+#DEBHELPER#
+
 SUDOERS=/etc/sudoers
 INCLUDE="
 # sudoers.d included by Zentyal Server, read /etc/sudoers.d/README
@@ -10,7 +12,5 @@ INCLUDE="
 if ! grep -q "^#includedir /etc/sudoers.d" "$SUDOERS"; then
     echo "$INCLUDE" >> "$SUDOERS"
 fi
-
-#DEBHELPER#
 
 exit 0

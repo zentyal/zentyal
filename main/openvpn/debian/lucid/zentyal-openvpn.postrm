@@ -1,15 +1,21 @@
 #!/bin/bash
 
+set -e
+
+#DEBHELPER#
+
 case "$1" in
-	remove)
-        # openvpn changes network interfaces so we must restart network module to propagate the changes
-        invoke-rc.d zentyal network restart
+    purge)
+        # purge configuration
+        /usr/share/zentyal/purge-module openvpn
+    ;;
+    remove)
+        # openvpn changes network interfaces so we must restart network module
+        # to propagate the changes
+        invoke-rc.d zentyal network restart || true
 
         dpkg-trigger --no-await zentyal-core
-        ;;
-    purge)
-        /usr/share/zentyal/purge-module openvpn
-        ;;
+    ;;
 esac
 
 exit 0

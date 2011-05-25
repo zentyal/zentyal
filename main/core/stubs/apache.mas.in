@@ -21,11 +21,11 @@ Parameters:
               this Apache configuration
 </%doc>
 <%args>
-	$port
-	$group
-	$user
-	$serverroot
-	$tmpdir
+    $port
+    $group
+    $user
+    $serverroot
+    $tmpdir
     $eboxconfdir
     $debug => 'no'
     @restrictedResources => ()
@@ -102,7 +102,6 @@ DocumentRoot @WWWPATH@
     AllowOverride None
 </Directory>
 
-
 <Directory @WWWPATH@>
     Options Indexes MultiViews FollowSymLinks
     AllowOverride None
@@ -166,22 +165,22 @@ LogFormat "%h %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-Agent}i\" \"%{fore
 CustomLog @LOGPATH@/access.log combined
 
 <IfModule mod_backtrace.c>
- EnableExceptionHook On
+    EnableExceptionHook On
 </IfModule>
 
 <IfModule mod_whatkilledus.c>
- EnableExceptionHook On
+    EnableExceptionHook On
 </IfModule>
 
 ServerSignature Off
 ServerTokens Min
 
 <IfModule mod_ssl.c>
-SSLEngine on
-SSLProtocol all
-SSLCipherSuite HIGH:MEDIUM
-
-SSLCertificateFile /var/lib/zentyal/conf/ssl/ssl.pem
+    SSLEngine on
+    SSLProtocol all
+    SSLCipherSuite HIGH:MEDIUM
+    SSLCertificateFile /var/lib/zentyal/conf/ssl/ssl.pem
+    SSLCACertificatePath <% $eboxconfdir %>ssl-ca/
 </IfModule>
 
 <IfModule mod_setenvif.c>
@@ -212,15 +211,15 @@ PerlSetVar AuthCookieDebug 0
 </Files>
 
 <Directory @CGIPATH@>
-        <IfModule mod_ssl.c>
-	   SSLOptions +StdEnvVars
-        </IfModule>
-
-	AuthType EBox::Auth
-	AuthName EBox
-	PerlAuthenHandler EBox::Auth->authenticate
-	PerlAuthzHandler  EBox::Auth->authorize
-	require valid-user
+    <IfModule mod_ssl.c>
+        SSLOptions +StdEnvVars
+    </IfModule>
+    
+    AuthType EBox::Auth
+    AuthName EBox
+    PerlAuthenHandler EBox::Auth->authenticate
+    PerlAuthzHandler  EBox::Auth->authorize
+    require valid-user
     SetHandler perl-script
     PerlHandler ModPerl::Registry
     PerlSendHeader On
@@ -246,5 +245,3 @@ RewriteRule ^/data(.*) $1 [L]
 # From /dynamic-data/ to the right directory in FS and finish
 RewriteRule ^/dynamic-data(.*) @DYNAMICWWWPATH@$1 [L]
 RewriteRule ^/zentyal/(.*) @CGIPATH@ebox.cgi [E=script:$1,L]
-
-SSLCACertificatePath <% $eboxconfdir %>ssl-ca/

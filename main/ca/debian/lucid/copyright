@@ -1,12 +1,12 @@
-This package was debianized by Enrique J. Hernández <ejhernandez@ebox-technologies.com> on
-fri feb 02 17:00:00 CEST 2007
-It's currently maintained by José A. Calvo <jacalvo@zentyal.com>
+This package was debianized by Zentyal Packaging Maintainers
+<pkg-team@zentyal.com> Fri, 02 Feb 2007 17:00:00 +0100.
 
-It was downloadeded from http://www.zentyal.org/
+It was downloaded from http://www.zentyal.org/
 
+Files: *
 Upstream Author: eBox Technologies S.L. <info@zentyal.com>
 
-Copyright (C) 2007-2010 eBox Technologies S.L.
+Copyright (C) 2007-2011 eBox Technologies S.L.
 
 License:
 	This program is free software; you can redistribute it and/or modify
@@ -22,10 +22,9 @@ License:
 	On Debian systems, the complete text of the GNU General Public
 	License can be found in /usr/share/common-licenses/GPL file.
 
+
 The Debian packaging is:
 
-    (C) 2007, Enrique J. Hernandez <ejhernandez@ebox-technologies.com>
-    (C) 2008, Javier Uruen Val <javi@ebox-technologies.com>
-    (C) 2010, José A. Calvo <jacalvo@zentyal.com>
+    (C) 2007-2011, Zentyal Packaging Maintainers <pkg-team@zentyal.com>
 
 and is licensed under the GPL, see `/usr/share/common-licenses/GPL'.

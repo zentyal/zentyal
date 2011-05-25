@@ -2,11 +2,18 @@
 
 set -e
 
+#DEBHELPER#
+
 case "$1" in
-	configure)
+    configure)
+        # initial setup
         /usr/share/zentyal/initial-setup openvpn $2
 
+        # restart module
+        invoke-rc.d zentyal openvpn restart || true
+
         dpkg-trigger --no-await zentyal-core
+    ;;
 esac
 
 exit 0

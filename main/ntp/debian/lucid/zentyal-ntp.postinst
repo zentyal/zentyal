@@ -2,12 +2,18 @@
 
 set -e
 
-case "$1" in
-	configure)
+#DEBHELPER#
 
+case "$1" in
+    configure)
+        # initial setup
         /usr/share/zentyal/initial-setup ntp $2
 
+        # restart module
+        invoke-rc.d zentyal ntp restart || true
+
         dpkg-trigger --no-await zentyal-core
+    ;;
 esac
 
 exit 0

@@ -2,12 +2,18 @@
 
 set -e
 
+#DEBHELPER#
+
 case "$1" in
     configure)
-
+        # initial setup
         /usr/share/zentyal/initial-setup dhcp $2
 
+        # restart module
+        invoke-rc.d zentyal dhcp restart || true
+
         dpkg-trigger --no-await zentyal-core
-    esac
+    ;;
+esac
 
 exit 0

@@ -2,10 +2,15 @@
 
 set -e
 
+#DEBHELPER#
+
 case "$1" in
     configure)
-
+        # inital setup
         /usr/share/zentyal/initial-setup network $2
+
+        # restart module
+        invoke-rc.d zentyal network restart || true
 
         dpkg-trigger --no-await zentyal-core
     ;;

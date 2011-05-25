@@ -8,7 +8,9 @@ DEB_CONFIGURE_SCRIPT_ENV += CSSPATH="/usr/share/zentyal/www/css"
 DEB_CONFIGURE_SCRIPT_ENV += IMAGESPATH="/usr/share/zentyal/www/images"
 DEB_CONFIGURE_SCRIPT_ENV += VARPATH="/var"
 DEB_CONFIGURE_SCRIPT_ENV += ETCPATH="/etc/zentyal"
+
 DEB_CONFIGURE_SCRIPT_ENV += DYNAMICWWWPATH="/var/lib/zentyal/dynamicwww"
+
 DEB_CONFIGURE_EXTRA_FLAGS := --disable-runtime-tests
 DEB_MAKE_INVOKE = $(MAKE) $(DEB_MAKE_FLAGS) -C $(DEB_BUILDDIR)
 
@@ -19,7 +21,7 @@ $(patsubst %,binary-install/%,zentyal-core) :: binary-install/%:
 		DESTFILE=$$(basename $$(echo $$event | sed 's/\.upstart/.conf/g')); \
 		install -m 644 "$$event" debian/$(cdbs_curpkg)/etc/init/$$DESTFILE; \
 	done; \
-    chmod ugo+x debian/$(cdbs_curpkg)/etc/zentyal/hooks/*
+	chmod ugo+x debian/$(cdbs_curpkg)/etc/zentyal/hooks/*
 
 binary-predeb/zentyal-core::
 	perl -w debian/dh_installscripts-common -p zentyal-core

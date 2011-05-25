@@ -1,11 +1,16 @@
 #!/bin/bash
 
+set -e
+
+#DEBHELPER#
+
 case "$1" in
+    purge)
+        # purge configuration
+        /usr/share/zentyal/purge-module users
+    ;;
     remove)
         dpkg-trigger --no-await zentyal-core
-    ;;
-    purge)
-        /usr/share/zentyal/purge-module users
     ;;
 esac
 

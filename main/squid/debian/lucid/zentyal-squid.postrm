@@ -1,12 +1,17 @@
 #!/bin/bash
 
+set -e
+
+#DEBHELPER#
+
 case "$1" in
-	remove)
+    remove)
         dpkg-trigger --no-await zentyal-core
-        ;;
-	purge)
+    ;;
+    purge)
+        # purge configuration
         /usr/share/zentyal/purge-module squid
-        ;;
+    ;;
 esac
 
 exit 0

@@ -3,5 +3,5 @@
 SHELL=/bin/sh
 PATH=/usr/bin:/bin
 
-# Sync the slaves every 5 minutes if there are missing changes
+# sync the slaves every 5 minutes if there are missing changes
 */5 * * * * root /usr/share/zentyal-users/slave-sync
