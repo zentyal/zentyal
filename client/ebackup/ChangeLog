@@ -1,4 +1,4 @@
-HEAD
+2.0.13
 	+ Removed configuration backup warning as now it is always done
 	+ Fixed syncRows method from DomainsBackup to not mark the module
 	  as changed

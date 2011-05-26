@@ -7,7 +7,7 @@ Standards-Version: 3.8.2
 
 Package: ebox-ebackup
 Architecture: all
-Depends: ebox (>= 2.0.17), ebox (<< 2.0.100), libebox (>= 2.0.10), duplicity, libstring-shellquote-perl, libtimedate-perl, cron, ncftp, sshpass, libterm-readkey-perl, ntpdate, ${misc:Depends}
+Depends: ebox (>= 2.0.20), ebox (<< 2.0.100), libebox (>= 2.0.10), duplicity, libstring-shellquote-perl, libtimedate-perl, cron, ncftp, sshpass, libterm-readkey-perl, ntpdate, ${misc:Depends}
 Description: Zentyal - Backup
  Zentyal is a Linux small business server that can act as
  a Gateway, Unified Threat Manager, Office Server, Infrastructure
