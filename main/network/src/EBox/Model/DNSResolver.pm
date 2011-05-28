@@ -53,13 +53,11 @@ use EBox::Types::Text;
 #
 sub new
 {
+    my ($class, %opts) = @_;
+    my $self = $class->SUPER::new(%opts);
+    bless ( $self, $class);
 
-      my ($class, %opts) = @_;
-      my $self = $class->SUPER::new(%opts);
-      bless ( $self, $class);
-
-      return $self;
-
+    return $self;
 }
 
 # Group: Protected methods
@@ -100,9 +98,7 @@ sub _table
                      insertPosition     => 'back',
                     };
 
-      return $dataTable;
-
-
+    return $dataTable;
 }
 
 sub _help
