@@ -147,7 +147,7 @@ sub _setConf
         $self->_setDevicesConf($name, $settings);
 
         if ($autostart) {
-            $self->st_set_string("vncport/$name/$vncport");
+            $self->st_set_string("vncport/$name/vncport", $vncport);
             $self->_writeUpstartConf($name, $vncport);
             $vncport++;
         }
