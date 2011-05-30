@@ -5,7 +5,7 @@ $user
 </%args>
 
 pre-stop script
-    exec sudo -u <% $user %> -i <% $stopCmd %>
+    exec sudo -u <% $user %> -H <% $stopCmd %>
 end script
 
-exec sudo -u <% $user %> -i <% $startCmd %>
+exec sudo -u <% $user %> -H <% $startCmd %>
