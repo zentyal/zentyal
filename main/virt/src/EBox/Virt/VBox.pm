@@ -124,6 +124,14 @@ sub vmRunning
     $self->_vmCheck($name, 'runningvms');
 }
 
+# FIXME: doc
+sub listVMs
+{
+    my $list =  `$VBOXCMD list vms | cut -d'"' -f2`;
+    my @vms = split ("\n", $list);
+    return \@vms;
+}
+
 sub _vmCheck
 {
     my ($self, $name, $list) = @_;
@@ -407,6 +415,14 @@ sub attachDevice
     }
 
     system ("$VBOXCMD storageattach $name --storagectl $SATA_CTL --port $port --device $device --type $type --medium $file");
+}
+
+# FIXME
+sub listHDs
+{
+    my $list =  `$VBOXCMD list hdds | grep ^Location | cut -c14-`;
+    my @hds = split ("\n", $list);
+    return \@hds;
 }
 
 1;

@@ -65,20 +65,21 @@ sub actions
     ];
 }
 
+# TODO: Implement this when using libvirt?
 # Method: usedFiles
 #
 #   Override EBox::Module::Service::usedFiles
 #
-sub usedFiles
-{
-    return [
-            {
-             'file' => '/tmp/FIXME',
-             'module' => 'virt',
-             'reason' => __('FIXME configuration file')
-            }
-           ];
-}
+#sub usedFiles
+#{
+#    return [
+#            {
+#             'file' => '/tmp/FIXME',
+#             'module' => 'virt',
+#             'reason' => __('FIXME configuration file')
+#            }
+#           ];
+#}
 
 # Method: initialSetup
 #
@@ -129,6 +130,8 @@ sub _setConf
     # Clean all upstart files, the current ones will be regenerated
     EBox::Sudo::silentRoot("rm -rf $UPSTART_PATH/zentyal-virt.*.conf");
 
+    my %currentVMs;
+
     my $vncport = VNC_PORT;
     my $vms = $self->model('VirtualMachines');
     foreach my $vmId (@{$vms->ids()}) {
@@ -138,14 +141,23 @@ sub _setConf
         my $settings = $vm->subModel('settings');
         my $autostart = $vm->valueByName('autostart');
 
+        $currentVMs{$name} = 1;
         $self->_createMachine($name, $settings);
         $self->_setNetworkConf($name, $settings);
         $self->_setDevicesConf($name, $settings);
 
         if ($autostart) {
-            # TODO: Store the associated VNC port somewhere
-            $self->_writeUpstartConf($name, $vncport++);
+            $self->st_set_string("vncport/$name/$vncport");
+            $self->_writeUpstartConf($name, $vncport);
+            $vncport++;
         }
+    }
+
+    # Delete non-referenced VMs
+    my $existingVMs = $backend->listVMs();
+    my @toDelete = grep { not exists $currentVMs{$_} } @{$existingVMs};
+    foreach my $machine (@toDelete) {
+        $backend->deleteVM($machine);
     }
 }
 
@@ -156,7 +168,7 @@ sub _daemons
     my @daemons;
 
     my $vms = $self->model('VirtualMachines');
-    foreach my $vmId (@{$vms->ids()}) {
+    foreach my $vmId (@{$vms->findAllValue(autostart => 1)}) {
         my $vm = $vms->row($vmId);
         my $name = $vm->valueByName('name');
         push (@daemons, { name => "zentyal-virt.$name" });
