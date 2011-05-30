@@ -1,0 +1,6 @@
+<%args>
+$listenport
+$vncport
+</%args>
+
+exec /usr/share/novnc/utils/launch.sh --listen <% $listenport %> --vnc localhost:<% $vncport %>

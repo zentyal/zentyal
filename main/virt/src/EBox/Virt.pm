@@ -172,6 +172,7 @@ sub _daemons
         my $vm = $vms->row($vmId);
         my $name = $vm->valueByName('name');
         push (@daemons, { name => "zentyal-virt.$name" });
+        push (@daemons, { name => "zentyal-virt.vnc.$name" });
     }
 
     return \@daemons;
@@ -252,11 +253,19 @@ sub _writeUpstartConf
 
     my $start = $backend->startVMCommand(name => $name, port => $vncport);
     my $stop = $backend->shutdownVMCommand($name);
+    # TODO: Check if port is free
+    my $listenport = $vncport + 1000;
 
     EBox::Module::Base::writeConfFileNoCheck(
             "$UPSTART_PATH/zentyal-virt.$name.conf",
             '/virt/upstart.mas',
             [ startCmd => $start, stopCmd => $stop, user => $VIRT_USER ],
+            { uid => 0, gid => 0, mode => '0644' }
+    );
+    EBox::Module::Base::writeConfFileNoCheck(
+            "$UPSTART_PATH/zentyal-virt.vnc.$name.conf",
+            '/virt/vncproxy.mas',
+            [ vncport => $vncport, listenport => $listenport ],
             { uid => 0, gid => 0, mode => '0644' }
     );
 }
