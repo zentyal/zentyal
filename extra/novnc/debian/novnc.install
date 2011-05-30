@@ -1,0 +1,5 @@
+*.html	/usr/share/novnc
+utils/*   /usr/share/novnc/utils
+include/*.js   /usr/share/novnc/include
+include/web-socket-js/*   /usr/share/novnc/include/web-socket-js
+images/*   /usr/share/novnc/images

@@ -1,0 +1,13 @@
+Source: novnc
+Section: web
+Priority: optional
+Maintainer: Zentyal Packaging Maintainers <pkg-team@zentyal.com>
+Build-Depends: debhelper (>= 7.0.50~)
+Standards-Version: 3.8.3
+Homepage: http://www.prototypejs.org/
+
+Package: novnc
+Architecture: all
+Depends: ${misc:Depends}
+Description: HTML5 VNC client
+ VNC client using HTML5 (WebSockets, Canvas) with encryption (wss://) support.
