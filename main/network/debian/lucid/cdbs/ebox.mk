@@ -18,5 +18,4 @@ $(patsubst %,binary-install/%,$(DEB_PACKAGES)) :: binary-install/%:
 		install -d -m 755 debian/$(cdbs_curpkg)/etc/init; \
 		DESTFILE=$$(basename $$(echo $$event | sed 's/\.upstart/.conf/g')); \
 		install -m 644 "$$event" debian/$(cdbs_curpkg)/etc/init/$$DESTFILE; \
-	done; \
-	chmod ugo+x debian/$(cdbs_curpkg)/etc/zentyal/hooks/*
+	done;

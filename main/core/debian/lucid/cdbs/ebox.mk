@@ -20,8 +20,7 @@ $(patsubst %,binary-install/%,zentyal-core) :: binary-install/%:
 		install -d -m 755 debian/$(cdbs_curpkg)/etc/init; \
 		DESTFILE=$$(basename $$(echo $$event | sed 's/\.upstart/.conf/g')); \
 		install -m 644 "$$event" debian/$(cdbs_curpkg)/etc/init/$$DESTFILE; \
-	done; \
-	chmod ugo+x debian/$(cdbs_curpkg)/etc/zentyal/hooks/*
+	done;
 
 binary-predeb/zentyal-core::
 	perl -w debian/dh_installscripts-common -p zentyal-core
