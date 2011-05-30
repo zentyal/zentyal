@@ -186,17 +186,4 @@ sub _table
     return $dataTable;
 }
 
-# XXX workaround for the composite-children-of-submodel bug
-sub parentRow
-{
-    my ($self) = @_;
-
-    my $parent = $self->parent();
-    if (not $parent) {
-        return undef;
-    }
-
-    return $parent->parentRow();
-}
-
 1;

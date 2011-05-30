@@ -98,19 +98,4 @@ sub HTMLTitle
         ]);
 }
 
-# XXX workaround for the composite-children-of-submodel bug
-sub parent
-{
-    my ($self) = @_;
-    use EBox::Global;
-    my $modInstance = EBox::Global->modInstance('ipsec');
-    if (not $modInstance) {
-        return undef;
-    }
-
-    return $modInstance->model('Connections');
-}
-
-
-
 1;

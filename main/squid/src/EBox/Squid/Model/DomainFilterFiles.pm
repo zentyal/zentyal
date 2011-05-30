@@ -132,16 +132,6 @@ sub categoryBackView
     return '/zentyal/Squid/Composite/FilterSettings';
 }
 
-
-# XXX fudge until #1280 is fixed
-use EBox::Global;
-sub parentComposite
-{
-    my ($self) = @_;
-    my $squid = EBox::Global->modInstance('squid');
-    return $squid->composite('FilterSettings');
-}
-
 # Method: viewCustomizer
 #
 #   Overrides <EBox::Model::DataTable::viewCustomizer>
@@ -157,4 +147,3 @@ sub viewCustomizer
 }
 
 1;
-

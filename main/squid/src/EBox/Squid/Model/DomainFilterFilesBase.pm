@@ -611,36 +611,6 @@ sub cleanOrphanedFiles
     }
 }
 
-# sub parentRow
-# {
-#     my ($self, @p) = @_;
-#     use Devel::StackTrace;
-#     my $trace = Devel::StackTrace->new;
-#     EBox::debug($trace->as_string);
-#     $self->SUPER::parentRow(@p);
-# }
-
-
-# sub setParentComposite
-# {
-#     my ($self, @p) = @_;
-#     use Devel::StackTrace;
-#     my $trace = Devel::StackTrace->new;
-#     EBox::debug($trace->as_string);
-#     $self->SUPER::setParentComposite(@p);
-# }
-
-
-# FIXME: reimplementation until the bug in composite's parent is solved
-use EBox::Global;
-sub parent
-{
-    my ($self) = @_;
-
-    my $squid = EBox::Global->modInstance('squid');
-    my $filterProfiles = $squid->model('FilterGroup');
-    return $filterProfiles;
-}
 
 sub _backupFilterFilesArchive
 {

@@ -79,22 +79,7 @@ sub _table
   }
 
 
-# # # XXX ad-hack reimplementation until the bug in composite's parent would be
-# # # solved
-use EBox::Global;
-sub parent
-{
-    my ($self) = @_;
 
-    my $squid     = EBox::Global->modInstance('squid');
-
-
-    my $defaultFilterGroup = $squid->composite('FilterSettings');
-
-    my $parent =  $defaultFilterGroup->componentByName('DomainFilterFiles', 1);
-
-    return $parent;
-}
 
 # Method: viewCustomizer
 #
@@ -123,5 +108,5 @@ sub viewCustomizer
 
         return $custom;
 }
-1;
 
+1;

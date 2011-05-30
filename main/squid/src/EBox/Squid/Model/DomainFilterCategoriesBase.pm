@@ -171,43 +171,4 @@ sub deleteCategory
     $self->removeRow($id);
 }
 
-# FIXME: reimplementation until the bug in composite's parent is solved
-sub parent
-{
-    my ($self) = @_;
-
-    my $squid = EBox::Global->modInstance('squid');
-
-    if ($self->isa('EBox::Squid::Model::DomainFilterCategories')) {
-        my $defaultFilterGroup = $squid->composite('FilterSettings');
-
-        my $defaultParent =  $defaultFilterGroup->componentByName('DomainFilterFiles', 1);
-
-        return $defaultParent;
-    }
-
-    my $filterProfiles = $squid->model('FilterGroup');
-    my $dir = $self->directory();
-    my @parts = split '/', $dir;
-    my $rowId = $parts[-6]; # 8
-
-    my $granparentRow = $filterProfiles->row($rowId);
-    my $filterPolicy = $granparentRow->elementByName('filterPolicy')->foreignModelInstance();
-
-    my $parent =  $filterPolicy->componentByName('FilterGroupDomainFilterFiles', 1);
-
-    return $parent;
-}
-
-# sub parentRow
-# {
-#     my ($self) = @_;
-#     my $parent = $self->parent();
-#     my $dir = $self->directory();
-#     my @parts = split '/', $dir;
-#     my $rowId = $parts[-2];
-#     EBox::debug("Categoreis ID $rowId\n\n");
-#     return $parent->row($rowId);
-# }
-
 1;

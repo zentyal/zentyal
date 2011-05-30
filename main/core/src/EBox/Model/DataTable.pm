@@ -191,28 +191,6 @@ sub checkTable
                                         );
         }
     }
-
-
-# XXX i dont remember the reaseon i commented out this!
-#     if (exists $table->{sortedBy} ) {
-#         my $found = 0;
-#         my $sortField = $table->{sortedBy};
-
-#         foreach my $field (@{  $table->{tableDescription}  }) {
-#             EBox::debug("fieldName " . $field->fieldName);
-#             if ($field->fieldName eq $sortField) {
-#                 $found = 1;
-#                 last;
-#             }
-#         }
-
-#         if (not $found ) {
-#             throw EBox::Exceptions::Internal(
-#                       "Trying to sort table by  inexistent field $sortField"
-#                                               );
-#         }
-#     }
-
 }
 
 # Method: _table
@@ -1368,7 +1346,6 @@ sub setTypedRow
             and ($readOnly xor $gconfmod->get_bool("$rdOnlyKey"))) {
 
         $gconfmod->set_bool("$rdOnlyKey", $readOnly);
-
     }
 
     if ($modified) {
@@ -1433,7 +1410,6 @@ sub rows
                                             value => $page,
                                             advice =>
                           __('Page must be a number equal or greater than zero')
-
                                            )
     }
 
@@ -2020,7 +1996,6 @@ sub indexField
     }
 
     return $indexField;
-
 }
 
 # Method: setIndexField
@@ -3537,50 +3512,6 @@ sub _removeHasManyTables
     }
 }
 
-# FIXME This method must be in ModelManager
-#sub _warnIfIdIsUsed
-#{
-#    my ($self, $id) = @_;
-#
-#    my $manager = EBox::Model::ModelManager->instance();
-#    my $modelName = $self->modelName();
-#    my $tablesUsing;
-#
-#    for my $name  (values %{$manager->modelsUsingId($modelName, $id)}) {
-#        $tablesUsing .= '<br> - ' .  $name ;
-#    }
-#
-#    if ($tablesUsing) {
-#        throw EBox::Exceptions::DataInUse(
-#            __('The data you are removing is being used by
-#            the following dtables:') . '<br>' . $tablesUsing);
-#    }
-#}
-#
-## FIXME This method must be in ModelManager
-#sub _warnOnChangeOnId
-#{
-#    my ($self, $id, $changeData, $oldRow) = @_;
-#
-#    my $manager = EBox::Model::ModelManager->instance();
-#    my $modelName = $self->modelName();
-#    my $tablesUsing;
-#
-#    for my $name  (keys %{$manager->modelsUsingId($modelName, $id)}) {
-#        my $model = $manager->model($name);
-#        my $issue = $model->warnOnChangeOnId($id, $changeData, $oldRow);
-#        if ($issue) {
-#            $tablesUsing .= '<br> - ' .  $issue ;
-#        }
-#    }
-#
-#    if ($tablesUsing) {
-#        throw EBox::Exceptions::DataInUse(
-#            __('The data you are modifying is being used by
-#            the following tables:') . '<br>' . $tablesUsing);
-#    }
-#}
-
 # Method: _notifyModelManager
 #
 #     Notify to the model manager that an action has been performed on
@@ -3710,8 +3641,6 @@ sub _setControllers
         }
     }
 }
-
-# Method:
 
 # Method: _paramsWithSetterJS
 #
@@ -4467,7 +4396,6 @@ sub _setIfVolatile
         return if ( not $field->volatile());
     }
     $self->{volatile} = 1;
-
 }
 
 sub _parse_words
@@ -4477,8 +4405,6 @@ sub _parse_words
     if(defined($str)) {
         Encode::_utf8_on($str);
         @w = split('\W+', lc($str));
-#         use Data::Dumper;
-#         EBox::debug(Dumper(\@w));
     }
     return @w;
 }
@@ -4538,50 +4464,6 @@ sub filesPathsForRow
 {
     my ($self, $row) = @_;
     return $row->filesPaths();
-}
-
-# Method: parentRow
-#
-#    if the DataTable is a submodel of a DataTable return the row where the
-#    submodel resides
-#
-# Returns:
-#
-#       row object or undef if there is not
-#
-# Warning:
-#
-#     this method is affected by the bug in
-#     EBox::Model::Composite::parent() in case that the datatable is
-#     contained in a Composite
-#
-sub parentRow
-{
-    my ($self) = @_;
-
-    my $parent = $self->parent();
-    if (not $parent) {
-        return undef;
-    }
-
-    my $dirsToRowId;
-    my $parentComposite = $self->parentComposite();
-    if ($parentComposite) {
-        $dirsToRowId = 3;
-    }
-    else {
-        $dirsToRowId = 2;
-    }
-
-    my $dir = $self->directory();
-    my @parts = split '/', $dir;
-    my $rowId = $parts[-$dirsToRowId];
-
-    my $row =  $parent->row($rowId);
-    $row or
-        throw EBox::Exceptions::Internal("Cannot find row with rowId $rowId. Component directory: $dir. Parent composite: $parentComposite");
-
-    return $row;
 }
 
 1;

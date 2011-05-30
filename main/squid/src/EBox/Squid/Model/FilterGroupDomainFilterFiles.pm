@@ -129,11 +129,6 @@ sub listFileDir
     return $dir;
 }
 
-
-
-
-
-
 sub nameFromClass
 {
     return 'FilterGroupDomainFilterFiles';
@@ -155,22 +150,6 @@ sub categoryBackView
     return '/zentyal/Squid/Composite/FilterGroupSettings';
 }
 
-
-# XXX fudge until #1280 is fixed
-use EBox::Global;
-sub parentComposite
-{
-    my ($self) = @_;
-    my $dir = $self->directory();
-    my $parentDir = dirname($dir);
-
-
-    my $squid = EBox::Global->modInstance('squid');
-    my $composite = $squid->composite('FilterGroupSettings');
-    $composite->setDirectory($parentDir);
-    return $composite;
-}
-
 # Method: viewCustomizer
 #
 #   Overrides <EBox::Model::DataTable::viewCustomizer>
@@ -186,4 +165,3 @@ sub viewCustomizer
 }
 
 1;
-
