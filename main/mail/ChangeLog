@@ -1,4 +1,5 @@
 HEAD
+	+ Added message submission service
 	+ Added poll period and per-account "keep" option to email retrieval
 	  from external accounts
 	+ Bugfix: don't run archivemail if no .Trash or .Spam folders found

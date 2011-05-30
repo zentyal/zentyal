@@ -253,8 +253,17 @@ sub _serviceRules
               'internal' => 1,
               'protocol' => 'tcp',
               'sourcePort' => 'any',
-              'destinationPorts' => [ 25, 110, 143, 995, 993, 465 ],
+              'destinationPorts' => [ 25, 110, 143, 465, 993, 995 ],
               'rules' => { 'external' => 'accept', 'internal' => 'accept' },
+             },
+             {
+              'name' => 'Mail submission',
+              'description' => __('Mail submission from users'),
+              'internal' => 1,
+              'protocol' => 'tcp',
+              'sourcePort' => 'any',
+              'destinationPorts' => [ 587 ],
+              'rules' => { 'external' => 'deny', 'internal' => 'accept' },
              },
              {
               'name' => 'ManageSieve',

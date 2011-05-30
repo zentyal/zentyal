@@ -20,6 +20,7 @@ use EBox::Gettext;
 #               (yes)   (yes)   (yes)   (never) (100)
 # ==========================================================================
 smtp      inet  n       -       -       -       -       smtpd
+submission inet n       -       -       -       -       smtpd -o smtpd_recipient_restrictions=submission_recipient_restrictions
 % if ($smtptls) {
 tlsmgr    unix  -       -       -       1000?   1       tlsmgr
 smtps     inet  n       -       -       -       -       smtpd

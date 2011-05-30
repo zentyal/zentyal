@@ -49,7 +49,6 @@ $smtpRecipientRestrictions .= 'reject_unknown_sender_domain, ';
 $smtpRecipientRestrictions .= 'reject_invalid_helo_hostname, ';
 $smtpRecipientRestrictions .= 'reject_non_fqdn_helo_hostname, ';
 $smtpRecipientRestrictions .= 'check_helo_access pcre:/etc/postfix/helo_checks.pcre';
-
 if ($greylist) {
     my $greylistRecipientRestriction = "check_policy_service inet:" .
                                         $greylistAddr . ':' .
@@ -57,6 +56,13 @@ if ($greylist) {
     $smtpRecipientRestrictions .= ", $greylistRecipientRestriction";
 }
 
+# submission is only for local domain users and objects with relay
+# no need to greylist or to do more checks
+my $submissionRecipientRestrictions = 'reject_non_fqdn_sender', 'reject_non_fqdn_recipient' ;
+if ($sasl) {
+    $submissionRecipientRestrictions .= 'permit_sasl_authenticated, ';
+}
+$submissionRecipientRestrictions .=  'permit_mynetworks, reject';
 
 my $certFile = '/etc/postfix/sasl/postfix.pem';
 my $keyFile  = '/etc/postfix/sasl/postfix.pem';
@@ -158,9 +164,9 @@ smtpd_tls_cert_file = <% $certFile %>
 smtpd_tls_loglevel = 1
 % }
 
-
 smtpd_recipient_restrictions = <% $smtpRecipientRestrictions %>
-
+submission_recipient_restrictions = <% $submissionRecipientRestrictions %>
+smtpd_restriction_classes = submission_recipient_restrictions
 
 % if ($sasl) {
 #SASL authentication
