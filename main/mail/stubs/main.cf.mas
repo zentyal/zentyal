@@ -58,7 +58,7 @@ if ($greylist) {
 
 # submission is only for local domain users and objects with relay
 # no need to greylist or to do more checks
-my $submissionRecipientRestrictions = 'reject_non_fqdn_sender', 'reject_non_fqdn_recipient' ;
+my $submissionRecipientRestrictions = 'reject_non_fqdn_sender, reject_non_fqdn_recipient' ;
 if ($sasl) {
     $submissionRecipientRestrictions .= 'permit_sasl_authenticated, ';
 }
