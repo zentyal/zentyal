@@ -5905,7 +5905,7 @@ msgid ""
 "If \"Zentyal DNS\" is present and selected, the Zentyal server will act as "
 "cache DNS server"
 msgstr ""
-"Si \"Zentyal DNS\" está presente y seleccionado, el servidor eBox actuará "
+"Si \"Zentyal DNS\" está presente y seleccionado, el servidor Zentyal actuará "
 "como servidor DNS caché"
 
 #: ../../main/dhcp/src/EBox/Model/Options.pm:487
@@ -5921,7 +5921,7 @@ msgid ""
 "If \"Zentyal NTP\" is present and selected, Zentyal will be the NTP server "
 "for DHCP clients"
 msgstr ""
-"Si \"Zentyal NTP\" está presente y es seleccionado, eBox será el servidor "
+"Si \"Zentyal NTP\" está presente y es seleccionado, Zentyal será el servidor "
 "NTP para los clientes DHCP"
 
 #: ../../main/dhcp/src/EBox/Model/Options.pm:501
@@ -6779,7 +6779,7 @@ msgid ""
 "You must set the iptables_log_limit variable in the ebox configuration file"
 msgstr ""
 "Debes establecer la variable iptables_log_limit en el fichero de "
-"configuración de eBox"
+"configuración de Zentyal"
 
 #: ../../main/firewall/src/EBox/Firewall/IptablesRedirectRule.pm:85
 #: ../../main/firewall/src/EBox/Iptables.pm:847
@@ -6788,7 +6788,7 @@ msgid ""
 "You must set the iptables_log_burst variable in the ebox configuration file"
 msgstr ""
 "Debes establecer la variable iptables_log_burst en el fichero de "
-"configuración de eBox"
+"configuración de Zentyal"
 
 #: ../../main/firewall/src/EBox/Firewall.pm:55
 #: ../../main/firewall/src/EBox/Firewall.pm:1024
@@ -7783,7 +7783,7 @@ msgstr "Servidor web de administración de Zentyal"
 
 #: ../../main/services/src/EBox/Services.pm:484
 msgid "eBox administration"
-msgstr "Administración eBox"
+msgstr "Administración de Zentyal"
 
 #: ../../main/dns/src/EBox/Model/DomainTable.pm:194
 msgid "Hostnames"
@@ -8725,7 +8725,7 @@ msgid ""
 "To restrict addresses you need that your Zentyal Server is subscribed to "
 "Zentyal Cloud. Either subscribe it or allow access from any address"
 msgstr ""
-"Para restringir direcciones necesitas que tu eBox esté suscrita a Zentyal "
+"Para restringir direcciones necesitas que tu Zentyal esté suscrita a Zentyal "
 "Cloud. Puedes suscribirla o permitir acceso desde cualquier dirección"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:160
@@ -9014,7 +9014,7 @@ msgstr "Saltando línea mal formada: {l}"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Base.pm:214
 msgid "No ebox-services DNS key found"
-msgstr "Clave para los servicios DNS eBox no encontrada"
+msgstr "Clave para los servicios DNS de Zentyal Cloud no encontrada"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Base.pm:261
 #, fuzzy, perl-brace-format
@@ -16042,7 +16042,7 @@ msgstr "Acciones a realizar por Zentyal"
 
 #: ../../main/core/src/templates/configureView.mas:31
 msgid "Files to modify by Zentyal"
-msgstr "Ficheros a modificar por eBox"
+msgstr "Ficheros a modificar por Zentyal"
 
 #: ../../main/core/src/templates/configureView.mas:51
 msgid "Accept"
