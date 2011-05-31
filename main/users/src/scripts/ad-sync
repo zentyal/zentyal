@@ -36,8 +36,6 @@ my $settings = $usersMod->model('ADSyncSettings');
 my $username = $settings->usernameValue();
 my $password = $settings->adpassValue();
 
-my $debug = EBox::Config::configkey('debug') eq 'yes';
-
 my $ldapAD;
 try {
     $ldapAD = EBox::Ldap::safeConnect($host);
@@ -76,7 +74,7 @@ my @groupsToDel  = grep { not exists $newGroups{$_} } keys %currentGroups;
 my @groupsToModify = grep { exists $newGroups{$_} } keys %currentGroups;
 
 foreach my $username (@usersToDel) {
-    logIfDebug("[ad-sync] Deleting user '$username' that no longer exists.");
+    EBox::debug("[ad-sync] Deleting user '$username' that no longer exists.");
 
     try {
         $usersMod->delUser($username);
@@ -89,7 +87,17 @@ my %usersToIgnore;
 try {
     my @ignoredUsers = read_file(IGNORED_USERS);
     chomp (@ignoredUsers);
-    %usersToIgnore = map { $_ => 1 } @ignoredUsers;
+    foreach my $username (@ignoredUsers) {
+        $usersToIgnore{$username} = 1;
+        next unless $usersMod->userExists($username);
+        EBox::debug("[ad-sync] Wiping user '$username' (that is ignored).");
+
+        try {
+            $usersMod->delUser($username);
+        } otherwise {
+            EBox::warn("[ad-sync] Error deleting user '$username'.");
+        };
+    }
 } otherwise {
     EBox::error("[ad-sync] Can't open " . IGNORED_USERS . ": $!");
 };
@@ -98,11 +106,11 @@ foreach my $username (@usersToAdd) {
     my $user = $newUsers{$username};
 
     if (exists $usersToIgnore{$username}) {
-        logIfDebug("[ad-sync] Skipping new user '$username' (ignored).");
+        EBox::debug("[ad-sync] Skipping new user '$username' (ignored).");
         next;
     }
 
-    logIfDebug("[ad-sync] Adding new user '$username'.");
+    EBox::debug("[ad-sync] Adding new user '$username'.");
 
     # The user must have a initial password in order to add it, as
     # we still don't have the good one, we generate a random one.
@@ -118,17 +126,15 @@ foreach my $username (@usersToAdd) {
 foreach my $username (@usersToModify) {
     my $user = $newUsers{$username};
 
-    logIfDebug("[ad-sync] Updating existing user '$username'.");
-
     try {
-        $usersMod->modifyUser($user);
+        modifyUserIfChanged($user);
     } catch Error with {
         EBox::warn("[ad-sync] Error modifying user '$username'.");
     };
 }
 
 foreach my $groupname (@groupsToDel) {
-    logIfDebug("[ad-sync] Deleting group '$groupname' that no longer exists.");
+    EBox::debug("[ad-sync] Deleting group '$groupname' that no longer exists.");
 
     try {
         $usersMod->delGroup($groupname);
@@ -141,7 +147,17 @@ my %groupsToIgnore;
 try {
     my @ignoredGroups = read_file(IGNORED_GROUPS);
     chomp (@ignoredGroups);
-    %groupsToIgnore = map { $_ => 1 } @ignoredGroups;
+    foreach my $groupname (@ignoredGroups) {
+        $groupsToIgnore{$groupname} = 1;
+        next unless $usersMod->groupExists($groupname);
+        EBox::debug("[ad-sync] Wiping group '$groupname' (that is ignored).");
+
+        try {
+            $usersMod->delGroup($groupname);
+        } otherwise {
+            EBox::warn("[ad-sync] Error deleting group '$groupname'.");
+        };
+    }
 } otherwise {
     EBox::error("[ad-sync] Can't open " . IGNORED_GROUPS . ": $!");
 };
@@ -150,11 +166,11 @@ foreach my $groupname (@groupsToAdd) {
     my $group = $newGroups{$groupname};
 
     if (exists $groupsToIgnore{$groupname}) {
-        logIfDebug("[ad-sync] Skipping new group '$groupname' (ignored).");
+        EBox::debug("[ad-sync] Skipping new group '$groupname' (ignored).");
         next;
     }
 
-    logIfDebug("[ad-sync] Adding new group '$groupname'.");
+    EBox::debug("[ad-sync] Adding new group '$groupname'.");
 
     try {
         $usersMod->addGroup($groupname, $group->{comment}, 0);
@@ -163,7 +179,7 @@ foreach my $groupname (@groupsToAdd) {
     };
 
     unless ($usersMod->groupExists($groupname)) {
-        logIfDebug("[ad-sync] Skipping adding users to not existing group '$groupname' (probably ignored).");
+        EBox::debug("[ad-sync] Skipping adding users to not existing group '$groupname' (probably ignored).");
         next;
     }
 
@@ -172,13 +188,13 @@ foreach my $groupname (@groupsToAdd) {
         next unless $user;
 
         unless ($usersMod->userExists($user)) {
-            logIfDebug("[ad-sync] Skipping not existing user '$user' (probably ignored).");
+            EBox::debug("[ad-sync] Skipping not existing user '$user' (probably ignored).");
             next;
         }
         if ($user eq any @{$usersMod->usersInGroup($groupname)}) {
-            logIfDebug("[ad-sync] Skipping user '$user' already on group '$groupname'.");
+            EBox::debug("[ad-sync] Skipping user '$user' already on group '$groupname'.");
         } else {
-            logIfDebug("[ad-sync] Adding user '$user' to new group '$groupname'.");
+            EBox::debug("[ad-sync] Adding user '$user' to new group '$groupname'.");
             try {
                 $usersMod->addUserToGroup($user, $groupname);
             } catch Error with {
@@ -197,28 +213,31 @@ foreach my $groupname (@groupsToModify) {
     my @membersToDel = grep { not exists $newMembers{$_} } keys %currentMembers;
 
     foreach my $member (@membersToAdd) {
+        unless ($usersMod->userExists($member)) {
+            EBox::debug("[ad-sync] Skipping not existing user '$member' (probably ignored).");
+            next;
+        }
         try {
             next unless $member;
-            logIfDebug("[ad-sync] Adding user $member to existing group $groupname");
+            EBox::debug("[ad-sync] Adding user $member to existing group '$groupname'");
             $usersMod->addUserToGroup($member, $groupname);
         } catch Error with {
-            EBox::warn("[ad-sync] can't add user $user to group $groupname.");
+            EBox::warn("[ad-sync] can't add user $member to group '$groupname'.");
         };
     }
 
     foreach my $member (@membersToDel) {
         try {
-            my $user = getPrincipalName($member);
-            next unless $user;
-            logIfDebug("[ad-sync] Deleting user $member from group $groupname");
+            next unless $member;
+            EBox::debug("[ad-sync] Deleting user $member from group '$groupname'");
             $usersMod->delUserFromGroup($member, $groupname);
         } catch Error with {
-            EBox::warn("[ad-sync] can't del user $user from group $groupname.");
+            EBox::warn("[ad-sync] can't del user $member from group '$groupname'.");
         };
     }
 
     my $comment = $group->{comment};
-    $usersMod->modifyGroup({ groupname => $groupname, comment => $comment});
+    modifyGroupIfChanged({ groupname => $groupname, comment => $comment});
 }
 
 EBox::Util::Lock::unlock(LOCK_NAME);
@@ -234,6 +253,35 @@ sub randomPassword
         $pass .= $chars[int(rand (scalar(@chars)))];
     }
     return $pass;
+}
+
+sub modifyUserIfChanged
+{
+    my ($user) = @_;
+
+    my $currentInfo = $currentUsers{ $user->{username} };
+
+    # Modify only if any of the fields are different
+    if (($user->{givenname} ne $currentInfo->{givenname}) or
+        ($user->{surname} ne $currentInfo->{surname}) or
+        ($user->{comment} ne $currentInfo->{comment})) {
+        EBox::debug("[ad-sync] Updating existing user '$username'.");
+        $usersMod->modifyUser($user);
+    }
+}
+
+sub modifyGroupIfChanged
+{
+    my ($group) = @_;
+
+    my $groupname = $group->{groupname};
+    my $currentInfo = $currentGroups{$groupname};
+
+    # Modify only if the only modificable attribute is different
+    if ($group->{comment} ne $currentInfo->{comment}) {
+        EBox::debug("[ad-sync] Updating existing group '$groupname'.");
+        $usersMod->modifyGroup($group);
+    }
 }
 
 # -- Active Directory helper functions --
@@ -387,9 +435,9 @@ sub getPrincipalName # (dn)
 
     my %attrs = (
                  base => $dn,
-                 filter => '(objectclass=user)',
+                 filter => '(objectclass=organizationalPerson)',
                  scope => 'sub',
-                 attrs => ['userPrincipalName', 'sAMAccountName']
+                 attrs => ['userPrincipalName', 'sAMAccountName', 'mail']
                 );
 
     my $result = $ldapAD->search(%attrs);
@@ -399,20 +447,14 @@ sub getPrincipalName # (dn)
         unless ($name) {
             $name = $entry->get_value('sAMAccountName');
         }
+        unless ($name) {
+            $name = $entry->get_value('mail');
+        }
         $name =~ s/@.*$//;
         return $name;
     } else {
-        logIfDebug("[ad-sync] can't get userPrincipalName for $dn.");
+        EBox::debug("[ad-sync] can't get userPrincipalName for $dn.");
         return undef;
-    }
-}
-
-sub logIfDebug # (msg)
-{
-    my ($msg) = @_;
-
-    if ($debug) {
-        EBox::debug($msg);
     }
 }
 

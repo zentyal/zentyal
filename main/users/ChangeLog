@@ -1,3 +1,10 @@
+HEAD
+	+ Add locking to slave-sync to avoid spwan multiple instances in the
+	  event of not being able to connect to a slave
+	+ Do not modify users and groups in AD sync if attributes are not changed
+	+ Wipe ignored users in AD sync
+	+ Allow contacts synchronization in AD sync
+	+ New checks in AD sync to avoid warnings
 2.1.2
 	+ Non-editable user fields in slaves no longer appear as editable inputs
 	+ Numeric 0 is accepted as value for LDAP users attributes

@@ -1,10 +1,9 @@
 #!/usr/bin/perl
+
 use strict;
 use warnings;
 
-# Performance improvement:
-# Do not load anything if there are no
-# pending operations in userjournal directories
+# for performance we check first if there are pending operations
 unless (grep { -d $_ } </var/lib/zentyal*/conf/userjournal/*>) {
     exit 0;
 }
@@ -12,8 +11,11 @@ unless (grep { -d $_ } </var/lib/zentyal*/conf/userjournal/*>) {
 use EBox;
 use EBox::Config;
 use EBox::Global;
+use EBox::Util::Lock;
 
 use Error qw(:try);
+
+use constant LOCK_NAME      => 'zentyal-slave-sync';
 
 my $mode = 'run';
 if (($#ARGV == 0) and ($ARGV[0] eq '-l')) {
@@ -23,6 +25,8 @@ if (($#ARGV == 0) and ($ARGV[0] eq '-l')) {
 EBox::init();
 my $users = EBox::Global->modInstance('users');
 $users->configured() or exit 0;
+
+EBox::Util::Lock::lock(LOCK_NAME);
 
 try {
     @{$users->listSlaves()} or exit 0;
@@ -36,6 +40,8 @@ if (EBox::Global->modExists('usercorner')) {
     eval 'use EBox::UserCorner';
     processDir(EBox::UserCorner::usercornerdir() . 'userjournal/');
 }
+
+EBox::Util::Lock::unlock(LOCK_NAME);
 
 exit 0;
 
@@ -86,7 +92,7 @@ sub processFile
             #remove with sudo because it can be a usercorner file
             EBox::Sudo::root("rm -f $file");
         } otherwise {
-            EBox::debug("Trying to run method $method with param $param on slave $slave->{'hostname'} failed");
+            EBox::debug("Trying to run method $method with param $param on slave $slave->{'hostname'} failed.");
         };
     } elsif ($mode eq 'list') {
         print " * $method: $param\n";
