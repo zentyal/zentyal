@@ -1352,12 +1352,6 @@ sub _sambaPrinterConf
     return \@printers;
 }
 
-sub dumpConfig
-{
-    my ($self, $dir) = @_;
-
-    $self->_dumpSharesTree($dir);
-}
 
 sub restoreConfig
 {
@@ -1366,7 +1360,6 @@ sub restoreConfig
     $self->set_bool('ignorePrinterNotFound', 1);
 
     try {
-        $self->_loadSharesTree($dir);
         $self->fixSIDs();
 
         my $sambaLdapUser = new EBox::SambaLdapUser;
@@ -1420,61 +1413,6 @@ sub backupDomainsFileSelection
     }
 
     return {};
-}
-
-sub _dumpSharesTree
-{
-    my ($self, $dir) = @_;
-
-    my $sambaLdapUser = new EBox::SambaLdapUser;
-    my @shares = map {
-        my $share = $_;
-        my ($uid, $gid, $permissions);
-        if (defined $share) {
-            my $stat = EBox::Sudo::stat($share);
-            if (defined $stat) {
-                $permissions = EBox::FileSystem::permissionsFromStat($stat) ;
-                $uid = $stat->uid;
-                $gid = $stat->gid;
-            }
-            else {
-                EBox::warn("Cannot stat directory $share. This directory will be ignored");
-            }
-        }
-        (defined $share) and (defined $permissions) ? "$share:$uid:$gid:$permissions" : ();
-    } @{ $sambaLdapUser->sharedDirectories() };
-
-
-    my $sharesTreeData = join "\n",  @shares;
-    write_file($self->_sharesTreeFile($dir), $sharesTreeData);
-}
-
-sub _loadSharesTree
-{
-    my ($self, $dir) = @_;
-
-    my $contents = read_file($self->_sharesTreeFile($dir));
-
-    my @shares = split "\n", $contents;
-
-    if (not @shares) {
-        # maybe the file is in the old format. It will have problems with spaces
-        # in directory names
-        @shares = split '\s+', $contents;
-    }
-
-    my @commands;
-    foreach my $dirInfo (@shares) {
-        my ($dir, $uid, $gid, $perm) = split ':', $dirInfo;
-
-        unless (-d $dir) {
-            push (@commands, "mkdir -p  '$dir'");
-        }
-
-        push (@commands, "chmod $perm '$dir'"); # restore permissions
-        push (@commands, "chown $uid:$gid '$dir'");
-    }
-    EBox::Sudo::root(@commands);
 }
 
 sub fixSIDs
