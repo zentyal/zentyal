@@ -818,12 +818,15 @@ sub pidFileRunning
     my $pid;
     try {
         my $output = EBox::Sudo::silentRoot("cat $file");
-        ($pid) = @{$output}[0] =~ m/(\d+)/;
+        if (@{$output}) {
+            ($pid) = @{$output}[0] =~ m/(\d+)/;
+        }
     } otherwise {
-        return undef;
+        $pid = undef;
     };
-    defined($pid) or return undef;
-    ($pid ne "") or return undef;
+    unless ($pid) {
+        return undef;
+    }
     return $self->pidRunning($pid);
 }
 

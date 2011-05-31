@@ -1,3 +1,5 @@
+HEAD
+	+ Avoid warning when looking for inexistent PID in pidFileRunning
 2.1.4
 	+ Changed Component's parent/child relationships implementation
 	+ Fixed WikiFormat on automatic bug report tickets
