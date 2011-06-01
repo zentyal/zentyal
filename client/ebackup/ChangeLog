@@ -1,3 +1,5 @@
+HEAD
+	+ Files with unsafe chars are shown in the file list and can be restored
 2.0.13
 	+ Removed configuration backup warning as now it is always done
 	+ Fixed syncRows method from DomainsBackup to not mark the module
