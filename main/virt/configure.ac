@@ -46,7 +46,9 @@ src/EBox/Makefile
 src/EBox/Virt/Makefile
 src/EBox/Virt/Model/Makefile
 src/EBox/Virt/Composite/Makefile
+src/EBox/Virt/Dashboard/Makefile
 src/scripts/Makefile
+src/templates/Makefile
 stubs/Makefile
 schemas/Makefile
 Makefile

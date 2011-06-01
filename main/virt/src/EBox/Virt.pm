@@ -29,6 +29,8 @@ use EBox::Menu::Folder;
 use Error qw(:try);
 use EBox::Sudo;
 use EBox::Virt::VBox;
+use EBox::Dashboard::Section;
+use EBox::Virt::Dashboard::VMStatus;
 
 use constant VNC_PORT => 5900;
 
@@ -268,6 +270,50 @@ sub _writeUpstartConf
             [ vncport => $vncport, listenport => $listenport ],
             { uid => 0, gid => 0, mode => '0644' }
     );
+}
+
+# Method: widgets
+#
+#   Overriden method that returns the widgets offered by this module
+#
+# Overrides:
+#
+#       <EBox::Module::widgets>
+#
+sub widgets
+{
+    return {
+        'machines' => {
+            'title' => __('Virtual Machines'),
+            'widget' => \&_vmWidget,
+            'order' => 12,
+            'default' => 1
+        },
+    };
+}
+
+sub _vmWidget
+{
+    my ($self, $widget) = @_;
+
+    my $backend = $self->{backend};
+
+    my $section = new EBox::Dashboard::Section('status');
+    $widget->add($section);
+
+    my $vms = $self->model('VirtualMachines');
+    foreach my $vmId (@{$vms->ids()}) {
+        my $vm = $vms->row($vmId);
+        my $name = $vm->valueByName('name');
+        my $running = $backend->vmRunning($name);
+
+        $section->add(new EBox::Virt::Dashboard::VMStatus(
+                            model => $vms,
+                            name => $name,
+                            running => $running
+                      )
+        );
+    }
 }
 
 1;

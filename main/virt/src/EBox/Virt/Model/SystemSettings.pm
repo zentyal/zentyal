@@ -87,7 +87,7 @@ sub _populateOSTypes
 #
 sub _table
 {
-    my $totalMemory = `free -m | awk 'NR==2 { print $2 }'`;
+    my $totalMemory = `free -m | awk 'NR==2 { print \$2 }'`;
 
     my @tableHeader = (
        new EBox::Types::Select(

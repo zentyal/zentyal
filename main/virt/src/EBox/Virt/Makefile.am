@@ -1,6 +1,6 @@
 ## Process this file with automake to produce Makefile.in
 
-SUBDIRS = Model Composite
+SUBDIRS = Model Composite Dashboard
 
 perldir = @PERLPATH@/EBox/Virt
 
